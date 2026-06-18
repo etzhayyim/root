@@ -41,6 +41,13 @@ import { isRawCidV1, isDagPbCidV1, verifyRawCid } from "./cid";
 import { verifyCarToBytes } from "./car";
 import { fetchOnChainVm } from "./erc725";
 import { handleVerifyCacao, handleAccountWrite } from "./session";
+// ClojureScript Worker core (shadow-cljs :esm → ../cljs-out/worker_core.js).
+// Incremental hybrid migration (operator decision 2026-06-18): the cljs core
+// owns a growing set of routes and hands any route it does NOT own back to the
+// legacy TS handler (`tsFetch` below) — so the cut-over is route-by-route and
+// rollback-safe. Build the core with `cd cljs && npm run build` before deploy.
+// @ts-expect-error — generated ESM bundle, no .d.ts (string-keyed interop).
+import { handle as cljsHandle } from "../cljs-out/worker_core.js";
 
 /**
  * etzhayyim did:web Worker + apex reverse proxy
@@ -1107,16 +1114,23 @@ function rewriteUpstreamResponse(upstream: Response, pathname: string): Response
   });
 }
 
-export default {
-  async fetch(
-    request: Request,
-    env: Env,
-    ctx: ExecutionContext,
-  ): Promise<Response> {
+// Legacy TypeScript request handler. The cljs Worker core (worker_core.js)
+// delegates here for any route it does not yet own. As routes migrate into
+// did-web.* cljs/cljc, the matching branches below are deleted; when the core
+// owns everything, only the proxy tail remains and this collapses away.
+const tsFetch = async (
+  request: Request,
+  env: Env,
+  ctx: ExecutionContext,
+): Promise<Response> => {
     const url = new URL(request.url);
 
     // ──────────────────────────────────────────────────────────────────
     // 1) Entity DID Document — local, no upstream call.
+    //    NOTE: now OWNED by the cljs core (did-web.core/did-json-route).
+    //    This TS branch is dead under normal delegation and kept only as a
+    //    parity reference until the next route batch lands; it is removed in
+    //    the cleanup pass.
     // ──────────────────────────────────────────────────────────────────
     if (url.pathname === "/.well-known/did.json") {
       if (request.method !== "GET" && request.method !== "HEAD") {
@@ -2113,5 +2127,68 @@ a{color:inherit}
         }
       );
     }
+};
+
+// Dependency-injection object for the cljs core (module scope, built once).
+// The cljs core OWNS the local content/identity routes and reads everything it
+// needs from here: static data (did.json / donation policy / HTML) + leaf
+// closures (registries, actor resolution, KV, codec helpers). Keys are read in
+// cljs via goog.object/get (string access), so they survive Closure :advanced
+// property renaming — see did-web.core's interop rule. Behaviour stays
+// byte-identical because the closures are the very same TS functions the legacy
+// handler used. Env-binding interop (KV, service bindings) is wrapped in
+// closures here so the cljs core never touches non-extern JS APIs directly.
+const cljsDeps = {
+  // static data
+  didDoc,
+  donationPolicy: DONATION_POLICY,
+  donateHtml: DONATE_HTML,
+  unispscTotal: UNISPSC_TOTAL_COUNT,
+  govProcMeta: {
+    generatedAt: GOV_PROCEDURES_GENERATED_AT,
+    total: GOV_PROCEDURES_TOTAL,
+    owners: GOV_PROCEDURES_OWNER_COUNT,
+    jurisdictions: GOV_PROCEDURES_JURISDICTION_COUNT,
+  },
+  govProcList: GOV_PROCEDURE_LIST,
+  // HTML builders (referenceable module fns — no extraction needed)
+  actorsHtml: () => buildActorsHtml(),
+  organismHtml: () => buildOrganismHtml(),
+  // async leaves
+  buildActorsJson: (env: Env) => buildActorsJsonWithCids(env),
+  kvGet: (env: Env, key: string): Promise<string | null> =>
+    env.ACTOR_KV ? env.ACTOR_KV.get(key) : Promise.resolve(null),
+  // actor resolution (kotoba-first → compiled, per resolveActorRecordTiered)
+  resolveActorRecord: (handle: string, env: Env, ctx: ExecutionContext) =>
+    resolveActorRecord(handle, env, ctx),
+  toDidDoc: (rec: ActorRecord, env: Env) => toDidDoc(rec, env),
+  buildPerActorDidDoc: (handle: string, env: Env) => buildPerActorDidDoc(handle, env),
+  didDocCid: (rec: ActorRecord, env: Env) => didDocCid(rec, env),
+  toGetProfileView: (rec: ActorRecord) => toGetProfileView(rec),
+  // pure helpers
+  handleValid: (handle: string) => HANDLE_REGEX.test(handle),
+  isKnownHandle: (handle: string) => isKnownHandle(handle),
+  govProcsByOwner: (handle: string) => GOV_PROCEDURES_BY_OWNER.get(handle) ?? [],
+  // xrpc registry surface (searchActors / getProfile short-circuits)
+  searchEntityActors: (q: string, limit: number, offset: number) =>
+    searchEntityActors(q, limit, offset),
+  entityTotalCount: ENTITY_TOTAL_COUNT,
+  compiledActorRecord: (handle: string) => compiledActorRecord(handle),
+  compiledActorHandlesList: [...COMPILED_ACTOR_HANDLES],
+  compiledActorHas: (handle: string) => COMPILED_ACTOR_HANDLES.has(handle),
+  actorHandleFromParam: (param: string) => actorHandleFromParam(param),
+  isEntityHandle: (handle: string) => isEntityHandle(handle),
+};
+
+export default {
+  async fetch(
+    request: Request,
+    env: Env,
+    ctx: ExecutionContext,
+  ): Promise<Response> {
+    // The cljs core owns a growing set of routes; everything it does not own
+    // falls through to the legacy TS handler (tsFetch). This is the single
+    // delegation seam for the incremental clj/kotoba migration.
+    return cljsHandle(request, env, ctx, cljsDeps, tsFetch);
   },
 } satisfies ExportedHandler<Env>;
