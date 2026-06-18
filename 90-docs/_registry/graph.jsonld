@@ -16382,6 +16382,28 @@
       "lastVerified": "2026-06-17"
     },
     {
+      "id": "doc:adr-2606171400-yakushi-wave-2-disinfectant-antiseptic-manufacturing",
+      "type": "TechArticle",
+      "title": "yakushi Wave 2 — disinfectant / antiseptic (消毒薬) formulation manufacturing (ethanol / hypochlorite / povidone-iodine / chlorhexidine / BAK / IPA / H₂O₂) with efficacy-window + no-toxic-gas gates",
+      "status": "proposed",
+      "topic": "yakushi-wave-2-disinfectant",
+      "authoritative": true,
+      "authoritativeFor": [
+        "7 公定書 (日局/USP/EP) off-patent disinfectant/antiseptic actives across the FORMULATION (dilute/blend) manufacturing model",
+        "1 new Pregel cell (formulation) + 1 new lexicon (com.etzhayyim.yakushi.formulationAttestation)",
+        "1 new kotoba EAVT entity (:formulationAttestation/*)",
+        "4 new constitutional gates G21..G24 (efficacy-window / no-toxic-gas / flammable-label / use-class)",
+        "clj-native (SSoT) implementation in 20-actors/yakushi/py/agent.clj + test_agent.clj (no Python counterpart — clj-as-SSoT direction)"
+      ],
+      "related": [
+        "doc:20-actors/yakushi/",
+        "doc:20-actors/yakushi/py/agent.clj",
+        "doc:20-actors/yakushi/cells/formulation_attestation.edn",
+        "doc:20-actors/yakushi/lex/formulationAttestation.edn"
+      ],
+      "lastVerified": "2026-06-17"
+    },
+    {
       "id": "doc:adr-2606172100-retire-unispsc-python-per-code-fleet",
       "type": "TechArticle",
       "title": "ADR-2606172100: Retire the open-UNSPSC per-code Python agent fleet — superseded by the clj unspsc actor",
