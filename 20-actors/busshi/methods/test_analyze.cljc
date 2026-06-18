@@ -16,7 +16,7 @@
 (deftest top-share-excludes-other
   ;; gold's :other 59 must NOT count as a producer share (China 12 is the max)
   (is (= 12 (a/top-producer-share (by-id "au"))))
-  (is (= 98 (a/top-producer-share (by-id "ga")))))
+  (is (= 99 (a/top-producer-share (by-id "ga")))))  ; USGS: China 99% of primary low-purity gallium
 
 (deftest chokepoint-levels
   (is (= :critical (a/chokepoint-risk (a/top-producer-share (by-id "ga"))))) ; gallium 98
@@ -58,8 +58,8 @@
         co  (a/analyze-commodity (by-id "co"))]
     (is (= :authoritative (get co "sourcing")) "cobalt is USGS-sourced")
     (is (str/includes? (get co "source") "USGS MCS 2025"))
-    (is (= :representative (get (a/analyze-commodity (by-id "ga")) "sourcing"))
-        "gallium (no clean production-by-country table to cite) stays representative")
+    (is (= :representative (get (a/analyze-commodity (by-id "ge")) "sourcing"))
+        "germanium (USGS calls its own refinery-production data unverifiable) stays representative")
     (is (str/includes? edn ":authoritative"))
     (is (str/includes? edn ":busshi/source"))
     (is (str/includes? edn "USGS MCS 2025"))
