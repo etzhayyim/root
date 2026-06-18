@@ -65,12 +65,14 @@
   :recyclability 0.45 :carbon-intensity 0.6 :irreversibility 0.65 :ref-level 27000
   :sourcing :authoritative :source "USGS MCS 2025 (2024e mine production)"}
  {:type :commodity :id "ree" :symbol "REE" :name "Rare Earths (NdPr/Dy/Tb agg.)" :class :rare-metal :unit "index"
-  :producers [[:cn 69] [:us 12] [:mm 11] [:au 5] [:other 3]]
+  :producers [[:cn 69] [:us 12] [:mm 8] [:au 3] [:other 8]]
   :recyclability 0.10 :carbon-intensity 0.6 :irreversibility 0.65 :ref-level nil
-  :note "Aggregate placeholder — detail lives in the rare-earth-coverage sibling actor."}
+  :sourcing :authoritative :source "USGS MCS 2025 (2024e REO mine production, world 390,000 t)"
+  :note "Authoritative AGGREGATE share only; per-element (NdPr/Dy/Tb) depth lives in the rare-earth-coverage sibling actor."}
  {:type :commodity :id "ga" :symbol "Ga" :name "Gallium"        :class :rare-metal :unit "USD/kg"
-  :producers [[:cn 98] [:other 2]]
-  :recyclability 0.20 :carbon-intensity 0.5 :irreversibility 0.5 :ref-level 350}
+  :producers [[:cn 99] [:other 1]]
+  :recyclability 0.20 :carbon-intensity 0.5 :irreversibility 0.5 :ref-level 350
+  :sourcing :authoritative :source "USGS MCS 2025 (China 99% of primary low-purity gallium, 2024)"}
  {:type :commodity :id "ge" :symbol "Ge" :name "Germanium"      :class :rare-metal :unit "USD/kg"
   :producers [[:cn 60] [:ru 5] [:other 35]]
   :recyclability 0.30 :carbon-intensity 0.5 :irreversibility 0.5 :ref-level 1500}
