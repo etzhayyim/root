@@ -18,7 +18,37 @@
         {:git/url "https://github.com/com-junkawasaki/langgraph-clj"
          :git/sha "c7daa07d4e50f55d7e2a02e4b89dbeb2b200961d"}}
  :tasks
- {test:kotoba
+ {vitals:report
+  {:doc "Per-actor LIFE-ACTIVITY vitals — scores each manifest-bearing cell on 3 axes (clj 内部代謝 / actor 細胞間シグナル / atproto 外界代謝), RUNS its run_tests.sh reflex, classifies 生/休眠/死, and transacts the vitals into the kotoba Datom log (as-of trajectory). Flags: --no-tests --limit N --actors a,b --timeout-ms N"
+   :task (do (require 'etzhayyim.vitals)
+             (apply (resolve 'etzhayyim.vitals/-main) *command-line-args*))}
+
+  vitals:trajectory
+  {:doc "Read the kotoba Datom log of past vitals runs and show the organism's EVOLUTION (生命進化): per-run 生/休眠/死 cohort distribution + Σscore Δ over time, plus per-actor class/score transitions (休眠→生 等) between the last two runs."
+   :task (do (require 'etzhayyim.vitals)
+             ((resolve 'etzhayyim.vitals/-trajectory)))}
+
+  vitals:pulse
+  {:doc "Emit pulse.json — the organism's LIVE activity feed the /organism page polls for realtime animation: per-actor git commit production (生産), working-tree edits in flight (息遣い), Datom-log head (呼吸). Cheap (no test runs); run on a short loop. Args: [hours=48]"
+   :task (do (require 'etzhayyim.vitals)
+             (apply (resolve 'etzhayyim.vitals/-pulse) *command-line-args*))}
+
+  vitals:joucho
+  {:doc "Emit joucho.json — the organism's 情緒 (mood) + Wellbecoming TRAJECTORY (ADR-2606171500): replays ibuki's representative life (incl. the charter-clean :event/dialogue-reciprocated reward) into a 5-axis mood trajectory + Wellbecoming movement (improving/declining/steady, never a score) for the /organism 情緒 layer. Args: [of=ibuki] [beats=24]"
+   :task (do (require 'etzhayyim.vitals)
+             (apply (resolve 'etzhayyim.vitals/-joucho) *command-line-args*))}
+
+  organism:narrate
+  {:doc "One 情緒 narration beat — a living first-person line the organism SPEAKS about how it feels now, via REAL inference on the Murakumo Mac-mini fleet (gemma4:e4b-it-qat) over Tailscale (Murakumo = default-preferred per Rider v3.3 §2(i) / ADR-2606172359; think:false; no-server-key). APPENDED as :narration/* Datoms (as-of evolution) + snapshot narration.kotoba.edn + narration.json projection. Fail-open template if the fleet is unreachable. Args: [of=ibuki]"
+   :task (do (require 'etzhayyim.organism)
+             (apply (resolve 'etzhayyim.organism/-narrate) *command-line-args*))}
+
+  organism:heartbeat
+  {:doc "The RESIDENT organism loop (clj/bb, replaces the removed heartbeat.sh): 脈 pulse 6s · 情緒 joucho+narrate 60s · vitals report 600s, each a fold on its own append-only kotoba journal, crash-isolated per layer. Made reboot-resident by the launchd LaunchAgent in 50-infra/launchd/. Flags: --once (one beat of every layer, then exit)"
+   :task (do (require 'etzhayyim.organism)
+             (apply (resolve 'etzhayyim.organism/-heartbeat) *command-line-args*))}
+
+  test:kotoba
   {:doc "etzhayyim.kotoba root-side Datom engine + envelope + analysis (ADR-2605262130 Phase 1/2 + ADR-2605181100; data+impl in root, kotoba is the external generic engine)"
    :task (do (require 'clojure.test 'etzhayyim.kotoba.test-engine
                       'etzhayyim.kotoba.test-crypto 'etzhayyim.kotoba.test-actor

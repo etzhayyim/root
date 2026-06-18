@@ -1,8 +1,20 @@
 #!/usr/bin/env python3
 """
-Datomic Local Persistence Emulator
+Datomic Local Persistence Emulator  [SUPERSEDED 2026-06-14]
 Simulates an immutable, time-travel capable, fact-based EAVT datastore.
 Stores transactions as append-only JSON Lines (JSONL).
+
+SUPERSEDED by the root-side Clojure Datom engine `etzhayyim.kotoba.*`
+(70-tools/src/etzhayyim/kotoba/, ADR-2605262130 Phase 1/2). That engine has a
+WORKING Datalog query (this stub's `q()` always returns []), a four-index
+arrangement, schema-aware cardinality/validation against 00-contracts schemas,
+and a content address byte-identical to `ipfs add` (rasen/methods/cid.py). Use:
+
+    (require '[etzhayyim.kotoba.engine :as kt])
+    (def conn (kt/connect {:journal "80-data/datomic_mock/journal.edn"}))
+    (kt/transact conn [...]) ; (kt/q conn '{:find [...] :where [...]})
+
+Retained only for any legacy importer still calling it; do not extend.
 """
 
 import os

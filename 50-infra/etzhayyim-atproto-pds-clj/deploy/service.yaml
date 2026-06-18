@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: etzhayyim-atproto-pds
+  namespace: atproto
+  labels:
+    app: etzhayyim-atproto-pds
+spec:
+  type: ClusterIP
+  selector:
+    app: etzhayyim-atproto-pds
+  ports:
+    - name: http
+      port: 8787
+      targetPort: http
+---
+# Template — copy to secrets.yaml, fill in, DO NOT commit real values.
+apiVersion: v1
+kind: Secret
+metadata:
+  name: etzhayyim-atproto-pds-secrets
+  namespace: atproto
+type: Opaque
+stringData:
+  # kotoba engine endpoint (HTTP/XRPC base). e.g. http://kotoba.kotoba.svc.cluster.local:4566
+  KOTOBA_URL: "REPLACE_ME"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: etzhayyim-atproto-pds-tunnel-token
+  namespace: atproto
+type: Opaque
+stringData:
+  # cloudflared tunnel token for the etzhayyim.com-zone tunnel routing
+  # atproto.etzhayyim.com -> http://etzhayyim-atproto-pds.atproto.svc:8787
+  token: "REPLACE_ME"

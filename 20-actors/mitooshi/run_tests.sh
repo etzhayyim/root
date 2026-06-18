@@ -1,43 +1,40 @@
 #!/usr/bin/env bash
-# mitooshi 見通し — run the whole test suite with one command.
-# Tests are standalone-runnable (the repo pytest plugin env is broken); each prints its own
-# count and exits non-zero on failure. This aggregates them and reports a grand total.
+# mitooshi 見通し — run the whole cljc test suite with one command.
+# The Python methods/tests were pruned once fully ported to .cljc (clj-port migration,
+# ADR-2606160842); the cljc namespaces are the SSoT. Runs them via babashka from the repo root
+# (bb.edn :paths includes 20-actors). Each ns is required then run; exits non-zero on any failure.
 set -uo pipefail
-cd "$(dirname "$0")"
+ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+cd "$ROOT"
 
-SUITES=(
-  "methods/test_score.py"
-  "methods/test_analyze.py"
-  "methods/test_ingest.py"
-  "methods/test_bridge.py"
-  "methods/test_bridge_kakaku.py"
-  "methods/test_kakaku_forecast_e2e.py"
-  "methods/test_persist.py"
-  "methods/test_forecast.py"
-  "methods/test_forecast_quantile.py"
-  "methods/test_backtest.py"
-  "methods/test_calibrate.py"
-  "methods/test_promote.py"
-  "methods/test_clearpath.py"
-  "methods/test_synthesize.py"
-  "methods/test_social.py"
-  "methods/test_horizon.py"
-  "cells/test_state_machines.py"
-  "viz/test_build_forecast_viz.py"
-  "test_learning_loop.py"
-  "test_continual_learning.py"
+NSS=(
+  mitooshi.methods.test-analyze
+  mitooshi.methods.test-backtest
+  mitooshi.methods.test-bridge
+  mitooshi.methods.test-bridge-kakaku
+  mitooshi.methods.test-calibrate
+  mitooshi.methods.test-clearpath
+  mitooshi.methods.test-forecast
+  mitooshi.methods.test-forecast-quantile
+  mitooshi.methods.test-horizon
+  mitooshi.methods.test-ingest
+  mitooshi.methods.test-kakaku-forecast-e2e
+  mitooshi.methods.test-persist
+  mitooshi.methods.test-promote
+  mitooshi.methods.test-score
+  mitooshi.methods.test-social
+  mitooshi.methods.test-synthesize
+  mitooshi.cells.online-update.test-state-machine
+  mitooshi.cells.test-state-machine
+  mitooshi.test-learning-loop
+  mitooshi.test-continual-learning
+  mitooshi.viz.test-build-forecast-viz
 )
 
-fail=0
-for s in "${SUITES[@]}"; do
-  dir="$(dirname "$s")"; file="$(basename "$s")"
-  if ( cd "$dir" && python3 "$file" ); then :; else
-    echo "FAILED: $s"; fail=1
-  fi
-done
+NAMES="${NSS[*]}"
 
-if [ "$fail" -eq 0 ]; then
-  echo "── mitooshi: ALL suites green ──"
-else
-  echo "── mitooshi: FAILURES above ──"; exit 1
-fi
+bb -e "(def nss '($NAMES))
+       (apply require nss)
+       (let [r (apply clojure.test/run-tests nss)]
+         (println \"── mitooshi:\" (select-keys r [:test :pass :fail :error]))
+         (System/exit (if (or (pos? (:fail r)) (pos? (:error r))) 1 0)))"

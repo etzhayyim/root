@@ -29,7 +29,7 @@ class BinderState:
     upstreamRecords: dict[str, str] | None = None
     vin: str | None = None
     vehicleDid: str | None = None
-    kotoba-datomicAnchor: dict[str, Any] | None = None
+    kotoba_datomicAnchor: dict[str, Any] | None = None
 
 
 def transition_to_records_collected(state: dict[str, Any]) -> dict[str, Any]:
@@ -65,9 +65,9 @@ def transition_to_vehicle_did_issued(state: dict[str, Any]) -> dict[str, Any]:
     return {"binder_state": s.__dict__, "next_node": "anchor"}
 
 
-def transition_to_kotoba-datomic_anchored(state: dict[str, Any]) -> dict[str, Any]:
+def transition_to_kotoba_datomic_anchored(state: dict[str, Any]) -> dict[str, Any]:
     s = BinderState(**state.get("binder_state", {}))
-    s.kotoba-datomicAnchor = {
+    s.kotoba_datomicAnchor = {
         "membraneNamespace": "com.etzhayyim.sarutahiko",
         "anchorTxHash": "0xSARUTAHIKOVINBINDER...",
         "l2Chain": "Base Sepolia (R0 dry-run)",
@@ -90,7 +90,7 @@ def transition_to_record_emitted(state: dict[str, Any]) -> dict[str, Any]:
         "vin": s.vin,
         "vehicleDid": s.vehicleDid,
         "upstreamRecords": s.upstreamRecords,
-        "kotoba-datomicAnchor": s.kotoba-datomicAnchor,
+        "kotoba-datomicAnchor": s.kotoba_datomicAnchor,
         "recordedAt": "2026-05-26T20:00:00Z",
     }
     return {"binder_state": s.__dict__, "vehicle_manufacture_record": record, "next_node": "end"}

@@ -89,13 +89,22 @@
 
 (def event-deltas
   "CLOSED vocabulary — an unknown event kind throws (charter discipline: an unrepresentable
-  stimulus cannot move a mood). Deltas are [joy calm stress gratitude focus]."
-  {":event/post-emitted"    [0 0 0 0 1]
-   ":event/follower-gained" [2 0 0 2 0]
-   ":event/inbox-pressure"  [0 -1 4 0 0]
-   ":event/kaizen-merged"   [0 3 -3 1 0]
-   ":event/kaizen-rejected" [0 0 2 0 1]
-   ":event/idle"            [0 0 0 0 0]}) ;; handled as drift-toward-baseline below
+  stimulus cannot move a mood). Deltas are [joy calm stress gratitude focus].
+
+  `:event/dialogue-reciprocated` (ADR-2606171500) is the charter-clean social-reward signal:
+  it fires when a member-attributed post draws a RECIPROCAL reply — a 縁 returned, a dialogue
+  closed — NOT a like/love/comment COUNT. Engagement tallies are deliberately unrepresentable
+  here: §1.13 Wellbecoming forbids addictive/engagement-maximizing design, and shiori classes
+  `:engagement-maximizing-design` as a DETRACTOR. So the reward is relational (being heard
+  soothes isolation + warms gratitude), never a popularity score. Edge-primary: the event is
+  the reciprocated bond, attributed to the exchange, never a per-soul tally."
+  {":event/post-emitted"          [0 0 0 0 1]
+   ":event/follower-gained"       [2 0 0 2 0]
+   ":event/dialogue-reciprocated" [2 1 -1 3 0]   ;; a reply returned: heard → calmer, grateful
+   ":event/inbox-pressure"        [0 -1 4 0 0]
+   ":event/kaizen-merged"         [0 3 -3 1 0]
+   ":event/kaizen-rejected"       [0 0 2 0 1]
+   ":event/idle"                  [0 0 0 0 0]}) ;; handled as drift-toward-baseline below
 
 (defn- clamp [v]
   (max 0 (min 100 v)))

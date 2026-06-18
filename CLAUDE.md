@@ -401,12 +401,44 @@ push only the branch's committed HEAD. Report the final categorized outcome.
 - ADR ID convention → `90-docs/CLAUDE.md` § "ADR ID Convention"
 - Template → `90-docs/adr/template.md`
 
+## Operational code = clj/bb over the kotoba Datom log (REPO-WIDE RULE — 実装/engineering)
+
+**Newly authored operational / daemon / heartbeat / loop / tooling code SHOULD be
+Clojure on babashka (`bb`), with state on the kotoba Datom log (datomic-isomorphic,
+ADR-2605312345) — NOT Python (`.py`) or shell (`.sh`).** This is an **実装/engineering
+convention** (changeable at the implementation layer, not a charter invariant): it
+generalizes the substrate boundary (state = kotoba Datom log) to *executable* substrate,
+so the org's own moving parts are clj/bb folds over append-only Datom journals and inherit
+as-of history (生命進化), content-addressed snapshots, and crash-resume for free — the same
+reasons the actors are being ported py→cljc (the clj-port waves).
+
+Concretely:
+- **Author daemons/heartbeats/CLIs as `bb` tasks** in `bb.edn` backed by a clj/cljc
+  namespace under `70-tools/src/etzhayyim/…` (reference: `etzhayyim.organism` =
+  the resident organism heartbeat + 情緒 narration; `etzhayyim.vitals` = pulse/joucho/
+  vitals). Persist via `etzhayyim.kotoba.engine` (`kt/connect`→`kt/transact`→
+  `kt/snapshot!`), append-only when you want evolution, journal-per-feed.
+- **Inference** (e.g. narration) prefers the **Murakumo fleet** (per-node Ollama over
+  Tailscale / LiteLLM gateway) — DEFAULT-PREFERRED, objective-function-assessed per Rider
+  v3.3 §2(i) / ADR-2606172359 (NOT a categorical vendor ban); use `babashka.http-client`.
+  no-server-key (read-only) where possible.
+- **Residence** = a launchd LaunchAgent (`50-infra/launchd/*.plist`, OS config, not a
+  script) invoking the `bb` task with `KeepAlive`/`RunAtLoad`, NOT a `nohup … &` bash
+  loop (those die on reboot and leave no Datom trail).
+- **Shelling out** to a *system binary* (`git`, `tailscale`, `ipfs`) via
+  `babashka.process` is fine — that is not "a shell script". The rule bars authoring
+  our *logic* in `.py`/`.sh`, not invoking installed tools.
+- **Exemptions**: 3rd-party/vendored code (`lib/`, `vendor/`, `*-fork/`), generated
+  build artifacts, and an actor's still-unported legacy `py/` during an in-flight
+  cljc port (the port itself is the fix).
+
 ## Do Not
 
 > **This list mixes two kinds of rule (classify before treating any as immutable; 固定するのは priority):**
 > **(憲法/charter)** — license default, Charter Rider non-weakening, land inalienability (no `transfer()`/`burn()`), transparent-force-only, no-eschatology, no-CSAM, Tier-0 priorities. These are Tier-0/derived and amend only by Council Lv7+ (the priorities themselves are fork-only).
 > **(実装/engineering)** — prefix discipline, secrets hygiene, rename-wave scoping, substrate-import rules, no-RunPod-style backend choices (now objective-function per v3.5). These are engineering/governance decisions, changeable at the implementation layer **without a charter amendment**. A "Do not" here is a load-bearing convention, not a constitutional invariant.
 
+- Do not author new first-party operational/daemon/heartbeat/tooling scripts in Python or shell — use clj/bb over the kotoba Datom log (see §"Operational code = clj/bb over the kotoba Datom log" above; 実装/engineering convention). Shelling out to system binaries via `babashka.process` is allowed; vendored/3rd-party + in-flight py→cljc ports are exempt.
 - Do not introduce legacy organisation-specific prefixes in newly authored code. Use `etzhayyim-` or no prefix. Existing seeded files with legacy prefixes will be renamed in a follow-up cutover.
 - Do not weaken the Apache 2.0 license default. Religious-corp public-interest activity requires permissive license.
 - Do not weaken the Charter Compliance Rider v3.5. §2 and 三層 enforcement (L1 license / L2 便益 / L3 評価) derive from the Tier-0 priorities; per ADR-2606062100 they are Tier-1 Derived Policy, amendable ONLY by Council Lv7+ unanimity + a priority-conformance attestation (never weaker). The Tier-0 priorities themselves (incl. 永久記憶=神の監視 + 相互監視) are fork-only. **As of v3.5 (ADR-2606182359 wave3) ALL of §2 is OBJECTIVE-FUNCTION ASSESSED — the categorical hard-floor / 掟リスト is ELIMINATED (固定するのは掟でなく priority, 最後まで)**. The ONLY non-negotiable is the priority itself: catastrophic harm to a child/descendant dimension is vetoed by the objective function's non-linear CATASTROPHE term (a property of the function, not a separate rule; `objective-function.edn`). The former hard-floor cores (§2(a) aggression/lethal/covert, §2(c) asymmetric-unwatched surveillance, §2(j) forced labor, §2(k) CSAM) reach :non-aligned via that term through their extreme child/descendant scores (by evaluation, not enumeration). §2(g) strict-individualist ontology is now ALSO objective-function-assessed (its wave2 retention is LIFTED): an org is judged by actual effect, not declared doctrine — 反個人主義 is enforced dynamically by collective-commons, not by doctrine-based exclusion. The prior waves moved §2(d) fossil (net carbon balance; fossil per se NOT prohibited), §2(i) compute (Murakumo DEFAULT-PREFERRED, not a ban), §2(b) finance, §2(e) specialist knowledge, and the economic structure (non-profit/donation/ad/equity/open-source) — all to net-effect scoring. The 子孫 + 反個人主義 priorities are unchanged; only the instrument moved from fixed rules to score evaluation. Honest enforceability limit: ADR-2606182359 §D6 (with no enumerated bright-line, the anchor is the catastrophe term + Apache; counsel may re-state CSAM as an explicit bright-line per jurisdiction). Privacy is preserved by encryption (暗号化≠忘却), not by forgetting. Do not re-introduce a blanket "all personal-data collection / all watching" surveillance ban — per ADR-2606082400 (v3.1), §2(c) is on the **RECIPROCITY axis**: **monetized OR asymmetric (watcher-unwatched) surveillance is prohibited; reciprocal/symmetric 相互監視 (村社会 deterrence + anti-isolation, the social form of 神の監視) is AFFIRMED**. Privacy is preserved by encryption (暗号化≠忘却), not by forgetting. Do not re-introduce a blanket "commercial mining / resource extraction" ban — per ADR-2606161700 (v3.2), §2(l) is on the **多世代(子・孫)×Wellbecoming RISK axis**: **採掘・採油そのものは禁止ではない**; prohibited only where the measured multi-generational impact is irreversible habitat/biosphere harm (the §2(d) standard) OR monopoly/chokepoint entrenchment (§1.12). Judge by measured harm to 子孫, never by industry name. Closed-loop recycling / urban mining and stewarded non-monopolistic recovery are affirmed.

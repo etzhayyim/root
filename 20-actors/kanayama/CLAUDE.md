@@ -146,26 +146,22 @@ See `ADR-2605252400` §4 for definitions. Key enforcement:
 3. Benchtop ≤1 kg pot melt + manual rolling PoC demonstrated
 4. Cell source replaces RuntimeError with LangGraph stub bodies
 
-## Testing (R0)
+## Testing (clj-port)
 
-**Smoke test**: Verify all 9 cells import without exception:
+Per ADR-2606160842, the 9 cell state machines have been ported 1:1 from Python to
+`.cljc` (`cells/<cell>/state_machine.cljc` + `test_state_machine.cljc`) and the Python
+cell tree (LangGraph `cell.py` R0 wrappers + `state_machine.py` + `__init__.py`) has been
+pruned — the cljc state machines are now the canonical logic. The LangGraph graph-building
+was an R0 framework leg (`.solve()` raised `RuntimeError` until R1) and was not ported.
+
+**Run the suite** (bb / clojure.test):
 
 ```bash
-cd 20-actors/kanayama
-python3 -c "
-from cells.intake_qa import IntakeQaCell
-from cells.decoating_separation import DecoatingSeparationCell
-from cells.melting_furnace import MeltingFurnaceCell
-from cells.dross_recovery import DrossRecoveryCell
-from cells.dc_casting import DcCastingCell
-from cells.hot_rolling import HotRollingCell
-from cells.cold_rolling_finishing import ColdRollingFinishingCell
-from cells.air_emissions_audit import AirEmissionsAuditCell
-from cells.mass_balance_binder import MassBalanceBinderCell
-"
+bash 20-actors/kanayama/run_tests.sh
 ```
 
-All should pass import; `.solve()` calls should raise `RuntimeError("kanayama R0 scaffold...")`.
+Covers `methods.test-charter-gates`, `py.test-agent`, and all 9 cell
+`cells.<cell>.test-state-machine` namespaces (46 tests / 145 assertions green).
 
 ## Related Files
 

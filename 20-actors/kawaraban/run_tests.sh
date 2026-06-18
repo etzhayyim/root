@@ -1,27 +1,5 @@
 #!/usr/bin/env bash
-# kawaraban 瓦版 — run the whole test suite with one command.
-# Tests are standalone-runnable (the repo pytest plugin env is broken); each prints its own
-# count and exits non-zero on failure. This aggregates them and reports a grand total.
-set -uo pipefail
-cd "$(dirname "$0")"
-
-SUITES=(
-  "methods/test_route.py"
-  "methods/test_analyze.py"
-  "methods/test_ingest.py"
-  "cells/test_state_machines.py"
-)
-
-fail=0
-for s in "${SUITES[@]}"; do
-  dir="$(dirname "$s")"; file="$(basename "$s")"
-  if ( cd "$dir" && python3 "$file" ); then :; else
-    echo "FAILED: $s"; fail=1
-  fi
-done
-
-if [ "$fail" -eq 0 ]; then
-  echo "── kawaraban: ALL suites green ──"
-else
-  echo "── kawaraban: FAILURES above ──"; exit 1
-fi
+# kawaraban 瓦版 — bb/clj test suite (ADR-2606160842 py→clj port wave; Python pruned).
+set -euo pipefail
+cd "$(dirname "$0")/../.."
+exec bb -e '(require (quote clojure.test) (quote kawaraban.cells.test-state-machine) (quote kawaraban.methods.test-analyze) (quote kawaraban.methods.test-charter-gates) (quote kawaraban.methods.test-ingest) (quote kawaraban.methods.test-route))(let [r (clojure.test/run-tests (quote kawaraban.cells.test-state-machine) (quote kawaraban.methods.test-analyze) (quote kawaraban.methods.test-charter-gates) (quote kawaraban.methods.test-ingest) (quote kawaraban.methods.test-route))](System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))'

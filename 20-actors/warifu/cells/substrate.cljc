@@ -21,19 +21,52 @@
 
 ;; ── SubstratePort (Python Protocol → Clojure protocol) ────────────
 ;;
-;; Only the methods the refund cell actually calls are required by the port
-;; the cell depends on; the full Python Protocol surface (resolve_card,
-;; usdc_balance, place_hold, settle_transfer, open_dispute, …) lives in the
-;; sibling cell ports and is not reproduced here (port what refund.py imports).
+;; Grown incrementally as cells are ported: the refund subset
+;; (load_settlement/reverse_settlement/write_facts) plus the authorize subset
+;; (resolve_card/usdc_balance/credit_available/place_hold). The remaining Python
+;; Protocol surface (load_hold/record_capture/settle_transfer/open_dispute) is
+;; added when capture/settle/dispute are ported.
 
 (defprotocol SubstratePort
-  "The DI seam the refund cell calls into."
+  "The DI seam warifu cells call into (the refund + authorize subset of cells/substrate.py)."
+  ;; --- identity / balances (authorize) ---
+  (resolve-card [this card-token]
+    "Resolve a network card token → holder account, or nil if absent.
+     (Python `resolve_card(card_token) -> Optional[str]`.)")
+  (usdc-balance [this account]
+    "Return the account's USDC minor-unit balance (0 if unknown).
+     (Python `usdc_balance(account) -> int`.)")
+  (credit-available [this account]
+    "Return the account's available 0% CreditLine (0 if unknown).
+     (Python `credit_available(account) -> int`.)")
+  (place-hold [this account opts]
+    "Place an escrow hold; return the auth-id. `opts` carries the Python keyword-only
+     args as a map {:card-token :amount-usdc :funding :purpose :merchant-did}.
+     (Python `place_hold(account, *, card_token, amount_usdc, funding, purpose, merchant_did) -> str`.)")
+  ;; --- holds / captures (capture) ---
+  (load-hold [this auth-id]
+    "Return the auth_hold map for `auth-id`, or nil if absent.
+     (Python `load_hold(auth_id) -> Optional[dict]`.)")
+  (record-capture [this auth-id amount-usdc]
+    "Record a (full/partial) capture against a hold; return the capture-id.
+     (Python `record_capture(auth_id, amount_usdc) -> str`.)")
+  ;; --- settlement (settle) ---
+  (settle-transfer [this opts]
+    "Transfer USDC holder/wakai-float → merchant; return [settlement-id tx]. `opts` carries the
+     Python keyword-only args as a map {:merchant-did :amount-usdc :funding :auth-id}.
+     (Python `settle_transfer(*, merchant_did, amount_usdc, funding, auth_id) -> (str, str)`.)")
+  ;; --- holds / settlements (refund) ---
   (load-settlement [this settlement-id]
     "Return the settlement map for `settlement-id`, or nil if absent.
      (Python `load_settlement(settlement_id) -> Optional[dict]`.)")
   (reverse-settlement [this settlement-id amount-usdc]
     "Reverse `amount-usdc` of a settlement; return [refund-id tx].
      (Python `reverse_settlement(settlement_id, amount_usdc) -> (str, str)`.)")
+  ;; --- disputes (dispute) ---
+  (open-dispute [this opts]
+    "Open a chargeback dispute; return the dispute-id. `opts` carries the Python keyword-only
+     args as a map {:settlement-id :reason-code :opened-by-did :amount-usdc :evidence-cids}.
+     (Python `open_dispute(*, settlement_id, reason_code, opened_by_did, amount_usdc, evidence_cids) -> str`.)")
   (write-facts [this facts]
     "Append EAVT facts (a seq of [E A V T] vectors) to the ledger.
      (Python `write_facts(facts) -> None`.)"))
@@ -50,8 +83,16 @@
 
 (defrecord UnwiredSubstrate []
   SubstratePort
+  (resolve-card [_ _]         (unwired-fail "resolve_card"))
+  (usdc-balance [_ _]         (unwired-fail "usdc_balance"))
+  (credit-available [_ _]     (unwired-fail "credit_available"))
+  (place-hold [_ _ _]         (unwired-fail "place_hold"))
+  (load-hold [_ _]            (unwired-fail "load_hold"))
+  (record-capture [_ _ _]     (unwired-fail "record_capture"))
+  (settle-transfer [_ _]      (unwired-fail "settle_transfer"))
   (load-settlement [_ _]      (unwired-fail "load_settlement"))
   (reverse-settlement [_ _ _] (unwired-fail "reverse_settlement"))
+  (open-dispute [_ _]         (unwired-fail "open_dispute"))
   (write-facts [_ _]          (unwired-fail "write_facts")))
 
 (defn unwired-substrate

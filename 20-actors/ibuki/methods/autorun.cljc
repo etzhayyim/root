@@ -232,13 +232,20 @@
           (.delete (io/file (str log-path)))
           (.delete (io/file (str queue-path))))
         (let [organisms (load-seed)]
-          (dotimes [_ cycles]
-            (let [txs (datoms/read-log log-path)
-                  beat (inc (count txs))
-                  body (run-beat organisms txs {:beat beat :queue-path queue-path})
-                  tx (datoms/make-tx body {:tx-id beat :as-of (+ as-of-base beat)
-                                           :prev-cid (datoms/head-cid log-path)})]
-              (datoms/append-tx! tx log-path)))
+          ;; O(N) heartbeat: read the durable log ONCE, then thread (txs, head) in memory across
+          ;; beats. append-tx! still persists every beat, and a *fresh* autorun call re-reads from
+          ;; disk — so crash-resume stays byte-identical (verified by the integration suite). This
+          ;; removes the O(N²) per-beat full-log re-parse that made the run intractable under SCI.
+          (loop [n 0
+                 txs (datoms/read-log log-path)
+                 head (datoms/head-cid log-path)]
+            (when (< n cycles)
+              (let [beat (inc (count txs))
+                    body (run-beat organisms txs {:beat beat :queue-path queue-path})
+                    tx (datoms/make-tx body {:tx-id beat :as-of (+ as-of-base beat)
+                                             :prev-cid head})
+                    cid (datoms/append-tx! tx log-path)]
+                (recur (inc n) (conj txs tx) cid))))
           (let [chain (datoms/verify-chain log-path)]
             (when-not (:ok chain)
               (throw (ex-info (str "kotoba Datom chain broken: " chain) chain)))

@@ -1,38 +1,5 @@
 #!/usr/bin/env bash
-# 潮目 (shionome) — run the whole test suite with one command.
-# Tests are standalone-runnable (no pytest needed); each prints its own count and exits
-# non-zero on failure. This aggregates them and reports a grand total.
-set -uo pipefail
-cd "$(dirname "$0")"
-
-SUITES=(
-  "methods/test_weave.py"
-  "methods/test_grounding.py"
-  "methods/test_ingest.py"
-  "methods/test_social.py"
-  "methods/test_export.py"
-  "methods/test_sources.py"
-  "methods/test_registry.py"
-  "methods/test_charter_invariants.py"
-  "methods/test_analyze.py"
-  "methods/test_lexicons.py"
-  "methods/test_consistency.py"
-  "methods/test_kotoba.py"
-  "methods/test_autorun.py"
-  "cells/test_state_machines.py"
-  "cells/test_membrane_flow.py"
-)
-
-fail=0
-for s in "${SUITES[@]}"; do
-  dir="$(dirname "$s")"; file="$(basename "$s")"
-  if ( cd "$dir" && python3 "$file" ); then :; else
-    echo "FAILED: $s"; fail=1
-  fi
-done
-
-if [ "$fail" -eq 0 ]; then
-  echo "── shionome: ALL suites green ──"
-else
-  echo "── shionome: FAILURES above ──"; exit 1
-fi
+# shionome 潮目 — bb/clj test suite (ADR-2606160842 py→clj port wave; method+cell Python pruned).
+set -euo pipefail
+cd "$(dirname "$0")/../.."
+exec bb -e '(require (quote clojure.test) (quote shionome.cells.test-membrane-flow) (quote shionome.cells.test-state-machine) (quote shionome.methods.test-registry) (quote shionome.methods.test-ingest) (quote shionome.methods.test-analyze) (quote shionome.methods.test-charter-invariants) (quote shionome.methods.test-sources) (quote shionome.methods.test-autorun) (quote shionome.methods.test-grounding) (quote shionome.methods.test-kotoba) (quote shionome.methods.test-export) (quote shionome.methods.test-lexicons) (quote shionome.methods.test-edn) (quote shionome.methods.test-weave) (quote shionome.methods.test-consistency) (quote shionome.methods.test-social) (quote shionome.cells.regime-observer.test-state-machine) )(let [r (clojure.test/run-tests (quote shionome.cells.test-membrane-flow) (quote shionome.cells.test-state-machine) (quote shionome.methods.test-registry) (quote shionome.methods.test-ingest) (quote shionome.methods.test-analyze) (quote shionome.methods.test-charter-invariants) (quote shionome.methods.test-sources) (quote shionome.methods.test-autorun) (quote shionome.methods.test-grounding) (quote shionome.methods.test-kotoba) (quote shionome.methods.test-export) (quote shionome.methods.test-lexicons) (quote shionome.methods.test-edn) (quote shionome.methods.test-weave) (quote shionome.methods.test-consistency) (quote shionome.methods.test-social) (quote shionome.cells.regime-observer.test-state-machine) )](System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))'

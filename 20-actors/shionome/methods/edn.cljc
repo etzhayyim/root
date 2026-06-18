@@ -9,8 +9,12 @@
   convention) — so the loader must yield the same string shape the Python `load_edn`
   does, byte-for-byte, or the offline analyzer would key on the wrong thing.
 
-  Matches the ake/keizu reference (`*.methods._edn`) — shionome's `_edn.py` is the
-  same family (logic byte-identical; only the docstring differs).
+  Distinct from the keizu/ake reader in ONE place: shionome serializes strings with
+  `json.dumps` (see kotoba.py), so `_edn._atom` decodes quoted tokens with `json.loads`
+  — the EXACT inverse, correctly reversing \\n / \\t / \\\" / \\\\ / \\uXXXX. The earlier
+  manual `replace` (\\\" and \\\\ only) missed \\n / \\t and broke the content-addressed-log
+  roundtrip; this port replicates the full JSON string-unescape so a seed string with a
+  newline/tab parses identically in cljc and Python (else the commit-DAG CID diverges).
 
   Stdlib only (regex tokenizer); file I/O at the #?(:clj) edge."
   (:require [clojure.string :as str]))
@@ -31,12 +35,44 @@
               :else nil))
           m)))
 
+(defn- hex->char
+  "Decode 4 hex digits to the corresponding character (\\uXXXX)."
+  [hex]
+  #?(:clj  (char (Integer/parseInt hex 16))
+     :cljs (js/String.fromCharCode (js/parseInt hex 16))))
+
+(defn- json-unescape
+  "Replicate `json.loads` of a JSON string body (the chars between the quotes):
+  reverse \\\" \\\\ \\/ \\n \\t \\r \\b \\f and \\uXXXX. Faithful to the Python
+  `_json.loads(t)` atom path so the content-addressed roundtrip is byte-identical.
+  cljc-safe: accumulates chars in a vector (no host StringBuilder)."
+  [body]
+  (let [v (vec body), n (count v)]
+    (loop [i 0, acc []]
+      (if (>= i n)
+        (apply str acc)
+        (let [c (nth v i)]
+          (if (and (= c \\) (< (inc i) n))
+            (let [e (nth v (inc i))]
+              (case e
+                \" (recur (+ i 2) (conj acc \"))
+                \\ (recur (+ i 2) (conj acc \\))
+                \/ (recur (+ i 2) (conj acc \/))
+                \n (recur (+ i 2) (conj acc \newline))
+                \t (recur (+ i 2) (conj acc \tab))
+                \r (recur (+ i 2) (conj acc \return))
+                \b (recur (+ i 2) (conj acc \backspace))
+                \f (recur (+ i 2) (conj acc \formfeed))
+                \u (recur (+ i 6) (conj acc (hex->char (apply str (subvec v (+ i 2) (+ i 6))))))
+                ;; unknown escape: keep the escaped char verbatim
+                (recur (+ i 2) (conj acc e))))
+            (recur (inc i) (conj acc c))))))))
+
 (defn- unescape-string
-  "Strip the surrounding quotes and unescape \\\" and \\\\ (mirrors the Python atom path)."
+  "Strip the surrounding quotes, then JSON-unescape the body (mirror of the Python
+  `json.loads(t)` atom path — \\n / \\t / \\uXXXX faithful, not just \\\" / \\\\)."
   [t]
-  (-> (subs t 1 (dec (count t)))
-      (str/replace "\\\"" "\"")
-      (str/replace "\\\\" "\\")))
+  (json-unescape (subs t 1 (dec (count t)))))
 
 (defn- parse-long* [^String t]
   #?(:clj (try (Long/parseLong t) (catch Exception _ nil))

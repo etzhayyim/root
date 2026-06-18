@@ -7,7 +7,7 @@ from .state_machine import (
     HomologationPhase, HomologationState,
     transition_to_records_collected, transition_to_serial_assigned,
     transition_to_trainset_did_issued, transition_to_homologation_authority_review,
-    transition_to_kotoba-datomic_anchored, transition_to_record_emitted,
+    transition_to_kotoba_datomic_anchored, transition_to_record_emitted,
 )
 
 
@@ -45,7 +45,7 @@ class HomologationBinderCell:
     def _serial(self, s): return transition_to_serial_assigned(s)
     def _did(self, s): return transition_to_trainset_did_issued(s)
     def _authority(self, s): return transition_to_homologation_authority_review(s)
-    def _anchor(self, s): return transition_to_kotoba-datomic_anchored(s)
+    def _anchor(self, s): return transition_to_kotoba_datomic_anchored(s)
     def _record(self, s): return transition_to_record_emitted(s)
 
     def solve(self, input_state: dict[str, Any]) -> dict[str, Any]:
