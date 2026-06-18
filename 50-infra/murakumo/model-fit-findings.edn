@@ -1,0 +1,67 @@
+;; Murakumo fleet — empirical model-fit findings
+;; Does model X actually run on a given Murakumo node class?
+;; Sibling of fleet.edn :inference_backends — same :verified_perf spirit,
+;; but for the Mac-mini/MacBook (Apple Silicon, unified-memory) tier.
+;; All inference here is Murakumo-fleet-local (ADR-2605215000): per-node
+;; Ollama / local MLX, no commercial GPU rental, no cloud.
+{:doc "Murakumo Apple-Silicon model-fit findings (empirical, on-device)"
+ :adr ["2605215000" "2605214000" "2605241900"]
+ :node_classes
+ {:mac-16gb-m4
+  {:chip "Apple M4" :unified_memory_gb 16
+   :gpu_wired_limit_default_note "iogpu.wired_limit_mb=0 ⇒ macOS default ≈ 67% of RAM ≈ 10.6 GB GPU-wired ceiling"
+   :members ["asher" "benjamin" "dan" "issachar" "joseph" "judah" "levi" "naphtali"]
+   :probed_on "2026-06-18"
+   :note "Every probed Murakumo node this date was M4 / 16 GB. Resident organism heartbeat baseline-occupies ~5 GB RAM."}}
+
+ :findings
+ [{:model "gemma4:12b-it-qat"
+   :runtime "ollama 0.30.7"
+   :node_class :mac-16gb-m4
+   :node "asher"
+   :verified_on "2026-06-18"
+   :result :fits
+   :measurements {:weights_on_disk_gb 7.2
+                  :resident_footprint_gb 7.6
+                  :processor "100% GPU"
+                  :context 4096
+                  :first_reply_wall_s 13}
+   :conclusion "Runs comfortably on 16 GB M4 (QAT/4-bit). fp16/non-QAT variants do NOT fit."
+   :charter_note "Within ADR-2605215000 (per-node Ollama, gemma-class)."}
+
+  {:model "DiffusionGemma (mlx-community/diffusiongemma-26B-A4B-it-4bit)"
+   :family "text-diffusion (26B MoE, A4B = 4B active; iterative block denoising)"
+   :runtime "mlx-vlm 0.6.3 (mlx 0.31.2) — `python -m mlx_vlm.generate` native diffusion path"
+   :runtime_note "diffusion supported directly via --max-denoising-steps / --diffusion-full-canvas / --diffusion-sampler. The mlx_vlm.speculative.drafters.diffusion_gemma drafter module is ABSENT in 0.6.3 (this is the LM Studio bug #2037 path; the direct generate path does not need it)."
+   :node_class :mac-16gb-m4
+   :node "joseph"
+   :verified_on "2026-06-18"
+   :result :does-not-fit
+   :failure "[METAL] Command buffer execution failed: Insufficient Memory (kIOGPUCommandBufferCallbackErrorOutOfMemory)"
+   :attempts
+   [{:n 1 :gpu_wired_limit_mb :default
+     :gen_params {:max_tokens 96 :max_denoising_steps 32 :canvas :full}
+     :outcome :metal-oom :elapsed_s 69}
+    {:n 2 :gpu_wired_limit_mb 14000
+     :gen_params {:max_tokens 48 :max_denoising_steps 16 :diffusion_max_canvas_length 64}
+     :outcome :metal-oom :elapsed_s 139
+     :peak {:wired_gb 14.9 :memory_compressor_gb 11.9 :free_mb 51 :swap_used_gb 14.9}}]
+   :weights_on_disk_gb 15.8
+   :download_note "15.8 GB pulled in ~4.5 min via HF Xet (NVMe + LAN, ~4 GB/s terminal burst)."
+   :root_cause
+   "NVMe swap CANNOT rescue Metal/GPU OOM. macOS fully engaged the disk path (14.9 GB swapped + 11.9 GB compressed, free → 51 MB) yet still OOM'd: Metal command buffers require a WIRED/resident GPU working set that cannot be paged to disk. The 26B-A4B-4bit GPU working set (~15.8 GB weights + activations/KV/canvas) cannot be wired into 16 GB unified memory alongside the OS (and the ~5 GB resident organism). Raising iogpu.wired_limit_mb only let it allocate more before the same ceiling. NVMe speed shortens load time, not the wired-memory ceiling."
+   :conclusion "Needs unified memory 24 GB+ (M4 Pro 24 GB ~ theoretical min; 32 GB recommended). NOT runnable on the current 16 GB M4 fleet."
+   :secondary_finding "Even where it fits (24 GB+ / M4 Pro), web reports + Google's own note say Apple Silicon sees NO speedup over autoregressive Gemma 4 (unified memory is bandwidth-bound; diffusion's win needs a compute-bound dedicated accelerator). On Mac, prefer autoregressive gemma4:12b-it-qat."
+   :sources
+   ["https://blog.google/innovation-and-ai/technology/developers-tools/diffusion-gemma-faster-text-generation/"
+    "https://www.aimadetools.com/blog/how-to-run-diffusiongemma-locally/"
+    "https://github.com/lmstudio-ai/lmstudio-bug-tracker/issues/2037"
+    "https://www.xda-developers.com/tried-google-diffusiongemma-generate-text-like-image-local-llm/"
+    "https://github.com/ggml-org/llama.cpp/issues/24529"]
+   :cleanup "joseph: ~/diffgemma (15.8 GB) + ~/mlxvlm-test venv removed; iogpu.wired_limit_mb reset to 0 (default). Resident organism untouched."}]
+
+ :takeaways
+ ["16 GB M4 ceiling for GPU-resident inference ≈ 10–11 GB working set (default wired) and ~14 GB even when forced — minus ~5 GB resident organism in practice."
+  "QAT/4-bit ≤ ~8 GB models (e.g. gemma4:12b-it-qat) are the sweet spot for the 16 GB fleet."
+  "NVMe swap helps CPU-side paging and load time, NOT Metal/GPU OOM. Sizing must assume the GPU working set is wired RAM."
+  "To run 26B-class MoE / diffusion locally, add a 24 GB+ (ideally 32 GB) Apple-Silicon node — fleet.edn :failover already flags an M-series 128 GB Ultra as the recommended replica."]}
