@@ -64,7 +64,33 @@ from langgraph.types import RetryPolicy, Send
 from lg_mangaka import comfy as _comfy
 
 _log = logging.getLogger(__name__)
-_FFMPEG = shutil.which("ffmpeg") or os.environ.get("FFMPEG_BIN") or "ffmpeg"
+def _resolve_ffmpeg() -> str:
+    """Resolve the ffmpeg binary path.
+
+    Resolution order:
+      1. shutil.which("ffmpeg") — PATH lookup (preferred in containers).
+      2. FFMPEG_BIN env var — validated: absolute path + exists + executable.
+         Invalid value is a hard error at import time (fail fast).
+      3. bare "ffmpeg" sentinel — FileNotFoundError caught in _encode.
+    """
+    found = shutil.which("ffmpeg")
+    if found:
+        return found
+
+    raw = os.environ.get("FFMPEG_BIN", "").strip()
+    if raw:
+        if not os.path.isabs(raw):
+            raise ValueError(f"FFMPEG_BIN must be an absolute path, got: {raw!r}")
+        if not os.path.isfile(raw):
+            raise ValueError(f"FFMPEG_BIN path does not exist or is not a file: {raw!r}")
+        if not os.access(raw, os.X_OK):
+            raise ValueError(f"FFMPEG_BIN path is not executable: {raw!r}")
+        return raw
+
+    return "ffmpeg"
+
+
+_FFMPEG = _resolve_ffmpeg()
 
 
 def _merge_dict(a: Dict[str, Any] | None, b: Dict[str, Any] | None) -> Dict[str, Any]:
@@ -251,7 +277,10 @@ async def _encode(state: _State) -> dict[str, Any]:
     except FileNotFoundError:
         return {
             "status": "error",
-            "error": f"ffmpeg not found at {_FFMPEG} — install ffmpeg or set FFMPEG_BIN",
+            "error": (
+                    f"ffmpeg not found ({_FFMPEG!r}) — "
+                    "install ffmpeg in the container or set FFMPEG_BIN to an absolute executable path"
+                ),
             "videoInlineB64": "",
             "videoMime": "video/mp4",
             "fps": fps,

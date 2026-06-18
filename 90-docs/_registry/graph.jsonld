@@ -16346,6 +16346,42 @@
       "lastVerified": "2026-06-17"
     },
     {
+      "id": "doc:adr-2606171200-chie-ai-ecosystem-kg-mirror",
+      "type": "TechArticle",
+      "title": "ADR-2606171200: chie 智慧 — AI-ecosystem KG mirror (有力者・組織・投資・政策)",
+      "status": "accepted",
+      "topic": "chie-ai-ecosystem-kg-mirror",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/chie"
+      ],
+      "related": [
+        "doc:adr-2606066001-keizu-government-power-relations-kg",
+        "doc:adr-2606022000-kabuto-supply-chain-kg",
+        "doc:adr-2606032000-kanjo-financial-disclosure-kg",
+        "doc:adr-2606073000-inochi-living-world-kg-mirror"
+      ],
+      "lastVerified": "2026-06-17"
+    },
+    {
+      "id": "doc:adr-2606171300-tokigusuri-pharma-patent-cliff-mirror",
+      "type": "TechArticle",
+      "title": "ADR-2606171300: tokigusuri 時薬 — pharmaceutical patent-cliff / off-patent-access observation mirror",
+      "status": "accepted",
+      "topic": "tokigusuri-pharma-patent-cliff-mirror",
+      "authoritative": true,
+      "authoritativeFor": [
+        "tokigusuri 時薬 actor (pharmaceutical patent-cliff / off-patent-access observation mirror)",
+        "pharma-patent-ontology"
+      ],
+      "related": [
+        "doc:2606073200",
+        "doc:2606032000",
+        "doc:2605312700"
+      ],
+      "lastVerified": "2026-06-17"
+    },
+    {
       "id": "doc:adr-2606172100-retire-unispsc-python-per-code-fleet",
       "type": "TechArticle",
       "title": "ADR-2606172100: Retire the open-UNSPSC per-code Python agent fleet — superseded by the clj unspsc actor",

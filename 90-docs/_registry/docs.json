@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-06-17",
+  "updated_at": "2026-06-18",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.md",
@@ -25868,6 +25868,99 @@
         "2606061000",
         "2605215000",
         "2605192200"
+      ],
+      "last_verified": "2026-06-17",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606171200-chie-ai-ecosystem-kg-mirror.md",
+      "id": "adr-2606171200-chie-ai-ecosystem-kg-mirror",
+      "title": "ADR-2606171200: chie 智慧 — AI-ecosystem KG mirror (有力者・組織・投資・政策)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "chie-ai-ecosystem-kg-mirror",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/chie"
+      ],
+      "related": [
+        "adr-2606066001-keizu-government-power-relations-kg",
+        "adr-2606022000-kabuto-supply-chain-kg",
+        "adr-2606032000-kanjo-financial-disclosure-kg",
+        "adr-2606073000-inochi-living-world-kg-mirror"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606011800-tsumugi-engi-knowledge-graph",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state"
+      ],
+      "last_verified": "2026-06-17",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606171300-tokigusuri-pharma-patent-cliff-mirror.md",
+      "id": "adr-2606171300-tokigusuri-pharma-patent-cliff-mirror",
+      "title": "ADR-2606171300: tokigusuri 時薬 — pharmaceutical patent-cliff / off-patent-access observation mirror",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "tokigusuri-pharma-patent-cliff-mirror",
+      "authoritative": true,
+      "authoritative_for": [
+        "tokigusuri 時薬 actor (pharmaceutical patent-cliff / off-patent-access observation mirror)",
+        "pharma-patent-ontology"
+      ],
+      "related": [
+        "2606073200",
+        "2606032000",
+        "2605312700"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606073400",
+        "2606073000",
+        "2605250500",
+        "2604271830",
+        "2606011800",
+        "2605262800",
+        "2605312345",
+        "2605215000"
+      ],
+      "last_verified": "2026-06-17",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606171400-yakushi-wave-2-disinfectant-antiseptic-manufacturing.md",
+      "id": "adr-2606171400-yakushi-wave-2-disinfectant-antiseptic-manufacturing",
+      "title": "yakushi Wave 2 — disinfectant / antiseptic (消毒薬) formulation manufacturing (ethanol / hypochlorite / povidone-iodine / chlorhexidine / BAK / IPA / H₂O₂) with efficacy-window + no-toxic-gas gates",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "yakushi-wave-2-disinfectant",
+      "authoritative": true,
+      "authoritative_for": [
+        "7 公定書 (日局/USP/EP) off-patent disinfectant/antiseptic actives across the FORMULATION (dilute/blend) manufacturing model",
+        "1 new Pregel cell (formulation) + 1 new lexicon (com.etzhayyim.yakushi.formulationAttestation)",
+        "1 new kotoba EAVT entity (:formulationAttestation/*)",
+        "4 new constitutional gates G21..G24 (efficacy-window / no-toxic-gas / flammable-label / use-class)",
+        "clj-native (SSoT) implementation in 20-actors/yakushi/py/agent.clj + test_agent.clj (no Python counterpart — clj-as-SSoT direction)"
+      ],
+      "related": [
+        "20-actors/yakushi/",
+        "20-actors/yakushi/py/agent.clj",
+        "20-actors/yakushi/cells/formulation_attestation.edn",
+        "20-actors/yakushi/lex/formulationAttestation.edn"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605250500-yakushi-pharmaceutical-rd-charter",
+        "adr-2605250530-yakushi-sterile-fill-finish-and-container",
+        "adr-2605262130-kotoba-storage-substrate-unification"
       ],
       "last_verified": "2026-06-17",
       "amends": [],

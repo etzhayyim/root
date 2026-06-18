@@ -25,6 +25,23 @@ candidate to a trainable/deployable target is member-CACAO-gated** (ADR-26061722
 this harness only scores and drafts.
 
 ### Next (R1, leash-gated)
-Fill the missing t2 signals (bench `maxwell-1`/`baien` on e7m micro; measure tok/s) so the
-cohort is comparable; then the Co-scientist `propose`/`recombine` cells over **novel**
-genotypes (config genes + merge recipes) — only behind a member-signed capability.
+Fill the missing t2 signals so the cohort is comparable, then the Co-scientist
+`propose`/`recombine` cells over **novel** genotypes (config genes + merge recipes) —
+only behind a member-signed capability.
+
+**R1 cohort-bench harness (ready):** `70-tools/scripts/maxwell/bench_micro.py` runs any
+HF causal-LM (optionally base+LoRA) through the **same** e7m microbench set that scored
+`maxwell-diffusion-1` at 0.80, emitting a comparable pass-rate + tok/s. Run on gad
+(Murakumo), then fold `{score, tok_s}` into `genotypes.edn` and re-run `bb rank.clj`:
+
+```
+scp 70-tools/scripts/bench/baien-microbench/microbench.py gad:~/maxwell/
+scp 70-tools/scripts/maxwell/bench_micro.py               gad:~/maxwell/
+ssh gad 'cd ~/maxwell && HSA_OVERRIDE_GFX_VERSION=11.5.1 HF_HUB_OFFLINE=1 \
+  venv-train/bin/python bench_micro.py --base google/gemma-4-E4B-it \
+    --adapter ~/maxwell/out/m1-r1 --label maxwell-1 --out maxwell1_micro.json'
+```
+
+_(The R1 run itself is pending: gad was unreachable over Tailscale at 2026-06-17 close
+— sshd `tx/rx 3900/0`, LAN host-down. The harness is staged so R1 is a one-command run
+when gad returns; no maxwell-1 score is fabricated until then.)_

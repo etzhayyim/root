@@ -38,7 +38,9 @@ methods/kotoba.cljc       Wave 2: content-addressed append-only OBSERVATION LEDG
 methods/autorun.cljc      Wave 2: deterministic, idempotent-by-content heartbeat — analyze → append ONLY on change (+ bb CLI)
 methods/test_*.cljc       loader + analytics + G1/G3/G5 + ledger/heartbeat invariants
 kotoba/ontology.busshi.edn  EAVT schema + negative space (unrepresentable attrs)
-kotoba/seed.edn           Wave 1 seed (25 commodities, all 5 classes, :representative)
+kotoba/seed.edn           seed (26 commodities, all 5 classes); MIXED provenance —
+                          22 :authoritative (14 USGS metals + WNA uranium + EIA/OPEC
+                          crude/gas/coal + FAO wheat/corn/soybean/coffee); 4 :representative
 data/ (gitignored)        generated observation ledger — never committed/hand-edited
 manifest.edn              gates G1–G8 + non-goals N1–N5 + method/seed/ledger registry
 ```
@@ -47,9 +49,12 @@ manifest.edn              gates G1–G8 + non-goals N1–N5 + method/seed/ledger
 
 `[":db/add" entity ":busshi.<resource>/<aspect>" value]` (attrs are `:`-prefixed
 strings, kotoba EAVT). Entities: `busshi-commodity:<id>`, `busshi-class:<class>`.
-Every DERIVED datom carries `:busshi/derived true` + `:busshi/sourcing ":representative"`
-(never re-ingested as authoritative). Disclosed-fact namespaces: `:busshi.commodity/*`,
-`:busshi.producer/*`. Derived: `:busshi.obs/*`, `:busshi.class/*`.
+Every DERIVED datom carries `:busshi/derived true` + the input row's `:busshi/sourcing`
+(`:representative` by default; `:authoritative` rows additionally carry `:busshi/source`,
+the cited primary source folded via an operator-triggered G7 ingest). Provenance
+describes the INPUT producer shares, not the computed score — the observation is always
+`:derived`. Disclosed-fact namespaces: `:busshi.commodity/*`, `:busshi.producer/*`.
+Derived: `:busshi.obs/*`, `:busshi.class/*`.
 
 ## Run
 
@@ -68,8 +73,28 @@ bb --classpath 20-actors 20-actors/busshi/methods/autorun.cljc           # heart
   (`kotoba.cljc`) + deterministic, **idempotent-by-content** heartbeat (`autorun.cljc`) —
   observations appended to a tamper-evident commit-DAG (verify-chain) ONLY when they change
   (identical beat = no-op); resume-safe, no-server-key, gitignored. Mirrors ugachi (ADR-2606170900).
-- Wave 2+: per-commodity depth (stocks/curve as facts, recycling-loop linkage to kanayama,
-  primary-source ingest behind G7), Murakumo-narrated digest, fleet registration, lexicons.
+- **Wave 2+ first authoritative ingest (landed)**: operator-triggered G7 fold of real
+  primary-source producer shares — USGS Mineral Commodity Summaries 2025 (2024e mine
+  production, smelter for Al) for **14 metals**: cobalt / lithium / nickel / antimony /
+  copper / aluminium / zinc / lead / tin / tungsten / gold / silver / platinum / palladium.
+  Those rows carry `:sourcing :authoritative` + a cited `:busshi/source`; the
+  analytics/datoms/report thread per-row provenance (mixed `:representative`/`:authoritative`).
+  The seed header reserves live ingest for an operator step; this fold was operator-commanded.
+  **+ uranium** folded from the **World Nuclear Association** 2024 table (tU): Kazakhstan 39 /
+  Canada 24 / Namibia 12 / Australia 8 / Uzbekistan 7 (Canada 15→24 is the big move).
+  **+ the whole energy class** folded: crude oil (EIA "Crude Oil incl. Lease Condensate",
+  crude-only basis — US 16 / Saudi 12 / Russia 12 — resolving the earlier total-liquids
+  mismatch), natural gas (OPEC ASB 2025 — US 26 / Russia 14 / Iran 7), coal (EIA 2024 — China
+  50 / India 11 / Indonesia 9).
+  **+ FAO ag-softs**: wheat (FAOSTAT 2022 — China 17 / India 13 / Russia 13), corn (2020 —
+  US 31 / China 22 / Brazil 9), soybean (2022 — Brazil 35 / US 33 / Argentina 13), coffee
+  (2023 green-coffee — Brazil 31 / Vietnam 18 / Indonesia 7). The final 4 `:representative`
+  are there for cause: **sugar HELD** (row is raw sugar #11; FAO measures sugarcane, much of
+  which diverts to ethanol → cane-share ≠ sugar-share; needs an ISO/USDA refined-sugar table)
+  + **gallium/germanium** (USGS publishes no clean production-by-country table) + **REE**
+  (defers to the rare-earth-coverage actor).
+- Wave 2+: per-commodity depth (stocks/curve as facts, recycling-loop linkage to kanayama),
+  Murakumo-narrated digest, fleet registration, lexicons.
 
 ## Related
 

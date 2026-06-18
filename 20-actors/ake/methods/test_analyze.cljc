@@ -67,4 +67,50 @@
        (is (str/includes? md "community-edit membrane dry-run"))
        (is (str/includes? md "Revision history")))))
 
+;; ── edge cases the :representative seed can't express (mirror of test_analyze.py) ──
+;; `run` is pure over PARSED data, so the synthetic batch is built inline (no file edge) and
+;; these run on every platform: a hard-gate refusal at intake (unsourced → G4) plus two
+;; accepted edits on the SAME (entity, attr).
+(def ^:private edge-seed
+  {":edit/batch"
+   [{":edit/id" "g1" ":edit/target-kind" ":kg-fact" ":edit/target-entity" "org.corp.x"
+     ":edit/target-attr" ":corp/hq-address" ":edit/op" ":assert" ":edit/proposed-value" "addr v1"
+     ":edit/author" "did:web:etzhayyim.com:member:abel" ":edit/author-kind" ":member"
+     ":edit/provenance" "https://example.com/x1" ":edit/rationale" "a clear sourced reason"
+     ":edit/server-held-key" false ":edit/info-as-of" 1000 ":edit/sourcing" ":authoritative"}
+    {":edit/id" "g2" ":edit/target-kind" ":kg-fact" ":edit/target-entity" "org.corp.x"
+     ":edit/target-attr" ":corp/hq-address" ":edit/op" ":assert" ":edit/proposed-value" "addr v2"
+     ":edit/author" "did:web:etzhayyim.com:member:abel" ":edit/author-kind" ":member"
+     ":edit/provenance" "https://example.com/x2" ":edit/rationale" "a later sourced correction"
+     ":edit/server-held-key" false ":edit/info-as-of" 1020 ":edit/sourcing" ":authoritative"}
+    {":edit/id" "bad" ":edit/target-kind" ":kg-fact" ":edit/target-entity" "org.corp.x"
+     ":edit/target-attr" ":corp/note" ":edit/op" ":assert" ":edit/proposed-value" "unsourced claim"
+     ":edit/author" "did:web:etzhayyim.com:member:korah" ":edit/author-kind" ":member"
+     ":edit/provenance" "" ":edit/rationale" "no source provided"
+     ":edit/server-held-key" false ":edit/info-as-of" 1010 ":edit/sourcing" ":representative"}]})
+
+(defn- edge-by-id [res]
+  (into {} (map (fn [r] [(get r "edit") r]) (get res "rows"))))
+
+(deftest test-intake-refused-edit-is-recorded-not-accepted-and-does-not-crash-the-run
+  (let [m (edge-by-id (a/run edge-seed))]
+    (is (= ":refused-at-intake" (get-in m ["bad" "route"])))
+    (is (false? (get-in m ["bad" "accepted"])))
+    (is (seq (get-in m ["bad" "note"])))
+    (is (and (get-in m ["g1" "accepted"]) (get-in m ["g2" "accepted"])))))
+
+(deftest test-intake-refused-author-trajectory
+  (let [traj (get (a/run edge-seed) "trajectory")]
+    (is (= {"accepted" 0 "refused" 1}
+           (contrib/counts traj "did:web:etzhayyim.com:member:korah")))))
+
+(deftest test-report-dedups-repeated-entity-attr-key
+  (let [res (a/run edge-seed)
+        h (get res "history")]
+    (is (= 2 (count (rev/history-of h "org.corp.x" "hq-address"))))
+    (is (= "addr v2" (get (rev/current h "org.corp.x" "hq-address") ":revision/value")))
+    (let [md (a/report res)]
+      (is (= 1 (count (re-seq #"`org.corp.x` `hq-address`" md))))
+      (is (str/includes? md "2 revision(s)")))))
+
 #?(:clj (defn -main [& _] (run-tests 'ake.methods.test-analyze)))

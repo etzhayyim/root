@@ -124,6 +124,14 @@ def test_vote_refuses_server_signature():
     assert cs["phase"] == ReviewPhase.REFUSED.value and "no-server-key" in cs["refusal"]
 
 
+def test_vote_refuses_unknown_mechanism():
+    # the closed-vocab guard: only the declared mechanisms (optimistic / sbt-vote / council-lv7)
+    # can tally — an off-vocab mechanism is refused before any count is read.
+    cs = tally({"cell_state": {}, "edit_id": "e2", "mechanism": "coin-flip", "yes": 9, "no": 0,
+                "signed_by": "did:web:etzhayyim.com:member:op"})["cell_state"]
+    assert cs["phase"] == ReviewPhase.REFUSED.value and "unknown review mechanism" in cs["refusal"]
+
+
 # ───────────────────────────── promote (G4/G8/G9) ───────────────────────────
 def test_promote_clears_accepted_member_signed():
     cs = review_promotion({"cell_state": {}, "edit_id": "e1", "entity": "org.corp.tsmc",
@@ -160,6 +168,20 @@ def test_revision_log_appends_and_grows():
     assert s1["phase"] == RevisionPhase.APPENDED.value and s1["payload"]["revisions"] == 1
     s2 = append({"cell_state": {}, "history": s1["history"], "edit": _good_edit(), "as_of": 200})["cell_state"]
     assert s2["payload"]["revisions"] == 2   # append-only, never overwrites
+
+
+def test_revision_log_refuses_if_log_does_not_grow_by_exactly_one():
+    # the G5 cell-level guard: if the underlying log fails to grow by exactly one, the cell
+    # REFUSES rather than silently proceed. Force the violation by stubbing append_revision to
+    # return the history unchanged (Python resolves the global at call time, so this is seen).
+    import revision_log.state_machine as rlsm
+    orig = rlsm.append_revision
+    rlsm.append_revision = lambda history, edit, as_of: list(history)  # no growth
+    try:
+        cs = append({"cell_state": {}, "history": [], "edit": _good_edit(), "as_of": 100})["cell_state"]
+    finally:
+        rlsm.append_revision = orig
+    assert cs["phase"] == RevisionPhase.REFUSED.value and "G5" in cs["refusal"]
 
 
 # ───────────────────────────── .solve() raises at R0 ────────────────────────
