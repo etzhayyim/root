@@ -20,10 +20,10 @@
 
 (deftest chokepoint-levels
   (is (= :critical (a/chokepoint-risk (a/top-producer-share (by-id "ga"))))) ; gallium 98
-  (is (= :critical (a/chokepoint-risk (a/top-producer-share (by-id "co"))))) ; cobalt 74
+  (is (= :critical (a/chokepoint-risk (a/top-producer-share (by-id "co"))))) ; cobalt cd=76 (USGS 2024e)
   (is (= :low      (a/chokepoint-risk (a/top-producer-share (by-id "au"))))) ; gold 10
   (is (= :moderate (a/chokepoint-risk (a/top-producer-share (by-id "zn"))))) ; zinc cn=33
-  (is (= :high     (a/chokepoint-risk (a/top-producer-share (by-id "ni")))))) ; nickel id=50
+  (is (= :high     (a/chokepoint-risk (a/top-producer-share (by-id "ni")))))) ; nickel id=59 (USGS 2024e)
 
 (deftest route-by-dominant-driver
   (is (= :de-monopolization (a/route (by-id "ga"))) "gallium: monopoly dominant")
@@ -49,6 +49,22 @@
     (is (str/includes? edn ":busshi/sourcing"))
     (is (str/includes? edn ":busshi.obs/multigen-risk"))
     (is (str/includes? edn ":busshi.obs/chokepoint-risk"))))
+
+(deftest authoritative-provenance-folded
+  ;; G7 operator-triggered ingest: rows carrying :sourcing :authoritative emit
+  ;; :busshi/sourcing :authoritative + a cited :busshi/source; :representative
+  ;; rows carry neither an :authoritative tag nor a :busshi/source.
+  (let [edn (a/render-datoms (a/analyze (cs)))
+        co  (a/analyze-commodity (by-id "co"))]
+    (is (= :authoritative (get co "sourcing")) "cobalt is USGS-sourced")
+    (is (str/includes? (get co "source") "USGS MCS 2025"))
+    (is (= :representative (get (a/analyze-commodity (by-id "au")) "sourcing"))
+        "gold stays representative")
+    (is (str/includes? edn ":authoritative"))
+    (is (str/includes? edn ":busshi/source"))
+    (is (str/includes? edn "USGS MCS 2025"))
+    ;; the authoritative folding changed the disclosed cobalt share to the real 2024e value
+    (is (= 76 (a/top-producer-share (by-id "co"))))))
 
 (deftest g1-g3-no-trade-no-signal-no-forecast
   ;; G1: never a trade. G3: never a signal / point forecast.

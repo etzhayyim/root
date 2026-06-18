@@ -1,7 +1,11 @@
-;; busshi 物資 — Wave 1 seed (representative, all-domains-thin).
-;; ALL figures are REPRESENTATIVE public-knowledge approximations (:sourcing
-;; :representative) — illustrative of the supply/concentration shape, NOT a live
-;; or authoritative feed (live primary-source ingest = G7 operator step).
+;; busshi 物資 — seed (all-domains-thin); MIXED provenance per row.
+;; Rows without an explicit :sourcing default to :representative — public-knowledge
+;; approximations illustrating the supply/concentration shape. Rows carrying
+;; :sourcing :authoritative + :source were folded from a cited PRIMARY source via
+;; an OPERATOR-TRIGGERED G7 ingest (ADR-2606161730 Wave-2+): the :producers shares
+;; on those rows are real (e.g. USGS Mineral Commodity Summaries 2025, 2024e mine
+;; production by country). The non-production factors (carbon-intensity /
+;; irreversibility / recyclability / ref-level) stay :representative on every row.
 ;; producers = [[:country share-pct] ...]; :other = fragmented rest-of-world
 ;; (excluded from concentration math). carbon-intensity / irreversibility /
 ;; recyclability ∈ 0..1 (multi-gen footprint factors). ref-level = a representative
@@ -32,8 +36,9 @@
   :producers [[:cn 33] [:pe 11] [:au 10] [:in 5] [:other 41]]
   :recyclability 0.80 :carbon-intensity 0.55 :irreversibility 0.5 :ref-level 2900}
  {:type :commodity :id "ni" :symbol "Ni" :name "Nickel"    :class :base-metal :unit "USD/tonne"
-  :producers [[:id 50] [:ph 11] [:ru 7] [:other 32]]
-  :recyclability 0.70 :carbon-intensity 0.7 :irreversibility 0.65 :ref-level 17000}
+  :producers [[:id 59] [:ph 9] [:ru 6] [:ca 5] [:other 21]]
+  :recyclability 0.70 :carbon-intensity 0.7 :irreversibility 0.65 :ref-level 17000
+  :sourcing :authoritative :source "USGS MCS 2025 (2024e mine production)"}
  {:type :commodity :id "pb" :symbol "Pb" :name "Lead"      :class :base-metal :unit "USD/tonne"
   :producers [[:cn 43] [:au 10] [:us 7] [:other 40]]
   :recyclability 0.90 :carbon-intensity 0.5 :irreversibility 0.5 :ref-level 2000}
@@ -43,11 +48,13 @@
 
  ;; ── rare / critical metals (thin; rare-earths defer to rare-earth-coverage) ─
  {:type :commodity :id "li" :symbol "Li" :name "Lithium"        :class :rare-metal :unit "USD/tonne-LCE"
-  :producers [[:au 47] [:cl 24] [:cn 18] [:ar 5] [:other 6]]
-  :recyclability 0.30 :carbon-intensity 0.55 :irreversibility 0.6 :ref-level 14000}
+  :producers [[:au 37] [:cl 20] [:cn 17] [:zw 9] [:ar 8] [:other 9]]
+  :recyclability 0.30 :carbon-intensity 0.55 :irreversibility 0.6 :ref-level 14000
+  :sourcing :authoritative :source "USGS MCS 2025 (2024e mine production, ex-US)"}
  {:type :commodity :id "co" :symbol "Co" :name "Cobalt"         :class :rare-metal :unit "USD/tonne"
-  :producers [[:cd 74] [:id 6] [:ru 4] [:other 16]]
-  :recyclability 0.45 :carbon-intensity 0.6 :irreversibility 0.65 :ref-level 27000}
+  :producers [[:cd 76] [:id 10] [:ru 3] [:other 11]]
+  :recyclability 0.45 :carbon-intensity 0.6 :irreversibility 0.65 :ref-level 27000
+  :sourcing :authoritative :source "USGS MCS 2025 (2024e mine production)"}
  {:type :commodity :id "ree" :symbol "REE" :name "Rare Earths (NdPr/Dy/Tb agg.)" :class :rare-metal :unit "index"
   :producers [[:cn 69] [:us 12] [:mm 11] [:au 5] [:other 3]]
   :recyclability 0.10 :carbon-intensity 0.6 :irreversibility 0.65 :ref-level nil
@@ -62,8 +69,9 @@
   :producers [[:cn 80] [:vn 5] [:other 15]]
   :recyclability 0.40 :carbon-intensity 0.5 :irreversibility 0.55 :ref-level 340}
  {:type :commodity :id "sb" :symbol "Sb" :name "Antimony"       :class :rare-metal :unit "USD/tonne"
-  :producers [[:cn 48] [:tj 25] [:ru 5] [:other 22]]
-  :recyclability 0.30 :carbon-intensity 0.5 :irreversibility 0.55 :ref-level 25000}
+  :producers [[:cn 60] [:tj 17] [:ru 13] [:other 10]]
+  :recyclability 0.30 :carbon-intensity 0.5 :irreversibility 0.55 :ref-level 25000
+  :sourcing :authoritative :source "USGS MCS 2025 (2024e mine production)"}
 
  ;; ── energy carriers ────────────────────────────────────────────────────────
  {:type :commodity :id "crude" :symbol "WTI/Brent" :name "Crude Oil" :class :energy :unit "USD/bbl"

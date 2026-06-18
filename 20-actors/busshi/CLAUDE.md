@@ -38,7 +38,8 @@ methods/kotoba.cljc       Wave 2: content-addressed append-only OBSERVATION LEDG
 methods/autorun.cljc      Wave 2: deterministic, idempotent-by-content heartbeat — analyze → append ONLY on change (+ bb CLI)
 methods/test_*.cljc       loader + analytics + G1/G3/G5 + ledger/heartbeat invariants
 kotoba/ontology.busshi.edn  EAVT schema + negative space (unrepresentable attrs)
-kotoba/seed.edn           Wave 1 seed (25 commodities, all 5 classes, :representative)
+kotoba/seed.edn           seed (26 commodities, all 5 classes); MIXED provenance —
+                          4 USGS-sourced (:authoritative), the rest :representative
 data/ (gitignored)        generated observation ledger — never committed/hand-edited
 manifest.edn              gates G1–G8 + non-goals N1–N5 + method/seed/ledger registry
 ```
@@ -47,9 +48,12 @@ manifest.edn              gates G1–G8 + non-goals N1–N5 + method/seed/ledger
 
 `[":db/add" entity ":busshi.<resource>/<aspect>" value]` (attrs are `:`-prefixed
 strings, kotoba EAVT). Entities: `busshi-commodity:<id>`, `busshi-class:<class>`.
-Every DERIVED datom carries `:busshi/derived true` + `:busshi/sourcing ":representative"`
-(never re-ingested as authoritative). Disclosed-fact namespaces: `:busshi.commodity/*`,
-`:busshi.producer/*`. Derived: `:busshi.obs/*`, `:busshi.class/*`.
+Every DERIVED datom carries `:busshi/derived true` + the input row's `:busshi/sourcing`
+(`:representative` by default; `:authoritative` rows additionally carry `:busshi/source`,
+the cited primary source folded via an operator-triggered G7 ingest). Provenance
+describes the INPUT producer shares, not the computed score — the observation is always
+`:derived`. Disclosed-fact namespaces: `:busshi.commodity/*`, `:busshi.producer/*`.
+Derived: `:busshi.obs/*`, `:busshi.class/*`.
 
 ## Run
 
@@ -68,8 +72,15 @@ bb --classpath 20-actors 20-actors/busshi/methods/autorun.cljc           # heart
   (`kotoba.cljc`) + deterministic, **idempotent-by-content** heartbeat (`autorun.cljc`) —
   observations appended to a tamper-evident commit-DAG (verify-chain) ONLY when they change
   (identical beat = no-op); resume-safe, no-server-key, gitignored. Mirrors ugachi (ADR-2606170900).
-- Wave 2+: per-commodity depth (stocks/curve as facts, recycling-loop linkage to kanayama,
-  primary-source ingest behind G7), Murakumo-narrated digest, fleet registration, lexicons.
+- **Wave 2+ first authoritative ingest (landed)**: operator-triggered G7 fold of real
+  primary-source producer shares — USGS Mineral Commodity Summaries 2025 (2024e mine
+  production) for cobalt / lithium / nickel / antimony. Those rows carry `:sourcing
+  :authoritative` + a cited `:busshi/source`; the analytics/datoms/report thread per-row
+  provenance (mixed `:representative`/`:authoritative`). The seed header reserves live
+  ingest for an operator step; this fold was operator-commanded. Next: widen USGS coverage
+  (cu/al/zn/pb/sn/pt/pd/w/au/ag), then non-USGS classes (EIA energy, USDA ag) per source.
+- Wave 2+: per-commodity depth (stocks/curve as facts, recycling-loop linkage to kanayama),
+  Murakumo-narrated digest, fleet registration, lexicons.
 
 ## Related
 
