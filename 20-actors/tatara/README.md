@@ -22,13 +22,12 @@ Charter Rider §2(c) reciprocity axis; Wellbecoming §1.13). Enforced by constru
 ## Run
 
 ```bash
-bash 20-actors/tatara/run_tests.sh
-# Testing tatara.methods.test-analyze … Ran 9 tests / 403 assertions.  0 failures.
-# Testing tatara.methods.test-kotoba  … Ran 5 tests / 546 assertions.  0 failures.
-# Testing tatara.methods.test-autorun … Ran 5 tests / 1213 assertions. 0 failures.
-# Testing tatara.methods.test-lexicons… Ran 4 tests / 44 assertions.   0 failures.
-# Testing tatara.methods.test-crosscheck Ran 4 tests / 20 assertions.  0 failures.
-# ── tatara: ALL suites green ──   (56 tests / 5,095 assertions)
+bb 20-actors/tatara/run_tests.clj
+# Testing tatara.methods.test-analyze
+# Testing tatara.methods.test-kotoba
+# … (10 suites)
+# Ran 56 tests containing 5095 assertions.  0 failures, 0 errors.
+# ── tatara: ALL suites green ──
 
 # kabuto-linkage crosscheck → out/kabuto-crosscheck.md (24/29 = 83% linkage)
 bb -cp 20-actors -e "(require 'tatara.methods.crosscheck)(tatara.methods.crosscheck/-main)"
