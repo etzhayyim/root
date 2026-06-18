@@ -41,6 +41,13 @@ import { isRawCidV1, isDagPbCidV1, verifyRawCid } from "./cid";
 import { verifyCarToBytes } from "./car";
 import { fetchOnChainVm } from "./erc725";
 import { handleVerifyCacao, handleAccountWrite } from "./session";
+// ClojureScript Worker core (shadow-cljs :esm → ../cljs-out/worker_core.js).
+// Incremental hybrid migration (operator decision 2026-06-18): the cljs core
+// owns a growing set of routes and hands any route it does NOT own back to the
+// legacy TS handler (`tsFetch` below) — so the cut-over is route-by-route and
+// rollback-safe. Build the core with `cd cljs && npm run build` before deploy.
+// @ts-expect-error — generated ESM bundle, no .d.ts (string-keyed interop).
+import { handle as cljsHandle } from "../cljs-out/worker_core.js";
 
 /**
  * etzhayyim did:web Worker + apex reverse proxy
@@ -1107,16 +1114,23 @@ function rewriteUpstreamResponse(upstream: Response, pathname: string): Response
   });
 }
 
-export default {
-  async fetch(
-    request: Request,
-    env: Env,
-    ctx: ExecutionContext,
-  ): Promise<Response> {
+// Legacy TypeScript request handler. The cljs Worker core (worker_core.js)
+// delegates here for any route it does not yet own. As routes migrate into
+// did-web.* cljs/cljc, the matching branches below are deleted; when the core
+// owns everything, only the proxy tail remains and this collapses away.
+const tsFetch = async (
+  request: Request,
+  env: Env,
+  ctx: ExecutionContext,
+): Promise<Response> => {
     const url = new URL(request.url);
 
     // ──────────────────────────────────────────────────────────────────
     // 1) Entity DID Document — local, no upstream call.
+    //    NOTE: now OWNED by the cljs core (did-web.core/did-json-route).
+    //    This TS branch is dead under normal delegation and kept only as a
+    //    parity reference until the next route batch lands; it is removed in
+    //    the cleanup pass.
     // ──────────────────────────────────────────────────────────────────
     if (url.pathname === "/.well-known/did.json") {
       if (request.method !== "GET" && request.method !== "HEAD") {
@@ -2113,5 +2127,26 @@ a{color:inherit}
         }
       );
     }
+};
+
+// Dependency-injection object for the cljs core (module scope, built once).
+// The core is PURE over these: the static did.json import + (as routes migrate)
+// the compiled registries and the TS helpers it does not re-implement. Keys are
+// read in cljs via goog.object/get (string access), so they survive Closure
+// :advanced property renaming — see did-web.core's interop rule.
+const cljsDeps = {
+  didDoc,
+};
+
+export default {
+  async fetch(
+    request: Request,
+    env: Env,
+    ctx: ExecutionContext,
+  ): Promise<Response> {
+    // The cljs core owns a growing set of routes; everything it does not own
+    // falls through to the legacy TS handler (tsFetch). This is the single
+    // delegation seam for the incremental clj/kotoba migration.
+    return cljsHandle(request, env, ctx, cljsDeps, tsFetch);
   },
 } satisfies ExportedHandler<Env>;
