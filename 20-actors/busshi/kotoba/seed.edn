@@ -121,7 +121,8 @@
   :recyclability 0.0 :carbon-intensity 0.4 :irreversibility 0.4 :ref-level 2.4
   :sourcing :authoritative :source "FAOSTAT (2023 green-coffee production, Mt)"}
  {:type :commodity :id "sugar" :symbol "SB" :name "Sugar" :class :ag-soft :unit "USD/lb"
-  :producers [[:br 22] [:in 19] [:eu 9] [:th 6] [:other 44]]
+  :producers [[:br 23] [:in 18] [:eu 8] [:cn 7] [:th 5] [:other 39]]
   :recyclability 0.0 :carbon-intensity 0.4 :irreversibility 0.4 :ref-level 0.2
-  :note "HELD :representative — the row is raw sugar (#11); FAO measures sugarcane (the crop), and much cane diverts to ethanol, so cane-share ≠ sugar-share (cf. crude/total-liquids). Needs an ISO/USDA refined-sugar table."}
+  :sourcing :authoritative :source "USDA FAS Sugar: World Markets and Trade (centrifugal sugar, raw value, world 186.1 Mt)"
+  :note "Centrifugal-sugar (raw value) basis matches the #11 raw-sugar row — distinct from sugarcane crop tonnage (much cane diverts to ethanol)."}
 ]
