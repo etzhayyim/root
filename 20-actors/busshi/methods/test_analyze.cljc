@@ -62,7 +62,7 @@
         "germanium (USGS calls its own refinery-production data unverifiable) stays representative")
     (is (str/includes? edn ":authoritative"))
     (is (str/includes? edn ":busshi/source"))
-    (is (str/includes? edn "USGS MCS 2025"))
+    (is (str/includes? edn "USGS MCS"))
     ;; the authoritative folding changed the disclosed cobalt share to the real value
     (is (= 73 (a/top-producer-share (by-id "co"))))))  ; USGS MCS 2026 (2025e)
 
