@@ -1,69 +1,104 @@
 (ns noroshi.methods.test-kami-isac-bridge
-  "Tests for the noroshi×kami-autodrive ISAC sensor bridge (ADR-2606051600).
-  1:1 Clojure port of methods/test_kami_isac_bridge.py (pytest → clojure.test)."
-  (:require [clojure.test :refer [deftest is run-tests]]
+  "noroshi 烽 × kami-autodrive ISAC sensor bridge tests (ADR-2606051600). 1:1 Clojure port of
+  methods/test_kami_isac_bridge.py, PLUS the constitutional gates the task requires made explicit:
+
+    G3 civilian-force-separation / N1 — the bridge senses object range/velocity only; no
+       fire-control / targeting field is representable.
+    G4 sensing-not-surveillance / N2 — a ScenarioObject is a civilian object (range0/velocity),
+       NEVER a person; a TrackPoint carries no biometric / pattern-of-life field.
+    G10 sourcing-honesty — the track report is byte-identical to python3 + states the HONEST
+       integration state (kami-engine submodule unpopulated)."
+  (:require [clojure.test :refer [deftest is testing run-tests]]
             [clojure.string :as str]
             [noroshi.methods.isac-sim :as isac]
-            [noroshi.methods.kami-isac-bridge :as kib]))
+            [noroshi.methods.kami-isac-bridge :as k]))
 
-(def WF (isac/isac-waveform))
+(def WF (isac/waveform))
 
-(defn- approx? [a b rel]
-  (<= (Math/abs (- (double a) (double b))) (* rel (max (Math/abs (double a)) (Math/abs (double b)) 1e-300))))
+(defn approx?
+  ([a b] (approx? a b 1e-6))
+  ([a b tol] (<= (Math/abs (- (double a) (double b))) tol)))
 
+(defn rel-approx? [a b tol]
+  (<= (Math/abs (- (double a) (double b))) (* tol (Math/abs (double b)))))
+
+(defn bins-set [ests] (set (map (fn [e] [(:range-bin e) (:doppler-bin e)]) ests)))
+
+;; ── ported assertions ────────────────────────────────────────────────────────
 (deftest test-track-follows-closing-range
-  (let [obj (kib/scenario-object "o1" (* 30 (isac/range-resolution-m WF)) (* 2 (isac/velocity-resolution-mps WF)))
-        track (kib/track-object WF obj :frames 6 :frame_dt_s 0.002)
-        ranges (mapv #(get % "range_m") track)]
+  (let [obj (k/scenario-object "o1" (* 30 (isac/range-resolution-m WF))
+                               (* 2 (isac/velocity-resolution-mps WF)))
+        track (k/track-object WF obj :frames 6 :frame-dt-s 0.002)
+        ranges (mapv :range-m track)]
     (is (= (count track) 6))
-    (is (every? (fn [i] (>= (ranges i) (ranges (inc i)))) (range (dec (count ranges)))))))
+    (is (every? (fn [i] (>= (nth ranges i) (nth ranges (inc i)))) (range (dec (count ranges)))))))
 
 (deftest test-velocity-recovered-each-frame
   (let [v (* 3 (isac/velocity-resolution-mps WF))
-        obj (kib/scenario-object "o1" (* 30 (isac/range-resolution-m WF)) v)
-        track (kib/track-object WF obj :frames 4)]
+        obj (k/scenario-object "o1" (* 30 (isac/range-resolution-m WF)) v)
+        track (k/track-object WF obj :frames 4)]
     (doseq [p track]
-      (is (approx? (get p "velocity_mps") v 1e-6)))))
+      (is (rel-approx? (:velocity-mps p) v 1e-6)))))
 
 (deftest test-track-stops-when-object-passes-ego
-  (let [obj (kib/scenario-object "fast" (* 2 (isac/range-resolution-m WF)) (* 50 (isac/velocity-resolution-mps WF)))
-        track (kib/track-object WF obj :frames 20 :frame_dt_s 0.05)]
+  (let [obj (k/scenario-object "fast" (* 2 (isac/range-resolution-m WF))
+                               (* 50 (isac/velocity-resolution-mps WF)))
+        track (k/track-object WF obj :frames 20 :frame-dt-s 0.05)]
     (is (< (count track) 20))
-    (is (every? #(> (get % "range_m") 0) track))))
+    (is (every? (fn [p] (> (:range-m p) 0)) track))))
 
 (deftest test-run-scenario-returns-track-per-object
-  (let [objs [(kib/scenario-object "a" (* 15 (isac/range-resolution-m WF)) (isac/velocity-resolution-mps WF))
-              (kib/scenario-object "b" (* 18 (isac/range-resolution-m WF)) (* 2 (isac/velocity-resolution-mps WF)))]
-        tracks (kib/run-scenario objs :wf WF :frames 3)]
+  (let [objs [(k/scenario-object "a" (* 15 (isac/range-resolution-m WF)) (isac/velocity-resolution-mps WF))
+              (k/scenario-object "b" (* 18 (isac/range-resolution-m WF)) (* 2 (isac/velocity-resolution-mps WF)))]
+        tracks (k/run-scenario objs :wf WF :frames 3)]
     (is (= (set (keys tracks)) #{"a" "b"}))
-    (is (every? #(= (count %) 3) (vals tracks)))))
+    (is (every? (fn [t] (= (count t) 3)) (vals tracks)))))
 
 (deftest test-object-starting-at-or-behind-ego-yields-empty-track
-  (let [obj (kib/scenario-object "at-ego" 0.0 (isac/velocity-resolution-mps WF))]
-    (is (= (kib/track-object WF obj :frames 5) []))))
+  (let [obj (k/scenario-object "at-ego" 0.0 (isac/velocity-resolution-mps WF))]
+    (is (= (k/track-object WF obj :frames 5) []))))
 
 (deftest test-zero-velocity-object-keeps-constant-range
-  (let [obj (kib/scenario-object "static" (* 12 (isac/range-resolution-m WF)) 0.0)
-        track (kib/track-object WF obj :frames 4)
-        ranges (set (map (fn [p] (-> (get p "range_m") (* 1e6) Math/round (/ 1e6))) track))]
+  (let [obj (k/scenario-object "static" (* 12 (isac/range-resolution-m WF)) 0.0)
+        track (k/track-object WF obj :frames 4)
+        ranges (set (map (fn [p] (isac/py-round (:range-m p) 6)) track))]
     (is (= (count ranges) 1))
-    (is (every? #(= (get % "doppler_bin") 0) track))))
+    (is (every? (fn [p] (= (:doppler-bin p) 0)) track))))
 
 (deftest test-sense-frame-detects-all-objects-in-one-shot
-  (let [objs [(kib/scenario-object "a" (* 4 (isac/range-resolution-m WF)) (* 2 (isac/velocity-resolution-mps WF)))
-              (kib/scenario-object "b" (* 14 (isac/range-resolution-m WF)) (* 5 (isac/velocity-resolution-mps WF)))]
-        dets (kib/sense-frame objs :wf WF)
-        bins (set (map (fn [d] [(get d "range_bin") (get d "doppler_bin")]) dets))]
-    (is (= bins #{[4 2] [14 5]}))))
+  (let [objs [(k/scenario-object "a" (* 4 (isac/range-resolution-m WF)) (* 2 (isac/velocity-resolution-mps WF)))
+              (k/scenario-object "b" (* 14 (isac/range-resolution-m WF)) (* 5 (isac/velocity-resolution-mps WF)))]
+        dets (k/sense-frame objs :wf WF)]
+    (is (= (bins-set dets) #{[4 2] [14 5]}))))
 
 (deftest test-sense-frame-drops-objects-at-or-behind-ego
-  (let [objs [(kib/scenario-object "ahead" (* 6 (isac/range-resolution-m WF)) (isac/velocity-resolution-mps WF))
-              (kib/scenario-object "at-ego" 0.0 (isac/velocity-resolution-mps WF))]]
-    (is (= (count (kib/sense-frame objs :wf WF)) 1))))
+  (let [objs [(k/scenario-object "ahead" (* 6 (isac/range-resolution-m WF)) (isac/velocity-resolution-mps WF))
+              (k/scenario-object "at-ego" 0.0 (isac/velocity-resolution-mps WF))]]
+    (is (= (count (k/sense-frame objs :wf WF)) 1))))
 
 (deftest test-report-renders-and-is-civilian
-  (let [txt (kib/report)]
+  (let [txt (k/report)]
     (is (str/includes? txt "ISAC sensor"))
     (is (or (str/includes? txt "Civilian") (str/includes? txt "civilian")))))
 
-#?(:clj (defn -main [& _] (run-tests 'noroshi.methods.test-kami-isac-bridge)))
+;; ── extra gate-enforcement tests (gates test-enforced 1:1) ────────────────────
+(deftest test-gate-scenario-object-is-civilian-object-not-person
+  ;; G4/N2: a ScenarioObject is range0/velocity only — never a person/biometric field.
+  (let [o (k/scenario-object "obj" 100.0 10.0)]
+    (is (= (set (keys o)) #{:object-id :range0-m :velocity-mps}))
+    (is (not (contains? o :person)))
+    (is (not (contains? o :biometric)))))
+
+(deftest test-gate-track-point-has-no-targeting-field
+  ;; G3/N1: a TrackPoint is kinematic (range/velocity/bins) — no fire-control / weaponizable field.
+  (let [obj (k/scenario-object "o1" (* 30 (isac/range-resolution-m WF))
+                               (* 2 (isac/velocity-resolution-mps WF)))
+        p (first (k/track-object WF obj :frames 2))]
+    (is (= (set (keys p)) #{:frame :time-s :range-m :velocity-mps :range-bin :doppler-bin}))
+    (is (not (contains? p :weaponizable)))
+    (is (not (contains? p :fire-control)))))
+
+(deftest test-gate-report-states-honest-integration
+  (let [txt (k/report)]
+    (is (str/includes? txt "HONEST"))
+    (is (str/includes? txt "kami-engine submodule is unpopulated"))))

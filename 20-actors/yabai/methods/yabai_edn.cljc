@@ -1,153 +1,126 @@
 (ns yabai.methods.yabai-edn
-  "yabai_edn.py — shared minimal EDN reader + datom classifier (stdlib only).
-  1:1 Clojure port of `methods/yabai_edn.py` (ADR-2605301400 §T3).
+  "yabai — minimal EDN-subset reader + datom classifier + EDN serializer
+  (1:1 Clojure port of methods/yabai_edn.py, ADR-2605301400 §T3). Keeps the yabai
+  CTI cells dependency-free, mirroring the kabuto/kasa/ipaddress *_edn family.
 
-  Same subset as kabuto/ipaddress readers: vectors [], maps {}, :keyword, \"string\",
-  number, bool, nil. Keeps the yabai CTI cells dependency-free.
-
-  House style: Python ':…' keyword strings stay strings (NOT clojure keywords) so the
-  whole pipeline stays string-keyed, byte-for-byte the same as the Python port. Pure fns;
-  file I/O only at the #?(:clj) load-edn edge."
+  Reader: top-level vector of maps; values are strings, longs, doubles, keywords
+  (kept as \":ns/name\" strings), nil/true/false, nested vectors. Maps preserve
+  insertion order. Classifier buckets domains/pdns/iphist/certs/indicators/access/
+  btobs (domains keyed by :domain/id, the rest lists)."
   (:require [clojure.string :as str]))
 
-;; ── tokens ──────────────────────────────────────────────────────────────────
-;; _TOK = re.compile(r'[\s,]+|;[^\n]*|(\[|\]|\{|\}|"(?:\\.|[^"\\])*"|[^\s,\[\]{}]+)')
-(def ^:private tok-re
-  #"[\s,]+|;[^\n]*|(\[|\]|\{|\}|\"(?:\\.|[^\"\\])*\"|[^\s,\[\]{}]+)")
+;; ── reader (same proven char-cursor reader as the *_edn family) ─────────────
+(def ^:private eof ::eof)
+(defn- ws? [c] (or (= c \space) (= c \tab) (= c \return) (= c \newline) (= c \,)))
+(defn- delim? [c] (or (ws? c) (= c \[) (= c \]) (= c \{) (= c \}) (= c \")))
 
-(defn tokens
-  "Lazy seq of significant tokens (group 1 of each tok-re match that captured)."
-  [s]
-  (let [m (re-matcher tok-re s)]
-    ((fn step []
-       (lazy-seq
-        (when (.find m)
-          (let [t (.group m 1)]
-            (if (nil? t)
-              (step)
-              (cons t (step))))))))))
+(defn- ordered-assoc [m k v]
+  (if (and (instance? clojure.lang.PersistentArrayMap m) (< (count m) 8) (not (contains? m k)))
+    (assoc m k v)
+    (let [had? (contains? m k)
+          base (if (::order (meta m)) m (with-meta (into (array-map) m) {::order (vec (keys m))}))
+          m' (assoc base k v)]
+      (if had? (with-meta m' (meta base))
+          (with-meta m' (update (meta base) ::order (fnil conj []) k))))))
 
-;; alias matching the Python private name (used by kotoba._tokens import).
-(def ^:private _tokens tokens)
+(defn- skip-ws [^String s n i]
+  (loop [i i]
+    (if (>= i n) i
+        (let [c (.charAt s i)]
+          (cond
+            (= c \;) (recur (loop [j i] (if (and (< j n) (not= (.charAt s j) \newline)) (recur (inc j)) j)))
+            (ws? c) (recur (inc i))
+            :else i)))))
 
-(defn atom-of
-  "Port of _atom: \"…\" → unescaped string; true/false/nil → bool/nil; \":…\" kept as string;
-  int → long; else float; else raw string."
-  [t]
-  (cond
-    (str/starts-with? t "\"")
-    (-> (subs t 1 (dec (count t)))
-        (str/replace "\\\"" "\"")
-        (str/replace "\\\\" "\\"))
-    (= t "true") true
-    (= t "false") false
-    (= t "nil") nil
-    (str/starts-with? t ":") t
-    :else
-    (let [as-long (try (Long/parseLong t) (catch #?(:clj Exception :cljs :default) _ ::nan))]
-      (if (not= as-long ::nan)
-        as-long
-        (let [as-dbl (try (Double/parseDouble t) (catch #?(:clj Exception :cljs :default) _ ::nan))]
-          (if (not= as-dbl ::nan) as-dbl t))))))
+(declare read-form)
+(defn- read-vec [^String s n i]
+  (loop [i i, out []]
+    (let [i (skip-ws s n i)]
+      (cond
+        (>= i n) (throw (ex-info "unterminated vector" {}))
+        (= (.charAt s i) \]) [out (inc i)]
+        :else (let [[v i] (read-form s n i)] (recur i (conj out v)))))))
+(defn- read-map [^String s n i]
+  (loop [i i, out (array-map)]
+    (let [i (skip-ws s n i)]
+      (cond
+        (>= i n) (throw (ex-info "unterminated map" {}))
+        (= (.charAt s i) \}) [out (inc i)]
+        :else (let [[k i] (read-form s n i) [v i] (read-form s n i)]
+                (recur i (ordered-assoc out k v)))))))
+(defn- read-str [^String s n i]
+  (let [sb (StringBuilder.)]
+    (loop [i i]
+      (if (>= i n) (throw (ex-info "unterminated string" {}))
+          (let [c (.charAt s i)]
+            (cond
+              (= c \\) (let [nxt (if (< (inc i) n) (.charAt s (inc i)) \space)
+                             rep (case nxt \n \newline \t \tab \r \return nxt)]
+                         (.append sb rep) (recur (+ i 2)))
+              (= c \") [(.toString sb) (inc i)]
+              :else (do (.append sb c) (recur (inc i)))))))))
+(defn- read-kw [^String s n i]
+  (let [j i] (loop [i (inc i)] (if (and (< i n) (not (delim? (.charAt s i)))) (recur (inc i)) [(subs s j i) i]))))
+(defn- numeric-token? [^String tok]
+  (and (some #(or (= % \.) (= % \e) (= % \E)) tok)
+       (let [stripped (-> tok (str/replace #"^[-+]+" "") (str/replace "." "")
+                          (str/replace "e" "") (str/replace "E" "") (str/replace "-" "") (str/replace "+" ""))]
+         (and (seq stripped) (every? #(Character/isDigit ^char %) stripped)))))
+(defn- read-atom [^String s n i]
+  (let [j i]
+    (loop [i i]
+      (if (and (< i n) (not (delim? (.charAt s i)))) (recur (inc i))
+          (let [tok (subs s j i)]
+            [(cond
+               (= tok "nil") nil (= tok "true") true (= tok "false") false
+               (numeric-token? tok) (try (Double/parseDouble tok) (catch #?(:clj Exception :cljs :default) _ tok))
+               :else (let [as-long (try (Long/parseLong tok) (catch #?(:clj Exception :cljs :default) _ ::nan))]
+                       (if (not= as-long ::nan) as-long tok)))
+             i])))))
+(defn- read-form [^String s n i]
+  (let [i (skip-ws s n i)]
+    (if (>= i n) [eof i]
+        (let [c (.charAt s i)]
+          (cond
+            (= c \[) (read-vec s n (inc i)) (= c \{) (read-map s n (inc i))
+            (= c \") (read-str s n (inc i)) (= c \:) (read-kw s n i)
+            :else (read-atom s n i))))))
 
-(def ^:private end-marker ::end)
+(defn read-all [text]
+  (let [s (str text), n (count s)]
+    (loop [i 0, forms []]
+      (let [[v i] (read-form s n i)]
+        (if (= v eof) (or (first (filter vector? forms)) (first forms) [])
+            (recur i (conj forms v)))))))
 
-(defn- parse-step
-  "Consume one form from the token vector at index i. Returns [value next-i] or
-  [end-marker next-i] when a closing ] or } is hit (matching _parse's _END sentinel)."
-  [toks i]
-  (let [t (nth toks i)
-        i (inc i)]
-    (cond
-      (= t "[")
-      (loop [i i, out []]
-        (let [[x i] (parse-step toks i)]
-          (if (= x end-marker)
-            [out i]
-            (recur i (conj out x)))))
+#?(:clj (defn read-file [path] (read-all (slurp (str path)))))
+(def load-edn read-file)   ; python name alias
 
-      (= t "{")
-      (loop [i i, out {}]
-        (let [[k i] (parse-step toks i)]
-          (if (= k end-marker)
-            [out i]
-            (let [[v i] (parse-step toks i)]
-              (recur i (assoc out k v))))))
-
-      (or (= t "]") (= t "}"))
-      [end-marker i]
-
-      :else
-      [(atom-of t) i])))
-
-(defn parse-tokens
-  "Parse the first top-level form from a token seq (matches _parse(_tokens(...)))."
-  [toks]
-  (first (parse-step (vec toks) 0)))
-
-;; alias matching the Python private name (kotoba._parse import).
-(def ^:private _parse parse-tokens)
-
-(defn read-edn
-  "Parse the first top-level form from EDN text."
-  [text]
-  (parse-tokens (tokens text)))
-
-#?(:clj
-   (defn load-edn
-     "Read + parse an EDN file (file I/O only at this edge)."
-     [path]
-     (read-edn (slurp (str path)))))
-
-;; ── classify ──────────────────────────────────────────────────────────────────
+;; ── classifier (port of yabai_edn.classify) ─────────────────────────────────
 (def ^:private buckets
   [[":domain/id" "domains"] [":pdns/id" "pdns"] [":iphist/id" "iphist"]
    [":tlscert/id" "certs"] [":indicator/id" "indicators"] [":access/id" "access"]
    [":btobs/id" "btobs"]])
-
 (def ^:private keyed #{"domains"})
 
-;; helper that performs the bucket insert (mirrors Python's per-record `break`).
-(defn- bucket-insert [out name key r keyed?]
-  (if keyed?
-    (assoc-in out [name (get r key)] r)
-    (update out name conj r)))
-
-(defn classify
-  "Port of classify(rows). Bucket each record by its first matching id key.
-  domains is keyed by :domain/id; the rest are appended lists."
-  [rows]
-  (let [init (reduce (fn [m [_k name]]
-                       (assoc m name (if (contains? keyed name) {} [])))
-                     {}
-                     buckets)]
+(defn classify [rows]
+  (let [init (reduce (fn [m [_ name]] (assoc m name (if (keyed name) {} []))) {} buckets)]
     (reduce
      (fn [out r]
        (if-not (map? r)
          out
-         (loop [bs buckets]
-           (if (empty? bs)
-             out
-             (let [[key name] (first bs)]
-               (if (contains? r key)
-                 (bucket-insert out name key r (contains? keyed name))
-                 (recur (rest bs))))))))
-     init
-     rows)))
+         (if-let [[k name] (some (fn [[k name]] (when (contains? r k) [k name])) buckets)]
+           (if (keyed name)
+             (update out name assoc (get r k) r)
+             (update out name conj r))
+           out)))
+     init rows)))
 
-;; ── EDN serialization ──────────────────────────────────────────────────────────
-(defn edn-str
-  "Port of edn_str: quote a string with \\ and \" escaped."
-  [s]
-  (str "\"" (-> (str s)
-                (str/replace "\\" "\\\\")
-                (str/replace "\"" "\\\""))
-       "\""))
+;; ── EDN serializer (port of edn_str / edn_val / to_edn) ─────────────────────
+(defn edn-str [s]
+  (str \" (-> (str s) (str/replace "\\" "\\\\") (str/replace "\"" "\\\"")) \"))
 
-(defn edn-val
-  "Port of edn_val: bool→true/false, number→str, list→[…], string starting with ':'→raw,
-  else quoted string."
-  [x]
+(defn edn-val [x]
   (cond
     (boolean? x) (if x "true" "false")
     (number? x) (str x)
@@ -155,14 +128,9 @@
     (string? x) (if (str/starts-with? x ":") x (edn-str x))
     :else (edn-str (str x))))
 
-(defn to-edn
-  "Port of to_edn(recs, header_lines)."
-  [recs header-lines]
-  (let [lines (concat (vec header-lines) ["["]
-                      (map (fn [r]
-                             (str " {"
-                                  (str/join " " (map (fn [[k v]] (str k " " (edn-val v))) r))
-                                  "}"))
-                           recs)
-                      ["]"])]
+(defn to-edn [recs header-lines]
+  (let [body (map (fn [r]
+                    (str " {" (str/join " " (map (fn [[k v]] (str k " " (edn-val v))) r)) "}"))
+                  recs)
+        lines (concat header-lines ["["] body ["]"])]
     (str (str/join "\n" lines) "\n")))

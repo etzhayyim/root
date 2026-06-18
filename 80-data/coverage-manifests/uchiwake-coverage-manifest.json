@@ -1,0 +1,41 @@
+{
+  "actor": "uchiwake",
+  "name": "uchiwake-coverage",
+  "artifacts": [
+    {
+      "file": "products.merged.kotoba.edn",
+      "cid": "bafkreib7yagcmrxzley2eyho5b2miuncm2n6rjj3tmyvlnxvkpls5ptcfq",
+      "local_single_block_cid": "bafkreib7yagcmrxzley2eyho5b2miuncm2n6rjj3tmyvlnxvkpls5ptcfq",
+      "daemon_cid": "bafkreib7yagcmrxzley2eyho5b2miuncm2n6rjj3tmyvlnxvkpls5ptcfq",
+      "chunked": false,
+      "verified": true,
+      "bytes": 96563
+    }
+  ],
+  "primary_cid": "bafkreib7yagcmrxzley2eyho5b2miuncm2n6rjj3tmyvlnxvkpls5ptcfq",
+  "datalad": {
+    "dataset": "80-data/uchiwake-coverage",
+    "created": true,
+    "saved": true,
+    "commit": "e4af197101f2ee017c589e2710a927dd5aeee848"
+  },
+  "ipns": {
+    "published": true,
+    "ipns": "k51qzi5uqu5dl5fz0a2jne4vyxfluz01ftn5t1bunolwyxhvuz6y0tgx57z968",
+    "key": "coverage-uchiwake-coverage"
+  },
+  "kotobase": {
+    "status": "operator-follow-up",
+    "note": "no KOTOBA_PIN_TOKEN; /pins is 401 unauthed + pod isolated (ADR-2606111330). CID is locally pinned + DataLad-saved; register on kotobase.net when a CACAO/JWT token is provided."
+  },
+  "gateways": [
+    "https://ipfs.io/ipfs/bafkreib7yagcmrxzley2eyho5b2miuncm2n6rjj3tmyvlnxvkpls5ptcfq",
+    "https://dweb.link/ipfs/bafkreib7yagcmrxzley2eyho5b2miuncm2n6rjj3tmyvlnxvkpls5ptcfq",
+    "https://cloudflare-ipfs.com/ipfs/bafkreib7yagcmrxzley2eyho5b2miuncm2n6rjj3tmyvlnxvkpls5ptcfq"
+  ],
+  "adr": [
+    "2605241500",
+    "2606111330",
+    "2606142300"
+  ]
+}

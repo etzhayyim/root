@@ -221,14 +221,8 @@
    (defn head-cid
      ([] (head-cid log-default))
      ([log-path]
-      (let [f (clojure.java.io/file (str log-path))]
-       (if-not (.exists f)
-         ""
-         (let [last-line (->> (str/split-lines (slurp f))
-                              (map str/trim)
-                              (remove (fn [l] (or (str/blank? l) (str/starts-with? l ";"))))
-                              last)]
-           (or (when last-line (second (re-find #":tx/cid \"(b[0-9a-f]+)\"" last-line))) "")))))))
+      (let [txs (read-log log-path)]
+        (if (seq txs) (get (last txs) ":tx/cid") "")))))
 
 #?(:clj
    (defn verify-chain

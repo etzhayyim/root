@@ -136,3 +136,15 @@ foundry.lock
 60-apps/etzhayyim-project-mailer/appview/mailer-mcp-component/static-ui/
 60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/_svelte/
 60-apps/etzhayyim-project-pachinko/wasm/pachinko-mcp-component/static/_app/
+
+# kotoba is consumed as the external etzhayyim/kotoba repo (the in-tree submodule
+# was removed, ADR-2606131645). CI/dev clone it into this path on demand.
+40-engine/kotoba/
+
+# matsurigoto tax-collect 一次資料は DataLad/git-annex の nested dataset (ADR-2605241500):
+# bytes は annex→IPFS、monorepo git には catalog (80-data/matsurigoto-gensen-sources.md) のみ。
+80-data/matsurigoto-gensen-sources/
+
+# Council-authorised live-ingest DataLad datasets (data → DataLad/git-annex/IPFS, not git).
+# Git-tracked pointer = 80-data/coverage-manifests/<name>-manifest.json (ADR-2605241500 + 2606111330).
+/80-data/*-coverage/

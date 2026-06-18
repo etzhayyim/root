@@ -1,0 +1,76 @@
+;; umisachi-ontology — the seafood / marine-bounty (海産物) vocabulary for umisachi 海幸
+;; ADR-2606074200 · marine sibling of biosphere-ontology (ADR-2606073000) and of asobi-ontology
+;; (ADR-2606073200), specialised to FISH STOCKS / FISHERIES+AQUACULTURE / COLD-CHAIN /
+;; MARKETS and the PRESSURES that gate them — the ocean half of food provisioning (the marine
+;; handoff of mitsuho N9), mirror-only.
+;;
+;; PURPOSE: weave stocks / fisheries / logistics / markets and the PRESSURES that gate
+;; sustainable provisioning into the kotoba Datom log. The lens is provisioning-NOURISHMENT
+;; (who is equitably fed) vs 取-DEPLETION (overfishing / IUU / enclosure / climate harm),
+;; routed to RESTORATION.
+;;
+;; CONSTITUTIONAL INVERSION (G1, read first): umisachi is a NOURISHMENT / RESTORATION map,
+;; NEVER a catch-target / fishing-ground list. NO stock coordinates, NO fishing-ground GPS,
+;; NO per-stock catch score. Coordinate-shaped keys are refused at load. Regions are coarse
+;; FAO major-area NAMES only.
+;;
+;; EDGE-PRIMARY (N1): 取 lives ONLY on edges (:en/load). A stock's depletion = the INTEGRAL
+;; of its incident depletion 縁, computed on READ — never a stored score-of-stock.
+;;
+;; FACTORY-FISHING UNREPRESENTABLE (G4): :factory-fishing / :bottom-trawl / :driftnet / :iuu /
+;; :dynamite / :cyanide can NEVER be a :fishery/method (refused at load) — they exist ONLY as
+;; a :pressure node (the disclosed harm), routed to restoration. Inherits mitsuho N1/N9.
+
+{:schema/id "umisachi-ontology"
+ :schema/version "0.1.0"
+ :schema/adr "2606074200"
+
+ ;; ── nodes ──────────────────────────────────────────────────────────────────
+ :node/attrs
+ [{:attr :organism/id        :doc "stable id, e.g. stock.skipjack-wcpo / fishery.setnet-coastal"}
+  {:attr :organism/kind       :doc ":stock | :fishery | :logistics | :market | :pressure"}
+  {:attr :organism/label      :doc "common/display label"}
+  {:attr :organism/sourcing   :doc ":authoritative (FAO/RAM/ICES/IUCN/CCAMLR/ICCAT/MSC) | :representative (bounded seed)"}
+
+  ;; stock facet (a fish/shellfish/seaweed stock)
+  {:attr :stock/species       :doc "scientific name"}
+  {:attr :stock/status        :doc ":sustainable | :recovering | :fully-fished | :overfished | :depleted | :unknown (DISCLOSED, not adjudicated)"}
+  {:attr :stock/region        :doc "coarse FAO major-area NAME only — NEVER coordinates (G1)"}
+
+  ;; fishery facet (a SUSTAINABLE harvest/culture method — destructive methods unrepresentable, G4)
+  {:attr :fishery/method      :doc ":pole-line | :set-net | :trap | :seaweed-culture | :shellfish-culture | :imta | :recirculating-aquaculture | :hand-gather"}
+  {:attr :fishery/scale       :doc ":artisanal | :community | :industrial"}
+
+  ;; logistics facet (the cold-chain / port / processing / distribution path)
+  {:attr :logistics/kind      :doc ":cold-chain | :port | :processing | :distribution | :market-hall"}
+
+  ;; market facet (consumption; access category drives provisioning-equity weight)
+  {:attr :market/kind         :doc ":local | :domestic | :export | :commons"}
+  {:attr :market/access       :doc ":commons | :open | :regulated | :enclosed | :proprietary (DISCLOSED, not adjudicated)"}
+
+  ;; pressure facet (the 取-holder / harm; gates sustainable provisioning)
+  {:attr :pressure/kind       :doc ":overfishing | :iuu | :bycatch | :habitat-loss | :acidification | :warming | :pollution | :monopoly | :factory-fishing"}
+  {:attr :pressure/links      :doc "optional org id in tsumugi/kabuto power-graph (accountability cross-link); aggregate-first"}]
+
+ ;; ── edges (縁) ───────────────────────────────────────────────────────────────
+ :edge/attrs
+ [{:attr :en/from            :doc "source organism id"}
+  {:attr :en/to              :doc "target organism id"}
+  {:attr :en/kind            :doc "provisioning: :provisions | :nourishes | :stewards | :restores | :cultivates  ·  depletion: :depletes | :encloses | :gates"}
+  {:attr :en/load            :doc "0..1 — for provisioning 縁: how much bounty it carries; for depletion 縁: how much 取 it imposes. karma lives HERE (N1)."}
+  {:attr :en/sourcing        :doc ":authoritative | :representative"}]
+
+ ;; ── derived (transient, computed on READ — NEVER stored; N1/G2) ──────────────
+ :derived/attrs
+ [{:attr :bond/provisioning-nourishment :doc "node integral of incident provisioning 縁 × disclosed access weight — the equitable-bounty surface to widen"}
+  {:attr :bond/depletion-load           :doc "node integral of incident depletion/enclosure loads borne — routed to RESTORATION"}
+  {:attr :bond/depletion-imposed        :doc "holder integral of outbound depletion loads — the 取-holder gating the bounty"}
+  {:attr :bond/is-transient             :doc "const true — derived readout, not a stored datom"}]
+
+ ;; ── disclosed market-access category → provisioning-equity weight (NOT a verdict) ──
+ :access/weight
+ {:commons 1.0 :open 0.9 :regulated 0.7 :enclosed 0.3 :proprietary 0.1}
+
+ ;; ── destructive methods refused at load as a fishery (G4); representable only as :pressure ──
+ :method/forbidden
+ #{:factory-fishing :bottom-trawl :driftnet :iuu :dynamite :cyanide :ghost-gear :gillnet-drift}}

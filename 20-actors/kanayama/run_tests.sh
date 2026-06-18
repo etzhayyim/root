@@ -1,5 +1,25 @@
 #!/usr/bin/env bash
-# kanayama — charter-gate suite, bb/clj (ADR-2606160842; py pruned).
-set -euo pipefail
-cd "$(dirname "$0")/../.."
-exec bb -e '(require (quote clojure.test) (quote kanayama.methods.test-charter-gates) (quote kanayama.py.test-agent) (quote kanayama.cells.intake-qa.test-state-machine) (quote kanayama.cells.decoating-separation.test-state-machine) (quote kanayama.cells.melting-furnace.test-state-machine) (quote kanayama.cells.dross-recovery.test-state-machine) (quote kanayama.cells.dc-casting.test-state-machine) (quote kanayama.cells.hot-rolling.test-state-machine) (quote kanayama.cells.cold-rolling-finishing.test-state-machine) (quote kanayama.cells.air-emissions-audit.test-state-machine) (quote kanayama.cells.mass-balance-binder.test-state-machine))(let [r (clojure.test/run-tests (quote kanayama.methods.test-charter-gates) (quote kanayama.py.test-agent) (quote kanayama.cells.intake-qa.test-state-machine) (quote kanayama.cells.decoating-separation.test-state-machine) (quote kanayama.cells.melting-furnace.test-state-machine) (quote kanayama.cells.dross-recovery.test-state-machine) (quote kanayama.cells.dc-casting.test-state-machine) (quote kanayama.cells.hot-rolling.test-state-machine) (quote kanayama.cells.cold-rolling-finishing.test-state-machine) (quote kanayama.cells.air-emissions-audit.test-state-machine) (quote kanayama.cells.mass-balance-binder.test-state-machine))](System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))'
+# kanayama 金山 — run the whole test suite with one command.
+# Standalone-runnable tests (the repo pytest plugin env is broken); each exits non-zero on failure.
+set -uo pipefail
+cd "$(dirname "$0")"
+
+SUITES=(
+  "methods/test_charter_gates.py"
+  "py/test_agent.py"
+)
+
+fail=0
+for s in "${SUITES[@]}"; do
+  [ -f "$s" ] || continue
+  dir="$(dirname "$s")"; file="$(basename "$s")"
+  if ( cd "$dir" && python3 "$file" ); then :; else
+    echo "FAILED: $s"; fail=1
+  fi
+done
+
+if [ "$fail" -eq 0 ]; then
+  echo "── kanayama: ALL suites green ──"
+else
+  echo "── kanayama: FAILURES above ──"; exit 1
+fi

@@ -40,15 +40,15 @@
    (deftest test-manifest-cells-have-dirs-and-state-machines
      (doseq [cell (get (manifest) "cells")]
        (let [d (io/file cells-dir (get cell "name"))]
-         ;; py->cljc port wave (ADR-2606160842): cells are now state_machine.cljc, cell.py pruned.
-         (is (.isFile (io/file d "state_machine.cljc"))
-             (str "missing " (get cell "name") "/state_machine.cljc"))))))
+         (is (.isFile (io/file d "cell.py")) (str "missing " (get cell "name") "/cell.py"))
+         (is (.isFile (io/file d "state_machine.py"))
+             (str "missing " (get cell "name") "/state_machine.py"))))))
 
 #?(:clj
    (deftest test-every-cell-dir-is-in-the-manifest
      (let [declared (set (map #(get % "name") (get (manifest) "cells")))
            on-disk (set (for [p (.listFiles (io/file cells-dir))
-                              :when (and (.isDirectory p) (.isFile (io/file p "state_machine.cljc")))]
+                              :when (and (.isDirectory p) (.isFile (io/file p "cell.py")))]
                           (.getName p)))]
        (is (= on-disk declared) (str "cell tree " on-disk " != manifest " declared)))))
 

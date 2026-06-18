@@ -12,4 +12,20 @@
   :product/ring :internal :product/maker-actor "yakushi" :product/source :internal-actor
   :product/unspsc "51142300" :product/price-minor 5000000 :product/currency "USDC"
   :product/durability-years 2.0 :product/repairability 0 :product/labor-provenance :etzhayyim-dignity
+  :product/carbon-kg 0.2 :product/lifecycle-route :haraedo :product/sourcing :representative}
+ ;; ── Wave 2 disinfectants / antiseptics (ADR-2606171400) ──
+ {:product/id "int.yakushi.disinfecting-ethanol" :product/title "yakushi 消毒用エタノール 80vol% (火気厳禁)"
+  :product/ring :internal :product/maker-actor "yakushi" :product/source :internal-actor
+  :product/unspsc "51473300" :product/price-minor 4000000 :product/currency "USDC"
+  :product/durability-years 3.0 :product/repairability 0 :product/labor-provenance :etzhayyim-dignity
+  :product/carbon-kg 0.4 :product/lifecycle-route :haraedo :product/sourcing :representative}
+ {:product/id "int.yakushi.povidone-iodine-antiseptic" :product/title "yakushi ポビドンヨード液 10% (外用消毒)"
+  :product/ring :internal :product/maker-actor "yakushi" :product/source :internal-actor
+  :product/unspsc "51102710" :product/price-minor 6000000 :product/currency "USDC"
+  :product/durability-years 3.0 :product/repairability 0 :product/labor-provenance :etzhayyim-dignity
+  :product/carbon-kg 0.3 :product/lifecycle-route :haraedo :product/sourcing :representative}
+ {:product/id "int.yakushi.sodium-hypochlorite-surface" :product/title "yakushi 次亜塩素酸ナトリウム 0.1% (環境消毒・混ぜるな危険)"
+  :product/ring :internal :product/maker-actor "yakushi" :product/source :internal-actor
+  :product/unspsc "47131801" :product/price-minor 3000000 :product/currency "USDC"
+  :product/durability-years 0.5 :product/repairability 0 :product/labor-provenance :etzhayyim-dignity
   :product/carbon-kg 0.2 :product/lifecycle-route :haraedo :product/sourcing :representative}]

@@ -11,6 +11,7 @@
    local r/atoms reset on each open (the svelte $effect-on-visible equivalent)."
   (:require [reagent.core :as r]
             [re-frame.core :as rf]
+            [yoro-ui.interop.sound :as snd]
             [yoro-ui.legal.content :refer [inference-consent-document]]))
 
 (defn- modal []
@@ -80,8 +81,8 @@
              [:button {:type "button"
                        :class (str "flex-1 rounded-2xl border border-gv2-border py-3 text-[13px] font-bold text-gv2-text-muted "
                                    "touch-manipulation active:bg-gv2-bg-base transition-all duration-75")
-                       ;; TODO: playClick() sound interop
-                       :on-click #(rf/dispatch [:inference-consent/decline])}
+                       :on-click #(do (snd/play-tap-soft!)
+                                       (rf/dispatch [:inference-consent/decline]))}
               "Decline"]
              [:button {:type "button"
                        :class (str "flex-1 rounded-2xl py-3 text-[13px] font-black text-white "

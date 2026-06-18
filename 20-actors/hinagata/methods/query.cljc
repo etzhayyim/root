@@ -1,100 +1,110 @@
 (ns hinagata.methods.query
-  "hinagata 雛形 — knowledge-graph query interface over the legal-template commons.
-  1:1 Clojure port of `methods/query.py` (ADR-2606111954).
+  "hinagata 雛形 — knowledge-graph query interface over the legal-template commons (ADR-2606111954).
+  1:1 Clojure port of `methods/query.py`.
 
   Maturity / usability: the kotoba Datom EDN is a knowledge graph, not just a flat list — this
   module exposes the practical drafter queries that prove it (the point of the kotoba Datalog
-  substrate). All queries are PURE graph traversals over the loaded (nodes, edges); nothing is
+  substrate). All queries are pure graph traversals over the loaded {:nodes :edges}; nothing is
   stored, nothing mutates (N1).
 
-    templates-in-jurisdiction(jx)      — templates governed by a jurisdiction
-    statutes-grounding-template(tmpl)  — every public statute a template rests on (clause→statute)
-    translations-of(tmpl)              — its other-language versions (:translates, both directions)
-    conflicting-clauses(clause)        — clauses a drafter must not combine with it (:conflicts-with)
-    jurisdictions-for-concept(concept) — where a legal concept is grounded in real law
-    coverage-gaps(concept)             — the inverse worklist over MAJOR-JURISDICTIONS
+    templates-in-jurisdiction (jx)       — templates governed by a jurisdiction
+    statutes-grounding-template (tmpl)   — every public statute a template rests on (clause→statute)
+    translations-of (tmpl)               — its other-language versions (:translates, both directions)
+    conflicting-clauses (clause)         — clauses a drafter must not combine with it (:conflicts-with)
+    jurisdictions-for-concept (concept)  — where a legal concept is grounded in real law
+    coverage-gaps (concept)              — major jurisdictions still lacking grounding (worklist)
 
-  House style: ':…' strings stay strings; pure fns; file I/O only behind #?(:clj …). Requires
-  the good analyze.cljc sibling for the loader + CITE_KINDS. Python `__main__` CLI behind
-  #?(:clj …)."
-  (:require [clojure.string :as str]
-            [hinagata.methods.analyze :as analyze]))
+  CONSTITUTIONAL: G1 — a COMMONS, never the practice of law. A statute citation is a DISCLOSED
+  structural FACT (this clause cites this article), never a hinagata verdict (N3).
 
-(def ^:private cite-kinds analyze/cite-kinds)   ;; mirrors analyze.CITE_KINDS
+  House style: Python ':…' keyword strings stay strings; pure fns; requires the ported
+  hinagata.methods.analyze for the loader + cite-kinds. Portable .cljc."
+  (:require [hinagata.methods.analyze :as analyze]))
 
-(defn- label
-  "_label(nodes, nid): nodes.get(nid, {}).get(':lt/label', nid)."
+(defn label
+  "nodes.get(nid, {}).get(':lt/label', nid) — the node's label, defaulting to its id."
   [nodes nid]
   (get-in nodes [nid ":lt/label"] nid))
 
 (defn templates-in-jurisdiction
+  "Templates :governed-by `jx` (de-duplicated, sorted) — only :template-kind sources."
   [nodes edges jx]
-  (->> edges
-       (filter (fn [e] (and (= ":governed-by" (get e ":en/kind"))
-                            (= jx (get e ":en/to"))
-                            (= ":template" (get-in nodes [(get e ":en/from") ":lt/kind"])))))
-       (map #(get % ":en/from"))
-       set
-       sort
-       vec))
+  (sort (set (for [e edges
+                   :when (and (= ":governed-by" (get e ":en/kind"))
+                              (= jx (get e ":en/to"))
+                              (= ":template" (get-in nodes [(get e ":en/from") ":lt/kind"])))]
+               (get e ":en/from")))))
 
 (defn statutes-grounding-template
-  [_nodes edges tmpl]
+  "Every public statute a template rests on: clauses it :has-clause → those clauses' citations."
+  [nodes edges tmpl]
   (let [clauses (set (for [e edges
                            :when (and (= ":has-clause" (get e ":en/kind"))
                                       (= tmpl (get e ":en/from")))]
-                       (get e ":en/to")))]
-    (->> edges
-         (filter (fn [e] (and (contains? cite-kinds (get e ":en/kind"))
-                              (contains? clauses (get e ":en/from")))))
-         (map #(get % ":en/to"))
-         set
-         sort
-         vec)))
+                       (get e ":en/to")))
+        statutes (reduce (fn [s e]
+                           (if (and (contains? analyze/cite-kinds (get e ":en/kind"))
+                                    (contains? clauses (get e ":en/from")))
+                             (conj s (get e ":en/to"))
+                             s))
+                         #{} edges)]
+    (sort statutes)))
 
 (defn translations-of
+  "A template's other-language versions via :translates (both directions) + sibling translations
+  of the same original (mirrors query.py translations_of)."
   [_nodes edges tmpl]
-  (let [out (transient #{})]
-    (doseq [e edges :when (= ":translates" (get e ":en/kind"))]
-      (cond
-        (= tmpl (get e ":en/from")) (conj! out (get e ":en/to"))
-        (= tmpl (get e ":en/to")) (conj! out (get e ":en/from"))))
-    ;; siblings: other translations of the same original
-    (let [originals (set (for [e edges
-                               :when (and (= ":translates" (get e ":en/kind"))
-                                          (= tmpl (get e ":en/from")))]
-                           (get e ":en/to")))]
-      (doseq [orig originals
-              e edges
-              :when (and (= ":translates" (get e ":en/kind"))
-                         (= orig (get e ":en/to"))
-                         (not= tmpl (get e ":en/from")))]
-        (conj! out (get e ":en/from"))))
-    (vec (sort (persistent! out)))))
+  (let [out (reduce (fn [s e]
+                      (if (= ":translates" (get e ":en/kind"))
+                        (cond
+                          (= tmpl (get e ":en/from")) (conj s (get e ":en/to"))
+                          (= tmpl (get e ":en/to")) (conj s (get e ":en/from"))
+                          :else s)
+                        s))
+                    #{} edges)
+        originals (set (for [e edges
+                             :when (and (= ":translates" (get e ":en/kind"))
+                                        (= tmpl (get e ":en/from")))]
+                         (get e ":en/to")))
+        out (reduce (fn [s orig]
+                      (reduce (fn [s2 e]
+                                (if (and (= ":translates" (get e ":en/kind"))
+                                         (= orig (get e ":en/to"))
+                                         (not= tmpl (get e ":en/from")))
+                                  (conj s2 (get e ":en/from"))
+                                  s2))
+                              s edges))
+                    out originals)]
+    (sort out)))
 
 (defn conflicting-clauses
+  "Clauses a drafter must not combine with `clause` via :conflicts-with (symmetric lookup)."
   [_nodes edges clause]
-  (let [out (transient #{})]
-    (doseq [e edges :when (= ":conflicts-with" (get e ":en/kind"))]
-      (cond
-        (= clause (get e ":en/from")) (conj! out (get e ":en/to"))
-        (= clause (get e ":en/to")) (conj! out (get e ":en/from"))))
-    (vec (sort (persistent! out)))))
+  (sort (reduce (fn [s e]
+                  (if (= ":conflicts-with" (get e ":en/kind"))
+                    (cond
+                      (= clause (get e ":en/from")) (conj s (get e ":en/to"))
+                      (= clause (get e ":en/to")) (conj s (get e ":en/from"))
+                      :else s)
+                    s))
+                #{} edges)))
 
 (defn jurisdictions-for-concept
+  "Where a legal concept is grounded in real law: clauses that :instantiate the concept →
+  statutes they cite → those statutes' :statute/jurisdiction."
   [nodes edges concept]
-  ;; clauses that instantiate the concept → statutes they cite → those statutes' jurisdictions
   (let [clauses (set (for [e edges
                            :when (and (= ":instantiates" (get e ":en/kind"))
                                       (= concept (get e ":en/to")))]
                        (get e ":en/from")))
-        jx (transient #{})]
-    (doseq [e edges
-            :when (and (contains? cite-kinds (get e ":en/kind"))
-                       (contains? clauses (get e ":en/from")))]
-      (let [j (get-in nodes [(get e ":en/to") ":statute/jurisdiction"])]
-        (when j (conj! jx j))))
-    (vec (sort (persistent! jx)))))
+        jx (reduce (fn [s e]
+                     (if (and (contains? analyze/cite-kinds (get e ":en/kind"))
+                              (contains? clauses (get e ":en/from")))
+                       (let [j (get-in nodes [(get e ":en/to") ":statute/jurisdiction"])]
+                         (if j (conj s j) s))
+                       s))
+                   #{} edges)]
+    (sort jx)))
 
 ;; major national jurisdictions used as the gap-analysis denominator (exclude treaty/doctrinal ids)
 (def major-jurisdictions
@@ -104,47 +114,46 @@
 
 (defn coverage-gaps
   "Major national jurisdictions that do NOT yet ground a concept — a self-documenting worklist.
-
-  Turns the EDN into its own coverage roadmap: the inverse of jurisdictions-for-concept over the
-  major-jurisdictions denominator (treaty / religious / customary ids are not counted as gaps)."
+  The inverse of jurisdictions-for-concept over major-jurisdictions (treaty / religious /
+  customary ids are not counted as gaps)."
   [nodes edges concept]
   (let [have (set (jurisdictions-for-concept nodes edges concept))
         present (filter #(contains? nodes %) major-jurisdictions)]
-    (vec (sort (filter #(not (contains? have %)) present)))))
+    (sort (filter #(not (contains? have %)) present))))
 
-;; ── CLI ─────────────────────────────────────────────────────────────────────
-(def ^:private commands
-  {"templates-in" ["templates_in_jurisdiction" "templates governed by"]
-   "statutes-for" ["statutes_grounding_template" "statutes grounding"]
-   "translations" ["translations_of" "translations of"]
-   "conflicts" ["conflicting_clauses" "clauses conflicting with"]
-   "jurisdictions-for" ["jurisdictions_for_concept" "jurisdictions grounding"]
-   "gaps" ["coverage_gaps" "major jurisdictions still lacking grounding for"]})
+;; command table (verb wording 1:1 with query.py _COMMANDS)
+(def commands
+  {"templates-in" ["templates-in-jurisdiction" "templates governed by"]
+   "statutes-for" ["statutes-grounding-template" "statutes grounding"]
+   "translations" ["translations-of" "translations of"]
+   "conflicts" ["conflicting-clauses" "clauses conflicting with"]
+   "jurisdictions-for" ["jurisdictions-for-concept" "jurisdictions grounding"]
+   "gaps" ["coverage-gaps" "major jurisdictions still lacking grounding for"]})
 
-(def ^:private dispatch
-  {"templates_in_jurisdiction" templates-in-jurisdiction
-   "statutes_grounding_template" statutes-grounding-template
-   "translations_of" translations-of
-   "conflicting_clauses" conflicting-clauses
-   "jurisdictions_for_concept" jurisdictions-for-concept
-   "coverage_gaps" coverage-gaps})
+(def ^:private fn-table
+  {"templates-in-jurisdiction" templates-in-jurisdiction
+   "statutes-grounding-template" statutes-grounding-template
+   "translations-of" translations-of
+   "conflicting-clauses" conflicting-clauses
+   "jurisdictions-for-concept" jurisdictions-for-concept
+   "coverage-gaps" coverage-gaps})
 
 #?(:clj
    (defn -main
-     "CLI entry: run a knowledge-graph query against the seed EDN graph (file I/O at the edge)."
+     "CLI entry: query.cljc <templates-in|statutes-for|translations|conflicts|jurisdictions-for|gaps> <id>."
      [& argv]
-     (let [argv (vec (cons "query.clj" argv))   ;; argv[0] = program name, mirroring sys.argv
+     (let [argv (vec argv)
            here (-> *file* clojure.java.io/file .getParentFile .getParentFile)
            {:keys [nodes edges]} (analyze/load-file*
                                   (clojure.java.io/file here "data" "seed-legal-template-graph.kotoba.edn"))]
-       (if (or (< (count argv) 3) (not (contains? commands (nth argv 1))))
+       (if (or (< (count argv) 2) (not (contains? commands (first argv))))
          (do (binding [*out* *err*]
-               (println (str "usage: query.py <" (str/join "|" (keys commands)) "> <id>")))
+               (println (str "usage: query.cljc <" (clojure.string/join "|" (keys commands)) "> <id>")))
              2)
-         (let [[fn-name verb] (get commands (nth argv 1))
-               id (nth argv 2)
-               res ((get dispatch fn-name) nodes edges id)]
-           (println (str verb " " id " (" (label nodes id) "):"))
+         (let [[fn-name verb] (get commands (first argv))
+               arg (second argv)
+               res ((get fn-table fn-name) nodes edges arg)]
+           (println (str verb " " arg " (" (label nodes arg) "):"))
            (doseq [nid res]
              (println (str "  " nid "  —  " (label nodes nid))))
            (println (str "  [" (count res) " result(s)]"))

@@ -1,45 +1,49 @@
 (ns mitooshi.methods.test-horizon
-  "Cross-language oracle tests for mitooshi.methods.horizon — the Clojure port of
-  methods/horizon.py.
+  "mitooshi 見通し — multi-horizon skill-decay tests (ADR-2606051800). 1:1 Clojure port of
+  methods/test_horizon.py, every assertion preserved.
 
-  Ported 1:1 from the REAL Python test_horizon.py. The assertions are structural
-  (deterministic + mean-reverting path; positive short-horizon skill; skill decay;
-  CRPS growth; many leak-checked origins; a markdown row per horizon), so the small
-  erf-approximation differences in gaussian-crps are immaterial — the qualitative
-  skill-decay property is what is pinned, exactly as the Python test pins it."
-  (:require [clojure.test :refer [deftest is testing]]
-            [clojure.string :as str]
+  Gates upheld by construction (the AR(1) forecaster is a distribution scored leak-free):
+    G1 distribution-only / G2 never-trades — every forecast is a gaussian, point-asserted
+       false, use=\":resilience\"; score/score-pair refuses a point-assertion or a
+       speculative use (structurally unrepresentable).
+    G5 leak-free — each origin's obs is strictly after info-as-of; many origins per horizon.
+    G12 skill-honest — skill_vs_clim is pinball/CRPS skill vs the climatology baseline, and
+       it DECAYS with horizon (never a flat-skill crystal ball, 非終末論)."
+  (:require [clojure.test :refer [deftest is run-tests]]
             [mitooshi.methods.horizon :as horizon]))
 
-(deftest path-is-deterministic-and-mean-reverting
+(deftest test-path-is-deterministic-and-mean-reverting
   (let [a (horizon/build-path 50)
         b (horizon/build-path 50)]
-    (is (= a b))                                      ; reproducible (no RNG)
-    (is (every? #(< 5.0 % 15.0) a))))                 ; mean-reverting near MU=10
+    (is (= a b))                                     ; reproducible (no RNG)
+    (is (every? #(and (< 5.0 %) (< % 15.0)) a))))    ; mean-reverting near MU=10
 
-(deftest short-horizon-has-positive-skill
+(deftest test-short-horizon-has-positive-skill
   (let [rows (horizon/horizon-skill)
         h1 (first (filter #(= 1 (get % "h")) rows))]
-    (is (> (get h1 "skill_vs_clim") 0.1))))           ; clearly beats climatology at h=1
+    (is (> (get h1 "skill_vs_clim") 0.1))))          ; clearly beats climatology at h=1
 
-(deftest skill-decays-with-horizon
+(deftest test-skill-decays-with-horizon
   (let [rows (horizon/horizon-skill)
-        first-r (first rows)
-        last-r (last rows)]
-    (is (> (get first-r "skill_vs_clim") (get last-r "skill_vs_clim")))   ; decays
-    (is (< (get last-r "skill_vs_clim") 0.1))))                            ; → ≈ climatology
+        first* (first rows)
+        last* (peek rows)]
+    (is (> (get first* "skill_vs_clim") (get last* "skill_vs_clim")))   ; decays
+    (is (< (get last* "skill_vs_clim") 0.1))))                          ; → ≈ climatology
 
-(deftest crps-grows-with-horizon
+(deftest test-crps-grows-with-horizon
   (let [rows (horizon/horizon-skill)]
-    (is (> (get (last rows) "mean_crps") (get (first rows) "mean_crps")))))  ; uncertainty accumulates
+    (is (> (get (peek rows) "mean_crps") (get (first rows) "mean_crps")))))
 
-(deftest leak-free-every-origin-scored
+(deftest test-leak-free-every-origin-scored
   (let [rows (horizon/horizon-skill)]
-    (is (every? #(> (get % "n") 10) rows))))          ; many leak-checked origins per horizon
+    (is (every? #(> (get % "n") 10) rows))))         ; many leak-checked origins per horizon
 
-(deftest render-md-has-a-row-per-horizon
+(deftest test-render-md-has-a-row-per-horizon
   (let [rows (horizon/horizon-skill)
         md (horizon/render-md rows)]
     (doseq [r rows]
-      (is (str/includes? md (str "| " (get r "h") " |"))))
-    (is (str/includes? md "skill vs clim"))))
+      (is (clojure.string/includes? md (str "| " (get r "h") " |"))))
+    (is (clojure.string/includes? md "skill vs clim"))))
+
+#?(:clj
+   (defn -main [& _] (run-tests 'mitooshi.methods.test-horizon)))

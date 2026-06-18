@@ -7,7 +7,7 @@ synthesis (does NOT diagnose / treat / book / sell).
 |---|---|
 | Lexicons | ✅ 7 under `com.etzhayyim.suimin.*` (sourceWhitelist / evidenceRecord / treatmentSynthesis / conditionProfile / referralPathway / silenSuiminReview / disclaimerText) |
 | Manifest | ✅ `manifest.jsonld` |
-| Tests | ✅ `methods/test_charter_gates.cljc` — **9 tests, green** (added 2026-06-16; previously ZERO tests anywhere) — pins G1/G2/G3/G4 schema invariants; `./run_tests.sh` |
+| Tests | ✅ `methods/test_charter_gates.py` — **9 tests, green** (added 2026-06-16; previously ZERO tests anywhere) — pins G1/G2/G3/G4 schema invariants; `./run_tests.sh` |
 | Cells | ⛔ none yet (R1 — hazard/evidence ingest + synthesis cells, Murakumo-only) |
 | Methods | ⛔ no engine yet (R1 — evidence ingest + GRADE synthesis + disclaimer/referral gates) |
 
@@ -31,5 +31,3 @@ synthesis (does NOT diagnose / treat / book / sell).
 
 Council Lv6+ ≥3 baseline (silenSuiminReview, witness ≥3) + Murakumo-only evidence ingest +
 the disclaimer gate wired into every patient-facing output path.
-
-> **2026-06-17 substrate-native migration (ADR-2606160842):** the charter-gate test above was ported Python→Clojure (`methods/test_charter_gates.py` → `methods/test_charter_gates.cljc`, ns `suimin.methods.test-charter-gates`, reads the lexicons via cheshire/edn) and the Python was pruned. Run via `./run_tests.sh` (now `exec bb`) or `bb run test:charter` (all 34 charter suites; 244 tests / 924 assertions green). Assertions unchanged (1:1 port).

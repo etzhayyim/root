@@ -16,7 +16,7 @@ Closed-loop material recovery / circular metallurgy orchestrator. Adopts modern 
 - Wave 3: Copper / brass / bronze (secondary smelter + electrolytic refining)
 - Wave 4: Rare-earth element recovery (ionic-liquid + bioleaching; §2(g) strict review)
 
-**Primary mining (bauxite / iron ore / copper ore / etc.) is constitutional N1** — recycling-only invariant per ADR-2605252400.
+**Primary mining (bauxite / iron ore / copper ore / etc.) is out of kanayama scope (N1)** — kanayama is the recovery/recycling actor and stays recovery-first **by preference**. Primary mining is NOT constitutionally forbidden: per ADR-2606161700 (Rider §2(l) v3.2) extraction is gated by a multi-generational (子・孫) × wellbecoming risk assessment, not a blanket ban; any extraction capability → its own actor + that gate.
 
 ## 9 Pregel Cells (5-layer closed-loop process)
 
@@ -49,9 +49,9 @@ Closed-loop material recovery / circular metallurgy orchestrator. Adopts modern 
 - **G13**: Energy source = renewable + grid-balanced only (captive coal / petcoke prohibited)
 - **G14**: Waste outputs (dross / salt cake / fume filter / leachate) IPFS lot-tracked + quarterly §2(h) report
 
-## 8 Non-Goals (N1–N8, IMMUTABLE R0–R3)
+## 8 Non-Goals (N1 = scope boundary per ADR-2606161700; N2–N8 IMMUTABLE R0–R3)
 
-- **N1**: Bauxite mining + upstream primary mining (recycling-only invariant)
+- **N1**: Primary mining out of kanayama scope (recovery-first by preference; NOT extraction-forbidden — gated by §2(l) multi-gen risk assessment per ADR-2606161700)
 - **N2**: Hall-Héroult primary Al electrolysis + equivalent primary smelting for Wave 2+
 - **N3**: Munitions casing / spent cartridge brass recovery (war-contamination transfer)
 - **N4**: Nuclear-decontamination metal recovery (radiological feedstock)

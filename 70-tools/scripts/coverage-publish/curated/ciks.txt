@@ -1,0 +1,6 @@
+# Curated real SEC EDGAR CIKs for the Council-authorised kanjō additive batch.
+# One zero-padded CIK per line; '#' comments ignored. Merged ADDITIVELY into the existing
+# facts.merged (authoritative-wins dedup) — never clobbers prior live-ingested filings.
+0000021344
+0000077476
+0000104169

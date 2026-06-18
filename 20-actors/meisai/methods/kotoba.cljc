@@ -1,250 +1,164 @@
 (ns meisai.methods.kotoba
-  "kotoba 言葉 — meisai content-addressed EAVT Datom log.
-  1:1 Clojure port of `methods/kotoba.py` (ADR-2606122400).
+  "kotoba.cljc — meisai 明細 kotoba Datom-log writer (local, content-addressed).
+  1:1 Clojure port of `methods/kotoba.py` (ADR-2606122400 + ADR-2605262130 + ADR-2605312345).
 
-  Subset: vectors [], maps {}, :keyword strings, \"string\", number, bool, nil.
-  Keywords are kept as\":...\" strings (not Clojure keywords) to mirror Python.
-  SHA-256 via java.security.MessageDigest; file I/O via java.io.File."
-  (:require [clojure.string :as str])
-  #?(:clj (:import [java.security MessageDigest]
-                   [java.io File])))
+  Persists the MEMBER's OWN card statements (利用明細) through the actor-family local autonomous-loop
+  write path: a heartbeat appends content-addressed transactions to a local append-only EDN log
+  with NO external I/O. MEMBER-OWN data only — the log lives under the gitignored data/ (G3
+  local-only); credentials + full card numbers are UNREPRESENTABLE (G2, enforced in ingest).
 
-;; ── basic helpers ──────────────────────────────────────────────────────────
+  BYTE-PARITY (do-not-weaken): tx CID = 'b' + sha256-hex over the Python-canonical JSON
+  `json.dumps({\"prev\":…,\"datoms\":…}, sort_keys=True, separators=(',',':'), ensure_ascii=False)`.
+  `canonical` reproduces that string exactly, so the Clojure and Python heartbeats build the SAME
+  commit-DAG. Keys stay ':…' STRINGS. EAVT = [op entity attribute value]; op is :db/add only.
+  Deterministic: caller supplies tx-id + as-of (no wall clock) → resume-safe. Self-contained EDN
+  reader (parse-edn), consistent with the Python method (no cross-actor dependency)."
+  (:require [clojure.string :as str]
+            #?(:clj [clojure.java.io :as io])))
 
-(defn add
-  "One append-only EAVT assertion: [:db/add <entity> <attr> <value>]."
-  [entity attr value]
-  [":db/add" entity attr value])
+(defn add [entity attr value] [":db/add" entity attr value])
 
-;; ── content-addressing ─────────────────────────────────────────────────────
+;; ── Python-faithful helpers ──────────────────────────────────────────────────
+(defn- py-float-str [x] (str (double x)))
 
 (defn- json-escape [s]
-  (-> s
-      (str/replace "\\" "\\\\")
-      (str/replace "\"" "\\\"")
-      (str/replace "\b" "\\b")
-      (str/replace "\f" "\\f")
-      (str/replace "\n" "\\n")
-      (str/replace "\r" "\\r")
-      (str/replace "\t" "\\t")))
-
-(defn- json-str [s]
-  (str "\"" (json-escape s) "\""))
+  (let [sb (StringBuilder.)]
+    (doseq [c (str s)]
+      (let [code (int c)]
+        (cond
+          (= c \") (.append sb "\\\"")
+          (= c \\) (.append sb "\\\\")
+          (= c \newline) (.append sb "\\n")
+          (= c \return) (.append sb "\\r")
+          (= c \tab) (.append sb "\\t")
+          (= code 8) (.append sb "\\b")
+          (= code 12) (.append sb "\\f")
+          (< code 0x20) (.append sb (format "\\u%04x" code))
+          :else (.append sb c))))
+    (str sb)))
 
 (defn- json-val [v]
   (cond
-    (true? v) "true"
-    (false? v) "false"
-    (number? v) (str v)
-    (string? v) (json-str v)
-    :else (json-str (str v))))
+    (boolean? v) (if v "true" "false")
+    (nil? v) "null"
+    (integer? v) (str v)
+    (float? v) (py-float-str v)
+    (string? v) (str \" (json-escape v) \")
+    (sequential? v) (str "[" (str/join "," (map json-val v)) "]")
+    :else (str v)))
 
-(defn- canonical
-  "Byte-identical to Python's _canonical: json.dumps with
-  sort_keys=True and separators=(',',':')."
-  [datoms prev-cid]
-  (let [datoms-json (str "["
-                         (str/join ","
-                                   (map (fn [d]
-                                          (str "["
-                                               (str/join "," (map json-val d))
-                                               "]"))
-                                        datoms))
-                         "]")]
-    (str "{\"datoms\":" datoms-json ",\"prev\":" (json-str prev-cid) "}")))
+(defn- canonical [datoms prev-cid]
+  (str "{\"datoms\":[" (str/join "," (map json-val datoms)) "],\"prev\":" (json-val prev-cid) "}"))
+
+(defn- sha256-hex [^String s]
+  (let [b (.digest (java.security.MessageDigest/getInstance "SHA-256") (.getBytes s "UTF-8"))]
+    (apply str (map #(format "%02x" (bit-and (int %) 0xff)) b))))
 
 (defn tx-cid
-  "Content address = sha256 over (prev-cid, datoms) → a commit-DAG CID."
-  ([datoms]
-   (tx-cid datoms ""))
-  ([datoms prev-cid]
-   #?(:clj
-      (let [md (MessageDigest/getInstance "SHA-256")
-            ^bytes bs (.getBytes (canonical datoms prev-cid) "UTF-8")]
-        (.update md bs)
-        (str "b" (apply str (map #(format "%02x" (bit-and % 0xFF)) (.digest md)))))
-      :cljs
-      (throw (ex-info "tx-cid requires SHA-256 on the JVM" {})))))
+  ([datoms] (tx-cid datoms ""))
+  ([datoms prev-cid] (str "b" (sha256-hex (canonical datoms prev-cid)))))
 
 (defn make-tx
-  "Bundle datoms into a content-addressed transaction map."
-  [datoms {:keys [tx-id as-of prev-cid]}]
-  {:tx/id tx-id
-   :tx/as-of as-of
-   :tx/prev (or prev-cid "")
-   :tx/cid (tx-cid datoms (or prev-cid ""))
-   :tx/count (count datoms)
-   :tx/datoms datoms})
+  [datoms tx-id as-of prev-cid]
+  {":tx/id" tx-id ":tx/as-of" as-of ":tx/prev" prev-cid
+   ":tx/cid" (tx-cid datoms prev-cid) ":tx/count" (count datoms) ":tx/datoms" datoms})
 
-;; ── EDN serialization ───────────────────────────────────────────────────────
-
-(defn- _edn_val [v]
+;; ── EDN log serialization (1:1 with _edn_val / _tx_to_edn) ───────────────────
+(defn- edn-val [v]
   (cond
-    (true? v) "true"
-    (false? v) "false"
-    (number? v) (str v)
-    (string? v) (if (str/starts-with? v ":")
-                  v
-                  (json-str v))
-    (sequential? v) (str "[" (str/join " " (map _edn_val v)) "]")
-    :else (json-str (str v))))
+    (boolean? v) (if v "true" "false")
+    (integer? v) (str v)
+    (float? v) (py-float-str v)
+    (string? v) (if (str/starts-with? v ":") v (str \" (json-escape v) \"))
+    (sequential? v) (str "[" (str/join " " (map edn-val v)) "]")
+    :else (str v)))
 
-(defn tx->edn
-  "Render a transaction map as EDN (matches Python `_tx_to_edn`)."
-  [tx]
-  (let [datoms-str (str/join " "
-                             (map (fn [d]
-                                    (str "[" (str/join " " (map _edn_val d)) "]"))
-                                  (:tx/datoms tx)))
-        prev (:tx/prev tx)
-        cid (:tx/cid tx)]
-    (str "{:tx/id " (:tx/id tx)
-         " :tx/as-of " (:tx/as-of tx)
-         " :tx/prev " (json-str prev)
-         " :tx/cid " (json-str cid)
-         " :tx/count " (:tx/count tx)
-         " :tx/datoms [" datoms-str "]}")))
+(defn tx->edn [tx]
+  (let [datoms (str/join " " (map (fn [d] (str "[" (str/join " " (map edn-val d)) "]"))
+                                  (get tx ":tx/datoms")))]
+    (str "{:tx/id " (get tx ":tx/id") " :tx/as-of " (get tx ":tx/as-of")
+         " :tx/prev " (str \" (json-escape (get tx ":tx/prev")) \")
+         " :tx/cid " (str \" (json-escape (get tx ":tx/cid")) \")
+         " :tx/count " (get tx ":tx/count") " :tx/datoms [" datoms "]}")))
 
-;; ── minimal EDN reader (subset) ─────────────────────────────────────────────
-
-(def ^:private tok-re
-  ;; Python: _TOK = re.compile(r'[\s,]+|;[^\n]*|(\[|\]|\{|\}|"(?:\\.|[^"\\])*"|[^\s,\[\]{}]+)')
-  #"[\s,]+|;[^\n]*|(\[|\]|\{|\}|\"(?:\\.|[^\"\\])*\"|[^\s,\[\]{}]+)")
+;; ── minimal EDN reader (subset), self-contained (1:1 with the Python parse_edn) ──
+(def ^:private tok-re #"[\s,]+|;[^\n]*|(\[|\]|\{|\}|\"(?:\\.|[^\"\\])*\"|[^\s,\[\]{}]+)")
 
 (defn- tokens [s]
   (let [m (re-matcher tok-re s)]
     ((fn step []
        (lazy-seq
         (when (.find m)
-          (let [t (.group m 1)]
-            (if (nil? t)
-              (step)
-              (cons t (step))))))))))
+          (let [t (.group m 1)] (if (nil? t) (step) (cons t (step))))))))))
 
 (defn- atom-of [t]
   (cond
-    (str/starts-with? t "\"")
-    (-> (subs t 1 (dec (count t)))
-        (str/replace "\\\"" "\"")
-        (str/replace "\\\\" "\\"))
-
+    (str/starts-with? t "\"") (-> (subs t 1 (dec (count t)))
+                                  (str/replace "\\\"" "\"") (str/replace "\\\\" "\\"))
     (= t "true") true
     (= t "false") false
     (= t "nil") nil
-
     (str/starts-with? t ":") t
-
-    :else
-    (let [as-long (try (Long/parseLong t)
-                       (catch #?(:clj Exception :cljs :default) _ ::nan))]
-      (if (not= as-long ::nan)
-        as-long
-        (let [as-dbl (try (Double/parseDouble t)
-                          (catch #?(:clj Exception :cljs :default) _ ::nan))]
-          (if (not= as-dbl ::nan) as-dbl t))))))
+    :else (let [l (try (Long/parseLong t) (catch #?(:clj Exception :cljs :default) _ ::nan))]
+            (if (not= l ::nan) l
+                (let [d (try (Double/parseDouble t) (catch #?(:clj Exception :cljs :default) _ ::nan))]
+                  (if (not= d ::nan) d t))))))
 
 (def ^:private end-marker ::end)
 
 (defn- parse-step [toks i]
-  (let [t (nth toks i)
-        i (inc i)]
+  (let [t (nth toks i) i (inc i)]
     (cond
-      (= t "[")
-      (loop [i i, out []]
-        (let [[x i] (parse-step toks i)]
-          (if (= x end-marker)
-            [out i]
-            (recur i (conj out x)))))
-
-      (= t "{")
-      (loop [i i, out {}]
-        (let [[k i] (parse-step toks i)]
-          (if (= k end-marker)
-            [out i]
-            (let [[v i] (parse-step toks i)]
-              (recur i (assoc out k v))))))
-
-      (or (= t "]") (= t "}"))
-      [end-marker i]
-
-      :else
-      [(atom-of t) i])))
+      (= t "[") (loop [i i out []] (let [[x i] (parse-step toks i)]
+                                     (if (= x end-marker) [out i] (recur i (conj out x)))))
+      (= t "{") (loop [i i out (vary-meta {} assoc ::order [])]
+                  (let [[k i] (parse-step toks i)]
+                    (if (= k end-marker) [out i]
+                        (let [[v i] (parse-step toks i)]
+                          (recur i (vary-meta (assoc out k v) update ::order conj k))))))
+      (or (= t "]") (= t "}")) [end-marker i]
+      :else [(atom-of t) i])))
 
 (defn parse-edn
-  "Parse ONE EDN form (map / vector / atom) from a string."
+  "Parse ONE EDN form (map / vector / atom) from a string (1:1 with parse_edn)."
   [s]
-  (let [toks (vec (tokens s))]
-    (first (parse-step toks 0))))
+  (first (parse-step (vec (tokens s)) 0)))
 
-;; ── log I/O ───────────────────────────────────────────────────────────────
+(defn keys-in-order [m] (or (::order (meta m)) (keys m)))
 
-(defn- log-default []
-  #?(:clj
-     (let [f (File. "20-actors/meisai/data/persisted/meisai.datoms.kotoba.edn")]
-       (.getAbsolutePath f))
-     :cljs nil))
+#?(:clj
+   (do
+     (def log-default
+       (-> (io/file *file*) .getParentFile .getParentFile
+           (io/file "data" "persisted" "meisai.datoms.kotoba.edn") str))
 
-(defn append-tx
-  "Append ONE transaction to the append-only log. Returns the tx CID."
-  ([tx]
-   (append-tx tx (log-default)))
-  ([tx log-path]
-   #?(:clj
-      (let [f (File. (str log-path))]
-        (.mkdirs (.getParentFile f))
-        (when-not (.exists f)
-          (spit f (str ";; meisai kotoba Datom log — append-only EAVT transactions "
-                       "(content-addressed DAG). MEMBER-OWN card statements only; this file "
-                       "lives under the gitignored data/ and is NEVER committed, pinned, or "
-                       "published (G3). DO NOT hand-edit. ADR-2606122400.\n")))
-        (spit f (str (tx->edn tx) "\n") :append true)
-        (:tx/cid tx))
-      :cljs
-      (throw (ex-info "append-tx requires file I/O on the JVM" {})))))
+     (defn append-tx [tx log-path]
+       (let [f (io/file log-path)]
+         (when-let [p (.getParentFile f)] (.mkdirs p))
+         (when-not (.exists f)
+           (spit f (str ";; meisai kotoba Datom log — append-only EAVT transactions "
+                        "(content-addressed DAG). MEMBER-OWN card statements only; this file "
+                        "lives under the gitignored data/ and is NEVER committed, pinned, or "
+                        "published (G3). DO NOT hand-edit. ADR-2606122400.\n")))
+         (spit f (str (tx->edn tx) "\n") :append true)
+         (get tx ":tx/cid")))
 
-(defn read-log
-  "Read transactions from log file."
-  ([]
-   (read-log (log-default)))
-  ([log-path]
-   #?(:clj
-      (let [f (File. (str log-path))]
-        (if-not (.exists f)
-          []
-          (into []
-                (comp (map str/trim)
-                      (remove str/blank?)
-                      (remove #(str/starts-with? % ";"))
-                      (map parse-edn))
-                (str/split-lines (slurp f)))))
-      :cljs
-      (throw (ex-info "read-log requires file I/O on the JVM" {})))))
+     (defn read-log [log-path]
+       (let [f (io/file log-path)]
+         (if-not (.exists f) []
+                 (->> (str/split-lines (slurp f))
+                      (map str/trim)
+                      (remove #(or (empty? %) (str/starts-with? % ";")))
+                      (mapv parse-edn)))))
 
-(defn head-cid
-  "Return the CID of the last transaction in the log (empty string if none)."
-  ([]
-   (head-cid (log-default)))
-  ([log-path]
-   (let [txs (read-log log-path)]
-     (if (seq txs)
-       (get (last txs) ":tx/cid" "")
-       ""))))
+     (defn head-cid [log-path]
+       (let [txs (read-log log-path)] (if (seq txs) (get (last txs) ":tx/cid") "")))
 
-(defn verify-chain
-  "Recompute every CID from its datoms + prev; verify the DAG is intact.
-  Returns {:ok bool :length int :broken_at int}."
-  ([]
-   (verify-chain (log-default)))
-  ([log-path]
-   (let [txs (read-log log-path)]
-     (loop [prev ""
-            i 0]
-       (if (>= i (count txs))
-         {:ok true :length (count txs) :broken_at -1}
-         (let [tx (nth txs i)
-               datoms (get tx ":tx/datoms" [])
-               expect (tx-cid datoms prev)]
-           (if (and (= (get tx ":tx/cid") expect)
-                    (= (get tx ":tx/prev") prev))
-             (recur expect (inc i))
-             {:ok false :length (count txs) :broken_at i})))))))
+     (defn verify-chain [log-path]
+       (let [txs (read-log log-path) n (count txs)]
+         (loop [i 0 prev "" ts txs]
+           (if (empty? ts) {:ok true :length n :broken-at -1}
+               (let [tx (first ts) expect (tx-cid (get tx ":tx/datoms") prev)]
+                 (if (or (not= (get tx ":tx/cid") expect) (not= (get tx ":tx/prev") prev))
+                   {:ok false :length n :broken-at i}
+                   (recur (inc i) (get tx ":tx/cid") (rest ts))))))))))

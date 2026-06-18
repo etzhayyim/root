@@ -307,6 +307,25 @@
    :actor/service [{"id" "did:web:etzhayyim.com:actor:hotaru#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
                    {"id" "did:web:etzhayyim.com:actor:hotaru#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
 
+  {:actor/handle "masago"
+   :actor/did "did:web:etzhayyim.com:actor:masago"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "真砂"
+   :actor/display-name-ja "真砂 — 公開材料 (open materials-discovery) KG mirror"
+   :actor/display-name-en "Masago — Open Materials-Discovery KG Mirror"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "AI 材料探索の公開コモンズ(Meta FAIR Chemistry Open Materials 2024 / OMat24 CC-BY-4.0 + Materials Project / OQMD / NOMAD / AFLOW / JARVIS)を kotoba Datom log にミラーする materials-science actor。rasen 螺旋(遺伝)・inochi 命(生命圏)の公開科学データ mirror 系譜の materials 版。materials(組成+結晶構造)・元素・計算 PROPERTY(DFT/MLIP)・下流 APPLICATION を weave し、edge-primary な discovery-evidence(material の discovery-priority = 入射する計算プロパティ+候補性 縁 × 開示 confidence の積分)を RESEARCH へルーティング。構造的に charter-clean: open-license source のみ(G4、非 open は拒否)、計算 PROPERTY+結晶構造のみで合成ルート/前駆体/濃縮フィールドは表現不能・兵器化 application class も表現不能(G1, §1.12)、MLIP モデル実行は R2+ 自前/寄付計算のみ(G6、商用GPUレンタル禁止)。Clojure/kotoba-datomic ネイティブ(.cljc, babashka)。AI 駆動 材料探索のカバレッジ空白(ゼロ)を閉じ、iwakura/fuigo・hikari・tatekata・sanae/hataori/kiyome に供給。"
+   :actor/primary-lexicon "com.etzhayyim.masago"
+   :actor/primary-schema "00-contracts/schemas/open-materials-ontology.kotoba.edn"
+   :actor/adr ["2606151027"]
+   :actor/created-at "2026-06-15"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:masago#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:masago#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
   {:actor/handle "kamado"
    :actor/did "did:web:etzhayyim.com:actor:kamado"
    :actor/kind :tier-b
@@ -626,4 +645,24 @@
    :actor/created-at "2026-06-11"
    :actor/vm []
    :actor/service [{"id" "did:web:etzhayyim.com:actor:mimamori#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
-                   {"id" "did:web:etzhayyim.com:actor:mimamori#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}]}
+                   {"id" "did:web:etzhayyim.com:actor:mimamori#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+  {:actor/handle "aburi"
+   :actor/did "did:web:etzhayyim.com:actor:aburi"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "炙"
+   :actor/display-name-ja "炙り — 個人追跡曝露の観測 (どの広告ネットワークが自分を追跡しているか)"
+   :actor/display-name-en "Aburi — Personal-Tracking-Exposure Observatory (member-side, own-data)"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Personal-tracking-exposure observatory (member-side, own-data) — answers 「Google・Facebook・X・Apple の規約に同意し権限を許可したとき、自分の情報がどの広告ネットワーク／データブローカーに取得され、どの企業がどれだけ追跡しているか」. The member-side own-data inversion of the ad-tech lineage: where sukashi 透かし maps the FIRM↔FIRM programmatic supply chain (charter-bounded firm-side), aburi maps the MEMBER'S OWN exposure from their OWN consented exports (Google Takeout / Apple App-Privacy Report / Google Play Data-safety / on-device permission dump) and routes it to RELIEF (himotoki DSAR / kaiyaku sever / kurashimori opt-out / tedai revoke). Edge-primary readouts on read: exposure[collector] = Σ inbound :flows-to × DISCLOSED permission-sensitivity (who-tracks-you), surface_leak (leakiest platform), datatype-spread, reciprocity-gap (leaking permission w/ no opt-out). G1 own-data-only (no other person/PII/biometric/raw-id, test-enforced); G3 non-adjudicating (collectors carry PUBLIC catalogue provenance exodus/apple-privacy/play-data-safety/sellers-json/iab — naming an SDK is a disclosed fact, not an accusation); G4 reciprocity-restoring (§2(c) v3.1 ADR-2606082400 — makes the asymmetric ad-watcher visible to the watched; never itself a tracker); G7 local-only + no-server-key (the loop does no network I/O); G8 no credential/raw-id projectable. SYNTHETIC/representative public seed only; member-export ingest + live transact + relief routing Council+operator gated. Per ADR-2606161630."
+   :actor/primary-lexicon "com.etzhayyim.aburi"
+   :actor/primary-schema "00-contracts/schemas/tracker-exposure-ontology.kotoba.edn"
+   :actor/adr ["2606161630"]
+   :actor/created-at "2026-06-16"
+   :actor/wasm-cid nil   ;; componentize-py non-reproducible → operator records the pinned CID (bb aburi:publish --pin)
+   :actor/wasm-tier "T2"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:aburi#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:aburi#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}]}

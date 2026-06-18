@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
-# hikari — clj/bb test suite (ADR-2606160842 py->clj port wave); ALL test namespaces, fleet green-check.
+# hikari — clj/bb test suite (ADR-2606160842 py→clj port wave); wired into the fleet
+# green-check. Runs all cljc test namespaces via babashka from the repo root (for the
+# :paths config in bb.edn). Covers the two operational method ports (microgrid control
+# loop + panel-install motion) and the two gated cell state machines (grid_edge dispatch
+# + solar_pv_install job-commit) that replaced their Python twins.
 set -euo pipefail
 cd "$(dirname "$0")/../.."
-exec bb -e '(require (quote clojure.test) (quote hikari.methods.test-charter-gates) (quote hikari.methods.test-microgrid) (quote hikari.methods.test-panel-install))(let [r (apply clojure.test/run-tests (quote [hikari.methods.test-charter-gates hikari.methods.test-microgrid hikari.methods.test-panel-install]))](System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))'
+exec bb -e '(def nss (quote [hikari.methods.test-microgrid
+                             hikari.methods.test-panel-install
+                             hikari.cells.grid-edge.test-state-machine
+                             hikari.cells.solar-pv-install.test-state-machine]))
+              (apply require (quote clojure.test) nss)
+              (let [r (apply clojure.test/run-tests nss)]
+                (System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))'

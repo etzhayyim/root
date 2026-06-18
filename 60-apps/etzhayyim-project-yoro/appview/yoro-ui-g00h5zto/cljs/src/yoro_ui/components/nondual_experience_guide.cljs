@@ -11,7 +11,8 @@
      with contraindication warnings + third-party disclaimer.
    §1.17.5 anti-coercion — the experience is NOT a condition of receiving
      social security; it gates spiritual advancement, not Level-0 entry."
-  (:require [reagent.core :as r]))
+  (:require [reagent.core :as r]
+            [yoro-ui.interop.sound]))
 
 ;; §1.17.4 lawful-jurisdiction allowlist (ISO-3166-1 alpha-2). ADVISORY,
 ;; operator-tunable, pending Council/legal review (ADR-2606071009 Open Q2).
@@ -144,8 +145,8 @@
                        :class (str "w-full rounded-2xl bg-[#58CC02] py-4 text-[18px] font-black text-white "
                                    "shadow-[0_6px_0_#3D8A00] touch-manipulation "
                                    "active:shadow-none active:translate-y-[6px] transition-all duration-75")
-                       ;; TODO: playClick() sound interop
-                       :on-click #(when on-continue (on-continue))}
+                       :on-click #(do (yoro-ui.interop.sound/play-tap-soft!)
+                                       (when on-continue (on-continue)))}
               "参加に進む / Continue"]
              [:p {:class "text-center text-[10px] text-gv2-text-muted/70"}
               "Charter §1.17 (ADR-2606071009) · 宗教は国家を超越するが、違法行為は推奨しない"]]]]))})))

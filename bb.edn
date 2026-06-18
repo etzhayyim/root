@@ -18,22 +18,7 @@
         {:git/url "https://github.com/com-junkawasaki/langgraph-clj"
          :git/sha "c7daa07d4e50f55d7e2a02e4b89dbeb2b200961d"}}
  :tasks
- {lint:kotoba-boundary
-  {:doc "Enforce the root↔subrepo data boundary: NO religious-corp data artifacts (*.kotoba.edn / *-datoms / *-graph) inside the kotoba subrepo (ADR-2605262130; data lives in root 00-contracts/80-data)"
-   :task (do (require 'etzhayyim.kotoba.boundary)
-             (apply (resolve 'etzhayyim.kotoba.boundary/-main) *command-line-args*))}
-
-  kotoba:ingest
-  {:doc "Ingest an actor seed into the kotoba Datom log (validated, snapshotted). Args: <schema> <seed> [out] [--validate]"
-   :task (do (require 'etzhayyim.kotoba.ingest)
-             (apply (resolve 'etzhayyim.kotoba.ingest/-main) *command-line-args*))}
-
-  kotoba:roster-report
-  {:doc "Ingest every discovered actor seed into the kotoba engine and print a maturity matrix (entities/datoms/conformance/CID)"
-   :task (do (require 'etzhayyim.kotoba.roster)
-             ((resolve 'etzhayyim.kotoba.roster/-main)))}
-
-  vitals:report
+ {vitals:report
   {:doc "Per-actor LIFE-ACTIVITY vitals — scores each manifest-bearing cell on 3 axes (clj 内部代謝 / actor 細胞間シグナル / atproto 外界代謝), RUNS its run_tests.sh reflex, classifies 生/休眠/死, and transacts the vitals into the kotoba Datom log (as-of trajectory). Flags: --no-tests --limit N --actors a,b --timeout-ms N"
    :task (do (require 'etzhayyim.vitals)
              (apply (resolve 'etzhayyim.vitals/-main) *command-line-args*))}
@@ -54,7 +39,7 @@
              (apply (resolve 'etzhayyim.vitals/-joucho) *command-line-args*))}
 
   organism:narrate
-  {:doc "One 情緒 narration beat — a living first-person line the organism SPEAKS about how it feels now, via REAL inference on the Murakumo Mac-mini fleet (gemma4:e4b-it-qat) over Tailscale (ADR-2605215000 Murakumo-only; think:false; no-server-key). APPENDED as :narration/* Datoms (as-of evolution) + snapshot narration.kotoba.edn + narration.json projection. Fail-open template if the fleet is unreachable. Args: [of=ibuki]"
+  {:doc "One 情緒 narration beat — a living first-person line the organism SPEAKS about how it feels now, via REAL inference on the Murakumo Mac-mini fleet (gemma4:e4b-it-qat) over Tailscale (Murakumo = default-preferred per Rider v3.3 §2(i) / ADR-2606172359; think:false; no-server-key). APPENDED as :narration/* Datoms (as-of evolution) + snapshot narration.kotoba.edn + narration.json projection. Fail-open template if the fleet is unreachable. Args: [of=ibuki]"
    :task (do (require 'etzhayyim.organism)
              (apply (resolve 'etzhayyim.organism/-narrate) *command-line-args*))}
 
@@ -64,7 +49,7 @@
              (apply (resolve 'etzhayyim.organism/-heartbeat) *command-line-args*))}
 
   test:kotoba
-  {:doc "etzhayyim.kotoba root-side Datom engine + encrypted-record envelope (ADR-2605262130 Phase 1/2 + ADR-2605181100; data+impl in root, kotoba subrepo stays the generic engine)"
+  {:doc "etzhayyim.kotoba root-side Datom engine + envelope + analysis (ADR-2605262130 Phase 1/2 + ADR-2605181100; data+impl in root, kotoba is the external generic engine)"
    :task (do (require 'clojure.test 'etzhayyim.kotoba.test-engine
                       'etzhayyim.kotoba.test-crypto 'etzhayyim.kotoba.test-actor
                       'etzhayyim.kotoba.test-cbor)
@@ -75,6 +60,21 @@
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
 
+  lint:kotoba-boundary
+  {:doc "Enforce the root↔engine data boundary: NO religious-corp data artifacts (*.kotoba.edn) inside an in-tree kotoba engine clone (ADR-2605262130; data lives in root 00-contracts/80-data)"
+   :task (do (require 'etzhayyim.kotoba.boundary)
+             (apply (resolve 'etzhayyim.kotoba.boundary/-main) *command-line-args*))}
+
+  kotoba:ingest
+  {:doc "Ingest an actor seed into the kotoba Datom log (validated, snapshotted). Args: <schema> <seed> [out] [--validate]"
+   :task (do (require 'etzhayyim.kotoba.ingest)
+             (apply (resolve 'etzhayyim.kotoba.ingest/-main) *command-line-args*))}
+
+  kotoba:roster-report
+  {:doc "Ingest every discovered actor seed into the kotoba engine and print a maturity matrix"
+   :task (do (require 'etzhayyim.kotoba.roster)
+             ((resolve 'etzhayyim.kotoba.roster/-main)))}
+
   test:mimamori
   {:doc "mimamori 見守り Clojure test suite (port of tests/test_*.py)"
    :task (do (require 'clojure.test
@@ -82,554 +82,12 @@
                       'mimamori.tests.test-coverage
                       'mimamori.tests.test-kotoba-autorun
                       'mimamori.tests.test-shakai
-                      'mimamori.tests.test-cell
-                      'mimamori.tests.test-ontology-parity
-                      'mimamori.tests.test-wasm-app)
+                      'mimamori.tests.test-cell)
              (let [r (clojure.test/run-tests 'mimamori.tests.test-bond
                                              'mimamori.tests.test-coverage
                                              'mimamori.tests.test-kotoba-autorun
                                              'mimamori.tests.test-shakai
-                                             'mimamori.tests.test-cell
-                                             'mimamori.tests.test-ontology-parity
-                                             'mimamori.tests.test-wasm-app)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:kanae
-  {:doc "kanae 鼎 Clojure test suite (danjo→kanae→yoro fiscal pipeline + charter gates; port of methods/test_pipeline.py)"
-   :task (do (require 'clojure.test 'kanae.methods.test-pipeline)
-             (let [r (clojure.test/run-tests 'kanae.methods.test-pipeline)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:ainori
-  {:doc "ainori Clojure test suite — 1 cljc suite wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'ainori.methods.test-pooled-route)
-             (let [r (clojure.test/run-tests
-                      'ainori.methods.test-pooled-route)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:ake
-  {:doc "ake Clojure test suite — 11 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'ake.methods.test-ingest 'ake.methods.test-analyze
-                      'ake.methods.test-charter-invariants 'ake.methods.test-editwar
-                      'ake.methods.test-contributor 'ake.methods.test-revision
-                      'ake.methods.test-triage 'ake.methods.test-lexicons
-                      'ake.methods.test-consistency
-                      'ake.cells.test-state-machines 'ake.cells.test-membrane-flow)
-             (let [r (clojure.test/run-tests
-                      'ake.methods.test-ingest 'ake.methods.test-analyze
-                      'ake.methods.test-charter-invariants 'ake.methods.test-editwar
-                      'ake.methods.test-contributor 'ake.methods.test-revision
-                      'ake.methods.test-triage 'ake.methods.test-lexicons
-                      'ake.methods.test-consistency
-                      'ake.cells.test-state-machines 'ake.cells.test-membrane-flow)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:danjo
-  {:doc "danjo Clojure test suite — 3 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'danjo.methods.test-analyze 'danjo.methods.test-charter-gates
-                      'danjo.methods.test-autorun)
-             (let [r (clojure.test/run-tests
-                      'danjo.methods.test-analyze 'danjo.methods.test-charter-gates
-                      'danjo.methods.test-autorun)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:fuchi
-  {:doc "fuchi Clojure test suite — 10 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'fuchi.methods.test-provision 'fuchi.methods.test-book
-                      'fuchi.methods.test-allocate 'fuchi.methods.test-analyze
-                      'fuchi.methods.test-charter-invariants 'fuchi.methods.test-route
-                      'fuchi.methods.test-lexicons 'fuchi.methods.test-couple
-                      'fuchi.methods.test-consistency 'fuchi.methods.test-vote
-                      'fuchi.methods.test-live-gate)
-             (let [r (clojure.test/run-tests
-                      'fuchi.methods.test-provision 'fuchi.methods.test-book
-                      'fuchi.methods.test-allocate 'fuchi.methods.test-analyze
-                      'fuchi.methods.test-charter-invariants 'fuchi.methods.test-route
-                      'fuchi.methods.test-lexicons 'fuchi.methods.test-couple
-                      'fuchi.methods.test-consistency 'fuchi.methods.test-vote
-                      'fuchi.methods.test-live-gate)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:funadaiku
-  {:doc "funadaiku Clojure test suite — 3 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'funadaiku.methods.test-charter-gates 'funadaiku.methods.test-voyage-energy
-                      'funadaiku.cells.sea-trial.test-cell)
-             (let [r (clojure.test/run-tests
-                      'funadaiku.methods.test-charter-gates 'funadaiku.methods.test-voyage-energy
-                      'funadaiku.cells.sea-trial.test-cell)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:hakoniwa
-  {:doc "hakoniwa Clojure test suite — 4 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'hakoniwa.tests.test-distribution 'hakoniwa.tests.test-ingest
-                      'hakoniwa.tests.test-runtime 'hakoniwa.tests.test-simulate)
-             (let [r (clojure.test/run-tests
-                      'hakoniwa.tests.test-distribution 'hakoniwa.tests.test-ingest
-                      'hakoniwa.tests.test-runtime 'hakoniwa.tests.test-simulate)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:hikari
-  {:doc "hikari Clojure test suite — 3 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'hikari.methods.test-charter-gates 'hikari.methods.test-microgrid
-                      'hikari.methods.test-panel-install)
-             (let [r (clojure.test/run-tests
-                      'hikari.methods.test-charter-gates 'hikari.methods.test-microgrid
-                      'hikari.methods.test-panel-install)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:himotoki
-  {:doc "himotoki Clojure test suite — 2 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'himotoki.methods.test-charter-gates 'himotoki.methods.test-request)
-             (let [r (clojure.test/run-tests
-                      'himotoki.methods.test-charter-gates 'himotoki.methods.test-request)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:hinagata
-  {:doc "hinagata Clojure test suite — 7 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'hinagata.tests.test-esign 'hinagata.tests.test-wasm
-                      'hinagata.tests.test-analyze 'hinagata.tests.test-validate
-                      'hinagata.tests.test-query 'hinagata.tests.test-coverage
-                      'hinagata.tests.test-maturity)
-             (let [r (clojure.test/run-tests
-                      'hinagata.tests.test-esign 'hinagata.tests.test-wasm
-                      'hinagata.tests.test-analyze 'hinagata.tests.test-validate
-                      'hinagata.tests.test-query 'hinagata.tests.test-coverage
-                      'hinagata.tests.test-maturity)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:ipaddress
-  {:doc "ipaddress Clojure test suite — 1 cljc suite wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'ipaddress.methods.test-autorun)
-             (let [r (clojure.test/run-tests
-                      'ipaddress.methods.test-autorun)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:itonami
-  {:doc "itonami Clojure test suite — 10 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'itonami.methods.test-datom-emit 'itonami.tests.test-fleet
-                      'itonami.tests.test-ingest 'itonami.tests.test-trend
-                      'itonami.tests.test-analyze 'itonami.tests.test-digest
-                      'itonami.tests.test-plan 'itonami.tests.test-alert
-                      'itonami.tests.test-inspect 'itonami.tests.test-optimize)
-             (let [r (clojure.test/run-tests
-                      'itonami.methods.test-datom-emit 'itonami.tests.test-fleet
-                      'itonami.tests.test-ingest 'itonami.tests.test-trend
-                      'itonami.tests.test-analyze 'itonami.tests.test-digest
-                      'itonami.tests.test-plan 'itonami.tests.test-alert
-                      'itonami.tests.test-inspect 'itonami.tests.test-optimize)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:kabuto
-  {:doc "kabuto Clojure test suite — 6 cljc suites wired into the runner (incl. test-charter-gates; orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'kabuto.methods.test-analyze 'kabuto.methods.test-autorun
-                      'kabuto.methods.test-social 'kabuto.viz.test-build-viz-data 'kabuto.viz.test-build-bpmn-manifest
-                      'kabuto.methods.test-charter-gates)
-             (let [r (clojure.test/run-tests
-                      'kabuto.methods.test-analyze 'kabuto.methods.test-autorun
-                      'kabuto.methods.test-social 'kabuto.viz.test-build-viz-data 'kabuto.viz.test-build-bpmn-manifest
-                      'kabuto.methods.test-charter-gates)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:kadode
-  {:doc "kadode Clojure test suite — 5 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'kadode.methods.test-datom-emit 'kadode.tests.test-wasm
-                      'kadode.tests.test-analyze 'kadode.tests.test-generate
-                      'kadode.tests.test-coverage)
-             (let [r (clojure.test/run-tests
-                      'kadode.methods.test-datom-emit 'kadode.tests.test-wasm
-                      'kadode.tests.test-analyze 'kadode.tests.test-generate
-                      'kadode.tests.test-coverage)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:kaiyaku
-  {:doc "kaiyaku Clojure test suite — 4 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'kaiyaku.methods.test-datom-emit 'kaiyaku.tests.test-analyze
-                      'kaiyaku.tests.test-handoff 'kaiyaku.tests.test-plan)
-             (let [r (clojure.test/run-tests
-                      'kaiyaku.methods.test-datom-emit 'kaiyaku.tests.test-analyze
-                      'kaiyaku.tests.test-handoff 'kaiyaku.tests.test-plan)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:kanjo
-  {:doc "kanjo Clojure test suite — 3 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'kanjo.methods.test-autorun 'kanjo.tests.test-kanjo
-                      'kanjo.tests.test-invariants)
-             (let [r (clojure.test/run-tests
-                      'kanjo.methods.test-autorun 'kanjo.tests.test-kanjo
-                      'kanjo.tests.test-invariants)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:karakuri
-  {:doc "karakuri Clojure test suite — 9 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'karakuri.methods.test-export-and-live-and-datom 'karakuri.methods.test-nl-plan
-                      'karakuri.methods.test-t2-browser 'karakuri.methods.test-command
-                      'karakuri.cells.test-state-machines 'karakuri.cells.test-service-resolve
-                      'karakuri.cells.test-export-roundtrip 'karakuri.cells.test-command-plan
-                      'karakuri.cells.test-adapter-invoke)
-             (let [r (clojure.test/run-tests
-                      'karakuri.methods.test-export-and-live-and-datom 'karakuri.methods.test-nl-plan
-                      'karakuri.methods.test-t2-browser 'karakuri.methods.test-command
-                      'karakuri.cells.test-state-machines 'karakuri.cells.test-service-resolve
-                      'karakuri.cells.test-export-roundtrip 'karakuri.cells.test-command-plan
-                      'karakuri.cells.test-adapter-invoke)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:kawaraban
-  {:doc "kawaraban Clojure test suite — 4 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'kawaraban.methods.test-analyze 'kawaraban.methods.test-charter-gates
-                      'kawaraban.methods.test-ingest 'kawaraban.methods.test-route)
-             (let [r (clojure.test/run-tests
-                      'kawaraban.methods.test-analyze 'kawaraban.methods.test-charter-gates
-                      'kawaraban.methods.test-ingest 'kawaraban.methods.test-route)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:kosatsu
-  {:doc "kosatsu Clojure test suite — 6 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'kosatsu.methods.test-analyze 'kosatsu.methods.test-charter-invariants
-                      'kosatsu.methods.test-autorun 'kosatsu.methods.test-lexicons
-                      'kosatsu.methods.test-weave 'kosatsu.methods.test-consistency)
-             (let [r (clojure.test/run-tests
-                      'kosatsu.methods.test-analyze 'kosatsu.methods.test-charter-invariants
-                      'kosatsu.methods.test-autorun 'kosatsu.methods.test-lexicons
-                      'kosatsu.methods.test-weave 'kosatsu.methods.test-consistency)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:matsurigoto
-  {:doc "matsurigoto Clojure test suite — 8 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'matsurigoto.methods.test-datoms 'matsurigoto.methods.test-sign-capability
-                      'matsurigoto.methods.test-lexicons 'matsurigoto.methods.test-standard
-                      'matsurigoto.methods.modules.test-tax-assess 'matsurigoto.methods.modules.test-civil-registry
-                      'matsurigoto.methods.modules.test-credential-issue 'matsurigoto.methods.modules.test-corp-registry)
-             (let [r (clojure.test/run-tests
-                      'matsurigoto.methods.test-datoms 'matsurigoto.methods.test-sign-capability
-                      'matsurigoto.methods.test-lexicons 'matsurigoto.methods.test-standard
-                      'matsurigoto.methods.modules.test-tax-assess 'matsurigoto.methods.modules.test-civil-registry
-                      'matsurigoto.methods.modules.test-credential-issue 'matsurigoto.methods.modules.test-corp-registry)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:meisai
-  {:doc "meisai Clojure test suite — 3 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'meisai.methods.test-autorun 'meisai.methods.test-ingest
-                      'meisai.methods.test-kotoba)
-             (let [r (clojure.test/run-tests
-                      'meisai.methods.test-autorun 'meisai.methods.test-ingest
-                      'meisai.methods.test-kotoba)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:mizuho
-  {:doc "mizuho Clojure test suite — 4 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'mizuho.methods.test-charter-gates 'mizuho.methods.test-chlorination
-                      'mizuho.methods.test-water-supply
-                      'mizuho.cells.test-state-machines)
-             (let [r (clojure.test/run-tests
-                      'mizuho.methods.test-charter-gates 'mizuho.methods.test-chlorination
-                      'mizuho.methods.test-water-supply
-                      'mizuho.cells.test-state-machines)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:niyaku
-  {:doc "niyaku Clojure test suite — 5 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'niyaku.methods.test-terminal-cycle 'niyaku.methods.test-stow-plan
-                      'niyaku.methods.test-isaac-sway-sim 'niyaku.methods.test-crane-dynamics
-                      'niyaku.methods.test-agv-transfer)
-             (let [r (clojure.test/run-tests
-                      'niyaku.methods.test-terminal-cycle 'niyaku.methods.test-stow-plan
-                      'niyaku.methods.test-isaac-sway-sim 'niyaku.methods.test-crane-dynamics
-                      'niyaku.methods.test-agv-transfer)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:post_quantum_compat
-  {:doc "post_quantum_compat Clojure test suite — 2 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'post-quantum-compat.methods.test-datom-emit 'post-quantum-compat.methods.test-suite 'post-quantum-compat.methods.test-suite-registry)
-             (let [r (clojure.test/run-tests
-                      'post-quantum-compat.methods.test-datom-emit 'post-quantum-compat.methods.test-suite 'post-quantum-compat.methods.test-suite-registry)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:rasen
-  {:doc "rasen Clojure test suite — 5 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'rasen.tests.test-datom-emit 'rasen.tests.test-wasm
-                      'rasen.tests.test-ingest 'rasen.tests.test-analyze
-                      'rasen.tests.test-coverage)
-             (let [r (clojure.test/run-tests
-                      'rasen.tests.test-datom-emit 'rasen.tests.test-wasm
-                      'rasen.tests.test-ingest 'rasen.tests.test-analyze
-                      'rasen.tests.test-coverage)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:shomei
-  {:doc "shomei Clojure test suite — 10 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'shomei.methods.test-aggregate 'shomei.methods.test-analyze
-                      'shomei.methods.test-charter-invariants 'shomei.methods.test-blake2b
-                      'shomei.methods.test-claims 'shomei.methods.test-revoke
-                      'shomei.methods.test-verify 'shomei.methods.test-factors
-                      'shomei.methods.test-lexicons
-                      'shomei.cells.test-cell-scaffolds)
-             (let [r (clojure.test/run-tests
-                      'shomei.methods.test-aggregate 'shomei.methods.test-analyze
-                      'shomei.methods.test-charter-invariants 'shomei.methods.test-blake2b
-                      'shomei.methods.test-claims 'shomei.methods.test-revoke
-                      'shomei.methods.test-verify 'shomei.methods.test-factors
-                      'shomei.methods.test-lexicons
-                      'shomei.cells.test-cell-scaffolds)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:sukashi
-  {:doc "sukashi Clojure test suite — 2 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'sukashi.methods.test-autorun 'sukashi.tests.test-sukashi 'sukashi.viz.test-build-viz-data)
-             (let [r (clojure.test/run-tests
-                      'sukashi.methods.test-autorun 'sukashi.tests.test-sukashi 'sukashi.viz.test-build-viz-data)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:tanemaki
-  {:doc "tanemaki Clojure test suite — 5 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'tanemaki.methods.test-datom-emit 'tanemaki.tests.test-wasm
-                      'tanemaki.tests.test-analyze 'tanemaki.tests.test-propose
-                      'tanemaki.tests.test-coverage)
-             (let [r (clojure.test/run-tests
-                      'tanemaki.methods.test-datom-emit 'tanemaki.tests.test-wasm
-                      'tanemaki.tests.test-analyze 'tanemaki.tests.test-propose
-                      'tanemaki.tests.test-coverage)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:suji
-  {:doc "suji Clojure test suite — 6 cljc suites wired into the runner (cell port; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'suji.cells.test-state-machines
-                      'suji.methods.test-load 'suji.methods.test-muscle-strain
-                      'suji.methods.test-datoms 'suji.methods.test-charter-invariants
-                      'suji.methods.test-bridge-consistency)
-             (let [r (clojure.test/run-tests
-                      'suji.cells.test-state-machines
-                      'suji.methods.test-load 'suji.methods.test-muscle-strain
-                      'suji.methods.test-datoms 'suji.methods.test-charter-invariants
-                      'suji.methods.test-bridge-consistency)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:tasuke
-  {:doc "tasuke Clojure test suite — 11 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'tasuke.methods.test-intake 'tasuke.methods.test-evidence
-                      'tasuke.methods.test-analyze 'tasuke.methods.test-charter-invariants
-                      'tasuke.methods.test-report-gen 'tasuke.methods.test-triage
-                      'tasuke.methods.test-lexicons 'tasuke.methods.test-packet
-                      'tasuke.methods.test-consistency 'tasuke.methods.test-app-parity
-                      'tasuke.cells.test-state-machines)
-             (let [r (clojure.test/run-tests
-                      'tasuke.methods.test-intake 'tasuke.methods.test-evidence
-                      'tasuke.methods.test-analyze 'tasuke.methods.test-charter-invariants
-                      'tasuke.methods.test-report-gen 'tasuke.methods.test-triage
-                      'tasuke.methods.test-lexicons 'tasuke.methods.test-packet
-                      'tasuke.methods.test-consistency 'tasuke.methods.test-app-parity
-                      'tasuke.cells.test-state-machines)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:tate
-  {:doc "tate Clojure test suite — 5 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'tate.tests.test-case-actors 'tate.tests.test-site
-                      'tate.tests.test-terms 'tate.tests.test-coverage
-                      'tate.tests.test-respond)
-             (let [r (clojure.test/run-tests
-                      'tate.tests.test-case-actors 'tate.tests.test-site
-                      'tate.tests.test-terms 'tate.tests.test-coverage
-                      'tate.tests.test-respond)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:tedai
-  {:doc "tedai Clojure test suite — 3 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'tedai.methods.test-t2-vision-and-live-and-datom 'tedai.methods.test-desktop
-                      'tedai.cells.intent-plan.test-state-machine)
-             (let [r (clojure.test/run-tests
-                      'tedai.methods.test-t2-vision-and-live-and-datom 'tedai.methods.test-desktop
-                      'tedai.cells.intent-plan.test-state-machine)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:todoke
-  {:doc "todoke Clojure test suite — 2 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'todoke.methods.test-last-mile 'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine 'yadori.cells.reservation.test-state-machine 'tazuna.cells.teleop-session.test-state-machine 'sanae.cells.autonomous-weeding.test-state-machine 'todoke.cells.handoff-proof.test-state-machine 'kosatsu.cells.social-post.test-state-machine 'nusa.cells.test-state-machine 'kawaraban.cells.test-state-machine 'hotaru.cells.test-state-machine 'shionome.cells.test-state-machine 'shionome.cells.test-membrane-flow 'tedai.cells.test-state-machine 'fuchi.cells.test-state-machine 'niyaku.cells.test-state-machine 'funadaiku.cells.test-state-machine 'silicon.cells.test-state-machine)
-             (let [r (clojure.test/run-tests
-                      'todoke.methods.test-last-mile 'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine 'yadori.cells.reservation.test-state-machine 'tazuna.cells.teleop-session.test-state-machine 'sanae.cells.autonomous-weeding.test-state-machine 'todoke.cells.handoff-proof.test-state-machine 'kosatsu.cells.social-post.test-state-machine 'nusa.cells.test-state-machine 'kawaraban.cells.test-state-machine 'hotaru.cells.test-state-machine 'shionome.cells.test-state-machine 'shionome.cells.test-membrane-flow 'tedai.cells.test-state-machine 'fuchi.cells.test-state-machine 'niyaku.cells.test-state-machine 'funadaiku.cells.test-state-machine 'silicon.cells.test-state-machine)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:uchiwake
-  {:doc "uchiwake Clojure test suite — 2 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'uchiwake.tests.test-off-adapter 'uchiwake.tests.test-uchiwake)
-             (let [r (clojure.test/run-tests
-                      'uchiwake.tests.test-off-adapter 'uchiwake.tests.test-uchiwake)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:watari
-  {:doc "watari Clojure test suite — 3 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'watari.methods.test-ingest 'watari.methods.test-analyze
-                      'watari.methods.test-autorun)
-             (let [r (clojure.test/run-tests
-                      'watari.methods.test-ingest 'watari.methods.test-analyze
-                      'watari.methods.test-autorun)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:watatsuna
-  {:doc "watatsuna Clojure test suite — 4 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'watatsuna.methods.test-ingest 'watatsuna.methods.test-analyze
-                      'watatsuna.methods.test-plan 'watatsuna.viz.test-build-viz-data 'watatsuna.methods.test-autorun)
-             (let [r (clojure.test/run-tests
-                      'watatsuna.methods.test-ingest 'watatsuna.methods.test-analyze
-                      'watatsuna.methods.test-plan 'watatsuna.viz.test-build-viz-data 'watatsuna.methods.test-autorun)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:yabai
-  {:doc "yabai Clojure test suite — 1 cljc suite wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'yabai.methods.test-autorun)
-             (let [r (clojure.test/run-tests
-                      'yabai.methods.test-autorun)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:yadori
-  {:doc "yadori Clojure test suite — 1 cljc suite wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'yadori.methods.test-availability)
-             (let [r (clojure.test/run-tests
-                      'yadori.methods.test-availability)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:kuni-umi
-  {:doc "kuni-umi Clojure test suite (site_survey cell port). NOTE: requires the 20-actors/kuni_umi -> kuni-umi directory symlink — Clojure ns munging maps the hyphenated actor name 'kuni-umi' to the underscore path 'kuni_umi', but the actor dir is hyphenated (70+ path refs make a full rename a separate maintainer task). The symlink is the minimal, reversible fix (the repo already uses symlinks, e.g. the site_survey __init__.py). ADR-2606160842."
-   :task (do (require 'clojure.test 'kuni-umi.cells.site-survey.test-cell)
-             (let [r (clojure.test/run-tests 'kuni-umi.cells.site-survey.test-cell)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:noroshi
-  {:doc "noroshi 烽 Clojure test suite — 光電融合 comms-chip / ISAC / photonic packaging (link-budget, ISAC sim, active-alignment, fibre-loop, PIC layout, kami bridge) + charter/governance/lexicon invariants. 11 suites; py→cljc port wave (ADR-2606160842)."
-   :task (do (require 'clojure.test
-                      'noroshi.methods.test-active-alignment 'noroshi.cells.active-alignment.test-state-machine 'noroshi.methods.test-cable-endpoint
-                      'noroshi.methods.test-charter-invariants 'noroshi.methods.test-consistency
-                      'noroshi.methods.test-fibre-loop 'noroshi.methods.test-governance
-                      'noroshi.methods.test-isac-sim 'noroshi.methods.test-kami-isac-bridge
-                      'noroshi.methods.test-lexicons 'noroshi.methods.test-link-budget
-                      'noroshi.methods.test-pic-layout)
-             (let [r (clojure.test/run-tests
-                      'noroshi.methods.test-active-alignment 'noroshi.cells.active-alignment.test-state-machine 'noroshi.methods.test-cable-endpoint
-                      'noroshi.methods.test-charter-invariants 'noroshi.methods.test-consistency
-                      'noroshi.methods.test-fibre-loop 'noroshi.methods.test-governance
-                      'noroshi.methods.test-isac-sim 'noroshi.methods.test-kami-isac-bridge
-                      'noroshi.methods.test-lexicons 'noroshi.methods.test-link-budget
-                      'noroshi.methods.test-pic-layout)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:charter
-  {:doc "Charter-gate conformance suites — substrate-native cljc (ADR-2606160842 py→clj port wave; clj+datomic first tier). 57 actors read their lexicons (central JSON / lex.edn) + manifest and pin the const/enum/required charter gates."
-   :task (do (require 'clojure.test 'clojure.set
-                      'akashi.methods.test-charter-gates 'akashi.adapters.test-lexicon-shape-validator 'akashi.adapters.test-regulator-bulk-fixture-parser 'akashi.adapters.test-dry-run-fixtures
-                      'chigiri.methods.test-charter-gates 'danjo.methods.test-charter-gates 'funadaiku.methods.test-charter-gates 'futawa.methods.test-charter-gates
-                      'hagukumi.methods.test-charter-gates 'hataori.methods.test-charter-gates 'hataori.cells.finishing-packing.test-state-machine 'hikari.methods.test-charter-gates 'himawari.methods.test-charter-gates
-                      'himotoki.methods.test-charter-gates 'hodoki.methods.test-charter-gates 'hotaru.methods.test-charter-gates 'igata.methods.test-charter-gates
-                      'iyashi.methods.test-charter-gates 'junkan.methods.test-charter-gates 'kabuto.methods.test-charter-gates 'kamado.methods.test-charter-gates
-                      'kanae.methods.test-charter-gates 'kanayama.methods.test-charter-gates 'karute.methods.test-charter-gates 'kataribe.methods.test-charter-gates
-                      'kawaraban.methods.test-charter-gates 'kazaori.methods.test-charter-gates 'kiyome.methods.test-charter-gates 'kiyome.cells.surface-cleaning.test-state-machine 'kizashi.methods.test-charter-gates
-                      'kokoro.methods.test-charter-gates
-                      'kurashimori.methods.test-charter-gates 'makura.methods.test-charter-gates 'manabi.methods.test-charter-gates
-                      'mitate.methods.test-charter-gates
-                      'mitsuho.methods.test-charter-gates 'mizuho.methods.test-charter-gates 'moushibumi.methods.test-charter-gates
-                      'musubi.methods.test-charter-gates 'nusa.methods.test-charter-gates 'ooyake.methods.test-charter-gates 'ossekai.methods.test-charter-gates
-                      'sanae.methods.test-charter-gates 'sarutahiko.methods.test-charter-gates 'seigyo.methods.test-charter-gates 'shidemori.methods.test-charter-gates
-                      'suimin.methods.test-charter-gates 'suki.methods.test-charter-gates 'tadori.methods.test-charter-gates 'tadori.kotoba.test-audit-log 'tatekata.methods.test-charter-gates 'tazuna.methods.test-charter-gates 'todoke.methods.test-charter-gates
-                      'toritate.methods.test-charter-gates 'toritsugi.methods.test-charter-gates 'tsukuroi.methods.test-charter-gates 'tsutae.methods.test-charter-gates 'tsutae.cells.tsutae-pcb-smt.test-state-machine 'tsutae.cells.tsutae-chassis-assembly.test-state-machine 'tsutae.cells.tsutae-display-attachment.test-state-machine 'tsutae.cells.tsutae-firmware-load.test-state-machine 'tsutae.cells.tsutae-final-qc.test-state-machine 'tsutae.cells.tsutae-packaging.test-state-machine 'tsutae.cells.tsutae-device-attestation.test-state-machine 'tsutae.cells.tsutae-recycling-intake.test-state-machine 'tsutae.py.test-agent 'utsushie.methods.test-charter-gates 'wakai.methods.test-charter-gates 'watari.methods.test-charter-gates 'watatsumi.methods.test-charter-gates
-                      'yakushi.methods.test-charter-gates 'yamabiko.methods.test-charter-gates)
-             (let [r (clojure.test/run-tests
-                      'akashi.methods.test-charter-gates 'akashi.adapters.test-lexicon-shape-validator 'akashi.adapters.test-regulator-bulk-fixture-parser 'akashi.adapters.test-dry-run-fixtures
-                      'chigiri.methods.test-charter-gates 'danjo.methods.test-charter-gates 'funadaiku.methods.test-charter-gates 'futawa.methods.test-charter-gates
-                      'hagukumi.methods.test-charter-gates 'hataori.methods.test-charter-gates 'hataori.cells.finishing-packing.test-state-machine 'hikari.methods.test-charter-gates 'himawari.methods.test-charter-gates
-                      'himotoki.methods.test-charter-gates 'hodoki.methods.test-charter-gates 'hotaru.methods.test-charter-gates 'igata.methods.test-charter-gates
-                      'iyashi.methods.test-charter-gates 'junkan.methods.test-charter-gates 'kabuto.methods.test-charter-gates 'kamado.methods.test-charter-gates
-                      'kanae.methods.test-charter-gates 'kanayama.methods.test-charter-gates 'karute.methods.test-charter-gates 'kataribe.methods.test-charter-gates
-                      'kawaraban.methods.test-charter-gates 'kazaori.methods.test-charter-gates 'kiyome.methods.test-charter-gates 'kiyome.cells.surface-cleaning.test-state-machine 'kizashi.methods.test-charter-gates
-                      'kokoro.methods.test-charter-gates
-                      'kurashimori.methods.test-charter-gates 'makura.methods.test-charter-gates 'manabi.methods.test-charter-gates
-                      'mitate.methods.test-charter-gates
-                      'mitsuho.methods.test-charter-gates 'mizuho.methods.test-charter-gates 'moushibumi.methods.test-charter-gates
-                      'musubi.methods.test-charter-gates 'nusa.methods.test-charter-gates 'ooyake.methods.test-charter-gates 'ossekai.methods.test-charter-gates
-                      'sanae.methods.test-charter-gates 'sarutahiko.methods.test-charter-gates 'seigyo.methods.test-charter-gates 'shidemori.methods.test-charter-gates
-                      'suimin.methods.test-charter-gates 'suki.methods.test-charter-gates 'tadori.methods.test-charter-gates 'tadori.kotoba.test-audit-log 'tatekata.methods.test-charter-gates 'tazuna.methods.test-charter-gates 'todoke.methods.test-charter-gates
-                      'toritate.methods.test-charter-gates 'toritsugi.methods.test-charter-gates 'tsukuroi.methods.test-charter-gates 'tsutae.methods.test-charter-gates 'tsutae.cells.tsutae-pcb-smt.test-state-machine 'tsutae.cells.tsutae-chassis-assembly.test-state-machine 'tsutae.cells.tsutae-display-attachment.test-state-machine 'tsutae.cells.tsutae-firmware-load.test-state-machine 'tsutae.cells.tsutae-final-qc.test-state-machine 'tsutae.cells.tsutae-packaging.test-state-machine 'tsutae.cells.tsutae-device-attestation.test-state-machine 'tsutae.cells.tsutae-recycling-intake.test-state-machine 'tsutae.py.test-agent 'utsushie.methods.test-charter-gates 'wakai.methods.test-charter-gates 'watari.methods.test-charter-gates 'watatsumi.methods.test-charter-gates
-                      'yakushi.methods.test-charter-gates 'yamabiko.methods.test-charter-gates)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:keizu
-  {:doc "keizu 系図 Clojure test suite (govt power-relations KG; py→cljc port wave, ADR-2606160842)"
-   :task (do (require 'clojure.test
-                      'keizu.methods.test-analyze 'keizu.methods.test-edn
-                      'keizu.methods.test-weave 'keizu.methods.test-consistency
-                      'keizu.methods.test-lexicons 'keizu.methods.test-ingest
-                      'keizu.methods.test-registry 'keizu.methods.test-sources
-                      'keizu.methods.test-autorun 'keizu.methods.test-bridge
-                      'keizu.methods.test-export 'keizu.methods.test-social
-                      'keizu.methods.test-charter-invariants
-                      'keizu.cells.test-state-machines 'keizu.cells.test-membrane-flow)
-             (let [r (clojure.test/run-tests
-                      'keizu.methods.test-analyze 'keizu.methods.test-edn
-                      'keizu.methods.test-weave 'keizu.methods.test-consistency
-                      'keizu.methods.test-lexicons 'keizu.methods.test-ingest
-                      'keizu.methods.test-registry 'keizu.methods.test-sources
-                      'keizu.methods.test-autorun 'keizu.methods.test-bridge
-                      'keizu.methods.test-export 'keizu.methods.test-social
-                      'keizu.methods.test-charter-invariants
-                      'keizu.cells.test-state-machines 'keizu.cells.test-membrane-flow)]
-               (when (pos? (+ (:fail r) (:error r)))
-                 (System/exit 1))))}
-  test:maps
-  {:doc "maps 地図 Clojure test suite — maps3d kotoba-native methods + BPMN-as-actor off Zeebe onto the Datom log + generic BPMN→Datomic engine (ADR-2606162041; py→cljc port wave ADR-2606160842). Net/http tests use injectable I/O seams + an in-process one-shot socket server (no external dependency)."
-   :task (do (require 'clojure.test
-                      'maps.methods.test-methods 'maps.methods.test-avet-roundtrip
-                      'maps.methods.test-e2e-http 'maps.methods.test-transit
-                      'maps.methods.test-search 'maps.methods.test-reverse
-                      'maps.methods.test-chunk 'maps.methods.test-verify
-                      'maps.methods.test-bpmn-generic 'maps.methods.test-ingest-json
-                      'maps.methods.test-kotoba-local 'maps.methods.test-maps3d-bpmn
-                      'maps.methods.test-maps3d-bpmn-fidelity 'maps.methods.test-maps3d-net-http
-                      'maps.methods.test-maps3d-net-tasks 'maps.methods.test-maps3d-persist
-                      'maps.methods.test-maps3d-tasks)
-             (let [r (clojure.test/run-tests
-                      'maps.methods.test-methods 'maps.methods.test-avet-roundtrip
-                      'maps.methods.test-e2e-http 'maps.methods.test-transit
-                      'maps.methods.test-search 'maps.methods.test-reverse
-                      'maps.methods.test-chunk 'maps.methods.test-verify
-                      'maps.methods.test-bpmn-generic 'maps.methods.test-ingest-json
-                      'maps.methods.test-kotoba-local 'maps.methods.test-maps3d-bpmn
-                      'maps.methods.test-maps3d-bpmn-fidelity 'maps.methods.test-maps3d-net-http
-                      'maps.methods.test-maps3d-net-tasks 'maps.methods.test-maps3d-persist
-                      'maps.methods.test-maps3d-tasks)]
+                                             'mimamori.tests.test-cell)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:yobel
@@ -663,7 +121,7 @@
                       'ibuki.methods.test-kaizen-outcomes 'ibuki.methods.test-kotoba-bridge
                       'ibuki.methods.test-perception 'ibuki.methods.test-fleet
                       'ibuki.methods.test-charter-invariants
-                      'ibuki.methods.test-sick-colony 'ibuki.methods.test-wellbecoming 'ibuki.methods.test-heir)
+                      'ibuki.methods.test-sick-colony)
              (let [r (clojure.test/run-tests
                       'ibuki.methods.test-datoms 'ibuki.methods.test-joucho
                       'ibuki.methods.test-heartbeat 'ibuki.methods.test-infer
@@ -675,7 +133,7 @@
                       'ibuki.methods.test-kaizen-outcomes 'ibuki.methods.test-kotoba-bridge
                       'ibuki.methods.test-perception 'ibuki.methods.test-fleet
                       'ibuki.methods.test-charter-invariants
-                      'ibuki.methods.test-sick-colony 'ibuki.methods.test-wellbecoming 'ibuki.methods.test-heir)]
+                      'ibuki.methods.test-sick-colony)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:ibuki:integration
@@ -684,6 +142,15 @@
              (let [r (clojure.test/run-tests 'ibuki.methods.test-integration)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
+  test:actors
+  {:doc "all ported actor tests (20-actors + 70-tools) auto-discovered via etzhayyim.tools.discovery — supersedes the hand-maintained test:stubs + test:pywasm lists (ADR-2606131500-bb-test-discovery); drop a test_*.cljc and it is picked up, zero bb.edn churn"
+   :task (do (require 'clojure.test)
+             (let [nss ((requiring-resolve 'etzhayyim.tools.discovery/actor-test-nss))]
+               (apply require nss)
+               (let [r (apply clojure.test/run-tests nss)]
+                 (when (pos? (+ (:fail r) (:error r)))
+                   (System/exit 1)))))}
+  ;; merged-from-pywasm-branch (kept for targeted runs; test:actors auto-discovers these too)
   test:stubs
   {:doc "stage-0 stub→real ports (analyzers/cells replacing port-failed .clj)"
    :task (do (require 'clojure.test
@@ -697,7 +164,7 @@
                       'hotaru.cells.commons-readiness.test-state-machine
                       'keizu.methods.test-edn
                       'tatekata.cells.mep-installation.test-cell
-                      'warifu.cells.test-refund 'warifu.cells.test-authorize 'warifu.cells.test-capture 'warifu.cells.test-settle 'warifu.cells.test-dispute 'warifu.cells.test-eavt-schema 'warifu.cells.test-guarded-substrate 'warifu.test-lexicons
+                      'warifu.cells.test-refund
                       'kakaku.kotoba.test-ingest-mcp
                       'watatsuna.methods.test-ingest
                       'scripts.lint.test-verify-no-modal-labs-calls
@@ -727,7 +194,7 @@
                                              'hotaru.cells.commons-readiness.test-state-machine
                                              'keizu.methods.test-edn
                                              'tatekata.cells.mep-installation.test-cell
-                                             'warifu.cells.test-refund 'warifu.cells.test-authorize 'warifu.cells.test-capture 'warifu.cells.test-settle 'warifu.cells.test-dispute 'warifu.cells.test-eavt-schema 'warifu.cells.test-guarded-substrate 'warifu.test-lexicons
+                                             'warifu.cells.test-refund
                                              'kakaku.kotoba.test-ingest-mcp
                                              'watatsuna.methods.test-ingest
                                              'scripts.lint.test-verify-no-modal-labs-calls
@@ -770,45 +237,14 @@
                       'hinagata.tests.test-analyze 'hinagata.tests.test-coverage
                       'itonami.tests.test-analyze
                       'shionome.methods.test-weave 'shionome.methods.test-analyze
-                      'shionome.methods.test-edn 'shionome.methods.test-registry
-                      'shionome.methods.test-export 'shionome.methods.test-social
-                      'shionome.methods.test-kotoba 'shionome.methods.test-autorun
-                      'shionome.methods.test-grounding 'shionome.methods.test-ingest
-                      'shionome.methods.test-sources 'shionome.methods.test-lexicons
-                      'shionome.methods.test-consistency 'shionome.methods.test-charter-invariants
-                      'utsushie.methods.test-render-plan
                       'kaiyaku.methods.test-datom-emit 'kadode.methods.test-datom-emit
                       'tanemaki.methods.test-datom-emit 'itonami.methods.test-datom-emit
                       'tsumugi.tests.test-banner
-                      'tsumugi.methods.test-analyze-scale
-                      'tsumugi.methods.test-coverage-scale
-                      'tsumugi.methods.test-publish
-                      'tsumugi.methods.test-fission-gate
-                      'tsumugi.methods.test-topics
-                      'tsumugi.methods.test-resolve
-                      'tsumugi.methods.test-ingest
-                      'tsumugi.methods.test-ingest-scale
-                      'tsumugi.methods.test-autorun
-                      'tsumugi.methods.test-publish-ipfs
-                      'tsumugi.methods.test-coverage-report
-                      'tsumugi.methods.test-project-influence-posts
-
-                      'tsumugi.methods.test-analyze 'tsumugi.methods.test-narrate
-
-                      'post-quantum-compat.methods.test-suite 'post-quantum-compat.methods.test-suite-registry 'post-quantum-compat.methods.test-datom-emit
-
-                      'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine 'yadori.cells.reservation.test-state-machine 'tazuna.cells.teleop-session.test-state-machine 'sanae.cells.autonomous-weeding.test-state-machine 'todoke.cells.handoff-proof.test-state-machine 'kosatsu.cells.social-post.test-state-machine 'nusa.cells.test-state-machine 'kawaraban.cells.test-state-machine 'hotaru.cells.test-state-machine 'shionome.cells.test-state-machine 'shionome.cells.test-membrane-flow 'tedai.cells.test-state-machine 'fuchi.cells.test-state-machine 'niyaku.cells.test-state-machine 'funadaiku.cells.test-state-machine 'silicon.cells.test-state-machine
                       'hotaru.methods.test-analyze 'mitooshi.methods.test-analyze
-                      'mitooshi.methods.test-social 'mitooshi.methods.test-synthesize
-                      'mitooshi.methods.test-forecast-quantile 'mitooshi.methods.test-forecast 'mitooshi.methods.test-backtest 'mitooshi.methods.test-calibrate 'mitooshi.methods.test-clearpath 'mitooshi.methods.test-kakaku-forecast-e2e 'mitooshi.test-learning-loop 'mitooshi.test-continual-learning 'mitooshi.viz.test-build-forecast-viz 'mitooshi.cells.online-update.test-state-machine 'mitooshi.cells.test-state-machine 'hydrogen-electrolysis.methods.test-electrolysis 'meyasu.py.test-agent 'kakaku.py.test-agent 'meyasu.py.test-cohort-e2e 'meyasu.viz.test-build-viz 'kakaku.viz.test-build-viz 'kakaku.py.test-ingest 'yotei.py.test-agent 'talent.py.test-agent 'tsubasa.py.test-agent 'shukubo.py.test-agent 'organizer.py.test-agent 'sumitsubo.py.test-agent 'omise.py.test-agent 'ossekai.py.test-agent 'funadaiku.py.test-agent 'silicon.py.test-agent 'makura.py.test-agent 'futawa.py.test-agent 'yakushi.py.test-agent 'hodoki.py.test-agent 'tsukuru.py.test-agent 'okaimono.py.test-agent 'okaimono.kotoba.test-ingest-internal 'haraedo.py.test-agent 'kanayama.py.test-agent 'kanayama.cells.intake-qa.test-state-machine 'kanayama.cells.decoating-separation.test-state-machine 'kanayama.cells.melting-furnace.test-state-machine 'kanayama.cells.dross-recovery.test-state-machine 'kanayama.cells.dc-casting.test-state-machine 'kanayama.cells.hot-rolling.test-state-machine 'kanayama.cells.cold-rolling-finishing.test-state-machine 'kanayama.cells.air-emissions-audit.test-state-machine 'kanayama.cells.mass-balance-binder.test-state-machine 'mitooshi.methods.test-horizon
-                      'mitooshi.methods.test-persist 'mitooshi.methods.test-ingest
-                      'mitooshi.methods.test-bridge 'mitooshi.methods.test-bridge-kakaku
-                      'mitooshi.methods.test-score
                       'nusa.methods.test-analyze
                       'ake.methods.test-analyze 'ake.methods.test-triage
                       'ake.methods.test-contributor
                       'kawaraban.methods.test-route 'kawaraban.methods.test-analyze
-                      'kawaraban.methods.test-charter-gates
                       'tasuke.methods.test-triage 'tasuke.methods.test-analyze
                       'shomei.methods.test-blake2b 'shomei.methods.test-analyze
                       'fuchi.methods.test-analyze 'fuchi.methods.test-allocate
@@ -816,26 +252,31 @@
                       'fuchi.methods.test-couple 'fuchi.methods.test-book
                       'fuchi.methods.test-provision
                       'kasa.tests.test-kasa 'kasa.tests.test-invariants
-                      'uchiwake.tests.test-uchiwake 'sukashi.tests.test-sukashi 'sukashi.viz.test-build-viz-data
+                      'uchiwake.tests.test-uchiwake 'uchiwake.tests.test-autorun
+                      'meisai.methods.test-autorun 'meyasu.py.test-autorun
+                      'kakaku.py.test-autorun
+                      'sukashi.tests.test-sukashi
                       'suji.methods.test-load 'suji.methods.test-muscle-strain
                       'suji.methods.test-datoms 'suji.methods.test-charter-invariants
                       'suji.methods.test-bridge-consistency
-                      'kamado.methods.test-kamado 'kamado.cells.decommission-plan.test-state-machine 'kamado.cells.feedstock-guard.test-state-machine
-                      'sanae.methods.test-labor-liberation
-                      'kamado.methods.test-ingest
-                      'todoke.methods.test-last-mile
-                      'sentei.methods.test-prune
-                      'tazuna.methods.test-teleop-safety
-                      'kakaku.methods.test-kakaku-edn
-                      'meisai.methods.test-kotoba
-                      'niyaku.methods.test-stow-plan
-                      'silicon.methods.test-fab-flow
-                      'silicon.methods.test-wafer-handler
-                      'silicon.methods.test-lot-ledger
-                      'silicon.methods.test-fab-cell
-                      'tedai.methods.test-desktop
-                      'karakuri.methods.test-command
-                      'abaki.methods.test-live 'abaki.methods.test-analyze)
+                      'kamado.methods.test-kamado
+                      'abaki.methods.test-live 'abaki.methods.test-analyze
+                      'rasen.tests.test-coverage 'hinagata.methods.test-datom-emit
+                      'hakoniwa.tests.test-simulate 'hakoniwa.tests.test-distribution
+                      'tate.tests.test-terms 'tate.tests.test-respond
+                      'tate.tests.test-coverage
+                      'itonami.methods.test-optimize 'itonami.methods.test-plan
+                      'itonami.methods.test-inspect 'itonami.methods.test-trend
+                      'keizu.methods.test-registry 'keizu.methods.test-export
+                      'funadaiku.methods.test-voyage-energy
+                      'hikari.methods.test-microgrid 'hikari.methods.test-panel-install
+                      'mizuho.methods.test-water-supply 'mizuho.methods.test-chlorination
+                      'noroshi.methods.test-link-budget 'noroshi.methods.test-pic-layout
+                      'kadode.methods.test-generate 'kadode.methods.test-cid
+                      'kaiyaku.tests.test-plan
+                      'hinagata.tests.test-cid 'hinagata.tests.test-query
+                      'hinagata.tests.test-validate 'hinagata.tests.test-esign
+                      'hinagata.tests.test-maturity)
              (let [r (clojure.test/run-tests 'kaiyaku.tests.test-analyze
                                              'kadode.tests.test-analyze
                                              'kadode.tests.test-coverage
@@ -847,52 +288,18 @@
                                              'itonami.tests.test-analyze
                                              'shionome.methods.test-weave
                                              'shionome.methods.test-analyze
-                                             'shionome.methods.test-edn 'shionome.methods.test-registry
-                      'shionome.methods.test-export 'shionome.methods.test-social
-                      'shionome.methods.test-kotoba 'shionome.methods.test-autorun
-                      'shionome.methods.test-grounding 'shionome.methods.test-ingest
-                      'shionome.methods.test-sources 'shionome.methods.test-lexicons
-                      'shionome.methods.test-consistency 'shionome.methods.test-charter-invariants
-                      'utsushie.methods.test-render-plan
                                              'kaiyaku.methods.test-datom-emit
                                              'kadode.methods.test-datom-emit
                                              'tanemaki.methods.test-datom-emit
                                              'itonami.methods.test-datom-emit
                                              'tsumugi.tests.test-banner
-                      'tsumugi.methods.test-analyze-scale
-                      'tsumugi.methods.test-coverage-scale
-                      'tsumugi.methods.test-publish
-                      'tsumugi.methods.test-fission-gate
-                      'tsumugi.methods.test-topics
-                      'tsumugi.methods.test-resolve
-                      'tsumugi.methods.test-ingest
-                      'tsumugi.methods.test-ingest-scale
-                      'tsumugi.methods.test-autorun
-                      'tsumugi.methods.test-publish-ipfs
-                      'tsumugi.methods.test-coverage-report
-                      'tsumugi.methods.test-project-influence-posts
-
-                      'tsumugi.methods.test-analyze 'tsumugi.methods.test-narrate
-
-                      'post-quantum-compat.methods.test-suite 'post-quantum-compat.methods.test-suite-registry 'post-quantum-compat.methods.test-datom-emit
-
-                      'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine 'yadori.cells.reservation.test-state-machine 'tazuna.cells.teleop-session.test-state-machine 'sanae.cells.autonomous-weeding.test-state-machine 'todoke.cells.handoff-proof.test-state-machine 'kosatsu.cells.social-post.test-state-machine 'nusa.cells.test-state-machine 'kawaraban.cells.test-state-machine 'hotaru.cells.test-state-machine 'shionome.cells.test-state-machine 'shionome.cells.test-membrane-flow 'tedai.cells.test-state-machine 'fuchi.cells.test-state-machine 'niyaku.cells.test-state-machine 'funadaiku.cells.test-state-machine 'silicon.cells.test-state-machine
                                              'hotaru.methods.test-analyze
                                              'mitooshi.methods.test-analyze
-                                             'mitooshi.methods.test-social
-                                             'mitooshi.methods.test-synthesize
-                                             'mitooshi.methods.test-forecast-quantile 'mitooshi.methods.test-forecast 'mitooshi.methods.test-backtest 'mitooshi.methods.test-calibrate 'mitooshi.methods.test-clearpath 'mitooshi.methods.test-kakaku-forecast-e2e 'mitooshi.test-learning-loop 'mitooshi.test-continual-learning 'mitooshi.viz.test-build-forecast-viz 'mitooshi.cells.online-update.test-state-machine 'mitooshi.cells.test-state-machine 'hydrogen-electrolysis.methods.test-electrolysis 'meyasu.py.test-agent 'kakaku.py.test-agent 'meyasu.py.test-cohort-e2e 'meyasu.viz.test-build-viz 'kakaku.viz.test-build-viz 'kakaku.py.test-ingest 'yotei.py.test-agent 'talent.py.test-agent 'tsubasa.py.test-agent 'shukubo.py.test-agent 'organizer.py.test-agent 'sumitsubo.py.test-agent 'omise.py.test-agent 'ossekai.py.test-agent 'funadaiku.py.test-agent 'silicon.py.test-agent 'makura.py.test-agent 'futawa.py.test-agent 'yakushi.py.test-agent 'hodoki.py.test-agent 'tsukuru.py.test-agent 'okaimono.py.test-agent 'okaimono.kotoba.test-ingest-internal 'haraedo.py.test-agent 'kanayama.py.test-agent 'kanayama.cells.intake-qa.test-state-machine 'kanayama.cells.decoating-separation.test-state-machine 'kanayama.cells.melting-furnace.test-state-machine 'kanayama.cells.dross-recovery.test-state-machine 'kanayama.cells.dc-casting.test-state-machine 'kanayama.cells.hot-rolling.test-state-machine 'kanayama.cells.cold-rolling-finishing.test-state-machine 'kanayama.cells.air-emissions-audit.test-state-machine 'kanayama.cells.mass-balance-binder.test-state-machine
-                                             'mitooshi.methods.test-horizon
-                                             'mitooshi.methods.test-persist
-                                             'mitooshi.methods.test-ingest
-                                             'mitooshi.methods.test-bridge 'mitooshi.methods.test-bridge-kakaku
-                      'mitooshi.methods.test-score
                                              'nusa.methods.test-analyze
                                              'ake.methods.test-analyze
                                              'ake.methods.test-triage
                                              'ake.methods.test-contributor
                                              'kawaraban.methods.test-route
-                                             'kawaraban.methods.test-charter-gates
                                              'kawaraban.methods.test-analyze
                                              'tasuke.methods.test-triage
                                              'tasuke.methods.test-analyze
@@ -908,61 +315,207 @@
                                              'kasa.tests.test-kasa
                                              'kasa.tests.test-invariants
                                              'uchiwake.tests.test-uchiwake
-                                             'sukashi.tests.test-sukashi 'sukashi.viz.test-build-viz-data
+                                             'uchiwake.tests.test-autorun
+                                             'meisai.methods.test-autorun
+                                             'meyasu.py.test-autorun
+                                             'kakaku.py.test-autorun
+                                             'sukashi.tests.test-sukashi
                                              'suji.methods.test-load
                                              'suji.methods.test-muscle-strain
                                              'suji.methods.test-datoms
                                              'suji.methods.test-charter-invariants
                                              'suji.methods.test-bridge-consistency
-                                             'kamado.methods.test-kamado 'kamado.cells.decommission-plan.test-state-machine 'kamado.cells.feedstock-guard.test-state-machine
-                                             'sanae.methods.test-labor-liberation
-                      'kamado.methods.test-ingest
-                                             'todoke.methods.test-last-mile
-                                             'sentei.methods.test-prune
-                                             'tazuna.methods.test-teleop-safety
-                                             'kakaku.methods.test-kakaku-edn
-                                             'meisai.methods.test-kotoba
-                                             'niyaku.methods.test-stow-plan
-                                             'silicon.methods.test-fab-flow
-                                             'silicon.methods.test-wafer-handler
-                                             'silicon.methods.test-lot-ledger
-                                             'silicon.methods.test-fab-cell
-                                             'tedai.methods.test-desktop
-                                             'karakuri.methods.test-command
+                                             'kamado.methods.test-kamado
                                              'abaki.methods.test-live
-                                             'abaki.methods.test-analyze)]
+                                             'abaki.methods.test-analyze
+                                             'rasen.tests.test-coverage
+                                             'hinagata.methods.test-datom-emit
+                                             'hakoniwa.tests.test-simulate
+                                             'hakoniwa.tests.test-distribution
+                                             'tate.tests.test-terms
+                                             'tate.tests.test-respond
+                                             'tate.tests.test-coverage
+                                             'itonami.methods.test-optimize
+                                             'itonami.methods.test-plan
+                                             'itonami.methods.test-inspect
+                                             'itonami.methods.test-trend
+                                             'keizu.methods.test-registry
+                                             'keizu.methods.test-export
+                                             'funadaiku.methods.test-voyage-energy
+                                             'hikari.methods.test-microgrid
+                                             'hikari.methods.test-panel-install
+                                             'mizuho.methods.test-water-supply
+                                             'mizuho.methods.test-chlorination
+                                             'noroshi.methods.test-link-budget
+                                             'noroshi.methods.test-pic-layout
+                                             'kadode.methods.test-generate
+                                             'kadode.methods.test-cid
+                                             'kaiyaku.tests.test-plan
+                                             'hinagata.tests.test-cid
+                                             'hinagata.tests.test-query
+                                             'hinagata.tests.test-validate
+                                             'hinagata.tests.test-esign
+                                             'hinagata.tests.test-maturity)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
+  test:maps
+  {:doc "maps — kotoba-native Clojure method tests (analyze/ingest/chunk/search/reverse/transit/verify/datom-emit; ADR-2606064500)"
+   :task (do (require 'clojure.test
+                      'maps.tests.test-analyze
+                      'maps.tests.test-ingest
+                      'maps.tests.test-chunk
+                      'maps.tests.test-search
+                      'maps.tests.test-reverse
+                      'maps.tests.test-transit
+                      'maps.tests.test-verify)
+             (let [r (clojure.test/run-tests 'maps.tests.test-analyze
+                                             'maps.tests.test-ingest
+                                             'maps.tests.test-chunk
+                                             'maps.tests.test-search
+                                             'maps.tests.test-reverse
+                                             'maps.tests.test-transit
+                                             'maps.tests.test-verify)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:matsurigoto
+  {:doc "matsurigoto 政 — tax-collect 源泉徴収納付 + tax-assess 速算表 Clojure modules (計算/納付/手続き/連絡先/Datom; ADR-2606062300 + 2606142300)"
+   :task (do (require 'clojure.test
+                      'matsurigoto.tax-collect.test-withholding
+                      'matsurigoto.tax-collect.test-payment
+                      'matsurigoto.tax-collect.test-procedures
+                      'matsurigoto.tax-collect.test-contacts
+                      'matsurigoto.tax-collect.test-datom-emit
+                      'matsurigoto.methods.modules.test-tax-assess
+                      'matsurigoto.methods.modules.test-corp-registry
+                      'matsurigoto.methods.modules.test-civil-registry
+                      'matsurigoto.methods.modules.test-credential-issue
+                      'matsurigoto.methods.test-datoms
+                      'matsurigoto.methods.test-sign-capability
+                      'matsurigoto.methods.test-standard)
+             (let [r (clojure.test/run-tests
+                      'matsurigoto.tax-collect.test-withholding
+                      'matsurigoto.tax-collect.test-payment
+                      'matsurigoto.tax-collect.test-procedures
+                      'matsurigoto.tax-collect.test-contacts
+                      'matsurigoto.tax-collect.test-datom-emit
+                      'matsurigoto.methods.modules.test-tax-assess
+                      'matsurigoto.methods.modules.test-corp-registry
+                      'matsurigoto.methods.modules.test-civil-registry
+                      'matsurigoto.methods.modules.test-credential-issue
+                      'matsurigoto.methods.test-datoms
+                      'matsurigoto.methods.test-sign-capability
+                      'matsurigoto.methods.test-standard)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:fuchi
+  {:doc "扶持 fuchi — sustenance allocation + 1 SBT=1 vote governance Clojure modules (ADR-2606052300 + 2606142300)"
+   :task (do (require 'clojure.test 'fuchi.methods.test-allocate 'fuchi.methods.test-vote 'fuchi.methods.test-route 'fuchi.methods.test-book 'fuchi.methods.test-provision 'fuchi.methods.test-couple 'fuchi.methods.test-analyze)
+             (let [r (clojure.test/run-tests 'fuchi.methods.test-allocate 'fuchi.methods.test-vote 'fuchi.methods.test-route 'fuchi.methods.test-book 'fuchi.methods.test-provision 'fuchi.methods.test-couple 'fuchi.methods.test-analyze)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:aburi
+  {:doc "炙り aburi — personal-tracking-exposure: cljc analyzer/coverage tests + python ingest/bridge legs (ADR-2606161630)"
+   :task (do (require 'clojure.test 'aburi.tests.test-analyze 'aburi.tests.test-coverage)
+             (shell {:dir "20-actors/aburi"} "python3" "tests/test_ingest.py")
+             (shell {:dir "20-actors/aburi"} "python3" "tests/test_bridge.py")
+             (let [r (clojure.test/run-tests 'aburi.tests.test-analyze 'aburi.tests.test-coverage)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  aburi:build-wasm
+  {:doc "炙り aburi — build the WASM component (componentize-py) + report CID (operator step; ADR-2606014600)"
+   :task (do (require 'aburi.tools.build)
+             (apply (resolve 'aburi.tools.build/-main) *command-line-args*))}
+  aburi:publish
+  {:doc "炙り aburi — one-shot publish orchestrator; flags: --pin --deploy --kv --verify --all (operator; ADR-2606013800)"
+   :task (do (require 'aburi.tools.publish)
+             (apply (resolve 'aburi.tools.publish/-main) *command-line-args*))}
+  aburi:ingest
+  {:doc "炙り aburi — local heartbeat: ingest the member's OWN exports (data/local/intake) → local commit-DAG"
+   :task (apply shell {:dir "20-actors/aburi"} "python3" "methods/autorun.py" *command-line-args*)}
+  aburi:bridge
+  {:doc "炙り aburi — push local exposure log → live kotoba :8077 (dry-run default; live = ABURI_KOTOBA_LIVE=1 + Council)"
+   :task (apply shell {:dir "20-actors/aburi"} "python3" "methods/kotoba_bridge.py" *command-line-args*)}
+  sukashi:crawl
+  {:doc "透かし sukashi — worldwide ad-supply-chain crawler (ads.txt/app-ads.txt/sellers.json/RDAP). DRY-RUN unless SUKASHI_OPERATOR_GATE=1 + Council (G7); files → data/live (gitignored)"
+   :task (apply shell {:dir "20-actors/sukashi"} "python3" "methods/crawl.py" *command-line-args*)}
+  sukashi:fleet-stage
+  {:doc "透かし sukashi — stage the pure-stdlib actor to a fleet node's ~/sukashi-run (git-archive + tar over Tailscale SSH). Args: --nodes issachar[,dan]"
+   :task (apply shell {:dir "20-actors/sukashi"} "python3" "tools/fleet_stage.py" *command-line-args*)}
+  sukashi:fleet-drive
+  {:doc "透かし sukashi — (B) interim pseudo-daemon: SSH-run the heartbeat on assigned fleet nodes + record each run as a :fleet.run/* kotoba datom. Pair with /loop for continuity. Args: --nodes issachar"
+   :task (apply shell {:dir "20-actors/sukashi"} "python3" "tools/fleet_drive.py" *command-line-args*)}
+  murakumo:deploy
+  {:doc "Murakumo fleet — deploy the pure-stdlib node cell-runner (ONE supervisor/node, reads cells.edn) to a node as a system LaunchDaemon. Args: --node issachar [--dry-run] (needs Tailscale SSH + passwordless sudo). ADR-2606161645"
+   :task (apply shell {:dir "50-infra/cluster/murakumo/cell-runner"} "python3" "deploy_node.py" *command-line-args*)}
+  test:cell-runner
+  {:doc "Murakumo lite cell-runner + deploy_node tests (pure stdlib; offline)"
+   :task (shell {:dir "50-infra/cluster/murakumo/cell-runner"} "python3" "test_lite_runner.py")}
+  test:sukashi
+  {:doc "透かし sukashi — python invariant/heartbeat/crawler/fleet-drive suites + cljc analyzer tests (no .sh; bb is the runner)"
+   :task (do (shell {:dir "20-actors/sukashi"} "python3" "tests/test_sukashi.py")
+             (shell {:dir "20-actors/sukashi"} "python3" "methods/test_autorun.py")
+             (shell {:dir "20-actors/sukashi"} "python3" "tests/test_crawl.py")
+             (shell {:dir "20-actors/sukashi"} "python3" "tests/test_fleet_drive.py")
+             (require 'clojure.test 'sukashi.tests.test-sukashi 'sukashi.tests.test-viz)
+             (let [r (clojure.test/run-tests 'sukashi.tests.test-sukashi 'sukashi.tests.test-viz)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  sukashi:viz
+  {:doc "sukashi 透かし — build the ad-tech supply-chain + fraud-network viz payload (ad-supply-chain.json) + self-contained viewer (ad-supply-chain.htm). Arg: [seed-edn]."
+   :task (do (require 'sukashi.methods.viz)
+             (apply (resolve 'sukashi.methods.viz/-main) *command-line-args*))}
+  test:tadori
+  {:doc "tadori 辿 Clojure test suite — autonomous silenTadoriReview self-audit heartbeat + kotoba commit-DAG audit-log invariants (G2/G3/G6/G10/G12) + threat-intel ingest gates/EAVT rendering; port of kotoba/test_autorun.py + test_invariants.py + test_ingest_threat_intel.py (ADR-2605301400 / 2606160842)."
+   :task (do (require 'clojure.test 'tadori.tests.test-autorun 'tadori.tests.test-ingest 'tadori.tests.test-trace 'tadori.tests.test-risk 'tadori.tests.test-malak 'tadori.tests.test-ofac 'tadori.tests.test-malak-contract)
+             (let [r (clojure.test/run-tests 'tadori.tests.test-autorun 'tadori.tests.test-ingest 'tadori.tests.test-trace 'tadori.tests.test-risk 'tadori.tests.test-malak 'tadori.tests.test-ofac 'tadori.tests.test-malak-contract)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  tadori:ofac
+  {:doc "tadori 辿 OFAC SDN digital-currency-address ingest — parse a STAGED public sdn.xml (operator downloads it; G4 public SoR, G7) → attributed :sanctions risk labels (asserter ofac-sdn, non-adjudicating). Args: <staged-sdn.xml> [as-of]."
+   :task (do (require 'tadori.methods.ofac)
+             (let [args *command-line-args*
+                   xml (slurp (first args))
+                   as-of (if (second args) (parse-long (second args)) 0)
+                   r ((resolve 'tadori.methods.ofac/ofac-datoms) xml {:as-of as-of})]
+               (println (format "tadori.ofac: %d sanctioned-address labels (+%d skipped) from %s" (:count r) (:skipped r) (first args)))))}
+  tadori:watch
+  {:doc "tadori 辿 CONTINUOUS watch loop — ingest high-risk/scam/sanctioned BTC+ETH addresses + adversary (attack/surveil/hidden-influence) observations → score + cluster-propagate + 取-concentration → append-only public ledger (相互監視/永久記憶/NEVER-a-throne; person data never inline). SYNTHETIC; live=operator gate. Args: [cycles] [log]."
+   :task (do (require 'tadori.methods.watch)
+             (apply (resolve 'tadori.methods.watch/-main) *command-line-args*))}
+  tadori:trace
+  {:doc "tadori 辿 Phase-0 case trace over a SYNTHETIC authorized case — clusters addresses, detects the mixer, traces stolen funds to the CEX exit, links the onion C2 (no live data; live = operator+case gate)."
+   :task (do (require 'tadori.methods.demo-case)
+             ((resolve 'tadori.methods.demo-case/-main)))}
+  tadori:autorun
+  {:doc "tadori 辿 AUTONOMOUS silenTadoriReview self-audit heartbeat over the kotoba Datom log (Phase 0; counters only, NO case/PII/obs data). Args: [cycles] [seed] [log]."
+   :task (do (require 'tadori.methods.autorun)
+             (apply (resolve 'tadori.methods.autorun/-main) *command-line-args*))}
+  tadori:ingest
+  {:doc "tadori 辿 OPERATOR threat-intel ingest → live kotoba datomic.transact (no-server-key: KOTOBA_SESSION_POP/KOTOBA_TOKEN + TADORI_CASE_ID from env; no credential ⇒ DRY RUN). Args: [seed] [graph] [url]."
+   :task (do (require 'tadori.methods.transact)
+             (apply (resolve 'tadori.methods.transact/-main) *command-line-args*))}
   test:clj
   {:doc "all Clojure actor tests (fast suites; run test:ibuki:integration separately)"
-   :depends [test:mimamori test:yobel test:tools test:ibuki test:stubs test:pywasm test:kanae test:keizu test:maps]}
+   :depends [test:mimamori test:yobel test:tools test:ibuki test:actors test:matsurigoto test:fuchi test:aburi test:docs-registry]}
+  test:docs-registry
+  {:doc "docs registry generator (70-tools/scripts/docs/regen-registry.clj) — parse-frontmatter / JSON+EDN encoders / byte-parity round-trip + live freshness guard (port of test_regen_registry.py)"
+   :task (shell "bb" "70-tools/scripts/docs/test_regen_registry.clj")}
   test:tools
-  {:doc "70-tools Clojure test suite (langgraph-clj maturation agent + .md.edn round-trip)"
+  {:doc "70-tools Clojure test suite (langgraph-clj maturation agent)"
    :task (do (require 'clojure.test
                       'etzhayyim.tools.test-maturation-agent
-                      'etzhayyim.tools.test-adr-mdedn)
+                      'etzhayyim.tools.test-discovery)
              (let [r (clojure.test/run-tests 'etzhayyim.tools.test-maturation-agent
-                                             'etzhayyim.tools.test-adr-mdedn)]
+                                              'etzhayyim.tools.test-discovery)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   maturation-agent
   {:doc "LangGraph autonomous maturation agent — upgrade 20-actors *-compat L1→L3 (batch 5)"
    :task (do (require 'etzhayyim.tools.maturation-agent)
              ((requiring-resolve 'etzhayyim.tools.maturation-agent/-main)))}
-
-  adr:to-mdedn
-  {:doc "Convert ADR .md → canonical commented-EDN .md.edn (ADR-2606162200). Args: <*.md>…"
-   :task (do (require 'etzhayyim.tools.adr-mdedn)
-             (apply (resolve 'etzhayyim.tools.adr-mdedn/-main) "to" *command-line-args*))}
-  adr:render
-  {:doc "Render canonical .md.edn → GitHub-displayed .md. Args: <*.md.edn>…"
-   :task (do (require 'etzhayyim.tools.adr-mdedn)
-             (apply (resolve 'etzhayyim.tools.adr-mdedn/-main) "render" *command-line-args*))}
-  adr:index
-  {:doc "Generate 90-docs/adr/adr-index.edn from ADR front matter (SSoT; canonical one-entry-per-line EDN). Replaces the hand-edited single-line blob (ADR-2606162200)."
-   :task (do (require 'etzhayyim.tools.adr-mdedn)
-             (apply (resolve 'etzhayyim.tools.adr-mdedn/-main) "index" *command-line-args*))}
-  adr:index-check
-  {:doc "Fail if adr-index.edn is stale vs the ADR front matter (lefthook drift gate)."
-   :task (do (require 'etzhayyim.tools.adr-mdedn)
-             (apply (resolve 'etzhayyim.tools.adr-mdedn/-main) "index-check" *command-line-args*))}}}
+  verify:wave11
+  {:doc "Wave 11 compute & photonics clj/Datomic actors — cross-artifact consistency + bb contract tests (26 actors; their actor_test.cljc live under *-compat/ so they are out of test:actors auto-discovery; this drives them with the correct per-actor classpath)"
+   :task (shell "python3" "70-tools/verify_wave11.py" "--test")}
+  report:wave11
+  {:doc "Regenerate 70-tools/WAVE11-MATURITY.md scorecard (runs the bb suites)"
+   :task (shell "python3" "70-tools/verify_wave11.py" "--report")}}}

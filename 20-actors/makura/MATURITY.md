@@ -9,7 +9,7 @@ no embedded electronics (anti-surveillance for consumer goods).
 | Lexicons | ✅ 8 under `com.etzhayyim.makura.*` (fabric / foamBatch / pillowLot / qc / packaging / recyclingCertificate / workerExposure / silenComfortReview) |
 | Cells | 🟡 9 path-reserved (5-layer foam-pillow assembly, R0) |
 | Manifest | ✅ `manifest.jsonld` — `constitutionalGates` (G1–G14) + `nonGoals` (N1–N10) machine-readable |
-| Tests | ✅ **14 green** — `methods/test_charter_gates.cljc` (**8**, added 2026-06-16: gate set + no-electronics + KPI/BoM/take-back + worker-exposure + FR + witness/bilingual + charter scan + recycling loop) **+** `py/test_agent.py` (6, agent layer); `./run_tests.sh` aggregates both |
+| Tests | ✅ **14 green** — `methods/test_charter_gates.py` (**8**, added 2026-06-16: gate set + no-electronics + KPI/BoM/take-back + worker-exposure + FR + witness/bilingual + charter scan + recycling loop) **+** `py/test_agent.py` (6, agent layer); `./run_tests.sh` aggregates both |
 | Methods | 🟡 agent present; offline foam engine = R1 |
 
 ## Charter gates pinned by the new charter-gate test
@@ -31,5 +31,3 @@ no embedded electronics (anti-surveillance for consumer goods).
 
 silenComfortReview `r1-activation` + Council Safe tx; cell `.solve()` stays R0-gated. G6
 exposure limits (MDI ≤5 ppb / TDI ≤2 ppb), G7 VOC, G11 size/mass caps enforced in R1 cell logic.
-
-> **2026-06-17 substrate-native migration (ADR-2606160842):** the charter-gate test above was ported Python→Clojure (`methods/test_charter_gates.py` → `methods/test_charter_gates.cljc`, ns `makura.methods.test-charter-gates`, reads the lexicons via cheshire/edn) and the Python was pruned. Run via `./run_tests.sh` (now `exec bb`) or `bb run test:charter` (all 34 charter suites; 244 tests / 924 assertions green). Assertions unchanged (1:1 port).

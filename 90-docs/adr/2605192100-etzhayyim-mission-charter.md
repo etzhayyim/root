@@ -40,6 +40,14 @@ the Charter's Council Lv7+ unanimity threshold = this one member's assent (1/1),
 2026-06-06. Binding under the current one-member roster; re-confirmable by the Bootstrap
 Council once seated (post-2026-06-19 RFP).
 
+> **PARTIAL AMENDMENT 2026-06-17 (Rider v3.5), economic posture only.** §1.6 の「中間排除」を
+> 実装した経済 hard rule(非営利のみ / 広告排除 / 購買モデル禁止 / no-equity)は、ADR-2606180001
+> (wave2) + ADR-2606182359 (wave3) により **categorical 固定ルールから ECL 目的関数の net 評価へ**
+> 移行した。非営利・反個人主義の*精神*は不変で、目的関数の collective-commons 次元が私的捕獲・
+> commons 囲い込みを動的に enforce する。**Tier-0 priority(子・孫 wellbecoming + 反個人主義)+
+> 10% Tithe(ADR-2605192130)は不変**。本 ADR の他の条項(mission / 非終末論 / land trust /
+> transparent force 等)は変更なし。詳細は ADR-2606180001 / 2606182359。
+
 # Context
 
 これまで etzhayyim/root の ADR 群は **substrate** (RW-free, on-chain payment, MST anchor pipeline, membership ritual, BI/treasury) を構築してきた。これらは「**どう動かすか**」を定めるものであり、「**なぜ動かすか**」を定めるものではない。

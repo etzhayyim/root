@@ -15,7 +15,16 @@
              [?e :a2 const]]} ; non-?-symbols / keywords / literals are constants
 
   `q` returns a SET of tuples (vectors), one per :find symbol, for every
-  consistent binding of the where-clauses (joins share vars across clauses)."
+  consistent binding of the where-clauses (joins share vars across clauses).
+
+  ── ENGINE EXTENSIONS ─────────────────────────────────────────────────────────
+  - `_` is a WILDCARD in any clause position: it matches anything and binds
+    nothing (use it for don't-care values instead of an unused ?var).
+  - `q` accepts `:in [?x ...]` plus trailing input args, e.g.
+    (q '{:find [?e] :in [?k] :where [[?e :organism/kind ?k]]} db :species)
+  - EVERY row becomes datoms — a row WITHOUT a `*/id` key (edge / 縁 rows keyed
+    on :en/from + :en/to) gets a deterministic synthetic entity id, so edges are
+    first-class queryable datoms (no need to fall back to raw `load-rows`)."
   (:require [clojure.edn :as edn]))
 
 ;; ── ingest ───────────────────────────────────────────────────────────────────
@@ -32,15 +41,17 @@
   The entity id `e` is the value of the row's `*/id` attribute (e.g. the value
   under :company/id, :supply.edge/id, :product/id, :part/id, :material/id,
   :bom.edge/id). Every OTHER key/value in the row becomes a datom [e k v].
-  Rows without any `*/id` key are skipped."
+  A row WITHOUT any `*/id` key (edge / 縁 rows keyed on :en/from + :en/to) is
+  given a deterministic synthetic id `:kotoba-actors.row/N` (N = row index) so
+  its facts are still datoms — edges become first-class, queryable entities."
   [rows]
-  (for [row rows
-        :let [id-k (some #(when (.endsWith (name %) "id") %) (keys row))]
-        :when id-k
-        :let [e (get row id-k)]
-        [k v] row
-        :when (not= k id-k)]
-    [e k v]))
+  (apply concat
+   (map-indexed
+    (fn [idx row]
+      (let [id-k (some #(when (.endsWith (name %) "id") %) (keys row))
+            e    (if id-k (get row id-k) (keyword "kotoba-actors.row" (str idx)))]
+        (for [[k v] row :when (not= k id-k)] [e k v])))
+    rows)))
 
 (defn build-db
   "Build an EAVT-indexed db from a seq of [e a v] datoms. Shape is your choice
@@ -64,17 +75,23 @@
 (defn- lvar? [x]
   (and (symbol? x) (.startsWith (name x) "?")))
 
-(defn- clause-vars [clause]
-  (distinct (filter lvar? clause)))
+(defn- wildcard? [x] (= x '_))
+
+(defn- const-pos
+  "If clause position `x` is a literal constant (neither a logic var nor the `_`
+  wildcard), resolve it (through the binding for safety); else nil = unconstrained."
+  [binding x]
+  (when-not (or (lvar? x) (wildcard? x))
+    (get binding x x)))
 
 (defn- match-clause
   "Given a binding map and a clause [e-pattern a-pattern v-pattern], return the
   subset of datoms that match the (possibly partially bound) pattern."
   [db binding clause]
   (let [[ep ap vp] clause
-        e-const (when-not (lvar? ep) (get binding ep ep))
-        a-const (when-not (lvar? ap) (get binding ap ap))
-        v-const (when-not (lvar? vp) (get binding vp vp))]
+        e-const (const-pos binding ep)
+        a-const (const-pos binding ap)
+        v-const (const-pos binding vp)]
     (cond
       ;; E is bound/constant: scan the entity sub-index.
       e-const
@@ -120,12 +137,15 @@
 
 (defn q
   "Tiny conjunctive datalog. See ns docstring for the query shape.
-  Returns a set of result tuples (vectors aligned to :find)."
-  [query db]
+  Optional `:in [?x ...]` binds the trailing `inputs` before the where-clauses
+  run. Returns a set of result tuples (vectors aligned to :find)."
+  [query db & inputs]
   (let [find-syms (:find query)
-        clauses (:where query)
-        results (reduce (fn [bindings clause]
-                          (mapcat #(project-clause db % clause) bindings))
-                        [{}]
-                        clauses)]
+        in-syms   (:in query)
+        init      (if (seq in-syms) (zipmap in-syms inputs) {})
+        clauses   (:where query)
+        results   (reduce (fn [bindings clause]
+                            (mapcat #(project-clause db % clause) bindings))
+                          [init]
+                          clauses)]
     (into #{} (map (fn [b] (mapv #(get b %) find-syms))) results)))

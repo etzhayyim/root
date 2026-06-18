@@ -47,6 +47,16 @@ body {
   .yoro-tap { animation: none !important; }
 }
 
+/* Splash screen keyframes */
+@keyframes splash-dot {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.4); }
+}
+@keyframes splash-yoro-float {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50%       { transform: translateY(-10px) rotate(3deg); }
+}
+
 .mascot-float { animation: float 3s ease-in-out infinite; }
 .mascot-bounce { animation: mascot-bounce-kf 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards; }
 .speech-bubble { animation: fadein-up 0.25s ease-out; }

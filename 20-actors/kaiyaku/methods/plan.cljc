@@ -2,43 +2,46 @@
   "kaiyaku 解約 — severance-plan builder (dry-run only at R0).
   1:1 Clojure port of `methods/plan.py` (ADR-2606112201).
 
-  Turns a :sever / :review decision on a tie into a concrete severance plan routed through
-  the safest adapter tier (the karakuri ServiceOp tiering, ADR-2606039200):
+  Turns a :sever / :review-cascade decision on a tie into a concrete severance plan
+  routed through the safest adapter tier (the karakuri ServiceOp tiering, ADR-2606039200):
 
     T1 official-API cancel      — service publishes a cancellation API
-    T2 ToS-permitted browser    — browser-use headless plan over the MEMBER's OWN session;
-                                  refused by construction when the service browser stance is
-                                  :prohibited or :unknown (G3)
-    T3 self-submit procedure    — generated checklist / 解約通知文 the member submits THEMSELVES
+    T2 ToS-permitted browser    — browser-use headless plan over the MEMBER's OWN
+                                  session; refused by construction when the service
+                                  browser stance is :prohibited or :unknown (G3)
+    T3 self-submit procedure    — generated checklist / 解約通知文 the member submits
+                                  THEMSELVES (the toritsugi/kurashimori default-self-submit
+                                  pattern); always available
 
   CONSTITUTIONAL (read before any change):
-    G3 — ToS-honest, NO detection-evasion: evasion verbs are structurally unrepresentable —
-      make-step raises on them. A :prohibited/:unknown browser stance falls to T3.
+    G3 — ToS-honest, NO detection-evasion: evasion verbs (captcha-solve, proxy-rotate,
+      stealth, rate-limit-bypass, fingerprint-spoof) are structurally unrepresentable —
+      make-step raises on them. A :prohibited/:unknown browser stance falls to T3,
+      never \"tries anyway\".
     G5/G6 — severance is DESTRUCTIVE: every plan requires member-sig + explicit dry-run
       confirm; execute raises at R0 (live execution = Council Lv6+ + operator gate).
     G8 — cost-of-severance honesty: notice period / 違約金 are carried into the plan and
       shown to the member; kaiyaku never plans around a contractual obligation.
 
-  Reuses kaiyaku.methods.analyze (load-file* / analyze). House style: Python ':…' keyword
-  strings stay strings; pure fns; file/JSON I/O behind #?(:clj …). Portable .cljc.
-  NOTE: the Python __main__ CLI demo is ported as -main behind #?(:clj)."
+  House style: Python ':…' keyword strings stay strings; pure fns; file I/O only at edges.
+  Requires the existing kaiyaku analyze ns (analyze/load-file* + analyze/analyze)."
   (:require [clojure.string :as str]
-            [kaiyaku.methods.analyze :as analyze]
-            #?(:clj [clojure.java.io :as io])))
+            [kaiyaku.methods.analyze :as analyze]))
 
-(def EVASION-VERBS
+(def evasion-verbs
   #{"captcha-solve" "proxy-rotate" "stealth" "rate-limit-bypass"
     "fingerprint-spoof" "ip-rotate" "anti-bot-bypass"})
 
-(def PLANNABLE #{":sever" ":review-cascade"})
+(def plannable #{":sever" ":review-cascade"})
 
 (defn make-step
-  "The only step constructor. Evasion verbs are unrepresentable (G3) — raises."
+  "The only step constructor. Evasion verbs are unrepresentable (G3).
+  Returns an ordered step map (key order: verb, detail, mode) for byte-parity JSON."
   [verb detail]
-  (when (contains? EVASION-VERBS verb)
+  (when (contains? evasion-verbs verb)
     (throw (ex-info (str "G3: detection-evasion verb '" verb "' is unrepresentable in kaiyaku")
-                    {:verb verb})))
-  {"verb" verb "detail" detail "mode" "dry-run"})
+                    {:verb verb :gate :G3})))
+  (array-map "verb" verb "detail" detail "mode" "dry-run"))
 
 (defn select-tier
   "Safest-first adapter routing (karakuri ADR-2606039200 pattern)."
@@ -47,69 +50,79 @@
     (cond
       (= (get cancel ":api") ":available") "T1"
       (= (get cancel ":browser") ":permitted") "T2"
-      :else "T3")))                       ; :prohibited / :unknown refuses T2 by construction
+      ;; :prohibited / :unknown browser stance refuses T2 by construction
+      :else "T3")))
 
 (defn build-plan
-  "One severance plan for one tie. Dry-run only; never executes."
+  "One severance plan for one tie. Dry-run only; never executes.
+  Returns an ordered map mirroring the Python dict's key order exactly."
   [svc tie]
   (let [rec (get tie "recommendation")]
-    (when-not (contains? PLANNABLE rec)
+    (when-not (contains? plannable rec)
       (throw (ex-info (str "not plannable: recommendation " rec
-                           " (only " (vec (sort PLANNABLE)) ")")
-                      {:recommendation rec})))
+                           " (only " (sort plannable) ")")
+                      {:recommendation rec :gate :plannable})))
     (let [tier (select-tier svc)
           svc-id (get tie "svc")
-          steps (transient [])]
-      (doseq [d (get tie "dependents")]
-        (conj! steps (make-step "rehome-dependency"
-                                (str "move " d " off " svc-id " (SSO/payment) BEFORE severing"))))
-      (cond
-        (= tier "T1")
-        (conj! steps (make-step "api-cancel"
-                                (str "call the published cancellation API of " svc-id)))
-        (= tier "T2")
-        (conj! steps (make-step "browser-cancel"
-                                (str "browser-use plan over the member's OWN session on " svc-id
-                                     " (ToS-permitted surface only)")))
-        :else
-        (conj! steps (make-step "self-submit"
-                                (str "generate 解約/退会 procedure + notice text for " svc-id
-                                     "; the MEMBER submits it themselves"))))
-      (conj! steps (make-step "export-own-data"
-                              (str "T3 portability export of the member's own data from "
-                                   svc-id " before closure")))
-      (conj! steps (make-step "confirm-closure"
-                              "verify the service confirms 解約/退会 (email/record)"))
-      {"svc" svc-id
+          dependents (get tie "dependents")
+          steps (cond-> []
+                  (seq dependents)
+                  (into (map (fn [d]
+                               (make-step "rehome-dependency"
+                                          (str "move " d " off " svc-id
+                                               " (SSO/payment) BEFORE severing")))
+                             dependents))
+
+                  (= tier "T1")
+                  (conj (make-step "api-cancel"
+                                   (str "call the published cancellation API of " svc-id)))
+
+                  (= tier "T2")
+                  (conj (make-step "browser-cancel"
+                                   (str "browser-use plan over the member's OWN session on "
+                                        svc-id " (ToS-permitted surface only)")))
+
+                  (= tier "T3")
+                  (conj (make-step "self-submit"
+                                   (str "generate 解約/退会 procedure + notice text for "
+                                        svc-id "; the MEMBER submits it themselves"))))
+          steps (-> steps
+                    (conj (make-step "export-own-data"
+                                     (str "T3 portability export of the member's own data from "
+                                          svc-id " before closure")))
+                    (conj (make-step "confirm-closure"
+                                     "verify the service confirms 解約/退会 (email/record)")))]
+      (array-map
+       "svc" svc-id
        "svc_label" (get tie "svc_label")
        "tier" tier
        "recommendation" rec
-       "steps" (persistent! steps)
+       "steps" (vec steps)
        ;; G8 cost-of-severance honesty — carried, never planned around
        "notice_days" (get svc ":svc/notice-days" 0)
        "penalty_jpy" (get svc ":svc/penalty-jpy" 0)
        ;; G5 destructive gates — required before ANY live execution
-       "requires" {"member_sig" true "dry_run_confirm" true
-                   "council_lv6_operator_gate" true}
-       "mode" "dry-run"})))
+       "requires" (array-map "member_sig" true
+                             "dry_run_confirm" true
+                             "council_lv6_operator_gate" true)
+       "mode" "dry-run"))))
 
 (defn plans
-  "All severance plans for the plannable ties of a 縁-ledger."
+  "Build a severance plan for every plannable tie (:sever / :review-cascade)."
   [nodes edges]
   (let [res (analyze/analyze nodes edges)]
-    (reduce
-     (fn [out tie]
-       (if (contains? PLANNABLE (get tie "recommendation"))
-         (conj out (build-plan (get nodes (get tie "svc")) tie))
-         out))
-     []
-     (get res "ties"))))
+    (vec
+     (for [tie (get res "ties")
+           :when (contains? plannable (get tie "recommendation"))]
+       (build-plan (get nodes (get tie "svc") {}) tie)))))
 
 (defn execute
-  "R0: live execution is Council Lv6+ + operator + member-sig gated (G5/G6) — raises."
+  "R0: live execution is Council Lv6+ + operator + member-sig gated (G5/G6)."
   [_plan]
-  (throw (#?(:clj RuntimeException. :cljs js/Error.)
-          "kaiyaku R0: live severance execution is gated (G5/G6) — dry-run only")))
+  (throw (ex-info "kaiyaku R0: live severance execution is gated (G5/G6) — dry-run only"
+                  {:gate :G5G6})))
+
+;; ── report rendering (matches Python report's f-strings) ──────────────────────
 
 (defn- comma-int
   "Python f'{n:,}' over an integer (group digits with commas)."
@@ -122,16 +135,14 @@
     (str (when neg "-") grouped)))
 
 (defn report
-  "Render the severance-plans markdown (1:1 with report)."
+  "Render the severance-plans markdown (1:1 with Python report)."
   [ps]
   (let [L (transient ["# kaiyaku severance plans (dry-run — G5/G6 gated)" ""])]
     (doseq [p ps]
       (let [notice (get p "notice_days")
             penalty (get p "penalty_jpy")
             sev (if (or (and (number? notice) (not (zero? notice)))
-                        (and (number? penalty) (not (zero? penalty)))
-                        (and (not (number? notice)) notice)
-                        (and (not (number? penalty)) penalty))
+                        (and (number? penalty) (not (zero? penalty))))
                   (str " · notice " notice "d · penalty ¥" (comma-int penalty))
                   "")]
         (conj! L (str "## " (get p "svc_label") " — " (get p "tier")
@@ -141,68 +152,87 @@
         (conj! L "")))
     (str (str/join "\n" (persistent! L)) "\n")))
 
-;; ── JSON export (yoro UI, wave 40) — json.dumps(ps, ensure_ascii=False, indent=1)
-(defn- json-str [s]
-  (str "\"" (-> (str s)
-                (str/replace "\\" "\\\\")
-                (str/replace "\"" "\\\"")
-                (str/replace "\n" "\\n")
-                (str/replace "\r" "\\r")
-                (str/replace "\t" "\\t"))
-       "\""))
+;; ── minimal JSON encoder — matches Python json.dumps(ps, ensure_ascii=False, indent=1) ──
+
+(defn- json-escape
+  "Escape a string for JSON (ensure_ascii=False → non-ASCII passes through verbatim)."
+  [s]
+  (let [sb (StringBuilder.)]
+    (doseq [c s]
+      (case c
+        \" (.append sb "\\\"")
+        \\ (.append sb "\\\\")
+        \newline (.append sb "\\n")
+        \return (.append sb "\\r")
+        \tab (.append sb "\\t")
+        \formfeed (.append sb "\\f")
+        \backspace (.append sb "\\b")
+        (if (< (int c) 0x20)
+          (.append sb (format "\\u%04x" (int c)))
+          (.append sb c))))
+    (str sb)))
 
 (defn- json-scalar [v]
   (cond
+    (string? v) (str "\"" (json-escape v) "\"")
     (true? v) "true"
     (false? v) "false"
     (nil? v) "null"
-    (string? v) (json-str v)
-    (and (number? v) (or (instance? Double v) (instance? Float v)))
-    (let [d (double v)] (if (== d (Math/rint d)) (str (long d) ".0") (str d)))
-    (number? v) (str v)
-    :else (json-str v)))
+    (integer? v) (str (long v))
+    :else (str v)))
 
-(defn ->json
-  "Faithful json.dumps(x, ensure_ascii=False, indent=1) for our plan shapes
-  (string-keyed maps, vectors, scalars). Mirrors Python's 1-space indent layout."
-  ([x] (->json x 0))
-  ([x depth]
-   (let [pad (apply str (repeat (inc depth) " "))
-         pad0 (apply str (repeat depth " "))]
-     (cond
-       (map? x)
-       (if (empty? x)
-         "{}"
-         (str "{\n"
-              (str/join ",\n"
-                        (map (fn [[k v]] (str pad (json-str k) ": " (->json v (inc depth))))
-                             x))
-              "\n" pad0 "}"))
-       (sequential? x)
-       (if (empty? x)
-         "[]"
-         (str "[\n"
-              (str/join ",\n" (map (fn [v] (str pad (->json v (inc depth)))) x))
-              "\n" pad0 "]"))
-       :else (json-scalar x)))))
+(defn- json-encode
+  "Encode v with Python json.dumps indent=1 semantics (newline + (level+1) spaces per item,
+  ', ' → ',\\n' between items, ': ' after keys, closing bracket at current level's indent)."
+  [v level]
+  (let [ind (apply str (repeat (inc level) " "))
+        cind (apply str (repeat level " "))]
+    (cond
+      (or (map? v) (instance? clojure.lang.IPersistentMap v))
+      (if (empty? v)
+        "{}"
+        (str "{\n"
+             (str/join ",\n"
+                       (map (fn [[k val]]
+                              (str ind "\"" (json-escape (str k)) "\": "
+                                   (json-encode val (inc level))))
+                            v))
+             "\n" cind "}"))
+
+      (sequential? v)
+      (if (empty? v)
+        "[]"
+        (str "[\n"
+             (str/join ",\n"
+                       (map (fn [item] (str ind (json-encode item (inc level)))) v))
+             "\n" cind "]"))
+
+      :else (json-scalar v))))
+
+(defn plans-json
+  "Serialize the plans vector to JSON, byte-identical to Python
+  json.dumps(ps, ensure_ascii=False, indent=1)."
+  [ps]
+  (json-encode ps 0))
 
 #?(:clj
    (defn -main
-     "CLI entry: analyze a seed → out/severance-plans.md + severance-plans.json (file I/O edge)."
+     "CLI entry: build severance plans from a seed EDN ledger →
+     out/severance-plans.md + out/severance-plans.json (file I/O at the edge)."
      [& argv]
      (let [argv (vec argv)
-           here (-> *file* io/file .getParentFile .getParentFile)
+           here (delay (-> *file* clojure.java.io/file .getParentFile .getParentFile))
            seed (if (and (seq argv) (not (str/starts-with? (first argv) "--")))
-                  (io/file (first argv))
-                  (io/file here "data" "seed-en-ledger.kotoba.edn"))
+                  (clojure.java.io/file (first argv))
+                  (clojure.java.io/file @here "data" "seed-en-ledger.kotoba.edn"))
            outdir (if (some #{"--out"} argv)
-                    (io/file (nth argv (inc (.indexOf argv "--out"))))
-                    (io/file here "out"))
+                    (clojure.java.io/file (nth argv (inc (.indexOf argv "--out"))))
+                    (clojure.java.io/file @here "out"))
            {:keys [nodes edges]} (analyze/load-file* seed)
            ps (plans nodes edges)]
        (.mkdirs outdir)
-       (spit (io/file outdir "severance-plans.md") (report ps))
-       (spit (io/file outdir "severance-plans.json") (->json ps))   ; yoro UI (wave 40)
+       (spit (clojure.java.io/file outdir "severance-plans.md") (report ps))
+       (spit (clojure.java.io/file outdir "severance-plans.json") (plans-json ps))
        (println (str "kaiyaku: " (count ps) " severance plans (dry-run) → "
-                     (io/file outdir "severance-plans.md")))
+                     (clojure.java.io/file outdir "severance-plans.md")))
        0)))

@@ -36,6 +36,15 @@
            (count (re-seq #":kaiyaku\.handoff/clause" text))))
     (is (str/includes? text ":kaiyaku.handoff/action :calendar-notice-window"))))
 
-;; (test-kaiyaku-claude-md-counts-in-sync removed in the ADR-2606160842 py→clj prune wave:
-;; it counted `\ndef test_` across the now-pruned Python test files — a doc-sync guard for
-;; Python that has no referent once the .py are gone. The cljc suites carry their own coverage.)
+(deftest test-kaiyaku-claude-md-counts-in-sync
+  ;; Wave 38: kaiyaku 側も CLAUDE.md のテスト数を実数照合 (同期封殺5本目).
+  ;; Counts `\ndef test_` across the actual .py test files (kept on disk), 1:1 with Python.
+  (let [md (slurp (io/file actor-dir "CLAUDE.md"))
+        n-tests (->> (.listFiles (io/file actor-dir "tests"))
+                     (filter #(let [n (.getName %)]
+                                (and (str/starts-with? n "test_") (str/ends-with? n ".py"))))
+                     (map #(count (re-seq #"\ndef test_" (slurp %))))
+                     (reduce + 0))
+        m (re-find #"# (\d+) tests, pure stdlib" md)]
+    (is (and m (= (Integer/parseInt (second m)) n-tests))
+        (str "kaiyaku CLAUDE.md test count drift (actual " n-tests ")"))))

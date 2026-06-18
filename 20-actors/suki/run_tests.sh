@@ -1,5 +1,23 @@
 #!/usr/bin/env bash
-# suki — charter-gate suite, bb/clj (ADR-2606160842; py pruned).
-set -euo pipefail
-cd "$(dirname "$0")/../.."
-exec bb -e '(require (quote clojure.test) (quote suki.methods.test-charter-gates))(let [r (clojure.test/run-tests (quote suki.methods.test-charter-gates))](System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))'
+# suki 鋤 — run the whole test suite with one command.
+# Standalone-runnable tests (the repo pytest plugin env is broken); each exits non-zero on failure.
+set -uo pipefail
+cd "$(dirname "$0")"
+
+SUITES=(
+  "methods/test_charter_gates.py"
+)
+
+fail=0
+for s in "${SUITES[@]}"; do
+  dir="$(dirname "$s")"; file="$(basename "$s")"
+  if ( cd "$dir" && python3 "$file" ); then :; else
+    echo "FAILED: $s"; fail=1
+  fi
+done
+
+if [ "$fail" -eq 0 ]; then
+  echo "── suki: ALL suites green ──"
+else
+  echo "── suki: FAILURES above ──"; exit 1
+fi

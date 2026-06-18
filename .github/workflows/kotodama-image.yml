@@ -6,20 +6,22 @@ name: kotodama-image
 # Python tree don't burn CI minutes.
 
 on:
+  # The kotodama Python source moved to the etzhayyim/kotoba repo (the
+  # 40-engine/kotoba submodule was removed, ADR-2606131645), so root pushes no
+  # longer change it — rebuild on a weekly schedule + on demand, plus when the
+  # cell roster or this workflow changes.
   push:
     branches: [main]
     paths:
-      - "40-engine/kotoba/crates/kotoba-kotodama/py/**"
-      - "40-engine/kotoba/crates/kotoba-kotodama/cells/**"
       - "50-infra/cluster/murakumo/cell-runner/cells.toml"
       - ".github/workflows/kotodama-image.yml"
   pull_request:
     branches: [main]
     paths:
-      - "40-engine/kotoba/crates/kotoba-kotodama/py/**"
-      - "40-engine/kotoba/crates/kotoba-kotodama/cells/**"
       - "50-infra/cluster/murakumo/cell-runner/cells.toml"
       - ".github/workflows/kotodama-image.yml"
+  schedule:
+    - cron: "0 6 * * 1"   # weekly — pick up etzhayyim/kotoba Python changes
   workflow_dispatch:
 
 permissions:
@@ -36,6 +38,12 @@ jobs:
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
+
+      # kotodama Python source = the etzhayyim/kotoba repo (submodule removed,
+      # ADR-2606131645). Clone it into the expected path so the Dockerfile
+      # context (40-engine/kotoba/crates/kotoba-kotodama/py) resolves.
+      - name: Clone etzhayyim/kotoba (kotodama Python source)
+        run: git clone --depth 1 https://github.com/etzhayyim/kotoba.git 40-engine/kotoba
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3

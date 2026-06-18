@@ -1,0 +1,1115 @@
+;; jinushi 地主 — GLEIF authoritative company identity. GENERATED.
+{:dataset-id "gleif-companies",
+ :source "GLEIF (api.gleif.org)",
+ :retrieved "2026-06-16",
+ :note
+ "Authoritative legal-entity identity for building-owner LEIs (legal persons only; ISO 17442 valid-format).",
+ :company-count 221,
+ :companies
+ {"02S2RPPVO9RP4NEU2740"
+  {:legal-name "Reynolds American Inc.",
+   :jurisdiction "US-NC",
+   :status "ACTIVE",
+   :country "US"},
+  "0WKKFB7N1TW1Q5WJ1V86"
+  {:legal-name "GENTING HONG KONG LIMITED",
+   :jurisdiction "BM",
+   :status "ACTIVE",
+   :country "BM"},
+  "20S05OYHG0MQM4VUIC57"
+  {:legal-name "FORD MOTOR COMPANY",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "2138001V85JLYR7AUB61"
+  {:legal-name "THE BERKELEY GROUP PLC",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "2138001YYBULX5SZ2H24"
+  {:legal-name "SCHRODERS PLC",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "2138002RV6AUUX19F397"
+  {:legal-name "הבנק הבינלאומי הראשון לישראל בעמ",
+   :jurisdiction "IL",
+   :status "ACTIVE",
+   :country "IL"},
+  "21380043I15S3UDE7Y82"
+  {:legal-name "UNIVERSITY OF BRIGHTON",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "2138007ZFQYRUSLU3J98"
+  {:legal-name "INTERCONTINENTAL HOTELS GROUP PLC",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "213800CHWARFAAN7UB85"
+  {:legal-name "J D WETHERSPOON PLC",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "213800FKA5MF17RJKT63"
+  {:legal-name "BRITISH AMERICAN TOBACCO P.L.C.",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "213800G1C9KKVVDN1A60"
+  {:legal-name "HAMMERSON PLC",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "213800HOSBRZSGDKXZ21"
+  {:legal-name "Aarhus Kommune",
+   :jurisdiction "DK",
+   :status "ACTIVE",
+   :country "DK"},
+  "213800JEGHHEAXIJDX34"
+  {:legal-name "FRASERS GROUP PLC",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "213800JHYNDNB1NS2W10"
+  {:legal-name "MITCHELLS & BUTLERS PLC",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "213800L6WZJ6FSGIEJ60"
+  {:legal-name "THE UNIVERSITY OF MANCHESTER",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "213800LBQA1Y9L22JB70"
+  {:legal-name "BARCLAYS PLC",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "213800LRO7NS5CYQMN21"
+  {:legal-name "BT GROUP PLC",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "213800QRATKDOA21GF10"
+  {:legal-name "DANSK ERHVERV",
+   :jurisdiction "DK",
+   :status "ACTIVE",
+   :country "DK"},
+  "213800RPBXRETY4A4C59"
+  {:legal-name "SEVERN TRENT PLC",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "213800V8IAVKS37D6B88"
+  {:legal-name "LAND SECURITIES GROUP PLC",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "213800YCEK6U45JCLH18"
+  {:legal-name "BRITISH GAS TRADING LIMITED",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "213800Z7833KR44LCC93"
+  {:legal-name "הכשרת הישוב מקבוצת נמרודי בע\"מ",
+   :jurisdiction "IL",
+   :status "ACTIVE",
+   :country "IL"},
+  "213800ZVIELEA55JMJ32"
+  {:legal-name "DIAGEO PLC",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "21X2CX66SU2BR6QTAD08"
+  {:legal-name "THE HERSHEY COMPANY",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "225YDZ14ZO8E1TXUSU86"
+  {:legal-name "MARRIOTT INTERNATIONAL, INC.",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "2549009I6K3RDXFFY773"
+  {:legal-name "מנורה מבטחים החזקות בע\"מ",
+   :jurisdiction "IL",
+   :status "ACTIVE",
+   :country "IL"},
+  "254900CEKKWIHTEAB172"
+  {:legal-name "WYNN RESORTS, LIMITED",
+   :jurisdiction "US-NV",
+   :status "ACTIVE",
+   :country "US"},
+  "254900MKIGRAYVDUZ926"
+  {:legal-name "County of San Diego",
+   :jurisdiction "US-CA",
+   :status "ACTIVE",
+   :country "US"},
+  "254900STAY03HGZ4ME77"
+  {:legal-name "Rollins College",
+   :jurisdiction "US-FL",
+   :status "ACTIVE",
+   :country "US"},
+  "259400HB4PFX2PA4BT83"
+  {:legal-name "J.W. Construction Holding S.A.",
+   :jurisdiction "PL",
+   :status "ACTIVE",
+   :country "PL"},
+  "259400XAZHCG0XWR2130"
+  {:legal-name "CP STRATEGIC ASSETS SPÓŁKA AKCYJNA",
+   :jurisdiction "PL",
+   :status "ACTIVE",
+   :country "PL"},
+  "259400Y6LEPCYTOP9P91"
+  {:legal-name "POLSKI HOLDING NIERUCHOMOŚCI SPÓŁKA AKCYJNA",
+   :jurisdiction "PL",
+   :status "ACTIVE",
+   :country "PL"},
+  "31570010000000090208"
+  {:legal-name "Energetický a průmyslový holding, a.s.",
+   :jurisdiction "CZ",
+   :status "ACTIVE",
+   :country "CZ"},
+  "35380016EMHNBOVYE123"
+  {:legal-name "オリックス株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "3538005PGNIBTZYXAE45"
+  {:legal-name "東急株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "353800DF2MUZWFL4IL56"
+  {:legal-name "星野リゾート・リート投資法人",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "353800ITDYV3AD2X5M34"
+  {:legal-name "サッポロホールディングス株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "353800KOFMRGOXSJ5Z65"
+  {:legal-name "三菱地所株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "353800ND4ZKNZDYKMF33"
+  {:legal-name "三井不動産株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "353800P62OOYUY3I8T51"
+  {:legal-name "名古屋鉄道株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "353800PQ2C9A7DIM1B47"
+  {:legal-name "四国旅客鉄道株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "353800QGUXHZ7EBCR121"
+  {:legal-name "西日本旅客鉄道株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "353800SENYJ2DSM6PS44"
+  {:legal-name "東日本旅客鉄道株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "353800TVPXCGWDZIIU09"
+  {:legal-name "株式会社NTTドコモ",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "353800YAR3OVUITHTG64"
+  {:legal-name "東海旅客鉄道株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "353800YPW4XM0ZN5I149"
+  {:legal-name "日本郵船株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "375X9PSJLLOV7F21O626"
+  {:legal-name "BRITISH AIRWAYS PLC",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "3SU7BEP7TH9YEQOZCS77"
+  {:legal-name "Canadian National Railway Company",
+   :jurisdiction "CA-QC",
+   :status "ACTIVE",
+   :country "CA"},
+  "4ZLCYJQROKYIYCGT1K86"
+  {:legal-name "WEINBRENNER SHOE COMPANY, INC.",
+   :jurisdiction "US-WI",
+   :status "ACTIVE",
+   :country "US"},
+  "5299000DUMZ99SBBX121"
+  {:legal-name "CPI Europe AG",
+   :jurisdiction "AT",
+   :status "ACTIVE",
+   :country "AT"},
+  "52990016II9MJ2OSWA10"
+  {:legal-name "CBRE Group, Inc.",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "5299001O0WJQYB5GYZ19"
+  {:legal-name "CARLSBERG A/S",
+   :jurisdiction "DK",
+   :status "ACTIVE",
+   :country "DK"},
+  "5299002CCI6HLWAN3K50"
+  {:legal-name "九州旅客鉄道株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "5299003ICAPV07J0R180"
+  {:legal-name "CA Immobilien Anlagen Aktiengesellschaft",
+   :jurisdiction "AT",
+   :status "ACTIVE",
+   :country "AT"},
+  "5299004EMJ3R4RVR5Y75"
+  {:legal-name "東京電力ホールディングス株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "5299004LW4QWGZUB8Y96"
+  {:legal-name "BLACKSTONE INC.",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "5299005KDININGAXCV64"
+  {:legal-name "ALDI INC.",
+   :jurisdiction "US-IL",
+   :status "ACTIVE",
+   :country "US"},
+  "5299006LO74A8XKRK989"
+  {:legal-name "STATKRAFT ENERGI AS",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "5299007PBBE83ZLJZG91"
+  {:legal-name "株式会社電通グループ",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "52990097YFPX9J0H5D87"
+  {:legal-name "PERNOD RICARD",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "5299009RXTX9DN9AKJ98"
+  {:legal-name "Restaurant Brands International Inc.",
+   :jurisdiction "CA-ON",
+   :status "ACTIVE",
+   :country "CA"},
+  "529900CJT4VQO26ONP04"
+  {:legal-name "Caesars Entertainment Corporation",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "529900FVJ8C1OTM8OL03"
+  {:legal-name "Shangri-la Asia Limited",
+   :jurisdiction "BM",
+   :status "ACTIVE",
+   :country "BM"},
+  "529900GCCWW9SRMPJR11"
+  {:legal-name "RYMAN HOSPITALITY PROPERTIES, INC.",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "529900GMNDOYQSAJAE76"
+  {:legal-name "積水ハウス株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "529900IYHHYWU4O3H185"
+  {:legal-name "東宝株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "529900JSFZ4TS59HKD79"
+  {:legal-name "EnBW Energie Baden-Württemberg AG",
+   :jurisdiction "DE",
+   :status "ACTIVE",
+   :country "DE"},
+  "529900R5WX9N2OI2N910"
+  {:legal-name "ソニーグループ株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "529900TF7XJKIOWMLQ79"
+  {:legal-name "大成建設株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "529900VNP95IIHXPCY17"
+  {:legal-name "京成電鉄株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "529900X0H1IO3RS1A464"
+  {:legal-name "PRYSMIAN S.P.A.",
+   :jurisdiction "IT",
+   :status "ACTIVE",
+   :country "IT"},
+  "5493000IBP32UQZ0KL24"
+  {:legal-name "BRITISH BROADCASTING CORPORATION",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "5493000QYMPFRTEY4K28"
+  {:legal-name "日本電気株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "54930015ESJHNM93SQ38"
+  {:legal-name "ANDØYA SPACE AS",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "5493002GMRPPKB6SK161"
+  {:legal-name "Tulalip Tribes of Washington",
+   :jurisdiction "US-WA",
+   :status "ACTIVE",
+   :country "US"},
+  "5493002S4P5IVD462L47"
+  {:legal-name "The George Washington University",
+   :jurisdiction "US-DC",
+   :status "ACTIVE",
+   :country "US"},
+  "54930030NVF3Y2OL0A78"
+  {:legal-name "ROGERS COMMUNICATIONS INC.",
+   :jurisdiction "CA-BC",
+   :status "INACTIVE",
+   :country "CA"},
+  "54930036474DURYNB481"
+  {:legal-name "CANADIAN PACIFIC RAILWAY COMPANY",
+   :jurisdiction "CA",
+   :status "ACTIVE",
+   :country "CA"},
+  "54930039Y2EMGXN6LM88"
+  {:legal-name "EMPIRE STATE DEVELOPMENT CORPORATION",
+   :jurisdiction "US-NY",
+   :status "ACTIVE",
+   :country "US"},
+  "5493004311JJWYT8UN18"
+  {:legal-name "Maryville College",
+   :jurisdiction "US-TN",
+   :status "ACTIVE",
+   :country "US"},
+  "5493004D3AY6L1VGGU46"
+  {:legal-name "Indiana State University",
+   :jurisdiction "US-IN",
+   :status "ACTIVE",
+   :country "US"},
+  "549300506SI9CRFV9Z86"
+  {:legal-name "CREDIT SUISSE GROUP AG",
+   :jurisdiction "CH",
+   :status "INACTIVE",
+   :country "CH"},
+  "54930058W39DHS3GTG15"
+  {:legal-name
+   "The Trustees of Columbia University in the City of New York",
+   :jurisdiction "US-NY",
+   :status "ACTIVE",
+   :country "US"},
+  "5493005LGDPOFHUC6Z36"
+  {:legal-name "THE CLEVELAND CLINIC FOUNDATION",
+   :jurisdiction "US-OH",
+   :status "ACTIVE",
+   :country "US"},
+  "54930060PFQJF6EJ2V72"
+  {:legal-name "Point Park University",
+   :jurisdiction "US-PA",
+   :status "ACTIVE",
+   :country "US"},
+  "54930066VBP7DZEGGJ87"
+  {:legal-name "MGM RESORTS INTERNATIONAL",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "54930069TEI1INHRHS55"
+  {:legal-name "City of Minneapolis, Minnesota",
+   :jurisdiction "US-MN",
+   :status "ACTIVE",
+   :country "US"},
+  "5493006VYRFL1AI6GT29"
+  {:legal-name "Salt Lake County, Utah",
+   :jurisdiction "US-UT",
+   :status "ACTIVE",
+   :country "US"},
+  "5493006W3QUS5LMH6R84"
+  {:legal-name "トヨタ自動車株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "54930070NSV60J38I987"
+  {:legal-name "GENERAL MOTORS COMPANY",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "5493007B9BM9ZXJINO78"
+  {:legal-name "LIVE NATION ENTERTAINMENT, INC.",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "5493007IHEDRYUD1VH20"
+  {:legal-name "The University of Oklahoma Foundation, Inc.",
+   :jurisdiction "US-OK",
+   :status "ACTIVE",
+   :country "US"},
+  "5493007PLZSLIFWICM52"
+  {:legal-name "THE CAPITAL GROUP COMPANIES, INC.",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "5493008H3828EMEXB082"
+  {:legal-name "ANHEUSER-BUSCH INBEV",
+   :jurisdiction "BE",
+   :status "ACTIVE",
+   :country "BE"},
+  "5493008S3YTQJP20YS91"
+  {:legal-name "HB Reavis Holding S.A.",
+   :jurisdiction "LU",
+   :status "ACTIVE",
+   :country "LU"},
+  "5493009OEHU6YS545T65"
+  {:legal-name
+   "THE CHANCELLOR MASTERS AND SCHOLARS OF THE UNIVERSITY OF OXFORD",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "549300ABYZD2SFD5JB29"
+  {:legal-name "City of New York",
+   :jurisdiction "US-NY",
+   :status "ACTIVE",
+   :country "US"},
+  "549300ANVM1COXBSWS09"
+  {:legal-name "City of Little Rock, Arkansas",
+   :jurisdiction "US-AR",
+   :status "ACTIVE",
+   :country "US"},
+  "549300APU14LQKTYCH34"
+  {:legal-name "ENTRA ASA",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "549300B8P6MUJ1YWTS08"
+  {:legal-name "CARREFOUR",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "549300BRTTFKDQCGL048"
+  {:legal-name "City of Oakland",
+   :jurisdiction "US-CA",
+   :status "ACTIVE",
+   :country "US"},
+  "549300C64URYS0WQQY42"
+  {:legal-name "City of Houston, Texas",
+   :jurisdiction "US-TX",
+   :status "ACTIVE",
+   :country "US"},
+  "549300C7SRCL4TVMZB13"
+  {:legal-name "The Trustees of the Smith College",
+   :jurisdiction "US-MA",
+   :status "ACTIVE",
+   :country "US"},
+  "549300CPS7EW1W5BTS02"
+  {:legal-name "Rochester Institute of Technology",
+   :jurisdiction "US-NY",
+   :status "ACTIVE",
+   :country "US"},
+  "549300CXE3YQ1HXYCQ71"
+  {:legal-name "University of Kentucky",
+   :jurisdiction "US-KY",
+   :status "ACTIVE",
+   :country "US"},
+  "549300DUOO1KXOHPM605"
+  {:legal-name "LAS VEGAS SANDS CORP.",
+   :jurisdiction "US-NV",
+   :status "ACTIVE",
+   :country "US"},
+  "549300ECKE48RIS0CZ30"
+  {:legal-name "Parish of Jefferson, Louisiana",
+   :jurisdiction "US-LA",
+   :status "ACTIVE",
+   :country "US"},
+  "549300EKVCKSAOOWU002"
+  {:legal-name "CHILDREN'S HOSPITAL MEDICAL CENTER",
+   :jurisdiction "US-OH",
+   :status "ACTIVE",
+   :country "US"},
+  "549300F07QRX46LXVI35"
+  {:legal-name "BANE NOR EIENDOM AS",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "549300FE3MQ4RVXXC673"
+  {:legal-name "WYNDHAM HOTELS & RESORTS, INC.",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "549300FFADBQ3NEI2D96"
+  {:legal-name "The Board of Trustees of the University of Arkansas",
+   :jurisdiction "US-AR",
+   :status "ACTIVE",
+   :country "US"},
+  "549300FHOP2K4GYRPY40"
+  {:legal-name "University of Oregon",
+   :jurisdiction "US-OR",
+   :status "ACTIVE",
+   :country "US"},
+  "549300GHLQ0J51NUBM84"
+  {:legal-name "City of Atlanta, Georgia",
+   :jurisdiction "US-GA",
+   :status "ACTIVE",
+   :country "US"},
+  "549300GWQMQVAS66E613"
+  {:legal-name "Wayne State University",
+   :jurisdiction "US-MI",
+   :status "ACTIVE",
+   :country "US"},
+  "549300HES5V0C74V4L64"
+  {:legal-name "DUCHY OF CORNWALL",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "549300HVGPK36ICB0B89"
+  {:legal-name "HILTON WORLDWIDE HOLDINGS INC.",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "549300HWFOZXPKGOX654"
+  {:legal-name "Government of the District of Columbia",
+   :jurisdiction "US-DC",
+   :status "ACTIVE",
+   :country "US"},
+  "549300IVFOPB4AG7UL47"
+  {:legal-name "City of Philadelphia",
+   :jurisdiction "US-PA",
+   :status "ACTIVE",
+   :country "US"},
+  "549300J2762HBWE6MQ22"
+  {:legal-name "City of Memphis, Tennessee",
+   :jurisdiction "US-TN",
+   :status "NULL",
+   :country "US"},
+  "549300JEENALUDLM0B07"
+  {:legal-name "Central Ohio Transit Authority",
+   :jurisdiction "US-OH",
+   :status "ACTIVE",
+   :country "US"},
+  "549300JOC93SIW3E1N63"
+  {:legal-name "IVANHOÉ CAMBRIDGE INC.",
+   :jurisdiction "CA-QC",
+   :status "ACTIVE",
+   :country "CA"},
+  "549300K1JD1LDRNBET48"
+  {:legal-name "Brookfield Properties Retail Holding LLC",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "549300K3C21R17LKDU63"
+  {:legal-name "Board of Regents of Eastern Michigan University",
+   :jurisdiction "US-MI",
+   :status "ACTIVE",
+   :country "US"},
+  "549300K4N74HFAM35B08"
+  {:legal-name "Emerson College",
+   :jurisdiction "US-MA",
+   :status "ACTIVE",
+   :country "US"},
+  "549300KSCPQ7L2RG4L66"
+  {:legal-name "Syracuse University",
+   :jurisdiction "US-NY",
+   :status "ACTIVE",
+   :country "US"},
+  "549300LRIF3NWCU26A80"
+  {:legal-name "BlackRock Finance, Inc.",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "549300LX18ZNW1LEMU13"
+  {:legal-name "Dundee Corporation",
+   :jurisdiction "CA-ON",
+   :status "INACTIVE",
+   :country "CA"},
+  "549300M1CR2B2GU2ZU17"
+  {:legal-name "TRUSTEES OF BOSTON UNIVERSITY",
+   :jurisdiction "US-MA",
+   :status "ACTIVE",
+   :country "US"},
+  "549300MGV0XJ2LK7HR51"
+  {:legal-name "The Brooklyn Academy of Music, Inc.",
+   :jurisdiction "US-NY",
+   :status "ACTIVE",
+   :country "US"},
+  "549300MQYQ9Y065XPR71"
+  {:legal-name "Fortis Inc.",
+   :jurisdiction "CA-NL",
+   :status "ACTIVE",
+   :country "CA"},
+  "549300MR1BYTPTMF0I60"
+  {:legal-name "POMONA COLLEGE",
+   :jurisdiction "US-CA",
+   :status "ACTIVE",
+   :country "US"},
+  "549300OJ7WHJ5FFDOQ11"
+  {:legal-name "PARAMOUNT PICTURES CORPORATION",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "549300P5BAAMQQ7VL735"
+  {:legal-name "SOTHEBY'S",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "549300PHILJ12MUKKU25"
+  {:legal-name "PRESIDENT & TRUSTEES OF WILLIAMS COLLEGE",
+   :jurisdiction "US-MA",
+   :status "ACTIVE",
+   :country "US"},
+  "549300Q2G2ZLXN1EX541"
+  {:legal-name "TRUSTEES OF BOSTON COLLEGE",
+   :jurisdiction "US-MA",
+   :status "ACTIVE",
+   :country "US"},
+  "549300QBKY9KHHMP4239"
+  {:legal-name "Minnesota Public Radio",
+   :jurisdiction "US-MN",
+   :status "ACTIVE",
+   :country "US"},
+  "549300QG0NBD9HULR263"
+  {:legal-name "Miami-Dade County, Florida",
+   :jurisdiction "US-FL",
+   :status "ACTIVE",
+   :country "US"},
+  "549300QHIHSH68W22O38"
+  {:legal-name "City of San Jose, California",
+   :jurisdiction "US-CA",
+   :status "ACTIVE",
+   :country "US"},
+  "549300QJC8FZFLYPJ694"
+  {:legal-name "TEXAS CHRISTIAN UNIVERSITY",
+   :jurisdiction "US-TX",
+   :status "ACTIVE",
+   :country "US"},
+  "549300R2AMOORDIO5N77"
+  {:legal-name "Suffolk University",
+   :jurisdiction "US-MA",
+   :status "ACTIVE",
+   :country "US"},
+  "549300RA28ZEFOB6M782"
+  {:legal-name "City and County of San Francisco",
+   :jurisdiction "US-CA",
+   :status "ACTIVE",
+   :country "US"},
+  "549300RFZE56R3KB5271"
+  {:legal-name "New York Institute of Technology",
+   :jurisdiction "US",
+   :status "ACTIVE",
+   :country "US"},
+  "549300S8HVUSEU3JBY60"
+  {:legal-name "RIOCAN REAL ESTATE INVESTMENT TRUST",
+   :jurisdiction "CA",
+   :status "ACTIVE",
+   :country "CA"},
+  "549300SLU4LP6YMRLK07"
+  {:legal-name "明治安田生命保険相互会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "549300T12EZ1F6PWWU29"
+  {:legal-name "ALCOA CORPORATION",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "549300TJPY1TN6ETZE45"
+  {:legal-name "BANE NOR SF",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "549300TK0QTLW5HQGC62"
+  {:legal-name "State of Rhode Island and Providence Plantations",
+   :jurisdiction "US-RI",
+   :status "ACTIVE",
+   :country "US"},
+  "549300TKZX0YNENZC895"
+  {:legal-name "State of Alabama",
+   :jurisdiction "US-AL",
+   :status "ACTIVE",
+   :country "US"},
+  "549300U4OHEAZ124LQ06"
+  {:legal-name "City of New Haven",
+   :jurisdiction "US-CT",
+   :status "ACTIVE",
+   :country "US"},
+  "549300URO8B2DLPRPF61"
+  {:legal-name "VIA RAIL CANADA INC.",
+   :jurisdiction "CA",
+   :status "ACTIVE",
+   :country "CA"},
+  "549300VA283TTQRDNF71"
+  {:legal-name "Maryland Stadium Authority",
+   :jurisdiction "US-MD",
+   :status "ACTIVE",
+   :country "US"},
+  "549300VP92Z696FCLZ96"
+  {:legal-name "みずほ信託銀行株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "549300WZVLSCS3L4L698"
+  {:legal-name "WORLD WRESTLING ENTERTAINMENT, LLC",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "549300X3UK4GG3FNMO06"
+  {:legal-name "ELECTRICITE DE FRANCE",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "549300X5UKJVE386ZB61"
+  {:legal-name "ASSICURAZIONI GENERALI SOCIETA' PER AZIONI",
+   :jurisdiction "IT",
+   :status "ACTIVE",
+   :country "IT"},
+  "549300Y2Q94GGNQC7X56"
+  {:legal-name "Northern Michigan University",
+   :jurisdiction "US-MI",
+   :status "ACTIVE",
+   :country "US"},
+  "549300Y7HMDKHDFTZ042"
+  {:legal-name "City of Pensacola, Florida",
+   :jurisdiction "US-FL",
+   :status "ACTIVE",
+   :country "US"},
+  "549300YKTY8JX1DV2R67"
+  {:legal-name "NCR VOYIX CORPORATION",
+   :jurisdiction "US-MD",
+   :status "ACTIVE",
+   :country "US"},
+  "549300YPQ6G4ZOG14V92"
+  {:legal-name "The Corporation of Saint Mary's College, Notre Dame",
+   :jurisdiction "US-IN",
+   :status "ACTIVE",
+   :country "US"},
+  "549300Z3FGLXMWMOXN32"
+  {:legal-name "COMPAGNIE NATIONALE DU RHONE",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "549300ZFG0YO58NZON90"
+  {:legal-name "شركة المملكة القابضة",
+   :jurisdiction "SA",
+   :status "ACTIVE",
+   :country "SA"},
+  "549300ZJ87IUCDSX4306"
+  {:legal-name "SMITHSONIAN INSTITUTION",
+   :jurisdiction "US-DC",
+   :status "ACTIVE",
+   :country "US"},
+  "549300ZPCD2U4FHTDX64"
+  {:legal-name "Roosevelt University",
+   :jurisdiction "US-IL",
+   :status "ACTIVE",
+   :country "US"},
+  "5967007LIEEXZX7NA051"
+  {:legal-name "STOREBRAND ASA",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "5967007LIEEXZX8ZW078"
+  {:legal-name "AVINOR AS",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "5967007LIEEXZXE4AW33"
+  {:legal-name "EVINY FORNYBAR AS",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "5967007LIEEXZXGFMW72"
+  {:legal-name "TRONDHEIM KOMMUNE",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "5967007LIEEXZXGVU850"
+  {:legal-name "OSLO KOMMUNE",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "5967007LIEEXZXHHG029"
+  {:legal-name "LILLEHAMMER KOMMUNE",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "5967007LIEEXZXIVLK08"
+  {:legal-name "HORDALAND FYLKESKOMMUNE",
+   :jurisdiction "NO",
+   :status "INACTIVE",
+   :country "NO"},
+  "5967007LIEEXZXJHZ471"
+  {:legal-name "SPORVEIEN AS",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "5967007LIEEXZXJMLS49"
+  {:legal-name "SUNNHORDLAND KRAFTLAG AS",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "635400IUIZZIUJSAMF76"
+  {:legal-name "Fortum Oyj",
+   :jurisdiction "FI",
+   :status "ACTIVE",
+   :country "FI"},
+  "635400UFHDIQCDZ6JK11"
+  {:legal-name "Electricity Supply Board",
+   :jurisdiction "IE",
+   :status "ACTIVE",
+   :country "IE"},
+  "635400VCLWEPXCNPSD93"
+  {:legal-name "Irish Rugby Football Union",
+   :jurisdiction "IE",
+   :status "ACTIVE",
+   :country "IE"},
+  "6CPEOKI6OYJ13Q6O7870"
+  {:legal-name "THE KROGER CO.",
+   :jurisdiction "US-OH",
+   :status "ACTIVE",
+   :country "US"},
+  "7437008GT8031GL9BJ96"
+  {:legal-name "Metsähallitus",
+   :jurisdiction "FI",
+   :status "ACTIVE",
+   :country "FI"},
+  "743700CXEJT6NFCEFH10"
+  {:legal-name "Helen Oy",
+   :jurisdiction "FI",
+   :status "ACTIVE",
+   :country "FI"},
+  "743700G4WJYPBNKQFR63"
+  {:legal-name "Osuuskauppa Arina",
+   :jurisdiction "FI",
+   :status "ACTIVE",
+   :country "FI"},
+  "743700TU2S3DXWGU7H32"
+  {:legal-name "Elisa Oyj",
+   :jurisdiction "FI",
+   :status "ACTIVE",
+   :country "FI"},
+  "75AS6R3JFRC26LN8GD86"
+  {:legal-name "Fairfield University",
+   :jurisdiction "US-CT",
+   :status "ACTIVE",
+   :country "US"},
+  "8156000FE0A2DC5B7852"
+  {:legal-name "PRADA S.P.A.",
+   :jurisdiction "IT",
+   :status "ACTIVE",
+   :country "IT"},
+  "8I5DZWZKVSZI1NUHU748"
+  {:legal-name "JPMORGAN CHASE & CO.",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "95980020140005395317"
+  {:legal-name "OBRASCON HUARTE LAIN, S.A.",
+   :jurisdiction "ES",
+   :status "ACTIVE",
+   :country "ES"},
+  "96950038RPL7KKR2OW97"
+  {:legal-name "METROPOLE EUROPEENNE DE LILLE",
+   :jurisdiction "FR",
+   :status "INACTIVE",
+   :country "FR"},
+  "9695003E4MMA10IBTR26"
+  {:legal-name "GECINA",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "969500A4MXJ3ESPHK698"
+  {:legal-name "SOCIETE NATIONALE SNCF",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "969500IY667JOE7ERR52"
+  {:legal-name "ADP",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "969500K59E47ULNCAQ69"
+  {:legal-name "REGIE AUTONOME DES TRANSPORTS PARISIENS",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "969500KHDYUK2NW8TJ54"
+  {:legal-name "CHAMBERY METROPOLE COMMUNAUTE AGGLO.",
+   :jurisdiction "FR",
+   :status "INACTIVE",
+   :country "FR"},
+  "969500QZC2Q0TK11NV07"
+  {:legal-name "ACCOR",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "969500SHQITWXSIS7N89"
+  {:legal-name "UNIBAIL-RODAMCO-WESTFIELD SE",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "969500YG7U0UQDEHBD60"
+  {:legal-name "EAGLE FOOTBALL GROUP",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "9DJT3UXIJIZJI4WXO774"
+  {:legal-name "BANK OF AMERICA CORPORATION",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "9SFB6DIM0FRWV0EV8S84"
+  {:legal-name "YALE UNIVERSITY",
+   :jurisdiction "US-CT",
+   :status "ACTIVE",
+   :country "US"},
+  "FY5ICUIRRDCHN4HHL592"
+  {:legal-name "DUKE UNIVERSITY",
+   :jurisdiction "US-NC",
+   :status "ACTIVE",
+   :country "US"},
+  "G0G4PRB87K0V5MXIV248"
+  {:legal-name "The Curators of the University of Missouri",
+   :jurisdiction "US-MO",
+   :status "ACTIVE",
+   :country "US"},
+  "G8GZFWRIKS3AFD6AWU52"
+  {:legal-name "City of Orlando",
+   :jurisdiction "US-FL",
+   :status "ACTIVE",
+   :country "US"},
+  "GBQKSY6W7G0OHCQ8OQ72"
+  {:legal-name "ASSOCIATED BRITISH FOODS PLC",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "H1NR5322TI1DR8WYVE10"
+  {:legal-name "Roman Catholic Archdiocese of Newark",
+   :jurisdiction "US-NJ",
+   :status "ACTIVE",
+   :country "US"},
+  "H7FNTJ4851HG0EXQ1Z70"
+  {:legal-name "LLOYDS BANK PLC",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "HR0I3LSP7EH9UR2SSH34"
+  {:legal-name "CASCADE INVESTMENT, L.L.C.",
+   :jurisdiction "US-WA",
+   :status "ACTIVE",
+   :country "US"},
+  "HWUPKR0MPOU8FGXBT394"
+  {:legal-name "Apple Inc.",
+   :jurisdiction "US-CA",
+   :status "ACTIVE",
+   :country "US"},
+  "J3WHBG0MTS7O8ZVMDC91"
+  {:legal-name "EXXON MOBIL CORPORATION",
+   :jurisdiction "US-NJ",
+   :status "ACTIVE",
+   :country "US"},
+  "JBID0YMTOJOJ3ILDBS75"
+  {:legal-name "Bard College",
+   :jurisdiction "US-NY",
+   :status "ACTIVE",
+   :country "US"},
+  "NMH2KF074RKAGTH4CM63"
+  {:legal-name "BNP PARIBAS BANK POLSKA SPÓŁKA AKCYJNA",
+   :jurisdiction "PL",
+   :status "ACTIVE",
+   :country "PL"},
+  "NQQ6HPCNCCU6TUTQYE16"
+  {:legal-name "Bank of Montréal",
+   :jurisdiction "CA-QC",
+   :status "ACTIVE",
+   :country "CA"},
+  "O2RNE8IBXP4R0TD8PU41"
+  {:legal-name "SOCIETE GENERALE",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "OBWWNZE695DUK77DTI34"
+  {:legal-name "Northwestern University",
+   :jurisdiction "US-IL",
+   :status "ACTIVE",
+   :country "US"},
+  "QLPCKOOKVX32FUELX240"
+  {:legal-name "POWSZECHNY ZAKŁAD UBEZPIECZEŃ SPÓŁKA AKCYJNA",
+   :jurisdiction "PL",
+   :status "ACTIVE",
+   :country "PL"},
+  "R2G7YMC4K0KXSX0BGX71"
+  {:legal-name "New York University",
+   :jurisdiction "US-NY",
+   :status "ACTIVE",
+   :country "US"},
+  "R4PP93JZOLY261QX3811"
+  {:legal-name "AMERICAN EXPRESS COMPANY",
+   :jurisdiction "US-NY",
+   :status "ACTIVE",
+   :country "US"},
+  "RV5B68J2GV3QGMRPW209"
+  {:legal-name "BRITISH LAND COMPANY PUBLIC LIMITED COMPANY(THE)",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "T27JQIMTYSH41TCD5186"
+  {:legal-name "HYATT HOTELS CORPORATION",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "T8YS5W0N70BYCTHPA429"
+  {:legal-name "University of Washington",
+   :jurisdiction "US-WA",
+   :status "ACTIVE",
+   :country "US"},
+  "TAE73CY392TBWJ3O3305"
+  {:legal-name "NEW YORK LIFE INSURANCE COMPANY",
+   :jurisdiction "US",
+   :status "ACTIVE",
+   :country "US"},
+  "UWJKFUJFZ02DKWI3RY53"
+  {:legal-name "THE COCA-COLA COMPANY",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "VA8TZDWPEZYU430RZ444"
+  {:legal-name "Chevron U.S.A. Inc.",
+   :jurisdiction "US-PA",
+   :status "ACTIVE",
+   :country "US"},
+  "WFYTXMC3IFIZLSCKDP24"
+  {:legal-name "St. John's University, New York",
+   :jurisdiction "US-NY",
+   :status "ACTIVE",
+   :country "US"},
+  "XEIEFTLYDQ1MZ6TZV015"
+  {:legal-name "CHS Inc.",
+   :jurisdiction "US-MN",
+   :status "ACTIVE",
+   :country "US"},
+  "YYQWUR1Z2BCX32HQS333"
+  {:legal-name "Zions Bancorporation",
+   :jurisdiction "US-UT",
+   :status "INACTIVE",
+   :country "US"}}}

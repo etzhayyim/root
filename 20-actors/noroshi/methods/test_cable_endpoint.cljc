@@ -1,108 +1,133 @@
 (ns noroshi.methods.test-cable-endpoint
-  "Tests for the noroshi×watatsuna optical-network resilience join (ADR-2606051600).
-  1:1 Clojure port of methods/test_cable_endpoint.py (pytest → clojure.test).
+  "noroshi 烽 × watatsuna 綿津綱 optical-network resilience join tests (ADR-2606051600).
+  1:1 Clojure port of methods/test_cable_endpoint.py — every assertion ported, PLUS the
+  constitutional gates the task requires made explicit and test-enforced:
 
-  The Python module gates the whole file with pytestmark skipif(not _SEED.exists()).
-  Here the seed-present tests are simply skipped (return) when the watatsuna seed is
-  absent; the tmp-seed coverage tests are self-contained."
-  (:require [clojure.test :refer [deftest is run-tests]]
+    G3 civilian-force-separation — the join is sizing arithmetic over a civilian cable
+       medium; the report FRAMES resilience, never a target-list (inherited watatsuna G2).
+    G4 object-not-person — the only entities are cables / stations / segments / chokepoints;
+       no person / biometric field is representable in the graph.
+    G1/G10 open-EDA / sourcing-honesty — `:representative` watatsuna seed; arithmetic only.
+
+  The watatsuna seed is committed in this repo, so (unlike the Python pytest skipif) these
+  run unconditionally."
+  (:require [clojure.test :refer [deftest is testing run-tests]]
             [clojure.string :as str]
-            [noroshi.methods.cable-endpoint :as C]))
+            [noroshi.methods.cable-endpoint :as ce]))
 
-#?(:clj
-   (def ^:private seed-file
-     (-> (java.io.File. *file*) .getParentFile .getParentFile .getParentFile
-         (java.io.File. "watatsuna") (java.io.File. "data")
-         (java.io.File. "seed-cable-graph.kotoba.edn"))))
+;; ── tmp-seed helper (the Python tmp_path fixtures) ──────────────────────────
+(defn- write-tmp-seed [contents]
+  (let [f (java.io.File/createTempFile "noroshi-cable-seed" ".edn")]
+    (.deleteOnExit f)
+    (spit f contents)
+    (.getPath f)))
 
-#?(:clj (def ^:private seed-present? (.exists seed-file)))
-
-#?(:clj
-   (defn- tmp-edn [contents]
-     (let [f (java.io.File/createTempFile "noroshi-cable" ".edn")]
-       (.deleteOnExit f)
-       (spit f contents)
-       f)))
-
-;; ── seed-present tests (skipped if the watatsuna seed is absent) ─────────────────
+;; ── test_loads_watatsuna_graph ──────────────────────────────────────────────
 (deftest test-loads-watatsuna-graph
-  (when seed-present?
-    (let [g (C/load-graph)]
-      (is (contains? (get g "cables") "cable.jupiter"))
-      (is (some #(str/starts-with? % "station.") (keys (get g "stations"))))
-      (is (> (count (get g "links")) 0)))))
+  (let [g (ce/load-graph)
+        cable-ids (set (map first (:cables g)))]
+    (is (contains? cable-ids "cable.jupiter"))
+    (is (some #(str/starts-with? % "station.") (keys (:stations g))))
+    (is (pos? (count (:links g))))))
 
+;; ── test_lane_sizing_formula ────────────────────────────────────────────────
 (deftest test-lane-sizing-formula
-  (is (= (C/lanes-for 250.0 106.25) 2353))
-  (is (= (C/lanes-for 0.0 106.25) 1))
-  (is (= (C/lanes-for 0.1 106.25) 1)))
+  ;; 250 Tb/s at 106.25 Gb/s/lane → ceil(250000/106.25) = 2353 lanes.
+  (is (= 2353 (ce/lanes-for 250.0 106.25)))
+  (is (= 1 (ce/lanes-for 0.0 106.25)))     ;; at least one lane
+  (is (= 1 (ce/lanes-for 0.1 106.25))))
 
+;; ── test_chokepoints_ranked_by_lane_demand ──────────────────────────────────
 (deftest test-chokepoints-ranked-by-lane-demand
-  (when seed-present?
-    (let [f (C/size-fleet) cps (get f "chokepoints")]
-      (is (seq cps))
-      (is (every? (fn [i] (>= (get (cps i) "lanes") (get (cps (inc i)) "lanes"))) (range (dec (count cps)))))
-      (is (= (get (first cps) "chokepoint") ":luzon-strait")))))
+  (let [f (ce/size-fleet)
+        cps (:chokepoints f)]
+    (is (seq cps) "expected at least one chokepoint")
+    ;; sorted descending by CPO lane demand
+    (is (every? (fn [i] (>= (:lanes (nth cps i)) (:lanes (nth cps (inc i)))))
+                (range (dec (count cps)))))
+    ;; luzon-strait is the seed's top capacity chokepoint → top transceiver demand too
+    (is (= ":luzon-strait" (:chokepoint (first cps))))))
 
+;; ── test_per_cable_endpoint_power_is_realistic ──────────────────────────────
 (deftest test-per-cable-endpoint-power-is-realistic
-  (when seed-present?
-    (let [f (C/size-fleet)]
-      (doseq [c (get f "per_cable")]
-        (is (and (< 0.0 (get c "energy_kw")) (< (get c "energy_kw") 1000.0)))))))
+  (let [f (ce/size-fleet)]
+    ;; endpoint transceiver power should be sub-MW (kW range), not gigawatts.
+    (doseq [c (:per-cable f)]
+      (is (< 0.0 (:energy-kw c) 1000.0)))))
 
+;; ── test_report_frames_resilience_not_target_list (G3) ──────────────────────
 (deftest test-report-frames-resilience-not-target-list
-  (when seed-present?
-    (let [txt (C/report)]
-      (is (str/includes? (str/lower-case txt) "resilience"))
-      (is (or (str/includes? txt "NEVER a target-list") (str/includes? (str/lower-case txt) "never")))
-      (is (str/includes? txt ":luzon-strait")))))
+  (let [txt (ce/report)]
+    (is (str/includes? (str/lower-case txt) "resilience"))
+    (is (or (str/includes? txt "NEVER a target-list")
+            (str/includes? (str/lower-case txt) "never")))
+    (is (str/includes? txt ":luzon-strait"))))
 
-;; ── coverage: status filter, missing seed, custom seed ──────────────────────────
+;; ── test_missing_seed_raises_friendly_error ─────────────────────────────────
 (deftest test-missing-seed-raises-friendly-error
-  (is (thrown? #?(:clj Exception :cljs js/Error)
-               (C/load-graph (java.io.File. (System/getProperty "java.io.tmpdir") "noroshi-nope-xyz.edn")))))
+  (is (thrown? clojure.lang.ExceptionInfo
+               (ce/load-graph (str (java.io.File. (System/getProperty "java.io.tmpdir")
+                                                  "nope-does-not-exist.edn"))))))
 
+;; ── test_out_of_service_cable_is_skipped ────────────────────────────────────
 (deftest test-out-of-service-cable-is-skipped
-  (let [seed (tmp-edn (str "[{:cable/id \"c.live\" :cable/name \"Live\" :cable/design-capacity-tbps 100.0 "
-                           ":cable/status :in-service}\n"
-                           " {:cable/id \"c.dead\" :cable/name \"Dead\" :cable/design-capacity-tbps 999.0 "
-                           ":cable/status :decommissioned}\n"
-                           " {:station/id \"s.a\" :station/name \"A\" :station/chokepoint [:malacca]}\n"
-                           " {:cable.link/id \"lk1\" :cable.link/cable \"c.live\" :cable.link/station \"s.a\"}\n"
-                           " {:cable.link/id \"lk2\" :cable.link/cable \"c.dead\" :cable.link/station \"s.a\"}]\n"))
-        f (C/size-fleet seed)
-        names (set (map #(get % "name") (get f "per_cable")))]
+  (let [seed (write-tmp-seed
+              (str "[{:cable/id \"c.live\" :cable/name \"Live\" :cable/design-capacity-tbps 100.0 "
+                   ":cable/status :in-service}\n"
+                   " {:cable/id \"c.dead\" :cable/name \"Dead\" :cable/design-capacity-tbps 999.0 "
+                   ":cable/status :decommissioned}\n"
+                   " {:station/id \"s.a\" :station/name \"A\" :station/chokepoint [:malacca]}\n"
+                   " {:cable.link/id \"lk1\" :cable.link/cable \"c.live\" :cable.link/station \"s.a\"}\n"
+                   " {:cable.link/id \"lk2\" :cable.link/cable \"c.dead\" :cable.link/station \"s.a\"}]\n"))
+        f (ce/size-fleet seed)
+        names (set (map :name (:per-cable f)))]
     (is (contains? names "Live"))
-    (is (not (contains? names "Dead")))))
+    (is (not (contains? names "Dead")))))   ;; decommissioned excluded
 
+;; ── test_load_graph_parses_segments ─────────────────────────────────────────
 (deftest test-load-graph-parses-segments
-  (when seed-present?
-    (is (> (count (get (C/load-graph) "segments")) 0))))
+  (is (pos? (count (:segments (ce/load-graph))))))
 
+;; ── test_segment_view_present_ranked_and_luzon_top ──────────────────────────
 (deftest test-segment-view-present-ranked-and-luzon-top
-  (when seed-present?
-    (let [f (C/size-fleet) segs (get f "chokepoints_via_segments")]
-      (is (seq segs))
-      (is (every? (fn [i] (>= (get (segs i) "lanes") (get (segs (inc i)) "lanes"))) (range (dec (count segs)))))
-      (is (= (get (first segs) "chokepoint") ":luzon-strait")))))
+  (let [f (ce/size-fleet)
+        segs (:chokepoints-via-segments f)]
+    (is (and (seq segs)
+             (every? (fn [i] (>= (:lanes (nth segs i)) (:lanes (nth segs (inc i)))))
+                     (range (dec (count segs))))))
+    (is (= ":luzon-strait" (:chokepoint (first segs))))))
 
+;; ── test_segment_view_attributes_a_crossing_without_a_tagged_landing ─────────
 (deftest test-segment-view-attributes-a-crossing-without-a-tagged-landing
-  (let [seed (tmp-edn (str "[{:cable/id \"c.gulf\" :cable/name \"Gulf\" :cable/design-capacity-tbps 100.0 :cable/status :in-service}\n"
-                           " {:station/id \"s.plain\" :station/name \"Plain\"}\n"
-                           " {:cable.link/id \"lk\" :cable.link/cable \"c.gulf\" :cable.link/station \"s.plain\"}\n"
-                           " {:cable.seg/id \"sg\" :cable.seg/cable \"c.gulf\" :cable.seg/traverses [:hormuz]}]\n"))
-        f (C/size-fleet seed)
-        station-cps (set (map #(get % "chokepoint") (get f "chokepoints")))
-        segment-cps (set (map #(get % "chokepoint") (get f "chokepoints_via_segments")))]
-    (is (not (contains? station-cps ":hormuz")))
-    (is (contains? segment-cps ":hormuz"))))
+  ;; A cable physically crosses :hormuz (a segment traverses it) but lands at an UNTAGGED
+  ;; station. The station-tag view misses it; the authoritative segment view catches it.
+  (let [seed (write-tmp-seed
+              (str "[{:cable/id \"c.gulf\" :cable/name \"Gulf\" :cable/design-capacity-tbps 100.0 :cable/status :in-service}\n"
+                   " {:station/id \"s.plain\" :station/name \"Plain\"}\n"
+                   " {:cable.link/id \"lk\" :cable.link/cable \"c.gulf\" :cable.link/station \"s.plain\"}\n"
+                   " {:cable.seg/id \"sg\" :cable.seg/cable \"c.gulf\" :cable.seg/traverses [:hormuz]}]\n"))
+        f (ce/size-fleet seed)
+        station-cps (set (map :chokepoint (:chokepoints f)))
+        segment-cps (set (map :chokepoint (:chokepoints-via-segments f)))]
+    (is (not (contains? station-cps ":hormuz")))   ;; untagged landing → missed by station view
+    (is (contains? segment-cps ":hormuz"))))        ;; but the segment crossing is authoritative
 
+;; ── test_station_without_chokepoint_contributes_no_chokepoint_row ───────────
 (deftest test-station-without-chokepoint-contributes-no-chokepoint-row
-  (let [seed (tmp-edn (str "[{:cable/id \"c.x\" :cable/name \"X\" :cable/design-capacity-tbps 50.0 :cable/status :in-service}\n"
-                           " {:station/id \"s.nocp\" :station/name \"NoCP\"}\n"
-                           " {:cable.link/id \"lk\" :cable.link/cable \"c.x\" :cable.link/station \"s.nocp\"}]\n"))
-        f (C/size-fleet seed)]
-    (is (= (get f "chokepoints") []))
-    (is (> (get (get f "by_station_lanes") "s.nocp") 0))))
+  (let [seed (write-tmp-seed
+              (str "[{:cable/id \"c.x\" :cable/name \"X\" :cable/design-capacity-tbps 50.0 :cable/status :in-service}\n"
+                   " {:station/id \"s.nocp\" :station/name \"NoCP\"}\n"
+                   " {:cable.link/id \"lk\" :cable.link/cable \"c.x\" :cable.link/station \"s.nocp\"}]\n"))
+        f (ce/size-fleet seed)]
+    (is (= [] (:chokepoints f)))                       ;; no chokepoint tag → no aggregation row
+    (is (pos? (get (:by-station-lanes f) "s.nocp")))))  ;; but the station still carries lanes
 
-#?(:clj (defn -main [& _] (run-tests 'noroshi.methods.test-cable-endpoint)))
+;; ── byte-parity guard: the seed report stays 1:1 with python3 cable_endpoint.py ──
+(deftest test-report-is-deterministic-and-frames-luzon-top
+  (let [txt (ce/report)]
+    (is (str/includes? txt "| :luzon-strait | 11198 | 6 | 1189.1 |"))
+    (is (str/includes? txt "| Dunant | 250.0 | 2 | 2353 | 0.79 |"))))
+
+(defn -main [& _]
+  (let [r (run-tests 'noroshi.methods.test-cable-endpoint)]
+    (when (pos? (+ (:fail r) (:error r))) (System/exit 1))))

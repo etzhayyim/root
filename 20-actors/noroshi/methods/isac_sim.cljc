@@ -1,358 +1,404 @@
 (ns noroshi.methods.isac-sim
-  "noroshi (烽) ISAC simulator — sensing-communication-fusion face (ADR-2606051600).
-  1:1 Clojure port of methods/isac_sim.py.
+  "noroshi (烽) ISAC simulator — the sensing-communication-fusion face (ADR-2606051600).
+  1:1 Clojure port of methods/isac_sim.py. Stdlib only (Math/ + BigDecimal + complex helper).
 
-  OFDM-radar reciprocal processing (Sturm & Wiesbeck): divide known data out of the
-  echo → pure delay-Doppler grid → 2-D periodogram peak. CIVILIAN object sensing only.
-  Deterministic + offline. The __main__ demo is omitted.
+  ISAC = Integrated Sensing And Communication (a.k.a. JCAS, joint communication-and-sensing):
+  one waveform that simultaneously carries data AND illuminates the environment, so the same
+  photonic / RF front-end that runs the link also senses range + radial velocity. The 烽火台
+  (beacon-watchtower) metaphor: the fire both CARRIES a coded message (communication) and is
+  SEEN at a distance (sensing) — one emission, two functions.
 
-  Complex numbers are [re im] vectors. The CFAR noise path inlines CPython's MT19937
-  + gauss (random.Random(seed).gauss) byte-for-byte so the seeded detection tests are
-  reproducible (Python `random` parity)."
-  (:require [clojure.string :as str]))
+  Implements the OFDM-radar reciprocal-processing model (Sturm & Wiesbeck): the transmitter
+  knows its own data symbols X[n,m], divides them out of the echo to get a pure delay-Doppler
+  grid, and recovers a target by a 2-D periodogram, plus the comms-vs-sensing power-split
+  tradeoff that makes JCAS a DESIGN choice.
+
+  CIVILIAN sensing only (collision-avoidance / presence / range-rate). The target is an OBJECT
+  with a range and a velocity — never a person, never a pattern-of-life (watari G4). Fire-control
+  / weapon-cue sensing is structurally absent (N1). Deterministic + offline: no hardware, no
+  live emission (G7).
+
+  CONSTITUTIONAL gates (noroshi CLAUDE.md):
+    G3 civilian-force-separation — the schema has range_m + velocity_mps only; no :weaponizable,
+       no fire-control / directed-energy / targeting mode (unrepresentable, Charter §1.12).
+    G4 sensing-not-surveillance — a SenseEstimate is an OBJECT's range+velocity+bins, never a
+       :person / biometric / pattern-of-life field.
+    G10 sourcing-honesty — `:representative` arithmetic/DSP; no measured silicon; honest aliasing.
+
+  House style: kebab keyword keys; Python ':…' strings stay literal strings; pure fns; file I/O
+  only at #?(:clj) edges; bad inputs (closed-vocab / range guard) → ex-info (== Python ValueError).
+  Float arithmetic EXACT: round(x,n) / {:.Nf} reproduce Python banker's rounding (HALF_EVEN) on the
+  exact double; complex ops via noroshi.methods.complex (cmath byte-for-byte); the periodogram
+  reproduces the Python double-loop summation order EXACTLY. Portable .cljc."
+  (:require [clojure.string :as str]
+            [noroshi.methods.complex :as cx]
+            #?(:clj [noroshi.methods.mt19937 :as mt])))
 
 (def C-LIGHT 299792458.0)
 (def TWO-PI (* 2.0 Math/PI))
 
-;; ── complex helpers ([re im]) ───────────────────────────────────────────────────
-(defn- cmul [[ar ai] [br bi]] [(- (* ar br) (* ai bi)) (+ (* ar bi) (* ai br))])
-(defn- cadd [[ar ai] [br bi]] [(+ ar br) (+ ai bi)])
-(defn- cdiv [[ar ai] [br bi]] (let [d (+ (* br br) (* bi bi))]
-                                [(/ (+ (* ar br) (* ai bi)) d) (/ (- (* ai br) (* ar bi)) d)]))
-(defn- cexp-i [theta] [(Math/cos theta) (Math/sin theta)])  ; e^{i·theta}
-(defn- cabs [[r i]] (Math/sqrt (+ (* r r) (* i i))))
-(defn- cscale [[r i] s] [(* r s) (* i s)])
+;; ── float formatting helpers (Python round / format / repr) ──────────────────
+#?(:clj
+   (defn py-round
+     "Python round(x, n) → a double rounded HALF_EVEN at n decimal places."
+     [x n]
+     (-> (java.math.BigDecimal. (double x))
+         (.setScale (int n) java.math.RoundingMode/HALF_EVEN)
+         .doubleValue))
+   :cljs
+   (defn py-round [x n]
+     (let [f (Math/pow 10 n)] (/ (Math/round (* (double x) f)) f))))
 
-;; ── IsacWaveform ────────────────────────────────────────────────────────────────
-(defn isac-waveform
-  [& {:keys [n_sub n_sym subcarrier_hz symbol_s carrier_hz]
-      :or {n_sub 64 n_sym 16 subcarrier_hz 1.0e6 symbol_s 1.2e-6 carrier_hz 28.0e9}}]
-  {"n_sub" n_sub "n_sym" n_sym "subcarrier_hz" subcarrier_hz
-   "symbol_s" symbol_s "carrier_hz" carrier_hz})
+(defn fmt-f
+  "Python f-string {:.Nf}: fixed-point with HALF_EVEN rounding at N decimals."
+  [x n]
+  #?(:clj
+     (-> (java.math.BigDecimal. (double x))
+         (.setScale (int n) java.math.RoundingMode/HALF_EVEN)
+         .toPlainString)
+     :cljs
+     (.toFixed (double x) n)))
 
-(defn bandwidth-hz [wf] (* (get wf "n_sub") (get wf "subcarrier_hz")))
-(defn wavelength-m [wf] (/ C-LIGHT (get wf "carrier_hz")))
-(defn range-resolution-m [wf] (/ C-LIGHT (* 2.0 (bandwidth-hz wf))))
-(defn velocity-resolution-mps [wf] (/ (wavelength-m wf) (* 2.0 (get wf "n_sym") (get wf "symbol_s"))))
-(defn max-unambiguous-range-m [wf] (/ C-LIGHT (* 2.0 (get wf "subcarrier_hz"))))
+(defn py-float-repr
+  "Python repr() of a float: shortest round-trip decimal, integral floats keep `.0`."
+  [x]
+  (let [d (double x)]
+    #?(:clj
+       (cond
+         (and (Double/isInfinite d) (pos? d)) "inf"
+         (and (Double/isInfinite d) (neg? d)) "-inf"
+         (Double/isNaN d) "nan"
+         :else (Double/toString d))
+       :cljs
+       (let [s (str d)] (if (re-find #"[.eE]" s) s (str s ".0"))))))
 
+;; ── IsacWaveform (dataclass defaults + derived properties) ───────────────────
+(def default-waveform
+  "Mirror of the IsacWaveform frozen dataclass defaults. kebab keyword keys."
+  {:n-sub 64           ; subcarriers  → range processing dimension
+   :n-sym 16           ; OFDM symbols → Doppler processing dimension
+   :subcarrier-hz 1.0e6   ; Δf = 1 MHz  → bandwidth B = n_sub·Δf = 64 MHz
+   :symbol-s 1.2e-6       ; OFDM symbol duration incl. cyclic prefix
+   :carrier-hz 28.0e9})   ; f_c (mmWave; sets velocity↔Doppler scale)
+
+(defn waveform
+  "Build an IsacWaveform-equivalent map, overriding defaults with the supplied kwargs."
+  [& {:as overrides}]
+  (merge default-waveform overrides))
+
+(defn bandwidth-hz [wf] (* (:n-sub wf) (:subcarrier-hz wf)))
+(defn wavelength-m [wf] (/ C-LIGHT (:carrier-hz wf)))
+(defn range-resolution-m
+  "ΔR = c / (2·B)."
+  [wf] (/ C-LIGHT (* 2.0 (bandwidth-hz wf))))
+(defn velocity-resolution-mps
+  "Δv = λ / (2·M·T)."
+  [wf] (/ (wavelength-m wf) (* 2.0 (:n-sym wf) (:symbol-s wf))))
+(defn max-unambiguous-range-m
+  "R_max = c / (2·Δf)."
+  [wf] (/ C-LIGHT (* 2.0 (:subcarrier-hz wf))))
+
+;; ── Target / SenseEstimate records (as plain kebab-keyed maps) ───────────────
 (defn target
-  [& {:keys [range_m velocity_mps rcs] :or {rcs 1.0}}]
-  {"range_m" range_m "velocity_mps" velocity_mps "rcs" rcs})
+  "Target(range_m, velocity_mps, rcs=1.0). rcs = reflectivity α² (linear); civilian object."
+  ([range-m velocity-mps] (target range-m velocity-mps 1.0))
+  ([range-m velocity-mps rcs]
+   {:range-m (double range-m) :velocity-mps (double velocity-mps) :rcs (double rcs)}))
 
-(defn- sense-estimate [range-m velocity-mps range-bin doppler-bin peak-mag]
-  {"range_m" range-m "velocity_mps" velocity-mps
-   "range_bin" range-bin "doppler_bin" doppler-bin "peak_magnitude" peak-mag})
+(defn sense-estimate
+  [range-m velocity-mps range-bin doppler-bin peak-magnitude]
+  {:range-m range-m :velocity-mps velocity-mps
+   :range-bin range-bin :doppler-bin doppler-bin :peak-magnitude peak-magnitude})
 
-(defn qpsk-symbol
-  "Deterministic unit-magnitude QPSK data symbol."
+;; ── core DSP ─────────────────────────────────────────────────────────────────
+(defn- qpsk-symbol
+  "Deterministic unit-magnitude QPSK data symbol (no RNG → reproducible tests).
+  _qpsk_symbol(n,m) = cmath.exp(1j·(π/4 + quadrant·π/2)), quadrant = (n·3 + m·5) mod 4."
   [n m]
   (let [quadrant (mod (+ (* n 3) (* m 5)) 4)]
-    (cexp-i (+ (/ Math/PI 4) (* quadrant (/ Math/PI 2))))))
+    (cx/cis (+ (/ Math/PI 4) (* quadrant (/ Math/PI 2))))))
 
-(defn validate-waveform [wf]
-  (when (or (< (get wf "n_sub") 1) (< (get wf "n_sym") 1))
-    (throw (ex-info "waveform needs at least 1 subcarrier and 1 symbol" {})))
-  (when (or (<= (get wf "subcarrier_hz") 0) (<= (get wf "symbol_s") 0) (<= (get wf "carrier_hz") 0))
-    (throw (ex-info "subcarrier spacing, symbol duration, and carrier must be positive" {}))))
+(defn qpsk-symbol-magnitude
+  "abs(_qpsk_symbol(n,m)) — exposed for the unit-magnitude invariant test."
+  [n m]
+  (cx/cabs (qpsk-symbol n m)))
+
+(defn- validate-waveform
+  "Reject a degenerate waveform (div-by-zero / empty grid). == Python ValueError."
+  [wf]
+  (when (or (< (:n-sub wf) 1) (< (:n-sym wf) 1))
+    (throw (ex-info "waveform needs at least 1 subcarrier and 1 symbol" {:wf wf})))
+  (when (or (<= (:subcarrier-hz wf) 0) (<= (:symbol-s wf) 0) (<= (:carrier-hz wf) 0))
+    (throw (ex-info "subcarrier spacing, symbol duration, and carrier must be positive" {:wf wf}))))
 
 (defn- echo-grid
-  "Reciprocal delay-Doppler grid D[n][m]. Returns a vector of n_sub rows of n_sym complex."
+  "Reciprocal delay-Doppler grid D[n,m] = echo / data
+   = α·e^{-j2π nΔf τ}·e^{+j2π mT f_d}. Vector of n-sub rows, each a vector of n-sym complexes."
   [wf tgt]
-  (let [tau (/ (* 2.0 (get tgt "range_m")) C-LIGHT)
-        f-d (/ (* 2.0 (get tgt "velocity_mps")) (wavelength-m wf))
-        alpha (Math/sqrt (max (get tgt "rcs") 0.0))
-        n-sub (get wf "n_sub") n-sym (get wf "n_sym")
-        scar (get wf "subcarrier_hz") sym-s (get wf "symbol_s")]
+  (let [tau (/ (* 2.0 (:range-m tgt)) C-LIGHT)
+        f-d (/ (* 2.0 (:velocity-mps tgt)) (wavelength-m wf))
+        alpha (Math/sqrt (max (:rcs tgt) 0.0))]
     (mapv (fn [n]
             (mapv (fn [m]
                     (let [x (qpsk-symbol n m)
-                          echo (-> x
-                                   (cscale alpha)
-                                   (cmul (cexp-i (* (- TWO-PI) n scar tau)))
-                                   (cmul (cexp-i (* TWO-PI m sym-s f-d))))]
-                      (cdiv echo x)))
-                  (range n-sym)))
-          (range n-sub))))
+                          ;; echo = x * alpha * exp(-j2π nΔf τ) * exp(+j2π mT f_d)
+                          echo (cx/mul
+                                (cx/mul (cx/mul x (cx/c alpha 0.0))
+                                        (cx/cis (* (- TWO-PI) n (:subcarrier-hz wf) tau)))
+                                (cx/cis (* TWO-PI m (:symbol-s wf) f-d)))]
+                      (cx/cdiv echo x)))      ; divide out the known data
+                  (range (:n-sym wf))))
+          (range (:n-sub wf)))))
 
 (defn- periodogram
-  "2-D range-Doppler periodogram magnitude P[k][l]."
+  "2-D range-Doppler periodogram magnitude P[k,l] over the reciprocal grid (range +j, Doppler −j).
+  Reproduces the Python nested-loop accumulation order EXACTLY: for each (k,l) acc starts at 0j,
+  then n outer / m inner, acc += grid[n][m]·rk·exp(−j2π m l / M)."
   [wf grid]
-  (let [n-sub (get wf "n_sub") n-sym (get wf "n_sym")]
+  (let [n-sub (:n-sub wf) n-sym (:n-sym wf)]
     (mapv (fn [k]
             (mapv (fn [l]
-                    (let [acc (loop [n 0 acc [0.0 0.0]]
-                                (if (>= n n-sub)
-                                  acc
-                                  (let [rk (cexp-i (/ (* TWO-PI n k) n-sub))
-                                        acc2 (loop [m 0 acc acc]
-                                               (if (>= m n-sym)
-                                                 acc
-                                                 (recur (inc m)
-                                                        (cadd acc (-> (get-in grid [n m])
-                                                                      (cmul rk)
-                                                                      (cmul (cexp-i (/ (* (- TWO-PI) m l) n-sym))))))))]
-                                    (recur (inc n) acc2))))]
-                      (cabs acc)))
+                    (let [acc
+                          (reduce
+                           (fn [acc n]
+                             (let [rk (cx/cis (/ (* TWO-PI n k) n-sub))
+                                   row (nth grid n)]
+                               (reduce
+                                (fn [acc m]
+                                  (cx/add acc
+                                          (cx/mul (cx/mul (nth row m) rk)
+                                                  (cx/cis (/ (* (- TWO-PI) m l) n-sym)))))
+                                acc
+                                (range n-sym))))
+                           cx/zero
+                           (range n-sub))]
+                      (cx/cabs acc)))
                   (range n-sym)))
           (range n-sub))))
 
-(defn- bin->estimate [wf k l mag]
-  (let [tau (/ k (* (get wf "n_sub") (get wf "subcarrier_hz")))
-        f-d (/ l (* (get wf "n_sym") (get wf "symbol_s")))]
+(defn- bin->estimate
+  [wf k l mag]
+  (let [tau (/ k (* (:n-sub wf) (:subcarrier-hz wf)))
+        f-d (/ l (* (:n-sym wf) (:symbol-s wf)))]
     (sense-estimate (/ (* C-LIGHT tau) 2.0) (/ (* (wavelength-m wf) f-d) 2.0) k l mag)))
 
 (defn- argmax-bin
-  "Return [k l] of the maximum value in the 2-D mags (n_sub × n_sym), Python max() order:
-  first by k then l, ties keep the first-seen max (Python max keeps first on ties)."
-  [wf mags]
-  (let [n-sub (get wf "n_sub") n-sym (get wf "n_sym")]
-    (loop [k 0 l 0 bk 0 bl 0 bv (get-in mags [0 0])]
-      (cond
-        (>= k n-sub) [bk bl]
-        (>= l n-sym) (recur (inc k) 0 bk bl bv)
-        :else (let [v (get-in mags [k l])]
-                (if (> v bv)
-                  (recur k (inc l) k l v)
-                  (recur k (inc l) bk bl bv)))))))
+  "max(((k,l) …), key=mags[k][l]) — Python max ties keep the FIRST (k outer, l inner) encountered."
+  [n-sub n-sym mags]
+  (loop [best-k 0 best-l 0 best-v (get-in mags [0 0]) k 0]
+    (if (>= k n-sub)
+      [best-k best-l]
+      (let [[bk bl bv]
+            (loop [l 0 bk best-k bl best-l bv best-v]
+              (if (>= l n-sym)
+                [bk bl bv]
+                (let [v (get-in mags [k l])]
+                  (if (> v bv)
+                    (recur (inc l) k l v)
+                    (recur (inc l) bk bl bv)))))]
+        (recur bk bl bv (inc k))))))
 
 (defn estimate-target
-  "Recover (range, velocity) from one target via the 2-D OFDM-radar periodogram."
+  "Recover (range, velocity) from one target via the 2-D OFDM-radar periodogram.
+  Peak bin (k,l) maps to τ = k/(N·Δf), f_d = l/(M·T)."
   [wf tgt]
   (validate-waveform wf)
   (let [mags (periodogram wf (echo-grid wf tgt))
-        [k l] (argmax-bin wf mags)]
+        [k l] (argmax-bin (:n-sub wf) (:n-sym wf) mags)]
     (bin->estimate wf k l (get-in mags [k l]))))
 
 (defn- combined-grid
-  "Sum the per-target reciprocal grids."
+  "Sum the per-target reciprocal grids (the grid is linear in the targets)."
   [wf targets]
   (let [grids (mapv #(echo-grid wf %) targets)
-        n-sub (get wf "n_sub") n-sym (get wf "n_sym")]
+        n-sub (:n-sub wf) n-sym (:n-sym wf)]
     (mapv (fn [n]
             (mapv (fn [m]
-                    (reduce (fn [acc g] (cadd acc (get-in g [n m]))) [0.0 0.0] grids))
+                    (cx/csum (map (fn [g] (get-in g [n m])) grids)))
                   (range n-sym)))
           (range n-sub))))
 
 (defn- extract-peaks
-  "CLEAN peak extraction: pick the global max, suppress a ±guard cell, repeat."
-  [wf mags & {:keys [top_n guard threshold] :or {guard 1}}]
-  (let [n-sub (get wf "n_sub") n-sym (get wf "n_sym")
-        cap (if (nil? top_n) (* n-sub n-sym) (min top_n (* n-sub n-sym)))]
-    (loop [work (mapv vec mags) picks [] i 0]
+  "CLEAN peak extraction: pick the global max, suppress a ±guard cell (toroidal), repeat.
+  Stops after `top-n` picks (if set) and/or once the remaining max < `threshold` (if set)."
+  [wf mags & {:keys [top-n guard threshold] :or {guard 1}}]
+  (let [n-sub (:n-sub wf) n-sym (:n-sym wf)
+        cap (if (nil? top-n) (* n-sub n-sym) (min top-n (* n-sub n-sym)))]
+    (loop [i 0
+           work (mapv vec mags)         ; mutable working copy [k][l]
+           picks []]
       (if (>= i cap)
         picks
-        (let [[k l] (argmax-bin wf work)]
+        (let [[k l] (argmax-bin n-sub n-sym work)]
           (if (and (some? threshold) (< (get-in mags [k l]) threshold))
             picks
-            (let [picks2 (conj picks (bin->estimate wf k l (get-in mags [k l])))
-                  work2 (reduce (fn [w [dk dl]]
-                                  (assoc-in w [(mod (+ k dk) n-sub) (mod (+ l dl) n-sym)] -1.0))
-                                work
-                                (for [dk (range (- guard) (inc guard))
-                                      dl (range (- guard) (inc guard))] [dk dl]))]
-              (recur work2 picks2 (inc i)))))))))
+            (let [picks' (conj picks (bin->estimate wf k l (get-in mags [k l])))
+                  ;; suppress a ±guard cell (toroidal)
+                  work'
+                  (reduce
+                   (fn [w dk]
+                     (reduce
+                      (fn [w dl]
+                        (assoc-in w [(mod (+ k dk) n-sub) (mod (+ l dl) n-sym)] -1.0))
+                      w
+                      (range (- guard) (inc guard))))
+                   work
+                   (range (- guard) (inc guard)))]
+              (recur (inc i) work' picks'))))))))
 
 (defn estimate-targets
-  "Multi-target sensing: ONE combined echo → CLEAN top-N peak extraction."
-  [wf targets & {:keys [top_n guard] :or {guard 1}}]
+  "Multi-target sensing: ONE combined echo → CLEAN top-N peak extraction.
+  top-n defaults to (count targets); guard defaults to 1."
+  [wf targets & {:keys [top-n guard] :or {guard 1}}]
   (validate-waveform wf)
   (if (empty? targets)
     []
-    (let [tn (if (nil? top_n) (count targets) top_n)
+    (let [top-n (if (nil? top-n) (count targets) top-n)
           mags (periodogram wf (combined-grid wf targets))]
-      (extract-peaks wf mags :top_n tn :guard guard))))
+      (extract-peaks wf mags :top-n top-n :guard guard))))
 
-;; ── CPython MT19937 + gauss (random.Random parity) ──────────────────────────────
-(def ^:private MT-N 624)
-(def ^:private MT-M 397)
-(def ^:private MATRIX-A 0x9908b0df)
-(def ^:private UPPER 0x80000000)
-(def ^:private LOWER 0x7fffffff)
-
-(defn- mt-init-genrand [^longs mt s]
-  (aset mt 0 (bit-and (long s) 0xffffffff))
-  (dotimes [ii (dec MT-N)]
-    (let [i (inc ii) prev (aget mt (dec i))]
-      (aset mt i (bit-and (+ (* 1812433253 (bit-xor prev (unsigned-bit-shift-right prev 30))) i) 0xffffffff))))
-  mt)
-
-(defn- mt-init-by-array [init-key]
-  (let [mt (long-array MT-N) klen (count init-key)
-        i (volatile! 1) j (volatile! 0)]
-    (mt-init-genrand mt 19650218)
-    (dotimes [_ (max MT-N klen)]
-      (let [prev (aget mt (dec @i))]
-        (aset mt @i (bit-and (+ (bit-xor (aget mt @i)
-                                         (* (bit-xor prev (unsigned-bit-shift-right prev 30)) 1664525))
-                                (long (nth init-key @j)) @j) 0xffffffff)))
-      (vswap! i inc) (vswap! j inc)
-      (when (>= @i MT-N) (aset mt 0 (aget mt (dec MT-N))) (vreset! i 1))
-      (when (>= @j klen) (vreset! j 0)))
-    (dotimes [_ (dec MT-N)]
-      (let [prev (aget mt (dec @i))]
-        (aset mt @i (bit-and (- (bit-xor (aget mt @i)
-                                         (* (bit-xor prev (unsigned-bit-shift-right prev 30)) 1566083941))
-                                @i) 0xffffffff)))
-      (vswap! i inc)
-      (when (>= @i MT-N) (aset mt 0 (aget mt (dec MT-N))) (vreset! i 1)))
-    (aset mt 0 0x80000000)
-    mt))
-
-(defn- key-from-seed [s]
-  (if (zero? s) [0]
-      (loop [n (long s) acc []]
-        (if (zero? n) acc (recur (unsigned-bit-shift-right n 32) (conj acc (bit-and n 0xffffffff)))))))
-
-(defn- new-rng [s] (atom {:mt (mt-init-by-array (key-from-seed s)) :mti MT-N :gauss-next nil}))
-
-(defn- mt-genrand! [st]
-  (let [mt (:mt @st) mti (:mti @st)]
-    (when (>= mti MT-N)
-      (dotimes [kk (- MT-N MT-M)]
-        (let [y (bit-or (bit-and (aget mt kk) UPPER) (bit-and (aget mt (inc kk)) LOWER))]
-          (aset mt kk (bit-and (bit-xor (aget mt (+ kk MT-M)) (unsigned-bit-shift-right y 1)
-                                        (if (odd? y) MATRIX-A 0)) 0xffffffff))))
-      (dotimes [kk2 (dec MT-M)]
-        (let [kk (+ (- MT-N MT-M) kk2)
-              y (bit-or (bit-and (aget mt kk) UPPER) (bit-and (aget mt (inc kk)) LOWER))]
-          (aset mt kk (bit-and (bit-xor (aget mt (+ kk (- MT-M MT-N))) (unsigned-bit-shift-right y 1)
-                                        (if (odd? y) MATRIX-A 0)) 0xffffffff))))
-      (let [y (bit-or (bit-and (aget mt (dec MT-N)) UPPER) (bit-and (aget mt 0) LOWER))]
-        (aset mt (dec MT-N) (bit-and (bit-xor (aget mt (dec MT-M)) (unsigned-bit-shift-right y 1)
-                                              (if (odd? y) MATRIX-A 0)) 0xffffffff)))
-      (swap! st assoc :mti 0))
-    (let [mti (:mti @st) y0 (aget mt mti)]
-      (swap! st assoc :mti (inc mti))
-      (let [y1 (bit-xor y0 (unsigned-bit-shift-right y0 11))
-            y2 (bit-xor y1 (bit-and (bit-shift-left y1 7) 0x9d2c5680))
-            y3 (bit-xor y2 (bit-and (bit-shift-left y2 15) 0xefc60000))
-            y4 (bit-xor y3 (unsigned-bit-shift-right y3 18))]
-        (bit-and y4 0xffffffff)))))
-
-(defn- rng-random [st]
-  (let [a (unsigned-bit-shift-right (mt-genrand! st) 5)
-        b (unsigned-bit-shift-right (mt-genrand! st) 6)]
-    (/ (+ (* a 67108864.0) b) 9007199254740992.0)))
-
-(defn- rng-gauss [st mu sigma]
-  (let [z (:gauss-next @st)]
-    (if (some? z)
-      (do (swap! st assoc :gauss-next nil) (+ mu (* z sigma)))
-      (let [x2pi (* (rng-random st) TWO-PI)
-            g2rad (Math/sqrt (* -2.0 (Math/log (- 1.0 (rng-random st)))))
-            z (* (Math/cos x2pi) g2rad)]
-        (swap! st assoc :gauss-next (* (Math/sin x2pi) g2rad))
-        (+ mu (* z sigma))))))
-
-(defn- add-noise
-  "Add deterministic complex-Gaussian noise (seeded → reproducible)."
-  [wf grid sigma seed]
-  (let [st (new-rng seed) n-sub (get wf "n_sub") n-sym (get wf "n_sym")]
-    ;; Python iterates n outer, m inner; complex(gauss, gauss) computes real then imag.
-    (mapv (fn [n]
-            (mapv (fn [m]
-                    (let [re (rng-gauss st 0.0 sigma)
-                          im (rng-gauss st 0.0 sigma)]
-                      (cadd (get-in grid [n m]) [re im])))
-                  (range n-sym)))
-          (range n-sub))))
+#?(:clj
+   (defn- add-noise
+     "Add deterministic complex-Gaussian noise (seeded → reproducible). σ per real/imag component.
+     grid[n][m] + complex(rng.gauss(0,σ), rng.gauss(0,σ)); MT19937 advances n outer, m inner,
+     and within a cell the REAL part is drawn before the IMAG part (Python arg eval order)."
+     [wf grid sigma seed]
+     (let [rng (mt/make seed)
+           n-sub (:n-sub wf) n-sym (:n-sym wf)]
+       (mapv (fn [n]
+               (mapv (fn [m]
+                       (let [re (mt/gauss! rng 0.0 sigma)
+                             im (mt/gauss! rng 0.0 sigma)]
+                         (cx/add (get-in grid [n m]) (cx/c re im))))
+                     (range n-sym)))
+             (range n-sub)))))
 
 (defn detect-cfar
-  "Detect targets in noise with a constant-false-alarm threshold (simplified CA-CFAR)."
-  [wf targets & {:keys [noise_sigma threshold_factor seed guard]
-                 :or {noise_sigma 0.0 threshold_factor 4.0 seed 0 guard 1}}]
+  "Detect targets in noise with a constant-false-alarm threshold (simplified CA-CFAR).
+  Adds seeded complex-Gaussian noise to the combined echo, forms the periodogram, estimates the
+  noise floor as the MEAN magnitude (cell-averaging CFAR), declares detections only where a CLEAN
+  peak exceeds threshold_factor × mean. Deterministic for a given seed."
+  [wf targets & {:keys [noise-sigma threshold-factor seed guard]
+                 :or {noise-sigma 0.0 threshold-factor 4.0 seed 0 guard 1}}]
   (validate-waveform wf)
-  (when (< noise_sigma 0) (throw (ex-info "noise_sigma must be ≥ 0" {})))
-  (when (<= threshold_factor 0) (throw (ex-info "threshold_factor must be positive" {})))
-  (if (and (empty? targets) (== noise_sigma 0))
+  (when (< noise-sigma 0)
+    (throw (ex-info "noise_sigma must be ≥ 0" {:noise-sigma noise-sigma})))
+  (when (<= threshold-factor 0)
+    (throw (ex-info "threshold_factor must be positive" {:threshold-factor threshold-factor})))
+  (if (and (empty? targets) (== noise-sigma 0))
     []
-    (let [n-sub (get wf "n_sub") n-sym (get wf "n_sym")
-          grid0 (if (seq targets) (combined-grid wf targets)
-                    (vec (repeat n-sub (vec (repeat n-sym [0.0 0.0])))))
-          grid (if (> noise_sigma 0) (add-noise wf grid0 noise_sigma seed) grid0)
+    (let [n-sub (:n-sub wf) n-sym (:n-sym wf)
+          grid0 (if (seq targets)
+                  (combined-grid wf targets)
+                  (mapv (fn [_] (mapv (fn [_] cx/zero) (range n-sym))) (range n-sub)))
+          grid (if (> noise-sigma 0)
+                 #?(:clj (add-noise wf grid0 noise-sigma seed)
+                    :cljs (throw (ex-info "noise requires :clj (MT19937)" {})))
+                 grid0)
           mags (periodogram wf grid)
           n-cells (* n-sub n-sym)
-          mean-floor (/ (reduce + (mapcat identity mags)) n-cells)
-          threshold (* threshold_factor mean-floor)]
-      (extract-peaks wf mags :top_n nil :guard guard :threshold threshold))))
+          ;; sum(v for row in mags for v in row) — row-major fold, matching Python order
+          total (reduce (fn [s row] (reduce + s row)) 0.0 mags)
+          mean-floor (/ total n-cells)
+          threshold (* threshold-factor mean-floor)]
+      (extract-peaks wf mags :top-n nil :guard guard :threshold threshold))))
 
 (defn detection-probability
-  "Monte-Carlo Pd: fraction of `trials` seeds in which CFAR detects the target's true bin."
-  [wf tgt noise_sigma & {:keys [threshold_factor trials] :or {threshold_factor 4.0 trials 16}}]
-  (when (< trials 1) (throw (ex-info "trials must be ≥ 1" {})))
+  "Monte-Carlo Pd: fraction of `trials` seeds in which CFAR detects the target's true bin.
+  Seeds are 0..trials-1 (reproducible). The true bin is the noiseless periodogram peak."
+  [wf tgt noise-sigma & {:keys [threshold-factor trials] :or {threshold-factor 4.0 trials 16}}]
+  (when (< trials 1)
+    (throw (ex-info "trials must be ≥ 1" {:trials trials})))
   (let [truth (estimate-target wf tgt)
-        true-bin [(get truth "range_bin") (get truth "doppler_bin")]
+        true-bin [(:range-bin truth) (:doppler-bin truth)]
         hits (reduce
               (fn [hits seed]
-                (let [dets (detect-cfar wf [tgt] :noise_sigma noise_sigma :threshold_factor threshold_factor :seed seed)
-                      bins (set (map (fn [d] [(get d "range_bin") (get d "doppler_bin")]) dets))]
+                (let [dets (detect-cfar wf [tgt] :noise-sigma noise-sigma
+                                        :threshold-factor threshold-factor :seed seed)
+                      bins (set (map (fn [d] [(:range-bin d) (:doppler-bin d)]) dets))]
                   (if (contains? bins true-bin) (inc hits) hits)))
-              0 (range trials))]
+              0
+              (range trials))]
     (/ (double hits) trials)))
 
 (defn pd-vs-snr
-  "Sweep the noise level → [[σ Pd] …]."
-  [wf tgt sigmas & {:keys [threshold_factor trials] :or {threshold_factor 4.0 trials 16}}]
-  (mapv (fn [s] [s (detection-probability wf tgt s :threshold_factor threshold_factor :trials trials)]) sigmas))
+  "Sweep the noise level → [(σ, Pd)] — the detector's operating curve."
+  [wf tgt sigmas & {:keys [threshold-factor trials] :or {threshold-factor 4.0 trials 16}}]
+  (mapv (fn [s] [s (detection-probability wf tgt s :threshold-factor threshold-factor :trials trials)])
+        sigmas))
 
-;; ── communication ↔ sensing power-split ─────────────────────────────────────────
+;; ── communication ↔ sensing power-split (the JCAS tradeoff) ──────────────────
 (defn jcas-operating-point
-  "One point on the JCAS tradeoff: split total power ρ:(1-ρ) between comms and sensing."
-  [wf power-split & {:keys [tx_power_w channel_gain_db noise_psd_dbm_hz]
-                     :or {tx_power_w 1.0 channel_gain_db -90.0 noise_psd_dbm_hz -174.0}}]
+  "One point on the JCAS tradeoff: split total power ρ:(1−ρ) between comms and sensing.
+  Returns {:power-split :capacity-gbps :range-std-m :velocity-std-mps}."
+  [wf power-split & {:keys [tx-power-w channel-gain-db noise-psd-dbm-hz]
+                     :or {tx-power-w 1.0 channel-gain-db -90.0 noise-psd-dbm-hz -174.0}}]
   (when-not (<= 0.0 power-split 1.0)
-    (throw (ex-info "power_split ρ must lie in [0,1]" {})))
+    (throw (ex-info "power_split ρ must lie in [0,1]" {:power-split power-split})))
   (validate-waveform wf)
   (let [b (bandwidth-hz wf)
-        noise-w (* (Math/pow 10 (/ (- noise_psd_dbm_hz 30) 10)) b)
-        gain (Math/pow 10 (/ channel_gain_db 10))
-        snr-comm (/ (* (max power-split 1e-12) tx_power_w gain) noise-w)
-        capacity-bps (* b (/ (Math/log (+ 1.0 snr-comm)) (Math/log 2)))
-        n-mn (* (get wf "n_sub") (get wf "n_sym"))
-        snr-sense (* (/ (* (max (- 1.0 power-split) 1e-12) tx_power_w gain) noise-w) n-mn)
+        noise-w (* (Math/pow 10 (/ (- noise-psd-dbm-hz 30) 10)) b)
+        gain (Math/pow 10 (/ channel-gain-db 10))
+        ;; Communication: flat-channel Shannon over the whole band, fed ρ of the power.
+        snr-comm (/ (* (max power-split 1e-12) tx-power-w gain) noise-w)
+        capacity-bps (* b (/ (Math/log (+ 1.0 snr-comm)) (Math/log 2.0)))   ; math.log2
+        ;; Sensing: (1−ρ) of the power, full N·M coherent processing gain.
+        n-mn (* (:n-sub wf) (:n-sym wf))
+        snr-sense (* (/ (* (max (- 1.0 power-split) 1e-12) tx-power-w gain) noise-w) n-mn)
         crlb-scale (/ 1.0 (Math/sqrt (* 2.0 (max snr-sense 1e-12))))]
-    {"power_split" power-split
-     "capacity_gbps" (/ capacity-bps 1e9)
-     "range_std_m" (* (range-resolution-m wf) crlb-scale)
-     "velocity_std_mps" (* (velocity-resolution-mps wf) crlb-scale)}))
+    {:power-split power-split
+     :capacity-gbps (/ capacity-bps 1e9)
+     :range-std-m (* (range-resolution-m wf) crlb-scale)
+     :velocity-std-mps (* (velocity-resolution-mps wf) crlb-scale)}))
 
-;; ── report ──────────────────────────────────────────────────────────────────────
-(defn- fmt [fmt-str x] (#?(:clj format :default (fn [_ v] (str v))) fmt-str (double x)))
-
+;; ── report ───────────────────────────────────────────────────────────────────
 (defn report
-  ([] (report (isac-waveform)))
+  "Render the ISAC face out/ artifact: a recovered target + the JCAS tradeoff sweep.
+  Byte-identical to link/isac_sim.report()."
+  ([] (report (waveform)))
   ([wf]
-   (let [wf (or wf (isac-waveform))
-         tgt (target :range_m (* 4 (range-resolution-m wf)) :velocity_mps (* 3 (velocity-resolution-mps wf)))
+   (let [tgt (target (* 4 (range-resolution-m wf)) (* 3 (velocity-resolution-mps wf)))
          est (estimate-target wf tgt)
-         lines (atom ["# noroshi 烽 — ISAC (JCAS) sensing + communication"
-                      ""
-                      "## waveform"
-                      (str "- bandwidth        : " (fmt "%.1f" (/ (bandwidth-hz wf) 1e6)) " MHz  (" (get wf "n_sub") " subcarriers × " (fmt "%.0f" (/ (get wf "subcarrier_hz") 1e3)) " kHz)")
-                      (str "- range resolution : " (fmt "%.3f" (range-resolution-m wf)) " m   (R_max " (fmt "%.2f" (/ (max-unambiguous-range-m wf) 1e3)) " km)")
-                      (str "- velocity res.    : " (fmt "%.3f" (velocity-resolution-mps wf)) " m/s")
-                      ""
-                      "## sensing recovery (civilian object — never a person, N1/G4)"
-                      (str "- true   : R = " (fmt "%.3f" (get tgt "range_m")) " m, v = " (fmt "%.3f" (get tgt "velocity_mps")) " m/s")
-                      (str "- est.   : R = " (fmt "%.3f" (get est "range_m")) " m, v = " (fmt "%.3f" (get est "velocity_mps")) " m/s  (bins k=" (get est "range_bin") ", l=" (get est "doppler_bin") ")")
-                      ""
-                      "## JCAS power-split tradeoff (ρ = fraction to COMMS)"
-                      "| ρ | capacity (Gb/s) | range σ (m) | velocity σ (m/s) |"
-                      "|---|---|---|---|"])]
+         L (transient
+            ["# noroshi 烽 — ISAC (JCAS) sensing + communication"
+             ""
+             "## waveform"
+             (str "- bandwidth        : " (fmt-f (/ (bandwidth-hz wf) 1e6) 1) " MHz  ("
+                  (:n-sub wf) " subcarriers × " (fmt-f (/ (:subcarrier-hz wf) 1e3) 0) " kHz)")
+             (str "- range resolution : " (fmt-f (range-resolution-m wf) 3) " m   (R_max "
+                  (fmt-f (/ (max-unambiguous-range-m wf) 1e3) 2) " km)")
+             (str "- velocity res.    : " (fmt-f (velocity-resolution-mps wf) 3) " m/s")
+             ""
+             "## sensing recovery (civilian object — never a person, N1/G4)"
+             (str "- true   : R = " (fmt-f (:range-m tgt) 3) " m, v = " (fmt-f (:velocity-mps tgt) 3) " m/s")
+             (str "- est.   : R = " (fmt-f (:range-m est) 3) " m, v = " (fmt-f (:velocity-mps est) 3)
+                  " m/s  (bins k=" (:range-bin est) ", l=" (:doppler-bin est) ")")
+             ""
+             "## JCAS power-split tradeoff (ρ = fraction to COMMS)"
+             "| ρ | capacity (Gb/s) | range σ (m) | velocity σ (m/s) |"
+             "|---|---|---|---|"])]
      (doseq [rho [0.1 0.3 0.5 0.7 0.9]]
        (let [op (jcas-operating-point wf rho)]
-         (swap! lines conj (str "| " (fmt "%.1f" rho) " | " (fmt "%.3f" (get op "capacity_gbps")) " | "
-                                (fmt "%.4f" (get op "range_std_m")) " | " (fmt "%.4f" (get op "velocity_std_mps")) " |"))))
-     (let [swf (isac-waveform :n_sub 16 :n_sym 8)
-           stgt (target :range_m (* 4 (range-resolution-m swf)) :velocity_mps (* 2 (velocity-resolution-mps swf)))]
-       (swap! lines into ["" "## CA-CFAR detection probability vs noise (Pd, seeded Monte-Carlo)"
-                          "| noise σ | Pd |" "|---|---|"])
+         (conj! L (str "| " (fmt-f rho 1) " | " (fmt-f (:capacity-gbps op) 3) " | "
+                       (fmt-f (:range-std-m op) 4) " | " (fmt-f (:velocity-std-mps op) 4) " |"))))
+     (let [swf (waveform :n-sub 16 :n-sym 8)
+           stgt (target (* 4 (range-resolution-m swf)) (* 2 (velocity-resolution-mps swf)))]
+       (conj! L "")
+       (conj! L "## CA-CFAR detection probability vs noise (Pd, seeded Monte-Carlo)")
+       (conj! L "| noise σ | Pd |")
+       (conj! L "|---|---|")
        (doseq [[sigma pd] (pd-vs-snr swf stgt [0.0 1.0 2.0 4.0 8.0] :trials 8)]
-         (swap! lines conj (str "| " (fmt "%.1f" sigma) " | " (fmt "%.2f" pd) " |"))))
-     (swap! lines into ["" (str "> One waveform, two functions: more comms power ⇒ higher data rate but coarser sensing; "
-                                "Pd degrades as noise rises (constant-false-alarm threshold).")
-                        (str "> R0 simulation only — no live emission, no hardware (G7). Sensing is civilian "
-                             "collision-avoidance/presence; fire-control / targeting is structurally absent (N1).")])
-     (str/join "\n" @lines))))
+         (conj! L (str "| " (fmt-f sigma 1) " | " (fmt-f pd 2) " |"))))
+     (conj! L "")
+     (conj! L (str "> One waveform, two functions: more comms power ⇒ higher data rate but coarser "
+                   "sensing; Pd degrades as noise rises (constant-false-alarm threshold)."))
+     (conj! L (str "> R0 simulation only — no live emission, no hardware (G7). Sensing is civilian "
+                   "collision-avoidance/presence; fire-control / targeting is structurally absent (N1)."))
+     (str/join "\n" (persistent! L)))))
+
+#?(:clj
+   (defn -main
+     "CLI entry: print the offline ISAC report (1:1 with `python3 isac_sim.py`)."
+     [& _argv]
+     (println (report))
+     0))

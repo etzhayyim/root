@@ -68,6 +68,30 @@ Wave 1 (sterile 点眼薬 3 化合物) を **eye drop scope のみに留めず**
 hydrocortisone (steroid bioprocess Wave 2 候補) / sodium hyaluronate (bioprocess Wave 2 候補) /
 omeprazole (chiral resolution Wave 1c 候補) ― 詳細は ADR-2605250600 §1.3.
 
+## Wave 2 extension (ADR-2606171400 — disinfectants / antiseptics 消毒薬)
+
+Wave 1/1b/1c は **薬** (de-novo 合成 OTC 医薬品)。Wave 2 は **消毒液** — roster の gap を閉じる。
+7 公定書 (日局/USP/EP) off-patent active を **FORMULATION (希釈・配合, NOT synthesis)** で製造:
+
+| active | 和名 | 効力窓 (G21) | use class |
+|---|---|---|---|
+| ethanol | 消毒用エタノール | 60–90 vol% | hand-hygiene / skin-antiseptic |
+| isopropanol | イソプロパノール (IPA) | 60–80 % | surface / hand-hygiene |
+| sodium-hypochlorite | 次亜塩素酸ナトリウム | 0.05–0.5 % | surface |
+| benzalkonium-chloride | 塩化ベンザルコニウム (逆性石鹸) | 0.01–0.2 % | skin-antiseptic / surface |
+| povidone-iodine | ポビドンヨード | 1–10 % | skin-antiseptic |
+| chlorhexidine-gluconate | クロルヘキシジングルコン酸塩 | 0.05–0.5 % | skin-antiseptic |
+| hydrogen-peroxide | オキシドール (過酸化水素) | 1–6 % | skin-antiseptic / surface |
+
+新 gate (G1..G20 は継承・不変):
+- **G21 efficacy-window** — 濃度が窓外なら構造的 block (「濃ければ強い」は誤り)
+- **G22 no-toxic-gas-formulation** — 次亜塩素酸 + 酸 (Cl₂) / アンモニア (クロラミン) は**表現不能** (§1.12 / Rider §2(a))
+- **G23 flammable-labeling** — アルコール系は火気厳禁ラベル必須
+- **G24 use-class** — `{surface, skin-antiseptic, hand-hygiene}` を宣言
+
+実装は **clj-native SSoT** (`py/agent.clj` の `record_formulation` ほか + `py/test_agent.clj` +22 tests; 計 48 green)。
+新 cell `formulation` + lex `formulationAttestation` + entity `:formulationAttestation/*`。Python counterpart なし。
+
 ## Pregel cells (R0 scaffold-only — Council activation gated)
 
 | Cell | Murakumo node (proposed) | Trigger | Sub-ADR |

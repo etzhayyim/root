@@ -5,7 +5,7 @@ status: proposed
 doc_type: adr
 topic: shinka-self-evolution-engine
 authoritative: true
-last_verified: 2026-06-14
+last_verified: 2026-06-15
 priority: 7.5
 axis: ml
 weight: 0.75
@@ -26,9 +26,11 @@ depends_on:
 related:
   - "2605241900"   # baien edge invariant (frontier-beating is NOT the edge target)
   - "2606062100"   # 3-tier immutability (Tier-0 fork-only)
+  - "2606172200"   # Loop C — architecture evolution (child; adds the third loop)
 external_refs:
   - "Robin: A multi-agent system for automating scientific discovery (Nature, s41586-026-10652-y; arXiv 2505.13400)"
   - "AI co-scientist (Google DeepMind, multi-agent generate-debate-evolve)"
+  - "TLT — Taming the Long-Tail: Efficient Reasoning RL Training with Adaptive Drafter (MIT HAN Lab, arXiv 2511.16665) — research input for Tracks B/E"
 supersedes: []
 superseded_by: []
 ---
@@ -73,11 +75,20 @@ Charter, with humans retaining the merge veto.
 
 ## Decision
 
-Stand up **Shinka** as two coupled loops sharing one substrate (the Datom log)
+Stand up **Shinka** as coupled loops sharing one substrate (the Datom log)
 and one compute fabric (Murakumo). Loop A evolves **artifacts** (actors, cells,
 lexicons, code, hypotheses). Loop B evolves **the weight** (Maxwell). The output
 of Loop A is the training corpus for Loop B; the improved weight from Loop B
 makes Loop A cheaper and stronger. This is the flywheel.
+
+A third loop, **Loop C — architecture evolution** (detailed in ADR-2606172200,
+this ADR's child), evolves **the model architecture itself** (the weight family
+AR/diffusion/sheaf/BitNet × config × merge recipes) by reusing Loop A's Co-scientist
+cells over architecture genotypes, with a cost-gated tiered fitness (zero-cost proxy →
+elastic → short-SFT + real loss-landscape sharpness → full RSi for finalists). Because
+architecture self-modification is the deepest self-modification, Loop C carries the
+*strongest* leash (no-auto-merge + member-signed CACAO promotion + append-only datom
+evidence); R0 only ranks the existing family, it invents nothing autonomously.
 
 ```
         ┌──────────────────── Loop A: capability (Co-scientist) ───────────────────┐
@@ -142,6 +153,29 @@ self-improvement loop" (currently 125/1000). Distilling the *orchestrated*
 mechanism by which Maxwell becomes efficient, not just capable (see Research
 Program §F).
 
+### Loop C — architecture evolution (ADR-2606172200)
+
+Loops A/B hold the *architecture* fixed (Gemma 4 E4B base; the family siblings are
+ADR-decided, not searched). **Loop C** makes the architecture itself an evolvable,
+governed object — same Co-scientist cells, population = **architecture genotypes**:
+
+| cell | Loop-C function |
+|---|---|
+| `propose` | emit candidate genotypes (family × config genes × merge recipes) |
+| `critic` | feasibility + Charter §2 scan + cost estimate |
+| `tournament` | Elo over the **tiered cost-gated fitness** (T0 zero-cost proxy → T1 elastic/surrogate → T2 short-SFT + real loss-landscape sharpness + tok/s → T3 full RSi for finalists only) |
+| `recombine` | crossover/merge top-Elo genotypes (incl. evolutionary model-merge) |
+| `synthesize` | ADR + PR draft; **never auto-merge** |
+
+Coupling: a Loop-C winner becomes a Loop-B weight target + a registered family sibling
+(`available:false` until human-gated); Loop-A capability gaps can suggest arch genes.
+Invariants are Loop-A's, tightened: **architecture is the deepest self-modification**, so
+promotion to a trainable/deployable target requires a member's CACAO-signed capability
+(ADR-2606111400); every candidate is a `:db/add` datom; Murakumo-only. **R0 = schema +
+fitness harness + cost gate only; the first exercise just ranks the existing
+AR/diffusion/sheaf/BitNet family on real fitness — it invents no architecture.** Full
+design, search space, and gates: **ADR-2606172200**.
+
 ## Research Program — Maxwell + agents → frontier-class, efficiently, on Murakumo
 
 **Thesis.** Frontier-class capability on a ~4B fleet weight is not reached by a
@@ -161,9 +195,17 @@ substrate*. Tracks (each a measurable experiment, logged to the Datom log):
   the 10 Mac-mini Ollama endpoints, selected by the `tournament` cell (Elo).
   *Metric:* pass@k vs k, Elo vs node-count. *Hypothesis:* k=10 Maxwell ≈
   frontier single-pass on e7m bench.
-- **B. Speculative / draft-verify across tiers.** baien (edge 1.58-bit) drafts,
-  Maxwell verifies; or Maxwell drafts, EVO-X2 `llama3.3:70b` verifies the hard
-  fraction. *Metric:* tok/s × accept-rate, end-to-end latency.
+- **B. Speculative / draft-verify across tiers, with an ADAPTIVE drafter.** baien
+  (edge 1.58-bit) or a Maxwell-E2B MatFormer submodel (Track C) drafts, Maxwell
+  verifies; or Maxwell drafts, EVO-X2 `llama3.3:70b` verifies the hard fraction.
+  Apply **TLT** ("Taming the Long-Tail", MIT HAN Lab, arXiv 2511.16665): keep the
+  drafter from going stale by **continuously retraining it on the fleet's idle
+  Mac-mini cycles** to predict the current Maxwell's outputs, plus an adaptive
+  rollout engine that tunes the spec-decode config to the workload. The fleet's
+  ~10 idle nodes ARE the idle cycles TLT exploits; a stale static drafter is
+  exactly the failure mode it fixes. Murakumo-only (the drafter trains + serves
+  on-fleet, never commercial GPU). *Metric:* tok/s × accept-rate, end-to-end
+  latency, drafter-staleness vs Maxwell generation.
 - **C. MatFormer elastic inference.** Gemma E4B nests an E2B submodel; serve E2B
   for easy turns and E4B for hard ones, right-sizing compute per node capacity.
   *Metric:* quality/Joule per task-difficulty bucket.
@@ -173,7 +215,10 @@ substrate*. Tracks (each a measurable experiment, logged to the Datom log):
 - **E. Verifier-grounded preference (DPO/RL).** Reward = Charter-gate pass +
   microbench delta + **real PR-merge outcome** (Kaizen already reads
   `gh pr state`). Outcome-grounded, never synthetic. *Metric:* win-rate on held
-  pairs after preference tuning.
+  pairs after preference tuning. When this reaches reasoning-RL, the rollout
+  (candidate generation) is ~85% of wall-clock with long-tail stragglers — apply
+  **TLT** (Track B's adaptive drafter) to the rollout to ~2× RL throughput on the
+  fleet; this is TLT's primary target (it is RL-specific, NOT an SFT/M1 speedup).
 - **F. Distillation flywheel (the core).** SFT Maxwell on Loop A's
   tournament-winner traces so the *orchestration collapses into the weights* —
   fewer debate rounds needed next cycle for the same quality. This is the
@@ -193,9 +238,11 @@ the edge target" — ADR-2605241900 still holds for baien; Shinka's target is
 
 ## Staged rollout
 
-- **S0 (this ADR):** name + register `shinka` actor; scaffold the 7 cells as
-  `.solve()` stubs reusing himawari's StateGraph pattern; wire `propose`/`critic`
-  to existing `collect_corpus.py` / `gate_candidates.py`. No autonomy.
+- **S0 (this ADR — LANDED):** name + register `shinka` actor; the co-scientist
+  cells as `.solve()` reusing himawari's StateGraph pattern; `reflect` reuses the
+  Charter scanner (cf. `gate_candidates.py`). No autonomy. See *Implementation
+  status* below — the S0 scaffold grew into a full deterministic-kernel engine
+  (both loops + Supervisor + all 7 research-track models, 305 tests green).
 - **S1:** Loop A dry-run — proposals + Elo tournament on Maxwell-fallback
   (gemma) over a fixed task set; Meta-review emits PR drafts for human review.
   Land Research Track A (fleet best-of-N) + the standing eval harness.
@@ -205,6 +252,51 @@ the edge target" — ADR-2605241900 still holds for baien; Shinka's target is
   both pass.
 - **S3+:** Tracks B–G; CACAO-leashed semi-autonomous proposal cadence under
   Council attestation; ecosystem-style quorum (≥2/3) to promote a generation.
+
+## Implementation status (S0 landed · S1 adapters landed)
+
+The S0 engine is implemented as a pure-stdlib, LLM-free **deterministic kernel**
+with typed Murakumo/fleet hooks (fail-open), under `20-actors/shinka/cells/`
+(`shinka_engine/`, sibling of the social-evolution scheduler). **355 standalone
+tests green / 21 suites**; see `20-actors/shinka/cells/CLAUDE.md`. (S0 = PR #1748;
+the S1 live-fleet adapters below = PR #1752.)
+
+- **Loop A** (`cell.py`) — `ShinkaEvolutionCell`: the 6 co-scientist nodes
+  (propose/reflect/cluster/rank-Elo/recombine/synthesize) as one StateGraph
+  super-step; PR draft only, no auto-merge.
+- **Loop B** (`maxwell_rsi.py`) — Robin loop + `DeployGate` (≥250 steps OR ≥+5pp)
+  + `flywheel_ingest` (Loop-A winners → SFT corpus, dry-run); honestly `blocked`
+  while EVO-X2 is offline / corpus < floor.
+- **Supervisor** (`orchestrator.py`) — ibuki beat cycle driving both loops + the
+  flywheel; **Track-D RAG self-grounding** over its own append-only log;
+  **Track-F generations** (`close_generation`, collapse/reward-hacking guards).
+- **Append-only sink** (`kotoba_sink.py`) — content-addressed commit-DAG
+  (`InMemorySink` + `KotobaBridgeSink`, no-server-key, leash-gated).
+- **Research tracks** — all seven have an implemented, tested S0 model:
+  A `fleet_sampler.py` + `bench_harness.py` (pass@k vs k), B `speculative.py`
+  (spec-decode + TLT adaptive-drafter freshness), C `matformer.py` (E2B/E4B
+  routing) + `adaptive.py` (difficulty-adaptive budget), D `datom_rag.py`
+  (CID-anchored, anti-hallucination), E `reward.py` (charter-veto + microbench +
+  PR-merge, DPO pairs), F `distill_flywheel.py` (rounds-to-quality + guards),
+  G `quantization.py` (tok/s × quality Pareto).
+- **Entrypoint** (`run_beat.py`) — offline-safe beat runner (ibuki autorun
+  analogue); fleet deployment injects the Murakumo infer hook + FleetSampler +
+  KotobaBridgeSink (operator/leash-gated).
+- **S1 live-fleet adapters** (`live_hooks.py`) — `murakumo_infer` (OpenAI-
+  compatible `/v1/chat/completions` against the LiteLLM gateway → the Loop-A
+  `infer` hook) and `kotoba_poster` (`datomic.transact` → CIDv1 head, the
+  `KotobaBridgeSink` poster). **The ONLY module with network I/O.** Two guards in
+  code: `_assert_fleet_endpoint` refuses any non-fleet host before any request
+  (Murakumo-only, I3); the poster only PRESENTS the member CACAO in a header
+  (no-server-key, never signs). stdlib `urllib`; an injectable `transport` keeps
+  the contract unit-tested with a fake (no live endpoint, no network in CI).
+
+The invariants (I1 append-only, I2 no-auto-merge, I3 Murakumo-only) are enforced
+in code and asserted by tests. **S1 then points these adapters at the live fleet**
+(real Murakumo infer + measured tok/s + e7m bench + real kotoba transact +
+registry flip) — every such activation is operator/leash-gated; nothing in the
+landed code holds a key, writes the registry, or transacts to the live engine on
+its own.
 
 ## Consequences
 
@@ -229,3 +321,10 @@ drift (mitigate: CACAO leash + no-auto-merge invariant remain hard gates).
    "frontier-teacher" snapshot (one-off, training-only, Charter §2(i) carve-out)
    to avoid self-distillation plateau, or whether outcome-grounded preference
    (Track E) suffices.
+4. TLT (Tracks B/E) was demonstrated on homogeneous GPU clusters where the idle
+   cycles live *inside* the RL training cluster during rollout stalls; our
+   substrate is heterogeneous (single EVO-X2 ROCm trainer + 10 Mac-mini Metal
+   inference nodes). Open: does the adaptive-drafter trainer port cleanly to
+   "drafter retrains on Mac-mini idle cycles while EVO-X2 rolls out", and is the
+   ROCm/Metal split a help (more truly-idle cycles) or a coordination cost? No
+   public code (paper-only) — a from-scratch ROCm/MLX implementation is required.

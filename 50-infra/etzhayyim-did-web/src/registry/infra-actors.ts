@@ -769,6 +769,54 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
     adrs: [],
   },
+  aburi: {
+    description:
+      "炙り — personal-tracking-exposure observatory (member-side, own-data). Answers 「Google・Facebook・X・Apple の規約に同意し権限を許可したとき、自分の情報がどの広告ネットワーク／データブローカーに取得され、どの企業がどれだけ追跡しているか」. The member-side, own-data inversion of the ad-tech lineage — where sukashi 透かし maps the FIRM↔FIRM programmatic supply chain (charter-bounded firm-side), aburi maps the MEMBER'S OWN exposure from their OWN consented exports (Google Takeout / Apple App-Privacy Report / Google Play Data-safety / on-device permission dump) and routes it to RELIEF (himotoki DSAR / kaiyaku sever / kurashimori opt-out / tedai revoke). Edge-primary: exposure[collector] = Σ inbound :flows-to × DISCLOSED permission-sensitivity (who-tracks-you), surface_leak (leakiest platform), reciprocity-gap (leaking permission w/ no opt-out). G1 own-data-only (no other person/PII/biometric/raw-id); G3 non-adjudicating (collectors carry PUBLIC catalogue provenance — naming an SDK is a disclosed fact, not an accusation); G4 reciprocity-restoring (§2(c) v3.1 — makes the asymmetric ad-watcher visible to the watched; never itself a tracker); G7 local-only + no-server-key; G8 no credential/raw-id projectable. SYNTHETIC/representative seed only; member-export ingest + live transact + relief routing Council+operator gated. Per ADR-2606161630.",
+    glyph: "炙",
+    displayName: "Aburi — Personal-Tracking-Exposure Observatory",
+    primaryLexicon: "com.etzhayyim.aburi",
+    primarySchema: "00-contracts/schemas/tracker-exposure-ontology.kotoba.edn",
+    // wasmCid null by design: componentize-py output is NOT byte-reproducible (each `bb
+    // aburi:build-wasm` yields a different CID), so the CID is recorded by the operator at PIN
+    // time via `bb aburi:publish --pin` — never committed in advance (the apex /ipfs gateway
+    // re-verifies bytes against the CID, so a stale CID would be dead). T2 dag-pb / donated-mesh.
+    wasmCid: null,
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:aburi#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:aburi#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606161630"],
+  },
+  tatara: {
+    description:
+      "鑪 — world manufacturing-plant + logistics GEOGRAPHIC knowledge graph. The geographic / facility-scale layer of the supply lineage: kabuto 兜 holds the org→org SUPPLY edges (who supplies whom) and uchiwake 内訳 the product BOM; tatara places the producing FACILITIES on the planet — where they SIT, at what scale (:plant/headcount-est aggregate employment / :floor-area-m2 / :capacity-value+:capacity-unit production capacity), feeding which logistics corridor. :plant/operator joins kabuto org.corp.* (measured: 17/20 = 85% linkage via the crosscheck). Mirror-lineage sibling of kabuto/tsumugi/inochi: edge-primary geographic CONCENTRATION (per-sector country HHI + single-source flag + chokepoint export-dependence) routed to REDUNDANCY / reshoring — a resilience map, NEVER a target-list (G2). :flow/via reuses watari :lane/chokepoint + watatsuna :station/chokepoint, so manufacturing export-dependence (tatara) + live vessel transit (watari) + cable load (watatsuna) compose into ONE maritime resilience picture. G4 defining gate: :plant/headcount-est is a DISCLOSED AGGREGATE SIZE — NO :worker/* / :person/* attribute exists, an individual worker is structurally unrepresentable (Charter Rider §2(c) reciprocity axis; Wellbecoming §1.13). Per ADR-2606171800.",
+    glyph: "鑪",
+    displayName:
+      "Tatara — World Manufacturing-Plant + Logistics Geographic Knowledge Graph",
+    primaryLexicon: "com.etzhayyim.tatara",
+    primarySchema: "00-contracts/schemas/manufacturing-plant-ontology.kotoba.edn",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:tatara#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:tatara#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606171800"],
+  },
 } as const;
 
 // Merged registry: generated Tier-B actors (from manifests) + hand-authored

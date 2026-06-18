@@ -16,7 +16,9 @@
             [yoro-ui.components.inference-consent :refer [inference-consent]]
             [yoro-ui.components.no-cookie-banner :refer [no-cookie-banner]]
             [yoro-ui.components.auth-modal :refer [auth-modal]]
-            [yoro-ui.components.post-composer :refer [post-composer]]))
+            [yoro-ui.components.post-composer :refer [post-composer]]
+            [yoro-ui.components.ambient-background :refer [ambient-background]]
+            [yoro-ui.components.splash-screen :refer [splash-screen]]))
 
 (defn- not-found-page [path]
   [:div {:class "flex flex-col items-center justify-center py-20 text-center px-6"}
@@ -48,17 +50,27 @@
       [home-page])))  ; default → home
 
 (defn app []
-  [:div {:class "min-h-screen bg-gv2-bg-base text-gv2-text-primary"}
-   [app-header]
+  [:div {:class "relative min-h-screen bg-gv2-bg-base text-gv2-text-primary overflow-hidden"}
 
-   ;; Main scrollable content, padded for bottom tab bar
-   [:main {:class "pb-20"}
-    [page-content]]
+   ;; Ambient background canvas — sits behind all content
+   [:div {:class "fixed inset-0 pointer-events-none z-0"}
+    [ambient-background]]
 
-   [tab-bar]
+   ;; Main UI — above ambient layer
+   [:div {:class "relative z-10"}
+    [app-header]
 
-   ;; Overlays
+    ;; Main scrollable content, padded for bottom tab bar
+    [:main {:class "pb-20"}
+     [page-content]]
+
+    [tab-bar]]
+
+   ;; Overlays (above everything)
    [auth-modal]
    [post-composer]
    [inference-consent]
-   [no-cookie-banner]])
+   [no-cookie-banner]
+
+   ;; Splash screen — topmost, dismissed after 2.5 s
+   [splash-screen]])

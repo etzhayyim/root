@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
-# tatekata — clj/bb test suite (ADR-2606160842 py->clj port wave); ALL test namespaces, fleet green-check.
-set -euo pipefail
-cd "$(dirname "$0")/../.."
-exec bb -e '(require (quote clojure.test) (quote tatekata.cells.mep-installation.test-cell) (quote tatekata.methods.test-charter-gates))(let [r (apply clojure.test/run-tests (quote [tatekata.cells.mep-installation.test-cell tatekata.methods.test-charter-gates]))](System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))'
+# tatekata 建方 — run the whole test suite with one command.
+set -uo pipefail
+cd "$(dirname "$0")"
+SUITES=( "methods/test_charter_gates.py" "py/test_agent.py" )
+fail=0
+for s in "${SUITES[@]}"; do
+  [ -f "$s" ] || continue
+  dir="$(dirname "$s")"; file="$(basename "$s")"
+  if ( cd "$dir" && python3 "$file" ); then :; else echo "FAILED: $s"; fail=1; fi
+done
+[ "$fail" -eq 0 ] && echo "── tatekata: ALL suites green ──" || { echo "── tatekata: FAILURES ──"; exit 1; }

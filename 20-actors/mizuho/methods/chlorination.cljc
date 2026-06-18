@@ -1,132 +1,148 @@
 (ns mizuho.methods.chlorination
   "chlorination — mizuho residual-disinfection dosing loop (R0 :representative).
+  1:1 Clojure port of methods/chlorination.py (ADR-2606091800).
 
-  1:1 Clojure port of methods/chlorination.py.
-
-  The runnable, tested core behind the disinfection half of `water_supply`. The
+  Proves the dosing loop holds a safe free-chlorine residual in distribution: the
   residual decays (demand + time), a secondary-PI doser raises it back to a target
   (default 0.5 mg/L), and — critically — the dose is STRUCTURALLY CLAMPED so the
-  modeled residual can never exceed the regulatory ceiling MAX-RESIDUAL-MGL = 4.0
+  modeled residual can NEVER exceed the regulatory ceiling MAX-RESIDUAL-MGL = 4.0
   mg/L (WHO guideline / US-EPA MRDL).
 
-  mizuho constitutional gates apply:
-    - G4: a plain PI over a lumped residual model, never commercial UV/dosing firmware.
-    - G6 (anti-paternalism): chlorine disinfection runs without per-member consent;
-      FLUORIDE REFUSES (SafetyError) unless per-member-consent=true.
-    - G10: live dosing is consent-gated; this module is offline sim only.
+  mizuho constitutional gates:
+    G4 — a plain PI over a lumped residual model, never commercial UV/dosing firmware.
+    G6 (anti-paternalism, no mandatory fluoridation): chlorine disinfection
+        (\"disinfect\") runs WITHOUT per-member consent; FLUORIDE (\"fluoridate\")
+        REFUSES (SafetyError) unless per-member-consent=true.
+    G7 — Murakumo-only inference (not used in this deterministic loop).
+    G10 — live dosing consent-gated; offline sim only; cell.py .solve() Council-gated.
 
-  House style: data maps are STRING-keyed; Python ':water.dosing/*' attr keywords
-  stay strings; host I/O behind #?(:clj) (none needed here — pure). Float rounding
-  mirrors Python round(x, n) via BigDecimal HALF_EVEN. The DosingResult dataclass is
-  modeled as a string-keyed map. Omits the Python __main__ demo."
-  (:require [mizuho.methods.-substrate :as sub]))
+  House style: Python ':…' keyword strings stay strings; kebab keyword keys in the
+  result record; pure-at-edges; portable .cljc. round() via HALF_EVEN exact BigDecimal.
 
-;; WHO guideline value / US-EPA maximum residual disinfectant level for free chlorine.
-(def MAX-RESIDUAL-MGL 4.0)
+  The HARD CLAMP (≤4 mg/L) is enforced in TWO places (defence in depth):
+    1. ClampedDoser.step — caps the dose so max-dose·dt ≤ ceiling − current.
+    2. ResidualChlorinePlant.step — structural ceiling on the residual itself.
+  Neither depends on gains — no choice of kp/ki can drive the residual over the limit."
+  (:require [mizuho.methods.substrate :as sub]))
 
-;; Agents mizuho can model dosing for.
-(def PERMITTED-AGENTS ["disinfect" "fluoridate"])
+;; WHO guideline value / US-EPA maximum residual disinfectant level for free
+;; chlorine. A modeled residual can NEVER exceed this — enforced by a structural
+;; clamp on the doser command, not merely by tuning.
+(def max-residual-mgl 4.0)
 
-;; ── float rounding parity (Python round(x, n)) ──────────────────────────────────
-(defn- round-n [x n]
-  #?(:clj (-> (java.math.BigDecimal. (double x))
-              (.setScale (int n) java.math.RoundingMode/HALF_EVEN)
-              (.doubleValue))
-     :cljs (let [p (Math/pow 10 n)] (/ (js/Math.round (* (double x) p)) p))))
+;; Agents mizuho can model dosing for. "disinfect" = free chlorine (community-wide,
+;; no per-member consent). "fluoridate" = fluoride (personal supplementation;
+;; requires per-member consent under G6 anti-paternalism).
+(def permitted-agents ["disinfect" "fluoridate"])
 
-;; ── ResidualChlorinePlant (a substrate Plant: measure / step) ───────────────────
-;; First-order: dC/dt = dose_command - k_decay * C, with a hard structural ceiling.
+;; ── ResidualChlorinePlant (free-chlorine residual dynamics) ──────────────────
+;;   dC/dt = dose_command − k_decay·C
+;; with a structural hard ceiling at MAX-RESIDUAL-MGL.
+(defrecord ResidualChlorinePlant [k-decay state])
 
-(defn make-residual-chlorine-plant
-  "Free-chlorine residual dynamics in a distribution volume (a Plant)."
+(defn residual-chlorine-plant
   [& {:keys [residual-mgl k-decay] :or {residual-mgl 0.0 k-decay 0.05}}]
-  {:kind :residual-chlorine-plant
-   :k-decay (double k-decay)
-   :state (atom {:residual (double residual-mgl)})
-   :measure (fn [p] (:residual @(:state p)))
-   :step! (fn [p command dt]
-            (let [st @(:state p)
-                  c (:residual st)
-                  dcdt (- command (* (:k-decay p) c))
-                  c' (+ c (* dcdt dt))
-                  c' (if (< c' 0.0) 0.0 c')
-                  ;; Structural hard ceiling: the modeled residual can NEVER exceed
-                  ;; the regulatory MRDL.
-                  c' (if (> c' MAX-RESIDUAL-MGL) MAX-RESIDUAL-MGL c')]
-              (reset! (:state p) {:residual c'})))})
+  (->ResidualChlorinePlant (double k-decay) (atom {:residual (double residual-mgl)})))
 
-;; ── ClampedDoser (a substrate controller: reset! / step!) ───────────────────────
-;; A PI doser whose output is STRUCTURALLY clamped so the residual can never exceed
-;; MAX-RESIDUAL-MGL, independent of gains. Wraps a substrate PID.
+(extend-protocol sub/Plant
+  ResidualChlorinePlant
+  (measure [plant] (:residual @(:state plant)))
+  (plant-step! [plant command dt]
+    ;; command = dose rate (mg/L per second). Decay is first-order.
+    (swap! (:state plant)
+           (fn [s]
+             (let [c (:residual s)
+                   dcdt (- command (* (:k-decay plant) c))
+                   c (+ c (* dcdt (double dt)))
+                   c (if (< c 0.0) 0.0 c)
+                   ;; Structural hard ceiling: the modeled residual can NEVER
+                   ;; exceed the regulatory MRDL, regardless of controller command.
+                   c (if (> c max-residual-mgl) max-residual-mgl c)]
+               (assoc s :residual c))))
+    nil))
 
-(defn make-clamped-doser
-  "A PI doser whose output is structurally clamped (port of ClampedDoser)."
-  [plant pid dt]
-  {:kind :clamped-doser
-   :plant plant
-   :pid pid
-   :dt (double dt)
-   :reset! (fn [d] (sub/pid-reset! (:pid d)))
-   :step! (fn [d error dt]
-            (let [raw0 (sub/pid-step! (:pid d) error dt)
-                  raw (if (< raw0 0.0) 0.0 raw0)
-                  headroom (- MAX-RESIDUAL-MGL (sub/plant-measure (:plant d)))
-                  max-dose-rate (if (> dt 0) (max 0.0 (/ headroom dt)) 0.0)]
-              (min raw max-dose-rate)))})
+;; ── ClampedDoser (a PI doser STRUCTURALLY clamped to the ceiling) ────────────
+;; Wraps a substrate PID and implements the Controller contract. Each step caps
+;; the dose so that, even instantaneously added, the residual cannot cross the
+;; ceiling: max_dose·dt ≤ ceiling − current. The clamp is independent of gains.
+(defrecord ClampedDoser [plant pid dt])
 
-;; ── commission_dosing ───────────────────────────────────────────────────────────
+(defn clamped-doser [plant pid dt]
+  (->ClampedDoser plant pid (double dt)))
+
+(extend-protocol sub/Controller
+  ClampedDoser
+  (ctrl-reset! [d] (sub/ctrl-reset! (:pid d)))
+  (ctrl-step! [d error dt]
+    (let [raw0 (sub/ctrl-step! (:pid d) error dt)
+          raw (if (< raw0 0.0) 0.0 raw0)
+          ;; Hard structural clamp: do not dose more than would reach the ceiling.
+          headroom (- max-residual-mgl (sub/measure (:plant d)))
+          max-dose-rate (if (> dt 0) (max 0.0 (/ headroom (double dt))) 0.0)]
+      (min raw max-dose-rate))))
+
+;; ── DosingResult ─────────────────────────────────────────────────────────────
+(defrecord DosingResult
+  [agent target-residual-mgl final-residual-mgl max-residual-mgl
+   residual-held ceiling-respected settling-seconds representative])
 
 (defn commission-dosing
-  "Run the dosing acceptance test. Raises (SafetyError) before any run on a gate
-  violation. Returns a string-keyed DosingResult map. Port of commission_dosing."
+  "Run the dosing acceptance test. RAISES before any run on a gate violation.
+  G6 (anti-paternalism): chlorine disinfection runs without per-member consent;
+  fluoride REFUSES unless `per-member-consent=true`. The structural clamp
+  guarantees the modeled residual never exceeds MAX-RESIDUAL-MGL."
   [& {:keys [agent target-residual-mgl per-member-consent k-decay kp ki steps dt]
       :or {agent "disinfect" target-residual-mgl 0.5 per-member-consent false
            k-decay 0.05 kp 0.4 ki 0.15 steps 4000 dt 0.1}}]
-  (when-not (some #(= % agent) PERMITTED-AGENTS)
-    (sub/safety-error
-     (str "dosing agent " (pr-str agent) " is not permitted; allowlist "
-          (pr-str (vec PERMITTED-AGENTS)))))
+  (when-not (some #(= agent %) permitted-agents)
+    (throw (sub/safety-error
+            (str "dosing agent " (pr-str agent) " is not permitted; allowlist "
+                 (pr-str (vec permitted-agents)))
+            {:agent agent})))
   (when (and (= agent "fluoridate") (not per-member-consent))
-    (sub/safety-error
-     (str "G6: fluoride dosing requires per_member_consent=True (no mandatory "
-          "fluoridation; anti-paternalism). Chlorine disinfection needs no consent.")))
-  (when (> target-residual-mgl MAX-RESIDUAL-MGL)
-    (sub/safety-error
-     (str "target residual " target-residual-mgl " mg/L exceeds the regulatory "
-          "ceiling " MAX-RESIDUAL-MGL " mg/L (WHO/EPA); structurally refused")))
-  (let [plant (make-residual-chlorine-plant :residual-mgl 0.0 :k-decay k-decay)
-        pid (sub/make-pid :kp kp :ki ki :out-min 0.0 :out-max MAX-RESIDUAL-MGL)
-        doser (make-clamped-doser plant pid dt)
+    (throw (sub/safety-error
+            (str "G6: fluoride dosing requires per_member_consent=True (no mandatory "
+                 "fluoridation; anti-paternalism). Chlorine disinfection needs no consent.")
+            {:gate "G6" :agent agent})))
+  (when (> target-residual-mgl max-residual-mgl)
+    (throw (sub/safety-error
+            (str "target residual " target-residual-mgl " mg/L exceeds the regulatory "
+                 "ceiling " max-residual-mgl " mg/L (WHO/EPA); structurally refused")
+            {:gate "ceiling" :target target-residual-mgl})))
+  (let [plant (residual-chlorine-plant :residual-mgl 0.0 :k-decay k-decay)
+        pid (sub/pid :kp kp :ki ki :out-min 0.0 :out-max max-residual-mgl)
+        doser (clamped-doser plant pid dt)
         res (sub/simulate plant doser target-residual-mgl steps dt :tol 1e-3)
-        ;; max residual ever modeled across the whole trajectory.
+        ;; max residual ever modeled across the whole trajectory (pv = 2nd of each triple).
         max-residual (reduce (fn [m [_ pv _]] (max m pv)) 0.0 (:trajectory res))
-        settling-seconds (if (>= (:settling-step res) 0)
-                           (* (:settling-step res) dt)
-                           -1.0)]
-    {"agent" agent
-     "target_residual_mgl" target-residual-mgl
-     "final_residual_mgl" (round-n (:final-value res) 4)
-     "max_residual_mgl" (round-n max-residual 4)
-     "residual_held" (:converged res)
-     "ceiling_respected" (<= max-residual (+ MAX-RESIDUAL-MGL 1e-9))
-     "settling_seconds" (round-n settling-seconds 3)
-     "representative" true}))
-
-;; ── to_datoms ────────────────────────────────────────────────────────────────────
+        settling-step (:settling-step res)
+        settling-seconds (if (>= settling-step 0) (* settling-step (double dt)) -1.0)]
+    (->DosingResult
+     agent
+     target-residual-mgl
+     (sub/py-round-n (:final-value res) 4)
+     (sub/py-round-n max-residual 4)
+     (:converged res)
+     (<= max-residual (+ max-residual-mgl 1e-9))
+     (sub/py-round-n settling-seconds 3)
+     true)))
 
 (defn to-datoms
-  "Project a dosing acceptance result into kotoba EAVT-shaped datoms.
-  Aggregate-only. String-keyed; Python ':water.dosing/*' attrs stay strings."
+  "Project a dosing acceptance result into kotoba EAVT-shaped datoms. Aggregate-only."
   [result source-id]
   {":water.dosing/source-id" source-id
-   ":water.dosing/agent" (get result "agent")
-   ":water.dosing/target-residual-mgl" (get result "target_residual_mgl")
-   ":water.dosing/final-residual-mgl" (get result "final_residual_mgl")
-   ":water.dosing/max-residual-mgl" (get result "max_residual_mgl")
-   ":water.dosing/ceiling-mgl" MAX-RESIDUAL-MGL
-   ":water.dosing/residual-held" (get result "residual_held")
-   ":water.dosing/ceiling-respected" (get result "ceiling_respected")
-   ":water.dosing/settling-seconds" (get result "settling_seconds")
-   ":water.dosing/representative" (get result "representative")
-   ":water.dosing/server-held-key" false
-   ":water.dosing/dry-run" true})
+   ":water.dosing/agent" (:agent result)
+   ":water.dosing/target-residual-mgl" (:target-residual-mgl result)
+   ":water.dosing/final-residual-mgl" (:final-residual-mgl result)
+   ":water.dosing/max-residual-mgl" (:max-residual-mgl result)
+   ":water.dosing/ceiling-mgl" max-residual-mgl
+   ":water.dosing/residual-held" (:residual-held result)
+   ":water.dosing/ceiling-respected" (:ceiling-respected result) ;; G: hard clamp held
+   ":water.dosing/settling-seconds" (:settling-seconds result)
+   ":water.dosing/representative" (:representative result)        ;; G10
+   ":water.dosing/server-held-key" false                         ;; no-server-key
+   ":water.dosing/dry-run" true})                                ;; G10: R0 offline only
+
+(def ^{::order true} member-order
+  [:max-residual-mgl :permitted-agents :residual-chlorine-plant :clamped-doser
+   :commission-dosing :to-datoms])

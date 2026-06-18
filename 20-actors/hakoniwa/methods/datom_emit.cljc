@@ -1,54 +1,54 @@
-;; ported from 20-actors/hakoniwa/methods/datom_emit.py — real port replacing the unit_refactor
-;; stage-0 "TODO: port-failed" stubs. NS fixed root.hakoniwa.* → hakoniwa.* (20-actors source root).
 (ns hakoniwa.methods.datom-emit
-  "datom_emit.py — hakoniwa 箱庭 kotoba Datom-log emitter (canonical EAVT state). 1:1 Clojure port.
-  ADR-2605312345 + 2606111500.
+  "hakoniwa 箱庭 — kotoba Datom-log emitter (canonical EAVT state, ADR-2605312345).
+  1:1 Clojure port of `methods/datom_emit.py` (ADR-2606111500).
 
-  Projects the 箱庭 world graph into append-only kotoba Datoms [e a v tx op]. GROUND (op :add) =
-  durable world (every persona ground datom carries :persona/synthetic true, G1). DERIVED
-  (:bond/is-transient) = the outcome DISTRIBUTION quantiles, computed on read; there is NO
-  :forecast/point datom (G2).
+  Projects the 箱庭 world graph into append-only kotoba Datoms [e a v tx op] — first-class
+  canonical state (NOT a projection cache). Two strata:
 
-  House style: ':kw' strings, string-keyed maps, %g floats. The Python `__main__` file-writer is
-  omitted (emit is the API)."
-  (:require [clojure.string :as str]))
+    GROUND (durable, op :add) — one datom per (entity, attribute, value): the persona / entity /
+      signal / outcome nodes and the :en/* 縁. This IS the world. Every persona ground datom
+      carries :persona/synthetic true (G1 — the box holds no real people).
 
-(def ^:private node-attrs
+    DERIVED (transient, :bond/is-transient true) — the outcome DISTRIBUTION (quantiles). Per
+      N1/G2 the distribution is computed on READ from the ensemble and is NOT a ground fact; it
+      is emitted in a clearly-flagged transient block. There is NO :forecast/point datom (G2).
+
+  House style: Python ':…' keyword strings stay strings; node/edge walk in EDN read order
+  (byte-parity); float formatting mirrors Python's {v:g} (fmt-g). Reuses world (load/selectors)
+  + distribution (fmt-g). Pure fns; file I/O at the #?(:clj) edge."
+  (:require [clojure.string :as str]
+            [hakoniwa.methods.world :as world]
+            [hakoniwa.methods.simulate :as simulate]
+            [hakoniwa.methods.distribution :as distribution]
+            #?(:clj [clojure.java.io :as io])))
+
+(def node-attrs
   [":sim/kind" ":sim/label" ":sim/sourcing" ":entity/public-ref"
    ":persona/synthetic" ":persona/cohort" ":persona/susceptibility"
    ":persona/initial-stance" ":persona/weight"
    ":signal/push" ":signal/at-step"
    ":outcome/measures" ":outcome/statistic" ":outcome/use"])
-(def ^:private edge-attrs [":en/from" ":en/to" ":en/kind" ":en/weight" ":en/sourcing"])
 
-(defn- fmt-g
-  "Python-`%g`-equivalent float formatting."
-  [^double v]
-  (if (and (== v (Math/rint v)) (not (Double/isInfinite v)) (<= (Math/abs v) 1.0e15))
-    (str (long v))
-    (let [s (format "%.6g" v)]
-      (if (str/includes? s "e")
-        (let [[m e] (str/split s #"e")
-              m (if (str/includes? m ".") (str/replace (str/replace m #"0+$" "") #"\.$" "") m)]
-          (str m "e" e))
-        (if (str/includes? s ".")
-          (str/replace (str/replace s #"0+$" "") #"\.$" "")
-          s)))))
+(def edge-attrs
+  [":en/from" ":en/to" ":en/kind" ":en/weight" ":en/sourcing"])
 
-(defn- fmt [v]
+(defn fmt
+  "Port of datom_emit._fmt: bool → true/false; nil → nil; \":…\" kept literal; other string →
+  quoted with \\ and \" escaped; float (double) → {v:g}; else str()."
+  [v]
   (cond
     (true? v) "true"
     (false? v) "false"
     (nil? v) "nil"
-    (and (string? v) (str/starts-with? v ":")) v
-    (string? v) (str "\"" (-> v (str/replace "\\" "\\\\") (str/replace "\"" "\\\"")) "\"")
-    (and (number? v) (not (integer? v))) (fmt-g (double v))
+    (string? v) (if (str/starts-with? v ":")
+                  v
+                  (str "\"" (-> v (str/replace "\\" "\\\\") (str/replace "\"" "\\\"")) "\""))
+    (double? v) (distribution/fmt-g v)
+    (float? v) (distribution/fmt-g v)
     :else (str v)))
 
-(defn- lstrip-colon [^String s] (str/replace s #"^:+" ""))
-
 (defn emit
-  "Flatten the box + distribution into the kotoba Datom-log EDN text (mirrors emit)."
+  "Faithful 1:1 of datom_emit.emit. Returns the kotoba Datom-log EDN text (trailing newline)."
   ([nodes edges dist meta] (emit nodes edges dist meta 1))
   ([nodes edges dist meta tx]
    (let [L (transient [])]
@@ -57,32 +57,70 @@
      (conj! L ";; GROUND op :add = durable world. DERIVED :bond/is-transient = distribution on read (N1/G2).")
      (conj! L ";; G1: every :persona is SYNTHETIC (:persona/synthetic true) — the box holds no real people.")
      (conj! L "[")
-     ;; ── GROUND: node datoms
-     (doseq [nid (keys nodes)]
+
+     ;; ── GROUND: node datoms (EDN insertion order → deterministic)
+     (doseq [nid (world/node-order nodes)]
        (let [n (get nodes nid)]
          (doseq [a node-attrs]
-           (when (and (contains? n a) (some? (get n a)))
-             (conj! L (str "[" (fmt nid) " " a " " (fmt (get n a)) " " tx " :add]"))))))
-     ;; ── GROUND: edge datoms (content-stable edge id)
+           (let [v (get n a)]
+             (when (and (contains? n a) (not (nil? v)))
+               (conj! L (str "[" (fmt nid) " " a " " (fmt v) " " tx " :add]")))))))
+
+     ;; ── GROUND: edge datoms (content-stable edge id en.<from>.<kind>.<to>)
      (doseq [e edges]
-       (let [eid (str "en." (get e ":en/from") "." (lstrip-colon (get e ":en/kind")) "." (get e ":en/to"))]
+       (let [eid (str "en." (get e ":en/from") "."
+                      (let [k (get e ":en/kind")] (if (str/starts-with? k ":") (subs k 1) k))
+                      "." (get e ":en/to"))]
          (doseq [a edge-attrs]
-           (when (and (contains? e a) (some? (get e a)))
-             (conj! L (str "[" (fmt eid) " " a " " (fmt (get e a)) " " tx " :add]"))))))
-     ;; ── GROUND: run config
+           (let [v (get e a)]
+             (when (and (contains? e a) (not (nil? v)))
+               (conj! L (str "[" (fmt eid) " " a " " (fmt v) " " tx " :add]")))))))
+
+     ;; ── GROUND: the simulation run configuration (reproducibility provenance)
      (let [run "run.hakoniwa"]
        (doseq [[a v] [[":run/steps" (get meta "steps")] [":run/replicas" (get meta "replicas")]
                       [":run/seed" (get meta "seed")] [":run/jitter" (get meta "jitter")]
                       [":run/kernel" ":friedkin-johnsen"]]]
          (conj! L (str "[" (fmt run) " " a " " (fmt v) " " tx " :add]"))))
-     ;; ── DERIVED (transient — the DISTRIBUTION; N1/G2). NO point datom.
+
+     ;; ── DERIVED (transient — the DISTRIBUTION; N1/G2). NO point datom exists.
      (conj! L ";; ── DERIVED outcome distribution (transient; computed on read from the ensemble) ──")
-     (doseq [[qk qv] (get dist "quantiles")]
-       (conj! L (str "[outcome.adoption :bond/distribution-" (lstrip-colon qk) " " (fmt-g (double qv)) " " tx " :derived] "
-                     ";; :bond/is-transient true")))
-     (conj! L (str "[outcome.adoption :bond/distribution-mean " (fmt-g (double (get dist "mean"))) " " tx " :derived] "
-                   ";; :bond/is-transient true"))
+     (let [q (get dist "quantiles")]
+       (doseq [qk (world/ordered-keys q)]
+         (conj! L (str "[outcome.adoption :bond/distribution-"
+                       (if (str/starts-with? qk ":") (subs qk 1) qk) " "
+                       (distribution/fmt-g (get q qk)) " " tx " :derived] "
+                       ";; :bond/is-transient true"))))
+     (conj! L (str "[outcome.adoption :bond/distribution-mean " (distribution/fmt-g (get dist "mean"))
+                   " " tx " :derived] ;; :bond/is-transient true"))
      (conj! L (str "[outcome.adoption :bond/point-asserted false " tx " :derived] "
                    ";; G2: distribution-only — never a point"))
+
      (conj! L "]")
      (str (str/join "\n" (persistent! L)) "\n"))))
+
+#?(:clj
+   (defn -main
+     "CLI entry (file I/O at the edge): scenario-datoms.kotoba.edn (EAVT)."
+     [& argv]
+     (let [argv (vec argv)
+           here (-> *file* io/file .getParentFile .getParentFile)
+           scenario (if (and (seq argv) (not (str/starts-with? (first argv) "--")))
+                      (io/file (first argv))
+                      (io/file here "data" "seed-scenario.kotoba.edn"))
+           opt (fn [flag dflt cast]
+                 (if (some #{flag} argv) (cast (nth argv (inc (.indexOf argv flag)))) dflt))
+           outdir (if (some #{"--out"} argv) (io/file (nth argv (inc (.indexOf argv "--out")))) (io/file here "out"))
+           tx (opt "--tx" 1 #(Long/parseLong %))
+           steps (opt "--steps" simulate/default-steps #(Long/parseLong %))
+           replicas (opt "--replicas" simulate/default-replicas #(Long/parseLong %))
+           seed (opt "--seed" simulate/default-seed #(Long/parseLong %))
+           {:keys [nodes edges]} (world/load-file* scenario)
+           [results meta] (simulate/ensemble nodes edges {:steps steps :replicas replicas :seed seed})
+           dist (distribution/distribution results)
+           out (io/file outdir "scenario-datoms.kotoba.edn")]
+       (.mkdirs outdir)
+       (spit out (emit nodes edges dist meta tx))
+       (println (str "hakoniwa datom log → " out " (" (count nodes) " nodes + " (count edges)
+                     " 縁, tx=" tx ")"))
+       0)))

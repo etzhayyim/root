@@ -30,6 +30,15 @@
   "integrates": ["actor:akashi", "actor:tadori", "actor:kurashimori", "actor:tasuke", "actor:danjo", "actor:kabuto", "actor:tsumugi", "actor:himotoki"],
   "cells": [
     {
+      "id": "cell:sukashi.crawl",
+      "method": "methods/crawl.py",
+      "input": "data/frontier-domains.edn (real publisher/SSP/exchange domains) — the worldwide acquisition frontier",
+      "output": ["data/live/<domain>.<kind> (gitignored)", "rows → ingest parsers → kotoba"],
+      "pipeline": "frontier walk → urls_for (only /ads.txt /app-ads.txt /sellers.json /rdap — public IAB/RDAP paths) → fetch (INJECTED network leg; GET-only honest-UA robots no-evasion, G2/G12) → ingest.parse_* → :adtech/:adauth.edge/:addelivery.edge rows; RDAP org-only (G9); resume-safe (fresh-skip). DRY-RUN unless SUKASHI_OPERATOR_GATE=1.",
+      "gate": "G7 — a LIVE crawl requires SUKASHI_OPERATOR_GATE=1 + Council; dry-run otherwise (returns the URL plan, fetches nothing). Proven live: theguardian.com/ads.txt → 131 rows. bb sukashi:crawl.",
+      "runtime": ".py (I/O-coupled acquisition, the ingest.py boundary — ADR-2606131800; the analyzer is .cljc)"
+    },
+    {
       "id": "cell:sukashi.ingest",
       "method": "methods/ingest.py",
       "input": "data/ingest/*.{txt,json} (a publisher's ads.txt / app-ads.txt, an exchange's sellers.json, an RDAP/WHOIS JSON) or seed",

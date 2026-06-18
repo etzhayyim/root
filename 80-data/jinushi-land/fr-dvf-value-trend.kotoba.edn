@@ -1,0 +1,17 @@
+;; jinushi 地主 — FR DVF property-value as-of trajectory (YoY €/m²). GENERATED.
+{:dataset-id "fr-dvf-value-trend",
+ :source "DGFiP/Etalab geo-dvf (multi-year)",
+ :license "Licence Ouverte",
+ :note
+ "Apartment median €/m² as-of trajectory per commune (Wellbecoming = trajectory). YoY value-diff (差分) on the VALUE dimension. No owner identity; aggregate-only.",
+ :years ["2022" "2023"],
+ :trend
+ {"75105"
+  {:by-year
+   {"2022" {:eur-m2 13156.25, :mutations 1299},
+    "2023" {:eur-m2 12707.317073170732, :mutations 1134}},
+   :yoy
+   [{:from "2022",
+     :to "2023",
+     :pct -3.4123167835003723,
+     :vol-pct -12.70207852193995}]}}}

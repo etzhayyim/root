@@ -1,13 +1,10 @@
 (ns hinagata.tests.test-maturity
   "hinagata 雛形 — maturity-scorecard tests (ADR-2606111954). 1:1 Clojure port of
-  tests/test_maturity.py (pytest → clojure.test). Pure stdlib, network-free.
+  tests/test_maturity.py. Pure fns (maturity reuses analyze + validate).
 
-  maturity.CORE_CLAUSES is private in the existing maturity.cljc port, so the eight core
-  clauses are mirrored here as `core-clauses` (the same module constant the Python test
-  references). analyze.CITE_KINDS = analyze/cite-kinds.
-
-  The Python __main__ demo runner is intentionally omitted (no behaviour, just printing)."
-  (:require [clojure.test :refer [deftest is run-tests]]
+  The scorecard reports DISCLOSED structural facts about the commons (size / grounding /
+  integrity), never a verdict on the law (G1/G3/G5)."
+  (:require [clojure.test :refer [deftest is testing run-tests]]
             [clojure.string :as str]
             [clojure.java.io :as io]
             [hinagata.methods.analyze :as analyze]
@@ -15,38 +12,30 @@
 
 (def actor-dir (-> *file* io/file .getParentFile .getParentFile))
 (def seed (io/file actor-dir "data" "seed-legal-template-graph.kotoba.edn"))
-
-;; mirrors maturity.CORE_CLAUSES (private in maturity.cljc — same module constant)
-(def core-clauses
-  ["cl.signature-esign" "cl.data-subject-rights" "cl.warranty-conformity"
-   "cl.employment-termination" "cl.lease-term-generic" "cl.ip-assignment"
-   "cl.cooling-off" "cl.dispute-arbitration"])
+(defn load-seed [] (analyze/load-file* seed))
 
 (deftest test-scorecard-renders-and-is-generated-banner
-  (let [{:keys [nodes edges]} (analyze/load-file* seed)
+  (let [{:keys [nodes edges]} (load-seed)
         md (maturity/maturity nodes edges)]
     (is (and (str/starts-with? md "# hinagata") (str/includes? md "GENERATED")))
-    (doseq [section ["## Size" "## Quality gates" "## Core-clause worldwide grounding"
-                     "## Readiness"]]
+    (doseq [section ["## Size" "## Quality gates" "## Core-clause worldwide grounding" "## Readiness"]]
       (is (str/includes? md section) (str "missing section " section)))))
 
 (deftest test-scorecard-reports-clean-integrity
-  (let [{:keys [nodes edges]} (analyze/load-file* seed)
+  (let [{:keys [nodes edges]} (load-seed)
         md (maturity/maturity nodes edges)]
     (is (str/includes? md "0 errors / 0 warnings") "scorecard should reflect clean integrity")))
 
 (deftest test-core-clauses-grounded-across-multiple-jurisdictions
-  (let [{:keys [nodes edges]} (analyze/load-file* seed)
-        st-jx (into {} (for [n (vals nodes) :when (= ":statute" (get n ":lt/kind"))]
-                         [(get n ":lt/id") (get n ":statute/jurisdiction")]))]
-    (doseq [cl core-clauses]
-      (is (contains? nodes cl) (str "core clause " cl " missing from graph"))
-      (let [jx (set (for [e edges
-                          :when (and (contains? analyze/cite-kinds (get e ":en/kind"))
-                                     (= cl (get e ":en/from")))]
-                      (get st-jx (get e ":en/to"))))
-            jx (set (filter some? jx))]
-        (is (>= (count jx) 2)
-            (str "core clause " cl " grounded in only " (count jx) " jurisdiction(s)"))))))
-
-#?(:clj (defn -main [& _] (run-tests 'hinagata.tests.test-maturity)))
+  (testing "Each of the 8 core clauses must rest on law in >1 jurisdiction (the worldwide goal)."
+    (let [{:keys [nodes edges]} (load-seed)
+          st-jx (into {} (for [n (vals nodes) :when (= ":statute" (get n ":lt/kind"))]
+                           [(get n ":lt/id") (get n ":statute/jurisdiction")]))]
+      (doseq [cl maturity/core-clauses]
+        (is (contains? nodes cl) (str "core clause " cl " missing from graph"))
+        (let [jx (set (for [e edges
+                            :when (and (contains? analyze/cite-kinds (get e ":en/kind"))
+                                       (= cl (get e ":en/from")))]
+                        (get st-jx (get e ":en/to"))))
+              jx (set (filter some? jx))]
+          (is (>= (count jx) 2) (str "core clause " cl " grounded in only " (count jx) " jurisdiction(s)")))))))

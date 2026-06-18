@@ -21,16 +21,16 @@
 #?(:clj (defn- manifest [] (json/parse-string (slurp (io/file actor-dir "manifest.jsonld")))))
 
 ;; ── manifest cells ↔ cell tree ──────────────────────────────────────────────
-;; Python pruned (ADR-2606160842 py→clj port wave): the cell is now its state_machine.cljc twin.
 (deftest test-manifest-cells-have-dirs-and-state-machines
   (doseq [cell (get (manifest) "cells")]
     (let [d (io/file cells-dir (get cell "name"))]
-      (is (.isFile (io/file d "state_machine.cljc")) (str "missing " (get cell "name") "/state_machine.cljc")))))
+      (is (.isFile (io/file d "cell.py")) (str "missing " (get cell "name") "/cell.py"))
+      (is (.isFile (io/file d "state_machine.py")) (str "missing " (get cell "name") "/state_machine.py")))))
 
 (deftest test-every-cell-dir-is-in-the-manifest
   (let [declared (set (map #(get % "name") (get (manifest) "cells")))
         on-disk (set (->> (.listFiles cells-dir)
-                          (filter #(and (.isDirectory %) (.isFile (io/file % "state_machine.cljc"))))
+                          (filter #(and (.isDirectory %) (.isFile (io/file % "cell.py"))))
                           (map #(.getName %))))]
     (is (= on-disk declared) (str "cell tree " on-disk " != manifest " declared))))
 

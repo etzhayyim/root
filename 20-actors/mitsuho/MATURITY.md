@@ -9,7 +9,7 @@ no synthetic pesticides, GMO Council-gated, no animal slaughter in R0–R3.
 | Lexicons | ✅ 5 under `com.etzhayyim.mitsuho.*` (parcel / cropPlan / harvest / foodLot / silenAgricultureReview) |
 | Cells | 🟡 path-reserved (R0) |
 | Manifest | ✅ `manifest.jsonld` — `constitutionalGates` (G1–G14) + `nonGoals` (N1–N10) machine-readable |
-| Tests | ✅ **11 green** — `methods/test_charter_gates.cljc` (**8**, added 2026-06-16: gate set + seed sovereignty + pesticide/GMO hooks + soil-carbon + witness/agronomist + biodiversity/LANDS + non-chemical preservation + N1 R4-gate) **+** `py/test_agent.py` (3, agent layer); `./run_tests.sh` aggregates both |
+| Tests | ✅ **11 green** — `methods/test_charter_gates.py` (**8**, added 2026-06-16: gate set + seed sovereignty + pesticide/GMO hooks + soil-carbon + witness/agronomist + biodiversity/LANDS + non-chemical preservation + N1 R4-gate) **+** `py/test_agent.py` (3, agent layer); `./run_tests.sh` aggregates both |
 | Methods | 🟡 agent present; offline agronomy engine = R1 |
 
 ## Charter gates pinned by the new charter-gate test
@@ -32,5 +32,3 @@ no synthetic pesticides, GMO Council-gated, no animal slaughter in R0–R3.
 silenAgricultureReview `r1-benchtop-activation` + Council; cell `.solve()` stays R0-gated.
 G6 pesticide blocklist (neonicotinoid/glyphosate/paraquat/organochlorine) + G4 soil-carbon
 halt threshold enforced in the R1 cell logic.
-
-> **2026-06-17 substrate-native migration (ADR-2606160842):** the charter-gate test above was ported Python→Clojure (`methods/test_charter_gates.py` → `methods/test_charter_gates.cljc`, ns `mitsuho.methods.test-charter-gates`, reads the lexicons via cheshire/edn) and the Python was pruned. Run via `./run_tests.sh` (now `exec bb`) or `bb run test:charter` (all 34 charter suites; 244 tests / 924 assertions green). Assertions unchanged (1:1 port).

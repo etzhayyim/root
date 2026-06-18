@@ -1,15 +1,23 @@
 (ns yoro-ui.state.auth
-  "Auth state — reads the CACAO session from localStorage (no XRPC on bootstrap).
+  "Auth state — reads the WebAuthn passkey session from sessionStorage (no XRPC on bootstrap).
    Session probe rule: never fire com.atproto.server.getSession on unauthenticated
-   bootstrap (CLAUDE.md §CRITICAL: Session probe)."
+   bootstrap (CLAUDE.md §CRITICAL: Session probe).
+   Key contract (passkey.ts / same-origin-auth.ts):
+     sessionStorage 'etzhayyim-auth-session' — live session (cleared on tab close)
+     localStorage   'etzhayyim-auth-did'     — DID for display-before-session bootstrap"
   (:require [re-frame.core :as rf]
             [yoro-ui.interop.atproto :as at]))
 
-(def session-key "yoro-cacao-session")   ; localStorage key written by kotoba auth
-(def did-key "yoro-active-did")
+;; Session lives in sessionStorage (charter: ADR-2606061800 same-origin passkey)
+(def session-key "etzhayyim-auth-session")  ; sessionStorage
+(def did-key     "etzhayyim-auth-did")       ; localStorage
 
 ;; ---------------------------------------------------------------------------
-;; Helpers — read-only localStorage probes
+;; Helpers — read-only storage probes
+
+(defn- ss-get [k]
+  (when (exists? js/sessionStorage)
+    (try (.getItem js/sessionStorage k) (catch js/Error _ nil))))
 
 (defn- ls-get [k]
   (when (exists? js/localStorage)
@@ -21,10 +29,12 @@
          (catch js/Error _ nil))))
 
 (defn read-local-session
-  "Read the CACAO session from localStorage without firing any XRPC."
+  "Read the passkey session from sessionStorage without firing any XRPC.
+   Falls back to localStorage legacy key for backward compat during migration."
   []
-  (or (parse-session (ls-get session-key))
-      ;; Fallback: look for the standard AT Protocol accessJwt session shape
+  (or (parse-session (ss-get session-key))           ; ← sessionStorage primary
+      ;; Legacy fallbacks (removed after all clients have migrated)
+      (parse-session (ls-get "yoro-cacao-session"))
       (parse-session (ls-get "atproto-session"))
       nil))
 
@@ -90,9 +100,13 @@
 (rf/reg-event-fx
  :auth/sign-out
  (fn [{:keys [db]} _]
+   ;; Clear sessionStorage primary
+   (when (exists? js/sessionStorage)
+     (try (.removeItem js/sessionStorage session-key) (catch js/Error _)))
+   ;; Clear legacy localStorage keys
    (when (exists? js/localStorage)
      (try
-       (.removeItem js/localStorage session-key)
+       (.removeItem js/localStorage "yoro-cacao-session")
        (.removeItem js/localStorage "atproto-session")
        (catch js/Error _)))
    (at/set-session! nil)

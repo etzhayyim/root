@@ -1,0 +1,268 @@
+{
+  "unit-map" : {
+    "Q712226" : "km2=1000000.0",
+    "Q935614" : "rai=1600.0",
+    "Q25343" : "m2=1.0",
+    "Q216795" : "dunam=1000.0",
+    "Q81292" : "acre=4046.8564224",
+    "Q1399890" : "feddan=4200.8334",
+    "Q35852" : "hectare=10000.0",
+    "Q3396758" : "decare=1000.0",
+    "Q232291" : "sq-mile=2589988.110336"
+  },
+  "load-discipline" : "WDQS via methods/fetch_wdqs.sh only (polite/LIMIT<=800); loop re-ingests committed snapshots with zero network I/O",
+  "value-trend" : {
+    "layer" : "FR DVF property-value as-of trajectory (methods/value_trend.cljc) — YoY €/m² (差分 on value)",
+    "years" : [ "2022", "2023" ],
+    "example" : "Paris-5e apartment €/m² 2022→2023 -3.4% (vol -12.7%)",
+    "reference" : {
+      "artifact" : "fr-dvf-value-trend.kotoba.edn",
+      "sha256" : "aca4786adb80135f06c555a807fce4f5b506d8dd5dd87a238c83a8d3cdc82ab0",
+      "cidv1" : "bafkreifmur4gvw4acnpqnrkvvad7zzhvwudnrxk53b5chdedvdj43sbkwa"
+    }
+  },
+  "sources" : [ {
+    "cidv1" : "bafkreib4anl6fuyrldnq4mlufgqchl3vhh67qh3awqqfyt37eg5c5wgtye",
+    "dropped-unknown-unit" : 0,
+    "countries" : 137,
+    "records" : 2158,
+    "class" : "Q46169 national park",
+    "dropped-nonpositive" : 8,
+    "sha256" : "3c0357e2d31158db0e317429a023af7539fdf81f60b4205c4f7f21ba2ed8d3c1",
+    "source-id" : "wikidata-national-parks",
+    "artifact" : "wikidata-national-parks.kotoba.edn",
+    "counts-toward-world-coverage" : true
+  }, {
+    "cidv1" : "bafkreih2o3opnhi5hvapi35u56aatoxl5sim2mg4i75lnxku5w6ymst72e",
+    "dropped-unknown-unit" : 0,
+    "countries" : 3,
+    "records" : 497,
+    "class" : "Q179049 nature reserve",
+    "dropped-nonpositive" : 0,
+    "sha256" : "fa76dcf69d1d3d40f46fb4ef8009baebec90cd30dc47fab6dd54edbd864a7fd1",
+    "source-id" : "wikidata-nature-reserves",
+    "artifact" : "wikidata-nature-reserves.kotoba.edn",
+    "counts-toward-world-coverage" : false
+  } ],
+  "nyc-pluto" : {
+    "license" : "public domain (NYC Open Data)",
+    "jurisdiction" : "US-NY (bulk-public per jurisdiction.cljc → natural-person ingest permitted)",
+    "as-of-diff" : {
+      "artifact" : "nyc-pluto-asof-diff.kotoba.edn",
+      "note" : "1000→2000 re-ingest delta via diff.cljc (+1000 added, 0 changed)"
+    },
+    "source" : "NYC PLUTO via Socrata SODA (data.cityofnewyork.us)",
+    "sample" : "Socrata $limit=1000 (full PLUTO ~860k lots = operator/datalad step)",
+    "reference" : {
+      "artifact" : "nyc-pluto-parcels.kotoba.edn",
+      "sha256" : "0ce7c8f6f0bc3af8411f06e84123e034cf341572b127548dee9c87db31fcdfa4",
+      "cidv1" : "bafkreiam47epn4f4hl4echyg5bashybuz42bk4vre5ki33u4q7ntd7g7uq"
+    },
+    "layer" : "government open-data cadastre beyond WDQS (methods/nyc_pluto.cljc)",
+    "owner-types" : {
+      "natural-person" : 1532,
+      "org" : 468
+    },
+    "publish-prudence" : "legal entities NAMED; natural persons ANONYMIZED (sha256-prefix); no coordinates (G1)",
+    "parcels" : 2000
+  },
+  "process" : "methods/normalize_wdqs.cljc (raw *.raw.json → snapshots); methods/ingest.cljc sanitize (drop parcels > country area, G4)",
+  "sanitize" : {
+    "rule" : "drop parcels whose area > their country total area (impossible — P2046 unit errors / marine megaparks)",
+    "dropped" : 5,
+    "dropped-detail" : [ {
+      "cc" : "NO",
+      "area-km2" : 1818110.39
+    }, {
+      "cc" : "HR",
+      "area-km2" : 972000.0
+    }, {
+      "cc" : "PY",
+      "area-km2" : 514233.0
+    }, {
+      "cc" : "KR",
+      "area-km2" : 274541.0
+    }, {
+      "cc" : "KR",
+      "area-km2" : 154644.0
+    } ],
+    "note" : "coverage corrected 6.67% (raw) → 4.17% (sanitized). Even sanitized coverage is an UPPER BOUND: marine parks below country area + overlapping parks are not geometry-de-duped yet."
+  },
+  "adr" : "ADR-2605241500 (datalad + git-annex → IPFS substrate); processed artifacts committed in 80-data (genome convention)",
+  "osm-buildings" : {
+    "building-count" : 600,
+    "with-operator" : 15,
+    "with-floors" : 600,
+    "license" : "ODbL",
+    "jurisdiction" : "JP-13 (Tokyo bbox sample)",
+    "source" : "OpenStreetMap via Overpass",
+    "note" : "building:levels (floors) + operator (owner-ish, orgs only); sample 600 (planet/Geofabrik = operator/datalad step); no person dimension (G1)",
+    "reference" : {
+      "artifact" : "osm-buildings.kotoba.edn",
+      "sha256" : "9b23b16b06ece5e55d83f7df7706af7f538eab9b77ae7e6fd616df3b8612243d",
+      "cidv1" : "bafkreie3eoywwbxm4xsv3a7x353qnl37kohkxg3xvz7g7vqw345ymerehu"
+    },
+    "confidence-tier" : ":osm open-crowd 0.6",
+    "layer" : "OSM building stock (methods/osm_buildings.cljc) — 5th source"
+  },
+  "pin" : {
+    "status" : "operator-step",
+    "how" : "e7m-dataset add 80-data/jinushi-land -> superdataset 90-docs/baien/datasets; not auto-run"
+  },
+  "ipfs" : {
+    "status" : "pinned (real, local IPFS node, ipfs 0.41.0)",
+    "directory-cid" : "bafybeihrzixhxseapey37hjlmkhvzgdfg5b3iiw5miqto2dje6kpl5dvai",
+    "file-count" : 28,
+    "manifest" : "ipfs-pins.kotoba.edn (dir CID + per-file CIDs)",
+    "cid-scheme" : "ipfs add --cid-version=1: single-block→raw bafkrei (== methods/cid.cljc, verified MATCH); multi-block→dag-pb bafybei",
+    "public-availability" : "local-node pin; for public retrieval connect the daemon to peers or push to a remote pinning service (operator)",
+    "datalad" : "working copies git-committed (mergeable PR, tests run on repo state); a formal DataLad dataset/subdataset + IPFS special remote is the operator step (e7m-dataset add → superdataset 90-docs/baien/datasets) and is intentionally NOT a parent submodule here (would break parent tests/clone). Content-addressing is ipfs-compatible so a datalad IPFS-remote can `datalad get` these CIDs.",
+    "repinned" : "2026-06-16 (after PLUTO 1000→2000)"
+  },
+  "ingest-id" : "jinushi-land-wdqs-r2",
+  "coverage-policy" : "world coverage sums ONLY counts-toward sources, SANITIZED; nature reserves observed-only; non-positive + over-country parcels dropped (G2/G4)",
+  "derived" : {
+    "artifact" : "jinushi-land-datoms.kotoba.edn",
+    "what" : "canonical EAVT Datom log of the SANITIZED counting dataset (gitignored; regenerable)",
+    "sha256" : "4055cfd7f39103f7b6d9a53a20717b004e1d4851d708847dafe0edf553e88e08",
+    "cidv1" : "bafkreicakxh5p44rap33nwnfhiqhc6yajyouquoxbcch3l7a5x2vh2eoba",
+    "unified" : {
+      "artifact" : "jinushi-unified-datoms.kotoba.edn",
+      "gitignored" : true,
+      "what" : "UNIFIED canonical kotoba Datom log across all 6 sources/4 dimensions (methods/emit_all.cljc); regenerable; source-tagged for confidence weighting",
+      "sha256" : "f23084f9c1fb46f9189de23d5cf14be6cabffd5ea3ba4e9ac72f3809e838483e",
+      "cidv1" : "bafkreihsgccptqp3i34rrhpchvopcs7gzk772xvdxjhjvrzphae6qocihy"
+    }
+  },
+  "building-ownership" : {
+    "layer" : "building-level ownership KG + floors/height + company linkage (methods/buildings.cljc)",
+    "gate" : "PUBLIC-RECORD + SYMMETRIC (相互監視, ADR-2606082400); map-not-target; non-monetized; per-jurisdiction bulk-ingestion gated",
+    "countries" : [ "AZ", "CA", "DK", "EE", "FI", "FR", "GB", "HR", "HU", "IE", "IL", "JP", "KE", "LU", "MC", "NO", "PL", "UA", "US" ],
+    "vertical-concentration" : "top owners by total FLOORS controlled (ビルのフロア): Mitsui Fudosan/Mitsubishi Estate/Oxford Properties/JR Central — real-estate developers, distinct from building-count leaders (rail)",
+    "snapshot" : {
+      "cidv1" : "bafkreih5sexq6qguxreiqvjglxib3xpt6mcu4clujzp23o6x2gmpp7vtm4",
+      "owners" : 1389,
+      "with-floors" : 722,
+      "buildings" : 2405,
+      "natural-person-owners" : 313,
+      "lei-links" : 221,
+      "sha256" : "fd912f0f40d4bc488855265dd01dddf3f3054e09744e5fadbbd7d198f7feb367",
+      "artifact" : "wikidata-buildings.kotoba.edn",
+      "with-height" : 168
+    },
+    "datom-log" : {
+      "artifact" : "building-ownership-datoms.kotoba.edn",
+      "gitignored" : true,
+      "sha256" : "43929de35fd475ec65de1c76565566b55920db24e9e7e04be8dc65c7f1e43168",
+      "cidv1" : "bafkreicdsko6gx6uoxwglxq4ozlfkzvvleqnwjhj47qex2g4mxd7dzbrna"
+    }
+  },
+  "denominator" : {
+    "artifact" : "country-areas.kotoba.edn",
+    "class" : "Q6256 country · P2046 area (km², max per ISO-2; approximate — may include water/territories)",
+    "countries" : 203,
+    "sha256" : "7d9b7f51efcb02d9319befef3e55ec02d2c546b70117fda279d14b8e8e99d36c",
+    "cidv1" : "bafkreid5tn7vd36lalmtdg7p547fl3ac2lcunnybc762e6orjohi5gotnq"
+  },
+  "cid-scheme" : "CIDv1 raw(0x55)/sha2-256, multibase base32 (bafkrei…)",
+  "verify" : "methods/verify.cljc re-derives each artifact CID+sha256 vs this file",
+  "fetched-at" : "2026-06-16",
+  "fr-dvf" : {
+    "total-value-eur" : 1.3091250375200002E9,
+    "mutations" : 5375,
+    "license" : "Licence Ouverte",
+    "jurisdiction" : "FR (75105 Paris-5e + 42218 Saint-Étienne, 2023)",
+    "lines" : 12875,
+    "value-spread" : "Paris-5e €12,707/m² vs Saint-Étienne €1,438/m² (apartment median)",
+    "source" : "DGFiP/Etalab geo-dvf",
+    "reference" : {
+      "artifact" : "fr-dvf-values.kotoba.edn",
+      "sha256" : "fd6fd6b774bebc79afb66734c586a9991bea56a89fd3f10beb2bac8e9331c40c",
+      "cidv1" : "bafkreih5n7llo5f6xr427nthgtcynkmzdpvfnke72pyqx2zlvshjgmoebq"
+    },
+    "confidence-tier" : ":dvf authoritative-gov 0.95",
+    "layer" : "FR DVF property VALUES (methods/dvf_values.cljc) — 6th source, new dimension",
+    "dimension" : "transaction VALUE (€, €/m²); NO owner identity (FR owner-names restricted — gate-clean); street address dropped (G1)"
+  },
+  "company-linkage" : {
+    "layer" : "authoritative company linkage (methods/company_link.cljc): owner LEI → GLEIF → kabuto/uchiwake/kanjō; QID → keizu/tsumugi",
+    "source" : "GLEIF api.gleif.org (public; legal entities only)",
+    "coverage" : {
+      "owners-total" : 1339,
+      "owners-with-lei" : 221,
+      "owners-gleif-linked" : 221,
+      "buildings-linked" : 690,
+      "by-jurisdiction" : {
+        "US-OK" : 1,
+        "SA" : 1,
+        "LU" : 1,
+        "IL" : 3,
+        "BE" : 1,
+        "US-CA" : 6,
+        "IT" : 3,
+        "GB" : 23,
+        "DK" : 3,
+        "CA-BC" : 1,
+        "US-DC" : 3,
+        "BM" : 2,
+        "US-OH" : 4,
+        "US-NY" : 10,
+        "CA-NL" : 1,
+        "CA-ON" : 2,
+        "US-MI" : 3,
+        "US-NC" : 2,
+        "US-DE" : 23,
+        "US-LA" : 1,
+        "US-TN" : 2,
+        "CA" : 3,
+        "US-PA" : 3,
+        "US-MN" : 3,
+        "US-IN" : 2,
+        "CA-QC" : 3,
+        "US-CT" : 3,
+        "US-WA" : 3,
+        "US" : 2,
+        "JP" : 25,
+        "US-NJ" : 2,
+        "US-AR" : 2,
+        "US-IL" : 3,
+        "US-MA" : 6,
+        "US-MD" : 2,
+        "IE" : 2,
+        "ES" : 1,
+        "AT" : 2,
+        "US-RI" : 1,
+        "NO" : 14,
+        "US-GA" : 1,
+        "FR" : 14,
+        "US-NV" : 2,
+        "US-OR" : 1,
+        "PL" : 5,
+        "FI" : 5,
+        "CH" : 1,
+        "US-TX" : 2,
+        "CZ" : 1,
+        "US-KY" : 1,
+        "US-AL" : 1,
+        "US-WI" : 1,
+        "US-UT" : 2,
+        "US-FL" : 4,
+        "DE" : 1,
+        "US-MO" : 1
+      }
+    },
+    "reference" : {
+      "artifact" : "gleif-companies.kotoba.edn",
+      "companies" : 221,
+      "sha256" : "605147cddf4d3c1485f26bcb38b49408ff6b46f963e2293e448fb2416fb3b73a",
+      "cidv1" : "bafkreidakfd43x2nhqkil4tlzm4ljfai75vun6ld4iut4repwjaw7m5xhi"
+    },
+    "datom-log" : {
+      "artifact" : "company-link-datoms.kotoba.edn",
+      "gitignored" : true,
+      "sha256" : "0425aea021d76eaa3e45e9fe549dc9998da7f5b383f40f196ca06de59e35b8a0",
+      "cidv1" : "bafkreiaeewxkaioxn2vd4rpj7zkj3smzrwt7lm4d6qhrs3fanxsz4nnyua"
+    }
+  },
+  "endpoint" : "https://query.wikidata.org/sparql"
+}

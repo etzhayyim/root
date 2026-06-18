@@ -10,7 +10,7 @@ by 7+ sibling actors (wakai backstop / Public Fund / Tithe / Land Trust).
 | Lexicons | ✅ 5 under `com.etzhayyim.toritate.*` (ledgerEntry / financialAttestation / auditObservation / annualReport / externalAuditorEngagement) |
 | Cells | 🟡 path-reserved in `40-engine/.../cells/toritate_*` (R0) |
 | Manifest | ✅ present |
-| Tests | ✅ `methods/test_charter_gates.cljc` — **7 tests, green** (added 2026-06-16; previously NO dedicated test — only sibling cross-refs) — pins on-chain / no-fiat / no-payroll / tithe-split / donor-PII / Council gates; `./run_tests.sh` |
+| Tests | ✅ `methods/test_charter_gates.py` — **7 tests, green** (added 2026-06-16; previously NO dedicated test — only sibling cross-refs) — pins on-chain / no-fiat / no-payroll / tithe-split / donor-PII / Council gates; `./run_tests.sh` |
 | Methods | ⛔ no offline engine yet (R1) |
 
 ## Charter gates pinned by the test
@@ -36,5 +36,3 @@ by 7+ sibling actors (wakai backstop / Public Fund / Tithe / Land Trust).
 Council Lv6+ ≥3 baseline + the 5 ledger/report/audit cells + the annual audit cycle wired
 (MST publish + IPFS pin ≥2 nodes). UPL-equivalent boundary (G5): toritate prepares the
 data package; external-auditor opinion stays off-chain.
-
-> **2026-06-17 substrate-native migration (ADR-2606160842):** the charter-gate test above was ported Python→Clojure (`methods/test_charter_gates.py` → `methods/test_charter_gates.cljc`, ns `toritate.methods.test-charter-gates`, reads the lexicons via cheshire/edn) and the Python was pruned. Run via `./run_tests.sh` (now `exec bb`) or `bb run test:charter` (all 34 charter suites; 244 tests / 924 assertions green). Assertions unchanged (1:1 port).

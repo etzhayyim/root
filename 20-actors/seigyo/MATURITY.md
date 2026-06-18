@@ -11,7 +11,7 @@ no LLM/network in the safety path, actuation only via attested setpoint envelope
 | Lexicons | ✅ 9 under `com.etzhayyim.seigyo.*` (ioPointRegistry / plcProgramAttestation / runtimeAttestation / scadaProjectAttestation / setpointEnvelope / interlockVerificationRecord / alarmEventRecord / telemetryAggregateRecord / silenSeigyoReview) |
 | Cells | 🟡 5 path-reserved in `40-engine/.../cells/seigyo_*` (R0 import-time RuntimeError) |
 | Manifest | ✅ present |
-| Tests | ✅ `methods/test_charter_gates.cljc` — **8 tests, green** (added 2026-06-16; previously ZERO tests anywhere) — pins the safety + no-commercial-DCS + attestation gates; `./run_tests.sh` |
+| Tests | ✅ `methods/test_charter_gates.py` — **8 tests, green** (added 2026-06-16; previously ZERO tests anywhere) — pins the safety + no-commercial-DCS + attestation gates; `./run_tests.sh` |
 | Methods | ⛔ no offline engine yet (R1 benchtop loop, ADR-2606111100) |
 
 ## Charter / safety gates pinned by the test
@@ -34,5 +34,3 @@ no LLM/network in the safety path, actuation only via attested setpoint envelope
 
 ADR-2606111100 benchtop loop baseline + Council Lv6+ + controls-engineer SME registration
 (silenSeigyoReview); cell `.solve()` stays R0-gated (no live actuation) until then.
-
-> **2026-06-17 substrate-native migration (ADR-2606160842):** the charter-gate test above was ported Python→Clojure (`methods/test_charter_gates.py` → `methods/test_charter_gates.cljc`, ns `seigyo.methods.test-charter-gates`, reads the lexicons via cheshire/edn) and the Python was pruned. Run via `./run_tests.sh` (now `exec bb`) or `bb run test:charter` (all 34 charter suites; 244 tests / 924 assertions green). Assertions unchanged (1:1 port).

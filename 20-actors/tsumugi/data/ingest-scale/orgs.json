@@ -15,6 +15,8 @@
     {"child": "WhatsApp", "parent": "Meta Platforms", "country": "United States", "childRef": "Q44"},
     {"child": "Waymo", "parent": "Alphabet Inc.", "country": "United States", "childRef": "Q18912104"},
     {"child": "Porsche", "parent": "Volkswagen AG", "country": "Germany", "childRef": "Q40993"},
-    {"child": "SEAT", "parent": "Volkswagen AG", "country": "Spain", "childRef": "Q46225"}
+    {"child": "SEAT", "parent": "Volkswagen AG", "country": "Spain", "childRef": "Q46225"},
+    {"child": "GitHub", "parent": "Microsoft", "country": "United States", "childRef": "Q364"},
+    {"child": "LinkedIn", "parent": "Microsoft", "country": "United States", "childRef": "Q213660"}
   ]
 }

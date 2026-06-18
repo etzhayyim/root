@@ -5,10 +5,10 @@
  :actor/glyph     "薬師"
  :actor/tier      :tier-b
  :actor/domain    "yakushi.etzhayyim.com"
- :actor/purpose   "Religious-corp first-party pharmaceutical R&D actor — Wave 1 OTC 抗アレルギー点眼薬 triplet (sodium cromoglicate, naphazoline HCl, chlorpheniramine maleate). Wave 1b extends API catalog to 12 化合物 across 3 dosage forms (sterile eye drop + oral tablet + topical cream/gel). Wave 1c adds 7 化合物 (omeprazole chiral + 4 laxatives + 2 cough-expectorant) + 1 chiral resolution cell. All cells gated import-time RuntimeError until Council Lv6+ >=3 silen-pharma-review attestation. Murakumo-only inference. kotoba-EAVT-native state. USDC Base L2 + ERC-4337 + TitheRouter 10% auto-split payments only."
+ :actor/purpose   "Religious-corp first-party pharmaceutical R&D actor — Wave 1 OTC 抗アレルギー点眼薬 triplet (sodium cromoglicate, naphazoline HCl, chlorpheniramine maleate). Wave 1b extends API catalog to 12 化合物 across 3 dosage forms (sterile eye drop + oral tablet + topical cream/gel). Wave 1c adds 7 化合物 (omeprazole chiral + 4 laxatives + 2 cough-expectorant) + 1 chiral resolution cell. Wave 2 (ADR-2606171400) adds DISINFECTANTS / antiseptics (消毒薬) — 7 公定書 off-patent actives (ethanol / isopropanol / sodium hypochlorite / benzalkonium chloride / povidone-iodine / chlorhexidine gluconate / hydrogen peroxide), FORMULATED (diluted/blended) not synthesized, with efficacy-window (G21) + no-toxic-gas (G22) + flammable-label (G23) + use-class (G24) gates. All cells gated import-time RuntimeError until Council Lv6+ >=3 silen-pharma-review attestation. Murakumo-only inference. kotoba-EAVT-native state. USDC Base L2 + ERC-4337 + TitheRouter 10% auto-split payments only."
  :actor/status    :r0
  :actor/adr       "2605250500"
- :actor/related   ["2605250515" "2605250530" "2605250545" "2605250600" "2605250615"]
+ :actor/related   ["2605250515" "2605250530" "2605250545" "2605250600" "2605250615" "2606171400"]
 
  :actor/charter-rider
  {:rider/version "2.0"
@@ -34,7 +34,12 @@
   {:gate/id "G17" :gate/name "tithe-non-fiat" :gate/rule "Payments = USDC Base L2 + ERC-4337 + TitheRouter 10% auto-split only; no Stripe / fiat / commercial sale model"}
   {:gate/id "G18" :gate/name "no-server-key" :gate/rule "Platform holds no key; member / QP signs each settlement (ADR-2605231525)"}
   {:gate/id "G19" :gate/name "consent-bound" :gate/rule "Real outward actions stay gated; compute-only R0; settlement stops at :intent (G18)"}
-  {:gate/id "G20" :gate/name "pii-encrypted-envelope" :gate/rule "Patient AE identity -> com.etzhayyim.encrypted.*, DID-bound (ADR-2605181100)"}]
+  {:gate/id "G20" :gate/name "pii-encrypted-envelope" :gate/rule "Patient AE identity -> com.etzhayyim.encrypted.*, DID-bound (ADR-2605181100)"}
+  ;; ── Wave 2 disinfectants / antiseptics (ADR-2606171400) ──
+  {:gate/id "G21" :gate/name "efficacy-window" :gate/rule "Disinfectant active concentration MUST fall inside its evidence-based efficacy window (ethanol 60-90 vol% / IPA 60-80% / NaOCl surface 0.05-0.5% / BAK 0.01-0.2% / PVP-I 1-10% / CHG 0.05-0.5% / H2O2 1-6%); out-of-window formulation blocked"}
+  {:gate/id "G22" :gate/name "no-toxic-gas-formulation" :gate/rule "Co-formulating sodium hypochlorite with any acid (Cl2 gas) or ammonia (chloramine) is constitutionally unrepresentable (Charter §1.12 / Rider §2(a)); record_formulation REFUSES the combination"}
+  {:gate/id "G23" :gate/name "flammable-labeling" :gate/rule "Alcohol-based disinfectants (ethanol / isopropanol) MUST carry 火気厳禁 / flammable warning on the label (Wellbecoming label lint, extends G11)"}
+  {:gate/id "G24" :gate/name "use-class" :gate/rule "Each finished disinfectant declares a use class in {surface, skin-antiseptic, hand-hygiene}; skin-antiseptic implies low-bioburden process"}]
 
  :actor/cells
  [{:cell/id "raw-material"    :cell/kind :langgraph :cell/runtime :wasm}
@@ -42,6 +47,7 @@
   {:cell/id "fill-finish"     :cell/kind :langgraph :cell/runtime :wasm}
   {:cell/id "qc-release"      :cell/kind :langgraph :cell/runtime :wasm}
   {:cell/id "adverse-event"   :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "formulation"     :cell/kind :langgraph :cell/runtime :wasm}
   {:cell/id "settlement"      :cell/kind :datalog   :cell/runtime :kotoba}]
 
  :actor/lex
@@ -52,5 +58,6 @@
   {:lex/id "lotAttestation"}
   {:lex/id "silenPharmaReview"}
   {:lex/id "adverseEventReport"}
+  {:lex/id "formulationAttestation"}
   {:lex/id "settlementIntent"}]
 }

@@ -53,44 +53,6 @@
           "permitted civilian uses run)"))
     :else nil))
 
-;; ── require_member_signature / witness_quorum_ok (safety.py) ────────────────────
-;; No-server-key gate (G15/G7) + witness quorum (>=2 independent robot DIDs, G8).
-;; 1:1 port of kuni-umi/robotics/safety.py.
-
-(def MIN_WITNESS_SIGS 2)
-
-(defn require-member-signature
-  "No-server-key gate (G15/G7, ADR-2605231525). Raise unless a member/operator
-  signs and the platform holds no key (port of require_member_signature)."
-  ([member-sig] (require-member-signature member-sig ""))
-  ([member-sig server-sig]
-   (cond
-     (seq server-sig)
-     (safety-error
-      (str "G15/G7 violation: a server/platform signature was supplied; the platform "
-           "holds no key and never signs actuation (ADR-2605231525)"))
-     (not (seq member-sig))
-     (safety-error
-      (str "G15/G7 violation: a member/operator signature is required to authorise "
-           "any actuation (no-server-key)"))
-     :else nil)))
-
-(defn witness-quorum-ok
-  "Witness quorum >=2 independent robot DIDs (G8); N<2 or duplicates rejected.
-  Returns a string-keyed map (does not raise). Port of witness_quorum_ok."
-  [witness-sigs]
-  (cond
-    (< (count witness-sigs) MIN_WITNESS_SIGS)
-    {"ok" false
-     "reason" (str "witness quorum " (count witness-sigs) " < " MIN_WITNESS_SIGS " (G8 constitutional)")
-     "escalate_council_lv6" true}
-    (< (count (set witness-sigs)) MIN_WITNESS_SIGS)
-    {"ok" false
-     "reason" "duplicate witness DIDs detected (G8)"
-     "escalate_council_lv6" true}
-    :else
-    {"ok" true "reason" "witness quorum satisfied"}))
-
 ;; ── PID (control.py) — mutable controller as an atom of state + a fns map ────────
 ;; Mirrors the dataclass PID with anti-windup (conditional integration). The
 ;; returned value is a map {:kind :pid :state (atom {…}) :gains {…}} and the
