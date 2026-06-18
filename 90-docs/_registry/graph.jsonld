@@ -16523,6 +16523,26 @@
       "lastVerified": "2026-06-17"
     },
     {
+      "id": "doc:adr-2606181530-thematic-spine-be-here-now",
+      "type": "TechArticle",
+      "title": "ADR-2606181530: 物語の正準テーマ軸 — be·here·now / いとなみ・まにまに・いい感じ (ジャンプ三題の換骨奪胎)",
+      "status": "accepted",
+      "topic": "thematic-spine-be-here-now",
+      "authoritative": true,
+      "authoritativeFor": [
+        "etzhayyim 物語/作品の正準テーマ軸 (be·here·now thematic spine)",
+        "90-docs/be-here-now.edn (thematic data artifact)",
+        "アクター語り口 tone の参照点 (organism joucho / ossekai nudge / kataribe)"
+      ],
+      "related": [
+        "doc:adr-2606171500-organism-social-reward-joucho-wellbecoming",
+        "doc:adr-2605264000-ossekai-info-arbitrage-wellbecoming-nudge",
+        "doc:adr-2605263600-kataribe-press-publishing-translation",
+        "doc:adr-2605301020-basic-high-income-doctrine"
+      ],
+      "lastVerified": "2026-06-18"
+    },
+    {
       "id": "doc:adr-2606182359-charter-amendment-wave3-all-prohibitions-to-objective-function",
       "type": "TechArticle",
       "title": "ADR-2606182359: 憲法改正 wave3 — 残る全 categorical 禁止を目的関数へ; 掟リスト廃止, priority のみ非交渉 (catastrophe 項)",
@@ -16690,6 +16710,22 @@
         "doc:consent-gated-data-sharing-design"
       ],
       "lastVerified": "2026-04-09"
+    },
+    {
+      "id": "doc:be-here-now-storybible",
+      "type": "Article",
+      "title": "be·here·now 作品バイブル — いとなみ・まにまに・いい感じ",
+      "status": "active",
+      "topic": "be-here-now-storybible",
+      "authoritative": true,
+      "authoritativeFor": [
+        "etzhayyim 物語の作劇バイブル (パイロット・演出文法・巻構成)"
+      ],
+      "related": [
+        "doc:ADR-2606181530 (物語の正準テーマ軸 be·here·now)",
+        "doc:ADR-2606011501 (Spirit-in-Physics kotoba datafication)"
+      ],
+      "lastVerified": "2026-06-18"
     },
     {
       "id": "doc:bitnetcpp-humanevalplus-raw-vs-chat-260526",
