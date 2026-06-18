@@ -10,6 +10,6 @@
     "test:smoke": "npm run build && node test/core_smoke.mjs"
   },
   "devDependencies": {
-    "shadow-cljs": "^2.28.3"
+    "shadow-cljs": "^3.4.11"
   }
 }
