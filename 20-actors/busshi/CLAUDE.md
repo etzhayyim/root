@@ -39,8 +39,8 @@ methods/autorun.cljc      Wave 2: deterministic, idempotent-by-content heartbeat
 methods/test_*.cljc       loader + analytics + G1/G3/G5 + ledger/heartbeat invariants
 kotoba/ontology.busshi.edn  EAVT schema + negative space (unrepresentable attrs)
 kotoba/seed.edn           seed (26 commodities, all 5 classes); MIXED provenance —
-                          18 :authoritative (14 USGS metals + WNA uranium + EIA/OPEC
-                          crude/gas/coal), the remaining 8 :representative
+                          22 :authoritative (14 USGS metals + WNA uranium + EIA/OPEC
+                          crude/gas/coal + FAO wheat/corn/soybean/coffee); 4 :representative
 data/ (gitignored)        generated observation ledger — never committed/hand-edited
 manifest.edn              gates G1–G8 + non-goals N1–N5 + method/seed/ledger registry
 ```
@@ -85,9 +85,14 @@ bb --classpath 20-actors 20-actors/busshi/methods/autorun.cljc           # heart
   **+ the whole energy class** folded: crude oil (EIA "Crude Oil incl. Lease Condensate",
   crude-only basis — US 16 / Saudi 12 / Russia 12 — resolving the earlier total-liquids
   mismatch), natural gas (OPEC ASB 2025 — US 26 / Russia 14 / Iran 7), coal (EIA 2024 — China
-  50 / India 11 / Indonesia 9). The remaining 8 `:representative`: gallium/germanium (no clean
-  production-by-country table to cite) + REE (defers to rare-earth-coverage) + the 5 ag-softs
-  (USDA/FAO — wheat/corn/soybean/coffee/sugar, the next source wave).
+  50 / India 11 / Indonesia 9).
+  **+ FAO ag-softs**: wheat (FAOSTAT 2022 — China 17 / India 13 / Russia 13), corn (2020 —
+  US 31 / China 22 / Brazil 9), soybean (2022 — Brazil 35 / US 33 / Argentina 13), coffee
+  (2023 green-coffee — Brazil 31 / Vietnam 18 / Indonesia 7). The final 4 `:representative`
+  are there for cause: **sugar HELD** (row is raw sugar #11; FAO measures sugarcane, much of
+  which diverts to ethanol → cane-share ≠ sugar-share; needs an ISO/USDA refined-sugar table)
+  + **gallium/germanium** (USGS publishes no clean production-by-country table) + **REE**
+  (defers to the rare-earth-coverage actor).
 - Wave 2+: per-commodity depth (stocks/curve as facts, recycling-loop linkage to kanayama),
   Murakumo-narrated digest, fleet registration, lexicons.
 

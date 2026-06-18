@@ -104,19 +104,24 @@
 
  ;; ── agricultural softs ─────────────────────────────────────────────────────
  {:type :commodity :id "wheat" :symbol "W" :name "Wheat" :class :ag-soft :unit "USD/bu"
-  :producers [[:cn 17] [:in 14] [:ru 11] [:us 6] [:other 52]]
-  :recyclability 0.0 :carbon-intensity 0.35 :irreversibility 0.3 :ref-level 6}
+  :producers [[:cn 17] [:in 13] [:ru 13] [:us 6] [:other 51]]
+  :recyclability 0.0 :carbon-intensity 0.35 :irreversibility 0.3 :ref-level 6
+  :sourcing :authoritative :source "FAOSTAT (2022 production, Mt)"}
  {:type :commodity :id "corn" :symbol "C" :name "Corn" :class :ag-soft :unit "USD/bu"
-  :producers [[:us 31] [:cn 24] [:br 11] [:other 34]]
-  :recyclability 0.0 :carbon-intensity 0.35 :irreversibility 0.35 :ref-level 4.5}
+  :producers [[:us 31] [:cn 22] [:br 9] [:ar 5] [:other 33]]
+  :recyclability 0.0 :carbon-intensity 0.35 :irreversibility 0.35 :ref-level 4.5
+  :sourcing :authoritative :source "FAOSTAT (2020 maize production, Mt)"}
  {:type :commodity :id "soybean" :symbol "S" :name "Soybean" :class :ag-soft :unit "USD/bu"
-  :producers [[:br 40] [:us 30] [:ar 12] [:other 18]]
+  :producers [[:br 35] [:us 33] [:ar 13] [:cn 6] [:other 13]]
   :recyclability 0.0 :carbon-intensity 0.45 :irreversibility 0.6 :ref-level 11
+  :sourcing :authoritative :source "FAOSTAT (2022 production, Mt)"
   :note "Land-use change (deforestation) drives irreversibility; restoration routed to inochi."}
  {:type :commodity :id "coffee" :symbol "KC" :name "Coffee" :class :ag-soft :unit "USD/lb"
-  :producers [[:br 39] [:vn 17] [:co 8] [:other 36]]
-  :recyclability 0.0 :carbon-intensity 0.4 :irreversibility 0.4 :ref-level 2.4}
+  :producers [[:br 31] [:vn 18] [:id 7] [:co 6] [:other 38]]
+  :recyclability 0.0 :carbon-intensity 0.4 :irreversibility 0.4 :ref-level 2.4
+  :sourcing :authoritative :source "FAOSTAT (2023 green-coffee production, Mt)"}
  {:type :commodity :id "sugar" :symbol "SB" :name "Sugar" :class :ag-soft :unit "USD/lb"
   :producers [[:br 22] [:in 19] [:eu 9] [:th 6] [:other 44]]
-  :recyclability 0.0 :carbon-intensity 0.4 :irreversibility 0.4 :ref-level 0.2}
+  :recyclability 0.0 :carbon-intensity 0.4 :irreversibility 0.4 :ref-level 0.2
+  :note "HELD :representative — the row is raw sugar (#11); FAO measures sugarcane (the crop), and much cane diverts to ethanol, so cane-share ≠ sugar-share (cf. crude/total-liquids). Needs an ISO/USDA refined-sugar table."}
 ]
