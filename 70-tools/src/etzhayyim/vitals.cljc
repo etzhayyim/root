@@ -495,6 +495,8 @@
         (recur (rest a) o))
       o)))
 
+(declare record-trajectory! export-trajectory!)   ;; trajectory section is defined below
+
 (defn -main [& args]
   (let [{:keys [run-tests? timeout-ms limit only]} (parse-args args)
         all   (actor-dirs)
@@ -517,78 +519,89 @@
     (export-json! run vitals)
     ;; canonical content-addressed snapshot of the vitals Datom log (no KV; D2 of ADR-2606172200)
     (let [conn (kt/connect {:journal journal})] (snapshot-to! conn "vitals.kotoba.edn"))
+    ;; evolution: append this run's cohort summary + materialize trajectory.kotoba.edn (+ .json)
+    (record-trajectory! run vitals)
+    (export-trajectory!)
     (println (report->md vitals head))))
 
 ;; ── trajectory: the organism's evolution across runs (生命進化) ──────────────
-
-(defn load-runs
-  "Every persisted observation as {:run :actor :score :class}, sorted by run."
-  [conn]
-  (->> (kt/q conn '{:find [?run ?name ?score ?class]
-                    :where [[?e :vitals/run ?run]
-                            [?e :vitals.actor/name ?name]
-                            [?e :vitals/score ?score]
-                            [?e :vitals/class ?class]]})
-       (map (fn [[run name score class]] {:run run :actor name :score score :class class}))
-       (sort-by :run)))
+;; A DEDICATED, summary-grain Datom log — ONE cohort datom per vitals run — so the
+;; cross-run evolution is its own content-addressed `.kotoba.edn` snapshot, exactly
+;; like pulse/joucho/narration/vitals. Deriving the series from the full vitals
+;; journal (per-actor × per-run join) is O(runs×cells) and timed out once the log
+;; grew past a few dozen runs; the right grain for a cross-run series is one datom
+;; per run, which stays instant. Still kotoba Datom log, no KV (ADR-2606172200).
+(def ^:private trajectory-journal "80-data/organism/trajectory.journal.edn")
 
 (defn- iso [ms] (str (java.time.Instant/ofEpochMilli ms)))
 
-(defn trajectory->md [obs]
-  (let [runs (sort (distinct (map :run obs)))
-        by-run (group-by :run obs)
-        rows (for [r runs]
-               (let [o (by-run r), fq (frequencies (map :class o))]
-                 {:run r :n (count o) :alive (get fq "alive" 0)
-                  :dormant (get fq "dormant" 0) :stub (get fq "stub" 0)
-                  :sum (reduce + (map :score o))}))
-        deltas (cons nil (map (fn [a b] (- (:sum b) (:sum a))) rows (rest rows)))
-        ;; per-actor transitions between the last two runs
-        [prev cur] (take-last 2 runs)
-        cls (fn [r] (into {} (map (juxt :actor :class) (by-run r))))
-        scr (fn [r] (into {} (map (juxt :actor :score) (by-run r))))
-        trans (when (and prev cur (not= prev cur))
-                (let [pc (cls prev), cc (cls cur), ps (scr prev), cs (scr cur)]
-                  (for [a (sort (keys cc))
-                        :let [from (pc a), to (cc a), ds (- (cs a 0) (ps a 0))]
-                        :when (or (and from (not= from to)) (not (zero? ds)))]
-                    (format "| %s | %s → %s | %+d |" a
-                            (class-glyph (or from "—")) (class-glyph to) ds))))]
-    (str "# etzhayyim — vitals trajectory (生命進化)\n\n"
-         (format "%d runs · %d cells observed\n\n" (count runs) (count (distinct (map :actor obs))))
-         "| run | when | cells | 生 | 休眠 | 死 | Σscore | Δ |\n"
-         "|--:|---|--:|--:|--:|--:|--:|--:|\n"
-         (str/join "\n"
-           (map (fn [row d]
-                  (format "| %d | %s | %d | %d | %d | %d | %d | %s |"
-                          (:run row) (iso (:run row)) (:n row) (:alive row)
-                          (:dormant row) (:stub row) (:sum row)
-                          (if d (format "%+d" d) "—")))
-                rows deltas))
-         "\n"
-         (when (seq trans)
-           (str "\n## transitions (last run vs previous)\n\n"
-                "| actor | class | Δscore |\n|---|:--:|--:|\n"
-                (str/join "\n" trans) "\n")))))
+(defn- ->traj-entity
+  "One cohort-summary datom for a finished vitals run. Keyed :db/id ⇒ idempotent."
+  [run vitals]
+  (let [fq (frequencies (map :class vitals))]
+    {:db/id        (str "traj/" run)
+     :traj/run     run
+     :traj/at      (iso run)
+     :traj/cells   (count vitals)
+     :traj/alive   (get fq :alive 0)
+     :traj/dormant (get fq :dormant 0)
+     :traj/stub    (get fq :stub 0)
+     :traj/sum     (reduce + (map :score vitals))}))
 
-(defn trajectory-series
-  "Per-run cohort series for the /organism evolution view (生命進化)."
-  [obs]
-  (let [by-run (group-by :run obs)]
-    (vec (for [r (sort (distinct (map :run obs)))]
-           (let [o (by-run r), fq (frequencies (map :class o))]
-             {:run r :at (iso r) :cells (count o)
-              :alive (get fq "alive" 0) :dormant (get fq "dormant" 0)
-              :stub (get fq "stub" 0) :sum (reduce + (map :score o))})))))
+(defn record-trajectory!
+  "Append this run's cohort summary to the trajectory journal; returns the head CID."
+  [run vitals]
+  (let [conn (kt/connect {:journal trajectory-journal})]
+    (kt/transact conn [(->traj-entity run vitals)])
+    (kt/head-cid conn)))
 
-(defn export-trajectory! [obs]
-  (let [out (json/generate-string {:runs (trajectory-series obs)} {:pretty true})]
+(defn load-trajectory
+  "Every recorded run summary, sorted by run — instant (summary-grain journal)."
+  [conn]
+  (->> (kt/q conn '{:find [?run ?at ?cells ?alive ?dormant ?stub ?sum]
+                    :where [[?e :traj/run ?run] [?e :traj/at ?at]
+                            [?e :traj/cells ?cells] [?e :traj/alive ?alive]
+                            [?e :traj/dormant ?dormant] [?e :traj/stub ?stub]
+                            [?e :traj/sum ?sum]]})
+       (map (fn [[run at cells alive dormant stub sum]]
+              {:run run :at at :cells cells :alive alive
+               :dormant dormant :stub stub :sum sum}))
+       (sort-by :run)
+       vec))
+
+(defn export-trajectory!
+  "Materialize the trajectory journal to a content-addressed `trajectory.kotoba.edn`
+   under every served dir, and project `trajectory.json` from it. Returns {:head :runs}."
+  []
+  (let [conn (kt/connect {:journal trajectory-journal})
+        head (snapshot-to! conn "trajectory.kotoba.edn")
+        runs (load-trajectory conn)
+        out  (json/generate-string {:runs runs :head head :store "kotoba-datom-log"
+                                    :snapshot "trajectory.kotoba.edn"} {:pretty true})]
     (doseq [p ["60-apps/etzhayyim-project-organism/public/trajectory.json"
                "50-infra/etzhayyim-did-web/public/organism/trajectory.json"]]
       (io/make-parents p)
-      (spit p out))))
+      (spit p out))
+    {:head head :runs (count runs)}))
+
+(defn- trajectory->md [runs]
+  (let [rows (map-indexed
+               (fn [i r]
+                 (let [d (when (pos? i) (- (:sum r) (:sum (nth runs (dec i)))))]
+                   (format "| %d | %s | %d | %d | %d | %d | %d | %s |"
+                           (:run r) (:at r) (:cells r) (:alive r)
+                           (:dormant r) (:stub r) (:sum r)
+                           (if d (format "%+d" d) "—"))))
+               runs)]
+    (str "# etzhayyim — organism evolution (生命進化)\n\n"
+         (format "**%d runs** recorded · trajectory.kotoba.edn\n\n" (count runs))
+         "| run | at | cells | 生 | 休眠 | 死 | Σscore | Δ |\n"
+         "|--:|---|--:|--:|--:|--:|--:|--:|\n"
+         (str/join "\n" rows) "\n")))
 
 (defn -trajectory [& _]
-  (let [obs (load-runs (kt/connect {:journal journal}))]
-    (export-trajectory! obs)
-    (println (trajectory->md obs))))
+  (let [{:keys [head runs]} (export-trajectory!)
+        conn (kt/connect {:journal trajectory-journal})]
+    (binding [*out* *err*]
+      (println (format "[trajectory] %d runs · head %s…" runs (subs head 0 (min 16 (count head))))))
+    (println (trajectory->md (load-trajectory conn)))))
