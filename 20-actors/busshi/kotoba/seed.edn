@@ -21,11 +21,13 @@
   :recyclability 0.85 :carbon-intensity 0.45 :irreversibility 0.45 :ref-level 30
   :sourcing :authoritative :source "USGS MCS 2025 (2024e mine production)"}
  {:type :commodity :id "pt" :symbol "Pt" :name "Platinum"  :class :precious-metal :unit "USD/troy-oz"
-  :producers [[:za 72] [:ru 11] [:zw 8] [:other 9]]
-  :recyclability 0.80 :carbon-intensity 0.5 :irreversibility 0.5 :ref-level 950}
+  :producers [[:za 71] [:zw 11] [:ru 11] [:ca 3] [:other 4]]
+  :recyclability 0.80 :carbon-intensity 0.5 :irreversibility 0.5 :ref-level 950
+  :sourcing :authoritative :source "USGS MCS 2025 (2024e mine production)"}
  {:type :commodity :id "pd" :symbol "Pd" :name "Palladium" :class :precious-metal :unit "USD/troy-oz"
-  :producers [[:ru 40] [:za 38] [:ca 9] [:us 6] [:other 7]]
-  :recyclability 0.80 :carbon-intensity 0.5 :irreversibility 0.5 :ref-level 1000}
+  :producers [[:ru 40] [:za 38] [:ca 8] [:zw 8] [:other 6]]
+  :recyclability 0.80 :carbon-intensity 0.5 :irreversibility 0.5 :ref-level 1000
+  :sourcing :authoritative :source "USGS MCS 2025 (2024e mine production)"}
 
  ;; ── base metals ────────────────────────────────────────────────────────────
  {:type :commodity :id "cu" :symbol "Cu" :name "Copper"    :class :base-metal :unit "USD/tonne"
