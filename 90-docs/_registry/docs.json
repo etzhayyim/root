@@ -25967,6 +25967,54 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606171500-organism-social-reward-joucho-wellbecoming.md",
+      "id": "adr-2606171500-organism-social-reward-joucho-wellbecoming",
+      "title": "ADR-2606171500: 生命活動の報酬と情緒 — atproto 反応 / メール / 感情を charter-clean に joucho → Wellbecoming → 子孫 へ結ぶ設計",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "organism-social-reward-joucho-wellbecoming",
+      "authoritative": true,
+      "depends_on": [
+        "2605192100",
+        "2606101200",
+        "2606082100",
+        "2606082102",
+        "2606112200"
+      ],
+      "last_verified": "2026-06-17",
+      "authoritative_for": [],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606171800-reward-function-constitutive-of-life-charter-amendment.md",
+      "id": "adr-2606171800-reward-function-constitutive-of-life-charter-amendment",
+      "title": "ADR-2606171800: 報酬関数は生命に constitutive — 憲法改正 (§1.10/§1.13 の再解釈): RF を肯定し、禁止を『入力』から『目的関数の乗っ取り』へ移す",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "reward-function-constitutive-of-life",
+      "authoritative": true,
+      "amends": [
+        "2606171500"
+      ],
+      "depends_on": [
+        "2605192100",
+        "2606062100",
+        "2606112200",
+        "2606082100",
+        "2606101200"
+      ],
+      "last_verified": "2026-06-17",
+      "authoritative_for": [],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606171800-tatara-global-manufacturing-plant-kg.md",
       "id": "adr-2606171800-tatara-global-manufacturing-plant-kg",
       "title": "ADR-2606171800: tatara 鑪 — world manufacturing-plant + logistics geographic knowledge graph",
@@ -26001,6 +26049,29 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606172000-moyai-heir-decay-wellbecoming-to-descendants.md",
+      "id": "adr-2606172000-moyai-heir-decay-wellbecoming-to-descendants",
+      "title": "ADR-2606172000: moyai heir-decay — Wellbecoming 勾配を子・孫へ世代減衰移譲する (§1.10 多世代目的関数の operative 化)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "moyai-heir-decay-wellbecoming-to-descendants",
+      "authoritative": true,
+      "depends_on": [
+        "2605192100",
+        "2606171800",
+        "2606082100",
+        "2606112200",
+        "2606101200"
+      ],
+      "last_verified": "2026-06-17",
+      "authoritative_for": [],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606172100-retire-unispsc-python-per-code-fleet.md",
       "id": "adr-2606172100-retire-unispsc-python-per-code-fleet",
       "title": "ADR-2606172100: Retire the open-UNSPSC per-code Python agent fleet — superseded by the clj unspsc actor",
@@ -26028,6 +26099,29 @@
         "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
       ],
       "last_verified": "2026-06-17",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606172200-organism-observability-kotoba-datom-log-no-kv.md",
+      "id": "adr-2606172200-organism-observability-kotoba-datom-log-no-kv",
+      "title": "ADR-2606172200: organism 可観測性 — vitals/pulse/joucho を全て kotoba Datom log に置き、/organism を ClojureScript で可視化する (KV 不使用)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "organism-observability-kotoba-datom-log",
+      "authoritative": true,
+      "depends_on": [
+        "2605262130",
+        "2605312345",
+        "2606101200",
+        "2606171800",
+        "2606013600"
+      ],
+      "last_verified": "2026-06-17",
+      "authoritative_for": [],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
       "amends": [],
       "amended_by": []
     },
@@ -26153,6 +26247,38 @@
         "2605192200"
       ],
       "last_verified": "2026-06-17",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606181200-r2-autonomous-gate-removal-member-signed-capability-reconciliation.md",
+      "id": "adr-2606181200-r2-autonomous-gate-removal-member-signed-capability-reconciliation",
+      "title": "ADR-2606181200: R2-Autonomous live-gate removal — member-signed-capability reconciliation (6 actors)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "r2-autonomous-live-gate-removal",
+      "authoritative": true,
+      "authoritative_for": [
+        "r2-autonomous-live-gate-removal-resolution"
+      ],
+      "related": [
+        "90-docs/260617-r2-autonomous-live-gate-removal-charter-audit.md",
+        "20-actors/ossekai/FINDING-G7-autonomy-conflict.md",
+        "2606052300",
+        "2606073100",
+        "2605264000",
+        "2606071400",
+        "2606071500",
+        "2606071600"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605231525",
+        "2605215000",
+        "2606111400"
+      ],
+      "last_verified": "2026-06-18",
       "amends": [],
       "amended_by": []
     },
@@ -27813,6 +27939,27 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/260617-r2-autonomous-live-gate-removal-charter-audit.md",
+      "id": "finding-260617-r2-autonomous-live-gate-removal",
+      "title": "FINDING: 'R2 Autonomous' live-gate removal vs no-server-key (G7) / outward-gating — cross-actor charter audit",
+      "status": "resolved",
+      "doc_type": "reference",
+      "topic": "r2-autonomous-live-gate-removal",
+      "authoritative": false,
+      "related": [
+        "20-actors/ossekai/FINDING-G7-autonomy-conflict.md",
+        "90-docs/adr/2605231525-no-server-key-religious-corp-architecture.md",
+        "90-docs/adr/2606111400",
+        "90-docs/adr/2606052300"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "last_verified": "2026-06-17",
+      "authoritative_for": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/260407-historical-propagation-social-design.md",
       "id": "historical-propagation-social-design",
       "title": "Historical Propagation Social Design: 歴史時系列情報伝播の AT Protocol Social 再現",
@@ -28340,6 +28487,24 @@
         "90-docs/baien/runpod-5090-runlog-260526.jsonl"
       ],
       "last_verified": "2026-05-26",
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/260618-py-cljc-twin-migration-status.md",
+      "id": "note-260618-py-cljc-twin-migration-status",
+      "title": "py↔cljc twin-migration status — prune-safety triage (ADR-2606160842 port wave)",
+      "status": "active",
+      "doc_type": "reference",
+      "topic": "py-cljc-migration",
+      "authoritative": false,
+      "related": [
+        "90-docs/adr/2606160842"
+      ],
+      "last_verified": "2026-06-18",
+      "authoritative_for": [],
       "supersedes": [],
       "superseded_by": [],
       "amends": [],

@@ -2,7 +2,7 @@
 id: finding-260617-r2-autonomous-live-gate-removal
 title: "FINDING: 'R2 Autonomous' live-gate removal vs no-server-key (G7) / outward-gating — cross-actor charter audit"
 status: resolved  # all 6 actors fixed — SEVERE 3 (fuchi/abaki/ossekai) 2026-06-17; MILD 3 (ainori/omise/shukubo) 2026-06-18; one reconciling ADR still owed to Council
-doc_type: finding
+doc_type: reference
 topic: r2-autonomous-live-gate-removal
 authoritative: false
 last_verified: 2026-06-17
