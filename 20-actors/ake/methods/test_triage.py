@@ -187,6 +187,50 @@ def test_quality_rewards_verifiable_provenance():
     assert assess_quality(base, "") > assess_quality(bad, "")
 
 
+# ── assess_quality SCORE BREAKDOWN — pin every additive branch of the ORES analogue ──
+# The score is sourcing(0/.15/.5) + rationale(0/.2) + plausibility(0/.3), clamped to 1.0.
+# These lock the exact contribution of each signal so a future re-weighting cannot silently
+# shift the auto-accept boundary (route_for keys off QUALITY_AUTO_ACCEPT).
+_Q_BASE = {":edit/op": ":assert", ":edit/proposed-value": "x",
+           ":edit/rationale": "a clear reason here", ":edit/provenance": "https://example.com/x"}
+
+
+def test_quality_full_marks_verifiable_rationale_assert_value():
+    assert assess_quality(_Q_BASE, "") == 1.0  # 0.5 + 0.2 + 0.3, clamped
+
+
+def test_quality_nonverifiable_provenance_scores_partial_sourcing():
+    # provenance PRESENT but not obviously verifiable → 0.15 (not 0.5) — the 84->86 branch
+    assert assess_quality({**_Q_BASE, ":edit/provenance": "trust me"}, "") == 0.65
+
+
+def test_quality_empty_provenance_scores_zero_sourcing():
+    # neither verifiable nor present → +0 sourcing (assess_quality is total even though
+    # score_edit refuses unsourced upstream) — the elif-False exit
+    assert assess_quality({**_Q_BASE, ":edit/provenance": ""}, "") == 0.5
+
+
+def test_quality_short_rationale_earns_no_clarity_credit():
+    # rationale < 10 stripped chars → no +0.2 — the 87->90 branch
+    assert assess_quality({**_Q_BASE, ":edit/rationale": "short"}, "") == 0.8
+
+
+def test_quality_retract_and_challenge_need_no_value():
+    # a retract/challenge earns the +0.3 plausibility credit with an empty value — the elif arm
+    assert assess_quality({**_Q_BASE, ":edit/op": ":retract", ":edit/proposed-value": ""}, "") == 1.0
+    assert assess_quality({**_Q_BASE, ":edit/op": ":challenge", ":edit/proposed-value": ""}, "") == 1.0
+
+
+def test_quality_oversized_value_earns_no_plausibility_credit():
+    # an assert whose value exceeds 4000 chars gets no +0.3 — the 93->95 length guard
+    assert assess_quality({**_Q_BASE, ":edit/proposed-value": "z" * 4001}, "") == 0.7
+
+
+def test_quality_rider_hit_zeroes_the_whole_score():
+    # a Charter-Rider token short-circuits to 0.0 regardless of any other signal
+    assert assess_quality(_Q_BASE, "advertis") == 0.0
+
+
 if __name__ == "__main__":
     import sys
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_") and callable(v)]

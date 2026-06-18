@@ -6,6 +6,7 @@ set -uo pipefail
 cd "$(dirname "$0")"
 
 SUITES=(
+  "methods/test__edn.py"
   "methods/test_triage.py"
   "methods/test_revision.py"
   "methods/test_editwar.py"
@@ -27,8 +28,14 @@ for s in "${SUITES[@]}"; do
   fi
 done
 
+# Canonical Clojure (.cljc) suite — the .py files above mirror these; this EXECUTES the
+# canonical path (proven green, not merely asserted to match Python). Skips if `bb` absent.
+if ./run_tests_cljc.sh; then :; else
+  echo "FAILED: canonical .cljc suite"; fail=1
+fi
+
 if [ "$fail" -eq 0 ]; then
-  echo "── ake: ALL suites green ──"
+  echo "── ake: ALL suites green (py mirror + canonical cljc) ──"
 else
   echo "── ake: FAILURES above ──"; exit 1
 fi
