@@ -26423,6 +26423,27 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/be-here-now-p13-artdirection.md",
+      "id": "be-here-now-p13-artdirection",
+      "title": "be·here·now P13 作画指示書 — 結び直しの見開き",
+      "status": "active",
+      "doc_type": "how-to",
+      "topic": "be-here-now-artdirection",
+      "authoritative": true,
+      "authoritative_for": [
+        "パイロット「水の上のパン」P13 見開きの作画指示"
+      ],
+      "related": [
+        "be-here-now-storybible.md (ネーム全18頁)",
+        "ADR-2606181530 (正準テーマ軸)"
+      ],
+      "last_verified": "2026-06-18",
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/be-here-now-storybible.md",
       "id": "be-here-now-storybible",
       "title": "be·here·now 作品バイブル — いとなみ・まにまに・いい感じ",
