@@ -1,0 +1,22 @@
+{
+  "store" : "kotoba-datom-log",
+  "axes" : {
+    "joy" : 57,
+    "calm" : 40,
+    "stress" : 59,
+    "gratitude" : 71,
+    "focus" : 54
+  },
+  "via" : "tailscale",
+  "wellbecoming" : "improving",
+  "latency-ms" : 2828,
+  "node" : "asher",
+  "narration/source" : "murakumo:asher:gemma4:e4b-it-qat",
+  "head" : "bafkreihzu2uapfsbf7g65p4yqcfsprezolh6mnw3wswk73ypasrx6nxicm",
+  "snapshot" : "narration.kotoba.edn",
+  "mood" : "grateful",
+  "said" : 351,
+  "generatedAt" : "2026-06-18T11:19:37.205Z",
+  "text" : "今、静かに満たされていることに感謝しながら、ただここに存在していることを感じる。",
+  "model" : "gemma4:e4b-it-qat"
+}
