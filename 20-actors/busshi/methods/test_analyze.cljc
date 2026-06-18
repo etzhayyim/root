@@ -14,8 +14,8 @@
 ;; ── analytics correctness ────────────────────────────────────────────────────
 
 (deftest top-share-excludes-other
-  ;; gold's :other 62 must NOT count as a producer share
-  (is (= 10 (a/top-producer-share (by-id "au"))))
+  ;; gold's :other 59 must NOT count as a producer share (China 12 is the max)
+  (is (= 12 (a/top-producer-share (by-id "au"))))
   (is (= 98 (a/top-producer-share (by-id "ga")))))
 
 (deftest chokepoint-levels
@@ -58,8 +58,8 @@
         co  (a/analyze-commodity (by-id "co"))]
     (is (= :authoritative (get co "sourcing")) "cobalt is USGS-sourced")
     (is (str/includes? (get co "source") "USGS MCS 2025"))
-    (is (= :representative (get (a/analyze-commodity (by-id "au")) "sourcing"))
-        "gold stays representative")
+    (is (= :representative (get (a/analyze-commodity (by-id "pt")) "sourcing"))
+        "platinum (PGMs not yet ingested) stays representative")
     (is (str/includes? edn ":authoritative"))
     (is (str/includes? edn ":busshi/source"))
     (is (str/includes? edn "USGS MCS 2025"))

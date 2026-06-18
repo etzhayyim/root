@@ -39,7 +39,7 @@ methods/autorun.cljc      Wave 2: deterministic, idempotent-by-content heartbeat
 methods/test_*.cljc       loader + analytics + G1/G3/G5 + ledger/heartbeat invariants
 kotoba/ontology.busshi.edn  EAVT schema + negative space (unrepresentable attrs)
 kotoba/seed.edn           seed (26 commodities, all 5 classes); MIXED provenance —
-                          4 USGS-sourced (:authoritative), the rest :representative
+                          12 USGS-sourced (:authoritative), the rest :representative
 data/ (gitignored)        generated observation ledger — never committed/hand-edited
 manifest.edn              gates G1–G8 + non-goals N1–N5 + method/seed/ledger registry
 ```
@@ -74,11 +74,13 @@ bb --classpath 20-actors 20-actors/busshi/methods/autorun.cljc           # heart
   (identical beat = no-op); resume-safe, no-server-key, gitignored. Mirrors ugachi (ADR-2606170900).
 - **Wave 2+ first authoritative ingest (landed)**: operator-triggered G7 fold of real
   primary-source producer shares — USGS Mineral Commodity Summaries 2025 (2024e mine
-  production) for cobalt / lithium / nickel / antimony. Those rows carry `:sourcing
-  :authoritative` + a cited `:busshi/source`; the analytics/datoms/report thread per-row
-  provenance (mixed `:representative`/`:authoritative`). The seed header reserves live
-  ingest for an operator step; this fold was operator-commanded. Next: widen USGS coverage
-  (cu/al/zn/pb/sn/pt/pd/w/au/ag), then non-USGS classes (EIA energy, USDA ag) per source.
+  production, smelter for Al) for **12 metals**: cobalt / lithium / nickel / antimony /
+  copper / aluminium / zinc / lead / tin / tungsten / gold / silver. Those rows carry
+  `:sourcing :authoritative` + a cited `:busshi/source`; the analytics/datoms/report thread
+  per-row provenance (mixed `:representative`/`:authoritative`). The seed header reserves
+  live ingest for an operator step; this fold was operator-commanded. Next: PGMs
+  (pt/pd) + gallium/germanium (USGS gives narrative shares, no clean table), then non-USGS
+  classes (EIA energy, USDA ag) per source.
 - Wave 2+: per-commodity depth (stocks/curve as facts, recycling-loop linkage to kanayama),
   Murakumo-narrated digest, fleet registration, lexicons.
 
