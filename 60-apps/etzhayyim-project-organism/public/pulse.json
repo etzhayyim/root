@@ -1,0 +1,920 @@
+{
+  "sinceHours" : 48,
+  "stream" : [ {
+    "at" : 1781778479000,
+    "actor" : null,
+    "subj" : "Merge remote-tracking branch 'origin/main' into clj-port-organism-merged"
+  }, {
+    "at" : 1781775533000,
+    "actor" : "busshi",
+    "subj" : "feat(busshi): refresh all 16 USGS metals to MCS 2026 (2025e) (#1941)"
+  }, {
+    "at" : 1781770145000,
+    "actor" : "busshi",
+    "subj" : "feat(busshi): fold REE + gallium from USGS (25/26 — only germanium left, honestly) (#1940)"
+  }, {
+    "at" : 1781762726000,
+    "actor" : null,
+    "subj" : "Merge origin/main into clj-port train (resolve 175 conflicts) — organism heartbeat self-consistent"
+  }, {
+    "at" : 1781758118000,
+    "actor" : null,
+    "subj" : "Merge pull request #1936 from etzhayyim/worktree-busshi-usgs-ingest"
+  }, {
+    "at" : 1781757664000,
+    "actor" : "busshi",
+    "subj" : "feat(busshi): fold sugar from USDA FAS (23/26 authoritative — the honest ceiling)"
+  }, {
+    "at" : 1781757114000,
+    "actor" : null,
+    "subj" : "Merge remote-tracking branch 'origin/main' into HEAD"
+  }, {
+    "at" : 1781756896000,
+    "actor" : null,
+    "subj" : "Merge remote-tracking branch 'origin/main' into HEAD"
+  }, {
+    "at" : 1781756844000,
+    "actor" : null,
+    "subj" : "Merge remote-tracking branch 'origin/main' into HEAD"
+  }, {
+    "at" : 1781756685000,
+    "actor" : null,
+    "subj" : "Merge pull request #1932 from etzhayyim/worktree-busshi-usgs-ingest"
+  }, {
+    "at" : 1781756679000,
+    "actor" : null,
+    "subj" : "Merge pull request #1918 from etzhayyim/worktree-ake-coverage-maturity"
+  }, {
+    "at" : 1781756497000,
+    "actor" : "hikari",
+    "subj" : "feat(hikari-clj): port grid_edge + solar_pv_install cell state machines to cljc, prune py twins (#1935)"
+  }, {
+    "at" : 1781756178000,
+    "actor" : "tsutae",
+    "subj" : "feat(clj-port): salvage 5 genuinely-new py→cljc actor ports (supersedes closed #1871) (#1934)"
+  }, {
+    "at" : 1781755854000,
+    "actor" : "busshi",
+    "subj" : "feat(busshi): fold FAO ag-softs — wheat/corn/soybean/coffee (22/26 authoritative)"
+  }, {
+    "at" : 1781754040000,
+    "actor" : "busshi",
+    "subj" : "feat(busshi): fold the whole energy class — crude/gas/coal (18/26 authoritative)"
+  }, {
+    "at" : 1781752253000,
+    "actor" : "busshi",
+    "subj" : "feat(busshi): fold uranium from WNA 2024 (15/26 authoritative); hold crude/gas/coal"
+  }, {
+    "at" : 1781750473000,
+    "actor" : "busshi",
+    "subj" : "feat(busshi): add PGMs to USGS MCS 2025 ingest — platinum + palladium (14 metals)"
+  }, {
+    "at" : 1781748798000,
+    "actor" : "busshi",
+    "subj" : "feat(busshi): widen USGS MCS 2025 ingest to 12 metals (+cu/al/zn/pb/sn/w/au/ag)"
+  }, {
+    "at" : 1781747163000,
+    "actor" : "busshi",
+    "subj" : "feat(busshi): first authoritative G7 ingest — USGS MCS 2025 producer shares (co/li/ni/sb)"
+  }, {
+    "at" : 1781744242000,
+    "actor" : "tatara",
+    "subj" : "refactor(tatara): bb-native test runner (run_tests.clj), drop the bash wrapper"
+  } ],
+  "generatedAt" : "2026-06-18T11:20:17.563Z",
+  "snapshot" : "pulse.kotoba.edn",
+  "actors" : {
+    "post_quantum_compat" : {
+      "commits" : 4,
+      "lastAt" : 1781685537000,
+      "lastSubject" : "test(fleet): wire 37 ported actors into the bb-runner green-check (ADR-2606160842)"
+    },
+    "yadori" : {
+      "commits" : 4,
+      "lastAt" : 1781685537000,
+      "lastSubject" : "test(fleet): wire 37 ported actors into the bb-runner green-check (ADR-2606160842)"
+    },
+    "ainori" : {
+      "commits" : 4,
+      "lastAt" : 1781685537000,
+      "lastSubject" : "test(fleet): wire 37 ported actors into the bb-runner green-check (ADR-2606160842)",
+      "dirty" : 3
+    },
+    "noroshi" : {
+      "commits" : 4,
+      "lastAt" : 1781728514000,
+      "lastSubject" : "feat(noroshi-clj): port active_alignment state machine to cljc",
+      "dirty" : 1
+    },
+    "matsurigoto" : {
+      "commits" : 3,
+      "lastAt" : 1781685537000,
+      "lastSubject" : "test(fleet): wire 37 ported actors into the bb-runner green-check (ADR-2606160842)"
+    },
+    "kazaori" : {
+      "commits" : 1,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "kakaku" : {
+      "commits" : 8,
+      "lastAt" : 1781689144000,
+      "lastSubject" : "refactor(clj-port): prune kakaku migrated Python — cljc is now the SSoT"
+    },
+    "iyashi" : {
+      "commits" : 1,
+      "lastAt" : 1781685537000,
+      "lastSubject" : "test(fleet): wire 37 ported actors into the bb-runner green-check (ADR-2606160842)",
+      "dirty" : 1
+    },
+    "tsubasa" : {
+      "commits" : 3,
+      "lastAt" : 1781694303000,
+      "lastSubject" : "test(fleet): wire 7 newly-ported actors into the green-check (ADR-2606160842)"
+    },
+    "kamado" : {
+      "commits" : 6,
+      "lastAt" : 1781730204000,
+      "lastSubject" : "feat(kamado-clj): port feedstock_guard state machine to cljc",
+      "dirty" : 1
+    },
+    "tsugite" : {
+      "commits" : 2,
+      "lastAt" : 1781685537000,
+      "lastSubject" : "test(fleet): wire 37 ported actors into the bb-runner green-check (ADR-2606160842)"
+    },
+    "kaiyaku" : {
+      "commits" : 3,
+      "lastAt" : 1781685537000,
+      "lastSubject" : "test(fleet): wire 37 ported actors into the bb-runner green-check (ADR-2606160842)"
+    },
+    "kabuto" : {
+      "commits" : 7,
+      "lastAt" : 1781716805000,
+      "lastSubject" : "refactor(kabuto-clj): prune viz Python — kabuto fully migrated to cljc",
+      "dirty" : 1
+    },
+    "hinagata" : {
+      "commits" : 3,
+      "lastAt" : 1781685537000,
+      "lastSubject" : "test(fleet): wire 37 ported actors into the bb-runner green-check (ADR-2606160842)"
+    },
+    "tsutae" : {
+      "commits" : 13,
+      "lastAt" : 1781756178000,
+      "lastSubject" : "feat(clj-port): salvage 5 genuinely-new py→cljc actor ports (supersedes closed #1871) (#1934)"
+    },
+    "yamabiko" : {
+      "commits" : 1,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "hoshimori" : {
+      "commits" : 2,
+      "lastAt" : 1781685537000,
+      "lastSubject" : "test(fleet): wire 37 ported actors into the bb-runner green-check (ADR-2606160842)"
+    },
+    "karute" : {
+      "commits" : 1,
+      "lastAt" : 1781685537000,
+      "lastSubject" : "test(fleet): wire 37 ported actors into the bb-runner green-check (ADR-2606160842)",
+      "dirty" : 2
+    },
+    "kosatsu" : {
+      "commits" : 4,
+      "lastAt" : 1781683766000,
+      "lastSubject" : "fix(heartbeat): extend O(1) head-cid to danjo/keizu/kosatsu (ADR-2606160842)"
+    },
+    "tate" : {
+      "commits" : 3,
+      "lastAt" : 1781685537000,
+      "lastSubject" : "test(fleet): wire 37 ported actors into the bb-runner green-check (ADR-2606160842)"
+    },
+    "fab_lithography-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781687411000,
+      "lastSubject" : "test(fleet): wire 26 clean-room compat actors into the green-check (ADR-2606160842)"
+    },
+    "funamori" : {
+      "commits" : 1,
+      "lastAt" : 1781611765000,
+      "lastSubject" : "feat(funamori): 淡水化発電 salinity-gradient power actor R0 (physics + robotics + plant, cljc) (#1861)"
+    },
+    "makura" : {
+      "commits" : 5,
+      "lastAt" : 1781699668000,
+      "lastSubject" : "refactor(clj-port): prune makura migrated Python (agent) — cljc is now the SSoT"
+    },
+    "sukashi" : {
+      "commits" : 6,
+      "lastAt" : 1781715156000,
+      "lastSubject" : "refactor(sukashi-clj): prune viz Python — sukashi fully migrated to cljc"
+    },
+    "kawaraban" : {
+      "commits" : 4,
+      "lastAt" : 1781674348000,
+      "lastSubject" : "feat(clj-port): port kawaraban cell layer → cljc + prune ALL kawaraban Python (fully migrated)"
+    },
+    "gddr_memory-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781687411000,
+      "lastSubject" : "test(fleet): wire 26 clean-room compat actors into the green-check (ADR-2606160842)"
+    },
+    "shukubo" : {
+      "commits" : 3,
+      "lastAt" : 1781694303000,
+      "lastSubject" : "test(fleet): wire 7 newly-ported actors into the green-check (ADR-2606160842)",
+      "dirty" : 2
+    },
+    "kokoro" : {
+      "commits" : 1,
+      "lastAt" : 1781685537000,
+      "lastSubject" : "test(fleet): wire 37 ported actors into the bb-runner green-check (ADR-2606160842)",
+      "dirty" : 1
+    },
+    "inochi" : {
+      "commits" : 2,
+      "lastAt" : 1781685537000,
+      "lastSubject" : "test(fleet): wire 37 ported actors into the bb-runner green-check (ADR-2606160842)"
+    },
+    "suki" : {
+      "commits" : 3,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "kiyome" : {
+      "commits" : 4,
+      "lastAt" : 1781756178000,
+      "lastSubject" : "feat(clj-port): salvage 5 genuinely-new py→cljc actor ports (supersedes closed #1871) (#1934)",
+      "dirty" : 1
+    },
+    "kuni-umi" : {
+      "commits" : 1,
+      "lastAt" : 1781685537000,
+      "lastSubject" : "test(fleet): wire 37 ported actors into the bb-runner green-check (ADR-2606160842)"
+    },
+    "uchiwake" : {
+      "commits" : 3,
+      "lastAt" : 1781665569000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from uchiwake (fully cljc incl. adapters/ + oracle tool)"
+    },
+    "maps" : {
+      "commits" : 3,
+      "lastAt" : 1781670406000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from 11 fully-ported actors (ADR-2606160842)"
+    },
+    "lpddr_mobile-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781687411000,
+      "lastSubject" : "test(fleet): wire 26 clean-room compat actors into the green-check (ADR-2606160842)"
+    },
+    "photonic_switch-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781687411000,
+      "lastSubject" : "test(fleet): wire 26 clean-room compat actors into the green-check (ADR-2606160842)"
+    },
+    "umisachi" : {
+      "commits" : 2,
+      "lastAt" : 1781654911000,
+      "lastSubject" : "test(niyaku): live py↔clj parity for anti-sway RK4 physics core (#1864)"
+    },
+    "seigyo" : {
+      "commits" : 3,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "omise" : {
+      "commits" : 3,
+      "lastAt" : 1781697904000,
+      "lastSubject" : "test(fleet): wire omise into the green-check (ADR-2606160842)",
+      "dirty" : 2
+    },
+    "hodoki" : {
+      "commits" : 6,
+      "lastAt" : 1781702361000,
+      "lastSubject" : "refactor(clj-port): prune hodoki migrated Python (agent) — cljc is now the SSoT"
+    },
+    "himawari" : {
+      "commits" : 1,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "tsumugi" : {
+      "commits" : 19,
+      "lastAt" : 1781685537000,
+      "lastSubject" : "test(fleet): wire 37 ported actors into the bb-runner green-check (ADR-2606160842)"
+    },
+    "silicon_photonics-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781687411000,
+      "lastSubject" : "test(fleet): wire 26 clean-room compat actors into the green-check (ADR-2606160842)"
+    },
+    "nusa" : {
+      "commits" : 4,
+      "lastAt" : 1781699785000,
+      "lastSubject" : "test(fleet): complete partial runners to cover ALL test namespaces (ADR-2606160842)",
+      "dirty" : 1
+    },
+    "dpu_smartnic-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781687411000,
+      "lastSubject" : "test(fleet): wire 26 clean-room compat actors into the green-check (ADR-2606160842)"
+    },
+    "silicon" : {
+      "commits" : 5,
+      "lastAt" : 1781698757000,
+      "lastSubject" : "refactor(clj-port): prune silicon migrated Python (agent) — cljc is now the SSoT"
+    },
+    "yabai" : {
+      "commits" : 4,
+      "lastAt" : 1781681717000,
+      "lastSubject" : "test(fleet): wire ipaddress/yabai/hakoniwa into the bb-runner green-check (ADR-2606160842)"
+    },
+    "musubi" : {
+      "commits" : 1,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "nvidia_isaac-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781687411000,
+      "lastSubject" : "test(fleet): wire 26 clean-room compat actors into the green-check (ADR-2606160842)"
+    },
+    "ucie_chiplet-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781687411000,
+      "lastSubject" : "test(fleet): wire 26 clean-room compat actors into the green-check (ADR-2606160842)"
+    },
+    "kasa" : {
+      "commits" : 2,
+      "lastAt" : 1781666294000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from kasa — ingest.cljc is a FULL port incl. live leg"
+    },
+    "fuchi" : {
+      "commits" : 3,
+      "lastAt" : 1781677220000,
+      "lastSubject" : "feat(clj-port): port fuchi 5 cells → cljc + prune ALL fuchi Python (fully migrated)"
+    },
+    "watari" : {
+      "commits" : 8,
+      "lastAt" : 1781698113000,
+      "lastSubject" : "feat(tatara): add the watatsuna cable layer — world-supply globe now composes all THREE (R0→R1)",
+      "dirty" : 2
+    },
+    "etzhayyim-sdk" : {
+      "dirty" : 71
+    },
+    "_conformance" : {
+      "commits" : 2,
+      "lastAt" : 1781732049000,
+      "lastSubject" : "refactor(hataori-clj): prune cells Python — hataori fully migrated to cljc"
+    },
+    "talent" : {
+      "commits" : 3,
+      "lastAt" : 1781694303000,
+      "lastSubject" : "test(fleet): wire 7 newly-ported actors into the green-check (ADR-2606160842)"
+    },
+    "tatekata" : {
+      "commits" : 4,
+      "lastAt" : 1781699785000,
+      "lastSubject" : "test(fleet): complete partial runners to cover ALL test namespaces (ADR-2606160842)"
+    },
+    "kadode" : {
+      "commits" : 3,
+      "lastAt" : 1781685537000,
+      "lastSubject" : "test(fleet): wire 37 ported actors into the bb-runner green-check (ADR-2606160842)"
+    },
+    "shomei" : {
+      "commits" : 2,
+      "lastAt" : 1781672164000,
+      "lastSubject" : "feat(clj-port): port shomei cells → cljc + prune ALL shomei Python (ADR-2606160842)"
+    },
+    "suimin" : {
+      "commits" : 3,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "riscv_cpu-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781687411000,
+      "lastSubject" : "test(fleet): wire 26 clean-room compat actors into the green-check (ADR-2606160842)"
+    },
+    "chigiri" : {
+      "commits" : 1,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "okaimono" : {
+      "commits" : 4,
+      "lastAt" : 1781756178000,
+      "lastSubject" : "feat(clj-port): salvage 5 genuinely-new py→cljc actor ports (supersedes closed #1871) (#1934)"
+    },
+    "funadaiku" : {
+      "commits" : 6,
+      "lastAt" : 1781697947000,
+      "lastSubject" : "refactor(clj-port): prune funadaiku migrated Python (agent) — cljc is now the SSoT",
+      "dirty" : 2
+    },
+    "busshi" : {
+      "commits" : 10,
+      "lastAt" : 1781775533000,
+      "lastSubject" : "feat(busshi): refresh all 16 USGS metals to MCS 2026 (2025e) (#1941)"
+    },
+    "hataori" : {
+      "commits" : 4,
+      "lastAt" : 1781756178000,
+      "lastSubject" : "feat(clj-port): salvage 5 genuinely-new py→cljc actor ports (supersedes closed #1871) (#1934)",
+      "dirty" : 1
+    },
+    "itonami" : {
+      "commits" : 3,
+      "lastAt" : 1781685537000,
+      "lastSubject" : "test(fleet): wire 37 ported actors into the bb-runner green-check (ADR-2606160842)"
+    },
+    "cerebras_wafer-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781687411000,
+      "lastSubject" : "test(fleet): wire 26 clean-room compat actors into the green-check (ADR-2606160842)"
+    },
+    "hokorobi" : {
+      "commits" : 2,
+      "lastAt" : 1781685537000,
+      "lastSubject" : "test(fleet): wire 37 ported actors into the bb-runner green-check (ADR-2606160842)"
+    },
+    "hakoniwa" : {
+      "commits" : 4,
+      "lastAt" : 1781681717000,
+      "lastSubject" : "test(fleet): wire ipaddress/yabai/hakoniwa into the bb-runner green-check (ADR-2606160842)"
+    },
+    "mizuho" : {
+      "commits" : 4,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "mitsuho" : {
+      "commits" : 4,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "organizer" : {
+      "commits" : 3,
+      "lastAt" : 1781694303000,
+      "lastSubject" : "test(fleet): wire 7 newly-ported actors into the green-check (ADR-2606160842)"
+    },
+    "subaru" : {
+      "commits" : 2,
+      "lastAt" : 1781611515000,
+      "lastSubject" : "feat(actors): R3 — torifune + subaru live-legs Council-attestation runbooks (gated) (#1863)"
+    },
+    "chie" : {
+      "commits" : 9,
+      "lastAt" : 1781690778000,
+      "lastSubject" : "feat(chie): AI-ecosystem KG mirror — clj/kotoba/Datom-native (ADR-2606171200) (#1913)"
+    },
+    "watatsumi" : {
+      "commits" : 2,
+      "lastAt" : 1781694303000,
+      "lastSubject" : "test(fleet): wire 7 newly-ported actors into the green-check (ADR-2606160842)",
+      "dirty" : 1
+    },
+    "meisai" : {
+      "commits" : 3,
+      "lastAt" : 1781664886000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from 5 network-free actors (abaki/danjo/kanae/meisai/watari)"
+    },
+    "shinka" : {
+      "commits" : 2,
+      "lastAt" : 1781692491000,
+      "lastSubject" : "shinka(loop-c): R1 cohort-bench harness (bench_micro.py) — runs same e7m set on gad (#1925)"
+    },
+    "manabi" : {
+      "commits" : 1,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "todoke" : {
+      "commits" : 8,
+      "lastAt" : 1781699785000,
+      "lastSubject" : "test(fleet): complete partial runners to cover ALL test namespaces (ADR-2606160842)",
+      "dirty" : 1
+    },
+    "tsukuru" : {
+      "commits" : 3,
+      "lastAt" : 1781703316000,
+      "lastSubject" : "test(fleet): wire hataori/kiyome/tsukuru + gate ossekai's ported cljc agent (ADR-2606160842)"
+    },
+    "futawa" : {
+      "commits" : 4,
+      "lastAt" : 1781700610000,
+      "lastSubject" : "refactor(clj-port): prune futawa migrated Python (agent) — cljc is now the SSoT",
+      "dirty" : 1
+    },
+    "kataribe" : {
+      "commits" : 1,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "igata" : {
+      "commits" : 3,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "tanemaki" : {
+      "commits" : 3,
+      "lastAt" : 1781685537000,
+      "lastSubject" : "test(fleet): wire 37 ported actors into the bb-runner green-check (ADR-2606160842)"
+    },
+    "jinushi" : {
+      "commits" : 2,
+      "lastAt" : 1781657446000,
+      "lastSubject" : "feat(jinushi): R2 production-scale streaming ingest + PRODUCTION runbook (#1878)"
+    },
+    "ugachi" : {
+      "commits" : 4,
+      "lastAt" : 1781660402000,
+      "lastSubject" : "fix(ugachi/autorun): idempotent-by-content heartbeat — no-op when verdicts unchanged (#1884)"
+    },
+    "ipaddress" : {
+      "commits" : 4,
+      "lastAt" : 1781681717000,
+      "lastSubject" : "test(fleet): wire ipaddress/yabai/hakoniwa into the bb-runner green-check (ADR-2606160842)"
+    },
+    "watatsuna" : {
+      "commits" : 6,
+      "lastAt" : 1781717880000,
+      "lastSubject" : "refactor(watatsuna-clj): prune dead viz build_viz_data.py"
+    },
+    "nvidia_cosmos-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781687411000,
+      "lastSubject" : "test(fleet): wire 26 clean-room compat actors into the green-check (ADR-2606160842)"
+    },
+    "groq_lpu-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781687411000,
+      "lastSubject" : "test(fleet): wire 26 clean-room compat actors into the green-check (ADR-2606160842)"
+    },
+    "ibuki" : {
+      "commits" : 3,
+      "lastAt" : 1781691146000,
+      "lastSubject" : "perf(clj-port): make ibuki autorun heartbeat O(N) — read log once, thread txs in memory"
+    },
+    "hotaru" : {
+      "commits" : 4,
+      "lastAt" : 1781699785000,
+      "lastSubject" : "test(fleet): complete partial runners to cover ALL test namespaces (ADR-2606160842)",
+      "dirty" : 1
+    },
+    "wakai" : {
+      "commits" : 3,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "hbm_memory-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781687411000,
+      "lastSubject" : "test(fleet): wire 26 clean-room compat actors into the green-check (ADR-2606160842)"
+    },
+    "ooyake" : {
+      "commits" : 1,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "toritate" : {
+      "commits" : 3,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "warifu" : {
+      "commits" : 9,
+      "lastAt" : 1781725752000,
+      "lastSubject" : "refactor(warifu-clj): prune cells Python — warifu fully migrated to cljc"
+    },
+    "mitate" : {
+      "commits" : 1,
+      "lastAt" : 1781685537000,
+      "lastSubject" : "test(fleet): wire 37 ported actors into the bb-runner green-check (ADR-2606160842)",
+      "dirty" : 1
+    },
+    "tsukuroi" : {
+      "commits" : 1,
+      "lastAt" : 1781688941000,
+      "lastSubject" : "test(fleet): wire the final 5 actors with tests into the green-check (ADR-2606160842)",
+      "dirty" : 1
+    },
+    "shidemori" : {
+      "commits" : 1,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "arm_cpu-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781687411000,
+      "lastSubject" : "test(fleet): wire 26 clean-room compat actors into the green-check (ADR-2606160842)"
+    },
+    "moushibumi" : {
+      "commits" : 1,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "copackaged_optics-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781687411000,
+      "lastSubject" : "test(fleet): wire 26 clean-room compat actors into the green-check (ADR-2606160842)"
+    },
+    "optical_transceiver-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781687411000,
+      "lastSubject" : "test(fleet): wire 26 clean-room compat actors into the green-check (ADR-2606160842)"
+    },
+    "abaki" : {
+      "commits" : 3,
+      "lastAt" : 1781685537000,
+      "lastSubject" : "test(fleet): wire 37 ported actors into the bb-runner green-check (ADR-2606160842)",
+      "dirty" : 3
+    },
+    "himotoki" : {
+      "commits" : 4,
+      "lastAt" : 1781699785000,
+      "lastSubject" : "test(fleet): complete partial runners to cover ALL test namespaces (ADR-2606160842)"
+    },
+    "toritsugi" : {
+      "commits" : 1,
+      "lastAt" : 1781685537000,
+      "lastSubject" : "test(fleet): wire 37 ported actors into the bb-runner green-check (ADR-2606160842)",
+      "dirty" : 1
+    },
+    "shionome" : {
+      "commits" : 15,
+      "lastAt" : 1781680073000,
+      "lastSubject" : "fix(heartbeat): O(1) head-cid across the 7 remaining resident-daemon actors (ADR-2606160842)"
+    },
+    "dram_design-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781687411000,
+      "lastSubject" : "test(fleet): wire 26 clean-room compat actors into the green-check (ADR-2606160842)"
+    },
+    "cobot_assembly-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781687411000,
+      "lastSubject" : "test(fleet): wire 26 clean-room compat actors into the green-check (ADR-2606160842)"
+    },
+    "haraedo" : {
+      "commits" : 2,
+      "lastAt" : 1781705397000,
+      "lastSubject" : "refactor(clj-port): prune haraedo migrated Python (agent) — cljc is now the SSoT"
+    },
+    "keizu" : {
+      "commits" : 4,
+      "lastAt" : 1781683766000,
+      "lastSubject" : "fix(heartbeat): extend O(1) head-cid to danjo/keizu/kosatsu (ADR-2606160842)"
+    },
+    "sentei" : {
+      "commits" : 3,
+      "lastAt" : 1781658804000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from 10 fully-migrated actors (ADR-2606160842)"
+    },
+    "rasen" : {
+      "commits" : 2,
+      "lastAt" : 1781685537000,
+      "lastSubject" : "test(fleet): wire 37 ported actors into the bb-runner green-check (ADR-2606160842)"
+    },
+    "tedai" : {
+      "commits" : 4,
+      "lastAt" : 1781685537000,
+      "lastSubject" : "test(fleet): wire 37 ported actors into the bb-runner green-check (ADR-2606160842)"
+    },
+    "torifune" : {
+      "commits" : 2,
+      "lastAt" : 1781611515000,
+      "lastSubject" : "feat(actors): R3 — torifune + subaru live-legs Council-attestation runbooks (gated) (#1863)"
+    },
+    "sumitsubo" : {
+      "commits" : 3,
+      "lastAt" : 1781696072000,
+      "lastSubject" : "test(fleet): wire sumitsubo into the green-check (ADR-2606160842)"
+    },
+    "kurashimori" : {
+      "commits" : 1,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "tasuke" : {
+      "commits" : 2,
+      "lastAt" : 1781672317000,
+      "lastSubject" : "feat(clj-port): port tasuke cells → cljc + prune ALL tasuke Python (ADR-2606160842)"
+    },
+    "mitooshi" : {
+      "commits" : 17,
+      "lastAt" : 1781687208000,
+      "lastSubject" : "refactor(clj-port): prune mitooshi migrated Python — cljc is now the SSoT"
+    },
+    "shiori" : {
+      "commits" : 2,
+      "lastAt" : 1781685537000,
+      "lastSubject" : "test(fleet): wire 37 ported actors into the bb-runner green-check (ADR-2606160842)"
+    },
+    "hydrogen_electrolysis" : {
+      "commits" : 2,
+      "lastAt" : 1781688941000,
+      "lastSubject" : "test(fleet): wire the final 5 actors with tests into the green-check (ADR-2606160842)"
+    },
+    "serdes_phy-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781687411000,
+      "lastSubject" : "test(fleet): wire 26 clean-room compat actors into the green-check (ADR-2606160842)"
+    },
+    "optical_compute-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781687411000,
+      "lastSubject" : "test(fleet): wire 26 clean-room compat actors into the green-check (ADR-2606160842)"
+    },
+    "x86_cpu-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781687411000,
+      "lastSubject" : "test(fleet): wire 26 clean-room compat actors into the green-check (ADR-2606160842)"
+    },
+    "junkan" : {
+      "commits" : 1,
+      "lastAt" : 1781688941000,
+      "lastSubject" : "test(fleet): wire the final 5 actors with tests into the green-check (ADR-2606160842)",
+      "dirty" : 1
+    },
+    "tadori" : {
+      "commits" : 6,
+      "lastAt" : 1781726721000,
+      "lastSubject" : "feat(tadori-clj): port audit_log content-addressed commit-DAG to cljc",
+      "dirty" : 1
+    },
+    "tokigusuri" : {
+      "commits" : 1,
+      "lastAt" : 1781700055000,
+      "lastSubject" : "feat(actor): tokigusuri 時薬 — pharmaceutical patent-cliff / off-patent-access mirror (R0) (#1928)"
+    },
+    "kizashi" : {
+      "commits" : 1,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "suji" : {
+      "commits" : 2,
+      "lastAt" : 1781672187000,
+      "lastSubject" : "feat(clj-port): port suji cells → cljc + prune ALL suji Python (ADR-2606160842)"
+    },
+    "ossekai" : {
+      "commits" : 3,
+      "lastAt" : 1781703316000,
+      "lastSubject" : "test(fleet): wire hataori/kiyome/tsukuru + gate ossekai's ported cljc agent (ADR-2606160842)",
+      "dirty" : 4
+    },
+    "kanjo" : {
+      "commits" : 4,
+      "lastAt" : 1781676319000,
+      "lastSubject" : "fix(kanjo): make autonomous heartbeat O(1) per beat + hermetic autorun suite (ADR-2606160842)"
+    },
+    "tatara" : {
+      "commits" : 23,
+      "lastAt" : 1781744242000,
+      "lastSubject" : "refactor(tatara): bb-native test runner (run_tests.clj), drop the bash wrapper"
+    },
+    "npu_accelerator-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781687411000,
+      "lastSubject" : "test(fleet): wire 26 clean-room compat actors into the green-check (ADR-2606160842)"
+    },
+    "sarutahiko" : {
+      "commits" : 1,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "dwdm_system-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781687411000,
+      "lastSubject" : "test(fleet): wire 26 clean-room compat actors into the green-check (ADR-2606160842)"
+    },
+    "semicon_robotics-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781687411000,
+      "lastSubject" : "test(fleet): wire 26 clean-room compat actors into the green-check (ADR-2606160842)"
+    },
+    "kaname" : {
+      "commits" : 12,
+      "lastAt" : 1781695170000,
+      "lastSubject" : "fix(kaname): place lexicons at canonical 00-contracts path (monorepo-health drift) (ADR-2606172100)"
+    },
+    "cxl_memory-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781687411000,
+      "lastSubject" : "test(fleet): wire 26 clean-room compat actors into the green-check (ADR-2606160842)"
+    },
+    "kanayama" : {
+      "commits" : 15,
+      "lastAt" : 1781714174000,
+      "lastSubject" : "refactor(kanayama-clj): prune cells Python — fully migrated to cljc"
+    },
+    "kanae" : {
+      "commits" : 4,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "hikari" : {
+      "commits" : 3,
+      "lastAt" : 1781756497000,
+      "lastSubject" : "feat(hikari-clj): port grid_edge + solar_pv_install cell state machines to cljc, prune py twins (#1935)"
+    },
+    "gpu_accelerator-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781687411000,
+      "lastSubject" : "test(fleet): wire 26 clean-room compat actors into the green-check (ADR-2606160842)"
+    },
+    "yobel" : {
+      "commits" : 1,
+      "lastAt" : 1781685537000,
+      "lastSubject" : "test(fleet): wire 37 ported actors into the bb-runner green-check (ADR-2606160842)"
+    },
+    "yakushi" : {
+      "commits" : 4,
+      "lastAt" : 1781701473000,
+      "lastSubject" : "refactor(clj-port): prune yakushi migrated Python (agent) — cljc is now the SSoT",
+      "dirty" : 1
+    },
+    "ake" : {
+      "commits" : 7,
+      "lastAt" : 1781689119000,
+      "lastSubject" : "test(ake): cover the cell-level invariant guards (unknown-mechanism + G5 grow-by-one)"
+    },
+    "niyaku" : {
+      "commits" : 6,
+      "lastAt" : 1781685537000,
+      "lastSubject" : "test(fleet): wire 37 ported actors into the bb-runner green-check (ADR-2606160842)"
+    },
+    "akashi" : {
+      "commits" : 6,
+      "lastAt" : 1781756178000,
+      "lastSubject" : "feat(clj-port): salvage 5 genuinely-new py→cljc actor ports (supersedes closed #1871) (#1934)",
+      "dirty" : 1
+    },
+    "sanae" : {
+      "commits" : 6,
+      "lastAt" : 1781685537000,
+      "lastSubject" : "test(fleet): wire 37 ported actors into the bb-runner green-check (ADR-2606160842)",
+      "dirty" : 2
+    },
+    "utsushie" : {
+      "commits" : 4,
+      "lastAt" : 1781658804000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from 10 fully-migrated actors (ADR-2606160842)",
+      "dirty" : 1
+    },
+    "karakuri" : {
+      "commits" : 3,
+      "lastAt" : 1781672291000,
+      "lastSubject" : "feat(clj-port): port karakuri cells → cljc + prune ALL karakuri Python (ADR-2606160842)"
+    },
+    "meyasu" : {
+      "commits" : 6,
+      "lastAt" : 1781687976000,
+      "lastSubject" : "refactor(clj-port): prune meyasu migrated Python — cljc is now the SSoT"
+    },
+    "danjo" : {
+      "commits" : 5,
+      "lastAt" : 1781683766000,
+      "lastSubject" : "fix(heartbeat): extend O(1) head-cid to danjo/keizu/kosatsu (ADR-2606160842)"
+    },
+    "tazuna" : {
+      "commits" : 6,
+      "lastAt" : 1781699785000,
+      "lastSubject" : "test(fleet): complete partial runners to cover ALL test namespaces (ADR-2606160842)",
+      "dirty" : 1
+    },
+    "yotei" : {
+      "commits" : 3,
+      "lastAt" : 1781694303000,
+      "lastSubject" : "test(fleet): wire 7 newly-ported actors into the green-check (ADR-2606160842)"
+    },
+    "mimamori" : {
+      "commits" : 3,
+      "lastAt" : 1781685537000,
+      "lastSubject" : "test(fleet): wire 37 ported actors into the bb-runner green-check (ADR-2606160842)"
+    },
+    "kotoba-actors-clj" : {
+      "commits" : 1,
+      "lastAt" : 1781688941000,
+      "lastSubject" : "test(fleet): wire the final 5 actors with tests into the green-check (ADR-2606160842)"
+    },
+    "hagukumi" : {
+      "commits" : 1,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "asobi" : {
+      "commits" : 2,
+      "lastAt" : 1781685537000,
+      "lastSubject" : "test(fleet): wire 37 ported actors into the bb-runner green-check (ADR-2606160842)"
+    }
+  },
+  "head" : "bafkreiblw2edjps4um72jnfwdkqttghrupq7cpt5ykuuvfdqelzw4bowr4",
+  "working" : [ "abaki", "ainori", "akashi", "etzhayyim-sdk", "funadaiku", "futawa", "hataori", "hotaru", "iyashi", "junkan", "kabuto", "kamado", "karute", "kiyome", "kokoro", "mitate", "noroshi", "nusa", "omise", "ossekai", "sanae", "shukubo", "tadori", "tazuna", "todoke", "toritsugi", "tsukuroi", "utsushie", "watari", "watatsumi", "yakushi" ],
+  "now" : 1781781617563,
+  "store" : "kotoba-datom-log"
+}
