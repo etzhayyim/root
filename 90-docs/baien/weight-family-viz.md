@@ -44,3 +44,30 @@ ternary efficient circuit)**. RSi = the continued-training drive that triggers t
 
 Decode contrast: Transformer = sequential autoregressive (1 token/step) · diffusion = parallel
 canvas denoise (K steps) · sheaf = lateral graph diffusion to consensus (K steps).
+
+## Real-weight figures (not synthetic)
+
+These are computed/grounded from the actual maxwell-1 checkpoint (Gemma 4 E4B + M1-r2 LoRA), on gad.
+
+| File | What | Generator |
+|---|---|---|
+| `maxwell1-real-loss-landscape.png/.svg` | **REAL loss landscape** around θ\* — Li et al. filter-normalized 2-direction sweep, real LM loss on real corpus (13×13 grid, gad). ‖∇L‖@θ\*=6.57 (≠0 ⇒ under-trained slope), loss 0.513–0.551 = wide shallow basin | `70-tools/scripts/maxwell/loss_landscape.py` (runs on gad) |
+| `maxwell1-layers-3d.png` + `.gif` | the **real 42-layer architecture** (Gemma 4 E4B: 42 layers · hidden 2560 · GQA 8/2 · FFN 10240) as a 3D connected stack (rings=layers, fibers=connections, depth-colored); GIF = rotating | `gen_layers3d.py` / `gen_layers3d_anim.py` |
+| `maxwell1-attention-fan.png` | one layer's self-attention as an 8-head all-to-all causal fan (mandala) | `gen_attention_fan.py` |
+
+`loss_landscape.py` is the honest one — it loads the real adapter and measures the surface; the rest
+use the real *config* (42 layers etc.) but draw the wiring illustratively.
+
+## Solved/measured, not drawn (2026-06-17)
+
+| File | What | Generator |
+|---|---|---|
+| `oka-sheaf-physics.png` | a REAL small cellular-sheaf-diffusion instance **physically computed**: real `L_F=δᵀδ` (60×60) + eigen-spectrum (**harmonic dim=6** = global section) + Dirichlet-energy decay (59.95→1e-12) + edge-disagreement→consensus. oka has no trained weights (R0), so this is a real *instance* of its physics, not the deployed model | `gen_oka_sheaf_compute.py` |
+| `maxwell1-real-tensors.png` | maxwell-1 from **real tensors**: per-layer LoRA ΔW norms (training concentrated in deep-layer MLP) · real q_proj ΔW singular values (low-rank) · real attention probabilities on a real prompt (causal triangle + token-0 sink) · real layer-0 q_proj weight block | `extract_weights.py` (gad) → JSON → render |
+
+**Honesty note:** maxwell-1 figures (`maxwell1-real-tensors`, `maxwell1-real-loss-landscape`) are measured from the actual trained weights. The `maxwell1-layers-3d`/`attention-fan` use the real *config* but draw the wiring illustratively. oka has **no trained model** (R0 scaffold) — `oka-sheaf-physics` computes a real instance of the sheaf operator/physics; the mandala/anim are conceptual.
+
+### Landscape over training (real)
+| File | What | Generator |
+|---|---|---|
+| `maxwell1-landscape-over-training.png/.gif` | real loss surface measured around 5 training snapshots (steps 0/60/180/360/600) along fixed directions; eval loss 3.0→0.46(180)→0.80 = descent→over-fit (honest: not a controlled grokking transition) | `70-tools/scripts/maxwell/series.py` (gad) |

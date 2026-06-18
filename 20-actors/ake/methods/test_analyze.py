@@ -2,9 +2,64 @@
 """End-to-end membrane test for analyze.py — propose → triage → route → revision."""
 from __future__ import annotations
 
+import pathlib
+import tempfile
+
 import contributor as contrib
 from analyze import _report, run
-from revision import current
+from revision import current, history_of
+
+# A synthetic batch the :representative seed can't express: a hard-gate refusal AT INTAKE
+# (unsourced → G4 raises inside score_edit) alongside two accepted edits on the SAME
+# (entity, attr) — exercises the intake-refused arm and the revision-history dedup.
+_EDGE_SEED = """{:edit/batch
+ [{:edit/id "g1" :edit/target-kind :kg-fact :edit/target-entity "org.corp.x"
+   :edit/target-attr :corp/hq-address :edit/op :assert :edit/proposed-value "addr v1"
+   :edit/author "did:web:etzhayyim.com:member:abel" :edit/author-kind :member
+   :edit/provenance "https://example.com/x1" :edit/rationale "a clear sourced reason"
+   :edit/server-held-key false :edit/info-as-of 1000 :edit/sourcing :authoritative}
+  {:edit/id "g2" :edit/target-kind :kg-fact :edit/target-entity "org.corp.x"
+   :edit/target-attr :corp/hq-address :edit/op :assert :edit/proposed-value "addr v2"
+   :edit/author "did:web:etzhayyim.com:member:abel" :edit/author-kind :member
+   :edit/provenance "https://example.com/x2" :edit/rationale "a later sourced correction"
+   :edit/server-held-key false :edit/info-as-of 1020 :edit/sourcing :authoritative}
+  {:edit/id "bad" :edit/target-kind :kg-fact :edit/target-entity "org.corp.x"
+   :edit/target-attr :corp/note :edit/op :assert :edit/proposed-value "unsourced claim"
+   :edit/author "did:web:etzhayyim.com:member:korah" :edit/author-kind :member
+   :edit/provenance "" :edit/rationale "no source provided"
+   :edit/server-held-key false :edit/info-as-of 1010 :edit/sourcing :representative}]}"""
+
+
+def _run_edge():
+    with tempfile.TemporaryDirectory() as d:
+        p = pathlib.Path(d) / "edge-seed.kotoba.edn"
+        p.write_text(_EDGE_SEED, encoding="utf-8")
+        return run(p)
+
+
+def test_intake_refused_edit_is_recorded_not_accepted_and_does_not_crash_the_run():
+    res = _run_edge()
+    by_id = {r["edit"]: r for r in res["rows"]}
+    # an unsourced edit fails the G4 hard gate INSIDE score_edit → :refused-at-intake row,
+    # carrying the ValueError text, and the run keeps going (the good edits still route).
+    assert by_id["bad"]["route"] == ":refused-at-intake"
+    assert by_id["bad"]["accepted"] is False
+    assert by_id["bad"]["note"]
+    assert by_id["g1"]["accepted"] and by_id["g2"]["accepted"]
+    # the refused author earns a "refused" trajectory event (G9), accepts none.
+    korah = "did:web:etzhayyim.com:member:korah"
+    assert contrib.counts(res["trajectory"], korah) == {"accepted": 0, "refused": 1}
+
+
+def test_report_dedups_repeated_entity_attr_key():
+    res = _run_edge()
+    # two accepted edits on the SAME (entity, attr) → history has both, current = the later.
+    assert len(history_of(res["history"], "org.corp.x", "hq-address")) == 2
+    assert current(res["history"], "org.corp.x", "hq-address")[":revision/value"] == "addr v2"
+    # _report collapses the repeated key to ONE bullet and reports the revision count.
+    md = _report(res)
+    assert md.count("`org.corp.x` `hq-address`") == 1
+    assert "2 revision(s)" in md
 
 
 def test_run_routes_every_seed_edit():

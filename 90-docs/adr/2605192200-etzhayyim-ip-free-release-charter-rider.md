@@ -30,6 +30,14 @@ superseded_by: []
 
 # ADR-2605192200: etzhayyim IP-Free-Release with Charter Compliance Rider v2.0 — Apache 2.0 + 多世代 + 反個人主義 + Wellbecoming license addendum
 
+> **AMENDED to Rider v3.5.** Rider は v2.0 → v3.0(2606062100)→ v3.1(2606082400)→ v3.2
+> (2606161700)→ v3.3(2606172359)→ v3.4(2606180001)→ **v3.5(2606182359)** と改正された。
+> v3.5 で **§2 は全て ECL 目的関数で net 評価**(categorical 掟リスト廃止; 唯一の非交渉性は子・孫
+> priority への最大級の害=catastrophe 項)。**open-source 強制(IP-free-release)も categorical 義務
+> から目的関数評価へ** — proprietary 囲い込みは collective-commons 次元で負にスコアされる(commons
+> 公開の*精神*は score で動的に保持)。ECL ライセンス設計は ADR-2606172300、本文は `/CHARTER-RIDER.md`
+> (v3.5)。
+
 **Status**: proposed
 **Date**: 2026-05-19
 **Deciders**: Jun Kawasaki

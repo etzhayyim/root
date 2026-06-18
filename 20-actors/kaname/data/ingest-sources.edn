@@ -1,0 +1,5 @@
+;; kaname 要 — web-ingest source manifest (ADR-2606172100 R1; G7 founder-approved).
+;; ingest-live! fetches each PUBLIC page in clj (babashka.http-client) → Murakumo gemma extraction.
+;; DISCLOSED public announcement pages (公開投稿) only; person-excluded; every edge basis'd by URL.
+[{:url "https://www.anthropic.com/news/anthropic-amazon-compute" :domain :economy :source :web}
+ {:url "https://nvidianews.nvidia.com/news/openai-and-nvidia-announce-strategic-partnership-to-deploy-10gw-of-nvidia-systems" :domain :economy :source :web}]

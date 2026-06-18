@@ -11,9 +11,13 @@
 #   ./deploy.sh
 set -euo pipefail
 
+# The ingest leg was ported to cljc (methods/transact.cljc) per ADR-2606160842; this
+# wrapper now drives `bb tadori:ingest` (no credential ⇒ DRY RUN; credential ⇒ live
+# transact + read-back). The seed (kotoba/seed.threat-intel.jsonl) + schema stay here.
 KOTOBA_URL="${KOTOBA_URL:-http://127.0.0.1:8077}"
 GRAPH="${TADORI_GRAPH:-etzhayyim/tadori/threat-intel}"
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SEED="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/seed.threat-intel.jsonl"
+REPO_ROOT="$(git -C "$(dirname "${BASH_SOURCE[0]}")" rev-parse --show-toplevel)"
 
 echo "==> tadori threat-intel Datomic deploy -> ${KOTOBA_URL} (graph ${GRAPH})"
 
@@ -24,10 +28,9 @@ fi
 
 if [[ -z "${KOTOBA_SESSION_POP:-}" && -z "${KOTOBA_TOKEN:-}" ]]; then
   echo "--> credential unset -> DRY RUN"
-  python3 "${SCRIPT_DIR}/ingest_threat_intel.py" --url "${KOTOBA_URL}" --graph "${GRAPH}" --dry-run
-else
-  echo "--> transacting schema + staged observations, then verifying via com.etzhayyim.apps.kotoba.datomic.datoms"
-  python3 "${SCRIPT_DIR}/ingest_threat_intel.py" --url "${KOTOBA_URL}" --graph "${GRAPH}" --verify-readback
 fi
+# bb tadori:ingest reads KOTOBA_URL/KOTOBA_SESSION_POP/KOTOBA_TOKEN/TADORI_CASE_ID from env.
+(cd "${REPO_ROOT}" && KOTOBA_URL="${KOTOBA_URL}" TADORI_GRAPH="${GRAPH}" \
+  bb tadori:ingest "${SEED}" "${GRAPH}" "${KOTOBA_URL}")
 
 echo "==> done"

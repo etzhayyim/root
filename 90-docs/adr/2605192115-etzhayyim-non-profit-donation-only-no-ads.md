@@ -4,8 +4,8 @@ title: "ADR-2605192115: etzhayyim Non-profit / Donation-only / No-ads — 営利
 status: proposed
 doc_type: adr
 topic: etzhayyim-non-profit-donation-only-no-ads
-authoritative: true
-last_verified: 2026-05-19
+authoritative: false
+last_verified: 2026-06-17
 priority: 8.5
 axis: economics
 weight: 0.85
@@ -23,13 +23,25 @@ depends_on:
 related:
   - adr-2605192130-etzhayyim-tithe-redistribution
   - adr-2605192145-etzhayyim-public-fund-architecture
+  - "2606180001"   # wave2: 経済構造を目的関数へ
+  - "2606182359"   # wave3: 掟全廃, 全行為を目的関数へ
 supersedes: []
 superseded_by: []
 ---
 
 # ADR-2605192115: etzhayyim Non-profit / Donation-only / No-ads — 営利・広告・購買モデルの構造的排除
 
-**Status**: proposed
+> **AMENDED 2026-06-17 (Rider v3.5) by ADR-2606180001 (wave2) + ADR-2606182359 (wave3).**
+> 以下の「hard rule(非営利のみ / 広告排除 / 購買モデル禁止 / no-equity / no-transferable-share)」は
+> **categorical 固定ルールから ECL 目的関数の net 評価へ移行**した。非営利・反広告・反私的捕獲の
+> *精神は失われていない* — 目的関数の `collective-commons` + `ko-wellbecoming` 次元が、私的捕獲・
+> 個人主義的蓄積・attention 搾取・commons 囲い込みを動的に負へ評価し続ける(掟でなく score で enforce)。
+> 私的捕獲を生まず commons に資する営利的協力は aligned になりうる(`for-profit-commons-contributor`
+> fixture 参照)。**10% Tithe → Public Fund (ADR-2605192130) は別途維持**。以下の hard rule 群は
+> 「何が負にスコアされるか」のガイダンスとして retain される(現行の確定ルールではない)。本 ADR は
+> よって `authoritative: false`。経緯・根拠・実証は ADR-2606180001 / 2606182359 / `90-docs/licenses/ecl/`。
+
+**Status**: proposed (categorical framing amended → objective-function per v3.5)
 **Date**: 2026-05-19
 **Deciders**: Jun Kawasaki
 

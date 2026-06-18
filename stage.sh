@@ -26,7 +26,6 @@ git add \
   50-infra/k8s/intel-dependency-worker/README.md \
   50-infra/k8s/lg-gov/deployment.yaml \
   50-infra/k8s/murakumo-kubelet/README.md \
-  50-infra/k8s/lg-open-unispsc/deployment.yaml \
   50-infra/k8s/legal-corpus-langgraph/legal_corpus_langgraph.py \
   50-infra/k8s/legal-corpus-langgraph/mcp_server.py \
   50-infra/k8s/lg-ses/deployment.yaml \

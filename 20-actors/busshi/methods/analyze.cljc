@@ -86,7 +86,9 @@
      "chokepoint_risk" (chokepoint-risk ts)
      "multigen_risk" (multigen-risk c)
      "recyclability" (double (or (:recyclability c) 0))
-     "route" (route c)}))
+     "route" (route c)
+     "sourcing" (or (:sourcing c) :representative)
+     "source" (:source c)}))
 
 (defn analyze
   "Full analysis: per-commodity rows + per-class aggregates."
@@ -110,23 +112,28 @@
 (defn datoms
   "Append-only EAVT datom VECTORS for the derived observations (the persistable
   form; render-datoms stringifies these; autorun/kotoba append these to the ledger).
-  Every datom carries :busshi/derived true + :busshi/sourcing :representative —
-  derived rows are NEVER re-ingested as authoritative. No :trade / :signal /
-  forecast-point attribute is ever emitted (G1/G3)."
+  Every datom carries :busshi/derived true + the row's :busshi/sourcing (defaulting
+  to :representative; :authoritative rows additionally carry :busshi/source, the
+  cited primary source folded via an operator-triggered G7 ingest). The DERIVED
+  observation is always :derived — provenance describes the INPUT producer shares,
+  not the computed score. No :trade / :signal / forecast-point attribute is ever
+  emitted (G1/G3)."
   [{:strs [commodities classes]}]
   (let [cdatoms (mapcat
                  (fn [r]
-                   (let [e (str "busshi-commodity:" (get r "id"))]
-                     [(add e ":busshi.commodity/name" (get r "name"))
-                      (add e ":busshi.commodity/class" (str (get r "class")))
-                      (add e ":busshi.obs/top-producer" (str (get r "top_producer")))
-                      (add e ":busshi.obs/top-producer-share" (get r "top_producer_share"))
-                      (add e ":busshi.obs/named-hhi" (round3 (get r "named_hhi")))
-                      (add e ":busshi.obs/chokepoint-risk" (str (get r "chokepoint_risk")))
-                      (add e ":busshi.obs/multigen-risk" (round3 (get r "multigen_risk")))
-                      (add e ":busshi.obs/route" (str (get r "route")))
-                      (add e ":busshi/sourcing" ":representative")
-                      (add e ":busshi/derived" true)]))
+                   (let [e (str "busshi-commodity:" (get r "id"))
+                         src (get r "source")]
+                     (cond-> [(add e ":busshi.commodity/name" (get r "name"))
+                              (add e ":busshi.commodity/class" (str (get r "class")))
+                              (add e ":busshi.obs/top-producer" (str (get r "top_producer")))
+                              (add e ":busshi.obs/top-producer-share" (get r "top_producer_share"))
+                              (add e ":busshi.obs/named-hhi" (round3 (get r "named_hhi")))
+                              (add e ":busshi.obs/chokepoint-risk" (str (get r "chokepoint_risk")))
+                              (add e ":busshi.obs/multigen-risk" (round3 (get r "multigen_risk")))
+                              (add e ":busshi.obs/route" (str (get r "route")))
+                              (add e ":busshi/sourcing" (str (get r "sourcing")))
+                              (add e ":busshi/derived" true)]
+                       src (conj (add e ":busshi/source" src)))))
                  commodities)
         kdatoms (mapcat
                  (fn [k]
@@ -170,16 +177,20 @@
   [analysis coverage-map]
   (let [rows (->> (get analysis "commodities")
                   (sort-by #(- (get % "multigen_risk"))))
-        cov (get coverage-map "by_class")]
+        cov (get coverage-map "by_class")
+        auth (count (filter #(= (get % "sourcing") :authoritative) rows))
+        total (count rows)]
     (str
      "# busshi 物資 — commodity & raw-materials RESILIENCE MAP\n\n"
      "OBSERVATION ONLY. This is a **resilience map, NEVER a target-list** and "
      "**NEVER a trade/price signal** (§2(l) multi-gen risk axis, ADR-2606161700). "
      "Producer shares + price levels are DISCLOSED facts, not verdicts or forecasts. "
-     "All seed figures are :representative.\n\n"
+     "Provenance: **" auth "/" total " rows :authoritative** (producer shares from a "
+     "cited primary source via operator-triggered G7 ingest); the remainder are "
+     ":representative approximations.\n\n"
      "## Multi-generational risk ranking (highest first)\n\n"
-     "| commodity | class | top producer | top share% | chokepoint | multigen-risk | route |\n"
-     "|---|---|---|---|---|---|---|\n"
+     "| commodity | class | top producer | top share% | chokepoint | multigen-risk | route | sourcing |\n"
+     "|---|---|---|---|---|---|---|---|\n"
      (str/join "\n"
                (for [r rows]
                  (str "| " (get r "name")
@@ -188,7 +199,8 @@
                       " | " (get r "top_producer_share")
                       " | " (name (get r "chokepoint_risk"))
                       " | " (round3 (get r "multigen_risk"))
-                      " | " (name (get r "route")) " |")))
+                      " | " (name (get r "route"))
+                      " | " (name (get r "sourcing")) " |")))
      "\n\n## Coverage (Wave 1, all-domains-thin)\n\n"
      "| class | have | target | gap |\n|---|---|---|---|\n"
      (str/join "\n"
