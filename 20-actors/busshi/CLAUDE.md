@@ -39,8 +39,9 @@ methods/autorun.cljc      Wave 2: deterministic, idempotent-by-content heartbeat
 methods/test_*.cljc       loader + analytics + G1/G3/G5 + ledger/heartbeat invariants
 kotoba/ontology.busshi.edn  EAVT schema + negative space (unrepresentable attrs)
 kotoba/seed.edn           seed (26 commodities, all 5 classes); MIXED provenance —
-                          22 :authoritative (14 USGS metals + WNA uranium + EIA/OPEC
-                          crude/gas/coal + FAO wheat/corn/soybean/coffee); 4 :representative
+                          23 :authoritative (14 USGS metals + WNA uranium + EIA/OPEC
+                          crude/gas/coal + FAO wheat/corn/soybean/coffee + USDA sugar);
+                          3 :representative (ga/ge no clean table, REE → rare-earth-coverage)
 data/ (gitignored)        generated observation ledger — never committed/hand-edited
 manifest.edn              gates G1–G8 + non-goals N1–N5 + method/seed/ledger registry
 ```
@@ -89,10 +90,13 @@ bb --classpath 20-actors 20-actors/busshi/methods/autorun.cljc           # heart
   **+ FAO ag-softs**: wheat (FAOSTAT 2022 — China 17 / India 13 / Russia 13), corn (2020 —
   US 31 / China 22 / Brazil 9), soybean (2022 — Brazil 35 / US 33 / Argentina 13), coffee
   (2023 green-coffee — Brazil 31 / Vietnam 18 / Indonesia 7). The final 4 `:representative`
-  are there for cause: **sugar HELD** (row is raw sugar #11; FAO measures sugarcane, much of
-  which diverts to ethanol → cane-share ≠ sugar-share; needs an ISO/USDA refined-sugar table)
-  + **gallium/germanium** (USGS publishes no clean production-by-country table) + **REE**
-  (defers to the rare-earth-coverage actor).
+  + **sugar** (USDA FAS centrifugal sugar, raw value, world 186.1 Mt — Brazil 23 / India 18 /
+  EU 8 / China 7 / Thailand 5; the centrifugal-raw basis matches the #11 row, resolving the
+  earlier sugarcane-crop mismatch). The final 3 `:representative` are structurally uncitable
+  within busshi's scope: **gallium/germanium** (USGS publishes no clean production-by-country
+  table — narrative shares / import sources only) + **REE** (defers to the rare-earth-coverage
+  actor by design). This is the honest ceiling — no further row can be folded without
+  fabricating a citation or duplicating another actor's scope.
 - Wave 2+: per-commodity depth (stocks/curve as facts, recycling-loop linkage to kanayama),
   Murakumo-narrated digest, fleet registration, lexicons.
 
