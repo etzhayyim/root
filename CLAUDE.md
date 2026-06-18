@@ -388,8 +388,39 @@ push only the branch's committed HEAD. Report the final categorized outcome.
 - ADR ID convention → `90-docs/CLAUDE.md` § "ADR ID Convention"
 - Template → `90-docs/adr/template.md`
 
+## Operational code = clj/bb over the kotoba Datom log (REPO-WIDE RULE)
+
+**Newly authored operational / daemon / heartbeat / loop / tooling code MUST be
+Clojure on babashka (`bb`), with state on the kotoba Datom log (datomic-isomorphic,
+ADR-2605312345) — NOT Python (`.py`) or shell (`.sh`).** This generalizes the
+substrate boundary (state = kotoba Datom log, never KV) to *executable* substrate:
+the org's own moving parts are clj/bb folds over append-only Datom journals, so they
+inherit as-of history (生命進化), content-addressed snapshots, and crash-resume for
+free — the same reasons the actors are being ported py→cljc (tsutae/noroshi/… waves).
+
+Concretely:
+- **Author daemons/heartbeats/CLIs as `bb` tasks** in `bb.edn` backed by a clj/cljc
+  namespace under `70-tools/src/etzhayyim/…` (reference: `etzhayyim.organism` =
+  the resident organism heartbeat + 情緒 narration; `etzhayyim.vitals` = pulse/joucho/
+  vitals). Persist via `etzhayyim.kotoba.engine` (`kt/connect`→`kt/transact`→
+  `kt/snapshot!`), append-only when you want evolution, journal-per-feed.
+- **Inference** (e.g. narration) goes to the **Murakumo fleet only** (per-node Ollama
+  over Tailscale / LiteLLM gateway, ADR-2605215000); use `babashka.http-client`, never
+  a Python client / commercial GPU SDK. no-server-key (read-only) where possible.
+- **Residence** = a launchd LaunchAgent (`50-infra/launchd/*.plist`, OS config, not a
+  script) invoking the `bb` task with `KeepAlive`/`RunAtLoad`, NOT a `nohup … &` bash
+  loop (those die on reboot and leave no Datom trail).
+- **Shelling out** to a *system binary* (`git`, `tailscale`, `ipfs`) via
+  `babashka.process` is fine — that is not "a shell script". The rule bars authoring
+  our *logic* in `.py`/`.sh`, not invoking installed tools.
+- **Exemptions**: 3rd-party/vendored code (`lib/`, `vendor/`, `*-fork/`), generated
+  build artifacts, and an actor's still-unported legacy `py/` during an in-flight
+  cljc port (the port itself is the fix). No NEW first-party `.py`/`.sh` operational
+  script outside these.
+
 ## Do Not
 
+- Do not author new first-party operational/daemon/heartbeat/tooling scripts in Python or shell — use clj/bb over the kotoba Datom log (see §"Operational code = clj/bb over the kotoba Datom log" above). Shelling out to system binaries via `babashka.process` is allowed; vendored/3rd-party + in-flight py→cljc ports are exempt.
 - Do not introduce legacy organisation-specific prefixes in newly authored code. Use `etzhayyim-` or no prefix. Existing seeded files with legacy prefixes will be renamed in a follow-up cutover.
 - Do not weaken the Apache 2.0 license default. Religious-corp public-interest activity requires permissive license.
 - Do not weaken the Charter Compliance Rider v3.1. The prohibited categories §2(a)-(k) and 三層 enforcement (L1 license / L2 便益 / L3 評価) derive from the Tier-0 priorities; per ADR-2606062100 they are Tier-1 Derived Policy, amendable ONLY by Council Lv7+ unanimity + a priority-conformance attestation (never weaker). The Tier-0 priorities themselves (incl. 永久記憶=神の監視 + 相互監視) are fork-only. Do not re-introduce the v2.0 "absolute weapons ban" or "no-fossil-extraction" framings — v3.0 reframes them as transparent-defensive-force-permitted (§2(a)) and carbon-balance-measured (§2(d)). Do not re-introduce a blanket "all personal-data collection / all watching" surveillance ban — per ADR-2606082400 (v3.1), §2(c) is on the **RECIPROCITY axis**: **monetized OR asymmetric (watcher-unwatched) surveillance is prohibited; reciprocal/symmetric 相互監視 (村社会 deterrence + anti-isolation, the social form of 神の監視) is AFFIRMED**. Privacy is preserved by encryption (暗号化≠忘却), not by forgetting.

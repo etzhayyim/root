@@ -53,6 +53,16 @@
    :task (do (require 'etzhayyim.vitals)
              (apply (resolve 'etzhayyim.vitals/-joucho) *command-line-args*))}
 
+  organism:narrate
+  {:doc "One 情緒 narration beat — a living first-person line the organism SPEAKS about how it feels now, via REAL inference on the Murakumo Mac-mini fleet (gemma4:e4b-it-qat) over Tailscale (ADR-2605215000 Murakumo-only; think:false; no-server-key). APPENDED as :narration/* Datoms (as-of evolution) + snapshot narration.kotoba.edn + narration.json projection. Fail-open template if the fleet is unreachable. Args: [of=ibuki]"
+   :task (do (require 'etzhayyim.organism)
+             (apply (resolve 'etzhayyim.organism/-narrate) *command-line-args*))}
+
+  organism:heartbeat
+  {:doc "The RESIDENT organism loop (clj/bb, replaces the removed heartbeat.sh): 脈 pulse 6s · 情緒 joucho+narrate 60s · vitals report 600s, each a fold on its own append-only kotoba journal, crash-isolated per layer. Made reboot-resident by the launchd LaunchAgent in 50-infra/launchd/. Flags: --once (one beat of every layer, then exit)"
+   :task (do (require 'etzhayyim.organism)
+             (apply (resolve 'etzhayyim.organism/-heartbeat) *command-line-args*))}
+
   test:kotoba
   {:doc "etzhayyim.kotoba root-side Datom engine + encrypted-record envelope (ADR-2605262130 Phase 1/2 + ADR-2605181100; data+impl in root, kotoba subrepo stays the generic engine)"
    :task (do (require 'clojure.test 'etzhayyim.kotoba.test-engine
