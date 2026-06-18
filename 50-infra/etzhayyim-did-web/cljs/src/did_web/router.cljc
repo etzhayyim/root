@@ -79,8 +79,12 @@
      (when-let [[_ h] (re-matches actor-profile-re path)] {:route :actor-profile   :handle h})
      (when-let [[_ h] (re-matches actor-procs-re path)]   {:route :actor-procedures :handle h})
      (when-let [[_ c] (re-matches ipfs-re path)]          {:route :ipfs :cid c})
-     ;; not owned → legacy TS handler
-     {:route :fallback})))
+     ;; /xrpc/* (the auth + AppView-proxy unit) and /gov (inline HTML) remain on
+     ;; the legacy TS handler for now — a cohesive next batch (CACAO crypto).
+     (when (str/starts-with? path "/xrpc/")              {:route :fallback})
+     (when (or (= p "/gov"))                             {:route :fallback})
+     ;; everything else (SPA routes, apex landing, …) → cljs reverse proxy
+     {:route :reverse-proxy})))
 
 (defn owned?
   "True when the cljs core owns this route (i.e. route is not :fallback)."

@@ -68,10 +68,36 @@ function check(name, cond, extra="") { if (cond) console.log("ok  -", name); els
 { const r = await call("GET", "/actor/gov-jp-somu/procedures.json");
   const b = await r.text();
   check("actor procedures 200 count1", r.status === 200 && b.includes("\"count\": 1") && b.includes("passport")); }
-{ const r = await call("GET", "/some/spa/route");
-  check("fallback delegated", r.status === 299); }
+{ const r = await call("GET", "/gov");
+  check("/gov delegated to TS fallback", r.status === 299); }
 { const r = await call("POST", "/xrpc/app.bsky.feed.getTimeline");
   check("xrpc fallback (POST allowed through)", r.status === 299); }
+
+// ─── reverse proxy (default site path → YORO service binding) ────────────────
+function proxyEnv(upstreamResp, throwIt = false) {
+  return { YORO: { fetch: async (_req) => { if (throwIt) throw new Error("binding down"); return upstreamResp; } } };
+}
+async function callEnv(method, path, env) {
+  return await handle(new Request("https://etzhayyim.com" + path, { method }), env, {}, deps, fallback);
+}
+{ // a SPA route is reverse-proxied; cookies stripped, proxied-by + HSTS set
+  const up = new Response("yoro-spa", { status: 200, headers: { "set-cookie": "x=1", "content-type": "text/html" } });
+  const r = await callEnv("GET", "/search", proxyEnv(up));
+  check("reverse-proxy 200 + headers rewritten",
+        r.status === 200 && r.headers.get("x-proxied-by") === "etzhayyim-did-web"
+        && r.headers.get("set-cookie") === null
+        && r.headers.get("strict-transport-security")?.includes("max-age=31536000")
+        && (await r.text()) === "yoro-spa");
+}
+{ // Location header host rewrite yoro.etzhayyim.com → etzhayyim.com
+  const up = new Response(null, { status: 302, headers: { location: "https://yoro.etzhayyim.com/welcome" } });
+  const r = await callEnv("GET", "/x", proxyEnv(up));
+  check("reverse-proxy rewrites Location host", r.headers.get("location") === "https://etzhayyim.com/welcome", r.headers.get("location"));
+}
+{ // service binding throws → 502
+  const r = await callEnv("GET", "/y", proxyEnv(null, true));
+  check("reverse-proxy binding failure → 502", r.status === 502 && (await r.text()).includes("kotodama-yoro"));
+}
 
 // ─── /ipfs gateway: codec faithfulness + trustless verification ──────────────
 // Reference base32 copied verbatim from src/cid.ts — proves the cljs base32

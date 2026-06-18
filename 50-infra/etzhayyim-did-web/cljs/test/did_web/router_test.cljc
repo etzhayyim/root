@@ -28,8 +28,8 @@
     (is (= {:route :actor-procedures :handle "gov-jp-somu"}
            (router/route {:method "GET" :path "/actor/gov-jp-somu/procedures.json"})))
     (testing "a nested/extra segment is NOT an actor route"
-      (is (= :fallback (r "GET" "/actor/x/y/did.json")))
-      (is (= :fallback (r "GET" "/actor//did.json"))))))
+      (is (= :reverse-proxy (r "GET" "/actor/x/y/did.json")))
+      (is (= :reverse-proxy (r "GET" "/actor//did.json"))))))
 
 (deftest gov-html-stays-on-fallback-this-batch
   (testing "/gov (inline HTML) is intentionally still the TS fallback"
@@ -42,7 +42,7 @@
     (is (router/method-allowed? :ipfs "HEAD"))
     (is (not (router/method-allowed? :ipfs "POST")))
     (testing "a slash inside the cid segment is not an ipfs route"
-      (is (= :fallback (r "GET" "/ipfs/ab/cd"))))))
+      (is (= :reverse-proxy (r "GET" "/ipfs/ab/cd"))))))
 
 (deftest kotoba-cas-routes-method-aware
   (testing "kotoba block CAS endpoints are method-aware (faithful to worker.ts 2d)"
@@ -55,15 +55,20 @@
     (testing "method mismatch falls through to the generic xrpc proxy (:fallback)"
       (is (= :fallback (r "GET"  "/xrpc/com.etzhayyim.apps.kotoba.block.put")))
       (is (= :fallback (r "POST" "/xrpc/com.etzhayyim.apps.kotoba.root")))
-      (is (= :fallback (r "POST" "/kotoba/blocks/bafkreiblk"))))))
+      (is (= :reverse-proxy (r "POST" "/kotoba/blocks/bafkreiblk"))))))
 
-(deftest io-plumbing-falls-back
-  (testing "the generic xrpc proxy + reverse proxy stay on the legacy TS handler"
-    (doseq [p ["/"
-               "/xrpc/app.bsky.feed.getTimeline"
+(deftest xrpc-and-gov-stay-on-ts-fallback
+  (testing "the /xrpc/* auth+AppView unit and /gov inline HTML stay on TS"
+    (doseq [p ["/xrpc/app.bsky.feed.getTimeline"
                "/xrpc/com.etzhayyim.authz.verifyCacao"
-               "/some/spa/route"]]
+               "/xrpc/com.etzhayyim.actor.getProfile"
+               "/gov"]]
       (is (= :fallback (r "GET" p)) (str p " should fall through to TS")))))
+
+(deftest default-paths-reverse-proxied-by-cljs
+  (testing "everything else (apex, SPA routes) → cljs reverse proxy"
+    (doseq [p ["/" "/search" "/profile/did:web:etzhayyim.com" "/welcome" "/feeds"]]
+      (is (= :reverse-proxy (r "GET" p)) (str p " should be cljs reverse-proxied")))))
 
 (deftest method-policy
   (testing "owned content routes are GET/HEAD-only; others unconstrained here"
@@ -79,4 +84,4 @@
     (is (= :donate-html (r "GET" "/donate/")))
     (is (= :actors-html (r "GET" "/actors/")))
     (is (= :organism-html (r "GET" "/organism/")))
-    (is (= :fallback (r "GET" "/")))))
+    (is (= :reverse-proxy (r "GET" "/")))))

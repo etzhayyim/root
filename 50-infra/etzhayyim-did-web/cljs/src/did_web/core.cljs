@@ -19,7 +19,8 @@
   (:require [goog.object :as gobj]
             [did-web.router :as router]
             [did-web.ipfs :as ipfs]
-            [did-web.kotoba :as kotoba]))
+            [did-web.kotoba :as kotoba]
+            [did-web.proxy :as proxy]))
 
 ;; ─── injected-deps access (rename-safe) ──────────────────────────────────────
 
@@ -259,5 +260,7 @@
         :kotoba-stats        (kotoba/handle-stats-get url env)
         :kotoba-block-get    (.then (kotoba/serve-block-from-kv cid env)
                                     (fn [r] (or r (fallback request env ctx))))
-        ;; :fallback (and any not-yet-mapped route) → legacy TS handler
+        ;; default site path → cljs reverse proxy to the yoro Worker
+        :reverse-proxy       (proxy/reverse-proxy request env)
+        ;; :fallback (/xrpc/* auth+AppView, /gov) → legacy TS handler
         (fallback request env ctx)))))
