@@ -52,18 +52,24 @@
     (is (= :kotoba-stats (r "GET"  "/xrpc/com.etzhayyim.apps.kotoba.stats")))
     (is (= {:route :kotoba-block-get :cid "bafkreiblk"}
            (router/route {:method "GET" :path "/kotoba/blocks/bafkreiblk"})))
-    (testing "method mismatch falls through to the generic xrpc proxy (:fallback)"
-      (is (= :fallback (r "GET"  "/xrpc/com.etzhayyim.apps.kotoba.block.put")))
-      (is (= :fallback (r "POST" "/xrpc/com.etzhayyim.apps.kotoba.root")))
+    (testing "method mismatch falls through to the generic cljs xrpc dispatch"
+      (is (= :xrpc (r "GET"  "/xrpc/com.etzhayyim.apps.kotoba.block.put")))
+      (is (= :xrpc (r "POST" "/xrpc/com.etzhayyim.apps.kotoba.root")))
       (is (= :reverse-proxy (r "POST" "/kotoba/blocks/bafkreiblk"))))))
 
-(deftest xrpc-and-gov-stay-on-ts-fallback
-  (testing "the /xrpc/* auth+AppView unit and /gov inline HTML stay on TS"
-    (doseq [p ["/xrpc/app.bsky.feed.getTimeline"
-               "/xrpc/com.etzhayyim.authz.verifyCacao"
-               "/xrpc/com.etzhayyim.actor.getProfile"
-               "/gov"]]
-      (is (= :fallback (r "GET" p)) (str p " should fall through to TS")))))
+(deftest xrpc-dispatched-by-cljs
+  (testing "generic /xrpc/<nsid> → cljs xrpc dispatch (carries the nsid)"
+    (is (= {:route :xrpc :nsid "app.bsky.feed.getTimeline"}
+           (router/route {:method "GET" :path "/xrpc/app.bsky.feed.getTimeline"})))
+    (is (= {:route :xrpc :nsid "com.etzhayyim.authz.verifyCacao"}
+           (router/route {:method "POST" :path "/xrpc/com.etzhayyim.authz.verifyCacao"})))
+    (is (= {:route :xrpc :nsid "com.etzhayyim.actor.getProfile"}
+           (router/route {:method "GET" :path "/xrpc/com.etzhayyim.actor.getProfile"})))))
+
+(deftest gov-still-on-ts-fallback
+  (testing "/gov inline HTML is the only remaining TS :fallback route"
+    (is (= :fallback (r "GET" "/gov")))
+    (is (= :fallback (r "GET" "/gov/")))))
 
 (deftest default-paths-reverse-proxied-by-cljs
   (testing "everything else (apex, SPA routes) → cljs reverse proxy"

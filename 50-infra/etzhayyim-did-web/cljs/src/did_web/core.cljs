@@ -20,7 +20,8 @@
             [did-web.router :as router]
             [did-web.ipfs :as ipfs]
             [did-web.kotoba :as kotoba]
-            [did-web.proxy :as proxy]))
+            [did-web.proxy :as proxy]
+            [did-web.xrpc :as xrpc]))
 
 ;; ─── injected-deps access (rename-safe) ──────────────────────────────────────
 
@@ -236,8 +237,8 @@
   [request env ctx deps fallback]
   (let [url    (js/URL. (.-url request))
         method (.-method request)
-        {:keys [route handle cid]} (router/route {:method method
-                                                  :path   (.-pathname url)})]
+        {:keys [route handle cid nsid]} (router/route {:method method
+                                                       :path   (.-pathname url)})]
     (if-not (router/method-allowed? route method)
       @method-not-allowed
       (case route
@@ -260,7 +261,9 @@
         :kotoba-stats        (kotoba/handle-stats-get url env)
         :kotoba-block-get    (.then (kotoba/serve-block-from-kv cid env)
                                     (fn [r] (or r (fallback request env ctx))))
+        ;; generic /xrpc dispatch (delegates only CACAO-crypto auth to fallback)
+        :xrpc                (xrpc/handle request env ctx deps fallback nsid)
         ;; default site path → cljs reverse proxy to the yoro Worker
         :reverse-proxy       (proxy/reverse-proxy request env)
-        ;; :fallback (/xrpc/* auth+AppView, /gov) → legacy TS handler
+        ;; :fallback (/gov inline HTML) → legacy TS handler
         (fallback request env ctx)))))

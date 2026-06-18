@@ -79,10 +79,12 @@
      (when-let [[_ h] (re-matches actor-profile-re path)] {:route :actor-profile   :handle h})
      (when-let [[_ h] (re-matches actor-procs-re path)]   {:route :actor-procedures :handle h})
      (when-let [[_ c] (re-matches ipfs-re path)]          {:route :ipfs :cid c})
-     ;; /xrpc/* (the auth + AppView-proxy unit) and /gov (inline HTML) remain on
-     ;; the legacy TS handler for now — a cohesive next batch (CACAO crypto).
-     (when (str/starts-with? path "/xrpc/")              {:route :fallback})
-     (when (or (= p "/gov"))                             {:route :fallback})
+     ;; generic /xrpc/<nsid> → cljs xrpc dispatch (kotoba xrpc endpoints were
+     ;; matched above; the cljs handler delegates ONLY the CACAO-crypto auth
+     ;; short-circuits back to the TS fallback).
+     (when-let [[_ n] (re-matches #"^/xrpc/([A-Za-z0-9._-]+)$" path)] {:route :xrpc :nsid n})
+     ;; /gov (inline HTML) still on the TS fallback (next: extract the template).
+     (when (= p "/gov")                                  {:route :fallback})
      ;; everything else (SPA routes, apex landing, …) → cljs reverse proxy
      {:route :reverse-proxy})))
 

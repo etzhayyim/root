@@ -2169,6 +2169,15 @@ const cljsDeps = {
   handleValid: (handle: string) => HANDLE_REGEX.test(handle),
   isKnownHandle: (handle: string) => isKnownHandle(handle),
   govProcsByOwner: (handle: string) => GOV_PROCEDURES_BY_OWNER.get(handle) ?? [],
+  // xrpc registry surface (searchActors / getProfile short-circuits)
+  searchEntityActors: (q: string, limit: number, offset: number) =>
+    searchEntityActors(q, limit, offset),
+  entityTotalCount: ENTITY_TOTAL_COUNT,
+  compiledActorRecord: (handle: string) => compiledActorRecord(handle),
+  compiledActorHandlesList: [...COMPILED_ACTOR_HANDLES],
+  compiledActorHas: (handle: string) => COMPILED_ACTOR_HANDLES.has(handle),
+  actorHandleFromParam: (param: string) => actorHandleFromParam(param),
+  isEntityHandle: (handle: string) => isEntityHandle(handle),
 };
 
 export default {

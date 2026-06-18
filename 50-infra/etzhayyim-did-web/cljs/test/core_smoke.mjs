@@ -19,6 +19,21 @@ const deps = {
   handleValid: (h) => /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/.test(h),
   isKnownHandle: (h) => h === "tsumugi" || h === "gov-jp-somu",
   govProcsByOwner: (h) => (h === "gov-jp-somu" ? [{ id: "passport" }] : []),
+  // xrpc registry surface
+  searchEntityActors: (q, limit, offset) => ({
+    records: q.includes("none") ? [] : [{ handle: "gov-x", displayNameEn: "Gov X" }],
+    total: q.trim() ? 1 : 0,
+    nextOffset: offset === 0 ? 50 : null,
+  }),
+  entityTotalCount: 8888,
+  compiledActorRecord: (h) => (h === "tsumugi" ? { handle: "tsumugi", displayNameEn: "Tsumugi" } : null),
+  compiledActorHandlesList: ["tsumugi", "ooyake"],
+  compiledActorHas: (h) => h === "tsumugi" || h === "ooyake",
+  actorHandleFromParam: (p) => {
+    if (p.startsWith("did:web:etzhayyim.com:actor:")) return p.slice("did:web:etzhayyim.com:actor:".length);
+    return p || null;
+  },
+  isEntityHandle: (h) => h.startsWith("gov-"),
 };
 const fallbackSentinel = new Response("FALLBACK", { status: 299 });
 const fallback = async () => fallbackSentinel;
@@ -70,8 +85,9 @@ function check(name, cond, extra="") { if (cond) console.log("ok  -", name); els
   check("actor procedures 200 count1", r.status === 200 && b.includes("\"count\": 1") && b.includes("passport")); }
 { const r = await call("GET", "/gov");
   check("/gov delegated to TS fallback", r.status === 299); }
-{ const r = await call("POST", "/xrpc/app.bsky.feed.getTimeline");
-  check("xrpc fallback (POST allowed through)", r.status === 299); }
+{ // POST to a known route with no upstream configured → cljs xrpc 503
+  const r = await call("POST", "/xrpc/app.bsky.feed.getTimeline");
+  check("xrpc POST no-upstream → 503", r.status === 503); }
 
 // ─── reverse proxy (default site path → YORO service binding) ────────────────
 function proxyEnv(upstreamResp, throwIt = false) {
@@ -247,6 +263,60 @@ if (sigHex) {
       { root: rootCid, did: didKey, sig: sigHex, blocks: [] }, {});
     check("kotoba block.put no KV → 503", r.status === 503);
   }
+}
+
+// ─── xrpc dispatch (registry short-circuits + proxy; CACAO → fallback) ───────
+{ // verifyCacao POST → delegated to TS fallback (CACAO crypto stays in TS)
+  const r = await callEnv("POST", "/xrpc/com.etzhayyim.authz.verifyCacao", {});
+  check("xrpc verifyCacao → TS fallback", r.status === 299);
+}
+{ // registerAccount POST → delegated to TS fallback
+  const r = await callEnv("POST", "/xrpc/com.etzhayyim.authz.registerAccount", {});
+  check("xrpc registerAccount → TS fallback", r.status === 299);
+}
+{ // kotobaWriteConfig GET → 200, operatorDid + writeEnabled
+  const env = { KOTOBA_OPERATOR_DID: "did:key:zABC", KOTOBA_WRITE_ENDPOINT: "https://node" };
+  const r = await callEnv("GET", "/xrpc/com.etzhayyim.authz.kotobaWriteConfig", env);
+  const j = await r.json();
+  check("xrpc kotobaWriteConfig → 200 enabled",
+        r.status === 200 && j.operatorDid === "did:key:zABC" && j.writeEnabled === true
+        && r.headers.get("x-etzhayyim-auth") === "cacao-verify-only");
+}
+{ // searchActors GET → 200, actors + totalActors + entity-mirror source
+  const r = await callEnv("GET", "/xrpc/app.bsky.actor.searchActors?q=gov&limit=10", {});
+  const j = await r.json();
+  check("xrpc searchActors → 200 merged",
+        r.status === 200 && Array.isArray(j.actors) && typeof j.totalActors === "number"
+        && r.headers.get("x-etzhayyim-actor-source") === "entity-mirror+pds"
+        && r.headers.get("x-etzhayyim-entity-total") === "8888", r.status + " " + JSON.stringify(j));
+}
+{ // getProfile for a registered actor DID → 200 from the registry
+  const r = await callEnv("GET", "/xrpc/app.bsky.actor.getProfile?actor=did:web:etzhayyim.com:actor:tsumugi", {});
+  const j = await r.json();
+  check("xrpc getProfile registered → 200", r.status === 200 && j.displayName === "Tsumugi");
+}
+{ // generic proxy: unknown NSID → 501 MethodNotImplemented
+  const r = await callEnv("GET", "/xrpc/com.unknown.thing", {});
+  check("xrpc unknown NSID → 501", r.status === 501 && (await r.text()).includes("MethodNotImplemented"));
+}
+{ // generic proxy: known route but empty upstream → 503
+  const r = await callEnv("GET", "/xrpc/com.etzhayyim.apps.unispsc.foo", { XRPC_UNISPSC_UPSTREAM: "" });
+  check("xrpc empty upstream → 503", r.status === 503 && (await r.text()).includes("UpstreamNotConfigured"));
+}
+{ // generic proxy: GET→POST normalization to a configured upstream (mock fetch)
+  let captured = null;
+  globalThis.fetch = async (url, opts) => { captured = { url: String(url), method: opts.method, body: opts.body }; return new Response('{"ok":1}', { status: 200 }); };
+  const r = await callEnv("GET", "/xrpc/app.bsky.feed.getTimeline?limit=5", { XRPC_ATPROTO_UPSTREAM: "https://up.example" });
+  globalThis.fetch = realFetch;
+  check("xrpc generic proxy GET→POST normalized",
+        r.status === 200 && captured && captured.method === "POST" && captured.url.includes("/xrpc/app.bsky.feed.getTimeline")
+        && captured.body.includes("\"limit\":\"5\"") && r.headers.get("x-proxied-by") === "etzhayyim-did-web", JSON.stringify(captured));
+}
+{ // substrate routing: getFollowers → YORO_XRPC service binding
+  const env = { YORO_XRPC: { fetch: async (req) => new Response('{"followers":[]}', { status: 200, headers: { "set-cookie": "z=1" } }) } };
+  const r = await callEnv("GET", "/xrpc/app.bsky.graph.getFollowers?actor=x", env);
+  check("xrpc substrate getFollowers → proxied",
+        r.status === 200 && r.headers.get("x-etzhayyim-substrate") === "mst-ipfs-l2" && r.headers.get("set-cookie") === null);
 }
 
 console.log(fails === 0 ? "\nALL SMOKE PASS" : `\n${fails} SMOKE FAILS`);
