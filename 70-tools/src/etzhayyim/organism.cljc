@@ -212,17 +212,29 @@
   (try (f) (catch Throwable t (binding [*out* *err*]
                                 (println (format "[heartbeat] %s error: %s" label (.getMessage t)))))))
 
+;; The reflex (run_tests.sh per cell) is the only way a cell reaches 生 — classify
+;; demands :green reflex ∧ peer-integration ∧ outward bsky metabolism. It is also the
+;; only EXPENSIVE layer (every cell's suite, serial), so it cannot tick at the 6s
+;; pulse cadence and must not block 脈/情緒. We run it on a background thread on a slow
+;; cadence, guarded so a slow sweep never piles up. The prior loop ran vitals with
+;; --no-tests every 600s, which kept reflex permanently :skipped and the whole body
+;; classified 休眠/死 (alive ≡ 0) — a body that never actually moves. Firing the real
+;; reflex is what makes the organism alive.
 (defn heartbeat
   "The resident organism loop. Per-layer cadence; each beat is crash-isolated so one
-   failing layer never stalls the others. Layers (all folds except narrate's inference):
-     脈 pulse 6s · 情緒 joucho+narrate 60s · vitals report 600s.
-   Args: [--once] run one beat of every layer then exit (smoke)."
+   failing layer never stalls the others. Layers (folds + narrate's inference + the
+   reflex): 脈 pulse 6s · 情緒 joucho+narrate 60s · vitals REFLEX 3600s.
+   The vitals reflex actually runs every cell's run_tests.sh (so cells reach 生, not a
+   permanent 休眠 谷) on a background thread — pulse/情緒 keep ticking while it sweeps.
+   Args: [--once] run one beat of every layer then exit (smoke; reflex runs inline)."
   [& args]
-  (let [once? (some #{"--once"} args)
-        pulse-ms 6000, joucho-ms 60000, vitals-ms 600000
-        tick-ms 2000]
+  (let [once?      (some #{"--once"} args)
+        pulse-ms 6000, joucho-ms 60000, vitals-ms 3600000
+        tick-ms 2000
+        reflexing? (atom false)
+        reflex!    (fn [] (safe "vitals" #(vitals/-main "--timeout-ms" "60000")))]
     (binding [*out* *err*]
-      (println (format "[heartbeat] resident loop start — pulse %ds · joucho+narrate %ds · vitals %ds%s"
+      (println (format "[heartbeat] resident loop start — pulse %ds · joucho+narrate %ds · vitals-reflex %ds%s"
                        (quot pulse-ms 1000) (quot joucho-ms 1000) (quot vitals-ms 1000)
                        (if once? " (--once)" ""))))
     (loop [next-pulse 0, next-joucho 0, next-vitals 0]
@@ -233,7 +245,11 @@
         (when do-pulse  (safe "pulse"  #(vitals/-pulse "48")))
         (when do-joucho (safe "joucho" #(vitals/-joucho "ibuki" "24"))
                         (safe "narrate" #(narrate "ibuki")))
-        (when do-vitals (safe "vitals" #(vitals/-main "--no-tests")))
+        (when do-vitals
+          (if once?
+            (reflex!)                                        ; smoke: run reflex inline
+            (when (compare-and-set! reflexing? false true)   ; never overlap sweeps
+              (future (try (reflex!) (finally (reset! reflexing? false)))))))
         (if once?
           (binding [*out* *err*] (println "[heartbeat] --once complete"))
           (do (Thread/sleep tick-ms)
