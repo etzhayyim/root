@@ -39,7 +39,7 @@ methods/autorun.cljc      Wave 2: deterministic, idempotent-by-content heartbeat
 methods/test_*.cljc       loader + analytics + G1/G3/G5 + ledger/heartbeat invariants
 kotoba/ontology.busshi.edn  EAVT schema + negative space (unrepresentable attrs)
 kotoba/seed.edn           seed (26 commodities, all 5 classes); MIXED provenance —
-                          14 USGS-sourced (:authoritative), the rest :representative
+                          15 :authoritative (14 USGS + 1 WNA uranium), rest :representative
 data/ (gitignored)        generated observation ledger — never committed/hand-edited
 manifest.edn              gates G1–G8 + non-goals N1–N5 + method/seed/ledger registry
 ```
@@ -79,9 +79,14 @@ bb --classpath 20-actors 20-actors/busshi/methods/autorun.cljc           # heart
   Those rows carry `:sourcing :authoritative` + a cited `:busshi/source`; the
   analytics/datoms/report thread per-row provenance (mixed `:representative`/`:authoritative`).
   The seed header reserves live ingest for an operator step; this fold was operator-commanded.
+  **+ uranium** folded from the **World Nuclear Association** 2024 table (tU): Kazakhstan 39 /
+  Canada 24 / Namibia 12 / Australia 8 / Uzbekistan 7 (Canada 15→24 is the big move).
   Remaining `:representative`: gallium/germanium (USGS gives narrative shares / import sources
   only, no clean production-by-country table to cite) + REE (defers to rare-earth-coverage) +
-  the non-USGS classes (EIA energy: crude/gas/coal/uranium · USDA ag) per source.
+  **crude/gas/coal HELD** — EIA reports *total petroleum liquids* (US 22%), a definitional
+  mismatch with the seed's crude-only (WTI/Brent) row; needs a clean crude-only / consistently
+  defined table (Energy Institute Statistical Review) before an honest authoritative fold +
+  the USDA/FAO ag class.
 - Wave 2+: per-commodity depth (stocks/curve as facts, recycling-loop linkage to kanayama),
   Murakumo-narrated digest, fleet registration, lexicons.
 

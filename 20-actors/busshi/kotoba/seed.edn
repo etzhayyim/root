@@ -95,8 +95,9 @@
   :producers [[:cn 50] [:in 10] [:id 8] [:us 6] [:other 26]]
   :recyclability 0.0 :carbon-intensity 1.0 :irreversibility 0.95 :ref-level 120}
  {:type :commodity :id "u3o8" :symbol "U3O8" :name "Uranium" :class :energy :unit "USD/lb"
-  :producers [[:kz 43] [:ca 15] [:na 11] [:au 9] [:other 22]]
-  :recyclability 0.10 :carbon-intensity 0.2 :irreversibility 0.7 :ref-level 80}
+  :producers [[:kz 39] [:ca 24] [:na 12] [:au 8] [:uz 7] [:other 10]]
+  :recyclability 0.10 :carbon-intensity 0.2 :irreversibility 0.7 :ref-level 80
+  :sourcing :authoritative :source "World Nuclear Association (2024 mine production, tU)"}
 
  ;; ── agricultural softs ─────────────────────────────────────────────────────
  {:type :commodity :id "wheat" :symbol "W" :name "Wheat" :class :ag-soft :unit "USD/bu"
