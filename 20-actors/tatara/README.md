@@ -22,7 +22,7 @@ Charter Rider §2(c) reciprocity axis; Wellbecoming §1.13). Enforced by constru
 ## Run
 
 ```bash
-bb 20-actors/tatara/run_tests.sh
+bash 20-actors/tatara/run_tests.sh
 # Testing tatara.methods.test-analyze … Ran 9 tests / 403 assertions.  0 failures.
 # Testing tatara.methods.test-kotoba  … Ran 5 tests / 546 assertions.  0 failures.
 # Testing tatara.methods.test-autorun … Ran 5 tests / 1213 assertions. 0 failures.
