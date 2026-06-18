@@ -2,6 +2,15 @@ name = "etzhayyim-did-web"
 main = "src/worker.ts"
 compatibility_date = "2026-05-17"
 
+# Build the ClojureScript Worker core (shadow-cljs :esm → cljs-out/worker_core.js)
+# BEFORE wrangler bundles src/worker.ts, which statically imports it. This runs
+# for EVERY wrangler invocation (bare `wrangler deploy`, CI, `wrangler dev`) — not
+# just `npm run deploy` — so a fresh checkout (cljs-out/ is gitignored) never hits
+# a missing-import bundle failure. (`npm run build:cljs` = `cd cljs && npm install
+# && npm run build`.)
+[build]
+command = "npm run build:cljs"
+
 # ── Static assets (ADR-2606013600 / kabuto G6 browser-native render) ─────────
 # Serves the kotoba-wasm browser-node bundle at
 #   /kotoba/kotoba_wasm.js  +  /kotoba/kotoba_wasm_bg.wasm

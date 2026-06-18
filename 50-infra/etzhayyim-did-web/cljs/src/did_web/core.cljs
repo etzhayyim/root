@@ -72,9 +72,12 @@
 (defn- json-pretty [x] (str (js/JSON.stringify x nil 2) "\n"))
 (defn- json-compact [x] (str (js/JSON.stringify x) "\n"))
 
-(def ^:private method-not-allowed
-  (delay (js/Response. "Method Not Allowed"
-                       #js {:status 405 :headers #js {"allow" "GET, HEAD"}})))
+(defn- method-not-allowed
+  "A fresh 405 Response per call — a Response body is a single-use stream in the
+  Workers runtime, so a shared instance must not be returned for two requests."
+  []
+  (js/Response. "Method Not Allowed"
+                #js {:status 405 :headers #js {"allow" "GET, HEAD"}}))
 
 ;; ─── local JSON routes ───────────────────────────────────────────────────────
 
@@ -178,7 +181,7 @@
          (let [doc (if rec
                      (call deps "toDidDoc" rec env)
                      (call deps "buildPerActorDidDoc" handle env))
-               source (if rec (gobj/get rec "source") "scaffold")
+               source (or (when rec (gobj/get rec "source")) "scaffold")
                base-headers (assoc base-sec
                                    "content-type" "application/did+json; charset=utf-8"
                                    "cache-control" "public, max-age=60, must-revalidate"
@@ -240,7 +243,7 @@
         {:keys [route handle cid nsid]} (router/route {:method method
                                                        :path   (.-pathname url)})]
     (if-not (router/method-allowed? route method)
-      @method-not-allowed
+      (method-not-allowed)
       (case route
         :did-json            (did-json-route deps)
         :donation-json       (donation-json-route deps)
