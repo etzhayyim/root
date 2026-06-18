@@ -39,9 +39,9 @@ methods/autorun.cljc      Wave 2: deterministic, idempotent-by-content heartbeat
 methods/test_*.cljc       loader + analytics + G1/G3/G5 + ledger/heartbeat invariants
 kotoba/ontology.busshi.edn  EAVT schema + negative space (unrepresentable attrs)
 kotoba/seed.edn           seed (26 commodities, all 5 classes); MIXED provenance —
-                          23 :authoritative (14 USGS metals + WNA uranium + EIA/OPEC
-                          crude/gas/coal + FAO wheat/corn/soybean/coffee + USDA sugar);
-                          3 :representative (ga/ge no clean table, REE → rare-earth-coverage)
+                          25 :authoritative (15 USGS incl. REE+gallium + WNA uranium +
+                          EIA/OPEC crude/gas/coal + FAO wheat/corn/soybean/coffee + USDA
+                          sugar); 1 :representative (germanium — USGS data unverifiable)
 data/ (gitignored)        generated observation ledger — never committed/hand-edited
 manifest.edn              gates G1–G8 + non-goals N1–N5 + method/seed/ledger registry
 ```
@@ -92,11 +92,26 @@ bb --classpath 20-actors 20-actors/busshi/methods/autorun.cljc           # heart
   (2023 green-coffee — Brazil 31 / Vietnam 18 / Indonesia 7). The final 4 `:representative`
   + **sugar** (USDA FAS centrifugal sugar, raw value, world 186.1 Mt — Brazil 23 / India 18 /
   EU 8 / China 7 / Thailand 5; the centrifugal-raw basis matches the #11 row, resolving the
-  earlier sugarcane-crop mismatch). The final 3 `:representative` are structurally uncitable
-  within busshi's scope: **gallium/germanium** (USGS publishes no clean production-by-country
-  table — narrative shares / import sources only) + **REE** (defers to the rare-earth-coverage
-  actor by design). This is the honest ceiling — no further row can be folded without
-  fabricating a citation or duplicating another actor's scope.
+  earlier sugarcane-crop mismatch).
+  **+ REE + gallium** (correcting an earlier too-quick "no clean figure" call): REE from USGS
+  MCS 2025 (2024e REO, world 390,000 t — China 69 / US 12 / Burma 8 / Australia 3; an
+  authoritative AGGREGATE share, per-element depth still the rare-earth-coverage actor's job),
+  gallium from the USGS narrative "China accounted for 99% of worldwide primary low-purity
+  gallium production" (a clean citeable figure even without a per-country table). The **single**
+  remaining `:representative` row is **germanium** — and that one is honest: USGS states its own
+  germanium refinery-production estimates "were limited and difficult to verify," so there is no
+  figure to cite. 25/26 authoritative; the 26th waits for a verifiable germanium source.
+- **Wave 2+ MCS-2026 refresh (COMPLETE for metals)**: all **16 USGS metals** refreshed from MCS
+  2025 (2024e) to MCS **2026** (2025e). Material §2(l) shifts captured:
+  **nickel** Indonesia 59→**67** (:high→:critical), **antimony** China 60→**36** (USGS revised
+  China's 2024 output 60k→40k amid the export ban; Russia 13→29; :critical→:moderate, route flips
+  to resilience), **lithium** Australia 37→32 / China 17→21 (China overtakes Chile for #2),
+  **cobalt** Congo 76→73 / Indonesia 10→14, **tungsten** China 83→79, **tin** Indonesia 17→**21**
+  (Burma/Peru drop out of the named set, Brazil/Congo enter), **silver** Peru 12→14 (rises to #2),
+  **REE** Australia 3→7, **palladium** Russia 40→44, **lead** China 44→42. Energy (EIA/OPEC) + ag
+  (FAO/USDA) rows stay on their original vintage (different sources/release cadence). Germanium is
+  still the only `:representative` row (USGS data unverifiable). 25/26 authoritative, now uniformly
+  on the newest USGS vintage for the metals.
 - Wave 2+: per-commodity depth (stocks/curve as facts, recycling-loop linkage to kanayama),
   Murakumo-narrated digest, fleet registration, lexicons.
 

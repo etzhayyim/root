@@ -16,14 +16,14 @@
 (deftest top-share-excludes-other
   ;; gold's :other 59 must NOT count as a producer share (China 12 is the max)
   (is (= 12 (a/top-producer-share (by-id "au"))))
-  (is (= 98 (a/top-producer-share (by-id "ga")))))
+  (is (= 99 (a/top-producer-share (by-id "ga")))))  ; USGS: China 99% of primary low-purity gallium
 
 (deftest chokepoint-levels
   (is (= :critical (a/chokepoint-risk (a/top-producer-share (by-id "ga"))))) ; gallium 98
   (is (= :critical (a/chokepoint-risk (a/top-producer-share (by-id "co"))))) ; cobalt cd=76 (USGS 2024e)
   (is (= :low      (a/chokepoint-risk (a/top-producer-share (by-id "au"))))) ; gold 10
   (is (= :moderate (a/chokepoint-risk (a/top-producer-share (by-id "zn"))))) ; zinc cn=33
-  (is (= :high     (a/chokepoint-risk (a/top-producer-share (by-id "ni")))))) ; nickel id=59 (USGS 2024e)
+  (is (= :critical (a/chokepoint-risk (a/top-producer-share (by-id "ni")))))) ; nickel id=67 (USGS MCS 2026 2025e)
 
 (deftest route-by-dominant-driver
   (is (= :de-monopolization (a/route (by-id "ga"))) "gallium: monopoly dominant")
@@ -57,14 +57,14 @@
   (let [edn (a/render-datoms (a/analyze (cs)))
         co  (a/analyze-commodity (by-id "co"))]
     (is (= :authoritative (get co "sourcing")) "cobalt is USGS-sourced")
-    (is (str/includes? (get co "source") "USGS MCS 2025"))
-    (is (= :representative (get (a/analyze-commodity (by-id "ga")) "sourcing"))
-        "gallium (no clean production-by-country table to cite) stays representative")
+    (is (str/includes? (get co "source") "USGS MCS"))
+    (is (= :representative (get (a/analyze-commodity (by-id "ge")) "sourcing"))
+        "germanium (USGS calls its own refinery-production data unverifiable) stays representative")
     (is (str/includes? edn ":authoritative"))
     (is (str/includes? edn ":busshi/source"))
-    (is (str/includes? edn "USGS MCS 2025"))
-    ;; the authoritative folding changed the disclosed cobalt share to the real 2024e value
-    (is (= 76 (a/top-producer-share (by-id "co"))))))
+    (is (str/includes? edn "USGS MCS"))
+    ;; the authoritative folding changed the disclosed cobalt share to the real value
+    (is (= 73 (a/top-producer-share (by-id "co"))))))  ; USGS MCS 2026 (2025e)
 
 (deftest g1-g3-no-trade-no-signal-no-forecast
   ;; G1: never a trade. G3: never a signal / point forecast.

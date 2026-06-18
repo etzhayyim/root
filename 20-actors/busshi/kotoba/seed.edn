@@ -15,73 +15,75 @@
  {:type :commodity :id "au" :symbol "Au" :name "Gold"      :class :precious-metal :unit "USD/troy-oz"
   :producers [[:cn 12] [:ru 9] [:au 9] [:ca 6] [:us 5] [:other 59]]
   :recyclability 0.90 :carbon-intensity 0.45 :irreversibility 0.45 :ref-level 2400
-  :sourcing :authoritative :source "USGS MCS 2025 (2024e mine production)"}
+  :sourcing :authoritative :source "USGS MCS 2026 (2025e mine production)"}
  {:type :commodity :id "ag" :symbol "Ag" :name "Silver"    :class :precious-metal :unit "USD/troy-oz"
-  :producers [[:mx 25] [:cn 13] [:pe 12] [:cl 5] [:other 45]]
+  :producers [[:mx 24] [:pe 14] [:cn 13] [:cl 5] [:other 44]]
   :recyclability 0.85 :carbon-intensity 0.45 :irreversibility 0.45 :ref-level 30
-  :sourcing :authoritative :source "USGS MCS 2025 (2024e mine production)"}
+  :sourcing :authoritative :source "USGS MCS 2026 (2025e mine production)"}
  {:type :commodity :id "pt" :symbol "Pt" :name "Platinum"  :class :precious-metal :unit "USD/troy-oz"
-  :producers [[:za 71] [:zw 11] [:ru 11] [:ca 3] [:other 4]]
+  :producers [[:za 71] [:ru 12] [:zw 11] [:ca 3] [:other 3]]
   :recyclability 0.80 :carbon-intensity 0.5 :irreversibility 0.5 :ref-level 950
-  :sourcing :authoritative :source "USGS MCS 2025 (2024e mine production)"}
+  :sourcing :authoritative :source "USGS MCS 2026 (2025e mine production)"}
  {:type :commodity :id "pd" :symbol "Pd" :name "Palladium" :class :precious-metal :unit "USD/troy-oz"
-  :producers [[:ru 40] [:za 38] [:ca 8] [:zw 8] [:other 6]]
+  :producers [[:ru 44] [:za 37] [:ca 8] [:zw 8] [:other 3]]
   :recyclability 0.80 :carbon-intensity 0.5 :irreversibility 0.5 :ref-level 1000
-  :sourcing :authoritative :source "USGS MCS 2025 (2024e mine production)"}
+  :sourcing :authoritative :source "USGS MCS 2026 (2025e mine production)"}
 
  ;; ── base metals ────────────────────────────────────────────────────────────
  {:type :commodity :id "cu" :symbol "Cu" :name "Copper"    :class :base-metal :unit "USD/tonne"
-  :producers [[:cl 23] [:cd 14] [:pe 11] [:cn 8] [:other 44]]
+  :producers [[:cl 23] [:cd 14] [:pe 12] [:cn 8] [:other 43]]
   :recyclability 0.85 :carbon-intensity 0.55 :irreversibility 0.55 :ref-level 9500
-  :sourcing :authoritative :source "USGS MCS 2025 (2024e mine production)"}
+  :sourcing :authoritative :source "USGS MCS 2026 (2025e mine production)"}
  {:type :commodity :id "al" :symbol "Al" :name "Aluminium" :class :base-metal :unit "USD/tonne"
-  :producers [[:cn 60] [:in 6] [:ru 5] [:ca 5] [:other 24]]
+  :producers [[:cn 61] [:in 6] [:ru 5] [:ca 5] [:other 23]]
   :recyclability 0.95 :carbon-intensity 0.75 :irreversibility 0.5 :ref-level 2500
-  :sourcing :authoritative :source "USGS MCS 2025 (2024e smelter production)"}
+  :sourcing :authoritative :source "USGS MCS 2026 (2025e smelter production)"}
  {:type :commodity :id "zn" :symbol "Zn" :name "Zinc"      :class :base-metal :unit "USD/tonne"
-  :producers [[:cn 33] [:pe 11] [:au 9] [:in 7] [:mx 6] [:other 34]]
+  :producers [[:cn 32] [:pe 12] [:au 8] [:in 7] [:mx 6] [:other 35]]
   :recyclability 0.80 :carbon-intensity 0.55 :irreversibility 0.5 :ref-level 2900
-  :sourcing :authoritative :source "USGS MCS 2025 (2024e mine production)"}
+  :sourcing :authoritative :source "USGS MCS 2026 (2025e mine production)"}
  {:type :commodity :id "ni" :symbol "Ni" :name "Nickel"    :class :base-metal :unit "USD/tonne"
-  :producers [[:id 59] [:ph 9] [:ru 6] [:ca 5] [:other 21]]
+  :producers [[:id 67] [:ph 7] [:ru 5] [:ca 4] [:other 17]]
   :recyclability 0.70 :carbon-intensity 0.7 :irreversibility 0.65 :ref-level 17000
-  :sourcing :authoritative :source "USGS MCS 2025 (2024e mine production)"}
+  :sourcing :authoritative :source "USGS MCS 2026 (2025e mine production)"}
  {:type :commodity :id "pb" :symbol "Pb" :name "Lead"      :class :base-metal :unit "USD/tonne"
-  :producers [[:cn 44] [:au 10] [:us 7] [:pe 6] [:other 33]]
+  :producers [[:cn 42] [:au 11] [:pe 6] [:us 6] [:other 35]]
   :recyclability 0.90 :carbon-intensity 0.5 :irreversibility 0.5 :ref-level 2000
-  :sourcing :authoritative :source "USGS MCS 2025 (2024e mine production)"}
+  :sourcing :authoritative :source "USGS MCS 2026 (2025e mine production)"}
  {:type :commodity :id "sn" :symbol "Sn" :name "Tin"       :class :base-metal :unit "USD/tonne"
-  :producers [[:cn 23] [:id 17] [:mm 11] [:pe 10] [:other 39]]
+  :producers [[:cn 24] [:id 21] [:br 10] [:cd 9] [:other 36]]
   :recyclability 0.65 :carbon-intensity 0.5 :irreversibility 0.55 :ref-level 31000
-  :sourcing :authoritative :source "USGS MCS 2025 (2024e mine production)"}
+  :sourcing :authoritative :source "USGS MCS 2026 (2025e mine production)"}
 
  ;; ── rare / critical metals (thin; rare-earths defer to rare-earth-coverage) ─
  {:type :commodity :id "li" :symbol "Li" :name "Lithium"        :class :rare-metal :unit "USD/tonne-LCE"
-  :producers [[:au 37] [:cl 20] [:cn 17] [:zw 9] [:ar 8] [:other 9]]
+  :producers [[:au 32] [:cn 21] [:cl 19] [:zw 10] [:ar 8] [:other 10]]
   :recyclability 0.30 :carbon-intensity 0.55 :irreversibility 0.6 :ref-level 14000
-  :sourcing :authoritative :source "USGS MCS 2025 (2024e mine production, ex-US)"}
+  :sourcing :authoritative :source "USGS MCS 2026 (2025e mine production, ex-US)"}
  {:type :commodity :id "co" :symbol "Co" :name "Cobalt"         :class :rare-metal :unit "USD/tonne"
-  :producers [[:cd 76] [:id 10] [:ru 3] [:other 11]]
+  :producers [[:cd 73] [:id 14] [:ru 3] [:other 10]]
   :recyclability 0.45 :carbon-intensity 0.6 :irreversibility 0.65 :ref-level 27000
-  :sourcing :authoritative :source "USGS MCS 2025 (2024e mine production)"}
+  :sourcing :authoritative :source "USGS MCS 2026 (2025e mine production)"}
  {:type :commodity :id "ree" :symbol "REE" :name "Rare Earths (NdPr/Dy/Tb agg.)" :class :rare-metal :unit "index"
-  :producers [[:cn 69] [:us 12] [:mm 11] [:au 5] [:other 3]]
+  :producers [[:cn 69] [:us 13] [:au 7] [:mm 6] [:other 5]]
   :recyclability 0.10 :carbon-intensity 0.6 :irreversibility 0.65 :ref-level nil
-  :note "Aggregate placeholder — detail lives in the rare-earth-coverage sibling actor."}
+  :sourcing :authoritative :source "USGS MCS 2026 (2025e REO mine production, world 390,000 t)"
+  :note "Authoritative AGGREGATE share only; per-element (NdPr/Dy/Tb) depth lives in the rare-earth-coverage sibling actor."}
  {:type :commodity :id "ga" :symbol "Ga" :name "Gallium"        :class :rare-metal :unit "USD/kg"
-  :producers [[:cn 98] [:other 2]]
-  :recyclability 0.20 :carbon-intensity 0.5 :irreversibility 0.5 :ref-level 350}
+  :producers [[:cn 99] [:other 1]]
+  :recyclability 0.20 :carbon-intensity 0.5 :irreversibility 0.5 :ref-level 350
+  :sourcing :authoritative :source "USGS MCS 2026 (China 99% of primary low-purity gallium, 2025)"}
  {:type :commodity :id "ge" :symbol "Ge" :name "Germanium"      :class :rare-metal :unit "USD/kg"
   :producers [[:cn 60] [:ru 5] [:other 35]]
   :recyclability 0.30 :carbon-intensity 0.5 :irreversibility 0.5 :ref-level 1500}
  {:type :commodity :id "w" :symbol "W" :name "Tungsten"         :class :rare-metal :unit "USD/mtu"
-  :producers [[:cn 83] [:vn 4] [:other 13]]
+  :producers [[:cn 79] [:vn 4] [:other 17]]
   :recyclability 0.40 :carbon-intensity 0.5 :irreversibility 0.55 :ref-level 340
-  :sourcing :authoritative :source "USGS MCS 2025 (2024e mine production)"}
+  :sourcing :authoritative :source "USGS MCS 2026 (2025e mine production)"}
  {:type :commodity :id "sb" :symbol "Sb" :name "Antimony"       :class :rare-metal :unit "USD/tonne"
-  :producers [[:cn 60] [:tj 17] [:ru 13] [:other 10]]
+  :producers [[:cn 36] [:ru 29] [:tj 20] [:other 15]]
   :recyclability 0.30 :carbon-intensity 0.5 :irreversibility 0.55 :ref-level 25000
-  :sourcing :authoritative :source "USGS MCS 2025 (2024e mine production)"}
+  :sourcing :authoritative :source "USGS MCS 2026 (2025e mine production; China 2024 revised 60k→40k)"}
 
  ;; ── energy carriers ────────────────────────────────────────────────────────
  {:type :commodity :id "crude" :symbol "WTI/Brent" :name "Crude Oil" :class :energy :unit "USD/bbl"
