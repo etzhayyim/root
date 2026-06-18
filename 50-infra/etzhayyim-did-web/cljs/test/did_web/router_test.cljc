@@ -35,10 +35,18 @@
   (testing "/gov (inline HTML) is intentionally still the TS fallback"
     (is (= :fallback (r "GET" "/gov")))))
 
+(deftest ipfs-route-owned
+  (testing "the trustless /ipfs/<cid> gateway is owned by the cljs core"
+    (is (= {:route :ipfs :cid "bafkreialpha"}
+           (router/route {:method "GET" :path "/ipfs/bafkreialpha"})))
+    (is (router/method-allowed? :ipfs "HEAD"))
+    (is (not (router/method-allowed? :ipfs "POST")))
+    (testing "a slash inside the cid segment is not an ipfs route"
+      (is (= :fallback (r "GET" "/ipfs/ab/cd"))))))
+
 (deftest io-plumbing-falls-back
-  (testing "heavy I/O routes resolve to :fallback (legacy TS handler)"
+  (testing "heavy I/O routes still on the legacy TS handler (next batches)"
     (doseq [p ["/"
-               "/ipfs/bafkreialpha"
                "/kotoba/blocks/bafkreibeta"
                "/kotoba/stats"
                "/xrpc/app.bsky.feed.getTimeline"

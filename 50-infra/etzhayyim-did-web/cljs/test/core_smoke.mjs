@@ -73,5 +73,59 @@ function check(name, cond, extra="") { if (cond) console.log("ok  -", name); els
 { const r = await call("POST", "/xrpc/app.bsky.feed.getTimeline");
   check("xrpc fallback (POST allowed through)", r.status === 299); }
 
+// ─── /ipfs gateway: codec faithfulness + trustless verification ──────────────
+// Reference base32 copied verbatim from src/cid.ts — proves the cljs base32
+// produces byte-identical CIDs (if it didn't, the round-trip verify would fail).
+const B32 = "abcdefghijklmnopqrstuvwxyz234567";
+function tsBase32(bytes) {
+  let bits = 0, val = 0, out = "";
+  for (const b of bytes) { val = (val << 8) | b; bits += 8;
+    while (bits >= 5) { out += B32[(val >>> (bits - 5)) & 31]; bits -= 5; } }
+  if (bits > 0) out += B32[(val << (5 - bits)) & 31];
+  return out;
+}
+async function rawCidOf(bytes) {
+  const digest = new Uint8Array(await crypto.subtle.digest("SHA-256", bytes));
+  const cid = new Uint8Array(4 + digest.length);
+  cid.set([0x01, 0x55, 0x12, 0x20], 0); cid.set(digest, 4);
+  return "b" + tsBase32(cid);
+}
+const ipfsBytes = new TextEncoder().encode("etzhayyim trustless gateway cljs port test\n");
+const ipfsCid = await rawCidOf(ipfsBytes);
+check("raw CID computed (bafkrei shape)", /^bafkrei[a-z2-7]{52}$/.test(ipfsCid), ipfsCid);
+
+const realFetch = globalThis.fetch;
+function mockFetch(bodyBytes, status = 200) {
+  globalThis.fetch = async () => new Response(status === 200 ? bodyBytes : "err", { status });
+}
+{ // happy path: gateway returns the correct bytes → 200 + verified header
+  mockFetch(ipfsBytes);
+  const r = await call("GET", "/ipfs/" + ipfsCid);
+  const body = new Uint8Array(await r.arrayBuffer());
+  check("ipfs raw 200 + verified header",
+        r.status === 200 && r.headers.get("x-etzhayyim-cid-verified") === "sha256"
+        && r.headers.get("cache-control") === "public, max-age=31536000, immutable"
+        && body.length === ipfsBytes.length, r.status + " " + r.headers.get("x-etzhayyim-cid-verified"));
+}
+{ // HEAD → 200, null body
+  mockFetch(ipfsBytes);
+  const r = await call("HEAD", "/ipfs/" + ipfsCid);
+  check("ipfs HEAD 200", r.status === 200);
+}
+{ // tampered bytes from an untrusted gateway → rejected → 502
+  mockFetch(new TextEncoder().encode("TAMPERED"));
+  const r = await call("GET", "/ipfs/" + ipfsCid);
+  check("ipfs tampered → 502 rejected", r.status === 502 && (await r.text()).includes("IpfsUnavailable"));
+}
+{ // non-verifiable CID shape → 501
+  const r = await call("GET", "/ipfs/notarealcid");
+  check("ipfs bad cid → 501", r.status === 501 && (await r.text()).includes("CidNotVerifiable"));
+}
+{ // POST → 405 (GET/HEAD only)
+  const r = await call("POST", "/ipfs/" + ipfsCid);
+  check("ipfs POST → 405", r.status === 405);
+}
+globalThis.fetch = realFetch;
+
 console.log(fails === 0 ? "\nALL SMOKE PASS" : `\n${fails} SMOKE FAILS`);
 process.exit(fails === 0 ? 0 : 1);

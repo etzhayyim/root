@@ -17,7 +17,8 @@
   object is OUR untyped JS, so its fields MUST be read with string access via
   `goog.object/get`. Never use `(.-foo deps)` on the injection object."
   (:require [goog.object :as gobj]
-            [did-web.router :as router]))
+            [did-web.router :as router]
+            [did-web.ipfs :as ipfs]))
 
 ;; ─── injected-deps access (rename-safe) ──────────────────────────────────────
 
@@ -233,8 +234,8 @@
   [request env ctx deps fallback]
   (let [url    (js/URL. (.-url request))
         method (.-method request)
-        {:keys [route handle]} (router/route {:method method
-                                              :path   (.-pathname url)})]
+        {:keys [route handle cid]} (router/route {:method method
+                                                  :path   (.-pathname url)})]
     (if-not (router/method-allowed? route method)
       @method-not-allowed
       (case route
@@ -249,5 +250,6 @@
         :actor-did           (actor-did-route deps env ctx handle)
         :actor-profile       (actor-profile-route deps env ctx handle)
         :actor-procedures    (actor-procedures-route deps handle)
+        :ipfs                (ipfs/handle-ipfs request env cid)
         ;; :fallback (and any not-yet-mapped route) → legacy TS handler
         (fallback request env ctx)))))

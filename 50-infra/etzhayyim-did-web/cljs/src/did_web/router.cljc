@@ -18,7 +18,7 @@
 (def get-head-only
   #{:did-json :donation-json :donate-html :actors-json :actors-html
     :gov-units-json :gov-procedures-json :organism-html
-    :actor-did :actor-profile :actor-procedures})
+    :actor-did :actor-profile :actor-procedures :ipfs})
 
 (defn- strip-trailing-slash
   "Normalize a path so \"/donate/\" and \"/donate\" route alike (but keep \"/\")."
@@ -30,6 +30,7 @@
 (def ^:private actor-did-re      #"^/actor/([^/]+)/did\.json$")
 (def ^:private actor-profile-re  #"^/actor/([^/]+)/profile\.json$")
 (def ^:private actor-procs-re    #"^/actor/([^/]+)/procedures\.json$")
+(def ^:private ipfs-re           #"^/ipfs/([A-Za-z0-9]+)$")
 
 (defn route
   "Resolve {:method :path} → a route map {:route <kw> & params}.
@@ -63,6 +64,7 @@
      (when-let [[_ h] (re-matches actor-did-re path)]     {:route :actor-did       :handle h})
      (when-let [[_ h] (re-matches actor-profile-re path)] {:route :actor-profile   :handle h})
      (when-let [[_ h] (re-matches actor-procs-re path)]   {:route :actor-procedures :handle h})
+     (when-let [[_ c] (re-matches ipfs-re path)]          {:route :ipfs :cid c})
      ;; not owned → legacy TS handler
      {:route :fallback})))
 
