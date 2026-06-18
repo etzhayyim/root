@@ -100,7 +100,15 @@ bb --classpath 20-actors 20-actors/busshi/methods/autorun.cljc           # heart
   gallium production" (a clean citeable figure even without a per-country table). The **single**
   remaining `:representative` row is **germanium** — and that one is honest: USGS states its own
   germanium refinery-production estimates "were limited and difficult to verify," so there is no
-  figure to cite. 25/26 is the real ceiling; the 26th waits for a verifiable germanium source.
+  figure to cite. 25/26 authoritative; the 26th waits for a verifiable germanium source.
+- **Wave 2+ MCS-2026 refresh (in progress)**: the metals were first folded from USGS MCS **2025**
+  (2024e); MCS **2026** (2025e) is now published, so the highest-delta critical minerals are being
+  refreshed to it (each row cites its own vintage — the seed is intentionally mixed-vintage,
+  transparently labeled). Folded so far: **cobalt** (Congo 76→73, Indonesia 10→14), **nickel**
+  (Indonesia 59→**67**, now :critical), **lithium** (Australia 37→32, China overtakes Chile for
+  #2), **antimony** (China 60→**36** — USGS revised China's 2024 output 60k→40k amid the export
+  ban — Russia 13→29, chokepoint :critical→:moderate, route de-monopolization→resilience). The
+  other 10 metals + REE/gallium remain on MCS 2025 (2024e) pending the same refresh.
 - Wave 2+: per-commodity depth (stocks/curve as facts, recycling-loop linkage to kanayama),
   Murakumo-narrated digest, fleet registration, lexicons.
 
