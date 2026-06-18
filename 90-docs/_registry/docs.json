@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-06-17",
+  "updated_at": "2026-06-18",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.md",
@@ -25929,6 +25929,40 @@
         "2605262800",
         "2605312345",
         "2605215000"
+      ],
+      "last_verified": "2026-06-17",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606171800-tatara-global-manufacturing-plant-kg.md",
+      "id": "adr-2606171800-tatara-global-manufacturing-plant-kg",
+      "title": "ADR-2606171800: tatara 鑪 — world manufacturing-plant + logistics geographic knowledge graph",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "tatara-manufacturing-geo",
+      "authoritative": true,
+      "authoritative_for": [
+        "geographic / facility-scale layer of the supply lineage (where the world's manufacturing physically sits)",
+        "tatara actor design, ontology, lexicons, gates",
+        "manufacturing export-dependence ↔ watari/watatsuna chokepoint composition",
+        "watari first visualization layer (craft-globe) + integrated world-supply globe"
+      ],
+      "related": [
+        "2605232345",
+        "2605232500"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606022000",
+        "2606081800",
+        "2606041827",
+        "2606012600",
+        "2605262130",
+        "2605312345",
+        "2605215000",
+        "2605192200"
       ],
       "last_verified": "2026-06-17",
       "amends": [],
