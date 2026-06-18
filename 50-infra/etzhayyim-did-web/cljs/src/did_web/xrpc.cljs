@@ -42,6 +42,12 @@
   (js/Response. (str (js/JSON.stringify obj) "\n")
                 #js {:status status :headers (clj->js headers)}))
 
+;; The error responses in worker.ts §3 use bare JSON.stringify (NO trailing
+;; newline), unlike the success bodies; keep that byte-for-byte.
+(defn- json-err [obj headers status]
+  (js/Response. (js/JSON.stringify obj)
+                #js {:status status :headers (clj->js headers)}))
+
 ;; ── substrate alias map (faithful) ───────────────────────────────────────────
 (def ^:private substrate-aliases
   {"app.bsky.actor.searchActors" "com.etzhayyim.yoro.actor.searchActors"
@@ -198,14 +204,14 @@
                                         :statusText (.-statusText resp)
                                         :headers h}))))
           (.catch (fn [err]
-                    (json+nl #js {:error "SubstrateUnreachable"
-                                  :message (if (instance? js/Error err) (.-message err)
-                                               "yoro-xrpc-adapter service binding fetch failed")
-                                  :nsid nsid :substrateNsid substrate-nsid}
-                             {"content-type" "application/json; charset=utf-8"
-                              "x-proxied-by" "etzhayyim-did-web"
-                              "x-proxied-upstream" "service:yoro-xrpc-adapter"}
-                             502)))))))
+                    (json-err #js {:error "SubstrateUnreachable"
+                                   :message (if (instance? js/Error err) (.-message err)
+                                                "yoro-xrpc-adapter service binding fetch failed")
+                                   :nsid nsid :substrateNsid substrate-nsid}
+                              {"content-type" "application/json; charset=utf-8"
+                               "x-proxied-by" "etzhayyim-did-web"
+                               "x-proxied-upstream" "service:yoro-xrpc-adapter"}
+                              502)))))))
 
 (defn- proxy-xrpc [request upstream nsid]
   (let [incoming (js/URL. (.-url request))
@@ -249,13 +255,13 @@
                                         :statusText (.-statusText resp)
                                         :headers h}))))
           (.catch (fn [err]
-                    (json+nl #js {:error "UpstreamUnreachable"
-                                  :message (if (instance? js/Error err) (.-message err)
-                                               "xrpc upstream fetch failed")
-                                  :nsid nsid}
-                             {"content-type" "application/json; charset=utf-8"
-                              "x-proxied-by" "etzhayyim-did-web"}
-                             502)))))))
+                    (json-err #js {:error "UpstreamUnreachable"
+                                   :message (if (instance? js/Error err) (.-message err)
+                                                "xrpc upstream fetch failed")
+                                   :nsid nsid}
+                              {"content-type" "application/json; charset=utf-8"
+                               "x-proxied-by" "etzhayyim-did-web"}
+                              502)))))))
 
 (defn- route-after-shortcircuits [request env nsid deps]
   (let [aliased (get substrate-aliases nsid)
@@ -267,13 +273,13 @@
       (let [route-key (find-xrpc-route nsid)]
         (cond
           (nil? route-key)
-          (json+nl #js {:error "MethodNotImplemented"
-                        :message (str "no upstream registered for NSID '" nsid "'")}
-                   {"content-type" "application/json; charset=utf-8"} 501)
+          (json-err #js {:error "MethodNotImplemented"
+                         :message (str "no upstream registered for NSID '" nsid "'")}
+                    {"content-type" "application/json; charset=utf-8"} 501)
           (let [up (e env route-key)] (or (nil? up) (= up "")))
-          (json+nl #js {:error "UpstreamNotConfigured"
-                        :message (str "env." route-key " is empty") :nsid nsid}
-                   {"content-type" "application/json; charset=utf-8"} 503)
+          (json-err #js {:error "UpstreamNotConfigured"
+                         :message (str "env." route-key " is empty") :nsid nsid}
+                    {"content-type" "application/json; charset=utf-8"} 503)
           :else (proxy-xrpc request (e env route-key) nsid))))))
 
 (defn handle
