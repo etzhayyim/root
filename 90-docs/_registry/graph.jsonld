@@ -16404,6 +16404,25 @@
       "lastVerified": "2026-06-17"
     },
     {
+      "id": "doc:adr-2606171800-tatara-global-manufacturing-plant-kg",
+      "type": "TechArticle",
+      "title": "ADR-2606171800: tatara 鑪 — world manufacturing-plant + logistics geographic knowledge graph",
+      "status": "proposed",
+      "topic": "tatara-manufacturing-geo",
+      "authoritative": true,
+      "authoritativeFor": [
+        "geographic / facility-scale layer of the supply lineage (where the world's manufacturing physically sits)",
+        "tatara actor design, ontology, lexicons, gates",
+        "manufacturing export-dependence ↔ watari/watatsuna chokepoint composition",
+        "watari first visualization layer (craft-globe) + integrated world-supply globe"
+      ],
+      "related": [
+        "doc:2605232345",
+        "doc:2605232500"
+      ],
+      "lastVerified": "2026-06-17"
+    },
+    {
       "id": "doc:adr-2606172100-retire-unispsc-python-per-code-fleet",
       "type": "TechArticle",
       "title": "ADR-2606172100: Retire the open-UNSPSC per-code Python agent fleet — superseded by the clj unspsc actor",

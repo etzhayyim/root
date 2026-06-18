@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.tatara.registerHub",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Assert a logistics NODE (seaport / airport / rail hub / inland port / distribution center) into the kotoba Datom log (:hub/*). Disclosed public infrastructure only; coordinates rounded to ~0.01° (G1). Throughput is the disclosed aggregate annual figure.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["hubId", "name", "country", "lat", "lon", "kind", "sourcing"],
+          "properties": {
+            "hubId": { "type": "string", "description": ":hub/id, e.g. \"hub.port.shanghai\"" },
+            "name": { "type": "string" },
+            "country": { "type": "string", "description": "ISO 3166-1 alpha-2" },
+            "lat": { "type": "number", "description": "latitude, rounded to ~0.01° (G1)" },
+            "lon": { "type": "number", "description": "longitude, rounded to ~0.01° (G1)" },
+            "kind": { "type": "string", "enum": ["seaport", "airport", "rail-hub", "inland-port", "distribution-center"] },
+            "throughputValue": { "type": "number", "description": "annual throughput (disclosed)" },
+            "throughputUnit": { "type": "string", "enum": ["teu-m", "tonnes-m", "pax-m"] },
+            "sourcing": { "type": "string", "enum": ["authoritative", "representative", "synthesized"] }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "hubId": { "type": "string" },
+            "txCid": { "type": "string", "description": "kotoba transaction CID (content-addressed Datom log; ADR-2605312345)" },
+            "datomCount": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}
