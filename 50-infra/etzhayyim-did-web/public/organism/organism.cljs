@@ -20,6 +20,9 @@
 
 (def palette {"alive" "#39d98a" "dormant" "#f5a524" "stub" "#5b6472"})
 (def glyph   {"alive" "生" "dormant" "休眠" "stub" "死"})
+;; single-char marks drawn ON each cell — "休眠" (2 chars) overflowed small dense cells;
+;; one glyph fits any radius (the legend + side panel keep the full label). (regrade viz)
+(def cellglyph {"alive" "生" "dormant" "休" "stub" "死"})
 (def breath  {"alive" "2.6s" "dormant" "4.3s" "stub" "6.5s"})
 
 (defonce state (atom {:data nil :traj nil :pulse nil :joucho nil :narr nil :sel nil :seen {}}))
@@ -122,7 +125,7 @@
                             :font-size (max 7 (* 0.9 (:r p))) :class "cellglyph"
                             :fill (if (= "stub" cl) "#cdd7e1" "#0b0f14")
                             :style "pointer-events:none;font-weight:700;user-select:none"})]
-          (set! (.-textContent t) (glyph cl))
+          (set! (.-textContent t) (cellglyph cl))
           (.appendChild root t))))
     root))
 
