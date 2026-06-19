@@ -248,7 +248,11 @@
    so the organism's evolution (生命進化) is queryable across runs."
   [run vitals]
   (let [conn (kt/connect {:journal journal})]
-    (doseq [v vitals] (kt/transact conn [(->entity run v)]))
+    ;; ONE batched transact for the whole cohort (transact takes a seq of entity maps).
+    ;; Was a per-actor doseq: each of the ~104 transacts re-hashed the ENTIRE growing log
+    ;; for its head-cid (~545ms each ⇒ ~56s/sweep, worsening every run). One tx = one append
+    ;; + one head recompute. Same datoms (db/id is unique per run+actor). (co-scientist #3)
+    (kt/transact conn (mapv #(->entity run %) vitals))
     (kt/head-cid conn)))
 
 ;; ── report ───────────────────────────────────────────────────────────────────
