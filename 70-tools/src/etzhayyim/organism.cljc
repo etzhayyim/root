@@ -238,11 +238,20 @@
                                 ;; a never-yet-run layer at boot is :pending, not stale.
                                 :stale (boolean (and last (> (- now last) (* 2 cad))))}])))
         any-stale (boolean (some :stale (vals layers)))
-        payload {:generatedAt (str (java.time.Instant/ofEpochMilli now))
-                 :now now :store "heartbeat-watchdog" :anyStale any-stale :layers layers}
-        out (json/generate-string payload {:pretty true})]
-    (doseq [d snapshot-dirs]
-      (let [p (str d "/health.json")] (io/make-parents p) (spit p out)))))
+        ;; loud edge-triggered log on stale→/→recovered transitions — health.json is pull-only,
+        ;; so without this a hung layer (process still alive) flips silently. (co-scientist regrade #3)
+        stale-now (set (keep (fn [[k v]] (when (:stale v) k)) layers))
+        prev (::stale-set h #{})]
+    (when-let [newly (seq (remove prev stale-now))]
+      (binding [*out* *err*] (println (str "[heartbeat] ⚠ STALE layer(s) — no beat in 2× cadence: " (vec newly)))))
+    (when-let [gone (seq (remove stale-now prev))]
+      (binding [*out* *err*] (println (str "[heartbeat] ✓ layer(s) recovered: " (vec gone)))))
+    (swap! health assoc ::stale-set stale-now)
+    (let [payload {:generatedAt (str (java.time.Instant/ofEpochMilli now))
+                   :now now :store "heartbeat-watchdog" :anyStale any-stale :layers layers}
+          out (json/generate-string payload {:pretty true})]
+      (doseq [d snapshot-dirs]
+        (let [p (str d "/health.json")] (io/make-parents p) (spit p out))))))
 
 ;; The reflex (run_tests.sh per cell) is the only way a cell reaches 生 — classify
 ;; demands :green reflex ∧ peer-integration ∧ outward bsky metabolism. It is also the
