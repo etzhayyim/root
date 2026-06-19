@@ -539,8 +539,17 @@
         run    (System/currentTimeMillis)
         head   (persist! run vitals)]
     (export-json! run vitals)
-    ;; canonical content-addressed snapshot of the vitals Datom log (no KV; D2 of ADR-2606172200)
-    (let [conn (kt/connect {:journal journal})] (snapshot-to! conn "vitals.kotoba.edn"))
+    ;; content-addressed snapshot of THIS run's cells only (no KV; D2 of ADR-2606172200).
+    ;; The full as-of history stays in the journal (canonical) + trajectory.kotoba.edn
+    ;; (evolution); the page only needs current cells. A full-journal snapshot had grown to
+    ;; ~9MB and was parsed on the browser main thread every load — snapshot just the run
+    ;; (~2k datoms ≈ <100KB) via a throwaway conn. (co-scientist viz: boot-parse)
+    (let [snap-journal (str journal ".latest")]
+      (io/delete-file snap-journal true)
+      (let [tmp (kt/connect {:journal snap-journal})]
+        (kt/transact tmp (mapv #(->entity run %) vitals))
+        (snapshot-to! tmp "vitals.kotoba.edn"))
+      (io/delete-file snap-journal true))
     ;; evolution: append this run's cohort summary + materialize trajectory.kotoba.edn (+ .json)
     (record-trajectory! run vitals)
     (export-trajectory!)
