@@ -155,6 +155,16 @@
           (try {:reflex (if (zero? (:exit res)) :green :red) :exit (:exit res)}
                (catch Exception e {:reflex :error :msg (.getMessage e)})))))))
 
+(def ^:private reflex-timeout-overrides
+  "Per-cell reflex budgets for suites that legitimately exceed the default. ibuki is the
+   organism's OWN core: its run_tests.sh runs 18 live-I/O suites (kotoba_bridge→:8077,
+   perception→AppView, infer→Murakumo, …) — MEASURED at 406s all-green, not the ~130s the
+   first estimate assumed. The default 60s ceiling mislabels its green pass as :timeout,
+   pinning the most-tested core at 休眠 while the organism narrates 情緒 THROUGH ibuki. Give
+   it a budget above the measured runtime (the :timeout→:red scoring floor below covers
+   network variance). (co-scientist finding #5)"
+  {"ibuki" 480000})
+
 ;; ── scoring & classification ─────────────────────────────────────────────────
 
 (defn- score
@@ -164,7 +174,9 @@
    atproto= bsky(20) + social-method(5) + recent-out(5)"
   [v]
   (let [clj (+ (* 15 (:clj/port-ratio v))
-               (case (:reflex v) :green 20 :red 5 0)
+               ;; :timeout = inconclusive (suite too slow to finish in budget), NOT a
+               ;; confirmed failure — so it must never score BELOW :red. (co-scientist #5)
+               (case (:reflex v) :green 20 :red 5 :timeout 5 0)
                (if (<= (:bio/heartbeat-days v) 30) 5 0))
         act (+ (* 10 (min 1.0 (/ (:actor/integrates v) 5.0)))
                (* 10 (min 1.0 (/ (:actor/in-degree v) 5.0)))
@@ -199,7 +211,9 @@
                         (actor-signs manifest actor-dir indeg)
                         (bio-signs actor-dir)
                         (atproto-signs actor-dir)
-                        (if run-tests? (run-suite actor-dir timeout-ms) {:reflex :skipped}))
+                        (if run-tests?
+                          (run-suite actor-dir (max timeout-ms (get reflex-timeout-overrides name 0)))
+                          {:reflex :skipped}))
         scored   (merge base (score base))]
     (assoc scored :class (classify scored))))
 
