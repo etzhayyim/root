@@ -156,14 +156,15 @@
                (catch Exception e {:reflex :error :msg (.getMessage e)})))))))
 
 (def ^:private reflex-timeout-overrides
-  "Per-cell reflex budgets for suites that legitimately exceed the default. ibuki is the
-   organism's OWN core: its run_tests.sh runs 18 live-I/O suites (kotoba_bridge→:8077,
-   perception→AppView, infer→Murakumo, …) — MEASURED at 406s all-green, not the ~130s the
-   first estimate assumed. The default 60s ceiling mislabels its green pass as :timeout,
-   pinning the most-tested core at 休眠 while the organism narrates 情緒 THROUGH ibuki. Give
-   it a budget above the measured runtime (the :timeout→:red scoring floor below covers
-   network variance). (co-scientist finding #5)"
-  {"ibuki" 480000})
+  "Per-cell reflex budget overrides (ms) for suites that legitimately exceed the default 60s.
+   EMPIRICAL NOTE (#5): ibuki's run_tests.sh runs 18 LIVE-I/O suites (kotoba_bridge→:8077,
+   perception→AppView, infer→Murakumo, …). Measured 406s all-green when idle, but it exceeded
+   even a 480s budget under the daemon's concurrent sweep + live-network variance — so a fixed
+   bump is a losing battle that only burns sweep time for a still-:timeout result. ibuki is
+   left at the default and stays 休眠, but is no longer punished (the :timeout→:red scoring
+   floor below gives it 5 not 0). The REAL fix is a hermetic/offline reflex entrypoint (no
+   live I/O), tracked separately; a flaky liveness probe must not gate a cell's classification."
+  {})
 
 ;; ── scoring & classification ─────────────────────────────────────────────────
 
