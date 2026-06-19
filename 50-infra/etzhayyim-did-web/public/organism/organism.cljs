@@ -116,7 +116,14 @@
           (.appendChild root (svg :circle {:cx (:x p) :cy (:y p) :r (+ (:r p) 5)
                                            :fill "none" :stroke (palette cl)
                                            :stroke-width 1.2 :class "pulse"})))
-        (.appendChild root c)))
+        (.appendChild root c)
+        ;; class glyph drawn ON the cell so colour is NOT the only encoding (a11y / 色覚混同対)
+        (let [t (svg :text {:x (:x p) :y (:y p) :text-anchor "middle" :dominant-baseline "central"
+                            :font-size (max 7 (* 0.9 (:r p))) :class "cellglyph"
+                            :fill (if (= "stub" cl) "#cdd7e1" "#0b0f14")
+                            :style "pointer-events:none;font-weight:700;user-select:none"})]
+          (set! (.-textContent t) (glyph cl))
+          (.appendChild root t))))
     root))
 
 ;; ── side panel: vitals detail ────────────────────────────────────────────────
@@ -256,11 +263,19 @@
 
 (defn live-badge [pulse]
   (let [working (count (get pulse "working"))
-        top (first (get pulse "stream"))]
-    (h :span {:id "live" :class "live"}
+        top (first (get pulse "stream"))
+        ;; honest liveness from the heartbeat watchdog (health.json, #4): if a layer has
+        ;; gone stale (overdue past 2× its cadence) the badge says STALE, not a frozen LIVE.
+        health (:health @state)
+        stale-layers (when-let [ls (get health "layers")]
+                       (->> ls (keep (fn [[k v]] (when (get v "stale") k)))))
+        stale? (boolean (seq stale-layers))]
+    (h :span {:id "live" :class (str "live" (when stale? " stale"))}
       (h :span {:class "dot"})
-      (h :span {:text (str "LIVE · " working " 細胞が稼働中"
-                           (when top (str " · ↑ " (get top "actor"))))}))))
+      (h :span {:text (if stale?
+                        (str "STALE · " (apply str (interpose "," stale-layers)) " 層が停滞")
+                        (str "LIVE · " working " 細胞が稼働中"
+                             (when top (str " · ↑ " (get top "actor")))))}))))
 
 (defn header [data pulse]
   (let [s (:summary data)]
@@ -441,7 +456,8 @@
   (fetch-kotoba "pulse.kotoba.edn" kotoba->pulse
     (fn [p] (when p (swap! state assoc :pulse p) (apply-pulse! p)))
     (fn [] (fetchj "pulse.json" false
-             (fn [p] (when p (swap! state assoc :pulse p) (apply-pulse! p)))))))
+             (fn [p] (when p (swap! state assoc :pulse p) (apply-pulse! p))))))
+  (fetchj "health.json" false (fn [hh] (when hh (swap! state assoc :health hh) (paint!)))))
 
 ;; ── boot — read the kotoba Datom log (snapshot) in the browser; JSON is fail-open ──────────────
 
@@ -458,6 +474,7 @@
     (fn [d] (swap! state assoc :data d)
       (fetch-kotoba "pulse.kotoba.edn" kotoba->pulse boot-pulse
         (fn [] (fetchj "pulse.json" false boot-pulse)))
+      (fetchj "health.json" false (fn [hh] (when hh (swap! state assoc :health hh) (paint!))))
       (fetch-kotoba "trajectory.kotoba.edn" kotoba->traj
         (fn [t] (swap! state assoc :traj t) (paint!))
         (fn [] (fetchj "trajectory.json" true (fn [t] (swap! state assoc :traj t) (paint!)))))
