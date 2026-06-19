@@ -377,7 +377,10 @@
     {"generatedAt" (str (java.time.Instant/ofEpochMilli now)) "now" now
      "sinceHours" hours "actors" per "stream" (vec stream)
      "working" (vec (sort (keys dirty)))
-     "head" (try (kt/head-cid (kt/connect {:journal journal})) (catch Exception _ ""))}))
+     ;; placeholder: -pulse overwrites "head" with the pulse-journal snapshot CID. Connecting to
+     ;; the large, ever-growing vitals journal here cost ~1.25s on EVERY 6s 脈 tick (connect
+     ;; read-log + full-log head-cid) to produce a value that was immediately discarded.
+     "head" ""}))
 
 (defn -pulse
   "Persist the live pulse into the kotoba Datom log (SoT), snapshot it content-addressed, and
