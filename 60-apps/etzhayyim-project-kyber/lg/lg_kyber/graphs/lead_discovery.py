@@ -77,7 +77,7 @@ def _domain_from_url(url: str) -> str:
 
 
 def _lead_id(source: str, ref: str) -> str:
-    return str(uuid.UUID(hashlib.md5(f"{source}:{ref}".encode()).hexdigest()))
+    return str(uuid.UUID(hashlib.sha256(f"{source}:{ref}".encode()).hexdigest()[:32]))
 
 
 async def search_github(state: LeadDiscoveryState) -> LeadDiscoveryState:

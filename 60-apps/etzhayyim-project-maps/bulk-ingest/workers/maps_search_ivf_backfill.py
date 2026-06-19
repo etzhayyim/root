@@ -112,7 +112,7 @@ def _now_iso() -> str:
 
 
 def _embedding_id(source_vid: str) -> str:
-    h = hashlib.sha1(f"{IVF_SPACE}:{source_vid}".encode("utf-8")).hexdigest()[:16]
+    h = hashlib.sha256(f"{IVF_SPACE}:{source_vid}".encode("utf-8")).hexdigest()[:16]
     return f"emb:{IVF_SPACE}:{h}"
 
 
