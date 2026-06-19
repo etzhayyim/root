@@ -252,8 +252,9 @@
     ;; Was a per-actor doseq: each of the ~104 transacts re-hashed the ENTIRE growing log
     ;; for its head-cid (~545ms each ⇒ ~56s/sweep, worsening every run). One tx = one append
     ;; + one head recompute. Same datoms (db/id is unique per run+actor). (co-scientist #3)
-    (kt/transact conn (mapv #(->entity run %) vitals))
-    (kt/head-cid conn)))
+    ;; transact already computes the new head — take it from the result instead of a second
+    ;; full-log re-hash (the prior (kt/head-cid conn) doubled the O(log) cost). (co-scientist regrade)
+    (:head (kt/transact conn (mapv #(->entity run %) vitals)))))
 
 ;; ── report ───────────────────────────────────────────────────────────────────
 

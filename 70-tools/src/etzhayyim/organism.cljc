@@ -261,7 +261,8 @@
    Args: [--once] run one beat of every layer then exit (smoke; reflex runs inline)."
   [& args]
   (let [once?      (some #{"--once"} args)
-        pulse-ms 6000, joucho-ms 60000, vitals-ms 3600000
+        ;; single source = layer-cadence-ms (the watchdog reads the same map; no drift)
+        pulse-ms (:pulse layer-cadence-ms), joucho-ms (:joucho layer-cadence-ms), vitals-ms (:vitals layer-cadence-ms)
         tick-ms 2000
         reflexing? (atom false)
         health     (atom {})                                 ; per-layer last-success (#4 watchdog)
