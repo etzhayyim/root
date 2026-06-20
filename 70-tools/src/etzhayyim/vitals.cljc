@@ -337,6 +337,8 @@
 ;;    (like public/kotoba/blocks). The JSON is a derived read-model/projection of the log.
 (def ^:private pulse-journal  "80-data/organism/pulse.journal.edn")
 (def ^:private joucho-journal "80-data/organism/joucho.journal.edn")
+(def ^:private trajectory-journal "80-data/organism/trajectory.journal.edn")  ; joucho reads it (#1)
+(declare load-trajectory)
 
 (defn- git-out [& args]
   (try (:out (apply p/sh args)) (catch Exception _ "")))
@@ -445,6 +447,28 @@
     (zero? (mod i 7)) (conj ":event/dialogue-reciprocated")
     (and (pos? (mod i 2)) (pos? (mod i 3)) (pos? (mod i 5)) (pos? (mod i 7))) (conj ":event/idle")))
 
+(defn- real-beat-events
+  "The organism's ACTUAL recent life as a beat stream (#1): each beat = one trajectory run's
+   delta vs the prior run. Gaining alive cells / vitality folds reward events (the body
+   connecting, healing); losing them folds stress (deaths, decline). A STABLE organism emits
+   only :idle and drifts to its baseline temperament — so a flat, mostly-dormant body no longer
+   fabricates an ever-climbing 'improving'; a declining body actually feels it.
+   `runs` = trajectory cohort maps {:alive :dormant :stub :sum}, oldest→newest."
+  [runs]
+  (vec
+    (for [[prev cur] (map vector runs (rest runs))]
+      (let [d-alive (- (:alive cur) (:alive prev))
+            d-sum   (- (:sum cur) (:sum prev))
+            d-stub  (- (:stub cur) (:stub prev))
+            evs (cond-> []
+                  (pos? d-alive) (into (repeat (min 3 d-alive) ":event/dialogue-reciprocated"))
+                  (neg? d-alive) (conj ":event/inbox-pressure")
+                  (pos? d-sum)   (conj ":event/kaizen-merged")     ; body got healthier
+                  (neg? d-sum)   (conj ":event/kaizen-rejected")   ; body declined
+                  (pos? d-stub)  (conj ":event/inbox-pressure")    ; cells died
+                  (neg? d-stub)  (conj ":event/follower-gained"))] ; revived from death
+        (if (seq evs) evs [":event/idle"])))))
+
 (defn joucho-data [of n]
   (let [baseline ((requiring-resolve 'ibuki.methods.joucho/personality-baseline) of)
         fold     (requiring-resolve 'ibuki.methods.joucho/fold-event)
@@ -452,11 +476,17 @@
         readout  (requiring-resolve 'ibuki.methods.wellbecoming/readout)
         vocab    @(requiring-resolve 'ibuki.methods.joucho/event-deltas)  ;; the loaded closed vocab
         known?   (fn [e] (contains? vocab e))
+        ;; #1: fold the organism's REAL recent trajectory (not a synthetic (mod i k) schedule).
+        ;; Fail-open to the synthetic stream if the trajectory log isn't readable / has <2 runs.
+        runs     (try (vec (take-last (inc n) (load-trajectory (kt/connect {:journal trajectory-journal}))))
+                      (catch Throwable _ nil))
+        real-evs (when (>= (count runs) 2) (real-beat-events runs))
+        n-beats  (if (seq real-evs) (count real-evs) n)
+        evs-at   (fn [i] (or (when real-evs (filter known? (nth real-evs (dec i))))
+                             (filter known? (beat-events i))))
         beats (loop [i 1, sc baseline, acc []]
-                (if (> i n) acc
-                  ;; fold only events present in the loaded vocab — degrade gracefully if the
-                  ;; rich reward inputs (ADR-2606171800) are not yet in this joucho build
-                  (let [evs (or (seq (filter known? (beat-events i))) [":event/idle"])
+                (if (> i n-beats) acc
+                  (let [evs (or (seq (evs-at i)) [":event/idle"])
                         sc' (reduce (fn [s e] (fold s e baseline)) sc evs)]
                     (recur (inc i) sc' (conj acc (assoc sc' :beat i :mood (mood-of sc')))))))
         final (last beats)
@@ -563,7 +593,7 @@
 ;; journal (per-actor × per-run join) is O(runs×cells) and timed out once the log
 ;; grew past a few dozen runs; the right grain for a cross-run series is one datom
 ;; per run, which stays instant. Still kotoba Datom log, no KV (ADR-2606172200).
-(def ^:private trajectory-journal "80-data/organism/trajectory.journal.edn")
+;; trajectory-journal is defined up with the other journal paths (joucho reads it for #1)
 
 (defn- iso [ms] (str (java.time.Instant/ofEpochMilli ms)))
 
