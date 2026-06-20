@@ -23,5 +23,10 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Set up Babashka
+        run: |
+          curl -sL https://raw.githubusercontent.com/babashka/babashka/master/install -o /tmp/bb-install
+          chmod +x /tmp/bb-install
+          sudo /tmp/bb-install --version 1.12.218
       - name: Run mitooshi standalone suite
         run: bash 20-actors/mitooshi/run_tests.sh
