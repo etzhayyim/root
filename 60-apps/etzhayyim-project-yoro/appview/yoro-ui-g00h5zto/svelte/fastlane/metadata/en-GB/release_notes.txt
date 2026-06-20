@@ -1,9 +1,0 @@
-Welcome to YORO 1.0!
-
-- End-to-end encrypted messaging powered by Signal Protocol
-- Channels, DMs, and group conversations
-- Thread replies and emoji reactions
-- Real-time message delivery with push notifications
-- Decentralized identity — sign up without a phone number
-- Rich media sharing (photos, files, links)
-- Dark mode by default
