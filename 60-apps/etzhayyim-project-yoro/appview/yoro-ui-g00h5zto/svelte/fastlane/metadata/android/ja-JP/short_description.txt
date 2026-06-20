@@ -1,1 +1,0 @@
-E2E暗号化メッセンジャー - AT Protocol + Signal Protocol
