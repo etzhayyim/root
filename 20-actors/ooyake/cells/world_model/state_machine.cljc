@@ -49,6 +49,14 @@
     (str "org.gov." (.substring gov-unit-id 4))
     (str "org.gov." gov-unit-id)))
 
+;; The native kotoba EDN files carry keyword keys (:gov.unit/level) and keyword
+;; values (:country). reconcile-world-model + the lookup maps (POWER_LEVEL_SUBKIND,
+;; GOV_ORGANISM_SUBKINDS) operate on the Python-faithful STRING-keyed/STRING-valued
+;; shape (matching the unit-test fixtures). The loaders normalize EDN→that shape.
+(defn- kw->str [v] (if (keyword? v) (str v) v))
+(defn- normalize-record [m]
+  (reduce-kv (fn [acc k v] (assoc acc (kw->str k) (kw->str v))) {} m))
+
 (defn load-gov-units [reg-dir]
   (let [reg-dir (or reg-dir "20-actors/ooyake/registry")
         units (atom {})]
@@ -58,11 +66,11 @@
           (doseq [f (sort (filter #(.endsWith (.getName %) ".edn") (.listFiles files)))]
             (try
               (let [doc (edn/read-string (slurp f))
-                    unit-list (get doc ":units" [])]
+                    unit-list (get doc :units [])]
                 (doseq [u unit-list]
-                  (let [uid (get u ":gov.unit/id")]
+                  (let [uid (get u :gov.unit/id)]
                     (when uid
-                      (swap! units assoc uid u)))))
+                      (swap! units assoc uid (normalize-record u))))))
               (catch Exception _)))))
       (catch Exception _))
     @units))
@@ -73,8 +81,8 @@
     (try
       (let [doc (edn/read-string (slurp seed-file))]
         (doseq [rec doc]
-          (when (and (map? rec) (get rec ":organism/id"))
-            (swap! orgs assoc (get rec ":organism/id") rec))))
+          (when (and (map? rec) (get rec :organism/id))
+            (swap! orgs assoc (get rec :organism/id) (normalize-record rec)))))
       (catch Exception _))
     @orgs))
 
@@ -82,7 +90,7 @@
   (let [seed-file (or seed-file "20-actors/tsumugi/data/seed-power-graph.kotoba.edn")]
     (try
       (let [doc (edn/read-string (slurp seed-file))]
-        (filter #(and (map? %) (get % ":en/id")) doc))
+        (mapv normalize-record (filter #(and (map? %) (get % :en/id)) doc)))
       (catch Exception _
         []))))
 
@@ -126,11 +134,11 @@
                             ":organism/kind" ":institutional"
                             ":organism/subkind" subkind
                             ":organism/label" (or (get u ":gov.unit/name-en")
-                                                   (get u ":gov.unit/name-local")
-                                                   uid)
+                                                  (get u ":gov.unit/name-local")
+                                                  uid)
                             ":organism/standing" ":latent"
                             ":organism/claimed?" false
-                            ":organism/sourcing" ":representative"}))))))))
+                            ":organism/sourcing" ":representative"})))))))))
 
     ;; orphan governmental organisms: the karma graph knows them, the atlas does not.
     (doseq [[oid o] (sort organisms)]
@@ -144,8 +152,8 @@
 
     ;; cross-graph GOVERNMENT-STEWARDSHIP join
     (let [org-to-unit (into {} (concat
-                                 (map #(vector (get % "organism") (get % "unit")) @confirmed)
-                                 (map #(vector (get % "organism") (get % "unit")) @derived)))]
+                                (map #(vector (get % "organism") (get % "unit")) @confirmed)
+                                (map #(vector (get % "organism") (get % "unit")) @derived)))]
       (doseq [e (or edges [])]
         (let [frm (get e ":en/from")
               unit (get org-to-unit frm)]
@@ -179,8 +187,8 @@
                    "proposed" (count @proposed)
                    "dangling" (count @dangling)
                    "reconciled_pct" (if (zero? power-total)
-                                     0.0
-                                     (double (/ (* 100.0 reconciled) power-total)))}}))))
+                                      0.0
+                                      (double (/ (* 100.0 reconciled) power-total)))}})))
 
 (defn stewarded-entities-of [report gov-unit]
   (vec (map #(select-keys % ["entity" "entity_label" "kind"])

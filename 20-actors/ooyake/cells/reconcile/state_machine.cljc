@@ -38,9 +38,9 @@
     (reduce (fn [units f]
               (try
                 (let [doc (edn/read-string (slurp f))
-                      unit-list (get doc ":units" [])]
+                      unit-list (get doc :units [])]
                   (reduce (fn [acc u]
-                            (let [uid (get u ":gov.unit/id")]
+                            (let [uid (get u :gov.unit/id)]
                               (if uid (assoc acc uid u) acc)))
                           units
                           unit-list))
@@ -55,9 +55,9 @@
   (let [auth-file (or auth-file DEFAULT_AUTH_FILE)]
     (try
       (let [doc (edn/read-string (slurp auth-file))
-            auth-list (get doc ":authority-records" [])]
+            auth-list (get doc :authority-records [])]
         (reduce (fn [acc r]
-                  (let [unit (get r ":unit")]
+                  (let [unit (get r :unit)]
                     (if unit (assoc acc unit r) acc)))
                 {}
                 auth-list))
@@ -79,8 +79,8 @@
             rec (get auth uid)]
         (if (nil? rec)
           (swap! no-authority conj uid)
-          (let [wd-ok (= (get u ":gov.unit/wikidata") (get rec ":wikidata"))
-                url-ok (= (get u ":gov.unit/official-url") (get rec ":official-url"))]
+          (let [wd-ok (= (get u :gov.unit/wikidata) (get rec :wikidata))
+                url-ok (= (get u :gov.unit/official-url) (get rec :official-url))]
             (if (and wd-ok url-ok)
               (swap! promoted conj uid)
               (swap! conflicts conj
