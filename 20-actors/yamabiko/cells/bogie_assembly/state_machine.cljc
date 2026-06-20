@@ -92,18 +92,20 @@
 (defn transition-to-attestation-emitted
   "Emit final bogie attestation with robot signatures (G4: ≥2 robots)."
   [state]
-  (let [s (bogie-state state)]
-    {"bogie_state" (assoc s
-                          "robotSignatures" [{"robotDid" "did:web:etzhayyim.com:wadasa-unit-1"
-                                              "role" "bogie_lead"
-                                              "timestamp" "2026-05-26T10:00:00Z"
-                                              "signature" "..."}
-                                             {"robotDid" "did:web:etzhayyim.com:mimi-precision-unit-1"
-                                              "role" "alignment"
-                                              "timestamp" "2026-05-26T10:00:05Z"
-                                              "signature" "..."}]
-                          "phase" "attestation_emitted"
-                          "completionPct" 100)
+  (let [s (bogie-state state)
+        robot-sigs [{"robotDid" "did:web:etzhayyim.com:wadasa-unit-1"
+                     "role" "bogie_lead"
+                     "timestamp" "2026-05-26T10:00:00Z"
+                     "signature" "..."}
+                    {"robotDid" "did:web:etzhayyim.com:mimi-precision-unit-1"
+                     "role" "alignment"
+                     "timestamp" "2026-05-26T10:00:05Z"
+                     "signature" "..."}]
+        s-updated (assoc s
+                         "robotSignatures" robot-sigs
+                         "phase" "attestation_emitted"
+                         "completionPct" 100)]
+    {"bogie_state" s-updated
      "bogie_attestation" {"$type" "com.etzhayyim.yamabiko.bogieAttestation"
                           "trainsetId" (get s "trainsetId")
                           "bogieIndex" (get s "bogieIndex")
@@ -112,6 +114,6 @@
                           "motorLot" (get s "motorLot")
                           "brakeSystem" (get s "brakeSystem")
                           "airSpring" (get s "airSpring")
-                          "attestingRobots" (get s "robotSignatures")
+                          "attestingRobots" robot-sigs
                           "recordedAt" "2026-05-26T10:00:10Z"}
      "next_node" "end"}))

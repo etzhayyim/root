@@ -103,18 +103,20 @@
 (defn transition-to-attestation-emitted
   "Emit final carbody attestation with robot signatures (G4: ≥2 robots)."
   [state]
-  (let [s (carbody-state state)]
-    {"carbody_state" (assoc s
-                            "robotSignatures" [{"robotDid" "did:web:etzhayyim.com:tsugite-unit-1"
-                                                "role" "fsw_lead"
-                                                "timestamp" "2026-05-26T08:00:00Z"
-                                                "signature" "..."}
-                                               {"robotDid" "did:web:etzhayyim.com:mimi-precision-unit-1"
-                                                "role" "metrology"
-                                                "timestamp" "2026-05-26T08:00:05Z"
-                                                "signature" "..."}]
-                            "phase" "attestation_emitted"
-                            "completionPct" 100)
+  (let [s (carbody-state state)
+        robot-sigs [{"robotDid" "did:web:etzhayyim.com:tsugite-unit-1"
+                     "role" "fsw_lead"
+                     "timestamp" "2026-05-26T08:00:00Z"
+                     "signature" "..."}
+                    {"robotDid" "did:web:etzhayyim.com:mimi-precision-unit-1"
+                     "role" "metrology"
+                     "timestamp" "2026-05-26T08:00:05Z"
+                     "signature" "..."}]
+        s-updated (assoc s
+                         "robotSignatures" robot-sigs
+                         "phase" "attestation_emitted"
+                         "completionPct" 100)]
+    {"carbody_state" s-updated
      "carbody_attestation" {"$type" "com.etzhayyim.yamabiko.carbodyAttestation"
                             "trainsetId" (get s "trainsetId")
                             "carIndex" (get s "carIndex")
@@ -122,6 +124,6 @@
                             "fswSeams" (get s "fswSeams")
                             "spotWelds" (get s "spotWelds")
                             "dimensionalQa" (get s "dimensionalQa")
-                            "attestingRobots" (get s "robotSignatures")
+                            "attestingRobots" robot-sigs
                             "recordedAt" "2026-05-26T08:00:10Z"}
      "next_node" "end"}))

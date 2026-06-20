@@ -65,11 +65,13 @@
   "Emit final acoustic emissions audit record."
   [state]
   (let [s (acoustic-state state)
-        wayside-ok (= true (get (get s "waysideNoise") "accept"))
-        vibration-ok (= true (get (get s "vibration") "accept"))
-        emc-ok (= true (get (get s "emcResult") "accept"))]
+        ;; Python's: (s.waysideNoise or {}).get("accept") is True
+        wayside-ok (identical? true (get (or (get s "waysideNoise") {}) "accept"))
+        vibration-ok (identical? true (get (or (get s "vibration") {}) "accept"))
+        emc-ok (identical? true (get (or (get s "emcResult") {}) "accept"))
+        overall (and wayside-ok vibration-ok emc-ok)]
     {"acoustic_state" (assoc s
-                             "overallAccept" (and wayside-ok vibration-ok emc-ok)
+                             "overallAccept" overall
                              "phase" "record_emitted"
                              "completionPct" 100)
      "acoustic_emissions_audit_record" {"$type" "com.etzhayyim.yamabiko.acousticEmissionsAuditRecord"
@@ -77,7 +79,7 @@
                                         "waysideNoise" (get s "waysideNoise")
                                         "vibration" (get s "vibration")
                                         "emcResult" (get s "emcResult")
-                                        "overallAccept" (and wayside-ok vibration-ok emc-ok)
+                                        "overallAccept" overall
                                         "regulatoryBasis" ["ISO 3095" "日本 騒音規制法" "IEC 62236"]
                                         "recordedAt" "2026-05-27T15:00:00Z"}
      "next_node" "end"}))

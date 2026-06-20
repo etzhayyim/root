@@ -12,7 +12,8 @@
           s3 (sm/transition-to-inverter-installed s2)
           s4 (sm/transition-to-atp-ato-flashed s3)
           s5 (sm/transition-to-open-source-verified s4)
-          attestation (get s5 "traction_electrical_attestation")]
+          s6 (sm/transition-to-attestation-emitted s5)
+          attestation (get s6 "traction_electrical_attestation")]
       ;; Phase progression
       (is (= "propulsion_guard_checked" (get-in s1 ["traction_state" "phase"])))
       (is (= 15 (get-in s1 ["traction_state" "completionPct"])))
@@ -24,6 +25,8 @@
       (is (= 75 (get-in s4 ["traction_state" "completionPct"])))
       (is (= "open_source_verified" (get-in s5 ["traction_state" "phase"])))
       (is (= 92 (get-in s5 ["traction_state" "completionPct"])))
+      (is (= "attestation_emitted" (get-in s6 ["traction_state" "phase"])))
+      (is (= 100 (get-in s6 ["traction_state" "completionPct"])))
 
       ;; Attestation structure
       (is (= "com.etzhayyim.yamabiko.tractionElectricalAttestation" (get attestation "$type")))
@@ -51,8 +54,9 @@
 
 (deftest test-traction-g1-n5-apache-charter-rider
   (testing "G1 + N5 enforcement: ATP/ATO firmware Apache 2.0 + Charter Rider (no NDA)"
-    (let [s (sm/transition-to-open-source-verified {})
-          verify (get-in s ["traction_state" "openSourceVerification"])]
+    (let [s1 (sm/transition-to-atp-ato-flashed {})
+          s2 (sm/transition-to-open-source-verified s1)
+          verify (get-in s2 ["traction_state" "openSourceVerification"])]
       (is (= "active" (get verify "g1Enforcement")))
       (is (= "active" (get verify "n5Enforcement")))
       (is (= true (get verify "containsApache2")))

@@ -71,23 +71,25 @@
 (defn transition-to-attestation-emitted
   "Emit final assembly attestation with robot signatures (G4: ≥2 robots)."
   [state]
-  (let [s (final-state state)]
-    {"final_state" (assoc s
-                          "robotSignatures" [{"robotDid" "did:web:etzhayyim.com:otete-heavy-unit-1"
-                                              "role" "marriage_lead"
-                                              "timestamp" "2026-05-26T16:00:00Z"
-                                              "signature" "..."}
-                                             {"robotDid" "did:web:etzhayyim.com:mimi-precision-unit-1"
-                                              "role" "alignment"
-                                              "timestamp" "2026-05-26T16:00:05Z"
-                                              "signature" "..."}]
-                          "phase" "attestation_emitted"
-                          "completionPct" 100)
+  (let [s (final-state state)
+        robot-sigs [{"robotDid" "did:web:etzhayyim.com:otete-heavy-unit-1"
+                     "role" "marriage_lead"
+                     "timestamp" "2026-05-26T16:00:00Z"
+                     "signature" "..."}
+                    {"robotDid" "did:web:etzhayyim.com:mimi-precision-unit-1"
+                     "role" "alignment"
+                     "timestamp" "2026-05-26T16:00:05Z"
+                     "signature" "..."}]
+        s-updated (assoc s
+                         "robotSignatures" robot-sigs
+                         "phase" "attestation_emitted"
+                         "completionPct" 100)]
+    {"final_state" s-updated
      "final_assembly_attestation" {"$type" "com.etzhayyim.yamabiko.finalAssemblyAttestation"
                                    "trainsetId" (get s "trainsetId")
                                    "inputs" (get s "inputs")
                                    "marriage" (get s "marriage")
                                    "livery" (get s "livery")
-                                   "attestingRobots" (get s "robotSignatures")
+                                   "attestingRobots" robot-sigs
                                    "recordedAt" "2026-05-26T16:00:10Z"}
      "next_node" "end"}))

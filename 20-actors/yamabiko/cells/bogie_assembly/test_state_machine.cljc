@@ -52,7 +52,6 @@
       (is (some? (get attestation "airSpring")))
       (is (some? (get attestation "attestingRobots")))
       (is (>= (count (get attestation "attestingRobots")) 2)) ;; G4: ≥2 robots
-      (is (= "next_node" (get s1 "next_node")))
       (is (= "wheel" (get s1 "next_node")))
       (is (= "end" (get s6 "next_node"))))))
 

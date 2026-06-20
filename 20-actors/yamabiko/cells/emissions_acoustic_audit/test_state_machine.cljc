@@ -75,6 +75,10 @@
 
 (deftest test-acoustic-overall-accept-requires-all-pass
   (testing "Overall accept requires all sub-tests to pass"
-    (let [s (sm/transition-to-record-emitted {})
-          record (get s "acoustic_emissions_audit_record")]
+    (let [init-state {"trainsetId" "TEST-TS-001"}
+          s1 (sm/transition-to-wayside-noise-measured init-state)
+          s2 (sm/transition-to-vibration-measured s1)
+          s3 (sm/transition-to-emc-verified s2)
+          s4 (sm/transition-to-record-emitted s3)
+          record (get s4 "acoustic_emissions_audit_record")]
       (is (= true (get record "overallAccept"))))))
