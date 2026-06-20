@@ -1,9 +1,20 @@
 #!/usr/bin/env bash
-# yamabiko — charter-gate (bb/clj) + cells parse-smoke + agent py (pending port), ADR-2606160842.
+# yamabiko — clj/bb test suite (ADR-2605252600 py→clj port wave); wired into the fleet
+# green-check. Runs all cljc test namespaces via babashka from the repo root (for the
+# :paths config in bb.edn). Covers 9 cell state machines: bogie_assembly, carbody_fabrication,
+# interior_hvac, traction_electrical, final_assembly, dynamic_test, emissions_acoustic_audit,
+# homologation_binder, silen_rail_review.
 set -euo pipefail
 cd "$(dirname "$0")/../.."
-exec bb -e '(require (quote clojure.test) (quote [babashka.process :as p]) (quote yamabiko.methods.test-charter-gates))
-(let [r (clojure.test/run-tests (quote yamabiko.methods.test-charter-gates))
-      smoke (p/shell {:dir "20-actors/yamabiko" :continue true} "python3" "-c" "import ast,glob;[ast.parse(open(f).read()) for f in glob.glob('"'"'cells/homologation_binder/*.py'"'"')]")
-      agent (p/shell {:dir "20-actors/yamabiko" :continue true} "python3" "py/test_agent.py")]
-  (System/exit (if (and (zero? (+ (:fail r) (:error r))) (zero? (:exit smoke)) (zero? (:exit agent))) 0 1)))'
+exec bb -e '(def nss (quote [yamabiko.cells.bogie-assembly.test-state-machine
+                             yamabiko.cells.carbody-fabrication.test-state-machine
+                             yamabiko.cells.interior-hvac.test-state-machine
+                             yamabiko.cells.traction-electrical.test-state-machine
+                             yamabiko.cells.final-assembly.test-state-machine
+                             yamabiko.cells.dynamic-test.test-state-machine
+                             yamabiko.cells.emissions-acoustic-audit.test-state-machine
+                             yamabiko.cells.homologation-binder.test-state-machine
+                             yamabiko.cells.silen-rail-review.test-state-machine]))
+              (apply require (quote clojure.test) nss)
+              (let [r (apply clojure.test/run-tests nss)]
+                (System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))'
