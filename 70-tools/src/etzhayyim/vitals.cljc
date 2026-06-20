@@ -155,6 +155,17 @@
           (try {:reflex (if (zero? (:exit res)) :green :red) :exit (:exit res)}
                (catch Exception e {:reflex :error :msg (.getMessage e)})))))))
 
+(def ^:private reflex-timeout-overrides
+  "Per-cell reflex budget overrides (ms) for suites that legitimately exceed the default 60s.
+   EMPIRICAL NOTE (#5): ibuki's run_tests.sh runs 18 LIVE-I/O suites (kotoba_bridge→:8077,
+   perception→AppView, infer→Murakumo, …). Measured 406s all-green when idle, but it exceeded
+   even a 480s budget under the daemon's concurrent sweep + live-network variance — so a fixed
+   bump is a losing battle that only burns sweep time for a still-:timeout result. ibuki is
+   left at the default and stays 休眠, but is no longer punished (the :timeout→:red scoring
+   floor below gives it 5 not 0). The REAL fix is a hermetic/offline reflex entrypoint (no
+   live I/O), tracked separately; a flaky liveness probe must not gate a cell's classification."
+  {})
+
 ;; ── scoring & classification ─────────────────────────────────────────────────
 
 (defn- score
@@ -164,7 +175,9 @@
    atproto= bsky(20) + social-method(5) + recent-out(5)"
   [v]
   (let [clj (+ (* 15 (:clj/port-ratio v))
-               (case (:reflex v) :green 20 :red 5 0)
+               ;; :timeout = inconclusive (suite too slow to finish in budget), NOT a
+               ;; confirmed failure — so it must never score BELOW :red. (co-scientist #5)
+               (case (:reflex v) :green 20 :red 5 :timeout 5 0)
                (if (<= (:bio/heartbeat-days v) 30) 5 0))
         act (+ (* 10 (min 1.0 (/ (:actor/integrates v) 5.0)))
                (* 10 (min 1.0 (/ (:actor/in-degree v) 5.0)))
@@ -199,7 +212,9 @@
                         (actor-signs manifest actor-dir indeg)
                         (bio-signs actor-dir)
                         (atproto-signs actor-dir)
-                        (if run-tests? (run-suite actor-dir timeout-ms) {:reflex :skipped}))
+                        (if run-tests?
+                          (run-suite actor-dir (max timeout-ms (get reflex-timeout-overrides name 0)))
+                          {:reflex :skipped}))
         scored   (merge base (score base))]
     (assoc scored :class (classify scored))))
 
@@ -233,8 +248,13 @@
    so the organism's evolution (生命進化) is queryable across runs."
   [run vitals]
   (let [conn (kt/connect {:journal journal})]
-    (doseq [v vitals] (kt/transact conn [(->entity run v)]))
-    (kt/head-cid conn)))
+    ;; ONE batched transact for the whole cohort (transact takes a seq of entity maps).
+    ;; Was a per-actor doseq: each of the ~104 transacts re-hashed the ENTIRE growing log
+    ;; for its head-cid (~545ms each ⇒ ~56s/sweep, worsening every run). One tx = one append
+    ;; + one head recompute. Same datoms (db/id is unique per run+actor). (co-scientist #3)
+    ;; transact already computes the new head — take it from the result instead of a second
+    ;; full-log re-hash (the prior (kt/head-cid conn) doubled the O(log) cost). (co-scientist regrade)
+    (:head (kt/transact conn (mapv #(->entity run %) vitals)))))
 
 ;; ── report ───────────────────────────────────────────────────────────────────
 
@@ -317,6 +337,8 @@
 ;;    (like public/kotoba/blocks). The JSON is a derived read-model/projection of the log.
 (def ^:private pulse-journal  "80-data/organism/pulse.journal.edn")
 (def ^:private joucho-journal "80-data/organism/joucho.journal.edn")
+(def ^:private trajectory-journal "80-data/organism/trajectory.journal.edn")  ; joucho reads it (#1)
+(declare load-trajectory)
 
 (defn- git-out [& args]
   (try (:out (apply p/sh args)) (catch Exception _ "")))
@@ -377,7 +399,10 @@
     {"generatedAt" (str (java.time.Instant/ofEpochMilli now)) "now" now
      "sinceHours" hours "actors" per "stream" (vec stream)
      "working" (vec (sort (keys dirty)))
-     "head" (try (kt/head-cid (kt/connect {:journal journal})) (catch Exception _ ""))}))
+     ;; placeholder: -pulse overwrites "head" with the pulse-journal snapshot CID. Connecting to
+     ;; the large, ever-growing vitals journal here cost ~1.25s on EVERY 6s 脈 tick (connect
+     ;; read-log + full-log head-cid) to produce a value that was immediately discarded.
+     "head" ""}))
 
 (defn -pulse
   "Persist the live pulse into the kotoba Datom log (SoT), snapshot it content-addressed, and
@@ -422,6 +447,28 @@
     (zero? (mod i 7)) (conj ":event/dialogue-reciprocated")
     (and (pos? (mod i 2)) (pos? (mod i 3)) (pos? (mod i 5)) (pos? (mod i 7))) (conj ":event/idle")))
 
+(defn- real-beat-events
+  "The organism's ACTUAL recent life as a beat stream (#1): each beat = one trajectory run's
+   delta vs the prior run. Gaining alive cells / vitality folds reward events (the body
+   connecting, healing); losing them folds stress (deaths, decline). A STABLE organism emits
+   only :idle and drifts to its baseline temperament — so a flat, mostly-dormant body no longer
+   fabricates an ever-climbing 'improving'; a declining body actually feels it.
+   `runs` = trajectory cohort maps {:alive :dormant :stub :sum}, oldest→newest."
+  [runs]
+  (vec
+    (for [[prev cur] (map vector runs (rest runs))]
+      (let [d-alive (- (:alive cur) (:alive prev))
+            d-sum   (- (:sum cur) (:sum prev))
+            d-stub  (- (:stub cur) (:stub prev))
+            evs (cond-> []
+                  (pos? d-alive) (into (repeat (min 3 d-alive) ":event/dialogue-reciprocated"))
+                  (neg? d-alive) (conj ":event/inbox-pressure")
+                  (pos? d-sum)   (conj ":event/kaizen-merged")     ; body got healthier
+                  (neg? d-sum)   (conj ":event/kaizen-rejected")   ; body declined
+                  (pos? d-stub)  (conj ":event/inbox-pressure")    ; cells died
+                  (neg? d-stub)  (conj ":event/follower-gained"))] ; revived from death
+        (if (seq evs) evs [":event/idle"])))))
+
 (defn joucho-data [of n]
   (let [baseline ((requiring-resolve 'ibuki.methods.joucho/personality-baseline) of)
         fold     (requiring-resolve 'ibuki.methods.joucho/fold-event)
@@ -429,11 +476,17 @@
         readout  (requiring-resolve 'ibuki.methods.wellbecoming/readout)
         vocab    @(requiring-resolve 'ibuki.methods.joucho/event-deltas)  ;; the loaded closed vocab
         known?   (fn [e] (contains? vocab e))
+        ;; #1: fold the organism's REAL recent trajectory (not a synthetic (mod i k) schedule).
+        ;; Fail-open to the synthetic stream if the trajectory log isn't readable / has <2 runs.
+        runs     (try (vec (take-last (inc n) (load-trajectory (kt/connect {:journal trajectory-journal}))))
+                      (catch Throwable _ nil))
+        real-evs (when (>= (count runs) 2) (real-beat-events runs))
+        n-beats  (if (seq real-evs) (count real-evs) n)
+        evs-at   (fn [i] (or (when real-evs (filter known? (nth real-evs (dec i))))
+                             (filter known? (beat-events i))))
         beats (loop [i 1, sc baseline, acc []]
-                (if (> i n) acc
-                  ;; fold only events present in the loaded vocab — degrade gracefully if the
-                  ;; rich reward inputs (ADR-2606171800) are not yet in this joucho build
-                  (let [evs (or (seq (filter known? (beat-events i))) [":event/idle"])
+                (if (> i n-beats) acc
+                  (let [evs (or (seq (evs-at i)) [":event/idle"])
                         sc' (reduce (fn [s e] (fold s e baseline)) sc evs)]
                     (recur (inc i) sc' (conj acc (assoc sc' :beat i :mood (mood-of sc')))))))
         final (last beats)
@@ -495,6 +548,8 @@
         (recur (rest a) o))
       o)))
 
+(declare record-trajectory! export-trajectory!)   ;; trajectory section is defined below
+
 (defn -main [& args]
   (let [{:keys [run-tests? timeout-ms limit only]} (parse-args args)
         all   (actor-dirs)
@@ -515,80 +570,100 @@
         run    (System/currentTimeMillis)
         head   (persist! run vitals)]
     (export-json! run vitals)
-    ;; canonical content-addressed snapshot of the vitals Datom log (no KV; D2 of ADR-2606172200)
-    (let [conn (kt/connect {:journal journal})] (snapshot-to! conn "vitals.kotoba.edn"))
+    ;; content-addressed snapshot of THIS run's cells only (no KV; D2 of ADR-2606172200).
+    ;; The full as-of history stays in the journal (canonical) + trajectory.kotoba.edn
+    ;; (evolution); the page only needs current cells. A full-journal snapshot had grown to
+    ;; ~9MB and was parsed on the browser main thread every load — snapshot just the run
+    ;; (~2k datoms ≈ <100KB) via a throwaway conn. (co-scientist viz: boot-parse)
+    (let [snap-journal (str journal ".latest")]
+      (io/delete-file snap-journal true)
+      (let [tmp (kt/connect {:journal snap-journal})]
+        (kt/transact tmp (mapv #(->entity run %) vitals))
+        (snapshot-to! tmp "vitals.kotoba.edn"))
+      (io/delete-file snap-journal true))
+    ;; evolution: append this run's cohort summary + materialize trajectory.kotoba.edn (+ .json)
+    (record-trajectory! run vitals)
+    (export-trajectory!)
     (println (report->md vitals head))))
 
 ;; ── trajectory: the organism's evolution across runs (生命進化) ──────────────
-
-(defn load-runs
-  "Every persisted observation as {:run :actor :score :class}, sorted by run."
-  [conn]
-  (->> (kt/q conn '{:find [?run ?name ?score ?class]
-                    :where [[?e :vitals/run ?run]
-                            [?e :vitals.actor/name ?name]
-                            [?e :vitals/score ?score]
-                            [?e :vitals/class ?class]]})
-       (map (fn [[run name score class]] {:run run :actor name :score score :class class}))
-       (sort-by :run)))
+;; A DEDICATED, summary-grain Datom log — ONE cohort datom per vitals run — so the
+;; cross-run evolution is its own content-addressed `.kotoba.edn` snapshot, exactly
+;; like pulse/joucho/narration/vitals. Deriving the series from the full vitals
+;; journal (per-actor × per-run join) is O(runs×cells) and timed out once the log
+;; grew past a few dozen runs; the right grain for a cross-run series is one datom
+;; per run, which stays instant. Still kotoba Datom log, no KV (ADR-2606172200).
+;; trajectory-journal is defined up with the other journal paths (joucho reads it for #1)
 
 (defn- iso [ms] (str (java.time.Instant/ofEpochMilli ms)))
 
-(defn trajectory->md [obs]
-  (let [runs (sort (distinct (map :run obs)))
-        by-run (group-by :run obs)
-        rows (for [r runs]
-               (let [o (by-run r), fq (frequencies (map :class o))]
-                 {:run r :n (count o) :alive (get fq "alive" 0)
-                  :dormant (get fq "dormant" 0) :stub (get fq "stub" 0)
-                  :sum (reduce + (map :score o))}))
-        deltas (cons nil (map (fn [a b] (- (:sum b) (:sum a))) rows (rest rows)))
-        ;; per-actor transitions between the last two runs
-        [prev cur] (take-last 2 runs)
-        cls (fn [r] (into {} (map (juxt :actor :class) (by-run r))))
-        scr (fn [r] (into {} (map (juxt :actor :score) (by-run r))))
-        trans (when (and prev cur (not= prev cur))
-                (let [pc (cls prev), cc (cls cur), ps (scr prev), cs (scr cur)]
-                  (for [a (sort (keys cc))
-                        :let [from (pc a), to (cc a), ds (- (cs a 0) (ps a 0))]
-                        :when (or (and from (not= from to)) (not (zero? ds)))]
-                    (format "| %s | %s → %s | %+d |" a
-                            (class-glyph (or from "—")) (class-glyph to) ds))))]
-    (str "# etzhayyim — vitals trajectory (生命進化)\n\n"
-         (format "%d runs · %d cells observed\n\n" (count runs) (count (distinct (map :actor obs))))
-         "| run | when | cells | 生 | 休眠 | 死 | Σscore | Δ |\n"
-         "|--:|---|--:|--:|--:|--:|--:|--:|\n"
-         (str/join "\n"
-           (map (fn [row d]
-                  (format "| %d | %s | %d | %d | %d | %d | %d | %s |"
-                          (:run row) (iso (:run row)) (:n row) (:alive row)
-                          (:dormant row) (:stub row) (:sum row)
-                          (if d (format "%+d" d) "—")))
-                rows deltas))
-         "\n"
-         (when (seq trans)
-           (str "\n## transitions (last run vs previous)\n\n"
-                "| actor | class | Δscore |\n|---|:--:|--:|\n"
-                (str/join "\n" trans) "\n")))))
+(defn- ->traj-entity
+  "One cohort-summary datom for a finished vitals run. Keyed :db/id ⇒ idempotent."
+  [run vitals]
+  (let [fq (frequencies (map :class vitals))]
+    {:db/id        (str "traj/" run)
+     :traj/run     run
+     :traj/at      (iso run)
+     :traj/cells   (count vitals)
+     :traj/alive   (get fq :alive 0)
+     :traj/dormant (get fq :dormant 0)
+     :traj/stub    (get fq :stub 0)
+     :traj/sum     (reduce + (map :score vitals))}))
 
-(defn trajectory-series
-  "Per-run cohort series for the /organism evolution view (生命進化)."
-  [obs]
-  (let [by-run (group-by :run obs)]
-    (vec (for [r (sort (distinct (map :run obs)))]
-           (let [o (by-run r), fq (frequencies (map :class o))]
-             {:run r :at (iso r) :cells (count o)
-              :alive (get fq "alive" 0) :dormant (get fq "dormant" 0)
-              :stub (get fq "stub" 0) :sum (reduce + (map :score o))})))))
+(defn record-trajectory!
+  "Append this run's cohort summary to the trajectory journal; returns the head CID."
+  [run vitals]
+  (let [conn (kt/connect {:journal trajectory-journal})]
+    (kt/transact conn [(->traj-entity run vitals)])
+    (kt/head-cid conn)))
 
-(defn export-trajectory! [obs]
-  (let [out (json/generate-string {:runs (trajectory-series obs)} {:pretty true})]
+(defn load-trajectory
+  "Every recorded run summary, sorted by run — instant (summary-grain journal)."
+  [conn]
+  (->> (kt/q conn '{:find [?run ?at ?cells ?alive ?dormant ?stub ?sum]
+                    :where [[?e :traj/run ?run] [?e :traj/at ?at]
+                            [?e :traj/cells ?cells] [?e :traj/alive ?alive]
+                            [?e :traj/dormant ?dormant] [?e :traj/stub ?stub]
+                            [?e :traj/sum ?sum]]})
+       (map (fn [[run at cells alive dormant stub sum]]
+              {:run run :at at :cells cells :alive alive
+               :dormant dormant :stub stub :sum sum}))
+       (sort-by :run)
+       vec))
+
+(defn export-trajectory!
+  "Materialize the trajectory journal to a content-addressed `trajectory.kotoba.edn`
+   under every served dir, and project `trajectory.json` from it. Returns {:head :runs}."
+  []
+  (let [conn (kt/connect {:journal trajectory-journal})
+        head (snapshot-to! conn "trajectory.kotoba.edn")
+        runs (load-trajectory conn)
+        out  (json/generate-string {:runs runs :head head :store "kotoba-datom-log"
+                                    :snapshot "trajectory.kotoba.edn"} {:pretty true})]
     (doseq [p ["60-apps/etzhayyim-project-organism/public/trajectory.json"
                "50-infra/etzhayyim-did-web/public/organism/trajectory.json"]]
       (io/make-parents p)
-      (spit p out))))
+      (spit p out))
+    {:head head :runs (count runs)}))
+
+(defn- trajectory->md [runs]
+  (let [rows (map-indexed
+               (fn [i r]
+                 (let [d (when (pos? i) (- (:sum r) (:sum (nth runs (dec i)))))]
+                   (format "| %d | %s | %d | %d | %d | %d | %d | %s |"
+                           (:run r) (:at r) (:cells r) (:alive r)
+                           (:dormant r) (:stub r) (:sum r)
+                           (if d (format "%+d" d) "—"))))
+               runs)]
+    (str "# etzhayyim — organism evolution (生命進化)\n\n"
+         (format "**%d runs** recorded · trajectory.kotoba.edn\n\n" (count runs))
+         "| run | at | cells | 生 | 休眠 | 死 | Σscore | Δ |\n"
+         "|--:|---|--:|--:|--:|--:|--:|--:|\n"
+         (str/join "\n" rows) "\n")))
 
 (defn -trajectory [& _]
-  (let [obs (load-runs (kt/connect {:journal journal}))]
-    (export-trajectory! obs)
-    (println (trajectory->md obs))))
+  (let [{:keys [head runs]} (export-trajectory!)
+        conn (kt/connect {:journal trajectory-journal})]
+    (binding [*out* *err*]
+      (println (format "[trajectory] %d runs · head %s…" runs (subs head 0 (min 16 (count head))))))
+    (println (trajectory->md (load-trajectory conn)))))

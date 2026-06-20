@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  com.etzhayyim.organism.watchdog — the EXTERNAL supervisor (immune kaizen).
+
+  Runs `bb organism:watchdog` (etzhayyim.watchdog/-check) once every 60s (StartInterval).
+  It reads the organism's health.json from OUTSIDE the heartbeat loop: if the loop has
+  wedged (process alive but silent >120s — which the organism's own KeepAlive cannot see,
+  because the process never died) it force-restarts the organism via
+  `launchctl kickstart -k`. It also probes the substrate (kotoba :8077, IPFS, the served
+  page) into watchdog.json so a dead dependency is visible.
+
+  This closes the "whole-loop-death blind spot": launchd KeepAlive on the heartbeat catches
+  whole-process DEATH; this watchdog catches a stuck LAYER (a live process with a frozen
+  loop). The two are complementary — a process restarts on crash AND on hang.
+
+  StartInterval=60 → a periodic check (NOT a resident loop); launchd owns the cadence.
+  RunAtLoad=true   → first check at login.
+  No KeepAlive     → each pass exits; launchd re-runs it every 60s.
+
+  OS config, NOT an operational script — the supervision logic lives in clj/bb
+  (etzhayyim.watchdog), shelling out only to system binaries (launchctl/pgrep/id).
+
+  Install (operator step):
+    cp 50-infra/launchd/com.etzhayyim.organism.watchdog.plist ~/Library/LaunchAgents/
+    launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.etzhayyim.organism.watchdog.plist
+    launchctl enable  gui/$(id -u)/com.etzhayyim.organism.watchdog
+  Stop / uninstall:
+    launchctl bootout gui/$(id -u)/com.etzhayyim.organism.watchdog
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.etzhayyim.organism.watchdog</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/opt/homebrew/bin/bb</string>
+    <string>organism:watchdog</string>
+  </array>
+
+  <key>WorkingDirectory</key>
+  <string>/Users/junkawasaki/github/com-junkawasaki/orgs/etzhayyim/root</string>
+
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+  </dict>
+
+  <key>RunAtLoad</key>
+  <true/>
+  <key>StartInterval</key>
+  <integer>60</integer>
+
+  <key>StandardOutPath</key>
+  <string>/Users/junkawasaki/github/com-junkawasaki/orgs/etzhayyim/root/70-tools/scripts/organism-heartbeat/logs/watchdog.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/junkawasaki/github/com-junkawasaki/orgs/etzhayyim/root/70-tools/scripts/organism-heartbeat/logs/watchdog.err.log</string>
+</dict>
+</plist>

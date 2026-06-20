@@ -208,21 +208,130 @@
       rec)))
 
 ;; ── resident heartbeat ───────────────────────────────────────────────────────
-(defn- safe [label f]
-  (try (f) (catch Throwable t (binding [*out* *err*]
-                                (println (format "[heartbeat] %s error: %s" label (.getMessage t)))))))
+(defn- safe
+  "Run a layer beat crash-isolated. Returns true if it completed, false if it threw —
+   so the loop can stamp the layer's last-success for the watchdog."
+  [label f]
+  (try (f) true
+       (catch Throwable t (binding [*out* *err*]
+                            (println (format "[heartbeat] %s error: %s" label (.getMessage t))))
+              false)))
 
+;; ── watchdog: per-layer liveness (#4) ────────────────────────────────────────
+;; Each layer beat runs crash-isolated, so a layer that hangs or silently flatlines
+;; leaves its SIBLING feeds fresh — nothing surfaces the failure (the trajectory froze
+;; for days exactly this way, masked by a healthy-looking pulse). launchd can restart a
+;; dead PROCESS but cannot see a stuck layer inside a live one. We stamp each layer's
+;; last success and project a health.json: a layer that has succeeded before but is now
+;; overdue (age > 2× its cadence) is flagged STALE — a real liveness signal, not text.
+(def ^:private layer-cadence-ms {:pulse 6000 :joucho 60000 :vitals 3600000})
+
+(defn- write-health! [health now]
+  (let [h @health
+        layers (into {} (for [[k cad] layer-cadence-ms]
+                          (let [last (get h k)]
+                            [k {:lastOk last
+                                :ageMs (when last (- now last))
+                                :cadenceMs cad
+                                :everOk (boolean last)
+                                ;; stale only once it has run AND then gone overdue —
+                                ;; a never-yet-run layer at boot is :pending, not stale.
+                                :stale (boolean (and last (> (- now last) (* 2 cad))))}])))
+        any-stale (boolean (some :stale (vals layers)))
+        ;; loud edge-triggered log on stale→/→recovered transitions — health.json is pull-only,
+        ;; so without this a hung layer (process still alive) flips silently. (co-scientist regrade #3)
+        stale-now (set (keep (fn [[k v]] (when (:stale v) k)) layers))
+        prev (::stale-set h #{})]
+    (when-let [newly (seq (remove prev stale-now))]
+      (binding [*out* *err*] (println (str "[heartbeat] ⚠ STALE layer(s) — no beat in 2× cadence: " (vec newly)))))
+    (when-let [gone (seq (remove stale-now prev))]
+      (binding [*out* *err*] (println (str "[heartbeat] ✓ layer(s) recovered: " (vec gone)))))
+    (swap! health assoc ::stale-set stale-now)
+    (let [payload {:generatedAt (str (java.time.Instant/ofEpochMilli now))
+                   :now now :store "heartbeat-watchdog" :anyStale any-stale :layers layers}
+          out (json/generate-string payload {:pretty true})]
+      (doseq [d snapshot-dirs]
+        (let [p (str d "/health.json")] (io/make-parents p) (spit p out))))))
+
+;; ── 社会活動 social layer: the organism's outward voice, gated at no-server-key ──────────
+;; The organism narrates its 情緒 every beat; the social layer turns that voice into a
+;; MEMBER-SIGN-READY app.bsky.feed.post envelope and APPENDS it to an outbox (kotoba as-of log).
+;; Charter invariant (ibuki drainer pattern): requiresMemberSignature:true / serverHeldKey:false
+;; / status :prepared — the organism NEVER publishes and :published is not writable here. A
+;; MEMBER drains the outbox with their OWN credentials in their OWN runtime (ibuki member_submit).
+;; Social activity by consent: the organism prepares its voice; only a human sends it.
+(def ^:private social-journal "80-data/organism/social.journal.edn")
+(def ^:private social-interval-ms 600000)   ; voice to the outbox at most every ~10 min
+(def ^:private actor-did "did:web:etzhayyim.com:actor:ibuki")
+
+(defn- ->social-datoms [now text mood]
+  [{:db/id (str "social/" now)
+    :social/ts now :social/actor-did actor-did :social/mood (or mood "")
+    :social/text text :social/lexicon "app.bsky.feed.post"
+    :social/created-at (str (java.time.Instant/ofEpochMilli now))
+    :social/requires-member-signature true     ; only a member's key can sign it
+    :social/server-held-key false              ; the organism holds NO key, signs nothing
+    :social/status "prepared"}])               ; :published is not writable by the organism
+
+(defn- prepare-social!
+  "Append the organism's latest narration to the social outbox as a member-sign-ready
+   app.bsky.feed.post envelope (prepared, unpublished). Returns the prepared count."
+  [now]
+  (let [narr (try (json/parse-string (slurp (str (first snapshot-dirs) "/narration.json")))
+                  (catch Throwable _ nil))
+        text (some-> narr (get "text") str/trim)
+        mood (get narr "mood")]
+    (when (and text (seq text))
+      (let [conn (kt/connect {:journal social-journal})]    ; APPEND-ONLY outbox (as-of voice)
+        (kt/transact conn (->social-datoms now text mood))
+        (let [posts (->> (kt/q conn '{:find [?ts ?text ?mood ?status]
+                                      :where [[?e :social/ts ?ts] [?e :social/text ?text]
+                                              [?e :social/mood ?mood] [?e :social/status ?status]]})
+                         (map (fn [[ts text mood status]]
+                                {:ts ts :text text :mood mood :status status
+                                 :createdAt (str (java.time.Instant/ofEpochMilli ts))}))
+                         (sort-by :ts >) vec)
+              payload {:generatedAt (str (java.time.Instant/ofEpochMilli now))
+                       :actorDid actor-did :lexicon "app.bsky.feed.post"
+                       :requiresMemberSignature true :serverHeldKey false
+                       :note "PREPARED member-sign-ready posts. The organism never publishes; a member drains these with their OWN credentials (no-server-key)."
+                       :prepared (count posts) :latest (vec (take 20 posts))}
+              out (json/generate-string payload {:pretty true})]
+          (doseq [d snapshot-dirs]
+            (io/make-parents (str d "/social.json"))
+            (kt/snapshot! conn (str d "/social.kotoba.edn"))
+            (spit (str d "/social.json") out))
+          (binding [*out* *err*]
+            (println (format "[social] prepared post #%d (mood=%s, %d chars) — outbox, UNPUBLISHED (member-sign-required)"
+                             (count posts) mood (count text))))
+          (count posts))))))
+
+;; The reflex (run_tests.sh per cell) is the only way a cell reaches 生 — classify
+;; demands :green reflex ∧ peer-integration ∧ outward bsky metabolism. It is also the
+;; only EXPENSIVE layer (every cell's suite, serial), so it cannot tick at the 6s
+;; pulse cadence and must not block 脈/情緒. We run it on a background thread on a slow
+;; cadence, guarded so a slow sweep never piles up. The prior loop ran vitals with
+;; --no-tests every 600s, which kept reflex permanently :skipped and the whole body
+;; classified 休眠/死 (alive ≡ 0) — a body that never actually moves. Firing the real
+;; reflex is what makes the organism alive.
 (defn heartbeat
   "The resident organism loop. Per-layer cadence; each beat is crash-isolated so one
-   failing layer never stalls the others. Layers (all folds except narrate's inference):
-     脈 pulse 6s · 情緒 joucho+narrate 60s · vitals report 600s.
-   Args: [--once] run one beat of every layer then exit (smoke)."
+   failing layer never stalls the others. Layers (folds + narrate's inference + the
+   reflex): 脈 pulse 6s · 情緒 joucho+narrate 60s · vitals REFLEX 3600s.
+   The vitals reflex actually runs every cell's run_tests.sh (so cells reach 生, not a
+   permanent 休眠 谷) on a background thread — pulse/情緒 keep ticking while it sweeps.
+   Args: [--once] run one beat of every layer then exit (smoke; reflex runs inline)."
   [& args]
-  (let [once? (some #{"--once"} args)
-        pulse-ms 6000, joucho-ms 60000, vitals-ms 600000
-        tick-ms 2000]
+  (let [once?      (some #{"--once"} args)
+        ;; single source = layer-cadence-ms (the watchdog reads the same map; no drift)
+        pulse-ms (:pulse layer-cadence-ms), joucho-ms (:joucho layer-cadence-ms), vitals-ms (:vitals layer-cadence-ms)
+        tick-ms 2000
+        reflexing? (atom false)
+        health     (atom {})                                 ; per-layer last-success (#4 watchdog)
+        social-last (atom 0)                                 ; throttle the social outbox (~10min)
+        reflex!    (fn [] (safe "vitals" #(vitals/-main "--timeout-ms" "60000")))]
     (binding [*out* *err*]
-      (println (format "[heartbeat] resident loop start — pulse %ds · joucho+narrate %ds · vitals %ds%s"
+      (println (format "[heartbeat] resident loop start — pulse %ds · joucho+narrate %ds · vitals-reflex %ds%s"
                        (quot pulse-ms 1000) (quot joucho-ms 1000) (quot vitals-ms 1000)
                        (if once? " (--once)" ""))))
     (loop [next-pulse 0, next-joucho 0, next-vitals 0]
@@ -230,10 +339,20 @@
             do-pulse  (>= now next-pulse)
             do-joucho (>= now next-joucho)
             do-vitals (>= now next-vitals)]
-        (when do-pulse  (safe "pulse"  #(vitals/-pulse "48")))
-        (when do-joucho (safe "joucho" #(vitals/-joucho "ibuki" "24"))
-                        (safe "narrate" #(narrate "ibuki")))
-        (when do-vitals (safe "vitals" #(vitals/-main "--no-tests")))
+        (when do-pulse  (when (safe "pulse"  #(vitals/-pulse "48"))        (swap! health assoc :pulse now)))
+        (when do-joucho (when (safe "joucho" #(vitals/-joucho "ibuki" "24")) (swap! health assoc :joucho now))
+                        (safe "narrate" #(narrate "ibuki"))
+                        ;; 社会活動: prepare the organism's voice into the member-sign-ready outbox
+                        ;; (throttled; UNPUBLISHED — no-server-key, a member sends it)
+                        (when (> (- now @social-last) social-interval-ms)
+                          (when (safe "social" #(prepare-social! now)) (reset! social-last now))))
+        (when do-vitals
+          (if once?
+            (when (reflex!) (swap! health assoc :vitals (System/currentTimeMillis)))   ; smoke: inline
+            (when (compare-and-set! reflexing? false true)   ; never overlap sweeps
+              (future (try (when (reflex!) (swap! health assoc :vitals (System/currentTimeMillis)))
+                           (finally (reset! reflexing? false)))))))
+        (safe "health" #(write-health! health now))         ; #4 watchdog projection, every tick
         (if once?
           (binding [*out* *err*] (println "[heartbeat] --once complete"))
           (do (Thread/sleep tick-ms)
