@@ -1,14 +1,11 @@
 #!/usr/bin/env bash
-# ooyake — charter-gate suite (bb/clj) + remaining standalone cell py suites (pending port), ADR-2606160842.
-# (Additional audits live under 70-tools/scripts/audit/test_ooyake_*.py — run via the repo audit pass.)
+# ooyake — clj/bb test suite (ADR-2606021600 cells py→clj port wave).
+# Runs all cljc test namespaces via babashka from the repo root.
+# Covers the two gated cell state machines: reconcile + world_model.
 set -euo pipefail
 cd "$(dirname "$0")/../.."
-exec bb -e '(require (quote clojure.test) (quote [babashka.process :as p]) (quote ooyake.methods.test-charter-gates))
-(let [r (clojure.test/run-tests (quote ooyake.methods.test-charter-gates))
-      cells [["cells/reconcile" "test_reconcile_cell.py"]
-             ["cells/reconcile" "test_seed_integrity.py"]
-             ["cells/world_model" "test_world_model_cell.py"]
-             ["cells/world_model" "test_consistency.py"]]
-      pys (mapv (fn [[d f]] (:exit (p/shell {:dir (str "20-actors/ooyake/" d) :continue true} "python3" f))) cells)]
-  (println "== ooyake cell py exits:" pys "==")
-  (System/exit (if (and (zero? (+ (:fail r) (:error r))) (every? zero? pys)) 0 1)))'
+exec bb -e '(def nss (quote [ooyake.cells.reconcile.test-state-machine
+                             ooyake.cells.world-model.test-state-machine]))
+              (apply require (quote clojure.test) nss)
+              (let [r (apply clojure.test/run-tests nss)]
+                (System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))'
