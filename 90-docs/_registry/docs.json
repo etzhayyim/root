@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-06-18",
+  "updated_at": "2026-06-20",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.md",
@@ -86,29 +86,6 @@
       "supersedes": [],
       "superseded_by": [],
       "last_verified": "2026-03-20",
-      "amends": [],
-      "amended_by": []
-    },
-    {
-      "path": "90-docs/yoro/260323-yoro-human-credit-economy-design.md",
-      "id": "260323-yoro-human-credit-economy-design",
-      "title": "yoro.etzhayyim.com Human Credit Economy — Murakumo + HC Task Rewards",
-      "status": "active",
-      "doc_type": "explanation",
-      "topic": "yoro-credit-economy",
-      "authoritative": true,
-      "authoritative_for": [
-        "yoro human participation credit system",
-        "murakumo credit reward rates",
-        "hc.etzhayyim.com credit integration"
-      ],
-      "related": [
-        "yoro-superapp-oembed-design",
-        "260320-kotodama-cloudflare-containers-evaluation"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "last_verified": "2026-03-23",
       "amends": [],
       "amended_by": []
     },
@@ -1605,38 +1582,6 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/0046-yoro-triple-witness-autonomy-monitoring.md",
-      "id": "adr-0046",
-      "title": "Yoro triple-witness autonomy monitoring — 3 mutually-independent monitor actors with 2-of-3 quorum",
-      "status": "proposed",
-      "doc_type": "adr",
-      "topic": "yoro-autonomy-monitoring",
-      "authoritative": true,
-      "authoritative_for": [
-        "yoro.etzhayyim.com autonomy guarantee (liveness / knowledge / behavior)",
-        "3 monitor actor DIDs (did:web:yoro-liveness.etzhayyim.com / yoro-shinka.etzhayyim.com / yoro-integrity.etzhayyim.com)",
-        "Monitor placement (jacob / judah / CF Worker — 3 independent failure domains)",
-        "2-of-3 quorum vote record (vertex_yoro_monitor_vote) for corrective actions",
-        "Cross-monitor liveness checks (each monitor attests on the other 2)",
-        "Fault class taxonomy (staleness / drift / loop / byzantine-disagree)",
-        "Action tier (alert / pause / rotate-key / rollback / escalate)"
-      ],
-      "related": [
-        "90-docs/adr/0034-agent-cron-goose-kotoba-direct.md",
-        "90-docs/adr/0026-agent-only-reverse-identity-topology.md",
-        "90-docs/adr/0036-worker-direct-hyperdrive-persistence.md",
-        "90-docs/adr/0022-auth-topology-consolidation.md",
-        "90-docs/adr/0023-auth-shannon-optimal-4-layer.md",
-        "90-docs/adr/0041-pds-commit-content-addressed-pk.md",
-        "90-docs/rules/compliance/per-did-kyumei-shinka-autonomy.md"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "last_verified": "2026-04-22",
-      "amends": [],
-      "amended_by": []
-    },
-    {
       "path": "90-docs/adr/0061-tsukuru-isic-bpmn-actors.md",
       "id": "adr-0061",
       "title": "Tsukuru ISIC BPMN Actors",
@@ -1695,49 +1640,6 @@
       "related": [
         "adr-0034-agent-cron-goose-kotoba-direct"
       ],
-      "supersedes": [],
-      "superseded_by": [],
-      "last_verified": "2026-04-20",
-      "authoritative_for": [],
-      "amends": [],
-      "amended_by": []
-    },
-    {
-      "path": "90-docs/adr/0075-yoro-engagement-wellbecoming.md",
-      "id": "adr-0075-yoro-engagement-wellbecoming",
-      "title": "ADR-0030: YORO Engagement Algorithm — Shannon / Bayes / Graph / Topology / Joucho-emotion with well-becoming guardrails",
-      "status": "active",
-      "doc_type": "adr",
-      "topic": "ranking-wellbecoming",
-      "authoritative": true,
-      "authoritative_for": [
-        "yoro AppView feed ranking の 5 理論レイヤー割当",
-        "PII Tier 3 / cohort k>=50 / signal-encrypted ζ hard-gate を hot path で enforce する不変条件",
-        "doom-scroll / night-mode / datacenter-ASN guardrail の閾値と効果",
-        "IP-intent prior の非永続化ルール",
-        "client-side session topology が送出できる scalar の allow-list"
-      ],
-      "related": [
-        "adr-0018-pii-tier3-cohort-first",
-        "adr-0019-atproto-native-identifier-topology",
-        "adr-0026-agent-only-reverse-identity-topology",
-        "adr-0028-cohort-mv-sharding"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "last_verified": "2026-04-17",
-      "amends": [],
-      "amended_by": []
-    },
-    {
-      "path": "90-docs/adr/0084-yoro-ads-integration.md",
-      "id": "adr-0084-yoro-ads-integration",
-      "title": "ADR-0039: yoro Ads Integration — Placement Registry + House-Ad Fallback",
-      "status": "active",
-      "doc_type": "adr",
-      "topic": "yoro-ads",
-      "authoritative": true,
-      "related": [],
       "supersedes": [],
       "superseded_by": [],
       "last_verified": "2026-04-20",
@@ -2005,72 +1907,6 @@
       "supersedes": [],
       "superseded_by": [],
       "last_verified": "2026-04-24",
-      "amends": [],
-      "amended_by": []
-    },
-    {
-      "path": "90-docs/adr/2604240946-yoro-autonomous-actor-hybrid-loop.md",
-      "id": "adr-2604240946-yoro-autonomous-actor-hybrid-loop",
-      "title": "ADR: yoro.etzhayyim.com 自律 actor — time-domain 分離 hybrid loop (T1 MCP-Compose + BPMN-as-actor + Kotoba/Datomic UDF)",
-      "status": "active",
-      "doc_type": "adr",
-      "topic": "yoro-autonomous-actor",
-      "authoritative": true,
-      "authoritative_for": [
-        "yoro.etzhayyim.com (did:web:yoro.etzhayyim.com) の自律化トポロジ",
-        "AT Protocol actor としての相互成長ループの実装境界",
-        "T1 MCP-Compose / BPMN-as-actor / UDF / LangChain の役割分担",
-        "actor multi-tenancy model の選択 (shared infra vs actor-per-pod)",
-        "Act 層の canonical primitive (sdk.pds.dispatch + Worker-direct Hyperdrive)",
-        "Path F agent loop (260413) を legacy として位置付ける"
-      ],
-      "related": [
-        "adr-0038-actor-as-data-bpmn-dmn-form-mcp-faas",
-        "adr-0044-kotoba-udf-language-strategy",
-        "adr-0046",
-        "adr-0049-python-udf-shared-pool-runtime",
-        "adr-0056-bpmn-as-actor",
-        "adr-0081-worker-direct-hyperdrive-persistence",
-        "adr-0087-kotodama-mcp-tool-facade",
-        "adr-0092-every-vertex-as-actor",
-        "adr-0026-agent-only-reverse-identity-topology",
-        "adr-2604231811-atproto-extension-service-layers",
-        "adr-2604231828-appview-domain-separation-bsky-etzhayyim-ai"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "last_verified": "2026-04-27",
-      "amends": [],
-      "amended_by": []
-    },
-    {
-      "path": "90-docs/adr/2604241038-yoro-pds-ideal-topology.md",
-      "id": "adr-2604241038-yoro-pds-ideal-topology",
-      "title": "ADR: yoro + PDS + AppView 理想トポロジー — Single-Responsibility Workers + NSID-prefix ルーティング契約",
-      "status": "active",
-      "doc_type": "adr",
-      "topic": "service-topology",
-      "authoritative": true,
-      "authoritative_for": [
-        "atproto / yoro / bsky / actor Worker の責務境界",
-        "NSID-prefix routing 契約 (PDS dispatch の単一 SSoT)",
-        "Worker 間 trust plane (viewer DID 伝播方法)",
-        "DID 正規化 (root vs path-DID) の層別 rule",
-        "client facing endpoint の決定木"
-      ],
-      "related": [
-        "adr-2604231811-atproto-extension-service-layers",
-        "adr-2604231828-appview-domain-separation-bsky-etzhayyim-ai",
-        "adr-2604231821-atproto-oauth-wire-format-snake-case",
-        "adr-2604240914-oauth-rs-binding-revocation-introspection",
-        "adr-0022-auth-topology-consolidation",
-        "adr-0024-auth-accounts-worker-topology",
-        "adr-0081-worker-direct-hyperdrive-persistence",
-        "adr-0056-bpmn-as-actor"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "last_verified": "2026-04-25",
       "amends": [],
       "amended_by": []
     },
@@ -2428,35 +2264,6 @@
         "adr-0043-cdn-r2-to-b2-bandwidth-alliance"
       ],
       "last_verified": "2026-04-25",
-      "amends": [],
-      "amended_by": []
-    },
-    {
-      "path": "90-docs/adr/2604251758-murakumo-yoro-actor-worker-fleet.md",
-      "id": "adr-2604251758-murakumo-yoro-actor-worker-fleet",
-      "title": "ADR: Murakumo Mac mini fleet as persistent yoro actor workers",
-      "status": "accepted",
-      "doc_type": "adr",
-      "topic": "murakumo-yoro-actor-worker-fleet",
-      "authoritative": true,
-      "authoritative_for": [
-        "Murakumo Mac mini k3s fleet placement for Zeebe workers",
-        "yoro.etzhayyim.com persistent AT Protocol actor loop on Murakumo",
-        "LangGraph agent worker and MCP tool boundary for yoro social actions",
-        "llama.cpp Vulkan inference tier for actor workers"
-      ],
-      "related": [
-        "adr-2604240946-yoro-autonomous-actor-hybrid-loop",
-        "adr-2604250836-langgraph-as-zeebe-servicetask",
-        "adr-0056-bpmn-as-actor",
-        "adr-0087-kotodama-mcp-tool-facade",
-        "adr-2604231811-atproto-extension-service-layers",
-        "adr-2604241038-yoro-pds-ideal-topology",
-        "adr-0061-murakumo-platform-auth-unification"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "last_verified": "2026-04-27",
       "amends": [],
       "amended_by": []
     },
@@ -3435,29 +3242,6 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2604291630-yoro-guest-projector-browser-gemma-e2b.md",
-      "id": "adr-2604291630",
-      "title": "YORO guest actor chat uses browser-local Gemma E2B",
-      "status": "active",
-      "doc_type": "adr",
-      "topic": "yoro-projector-guest-chat",
-      "authoritative": true,
-      "authoritative_for": [
-        "yoro actor profile guest chat",
-        "browser-local projector fallback",
-        "gemma-e2b web inference surface"
-      ],
-      "related": [
-        "adr-2604271600-projector-l7-langgraph-integration",
-        "adr-2604282100"
-      ],
-      "last_verified": "2026-04-29",
-      "supersedes": [],
-      "superseded_by": [],
-      "amends": [],
-      "amended_by": []
-    },
-    {
       "path": "90-docs/adr/2604291800-well-becoming-formal-model.md",
       "id": "adr-2604291800-well-becoming-formal-model",
       "title": "Well-Becoming Spirit 目的関数 — 公理・数理モデル",
@@ -3588,30 +3372,6 @@
         "adr-0056-bpmn-as-actor",
         "adr-2604250836-langgraph-as-zeebe-servicetask",
         "adr-0012-graph-access-path-boundary"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "last_verified": "2026-04-30",
-      "amends": [],
-      "amended_by": []
-    },
-    {
-      "path": "90-docs/adr/2604301215-yoro-cloudflare-waf-jp-access-control.md",
-      "id": "adr-2604301215-yoro-cloudflare-waf-jp-access-control",
-      "title": "Yoro JP Access Control Lives in Cloudflare WAF",
-      "status": "active",
-      "doc_type": "adr",
-      "topic": "edge-access-control",
-      "authoritative": true,
-      "authoritative_for": [
-        "yoro-jp-access-control",
-        "yoro-edge-geo-blocking",
-        "yoro-cloudflare-waf-rule"
-      ],
-      "related": [
-        "adr-2604241038-yoro-pds-ideal-topology",
-        "adr-2604282300",
-        "adr-2604231828-appview-domain-separation-bsky-etzhayyim-ai"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -5215,35 +4975,6 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2605091900-yoro-flower-fruit-lifecycle.md",
-      "id": "adr-2605091900-yoro-flower-fruit-lifecycle",
-      "title": "Yoro Social Layer = Flowering / Fruiting Surface",
-      "status": "active",
-      "doc_type": "adr",
-      "topic": "yoro-flower-fruit",
-      "authoritative": true,
-      "authoritative_for": [
-        "yoro = pollination / fruiting surface (not message channel)",
-        "vertex_yoro_flower / vertex_yoro_fruit schema",
-        "flower→fruit lifecycle (budding/blooming/pollination/ripening/dropping)",
-        "AT Protocol post = spore release from fruit"
-      ],
-      "related": [
-        "adr-2604231828-appview-domain-separation-bsky-etzhayyim-ai",
-        "adr-2605091500-mycorrhizal-watering-consent-gated-mutation"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "depends_on": [
-        "adr-2605091300-bonsai-cultivar-layer-above-myco-yeast",
-        "adr-2605071200-myco-yeast-artificial-organism-jp-naming",
-        "adr-2605091800-pruning-protocol"
-      ],
-      "last_verified": "2026-05-09",
-      "amends": [],
-      "amended_by": []
-    },
-    {
       "path": "90-docs/adr/2605092000-ecosystem-as-model-unified-multimodal-fp8-vector-substrate.md",
       "id": "adr-2605092000-ecosystem-as-model-unified-multimodal-fp8-vector-substrate",
       "title": "Ecosystem-as-Model — Unified Multimodal FP8 Vector Substrate",
@@ -6062,33 +5793,6 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2605120600-terminal-agent-hitl-yoro-inbox.md",
-      "id": "adr-2605120600-terminal-agent-hitl-yoro-inbox",
-      "title": "ADR-2605120600: Terminal Agent HITL — LangGraph inmem + Yoro Inbox",
-      "status": "active",
-      "doc_type": "adr",
-      "topic": "terminal-agent-hitl-yoro-inbox",
-      "authoritative": true,
-      "authoritative_for": [
-        "terminal-agent LangGraph Server runtime selection (langgraph-cli[inmem])",
-        "terminal-agent k8s deployment topology (Vultr VKE, terminal-agent namespace)",
-        "HITL proxy architecture (Yoro CF Worker → terminal-agent.etzhayyim.com)",
-        "Yoro HITL inbox UI (/tasks/inbox)",
-        "HITL authentication model (HITL_API_KEY bearer + LANGCHAIN_API_KEY x-api-key)"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "amends": [],
-      "depends_on": [
-        "adr-2605080600-langgraph-server-granian-l3-runtime",
-        "adr-2605072000-langgraph-agent-loop-pattern",
-        "adr-2605082100-langgraph-checkpointer-storage"
-      ],
-      "last_verified": "2026-05-12",
-      "related": [],
-      "amended_by": []
-    },
-    {
       "path": "90-docs/adr/2605121400-terminal-agent-graph-enhancement-claude-code-parity.md",
       "id": "adr-2605121400-terminal-agent-graph-enhancement-claude-code-parity",
       "title": "terminal-agent LangGraph enhancement — Claude Code feature parity (Router/Reflection/Plan/Repomap/Supervisor/Memory/CodeAct/Context/Edit/WebFetch/TokenCost/ParallelTools/Vision/Thinking/Compact/YoroHITL)",
@@ -6384,30 +6088,6 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
-      "amends": [],
-      "amended_by": []
-    },
-    {
-      "path": "90-docs/adr/2605140740-yoro-gemma-e4b-social-translation-mcp.md",
-      "id": "adr-2605140740-yoro-gemma-e4b-social-translation-mcp",
-      "title": "YORO Gemma E4B social post translation and MCP facade",
-      "status": "active",
-      "doc_type": "adr",
-      "topic": "yoro-i18n",
-      "authoritative": true,
-      "authoritative_for": [
-        "yoro.etzhayyim.com social post translation worker topology",
-        "yoro social translation MCP tool exposure",
-        "scheduled target language set for yoro post backfill"
-      ],
-      "related": [
-        "adr-0077-translation-link-topology",
-        "adr-0042",
-        "adr-2605102100-keiei-llm-vultr-cpu-inference"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "last_verified": "2026-05-14",
       "amends": [],
       "amended_by": []
     },
@@ -6720,25 +6400,6 @@
         "adr-2605091300-bonsai-cultivar-layer-above-myco-yeast"
       ],
       "last_verified": "2026-05-15",
-      "amends": [],
-      "amended_by": []
-    },
-    {
-      "path": "90-docs/adr/2605151201-gyosei-langgraph-pregel-yoro-kaizen.md",
-      "id": "adr-2605151201-gyosei-langgraph-pregel-yoro-kaizen",
-      "title": "Gyosei Fractal Pregel, Yoro Integration, and Kaizen Architecture",
-      "status": "active",
-      "doc_type": "adr",
-      "topic": "gyosei-langgraph",
-      "authoritative": true,
-      "authoritative_for": [
-        "gyosei-pregel-architecture",
-        "yoro-gyosei-integration"
-      ],
-      "last_verified": "2026-05-15",
-      "related": [],
-      "supersedes": [],
-      "superseded_by": [],
       "amends": [],
       "amended_by": []
     },
@@ -7068,29 +6729,6 @@
         "adr-2605172100-etzhayyim-payments-on-chain-only"
       ],
       "last_verified": "2026-05-17",
-      "amends": [],
-      "amended_by": []
-    },
-    {
-      "path": "90-docs/adr/2605171900-yoro-migration-to-etzhayyim.md",
-      "id": "adr-2605171900-yoro-migration-to-etzhayyim",
-      "title": "ADR-2605171900: yoro AppView migration — code + DNS + deployment to yoro.etzhayyim.com",
-      "status": "active",
-      "doc_type": "adr",
-      "topic": "yoro-migration-to-etzhayyim",
-      "authoritative": true,
-      "authoritative_for": [
-        "yoro AppView canonical home (etzhayyim/root)",
-        "yoro.etzhayyim.com as user-facing surface",
-        "migration policy for hybrid open-concept / legacy-deployed surfaces"
-      ],
-      "related": [],
-      "supersedes": [],
-      "superseded_by": [],
-      "depends_on": [
-        "adr-2605170900-etzhayyim-root-adr-canonical-home"
-      ],
-      "last_verified": "2026-05-18",
       "amends": [],
       "amended_by": []
     },
@@ -7839,38 +7477,6 @@
         "adr-2605170900-etzhayyim-root-adr-canonical-home",
         "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
         "adr-2605172000-etzhayyim-rw-free-substrate"
-      ],
-      "last_verified": "2026-05-19",
-      "amends": [],
-      "amended_by": []
-    },
-    {
-      "path": "90-docs/adr/2605191358-yoro-murakumo-rw-free-rewrite-map.md",
-      "id": "adr-2605191358-yoro-murakumo-rw-free-rewrite-map",
-      "title": "ADR-2605191358: yoro / murakumo RW-free rewrite — per-path migration map",
-      "status": "proposed",
-      "doc_type": "adr",
-      "topic": "yoro-murakumo-rw-free-rewrite",
-      "authoritative": true,
-      "authoritative_for": [
-        "per-path rewrite map for yoro UI (kagami-store + 12 RW Async MVs)",
-        "per-path rewrite map for murakumo cluster (goose recipes / LiteLLM / vertex_inference_job)",
-        "per-path rewrite map for CF Worker murakumo (Kysely + Hyperdrive)",
-        "rewrite ordering and `@etzhayyim/sdk` adoption gate"
-      ],
-      "related": [
-        "ADR-2605172100 (substrate client imports — `@etzhayyim/sdk` only)",
-        "ADR-2605182312 (murakumo-gemma4 local bring-up)",
-        "60-apps/etzhayyim-project-open-isco/rw-free/ (first reference impl)"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "depends_on": [
-        "adr-2605170900-etzhayyim-root-adr-canonical-home",
-        "adr-2605171900-yoro-migration-to-etzhayyim",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
-        "adr-2605181100-mst-encrypted-records-signal-keywrap",
-        "2605191346-etzhayyim-vultr-free-murakumo-control-plane"
       ],
       "last_verified": "2026-05-19",
       "amends": [],
@@ -9202,30 +8808,6 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2605202359-etzhayyim-apex-yoro-proxy.md",
-      "id": "adr-2605202359-etzhayyim-apex-yoro-proxy",
-      "title": "ADR-2605202359: etzhayyim.com apex を yoro Worker へ Service Binding 経由でリバースプロキシ",
-      "status": "proposed",
-      "doc_type": "adr",
-      "topic": "etzhayyim-apex-yoro-proxy",
-      "authoritative": true,
-      "authoritative_for": [
-        "etzhayyim.com apex (/) HTTP behavior",
-        "did:web Worker と apex 配信の同居方針"
-      ],
-      "related": [
-        "adr-2605170900-etzhayyim-root-adr-canonical-home"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "depends_on": [
-        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline"
-      ],
-      "last_verified": "2026-05-20",
-      "amends": [],
-      "amended_by": []
-    },
-    {
       "path": "90-docs/adr/2605202400-gtfs-rt-vendor-mirror.md",
       "id": "adr-2605202400-gtfs-rt-vendor-mirror",
       "title": "ADR-2605202400: GTFS-RT real-time transit feed stays vendor-side as read-only mirror (not migrated to etzhayyim)",
@@ -10388,30 +9970,6 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2605215300-etzhayyim-yoro-python-primitives-mst-rewrite-addendum.md",
-      "id": "adr-2605215300-yoro-python-primitives",
-      "title": "etzhayyim yoro Python primitives MST rewrite addendum — migration waves M2–M7 (40 functions)",
-      "status": "proposed",
-      "doc_type": "adr",
-      "topic": "yoro-python-migration",
-      "authoritative": true,
-      "authoritative_for": [
-        "yoro Python function migration status (M2–M7 waves)",
-        "40/40 function porting to etzhayyim_sdk primitives",
-        "vendor-only carve-out for _fetch_diet_speech_rows"
-      ],
-      "related": [
-        "adr-2605171900-yoro-migration-to-etzhayyim",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
-        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "last_verified": "2026-05-21",
-      "amends": [],
-      "amended_by": []
-    },
-    {
       "path": "90-docs/adr/2605215400-etzhayyim-shinka-evolution-witness-min.md",
       "id": "adr-2605215400-evolution-witness-min",
       "title": "etzhayyim shinka EVOLUTION_WITNESS_MIN — 7-level witness thresholds + Council gate + 30-day appeal",
@@ -10991,34 +10549,6 @@
         "adr-2605231100-karute-emr-phase1",
         "adr-2605231400-karute-consent-capability-iryo-bridge",
         "adr-2605231603-per-record-rekey-tombstone-protocol"
-      ],
-      "last_verified": "2026-05-23",
-      "amends": [],
-      "amended_by": []
-    },
-    {
-      "path": "90-docs/adr/2605231737-e7m-pds-yoro-substrate-probes.md",
-      "id": "adr-2605231737-e7m-pds-yoro-substrate-probes",
-      "title": "ADR-2605231737: e7m PDS / yoro substrate probes — operator + MCP surface for timeline-class debugging",
-      "status": "active",
-      "doc_type": "adr",
-      "topic": "e7m-operator-surface",
-      "authoritative": true,
-      "authoritative_for": [
-        "70-tools/e7m PDS / yoro probe commands",
-        "e7m-mcp tool surface for substrate introspection",
-        "timeline incident 2026-05-23 RCA + remediation record"
-      ],
-      "related": [
-        "adr-2605222330-etzhayyim-com-substrate-violation-transition-window",
-        "adr-2605211000"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "depends_on": [
-        "adr-2605172000-etzhayyim-rw-free-substrate",
-        "adr-2605192100-etzhayyim-mission-charter",
-        "adr-2605211000"
       ],
       "last_verified": "2026-05-23",
       "amends": [],
@@ -12860,34 +12390,6 @@
         "adr-2605261015",
         "adr-2605261500-suki-farm-tractor-tier-b-actor-r0",
         "adr-2605261600-robotics-simulation-substrate-r0"
-      ],
-      "last_verified": "2026-05-25",
-      "amends": [],
-      "amended_by": []
-    },
-    {
-      "path": "90-docs/adr/2605252800-cookie-free-apex-yoro-deploy-unblock.md",
-      "id": "adr-2605252800-cookie-free-apex-yoro-deploy-unblock",
-      "title": "ADR-2605252800: Cookie-free apex + yoro-kun NoCookieBanner + yoro SPA deploy unblock + hydration bug triage",
-      "status": "accepted",
-      "doc_type": "adr",
-      "topic": "cookie-free-apex-yoro-deploy",
-      "authoritative": true,
-      "authoritative_for": [
-        "etzhayyim.com apex Worker cookie-free contract",
-        "yoro kotodama-yoro Worker deploy unblock procedure",
-        "svelte/public/* → static/ build mirror discipline",
-        "documentation of yoro SPA hydration RangeError root cause (not fixed in this ADR)"
-      ],
-      "related": [
-        "adr-2605181100-mst-encrypted-records-signal-keywrap"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "depends_on": [
-        "adr-2605172000-etzhayyim-rw-free-substrate",
-        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
-        "adr-2605192100-etzhayyim-mission-charter"
       ],
       "last_verified": "2026-05-25",
       "amends": [],
@@ -17394,33 +16896,6 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2605311310-yoro-black-screen-spa-recursion-fix-and-ipfs-deploy-feasibility.md",
-      "id": "adr-2605311310-yoro-black-screen-spa-recursion-fix-and-ipfs-deploy-feasibility",
-      "title": "ADR-2605311310: yoro AppView black-screen fix (SPA-router infinite recursion) + IPFS-deploy feasibility (kotoba/Kubo) session closure",
-      "status": "active",
-      "doc_type": "adr",
-      "topic": "yoro-black-screen-and-ipfs-deploy",
-      "authoritative": true,
-      "authoritative_for": [
-        "yoro-appview-root-route-render",
-        "ipfs-static-frontend-deploy-feasibility"
-      ],
-      "related": [
-        "60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/IPFS-DEPLOY.md"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "depends_on": [
-        "adr-2605262130-kotoba-storage-substrate-unification",
-        "adr-2604261936-ipfs-self-hosted-vultr-b2",
-        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
-        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
-      ],
-      "last_verified": "2026-05-31",
-      "amends": [],
-      "amended_by": []
-    },
-    {
       "path": "90-docs/adr/2605311500-kami-genesis-physics-validation-and-isaac-clean-room-surface.md",
       "id": "adr-2605311500-kami-genesis-physics-validation-and-isaac-clean-room-surface",
       "title": "ADR-2605311500: kami-genesis physics maturation — PlanarChain articulation, clean-room isaacsim.core.api surface, analytical/conservation-law validation, and G5 Isaac-reference scorecard",
@@ -18575,34 +18050,6 @@
         "adr-2605312345-kotoba-datom-first-class-canonical-state",
         "adr-2605192100-etzhayyim-mission-charter",
         "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
-      ],
-      "last_verified": "2026-06-01",
-      "amends": [],
-      "amended_by": []
-    },
-    {
-      "path": "90-docs/adr/2606013200-yoro-kotoba-feed-readpath-migration.md",
-      "id": "adr-2606013200-yoro-kotoba-feed-readpath-migration",
-      "title": "ADR-2606013200: yoro feed read-path migration to kotoba Datom log (Phase 2.5) + public yoro-social graph",
-      "status": "active",
-      "doc_type": "adr",
-      "topic": "yoro-feed-kotoba-readpath",
-      "authoritative": true,
-      "authoritative_for": [
-        "yoro-appview-feed-read-backend",
-        "yoro-social-kotoba-graph-schema"
-      ],
-      "related": [
-        "00-contracts/schemas/yoro-feed-ontology.kotoba.edn",
-        "60-apps/etzhayyim-project-yoro/rw-free/src/kotoba.ts"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "depends_on": [
-        "adr-2605262130-kotoba-storage-substrate-unification",
-        "adr-2605312345-kotoba-datom-first-class-canonical-state",
-        "adr-2605231902-feed-post-membrane-and-feed-discover-projection",
-        "adr-2605311310-yoro-black-screen-spa-recursion-fix-and-ipfs-deploy-feasibility"
       ],
       "last_verified": "2026-06-01",
       "amends": [],
@@ -21819,34 +21266,6 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2606071100-yoro-browser-only-kotoba-reads-and-profile-fix-e2e.md",
-      "id": "adr-2606071100-yoro-browser-only-kotoba-reads-and-profile-fix-e2e",
-      "title": "ADR-2606071100: yoro browser-only kotoba reads (no RisingWave), profile-500 fix, and the langgraph+browser-use+Murakumo e2e harness",
-      "status": "accepted",
-      "doc_type": "adr",
-      "topic": "yoro-browser-only-kotoba-reads",
-      "authoritative": true,
-      "authoritative_for": [
-        "yoro-home-feed-read-path",
-        "kotoba-browser-only-reads",
-        "browser-only-e2e-verification"
-      ],
-      "related": [
-        "2606013800",
-        "2606014600"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "depends_on": [
-        "2605262130",
-        "2605312345",
-        "2605215000"
-      ],
-      "last_verified": "2026-06-07",
-      "amends": [],
-      "amended_by": []
-    },
-    {
       "path": "90-docs/adr/2606071238-session-close-nondual-experience-conversion-charter-1-17.md",
       "id": "adr-2606071238-session-close-nondual-experience-conversion-charter-1-17",
       "title": "ADR-2606071238: Session close — Charter §1.17 自他非分離の直接体験 (doctrine) + §1.17.6 guidance UI (yoro deployed live, maps built+pending)",
@@ -24568,27 +23987,6 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2606121350-yoro-ui-svelte-to-cljs-migration-harness.md",
-      "id": "adr-2606121350-yoro-ui-svelte-to-cljs-migration-harness",
-      "title": "ADR-2606121350: yoro UI svelte→ClojureScript 段階移行ハーネス — wave 2+3 (hooks 修正 + 9 components/state + atproto interop + tests)",
-      "status": "accepted",
-      "doc_type": "adr",
-      "topic": "yoro-cljs-migration",
-      "authoritative": false,
-      "authoritative_for": [
-        "yoro UI cljs migration harness layout + porting conventions (60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/cljs/)"
-      ],
-      "related": [
-        "adr-2606121225-session-close-worktree-cleanup-pr-merge-ruleset-bypass"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "depends_on": [],
-      "last_verified": "2026-06-12",
-      "amends": [],
-      "amended_by": []
-    },
-    {
       "path": "90-docs/adr/2606121620-coverage-maturity-loop-did-etzhayyim-design-system.md",
       "id": "adr-2606121620-coverage-maturity-loop-did-etzhayyim-design-system",
       "title": "ADR-2606121620: Coverage/maturity loop wave — did:etzhayyim codec+CID suite + design-system motion + genesis-test fix",
@@ -24807,32 +24205,6 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2606131350-yabai-sms-smishing-ioc-and-yoro-ondevice-organizer.md",
-      "id": "adr-2606131350-yabai-sms-smishing-ioc-and-yoro-ondevice-organizer",
-      "title": "ADR-2606131350: yabai JP SMS smishing IOC corpus + yoro on-device Gemma E4B SMS-organizer R0",
-      "status": "accepted",
-      "doc_type": "adr",
-      "topic": "yabai-sms-smishing-ioc-and-yoro-ondevice-organizer",
-      "authoritative": true,
-      "authoritative_for": [
-        "yabai SMS smishing IOC corpus (defensive CTI)",
-        "yoro on-device SMS-organizer design (Gemma E4B QAT, default-SMS-role)"
-      ],
-      "related": [
-        "adr-2605301400-tadori-onchain-tx-tracing",
-        "adr-2605241900-baien-edge-target-invariant",
-        "adr-2605215000-etzhayyim-inference-murakumo-only",
-        "adr-2604291630-yoro-guest-projector-browser-local-gemma-e2b",
-        "adr-2605140740-yoro-gemma-e4b-social-post-translation"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "depends_on": [],
-      "last_verified": "2026-06-13",
-      "amends": [],
-      "amended_by": []
-    },
-    {
       "path": "90-docs/adr/2606131600-shirabe-live-research-concierge-agent.md",
       "id": "adr-2606131600-shirabe-live-research-concierge-agent",
       "title": "ADR-2606131600: shirabe 調べ — live research-concierge agent (kotoba-clj + gemma4) Tier-B actor R1",
@@ -24918,29 +24290,6 @@
         "adr-2606120500-fleet-clojure-refactor-and-gemma4-cpt",
         "adr-2606131300-clj-port-determinism-golden-file-first-class",
         "adr-2605262130-kotoba-storage-substrate-unification"
-      ],
-      "last_verified": "2026-06-13",
-      "amends": [],
-      "amended_by": []
-    },
-    {
-      "path": "90-docs/adr/2606131950-yoro-cljs-auth-modal-dev-login.md",
-      "id": "adr-2606131950-yoro-cljs-auth-modal-dev-login",
-      "title": "ADR-2606131950: yoro ClojureScript auth-modal dev-login form — wave 4 (passkey rpId 回避 + paren fix)",
-      "status": "accepted",
-      "doc_type": "adr",
-      "topic": "yoro-cljs-migration",
-      "authoritative": false,
-      "authoritative_for": [
-        "yoro UI cljs auth-modal dev-login design + :http/post-json re-frame fx pattern"
-      ],
-      "related": [
-        "adr-2606121350-yoro-ui-svelte-to-cljs-migration-harness"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "depends_on": [
-        "adr-2606121350-yoro-ui-svelte-to-cljs-migration-harness"
       ],
       "last_verified": "2026-06-13",
       "amends": [],
@@ -26340,6 +25689,63 @@
         "2606062100"
       ],
       "last_verified": "2026-06-18",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606201000-maxwell-diffusion-drafter-assisted-decode.md",
+      "id": "adr-2606201000-maxwell-diffusion-drafter-assisted-decode",
+      "title": "ADR-2606201000: maxwell-diffusion drafter-assisted decode — AR draft warm-starts the block-diffusion canvas",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "maxwell-diffusion-drafter-assisted-decode",
+      "authoritative": true,
+      "authoritative_for": [
+        "maxwell-diffusion-drafter-assisted-decode",
+        "maxwell-diffusion-warm-start-canvas"
+      ],
+      "related": [
+        "2606130900",
+        "2606171800",
+        "2606142200"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606171100",
+        "2606061000",
+        "2605215000"
+      ],
+      "last_verified": "2026-06-20",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606201610-etzhayyim-apex-kotoba-explorer-organism-app.md",
+      "id": "adr-2606201610-etzhayyim-apex-kotoba-explorer-organism-app",
+      "title": "ADR-2606201610: etzhayyim.com apex — kotoba blockchain explorer + node-distribution + organism app (serverless, browser-side)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "etzhayyim-apex-kotoba-explorer-organism-app",
+      "authoritative": true,
+      "authoritative_for": [
+        "etzhayyim.com apex landing app (replaces the yoro bsky AppView at the apex)",
+        "browser-side (serverless) kotoba blockchain/CommitDag explorer",
+        "node-distribution (分散状況) view over the actor/cell mesh",
+        "organism aliveness view (Tree-of-Life + 5-tuple)"
+      ],
+      "related": [
+        "adr-2605171900-yoro-migration-to-etzhayyim",
+        "adr-2605311310-yoro-black-screen-spa-recursion-fix-and-ipfs-deploy-feasibility",
+        "adr-2606121350-yoro-ui-svelte-to-cljs-migration-harness"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606013600-browser-kotoba-node-sovereign-apex-tier2",
+        "adr-2605202359-etzhayyim-apex-yoro-proxy"
+      ],
+      "last_verified": "2026-06-20",
       "amends": [],
       "amended_by": []
     },
@@ -29173,57 +28579,6 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
-      "amends": [],
-      "amended_by": []
-    },
-    {
-      "path": "90-docs/yoro/260405-yoro-ocel-activity-log-design.md",
-      "id": "yoro-ocel-activity-log",
-      "title": "yoro.etzhayyim.com — OCEL v2 Activity Log Design",
-      "status": "active",
-      "doc_type": "explanation",
-      "topic": "yoro-activity-ocel",
-      "authoritative": true,
-      "authoritative_for": [
-        "yoro activity log architecture",
-        "notifications to activities migration",
-        "project notification integration"
-      ],
-      "related": [
-        "ocel-process-mining",
-        "yoro-superapp-oembed"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "last_verified": "2026-04-10",
-      "amends": [],
-      "amended_by": []
-    },
-    {
-      "path": "90-docs/yoro/260321-yoro-superapp-oembed-design.md",
-      "id": "yoro-superapp-oembed-design",
-      "title": "yoro.etzhayyim.com SuperApp-Only Architecture + oEmbed (Lexicon Web)",
-      "status": "active",
-      "doc_type": "explanation",
-      "topic": "yoro-superapp-oembed",
-      "authoritative": true,
-      "authoritative_for": [
-        "yoro URL routing (Bluesky-compatible)",
-        "oEmbed / Lexicon Web endpoint design",
-        "channel concept removal",
-        "SSR OG tag strategy",
-        "yoro SEO (robots.txt, sitemap.xml, JSON-LD, OGP)"
-      ],
-      "related": [
-        "yoro-w-protocol-messenger-design",
-        "data-gateway-consolidation",
-        "atprotocol-signal-design"
-      ],
-      "supersedes": [
-        "(yoro legacy channel-based routing)"
-      ],
-      "superseded_by": [],
-      "last_verified": "2026-03-23",
       "amends": [],
       "amended_by": []
     }
