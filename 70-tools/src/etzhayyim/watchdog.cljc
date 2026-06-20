@@ -26,7 +26,7 @@
 ;; (pulse cadence is 6s, so this is 20 missed pulse beats) — conservative, no false restarts.
 (def ^:private wedge-ms 120000)
 
-(defn- uid [] (str/trim (:out (p/shell {:out :string} "id" "-u"))))
+(defn- uid [] (str/trim (:out (p/shell {:out :string :continue true} "id" "-u"))))
 
 (defn- reachable
   "true if the URL answered at all (connection made), regardless of status code — we are
@@ -43,9 +43,14 @@
        (catch Throwable _ false)))
 
 (defn- kick! []
-  (binding [*out* *err*] (println "[watchdog] ⚠ organism wedged/down — kickstart -k restart"))
-  (try (p/shell {:continue true} "launchctl" "kickstart" "-k" (str "gui/" (uid) "/" service))
-       (catch Throwable e (binding [*out* *err*] (println "[watchdog] kick failed:" (.getMessage e))))))
+  (let [u (uid)]
+    (if-not (re-matches #"\d+" u)               ; guard a malformed service-target (gui//svc)
+      (binding [*out* *err*] (println "[watchdog] ⚠ wedge detected but uid unresolved — NOT kicking:" (pr-str u)))
+      (do
+        (binding [*out* *err*] (println "[watchdog] ⚠ organism wedged/down — kickstart -k restart"))
+        (try (p/shell {:continue true} "launchctl" "kickstart" "-k"
+                      (str "gui/" u "/" service))
+             (catch Throwable e (binding [*out* *err*] (println "[watchdog] kick failed:" (.getMessage e)))))))))
 
 (defn -check
   "One supervision pass (launchd StartInterval re-invokes it every 60s — not a resident loop)."
