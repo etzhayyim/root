@@ -19,7 +19,7 @@
       (is (= "batch-001" (get record "batchId")))
       (is (= "wf-001" (get record "waferBatchId")))
       (is (= 2 (count (get record "attestingRobots"))))
-      (is (= "cellBatchRecord" (get (get record "$type") (- (count (get record "$type")) 15)))))))
+      (is (= "com.etzhayyim.himawari.cellBatchRecord" (get record "$type"))))))
 
 (deftest test-cell-process-g3-gas-abatement-passes
   (testing "G3 gate passes when gas abatement is adequate"

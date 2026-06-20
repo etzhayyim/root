@@ -77,40 +77,44 @@
 (defn transition-init
   "INIT: seed cell state from the inbound waferBatchRecord handoff."
   [state]
-  (let [cs (default-cell-state {})  ;; start with fresh defaults
-        wafer-batch-id (if-let [wbid (get state "waferBatchId")]
-                         (str wbid)
-                         (get cs "waferBatchId"))
-        batch-id (if-let [bid (get state "batchId")]
-                   (str bid)
-                   (get cs "batchId"))
-        arch (if-let [a (get state "cellArchitecture")]
-               (if (contains? CELL_ARCH_KNOWN a) a "TOPCon")
-               (get cs "cellArchitecture"))
-        metallization (if-let [m (get state "metallization")]
-                        (if (contains? METALLIZATION_KNOWN m) m "ag-cu-hybrid")
-                        (get cs "metallization"))
-        wafer-count (if-let [wc (get state "waferCount")]
-                      (max 0 (int wc))
-                      (get cs "waferCount"))
-        recorded-at (if-let [ra (get state "recordedAt")]
-                      (str ra)
-                      (get cs "recordedAt"))
-        cs (assoc cs
-                  "batchId" batch-id
-                  "waferBatchId" wafer-batch-id
-                  "cellArchitecture" arch
-                  "metallization" metallization
-                  "waferCount" wafer-count
-                  "recordedAt" recorded-at
-                  "phase" "textured"
-                  "completionPct" 15)]
-    {"cell_state" cs "next_node" "texture"}))
+  (let [;; Use input values, fall back to defaults only if absent
+        wafer-batch-id (str (get state "waferBatchId" "wafer-unknown"))
+        batch-id (str (or (get state "batchId") (str "cell-" wafer-batch-id)))
+        arch (let [a (str (get state "cellArchitecture" "TOPCon"))]
+               (if (contains? CELL_ARCH_KNOWN a) a "TOPCon"))
+        metallization (let [m (str (get state "metallization" "ag-cu-hybrid"))]
+                        (if (contains? METALLIZATION_KNOWN m) m "ag-cu-hybrid"))
+        wafer-count (max 0 (int (get state "waferCount" 1000)))
+        recorded-at (str (get state "recordedAt" ""))
+        cs {"phase" "textured"
+            "batchId" batch-id
+            "waferBatchId" wafer-batch-id
+            "cellArchitecture" arch
+            "metallization" metallization
+            "waferCount" wafer-count
+            "completionPct" 15
+            "recordedAt" recorded-at
+            "textureMetrics" nil
+            "junctionMetrics" nil
+            "metallizationMetrics" nil
+            "flashIvMetrics" nil
+            "gasAbatement" nil
+            "binDistribution" nil
+            "flashIvMedianMilliwp" nil
+            "gasAbatementCid" nil
+            "binDistributionCid" nil
+            "processParametersCid" nil
+            "metallizationFlags" []
+            "anomalyFlags" []
+            "robotSignatures" []
+            "errorMsg" nil}]
+    {"cell_state" cs
+     "next_node" "texture"}))
 
 (defn transition-texture
   "INIT → TEXTURED: alkaline/acid texture etch + clean."
   [state]
-  (let [cs (default-cell-state (get state "cell_state"))
+  (let [cs (default-cell-state state)
         arch (get cs "cellArchitecture")
         etch-chem (if (= arch "PERC") "HF-HNO3-acid" "KOH-IPA-alkaline")
         metrics {"etch_chemistry" etch-chem
@@ -126,7 +130,7 @@
 (defn transition-junction
   "TEXTURED → JUNCTION: emitter diffusion + PECVD passivation/ARC."
   [state]
-  (let [cs (default-cell-state (get state "cell_state"))
+  (let [cs (default-cell-state state)
         arch (get cs "cellArchitecture")
         recipe (case arch
                  "PERC" {"emitter" "POCl3-diffusion" "passivation" "AlOx/SiNx-PECVD"}
@@ -146,7 +150,7 @@
 (defn transition-metallization
   "JUNCTION → METALLIZED: screen-print / plate contacts (G6 Ag→Cu roadmap)."
   [state]
-  (let [cs (default-cell-state (get state "cell_state"))
+  (let [cs (default-cell-state state)
         metallization (get cs "metallization")
         metrics {"paste_or_plating" metallization
                  "fingers" 110
@@ -166,7 +170,7 @@
 (defn transition-flash-iv
   "METALLIZED → FLASH_TESTED: Mimi flash IV (AAA simulator) + power binning."
   [state]
-  (let [cs (default-cell-state (get state "cell_state"))
+  (let [cs (default-cell-state state)
         arch (get cs "cellArchitecture")
         median-mwp (case arch
                      "PERC" 6850   ;; ~23.0 %
@@ -194,7 +198,7 @@
 (defn transition-gas-abatement
   "FLASH_TESTED → ABATEMENT_VERIFIED or HALT: G3 high-GWP gas abatement."
   [state]
-  (let [cs (default-cell-state (get state "cell_state"))
+  (let [cs (default-cell-state state)
         arch (get cs "cellArchitecture")
         used-gases (cond-> ["NF3"]  ;; PECVD chamber clean (all architectures)
                      (= arch "PERC") (conj "CF4"))
@@ -239,7 +243,7 @@
 (defn transition-witness
   "ABATEMENT_VERIFIED → WITNESS_WAIT: collect ≥2 robot Ed25519 signatures."
   [state]
-  (let [cs (default-cell-state (get state "cell_state"))
+  (let [cs (default-cell-state state)
         sigs [{"robotDid" OTETE_DID
                "role" "cell_line_executor"
                "timestamp" "2026-06-02T00:00:00Z"
@@ -257,7 +261,7 @@
 (defn transition-emit-record
   "WITNESS_WAIT → COMPLETE: emit com.etzhayyim.himawari.cellBatchRecord."
   [state]
-  (let [cs (default-cell-state (get state "cell_state"))
+  (let [cs (default-cell-state state)
         record {"$type" "com.etzhayyim.himawari.cellBatchRecord"
                 "batchId" (get cs "batchId")
                 "waferBatchId" (get cs "waferBatchId")
@@ -279,7 +283,7 @@
 (defn transition-halt
   "ANOMALY_HALT: halt the batch, escalate to a human PV-process engineer."
   [state]
-  (let [cs (default-cell-state (get state "cell_state"))
+  (let [cs (default-cell-state state)
         alert {"$type" "com.etzhayyim.himawari.cellBatchRecord.halt"
                "batchId" (get cs "batchId")
                "waferBatchId" (get cs "waferBatchId")
