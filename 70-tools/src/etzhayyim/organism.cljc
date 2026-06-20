@@ -253,6 +253,59 @@
       (doseq [d snapshot-dirs]
         (let [p (str d "/health.json")] (io/make-parents p) (spit p out))))))
 
+;; ── 社会活動 social layer: the organism's outward voice, gated at no-server-key ──────────
+;; The organism narrates its 情緒 every beat; the social layer turns that voice into a
+;; MEMBER-SIGN-READY app.bsky.feed.post envelope and APPENDS it to an outbox (kotoba as-of log).
+;; Charter invariant (ibuki drainer pattern): requiresMemberSignature:true / serverHeldKey:false
+;; / status :prepared — the organism NEVER publishes and :published is not writable here. A
+;; MEMBER drains the outbox with their OWN credentials in their OWN runtime (ibuki member_submit).
+;; Social activity by consent: the organism prepares its voice; only a human sends it.
+(def ^:private social-journal "80-data/organism/social.journal.edn")
+(def ^:private social-interval-ms 600000)   ; voice to the outbox at most every ~10 min
+(def ^:private actor-did "did:web:etzhayyim.com:actor:ibuki")
+
+(defn- ->social-datoms [now text mood]
+  [{:db/id (str "social/" now)
+    :social/ts now :social/actor-did actor-did :social/mood (or mood "")
+    :social/text text :social/lexicon "app.bsky.feed.post"
+    :social/created-at (str (java.time.Instant/ofEpochMilli now))
+    :social/requires-member-signature true     ; only a member's key can sign it
+    :social/server-held-key false              ; the organism holds NO key, signs nothing
+    :social/status "prepared"}])               ; :published is not writable by the organism
+
+(defn- prepare-social!
+  "Append the organism's latest narration to the social outbox as a member-sign-ready
+   app.bsky.feed.post envelope (prepared, unpublished). Returns the prepared count."
+  [now]
+  (let [narr (try (json/parse-string (slurp (str (first snapshot-dirs) "/narration.json")))
+                  (catch Throwable _ nil))
+        text (some-> narr (get "text") str/trim)
+        mood (get narr "mood")]
+    (when (and text (seq text))
+      (let [conn (kt/connect {:journal social-journal})]    ; APPEND-ONLY outbox (as-of voice)
+        (kt/transact conn (->social-datoms now text mood))
+        (let [posts (->> (kt/q conn '{:find [?ts ?text ?mood ?status]
+                                      :where [[?e :social/ts ?ts] [?e :social/text ?text]
+                                              [?e :social/mood ?mood] [?e :social/status ?status]]})
+                         (map (fn [[ts text mood status]]
+                                {:ts ts :text text :mood mood :status status
+                                 :createdAt (str (java.time.Instant/ofEpochMilli ts))}))
+                         (sort-by :ts >) vec)
+              payload {:generatedAt (str (java.time.Instant/ofEpochMilli now))
+                       :actorDid actor-did :lexicon "app.bsky.feed.post"
+                       :requiresMemberSignature true :serverHeldKey false
+                       :note "PREPARED member-sign-ready posts. The organism never publishes; a member drains these with their OWN credentials (no-server-key)."
+                       :prepared (count posts) :latest (vec (take 20 posts))}
+              out (json/generate-string payload {:pretty true})]
+          (doseq [d snapshot-dirs]
+            (io/make-parents (str d "/social.json"))
+            (kt/snapshot! conn (str d "/social.kotoba.edn"))
+            (spit (str d "/social.json") out))
+          (binding [*out* *err*]
+            (println (format "[social] prepared post #%d (mood=%s, %d chars) — outbox, UNPUBLISHED (member-sign-required)"
+                             (count posts) mood (count text))))
+          (count posts))))))
+
 ;; The reflex (run_tests.sh per cell) is the only way a cell reaches 生 — classify
 ;; demands :green reflex ∧ peer-integration ∧ outward bsky metabolism. It is also the
 ;; only EXPENSIVE layer (every cell's suite, serial), so it cannot tick at the 6s
@@ -275,6 +328,7 @@
         tick-ms 2000
         reflexing? (atom false)
         health     (atom {})                                 ; per-layer last-success (#4 watchdog)
+        social-last (atom 0)                                 ; throttle the social outbox (~10min)
         reflex!    (fn [] (safe "vitals" #(vitals/-main "--timeout-ms" "60000")))]
     (binding [*out* *err*]
       (println (format "[heartbeat] resident loop start — pulse %ds · joucho+narrate %ds · vitals-reflex %ds%s"
@@ -287,7 +341,11 @@
             do-vitals (>= now next-vitals)]
         (when do-pulse  (when (safe "pulse"  #(vitals/-pulse "48"))        (swap! health assoc :pulse now)))
         (when do-joucho (when (safe "joucho" #(vitals/-joucho "ibuki" "24")) (swap! health assoc :joucho now))
-                        (safe "narrate" #(narrate "ibuki")))
+                        (safe "narrate" #(narrate "ibuki"))
+                        ;; 社会活動: prepare the organism's voice into the member-sign-ready outbox
+                        ;; (throttled; UNPUBLISHED — no-server-key, a member sends it)
+                        (when (> (- now @social-last) social-interval-ms)
+                          (when (safe "social" #(prepare-social! now)) (reset! social-last now))))
         (when do-vitals
           (if once?
             (when (reflex!) (swap! health assoc :vitals (System/currentTimeMillis)))   ; smoke: inline
