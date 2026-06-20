@@ -144,6 +144,29 @@ research, transparent — Rider v3.3 §2(i) / ADR-2606172359 objective-function 
 warm 15/15 @ 36.35 tok/s (37 forwards) = quality 80→100%, **forward passes −24.5%** (the tok/s gain is
 inflated by base's empty-output cases; forward-passes + quality are the robust read).
 
+## Code-implementation quality (etzhayyim Python→Clojure; clj-kondo gate)
+
+The project's *actual* task is Python→Clojure refactoring scored by **clj-kondo** (the RSi quality gate).
+30 real corpus prompts ("Convert this Python method to Clojure following kotoba Datom log idioms"),
+H100, `max_new_tokens=512`, scored by clj-kondo error-clean (0 errors):
+
+| config | clj-kondo clean | avg errors |
+|---|---|---|
+| GOLD (verified corpus answers) | 27/30 = **90%** | 0.1 |
+| gemma-4-12b (AR) | 11/30 = **37%** | 3.93 |
+| maxwell-diffusion base (random-init) | 3/30 = **10%** | 3.8 |
+| maxwell-diffusion warm (12b-integrated) | 3/30 = **10%** | 3.63 |
+
+**Reversal vs GSM8K**: on syntactically-rigid code the AR 12b *beats* the diffusion model (37% vs 10%),
+and **warm-start does NOT help** — seeding the 12b's better draft into the canvas and re-denoising
+*corrupts* it back to base level (10%). Mechanism: diffusion rewrites the whole canvas in parallel, which
+breaks long-range syntactic constraints (paren/S-expr nesting) that AR preserves left-to-right; math CoT
+(natural text + a final number) is error-tolerant, so diffusion held there, but Clojure is not.
+**Implication for Maxwell**: for the real clj/Datomic implementation target, autoregressive (12b/Maxwell-AR)
+is the right tier — diffusion's speed does not convert to code quality, and drafter warm-start cannot
+rescue it. (Both are *base* models; the RSi loop fine-tunes the AR weight on Clojure. GOLD = curated +
+verified corpus, not raw generation.)
+
 # Consequences
 
 ## Positive
