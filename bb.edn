@@ -48,6 +48,11 @@
    :task (do (require 'etzhayyim.organism)
              (apply (resolve 'etzhayyim.organism/-heartbeat) *command-line-args*))}
 
+  organism:watchdog
+  {:doc "EXTERNAL supervisor (immune kaizen): one supervision pass — reads health.json freshness from OUTSIDE the loop and force-restarts the organism (launchctl kickstart -k) if the loop has wedged (process alive but silent >120s, which launchd KeepAlive cannot see), and probes the substrate (kotoba :8077 / IPFS / served page) into watchdog.json. Run every 60s by the launchd agent com.etzhayyim.organism.watchdog."
+   :task (do (require 'etzhayyim.watchdog)
+             (apply (resolve 'etzhayyim.watchdog/-check) *command-line-args*))}
+
   test:kotoba
   {:doc "etzhayyim.kotoba root-side Datom engine + envelope + analysis (ADR-2605262130 Phase 1/2 + ADR-2605181100; data+impl in root, kotoba is the external generic engine)"
    :task (do (require 'clojure.test 'etzhayyim.kotoba.test-engine
