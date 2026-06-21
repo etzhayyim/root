@@ -2583,4 +2583,63 @@
   :stakeholders ["presidency" "opposition/protesters" "EAC/AU" "citizens"]
   :stock :participation-barrier :polarity :widen :magnitude 0.8 :reversibility :institutional :meadows 4
   :basis "Burundi 2015 crisis; 2018 constitutional referendum" :sourcing :representative :confidence 0.4}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 26 — paradigm-subordination depth (concrete doctrines in covered
+ ;; jurisdictions) + transitional-justice counters + last micro-state (VA)
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── paradigm-subordination (widen) ──
+ {:type :instrument :id "cn-national-rejuvenation" :name "'Great rejuvenation' / China Dream" :jurisdiction "CN" :kind :doctrine :year 2012
+  :enactor "Communist Party of China (Xi-era national narrative)"
+  :origin "A governing narrative that frames a collective national destiny under Party leadership as the supreme goal, subordinating individual rights and dissent to the rejuvenation project — a paradigm beneath specific control laws."
+  :stakeholders ["Communist Party" "state media" "education" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.6 :reversibility :cultural :meadows 2
+  :basis "'Great rejuvenation of the Chinese nation' (2012–)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "ru-z-militarized-patriotism" :name "Militarized 'Z' patriotism" :jurisdiction "RU" :kind :value :year 2022
+  :enactor "Russian state (wartime mobilization of patriotic symbolism)"
+  :origin "State-promoted militarized patriotism (the 'Z' symbol, school 'patriotic' lessons) recasts support for the war as the test of belonging, marginalizing dissent as treachery — a value-level subordination intensified after 2022."
+  :stakeholders ["state media" "schools" "anti-war citizens" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.55 :reversibility :cultural :meadows 2
+  :basis "Russian wartime patriotic mobilization (2022–)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "eg-stability-cult" :name "Stability-cult ('the alternative is chaos')" :jurisdiction "EG" :kind :doctrine :year 2014
+  :enactor "Egyptian state (post-2013 governing narrative)"
+  :origin "A governing paradigm that frames strong-handed rule as the only barrier to chaos, legitimizing the rollback of the 2011 opening and casting dissent as a threat to national survival — subordinating citizen claims to 'stability'."
+  :stakeholders ["presidency" "state media" "opposition" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.55 :reversibility :cultural :meadows 2
+  :basis "Egyptian post-2013 stability narrative" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-securitization-of-dissent" :name "Securitization of dissent" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse value (framing political opposition as a security threat)"
+  :origin "Recasting protest, journalism, or opposition as 'extremism', 'foreign-backed', or a security threat moves them from the political arena to the security apparatus, legitimizing coercive treatment — the paradigm that licenses many specific anti-terror and foreign-agent laws."
+  :stakeholders ["security agencies" "dissenters/press" "courts" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.55 :reversibility :cultural :meadows 2
+  :basis "Securitization-theory literature (Copenhagen School)" :sourcing :representative :confidence 0.4}
+
+ ;; ── paradigm-subordination (narrow — transitional justice / memory) ──
+ {:type :instrument :id "za-trc" :name "Truth and Reconciliation Commission" :jurisdiction "ZA" :kind :institution :year 1995
+  :enactor "South African state (Promotion of National Unity and Reconciliation Act 1995)"
+  :origin "A public, victim-centred reckoning with apartheid-era abuses that traded amnesty for full disclosure, establishing a paradigm of accountable truth-telling over impunity — an influential model of transitional justice that reframes the citizen-state relationship."
+  :stakeholders ["TRC" "victims" "perpetrators" "citizens"]
+  :stock :paradigm-subordination :polarity :narrow :magnitude 0.55 :reversibility :institutional :meadows 3
+  :basis "Promotion of National Unity and Reconciliation Act 34 of 1995" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "de-vergangenheitsbewaltigung" :name "Vergangenheitsbewältigung (reckoning with the past)" :jurisdiction "DE" :kind :value :year 1949
+  :enactor "German civic culture (postwar coming-to-terms-with-the-past)"
+  :origin "The sustained public reckoning with the Nazi past — education, memorials, prosecutions, the 'never again' ethos — anchors a civic paradigm that immunizes the democratic order against authoritarian relapse, a narrowing value at the deepest leverage level."
+  :stakeholders ["education/memory institutions" "courts" "civil society" "citizens"]
+  :stock :paradigm-subordination :polarity :narrow :magnitude 0.55 :reversibility :cultural :meadows 2
+  :basis "German Vergangenheitsbewältigung (postwar)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-transitional-justice" :name "Transitional-justice norm" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse civic norm (truth commissions, reparations, lustration, trials)"
+  :origin "The norm that societies emerging from repression should reckon with past abuses through truth, accountability, and reparation — rather than amnesia — narrows the impunity paradigm that lets coercive states evade consequences and recur."
+  :stakeholders ["truth commissions" "victims" "courts" "citizens"]
+  :stock :paradigm-subordination :polarity :narrow :magnitude 0.5 :reversibility :cultural :meadows 2
+  :basis "Transitional-justice literature/practice" :sourcing :representative :confidence 0.4}
+
+ ;; ── last micro-state ──
+ {:type :instrument :id "va-elective-theocracy" :name "Elective absolute monarchy (Holy See)" :jurisdiction "VA" :kind :institution :year 1929
+  :enactor "Holy See (Vatican City State, Lateran Treaty 1929)"
+  :origin "The world's only absolute elective theocratic monarchy: the Pope holds full legislative, executive, and judicial power, chosen by the College of Cardinals; residents have no electoral channel — a sui generis case at the far end of the participation axis."
+  :stakeholders ["the Pope" "College of Cardinals" "Curia" "residents"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.7 :reversibility :entrenched :meadows 4
+  :basis "Fundamental Law of Vatican City State (1929/2000)" :sourcing :representative :confidence 0.4}
 ]
