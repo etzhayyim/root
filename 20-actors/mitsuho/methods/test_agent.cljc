@@ -10,9 +10,9 @@
 ;;   G4  settlement executes only with member sig
 ;;
 ;; Run:  bb --classpath 20-actors 20-actors/mitsuho/py/test_agent.clj
-(ns mitsuho.py.test-agent
+(ns mitsuho.methods.test-agent
   (:require [clojure.test :refer [deftest is testing run-tests]]
-            [mitsuho.py.agent :as agent]))
+            [mitsuho.methods.agent :as agent]))
 
 ;; ── parcel attestation ────────────────────────────────────────────────────────
 (deftest test-parcel-attestation-recorded
@@ -114,5 +114,5 @@
 
 ;; ── runner ────────────────────────────────────────────────────────────────────
 (when (= *file* (System/getProperty "babashka.file"))
-  (let [{:keys [fail error]} (clojure.test/run-tests 'mitsuho.py.test-agent)]
+  (let [{:keys [fail error]} (clojure.test/run-tests 'mitsuho.methods.test-agent)]
     (System/exit (if (zero? (+ fail error)) 0 1))))
