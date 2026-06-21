@@ -21,9 +21,10 @@
   [":sos/entity" ":sos/interface" ":sos/instrument" ":sos/role"])
 
 ;; the mirror lineage kaname is meant to JOIN (from schema :bridge)
+;; :amime added in ADR-2606212000 — the energy-flow mesh mirror feeding the :energy domain layer.
 (def expected-mirrors
   [":chie" ":tsumugi" ":keizu" ":kabuto" ":shiori" ":abaki" ":shionome"
-   ":busshi" ":hokorobi" ":kosatsu" ":inochi" ":junkan" ":ossekai"])
+   ":busshi" ":hokorobi" ":kosatsu" ":inochi" ":amime" ":junkan" ":ossekai"])
 
 (defn- tally [coll] (reduce (fn [m k] (update m k (fnil inc 0))) {} coll))
 

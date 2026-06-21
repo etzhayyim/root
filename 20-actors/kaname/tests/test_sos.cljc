@@ -49,7 +49,9 @@
           res (sos/leverage nodes edges)
           kp (sos/kaname-point res nodes)]
       (is (= "kaname.if.accred" (first kp)))
-      (is (approx 11.7 (nth kp 2))))))
+      ;; L = C·(V/D)·(1+B)·(1−open). Adding the :energy domain (ADR-2606212000) took D 10→11,
+      ;; rescaling every L by 10/11 uniformly (11.7 → 10.6363…). The argmax — the 要 — is invariant.
+      (is (approx 10.636363636363637 (nth kp 2))))))
 
 (deftest test-concentration-alone-is-not-leverage
   (testing "THE SoS discriminator — high concentration without versatility is NOT the 要"
