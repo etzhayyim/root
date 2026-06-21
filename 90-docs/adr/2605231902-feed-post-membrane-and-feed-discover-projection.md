@@ -16,7 +16,7 @@ authoritative_for:
 depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605191655-mst-projector-phase2-design
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
@@ -44,7 +44,7 @@ superseded_by: []
 
 `https://etzhayyim.com/` was returning `{"feed":[]}` from
 `app.bsky.feed.getTimeline` even though all upstream Workers (yoro SPA,
-`etzhayyim-did-web`, `yoro-xrpc-adapter`, `@etzhayyim/yoro-rw-free`) were
+`etzhayyim-did-web`, `yoro-xrpc-adapter`, `@etzhayyim/yoro-kotoba`) were
 operating correctly. Two underlying gaps:
 
 1. **No write path was exercised end-to-end.** The substrate read path
@@ -56,7 +56,7 @@ operating correctly. Two underlying gaps:
 2. **Discover was bounded to a single DID.** [ADR-2605231400](/90-docs/adr/2605231400-kotoba-datomic-holochain-iso-substrate.md)
    names the substrate composition and [ADR-2605231500](/90-docs/adr/2605231500-kotoba-datomic-projection.md)
    defines the derived-read-path contract. Neither named a concrete first
-   instance for `app.bsky.feed.post`. `yoro-rw-free/src/feed.ts:8-10`
+   instance for `app.bsky.feed.post`. `yoro-kotoba/src/feed.ts:8-10`
    carried the TODO comment: *"Cross-DID discovery is a Relay /
    mst-projector index concern, tracked in ADR-2605191358 — until that
    lands, 'Discover' = posts published into the operator's own MST."*
@@ -144,7 +144,7 @@ The first concrete instance of [ADR-2605231500](/90-docs/adr/2605231500-kotoba-d
   [ADR-2605231500](/90-docs/adr/2605231500-kotoba-datomic-projection.md) §"Three
   conformance levels" L1: "Rebuild tool exists and is exercised in CI" —
   this test IS the CI exercise.
-- **Read consumer**: `60-apps/etzhayyim-project-yoro/rw-free/src/feed.ts`
+- **Read consumer**: `60-apps/etzhayyim-project-yoro/kotoba/src/feed.ts`
   `getTimeline` + `getDiscoverFeed` consult
   `EtzhayyimConfig.projectionDiscoverDid` when set (wired via
   `@etzhayyim/sdk-auth` `SessionEnv.PROJECTION_DISCOVER_DID` and the
@@ -230,7 +230,7 @@ scope here.
 
 ### Neutral
 
-- **Does not change [ADR-2605172000](/90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) prohibitions** —
+- **Does not change [ADR-2605172000](/90-docs/adr/2605172000-etzhayyim-kotoba-substrate.md) prohibitions** —
   the projection is explicitly carved out as a derived-read path per
   [ADR-2605231500](/90-docs/adr/2605231500-kotoba-datomic-projection.md), not a state store.
 - **Council vote not required** — additive lexicons, additive policy,
@@ -292,7 +292,7 @@ both become reasonable.
 
 - [ADR-2605170900](/90-docs/adr/2605170900-etzhayyim-root-adr-canonical-home.md) — open-scope ADR canonical home
 - [ADR-2605171800](/90-docs/adr/2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md) — MST→IPFS→L2 anchor pipeline
-- [ADR-2605172000](/90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) — rw-free substrate hard rules
+- [ADR-2605172000](/90-docs/adr/2605172000-etzhayyim-kotoba-substrate.md) — kotoba substrate hard rules
 - [ADR-2605191655](/90-docs/adr/2605191655-mst-projector-phase2-design.md) — mst-projector Phase 2 (true MST root + CAR)
 - [ADR-2605192100](/90-docs/adr/2605192100-etzhayyim-mission-charter.md) — mission charter (§1.13 Eros/Gore, §1.15 non-eschatological)
 - [ADR-2605192200](/90-docs/adr/2605192200-etzhayyim-ip-free-release-charter-rider.md) — Charter Compliance Rider §2(a)..(h)
@@ -308,7 +308,7 @@ both become reasonable.
 - `50-infra/mst-projector/src/feed-discover.ts` — projection emitter
 - `50-infra/mst-projector/projection/{kotoba-datomic-projection.edn, REBUILD.md}` — manifest + runbook
 - `50-infra/mst-projector/test/feed-discover.replay.test.ts` — L1 conformance smoke
-- `60-apps/etzhayyim-project-yoro/rw-free/src/feed.ts` — projection read path
+- `60-apps/etzhayyim-project-yoro/kotoba/src/feed.ts` — projection read path
 
 ## Implementation status (this ADR)
 

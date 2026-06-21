@@ -1,5 +1,5 @@
 /**
- * murakumo CF Worker — etzhayyim RW-free rewrite (v5.0.0).
+ * murakumo CF Worker — etzhayyim kotoba rewrite (v5.0.0).
  *
  * Per ADR-2605191358 step 2 — replaces the legacy Kysely+Hyperdrive→RisingWave
  * path with `@etzhayyim/sdk` over AT MST + IPFS (when needed) + Base L2. The
@@ -866,7 +866,7 @@ app.get("/.well-known/agent.json", (c) => {
       id: DEFAULT_MURAKUMO_DID,
       name: "Murakumo Inference Fleet",
       description:
-        "etzhayyim Murakumo Mac-mini fleet (ADR-2605191346) + LiteLLM gateway. RW-free per ADR-2605191358.",
+        "etzhayyim Murakumo Mac-mini fleet (ADR-2605191346) + LiteLLM gateway. kotoba per ADR-2605191358.",
       url: "https://murakumo.etzhayyim.com",
       mcpEndpoint: "https://murakumo.etzhayyim.com/v1",
       capabilities: ["llm-inference", "text-generation", "mcp-tools-call"],

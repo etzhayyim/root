@@ -548,7 +548,7 @@ importers:
         specifier: ^6.4.2
         version: 6.4.3(@types/node@25.9.2)(jiti@2.7.0)(lightningcss@1.32.0)(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-6ir/rw-free:
+  60-apps/etzhayyim-project-6ir/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -564,7 +564,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-aima/rw-free:
+  60-apps/etzhayyim-project-aima/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -580,7 +580,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-air-book/rw-free:
+  60-apps/etzhayyim-project-air-book/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -596,7 +596,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-air-cargo/rw-free:
+  60-apps/etzhayyim-project-air-cargo/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -612,7 +612,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-air-crew/rw-free:
+  60-apps/etzhayyim-project-air-crew/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -628,7 +628,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-air-dcs/rw-free:
+  60-apps/etzhayyim-project-air-dcs/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -644,7 +644,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-air-ffp/rw-free:
+  60-apps/etzhayyim-project-air-ffp/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -660,7 +660,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-air-mro/rw-free:
+  60-apps/etzhayyim-project-air-mro/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -676,7 +676,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-air-ops/rw-free:
+  60-apps/etzhayyim-project-air-ops/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -692,7 +692,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-air-sched/rw-free:
+  60-apps/etzhayyim-project-air-sched/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -708,7 +708,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-air-sms/rw-free:
+  60-apps/etzhayyim-project-air-sms/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -724,7 +724,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-air-yield/rw-free:
+  60-apps/etzhayyim-project-air-yield/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -820,7 +820,7 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
-  60-apps/etzhayyim-project-analytics/rw-free:
+  60-apps/etzhayyim-project-analytics/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -836,7 +836,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-anime/rw-free:
+  60-apps/etzhayyim-project-anime/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -854,9 +854,9 @@ importers:
 
   60-apps/etzhayyim-project-anime/xrpc-adapter:
     dependencies:
-      '@etzhayyim/anime-rw-free':
+      '@etzhayyim/anime-kotoba':
         specifier: workspace:*
-        version: link:../rw-free
+        version: link:../kotoba
       '@etzhayyim/sdk':
         specifier: workspace:*
         version: link:../../../20-actors/etzhayyim-sdk
@@ -874,7 +874,7 @@ importers:
         specifier: ^3.78.0
         version: 3.114.17(@cloudflare/workers-types@4.20260603.1)
 
-  60-apps/etzhayyim-project-animeka/rw-free:
+  60-apps/etzhayyim-project-animeka/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -890,7 +890,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-bim/rw-free:
+  60-apps/etzhayyim-project-bim/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -906,7 +906,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-blockchain/rw-free:
+  60-apps/etzhayyim-project-blockchain/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -922,7 +922,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-bpmn/rw-free:
+  60-apps/etzhayyim-project-bpmn/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -943,9 +943,9 @@ importers:
 
   60-apps/etzhayyim-project-bpmn/xrpc-adapter:
     dependencies:
-      '@etzhayyim/bpmn-rw-free':
+      '@etzhayyim/bpmn-kotoba':
         specifier: workspace:*
-        version: link:../rw-free
+        version: link:../kotoba
       '@etzhayyim/sdk':
         specifier: workspace:*
         version: link:../../../20-actors/etzhayyim-sdk
@@ -963,7 +963,7 @@ importers:
         specifier: ^3.78.0
         version: 3.114.17(@cloudflare/workers-types@4.20260603.1)
 
-  60-apps/etzhayyim-project-briefing/rw-free:
+  60-apps/etzhayyim-project-briefing/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -979,7 +979,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-bunken/rw-free:
+  60-apps/etzhayyim-project-bunken/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -995,7 +995,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-business-edge/rw-free:
+  60-apps/etzhayyim-project-business-edge/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -1011,7 +1011,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-business-person/rw-free:
+  60-apps/etzhayyim-project-business-person/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -1027,7 +1027,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-cad/rw-free:
+  60-apps/etzhayyim-project-cad/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -1095,7 +1095,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-celler/rw-free:
+  60-apps/etzhayyim-project-celler/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -1111,7 +1111,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-collector/rw-free:
+  60-apps/etzhayyim-project-collector/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -1127,7 +1127,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-common-crawl/rw-free:
+  60-apps/etzhayyim-project-common-crawl/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -1143,7 +1143,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-communicator/rw-free:
+  60-apps/etzhayyim-project-communicator/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -1159,7 +1159,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-completer/rw-free:
+  60-apps/etzhayyim-project-completer/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -1175,7 +1175,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-coverage/rw-free:
+  60-apps/etzhayyim-project-coverage/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -1191,7 +1191,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-cowork/rw-free:
+  60-apps/etzhayyim-project-cowork/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -1207,7 +1207,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-cpc/rw-free:
+  60-apps/etzhayyim-project-cpc/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -1226,7 +1226,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@22.19.19)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-credits/rw-free:
+  60-apps/etzhayyim-project-credits/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -1242,7 +1242,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-crowdfunding/rw-free:
+  60-apps/etzhayyim-project-crowdfunding/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -1258,7 +1258,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-crypto-asset-freeze/rw-free:
+  60-apps/etzhayyim-project-crypto-asset-freeze/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -1274,7 +1274,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-deai/rw-free:
+  60-apps/etzhayyim-project-deai/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -1290,7 +1290,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-dns/rw-free:
+  60-apps/etzhayyim-project-dns/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -1305,9 +1305,9 @@ importers:
 
   60-apps/etzhayyim-project-dns/xrpc-adapter:
     dependencies:
-      '@etzhayyim/dns-rw-free':
+      '@etzhayyim/dns-kotoba':
         specifier: workspace:*
-        version: link:../rw-free
+        version: link:../kotoba
       '@etzhayyim/sdk':
         specifier: workspace:*
         version: link:../../../20-actors/etzhayyim-sdk
@@ -1435,7 +1435,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-ec/rw-free:
+  60-apps/etzhayyim-project-ec/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -1451,7 +1451,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-editor/rw-free:
+  60-apps/etzhayyim-project-editor/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -1467,7 +1467,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-eigyo/rw-free:
+  60-apps/etzhayyim-project-eigyo/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -1489,7 +1489,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-external-service-adapter/rw-free:
+  60-apps/etzhayyim-project-external-service-adapter/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -1505,7 +1505,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-fax/rw-free:
+  60-apps/etzhayyim-project-fax/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -1521,7 +1521,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-fleamarket/rw-free:
+  60-apps/etzhayyim-project-fleamarket/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -1537,7 +1537,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-flight-offer/rw-free:
+  60-apps/etzhayyim-project-flight-offer/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -1605,7 +1605,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-gameka/rw-free:
+  60-apps/etzhayyim-project-gameka/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -1623,9 +1623,9 @@ importers:
 
   60-apps/etzhayyim-project-gameka/xrpc-adapter:
     dependencies:
-      '@etzhayyim/gameka-rw-free':
+      '@etzhayyim/gameka-kotoba':
         specifier: workspace:*
-        version: link:../rw-free
+        version: link:../kotoba
       '@etzhayyim/sdk':
         specifier: workspace:*
         version: link:../../../20-actors/etzhayyim-sdk
@@ -1643,7 +1643,7 @@ importers:
         specifier: ^3.78.0
         version: 3.114.17(@cloudflare/workers-types@4.20260603.1)
 
-  60-apps/etzhayyim-project-ge/rw-free:
+  60-apps/etzhayyim-project-ge/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -1751,7 +1751,7 @@ importers:
         specifier: ^4.1.8
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-gov/rw-free:
+  60-apps/etzhayyim-project-gov/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -1767,7 +1767,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-gtin/rw-free:
+  60-apps/etzhayyim-project-gtin/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -1782,9 +1782,9 @@ importers:
 
   60-apps/etzhayyim-project-gtin/xrpc-adapter:
     dependencies:
-      '@etzhayyim/gtin-rw-free':
+      '@etzhayyim/gtin-kotoba':
         specifier: workspace:*
-        version: link:../rw-free
+        version: link:../kotoba
       '@etzhayyim/sdk':
         specifier: workspace:*
         version: link:../../../20-actors/etzhayyim-sdk
@@ -1802,7 +1802,7 @@ importers:
         specifier: ^3.78.0
         version: 3.114.17(@cloudflare/workers-types@4.20260603.1)
 
-  60-apps/etzhayyim-project-hakken/rw-free:
+  60-apps/etzhayyim-project-hakken/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -1812,7 +1812,7 @@ importers:
         specifier: ^5.6.0
         version: 5.9.3
 
-  60-apps/etzhayyim-project-hakkou/rw-free:
+  60-apps/etzhayyim-project-hakkou/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -1827,9 +1827,9 @@ importers:
 
   60-apps/etzhayyim-project-hakkou/xrpc-adapter:
     dependencies:
-      '@etzhayyim/hakkou-rw-free':
+      '@etzhayyim/hakkou-kotoba':
         specifier: workspace:*
-        version: link:../rw-free
+        version: link:../kotoba
       '@etzhayyim/sdk':
         specifier: workspace:*
         version: link:../../../20-actors/etzhayyim-sdk
@@ -1847,7 +1847,7 @@ importers:
         specifier: ^3.78.0
         version: 3.114.17(@cloudflare/workers-types@4.20260603.1)
 
-  60-apps/etzhayyim-project-hanrei/rw-free:
+  60-apps/etzhayyim-project-hanrei/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -1865,9 +1865,9 @@ importers:
 
   60-apps/etzhayyim-project-hanrei/xrpc-adapter:
     dependencies:
-      '@etzhayyim/hanrei-rw-free':
+      '@etzhayyim/hanrei-kotoba':
         specifier: workspace:*
-        version: link:../rw-free
+        version: link:../kotoba
       '@etzhayyim/sdk':
         specifier: workspace:*
         version: link:../../../20-actors/etzhayyim-sdk
@@ -1949,7 +1949,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-harai/rw-free:
+  60-apps/etzhayyim-project-harai/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -1965,7 +1965,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-hc/rw-free:
+  60-apps/etzhayyim-project-hc/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -1981,7 +1981,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-hospitality/rw-free:
+  60-apps/etzhayyim-project-hospitality/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -1997,7 +1997,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-houbun/rw-free:
+  60-apps/etzhayyim-project-houbun/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2012,9 +2012,9 @@ importers:
 
   60-apps/etzhayyim-project-houbun/xrpc-adapter:
     dependencies:
-      '@etzhayyim/houbun-rw-free':
+      '@etzhayyim/houbun-kotoba':
         specifier: workspace:*
-        version: link:../rw-free
+        version: link:../kotoba
       '@etzhayyim/sdk':
         specifier: workspace:*
         version: link:../../../20-actors/etzhayyim-sdk
@@ -2032,7 +2032,7 @@ importers:
         specifier: ^3.78.0
         version: 3.114.17(@cloudflare/workers-types@4.20260603.1)
 
-  60-apps/etzhayyim-project-houki/rw-free:
+  60-apps/etzhayyim-project-houki/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2047,9 +2047,9 @@ importers:
 
   60-apps/etzhayyim-project-houki/xrpc-adapter:
     dependencies:
-      '@etzhayyim/houki-rw-free':
+      '@etzhayyim/houki-kotoba':
         specifier: workspace:*
-        version: link:../rw-free
+        version: link:../kotoba
       '@etzhayyim/sdk':
         specifier: workspace:*
         version: link:../../../20-actors/etzhayyim-sdk
@@ -2067,7 +2067,7 @@ importers:
         specifier: ^3.78.0
         version: 3.114.17(@cloudflare/workers-types@4.20260603.1)
 
-  60-apps/etzhayyim-project-houshi/rw-free:
+  60-apps/etzhayyim-project-houshi/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2085,9 +2085,9 @@ importers:
 
   60-apps/etzhayyim-project-houshi/xrpc-adapter:
     dependencies:
-      '@etzhayyim/houshi-rw-free':
+      '@etzhayyim/houshi-kotoba':
         specifier: workspace:*
-        version: link:../rw-free
+        version: link:../kotoba
       '@etzhayyim/sdk':
         specifier: workspace:*
         version: link:../../../20-actors/etzhayyim-sdk
@@ -2105,7 +2105,7 @@ importers:
         specifier: ^3.78.0
         version: 3.114.17(@cloudflare/workers-types@4.20260603.1)
 
-  60-apps/etzhayyim-project-hrse/rw-free:
+  60-apps/etzhayyim-project-hrse/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2121,7 +2121,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-hub/rw-free:
+  60-apps/etzhayyim-project-hub/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2137,7 +2137,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-insatsu/rw-free:
+  60-apps/etzhayyim-project-insatsu/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2153,7 +2153,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-intel/rw-free:
+  60-apps/etzhayyim-project-intel/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2169,7 +2169,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-ipaddress/rw-free:
+  60-apps/etzhayyim-project-ipaddress/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2187,9 +2187,9 @@ importers:
 
   60-apps/etzhayyim-project-ipaddress/xrpc-adapter:
     dependencies:
-      '@etzhayyim/ipaddress-rw-free':
+      '@etzhayyim/ipaddress-kotoba':
         specifier: workspace:*
-        version: link:../rw-free
+        version: link:../kotoba
       '@etzhayyim/sdk':
         specifier: workspace:*
         version: link:../../../20-actors/etzhayyim-sdk
@@ -2207,7 +2207,7 @@ importers:
         specifier: ^3.78.0
         version: 3.114.17(@cloudflare/workers-types@4.20260603.1)
 
-  60-apps/etzhayyim-project-isbn/rw-free:
+  60-apps/etzhayyim-project-isbn/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2222,9 +2222,9 @@ importers:
 
   60-apps/etzhayyim-project-isbn/xrpc-adapter:
     dependencies:
-      '@etzhayyim/isbn-rw-free':
+      '@etzhayyim/isbn-kotoba':
         specifier: workspace:*
-        version: link:../rw-free
+        version: link:../kotoba
       '@etzhayyim/sdk':
         specifier: workspace:*
         version: link:../../../20-actors/etzhayyim-sdk
@@ -2242,7 +2242,7 @@ importers:
         specifier: ^3.78.0
         version: 3.114.17(@cloudflare/workers-types@4.20260603.1)
 
-  60-apps/etzhayyim-project-isin/rw-free:
+  60-apps/etzhayyim-project-isin/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2257,9 +2257,9 @@ importers:
 
   60-apps/etzhayyim-project-isin/xrpc-adapter:
     dependencies:
-      '@etzhayyim/isin-rw-free':
+      '@etzhayyim/isin-kotoba':
         specifier: workspace:*
-        version: link:../rw-free
+        version: link:../kotoba
       '@etzhayyim/sdk':
         specifier: workspace:*
         version: link:../../../20-actors/etzhayyim-sdk
@@ -2277,7 +2277,7 @@ importers:
         specifier: ^3.78.0
         version: 3.114.17(@cloudflare/workers-types@4.20260603.1)
 
-  60-apps/etzhayyim-project-issn/rw-free:
+  60-apps/etzhayyim-project-issn/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2290,23 +2290,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-itonami/rw-free:
-    dependencies:
-      '@etzhayyim/sdk':
-        specifier: workspace:*
-        version: link:../../../20-actors/etzhayyim-sdk
-    devDependencies:
-      '@etzhayyim/sdk-mock':
-        specifier: workspace:*
-        version: link:../../../20-actors/etzhayyim-sdk-mock
-      typescript:
-        specifier: ^5.6.0
-        version: 5.9.3
-      vitest:
-        specifier: ^4.1.0
-        version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
-
-  60-apps/etzhayyim-project-jp-fiscal/rw-free:
+  60-apps/etzhayyim-project-itonami/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2322,7 +2306,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-jukyu/rw-free:
+  60-apps/etzhayyim-project-jp-fiscal/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2338,7 +2322,23 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-kami/rw-free:
+  60-apps/etzhayyim-project-jukyu/kotoba:
+    dependencies:
+      '@etzhayyim/sdk':
+        specifier: workspace:*
+        version: link:../../../20-actors/etzhayyim-sdk
+    devDependencies:
+      '@etzhayyim/sdk-mock':
+        specifier: workspace:*
+        version: link:../../../20-actors/etzhayyim-sdk-mock
+      typescript:
+        specifier: ^5.6.0
+        version: 5.9.3
+      vitest:
+        specifier: ^4.1.0
+        version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
+
+  60-apps/etzhayyim-project-kami/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2401,7 +2401,7 @@ importers:
         specifier: ^0.2.79
         version: 0.2.84
 
-  60-apps/etzhayyim-project-keiei/rw-free:
+  60-apps/etzhayyim-project-keiei/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2417,7 +2417,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-kenkyusha/rw-free:
+  60-apps/etzhayyim-project-kenkyusha/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2433,7 +2433,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-ki/rw-free:
+  60-apps/etzhayyim-project-ki/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2448,9 +2448,9 @@ importers:
 
   60-apps/etzhayyim-project-ki/xrpc-adapter:
     dependencies:
-      '@etzhayyim/ki-rw-free':
+      '@etzhayyim/ki-kotoba':
         specifier: workspace:*
-        version: link:../rw-free
+        version: link:../kotoba
       '@etzhayyim/sdk':
         specifier: workspace:*
         version: link:../../../20-actors/etzhayyim-sdk
@@ -2468,7 +2468,7 @@ importers:
         specifier: ^3.78.0
         version: 3.114.17(@cloudflare/workers-types@4.20260603.1)
 
-  60-apps/etzhayyim-project-kiyo/rw-free:
+  60-apps/etzhayyim-project-kiyo/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2483,9 +2483,9 @@ importers:
 
   60-apps/etzhayyim-project-kiyo/xrpc-adapter:
     dependencies:
-      '@etzhayyim/kiyo-rw-free':
+      '@etzhayyim/kiyo-kotoba':
         specifier: workspace:*
-        version: link:../rw-free
+        version: link:../kotoba
       '@etzhayyim/sdk':
         specifier: workspace:*
         version: link:../../../20-actors/etzhayyim-sdk
@@ -2503,7 +2503,7 @@ importers:
         specifier: ^3.78.0
         version: 3.114.17(@cloudflare/workers-types@4.20260603.1)
 
-  60-apps/etzhayyim-project-koke/rw-free:
+  60-apps/etzhayyim-project-koke/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2518,9 +2518,9 @@ importers:
 
   60-apps/etzhayyim-project-koke/xrpc-adapter:
     dependencies:
-      '@etzhayyim/koke-rw-free':
+      '@etzhayyim/koke-kotoba':
         specifier: workspace:*
-        version: link:../rw-free
+        version: link:../kotoba
       '@etzhayyim/sdk':
         specifier: workspace:*
         version: link:../../../20-actors/etzhayyim-sdk
@@ -2535,7 +2535,7 @@ importers:
         specifier: ^3.78.0
         version: 3.114.17(@cloudflare/workers-types@4.20260603.1)
 
-  60-apps/etzhayyim-project-kyber-qzzg06nh/rw-free:
+  60-apps/etzhayyim-project-kyber-qzzg06nh/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2551,7 +2551,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-legal-corpus/rw-free:
+  60-apps/etzhayyim-project-legal-corpus/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2567,7 +2567,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-legal-entity/rw-free:
+  60-apps/etzhayyim-project-legal-entity/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2583,7 +2583,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-live/rw-free:
+  60-apps/etzhayyim-project-live/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2636,7 +2636,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-manga/rw-free:
+  60-apps/etzhayyim-project-manga/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2654,9 +2654,9 @@ importers:
 
   60-apps/etzhayyim-project-manga/xrpc-adapter:
     dependencies:
-      '@etzhayyim/manga-rw-free':
+      '@etzhayyim/manga-kotoba':
         specifier: workspace:*
-        version: link:../rw-free
+        version: link:../kotoba
       '@etzhayyim/sdk':
         specifier: workspace:*
         version: link:../../../20-actors/etzhayyim-sdk
@@ -2674,7 +2674,7 @@ importers:
         specifier: ^3.78.0
         version: 3.114.17(@cloudflare/workers-types@4.20260603.1)
 
-  60-apps/etzhayyim-project-manimani/rw-free:
+  60-apps/etzhayyim-project-manimani/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2690,7 +2690,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-maps/rw-free:
+  60-apps/etzhayyim-project-maps/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2746,7 +2746,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-media-gamers/rw-free:
+  60-apps/etzhayyim-project-media-gamers/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2762,7 +2762,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-meet/rw-free:
+  60-apps/etzhayyim-project-meet/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2778,7 +2778,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-meeting-recorder/rw-free:
+  60-apps/etzhayyim-project-meeting-recorder/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2794,7 +2794,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-messenger/rw-free:
+  60-apps/etzhayyim-project-messenger/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2810,7 +2810,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-minpaku/rw-free:
+  60-apps/etzhayyim-project-minpaku/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2826,7 +2826,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-narou/rw-free:
+  60-apps/etzhayyim-project-narou/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2847,9 +2847,9 @@ importers:
 
   60-apps/etzhayyim-project-narou/xrpc-adapter:
     dependencies:
-      '@etzhayyim/narou-rw-free':
+      '@etzhayyim/narou-kotoba':
         specifier: workspace:*
-        version: link:../rw-free
+        version: link:../kotoba
       '@etzhayyim/sdk':
         specifier: workspace:*
         version: link:../../../20-actors/etzhayyim-sdk
@@ -2867,7 +2867,7 @@ importers:
         specifier: ^3.78.0
         version: 3.114.17(@cloudflare/workers-types@4.20260603.1)
 
-  60-apps/etzhayyim-project-ndc/rw-free:
+  60-apps/etzhayyim-project-ndc/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2882,9 +2882,9 @@ importers:
 
   60-apps/etzhayyim-project-ndc/xrpc-adapter:
     dependencies:
-      '@etzhayyim/ndc-rw-free':
+      '@etzhayyim/ndc-kotoba':
         specifier: workspace:*
-        version: link:../rw-free
+        version: link:../kotoba
       '@etzhayyim/sdk':
         specifier: workspace:*
         version: link:../../../20-actors/etzhayyim-sdk
@@ -2902,7 +2902,7 @@ importers:
         specifier: ^3.78.0
         version: 3.114.17(@cloudflare/workers-types@4.20260603.1)
 
-  60-apps/etzhayyim-project-news/rw-free:
+  60-apps/etzhayyim-project-news/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2918,7 +2918,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-newsletter/rw-free:
+  60-apps/etzhayyim-project-newsletter/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2934,7 +2934,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-nist/rw-free:
+  60-apps/etzhayyim-project-nist/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2953,7 +2953,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@22.19.19)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-ocel/rw-free:
+  60-apps/etzhayyim-project-ocel/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -2968,9 +2968,9 @@ importers:
 
   60-apps/etzhayyim-project-ocel/xrpc-adapter:
     dependencies:
-      '@etzhayyim/ocel-rw-free':
+      '@etzhayyim/ocel-kotoba':
         specifier: workspace:*
-        version: link:../rw-free
+        version: link:../kotoba
       '@etzhayyim/sdk':
         specifier: workspace:*
         version: link:../../../20-actors/etzhayyim-sdk
@@ -2988,7 +2988,7 @@ importers:
         specifier: ^3.78.0
         version: 3.114.17(@cloudflare/workers-types@4.20260603.1)
 
-  60-apps/etzhayyim-project-okaimono/rw-free:
+  60-apps/etzhayyim-project-okaimono/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3004,7 +3004,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-omise/rw-free:
+  60-apps/etzhayyim-project-omise/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3020,7 +3020,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-open-airplane/rw-free:
+  60-apps/etzhayyim-project-open-airplane/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3036,7 +3036,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-open-apqc/rw-free:
+  60-apps/etzhayyim-project-open-apqc/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3055,7 +3055,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@22.19.19)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-open-banking/rw-free:
+  60-apps/etzhayyim-project-open-banking/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3070,9 +3070,9 @@ importers:
 
   60-apps/etzhayyim-project-open-banking/xrpc-adapter:
     dependencies:
-      '@etzhayyim/open-banking-rw-free':
+      '@etzhayyim/open-banking-kotoba':
         specifier: workspace:*
-        version: link:../rw-free
+        version: link:../kotoba
       '@etzhayyim/sdk':
         specifier: workspace:*
         version: link:../../../20-actors/etzhayyim-sdk
@@ -3093,7 +3093,7 @@ importers:
         specifier: ^3.78.0
         version: 3.114.17(@cloudflare/workers-types@4.20260603.1)
 
-  60-apps/etzhayyim-project-open-cofog/rw-free:
+  60-apps/etzhayyim-project-open-cofog/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3109,7 +3109,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-open-denki/rw-free:
+  60-apps/etzhayyim-project-open-denki/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3124,9 +3124,9 @@ importers:
 
   60-apps/etzhayyim-project-open-denki/xrpc-adapter:
     dependencies:
-      '@etzhayyim/open-denki-rw-free':
+      '@etzhayyim/open-denki-kotoba':
         specifier: workspace:*
-        version: link:../rw-free
+        version: link:../kotoba
       '@etzhayyim/sdk':
         specifier: workspace:*
         version: link:../../../20-actors/etzhayyim-sdk
@@ -3141,7 +3141,7 @@ importers:
         specifier: ^3.78.0
         version: 3.114.17(@cloudflare/workers-types@4.20260603.1)
 
-  60-apps/etzhayyim-project-open-gas/rw-free:
+  60-apps/etzhayyim-project-open-gas/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3157,7 +3157,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-open-isco/rw-free:
+  60-apps/etzhayyim-project-open-isco/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3176,7 +3176,7 @@ importers:
         specifier: ^4.1.7
         version: 4.1.8(@types/node@25.9.1)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-open-isic/rw-free:
+  60-apps/etzhayyim-project-open-isic/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3195,7 +3195,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@22.19.19)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-open-jpn-gov/rw-free:
+  60-apps/etzhayyim-project-open-jpn-gov/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3211,7 +3211,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-open-jpn-mynumber/rw-free:
+  60-apps/etzhayyim-project-open-jpn-mynumber/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3227,7 +3227,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-open-kyber/rw-free:
+  60-apps/etzhayyim-project-open-kyber/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3243,7 +3243,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-open-network/rw-free:
+  60-apps/etzhayyim-project-open-network/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3259,7 +3259,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-open-ossekai/rw-free:
+  60-apps/etzhayyim-project-open-ossekai/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3275,7 +3275,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-open-patent/rw-free:
+  60-apps/etzhayyim-project-open-patent/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3291,7 +3291,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-open-ports/rw-free:
+  60-apps/etzhayyim-project-open-ports/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3307,7 +3307,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-open-power/rw-free:
+  60-apps/etzhayyim-project-open-power/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3323,7 +3323,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-open-rail/rw-free:
+  60-apps/etzhayyim-project-open-rail/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3339,7 +3339,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-open-swift/rw-free:
+  60-apps/etzhayyim-project-open-swift/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3355,7 +3355,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-open-unispsc/rw-free:
+  60-apps/etzhayyim-project-open-unispsc/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3374,7 +3374,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@22.19.19)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-open-water/rw-free:
+  60-apps/etzhayyim-project-open-water/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3390,7 +3390,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-ops/rw-free:
+  60-apps/etzhayyim-project-ops/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3406,7 +3406,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-os-messaging/rw-free:
+  60-apps/etzhayyim-project-os-messaging/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3422,7 +3422,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-otakiage/rw-free:
+  60-apps/etzhayyim-project-otakiage/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3437,9 +3437,9 @@ importers:
 
   60-apps/etzhayyim-project-otakiage/xrpc-adapter:
     dependencies:
-      '@etzhayyim/otakiage-rw-free':
+      '@etzhayyim/otakiage-kotoba':
         specifier: workspace:*
-        version: link:../rw-free
+        version: link:../kotoba
       '@etzhayyim/sdk':
         specifier: workspace:*
         version: link:../../../20-actors/etzhayyim-sdk
@@ -3457,7 +3457,7 @@ importers:
         specifier: ^3.78.0
         version: 3.114.17(@cloudflare/workers-types@4.20260603.1)
 
-  60-apps/etzhayyim-project-patent/rw-free:
+  60-apps/etzhayyim-project-patent/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3473,7 +3473,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-phone/rw-free:
+  60-apps/etzhayyim-project-phone/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3489,7 +3489,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-pptx/rw-free:
+  60-apps/etzhayyim-project-pptx/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3505,7 +3505,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-public-kafun-bokumetsu/rw-free:
+  60-apps/etzhayyim-project-public-kafun-bokumetsu/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3521,7 +3521,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-real-estate/rw-free:
+  60-apps/etzhayyim-project-real-estate/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3537,7 +3537,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-repository/rw-free:
+  60-apps/etzhayyim-project-repository/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3553,7 +3553,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-resource-flow/rw-free:
+  60-apps/etzhayyim-project-resource-flow/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3569,7 +3569,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-resource-planner/rw-free:
+  60-apps/etzhayyim-project-resource-planner/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3585,7 +3585,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-resource-provider/rw-free:
+  60-apps/etzhayyim-project-resource-provider/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3601,7 +3601,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-robot/rw-free:
+  60-apps/etzhayyim-project-robot/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3617,7 +3617,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-saiban/rw-free:
+  60-apps/etzhayyim-project-saiban/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3633,7 +3633,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-sanctions/rw-free:
+  60-apps/etzhayyim-project-sanctions/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3649,7 +3649,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-sbom/rw-free:
+  60-apps/etzhayyim-project-sbom/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3664,9 +3664,9 @@ importers:
 
   60-apps/etzhayyim-project-sbom/xrpc-adapter:
     dependencies:
-      '@etzhayyim/sbom-rw-free':
+      '@etzhayyim/sbom-kotoba':
         specifier: workspace:*
-        version: link:../rw-free
+        version: link:../kotoba
       '@etzhayyim/sdk':
         specifier: workspace:*
         version: link:../../../20-actors/etzhayyim-sdk
@@ -3684,7 +3684,7 @@ importers:
         specifier: ^3.78.0
         version: 3.114.17(@cloudflare/workers-types@4.20260603.1)
 
-  60-apps/etzhayyim-project-scheduler/rw-free:
+  60-apps/etzhayyim-project-scheduler/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3730,7 +3730,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-seibutsu/rw-free:
+  60-apps/etzhayyim-project-seibutsu/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3816,7 +3816,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@22.19.19)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-shigotoba/rw-free:
+  60-apps/etzhayyim-project-shigotoba/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3832,7 +3832,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-shiharai/rw-free:
+  60-apps/etzhayyim-project-shiharai/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3848,7 +3848,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-shinka/rw-free:
+  60-apps/etzhayyim-project-shinka/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3864,7 +3864,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-shinkansen/rw-free:
+  60-apps/etzhayyim-project-shinkansen/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3880,7 +3880,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-shopping/rw-free:
+  60-apps/etzhayyim-project-shopping/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3896,7 +3896,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-site/rw-free:
+  60-apps/etzhayyim-project-site/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3912,7 +3912,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-society6/rw-free:
+  60-apps/etzhayyim-project-society6/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -3971,7 +3971,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-supplychain/rw-free:
+  60-apps/etzhayyim-project-supplychain/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -4023,7 +4023,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-tenso/rw-free:
+  60-apps/etzhayyim-project-tenso/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -4039,7 +4039,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-threads/rw-free:
+  60-apps/etzhayyim-project-threads/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -4058,7 +4058,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@22.19.19)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-threat-intelligence/rw-free:
+  60-apps/etzhayyim-project-threat-intelligence/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -4074,7 +4074,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-tia/rw-free:
+  60-apps/etzhayyim-project-tia/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -4090,7 +4090,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-toshi-kozan/rw-free:
+  60-apps/etzhayyim-project-toshi-kozan/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -4155,7 +4155,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-tsukuru/rw-free:
+  60-apps/etzhayyim-project-tsukuru/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -4165,23 +4165,7 @@ importers:
         specifier: ^5.6.0
         version: 5.9.3
 
-  60-apps/etzhayyim-project-voxelforge/rw-free:
-    dependencies:
-      '@etzhayyim/sdk':
-        specifier: workspace:*
-        version: link:../../../20-actors/etzhayyim-sdk
-    devDependencies:
-      '@etzhayyim/sdk-mock':
-        specifier: workspace:*
-        version: link:../../../20-actors/etzhayyim-sdk-mock
-      typescript:
-        specifier: ^5.6.0
-        version: 5.9.3
-      vitest:
-        specifier: ^4.1.0
-        version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
-
-  60-apps/etzhayyim-project-watashi/rw-free:
+  60-apps/etzhayyim-project-voxelforge/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -4197,7 +4181,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-web4/rw-free:
+  60-apps/etzhayyim-project-watashi/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -4213,7 +4197,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-webmk/rw-free:
+  60-apps/etzhayyim-project-web4/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -4229,7 +4213,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-webpage/rw-free:
+  60-apps/etzhayyim-project-webmk/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -4245,7 +4229,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-webya/rw-free:
+  60-apps/etzhayyim-project-webpage/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -4261,7 +4245,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-wire/rw-free:
+  60-apps/etzhayyim-project-webya/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -4277,7 +4261,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-worlds/rw-free:
+  60-apps/etzhayyim-project-wire/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -4293,7 +4277,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-xlsx/rw-free:
+  60-apps/etzhayyim-project-worlds/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -4309,7 +4293,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-yabai/rw-free:
+  60-apps/etzhayyim-project-xlsx/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -4325,7 +4309,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-yadoya/rw-free:
+  60-apps/etzhayyim-project-yabai/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -4341,7 +4325,23 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-yorishiro/rw-free:
+  60-apps/etzhayyim-project-yadoya/kotoba:
+    dependencies:
+      '@etzhayyim/sdk':
+        specifier: workspace:*
+        version: link:../../../20-actors/etzhayyim-sdk
+    devDependencies:
+      '@etzhayyim/sdk-mock':
+        specifier: workspace:*
+        version: link:../../../20-actors/etzhayyim-sdk-mock
+      typescript:
+        specifier: ^5.6.0
+        version: 5.9.3
+      vitest:
+        specifier: ^4.1.0
+        version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
+
+  60-apps/etzhayyim-project-yorishiro/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -4493,7 +4493,7 @@ importers:
         specifier: ^4.1.8
         version: 4.1.8(@types/node@25.9.2)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@2.7.0)(jsdom@29.1.1(@noble/hashes@2.2.0))(tsx@4.22.4)(yaml@2.9.0)
 
-  60-apps/etzhayyim-project-yoro/rw-free:
+  60-apps/etzhayyim-project-yoro/kotoba:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
@@ -4514,9 +4514,9 @@ importers:
       '@etzhayyim/sdk-auth':
         specifier: workspace:*
         version: link:../../../20-actors/etzhayyim-sdk-auth
-      '@etzhayyim/yoro-rw-free':
+      '@etzhayyim/yoro-kotoba':
         specifier: workspace:*
-        version: link:../rw-free
+        version: link:../kotoba
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20240712.0
@@ -4543,39 +4543,39 @@ importers:
 
   70-tools/integration-tests:
     devDependencies:
-      '@etzhayyim/hakkou-rw-free':
+      '@etzhayyim/hakkou-kotoba':
         specifier: workspace:*
-        version: link:../../60-apps/etzhayyim-project-hakkou/rw-free
-      '@etzhayyim/hanrei-rw-free':
+        version: link:../../60-apps/etzhayyim-project-hakkou/kotoba
+      '@etzhayyim/hanrei-kotoba':
         specifier: workspace:*
-        version: link:../../60-apps/etzhayyim-project-hanrei/rw-free
-      '@etzhayyim/houbun-rw-free':
+        version: link:../../60-apps/etzhayyim-project-hanrei/kotoba
+      '@etzhayyim/houbun-kotoba':
         specifier: workspace:*
-        version: link:../../60-apps/etzhayyim-project-houbun/rw-free
-      '@etzhayyim/houki-rw-free':
+        version: link:../../60-apps/etzhayyim-project-houbun/kotoba
+      '@etzhayyim/houki-kotoba':
         specifier: workspace:*
-        version: link:../../60-apps/etzhayyim-project-houki/rw-free
-      '@etzhayyim/ipaddress-rw-free':
+        version: link:../../60-apps/etzhayyim-project-houki/kotoba
+      '@etzhayyim/ipaddress-kotoba':
         specifier: workspace:*
-        version: link:../../60-apps/etzhayyim-project-ipaddress/rw-free
-      '@etzhayyim/ki-rw-free':
+        version: link:../../60-apps/etzhayyim-project-ipaddress/kotoba
+      '@etzhayyim/ki-kotoba':
         specifier: workspace:*
-        version: link:../../60-apps/etzhayyim-project-ki/rw-free
-      '@etzhayyim/kiyo-rw-free':
+        version: link:../../60-apps/etzhayyim-project-ki/kotoba
+      '@etzhayyim/kiyo-kotoba':
         specifier: workspace:*
-        version: link:../../60-apps/etzhayyim-project-kiyo/rw-free
-      '@etzhayyim/koke-rw-free':
+        version: link:../../60-apps/etzhayyim-project-kiyo/kotoba
+      '@etzhayyim/koke-kotoba':
         specifier: workspace:*
-        version: link:../../60-apps/etzhayyim-project-koke/rw-free
+        version: link:../../60-apps/etzhayyim-project-koke/kotoba
       '@etzhayyim/mst-projector':
         specifier: workspace:*
         version: link:../../20-actors/mst-projector
-      '@etzhayyim/otakiage-rw-free':
+      '@etzhayyim/otakiage-kotoba':
         specifier: workspace:*
-        version: link:../../60-apps/etzhayyim-project-otakiage/rw-free
-      '@etzhayyim/sbom-rw-free':
+        version: link:../../60-apps/etzhayyim-project-otakiage/kotoba
+      '@etzhayyim/sbom-kotoba':
         specifier: workspace:*
-        version: link:../../60-apps/etzhayyim-project-sbom/rw-free
+        version: link:../../60-apps/etzhayyim-project-sbom/kotoba
       '@etzhayyim/sdk-mock':
         specifier: workspace:*
         version: link:../../20-actors/etzhayyim-sdk-mock

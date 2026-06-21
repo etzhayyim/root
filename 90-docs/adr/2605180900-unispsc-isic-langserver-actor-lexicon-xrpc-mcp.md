@@ -18,7 +18,7 @@ authoritative_for:
 depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
   - 2605171300
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
 related:
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
 supersedes: []
@@ -307,7 +307,7 @@ $0.30 and 30 minutes wall-clock.
 
 - ADR-2605170900 — etzhayyim/root as canonical home for open ADRs
 - ADR-2605171300 — Open-UNSPSC generative agent fleet (18,343 agents)
-- ADR-2605172000 — RW-free substrate (langservers must not depend on RW)
+- ADR-2605172000 — kotoba substrate (langservers must not depend on RW)
 - `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/langgraph_graphs/unispsc_agents/`
 - `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/langgraph_graphs/dynamic_runner.py`
 - `60-apps/etzhayyim-project-open-isic/data/classes/` (428 ISIC Rev. 4 class JSONs)

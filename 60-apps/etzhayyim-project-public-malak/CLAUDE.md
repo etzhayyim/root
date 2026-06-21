@@ -12,12 +12,12 @@ Per `etzhayyim/etzhayyim-root` deps.toml `tranche-f-public-malak-classification-
 - Vendor (etzhayyim) retains: project scaffold (CLAUDE.md, kotodama.jsonld), 14 lexicons under `publicMalak/`, 280 MB crawled corpus (`60-apps/etzhayyim-project-public-malak/data/ingest/`).
 - etzhayyim already had: BPMN definitions (`00-contracts/bpmn/com/etzhayyim/public-malak/{analyzeAd,crawlAds}.bpmn`).
 
-This commit lands the etzhayyim-side scaffold mirror (CLAUDE.md + OWNERS + PROJECT.jsonld + kotodama.jsonld) and 14 lexicons. The worker (`src/app.ts`), rw-free reference impl, and corpus residency follow separately:
+This commit lands the etzhayyim-side scaffold mirror (CLAUDE.md + OWNERS + PROJECT.jsonld + kotodama.jsonld) and 14 lexicons. The worker (`src/app.ts`), kotoba reference impl, and corpus residency follow separately:
 
-- **rw-free**: deferred per user direction (rw-free fixes happen post-migration).
+- **kotoba**: deferred per user direction (kotoba fixes happen post-migration).
 - **corpus residency**: Option A (vendor RW mirror, etzhayyim worker ingests fresh). Same architectural pattern as ADR-2605202400 GTFS-RT carve-out and `tranche-f-public-malak-classification-2026-05-20`. Vendor retains the 923-file `data/ingest/` mirror as historical artifact; etzhayyim deploy ingests directly from public ad-library APIs.
 
-## Substrate (etzhayyim — RW-free per ADR-2605172000)
+## Substrate (etzhayyim — kotoba per ADR-2605172000)
 
 | Concern | Vendor (etzhayyim.com) | etzhayyim (this repo) |
 |---|---|---|
@@ -55,7 +55,7 @@ All surface the ad-library scraper graph (Meta / Facebook / Instagram / WhatsApp
 ## Substrate-boundary notes
 
 Per `etzhayyim/root/CLAUDE.md` §"Substrate boundary":
-- This project is RW-free. No `createKyselyDb` / `env.HYPERDRIVE` in any deploy from this directory.
+- This project is kotoba. No `createKyselyDb` / `env.HYPERDRIVE` in any deploy from this directory.
 - All paid-tier / fiat-billed features stay in vendor (`malak.etzhayyim.com` parent).
 - Ad-library API ingestion uses public APIs only — no fiat-billed transparency-data resellers.
 
@@ -63,7 +63,7 @@ Per `etzhayyim/root/CLAUDE.md` §"Substrate boundary":
 
 - vendor parent: `etzhayyim/etzhayyim-root` `60-apps/etzhayyim-project-public-malak/` + `60-apps/etzhayyim-project-malak/`
 - tranche-F judgment: vendor deps.toml `tranche-f-public-malak-classification-2026-05-20`
-- ADR-2605172000 — etzhayyim RW-free substrate
+- ADR-2605172000 — etzhayyim kotoba substrate
 - ADR-2605172400 — etzhayyim vendor 3-axis split rule
-- ADR-2605203000 — Phase E rw-free write-target options
+- ADR-2605203000 — Phase E kotoba write-target options
 - ADR-2605202400 — GTFS-RT vendor-mirror carve-out pattern (same shape as corpus residency Option A)

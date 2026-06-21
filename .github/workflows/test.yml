@@ -1,6 +1,6 @@
 name: test
 # Path-scoped (ADR-2605302355 CI review): this matrix builds @etzhayyim/sdk and
-# runs the rw-free vitest / tsc / integration suites. It only needs to run when
+# runs the kotoba vitest / tsc / integration suites. It only needs to run when
 # the SDK or those JS packages change — docs / Rust / Python / lexicon-only PRs
 # (e.g. the kotoba-WASM legal-services work) must not be gated by it.
 # The previously-known break (incomplete libsignal→XChaCha20 migration in
@@ -15,7 +15,7 @@ on:
       - "20-actors/etzhayyim-sdk-auth/**"
       - "20-actors/mst-projector/**"
       - "50-infra/mst-projector/**"
-      - "60-apps/etzhayyim-project-*/rw-free/**"
+      - "60-apps/etzhayyim-project-*/kotoba/**"
       - "70-tools/lexicon-to-openapi/**"
       - "70-tools/integration-tests/**"
       - ".github/workflows/test.yml"
@@ -27,7 +27,7 @@ on:
       - "20-actors/etzhayyim-sdk-auth/**"
       - "20-actors/mst-projector/**"
       - "50-infra/mst-projector/**"
-      - "60-apps/etzhayyim-project-*/rw-free/**"
+      - "60-apps/etzhayyim-project-*/kotoba/**"
       - "70-tools/lexicon-to-openapi/**"
       - "70-tools/integration-tests/**"
       - ".github/workflows/test.yml"
@@ -80,7 +80,7 @@ jobs:
       - name: Build @etzhayyim/sdk
         run: pnpm -F @etzhayyim/sdk build
       - name: Run vitest
-        working-directory: 60-apps/etzhayyim-project-${{ matrix.actor }}/rw-free
+        working-directory: 60-apps/etzhayyim-project-${{ matrix.actor }}/kotoba
         run: pnpm test --reporter=verbose
 
   tsc:

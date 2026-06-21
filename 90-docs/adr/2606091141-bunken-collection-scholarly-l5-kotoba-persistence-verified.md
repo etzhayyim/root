@@ -38,7 +38,7 @@ A status review of the "fetch world papers → kotoba Datomic → IPFS" stack fo
 
 # Decision
 
-## 1. bunken CDX collection pipeline (60-apps/etzhayyim-project-bunken/rw-free)
+## 1. bunken CDX collection pipeline (60-apps/etzhayyim-project-bunken/kotoba)
 
 Implemented `src/collection.ts` — the five-stage pipeline from the bunken CLAUDE.md:
 
@@ -79,7 +79,7 @@ Landed via **PR #1491 (merged 2026-06-09, mergeCommit `bf28f7e3`)**.
 # References
 
 - PR #1491 (merged) — bunken collection + 8 scholarly L5.
-- `60-apps/etzhayyim-project-bunken/rw-free/src/collection.ts` + `test/collection.test.ts`.
+- `60-apps/etzhayyim-project-bunken/kotoba/src/collection.ts` + `test/collection.test.ts`.
 - `00-contracts/schemas/cleanroom-l5-verification.json` (49→57), `cleanroom-actors.index.json`.
 - `70-tools/verify_cleanroom_system.py` — PASS 0/0.
 - kotoba: `crates/kotoba-datomic`, `crates/kotoba-ipfs`, `crates/kotoba-graph/examples/ipfs_e2e.rs`, `crates/kotoba-kse/src/sovereign_key.rs` (re-genesis fix).

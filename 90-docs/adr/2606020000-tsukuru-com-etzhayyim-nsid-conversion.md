@@ -51,7 +51,7 @@ repo-wide (87 files), and relocate the tsukuru lexicons accordingly.
    carried a spurious `etzhayyim` segment the id never had). Catalog `git mv`
    `00-contracts/catalogs/com/etzhayyim/tsukuru/` → `00-contracts/catalogs/com/etzhayyim/tsukuru/`.
 
-2. **Source + cross-app refs.** rw-free, orchestration scripts, `kotodama.toml`, `20-actors/tsukuru`,
+2. **Source + cross-app refs.** kotoba, orchestration scripts, `kotodama.toml`, `20-actors/tsukuru`,
    and cross-app callers (`aidesk`, `hc`, `open-robo`, kotodama cells, graph seed migrations, ADRs)
    all updated. This avoids a split-collection bug (one writer on `com`, another on `app`).
 

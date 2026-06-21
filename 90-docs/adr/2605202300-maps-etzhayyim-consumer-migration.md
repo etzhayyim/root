@@ -16,7 +16,7 @@ authoritative_for:
 depends_on:
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
   - adr-2605191655-mst-projector-phase2-design
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605172400-etzhayyim-vendor-three-axis-split-rule
 related: []
 supersedes: []
@@ -39,7 +39,7 @@ superseded_by: []
 | Custody  | clean | public spatial data; user EXIF is opt-in; operator holds no PII master |
 | Settlement | clean | no Stripe; Mapillary / RunPod are internal operator cost, not customer billing |
 
-3/3 clean → maps qualifies for etzhayyim. The substrate constraint (ADR-2605172000) requires RW-free implementation.
+3/3 clean → maps qualifies for etzhayyim. The substrate constraint (ADR-2605172000) requires kotoba implementation.
 
 A prior draft (vendor ADR-2605201800, reverted) proposed a parallel "AT record + Iceberg-on-IPFS" scheme with its own `org.etzhayyim.storage.*` lexicons and Python projector pod. That draft was authored without visibility into the existing etzhayyim-root infrastructure and substantially duplicates work already shipped here:
 
@@ -129,7 +129,7 @@ maps app
 
 - ADR-2605171800 — LangGraph → MstCheckpointSaver → MST → IPFS → L2 anchor pipeline
 - ADR-2605191655 — mst-projector Phase 2 design
-- ADR-2605172000 — etzhayyim RW-free substrate
+- ADR-2605172000 — etzhayyim kotoba substrate
 - ADR-2605172400 — etzhayyim / vendor 3-axis split rule
 - `00-contracts/lexicons/com/etzhayyim/substrate/shardSnapshot.json` — the snapshot record consumed by `tileGeoJson`
 - `50-infra/mst-projector/` — projector daemon

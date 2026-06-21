@@ -25,7 +25,7 @@ depends_on:
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
   - adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet
   - adr-2605181100-mst-encrypted-records-signal-keywrap
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605231500-kotoba-datomic-projection
   - adr-2605231525-no-server-key-religious-corp-architecture
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
@@ -292,7 +292,7 @@ Considered. ameno は既存 self-care PWA ― mitate を extension にすれば 
 - ADR-2605192415 (religious-corp daemon architecture — Tier-B classification, Murakumo placement pattern)
 - ADR-2605201400 (kuni-umi planetary infra — robotics class ontology, Hitogata / Mimi / Otete reuse + Hanami/Kafun-watch new placeholders)
 - ADR-2605181100 (encrypted confidentiality substrate — G2)
-- ADR-2605172000 (RW-free substrate — Decision 6 substrate boundary)
+- ADR-2605172000 (kotoba substrate — Decision 6 substrate boundary)
 - ADR-2605231500 (kotoba-datomic-projection — cohort tracking carve-out)
 - ADR-2605231525 (no-server-key invariant — G13 physician key custody)
 - ADR-2605215000 (etzhayyim inference Murakumo-only — G12)

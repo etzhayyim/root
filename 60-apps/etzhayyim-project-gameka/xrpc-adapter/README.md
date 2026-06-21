@@ -1,6 +1,6 @@
 # gameka XRPC Adapter
 
-CF Worker that exposes the 13 rw-free commands as XRPC endpoints.
+CF Worker that exposes the 13 kotoba commands as XRPC endpoints.
 
 ## Endpoints
 

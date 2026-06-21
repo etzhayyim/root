@@ -1,6 +1,6 @@
 # koke XRPC Adapter
 
-CF Worker scaffold exposes rw-free commands as XRPC endpoints.
+CF Worker scaffold exposes kotoba commands as XRPC endpoints.
 
 Routes: koke.etzhayyim.com/xrpc/com.etzhayyim.koke.*
 

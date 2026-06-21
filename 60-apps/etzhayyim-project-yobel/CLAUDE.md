@@ -11,7 +11,7 @@
 | Operating entity | **etzhayyim** (運営宗教法人。Etzhayyim Japan vendor の関与なし) |
 | Destination repo | `github.com/etzhayyim/root` (Apache 2.0) |
 | License | Apache 2.0 |
-| Substrate | AT MST + IPFS + Base L2 (RW-free, ADR-2605172000) |
+| Substrate | AT MST + IPFS + Base L2 (kotoba, ADR-2605172000) |
 | Settlement | USDC on Base L2 via ERC725 Smart Wallet (ADR-0074)。fiat / Stripe 禁止 |
 | 3-axis split | etzhayyim 3/3 clean (Liability=doctrine / Custody=collective records / Settlement=on-chain) |
 

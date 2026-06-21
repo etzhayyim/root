@@ -1,31 +1,31 @@
 # etzhayyim/root — on-chain migration status (audit 2026-06-02)
 
-Substrate posture per ADR-2605172000 (RW-free) + ADR-2606011400 (on-chain-only).
+Substrate posture per ADR-2605172000 (kotoba) + ADR-2606011400 (on-chain-only).
 This is a point-in-time classification of all `60-apps/` projects, resolving the
 previously-opaque status of the ~312 apps that carry no `MIGRATION-TODO.md`.
 
-**Total apps: 391.** Each is bucketed by: has a clean `rw-free/` reference impl?
+**Total apps: 391.** Each is bucketed by: has a clean `kotoba/` reference impl?
 has a `MIGRATION-TODO.md`? still imports prohibited substrate
 (`createKyselyDb` / `kysely` / Kotoba/Datomic / `HYPERDRIVE` / `stripe` / `viem` /
-`@atproto/api`) in its non-`rw-free` source?
+`@atproto/api`) in its non-`kotoba` source?
 
 | Bucket | Count | Meaning |
 |--------|------:|---------|
-| **A — DONE** | 158 | has a `rw-free/` on-chain reference impl (git-authoritative: committed `rw-free/src/index.ts` count) |
-| **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
-| **C — NEEDS-CODEMOD** | 0 | CLEARED — all build-targets resolved (rw-free or Bucket V); only legacy codemod-cleanup remains |
-| **D — TODO-PENDING** | 7 | has `MIGRATION-TODO.md` (seed copied, codemod pending) — all build-targets resolved (rw-free or V); remainder = legacy codemod-cleanup chores |
+| **A — DONE** | 158 | has a `kotoba/` on-chain reference impl (git-authoritative: committed `kotoba/src/index.ts` count) |
+| **B — CLEAN** | 209 | no `kotoba`, no TODO, no prohibited imports — compliant or thin stub |
+| **C — NEEDS-CODEMOD** | 0 | CLEARED — all build-targets resolved (kotoba or Bucket V); only legacy codemod-cleanup remains |
+| **D — TODO-PENDING** | 7 | has `MIGRATION-TODO.md` (seed copied, codemod pending) — all build-targets resolved (kotoba or V); remainder = legacy codemod-cleanup chores |
 | **V — VENDOR-RESIDENT** | 22 | regulated EXECUTION only (fiat-MoR rail / inference / credential custody) — DATA migrated via kotoba-E2E (git-authoritative: unique V entries minus 53 migrated across E2E waves 1+2) |
 
 **Real remaining scope ≈ 8 apps** (C + D = 0 + 8; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
-rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
+kotoba impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
-every open-* app now has an rw-free impl. The loop now proceeds over the
+every open-* app now has an kotoba impl. The loop now proceeds over the
 remaining C/D apps with a per-app judgment gate (etzhayyim-front vs
 vendor-resident, per the Consensys pattern + 3-axis OR-test).
 
-> **Nuance**: an app can be in A *and* C — the `rw-free/` package is the clean
+> **Nuance**: an app can be in A *and* C — the `kotoba/` package is the clean
 > etzhayyim-compliant reimplementation, but the project's original (pre-migration)
 > `src/` may still carry RW/Stripe code that a later cleanup removes. e.g. `cpc`,
 > `common-crawl`, `sanctions`, `saiban`, `kami`. For these the
@@ -33,10 +33,10 @@ vendor-resident, per the Consensys pattern + 3-axis OR-test).
 > (`auth` was an example here previously but is now Bucket V — vendor-resident,
 > no on-chain path; see below.)
 
-## Bucket A — DONE (105, has rw-free/)
+## Bucket A — DONE (105, has kotoba/)
 
 > **Roster correction (2026-06-03)**: count is git-authoritative (committed
-> `rw-free/src/index.ts` = 105). The prose list below previously named 6 phantom
+> `kotoba/src/index.ts` = 105). The prose list below previously named 6 phantom
 > non-apps (`6ir`, `air-sched`, `analytics`, `bim`, `business-person`,
 > `legal-corpus`) — empty dirs with only stray `node_modules`, no committed src,
 > absent from both repos — now treated as resolved phantoms (see Bucket V note).
@@ -121,7 +121,7 @@ one-at-a-time loop; superset of the original audit's 43.)
 > **kotoba-E2E migration wave (2026-06-03, founder-directed)**: 24 apps moved
 > V→A. Founder ruled PII/CUI/LE/yabai-risk safe to migrate on-substrate via
 > kotoba E2E (ADR-2605181100 encrypted-record envelope). Pattern established:
-> `intel/rw-free` reference (plaintext public-meta via `sdk.write` + sensitive
+> `intel/kotoba` reference (plaintext public-meta via `sdk.write` + sensitive
 > payload sealed via `sdk.encryptedWrite`, read-cap = owner DID) + `sdk-mock`
 > `encryptedWrite`/`encryptedRead`. Only regulated EXECUTION (fiat-MoR settlement,
 > GPU/LLM inference, enforcement/blocking actions, credential custody) stays etzhayyim,
@@ -144,11 +144,11 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
 
 > **Phantom non-apps removed from Bucket A roster (2026-06-03)**: `6ir`,
 > `air-sched`, `analytics`, `bim`, `business-person`, `legal-corpus` were listed
-> in the Bucket A prose roster as DONE but have **zero committed `rw-free/src`** —
+> in the Bucket A prose roster as DONE but have **zero committed `kotoba/src`** —
 > only stray `node_modules/` leftovers — and **no source in either repo**
 > (etzhayyim/root nor the etzhayyim.co.jp vendor repo). They are non-apps (the
 > `etzhayyimcojp` precedent). **Resolved = do NOT build; future batch fires skip them.**
-> Count is git-authoritative: committed `rw-free/src/index.ts` = **105** (the
+> Count is git-authoritative: committed `kotoba/src/index.ts` = **105** (the
 > header was under-counting by 1). The prose roster is indicative, not exhaustive.
 
 - **accounts** — axis: **Custody**. Account-lifecycle management worker (ADR-0024,
@@ -252,7 +252,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   producible secrets ⇒ stays etzhayyim. NOTE: the *decentralized-identity primitives*
   it also touches — did:web / did:plc issuance + `vertex_etzhayyim_identity` public
   governance — are etzhayyim-exclusive per ADR-2605211950 and tracked as separate
-  relocate targets in `/CLAUDE.md` migrations, not as an rw-free registry here.
+  relocate targets in `/CLAUDE.md` migrations, not as an kotoba registry here.
 - **business-edge** — axes: **Custody + Settlement + Liability** (all three). The
   developer-facing edge-compute PaaS control plane (multi-tenant KV/Graph/CDN/
   PubSub/Lock/Secrets/VirtualActor): tenant API-key + Secrets-primitive custody,
@@ -354,7 +354,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   propagation (K8s pod-side LangGraph), ranks company exposure, emits signals.
   A DERIVED analytical compute engine — not a source-of-truth catalog (domain
   actors remain SoT, many already migrated). Same class as coverage (RW
-  read-model) / dougaka (compute). No standalone rw-free catalog. Stays etzhayyim.
+  read-model) / dougaka (compute). No standalone kotoba catalog. Stays etzhayyim.
 - **llm** — axes: **Kotoba/Datomic + Settlement + Custody**. LLM inference gateway
   (/v1/chat/completions, routes to CF Workers AI / Murakumo GPU): inferenceRequest
   / inferenceResult / modelConfig. RW-backed inference-event logging + credits-
@@ -373,7 +373,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   purchase + platform-fee MoR + balance ledger stays etzhayyim (Settlement/Custody);
   the on-chain GCC token + TitheRouter 10% tithe is an etzhayyim-EXCLUSIVE
   on-chain primitive (ADR-2605211950 relocate target — Base L2/Ethereum, NOT an
-  AT-PDS rw-free registry). No rw-free built here.
+  AT-PDS kotoba registry). No kotoba built here.
 - **shinka** — axes: **Kotoba/Datomic + compute (LLM inference orchestration)**. The
   actor-evolution scheduler (`shinka.etzhayyim.com`, `*/5min` cron): queries the
   stalest actors from `vertex_actor` (37K+ rows, Kotoba/Datomic), resolves joucho
@@ -481,8 +481,8 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   financial state**, never a public AT registry (carry-forward test fails). Same
   financial family as `credits`: the on-chain settlement rail (USDC + ERC-4337,
   per its MIGRATION-TODO) is an **etzhayyim-EXCLUSIVE** primitive (ADR-2605211950
-  relocate target), NOT an AT-PDS rw-free registry; the fiat/clearing/balance
-  custody stays etzhayyim. No rw-free built.
+  relocate target), NOT an AT-PDS kotoba registry; the fiat/clearing/balance
+  custody stays etzhayyim. No kotoba built.
 - **hub** (Bucket D → V) — axes: **Infra (API-gateway request routing) + Custody
   (endpoint/webhook config + secrets)**. Integration Hub & API Gateway Platform
   (`hub.etzhayyim.com`): 8 methods — registerEndpoint / listEndpoints / routeRequest /
@@ -490,14 +490,14 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   Records are **per-user/org integration plumbing** — registered endpoint URLs,
   webhook callback secrets, routing rules + live routing state + metrics — not a
   public directory (carry-forward test fails). `routeRequest` is live proxy
-  compute. Same gateway/dispatcher-infra family. No rw-free built.
+  compute. Same gateway/dispatcher-infra family. No kotoba built.
 - **kaikei** (Bucket D → V) — axes: **Custody (confidential financial/tax books)
   + Liability (記帳/tax compliance, 善管注意義務) + Settlement (invoice/payment
   accounting)**. Accounting / bookkeeping platform (会計): thin-edge facade over
   pod-side accounting logic (journals / ledgers / invoices / tax / balances /
   financial reports). Accounting books are **confidential business financial
   data**, never public AT records (carry-forward test fails). Same financial
-  family as `harai` / `credits`. No rw-free built.
+  family as `harai` / `credits`. No kotoba built.
 - **keiei** (Bucket D → V) — axes: **Infra (k8s-resident C-suite orchestration
   LSP + leader election) + Custody (internal CxO audit ledger)**. C-suite role
   LSP (経営): an AI CxO management daemon (`kotodama.keiei` / `KeieiServer`,
@@ -507,7 +507,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   orchestration compute, not a consumer/catalog product (carry-forward test
   fails); records are internal governance audit. Root CLAUDE keeps the keiei
   daemon a distinct etzhayyim-tied entity. Same internal-orchestration family as
-  `shinka`. No rw-free built.
+  `shinka`. No kotoba built.
 - **ops** (Bucket D → V) — axes: **Infra (process-automation orchestration /
   workflow execution) + Custody (per-org automation configs + process-run
   state)**. Operations Automation Platform (`ops.etzhayyim.com`): 8 methods —
@@ -516,7 +516,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   are **per-org internal operational orchestration state** — automation
   (workflow) definitions + process-run history — not a public catalog
   (carry-forward test fails). Same internal-orchestration/dispatcher family as
-  `keiei` / `hub`. No rw-free built.
+  `keiei` / `hub`. No kotoba built.
 - **resource-planner** (Bucket D → V) — axes: **Custody (per-user/org resource
   inventory + allocation plans) + Infra (Inngest event-driven plan-generation
   compute)**. Inngest event-driven resource planner (`rp.etzhayyim.com`): ingests
@@ -525,7 +525,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   planning data** — resource inventory + generated allocation plans — not public
   open-data (carry-forward test fails). Contrast `resource-flow` (PUBLIC 2次ソース
   of externally-authored flows → fronted): resource-planner is per-org private
-  planning → stays etzhayyim. No rw-free built.
+  planning → stays etzhayyim. No kotoba built.
 - **resource-provider** (Bucket D → V) — axes: **Settlement (rewards for
   contributed resources) + Custody (contributed documents/images + location PII +
   GPU compute provisioning)**. etzhayyim Resource Provider Network: a
@@ -535,8 +535,8 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   + Frontend pending). Reward-settling resource marketplace = regulated primary
   function (carry-forward test fails). Same family as `credits` / `harai`: any
   on-chain reward rail is an etzhayyim-exclusive relocate target (ADR-2605211950),
-  NOT an rw-free registry; reward-settlement + data/compute custody stays etzhayyim.
-  No rw-free built.
+  NOT an kotoba registry; reward-settlement + data/compute custody stays etzhayyim.
+  No kotoba built.
 - **robot** (Bucket D → V) — axes: **Liability (physical robot mission control +
   dropshipping fulfillment) + Custody (telemetry + shipping PII) + Settlement
   (dropshipping order processing)**. Robotics Control & Dropshipping Platform
@@ -547,7 +547,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   Mission plans / telemetry / fulfillment orders are platform-operational/
   regulated, not open-data (carry-forward test fails); the "process catalog" is
   the fulfillment pipeline's internal catalog, not an external-authority
-  registry. No clean public layer to front. No rw-free built.
+  registry. No clean public layer to front. No kotoba built.
 - **scheduler** (Bucket D → V) — axes: **Infra (job/cron scheduling + execution
   engine) + Custody (per-user job definitions + run status)**. Job Scheduling
   Platform (`scheduler.etzhayyim.com`, "Codex Automations 風"): 8 methods — createJob /
@@ -555,7 +555,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   fired by a cron-tick MCP actor. Records are **per-user private scheduled-job
   definitions + run status** — internal scheduling config/state, not public
   open-data (carry-forward test fails). Same internal-orchestration/dispatcher
-  family as `ops` / `hub` / `keiei`. No rw-free built.
+  family as `ops` / `hub` / `keiei`. No kotoba built.
 - **shiharai** (Bucket D → V) — axes: **Settlement (executes payments — final
   submit) + Custody (payment credential vault + billing data) + Liability
   (browser-automation payment agency, 善管注意義務)**. 支払 Web 自動化 Actor
@@ -564,7 +564,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   fiat payments) using credentials wrapped through `vault.etzhayyim.com`
   (ephemeral, 60s). Records are private financial/credential automation state,
   not open-data (carry-forward test fails). Same family as `yorishiro`
-  (browser-automation + credential agency) + `harai` (payment). No rw-free built.
+  (browser-automation + credential agency) + `harai` (payment). No kotoba built.
 - **tia** (Bucket D → V) — axes: **Custody (account-protection PII + monitored
   profiles + threat findings) + Infra/compute (LLM threat-intel analytics) +
   Liability (auto-takedown agency)**. Threat Intelligence & Analytics Platform
@@ -582,9 +582,9 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   registerExpert / submitInference / getInferenceResult / getClusterStats — a
   distributed GPU-inference compute network. The GCC token/minter is an
   **etzhayyim-EXCLUSIVE on-chain primitive** (ADR-2605211950 relocate target; the
-  same GCC `credits` references), NOT an AT-PDS rw-free registry; the
+  same GCC `credits` references), NOT an AT-PDS kotoba registry; the
   inference/expert compute stays etzhayyim. Records are platform compute-network state
-  + on-chain contracts, not open-data (carry-forward test fails). No rw-free built.
+  + on-chain contracts, not open-data (carry-forward test fails). No kotoba built.
 - **wire** (Bucket D → V) — axes: **Settlement (wire transfers + balance ledger)
   + Custody (balance + transfer records + messages) + Liability (money-transfer
   善管注意義務)**. Wire Transfer & Messaging Platform (`wire.etzhayyim.com`): 8 methods —
@@ -593,7 +593,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   with a balance ledger + transfer confirmation/history (messaging = transfer-
   attached memos). Transfer records + balances are confidential financial state,
   never a public registry (carry-forward test fails). Same financial family as
-  `harai` / `credits` / `shiharai`. No rw-free built.
+  `harai` / `credits` / `shiharai`. No kotoba built.
 - **yabai** (Bucket D → V) — axes: **Custody (AML/sanctions screened-entity data +
   IP access-surveillance logs) + Liability (AML/反社 risk scoring + enforcement,
   善管注意義務) + Infra/compute (risk-scoring UDF + threat-intel ingest)**. Risk
@@ -606,7 +606,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   public registry (carry-forward test fails). The public CTI catalog is already
   covered by the separate `threat-intelligence` app (Bucket A); yabai's distinct
   function is the AML/risk-scoring/enforcement/access-surveillance core. No
-  rw-free built.
+  kotoba built.
 - **yatabase** (Bucket D → V) — axes: **Kotoba/Datomic + Custody (tenant storage /
   graph / auth PII) + Settlement (Stripe billing) + Liability (BaaS hosting)**.
   Retail cloud graph DB + Supabase-style BaaS (`yatabase.etzhayyim.com`, codename
@@ -616,7 +616,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   LangServer. This is the **canonical "kotobase backend"** regulated-infra example
   named in root CLAUDE.md ("kotobase P1, 旧 yatabase を統合") — the etzhayyim commercial
   BaaS data backend that etzhayyim apps consume via consent-capability. Never a
-  public registry (carry-forward test fails). No rw-free built.
+  public registry (carry-forward test fails). No kotoba built.
 - **communicator** (Bucket D / ad-pixel → V) — axes: **Custody (Gmail/Outlook
   conversation memory + contacts + email PII) + Liability (agent-driven external
   comms on user's behalf, 善管注意義務) + Infra/compute (agent decision layer +
@@ -626,7 +626,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   conversation state + follow-up actions, sends on the user's behalf (approval-
   gated for high-risk). Records are private per-user conversation state, not
   open-data (carry-forward test fails). Same messaging/comms-orchestration family
-  as `mailer` / `microsoft` / `outreach`. No rw-free built.
+  as `mailer` / `microsoft` / `outreach`. No kotoba built.
 - **external-service-adapter** (Bucket D / ad-pixel → V) — axes: **Infra
   (provider-native execution adapter) + Custody (provider credentials /
   integration config) + Settlement (affiliate-revenue paths)**. A thin adapter/
@@ -634,7 +634,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   communication / media) on behalf of other apps (e.g. `communicator` uses it for
   "provider-native execution"). No product surface — pure integration plumbing,
   not open-data (carry-forward test fails). Same adapter/integration-infra family
-  as `yorishiro` / `hub`. No rw-free built.
+  as `yorishiro` / `hub`. No kotoba built.
 - **facebook** (Bucket D / ad-pixel → V) — axes: **Custody (collected Facebook
   PII — profiles / friend-graph / posts / messenger, incl. third-party PII) +
   Liability (FB sync/scrape + messenger-bridge agency)**. Facebook Intelligence
@@ -643,7 +643,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   ingests/mirrors a user's Facebook data into the platform. Collected social data
   is private personal PII (incl. friends'), not open-data (carry-forward test
   fails). Same provider/messaging family as `gmail` / `messenger` / `microsoft`.
-  No rw-free built.
+  No kotoba built.
 - **game-play-uploader** (Bucket D / ad-pixel → V) — axes: **Settlement
   (rewards/payouts for uploads + affiliate-revenue paths) + Custody (uploaded
   gameplay content + uploader PII + payout records) + Liability (campaign
@@ -652,7 +652,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   gameplay content as marketing-campaign submissions and earn rewards. The uploads
   are settlement-entangled campaign submissions, not a curated external-authority
   catalog (carry-forward test fails; fronting them = the voxelforge invent-a-
-  catalog trap). Same reward-marketplace family as `resource-provider`. No rw-free
+  catalog trap). Same reward-marketplace family as `resource-provider`. No kotoba
   built.
 - **gmail** (Bucket D / ad-pixel → V) — axes: **Custody (private email PII +
   OAuth-token KEK custody) + Liability (email send/triage + messenger-bridge
@@ -663,7 +663,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   server-side only); Kotoba/Datomic-backed (`vertex_gmail_*`). Private personal email
   + credentials, not open-data (carry-forward test fails; contrast `github` =
   public open-data → fronted). Same provider/messaging family as `facebook` /
-  `communicator` / `mailer`. No rw-free built.
+  `communicator` / `mailer`. No kotoba built.
 - **mailer** (Bucket D / ad-pixel → V) — axes: **Custody (DID↔email binding +
   inbound/outbound email content + recipient PII) + Liability (email-delivery
   infra — Resend send + CF inbound routing, SPF/DKIM/DMARC, 善管注意義務) + Infra
@@ -673,7 +673,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   (multi-channel dispatcher), resend (Resend API backend). The canonical
   email-service backend apps consume (root CLAUDE: primary `mailer.etzhayyim.com`
   outbound/inbound). Email addresses/messages/bindings are private PII + infra
-  state, not open-data (carry-forward test fails). No rw-free built.
+  state, not open-data (carry-forward test fails). No kotoba built.
 - **meet** (Bucket D / ad-pixel → V) — axes: **Custody (Google OAuth credentials +
   private meeting metadata/participants/transcripts PII) + Liability (Meet
   sync/agency)**. Google Meet integration (`meet.etzhayyim.com`): "Google Meet
@@ -681,7 +681,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   — syncs the user's private Meet data (meetings/participants/transcripts) with
   Google OAuth. Private Google-Workspace data + credentials, not open-data
   (carry-forward test fails). Same provider family as `gmail` / `microsoft` /
-  `facebook`. No rw-free built.
+  `facebook`. No kotoba built.
 - **meeting-recorder** (Bucket D / ad-pixel → V) — axes: **Custody (meeting
   audio/video + E2E-encrypted transcripts, PII Tier 3) + Liability (consent-gated
   recording on user's behalf, recording-consent compliance) + Kotoba/Datomic + B2**.
@@ -691,7 +691,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   **Signal-encrypted** (`signal:v1:`), authoritative graph in Kotoba/Datomic.
   Collections (recordingChunk / transcriptSegment) are zero-knowledge E2E
   sensitive meeting content (same family as `tenso` / vault / signal), never a
-  public registry (carry-forward test fails). No rw-free built.
+  public registry (carry-forward test fails). No kotoba built.
 - **messenger** (Bucket D / ad-pixel → V) — axes: **Custody (private channel/DM/
   thread messaging PII) + Liability (message delivery/retention)**. Etzhayyim Messenger
   (`messenger.etzhayyim.com`): real-time team-messaging platform (Slack/Discord
@@ -699,7 +699,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   sql graph ORM. Messaging/conversation stays server-side per root CLAUDE
   (`chat.bsky.convo.*` / PDS pipethrough), not a public AT registry; DMs are
   private, channels team-scoped (carry-forward test fails). Same messaging/
-  conversation family. No rw-free built.
+  conversation family. No kotoba built.
 - **microsoft** (Bucket D / ad-pixel → V) — axes: **Custody (M365 app-token
   credential + draft/sent mail content + recipient PII) + Liability (Mail.Send /
   Teams-post on the org's behalf, policy-gated)**. Microsoft 365 / Graph
@@ -707,14 +707,14 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   sendMail / sendDraft / listDrafts (Mail.Send app-only, internal=direct /
   external=auto-draft) + Teams channel posting; acquires M365 app tokens. Private
   email + M365 credentials, not open-data (carry-forward test fails). Same
-  provider/messaging family as `gmail` / `mailer` / `meet`. No rw-free built.
+  provider/messaging family as `gmail` / `mailer` / `meet`. No kotoba built.
 - **microsoft-graph** (Bucket D / ad-pixel → V) — axes: **Custody (M365 Graph
   credentials + accessed Teams/SharePoint/Outlook private data PII) + Infra (Graph
   API access gateway + change-event pub/sub)**. Microsoft Graph Integration: app
   service for accessing M365 data (Teams / SharePoint / Outlook) via Graph API,
   unified HTTP endpoints + change events. Provider-access gateway over private org
   data + credentials, not open-data (carry-forward test fails). Same M365 provider
-  family as `microsoft` / `gmail` / `meet`. No rw-free built.
+  family as `microsoft` / `gmail` / `meet`. No kotoba built.
 - **ongakuka** (Bucket D / ad-pixel → V) — axes: **generation-compute (murakumo
   audio inference / Mac fleet for AI music) + B2 storage Custody**. AI Music
   Generation (音楽家, `ongakuka.etzhayyim.com`): Suno-class — lyrics + style prompt
@@ -723,7 +723,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   generation job ran (source = our own audio-inference run) — compute-output
   bookkeeping, not an external-authority catalog (carry-forward test fails;
   fronting = the voxelforge invent-a-catalog trap). Same generation-pipeline
-  family as `voxelforge` / `yukkuri` / `dougaka`. No rw-free built.
+  family as `voxelforge` / `yukkuri` / `dougaka`. No kotoba built.
 - **outreach** (Bucket D / ad-pixel → V) — axes: **Custody (prospect Tier-3 PII +
   outreach sequences) + Liability (outreach email-send / anti-spam compliance) +
   Infra/compute (LangGraph research/drafting LLM)**. Sales Outreach Automation
@@ -731,14 +731,14 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   quality_gate → store_step) — prospect email/title/company = **PII Tier 3**
   (ADR-0018); integrations ads / resend / gmail / m365. Private CRM/PII +
   outreach steps, not open-data (carry-forward test fails). Same family as
-  `webmk` (marketing-CRM agent). No rw-free built.
+  `webmk` (marketing-CRM agent). No kotoba built.
 - **phone** (Bucket D / ad-pixel → V) — axes: **Custody (call history + contacts
   PII) + Liability (PSTN telephony / telecom + call routing) + Settlement
   (per-minute charges) + Infra (AWS Connect)**. Browser-based phone calling
   platform (`phone.etzhayyim.com`) powered by AWS Connect: WebRTC softphone, call
   control (dial/answer/hold/transfer/DTMF), call history, contact management,
   inbound/outbound PSTN. Private telephony PII + telecom infra, not open-data
-  (carry-forward test fails). No rw-free built.
+  (carry-forward test fails). No kotoba built.
 - **recap** (Bucket D / ad-pixel → V) — axes: **Liability (copyright/fair-use) +
   Custody (B2 media + download history) + Infra/compute (yt-dlp + LLM
   summarization)**. Multi-Platform Media Download Agent (`recap.etzhayyim.com`):
@@ -747,7 +747,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   listDownloads. Scope = **社内研究・教育用途 (fair-use only)**, arbitrary public
   download prohibited. Downloaded media is fair-use-restricted third-party
   copyrighted content (not redistributable open-data); summaries are LLM output
-  (carry-forward test fails). No rw-free built.
+  (carry-forward test fails). No kotoba built.
 - **ses** (Bucket D / ad-pixel → V) — axes: **Custody (SES案件 Tier-3 PII,
   non-federable) + Liability (staffing/contract business) + Infra/compute (email
   ingest + LLM extraction)**. NOT AWS SES — a **SES (システムエンジニアリング
@@ -755,7 +755,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   **Non-federable**): ingests SES staffing deals/projects + status from private
   email (Outlook/Exchange) → LLM extraction → graph. Confidential business
   staffing data (client/engineer/rate/contract), explicitly non-federable, not
-  open-data (carry-forward test fails). No rw-free built.
+  open-data (carry-forward test fails). No kotoba built.
 - **society6** (Bucket D / ad-pixel → V) — axes: **Custody (per-constituent
   Well-Becoming scores + Kyu/Dan ranks = personal trust/evaluation PII) +
   Infra/compute (5-axis scoring + cross-app behavioral aggregation)**. NOT the
@@ -765,7 +765,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   cross-app behavioral data) → martial-arts kyu/dan rank (calculateScore /
   promoteRank). Per-person evaluation/trust PII, computed (carry-forward test
   fails — no external authority); the COFOG open-data layer is already migrated
-  separately as `open-cofog` (Bucket A). No rw-free built.
+  separately as `open-cofog` (Bucket A). No kotoba built.
 - **x** (Bucket D / ad-pixel → V) — axes: **Custody (collected X profiles +
   follower-graph + tweets + private timeline = social PII / surveillance
   aggregation) + Liability (X sync/scrape, ToS)**. X (Twitter) Intelligence
@@ -774,7 +774,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   (public open-source, redistributable open-data → fronted), X data is ToS-
   restricted and collecting individuals' follower-graphs + personalized timelines
   is social-PII surveillance (carry-forward test fails). Same Intelligence-
-  Platform family as `facebook`. No rw-free built.
+  Platform family as `facebook`. No kotoba built.
 - **insatsu** (Bucket D / substrate-boundary → V) — axes: **Custody (print jobs +
   recipient mailing-address PII) + Settlement (quote/pricing + partner dispatch/
   payment) + Liability (print+mail fulfillment, 善管注意義務 + delivery)**. Print-mail
@@ -784,7 +784,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   partner actor (e.g. 日本郵便 for JPN). The printPartner registry is fulfillment-
   network config (our dispatch partners), not external-authority open-data
   (carry-forward test fails). Same commerce-fulfillment pattern as `okaimono`
-  (MoR/fulfillment stays etzhayyim). No rw-free built.
+  (MoR/fulfillment stays etzhayyim). No kotoba built.
 - **playwright** (Bucket D / substrate-boundary → V) — axes: **Infra
   (browser-automation execution primitives) + Custody (session state + vault
   credential injection)**. Browser automation primitives actor
@@ -793,7 +793,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   daemon / cf-browser (delegates to `cloudflareBrowserRender`), credentials via
   `vault://` ephemeral, session state in D1. Pure execution infra — no product
   surface, not open-data (carry-forward test fails). Same family as
-  `cloudflare-browser-render` (V) / `yorishiro` / `hub`. No rw-free built.
+  `cloudflare-browser-render` (V) / `yorishiro` / `hub`. No kotoba built.
 - **site** (Bucket D / substrate-boundary → V) — axes: **Infra + Custody + Liability**.
   Site Intelligence Platform / "Internet Clone Gateway" (`site.etzhayyim.com`): the
   SOLE external web-fetch gateway (all apps' external fetch/crawl must route through
@@ -806,7 +806,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   physically impossible at scale). Sole-fetch-gateway shared-infra dependency + RW +
   IPFS pinning (both regulated-infra axes) + screenshot/full-content storage
   (DMCA/GDPR/robots liability) + embedding compute ⇒ stays etzhayyim whole. Precedent =
-  `common-crawl` (legacy codemod, never built rw-free), not `github`. No rw-free.
+  `common-crawl` (legacy codemod, never built kotoba), not `github`. No kotoba.
 
 ## Bucket C — NEEDS-CODEMOD (0) — active backlog CLEARED
 
@@ -820,19 +820,19 @@ Import vectors: `createKyselyDb` 29 · `HYPERDRIVE` 23 · Kotoba/Datomic 18 ·
 `kysely` 8 · `stripe` 4 · `@atproto/api` 0 · `viem` 0.
 
 **Build-targets CLEARED (2026-06-02).** Every Bucket C app that needed an
-etzhayyim-front rw-free build has been resolved this loop: migrated
+etzhayyim-front kotoba build has been resolved this loop: migrated
 (6ir-batch + saiban / sanctions / seibutsu / shigotoba / shinkansen / toshi-kozan
 / xlsx) or judged (b) vendor-resident (shinka / tenso / voxelforge / watashi /
 webmk / webya / yorishiro / yukkuri). The only entries that remain under the
 "NEEDS-CODEMOD" label are **legacy codemod-cleanup**, NOT migration targets:
 
-- `common-crawl` (RW, legacy src) — rw-free already exists; residual RW in
-  non-`rw-free` src is a later cleanup.
-- `cpc` (legacy src) — rw-free already exists; same.
+- `common-crawl` (RW, legacy src) — kotoba already exists; residual RW in
+  non-`kotoba` src is a later cleanup.
+- `cpc` (legacy src) — kotoba already exists; same.
 - `email-service-adapter` (stripe) — codemod-only; also tracked in Bucket D.
 
 These are mechanical import-removal chores on already-migrated/vendor apps, not
-"front vs vendor" judgment calls. No rw-free build remains in Bucket C.
+"front vs vendor" judgment calls. No kotoba build remains in Bucket C.
 
 ## Bucket D — TODO-PENDING (7, MIGRATION-TODO.md)
 
@@ -866,7 +866,7 @@ legacy codemod-only).
 - **Tier-2 commerce** (okaimono/ec on-chain pattern): ALL DONE (in A) —
   `crowdfunding` `ec` + the 8 (`shopping` `omise` `minpaku` `yadoya`
   `real-estate` `eigyo` `supplychain` `celler`) + `hospitality`.
-  hospitality's rw-free is a property/roster mixed split; its residual RW in
+  hospitality's kotoba is a property/roster mixed split; its residual RW in
   `scripts/sync-roster.ts` is legacy-cleanup (consumed via consent-capability),
   not a missing impl.
 

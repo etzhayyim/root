@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Create Hayate V6 fleet expert-slot allocation plan from expert domains. LanceDB data source (RW-free, fits etzhayyim substrate per 50-infra/lancedb-wasm).",
+      "description": "Create Hayate V6 fleet expert-slot allocation plan from expert domains. LanceDB data source (kotoba, fits etzhayyim substrate per 50-infra/lancedb-wasm).",
       "input": {
         "encoding": "application/json",
         "schema": {

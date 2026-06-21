@@ -1,6 +1,6 @@
 # narou XRPC Adapter
 
-CF Worker that exposes the 11 rw-free commands as XRPC endpoints.
+CF Worker that exposes the 11 kotoba commands as XRPC endpoints.
 
 ## Endpoints
 

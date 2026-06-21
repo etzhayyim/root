@@ -39,7 +39,7 @@ This page is the navigation hub for the 6 closure docs landed during the
 | Understand the org-split context first | etzhayyim-side `ADR-2605152100` (root cutover ADR) |
 | See the 3-axis classification for the 70 workers | etzhayyim-side `ADR-2605212100` §1 |
 | Check current gate closure status at a glance | `90-docs/2605211900-tranche-f-all-gates-closure-confirmation.md` |
-| Port a worker to RW-free SQLite (gate (a) execution) | `90-docs/2605211949-gate-a-execution-checklist.md` (42 rows) |
+| Port a worker to kotoba SQLite (gate (a) execution) | `90-docs/2605211949-gate-a-execution-checklist.md` (42 rows) |
 | Run the DNS cutover (gate (b)) | `90-docs/adr/2605211757-dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com.md` |
 | Understand the deployment surface (gate (c)) | inline in the DNS runbook §0 + §3.1 (no separate ADR) |
 | Find which vendor files need re-pointing (gate (d)) | `90-docs/2605211800-vendor-importer-survey-gate-d.md` |
@@ -101,7 +101,7 @@ A new operator can read the whole closure dossier in under an hour.
 
 The runbooks live here; the executions live elsewhere:
 
-1. **Per-worker RW-free Python ports** — to be committed to
+1. **Per-worker kotoba Python ports** — to be committed to
    `etzhayyim/root/40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/` (this repo). The
    2026-05-21 session prototyped + reverted these; the gate (a) checklist
    provides the row-by-row acceptance criteria for the next attempt.

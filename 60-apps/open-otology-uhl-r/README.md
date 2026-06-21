@@ -1,6 +1,6 @@
 ---
 id: open-otology-uhl-r-readme
-title: open-otology-uhl-r — RW-free AppView for uhl-right-neural Pregel
+title: open-otology-uhl-r — kotoba AppView for uhl-right-neural Pregel
 status: active
 doc_type: how-to
 topic: open-otology-uhl-r-appview
@@ -14,7 +14,7 @@ related:
 
 # open-otology-uhl-r
 
-公開 RW-free AppView for the `uhl-right-neural` project (先天性右側感音難聴
+公開 kotoba AppView for the `uhl-right-neural` project (先天性右側感音難聴
 neural軸 治療研究 Pregel). Charter: **ADR-2605181000**.
 
 ## What it is

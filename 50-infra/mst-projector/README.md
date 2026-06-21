@@ -81,6 +81,6 @@ mst-projector/
 ## See also
 
 - [ADR-2605171800](../../90-docs/adr/2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md) — pipeline spec
-- [ADR-2605172000](../../90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) — substrate posture
+- [ADR-2605172000](../../90-docs/adr/2605172000-etzhayyim-kotoba-substrate.md) — substrate posture
 - `../ipfs-pinner/` — next stage
 - `../anchor-cron/` — next-next stage

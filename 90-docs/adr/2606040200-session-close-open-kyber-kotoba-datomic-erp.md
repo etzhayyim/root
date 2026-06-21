@@ -53,7 +53,7 @@ all monorepo-side, with honest scoping of what is reference vs. live.
    families + invoice settlement fields) + `industry-packs/isic-packs.kotoba.edn` (21 ISIC
    section packs A–U + 15 division packs). Both EDN balance-validated.
 
-2. **`rw-free/` TS reference** — **33 source modules · 23 test files · 100 tests green ·
+2. **`kotoba/` TS reference** — **33 source modules · 23 test files · 100 tests green ·
    `tsc --noEmit` clean**:
    - Accounting core: double-entry GL + trial balance + non-終末論 reversal; ISIC-pack-aware
      chart-of-accounts seeding; invoice posting; **payment application** (settle vs cash);
@@ -85,7 +85,7 @@ all monorepo-side, with honest scoping of what is reference vs. live.
 
 # Honest limits
 
-- `rw-free` is the **reference implementation**; it is verified in its own vitest harness
+- `kotoba` is the **reference implementation**; it is verified in its own vitest harness
   (workspace `@etzhayyim/sdk-mock`), not against the live substrate.
 - **R2 (worker `app.ts` wiring + Kysely removal) is operator-gated and un-verifiable in-repo**
   — the worker package has no build/typecheck harness here — which is exactly why it was
@@ -106,7 +106,7 @@ all monorepo-side, with honest scoping of what is reference vs. live.
 # References
 
 - ADR-2606037200 — open-kyber as kotoba-Datomic ERP (authoritative design)
-- `60-apps/etzhayyim-project-open-kyber/rw-free/README.md` — module index
+- `60-apps/etzhayyim-project-open-kyber/kotoba/README.md` — module index
 - `60-apps/etzhayyim-project-open-kyber/R2-WORKER-WIRING.md` — worker migration runbook
 - `00-contracts/schemas/erp-ontology.kotoba.edn` v0.2.0 — canonical EAVT vocabulary
 - ADR-2605262130 / 2605312345 — kotoba Datom = canonical state (no Kotoba/Datomic)

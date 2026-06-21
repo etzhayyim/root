@@ -7,7 +7,7 @@ topic: substrate-governance
 authoritative: true
 last_verified: 2026-05-19
 depends_on:
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
 related:
   - adr-2605173100-gitguardian-incident-response
@@ -18,7 +18,7 @@ V05191346-etzhayyim-vultr-free-murakumo-control-plane
 
 ## Context
 
-ADR-2605172000(RW-free state substrate)+ ADR-2605172100(payments
+ADR-2605172000(kotoba state substrate)+ ADR-2605172100(payments
 on-chain only)が **etzhayyim/* 全体の architectural invariant** を
 定義したが、 enforcement は人間レビューに依存していた。 過去には
 GitGuardian インシデント(ADR-2605173100)で Kotoba/Datomic credential が
@@ -120,7 +120,7 @@ hook は **staged files のみ**に対して走る。 既存の repo 全体に�
 
 ## References
 
-- ADR-2605172000(RW-free substrate、 本 hook の根拠)
+- ADR-2605172000(kotoba substrate、 本 hook の根拠)
 - ADR-2605172100(payments on-chain only、 同上)
 - ADR-2605173100(GitGuardian incident、 過去の boundary 違反例)
 - ADR-2605191346(Vultr 非依存、 vultr/ パスを etzhayyim legacy として明示)

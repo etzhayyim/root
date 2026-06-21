@@ -130,7 +130,7 @@ spec:
             # When V13 PyMC + V14 trial-design come online, add ANTHROPIC_API_KEY
             # (or local LLM endpoint) here.
             #
-            # Checkpointer wiring (ADR-2605171800, RW-free per ADR-2605172000):
+            # Checkpointer wiring (ADR-2605171800, kotoba per ADR-2605172000):
             # The Pregel module auto-attaches MstCheckpointSaver via the
             # env vars below. The TS sidecar in the second container reads
             # the matching ETZ_CHECKPOINTER_* vars.

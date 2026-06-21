@@ -20,7 +20,7 @@ depends_on:
   - adr-2605231100-karute-emr-phase1
   - adr-2605231400-karute-consent-capability-iryo-bridge
 related:
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
 supersedes: []
 superseded_by: []
 ---

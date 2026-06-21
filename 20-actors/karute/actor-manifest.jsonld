@@ -4,7 +4,7 @@
   "name": "karute",
   "nanoid": "karu7t3e",
   "displayName": "Karute — 電子カルテ (EMR / FHIR R5)",
-  "description": "FHIR R5 互換の電子カルテ (Patient / Encounter / SOAP / Observation / Condition / MedicationRequest / ServiceRequest)。PHI は `com.etzhayyim.encrypted.record` envelope (XChaCha20-Poly1305 + Signal key-wrap, ADR-2605181100) で保護。public meta + 統計のみ平文。RW-free 基盤 (AT MST + IPFS + Base L2) 準拠。",
+  "description": "FHIR R5 互換の電子カルテ (Patient / Encounter / SOAP / Observation / Condition / MedicationRequest / ServiceRequest)。PHI は `com.etzhayyim.encrypted.record` envelope (XChaCha20-Poly1305 + Signal key-wrap, ADR-2605181100) で保護。public meta + 統計のみ平文。kotoba 基盤 (AT MST + IPFS + Base L2) 準拠。",
   "domainKnowledgeRequired": true,
   "runtime": "k8s-langserver",
   "edge": "sveltekit-proxy",
@@ -64,7 +64,7 @@
     "country": "jpn",
     "operator": "etzhayyim",
     "displayName": "Karute — 電子カルテ EMR",
-    "description": "FHIR R5 EMR with end-to-end encrypted PHI on RW-free substrate. SOAP / Rx / Vitals / Orders. AI-assisted summarization, interaction check, second opinion.",
+    "description": "FHIR R5 EMR with end-to-end encrypted PHI on kotoba substrate. SOAP / Rx / Vitals / Orders. AI-assisted summarization, interaction check, second opinion.",
     "capabilities": [
       "soap-composition",
       "rx-safety-check",

@@ -32,7 +32,7 @@ worker layer + the TS app SDK off Kotoba/Datomic onto the kotoba Datomic XRPC su
 ## Scope finding (recorded for the next session)
 
 A full repo scan found **~1,380 files** mentioning `kotoba`. The decisive
-result: the **30 Tier-B actors are already RW-free** — every remaining mention there
+result: the **30 Tier-B actors are already kotoba** — every remaining mention there
 is a gate rule *forbidding* RW, a docstring documenting a prior migration, or a
 manifest-cleanup TODO; **zero real RW usage remains in actor code**. The only live
 RW code is two framework surfaces the migration plan had deferred to "P11":
@@ -43,7 +43,7 @@ RW code is two framework surfaces the migration plan had deferred to "P11":
 ## What landed (all new files; standalone, tested, untracked in the working tree)
 
 - **kotoba Datomic substrate client — Python** `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/kotoba_datomic.py`.
-  The RW-free replacement for `rw_async_pool` + `rw_sql`. stdlib-only (urllib), speaks
+  The kotoba replacement for `rw_async_pool` + `rw_sql`. stdlib-only (urllib), speaks
   `com.etzhayyim.apps.kotoba.datomic.{transact,q,pull}`. Maps `vertex_*`/`edge_*` SQL
   rows → namespaced EAVT entity maps with `:db.unique/identity` upsert (preserving the
   RW "PK implicit overwrite" semantics). Kysely-shim surface for low-friction caller
@@ -107,7 +107,7 @@ RW code is two framework surfaces the migration plan had deferred to "P11":
 
 ## Decision
 
-1. The kotoba Datomic API/EDN clients (Py + TS) are the **canonical RW-free substrate
+1. The kotoba Datomic API/EDN clients (Py + TS) are the **canonical kotoba substrate
    access** for the kotodama layer, superseding `rw_async_pool`/`rw_sql`/`createKyselyDb`
    at the call sites as they migrate. The legacy RW modules stay pristine until the P11
    framework cutover removes them.

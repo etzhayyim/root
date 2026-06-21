@@ -18,7 +18,7 @@ existing intent.
 
 Phase 1 (this commit): scaffold mirror + 4 lexicons. Worker + LangGraph
 pod rewrite is Phase 2 follow-up (deferred per user direction 2026-05-21
-— rw-free quality / runtime fixes are post-migration).
+— kotoba quality / runtime fixes are post-migration).
 
 ## Identity
 
@@ -41,7 +41,7 @@ pod rewrite is Phase 2 follow-up (deferred per user direction 2026-05-21
 - `listPosts` (query) — list sanitized post observations (TLP:WHITE)
 - `getStats` (query) — coverage + observation counters
 
-## Substrate (etzhayyim — RW-free per ADR-2605172000)
+## Substrate (etzhayyim — kotoba per ADR-2605172000)
 
 | Concern | Vendor (etzhayyim.com) | etzhayyim (this repo) |
 |---|---|---|
@@ -70,7 +70,7 @@ pod rewrite is Phase 2 follow-up (deferred per user direction 2026-05-21
 ## Substrate-boundary notes
 
 Per `etzhayyim/root/CLAUDE.md` §"Substrate boundary":
-- This project is RW-free. No `createKyselyDb` / `env.HYPERDRIVE` in
+- This project is kotoba. No `createKyselyDb` / `env.HYPERDRIVE` in
   any deploy from this directory.
 - All paid-tier / commercial-threat-intel features stay vendor.
 - TLP:WHITE-only is a structural invariant — never widen.
@@ -81,6 +81,6 @@ Per `etzhayyim/root/CLAUDE.md` §"Substrate boundary":
   `60-apps/etzhayyim-project-ransomwatch/wasm/etzhayyim-wasm-ransomwatch-r4ns0w4t01/`
 - vendor classification: `tranche-f-post-freeze-7-actors-audit-2026-05-21`
 - sibling public feed: `60-apps/etzhayyim-project-public-malak/` (etz PR #226)
-- ADR-2605172000 — etzhayyim RW-free substrate
+- ADR-2605172000 — etzhayyim kotoba substrate
 - ADR-2605172400 — vendor 3-axis split rule
 - ADR-2605211000 — worker XRPC deploy runbook (when Phase 2 lands)

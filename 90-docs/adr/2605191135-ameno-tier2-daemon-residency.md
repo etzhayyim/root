@@ -15,7 +15,7 @@ depends_on:
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
 related:
 V05171300
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
 ---
 
 # ADR 2605191135: Ameno as resident Tier-2 daemon in the artificial-organism ecosystem
@@ -106,7 +106,7 @@ ameno · did:web:browser:01HEY… · alive 7m · model gemma-4-e2b · briefs 3/m
 
 ### 5. Substrate boundary — graceful offline
 
-`atproto.etzhayyim.com` が unreachable な dev 環境では `saveResult` / `subscribeBriefs` が ERR_NAME_NOT_RESOLVED で fail する。daemon はこれを **fatal にせず**、`offline` 状態として heartbeat に表示 + 自動再試行(指数バックオフ最大 30s)。 ADR-2605172000 の RW-free 原則は維持(centralized DB 代替を挟まない)。
+`atproto.etzhayyim.com` が unreachable な dev 環境では `saveResult` / `subscribeBriefs` が ERR_NAME_NOT_RESOLVED で fail する。daemon はこれを **fatal にせず**、`offline` 状態として heartbeat に表示 + 自動再試行(指数バックオフ最大 30s)。 ADR-2605172000 の kotoba 原則は維持(centralized DB 代替を挟まない)。
 
 ## Consequences
 

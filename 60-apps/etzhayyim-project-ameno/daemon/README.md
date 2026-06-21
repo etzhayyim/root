@@ -127,7 +127,7 @@ The daemon auto-restarts on crash (`KeepAlive.SuccessfulExit=false`).
 
 ## Substrate boundary
 
-This daemon respects ADR-2605172000 RW-free rule: no central DB, no
+This daemon respects ADR-2605172000 kotoba rule: no central DB, no
 fiat processor. State is local file; future graduation goes to MST via
 `@etzhayyim/sdk/checkpointer` (ADR-2605171800).
 

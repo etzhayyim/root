@@ -20,7 +20,7 @@ depends_on:
   - adr-2605242330-gov-procedure-pregel-mcp-coverage
 related:
   - adr-2605192115-etzhayyim-non-profit-donation-only-no-ads
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605212100-etzhayyim-to-etzhayyim-migration-batch
 supersedes: []
 superseded_by: []

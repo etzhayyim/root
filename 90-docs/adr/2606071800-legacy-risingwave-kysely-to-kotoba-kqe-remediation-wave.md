@@ -13,7 +13,7 @@ priority_note: ""
 authoritative_for:
   - 90-docs/_registry/substrate-remediation-inventory.txt
 depends_on:
-  - 2605172000   # RW-free state substrate
+  - 2605172000   # kotoba state substrate
   - 2605262130   # kotoba storage substrate unification
   - 2605312345   # kotoba Datom = first-class canonical state
   - 2605191648   # substrate-boundary lefthook (the commit-time guard)
@@ -129,7 +129,7 @@ PRs against this ADR.
 
 # References
 
-- ADR-2605172000 — RW-free state substrate
+- ADR-2605172000 — kotoba state substrate
 - ADR-2605262130 — kotoba storage substrate (no RisingWave/SQL; read path = kotoba-kqe)
 - ADR-2605312345 — kotoba Datom = first-class canonical state
 - ADR-2605191648 — substrate-boundary lefthook (the commit-time guard being extended)

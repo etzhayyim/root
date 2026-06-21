@@ -17,7 +17,7 @@ authoritative_for:
 depends_on:
   - 2605191346-etzhayyim-vultr-free-murakumo-control-plane
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
   - adr-2605231400-kotoba-datomic-holochain-iso-substrate
 related:
@@ -53,7 +53,7 @@ launchd's process-group model cannot express these requirements cleanly:
 
 Parallel evidence: `50-infra/k8s/etzhayyim-organism/` has been running the CNS daemon as a Pod on orbstack k8s for 24+ hours without incident, and `50-infra/k8s/lg-open-unispsc/deployment.yaml` already specifies a complete Deployment manifest for the 18,342 UNSPSC agent XRPC façade (currently unapplied because it carries an ADR-2605172000 violation — see §Decision item 3).
 
-Additional constraint discovered 2026-05-23: the lg-open-unispsc manifest references `secretKeyRef: mitama-udf-pool-rw / KOTOBA_URL` for both `KOTOBA_URL` and `DATABASE_URL` env vars, plus `RW_SYNC_POOL=1`. This is a direct violation of ADR-2605172000 (RW-free substrate). Inspection of `kotodama/langgraph_server_app.py` shows the RW dependency is confined to the `/readyz` DB probe (line 670-687); the XRPC façade itself, the UNSPSC graph registry, and the invoke pipeline never touch Kotoba/Datomic. The contamination is therefore probe-only and removable without functional regression.
+Additional constraint discovered 2026-05-23: the lg-open-unispsc manifest references `secretKeyRef: mitama-udf-pool-rw / KOTOBA_URL` for both `KOTOBA_URL` and `DATABASE_URL` env vars, plus `RW_SYNC_POOL=1`. This is a direct violation of ADR-2605172000 (kotoba substrate). Inspection of `kotodama/langgraph_server_app.py` shows the RW dependency is confined to the `/readyz` DB probe (line 670-687); the XRPC façade itself, the UNSPSC graph registry, and the invoke pipeline never touch Kotoba/Datomic. The contamination is therefore probe-only and removable without functional regression.
 
 ## Decision
 
@@ -143,7 +143,7 @@ The first ADR draft (2026-05-23 morning) cited `bring-up.sh` as the Stage 3 path
 
 - ADR-2605191346 — Vultr-free / no commercial K8s (Tier-1 substrate parent rule)
 - ADR-2605192415 — religious-corp daemon architecture (cell catalog source)
-- ADR-2605172000 — RW-free substrate (justifies lg-open-unispsc decontamination)
+- ADR-2605172000 — kotoba substrate (justifies lg-open-unispsc decontamination)
 - ADR-2605171800 — LangGraph → MST → IPFS → L2 pipeline (defines stateful invariant)
 - ADR-2605231400 — kotoba-datomic Holochain-iso substrate (defines witness quorum requirement)
 - `50-infra/murakumo/fleet.toml` — cell placement SoT

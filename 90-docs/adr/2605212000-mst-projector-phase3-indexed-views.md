@@ -1,6 +1,6 @@
 ---
 id: adr-2605212000-mst-projector-phase3-indexed-views
-title: "ADR-2605212000: mst-projector Phase 3 — indexed materialized views for rw-free actors"
+title: "ADR-2605212000: mst-projector Phase 3 — indexed materialized views for kotoba actors"
 status: active
 doc_type: adr
 topic: mst-projector-phase3-indexed-views
@@ -9,7 +9,7 @@ last_verified: 2026-05-21
 priority: 8.0
 axis: performance
 weight: 0.85
-priority_note: "Closes Phase 2 O(N) scan bottleneck in 25 rw-free actors. Phase 3 enables production-scale queries: kiyo.searchPapers (10k papers) from >500ms to <50ms via IVF index; hanrei.coverageStats from O(N) scan to O(1) aggregate lookup. Hard blocker for lawfirm P1 query latency SLA."
+priority_note: "Closes Phase 2 O(N) scan bottleneck in 25 kotoba actors. Phase 3 enables production-scale queries: kiyo.searchPapers (10k papers) from >500ms to <50ms via IVF index; hanrei.coverageStats from O(N) scan to O(1) aggregate lookup. Hard blocker for lawfirm P1 query latency SLA."
 authoritative_for:
   - mst-projector architecture and update latency SLA
   - Text search index strategy (IVF embedding + DuckDB inverted)
@@ -17,7 +17,7 @@ authoritative_for:
   - Per-actor ProjectorConfig interface
   - Phase 3 reference impl scope (kiyo starter actor)
 depends_on:
-  - adr-2605203000-rw-free-write-target-options
+  - adr-2605203000-kotoba-write-target-options
   - adr-2605210000-search-etzhayyim-ai-internal-only
   - adr-2605111200-cf-worker-edge-only-no-rw-connection
   - adr-0019-atproto-native-identifier-topology
@@ -29,7 +29,7 @@ supersedes: []
 superseded_by: []
 ---
 
-# ADR-2605212000: mst-projector Phase 3 — indexed materialized views for rw-free actors
+# ADR-2605212000: mst-projector Phase 3 — indexed materialized views for kotoba actors
 
 **Status**: active
 **Date**: 2026-05-21
@@ -37,7 +37,7 @@ superseded_by: []
 
 # Context
 
-[ADR-2605210000](./2605210000-phase-e-reference-impl-completion.md) records the completion of Phase E rw-free reference impl scaffolds for 25 etzhayyim actors, replacing vendor's `createKyselyDb()` direct-write pattern with `@etzhayyim/sdk e.write()` → PDS XRPC → AT firehose.
+[ADR-2605210000](./2605210000-phase-e-reference-impl-completion.md) records the completion of Phase E kotoba reference impl scaffolds for 25 etzhayyim actors, replacing vendor's `createKyselyDb()` direct-write pattern with `@etzhayyim/sdk e.write()` → PDS XRPC → AT firehose.
 
 Phase 2 query functions emit `truncated: boolean` honesty flags when data exceeds scan limits:
 
@@ -131,7 +131,7 @@ export interface CollectionProjection {
    - Query methods (`queryTextSearch`, `queryAttribute`, `queryAggregate`)
    - Materialization back to PDS as `com.etzhayyim.projector.kiyoPaperView` records
 
-## Migration path for rw-free functions
+## Migration path for kotoba functions
 
 Phase 2 functions with `truncated` flag can opportunistically query the projector via a new SDK method (v0.2):
 
@@ -149,7 +149,7 @@ const out = await e.queryView({
 // Returns { papers: [...], truncated: false } — full result set
 ```
 
-Backward compatibility: rw-free falls back to local O(N) scan if projector unavailable (via env var or catch block).
+Backward compatibility: kotoba falls back to local O(N) scan if projector unavailable (via env var or catch block).
 
 ## Examples
 
@@ -265,7 +265,7 @@ Materialization (`src/materialize.ts`):
 
 ## Related
 
-- [ADR-2605203000](./2605203000-rw-free-write-target-options.md) — Phase E write-target options (Option B = PDS XRPC foundation)
+- [ADR-2605203000](./2605203000-kotoba-write-target-options.md) — Phase E write-target options (Option B = PDS XRPC foundation)
 - [ADR-2605210000](./2605210000-phase-e-reference-impl-completion.md) — Phase E scaffold completion (25 actors, truncated flags)
 - [ADR-2605111200](./2605111200-cf-worker-edge-only-no-rw-connection.md) — CF Worker edge-only (projector runs in K8s pod)
 - [ADR-2605092500](./2605092500-reasoning-as-sap-flow-walk.md) — Reasoning as sap-flow walk (embedding search metaphor)

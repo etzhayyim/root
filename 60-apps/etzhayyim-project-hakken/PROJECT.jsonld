@@ -13,7 +13,7 @@
   "description": "Product-discovery ingest surface. Compares branded-product prices against OEM/supplier candidate listings (AliExpress / Alibaba / 1688) and ingests both into the kotoba product knowledge graph as on-chain, content-addressed records. Migrated to etzhayyim under a non-profit product-discovery premise, overriding the same-day vendor-keep verdict of ADR-2606011400 (Consensys pattern) per explicit user direction 2026-06-01.",
   "etzhayyim:category": "etzhayyim-project-hakken",
   "etzhayyim:appId": "hakken",
-  "status": "Phase 1 — etzhayyim scaffold + ingest-core rw-free (override of ADR-2606011400 vendor-keep, user-directed 2026-06-01)",
+  "status": "Phase 1 — etzhayyim scaffold + ingest-core kotoba (override of ADR-2606011400 vendor-keep, user-directed 2026-06-01)",
   "prov:wasGeneratedBy": {
     "@type": "prov:Activity",
     "name": "hakken etzhayyim migration — ADR-2606011400 override",
@@ -21,14 +21,14 @@
   },
   "etzhayyim:milestones": [
     {
-      "name": "Phase 1 — etzhayyim scaffold + ingest-core rw-free (this commit)",
+      "name": "Phase 1 — etzhayyim scaffold + ingest-core kotoba (this commit)",
       "status": "In Progress",
-      "description": "CLAUDE.md + OWNERS + PROJECT.jsonld + kotodama.jsonld + 4 com.etzhayyim.apps.hakken.* lexicons + rw-free ingest reference (brandedProduct + supplierCandidate write path via @etzhayyim/sdk e.write). Vendor hakken.etzhayyim.com unchanged. ADR-2606011700."
+      "description": "CLAUDE.md + OWNERS + PROJECT.jsonld + kotodama.jsonld + 4 com.etzhayyim.apps.hakken.* lexicons + kotoba ingest reference (brandedProduct + supplierCandidate write path via @etzhayyim/sdk e.write). Vendor hakken.etzhayyim.com unchanged. ADR-2606011700."
     },
     {
       "name": "Phase 2 — discovery pipeline rehome (trend_scan / gap_analysis / supplier_search)",
       "status": "Planned",
-      "description": "Port the LangGraph discovery nodes (trend_scan, gap_analysis kotoba Datalog, supplier_search AliExpress/1688 scrape, quality_eval) to the etzhayyim Murakumo fleet, writing through the rw-free ingest surface. No RisingWave; kotoba product KG only."
+      "description": "Port the LangGraph discovery nodes (trend_scan, gap_analysis kotoba Datalog, supplier_search AliExpress/1688 scrape, quality_eval) to the etzhayyim Murakumo fleet, writing through the kotoba ingest surface. No RisingWave; kotoba product KG only."
     },
     {
       "name": "Phase 3 — phase fulfillment via etzhayyim consent capability",

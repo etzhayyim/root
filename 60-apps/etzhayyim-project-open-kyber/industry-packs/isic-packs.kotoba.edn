@@ -29,14 +29,14 @@
 ;;   (NL→journal templates per sector). All packs Apache-2.0 + Charter Rider.
 ;;
 ;; MATURITY: R0 = the 21 section packs + a first wave of high-value division packs are
-;;   DECLARED here with real overlays; the loader + per-pack seed CoA land in the rw-free
+;;   DECLARED here with real overlays; the loader + per-pack seed CoA land in the kotoba
 ;;   TS layer over the next iterations. Honest: overlays are :representative starting points,
 ;;   not a chartered-accountant's sector CoA. Division/class packs fill in incrementally.
 
 {:schema/id      "isic-packs"
  :schema/version "0.1.0"
  :schema/adr     "2606037200"
- :schema/note    "21 ISIC Rev.4 section packs (A..U) + high-value division packs. Section→pack resolution mirrors open-isic sectionForDivision (60-apps/etzhayyim-project-open-isic/rw-free/src/types.ts). A tenant with no declared ISIC code falls back to the generic base (no pack)."
+ :schema/note    "21 ISIC Rev.4 section packs (A..U) + high-value division packs. Section→pack resolution mirrors open-isic sectionForDivision (60-apps/etzhayyim-project-open-isic/kotoba/src/types.ts). A tenant with no declared ISIC code falls back to the generic base (no pack)."
  :graph          {:name "kyber-erp-v1" :visibility :public}
 
  ;; ── section packs (21) ────────────────────────────────────────────────────
@@ -287,7 +287,7 @@
  ;; on conflicting CoA codes).
  ;; Division CoA EXTENSIONS (sector-specific accounts beyond the section ext —
  ;; e.g. C21 GMP batch costing, K64 interbank book, K65 unearned-premium reserve)
- ;; are the runtime `DIVISION_COA_EXT` map in rw-free/src/isic-packs.ts; the
+ ;; are the runtime `DIVISION_COA_EXT` map in kotoba/src/isic-packs.ts; the
  ;; section-level `:pack/coa-ext` below stays the inline doc reference.
  :division-packs
  [{:isic.pack/id "pack/A01" :isic.pack/section "A" :isic.pack/scope :division

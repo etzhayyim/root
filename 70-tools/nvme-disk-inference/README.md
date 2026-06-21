@@ -135,7 +135,7 @@ Outputs:
   commercial GPU rental (RunPod / Vertex AI / etc.)
 - ✅ **ADR-2605241900** baien edge-target: 本 substrate は **fleet-side のみ**、
   iPhone/Android/WASM-32 トランクは依然 ≤4B BitNet 1.58 固定
-- ✅ **ADR-2605172000** RW-free substrate boundary: 本 project は inference 経路の
+- ✅ **ADR-2605172000** kotoba substrate boundary: 本 project は inference 経路の
   追加であり、storage / payment / identity boundary に変更なし
 
 ## Roadmap

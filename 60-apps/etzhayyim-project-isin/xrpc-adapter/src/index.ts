@@ -1,12 +1,12 @@
 /**
  * isin XRPC adapter — CF Worker.
  *
- * Wires the rw-free reference impl (11 pure TS functions) into a deployable
+ * Wires the kotoba reference impl (11 pure TS functions) into a deployable
  * CF Worker that exposes each function as an XRPC endpoint at
  * https://isin.etzhayyim.com/xrpc/com.etzhayyim.isin.<cmd>
  *
  * Per ADR-2605210000 first execution-layer demonstration. Instantiates the
- * Etzhayyim SDK from env bindings (PDS_URL + session), calls the rw-free
+ * Etzhayyim SDK from env bindings (PDS_URL + session), calls the kotoba
  * function with parsed input, returns the result as JSON, and maps status
  * codes to HTTP responses.
  *
@@ -18,7 +18,7 @@ import {
   extractBearerToken,
   type Etzhayyim,
 } from "@etzhayyim/sdk-auth";
-import * as isinRwFree from "@etzhayyim/isin-rw-free";
+import * as isinRwFree from "@etzhayyim/isin-kotoba";
 import type {
   RegisterSecurityInput,
   RegisterSecurityOutput,
@@ -42,7 +42,7 @@ import type {
   CollectEntityIROutput,
   EnrichISINInput,
   EnrichISINOutput,
-} from "@etzhayyim/isin-rw-free";
+} from "@etzhayyim/isin-kotoba";
 
 interface Env {
   ACTOR_DID: string;

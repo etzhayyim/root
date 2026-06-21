@@ -20,7 +20,7 @@ authoritative_for:
   - external auditor engagement gating (via Public Fund Council Lv6+, not toritate-direct)
 depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
   - adr-2605181100-mst-encrypted-records-signal-keywrap
   - adr-2605192100-etzhayyim-mission-charter
@@ -341,7 +341,7 @@ No code activation in R0. 6 cells are path-reserved at
 # References
 
 - ADR-2605170900 — etzhayyim/root canonical home for ADRs
-- ADR-2605172000 — RW-free substrate
+- ADR-2605172000 — kotoba substrate
 - ADR-2605172100 — Payments on-chain only
 - ADR-2605181100 — MST encrypted records + Signal key wrap
 - ADR-2605192100 — Mission Charter

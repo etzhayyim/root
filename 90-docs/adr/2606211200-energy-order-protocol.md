@@ -205,13 +205,14 @@ in `50-infra/cluster/murakumo/cell-runner/cells.edn` (24 cells total now):
 
 | cell | module | node | cron | healthz |
 |---|---|---|---|---|
-| MioVerificationHeartbeatCell | mio.cell | judah | `8 * * * *` | 13084 |
-| TawamiFlexibilityHeartbeatCell | tawami.cell | zebulun | `14 * * * *` | 13085 |
-| OkibiThermalMatchHeartbeatCell | okibi.cell | asher | `21 * * * *` | 13086 |
-| ToiComputeRoutingHeartbeatCell | toi.cell | gad | `34 * * * *` | 13087 |
-| YudaneIntentionHeartbeatCell | yudane.cell | benjamin | `48 * * * *` | 13088 |
+| MioVerificationHeartbeatCell | mio.cell | judah | `8 * * * *` | 13085 |
+| TawamiFlexibilityHeartbeatCell | tawami.cell | zebulun | `14 * * * *` | 13086 |
+| OkibiThermalMatchHeartbeatCell | okibi.cell | asher | `21 * * * *` | 13087 |
+| ToiComputeRoutingHeartbeatCell | toi.cell | gad | `34 * * * *` | 13088 |
+| YudaneIntentionHeartbeatCell | yudane.cell | benjamin | `48 * * * *` | 13089 |
 
-Ports 13084–13088 are conflict-free; crons staggered. `fire` proven for all five by
+Ports 13085–13089 are conflict-free (13084 taken by IbukiCoscientistHeartbeatCell on
+main, resolved at merge); crons staggered. `fire` proven for all five by
 `20-actors/energy_order/test_cells.cljc` (append-on-first, idempotent no-op on second,
 chain verifies). Suite totals now **138 tests / 977 assertions green**.
 

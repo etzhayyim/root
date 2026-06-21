@@ -14,12 +14,12 @@ authoritative_for:
   - knowledge graph data model on etzhayyim substrate
   - Lexicons com.etzhayyim.kg.node and com.etzhayyim.kg.edge
   - IPLD payload convention for KG records (DAG-CBOR, CID-linked)
-  - ephemeral AppView convention (in-memory triplestore, replayable, RW-free)
+  - ephemeral AppView convention (in-memory triplestore, replayable, kotoba)
   - relationship to deps.toml SSoT (deps.toml stays canonical; KG is projected view)
 depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
 related:
   - adr-2605172100-etzhayyim-payments-on-chain-only
   - adr-2605181100-mst-encrypted-records-signal-keywrap
@@ -46,7 +46,7 @@ superseded_by: []
 
 These relations are currently siloed: some in TOML, some in lexicon `refs`, some in ADR front-matter, some implicit in directory layout. There is no single queryable view, and no substrate-compliant store for them.
 
-A naive answer would be "put them in a graph DB" — but ADR-2605172000 (RW-free substrate) prohibits centralized off-chain DBs in this monorepo. The remaining question is: **what is the substrate-native shape of a knowledge graph here?**
+A naive answer would be "put them in a graph DB" — but ADR-2605172000 (kotoba substrate) prohibits centralized off-chain DBs in this monorepo. The remaining question is: **what is the substrate-native shape of a knowledge graph here?**
 
 ## Survey of alternatives considered
 
@@ -64,7 +64,7 @@ A naive answer would be "put them in a graph DB" — but ADR-2605172000 (RW-free
 Two observations drove the decision:
 
 1. **The MST + IPFS + L2 pipeline (ADR-2605171800) already gives us a verifiable, content-addressed, replayable store.** Adding a second substrate (Ceramic, OrbitDB, Fluree) would split state across two trust roots. The cheapest correct move is to **express the KG as ATProto records** in that pipeline.
-2. **Query is a separate concern from storage.** SPARQL / Cypher engines do not need to be the system of record. They can be **ephemeral indexes** rebuilt from MST replay — which keeps RW-free intact (no durable off-chain state).
+2. **Query is a separate concern from storage.** SPARQL / Cypher engines do not need to be the system of record. They can be **ephemeral indexes** rebuilt from MST replay — which keeps kotoba intact (no durable off-chain state).
 
 ## What this ADR is and is not
 
@@ -199,13 +199,13 @@ New module: `30-graph/kg-appview/` (Rust).
 
 **Stack:**
 
-- **OxiGraph** (Rust) — embeddable W3C-compliant RDF triplestore + SPARQL 1.1 engine. Used in **in-memory mode** (`MemoryStore`). Optional disk-backed mode is **explicitly disabled** to keep RW-free.
+- **OxiGraph** (Rust) — embeddable W3C-compliant RDF triplestore + SPARQL 1.1 engine. Used in **in-memory mode** (`MemoryStore`). Optional disk-backed mode is **explicitly disabled** to keep kotoba.
 - **XRPC façade**: `com.etzhayyim.kg.query` (read-only SPARQL endpoint) and `com.etzhayyim.kg.describe` (DESCRIBE shorthand). Definitions live in `00-contracts/lexicons/com/etzhayyim/kg/`.
 - **Ingestion**:
   - **Live**: subscribe to MST commits via Jetstream-equivalent firehose (per ADR-2605171800) filtered to `com.etzhayyim.kg.*` records.
   - **Cold start / disaster recovery**: replay from latest L2-anchored MST root via IPFS, rehydrate triplestore from scratch.
 
-**RW-free guarantee:**
+**kotoba guarantee:**
 
 - AppView state is held only in process memory.
 - On restart, AppView **MUST** rehydrate from MST/IPFS. It is a fatal error to read from a persisted disk cache.
@@ -304,7 +304,7 @@ Simplest option. **Rejected** because cross-cutting queries (e.g. "which modules
 
 - ADR-2605170900 — etzhayyim/root canonical home
 - ADR-2605171800 — LangGraph → MST → IPFS → Base L2 anchor pipeline (persistence spine reused here)
-- ADR-2605172000 — etzhayyim/root open apps MUST be RW-free
+- ADR-2605172000 — etzhayyim/root open apps MUST be kotoba
 - ADR-2605172100 — etzhayyim payments on-chain only
 - ADR-2605180900 — UNSPSC / ISIC LangServer Actor Lexicon / XRPC / MCP (capability graph source)
 - ADR-2605181100 — MST encrypted records with Signal key wrap

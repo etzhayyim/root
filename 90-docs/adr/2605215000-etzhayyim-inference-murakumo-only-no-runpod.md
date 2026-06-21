@@ -16,7 +16,7 @@ authoritative_for:
   - "kotodama RunPod coupling audit and Step 8 cutover scope"
 depends_on:
   - 2605191346-etzhayyim-vultr-free-murakumo-control-plane
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605202345-evo-x2-gpu-pod-fleet-integration
   - adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules
 related:
@@ -273,7 +273,7 @@ Proposal: Rent dedicated bare-metal GPU servers (Hetzner GPU, OVH Advance server
 # References
 
 - ADR-2605191346: etzhayyim is Vultr-free — Murakumo Mac-mini fleet as the only Tier-1 substrate (parallel "no commercial" invariant for K8s)
-- ADR-2605172000: etzhayyim/root open apps MUST be RW-free (substrate boundary establishing pattern)
+- ADR-2605172000: etzhayyim/root open apps MUST be kotoba (substrate boundary establishing pattern)
 - ADR-2605202345: EVO-X2 GMKtec integration — GPU inference pod (EVO-X2 as sole GPU inference backend)
 - ADR-2605214000: etzhayyim Murakumo mesh, no VKE, Lexicon port rules (most recent substrate ADR; this ADR is its successor for the inference layer)
 - ADR-2605192415: Religious-Corp Daemon Architecture (Murakumo cell placement)

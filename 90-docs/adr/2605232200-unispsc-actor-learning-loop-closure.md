@@ -132,7 +132,7 @@ The 4th invocation's `log_tail` cascade through all prior shortcut events — th
 - ADR-2605232100 — religious-corp cells on k3s DaemonSet (Stage D Day 0 wrapper)
 - ADR-2605231400 — kotoba-datomic Holochain-iso substrate (composition spec)
 - ADR-2605231525 — no-server-key architecture (Stage E future direction)
-- ADR-2605211200 — RW-free belief store substrate port (AtIpfsLocalBeliefStore)
+- ADR-2605211200 — kotoba belief store substrate port (AtIpfsLocalBeliefStore)
 - ADR-2605192100 — etzhayyim mission charter ("人類の構造的労働解放" → learning is necessary)
 - `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/unispsc_capabilities/wrapper.py` — `_compute_prior_consensus`
 - `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/unispsc_capabilities/pds_publish.py` — publish callback (substrate persistence)

@@ -8,7 +8,7 @@ authoritative: true
 last_verified: 2026-05-19
 depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605172800-geth-private-migration-to-etzhayyim
   - 2605182312-local-bring-up-murakumo-gemma4
 related:
@@ -29,7 +29,7 @@ Two governance contexts share the monorepo today:
 | **etzhayyim.com** (legacy commercial) | etzhayyim Co., Ltd. | Vultr VKE + Cloudflare | **keep** (out of scope for this ADR — operator's choice) |
 | **etzhayyim** (open religious-corp, this repo) | 宗教法人 任意団体 (on-chain) | Murakumo Mac-mini fleet + Cloudflare edge | **fully exit** (this ADR) |
 
-ADR-2605172000 already declared "RW-free / no centralized DB" but did NOT explicitly state "no commercial K8s control plane". ADR-2605172800-geth ("geth-private migration") left the cluster question staged ("can stay on Vultr ... until natural infra-refresh time") with three migration Options A/B/C.
+ADR-2605172000 already declared "kotoba / no centralized DB" but did NOT explicitly state "no commercial K8s control plane". ADR-2605172800-geth ("geth-private migration") left the cluster question staged ("can stay on Vultr ... until natural infra-refresh time") with three migration Options A/B/C.
 
 Grep evidence(2026-05-19 時点)で残る Vultr 依存:
 
@@ -173,7 +173,7 @@ deadline 不達時は対応 ADR 起草で説明責任。
 - **geth-private migration risk**: chain state を Vultr から Mac-mini に移す operation はリスクが高い。十分な runbook + dry-run 後にのみ実施
 - **Cloudflare 依存は残る**(本 ADR 範囲外)— "decentralized" としては不完全だが、step-wise なので明示
 - **既存 ADR との整合**:
-  - ADR-2605172000(RW-free)に "no commercial K8s" を追加する形で強化
+  - ADR-2605172000(kotoba)に "no commercial K8s" を追加する形で強化
   - ADR-2605172800-geth-private の Option C を確定 = `supersedes` でなく `strengthens`
   - ADR-2605191229 / 2605191257(ameno daemon Path A/B)は K8s 非依存なので本 ADR の直系
   - ADR-2605191135(Tier-2 daemon residency)の "true 常駐化 path forward" を本 ADR が回収
@@ -189,7 +189,7 @@ deadline 不達時は対応 ADR 起草で説明責任。
 ## References
 
 - ADR-2605170900(etzhayyim/root が ADR canonical home)
-- ADR-2605172000(RW-free substrate — 本 ADR が "K8s-cloud-free" を追加)
+- ADR-2605172000(kotoba substrate — 本 ADR が "K8s-cloud-free" を追加)
 - ADR-2605172800-geth-private-migration-to-etzhayyim(Option C を本 ADR で確定)
 - ADR-2605182312(Murakumo Mac-mini bring-up)
 - ADR-2605191229 / 2605191257(ameno daemon Path A/B — K8s-free reference impl)

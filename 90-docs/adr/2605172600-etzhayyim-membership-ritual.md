@@ -18,7 +18,7 @@ authoritative_for:
   - relationship to did:web + did:plc identity layer
 depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
 related:
 supersedes: []
@@ -188,7 +188,7 @@ Located at `50-infra/etzhayyim-membership-contract/src/EtzhayyimMembership.sol`.
 
 ## A. Off-chain registry only (database-backed signup)
 
-Stripe-style "create account, agree to ToS, you're in". Rejected: contradicts ADR-2605172000 (RW-free state, no centralized DB) and erases the permanence guarantee — operator can wipe the DB.
+Stripe-style "create account, agree to ToS, you're in". Rejected: contradicts ADR-2605172000 (kotoba state, no centralized DB) and erases the permanence guarantee — operator can wipe the DB.
 
 ## B. Token-gated membership (membership = holding ERC-20/NFT)
 
@@ -212,7 +212,7 @@ Hierarchy of roles encoded in the contract. Rejected for v0 — adds governance 
 - `00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/oath.json` — oath Lexicon (this commit)
 - `MEMBERS.md` — github-side ledger (this commit)
 - ADR-2605170900 — canonical ADR home
-- ADR-2605172000 — RW-free substrate
+- ADR-2605172000 — kotoba substrate
 - ADR-2605172100 — on-chain payments (Paymaster sponsors `join()`)
 - ADR-2605171800 — MST → IPFS → L2 anchor pipeline (where the AT Record lands)
 - ADR-0074 — Ethereum Identity Bridge (CACAO + WebAuthn binding)

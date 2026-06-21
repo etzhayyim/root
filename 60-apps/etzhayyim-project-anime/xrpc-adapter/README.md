@@ -1,6 +1,6 @@
 # anime XRPC Adapter
 
-CF Worker that exposes the 10 rw-free commands as XRPC endpoints.
+CF Worker that exposes the 10 kotoba commands as XRPC endpoints.
 
 ## Endpoints
 

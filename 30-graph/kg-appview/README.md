@@ -29,7 +29,7 @@ Ephemeral in-memory SPARQL AppView for the etzhayyim Knowledge Graph.
 
 - No SPARQL UPDATE. Mutations come from writing `com.etzhayyim.kg.*` records
   to MST; the AppView is read-only by construction.
-- No disk-backed cache. RW-free per ADR-2605172000.
+- No disk-backed cache. kotoba per ADR-2605172000.
 - No edge-metadata triples (weight / context / createdAt). The shape is on
   the to-do list and will land via RDF-star or reification in K4.
 - K3.b — fetch the snapshot bundle directly from an IPFS gateway URL whose

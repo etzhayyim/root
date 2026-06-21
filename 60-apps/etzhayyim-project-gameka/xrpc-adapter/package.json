@@ -10,7 +10,7 @@
   "dependencies": {
     "@etzhayyim/sdk": "workspace:*",
     "@etzhayyim/sdk-auth": "workspace:*",
-    "@etzhayyim/gameka-rw-free": "workspace:*"
+    "@etzhayyim/gameka-kotoba": "workspace:*"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240712.0",

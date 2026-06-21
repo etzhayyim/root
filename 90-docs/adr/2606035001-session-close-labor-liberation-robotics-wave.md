@@ -87,5 +87,5 @@ The labour-liberation mission now has an explicit **two-layer roster shape** (IS
 
 - ADR-2606032100 (Robotics-Actor Wave) · ADR-2606032130 (Displacement Dividend)
 - ADR-2605173100 (GitGuardian RW credential incident — placeholder finding)
-- ADR-2605172000 (RW-free substrate) · ADR-2605215000 (Murakumo-only inference)
+- ADR-2605172000 (kotoba substrate) · ADR-2605215000 (Murakumo-only inference)
 - ADR-2605261000 (Liberation Ladder) · ADR-2605301020 (Basic High Income)

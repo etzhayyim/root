@@ -12,7 +12,7 @@ related:
   - ADR-2605181100 (kotoba E2E encrypted-record envelope)
   - ADR-2605215000 (Murakumo-only inference, no commercial GPU)
   - ADR-2606011400 (Consensys product-front / infra-back)
-  - https://github.com/etzhayyim/root/pull/1585 (rw-free generation layer, MERGED)
+  - https://github.com/etzhayyim/root/pull/1585 (kotoba generation layer, MERGED)
   - https://github.com/etzhayyim/root/pull/1590 (appview getMinutes XRPC)
   - https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/pull/1440 (vendor container writer + graph migration; ADR-0089 D6)
 depends_on:
@@ -31,13 +31,13 @@ mock-path E2E smoke. **Minutes / action-item generation (議事録) was designed
 intent only — never coded.** The 2026-06-02 migration classification
 (`90-docs/MIGRATION-STATUS.md`, PR #844) confirmed meeting-recorder as
 **vendor-resident** for execution (bot join/capture, GPU/MLX whisper, B2 media
-custody, consentToken custody), while the WAVE 2 rw-free front
-(`60-apps/etzhayyim-project-meeting-recorder/rw-free/`) carries the
+custody, consentToken custody), while the WAVE 2 kotoba front
+(`60-apps/etzhayyim-project-meeting-recorder/kotoba/`) carries the
 etzhayyim-aligned data layer: plaintext provider catalog + kotoba-E2E
 session / recordingChunk / transcriptSegment records (ADR-2605181100).
 
 The missing 議事録 layer is a pure data + inference transform over transcript
-segments the caller can already decrypt — it belongs in the rw-free front, not
+segments the caller can already decrypt — it belongs in the kotoba front, not
 in the vendor execution plane.
 
 ## Decision
@@ -55,7 +55,7 @@ in the vendor execution plane.
    reads resolve to the latest record.
 
 2. **Two generators, no silent downgrade** (implemented in
-   `rw-free/src/minutes.ts`):
+   `kotoba/src/minutes.ts`):
    - **extractive** (default, canonical R0): deterministic, hermetic,
      stdlib-only. Sentence split (ja + en punctuation), marker-based decision
      extraction (決定/合意/承認/agreed/approved/…), marker-based action items
@@ -76,7 +76,7 @@ in the vendor execution plane.
    `getMinutes.json` (query), in
    `00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/meetingRecorder/`.
 
-4. **API surface** (rw-free barrel): `generateMinutes` / `getMinutes` /
+4. **API surface** (kotoba barrel): `generateMinutes` / `getMinutes` /
    `listMinutes` / `countMinutes` + pure `extractiveMinutes` /
    `murakumoMinutes`. `coverage()` now reports `meetingMinutesCount` as its own
    inner-type count.
@@ -114,7 +114,7 @@ in the vendor execution plane.
 - **Generate minutes vendor-side in the container (`transcript-pipeline.ts`
   follow-on)** — rejected for now: it would couple 議事録 to the
   vendor-resident execution plane and the prohibited-substrate Worker
-  (Kysely/Hyperdrive), and duplicate logic the rw-free front needs anyway.
+  (Kysely/Hyperdrive), and duplicate logic the kotoba front needs anyway.
   The vendor plane can call the same pure generators later.
 - **Silent fallback extractive ← murakumo on live failure** — rejected:
   violates the honest-rejection membrane pattern (karakuri G6) and hides
@@ -134,4 +134,4 @@ in the vendor execution plane.
 - ADR-2605215000 — Murakumo-only inference invariant
 - ADR-2606011400 — Consensys product-front / infra-back split
 - `20-actors/karakuri/methods/nl_plan.py` — refused-by-default live-LLM membrane precedent
-- `60-apps/etzhayyim-project-meeting-recorder/rw-free/` — implementation + tests
+- `60-apps/etzhayyim-project-meeting-recorder/kotoba/` — implementation + tests

@@ -12,7 +12,7 @@ Sibling actor to [yobel](../etzhayyim-project-yobel/) — handles **legal-person
 | DID | `did:web:amnesty.etzhayyim.com` (primary) |
 | License | Apache-2.0 + Charter Compliance Rider v2.0 |
 | Charter alignment | Mission §1 の **institutional dimension** — macro-scale labor coercion via sovereign + corporate debt overhang |
-| Substrate | AT MST + IPFS + Base L2 (RW-free) + optional UN/UNCITRAL registry mirror |
+| Substrate | AT MST + IPFS + Base L2 (kotoba) + optional UN/UNCITRAL registry mirror |
 | Settlement | USDC on Base L2 + on-chain restructuring instruments (haircut / rescheduling / equity swap / nature swap) |
 | Ratification gate | Council Lv9 chair × 3 + Five-Bootstrap consultation (higher than yobel's Lv6+ × 3 / Lv9 × 1 — legal-person debt has macro impact) |
 | Quorum | 80% (yobel's baseline 50% +30% for institutional scale) |

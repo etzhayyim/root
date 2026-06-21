@@ -1,6 +1,6 @@
 # houbun XRPC Adapter
 
-CF Worker exposing 12 rw-free commands as XRPC endpoints.
+CF Worker exposing 12 kotoba commands as XRPC endpoints.
 
 ## Endpoints
 

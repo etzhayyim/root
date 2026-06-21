@@ -10,7 +10,7 @@
   "dependencies": {
     "@etzhayyim/sdk": "workspace:*",
     "@etzhayyim/sdk-auth": "workspace:*",
-    "@etzhayyim/hanrei-rw-free": "workspace:*"
+    "@etzhayyim/hanrei-kotoba": "workspace:*"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240712.0",
