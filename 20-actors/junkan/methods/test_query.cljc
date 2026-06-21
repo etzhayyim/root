@@ -56,7 +56,9 @@
     (is (string? (q/origin-of d "junkan-instr:us-foia-1966")) "経緯 queryable")
     (is (contains? (set (q/instruments-by-stock d ":economic-capture"))
                    "junkan-instr:us-citizens-united-2010")
-        "instruments-by-stock returns economic-capture members")))
+        "instruments-by-stock returns economic-capture members")
+    (is (pos? (count (q/instruments-by-kind d ":value")))
+        "instruments-by-kind returns :value-kind instruments")))
 
 ;; ── read-only (G4): query.cljc carries no mutation/outward verb ──────────────
 (deftest g4-read-only

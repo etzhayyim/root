@@ -198,14 +198,14 @@
    "LR" :africa "SS" :africa "MW" :africa "GA" :africa "BF" :africa "NE" :africa
    "BJ" :africa "MG" :africa "TG" :africa "SO" :africa "GN" :africa "MR" :africa
    "TD" :africa "CF" :africa "DJ" :africa "SC" :africa "LS" :africa "KM" :africa
-   "GW" :africa "ST" :africa
+   "GW" :africa "ST" :africa "CM" :africa
    ;; Americas
    "US" :americas "BR" :americas "MX" :americas "CL" :americas "AR" :americas
    "VE" :americas "CU" :americas "CO" :americas "PE" :americas "BO" :americas
    "NI" :americas "CR" :americas "UY" :americas "CA" :americas "SV" :americas
    "HN" :americas "GT" :americas "HT" :americas "EC" :americas "JM" :americas
    "TT" :americas "BB" :americas "DO" :americas "PA" :americas "GY" :americas
-   "BS" :americas "SR" :americas
+   "BS" :americas "SR" :americas "LC" :americas "GD" :americas
    ;; Asia (incl. Middle East / Central / South / SE / East)
    "CN" :asia "KP" :asia "IN" :asia "ID" :asia "TH" :asia "PH" :asia "PK" :asia
    "VN" :asia "BD" :asia "KH" :asia "TM" :asia "AZ" :asia "KZ" :asia "LK" :asia

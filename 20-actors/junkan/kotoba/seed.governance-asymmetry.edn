@@ -2169,4 +2169,75 @@
   :stakeholders ["Nitijela" "Council of Iroij" "citizens"]
   :stock :participation-barrier :polarity :narrow :magnitude 0.45 :reversibility :constitutional :meadows 4
   :basis "Constitution of the Marshall Islands (1979)" :sourcing :representative :confidence 0.4}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 20 — coercion-asymmetry toward parity (policing/emergency +
+ ;; accountability counters) + new jurisdictions (CM LC GD)
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── coercion-asymmetry (widen) ──
+ {:type :instrument :id "ir-morality-police" :name "Morality police (Gasht-e Ershad)" :jurisdiction "IR" :kind :institution :year 2005
+  :enactor "Iranian state (guidance-patrol enforcement of dress codes)"
+  :origin "A patrol enforcing compulsory-hijab and morality rules through detention and violence; the 2022 death in custody of Mahsa Amini triggered nationwide protests and a lethal crackdown — coercive control reaching into citizens' bodies and dress."
+  :stakeholders ["guidance patrol" "judiciary" "women/protesters" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.7 :reversibility :institutional :meadows 5
+  :basis "Gasht-e Ershad; 2022 Mahsa Amini protests" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "ng-sars" :name "SARS police unit (#EndSARS)" :jurisdiction "NG" :kind :institution :year 1992
+  :enactor "Nigeria Police Force (Special Anti-Robbery Squad)"
+  :origin "A police unit widely accused of extortion, torture, and extrajudicial killings; the 2020 #EndSARS protests (met with the Lekki shootings) forced its nominal disbandment — coercion abuse and the citizen pushback against it."
+  :stakeholders ["Nigeria Police" "#EndSARS movement" "judicial panels" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.6 :reversibility :institutional :meadows 5
+  :basis "SARS; 2020 #EndSARS / Lekki" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "ke-counterterror-policing" :name "Counter-terror policing + extrajudicial killings" :jurisdiction "KE" :kind :institution :year 2012
+  :enactor "Kenyan security services (ATPU; Prevention of Terrorism Act 2012)"
+  :origin "Counter-terror operations, especially after Westgate/Garissa attacks, were accompanied by documented enforced disappearances and extrajudicial killings, disproportionately affecting Muslim and Somali communities — coercion borne unevenly."
+  :stakeholders ["ATPU" "affected communities" "IPOA oversight" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.6 :reversibility :institutional :meadows 5
+  :basis "Kenya PTA 2012; documented abuses" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "kz-january-2022" :name "'Bloody January' crackdown" :jurisdiction "KZ" :kind :institution :year 2022
+  :enactor "Kazakh state (with CSTO assistance)"
+  :origin "Fuel-price protests escalated into unrest met with a 'shoot-to-kill' order and mass detentions, leaving 200+ dead — a sharp episode of lethal coercive force against citizens, followed by promised reforms."
+  :stakeholders ["security forces" "CSTO" "protesters" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.7 :reversibility :institutional :meadows 5
+  :basis "Kazakhstan January 2022 events" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "cm-anglophone-crisis" :name "Anglophone crisis + anti-terror law" :jurisdiction "CM" :kind :institution :year 2014
+  :enactor "Cameroonian state (2014 anti-terrorism law; security operations)"
+  :origin "A broad 2014 anti-terror law (military trials, death penalty for vague offences) and the militarized response to Anglophone-region grievances produced mass displacement and abuses — coercive power turned against a linguistic-region population."
+  :stakeholders ["security forces" "Anglophone communities" "military tribunals" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.7 :reversibility :statutory :meadows 5
+  :basis "Cameroon anti-terror law 2014; Anglophone crisis" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-emergency-normalization" :name "Normalization of emergency powers" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse pattern (emergency-powers creep across many states)"
+  :origin "The recurring move whereby exceptional powers taken for a crisis (terror, pandemic, unrest) are extended or folded into ordinary law rather than sunset, ratcheting the baseline of coercive state authority over citizens — a value-level pattern beneath specific emergency laws."
+  :stakeholders ["executives" "legislatures" "courts" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.5 :reversibility :cultural :meadows 5
+  :basis "Comparative emergency-powers literature" :sourcing :representative :confidence 0.4}
+
+ ;; ── coercion-asymmetry (narrow — accountability counters) ──
+ {:type :instrument :id "gl-opcat" :name "OPCAT national preventive mechanisms" :jurisdiction "GLOBAL" :kind :institution :year 2002
+  :enactor "UN (Optional Protocol to the Convention against Torture, 2002)"
+  :origin "Requires states parties to allow independent bodies unannounced access to all places of detention, a structural check that narrows the unmonitored coercive power of the state over detained citizens (coverage limited to ratifying states)."
+  :stakeholders ["national preventive mechanisms" "SPT" "detainees" "citizens"]
+  :stock :coercion-asymmetry :polarity :narrow :magnitude 0.45 :reversibility :constitutional :meadows 8
+  :basis "OPCAT (2002); national preventive mechanisms" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-un-human-rights-monitoring" :name "UN human-rights monitoring (rapporteurs/UPR)" :jurisdiction "GLOBAL" :kind :institution :year 2006
+  :enactor "UN Human Rights Council (Special Procedures; Universal Periodic Review)"
+  :origin "Independent special rapporteurs and the periodic peer review of every state's record create external scrutiny of state coercion, giving citizens a documentation-and-pressure channel (non-binding, but a recurring check)."
+  :stakeholders ["special rapporteurs" "UN HRC" "civil society" "citizens"]
+  :stock :coercion-asymmetry :polarity :narrow :magnitude 0.4 :reversibility :institutional :meadows 6
+  :basis "UN Special Procedures; UPR (since 2006)" :sourcing :representative :confidence 0.4}
+
+ ;; ── new jurisdictions (participation) ──
+ {:type :instrument :id "lc-st-lucia" :name "Westminster parliamentary democracy" :jurisdiction "LC" :kind :institution :year 1979
+  :enactor "Saint Lucia (independence Constitution)"
+  :origin "A stable Caribbean democracy with regular competitive elections and peaceful alternation since independence — a functioning participation channel."
+  :stakeholders ["Parliament" "parties" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.45 :reversibility :institutional :meadows 4
+  :basis "Constitution of Saint Lucia (1979)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gd-grenada" :name "Restored democracy (post-1983)" :jurisdiction "GD" :kind :institution :year 1984
+  :enactor "Grenada (constitutional restoration after the 1983 intervention)"
+  :origin "After a 1979 coup and the 1983 crisis and intervention, Grenada restored its constitution and competitive elections, rebuilding a participation channel that has since seen peaceful alternation."
+  :stakeholders ["Parliament" "parties" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.45 :reversibility :constitutional :meadows 4
+  :basis "Grenada constitutional restoration (1984)" :sourcing :representative :confidence 0.4}
 ]

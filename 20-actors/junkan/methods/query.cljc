@@ -77,6 +77,11 @@
   [datoms stock]
   (by-av datoms ":junkan.gov.instr/stock" stock))
 
+(defn instruments-by-kind
+  "All instrument entities of a given kind (e.g. \":law\" / \":doctrine\" / \":value\")."
+  [datoms kind]
+  (by-av datoms ":junkan.gov.instr/kind" kind))
+
 (defn enactor-of
   "WHO established a given instrument entity (誰が定めたか) — straight from the datoms."
   [datoms ent]
