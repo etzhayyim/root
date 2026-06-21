@@ -197,13 +197,15 @@
    "GQ" :africa "SZ" :africa "LY" :africa "MU" :africa "CV" :africa "GM" :africa
    "LR" :africa "SS" :africa "MW" :africa "GA" :africa "BF" :africa "NE" :africa
    "BJ" :africa "MG" :africa "TG" :africa "SO" :africa "GN" :africa "MR" :africa
-   "TD" :africa "CF" :africa "DJ" :africa
+   "TD" :africa "CF" :africa "DJ" :africa "SC" :africa "LS" :africa "KM" :africa
+   "GW" :africa
    ;; Americas
    "US" :americas "BR" :americas "MX" :americas "CL" :americas "AR" :americas
    "VE" :americas "CU" :americas "CO" :americas "PE" :americas "BO" :americas
    "NI" :americas "CR" :americas "UY" :americas "CA" :americas "SV" :americas
    "HN" :americas "GT" :americas "HT" :americas "EC" :americas "JM" :americas
-   "TT" :americas "BB" :americas "DO" :americas "PA" :americas
+   "TT" :americas "BB" :americas "DO" :americas "PA" :americas "GY" :americas
+   "BS" :americas
    ;; Asia (incl. Middle East / Central / South / SE / East)
    "CN" :asia "KP" :asia "IN" :asia "ID" :asia "TH" :asia "PH" :asia "PK" :asia
    "VN" :asia "BD" :asia "KH" :asia "TM" :asia "AZ" :asia "KZ" :asia "LK" :asia
@@ -218,7 +220,7 @@
    "GR" :europe "ES" :europe "PT" :europe "UA" :europe "CZ" :europe "RO" :europe
    "NL" :europe "FI" :europe "BE" :europe "AT" :europe "LT" :europe "HR" :europe
    "SK" :europe "BG" :europe "GE" :europe "SI" :europe "LV" :europe "MD" :europe
-   "AM" :europe "ME" :europe "MK" :europe "CY" :europe
+   "AM" :europe "ME" :europe "MK" :europe "CY" :europe "MT" :europe
    ;; Asia (Malaysia, Yemen)
    "MY" :asia "YE" :asia
    ;; Oceania
@@ -241,7 +243,10 @@
         ;; continental balance (distinct jurisdictions per region)
         region-juris (reduce (fn [m j] (update m (region-of j) (fnil conj #{}) j)) {} js)
         regions (into {} (map (fn [[r s]] [r (count s)]) region-juris))
-        unmapped (vec (sort (get region-juris :other #{})))]
+        unmapped (vec (sort (get region-juris :other #{})))
+        ;; self-balancing: the asymmetry stock with the FEWEST instruments
+        stock-counts (into {} (map (fn [s] [s (count (filter #(= s (:stock %)) instruments))]) stock-order))
+        thinnest (when (seq stock-counts) (key (apply min-key val stock-counts)))]
     {:instruments (count instruments)
      :jurisdictions (count js)
      :jurisdiction-list (vec js)
@@ -253,9 +258,12 @@
      :unmapped-jurisdictions unmapped
      :stocks-without-data (vec missing-stocks)
      :stocks-without-balancer (vec no-balancer)
+     :thinnest-stock (some-> thinnest name)
      :worklist (vec (concat
                      (map #(str "add data for stock " (name %)) missing-stocks)
                      (map #(str "add a narrowing/balancing instrument for stock " (name %)) no-balancer)
+                     (when thinnest [(str "deepen thinnest stock: " (name thinnest)
+                                          " (n=" (get stock-counts thinnest) ")")])
                      (when (seq unmapped) [(str "map region for jurisdictions: " (str/join " " unmapped))])
                      (let [thin (->> (dissoc regions :transnational)
                                      (filter (fn [[_ n]] (< n 6))) (map (comp name first)) sort)]

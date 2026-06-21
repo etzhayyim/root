@@ -122,7 +122,11 @@
   (let [cov (get (a) "coverage")]
     (is (>= (:jurisdictions cov) 8))
     (is (vector? (:worklist cov)))
-    (is (seq (:worklist cov)) "worklist is non-empty (next-iteration guidance)")))
+    (is (seq (:worklist cov)) "worklist is non-empty (next-iteration guidance)")
+    ;; self-balancing: thinnest stock flagged + the worklist names it
+    (is (string? (:thinnest-stock cov)) "thinnest stock identified")
+    (is (some #(re-find #"deepen thinnest stock" %) (:worklist cov))
+        "worklist guides toward the thinnest stock")))
 
 ;; ── continental region coverage (グローバル balance) ─────────────────────────
 (deftest region-coverage

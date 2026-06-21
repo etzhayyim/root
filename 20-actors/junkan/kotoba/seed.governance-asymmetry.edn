@@ -1778,4 +1778,87 @@
   :stakeholders ["National Parliament" "parties" "regional partners" "citizens"]
   :stock :participation-barrier :polarity :narrow :magnitude 0.45 :reversibility :institutional :meadows 4
   :basis "Constitution of Solomon Islands (1978)" :sourcing :representative :confidence 0.4}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 15 — economic-capture depth (transnational finance transparency)
+ ;; + small states (MT GY SC LS KM GW BS) — widen + narrow
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── economic-capture (widen) ──
+ {:type :instrument :id "gb-lobbying-revolving-door" :name "Lobbying + Westminster revolving door" :jurisdiction "GB" :kind :institution :year 2014
+  :enactor "UK political-administrative practice (Lobbying Act 2014; ACOBA)"
+  :origin "A weak statutory lobbying register and an advisory-only revolving-door watchdog (ACOBA) leave privileged commercial access to ministers and ex-officials lightly checked (exposed by the Greensill affair) — a quiet economic-capture channel in a mature democracy."
+  :stakeholders ["ministers/ex-officials" "lobbyists" "ACOBA" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.45 :reversibility :statutory :meadows 5
+  :basis "UK Lobbying Act 2014; ACOBA; Greensill review" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "cn-soe-state-capital" :name "State-owned-enterprise / state-capital dominance" :jurisdiction "CN" :kind :institution :year 1978
+  :enactor "PRC state (SASAC oversees central SOEs)"
+  :origin "Strategic sectors are dominated by party-controlled state enterprises whose leadership overlaps with the Party, fusing economic and political power and crowding out independent economic actors — capture by design rather than by lobbying."
+  :stakeholders ["SASAC" "central SOEs" "private firms" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.7 :reversibility :entrenched :meadows 4
+  :basis "Chinese SOE/state-capital system; SASAC" :sourcing :representative :confidence 0.5}
+ {:type :instrument :id "gl-tax-havens" :name "Offshore secrecy jurisdictions" :jurisdiction "GLOBAL" :kind :institution :year 0
+  :enactor "Diffuse (a network of secrecy jurisdictions + enabling professionals)"
+  :origin "Offshore structures that hide beneficial ownership enable elites to move and conceal wealth beyond public scrutiny (documented by the Panama/Pandora Papers), widening the information-and-economic asymmetry between the powerful and ordinary citizens."
+  :stakeholders ["secrecy jurisdictions" "enablers" "tax authorities" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.6 :reversibility :institutional :meadows 5
+  :basis "Panama/Pandora Papers; FSI" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "mt-golden-passports" :name "Citizenship-by-investment + media-impunity" :jurisdiction "MT" :kind :institution :year 2013
+  :enactor "Maltese state (individual-investor programme, 2013)"
+  :origin "Selling citizenship to investors, alongside the unsolved-then-prosecuted murder of journalist Daphne Caruana Galizia who investigated corruption, exposed how money can capture access and silence scrutiny even inside the EU (the scheme faced a 2024 CJEU ruling)."
+  :stakeholders ["government" "investor applicants" "journalists" "EU/CJEU" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.5 :reversibility :statutory :meadows 5
+  :basis "Maltese IIP (2013); CJEU 2024" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gy-oil-governance" :name "Sudden oil wealth + governance test" :jurisdiction "GY" :kind :institution :year 2019
+  :enactor "Guyanese state (Natural Resource Fund Act; first oil 2019)"
+  :origin "Vast new offshore oil revenue from 2019 created both a development opportunity and a capture risk; a sovereign-wealth Natural Resource Fund and contested 2020 election results made transparent management the decisive variable — an ambiguous, in-progress effect."
+  :stakeholders ["government" "NRF" "oil majors" "opposition" "citizens"]
+  :stock :economic-capture :polarity :ambiguous :magnitude 0.4 :reversibility :statutory :meadows 5
+  :basis "Guyana Natural Resource Fund Act (2019/2021)" :sourcing :representative :confidence 0.4}
+
+ ;; ── economic-capture (narrow) ──
+ {:type :instrument :id "gl-beneficial-ownership" :name "Beneficial-ownership transparency registries" :jurisdiction "GLOBAL" :kind :institution :year 2016
+  :enactor "FATF standards + national registries (UK PSC 2016; EU AMLD; many others)"
+  :origin "Public or regulator-accessible registers of who really owns companies pierce shell-company secrecy, a structural narrowing of economic-capture opacity (the EU's public-access model was curtailed by a 2022 CJEU ruling, showing the contest)."
+  :stakeholders ["FATF" "company registries" "investigators/press" "citizens"]
+  :stock :economic-capture :polarity :narrow :magnitude 0.55 :reversibility :statutory :meadows 6
+  :basis "FATF Rec.24; UK PSC register; EU AMLD" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "gl-eiti" :name "Extractive Industries Transparency Initiative" :jurisdiction "GLOBAL" :kind :institution :year 2003
+  :enactor "EITI multi-stakeholder coalition (governments + companies + civil society)"
+  :origin "A voluntary standard under which member countries publish what they receive and companies what they pay for oil/gas/minerals, reducing the opacity through which resource rents are captured — a narrowing of economic asymmetry in resource states."
+  :stakeholders ["EITI member states" "extractive companies" "civil society" "citizens"]
+  :stock :economic-capture :polarity :narrow :magnitude 0.5 :reversibility :institutional :meadows 6
+  :basis "EITI Standard (since 2003)" :sourcing :representative :confidence 0.45}
+
+ ;; ── small states (participation) ──
+ {:type :instrument :id "sc-2020-alternation" :name "2020 first opposition presidential win" :jurisdiction "SC" :kind :institution :year 2020
+  :enactor "Seychellois electorate"
+  :origin "The opposition won the presidency for the first time since 1977, a peaceful alternation confirming that the electoral channel could deliver change after four decades of one-party dominance."
+  :stakeholders ["Electoral Commission" "opposition" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.55 :reversibility :institutional :meadows 4
+  :basis "2020 Seychelles general election" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "ls-coalition-instability" :name "Coalition instability + reform attempts" :jurisdiction "LS" :kind :institution :year 1993
+  :enactor "Lesotho parliamentary system (post-1993; recurrent crises)"
+  :origin "A Westminster democracy whose frequent coalition collapses and military interventions prompted SADC-backed reform efforts; elections occur but instability weakens the citizen's sustained control — an ambiguous effect."
+  :stakeholders ["Parliament" "military" "SADC" "citizens"]
+  :stock :participation-barrier :polarity :ambiguous :magnitude 0.4 :reversibility :institutional :meadows 4
+  :basis "Lesotho post-1993; SADC reforms" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "km-azali-consolidation" :name "Power consolidation + abolished term limits" :jurisdiction "KM" :kind :institution :year 2018
+  :enactor "Comorian state (2018 constitutional referendum)"
+  :origin "A 2018 referendum scrapped the island-rotating presidency and term limits, letting the incumbent extend rule; the opposition rejected the contested process — a narrowing of a previously rotating participation arrangement."
+  :stakeholders ["presidency" "island federations" "opposition" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.65 :reversibility :constitutional :meadows 4
+  :basis "Comoros 2018 constitutional referendum" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gw-coup-cycle" :name "Chronic coups + institutional fragility" :jurisdiction "GW" :kind :institution :year 1980
+  :enactor "Guinea-Bissau (recurrent military interventions since 1980)"
+  :origin "One of the world's most coup-prone states, where the military and drug-trafficking interests repeatedly interrupt civilian rule, leaving elections frequently overridden by force — a widening of the participation gap by instability."
+  :stakeholders ["military" "civilian governments" "ECOWAS" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.7 :reversibility :institutional :meadows 4
+  :basis "Guinea-Bissau coup cycle (since 1980)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "bs-westminster" :name "Westminster parliamentary democracy" :jurisdiction "BS" :kind :institution :year 1973
+  :enactor "The Bahamas (independence Constitution)"
+  :origin "Stable competitive two-party elections with regular peaceful alternation since independence — a durable Caribbean participation channel."
+  :stakeholders ["Parliament" "two main parties" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.5 :reversibility :institutional :meadows 4
+  :basis "Constitution of The Bahamas (1973)" :sourcing :representative :confidence 0.45}
 ]
