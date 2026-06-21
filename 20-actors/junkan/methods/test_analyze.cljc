@@ -144,6 +144,17 @@
     (doseq [r [:africa :americas :asia :europe :oceania]]
       (is (pos? (get regions r 0)) (str "region " r " has coverage")))))
 
+;; ── leverage by continent (candidates per region, never directives) ──────────
+(deftest leverage-by-region-shape
+  (let [lbr (get (a) "leverage_by_region")]
+    (is (map? lbr))
+    (is (pos? (count lbr)) "at least one continent has a flip candidate")
+    (doseq [[_ c] lbr]
+      (is (number? (:score c)) "each region candidate carries a score")
+      (is (= false (:prescription? c)) "candidate, never a directive (G11)")
+      (is (string? (:name c)))
+      (is (string? (:jurisdiction c))))))
+
 ;; ── temporal era trajectory (structural over time; not a ranking) ────────────
 (deftest era-bucketing
   (is (nil? (az/era-of 0)) "undated → nil")

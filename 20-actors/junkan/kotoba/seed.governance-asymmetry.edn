@@ -1444,4 +1444,89 @@
   :stakeholders ["National Elections Commission" "parties" "UNMIL legacy" "citizens"]
   :stock :participation-barrier :polarity :narrow :magnitude 0.5 :reversibility :institutional :meadows 4
   :basis "Liberian elections (2005–2023)" :sourcing :representative :confidence 0.45}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 11 — transitions & backsliding (AM MW GA BF NE BJ MD DO PA MG)
+ ;; — citizen reassertions (courts/ballots) vs coups & exclusion; widen + narrow
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── Armenia ──
+ {:type :instrument :id "am-velvet-2018" :name "Velvet Revolution (2018)" :jurisdiction "AM" :kind :institution :year 2018
+  :enactor "Armenian popular movement (peaceful protest)"
+  :origin "Sustained nonviolent protests forced the entrenched leadership to resign and brought an opposition government to power through parliament, a citizen-led reopening of accountability without bloodshed."
+  :stakeholders ["protest movement" "National Assembly" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.6 :reversibility :institutional :meadows 4
+  :basis "2018 Armenian Velvet Revolution" :sourcing :representative :confidence 0.5}
+
+ ;; ── Malawi ──
+ {:type :instrument :id "mw-2020-rerun" :name "Court-annulled election + 2020 rerun" :jurisdiction "MW" :kind :institution :year 2020
+  :enactor "Constitutional Court of Malawi + electorate"
+  :origin "The courts annulled a fraudulent 2019 presidential result and ordered a rerun, which the opposition won — only the second time in Africa a court overturned a presidential vote, a landmark for judicial integrity protecting the citizen's ballot."
+  :stakeholders ["Constitutional Court" "Electoral Commission" "opposition" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.65 :reversibility :institutional :meadows 8
+  :basis "Malawi 2020 presidential election rerun" :sourcing :representative :confidence 0.5}
+
+ ;; ── Gabon ──
+ {:type :instrument :id "ga-2023-coup" :name "2023 coup (end of the Bongo dynasty)" :jurisdiction "GA" :kind :institution :year 2023
+  :enactor "Gabonese military"
+  :origin "The military seized power minutes after a disputed election extended a 55-year family dynasty; it ended dynastic rule but replaced an electoral process with a junta — an ambiguous rupture (transition promised)."
+  :stakeholders ["military" "Bongo family" "transitional authorities" "citizens"]
+  :stock :participation-barrier :polarity :ambiguous :magnitude 0.5 :reversibility :institutional :meadows 4
+  :basis "August 2023 Gabon coup" :sourcing :representative :confidence 0.45}
+
+ ;; ── Burkina Faso ──
+ {:type :instrument :id "bf-coups-2022" :name "2022 coups (Sahel coup wave)" :jurisdiction "BF" :kind :institution :year 2022
+  :enactor "Burkinabè military (two coups in 2022)"
+  :origin "Two coups amid a worsening insurgency installed a junta that suspended the constitution and postponed elections — part of the Sahel wave replacing fragile electoral channels with military rule."
+  :stakeholders ["military junta" "ECOWAS" "civilian parties" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.8 :reversibility :institutional :meadows 4
+  :basis "2022 Burkina Faso coups" :sourcing :representative :confidence 0.45}
+
+ ;; ── Niger ──
+ {:type :instrument :id "ne-2023-coup" :name "2023 coup" :jurisdiction "NE" :kind :institution :year 2023
+  :enactor "Nigerien presidential guard / military"
+  :origin "The military detained an elected president and seized power, halting one of the Sahel's few recent peaceful transfers and completing a belt of coup governments across the region."
+  :stakeholders ["military junta" "deposed president" "ECOWAS" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.8 :reversibility :institutional :meadows 4
+  :basis "July 2023 Niger coup" :sourcing :representative :confidence 0.45}
+
+ ;; ── Benin ──
+ {:type :instrument :id "bj-opposition-exclusion" :name "Opposition exclusion + democratic backsliding" :jurisdiction "BJ" :kind :institution :year 2019
+  :enactor "Beninese state (electoral-code changes under President Talon)"
+  :origin "Once a model of African democracy, Benin's 2019 legislative elections excluded all opposition parties via restrictive new rules, and critics were prosecuted — a sharp narrowing of a formerly open participation channel."
+  :stakeholders ["presidency" "electoral commission" "excluded opposition" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.6 :reversibility :statutory :meadows 5
+  :basis "Benin 2019 electoral exclusions" :sourcing :representative :confidence 0.45}
+
+ ;; ── Moldova ──
+ {:type :instrument :id "md-pro-eu-democracy" :name "Post-2020 democratic + anti-capture reforms" :jurisdiction "MD" :kind :institution :year 2020
+  :enactor "Moldovan state (reformist government + EU-accession track)"
+  :origin "After years of state capture, reformist electoral wins from 2020 and EU-candidate status drove anti-corruption and judicial reforms, strengthening citizen accountability against entrenched interests (amid external pressure)."
+  :stakeholders ["reformist government" "EU" "judiciary" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.5 :reversibility :institutional :meadows 4
+  :basis "Moldova reforms (2020–); EU candidate 2022" :sourcing :representative :confidence 0.4}
+
+ ;; ── Dominican Republic ──
+ {:type :instrument :id "do-democracy" :name "Competitive democracy + 2020 alternation" :jurisdiction "DO" :kind :institution :year 1978
+  :enactor "Dominican state (democratic consolidation since 1978)"
+  :origin "Regular competitive elections since 1978 with peaceful alternations (including 2020) sustain a working participation channel, despite recurring clientelism concerns."
+  :stakeholders ["Central Electoral Board" "parties" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.5 :reversibility :institutional :meadows 4
+  :basis "Dominican Republic elections (since 1978)" :sourcing :representative :confidence 0.45}
+
+ ;; ── Panama ──
+ {:type :instrument :id "pa-post-noriega-democracy" :name "Post-1989 democracy + abolition of the army" :jurisdiction "PA" :kind :institution :year 1990
+  :enactor "Panamanian state (after the 1989 fall of Noriega)"
+  :origin "After the Noriega dictatorship, Panama restored elected government and constitutionally abolished its standing army (1994), removing the military from politics and sustaining peaceful electoral alternation."
+  :stakeholders ["Electoral Tribunal" "parties" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.55 :reversibility :constitutional :meadows 4
+  :basis "Panama post-1989; 1994 army abolition" :sourcing :representative :confidence 0.45}
+
+ ;; ── Madagascar ──
+ {:type :instrument :id "mg-recurrent-crises" :name "Recurrent coups + contested elections" :jurisdiction "MG" :kind :institution :year 2009
+  :enactor "Malagasy factions (2009 coup; disputed 2018/2023 elections)"
+  :origin "A 2009 coup and repeated election disputes (with opposition boycotts in 2023) have made the participation channel unstable, with power changing hands through crisis as often as through clean ballots — an ambiguous effect."
+  :stakeholders ["HVM/IRD factions" "electoral commission" "opposition" "citizens"]
+  :stock :participation-barrier :polarity :ambiguous :magnitude 0.5 :reversibility :institutional :meadows 4
+  :basis "Madagascar 2009 coup; 2018/2023 elections" :sourcing :representative :confidence 0.4}
 ]

@@ -195,13 +195,14 @@
    "SN" :africa "DZ" :africa "EG" :africa "MA" :africa "TN" :africa "BW" :africa
    "GH" :africa "CD" :africa "MZ" :africa "NA" :africa "CI" :africa "ER" :africa
    "GQ" :africa "SZ" :africa "LY" :africa "MU" :africa "CV" :africa "GM" :africa
-   "LR" :africa "SS" :africa
+   "LR" :africa "SS" :africa "MW" :africa "GA" :africa "BF" :africa "NE" :africa
+   "BJ" :africa "MG" :africa
    ;; Americas
    "US" :americas "BR" :americas "MX" :americas "CL" :americas "AR" :americas
    "VE" :americas "CU" :americas "CO" :americas "PE" :americas "BO" :americas
    "NI" :americas "CR" :americas "UY" :americas "CA" :americas "SV" :americas
    "HN" :americas "GT" :americas "HT" :americas "EC" :americas "JM" :americas
-   "TT" :americas "BB" :americas
+   "TT" :americas "BB" :americas "DO" :americas "PA" :americas
    ;; Asia (incl. Middle East / Central / South / SE / East)
    "CN" :asia "KP" :asia "IN" :asia "ID" :asia "TH" :asia "PH" :asia "PK" :asia
    "VN" :asia "BD" :asia "KH" :asia "TM" :asia "AZ" :asia "KZ" :asia "LK" :asia
@@ -215,7 +216,8 @@
    "RU" :europe "BY" :europe "EE" :europe "IS" :europe "IE" :europe "AL" :europe
    "GR" :europe "ES" :europe "PT" :europe "UA" :europe "CZ" :europe "RO" :europe
    "NL" :europe "FI" :europe "BE" :europe "AT" :europe "LT" :europe "HR" :europe
-   "SK" :europe "BG" :europe "GE" :europe "SI" :europe "LV" :europe
+   "SK" :europe "BG" :europe "GE" :europe "SI" :europe "LV" :europe "MD" :europe
+   "AM" :europe
    ;; Asia (Malaysia, Yemen)
    "MY" :asia "YE" :asia
    ;; Oceania
@@ -316,6 +318,25 @@
                          :when (seq is)]
                      [s {:net (round3 (/ (reduce + cs) (count cs))) :count (count is)}]))])))
 
+(defn leverage-by-region
+  "Per-continent, the single most TRACTABLE flip candidate (widening instrument
+  whose loop could most plausibly flip, by flip-score). CANDIDATES with uncertainty,
+  never directives (G11); grouped structurally by continent, never a country shame-
+  ranking (G7). Returns {region {…candidate…}}."
+  [instruments]
+  (into {}
+        (for [r region-order
+              :let [wideners (->> instruments
+                                  (filter #(and (= :widen (:polarity %))
+                                                (= r (region-of (:jurisdiction %)))))
+                                  (map (fn [i] (merge {:id (:id i) :name (:name i)
+                                                       :jurisdiction (:jurisdiction i)
+                                                       :stock (:stock i) :prescription? false}
+                                                      (flip-score i))))
+                                  (sort-by #(- (:score %))))]
+              :when (seq wideners)]
+          [r (first wideners)])))
+
 (defn analyze
   "Full read-off bundle. Pure; no I/O; no outward channel (G4)."
   [instruments]
@@ -327,6 +348,8 @@
      "region_stock" (into {} (map (fn [[r m]]
                                     [(name r) (into {} (map (fn [[s v]] [(name s) v]) m))])
                                   (region-stock-matrix instruments)))
+     "leverage_by_region" (into {} (map (fn [[r c]] [(name r) c])
+                                        (leverage-by-region instruments)))
      "coverage" (coverage instruments)
      "hypothesis_only" true
      "actuation_taken" false}))
@@ -498,6 +521,12 @@
                       (str "- [" (:score c) "] L" (:meadows c) " · " (:name c) " ("
                            (:jurisdiction c) ", " (name (:stock c))
                            ", reversibility=" (name (or (:reversibility c) :-)) ")")))
+     "\n\n## Most tractable flip candidate per continent (G11 — candidates, never directives)\n\n"
+     (str/join "\n" (for [r region-order
+                          :let [c (get (get analysis "leverage_by_region") (name r))]
+                          :when c]
+                      (str "- **" (name r) "**: [" (:score c) "] " (:name c)
+                           " (" (:jurisdiction c) ", " (name (:stock c)) ")")))
      "\n\n## Coverage worklist (next /loop iterations)\n\n"
      (str/join "\n" (map #(str "- " %) (:worklist cov)))
      "\n\n_findings are append-only; surfacing beyond Council is performed by ossekai/kataribe on junkan's behalf, never by junkan (G13). actuation_taken=false throughout._\n")))
