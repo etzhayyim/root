@@ -1,6 +1,6 @@
-(ns yamabiko.py.test-agent
+(ns yamabiko.methods.test-agent
   (:require [clojure.test :refer [deftest is testing run-tests]]
-            [yamabiko.py.agent :as agent]))
+            [yamabiko.methods.agent :as agent]))
 
 (deftest test-carbody-fsw-count-ok
   (is (get (agent/validate-carbody-fabrication 120 true) "ok")))
@@ -106,5 +106,5 @@
     (is (= "executed" (get s "state")))))
 
 (when (= *file* (System/getProperty "babashka.file"))
-  (let [{:keys [fail error]} (run-tests 'yamabiko.py.test-agent)]
+  (let [{:keys [fail error]} (run-tests 'yamabiko.methods.test-agent)]
     (System/exit (if (zero? (+ fail error)) 0 1))))
