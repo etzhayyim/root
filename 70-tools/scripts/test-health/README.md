@@ -10,10 +10,17 @@ A read-only repo-wide audit of actor test-suite health, institutionalising the m
 ## Run
 
 ```bash
-bb 70-tools/scripts/test-health/audit.clj            # print the triage summary
+bb 70-tools/scripts/test-health/audit.clj            # print the triage summary (fast static scan)
 bb 70-tools/scripts/test-health/audit.clj --check    # + self-check the detector's invariants (exit 1 on violation)
+bb 70-tools/scripts/test-health/audit.clj --probe    # + RUN each broken shim's tests in isolation → classify
 bb 70-tools/scripts/test-health/audit.clj --write    # + (re)write AUDIT.md, the committed snapshot
 ```
+
+`--probe` (opt-in, slower) actually runs each broken-shim actor's auto-discovered tests in an
+isolated subprocess and classifies it **clean-repoint** (safe #2043 fix) / **tests-fail** /
+**load-error** — so the register says *which* shims are mechanically fixable vs need investigation.
+Truth source is the `PROBE <fail> <error>` line printed by `run-tests`, NOT the subprocess exit code
+(the probe runner does not `System/exit` on failures, so a red suite still exits 0).
 
 ## What it measures (two deterministic debt classes; no test execution, no writes unless `--write`)
 
