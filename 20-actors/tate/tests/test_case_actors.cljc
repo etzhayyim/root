@@ -109,7 +109,7 @@
     (is (and (contains? tracks ":labor") (contains? tracks ":housing")))))
 
 (deftest test-deploy-copy-in-sync
-  (let [deploy (clojure.java.io/file ts/HERE ".." ".." "50-infra" "etzhayyim-did-web" "public" "actor")
+  (let [deploy (clojure.java.io/file (ts/here) ".." ".." "50-infra" "etzhayyim-did-web" "public" "actor")
         deployed (set (for [d (.listFiles deploy)
                             :when (str/starts-with? (.getName d) "tate-")]
                         (.getName d)))
