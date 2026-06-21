@@ -1,6 +1,6 @@
 # 20-actors/tsubasa 翼
 
-**Flight-route / fare discovery commons — the Skyscanner inversion. ADR-2606072800. Status: R2.**
+**Flight-route / fare discovery commons — the Skyscanner inversion. ADR-2606072800. Status: R3.**
 
 Honest fare/route meta-search; closes the last named-app coverage gap (uber→ainori, airbnb/
 hotels→shukubo, salesforce→business-manager, calendly→yotei, drive→organizer, indeed→talent,
@@ -34,18 +34,32 @@ seed, and the datom emitter — and proven by `test_analyze` + `test_seed_integr
   tamper-evident, no-server-key) — the busshi/meisai/kakaku family machinery.
 - `methods/autorun.cljc` — deterministic, idempotent-by-content heartbeat (analyze → append on
   change; a no-op when unchanged; resume-safe).
-- `methods/test_*.cljc` — analyze / kotoba / autorun / seed-integrity suites.
+- `methods/ingest.cljc` — **R3** live fare ingest: a parsed fetch-leg payload → `:authoritative`
+  `:fare` rows. Charter-bounded source (`:public`/`:member-principal`; `:paid-terminal` refused),
+  no network in the loop (no-server-key), G1/G4/G5 enforced (poisoned / no-CO₂ rows rejected).
+- `methods/digest.cljc` — **R3** Murakumo-narrated digest, loopback-only (`127.0.0.1:4000`),
+  fail-open to a deterministic anti-dark template (G6).
+- `wasm/` — **R3** compute-only WASM Component scaffold (`world.wit` + `build.sh`); no
+  `wasi:sockets/clocks/random` (absence = G1/G5/G6); artifact build = operator step.
+- `methods/test_*.cljc` — analyze / kotoba / autorun / seed-integrity / ingest / digest suites.
 
 ## Run
 ```
-bash 20-actors/tsubasa/run_tests.sh                                   # 39 tests / 532 assertions
+bash 20-actors/tsubasa/run_tests.sh                                   # 54 tests / 579 assertions
 bb --classpath 20-actors 20-actors/tsubasa/methods/analyze.cljc      # competition + fare map + coverage
 bb --classpath 20-actors 20-actors/tsubasa/methods/autorun.cljc      # one heartbeat → append to the ledger
+bb --classpath 20-actors 20-actors/tsubasa/methods/digest.cljc       # Murakumo digest (fail-open template)
+# live ingest (operator/member fetch leg writes payload.edn in their OWN runtime):
+bb --classpath 20-actors 20-actors/tsubasa/methods/ingest.cljc payload.edn "<source-url>" "<as-of>" [member]
 ```
 
-## Gating
-Live GDS/airline fare ingest = **Council Lv7+ + operator** (G8). R0/R1 ship `:representative` data;
-tsubasa transacts no booking (member self-books). See ADR-2606072800 for the full gate table.
+## Gating (G8 — UNLOCKED R3, charter-bounded)
+Live GDS/airline fare ingest is **UNLOCKED** (R3, 2026-06-21) — founder Lv7+ attested via PR review
+(Bootstrap Council attestation premise). The unlock is **structurally bounded**: source is
+`:public` or `:member-principal` ONLY (a `:paid-terminal` is refused — Rider §2(e)/§2(i)); the loop
+does **no network** (operator/member runs the fetch leg; no-server-key); **G1/G3/G4/G5 unchanged**
+and enforced at ingest (poisoned / no-CO₂ rows rejected); tsubasa transacts no booking (member
+self-books). See ADR-2606072800 §R3 for the full gate-unlock record.
 
 ## DID
 `did:web:etzhayyim.com:actor:tsubasa` — registered in `50-infra/.../registry/infra-actors.ts`

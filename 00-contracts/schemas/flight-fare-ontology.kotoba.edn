@@ -57,6 +57,10 @@
   :db/doc "The airline's OWN booking page — AFFILIATE-STRIPPED at handoff (G1). Not a tsubasa redirect."}
  {:db/ident :fare/sourcing      :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
   :db/doc ":authoritative | :representative | :synthesized — provenance honesty (G8)."}
+ {:db/ident :fare/source       :db/valueType :db.type/string  :db/cardinality :db.cardinality/one
+  :db/doc "Cited provenance for an :authoritative fare folded by live ingest (R3): the PUBLIC source URL or the member-principal account it was read from. NOT a paid GDS terminal (Rider §2(e); see ontology header / ADR R3)."}
+ {:db/ident :fare/ingested-at  :db/valueType :db.type/string  :db/cardinality :db.cardinality/one
+  :db/doc "As-of stamp supplied by the operator/member fetch leg (caller-supplied; the loop holds no wall clock). A date/run id, never a per-searcher timestamp (G5)."}
 
  ;; ── airport (a coverage node; region drives the coverage report) ────────────
  {:db/ident :airport/iata       :db/valueType :db.type/string  :db/cardinality :db.cardinality/one :db/unique :db.unique/identity

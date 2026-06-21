@@ -10,6 +10,8 @@ SUITES=(
   "20-actors/tsubasa/methods/test_kotoba.cljc"
   "20-actors/tsubasa/methods/test_autorun.cljc"
   "20-actors/tsubasa/methods/test_seed_integrity.cljc"
+  "20-actors/tsubasa/methods/test_ingest.cljc"
+  "20-actors/tsubasa/methods/test_digest.cljc"
 )
 
 fail=0
