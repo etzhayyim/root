@@ -46,7 +46,29 @@ would ratify a possible G7 weakening (forbidden by the loop mandate). Needs Coun
 
 ## R0/R2 → R3 gate
 
-Resolve the 7 agent-test failures + Council review; the charter-gate suite is the
-schema-level floor (must stay green).
+~~Resolve the 7 agent-test failures~~ ✅ **RESOLVED 2026-06-17** (see below) + Council review;
+the charter-gate suite is the schema-level floor (must stay green).
+
+### 2026-06-17 — G7 conflict RESOLVED via member-signed-capability autonomy (the 7 failures fixed)
+
+The G7/no-server-key conflict above is **closed**. Implemented Option 1 (member-signed-capability
+autonomy, the ibuki/mimamori precedent ADR-2606111400) in `py/agent.py`:
+
+- a shared **`_outward_authorized(state)`** gate now backs all 4 outward handlers
+  (`handle_aggregate_publisher` / `handle_mention_dispatcher` / `handle_member_digest` /
+  `handle_emergency_advisory`). A live broadcast is authorized ONLY by an operator attestation
+  (`operatorRef`) OR a presented member-signed, scoped capability (`memberCapability` with a
+  non-server `memberSignature` — `_server_or_synthetic_signer` rejects blank/`anon`/`server`/
+  `autonomous_system_signature`). Absent both → posts stay `:draft`, `broadcast=False`.
+- `_attestation_ok` (G13) restored to a real Council Lv6+ ≥3 (≥4 if >50) check.
+- all hardcoded `state="posted"/"sent"` + `broadcast=True` + the `# R2 Autonomous: operator gate
+  removed` comments are gone; stale docstrings + `CLAUDE.md` Status corrected;
+  `FINDING-G7-autonomy-conflict.md` marked RESOLVED.
+- **`py/test_agent.py` now 41/41 green** (the 7 guards pass via the restored gate — no test was
+  weakened to expect a bare `"posted"`). No server key is implied at any point.
+
+Ratified pattern-wide by **ADR-2606181200** (R2-autonomous live-gate-removal reconciliation, 6
+actors) + recorded in `90-docs/260617-r2-autonomous-live-gate-removal-charter-audit.md`. R3 now
+gates only on Council review + cell activation (cells stay import-time `RuntimeError` at R0/R2).
 
 > **2026-06-17 substrate-native migration (ADR-2606160842):** the charter-gate test above was ported Python→Clojure (`methods/test_charter_gates.py` → `methods/test_charter_gates.cljc`, ns `ossekai.methods.test-charter-gates`, reads the lexicons via cheshire/edn) and the Python was pruned. Run via `./run_tests.sh` (now `exec bb`) or `bb run test:charter` (all 34 charter suites; 244 tests / 924 assertions green). Assertions unchanged (1:1 port).

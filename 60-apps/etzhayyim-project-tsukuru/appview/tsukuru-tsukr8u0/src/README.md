@@ -7,7 +7,7 @@ is the current production B2B factory-direct ordering platform. It uses:
 - `did:web:stripe.etzhayyim.com cancelCard` invoke — Stripe Issuing virtual cards
 - `payment.method = "stripe_issuing"` — fiat USD card-based factory payment
 
-Per **ADR-2605172000** (etzhayyim RW-free substrate) and **ADR-2605172100**
+Per **ADR-2605172000** (etzhayyim kotoba substrate) and **ADR-2605172100**
 (payments on-chain only), the etzhayyim deploy must:
 
 1. Replace `createKyselyDb()` writes with PDS XRPC `createRecord` against

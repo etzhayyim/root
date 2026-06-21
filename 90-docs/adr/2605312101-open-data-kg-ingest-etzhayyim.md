@@ -1,7 +1,7 @@
 ---
 id: adr-2605312101-open-data-kg-ingest-etzhayyim
 renumbered_from: "2605312100"
-title: "ADR-2605312101: Open-data KG ingest (public-internet sources) on the etzhayyim RW-free substrate"
+title: "ADR-2605312101: Open-data KG ingest (public-internet sources) on the etzhayyim kotoba substrate"
 status: active
 doc_type: adr
 topic: open-data-kg-ingest-etzhayyim
@@ -17,13 +17,13 @@ authoritative_for:
 depends_on:
   - adr-2605312000-ndl-oai-ingest-etzhayyim
 related:
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605172400-etzhayyim-vendor-three-axis-split-rule
 supersedes: []
 superseded_by: []
 ---
 
-# ADR-2605312101: Open-data KG ingest (public-internet sources) on the etzhayyim RW-free substrate
+# ADR-2605312101: Open-data KG ingest (public-internet sources) on the etzhayyim kotoba substrate
 
 **Status**: active
 **Date**: 2026-05-31
@@ -36,7 +36,7 @@ Continues ADR-2605312000 (NDL). The vendor yatabase KG ingest
 the public internet: wikidata, crossref, japan_company_registry (gBiz),
 openstreetmap, egov_laws, hf_rebel, hf_conceptnet. User direction (2026-05-31):
 migrate the open-data / public / net-ingest family to kotoba; vendor removal is
-authorised "once migrated". Same RW-free constraint (ADR-2605172000) → re-build
+authorised "once migrated". Same kotoba constraint (ADR-2605172000) → re-build
 on the open substrate, with the RW→kotoba-datomic refactor performed kotoba-side.
 
 # Decision
@@ -70,7 +70,7 @@ canonical flat entity shape the kotoba datomic writer consumes.
   removed from `kg_open.py`.
 
 Persistence: spine (run/cursor) via best-effort `ingest.core` (`_spine`);
-canonical entities in worker-local RW-free `ingest_kg_open.db`. **Kotoba handoff
+canonical entities in worker-local kotoba `ingest_kg_open.db`. **Kotoba handoff
 = single `_persist_entities` seam** → swap for
 `com.etzhayyim.apps.kotoba.datomic.transact` into an etzhayyim-owned graph (never
 vendor `kotobase-kg-v1`); the kotoba datomic client is not ported here.
@@ -86,7 +86,7 @@ this port.
 
 # Consequences
 
-- wikidata + crossref + openstreetmap open-data harvest runs RW-free on etzhayyim
+- wikidata + crossref + openstreetmap open-data harvest runs kotoba on etzhayyim
   today, live-verified; the datomic write is the isolated kotoba-side follow-up.
 - **The kotoba datomic write is NOT verifiable here** (in-cluster + gated on its
   scaling fix, vendor ADR-2605302130) — gate-ready, not running.

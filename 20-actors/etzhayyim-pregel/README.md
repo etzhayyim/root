@@ -20,7 +20,7 @@ Phase 3 (content copy) will bring in:
 - atproto MST / IPFS / Base L2 checkpointer adapter (per ADR-2605171800
   anchor pipeline)
 
-## RW-free constraint
+## kotoba constraint
 
 Per ADR-2605172000, this package MUST NOT import `risingwave`, `kysely`,
 `pg`, or open SQL connections directly. Checkpointer state goes to:
@@ -36,5 +36,5 @@ side) provides it externally.
 
 - [ADR-2605171800 LangGraph Pregel → MST → IPFS → Base L2 anchor pipeline](https://github.com/etzhayyim/root/blob/main/90-docs/adr/2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md)
 - [ADR-2605171300 Open-UNSPSC Generative Agent Fleet](https://github.com/etzhayyim/root/blob/main/90-docs/adr/2605171300-open-unispsc-generative-agent-fleet.md)
-- [ADR-2605172000 etzhayyim RW-free substrate](https://github.com/etzhayyim/root/blob/main/90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md)
+- [ADR-2605172000 etzhayyim kotoba substrate](https://github.com/etzhayyim/root/blob/main/90-docs/adr/2605172000-etzhayyim-kotoba-substrate.md)
 - [ADR-2605172400 etzhayyim/vendor 3-axis split rule](https://github.com/etzhayyim/etzhayyim-root/blob/main/90-docs/adr/2605172400-etzhayyim-vendor-three-axis-split-rule.md) (vendor canonical)

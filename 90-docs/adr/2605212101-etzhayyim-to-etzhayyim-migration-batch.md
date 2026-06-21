@@ -14,7 +14,7 @@ priority_note: "Referenced by DEPRECATED.md in source archive; back-authored 202
 authoritative_for:
   - etzhayyim-to-etzhayyim-60apps-batch
 depends_on:
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
   - adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules
 related:
@@ -76,7 +76,7 @@ The DEPRECATED.md authors were correct to skip the violating subtrees, but the d
 
 # References
 
-- ADR-2605172000 (RW-free substrate boundary — the reason for deferral)
+- ADR-2605172000 (kotoba substrate boundary — the reason for deferral)
 - ADR-2605172100 (substrate ladder)
 - ADR-2605214000 §3 (atomic etzhayyim → etzhayyim identifier cutover)
 - ADR-2605215000 (etzhayyim inference Murakumo-only)

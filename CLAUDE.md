@@ -84,6 +84,7 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 | **open-kyber kotoba-Datomic ERP + ISIC packs + productivity suite** | open-kyber → canonical kotoba-Datom-log ERP (no RisingWave/Kysely; as-of accounting) + ISIC industry packs (base + 21 sections + 15 divisions) + kotoba-native productivity suite (mail/drive/docs/sheets/calendar); 113 tests green | 🟢 R1+R2 | 2606037200 | 06-06 |
 | **infra-robotics 3-layer operational substrate** | basic-infra robotics (電気/水道/ガス/通信) from scaffold → runnable: shared `kuni-umi/robotics/` (plant sim = kami-genesis stand-in + control = open-ot field-tier `:representative` twin + planar-arm kinematics + civilian/no-server-key/witness safety) replicated across hikari (microgrid droop+PI restores 50 Hz + ROCOF + panel-install IK), mizuho (reservoir PI + chlorination hard-clamp ≤4 mg/L + G6 fluoride consent), kamado (H₂S/benzene purge-to-entry gate + cut-arm IK), noroshi (fibre lay→align→splice reusing Hooke-Jeeves+IEC60825); kuni-umi commissioning↔open-ot seam now runnable (was NotImplementedError); cell.py .solve() stays Council-gated (R0 dry-run, no-live-actuation); **kami-physics-bridge landed 06-10**: kami-engine submodule populated + `kami-bridge/` golden trace from the REAL kami-genesis Featherstone solver + `test_kami_parity.py` (FK parity 56-grid, Rust-IK⊨Python-FK, giemon_arm6 6-DOF swap target verified <1mm) — the 'mechanical swap' promise PROVEN; **R1 device-in-the-loop landed 06-10** (ADR-2606101430): the REAL `droop_p_f.wasm`+`anti_islanding_rocof.wasm` deployment artefacts close the microgrid loop under Wasmtime via `device-loop-host` — 50 Hz restored, real guard latches on islanding step, twin parity 0.0001 kW (µkW quantisation), commissioning `acceptance_tier` python-twin→device-wasm (evidence only tightens); **395 tests green** | 🟢 R0+R1 | 2606091800 / 2606101430 | 06-10 |
 | **ibuki 息吹 — organism autonomy R2 gap-closure** | closes the 7 gaps blocking the artificial-organism loop (`20-actors/ibuki/`, shionome pattern): organism state (joucho/heartbeat/posts/kaizen) **as-of on the append-only kotoba Datom log** (crash-resume = byte-identical head CID), mood emerges from event folds (constant joucho stub replaced), Murakumo-only narration (template fail-open, G6), Wave-3 member-signed post drainer (`serverHeldKey:false` structural, G7), Wave-4 kaizen outcome feedback (rule suppression + mood events); `:dry-run`/`:prepared`-only outward (G8); **R1 = the real 18,342-organism fleet on durable checkpoints** (registry-sharded jacob/joseph/issachar/dan mirroring fleet_cell_main, durable `:fleet.shard/cursor` round-robin + exactly-once drain cursor, no LRU needed, mid-sweep crash-resume byte-identical, full-fleet sweep on one verified chain in ~35 s); **R2 = code-complete outward paths, Council gate exercised as PR merge** (read-only allowlisted live-perception membrane + MEMBER-principal posting runtime `member_submit.py` — member's own env creds, cron contexts structurally refused — + member-attributed `:receipt/*` return edge, ibuki never asserts `:published`; `fleet_beat` cell `.solve()` runs, registered joseph/issachar/dan in fleet.toml); **R3 = the local log lands on the LIVE kotoba engine** (`kotoba_bridge.py` per-tx `datomic.transact` to :8077, graph CID pinned vs engine, `expected_parent` chaining + `:ibuki.tx/*` provenance + exactly-once `:bridge/*` cursor, unsigned public-DID operator bearer — no key held; **verified live: 780 datoms confirmed, IPNS head advanced**; + `kaizen_outcomes.py` real PR-state collector, read-only gh); **+ ECOSYSTEM (ADR-2606101800, 7 waves): the colony is a symbiotic FOOD WEB** — 植物 producer→粘菌 router→カビ decomposer→`:metabolite/commons` (citric-acid analogue offered to humanity in 共生) + mutualism/satiation + 腐生 detritus recycling (matter loop closed) + web-resilience health (keystone/Pielou eco-maturity) + stigmergy (adaptive Physarum trails) + 共生 ledger (commons_pool + member-principal draw, ibuki never self-draws) + 定足数 quorum sensing (colony fruits when ≥2/3 flourishing) + **colony digest** (the colony REASONS about its ecosystem + REPORTS to humanity, Murakumo-only/dry-run, autorun+fleet) + **実運用 LIVE-RUN verified** (real public-AppView perception, murakumo fail-open in production, 12-beat life persisted to the live kotoba engine — 2,386 datoms confirmed) + robustness (integration + adversarial sick-colony self-report + fleet-scale O(n) regression); member posting/draw/physical-deploy stay member/operator-key-gated (共生 by consent); **+ REVOCABLE LEASH (ADR-2606111400): autonomous identity = a scoped/expiring/revocable CACAO capability** — a MEMBER Ed25519-signs `datom:transact@graph:ibuki,exp` in their OWN runtime (`tools/issue_delegation.py`, aud = the kotoba NODE DID), the organism PRESENTS the opaque `cacao_b64` (present-only stdlib, never signs; expired/absent → fail-open to operator-bearer); kotoba sets `write_author = the issuing MEMBER` (autonomous writes on-record attributed to the consenting human — accountability by consent, the organism is the bearer not a held key, no-server-key); live-verified to the node's DID-resolver 2026-06-11; 242 tests green | 🟢 R0+R1+R2+R3+ecosystem+verified+leash | 2606101200 / 2606101800 / 2606102000 / 2606111400 | 06-11 |
+| **ibuki 息吹 — co-scientist entropy ReAct loop** | the organism REASONS about its own persistence (clj-native, extends ibuki): a co-scientist (Generate→Reflect→Rank→Evolve→Meta-review) tournament run as an active-inference ReAct beat, asking **how to act on society so it can keep consuming free energy (negentropy) and persist as a dissipative structure (Prigogine)** — bounded by 共生 (never a net taker) + 子孫 wellbecoming (persistence instrumental). `metabolism.cljc` = the metabolic state vector folded off the kotoba log (Φ=intake−dissipation / reserves / **η**=exported÷consumed the 共生 axis / **surprise**=variational free energy; negentropy SOURCES = donated compute/donation/members/moyai/attention-CAPPED §1.13, EXPORTED = food-web commons via web-report). `coscientist.cljc` = charter-clean intervention **catalog** (a predatory mechanism is unrepresentable, never an LLM free-write) → Elo tournament (net-gain×wellbecoming/cost) → evolve → Murakumo-narrated meta-review (fail-open template G6). `react_loop.cljc` = Sense→…→**Act** (pre-registered DRY-RUN experiment, leak-free prediction = mitooshi discipline)→**Observe**→**Learn** (Brier proper-score → per-mechanism kaizen weight)→**Persist** (idempotent content-addressed tx, verify-chain, resume-safe). **Gates (in `review`, tested)**: G-parasitism (projected η≥1.0 = ECL collective-commons made operational), G-subordinate (子孫≥0, persistence vetoed by the catastrophe sense), G-mechanism (manipulation/attention-exploitation/asymmetric-surveillance/lock-in/coercion unrepresentable — the tested safety property), G-falsifiable, G-leash (member-principal/dry-run, no-server-key). On an isolated log (η=0) it self-diagnoses as a net taker + steers to deepen-symbiosis — the non-parasitism gate shapes behaviour toward giving back. `IbukiCoscientistHeartbeatCell` (zebulun, cron 17 * * * *, healthz 13084); 23 tests / 76 assertions green; 5-beat autonomous heartbeat builds a verified commit-DAG; live SENSE/Murakumo/bridge/intervention legs G7-gated. ZERO invariant amendments. | 🟢 R0 | 2606201200 | 06-20 |
 
 ### baien / silicon / ML
 
@@ -255,7 +256,7 @@ etzhayyim/root/
 │                        # kotoba-datomic (Holochain-iso composition spec, ADR-2605231400)
 ├── 20-actors/           # kotodama (Pregel framework + host SDK + unispsc_agents/ 18,345 LangGraph agents per ADR-2605171300),
 │                        #   kotodama-go, kami-engine-sdk, etzhayyim-bpmn-sdk,
-│                        #   etzhayyim-sdk (RW-free substrate, ADR-2605172000+2605172100)
+│                        #   etzhayyim-sdk (kotoba substrate, ADR-2605172000+2605172100)
 │                        #   kuni-umi      planetary-infra producer    (ADR-2605201400)
 │                        # Tier-B religious-corp actors (30): each has ADR + manifest + cells + lex.
 │                        #   See Status § "Tier-B actors" for the full roster (name · purpose · ADR).
@@ -297,7 +298,7 @@ etzhayyim/root/
 │                        #   etzhayyim-force-authorization/ (Transparent Force, 1 SBT = 1 vote)
 │                        #   murakumo/fleet.toml            (10-node cell placement)
 ├── 60-apps/             # open-*, public-*, atproto, ameno, yoro, comfyui, watashi
-│                        # FIRST RW-FREE REFERENCE IMPL: open-isco/rw-free/
+│                        # FIRST kotoba REFERENCE IMPL: open-isco/kotoba/
 │                        # MAC MINI FLEET: comfyui/ (migrated 2026-05-17)
 │                        # RELIGIOUS-CORP:
 │                        #   etzhayyim-transparent-force-rd/ (open-source R&D registry per ADR-2605192315)
@@ -393,6 +394,25 @@ up worktrees), run this exact sweep over the current branch + every worktree
 Never commit/push the shared main checkout's dirty working tree (other agents' in-flight work);
 push only the branch's committed HEAD. Report the final categorized outcome.
 
+**Command — "closing" (one-shot close-out).** When the user's instruction contains the word
+**`closing`** (英語語 "closing" を含む場合), take the CURRENT worktree's work all the way to
+landed **without further confirmation** — run this sequence end-to-end for the active branch:
+
+1. **Commit** any uncommitted work in the worktree (scoped to your own paths, per the
+   worktree-isolation rules above).
+2. **PR create** — `git push -u origin <branch>` then `gh pr create --base main` (skip if a PR
+   already exists for the branch; reuse it).
+3. **Merge to repo** — merge the PR into `origin/main` (`gh pr merge <#> --squash --delete-branch`,
+   or the repo's standard merge). This is the explicit standing authorization to merge that the
+   `closing` keyword grants; do not ask again. If merge is blocked (failing required checks,
+   conflicts, review gates), STOP and report — do not force-merge past a real gate.
+4. **Cleanup** — run the **"worktree cleanup"** sweep above (delete the now-merged worktree +
+   branch via `ExitWorktree action: "remove"` / `git worktree remove` + `git branch -d`).
+
+`closing` is the single keyword that authorizes the otherwise-confirmation-gated merge step;
+absent it, stop at PR-open and leave merge to the user. Report the final state (PR URL, merge
+commit, worktrees removed).
+
 ## ADR Authority (per ADR-2605170900)
 
 **This repo is canonical for religious-corp open ADRs.**
@@ -480,7 +500,7 @@ Snapshot artifacts (run results) live under `90-docs/baien/`:
 
 > **These are IMPLEMENTATION decisions, not constitutional doctrine (per ADR-2606182359 lineage).**
 > The charter holds only **Tier-0 priorities (子・孫 wellbecoming / collective-over-individual /
-> 永久記憶) + the ECL objective function**. Substrate/engineering choices — RW-free (no RisingWave),
+> 永久記憶) + the ECL objective function**. Substrate/engineering choices — kotoba (no RisingWave),
 > the `payment.sent.purpose` enum, ad-blocklists, Murakumo-as-default, kotoba-as-canonical-state —
 > are **工学・governance 判断であって憲法ではない**: they can change at the implementation/governance
 > layer **without a charter amendment** (固定するのは priority; 手段=実装は固定しない). "CRITICAL"
@@ -494,7 +514,7 @@ Layer scored in `70-tools/scripts/charter/layer-classification.edn` + `classify.
 - **Tier-0 (fork-only — the priorities themselves + the few constitutional invariants)**: `Land trust` inalienability (J=9.05, donated land = waqf-equivalent, ADR-2605192245) · `Religious force` transparency invariant (§1.12.B) · `Content` no-CSAM = the catastrophe term (= priority non-negotiable). The four Tier-0 priorities (子孫 wellbecoming / collective / 永久記憶) sit above all of these.
 - **Tier-1 (derived policy — Council Lv7+)**: `License` default (Apache+Rider → ECL, J=8.40) · `Charter compliance` (3-tier) · **`Confidentiality` PRINCIPLE (暗号化≠忘却, J=7.95 — Tier-0-derived from permanent-memory; promoted from 実装 per the score)** · **`Server-side signing` / no-server-key (J=6.90 — non-custody/trustless invariant; promoted from 実装)** · `Content` Eros doctrine (consenting-adult only).
 - **目的関数 (objective-function-assessed, v3.5)**: `Advertising` · `GPU / inference` · the external-commercial line of `Payment purpose` (donation-spirit). These **score**, they do not categorically ban.
-- **実装 (engineering / governance — changeable WITHOUT a charter amendment)**: `State`/`Substrate` engine (kotoba, J=2.90) · `Read path` (kqe) · `Substrate client imports` (`@etzhayyim/sdk`) · `Payment` rails (USDC/Base/ERC-4337 mechanics) · `Identity` mechanics (DID-centric identity is the Tier-1 principle; the specific methods are impl) · `Confidentiality` **cipher** (XChaCha20/Signal choice, J=2.10) · `Server-side signing` **mechanics** (which keys/Safe, vs the no-server-key principle above) · RW-free (J=1.85).
+- **実装 (engineering / governance — changeable WITHOUT a charter amendment)**: `State`/`Substrate` engine (kotoba, J=2.90) · `Read path` (kqe) · `Substrate client imports` (`@etzhayyim/sdk`) · `Payment` rails (USDC/Base/ERC-4337 mechanics) · `Identity` mechanics (DID-centric identity is the Tier-1 principle; the specific methods are impl) · `Confidentiality` **cipher** (XChaCha20/Signal choice, J=2.10) · `Server-side signing` **mechanics** (which keys/Safe, vs the no-server-key principle above) · kotoba (J=1.85).
 
 A "Prohibited" cell in an **実装** row means "wrong engineering choice today," NOT "constitutional violation" — it changes at the implementation/governance layer. Tier-0 is immutable (fork-only); Tier-1 amends by Council Lv7+; 実装 changes freely. Note the principle/mechanism split: the *no-server-key principle* and the *encryption-not-forgetting principle* are Tier-1, but the *specific cipher / which-keys* are 実装. Engineering rules (changeable at the implementation layer):
 

@@ -9,13 +9,13 @@ last_verified: 2026-06-01
 priority: 7.0
 axis: organization
 weight: 0.70
-priority_note: "User-directed move (2026-06-01) of hakken's product-discovery ingest front to etzhayyim, overriding the same-day vendor-keep verdict of vendor ADR-2606011400 (Consensys pattern). Phase 1 (scaffold + ingest-core rw-free + lexicons + this ADR) lands now. Phase 2 (pipeline rehome) and Phase 3 (fulfillment via etzhayyim consent capability) deferred."
+priority_note: "User-directed move (2026-06-01) of hakken's product-discovery ingest front to etzhayyim, overriding the same-day vendor-keep verdict of vendor ADR-2606011400 (Consensys pattern). Phase 1 (scaffold + ingest-core kotoba + lexicons + this ADR) lands now. Phase 2 (pipeline rehome) and Phase 3 (fulfillment via etzhayyim consent capability) deferred."
 authoritative_for:
-  - hakken product-discovery ingest on the etzhayyim RW-free substrate
+  - hakken product-discovery ingest on the etzhayyim kotoba substrate
   - com.etzhayyim.apps.hakken.* record namespace
   - the etzhayyim/etzhayyim boundary for hakken (ingest front vs fulfillment tail)
 depends_on:
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605172400-etzhayyim-vendor-three-axis-split-rule
   - adr-2605202800-tsukuru-etzhayyim-business-model-change
 overrides:
@@ -68,8 +68,8 @@ etzhayyim/root rather than leaving it vendor-side.
    itself is separately etzhayyim-migrated per ADR-2605202800; its on-chain escrow-intent is
    a later option for hakken's OEM route.)
 
-3. **RW-free + on-chain.** Persistence is `@etzhayyim/sdk` `e.write()` → PDS XRPC createRecord
-   → MST + IPFS + Base L2 anchor. No Kotoba/Datomic. Mirrors tsukuru rw-free (ADR-2605202800
+3. **kotoba + on-chain.** Persistence is `@etzhayyim/sdk` `e.write()` → PDS XRPC createRecord
+   → MST + IPFS + Base L2 anchor. No Kotoba/Datomic. Mirrors tsukuru kotoba (ADR-2605202800
    Phase 2). Vendor floats are integer-encoded (`weightG` = kg×1000, `ratingMilli` = rating×1000)
    per the AT-Lexicon no-float rule.
 
@@ -94,10 +94,10 @@ nor settlement counterparty; etzhayyim remains both for any hakken-originated sa
 
 - **Phase 1 (this commit):** scaffold (`PROJECT.jsonld`, `kotodama.jsonld`, `OWNERS`,
   `CLAUDE.md`) + 4 lexicons (`ingestProduct`, `ingestSupplierCandidate`, `listProducts`,
-  `listSupplierCandidates`) + `rw-free/` ingest reference (`types.ts`, `ingest.ts`). Vendor
+  `listSupplierCandidates`) + `kotoba/` ingest reference (`types.ts`, `ingest.ts`). Vendor
   `hakken.etzhayyim.com` unchanged.
 - **Phase 2 (planned):** rehome the LangGraph discovery nodes to the etzhayyim Murakumo fleet,
-  writing through the rw-free ingest surface. kotoba product KG only; no RW.
+  writing through the kotoba ingest surface. kotoba product KG only; no RW.
 - **Phase 3 (deferred):** fulfillment via etzhayyim consent capability; optional on-chain
   escrow-intent OEM route reusing tsukuru's Phase 2 pattern.
 - **Phase 4 (planned):** vendor discovery-node sunset once etzhayyim ingest is stable.
@@ -129,7 +129,7 @@ nor settlement counterparty; etzhayyim remains both for any hakken-originated sa
 All migration PRs merged to `etzhayyim/root` main:
 
 - **#697 (merged)** — Phase 1 contract surface: scaffold + 4 `com.etzhayyim.apps.hakken.*`
-  lexicons + rw-free ingest reference.
+  lexicons + kotoba ingest reference.
 - **#724 (merged)** — **actual LangGraph pipeline code moved from vendor, VERBATIM** (no
   refactor): `lg/lg_hakken/` = `graph.py`, `state.py`, `edn.py`, `kotoba.py`,
   `kotoba_datomic.py`, and the 11 nodes (`trend_scan`, `gap_analysis`, `supplier_search`,
@@ -141,7 +141,7 @@ All migration PRs merged to `etzhayyim/root` main:
 **Code state:** the moved pipeline is **un-refactored by design** — it still references vendor
 `kotoba`/Kotoba/Datomic/Stripe and `com.etzhayyim.*` NSIDs. Per operator direction the refactor
 (RW → kotoba/PDS, Stripe tail → etzhayyim consent capability, `com.etzhayyim.*` → `com.etzhayyim.*`,
-wiring the pipeline to the rw-free ingest surface) happens **on the etzhayyim side** and is the
+wiring the pipeline to the kotoba ingest surface) happens **on the etzhayyim side** and is the
 remaining Phase 2/3 work. Vendor `hakken.etzhayyim.com` is unchanged (Phase 4 sunset still pending,
 after etzhayyim deploy proves stable).
 
@@ -155,5 +155,5 @@ code moves.
 - Vendor ADR-2606011400 — Consensys pattern (product front / infra back) [overridden for hakken placement]
 - Vendor ADR-2605270000 — hakken OEM product-discovery BMC-lean (origin design)
 - ADR-2605202800 — tsukuru full move to etzhayyim (business-model-change; sibling ingest actor)
-- ADR-2605172000 — etzhayyim RW-free substrate
+- ADR-2605172000 — etzhayyim kotoba substrate
 - ADR-2605172400 — etzhayyim 3-axis split rule

@@ -46,7 +46,10 @@
     (is (= 0 (get s "commissionMinor")))                ; G2
     (is (= 500000 (get s "titheMinor")))                ; G7
     (is (= 4500000 (get s "hostNetMinor")))
-    (is (= (get s "grossMinor") (+ (get s "titheMinor") (get s "hostNetMinor"))))))
+    (is (= (get s "grossMinor") (+ (get s "titheMinor") (get s "hostNetMinor"))))
+    (is (= "intent" (get s "state")))                    ; G11/G8: no operator ⇒ unsigned INTENT, not auto-executed
+    (is (= "executed"                                    ; G11: an operator-ref gates execution
+           (get (agent/build-settlement-intent 5000000 "did:plc:host" "op-ref-1") "state")))))
 
 (deftest test-no-server-key
   (is (= false (get (agent/build-settlement-intent 1 "h") "serverHeldKey"))))
@@ -57,7 +60,8 @@
         mem (agent/authorize-settlement s {"origin" "member" "ref" "sig"})]
     (is (get srv "refused"))
     (is (str/includes? (get srv "reason") "G8"))
-    (is (get mem "signed"))))
+    (is (get mem "signed"))
+    (is (= "executed" (get mem "state")))))             ; G11/G8: a member signature is what executes an intent
 
 ;; ── booking ──
 (deftest test-consent-required

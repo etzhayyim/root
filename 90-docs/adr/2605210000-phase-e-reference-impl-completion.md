@@ -1,4 +1,4 @@
-# ADR-2605210000: Phase E rw-free reference impl scaffold complete (25 actors)
+# ADR-2605210000: Phase E kotoba reference impl scaffold complete (25 actors)
 
 **Status**: ACTIVE
 **Supersedes**: none (extends ADR-2605203000 with completion milestone)
@@ -7,15 +7,15 @@
 
 ## Context
 
-[ADR-2605203000](/90-docs/adr/2605203000-rw-free-write-target-options.md) defined the Option B PDS XRPC pattern (`@etzhayyim/sdk e.write()`) replacing vendor's `createKyselyDb` direct-write pattern, per the [ADR-2605172000](/90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) RW-free substrate mandate.
+[ADR-2605203000](/90-docs/adr/2605203000-kotoba-write-target-options.md) defined the Option B PDS XRPC pattern (`@etzhayyim/sdk e.write()`) replacing vendor's `createKyselyDb` direct-write pattern, per the [ADR-2605172000](/90-docs/adr/2605172000-etzhayyim-kotoba-substrate.md) kotoba substrate mandate.
 
-This ADR records the **scaffold-layer completion** of that migration — every actor in `etzhayyim/root/60-apps/` that has lexicons under `00-contracts/lexicons/com/etzhayyim/<actor>/` now has a `rw-free/` reference implementation.
+This ADR records the **scaffold-layer completion** of that migration — every actor in `etzhayyim/root/60-apps/` that has lexicons under `00-contracts/lexicons/com/etzhayyim/<actor>/` now has a `kotoba/` reference implementation.
 
 ## Decision
 
-The Phase E reference impl scaffold layer is **structurally complete** at 25 actors. No more lexicons exist without a corresponding rw-free TypeScript module.
+The Phase E reference impl scaffold layer is **structurally complete** at 25 actors. No more lexicons exist without a corresponding kotoba TypeScript module.
 
-The next operator phase target is **execution-layer**: wiring rw-free packages to live CF Workers + LangServer pods + deploying.
+The next operator phase target is **execution-layer**: wiring kotoba packages to live CF Workers + LangServer pods + deploying.
 
 ## Actor coverage matrix
 
@@ -49,7 +49,7 @@ The next operator phase target is **execution-layer**: wiring rw-free packages t
 | narou | 11/11 | 11 | 11 | Web novel platform |
 | yoro | 23/23 | 23 | 23 | Federated social feed + actor + graph + feed |
 
-**Total**: 25 actor rw-free packages, ~315 commands, 161 vendor lexicons covered.
+**Total**: 25 actor kotoba packages, ~315 commands, 161 vendor lexicons covered.
 
 ## Trinity groupings
 
@@ -66,20 +66,20 @@ The 25 actors form three thematic trinities:
 
 ## Substrate boundary preserved (ADR-2605172000)
 
-All 25 actors comply with the RW-free substrate mandate:
+All 25 actors comply with the kotoba substrate mandate:
 - No `createKyselyDb()` calls — replaced with `e.write({ collection, record, rkey })`
 - No `env.HYPERDRIVE` bindings — purely PDS-resident
-- No fiat payment processors — substrate boundary respects open-banking ledger metadata only; on-chain settlement (USDC on Base L2) lives outside the rw-free package per ADR-2605172400 3-axis OR-test
+- No fiat payment processors — substrate boundary respects open-banking ledger metadata only; on-chain settlement (USDC on Base L2) lives outside the kotoba package per ADR-2605172400 3-axis OR-test
 - IPFS-backed blobs (kiyo / otakiage / houki) store CIDv1 only — no inline binary
 - Vault zero-knowledge invariant (dns authCode) enforced via `signal:v1:` prefix validation
 
 ## Pattern invariants
 
-Every rw-free package follows the same shape:
+Every kotoba package follows the same shape:
 
 ```
-60-apps/etzhayyim-project-<actor>/rw-free/
-├── package.json         — @etzhayyim/<actor>-rw-free, workspace dep on @etzhayyim/sdk
+60-apps/etzhayyim-project-<actor>/kotoba/
+├── package.json         — @etzhayyim/<actor>-kotoba, workspace dep on @etzhayyim/sdk
 ├── README.md            — coverage table + DID hierarchy + usage example
 └── src/
     ├── types.ts         — record types + Input/Output + slug/DID/rkey helpers + DID_PREFIX const
@@ -111,8 +111,8 @@ Three operator workstreams open in priority order:
 
 ### 1. CF Worker XRPC adapter wiring (CRITICAL)
 
-Each rw-free package needs a CF Worker that:
-- Imports the rw-free functions
+Each kotoba package needs a CF Worker that:
+- Imports the kotoba functions
 - Exposes them as XRPC handlers at `https://<actor>.etzhayyim.com/xrpc/<NSID>`
 - Authenticates via PDS session
 - Logs to Cloudflare Logpush
@@ -144,8 +144,8 @@ Lesson learned: agent self-reports must be verified via `gh pr view <N> --json m
 
 ## Related
 
-- [ADR-2605203000](/90-docs/adr/2605203000-rw-free-write-target-options.md) — Phase E write-target options (foundation)
-- [ADR-2605172000](/90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) — RW-free substrate (substrate mandate)
+- [ADR-2605203000](/90-docs/adr/2605203000-kotoba-write-target-options.md) — Phase E write-target options (foundation)
+- [ADR-2605172000](/90-docs/adr/2605172000-etzhayyim-kotoba-substrate.md) — kotoba substrate (substrate mandate)
 - [ADR-2605172400](/90-docs/adr/2605172400-etzhayyim-vendor-three-axis-split-rule.md) — 3-axis OR-test (vendor/etzhayyim boundary)
 - [ADR-2605152100](/90-docs/adr/2605152100-etzhayyim-github-org-boundary.md) — GitHub org split (this repo's scope)
 - `90-docs/260323-authority-chain-compliance-design.md` — Authority chain composition

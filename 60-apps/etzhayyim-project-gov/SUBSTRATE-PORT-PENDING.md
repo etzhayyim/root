@@ -33,6 +33,6 @@ This app is the etzhayyim-side **public-services hub** (`gov.etzhayyim.com`) —
 ## Cross-links
 
 - Source archive: `/Users/junkawasaki/github/etzhayyim-apps-etzhayyim/_archive/migrated-to-etzhayyim-2026-05-21/60-apps/etzhayyim-project-gov/`
-- Substrate rules: ADR-2605172000 (RW-free), ADR-2605172100 (substrate ladder)
+- Substrate rules: ADR-2605172000 (kotoba), ADR-2605172100 (substrate ladder)
 - Rename plan: ADR-2605214000 §3 atomic identifier cutover (still pending legal registration trigger)
 - Migration batch: ADR-2605212100 (referenced by DEPRECATED.md but missing — author as part of follow-up)

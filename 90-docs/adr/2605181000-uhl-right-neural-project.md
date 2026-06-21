@@ -15,11 +15,11 @@ authoritative_for:
   - 16-vertex Pregel topology (V01-V16) + substrate classifier (V06) as architectural hinge
   - 15-actor LangGraph fleet design
   - P0-P3 phasing with neural-substrate-first MVP
-  - ethical guardrails (informed consent default, human review default, RW-free PII handling)
+  - ethical guardrails (informed consent default, human review default, kotoba PII handling)
 depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
   - 2605171300
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp
 related:
   - adr-2605181040-uhl-medical-institution-registry
@@ -61,7 +61,7 @@ superseded_by: []
 - ADR-2605171300 で承認済の kotodama Pregel フレームワーク + LangGraph 18,343-agent fleet
 - ADR-2605180900 の langserver アーキテクチャ (Haiku-routed bulk, lazy registry, four call surfaces)
 - `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/` 配下の既存 actor 群 (`phenotype_agents`, `kenkyusha`, `eligibility` 等)
-- ADR-2605172000 の RW-free substrate
+- ADR-2605172000 の kotoba substrate
 
 ## 最新治療エビデンス (2025-2026)
 
@@ -92,7 +92,7 @@ superseded_by: []
 └── lexicons/                       # → 00-contracts/lexicons/jp/etzhayyim/med/uhl/
 ```
 
-**Public app (RW-free)**: `60-apps/open-otology-uhl-r/` — 患者・家族向け症例追跡 + 臨床医向け decision support UI
+**Public app (kotoba)**: `60-apps/open-otology-uhl-r/` — 患者・家族向け症例追跡 + 臨床医向け decision support UI
 
 **Lexicons**: `00-contracts/lexicons/jp/etzhayyim/med/uhl/*` (atproto NSID 経路)
 
@@ -246,7 +246,7 @@ P0 が最初の deliverable。P3 はパートナーシップ取得が前提。
 
 却下選択: V12 (central plasticity) の age × ear-side ロジックが完全に対称ではない (right ear advantage の喪失影響が言語処理で大きい)。当面 right から始め、left は知見蓄積後に sibling charter で扱う。
 
-## E. 60-apps の RW-free アプリを charter から外す
+## E. 60-apps の kotoba アプリを charter から外す
 
 却下: ADR-2605172000 に基づき、open scope のプロジェクトは公開可能 app を持つことが既定。`60-apps/open-otology-uhl-r/` を MVP に含める。
 
@@ -254,7 +254,7 @@ P0 が最初の deliverable。P3 はパートナーシップ取得が前提。
 
 - ADR-2605170900 — etzhayyim/root canonical home for open ADRs
 - ADR-2605171300 — Open-UNSPSC generative agent fleet (LangGraph + Pregel pattern)
-- ADR-2605172000 — RW-free substrate
+- ADR-2605172000 — kotoba substrate
 - ADR-2605180900 — UNSPSC + ISIC langserver four call surfaces
 - ADR-2605181040 — UHL-R 医療機関レジストリ schema (sibling)
 - ADR-2605181050 — UHL-R 海外 referral path (sibling)

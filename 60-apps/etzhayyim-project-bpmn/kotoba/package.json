@@ -1,0 +1,41 @@
+{
+  "name": "@etzhayyim/bpmn-kotoba",
+  "version": "1.0.0",
+  "description": "BPMN engine kotoba reference implementation (Phase E Option B)",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@etzhayyim/sdk": "workspace:*"
+  },
+  "devDependencies": {
+    "@etzhayyim/sdk-mock": "workspace:*",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^4.1.0"
+  },
+  "keywords": [
+    "bpmn",
+    "workflow",
+    "process-engine",
+    "etzhayyim",
+    "atproto",
+    "kotoba"
+  ],
+  "author": "Etzhayyim",
+  "license": "Apache-2.0"
+}

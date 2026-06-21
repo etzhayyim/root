@@ -11,7 +11,7 @@ depends_on:
   - 2605191113-ameno-active-inference-lexical-surprise
   - 2605191120-ameno-embedding-surprise-tier-c
 related:
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
 ---
 
 # ADR 2605191129: Ameno browser-local tool use — ReAct over JSON-tagged calls

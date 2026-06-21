@@ -10,7 +10,7 @@ depends_on:
   - 2605190824-ameno-mediapipe-llm-browser-runtime
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
 related:
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
 ---
 
 # ADR 2605191000: Ameno browser-side Pregel (LangGraph) with reflection loop

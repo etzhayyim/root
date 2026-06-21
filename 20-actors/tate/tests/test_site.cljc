@@ -113,7 +113,7 @@
     (is (and (str/includes? tp "⚠") (str/includes? tp "🛡")))))
 
 (deftest test-deploy-copy-in-sync
-  (let [deploy (clojure.java.io/file ts/HERE ".." ".." "50-infra" "etzhayyim-did-web" "public" "tate")]
+  (let [deploy (clojure.java.io/file (ts/here) ".." ".." "50-infra" "etzhayyim-did-web" "public" "tate")]
     (is (.exists deploy) "deploy copy missing — run site_gen --out .../public/tate")
     (let [deployed (set (for [f (.listFiles deploy)
                               :when (str/ends-with? (.getName f) ".html")]

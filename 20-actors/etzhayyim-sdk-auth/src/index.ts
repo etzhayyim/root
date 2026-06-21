@@ -17,7 +17,7 @@ export interface SessionEnv {
   PROJECTION_DISCOVER_DID?: string;
   /**
    * kotoba server base URL (e.g. `https://kotoba.etzhayyim.com`). When set,
-   * `yoro-rw-free` feed/graph/actor reads resolve through the kotoba Datom log
+   * `yoro-kotoba` feed/graph/actor reads resolve through the kotoba Datom log
    * (canonical state, ADR-2606013200) instead of the PDS/projection path.
    */
   KOTOBA_URL?: string;

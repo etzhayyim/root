@@ -1,0 +1,49 @@
+;; 樋 toi — seed (Compute as Thermal Routing: deferrable JOBS + compute SITES).
+;;
+;; A movable job is routed to the highest-scoring site:
+;;   site-score = 0.30·carbon-factor + 0.25·surplus-renewable + 0.20·cooling-factor
+;;              + 0.15·heat-sink-bonus + 0.10·transparency
+;; where carbon-factor = (baseline-ci − ci)/baseline-ci (cleaner = higher), cooling-factor
+;; rewards low PUE, heat-sink-bonus rewards a site whose waste heat feeds 燠 okibi, and
+;; transparency scores Murakumo/donated-mesh above commercial GPU (G2, ADR-2606172359).
+;; A non-movable job stays in-place (no routing benefit). Rows default to :representative.
+;;
+;; Designed cases:
+;;   clean Murakumo sites (cold-hydro / solar / wind) absorb all movable jobs;
+;;   commercial-gpu-warm is scored lowest and never chosen while clean capacity exists;
+;;   infer-urgent (movable=false) stays in-place.
+[
+ ;; ── sites ────────────────────────────────────────────────────────────────────
+ {:type :site :id "cold-hydro-mk" :name "Cold-region hydro (Murakumo)" :site-class :murakumo
+  :region "cold-hydro" :carbon-intensity 30 :surplus-renewable 0.90 :cooling-efficiency 1.08
+  :heat-demand-sink true :capacity-kwh 2000 :availability 0.90
+  :sourcing :authoritative :source "node grid carbon-intensity API + PUE telemetry (operator G7 ingest)"}
+ {:type :site :id "solar-day-mk" :name "Solar-day site (Murakumo)" :site-class :murakumo
+  :region "solar" :carbon-intensity 60 :surplus-renewable 0.85 :cooling-efficiency 1.25
+  :heat-demand-sink false :capacity-kwh 2500 :availability 0.75}
+ {:type :site :id "wind-night-mk" :name "Wind-night site (Murakumo)" :site-class :murakumo
+  :region "wind" :carbon-intensity 90 :surplus-renewable 0.70 :cooling-efficiency 1.20
+  :heat-demand-sink false :capacity-kwh 3000 :availability 0.80}
+ {:type :site :id "donated-mesh-mx" :name "Donated mesh (mixed grid)" :site-class :donated-mesh
+  :region "mixed" :carbon-intensity 250 :surplus-renewable 0.40 :cooling-efficiency 1.35
+  :heat-demand-sink true :capacity-kwh 1500 :availability 0.70}
+ {:type :site :id "commercial-gpu-warm" :name "Commercial GPU (warm grid)" :site-class :commercial-gpu
+  :region "warm-grid" :carbon-intensity 480 :surplus-renewable 0.10 :cooling-efficiency 1.60
+  :heat-demand-sink false :capacity-kwh 8000 :availability 0.99}
+
+ ;; ── jobs ─────────────────────────────────────────────────────────────────────
+ {:type :job :id "train-1" :name "LoRA training run" :job-class :training
+  :kwh 1500 :deferrable-h 12 :movable true :deadline-h 48
+  :sourcing :authoritative :source "Murakumo scheduler job log (operator G7 ingest)"}
+ {:type :job :id "batch-infer-1" :name "Batch inference sweep" :job-class :batch-inference
+  :kwh 800 :deferrable-h 8 :movable true :deadline-h 24}
+ {:type :job :id "render-1" :name "Scene render batch" :job-class :render
+  :kwh 600 :deferrable-h 6 :movable true :deadline-h 12}
+ {:type :job :id "index-1" :name "Corpus re-index" :job-class :indexing
+  :kwh 400 :deferrable-h 4 :movable true :deadline-h 8}
+ {:type :job :id "backup-1" :name "Cold backup pass" :job-class :backup
+  :kwh 200 :deferrable-h 24 :movable true :deadline-h 72}
+ {:type :job :id "infer-urgent" :name "Latency-bound inference (pinned)" :job-class :batch-inference
+  :kwh 300 :deferrable-h 0 :movable false :deadline-h 1
+  :note "not movable — stays in-place; demonstrates a job that cannot be routed"}
+]

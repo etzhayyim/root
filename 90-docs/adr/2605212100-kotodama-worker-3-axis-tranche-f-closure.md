@@ -14,10 +14,10 @@ status_note: "Audit phase complete (29 etzhayyim / 30 vendor / 11 SPLIT, n=70). 
 authoritative_for:
   - kotodama worker classification under the 3-axis OR-test
   - Phase 3 prerequisites for any worker deployment-surface migration to etzhayyim
-  - corrected helm chart ownership semantics (etzhayyim is RW-free, not a Vultr+Helm copy target)
+  - corrected helm chart ownership semantics (etzhayyim is kotoba, not a Vultr+Helm copy target)
 depends_on:
   - adr-2605172400-etzhayyim-vendor-three-axis-split-rule
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
   - adr-2605211200-etzhayyim-active-inference-organism-on-murakumo
   - adr-2605173100-gitguardian-incident-response
@@ -55,8 +55,8 @@ templates, K8s manifests, and DID web domains remained ambiguous.
 
 Three additional gates surfaced during the closure audit:
 
-1. **RW-free substrate boundary (ADRs 2605172000 + 2605172100)**:
-   etzhayyim is structurally RW-free. Any framing of "move helm
+1. **kotoba substrate boundary (ADRs 2605172000 + 2605172100)**:
+   etzhayyim is structurally kotoba. Any framing of "move helm
    templates to etzhayyim/root 50-infra" that assumed Vultr K8s +
    Kotoba/Datomic parity was conceptually invalid.
 
@@ -66,7 +66,7 @@ Three additional gates surfaced during the closure audit:
    2026-05-17. etzhayyim was 4 days behind on the same scrub at session
    start.
 
-3. **RW-free re-impl pattern (ADR-2605211200 Phase 2A-2D)**: the
+3. **kotoba re-impl pattern (ADR-2605211200 Phase 2A-2D)**: the
    active-inference organism rollout established the BeliefStore
    (per-actor SQLite PVC) pattern as the canonical way to keep a
    worker's runtime semantics while severing the RW dependency. This
@@ -81,7 +81,7 @@ Apply the 3-axis OR-test to every `*_worker_main.py` file (plus
 `dispatcher_main.py`, `agent_zeebe_worker_main.py`,
 `zeebe_worker_main.py`).
 
-**etzhayyim (29 / 41%)** — 3 axes clean, target for RW-free re-impl +
+**etzhayyim (29 / 41%)** — 3 axes clean, target for kotoba re-impl +
 deployment on etzhayyim substrate:
 
 - A-group: blockchain, gov, houbun, site_common_crawl,
@@ -116,7 +116,7 @@ runtime stays on etzhayyim:
 No worker's deployment-surface migrates to etzhayyim until ALL four
 gates are cleared:
 
-(a) **Per-worker RW-free re-implementation complete** for each of
+(a) **Per-worker kotoba re-implementation complete** for each of
 the 29 etzhayyim-classified workers, following the BeliefStore +
 SQLite PVC pattern established by ADR-2605211200 Phase 2A-2D for the
 8 organism workers (hakkou/kabi/ki/kinoko/kobo/koke/saikin +
@@ -229,8 +229,8 @@ For `50-infra/vultr/mitama-udf-pool/templates/` (22 templates):
 
 | Bucket | Templates | Phase 3 disposition |
 |--------|-----------|---------------------|
-| stays vendor, RW-free re-impl pending | 11 (cronjob-houbun-egov, cronjob-site-common-crawl, curpus2skill-worker, houbun-worker, legal-entity-worker, site-common-crawl-worker, public-malak-worker, public-malak-smoke-{cronjob,job,prometheusrule}.yaml, \_public-malak-smoke.tpl) | RW-free re-impl in etzhayyim/root; vendor helm continues unchanged |
-| RW-free re-impl active under ADR-2605211200 | 2 (lg-organism, organism-workers) | Phase 2A-2D in progress; target = etzhayyim hardware host, NOT Vultr+RW |
+| stays vendor, kotoba re-impl pending | 11 (cronjob-houbun-egov, cronjob-site-common-crawl, curpus2skill-worker, houbun-worker, legal-entity-worker, site-common-crawl-worker, public-malak-worker, public-malak-smoke-{cronjob,job,prometheusrule}.yaml, \_public-malak-smoke.tpl) | kotoba re-impl in etzhayyim/root; vendor helm continues unchanged |
+| kotoba re-impl active under ADR-2605211200 | 2 (lg-organism, organism-workers) | Phase 2A-2D in progress; target = etzhayyim hardware host, NOT Vultr+RW |
 | SPLIT (vendor runtime stays Vultr) | 4 (dispatcher, zeebe-worker, cronjob-shinka, deployment mitama-udf) | open spec extracted to etzhayyim as ADR/lexicon; runtime stays on Vultr |
 | chart-wide infrastructure | 5 (service / serviceaccount / hpa / pdb / servicemonitor) | no mirror; etzhayyim deploy surface is different manifest system |
 
@@ -285,7 +285,7 @@ had no password enforcement at the time of the leak; rotation to
 
 **Negative / risks**
 
-- **29-worker RW-free re-impl is a large body of work.** ADR-2605211200
+- **29-worker kotoba re-impl is a large body of work.** ADR-2605211200
   Phase 2A-2D only covers 8 of the 29 at the design level. The remaining 21
   (gov / hakkou / houbun / kareyanagi / kiyome / curpus2skill /
   legal-entity / common-crawl / ge / hub / oshiete / resources /
@@ -325,7 +325,7 @@ had no password enforcement at the time of the leak; rotation to
 2. **`@etzhayyim/kotodama` npm workspace package wrapping the 29
    etzhayyim workers, consumed by etzhayyim as a dependency**. This is
    the SSoT direction long-term (per Tranche F closure summary
-   2026-05-18 §6) but requires (a) RW-free re-impl first — i.e. it
+   2026-05-18 §6) but requires (a) kotoba re-impl first — i.e. it
    is the *result* of gate (a), not an alternative to it.
 
 3. **Skip the source-level secret scrub and only rotate the
@@ -337,7 +337,7 @@ had no password enforcement at the time of the leak; rotation to
 # References
 
 - ADR-2605172400 (etzhayyim/vendor 3-axis split rule + Tranche F scope)
-- ADR-2605172000 (etzhayyim RW-free substrate)
+- ADR-2605172000 (etzhayyim kotoba substrate)
 - ADR-2605172100 (payments on-chain only)
 - ADR-2605211200 (etzhayyim active-inference organism on murakumo, Phase 2A-2D BeliefStore pattern)
 - ADR-2605173100 (GitGuardian Kotoba/Datomic credential-leak incident response)

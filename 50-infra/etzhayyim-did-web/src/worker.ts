@@ -635,7 +635,7 @@ ADR-2605240200 (Kaizen self-reflection) + 2605232345 / 2605240000 (organism) + 2
 // Service binding name — populated from wrangler.toml [[services]] block.
 interface Env {
   YORO: Fetcher;
-  // Substrate-side XRPC adapter (rw-free reference impl). Service binding
+  // Substrate-side XRPC adapter (kotoba reference impl). Service binding
   // to `yoro-xrpc-adapter` — bypasses the public HTTP hop and CF Bot
   // Management. Per ADR-2605172000: reads MUST resolve through MST/IPFS/L2,
   // never through the etzhayyim.com PDS+AppView+RisingWave chain.
@@ -689,14 +689,14 @@ interface Env {
 //
 // Per ADR-2605172000, app.bsky.* read NSIDs MUST resolve through the
 // MST/IPFS/L2 substrate via `yoro-xrpc-adapter` (which exposes the
-// rw-free reference impl under the `com.etzhayyim.yoro.*` NSID family). The
+// kotoba reference impl under the `com.etzhayyim.yoro.*` NSID family). The
 // yoro frontend still sends the standard `app.bsky.*` NSIDs unchanged;
 // this Worker rewrites them to the substrate-side equivalent before
 // dispatching through the service binding.
 //
 // Reads enumerated here SHORT-CIRCUIT the etzhayyim.com PDS proxy below.
 // Writes (createRecord, like, repost, follow, etc.) still flow through
-// the legacy path until the rw-free write path lands — they are not in
+// the legacy path until the kotoba write path lands — they are not in
 // this map.
 const SUBSTRATE_NSID_ALIASES: Record<string, string> = {
   // NOTE: the feed/profile read NSIDs (getTimeline / getDiscoverFeed /
@@ -715,7 +715,7 @@ const SUBSTRATE_NSID_ALIASES: Record<string, string> = {
 };
 
 // Identity-passthrough prefixes that route to YORO_XRPC unchanged. Used for
-// NSID families already in their canonical rw-free shape (no app.bsky.* →
+// NSID families already in their canonical kotoba shape (no app.bsky.* →
 // com.etzhayyim.yoro.* rewrite needed). The xrpc-adapter exposes these directly.
 const SUBSTRATE_PASSTHROUGH_PREFIXES: readonly string[] = [
   "com.etzhayyim.apps.unispsc.",
@@ -1034,7 +1034,7 @@ const ACTOR_JSON_HEADERS: Record<string, string> = {
 // Headers we strip from the upstream response. `set-cookie` is dropped because
 // etzhayyim.com is a cookie-free zone by constitutional design — see
 // /CHARTER-RIDER.md §2(c) (no surveillance / trackers) + ADR-2605172000
-// (RW-free substrate, identity = DID + WebAuthn, not cookies).
+// (kotoba substrate, identity = DID + WebAuthn, not cookies).
 const STRIPPED_RESPONSE_HEADERS = new Set([
   "set-cookie",
   "content-security-policy",
@@ -1773,7 +1773,7 @@ a{color:inherit}
     //    Worker handles every actor; new actors are added by appending
     //    to XRPC_ROUTES rather than spinning up a new subdomain.
     //
-    //    Substrate short-circuit: if the NSID has a rw-free equivalent
+    //    Substrate short-circuit: if the NSID has a kotoba equivalent
     //    (see SUBSTRATE_NSID_ALIASES) and the YORO_XRPC service binding
     //    is configured, route to the adapter instead of the etzhayyim.com
     //    upstream. Per ADR-2605172000, reads MUST resolve through MST.

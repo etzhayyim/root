@@ -35,7 +35,7 @@ node 50-infra/e7m-wasm-runner/runner.mjs --did did:web:etzhayyim.com:actor:kyber
 
 ## Honest scope
 - **PoC**: proves the actor model end-to-end for the WRITE path (the verified `kqe.assert-quad`
-  pattern). The full 28-command surface + exact rw-free parity is the plan in
+  pattern). The full 28-command surface + exact kotoba parity is the plan in
   `../../WORKER-AS-WASM-ACTOR-MIGRATION.md`.
 - Reads use `kqe.query`; the kotoba Datalog dialect is host-verified, so they degrade honestly
   rather than shipping a guessed query as fact.

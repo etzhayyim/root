@@ -13,7 +13,7 @@ FHIR R5 互換の電子カルテ。Patient / Encounter / SOAP / Observation / Co
 
 | 規約 | 適用 |
 |---|---|
-| RW-free substrate (ADR-2605172000) | ✅ AT MST + IPFS + Base L2 のみ。RisingWave / Postgres 不使用 |
+| kotoba substrate (ADR-2605172000) | ✅ AT MST + IPFS + Base L2 のみ。RisingWave / Postgres 不使用 |
 | 暗号化 envelope (ADR-2605181100) | ✅ 全 PHI は `com.etzhayyim.encrypted.record` envelope。XChaCha20-Poly1305 + Signal key-wrap |
 | Payments on-chain (ADR-2605172100) | ✅ 自費診療は USDC + ERC-4337。保険請求 (社保/国保) は vendor 側 (`iryo.etzhayyim.com`) progressive enhancement |
 | Charter Rider v2.0 (ADR-2605192200) | ✅ Apache 2.0 + Rider |
@@ -180,6 +180,6 @@ etzhayyim deploy --smoke-url https://karu7t3e.etzhayyim.com/health
 
 - ADR-2605231100 (karute EMR Phase 1) — `90-docs/adr/2605231100-karute-emr-phase1.md`
 - ADR-2605181100 (encrypted records + Signal keywrap)
-- ADR-2605172000 (RW-free substrate)
+- ADR-2605172000 (kotoba substrate)
 - ADR-2605172100 (payments on-chain)
 - ADR-2605192100 (etzhayyim mission charter)

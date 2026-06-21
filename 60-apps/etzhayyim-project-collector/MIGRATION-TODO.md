@@ -2,7 +2,7 @@
 
 **Status**: 🔄 TRANSFORM — seed copied 2026-05-21, codemod pending.
 
-**Codemod required**: data collector — §2(c) check + RW-free
+**Codemod required**: data collector — §2(c) check + kotoba
 
 ## Substrate-boundary checks (per CLAUDE.md)
 

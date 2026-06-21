@@ -8,7 +8,7 @@ import {
   extractBearerToken,
   type Etzhayyim,
 } from "@etzhayyim/sdk-auth";
-import * as rwFree from "@etzhayyim/koke-rw-free";
+import * as rwFree from "@etzhayyim/koke-kotoba";
 
 interface Env {
   ACTOR_DID: string;

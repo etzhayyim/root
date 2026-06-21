@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {"dev": "wrangler dev", "deploy": "wrangler deploy"},
-  "dependencies": {"@etzhayyim/sdk": "workspace:*", "@etzhayyim/open-denki-rw-free": "workspace:*"},
+  "dependencies": {"@etzhayyim/sdk": "workspace:*", "@etzhayyim/open-denki-kotoba": "workspace:*"},
     "@etzhayyim/sdk-auth": "workspace:*",
   "devDependencies": {"@cloudflare/workers-types": "^4.20240712.0", "wrangler": "^3.78.0", "typescript": "^5.5.0"}
 }

@@ -45,7 +45,7 @@ pnpm dev project --check   # exit non-zero if a fresh projection differs from ou
 Add `--repo-root <path>` to point at a different monorepo checkout (defaults to two levels up from this
 package — i.e. the `etzhayyim/root` repo root).
 
-## RW-free guarantee
+## kotoba guarantee
 
 This package has **no** dependency on RisingWave / Postgres / Kysely / any centralized database. Its only
 runtime dependencies are `smol-toml` and `yaml` (pure-JS parsers). Per ADR-2605172000 the projector lives

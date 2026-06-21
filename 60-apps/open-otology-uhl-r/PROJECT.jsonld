@@ -3,7 +3,7 @@
   "@id": "did:web:open-otology-uhl-r.etzhayyim.com",
   "name": "open-otology-uhl-r",
   "displayName": "Open Otology — UHL-R (right-sided congenital SNHL, neural axis)",
-  "description": "Public RW-free AppView for the uhl-right-neural Pregel project. 16-vertex StateGraph with neural-substrate (V06 4-way) as architectural hinge. Decision support only — every output enforces requires_human_review.",
+  "description": "Public kotoba AppView for the uhl-right-neural Pregel project. 16-vertex StateGraph with neural-substrate (V06 4-way) as architectural hinge. Decision support only — every output enforces requires_human_review.",
   "license": "Apache-2.0",
   "datasetLicense": "CC-BY-4.0",
   "charter": "90-docs/adr/2605181000-uhl-right-neural-project.md",

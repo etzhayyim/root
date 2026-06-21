@@ -20,8 +20,15 @@ Hard invariants encoded so they are structurally unrepresentable, not policy:
   - no person-tracking (G7/G12): no continuous-location field; only origin/destination +
     ephemeral match state.
 
-LLM (ETA narration) is Murakumo-only (G9). R0/R1 computes plans + settlement intents; live
-dispatch + actuation are Council Lv6+ + operator gated (G10).
+LLM (ETA narration) is Murakumo-only (G9). R0/R1 computes plans + settlement intents.
+
+R2-autonomy / G10 honesty (FINDING 260617): an autonomously-built settlement intent defaults
+`operatorRef` to "autonomous_r2" when no operator is supplied — the operator flag on the INTENT
+is relaxed. This does NOT relax no-server-key (G5/G7): the binding `authorize_settlement` still
+REFUSES a server origin and requires a member signature (`serverHeldKey` stays False, member is
+the write author — the ibuki/mimamori member-capability discipline, ADR-2606111400/2605231525),
+and live dispatch / actuation near persons remains Council Lv6+ (Lv7+ autonomous-near-persons)
+gated (G10). So autonomy is preserved without a platform-held key.
 """
 from __future__ import annotations
 
@@ -133,7 +140,9 @@ def build_settlement_intent(gross_minor: int, carrier_did: str,
                             operator_ref: str | None = None) -> dict:
     """Settle the pooled cost-share. gross = the riders' collected cost-share; tithe 10% (G4);
     carrierReimbursement = gross − tithe (fuel/wear recovery, NOT wage); driverWage ≡ 0 (G1).
-    R2 Autonomous: operator_ref is no longer required for execution."""
+    G10 (FINDING 260617): execution is gated. WITH an operator_ref the intent is operator-executed
+    (state='executed'); WITHOUT one it stays an 'intent' that only a MEMBER signature can execute
+    (authorize_settlement) — the server never auto-executes (G5/G7 no-server-key, never relaxed)."""
     gross = int(gross_minor)
     tithe = (gross * TITHE_BPS) // 10_000
     reimbursement = gross - tithe
@@ -146,7 +155,9 @@ def build_settlement_intent(gross_minor: int, carrier_did: str,
         "carrierDid": carrier_did,
         "titheRouter": "50-infra/etzhayyim-tithe-router",
         "serverHeldKey": False,                        # G5 invariant
-        "state": "executed",                           # R2 Autonomous
+        "state": "executed" if operator_ref else "intent",  # G10: operator-gated execution;
+                                                       # absent an operator it stays an intent that
+                                                       # a member signature must execute (G5/G7)
         "operatorRef": operator_ref or "autonomous_r2",
         "signed": False,
     }
@@ -161,4 +172,5 @@ def authorize_settlement(settlement: dict, signature: dict) -> dict:
     if settlement.get("serverHeldKey"):
         return {**settlement, "signed": False, "refused": True,
                 "reason": "settlement carries a server-held key — invariant violation (G5)"}
-    return {**settlement, "signed": True, "signatureRef": signature.get("ref")}
+    # member signature authorizes → the intent transitions to executed (member is the write author)
+    return {**settlement, "signed": True, "state": "executed", "signatureRef": signature.get("ref")}

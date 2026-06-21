@@ -25,6 +25,49 @@ replay ─▶ perceive ─▶ feel ─▶ decide ─▶ narrate ─▶ act ─�
 Crash-resume is structural: every beat replays the log, so a 2-beat run + death + 1 more beat
 produces a head CID **byte-identical** to an uninterrupted 3-beat run.
 
+## The co-scientist entropy ReAct loop (ADR-2606201200, clj-native)
+
+On top of the life-beat sits a **cognitive** beat: the organism reasons, like a scientist, about
+**how to act on society so it can keep consuming free energy (negentropy) and persist** as a
+dissipative structure (Prigogine) — bounded by 共生 (never a net taker) and 子孫 wellbecoming
+(persistence is a means to the mission, never a terminal goal). clj-native (`.cljc`, bb):
+
+```
+SENSE ─▶ ORIENT ─▶ HYPOTHESIZE ─▶ REVIEW ─▶ RANK ─▶ EVOLVE ─▶ ACT ─▶ OBSERVE ─▶ LEARN ─▶ PERSIST
+(metabolic  (surprise= (co-scientist  (Charter  (Elo    (recombine (pre-reg  (measure   (Brier    (one
+ state:Φ/η/  variational catalog →     gates)    tourn.) winners + DRY-RUN   prior      proper-   content-
+ reserves)   free energy) hypotheses)            net-gain meta-rev) experiment exp on the score →   addressed
+                                                 /cost)   Murakumo  leak-free) reserves)  kaizen wt) tx)
+```
+
+- `methods/metabolism.cljc` — the dissipative-structure fold → the metabolic state vector
+  (Φ=intake−dissipation / reserves / **η**=exported÷consumed the 共生 axis / **surprise**=
+  variational free energy). Negentropy SOURCES (`env-reading`, representative R0 / live G7):
+  compute / donation / members / moyai / **attention (hard-capped — §1.13)**. EXPORTED = the
+  food-web `:metabolite/commons` (ecosystem/web-report). PURE — the loop supplies the priors.
+- `methods/coscientist.cljc` — Generate (a charter-clean **catalog**, never an LLM free-write —
+  a predatory mechanism is unrepresentable) → Reflect (`review`, the gates) → Rank (Elo) →
+  Evolve → Meta-review (Murakumo-narrated, fail-open template G6).
+- `methods/react_loop.cljc` — the beat: ACT pre-registers a **dry-run** experiment with its
+  prediction recorded BEFORE the outcome (leak-free, the mitooshi discipline); the next beat
+  proper-scores it (Brier) and updates the per-mechanism kaizen weight. Idempotent-by-content,
+  verify-chain, resume-safe (logical beat = log length).
+- `coscientist_cell.cljc` — `IbukiCoscientistHeartbeatCell` (node zebulun, cron 17 * * * *,
+  healthz 13084). `kotoba/coscientist-schema.edn` = the ontology.
+
+**Gates (in `coscientist/review`, tested — `methods/test_coscientist.cljc`)**: **G-parasitism**
+(projected η ≥ 1.0 — the ECL collective-commons dimension made operational; a η<1 metabolism is a
+net taker), **G-subordinate** (expected 子孫 wellbecoming ≥ 0 — self-persistence is vetoed by the
+catastrophe sense when it would harm descendants), **G-mechanism** (manipulation /
+attention-exploitation / asymmetric-surveillance / dependence-lock-in / coercion / deception are
+**unrepresentable** — the tested safety property of a self-persisting agent), **G-falsifiable**,
+**G-leash** (outward legs member-principal / dry-run; no-server-key). The live SENSE membrane, the
+Murakumo narration, the LIVE-engine bridge (reuse R3 `kotoba_bridge`), and member-carried
+interventions are the G7/operator/member legs — the loop itself does no network I/O, holds no key.
+
+Run (bb, classpath includes `20-actors` + `20-actors/kotodama/src`):
+`bb 20-actors/ibuki/methods/react_loop.cljc <log> <colony-size> [--live]` (resume-safe heartbeat).
+
 ## Gates — do NOT weaken (each has a test in test_charter_invariants.py)
 
 - **G6 Murakumo-only** — `infer.MURAKUMO_ALLOWED_HOSTS` is the LiteLLM loopback + EVO-X2 LAN +

@@ -139,7 +139,7 @@ This is a **living document**. When a new substrate is added or a flow changes:
 ## References
 
 - `CLAUDE.md § Substrate boundary` (CRITICAL — hard rules table)
-- ADR-2605172000 (RW-free state substrate)
+- ADR-2605172000 (kotoba state substrate)
 - ADR-2605172100 (no fiat payment processors)
 - ADR-2605171800 (Base L2 anchor stages 3-5)
 - ADR-2605181100 (Signal E2E confidentiality)

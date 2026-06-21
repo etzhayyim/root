@@ -18,7 +18,7 @@ depends_on:
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192115-etzhayyim-non-profit-donation-only-no-ads
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
   - adr-2605181100-mst-encrypted-records-signal-keywrap
   - adr-2605231400-kotoba-datomic-holochain-iso-substrate
@@ -339,7 +339,7 @@ None of them require signing capability:
 - ADR-2605192100 (Mission Charter)
 - ADR-2605192115 (No Advertising / No Purchase Purpose)
 - ADR-2605192200 (Charter Compliance Rider v2.0)
-- ADR-2605172000 (RW-free State Substrate)
+- ADR-2605172000 (kotoba State Substrate)
 - ADR-2605172100 (No Fiat Payment Processors)
 - ADR-2605181100 (MST Encrypted Records — Signal KeyWrap)
 - ADR-2605231400 (kotoba-datomic Holochain-Iso Substrate)

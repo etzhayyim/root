@@ -1,7 +1,7 @@
 # open-isco — kotoba-native pilot (Datom + clj→WASM)
 
 ISCO Workforce Coordinator の **kotoba-datomic / kotoba-clj→WASM** 移行 pilot。
-従来の `rw-free/` (TypeScript + AT-PDS 書き込み) 経路に対し、`query.ts` の
+従来の `kotoba/` (TypeScript + AT-PDS 書き込み) 経路に対し、`query.ts` の
 `CHARTER-VIOLATION §substrate` が要求する「中央集権 DB → kqe-over-Datom-log」
 substrate (ADR-2605262130 + ADR-2605312345) 側の実装をここに置く。
 

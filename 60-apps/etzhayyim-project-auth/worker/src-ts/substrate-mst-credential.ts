@@ -1,7 +1,7 @@
 /**
  * substrate-mst-credential.ts — encrypted MST seam for auth credentials.
  *
- * Per ADR-2605172000 (RW-free substrate) + ADR-2605181100 (encrypted
+ * Per ADR-2605172000 (kotoba substrate) + ADR-2605181100 (encrypted
  * MST records via Signal-wrapped XChaCha20-Poly1305 envelopes).
  *
  * Auth credentials (passkey, OAuth link, email magic-link verifier, SMS

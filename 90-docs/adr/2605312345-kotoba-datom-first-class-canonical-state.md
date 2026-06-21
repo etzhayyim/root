@@ -17,7 +17,7 @@ authoritative_for:
   - "reframing of Base L2 as trust anchor over the Datom commit-DAG root"
 depends_on:
   - adr-2605262130-kotoba-storage-substrate-unification
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
   - adr-2605181100-mst-encrypted-records-signal-keywrap
 related:
@@ -91,7 +91,7 @@ reconstructible from MST+IPFS+L2 (that property is preserved, not the authority 
   log indexes/mirrors them; it does **not** become their write home.
 - **C2 — Encrypted wire format unchanged.** `com.etzhayyim.encrypted.*` (ADR-2605181100/181200)
   is the bit-identical envelope; Datoms carry ciphertext, never plaintext private records on MST.
-- **C3 — RW-free preserved.** No Kotoba/Datomic / Postgres / Lance / DuckDB / SQLite as
+- **C3 — kotoba preserved.** No Kotoba/Datomic / Postgres / Lance / DuckDB / SQLite as
   projection, cache, or read backend (ADR-2605172000 + 2605262130 D7/N8).
 - **C4 — No-server-key preserved.** etzhayyim-operated infra holds no signing key; the
   Datom-log indexer is a read-only surface (ADR-2605231525). MST commits are member-signed.
@@ -133,7 +133,7 @@ reconstructible from MST+IPFS+L2 (that property is preserved, not the authority 
 # References
 
 - ADR-2605262130 — Kotoba as Canonical Storage Substrate (parent; this ADR clarifies its layering)
-- ADR-2605172000 — RW-free substrate
+- ADR-2605172000 — kotoba substrate
 - ADR-2605181100 / 181200 — `com.etzhayyim.encrypted.*` wire format
 - ADR-2605215000 — Murakumo-only inference
 - ADR-2605231525 — no-server-key religious-corp architecture

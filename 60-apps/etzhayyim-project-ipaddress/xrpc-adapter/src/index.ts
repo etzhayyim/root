@@ -1,12 +1,12 @@
 /**
  * ipaddress XRPC adapter — CF Worker.
  *
- * Wires the rw-free reference impl (37 pure TS functions across 12 tiers)
+ * Wires the kotoba reference impl (37 pure TS functions across 12 tiers)
  * into a deployable CF Worker that exposes each function as an XRPC endpoint
  * at https://ipaddress.etzhayyim.com/xrpc/com.etzhayyim.apps.ipaddress.<cmd>
  *
  * Per ADR-2605210000 first execution-layer demonstration. Instantiates the
- * Etzhayyim SDK from env bindings (PDS_URL + session), calls the rw-free
+ * Etzhayyim SDK from env bindings (PDS_URL + session), calls the kotoba
  * function with parsed input, returns the result as JSON, and maps status
  * codes to HTTP responses.
  *
@@ -14,7 +14,7 @@
  */
 
 import { createAuthedEtzhayyim, extractBearerToken } from "@etzhayyim/sdk-auth";
-import * as ipaddressRwFree from "@etzhayyim/ipaddress-rw-free";
+import * as ipaddressRwFree from "@etzhayyim/ipaddress-kotoba";
 
 interface Env {
   ACTOR_DID: string;

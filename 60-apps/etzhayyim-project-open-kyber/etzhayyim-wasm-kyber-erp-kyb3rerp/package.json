@@ -6,7 +6,7 @@
   "type": "module",
   "dependencies": {
     "@etzhayyim/kotodama-host-sdk": "workspace:*",
-    "@etzhayyim/open-kyber-rw-free": "workspace:*",
+    "@etzhayyim/open-kyber-kotoba": "workspace:*",
     "@etzhayyim/sdk": "workspace:*"
   }
 }

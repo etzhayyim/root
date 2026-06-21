@@ -10,7 +10,7 @@ related:
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
 V05182312-local-bring-up-murakumo-gemma4
 depends_on:
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
 ---
 
 # ADR 2605190824: Ameno MediaPipe LLM Inference Web — third browser kernel
@@ -57,7 +57,7 @@ ameno は Tier 2 として **「ブラウザで `.task` を直接焼ける」** 
 
 ### Substrate boundary 整合
 
-ADR-2605172000 + 2605172100 の RW-free / payment-on-chain ルールに変更なし。MediaPipe は **推論 kernel 差し替えのみ**で、saveResult / listHistory / LoRA adapter 配信は既存 XRPC → bpmn-dispatcher 経路を不変で流用する。MediaPipe 本体は WASM/JS バイナリ提供で C SDK の動的 link は無し → CSP `wasm-unsafe-eval` 1 つで足りる。
+ADR-2605172000 + 2605172100 の kotoba / payment-on-chain ルールに変更なし。MediaPipe は **推論 kernel 差し替えのみ**で、saveResult / listHistory / LoRA adapter 配信は既存 XRPC → bpmn-dispatcher 経路を不変で流用する。MediaPipe 本体は WASM/JS バイナリ提供で C SDK の動的 link は無し → CSP `wasm-unsafe-eval` 1 つで足りる。
 
 ## Consequences
 
@@ -75,7 +75,7 @@ ADR-2605172000 + 2605172100 の RW-free / payment-on-chain ルールに変更な
 ## References
 
 - ADR-2605171800 (LangGraph MST IPFS L2 anchor pipeline)
-- ADR-2605172000 (etzhayyim RW-free substrate)
+- ADR-2605172000 (etzhayyim kotoba substrate)
 - ADR-2605182312 (Local bring-up Murakumo Gemma4)
 - MediaPipe LLM Inference Web docs: `https://ai.google.dev/edge/mediapipe/solutions/genai/llm_inference/web_js`
 - `litert-community/Gemma3-1B-IT` / Google LiteRT Gemma 3n bundle

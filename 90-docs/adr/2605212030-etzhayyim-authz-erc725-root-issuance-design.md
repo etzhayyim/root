@@ -17,7 +17,7 @@ authoritative_for:
   - org.etzhayyim.authz.* lexicon namespace
 related:
   - "ADR-2605211950 (substrate centralization axis)"
-  - "ADR-2605172000 (etzhayyim RW-free substrate)"
+  - "ADR-2605172000 (etzhayyim kotoba substrate)"
   - "ADR-2605172100 (etzhayyim payments on-chain only)"
   - "ADR-2605171800 (langgraph MST IPFS L2 anchor pipeline)"
   - "ADR-2605192100 (etzhayyim mission charter)"
@@ -144,7 +144,7 @@ The `org.etzhayyim.*` namespace mirrors the existing `org/etzhayyim/yobel/` patt
 
 - ADR-2605211950 — substrate centralization axis
 - ADR-2605172100 — etzhayyim payments on-chain only
-- ADR-2605172000 — etzhayyim RW-free substrate
+- ADR-2605172000 — etzhayyim kotoba substrate
 - ADR-2605171800 — langgraph MST IPFS L2 anchor pipeline
 - ADR-2605192100 — etzhayyim mission charter
 - ADR-2605192300 — Council governance

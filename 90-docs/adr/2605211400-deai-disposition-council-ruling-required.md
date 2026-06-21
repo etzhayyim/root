@@ -10,7 +10,7 @@ authoritative_for:
   - deai.etzhayyim.com (vendor) → ? (etzhayyim move target | SPLIT | vendor confirmed) disposition
   - Council Lv6+ ruling agenda item
 related:
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605172400-etzhayyim-vendor-three-axis-split-rule
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605211335-tranche-f-session-closure-category-a-split
@@ -146,7 +146,7 @@ Don't file this ADR; let deai sit in vendor with mismatched kotodama declaration
 
 # References
 
-- ADR-2605172000 — etzhayyim RW-free substrate (Custody constraints)
+- ADR-2605172000 — etzhayyim kotoba substrate (Custody constraints)
 - ADR-2605172400 — vendor 3-axis split rule (Re-judgment triggers)
 - ADR-2605192100 — etzhayyim Mission Charter (§1.4 / §1.13 / §2(g))
 - ADR-2605192300 — Bootstrap Council (Lv6+ ruling authority)

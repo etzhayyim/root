@@ -197,7 +197,7 @@ shim) is **dry-run-default**. `launchctl load` is gated on:
 ### Constitutional & substrate-fit checks
 
 - **State**: LSP is **computation only**. No MST / IPFS / L2 writes from
-  this substrate. Passes ADR-2605172000 RW-free check.
+  this substrate. Passes ADR-2605172000 kotoba check.
 - **Payment**: none. Passes ADR-2605172100.
 - **License**: Apache 2.0 + Charter Compliance Rider v2.0 (per ADR-2605192200).
 - **Operating entity**: all artifacts use `etzhayyim-` prefix. No `etzhayyim-`

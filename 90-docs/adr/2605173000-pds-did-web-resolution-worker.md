@@ -18,7 +18,7 @@ authoritative_for:
   - the verificationMethod posture (empty in v1, TLS-only at this layer)
 depends_on:
   - adr-2605172800-geth-private-migration-to-etzhayyim
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
 related: []
 supersedes: []
 superseded_by: []

@@ -11,7 +11,7 @@ authoritative_for:
   - Category A "BPMN-only SPLIT" pattern generalization (33 actors)
   - Cross-repo overlap classification 7-category taxonomy
 related:
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605172400-etzhayyim-vendor-three-axis-split-rule
   - adr-2605211000
 depends_on:
@@ -33,7 +33,7 @@ The 2026-05-21 working session executed a Tranche F status sweep across both `et
 Inputs to the sweep:
 
 - Tranche F catalog (ADR-2605172400) judged ~520 items A/B/C-group + vendor-confirmed
-- Phase E/F milestone (2026-05-21) reported 25 rw-free actors at 100% + 25 worker XRPC adapters
+- Phase E/F milestone (2026-05-21) reported 25 kotoba actors at 100% + 25 worker XRPC adapters
 - 16 `[[migrations]] category = "etzhayyim-split"` entries existed in vendor `deps.toml` before the sweep
 - Cross-repo file presence revealed 45 actors present in both repos
 - 7 new vendor projects landed post-freeze (2026-05-17 → 2026-05-20)
@@ -61,9 +61,9 @@ The 45 actors with identical `60-apps/etzhayyim-project-<name>` directories in b
 | Cat | Pattern | Count | Steady state? |
 |---|---|---|---|
 | **A** | BPMN-only SPLIT (etz: `bpmn/` only; vendor: full runtime) | ~33 | yes — permanent |
-| **B** | Phase E/F pre-sunset (etz: bpmn + rw-free + xrpc-adapter; vendor live) | 4 | no — operator sunset pending |
+| **B** | Phase E/F pre-sunset (etz: bpmn + kotoba + xrpc-adapter; vendor live) | 4 | no — operator sunset pending |
 | **C** | `lg/` pod in both (potential duplicate) | 1 (ki) | no — per-project audit |
-| **D** | Partial cut over (rw-free in etz, wasm legacy in both) | 1 (kiyo) | no — operator sunset pending |
+| **D** | Partial cut over (kotoba in etz, wasm legacy in both) | 1 (kiyo) | no — operator sunset pending |
 | **E** | Fullmove pre-sunset (both repos full structure) | 1 (tsukuru) | no — Phase 3-6 multi-quarter |
 | **F** | Closure already recorded (Phase 1 scaffold mirror landed) | 2 (public-malak / open-jpn-mynumber) | yes — Phase 1 done, Phase 2-4 deferred |
 | **G** | Intentional dual stub (cross-actor doc on both sides) | 1 (yobel) | yes — by design |
@@ -155,7 +155,7 @@ These cannot be moved by code-side work:
 
 ## 8. Non-mechanical follow-ups deferred
 
-- rw-free quality fixes — 19 isbn vitest assertion failures + tsconfig drift (anime / narou / 70-tools/integration-tests) + lib.webworker.d.ts TypeScript lib conflict on xrpc-adapters
+- kotoba quality fixes — 19 isbn vitest assertion failures + tsconfig drift (anime / narou / 70-tools/integration-tests) + lib.webworker.d.ts TypeScript lib conflict on xrpc-adapters
 - vendor `deps.toml` malformed region (lines ≈ 35797–36400) — needs git-archaeology per-entry reconstruction
 - C-category audit (ki — `lg/` pod in both) — per-project disposition
 
@@ -173,7 +173,7 @@ These cannot be moved by code-side work:
 
 - **deai stuck**: PII + research project cannot proceed without Council ruling. Kotodama-declared operator (etzhayyim) and 3-axis verdict (HIT on L+C) are inconsistent.
 - **vendor `deps.toml` malformed region persists**: the audit + closure entries route around it, but the canonical historical record is still partially unparseable.
-- **rw-free quality regressions visible**: 19 isbn test failures + tsconfig drift were hidden by the workspace bug. They now show as CI red, which may pressure premature fixes if not gated under "post-migration quality" budget.
+- **kotoba quality regressions visible**: 19 isbn test failures + tsconfig drift were hidden by the workspace bug. They now show as CI red, which may pressure premature fixes if not gated under "post-migration quality" budget.
 - **Concurrent agent contention observed**: at least one other agent made commits on the same branches mid-session (e.g., user's surplus-router ADR on a CI-fix branch). Force-push reconciliation needed twice.
 
 # Alternatives Considered
@@ -196,7 +196,7 @@ Don't document the Category A SPLIT pattern in this ADR; let future agents re-de
 
 # References
 
-- ADR-2605172000 — etzhayyim RW-free substrate
+- ADR-2605172000 — etzhayyim kotoba substrate
 - ADR-2605172400 — vendor 3-axis split rule (+ Re-judgment triggers)
 - ADR-2605211000 — worker XRPC deploy runbook (open-isco reconciliation in this session)
 - ADR-2605212000 — mst-projector Phase 3 (optional peer deps reference)

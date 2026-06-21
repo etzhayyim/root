@@ -33,7 +33,7 @@ Layer-by-layer spec for the Holochain-isomorphic substrate composition defined i
 An `Agent` is the triple `(did, passkey, sbt_level)`:
 
 - `did` — `did:web:etzhayyim.com` for the operating entity; `did:plc:*` or
-  `did:web:*` for individuals (per [ADR-2605172000](../../90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md))
+  `did:web:*` for individuals (per [ADR-2605172000](../../90-docs/adr/2605172000-etzhayyim-kotoba-substrate.md))
 - `passkey` — WebAuthn credential bound to the DID document; used for all signing
 - `sbt_level` — Adherent SBT level 1–7 (誓 / 修 / 献 / 証 / 護 / 議 / 老) per
   `EtzhayyimMembership` contract
@@ -204,7 +204,7 @@ Two parallel ladders: **primary** (the canonical write/read path) and
 | **L1 witnessed** | L0 + every write is membrane-validated by ≥3-of-5 witnesses before being marked visible in appview |
 | **L2 anchored** | L1 + the MST root containing the write has been anchored to Base L2 within the SLA window (default 6 h) |
 
-The current `60-apps/etzhayyim-project-open-isic/rw-free/` reference implementation
+The current `60-apps/etzhayyim-project-open-isic/kotoba/` reference implementation
 is **L0**. The first **L1** target is the maps `AdminArea` / source-DID
 registration commands. **L2** is the maps `vertex_spatial` Building / Mountain
 registration commands (low write rate, high durability requirement).

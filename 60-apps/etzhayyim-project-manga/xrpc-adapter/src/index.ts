@@ -1,12 +1,12 @@
 /**
  * manga XRPC adapter — CF Worker.
  *
- * Wires the rw-free reference impl (12 TS functions) into a deployable
+ * Wires the kotoba reference impl (12 TS functions) into a deployable
  * CF Worker that exposes each function as an XRPC endpoint at
  * https://manga.etzhayyim.com/xrpc/com.etzhayyim.manga.<cmd>
  *
  * Per ADR-2605210000 execution-layer demonstration. Instantiates the
- * Etzhayyim SDK from env bindings, calls the rw-free function with parsed input,
+ * Etzhayyim SDK from env bindings, calls the kotoba function with parsed input,
  * and maps status codes to HTTP responses.
  */
 
@@ -15,7 +15,7 @@ import {
   extractBearerToken,
   type Etzhayyim,
 } from "@etzhayyim/sdk-auth";
-import * as mangaRwFree from "@etzhayyim/manga-rw-free";
+import * as mangaRwFree from "@etzhayyim/manga-kotoba";
 
 interface Env {
   ACTOR_DID: string;

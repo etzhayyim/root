@@ -21,7 +21,7 @@ depends_on:
   - adr-2605231400-karute-consent-capability-iryo-bridge
   - adr-2605231603-per-record-rekey-tombstone-protocol
 related:
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
 supersedes: []
 superseded_by: []
 ---

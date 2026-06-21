@@ -684,7 +684,7 @@
         "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline"
       ],
       "depends_on": [
-        "adr-2605172000-etzhayyim-rw-free-substrate"
+        "adr-2605172000-etzhayyim-kotoba-substrate"
       ],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
@@ -702,7 +702,7 @@
       "topic": "ameno-browser-agent-loop",
       "authoritative": true,
       "related": [
-        "adr-2605172000-etzhayyim-rw-free-substrate"
+        "adr-2605172000-etzhayyim-kotoba-substrate"
       ],
       "depends_on": [
         "2605190824-ameno-mediapipe-llm-browser-runtime",
@@ -762,7 +762,7 @@
       "topic": "ameno-tool-use",
       "authoritative": true,
       "related": [
-        "adr-2605172000-etzhayyim-rw-free-substrate"
+        "adr-2605172000-etzhayyim-kotoba-substrate"
       ],
       "depends_on": [
         "2605191000-ameno-browser-pregel-reflection",
@@ -809,7 +809,7 @@
       "topic": "ameno-memory-vault",
       "authoritative": true,
       "related": [
-        "adr-2605172000-etzhayyim-rw-free-substrate"
+        "adr-2605172000-etzhayyim-kotoba-substrate"
       ],
       "depends_on": [
         "2605191120-ameno-embedding-surprise-tier-c",
@@ -880,7 +880,7 @@
       ],
       "depends_on": [
         "adr-2605170900-etzhayyim-root-adr-canonical-home",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172800-geth-private-migration-to-etzhayyim",
         "2605182312-local-bring-up-murakumo-gemma4"
       ],
@@ -942,7 +942,7 @@
       "authoritative": true,
       "related": [
         "adr-2605181100-mst-encrypted-records-signal-keywrap",
-        "adr-2605172000-etzhayyim-rw-free-substrate"
+        "adr-2605172000-etzhayyim-kotoba-substrate"
       ],
       "depends_on": [
         "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
@@ -1091,7 +1091,7 @@
         "adr-2605173100-gitguardian-incident-response"
       ],
       "depends_on": [
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172100-etzhayyim-payments-on-chain-only"
       ],
       "last_verified": "2026-05-19",
@@ -1162,7 +1162,7 @@
       ],
       "related": [
         "ADR-2605152100 (etzhayyim github org boundary)",
-        "ADR-2605172000 (etzhayyim RW-free substrate)",
+        "ADR-2605172000 (etzhayyim kotoba substrate)",
         "ADR-2605172100 (etzhayyim payments on-chain only)",
         "ADR-2605172400 (vendor 3-axis split rule)",
         "vendor: ADR-0074 (ethereum-identity-bridge-cacao-webauthn)",
@@ -1198,7 +1198,7 @@
       ],
       "related": [
         "ADR-2605211950 (substrate centralization axis)",
-        "ADR-2605172000 (etzhayyim RW-free substrate)",
+        "ADR-2605172000 (etzhayyim kotoba substrate)",
         "ADR-2605172100 (etzhayyim payments on-chain only)",
         "ADR-2605171800 (langgraph MST IPFS L2 anchor pipeline)",
         "ADR-2605192100 (etzhayyim mission charter)",
@@ -1332,7 +1332,7 @@
       "depends_on": [
         "2605191346-etzhayyim-vultr-free-murakumo-control-plane",
         "adr-2605192415-etzhayyim-religious-corp-daemon-architecture",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
         "adr-2605231400-kotoba-datomic-holochain-iso-substrate"
       ],
@@ -6725,7 +6725,7 @@
       "superseded_by": [],
       "depends_on": [
         "adr-2605170900-etzhayyim-root-adr-canonical-home",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172100-etzhayyim-payments-on-chain-only"
       ],
       "last_verified": "2026-05-17",
@@ -6733,12 +6733,12 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md",
-      "id": "adr-2605172000-etzhayyim-rw-free-substrate",
-      "title": "ADR-2605172000: etzhayyim/root open apps MUST be RW-free — AT MST + IPFS + Base L2 as primary substrate",
+      "path": "90-docs/adr/2605172000-etzhayyim-kotoba-substrate.md",
+      "id": "adr-2605172000-etzhayyim-kotoba-substrate",
+      "title": "ADR-2605172000: etzhayyim/root open apps MUST be kotoba — AT MST + IPFS + Base L2 as primary substrate",
       "status": "proposed",
       "doc_type": "adr",
-      "topic": "etzhayyim-rw-free-substrate",
+      "topic": "etzhayyim-kotoba-substrate",
       "authoritative": true,
       "authoritative_for": [
         "hard rule: open religious-corp apps MUST NOT depend on Kotoba/Datomic or any centralized DB",
@@ -6800,7 +6800,7 @@
       "supersedes": [],
       "superseded_by": [],
       "depends_on": [
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
         "adr-2605170900-etzhayyim-root-adr-canonical-home"
       ],
@@ -6830,7 +6830,7 @@
       "depends_on": [
         "adr-2605170900-etzhayyim-root-adr-canonical-home",
         "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172100-etzhayyim-payments-on-chain-only"
       ],
       "last_verified": "2026-05-17",
@@ -6864,7 +6864,7 @@
         "adr-2605170900-etzhayyim-root-adr-canonical-home",
         "2605171300",
         "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172100-etzhayyim-payments-on-chain-only"
       ],
       "last_verified": "2026-05-17",
@@ -6921,7 +6921,7 @@
       "depends_on": [
         "adr-2605152100-etzhayyim-github-org-boundary",
         "adr-2605170900-etzhayyim-root-adr-canonical-home",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172100-etzhayyim-payments-on-chain-only"
       ],
       "last_verified": "2026-05-19",
@@ -6948,7 +6948,7 @@
       "superseded_by": [],
       "depends_on": [
         "adr-2605170900-etzhayyim-root-adr-canonical-home",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172100-etzhayyim-payments-on-chain-only"
       ],
       "last_verified": "2026-05-17",
@@ -7000,7 +7000,7 @@
       "superseded_by": [],
       "depends_on": [
         "adr-2605170900-etzhayyim-root-adr-canonical-home",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172300-etzhayyim-bi-asset-substrate"
       ],
       "last_verified": "2026-05-17",
@@ -7027,7 +7027,7 @@
       "superseded_by": [],
       "depends_on": [
         "adr-2605172800-geth-private-migration-to-etzhayyim",
-        "adr-2605172000-etzhayyim-rw-free-substrate"
+        "adr-2605172000-etzhayyim-kotoba-substrate"
       ],
       "last_verified": "2026-05-17",
       "amends": [],
@@ -7054,7 +7054,7 @@
       "supersedes": [],
       "superseded_by": [],
       "depends_on": [
-        "adr-2605172000-etzhayyim-rw-free-substrate"
+        "adr-2605172000-etzhayyim-kotoba-substrate"
       ],
       "last_verified": "2026-05-17",
       "amends": [],
@@ -7164,7 +7164,7 @@
       "depends_on": [
         "adr-2605170900-etzhayyim-root-adr-canonical-home",
         "2605171300",
-        "adr-2605172000-etzhayyim-rw-free-substrate"
+        "adr-2605172000-etzhayyim-kotoba-substrate"
       ],
       "last_verified": "2026-05-18",
       "amends": [],
@@ -7183,7 +7183,7 @@
         "16-vertex Pregel topology (V01-V16) + substrate classifier (V06) as architectural hinge",
         "15-actor LangGraph fleet design",
         "P0-P3 phasing with neural-substrate-first MVP",
-        "ethical guardrails (informed consent default, human review default, RW-free PII handling)"
+        "ethical guardrails (informed consent default, human review default, kotoba PII handling)"
       ],
       "related": [
         "adr-2605181040-uhl-medical-institution-registry",
@@ -7195,7 +7195,7 @@
       "depends_on": [
         "adr-2605170900-etzhayyim-root-adr-canonical-home",
         "2605171300",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp"
       ],
       "last_verified": "2026-05-18",
@@ -7222,7 +7222,7 @@
       "superseded_by": [],
       "depends_on": [
         "adr-2605170900-etzhayyim-root-adr-canonical-home",
-        "adr-2605172000-etzhayyim-rw-free-substrate"
+        "adr-2605172000-etzhayyim-kotoba-substrate"
       ],
       "last_verified": "2026-05-18",
       "amends": [],
@@ -7304,7 +7304,7 @@
       "supersedes": [],
       "superseded_by": [],
       "depends_on": [
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605173000-pds-did-web-resolution-worker"
       ],
       "last_verified": "2026-05-18",
@@ -7326,7 +7326,7 @@
         "SDK API: `pad` option on crypto.encrypt(), `blindRkey: true` on encryptedWriteStandalone"
       ],
       "related": [
-        "adr-2605172000-etzhayyim-rw-free-substrate"
+        "adr-2605172000-etzhayyim-kotoba-substrate"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -7378,7 +7378,7 @@
         "bpmn-engine-infra-ownership"
       ],
       "related": [
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion",
         "adr-2605081200-spiffworkflow-bpmn-engine-replacement",
         "adr-2605082200-pyzeebe-handler-thin-dispatcher-contract"
@@ -7463,7 +7463,7 @@
         "knowledge graph data model on etzhayyim substrate",
         "Lexicons com.etzhayyim.kg.node and com.etzhayyim.kg.edge",
         "IPLD payload convention for KG records (DAG-CBOR, CID-linked)",
-        "ephemeral AppView convention (in-memory triplestore, replayable, RW-free)",
+        "ephemeral AppView convention (in-memory triplestore, replayable, kotoba)",
         "relationship to deps.toml SSoT (deps.toml stays canonical; KG is projected view)"
       ],
       "related": [
@@ -7476,7 +7476,7 @@
       "depends_on": [
         "adr-2605170900-etzhayyim-root-adr-canonical-home",
         "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
-        "adr-2605172000-etzhayyim-rw-free-substrate"
+        "adr-2605172000-etzhayyim-kotoba-substrate"
       ],
       "last_verified": "2026-05-19",
       "amends": [],
@@ -7529,8 +7529,8 @@
       "depends_on": [
         "adr-2605170900-etzhayyim-root-adr-canonical-home",
         "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
-        "adr-2605191358-yoro-murakumo-rw-free-rewrite-map",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
+        "adr-2605191358-yoro-murakumo-kotoba-rewrite-map",
         "2605191648-substrate-boundary-lefthook"
       ],
       "last_verified": "2026-05-19",
@@ -7551,13 +7551,13 @@
       ],
       "related": [],
       "supersedes": [
-        "(strengthens, does not delete) 2605191358-yoro-murakumo-rw-free-rewrite-map §step 6"
+        "(strengthens, does not delete) 2605191358-yoro-murakumo-kotoba-rewrite-map §step 6"
       ],
       "superseded_by": [],
       "depends_on": [
         "adr-2605170900-etzhayyim-root-adr-canonical-home",
         "2605191346-etzhayyim-vultr-free-murakumo-control-plane",
-        "adr-2605191358-yoro-murakumo-rw-free-rewrite-map"
+        "adr-2605191358-yoro-murakumo-kotoba-rewrite-map"
       ],
       "last_verified": "2026-05-19",
       "amends": [],
@@ -7587,7 +7587,7 @@
       "superseded_by": [],
       "depends_on": [
         "adr-2605170900-etzhayyim-root-adr-canonical-home",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172100-etzhayyim-payments-on-chain-only",
         "adr-2605172300-etzhayyim-bi-asset-substrate",
         "adr-2605172600-etzhayyim-membership-ritual"
@@ -7621,7 +7621,7 @@
       "superseded_by": [],
       "depends_on": [
         "adr-2605192100-etzhayyim-mission-charter",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172100-etzhayyim-payments-on-chain-only"
       ],
       "last_verified": "2026-06-17",
@@ -7777,7 +7777,7 @@
         "adr-2605172600-etzhayyim-membership-ritual",
         "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
         "adr-2605192230-etzhayyim-three-tier-enforcement-implementation",
-        "adr-2605172000-etzhayyim-rw-free-substrate"
+        "adr-2605172000-etzhayyim-kotoba-substrate"
       ],
       "last_verified": "2026-05-19",
       "amends": [],
@@ -8234,7 +8234,7 @@
       "depends_on": [
         "2605171300",
         "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172100-etzhayyim-payments-on-chain-only",
         "adr-2605172300-etzhayyim-bi-asset-substrate",
         "adr-2605192100-etzhayyim-mission-charter",
@@ -8773,7 +8773,7 @@
       "depends_on": [
         "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
         "adr-2605191655-mst-projector-phase2-design",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172400-etzhayyim-vendor-three-axis-split-rule"
       ],
       "last_verified": "2026-05-20",
@@ -8877,7 +8877,7 @@
       "supersedes": [],
       "superseded_by": [],
       "depends_on": [
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172100-etzhayyim-payments-on-chain-only",
         "adr-2605171900-yoro-migration-to-etzhayyim",
         "adr-2605172400-etzhayyim-vendor-three-axis-split-rule"
@@ -8905,7 +8905,7 @@
       "supersedes": [],
       "superseded_by": [],
       "depends_on": [
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172100-etzhayyim-payments-on-chain-only",
         "adr-2605202800-tsukuru-etzhayyim-business-model-change"
       ],
@@ -8914,12 +8914,12 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2605203000-rw-free-write-target-options.md",
-      "id": "adr-2605203000-rw-free-write-target-options",
+      "path": "90-docs/adr/2605203000-kotoba-write-target-options.md",
+      "id": "adr-2605203000-kotoba-write-target-options",
       "title": "ADR-2605203000: Phase E — write-target options for RW-bound vendor actors migrating to etzhayyim",
       "status": "active",
       "doc_type": "adr",
-      "topic": "rw-free-write-target-options",
+      "topic": "kotoba-write-target-options",
       "authoritative": true,
       "authoritative_for": [
         "Write-target decision matrix for RW-bound vendor actors moving to etzhayyim",
@@ -8934,7 +8934,7 @@
       "supersedes": [],
       "superseded_by": [],
       "depends_on": [
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172100-etzhayyim-payments-on-chain-only",
         "adr-2605202400-gtfs-rt-vendor-mirror"
       ],
@@ -9167,7 +9167,7 @@
         "hardware ownership of murakumo Mac mini fleet",
         "compute placement for active inference loop (belief update / EFE planning / homeostasis)",
         "compute placement for LLM synthesis used inside organism loops",
-        "state custody substrate for vertex_agent_* equivalent (RW-free path)"
+        "state custody substrate for vertex_agent_* equivalent (kotoba path)"
       ],
       "related": [
         "adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion",
@@ -9189,7 +9189,7 @@
         "adr-2605010000",
         "adr-2604251758-murakumo-yoro-actor-worker-fleet",
         "adr-2605152100-etzhayyim-github-org-boundary",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172100-etzhayyim-payments-on-chain-only",
         "adr-2605172400-etzhayyim-vendor-three-axis-split-rule"
       ],
@@ -9242,7 +9242,7 @@
         "Cross-repo overlap classification 7-category taxonomy"
       ],
       "related": [
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172400-etzhayyim-vendor-three-axis-split-rule",
         "adr-2605211000"
       ],
@@ -9268,7 +9268,7 @@
         "Council Lv6+ ruling agenda item"
       ],
       "related": [
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172400-etzhayyim-vendor-three-axis-split-rule",
         "adr-2605192100-etzhayyim-mission-charter",
         "adr-2605211335-tranche-f-session-closure-category-a-split"
@@ -9304,7 +9304,7 @@
       "supersedes": [],
       "superseded_by": [],
       "depends_on": [
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605211200-etzhayyim-active-inference-organism-on-murakumo"
       ],
       "last_verified": "2026-05-21",
@@ -9383,7 +9383,7 @@
       ],
       "related": [
         "adr-2605170900-etzhayyim-root-adr-canonical-home",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
         "adr-2605265200-kami-engine-sdk-20-actors-legacy-duplicate-retirement"
       ],
@@ -9427,7 +9427,7 @@
         "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
         "adr-2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp",
         "adr-2605202200-etzhayyim-cell-runtime-contract",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172100-etzhayyim-payments-on-chain-only"
       ],
       "last_verified": "2026-05-21",
@@ -9497,7 +9497,7 @@
     {
       "path": "90-docs/adr/2605212000-mst-projector-phase3-indexed-views.md",
       "id": "adr-2605212000-mst-projector-phase3-indexed-views",
-      "title": "ADR-2605212000: mst-projector Phase 3 — indexed materialized views for rw-free actors",
+      "title": "ADR-2605212000: mst-projector Phase 3 — indexed materialized views for kotoba actors",
       "status": "active",
       "doc_type": "adr",
       "topic": "mst-projector-phase3-indexed-views",
@@ -9517,7 +9517,7 @@
       "supersedes": [],
       "superseded_by": [],
       "depends_on": [
-        "adr-2605203000-rw-free-write-target-options",
+        "adr-2605203000-kotoba-write-target-options",
         "adr-2605210000-search-etzhayyim-ai-internal-only",
         "adr-2605111200-cf-worker-edge-only-no-rw-connection",
         "adr-0019-atproto-native-identifier-topology"
@@ -9561,7 +9561,7 @@
       "authoritative_for": [
         "kotodama worker classification under the 3-axis OR-test",
         "Phase 3 prerequisites for any worker deployment-surface migration to etzhayyim",
-        "corrected helm chart ownership semantics (etzhayyim is RW-free, not a Vultr+Helm copy target)"
+        "corrected helm chart ownership semantics (etzhayyim is kotoba, not a Vultr+Helm copy target)"
       ],
       "related": [
         "adr-2605181400-bpmn-extract-to-etzhayyim-root",
@@ -9579,7 +9579,7 @@
       "superseded_by": [],
       "depends_on": [
         "adr-2605172400-etzhayyim-vendor-three-axis-split-rule",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172100-etzhayyim-payments-on-chain-only",
         "adr-2605211200-etzhayyim-active-inference-organism-on-murakumo",
         "adr-2605173100-gitguardian-incident-response"
@@ -9608,7 +9608,7 @@
       "supersedes": [],
       "superseded_by": [],
       "depends_on": [
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172100-etzhayyim-payments-on-chain-only",
         "adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules"
       ],
@@ -9745,7 +9745,7 @@
       "depends_on": [
         "adr-2605211200-etzhayyim-active-inference-organism-on-murakumo",
         "adr-2605152100-etzhayyim-github-org-boundary",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172400-etzhayyim-vendor-three-axis-split-rule",
         "adr-2605181400-bpmn-extract-to-etzhayyim-root"
       ],
@@ -9821,7 +9821,7 @@
       "depends_on": [
         "adr-2605211200-etzhayyim-active-inference-organism-on-murakumo",
         "adr-2605212200-etzhayyim-organism-phase-3-vendor-decouple",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172100-etzhayyim-payments-on-chain-only"
       ],
       "last_verified": "2026-05-21",
@@ -9907,7 +9907,7 @@
       ],
       "depends_on": [
         "2605191346-etzhayyim-vultr-free-murakumo-control-plane",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605202345-evo-x2-gpu-pod-fleet-integration",
         "adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules"
       ],
@@ -10086,7 +10086,7 @@
         "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
         "adr-2605192300-etzhayyim-bootstrap-council-five",
         "adr-2605192415-etzhayyim-religious-corp-daemon-architecture",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172100-etzhayyim-payments-on-chain-only",
         "adr-2605192115-etzhayyim-non-profit-donation-only-no-ads"
       ],
@@ -10169,7 +10169,7 @@
       "supersedes": [],
       "superseded_by": [],
       "depends_on": [
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605181100-mst-encrypted-records-signal-keywrap",
         "adr-2605172100-etzhayyim-payments-on-chain-only",
         "adr-2605172400-etzhayyim-vendor-three-axis-split-rule"
@@ -10199,7 +10199,7 @@
       "depends_on": [
         "adr-2605170900-etzhayyim-root-adr-canonical-home",
         "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172600-etzhayyim-membership-ritual",
         "adr-2605180600-lawyer-attorney-portal-design",
         "adr-2605181100-mst-encrypted-records-signal-keywrap",
@@ -10268,7 +10268,7 @@
         "adr-2605262130-kotoba-storage-substrate-unification"
       ],
       "depends_on": [
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172100-etzhayyim-payments-on-chain-only",
         "adr-2605181100-mst-encrypted-records-signal-keywrap",
         "adr-2605192100-etzhayyim-mission-charter",
@@ -10301,7 +10301,7 @@
         "adr-2605231100-karute-emr-phase1",
         "adr-2605181100-mst-encrypted-records-signal-keywrap",
         "adr-2605172400-etzhayyim-vendor-three-axis-split-rule",
-        "adr-2605172000-etzhayyim-rw-free-substrate"
+        "adr-2605172000-etzhayyim-kotoba-substrate"
       ],
       "last_verified": "2026-05-23",
       "amends": [],
@@ -10362,7 +10362,7 @@
         "adr-2605262130-kotoba-storage-substrate-unification"
       ],
       "depends_on": [
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605231400-kotoba-datomic-holochain-iso-substrate"
       ],
       "last_verified": "2026-05-23",
@@ -10392,7 +10392,7 @@
       "depends_on": [
         "adr-2605170900-etzhayyim-root-adr-canonical-home",
         "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172300-etzhayyim-bi-asset-substrate",
         "adr-2605172700-membership-layering-shinto-adherent",
         "adr-2605192100-etzhayyim-mission-charter",
@@ -10433,7 +10433,7 @@
         "adr-2605192100-etzhayyim-mission-charter",
         "adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
         "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172100-etzhayyim-payments-on-chain-only",
         "adr-2605181100-mst-encrypted-records-signal-keywrap",
         "adr-2605231400-kotoba-datomic-holochain-iso-substrate",
@@ -10512,7 +10512,7 @@
         "consent-revocation-flush handler"
       ],
       "related": [
-        "adr-2605172000-etzhayyim-rw-free-substrate"
+        "adr-2605172000-etzhayyim-kotoba-substrate"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -10540,7 +10540,7 @@
         "auditor-subscription pattern"
       ],
       "related": [
-        "adr-2605172000-etzhayyim-rw-free-substrate"
+        "adr-2605172000-etzhayyim-kotoba-substrate"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -10570,7 +10570,7 @@
         "DNS + CF Tunnel wiring for karute.etzhayyim.com + karu7t3e.etzhayyim.com"
       ],
       "related": [
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "2605191346-etzhayyim-vultr-free-murakumo-control-plane",
         "adr-2605232100-etzhayyim-organism-vertical-implementation"
       ],
@@ -10615,7 +10615,7 @@
       "depends_on": [
         "adr-2605170900-etzhayyim-root-adr-canonical-home",
         "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605191655-mst-projector-phase2-design",
         "adr-2605192100-etzhayyim-mission-charter",
         "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
@@ -10687,7 +10687,7 @@
       "depends_on": [
         "2605171300",
         "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605192100-etzhayyim-mission-charter",
         "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
         "adr-2605192230-etzhayyim-three-tier-enforcement-implementation",
@@ -10720,7 +10720,7 @@
         "adr-2605262130-kotoba-storage-substrate-unification"
       ],
       "depends_on": [
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605231400-kotoba-datomic-holochain-iso-substrate",
         "adr-2605231500-kotoba-datomic-projection",
         "adr-2605181100-mst-encrypted-records-signal-keywrap",
@@ -10811,7 +10811,7 @@
         "adr-2605262130-kotoba-storage-substrate-unification"
       ],
       "depends_on": [
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605231400-kotoba-datomic-holochain-iso-substrate",
         "adr-2605231500-kotoba-datomic-projection",
         "adr-2605241500-etzhayyim-dataset-cid-substrate"
@@ -11019,7 +11019,7 @@
       "depends_on": [
         "adr-2605170900-etzhayyim-root-adr-canonical-home",
         "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
       ],
       "last_verified": "2026-05-24",
@@ -11314,7 +11314,7 @@
         "adr-2605192400-etzhayyim-eros-gore-council-judging",
         "adr-2605192415-etzhayyim-religious-corp-daemon-architecture",
         "adr-2605181100-mst-encrypted-records-signal-keywrap",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605231525-no-server-key-religious-corp-architecture"
       ],
       "last_verified": "2026-05-23",
@@ -11340,7 +11340,7 @@
       "supersedes": [],
       "superseded_by": [],
       "depends_on": [
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172100-etzhayyim-payments-on-chain-only",
         "adr-2605192100-etzhayyim-mission-charter",
         "adr-2605212100-etzhayyim-to-etzhayyim-migration-batch",
@@ -11559,7 +11559,7 @@
         "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
         "adr-2605192100-etzhayyim-mission-charter",
         "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605231400-kotoba-datomic-holochain-iso-substrate",
         "2605191524-ameno-multi-tab-swarm-broadcast",
         "2605191603-ameno-swarm-leader-election",
@@ -11616,7 +11616,7 @@
       ],
       "related": [
         "adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605212100-etzhayyim-to-etzhayyim-migration-batch"
       ],
       "supersedes": [],
@@ -11752,7 +11752,7 @@
         "adr-2605192415-etzhayyim-religious-corp-daemon-architecture",
         "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet",
         "adr-2605181100-mst-encrypted-records-signal-keywrap",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605231500-kotoba-datomic-projection",
         "adr-2605231525-no-server-key-religious-corp-architecture",
         "adr-2605242500-baien-ternary-silicon-and-tsukuru-fab-charter",
@@ -12057,7 +12057,7 @@
         "adr-2605242600-baien-federated-train-via-ameno-webgpu",
         "adr-2605242630-baien-federated-r1-webgpu-backward-poc",
         "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
       ],
       "last_verified": "2026-05-25",
@@ -12486,7 +12486,7 @@
         "adr-2605192415-etzhayyim-religious-corp-daemon-architecture",
         "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet",
         "adr-2605181100-mst-encrypted-records-signal-keywrap",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605231500-kotoba-datomic-projection",
         "adr-2605231525-no-server-key-religious-corp-architecture",
         "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
@@ -13360,7 +13360,7 @@
       ],
       "superseded_by": [],
       "depends_on": [
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172100-etzhayyim-payments-on-chain-only",
         "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
         "adr-2605181100-mst-encrypted-records-signal-keywrap",
@@ -13473,7 +13473,7 @@
       "depends_on": [
         "adr-2605170900-etzhayyim-root-adr-canonical-home",
         "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605192100-etzhayyim-mission-charter",
         "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
         "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
@@ -13620,7 +13620,7 @@
       "superseded_by": [],
       "depends_on": [
         "adr-2605170900-etzhayyim-root-adr-canonical-home",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605192100-etzhayyim-mission-charter",
         "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
         "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
@@ -13661,7 +13661,7 @@
       "superseded_by": [],
       "depends_on": [
         "adr-2605170900-etzhayyim-root-adr-canonical-home",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172100-etzhayyim-payments-on-chain-only",
         "adr-2605181100-mst-encrypted-records-signal-keywrap",
         "adr-2605192100-etzhayyim-mission-charter",
@@ -16980,7 +16980,7 @@
     {
       "path": "90-docs/adr/2605312000-ndl-oai-ingest-etzhayyim.md",
       "id": "adr-2605312000-ndl-oai-ingest-etzhayyim",
-      "title": "ADR-2605312000: NDL (国立国会図書館) OAI-PMH metadata ingest on the etzhayyim RW-free substrate",
+      "title": "ADR-2605312000: NDL (国立国会図書館) OAI-PMH metadata ingest on the etzhayyim kotoba substrate",
       "status": "active",
       "doc_type": "adr",
       "topic": "ndl-oai-ingest-etzhayyim",
@@ -16990,7 +16990,7 @@
         "ndl persistence seam → kotoba datomic refactor handoff"
       ],
       "related": [
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172400-etzhayyim-vendor-three-axis-split-rule"
       ],
       "supersedes": [],
@@ -17068,7 +17068,7 @@
     {
       "path": "90-docs/adr/2605312101-open-data-kg-ingest-etzhayyim.md",
       "id": "adr-2605312101-open-data-kg-ingest-etzhayyim",
-      "title": "ADR-2605312101: Open-data KG ingest (public-internet sources) on the etzhayyim RW-free substrate",
+      "title": "ADR-2605312101: Open-data KG ingest (public-internet sources) on the etzhayyim kotoba substrate",
       "status": "active",
       "doc_type": "adr",
       "topic": "open-data-kg-ingest-etzhayyim",
@@ -17078,7 +17078,7 @@
         "vendor kg_ingest deletion = post-cutover step (NOT done)"
       ],
       "related": [
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172400-etzhayyim-vendor-three-axis-split-rule"
       ],
       "supersedes": [],
@@ -17229,7 +17229,7 @@
       "superseded_by": [],
       "depends_on": [
         "adr-2605262130-kotoba-storage-substrate-unification",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
         "adr-2605181100-mst-encrypted-records-signal-keywrap"
       ],
@@ -17716,12 +17716,12 @@
       "topic": "hakken-etzhayyim-migration-override",
       "authoritative": true,
       "authoritative_for": [
-        "hakken product-discovery ingest on the etzhayyim RW-free substrate",
+        "hakken product-discovery ingest on the etzhayyim kotoba substrate",
         "com.etzhayyim.apps.hakken.* record namespace",
         "the etzhayyim/etzhayyim boundary for hakken (ingest front vs fulfillment tail)"
       ],
       "depends_on": [
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605172400-etzhayyim-vendor-three-axis-split-rule",
         "adr-2605202800-tsukuru-etzhayyim-business-model-change"
       ],
@@ -19333,7 +19333,7 @@
       "topic": "session-close-etzhayyim-to-etzhayyim-app-rename-sweep",
       "authoritative": false,
       "related": [
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605212100-etzhayyim-to-etzhayyim-migration-batch",
         "adr-2605262130-kotoba-storage-substrate-unification",
         "adr-2605312345-kotoba-datom-first-class-canonical-state"
@@ -19355,7 +19355,7 @@
       "authoritative": false,
       "related": [
         "adr-2606032031-session-close-etzhayyim-to-etzhayyim-app-rename-sweep-pause",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605262130-kotoba-storage-substrate-unification",
         "adr-2605312345-kotoba-datom-first-class-canonical-state"
       ],
@@ -19448,7 +19448,7 @@
       "related": [
         "adr-2606032045-session-close-etzhayyim-to-etzhayyim-app-rename-sweep-batch47-pause",
         "adr-2606032031-session-close-etzhayyim-to-etzhayyim-app-rename-sweep-pause",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605262130-kotoba-storage-substrate-unification",
         "adr-2605312345-kotoba-datom-first-class-canonical-state"
       ],
@@ -19493,7 +19493,7 @@
         "adr-2606032212-session-close-etzhayyim-to-etzhayyim-app-rename-sweep-batch320-pause",
         "adr-2606032045-session-close-etzhayyim-to-etzhayyim-app-rename-sweep-batch47-pause",
         "adr-2606032031-session-close-etzhayyim-to-etzhayyim-app-rename-sweep-pause",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605262130-kotoba-storage-substrate-unification",
         "adr-2605312345-kotoba-datom-first-class-canonical-state"
       ],
@@ -19505,18 +19505,18 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2606033400-session-close-consensys-rw-free-migration-sweep.md",
-      "id": "adr-2606033400-session-close-consensys-rw-free-migration-sweep",
-      "title": "ADR-2606033400: Session close — Consensys rw-free migration COMPLETE: sweep + truth-pass + kotoba-E2E waves 1+2 (53 apps V→A) — final A=158 / V=22",
+      "path": "90-docs/adr/2606033400-session-close-consensys-kotoba-migration-sweep.md",
+      "id": "adr-2606033400-session-close-consensys-kotoba-migration-sweep",
+      "title": "ADR-2606033400: Session close — Consensys kotoba migration COMPLETE: sweep + truth-pass + kotoba-E2E waves 1+2 (53 apps V→A) — final A=158 / V=22",
       "status": "active",
       "doc_type": "adr",
-      "topic": "session-close-consensys-rw-free-migration-sweep",
+      "topic": "session-close-consensys-kotoba-migration-sweep",
       "authoritative": true,
       "related": [
         "adr-2606011400-consensys-pattern-etzhayyim-product-etzhayyim-infra-vendor",
         "adr-2605172400-etzhayyim-vendor-three-axis-split-rule",
         "adr-2605152100-etzhayyim-github-org-boundary",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605181100-mst-encrypted-records-signal-keywrap",
         "adr-2605172100-etzhayyim-payments-on-chain-only"
       ],
@@ -21765,7 +21765,7 @@
         "adr-2605192230-etzhayyim-three-tier-enforcement-implementation",
         "adr-2605192415-etzhayyim-religious-corp-daemon-architecture",
         "adr-2605181100-mst-encrypted-records-signal-keywrap",
-        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172000-etzhayyim-kotoba-substrate",
         "adr-2605231525-no-server-key-religious-corp-architecture",
         "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
         "adr-2605260100-mitate-diagnostic-routing-charter"
@@ -23131,7 +23131,7 @@
         "ADR-2605181100 (kotoba E2E encrypted-record envelope)",
         "ADR-2605215000 (Murakumo-only inference, no commercial GPU)",
         "ADR-2606011400 (Consensys product-front / infra-back)",
-        "https://github.com/etzhayyim/root/pull/1585 (rw-free generation layer, MERGED)",
+        "https://github.com/etzhayyim/root/pull/1585 (kotoba generation layer, MERGED)",
         "https://github.com/etzhayyim/root/pull/1590 (appview getMinutes XRPC)",
         "https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/pull/1440 (vendor container writer + graph migration; ADR-0089 D6)"
       ],
@@ -25721,6 +25721,25 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606201200-ibuki-coscientist-entropy-react-loop.md",
+      "id": "adr-2606201200-ibuki-coscientist-entropy-react-loop",
+      "title": "ADR-2606201200: ibuki 息吹 — co-scientist entropy ReAct loop (the organism reasons about how to persist)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "ibuki-coscientist-entropy-react-loop",
+      "authoritative": true,
+      "authoritative_for": [
+        "ibuki-coscientist-entropy-react-loop"
+      ],
+      "related": "[\"2606051800\", \"2606111500\", \"2606012100\", \"2606062101\", \"2605192100\"]",
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": "[\"2606101200\", \"2606101800\", \"2605215000\", \"2605312345\", \"2606062100\"]",
+      "last_verified": "2026-06-20",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606201610-etzhayyim-apex-kotoba-explorer-organism-app.md",
       "id": "adr-2606201610-etzhayyim-apex-kotoba-explorer-organism-app",
       "title": "ADR-2606201610: etzhayyim.com apex — kotoba blockchain explorer + node-distribution + organism app (serverless, browser-side)",
@@ -25754,6 +25773,61 @@
         "adr-2606015600-self-certifying-did-attestation",
         "adr-2606112000-actor-dna-manifest",
         "adr-2606111400-ibuki-revocable-leash-cacao"
+      ],
+      "last_verified": "2026-06-21",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606211200-energy-order-protocol.md",
+      "id": "adr-2606211200-energy-order-protocol",
+      "title": "ADR-2606211200: Energy Order Protocol — Proof-of-Useful-Flow actor suite (澪/撓/燠/樋/委)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "energy-order-protocol",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/mio",
+        "energy-order-protocol-suite"
+      ],
+      "related": [
+        "2606071500",
+        "2605261100",
+        "2606051800",
+        "2606072201",
+        "2606111400",
+        "2605262130",
+        "2605312345",
+        "2606172359"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [],
+      "last_verified": "2026-06-21",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606211200-ie-flow-datomic-agent-lifecycle.md",
+      "id": "adr-2606211200-ie-flow-datomic-agent-lifecycle",
+      "title": "ADR-2606211200: Information-energy flow — a kotoba/co-scientist agent lifecycle every actor embeds",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "ie-flow-datomic-agent-lifecycle",
+      "authoritative": true,
+      "authoritative_for": [
+        "etzhayyim.ie-flow"
+      ],
+      "related": [
+        "adr-2606101200-ibuki-organism-autonomy",
+        "adr-2605215000-etzhayyim-inference-murakumo-only"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606201200-ibuki-coscientist-entropy-react-loop",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605241500-dataset-cid-substrate"
       ],
       "last_verified": "2026-06-21",
       "amends": [],
@@ -26671,7 +26745,7 @@
     {
       "path": "90-docs/2605211949-gate-a-execution-checklist.md",
       "id": "doc-2605211949-gate-a-execution-checklist",
-      "title": "Phase 3 gate (a) execution checklist — per-worker RW-free port operator runbook",
+      "title": "Phase 3 gate (a) execution checklist — per-worker kotoba port operator runbook",
       "status": "active",
       "doc_type": "how-to",
       "topic": "gate-a-execution-checklist",

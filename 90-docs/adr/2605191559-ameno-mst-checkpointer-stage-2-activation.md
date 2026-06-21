@@ -12,7 +12,7 @@ depends_on:
   - 2605191346-etzhayyim-vultr-free-murakumo-control-plane
 related:
   - adr-2605181100-mst-encrypted-records-signal-keywrap
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
 ---
 
 # ADR 2605191559: Ameno → MstCheckpointSaver Stage 2 activation
@@ -119,7 +119,7 @@ required.
 - **The Path A / Path B split is no longer pure-local-only**: deployed
   in K8s, Path B becomes a substrate-anchored worker. Local dev (no
   K8s) still works unchanged.
-- ADR-2605172000 (RW-free) is upheld: this Python module imports zero
+- ADR-2605172000 (kotoba) is upheld: this Python module imports zero
   MST / IPFS / viem code; the sidecar is the only seam, per
   ADR-2605172100.
 - ADR-2605181100 (encrypted records) is upheld: PII in graph state

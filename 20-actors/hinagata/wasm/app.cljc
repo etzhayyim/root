@@ -169,9 +169,11 @@
   ([] (datoms 1))
   ([tx]
    (let [{:keys [nodes edges]} (load*)
-         res (analyze/analyze nodes edges)
-         node-pairs (mapv (fn [n] [(get n ":lt/id") n]) (analyze/node-vals nodes))]
-     (datom-emit/emit node-pairs edges res (long tx)))))
+         res (analyze/analyze nodes edges)]
+     ;; emit expects the nodes MAP (it calls analyze/node-vals internally for EDN-read
+     ;; ordering) — mirror datom_emit/-main, which passes nodes straight through. A prior
+     ;; copy passed a [id node] pair-vector here → (vals vector) cast error.
+     (datom-emit/emit nodes edges res (long tx)))))
 
 (defn coverage
   "Markdown export: the legal-template-commons coverage report. Mirrors app.coverage."
@@ -189,6 +191,9 @@
                      (filter seq)
                      vec)
         doc (esign/render-document template-id nodes edges)
+        ;; build-envelope is positional (subject signing-order created-at) — mirror its
+        ;; documented arity; a prior copy passed a {:subject …} map as a 4th arg (arity err).
         env (esign/build-envelope doc requester-did signers
-                                  {:subject (get-in nodes [template-id ":template/title"] "")})]
+                                  (get-in nodes [template-id ":template/title"] "")
+                                  "parallel" "1970-01-01T00:00:00Z")]
     (->json (array-map "document" doc "envelope" env))))

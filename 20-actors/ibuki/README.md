@@ -51,3 +51,14 @@ the node's PUBLIC DID — no key held). **Verified live 2026-06-10**: 2 fleet be
 transacts → `status:ok`, 780 datoms confirmed by the engine, IPNS head advanced, re-push
 sent nothing twice. `kaizen_outcomes.py` fills the Wave-4 outcomes file from real PR
 states (`gh pr view`, operator-principal, read-only).
+
+## Embeds the IE-flow system-of-systems substrate (ADR-2606211200)
+
+ibuki's metabolism (Φ/η/surprise) IS an information-energy flow. The organism-specific
+co-scientist here (ADR-2606201200) is the special case of the shared, actor-agnostic
+**`etzhayyim.ie-flow`** lifecycle (`70-tools/src/etzhayyim/ie_flow/`), which every actor
+embeds (`80-data/ie-flow/registry.edn`): measure a flow ledger (events/nodes/stocks/
+interventions on kotoba) → order-index / net-gain / agent-efficiency → the same Google
+co-scientist tournament (shared, unforkable aligned/forbidden mechanism vocabulary) →
+pre-registered dry-run experiment → Brier kaizen → content-addressed commit-DAG. Adopt in
+3 lines: `(ie/record! "<actor>" events {:as-of n})` / `(ie/beat! "<actor>" {:as-of n})`.

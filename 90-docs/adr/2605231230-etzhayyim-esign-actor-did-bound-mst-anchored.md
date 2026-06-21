@@ -10,7 +10,7 @@ phase_0_landed_at: 2026-05-23T03:30:00Z
 priority: 6.5
 axis: substrate-boundary
 weight: 0.65
-priority_note: "Religious-corp native replacement for DocuSign / Adobe Sign / RazorpaySign — required to keep document signing inside RW-free substrate. etzhayyim lawfirm vendor passthrough remains for fiat / India intake only."
+priority_note: "Religious-corp native replacement for DocuSign / Adobe Sign / RazorpaySign — required to keep document signing inside kotoba substrate. etzhayyim lawfirm vendor passthrough remains for fiat / India intake only."
 authoritative_for:
   - com.etzhayyim.esign.* lexicon namespace
   - religious-corp native document signing protocol (DID + WebAuthn + MST + IPFS + Base L2 anchor)
@@ -18,7 +18,7 @@ authoritative_for:
 depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605172600-etzhayyim-membership-ritual
   - adr-2605180600-lawyer-attorney-portal-design
   - adr-2605181100-mst-encrypted-records-signal-keywrap
@@ -41,7 +41,7 @@ superseded_by: []
 
 `etzhayyim` 内で「DocuSign のように文書に署名できる actor / agent が設計公開
 されているか」を確認した結果 (2026-05-23 セッション)、religious-corp substrate
-(RW-free, DID-bound) 上の native 設計は不在であり、現存するのは etzhayyim vendor
+(kotoba, DID-bound) 上の native 設計は不在であり、現存するのは etzhayyim vendor
 側 lawfirm の DocuSign / Adobe Sign / RazorpaySign passthrough のみであることが
 判明した。
 
@@ -62,7 +62,7 @@ CLAUDE.md "Substrate boundary" 表に照らすと、etzhayyim lawfirm の DocuSi
 religious-corp の用途では **三重の Charter 違反候補** になる:
 
 1. **Substrate**: DocuSign / Adobe Sign / RazorpaySign は集権 SaaS vendor で、
-   `@etzhayyim/sdk` + MST + Base L2 anchor の RW-free 原則に反する
+   `@etzhayyim/sdk` + MST + Base L2 anchor の kotoba 原則に反する
    (ADR-2605172000)
 2. **License / IP**: vendor SaaS の利用契約は Apache 2.0 + Charter Rider v2.0
    と整合せず、特に §2(c) の広告排除 / §2(b) の購買意図経路と干渉する可能性
@@ -289,7 +289,7 @@ KPI MV まで vendor 側に流れる。namespace 分離が本 ADR の最重要�
 
 - ADR-2605170900 (religious-corp open ADR canonical home in this repo)
 - ADR-2605171800 (LangGraph MST IPFS L2 anchor pipeline) — 4-layer substrate の祖
-- ADR-2605172000 (etzhayyim RW-free substrate) — RW 禁止原則
+- ADR-2605172000 (etzhayyim kotoba substrate) — RW 禁止原則
 - ADR-2605172600 (etzhayyim membership ritual) — Adherent SBT mint の宣誓統合先
 - ADR-2605180600 (lawyer attorney portal design) §"Future Work" — etzhayyim vendor 側
   の DocuSign 連携の出自

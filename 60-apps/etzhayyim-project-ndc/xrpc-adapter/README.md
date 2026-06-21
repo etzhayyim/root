@@ -1,6 +1,6 @@
 # ndc XRPC Adapter
 
-CF Worker that exposes the 3 rw-free commands as XRPC endpoints.
+CF Worker that exposes the 3 kotoba commands as XRPC endpoints.
 
 ## Endpoints
 

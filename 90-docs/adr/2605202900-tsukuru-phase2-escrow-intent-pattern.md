@@ -9,13 +9,13 @@ last_verified: 2026-05-20
 priority: 6.8
 axis: payment
 weight: 0.68
-priority_note: "Phase 2 pattern doc accompanying the first tsukuru rw-free reference impl (productionOrder.create + cancel). Active for SDK v0.1.x. Superseded when SDK v0.2 ships escrowOpen()/escrowRelease() and tsukuru migrates to on-chain Safe escrow."
+priority_note: "Phase 2 pattern doc accompanying the first tsukuru kotoba reference impl (productionOrder.create + cancel). Active for SDK v0.1.x. Superseded when SDK v0.2 ships escrowOpen()/escrowRelease() and tsukuru migrates to on-chain Safe escrow."
 authoritative_for:
   - tsukuru Phase 2 payment pattern (record-only escrow intent)
   - Stripe Issuing cancelCard → record-state-machine refund mapping
   - tsukuru productionOrder.{create,cancel} lexicon shape (tightened in this PR)
 depends_on:
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
   - adr-2605202800-tsukuru-etzhayyim-business-model-change
 related:
@@ -211,8 +211,8 @@ Use ERC-2612 permit() pre-authorization. Buyer signs a permit at order time, man
 # References
 
 - [ADR-2605202800](./2605202800-tsukuru-etzhayyim-business-model-change.md) — tsukuru full-move Phase 1-6 plan (parent)
-- [ADR-2605172000](./2605172000-etzhayyim-rw-free-substrate.md) — RW-free substrate
+- [ADR-2605172000](./2605172000-etzhayyim-kotoba-substrate.md) — kotoba substrate
 - [ADR-2605172100](./2605172100-etzhayyim-payments-on-chain-only.md) — payments on-chain only
 - [@etzhayyim/sdk pay.ts](../../20-actors/etzhayyim-sdk/src/pay.ts) — SDK v0.1 working path + v0.2 stubs
-- [tsukuru rw-free](../../60-apps/etzhayyim-project-tsukuru/rw-free/) — reference impl this ADR documents
+- [tsukuru kotoba](../../60-apps/etzhayyim-project-tsukuru/kotoba/) — reference impl this ADR documents
 - [`payment.escrowOpened.json`](../../00-contracts/lexicons/com/etzhayyim/apps/payment/escrowOpened.json) — Phase 3 wave 4 lexicon (used as intent record schema)

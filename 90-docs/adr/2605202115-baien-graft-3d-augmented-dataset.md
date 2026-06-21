@@ -155,7 +155,7 @@ Phase 2 chair sample (`sample-001-chair`):
 - 入力 corpus は public-domain / 既存 baien snapshot を継承 (LAION-COCO subset 想定)
 - 生成・描画・caption の全 tool は OSS、SaaS 不使用 (Charter Rider §2 - h 抵触なし)
 - Sample 単位の provenance を必ず JSON に記録 (`compute_provenance` 必須フィールド)
-- 大規模 batch 時は MST + IPFS pin (ADR-2605172000 RW-free substrate に整合)
+- 大規模 batch 時は MST + IPFS pin (ADR-2605172000 kotoba substrate に整合)
 
 # Consequences
 
@@ -237,7 +237,7 @@ Pixal3D が primary に昇格するかは、Phase 3b の 100-sample 品質比較
 
 - `90-docs/baien/multimodal-reasoning-roadmap.md` — Move 1 image graft 設計 (本 ADR の親 spec)
 - `90-docs/adr/2605202345-evo-x2-gpu-pod-fleet-integration.md` — EVO-X2 ハードウェア統合
-- `90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md` — Substrate compliance 規約
+- `90-docs/adr/2605172000-etzhayyim-kotoba-substrate.md` — Substrate compliance 規約
 - `90-docs/adr/2605192200-etzhayyim-ip-free-release-charter-rider.md` — Charter Rider v2.0
 
 ## Cross-repo (legacy)

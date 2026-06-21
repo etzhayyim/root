@@ -38,12 +38,13 @@
 
 (deftest test-kaiyaku-claude-md-counts-in-sync
   ;; Wave 38: kaiyaku 側も CLAUDE.md のテスト数を実数照合 (同期封殺5本目).
-  ;; Counts `\ndef test_` across the actual .py test files (kept on disk), 1:1 with Python.
+  ;; Post py→cljc prune (ADR-2606160842): counts `(deftest …` across the .cljc test files
+  ;; in tests/ (the .py files no longer exist) and matches CLAUDE.md's "# N tests, pure stdlib".
   (let [md (slurp (io/file actor-dir "CLAUDE.md"))
         n-tests (->> (.listFiles (io/file actor-dir "tests"))
                      (filter #(let [n (.getName %)]
-                                (and (str/starts-with? n "test_") (str/ends-with? n ".py"))))
-                     (map #(count (re-seq #"\ndef test_" (slurp %))))
+                                (and (str/starts-with? n "test_") (str/ends-with? n ".cljc"))))
+                     (map #(count (re-seq #"(?m)^\(deftest " (slurp %))))
                      (reduce + 0))
         m (re-find #"# (\d+) tests, pure stdlib" md)]
     (is (and m (= (Integer/parseInt (second m)) n-tests))
