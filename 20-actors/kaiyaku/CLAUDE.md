@@ -88,7 +88,7 @@ advice.
 │   ├── handoff_ingest.py              # tate 盾 handoff → notice-window worklist (compose 往復)
 │   ├── meisai_ingest.cljc             # meisai 明細 recurring-charge handoff → 縁-ledger tie (compose 往復)
 │   └── datom_emit.py                  # kotoba Datom-log (EAVT) emitter — canonical state
-├── tests/                             # 35 tests, pure stdlib
+├── tests/                             # 36 tests, pure stdlib
 │   ├── test_analyze.py
 │   ├── test_handoff.py
 │   ├── test_meisai_ingest.cljc

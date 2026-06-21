@@ -60,9 +60,15 @@
   (let [merchant (str (get h ":handoff/merchant" (get h ":handoff/svc" "?")))
         currency (str (get h ":handoff/currency" ":jpy"))
         typical (long (get h ":handoff/typical-amount" 0))
+        ;; report-time JPY-equivalent from meisai's fx leg (advisory); prices a foreign charge so
+        ;; analyze can recommend on it. Absent → cost 0 → analyze routes to :review (G8 honesty).
+        jpy-equiv (get h ":handoff/jpy-equivalent")
         months (or (get h ":handoff/months") [])
         occ (long (get h ":handoff/occurrences" (count months)))
         jpy? (= currency ":jpy")
+        cost-jpy (cond jpy? typical
+                       (some? jpy-equiv) (long jpy-equiv)
+                       :else 0)
         sid (svc-id merchant)]
     [{":svc/id" sid
       ":svc/label" merchant
@@ -75,7 +81,7 @@
      {":en/from" member-id
       ":en/to" sid
       ":en/kind" ":recurring-charge"
-      ":en/monthly-cost-jpy" (if jpy? typical 0)
+      ":en/monthly-cost-jpy" cost-jpy
       ":en/usage-score" 0
       ":en/last-used-days" 0
       ":en/first-seen" (str (first months))
@@ -84,6 +90,7 @@
       ":en/meisai-occurrences" occ
       ":en/meisai-currency" currency
       ":en/meisai-typical-amount" typical
+      ":en/meisai-fx-priced" (and (not jpy?) (some? jpy-equiv))
       ":en/meisai-advisory" true}]))
 
 (defn to-ledger-forms

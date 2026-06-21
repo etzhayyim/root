@@ -18,6 +18,7 @@
   posted. The pure fns operate on datoms only, so they are tested on SYNTHETIC datoms with no file."
   (:require [clojure.string :as str]
             [meisai.methods.kotoba :as kotoba]
+            [meisai.methods.fx :as fx]
             #?(:clj [clojure.java.io :as io])))
 
 ;; ── EAVT → row view ──────────────────────────────────────────────────────────
@@ -82,22 +83,27 @@
 ;; ── kaiyaku handoff ──────────────────────────────────────────────────────────
 (defn handoff
   "Recurring candidates → kaiyaku-consumable handoff records. meisai PROPOSES :review only; the
-  keep/review/sever decision stays with kaiyaku (+ member-sig). No :sever is representable."
+  keep/review/sever decision stays with kaiyaku (+ member-sig). No :sever is representable.
+  opts `:rates` (currency → JPY per major unit), when present, adds a REPORT-TIME JPY-equivalent
+  to non-JPY records via fx/enrich-handoff (advisory; never persisted as a Datom)."
   ([datoms] (handoff datoms {}))
   ([datoms opts]
-   (mapv (fn [c]
-           {":handoff/source" ":meisai"
-            ":handoff/svc" (:merchant c)
-            ":handoff/merchant" (:merchant c)
-            ":handoff/recurring" true
-            ":handoff/months" (:months c)
-            ":handoff/occurrences" (:occurrences c)
-            ":handoff/typical-amount" (:typical-amount c)
-            ":handoff/currency" (:currency c)
-            ":handoff/amount-stable" (:amount-stable? c)
-            ":handoff/action" ":review"
-            ":handoff/advisory" true})
-         (recurring datoms opts))))
+   (let [base (mapv (fn [c]
+                      {":handoff/source" ":meisai"
+                       ":handoff/svc" (:merchant c)
+                       ":handoff/merchant" (:merchant c)
+                       ":handoff/recurring" true
+                       ":handoff/months" (:months c)
+                       ":handoff/occurrences" (:occurrences c)
+                       ":handoff/typical-amount" (:typical-amount c)
+                       ":handoff/currency" (:currency c)
+                       ":handoff/amount-stable" (:amount-stable? c)
+                       ":handoff/action" ":review"
+                       ":handoff/advisory" true})
+                    (recurring datoms opts))]
+     (if-let [rates (:rates opts)]
+       (fx/enrich-handoff base rates)
+       base))))
 
 (defn- edn-scalar [v]
   (cond

@@ -68,6 +68,23 @@
   (is (str/starts-with? (mi/svc-id "FICTIONAL STREAM CO") "svc:meisai:") "namespaced under meisai")
   (is (not= (mi/svc-id "A") (mi/svc-id "B")) "distinct merchants → distinct ids"))
 
+(deftest test-fx-priced-foreign-charge
+  ;; a foreign charge meisai priced via its report-time FX leg (:handoff/jpy-equivalent) lands
+  ;; with that JPY cost → analyze can recommend on it (not forced to :review).
+  (let [edn "[{:handoff/source :meisai :handoff/svc \"FX SAAS\" :handoff/merchant \"FX SAAS\"
+               :handoff/recurring true :handoff/months [\"2026-04\" \"2026-05\"] :handoff/occurrences 2
+               :handoff/typical-amount 999 :handoff/currency :usd :handoff/jpy-equivalent 1499
+               :handoff/fx-advisory true :handoff/action :review :handoff/advisory true}]"
+        forms (mi/to-ledger-forms (mi/ingest edn) "member:self")
+        en (first (filter #(contains? % ":en/from") forms))
+        member {":member/id" "member:self"}
+        {:keys [nodes edges]} (analyze/load-graph (cons member forms))
+        res (analyze/analyze nodes edges)
+        tie (first (get res "ties"))]
+    (is (= 1499 (get en ":en/monthly-cost-jpy")) "FX JPY-equivalent becomes the tie's JPY cost")
+    (is (= true (get en ":en/meisai-fx-priced")) "provenance: priced via FX, not native JPY")
+    (is (= ":sever" (get tie "recommendation")) "a priced foreign recurring charge → kaiyaku decides :sever")))
+
 (deftest test-no-person-node
   (let [forms (mi/to-ledger-forms (mi/ingest handoff-edn) "member:self")]
     (is (not-any? #(or (contains? % ":person/id") (= ":person" (get % ":svc/kind"))) forms)
