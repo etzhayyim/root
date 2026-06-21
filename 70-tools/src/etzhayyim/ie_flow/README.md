@@ -81,7 +81,11 @@ metabolic intake (`metabolism/intake-weights` → Φ → reserves → survival).
 ```bash
 # the SoS scoreboard: score every actor with a measured flow + fold into the organism reward
 bb -cp "20-actors:70-tools/src:20-actors/kotodama/src" \
-   70-tools/src/etzhayyim/ie_flow/scoreboard.clj --write   # → 80-data/ie-flow/scoreboard.edn
+   70-tools/src/etzhayyim/ie_flow/scoreboard.clj --write   # → scoreboard.edn + scoreboard.md
+# scoreboard.md is the human-readable SoS report (ranked 利得 table + organism-reward delta).
+# integration test (needs the actor adapters on the classpath):
+bb -cp "20-actors:70-tools/src:20-actors/kotodama/src" \
+   70-tools/src/etzhayyim/ie_flow/test_scoreboard.clj      # 3 tests / 14 assertions
 ```
 
 ### Embedding a gate / observatory actor (`gate-adapter.cljc`)
