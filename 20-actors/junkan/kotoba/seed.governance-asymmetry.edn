@@ -2311,4 +2311,75 @@
   :stakeholders ["Parliament" "opposition" "citizens"]
   :stock :participation-barrier :polarity :ambiguous :magnitude 0.4 :reversibility :institutional :meadows 4
   :basis "Constitution of Nauru (1968)" :sourcing :representative :confidence 0.4}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 22 — paradigm-subordination toward parity (religious-nationalist
+ ;; ideologies vs secular/minority-rights norms) + micro-republics (SM MC)
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── paradigm-subordination (widen) ──
+ {:type :instrument :id "in-hindutva" :name "Hindutva majoritarian nationalism" :jurisdiction "IN" :kind :doctrine :year 2014
+  :enactor "Indian political movement (ascendant in national government since 2014)"
+  :origin "A Hindu-nationalist paradigm that recasts the nation around a religious majority identity, pressuring the constitutional-secular settlement and the standing of minorities (e.g. the 2019 CAA debate) — a paradigm shift in who 'the people' are."
+  :stakeholders ["governing movement" "religious minorities" "courts" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.6 :reversibility :cultural :meadows 2
+  :basis "Hindutva politics (ascendant 2014–); CAA 2019" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "il-nation-state-law-2018" :name "Basic Law: Israel as the Nation-State" :jurisdiction "IL" :kind :law :year 2018
+  :enactor "Knesset (2018)"
+  :origin "Declared national self-determination as 'unique to the Jewish people' and downgraded Arabic's official status, constitutionally privileging one national group — a paradigm-level signal about whose state it is, contested by minority citizens."
+  :stakeholders ["Knesset" "Arab citizens" "Supreme Court" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.55 :reversibility :constitutional :meadows 2
+  :basis "Basic Law: Israel as the Nation-State of the Jewish People (2018)" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "mm-buddhist-nationalism" :name "Buddhist nationalism (Ma Ba Tha / 969)" :jurisdiction "MM" :kind :doctrine :year 2013
+  :enactor "Myanmar nationalist-monk movements (Ma Ba Tha; 969)"
+  :origin "A religious-nationalist paradigm that framed Buddhist identity as the nation's core and drove 'race and religion protection' laws, legitimizing exclusion and violence against Rohingya and other minorities — subordinating minority citizens to a majoritarian creed."
+  :stakeholders ["nationalist monks" "legislature" "Rohingya/Muslims" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.6 :reversibility :cultural :meadows 2
+  :basis "Ma Ba Tha; 2015 'race and religion' laws" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "lk-sinhala-buddhist-nationalism" :name "Sinhala-Buddhist nationalism" :jurisdiction "LK" :kind :doctrine :year 1972
+  :enactor "Sri Lankan state (constitutional 'foremost place' for Buddhism, 1972/1978)"
+  :origin "A majoritarian paradigm giving Buddhism a constitutional 'foremost place' and privileging Sinhala identity contributed to Tamil and Muslim grievance and decades of conflict — subordinating minority citizens within the national self-image."
+  :stakeholders ["state" "Buddhist establishment" "Tamil/Muslim minorities" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.55 :reversibility :constitutional :meadows 2
+  :basis "Sri Lanka Constitution Art. 9 (1972/1978)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-majoritarianism" :name "Majoritarianism over minority rights" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse value (invoked across many democracies)"
+  :origin "The claim that an electoral majority's 'will of the people' should override constitutional limits and minority protections recodes counter-majoritarian checks as illegitimate — the paradigm beneath much democratic backsliding."
+  :stakeholders ["majoritarian leaders" "minorities" "constitutional courts" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.55 :reversibility :cultural :meadows 2
+  :basis "Comparative literature on majoritarianism/backsliding" :sourcing :representative :confidence 0.4}
+
+ ;; ── paradigm-subordination (narrow — secular / minority-rights norms) ──
+ {:type :instrument :id "in-constitutional-secularism" :name "Constitutional secularism (basic structure)" :jurisdiction "IN" :kind :doctrine :year 1976
+  :enactor "Parliament of India (42nd Amendment) + Supreme Court (basic-structure doctrine)"
+  :origin "India's constitutional secularism — equal treatment of religions, protected as part of the unamendable 'basic structure' — is the paradigm counterweight to religious majoritarianism, anchoring minority citizens' equal standing."
+  :stakeholders ["Supreme Court" "religious communities" "Parliament" "citizens"]
+  :stock :paradigm-subordination :polarity :narrow :magnitude 0.55 :reversibility :constitutional :meadows 1
+  :basis "Indian Constitution Preamble; Kesavananda (1973); S.R. Bommai (1994)" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "gl-secular-state-norm" :name "Secular-state norm (religion-state separation)" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse civic norm (constitutional secularism worldwide)"
+  :origin "The norm that the state neither establishes nor coerces religion protects citizens of all and no faiths from a creed imposed through state power — a paradigm that narrows the subordination of religious minorities (contested where establishment persists)."
+  :stakeholders ["constitutional courts" "religious communities" "non-believers" "citizens"]
+  :stock :paradigm-subordination :polarity :narrow :magnitude 0.5 :reversibility :cultural :meadows 2
+  :basis "Comparative constitutional secularism" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-minority-rights-norm" :name "Minority-rights / counter-majoritarian norm" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse civic norm (constitutional + international minority protections)"
+  :origin "The norm that some rights are entrenched beyond majority revision — protecting minorities and individuals from the majority — is the paradigm that makes constitutionalism more than majority rule; its erosion is the signature of majoritarian backsliding."
+  :stakeholders ["constitutional courts" "minorities" "rights bodies" "citizens"]
+  :stock :paradigm-subordination :polarity :narrow :magnitude 0.55 :reversibility :cultural :meadows 1
+  :basis "Counter-majoritarian constitutional theory; minority-rights instruments" :sourcing :representative :confidence 0.4}
+
+ ;; ── micro-republics (participation) ──
+ {:type :instrument :id "sm-san-marino" :name "World's oldest republic (continuous since 1600)" :jurisdiction "SM" :kind :institution :year 1600
+  :enactor "Republic of San Marino (statutes of 1600)"
+  :origin "The world's oldest surviving republic, with semi-annually rotating Captains Regent and an elected Grand Council — an enduring, deliberately anti-concentration participation design."
+  :stakeholders ["Grand and General Council" "Captains Regent" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.5 :reversibility :constitutional :meadows 4
+  :basis "San Marino statutes (1600); 1974 Declaration of Rights" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "mc-monaco" :name "Constitutional principality (prince-dominant)" :jurisdiction "MC" :kind :institution :year 1962
+  :enactor "Principality of Monaco (1962 Constitution)"
+  :origin "A constitutional monarchy where an elected National Council shares limited legislative power but the prince retains executive primacy and can dissolve the council — citizens participate, but the locus of power stays with the sovereign, an ambiguous channel."
+  :stakeholders ["Prince" "National Council" "citizens"]
+  :stock :participation-barrier :polarity :ambiguous :magnitude 0.4 :reversibility :constitutional :meadows 4
+  :basis "Constitution of Monaco (1962)" :sourcing :representative :confidence 0.4}
 ]

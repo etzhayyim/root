@@ -221,7 +221,7 @@
    "NL" :europe "FI" :europe "BE" :europe "AT" :europe "LT" :europe "HR" :europe
    "SK" :europe "BG" :europe "GE" :europe "SI" :europe "LV" :europe "MD" :europe
    "AM" :europe "ME" :europe "MK" :europe "CY" :europe "MT" :europe "LU" :europe
-   "XK" :europe "LI" :europe "AD" :europe
+   "XK" :europe "LI" :europe "AD" :europe "SM" :europe "MC" :europe
    ;; Asia (Malaysia, Yemen, Hong Kong)
    "MY" :asia "YE" :asia "HK" :asia
    ;; Oceania
