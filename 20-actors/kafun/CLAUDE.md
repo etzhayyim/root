@@ -81,11 +81,13 @@ physical forestry (assessment-only; G5). Live `record!`/`beat!` to
 ## Run
 
 ```bash
-./20-actors/kafun/run_tests.sh                                  # 5 suites (28 tests / 84 assert)
+./20-actors/kafun/run_tests.sh                                  # 5 suites (30 tests / 90 assert)
 bb --classpath 20-actors 20-actors/kafun/methods/remediate.cljc # print the remediation map
 bb --classpath 20-actors 20-actors/kafun/methods/autorun.cljc   # heartbeat → append to ledger
 # energy-flow viz (embeds shared ie-flow metrics; writes viz/energy-flow.html):
 bb -cp "20-actors:70-tools/src:20-actors/kotodama/src" 20-actors/kafun/methods/ie_flow.cljc
+# + --record: also record kafun's ie-flow events to the shared SoS ledger (80-data/ie-flow/kafun/, gitignored):
+bb -cp "20-actors:70-tools/src:20-actors/kotodama/src" 20-actors/kafun/methods/ie_flow.cljc --record
 ```
 
 ## Pairs with

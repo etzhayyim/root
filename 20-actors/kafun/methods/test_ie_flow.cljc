@@ -4,6 +4,8 @@
 (ns kafun.methods.test-ie-flow
   (:require [kafun.methods.kafun-edn :as ke]
             [kafun.methods.ie-flow :as ief]
+            [etzhayyim.ie-flow.embed :as embed]
+            [clojure.java.io :as io]
             [clojure.test :refer [deftest is run-tests]]))
 
 (def seed-path "20-actors/kafun/kotoba/seed.edn")
@@ -64,6 +66,32 @@
     (is (clojure.string/includes? html "order-index"))
     (is (clojure.string/includes? html "system of systems"))
     (is (not (clojure.string/includes? html "http://")) "no external fetch — fully self-contained")))
+
+;; ── record-flow! → the shared ie-flow ledger (the heartbeat/tool record! leg) ─
+
+(deftest record-flow-roundtrips-to-the-shared-ledger
+  (let [actor "kafun-test-record"
+        log (str "80-data/ie-flow/" actor "/flow.kotoba.edn")
+        del! (fn [] (let [f (io/file log)] (when (.exists f) (.delete f))
+                      (let [d (io/file (str "80-data/ie-flow/" actor))]
+                        (when (.exists d) (.delete d)))))]
+    (del!)
+    ;; record kafun's events under a throwaway actor id (real path is "kafun")
+    (embed/record! actor (ief/flow-events (ss)) {:tx-id "t" :as-of "beat"})
+    (let [st (embed/measure actor)]
+      (is (= 12 (:flows-n st)) "all 12 stand→route events recorded + measured back")
+      (is (> (:order-index st) 0.0) "the recorded ledger reproduces kafun's rectification order")
+      (is (not (:parasitic? st)) "non-parasitic on the recorded ledger"))
+    (del!)))
+
+(deftest record-flow!-returns-ledger-summary
+  (let [r (ief/record-flow! (ss) {:tx-id "t2" :as-of "beat"})]
+    (is (= 12 (:events r)))
+    (is (clojure.string/ends-with? (:flow-log r) "80-data/ie-flow/kafun/flow.kotoba.edn"))
+    (is (number? (:order-index r)))
+    ;; cleanup the real kafun ledger this test wrote (gitignored, but keep the tree clean)
+    (let [f (io/file (:flow-log r))] (when (.exists f) (.delete f))
+      (let [d (.getParentFile f)] (when (.exists d) (.delete d))))))
 
 #?(:clj
    (when (= *file* (System/getProperty "babashka.file"))

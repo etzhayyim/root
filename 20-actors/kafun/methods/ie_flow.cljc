@@ -31,6 +31,7 @@
   (:require [kafun.methods.kafun-edn :as ke]
             [kafun.methods.remediate :as rem]
             [etzhayyim.ie-flow.metrics :as iem]
+            #?(:clj [etzhayyim.ie-flow.embed :as embed])
             [clojure.string :as str]
             #?(:clj [clojure.edn :as edn])))
 
@@ -110,6 +111,22 @@
   etzhayyim.ie-flow.metrics — NOT a fork."
   [stands]
   (iem/flow-state (flow-events stands)))
+
+#?(:clj
+   (defn record-flow!
+     "Record kafun's measured ie-flow EVENTS to the shared per-actor ie-flow ledger
+     (80-data/ie-flow/kafun/flow.kotoba.edn) via etzhayyim.ie-flow.embed — so kafun's
+     SoS scoreboard entry is produced by the heartbeat/tool (etzhayyim.ie-flow.score), not
+     only adapter-on-demand. The flow ledger is gitignored (generated). Deterministic: the
+     caller supplies tx-id + as-of (no wall clock) → resume-safe. No-server-key (local file,
+     no network I/O). Returns {:flow-log <path> :events <n> :order-index <oi>}."
+     ([stands] (record-flow! stands {}))
+     ([stands {:keys [tx-id as-of]}]
+      (let [evs (flow-events stands)]
+        (embed/record! "kafun" evs {:tx-id (or tx-id "kafun-ie-flow") :as-of (or as-of "beat")})
+        {:flow-log (embed/flow-log "kafun")
+         :events (count evs)
+         :order-index (get (embed/measure "kafun") :order-index)}))))
 
 ;; ── viz model (the SSoT the HTML renders; columns = the SoS pipeline) ────────
 
@@ -337,8 +354,10 @@ function roundRect(rx,ry,rw,rh,r){x.beginPath();x.moveTo(rx+r,ry);
 
 #?(:clj
    (defn -main [& args]
-     (let [seed (or (first args) "20-actors/kafun/kotoba/seed.edn")
-           out  (or (second args) "20-actors/kafun/viz/energy-flow.html")
+     (let [flags (set (filter #(str/starts-with? % "--") args))
+           pos  (vec (remove #(str/starts-with? % "--") args))
+           seed (or (first pos) "20-actors/kafun/kotoba/seed.edn")
+           out  (or (second pos) "20-actors/kafun/viz/energy-flow.html")
            stands (vec (filter #(= (:type %) :stand) (edn/read-string (slurp seed))))
            st (flow-state stands)
            model (viz-model stands)]
@@ -348,7 +367,10 @@ function roundRect(rx,ry,rw,rh,r){x.beginPath();x.moveTo(rx+r,ry);
        (println (str "η(export÷consume)=" (get-in model [:metrics :eta])
                      " parasitic?=" (:parasitic? st)
                      " H " (get-in model [:metrics :h-before]) "→" (get-in model [:metrics :h-after])))
-       (println (str "wrote " out)))))
+       (println (str "wrote " out))
+       (when (contains? flags "--record")
+         (let [r (record-flow! stands {:tx-id "kafun-ie-flow" :as-of "beat"})]
+           (println (str "recorded " (:events r) " ie-flow events → " (:flow-log r))))))))
 
 #?(:clj
    (when (= *file* (System/getProperty "babashka.file"))
