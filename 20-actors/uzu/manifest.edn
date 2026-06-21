@@ -79,6 +79,6 @@
   :cmd "./20-actors/uzu/run_tests.sh"
   :suites ["methods/test_model.cljc" "methods/test_ledger.cljc" "methods/test_metabolism.cljc" "methods/test_epochs.cljc" "methods/test_world.cljc" "methods/test_landscape.cljc"
            "methods/test_measure.cljc" "methods/test_validate.cljc" "methods/test_lexicons.cljc"
-           "methods/test_digest.cljc" "methods/test_robustness.cljc" "methods/test_scorecard.cljc"
+           "methods/test_digest.cljc" "methods/test_robustness.cljc" "methods/test_properties.cljc" "methods/test_scorecard.cljc"
            "methods/test_kotoba.cljc" "methods/test_autorun.cljc" "methods/test_viz.cljc"]
-  :status "94 tests / 216 assertions green (babashka)"}}
+  :status "101 tests / 228 assertions green (babashka)"}}
