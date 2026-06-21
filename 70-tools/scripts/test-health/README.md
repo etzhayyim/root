@@ -30,3 +30,22 @@ Truth source is the `PROBE <fail> <error>` line printed by `run-tests`, NOT the 
 ## Not an auto-fixer
 
 A `:different` shadow is a **candidate**, not an auto-fix — which side is canonical is the actor owner's call (sizes/scope diverge mid-migration; the #2042 fix removed `.clj` only after the `.cljc` port proved complete via a green suite). A broken shim is a safe mechanical repoint **iff** the actor's tests pass once invocable (#2043 pattern); otherwise it surfaces a real pre-existing failure to triage. See `AUDIT.md` for the current register.
+
+## Two sub-classes of the shadow bug (empirically separated via the safe oracle)
+
+Removing a stale `.clj` shadow → running the suite → keeping the removal **only if green** (the
+"oracle") splits the debt into two kinds:
+
+- **clean — keyword/string key-access bug.** The stale `.clj` reads `(get state :items)` (keyword)
+  while the caller + the canonical `.cljc` use `(get state "items")` (string); babashka loads the
+  `.clj`, so the handler silently sees nothing. Removing the `.clj` fully greens the suite.
+  **Verified clean + fixed: uchiwake (#2042), meyasu + the cross-actor kakaku agent (#2048).**
+- **deeper — incomplete `.cljc` port.** Removing the `.clj` resolves the first missing symbol but
+  exposes another the `.cljc` never ported (or a stale test referencing a removed fn, or a
+  cwd-relative path read). The suite stays red → **revert; this needs owner-driven port-completion,
+  not a shadow removal.** Oracle-verified deeper: **kanjo** (`analyze/metric-inputs`), **watatsuna**
+  (`run-autonomous` arity), **kabuto** (`ingest/merge-bridged`); **tasuke / kosatsu / keizu** mix in
+  cwd-relative `slurp` path bugs in `test-no-external-io`.
+
+So: probe `tests-fail` / `load-error` actors with the oracle; the key-access ones are a safe
+mechanical fix, the rest are deferred to their owners.
