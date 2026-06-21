@@ -198,7 +198,7 @@
    "LR" :africa "SS" :africa "MW" :africa "GA" :africa "BF" :africa "NE" :africa
    "BJ" :africa "MG" :africa "TG" :africa "SO" :africa "GN" :africa "MR" :africa
    "TD" :africa "CF" :africa "DJ" :africa "SC" :africa "LS" :africa "KM" :africa
-   "GW" :africa
+   "GW" :africa "ST" :africa
    ;; Americas
    "US" :americas "BR" :americas "MX" :americas "CL" :americas "AR" :americas
    "VE" :americas "CU" :americas "CO" :americas "PE" :americas "BO" :americas
@@ -227,7 +227,7 @@
    ;; Oceania
    "NZ" :oceania "AU" :oceania "FJ" :oceania "PG" :oceania "WS" :oceania
    "TO" :oceania "VU" :oceania "SB" :oceania "PW" :oceania "KI" :oceania
-   "FM" :oceania
+   "FM" :oceania "TV" :oceania "MH" :oceania
    ;; Asia (Timor-Leste, Japan)
    "TL" :asia "JP" :asia
    ;; transnational
@@ -391,13 +391,16 @@
         narrowest-kind (->> kind-mat
                             (map (fn [[k v]] [k (:net v)]))
                             (sort-by second)
-                            first)]
+                            first)
+        top-widen (->> instruments (sort-by #(- (contribution %))) first)]
     {:most-pressured-stock (some-> most-pressured first name)
      :most-pressured-net (some-> most-pressured second)
      :latest-era (:era latest-era)
      :latest-era-net (:net latest-era)
      :narrowest-kind (some-> narrowest-kind first name)
      :narrowest-kind-net (some-> narrowest-kind second)
+     :strongest-widening-instrument (:name top-widen)
+     :strongest-widening-jurisdiction (:jurisdiction top-widen)
      :hypothesis? true}))
 
 (defn analyze
@@ -538,7 +541,9 @@
             "**" (:most-pressured-stock h) "** (net " (:most-pressured-net h) ")。"
             "直近 era **" (:latest-era h) "** の net は " (:latest-era-net h) "。"
             "instrument 種類のうち最も是正方向に傾くのは **" (:narrowest-kind h)
-            "** (net " (:narrowest-kind-net h) ")。\n\n"))
+            "** (net " (:narrowest-kind-net h) ")。"
+            "最も強く非対称を広げる instrument は **" (:strongest-widening-instrument h)
+            "** (" (:strongest-widening-jurisdiction h) ")。\n\n"))
      "## Strongest concrete signals (HYPOTHESIS, G5)\n\n"
      "**最も非対称を広げる instrument:**\n"
      (str/join "\n" (for [c (get-in analysis ["extremes" :most-widening])]

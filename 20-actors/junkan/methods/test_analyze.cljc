@@ -169,6 +169,7 @@
     (is (string? (:latest-era h)) "names the latest era")
     (is (string? (:narrowest-kind h)) "names the kind leaning most to narrowing")
     (is (= true (:hypothesis? h)) "headline is a hypothesis (G5)")
+    (is (string? (:strongest-widening-instrument h)) "headline names the strongest widening law")
     ;; the most-pressured stock should be the one with the max net among stocks
     (let [stocks (get (a) "stocks")
           maxnet (apply max (map (comp :net val) stocks))]

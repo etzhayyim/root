@@ -2098,4 +2098,75 @@
   :stakeholders ["FSM Congress" "state governments" "citizens"]
   :stock :participation-barrier :polarity :narrow :magnitude 0.45 :reversibility :constitutional :meadows 4
   :basis "Constitution of the FSM (1979)" :sourcing :representative :confidence 0.4}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 19 — economic-capture toward parity (capture channels + open-gov
+ ;; transparency) + small-state jurisdictions (TV ST MH)
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── economic-capture (widen) ──
+ {:type :instrument :id "ph-pdaf-scam" :name "Pork-barrel (PDAF) discretionary funds" :jurisdiction "PH" :kind :institution :year 1990
+  :enactor "Philippine Congress (Priority Development Assistance Fund)"
+  :origin "Legislators' discretionary 'pork-barrel' allocations became a vehicle for the multi-billion-peso PDAF scam; the Supreme Court ruled the system unconstitutional in 2013, but discretionary-fund capture recurs — public money captured for patronage."
+  :stakeholders ["legislators" "bogus NGOs" "Supreme Court" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.6 :reversibility :statutory :meadows 5
+  :basis "Philippine PDAF; Belgica v. Ochoa (2013)" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "cn-princelings" :name "Princeling elite-family wealth" :jurisdiction "CN" :kind :institution :year 1980
+  :enactor "Diffuse (families of senior Party officials)"
+  :origin "The concentration of business empires in the families of senior Party officials ('princelings') fuses political rank with private fortune (documented by international reporting that was then censored domestically), a capture distinct from formal SOEs."
+  :stakeholders ["elite Party families" "state banks" "private firms" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.6 :reversibility :entrenched :meadows 4
+  :basis "Princeling wealth reporting (Bloomberg/NYT 2012)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "us-dark-money" :name "Dark money (501(c)(4) undisclosed spending)" :jurisdiction "US" :kind :institution :year 2010
+  :enactor "U.S. tax-exempt structure + post-Citizens-United practice"
+  :origin "Politically-active non-profits can spend on elections without disclosing donors, letting concentrated wealth influence policy anonymously — an opacity channel layered on top of Citizens United, distinct from disclosed Super-PAC money."
+  :stakeholders ["501(c)(4) groups" "anonymous donors" "FEC/IRS" "voters"]
+  :stock :economic-capture :polarity :widen :magnitude 0.5 :reversibility :statutory :meadows 6
+  :basis "26 U.S.C. §501(c)(4); post-2010 practice" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "in-conglomerate-concentration" :name "Conglomerate concentration + policy proximity" :jurisdiction "IN" :kind :institution :year 1991
+  :enactor "Indian political economy (post-1991 liberalization dynamics)"
+  :origin "A growing share of strategic sectors concentrated in a few large conglomerates with close government ties raises capture concerns (debated around regulatory and contract decisions); an ambiguous effect that competition policy and disclosure aim to check."
+  :stakeholders ["large conglomerates" "regulators" "competing firms" "citizens"]
+  :stock :economic-capture :polarity :ambiguous :magnitude 0.45 :reversibility :statutory :meadows 5
+  :basis "Indian market-concentration debate (post-1991)" :sourcing :representative :confidence 0.4}
+
+ ;; ── economic-capture (narrow — open-government transparency) ──
+ {:type :instrument :id "ua-prozorro" :name "ProZorro open e-procurement" :jurisdiction "UA" :kind :institution :year 2016
+  :enactor "Ukrainian state + civil society + reformers (ProZorro system)"
+  :origin "A fully transparent open-source e-procurement platform where all public tenders are visible and auditable, sharply cutting the discretion through which procurement was captured — a concrete narrowing of economic-capture opacity (and an exportable model)."
+  :stakeholders ["procuring agencies" "bidders" "civil-society monitors" "citizens"]
+  :stock :economic-capture :polarity :narrow :magnitude 0.6 :reversibility :institutional :meadows 6
+  :basis "ProZorro (since 2016)" :sourcing :representative :confidence 0.5}
+ {:type :instrument :id "gl-open-contracting" :name "Open Contracting Data Standard" :jurisdiction "GLOBAL" :kind :institution :year 2014
+  :enactor "Open Contracting Partnership + adopting governments"
+  :origin "A common standard for publishing public-contracting data across the full cycle, enabling cross-checks that surface rigged bids and conflicts of interest — a structural narrowing of procurement capture adopted by dozens of jurisdictions."
+  :stakeholders ["adopting governments" "auditors/press" "honest bidders" "citizens"]
+  :stock :economic-capture :polarity :narrow :magnitude 0.5 :reversibility :institutional :meadows 6
+  :basis "Open Contracting Data Standard (since 2014)" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "gl-fatf-aml" :name "FATF anti-money-laundering standards" :jurisdiction "GLOBAL" :kind :institution :year 1989
+  :enactor "Financial Action Task Force (G7-initiated, 1989)"
+  :origin "Global standards and peer evaluations requiring states to trace and disclose illicit financial flows reduce the secrecy that lets captured wealth move undetected — a narrowing of economic-capture opacity (enforcement and grey-listing vary)."
+  :stakeholders ["FATF" "financial institutions" "FIUs" "citizens"]
+  :stock :economic-capture :polarity :narrow :magnitude 0.45 :reversibility :institutional :meadows 6
+  :basis "FATF Recommendations (since 1990)" :sourcing :representative :confidence 0.4}
+
+ ;; ── small-state jurisdictions (participation) ──
+ {:type :instrument :id "tv-tuvalu" :name "Parliamentary democracy (since 1978)" :jurisdiction "TV" :kind :institution :year 1978
+  :enactor "Tuvalu (independence Constitution)"
+  :origin "A small Pacific democracy with regular elections and peaceful changes of government via parliament — a functioning participation channel under acute climate-existential pressure."
+  :stakeholders ["Parliament" "island communities" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.45 :reversibility :institutional :meadows 4
+  :basis "Constitution of Tuvalu (1978/1986)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "st-sao-tome" :name "Multiparty democracy (since 1990)" :jurisdiction "ST" :kind :institution :year 1990
+  :enactor "São Tomé and Príncipe (1990 democratic constitution)"
+  :origin "Transitioned from one-party rule to a multiparty democracy with repeated peaceful alternations, one of Africa's more stable small democracies — a working participation channel."
+  :stakeholders ["National Assembly" "parties" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.5 :reversibility :institutional :meadows 4
+  :basis "Constitution of São Tomé and Príncipe (1990)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "mh-marshall" :name "Constitutional democracy (since 1979)" :jurisdiction "MH" :kind :institution :year 1979
+  :enactor "Republic of the Marshall Islands (1979 Constitution)"
+  :origin "A small Pacific democracy combining a Westminster-style parliament (Nitijela) with traditional leadership in an advisory council; regular elections sustain citizen participation amid climate and nuclear-legacy challenges."
+  :stakeholders ["Nitijela" "Council of Iroij" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.45 :reversibility :constitutional :meadows 4
+  :basis "Constitution of the Marshall Islands (1979)" :sourcing :representative :confidence 0.4}
 ]
