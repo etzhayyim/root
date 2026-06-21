@@ -1861,4 +1861,87 @@
   :stakeholders ["Parliament" "two main parties" "citizens"]
   :stock :participation-barrier :polarity :narrow :magnitude 0.5 :reversibility :institutional :meadows 4
   :basis "Constitution of The Bahamas (1973)" :sourcing :representative :confidence 0.45}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 16 — economic-capture toward parity (anti-corruption institutions)
+ ;; + new jurisdictions (LU XK SR PW KI) — widen + narrow
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── economic-capture (narrow — anti-corruption / transparency bodies) ──
+ {:type :instrument :id "de-lobbyregister-2021" :name "Lobbyregister (mandatory lobbying register)" :jurisdiction "DE" :kind :law :year 2021
+  :enactor "Bundestag (after the mask-procurement + Amthor scandals)"
+  :origin "Established a mandatory public register of lobbyists contacting the Bundestag/government, a transparency step that exposes some of the commercial access that had been informal — narrowing economic capture."
+  :stakeholders ["Bundestag" "lobbyists" "press" "citizens"]
+  :stock :economic-capture :polarity :narrow :magnitude 0.45 :reversibility :statutory :meadows 6
+  :basis "Lobbyregistergesetz (2021)" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "fr-hatvp-2013" :name "Haute Autorité (HATVP transparency authority)" :jurisdiction "FR" :kind :institution :year 2013
+  :enactor "Parliament of France (after the Cahuzac affair)"
+  :origin "Created an independent authority requiring asset/interest declarations from officials and a lobbying register, institutionalizing scrutiny of conflicts of interest — a structural narrowing of economic capture."
+  :stakeholders ["HATVP" "elected officials" "lobbyists" "citizens"]
+  :stock :economic-capture :polarity :narrow :magnitude 0.5 :reversibility :statutory :meadows 6
+  :basis "HATVP (lois du 11 octobre 2013)" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "id-kpk" :name "Corruption Eradication Commission (KPK)" :jurisdiction "ID" :kind :institution :year 2002
+  :enactor "Indonesian state (KPK established 2002; powers curtailed 2019)"
+  :origin "An independent commission that convicted ministers, governors, and legislators, sharply raising the cost of capture — until a 2019 law and personnel changes weakened its independence, illustrating the contest over the instrument."
+  :stakeholders ["KPK" "convicted officials" "DPR" "citizens"]
+  :stock :economic-capture :polarity :narrow :magnitude 0.5 :reversibility :statutory :meadows 4
+  :basis "KPK Law (2002); 2019 amendment" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "ro-dna" :name "National Anticorruption Directorate (DNA)" :jurisdiction "RO" :kind :institution :year 2002
+  :enactor "Romanian state (DNA; EU accession pressure)"
+  :origin "A specialized prosecution unit that convicted hundreds of officials including ministers and MPs, a powerful narrowing of elite impunity — later targeted by legislative attempts to curb it, a recurring tug-of-war."
+  :stakeholders ["DNA" "convicted officials" "EU (CVM)" "citizens"]
+  :stock :economic-capture :polarity :narrow :magnitude 0.5 :reversibility :statutory :meadows 4
+  :basis "Romania DNA (since 2002); EU CVM" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "br-lava-jato" :name "Operation Car Wash (Lava Jato)" :jurisdiction "BR" :kind :institution :year 2014
+  :enactor "Brazilian federal prosecutors + judiciary"
+  :origin "A sprawling corruption investigation that jailed executives and politicians and exposed systemic kickbacks, briefly transforming accountability — though later annulments and bias findings against a lead judge complicated its legacy, an ambiguous net effect."
+  :stakeholders ["federal prosecutors" "judiciary" "construction/oil firms" "citizens"]
+  :stock :economic-capture :polarity :ambiguous :magnitude 0.4 :reversibility :institutional :meadows 4
+  :basis "Operação Lava Jato (2014–2021)" :sourcing :representative :confidence 0.4}
+
+ ;; ── economic-capture (widen) ──
+ {:type :instrument :id "gl-procurement-corruption" :name "Public-procurement corruption channel" :jurisdiction "GLOBAL" :kind :institution :year 0
+  :enactor "Diffuse (a recurring failure mode of opaque public contracting)"
+  :origin "Public procurement is among the largest and most capture-prone flows of state money worldwide; where contracting is opaque, rigged bids and kickbacks divert public funds to connected firms — a structural economic asymmetry that open-contracting standards aim to counter."
+  :stakeholders ["procuring agencies" "connected firms" "audit bodies" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.55 :reversibility :institutional :meadows 5
+  :basis "OECD/World Bank procurement-integrity literature" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "au-political-donations" :name "Political-donation disclosure regime" :jurisdiction "AU" :kind :institution :year 1983
+  :enactor "Commonwealth of Australia (AEC disclosure scheme)"
+  :origin "Federal donation disclosure has high thresholds and long delays, allowing concentrated financial influence over parties to remain partly obscured between elections — an ambiguous regime (states like NSW have stricter caps), under reform debate."
+  :stakeholders ["AEC" "parties/donors" "states" "citizens"]
+  :stock :economic-capture :polarity :ambiguous :magnitude 0.4 :reversibility :statutory :meadows 5
+  :basis "Commonwealth Electoral Act donation disclosure" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "lu-financial-centre" :name "Financial centre + historic banking secrecy" :jurisdiction "LU" :kind :institution :year 1981
+  :enactor "Luxembourg state (banking-secrecy era; reformed under EU/OECD pressure)"
+  :origin "A major financial centre whose former banking secrecy and favourable tax rulings (exposed by LuxLeaks) facilitated cross-border avoidance and concealment; automatic information exchange since 2015 narrowed it, an ambiguous trajectory inside a democracy."
+  :stakeholders ["financial sector" "tax authorities" "EU/OECD" "citizens"]
+  :stock :economic-capture :polarity :ambiguous :magnitude 0.4 :reversibility :statutory :meadows 5
+  :basis "Luxembourg financial centre; LuxLeaks (2014); CRS (2015)" :sourcing :representative :confidence 0.4}
+
+ ;; ── new jurisdictions (participation) ──
+ {:type :instrument :id "xk-2008-statehood" :name "2008 independence + democratic constitution" :jurisdiction "XK" :kind :institution :year 2008
+  :enactor "Kosovo Assembly (independence; supervised then full)"
+  :origin "Declared independence with a rights-protective constitution and competitive elections, building a participation channel from post-conflict supervision (partial international recognition is the external constraint, not a domestic participation barrier)."
+  :stakeholders ["Kosovo Assembly" "Constitutional Court" "international missions" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.5 :reversibility :constitutional :meadows 4
+  :basis "Constitution of Kosovo (2008)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "sr-democratic-turn" :name "2020 democratic turn (post-Bouterse)" :jurisdiction "SR" :kind :institution :year 2020
+  :enactor "Surinamese electorate + National Assembly"
+  :origin "Voters removed a long-dominant leader (later convicted over 1982 killings) in a peaceful 2020 transfer, reaffirming the electoral channel after decades shadowed by coup and authoritarian legacies."
+  :stakeholders ["National Assembly" "opposition" "judiciary" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.5 :reversibility :institutional :meadows 4
+  :basis "2020 Surinamese general election" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "pw-democracy" :name "Constitutional democracy (since 1981/1994)" :jurisdiction "PW" :kind :institution :year 1994
+  :enactor "Republic of Palau (Constitution 1981; independence 1994)"
+  :origin "A small Pacific state with a rights-protective constitution, regular competitive elections, and peaceful alternation — a functioning participation channel."
+  :stakeholders ["Olbiil Era Kelulau (congress)" "states" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.45 :reversibility :constitutional :meadows 4
+  :basis "Constitution of Palau (1981)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "ki-democracy" :name "Parliamentary democracy (since 1979)" :jurisdiction "KI" :kind :institution :year 1979
+  :enactor "Republic of Kiribati (independence Constitution)"
+  :origin "A small Pacific democracy with regular competitive elections and a directly-elected president, sustaining citizen participation despite acute climate-displacement pressures."
+  :stakeholders ["Maneaba ni Maungatabu (parliament)" "parties" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.45 :reversibility :institutional :meadows 4
+  :basis "Constitution of Kiribati (1979)" :sourcing :representative :confidence 0.4}
 ]

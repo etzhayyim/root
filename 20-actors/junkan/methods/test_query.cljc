@@ -48,6 +48,16 @@
       (is (pos? (:widen-instruments s)))
       (is (pos? (:narrow-instruments s))))))
 
+;; ── 誰が定めたか / 経緯 / by-stock queryable from the datoms ──────────────────
+(deftest enactor-and-origin-queries
+  (let [d (ds)]
+    (is (re-find #"Congress" (q/enactor-of d "junkan-instr:us-foia-1966"))
+        "誰が定めたか: FOIA enactor is queryable")
+    (is (string? (q/origin-of d "junkan-instr:us-foia-1966")) "経緯 queryable")
+    (is (contains? (set (q/instruments-by-stock d ":economic-capture"))
+                   "junkan-instr:us-citizens-united-2010")
+        "instruments-by-stock returns economic-capture members")))
+
 ;; ── read-only (G4): query.cljc carries no mutation/outward verb ──────────────
 (deftest g4-read-only
   (let [src (slurp "20-actors/junkan/methods/query.cljc")]

@@ -72,6 +72,21 @@
   [datoms]
   (->> datoms (filter #(= ":junkan.gov.instr/jurisdiction" (a %))) (map v) distinct sort vec))
 
+(defn instruments-by-stock
+  "All instrument entities feeding a given asymmetry stock (e.g. \":economic-capture\")."
+  [datoms stock]
+  (by-av datoms ":junkan.gov.instr/stock" stock))
+
+(defn enactor-of
+  "WHO established a given instrument entity (誰が定めたか) — straight from the datoms."
+  [datoms ent]
+  (value-of datoms ent ":junkan.gov.instr/enactor"))
+
+(defn origin-of
+  "The CIRCUMSTANCES (経緯) of a given instrument's establishment, from the datoms."
+  [datoms ent]
+  (value-of datoms ent ":junkan.gov.instr/origin"))
+
 (defn summary
   "A small read-only digest assembled purely from the datoms (no recompute)."
   [datoms]
