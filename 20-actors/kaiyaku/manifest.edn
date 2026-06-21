@@ -63,7 +63,9 @@
   :handoff    {:method "methods/karakuri_bridge.cljc"
                :note "plan → karakuri com.etzhayyim.karakuri.serviceOp; validated vs karakuri's OWN lexicon (tier-scheme + enum parity, no-drift)"}
   :pipeline   {:method "methods/pipeline.cljc"
-               :note "analyze→plan→enrich→dispatch→serviceop→receipt end-to-end, dry-run (integration-tested)"}}
+               :note "analyze→plan→enrich→dispatch→serviceop→receipt end-to-end, dry-run (integration-tested)"}
+  :audit      {:method "methods/audit.cljc"
+               :note "G9 READ side: fold the receipt log back into entity views + query; standing G6 verification (no receipt ever records a live execution: executed=0, server-signed=0)"}}
 
  :actor/cells ; langgraph→WASM; .solve() raises at R0 (scaffold follow-up)
  [{:cell/id "ledger_ingest"   :cell/kind :langgraph :cell/runtime :wasm :cell/node "reuben"}

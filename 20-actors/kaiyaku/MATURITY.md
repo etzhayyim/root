@@ -5,6 +5,7 @@ NO live cancellation I/O in this codebase (`plan/execute` raises). Dry-run throu
 
 ## R1 execution-leg components
 
+- [x] **audit** — G9 READ side: fold the receipt log back into entity views + query; standing G6 verification (no receipt ever records a live execution: executed=0, server-signed=0)
 - [x] **capability** — member-presented CACAO; `approved` svc-id allowlist = G5 in the leash; present-only — kaiyaku never signs (no-server-key, ADR-2605231525)
 - [x] **catalog** — real-service 解約 procedures; operator-verified=false (:representative, G6); derive-tier ≡ plan/select-tier (no data↔logic drift)
 - [x] **driver** — authorize-never-execute membrane; cascade ordering + exactly-once; executed=false ALWAYS (G6); surfaces disclosed procedure + g8_drift to the member

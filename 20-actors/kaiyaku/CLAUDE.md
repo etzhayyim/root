@@ -92,12 +92,13 @@ advice.
 │   ├── karakuri_bridge.cljc           # R1: kaiyaku plan → karakuri serviceOp handoff (lexicon-checked, no-drift)
 │   ├── pipeline.cljc                  # R1: end-to-end composition (analyze→plan→enrich→dispatch→serviceop→receipt)
 │   ├── maturity.cljc                  # R1: generated MATURITY.md scorecard (manifest+catalog SoT, freshness-tested)
+│   ├── audit.cljc                     # R1: G9 audit READ side — query receipt log + standing no-live-execution check
 │   ├── handoff_ingest.py              # tate 盾 handoff → notice-window worklist (compose 往復)
 │   └── datom_emit.py                  # kotoba Datom-log (EAVT) emitter — canonical state
 ├── tools/                             # MEMBER-side runtime (NOT the actor — may do crypto)
 │   └── issue_capability.cljc          # R1: member mints the revocable severance capability (Ed25519/JDK; kaiyaku never signs)
 ├── MATURITY.md                        # GENERATED R1 scorecard (methods/maturity.cljc; freshness-tested)
-├── tests/                             # 102 tests, pure stdlib
+├── tests/                             # 107 tests, pure stdlib
 │   ├── test_analyze.py
 │   ├── test_handoff.py
 │   ├── test_plan.py
@@ -108,7 +109,8 @@ advice.
 │   ├── test_karakuri_bridge.cljc      # R1 seam: plan→serviceOp lexicon parity (no-drift)
 │   ├── test_pipeline.cljc             # R1 END-TO-END: analyze→…→serviceop→receipt compose
 │   ├── test_manifest.cljc             # R1 manifest↔methods↔karakuri-lexicon parity (no doc drift)
-│   └── test_maturity.cljc             # R1 MATURITY.md scorecard content + freshness
+│   ├── test_maturity.cljc             # R1 MATURITY.md scorecard content + freshness
+│   └── test_audit.cljc                # R1 G9 audit read-back + standing no-live-execution check
 ├── clj/                               # cljc port + Clojure LangGraph actor (see clj/README.md)
 │   ├── deps.edn                       # langgraph-clj + browser-use-clj + computer-use-clj (git deps)
 │   ├── src/kaiyaku/                   # ledger/analyze/plan/datoms (Python numeric parity)
