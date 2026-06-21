@@ -221,12 +221,13 @@
    "NL" :europe "FI" :europe "BE" :europe "AT" :europe "LT" :europe "HR" :europe
    "SK" :europe "BG" :europe "GE" :europe "SI" :europe "LV" :europe "MD" :europe
    "AM" :europe "ME" :europe "MK" :europe "CY" :europe "MT" :europe "LU" :europe
-   "XK" :europe "LI" :europe
+   "XK" :europe "LI" :europe "AD" :europe
    ;; Asia (Malaysia, Yemen, Hong Kong)
    "MY" :asia "YE" :asia "HK" :asia
    ;; Oceania
    "NZ" :oceania "AU" :oceania "FJ" :oceania "PG" :oceania "WS" :oceania
    "TO" :oceania "VU" :oceania "SB" :oceania "PW" :oceania "KI" :oceania
+   "FM" :oceania
    ;; Asia (Timor-Leste, Japan)
    "TL" :asia "JP" :asia
    ;; transnational

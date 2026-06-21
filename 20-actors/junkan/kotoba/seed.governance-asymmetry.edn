@@ -2015,4 +2015,87 @@
   :stakeholders ["Prince" "Landtag" "citizens"]
   :stock :participation-barrier :polarity :ambiguous :magnitude 0.4 :reversibility :constitutional :meadows 4
   :basis "Constitution of Liechtenstein (2003)" :sourcing :representative :confidence 0.4}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 18 — paradigm-subordination toward parity (rights-doctrines vs
+ ;; subordinating ideologies) + micro-state jurisdictions (AD FM)
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── paradigm-subordination (widen) ──
+ {:type :instrument :id "ru-traditional-values-2022" :name "'Traditional values' doctrine (Decree 809)" :jurisdiction "RU" :kind :doctrine :year 2022
+  :enactor "Russian state (Presidential Decree 809, 2022)"
+  :origin "Codified a state ideology of 'traditional spiritual-moral values' opposed to a caricatured liberal West, used to justify restricting expression and dissent — elevating a state creed above pluralism."
+  :stakeholders ["Presidential Administration" "Orthodox Church" "state media" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.55 :reversibility :cultural :meadows 2
+  :basis "Russian Presidential Decree 809 (2022)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "hu-illiberal-democracy" :name "'Illiberal democracy' doctrine" :jurisdiction "HU" :kind :doctrine :year 2014
+  :enactor "Hungarian government (Orbán's 2014 Băile Tușnad speech + practice)"
+  :origin "Explicitly reframed the state's goal as an 'illiberal' democracy that subordinates checks, media independence, and minority claims to majoritarian/national will — a paradigm shift legitimizing concentration of power within the EU."
+  :stakeholders ["governing party" "captured media/courts" "EU" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.55 :reversibility :cultural :meadows 2
+  :basis "Orbán 2014 speech; Hungarian governance practice" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "cn-patriotic-education-2024" :name "Patriotic Education Law" :jurisdiction "CN" :kind :law :year 2024
+  :enactor "NPC Standing Committee (2024)"
+  :origin "Mandates patriotic and Party-loyalty education across schools, families, religion, and the internet, institutionalizing an orthodoxy of devotion to Party-and-state from childhood — a paradigm-level subordination."
+  :stakeholders ["Communist Party" "schools/families" "religious bodies" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.6 :reversibility :statutory :meadows 2
+  :basis "PRC Patriotic Education Law (2024)" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "sa-religious-establishment" :name "Religious establishment legitimizing the throne" :jurisdiction "SA" :kind :doctrine :year 1932
+  :enactor "Saudi state (alliance of throne and official religious establishment)"
+  :origin "An official religious establishment sanctifies royal authority and frames obedience as a religious duty, placing the locus of power beyond political contestation — a paradigm that subordinates the citizen as subject (reform rhetoric since 2017 reshapes but does not democratize it)."
+  :stakeholders ["monarchy" "religious establishment" "reformers" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.65 :reversibility :entrenched :meadows 2
+  :basis "Saudi throne-religion alliance (since 1932)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-developmental-authoritarianism" :name "'Stability/development over rights' justification" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse value (invoked by many developmental-authoritarian states)"
+  :origin "The widely-deployed claim that order and growth require deferring political rights recodes citizen agency as a luxury to be granted later, legitimizing indefinite constraint — a paradigm beneath many specific restrictions."
+  :stakeholders ["governing elites" "technocracies" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.5 :reversibility :cultural :meadows 2
+  :basis "Comparative literature on developmental authoritarianism" :sourcing :representative :confidence 0.4}
+
+ ;; ── paradigm-subordination (narrow — rights paradigms) ──
+ {:type :instrument :id "us-first-amendment" :name "First Amendment (speech/press/assembly/religion)" :jurisdiction "US" :kind :doctrine :year 1791
+  :enactor "U.S. Congress + states (Bill of Rights ratification)"
+  :origin "Constitutionally bars the state from abridging speech, press, assembly, petition, and religious freedom; the doctrine (and its robust jurisprudence) anchors a paradigm where the citizen's voice is protected against the state."
+  :stakeholders ["Supreme Court" "press/protesters" "religious communities" "citizens"]
+  :stock :paradigm-subordination :polarity :narrow :magnitude 0.7 :reversibility :constitutional :meadows 2
+  :basis "U.S. Constitution, First Amendment (1791)" :sourcing :representative :confidence 0.55}
+ {:type :instrument :id "fr-declaration-1789" :name "Declaration of the Rights of Man and of the Citizen" :jurisdiction "FR" :kind :doctrine :year 1789
+  :enactor "National Constituent Assembly (French Revolution)"
+  :origin "Proclaimed that sovereignty resides in the nation and that men are born free and equal in rights — a founding paradigm of the citizen as rights-bearing sovereign rather than royal subject, with global influence (still constitutionally binding in France)."
+  :stakeholders ["National Constituent Assembly" "later: Conseil constitutionnel" "citizens"]
+  :stock :paradigm-subordination :polarity :narrow :magnitude 0.7 :reversibility :constitutional :meadows 1
+  :basis "Déclaration des droits de l'homme et du citoyen (1789)" :sourcing :representative :confidence 0.55}
+ {:type :instrument :id "de-streitbare-demokratie" :name "Streitbare Demokratie (militant democracy)" :jurisdiction "DE" :kind :doctrine :year 1949
+  :enactor "West German Basic Law framers + Federal Constitutional Court"
+  :origin "The doctrine that democracy may defend itself against anti-democratic actors (party bans, basic-rights forfeiture) — protective of the democratic order, yet a state power over political association that cuts both ways, hence an ambiguous paradigm."
+  :stakeholders ["Federal Constitutional Court" "political parties" "citizens"]
+  :stock :paradigm-subordination :polarity :ambiguous :magnitude 0.35 :reversibility :constitutional :meadows 2
+  :basis "Grundgesetz Arts. 18, 21; FCC jurisprudence" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-constitutionalism" :name "Constitutionalism (limited government)" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse civic norm (constitutional traditions worldwide)"
+  :origin "The norm that government power is constituted and bounded by a higher law amendable only by special process — the paradigm beneath every written constitution; where it is internalized it narrows the asymmetry independent of any single clause."
+  :stakeholders ["constitutional courts" "framers" "citizens"]
+  :stock :paradigm-subordination :polarity :narrow :magnitude 0.6 :reversibility :cultural :meadows 1
+  :basis "Comparative constitutionalism" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "gl-separation-of-powers" :name "Separation of powers (norm)" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse civic norm (Montesquieu lineage)"
+  :origin "Dividing legislative, executive, and judicial power so each checks the others is the structural norm that prevents any one branch from monopolizing coercion over citizens — a paradigm whose erosion (court capture, decree rule) is the recurring tell of backsliding."
+  :stakeholders ["the three branches" "constitutional courts" "citizens"]
+  :stock :paradigm-subordination :polarity :narrow :magnitude 0.6 :reversibility :cultural :meadows 3
+  :basis "Separation-of-powers tradition (Montesquieu)" :sourcing :representative :confidence 0.45}
+
+ ;; ── micro-state jurisdictions ──
+ {:type :instrument :id "ad-co-principality" :name "Parliamentary co-principality" :jurisdiction "AD" :kind :institution :year 1993
+  :enactor "Principality of Andorra (1993 Constitution)"
+  :origin "The 1993 constitution turned a feudal arrangement into a parliamentary democracy while retaining two ceremonial co-princes (the French president and the Bishop of Urgell); citizens elect the parliament and government — a functioning participation channel with an unusual ceremonial head-of-state form."
+  :stakeholders ["General Council (parliament)" "co-princes" "citizens"]
+  :stock :participation-barrier :polarity :ambiguous :magnitude 0.3 :reversibility :constitutional :meadows 4
+  :basis "Constitution of Andorra (1993)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "fm-democracy" :name "Federated parliamentary democracy" :jurisdiction "FM" :kind :institution :year 1979
+  :enactor "Federated States of Micronesia (1979 Constitution)"
+  :origin "A small Pacific federation with regular competitive elections to a national congress that selects the president — a functioning citizen-participation channel across dispersed island states."
+  :stakeholders ["FSM Congress" "state governments" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.45 :reversibility :constitutional :meadows 4
+  :basis "Constitution of the FSM (1979)" :sourcing :representative :confidence 0.4}
 ]

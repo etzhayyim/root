@@ -59,6 +59,14 @@
     (let [pol (frequencies (map :polarity instruments))]
       (when (zero? (get pol :widen 0))  (err! "no widening instruments"))
       (when (zero? (get pol :narrow 0)) (err! "no narrowing/balancing instruments")))
+    ;; stock balance: warn if the largest stock dwarfs the smallest (steer seeding)
+    (let [sc (vals (into {} (map (fn [s] [s (count (filter #(= s (:stock %)) instruments))])
+                                 #{:information-asymmetry :participation-barrier
+                                   :coercion-asymmetry :paradigm-subordination :economic-capture})))
+          mx (apply max 0 sc) mn (apply min (cons (max mx 1) (filter pos? sc)))]
+      (when (and (pos? mx) (> (/ (double mx) mn) 4.0))
+        (warn! (str "stock imbalance: max/min ratio " (Math/round (* 10.0 (/ (double mx) mn)))
+                    "/10 (>4) — deepen the thinnest stock"))))
     {:errors @errs :warnings @warns
      :stats {:instruments (count instruments)
              :jurisdictions (count (distinct (map :jurisdiction instruments)))

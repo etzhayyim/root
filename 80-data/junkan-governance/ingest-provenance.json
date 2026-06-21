@@ -14,20 +14,20 @@
     "report.md"
   ],
   "regenerate": "bb --classpath 20-actors -e \"(require '[junkan.methods.junkan-edn :as je] '[junkan.methods.analyze :as az] '[junkan.methods.kotoba :as k]) (let [is (je/instruments \\\"20-actors/junkan/kotoba/seed.governance-asymmetry.edn\\\") a (az/analyze is) ds (az/datoms is a) tx (k/make-tx ds \\\"junkan-gov-snapshot-0001\\\" \\\"snapshot\\\" \\\"\\\")] (spit \\\"80-data/junkan-governance/governance-asymmetry.datoms.kotoba.edn\\\" (az/render-datoms is a)) (spit \\\"80-data/junkan-governance/findings-ledger.kotoba.edn\\\" (k/tx->edn tx)) (spit \\\"80-data/junkan-governance/report.md\\\" (az/render-report a)))\"",
-  "tx_cid": "b2146fdf2cfd30d96d8ac45faf9cecdd52c244aced20146061033acc0d7ae89c3",
-  "datoms": 3955,
-  "instruments": 265,
-  "jurisdictions": 178,
-  "regions": {"africa": 49, "asia": 46, "europe": 44, "americas": 27, "oceania": 10, "transnational": 2},
-  "kinds": {"law": 68, "institution": 156, "doctrine": 33, "value": 8},
-  "stocks": {"participation-barrier": 125, "information-asymmetry": 40, "coercion-asymmetry": 38, "economic-capture": 32, "paradigm-subordination": 30},
-  "thinnest_stock": "paradigm-subordination",
+  "tx_cid": "b67b974403fa4d366b567b75707dde318162e444bcd4e5dbb6383467efc8e1056",
+  "datoms": 4123,
+  "instruments": 277,
+  "jurisdictions": 180,
+  "regions": {"africa": 49, "asia": 46, "europe": 45, "americas": 27, "oceania": 11, "transnational": 2},
+  "kinds": {"law": 70, "institution": 158, "doctrine": 38, "value": 11},
+  "stocks": {"participation-barrier": 127, "information-asymmetry": 40, "coercion-asymmetry": 38, "paradigm-subordination": 40, "economic-capture": 32},
+  "thinnest_stock": "economic-capture",
   "generated_scorecard": "SCORECARD.md",
   "tx_cid_note": "tx-cid reproducible byte-for-byte from the seed (deterministic content-address); changes only when the seed changes.",
   "sourcing": "representative (laws/years/enactors/origins are on-the-record public facts; polarity/magnitude/confidence are junkan's disclosed hypotheses, G5)",
   "discipline": "G4 analysis-only / G5 hypothesis-only / G6 aggregate-only / G7 map-not-rank / G11 candidates-not-directives",
   "as_of": "2026-06-22",
-  "iteration": 17,
+  "iteration": 18,
   "iteration_history": [
     {"iteration": 1, "instruments": 35, "jurisdictions": 17, "tx_cid": "bb4be4ac091ae9cc9be30c732d2fc78f773afabea84d6deccb96b784576a1d814"},
     {"iteration": 2, "instruments": 59, "jurisdictions": 31, "note": "Global South / under-represented wave: BR MX ZA NG ID TR IR PH PK VN KE TN CL TW"},
@@ -45,6 +45,7 @@
     {"iteration": 14, "instruments": 231, "jurisdictions": 164, "note": "paradigm depth (Xi Thought, personality cults, established religion, SG paternalism) + coercion depth (US qualified immunity, PH drug war, MX militarization, BR police lethality) + small jurisdictions (DJ SB); + headline synthesis (most-pressured stock = coercion +0.28, latest-era widening, doctrines narrow)"},
     {"iteration": 15, "instruments": 243, "jurisdictions": 171, "note": "economic-capture depth 17→24 (GB lobbying, CN state-capital, tax havens, MT golden passports, GY oil; + narrowers: beneficial-ownership registries, EITI) + small states (MT GY SC LS KM GW BS); + self-balancing worklist (flags the thinnest stock to steer future seeding)"},
     {"iteration": 16, "instruments": 255, "jurisdictions": 176, "note": "economic-capture 24→32 toward parity per the self-balancing worklist (anti-corruption bodies DE Lobbyregister, FR HATVP, ID KPK, RO DNA, BR Lava Jato; + procurement corruption, AU donations, LU financial centre) + new jurisdictions (LU XK SR PW KI); + queryable 誰が定めたか (query/enactor-of) + by-stock. thinnest stock rotated economic→coercion (worklist working)"},
-    {"iteration": 17, "instruments": 265, "jurisdictions": 178, "note": "coercion-asymmetry 29→38 toward parity (HK NSL, CN RSDL, RU treason 2022, TR OHAL decrees, TH Art.44, IN UAPA, EG protest law; + counters ICC Rome Statute, Mandela Rules) + sub-sovereign/micro jurisdictions (HK LI); + extreme-instruments analytic (strongest concrete widening/narrowing laws). thinnest rotated coercion→paradigm"}
+    {"iteration": 17, "instruments": 265, "jurisdictions": 178, "note": "coercion-asymmetry 29→38 toward parity (HK NSL, CN RSDL, RU treason 2022, TR OHAL decrees, TH Art.44, IN UAPA, EG protest law; + counters ICC Rome Statute, Mandela Rules) + sub-sovereign/micro jurisdictions (HK LI); + extreme-instruments analytic (strongest concrete widening/narrowing laws). thinnest rotated coercion→paradigm"},
+    {"iteration": 18, "instruments": 277, "jurisdictions": 180, "note": "paradigm-subordination 30→40 toward parity (RU traditional-values 809, HU illiberal-democracy, CN patriotic-education 2024, SA religious establishment; + rights paradigms US 1st Amendment, FR 1789 Declaration, DE militant democracy, constitutionalism + separation-of-powers norms) + micro-states (AD FM); + validate stock-imbalance warning. thinnest rotated paradigm→economic"}
   ]
 }
