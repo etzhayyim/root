@@ -24143,7 +24143,7 @@
         "2605215000",
         "2606039200"
       ],
-      "last_verified": "2026-06-12",
+      "last_verified": "2026-06-21",
       "amends": [],
       "amended_by": []
     },
@@ -25731,10 +25731,22 @@
       "authoritative_for": [
         "ibuki-coscientist-entropy-react-loop"
       ],
-      "related": "[\"2606051800\", \"2606111500\", \"2606012100\", \"2606062101\", \"2605192100\"]",
+      "related": [
+        "2606051800",
+        "2606111500",
+        "2606012100",
+        "2606062101",
+        "2605192100"
+      ],
       "supersedes": [],
       "superseded_by": [],
-      "depends_on": "[\"2606101200\", \"2606101800\", \"2605215000\", \"2605312345\", \"2606062100\"]",
+      "depends_on": [
+        "2606101200",
+        "2606101800",
+        "2605215000",
+        "2605312345",
+        "2606062100"
+      ],
       "last_verified": "2026-06-20",
       "amends": [],
       "amended_by": []
@@ -25924,6 +25936,124 @@
         "2606042330",
         "2605192100",
         "2605231525"
+      ],
+      "last_verified": "2026-06-21",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606212000-kaname-energy-domain-layer.md",
+      "id": "adr-2606212000-kaname-energy-domain-layer",
+      "title": "ADR-2606212000: kaname 要 — :energy domain layer (system-of-systems energy-flow)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "kaname-energy-domain",
+      "authoritative": true,
+      "authoritative_for": [
+        "kaname-energy-domain-layer"
+      ],
+      "related": [
+        "2606091800",
+        "2605261100"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606172100",
+        "2606212020",
+        "2606211200"
+      ],
+      "last_verified": "2026-06-21",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606212000-tsuchifumi-earthing-emf-wellbecoming-actor.md",
+      "id": "adr-2606212000-tsuchifumi-earthing-emf-wellbecoming-actor",
+      "title": "ADR-2606212000: tsuchifumi 土踏み — earthing-EMF Wellbecoming observatory + ossekai actor (clj-native Tier-B)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "tsuchifumi-earthing-emf-wellbecoming-actor",
+      "authoritative": true,
+      "authoritative_for": [
+        "tsuchifumi 土踏み actor (20-actors/tsuchifumi) — the clj-native Tier-B earthing-EMF Wellbecoming observatory",
+        "the relief-verdict gate (evidence-honest, anti-pseudoscience)",
+        "the earthing-EMF system-dynamics model (distribution-only)",
+        "the earthing-EMF risk register + Meadows leverage points",
+        "the earthing-EMF co-scientist (特定+分析): action/research-track identify+analyze tournament",
+        "tsuchifumi's dry-run atproto おせっかい (ossekai) post invariants",
+        "tsuchifumi's content-addressed observation-ledger persistence (持続永続化)"
+      ],
+      "related": [
+        "adr-2606201200-ibuki-coscientist-entropy-react-loop",
+        "adr-2605264000-ossekai-info-arbitrage-wellbecoming-nudge",
+        "adr-2606073000-inochi-living-world-kg-mirror",
+        "adr-2606082102-shiori-wellbecoming-detractor-observatory",
+        "adr-2605312700-kizashi-noninvasive-body-scan-instrument",
+        "adr-2606072800-suimin-sleep-disorder-evidence-synthesis",
+        "adr-2606051800-mitooshi-probabilistic-forecasting-observatory",
+        "adr-2606111500-hakoniwa-forward-simulation-observatory"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state"
+      ],
+      "last_verified": "2026-06-21",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606212010-atsurae-product-line-engineering-feature-model.md",
+      "id": "adr-2606212010-atsurae-product-line-engineering-feature-model",
+      "title": "ADR-2606212010: atsurae 誂え — Product Line Engineering (PLE) feature-model engine",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "atsurae-ple-feature-model",
+      "authoritative": true,
+      "authoritative_for": [
+        "atsurae-product-line-engineering"
+      ],
+      "related": [
+        "2606032100",
+        "2606013400",
+        "2606010030",
+        "2606033601"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606037200",
+        "2606081800"
+      ],
+      "last_verified": "2026-06-21",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606212020-amime-energy-mesh-flow-network.md",
+      "id": "adr-2606212020-amime-energy-mesh-flow-network",
+      "title": "ADR-2606212020: amime 網目 — multi-site energy MESH flow-network (Energy Order SoS layer)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "amime-energy-mesh",
+      "authoritative": true,
+      "authoritative_for": [
+        "amime-energy-mesh-flow-network"
+      ],
+      "related": [
+        "2606172100",
+        "2606212000",
+        "2605261100",
+        "2605265600"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606211200",
+        "2606091800"
       ],
       "last_verified": "2026-06-21",
       "amends": [],

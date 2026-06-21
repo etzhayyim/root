@@ -15265,7 +15265,7 @@
         "doc:2605262900",
         "doc:2605302000"
       ],
-      "lastVerified": "2026-06-12"
+      "lastVerified": "2026-06-21"
     },
     {
       "id": "doc:adr-2606130900-maxwell-rsi-ecosystem",
@@ -16192,76 +16192,11 @@
         "ibuki-coscientist-entropy-react-loop"
       ],
       "related": [
-        "doc:[",
-        "doc:\"",
-        "doc:2",
-        "doc:6",
-        "doc:0",
-        "doc:6",
-        "doc:0",
-        "doc:5",
-        "doc:1",
-        "doc:8",
-        "doc:0",
-        "doc:0",
-        "doc:\"",
-        "doc:,",
-        "doc: ",
-        "doc:\"",
-        "doc:2",
-        "doc:6",
-        "doc:0",
-        "doc:6",
-        "doc:1",
-        "doc:1",
-        "doc:1",
-        "doc:5",
-        "doc:0",
-        "doc:0",
-        "doc:\"",
-        "doc:,",
-        "doc: ",
-        "doc:\"",
-        "doc:2",
-        "doc:6",
-        "doc:0",
-        "doc:6",
-        "doc:0",
-        "doc:1",
-        "doc:2",
-        "doc:1",
-        "doc:0",
-        "doc:0",
-        "doc:\"",
-        "doc:,",
-        "doc: ",
-        "doc:\"",
-        "doc:2",
-        "doc:6",
-        "doc:0",
-        "doc:6",
-        "doc:0",
-        "doc:6",
-        "doc:2",
-        "doc:1",
-        "doc:0",
-        "doc:1",
-        "doc:\"",
-        "doc:,",
-        "doc: ",
-        "doc:\"",
-        "doc:2",
-        "doc:6",
-        "doc:0",
-        "doc:5",
-        "doc:1",
-        "doc:9",
-        "doc:2",
-        "doc:1",
-        "doc:0",
-        "doc:0",
-        "doc:\"",
-        "doc:]"
+        "doc:2606051800",
+        "doc:2606111500",
+        "doc:2606012100",
+        "doc:2606062101",
+        "doc:2605192100"
       ],
       "lastVerified": "2026-06-20"
     },
@@ -16269,21 +16204,48 @@
       "id": "doc:adr-2606201610-etzhayyim-apex-kotoba-explorer-organism-app",
       "type": "TechArticle",
       "title": "ADR-2606201610: etzhayyim.com apex — kotoba blockchain explorer + node-distribution + organism app (serverless, browser-side)",
-      "status": "proposed",
+      "status": "accepted",
       "topic": "etzhayyim-apex-kotoba-explorer-organism-app",
       "authoritative": true,
       "authoritativeFor": [
         "etzhayyim.com apex landing app (replaces the yoro bsky AppView at the apex)",
         "browser-side (serverless) kotoba blockchain/CommitDag explorer",
-        "node-distribution (分散状況) view over the actor/cell mesh",
-        "organism aliveness view (Tree-of-Life + 5-tuple)"
+        "node-distribution (分散状況) view, queried from the kotoba Datom EAVT",
+        "organism aliveness view (Tree-of-Life + 5-tuple)",
+        "Transit (transit+json) query/sync wire for the kotoba browser",
+        "agent-centric (Holochain-iso) actor registration PoC (signed genesis source-chains)",
+        "validating membrane (CACAO member vouch + witness quorum + kotoba-dht replication)",
+        "live kotoba sync node (XRPC sync.subscribe → transit+json SSE)"
       ],
       "related": [
         "doc:adr-2605171900-yoro-migration-to-etzhayyim",
         "doc:adr-2605311310-yoro-black-screen-spa-recursion-fix-and-ipfs-deploy-feasibility",
         "doc:adr-2606121350-yoro-ui-svelte-to-cljs-migration-harness"
       ],
-      "lastVerified": "2026-06-20"
+      "lastVerified": "2026-06-21"
+    },
+    {
+      "id": "doc:adr-2606211200-energy-order-protocol",
+      "type": "TechArticle",
+      "title": "ADR-2606211200: Energy Order Protocol — Proof-of-Useful-Flow actor suite (澪/撓/燠/樋/委)",
+      "status": "proposed",
+      "topic": "energy-order-protocol",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/mio",
+        "energy-order-protocol-suite"
+      ],
+      "related": [
+        "doc:2606071500",
+        "doc:2605261100",
+        "doc:2606051800",
+        "doc:2606072201",
+        "doc:2606111400",
+        "doc:2605262130",
+        "doc:2605312345",
+        "doc:2606172359"
+      ],
+      "lastVerified": "2026-06-21"
     },
     {
       "id": "doc:adr-2606211200-ie-flow-datomic-agent-lifecycle",
@@ -16298,6 +16260,188 @@
       "related": [
         "doc:adr-2606101200-ibuki-organism-autonomy",
         "doc:adr-2605215000-etzhayyim-inference-murakumo-only"
+      ],
+      "lastVerified": "2026-06-21"
+    },
+    {
+      "id": "doc:adr-2606211500-uzu-thermodynamic-organism",
+      "type": "TechArticle",
+      "title": "ADR-2606211500: uzu 渦 — a dissipative information-energy artificial organism + real-world energy measurement & visualization",
+      "status": "accepted",
+      "topic": "uzu-thermodynamic-organism",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/uzu"
+      ],
+      "related": [
+        "doc:2606101200",
+        "doc:2606101800",
+        "doc:2606011501",
+        "doc:2606072002",
+        "doc:2606032000",
+        "doc:2606072201"
+      ],
+      "lastVerified": "2026-06-21"
+    },
+    {
+      "id": "doc:adr-2606211712-kafun-pollen-remediation-actor",
+      "type": "TechArticle",
+      "title": "ADR-2606211712: kafun 花粉 — 花粉撲滅 remediation actor (clj-native Tier-B)",
+      "status": "accepted",
+      "topic": "kafun-pollen-remediation-actor",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kafun 花粉 actor (20-actors/kafun) — the clj-native Tier-B 花粉撲滅 remediation actor",
+        "the remediation-verdict gate (撲滅 = 主伐再造林 RESTORATION, never deforestation)",
+        "kafun's content-addressed remediation-ledger persistence (持続永続化)"
+      ],
+      "related": [
+        "doc:adr-2605100100-kafun-bokumetsu-real-world-pipeline",
+        "doc:adr-2605210928-kafun-public-fund-religious-corp-integration",
+        "doc:adr-2606073000-inochi-living-world-kg-mirror",
+        "doc:adr-2606032100-labor-liberation-oss-robotics-wave",
+        "doc:adr-2605260115-mitate-condition-1-allergic-rhinitis-perennial"
+      ],
+      "lastVerified": "2026-06-21"
+    },
+    {
+      "id": "doc:adr-2606211752-kagami-actor-yata-no-kagami-observational-mirror-doctrine",
+      "type": "TechArticle",
+      "title": "ADR-2606211752: kagami actor — the Yata-no-Kagami doctrine for the observational mirror lineage",
+      "status": "accepted",
+      "topic": "kagami-actor-observational-mirror-doctrine",
+      "authoritative": true,
+      "authoritativeFor": [
+        "canonical concept name: an observational mirror-actor is a 鏡 (kagami) actor, grounded in the Yata-no-Kagami (八咫鏡)",
+        "the 鏡 doctrine = 映す/裁かぬ/剣にあらず/曇りなき (reflect / judge-not / not-the-sword / unclouded) as the four invariants of every mirror-actor",
+        "the 9 KG-mirror lineage actors (tsumugi/danjo/ooyake/watatsuna/watari/inochi/hokorobi/keizu/kanae) named as the kagami lineage"
+      ],
+      "related": [
+        "doc:2606011800",
+        "doc:2606012600",
+        "doc:2606021600",
+        "doc:2606041827",
+        "doc:2605302300",
+        "doc:2606066001",
+        "doc:2606073000",
+        "doc:2606073400",
+        "doc:2605192315"
+      ],
+      "lastVerified": "2026-06-21"
+    },
+    {
+      "id": "doc:adr-2606212000-kaname-energy-domain-layer",
+      "type": "TechArticle",
+      "title": "ADR-2606212000: kaname 要 — :energy domain layer (system-of-systems energy-flow)",
+      "status": "proposed",
+      "topic": "kaname-energy-domain",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kaname-energy-domain-layer"
+      ],
+      "related": [
+        "doc:2606091800",
+        "doc:2605261100"
+      ],
+      "lastVerified": "2026-06-21"
+    },
+    {
+      "id": "doc:adr-2606212000-tsuchifumi-earthing-emf-wellbecoming-actor",
+      "type": "TechArticle",
+      "title": "ADR-2606212000: tsuchifumi 土踏み — earthing-EMF Wellbecoming observatory + ossekai actor (clj-native Tier-B)",
+      "status": "accepted",
+      "topic": "tsuchifumi-earthing-emf-wellbecoming-actor",
+      "authoritative": true,
+      "authoritativeFor": [
+        "tsuchifumi 土踏み actor (20-actors/tsuchifumi) — the clj-native Tier-B earthing-EMF Wellbecoming observatory",
+        "the relief-verdict gate (evidence-honest, anti-pseudoscience)",
+        "the earthing-EMF system-dynamics model (distribution-only)",
+        "the earthing-EMF risk register + Meadows leverage points",
+        "the earthing-EMF co-scientist (特定+分析): action/research-track identify+analyze tournament",
+        "tsuchifumi's dry-run atproto おせっかい (ossekai) post invariants",
+        "tsuchifumi's content-addressed observation-ledger persistence (持続永続化)"
+      ],
+      "related": [
+        "doc:adr-2606201200-ibuki-coscientist-entropy-react-loop",
+        "doc:adr-2605264000-ossekai-info-arbitrage-wellbecoming-nudge",
+        "doc:adr-2606073000-inochi-living-world-kg-mirror",
+        "doc:adr-2606082102-shiori-wellbecoming-detractor-observatory",
+        "doc:adr-2605312700-kizashi-noninvasive-body-scan-instrument",
+        "doc:adr-2606072800-suimin-sleep-disorder-evidence-synthesis",
+        "doc:adr-2606051800-mitooshi-probabilistic-forecasting-observatory",
+        "doc:adr-2606111500-hakoniwa-forward-simulation-observatory"
+      ],
+      "lastVerified": "2026-06-21"
+    },
+    {
+      "id": "doc:adr-2606212010-atsurae-product-line-engineering-feature-model",
+      "type": "TechArticle",
+      "title": "ADR-2606212010: atsurae 誂え — Product Line Engineering (PLE) feature-model engine",
+      "status": "proposed",
+      "topic": "atsurae-ple-feature-model",
+      "authoritative": true,
+      "authoritativeFor": [
+        "atsurae-product-line-engineering"
+      ],
+      "related": [
+        "doc:2606032100",
+        "doc:2606013400",
+        "doc:2606010030",
+        "doc:2606033601"
+      ],
+      "lastVerified": "2026-06-21"
+    },
+    {
+      "id": "doc:adr-2606212020-amime-energy-mesh-flow-network",
+      "type": "TechArticle",
+      "title": "ADR-2606212020: amime 網目 — multi-site energy MESH flow-network (Energy Order SoS layer)",
+      "status": "proposed",
+      "topic": "amime-energy-mesh",
+      "authoritative": true,
+      "authoritativeFor": [
+        "amime-energy-mesh-flow-network"
+      ],
+      "related": [
+        "doc:2606172100",
+        "doc:2606212000",
+        "doc:2605261100",
+        "doc:2605265600"
+      ],
+      "lastVerified": "2026-06-21"
+    },
+    {
+      "id": "doc:adr-2606212030-kafun-ie-flow-energy-visualization",
+      "type": "TechArticle",
+      "title": "ADR-2606212030: kafun 花粉 embeds ie-flow + energy-flow system-of-systems visualization",
+      "status": "accepted",
+      "topic": "kafun-ie-flow-energy-visualization",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kafun 花粉 ie-flow embedding (20-actors/kafun/methods/ie_flow.cljc)",
+        "kafun energy-flow visualization (20-actors/kafun/viz/energy-flow.html)"
+      ],
+      "related": [
+        "doc:adr-2606211200-energy-order-protocol",
+        "doc:adr-2606201200-ibuki-coscientist-entropy-react-loop",
+        "doc:adr-2605312345-kotoba-datom-first-class-canonical-state"
+      ],
+      "lastVerified": "2026-06-21"
+    },
+    {
+      "id": "doc:adr-2606212200-ie-flow-actor-score-organism-reward",
+      "type": "TechArticle",
+      "title": "ADR-2606212200: ie-flow actor SCORE — information-control 利得 integrated into the artificial-organism reward",
+      "status": "accepted",
+      "topic": "ie-flow-actor-score-organism-reward",
+      "authoritative": true,
+      "authoritativeFor": [
+        "etzhayyim.ie-flow.score (the composite information-control score + organism reward)",
+        "the :colony-order negentropy source in ibuki's metabolism"
+      ],
+      "related": [
+        "doc:adr-2606212030-kafun-ie-flow-energy-visualization",
+        "doc:adr-2606211200-energy-order-protocol",
+        "doc:adr-2605312345-kotoba-datom-first-class-canonical-state"
       ],
       "lastVerified": "2026-06-21"
     },
