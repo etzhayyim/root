@@ -31,7 +31,7 @@
   (:require [kafun.methods.kafun-edn :as ke]
             [kafun.methods.remediate :as rem]
             [etzhayyim.ie-flow.metrics :as iem]
-            #?(:clj [etzhayyim.ie-flow.embed :as embed])
+            [etzhayyim.ie-flow.gate-adapter :as ga]
             [clojure.string :as str]
             #?(:clj [clojure.edn :as edn])))
 
@@ -77,56 +77,47 @@
 
 ;; ── kafun assessment → measured ie-flow EVENTS ───────────────────────────────
 
-(defn flow-events
-  "Project the kafun assessment into ie-flow EVENT maps (the SoS measurement the
-  shared metrics fold over). One event per stand: source = the stand (a 花粉源),
-  target = the verdict route, volume = pollen-burden (the scattered input flow),
-  value = burden·route-factor·scale (the order kafun rectifies onto an outcome),
-  cost = flat assessment compute, risk = 0 (assessment-only, no actuation)."
+(defn config
+  "The shared gate-adapter config for kafun's remediation assessment (the domain model; the
+  shared helper does the event/metric/record plumbing). Rows are the assess rows ENRICHED with
+  the stand's :reforest-viability — the value model scales :reforest-priority by viability.
+  source = the stand, route = the verdict, volume = pollen-burden, value = burden·route-factor·scale."
   [stands]
-  (let [rows (get (rem/assess stands) "stands")
-        by-id (into {} (map (juxt :id identity) stands))]
-    (mapv
-     (fn [r]
-       (let [verdict (get r "verdict")
-             burden (double (get r "pollen_burden"))
-             stand (get by-id (get r "id"))
-             viab (double (or (:reforest-viability stand) 0))
-             factor (route-factor verdict viab)]
-         {:id (str "kafun-" (get r "id"))
-          :actor "kafun"
-          :source (str "stand:" (get r "id"))
-          :target (str "route:" (name verdict))
-          :type (name verdict)
-          :volume burden
-          :value (* burden factor value-scale)
-          :cost assess-cost
-          :risk 0.0
-          :agent? true}))
-     rows)))
+  (let [by-id (into {} (map (juxt :id identity) stands))
+        rows (mapv (fn [r] (assoc r "viability"
+                                  (double (or (:reforest-viability (get by-id (get r "id"))) 0))))
+                   (get (rem/assess stands) "stands"))]
+    {:actor "kafun" :id-prefix "kafun-" :source-kind "stand"
+     :rows rows
+     :route-key "verdict"
+     :volume-fn #(double (get % "pollen_burden"))
+     :value-fn #(* (double (get % "pollen_burden"))
+                   (double (route-factor (get % "verdict") (double (get % "viability"))))
+                   value-scale)}))
+
+(defn flow-events
+  "Project the kafun assessment into ie-flow EVENT maps via the SHARED gate-adapter. One event
+  per stand: source = the stand (a 花粉源), target = the verdict route, volume = pollen-burden
+  (the scattered input flow), value = burden·route-factor·scale (the order kafun rectifies onto
+  an outcome), cost = flat assessment compute, risk = 0 (assessment-only, no actuation)."
+  [stands]
+  (ga/flow-events (config stands)))
 
 (defn flow-state
   "Fold kafun's measured events through the SHARED ie-flow metrics → the order
-  calculus (net-gain / order-index / agent-efficiency / parasitic?). Embeds
-  etzhayyim.ie-flow.metrics — NOT a fork."
+  calculus (net-gain / order-index / agent-efficiency / parasitic?)."
   [stands]
-  (iem/flow-state (flow-events stands)))
+  (ga/flow-state (config stands)))
 
 #?(:clj
    (defn record-flow!
      "Record kafun's measured ie-flow EVENTS to the shared per-actor ie-flow ledger
-     (80-data/ie-flow/kafun/flow.kotoba.edn) via etzhayyim.ie-flow.embed — so kafun's
-     SoS scoreboard entry is produced by the heartbeat/tool (etzhayyim.ie-flow.score), not
-     only adapter-on-demand. The flow ledger is gitignored (generated). Deterministic: the
-     caller supplies tx-id + as-of (no wall clock) → resume-safe. No-server-key (local file,
-     no network I/O). Returns {:flow-log <path> :events <n> :order-index <oi>}."
+     (80-data/ie-flow/kafun/flow.kotoba.edn) via the SHARED gate-adapter — so kafun's SoS
+     scoreboard entry is produced by the heartbeat/tool, not only adapter-on-demand. The flow
+     ledger is gitignored (generated). Deterministic (caller supplies tx-id + as-of) →
+     resume-safe. No-server-key. Returns {:flow-log <path> :events <n> :order-index <oi>}."
      ([stands] (record-flow! stands {}))
-     ([stands {:keys [tx-id as-of]}]
-      (let [evs (flow-events stands)]
-        (embed/record! "kafun" evs {:tx-id (or tx-id "kafun-ie-flow") :as-of (or as-of "beat")})
-        {:flow-log (embed/flow-log "kafun")
-         :events (count evs)
-         :order-index (get (embed/measure "kafun") :order-index)}))))
+     ([stands opts] (ga/record-flow! (config stands) opts))))
 
 ;; ── viz model (the SSoT the HTML renders; columns = the SoS pipeline) ────────
 
