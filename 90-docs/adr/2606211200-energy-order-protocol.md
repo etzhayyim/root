@@ -213,9 +213,22 @@ in `50-infra/cluster/murakumo/cell-runner/cells.edn` (24 cells total now):
 
 Ports 13084–13088 are conflict-free; crons staggered. `fire` proven for all five by
 `20-actors/energy_order/test_cells.cljc` (append-on-first, idempotent no-op on second,
-chain verifies). Suite totals now **138 tests / 977 assertions green**. Remaining R1: live
-operator-gated ingest (real meters/scheduler/CACAO capability) + kotoba_bridge to the live
-engine (operator/Council-gated; needs a running node, not self-contained).
+chain verifies). Suite totals now **138 tests / 977 assertions green**.
+
+## R1 — suite integrity validator LANDED (2026-06-21)
+
+`20-actors/energy_order/validate.cljc` makes the charter gates self-validating: for every
+actor it proves (machine-checked from the ontology) that each `:unrepresentable` attribute
+the ontology declares is ACTUALLY absent from that actor's emitted datoms (ontology ⊨ code —
+the gate is enforced, not just documented), and that seed ids are unique. Run: **26
+charter-gate attributes verified absent across the 5 actors, 0 failing**; the leak detector
+is proven non-vacuous (a synthetic forbidden attr is caught). This is the suite's regression
+guard against silent charter-gate drift. Suite totals now **141 tests / 996 assertions green**.
+
+Remaining R1 (NOT self-contained — needs a running node / external sources / operator
+credentials, several Council-gated): live operator-gated ingest (real meters/scheduler/CACAO
+capability) + kotoba_bridge to the live engine. The R0+R1 build is otherwise complete and
+fleet-registered.
 
 # Consequences
 

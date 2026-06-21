@@ -19,11 +19,21 @@ verifiable CID.
 
 `Proof of Work → Proof of Useful Flow`: value is **ordered** flow, never **consumed** energy.
 
+## Contents
+
+- `digest.cljc` — the cross-actor digest (org Flowrate + per-leg + per-class + CID).
+- `validate.cljc` — suite-wide integrity checker: proves every `:unrepresentable` charter
+  gate each ontology declares is ACTUALLY absent from that actor's emitted datoms
+  (ontology ⊨ code), and seed ids are unique. A green run = no charter gate has silently
+  regressed across the suite.
+- `test_digest.cljc` · `test_cells.cljc` (the 5 `fire` heartbeat contracts) · `test_validate.cljc`.
+
 ## Run
 
 ```bash
-./20-actors/energy_order/run_tests.sh                               # 7 tests / 21 assertions
+./20-actors/energy_order/run_tests.sh                               # digest + cells + validate
 bb --classpath 20-actors 20-actors/energy_order/digest.cljc         # render the cross-actor digest
+bb --classpath 20-actors 20-actors/energy_order/validate.cljc       # suite integrity (ontology ⊨ code)
 ```
 
 Current seed run: 25 claims (tawami 12 / okibi 4 / toi 5 / yudane 4) → mio verifies 23 →
