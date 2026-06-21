@@ -9,7 +9,7 @@ last_verified: 2026-05-17
 priority: 8.0
 axis: architecture
 weight: 0.80
-priority_note: "Closes the substrate purity loop opened by ADR-2605172000. RW-free state + on-chain payments together make the etzhayyim ecosystem operable without any centralized intermediary (no DB, no Stripe, no bank). Defines the payment SDK surface, the smart wallet binding, and the paymaster economics."
+priority_note: "Closes the substrate purity loop opened by ADR-2605172000. kotoba state + on-chain payments together make the etzhayyim ecosystem operable without any centralized intermediary (no DB, no Stripe, no bank). Defines the payment SDK surface, the smart wallet binding, and the paymaster economics."
 authoritative_for:
   - hard rule: etzhayyim/root apps MUST NOT integrate fiat payment processors (Stripe / PayPal / Square / Razorpay / credit-card gateways / bank ACH)
   - primary payment substrate: Base L2 + USDC (Coinbase Bridged on Base, contract 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913)
@@ -17,7 +17,7 @@ authoritative_for:
   - gas sponsorship: etzhayyim-operated paymaster contract (funded by anchor-batch fee skim)
   - payment record convention: every settled tx → AT Record (NSID com.etzhayyim.apps.payment.*) for verifiability + audit
 depends_on:
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
   - adr-2605170900-etzhayyim-root-adr-canonical-home
 related:
@@ -208,7 +208,7 @@ Multi-chain for redundancy. 却下: not the right time. SDK abstraction will all
 
 # References
 
-- ADR-2605172000 [etzhayyim/root open apps MUST be RW-free](./2605172000-etzhayyim-rw-free-substrate.md) — substrate context this ADR extends to money
+- ADR-2605172000 [etzhayyim/root open apps MUST be kotoba](./2605172000-etzhayyim-kotoba-substrate.md) — substrate context this ADR extends to money
 - ADR-2605171800 [LangGraph Pregel → MST → IPFS → Base L2 anchor pipeline](./2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md) — same chain, same anchor contract
 - ADR-2605170900 [etzhayyim/root canonical home](./2605170900-etzhayyim-root-adr-canonical-home.md)
 - ADR-0074 Ethereum Identity Bridge — CACAO + WebAuthn

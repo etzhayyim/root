@@ -17,7 +17,7 @@ authoritative_for:
   - public-global late-fetch reconciliation pattern
 related:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605265200-kami-engine-sdk-20-actors-legacy-duplicate-retirement
 depends_on: []
@@ -186,7 +186,7 @@ Rejected during the session. Saved to `260521-cell-waves` first, then closed the
 # References
 
 - ADR-2605170900 (etzhayyim/root as canonical home for religious-corp open ADRs)
-- ADR-2605172000 (etzhayyim/root open apps MUST be RW-free)
+- ADR-2605172000 (etzhayyim/root open apps MUST be kotoba)
 - ADR-2605192200 (Apache 2.0 + etzhayyim Charter Compliance Rider v2.0)
 - Commit `393da1ce` (Remove vendor business actors leaked into public seed — Tier 1)
 - Commit `690135d3` (60-apps: import etzhayyim-project-public-global from etzhayyim)

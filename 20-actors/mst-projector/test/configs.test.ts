@@ -9,7 +9,7 @@ import { describe, expect, it } from "vitest";
 import { ALL_PROJECTORS, getProjectorConfig } from "../src/configs.js";
 
 describe("ALL_PROJECTORS", () => {
-  it("registers 26 non-kiyo rw-free actors", () => {
+  it("registers 26 non-kiyo kotoba actors", () => {
     expect(Object.keys(ALL_PROJECTORS).length).toBe(26);
   });
 

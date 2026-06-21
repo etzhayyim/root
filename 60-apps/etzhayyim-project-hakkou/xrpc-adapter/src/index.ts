@@ -3,7 +3,7 @@ import {
   extractBearerToken,
   type Etzhayyim,
 } from "@etzhayyim/sdk-auth";
-import * as hakkouRwFree from "@etzhayyim/hakkou-rw-free";
+import * as hakkouRwFree from "@etzhayyim/hakkou-kotoba";
 
 interface Env { ACTOR_DID: string; PDS_URL: string; L2_RPC_URL: string; }
   PDS_ACCESS_JWT?: string;

@@ -2,7 +2,7 @@
 
 etzhayyim Japan の AI agent が user 代理で Microsoft Teams / Google Meet / Zoom meeting に参加し、音声・動画・transcript を記録する recorder actor の **設計 → 実装 → 検証** を 1 session で完了。次 session 引き継ぎ用。
 
-> **2026-06-10 update**: 「What's NOT yet done」のうち **minutes 議事録生成は実装・検証完了** — rw-free 生成層 (PR #1585, MERGED, ADR-2606101920) + vendor container leave 時自動生成 (gftdcojp#1440, ADR-0089 D6) + appview getMinutes (PR #1590)。Meet adapter は Phase 1.5 へ前進。クロージング: `260610-meeting-recorder-minutes-closing.md`。Provider SDK sidecars は引き続き credentials 待ち。
+> **2026-06-10 update**: 「What's NOT yet done」のうち **minutes 議事録生成は実装・検証完了** — kotoba 生成層 (PR #1585, MERGED, ADR-2606101920) + vendor container leave 時自動生成 (gftdcojp#1440, ADR-0089 D6) + appview getMinutes (PR #1590)。Meet adapter は Phase 1.5 へ前進。クロージング: `260610-meeting-recorder-minutes-closing.md`。Provider SDK sidecars は引き続き credentials 待ち。
 
 ## Final Status
 

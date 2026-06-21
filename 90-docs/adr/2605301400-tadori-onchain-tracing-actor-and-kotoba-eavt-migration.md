@@ -74,7 +74,7 @@ established the current state honestly:
    content-addressed blocks, removed the projection layer entirely (D7), and
    strengthened the no-Kotoba/Datomic invariant to cover **read backends** as well as
    primary write stores (D-row 4, D-row 12). yata Workers-RPC SQL graph is a non-kotoba
-   primary store and falls under the same RW-free invariant (ADR-2605172000). So the
+   primary store and falls under the same kotoba invariant (ADR-2605172000). So the
    honest answer to the user was: **the data is NOT in kotoba datomic; it is in
    Kotoba/Datomic + yata SQL, which the current charter prohibits.**
 

@@ -7,8 +7,8 @@
 //
 // SUBSTRATE (ADR-2606037200 D1 + ADR-2605262130 + ADR-2605312345): canonical state is the
 // kotoba Datom log. RisingWave / Kysely / Hyperdrive are PROHIBITED in the religious-corp ERP
-// path. Every read/write routes through the tested, kotoba-Datomic rw-free functions
-// (@etzhayyim/open-kyber-rw-free) via `createXrpcBridge`, which adapts the kotodama-host-sdk
+// path. Every read/write routes through the tested, kotoba-Datomic kotoba functions
+// (@etzhayyim/open-kyber-kotoba) via `createXrpcBridge`, which adapts the kotodama-host-sdk
 // AT-repo XrpcClient (createRecord / getRecord / listRecords → PDS → Datom log) to the
 // `Etzhayyim` read/write surface. This SUPERSEDES the ADR-0036 "domain writes via Kysely"
 // rule for this app (the runbook is 60-apps/etzhayyim-project-open-kyber/R2-WORKER-WIRING.md).
@@ -63,7 +63,7 @@ import {
   listRiskIssues,
   // coverage (kqe replacement for the RisingWave getApqcCoverage MV)
   erpCoverage,
-} from "@etzhayyim/open-kyber-rw-free";
+} from "@etzhayyim/open-kyber-kotoba";
 
 // ───────────────────────────── shared state ─────────────────────────────
 
@@ -101,12 +101,12 @@ function bridgeFor(sdk: HostSDK, did: string): Etzhayyim {
   return createXrpcBridge(sdk.pds as never, { did });
 }
 
-/** Whether an rw-free status string represents a successful (non-rejected) outcome. */
+/** Whether an kotoba status string represents a successful (non-rejected) outcome. */
 function okStatus(status: string): boolean {
   return status !== "rejected" && status !== "error";
 }
 
-/** Validate + normalize a number into a non-negative decimal money STRING (rw-free isMoney). */
+/** Validate + normalize a number into a non-negative decimal money STRING (kotoba isMoney). */
 function money(n: unknown): string {
   const v = Number(n ?? 0);
   if (!Number.isFinite(v) || v < 0) return "0";
@@ -387,7 +387,7 @@ async function cmdRunDepreciation(sdk: HostSDK, body: Uint8Array) {
   const periodIndex = Number(args.periodIndex ?? 0);
   const e = bridgeFor(sdk, DEPT.asset);
 
-  // Single asset by tag, or a batch of asset tags. rw-free reads the persisted fixed asset
+  // Single asset by tag, or a batch of asset tags. kotoba reads the persisted fixed asset
   // and posts an accumulating depreciation-run Datom (非終末論, never an in-place edit).
   const tag = str(args.tag ?? args.assetTag ?? "");
   if (tag) {

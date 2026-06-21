@@ -7,7 +7,7 @@
 > industry), and a **kotoba-native productivity suite** (mailer over openmail Postage / drive
 > on IPFS / docs+sheets as content-addressed blocks / calendar Datoms). Artifacts:
 > `00-contracts/schemas/erp-ontology.kotoba.edn` (EAVT vocab) +
-> `industry-packs/isic-packs.kotoba.edn` (packs). R0 = design landed; rw-free TS loader +
+> `industry-packs/isic-packs.kotoba.edn` (packs). R0 = design landed; kotoba TS loader +
 > XRPC wiring + tests are R1+. The APQC/BPMN sections below describe the current (ADR-0025)
 > deployment; the read path migrates to kqe-over-Datom-log per ADR-2606037200 D1.
 

@@ -90,6 +90,83 @@ Murakumo-only (ADR-2605215000): drafter = fleet (E4B as local HF on gad; 12b via
   (gad CPU load moved the *base* between 371 s and 942 s); the stable within-run indicator is
   **decoder forward passes**.
 
+## GPU throughput (Modal A100/H100; base diffusion vs AR 12b)
+
+The CPU numbers above measure the *drafter effect*; they undersell raw throughput (gad has no
+working GPU path — gfx1151 ROCm crashes: bnb-4bit HIP GP-fault, and quanto-int4 OOMs at 47.45/48 GB
+in the MoE `grouped_mm_experts_forward`). To get real GPU tok/s we ran on Modal NVIDIA GPUs (open-model
+research, transparent — Rider v3.3 §2(i) / ADR-2606172359 objective-function compute).
+
+**throughput is measured on long generation** (400-word essay); short answers (1-token MMLU) over a
+256-canvas grossly under-report diffusion tok/s, which is why the e7m-micro warm-start tok/s looked
+~10. Single-sequence, bf16, tok/s:
+
+| model | type | params | B=1 | batched peak | int4 peak |
+|---|---|---|---|---|---|
+| maxwell-diffusion | discrete-diffusion | 25.2B / 3.8B-active MoE | **318** (H100) / 137 (A100) | 531 (H100 bf16 B=4) | 555 (H100 B=8) |
+| gemma-4-12b | autoregressive | 12B dense | 25 (H100) | 430 (bf16 B=32) | **629 (int4 B=64)** |
+
+- **Single-stream: diffusion ≫ AR** — 318 vs 25 tok/s (**~13×**). Block-diffusion emits a 256-canvas in
+  ~17 forward passes (tokens_per_forward ≈ 15–20) vs AR's 1 token / forward. The diffusion win is
+  *latency / low-batch*.
+- **High-concurrency: AR wins** — gemma-4-12b int4 is 8–15 GB resident → packs B=64 → 629 tok/s aggregate;
+  maxwell-diffusion's MoE forward intermediate caps batch at ~8 (B=16 OOM even int4), peaking ~555.
+- **int4 effect is asymmetric**: huge for AR (24→8 GB enables big batch: bf16 430 → int4 629), marginal
+  for the diffusion MoE (555 vs 531 — limited by the forward *intermediate*, not weight storage; int4
+  B=16 still OOMs). At B=1 int4 is slightly *slower* than bf16 (dequant overhead: 12b 20 vs 25 tok/s).
+- **~1000 tok/s** (the diffusion-LM marketing figure) needs fp8 + fused-MoE/flash-attn + H200/B200 (bigger
+  batch); single-sequence unoptimized on H100 is ~318.
+- These are **base (random-init) diffusion** numbers. The drafter warm-start (above) is an additive
+  quality/step effect on the *single-stream* path; on long multi-canvas output it only seeds the first
+  canvas, so its throughput contribution is smaller than on short answers.
+
+## Generation-quality benchmark (Modal H100; GSM8K + e7m-micro)
+
+**GSM8K** (80 test items, 0-shot CoT, exact-match, `max_new_tokens=512`):
+
+| config | accuracy | time | vs 12b |
+|---|---|---|---|
+| gemma-4-12b (AR) | 78/80 = **97.5%** | 1552 s | 1× |
+| maxwell-diffusion base (random-init) | 79/80 = **98.8%** | 91 s | **~17× faster** |
+| maxwell-diffusion warm (12b-integrated) | 78/80 = **97.5%** | 59 s | ~26× (diffusion-stage only) |
+
+- **Quality parity**: all three ≈ 97–99% — the 25.2B/3.8B-active diffusion matches the dense 12b on
+  math reasoning, while being **~17× faster** (91 s vs 1552 s). Same quality, fraction of the wall-clock.
+- **Warm-start adds no quality here**: base is already at the 98.8% ceiling, so the empty-output rescue
+  that lifted e7m-micro (80→100%) does not fire (CoT fills the canvas). Its only effect is a faster
+  diffusion stage (59 s); end-to-end it is slower because the 12b draft costs 1552 s. **Warm-start's
+  quality value is regime-dependent** — it helps where base whiffs (short structured answers), and is
+  neutral where base is already strong (math CoT).
+- **Context length is decisive**: at `max_new_tokens=256` the same GSM8K run scored 12b 40% (truncated
+  CoT); raising to 512 → 97.5%. All scores here use 512.
+
+**e7m-micro warm-start on GPU** (H100, 15 prompts): base 12/15 @ 9.27 tok/s (49 forwards) →
+warm 15/15 @ 36.35 tok/s (37 forwards) = quality 80→100%, **forward passes −24.5%** (the tok/s gain is
+inflated by base's empty-output cases; forward-passes + quality are the robust read).
+
+## Code-implementation quality (etzhayyim Python→Clojure; clj-kondo gate)
+
+The project's *actual* task is Python→Clojure refactoring scored by **clj-kondo** (the RSi quality gate).
+30 real corpus prompts ("Convert this Python method to Clojure following kotoba Datom log idioms"),
+H100, `max_new_tokens=512`, scored by clj-kondo error-clean (0 errors):
+
+| config | clj-kondo clean | avg errors |
+|---|---|---|
+| GOLD (verified corpus answers) | 27/30 = **90%** | 0.1 |
+| gemma-4-12b (AR) | 11/30 = **37%** | 3.93 |
+| maxwell-diffusion base (random-init) | 3/30 = **10%** | 3.8 |
+| maxwell-diffusion warm (12b-integrated) | 3/30 = **10%** | 3.63 |
+
+**Reversal vs GSM8K**: on syntactically-rigid code the AR 12b *beats* the diffusion model (37% vs 10%),
+and **warm-start does NOT help** — seeding the 12b's better draft into the canvas and re-denoising
+*corrupts* it back to base level (10%). Mechanism: diffusion rewrites the whole canvas in parallel, which
+breaks long-range syntactic constraints (paren/S-expr nesting) that AR preserves left-to-right; math CoT
+(natural text + a final number) is error-tolerant, so diffusion held there, but Clojure is not.
+**Implication for Maxwell**: for the real clj/Datomic implementation target, autoregressive (12b/Maxwell-AR)
+is the right tier — diffusion's speed does not convert to code quality, and drafter warm-start cannot
+rescue it. (Both are *base* models; the RSi loop fine-tunes the AR weight on Clojure. GOLD = curated +
+verified corpus, not raw generation.)
+
 # Consequences
 
 ## Positive

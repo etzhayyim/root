@@ -59,7 +59,7 @@ WORKERS_DIR = REPO_ROOT / "60-apps/etzhayyim-project-maps/bulk-ingest/workers"
 DRY = "--dry-run" in sys.argv
 
 SUBSTRATE_HEADER = (
-    "# Per ADR-2605172000 (RW-free substrate), all maps writes route through\n"
+    "# Per ADR-2605172000 (kotoba substrate), all maps writes route through\n"
     "# the substrate seam below; direct psycopg2 imports are no longer\n"
     "# permitted in this worker. The seam still supports a transitional RW\n"
     "# mode (psycopg2 under the hood) gated on ETZHAYYIM_SUBSTRATE_MODE.\n"

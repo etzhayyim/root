@@ -15,7 +15,7 @@ authoritative_for:
   - "gsplat trainer B2 → IPFS swap protocol"
   - "yoro substrate-facade migration (@atproto/api → @etzhayyim/sdk/atproto)"
 depends_on:
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605231400-kotoba-datomic-holochain-iso-substrate
   - adr-2605231500-kotoba-datomic-projection
   - adr-2605241500-etzhayyim-dataset-cid-substrate
@@ -213,7 +213,7 @@ package outright. `pnpm check:ts` passes clean post-migration.
 
 ## References
 
-- ADR-2605172000 — RW-free substrate hard rules
+- ADR-2605172000 — kotoba substrate hard rules
 - ADR-2605231400 — kotoba-datomic Holochain-iso composition
 - ADR-2605231500 — kotoba-datomic-projection conformance levels
 - ADR-2605241500 — DataLad + IPFS dataset CID substrate (Kubo HTTP API contract source)

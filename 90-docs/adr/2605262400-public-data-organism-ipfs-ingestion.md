@@ -25,7 +25,7 @@ authoritative_for:
 depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
@@ -564,7 +564,7 @@ own commit and individual eval rows.
 
 - ADR-2605170900 — etzhayyim/root canonical home for ADRs
 - ADR-2605171800 — LangGraph → MST → IPFS → L2 anchor pipeline
-- ADR-2605172000 — RW-free substrate
+- ADR-2605172000 — kotoba substrate
 - ADR-2605192100 — Mission Charter (Wellbecoming, 反個人主義)
 - ADR-2605192200 — IP-Free-Release with Charter Compliance Rider v2.0
 - ADR-2605215000 — Inference Murakumo-only (no RunPod)

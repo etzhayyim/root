@@ -26,9 +26,9 @@
       "description": "CLAUDE.md + OWNERS + PROJECT.jsonld + kotodama.jsonld + 14 lexicons under publicMalak/ landed in etzhayyim/root. Vendor unchanged."
     },
     {
-      "name": "Phase 2 — rw-free + worker XRPC adapter",
+      "name": "Phase 2 — kotoba + worker XRPC adapter",
       "status": "Deferred",
-      "description": "Per user direction 2026-05-21: rw-free implementation deferred. Phase 2 will rewrite src/app.ts to PDS XRPC createRecord + mst-projector indexed reads, mirroring the Phase E reference impl pattern (cnt.ts / escrow.ts in tsukuru rw-free)."
+      "description": "Per user direction 2026-05-21: kotoba implementation deferred. Phase 2 will rewrite src/app.ts to PDS XRPC createRecord + mst-projector indexed reads, mirroring the Phase E reference impl pattern (cnt.ts / escrow.ts in tsukuru kotoba)."
     },
     {
       "name": "Phase 3 — corpus residency Option A activation",

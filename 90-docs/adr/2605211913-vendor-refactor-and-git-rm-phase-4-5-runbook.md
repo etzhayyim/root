@@ -9,7 +9,7 @@ last_verified: 2026-05-21
 priority: 8.0
 axis: operations
 weight: 0.80
-priority_note: "Operator runbook for the final two phases of ADR-2605152100 cutover (Phase 4 vendor business-app dep switch + Phase 5 vendor open-scope deletion). Pairs with ADR-2605211757 (DNS cutover) as the second operator-facing runbook of the Tranche F closure. Both runbooks are gated on the per-worker RW-free re-impl (Phase 3 gate (a)) actually landing in etzhayyim/root."
+priority_note: "Operator runbook for the final two phases of ADR-2605152100 cutover (Phase 4 vendor business-app dep switch + Phase 5 vendor open-scope deletion). Pairs with ADR-2605211757 (DNS cutover) as the second operator-facing runbook of the Tranche F closure. Both runbooks are gated on the per-worker kotoba re-impl (Phase 3 gate (a)) actually landing in etzhayyim/root."
 authoritative_for:
   - vendor-side refactor + deletion procedure for the 27 worker + 4 ingest + 4 primitive files
   - etzhayyim lg subtree deletion order (3 already-relocated subtrees + their kotodama imports)
@@ -197,7 +197,7 @@ git rm tools_const_worker_main.py tools_http_worker_main.py \
        tools_transform_worker_main.py
 git commit -m "phase5(tranche-f): remove 29 etzhayyim-classified worker_main files
 
-Classified per ADR-2605212100 §1; RW-free ports landed in
+Classified per ADR-2605212100 §1; kotoba ports landed in
 etzhayyim/root/40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ (gate (a)).
 
 Closes: gate (a) execution + final vendor-side trace of these workers
@@ -234,9 +234,9 @@ git rm active_inference_substrate.py at_ipfs_belief_store.py \
 git rm ../worker_runtime.py
 git commit -m "phase5(tranche-f): remove 4 etzhayyim substrate primitives
 
-Substrate boundary per ADR-2605172000 (RW-free) finalized:
+Substrate boundary per ADR-2605172000 (kotoba) finalized:
 - active_inference_substrate.py — BeliefStore Protocol
-- at_ipfs_belief_store.py — RW-free BeliefStore impl
+- at_ipfs_belief_store.py — kotoba BeliefStore impl
 - rw_belief_store.py — RW-bound BeliefStore impl (vendor-only? double-check)
 - legal_entity.py — gate (d) primitive
 - worker_runtime.py — vendor-neutral runtime helpers
@@ -383,7 +383,7 @@ Rollback differs by step:
 - ADR-2605172400 (3-axis split rule)
 - ADR-2605212100 (Tranche F closure — gate definitions)
 - ADR-2605211757 (DNS cutover runbook — Wave A-D operator runbook)
-- ADR-2605172000 (RW-free substrate — primitive boundary)
+- ADR-2605172000 (kotoba substrate — primitive boundary)
 - `90-docs/2605211800-vendor-importer-survey-gate-d.md` — gate (d) target list
 - `90-docs/2605211900-tranche-f-all-gates-closure-confirmation.md` — gate status snapshot
 - `etzhayyim-root/deps.toml [[migrations]] etzhayyim-tranche-f-three-axis-split-2026-05-17` — cross-repo log

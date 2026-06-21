@@ -14,7 +14,7 @@ authoritative_for:
   - "ADR-2605172000 hot-path escape hatch (when RW / Lance / Iroh / index serving range queries is permitted)"
   - "Bluesky AppView analog — PDS = state, projection = derivable cache"
 depends_on:
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605231400-kotoba-datomic-holochain-iso-substrate
 related:
   - adr-2605222330-etzhayyim-com-substrate-violation-transition-window
@@ -32,7 +32,7 @@ superseded_by:
 
 ## Context
 
-[ADR-2605172000](/90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) mandates RW-free substrate
+[ADR-2605172000](/90-docs/adr/2605172000-etzhayyim-kotoba-substrate.md) mandates kotoba substrate
 (`AT Protocol MST + IPFS + Base L2 anchor`) as the **state store**. [ADR-2605231400](/90-docs/adr/2605231400-kotoba-datomic-holochain-iso-substrate.md)
 names the composed architecture `kotoba-datomic` and defines three conformance levels
 (L0 nominal / L1 witnessed / L2 anchored). Neither ADR addresses **derived read

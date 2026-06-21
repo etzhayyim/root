@@ -19,7 +19,7 @@ authoritative_for:
 depends_on:
   - 2605171300
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
   - adr-2605172300-etzhayyim-bi-asset-substrate
   - adr-2605192100-etzhayyim-mission-charter
@@ -296,7 +296,7 @@ procurement agent fleet を拡張して施工そのものを担わせる。
 
 - ADR-2605171300 Open-UNSPSC Generative Agent Fleet (18,345 specialized agents)
 - ADR-2605171800 LangGraph Pregel → MST → IPFS → Base L2 anchor pipeline
-- ADR-2605172000 RW-free substrate boundary
+- ADR-2605172000 kotoba substrate boundary
 - ADR-2605172100 Payments on-chain only (USDC + ERC-4337)
 - ADR-2605172300 Kisha-Stream / Goji-Treasury bi-asset substrate
 - ADR-2605192100 §mission.labor_liberation / robotics_universal / land_as_religious_trust / parallel_governance

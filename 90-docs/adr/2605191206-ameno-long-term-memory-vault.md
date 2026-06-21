@@ -12,7 +12,7 @@ depends_on:
   - 2605191135-ameno-tier2-daemon-residency
   - adr-2605181100-mst-encrypted-records-signal-keywrap
 related:
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
 ---
 
 # ADR 2605191206: Ameno long-term encrypted memory vault — IndexedDB + AES-GCM + MiniLM index

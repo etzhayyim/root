@@ -430,7 +430,7 @@ Pro: minimal infrastructure。Con: Council deliberation + LLM analysis + IPFS ev
 
 ## D. Centralized cell orchestrator (single server)
 
-Pro: simple。Con: ADR-2605172000 RW-free 違反 + ADR-2605191346 commercial K8s 違反 + single point of failure。却下。
+Pro: simple。Con: ADR-2605172000 kotoba 違反 + ADR-2605191346 commercial K8s 違反 + single point of failure。却下。
 
 # Open Questions
 

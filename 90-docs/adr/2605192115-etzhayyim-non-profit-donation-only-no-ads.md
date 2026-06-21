@@ -18,7 +18,7 @@ authoritative_for:
   - 広告関連 npm package / DOM API / 外部 SDK の禁止リスト
 depends_on:
   - adr-2605192100-etzhayyim-mission-charter
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
 related:
   - adr-2605192130-etzhayyim-tithe-redistribution
@@ -372,7 +372,7 @@ forbidden imports を warn のみ。
 # References
 
 - ADR-2605192100: Mission Charter (parent)
-- ADR-2605172000: RW-free substrate (中央 DB 仲介排除)
+- ADR-2605172000: kotoba substrate (中央 DB 仲介排除)
 - ADR-2605172100: on-chain only payments (本 ADR の `purpose` enum narrow の対象)
 - ADR-2605172300: Kisha-Stream / Treasury (donation 流入の受け皿)
 - ADR-2605192130: 10% Tithe redistribution (donation 受領後の自動再分配)

@@ -120,7 +120,7 @@ Closing each `❌` is its own bounded change. The `TODO` comments in `start_cell
 
 ## Substrate boundary reminder
 
-Per [ADR-2605172000](../../../../90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) the runner and all cells must **only** import substrate clients via `@etzhayyim/sdk` (TS sidecar) — Python side stays RW-free / DB-free per ADR-2605191559.
+Per [ADR-2605172000](../../../../90-docs/adr/2605172000-etzhayyim-kotoba-substrate.md) the runner and all cells must **only** import substrate clients via `@etzhayyim/sdk` (TS sidecar) — Python side stays kotoba / DB-free per ADR-2605191559.
 
 ## See also
 

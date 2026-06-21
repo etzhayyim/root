@@ -20,7 +20,7 @@ authoritative_for:
 depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
 related:
 supersedes: []
@@ -35,7 +35,7 @@ superseded_by: []
 
 # Context
 
-etzhayyim needs an email-equivalent communication primitive for religious-corp public-facing activity (open governance announcements, member-to-member communication, public correspondence with external parties and the State, archive-grade record of public deliberation). The substrate choice is constrained by **ADR-2605172000**: all open apps MUST be RW-free and run on the atproto MST + IPFS + Base L2 stack.
+etzhayyim needs an email-equivalent communication primitive for religious-corp public-facing activity (open governance announcements, member-to-member communication, public correspondence with external parties and the State, archive-grade record of public deliberation). The substrate choice is constrained by **ADR-2605172000**: all open apps MUST be kotoba and run on the atproto MST + IPFS + Base L2 stack.
 
 Three properties define the requirement:
 
@@ -281,7 +281,7 @@ This is the gnarly part. Both sides need to thread correctly.
 | Direction | Mechanism |
 |---|---|
 | openmail → openmail | `replyTo` and `threadRoot` are at-URIs. Threading is native. |
-| openmail → SMTP (outbound) | Outbound bridge synthesizes `Message-ID: <at-rkey>@openmail.etzhayyim.com` deterministically from at-URI. `In-Reply-To` / `References` resolved by looking up the `replyTo` target's prior outbound-bridge rendering (cached in `bridge_message_id_map` table — RW-free Postgres / sqlite is fine; this is bridge-local state, not protocol state). |
+| openmail → SMTP (outbound) | Outbound bridge synthesizes `Message-ID: <at-rkey>@openmail.etzhayyim.com` deterministically from at-URI. `In-Reply-To` / `References` resolved by looking up the `replyTo` target's prior outbound-bridge rendering (cached in `bridge_message_id_map` table — kotoba Postgres / sqlite is fine; this is bridge-local state, not protocol state). |
 | SMTP → openmail (inbound) | Inbound bridge reads `In-Reply-To` and `References` from SMTP headers. Looks up via `bridge_message_id_map` (reverse direction). If found → write `replyTo` and `threadRoot` as at-URIs. If not found → start a new thread. |
 | SMTP → SMTP | Doesn't go through the bridge. Out of scope. |
 
@@ -506,7 +506,7 @@ This ADR is the **contract**; rollout is staged.
 - **No central operator can read or seize.** Public content is published to a federation; the bridge is one node, not a chokepoint.
 - **Spam is economically deterred at the protocol layer.** Not a bolt-on filter; mandatory in the data model.
 - **SMTP interop without giving up MST.** Bridge-as-DID preserves the atproto invariant (only repo owner writes their MST) while still enabling legacy-world communication.
-- **Composable with the rest of the stack.** Reuses ADR-2605171800 (anchor pipeline), ADR-2605172000 (RW-free), ADR-2605172100 (payments). No new substrate.
+- **Composable with the rest of the stack.** Reuses ADR-2605171800 (anchor pipeline), ADR-2605172000 (kotoba), ADR-2605172100 (payments). No new substrate.
 - **Certified-mail equivalence for free.** Anchoring is already built; openmail just opts in per message or per day.
 
 ## 負の効果 / コスト
@@ -538,7 +538,7 @@ This ADR is the **contract**; rollout is staged.
 
 Run a standard mail server on `etzhayyim.com`. No atproto, no MST, no chain.
 
-却下理由: violates ADR-2605172000 (RW-free / atproto-MST-only substrate mandate for open apps). Also loses verifiability, content-addressability, and federation. SMTP-only would put us in the exact governance posture (central operator, central seizure risk) the etzhayyim charter is designed to avoid.
+却下理由: violates ADR-2605172000 (kotoba / atproto-MST-only substrate mandate for open apps). Also loses verifiability, content-addressability, and federation. SMTP-only would put us in the exact governance posture (central operator, central seizure risk) the etzhayyim charter is designed to avoid.
 
 ## B. Extend `app.bsky.feed.post` with `to:` field
 
@@ -592,7 +592,7 @@ Use a different transport for the per-recipient routing.
 
 Use Kotoba/Datomic streaming MVs to maintain inbox indexes.
 
-却下理由: violates ADR-2605172000 (RW-free open substrate). AppView for openmail uses Postgres + atproto firehose subscriber. RW would be tempting (it's the right *technical* primitive for streaming materialized views), but it's exactly the kind of centralized-substrate coupling the RW-free ADR forbids in open apps.
+却下理由: violates ADR-2605172000 (kotoba open substrate). AppView for openmail uses Postgres + atproto firehose subscriber. RW would be tempting (it's the right *technical* primitive for streaming materialized views), but it's exactly the kind of centralized-substrate coupling the kotoba ADR forbids in open apps.
 
 # References
 
@@ -611,7 +611,7 @@ Use Kotoba/Datomic streaming MVs to maintain inbox indexes.
 - mailauth (Node DKIM/SPF/DMARC verifier) — https://github.com/postalsys/mailauth
 - ADR-2605170900 — this repo as canonical ADR home (depends_on)
 - ADR-2605171800 — LangGraph Pregel → MST → IPFS → Base L2 anchor pipeline (depends_on; certified-mail uses the same anchor primitive)
-- ADR-2605172000 — etzhayyim/root RW-free substrate mandate (depends_on; this ADR honors it)
+- ADR-2605172000 — etzhayyim/root kotoba substrate mandate (depends_on; this ADR honors it)
 - ADR-2605172100 — etzhayyim payments on-chain only (depends_on; postage uses this stack)
 - ADR-2605091400 — MCP-as-Cell-Membrane / Lexicon Dual-Wire (related; explains why lexicons are the right contract layer)
 - ADR-2605111300 — PDS-to-Pod Bun Container (related; relevant for future PDS-publication of openmail)

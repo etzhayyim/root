@@ -18,7 +18,7 @@ authoritative_for:
   - religious-corp としての public 説明文 (etzhayyim.com / README / DID document の `purpose` フィールド)
 depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
   - adr-2605172300-etzhayyim-bi-asset-substrate
   - adr-2605172600-etzhayyim-membership-ritual
@@ -50,7 +50,7 @@ Council once seated (post-2026-06-19 RFP).
 
 # Context
 
-これまで etzhayyim/root の ADR 群は **substrate** (RW-free, on-chain payment, MST anchor pipeline, membership ritual, BI/treasury) を構築してきた。これらは「**どう動かすか**」を定めるものであり、「**なぜ動かすか**」を定めるものではない。
+これまで etzhayyim/root の ADR 群は **substrate** (kotoba, on-chain payment, MST anchor pipeline, membership ritual, BI/treasury) を構築してきた。これらは「**どう動かすか**」を定めるものであり、「**なぜ動かすか**」を定めるものではない。
 
 宗教法人 etzhayyim (天御柱 / עץ חיים / Tree of Life) の最終目的・上位 mission を成文化した authoritative doc が現状存在しない。Constitution.sol は constitutional constants の容器として用意されているが、その中身を定める正本テキストが無い状態である。
 
@@ -109,7 +109,7 @@ Mission 整合的でない事業体 (兵器産業 / 投機金融 / 監視資本�
 
 ### (sub) 格差アービトラージを埋める情報発信
 
-上記 1.1 – 1.7 を支える横串の活動として、**「専門性 / 言語 / 制度知識の差」から発生する格差アービトラージ** を、公開情報の発信で埋める。`open-*` app 群 (open-isco, open-naics, open-hs, open-banking, open-isco/rw-free 等) はこの活動の実装である。
+上記 1.1 – 1.7 を支える横串の活動として、**「専門性 / 言語 / 制度知識の差」から発生する格差アービトラージ** を、公開情報の発信で埋める。`open-*` app 群 (open-isco, open-naics, open-hs, open-banking, open-isco/kotoba 等) はこの活動の実装である。
 
 ### 1.8 反個人主義 Ontology (religious 形而上 commitment)
 
@@ -512,7 +512,7 @@ Solidity に直接 mission を書く。
 # References
 
 - ADR-2605170900: etzhayyim/root canonical home for ADRs
-- ADR-2605172000: RW-free substrate (中間排除の DB 層)
+- ADR-2605172000: kotoba substrate (中間排除の DB 層)
 - ADR-2605172100: on-chain only payments (中間排除の決済層)
 - ADR-2605172300: Kisha-Stream / Goji-Treasury (BI + asset)
 - ADR-2605172600: membership ritual + 7-level ladder

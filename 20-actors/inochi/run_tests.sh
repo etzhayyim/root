@@ -3,4 +3,4 @@
 # green-check; runs all cljc test namespaces via babashka from the repo root.
 set -euo pipefail
 cd "$(dirname "$0")/../.."
-exec bb -e '(require (quote clojure.test) (quote inochi.methods.test-datom-emit) (quote inochi.tests.test-analyze) (quote inochi.tests.test-coverage))(let [r (apply clojure.test/run-tests (quote [inochi.methods.test-datom-emit inochi.tests.test-analyze inochi.tests.test-coverage]))](System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))'
+exec bb -e '(require (quote clojure.test) (quote inochi.methods.test-datom-emit) (quote inochi.tests.test-analyze) (quote inochi.tests.test-coverage) (quote inochi.tests.test-kotoba))(let [r (apply clojure.test/run-tests (quote [inochi.methods.test-datom-emit inochi.tests.test-analyze inochi.tests.test-coverage inochi.tests.test-kotoba]))](System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))'

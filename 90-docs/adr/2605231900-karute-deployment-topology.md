@@ -25,7 +25,7 @@ depends_on:
   - adr-2605181100-mst-encrypted-records-signal-keywrap
   - adr-2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp
 related:
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - 2605191346-etzhayyim-vultr-free-murakumo-control-plane
   - adr-2605232100-etzhayyim-organism-vertical-implementation
 supersedes: []

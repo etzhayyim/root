@@ -1,6 +1,6 @@
 # hanrei XRPC Adapter
 
-CF Worker that exposes the 31 rw-free commands across 10 tiers as XRPC endpoints.
+CF Worker that exposes the 31 kotoba commands across 10 tiers as XRPC endpoints.
 
 ## Endpoints
 

@@ -22,13 +22,13 @@ ADR-2606101920 (etzhayyim 側) + ADR-0089 D6 amendment (vendor 側)。
 
 | # | 成果物 | PR | 状態 |
 |---|---|---|---|
-| 1 | rw-free (kotoba-E2E) 議事録生成層 — `minutes.ts` (extractive + Murakumo 膜) + lexicon 3 本 + ADR-2606101920 | etzhayyim/root#1585 | ✅ **MERGED** (16/16 tests, tsc clean) |
+| 1 | kotoba (kotoba-E2E) 議事録生成層 — `minutes.ts` (extractive + Murakumo 膜) + lexicon 3 本 + ADR-2606101920 | etzhayyim/root#1585 | ✅ **MERGED** (16/16 tests, tsc clean) |
 | 2 | vendor container minutes-pipeline — leave 時自動生成 + `$type` guardrail 修正 + Meet adapter Phase 1.5 + `vertex_meetingrecorder_minutes` migration + lexicon 2 本 (ai.gftd) + ADR-0089 D6 | gftdcojp/ai-gftd-apps-gftdcojp#1440 | 🟡 open (mock-path E2E 検証済) |
 | 3 | appview `getMinutes` XRPC (Worker 正本、read path) | etzhayyim/root#1590 | 🟡 open |
 
 ## Verification evidence
 
-- **rw-free**: vitest 16/16 (抽出・再生成・バリデーション・G4 ゲート拒否・Murakumo 成功/失敗/非 loopback 拒否・read-cap・coverage)
+- **kotoba**: vitest 16/16 (抽出・再生成・バリデーション・G4 ゲート拒否・Murakumo 成功/失敗/非 loopback 拒否・read-cap・coverage)
 - **vendor container**: mock-path E2E ×3 — murakumo 経路 / extractive 経路 / meet 経路。
   fake PDS に 6 recordingChunk + 3 transcriptSegment + 1 meetingMinutes、
   cipher 4 field (summary/decisions/actionItems/topics) を AES-256-GCM 復号して平文一致、
@@ -36,7 +36,7 @@ ADR-2606101920 (etzhayyim 側) + ADR-0089 D6 amendment (vendor 側)。
 
 ## Key decisions (正本は各 ADR)
 
-- **生成場所の二重化は役割分担**: etzhayyim rw-free 側は「復号権限を持つ caller がオンデマンド生成」(G4 Murakumo-only + refused-by-default 膜、サイレントフォールバック禁止)。vendor container 側は「leave 時の自動生成」(平文が存在する唯一の場所、LLM 失敗時は抽出フォールバックを `generator` field で正直に記録)。lexicon/暗号化方針は両者で同型。
+- **生成場所の二重化は役割分担**: etzhayyim kotoba 側は「復号権限を持つ caller がオンデマンド生成」(G4 Murakumo-only + refused-by-default 膜、サイレントフォールバック禁止)。vendor container 側は「leave 時の自動生成」(平文が存在する唯一の場所、LLM 失敗時は抽出フォールバックを `generator` field で正直に記録)。lexicon/暗号化方針は両者で同型。
 - **鍵共有**: minutes cipher は transcriptSegment.textCipher と同一 per-session 鍵 — 1 grant で transcript + minutes を覆う。
 
 ## NOT done (次セッション以降)

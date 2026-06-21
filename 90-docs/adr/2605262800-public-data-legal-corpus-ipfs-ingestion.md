@@ -22,7 +22,7 @@ authoritative_for:
   - prohibition on Westlaw / LexisNexis / Bloomberg Law / proprietary commentary (Charter Rider §2(e) gatekeeping rejection)
 depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
@@ -578,7 +578,7 @@ and individual Status table updates.
 # References
 
 - ADR-2605170900 — etzhayyim/root canonical home for ADRs
-- ADR-2605172000 — RW-free substrate
+- ADR-2605172000 — kotoba substrate
 - ADR-2605192100 — Mission Charter (Wellbecoming, 反個人主義, 非終末論)
 - ADR-2605192200 — Charter Compliance Rider v2.0
 - ADR-2605215000 — Inference Murakumo-only

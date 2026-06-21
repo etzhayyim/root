@@ -76,8 +76,8 @@
             :structural-invariance 4 :low-substitutability 3}
    :expect :impl}
 
-  {:key :rw-free-substrate
-   :label "RW-free (no RisingWave — substrate 選択)"
+  {:key :kotoba-substrate
+   :label "kotoba (no RisingWave — substrate 選択)"
    :scores {:tier0-derivation 1 :principle-not-mechanism 2 :fork-significance 2
             :structural-invariance 3 :low-substitutability 2}
    :expect :impl}]}

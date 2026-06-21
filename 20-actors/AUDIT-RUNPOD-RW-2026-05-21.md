@@ -22,9 +22,9 @@ commercial K8s (Karmada / VKE); fiat payment processors (Stripe / PayPal).
 
 | ADR | Rule |
 |---|---|
-| ADR-2605172000 | RW-free substrate — AT MST + IPFS + Base L2 only |
+| ADR-2605172000 | kotoba substrate — AT MST + IPFS + Base L2 only |
 | ADR-2605191346 | No commercial K8s — Murakumo fleet only (no Vultr VKE / Karmada) |
-| ADR-2605191358 | yoro / murakumo RW-free rewrite map (status: proposed; 14 known RW touchpoints) |
+| ADR-2605191358 | yoro / murakumo kotoba rewrite map (status: proposed; 14 known RW touchpoints) |
 | ADR-2605214000 | Vendor→religious-corp lexicon port verdict taxonomy (PORT-direct / PORT-adapted / REJECT) |
 | ADR-2605215000 | No RunPod / no commercial GPU rental; kotodama REDIRECT/VENDOR-ONLY/REIMPLEMENT |
 
@@ -147,7 +147,7 @@ shinka has **no RunPod coupling** and **no fiat payment coupling**, but has deep
 | Path | Contents |
 |---|---|
 | `60-apps/etzhayyim-project-yoro/` | Main yoro surface (flowering/fruiting social layer) |
-| `60-apps/etzhayyim-project-yoro/rw-free/src/` | RW-free rewrite library (AT MST client) — 5 TS files |
+| `60-apps/etzhayyim-project-yoro/kotoba/src/` | kotoba rewrite library (AT MST client) — 5 TS files |
 | `60-apps/etzhayyim-project-yoro/xrpc-adapter/src/` | XRPC adapter — 1 TS file |
 | `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/` | Main SvelteKit UI (~150 TS/Svelte source files) |
 | `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/yoro_social.py` | Python social primitives (1687 lines) |
@@ -236,8 +236,8 @@ Zero Karmada/VKE matches in TypeScript/Svelte layers.
 | `appview/.../superapp/ProfilePanel.svelte:563` | `atProcedure('com.etzhayyim.apps.stripe.assignCardCredits', ...)` | REJECT | Same. |
 | `appview/.../server/legacy-nanoid-map.ts:110` | `"st4rp301": "stripe.etzhayyim.com"` | REJECT | Legacy nanoid routing entry maps `st4rp301` → `stripe.etzhayyim.com`. The domain `stripe.etzhayyim.com` implies a Stripe-backed service hosted under the religious-corp domain. This is a domain boundary violation: `stripe.etzhayyim.com` conflates the vendor Stripe processor with the etzhayyim identity namespace. Must be removed or redirected to a vendor-only domain (`stripe.etzhayyim.com`). |
 
-#### rw-free library and xrpc-adapter
-`60-apps/etzhayyim-project-yoro/rw-free/src/` — 5 TS files — **zero violations**. This is the target implementation per ADR-2605191358; it is clean.
+#### kotoba library and xrpc-adapter
+`60-apps/etzhayyim-project-yoro/kotoba/src/` — 5 TS files — **zero violations**. This is the target implementation per ADR-2605191358; it is clean.
 
 `60-apps/etzhayyim-project-yoro/xrpc-adapter/src/index.ts` — **zero violations**.
 
@@ -245,7 +245,7 @@ Zero Karmada/VKE matches in TypeScript/Svelte layers.
 
 yoro has the most extensive substrate coupling. No RunPod findings. **14+ REIMPLEMENT items** (structural RisingWave reads/writes in Python primitives + inline SQL in Svelte UI). **8 REJECT items** (live Stripe Issuing XRPC calls + domain entry). **Multiple PORT-adapted** comment/docstring cleanup items (covered by ADR-2605191358 which is already proposed).
 
-The `rw-free/` sub-library is **clean** — the replacement substrate is scaffolded. The coupling is entirely in the un-migrated layers (Python primitives and main SvelteKit AppView).
+The `kotoba/` sub-library is **clean** — the replacement substrate is scaffolded. The coupling is entirely in the un-migrated layers (Python primitives and main SvelteKit AppView).
 
 **yoro finding count: 14 REIMPLEMENT + 8 REJECT + 8 VENDOR-ONLY + 12 PORT-adapted = 42 findings**
 

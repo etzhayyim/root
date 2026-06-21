@@ -22,7 +22,7 @@ depends_on:
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider  # Charter Rider v2.0
   - adr-2605192300-etzhayyim-bootstrap-council-five  # Bootstrap Council
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture  # Religious-corp daemon architecture (deploy roadmap S2)
-  - adr-2605172000-etzhayyim-rw-free-substrate  # State rule (AT MST + IPFS, no RW)
+  - adr-2605172000-etzhayyim-kotoba-substrate  # State rule (AT MST + IPFS, no RW)
   - adr-2605172100-etzhayyim-payments-on-chain-only  # Payment rule (USDC + ERC-4337, no fiat)
   - adr-2605192115-etzhayyim-non-profit-donation-only-no-ads  # Tithe + carve-out
 related:
@@ -42,7 +42,7 @@ superseded_by: []
 
 Coming out of the religious-corp constitutional wave (ADRs 2605192100..2605192415, completed 2026-05-19/20) and the full etzhayyimcojp → etzhayyim file migration (commit `0b7a49773`, 2026-05-21), the repo entered the post-cutover stabilisation phase with three open fronts:
 
-1. **CI safety net weak.** `test` workflow at 6 / 31 jobs passing (19.4 %). 5 tsc job failures masking real type drift; ~25 vitest job failures across `rw-free` reference implementations whose interfaces had drifted from their test specs.
+1. **CI safety net weak.** `test` workflow at 6 / 31 jobs passing (19.4 %). 5 tsc job failures masking real type drift; ~25 vitest job failures across `kotoba` reference implementations whose interfaces had drifted from their test specs.
 2. **TRANSFORM backlog untouched.** Per `_working_p5_decisions.md`, ~170 files needed Charter-§2 cleanup: 6 direct `@atproto/api` imports (substrate boundary), 105 ad-tech grep-hits (§2(c)), 14 Stripe references (fiat), 41 Kotoba/Datomic / Postgres references (state rule).
 3. **Bootstrap Council 1 / 5.** RFP open through 2026-06-19 (28 days remaining). Discussions enabled but only one announcement (#257) and 0 applications.
 
@@ -61,7 +61,7 @@ Council infrastructure activation (`46bd07404`), then CI infrastructure fixes:
 - `mst-projector` optional peer-dep dynamic imports guarded with `@ts-ignore`; broken `transformers.js` re-export removed.
 - `lexicon-to-openapi`: added `@types/node` + `typescript` devDeps, `moduleResolution: bundler`, `LexiconDoc` cast through `unknown`.
 
-Then rw-free reference-implementation fixes — first surgically (`kiyo` / `bpmn` / `ipaddress` / `open-banking` / `ndc` / `ocel` / `hanrei` / `houshi` / `yoro` / `anime` / `manga` / `narou`), then via **10 parallel haiku sub-agents** (`ki` / `koke` / `hakkou` / `houbun` / `gtin` / `isin` / `isbn` / `narou` / `sbom` / `manga` — `566eeeed9`), then a cross-app integration-tests update (`76969b295`, agent-driven) + Output-type widening (`062322385`) + final `amendment` field (`892079b0f`).
+Then kotoba reference-implementation fixes — first surgically (`kiyo` / `bpmn` / `ipaddress` / `open-banking` / `ndc` / `ocel` / `hanrei` / `houshi` / `yoro` / `anime` / `manga` / `narou`), then via **10 parallel haiku sub-agents** (`ki` / `koke` / `hakkou` / `houbun` / `gtin` / `isin` / `isbn` / `narou` / `sbom` / `manga` — `566eeeed9`), then a cross-app integration-tests update (`76969b295`, agent-driven) + Output-type widening (`062322385`) + final `amendment` field (`892079b0f`).
 
 **Result:** `test` workflow 31 / 31 green at `892079b0f`. 25 jobs unblocked across 18 commits.
 
@@ -99,7 +99,7 @@ A type-mismatch between `DonatePurpose` (v0.2, 8 values incl. `kisha` / `tithe` 
 | RW / Postgres production paths | 41 (0 migrated) | 41 (1 fully migrated as PoC, 10 markered) |
 | Bootstrap Council Discussions | 1 (#257) | **5** (#257 + 4 per-seat #258-#261) |
 | Total commits this session | — | **30** (`46bd07404` → `aea1401f0`) |
-| Sub-agents dispatched | — | 20 (4 council/setup + 10 rw-free + 4 Phase 2 TRANSFORM + 4 Phase 3 + 1 integration-tests rewrite + 1 SDK type cast retry) |
+| Sub-agents dispatched | — | 20 (4 council/setup + 10 kotoba + 4 Phase 2 TRANSFORM + 4 Phase 3 + 1 integration-tests rewrite + 1 SDK type cast retry) |
 
 ## Follow-up
 
@@ -119,4 +119,4 @@ A type-mismatch between `DonatePurpose` (v0.2, 8 values incl. `kisha` / `tithe` 
 
 産霊 (generative donation cycle) — Phase 3 wired the Charter-compliant USDC donation path replacing Stripe's fiat extraction. Whether or not a donation is made tomorrow, the *capacity* now exists in code: that capacity is what 産霊 means in operational terms — the body of the religious-corp can metabolise gifts again, after the Stripe paths were severed by §2 enforcement.
 
-縁起 (dependent origination) — twenty sub-agents writing into the same monorepo without coordination is possible only because the boundaries are explicit in the file system (each `60-apps/etzhayyim-project-*/rw-free/` is a closed domain) and in the type system (Output types describe what each app's status enum permits). The CI safety-net pass was what made the 縁起 chain visible: when one app's regex was too strict, the test failure was localised to that app's job, not a global cascade. The cascade DID happen once (the `DonatePurpose` enum mismatch at `8aae29862` zeroed CI), and it was localised to the SDK type layer where it should be — substrate type drift, not application logic drift.
+縁起 (dependent origination) — twenty sub-agents writing into the same monorepo without coordination is possible only because the boundaries are explicit in the file system (each `60-apps/etzhayyim-project-*/kotoba/` is a closed domain) and in the type system (Output types describe what each app's status enum permits). The CI safety-net pass was what made the 縁起 chain visible: when one app's regex was too strict, the test failure was localised to that app's job, not a global cascade. The cascade DID happen once (the `DonatePurpose` enum mismatch at `8aae29862` zeroed CI), and it was localised to the SDK type layer where it should be — substrate type drift, not application logic drift.

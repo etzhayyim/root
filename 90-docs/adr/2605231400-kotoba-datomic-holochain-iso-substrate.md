@@ -14,7 +14,7 @@ authoritative_for:
   - "Holochain-iso reference architecture name"
   - "validation membrane + witness quorum spec"
 depends_on:
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
   - adr-2605181100-mst-encrypted-records-signal-keywrap
   - adr-2605192100-etzhayyim-mission-charter
@@ -35,13 +35,13 @@ superseded_by:
 
 ## Context
 
-ADR-2605172000 mandates RW-free substrate (`AT Protocol MST + IPFS + Base L2 anchor`)
+ADR-2605172000 mandates kotoba substrate (`AT Protocol MST + IPFS + Base L2 anchor`)
 for all `etzhayyim/root` apps, but the spec is layered as a stack of primitives —
 not as a named architecture pattern. In session 2026-05-23 the following gap was
 surfaced while triaging the `60-apps/etzhayyim-project-maps/` migration (whose
 `MIGRATION-TODO.md` is empty as of this writing):
 
-- the RW-free stack maps **isomorphically** to Holochain's agent-centric architecture
+- the kotoba stack maps **isomorphically** to Holochain's agent-centric architecture
   (source chain + DHT + DNA + validation witnesses + capability tokens + zomes), and
 - etzhayyim already has every Holochain primitive present in different layer names
   (PDS MST = source chain, IPFS+L2 = DHT, Lexicon+Rego+LangGraph = DNA, Pregel cells

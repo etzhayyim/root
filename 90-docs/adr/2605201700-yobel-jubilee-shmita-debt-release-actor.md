@@ -51,7 +51,7 @@ superseded_by: []
 | **Destination repo** | `github.com/etzhayyim/root` (Apache 2.0、open religious-corp monorepo) |
 | **License** | Apache 2.0 |
 | **DID** | `did:web:yobel.etzhayyim.com` (primary) + `did:web:yobel.etzhayyim.com` (federation alias only, AT layer) |
-| **Substrate** | AT MST + IPFS + Base L2 (RW-free per ADR-2605172000) |
+| **Substrate** | AT MST + IPFS + Base L2 (kotoba per ADR-2605172000) |
 | **Settlement** | USDC on Base L2 via ERC725 Smart Wallet (ADR-0074) — fiat / Stripe 禁止 |
 | **NSID** | `org.etzhayyim.yobel.*` (canonical, etzhayyim/root cutover 後) / `com.etzhayyim.apps.yobel.*` (transitional alias 維持) |
 | **Runtime** | TS Native + Lexicon Contract |

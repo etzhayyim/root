@@ -38,7 +38,7 @@ Session opened on "https://etzhayyim.com/ への登録アクターは world cove
 `/search` called the decommissioned legacy AppView host `bsky.etzhayyim.com`
 (`etzhayyim-appview` binding force-deleted → 502 `検索に失敗しました`). Repointed the
 reader to the same-origin apex substrate path (`/xrpc` → etzhayyim-did-web →
-yoro-xrpc-adapter), the ADR-2605172000 RW-free read path (yoro commit `b94484a5d`).
+yoro-xrpc-adapter), the ADR-2605172000 kotoba read path (yoro commit `b94484a5d`).
 
 ## kotoba browser node (ADR-2606013600, P0–P3 — kotoba PRs #14/#15/#16)
 - **P0**: `kotoba-wasm` crate — the `kotoba-kqe` Datom read engine on
@@ -46,7 +46,7 @@ yoro-xrpc-adapter), the ADR-2605172000 RW-free read path (yoro commit `b94484a5d
   a per-target tokio feature-gate on `kotoba-kqe` (native full / wasm32 `sync`).
   Bundle **87 KiB gzip**.
 - **P1**: `loadDatoms()` hydration from `datomic.datoms` JSON; a **transparent
-  Service-Worker `/xrpc` shim** (yoro-rw-free unchanged); **IndexedDB persistence**
+  Service-Worker `/xrpc` shim** (yoro-kotoba unchanged); **IndexedDB persistence**
   (reseed-free cold reload) + snapshot delta + a **registered-actor backfill** so
   `/search` never degrades to one actor again.
 - **P2**: local `transact()` + `exportDatoms()` + **OPFS append-only tx journal**.

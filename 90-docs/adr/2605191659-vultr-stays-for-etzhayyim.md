@@ -16,10 +16,10 @@ authoritative_for:
 depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
   - 2605191346-etzhayyim-vultr-free-murakumo-control-plane
-  - adr-2605191358-yoro-murakumo-rw-free-rewrite-map
+  - adr-2605191358-yoro-murakumo-kotoba-rewrite-map
 related: []
 supersedes:
-  - "(strengthens, does not delete) 2605191358-yoro-murakumo-rw-free-rewrite-map §step 6"
+  - "(strengthens, does not delete) 2605191358-yoro-murakumo-kotoba-rewrite-map §step 6"
 superseded_by: []
 ---
 
@@ -97,6 +97,6 @@ Rejected. The policy needs to be discoverable as an ADR, not buried in a lint sc
 
 - ADR-2605170900 (etzhayyim/root canonical home for open ADRs)
 - ADR-2605191346 (Vultr-free + Murakumo Mac-mini Tier-1 — this ADR reinforces §2)
-- ADR-2605191358 (yoro/murakumo RW-free rewrite map — this ADR supersedes §step 6)
+- ADR-2605191358 (yoro/murakumo kotoba rewrite map — this ADR supersedes §step 6)
 - ADR-2605191648 (substrate-boundary lefthook — allowlist gate verifier)
 - Operator directive: 2026-05-19 conversation logs

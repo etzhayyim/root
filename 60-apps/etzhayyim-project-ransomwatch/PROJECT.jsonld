@@ -26,9 +26,9 @@
       "description": "CLAUDE.md + OWNERS + PROJECT.jsonld + kotodama.jsonld + 4 lexicons under ransomwatch/ landed in etzhayyim/root. Vendor unchanged."
     },
     {
-      "name": "Phase 2 — rw-free + worker XRPC adapter",
+      "name": "Phase 2 — kotoba + worker XRPC adapter",
       "status": "Deferred",
-      "description": "Per user direction 2026-05-21: rw-free implementation deferred. Phase 2 will rewrite src/app.ts to PDS XRPC createRecord + mst-projector indexed reads, mirroring public-malak Phase 2 plan and the Phase E reference impl pattern."
+      "description": "Per user direction 2026-05-21: kotoba implementation deferred. Phase 2 will rewrite src/app.ts to PDS XRPC createRecord + mst-projector indexed reads, mirroring public-malak Phase 2 plan and the Phase E reference impl pattern."
     },
     {
       "name": "Phase 3 — LangGraph pod rehome to etzhayyim Murakumo",

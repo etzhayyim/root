@@ -20,7 +20,7 @@ authoritative_for:
 depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605172300-etzhayyim-bi-asset-substrate
   - adr-2605172700-membership-layering-shinto-adherent
   - adr-2605192100-etzhayyim-mission-charter
@@ -302,7 +302,7 @@ Rejected. 18,346 actors × 5 sub-gates = 91,730 code duplication points. The lib
 
 - ADR-2605170900 (religious-corp open ADR canonical home)
 - ADR-2605171800 (LangGraph MST IPFS L2 anchor pipeline) — 4-layer substrate
-- ADR-2605172000 (etzhayyim RW-free substrate) — RW prohibition
+- ADR-2605172000 (etzhayyim kotoba substrate) — RW prohibition
 - ADR-2605172300 (BI asset substrate) — chain partition pattern
 - ADR-2605172700 (membership layering shinto / adherent) — Adherent SBT distinction
 - ADR-2605192100 §1.16 (Mission Charter) — 1 SBT = 1 vote

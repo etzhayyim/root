@@ -315,7 +315,7 @@ For `trigger = "synchronous API"` (only `EthicsContentClassifierCell` currently)
 ## Constitutional 整合
 
 - ADR-2605192415 §7.1 launchd 常駐化 を operational に成立させる
-- ADR-2605172000 RW-free substrate boundary 維持 (cell.py は substrate client 直接 import せず、CellDeps.sdk 経由)
+- ADR-2605172000 kotoba substrate boundary 維持 (cell.py は substrate client 直接 import せず、CellDeps.sdk 経由)
 - ADR-2605191559 MstCheckpointSaver 統合 path を CellDeps.checkpointer で formalize
 
 # Alternatives Considered

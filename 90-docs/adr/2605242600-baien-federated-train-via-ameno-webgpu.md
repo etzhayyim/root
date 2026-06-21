@@ -21,7 +21,7 @@ depends_on:
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605231400-kotoba-datomic-holochain-iso-substrate
   - 2605191524-ameno-multi-tab-swarm-broadcast
   - 2605191603-ameno-swarm-leader-election

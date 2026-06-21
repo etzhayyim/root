@@ -1,5 +1,5 @@
 # kiyo XRPC Adapter
 
-CF Worker exposing rw-free commands as XRPC endpoints.
+CF Worker exposing kotoba commands as XRPC endpoints.
 
 See ADR-2605210000 for design context.

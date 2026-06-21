@@ -525,7 +525,7 @@
       "status": "proposed",
       "topic": "ameno-browser-agent-loop",
       "authoritative": true,
-      "related": "doc:adr-2605172000-etzhayyim-rw-free-substrate",
+      "related": "doc:adr-2605172000-etzhayyim-kotoba-substrate",
       "lastVerified": "2026-05-19"
     },
     {
@@ -553,7 +553,7 @@
       "status": "proposed",
       "topic": "ameno-tool-use",
       "authoritative": true,
-      "related": "doc:adr-2605172000-etzhayyim-rw-free-substrate",
+      "related": "doc:adr-2605172000-etzhayyim-kotoba-substrate",
       "lastVerified": "2026-05-19"
     },
     {
@@ -572,7 +572,7 @@
       "status": "proposed",
       "topic": "ameno-memory-vault",
       "authoritative": true,
-      "related": "doc:adr-2605172000-etzhayyim-rw-free-substrate",
+      "related": "doc:adr-2605172000-etzhayyim-kotoba-substrate",
       "lastVerified": "2026-05-19"
     },
     {
@@ -630,7 +630,7 @@
       "authoritative": true,
       "related": [
         "doc:adr-2605181100-mst-encrypted-records-signal-keywrap",
-        "doc:adr-2605172000-etzhayyim-rw-free-substrate"
+        "doc:adr-2605172000-etzhayyim-kotoba-substrate"
       ],
       "lastVerified": "2026-05-19"
     },
@@ -741,7 +741,7 @@
       ],
       "related": [
         "doc:ADR-2605152100 (etzhayyim github org boundary)",
-        "doc:ADR-2605172000 (etzhayyim RW-free substrate)",
+        "doc:ADR-2605172000 (etzhayyim kotoba substrate)",
         "doc:ADR-2605172100 (etzhayyim payments on-chain only)",
         "doc:ADR-2605172400 (vendor 3-axis split rule)",
         "doc:vendor: ADR-0074 (ethereum-identity-bridge-cacao-webauthn)",
@@ -766,7 +766,7 @@
       ],
       "related": [
         "doc:ADR-2605211950 (substrate centralization axis)",
-        "doc:ADR-2605172000 (etzhayyim RW-free substrate)",
+        "doc:ADR-2605172000 (etzhayyim kotoba substrate)",
         "doc:ADR-2605172100 (etzhayyim payments on-chain only)",
         "doc:ADR-2605171800 (langgraph MST IPFS L2 anchor pipeline)",
         "doc:ADR-2605192100 (etzhayyim mission charter)",
@@ -4737,11 +4737,11 @@
       "lastVerified": "2026-05-17"
     },
     {
-      "id": "doc:adr-2605172000-etzhayyim-rw-free-substrate",
+      "id": "doc:adr-2605172000-etzhayyim-kotoba-substrate",
       "type": "TechArticle",
-      "title": "ADR-2605172000: etzhayyim/root open apps MUST be RW-free — AT MST + IPFS + Base L2 as primary substrate",
+      "title": "ADR-2605172000: etzhayyim/root open apps MUST be kotoba — AT MST + IPFS + Base L2 as primary substrate",
       "status": "proposed",
-      "topic": "etzhayyim-rw-free-substrate",
+      "topic": "etzhayyim-kotoba-substrate",
       "authoritative": true,
       "authoritativeFor": [
         "hard rule: open religious-corp apps MUST NOT depend on Kotoba/Datomic or any centralized DB",
@@ -5038,7 +5038,7 @@
         "16-vertex Pregel topology (V01-V16) + substrate classifier (V06) as architectural hinge",
         "15-actor LangGraph fleet design",
         "P0-P3 phasing with neural-substrate-first MVP",
-        "ethical guardrails (informed consent default, human review default, RW-free PII handling)"
+        "ethical guardrails (informed consent default, human review default, kotoba PII handling)"
       ],
       "related": [
         "doc:adr-2605181040-uhl-medical-institution-registry",
@@ -5126,7 +5126,7 @@
         "hard rule: rkey blinding uses base32(BLAKE2b-128(symKey || seq))",
         "SDK API: `pad` option on crypto.encrypt(), `blindRkey: true` on encryptedWriteStandalone"
       ],
-      "related": "doc:adr-2605172000-etzhayyim-rw-free-substrate",
+      "related": "doc:adr-2605172000-etzhayyim-kotoba-substrate",
       "lastVerified": "2026-05-18"
     },
     {
@@ -5164,7 +5164,7 @@
         "bpmn-engine-infra-ownership"
       ],
       "related": [
-        "doc:adr-2605172000-etzhayyim-rw-free-substrate",
+        "doc:adr-2605172000-etzhayyim-kotoba-substrate",
         "doc:adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion",
         "doc:adr-2605081200-spiffworkflow-bpmn-engine-replacement",
         "doc:adr-2605082200-pyzeebe-handler-thin-dispatcher-contract"
@@ -5226,7 +5226,7 @@
         "knowledge graph data model on etzhayyim substrate",
         "Lexicons com.etzhayyim.kg.node and com.etzhayyim.kg.edge",
         "IPLD payload convention for KG records (DAG-CBOR, CID-linked)",
-        "ephemeral AppView convention (in-memory triplestore, replayable, RW-free)",
+        "ephemeral AppView convention (in-memory triplestore, replayable, kotoba)",
         "relationship to deps.toml SSoT (deps.toml stays canonical; KG is projected view)"
       ],
       "related": [
@@ -5285,7 +5285,7 @@
         "50-infra/vultr/* retention policy in etzhayyim/root",
         "supersession of ADR-2605191358 §step 6 (Vultr archive sweep)"
       ],
-      "supersedes": "doc:(strengthens, does not delete) 2605191358-yoro-murakumo-rw-free-rewrite-map §step 6",
+      "supersedes": "doc:(strengthens, does not delete) 2605191358-yoro-murakumo-kotoba-rewrite-map §step 6",
       "lastVerified": "2026-05-19"
     },
     {
@@ -6114,11 +6114,11 @@
       "lastVerified": "2026-05-20"
     },
     {
-      "id": "doc:adr-2605203000-rw-free-write-target-options",
+      "id": "doc:adr-2605203000-kotoba-write-target-options",
       "type": "TechArticle",
       "title": "ADR-2605203000: Phase E — write-target options for RW-bound vendor actors migrating to etzhayyim",
       "status": "active",
-      "topic": "rw-free-write-target-options",
+      "topic": "kotoba-write-target-options",
       "authoritative": true,
       "authoritativeFor": [
         "Write-target decision matrix for RW-bound vendor actors moving to etzhayyim",
@@ -6286,7 +6286,7 @@
         "hardware ownership of murakumo Mac mini fleet",
         "compute placement for active inference loop (belief update / EFE planning / homeostasis)",
         "compute placement for LLM synthesis used inside organism loops",
-        "state custody substrate for vertex_agent_* equivalent (RW-free path)"
+        "state custody substrate for vertex_agent_* equivalent (kotoba path)"
       ],
       "related": [
         "doc:adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion",
@@ -6328,7 +6328,7 @@
         "Cross-repo overlap classification 7-category taxonomy"
       ],
       "related": [
-        "doc:adr-2605172000-etzhayyim-rw-free-substrate",
+        "doc:adr-2605172000-etzhayyim-kotoba-substrate",
         "doc:adr-2605172400-etzhayyim-vendor-three-axis-split-rule",
         "doc:adr-2605211000"
       ],
@@ -6346,7 +6346,7 @@
         "Council Lv6+ ruling agenda item"
       ],
       "related": [
-        "doc:adr-2605172000-etzhayyim-rw-free-substrate",
+        "doc:adr-2605172000-etzhayyim-kotoba-substrate",
         "doc:adr-2605172400-etzhayyim-vendor-three-axis-split-rule",
         "doc:adr-2605192100-etzhayyim-mission-charter",
         "doc:adr-2605211335-tranche-f-session-closure-category-a-split"
@@ -6426,7 +6426,7 @@
       ],
       "related": [
         "doc:adr-2605170900-etzhayyim-root-adr-canonical-home",
-        "doc:adr-2605172000-etzhayyim-rw-free-substrate",
+        "doc:adr-2605172000-etzhayyim-kotoba-substrate",
         "doc:adr-2605192200-etzhayyim-ip-free-release-charter-rider",
         "doc:adr-2605265200-kami-engine-sdk-20-actors-legacy-duplicate-retirement"
       ],
@@ -6501,7 +6501,7 @@
     {
       "id": "doc:adr-2605212000-mst-projector-phase3-indexed-views",
       "type": "TechArticle",
-      "title": "ADR-2605212000: mst-projector Phase 3 — indexed materialized views for rw-free actors",
+      "title": "ADR-2605212000: mst-projector Phase 3 — indexed materialized views for kotoba actors",
       "status": "active",
       "topic": "mst-projector-phase3-indexed-views",
       "authoritative": true,
@@ -6548,7 +6548,7 @@
       "authoritativeFor": [
         "kotodama worker classification under the 3-axis OR-test",
         "Phase 3 prerequisites for any worker deployment-surface migration to etzhayyim",
-        "corrected helm chart ownership semantics (etzhayyim is RW-free, not a Vultr+Helm copy target)"
+        "corrected helm chart ownership semantics (etzhayyim is kotoba, not a Vultr+Helm copy target)"
       ],
       "related": [
         "doc:adr-2605181400-bpmn-extract-to-etzhayyim-root",
@@ -7153,7 +7153,7 @@
         "group-rekey-on-removal protocol",
         "consent-revocation-flush handler"
       ],
-      "related": "doc:adr-2605172000-etzhayyim-rw-free-substrate",
+      "related": "doc:adr-2605172000-etzhayyim-kotoba-substrate",
       "lastVerified": "2026-05-23"
     },
     {
@@ -7169,7 +7169,7 @@
         "hash-chain semantics for audit log integrity",
         "auditor-subscription pattern"
       ],
-      "related": "doc:adr-2605172000-etzhayyim-rw-free-substrate",
+      "related": "doc:adr-2605172000-etzhayyim-kotoba-substrate",
       "lastVerified": "2026-05-23"
     },
     {
@@ -7187,7 +7187,7 @@
         "DNS + CF Tunnel wiring for karute.etzhayyim.com + karu7t3e.etzhayyim.com"
       ],
       "related": [
-        "doc:adr-2605172000-etzhayyim-rw-free-substrate",
+        "doc:adr-2605172000-etzhayyim-kotoba-substrate",
         "doc:2605191346-etzhayyim-vultr-free-murakumo-control-plane",
         "doc:adr-2605232100-etzhayyim-organism-vertical-implementation"
       ],
@@ -7813,7 +7813,7 @@
       ],
       "related": [
         "doc:adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
-        "doc:adr-2605172000-etzhayyim-rw-free-substrate",
+        "doc:adr-2605172000-etzhayyim-kotoba-substrate",
         "doc:adr-2605212100-etzhayyim-to-etzhayyim-migration-batch"
       ],
       "lastVerified": "2026-05-25"
@@ -10934,7 +10934,7 @@
     {
       "id": "doc:adr-2605312000-ndl-oai-ingest-etzhayyim",
       "type": "TechArticle",
-      "title": "ADR-2605312000: NDL (国立国会図書館) OAI-PMH metadata ingest on the etzhayyim RW-free substrate",
+      "title": "ADR-2605312000: NDL (国立国会図書館) OAI-PMH metadata ingest on the etzhayyim kotoba substrate",
       "status": "active",
       "topic": "ndl-oai-ingest-etzhayyim",
       "authoritative": true,
@@ -10943,7 +10943,7 @@
         "ndl persistence seam → kotoba datomic refactor handoff"
       ],
       "related": [
-        "doc:adr-2605172000-etzhayyim-rw-free-substrate",
+        "doc:adr-2605172000-etzhayyim-kotoba-substrate",
         "doc:adr-2605172400-etzhayyim-vendor-three-axis-split-rule"
       ],
       "lastVerified": "2026-05-31"
@@ -10986,7 +10986,7 @@
     {
       "id": "doc:adr-2605312101-open-data-kg-ingest-etzhayyim",
       "type": "TechArticle",
-      "title": "ADR-2605312101: Open-data KG ingest (public-internet sources) on the etzhayyim RW-free substrate",
+      "title": "ADR-2605312101: Open-data KG ingest (public-internet sources) on the etzhayyim kotoba substrate",
       "status": "active",
       "topic": "open-data-kg-ingest-etzhayyim",
       "authoritative": true,
@@ -10995,7 +10995,7 @@
         "vendor kg_ingest deletion = post-cutover step (NOT done)"
       ],
       "related": [
-        "doc:adr-2605172000-etzhayyim-rw-free-substrate",
+        "doc:adr-2605172000-etzhayyim-kotoba-substrate",
         "doc:adr-2605172400-etzhayyim-vendor-three-axis-split-rule"
       ],
       "lastVerified": "2026-05-31"
@@ -11380,7 +11380,7 @@
       "topic": "hakken-etzhayyim-migration-override",
       "authoritative": true,
       "authoritativeFor": [
-        "hakken product-discovery ingest on the etzhayyim RW-free substrate",
+        "hakken product-discovery ingest on the etzhayyim kotoba substrate",
         "com.etzhayyim.apps.hakken.* record namespace",
         "the etzhayyim/etzhayyim boundary for hakken (ingest front vs fulfillment tail)"
       ],
@@ -12373,7 +12373,7 @@
       "topic": "session-close-etzhayyim-to-etzhayyim-app-rename-sweep",
       "authoritative": false,
       "related": [
-        "doc:adr-2605172000-etzhayyim-rw-free-substrate",
+        "doc:adr-2605172000-etzhayyim-kotoba-substrate",
         "doc:adr-2605212100-etzhayyim-to-etzhayyim-migration-batch",
         "doc:adr-2605262130-kotoba-storage-substrate-unification",
         "doc:adr-2605312345-kotoba-datom-first-class-canonical-state"
@@ -12389,7 +12389,7 @@
       "authoritative": false,
       "related": [
         "doc:adr-2606032031-session-close-etzhayyim-to-etzhayyim-app-rename-sweep-pause",
-        "doc:adr-2605172000-etzhayyim-rw-free-substrate",
+        "doc:adr-2605172000-etzhayyim-kotoba-substrate",
         "doc:adr-2605262130-kotoba-storage-substrate-unification",
         "doc:adr-2605312345-kotoba-datom-first-class-canonical-state"
       ],
@@ -12454,7 +12454,7 @@
       "related": [
         "doc:adr-2606032045-session-close-etzhayyim-to-etzhayyim-app-rename-sweep-batch47-pause",
         "doc:adr-2606032031-session-close-etzhayyim-to-etzhayyim-app-rename-sweep-pause",
-        "doc:adr-2605172000-etzhayyim-rw-free-substrate",
+        "doc:adr-2605172000-etzhayyim-kotoba-substrate",
         "doc:adr-2605262130-kotoba-storage-substrate-unification",
         "doc:adr-2605312345-kotoba-datom-first-class-canonical-state"
       ],
@@ -12487,24 +12487,24 @@
         "doc:adr-2606032212-session-close-etzhayyim-to-etzhayyim-app-rename-sweep-batch320-pause",
         "doc:adr-2606032045-session-close-etzhayyim-to-etzhayyim-app-rename-sweep-batch47-pause",
         "doc:adr-2606032031-session-close-etzhayyim-to-etzhayyim-app-rename-sweep-pause",
-        "doc:adr-2605172000-etzhayyim-rw-free-substrate",
+        "doc:adr-2605172000-etzhayyim-kotoba-substrate",
         "doc:adr-2605262130-kotoba-storage-substrate-unification",
         "doc:adr-2605312345-kotoba-datom-first-class-canonical-state"
       ],
       "lastVerified": "2026-06-03"
     },
     {
-      "id": "doc:adr-2606033400-session-close-consensys-rw-free-migration-sweep",
+      "id": "doc:adr-2606033400-session-close-consensys-kotoba-migration-sweep",
       "type": "TechArticle",
-      "title": "ADR-2606033400: Session close — Consensys rw-free migration COMPLETE: sweep + truth-pass + kotoba-E2E waves 1+2 (53 apps V→A) — final A=158 / V=22",
+      "title": "ADR-2606033400: Session close — Consensys kotoba migration COMPLETE: sweep + truth-pass + kotoba-E2E waves 1+2 (53 apps V→A) — final A=158 / V=22",
       "status": "active",
-      "topic": "session-close-consensys-rw-free-migration-sweep",
+      "topic": "session-close-consensys-kotoba-migration-sweep",
       "authoritative": true,
       "related": [
         "doc:adr-2606011400-consensys-pattern-etzhayyim-product-etzhayyim-infra-vendor",
         "doc:adr-2605172400-etzhayyim-vendor-three-axis-split-rule",
         "doc:adr-2605152100-etzhayyim-github-org-boundary",
-        "doc:adr-2605172000-etzhayyim-rw-free-substrate",
+        "doc:adr-2605172000-etzhayyim-kotoba-substrate",
         "doc:adr-2605181100-mst-encrypted-records-signal-keywrap",
         "doc:adr-2605172100-etzhayyim-payments-on-chain-only"
       ],
@@ -14655,7 +14655,7 @@
         "doc:ADR-2605181100 (kotoba E2E encrypted-record envelope)",
         "doc:ADR-2605215000 (Murakumo-only inference, no commercial GPU)",
         "doc:ADR-2606011400 (Consensys product-front / infra-back)",
-        "doc:https://github.com/etzhayyim/root/pull/1585 (rw-free generation layer, MERGED)",
+        "doc:https://github.com/etzhayyim/root/pull/1585 (kotoba generation layer, MERGED)",
         "doc:https://github.com/etzhayyim/root/pull/1590 (appview getMinutes XRPC)",
         "doc:https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/pull/1440 (vendor container writer + graph migration; ADR-0089 D6)"
       ],
@@ -16182,6 +16182,90 @@
       "lastVerified": "2026-06-20"
     },
     {
+      "id": "doc:adr-2606201200-ibuki-coscientist-entropy-react-loop",
+      "type": "TechArticle",
+      "title": "ADR-2606201200: ibuki 息吹 — co-scientist entropy ReAct loop (the organism reasons about how to persist)",
+      "status": "accepted",
+      "topic": "ibuki-coscientist-entropy-react-loop",
+      "authoritative": true,
+      "authoritativeFor": [
+        "ibuki-coscientist-entropy-react-loop"
+      ],
+      "related": [
+        "doc:[",
+        "doc:\"",
+        "doc:2",
+        "doc:6",
+        "doc:0",
+        "doc:6",
+        "doc:0",
+        "doc:5",
+        "doc:1",
+        "doc:8",
+        "doc:0",
+        "doc:0",
+        "doc:\"",
+        "doc:,",
+        "doc: ",
+        "doc:\"",
+        "doc:2",
+        "doc:6",
+        "doc:0",
+        "doc:6",
+        "doc:1",
+        "doc:1",
+        "doc:1",
+        "doc:5",
+        "doc:0",
+        "doc:0",
+        "doc:\"",
+        "doc:,",
+        "doc: ",
+        "doc:\"",
+        "doc:2",
+        "doc:6",
+        "doc:0",
+        "doc:6",
+        "doc:0",
+        "doc:1",
+        "doc:2",
+        "doc:1",
+        "doc:0",
+        "doc:0",
+        "doc:\"",
+        "doc:,",
+        "doc: ",
+        "doc:\"",
+        "doc:2",
+        "doc:6",
+        "doc:0",
+        "doc:6",
+        "doc:0",
+        "doc:6",
+        "doc:2",
+        "doc:1",
+        "doc:0",
+        "doc:1",
+        "doc:\"",
+        "doc:,",
+        "doc: ",
+        "doc:\"",
+        "doc:2",
+        "doc:6",
+        "doc:0",
+        "doc:5",
+        "doc:1",
+        "doc:9",
+        "doc:2",
+        "doc:1",
+        "doc:0",
+        "doc:0",
+        "doc:\"",
+        "doc:]"
+      ],
+      "lastVerified": "2026-06-20"
+    },
+    {
       "id": "doc:adr-2606201610-etzhayyim-apex-kotoba-explorer-organism-app",
       "type": "TechArticle",
       "title": "ADR-2606201610: etzhayyim.com apex — kotoba blockchain explorer + node-distribution + organism app (serverless, browser-side)",
@@ -16200,6 +16284,22 @@
         "doc:adr-2606121350-yoro-ui-svelte-to-cljs-migration-harness"
       ],
       "lastVerified": "2026-06-20"
+    },
+    {
+      "id": "doc:adr-2606211200-ie-flow-datomic-agent-lifecycle",
+      "type": "TechArticle",
+      "title": "ADR-2606211200: Information-energy flow — a kotoba/co-scientist agent lifecycle every actor embeds",
+      "status": "accepted",
+      "topic": "ie-flow-datomic-agent-lifecycle",
+      "authoritative": true,
+      "authoritativeFor": [
+        "etzhayyim.ie-flow"
+      ],
+      "related": [
+        "doc:adr-2606101200-ibuki-organism-autonomy",
+        "doc:adr-2605215000-etzhayyim-inference-murakumo-only"
+      ],
+      "lastVerified": "2026-06-21"
     },
     {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
@@ -16869,7 +16969,7 @@
     {
       "id": "doc:doc-2605211949-gate-a-execution-checklist",
       "type": "TechArticle",
-      "title": "Phase 3 gate (a) execution checklist — per-worker RW-free port operator runbook",
+      "title": "Phase 3 gate (a) execution checklist — per-worker kotoba port operator runbook",
       "status": "active",
       "topic": "gate-a-execution-checklist",
       "authoritative": true,

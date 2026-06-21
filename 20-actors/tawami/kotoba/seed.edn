@@ -1,0 +1,70 @@
+;; 撓 tawami — seed (Proof-of-Flexibility assets; MIXED provenance per row).
+;;
+;; Each row is a flexibility ASSET: a load/store that can shift WHEN it draws
+;; energy. The derived flex-value rewards fast response, sustained duration,
+;; large shiftable power, a wide time-shift window, and high availability.
+;;
+;; A SIZE (shiftable-kw, duration) is a fact, never a dispatch order. Rows default
+;; to :representative; :authoritative rows fold a cited telemetry via an
+;; operator-triggered G7 ingest.
+;;
+;; fields:
+;;   :response-time-min  how fast it can begin responding (smaller = more valuable).
+;;   :duration-min       how long it can sustain the shift.
+;;   :shiftable-kw       the variable power it can move.
+;;   :advance-window-h   how far EARLIER it can pull its draw.
+;;   :defer-window-h     how far LATER it can push its draw.
+;;   :availability       0..1 — fraction of time the flexibility is callable.
+[
+ ;; ── battery ──────────────────────────────────────────────────────────────────
+ {:type :asset :id "batt-community-01" :name "Community battery (grid-tie)"
+  :resource-class :battery :response-time-min 1 :duration-min 120 :shiftable-kw 500
+  :advance-window-h 4 :defer-window-h 4 :availability 0.90
+  :sourcing :authoritative :source "battery SCADA nameplate + dispatch log (operator G7 ingest)"}
+ {:type :asset :id "batt-home-fleet-01" :name "Home battery virtual aggregation"
+  :resource-class :battery :response-time-min 2 :duration-min 90 :shiftable-kw 320
+  :advance-window-h 3 :defer-window-h 3 :availability 0.80}
+
+ ;; ── ev-fleet ─────────────────────────────────────────────────────────────────
+ {:type :asset :id "ev-depot-01" :name "EV delivery-fleet depot charging"
+  :resource-class :ev-fleet :response-time-min 5 :duration-min 240 :shiftable-kw 600
+  :advance-window-h 6 :defer-window-h 8 :availability 0.75
+  :sourcing :authoritative :source "depot charger telematics (operator G7 ingest)"}
+ {:type :asset :id "ev-rideshare-01" :name "Pooled rideshare overnight charging (ainori)"
+  :resource-class :ev-fleet :response-time-min 10 :duration-min 300 :shiftable-kw 280
+  :advance-window-h 4 :defer-window-h 6 :availability 0.70}
+
+ ;; ── cold-store ───────────────────────────────────────────────────────────────
+ {:type :asset :id "coldstore-dc-01" :name "Refrigerated distribution centre (thermal mass)"
+  :resource-class :cold-store :response-time-min 15 :duration-min 180 :shiftable-kw 240
+  :advance-window-h 5 :defer-window-h 2 :availability 0.85}
+ {:type :asset :id "coldstore-farm-01" :name "Farm produce cold room (mitsuho)"
+  :resource-class :cold-store :response-time-min 20 :duration-min 120 :shiftable-kw 90
+  :advance-window-h 3 :defer-window-h 1 :availability 0.80}
+
+ ;; ── datacenter ───────────────────────────────────────────────────────────────
+ {:type :asset :id "dc-murakumo-01" :name "Murakumo deferrable batch capacity (toi-routed)"
+  :resource-class :datacenter :response-time-min 5 :duration-min 360 :shiftable-kw 200
+  :advance-window-h 8 :defer-window-h 12 :availability 0.65
+  :sourcing :authoritative :source "Murakumo scheduler deferrable-job log (operator G7 ingest)"}
+ {:type :asset :id "dc-render-01" :name "Render/backup batch (non-urgent)"
+  :resource-class :datacenter :response-time-min 10 :duration-min 240 :shiftable-kw 120
+  :advance-window-h 6 :defer-window-h 10 :availability 0.60}
+
+ ;; ── heat-pump ────────────────────────────────────────────────────────────────
+ {:type :asset :id "hp-district-01" :name "District heat-pump pre-heat (thermal store)"
+  :resource-class :heat-pump :response-time-min 30 :duration-min 150 :shiftable-kw 180
+  :advance-window-h 6 :defer-window-h 2 :availability 0.78}
+ {:type :asset :id "hp-building-01" :name "Building heat-pump load (mizuho-adjacent)"
+  :resource-class :heat-pump :response-time-min 45 :duration-min 90 :shiftable-kw 60
+  :advance-window-h 4 :defer-window-h 1 :availability 0.72}
+
+ ;; ── industrial-process (slow-flex) ──────────────────────────────────────────
+ {:type :asset :id "ind-arc-furnace-01" :name "Arc-furnace melt scheduling (kanayama)"
+  :resource-class :industrial-process :response-time-min 90 :duration-min 480 :shiftable-kw 800
+  :advance-window-h 12 :defer-window-h 12 :availability 0.55
+  :sourcing :authoritative :source "plant MES batch schedule (operator G7 ingest)"}
+ {:type :asset :id "ind-desal-01" :name "Desalination duty-cycle shift (mizuho)"
+  :resource-class :industrial-process :response-time-min 120 :duration-min 360 :shiftable-kw 350
+  :advance-window-h 10 :defer-window-h 14 :availability 0.50}
+]

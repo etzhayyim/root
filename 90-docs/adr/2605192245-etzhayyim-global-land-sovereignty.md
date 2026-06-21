@@ -25,7 +25,7 @@ depends_on:
   - adr-2605172600-etzhayyim-membership-ritual
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605192230-etzhayyim-three-tier-enforcement-implementation
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
 related: []
 supersedes: []
 superseded_by: []
@@ -486,7 +486,7 @@ GeoJSON boundary のみで evidence 完結。
 - ADR-2605172600: Membership ritual + 7-level ladder (Lv5 護 = Steward の根拠)
 - ADR-2605192200: IP-Free-Release + Charter Rider (donor の Non-Aligned 認定可能性)
 - ADR-2605192230: Three-tier enforcement implementation (Council Lv6+ attestation 基盤)
-- ADR-2605172000: RW-free substrate (本 ADR の on-chain 必然性)
+- ADR-2605172000: kotoba substrate (本 ADR の on-chain 必然性)
 - ADR-2605171800: MST → IPFS → L2 anchor pipeline (Lexicon 永続化基盤)
 
 - 50-infra/etzhayyim-land-registry/ (新規 — 本 ADR 承認後 scaffold)

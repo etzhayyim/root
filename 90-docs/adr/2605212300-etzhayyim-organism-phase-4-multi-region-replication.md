@@ -18,7 +18,7 @@ authoritative_for:
 depends_on:
   - adr-2605211200-etzhayyim-active-inference-organism-on-murakumo
   - adr-2605212200-etzhayyim-organism-phase-3-vendor-decouple
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
 related:
   - adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion
@@ -197,7 +197,7 @@ When Phase 4 is fully implemented:
    should be ≤5 seconds p99 over 24h
 3. Switchover dry-run: execute the 4-step runbook on staging clusters
    once per quarter
-4. RW-free invariant: standby region's SQLite hot-cache should not
+4. kotoba invariant: standby region's SQLite hot-cache should not
    require any vendor RW connection (verify with `lsof` or equivalent
    on the standby pod during normal operation)
 
@@ -215,6 +215,6 @@ Phase 5 is gated on Phase 4 stable production operation ≥6 months.
 
 - ADR-2605211200 — Phase 1 + 2 (parent of this work)
 - ADR-2605212200 — Phase 3 vendor decouple plan (immediate predecessor)
-- ADR-2605172000 — etzhayyim RW-free substrate
+- ADR-2605172000 — etzhayyim kotoba substrate
 - ADR-2605172100 — payments on-chain only (Base L2 receipts are global)
 - ADR-0019 — atproto-native identifier topology (did:web routing model)

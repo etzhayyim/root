@@ -16,6 +16,6 @@ We have implemented a cleanroom Salesforce CRM REST API (v58.0 equivalent) using
   - **Batching:** Implemented `POST /services/data/v58.0/composite/` to support sequential execution of batched sub-requests, critical for integration throughput.
 
 ## 3. Consequences
-- **Positive:** Full alignment with the RW-free architecture (ADR-2605172000) while presenting a surface that standard Salesforce integration tools can interact with.
+- **Positive:** Full alignment with the kotoba architecture (ADR-2605172000) while presenting a surface that standard Salesforce integration tools can interact with.
 - **Negative/Risk:** The SOQL parser currently supports simple equality conditions; complex queries (AND/OR, LIKE, nested relationships) will require a more sophisticated transpiler/AST approach in future iterations.
 - **Deployment:** The Python service (`salesforce_py_kotodama.py`) acts as the active router and must be deployed alongside or in front of the existing TypeScript handlers if a full cutover is executed.

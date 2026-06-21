@@ -9,13 +9,13 @@ last_verified: 2026-05-21
 priority: 9.2
 axis: governance
 weight: 0.92
-priority_note: "CRITICAL — defines the operating-entity, custody, settlement, and substrate placement of the live artificial organism (active inference + LLM). Resolves the 3 collisions between current vendor-hosted implementation and etzhayyim/root substrate boundaries (RW-free + on-chain-only + 3-axis split)."
+priority_note: "CRITICAL — defines the operating-entity, custody, settlement, and substrate placement of the live artificial organism (active inference + LLM). Resolves the 3 collisions between current vendor-hosted implementation and etzhayyim/root substrate boundaries (kotoba + on-chain-only + 3-axis split)."
 authoritative_for:
   - operating entity of the artificial organism (active inference controller + persistent world model)
   - hardware ownership of murakumo Mac mini fleet
   - compute placement for active inference loop (belief update / EFE planning / homeostasis)
   - compute placement for LLM synthesis used inside organism loops
-  - state custody substrate for vertex_agent_* equivalent (RW-free path)
+  - state custody substrate for vertex_agent_* equivalent (kotoba path)
 depends_on:
   - adr-2605061200-agi-active-inference-artificial-organism-architecture
   - adr-2605061300-real-world-effect-channel-boundary
@@ -28,7 +28,7 @@ depends_on:
   - adr-2605010000
   - adr-2604251758-murakumo-yoro-actor-worker-fleet
   - adr-2605152100-etzhayyim-github-org-boundary
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
   - adr-2605172400-etzhayyim-vendor-three-axis-split-rule
 related:
@@ -89,7 +89,7 @@ etzhayyim/root yet.
 
 Three ADRs together rule out the current implementation surface from etzhayyim:
 
-- **ADR-2605172000 (RW-free substrate)**: etzhayyim apps may only persist to
+- **ADR-2605172000 (kotoba substrate)**: etzhayyim apps may only persist to
   AT MST + IPFS + Base L2. Kotoba/Datomic is vendor-only.
 - **ADR-2605172100 (payments on-chain only)**: USDC + ERC-4337 only. Fiat /
   Stripe / invoiced LLM API rentals stay vendor.
@@ -453,7 +453,7 @@ once Phase 2 has run 30+ days clean in production.
 - ADR-2605010000 — RunPod 6000 Ada unified LLM pod
 - ADR-2604251758 — murakumo-yoro actor worker fleet
 - ADR-2605152100 — etzhayyim github org boundary
-- ADR-2605172000 — etzhayyim RW-free substrate
+- ADR-2605172000 — etzhayyim kotoba substrate
 - ADR-2605172100 — payments on-chain only
 - ADR-2605172400 — etzhayyim / vendor 3-axis split rule
 - deps.toml `myco-yeast-organism-bringup` (status="live", 2026-05-07)

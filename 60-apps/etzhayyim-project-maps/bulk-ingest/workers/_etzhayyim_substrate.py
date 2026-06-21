@@ -1,6 +1,6 @@
 """Substrate abstraction for maps bulk-ingest workers.
 
-Per Charter Rider §1 + ADR-2605172000 (RW-free state substrate), all
+Per Charter Rider §1 + ADR-2605172000 (kotoba state substrate), all
 ``com.etzhayyim.apps.maps.*`` writes must land on AT Protocol MST + IPFS +
 Base L2 anchor (the etzhayyim primary substrate). The pre-migration
 workers in this directory write directly to RisingWave via psycopg —

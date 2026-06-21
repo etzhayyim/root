@@ -17,7 +17,7 @@ authoritative_for:
   - 12-month redirect grace window for the legacy private-chain RPC host
 depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605172300-etzhayyim-bi-asset-substrate
 related:
 supersedes: []
@@ -138,6 +138,6 @@ Decommission private chain entirely, run everything on Ethereum mainnet. Rejecte
 
 - ADR-2605152100 [etzhayyim GitHub Org Boundary](./2605152100-etzhayyim-github-org-boundary.md) — operating-entity rule
 - ADR-2605172300 [etzhayyim Kisha-Stream / Goji-Treasury (bi-asset substrate)](./2605172300-etzhayyim-bi-asset-substrate.md) — the contracts that live on this chain
-- ADR-2605172000 [RW-free substrate](./2605172000-etzhayyim-rw-free-substrate.md)
+- ADR-2605172000 [kotoba substrate](./2605172000-etzhayyim-kotoba-substrate.md)
 - ADR-2605172700 [Membership layering](./2605172700-membership-layering-shinto-adherent.md) — 信者 (Base L2) + Adherent (geth-private) tiers
 - Legacy upstream `50-infra/vultr/geth-private/CLAUDE.md` — current operational state of the chain (will be referenced + mirrored during Stage 2)

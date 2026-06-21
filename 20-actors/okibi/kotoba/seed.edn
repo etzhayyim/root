@@ -1,0 +1,42 @@
+;; 燠 okibi — seed (Thermal Matching Market: waste-heat SOURCES + heat-demand SINKS).
+;;
+;; Heat is local. A match requires (1) the temperature cascade — source temp ≥ sink
+;; required temp + 5°C approach — and (2) distance ≤ 5 km. Coordinates are Tokyo-ish;
+;; ~0.001° ≈ 110 m. Rows default to :representative; :authoritative rows fold cited
+;; meter/nameplate data via an operator-triggered G7 ingest.
+;;
+;; Designed cases:
+;;   site A — DC (65°C) ↔ district-heat (req 55°C), ~140 m → strong match
+;;   site B — food-plant (45°C) ↔ greenhouse (req 28°C), ~130 m → match
+;;   site C — geothermal (82°C) ↔ hot-water (60°C) + drying (70°C), local → cascade
+;;   refrig-d (38°C) — far from any sink → unmatched SURPLUS
+;;   spaceheat-e (req 70°C) — far from any source → unmatched DEMAND (distance)
+;;   absorption-f (req 90°C) near site A — NO source hot enough → unmatched DEMAND (cascade)
+[
+ ;; ── sources ──────────────────────────────────────────────────────────────────
+ {:type :source :id "dc-a" :name "Datacenter A waste heat" :source-class :datacenter
+  :temp-c 65 :kw 800 :lat 35.680 :lon 139.760 :availability 0.90
+  :sourcing :authoritative :source "DC heat-recovery BTU nameplate (operator G7 ingest)"}
+ {:type :source :id "food-b" :name "Food plant B condenser heat" :source-class :food-plant
+  :temp-c 45 :kw 300 :lat 35.700 :lon 139.700 :availability 0.80}
+ {:type :source :id "geo-c" :name "Geothermal well C" :source-class :geothermal
+  :temp-c 82 :kw 500 :lat 35.650 :lon 139.800 :availability 0.92
+  :sourcing :authoritative :source "wellhead temperature log (operator G7 ingest)"}
+ {:type :source :id "refrig-d" :name "Cold-store D reject heat (remote)" :source-class :refrigeration
+  :temp-c 38 :kw 150 :lat 35.500 :lon 139.500 :availability 0.85}
+
+ ;; ── sinks ────────────────────────────────────────────────────────────────────
+ {:type :sink :id "district-a" :name "District heating loop A" :sink-class :district-heat
+  :temp-req-c 55 :kw-demand 600 :lat 35.681 :lon 139.761 :availability 0.95
+  :sourcing :authoritative :source "substation demand meter (operator G7 ingest)"}
+ {:type :sink :id "greenhouse-b" :name "Greenhouse B (mitsuho)" :sink-class :greenhouse
+  :temp-req-c 28 :kw-demand 250 :lat 35.701 :lon 139.701 :availability 0.85}
+ {:type :sink :id "hotwater-c" :name "Community hot water C" :sink-class :hot-water
+  :temp-req-c 60 :kw-demand 200 :lat 35.650 :lon 139.801 :availability 0.90}
+ {:type :sink :id "drying-c" :name "Crop drying C" :sink-class :drying
+  :temp-req-c 70 :kw-demand 220 :lat 35.651 :lon 139.800 :availability 0.80}
+ {:type :sink :id "spaceheat-e" :name "Space heating E (remote)" :sink-class :space-heat
+  :temp-req-c 70 :kw-demand 180 :lat 35.900 :lon 139.900 :availability 0.88}
+ {:type :sink :id "absorption-f" :name "Absorption chiller F (needs 90°C+)" :sink-class :absorption-cooling
+  :temp-req-c 90 :kw-demand 100 :lat 35.681 :lon 139.760 :availability 0.80}
+]

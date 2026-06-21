@@ -52,7 +52,10 @@
 
 (defn build-settlement-intent
   "Ring-1 stay settlement. gross = flat cost-share; tithe 10% (G7); hostNet = gross − tithe; NO
-  platform commission (G2: gross = tithe + hostNet exactly)."
+  platform commission (G2: gross = tithe + hostNet exactly).
+  G11/G8 (FINDING 260617): execution is gated — WITH an operator-ref the intent is operator-executed
+  (state 'executed'); WITHOUT one it stays an 'intent' that only a MEMBER signature can execute
+  (authorize-settlement). The server never auto-executes (G8 no-server-key, never relaxed)."
   ([gross-minor host-did] (build-settlement-intent gross-minor host-did nil))
   ([gross-minor host-did operator-ref]
    (let [gross (long gross-minor)
@@ -63,7 +66,9 @@
       "titheMinor" tithe "hostNetMinor" host-net "hostDid" host-did
       "titheRouter" "50-infra/etzhayyim-tithe-router"
       "serverHeldKey" false             ; G8 invariant
-      "state" "executed" "operatorRef" (or operator-ref "autonomous_r2") "signed" false})))
+      ;; G11/G8: operator-gated execution; absent an operator it stays an intent a member must sign
+      "state" (if operator-ref "executed" "intent")
+      "operatorRef" (or operator-ref "autonomous_r2") "signed" false})))
 
 (defn authorize-settlement
   "Only a member-origin signature authorizes (G8 no-server-key); server signature refused."
@@ -76,7 +81,8 @@
     (merge settlement {"signed" false "refused" true
                        "reason" "settlement carries a server-held key — invariant violation (G8)"})
     :else
-    (merge settlement {"signed" true "signatureRef" (get signature "ref")})))
+    ;; member signature authorizes → the intent transitions to executed (member is the write author)
+    (merge settlement {"signed" true "state" "executed" "signatureRef" (get signature "ref")})))
 
 (defn dates-overlap
   "Half-open date-interval overlap [checkIn, checkOut). Adjacent stays do NOT overlap. ISO date
