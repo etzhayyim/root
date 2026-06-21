@@ -408,6 +408,209 @@
     (h :span {:text "── embeds · ┈ synthesizes"})
     (when g (h :span {:class "muted" :text (str "  " (:generatedAt g))}))))
 
+;; ── IE-flow LAB: client-side datomic query → Sankey · index · system-dynamics · ABM ──
+;; lab.kotoba.edn is a flat [e a v tx op] Datom snapshot. The page parses it to an EAV index
+;; (parse-kotoba) and QUERIES it in the browser. The sliders apply a SPECULATIVE datom overlay
+;; (datomic `with`): a [e a v] tuple that shadows the queried value, so the params update via the
+;; query and the system-dynamics + ABM sims re-run live — no server, no write, no full repaint.
+
+(declare refresh-lab-dyn! render-lab-dyn)
+
+;; --- datomic-style query over the EAV index + speculative overlay ---
+(defn lab-q1 [db e a] (first (get-in db [e a])))
+(defn lab-ents [db a] (for [[e attrs] db :when (contains? attrs a)] e))
+(defn db-with [db tx]
+  ;; overlay: each [e a v] replaces that attr's value-set (params are single-valued)
+  (reduce (fn [m [e a v]] (assoc-in m [e a] #{v})) db tx))
+(defn lab-db [] (db-with (:lab @state) (:lab-tx @state)))
+(defn set-param! [e a v]
+  (swap! state update :lab-tx
+    (fn [tx] (conj (vec (remove (fn [[e2 a2 _]] (and (= e2 e) (= a2 a))) (or tx []))) [e a v]))))
+
+(defn svg-text-at [root x y size fill anchor s]
+  (let [t (svg :text {:x x :y y :text-anchor anchor :font-size size :fill fill
+                      :style "user-select:none;pointer-events:none"})]
+    (set! (.-textContent t) (str s)) (.appendChild root t)))
+
+;; --- Sankey (代謝フロー) ---
+(defn lab-sankey-edges [db]
+  (->> (lab-ents db :lab.sankey/idx)
+       (map (fn [e] {:source (lab-q1 db e :lab.sankey/source)
+                     :target (lab-q1 db e :lab.sankey/target)
+                     :value (or (lab-q1 db e :lab.sankey/value) 0)
+                     :net (or (lab-q1 db e :lab.sankey/net) 0)}))
+       (sort-by :value >) vec))
+
+(defn render-sankey [edges]
+  (let [W 440 H 250 pad 16 lx 50 rx 300
+        tot (reduce + (map #(js/Math.sqrt (js/Math.max 0 (:value %))) edges))
+        avail (- H (* 2 pad))
+        root (svg :svg {:viewBox (str "0 0 " W " " H) :width "100%" :class "dish"})]
+    (.appendChild root (svg :rect {:x (- lx 7) :y pad :width 7 :height avail :rx 2 :fill "#7aa2ff"}))
+    (svg-text-at root (- lx 3) (- pad 5) 10 "#7aa2ff" "end" "repo")
+    ;; ribbons sit at their true (√value) vertical position; labels are distributed EVENLY down
+    ;; the right edge (decoupled from the ribbon, joined by a thin connector) so the many tiny
+    ;; layers below the dominant 20-actors channel never overlap.
+    (let [n (count edges) slot (/ avail (max 1 n))]
+      (loop [es edges off pad i 0]
+        (when (seq es)
+          (let [e (first es)
+                t (max 3 (* avail (/ (js/Math.sqrt (js/Math.max 0 (:value e))) (max 1e-9 tot))))
+                yc (+ off (/ t 2)) mid (/ (+ lx rx) 2)
+                ly (+ pad (* (+ i 0.5) slot))
+                col (if (>= (:net e) 0) "#39d98a" "#f0506e")]
+            (.appendChild root (svg :path {:d (str "M " lx " " yc " C " mid " " yc " " mid " " yc " " rx " " yc)
+                                           :fill "none" :stroke col :stroke-width t :opacity 0.5}))
+            (.appendChild root (svg :rect {:x rx :y (- yc (/ t 2)) :width 7 :height (max 2 t) :rx 2 :fill col :opacity 0.92}))
+            (.appendChild root (svg :line {:x1 (+ rx 8) :y1 yc :x2 (+ rx 12) :y2 ly :stroke "#3a4a5c" :stroke-width 0.6}))
+            (svg-text-at root (+ rx 14) (+ ly 3) 10 "#cdd7e1" "start"
+                         (str (.replace (str (:target e)) (js/RegExp. "^layer:") "") "  " (fmt-num (:value e))))
+            (recur (rest es) (+ off t) (inc i))))))
+    root))
+
+;; --- multiline chart (ys ALREADY in [0,1]) ---
+(defn multiline [series w h]
+  (let [pad 6 n (apply max 2 (map #(count (:ys %)) series))
+        root (svg :svg {:viewBox (str "0 0 " w " " h) :width "100%" :height h})]
+    (doseq [s series]
+      (let [pts (map-indexed (fn [i v] [(+ pad (* (- w (* 2 pad)) (/ i (max 1 (dec n)))))
+                                        (- h pad (* (- h (* 2 pad)) (js/Math.max 0 (js/Math.min 1 v))))])
+                             (:ys s))
+            d (apply str (map-indexed (fn [i [x y]] (str (if (zero? i) "M" "L") (.toFixed x 1) " " (.toFixed y 1) " ")) pts))]
+        (.appendChild root (svg :path {:d d :fill "none" :stroke (:color s) :stroke-width 1.8 :opacity 0.95}))))
+    root))
+
+(defn chart-legend [series]
+  (h :div {:class "legend" :style "margin:4px 0 2px"}
+    (map (fn [s] (h :span {} (h :i {:style (str "background:" (:color s))}) (:label s))) series)))
+
+(defn norm01 [ys] (let [mx (apply max 1e-9 (map #(js/Math.abs %) ys))] (map #(/ % mx) ys)))
+
+;; --- system dynamics (port of ie-flow.dynamics/step-system) ---
+(defn sd-step [s inp]
+  (let [data' (+ (:data-asset s) (:acquisition inp))]
+    {:customers (max 0 (+ (:customers s) (:acquisition inp) (- (:churn inp))))
+     :trust (min 1 (max 0 (+ (:trust s) (* 0.01 (:good-exp inp)) (- (* 0.02 (:spam inp))) (- (* 0.05 (:failures inp))))))
+     :data-asset data'
+     :model-quality (min 1 (max 0 (+ (:model-quality s) (* 0.0001 data'))))
+     :reserves (max 0 (+ (:reserves s) (:revenue inp) (- (:cost inp))))}))
+(defn sd-run [init inp steps] (vec (take (inc steps) (iterate #(sd-step % inp) init))))
+(defn sd-read [db]
+  (let [g (fn [a d] (let [v (lab-q1 db "lab:sd" a)] (if (nil? v) d v)))]
+    {:steps (g :lab.sd/steps 12)
+     :init {:customers (g :lab.sd/init-customers 0) :trust (g :lab.sd/init-trust 0.3)
+            :data-asset (g :lab.sd/init-data-asset 0) :model-quality (g :lab.sd/init-model-quality 0.1)
+            :reserves (g :lab.sd/init-reserves 0)}
+     :inp {:acquisition (g :lab.sd/acquisition 0) :churn (g :lab.sd/churn 0) :good-exp (g :lab.sd/good-exp 0)
+           :spam (g :lab.sd/spam 0) :failures (g :lab.sd/failures 0) :revenue (g :lab.sd/revenue 0) :cost (g :lab.sd/cost 0)}}))
+
+;; --- ABM (Friedkin-Johnsen opinion/alignment over the actor graph) ---
+(defn abm-read [db]
+  {:lambda (or (lab-q1 db "lab:abm" :lab.abm/lambda) 0.5)
+   :steps (or (lab-q1 db "lab:abm" :lab.abm/steps) 16)
+   :agents (mapv (fn [e] {:id (lab-q1 db e :lab.agent/id) :x0 (or (lab-q1 db e :lab.agent/x0) 0.5)})
+                 (lab-ents db :lab.agent/id))})
+(defn abm-adj [agents]
+  (let [ids (mapv :id agents) k "kaname" has-k (some #(= % k) ids)]
+    (into {} (for [i ids]
+               [i (cond (not has-k) (vec (remove #(= % i) ids))   ; no synthesizer → fully coupled
+                        (= i k) (vec (remove #(= % k) ids))       ; kaname listens to all
+                        :else [k])]))))                            ; others listen to kaname
+(defn abm-step [x adj lam x0]
+  (into {} (for [[i nbrs] adj]
+             (let [avg (if (seq nbrs) (/ (reduce + (map #(get x %) nbrs)) (count nbrs)) (get x i))]
+               [i (+ (* lam avg) (* (- 1 lam) (get x0 i)))]))))
+(defn abm-run [agents lam steps]
+  (let [adj (abm-adj agents) x0 (into {} (map (fn [a] [(:id a) (:x0 a)]) agents))]
+    {:ids (mapv :id agents) :x0 x0
+     :traj (vec (take (inc steps) (iterate #(abm-step % adj lam x0) x0)))}))
+
+(def abm-colors {"ibuki" "#39d98a" "tsumugi" "#7aa2ff" "shionome" "#f078c0"
+                 "kaname" "#b78bff" "okaimono" "#f5a524"})
+
+;; --- the dynamic (param-driven) part: SD + ABM, re-rendered on slider input ---
+(defn render-lab-dyn []
+  (let [db (lab-db)
+        sdp (sd-read db)
+        sd (sd-run (:init sdp) (:inp sdp) (:steps sdp))
+        sdf (peek sd)
+        abp (abm-read db)
+        abm (abm-run (:agents abp) (:lambda abp) (:steps abp))
+        afin (peek (:traj abm))
+        avals (vals afin)
+        sd-series [{:label "customers" :color "#39d98a" :ys (norm01 (map :customers sd))}
+                   {:label "reserves"  :color "#7aa2ff" :ys (norm01 (map :reserves sd))}
+                   {:label "trust"     :color "#f5d90a" :ys (map :trust sd)}
+                   {:label "model-Q"   :color "#b78bff" :ys (map :model-quality sd)}]
+        abm-series (mapv (fn [id] {:label id :color (get abm-colors id "#8b97a6")
+                                   :ys (map #(get % id) (:traj abm))}) (:ids abm))]
+    (h :div {:id "lab-dyn"}
+      (h :div {:class "wbline" :style "margin-top:6px"} (h :b {:text "system dynamics — 秩序ストック軌跡"})
+         (h :span {:class "muted" :text "  step-system over queried params (各系列 max 正規化)"}))
+      (chart-legend sd-series)
+      (multiline sd-series 320 64)
+      (h :div {:class "muted"
+               :text (str (:steps sdp) " steps → reserves " (fmt-num (:reserves sdf))
+                          " · trust " (.toFixed (:trust sdf) 2) " · customers " (fmt-num (:customers sdf))
+                          " · model-Q " (.toFixed (:model-quality sdf) 2))})
+      (h :div {:class "wbline" :style "margin-top:12px"} (h :b {:text "ABM — Friedkin-Johnsen 整列ダイナミクス"})
+         (h :span {:class "muted" :text "  agents=adopters · kaname が合成中心 (star)"}))
+      (chart-legend abm-series)
+      (multiline abm-series 320 64)
+      (h :div {:class "muted"
+               :text (str "λ=" (.toFixed (:lambda abp) 2) " → 合意 "
+                          (.toFixed (/ (reduce + avals) (max 1 (count avals))) 3)
+                          " · 分散 " (.toFixed (- (apply max avals) (apply min avals)) 3))}))))
+
+(defn refresh-lab-dyn! []
+  (when-let [old (gid "lab-dyn")] (.replaceWith old (render-lab-dyn))))
+
+(defn lab-slider [label e a v mn mx step fmt]
+  (h :div {:class "labctl"}
+    (h :div {:class "labctlhead"}
+       (h :span {:text label})
+       (h :span {:id (str "v-" (name a)) :class "labctlval" :text (fmt v)}))
+    (h :input {:type "range" :min mn :max mx :step step :value v :class "labrange"
+               :input (fn [ev]
+                        (let [nv (js/parseFloat (.. ev -target -value))]
+                          (set-param! e a nv)
+                          (when-let [el (gid (str "v-" (name a)))] (set! (.-textContent el) (fmt nv)))
+                          (refresh-lab-dyn!)))})))
+
+(defn lab-panel []
+  (if-not (:lab @state)
+    (h :div {:class "hint" :text "lab.kotoba.edn 待機中… (bb ieflow:lab)"})
+    (let [db (lab-db)
+          edges (lab-sankey-edges db)
+          ix (fn [a] (lab-q1 db "lab:index" a))
+          n3 (fn [a] (let [v (ix a)] (if (number? v) (.toFixed v 3) (str v))))
+          rev (or (lab-q1 db "lab:sd" :lab.sd/revenue) 0)
+          cost (or (lab-q1 db "lab:sd" :lab.sd/cost) 0)
+          churn (or (lab-q1 db "lab:sd" :lab.sd/churn) 0)
+          lam (or (lab-q1 db "lab:abm" :lab.abm/lambda) 0.5)
+          ri (fn [x] (js/Math.round x))]
+      (h :div {}
+        (h :div {:class "labgrid"}
+          ;; LEFT — Sankey + indices (datomic-queried)
+          (h :div {}
+             (h :div {:class "wbline"} (h :b {:text "Sankey — 代謝フロー repo→layer"})
+                (h :span {:class "muted" :text "  幅=√value · 赤=net負"}))
+             (render-sankey edges)
+             (h :div {:class "iegrid" :style "margin-top:10px"}
+               (ie-stat "net-gain Φ" (fmt-num (ix :lab.index/net-gain)) "#39d98a")
+               (ie-stat "order-index η" (n3 :lab.index/order-index) "#b78bff")
+               (ie-stat "surprise 𝒮" (n3 :lab.index/surprise) "#f5a524")
+               (ie-stat "agent-eff" (fmt-num (ix :lab.index/agent-eff)) "#7aa2ff")))
+          ;; RIGHT — datomic-query param overlay (sliders) + live sims
+          (h :div {}
+             (h :div {:class "wbline"} (h :b {:text "datomic-query params"})
+                (h :span {:class "muted" :text "  スライダ = speculative datom overlay (with)"}))
+             (lab-slider "revenue /step (Φ↑)" "lab:sd" :lab.sd/revenue rev 0 (+ (* 2 rev) 100) (max 1 (ri (/ rev 20))) ri)
+             (lab-slider "cost /step (Φ↓)" "lab:sd" :lab.sd/cost cost 0 (+ (* 3 cost) 100) (max 1 (ri (/ (+ cost 100) 40))) ri)
+             (lab-slider "churn /step" "lab:sd" :lab.sd/churn churn 0 (+ (* 4 churn) 50) 1 ri)
+             (lab-slider "λ ABM 整列感受性" "lab:abm" :lab.abm/lambda lam 0 1 0.05 (fn [x] (.toFixed x 2)))
+             (render-lab-dyn)))))))
+
 ;; ── compose (full paint — structure) ────────────────────────────────────────
 
 (defn live-badge [pulse]
@@ -466,6 +669,9 @@
              (h :h3 {:text "actor system-of-systems — 共有基盤を embed する actor 群のグラフ"})
              (render-sos sos)
              (sos-legend sos))
+          (h :div {:class "card"}
+             (h :h3 {:text "IE-flow lab — Sankey · index · system-dynamics · ABM（datomic-query 駆動）"})
+             (lab-panel))
           (h :div {:class "foot"
                    :text "脈動=呼吸 · 発光=working-tree 編集中 · 閃光=コミット出力(生産). 構造=kotoba Datom log / 活動=git pulse。"}))))))
 
@@ -643,7 +849,11 @@
         (fn [jo] (swap! state assoc :joucho jo) (paint!))
         (fn [] (fetchj "joucho.json" true (fn [jo] (swap! state assoc :joucho jo) (paint!)))))
       (fetchj "ieflow.json" true (fn [ie] (when ie (swap! state assoc :ieflow ie) (paint!))))
-      (fetchj "sos.json" true (fn [g] (when g (swap! state assoc :sos g) (paint!)))))
+      (fetchj "sos.json" true (fn [g] (when g (swap! state assoc :sos g) (paint!))))
+      ;; IE-flow lab: parse the flat Datom snapshot to an EAV index queried client-side
+      (fetch-kotoba "lab.kotoba.edn" identity
+        (fn [db] (swap! state assoc :lab db :lab-tx []) (paint!))
+        (fn [] nil)))
     ;; fail-open: no vitals snapshot yet → JSON projection
     (fn [] (fetchj "organism.json" true
              (fn [d] (swap! state assoc :data d)

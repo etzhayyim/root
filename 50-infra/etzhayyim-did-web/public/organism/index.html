@@ -74,6 +74,13 @@
   .iestat{background:#0c1219;border:1px solid var(--line);border-radius:10px;padding:8px 10px}
   .iestat .ienum{font-size:18px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.2}
   .iestat .iek{font-size:11px;color:var(--mut);margin-top:2px}
+  /* ── IE-flow lab: Sankey + index (left) / datomic-query sliders + sims (right) ── */
+  .labgrid{display:grid;grid-template-columns:1.1fr .9fr;gap:20px}
+  @media(max-width:760px){.labgrid{grid-template-columns:1fr}}
+  .labctl{margin:8px 0 10px}
+  .labctlhead{display:flex;justify-content:space-between;font-size:12px;color:var(--mut);margin-bottom:3px}
+  .labctlval{color:var(--ink);font-variant-numeric:tabular-nums;font-weight:600}
+  input.labrange{width:100%;accent-color:var(--alive);height:4px;cursor:pointer}
   /* respect reduced-motion: still alive, just not animated (104 cells breathing is a lot) */
   @media (prefers-reduced-motion: reduce){
     .dish .cell,.dish .cell.flash,.pulse,.live .dot{animation:none !important}

@@ -63,6 +63,11 @@
    :task (do (require 'etzhayyim.ie-flow.organism)
              (apply (resolve 'etzhayyim.ie-flow.organism/-sos) *command-line-args*))}
 
+  ieflow:lab
+  {:doc "Emit lab.kotoba.edn — a flat [e a v tx op] Datom snapshot the /organism lab queries client-side (ADR-2606211200): the Sankey backbone + scalar indices + SYSTEM-DYNAMICS params (init stocks + per-step rates, dynamics/step-system) + ABM params (agents=adopters, Friedkin-Johnsen). Params are datomic-queryable; the page re-simulates live as sliders move them. Pure read, no held key. Args: [flow-log-path]"
+   :task (do (require 'etzhayyim.ie-flow.organism)
+             (apply (resolve 'etzhayyim.ie-flow.organism/-lab) *command-line-args*))}
+
   test:kotoba
   {:doc "etzhayyim.kotoba root-side Datom engine + envelope + analysis (ADR-2605262130 Phase 1/2 + ADR-2605181100; data+impl in root, kotoba is the external generic engine)"
    :task (do (require 'clojure.test 'etzhayyim.kotoba.test-engine

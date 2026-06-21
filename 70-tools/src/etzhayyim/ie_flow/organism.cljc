@@ -167,6 +167,86 @@
                      (:generatedAt g)))
        g)))
 
+;; ── the IE-flow LAB: one content-addressed Datom snapshot the page queries client-side ──
+;; lab.kotoba.edn is a FLAT [e a v tx op] datom vector (the snapshot shape the page's parse-kotoba
+;; reads) carrying everything the in-browser lab computes over: the Sankey backbone, the scalar
+;; indices, the SYSTEM-DYNAMICS params (initial stocks + per-step input rates — derived from the
+;; measured flow, ADR-2606211200 dynamics/step-system), and the ABM params (agents = adopters +
+;; coupling). The page reads these via a datomic-style EAV query and re-computes live as params move.
+
+#?(:clj
+   (defn lab-datoms
+     "Build the flat [e a v tx op] datom vector for lab.kotoba.edn from a measured flow log. Pure."
+     [log-path]
+     (let [txs    (kd/read-log log-path)
+           events (ledger/read-events txs)
+           st     (metrics/flow-state events)
+           edges  (->> (:edges st) (sort-by :value >) vec)
+           oi     (double (:order-index st))
+           steps  12
+           per    (fn [x] (long (Math/round (/ (double x) steps))))
+           reg    (read-registry)
+           adopters (mapv :actor (:adopted reg))
+           x0     {"ibuki" 0.60 "tsumugi" 0.45 "shionome" 0.55 "kaname" 0.78 "okaimono" 0.50}
+           sd-init {"customers" 0 "trust" 0.30 "data-asset" 0 "model-quality" 0.10 "reserves" 0}
+           sd-in  {"acquisition" (per (:throughput st))
+                   "revenue"     (per (:total-value st))
+                   "cost"        (per (:total-cost st))
+                   "failures"    (per (:total-risk st))
+                   "good-exp"    (long (Math/round (* 100.0 (max 0.0 oi))))
+                   "spam"        (long (Math/round (* 20.0 (max 0.0 (- 1.0 oi)))))
+                   "churn"       (long (Math/round (* 0.05 (double (per (:throughput st))))))}
+           d (fn [e a v] [e a v 1 :add])]
+       (vec (concat
+              ;; scalar indices
+              [(d "lab:index" :lab.index/net-gain (:net-gain st))
+               (d "lab:index" :lab.index/order-index oi)
+               (d "lab:index" :lab.index/agent-eff (jnum (:agent-efficiency st)))
+               (d "lab:index" :lab.index/throughput (:throughput st))
+               (d "lab:index" :lab.index/total-value (:total-value st))
+               (d "lab:index" :lab.index/total-cost (:total-cost st))
+               (d "lab:index" :lab.index/parasitic (:parasitic? st))
+               (d "lab:index" :lab.index/flows-n (:flows-n st))
+               (d "lab:index" :lab.index/surprise
+                  (/ (+ (if (:parasitic? st) 1.0 0.0) (max 0.0 (- 1.0 oi))) 2.0))]
+              ;; Sankey backbone (one entity per channel)
+              (mapcat (fn [i e]
+                        (let [eid (str "lab:sankey:" i)]
+                          [(d eid :lab.sankey/idx i)
+                           (d eid :lab.sankey/source (:source e))
+                           (d eid :lab.sankey/target (:target e))
+                           (d eid :lab.sankey/value (double (:value e 0)))
+                           (d eid :lab.sankey/volume (double (:volume e 0)))
+                           (d eid :lab.sankey/net (metrics/net-gain e))]))
+                      (range) edges)
+              ;; system-dynamics params (datomic-queryable; the page simulates step-system over them)
+              [(d "lab:sd" :lab.sd/steps steps)]
+              (for [[k v] sd-init] (d "lab:sd" (keyword "lab.sd" (str "init-" k)) v))
+              (for [[k v] sd-in]   (d "lab:sd" (keyword "lab.sd" k) v))
+              ;; ABM params (Friedkin-Johnsen over the actor graph; agents = adopters)
+              [(d "lab:abm" :lab.abm/lambda 0.5)
+               (d "lab:abm" :lab.abm/steps 16)]
+              (mapcat (fn [a]
+                        (let [eid (str "lab:agent:" a)]
+                          [(d eid :lab.agent/id a)
+                           (d eid :lab.agent/x0 (double (get x0 a 0.5)))]))
+                      adopters))))))
+
+#?(:clj
+   (defn -lab
+     "bb task: emit lab.kotoba.edn — the Sankey + indices + system-dynamics + ABM params as a flat
+     Datom snapshot the /organism lab queries client-side. Args: [flow-log-path]."
+     [& args]
+     (let [log-path (or (first args) default-flow-log)
+           datoms (lab-datoms log-path)
+           out (str ";; GENERATED kotoba Datom snapshot (etzhayyim.ie-flow.organism/-lab).\n"
+                    ";; Canonical live EAVT state [e a v tx op]. DO NOT hand-edit.\n"
+                    "[\n" (apply str (map #(str (pr-str %) "\n") datoms)) "]\n")]
+       (doseq [dir out-dirs]
+         (let [p (str dir "/lab.kotoba.edn")] (io/make-parents p) (spit p out)))
+       (println (str "lab.kotoba.edn · " (count datoms) " datoms (index/sankey/sd/abm)"))
+       datoms)))
+
 #?(:clj
    (defn -report
      "bb task: project the IE-flow ledger → ieflow.json in every served organism dir.
