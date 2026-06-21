@@ -35,7 +35,7 @@ an expired capability is refused (revocable leash); a non-reciprocal offer is re
 
 ## R1 (next)
 
-- [ ] claim emitter — a consented aggregate flex offer → a 撓 tawami flexibility asset +
+- [x] claim emitter (LANDED 2026-06-21) — a consented aggregate flex offer → a 撓 tawami flexibility asset +
       a 澪 mio flow-improvement claim (the suite seam)
 - [ ] real revocable-leash capability verification (CACAO, member-signed; ibuki pattern)
       replacing the seed's opaque capability reference

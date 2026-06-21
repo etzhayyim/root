@@ -34,7 +34,8 @@
  [{:method/id "okibi_edn" :method/file "methods/okibi_edn.cljc" :method/role "seed loader + classify (sources + sinks)"}
   {:method/id "analyze"   :method/file "methods/analyze.cljc"   :method/role "temperature-cascade + distance greedy matching → datoms → coverage → report (+ bb CLI)"}
   {:method/id "kotoba"    :method/file "methods/kotoba.cljc"    :method/role "content-addressed append-only THERMAL MATCHING LEDGER (tx-cid/append-tx/read-log/verify-chain)"}
-  {:method/id "autorun"   :method/file "methods/autorun.cljc"   :method/role "deterministic idempotent-by-content heartbeat — match → append matches on change (+ bb CLI)"}]
+  {:method/id "autorun"   :method/file "methods/autorun.cljc"   :method/role "deterministic idempotent-by-content heartbeat — match → append matches on change (+ bb CLI)"}
+  {:method/id "claim"     :method/file "methods/claim.cljc"     :method/role "R1 seam: each thermal match to a 澪 mio flow-improvement claim (delivered heat, signed BTU meter)"}]
 
  :actor/lex
  [{:lex/id "heatSource"}

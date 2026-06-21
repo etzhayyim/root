@@ -8,6 +8,7 @@ SUITES=(
   "20-actors/mio/methods/test_analyze.cljc"
   "20-actors/mio/methods/test_kotoba.cljc"
   "20-actors/mio/methods/test_autorun.cljc"
+  "20-actors/mio/methods/test_suite.cljc"
 )
 
 fail=0

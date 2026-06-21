@@ -8,6 +8,7 @@ SUITES=(
   "20-actors/tawami/methods/test_analyze.cljc"
   "20-actors/tawami/methods/test_kotoba.cljc"
   "20-actors/tawami/methods/test_autorun.cljc"
+  "20-actors/tawami/methods/test_claim.cljc"
 )
 
 fail=0

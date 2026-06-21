@@ -8,6 +8,7 @@ SUITES=(
   "20-actors/yudane/methods/test_analyze.cljc"
   "20-actors/yudane/methods/test_kotoba.cljc"
   "20-actors/yudane/methods/test_autorun.cljc"
+  "20-actors/yudane/methods/test_claim.cljc"
 )
 
 fail=0

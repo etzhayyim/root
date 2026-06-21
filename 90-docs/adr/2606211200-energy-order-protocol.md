@@ -149,8 +149,26 @@ backbone, 24/174) · **撓 tawami** (flexibility, 20/134) · **燠 okibi** (wast
 · **樋 toi** (compute-routing, 21/98) · **委 yudane** (intention, 21/96). Total **107 tests
 / 594 assertions green** (babashka). The energy-flow-ordering loop is closed: 撓/燠/樋/委
 observe and submit; 澪 mio verifies + accounts the org Flowrate; hikari actuates under
-Council gate. R1 across the suite = the claim-emitter seam (each leg → a 澪 mio
-flow-improvement claim) + live operator-gated ingest + fleet registration.
+Council gate.
+
+## R1 — claim-emitter seam LANDED (2026-06-21)
+
+The four legs now emit 澪 mio flow-improvement claims, turning five standalone R0 actors
+into one **live verified pipeline**. Each leg has a pure `methods/claim.cljc` that maps its
+analysis → the mio claim shape (the five §9 verification facts) without importing mio
+(emitter = the leg's responsibility; mio.analyze verifies the agreed shape). 委 yudane's
+emitter is the privacy-preserving seam: **only consented offers emit claims**, content-free.
+
+End-to-end (proven by `20-actors/mio/methods/test_suite.cljc`): the four legs emit **25
+claims** (tawami 12 / okibi 4 / toi 5 / yudane 4-consented) → mio verifies **23** → org
+**Flowrate 13,039.6 kWh-equiv**. The 2 unverified are tawami's slow-flex industrial assets
+(additionality 0.4 → confidence < threshold — mio's §9 gate correctly filtering, across the
+real pipeline). Double-count keys are namespaced per actor → zero cross-actor double counting.
+
+Suite totals now **4 claim emitters + 5 new test suites (4 claim + 1 integration) = 120
+tests / 867 assertions green** across the five actors. Remaining R1: live operator-gated
+ingest (real meters/scheduler/CACAO capability) + fleet registration (heartbeat cells) +
+reward-proposal handoff (1 SBT=1 vote).
 
 # Consequences
 

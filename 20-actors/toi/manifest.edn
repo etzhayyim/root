@@ -34,7 +34,8 @@
  [{:method/id "toi_edn"  :method/file "methods/toi_edn.cljc"  :method/role "seed loader + classify (jobs + sites)"}
   {:method/id "analyze"  :method/file "methods/analyze.cljc"  :method/role "site-score → greedy routing → avoided-carbon → datoms → coverage → report (+ bb CLI)"}
   {:method/id "kotoba"   :method/file "methods/kotoba.cljc"   :method/role "content-addressed append-only COMPUTE ROUTING LEDGER (tx-cid/append-tx/read-log/verify-chain)"}
-  {:method/id "autorun"  :method/file "methods/autorun.cljc"  :method/role "deterministic idempotent-by-content heartbeat — route → append routings on change (+ bb CLI)"}]
+  {:method/id "autorun"  :method/file "methods/autorun.cljc"  :method/role "deterministic idempotent-by-content heartbeat — route → append routings on change (+ bb CLI)"}
+  {:method/id "claim"    :method/file "methods/claim.cljc"    :method/role "R1 seam: each routing to a 澪 mio flow-improvement claim (routed compute kWh, scheduler+carbon audit)"}]
 
  :actor/lex
  [{:lex/id "computeJob"}

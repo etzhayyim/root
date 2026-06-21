@@ -34,7 +34,8 @@
  [{:method/id "yudane_edn" :method/file "methods/yudane_edn.cljc" :method/role "seed loader + classify (offers)"}
   {:method/id "analyze"    :method/file "methods/analyze.cljc"    :method/role "consent verdicts → content-free datoms → coverage → report (+ bb CLI)"}
   {:method/id "kotoba"     :method/file "methods/kotoba.cljc"     :method/role "content-addressed append-only INTENTION LEDGER (tx-cid/append-tx/read-log/verify-chain)"}
-  {:method/id "autorun"    :method/file "methods/autorun.cljc"    :method/role "deterministic idempotent-by-content heartbeat — translate → append verdicts on change (+ bb CLI)"}]
+  {:method/id "autorun"    :method/file "methods/autorun.cljc"    :method/role "deterministic idempotent-by-content heartbeat — translate → append verdicts on change (+ bb CLI)"}
+  {:method/id "claim"    :method/file "methods/claim.cljc"    :method/role "R1 seam: each CONSENTED offer to a 澪 mio flow-improvement claim (content-free aggregate; refused offers emit nothing)"}]
 
  :actor/lex
  [{:lex/id "intentionOffer"}

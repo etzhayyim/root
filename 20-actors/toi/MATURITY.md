@@ -37,7 +37,7 @@ latency-bound job stays in-place (never coerced).
 
 ## R1 (next)
 
-- [ ] claim emitter — a routed saving → a 澪 mio flow-improvement claim (avoided carbon +
+- [x] claim emitter (LANDED 2026-06-21) — a routed saving → a 澪 mio flow-improvement claim (avoided carbon +
       reusable heat; the suite seam); waste-heat handoff to 燠 okibi as a heat source
 - [ ] live ingest (operator G7): Murakumo scheduler + grid carbon-intensity API
 - [ ] deadline/deferral feasibility (currently movability-gated only)

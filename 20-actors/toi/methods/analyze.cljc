@@ -78,6 +78,7 @@
            (-> st
                (update-in [:site-cap (:id pick)] - (double (:kwh job)))
                (update :routes conj {:job (:id job) :site (:id pick)
+                                     :kwh (double (:kwh job))
                                      :avoided-kg (avoided-carbon-kg job pick)
                                      :heat-reuse-kwh (heat-reuse-kwh job pick)
                                      :score (site-score pick)}))
@@ -111,7 +112,7 @@
                         sites)]
     {"jobs" job-rows
      "sites" site-rows
-     "routes" (mapv (fn [r] {"job" (:job r) "site" (:site r)
+     "routes" (mapv (fn [r] {"job" (:job r) "site" (:site r) "kwh" (:kwh r)
                              "avoided_carbon_kg" (:avoided-kg r)
                              "heat_reuse_kwh" (:heat-reuse-kwh r) "score" (:score r)}) routes)
      "totals" {"job_count" (count jobs)

@@ -36,7 +36,7 @@ source is surplus.
 
 ## R1 (next)
 
-- [ ] claim emitter — a realized match → a 澪 mio flow-improvement claim (delivered kWh
+- [x] claim emitter (LANDED 2026-06-21) — a realized match → a 澪 mio flow-improvement claim (delivered kWh
       with signed BTU meter; the suite seam)
 - [ ] live meter/nameplate ingest (operator G7)
 - [ ] zone/site index for O(sources×sinks) → spatial-bucketed matching at scale

@@ -34,7 +34,8 @@
  [{:method/id "tawami_edn" :method/file "methods/tawami_edn.cljc" :method/role "seed loader + classify (assets)"}
   {:method/id "analyze"    :method/file "methods/analyze.cljc"    :method/role "flex-value → tier → best-use → datoms → coverage → report (+ bb CLI)"}
   {:method/id "kotoba"     :method/file "methods/kotoba.cljc"     :method/role "content-addressed append-only FLEXIBILITY LEDGER (tx-cid/append-tx/read-log/verify-chain)"}
-  {:method/id "autorun"    :method/file "methods/autorun.cljc"    :method/role "deterministic idempotent-by-content heartbeat — analyze → append flexibility obs on change (+ bb CLI)"}]
+  {:method/id "autorun"    :method/file "methods/autorun.cljc"    :method/role "deterministic idempotent-by-content heartbeat — analyze → append flexibility obs on change (+ bb CLI)"}
+  {:method/id "claim"    :method/file "methods/claim.cljc"    :method/role "R1 seam: tawami analysis to 澪 mio flow-improvement claim maps (the five §9 verification facts)"}]
 
  :actor/lex
  [{:lex/id "flexibilityAsset"}
