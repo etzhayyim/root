@@ -95,7 +95,7 @@ advice.
 │   └── datom_emit.py                  # kotoba Datom-log (EAVT) emitter — canonical state
 ├── tools/                             # MEMBER-side runtime (NOT the actor — may do crypto)
 │   └── issue_capability.cljc          # R1: member mints the revocable severance capability (Ed25519/JDK; kaiyaku never signs)
-├── tests/                             # 82 tests, pure stdlib
+├── tests/                             # 87 tests, pure stdlib
 │   ├── test_analyze.py
 │   ├── test_handoff.py
 │   ├── test_plan.py
@@ -104,7 +104,8 @@ advice.
 │   ├── test_issue_capability.cljc     # R1 tool: issuance↔cap verification roundtrip + Ed25519
 │   ├── test_receipt.cljc              # R1 audit: catalog/receipt datoms + no-secrets + commit-DAG
 │   ├── test_karakuri_bridge.cljc      # R1 seam: plan→serviceOp lexicon parity (no-drift)
-│   └── test_pipeline.cljc             # R1 END-TO-END: analyze→…→serviceop→receipt compose
+│   ├── test_pipeline.cljc             # R1 END-TO-END: analyze→…→serviceop→receipt compose
+│   └── test_manifest.cljc             # R1 manifest↔methods↔karakuri-lexicon parity (no doc drift)
 ├── clj/                               # cljc port + Clojure LangGraph actor (see clj/README.md)
 │   ├── deps.edn                       # langgraph-clj + browser-use-clj + computer-use-clj (git deps)
 │   ├── src/kaiyaku/                   # ledger/analyze/plan/datoms (Python numeric parity)

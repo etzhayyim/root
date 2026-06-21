@@ -48,6 +48,23 @@
   {:ng/id "N5" :ng/req "not a mass-unsubscribe / spam-complaint bot; one member, their own ties, member-approved one by one"}
   {:ng/id "N6" :ng/req "no financial advice: recoverable ¥/mo is arithmetic over the member's own ledger, never a recommendation about money beyond the tie itself"}]
 
+ :actor/r1 ; R1 execution-leg (ADR-2606112201 R1): capability-gated, dry-run, NO live I/O — the
+           ; driver authorizes, a post-R1 component executes (G6). Every file here exists on disk
+           ; (manifest↔methods parity is test-enforced).
+ {:capability {:method "methods/cap.cljc" :tool "tools/issue_capability.cljc"
+               :model :revocable-cacao-leash
+               :note "member-presented CACAO; `approved` svc-id allowlist = G5 in the leash; present-only — kaiyaku never signs (no-server-key, ADR-2605231525)"}
+  :driver     {:method "methods/driver.cljc"
+               :note "authorize-never-execute membrane; cascade ordering + exactly-once; executed=false ALWAYS (G6); surfaces disclosed procedure + g8_drift to the member"}
+  :catalog    {:method "methods/catalog.cljc" :data "data/cancel-procedures.kotoba.edn"
+               :note "real-service 解約 procedures; operator-verified=false (:representative, G6); derive-tier ≡ plan/select-tier (no data↔logic drift)"}
+  :receipt    {:method "methods/receipt.cljc"
+               :note "catalog + authorization-receipt datoms → kotoba commit-DAG (G9 audit, verify-chain); a credential is NEVER stored (refused at emit)"}
+  :handoff    {:method "methods/karakuri_bridge.cljc"
+               :note "plan → karakuri com.etzhayyim.karakuri.serviceOp; validated vs karakuri's OWN lexicon (tier-scheme + enum parity, no-drift)"}
+  :pipeline   {:method "methods/pipeline.cljc"
+               :note "analyze→plan→enrich→dispatch→serviceop→receipt end-to-end, dry-run (integration-tested)"}}
+
  :actor/cells ; langgraph→WASM; .solve() raises at R0 (scaffold follow-up)
  [{:cell/id "ledger_ingest"   :cell/kind :langgraph :cell/runtime :wasm :cell/node "reuben"}
   {:cell/id "enkiri_analyze"  :cell/kind :langgraph :cell/runtime :wasm :cell/node "simeon"}
