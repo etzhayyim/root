@@ -54,11 +54,14 @@
 
 (defn publish-live
   "R1(live): Attempt to publish the routing policy to the kotoba Datom log. Refuses
-  structurally unless the live gate admits — in R2 the autonomous gate always admits, so
-  this always emits. Returns a vector of Datom maps (one per blocked entity).
+  structurally unless the live gate admits — i.e. unless a MEMBER has presented the full
+  member-signed capability (operator flag + attestation + Council Lv6+ + a real member
+  signature; FINDING 260617 + ADR-2606111400/2605231525). Refused → emits nothing (no
+  unsigned route-around broadcast). Admitted → returns a vector of Datom maps (one per
+  blocked entity), each attributed to the presenting member/operator DID.
 
-  (`require` is clojure.core; the gate fn is live-gate/require-gate. In R2 it never raises,
-  matching the Python LiveGateRefused-never-thrown path.)"
+  (`require` is clojure.core; the gate fn is live-gate/require-gate, which RAISES
+  LiveGateRefused when the capability is absent/server-held/synthetic.)"
   ([routing-policy gate] (publish-live routing-policy gate nil))
   ([routing-policy gate env]
    (let [refused (try (lg/require-gate gate env) nil
@@ -71,7 +74,8 @@
          #?(:clj (println (str "⚠️ [abaki R1] Live publish skipped: " (ex-message refused))))
          [])
        (do
-         #?(:clj (println "🚀 [abaki R2] Autonomous Live Gate PASSED. Emitting kotoba Datoms without manual approval..."))
+         #?(:clj (println (str "🚀 [abaki] Live gate admitted via member-signed capability ("
+                               (:operator-did gate) "). Emitting member-attributed kotoba Datoms...")))
          (mapv (fn [blocked]
                  {":db/id" (get blocked "id")
                   ":abaki/status" ":non-aligned"

@@ -1,8 +1,24 @@
 # ossekai — FINDING: R2-Autonomous publication vs no-server-key (G7) conflict
 
-**Status**: OPEN — needs operator/Council decision (do NOT auto-resolve).
+**Status**: RESOLVED 2026-06-17 — Option 1 (member-signed-capability autonomy) implemented.
 **Found**: 2026-06-16 (`/loop` coverage iteration, surfaced by `py/test_agent.py`).
 **Severity**: HIGH — touches a Tier-1 substrate invariant (no-server-key, root CLAUDE.md).
+
+## Resolution (2026-06-17)
+
+Option 1 (member-signed-capability autonomy, ibuki/mimamori parity) was implemented in
+`py/agent.py`. The internal inconsistency is gone: a shared `_outward_authorized(state)` gate
+now backs all four outward handlers (`handle_aggregate_publisher` / `handle_mention_dispatcher`
+/ `handle_member_digest` / `handle_emergency_advisory`). A live broadcast is authorized ONLY by
+an operator attestation (`operatorRef`) OR a presented member-signed, scoped capability
+(`memberCapability` with a non-server `memberSignature` — `_server_or_synthetic_signer` rejects
+blank/`anon`/`server`/`autonomous_system_signature`); absent both, posts stay `:draft` and
+`broadcast=False`. `_attestation_ok` (G13) is restored to actually require Council Lv6+ ≥3
+(≥4 if >50). All hardcoded `state="posted"/"sent"` + `broadcast=True` + the "operator gate
+removed" comments are gone. `py/test_agent.py` passes **41/41** (the 7 guards are green via the
+restored gate — no test was weakened to expect a bare `"posted"`). `CLAUDE.md` Status updated to
+match. No server key is implied at any point. Cross-ref: the systemic audit
+`90-docs/260617-r2-autonomous-live-gate-removal-charter-audit.md`.
 
 ## The conflict
 

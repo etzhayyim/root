@@ -3,9 +3,11 @@
   G2 zero commission (gross = tithe + sellerNet), G3 seller-gating, G7 tithe 10%, G11 okaimono
   coherence, G12 no-server-key, G5 wellbecoming ordering, G13 order trajectory caps at :in-use.
 
-  Note: the build-settlement-intent state assertion is corrected to \"executed\" — the agent went
-  R2 Autonomous (state always executed); the Python test still asserted the stale \"intent\" (its
-  one failing case). The cljc twin tests the agent's actual behavior."
+  G10/G12 settlement-state (FINDING 260617): an earlier 'R2 Autonomous' edit had made
+  build-settlement-intent unconditionally state=\"executed\" (an unsigned settlement auto-executed),
+  and this test had been 'corrected' to ratify that bypass. Restored: no operator ⇒ \"intent\"
+  (only a member signature executes it, via authorize-settlement); operator present ⇒ operator-gated
+  \"executed\"; the server never auto-executes (G12 no-server-key)."
   (:require [clojure.test :refer [deftest is]]
             [clojure.string :as str]
             [omise.py.agent :as agent]))
@@ -88,7 +90,7 @@
     (is (= 1000000 (get s "titheMinor")))                           ; G7 10%
     (is (= 9000000 (get s "sellerNetMinor")))
     (is (= (get s "grossMinor") (+ (get s "titheMinor") (get s "sellerNetMinor"))))
-    (is (= "executed" (get s "state")))))                           ; R2 Autonomous (corrected)
+    (is (= "intent" (get s "state")))))                             ; G10/G12: no operator ⇒ unsigned INTENT, not auto-executed
 
 (deftest test-remainder-absorbed-no-loss
   (let [s (agent/build-settlement-intent 10000007 "did:plc:seller-bob")]
@@ -107,6 +109,7 @@
     (is (get server "refused"))
     (is (str/includes? (get server "reason") "G12"))
     (is (get member "signed"))
+    (is (= "executed" (get member "state")))            ; G10/G12: a member signature is what executes an intent
     (is (= "sig-123" (get member "signatureRef")))))
 
 ;; ── order flow ──

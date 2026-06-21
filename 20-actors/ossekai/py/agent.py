@@ -256,6 +256,34 @@ def _post_from_advisory(adv: dict) -> dict:
     }
 
 
+def _server_or_synthetic_signer(sig) -> bool:
+    """A signer is a server-held / synthetic (no-server-key-refused) credential if it is blank,
+    "anon", mentions "server", or is the prior R2 "autonomous_system_signature" platform token.
+    A real member signature is a member-signed capability — never one of these."""
+    s = (sig or "").strip().lower()
+    return (not s) or s == "anon" or "server" in s or "autonomous_system_signature" in s
+
+
+def _outward_authorized(state: dict):
+    """G7/G10 outward gate (FINDING 260617 + ADR-2606111400/2605231525). A LIVE broadcast to
+    AT Proto needs a key to sign the post; a platform-held key is exactly what no-server-key
+    (G7) forbids. So a broadcast is authorized ONLY by (a) an operator attestation (`operatorRef`)
+    or (b) a member-signed, scoped, revocable capability that the runtime PRESENTS — the
+    ibuki/mimamori precedent: a member Ed25519-signs the delegation in their OWN runtime, ossekai
+    presents the opaque capability (never holds a key), and the write is attributed to the member.
+    A server-held/synthetic signer is refused. Returns (authorized, principal_did); absent both →
+    (False, None) → posts stay :draft and nothing is broadcast."""
+    operator_ref = state.get("operatorRef")
+    if operator_ref:
+        return True, operator_ref
+    cap = state.get("memberCapability") or {}
+    principal = cap.get("memberDid")
+    sig = cap.get("memberSignature")
+    if principal and sig and not _server_or_synthetic_signer(sig):
+        return True, principal
+    return False, None
+
+
 def handle_aggregate_publisher(state: dict) -> dict:
     """Compose anonymized aggregate advisories and (optionally) post them. Prefers
     intel_analyzer `advisories` when present (carrying the G10 framing-audit pass + G11
@@ -266,7 +294,8 @@ def handle_aggregate_publisher(state: dict) -> dict:
     operator-gated (no-server-key): without `operatorRef` posts are :draft, nothing broadcast."""
     advisories = state.get("advisories")
     posted_this_week = int(state.get("postedThisWeek", 0))
-    operator_ref = state.get("operatorRef")
+    authorized, _principal = _outward_authorized(state)
+    live_state = "posted" if authorized else "draft"
 
     posts: list = []
     skipped: list = []
@@ -288,7 +317,7 @@ def handle_aggregate_publisher(state: dict) -> dict:
             if not post["clean"]:
                 skipped.append({"topic": topic, "reason": "Charter-Rider/dark-pattern/framing refusal (G1/G6/G10)"})
                 continue
-            post["state"] = "posted"  # R2 Autonomous: operator gate removed
+            post["state"] = live_state  # G7/G10 outward gate (operator attestation or member capability)
             posts.append(post)
     else:
         for r in state.get("reports", []):
@@ -299,14 +328,14 @@ def handle_aggregate_publisher(state: dict) -> dict:
             if not post["clean"]:
                 skipped.append({"topic": r.get("topic"), "reason": "Charter-Rider/dark-pattern refusal (G1/G6)"})
                 continue
-            post["state"] = "posted"  # R2 Autonomous: operator gate removed
+            post["state"] = live_state  # G7/G10 outward gate (operator attestation or member capability)
             posts.append(post)
 
     return {
         **state,
         "posts": posts,
         "skipped": skipped,
-        "broadcast": True,  # R2 Autonomous
+        "broadcast": bool(authorized and posts),  # G7/G10 — nothing broadcast unsigned
         # G4 audit: every produced post is aggregate-shaped
         "aggregateSharePct": 100 if posts and all(p["shape"] == "aggregate" for p in posts) else 0,
     }
@@ -360,14 +389,23 @@ def handle_consent_registry(state: dict) -> dict:
 
 
 def _attestation_ok(attestation: dict, campaign_size: int) -> tuple[bool, str]:
-    """R2 Autonomous: Council attestation requirement is lifted for automated response pathways."""
-    return True, "autonomous-r2-attested"
+    """G13 — a non-member @mention campaign is refused unless Council Lv6+ attests with ≥3
+    signers (≥4 if campaignSize > 50). No valid attestation → the whole campaign is refused
+    (this is the constitutional gate; autonomy NEVER lifts it)."""
+    level = int(attestation.get("councilLevel", 0))
+    signers = int(attestation.get("signers", 0))
+    needed = 4 if campaign_size > 50 else 3
+    if level < 6:
+        return False, "Council Lv6+ attestation required (G13)"
+    if signers < needed:
+        return False, f"campaign of {campaign_size} handles needs ≥{needed} signers (G13)"
+    return True, "attested"
 
 
 def handle_mention_dispatcher(state: dict) -> dict:
     """Compose non-member @mentions ONLY under the full gate stack. Order matters:
 
-      1. G13 — the whole campaign is refused unless Council Lv6+ ≥3 (≥4 if >50) attests. (Auto-passed in R2)
+      1. G13 — the whole campaign is refused unless Council Lv6+ ≥3 (≥4 if >50) attests.
       2. consent — each handle needs EITHER a campaign-wide memberImpactAttestationCid OR
          its own valid externalMentionConsent.
       3. G15 — a blocked/muted handle is rejected BEFORE composing; the post never exists.
@@ -381,7 +419,7 @@ def handle_mention_dispatcher(state: dict) -> dict:
     member_impact_cid = state.get("memberImpactAttestationCid")
     last_mention = state.get("lastMentionAt", {})    # {handle → ts}
     now = int(state.get("now", 0))
-    operator_ref = state.get("operatorRef")
+    authorized, _principal = _outward_authorized(state)
     topic = state.get("topic", "a public benefit")
 
     ok, reason = _attestation_ok(attestation, len(handles))
@@ -416,10 +454,10 @@ def handle_mention_dispatcher(state: dict) -> dict:
             "signedDid": OSSEKAI_DID,                 # G9
             "shape": "targeted",                       # secondary path (NOT aggregate)
             "attestation": attestation.get("ref"),     # G13 audit trail
-            "state": "posted",                         # R2 Autonomous
+            "state": "posted" if authorized else "draft",  # G7/G10 outward gate
         })
     return {**state, "dispatches": dispatches, "rejected": rejected,
-            "campaignRefused": False, "broadcast": True}
+            "campaignRefused": False, "broadcast": bool(authorized and dispatches)}
 
 
 # =========================================================================== #
@@ -534,10 +572,12 @@ def handle_member_digest(state: dict) -> dict:
     """Weekly opt-in digest to active Adherent-SBT members. Each delivery is an ENCRYPTED
     envelope (G8 — no plaintext PII leaves the boundary); the roster is capped at 500 (G7);
     a member gets at most one digest per 7-day week; advisories are filtered to the member's
-    subscribed categories. R2 Autonomous: digests are always :sent and broadcast=True."""
+    subscribed categories. Live send is G7/G10 outward-gated: without an operator attestation or
+    a presented member-signed capability, digests are :draft and nothing is broadcast."""
     members = list(state.get("members", []))
     advisories = state.get("advisories", [])
     now = int(state.get("now", 0))
+    authorized, _principal = _outward_authorized(state)
 
     opted_in = [m for m in members if m.get("optedIn")]
     over_cap = opted_in[MEMBER_OPT_IN_CAP:]
@@ -565,10 +605,10 @@ def handle_member_digest(state: dict) -> dict:
             "envelope": envelope,            # G8 — opaque ref, no plaintext
             "itemCount": len(items),
             "signedDid": OSSEKAI_DID,        # G9
-            "state": "sent",                 # R2 Autonomous
+            "state": "sent" if authorized else "draft",  # G7/G10 outward gate
         })
     return {**state, "digests": digests, "skipped": skipped, "rosterSize": len(roster),
-            "broadcast": True}
+            "broadcast": bool(authorized and digests)}
 
 
 def no_panic_framing(text: str) -> bool:
@@ -582,7 +622,8 @@ def handle_emergency_advisory(state: dict) -> dict:
     ossekai cannot self-declare an emergency — without a valid attestation it refuses. The
     expedited path bypasses normal cadence but keeps every gate: G10 no-fear (panic framing
     refused), G1 Charter-Rider-clean, aggregate shape (G4), signed DID (G9).
-    R2 Autonomous: Always broadcast."""
+    Live broadcast is G7/G10 outward-gated: without an operator attestation or a presented
+    member-signed capability, the expedited post is :draft and nothing is broadcast."""
     att = state.get("attestation", {})
     if not att.get("valid"):
         return {"refused": True, "reason": "no valid kazaori emergencyDeclarationAttestation — "
@@ -595,11 +636,12 @@ def handle_emergency_advisory(state: dict) -> dict:
         return {"refused": True, "reason": "fear/panic framing refused (G10)", "post": None}
     if not charter_rider_clean(text):
         return {"refused": True, "reason": "Charter-Rider refusal (G1)", "post": None}
+    authorized, _principal = _outward_authorized(state)
     post = {
         "text": text, "shape": "aggregate", "lexicon": "app.bsky.feed.post",
         "signedDid": OSSEKAI_DID,            # G9
         "expedited": True,
         "declarer": att.get("declarer"),     # kazaori cross-actor provenance
-        "state": "posted",                   # R2 Autonomous
+        "state": "posted" if authorized else "draft",  # G7/G10 outward gate
     }
-    return {**state, "post": post, "refused": False, "broadcast": True}
+    return {**state, "post": post, "refused": False, "broadcast": bool(authorized)}
