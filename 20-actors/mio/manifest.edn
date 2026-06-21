@@ -36,7 +36,8 @@
  [{:method/id "mio_edn" :method/file "methods/mio_edn.cljc" :method/role "seed loader + classify (claims)"}
   {:method/id "analyze"  :method/file "methods/analyze.cljc"  :method/role "verify (§9 gates) → datoms → render-datoms → coverage → render-report (+ bb CLI)"}
   {:method/id "kotoba"   :method/file "methods/kotoba.cljc"   :method/role "content-addressed append-only VERIFICATION LEDGER (tx-cid/append-tx/read-log/verify-chain)"}
-  {:method/id "autorun"  :method/file "methods/autorun.cljc"  :method/role "deterministic idempotent-by-content heartbeat — verify → append verdicts on change (+ bb CLI)"}]
+  {:method/id "autorun"  :method/file "methods/autorun.cljc"  :method/role "deterministic idempotent-by-content heartbeat — verify → append verdicts on change (+ bb CLI)"}
+  {:method/id "reward"   :method/file "methods/reward.cljc"   :method/role "R1: verified claims → advisory moyai reciprocity-credit reward proposals (drafted-unsent; 1 SBT=1 vote disposes; cash≡0)"}]
 
  :actor/lex
  [{:lex/id "flowClaim"}

@@ -166,9 +166,22 @@ claims** (tawami 12 / okibi 4 / toi 5 / yudane 4-consented) → mio verifies **2
 real pipeline). Double-count keys are namespaced per actor → zero cross-actor double counting.
 
 Suite totals now **4 claim emitters + 5 new test suites (4 claim + 1 integration) = 120
-tests / 867 assertions green** across the five actors. Remaining R1: live operator-gated
-ingest (real meters/scheduler/CACAO capability) + fleet registration (heartbeat cells) +
-reward-proposal handoff (1 SBT=1 vote).
+tests / 867 assertions green** across the five actors.
+
+## R1 — reward-proposal emitter LANDED (2026-06-21)
+
+The verified→reward arc is now complete (the economic half of Proof of Useful Flow):
+`澪 mio/methods/reward.cljc` turns each VERIFIED claim into an advisory reward proposal.
+The reward is **moyai reciprocity credit** (ADR-2606062101) — non-monetary, decaying,
+non-transferable, cash≡0 — proportional to the verified useful-flow-score (ORDERED flow,
+never CONSUMED). Invariants (test-enforced): reward only for verified claims (G1);
+moyai-credit NEVER cash/usd/money/equity (G2 — currency is unrepresentable); every
+proposal advisory + drafted-unsent + binds-fund=false (G7 — mio cannot move funds or vote;
+issuance is 1 SBT=1 vote + TitheRouter). On mio's seed: 9 verified claims → 9 advisory
+proposals → 37,313.8 moyai credit, transparently allocated per source actor.
+
+Suite totals now **126 tests / 926 assertions green**. Remaining R1: live operator-gated
+ingest (real meters/scheduler/CACAO capability) + fleet registration (heartbeat cells).
 
 # Consequences
 

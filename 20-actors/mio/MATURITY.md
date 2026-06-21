@@ -34,11 +34,14 @@ Actor: **澪 mio** · ADR-2606211200 · status **R0** · suite **Energy Order Pr
 
 ## R1 (next)
 
-- [ ] sibling submission membrane — `撓/燠/樋/委` write claims into mio's ledger directly
-      (not just a static seed); per-actor `claim` lexicon validation on the write surface
+- [x] sibling submission seam — `撓/燠/樋/委` emit claims via per-leg `claim.cljc`; proven
+      end-to-end through mio by `methods/test_suite.cljc` (LANDED 2026-06-21)
+- [x] advisory reward proposal emitter — `methods/reward.cljc`: verified claims → moyai
+      reciprocity-credit proposals (drafted-unsent; 1 SBT=1 vote + TitheRouter; cash≡0)
+      (LANDED 2026-06-21)
 - [ ] live measurement ingest (operator G7): signed-meter / third-party-audit / satellite
       / zk-proof adapters folding real `:authoritative` order-deltas
-- [ ] advisory reward proposal emitter (drafted-unsent; 1 SBT=1 vote + TitheRouter handoff)
+- [ ] live claim write-surface — per-actor `claim` lexicon validation as legs write directly
 - [ ] fleet registration (heartbeat cell in cell-runner cells.edn)
 - [ ] kotoba_bridge — push the verification commit-DAG to the live kotoba engine (ibuki-R3 pattern)
 
