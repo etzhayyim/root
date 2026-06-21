@@ -58,15 +58,17 @@ A `foo.clj` beside `foo.cljc` resolves to the SAME namespace; babashka prefers `
 
 - **7** broken shims.
 
-| actor | undefined task |
-|---|---|
-| kabuto | `test:kabuto` |
-| kanjo | `test:kanjo` |
-| keizu | `test:keizu` |
-| kosatsu | `test:kosatsu` |
-| mizuho | `test:mizuho` |
-| tasuke | `test:tasuke` |
-| watatsuna | `test:watatsuna` |
+| actor | undefined task | probe (run via auto-discovery) |
+|---|---|---|
+| kabuto | `test:kabuto` | 💥 load-error (a stale ns/symbol — deeper than the shim) — Unable to resolve symbol: kedn/co-keys |
+| kanjo | `test:kanjo` | 💥 load-error (a stale ns/symbol — deeper than the shim) — Unable to resolve symbol: analyze/report |
+| keizu | `test:keizu` | ❌ tests-fail (repoint surfaces a real pre-existing failure) — 10 fail / 16 error |
+| kosatsu | `test:kosatsu` | ❌ tests-fail (repoint surfaces a real pre-existing failure) — 0 fail / 13 error |
+| mizuho | `test:mizuho` | 💥 load-error (a stale ns/symbol — deeper than the shim) — Unable to resolve symbol: sub/require-member-signature |
+| tasuke | `test:tasuke` | ❌ tests-fail (repoint surfaces a real pre-existing failure) — 11 fail / 0 error |
+| watatsuna | `test:watatsuna` | 💥 load-error (a stale ns/symbol — deeper than the shim) — Unable to resolve symbol: an/py-round |
+
+_Probe legend: **clean-repoint** = the actor's tests pass once invocable, so the run_tests.sh is a safe mechanical repoint (the #2043 pattern). **tests-fail** / **load-error** = repointing surfaces a real pre-existing failure (a stale test, or a stale `.clj` shadow whose symbol the `.cljc` lacks — e.g. `analyze/report`) that needs per-actor, owner-aware investigation. Truth source = the `PROBE` test counts, not the subprocess exit code._
 
 ## Cleanup guidance
 
