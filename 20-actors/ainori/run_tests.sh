@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
-# ainori — clj/bb test suite (ADR-2606160842 py->clj port wave). Auto-wired into the fleet
-# green-check; runs all cljc test namespaces via babashka from the repo root.
-set -euo pipefail
-cd "$(dirname "$0")/../.."
-exec bb -e '(require (quote clojure.test) (quote ainori.methods.test-pooled-route))(let [r (apply clojure.test/run-tests (quote [ainori.methods.test-pooled-route]))](System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))'
+# ainori — test suite (ADR-2606160842 py->clj port wave). Auto-wired into the fleet green-check.
+# Runs BOTH the cljc route suite AND the py agent suite (matching + cost-share + settlement
+# gates G5/G10 — the no-auto-execute / member-signed-capability guards, FINDING 260617).
+set -uo pipefail
+here="$(dirname "$0")"
+fail=0
+
+# cljc route suite (todoke route-core parity) — bb from the repo root
+( cd "$here/../.." && bb -e '(require (quote clojure.test) (quote ainori.methods.test-pooled-route))(let [r (apply clojure.test/run-tests (quote [ainori.methods.test-pooled-route]))](System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))' ) || fail=1
+
+# py agent suite (standalone unittest; matching + cost-share + settlement G5/G10)
+( cd "$here/py" && python3 test_agent.py ) || fail=1
+
+[ "$fail" -eq 0 ] && echo "── ainori: ALL suites green ──" || { echo "── ainori: FAILURES above ──"; exit 1; }

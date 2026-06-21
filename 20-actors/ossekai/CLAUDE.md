@@ -7,7 +7,7 @@
 - **ADR**: ADR-2605264000 (R2 Autonomous, upgraded from R0 scaffold)
 - **Parent ADR**: ADR-2605192100 (Mission Charter — Wellbecoming §1.13 + Anti-individualism §1.4 + Covert-ops-avoidance §2(c))
 - **AT-Proto-substrate parent**: ADR-2605231902 (`app.bsky.feed.post` membrane + L1-projection feed-discover preserved unchanged)
-- **Status**: R2 Autonomous — fully operational targeted path and aggregate publication without manual operator gating
+- **Status**: R2 — fully operational targeted + aggregate paths. **Live broadcast is G7/G10 outward-gated (no-server-key)**: composition/analysis/consent/rate-limit/G13-attestation all run autonomously, but the actual AT-Proto post stays `:draft` (nothing broadcast) unless an operator attestation (`operatorRef`) OR a presented member-signed, scoped, revocable capability (`memberCapability`, ibuki/mimamori precedent ADR-2606111400) authorizes the leg — the write is then attributed to that member/operator, never a server-held key (FINDING-G7 resolved 2026-06-17, ADR-2605231525).
 - **Form**: 任意団体 internal artificial-organism information-arbitrage substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格 — Preamble §0.4 Lv7+ unanimity lock)
 
 ## Constitutional Discipline (CRITICAL — IMMUTABLE)
