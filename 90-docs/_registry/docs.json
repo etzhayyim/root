@@ -25863,6 +25863,38 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606211712-kafun-pollen-remediation-actor.md",
+      "id": "adr-2606211712-kafun-pollen-remediation-actor",
+      "title": "ADR-2606211712: kafun 花粉 — 花粉撲滅 remediation actor (clj-native Tier-B)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "kafun-pollen-remediation-actor",
+      "authoritative": true,
+      "authoritative_for": [
+        "kafun 花粉 actor (20-actors/kafun) — the clj-native Tier-B 花粉撲滅 remediation actor",
+        "the remediation-verdict gate (撲滅 = 主伐再造林 RESTORATION, never deforestation)",
+        "kafun's content-addressed remediation-ledger persistence (持続永続化)"
+      ],
+      "related": [
+        "adr-2605100100-kafun-bokumetsu-real-world-pipeline",
+        "adr-2605210928-kafun-public-fund-religious-corp-integration",
+        "adr-2606073000-inochi-living-world-kg-mirror",
+        "adr-2606032100-labor-liberation-oss-robotics-wave",
+        "adr-2605260115-mitate-condition-1-allergic-rhinitis-perennial"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605192245-etzhayyim-global-land-sovereignty"
+      ],
+      "last_verified": "2026-06-21",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
