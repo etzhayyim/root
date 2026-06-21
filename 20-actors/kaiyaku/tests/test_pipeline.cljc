@@ -213,6 +213,31 @@
     (is (zero? (:authorized s)))
     (is (empty? (:serviceops s)))))
 
+;; ── operator self-check (run → persist → audit verify) ──────────────────────
+
+(deftest test-operator-self-check-seed
+  (let [p (str (System/getProperty "java.io.tmpdir") "/kaiyaku-selfcheck-" (gensym) ".edn")]
+    (try
+      (let [c (pipeline/operator-self-check! actor-dir p)]
+        (is (pos? (:severable c)))
+        (is (= (:severable c) (:refused c)))     ; no capability → all refused
+        (is (zero? (:authorized c)))
+        (is (= (:severable c) (:receipts c)))    ; one receipt per severable tie
+        (is (true? (:audit-clean? c)))           ; G6 — no live execution recorded
+        (is (true? (:all-executed-false? c))))
+      (finally (io/delete-file p true)))))
+
+(deftest test-operator-self-check-with-capability-still-clean
+  ;; even when a capability authorizes a tie, the audit log stays clean (executed=false).
+  (let [p (str (System/getProperty "java.io.tmpdir") "/kaiyaku-selfcheck-" (gensym) ".edn")
+        b {"cacao_b64" "opaque" "aud" "did:web:etzhayyim.com" "capability" "service:cancel"
+           "graph" "graph:kaiyaku" "exp" 9999999999 "nonce" "n" "approved" ["svc:saas-c"]}]
+    (try
+      (let [c (pipeline/operator-self-check! actor-dir p :bundle b :now-epoch 1000)]
+        (is (true? (:audit-clean? c)))
+        (is (true? (:all-executed-false? c))))
+      (finally (io/delete-file p true)))))
+
 (defn -main [& _]
   (let [{:keys [fail error]} (run-tests 'kaiyaku.tests.test-pipeline)]
     (System/exit (if (zero? (+ fail error)) 0 1))))

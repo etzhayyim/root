@@ -27,7 +27,8 @@
             [kaiyaku.methods.catalog :as catalog]
             [kaiyaku.methods.driver :as driver]
             [kaiyaku.methods.karakuri-bridge :as kb]
-            [kaiyaku.methods.receipt :as receipt]))
+            [kaiyaku.methods.receipt :as receipt]
+            [kaiyaku.methods.audit :as audit]))
 
 (defn run
   "Compose the full R1 dry-run pipeline over a loaded ledger graph.
@@ -159,6 +160,26 @@
                                (io/file actor-dir "data" "cancel-procedures.kotoba.edn")))]
        (run {:nodes nodes :edges edges :catalog cat
              :bundle bundle :now-epoch now-epoch :as-of as-of}))))
+
+#?(:clj
+   (defn operator-self-check!
+     "One-call operational invariant check over the R1 leg (the kaiyaku counterpart
+     of `e7m verify`): run the seed pipeline → persist the receipts to `log-path` →
+     read them back and assert no live execution was recorded. Returns a map an
+     operator/CI can assert on. Holds whatever capability `:bundle` provides (nil =
+     the honest all-refused demo)."
+     [actor-dir log-path & {:keys [bundle now-epoch] :or {now-epoch 0}}]
+     (let [r (run-seed actor-dir :bundle bundle :now-epoch now-epoch :as-of "self-check")
+           _ (receipt/persist-receipts! (:descriptors r) log-path
+                                        {:tx-id "self-check" :as-of "self-check"})
+           rs (audit/receipts log-path)
+           s (summary r)]
+       {:severable (:total s)
+        :authorized (:authorized s)
+        :refused (:refused s)
+        :receipts (count rs)
+        :audit-clean? (audit/no-live-execution? rs)   ; G6 — must be true
+        :all-executed-false? (every? #(false? (:executed %)) (:services s))})))
 
 #?(:clj
    (defn -main
