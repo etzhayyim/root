@@ -6,10 +6,13 @@ set -uo pipefail
 here="$(dirname "$0")"
 fail=0
 
-# cljc route suite (todoke route-core parity) — bb from the repo root
+# cljc route suite (todoke route-core parity) — bb from the repo root (uses bb.edn paths)
 ( cd "$here/../.." && bb -e '(require (quote clojure.test) (quote ainori.methods.test-pooled-route))(let [r (apply clojure.test/run-tests (quote [ainori.methods.test-pooled-route]))](System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))' ) || fail=1
 
-# py agent suite (standalone unittest; matching + cost-share + settlement G5/G10)
+# cljc agent suite (methods/agent.cljc port: safety-envelope + cost-share + match-pool + settlement)
+( cd "$here/../.." && bb -e '(require (quote clojure.test) (quote ainori.methods.test-agent))(let [r (apply clojure.test/run-tests (quote [ainori.methods.test-agent]))](System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))' ) || fail=1
+
+# py agent suite (standalone unittest; cross-check oracle)
 ( cd "$here/py" && python3 test_agent.py ) || fail=1
 
 [ "$fail" -eq 0 ] && echo "── ainori: ALL suites green ──" || { echo "── ainori: FAILURES above ──"; exit 1; }
