@@ -34,6 +34,18 @@
   (is (= "1" (t/b58 [0])))
   (is (= (t/b58 [1 2 3]) (t/b58 [1 2 3]))))
 
+(deftest test-b58-known-answers
+  ;; KNOWN-ANSWER: encoder VALUE correctness (not just determinism) — a wrong-but-
+  ;; consistent encoder would corrupt the member's did:key. Bitcoin base58 vectors.
+  (is (= "11" (t/b58 [0 0])))                       ; leading zeros → leading '1's
+  (is (= "2g" (t/b58 (mapv int (.getBytes "a" "UTF-8")))))   ; 0x61 = 97 = 1*58+39 → "2g"
+  (is (= "1" (t/b58 [0]))))
+
+(deftest test-base32-known-answers
+  ;; RFC4648 base32 vectors (lowercase, no padding).
+  (is (= "my" (t/base32-lower (mapv int (.getBytes "f" "UTF-8")))))
+  (is (= "mzxw6ytboi" (t/base32-lower (mapv int (.getBytes "foobar" "UTF-8"))))))
+
 (deftest test-issuance-verification-roundtrip
   ;; the bundle the tool builds must satisfy methods/cap.cljc's contract.
   (let [[_ r] (issue ["netflix" "spotify"])

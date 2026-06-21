@@ -99,7 +99,7 @@ advice.
 │   └── issue_capability.cljc          # R1: member mints the revocable severance capability (Ed25519/JDK; kaiyaku never signs)
 ├── MATURITY.md                        # GENERATED R1 scorecard (methods/maturity.cljc; freshness-tested)
 ├── R1-RUNBOOK.md                      # operator how-to for the R1 leg (issue capability → run → persist → audit → G6 path)
-├── tests/                             # 121 tests, pure stdlib
+├── tests/                             # 123 tests, pure stdlib
 │   ├── test_analyze.py
 │   ├── test_handoff.py
 │   ├── test_plan.py
