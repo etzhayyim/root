@@ -5,9 +5,10 @@
  :actor/glyph     "翼"
  :actor/tier      :tier-b
  :actor/domain    "tsubasa.etzhayyim.com"
- :actor/purpose   "Skyscanner-inverse flight discovery commons — honest fare/route meta-search whose every onward link is AFFILIATE-STRIPPED and where the member SELF-BOOKS on the airline's own site (no commission inflow). Ranks by true total cost (fare + baggage) with CO₂ emissions surfaced, never hidden; no ads, no urgency ('price will rise'), no person fare-tracking. Live GDS/airline ingest is Council Lv7+ gated; R0 ships representative data. Sibling of watari (live position). kotoba-EAVT-native, Murakumo-only."
- :actor/status    :r1
+ :actor/purpose   "Skyscanner-inverse flight discovery commons — honest fare/route meta-search whose every onward link is AFFILIATE-STRIPPED and where the member SELF-BOOKS on the airline's own site (no commission inflow). Ranks by true total cost (fare + baggage) with CO₂ emissions surfaced, never hidden; no ads, no urgency ('price will rise'), no person fare-tracking. The R2 maturity layer additionally derives per-O–D-route carrier CONCENTRATION (named-HHI + competition reading) and flags concentrated/monopoly routes :opening — a COMPETITION + FARE map routed to OPENING, never a paid ranking and never a target-list — persisted to a content-addressed append-only kotoba Datom commit-DAG via an idempotent-by-content heartbeat. Live GDS/airline ingest is Council Lv7+ gated; R0/R1 ship :representative data. Sibling of watari (live position). kotoba-EAVT-native, Murakumo-only."
+ :actor/status    :r2
  :actor/adr       "2606072800"
+ :actor/primary-schema "00-contracts/schemas/flight-fare-ontology.kotoba.edn"
 
  :actor/charter-rider
  {:rider/version "2.0"
@@ -24,9 +25,12 @@
   {:gate/id "G8"  :gate/name "outward-gated"            :gate/rule "live GDS/airline fare ingest = Council Lv7+ + operator; R0 ships :representative data only; tsubasa transacts no booking (member self-books)"}]
 
  :actor/cells
- [{:cell/id "fares"    :cell/kind :datalog   :cell/runtime :kotoba :cell/doc "route/fare/emissions Datoms (:representative)"}
-  {:cell/id "search"   :cell/kind :langgraph :cell/runtime :wasm   :cell/doc "query → honest ranked options (total cost + emissions surfaced, G4)"}
-  {:cell/id "handoff"  :cell/kind :langgraph :cell/runtime :wasm   :cell/doc "affiliate-stripped self-book handoff to airline's own site (G1)"}]
+ [{:cell/id "fares"     :cell/kind :datalog   :cell/runtime :kotoba :cell/doc "route/fare/airport/carrier Datoms (:representative seed)"}
+  {:cell/id "search"    :cell/kind :langgraph :cell/runtime :wasm   :cell/doc "query → honest ranked options (total cost + emissions surfaced, G4)"}
+  {:cell/id "handoff"   :cell/kind :langgraph :cell/runtime :wasm   :cell/doc "affiliate-stripped self-book handoff to airline's own site (G1)"}
+  {:cell/id "analyze"   :cell/kind :clj       :cell/runtime :bb     :cell/doc "per-route carrier-HHI concentration → competition reading → :opening; coverage gap; EAVT datom-emit (methods/analyze.cljc)"}
+  {:cell/id "ledger"    :cell/kind :clj       :cell/runtime :bb     :cell/doc "content-addressed append-only commit-DAG; tx-cid/verify-chain, tamper-evident, no-server-key (methods/kotoba.cljc)"}
+  {:cell/id "heartbeat" :cell/kind :clj       :cell/runtime :bb     :cell/doc "deterministic idempotent-by-content heartbeat: analyze → append on change (methods/autorun.cljc)"}]
 
  :actor/lexicons
  ["com.etzhayyim.tsubasa.fare"
