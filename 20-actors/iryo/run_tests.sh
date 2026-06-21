@@ -49,6 +49,8 @@ run_cljc "iryo.methods.test-karte"
 run_cljc "iryo.methods.test-receden"
 run_cljc "iryo.methods.test-coverage"
 run_cljc "iryo.methods.test-e2e"
+run_cljc "iryo.methods.test-datoms"
+run_cljc "iryo.methods.test-kotoba"
 
 if [[ $rc -eq 0 ]]; then
   echo "==> iryo: ALL GREEN"
