@@ -2642,4 +2642,61 @@
   :stakeholders ["the Pope" "College of Cardinals" "Curia" "residents"]
   :stock :participation-barrier :polarity :widen :magnitude 0.7 :reversibility :entrenched :meadows 4
   :basis "Fundamental Law of Vatican City State (1929/2000)" :sourcing :representative :confidence 0.4}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 27 — information-asymmetry within-jurisdiction depth (surveillance
+ ;; statutes vs freedom-of-information laws in covered democracies)
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── information-asymmetry (widen) ──
+ {:type :instrument :id "fr-loi-renseignement-2015" :name "Loi relative au renseignement" :jurisdiction "FR" :kind :law :year 2015
+  :enactor "Parliament of France (after the Charlie Hebdo attacks)"
+  :origin "Legalized bulk metadata collection, algorithmic 'black box' detection on networks, and intrusive measures with limited prior judicial control — a broad expansion of state visibility into citizens' communications."
+  :stakeholders ["intelligence services" "CNCTR oversight" "ISPs" "citizens"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.6 :reversibility :statutory :meadows 5
+  :basis "Loi n° 2015-912 (renseignement)" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "au-assistance-access-2018" :name "Assistance and Access Act (anti-encryption)" :jurisdiction "AU" :kind :law :year 2018
+  :enactor "Parliament of Australia"
+  :origin "Allows agencies to compel providers to help access encrypted communications (including building capabilities), the first such law in a Western democracy — pressuring the encryption that protects citizens' privacy from the state."
+  :stakeholders ["security agencies" "tech providers" "users" "citizens"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.6 :reversibility :statutory :meadows 5
+  :basis "Telecommunications and Other Legislation Amendment (Assistance and Access) Act 2018" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "in-it-rules-2021" :name "IT Rules 2021 (traceability + takedown)" :jurisdiction "IN" :kind :law :year 2021
+  :enactor "Government of India (Information Technology Rules, 2021)"
+  :origin "Require messaging services to enable traceability of message originators (breaking end-to-end encryption) and fast government-ordered takedowns with compliance officers — expanding state control over online information flows."
+  :stakeholders ["MeitY" "platforms" "users" "courts"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.55 :reversibility :statutory :meadows 5
+  :basis "IT (Intermediary Guidelines) Rules, 2021" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "cn-data-security-2021" :name "Data Security Law + PIPL (state access)" :jurisdiction "CN" :kind :law :year 2021
+  :enactor "NPC Standing Committee (DSL + PIPL, 2021)"
+  :origin "While framed as data protection (PIPL) and security (DSL), the regime mandates data localization and broad state access to data held by firms, deepening the state's informational reach even as it limits private-sector misuse — net-widening toward the state."
+  :stakeholders ["Cyberspace Administration" "firms" "users" "citizens"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.6 :reversibility :statutory :meadows 5
+  :basis "PRC Data Security Law (2021); PIPL (2021)" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "gl-data-localization" :name "Data-localization mandates" :jurisdiction "GLOBAL" :kind :institution :year 0
+  :enactor "Diffuse (states requiring in-country data storage/access)"
+  :origin "Requirements to store citizens' data within national borders (and within reach of domestic agencies) are spreading worldwide; framed as sovereignty/security, they often expand state access to data — an information-asymmetry channel distinct from direct surveillance laws."
+  :stakeholders ["governments" "global platforms" "data-protection authorities" "citizens"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.45 :reversibility :statutory :meadows 5
+  :basis "Comparative data-localization mandates" :sourcing :representative :confidence 0.4}
+
+ ;; ── information-asymmetry (narrow — freedom-of-information laws) ──
+ {:type :instrument :id "jp-joho-kokai-1999" :name "情報公開法 (Information Disclosure Act)" :jurisdiction "JP" :kind :law :year 1999
+  :enactor "National Diet of Japan"
+  :origin "Established a right to request disclosure of documents held by administrative organs, with an appeals review board — a concrete narrowing of administrative secrecy (later in tension with the 2013 Designated Secrets Act)."
+  :stakeholders ["administrative organs" "review board" "press" "citizens"]
+  :stock :information-asymmetry :polarity :narrow :magnitude 0.55 :reversibility :statutory :meadows 6
+  :basis "行政機関情報公開法 (1999)" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "kr-info-disclosure-1996" :name "Official Information Disclosure Act" :jurisdiction "KR" :kind :law :year 1996
+  :enactor "National Assembly of the Republic of Korea"
+  :origin "One of Asia's earliest access-to-information laws, giving citizens a right to public records with an information-disclosure commission — a structural narrowing of state secrecy that underpinned later accountability."
+  :stakeholders ["public agencies" "disclosure commission" "press" "citizens"]
+  :stock :information-asymmetry :polarity :narrow :magnitude 0.55 :reversibility :statutory :meadows 6
+  :basis "Official Information Disclosure Act (1996)" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "gb-foia-2000" :name "Freedom of Information Act 2000" :jurisdiction "GB" :kind :law :year 2000
+  :enactor "UK Parliament"
+  :origin "Created a public right of access to information held by public authorities (in force 2005), with an Information Commissioner and tribunal — a presumption of openness against the secrecy the Official Secrets Acts protect."
+  :stakeholders ["public authorities" "Information Commissioner" "press" "citizens"]
+  :stock :information-asymmetry :polarity :narrow :magnitude 0.55 :reversibility :statutory :meadows 6
+  :basis "Freedom of Information Act 2000 (UK)" :sourcing :representative :confidence 0.45}
 ]
