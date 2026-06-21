@@ -38,6 +38,41 @@ python3 methods/autorun.py --cycles 1
 ./run_tests.sh
 ```
 
+## Worldwide coverage (R1) — `sources/world-card-issuers.edn`
+
+meisai is **source-agnostic**: any card portal the fetch leg learns to read lands through the same
+ingest. `sources/world-card-issuers.edn` is the **public coverage registry** of the world's card
+companies & payment services — global networks (Visa/Mastercard/Amex/JCB/UnionPay/Discover/RuPay/
+Mir/Elo/…), issuers across every region (JP/US/EU/UK/CN/KR/IN/BR/SEA/MEA), PSPs, wallets, and BNPL
+— **101 sources today** (18 networks). It holds **public metadata ONLY** (company name, public
+portal root, accepted networks, and — for sources the fetch leg has learned — a statement-shape
+adapter); it carries **no statement, row, credential, or card number**, so unlike the gitignored
+statement log it lives OUTSIDE `data/` and IS committed.
+
+`methods/sources.cljc` (clj-native):
+
+```bash
+# honest coverage report + the ingest worklist (which registered issuers still need an adapter):
+bb -e '(require (quote meisai.methods.sources))(meisai.methods.sources/-main)'
+#   101 sources (1 fetch-supported, 100 registry-only / worklist); 18 networks; kinds {…}
+
+# regenerate the public Datom log (the registry "data itself in datomic/edn", 922 datoms, committed):
+bb -e '(require (quote meisai.methods.sources))(meisai.methods.sources/-main "--emit")'
+#   → sources/world-card-issuers.kotoba.edn  (one append-only tx, deterministic CID)
+```
+
+- **registry-datoms** → `:meisai.source/{id,name,kind,country,region,currency,status,portal,
+  network}` EAVT (public, committable).
+- **coverage** → honest `:supported` (an adapter exists — only `sumitclub` today) vs
+  `:registry-only` worklist; never pretends the world's tens of thousands of issuers are all here.
+- **normalize** → maps a raw issuer statement (any field names, any currency) into the canonical
+  meisai intake. **JPY** keeps the legacy `:amount_jpy` attribute (parity with sumitclub); other
+  currencies land as generic `:amount` + `:currency` in **integer minor units** (no floats in the
+  Datom log). The G2 credential/PAN guard still runs on every normalized intake (test-enforced).
+
+Adding an issuer is one EDN entry: public metadata costs nothing constitutionally. A fetch-leg
+adapter (G4 read-only posture, member-principal) is what flips a source `:registry-only → :supported`.
+
 ## Boundaries
 
 | Sibling | Relation |
@@ -50,6 +85,9 @@ python3 methods/autorun.py --cycles 1
 
 ## R0 honesty
 
-Methods + 21 green tests; live fetch verified end-to-end against local gemma 4 QAT (mock-host
-loop) on 2026-06-12. No lexicon, no fleet cell, no Pregel registration yet — R1 work, gated as
-usual. Aggregate/derived views (monthly totals → kaiyaku handoff) are future waves.
+Methods + 19 green bb tests (67 assertions); live fetch verified end-to-end against local gemma 4
+QAT (mock-host loop) on 2026-06-12. The worldwide coverage registry (101 sources) + multi-currency
+normalize landed; the per-issuer **fetch-leg adapters** (which flip the 100 `:registry-only`
+sources to `:supported`) are the next member-side wave. No lexicon, no fleet cell, no Pregel
+registration yet — R1 work, gated as usual. Aggregate/derived views (monthly totals → kaiyaku
+handoff) are future waves.
