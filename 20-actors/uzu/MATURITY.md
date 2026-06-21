@@ -21,7 +21,7 @@
 | 12 | two-ledgers-never-conflated (G1) | ✅ test-enforced |
 | 13 | never-equate-units / no-joules-per-meaning (G2/G3) | ✅ test-enforced |
 | 14 | self-maintenance earned / mortality (G5) | ✅ kurage lives, meial+gyoja die |
-| 15 | tests green | ✅ **77 tests / 172 assertions** |
+| 15 | tests green | ✅ **78 tests / 175 assertions** |
 | 16 | self-validating seed (integrity validator) | ✅ `validate.cljc` (defends I1–I5; + bb CLI) |
 | 17 | lexicons + manifest↔ontology parity | ✅ `organismBeat` / `energyFlow` (drift-locked by test) |
 | 18 | colony self-reflection (digest) | ✅ `digest.cljc` (survival · energy economy · field dissipation; + bb CLI) |

@@ -15,19 +15,26 @@
   (:require [uzu.methods.uzu-edn :as ue]
             [uzu.methods.metabolism :as metab]
             [uzu.methods.measure :as measure]
+            [uzu.methods.digest :as digest]
             [uzu.methods.kotoba :as k]
             #?(:clj [clojure.edn :as edn])))
 
 (defn assess
-  "Pure: run all organisms across the tape + measure the field. Returns
-  {:lives [summary…] :field … :datoms […]}."
+  "Pure: run all organisms across the tape, measure the field, and SELF-REFLECT (the colony
+  digest). The persisted datoms carry organism beats + measured flows + the colony digest,
+  so the autonomous heartbeat is self-aware of its own state each beat. Returns
+  {:lives [summary…] :field … :digest … :datoms […]}."
   [{:keys [tape organisms flows edges]}]
   (let [lives (mapv (fn [o] (metab/live o tape)) organisms)
+        field (measure/field {:flows flows :edges edges})
+        dg (digest/colony lives field)
         org-datoms (vec (mapcat metab/datoms lives))
-        flow-datoms (measure/datoms flows)]
+        flow-datoms (measure/datoms flows)
+        digest-datoms (digest/datoms dg)]
     {:lives (mapv metab/summary lives)
-     :field (measure/field {:flows flows :edges edges})
-     :datoms (vec (concat org-datoms flow-datoms))}))
+     :field field
+     :digest dg
+     :datoms (vec (concat org-datoms flow-datoms digest-datoms))}))
 
 (defn beat
   "Run one heartbeat over the classified seed. opts:
@@ -38,13 +45,13 @@
    IDEMPOTENT-BY-CONTENT: a beat whose datoms equal the last beat's is a NO-OP.
    Returns {:head <cid> :count <n> :lives […] :totals … :appended <bool> :reason <kw|nil>}."
   [{:keys [seed tx-id as-of log-path]}]
-  (let [{:keys [lives field datoms]} (assess seed)
+  (let [{:keys [lives field datoms digest]} (assess seed)
         prev (k/head-cid log-path)
         last-ds (let [txs (k/read-log log-path)]
                   (when (seq txs) (get (last txs) ":tx/datoms")))
         unchanged? (= datoms last-ds)
         base {:count (count datoms) :lives lives :totals (:totals field)
-              :closed? (:closed? field)}]
+              :closed? (:closed? field) :digest digest}]
     (if unchanged?
       (assoc base :head prev :appended false :reason :no-change)
       (let [tx (k/make-tx datoms tx-id as-of prev)
@@ -71,6 +78,8 @@
        (doseq [[cls t] (:totals r)]
          (println (format "  %-14s total=%.3e %-7s (n=%d)" (str cls) (:total t) (:unit t) (:n t))))
        (println (str "circulation closed? " (:closed? r)))
+       (println "── colony self-reflection (digest) ──")
+       (println (digest/report (:digest r)))
        (println (str "chain=" (k/verify-chain log-path))))))
 
 #?(:clj

@@ -43,7 +43,7 @@
   {:method/id "digest"     :method/file "methods/digest.cljc"     :method/role "colony SELF-REFLECTION: who self-maintained, which meanings fit, energy economy, field dissipation → report + :uzu.digest/* datoms (+ bb CLI; Murakumo narration is the gated step)"}
   {:method/id "viz"        :method/file "methods/viz.cljc"        :method/role "self-contained data-driven HTML canvas of the coupled energy field + organism trajectories (+ bb CLI)"}
   {:method/id "kotoba"     :method/file "methods/kotoba.cljc"     :method/role "content-addressed append-only INFORMATION log (tx-cid/make-tx/append-tx/read-log/verify-chain)"}
-  {:method/id "autorun"    :method/file "methods/autorun.cljc"    :method/role "deterministic heartbeat: live organisms + measure field → append datoms to the log (+ bb CLI)"}]
+  {:method/id "autorun"    :method/file "methods/autorun.cljc"    :method/role "deterministic heartbeat: live organisms + measure field + SELF-REFLECT (digest) → append datoms to the log (+ bb CLI)"}]
 
  :actor/lex
  [{:lex/id "organismBeat"}
@@ -78,4 +78,4 @@
            "methods/test_measure.cljc" "methods/test_validate.cljc" "methods/test_lexicons.cljc"
            "methods/test_digest.cljc" "methods/test_robustness.cljc" "methods/test_kotoba.cljc" "methods/test_autorun.cljc"
            "methods/test_viz.cljc"]
-  :status "77 tests / 172 assertions green (babashka)"}}
+  :status "78 tests / 175 assertions green (babashka)"}}

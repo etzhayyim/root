@@ -18,6 +18,13 @@
     (is (some #(true? (:alive? %)) (:lives a)) "at least one survivor (kurage)")
     (is (some #(false? (:alive? %)) (:lives a)) "at least one death (meial/gyoja)")))
 
+(deftest assess-includes-self-reflection
+  (let [a (auto/assess seed)]
+    (is (map? (:digest a)) "the heartbeat reflects on its own colony")
+    (is (= 1 (get-in a [:digest :n-alive])) "it knows exactly one organism self-maintained")
+    (is (some #(= "uzu:digest/colony" (second %)) (:datoms a))
+        "colony digest datoms are persisted alongside organism + flow datoms")))
+
 (deftest beat-appends-then-is-idempotent
   (let [p (tmp)
         r1 (auto/beat {:seed seed :tx-id "b1" :as-of "a1" :log-path p})
