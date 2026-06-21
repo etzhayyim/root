@@ -1,0 +1,246 @@
+;; junkan 循環 — GLOBAL governance-asymmetry instrument seed.
+;;
+;; Concrete laws / institutions / doctrines / values worldwide that WIDEN or NARROW
+;; the structural asymmetry between citizens (国民) and the state (政府). Each row
+;; records the instrument, WHO established it (:enactor — institutional / public-
+;; historical bodies, NOT private individuals, G6), the CIRCUMSTANCES of its
+;; establishment (:origin / 経緯), and the related parties (:stakeholders / 関係者).
+;;
+;; :polarity/:magnitude/:confidence are junkan's DISCLOSED HYPOTHESES (G5), not
+;; proven causation; the law/year/enactor/origin are on-the-record public facts
+;; (:sourcing :representative). This is a resilience/leverage MAP — NEVER a target
+;; list, NEVER a country ranking-to-shame (G7 sober framing).
+;;
+;; magnitude ∈ 0..1 (estimated contribution to the stock) · confidence ∈ 0..1
+;; meadows ∈ 1..12 (deeper = lower number) · this set is GLOBAL + grows each loop.
+[
+ ;; ─────────────────────────────────────────────────────────────────────────
+ ;; A. INFORMATION ASYMMETRY — the state sees the citizen; the citizen cannot see the state
+ ;; ─────────────────────────────────────────────────────────────────────────
+ {:type :instrument :id "us-espionage-act-1917" :name "Espionage Act of 1917" :jurisdiction "US" :kind :law :year 1917
+  :enactor "U.S. Congress (65th); signed by President Woodrow Wilson"
+  :origin "Enacted two months after U.S. entry into WWI to criminalize interference with military operations/recruitment; over the next century became the principal statute used to prosecute leakers and whistleblowers, chilling disclosure of government wrongdoing."
+  :stakeholders ["U.S. Department of Justice" "press/journalists" "whistleblowers" "national-security apparatus"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.6 :reversibility :statutory :meadows 5
+  :basis "50 U.S.C. ch.37 / 18 U.S.C. §§792–799" :sourcing :representative :confidence 0.6}
+ {:type :instrument :id "uk-official-secrets-act" :name "Official Secrets Act 1911 / 1989" :jurisdiction "GB" :kind :law :year 1911
+  :enactor "UK Parliament (1911 amid pre-WWI spy panic; recast 1989)"
+  :origin "1911 Act passed in a single day amid German-invasion-scare press agitation; 1989 recast removed the public-interest defence for civil servants, broadening protection of state information from citizens."
+  :stakeholders ["UK Civil Service" "press" "intelligence services (MI5/MI6/GCHQ)"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.5 :reversibility :statutory :meadows 5
+  :basis "Official Secrets Act 1911, 1989" :sourcing :representative :confidence 0.55}
+ {:type :instrument :id "cn-state-secrets-law" :name "Law on Guarding State Secrets" :jurisdiction "CN" :kind :law :year 1988
+  :enactor "NPC Standing Committee (1988; revised 2010, 2024)"
+  :origin "Broad, vaguely-scoped secrecy regime expanded 2010/2024 to cover 'work secrets'; classification is retroactive and effectively unappealable, making the state's information opaque to citizens by default."
+  :stakeholders ["National Administration of State Secrets Protection" "SOEs" "journalists" "researchers"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.8 :reversibility :entrenched :meadows 5
+  :basis "中华人民共和国保守国家秘密法 (1988/2010/2024)" :sourcing :representative :confidence 0.7}
+ {:type :instrument :id "ru-foreign-agents-law" :name "Foreign Agents Law" :jurisdiction "RU" :kind :law :year 2012
+  :enactor "State Duma; signed by President Vladimir Putin (2012; broadened 2017/2022)"
+  :origin "Following the 2011–12 protest wave, NGOs/media/individuals receiving foreign support (or merely 'under foreign influence') must self-label 'foreign agent', strangling independent information flows to citizens."
+  :stakeholders ["Ministry of Justice" "independent media" "NGOs" "civil society"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.75 :reversibility :statutory :meadows 5
+  :basis "ФЗ-121 (2012); ФЗ-255 (2022)" :sourcing :representative :confidence 0.65}
+ {:type :instrument :id "sg-pofma-2019" :name "Protection from Online Falsehoods and Manipulation Act" :jurisdiction "SG" :kind :law :year 2019
+  :enactor "Parliament of Singapore (PAP supermajority)"
+  :origin "Gives ministers power to order corrections/takedowns of online 'falsehoods'; framed as anti-disinformation, criticized for concentrating the definition of truth in the executive."
+  :stakeholders ["Singapore government ministers" "platforms" "online media" "opposition"]
+  :stock :information-asymmetry :polarity :ambiguous :magnitude 0.4 :reversibility :statutory :meadows 6
+  :basis "POFMA 2019 (No. 18 of 2019)" :sourcing :representative :confidence 0.5}
+ {:type :instrument :id "se-freedom-press-1766" :name "Freedom of the Press Act 1766" :jurisdiction "SE" :kind :law :year 1766
+  :enactor "Riksdag of the Estates (championed by Anders Chydenius)"
+  :origin "World's first constitutional free-press + public-access-to-records law; abolished censorship and established the offentlighetsprincipen (principle of public access) that lets citizens see state documents."
+  :stakeholders ["Riksdag" "press" "citizens" "public administration"]
+  :stock :information-asymmetry :polarity :narrow :magnitude 0.8 :reversibility :constitutional :meadows 6
+  :basis "Tryckfrihetsförordningen (1766)" :sourcing :representative :confidence 0.7}
+ {:type :instrument :id "us-foia-1966" :name "Freedom of Information Act" :jurisdiction "US" :kind :law :year 1966
+  :enactor "U.S. Congress (sponsor John Moss); signed reluctantly by President Lyndon B. Johnson"
+  :origin "Product of a decade-long press/congressional push against executive secrecy; established a presumption of disclosure of federal records on request, reversing the default toward citizen visibility."
+  :stakeholders ["federal agencies" "press" "researchers" "citizens"]
+  :stock :information-asymmetry :polarity :narrow :magnitude 0.7 :reversibility :statutory :meadows 6
+  :basis "5 U.S.C. §552" :sourcing :representative :confidence 0.65}
+ {:type :instrument :id "eu-gdpr-2016" :name "General Data Protection Regulation" :jurisdiction "EU" :kind :law :year 2016
+  :enactor "European Parliament + Council of the EU"
+  :origin "Replaced the 1995 Directive; gives individuals enforceable rights over their data (access/erasure/portability) against both firms and the state, partially rebalancing data power toward the citizen."
+  :stakeholders ["data protection authorities" "EU citizens" "controllers/processors" "EDPB"]
+  :stock :information-asymmetry :polarity :narrow :magnitude 0.6 :reversibility :statutory :meadows 6
+  :basis "Regulation (EU) 2016/679" :sourcing :representative :confidence 0.6}
+ {:type :instrument :id "in-rti-2005" :name "Right to Information Act" :jurisdiction "IN" :kind :law :year 2005
+  :enactor "Parliament of India (driven by the MKSS grassroots movement, Rajasthan)"
+  :origin "Grew out of village-level demands for wage-records transparency; created a citizen right to obtain information from public authorities within 30 days, one of the world's most-used transparency tools (2019 amendments weakened commissioner independence)."
+  :stakeholders ["Central/State Information Commissions" "rural citizens" "civil society" "public authorities"]
+  :stock :information-asymmetry :polarity :narrow :magnitude 0.65 :reversibility :statutory :meadows 6
+  :basis "RTI Act, 2005 (No. 22 of 2005)" :sourcing :representative :confidence 0.6}
+
+ ;; ─────────────────────────────────────────────────────────────────────────
+ ;; B. PARTICIPATION / REPRESENTATION / EXIT BARRIERS
+ ;; ─────────────────────────────────────────────────────────────────────────
+ {:type :instrument :id "ru-municipal-filter-2012" :name "Municipal filter (gubernatorial elections)" :jurisdiction "RU" :kind :law :year 2012
+  :enactor "State Duma (on restoration of gubernatorial elections)"
+  :origin "Re-introduced elected governors but required candidates to collect signatures from 5–10% of municipal deputies — most of whom belong to the ruling party — structurally screening out genuine opposition."
+  :stakeholders ["regional electoral commissions" "United Russia" "opposition candidates"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.7 :reversibility :statutory :meadows 5
+  :basis "ФЗ-40 (2012)" :sourcing :representative :confidence 0.6}
+ {:type :instrument :id "hu-electoral-law-2011" :name "Electoral redistricting + 2/3 cardinal laws" :jurisdiction "HU" :kind :law :year 2011
+  :enactor "Fidesz two-thirds majority, National Assembly of Hungary"
+  :origin "Using a supermajority won in 2010, redrew constituencies and entrenched policy in 'cardinal laws' requiring 2/3 to amend, locking in advantages and constraining future majorities."
+  :stakeholders ["National Election Office" "Fidesz" "opposition parties" "Venice Commission"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.6 :reversibility :constitutional :meadows 4
+  :basis "Act CCIII of 2011 on the Election of MPs" :sourcing :representative :confidence 0.55}
+ {:type :instrument :id "cn-one-party-npc" :name "Single-party people's-congress system" :jurisdiction "CN" :kind :institution :year 1954
+  :enactor "Communist Party of China; 1954 Constitution (NPC)"
+  :origin "Indirect, party-screened elections to the NPC with no competitive multiparty contest; the Party's leadership is constitutionally enshrined, foreclosing electoral routes to change."
+  :stakeholders ["Communist Party of China" "NPC" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.85 :reversibility :entrenched :meadows 4
+  :basis "PRC Constitution (1954/2018) Art.1" :sourcing :representative :confidence 0.7}
+ {:type :instrument :id "kp-single-candidate" :name "Single-candidate elections (SPA)" :jurisdiction "KP" :kind :institution :year 1948
+  :enactor "Workers' Party of Korea; Supreme People's Assembly"
+  :origin "Citizens vote yes/no on one approved candidate per district with ~100% reported turnout/approval; the ballot functions as a loyalty census, not a choice."
+  :stakeholders ["Workers' Party of Korea" "Supreme People's Assembly" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.95 :reversibility :entrenched :meadows 4
+  :basis "DPRK Socialist Constitution" :sourcing :representative :confidence 0.7}
+ {:type :instrument :id "gulf-absolute-monarchy" :name "Absolute monarchy (no national legislature elections)" :jurisdiction "SA" :kind :institution :year 1932
+  :enactor "House of Saud (Kingdom founding, 1932)"
+  :origin "Sovereignty vests in the monarch; there is no elected national legislature and political parties are banned, so citizens have no electoral channel to the state's core power."
+  :stakeholders ["royal family" "Council of Ministers" "citizens" "religious establishment"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.85 :reversibility :entrenched :meadows 3
+  :basis "Basic Law of Governance (1992)" :sourcing :representative :confidence 0.6}
+ {:type :instrument :id "us-felony-disenfranchise" :name "Felony disenfranchisement" :jurisdiction "US" :kind :law :year 1865
+  :enactor "U.S. state legislatures (post-Reconstruction; varies by state)"
+  :origin "State laws stripping voting rights from people with felony convictions, expanded during Reconstruction with racially disparate effect; ~4.6M Americans disenfranchised as of 2022."
+  :stakeholders ["state legislatures" "incarcerated/formerly-incarcerated citizens" "courts"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.4 :reversibility :statutory :meadows 5
+  :basis "Varies; cf. Richardson v. Ramirez (1974)" :sourcing :representative :confidence 0.5}
+ {:type :instrument :id "ch-direct-democracy" :name "Federal popular initiative + referendum" :jurisdiction "CH" :kind :institution :year 1891
+  :enactor "Swiss Confederation (1848 federal state; popular initiative added 1891)"
+  :origin "Citizens can force a national vote on constitutional amendments (100k signatures) or challenge laws (50k); puts a direct citizen check on the legislature, narrowing the participation gap."
+  :stakeholders ["Federal Assembly" "cantons" "citizens" "Federal Council"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.75 :reversibility :constitutional :meadows 4
+  :basis "Federal Constitution Arts. 138–142" :sourcing :representative :confidence 0.65}
+ {:type :instrument :id "nz-mmp-1993" :name "Mixed-member proportional representation" :jurisdiction "NZ" :kind :institution :year 1993
+  :enactor "New Zealand electorate (1993 binding referendum) → Parliament"
+  :origin "After a Royal Commission and two referendums, voters replaced first-past-the-post with MMP, sharply improving the proportionality between votes cast and seats held."
+  :stakeholders ["Electoral Commission" "voters" "minor parties" "Parliament"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.6 :reversibility :statutory :meadows 5
+  :basis "Electoral Act 1993" :sourcing :representative :confidence 0.6}
+
+ ;; ─────────────────────────────────────────────────────────────────────────
+ ;; C. COERCION / SECURITY-POWER ASYMMETRY
+ ;; ─────────────────────────────────────────────────────────────────────────
+ {:type :instrument :id "us-patriot-act-2001" :name "USA PATRIOT Act" :jurisdiction "US" :kind :law :year 2001
+  :enactor "U.S. Congress (107th); signed by President George W. Bush"
+  :origin "Passed 45 days after 9/11 with minimal debate; vastly expanded surveillance, bulk metadata collection (§215), and secret orders, tilting visibility toward the state (much narrowed by 2015 USA FREEDOM Act after the Snowden disclosures)."
+  :stakeholders ["NSA/FBI" "FISA Court" "telecoms" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.65 :reversibility :statutory :meadows 5
+  :basis "Pub.L. 107-56; cf. USA FREEDOM Act 2015" :sourcing :representative :confidence 0.6}
+ {:type :instrument :id "uk-ipa-2016" :name "Investigatory Powers Act ('Snoopers' Charter')" :jurisdiction "GB" :kind :law :year 2016
+  :enactor "UK Parliament; Home Secretary Theresa May as principal sponsor"
+  :origin "Legalized bulk interception, equipment interference (hacking), and mandatory retention of citizens' internet connection records for 12 months — among the most expansive surveillance regimes in a democracy."
+  :stakeholders ["Home Office" "GCHQ" "ISPs" "Investigatory Powers Commissioner" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.7 :reversibility :statutory :meadows 5
+  :basis "Investigatory Powers Act 2016" :sourcing :representative :confidence 0.6}
+ {:type :instrument :id "ru-yarovaya-2016" :name "Yarovaya amendments" :jurisdiction "RU" :kind :law :year 2016
+  :enactor "State Duma (sponsor Irina Yarovaya); signed by President Putin"
+  :origin "Anti-terror package mandating telecom/data retention of all communications content, backdoor decryption assistance, and expanded 'extremism' offences — a sweeping coercive-surveillance expansion."
+  :stakeholders ["FSB" "telecoms/ISPs" "Roskomnadzor" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.75 :reversibility :statutory :meadows 5
+  :basis "ФЗ-374/375 (2016)" :sourcing :representative :confidence 0.6}
+ {:type :instrument :id "cn-anti-terror-2015" :name "Counter-Terrorism Law + Xinjiang measures" :jurisdiction "CN" :kind :law :year 2015
+  :enactor "NPC Standing Committee (2015); regional regs 2017"
+  :origin "Broad 'terrorism/extremism' definitions enabling pervasive monitoring and, in Xinjiang, mass 're-education' detention — an extreme coercion asymmetry against a population."
+  :stakeholders ["Ministry of Public Security" "telecoms" "Uyghur and other communities"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.85 :reversibility :entrenched :meadows 5
+  :basis "中华人民共和国反恐怖主义法 (2015)" :sourcing :representative :confidence 0.65}
+ {:type :instrument :id "eg-emergency-law" :name "State of Emergency Law No.162/1958" :jurisdiction "EG" :kind :law :year 1958
+  :enactor "Egyptian government (Nasser era; re-imposed repeatedly)"
+  :origin "Allows indefinite detention, military/emergency courts, and suspension of ordinary rights; in force for most of the period since 1967, normalizing emergency rule as the baseline."
+  :stakeholders ["Interior Ministry" "State Security" "emergency courts" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.7 :reversibility :statutory :meadows 5
+  :basis "Law No. 162 of 1958" :sourcing :representative :confidence 0.55}
+ {:type :instrument :id "echr-1950" :name "European Convention on Human Rights + ECtHR" :jurisdiction "EU" :kind :institution :year 1950
+  :enactor "Council of Europe member states (drafted post-WWII; Court est. 1959)"
+  :origin "Created a supranational court where individuals can sue their own state for rights violations, giving citizens external leverage against domestic coercive overreach."
+  :stakeholders ["European Court of Human Rights" "Council of Europe" "member-state governments" "individual applicants"]
+  :stock :coercion-asymmetry :polarity :narrow :magnitude 0.7 :reversibility :constitutional :meadows 8
+  :basis "ECHR (1950); ETS No.5" :sourcing :representative :confidence 0.65}
+ {:type :instrument :id "habeas-corpus-1679" :name "Habeas Corpus Act 1679" :jurisdiction "GB" :kind :law :year 1679
+  :enactor "Parliament of England"
+  :origin "Codified the right to challenge unlawful detention before a court, the foundational check on arbitrary imprisonment by the state; inherited by most common-law systems."
+  :stakeholders ["courts" "detainees" "the Crown/executive"]
+  :stock :coercion-asymmetry :polarity :narrow :magnitude 0.75 :reversibility :constitutional :meadows 5
+  :basis "Habeas Corpus Act 1679 (31 Cha. 2 c.2)" :sourcing :representative :confidence 0.65}
+
+ ;; ─────────────────────────────────────────────────────────────────────────
+ ;; D. PARADIGM / MINDSET SUBORDINATION (Meadows level 2 — deepest leverage)
+ ;; ─────────────────────────────────────────────────────────────────────────
+ {:type :instrument :id "th-lese-majeste-112" :name "Lèse-majesté (Criminal Code §112)" :jurisdiction "TH" :kind :law :year 1908
+  :enactor "Thai state (1908 code; penalties raised 1976 after the military coup)"
+  :origin "Criminalizes any defamation/insult of the monarchy with 3–15 years per count; sustains an unquestionable-authority paradigm and is wielded against dissent and online speech."
+  :stakeholders ["monarchy" "military" "courts" "activists" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.7 :reversibility :statutory :meadows 2
+  :basis "Thai Criminal Code §112" :sourcing :representative :confidence 0.6}
+ {:type :instrument :id "cn-social-credit" :name "Social Credit System" :jurisdiction "CN" :kind :institution :year 2014
+  :enactor "State Council of the PRC (2014 Planning Outline)"
+  :origin "A patchwork of blacklists, scoring pilots, and corporate-compliance records that conditions access to travel/credit/services on state-defined 'trustworthiness' — internalizing surveillance into a behavioral paradigm (五人組→隣組→社会信用 degeneration series)."
+  :stakeholders ["State Council" "NDRC" "courts (dishonest-debtor lists)" "platforms" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.8 :reversibility :institutional :meadows 2
+  :basis "社会信用体系建设规划纲要 (2014–2020)" :sourcing :representative :confidence 0.6}
+ {:type :instrument :id "kp-juche-ten-principles" :name "Juche + Ten Principles + Songbun" :jurisdiction "KP" :kind :doctrine :year 1974
+  :enactor "Workers' Party of Korea (Ten Principles, 1974; Songbun caste from 1957)"
+  :origin "State ideology making loyalty to the leader the supreme organizing value, enforced through a hereditary songbun caste that fixes a citizen's life chances by ancestry — total paradigm subordination."
+  :stakeholders ["Workers' Party of Korea" "Organization and Guidance Dept" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.95 :reversibility :entrenched :meadows 2
+  :basis "Ten Principles for the Establishment of the One-Ideology System" :sourcing :representative :confidence 0.65}
+ {:type :instrument :id "ru-sovereign-democracy" :name "'Sovereign democracy' + traditional-values doctrine" :jurisdiction "RU" :kind :doctrine :year 2006
+  :enactor "Kremlin ideologists (term popularized 2006; codified in 2020 constitutional amendments)"
+  :origin "Frames external rights norms as foreign interference and elevates state/traditional authority over pluralism, supplying the paradigm that legitimizes centralized power."
+  :stakeholders ["Presidential Administration" "Russian Orthodox Church" "state media" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.6 :reversibility :cultural :meadows 2
+  :basis "2020 constitutional amendments" :sourcing :representative :confidence 0.5}
+ {:type :instrument :id "udhr-1948" :name "Universal Declaration of Human Rights" :jurisdiction "UN" :kind :doctrine :year 1948
+  :enactor "UN General Assembly (drafting committee chaired by Eleanor Roosevelt)"
+  :origin "Post-WWII articulation that rights inhere in the person, not the state's grant — the paradigm anchor that reframes the citizen as rights-bearer rather than subject (non-binding but foundational)."
+  :stakeholders ["UN member states" "human-rights movements" "all persons"]
+  :stock :paradigm-subordination :polarity :narrow :magnitude 0.7 :reversibility :cultural :meadows 2
+  :basis "UNGA Resolution 217 A (III)" :sourcing :representative :confidence 0.6}
+ {:type :instrument :id "magna-carta-1215" :name "Magna Carta" :jurisdiction "GB" :kind :doctrine :year 1215
+  :enactor "King John of England, compelled by rebel barons at Runnymede"
+  :origin "Established that the sovereign is subject to law (no imprisonment but by lawful judgment); the originating paradigm that the state is not above the rule of law, ancestral to constitutionalism worldwide."
+  :stakeholders ["the Crown" "barons" "later: courts and citizens"]
+  :stock :paradigm-subordination :polarity :narrow :magnitude 0.65 :reversibility :cultural :meadows 1
+  :basis "Magna Carta (1215), cl. 39" :sourcing :representative :confidence 0.55}
+
+ ;; ─────────────────────────────────────────────────────────────────────────
+ ;; E. ECONOMIC CAPTURE — concentration of economic leverage over the state (and vice-versa)
+ ;; ─────────────────────────────────────────────────────────────────────────
+ {:type :instrument :id "us-citizens-united-2010" :name "Citizens United v. FEC" :jurisdiction "US" :kind :doctrine :year 2010
+  :enactor "U.S. Supreme Court (5–4)"
+  :origin "Held that independent political spending by corporations/unions is protected speech, enabling unlimited Super-PAC money and amplifying concentrated economic influence over elections and legislators."
+  :stakeholders ["Supreme Court" "Super PACs" "corporations/donors" "voters" "FEC"]
+  :stock :economic-capture :polarity :widen :magnitude 0.6 :reversibility :constitutional :meadows 5
+  :basis "558 U.S. 310 (2010)" :sourcing :representative :confidence 0.55}
+ {:type :instrument :id "ru-oligarch-nexus" :name "State–oligarch nexus (post-1990s privatization)" :jurisdiction "RU" :kind :institution :year 1995
+  :enactor "Russian government (loans-for-shares scheme, 1995–96)"
+  :origin "Rapid privatization transferred strategic assets to a few well-connected actors; the state later disciplined them into a loyalty-for-assets bargain, fusing economic and political power."
+  :stakeholders ["Presidential Administration" "energy/metals conglomerates" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.7 :reversibility :entrenched :meadows 4
+  :basis "Loans-for-shares (1995–96)" :sourcing :representative :confidence 0.5}
+ {:type :instrument :id "gulf-rentier-swf" :name "Rentier state + sovereign wealth funds" :jurisdiction "SA" :kind :institution :year 1971
+  :enactor "Gulf monarchies (resource-revenue states; SWFs from 1970s)"
+  :origin "Resource rents flow to the state, which distributes welfare in exchange for political quiescence ('no taxation, no representation'); economic dependence on the state suppresses the citizen's bargaining position."
+  :stakeholders ["royal treasuries" "sovereign wealth funds" "national oil companies" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.65 :reversibility :entrenched :meadows 3
+  :basis "Rentier-state political economy" :sourcing :representative :confidence 0.5}
+ {:type :instrument :id "nordic-public-tax-records" :name "Public tax records (offentlighet)" :jurisdiction "NO" :kind :institution :year 1863
+  :enactor "Norway/Sweden/Finland states (Norway's public tax lists date to the 1800s)"
+  :origin "Each person's income/wealth/tax is publicly viewable; reciprocal financial transparency (相互監視, not asymmetric surveillance) constrains hidden economic capture and reduces inequality of information about wealth."
+  :stakeholders ["tax administrations" "press" "citizens"]
+  :stock :economic-capture :polarity :narrow :magnitude 0.45 :reversibility :statutory :meadows 6
+  :basis "Norwegian skattelister (public tax lists)" :sourcing :representative :confidence 0.5}
+ {:type :instrument :id "us-fara-1938" :name "Foreign Agents Registration Act" :jurisdiction "US" :kind :law :year 1938
+  :enactor "U.S. Congress (75th), pre-WWII"
+  :origin "Requires agents of foreign principals to publicly disclose their relationship and activities; a transparency (not suppression) instrument — contrast Russia's foreign-agents law, which uses the label to silence."
+  :stakeholders ["DOJ FARA Unit" "lobbyists" "foreign principals" "public"]
+  :stock :economic-capture :polarity :narrow :magnitude 0.4 :reversibility :statutory :meadows 6
+  :basis "22 U.S.C. §611 et seq." :sourcing :representative :confidence 0.5}
+]

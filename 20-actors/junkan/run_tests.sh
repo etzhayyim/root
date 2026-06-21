@@ -1,5 +1,17 @@
 #!/usr/bin/env bash
-# junkan — clj/bb test suite (ADR-2606160842 py->clj port wave); wired into the fleet green-check.
-set -euo pipefail
-cd "$(dirname "$0")/../.."
-exec bb -e '(require (quote clojure.test) (quote junkan.methods.test-charter-gates))(let [r (clojure.test/run-tests (quote junkan.methods.test-charter-gates))](System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))'
+# junkan 循環 — clj/bb test suite (governance-asymmetry substrate + charter gates).
+# Wired into the fleet green-check.
+set -uo pipefail
+cd "$(dirname "$0")/../.."   # → repo root (classpath base = 20-actors)
+NSES=(
+  junkan.methods.test-junkan-edn
+  junkan.methods.test-analyze
+  junkan.methods.test-kotoba
+  junkan.methods.test-autorun
+  junkan.methods.test-charter-gates
+)
+joined=$(printf "(quote %s) " "${NSES[@]}")
+exec bb --classpath 20-actors -e "
+(apply require [${joined}])
+(let [r (clojure.test/run-tests ${joined})]
+  (System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))"
