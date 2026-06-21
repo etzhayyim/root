@@ -152,6 +152,37 @@
     (when (contains? by-svc seed-svc)            ; seed contains this severable tie
       (is (true? (get (by-svc seed-svc) "authorized"))))))
 
+;; ── cascade (依存) end-to-end ────────────────────────────────────────────────
+
+(def cascade-nodes
+  {member {":member/id" member ":member/label" "Test"}
+   ;; a severable hub another tie stands on (SSO / payment dependency)
+   "hub-svc" (node "hub-svc" ":none" ":permitted")
+   "dependent-svc" (node "dependent-svc" ":none" ":permitted")})
+(def cascade-edges
+  [{":en/from" member ":en/to" "hub-svc" ":en/kind" ":subscribes"
+    ":en/monthly-cost-jpy" 1500.0 ":en/usage-score" 5.0 ":en/last-used-days" 10.0}
+   ;; dependent-svc DEPENDS-ON hub-svc → hub has a dependent → :sever downgrades to :review-cascade
+   {":en/from" "dependent-svc" ":en/to" "hub-svc" ":en/kind" ":depends-on"}])
+
+(deftest test-cascade-review-refused-end-to-end
+  ;; a capability that APPROVES the hub must still be refused — cascade beats capability.
+  (let [b {"cacao_b64" "opaque" "aud" "did:web:etzhayyim.com" "capability" "service:cancel"
+           "graph" "graph:kaiyaku" "exp" 9999999999 "nonce" "n" "approved" ["hub-svc"]}
+        r (pipeline/run {:nodes cascade-nodes :edges cascade-edges :catalog (catalog-by-id)
+                         :bundle b :now-epoch 1000 :as-of "T0"})
+        hub-plan (first (filter #(= "hub-svc" (get % "svc")) (:plans r)))
+        hub-desc (first (filter #(= "hub-svc" (get % "svc")) (:descriptors r)))]
+    ;; analyze downgraded :sever → :review-cascade because the hub has a dependent
+    (is (= ":review-cascade" (get hub-plan "recommendation")))
+    ;; the plan re-homes the dependency FIRST (before any cancel step)
+    (is (= "rehome-dependency" (get (first (get hub-plan "steps")) "verb")))
+    ;; even with the hub approved, dispatch REFUSES it (rehome first; cascade > capability)
+    (is (false? (get hub-desc "authorized")))
+    (is (clojure.string/includes? (get hub-desc "why") "re-homed BEFORE severance"))
+    ;; → no karakuri op for a cascade-refused tie
+    (is (empty? (:serviceops r)))))
+
 (defn -main [& _]
   (let [{:keys [fail error]} (run-tests 'kaiyaku.tests.test-pipeline)]
     (System/exit (if (zero? (+ fail error)) 0 1))))
