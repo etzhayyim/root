@@ -40,12 +40,19 @@ Removing a stale `.clj` shadow → running the suite → keeping the removal **o
   while the caller + the canonical `.cljc` use `(get state "items")` (string); babashka loads the
   `.clj`, so the handler silently sees nothing. Removing the `.clj` fully greens the suite.
   **Verified clean + fixed: uchiwake (#2042), meyasu + the cross-actor kakaku agent (#2048).**
-- **deeper — incomplete `.cljc` port.** Removing the `.clj` resolves the first missing symbol but
-  exposes another the `.cljc` never ported (or a stale test referencing a removed fn, or a
-  cwd-relative path read). The suite stays red → **revert; this needs owner-driven port-completion,
-  not a shadow removal.** Oracle-verified deeper: **kanjo** (`analyze/metric-inputs`), **watatsuna**
-  (`run-autonomous` arity), **kabuto** (`ingest/merge-bridged`); **tasuke / kosatsu / keizu** mix in
-  cwd-relative `slurp` path bugs in `test-no-external-io`.
+- **deeper — DIVERGENT `.clj`-vs-`.cljc` designs (NOT merely an incomplete port).** Removing the
+  `.clj` resolves the first missing symbol but exposes another, because the two files are different
+  *designs*, not two stages of one port. Concretely (kabuto `ingest`, assessed 2026-06): the `.clj`
+  uses **keyword** datom keys (`:company/id`, status `:listed`) and exposes `gated-source?` +
+  `merge-bridged`; the `.cljc` rewrote to **string** keys (`":company/id"`, `":listed"`), dropped
+  those two fns, and added `emit-company` + an inline `-main` merge. The actor's test
+  (`test_ingest.clj`) is written against the **`.clj`** design — so it cannot pass against the
+  `.cljc` without an owner first **choosing the canonical design** and rewriting the test + porting
+  the design-specific fns. The oracle stays red → **revert; owner judgment required, not a mechanical
+  fix.** Oracle-verified deeper: **kanjo** (`analyze/metric-inputs`), **watatsuna** (`run-autonomous`
+  arity), **kabuto** (keyword-vs-string `ingest` design + `gated-source?`/`merge-bridged`);
+  **tasuke / kosatsu / keizu** also mix cwd-relative `slurp` path bugs in `test-no-external-io`.
 
-So: probe `tests-fail` / `load-error` actors with the oracle; the key-access ones are a safe
-mechanical fix, the rest are deferred to their owners.
+So: probe `tests-fail` / `load-error` actors with the oracle; the key-access ones (where the stale
+`.clj` is the ONLY thing wrong and its `.cljc` is the complete canonical) are a safe mechanical fix;
+the divergent-design ones are deferred to their owners — the fix is a design decision, not a port.
