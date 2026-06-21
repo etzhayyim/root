@@ -45,6 +45,10 @@
    :donation 1        ;; one donation-unit (USDC-equiv nutrient) ≈ 1
    :members 6         ;; a new contributor is structure-rich
    :moyai 2           ;; a reciprocity draw-right
+   :colony-order 3    ;; the SoS colony's aggregate information-control (ie-flow.score, ADR-2606212200):
+                      ;; Σ actor info-control-score × √throughput — each actor RECTIFIES its energy
+                      ;; flow into returned order; that exported order is a structure-rich negentropy
+                      ;; SOURCE for the organism (active inference at the colony scale, 共生 by construction)
    :attention 1})     ;; bounded by attention-cap below
 
 (def attention-cap
@@ -82,6 +86,7 @@
        (contrib :donation)
        (contrib :members)
        (contrib :moyai)
+       (contrib :colony-order)   ;; the colony's aggregate information-control 利得 (ie-flow.score)
        attention)))
 
 (defn dissipation-of

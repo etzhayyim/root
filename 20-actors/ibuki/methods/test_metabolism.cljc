@@ -32,6 +32,17 @@
   ;; negative readings are floored at 0 (no negative intake)
   (is (= 0 (m/intake-of {:donation -50}))))
 
+(deftest colony-order-is-a-negentropy-source
+  ;; the SoS integration (ADR-2606212200): the colony's aggregate information-control
+  ;; (ie-flow.score) feeds the organism's metabolic intake → Φ → reserves → survival.
+  (is (= 3 (get m/intake-weights :colony-order)) "colony-order is a recognised source")
+  ;; 5 colony-order ×3 = 15, additive on top of the other sources
+  (is (= 15 (m/intake-of {:colony-order 5})))
+  (is (= 21 (m/intake-of {:members 1 :colony-order 5})) "additive: 6 + 15")
+  ;; a higher colony score ⇒ strictly higher intake ⇒ higher Φ (the reward integration)
+  (is (> (m/intake-of {:colony-order 10}) (m/intake-of {:colony-order 2}))
+      "more colony information-control ⇒ more free-energy intake (the organism's reward rises)"))
+
 (deftest dissipation-scales-with-colony
   (is (= m/base-dissipation (m/dissipation-of 0)))
   (is (= (+ m/base-dissipation 3) (m/dissipation-of 3))))
