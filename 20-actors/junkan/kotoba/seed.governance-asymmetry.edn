@@ -1624,4 +1624,87 @@
   :stakeholders ["military junta" "deposed president" "ECOWAS" "citizens"]
   :stock :participation-barrier :polarity :widen :magnitude 0.75 :reversibility :institutional :meadows 4
   :basis "September 2021 Guinea coup" :sourcing :representative :confidence 0.45}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 13 — information-asymmetry depth (surveillance / censorship /
+ ;; transparency-norm) + new jurisdictions (CY MR TD CF) — widen + narrow
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── information-asymmetry (widen) ──
+ {:type :instrument :id "cn-great-firewall" :name "Great Firewall + content censorship" :jurisdiction "CN" :kind :institution :year 1998
+  :enactor "PRC state (Golden Shield Project, from 1998)"
+  :origin "A national system of IP/DNS blocking, keyword filtering, and platform self-censorship walls citizens off from outside information and scrubs domestic dissent — the most extensive censorship architecture in the world (distinct from the state-secrets regime)."
+  :stakeholders ["Cyberspace Administration of China" "platforms" "ISPs" "citizens"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.85 :reversibility :entrenched :meadows 5
+  :basis "Golden Shield / Great Firewall (since 1998)" :sourcing :representative :confidence 0.6}
+ {:type :instrument :id "us-fisa-702" :name "FISA Section 702 (foreign-intelligence surveillance)" :jurisdiction "US" :kind :law :year 2008
+  :enactor "U.S. Congress (FISA Amendments Act 2008; reauthorized 2018/2024)"
+  :origin "Authorizes warrantless collection of communications of non-US targets that incidentally sweeps in Americans' data, queryable by agencies — a standing surveillance asymmetry partly disclosed by the 2013 Snowden leaks (distinct from the PATRIOT Act)."
+  :stakeholders ["NSA/FBI" "FISA Court" "telecoms/tech firms" "citizens"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.6 :reversibility :statutory :meadows 5
+  :basis "50 U.S.C. §1881a (FISA §702)" :sourcing :representative :confidence 0.5}
+ {:type :instrument :id "ru-sorm" :name "SORM lawful-interception system" :jurisdiction "RU" :kind :institution :year 1995
+  :enactor "Russian state (SORM, from 1995; expanded under Yarovaya)"
+  :origin "Mandatory deep-packet interception equipment installed at all telecom/ISP nodes gives security services direct, largely unsupervised access to communications — pervasive state visibility over citizens (complements the Yarovaya retention mandate)."
+  :stakeholders ["FSB" "telecoms/ISPs" "Roskomnadzor" "citizens"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.75 :reversibility :entrenched :meadows 5
+  :basis "SORM (System for Operative Investigative Activities)" :sourcing :representative :confidence 0.5}
+ {:type :instrument :id "ir-internet-shutdowns" :name "Internet shutdowns + national-info-network" :jurisdiction "IR" :kind :institution :year 2019
+  :enactor "Iranian state (Supreme Council of Cyberspace)"
+  :origin "Near-total internet blackouts during the 2019 fuel protests and the 2022 Mahsa Amini protests, plus a walled 'National Information Network', cut citizens off from information and each other at moments of dissent."
+  :stakeholders ["Supreme Council of Cyberspace" "ISPs" "protesters" "citizens"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.7 :reversibility :institutional :meadows 5
+  :basis "Iran 2019/2022 shutdowns; National Information Network" :sourcing :representative :confidence 0.5}
+ {:type :instrument :id "et-internet-shutdowns" :name "Recurrent internet shutdowns" :jurisdiction "ET" :kind :institution :year 2016
+  :enactor "Ethiopian state (sole telecom operator Ethio Telecom)"
+  :origin "Repeated regional and national internet shutdowns during unrest and conflict (notably the Tigray war) used the state telecom monopoly to cut citizens' access to information and communication for extended periods."
+  :stakeholders ["government" "Ethio Telecom" "affected regions" "citizens"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.6 :reversibility :institutional :meadows 5
+  :basis "Ethiopian internet shutdowns (since 2016)" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "in-aadhaar" :name "Aadhaar biometric identity system" :jurisdiction "IN" :kind :institution :year 2009
+  :enactor "Government of India (UIDAI; Aadhaar Act 2016)"
+  :origin "The world's largest biometric ID, enabling efficient benefit delivery but also unprecedented state visibility and exclusion risks; the Supreme Court (2018) upheld it while limiting mandatory private use — an ambiguous information-power shift."
+  :stakeholders ["UIDAI" "welfare claimants" "Supreme Court" "citizens"]
+  :stock :information-asymmetry :polarity :ambiguous :magnitude 0.45 :reversibility :statutory :meadows 6
+  :basis "Aadhaar Act 2016; Puttaswamy (2018)" :sourcing :representative :confidence 0.45}
+
+ ;; ── information-asymmetry (narrow) ──
+ {:type :instrument :id "eu-dsa-2022" :name "Digital Services Act (platform transparency)" :jurisdiction "EU" :kind :law :year 2022
+  :enactor "European Parliament + Council of the EU"
+  :origin "Imposes transparency, risk-assessment, and researcher-data-access duties on very large platforms, shifting some information power back toward users and public scrutiny of the algorithms that shape what citizens see."
+  :stakeholders ["European Commission" "very large platforms" "researchers" "citizens"]
+  :stock :information-asymmetry :polarity :narrow :magnitude 0.5 :reversibility :statutory :meadows 6
+  :basis "Regulation (EU) 2022/2065 (DSA)" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "gl-foia-norm-diffusion" :name "Global diffusion of FOI laws (norm)" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse global norm (>135 countries have adopted access-to-information laws)"
+  :origin "The worldwide spread of freedom-of-information legislation since the 1990s established access to government records as an expected norm of governance, structurally narrowing the default information gap (enforcement varies widely)."
+  :stakeholders ["national legislatures" "transparency movements" "press" "citizens"]
+  :stock :information-asymmetry :polarity :narrow :magnitude 0.55 :reversibility :cultural :meadows 6
+  :basis "Global RTI/FOI adoption (>135 countries)" :sourcing :representative :confidence 0.45}
+
+ ;; ── new jurisdictions ──
+ {:type :instrument :id "cy-division" :name "Divided island (post-1974 partition)" :jurisdiction "CY" :kind :institution :year 1974
+  :enactor "Cyprus (de facto partition after 1974); unrecognized TRNC in the north"
+  :origin "The island has been divided since 1974, with the internationally-recognized Republic in the south (an EU member democracy) and an unrecognized administration in the north; the unresolved division constrains full island-wide citizen participation — an ambiguous structural condition."
+  :stakeholders ["Republic of Cyprus" "Turkish-Cypriot administration" "UN peacekeepers" "citizens"]
+  :stock :participation-barrier :polarity :ambiguous :magnitude 0.4 :reversibility :entrenched :meadows 4
+  :basis "Cyprus division (since 1974)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "mr-military-dominance" :name "Military-rooted presidency + slavery legacy" :jurisdiction "MR" :kind :institution :year 1978
+  :enactor "Mauritanian state (recurrent military-origin leaderships)"
+  :origin "Leadership has repeatedly come from the military via coups, and although slavery was abolished (1981) and criminalized (2007), descent-based servitude persists — leaving some citizens doubly outside full political and civil standing."
+  :stakeholders ["military establishment" "anti-slavery activists" "Haratine community" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.6 :reversibility :institutional :meadows 4
+  :basis "Mauritania (coups; anti-slavery laws 1981/2007)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "td-deby-dynasty" :name "Déby dynasty + 2021 hereditary succession" :jurisdiction "TD" :kind :institution :year 1990
+  :enactor "Chadian state (Idriss Déby 1990–2021; son's military council 2021)"
+  :origin "After three decades of rule, the president's death in 2021 was followed by his son taking power via a transitional military council rather than the constitutional line of succession — a dynastic-military closure of the participation channel."
+  :stakeholders ["military transitional council" "Déby family" "opposition" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.8 :reversibility :institutional :meadows 4
+  :basis "Chad 1990–; 2021 succession" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "cf-conflict-fragility" :name "Conflict + limited state control" :jurisdiction "CF" :kind :institution :year 2013
+  :enactor "Central African Republic state (after the 2013 Séléka crisis)"
+  :origin "Recurrent armed conflict since 2013 has left the government controlling only part of the territory, reliant on external forces; elections occur but insecurity and limited reach hollow out the citizen's participation channel."
+  :stakeholders ["government" "armed groups" "external forces" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.75 :reversibility :institutional :meadows 4
+  :basis "CAR conflict (since 2013)" :sourcing :representative :confidence 0.4}
 ]

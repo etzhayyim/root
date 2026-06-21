@@ -196,7 +196,8 @@
    "GH" :africa "CD" :africa "MZ" :africa "NA" :africa "CI" :africa "ER" :africa
    "GQ" :africa "SZ" :africa "LY" :africa "MU" :africa "CV" :africa "GM" :africa
    "LR" :africa "SS" :africa "MW" :africa "GA" :africa "BF" :africa "NE" :africa
-   "BJ" :africa "MG" :africa "TG" :africa "SO" :africa "GN" :africa
+   "BJ" :africa "MG" :africa "TG" :africa "SO" :africa "GN" :africa "MR" :africa
+   "TD" :africa "CF" :africa
    ;; Americas
    "US" :americas "BR" :americas "MX" :americas "CL" :americas "AR" :americas
    "VE" :americas "CU" :americas "CO" :americas "PE" :americas "BO" :americas
@@ -217,7 +218,7 @@
    "GR" :europe "ES" :europe "PT" :europe "UA" :europe "CZ" :europe "RO" :europe
    "NL" :europe "FI" :europe "BE" :europe "AT" :europe "LT" :europe "HR" :europe
    "SK" :europe "BG" :europe "GE" :europe "SI" :europe "LV" :europe "MD" :europe
-   "AM" :europe "ME" :europe "MK" :europe
+   "AM" :europe "ME" :europe "MK" :europe "CY" :europe
    ;; Asia (Malaysia, Yemen)
    "MY" :asia "YE" :asia
    ;; Oceania

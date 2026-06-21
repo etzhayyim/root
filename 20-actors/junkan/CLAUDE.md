@@ -83,6 +83,9 @@ facts; junkan reads off, as disclosed hypotheses (G5), which feedback loops spin
 - `methods/scorecard.cljc` — generates a live `SCORECARD.md` (coverage + continental
   balance + stock regimes + era trajectory + integrity verdict) so the scorecard
   never drifts from the data.
+- `methods/history.cljc` — as-of / regime-trajectory reader over the ledger
+  commit-DAG: which asymmetry stocks/loops CHANGED regime (好循環⇄悪循環,
+  `regimeShiftEvent`) across txs — realizes the ADR's temporal data-model.
 - `80-data/junkan-governance/` — DataLad dataset (datoms snapshot + ledger +
   report + provenance).
 - Tests: `bash 20-actors/junkan/run_tests.sh` → 33 tests / 564 assertions green.
