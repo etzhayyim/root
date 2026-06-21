@@ -616,6 +616,19 @@
           lam (or (lab-q1 db "lab:abm" :lab.abm/lambda) 0.5)
           ri (fn [x] (js/Math.round x))]
       (h :div {}
+        ;; COLONY energy balance — the system OF systems aggregate (loop iter 3)
+        (let [cq (fn [a] (lab-q1 db "lab:colony" a))]
+          (when (cq :lab.colony/n)
+            (h :div {:class "rewardline" :style "margin-top:0"}
+              (h :span {:class "rewardnum" :style "color:#39d98a" :text (str (cq :lab.colony/n))})
+              (h :div {}
+                (h :div {:style "font-weight:600"} (h :span {:text "colony energy balance — system of systems"}))
+                (h :div {:class "muted" :style "margin:0"
+                         :text (str "ΣΦ " (fmt-num (cq :lab.colony/total-phi))
+                                    " · mean η " (let [v (cq :lab.colony/mean-order)] (if (number? v) (.toFixed v 3) (str v)))
+                                    " · Σreward " (let [v (cq :lab.colony/total-reward)] (if (number? v) (.toFixed v 2) (str v)))
+                                    " · " (cq :lab.colony/aligned) "/" (cq :lab.colony/n) " aligned"
+                                    " · control settles step " (cq :lab.colony/control-settling))})))))
         ;; actor selector — every actor is its own bounded system
         (h :div {:class "wbline"} (h :b {:text "actor を選択 → その actor の bounded system"})
            (h :span {:class "muted" :text (str "  " (actor-role db a)

@@ -22,7 +22,8 @@
             [etzhayyim.ie-flow.boundary :as boundary]
             [etzhayyim.ie-flow.reward :as reward]
             [etzhayyim.ie-flow.react :as react]
-            [etzhayyim.ie-flow.control :as control]))
+            [etzhayyim.ie-flow.control :as control]
+            [etzhayyim.ie-flow.colony :as colony]))
 
 (def ^:private out-dirs
   ["60-apps/etzhayyim-project-organism/public"
@@ -296,6 +297,21 @@
               ;; the selector roster (ordered)
               (map-indexed (fn [i a] (d (str "lab:actor:" a) :lab/actor a)) order)
               (map-indexed (fn [i a] (d (str "lab:actor:" a) :lab/order i)) order)
+              ;; the COLONY energy balance (the system OF systems aggregate)
+              (let [bal (colony/balance (mapv (fn [{:keys [id state]}]
+                                                {:id id :state state :weights (actor-weights rule id)})
+                                              actor-labs)
+                                        {:steps sd-steps})
+                    c (:control bal)]
+                [(d "lab:colony" :lab.colony/n (:n bal))
+                 (d "lab:colony" :lab.colony/total-phi (jnum (:total-phi bal)))
+                 (d "lab:colony" :lab.colony/total-throughput (jnum (:total-throughput bal)))
+                 (d "lab:colony" :lab.colony/mean-order (jnum (:mean-order bal)))
+                 (d "lab:colony" :lab.colony/total-reward (jnum (:total-reward bal)))
+                 (d "lab:colony" :lab.colony/aligned (:aligned bal))
+                 (d "lab:colony" :lab.colony/control-settling (or (:settling-step c) -1))
+                 (d "lab:colony" :lab.colony/control-overshoot (jnum (:overshoot-pct c)))
+                 (d "lab:colony" :lab.colony/control-settled (boolean (:settled? c)))])
               ;; every actor's bounded system
               (mapcat actor-datoms actor-labs)
               ;; colony ABM (Friedkin-Johnsen coupling the actor systems; kaname = synthesis centre)

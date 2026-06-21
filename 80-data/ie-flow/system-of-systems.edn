@@ -103,7 +103,44 @@
   {:actor "hodoki"    :weights {:phi 0.24 :eta 0.22 :wellbecoming 0.26 :efficiency 0.20 :surprise 0.08}
    :telos "ELV disassembly + materials recovery (Φ + eff + 子孫)"}
   {:actor "ake"       :weights {:phi 0.18 :eta 0.32 :wellbecoming 0.30 :efficiency 0.12 :surprise 0.08}
-   :telos "community-edit membrane → collaborative correction (η + 子孫)"}]
+   :telos "community-edit membrane → collaborative correction (η + 子孫)"}
+  ;; ── wave 4 (loop iteration 3) ──
+  {:actor "keizu"     :weights {:phi 0.20 :eta 0.38 :wellbecoming 0.22 :efficiency 0.12 :surprise 0.08}
+   :telos "government power-relations KG mirror → accountability (η, no-doxxing)"}
+  {:actor "kosatsu"   :weights {:phi 0.20 :eta 0.38 :wellbecoming 0.22 :efficiency 0.12 :surprise 0.08}
+   :telos "crime/sanctions competing-claim observatory → neutral fact (η, non-adjudicating)"}
+  {:actor "mitooshi"  :weights {:phi 0.20 :eta 0.34 :wellbecoming 0.26 :efficiency 0.12 :surprise 0.08}
+   :telos "probabilistic forecasting observatory → distribution (η, never-trades)"}
+  {:actor "hakoniwa"  :weights {:phi 0.22 :eta 0.34 :wellbecoming 0.24 :efficiency 0.12 :surprise 0.08}
+   :telos "forward-simulation observatory → resilience (η, synthetic personas)"}
+  {:actor "junkan"    :weights {:phi 0.22 :eta 0.34 :wellbecoming 0.24 :efficiency 0.12 :surprise 0.08}
+   :telos "system-dynamics CLD/Meadows → leverage analysis (η, analysis-only)"}
+  {:actor "kizashi"   :weights {:phi 0.18 :eta 0.28 :wellbecoming 0.34 :efficiency 0.12 :surprise 0.08}
+   :telos "non-invasive sign-sensing instrument → care boundary (子孫, non-diagnostic)"}
+  {:actor "kokoro"    :weights {:phi 0.15 :eta 0.23 :wellbecoming 0.42 :efficiency 0.12 :surprise 0.08}
+   :telos "mental-health support → relief (子孫 dominant)"}
+  {:actor "mitate"    :weights {:phi 0.16 :eta 0.26 :wellbecoming 0.38 :efficiency 0.12 :surprise 0.08}
+   :telos "diagnosis-routing → care (子孫 dominant)"}
+  {:actor "manabi"    :weights {:phi 0.16 :eta 0.28 :wellbecoming 0.36 :efficiency 0.12 :surprise 0.08}
+   :telos "open-curriculum education → access (子孫 dominant)"}
+  {:actor "mimamori"  :weights {:phi 0.18 :eta 0.28 :wellbecoming 0.34 :efficiency 0.12 :surprise 0.08}
+   :telos "covenant-keeping membrane → relief (子孫, NEVER-a-throne)"}
+  {:actor "futawa"    :weights {:phi 0.30 :eta 0.24 :wellbecoming 0.18 :efficiency 0.20 :surprise 0.08}
+   :telos "small-displacement motorcycle mfg (Φ + efficiency)"}
+  {:actor "makura"    :weights {:phi 0.30 :eta 0.22 :wellbecoming 0.18 :efficiency 0.22 :surprise 0.08}
+   :telos "foam pillow mfg (Φ + efficiency)"}
+  {:actor "mitsuho"   :weights {:phi 0.24 :eta 0.22 :wellbecoming 0.28 :efficiency 0.18 :surprise 0.08}
+   :telos "food / agriculture — L2 Sustenance (Φ + 子孫)"}
+  {:actor "mizuho"    :weights {:phi 0.24 :eta 0.22 :wellbecoming 0.28 :efficiency 0.18 :surprise 0.08}
+   :telos "water + sanitation — community-scale (Φ + 子孫)"}
+  {:actor "kuni-umi"  :weights {:phi 0.30 :eta 0.22 :wellbecoming 0.18 :efficiency 0.22 :surprise 0.08}
+   :telos "planetary-infra producer (Φ + efficiency)"}
+  {:actor "kazaori"   :weights {:phi 0.22 :eta 0.24 :wellbecoming 0.34 :efficiency 0.12 :surprise 0.08}
+   :telos "civilian disaster response → relief (子孫 dominant, force-separation)"}
+  {:actor "himotoki"  :weights {:phi 0.18 :eta 0.32 :wellbecoming 0.30 :efficiency 0.12 :surprise 0.08}
+   :telos "active disclosure-request filer → own-data access (η + 子孫)"}
+  {:actor "kurashimori" :weights {:phi 0.18 :eta 0.32 :wellbecoming 0.30 :efficiency 0.12 :surprise 0.08}
+   :telos "consumer-protection concierge → rights (η + 子孫, UPL-bounded)"}]
 
  ;; ── rollout: the rule applies to the WHOLE roster ──
  ;; The 6 specs above are exemplars. Every actor in the roster (Status § Tier-B actors) MUST grow a

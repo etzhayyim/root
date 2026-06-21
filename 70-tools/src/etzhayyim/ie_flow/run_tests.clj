@@ -9,7 +9,8 @@
          'etzhayyim.ie-flow.test-lifecycle
          'etzhayyim.ie-flow.test-reward
          'etzhayyim.ie-flow.test-react
-         'etzhayyim.ie-flow.test-control)
+         'etzhayyim.ie-flow.test-control
+         'etzhayyim.ie-flow.test-colony)
 
 (let [{:keys [fail error]}
       (t/run-tests 'etzhayyim.ie-flow.test-metrics
@@ -19,7 +20,8 @@
                    'etzhayyim.ie-flow.test-lifecycle
                    'etzhayyim.ie-flow.test-reward
                    'etzhayyim.ie-flow.test-react
-                   'etzhayyim.ie-flow.test-control)]
+                   'etzhayyim.ie-flow.test-control
+                   'etzhayyim.ie-flow.test-colony)]
   (if (pos? (+ (or fail 0) (or error 0)))
     (do (println "── ie-flow: FAILURES above ──") (System/exit 1))
     (println "── ie-flow: ALL suites green ──")))
