@@ -34,7 +34,11 @@
   {:cell/id "fetch"     :cell/kind :clj       :cell/runtime :bb     :cell/doc "R3 AUTONOMOUS read-only PUBLIC-source fetch → ingest; no operator, no key (no-server-key: read-only) — :member-principal refused here, runs in member runtime (methods/fetch.cljc)"}
   {:cell/id "ingest"    :cell/kind :clj       :cell/runtime :bb     :cell/doc "R3 live fare ingest: parsed payload → :authoritative :fare rows; charter-bounded source (no paid terminal), G1/G4/G5 enforced, no-server-key (methods/ingest.cljc)"}
   {:cell/id "digest"    :cell/kind :clj       :cell/runtime :bb     :cell/doc "R3 Murakumo-narrated fare digest, loopback-only + fail-open template (G6) (methods/digest.cljc)"}
-  {:cell/id "wasm"      :cell/kind :wasm      :cell/runtime :wasm   :cell/doc "R3 compute-only WASM component scaffold (wasm/world.wit + build.clj/bb); no wasi:sockets/clocks/random — absence = G1/G5/G6 guarantee; artifact build = operator step"}]
+  {:cell/id "wasm"      :cell/kind :wasm      :cell/runtime :wasm   :cell/doc "R3 compute-only WASM component scaffold (wasm/world.wit + build.clj/bb); no wasi:sockets/clocks/random — absence = G1/G5/G6 guarantee; artifact build = operator step"}
+  {:cell/id "identity"  :cell/kind :clj       :cell/runtime :bb     :cell/doc "R3+ actor self-certifying did:key — Ed25519 keygen + did:key encode + present-only sign/verify; sealed seed (Keychain/1Password), never exposed (methods/identity.cljc)"}
+  {:cell/id "bridge"    :cell/kind :clj       :cell/runtime :bb     :cell/doc "R3+ push local commit-DAG → LIVE kotoba engine; host allowlist, exactly-once :bridge cursor, expected_parent, dry-run default, operator-bearer + member CACAO leash present-only, fail-open (methods/kotoba_bridge.cljc)"}
+  {:cell/id "openflights" :cell/kind :clj     :cell/runtime :bb     :cell/doc "R3+ OpenFlights ODbL public-domain airports/airlines → :authoritative :airport/:carrier coverage rows (read-only; no fares fabricated) (methods/openflights.cljc)"}
+  {:cell/id "fleet"     :cell/kind :clj       :cell/runtime :bb     :cell/doc "R3+ TsubasaHeartbeatCell — registered in cell-runner cells.edn (node asher, cron 27 * * * *, healthz 13090); fire = one local heartbeat, no I/O (cell.cljc)"}]
 
  :actor/lexicons
  ["com.etzhayyim.tsubasa.fare"

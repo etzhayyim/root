@@ -44,12 +44,23 @@ seed, and the datom emitter — and proven by `test_analyze` + `test_seed_integr
   fail-open to a deterministic anti-dark template (G6).
 - `wasm/` — **R3** compute-only WASM Component scaffold (`world.wit` + `build.clj` (bb)); no
   `wasi:sockets/clocks/random` (absence = G1/G5/G6); artifact build = operator step.
-- `methods/test_*.cljc` — analyze / kotoba / autorun / seed-integrity / ingest / digest / fetch suites.
+- `methods/identity.cljc` — **R3+** actor self-certifying `did:key`: Ed25519 keygen + did:key
+  encode + present-only sign/verify; seed sealed (Keychain/1Password), never exposed.
+- `methods/kotoba_bridge.cljc` — **R3+** push local commit-DAG → LIVE kotoba engine (:8077);
+  host allowlist, exactly-once `:bridge` cursor, dry-run default, operator-bearer + member CACAO
+  leash present-only, fail-open. Wired into `autorun --bridge`.
+- `methods/openflights.cljc` — **R3+** OpenFlights ODbL public-domain airports/airlines →
+  `:authoritative` `:airport`/`:carrier` coverage rows (read-only; no fares fabricated).
+- `cell.cljc` — **R3+** `tsubasa.cell/fire` heartbeat; registered as `TsubasaHeartbeatCell`
+  (cells.edn, node asher, cron `27 * * * *`, healthz 13090).
+- `methods/test_*.cljc` — analyze / kotoba / autorun / seed-integrity / ingest / digest / fetch /
+  identity / kotoba_bridge / openflights suites.
 - `run_tests.clj` — bb-native runner (no shell — per the repo clj/bb rule; supersedes `run_tests.sh`).
 
 ## Run (scripts are bb — repo clj/bb rule; no shell)
 ```
-bb 20-actors/tsubasa/run_tests.clj                                   # 57 tests / 590 assertions (cwd-independent)
+bb 20-actors/tsubasa/run_tests.clj                                   # 74 tests / 634 assertions (cwd-independent)
+bb --classpath 20-actors 20-actors/tsubasa/methods/autorun.cljc 20-actors/tsubasa/data/seed-fares.kotoba.edn data/persisted/tsubasa.observations.kotoba.edn --bridge  # heartbeat + push to LIVE engine (dry-run unless TSUBASA_KOTOBA_LIVE=1)
 bb --classpath 20-actors 20-actors/tsubasa/methods/analyze.cljc      # competition + fare map + coverage
 bb --classpath 20-actors 20-actors/tsubasa/methods/autorun.cljc      # one heartbeat → append to the ledger
 bb --classpath 20-actors 20-actors/tsubasa/methods/digest.cljc       # Murakumo digest (fail-open template)

@@ -18,6 +18,7 @@
   commission, never books, never tracks the searcher."
   (:require [tsubasa.methods.analyze :as a]
             [tsubasa.methods.kotoba :as k]
+            #?(:clj [tsubasa.methods.kotoba-bridge :as bridge])
             #?(:clj [clojure.edn :as edn])))
 
 (defn beat
@@ -45,17 +46,26 @@
 
 #?(:clj
    (defn -main [& args]
-     (let [seed (or (first args) "20-actors/tsubasa/data/seed-fares.kotoba.edn")
-           log-path (or (second args)
+     ;; flags: --bridge pushes the local commit-DAG to the LIVE kotoba engine after persist
+     ;; (FAIL-OPEN: engine down / operator DID absent → the beat still completes locally).
+     (let [pos (vec (remove #(clojure.string/starts-with? (str %) "--") args))
+           bridge? (boolean (some #{"--bridge"} args))
+           seed (or (first pos) "20-actors/tsubasa/data/seed-fares.kotoba.edn")
+           log-path (or (second pos)
                         (-> (clojure.java.io/file *file*) .getParentFile .getParentFile
                             (clojure.java.io/file "data" "persisted" "tsubasa.observations.kotoba.edn") str))
            rows (vec (edn/read-string (slurp seed)))
-           r (beat {:rows rows :tx-id "tsubasa-beat-manual" :as-of "manual" :log-path log-path})]
+           r (beat {:rows rows :tx-id "tsubasa-beat-manual" :as-of "manual" :log-path log-path})
+           br (when bridge?
+                (try (let [b (bridge/push log-path {})]   ; dry-run unless TSUBASA_KOTOBA_LIVE=1
+                       (select-keys b [:mode :pending :pushed :principal :datoms-confirmed]))
+                     (catch Exception e {:error (.getMessage e)})))]
        (println (str "fare-observation ledger head=" (:head r)
                      " datoms=" (:count r)
                      " routes=" (:routes r) " carriers=" (:carriers r)
                      " appended=" (:appended r)
-                     (when (:reason r) (str " (" (name (:reason r)) ")"))))
+                     (when (:reason r) (str " (" (name (:reason r)) ")"))
+                     (when bridge? (str " | bridge=" (pr-str br)))))
        (println (str "chain=" (k/verify-chain log-path))))))
 
 #?(:clj
