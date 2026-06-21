@@ -1529,4 +1529,99 @@
   :stakeholders ["HVM/IRD factions" "electoral commission" "opposition" "citizens"]
   :stock :participation-barrier :polarity :ambiguous :magnitude 0.5 :reversibility :institutional :meadows 4
   :basis "Madagascar 2009 coup; 2018/2023 elections" :sourcing :representative :confidence 0.4}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 12 — rebalance thin stocks: economic-capture + coercion depth
+ ;; + new jurisdictions (TG ME SO MK GN) — widen + narrow
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── economic-capture ──
+ {:type :instrument :id "jp-amakudari" :name "天下り (amakudari revolving door)" :jurisdiction "JP" :kind :institution :year 1947
+  :enactor "Japanese bureaucratic practice (regulated by the National Public Service Act)"
+  :origin "Retired senior bureaucrats 'descend from heaven' into the industries and public corporations they regulated, creating a structural conflict of interest that blunts regulatory accountability to citizens; periodic reforms have curbed but not ended it."
+  :stakeholders ["ministries" "regulated industries" "public corporations" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.5 :reversibility :institutional :meadows 4
+  :basis "天下り; National Public Service Act reforms" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "ph-political-dynasties" :name "Political dynasties (unenforced constitutional ban)" :jurisdiction "PH" :kind :institution :year 1987
+  :enactor "Philippine political families; Congress (which never passed the enabling law)"
+  :origin "The 1987 Constitution prohibits political dynasties 'as may be defined by law', but Congress — dominated by those families — has never passed the enabling statute, so a few families capture much of elective office and local economies."
+  :stakeholders ["political families" "Congress" "local economies" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.6 :reversibility :statutory :meadows 5
+  :basis "1987 Constitution, Art. II §26 (no enabling law)" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "ng-oil-capture" :name "Oil-revenue allocation + NNPC opacity" :jurisdiction "NG" :kind :institution :year 1977
+  :enactor "Nigerian state (Federation Account; NNPC)"
+  :origin "Concentration of oil rents in the state oil company and the federation-account allocation system, with limited transparency, channels economic power to a political-elite network and away from citizen accountability (the 2021 Petroleum Industry Act sought partial reform)."
+  :stakeholders ["NNPC" "federal/state governments" "oil majors" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.65 :reversibility :institutional :meadows 4
+  :basis "Nigerian Federation Account; NNPC; PIA 2021" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "ua-oligarch-system" :name "Oligarchic system + 2021 de-oligarchization law" :jurisdiction "UA" :kind :institution :year 1995
+  :enactor "Ukrainian oligarchic structure (post-Soviet); 2021 anti-oligarch law (corrective)"
+  :origin "A handful of oligarchs controlling media, industry, and politicians long captured policy; a 2021 'de-oligarchization' law and wartime nationalizations began to unwind it — economic capture with an active corrective."
+  :stakeholders ["oligarchs" "media holdings" "presidency/Rada" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.6 :reversibility :statutory :meadows 4
+  :basis "Ukrainian oligarchy; 2021 de-oligarchization law" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "us-revolving-door" :name "Regulatory revolving door / agency capture" :jurisdiction "US" :kind :institution :year 1946
+  :enactor "U.S. institutional practice (across agencies + K Street)"
+  :origin "Movement of personnel between regulatory agencies, Congress, and the industries they oversee — alongside concentrated lobbying — produces regulatory capture that tilts policy toward incumbents, a structural economic asymmetry distinct from campaign finance."
+  :stakeholders ["federal agencies" "lobbying firms" "regulated industries" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.55 :reversibility :institutional :meadows 4
+  :basis "U.S. regulatory-capture literature; LDA 1995" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "br-ficha-limpa-2010" :name "Lei da Ficha Limpa (Clean Record Law)" :jurisdiction "BR" :kind :law :year 2010
+  :enactor "National Congress of Brazil (via a 1.6M-signature popular initiative)"
+  :origin "A citizen-initiated law barring candidates convicted of serious crimes (incl. corruption) from running for eight years — a bottom-up tool reducing the capture of office by the already-powerful."
+  :stakeholders ["popular-initiative campaign" "electoral courts" "candidates" "citizens"]
+  :stock :economic-capture :polarity :narrow :magnitude 0.5 :reversibility :statutory :meadows 5
+  :basis "Lei Complementar 135/2010 (Ficha Limpa)" :sourcing :representative :confidence 0.45}
+
+ ;; ── coercion-asymmetry ──
+ {:type :instrument :id "fr-etat-urgence-2015" :name "État d'urgence (2015) → SILT 2017" :jurisdiction "FR" :kind :law :year 2015
+  :enactor "French government + Parliament (after the November 2015 attacks)"
+  :origin "A state of emergency enabling administrative searches, house arrests, and assembly bans was repeatedly extended for two years, then many of its measures were folded into ordinary law via the 2017 SILT counter-terror act — normalizing emergency executive powers."
+  :stakeholders ["Interior Ministry" "Conseil constitutionnel" "civil-liberties groups" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.55 :reversibility :statutory :meadows 5
+  :basis "France état d'urgence 2015–17; loi SILT (2017)" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "in-afspa-1958" :name "Armed Forces (Special Powers) Act" :jurisdiction "IN" :kind :law :year 1958
+  :enactor "Parliament of India"
+  :origin "Grants the military broad powers (including to fire on suspicion) and effective immunity from prosecution in designated 'disturbed areas' (NE India, J&K); long criticized for enabling abuses with little accountability to affected citizens."
+  :stakeholders ["armed forces" "Home Ministry" "affected communities" "courts"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.65 :reversibility :statutory :meadows 5
+  :basis "AFSPA, 1958" :sourcing :representative :confidence 0.5}
+ {:type :instrument :id "il-administrative-detention" :name "Administrative detention (secret-evidence, renewable)" :jurisdiction "IL" :kind :institution :year 1979
+  :enactor "Israeli state (Emergency Powers (Detention) Law 1979; military orders)"
+  :origin "Permits detention without charge or trial on secret evidence, renewable indefinitely in six-month increments, used most extensively in the occupied territories — a standing coercion asymmetry with limited judicial recourse for detainees."
+  :stakeholders ["military/security services" "detainees" "courts" "rights groups"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.65 :reversibility :statutory :meadows 5
+  :basis "Emergency Powers (Detention) Law 1979; military orders" :sourcing :representative :confidence 0.45}
+
+ ;; ── new jurisdictions (participation) ──
+ {:type :instrument :id "tg-gnassingbe-dynasty" :name "Gnassingbé dynasty + 2024 parliamentary shift" :jurisdiction "TG" :kind :institution :year 1967
+  :enactor "Togolese state (Gnassingbé family, ruling since 1967)"
+  :origin "One family has held power since 1967; a 2024 constitutional change to a parliamentary system (with the president chosen by parliament) was widely seen as a route to extend that control, narrowing the citizen's direct presidential vote."
+  :stakeholders ["presidency" "ruling party" "opposition" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.8 :reversibility :constitutional :meadows 4
+  :basis "Togo (since 1967); 2024 constitutional change" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "me-2020-alternation" :name "2020 first alternation of power" :jurisdiction "ME" :kind :institution :year 2020
+  :enactor "Montenegrin electorate"
+  :origin "The long-dominant party lost power for the first time since the introduction of multiparty politics, demonstrating that the electoral channel could deliver alternation after three decades of one-party dominance."
+  :stakeholders ["electoral commission" "opposition coalition" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.5 :reversibility :institutional :meadows 4
+  :basis "2020 Montenegrin parliamentary election" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "so-clan-federalism" :name "4.5 clan power-sharing + indirect elections" :jurisdiction "SO" :kind :institution :year 2004
+  :enactor "Somali transitional/federal arrangements (4.5 formula)"
+  :origin "Power is shared among four major clans (and a 0.5 for minorities) and leaders are chosen through clan-delegate indirect elections; there has been no one-person-one-vote national election since 1969, so citizens choose leaders only mediated by clan elites."
+  :stakeholders ["clan elders" "federal member states" "international partners" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.7 :reversibility :institutional :meadows 4
+  :basis "Somali 4.5 power-sharing; indirect elections" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "mk-democracy" :name "Ohrid power-sharing + EU/NATO consolidation" :jurisdiction "MK" :kind :institution :year 2001
+  :enactor "North Macedonian state (Ohrid Framework Agreement 2001; Prespa Agreement 2018)"
+  :origin "The 2001 Ohrid Agreement ended conflict with minority power-sharing, and the 2018 Prespa name deal unblocked NATO/EU accession; competitive elections and alternation have continued — a consolidating participation channel."
+  :stakeholders ["governing coalitions" "Albanian-minority parties" "EU/NATO" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.5 :reversibility :institutional :meadows 4
+  :basis "Ohrid Framework (2001); Prespa Agreement (2018)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gn-2021-coup" :name "2021 coup (post-third-term)" :jurisdiction "GN" :kind :institution :year 2021
+  :enactor "Guinean special forces (junta)"
+  :origin "The military ousted a president who had changed the constitution to win a controversial third term; it ended that overreach but installed a junta that postponed elections — an ambiguous-to-widening rupture of the participation channel."
+  :stakeholders ["military junta" "deposed president" "ECOWAS" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.75 :reversibility :institutional :meadows 4
+  :basis "September 2021 Guinea coup" :sourcing :representative :confidence 0.45}
 ]

@@ -196,7 +196,7 @@
    "GH" :africa "CD" :africa "MZ" :africa "NA" :africa "CI" :africa "ER" :africa
    "GQ" :africa "SZ" :africa "LY" :africa "MU" :africa "CV" :africa "GM" :africa
    "LR" :africa "SS" :africa "MW" :africa "GA" :africa "BF" :africa "NE" :africa
-   "BJ" :africa "MG" :africa
+   "BJ" :africa "MG" :africa "TG" :africa "SO" :africa "GN" :africa
    ;; Americas
    "US" :americas "BR" :americas "MX" :americas "CL" :americas "AR" :americas
    "VE" :americas "CU" :americas "CO" :americas "PE" :americas "BO" :americas
@@ -217,7 +217,7 @@
    "GR" :europe "ES" :europe "PT" :europe "UA" :europe "CZ" :europe "RO" :europe
    "NL" :europe "FI" :europe "BE" :europe "AT" :europe "LT" :europe "HR" :europe
    "SK" :europe "BG" :europe "GE" :europe "SI" :europe "LV" :europe "MD" :europe
-   "AM" :europe
+   "AM" :europe "ME" :europe "MK" :europe
    ;; Asia (Malaysia, Yemen)
    "MY" :asia "YE" :asia
    ;; Oceania
@@ -318,6 +318,23 @@
                          :when (seq is)]
                      [s {:net (round3 (/ (reduce + cs) (count cs))) :count (count is)}]))])))
 
+(def kind-order [:law :institution :doctrine :value])
+
+(defn kind-polarity-matrix
+  "For each instrument KIND, the net pressure (mean signed contribution) + count +
+  polarity mix. Answers: do laws vs institutions vs doctrines vs values systematically
+  widen or narrow the citizen↔state asymmetry? Fully aggregate, no geography;
+  HYPOTHESIS (G5)."
+  [instruments]
+  (into {}
+        (for [k kind-order
+              :let [in-k (filter #(= k (:kind %)) instruments)
+                    cs (map contribution in-k)]
+              :when (seq in-k)]
+          [k {:count (count in-k)
+              :net (round3 (/ (reduce + cs) (count cs)))
+              :polarity (frequencies (map :polarity in-k))}])))
+
 (defn leverage-by-region
   "Per-continent, the single most TRACTABLE flip candidate (widening instrument
   whose loop could most plausibly flip, by flip-score). CANDIDATES with uncertainty,
@@ -350,6 +367,8 @@
                                   (region-stock-matrix instruments)))
      "leverage_by_region" (into {} (map (fn [[r c]] [(name r) c])
                                         (leverage-by-region instruments)))
+     "kind_polarity" (into {} (map (fn [[k v]] [(name k) v])
+                                   (kind-polarity-matrix instruments)))
      "coverage" (coverage instruments)
      "hypothesis_only" true
      "actuation_taken" false}))
@@ -500,6 +519,13 @@
                       (apply str (for [s stock-order]
                                    (let [c (get m (name s))]
                                      (str " | " (if c (:net c) "·"))))) " |")))
+     "\n\n## Instrument kind × net pressure (do laws/institutions/doctrines/values widen or narrow?)\n\n"
+     "| kind | n | net | polarity mix |\n|---|---|---|---|\n"
+     (str/join "\n" (for [k kind-order
+                          :let [m (get (get analysis "kind_polarity") (name k))]
+                          :when m]
+                      (str "| " (name k) " | " (:count m) " | " (:net m)
+                           " | " (pr-str (:polarity m)) " |")))
      "\n\n## Era trajectory (system-dynamics over time, HYPOTHESIS, G5)\n\n"
      "_各時代に制定された instrument が非対称を広げる/狭める方向にどれだけ傾くか。構造の時系列であって国家 ranking ではない (G7)。undated な transnational values は除外。_\n\n"
      "| era | n | widen | narrow | net |\n"

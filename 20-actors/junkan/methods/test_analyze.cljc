@@ -155,6 +155,17 @@
       (is (string? (:name c)))
       (is (string? (:jurisdiction c))))))
 
+;; ── kind × polarity (do kinds systematically widen/narrow?) ──────────────────
+(deftest kind-polarity-shape
+  (let [kp (get (a) "kind_polarity")]
+    (is (map? kp))
+    (is (contains? kp "law"))
+    (is (contains? kp "value") "the :value kind is represented")
+    (doseq [[_ m] kp]
+      (is (contains? m :net))
+      (is (pos? (:count m)))
+      (is (map? (:polarity m))))))
+
 ;; ── temporal era trajectory (structural over time; not a ranking) ────────────
 (deftest era-bucketing
   (is (nil? (az/era-of 0)) "undated → nil")

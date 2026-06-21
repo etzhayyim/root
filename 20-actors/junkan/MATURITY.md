@@ -15,14 +15,14 @@ ADR-2605290927 · clj-native, kotoba-Datom-native · updated 2026-06-21
 | # | item | status |
 |---|---|---|
 | 1 | ontology (EAVT schema, 5 stocks, loops, Meadows, negative space) | ✅ `kotoba/ontology.junkan-gov.edn` |
-| 2 | global instrument seed (laws/institutions/doctrines/values) | ✅ 195 instruments · 153 jurisdictions · 4 kinds incl :value (iter 11) |
+| 2 | global instrument seed (laws/institutions/doctrines/values) | ✅ 209 instruments · 158 jurisdictions · 4 kinds incl :value (iter 12) |
 | 3 | 誰が (enactor) on every instrument | ✅ test-enforced |
 | 4 | 経緯 (origin) on every instrument | ✅ test-enforced |
 | 5 | 関係者 (stakeholders) on every instrument | ✅ test-enforced |
 | 6 | all 5 asymmetry stocks covered | ✅ test-enforced |
 | 7 | both polarities present (widen + narrowing/balancers) | ✅ test-enforced |
 | 8 | analysis read-off (stock regimes + member-stock-grounded loops + leverage + coverage) | ✅ `methods/analyze.cljc` |
-| 9 | EAVT datom emission (flagged :derived + :hypothesis) | ✅ 2969 datoms |
+| 9 | EAVT datom emission (flagged :derived + :hypothesis) | ✅ 3165 datoms |
 | 9b | temporal era-trajectory analytic (widen/narrow force per era) | ✅ `analyze/era-trajectory` (iter 3) |
 | 9c | EAVT/AVET/VAET arrangement queries over the datoms | ✅ `methods/query.cljc` (iter 4) |
 | 10 | content-addressed findings ledger (commit-DAG, verify-chain) | ✅ `methods/kotoba.cljc` |
@@ -38,7 +38,8 @@ ADR-2605290927 · clj-native, kotoba-Datom-native · updated 2026-06-21
 | 16e | substrate integrity checker (ontology↔seed↔region-map) | ✅ `methods/validate.cljc` · 0 errors (iter 9) |
 | 16f | generated live SCORECARD (coverage+integrity+read-off) | ✅ `methods/scorecard.cljc` → SCORECARD.md (iter 10) |
 | 16g | leverage-by-continent (most tractable flip candidate per region) | ✅ `analyze/leverage-by-region` (iter 11) |
-| 17 | tests green | ✅ 57 tests / 2850 assertions |
+| 16h | kind × polarity matrix (laws widen / doctrines narrow) | ✅ `analyze/kind-polarity-matrix` (iter 12) |
+| 17 | tests green | ✅ 58 tests / 3047 assertions |
 | 18 | live passive-data ingest (Tier-A public archives) | ⏳ R1, Council-gated |
 | 19 | kotoba-kqe live-engine binding | ⏳ R1 |
 | 20 | Murakumo-only LLM-assisted loop-naming | ⏳ R1 |
