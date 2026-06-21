@@ -187,7 +187,9 @@
          (->> (str/split-lines (slurp f))
               (map str/trim)
               (remove (fn [line] (or (= "" line) (str/starts-with? line ";"))))
-              (mapv (fn [line] (ip-edn/parse (ip-edn/tokens line)))))))))
+              ;; each log line is one tx-map; ip-edn/read-all is the complete EDN reader
+              ;; (the clj-port referenced ip-edn/parse + ip-edn/tokens, which were never implemented).
+              (mapv (fn [line] (ip-edn/read-all line))))))))
 
 #?(:clj
    (defn head-cid
