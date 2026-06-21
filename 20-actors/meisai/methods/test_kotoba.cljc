@@ -28,10 +28,10 @@
 (deftest make-tx-test
   (let [d1 [(k/add "meisai-stmt:sumitclub:2026-05" ":meisai.stmt/total-jpy" 12345)
             (k/add "meisai-stmt:sumitclub:2026-05" ":meisai.stmt/source" ":sumitclub")]
-        tx (k/make-tx d1 {:tx-id 1 :as-of 100 :prev-cid ""})]
-    (is (= (:tx/cid tx)
+        tx (k/make-tx d1 1 100 "")]
+    (is (= (get tx ":tx/cid")
            "ba0f8ed84b210641fc08a574c02ca1d3a6f47cee30b748edd496671f4ec6293c6"))
-    (is (= (:tx/count tx) 2))))
+    (is (= (get tx ":tx/count") 2))))
 
 (deftest parse-edn-test
   (is (= (k/parse-edn "[:a 1 true nil \"x\"]")
@@ -40,7 +40,7 @@
 (deftest roundtrip-test
   (let [d1 [(k/add "meisai-stmt:sumitclub:2026-05" ":meisai.stmt/total-jpy" 12345)
             (k/add "meisai-stmt:sumitclub:2026-05" ":meisai.stmt/source" ":sumitclub")]
-        tx (k/make-tx d1 {:tx-id 1 :as-of 100 :prev-cid ""})
+        tx (k/make-tx d1 1 100 "")
         edn (k/tx->edn tx)
         parsed (k/parse-edn edn)]
     (is (= (get parsed ":tx/cid")
@@ -54,8 +54,8 @@
            d1 [(k/add "meisai-stmt:sumitclub:2026-05" ":meisai.stmt/total-jpy" 12345)
                (k/add "meisai-stmt:sumitclub:2026-05" ":meisai.stmt/source" ":sumitclub")]
            d2 [(k/add "meisai-row:abc" ":meisai.row/amount-jpy" 980)]
-           tx1 (k/make-tx d1 {:tx-id 1 :as-of 100 :prev-cid ""})
-           tx2 (k/make-tx d2 {:tx-id 2 :as-of 200 :prev-cid (:tx/cid tx1)})]
+           tx1 (k/make-tx d1 1 100 "")
+           tx2 (k/make-tx d2 2 200 (get tx1 ":tx/cid"))]
        (k/append-tx tx1 path)
        (k/append-tx tx2 path)
        (let [result (k/verify-chain path)]
