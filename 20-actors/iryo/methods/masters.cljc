@@ -3,7 +3,7 @@
             [clojure.java.io :as io]))
 
 (defn- seed-path []
-  "20-actors/iryo/py/seed_masters.json")
+  "20-actors/iryo/data/seed_masters.json")
 
 (defn load-json [path]
   (-> (slurp path) (json/parse-string)))
