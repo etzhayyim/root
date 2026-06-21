@@ -14,17 +14,17 @@
     "report.md"
   ],
   "regenerate": "bb --classpath 20-actors -e \"(require '[junkan.methods.junkan-edn :as je] '[junkan.methods.analyze :as az] '[junkan.methods.kotoba :as k]) (let [is (je/instruments \\\"20-actors/junkan/kotoba/seed.governance-asymmetry.edn\\\") a (az/analyze is) ds (az/datoms is a) tx (k/make-tx ds \\\"junkan-gov-snapshot-0001\\\" \\\"snapshot\\\" \\\"\\\")] (spit \\\"80-data/junkan-governance/governance-asymmetry.datoms.kotoba.edn\\\" (az/render-datoms is a)) (spit \\\"80-data/junkan-governance/findings-ledger.kotoba.edn\\\" (k/tx->edn tx)) (spit \\\"80-data/junkan-governance/report.md\\\" (az/render-report a)))\"",
-  "tx_cid": "b4899a2909d8a06d0c392088c570984c7fb86848c5d3abceafc1d7f70fcc86044",
-  "datoms": 2521,
-  "instruments": 163,
-  "jurisdictions": 121,
-  "regions": {"asia": 43, "europe": 24, "africa": 23, "americas": 22, "oceania": 7, "transnational": 2},
-  "kinds": {"law": 54, "institution": 81, "doctrine": 24, "value": 4},
+  "tx_cid": "b6fc959331fa6146c1cbe3764a642ba28162b83fb0790650ff8e8f60b4ed08ac0",
+  "datoms": 2689,
+  "instruments": 175,
+  "jurisdictions": 133,
+  "regions": {"asia": 43, "europe": 33, "africa": 26, "americas": 22, "oceania": 7, "transnational": 2},
+  "kinds": {"law": 57, "institution": 90, "doctrine": 24, "value": 4},
   "tx_cid_note": "tx-cid reproducible byte-for-byte from the seed (deterministic content-address); changes only when the seed changes.",
   "sourcing": "representative (laws/years/enactors/origins are on-the-record public facts; polarity/magnitude/confidence are junkan's disclosed hypotheses, G5)",
   "discipline": "G4 analysis-only / G5 hypothesis-only / G6 aggregate-only / G7 map-not-rank / G11 candidates-not-directives",
   "as_of": "2026-06-21",
-  "iteration": 8,
+  "iteration": 9,
   "iteration_history": [
     {"iteration": 1, "instruments": 35, "jurisdictions": 17, "tx_cid": "bb4be4ac091ae9cc9be30c732d2fc78f773afabea84d6deccb96b784576a1d814"},
     {"iteration": 2, "instruments": 59, "jurisdictions": 31, "note": "Global South / under-represented wave: BR MX ZA NG ID TR IR PH PK VN KE TN CL TW"},
@@ -33,6 +33,7 @@
     {"iteration": 5, "instruments": 115, "jurisdictions": 74, "note": "Latin America / sub-Saharan Africa / MENA / Pacific wave: CO PE BO NI GH TZ AO IQ SY AF FJ MN CR UY BW DZ + nationalism value; + loop regimes grounded in member-stock edges (joint drive, not dominant alone)"},
     {"iteration": 6, "instruments": 133, "jurisdictions": 92, "note": "Central Asia / Balkans / Levant & Gulf / Sahel & S.Africa / SE Asia wave: UZ KG TJ RS BA JO LB KW BH OM SD ML ZM SN LA BT BN MV; + continental region coverage (all 5 continents mapped, balance + gap detection in analyze/coverage)"},
     {"iteration": 7, "instruments": 149, "jurisdictions": 108, "note": "Thin-continent reinforcement: Pacific (PG WS TO VU TL) + Americas (CA SV HN GT HT EC) + small European democracies (EE IS IE AL GR); + transparent leverage scoring (disclosed weights + per-candidate score/components, auditable rank). Continents balanced: asia 42 / europe 19 / africa 19 / americas 19 / oceania 7"},
-    {"iteration": 8, "instruments": 163, "jurisdictions": 121, "note": "Japan (1947 Constitution + 2013 Designated Secrets Act) + Iberia/E.Europe (ES PT UA CZ RO) + Caribbean (JM TT BB) + remaining Africa (CD MZ NA CI); + stock×continent cross-tab (which asymmetry is most active on which continent, aggregate/hypothesis, never per-country ranking)"}
+    {"iteration": 8, "instruments": 163, "jurisdictions": 121, "note": "Japan (1947 Constitution + 2013 Designated Secrets Act) + Iberia/E.Europe (ES PT UA CZ RO) + Caribbean (JM TT BB) + remaining Africa (CD MZ NA CI); + stock×continent cross-tab (which asymmetry is most active on which continent, aggregate/hypothesis, never per-country ranking)"},
+    {"iteration": 9, "instruments": 175, "jurisdictions": 133, "note": "Benelux/Nordic/Baltic/Balkans (NL FI BE AT LT HR SK BG) + Africa absolute-rule outliers (ER GQ SZ) + Georgia (GE); + validate.cljc substrate integrity checker (ontology↔seed↔region-map consistency, runnable + 5 tests, live substrate 0 errors/0 warnings)"}
   ]
 }

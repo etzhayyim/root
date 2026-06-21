@@ -1258,4 +1258,105 @@
   :stakeholders ["electoral commission" "incumbents" "opposition" "citizens"]
   :stock :participation-barrier :polarity :ambiguous :magnitude 0.5 :reversibility :institutional :meadows 4
   :basis "Ivorian elections (2010/2020)" :sourcing :representative :confidence 0.4}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 9 — Benelux/Nordic/Baltic/Balkans (NL FI BE AT LT HR SK BG) +
+ ;; Africa absolute-rule outliers (ER GQ SZ) + Georgia (GE) — widen + narrow
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── Netherlands ──
+ {:type :instrument :id "nl-toeslagenaffaire-2021" :name "Toeslagenaffaire (childcare-benefits scandal)" :jurisdiction "NL" :kind :institution :year 2021
+  :enactor "Dutch Tax Administration (Belastingdienst) + government"
+  :origin "The tax authority used opaque risk-profiling (including nationality) to wrongly brand tens of thousands of parents as fraudsters, ruining families; the scandal forced the cabinet's 2021 resignation — an algorithmic state-vs-citizen asymmetry in a mature democracy."
+  :stakeholders ["Belastingdienst" "affected families" "Parliament" "Data Protection Authority"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.5 :reversibility :institutional :meadows 6
+  :basis "Toeslagenaffaire (2019–2021)" :sourcing :representative :confidence 0.45}
+
+ ;; ── Finland ──
+ {:type :instrument :id "fi-openness-1999" :name "Act on the Openness of Government Activities" :jurisdiction "FI" :kind :law :year 1999
+  :enactor "Parliament of Finland"
+  :origin "Codified a strong presumption that official documents are public (a principle dating to the shared 1766 Swedish-Finnish tradition), giving citizens broad access to government records."
+  :stakeholders ["public authorities" "press" "citizens"]
+  :stock :information-asymmetry :polarity :narrow :magnitude 0.6 :reversibility :statutory :meadows 6
+  :basis "Act on the Openness of Government Activities (621/1999)" :sourcing :representative :confidence 0.5}
+
+ ;; ── Belgium ──
+ {:type :instrument :id "be-consociational" :name "Consociational federalism (linguistic communities)" :jurisdiction "BE" :kind :institution :year 1993
+  :enactor "Belgian state (successive state reforms, federal since 1993)"
+  :origin "Power is split among language communities and regions with guaranteed minority protections and alarm-bell procedures; it secures coexistence but produces long government-formation deadlocks, an ambiguous effect on direct citizen accountability."
+  :stakeholders ["language communities" "regions" "federal government" "citizens"]
+  :stock :participation-barrier :polarity :ambiguous :magnitude 0.4 :reversibility :constitutional :meadows 4
+  :basis "Belgian Constitution (federal reforms, 1970–1993)" :sourcing :representative :confidence 0.45}
+
+ ;; ── Austria ──
+ {:type :instrument :id "at-proporz" :name "Proporz consociational power-sharing" :jurisdiction "AT" :kind :institution :year 1945
+  :enactor "Austrian Second Republic (grand-coalition tradition)"
+  :origin "A postwar tradition of proportional sharing of state and public-sector posts between the two main parties stabilized democracy but entrenched party patronage over appointments, an ambiguous effect on impartial citizen access to the state."
+  :stakeholders ["SPÖ/ÖVP" "social partners" "public sector" "citizens"]
+  :stock :participation-barrier :polarity :ambiguous :magnitude 0.35 :reversibility :institutional :meadows 4
+  :basis "Austrian Proporz system (post-1945)" :sourcing :representative :confidence 0.4}
+
+ ;; ── Lithuania ──
+ {:type :instrument :id "lt-singing-revolution-1991" :name "Singing Revolution → restored independence" :jurisdiction "LT" :kind :institution :year 1991
+  :enactor "Lithuanian independence movement (Sąjūdis)"
+  :origin "Nonviolent mass mobilization across the Baltics restored independence from the USSR and established democratic constitutions and elections — a foundational citizen-participation opening."
+  :stakeholders ["Sąjūdis" "Supreme Council" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.6 :reversibility :constitutional :meadows 4
+  :basis "Baltic Singing Revolution (1987–1991); 1992 Constitution" :sourcing :representative :confidence 0.5}
+
+ ;; ── Croatia ──
+ {:type :instrument :id "hr-eu-democratization" :name "Post-Tuđman democratization + EU accession" :jurisdiction "HR" :kind :institution :year 2000
+  :enactor "Croatian state (reforms after 2000; EU member 2013)"
+  :origin "After the semi-authoritarian 1990s, reforms strengthened parliament, courts, and media and aligned with EU accession criteria, broadening citizen participation and accountability."
+  :stakeholders ["parliament (Sabor)" "EU" "judiciary" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.5 :reversibility :institutional :meadows 4
+  :basis "Croatian reforms (2000–2013 EU accession)" :sourcing :representative :confidence 0.45}
+
+ ;; ── Slovakia ──
+ {:type :instrument :id "sk-1998-turn" :name "1998 democratic turn (end of Mečiarism)" :jurisdiction "SK" :kind :institution :year 1998
+  :enactor "Slovak electorate + broad opposition coalition"
+  :origin "Voters removed the semi-authoritarian Mečiar government in 1998, reversing democratic backsliding and reopening EU/NATO accession — a citizen-led course correction via the ballot."
+  :stakeholders ["opposition coalition" "civil society" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.5 :reversibility :institutional :meadows 4
+  :basis "1998 Slovak parliamentary election" :sourcing :representative :confidence 0.45}
+
+ ;; ── Bulgaria ──
+ {:type :instrument :id "bg-post-communist" :name "Post-1989 democracy + anti-corruption protests" :jurisdiction "BG" :kind :institution :year 1991
+  :enactor "Bulgarian state (1991 Constitution) + recurrent protest movements"
+  :origin "A competitive democracy since 1991 with regular elections, but persistent corruption and capture concerns have driven repeated mass protests — participation works while accountability remains contested, an ambiguous balance."
+  :stakeholders ["National Assembly" "anti-corruption protesters" "EU" "citizens"]
+  :stock :participation-barrier :polarity :ambiguous :magnitude 0.35 :reversibility :institutional :meadows 4
+  :basis "Constitution of Bulgaria (1991); 2013/2020 protests" :sourcing :representative :confidence 0.4}
+
+ ;; ── Eritrea ──
+ {:type :instrument :id "er-no-constitution" :name "Unimplemented constitution + no elections" :jurisdiction "ER" :kind :institution :year 1993
+  :enactor "Eritrean state (PFDJ, since 1993 independence)"
+  :origin "A ratified 1997 constitution was never implemented; no national elections have been held since independence, the legislature does not convene, and indefinite national service binds citizens — among the most closed polities, with no electoral channel at all."
+  :stakeholders ["PFDJ" "presidency" "conscripts" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.95 :reversibility :entrenched :meadows 4
+  :basis "Eritrea: unimplemented 1997 Constitution" :sourcing :representative :confidence 0.55}
+
+ ;; ── Equatorial Guinea ──
+ {:type :instrument :id "gq-obiang-rule" :name "World's longest-ruling presidency" :jurisdiction "GQ" :kind :institution :year 1979
+  :enactor "Equatoguinean state (Obiang, since the 1979 coup)"
+  :origin "Decades of personalist rule with near-unanimous reported election results and oil wealth concentrated in the ruling family leave citizens no competitive electoral channel and little fiscal transparency."
+  :stakeholders ["presidency" "ruling family" "state oil sector" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.9 :reversibility :entrenched :meadows 4
+  :basis "Equatorial Guinea (since 1979)" :sourcing :representative :confidence 0.5}
+
+ ;; ── Eswatini ──
+ {:type :instrument :id "sz-absolute-monarchy" :name "Absolute monarchy (Tinkhundla, no parties)" :jurisdiction "SZ" :kind :institution :year 1973
+  :enactor "Swazi monarchy (1973 royal decree banning parties)"
+  :origin "Africa's last absolute monarchy bans political parties and runs a tinkhundla system where the king holds executive, legislative, and judicial supremacy — citizens vote for individuals but cannot contest the locus of power (2021 pro-democracy protests were suppressed)."
+  :stakeholders ["monarchy" "tinkhundla councils" "pro-democracy movement" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.85 :reversibility :entrenched :meadows 3
+  :basis "Eswatini 1973 decree; 2005 Constitution" :sourcing :representative :confidence 0.5}
+
+ ;; ── Georgia ──
+ {:type :instrument :id "ge-foreign-agents-2024" :name "'Transparency of Foreign Influence' law" :jurisdiction "GE" :kind :law :year 2024
+  :enactor "Parliament of Georgia (Georgian Dream majority)"
+  :origin "A Russia-style 'foreign agents' law requiring NGOs/media with foreign funding to register, passed over mass protests and a presidential veto, threatening the independent information and civil-society space ahead of EU-accession aspirations."
+  :stakeholders ["ruling party" "NGOs/media" "protest movement" "EU" "citizens"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.65 :reversibility :statutory :meadows 5
+  :basis "Georgian 'Transparency of Foreign Influence' law (2024)" :sourcing :representative :confidence 0.5}
 ]

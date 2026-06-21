@@ -193,7 +193,8 @@
    "NG" :africa "ZA" :africa "KE" :africa "ET" :africa "RW" :africa "UG" :africa
    "ZW" :africa "AO" :africa "TZ" :africa "SD" :africa "ML" :africa "ZM" :africa
    "SN" :africa "DZ" :africa "EG" :africa "MA" :africa "TN" :africa "BW" :africa
-   "GH" :africa "CD" :africa "MZ" :africa "NA" :africa "CI" :africa
+   "GH" :africa "CD" :africa "MZ" :africa "NA" :africa "CI" :africa "ER" :africa
+   "GQ" :africa "SZ" :africa
    ;; Americas
    "US" :americas "BR" :americas "MX" :americas "CL" :americas "AR" :americas
    "VE" :americas "CU" :americas "CO" :americas "PE" :americas "BO" :americas
@@ -212,6 +213,8 @@
    "PL" :europe "SE" :europe "NO" :europe "CH" :europe "RS" :europe "BA" :europe
    "RU" :europe "BY" :europe "EE" :europe "IS" :europe "IE" :europe "AL" :europe
    "GR" :europe "ES" :europe "PT" :europe "UA" :europe "CZ" :europe "RO" :europe
+   "NL" :europe "FI" :europe "BE" :europe "AT" :europe "LT" :europe "HR" :europe
+   "SK" :europe "BG" :europe "GE" :europe
    ;; Oceania
    "NZ" :oceania "AU" :oceania "FJ" :oceania "PG" :oceania "WS" :oceania
    "TO" :oceania "VU" :oceania

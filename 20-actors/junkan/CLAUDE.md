@@ -77,6 +77,9 @@ facts; junkan reads off, as disclosed hypotheses (G5), which feedback loops spin
 - `methods/query.cljc` — read-only EAVT/AVET/VAET arrangement queries over the
   findings datoms (the kotoba-kqe index model; e.g. instruments-in / stocks-by-
   regime / loops-including-stock). Read-only (G4 by absence of any write).
+- `methods/validate.cljc` — substrate integrity checker (ontology↔seed↔region-map
+  consistency: 誰が/経緯/関係者 completeness, enum validity, ranges, unique ids,
+  region-mapping, coverage invariants). Runnable scorecard + test-wired.
 - `80-data/junkan-governance/` — DataLad dataset (datoms snapshot + ledger +
   report + provenance).
 - Tests: `bash 20-actors/junkan/run_tests.sh` → 33 tests / 564 assertions green.
