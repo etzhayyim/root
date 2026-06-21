@@ -4,6 +4,7 @@
 ;;      70-tools/src/etzhayyim/ie_flow/test_scoreboard.clj
 (require '[clojure.test :as t :refer [deftest is run-tests]]
          '[clojure.string :as str]
+         '[clojure.set]
          '[etzhayyim.ie-flow.scoreboard :as sb])
 
 ;; a fixture snapshot (render-md is pure over this shape — no actor deps needed)
@@ -42,6 +43,23 @@
   (let [md (sb/render-md (sb/build))]
     (is (str/includes? md "actors with measured flow"))
     (is (str/includes? md "Organism reward"))))
+
+(deftest pending-adopters-are-honest
+  ;; adopted-but-unscored actors are surfaced (honest coverage), and they are DISJOINT
+  ;; from the scored set (an actor is never both).
+  (let [snap (sb/build)
+        scored (set (map :actor (:scored snap)))
+        pending (set (map :actor (:pending snap)))]
+    (is (vector? (:pending snap)))
+    (is (every? :actor (:pending snap)))
+    (is (empty? (clojure.set/intersection scored pending))
+        "no actor is both scored and pending")
+    (is (every? #(contains? scored %) ["kafun" "kaname" "tsumugi"])
+        "the live adapters score")
+    ;; ibuki is the organism itself (recipient of colony-order), so it stays pending by design
+    (is (contains? pending "ibuki") "the organism is not a colony member it scores (circular)")
+    (let [md (sb/render-md snap)]
+      (is (str/includes? md "pending an adapter") "report surfaces the pending adopters"))))
 
 (let [{:keys [fail error]} (run-tests)]
   (when (pos? (+ (or fail 0) (or error 0))) (System/exit 1)))
