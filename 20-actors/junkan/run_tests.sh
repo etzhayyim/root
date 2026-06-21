@@ -10,6 +10,7 @@ NSES=(
   junkan.methods.test-autorun
   junkan.methods.test-query
   junkan.methods.test-validate
+  junkan.methods.test-scorecard
   junkan.methods.test-charter-gates
 )
 joined=$(printf "(quote %s) " "${NSES[@]}")

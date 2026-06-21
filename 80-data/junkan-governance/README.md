@@ -34,6 +34,7 @@ The canonical substrate lives with the actor (clj-native, kotoba-Datom-native):
 | `governance-asymmetry.datoms.kotoba.edn` | the findings as append-only EAVT datoms (instruments + derived stock regimes + loop hypotheses) |
 | `findings-ledger.kotoba.edn` | a content-addressed single-tx ledger snapshot (commit-DAG; `:tx/cid` is reproducible byte-for-byte from the seed) |
 | `report.md` | the rendered sober, non-eschatological read-off (G7) |
+| `SCORECARD.md` | generated coverage + integrity + read-off digest (`methods/scorecard.cljc`) |
 | `ingest-provenance.json` | regeneration provenance |
 
 Regenerate everything deterministically from the actor substrate:

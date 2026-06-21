@@ -1359,4 +1359,89 @@
   :stakeholders ["ruling party" "NGOs/media" "protest movement" "EU" "citizens"]
   :stock :information-asymmetry :polarity :widen :magnitude 0.65 :reversibility :statutory :meadows 5
   :basis "Georgian 'Transparency of Foreign Influence' law (2024)" :sourcing :representative :confidence 0.5}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 10 — SE Asia (MY) / MENA collapse (YE LY) / model democracies
+ ;; (MU CV) / E.Europe (SI LV) / Africa transitions (SS GM LR) — widen + narrow
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── Malaysia ──
+ {:type :instrument :id "my-sosma-2012" :name "Security Offences (Special Measures) Act + ISA legacy" :jurisdiction "MY" :kind :law :year 2012
+  :enactor "Parliament of Malaysia"
+  :origin "Replaced the colonial-era Internal Security Act (indefinite detention without trial) with SOSMA, which still permits detention without charge and special procedures; despite the historic 2018 electoral alternation, these coercive powers persist."
+  :stakeholders ["police/security agencies" "detainees" "opposition" "courts"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.55 :reversibility :statutory :meadows 5
+  :basis "SOSMA 2012; former ISA 1960" :sourcing :representative :confidence 0.45}
+
+ ;; ── Yemen ──
+ {:type :instrument :id "ye-state-collapse" :name "State fragmentation + suspended elections" :jurisdiction "YE" :kind :institution :year 2014
+  :enactor "Yemeni state (collapse after the 2014–15 Houthi takeover + war)"
+  :origin "Civil war split the country among rival authorities with no nationwide elections since 2006/2012; citizens have no functioning electoral channel amid the world's worst humanitarian crisis — asymmetry by state collapse."
+  :stakeholders ["rival governments" "Houthi authorities" "international actors" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.9 :reversibility :institutional :meadows 4
+  :basis "Yemeni civil war (since 2014)" :sourcing :representative :confidence 0.45}
+
+ ;; ── Libya ──
+ {:type :instrument :id "ly-post-gaddafi-fragmentation" :name "Rival governments + repeatedly-postponed elections" :jurisdiction "LY" :kind :institution :year 2014
+  :enactor "Libyan factions (after the 2011 fall of Gaddafi)"
+  :origin "Following the 2011 revolution, competing governments and militias fragmented authority and a planned 2021 national election was indefinitely postponed, leaving citizens without a unified electoral channel."
+  :stakeholders ["rival governments (GNU/east)" "militias" "HNEC electoral body" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.85 :reversibility :institutional :meadows 4
+  :basis "Libyan post-2011 fragmentation; 2021 election postponement" :sourcing :representative :confidence 0.45}
+
+ ;; ── Mauritius ──
+ {:type :instrument :id "mu-democracy" :name "Continuous competitive democracy (best-effort transparency)" :jurisdiction "MU" :kind :institution :year 1968
+  :enactor "Republic of Mauritius (independence Constitution; republic 1992)"
+  :origin "Regular competitive elections with alternation since independence and an independent judiciary make it one of Africa's most durable democracies (a 2024 alternation reaffirmed it) — a robust participation channel."
+  :stakeholders ["National Assembly" "Electoral Supervisory Commission" "parties" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.6 :reversibility :institutional :meadows 4
+  :basis "Constitution of Mauritius (1968)" :sourcing :representative :confidence 0.5}
+
+ ;; ── Cabo Verde ──
+ {:type :instrument :id "cv-democracy" :name "Model multiparty democracy (since 1991)" :jurisdiction "CV" :kind :institution :year 1991
+  :enactor "Cabo Verdean state (transition from one-party rule)"
+  :origin "Peaceful transition to multiparty democracy in 1991 with repeated alternations and strong press freedom, consistently ranked among Africa's freest — a stable citizen-participation channel."
+  :stakeholders ["National Assembly" "parties" "press" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.55 :reversibility :institutional :meadows 4
+  :basis "Cabo Verde transition (1990–1991)" :sourcing :representative :confidence 0.5}
+
+ ;; ── Slovenia ──
+ {:type :instrument :id "si-1991-independence" :name "1991 independence + democratic constitution" :jurisdiction "SI" :kind :institution :year 1991
+  :enactor "Slovenian state (independence from Yugoslavia)"
+  :origin "A brief Ten-Day War secured independence, followed by a 1991 democratic constitution, EU accession, and stable competitive elections — a durable participation opening."
+  :stakeholders ["National Assembly" "Constitutional Court" "EU" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.55 :reversibility :constitutional :meadows 4
+  :basis "Constitution of Slovenia (1991)" :sourcing :representative :confidence 0.5}
+
+ ;; ── Latvia ──
+ {:type :instrument :id "lv-noncitizen-status" :name "Non-citizen ('nepilsoņi') status" :jurisdiction "LV" :kind :institution :year 1991
+  :enactor "Republic of Latvia (post-1991 citizenship framework)"
+  :origin "Restored independence and democracy, but a large, mostly Russian-speaking population received 'non-citizen' status without voting rights; the share has shrunk via naturalization but the gap persists — an ambiguous participation effect within a democracy."
+  :stakeholders ["Saeima" "non-citizen residents" "naturalization board" "EU"]
+  :stock :participation-barrier :polarity :ambiguous :magnitude 0.4 :reversibility :statutory :meadows 5
+  :basis "Latvian citizenship law (1994); non-citizen status" :sourcing :representative :confidence 0.45}
+
+ ;; ── South Sudan ──
+ {:type :instrument :id "ss-no-elections" :name "No elections since independence (2011)" :jurisdiction "SS" :kind :institution :year 2011
+  :enactor "South Sudanese state (after 2011 independence + 2013 civil war)"
+  :origin "The world's youngest country has held no national elections since independence; civil war and repeated transitional-period extensions have postponed promised polls, leaving citizens without an electoral channel."
+  :stakeholders ["transitional government" "armed factions" "UNMISS" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.85 :reversibility :institutional :meadows 4
+  :basis "South Sudan transitional period (2011–)" :sourcing :representative :confidence 0.45}
+
+ ;; ── Gambia ──
+ {:type :instrument :id "gm-2017-transition" :name "2017 democratic transition (end of Jammeh)" :jurisdiction "GM" :kind :institution :year 2017
+  :enactor "Gambian electorate + ECOWAS (after Jammeh refused to concede)"
+  :origin "Voters defeated a 22-year ruler in 2016; when he refused to step down, regional pressure secured the handover in 2017, opening a democratic transition and a truth commission — a citizen-led reopening."
+  :stakeholders ["coalition opposition" "ECOWAS" "TRRC truth commission" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.6 :reversibility :institutional :meadows 4
+  :basis "2016 Gambian election; 2017 transition" :sourcing :representative :confidence 0.45}
+
+ ;; ── Liberia ──
+ {:type :instrument :id "lr-post-war-democracy" :name "Post-war democracy (since 2005)" :jurisdiction "LR" :kind :institution :year 2005
+  :enactor "Republic of Liberia (after the 2003 peace agreement)"
+  :origin "Following devastating civil wars, Liberia held internationally-monitored elections from 2005 and saw a peaceful alternation in 2017–18 (and again 2023) — a participation channel rebuilt from collapse."
+  :stakeholders ["National Elections Commission" "parties" "UNMIL legacy" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.5 :reversibility :institutional :meadows 4
+  :basis "Liberian elections (2005–2023)" :sourcing :representative :confidence 0.45}
 ]
