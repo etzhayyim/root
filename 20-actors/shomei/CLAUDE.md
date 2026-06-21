@@ -92,7 +92,7 @@ violation; delegate to kotoba-auth.
 ## Build / test
 
 ```
-./run_tests.sh                       # all 9 suites (75 tests)
+./run_tests.sh                       # all auto-discovered cljc test suites (currently 133 tests)
 cd methods && python3 analyze.py     # end-to-end dry-run → methods/out/identity-report.md
 ```
 
