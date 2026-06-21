@@ -6,9 +6,12 @@
             [tsubasa.methods.analyze :as a]
             [clojure.edn :as edn]
             [clojure.string :as str]
+            [babashka.fs :as fs]
             [clojure.test :refer [deftest is run-tests]]))
 
-(def ^:private rows (edn/read-string (slurp "20-actors/tsubasa/data/seed-fares.kotoba.edn")))
+(def ^:private seed-path
+  (str (fs/file (fs/parent (fs/absolutize *file*)) ".." "data" "seed-fares.kotoba.edn")))
+(def ^:private rows (edn/read-string (slurp seed-path)))
 (def ^:private analysis (a/analyze rows))
 (def ^:private coverage (a/coverage rows))
 

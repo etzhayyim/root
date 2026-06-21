@@ -37,29 +37,40 @@ seed, and the datom emitter — and proven by `test_analyze` + `test_seed_integr
 - `methods/ingest.cljc` — **R3** live fare ingest: a parsed fetch-leg payload → `:authoritative`
   `:fare` rows. Charter-bounded source (`:public`/`:member-principal`; `:paid-terminal` refused),
   no network in the loop (no-server-key), G1/G4/G5 enforced (poisoned / no-CO₂ rows rejected).
+- `methods/fetch.cljc` — **R3** AUTONOMOUS read-only PUBLIC-source fetch → ingest. The actor
+  fetches public fare sources ITSELF (no operator, no key); no-server-key EXEMPTS read-only.
+  `:member-principal` is refused here (runs in the member's runtime); `:paid-terminal` refused downstream.
 - `methods/digest.cljc` — **R3** Murakumo-narrated digest, loopback-only (`127.0.0.1:4000`),
   fail-open to a deterministic anti-dark template (G6).
-- `wasm/` — **R3** compute-only WASM Component scaffold (`world.wit` + `build.sh`); no
+- `wasm/` — **R3** compute-only WASM Component scaffold (`world.wit` + `build.clj` (bb)); no
   `wasi:sockets/clocks/random` (absence = G1/G5/G6); artifact build = operator step.
-- `methods/test_*.cljc` — analyze / kotoba / autorun / seed-integrity / ingest / digest suites.
+- `methods/test_*.cljc` — analyze / kotoba / autorun / seed-integrity / ingest / digest / fetch suites.
+- `run_tests.clj` — bb-native runner (no shell — per the repo clj/bb rule; supersedes `run_tests.sh`).
 
-## Run
+## Run (scripts are bb — repo clj/bb rule; no shell)
 ```
-bash 20-actors/tsubasa/run_tests.sh                                   # 54 tests / 579 assertions
+bb 20-actors/tsubasa/run_tests.clj                                   # 57 tests / 590 assertions (cwd-independent)
 bb --classpath 20-actors 20-actors/tsubasa/methods/analyze.cljc      # competition + fare map + coverage
 bb --classpath 20-actors 20-actors/tsubasa/methods/autorun.cljc      # one heartbeat → append to the ledger
 bb --classpath 20-actors 20-actors/tsubasa/methods/digest.cljc       # Murakumo digest (fail-open template)
-# live ingest (operator/member fetch leg writes payload.edn in their OWN runtime):
-bb --classpath 20-actors 20-actors/tsubasa/methods/ingest.cljc payload.edn "<source-url>" "<as-of>" [member]
+bb --classpath 20-actors 20-actors/tsubasa/methods/fetch.cljc "<public-fare-source-url>" "<as-of>"  # AUTONOMOUS read-only fetch → ingest
+bb --classpath 20-actors 20-actors/tsubasa/wasm/build.clj <component.wasm>   # verify WASM cleanliness + CID (operator)
 ```
 
 ## Gating (G8 — UNLOCKED R3, charter-bounded)
 Live GDS/airline fare ingest is **UNLOCKED** (R3, 2026-06-21) — founder Lv7+ attested via PR review
-(Bootstrap Council attestation premise). The unlock is **structurally bounded**: source is
-`:public` or `:member-principal` ONLY (a `:paid-terminal` is refused — Rider §2(e)/§2(i)); the loop
-does **no network** (operator/member runs the fetch leg; no-server-key); **G1/G3/G4/G5 unchanged**
-and enforced at ingest (poisoned / no-CO₂ rows rejected); tsubasa transacts no booking (member
-self-books). See ADR-2606072800 §R3 for the full gate-unlock record.
+(Bootstrap Council attestation premise). The unlock is **structurally bounded**:
+- **source** is `:public` or `:member-principal` ONLY — a `:paid-terminal` is refused (Rider §2(e)/§2(i)).
+- **no-server-key ≠ no-automation.** It bars a *custodial unilateral signing key* on an etzhayyim
+  automated process, and **read-only is exempt** (ADR-2605231525). So **public sources are fetched
+  AUTONOMOUSLY by the actor itself** (`methods/fetch.cljc`, read-only, no key — like kaname/watari/
+  tsumugi). Only `:member-principal` creds (member's runtime/consent) and the actor's OWN
+  write-*signing* need a key — and signing uses a **self-generated did:key (sealed seed, present-only)
+  + member CACAO leash** (ibuki/kaname pattern); appending to the LOCAL log needs no key.
+- **G1/G3/G4/G5 unchanged** and enforced at ingest (poisoned / no-CO₂ rows rejected).
+- tsubasa transacts no booking (member self-books).
+
+See ADR-2606072800 §R3 for the full gate-unlock + no-server-key clarification.
 
 ## DID
 `did:web:etzhayyim.com:actor:tsubasa` — registered in `50-infra/.../registry/infra-actors.ts`
