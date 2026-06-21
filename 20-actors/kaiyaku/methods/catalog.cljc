@@ -26,6 +26,7 @@
 
   Deterministic; pure fns; file I/O only at the #?(:clj …) load edge. Portable .cljc."
   (:require [clojure.string :as str]
+            [clojure.set :as set]
             #?(:clj [clojure.edn :as edn])
             #?(:clj [clojure.java.io :as io])))
 
@@ -207,6 +208,28 @@
      :gaps gaps
      :pct (if (zero? (count ids)) 0.0
               (double (/ (Math/round (* 1000.0 (/ (count covered) (count ids)))) 10.0)))}))
+
+;; ── category-coverage worklist (the catalog-growth target) ──────────────────
+
+(def common-subscription-categories
+  "A curated set of common consumer-subscription categories the catalog aims to
+  cover. Honest target for the growth worklist — NOT a claim of completeness."
+  #{:streaming :music :gaming :membership :productivity :storage :news :telecom
+    :fitness :ai :security :vpn :design :dev :food-delivery})
+
+(defn category-gaps
+  "Which common subscription categories the catalog covers vs still misses — the
+  growth worklist by category (distinct from coverage-of, which is per ledger
+  svc-id). Returns {:covered #{…} :missing #{…} :pct …}."
+  ([entries] (category-gaps entries common-subscription-categories))
+  ([entries targets]
+   (let [present (set (map :proc/category entries))
+         covered (set/intersection targets present)
+         missing (set/difference targets present)]
+     {:covered covered
+      :missing missing
+      :pct (if (empty? targets) 0.0
+               (double (/ (Math/round (* 1000.0 (/ (count covered) (count targets)))) 10.0)))})))
 
 #?(:clj
    (defn -main

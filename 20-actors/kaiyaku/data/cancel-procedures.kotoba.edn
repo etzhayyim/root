@@ -330,6 +330,112 @@
   :proc/operator-verified false
   :proc/sourcing :representative}
 
+ ;; ── new-category coverage (AI / security / VPN / design / dev / food-delivery / music) ──
+ {:proc/svc-id "chatgpt-plus"
+  :proc/name "ChatGPT Plus"
+  :proc/category :ai
+  :proc/region :global
+  :proc/cancel {:api :none :browser :prohibited :self-submit true}
+  :proc/notice-days 0
+  :proc/penalty-jpy 0
+  :proc/self-submit-steps ["「Settings」→「Subscription」/「Manage」"
+                           "「Cancel plan」→ 請求期間末まで利用可を確認"]
+  :proc/disclosed-source "https://help.openai.com/"
+  :proc/operator-verified false
+  :proc/sourcing :representative}
+
+ {:proc/svc-id "claude-pro"
+  :proc/name "Claude Pro"
+  :proc/category :ai
+  :proc/region :global
+  :proc/cancel {:api :none :browser :prohibited :self-submit true}
+  :proc/notice-days 0
+  :proc/penalty-jpy 0
+  :proc/self-submit-steps ["「Settings」→「Billing」/ アカウント管理"
+                           "サブスクリプションを解約 → 終了日を確認"]
+  :proc/disclosed-source "https://support.anthropic.com/"
+  :proc/operator-verified false
+  :proc/sourcing :representative}
+
+ {:proc/svc-id "1password"
+  :proc/name "1Password"
+  :proc/category :security
+  :proc/region :global
+  :proc/cancel {:api :none :browser :prohibited :self-submit true}
+  :proc/notice-days 0
+  :proc/penalty-jpy 0
+  :proc/self-submit-steps ["my.1password.com →「Billing」"
+                           "プランを解約 → vault データの export を先に（G8 自データ保全）"]
+  :proc/disclosed-source "https://support.1password.com/"
+  :proc/operator-verified false
+  :proc/sourcing :representative}
+
+ {:proc/svc-id "nordvpn"
+  :proc/name "NordVPN"
+  :proc/category :vpn
+  :proc/region :global
+  :proc/cancel {:api :none :browser :prohibited :self-submit true}
+  :proc/notice-days 0
+  :proc/penalty-jpy 0
+  :proc/self-submit-steps ["Nord Account →「Billing」/「Subscriptions」"
+                           "自動更新をオフ（購入経路がストアなら該当ストアで解約）"
+                           "返金条件（30日保証）を確認（G8）"]
+  :proc/disclosed-source "https://support.nordvpn.com/"
+  :proc/operator-verified false
+  :proc/sourcing :representative}
+
+ {:proc/svc-id "canva-pro"
+  :proc/name "Canva Pro"
+  :proc/category :design
+  :proc/region :global
+  :proc/cancel {:api :none :browser :prohibited :self-submit true}
+  :proc/notice-days 0
+  :proc/penalty-jpy 0
+  :proc/self-submit-steps ["「アカウント設定」→「支払いとプラン」"
+                           "「サブスクリプションをキャンセル」→ 終了日を確認"]
+  :proc/disclosed-source "https://www.canva.com/help/"
+  :proc/operator-verified false
+  :proc/sourcing :representative}
+
+ {:proc/svc-id "github-copilot"
+  :proc/name "GitHub Copilot (Individual)"
+  :proc/category :dev
+  :proc/region :global
+  :proc/cancel {:api :none :browser :prohibited :self-submit true}
+  :proc/notice-days 0
+  :proc/penalty-jpy 0
+  :proc/self-submit-steps ["GitHub →「Settings」→「Copilot」/「Billing」"
+                           "「Cancel Copilot」→ 請求期間末まで利用可を確認"]
+  :proc/disclosed-source "https://docs.github.com/copilot"
+  :proc/operator-verified false
+  :proc/sourcing :representative}
+
+ {:proc/svc-id "uber-one"
+  :proc/name "Uber One"
+  :proc/category :food-delivery
+  :proc/region :global
+  :proc/cancel {:api :none :browser :prohibited :self-submit true}
+  :proc/notice-days 0
+  :proc/penalty-jpy 0
+  :proc/self-submit-steps ["Uber/Uber Eats アプリ →「アカウント」→「Uber One」"
+                           "「メンバーシップを終了」→ 次回請求日を確認"]
+  :proc/disclosed-source "https://help.uber.com/"
+  :proc/operator-verified false
+  :proc/sourcing :representative}
+
+ {:proc/svc-id "amazon-music-unlimited"
+  :proc/name "Amazon Music Unlimited"
+  :proc/category :music
+  :proc/region :global
+  :proc/cancel {:api :none :browser :prohibited :self-submit true}
+  :proc/notice-days 0
+  :proc/penalty-jpy 0
+  :proc/self-submit-steps ["Amazon Music アプリ/web →「設定」→「Amazon Music の設定」"
+                           "「会員登録をキャンセル」→ 利用終了日を確認"]
+  :proc/disclosed-source "https://www.amazon.co.jp/gp/help/customer/display.html?nodeId=G7NJjZ7VqEHr9wKn"
+  :proc/operator-verified false
+  :proc/sourcing :representative}
+
  ;; --- API-cancel example (T1) — a service publishing a programmatic cancellation endpoint.
  ;; :representative until an operator confirms the member's plan supports self-serve API cancel.
  {:proc/svc-id "generic-saas-api"

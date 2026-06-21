@@ -12,6 +12,7 @@
     - validate actually catches a planted bad entry (evasion verb / T2-over-prohibited)"
   (:require [clojure.test :refer [deftest is run-tests]]
             [clojure.java.io :as io]
+            [clojure.set :as set]
             [kaiyaku.methods.catalog :as catalog]
             [kaiyaku.methods.plan :as plan]))
 
@@ -76,6 +77,15 @@
     (is (>= (get (:by-tier cov) "T3" 0) (get (:by-tier cov) "T1" 0)))
     ;; G6 — growth never sneaks in a pre-verified entry
     (is (zero? (:operator-verified cov)))))
+
+(deftest test-category-gaps-worklist
+  (let [g (catalog/category-gaps (entries))]
+    ;; the new-category batch lands ai/security/vpn/design/dev/food-delivery/music
+    (is (every? (:covered g) [:ai :security :vpn :design :dev :food-delivery :music :streaming]))
+    ;; the worklist is honest: covered + missing partition the target set
+    (is (= catalog/common-subscription-categories
+           (set/union (:covered g) (:missing g))))
+    (is (>= (:pct g) 80.0) "most common categories should now be covered")))
 
 (deftest test-no-person-nodes
   ;; N1: a catalog entry is always a SERVICE.
