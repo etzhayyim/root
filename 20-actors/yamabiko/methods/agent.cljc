@@ -1,4 +1,4 @@
-(ns yamabiko.py.agent
+(ns yamabiko.methods.agent
   "yamabiko 山彦 — high-speed rail trainset manufacturing actor (babashka port).")
 
 (def ^:const TITHE_BPS 1000)

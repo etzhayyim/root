@@ -82,24 +82,16 @@ Terminal `trainsetManufactureRecord` (kotoba-datomic-anchored aggregate) emitted
 
 ## Testing (R0)
 
-Smoke test:
+yamabiko is fully ported py→clj (ADR-2605252600 / 2606160842): the canonical impl is
+clojure-on-babashka — the 9 cell `state_machine.cljc`, the agent handlers
+(`methods/agent.cljc`), and the constitutional-gate suite (`methods/test_charter_gates.cljc`).
+The legacy Python agent twin (`py/agent.py` + `py/test_agent.py`) was pruned once the clj
+port reached parity.
 
 ```bash
 cd 20-actors/yamabiko
-python3 -c "
-from cells.carbody_fabrication import CarbodyFabricationCell
-from cells.bogie_assembly import BogieAssemblyCell
-from cells.interior_hvac import InteriorHvacCell
-from cells.traction_electrical import TractionElectricalCell
-from cells.final_assembly import FinalAssemblyCell
-from cells.dynamic_test import DynamicTestCell
-from cells.homologation_binder import HomologationBinderCell
-from cells.emissions_acoustic_audit import EmissionsAcousticAuditCell
-from cells.silen_rail_review import SilenRailReviewCell
-"
+./run_tests.sh           # all cljc suites green (9 cell state machines + agent + charter-gates)
 ```
-
-All should pass import; `.solve()` raises `RuntimeError("yamabiko R0 scaffold...")`.
 
 ## Related Files
 
