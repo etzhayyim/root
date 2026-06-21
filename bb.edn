@@ -78,6 +78,11 @@
    :task (do (require 'etzhayyim.ie-flow.organism)
              (apply (resolve 'etzhayyim.ie-flow.organism/-maturity) *command-line-args*))}
 
+  ieflow:maxwell
+  {:doc "Write 80-data/ie-flow/maxwell-signals.edn — the reward-weighted PREFERENCE signals for Maxwell's learning loop (ADR-2606212200 + 2606061000): per bounded actor, a co-scientist score-react packaged as an aligned-only preference (higher reward ⇒ stronger preference). Emits the SIGNAL only; the trainer is a separate G7-gated step. Deterministic, no held key."
+   :task (do (require 'etzhayyim.ie-flow.organism)
+             (apply (resolve 'etzhayyim.ie-flow.organism/-maxwell) *command-line-args*))}
+
   test:kotoba
   {:doc "etzhayyim.kotoba root-side Datom engine + envelope + analysis (ADR-2605262130 Phase 1/2 + ADR-2605181100; data+impl in root, kotoba is the external generic engine)"
    :task (do (require 'clojure.test 'etzhayyim.kotoba.test-engine

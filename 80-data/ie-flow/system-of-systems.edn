@@ -70,7 +70,40 @@
   {:actor "hinagata"  :weights {:phi 0.20 :eta 0.35 :wellbecoming 0.25 :efficiency 0.12 :surprise 0.08}
    :telos "legal-document-template commons → public release (η dominant)"}
   {:actor "hoshimori" :weights {:phi 0.18 :eta 0.30 :wellbecoming 0.28 :efficiency 0.16 :surprise 0.08}
-   :telos "orbital stewardship mirror → sustainability (η + 子孫)"}]
+   :telos "orbital stewardship mirror → sustainability (η + 子孫)"}
+  ;; ── wave 3 (loop iteration 2) ──
+  {:actor "kabuto"    :weights {:phi 0.20 :eta 0.38 :wellbecoming 0.22 :efficiency 0.12 :surprise 0.08}
+   :telos "supply-chain KG mirror → redundancy (η dominant, never a target-list)"}
+  {:actor "kanjo"     :weights {:phi 0.20 :eta 0.40 :wellbecoming 0.20 :efficiency 0.12 :surprise 0.08}
+   :telos "financial-disclosure KG mirror → transparency (η dominant, no forecast)"}
+  {:actor "kanae"     :weights {:phi 0.20 :eta 0.36 :wellbecoming 0.24 :efficiency 0.12 :surprise 0.08}
+   :telos "fiscal-flow VISUALIZATION mirror → accountability (η + 子孫)"}
+  {:actor "kasa"      :weights {:phi 0.22 :eta 0.38 :wellbecoming 0.20 :efficiency 0.12 :surprise 0.08}
+   :telos "compute-capacity-growth observatory → planning (η dominant, never forecasts)"}
+  {:actor "kawaraban" :weights {:phi 0.20 :eta 0.36 :wellbecoming 0.24 :efficiency 0.12 :surprise 0.08}
+   :telos "news medium mirror → headline+link-out (η, no ads/surveillance)"}
+  {:actor "itonami"   :weights {:phi 0.22 :eta 0.34 :wellbecoming 0.24 :efficiency 0.12 :surprise 0.08}
+   :telos "mirror-lineage → openness (η dominant)"}
+  {:actor "akashi"    :weights {:phi 0.22 :eta 0.34 :wellbecoming 0.24 :efficiency 0.12 :surprise 0.08}
+   :telos "mirror-lineage → openness (η dominant)"}
+  {:actor "iyashi"    :weights {:phi 0.15 :eta 0.23 :wellbecoming 0.42 :efficiency 0.12 :surprise 0.08}
+   :telos "clinical care provider — L4 Care (子孫 dominant)"}
+  {:actor "kataribe"  :weights {:phi 0.20 :eta 0.30 :wellbecoming 0.30 :efficiency 0.12 :surprise 0.08}
+   :telos "press / publishing / translation → access (η + 子孫)"}
+  {:actor "kadode"    :weights {:phi 0.18 :eta 0.30 :wellbecoming 0.32 :efficiency 0.12 :surprise 0.08}
+   :telos "labour-resignation concierge → dignity (子孫 dominant, UPL-bounded)"}
+  {:actor "himawari"  :weights {:phi 0.18 :eta 0.30 :wellbecoming 0.32 :efficiency 0.12 :surprise 0.08}
+   :telos "care-lineage → relief (子孫 dominant)"}
+  {:actor "funadaiku" :weights {:phi 0.30 :eta 0.24 :wellbecoming 0.18 :efficiency 0.20 :surprise 0.08}
+   :telos "zero-emission cargo-ship building (Φ + efficiency)"}
+  {:actor "kamado"    :weights {:phi 0.28 :eta 0.24 :wellbecoming 0.20 :efficiency 0.20 :surprise 0.08}
+   :telos "closed-loop carbon refining — net≤0 (Φ + efficiency)"}
+  {:actor "kanayama"  :weights {:phi 0.26 :eta 0.22 :wellbecoming 0.24 :efficiency 0.20 :surprise 0.08}
+   :telos "circular metallurgy / urban mining → recovery (Φ + eff + 子孫)"}
+  {:actor "hodoki"    :weights {:phi 0.24 :eta 0.22 :wellbecoming 0.26 :efficiency 0.20 :surprise 0.08}
+   :telos "ELV disassembly + materials recovery (Φ + eff + 子孫)"}
+  {:actor "ake"       :weights {:phi 0.18 :eta 0.32 :wellbecoming 0.30 :efficiency 0.12 :surprise 0.08}
+   :telos "community-edit membrane → collaborative correction (η + 子孫)"}]
 
  ;; ── rollout: the rule applies to the WHOLE roster ──
  ;; The 6 specs above are exemplars. Every actor in the roster (Status § Tier-B actors) MUST grow a
