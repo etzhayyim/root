@@ -545,6 +545,9 @@
   test:docs-registry
   {:doc "docs registry generator (70-tools/scripts/docs/regen-registry.clj) — parse-frontmatter / JSON+EDN encoders / byte-parity round-trip + live freshness guard (port of test_regen_registry.py)"
    :task (shell "bb" "70-tools/scripts/docs/test_regen_registry.clj")}
+  audit:test-health
+  {:doc "test-health audit (70-tools/scripts/test-health/audit.clj) — reports .clj/.cljc shadow pairs + broken bb-test shims (the py→cljc port-debt register); --check self-verifies the detector's invariants (exit 1 only if the detector itself breaks, not on debt). Add --probe to classify broken shims, --write to refresh AUDIT.md"
+   :task (shell "bb" "70-tools/scripts/test-health/audit.clj" "--check")}
   test:tools
   {:doc "70-tools Clojure test suite (langgraph-clj maturation agent)"
    :task (do (require 'clojure.test
