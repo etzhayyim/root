@@ -132,12 +132,25 @@ settled.
   heat-sink / transparency); Murakumo default-preferred (G2). Seed result: 5 routed,
   1422 kgCO2 avoided, 1900 kWh waste heat reusable (→ okibi), commercial GPU unused
   (score 0.055), pinned job stays in-place. G1 proven (no `:toi/dispatch`; map-not-job-kill).
-- **委 yudane — R0 designed (this ADR), not yet scaffolded.** The human-intention leg
-  (意味変換 / meaning-translation): consented member intention → aggregate energy
-  variables → mio claims. The most charter-sensitive actor — guarded three ways (ibuki
-  revocable-leash consent + mimamori degeneration-series unrepresentability + Rider §2(c)
-  reciprocity); claims are content-free aggregates (no `:mio.person/*`). Scaffolded last,
-  behind its consent gate; the suite is fully operational at 4/5 without it.
+- **委 yudane — R0 LANDED (2026-06-21).** `20-actors/yudane/` clj-native (intention leg):
+  manifest + ontology (offer kind; negative space = the surveillance degeneration series)
+  + seed (8 offers: 4 consent + 4 refusal) + `yudane_edn`/`analyze`/`kotoba`/`autorun` +
+  content-free intention commit-DAG ledger. **21 tests / 96 assertions green**. Consented,
+  aggregate cohort intention → flex offer, gated by a member-signed revocable capability +
+  k-anonymity floor + reciprocity. Seed result: 4 consented (12800 kWh aggregate flex),
+  4 refused (one per gate: k-anon / no-cap / expired / non-reciprocal). G1/G2 proven
+  (consent-bound + content-free; no per-person field; the degeneration series
+  五人組→隣組→Stasi→social-credit is unrepresentable).
+
+## Suite complete (5/5, 2026-06-21)
+
+All five Energy Order Protocol actors are R0 LANDED + green: **澪 mio** (verification
+backbone, 24/174) · **撓 tawami** (flexibility, 20/134) · **燠 okibi** (waste-heat, 21/92)
+· **樋 toi** (compute-routing, 21/98) · **委 yudane** (intention, 21/96). Total **107 tests
+/ 594 assertions green** (babashka). The energy-flow-ordering loop is closed: 撓/燠/樋/委
+observe and submit; 澪 mio verifies + accounts the org Flowrate; hikari actuates under
+Council gate. R1 across the suite = the claim-emitter seam (each leg → a 澪 mio
+flow-improvement claim) + live operator-gated ingest + fleet registration.
 
 # Consequences
 
