@@ -104,6 +104,33 @@
     ;; the refused tie produces no karakuri op
     (is (empty? serviceops))))
 
+(deftest test-member-report-honest
+  (let [md (pipeline/member-report (run))]
+    ;; dry-run honesty up front
+    (is (clojure.string/includes? md "dry-run"))
+    (is (clojure.string/includes? md "まだ何も実行されていません"))
+    ;; both services appear with their disclosed procedure steps
+    (is (clojure.string/includes? md "netflix"))
+    (is (clojure.string/includes? md "generic-saas-api"))
+    (is (clojure.string/includes? md "手順:"))
+    ;; never claims execution
+    (is (clojure.string/includes? md "executed: false"))
+    (is (not (clojure.string/includes? md "executed: true")))))
+
+(deftest test-member-report-flags-operator-verification
+  ;; catalog entries are operator-verified=false → the ⚠ flag must appear
+  (let [md (pipeline/member-report (run))]
+    (is (clojure.string/includes? md "operator 検証が必要"))))
+
+(deftest test-member-report-shows-refusal-reason
+  ;; with a capability approving only netflix, the T1 tie is refused → its reason shows
+  (let [b (assoc bundle "approved" ["netflix"])
+        r (pipeline/run {:nodes nodes :edges edges :catalog (catalog-by-id)
+                         :bundle b :now-epoch 1000 :as-of "T0"})
+        md (pipeline/member-report r)]
+    (is (clojure.string/includes? md "理由:"))
+    (is (clojure.string/includes? md "allowlist"))))
+
 (defn -main [& _]
   (let [{:keys [fail error]} (run-tests 'kaiyaku.tests.test-pipeline)]
     (System/exit (if (zero? (+ fail error)) 0 1))))
