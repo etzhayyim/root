@@ -15,6 +15,17 @@
     :efficiency 0.5,
     :surprise 0.0,
     :descendant 0.7}}
+  {:actor "kaname",
+   :score 0.514,
+   :throughput 8.1,
+   :vetoed? false,
+   :components
+   {:rectify 0.498,
+    :eta 0.971,
+    :phi 0.97,
+    :efficiency 0.5,
+    :surprise 0.0,
+    :descendant 0.75}}
   {:actor "kafun",
    :score 0.452,
    :throughput 5.967,
@@ -49,17 +60,17 @@
     :surprise 0.0,
     :descendant 0.8}}],
  :colony
- {:colony-reward 5.781,
-  :colony-order 6,
-  :n 4,
-  :scored-n 4,
+ {:colony-reward 6.788,
+  :colony-order 7,
+  :n 5,
+  :scored-n 5,
   :vetoed-n 0,
-  :mean-score 0.418,
+  :mean-score 0.437,
   :top {:actor "repo-git", :score 0.521}},
  :organism
- {:env-source {:colony-order 6},
+ {:env-source {:colony-order 7},
   :intake-without-colony 14,
-  :intake-with-colony 32,
-  :delta 18,
+  :intake-with-colony 35,
+  :delta 21,
   :note
   "intake-with − intake-without = the free-energy the colony's information-control adds to the organism's Φ (→ reserves → survival). The reward integration, ADR-2606212200."}}
