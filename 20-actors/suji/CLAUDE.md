@@ -79,7 +79,7 @@ raises at R0 until Council activation.
 ## Run
 
 ```bash
-./run_tests.sh                 # 45 tests + analyze smoke
+./run_tests.sh                 # all auto-discovered cljc test suites (currently 43 tests)
 python3 methods/analyze.py     # writes out/posture-report.md
 ```
 
