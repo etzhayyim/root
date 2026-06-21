@@ -102,6 +102,26 @@
     (is (vector? (:worklist cov)))
     (is (seq (:worklist cov)) "worklist is non-empty (next-iteration guidance)")))
 
+;; ── continental region coverage (グローバル balance) ─────────────────────────
+(deftest region-coverage
+  (is (= :africa (az/region-of "NG")))
+  (is (= :americas (az/region-of "BR")))
+  (is (= :asia (az/region-of "CN")))
+  (is (= :europe (az/region-of "DE")))
+  (is (= :transnational (az/region-of "GLOBAL")))
+  (is (= :other (az/region-of "ZZ")) "unmapped code → :other"))
+
+(deftest region-coverage-real
+  (let [cov (get (a) "coverage")
+        regions (:regions cov)]
+    (is (map? regions))
+    ;; every seeded jurisdiction is mapped to a known region (no :other)
+    (is (empty? (:unmapped-jurisdictions cov))
+        (str "all jurisdictions region-mapped; unmapped=" (:unmapped-jurisdictions cov)))
+    ;; the five continents are all represented
+    (doseq [r [:africa :americas :asia :europe :oceania]]
+      (is (pos? (get regions r 0)) (str "region " r " has coverage")))))
+
 ;; ── temporal era trajectory (structural over time; not a ranking) ────────────
 (deftest era-bucketing
   (is (nil? (az/era-of 0)) "undated → nil")

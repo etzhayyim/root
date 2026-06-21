@@ -861,4 +861,153 @@
   :stakeholders ["state media" "education systems" "citizens" "minorities/dissenters"]
   :stock :paradigm-subordination :polarity :widen :magnitude 0.5 :reversibility :cultural :meadows 2
   :basis "Comparative literature on nationalism and loyalty" :sourcing :representative :confidence 0.4}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 6 — Central Asia / Balkans / Levant & Gulf / Sahel & S.Africa / SE Asia
+ ;; (UZ KG TJ RS BA JO LB KW BH OM SD ML ZM SN LA BT BN MV) — widen + narrow
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── Uzbekistan ──
+ {:type :instrument :id "uz-karimov-system" :name "Single-leader system (Karimov era)" :jurisdiction "UZ" :kind :institution :year 1991
+  :enactor "Uzbek state (post-independence; Karimov 1991–2016)"
+  :origin "A quarter-century of personalized rule with managed elections, pervasive security services, and forced-labor cotton mobilization left citizens no real electoral or associational channel; cautious liberalization began after 2016."
+  :stakeholders ["presidency" "National Security Service" "managed parties" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.8 :reversibility :institutional :meadows 4
+  :basis "Uzbek political system (1991–2016)" :sourcing :representative :confidence 0.5}
+
+ ;; ── Kyrgyzstan ──
+ {:type :instrument :id "kg-revolutions-instability" :name "Repeated revolutions + 2021 presidentialism" :jurisdiction "KG" :kind :institution :year 2005
+  :enactor "Kyrgyz state + popular uprisings (2005, 2010, 2020)"
+  :origin "Three popular ousters of presidents made Kyrgyzstan the most contested polity in Central Asia, but the 2021 constitution then re-concentrated power in the presidency — an oscillating, ambiguous participation channel."
+  :stakeholders ["presidency" "parliament" "protest movements" "citizens"]
+  :stock :participation-barrier :polarity :ambiguous :magnitude 0.4 :reversibility :constitutional :meadows 4
+  :basis "2005/2010/2020 uprisings; 2021 Constitution" :sourcing :representative :confidence 0.45}
+
+ ;; ── Tajikistan ──
+ {:type :instrument :id "tj-leader-of-nation" :name "'Leader of the Nation' status" :jurisdiction "TJ" :kind :institution :year 2016
+  :enactor "Tajik state (2016 referendum)"
+  :origin "A 2016 referendum granted the president lifelong 'Leader of the Nation' immunity, removed term limits for him, and lowered the eligibility age (aiding dynastic succession) — entrenching one-family rule above electoral accountability."
+  :stakeholders ["presidency" "ruling party" "opposition (banned)" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.8 :reversibility :constitutional :meadows 2
+  :basis "2016 Tajik constitutional referendum" :sourcing :representative :confidence 0.5}
+
+ ;; ── Serbia ──
+ {:type :instrument :id "rs-media-capture" :name "Media capture + institutional dominance" :jurisdiction "RS" :kind :institution :year 2012
+  :enactor "Serbian ruling party (SNS) + allied media owners"
+  :origin "Concentration of pro-government tabloids and national TV, combined with pressure on regulators and public broadcasting, tilted the information environment heavily toward the incumbent while elections continued — a soft narrowing of the citizen's information channel."
+  :stakeholders ["ruling party" "national broadcasters" "independent media" "REM regulator" "voters"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.55 :reversibility :institutional :meadows 6
+  :basis "Serbian media-pluralism assessments (post-2012)" :sourcing :representative :confidence 0.45}
+
+ ;; ── Bosnia and Herzegovina ──
+ {:type :instrument :id "ba-dayton-1995" :name "Dayton constitutional order (ethnic power-sharing)" :jurisdiction "BA" :kind :doctrine :year 1995
+  :enactor "Dayton Peace Agreement (parties + international mediators)"
+  :origin "Ended the war by freezing an ethnic power-sharing structure (three constituent peoples, entity vetoes, an international High Representative); it secured peace but locks citizens outside the three groups out of top offices (Sejdić-Finci) — an ambiguous, frozen participation order."
+  :stakeholders ["constituent peoples" "entities (RS/Federation)" "High Representative" "'Others' (minorities)"]
+  :stock :participation-barrier :polarity :ambiguous :magnitude 0.5 :reversibility :constitutional :meadows 4
+  :basis "Dayton Agreement (1995), Annex 4; Sejdić-Finci v. BiH (2009)" :sourcing :representative :confidence 0.45}
+
+ ;; ── Jordan ──
+ {:type :instrument :id "jo-king-dominant" :name "Monarch-dominant constitutional order" :jurisdiction "JO" :kind :institution :year 1952
+  :enactor "Hashemite monarchy; 1952 Constitution"
+  :origin "An elected lower house exists but the king appoints the senate and government, can dissolve parliament, and holds decisive powers; gerrymandered districting long favored loyalists — participation is real but palace-bounded."
+  :stakeholders ["monarchy" "appointed senate" "elected lower house" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.65 :reversibility :constitutional :meadows 4
+  :basis "Constitution of Jordan (1952)" :sourcing :representative :confidence 0.45}
+
+ ;; ── Lebanon ──
+ {:type :instrument :id "lb-confessional-system" :name "Confessional power-sharing (Taif)" :jurisdiction "LB" :kind :institution :year 1943
+  :enactor "Lebanese National Pact (1943); Taif Agreement (1989)"
+  :origin "Allocates the presidency/premiership/speakership and seats by religious sect; designed to share power, it has entrenched a sectarian elite (zu'ama), blocked accountability, and left citizens bound to communal patrons — an ambiguous, capture-prone order."
+  :stakeholders ["sectarian leaders" "parliament" "patron networks" "citizens"]
+  :stock :participation-barrier :polarity :ambiguous :magnitude 0.55 :reversibility :institutional :meadows 4
+  :basis "1943 National Pact; Taif Agreement (1989)" :sourcing :representative :confidence 0.45}
+
+ ;; ── Kuwait ──
+ {:type :instrument :id "kw-national-assembly" :name "Elected National Assembly (Majlis al-Umma)" :jurisdiction "KW" :kind :institution :year 1962
+  :enactor "Kuwaiti state; 1962 Constitution"
+  :origin "The most powerful elected parliament in the Gulf, with real power to question ministers and block legislation — yet the emir has repeatedly dissolved it and suspended sittings (2024), so the channel exists but is precarious."
+  :stakeholders ["Emir" "National Assembly" "appointed cabinet" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.45 :reversibility :constitutional :meadows 4
+  :basis "Constitution of Kuwait (1962); 2024 suspension" :sourcing :representative :confidence 0.45}
+
+ ;; ── Bahrain ──
+ {:type :instrument :id "bh-2011-crackdown" :name "2011 uprising crackdown + emergency" :jurisdiction "BH" :kind :institution :year 2011
+  :enactor "Bahraini state (with GCC/Peninsula Shield support)"
+  :origin "Mass pro-reform protests were suppressed under a 'State of National Safety', with detentions, citizenship revocations, and dissolution of the main opposition society — sharply widening coercion against citizens."
+  :stakeholders ["monarchy" "security forces" "opposition (al-Wefaq)" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.75 :reversibility :institutional :meadows 5
+  :basis "2011 State of National Safety; al-Wefaq dissolution (2016)" :sourcing :representative :confidence 0.45}
+
+ ;; ── Oman ──
+ {:type :instrument :id "om-basic-law-1996" :name "Basic Law (Sultanate)" :jurisdiction "OM" :kind :doctrine :year 1996
+  :enactor "Sultan of Oman (Qaboos)"
+  :origin "Codified an absolute-monarchy order with an advisory Majlis and no political parties; succession and core powers rest with the sultan, leaving citizens consultation rather than a binding electoral check."
+  :stakeholders ["Sultan" "Council of Oman (advisory)" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.75 :reversibility :entrenched :meadows 4
+  :basis "Basic Statute of the State (1996/2021)" :sourcing :representative :confidence 0.45}
+
+ ;; ── Sudan ──
+ {:type :instrument :id "sd-2021-coup" :name "2021 military coup (post-revolution reversal)" :jurisdiction "SD" :kind :institution :year 2021
+  :enactor "Sudanese armed forces + RSF"
+  :origin "After the 2019 revolution ousted Bashir and began a civilian-military transition, the military seized full power in 2021, dissolving the transitional government and later collapsing into war — reversing the citizen opening won in 2019."
+  :stakeholders ["armed forces" "RSF" "civilian transitional coalition" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.85 :reversibility :institutional :meadows 5
+  :basis "25 Oct 2021 coup" :sourcing :representative :confidence 0.5}
+
+ ;; ── Mali ──
+ {:type :instrument :id "ml-coup-2020" :name "2020/2021 coups (Sahel coup wave)" :jurisdiction "ML" :kind :institution :year 2020
+  :enactor "Malian armed forces (junta)"
+  :origin "Two coups installed a military junta that postponed promised elections — part of a Sahel wave (Mali, Burkina Faso, Niger, Guinea) that replaced fragile electoral channels with military rule."
+  :stakeholders ["military junta" "ECOWAS" "civilian parties" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.8 :reversibility :institutional :meadows 4
+  :basis "2020/2021 Mali coups; Sahel coup wave" :sourcing :representative :confidence 0.5}
+
+ ;; ── Zambia ──
+ {:type :instrument :id "zm-2021-alternation" :name "2021 peaceful electoral alternation" :jurisdiction "ZM" :kind :institution :year 2021
+  :enactor "Zambian electorate + Electoral Commission of Zambia"
+  :origin "Despite incumbency advantages and some pre-election restrictions, voters peacefully removed the incumbent president in 2021 — a working electoral channel and a regional counter-example to backsliding."
+  :stakeholders ["Electoral Commission" "opposition (UPND)" "incumbent" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.55 :reversibility :institutional :meadows 4
+  :basis "2021 Zambian general election" :sourcing :representative :confidence 0.5}
+
+ ;; ── Senegal ──
+ {:type :instrument :id "sn-democratic-resilience" :name "Democratic resilience (2024 transition)" :jurisdiction "SN" :kind :institution :year 2000
+  :enactor "Senegalese institutions + civil society + Constitutional Council"
+  :origin "Two peaceful alternations (2000, 2012) and, after a 2024 attempt to postpone elections, a Constitutional-Council reversal and peaceful handover — courts and protest checking an executive overreach in real time."
+  :stakeholders ["Constitutional Council" "opposition" "civil society" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.6 :reversibility :constitutional :meadows 4
+  :basis "2000/2012/2024 Senegalese transitions" :sourcing :representative :confidence 0.5}
+
+ ;; ── Laos ──
+ {:type :instrument :id "la-one-party" :name "Single-party state (LPRP)" :jurisdiction "LA" :kind :institution :year 1975
+  :enactor "Lao People's Revolutionary Party"
+  :origin "A one-party socialist state with no competitive elections and tight media control; citizens have no electoral route to power and limited access to state information."
+  :stakeholders ["LPRP" "National Assembly" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.85 :reversibility :entrenched :meadows 4
+  :basis "Lao PDR single-party system (since 1975)" :sourcing :representative :confidence 0.5}
+
+ ;; ── Bhutan ──
+ {:type :instrument :id "bt-2008-democratization" :name "2008 Constitution (king-initiated democracy)" :jurisdiction "BT" :kind :institution :year 2008
+  :enactor "King of Bhutan (Wangchuck dynasty), voluntarily devolving power"
+  :origin "The monarch initiated a transition to constitutional democracy with the 2008 constitution and first parliamentary elections — a rare top-down opening of citizen participation (still bounded by monarchy and 'Gross National Happiness' framing)."
+  :stakeholders ["monarchy" "National Assembly" "Election Commission" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.55 :reversibility :constitutional :meadows 4
+  :basis "Constitution of Bhutan (2008)" :sourcing :representative :confidence 0.5}
+
+ ;; ── Brunei ──
+ {:type :instrument :id "bn-absolute-monarchy" :name "Absolute monarchy + emergency since 1962" :jurisdiction "BN" :kind :institution :year 1962
+  :enactor "Sultan of Brunei"
+  :origin "A state of emergency in force since 1962 lets the sultan rule by decree; there is no elected legislature, and a 2014 Sharia penal code further centralized authority — citizens have no electoral channel."
+  :stakeholders ["Sultan" "appointed council" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.85 :reversibility :entrenched :meadows 4
+  :basis "Brunei emergency (1962–); Constitution" :sourcing :representative :confidence 0.5}
+
+ ;; ── Maldives ──
+ {:type :instrument :id "mv-2008-democracy" :name "2008 Constitution + first multiparty election" :jurisdiction "MV" :kind :doctrine :year 2008
+  :enactor "Special Majlis (constitutional assembly) of the Maldives"
+  :origin "Ended decades of one-man rule with a rights-bearing constitution and the first multiparty presidential election; participation has since been turbulent (a 2012 disputed transfer) but the electoral channel was opened."
+  :stakeholders ["Special Majlis" "Elections Commission" "parties" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.55 :reversibility :constitutional :meadows 4
+  :basis "Constitution of the Maldives (2008)" :sourcing :representative :confidence 0.45}
 ]

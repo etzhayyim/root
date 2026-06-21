@@ -159,13 +159,46 @@
                                      :role :flip-widening :prescription? false})))]
     {:amplify narrowers :flip wideners :prescription? false}))
 
+;; ── continental region map (for coverage balance; coarse + uncontroversial) ──
+(def jurisdiction-region
+  {;; Africa
+   "NG" :africa "ZA" :africa "KE" :africa "ET" :africa "RW" :africa "UG" :africa
+   "ZW" :africa "AO" :africa "TZ" :africa "SD" :africa "ML" :africa "ZM" :africa
+   "SN" :africa "DZ" :africa "EG" :africa "MA" :africa "TN" :africa "BW" :africa
+   "GH" :africa
+   ;; Americas
+   "US" :americas "BR" :americas "MX" :americas "CL" :americas "AR" :americas
+   "VE" :americas "CU" :americas "CO" :americas "PE" :americas "BO" :americas
+   "NI" :americas "CR" :americas "UY" :americas
+   ;; Asia (incl. Middle East / Central / South / SE / East)
+   "CN" :asia "KP" :asia "IN" :asia "ID" :asia "TH" :asia "PH" :asia "PK" :asia
+   "VN" :asia "BD" :asia "KH" :asia "TM" :asia "AZ" :asia "KZ" :asia "LK" :asia
+   "NP" :asia "MM" :asia "KR" :asia "TW" :asia "SG" :asia "MN" :asia "UZ" :asia
+   "KG" :asia "TJ" :asia "LA" :asia "BT" :asia "BN" :asia "MV" :asia "IL" :asia
+   "IR" :asia "IQ" :asia "SY" :asia "JO" :asia "LB" :asia "KW" :asia "BH" :asia
+   "QA" :asia "SA" :asia "AE" :asia "OM" :asia "AF" :asia "TR" :asia
+   ;; Europe
+   "GB" :europe "EU" :europe "DE" :europe "FR" :europe "IT" :europe "HU" :europe
+   "PL" :europe "SE" :europe "NO" :europe "CH" :europe "RS" :europe "BA" :europe
+   "RU" :europe "BY" :europe
+   ;; Oceania
+   "NZ" :oceania "AU" :oceania "FJ" :oceania
+   ;; transnational
+   "GLOBAL" :transnational "UN" :transnational})
+
+(defn region-of [jurisdiction] (get jurisdiction-region jurisdiction :other))
+
 (defn coverage [instruments]
   (let [js (sort (distinct (map :jurisdiction instruments)))
         stocks-covered (set (map :stock instruments))
         missing-stocks (remove stocks-covered stock-order)
         ;; stocks with no narrowing (balancing) instrument yet = ingest worklist
         narrow-by-stock (set (map :stock (filter #(= :narrow (:polarity %)) instruments)))
-        no-balancer (remove narrow-by-stock stock-order)]
+        no-balancer (remove narrow-by-stock stock-order)
+        ;; continental balance (distinct jurisdictions per region)
+        region-juris (reduce (fn [m j] (update m (region-of j) (fnil conj #{}) j)) {} js)
+        regions (into {} (map (fn [[r s]] [r (count s)]) region-juris))
+        unmapped (vec (sort (get region-juris :other #{})))]
     {:instruments (count instruments)
      :jurisdictions (count js)
      :jurisdiction-list (vec js)
@@ -173,12 +206,18 @@
      :stocks (frequencies (map :stock instruments))
      :polarity (frequencies (map :polarity instruments))
      :sourcing (frequencies (map :sourcing instruments))
+     :regions regions
+     :unmapped-jurisdictions unmapped
      :stocks-without-data (vec missing-stocks)
      :stocks-without-balancer (vec no-balancer)
      :worklist (vec (concat
                      (map #(str "add data for stock " (name %)) missing-stocks)
                      (map #(str "add a narrowing/balancing instrument for stock " (name %)) no-balancer)
-                     ["broaden jurisdiction coverage (Global South / small states under-represented)"]))}))
+                     (when (seq unmapped) [(str "map region for jurisdictions: " (str/join " " unmapped))])
+                     (let [thin (->> (dissoc regions :transnational)
+                                     (filter (fn [[_ n]] (< n 6))) (map (comp name first)) sort)]
+                       (when (seq thin) [(str "thin continental coverage: " (str/join " " thin))]))
+                     ["broaden jurisdiction coverage (small states / Pacific / Caribbean still light)"]))}))
 
 ;; ── temporal era trajectory (system-dynamics over time; structural, not a ranking) ──
 (def era-order
@@ -321,6 +360,9 @@
      "因果の証明ではない。これは resilience/leverage の MAP であって、国家を晒す ranking ではない (G7)。\n\n"
      "_coverage_: " (:instruments cov) " instruments · " (:jurisdictions cov)
      " jurisdictions · sourcing " (pr-str (:sourcing cov)) "\n\n"
+     "_continental balance_: "
+     (str/join " · " (for [[r n] (sort-by (comp - val) (:regions cov))]
+                       (str (name r) " " n))) "\n\n"
      "## Asymmetry stocks (regime = HYPOTHESIS)\n\n"
      "| stock | n | net pressure | widen | narrow | regime |\n"
      "|---|---|---|---|---|---|\n"

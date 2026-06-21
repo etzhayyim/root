@@ -2,16 +2,18 @@
 
 全世界の **具体的な法律・制度・思想・価値観** が citizen↔state の構造的非対称をどう広げる/狭めるかを、5 つの asymmetry STOCK と feedback LOOP で読み取る。**分析専用 (G4): junkan は観るだけで触れない。** 各 regime / leverage は **仮説 (G5)** であり因果の証明ではない。これは resilience/leverage の MAP であって、国家を晒す ranking ではない (G7)。
 
-_coverage_: 115 instruments · 74 jurisdictions · sourcing {:representative 115}
+_coverage_: 133 instruments · 92 jurisdictions · sourcing {:representative 133}
+
+_continental balance_: asia 41 · africa 19 · europe 14 · americas 13 · oceania 3 · transnational 2
 
 ## Asymmetry stocks (regime = HYPOTHESIS)
 
 | stock | n | net pressure | widen | narrow | regime |
 |---|---|---|---|---|---|
-| A 情報・可視性の非対称 (information) | 28 | 0.014 | 4.595 | 4.2 | transitioning |
-| B 参入・代表性の障壁 (participation) | 38 | 0.125 | 8.998 | 4.263 | transitioning |
-| C 強制力の非対称 (coercion) | 17 | 0.262 | 5.727 | 1.273 | vicious |
-| D 思想・価値観の従属 (paradigm) | 22 | 0.071 | 4.87 | 3.3 | transitioning |
+| A 情報・可視性の非対称 (information) | 29 | 0.022 | 4.842 | 4.2 | transitioning |
+| B 参入・代表性の障壁 (participation) | 52 | 0.11 | 11.278 | 5.563 | transitioning |
+| C 強制力の非対称 (coercion) | 19 | 0.275 | 6.49 | 1.273 | vicious |
+| D 思想・価値観の従属 (paradigm) | 23 | 0.086 | 5.27 | 3.3 | transitioning |
 | E 経済的レバレッジ集中 (economic) | 10 | 0.202 | 2.445 | 0.425 | vicious |
 
 _net > 0 = 非対称が広がる方向に loop が回っている (悪循環傾向); net < 0 = 是正方向 (好循環)。_
@@ -20,11 +22,11 @@ _net > 0 = 非対称が広がる方向に loop が回っている (悪循環傾�
 
 | loop | type | member stocks | drive | regime |
 |---|---|---|---|---|
-| R-secrecy-spiral | reinforcing | information-asymmetry, economic-capture | 0.108 | transitioning |
-| R-coercion-paradigm-lock | reinforcing | coercion-asymmetry, paradigm-subordination | 0.167 | transitioning |
-| R-capture-barrier | reinforcing | economic-capture, participation-barrier | 0.164 | transitioning |
-| B-transparency | balancing | information-asymmetry | 0.014 | transitioning |
-| B-participation | balancing | participation-barrier | 0.125 | transitioning |
+| R-secrecy-spiral | reinforcing | information-asymmetry, economic-capture | 0.112 | transitioning |
+| R-coercion-paradigm-lock | reinforcing | coercion-asymmetry, paradigm-subordination | 0.181 | transitioning |
+| R-capture-barrier | reinforcing | economic-capture, participation-barrier | 0.156 | transitioning |
+| B-transparency | balancing | information-asymmetry | 0.022 | transitioning |
+| B-participation | balancing | participation-barrier | 0.11 | transitioning |
 
 ## Era trajectory (system-dynamics over time, HYPOTHESIS, G5)
 
@@ -34,10 +36,10 @@ _各時代に制定された instrument が非対称を広げる/狭める方向
 |---|---|---|---|---|
 | pre-1800 | 3 | 0.0 | 1.405 | -0.468 |
 | 1800–1899 | 3 | 0.2 | 0.713 | -0.171 |
-| 1900–1944 | 7 | 1.95 | 0.2 | 0.25 |
-| 1945–1989 | 31 | 8.34 | 4.415 | 0.127 |
-| 1990–2009 | 31 | 5.97 | 4.113 | 0.06 |
-| 2010– | 37 | 9.775 | 2.345 | 0.201 |
+| 1900–1944 | 8 | 1.95 | 0.2 | 0.219 |
+| 1945–1989 | 35 | 9.483 | 4.618 | 0.139 |
+| 1990–2009 | 38 | 6.708 | 4.935 | 0.047 |
+| 2010– | 43 | 11.585 | 2.62 | 0.208 |
 
 ## Meadows leverage CANDIDATES (G11 — candidates, never directives)
 
@@ -59,6 +61,7 @@ _各時代に制定された instrument が非対称を広げる/狭める方向
 
 ## Coverage worklist (next /loop iterations)
 
-- broaden jurisdiction coverage (Global South / small states under-represented)
+- thin continental coverage: oceania
+- broaden jurisdiction coverage (small states / Pacific / Caribbean still light)
 
 _findings are append-only; surfacing beyond Council is performed by ossekai/kataribe on junkan's behalf, never by junkan (G13). actuation_taken=false throughout._
