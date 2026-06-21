@@ -41,7 +41,7 @@ latency-bound job stays in-place (never coerced).
       reusable heat; the suite seam); waste-heat handoff to 燠 okibi as a heat source
 - [ ] live ingest (operator G7): Murakumo scheduler + grid carbon-intensity API
 - [ ] deadline/deferral feasibility (currently movability-gated only)
-- [ ] fleet registration (heartbeat cell in cell-runner cells.edn)
+- [x] fleet registration (heartbeat cell in cell-runner cells.edn) — LANDED 2026-06-21
 
 ## Negative space (must stay absent)
 

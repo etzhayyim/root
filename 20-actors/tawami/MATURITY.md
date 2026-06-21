@@ -35,7 +35,7 @@ Actor: **撓 tawami** · ADR-2606211200 · status **R0** · suite **Energy Order
 - [x] claim emitter (LANDED 2026-06-21) — a USED flexibility → a 澪 mio flow-improvement claim (the suite seam)
 - [ ] live telemetry ingest (operator G7): SCADA / charger telematics / MES adapters
 - [ ] moyai reciprocity-credit handoff for flexibility provision (cash≡0)
-- [ ] fleet registration (heartbeat cell in cell-runner cells.edn)
+- [x] fleet registration (heartbeat cell in cell-runner cells.edn) — LANDED 2026-06-21
 
 ## Negative space (must stay absent)
 

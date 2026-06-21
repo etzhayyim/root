@@ -5,3 +5,5 @@ cd "$(dirname "$0")/../.."
 
 echo "== 20-actors/energy_order/test_digest.cljc =="
 bb --classpath 20-actors 20-actors/energy_order/test_digest.cljc
+echo "== 20-actors/energy_order/test_cells.cljc =="
+bb --classpath 20-actors 20-actors/energy_order/test_cells.cljc

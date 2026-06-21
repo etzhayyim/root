@@ -40,7 +40,7 @@ source is surplus.
       with signed BTU meter; the suite seam)
 - [ ] live meter/nameplate ingest (operator G7)
 - [ ] zone/site index for O(sources×sinks) → spatial-bucketed matching at scale
-- [ ] fleet registration (heartbeat cell in cell-runner cells.edn)
+- [x] fleet registration (heartbeat cell in cell-runner cells.edn) — LANDED 2026-06-21
 
 ## Negative space (must stay absent)
 

@@ -42,7 +42,7 @@ Actor: **澪 mio** · ADR-2606211200 · status **R0** · suite **Energy Order Pr
 - [ ] live measurement ingest (operator G7): signed-meter / third-party-audit / satellite
       / zk-proof adapters folding real `:authoritative` order-deltas
 - [ ] live claim write-surface — per-actor `claim` lexicon validation as legs write directly
-- [ ] fleet registration (heartbeat cell in cell-runner cells.edn)
+- [x] fleet registration (heartbeat cell in cell-runner cells.edn) — LANDED 2026-06-21
 - [ ] kotoba_bridge — push the verification commit-DAG to the live kotoba engine (ibuki-R3 pattern)
 
 ## Negative space (must stay absent)

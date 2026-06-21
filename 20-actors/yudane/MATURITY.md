@@ -40,7 +40,7 @@ an expired capability is refused (revocable leash); a non-reciprocal offer is re
 - [ ] real revocable-leash capability verification (CACAO, member-signed; ibuki pattern)
       replacing the seed's opaque capability reference
 - [ ] consent revocation path + expiry sweep
-- [ ] fleet registration (heartbeat cell in cell-runner cells.edn)
+- [x] fleet registration (heartbeat cell in cell-runner cells.edn) — LANDED 2026-06-21
 
 ## Negative space (must stay absent — the degeneration series)
 

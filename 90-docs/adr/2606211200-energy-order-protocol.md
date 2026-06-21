@@ -193,8 +193,29 @@ is one verifiable CID. Current run: 25 claims → 23 verified → **Flowrate 13,
 (by leg: yudane 7257.6 / tawami 2716.8 / toi 2327.5 / okibi 737.7; by class:
 intention/compute-routing/renewable-absorb/waste-heat/peak-shave). +7 tests / 21 assertions.
 
-Suite totals now **133 tests / 947 assertions green**. Remaining R1: live operator-gated
-ingest (real meters/scheduler/CACAO capability) + fleet registration (heartbeat cells).
+Suite totals now **133 tests / 947 assertions green**.
+
+## R1 — fleet registration LANDED (2026-06-21)
+
+All five actors now RUN as scheduled heartbeat cells (kotodama cell-runner contract,
+ADR-2605192415 §7.1). Each has a `cell.cljc` exposing `fire` (resolves its actor-dir via
+`io/resource`, derives the cycle from log length, calls its `autorun/beat`, returns an
+aggregate summary; idempotent per log state, no-server-key, offline I/O only). Registered
+in `50-infra/cluster/murakumo/cell-runner/cells.edn` (24 cells total now):
+
+| cell | module | node | cron | healthz |
+|---|---|---|---|---|
+| MioVerificationHeartbeatCell | mio.cell | judah | `8 * * * *` | 13084 |
+| TawamiFlexibilityHeartbeatCell | tawami.cell | zebulun | `14 * * * *` | 13085 |
+| OkibiThermalMatchHeartbeatCell | okibi.cell | asher | `21 * * * *` | 13086 |
+| ToiComputeRoutingHeartbeatCell | toi.cell | gad | `34 * * * *` | 13087 |
+| YudaneIntentionHeartbeatCell | yudane.cell | benjamin | `48 * * * *` | 13088 |
+
+Ports 13084–13088 are conflict-free; crons staggered. `fire` proven for all five by
+`20-actors/energy_order/test_cells.cljc` (append-on-first, idempotent no-op on second,
+chain verifies). Suite totals now **138 tests / 977 assertions green**. Remaining R1: live
+operator-gated ingest (real meters/scheduler/CACAO capability) + kotoba_bridge to the live
+engine (operator/Council-gated; needs a running node, not self-contained).
 
 # Consequences
 
