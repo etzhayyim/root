@@ -99,10 +99,11 @@ advice.
 │   └── issue_capability.cljc          # R1: member mints the revocable severance capability (Ed25519/JDK; kaiyaku never signs)
 ├── MATURITY.md                        # GENERATED R1 scorecard (methods/maturity.cljc; freshness-tested)
 ├── R1-RUNBOOK.md                      # operator how-to for the R1 leg (issue capability → run → persist → audit → G6 path)
-├── tests/                             # 116 tests, pure stdlib
+├── tests/                             # 121 tests, pure stdlib
 │   ├── test_analyze.py
 │   ├── test_handoff.py
 │   ├── test_plan.py
+│   ├── test_cap.cljc                  # R1 capability: load/validation gate (malformed-bundle rejection)
 │   ├── test_driver.cljc               # R1 driver: capability gating + cascade + exactly-once
 │   ├── test_catalog.cljc              # R1 catalog: tier-parity w/ planner + G3/G6/G8 honesty
 │   ├── test_issue_capability.cljc     # R1 tool: issuance↔cap verification roundtrip + Ed25519
