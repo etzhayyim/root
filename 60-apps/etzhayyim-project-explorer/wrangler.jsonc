@@ -1,0 +1,17 @@
+{
+  // etzhayyim-project-explorer — Cloudflare Workers Assets (serverless SPA).
+  // ADR-2606201610. Mirrors the yoro deploy pattern: no origin, no edge compute;
+  // the Worker only serves static SPA assets with single-page-application fallback.
+  //
+  // Cut-over (decided 2026-06-20): publish at explorer.etzhayyim.com first, verify,
+  // then flip the apex etzhayyim-did-web catch-all Service Binding YORO → EXPLORER.
+  "name": "kotodama-explorer",
+  "compatibility_date": "2026-06-01",
+  "assets": {
+    "directory": "./public",
+    "not_found_handling": "single-page-application"
+  },
+  "routes": [
+    { "pattern": "explorer.etzhayyim.com", "custom_domain": true }
+  ]
+}

@@ -1,11 +1,11 @@
 ---
 id: adr-2606201610-etzhayyim-apex-kotoba-explorer-organism-app
 title: "ADR-2606201610: etzhayyim.com apex — kotoba blockchain explorer + node-distribution + organism app (serverless, browser-side)"
-status: proposed
+status: accepted
 doc_type: adr
 topic: etzhayyim-apex-kotoba-explorer-organism-app
 authoritative: true
-last_verified: 2026-06-20
+last_verified: 2026-06-21
 priority: 5.0
 axis: architecture
 weight: 0.50
@@ -13,11 +13,21 @@ priority_note: ""
 authoritative_for:
   - etzhayyim.com apex landing app (replaces the yoro bsky AppView at the apex)
   - browser-side (serverless) kotoba blockchain/CommitDag explorer
-  - node-distribution (分散状況) view over the actor/cell mesh
+  - node-distribution (分散状況) view, queried from the kotoba Datom EAVT
   - organism aliveness view (Tree-of-Life + 5-tuple)
+  - Transit (transit+json) query/sync wire for the kotoba browser
+  - agent-centric (Holochain-iso) actor registration PoC (signed genesis source-chains)
+  - validating membrane (CACAO member vouch + witness quorum + kotoba-dht replication)
+  - live kotoba sync node (XRPC sync.subscribe → transit+json SSE)
 depends_on:
   - adr-2606013600-browser-kotoba-node-sovereign-apex-tier2
   - adr-2605202359-etzhayyim-apex-yoro-proxy
+  - adr-2605312345-kotoba-datom-first-class-canonical-state
+  - adr-2605231400-kotoba-datomic-holochain-iso-substrate
+  - adr-2606011330-kotoba-dht-holochain-validating-dht-durability-substrate
+  - adr-2606015600-self-certifying-did-attestation
+  - adr-2606112000-actor-dna-manifest
+  - adr-2606111400-ibuki-revocable-leash-cacao
 related:
   - adr-2605171900-yoro-migration-to-etzhayyim
   - adr-2605311310-yoro-black-screen-spa-recursion-fix-and-ipfs-deploy-feasibility
@@ -28,8 +38,10 @@ superseded_by: []
 
 # ADR-2606201610: etzhayyim.com apex — kotoba explorer + node-distribution + organism app
 
-**Status**: proposed (R0 design)
-**Date**: 2026-06-20
+**Status**: accepted — R0 implemented + R1.x landed (kotoba-EAVT-queried /nodes,
+Transit wire, live sync node, agent-centric registration + validating membrane,
+visual react loop). Deploy-time cut-over (apex binding flip) is the remaining step.
+**Date**: 2026-06-20 (design) · 2026-06-21 (implementation update)
 **Deciders**: Jun Kawasaki
 
 # Context
@@ -182,24 +194,27 @@ panel directly, no nested SPA frame):
   an untrusted cache (CID re-verified locally).
 
 ### View C — node distribution / 分散状況 (`/nodes`)
-- **Source**: `/organism/organism.json` (`nodes[]` + `summary`) +
-  `/organism/health.json` (layer staleness) + the murakumo roster
-  `50-infra/murakumo/fleet.edn` (the 12-tribe physical nodes:
-  naphtali/simeon/judah/zebulun/levi/joseph/issachar/dan/benjamin/asher — cell
-  placement + healthz ports) baked as a static `/organism/fleet.json`.
-- **Browser compute**: force-directed graph layout (`d3-force` or a tiny in-house
-  sim) over `inDeg`/`outDeg` edges, computed in the browser; aggregate alive/dormant/
-  stub counts; HHI-style concentration of cells per physical node.
-- **Render**: (1) **mesh graph** — node = actor/cell, color = `reflex`
-  (green/red/absent), size = `score`/`cells`, edges = dependency degree; (2) physical
-  **fleet map** — 10 tribe nodes with their cell counts + healthz; (3) summary cards
-  (`104 cells · 1 alive · 96 dormant · 7 stub`) + staleness badges from `health.json`.
-- **Live tier (decided: in R0, still serverless)**: dial a kotoba node via libp2p
-  **from the browser** for an SSE Datom tail
-  (`/xrpc/com.etzhayyim.apps.kotoba.sync.subscribe`) so the mesh updates in
-  real time. The static snapshot remains the **baseline render** (the page is fully
-  functional with zero connections); the live tail is a progressive enhancement
-  layered on top, and a connection failure degrades silently to the snapshot.
+- **Source (kotoba Datom query, NOT baked JSON)**: the living-cell mesh is
+  materialized + queried **in-browser from the vitals EAVT snapshot**
+  (`/organism/vitals.kotoba.edn`, a canonical kotoba Datom snapshot per
+  ADR-2605312345) — `chain.datom/materialize-snapshot` + `entities-where`, with the
+  生/休眠/死 class derived by a faithful port of `etzhayyim.vitals/classify`. The
+  **actor census** (tiered counts incl. UNISPSC 18,342 / entity-mirror 8,888 /
+  living-cells 104 → ~27.5k) is read from a content-addressed **kotoba Datom
+  commit-log** (`/kotoba/log/actor-census.kotoba.edn`, chain-verified in-browser).
+  `organism.json` is no longer the source.
+- **Browser compute**: a tiny in-house force layout over the queried cells (no d3
+  dependency); class frequencies folded from the Datom query.
+- **Render**: (1) **mesh graph** — node = actor/cell, color = `reflex`, size =
+  `score`/`cells`; (2) **census table** (✓ chain-verified) with the tiered counts,
+  honestly noting the UNISPSC/entity tier is the apex materialized-view tier, not
+  heartbeat cells; (3) staleness badges from `health.json`.
+- **Live tier (landed, still serverless)**: the browser subscribes to a kotoba
+  node's XRPC sync endpoint (`/xrpc/com.etzhayyim.apps.kotoba.sync.subscribe`) over
+  **Server-Sent Events whose frames are transit+json** (see §5), decoding each frame
+  with `transit-cljs` (`live/decode-frame`, transit→JSON→raw fallback). The static
+  snapshot is the **baseline render**; the live tail is a progressive enhancement
+  that degrades silently to the snapshot on failure.
 
 ## 3. Tech stack
 
@@ -215,26 +230,30 @@ panel directly, no nested SPA frame):
 - **Build/deploy**: `pnpm build` → Workers Assets; apex binding flip. Mirrors the
   yoro pipeline exactly (drop-in at the apex).
 
-## 4. Directory layout (new)
+## 4. Directory layout (as built)
 
 ```
 60-apps/etzhayyim-project-explorer/
-├── README.md
-├── shadow-cljs.edn                 # :app → :browser, :dev-http
+├── README.md · MATURITY.md
+├── shadow-cljs.edn                 # :app → :browser (reagent + re-frame + transit-cljs)
 ├── wrangler.jsonc                  # Worker: kotodama-explorer (Assets only)
 ├── src/etzhayyim/explorer/
-│   ├── app.cljs                    # route-first shell (/, /explorer, /nodes)
-│   ├── organism/{view,bonsai,aliveness}.cljs   # A(t) recompute + Tree of Life
-│   ├── chain/{view,commitdag,datom,query}.cljs # kotoba-wasm CommitDag explorer
-│   ├── nodes/{view,graph,fleet}.cljs           # force graph + fleet map
-│   └── data/fetch.cljs             # CID-verified block fetch + EDN/JSON readers
-├── resources/kotoba-wasm/          # web bundle from poc-browser-node serve/
-└── static/                         # build output (Workers Assets)
+│   ├── core.cljs · shell.cljs · router.cljs   # bootstrap + route-first nav
+│   ├── data.cljs                   # content-addressed fetch (JSON/EDN/blocks)
+│   ├── wire.cljs                   # Transit (transit+json) query/sync codec
+│   ├── state.cljs · ui.cljs · live.cljs       # re-frame / gate / SSE tail
+│   ├── organism/{aliveness,bonsai,view}.cljs  # A(t) recompute + Tree of Life
+│   ├── chain/{datom,agent,view}.cljs          # kotoba.datom verify + agent registration
+│   └── nodes/{graph,view}.cljs                # in-house force graph + census
+├── test/etzhayyim/explorer/        # 63 cljs tests (coverage1..11 + per-feature)
+├── actor-registry/                 # clj — agent-centric Holochain-iso registration
+│   └── src/etzhayyim/registry/{agent,register,wire-gen,sync-node}.clj
+└── visual-test/                    # clj — visual react loop (computer-use-clj + gemma)
 ```
 
-The heartbeat generator that already writes
-`60-apps/etzhayyim-project-organism/public/*` gains an emit of `fleet.json` (from
-`fleet.edn`) and those assets are surfaced under the apex `/organism/*` route.
+The heartbeat generator (`60-apps/etzhayyim-project-organism`) already emits the
+EDN snapshots; the apex Worker surfaces them under `/organism/*` and serves the
+kotoba Datom logs under `/kotoba/*` (census, agents, wire fixtures).
 
 # Consequences
 
@@ -257,19 +276,77 @@ The heartbeat generator that already writes
 - The explorer reveals the *real* mesh state (96/104 dormant today) — by design, but
   it makes organism health publicly legible; acceptable per the transparency posture.
 
+# Implementation (landed 2026-06-21)
+
+Beyond the R0 viewer, the following landed in `60-apps/etzhayyim-project-explorer`
+(all browser-side / serverless; clj tools for the node-side):
+
+## 5. Transit (transit+json) query/sync wire — Datomic-client standard
+
+The kotoba query/sync **wire** is `transit+json` (`wire.cljs` via `transit-cljs`;
+`actor-registry` `wire-gen.clj`/`sync_node.clj` via `transit-clj`). This is the
+Datomic-client wire standard and preserves rich types (keywords, sets, instants)
+and cache-compresses repeated attribute keys — exactly the Datom shape.
+**Layering is deliberate**: the CID preimage stays **canonical-JSON** (byte-identical
+across clj/py/rust — a content-addressing invariant), on-disk snapshots stay **EDN**
+(`.kotoba.edn`), and **only the wire** is Transit. Proven: `:cell/class` survives as
+a keyword end-to-end (`wire_test.cljs`).
+
+## 6. Agent-centric (Holochain-iso) actor registration + validating membrane
+
+`actor-registry/` registers actors the **agent-centric way** (ADR-2605231400 /
+2606011330 / 2606015600 / 2606112000), not as a central constant:
+
+- each actor is an **agent = its own ed25519 key → `did:key`** (self-certifying);
+- it authors a **signed genesis entry** on its **own kotoba Datom source-chain**
+  (content-addressed commit-DAG; the genesis `:tx/cid` is its join address);
+- a **CACAO member vouch** (an existing SBT member signs a capability — the Sybil
+  boundary, revocable-leash shape ADR-2606111400) + a **witness quorum** (N
+  validators each sign an attestation or a warrant) gate admission;
+- the entry replicates to the **kotoba-dht XOR-closest** r validator-nodes;
+- the **registry is an emergent materialized-view fold** over genesis entries —
+  un-vouched / duplicate actors are **rejected** (warrants), never folded in.
+
+The browser (`chain/agent.cljs`) independently re-verifies each agent's genesis:
+chain recompute + **Web Crypto Ed25519** self-signature + member vouch (against the
+published roster) + validator quorum — shown in `/explorer` with `✓ chain ✓
+self-sig ✓ vouch ✓ quorum N≥T · dht×r`, rejections with their reason.
+
+## 7. Live kotoba sync node
+
+`actor-registry/sync_node.clj` serves `GET
+/xrpc/com.etzhayyim.apps.kotoba.sync.subscribe?cursor=N` over **SSE with
+transit+json frames** (read from the vitals EAVT, CORS-open). The browser live tail
+decodes them with keyword fidelity (verified end-to-end). Production form is a `bb`
+task under launchd, fronted by the apex Worker proxying the XRPC route.
+
+## 8. Verification — visual react loop + tests
+
+- **Visual react loop** (`visual-test/`, built on `computer-use-clj`): drives a real
+  browser, screenshots via the `IComputer` host, and a **local Ollama gemma vision**
+  model judges each view (`/`, `/explorer`, `/nodes`) — a feedback loop that reacts
+  to what the model sees and logs verdicts to a kotoba Datom log. It caught a real
+  EDN-reader bug on the Organism view; **3/3 PASS** after the fix.
+- **Tests**: 63 cljs (`npm test`) + 13 clj (`actor-registry`), 0 failures; release
+  build 0 warnings. Coverage is unit-saturated (see `MATURITY.md`): pure logic,
+  re-frame state, window-coupled `data`/`live`, Web Crypto, `ui`, fetch I/O, and
+  full reagent SSR render of all three views.
+
 # Rollout (R0 → R1)
 
-- **R0 (this ADR — implemented)**: ClojureScript static SPA, **default landing =
-  Organism**; three views from the existing snapshots; bonsai + browser-laid-out node
-  graph; **libp2p live Datom tail** layered over the node snapshot; the explorer runs
-  the **real `kotoba.datom` codec in-browser** — byte-compatible content-addressed
-  chain verification + EAVT entity browser + Datalog-shaped query over a real committed
-  log (proven by `datom_test.cljs`). Builds clean (shadow-cljs `release`, 0 warnings);
-  8 tests / 25 assertions green. Ship behind `explorer.etzhayyim.com` first; flip the
-  apex binding only after preview verification.
-- **R1**: the raw-block CAR path via kotoba-wasm (Prolly traversal) + full kqe Datalog
-  grammar; IPFS pin of the build; joucho/narration surfacing; physical fleet healthz
-  live probe; broaden the live tail to the explorer (live commit stream).
+- **R0 — DONE**: ClojureScript static SPA (reagent + re-frame), default landing =
+  Organism; three views; real `kotoba.datom` in-browser chain verification + EAVT
+  browser + Datalog-shaped query; bonsai + in-house force graph.
+- **R1.x — DONE (2026-06-21)**: `/nodes` queried from the kotoba EAVT (not JSON) +
+  tiered actor census; **Transit (transit+json) query/sync wire**; **live kotoba sync
+  node** + transit live tail; **agent-centric registration + validating membrane**;
+  **visual react loop**; 63 cljs + 13 clj tests, 0 warnings.
+- **Remaining (deploy-time / R2)**: (a) flip the apex binding `YORO → EXPLORER`
+  after preview at `explorer.etzhayyim.com`; (b) `kotoba-wasm` raw-block CAR/Prolly
+  decode for `/kotoba/blocks/<cid>` + full kqe Datalog grammar; (c) IPFS pin of the
+  build; (d) run the sync node as a `bb`/launchd task fronted by the apex Worker; (e)
+  bind the SBT member roster to the on-chain membership contract + live kotoba-dht
+  gossip/warrant propagation (the quorum/DHT are deterministic in the PoC).
 
 # Decisions locked (2026-06-20)
 

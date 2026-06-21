@@ -25743,15 +25743,19 @@
       "path": "90-docs/adr/2606201610-etzhayyim-apex-kotoba-explorer-organism-app.md",
       "id": "adr-2606201610-etzhayyim-apex-kotoba-explorer-organism-app",
       "title": "ADR-2606201610: etzhayyim.com apex — kotoba blockchain explorer + node-distribution + organism app (serverless, browser-side)",
-      "status": "proposed",
+      "status": "accepted",
       "doc_type": "adr",
       "topic": "etzhayyim-apex-kotoba-explorer-organism-app",
       "authoritative": true,
       "authoritative_for": [
         "etzhayyim.com apex landing app (replaces the yoro bsky AppView at the apex)",
         "browser-side (serverless) kotoba blockchain/CommitDag explorer",
-        "node-distribution (分散状況) view over the actor/cell mesh",
-        "organism aliveness view (Tree-of-Life + 5-tuple)"
+        "node-distribution (分散状況) view, queried from the kotoba Datom EAVT",
+        "organism aliveness view (Tree-of-Life + 5-tuple)",
+        "Transit (transit+json) query/sync wire for the kotoba browser",
+        "agent-centric (Holochain-iso) actor registration PoC (signed genesis source-chains)",
+        "validating membrane (CACAO member vouch + witness quorum + kotoba-dht replication)",
+        "live kotoba sync node (XRPC sync.subscribe → transit+json SSE)"
       ],
       "related": [
         "adr-2605171900-yoro-migration-to-etzhayyim",
@@ -25762,9 +25766,15 @@
       "superseded_by": [],
       "depends_on": [
         "adr-2606013600-browser-kotoba-node-sovereign-apex-tier2",
-        "adr-2605202359-etzhayyim-apex-yoro-proxy"
+        "adr-2605202359-etzhayyim-apex-yoro-proxy",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605231400-kotoba-datomic-holochain-iso-substrate",
+        "adr-2606011330-kotoba-dht-holochain-validating-dht-durability-substrate",
+        "adr-2606015600-self-certifying-did-attestation",
+        "adr-2606112000-actor-dna-manifest",
+        "adr-2606111400-ibuki-revocable-leash-cacao"
       ],
-      "last_verified": "2026-06-20",
+      "last_verified": "2026-06-21",
       "amends": [],
       "amended_by": []
     },
