@@ -394,6 +394,25 @@ up worktrees), run this exact sweep over the current branch + every worktree
 Never commit/push the shared main checkout's dirty working tree (other agents' in-flight work);
 push only the branch's committed HEAD. Report the final categorized outcome.
 
+**Command — "closing" (one-shot close-out).** When the user's instruction contains the word
+**`closing`** (英語語 "closing" を含む場合), take the CURRENT worktree's work all the way to
+landed **without further confirmation** — run this sequence end-to-end for the active branch:
+
+1. **Commit** any uncommitted work in the worktree (scoped to your own paths, per the
+   worktree-isolation rules above).
+2. **PR create** — `git push -u origin <branch>` then `gh pr create --base main` (skip if a PR
+   already exists for the branch; reuse it).
+3. **Merge to repo** — merge the PR into `origin/main` (`gh pr merge <#> --squash --delete-branch`,
+   or the repo's standard merge). This is the explicit standing authorization to merge that the
+   `closing` keyword grants; do not ask again. If merge is blocked (failing required checks,
+   conflicts, review gates), STOP and report — do not force-merge past a real gate.
+4. **Cleanup** — run the **"worktree cleanup"** sweep above (delete the now-merged worktree +
+   branch via `ExitWorktree action: "remove"` / `git worktree remove` + `git branch -d`).
+
+`closing` is the single keyword that authorizes the otherwise-confirmation-gated merge step;
+absent it, stop at PR-open and leave merge to the user. Report the final state (PR URL, merge
+commit, worktrees removed).
+
 ## ADR Authority (per ADR-2605170900)
 
 **This repo is canonical for religious-corp open ADRs.**
