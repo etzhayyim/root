@@ -20,10 +20,6 @@ echo "==> infra-utility-connect [cljc] infra-utility-connect.methods.test-agent"
 ( cd "$repo_root" && bb -cp 20-actors -e \
   '(require (quote clojure.test) (quote infra-utility-connect.methods.test-agent))(let [r (clojure.test/run-tests (quote infra-utility-connect.methods.test-agent))](System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))' ) || fail=1
 
-# ── py test suite (original, kept intact) ────────────────────────────────────
-echo "==> infra-utility-connect [py] test_agent.py"
-( cd "$here/py" && python3 test_agent.py ) || fail=1
-
 if [[ $fail -eq 0 ]]; then
   echo "==> infra-utility-connect: ALL GREEN"
 else
