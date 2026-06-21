@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-06-20",
+  "updated_at": "2026-06-21",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.md",
@@ -25721,6 +25721,25 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606201200-ibuki-coscientist-entropy-react-loop.md",
+      "id": "adr-2606201200-ibuki-coscientist-entropy-react-loop",
+      "title": "ADR-2606201200: ibuki 息吹 — co-scientist entropy ReAct loop (the organism reasons about how to persist)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "ibuki-coscientist-entropy-react-loop",
+      "authoritative": true,
+      "authoritative_for": [
+        "ibuki-coscientist-entropy-react-loop"
+      ],
+      "related": "[\"2606051800\", \"2606111500\", \"2606012100\", \"2606062101\", \"2605192100\"]",
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": "[\"2606101200\", \"2606101800\", \"2605215000\", \"2605312345\", \"2606062100\"]",
+      "last_verified": "2026-06-20",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606201610-etzhayyim-apex-kotoba-explorer-organism-app.md",
       "id": "adr-2606201610-etzhayyim-apex-kotoba-explorer-organism-app",
       "title": "ADR-2606201610: etzhayyim.com apex — kotoba blockchain explorer + node-distribution + organism app (serverless, browser-side)",
@@ -25746,6 +25765,35 @@
         "adr-2605202359-etzhayyim-apex-yoro-proxy"
       ],
       "last_verified": "2026-06-20",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606211500-uzu-thermodynamic-organism.md",
+      "id": "adr-2606211500-uzu-thermodynamic-organism",
+      "title": "ADR-2606211500: uzu 渦 — a dissipative information-energy artificial organism + real-world energy measurement & visualization",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "uzu-thermodynamic-organism",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/uzu"
+      ],
+      "related": [
+        "2606101200",
+        "2606101800",
+        "2606011501",
+        "2606072002",
+        "2606032000",
+        "2606072201"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605262130",
+        "2605312345"
+      ],
+      "last_verified": "2026-06-21",
       "amends": [],
       "amended_by": []
     },
