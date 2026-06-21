@@ -7,7 +7,7 @@
 | **score + organism reward** (ADR-2606212200) | kafun is scored as an information-control actor (`etzhayyim.ie-flow.score`): info-control-score = its active-inference 利得, gated by 子孫 (:descendant 0.85); contributes to the colony-order negentropy source feeding ibuki's metabolic reward. Real scoreboard entry (score 0.452) | ✅ landed |
 | R1 — inochi grounding | `bridge.cljc`: ground `:protected`/habitat-sensitivity in inochi 命's ecological observation (ugachi/busshi bridge pattern) — a stand in a high-biodiversity biome favors `:protected-selective` over clearcut, never fabricates protection | ⏳ |
 | **ie-flow record!** (R1) | `ie_flow.cljc` `record-flow!` + `--record` flag: records kafun's measured ie-flow events to `80-data/ie-flow/kafun/flow.kotoba.edn` via `etzhayyim.ie-flow.embed` (the ie-flow ADR-2606212200 live-record follow-up) → kafun's SoS scoreboard entry is tool/heartbeat-produced, not adapter-on-demand only | ✅ landed |
-| R1 — Murakumo digest | Murakumo-narrated remediation digest (fail-open template, G6) | ⏳ |
+| **Murakumo digest** (R1) | `digest.cljc`: kafun narrates its remediation MAP (L1-1/L3-1 bottlenecks + refusals + downstream actors) via the Murakumo fleet — injected `infer`, FAIL-OPEN to a deterministic template (G6, verified offline), loopback-only `murakumo-infer` (non-loopback host refused); emitted `:digest/status :dry-run` ONLY (G8, `:published` unrepresentable) | ✅ landed |
 | **lexicons** (R1) | AT-proto lexicon JSON under `00-contracts/lexicons/com/etzhayyim/kafun/` — `remediationVerdict` + `pollenRemediationMap` (tatara/kaname convention); G1/G2/G5 guards as `const` (`isCutList:false`, `neverActuates:true`), all 11 verdict/reason/route enums in parity with `remediate.cljc` | ✅ landed |
 | R1 — fleet | cell-runner registration (+ healthz, the ugachi/kaname maturity track) | ⏳ |
 | R1 — real stands (G7) | real cadastral + Sentinel-2/ALOS canopy → kotoba (the legacy ADR-2605100100 scout→cadastral→envoy pipeline, behind an operator flip) | ⏳ (operator/Council step) |
@@ -23,11 +23,12 @@ bb --classpath 20-actors 20-actors/kafun/methods/test_autorun.cljc      # 4 test
 # the SoS embedding suite needs the shared ie-flow lib on the classpath:
 bb -cp "20-actors:70-tools/src:20-actors/kotodama/src" \
    20-actors/kafun/methods/test_ie_flow.cljc                            # 8 tests / 28 assertions (ie-flow + viz + record!)
-# or all five at once:
+bb --classpath 20-actors 20-actors/kafun/methods/test_digest.cljc       # 8 tests / 21 assertions (Murakumo digest + fail-open)
+# or all six at once:
 ./20-actors/kafun/run_tests.sh
 ```
 
-30 tests / 90 assertions green.
+38 tests / 111 assertions green.
 
 ## Invariants held
 
