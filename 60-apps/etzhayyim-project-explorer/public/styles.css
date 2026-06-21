@@ -1,0 +1,101 @@
+/* etzhayyim-project-explorer — apex SPA styling (ADR-2606201610).
+   Minimal, organic palette: paper ground, ink text, leaf/clay status. */
+:root {
+  --paper: #fffaf2;
+  --paper-2: #f5efe3;
+  --ink: #2b2620;
+  --ink-soft: #6b6256;
+  --line: #e3dac9;
+  --leaf: #3aa55c;
+  --leaf-dim: #7fae8a;
+  --clay: #b5572f;
+  --gold: #c79a3a;
+  --absent: #b8b0a2;
+  --shadow: 0 1px 2px rgba(43, 38, 32, 0.08);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font: 15px/1.5 ui-sans-serif, system-ui, "Hiragino Sans", "Noto Sans JP", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+
+.app { max-width: 1100px; margin: 0 auto; padding: 0 18px 64px; }
+
+/* ── top bar / nav ───────────────────────────────────────────────────────── */
+.topbar {
+  display: flex; align-items: baseline; gap: 18px;
+  padding: 18px 0 12px; border-bottom: 1px solid var(--line);
+  position: sticky; top: 0; background: var(--paper); z-index: 5;
+}
+.brand { font-weight: 700; letter-spacing: 0.02em; }
+.brand small { color: var(--ink-soft); font-weight: 400; margin-left: 8px; }
+.nav { display: flex; gap: 6px; margin-left: auto; }
+.nav a {
+  text-decoration: none; padding: 6px 12px; border-radius: 999px;
+  color: var(--ink-soft); font-size: 14px;
+}
+.nav a.active { background: var(--ink); color: var(--paper); }
+.nav a:hover:not(.active) { background: var(--paper-2); }
+
+.live-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+.live-dot.on { background: var(--leaf); box-shadow: 0 0 0 3px rgba(58,165,92,.18); }
+.live-dot.off { background: var(--absent); }
+
+/* ── generic blocks ──────────────────────────────────────────────────────── */
+.view { padding-top: 22px; }
+.row { display: flex; gap: 22px; flex-wrap: wrap; }
+.col { flex: 1 1 320px; min-width: 280px; }
+.card {
+  background: var(--paper); border: 1px solid var(--line); border-radius: 12px;
+  padding: 16px; box-shadow: var(--shadow); margin-bottom: 18px;
+}
+.card h3 { margin: 0 0 10px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); }
+.muted { color: var(--ink-soft); }
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px; }
+.badge { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 11.5px; border: 1px solid var(--line); }
+.badge.green { color: var(--leaf); border-color: var(--leaf-dim); }
+.badge.red { color: var(--clay); border-color: var(--clay); }
+.badge.stale { color: var(--clay); background: #fbeee6; border-color: var(--clay); }
+.badge.fresh { color: var(--leaf); background: #ecf6ef; border-color: var(--leaf-dim); }
+
+/* ── aliveness dials ─────────────────────────────────────────────────────── */
+.dials { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.dial { display: grid; grid-template-columns: 24px 1fr auto; align-items: center; gap: 10px; }
+.dial .k { font-weight: 700; }
+.dial .bar { height: 8px; background: var(--paper-2); border-radius: 999px; overflow: hidden; }
+.dial .bar > span { display: block; height: 100%; background: var(--leaf); }
+.dial .bar.band > span { background: var(--gold); }
+.dial .bar.low > span { background: var(--clay); }
+.dial .v { font-variant-numeric: tabular-nums; color: var(--ink-soft); min-width: 56px; text-align: right; }
+.dial .lbl { font-size: 12px; color: var(--ink-soft); }
+.computed-tag { font-size: 10px; color: var(--leaf); border: 1px solid var(--leaf-dim); border-radius: 4px; padding: 0 4px; margin-left: 6px; }
+.read-tag { font-size: 10px; color: var(--ink-soft); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; margin-left: 6px; }
+
+/* ── pulse ticker / lists ────────────────────────────────────────────────── */
+.pulse { list-style: none; margin: 0; padding: 0; max-height: 240px; overflow: auto; }
+.pulse li { display: flex; gap: 10px; padding: 5px 0; border-bottom: 1px dashed var(--line); }
+.pulse .actor { color: var(--gold); font-weight: 600; min-width: 90px; }
+.summary-cards { display: flex; gap: 12px; flex-wrap: wrap; }
+.stat { flex: 1 1 100px; text-align: center; padding: 12px; border: 1px solid var(--line); border-radius: 10px; }
+.stat .n { font-size: 26px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.stat .l { font-size: 12px; color: var(--ink-soft); }
+
+/* ── svg canvases ────────────────────────────────────────────────────────── */
+.bonsai, .meshgraph { width: 100%; height: auto; display: block; }
+.node-dot { cursor: pointer; }
+.legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12px; color: var(--ink-soft); margin-top: 8px; }
+.legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 5px; vertical-align: middle; }
+
+table.kv { width: 100%; border-collapse: collapse; }
+table.kv td { padding: 4px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+table.kv td:first-child { color: var(--ink-soft); width: 38%; }
+
+.input { width: 100%; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); font-family: ui-monospace, monospace; }
+.btn { padding: 7px 14px; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); border-radius: 8px; cursor: pointer; }
+.btn.ghost { background: var(--paper); color: var(--ink); }
+.err { color: var(--clay); }
+.loading { color: var(--ink-soft); font-style: italic; }
