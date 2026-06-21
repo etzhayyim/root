@@ -14,20 +14,20 @@
     "report.md"
   ],
   "regenerate": "bb --classpath 20-actors -e \"(require '[junkan.methods.junkan-edn :as je] '[junkan.methods.analyze :as az] '[junkan.methods.kotoba :as k]) (let [is (je/instruments \\\"20-actors/junkan/kotoba/seed.governance-asymmetry.edn\\\") a (az/analyze is) ds (az/datoms is a) tx (k/make-tx ds \\\"junkan-gov-snapshot-0001\\\" \\\"snapshot\\\" \\\"\\\")] (spit \\\"80-data/junkan-governance/governance-asymmetry.datoms.kotoba.edn\\\" (az/render-datoms is a)) (spit \\\"80-data/junkan-governance/findings-ledger.kotoba.edn\\\" (k/tx->edn tx)) (spit \\\"80-data/junkan-governance/report.md\\\" (az/render-report a)))\"",
-  "tx_cid": "b2115a5d55bdfdfbe25c4867ba05447ce59c25540359f5bb489c2b56185f985da",
-  "datoms": 5299,
-  "instruments": 361,
+  "tx_cid": "b6e6048db3519ec1c7712ce1c3fab370e83c4c9881ef0f33ecd3f050d8b6c2398",
+  "datoms": 5411,
+  "instruments": 369,
   "jurisdictions": 197,
   "regions": {"africa": 53, "europe": 48, "asia": 46, "americas": 34, "oceania": 14, "transnational": 2},
-  "kinds": {"law": 82, "institution": 208, "doctrine": 44, "value": 27},
-  "stocks": {"participation-barrier": 142, "information-asymmetry": 56, "paradigm-subordination": 55, "coercion-asymmetry": 54, "economic-capture": 54},
-  "thinnest_stock": "economic-capture",
+  "kinds": {"law": 82, "institution": 215, "doctrine": 44, "value": 28},
+  "stocks": {"participation-barrier": 142, "economic-capture": 62, "information-asymmetry": 56, "paradigm-subordination": 55, "coercion-asymmetry": 54},
+  "thinnest_stock": "coercion-asymmetry",
   "generated_scorecard": "SCORECARD.md",
   "tx_cid_note": "tx-cid reproducible byte-for-byte from the seed (deterministic content-address); changes only when the seed changes.",
   "sourcing": "representative (laws/years/enactors/origins are on-the-record public facts; polarity/magnitude/confidence are junkan's disclosed hypotheses, G5)",
   "discipline": "G4 analysis-only / G5 hypothesis-only / G6 aggregate-only / G7 map-not-rank / G11 candidates-not-directives",
   "as_of": "2026-06-22",
-  "iteration": 27,
+  "iteration": 28,
   "iteration_history": [
     {"iteration": 1, "instruments": 35, "jurisdictions": 17, "tx_cid": "bb4be4ac091ae9cc9be30c732d2fc78f773afabea84d6deccb96b784576a1d814"},
     {"iteration": 2, "instruments": 59, "jurisdictions": 31, "note": "Global South / under-represented wave: BR MX ZA NG ID TR IR PH PK VN KE TN CL TW"},
@@ -55,6 +55,7 @@
     {"iteration": 24, "instruments": 337, "jurisdictions": 194, "note": "coercion-asymmetry 46→54 toward parity (US Guantánamo, AU offshore detention, BD RAB, arbitrary detention + enforced disappearance practices vs UN CAT, police oversight, habeas corpus norm) + Caribbean (KN VC). 337 instruments / 194 jurisdictions across all continents; stocks 47–140"},
     {"iteration": 25, "instruments": 345, "jurisdictions": 196, "note": "economic-capture 47→54 toward parity (CG oil-state, corporate profit shifting, SWF opacity, directed lending vs OECD global minimum tax, fiscal-transparency standards, KR anti-graft act) + new jurisdictions (CG BI). 345 instruments / 196 jurisdictions across all continents; stocks 48–141"},
     {"iteration": 26, "instruments": 353, "jurisdictions": 197, "note": "PIVOT to within-jurisdiction depth (UN-state coverage ~complete): paradigm-subordination 48→55 (CN national-rejuvenation, RU Z-patriotism, EG stability-cult, securitization-of-dissent vs ZA TRC, DE Vergangenheitsbewältigung, transitional-justice norm) + last micro-state Vatican. thinnest rotated paradigm→information"},
-    {"iteration": 27, "instruments": 361, "jurisdictions": 197, "note": "information-asymmetry within-jurisdiction depth 48→56 (FR loi renseignement, AU anti-encryption Assistance & Access Act, IN IT Rules 2021, CN DSL/PIPL, data-localization vs FOI laws JP 情報公開法, KR Official Information Disclosure Act, UK FOIA 2000). 5 stocks now tightly balanced 54–56 (participation 142); thinnest rotated information→economic"}
+    {"iteration": 27, "instruments": 361, "jurisdictions": 197, "note": "information-asymmetry within-jurisdiction depth 48→56 (FR loi renseignement, AU anti-encryption Assistance & Access Act, IN IT Rules 2021, CN DSL/PIPL, data-localization vs FOI laws JP 情報公開法, KR Official Information Disclosure Act, UK FOIA 2000). 5 stocks now tightly balanced 54–56 (participation 142); thinnest rotated information→economic"},
+    {"iteration": 28, "instruments": 369, "jurisdictions": 197, "note": "economic-capture within-jurisdiction depth 54→62 (MY 1MDB, MZ tuna-bonds, PE Odebrecht, IN 2G/coal scams, crony capitalism vs model anti-corruption agencies HK ICAC, SG CPIB, revolving-door cool-off rules); thinnest rotated economic→coercion"}
   ]
 }

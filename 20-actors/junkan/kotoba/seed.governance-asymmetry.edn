@@ -2699,4 +2699,61 @@
   :stakeholders ["public authorities" "Information Commissioner" "press" "citizens"]
   :stock :information-asymmetry :polarity :narrow :magnitude 0.55 :reversibility :statutory :meadows 6
   :basis "Freedom of Information Act 2000 (UK)" :sourcing :representative :confidence 0.45}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 28 — economic-capture within-jurisdiction depth (capture scandals
+ ;; vs model anti-corruption agencies)
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── economic-capture (widen) ──
+ {:type :instrument :id "my-1mdb" :name "1MDB sovereign-fund scandal" :jurisdiction "MY" :kind :institution :year 2009
+  :enactor "Malaysian state (1Malaysia Development Berhad)"
+  :origin "Billions were diverted from a state development fund into private hands and political financing, a globe-spanning corruption scheme that helped topple a government in 2018 — a paradigmatic capture of a sovereign-wealth vehicle against citizens."
+  :stakeholders ["1MDB" "officials/financiers" "global prosecutors" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.65 :reversibility :institutional :meadows 4
+  :basis "1MDB scandal (2009–); 2018 alternation" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "mz-tuna-bonds" :name "Hidden-debt ('tuna bonds') scandal" :jurisdiction "MZ" :kind :institution :year 2013
+  :enactor "Mozambican state (secret state-guaranteed loans)"
+  :origin "Officials secretly borrowed ~$2bn with state guarantees hidden from parliament and donors, enriching insiders and triggering a debt crisis when revealed — capture via concealed public liabilities borne by citizens."
+  :stakeholders ["officials" "international banks" "IMF/donors" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.6 :reversibility :institutional :meadows 5
+  :basis "Mozambique hidden-debt scandal (2013–16)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "pe-odebrecht" :name "Odebrecht/Lava Jato regional bribery" :jurisdiction "PE" :kind :institution :year 2016
+  :enactor "Cross-border construction-bribery network (Peru hit especially hard)"
+  :origin "Systematic bribery of officials for public contracts implicated multiple presidents, exposing how infrastructure procurement was captured across Latin America — a structural economic asymmetry the ensuing prosecutions sought to reverse."
+  :stakeholders ["construction firms" "presidents/officials" "prosecutors" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.6 :reversibility :institutional :meadows 5
+  :basis "Odebrecht/Lava Jato disclosures (2016–)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "in-spectrum-coal-scams" :name "2G spectrum / coal-allocation scams" :jurisdiction "IN" :kind :institution :year 2008
+  :enactor "Indian state (discretionary licence/resource allocation)"
+  :origin "Discretionary allocation of telecom spectrum and coal blocks at below-market terms caused vast notional losses to the exchequer (per the national auditor), illustrating capture through opaque resource/licence allocation — later shifted toward auctions."
+  :stakeholders ["ministries" "CAG auditor" "Supreme Court" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.55 :reversibility :statutory :meadows 5
+  :basis "India 2G (2008) + coal-allocation (2012) cases" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-crony-capitalism" :name "Crony capitalism (rent-favoured firms)" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse pattern (politically-connected business)"
+  :origin "Where profitability depends on political connections — favourable regulation, contracts, protection — rather than competition, economic and political power fuse and entrench, raising barriers for unconnected citizens and firms (the Economist tracks a crony-capitalism index)."
+  :stakeholders ["connected firms" "regulators" "competitors" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.5 :reversibility :cultural :meadows 3
+  :basis "Crony-capitalism literature/index" :sourcing :representative :confidence 0.4}
+
+ ;; ── economic-capture (narrow — model anti-corruption agencies) ──
+ {:type :instrument :id "hk-icac" :name "Independent Commission Against Corruption" :jurisdiction "HK" :kind :institution :year 1974
+  :enactor "Hong Kong (ICAC established 1974)"
+  :origin "An independent, well-resourced anti-graft body that transformed a deeply corrupt police-and-bureaucracy culture into one of the world's cleaner administrations — a model narrowing of routine capture (its independence is a watch-point under the post-2020 order)."
+  :stakeholders ["ICAC" "civil service" "business" "citizens"]
+  :stock :economic-capture :polarity :narrow :magnitude 0.55 :reversibility :institutional :meadows 4
+  :basis "Hong Kong ICAC (since 1974)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "sg-cpib" :name "Corrupt Practices Investigation Bureau" :jurisdiction "SG" :kind :institution :year 1952
+  :enactor "Singapore (CPIB; strengthened post-1959)"
+  :origin "An independent bureau reporting to the head of government with strong powers, paired with high public-sector pay, produced one of the lowest-corruption states — a structural narrowing of economic capture (within an otherwise paternalist system)."
+  :stakeholders ["CPIB" "civil service" "business" "citizens"]
+  :stock :economic-capture :polarity :narrow :magnitude 0.5 :reversibility :institutional :meadows 4
+  :basis "Singapore CPIB; Prevention of Corruption Act" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-revolving-door-cooloff" :name "Revolving-door cooling-off rules" :jurisdiction "GLOBAL" :kind :institution :year 0
+  :enactor "Diffuse (post-employment restrictions on officials)"
+  :origin "Mandatory waiting periods and lobbying bans before officials can join industries they regulated narrow the revolving-door capture channel — effective where enforced with real teeth (often weak/advisory)."
+  :stakeholders ["ethics offices" "ex-officials" "industry" "citizens"]
+  :stock :economic-capture :polarity :narrow :magnitude 0.4 :reversibility :statutory :meadows 5
+  :basis "Comparative post-employment / cooling-off rules" :sourcing :representative :confidence 0.4}
 ]
