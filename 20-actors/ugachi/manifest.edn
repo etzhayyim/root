@@ -38,7 +38,8 @@
   {:method/id "gate"       :method/file "methods/gate.cljc"       :method/role "verdict → assess → render-datoms → render-report (+ bb CLI)"}
   {:method/id "bridge"     :method/file "methods/bridge.cljc"     :method/role "Wave 2 (ADR-2606161830): ground monopoly-effect in busshi 物資 concentration → ground-and-assess (+ bb CLI)"}
   {:method/id "kotoba"     :method/file "methods/kotoba.cljc"     :method/role "Wave 2 (ADR-2606170900): content-addressed append-only STEWARDSHIP LEDGER (tx-cid/make-tx/append-tx/read-log/verify-chain)"}
-  {:method/id "autorun"    :method/file "methods/autorun.cljc"    :method/role "Wave 2 (ADR-2606170900): deterministic heartbeat — assess → append verdict datoms to the ledger (+ bb CLI)"}]
+  {:method/id "autorun"    :method/file "methods/autorun.cljc"    :method/role "Wave 2 (ADR-2606170900): deterministic heartbeat — assess → append verdict datoms to the ledger (+ bb CLI)"}
+  {:method/id "ie_flow"    :method/file "methods/ie_flow.cljc"    :method/role "SoS score (ADR-2606212200): embeds shared etzhayyim.ie-flow.metrics — assessment → measured flow events (multigen-risk rectified into stewardship verdicts) → order-index/score in the SoS scoreboard; record-flow! to 80-data/ie-flow/ugachi/ (gitignored)"}]
 
  :actor/lex
  [{:lex/id "extractionVerdict"}

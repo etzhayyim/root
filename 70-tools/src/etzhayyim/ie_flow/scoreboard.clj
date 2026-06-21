@@ -13,6 +13,8 @@
             [ibuki.methods.metabolism :as metab]
             [kafun.methods.kafun-edn :as ke]
             [kafun.methods.ie-flow :as kafun-ief]
+            [ugachi.methods.ugachi-edn :as ue]
+            [ugachi.methods.ie-flow :as ugachi-ief]
             [kotoba.datom :as kd]))
 
 (def registry-path "80-data/ie-flow/registry.edn")
@@ -27,10 +29,12 @@
    Actors with no measured flow yet are returned in :pending (listed, not scored)."
   []
   (let [kafun-state (safe #(kafun-ief/flow-state (ke/stands "20-actors/kafun/kotoba/seed.edn")))
+        ugachi-state (safe #(ugachi-ief/flow-state (ue/projects "20-actors/ugachi/kotoba/seed.edn")))
         measured (fn [actor] (safe #(let [st (embed/measure actor)]
                                       (when (pos? (:flows-n st 0)) st))))
         candidates (cond-> {}
-                     kafun-state (assoc "kafun" kafun-state))
+                     kafun-state (assoc "kafun" kafun-state)
+                     ugachi-state (assoc "ugachi" ugachi-state))
         ;; any adopted/measured actor with a non-empty ledger on disk
         with-ledgers (reduce (fn [m a]
                                (if-let [st (measured a)] (assoc m a st) m))

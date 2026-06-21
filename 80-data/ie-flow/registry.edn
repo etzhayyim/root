@@ -22,7 +22,8 @@
   {:actor "shionome" :since "2026-06-21" :descendant 0.7 :note "cross-asset capital-flow observatory — flow is literally its substrate"}
   {:actor "kaname"   :since "2026-06-21" :descendant 0.75 :note "system-of-systems leverage synthesizer — IE-flow over the multiplex graph"}
   {:actor "okaimono" :since "2026-06-21" :descendant 0.7 :note "provisioning commons — checkout flow, value returned to members"}
-  {:actor "kafun"    :since "2026-06-21" :descendant 0.85 :note "花粉撲滅 remediation — RECTIFIES scattered pollen-burden (disorder) into prioritized restoration order; verdict sinks feed sanae/inochi/musubi/kamado (the SoS); energy-flow viz at 20-actors/kafun/viz/energy-flow.html (ADR-2606212030)"}]
+  {:actor "kafun"    :since "2026-06-21" :descendant 0.85 :note "花粉撲滅 remediation — RECTIFIES scattered pollen-burden (disorder) into prioritized restoration order; verdict sinks feed sanae/inochi/musubi/kamado (the SoS); energy-flow viz at 20-actors/kafun/viz/energy-flow.html (ADR-2606212030)"}
+  {:actor "ugachi"   :since "2026-06-21" :descendant 0.8 :note "§2(l) extraction RISK-GATE — RECTIFIES scattered multi-gen extraction risk into stewardship verdicts (propose-r0 / route-to-recovery→kanayama / refuse = protective order); assessment-only, never digs (ADR-2606161800)"}]
  :score
  {:adr "2606212200"
   :weights-file "70-tools/src/etzhayyim/ie_flow/score-weights.edn"
