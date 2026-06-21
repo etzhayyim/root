@@ -168,7 +168,21 @@ bb -e '(require (quote clojure.test) (quote kaname.tests.test-sos) (quote kaname
                 (quote kaname.tests.test-route) (quote kaname.tests.test-osekkai) (quote kaname.tests.test-coverage)) \
        (clojure.test/run-tests (quote kaname.tests.test-sos) (quote kaname.tests.test-gates) \
          (quote kaname.tests.test-route) (quote kaname.tests.test-osekkai) (quote kaname.tests.test-coverage))'
+
+# ie-flow / SoS score (ADR-2606212200) — needs the shared lib + kotoba.datom on the classpath:
+bb -cp "20-actors:70-tools/src:20-actors/kotodama/src" 20-actors/kaname/methods/ie_flow.cljc          # flow-state
+bb -cp "20-actors:70-tools/src:20-actors/kotodama/src" 20-actors/kaname/tests/test_ie_flow.cljc       # 4 tests / 12 assertions
 ```
+
+## ie-flow / SoS score (`methods/ie_flow.cljc`, ADR-2606212200)
+
+kaname is scored as an **information-control actor** in the SoS scoreboard (it tops it — score
+**0.514**). Via the SHARED `etzhayyim.ie-flow.gate-adapter`: volume = raw cross-domain concentration
+**C** (the scattered input), value = leverage **L** · route-factor (L re-weights C by versatility +
+bridge, CONCENTRATING order onto the few true 要 — that re-weighting IS the rectification, order-index
+0.555). Every route is OPENING-only (open/decentralize/route-around/add-redundancy; capture
+unrepresentable, G2). `record-flow!` → `80-data/ie-flow/kaname/` (gitignored). Synthesis-only — kaname
+proposes; the colony's score feeds the artificial organism's reward.
 
 ## Roadmap
 
