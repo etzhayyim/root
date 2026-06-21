@@ -391,8 +391,19 @@ up worktrees), run this exact sweep over the current branch + every worktree
   then `gh pr create --base main`). Skip a branch with nothing ahead of main.
 - **PR already OPEN (unmerged)** → **leave it** untouched.
 
+Then **reintegrate every stash** (`git stash list`): for each entry (newest first), **merge it back**
+with `git stash pop` (apply + merge into the working tree). **On conflict, resolve it** — keep the
+stash's genuine local edits; for raced substrate / generated build artifacts follow the main-priority
+rule above (`git checkout --ours/--theirs -- <file>` as appropriate, restoring yoro `_app/immutable/*`
+to `origin/main`), then `git add` the resolved paths. Once the apply is clean, **drop the stash**
+(`git stash drop`; a clean `pop` already drops it). **Leave no stash behind after cleanup** — this
+overrides the conservative "温存 / keep the stash" stance used during routine `main` sync, because
+`worktree cleanup` is an explicit reconcile-and-finish request. (Skip a stash only if its conflict
+genuinely cannot be resolved — surface it and stop rather than discard real work.)
+
 Never commit/push the shared main checkout's dirty working tree (other agents' in-flight work);
-push only the branch's committed HEAD. Report the final categorized outcome.
+push only the branch's committed HEAD. Report the final categorized outcome (worktrees + branches +
+stashes reintegrated/dropped).
 
 **Command — "closing" (one-shot close-out).** When the user's instruction contains the word
 **`closing`** (英語語 "closing" を含む場合), take the CURRENT worktree's work all the way to
