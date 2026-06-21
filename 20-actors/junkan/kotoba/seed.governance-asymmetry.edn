@@ -1944,4 +1944,75 @@
   :stakeholders ["Maneaba ni Maungatabu (parliament)" "parties" "citizens"]
   :stock :participation-barrier :polarity :narrow :magnitude 0.45 :reversibility :institutional :meadows 4
   :basis "Constitution of Kiribati (1979)" :sourcing :representative :confidence 0.4}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 17 — coercion-asymmetry toward parity (security/detention laws +
+ ;; accountability counters) + sub-sovereign / micro jurisdictions (HK LI)
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── coercion-asymmetry (widen) ──
+ {:type :instrument :id "hk-nsl-2020" :name "Hong Kong National Security Law" :jurisdiction "HK" :kind :law :year 2020
+  :enactor "NPC Standing Committee (imposed on Hong Kong, bypassing LegCo)"
+  :origin "Imposed directly by Beijing after the 2019 protests, it created broad offences (secession, subversion, collusion) with mainland-style procedures, a dedicated security office, and extraterritorial reach — rapidly collapsing the space for dissent in a common-law jurisdiction (extended by the 2024 Article 23 law)."
+  :stakeholders ["NPC Standing Committee" "HK government/police" "activists/media" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.85 :reversibility :entrenched :meadows 5
+  :basis "HK National Security Law (2020); Art. 23 (2024)" :sourcing :representative :confidence 0.55}
+ {:type :instrument :id "cn-rsdl" :name "Residential Surveillance at a Designated Location" :jurisdiction "CN" :kind :law :year 2012
+  :enactor "PRC state (Criminal Procedure Law, 2012 revision)"
+  :origin "Permits holding suspects incommunicado for up to six months outside the formal detention system, without family/lawyer access, used against activists and lawyers — a legalized form of enforced disappearance widening coercive power over citizens."
+  :stakeholders ["public/state security" "detainees" "lawyers" "families"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.75 :reversibility :statutory :meadows 5
+  :basis "PRC Criminal Procedure Law (2012), RSDL" :sourcing :representative :confidence 0.5}
+ {:type :instrument :id "ru-treason-2022" :name "Expanded treason / 'discrediting the army'" :jurisdiction "RU" :kind :law :year 2022
+  :enactor "State Duma; signed by President Putin (wartime amendments)"
+  :origin "Broadened treason, espionage, and a new 'discrediting the armed forces' offence criminalized dissent against the war with long prison terms, sharply expanding coercive reach over speech after February 2022."
+  :stakeholders ["FSB" "courts" "anti-war citizens/journalists" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.7 :reversibility :statutory :meadows 5
+  :basis "Russian Criminal Code amendments (2022)" :sourcing :representative :confidence 0.5}
+ {:type :instrument :id "tr-ohal-decrees-2016" :name "Post-coup emergency decrees (OHAL)" :jurisdiction "TR" :kind :institution :year 2016
+  :enactor "Turkish government (state of emergency after the 2016 coup attempt)"
+  :origin "A two-year emergency enabled rule by decree, mass dismissals of ~130,000 officials, closures of media/NGOs, and detentions with reduced judicial review — many measures later normalized into ordinary law."
+  :stakeholders ["presidency" "purged officials" "judiciary" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.75 :reversibility :statutory :meadows 5
+  :basis "Turkey OHAL decrees (2016–2018)" :sourcing :representative :confidence 0.5}
+ {:type :instrument :id "th-article-44" :name "Interim-charter Article 44 (absolute power)" :jurisdiction "TH" :kind :law :year 2014
+  :enactor "Thai military junta (NCPO, 2014 interim constitution)"
+  :origin "Granted the junta leader sweeping, judicially-unreviewable power to issue any order 'for the sake of reforms', used hundreds of times for detentions, dismissals, and overrides during 2014–2019 — concentrated coercive authority with no check."
+  :stakeholders ["NCPO junta" "courts" "activists" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.8 :reversibility :institutional :meadows 5
+  :basis "Thai 2014 interim constitution, §44" :sourcing :representative :confidence 0.5}
+ {:type :instrument :id "in-uapa" :name "Unlawful Activities (Prevention) Act" :jurisdiction "IN" :kind :law :year 1967
+  :enactor "Parliament of India (1967; tightened 2008, 2019)"
+  :origin "Anti-terror law allowing prolonged pre-charge detention and onerous bail, amended in 2019 to let the state designate individuals (not just organizations) as terrorists; criticized for use against activists/journalists with very low conviction rates."
+  :stakeholders ["NIA/police" "designated individuals" "courts" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.65 :reversibility :statutory :meadows 5
+  :basis "UAPA 1967; 2019 amendment" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "eg-protest-law-2013" :name "Protest Law (Law 107/2013)" :jurisdiction "EG" :kind :law :year 2013
+  :enactor "Egyptian interim government (post-2013)"
+  :origin "Requires prior interior-ministry approval for protests and authorizes force and heavy sentences against unauthorized gatherings, effectively criminalizing peaceful assembly and widening coercive control over citizens."
+  :stakeholders ["Interior Ministry" "protesters" "courts" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.7 :reversibility :statutory :meadows 5
+  :basis "Egyptian Protest Law 107/2013" :sourcing :representative :confidence 0.45}
+
+ ;; ── coercion-asymmetry (narrow — accountability counters) ──
+ {:type :instrument :id "icc-rome-statute-1998" :name "International Criminal Court (Rome Statute)" :jurisdiction "GLOBAL" :kind :institution :year 1998
+  :enactor "Rome Statute states parties (ICC operational 2002)"
+  :origin "Created a permanent court to prosecute genocide, crimes against humanity, and war crimes when states won't, giving citizens a last-resort external check on the gravest state coercion (limited by non-membership of major powers and enforcement gaps)."
+  :stakeholders ["ICC" "states parties" "victims" "perpetrators"]
+  :stock :coercion-asymmetry :polarity :narrow :magnitude 0.55 :reversibility :constitutional :meadows 8
+  :basis "Rome Statute (1998); ICC (2002)" :sourcing :representative :confidence 0.5}
+ {:type :instrument :id "gl-mandela-rules" :name "UN Standard Minimum Rules (Mandela Rules)" :jurisdiction "GLOBAL" :kind :value :year 2015
+  :enactor "UN General Assembly (revised 2015)"
+  :origin "International minimum standards for the treatment of prisoners — limiting solitary confinement, requiring humane conditions and oversight — a normative narrowing of the coercion asymmetry over detained citizens (soft-law, unevenly applied)."
+  :stakeholders ["UN" "prison administrations" "detainees" "monitors"]
+  :stock :coercion-asymmetry :polarity :narrow :magnitude 0.4 :reversibility :cultural :meadows 6
+  :basis "UN Mandela Rules (A/RES/70/175, 2015)" :sourcing :representative :confidence 0.4}
+
+ ;; ── sub-sovereign / micro jurisdictions ──
+ {:type :instrument :id "li-princely-veto" :name "Princely veto powers (2003 constitution)" :jurisdiction "LI" :kind :institution :year 2003
+  :enactor "Principality of Liechtenstein (2003 constitutional referendum)"
+  :origin "A 2003 referendum expanded the monarch's powers — including veto over legislation and the right to dismiss the government — uniquely strong for a European microstate, balanced by a citizen right to abolish the monarchy by referendum; an ambiguous mix of direct democracy and princely power."
+  :stakeholders ["Prince" "Landtag" "citizens"]
+  :stock :participation-barrier :polarity :ambiguous :magnitude 0.4 :reversibility :constitutional :meadows 4
+  :basis "Constitution of Liechtenstein (2003)" :sourcing :representative :confidence 0.4}
 ]

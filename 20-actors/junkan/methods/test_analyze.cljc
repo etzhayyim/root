@@ -148,6 +148,19 @@
     (doseq [r [:africa :americas :asia :europe :oceania]]
       (is (pos? (get regions r 0)) (str "region " r " has coverage")))))
 
+;; ── extreme instruments (strongest concrete signals) ─────────────────────────
+(deftest extremes-shape
+  (let [e (get (a) "extremes")]
+    (is (= 5 (count (:most-widening e))))
+    (is (= 5 (count (:most-narrowing e))))
+    ;; widening contributions are positive, narrowing negative
+    (is (every? #(pos? (:contribution %)) (:most-widening e)))
+    (is (every? #(neg? (:contribution %)) (:most-narrowing e)))
+    ;; the single most-widening is >= every other instrument's contribution
+    (let [top (:contribution (first (:most-widening e)))
+          allc (map az/contribution (is*))]
+      (is (>= top (- (apply max allc) 0.001))))))
+
 ;; ── headline synthesis (key findings digest) ─────────────────────────────────
 (deftest headline-shape
   (let [h (get (a) "headline")]

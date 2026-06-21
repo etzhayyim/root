@@ -221,9 +221,9 @@
    "NL" :europe "FI" :europe "BE" :europe "AT" :europe "LT" :europe "HR" :europe
    "SK" :europe "BG" :europe "GE" :europe "SI" :europe "LV" :europe "MD" :europe
    "AM" :europe "ME" :europe "MK" :europe "CY" :europe "MT" :europe "LU" :europe
-   "XK" :europe
-   ;; Asia (Malaysia, Yemen)
-   "MY" :asia "YE" :asia
+   "XK" :europe "LI" :europe
+   ;; Asia (Malaysia, Yemen, Hong Kong)
+   "MY" :asia "YE" :asia "HK" :asia
    ;; Oceania
    "NZ" :oceania "AU" :oceania "FJ" :oceania "PG" :oceania "WS" :oceania
    "TO" :oceania "VU" :oceania "SB" :oceania "PW" :oceania "KI" :oceania
@@ -364,6 +364,18 @@
               :when (seq wideners)]
           [r (first wideners)])))
 
+(defn extreme-instruments
+  "The strongest concrete signals: top-n instruments by signed contribution at each
+  pole — the most widening and the most narrowing named laws/institutions globally.
+  Concrete examples behind the aggregates (HYPOTHESIS, G5)."
+  [instruments n]
+  (let [scored (map (fn [i] {:id (:id i) :name (:name i) :jurisdiction (:jurisdiction i)
+                             :stock (:stock i) :contribution (round3 (contribution i))})
+                    instruments)
+        sorted (sort-by :contribution scored)]
+    {:most-widening (vec (reverse (take-last n sorted)))
+     :most-narrowing (vec (take n sorted))}))
+
 (defn headline
   "A compact, structured digest of the most salient read-off (HYPOTHESIS, G5):
   the most-pressured asymmetry stock, the latest-era net trend, and the kind whose
@@ -395,6 +407,7 @@
         traj (era-trajectory instruments)]
     {"stocks" (into {} (map (fn [[k v]] [(name k) v]) stocks))
      "headline" (headline instruments stocks kind-mat traj)
+     "extremes" (extreme-instruments instruments 5)
      "loops" (loop-regimes stocks)
      "leverage" (leverage-candidates instruments)
      "trajectory" traj
@@ -525,7 +538,16 @@
             "直近 era **" (:latest-era h) "** の net は " (:latest-era-net h) "。"
             "instrument 種類のうち最も是正方向に傾くのは **" (:narrowest-kind h)
             "** (net " (:narrowest-kind-net h) ")。\n\n"))
-     "## Asymmetry stocks (regime = HYPOTHESIS)\n\n"
+     "## Strongest concrete signals (HYPOTHESIS, G5)\n\n"
+     "**最も非対称を広げる instrument:**\n"
+     (str/join "\n" (for [c (get-in analysis ["extremes" :most-widening])]
+                      (str "- [" (:contribution c) "] " (:name c) " (" (:jurisdiction c)
+                           ", " (name (:stock c)) ")")))
+     "\n\n**最も非対称を是正する instrument:**\n"
+     (str/join "\n" (for [c (get-in analysis ["extremes" :most-narrowing])]
+                      (str "- [" (:contribution c) "] " (:name c) " (" (:jurisdiction c)
+                           ", " (name (:stock c)) ")")))
+     "\n\n## Asymmetry stocks (regime = HYPOTHESIS)\n\n"
      "| stock | n | net pressure | widen | narrow | regime |\n"
      "|---|---|---|---|---|---|\n"
      (str/join "\n"
