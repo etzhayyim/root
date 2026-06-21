@@ -49,8 +49,10 @@
   :flow/note "kafun RECTIFIES (整流) scattered pollen-burden (disorder) into prioritized restoration order; embeds the SHARED ie-flow metrics (not a fork). Synthetic-seed result: order-index 0.320, η 6.58×, net-gain +133.9, non-parasitic. Verdict sinks feed sanae/inochi/musubi/kamado = the system of systems. Live record!/beat! to 80-data/ie-flow/kafun/flow.kotoba.edn (gitignored) is the heartbeat/operator step."}
 
  :actor/lex
- [{:lex/id "remediationVerdict"}
-  {:lex/id "pollenRemediationMap"}]
+ [{:lex/id "remediationVerdict" :lex/nsid "com.etzhayyim.kafun.remediationVerdict"
+   :lex/file "00-contracts/lexicons/com/etzhayyim/kafun/remediationVerdict.json"}
+  {:lex/id "pollenRemediationMap" :lex/nsid "com.etzhayyim.kafun.pollenRemediationMap"
+   :lex/file "00-contracts/lexicons/com/etzhayyim/kafun/pollenRemediationMap.json"}]
 
  :actor/ledger
  {:ledger/file "data/persisted/kafun.remediation.kotoba.edn"
