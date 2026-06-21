@@ -64,6 +64,19 @@
   (let [gym (get (catalog/by-id (entries)) "anytime-fitness-jp")]
     (is (pos? (:proc/notice-days gym)) "gym notice period must be surfaced (G8)")))
 
+(deftest test-coverage-spread
+  ;; lock in the R1 catalog growth: breadth across categories + regions, honest tier mix.
+  (let [es (entries)
+        cov (catalog/coverage es)]
+    (is (>= (:total cov) 20) "catalog should cover ≥20 real services")
+    (is (>= (count (:by-category cov)) 5) "≥5 distinct categories")
+    (is (contains? (:by-region cov) :jp))
+    (is (contains? (:by-region cov) :global))
+    ;; the real world is mostly T3 self-submit (the honest finding kaiyaku surfaces)
+    (is (>= (get (:by-tier cov) "T3" 0) (get (:by-tier cov) "T1" 0)))
+    ;; G6 — growth never sneaks in a pre-verified entry
+    (is (zero? (:operator-verified cov)))))
+
 (deftest test-no-person-nodes
   ;; N1: a catalog entry is always a SERVICE.
   (doseq [e (entries)]

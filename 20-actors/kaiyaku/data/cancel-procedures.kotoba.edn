@@ -168,6 +168,168 @@
   :proc/operator-verified false
   :proc/sourcing :representative}
 
+ {:proc/svc-id "disney-plus"
+  :proc/name "Disney+"
+  :proc/category :streaming
+  :proc/region :global
+  :proc/cancel {:api :none :browser :prohibited :self-submit true}
+  :proc/notice-days 0
+  :proc/penalty-jpy 0
+  :proc/self-submit-steps ["アカウント →「サブスクリプション」"
+                           "Disney+ →「解約する」→ 利用終了日を確認"]
+  :proc/disclosed-source "https://help.disneyplus.com/"
+  :proc/operator-verified false
+  :proc/sourcing :representative}
+
+ {:proc/svc-id "abema-premium"
+  :proc/name "ABEMAプレミアム"
+  :proc/category :streaming
+  :proc/region :jp
+  :proc/cancel {:api :none :browser :prohibited :self-submit true}
+  :proc/notice-days 0
+  :proc/penalty-jpy 0
+  :proc/self-submit-steps ["購入経路（ABEMAアプリ/web/各ストア）を確認"
+                           "該当ストアのサブスク管理から解約"
+                           "視聴可能期間を確認"]
+  :proc/disclosed-source "https://help.abema.tv/"
+  :proc/operator-verified false
+  :proc/sourcing :representative}
+
+ {:proc/svc-id "audible"
+  :proc/name "Audible（オーディオブック）"
+  :proc/category :membership
+  :proc/region :global
+  :proc/cancel {:api :none :browser :prohibited :self-submit true}
+  :proc/notice-days 0
+  :proc/penalty-jpy 0
+  :proc/self-submit-steps ["audible.co.jp →「アカウントサービス」"
+                           "「退会手続きへ」→ 保有コインの扱いを確認（G8）"
+                           "退会を確定"]
+  :proc/disclosed-source "https://help.audible.co.jp/"
+  :proc/operator-verified false
+  :proc/sourcing :representative}
+
+ {:proc/svc-id "nintendo-switch-online"
+  :proc/name "Nintendo Switch Online"
+  :proc/category :gaming
+  :proc/region :global
+  :proc/cancel {:api :none :browser :prohibited :self-submit true}
+  :proc/notice-days 0
+  :proc/penalty-jpy 0
+  :proc/self-submit-steps ["ニンテンドーアカウント →「ショップメニュー」→「継続購入の管理」"
+                           "自動更新を解除（次回更新日まで利用可）"]
+  :proc/disclosed-source "https://www.nintendo.co.jp/support/"
+  :proc/operator-verified false
+  :proc/sourcing :representative}
+
+ {:proc/svc-id "playstation-plus"
+  :proc/name "PlayStation Plus"
+  :proc/category :gaming
+  :proc/region :global
+  :proc/cancel {:api :none :browser :prohibited :self-submit true}
+  :proc/notice-days 0
+  :proc/penalty-jpy 0
+  :proc/self-submit-steps ["アカウント管理 →「サブスクリプション」"
+                           "PlayStation Plus →「自動更新を無効にする」"]
+  :proc/disclosed-source "https://www.playstation.com/support/"
+  :proc/operator-verified false
+  :proc/sourcing :representative}
+
+ {:proc/svc-id "dropbox-plus"
+  :proc/name "Dropbox Plus"
+  :proc/category :storage
+  :proc/region :global
+  :proc/cancel {:api :none :browser :prohibited :self-submit true}
+  :proc/notice-days 0
+  :proc/penalty-jpy 0
+  :proc/self-submit-steps ["dropbox.com →「アカウント」→「プラン」"
+                           "「プランをダウングレード」→ Basic（無料）へ"
+                           "容量超過時のファイル扱いを確認（G8）"]
+  :proc/disclosed-source "https://help.dropbox.com/"
+  :proc/operator-verified false
+  :proc/sourcing :representative}
+
+ {:proc/svc-id "evernote-personal"
+  :proc/name "Evernote Personal"
+  :proc/category :productivity
+  :proc/region :global
+  :proc/cancel {:api :none :browser :prohibited :self-submit true}
+  :proc/notice-days 0
+  :proc/penalty-jpy 0
+  :proc/self-submit-steps ["「設定」→「アカウント概要」→「サブスクリプション」"
+                           "購入経路の管理画面から解約（App Store/Google/web で経路差）"]
+  :proc/disclosed-source "https://help.evernote.com/"
+  :proc/operator-verified false
+  :proc/sourcing :representative}
+
+ {:proc/svc-id "linkedin-premium"
+  :proc/name "LinkedIn Premium"
+  :proc/category :productivity
+  :proc/region :global
+  :proc/cancel {:api :none :browser :prohibited :self-submit true}
+  :proc/notice-days 0
+  :proc/penalty-jpy 0
+  :proc/self-submit-steps ["「設定とプライバシー」→「プレミアム サブスクリプション」"
+                           "「プレミアムをキャンセル」→ 解約理由・終了日を確認"]
+  :proc/disclosed-source "https://www.linkedin.com/help/linkedin"
+  :proc/operator-verified false
+  :proc/sourcing :representative}
+
+ {:proc/svc-id "nikkei-digital"
+  :proc/name "日経電子版"
+  :proc/category :news
+  :proc/region :jp
+  :proc/cancel {:api :none :browser :prohibited :self-submit true}
+  :proc/notice-days 0
+  :proc/penalty-jpy 0
+  :proc/self-submit-steps ["日経IDでログイン →「登録情報・解約」"
+                           "「解約する」→ 解約は当月末/締め日を確認（G8）"]
+  :proc/disclosed-source "https://www.nikkei.com/promotion/"
+  :proc/operator-verified false
+  :proc/sourcing :representative}
+
+ {:proc/svc-id "softbank-mobile"
+  :proc/name "SoftBank モバイル回線"
+  :proc/category :telecom
+  :proc/region :jp
+  :proc/cancel {:api :none :browser :prohibited :self-submit true}
+  ;; G8: MNP/解約は店頭・電話・My SoftBank 経路差、月途中解約の日割り/満額は契約依存。
+  :proc/notice-days 0
+  :proc/penalty-jpy 0
+  :proc/notice-note "解約月の料金（日割り/満額）は契約・締め日依存。番号維持はMNP転出を先に（G8）"
+  :proc/self-submit-steps ["番号維持ならMNP予約番号を先に取得（解約=番号喪失）"
+                           "My SoftBank/店頭/電話で解約手続き"
+                           "解約月の請求（日割り/満額）と端末残債を確認（G8）"]
+  :proc/disclosed-source "https://www.softbank.jp/support/"
+  :proc/operator-verified false
+  :proc/sourcing :representative}
+
+ {:proc/svc-id "cookpad-premium"
+  :proc/name "クックパッド プレミアムサービス"
+  :proc/category :membership
+  :proc/region :jp
+  :proc/cancel {:api :none :browser :prohibited :self-submit true}
+  :proc/notice-days 0
+  :proc/penalty-jpy 0
+  :proc/self-submit-steps ["購入経路（web/App Store/Google Play）を確認"
+                           "該当経路の解約手続き → 利用終了日を確認"]
+  :proc/disclosed-source "https://cookpad.com/help"
+  :proc/operator-verified false
+  :proc/sourcing :representative}
+
+ {:proc/svc-id "xbox-game-pass"
+  :proc/name "Xbox Game Pass"
+  :proc/category :gaming
+  :proc/region :global
+  :proc/cancel {:api :none :browser :prohibited :self-submit true}
+  :proc/notice-days 0
+  :proc/penalty-jpy 0
+  :proc/self-submit-steps ["account.microsoft.com/services にサインイン"
+                           "Game Pass →「キャンセル」→ 自動更新の停止を確認"]
+  :proc/disclosed-source "https://support.xbox.com/"
+  :proc/operator-verified false
+  :proc/sourcing :representative}
+
  ;; --- API-cancel example (T1) — a service publishing a programmatic cancellation endpoint.
  ;; :representative until an operator confirms the member's plan supports self-serve API cancel.
  {:proc/svc-id "generic-saas-api"
