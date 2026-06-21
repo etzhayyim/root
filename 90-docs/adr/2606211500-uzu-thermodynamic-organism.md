@@ -132,15 +132,39 @@ and the organism energy trajectories overlaid.
 
 - The org gains a **thermodynamic organism** with a real free-energy budget, metabolism, and
   death — the half ibuki lacked — and a faithful, testable rendering of the design brief.
-- **42 tests / 111 assertions green** (babashka). `autorun` heartbeat verified: kurage alive
-  (final energy ≈ 6.6, lifespan 12/12), meial/gyoja dead; field measured (4 classes, never
-  cross-summed); chain verifies; idempotent-by-content.
+- **Tests green** (babashka). `autorun` heartbeat verified: kurage alive (final energy ≈ 6.6,
+  lifespan 12/12), meial/gyoja dead; field measured (4 classes, never cross-summed); chain
+  verifies; idempotent-by-content. (Initial landing: 42 tests / 111 assertions; grown to
+  94 / 216 across 15 suites in the post-R0 iterations below.)
 - A reusable, honest pattern for measuring incommensurable real-world flows without collapsing
   units — usable by kasa/kanjō/shionome/hikari/busshi for a cross-domain energy picture.
 - **R0 scope**: design + simulation only. No physical organism; no live data ingest (the seed
   figures are `:representative` public aggregates with sources). Live ingest from the observatory
   siblings, a WASM build, and an `:experiential` grounding via spirit-in-physics are **R1+,
   G7/Council-gated**.
+
+## Post-R0 iterations (on branch, non-gated hardening)
+
+After the initial landing, a self-paced loop added bounded, test-green capability without
+touching any gated surface (no live ingest / WASM / spirit-in-physics):
+
+- **`validate.cljc`** — seed↔ontology integrity validator (defends I1–I5; within-class unit
+  consistency, cross-class-flag correctness, closed-loop).
+- **lexicons** `com.etzhayyim.uzu.{organismBeat,energyFlow}` + parity test (write surface keeps
+  the two ledgers distinct; no joules/total field).
+- **`digest.cljc`** — colony self-reflection (survival, energy economy, fittest meaning, field
+  dissipation), folded into the `autorun` heartbeat and persisted as `:uzu.digest/*`.
+- **`metabolism/live-epochs`** — multi-season life: a net-negative world starves even the
+  fittest (self-maintenance needs a net-positive niche).
+- **`world.cljc`** — deterministic niche generator (abundant/scarce/mixed + richness).
+- **`landscape.cljc`** — meaning × niche viability matrix: fitness is *joint* (a pathology is
+  harmless in a niche that never punishes it; asceticism starves even in plenty).
+- **`scorecard.cljc`** — maturity self-audit (manifest↔filesystem drift caught structurally).
+- **`test_robustness.cljc`** — property tests over input grids (exact energy accounting, belief
+  normalized, choose affordable, finite, deterministic, unit boundary over all flows).
+
+These are engineering hardening within the accepted R0 decision; the charter-relevant gates
+(G1–G9) and the R1+ gating are unchanged.
 
 # Alternatives Considered
 

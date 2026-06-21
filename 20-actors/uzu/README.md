@@ -49,6 +49,36 @@ matters to them* = meaning) differs:
 
 Same perceptions, three meanings, three lives. Survival is the fit between meaning and world.
 
+## Seasons & niches — fitness is *joint*
+
+`metabolism/live-epochs` lets an organism live the tape repeatedly (seasons, carrying energy
+across), and `world.cljc` generates niches (abundant / mixed / scarce). `landscape.cljc` sweeps
+**meaning × niche** into a survival matrix that says more than either organism or world alone —
+fitness is the **joint** property of a meaning *and* a niche:
+
+```
+meaning       abundant        mixed       scarce
+kurage             ✓84          ✗-0          ✗-8
+meial              ✓84          ✗-4          ✗-1
+gyoja              ✗-0          ✗-8          ✗-9      (✓=alive ✗=dead, n=final energy, 3 seasons)
+```
+
+- A good meaning still needs a **net-positive niche**: kurage *accumulates* energy season over
+  season in an abundant world (36 → 84 → 132) but starves in a scarce one.
+- A **pathology is only exposed by a punishing niche**: meial's threat-seeking is harmless in an
+  abundant world (no hazard to walk into) yet lethal where hostile steps exist.
+- **Asceticism starves even in plenty**: gyoja never forages, so abundance can't feed it.
+
+## Self-reflection & self-audit (autonomy + maturity)
+
+The colony reasons about *itself*. `digest.cljc` reads the lived history + measured field and
+reports who self-maintained, the energy economy (drawn/spent/net), the best-fitted meaning, and
+the field's physical waste-heat — folded into the `autorun` heartbeat and persisted as
+`:uzu.digest/*` datoms (Murakumo narration of it is the gated step). `scorecard.cljc` reads the
+manifest, tallies the inventory, and **audits that every declared method/suite/lexicon file
+exists** (manifest↔filesystem drift caught structurally). `validate.cljc` checks the seed against
+the ontology (I1–I5).
+
 ## Measuring & visualizing the real coupled system
 
 `measure.cljc` grounds the idea in **measured real-world flows** — physical power, the economy,
@@ -70,13 +100,20 @@ loop + the organism trajectories to a self-contained canvas (`out/energy-field.h
 ## Run it
 
 ```bash
-# live the organisms + measure the field, append to the information log
+# live the organisms + measure the field + self-reflect, append to the information log
 bb --classpath 20-actors 20-actors/uzu/methods/autorun.cljc
 
-# generate the visualization
-bb --classpath 20-actors 20-actors/uzu/methods/viz.cljc      # → out/energy-field.html
+# the colony reasons about itself / audits itself / maps its viability envelope
+bb --classpath 20-actors 20-actors/uzu/methods/digest.cljc       # colony self-reflection
+bb --classpath 20-actors 20-actors/uzu/methods/scorecard.cljc    # maturity self-audit (manifest↔fs)
+bb --classpath 20-actors 20-actors/uzu/methods/landscape.cljc    # meaning × niche survival matrix
+bb --classpath 20-actors 20-actors/uzu/methods/world.cljc        # niche presets + richness
+bb --classpath 20-actors 20-actors/uzu/methods/validate.cljc     # seed↔ontology integrity
 
-# tests (42 tests / 111 assertions)
+# generate the visualization
+bb --classpath 20-actors 20-actors/uzu/methods/viz.cljc          # → out/energy-field.html
+
+# tests (94 tests / 216 assertions, 15 suites)
 ./20-actors/uzu/run_tests.sh
 ```
 
