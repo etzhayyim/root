@@ -53,6 +53,11 @@
    :task (do (require 'etzhayyim.watchdog)
              (apply (resolve 'etzhayyim.watchdog/-check) *command-line-args*))}
 
+  audit:datomic
+  {:doc "Fleet datomic-ledger health audit — drives every standard-interface ledger actor's heartbeat into a throwaway commit-DAG and asserts GROUND-append + verify-chain + idempotency + ground-only. Non-standard ledger actors are inventoried, never failed. Exits non-zero only on a standard-family regression. Mirrors the datomic-ledger-audit CI gate."
+   :task (do (load-file "70-tools/scripts/datomic-health/fleet_audit.clj")
+             ((resolve 'datomic-health.fleet-audit/-main)))}
+
   test:kotoba
   {:doc "etzhayyim.kotoba root-side Datom engine + envelope + analysis (ADR-2605262130 Phase 1/2 + ADR-2605181100; data+impl in root, kotoba is the external generic engine)"
    :task (do (require 'clojure.test 'etzhayyim.kotoba.test-engine
