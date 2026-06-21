@@ -81,6 +81,11 @@
   .labctlhead{display:flex;justify-content:space-between;font-size:12px;color:var(--mut);margin-bottom:3px}
   .labctlval{color:var(--ink);font-variant-numeric:tabular-nums;font-weight:600}
   input.labrange{width:100%;accent-color:var(--alive);height:4px;cursor:pointer}
+  .labchips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 2px}
+  .labchip{padding:4px 11px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;
+           border:1px solid var(--line);background:#0c1219;color:var(--mut);user-select:none}
+  .labchip:hover{border-color:#39d98a55}
+  .labchip.on{background:#0e1c16;color:var(--alive);border-color:#1c3a2c}
   /* respect reduced-motion: still alive, just not animated (104 cells breathing is a lot) */
   @media (prefers-reduced-motion: reduce){
     .dish .cell,.dish .cell.flash,.pulse,.live .dot{animation:none !important}

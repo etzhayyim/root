@@ -432,40 +432,56 @@
                       :style "user-select:none;pointer-events:none"})]
     (set! (.-textContent t) (str s)) (.appendChild root t)))
 
-;; --- Sankey (代謝フロー) ---
-(defn lab-sankey-edges [db]
-  (->> (lab-ents db :lab.sankey/idx)
-       (map (fn [e] {:source (lab-q1 db e :lab.sankey/source)
-                     :target (lab-q1 db e :lab.sankey/target)
-                     :value (or (lab-q1 db e :lab.sankey/value) 0)
-                     :net (or (lab-q1 db e :lab.sankey/net) 0)}))
-       (sort-by :value >) vec))
+;; --- per-actor roster + system-boundary queries ---
+(defn lab-actors [db]
+  (->> (lab-ents db :lab/actor)
+       (map (fn [e] {:id (lab-q1 db e :lab/actor) :order (or (lab-q1 db e :lab/order) 0)}))
+       (sort-by :order) (mapv :id)))
+(defn sel-actor [db] (or (:lab-actor @state) (first (lab-actors db)) "repo-git"))
+(defn actor-inside [db a] (or (lab-q1 db (str "lab:a:" a) :lab.actor/inside) []))
+(defn actor-role [db a] (lab-q1 db (str "lab:a:" a) :lab.actor/role))
+(defn actor-rep? [db a] (lab-q1 db (str "lab:a:" a) :lab.actor/representative))
+(defn actor-imports [db a]
+  (->> (lab-ents db :lab.imp/actor)
+       (filter #(= a (lab-q1 db % :lab.imp/actor)))
+       (map (fn [e] {:kind (lab-q1 db e :lab.imp/kind) :from (lab-q1 db e :lab.imp/from)
+                     :cost (or (lab-q1 db e :lab.imp/cost) 0) :idx (or (lab-q1 db e :lab.imp/idx) 0)}))
+       (sort-by :idx) vec))
+(defn actor-exports [db a]
+  (->> (lab-ents db :lab.exp/actor)
+       (filter #(= a (lab-q1 db % :lab.exp/actor)))
+       (map (fn [e] {:kind (lab-q1 db e :lab.exp/kind) :to (lab-q1 db e :lab.exp/to)
+                     :value (or (lab-q1 db e :lab.exp/value) 0) :idx (or (lab-q1 db e :lab.exp/idx) 0)}))
+       (sort-by :idx) vec))
 
-(defn render-sankey [edges]
-  (let [W 440 H 250 pad 16 lx 50 rx 300
-        tot (reduce + (map #(js/Math.sqrt (js/Math.max 0 (:value %))) edges))
-        avail (- H (* 2 pad))
+;; --- the SYSTEM BOUNDARY membrane: imports drawn IN (blue) → inside organs → exports OUT (green) ---
+(defn render-boundary [db a]
+  (let [imps (actor-imports db a) exps (actor-exports db a) inside (actor-inside db a)
+        W 460 H 250 pad 14 bx0 168 bx1 292 by0 24 by1 (- H 14)
+        maxc (apply max 1 (map :cost imps)) maxv (apply max 1 (map :value exps))
+        slot (fn [n i] (+ by0 (* (+ i 0.5) (/ (- by1 by0) (max 1 n)))))
         root (svg :svg {:viewBox (str "0 0 " W " " H) :width "100%" :class "dish"})]
-    (.appendChild root (svg :rect {:x (- lx 7) :y pad :width 7 :height avail :rx 2 :fill "#7aa2ff"}))
-    (svg-text-at root (- lx 3) (- pad 5) 10 "#7aa2ff" "end" "repo")
-    ;; ribbons sit at their true (√value) vertical position; labels are distributed EVENLY down
-    ;; the right edge (decoupled from the ribbon, joined by a thin connector) so the many tiny
-    ;; layers below the dominant 20-actors channel never overlap.
-    (let [n (count edges) slot (/ avail (max 1 n))]
-      (loop [es edges off pad i 0]
-        (when (seq es)
-          (let [e (first es)
-                t (max 3 (* avail (/ (js/Math.sqrt (js/Math.max 0 (:value e))) (max 1e-9 tot))))
-                yc (+ off (/ t 2)) mid (/ (+ lx rx) 2)
-                ly (+ pad (* (+ i 0.5) slot))
-                col (if (>= (:net e) 0) "#39d98a" "#f0506e")]
-            (.appendChild root (svg :path {:d (str "M " lx " " yc " C " mid " " yc " " mid " " yc " " rx " " yc)
-                                           :fill "none" :stroke col :stroke-width t :opacity 0.5}))
-            (.appendChild root (svg :rect {:x rx :y (- yc (/ t 2)) :width 7 :height (max 2 t) :rx 2 :fill col :opacity 0.92}))
-            (.appendChild root (svg :line {:x1 (+ rx 8) :y1 yc :x2 (+ rx 12) :y2 ly :stroke "#3a4a5c" :stroke-width 0.6}))
-            (svg-text-at root (+ rx 14) (+ ly 3) 10 "#cdd7e1" "start"
-                         (str (.replace (str (:target e)) (js/RegExp. "^layer:") "") "  " (fmt-num (:value e))))
-            (recur (rest es) (+ off t) (inc i))))))
+    ;; the membrane (the actor's system 境界)
+    (.appendChild root (svg :rect {:x bx0 :y by0 :width (- bx1 bx0) :height (- by1 by0) :rx 12
+                                   :fill "rgba(57,217,138,0.06)" :stroke "#39d98a" :stroke-width 1.6}))
+    (svg-text-at root (/ (+ bx0 bx1) 2) (- by0 7) 11 "#39d98a" "middle" (str a " · system 境界"))
+    (doseq [[i s] (map-indexed vector inside)]
+      (svg-text-at root (/ (+ bx0 bx1) 2) (+ by0 22 (* i 17)) 11 "#cdd7e1" "middle" (str "· " s)))
+    ;; env labels
+    (svg-text-at root 14 (- by0 7) 10 "#7aa2ff" "start" "環境 → IMPORT (引入)")
+    (svg-text-at root (- W 14) (- by0 7) 10 "#39d98a" "end" "EXPORT (秩序) → commons")
+    ;; imports: arrows from the environment INTO the membrane, width ∝ cost (free energy drawn)
+    (doseq [[i im] (map-indexed vector imps)]
+      (let [y (slot (count imps) i) t (max 2.5 (* 11 (/ (:cost im) maxc)))]
+        (.appendChild root (svg :line {:x1 18 :y1 y :x2 (- bx0 6) :y2 y :stroke "#7aa2ff" :stroke-width t :opacity 0.55}))
+        (.appendChild root (svg :polygon {:points (str (- bx0 6) "," (- y 4) " " bx0 "," y " " (- bx0 6) "," (+ y 4)) :fill "#7aa2ff"}))
+        (svg-text-at root 18 (- y 5) 9 "#9fb4d8" "start" (str (:kind im) " ←" (:from im) " (" (fmt-num (:cost im)) ")"))))
+    ;; exports: arrows from the membrane OUT to the commons, width ∝ value (order returned)
+    (doseq [[i ex] (map-indexed vector exps)]
+      (let [y (slot (count exps) i) t (max 2.5 (* 11 (/ (:value ex) maxv)))]
+        (.appendChild root (svg :line {:x1 bx1 :y1 y :x2 (- W 18) :y2 y :stroke "#39d98a" :stroke-width t :opacity 0.6}))
+        (.appendChild root (svg :polygon {:points (str (- W 18) "," (- y 4) " " (- W 12) "," y " " (- W 18) "," (+ y 4)) :fill "#39d98a"}))
+        (svg-text-at root (- W 18) (- y 5) 9 "#9fe0bd" "end" (str (:kind ex) " →" (:to ex) " (" (fmt-num (:value ex)) ")"))))
     root))
 
 ;; --- multiline chart (ys ALREADY in [0,1]) ---
@@ -495,8 +511,9 @@
      :model-quality (min 1 (max 0 (+ (:model-quality s) (* 0.0001 data'))))
      :reserves (max 0 (+ (:reserves s) (:revenue inp) (- (:cost inp))))}))
 (defn sd-run [init inp steps] (vec (take (inc steps) (iterate #(sd-step % inp) init))))
-(defn sd-read [db]
-  (let [g (fn [a d] (let [v (lab-q1 db "lab:sd" a)] (if (nil? v) d v)))]
+(defn sd-read [db sd-e]
+  ;; the SELECTED actor's own system-dynamics params (entity = lab:sd:<actor>)
+  (let [g (fn [a d] (let [v (lab-q1 db sd-e a)] (if (nil? v) d v)))]
     {:steps (g :lab.sd/steps 12)
      :init {:customers (g :lab.sd/init-customers 0) :trust (g :lab.sd/init-trust 0.3)
             :data-asset (g :lab.sd/init-data-asset 0) :model-quality (g :lab.sd/init-model-quality 0.1)
@@ -528,10 +545,10 @@
 (def abm-colors {"ibuki" "#39d98a" "tsumugi" "#7aa2ff" "shionome" "#f078c0"
                  "kaname" "#b78bff" "okaimono" "#f5a524"})
 
-;; --- the dynamic (param-driven) part: SD + ABM, re-rendered on slider input ---
+;; --- the dynamic (param-driven) part: the SELECTED actor's own SD + the colony ABM ---
 (defn render-lab-dyn []
-  (let [db (lab-db)
-        sdp (sd-read db)
+  (let [db (lab-db) a (sel-actor db)
+        sdp (sd-read db (str "lab:sd:" a))
         sd (sd-run (:init sdp) (:inp sdp) (:steps sdp))
         sdf (peek sd)
         abp (abm-read db)
@@ -545,16 +562,16 @@
         abm-series (mapv (fn [id] {:label id :color (get abm-colors id "#8b97a6")
                                    :ys (map #(get % id) (:traj abm))}) (:ids abm))]
     (h :div {:id "lab-dyn"}
-      (h :div {:class "wbline" :style "margin-top:6px"} (h :b {:text "system dynamics — 秩序ストック軌跡"})
-         (h :span {:class "muted" :text "  step-system over queried params (各系列 max 正規化)"}))
+      (h :div {:class "wbline" :style "margin-top:6px"} (h :b {:text (str a " の system dynamics — 秩序ストック軌跡")})
+         (h :span {:class "muted" :text "  step-system over その actor の boundary 由来 params (各系列 max 正規化)"}))
       (chart-legend sd-series)
       (multiline sd-series 320 64)
       (h :div {:class "muted"
                :text (str (:steps sdp) " steps → reserves " (fmt-num (:reserves sdf))
                           " · trust " (.toFixed (:trust sdf) 2) " · customers " (fmt-num (:customers sdf))
                           " · model-Q " (.toFixed (:model-quality sdf) 2))})
-      (h :div {:class "wbline" :style "margin-top:12px"} (h :b {:text "ABM — Friedkin-Johnsen 整列ダイナミクス"})
-         (h :span {:class "muted" :text "  agents=adopters · kaname が合成中心 (star)"}))
+      (h :div {:class "wbline" :style "margin-top:12px"} (h :b {:text "colony ABM — Friedkin-Johnsen 整列 (system of systems)"})
+         (h :span {:class "muted" :text "  agents = 各 bounded actor · kaname が合成中心 (star)"}))
       (chart-legend abm-series)
       (multiline abm-series 320 64)
       (h :div {:class "muted"
@@ -572,43 +589,56 @@
        (h :span {:id (str "v-" (name a)) :class "labctlval" :text (fmt v)}))
     (h :input {:type "range" :min mn :max mx :step step :value v :class "labrange"
                :input (fn [ev]
-                        (let [nv (js/parseFloat (.. ev -target -value))]
+                        (let [nv (js/parseFloat (.-value (.-target ev)))]
                           (set-param! e a nv)
                           (when-let [el (gid (str "v-" (name a)))] (set! (.-textContent el) (fmt nv)))
                           (refresh-lab-dyn!)))})))
+
+(defn actor-chips [db sel]
+  (h :div {:class "labchips"}
+    (map (fn [a]
+           (h :span {:class (str "labchip" (when (= a sel) " on"))
+                     :click (fn [_] (swap! state assoc :lab-actor a) (paint!))
+                     :text a}))
+         (lab-actors db))))
 
 (defn lab-panel []
   (if-not (:lab @state)
     (h :div {:class "hint" :text "lab.kotoba.edn 待機中… (bb ieflow:lab)"})
     (let [db (lab-db)
-          edges (lab-sankey-edges db)
-          ix (fn [a] (lab-q1 db "lab:index" a))
-          n3 (fn [a] (let [v (ix a)] (if (number? v) (.toFixed v 3) (str v))))
-          rev (or (lab-q1 db "lab:sd" :lab.sd/revenue) 0)
-          cost (or (lab-q1 db "lab:sd" :lab.sd/cost) 0)
-          churn (or (lab-q1 db "lab:sd" :lab.sd/churn) 0)
+          a (sel-actor db)
+          sd-e (str "lab:sd:" a)
+          ix (fn [attr] (lab-q1 db (str "lab:idx:" a) attr))
+          n3 (fn [attr] (let [v (ix attr)] (if (number? v) (.toFixed v 3) (str v))))
+          rev (or (lab-q1 db sd-e :lab.sd/revenue) 0)
+          cost (or (lab-q1 db sd-e :lab.sd/cost) 0)
+          churn (or (lab-q1 db sd-e :lab.sd/churn) 0)
           lam (or (lab-q1 db "lab:abm" :lab.abm/lambda) 0.5)
           ri (fn [x] (js/Math.round x))]
       (h :div {}
-        (h :div {:class "labgrid"}
-          ;; LEFT — Sankey + indices (datomic-queried)
+        ;; actor selector — every actor is its own bounded system
+        (h :div {:class "wbline"} (h :b {:text "actor を選択 → その actor の bounded system"})
+           (h :span {:class "muted" :text (str "  " (actor-role db a)
+                                               (if (actor-rep? db a) " · representative seed" " · measured"))}))
+        (actor-chips db a)
+        (h :div {:class "labgrid" :style "margin-top:10px"}
+          ;; LEFT — the selected actor's SYSTEM BOUNDARY membrane + its indices
           (h :div {}
-             (h :div {:class "wbline"} (h :b {:text "Sankey — 代謝フロー repo→layer"})
-                (h :span {:class "muted" :text "  幅=√value · 赤=net負"}))
-             (render-sankey edges)
+             (h :div {:class "wbline"} (h :b {:text "system 境界 — membrane (import 引入 / export 秩序)"}))
+             (render-boundary db a)
              (h :div {:class "iegrid" :style "margin-top:10px"}
                (ie-stat "net-gain Φ" (fmt-num (ix :lab.index/net-gain)) "#39d98a")
                (ie-stat "order-index η" (n3 :lab.index/order-index) "#b78bff")
                (ie-stat "surprise 𝒮" (n3 :lab.index/surprise) "#f5a524")
                (ie-stat "agent-eff" (fmt-num (ix :lab.index/agent-eff)) "#7aa2ff")))
-          ;; RIGHT — datomic-query param overlay (sliders) + live sims
+          ;; RIGHT — datomic-query overlay (drives the SELECTED actor's SD) + live sims
           (h :div {}
-             (h :div {:class "wbline"} (h :b {:text "datomic-query params"})
-                (h :span {:class "muted" :text "  スライダ = speculative datom overlay (with)"}))
-             (lab-slider "revenue /step (Φ↑)" "lab:sd" :lab.sd/revenue rev 0 (+ (* 2 rev) 100) (max 1 (ri (/ rev 20))) ri)
-             (lab-slider "cost /step (Φ↓)" "lab:sd" :lab.sd/cost cost 0 (+ (* 3 cost) 100) (max 1 (ri (/ (+ cost 100) 40))) ri)
-             (lab-slider "churn /step" "lab:sd" :lab.sd/churn churn 0 (+ (* 4 churn) 50) 1 ri)
-             (lab-slider "λ ABM 整列感受性" "lab:abm" :lab.abm/lambda lam 0 1 0.05 (fn [x] (.toFixed x 2)))
+             (h :div {:class "wbline"} (h :b {:text (str a " params (datomic-query overlay)")})
+                (h :span {:class "muted" :text "  スライダ = speculative datom on lab:sd:" }))
+             (lab-slider "revenue /step (Φ↑)" sd-e :lab.sd/revenue rev 0 (+ (* 2 rev) 100) (max 1 (ri (/ (+ rev 20) 20))) ri)
+             (lab-slider "cost /step (Φ↓)" sd-e :lab.sd/cost cost 0 (+ (* 3 cost) 100) (max 1 (ri (/ (+ cost 100) 40))) ri)
+             (lab-slider "churn /step" sd-e :lab.sd/churn churn 0 (+ (* 4 churn) 50) 1 ri)
+             (lab-slider "λ colony 整列感受性" "lab:abm" :lab.abm/lambda lam 0 1 0.05 (fn [x] (.toFixed x 2)))
              (render-lab-dyn)))))))
 
 ;; ── compose (full paint — structure) ────────────────────────────────────────
@@ -670,7 +700,7 @@
              (render-sos sos)
              (sos-legend sos))
           (h :div {:class "card"}
-             (h :h3 {:text "IE-flow lab — Sankey · index · system-dynamics · ABM（datomic-query 駆動）"})
+             (h :h3 {:text "IE-flow lab — actor ごとの bounded system（system 境界 + 自前の system-dynamics）"})
              (lab-panel))
           (h :div {:class "foot"
                    :text "脈動=呼吸 · 発光=working-tree 編集中 · 閃光=コミット出力(生産). 構造=kotoba Datom log / 活動=git pulse。"}))))))

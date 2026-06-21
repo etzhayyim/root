@@ -17,7 +17,8 @@
             [cheshire.core :as json]
             [kotoba.datom :as kd]
             [etzhayyim.ie-flow.ledger :as ledger]
-            [etzhayyim.ie-flow.metrics :as metrics]))
+            [etzhayyim.ie-flow.metrics :as metrics]
+            [etzhayyim.ie-flow.boundary :as boundary]))
 
 (def ^:private out-dirs
   ["60-apps/etzhayyim-project-organism/public"
@@ -167,84 +168,119 @@
                      (:generatedAt g)))
        g)))
 
-;; ── the IE-flow LAB: one content-addressed Datom snapshot the page queries client-side ──
+;; ── the IE-flow LAB: every actor is a BOUNDED system with its OWN dynamics ──
 ;; lab.kotoba.edn is a FLAT [e a v tx op] datom vector (the snapshot shape the page's parse-kotoba
-;; reads) carrying everything the in-browser lab computes over: the Sankey backbone, the scalar
-;; indices, the SYSTEM-DYNAMICS params (initial stocks + per-step input rates — derived from the
-;; measured flow, ADR-2606211200 dynamics/step-system), and the ABM params (agents = adopters +
-;; coupling). The page reads these via a datomic-style EAV query and re-computes live as params move.
+;; reads). It now carries, PER ACTOR (repo-git + each adopter), that actor's own:
+;;   · system BOUNDARY — interior stations + the metered membrane (imports drawn in / exports of
+;;     order returned out), namespaced `lab:imp:<a>:*` / `lab:exp:<a>:*` / `lab:a:<a>`
+;;   · scalar INDICES (`lab:idx:<a>`) — net-gain / order-index / agent-eff / surprise
+;;   · SYSTEM-DYNAMICS params (`lab:sd:<a>`) — init stocks + per-step rates from THAT actor's flow
+;; plus the colony ABM (`lab:abm` + `lab:agent:<a>`) coupling the actors. Each actor is its own
+;; system-of-systems-dynamics; the colony is a system OF those systems. ADR-2606211200.
+
+(def ^:private sd-steps 12)
+
+(defn- sd-params-from-state
+  "Derive system-dynamics init stocks + per-step input rates from an actor's IE-flow state. The
+  boundary's import/export aggregates drive the actor's OWN stock dynamics. Pure."
+  [st]
+  (let [oi (double (:order-index st))
+        per (fn [x] (long (Math/round (/ (double x) sd-steps))))]
+    {:init {"customers" 0 "trust" 0.30 "data-asset" 0 "model-quality" 0.10 "reserves" 0}
+     :in {"acquisition" (per (:throughput st)) "revenue" (per (:total-value st))
+          "cost" (per (:total-cost st)) "failures" (per (:total-risk st))
+          "good-exp" (long (Math/round (* 100.0 (max 0.0 oi))))
+          "spam" (long (Math/round (* 20.0 (max 0.0 (- 1.0 oi)))))
+          "churn" (long (Math/round (* 0.05 (double (per (:throughput st))))))}}))
+
+(defn- repo-actor-lab
+  "Build repo-git's bounded-system descriptor from its REAL measured flow log (the one actor with a
+  live measurement). Its membrane: dev-effort drawn in, code/order exported to each repo layer."
+  [log-path]
+  (let [st (metrics/flow-state (ledger/read-events (kd/read-log log-path)))
+        edges (->> (:edges st) (sort-by :value >) vec)]
+    {:id "repo-git" :role "the monorepo's own development metabolism" :representative false
+     :inside ["repo" "ledger" "build"]
+     :imports [{:kind "dev-effort" :from "developers" :volume (:throughput st) :cost (:total-cost st)}]
+     :exports (mapv (fn [e] {:kind "code" :to (:target e) :value (double (:value e 0))})
+                    (take 6 edges))
+     :state st}))
 
 #?(:clj
    (defn lab-datoms
-     "Build the flat [e a v tx op] datom vector for lab.kotoba.edn from a measured flow log. Pure."
+     "Build the flat [e a v tx op] datom vector for lab.kotoba.edn — one bounded system PER actor
+     (repo-git real + adopters representative) + the colony ABM. Pure over the flow log + roles."
      [log-path]
-     (let [txs    (kd/read-log log-path)
-           events (ledger/read-events txs)
-           st     (metrics/flow-state events)
-           edges  (->> (:edges st) (sort-by :value >) vec)
-           oi     (double (:order-index st))
-           steps  12
-           per    (fn [x] (long (Math/round (/ (double x) steps))))
-           reg    (read-registry)
-           adopters (mapv :actor (:adopted reg))
-           x0     {"ibuki" 0.60 "tsumugi" 0.45 "shionome" 0.55 "kaname" 0.78 "okaimono" 0.50}
-           sd-init {"customers" 0 "trust" 0.30 "data-asset" 0 "model-quality" 0.10 "reserves" 0}
-           sd-in  {"acquisition" (per (:throughput st))
-                   "revenue"     (per (:total-value st))
-                   "cost"        (per (:total-cost st))
-                   "failures"    (per (:total-risk st))
-                   "good-exp"    (long (Math/round (* 100.0 (max 0.0 oi))))
-                   "spam"        (long (Math/round (* 20.0 (max 0.0 (- 1.0 oi)))))
-                   "churn"       (long (Math/round (* 0.05 (double (per (:throughput st))))))}
-           d (fn [e a v] [e a v 1 :add])]
+     (let [adopters (boundary/adopters)
+           actor-labs (into [(repo-actor-lab log-path)]
+                            (map boundary/boundary adopters))
+           order (mapv :id actor-labs)
+           x0 {"ibuki" 0.60 "tsumugi" 0.45 "shionome" 0.55 "kaname" 0.78 "okaimono" 0.50 "repo-git" 0.65}
+           d (fn [e a v] [e a v 1 :add])
+           actor-datoms
+           (fn [{:keys [id role representative inside imports exports state]}]
+             (let [st state oi (double (:order-index st))
+                   {:keys [init in]} (sd-params-from-state st)
+                   ae (str "lab:a:" id) ie (str "lab:idx:" id) se (str "lab:sd:" id)]
+               (concat
+                 [(d ae :lab.actor/id id) (d ae :lab.actor/role role)
+                  (d ae :lab.actor/representative (boolean representative))
+                  (d ae :lab.actor/inside (vec inside))]
+                 ;; indices
+                 [(d ie :lab.index/net-gain (:net-gain st))
+                  (d ie :lab.index/order-index oi)
+                  (d ie :lab.index/agent-eff (jnum (:agent-efficiency st)))
+                  (d ie :lab.index/throughput (:throughput st))
+                  (d ie :lab.index/total-value (:total-value st))
+                  (d ie :lab.index/total-cost (:total-cost st))
+                  (d ie :lab.index/parasitic (:parasitic? st))
+                  (d ie :lab.index/surprise
+                     (/ (+ (if (:parasitic? st) 1.0 0.0) (max 0.0 (- 1.0 oi))) 2.0))]
+                 ;; membrane: imports (drawn IN)
+                 (mapcat (fn [i im]
+                           (let [eid (str "lab:imp:" id ":" i)]
+                             [(d eid :lab.imp/actor id) (d eid :lab.imp/idx i)
+                              (d eid :lab.imp/kind (:kind im)) (d eid :lab.imp/from (:from im))
+                              (d eid :lab.imp/volume (double (:volume im 0)))
+                              (d eid :lab.imp/cost (double (:cost im 0)))]))
+                         (range) imports)
+                 ;; membrane: exports (order returned OUT)
+                 (mapcat (fn [i ex]
+                           (let [eid (str "lab:exp:" id ":" i)]
+                             [(d eid :lab.exp/actor id) (d eid :lab.exp/idx i)
+                              (d eid :lab.exp/kind (:kind ex)) (d eid :lab.exp/to (:to ex))
+                              (d eid :lab.exp/value (double (:value ex 0)))]))
+                         (range) exports)
+                 ;; the actor's OWN system-dynamics params
+                 [(d se :lab.sd/steps sd-steps)]
+                 (for [[k v] init] (d se (keyword "lab.sd" (str "init-" k)) v))
+                 (for [[k v] in]   (d se (keyword "lab.sd" k) v)))))]
        (vec (concat
-              ;; scalar indices
-              [(d "lab:index" :lab.index/net-gain (:net-gain st))
-               (d "lab:index" :lab.index/order-index oi)
-               (d "lab:index" :lab.index/agent-eff (jnum (:agent-efficiency st)))
-               (d "lab:index" :lab.index/throughput (:throughput st))
-               (d "lab:index" :lab.index/total-value (:total-value st))
-               (d "lab:index" :lab.index/total-cost (:total-cost st))
-               (d "lab:index" :lab.index/parasitic (:parasitic? st))
-               (d "lab:index" :lab.index/flows-n (:flows-n st))
-               (d "lab:index" :lab.index/surprise
-                  (/ (+ (if (:parasitic? st) 1.0 0.0) (max 0.0 (- 1.0 oi))) 2.0))]
-              ;; Sankey backbone (one entity per channel)
-              (mapcat (fn [i e]
-                        (let [eid (str "lab:sankey:" i)]
-                          [(d eid :lab.sankey/idx i)
-                           (d eid :lab.sankey/source (:source e))
-                           (d eid :lab.sankey/target (:target e))
-                           (d eid :lab.sankey/value (double (:value e 0)))
-                           (d eid :lab.sankey/volume (double (:volume e 0)))
-                           (d eid :lab.sankey/net (metrics/net-gain e))]))
-                      (range) edges)
-              ;; system-dynamics params (datomic-queryable; the page simulates step-system over them)
-              [(d "lab:sd" :lab.sd/steps steps)]
-              (for [[k v] sd-init] (d "lab:sd" (keyword "lab.sd" (str "init-" k)) v))
-              (for [[k v] sd-in]   (d "lab:sd" (keyword "lab.sd" k) v))
-              ;; ABM params (Friedkin-Johnsen over the actor graph; agents = adopters)
-              [(d "lab:abm" :lab.abm/lambda 0.5)
-               (d "lab:abm" :lab.abm/steps 16)]
-              (mapcat (fn [a]
-                        (let [eid (str "lab:agent:" a)]
-                          [(d eid :lab.agent/id a)
-                           (d eid :lab.agent/x0 (double (get x0 a 0.5)))]))
-                      adopters))))))
+              ;; the selector roster (ordered)
+              (map-indexed (fn [i a] (d (str "lab:actor:" a) :lab/actor a)) order)
+              (map-indexed (fn [i a] (d (str "lab:actor:" a) :lab/order i)) order)
+              ;; every actor's bounded system
+              (mapcat actor-datoms actor-labs)
+              ;; colony ABM (Friedkin-Johnsen coupling the actor systems; kaname = synthesis centre)
+              [(d "lab:abm" :lab.abm/lambda 0.5) (d "lab:abm" :lab.abm/steps 16)]
+              (mapcat (fn [a] (let [eid (str "lab:agent:" a)]
+                                [(d eid :lab.agent/id a) (d eid :lab.agent/x0 (double (get x0 a 0.5)))]))
+                      (boundary/adopters)))))))
 
 #?(:clj
    (defn -lab
-     "bb task: emit lab.kotoba.edn — the Sankey + indices + system-dynamics + ABM params as a flat
-     Datom snapshot the /organism lab queries client-side. Args: [flow-log-path]."
+     "bb task: emit lab.kotoba.edn — every actor as its OWN bounded system (boundary + indices +
+     system-dynamics) + the colony ABM. Pure read, no held key. Args: [flow-log-path]."
      [& args]
      (let [log-path (or (first args) default-flow-log)
            datoms (lab-datoms log-path)
            out (str ";; GENERATED kotoba Datom snapshot (etzhayyim.ie-flow.organism/-lab).\n"
-                    ";; Canonical live EAVT state [e a v tx op]. DO NOT hand-edit.\n"
+                    ";; Per-actor bounded systems (boundary/index/sd) + colony ABM. [e a v tx op].\n"
                     "[\n" (apply str (map #(str (pr-str %) "\n") datoms)) "]\n")]
        (doseq [dir out-dirs]
          (let [p (str dir "/lab.kotoba.edn")] (io/make-parents p) (spit p out)))
-       (println (str "lab.kotoba.edn · " (count datoms) " datoms (index/sankey/sd/abm)"))
+       (println (str "lab.kotoba.edn · " (count datoms) " datoms · "
+                     (count (boundary/adopters)) " adopters + repo-git, each a bounded system"))
        datoms)))
 
 #?(:clj
