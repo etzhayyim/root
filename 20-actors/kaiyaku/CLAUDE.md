@@ -90,12 +90,15 @@ advice.
 │   ├── catalog.cljc                   # R1: real-service 解約 procedure catalog loader/validator (tier-parity w/ planner)
 │   ├── handoff_ingest.py              # tate 盾 handoff → notice-window worklist (compose 往復)
 │   └── datom_emit.py                  # kotoba Datom-log (EAVT) emitter — canonical state
-├── tests/                             # 55 tests, pure stdlib
+├── tools/                             # MEMBER-side runtime (NOT the actor — may do crypto)
+│   └── issue_capability.cljc          # R1: member mints the revocable severance capability (Ed25519/JDK; kaiyaku never signs)
+├── tests/                             # 62 tests, pure stdlib
 │   ├── test_analyze.py
 │   ├── test_handoff.py
 │   ├── test_plan.py
 │   ├── test_driver.cljc               # R1 driver: capability gating + cascade + exactly-once
-│   └── test_catalog.cljc              # R1 catalog: tier-parity w/ planner + G3/G6/G8 honesty
+│   ├── test_catalog.cljc              # R1 catalog: tier-parity w/ planner + G3/G6/G8 honesty
+│   └── test_issue_capability.cljc     # R1 tool: issuance↔cap verification roundtrip + Ed25519
 ├── clj/                               # cljc port + Clojure LangGraph actor (see clj/README.md)
 │   ├── deps.edn                       # langgraph-clj + browser-use-clj + computer-use-clj (git deps)
 │   ├── src/kaiyaku/                   # ledger/analyze/plan/datoms (Python numeric parity)
