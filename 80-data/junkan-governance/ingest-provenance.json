@@ -14,20 +14,20 @@
     "report.md"
   ],
   "regenerate": "bb --classpath 20-actors -e \"(require '[junkan.methods.junkan-edn :as je] '[junkan.methods.analyze :as az] '[junkan.methods.kotoba :as k]) (let [is (je/instruments \\\"20-actors/junkan/kotoba/seed.governance-asymmetry.edn\\\") a (az/analyze is) ds (az/datoms is a) tx (k/make-tx ds \\\"junkan-gov-snapshot-0001\\\" \\\"snapshot\\\" \\\"\\\")] (spit \\\"80-data/junkan-governance/governance-asymmetry.datoms.kotoba.edn\\\" (az/render-datoms is a)) (spit \\\"80-data/junkan-governance/findings-ledger.kotoba.edn\\\" (k/tx->edn tx)) (spit \\\"80-data/junkan-governance/report.md\\\" (az/render-report a)))\"",
-  "tx_cid": "b5fe7eba77d7a29e722380d3357bb8cee5102709cdc2e96074a76b75ab27f6aa5",
-  "datoms": 4683,
-  "instruments": 317,
-  "jurisdictions": 190,
-  "regions": {"africa": 51, "europe": 47, "asia": 46, "americas": 30, "oceania": 14, "transnational": 2},
-  "kinds": {"law": 72, "institution": 185, "doctrine": 42, "value": 18},
-  "stocks": {"participation-barrier": 136, "paradigm-subordination": 48, "economic-capture": 47, "coercion-asymmetry": 46, "information-asymmetry": 40},
-  "thinnest_stock": "information-asymmetry",
+  "tx_cid": "bac57cc807faedec54f175f0eed8e3e4763afdb5cecb10171accb67ceb773baa1",
+  "datoms": 4823,
+  "instruments": 327,
+  "jurisdictions": 192,
+  "regions": {"africa": 51, "europe": 47, "asia": 46, "americas": 32, "oceania": 14, "transnational": 2},
+  "kinds": {"law": 73, "institution": 191, "doctrine": 42, "value": 21},
+  "stocks": {"participation-barrier": 138, "paradigm-subordination": 48, "information-asymmetry": 48, "economic-capture": 47, "coercion-asymmetry": 46},
+  "thinnest_stock": "coercion-asymmetry",
   "generated_scorecard": "SCORECARD.md",
   "tx_cid_note": "tx-cid reproducible byte-for-byte from the seed (deterministic content-address); changes only when the seed changes.",
   "sourcing": "representative (laws/years/enactors/origins are on-the-record public facts; polarity/magnitude/confidence are junkan's disclosed hypotheses, G5)",
   "discipline": "G4 analysis-only / G5 hypothesis-only / G6 aggregate-only / G7 map-not-rank / G11 candidates-not-directives",
   "as_of": "2026-06-22",
-  "iteration": 22,
+  "iteration": 23,
   "iteration_history": [
     {"iteration": 1, "instruments": 35, "jurisdictions": 17, "tx_cid": "bb4be4ac091ae9cc9be30c732d2fc78f773afabea84d6deccb96b784576a1d814"},
     {"iteration": 2, "instruments": 59, "jurisdictions": 31, "note": "Global South / under-represented wave: BR MX ZA NG ID TR IR PH PK VN KE TN CL TW"},
@@ -50,6 +50,7 @@
     {"iteration": 19, "instruments": 287, "jurisdictions": 183, "note": "economic-capture 32→39 toward parity (PH pork-barrel, CN princelings, US dark money, IN conglomerate concentration; + open-gov: UA ProZorro, Open Contracting standard, FATF AML) + small-state jurisdictions (TV ST MH); + headline now names the strongest concrete widening law. thinnest rotated economic→coercion"},
     {"iteration": 20, "instruments": 297, "jurisdictions": 186, "note": "coercion-asymmetry 38→46 toward parity (IR morality police, NG SARS, KE counter-terror policing, KZ Jan-2022, CM Anglophone crisis, emergency-powers normalization; + counters OPCAT, UN human-rights monitoring) + new jurisdictions (CM LC GD); + query/instruments-by-kind. 297 instruments / 186 jurisdictions across all continents; 5 stocks balanced 39–132"},
     {"iteration": 21, "instruments": 307, "jurisdictions": 188, "note": "economic-capture 39→47 toward parity (VE PDVSA, MN mining, illicit financial flows, resource curse, ZA BEE; + counters ZA Public Protector, StAR asset recovery, INTOSAI audit) + new jurisdictions (BZ NR); + SCORECARD surfaces the self-balancing next-focus stock"},
-    {"iteration": 22, "instruments": 317, "jurisdictions": 190, "note": "paradigm-subordination 40→48 toward parity (IN Hindutva, IL nation-state law, MM/LK Buddhist nationalism, majoritarianism vs IN constitutional secularism, secular-state + minority-rights norms) + micro-republics (SM MC); thinnest rotated paradigm→information. 317 instruments / 190 jurisdictions; all 5 stocks 40–136"}
+    {"iteration": 22, "instruments": 317, "jurisdictions": 190, "note": "paradigm-subordination 40→48 toward parity (IN Hindutva, IL nation-state law, MM/LK Buddhist nationalism, majoritarianism vs IN constitutional secularism, secular-state + minority-rights norms) + micro-republics (SM MC); thinnest rotated paradigm→information. 317 instruments / 190 jurisdictions; all 5 stocks 40–136"},
+    {"iteration": 23, "instruments": 327, "jurisdictions": 192, "note": "information-asymmetry 40→48 toward parity (Pegasus-class spyware, IN internet shutdowns, TR censorship, NG Twitter ban, facial-recognition surveillance vs E2E encryption, EU whistleblower directive, Open Government Partnership) + Caribbean (AG DM). 327 instruments / 192 jurisdictions; 5 stocks tightly balanced 46–138"}
   ]
 }

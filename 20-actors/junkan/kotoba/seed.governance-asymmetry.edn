@@ -2382,4 +2382,75 @@
   :stakeholders ["Prince" "National Council" "citizens"]
   :stock :participation-barrier :polarity :ambiguous :magnitude 0.4 :reversibility :constitutional :meadows 4
   :basis "Constitution of Monaco (1962)" :sourcing :representative :confidence 0.4}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 23 — information-asymmetry toward parity (spyware/censorship vs
+ ;; privacy/whistleblower counters) + new jurisdictions (AG DM)
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── information-asymmetry (widen) ──
+ {:type :instrument :id "gl-pegasus-spyware" :name "Commercial spyware (Pegasus-class)" :jurisdiction "GLOBAL" :kind :institution :year 2016
+  :enactor "Diffuse (commercial spyware vendors + state clients)"
+  :origin "Zero-click phone-hacking tools sold to governments were used against journalists, activists, and opposition worldwide (the 2021 Pegasus Project), giving states covert, deniable visibility into private life — an asymmetric surveillance channel the charter's §2(c) reciprocity axis names directly."
+  :stakeholders ["spyware vendors" "state clients" "journalists/activists" "citizens"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.7 :reversibility :institutional :meadows 5
+  :basis "Pegasus Project (2021); commercial-spyware market" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "in-internet-shutdowns" :name "Internet shutdowns (world-leading frequency)" :jurisdiction "IN" :kind :institution :year 2017
+  :enactor "Indian state (district/state authorities; Temporary Suspension Rules 2017)"
+  :origin "India imposes more internet shutdowns than any other country, notably the prolonged Jammu & Kashmir blackout from 2019; the Supreme Court (2020) held indefinite shutdowns unconstitutional yet the practice persists — cutting citizens off from information at will."
+  :stakeholders ["home departments" "telecoms" "affected populations" "Supreme Court"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.6 :reversibility :statutory :meadows 5
+  :basis "Temporary Suspension Rules 2017; Anuradha Bhasin (2020)" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "tr-internet-censorship" :name "Internet censorship (Law 5651 + social-media law)" :jurisdiction "TR" :kind :law :year 2007
+  :enactor "Grand National Assembly of Turkey (Law 5651, 2007; 2020 amendment)"
+  :origin "Broad URL-blocking powers and a 2020 social-media law requiring local representatives and data localization (with bandwidth-throttling penalties) give the state extensive control over what citizens can access and say online."
+  :stakeholders ["BTK regulator" "platforms" "journalists" "citizens"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.6 :reversibility :statutory :meadows 5
+  :basis "Turkey Law No. 5651 (2007); 2020 social-media law" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "ng-twitter-ban-2021" :name "Twitter ban (2021)" :jurisdiction "NG" :kind :institution :year 2021
+  :enactor "Nigerian government (Ministry of Information)"
+  :origin "After Twitter deleted a presidential post, the government banned the platform nationwide for ~7 months, requiring social media to register locally — using platform control to constrain citizens' information and expression."
+  :stakeholders ["government" "platforms" "Nigerian users" "businesses"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.5 :reversibility :institutional :meadows 5
+  :basis "Nigeria 2021 Twitter ban" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-facial-recognition-surveillance" :name "Biometric / facial-recognition mass surveillance" :jurisdiction "GLOBAL" :kind :institution :year 0
+  :enactor "Diffuse (states deploying live facial recognition + biometric databases)"
+  :origin "Live facial recognition and large biometric databases let states identify and track citizens in public space at scale, often without consent or oversight — a rapidly-growing asymmetric-surveillance channel that the EU AI Act and various bans contest."
+  :stakeholders ["police/security" "biometric vendors" "data-protection authorities" "citizens"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.6 :reversibility :statutory :meadows 5
+  :basis "Comparative biometric-surveillance deployments; EU AI Act debate" :sourcing :representative :confidence 0.4}
+
+ ;; ── information-asymmetry (narrow — privacy / whistleblower / open) ──
+ {:type :instrument :id "gl-strong-encryption" :name "End-to-end encryption (privacy norm)" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse (cryptography community + privacy-protective platforms)"
+  :origin "Widely-deployed end-to-end encryption protects citizens' communications from bulk state interception — a structural narrowing of the surveillance asymmetry, contested by recurring 'lawful access'/'going dark' proposals to weaken it."
+  :stakeholders ["platforms" "cryptographers" "law-enforcement (opposing)" "citizens"]
+  :stock :information-asymmetry :polarity :narrow :magnitude 0.55 :reversibility :cultural :meadows 6
+  :basis "E2E encryption deployment; 'going dark' debate" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "eu-whistleblower-directive-2019" :name "Whistleblower Protection Directive" :jurisdiction "EU" :kind :law :year 2019
+  :enactor "European Parliament + Council of the EU"
+  :origin "Requires member states to shield whistleblowers who report breaches of EU law from retaliation and to provide safe reporting channels, structurally easing the disclosure of wrongdoing that opacity protects — narrowing the information asymmetry."
+  :stakeholders ["whistleblowers" "employers" "national authorities" "citizens"]
+  :stock :information-asymmetry :polarity :narrow :magnitude 0.5 :reversibility :statutory :meadows 6
+  :basis "Directive (EU) 2019/1937" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "gl-open-government-partnership" :name "Open Government Partnership" :jurisdiction "GLOBAL" :kind :institution :year 2011
+  :enactor "Open Government Partnership (multilateral, 2011)"
+  :origin "A multilateral initiative under which member governments make and are reviewed against concrete transparency, participation, and accountability commitments — a structural channel narrowing the default information gap (commitment quality varies)."
+  :stakeholders ["member governments" "civil society" "IRM reviewers" "citizens"]
+  :stock :information-asymmetry :polarity :narrow :magnitude 0.45 :reversibility :institutional :meadows 6
+  :basis "Open Government Partnership (since 2011)" :sourcing :representative :confidence 0.4}
+
+ ;; ── new jurisdictions (participation) ──
+ {:type :instrument :id "ag-antigua" :name "Westminster parliamentary democracy" :jurisdiction "AG" :kind :institution :year 1981
+  :enactor "Antigua and Barbuda (independence Constitution)"
+  :origin "A Caribbean democracy with competitive elections and peaceful alternation (notably 2004, ending a long single-family dominance) — a functioning participation channel."
+  :stakeholders ["Parliament" "parties" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.45 :reversibility :institutional :meadows 4
+  :basis "Constitution of Antigua and Barbuda (1981)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "dm-dominica" :name "Parliamentary democracy (since 1978)" :jurisdiction "DM" :kind :institution :year 1978
+  :enactor "Commonwealth of Dominica (independence Constitution)"
+  :origin "A small parliamentary republic with regular competitive elections; long single-party dominance and electoral-reform disputes are watch-points, but the participation channel functions."
+  :stakeholders ["House of Assembly" "parties" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.4 :reversibility :institutional :meadows 4
+  :basis "Constitution of Dominica (1978)" :sourcing :representative :confidence 0.4}
 ]

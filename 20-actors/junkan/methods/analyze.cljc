@@ -206,6 +206,7 @@
    "HN" :americas "GT" :americas "HT" :americas "EC" :americas "JM" :americas
    "TT" :americas "BB" :americas "DO" :americas "PA" :americas "GY" :americas
    "BS" :americas "SR" :americas "LC" :americas "GD" :americas "BZ" :americas
+   "AG" :americas "DM" :americas
    ;; Asia (incl. Middle East / Central / South / SE / East)
    "CN" :asia "KP" :asia "IN" :asia "ID" :asia "TH" :asia "PH" :asia "PK" :asia
    "VN" :asia "BD" :asia "KH" :asia "TM" :asia "AZ" :asia "KZ" :asia "LK" :asia
