@@ -25895,6 +25895,41 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606211752-kagami-actor-yata-no-kagami-observational-mirror-doctrine.md",
+      "id": "adr-2606211752-kagami-actor-yata-no-kagami-observational-mirror-doctrine",
+      "title": "ADR-2606211752: kagami actor — the Yata-no-Kagami doctrine for the observational mirror lineage",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "kagami-actor-observational-mirror-doctrine",
+      "authoritative": true,
+      "authoritative_for": [
+        "canonical concept name: an observational mirror-actor is a 鏡 (kagami) actor, grounded in the Yata-no-Kagami (八咫鏡)",
+        "the 鏡 doctrine = 映す/裁かぬ/剣にあらず/曇りなき (reflect / judge-not / not-the-sword / unclouded) as the four invariants of every mirror-actor",
+        "the 9 KG-mirror lineage actors (tsumugi/danjo/ooyake/watatsuna/watari/inochi/hokorobi/keizu/kanae) named as the kagami lineage"
+      ],
+      "related": [
+        "2606011800",
+        "2606012600",
+        "2606021600",
+        "2606041827",
+        "2605302300",
+        "2606066001",
+        "2606073000",
+        "2606073400",
+        "2605192315"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606042330",
+        "2605192100",
+        "2605231525"
+      ],
+      "last_verified": "2026-06-21",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606212030-kafun-ie-flow-energy-visualization.md",
       "id": "adr-2606212030-kafun-ie-flow-energy-visualization",
       "title": "ADR-2606212030: kafun 花粉 embeds ie-flow + energy-flow system-of-systems visualization",
@@ -25916,6 +25951,33 @@
       "depends_on": [
         "adr-2606211712-kafun-pollen-remediation-actor",
         "adr-2606211200-ie-flow-datomic-agent-lifecycle"
+      ],
+      "last_verified": "2026-06-21",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606212200-ie-flow-actor-score-organism-reward.md",
+      "id": "adr-2606212200-ie-flow-actor-score-organism-reward",
+      "title": "ADR-2606212200: ie-flow actor SCORE — information-control 利得 integrated into the artificial-organism reward",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "ie-flow-actor-score-organism-reward",
+      "authoritative": true,
+      "authoritative_for": [
+        "etzhayyim.ie-flow.score (the composite information-control score + organism reward)",
+        "the :colony-order negentropy source in ibuki's metabolism"
+      ],
+      "related": [
+        "adr-2606212030-kafun-ie-flow-energy-visualization",
+        "adr-2606211200-energy-order-protocol",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606211200-ie-flow-datomic-agent-lifecycle",
+        "adr-2606201200-ibuki-coscientist-entropy-react-loop"
       ],
       "last_verified": "2026-06-21",
       "amends": [],
