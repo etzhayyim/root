@@ -42,7 +42,7 @@
           tmp (str (System/getProperty "java.io.tmpdir") "/hakoniwa-ingest-" (System/nanoTime) ".edn")]
       (spit tmp edn)
       (try
-        (let [[n2 e2] (w/load tmp)]
+        (let [{n2 :nodes e2 :edges} (w/load-file* tmp)]
           (is (= (count n2) (count nodes)))
           (let [[results _] (s/ensemble n2 e2 {:steps 10 :replicas 32 :seed 7})
                 dist (d/distribution results)]
