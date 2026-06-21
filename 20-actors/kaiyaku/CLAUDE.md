@@ -89,11 +89,12 @@ advice.
 │   ├── driver.cljc                    # R1: capability-gated dispatch (authorize-never-execute; cascade + exactly-once)
 │   ├── catalog.cljc                   # R1: real-service 解約 procedure catalog loader/validator (tier-parity w/ planner)
 │   ├── receipt.cljc                   # R1: catalog + authorization-receipt Datom emit/persist (G9 audit, no-secrets)
+│   ├── karakuri_bridge.cljc           # R1: kaiyaku plan → karakuri serviceOp handoff (lexicon-checked, no-drift)
 │   ├── handoff_ingest.py              # tate 盾 handoff → notice-window worklist (compose 往復)
 │   └── datom_emit.py                  # kotoba Datom-log (EAVT) emitter — canonical state
 ├── tools/                             # MEMBER-side runtime (NOT the actor — may do crypto)
 │   └── issue_capability.cljc          # R1: member mints the revocable severance capability (Ed25519/JDK; kaiyaku never signs)
-├── tests/                             # 68 tests, pure stdlib
+├── tests/                             # 73 tests, pure stdlib
 │   ├── test_analyze.py
 │   ├── test_handoff.py
 │   ├── test_plan.py

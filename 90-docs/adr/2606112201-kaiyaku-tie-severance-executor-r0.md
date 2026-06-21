@@ -163,6 +163,34 @@ network I/O still gated to a post-R1 driver behind G6 (Council Lv6+ + operator +
 member-presented capability). Still-open R1 data gap: the real-service cancellation
 procedure catalog (R0 seed is 9 synthetic `:representative` ties).
 
+### R1 follow-on (same wave)
+
+- **`data/cancel-procedures.kotoba.edn` + `methods/catalog.cljc`** — the R1 DATA leg:
+  a `:representative` catalog of real services + their disclosed 解約/退会 procedures
+  (every entry `:operator-verified false`; an operator must verify before live use,
+  the catalog honesty analogue of G6). `catalog/derive-tier` mirrors `plan/select-tier`
+  byte-for-byte (a test pins no data↔logic drift); honesty gates in code: G3 (no T2 over
+  a non-`:permitted` browser stance; no evasion verb in steps), G8 (notice/penalty
+  carried — Adobe ETF + gym notice surfaced), N1. `catalog/enrich-plan` ADDITIVELY
+  attaches the disclosed procedure to a plan (build-plan parity untouched) and flags a
+  ledger↔catalog cost-of-severance discrepancy as `g8_drift` (shown, never reconciled);
+  `coverage-of` is the catalog-growth worklist.
+- **`tools/issue_capability.cljc`** — the MEMBER's own signing-runtime tool (clj/bb,
+  Ed25519 via JDK — no third-party dep) that mints the `cap.cljc` bundle. Proven: the
+  issuance↔verification round-trip (a bundle it builds satisfies `cap` and `usable?`
+  accepts it; the `approved` allowlist + expiry bind). CBOR-CACAO byte-parity vs the live
+  kotoba node is the G6 operator step (honest, like operator-verified=false).
+- **`methods/receipt.cljc`** — G9 audit: the catalog (`:proc/*`) and every driver
+  authorization descriptor (`:kaiyaku.receipt/*`) are persisted to the kotoba commit-DAG
+  (verify-chain tamper-evident). A receipt NEVER stores a credential (no-server-key —
+  a credential-shaped value is refused at emit), `:executed` is always false (G6).
+- **`methods/karakuri_bridge.cljc`** — the cross-actor seam: a kaiyaku plan maps to a
+  karakuri `com.etzhayyim.karakuri.serviceOp` record (kaiyaku decides WHAT, karakuri is
+  the execution substrate). Validated against karakuri's OWN lexicon so the two
+  vocabularies cannot drift (tier scheme parity + enum checks); a 解約 is a `delete`,
+  `dryRun` true, `mutateGate awaiting-member-sig`; T3 self-submit → no op (member's manual
+  procedure). Suite: **75 tests / 852 assertions green** (`run_tests.sh`).
+
 # Consequences
 
 - The 縁切り question now has a designed, test-enforced answer: subscriptions, dormant
