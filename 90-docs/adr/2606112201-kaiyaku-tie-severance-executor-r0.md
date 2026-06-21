@@ -122,6 +122,47 @@ cross-actor table already specified.
 `.solve()` raises) — coded scaffolds, live ingest (G7), member-approval convo leg, and
 any live execution (G6) are R1+ follow-ups, each behind its gate.
 
+## R1 — capability-gated severance driver (added 2026-06-21)
+
+R0 left exactly one gap between a member-approved dry-run plan and an actual
+cancellation: `plan/execute` raised unconditionally, with no designed path to ever
+say *yes*. R1 closes that gap as an **authorization boundary, not live I/O** — the
+karakuri `adapter_live` / fuchi `live_gate` pattern, ported into kaiyaku:
+
+- **`methods/cap.cljc` — the revocable leash.** A severance is destructive, so the
+  credential is neither a platform-held key (prohibited, no-server-key ADR-2605231525)
+  nor a per-tie passkey touch. It is a **scoped, expiring, revocable kotoba CACAO
+  capability** the MEMBER signs in their OWN runtime and hands kaiyaku to PRESENT
+  (kaiyaku holds no key, never signs — present-only, mirrors ibuki `delegation.cljc`,
+  ADR-2606111400). kaiyaku **tightens** the ibuki leash: the bundle carries an
+  `approved` svc-id ALLOWLIST = the exact set the member approved at the G5
+  human-in-the-loop interrupt, so the member-sig gate and the capability scope become
+  ONE artifact. `usable?` is a pure fn of bundle metadata against a caller-supplied
+  `:now-epoch` (no wall clock); `aud` is the kotoba NODE DID; `write_author` resolves
+  to the issuing member (severance attributed on-record to the consenting human).
+- **`methods/driver.cljc` — authorize, never execute.** `dispatch` / `dispatch-batch`
+  verify the capability and return an authorization DESCRIPTOR with `executed:false` /
+  `server_signed:false`; the actual T1-API / T2-browser / T3-handoff driver remains a
+  separate post-R1 component. Four invariants, each test-enforced:
+  1. **G3 no-server-key** — absent/expired/wrong-graph/not-approved capability →
+     `:refused` (the batch never throws, so one bad tie can't abort the rest).
+  2. **G5-in-the-leash** — a tie not in `approved` is never severable, even under a
+     valid unexpired bundle.
+  3. **cascade ordering (依存)** — a `:review-cascade` plan is never live-dispatched
+     (dependents must be re-homed first); for a `:sever` plan, `assert-cascade-order`
+     structurally guarantees every `rehome-dependency` step precedes the irreversible
+     cancel step.
+  4. **exactly-once (冪等)** — `dispatch-batch` threads an `already-severed` cursor;
+     a re-run / resume of the same batch is a no-op (no double cancellation).
+  T3 self-submit is **never sent** — the descriptor says the member submits it.
+
+`plan/execute` still raises (R0 contract untouched): no code path performs a live
+cancellation. R1 is the *design* of the authorized path + its gates, proven green
+(`run_tests.sh`: 41 tests / 254 assertions, +10 `test_driver` deftests), with live
+network I/O still gated to a post-R1 driver behind G6 (Council Lv6+ + operator +
+member-presented capability). Still-open R1 data gap: the real-service cancellation
+procedure catalog (R0 seed is 9 synthetic `:representative` ties).
+
 # Consequences
 
 - The 縁切り question now has a designed, test-enforced answer: subscriptions, dormant

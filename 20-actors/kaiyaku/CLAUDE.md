@@ -84,12 +84,15 @@ advice.
 ├── methods/                           # pure-stdlib → kotoba pywasm-runnable
 │   ├── analyze.py                     # edge-primary tie-burden analyzer + cascade-guard
 │   ├── plan.py                        # T1/T2/T3 severance-plan builder (dry-run only)
+│   ├── cap.cljc                       # R1: severance CAPABILITY (revocable leash; present-only, no-server-key)
+│   ├── driver.cljc                    # R1: capability-gated dispatch (authorize-never-execute; cascade + exactly-once)
 │   ├── handoff_ingest.py              # tate 盾 handoff → notice-window worklist (compose 往復)
 │   └── datom_emit.py                  # kotoba Datom-log (EAVT) emitter — canonical state
-├── tests/                             # 29 tests, pure stdlib
+├── tests/                             # 39 tests, pure stdlib
 │   ├── test_analyze.py
 │   ├── test_handoff.py
-│   └── test_plan.py
+│   ├── test_plan.py
+│   └── test_driver.cljc               # R1 driver: capability gating + cascade + exactly-once
 ├── clj/                               # cljc port + Clojure LangGraph actor (see clj/README.md)
 │   ├── deps.edn                       # langgraph-clj + browser-use-clj + computer-use-clj (git deps)
 │   ├── src/kaiyaku/                   # ledger/analyze/plan/datoms (Python numeric parity)
