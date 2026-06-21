@@ -10,7 +10,7 @@ related:
   - adr-2606032212-session-close-etzhayyim-to-etzhayyim-app-rename-sweep-batch320-pause
   - adr-2606032045-session-close-etzhayyim-to-etzhayyim-app-rename-sweep-batch47-pause
   - adr-2606032031-session-close-etzhayyim-to-etzhayyim-app-rename-sweep-pause
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605262130-kotoba-storage-substrate-unification
   - adr-2605312345-kotoba-datom-first-class-canonical-state
 supersedes: []

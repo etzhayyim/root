@@ -1,10 +1,10 @@
-# murakumo (CF Worker, etzhayyim RW-free rewrite)
+# murakumo (CF Worker, etzhayyim kotoba rewrite)
 
 LiteLLM gateway + async inference job tracker. Per ADR-2605191358 step 2.
 
 ## Substrate boundary
 
-This worker MUST use `@etzhayyim/sdk` as the only durable-state client. Prohibited imports (enforced by `lint:rw-free`):
+This worker MUST use `@etzhayyim/sdk` as the only durable-state client. Prohibited imports (enforced by `lint:kotoba`):
 
 - `@atproto/api` (use `@etzhayyim/sdk` PDS verbs)
 - `viem` (use `@etzhayyim/sdk` L2 verbs)
@@ -69,13 +69,13 @@ wrangler secret put OPENROUTER_API_KEY     # optional deepseek routing
 
 ```bash
 pnpm typecheck
-pnpm lint:rw-free
+pnpm lint:kotoba
 pnpm build
 ```
 
 ## References
 
-- ADR-2605172000 (RW-free hard rule)
+- ADR-2605172000 (kotoba hard rule)
 - ADR-2605191346 (Vultr-free + Murakumo Mac-mini Tier-1)
-- ADR-2605191358 (yoro/murakumo RW-free rewrite map — this worker = step 2)
+- ADR-2605191358 (yoro/murakumo kotoba rewrite map — this worker = step 2)
 - Upstream legacy: `etzhayyim-root/50-infra/cloudflare/workers/murakumo/` (Kysely+Hyperdrive — retired)

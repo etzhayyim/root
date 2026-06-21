@@ -7,7 +7,7 @@
 
 ## 1. Why
 
-The suite's compute today is **TypeScript** in `rw-free/src/` — four pure-function cores
+The suite's compute today is **TypeScript** in `kotoba/src/` — four pure-function cores
 plus their SDK-bound wrappers:
 
 | Suite app | Pure core (this repo) | Output |
@@ -160,7 +160,7 @@ Recommendation: **A for docs/calendar/drive** (low interactivity; mesh round-tri
 **B for sheets** (formula recalc must be instant in-browser). This matches the baien
 edge-target spirit: the interactive surface stays on-device.
 
-> Note: today's `rw-free` TS already runs in the browser (it's the ameno/Svelte SPA's own
+> Note: today's `kotoba` TS already runs in the browser (it's the ameno/Svelte SPA's own
 > code). So "browser-local suite" is **already true for the TS path** — the py/WASM migration
 > is about making the cores *content-addressed actors* (CID identity, mesh-runnable,
 > kotoba-checkpointed), not about first reaching the browser.
@@ -171,7 +171,7 @@ The suite Datom kinds are unchanged from `suite.ts`
 (`com.etzhayyim.apps.openKyber.{mail,driveNode,doc,sheet,calendarEvent}`). Migration only
 changes **who writes them**:
 
-- **Today**: TS `rw-free` functions write via `@etzhayyim/sdk` → `xrpc-bridge.ts` →
+- **Today**: TS `kotoba` functions write via `@etzhayyim/sdk` → `xrpc-bridge.ts` →
   `com.atproto.repo.createRecord` / `…kg.ingest_batch`.
 - **After**: the WASM cell writes via the host **`kqe.assert-quad`** capability; intermediate
   graph state is persisted by **`KotobaCheckpointer`** as CBOR Datoms. The pure cores still

@@ -61,7 +61,7 @@ Per user direction "blind copy して、後から修正", the 3 newly-restored a
 
 ## Cross-links
 
-- ADR-2605172000 (RW-free substrate, the boundary)
+- ADR-2605172000 (kotoba substrate, the boundary)
 - ADR-2605172100 (substrate ladder)
 - ADR-2605214000 (Murakumo mesh + lexicon port verdict taxonomy)
 - ADR-2605212100 (etzhayyim→etzhayyim migration batch — **referenced by source DEPRECATED.md, not yet authored**)

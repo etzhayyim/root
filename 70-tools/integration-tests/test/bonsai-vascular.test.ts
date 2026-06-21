@@ -5,13 +5,13 @@ import {
   releaseCarbon,
   recordOffset,
   listOffsets,
-} from "@etzhayyim/koke-rw-free";
+} from "@etzhayyim/koke-kotoba";
 import {
   startFerment,
   getFerment,
   updateFermentStatus,
-} from "@etzhayyim/hakkou-rw-free";
-import { absorb, synthesize, bloom, ring } from "@etzhayyim/ki-rw-free";
+} from "@etzhayyim/hakkou-kotoba";
+import { absorb, synthesize, bloom, ring } from "@etzhayyim/ki-kotoba";
 
 // TODO: bonsai-vascular test refactored for Phase E koke redesign (carbon fixation).
 // Prior API (fixSignal/getFixation) replaced with registerCarbon/releaseCarbon/recordOffset/listOffsets

@@ -21,7 +21,7 @@ depends_on:
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp
   - adr-2605202200-etzhayyim-cell-runtime-contract
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
 related:
   - 40-engine/kotoba/crates/kotoba-kotodama/mcp/unispsc-isic-mcp/
@@ -193,9 +193,9 @@ etzhayyim yorishiro audit
 
 `audit` subcommand は本 ADR の D2 enforcement を一発で実行 — `x-charter-purpose` 違反 / `x-yorishiro-external` 欠落 / `fetch()` 直接使用 / L1-L2-L3 不一致を検出。
 
-## D6. Substrate boundary 整理 (RW-free との関係)
+## D6. Substrate boundary 整理 (kotoba との関係)
 
-yorishiro は外部 substrate へ書込/読込する op を内包するため、ADR-2605172000 (RW-free) の境界条件を以下のように明確化する:
+yorishiro は外部 substrate へ書込/読込する op を内包するため、ADR-2605172000 (kotoba) の境界条件を以下のように明確化する:
 
 | op 種別 | 許可 | substrate への state landing |
 |---|---|---|
@@ -280,7 +280,7 @@ yorishiro は外部 substrate へ書込/読込する op を内包するため、
 - ADR-2605192200 (IP-free release + Charter Rider v2.0 — §2 8 prohibited categories)
 - ADR-2605180900 (LangGraph Pregel fleet + MCP bridge — reference impl `unispsc-isic-mcp`)
 - ADR-2605202200 (kotodama cell.py runtime contract — L2 Python cell の DI 契約)
-- ADR-2605172000 (RW-free substrate architecture — yorishiro の state boundary 規律)
+- ADR-2605172000 (kotoba substrate architecture — yorishiro の state boundary 規律)
 - ADR-2605172100 (etzhayyim-sdk substrate client — L2 TS Worker の client SSoT)
 - HKUDS/CLI-Anything (外部参照 — generator 設計の inspiration、ただし出力 layer は etzhayyim-native に翻訳)
 - `40-engine/kotoba/crates/kotoba-kotodama/mcp/unispsc-isic-mcp/README.md` (1 件目の hand-written 3-layer 実装)

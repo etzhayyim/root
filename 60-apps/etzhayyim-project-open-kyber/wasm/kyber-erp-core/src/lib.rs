@@ -14,7 +14,7 @@
 //! and returns UTF-8 JSON. The kotoba CBOR `InvokeContext { graph, session_cid, args }` → this
 //! JSON envelope adapter is the host-side integration point (documented in MIGRATION.md).
 //!
-//! Discipline mirrors the rw-free TS library this ports from:
+//! Discipline mirrors the kotoba TS library this ports from:
 //!   - kotoba-native: every write is a `kqe.assert-quad` Datom (no RisingWave / Kysely).
 //!   - double-entry: a journal entry is rejected unless Σdebit == Σcredit (exact decimal).
 //!   - 非終末論: writes are appends; nothing is overwritten.
@@ -24,7 +24,7 @@
 //! seedChartOfAccounts, createJournalEntry) which uses the verified `kqe.assert-quad` pattern.
 //! Read commands (getTrialBalance, coverage) go through `kqe.query`; the kotoba Datalog dialect
 //! is host-verified, so they degrade gracefully (status "pending-read") if the query errors.
-//! The full 28-command surface + exact rw-free parity is the migration plan in MIGRATION.md.
+//! The full 28-command surface + exact kotoba parity is the migration plan in MIGRATION.md.
 
 wit_bindgen::generate!({
     path: "wit",
@@ -37,7 +37,7 @@ use serde_json::{json, Value};
 /// The kotoba graph the ERP writes its Datoms into.
 const GRAPH: &str = "etzhayyim/kyber/erp";
 
-/// IFRS-aligned base chart-of-accounts seed (a representative subset of the rw-free 25-row set).
+/// IFRS-aligned base chart-of-accounts seed (a representative subset of the kotoba 25-row set).
 const CHART_SEED: &[(&str, &str, &str)] = &[
     ("1000", "Cash", "asset"),
     ("1100", "Accounts Receivable", "asset"),

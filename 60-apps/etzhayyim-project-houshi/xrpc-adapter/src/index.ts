@@ -8,7 +8,7 @@ import {
   extractBearerToken,
   type Etzhayyim,
 } from "@etzhayyim/sdk-auth";
-import * as houshiRwFree from "@etzhayyim/houshi-rw-free";
+import * as houshiRwFree from "@etzhayyim/houshi-kotoba";
 
 interface Env {
   ACTOR_DID: string;

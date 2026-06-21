@@ -18,7 +18,7 @@ authoritative_for:
   - IPFS pinning responsibility split
 depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
 related:
 supersedes: []
@@ -37,7 +37,7 @@ superseded_by: []
 
 For that metaphor to hold up in production, every cell's state must be:
 
-1. **Durable** — survives crashes / migrations / scale-down. LangGraph normally solves this with `PostgresSaver` (the canonical checkpoint saver from `langgraph-checkpoint-postgres`), but ADR-2605172000 (RW-free substrate) prohibits centralized off-chain DBs in this monorepo. This ADR provides a substrate-compliant equivalent.
+1. **Durable** — survives crashes / migrations / scale-down. LangGraph normally solves this with `PostgresSaver` (the canonical checkpoint saver from `langgraph-checkpoint-postgres`), but ADR-2605172000 (kotoba substrate) prohibits centralized off-chain DBs in this monorepo. This ADR provides a substrate-compliant equivalent.
 2. **Replayable** — any past super-step can be reconstructed deterministically.
 3. **Verifiable** — a third party (auditor, peer cell, off-chain observer) can confirm a given state existed at a given step without trusting our infrastructure.
 4. **Content-addressed** — large blobs (LoRA weights, embedding tensors, observation buffers, tool outputs) live by hash, not by mutable pointer.
@@ -411,7 +411,7 @@ This ADR is the **contract**, accompanied by Phase-1 scaffolds. Rollout is stage
 
 LangGraph + PostgresSaver, done. Cells are durable and replayable.
 
-却下理由: directly prohibited by ADR-2605172000 (RW-free substrate) in this monorepo. Even ignoring the substrate rule, this approach fails third-party verifiability, content-addressability, and public history. The organism metaphor's "open" property collapses to "trust the operator." This is the same failure mode that motivates ADR-2605152100's source-control boundary — we want the open ecosystem to be *demonstrably* open, not just nominally so. If a future use case needs Postgres-grade query performance (e.g., HITL workflows requiring rich filtering), the route is XRPC consent-capability into an upstream backend, not a Postgres on the open side.
+却下理由: directly prohibited by ADR-2605172000 (kotoba substrate) in this monorepo. Even ignoring the substrate rule, this approach fails third-party verifiability, content-addressability, and public history. The organism metaphor's "open" property collapses to "trust the operator." This is the same failure mode that motivates ADR-2605152100's source-control boundary — we want the open ecosystem to be *demonstrably* open, not just nominally so. If a future use case needs Postgres-grade query performance (e.g., HITL workflows requiring rich filtering), the route is XRPC consent-capability into an upstream backend, not a Postgres on the open side.
 
 ## B. Atproto PDS as canonical store
 
@@ -489,7 +489,7 @@ Use `langgraph-checkpoint-postgres` against a Kotoba/Datomic Postgres-compatible
 - `CLAUDE.md` (repo root) — operating entity identity, monorepo layout
 - `90-docs/CLAUDE.md` (this repo) — docs system rules
 - ADR-2605170900 — this repo as canonical ADR home (depends_on)
-- ADR-2605172000 — RW-free substrate (depends_on; the rule that forced this revise)
+- ADR-2605172000 — kotoba substrate (depends_on; the rule that forced this revise)
 - ADR-2605172100 — payments + substrate-via-SDK boundary (depends_on)
 - ADR-2605152100 — etzhayyim org boundary (cross-repo)
 - ADR-2605080600 — LangGraph Server + Granian runtime (sets server runtime context)

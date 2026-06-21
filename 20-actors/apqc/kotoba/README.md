@@ -1,7 +1,7 @@
 # open-apqc — kotoba-native pilot (Datom + clj→WASM)
 
 APQC PCF Coordinator の **kotoba-datomic / kotoba-clj→WASM** 実装。`isco/kotoba/`
-と同じパターン。従来の `vertex_open_apqc_l1` RW テーブル / rw-free TS + AT-PDS
+と同じパターン。従来の `vertex_open_apqc_l1` RW テーブル / kotoba TS + AT-PDS
 経路に対し、kqe-over-Datom-log substrate (ADR-2605262130 + ADR-2605312345) 側を
 ここに置く。
 

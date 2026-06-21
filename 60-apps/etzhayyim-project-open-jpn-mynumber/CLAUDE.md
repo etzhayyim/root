@@ -19,7 +19,7 @@ This is not a government production system and does not contain private J-LIS, D
 ## Substrate-boundary notes
 
 Per `etzhayyim/root/CLAUDE.md` §"Substrate boundary":
-- This project is RW-free. No `createKyselyDb` / `env.HYPERDRIVE` in any deploy from this directory.
+- This project is kotoba. No `createKyselyDb` / `env.HYPERDRIVE` in any deploy from this directory.
 - Public-source ingest pulls fresh from `data.go.jp` + 自治体公開 PDF/Excel/HTML on each cycle. Vendor `data/ingest/` is historical-only; not consumed by this repo's worker.
 - No commerce. No PII. No `did:web:openJpnMynumber.etzhayyim.com` payments wiring.
 

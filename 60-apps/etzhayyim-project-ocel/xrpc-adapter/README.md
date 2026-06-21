@@ -1,6 +1,6 @@
 # ocel XRPC Adapter
 
-CF Worker exposing 3 rw-free commands as XRPC endpoints.
+CF Worker exposing 3 kotoba commands as XRPC endpoints.
 
 ## Endpoints
 

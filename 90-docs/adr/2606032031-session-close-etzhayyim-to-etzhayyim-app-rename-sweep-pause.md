@@ -7,7 +7,7 @@ topic: session-close-etzhayyim-to-etzhayyim-app-rename-sweep
 authoritative: false
 last_verified: 2026-06-03
 related:
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605212100-etzhayyim-to-etzhayyim-migration-batch
   - adr-2605262130-kotoba-storage-substrate-unification
   - adr-2605312345-kotoba-datom-first-class-canonical-state

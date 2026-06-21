@@ -33,7 +33,7 @@
         },
         {
           "name": "UpdateNotAllowed",
-          "description": "The provided SPARQL contained an UPDATE keyword. This endpoint is read-only by design (ADR-2605190900 K2 RW-free guarantee)."
+          "description": "The provided SPARQL contained an UPDATE keyword. This endpoint is read-only by design (ADR-2605190900 K2 kotoba guarantee)."
         }
       ]
     }

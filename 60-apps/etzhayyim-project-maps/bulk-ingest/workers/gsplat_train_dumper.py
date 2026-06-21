@@ -59,7 +59,7 @@ from threading import Lock, Thread
 from urllib.error import HTTPError, URLError
 
 import boto3
-# Per ADR-2605172000 (RW-free substrate), all maps writes route through
+# Per ADR-2605172000 (kotoba substrate), all maps writes route through
 # the substrate seam below; direct psycopg2 imports are no longer
 # permitted in this worker. The seam still supports a transitional RW
 # mode (psycopg2 under the hood) gated on ETZHAYYIM_SUBSTRATE_MODE.

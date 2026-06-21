@@ -22,7 +22,7 @@ authoritative_for:
 depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
 related:
   - adr-2605231300-baien-distill-react-loop
@@ -436,7 +436,7 @@ contract, not a library.
   CIDs in a separate map.
 - **DataLad + git-annex with rsync / WebDAV / S3 special remote** —
   rejected: centralized server is the same anti-pattern as DVC + S3
-  (ADR-2605172000 RW-free substrate). The `directory` remote on a
+  (ADR-2605172000 kotoba substrate). The `directory` remote on a
   per-machine volume is local-first and substrate-compliant.
 - **One unified `pinner` tool for both MST CARs and datasets** —
   rejected on separation-of-concerns grounds (MST CARs are
@@ -484,7 +484,7 @@ follow-ups and listed in Consequences §Negative.
 
 - ADR-2605170900 (root ADR canonical home)
 - ADR-2605171800 (MST → IPFS → L2 anchor pipeline — ipfs-pinner)
-- ADR-2605172000 (RW-free substrate — prohibits centralized DB)
+- ADR-2605172000 (kotoba substrate — prohibits centralized DB)
 - ADR-2605192200 (Charter Compliance Rider v2.0 — §2 prohibited categories)
 - ADR-2605231300 (baien-distill ReAct loop — primary dataset consumer)
 - ADR-2605232500 (baien-mx-move1 image-graft self-training — image consumer)

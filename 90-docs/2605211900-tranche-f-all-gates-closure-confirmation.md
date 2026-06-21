@@ -9,7 +9,7 @@ last_verified: 2026-05-21
 priority: 8.0
 axis: operations
 weight: 0.50
-priority_note: "Single-page status board for ADR-2605212100 §Decision 2 (4-part Phase 3 gate). After the 2026-05-21 session: gates (b)/(c)/(d) are CLOSED at the design + survey level (runbook ADR + deployment-surface ADR + vendor importer survey). Gate (a) per-worker RW-free re-impl remains the open execution item — pattern catalog established but per-worker code is not yet committed to etzhayyim/root."
+priority_note: "Single-page status board for ADR-2605212100 §Decision 2 (4-part Phase 3 gate). After the 2026-05-21 session: gates (b)/(c)/(d) are CLOSED at the design + survey level (runbook ADR + deployment-surface ADR + vendor importer survey). Gate (a) per-worker kotoba re-impl remains the open execution item — pattern catalog established but per-worker code is not yet committed to etzhayyim/root."
 authoritative_for:
   - Tranche F Phase 3 gate status (design vs execution split, 2026-05-21)
   - cross-references from gates to closure ADRs / surveys
@@ -32,7 +32,7 @@ superseded_by: []
 > **Honest framing (2026-05-21 evening)**: The 2026-05-21 session established the
 > design patterns + the operational runbook + the vendor cross-references that
 > close gates (b), (c) at the design level and (d) at the survey level. Per-worker
-> RW-free Python re-implementations were prototyped during the session but **not
+> kotoba Python re-implementations were prototyped during the session but **not
 > committed** to `etzhayyim/root/40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/`. Gate (a)
 > therefore remains the open execution item. This doc reflects the actual on-disk
 > state, not the prototype work that was reverted.
@@ -41,7 +41,7 @@ superseded_by: []
 
 | Gate | Description (paraphrased from ADR-2605212100) | Status | Closure evidence on disk |
 |------|------------------------------------------------|--------|---------------------------|
-| **(a)** | Per-worker RW-free re-implementation for all 29 etzhayyim-classified workers, following the BeliefStore + SQLite PVC pattern | 🟢 **IN_PROGRESS — 11 / 42 rows (26%) 2026-05-21 evening** | §1 substrate primitives 4/4 ✅ (P1 active_inference_substrate.py RW-free + P2 at_ipfs_belief_store.py + P3 worker_runtime.py new + P4 ingest/core.py psql disabled). §5 utility audit 5/5 ✅ (tools_const/http/json/time/transform byte-identical). §3 Wave A 2/2 ✅ (tools_audit + sixir already ported in pre-session state, verified). 31 rows remain: §2 BeliefStore organism cluster (W1-W8), §3 Wave B-C (W11-W20), §4 ingest-coupled (W21-W24), §6 ingest modules (I1-I4). Progress audit in deps.toml `[platform.tranche_f.phase_3_to_6_governance_2026_05_21]` gate_a_execution_state + gate_a_session_progress_2026_05_21 |
+| **(a)** | Per-worker kotoba re-implementation for all 29 etzhayyim-classified workers, following the BeliefStore + SQLite PVC pattern | 🟢 **IN_PROGRESS — 11 / 42 rows (26%) 2026-05-21 evening** | §1 substrate primitives 4/4 ✅ (P1 active_inference_substrate.py kotoba + P2 at_ipfs_belief_store.py + P3 worker_runtime.py new + P4 ingest/core.py psql disabled). §5 utility audit 5/5 ✅ (tools_const/http/json/time/transform byte-identical). §3 Wave A 2/2 ✅ (tools_audit + sixir already ported in pre-session state, verified). 31 rows remain: §2 BeliefStore organism cluster (W1-W8), §3 Wave B-C (W11-W20), §4 ingest-coupled (W21-W24), §6 ingest modules (I1-I4). Progress audit in deps.toml `[platform.tranche_f.phase_3_to_6_governance_2026_05_21]` gate_a_execution_state + gate_a_session_progress_2026_05_21 |
 | **(b)** | DNS cutover ``*.etzhayyim.com`` → ``*.etzhayyim.com`` | ✅ **CLOSED (runbook ready)** | ADR-2605211757 (`etzhayyim/root/90-docs/adr/2605211757-dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com.md`, 431 lines). 4-wave cutover (A read-cache+utility / B single-table primary / C multi-table+JOIN / D write-heavy+ingest), 8-step per-actor procedure, dual-write window for Wave D, sub-5-min rollback before vendor 410. Operator-ready. Execution gated on (a) per the runbook's own Wave A pre-flight |
 | **(c)** | etzhayyim deployment surface choice (Mac mini fleet vs AT-MST-only vs hybrid) | 🟡 **DESIGN DOCUMENTED IN RUNBOOK** | Embedded in ADR-2605211757 §0 pre-flight + §3.1 PVC provisioning: Mac mini fleet via `50-infra/k8s/murakumo-kubelet` + per-actor SQLite PVC under `$ORGANISM_SQLITE_DIR`. The originally-drafted standalone ADR-2605211653 (per-actor SQLite PVC) was **not retained on disk** in this session; its content lives inline in the DNS runbook |
 | **(d)** | Vendor-side worker importer survey clean — workers with in-repo etzhayyim importers must be re-pointed at @etzhayyim/* npm or git submodule before vendor `git rm` is safe | ✅ **CLOSED (survey + 3 relocates + 1 inline)** | `etzhayyim/root/90-docs/2605211800-vendor-importer-survey-gate-d.md` (98 lines). 68 vendor-side `from kotodama` importers grepped; 4 files identified. Executions this session: (i) `lg_organism/server.py` pre-existed in etzhayyim, (ii) `lg_legal_entity/server.py` relocated to `etzhayyim/60-apps/etzhayyim-project-legal-entity/lg/`, (iii) `lg_curpus2skill/server.py` relocated to `etzhayyim/60-apps/etzhayyim-project-curpus2skill/lg/`, (iv) `etzhayyim/.../hume/scripts/persist_hume_artifacts.py` switched to a local `_local_ingest_core.py` copy (193 LoC). Remaining: vendor `git rm` of the kotodama originals once gate (a) lands + DNS cutover completes |
@@ -145,6 +145,6 @@ glance.
 - ADR-2605212100 (Tranche F closure, etzhayyim-side) — gate definitions + 2026-05-21 §2 STATUS amendment
 - ADR-2605211757 (DNS cutover runbook) — gate (b) closure + gate (c) deployment surface (inline)
 - `90-docs/2605211800-vendor-importer-survey-gate-d.md` — gate (d) target list + recommended treatment
-- ADR-2605172000 (RW-free substrate) — root constraint
+- ADR-2605172000 (kotoba substrate) — root constraint
 - ADR-2605211200 (active-inference organism on murakumo) — origin of the BeliefStore pattern (pre-session, separate repo state)
 - vendor `deps.toml [[migrations]] etzhayyim-tranche-f-three-axis-split-2026-05-17` — cross-repo closure pointer

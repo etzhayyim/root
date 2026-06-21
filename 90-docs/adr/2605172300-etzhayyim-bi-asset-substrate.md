@@ -9,7 +9,7 @@ last_verified: 2026-05-17
 priority: 8.0
 axis: architecture
 weight: 0.80
-priority_note: "Defines the basic-income (喜捨 / kisha) and asset (護持 / goji) layers of etzhayyim as an on-chain religious voluntary association (任意団体). Composes with ADR-2605172000 (RW-free substrate) and ADR-2605172100 (on-chain only payments) to close the corp-internal value loop — distribution, membership, and treasury — without any fiat processor or centralized DB. Without this ADR, etzhayyim has identity (did:web) and payment rails (Base USDC) but no economic body."
+priority_note: "Defines the basic-income (喜捨 / kisha) and asset (護持 / goji) layers of etzhayyim as an on-chain religious voluntary association (任意団体). Composes with ADR-2605172000 (kotoba substrate) and ADR-2605172100 (on-chain only payments) to close the corp-internal value loop — distribution, membership, and treasury — without any fiat processor or centralized DB. Without this ADR, etzhayyim has identity (did:web) and payment rails (Base USDC) but no economic body."
 authoritative_for:
   - hard rule: BI and treasury MUST operate on the existing substrate (geth-private internal + Base L2 external + AT MST + IPFS), no new centralized DB
   - membership model: Adherent SBT (ERC-5192) on geth-private, DID-bound 1:1
@@ -22,7 +22,7 @@ depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
   - 2605171300
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
 related:
   - adr-2605172700-membership-layering-shinto-adherent
@@ -424,7 +424,7 @@ A future zk upgrade (RISC Zero or SP1 zkVM) can move per-adherent rate proofs to
 - ADR-2605170900: `90-docs/adr/2605170900-etzhayyim-root-adr-canonical-home.md` (placement)
 - ADR-2605171300: `90-docs/adr/2605171300-open-unispsc-generative-agent-fleet.md` (agent-fleet code-gen pattern)
 - ADR-2605171800: `90-docs/adr/2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md` (anchor pipeline)
-- ADR-2605172000: `90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md` (RW-free hard rule)
+- ADR-2605172000: `90-docs/adr/2605172000-etzhayyim-kotoba-substrate.md` (kotoba hard rule)
 - ADR-2605172100: `90-docs/adr/2605172100-etzhayyim-payments-on-chain-only.md` (on-chain only payments)
 - Existing infrastructure: `50-infra/vultr/geth-private/`, `50-infra/l2-anchor-contract/`
 - SDK package: `20-actors/etzhayyim-sdk/` (target host for `src/bi.ts`)

@@ -29,7 +29,7 @@ A kotoba WASM actor is a **WASM component** in the world `kotoba:kais/kotoba-nod
   and optionally `llm` / `evm` / `btc` / `chain` / `egress`.
 
 State is the kotoba Datom log directly — **no XRPC, no PDS, no RisingWave**. The actor asserts
-Datoms with `kqe.assert-quad` (the rw-free record kinds map 1:1 to Datom subjects/predicates).
+Datoms with `kqe.assert-quad` (the kotoba record kinds map 1:1 to Datom subjects/predicates).
 
 **Multi-command dispatch** (the new pattern): a stateful ERP has 28 commands, but the ABI is a
 single `run`. The PoC defines the envelope as UTF-8 JSON `{ "method", "args" }`; `run` decodes
@@ -67,9 +67,9 @@ read indexes, ADR-2605262130 D7, plus a `compute()`-ABI carve-out per command.)
 |---|---|
 | **Rust** (chosen) | ✅ compact (PoC 119 KB), fast, first-class `kotoba:kais` WIT bindings (wit-bindgen), exact i128 decimal, no CPython bloat. Matches tsumugi/kanae. |
 | componentize-py | CPython ~17 MB dag-pb (T2 only); fine for the suite cores (`SUITE-PY-WASM-MIGRATION.md`) but heavy for the ERP. |
-| Javy (TS→QuickJS) | only a PoC adapter exists (`50-infra/sveltejs-adapter-wasm`); no `componentize-js`; not production for actors. Would reuse rw-free TS but adds a JS engine. |
+| Javy (TS→QuickJS) | only a PoC adapter exists (`50-infra/sveltejs-adapter-wasm`); no `componentize-js`; not production for actors. Would reuse kotoba TS but adds a JS engine. |
 
-**Rust port of the rw-free logic** is the path. rw-free's pure-decimal accounting
+**Rust port of the kotoba logic** is the path. kotoba's pure-decimal accounting
 (`money.ts`/`accounting.ts`) ports cleanly to i128; the TS test vectors are the conformance
 oracle (same approach as `SUITE-PY-WASM-MIGRATION.md`).
 
@@ -84,7 +84,7 @@ oracle (same approach as `SUITE-PY-WASM-MIGRATION.md`).
 
 ## 7. Plan to full parity (28 commands)
 
-1. **Port the rw-free pure cores to Rust** (money, accounting GL, AP/AR, inventory
+1. **Port the kotoba pure cores to Rust** (money, accounting GL, AP/AR, inventory
    moving-average, depreciation, statements) behind the `kqe` Datom mapping — conformance vs the
    TS Vitest vectors.
 2. **Datom read path**: replace the best-effort `kqe.query` reads with the verified kotoba

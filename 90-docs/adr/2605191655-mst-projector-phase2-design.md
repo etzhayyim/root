@@ -17,8 +17,8 @@ authoritative_for:
 depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
-  - adr-2605172000-etzhayyim-rw-free-substrate
-  - adr-2605191358-yoro-murakumo-rw-free-rewrite-map
+  - adr-2605172000-etzhayyim-kotoba-substrate
+  - adr-2605191358-yoro-murakumo-kotoba-rewrite-map
   - 2605191648-substrate-boundary-lefthook
 related:
   - 50-infra/mst-projector/
@@ -158,9 +158,9 @@ Deferred. Signing adds a useful third-party verification path ("this snapshot wa
 # References
 
 - ADR-2605171800 (LangGraph Pregel → MST → IPFS → L2 anchor pipeline — Phase 2 closes Stage 3)
-- ADR-2605172000 (RW-free hard rule)
+- ADR-2605172000 (kotoba hard rule)
 - ADR-2605172100 (substrate-client allowlist — `50-infra/*` is allowed to import `@atproto/repo` directly)
-- ADR-2605191358 (yoro/murakumo RW-free rewrite map — step 5 = mst-projector; step 4 yoro UI depends on Phase 2 CAR pinning)
+- ADR-2605191358 (yoro/murakumo kotoba rewrite map — step 5 = mst-projector; step 4 yoro UI depends on Phase 2 CAR pinning)
 - ADR-2605191648 (substrate-boundary lefthook — note: mst-projector path is allowlisted for raw `@atproto/repo` import)
 - `50-infra/mst-projector/` (Phase 1 implementation; this ADR's target)
 - AT Protocol repo spec: https://atproto.com/specs/repository

@@ -1,6 +1,6 @@
 # open-banking XRPC Adapter
 
-CF Worker that exposes the 5 rw-free commands as XRPC endpoints.
+CF Worker that exposes the 5 kotoba commands as XRPC endpoints.
 
 ## Endpoints
 

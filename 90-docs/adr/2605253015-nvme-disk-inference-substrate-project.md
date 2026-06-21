@@ -236,7 +236,7 @@ ADR-2605253000 §5 + deps.toml `tb5_ssd_speedup_prediction` に **post-empirical
   ノード内で完結、no commercial GPU rental
 - ✅ **ADR-2605241900** baien edge-target invariant: fleet-side 経路のみ追加、
   iPhone/Android/WASM-32 トランクは依然 ≤4B BitNet 1.58 固定
-- ✅ **ADR-2605172000** RW-free substrate boundary: inference 経路追加のみ、
+- ✅ **ADR-2605172000** kotoba substrate boundary: inference 経路追加のみ、
   storage / payment / identity boundary に変更なし
 - ✅ **ADR-2605215000 §2** no commercial GPU rental: NVMe + mmap のみ
 - ✅ **CHARTER-RIDER §2(g)** rare-earth/conflict mineral exposure: 既存 SSD 流用、
@@ -321,7 +321,7 @@ ADR-2605253000 本体ファイルへの §5 訂正は本 ADR proposed → accept
 - ADR-2605253000 (Mac mini M4 16GB Gemma 4 26B-A4B MoE NVMe disk inference)
 - ADR-2605215000 (Murakumo-only inference, no commercial GPU rental)
 - ADR-2605241900 (baien edge-target invariant — 本 project とは別経路)
-- ADR-2605172000 (RW-free substrate boundary)
+- ADR-2605172000 (kotoba substrate boundary)
 - Apple "LLM in a Flash: Efficient Large Language Model Inference with Limited
   Memory" (ICLR 2026) — flash-paged inference の理論裏付け
 - `70-tools/nvme-disk-inference/README.md` — project canonical doc

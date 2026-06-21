@@ -9,7 +9,7 @@ last_verified: 2026-05-18
 priority: 7.5
 axis: architecture
 weight: 0.75
-priority_note: "Adds the confidentiality layer to the RW-free substrate. ADR-2605172000 defined the verifiability/decentralization properties of MST + IPFS + L2 but left every record public. This ADR makes private records and private messaging possible without breaking the substrate's verifier-from-outside property."
+priority_note: "Adds the confidentiality layer to the kotoba substrate. ADR-2605172000 defined the verifiability/decentralization properties of MST + IPFS + L2 but left every record public. This ADR makes private records and private messaging possible without breaking the substrate's verifier-from-outside property."
 authoritative_for:
   - "hard rule: private records on MST are XChaCha20-Poly1305 AEAD ciphertext, CID over ciphertext"
   - "hard rule: per-record symmetric keys are wrapped per-recipient via Signal session"
@@ -18,7 +18,7 @@ authoritative_for:
   - "SDK seam: @etzhayyim/sdk crypto + signal modules; apps MUST NOT import @noble/ciphers or @signalapp/libsignal-client directly"
   - "rejection of MLS for v1 (revisit when libsignal scale ceiling hits)"
 depends_on:
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605173000-pds-did-web-resolution-worker
 related:
   - adr-2605172100-etzhayyim-payments-on-chain-only
@@ -45,7 +45,7 @@ Three concrete needs surface immediately:
 
 Three implementation paths were evaluated:
 
-- **A. Tahoe-LAFS sidecar** — separate capability-encrypted storage. Forces a second substrate; loses AT Proto verifier + L2 anchor properties; not RW-free in spirit (operators still trust the Tahoe grid operator).
+- **A. Tahoe-LAFS sidecar** — separate capability-encrypted storage. Forces a second substrate; loses AT Proto verifier + L2 anchor properties; not kotoba in spirit (operators still trust the Tahoe grid operator).
 - **B. MLS group messaging (RFC 9420)** — IETF-standardized successor to Signal's group protocol. Stronger group scaling (O(log N) sender ops) and tree-based forward secrecy. Rejected for v1 because production-grade implementations (`openmls`, AWS MLS) have <2 years of widespread use; the operator-side risk of subtle protocol bugs at our scale is unacceptable.
 - **C. AT Proto MST records encrypted at rest + Signal-wrapped per-record keys** — adds confidentiality to the existing substrate without replacing it. This ADR's choice.
 
@@ -175,7 +175,7 @@ const { records } = await e.encryptedRead<ProposalBody>({
 ## Rollout
 
 1. **This commit** — ADR + lexicons + SDK scaffold (crypto.ts, signal.ts, did-signal.ts) with `not yet implemented` stubs; vitest scaffolding.
-2. **Reference impl (next)** — `60-apps/open-isco/rw-free/` is public-only and not a fit. Use the council deliberation flow for the uhl-right-neural triage cohort (ADR-2605181050) as the first encrypted-record consumer.
+2. **Reference impl (next)** — `60-apps/open-isco/kotoba/` is public-only and not a fit. Use the council deliberation flow for the uhl-right-neural triage cohort (ADR-2605181050) as the first encrypted-record consumer.
 3. **Metadata-leakage follow-up ADR** — once a real consumer exists, decide on rkey blinding strategy and padding bucket sizes based on observed traffic shape.
 4. **Forward-secrecy follow-up ADR** — design the rekey + tombstone protocol after first six months of operational data.
 5. **MLS revisit trigger** — when a single encrypted group exceeds 10⁴ active members, or when `@signalapp/libsignal-client` upstream support degrades.
@@ -204,7 +204,7 @@ Don't persist anything; messages are ephemeral. Rejected because the substrate's
 
 # References
 
-- ADR-2605172000 [etzhayyim/root RW-free substrate](./2605172000-etzhayyim-rw-free-substrate.md) — substrate this ADR extends
+- ADR-2605172000 [etzhayyim/root kotoba substrate](./2605172000-etzhayyim-kotoba-substrate.md) — substrate this ADR extends
 - ADR-2605172100 [etzhayyim payments on-chain only](./2605172100-etzhayyim-payments-on-chain-only.md) — sibling hard-rule pattern
 - ADR-2605172200 [openmail atproto-MST SMTP bridge](./2605172200-openmail-atproto-mst-smtp-bridge.md) — first candidate consumer for private mail
 - ADR-2605181050 [UHL overseas referral paths](./2605181050-uhl-overseas-referral-paths.md) — drives private medical-records requirement

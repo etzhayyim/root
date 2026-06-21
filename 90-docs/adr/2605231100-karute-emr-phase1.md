@@ -9,14 +9,14 @@ last_verified: 2026-05-23
 priority: 7.2
 axis: architecture
 weight: 0.72
-priority_note: "Adds a clinical EMR actor on the etzhayyim RW-free substrate. PHI on MST is only viable via the encrypted-record envelope (ADR-2605181100), and the FHIR R5 mapping decides the lexicon shape for every downstream clinical app."
+priority_note: "Adds a clinical EMR actor on the etzhayyim kotoba substrate. PHI on MST is only viable via the encrypted-record envelope (ADR-2605181100), and the FHIR R5 mapping decides the lexicon shape for every downstream clinical app."
 authoritative_for:
   - karute actor topology and DID
   - FHIR R5 ↔ com.etzhayyim.karute.* lexicon mapping
   - clinical PHI handling rules on etzhayyim substrate
   - encrypted-envelope vs public-meta split for clinical records
 depends_on:
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605181100-mst-encrypted-records-signal-keywrap
   - adr-2605172100-etzhayyim-payments-on-chain-only
   - adr-2605172400-etzhayyim-vendor-three-axis-split-rule
@@ -40,7 +40,7 @@ superseded_by: []
 Phase 1 fills that gap. Three forces shape the design:
 
 1. **PHI confidentiality is non-negotiable.** Clinical records are 要配慮個人情報 (個保法 §2-3); the etzhayyim charter's Wellbecoming + 反個人主義 ontology raises this to a constitutional invariant. Plaintext PHI on MST is prohibited.
-2. **The substrate is RW-free.** No Kotoba/Datomic, no Postgres, no fiat processor. AT MST + IPFS + Base L2 + USDC/ERC-4337. Apps that need insurance billing call `iryo.etzhayyim.com` (vendor) via consent capability.
+2. **The substrate is kotoba.** No Kotoba/Datomic, no Postgres, no fiat processor. AT MST + IPFS + Base L2 + USDC/ERC-4337. Apps that need insurance billing call `iryo.etzhayyim.com` (vendor) via consent capability.
 3. **FHIR R5 is the international portability anchor.** JP DPC, US MS-DRG, EU AR-DRG all flow through FHIR R5 + ICD-10 + LOINC + SNOMED. The lexicon must be a 1:1 FHIR R5 mirror so export is mechanical and ingestion from external EHRs lands without translation loss.
 
 # Decision
@@ -171,7 +171,7 @@ The `hc` (Human Computing) actor handles gig/microtask flows and could in princi
 
 # References
 
-- ADR-2605172000 [etzhayyim RW-free substrate](./2605172000-etzhayyim-rw-free-substrate.md)
+- ADR-2605172000 [etzhayyim kotoba substrate](./2605172000-etzhayyim-kotoba-substrate.md)
 - ADR-2605181100 [MST encrypted records + Signal key-wrap](./2605181100-mst-encrypted-records-signal-keywrap.md) — the confidentiality layer this ADR consumes
 - ADR-2605172100 [etzhayyim payments on-chain only](./2605172100-etzhayyim-payments-on-chain-only.md)
 - ADR-2605172400 [etzhayyim/vendor 3-axis split rule](./2605172400-etzhayyim-vendor-three-axis-split-rule.md)

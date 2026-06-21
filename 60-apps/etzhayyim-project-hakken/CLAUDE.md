@@ -18,9 +18,9 @@ Hakken ≝ TrendScan × KotobaDatalog[gap] × SupplierScraper[aliexpress|alibaba
 nanoid:   h4kk3n0x
 did:      did:web:hakken.etzhayyim.com
 runtime:  k8s-langserver (LangGraph) — etzhayyim Murakumo fleet (planned Phase 2)
-storage:  kotoba product KG (EAVT, IPFS-pinned) — NO RisingWave (etzhayyim rw-free substrate)
+storage:  kotoba product KG (EAVT, IPFS-pinned) — NO RisingWave (etzhayyim kotoba substrate)
 write:    @etzhayyim/sdk e.write() → PDS XRPC createRecord → MST + IPFS + Base L2 anchor
-status:   Phase 1 scaffold + ingest-core rw-free (2026-06-01)
+status:   Phase 1 scaffold + ingest-core kotoba (2026-06-01)
 ```
 
 ## etzhayyim boundary (ADR-2606011400 override)
@@ -59,20 +59,20 @@ Reads: `com.etzhayyim.apps.hakken.listProducts` / `listSupplierCandidates`.
 
 ```
 trend_scan → gap_analysis (kotoba Datalog) → supplier_search (aliexpress/1688)
-  → quality_eval (kaimono-review 5-axis) → ingest (rw-free e.write brandedProduct + supplierCandidate)
+  → quality_eval (kaimono-review 5-axis) → ingest (kotoba e.write brandedProduct + supplierCandidate)
 ```
 
 Phase fulfillment (`[dropship | import | oem]` + okaimono register + social announce) is NOT
 part of the etzhayyim ingest surface — see Phase 3 (etzhayyim consent capability).
 
-## rw-free reference
+## kotoba reference
 
-`rw-free/src/` — `@etzhayyim/sdk` ingest reference implementation:
+`kotoba/src/` — `@etzhayyim/sdk` ingest reference implementation:
 - `types.ts` — BrandedProduct / SupplierCandidate record shapes + IO types
 - `ingest.ts` — `ingestProduct` / `ingestSupplierCandidate` (idempotent upsert by rkey) +
   `listProducts` / `listSupplierCandidates`
 
-Persistence pattern (mirrors tsukuru rw-free Phase 2):
+Persistence pattern (mirrors tsukuru kotoba Phase 2):
 `createKyselyDb().insertInto("vertex_hakken_*")` → `e.write({ collection, record })`.
 
 ## Cross-actor
@@ -88,4 +88,4 @@ Persistence pattern (mirrors tsukuru rw-free Phase 2):
 
 - `2606011700` — hakken etzhayyim migration (override of 2606011400)
 - `2606011400` — Consensys pattern (product front / infra back) — overridden for hakken move
-- `2605172000` / `2605172400` — rw-free substrate + 3-axis split rule
+- `2605172000` / `2605172400` — kotoba substrate + 3-axis split rule

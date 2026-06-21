@@ -9,7 +9,7 @@ last_verified: 2026-05-19
 priority: 9.1
 axis: governance
 weight: 0.91
-priority_note: "CRITICAL — Operationalizes the etzhayyim/vendor boundary as a 3-axis OR-test (Liability / Custody / Settlement). 1 axis hit = vendor; all 3 clean = etzhayyim. Closes the gray zone left by ADR-2605152100 + 2605172000 + 2605172100 which defined RW-free + on-chain-only but did not give per-project judgment criteria."
+priority_note: "CRITICAL — Operationalizes the etzhayyim/vendor boundary as a 3-axis OR-test (Liability / Custody / Settlement). 1 axis hit = vendor; all 3 clean = etzhayyim. Closes the gray zone left by ADR-2605152100 + 2605172000 + 2605172100 which defined kotoba + on-chain-only but did not give per-project judgment criteria."
 status_note: "MECHANICAL MIGRATION COMPLETE 2026-05-18 (27 PRs landed: 17 vendor + 10 etzhayyim/root). All 6 phases mechanically executable were executed: 1 catalog freeze, 2 scaffolding (8 + 72 dirs), 3 content copy (395 files), 4a npm publish (17 packages to GH Packages — 6 @etzhayyim/* + 11 @etzhayyim/bpmn-sdk-*), 4b consumer pipe smoke test, 4c vendor NSID migration (10 waves, ~520 items, ~3,026 files), 5 vendor open-scope deletion (4 waves for stub-ready items + runbook for live-deploy items). Remaining is operator runbook (yoro/public-malak/watashi DNS cutover) + use-case-driven Phase 6 (vendor business-app consumer switch to @etzhayyim/* npm). Re-judgment quarterly: 2026-08-17 / 2026-11-17 / 2027-02-17. SSoT: deps.toml [[migrations]] tranche-f-closure-summary-2026-05-18."
 authoritative_for:
   - per-project etzhayyim / vendor boundary judgment rule
@@ -18,7 +18,7 @@ authoritative_for:
 depends_on:
   - adr-2605152100-etzhayyim-github-org-boundary
   - adr-2605170900-etzhayyim-root-adr-canonical-home
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
 related:
   - adr-2605172200-openmail-atproto-mst-smtp-bridge
@@ -37,7 +37,7 @@ superseded_by: []
 # Context
 
 ADR-2605152100 established the etzhayyim / etzhayyim org boundary. ADR-2605172000
-mandated RW-free substrate for etzhayyim apps. ADR-2605172100 mandated on-chain
+mandated kotoba substrate for etzhayyim apps. ADR-2605172100 mandated on-chain
 payment only for etzhayyim apps. These three ADRs define **what the etzhayyim
 substrate looks like** but do not give a deterministic rule for **which projects
 belong on which side** when an existing vendor project could plausibly go either
@@ -191,7 +191,7 @@ TypeScript paths) keeps existing references valid through the transition.
 # Verification
 
 - Each Tranche F move PR must cite this ADR + the 3-axis judgment in its commit message
-- Lefthook pre-commit hook to flag etzhayyim-side files with `kotoba|kysely|pg|stripe|paypal` imports (RW-free + on-chain-only enforcement from ADR-2605172000 + 2605172100)
+- Lefthook pre-commit hook to flag etzhayyim-side files with `kotoba|kysely|pg|stripe|paypal` imports (kotoba + on-chain-only enforcement from ADR-2605172000 + 2605172100)
 - Quarterly review of borderline list at 2026-08-17 / 2026-11-17 / 2027-02-17
 
 # Closure (added 2026-05-19, mechanical phases complete)

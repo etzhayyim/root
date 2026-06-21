@@ -2,7 +2,7 @@
  * @etzhayyim/sdk-mock
  *
  * In-memory mock implementation of the Etzhayyim SDK for testing
- * rw-free reference implementations without PDS/IPFS/L2 dependencies.
+ * kotoba reference implementations without PDS/IPFS/L2 dependencies.
  *
  * Simulates:
  * - `write<T>(params)` → persists to in-memory store, returns URI
@@ -40,7 +40,7 @@ export interface MockWriteParams<T = unknown> {
   rkey: string;
 }
 
-/** Mirrors @etzhayyim/sdk EncryptedWriteOpts (subset used by rw-free registries). */
+/** Mirrors @etzhayyim/sdk EncryptedWriteOpts (subset used by kotoba registries). */
 export interface MockEncryptedWriteOpts<T = unknown> {
   /** Wrapper collection. Default: com.etzhayyim.encrypted.record. */
   collection?: string;

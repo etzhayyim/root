@@ -1,10 +1,10 @@
 # mst-projector — Phase 3 indexed materialized views
 
-Indexed materialized view service for rw-free actors. Replaces O(N) collection scans with O(log N) text search and O(1) aggregate lookups.
+Indexed materialized view service for kotoba actors. Replaces O(N) collection scans with O(log N) text search and O(1) aggregate lookups.
 
 ## Overview
 
-Phase 2 rw-free actors emit `truncated: boolean` flags when data exceeds scan limits:
+Phase 2 kotoba actors emit `truncated: boolean` flags when data exceeds scan limits:
 - `kiyo.searchPapers` — 10k+ papers, O(N) text match → >500ms latency
 - `hanrei.coverageStats` — 3-collection scan → O(3N), p50 >200ms
 - `ipaddress.searchProviders` — 50k+ ASNs, O(N) name/slug match → p99 >5s
@@ -119,7 +119,7 @@ Both are stateless and recoverable.
 
 - **ADR-2605212000** — Architecture decision (this scaffold + Phase 3 spec)
 - **ADR-2605210000** — Phase E reference impl completion (25 actors, truncated flags)
-- **ADR-2605203000** — rw-free write-target options (Option B = PDS XRPC foundation)
+- **ADR-2605203000** — kotoba write-target options (Option B = PDS XRPC foundation)
 - **ADR-2605111200** — CF Worker edge-only (projector runs in K8s pod)
 
 ## Roadmap

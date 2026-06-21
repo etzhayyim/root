@@ -77,7 +77,7 @@ pre-commit:
       stage_fixed: false
 
     substrate-boundary:
-      # Enforce ADR-2605172000 (RW-free state substrate) and
+      # Enforce ADR-2605172000 (kotoba state substrate) and
       # ADR-2605172100 (no fiat payment processors) at commit time.
       # Blocks direct imports of kysely / pg / postgres / mysql /
       # mongodb / risingwave (storage), stripe / paypal / square / …
@@ -102,7 +102,7 @@ pre-commit:
 
     no-cookie:
       # Enforce CHARTER-RIDER.md §2(c) (no surveillance / trackers) +
-      # ADR-2605172000 (RW-free substrate, identity = DID + WebAuthn).
+      # ADR-2605172000 (kotoba substrate, identity = DID + WebAuthn).
       # Blocks document.cookie writes, SvelteKit/hono/express cookies.set(),
       # setCookie() helpers, cookie.serialize(), and raw Set-Cookie header
       # construction. Reads are allowed (legacy-cookie migration is fine).

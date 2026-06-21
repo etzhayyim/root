@@ -1,14 +1,14 @@
 # Migration TODO
 
-**Status**: 🔄 TRANSFORM — `rw-free/` on-chain reference slice landed 2026-06-01
+**Status**: 🔄 TRANSFORM — `kotoba/` on-chain reference slice landed 2026-06-01
 (catalog + order + settlement). Remaining domains + appview wiring pending.
 
 **Codemod required**: Stripe/fiat → USDC + ERC-4337 + TitheRouter
 
-## rw-free/ slice (landed 2026-06-01, per ADR-2606011400 on-chain-only)
+## kotoba/ slice (landed 2026-06-01, per ADR-2606011400 on-chain-only)
 
-`60-apps/etzhayyim-project-okaimono/rw-free/` — Option B reference impl on the
-etzhayyim substrate, same pattern as hanrei rw-free. **14/14 vitest pass,
+`60-apps/etzhayyim-project-okaimono/kotoba/` — Option B reference impl on the
+etzhayyim substrate, same pattern as hanrei kotoba. **14/14 vitest pass,
 `tsc --noEmit` clean.** Only `@etzhayyim/sdk` + local imports (no @atproto/api,
 viem, RW, Stripe).
 
@@ -33,14 +33,14 @@ The following constitutional invariants are likely violated and MUST be
 remediated before this app can be considered etzhayyim-aligned:
 
 - [x] Replace any `@atproto/api`, `viem`, raw IPFS client, `@noble/ciphers`,
-      `@signalapp/libsignal-client` imports with `@etzhayyim/sdk`. *(rw-free
+      `@signalapp/libsignal-client` imports with `@etzhayyim/sdk`. *(kotoba
       slice: only `@etzhayyim/sdk` imported; appview not yet ported)*
 - [x] Strip RisingWave / Postgres / Kysely / centralized DB code — migrate to
-      AT Protocol MST + IPFS + Base L2 anchor. *(rw-free slice: AT PDS records,
+      AT Protocol MST + IPFS + Base L2 anchor. *(kotoba slice: AT PDS records,
       no RW; appview not yet ported)*
 - [x] Strip Stripe / PayPal / Square / fiat processors — migrate to USDC on
       Base L2 + ERC-4337 + `etzhayyim-tithe-router` (10% auto-split to
-      Public Fund). *(rw-free slice: on-chain settlement via injected executor →
+      Public Fund). *(kotoba slice: on-chain settlement via injected executor →
       donate()/TitheRouter; appview not yet ported)*
 - [ ] Remove third-party advertising / AdSense / Meta Pixel / GA4 ad-linkage.
       Only internal-promo for etzhayyim's own religious activity is allowed.
@@ -48,7 +48,7 @@ remediated before this app can be considered etzhayyim-aligned:
       passkey + Adherent SBT. Remove server-issued JWTs without DID binding.
 - [x] Reclassify payment purposes to: donation / kisha / grant / tithe /
       escrow-refund (external) OR internal-purchase / internal-subscription /
-      internal-promo (SBT↔SBT carve-out). *(rw-free slice: D2C sale =
+      internal-promo (SBT↔SBT carve-out). *(kotoba slice: D2C sale =
       `internal-purchase`; external purchase/tip/subscription excluded)*
 - [ ] Audit against Charter Rider v2.0 §2(a)-(h).
 

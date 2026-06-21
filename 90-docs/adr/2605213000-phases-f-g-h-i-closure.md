@@ -7,7 +7,7 @@
 
 ## Context
 
-Following ADR-2605210000 Phase E completion (25 rw-free actors, 27 with pre-existing inclusive of open-isco + tsukuru), four execution-layer phases completed in the same session:
+Following ADR-2605210000 Phase E completion (25 kotoba actors, 27 with pre-existing inclusive of open-isco + tsukuru), four execution-layer phases completed in the same session:
 
 - **Phase F** — CF Worker XRPC adapters (25/25) + PDS session auth (`@etzhayyim/sdk-auth`)
 - **Phase G** — mst-projector Phase 3 reference impl (in-memory + production LanceDB/DuckDB/HF embedding adapters)
@@ -32,7 +32,7 @@ All code-only deliverables from Phase E through Phase I are merged to `main`. Th
                            ↓
    @etzhayyim/sdk — Etzhayyim class — atproto PDS
                            │
-                           ↓ rw-free reference impl (27 actors)
+                           ↓ kotoba reference impl (27 actors)
                            │
                            ↓ commit firehose
                            │
@@ -91,7 +91,7 @@ All code-only deliverables from Phase E through Phase I are merged to `main`. Th
 
 | Layer | Coverage |
 |---|---|
-| rw-free actors | 27/27 (100%) |
+| kotoba actors | 27/27 (100%) |
 | Worker XRPC + sdk-auth | 25/25 (100%) |
 | Vitest tests | 24/25 active (96%) |
 | Cross-actor integration | 5 scenarios |
@@ -122,9 +122,9 @@ All code-only deliverables from Phase E through Phase I are merged to `main`. Th
 
 ## Related
 
-- [ADR-2605203000](/90-docs/adr/2605203000-rw-free-write-target-options.md) — Phase E foundation
+- [ADR-2605203000](/90-docs/adr/2605203000-kotoba-write-target-options.md) — Phase E foundation
 - [ADR-2605210000](/90-docs/adr/2605210000-phase-e-reference-impl-completion.md) — Phase E completion
 - [ADR-2605211000](/90-docs/adr/2605211000-worker-xrpc-adapter-deploy-runbook.md) — deploy runbook
 - [ADR-2605212000](/90-docs/adr/2605212000-mst-projector-phase3-indexed-views.md) — mst-projector Phase 3
-- [ADR-2605172000](/90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) — RW-free substrate
+- [ADR-2605172000](/90-docs/adr/2605172000-etzhayyim-kotoba-substrate.md) — kotoba substrate
 - [ADR-2605172400](/90-docs/adr/2605172400-etzhayyim-vendor-three-axis-split-rule.md) — vendor/etz boundary

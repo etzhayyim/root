@@ -50,7 +50,7 @@ An audit of `etzhayyim/root` found **two layers**:
    person/org/location/event/technology entity graph, classification levels, path-based DIDs),
    `graph-sos-intel` (literally "Graph System-of-Systems intelligence"), `yabai` (AML/CTI risk
    scoring), `malak` (cybercrime threat actors), `ubo`/`saiban`/`business-person`. **But these are
-   RisingWave/SQL/Cloudflare-Worker apps** (`rw-free/` migration limbo), they carry **no
+   RisingWave/SQL/Cloudflare-Worker apps** (`kotoba/` migration limbo), they carry **no
    political-neutrality model** (no file in them mentions stance/neutral/jurisdiction/contested),
    and they trend toward a single "is X sanctioned" boolean plus a per-subject risk score.
 

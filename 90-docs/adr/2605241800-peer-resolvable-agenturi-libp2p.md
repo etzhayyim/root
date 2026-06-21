@@ -53,7 +53,7 @@ This pattern scales O(actors). Three deeper concerns:
 - **ADR-2605231525 (No-Server-Key)** posture wants etzhayyim infrastructure to
   hold zero signing capability; each per-actor Worker is one more piece of
   infra to vet.
-- **ADR-2605172000 (RW-free substrate)** is fine with DNS for *bootstrap* but
+- **ADR-2605172000 (kotoba substrate)** is fine with DNS for *bootstrap* but
   prefers peer-routed bytes after that.
 - **ADR-2605231400 (kotoba-datomic Holochain-iso)** already names the intended
   end-state: agent-centric DHT with witness quorum. The Worker-per-actor

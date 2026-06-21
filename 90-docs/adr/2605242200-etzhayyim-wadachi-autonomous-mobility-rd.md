@@ -26,7 +26,7 @@ depends_on:
   - adr-2605192400-etzhayyim-eros-gore-council-judging
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
   - adr-2605181100-mst-encrypted-records-signal-keywrap
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605231525-no-server-key-religious-corp-architecture
 related:
   - wellbecoming-karma-lean-proofs
@@ -215,7 +215,7 @@ Rejected per ADR-2605192115 §3 — non-profit-only / donation-only inflow is co
 - ADR-2605192400 (Eros/Gore content policy — G12)
 - ADR-2605192415 (religious-corp daemon architecture — Tier-B classification)
 - ADR-2605181100 (encrypted confidentiality substrate — G6)
-- ADR-2605172000 (RW-free substrate — G10)
+- ADR-2605172000 (kotoba substrate — G10)
 - ADR-2605231500 (kotoba-datomic-projection — hot-path read carve-out)
 - ADR-2605231525 (no-server-key invariant — G9)
 - ADR-2605241900 (baien edge-target invariant — N8 inheritance)

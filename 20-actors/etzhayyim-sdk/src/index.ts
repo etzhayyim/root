@@ -1,7 +1,7 @@
 /**
  * @etzhayyim/sdk
  *
- * RW-free substrate SDK for etzhayyim open religious-corp apps.
+ * kotoba substrate SDK for etzhayyim open religious-corp apps.
  * Per ADR-2605172000 — apps under etzhayyim/root MUST NOT depend on
  * RisingWave or any centralized off-chain DB. This SDK wraps the
  * primary substrate (AT MST + IPFS + Base L2 anchor) as one API.
@@ -33,7 +33,7 @@ export interface EtzhayyimConfig {
 
   /**
    * kotoba-datomic-projection: feed-discover projector DID (ADR-2605231500).
-   * When set, feed read paths (`yoro-rw-free/src/feed.ts` getTimeline /
+   * When set, feed read paths (`yoro-kotoba/src/feed.ts` getTimeline /
    * getDiscoverFeed) consult the cross-DID projection emitted by
    * mst-projector instead of the single-actor MST. Falls back to the
    * single-actor read on miss.
@@ -42,7 +42,7 @@ export interface EtzhayyimConfig {
 
   /**
    * kotoba server base URL (e.g. `https://kotoba.etzhayyim.com` or
-   * `http://127.0.0.1:8077`). When set, `yoro-rw-free` feed/graph/actor reads
+   * `http://127.0.0.1:8077`). When set, `yoro-kotoba` feed/graph/actor reads
    * resolve through the kotoba Datom log (`datomic.datoms`) — the canonical
    * read path (ADR-2606013200, supersedes the kotoba-datomic-projection leg).
    * Falls back to the PDS/projection path when unset.

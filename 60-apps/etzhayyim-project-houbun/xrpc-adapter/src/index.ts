@@ -1,13 +1,13 @@
 /**
  * houbun XRPC adapter — CF Worker.
  *
- * Wires the rw-free reference impl (statute/treaty/amendment legal text management)
+ * Wires the kotoba reference impl (statute/treaty/amendment legal text management)
  * into a deployable CF Worker that exposes each function as an XRPC endpoint
  * at https://houbun.etzhayyim.com/xrpc/com.etzhayyim.apps.houbun.<cmd>
  */
 
 import { createAuthedEtzhayyim, extractBearerToken } from "@etzhayyim/sdk-auth";
-import * as houbunRwFree from "@etzhayyim/houbun-rw-free";
+import * as houbunRwFree from "@etzhayyim/houbun-kotoba";
 
 interface Env {
   ACTOR_DID: string;

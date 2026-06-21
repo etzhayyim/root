@@ -19,7 +19,7 @@ authoritative_for:
 depends_on:
   - adr-2605211200-etzhayyim-active-inference-organism-on-murakumo
   - adr-2605152100-etzhayyim-github-org-boundary
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605172400-etzhayyim-vendor-three-axis-split-rule
   - adr-2605181400-bpmn-extract-to-etzhayyim-root
 related:
@@ -258,7 +258,7 @@ needed (e.g. multi-region replication of the organism state on AT MST).
 
 - ADR-2605211200 — Phase 1 + 2 implementation (parent)
 - ADR-2605152100 — etzhayyim/root org boundary
-- ADR-2605172000 — etzhayyim RW-free substrate
+- ADR-2605172000 — etzhayyim kotoba substrate
 - ADR-2605172100 — payments on-chain only
 - ADR-2605172400 — 3-axis split rule
 - ADR-2605181400 — BPMN extract precedent (similar dual-publish pattern)

@@ -1,12 +1,12 @@
 /**
  * dns XRPC adapter — CF Worker.
  *
- * Wires the rw-free reference impl (6 pure TS functions) into a deployable
+ * Wires the kotoba reference impl (6 pure TS functions) into a deployable
  * CF Worker that exposes each function as an XRPC endpoint at
  * https://dns.etzhayyim.com/xrpc/com.etzhayyim.dns.<cmd>
  *
  * Per ADR-2605210000 first execution-layer demonstration. Instantiates the
- * Etzhayyim SDK from env bindings (PDS_URL + session), calls the rw-free
+ * Etzhayyim SDK from env bindings (PDS_URL + session), calls the kotoba
  * function with parsed input, returns the result as JSON, and maps status
  * codes to HTTP responses.
  *
@@ -18,7 +18,7 @@ import {
   extractBearerToken,
   type Etzhayyim,
 } from "@etzhayyim/sdk-auth";
-import * as dnsRwFree from "@etzhayyim/dns-rw-free";
+import * as dnsRwFree from "@etzhayyim/dns-kotoba";
 
 interface Env {
   ACTOR_DID: string;

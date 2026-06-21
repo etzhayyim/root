@@ -1,7 +1,7 @@
 {
   "name": "@etzhayyim/sdk",
   "version": "0.1.0-alpha",
-  "description": "RW-free substrate SDK for etzhayyim open religious-corp apps: AT Protocol MST + IPFS + Base L2 anchor. Per ADR-2605172000.",
+  "description": "kotoba substrate SDK for etzhayyim open religious-corp apps: AT Protocol MST + IPFS + Base L2 anchor. Per ADR-2605172000.",
   "license": "Apache-2.0",
   "private": false,
   "type": "module",

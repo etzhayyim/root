@@ -47,9 +47,9 @@ HANDLES_TS_PATH = (
     REPO_ROOT
     / "50-infra/etzhayyim-did-web/src/registry/unispsc-handles.gen.ts"
 )
-# Slim per-row tuple module bundled into the rw-free xrpc-adapter Worker.
+# Slim per-row tuple module bundled into the kotoba xrpc-adapter Worker.
 # Compact `[code, title, segment]` tuples keep the bundle small enough that
-# even with @etzhayyim/sdk + yoro-rw-free we stay well under the CF per-script
+# even with @etzhayyim/sdk + yoro-kotoba we stay well under the CF per-script
 # limit. Phase β: replace with an IPFS-pinned CID fetched via gateway + KV cache.
 ADAPTER_TS_PATH = (
     REPO_ROOT
