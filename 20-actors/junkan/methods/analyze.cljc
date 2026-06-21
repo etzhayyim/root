@@ -156,6 +156,44 @@
                      (map #(str "add a narrowing/balancing instrument for stock " (name %)) no-balancer)
                      ["broaden jurisdiction coverage (Global South / small states under-represented)"]))}))
 
+;; ── temporal era trajectory (system-dynamics over time; structural, not a ranking) ──
+(def era-order
+  ["pre-1800" "1800–1899" "1900–1944" "1945–1989" "1990–2009" "2010–"])
+
+(defn era-of
+  "Map an enactment year to a coarse era bucket. Undated (year 0/nil) → nil."
+  [year]
+  (let [y (long (or year 0))]
+    (cond
+      (<= y 0)   nil
+      (< y 1800) "pre-1800"
+      (< y 1900) "1800–1899"
+      (< y 1945) "1900–1944"
+      (< y 1990) "1945–1989"
+      (< y 2010) "1990–2009"
+      :else      "2010–")))
+
+(defn era-trajectory
+  "Fold dated instruments by era → widen/narrow force + net pressure per era. This
+  reads the long-run TRAJECTORY of the citizen↔state balance (whether instruments
+  enacted in each era lean toward widening or narrowing asymmetry). Structural over
+  time — NOT a country ranking (G7). HYPOTHESIS (G5). Undated transnational values
+  are excluded (no era)."
+  [instruments]
+  (let [dated (filter #(era-of (:year %)) instruments)
+        by-era (group-by #(era-of (:year %)) dated)]
+    (vec
+     (for [era era-order
+           :let [is (get by-era era)]
+           :when (seq is)
+           :let [cs (map contribution is)
+                 pos (reduce + (filter pos? cs))
+                 neg (- (reduce + (filter neg? cs)))]]
+       {:era era :count (count is)
+        :widen-force (round3 pos) :narrow-force (round3 neg)
+        :net (round3 (/ (reduce + cs) (count cs)))
+        :hypothesis? true}))))
+
 (defn analyze
   "Full read-off bundle. Pure; no I/O; no outward channel (G4)."
   [instruments]
@@ -163,6 +201,7 @@
     {"stocks" (into {} (map (fn [[k v]] [(name k) v]) stocks))
      "loops" (loop-regimes stocks)
      "leverage" (leverage-candidates instruments)
+     "trajectory" (era-trajectory instruments)
      "coverage" (coverage instruments)
      "hypothesis_only" true
      "actuation_taken" false}))
@@ -221,12 +260,26 @@
          (add e ":junkan/derived" true)]))
     (get analysis "loops"))))
 
+(defn era-datoms [analysis]
+  (vec
+   (mapcat
+    (fn [e]
+      (let [ent (str "junkan-era:" (:era e))]
+        [(add ent ":junkan.gov.era/net" (:net e))
+         (add ent ":junkan.gov.era/widen-force" (:widen-force e))
+         (add ent ":junkan.gov.era/narrow-force" (:narrow-force e))
+         (add ent ":junkan.gov.era/count" (long (:count e)))
+         (add ent ":junkan/hypothesis" ":true")
+         (add ent ":junkan/derived" true)]))
+    (get analysis "trajectory"))))
+
 (defn datoms
-  "All findings datoms for one analysis (instruments + stocks + loops)."
+  "All findings datoms for one analysis (instruments + stocks + loops + era trajectory)."
   [instruments analysis]
   (vec (concat (instrument-datoms instruments)
                (stock-datoms analysis)
-               (loop-datoms analysis))))
+               (loop-datoms analysis)
+               (era-datoms analysis))))
 
 (defn render-datoms [instruments analysis]
   (str "[\n " (str/join "\n " (map pr-str (datoms instruments analysis))) "\n]\n"))
@@ -264,6 +317,15 @@
                (for [lp (get analysis "loops")]
                  (str "| " (:id lp) " | " (name (:type lp))
                       " | " (name (:dominant lp)) " | " (name (:regime lp)) " |")))
+     "\n\n## Era trajectory (system-dynamics over time, HYPOTHESIS, G5)\n\n"
+     "_各時代に制定された instrument が非対称を広げる/狭める方向にどれだけ傾くか。構造の時系列であって国家 ranking ではない (G7)。undated な transnational values は除外。_\n\n"
+     "| era | n | widen | narrow | net |\n"
+     "|---|---|---|---|---|\n"
+     (str/join "\n"
+               (for [e (get analysis "trajectory")]
+                 (str "| " (:era e) " | " (:count e)
+                      " | " (:widen-force e) " | " (:narrow-force e)
+                      " | " (:net e) " |")))
      "\n\n## Meadows leverage CANDIDATES (G11 — candidates, never directives)\n\n"
      "**増幅候補 (既に是正方向に働く深いレバレッジ instrument):**\n"
      (str/join "\n" (for [c (get-in analysis ["leverage" :amplify])]

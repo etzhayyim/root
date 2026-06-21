@@ -79,12 +79,44 @@
     (is (vector? (:worklist cov)))
     (is (seq (:worklist cov)) "worklist is non-empty (next-iteration guidance)")))
 
+;; ── temporal era trajectory (structural over time; not a ranking) ────────────
+(deftest era-bucketing
+  (is (nil? (az/era-of 0)) "undated → nil")
+  (is (= "pre-1800" (az/era-of 1215)))
+  (is (= "pre-1800" (az/era-of 1766)) "1766 is pre-1800")
+  (is (= "1800–1899" (az/era-of 1863)))
+  (is (= "1900–1944" (az/era-of 1917)))
+  (is (= "1945–1989" (az/era-of 1966)))
+  (is (= "1990–2009" (az/era-of 2005)))
+  (is (= "2010–" (az/era-of 2020))))
+
+(deftest era-trajectory-shape
+  (let [t (get (a) "trajectory")]
+    (is (seq t) "trajectory has dated eras")
+    (is (every? :hypothesis? t) "each era reading is a hypothesis (G5)")
+    (is (every? #(contains? % :net) t))
+    ;; eras are in chronological order
+    (let [idx (zipmap az/era-order (range))]
+      (is (apply <= (map #(get idx (:era %)) t)) "eras chronological"))
+    ;; undated GLOBAL values are excluded from the trajectory
+    (let [dated-count (reduce + (map :count t))
+          total (count (is*))]
+      (is (< dated-count total) "undated transnational values excluded from era fold"))))
+
+(deftest era-datoms-emitted
+  (let [r (a)
+        ds (az/datoms (is*) r)
+        attrs (set (map #(nth % 2) ds))]
+    (is (contains? attrs ":junkan.gov.era/net") "era net datom emitted")
+    (is (contains? attrs ":junkan.gov.era/widen-force"))))
+
 ;; ── report renders sober markdown ────────────────────────────────────────────
 (deftest report-renders
   (let [md (az/render-report (a))]
     (is (str/includes? md "system-dynamics"))
     (is (str/includes? md "分析専用"))
     (is (str/includes? md "仮説")) ; hypothesis framing present (G5/G7)
+    (is (str/includes? md "Era trajectory"))
     (is (str/includes? md "leverage CANDIDATES"))))
 
 #?(:clj

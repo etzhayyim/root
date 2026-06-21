@@ -420,4 +420,161 @@
   :stakeholders ["Central Election Commission" "political parties" "citizens"]
   :stock :participation-barrier :polarity :narrow :magnitude 0.7 :reversibility :constitutional :meadows 4
   :basis "1996 ROC presidential election; constitutional amendments" :sourcing :representative :confidence 0.55}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 3 — more jurisdictions (DE FR KR AU AR MM CU BY VE BD IT) +
+ ;; economic-capture depth + the first :value-kind (思想・価値観) instruments
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── Germany ──
+ {:type :instrument :id "de-grundgesetz-1949" :name "Grundgesetz (Basic Law) + eternity clause" :jurisdiction "DE" :kind :doctrine :year 1949
+  :enactor "Parlamentarischer Rat (Parliamentary Council), post-WWII West Germany"
+  :origin "Opens with 'human dignity is inviolable' and shields the democratic order via Art. 79(3) eternity clause that no majority can amend — a paradigm built explicitly against the prior totalitarian state."
+  :stakeholders ["Parliamentary Council" "Federal Constitutional Court" "citizens"]
+  :stock :paradigm-subordination :polarity :narrow :magnitude 0.75 :reversibility :constitutional :meadows 1
+  :basis "Grundgesetz Art. 1, 79(3) (1949)" :sourcing :representative :confidence 0.6}
+ {:type :instrument :id "de-ifg-2006" :name "Informationsfreiheitsgesetz (IFG)" :jurisdiction "DE" :kind :law :year 2006
+  :enactor "Bundestag (Federal Parliament)"
+  :origin "Gave citizens a general right of access to federal-agency information, late by EU standards and partial across Länder, but a concrete shift toward state visibility."
+  :stakeholders ["federal agencies" "Federal Commissioner for Data Protection" "citizens"]
+  :stock :information-asymmetry :polarity :narrow :magnitude 0.5 :reversibility :statutory :meadows 6
+  :basis "Informationsfreiheitsgesetz (2006)" :sourcing :representative :confidence 0.5}
+
+ ;; ── France ──
+ {:type :instrument :id "fr-cada-1978" :name "Loi CADA (access to administrative documents)" :jurisdiction "FR" :kind :law :year 1978
+  :enactor "Parliament of France"
+  :origin "Created the right to obtain administrative documents and the CADA oversight commission, an early continental transparency regime."
+  :stakeholders ["CADA" "administrations" "journalists" "citizens"]
+  :stock :information-asymmetry :polarity :narrow :magnitude 0.5 :reversibility :statutory :meadows 6
+  :basis "Loi n° 78-753 du 17 juillet 1978" :sourcing :representative :confidence 0.5}
+ {:type :instrument :id "fr-laicite-1905" :name "Laïcité (1905 separation law)" :jurisdiction "FR" :kind :value :year 1905
+  :enactor "Parliament of the French Third Republic (Aristide Briand, rapporteur)"
+  :origin "Separated church and state and made state neutrality a civic value; emancipatory in intent, it is also contested when invoked to constrain individual religious expression — a value that cuts both ways for the citizen."
+  :stakeholders ["the Republic" "religious communities" "citizens" "Conseil d'État"]
+  :stock :paradigm-subordination :polarity :ambiguous :magnitude 0.4 :reversibility :cultural :meadows 2
+  :basis "Loi du 9 décembre 1905" :sourcing :representative :confidence 0.45}
+
+ ;; ── South Korea ──
+ {:type :instrument :id "kr-democratization-1987" :name "June Democratic Struggle → Sixth Republic" :jurisdiction "KR" :kind :institution :year 1987
+  :enactor "Korean democracy movement → 1987 constitutional revision (direct presidential election)"
+  :origin "Mass protest forced the military government to concede direct presidential elections and a new constitution, ending authoritarian rule and opening full citizen participation."
+  :stakeholders ["democracy movement" "National Assembly" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.7 :reversibility :constitutional :meadows 4
+  :basis "Constitution of the Republic of Korea (1987)" :sourcing :representative :confidence 0.6}
+ {:type :instrument :id "kr-nsl-1948" :name "National Security Law" :jurisdiction "KR" :kind :law :year 1948
+  :enactor "National Assembly of the Republic of Korea (first Republic)"
+  :origin "Anti-communist statute whose vague 'anti-state activity' and 'praising the enemy' clauses have been used against speech and association well beyond espionage, surviving democratization largely intact."
+  :stakeholders ["prosecutors" "courts" "activists/academics" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.5 :reversibility :statutory :meadows 5
+  :basis "National Security Act (1948, rev.)" :sourcing :representative :confidence 0.5}
+ {:type :instrument :id "kr-chaebol-nexus" :name "Chaebol–state nexus" :jurisdiction "KR" :kind :institution :year 1961
+  :enactor "Korean developmental state (Park Chung-hee era onward)"
+  :origin "State-directed credit built family conglomerates whose later economic weight gives them outsized leverage over policy and prosecution (recurrent pardons of convicted chairmen) — economic capture in a democracy."
+  :stakeholders ["chaebol groups" "government" "prosecutors" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.55 :reversibility :institutional :meadows 4
+  :basis "Developmental-state political economy" :sourcing :representative :confidence 0.45}
+
+ ;; ── Australia ──
+ {:type :instrument :id "au-metadata-retention-2015" :name "Mandatory telecommunications data retention" :jurisdiction "AU" :kind :law :year 2015
+  :enactor "Parliament of Australia"
+  :origin "Requires telcos to retain all customers' metadata for two years, accessible to agencies without a warrant in most cases — a broad surveillance expansion in a country with no federal bill of rights."
+  :stakeholders ["security/law-enforcement agencies" "telcos" "journalists" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.55 :reversibility :statutory :meadows 5
+  :basis "Telecommunications (Interception and Access) Amendment (Data Retention) Act 2015" :sourcing :representative :confidence 0.5}
+ {:type :instrument :id "au-foi-1982" :name "Freedom of Information Act 1982" :jurisdiction "AU" :kind :law :year 1982
+  :enactor "Parliament of Australia"
+  :origin "One of the earlier non-US FOI regimes, giving a right of access to Commonwealth documents and creating review mechanisms."
+  :stakeholders ["Office of the Australian Information Commissioner" "agencies" "citizens"]
+  :stock :information-asymmetry :polarity :narrow :magnitude 0.5 :reversibility :statutory :meadows 6
+  :basis "Freedom of Information Act 1982 (Cth)" :sourcing :representative :confidence 0.5}
+
+ ;; ── Argentina ──
+ {:type :instrument :id "ar-junta-1976" :name "National Reorganization Process (military junta)" :jurisdiction "AR" :kind :institution :year 1976
+  :enactor "Argentine military junta (1976 coup)"
+  :origin "State-terror regime that 'disappeared' tens of thousands; the extreme of coercive asymmetry, later confronted by the CONADEP truth commission and trials of the juntas (a recovery this dataset notes for contrast)."
+  :stakeholders ["military junta" "desaparecidos" "Madres de Plaza de Mayo" "later: courts/CONADEP"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.9 :reversibility :institutional :meadows 5
+  :basis "Proceso de Reorganización Nacional (1976–1983)" :sourcing :representative :confidence 0.6}
+ {:type :instrument :id "ar-acceso-2016" :name "Ley de Acceso a la Información Pública" :jurisdiction "AR" :kind :law :year 2016
+  :enactor "Congress of Argentina"
+  :origin "Established a federal right of access and an oversight agency, bringing Argentina into line with regional transparency standards."
+  :stakeholders ["Agencia de Acceso a la Información Pública" "public bodies" "citizens"]
+  :stock :information-asymmetry :polarity :narrow :magnitude 0.5 :reversibility :statutory :meadows 6
+  :basis "Ley 27.275 (2016)" :sourcing :representative :confidence 0.5}
+
+ ;; ── Myanmar ──
+ {:type :instrument :id "mm-2008-constitution" :name "2008 Constitution (military reserved seats)" :jurisdiction "MM" :kind :doctrine :year 2008
+  :enactor "Myanmar military (Tatmadaw), 2008 referendum under tight control"
+  :origin "Reserves 25% of legislative seats for the unelected military and gives it a veto over amendments and control of key ministries — a structural ceiling on civilian participation."
+  :stakeholders ["Tatmadaw" "civilian parties" "ethnic minorities" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.8 :reversibility :constitutional :meadows 4
+  :basis "Constitution of Myanmar (2008)" :sourcing :representative :confidence 0.55}
+ {:type :instrument :id "mm-coup-2021" :name "2021 coup + martial law" :jurisdiction "MM" :kind :institution :year 2021
+  :enactor "Myanmar military (State Administration Council)"
+  :origin "The military annulled the 2020 election it lost, seized power, and imposed martial law and lethal crackdowns — collapsing the limited participation the 2008 charter allowed."
+  :stakeholders ["State Administration Council" "National Unity Government" "protesters" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.9 :reversibility :institutional :meadows 5
+  :basis "1 Feb 2021 coup; martial-law orders" :sourcing :representative :confidence 0.55}
+
+ ;; ── Cuba ──
+ {:type :instrument :id "cu-one-party-1976" :name "Single-party state (PCC constitutional primacy)" :jurisdiction "CU" :kind :institution :year 1976
+  :enactor "Communist Party of Cuba; 1976 Constitution (reaffirmed 2019)"
+  :origin "The constitution names the Party the 'superior leading force' of state and society and bars other parties from contesting power, foreclosing electoral alternation."
+  :stakeholders ["Communist Party of Cuba" "National Assembly" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.85 :reversibility :entrenched :meadows 4
+  :basis "Constitution of Cuba (1976/2019), Art. 5" :sourcing :representative :confidence 0.6}
+
+ ;; ── Belarus ──
+ {:type :instrument :id "by-2020-electoral" :name "2020 election + protest crackdown" :jurisdiction "BY" :kind :institution :year 2020
+  :enactor "Belarusian state (Central Election Commission; Interior Ministry)"
+  :origin "An election widely assessed as falsified triggered mass protests met with mass detention and torture allegations, fusing electoral closure with coercive force."
+  :stakeholders ["Central Election Commission" "security forces" "opposition" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.85 :reversibility :institutional :meadows 5
+  :basis "2020 Belarusian presidential election" :sourcing :representative :confidence 0.55}
+
+ ;; ── Venezuela ──
+ {:type :instrument :id "ve-enabling-laws" :name "Enabling Laws (Ley Habilitante)" :jurisdiction "VE" :kind :law :year 1999
+  :enactor "National Assembly delegating decree power to the President (repeated 1999–2015)"
+  :origin "Periodic delegation of broad legislative power to the executive by decree bypassed ordinary deliberation, concentrating lawmaking and weakening the citizen's representative channel."
+  :stakeholders ["presidency" "National Assembly" "opposition" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.65 :reversibility :statutory :meadows 5
+  :basis "Leyes Habilitantes (1999–2015)" :sourcing :representative :confidence 0.5}
+
+ ;; ── Bangladesh ──
+ {:type :instrument :id "bd-dsa-2018" :name "Digital Security Act 2018" :jurisdiction "BD" :kind :law :year 2018
+  :enactor "Parliament of Bangladesh (Jatiya Sangsad)"
+  :origin "Criminalized broad categories of online expression ('propaganda', 'tarnishing image of the state') with non-bailable offences, used widely against journalists and critics (recast as the Cyber Security Act 2023)."
+  :stakeholders ["police" "journalists" "online users" "courts"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.6 :reversibility :statutory :meadows 5
+  :basis "Digital Security Act, 2018" :sourcing :representative :confidence 0.5}
+
+ ;; ── India (economic layer) ──
+ {:type :instrument :id "in-electoral-bonds-2017" :name "Electoral Bonds scheme" :jurisdiction "IN" :kind :law :year 2017
+  :enactor "Parliament of India (via Finance Acts); struck down by the Supreme Court in 2024"
+  :origin "Allowed anonymous, unlimited corporate donations to parties routed through state-bank instruments, concentrating undisclosed economic influence over politics — until the Supreme Court ruled it unconstitutional, a balancing correction."
+  :stakeholders ["political parties" "corporate donors" "Election Commission" "Supreme Court" "voters"]
+  :stock :economic-capture :polarity :widen :magnitude 0.55 :reversibility :statutory :meadows 5
+  :basis "Finance Act 2017; ADR v. Union of India (2024)" :sourcing :representative :confidence 0.55}
+
+ ;; ── Italy (economic / media) ──
+ {:type :instrument :id "it-media-political-concentration" :name "Media–political concentration" :jurisdiction "IT" :kind :institution :year 1994
+  :enactor "Italian media-ownership structure (entered politics in 1994)"
+  :origin "Concentrated private television ownership combined with control of public broadcasting while in office created a conflict of interest that shaped the citizen's information environment ('conflitto di interessi')."
+  :stakeholders ["media conglomerates" "RAI" "AGCOM regulator" "voters"]
+  :stock :economic-capture :polarity :widen :magnitude 0.5 :reversibility :institutional :meadows 5
+  :basis "Italian media-ownership debate (post-1994)" :sourcing :representative :confidence 0.45}
+
+ ;; ── transnational VALUES (思想・価値観; jurisdiction GLOBAL) ──
+ {:type :instrument :id "gl-clientelism" :name "Clientelism / patron-client norms" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse social norm (no single enactor; arises across many polities)"
+  :origin "Where access to public goods runs through personal loyalty to a patron rather than impersonal citizenship, the citizen relates to the state as a dependent client — a value-level structure that quietly widens asymmetry beneath formal rules."
+  :stakeholders ["patrons/brokers" "client populations" "parties" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.5 :reversibility :cultural :meadows 2
+  :basis "Comparative political-science literature on clientelism" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-rule-of-law-norm" :name "Rule-of-law norm (officials bound by law)" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse civic norm (consolidated through constitutional traditions)"
+  :origin "The internalized expectation that officials are subject to the same law as citizens — the value beneath constitutionalism; where it is strong it narrows asymmetry independently of any single statute."
+  :stakeholders ["courts" "civil service" "press" "citizens"]
+  :stock :paradigm-subordination :polarity :narrow :magnitude 0.6 :reversibility :cultural :meadows 2
+  :basis "Rule-of-law tradition (Dicey; WJP Rule of Law Index as a disclosed proxy)" :sourcing :representative :confidence 0.45}
 ]

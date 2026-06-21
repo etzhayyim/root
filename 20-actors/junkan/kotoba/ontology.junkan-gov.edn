@@ -24,6 +24,7 @@
 ;;   :junkan.gov.instr/*  — disclosed instrument facts (law/institution/doctrine/value)
 ;;   :junkan.gov.stock/*  — DERIVED asymmetry-stock aggregates + regime
 ;;   :junkan.gov.loop/*   — DERIVED loop regime (hypothesis only)
+;;   :junkan.gov.era/*    — DERIVED temporal trajectory (widen/narrow force per era)
 ;;   :junkan/derived      — true on every derived datom
 ;;   :junkan/sourcing     — ":authoritative" | ":representative" | ":synthetic"
 ;;   :junkan/hypothesis   — ":true" on every loop/regime read-off (G5)

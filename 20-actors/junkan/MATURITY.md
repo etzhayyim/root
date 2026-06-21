@@ -15,14 +15,15 @@ ADR-2605290927 · clj-native, kotoba-Datom-native · updated 2026-06-21
 | # | item | status |
 |---|---|---|
 | 1 | ontology (EAVT schema, 5 stocks, loops, Meadows, negative space) | ✅ `kotoba/ontology.junkan-gov.edn` |
-| 2 | global instrument seed (laws/institutions/doctrines/values) | ✅ 59 instruments · 31 jurisdictions (iter 2) |
+| 2 | global instrument seed (laws/institutions/doctrines/values) | ✅ 80 instruments · 43 jurisdictions · 4 kinds incl :value (iter 3) |
 | 3 | 誰が (enactor) on every instrument | ✅ test-enforced |
 | 4 | 経緯 (origin) on every instrument | ✅ test-enforced |
 | 5 | 関係者 (stakeholders) on every instrument | ✅ test-enforced |
 | 6 | all 5 asymmetry stocks covered | ✅ test-enforced |
 | 7 | both polarities present (widen + narrowing/balancers) | ✅ test-enforced |
 | 8 | analysis read-off (stock regimes + loops + leverage + coverage) | ✅ `methods/analyze.cljc` |
-| 9 | EAVT datom emission (flagged :derived + :hypothesis) | ✅ 886 datoms |
+| 9 | EAVT datom emission (flagged :derived + :hypothesis) | ✅ 1216 datoms |
+| 9b | temporal era-trajectory analytic (widen/narrow force per era) | ✅ `analyze/era-trajectory` (iter 3) |
 | 10 | content-addressed findings ledger (commit-DAG, verify-chain) | ✅ `methods/kotoba.cljc` |
 | 11 | deterministic idempotent-by-content heartbeat | ✅ `methods/autorun.cljc` |
 | 12 | G4 analysis-only (no outward channel; by absence) | ✅ test-enforced |
@@ -30,19 +31,22 @@ ADR-2605290927 · clj-native, kotoba-Datom-native · updated 2026-06-21
 | 14 | G6 aggregate-only (no person/PII attr) | ✅ test-enforced |
 | 15 | G11 candidates-not-directives | ✅ test-enforced |
 | 16 | datalad dataset (snapshot + provenance + report) | ✅ `80-data/junkan-governance/` |
-| 17 | tests green | ✅ 33 tests / 876 assertions |
+| 17 | tests green | ✅ 36 tests / 1165 assertions |
 | 18 | live passive-data ingest (Tier-A public archives) | ⏳ R1, Council-gated |
 | 19 | kotoba-kqe live-engine binding | ⏳ R1 |
 | 20 | Murakumo-only LLM-assisted loop-naming | ⏳ R1 |
 
 ## Current read-off (HYPOTHESIS — see report.md)
 
-- **participation-barrier** stock reads **vicious** (net +0.23): widening
-  instruments dominate; the **B-participation** balancing loop is being overwhelmed.
-- information / coercion / paradigm / economic stocks read **transitioning**
-  (contested — strong widening and narrowing forces both present).
-- Deepest amplify-candidates: Magna Carta (L1), UDHR (L2), Swiss direct democracy
-  (L4). Most-tractable flip-candidates: statutory surveillance/foreign-agent laws (L5).
+- **coercion-asymmetry** stock reads **vicious** (net ≈ +0.24) as the global
+  security-law corpus enters; other stocks read **transitioning** (contested —
+  strong widening and narrowing forces both present).
+- **Era trajectory** (iter 3): instruments cluster strongly in **2010–** (n=26),
+  net-widening, and **1945–1989** (n=23) — the post-WWII rights wave reads
+  net-narrowing only in **1990–2009**. A long-run shape, not a country ranking (G7).
+- Deepest amplify-candidates: Magna Carta (L1), German Basic Law eternity clause
+  (L1), UDHR (L2). Most-tractable flip-candidates: statutory surveillance/
+  foreign-agent/online-speech laws (L5).
 
 ## Coverage worklist (grows each /loop iteration)
 
