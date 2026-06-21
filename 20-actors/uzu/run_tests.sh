@@ -8,6 +8,7 @@ SUITES=(
   "20-actors/uzu/methods/test_metabolism.cljc"
   "20-actors/uzu/methods/test_epochs.cljc"
   "20-actors/uzu/methods/test_world.cljc"
+  "20-actors/uzu/methods/test_landscape.cljc"
   "20-actors/uzu/methods/test_measure.cljc"
   "20-actors/uzu/methods/test_validate.cljc"
   "20-actors/uzu/methods/test_lexicons.cljc"

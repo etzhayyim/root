@@ -40,6 +40,7 @@
   {:method/id "metabolism" :method/file "methods/metabolism.cljc" :method/role "the dissipative loop: perceive→infer→plan→act→metabolize→live-or-die; multi-epoch seasons (live-epochs); EAVT datoms"}
   {:method/id "measure"    :method/file "methods/measure.cljc"    :method/role "real-world energy-flow measurement in 4 honest separate units; never cross-summed; EAVT datoms"}
   {:method/id "world"      :method/file "methods/world.cljc"      :method/role "deterministic world-tape generator (niches): abundant/scarce/mixed presets + richness — proves a good model needs a net-positive niche (+ bb CLI)"}
+  {:method/id "landscape"  :method/file "methods/landscape.cljc"  :method/role "viability ENVELOPE: sweep meaning × niche → survival matrix; fitness is joint (a pathology is harmless in a niche that never punishes it) → report + :uzu.landscape/* datoms (+ bb CLI)"}
   {:method/id "validate"   :method/file "methods/validate.cljc"   :method/role "seed↔ontology integrity validator (self-validating substrate; defends I1–I5 invariants; + bb CLI)"}
   {:method/id "digest"     :method/file "methods/digest.cljc"     :method/role "colony SELF-REFLECTION: who self-maintained, which meanings fit, energy economy, field dissipation → report + :uzu.digest/* datoms (+ bb CLI; Murakumo narration is the gated step)"}
   {:method/id "scorecard"  :method/file "methods/scorecard.cljc"  :method/role "maturity SELF-AUDIT: tally inventory + verify every declared method/suite/lexicon file exists (manifest↔fs drift) → report + :uzu.scorecard/* datoms (+ bb CLI)"}
@@ -76,8 +77,8 @@
  :actor/tests
  {:runner "babashka"
   :cmd "./20-actors/uzu/run_tests.sh"
-  :suites ["methods/test_model.cljc" "methods/test_ledger.cljc" "methods/test_metabolism.cljc" "methods/test_epochs.cljc" "methods/test_world.cljc"
+  :suites ["methods/test_model.cljc" "methods/test_ledger.cljc" "methods/test_metabolism.cljc" "methods/test_epochs.cljc" "methods/test_world.cljc" "methods/test_landscape.cljc"
            "methods/test_measure.cljc" "methods/test_validate.cljc" "methods/test_lexicons.cljc"
            "methods/test_digest.cljc" "methods/test_robustness.cljc" "methods/test_scorecard.cljc"
            "methods/test_kotoba.cljc" "methods/test_autorun.cljc" "methods/test_viz.cljc"]
-  :status "88 tests / 201 assertions green (babashka)"}}
+  :status "94 tests / 216 assertions green (babashka)"}}
