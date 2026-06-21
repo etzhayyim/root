@@ -3,7 +3,7 @@
 **Actor**: uzu 渦 — dissipative information-energy organism + real-world energy measurement/viz
 **ADR**: 2606211500 · **Status**: 🟡 R0 · **Generated** from manifest + test run.
 
-## R0 checklist (24/24)
+## R0 checklist (25/25)
 
 | # | Criterion | State |
 |---|---|---|
@@ -21,7 +21,7 @@
 | 12 | two-ledgers-never-conflated (G1) | ✅ test-enforced |
 | 13 | never-equate-units / no-joules-per-meaning (G2/G3) | ✅ test-enforced |
 | 14 | self-maintenance earned / mortality (G5) | ✅ kurage lives, meial+gyoja die |
-| 15 | tests green | ✅ **101 tests / 228 assertions** |
+| 15 | tests green | ✅ **106 tests / 240 assertions** |
 | 16 | self-validating seed (integrity validator) | ✅ `validate.cljc` (defends I1–I5; + bb CLI) |
 | 17 | lexicons + manifest↔ontology parity | ✅ `organismBeat` / `energyFlow` (drift-locked by test) |
 | 18 | colony self-reflection (digest) | ✅ `digest.cljc` (survival · energy economy · field dissipation; + bb CLI) |
@@ -31,6 +31,7 @@
 | 22 | niche generator (world tapes) | ✅ `world.cljc` — abundant niche sustains+accumulates kurage across seasons; scarce starves it (self-maintenance needs a net-positive niche) |
 | 23 | viability envelope (landscape) | ✅ `landscape.cljc` — meaning × niche survival matrix; fitness is joint (meial pathology lethal only in a punishing niche; gyoja starves in plenty) |
 | 24 | sharp cross-cutting properties | ✅ `test_properties.cljc` — fold≡reduce · predict leak endpoints · pathology dormant w/o hazard (kurage≡meial) · richness ordering · digest consistency · energy veto absolute |
+| 25 | log read path (query + as-of) | ✅ `query.cljc` — folds EAVT datoms → entity views + as-of time-travel; persisted colony digest/flows round-trip (the log is queryable) |
 
 ## Verified heartbeat (autorun)
 

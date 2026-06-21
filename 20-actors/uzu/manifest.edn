@@ -46,6 +46,7 @@
   {:method/id "scorecard"  :method/file "methods/scorecard.cljc"  :method/role "maturity SELF-AUDIT: tally inventory + verify every declared method/suite/lexicon file exists (manifest↔fs drift) → report + :uzu.scorecard/* datoms (+ bb CLI)"}
   {:method/id "viz"        :method/file "methods/viz.cljc"        :method/role "self-contained data-driven HTML canvas of the coupled energy field + organism trajectories (+ bb CLI)"}
   {:method/id "kotoba"     :method/file "methods/kotoba.cljc"     :method/role "content-addressed append-only INFORMATION log (tx-cid/make-tx/append-tx/read-log/verify-chain)"}
+  {:method/id "query"      :method/file "methods/query.cljc"      :method/role "log READ path: fold EAVT datoms → entity views + AS-OF time-travel (the log is queryable, not write-only) (+ bb CLI)"}
   {:method/id "autorun"    :method/file "methods/autorun.cljc"    :method/role "deterministic heartbeat: live organisms + measure field + SELF-REFLECT (digest) → append datoms to the log (+ bb CLI)"}]
 
  :actor/lex
@@ -80,5 +81,5 @@
   :suites ["methods/test_model.cljc" "methods/test_ledger.cljc" "methods/test_metabolism.cljc" "methods/test_epochs.cljc" "methods/test_world.cljc" "methods/test_landscape.cljc"
            "methods/test_measure.cljc" "methods/test_validate.cljc" "methods/test_lexicons.cljc"
            "methods/test_digest.cljc" "methods/test_robustness.cljc" "methods/test_properties.cljc" "methods/test_scorecard.cljc"
-           "methods/test_kotoba.cljc" "methods/test_autorun.cljc" "methods/test_viz.cljc"]
-  :status "101 tests / 228 assertions green (babashka)"}}
+           "methods/test_kotoba.cljc" "methods/test_query.cljc" "methods/test_autorun.cljc" "methods/test_viz.cljc"]
+  :status "106 tests / 240 assertions green (babashka)"}}
