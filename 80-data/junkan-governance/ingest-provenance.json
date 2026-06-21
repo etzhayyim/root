@@ -14,19 +14,19 @@
     "report.md"
   ],
   "regenerate": "bb --classpath 20-actors -e \"(require '[junkan.methods.junkan-edn :as je] '[junkan.methods.analyze :as az] '[junkan.methods.kotoba :as k]) (let [is (je/instruments \\\"20-actors/junkan/kotoba/seed.governance-asymmetry.edn\\\") a (az/analyze is) ds (az/datoms is a) tx (k/make-tx ds \\\"junkan-gov-snapshot-0001\\\" \\\"snapshot\\\" \\\"\\\")] (spit \\\"80-data/junkan-governance/governance-asymmetry.datoms.kotoba.edn\\\" (az/render-datoms is a)) (spit \\\"80-data/junkan-governance/findings-ledger.kotoba.edn\\\" (k/tx->edn tx)) (spit \\\"80-data/junkan-governance/report.md\\\" (az/render-report a)))\"",
-  "tx_cid": "b7787b9e58d021935b0e239c4321b49f66054d8204f70e1607c96c457e56f5389",
-  "datoms": 3333,
-  "instruments": 221,
-  "jurisdictions": 162,
-  "regions": {"africa": 44, "asia": 45, "europe": 40, "americas": 24, "oceania": 7, "transnational": 2},
-  "kinds": {"law": 59, "institution": 128, "doctrine": 31, "value": 5},
-  "stocks": {"participation-barrier": 113, "information-asymmetry": 40, "paradigm-subordination": 26, "coercion-asymmetry": 25, "economic-capture": 17},
+  "tx_cid": "b056c4274d6f91001093dcf11ddbdc874cac60dc4fea6646f1af59c39b99bbe83",
+  "datoms": 3473,
+  "instruments": 231,
+  "jurisdictions": 164,
+  "regions": {"africa": 45, "asia": 45, "europe": 40, "americas": 24, "oceania": 8, "transnational": 2},
+  "kinds": {"law": 60, "institution": 134, "doctrine": 33, "value": 7},
+  "stocks": {"participation-barrier": 115, "information-asymmetry": 40, "paradigm-subordination": 30, "coercion-asymmetry": 29, "economic-capture": 17},
   "generated_scorecard": "SCORECARD.md",
   "tx_cid_note": "tx-cid reproducible byte-for-byte from the seed (deterministic content-address); changes only when the seed changes.",
   "sourcing": "representative (laws/years/enactors/origins are on-the-record public facts; polarity/magnitude/confidence are junkan's disclosed hypotheses, G5)",
   "discipline": "G4 analysis-only / G5 hypothesis-only / G6 aggregate-only / G7 map-not-rank / G11 candidates-not-directives",
   "as_of": "2026-06-22",
-  "iteration": 13,
+  "iteration": 14,
   "iteration_history": [
     {"iteration": 1, "instruments": 35, "jurisdictions": 17, "tx_cid": "bb4be4ac091ae9cc9be30c732d2fc78f773afabea84d6deccb96b784576a1d814"},
     {"iteration": 2, "instruments": 59, "jurisdictions": 31, "note": "Global South / under-represented wave: BR MX ZA NG ID TR IR PH PK VN KE TN CL TW"},
@@ -40,6 +40,7 @@
     {"iteration": 10, "instruments": 185, "jurisdictions": 143, "note": "SE Asia (MY) / MENA collapse (YE LY) / model democracies (MU CV) / E.Europe (SI LV) / Africa transitions (SS GM LR); + scorecard.cljc generator → live SCORECARD.md (coverage + integrity + read-off digest, generated not hand-maintained)"},
     {"iteration": 11, "instruments": 195, "jurisdictions": 153, "note": "transitions & backsliding (AM MW GA BF NE BJ MD DO PA MG): citizen reassertions via courts/ballots vs coups & opposition-exclusion; + leverage-by-continent analytic (most tractable flip candidate per region, candidates-not-directives G11)"},
     {"iteration": 12, "instruments": 209, "jurisdictions": 158, "note": "stock rebalancing — economic-capture 11→17 (amakudari/dynasties/oil-capture/oligarchs/revolving-door/ficha-limpa) + coercion 22→25 (FR état d'urgence, IN AFSPA, IL administrative detention) + new jurisdictions (TG ME SO MK GN); + kind×polarity matrix (laws net-widen +0.15, doctrines net-narrow -0.11)"},
-    {"iteration": 13, "instruments": 221, "jurisdictions": 162, "note": "information-asymmetry depth 32→40 (Great Firewall, FISA 702, SORM, IR/ET internet shutdowns, Aadhaar, EU DSA, FOI norm diffusion) + new jurisdictions (CY MR TD CF); + history.cljc as-of/regime-trajectory reader (regimeShiftEvent diffs across ledger txs, realizing the ADR temporal data-model)"}
+    {"iteration": 13, "instruments": 221, "jurisdictions": 162, "note": "information-asymmetry depth 32→40 (Great Firewall, FISA 702, SORM, IR/ET internet shutdowns, Aadhaar, EU DSA, FOI norm diffusion) + new jurisdictions (CY MR TD CF); + history.cljc as-of/regime-trajectory reader (regimeShiftEvent diffs across ledger txs, realizing the ADR temporal data-model)"},
+    {"iteration": 14, "instruments": 231, "jurisdictions": 164, "note": "paradigm depth (Xi Thought, personality cults, established religion, SG paternalism) + coercion depth (US qualified immunity, PH drug war, MX militarization, BR police lethality) + small jurisdictions (DJ SB); + headline synthesis (most-pressured stock = coercion +0.28, latest-era widening, doctrines narrow)"}
   ]
 }

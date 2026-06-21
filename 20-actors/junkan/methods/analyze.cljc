@@ -197,7 +197,7 @@
    "GQ" :africa "SZ" :africa "LY" :africa "MU" :africa "CV" :africa "GM" :africa
    "LR" :africa "SS" :africa "MW" :africa "GA" :africa "BF" :africa "NE" :africa
    "BJ" :africa "MG" :africa "TG" :africa "SO" :africa "GN" :africa "MR" :africa
-   "TD" :africa "CF" :africa
+   "TD" :africa "CF" :africa "DJ" :africa
    ;; Americas
    "US" :americas "BR" :americas "MX" :americas "CL" :americas "AR" :americas
    "VE" :americas "CU" :americas "CO" :americas "PE" :americas "BO" :americas
@@ -223,7 +223,7 @@
    "MY" :asia "YE" :asia
    ;; Oceania
    "NZ" :oceania "AU" :oceania "FJ" :oceania "PG" :oceania "WS" :oceania
-   "TO" :oceania "VU" :oceania
+   "TO" :oceania "VU" :oceania "SB" :oceania
    ;; Asia (Timor-Leste, Japan)
    "TL" :asia "JP" :asia
    ;; transnational
@@ -355,21 +355,46 @@
               :when (seq wideners)]
           [r (first wideners)])))
 
+(defn headline
+  "A compact, structured digest of the most salient read-off (HYPOTHESIS, G5):
+  the most-pressured asymmetry stock, the latest-era net trend, and the kind whose
+  instruments lean most toward narrowing. Aggregate + sober (G7); a summary, never
+  a directive (G11)."
+  [instruments stocks-map kind-mat traj]
+  (let [most-pressured (->> stocks-map
+                            (map (fn [[k v]] [k (:net v)]))
+                            (sort-by (comp - second))
+                            first)
+        latest-era (last traj)
+        narrowest-kind (->> kind-mat
+                            (map (fn [[k v]] [k (:net v)]))
+                            (sort-by second)
+                            first)]
+    {:most-pressured-stock (some-> most-pressured first name)
+     :most-pressured-net (some-> most-pressured second)
+     :latest-era (:era latest-era)
+     :latest-era-net (:net latest-era)
+     :narrowest-kind (some-> narrowest-kind first name)
+     :narrowest-kind-net (some-> narrowest-kind second)
+     :hypothesis? true}))
+
 (defn analyze
   "Full read-off bundle. Pure; no I/O; no outward channel (G4)."
   [instruments]
-  (let [stocks (by-stock instruments)]
+  (let [stocks (by-stock instruments)
+        kind-mat (kind-polarity-matrix instruments)
+        traj (era-trajectory instruments)]
     {"stocks" (into {} (map (fn [[k v]] [(name k) v]) stocks))
+     "headline" (headline instruments stocks kind-mat traj)
      "loops" (loop-regimes stocks)
      "leverage" (leverage-candidates instruments)
-     "trajectory" (era-trajectory instruments)
+     "trajectory" traj
      "region_stock" (into {} (map (fn [[r m]]
                                     [(name r) (into {} (map (fn [[s v]] [(name s) v]) m))])
                                   (region-stock-matrix instruments)))
      "leverage_by_region" (into {} (map (fn [[r c]] [(name r) c])
                                         (leverage-by-region instruments)))
-     "kind_polarity" (into {} (map (fn [[k v]] [(name k) v])
-                                   (kind-polarity-matrix instruments)))
+     "kind_polarity" (into {} (map (fn [[k v]] [(name k) v]) kind-mat))
      "coverage" (coverage instruments)
      "hypothesis_only" true
      "actuation_taken" false}))
@@ -485,6 +510,12 @@
      "_continental balance_: "
      (str/join " · " (for [[r n] (sort-by (comp - val) (:regions cov))]
                        (str (name r) " " n))) "\n\n"
+     (let [h (get analysis "headline")]
+       (str "**要点 (HYPOTHESIS, G5):** いま最も非対称が広がる方向に圧力がかかる stock は "
+            "**" (:most-pressured-stock h) "** (net " (:most-pressured-net h) ")。"
+            "直近 era **" (:latest-era h) "** の net は " (:latest-era-net h) "。"
+            "instrument 種類のうち最も是正方向に傾くのは **" (:narrowest-kind h)
+            "** (net " (:narrowest-kind-net h) ")。\n\n"))
      "## Asymmetry stocks (regime = HYPOTHESIS)\n\n"
      "| stock | n | net pressure | widen | narrow | regime |\n"
      "|---|---|---|---|---|---|\n"

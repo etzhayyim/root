@@ -144,6 +144,19 @@
     (doseq [r [:africa :americas :asia :europe :oceania]]
       (is (pos? (get regions r 0)) (str "region " r " has coverage")))))
 
+;; ── headline synthesis (key findings digest) ─────────────────────────────────
+(deftest headline-shape
+  (let [h (get (a) "headline")]
+    (is (string? (:most-pressured-stock h)) "names the most-pressured stock")
+    (is (number? (:most-pressured-net h)))
+    (is (string? (:latest-era h)) "names the latest era")
+    (is (string? (:narrowest-kind h)) "names the kind leaning most to narrowing")
+    (is (= true (:hypothesis? h)) "headline is a hypothesis (G5)")
+    ;; the most-pressured stock should be the one with the max net among stocks
+    (let [stocks (get (a) "stocks")
+          maxnet (apply max (map (comp :net val) stocks))]
+      (is (= maxnet (:most-pressured-net h)) "most-pressured net = max stock net"))))
+
 ;; ── leverage by continent (candidates per region, never directives) ──────────
 (deftest leverage-by-region-shape
   (let [lbr (get (a) "leverage_by_region")]

@@ -1707,4 +1707,75 @@
   :stakeholders ["government" "armed groups" "external forces" "citizens"]
   :stock :participation-barrier :polarity :widen :magnitude 0.75 :reversibility :institutional :meadows 4
   :basis "CAR conflict (since 2013)" :sourcing :representative :confidence 0.4}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 14 — paradigm-subordination + coercion depth + small jurisdictions
+ ;; (DJ SB) — widen + narrow
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── paradigm-subordination ──
+ {:type :instrument :id "cn-xi-thought-2018" :name "Xi Jinping Thought + term-limit removal" :jurisdiction "CN" :kind :doctrine :year 2018
+  :enactor "Communist Party of China; National People's Congress (2018 amendment)"
+  :origin "Wrote 'Xi Jinping Thought' into the state constitution and removed the presidential two-term limit, concentrating authority in one leader and elevating his doctrine as a governing orthodoxy above ordinary contestation."
+  :stakeholders ["Communist Party of China" "NPC" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.8 :reversibility :entrenched :meadows 2
+  :basis "2018 PRC constitutional amendment" :sourcing :representative :confidence 0.55}
+ {:type :instrument :id "gl-cult-of-personality" :name "Leader personality cults" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse value (cultivated by many authoritarian states)"
+  :origin "Where the state manufactures veneration of a single leader through media, education, and ritual, criticism becomes sacrilege and the citizen relates to power as a devotee rather than a principal — a value-level subordination beneath any one law."
+  :stakeholders ["state media" "education systems" "the leader" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.6 :reversibility :cultural :meadows 2
+  :basis "Comparative literature on personality cults" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-established-religion" :name "Established state religion (over dissenters)" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse value (states with an official religion)"
+  :origin "An established religion can anchor shared meaning, but where it subordinates the standing of dissenters, converts, and the non-religious to the state's creed it widens the asymmetry for those citizens — an ambiguous, context-dependent value."
+  :stakeholders ["established religious authority" "religious minorities" "non-believers" "citizens"]
+  :stock :paradigm-subordination :polarity :ambiguous :magnitude 0.4 :reversibility :cultural :meadows 2
+  :basis "Comparative establishment-of-religion law" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "sg-paternalism" :name "Meritocratic paternalism (OB markers)" :jurisdiction "SG" :kind :value :year 1965
+  :enactor "Singaporean governing consensus (PAP developmental state)"
+  :origin "A widely-accepted paternalist bargain — prosperity and order in exchange for deference to state-defined 'out-of-bounds' limits on dissent — secures stability while normalizing constraints on citizen contestation, an ambiguous value-level effect."
+  :stakeholders ["governing party" "civil service" "civil society" "citizens"]
+  :stock :paradigm-subordination :polarity :ambiguous :magnitude 0.4 :reversibility :cultural :meadows 2
+  :basis "Singapore developmental paternalism (since 1965)" :sourcing :representative :confidence 0.4}
+
+ ;; ── coercion-asymmetry ──
+ {:type :instrument :id "us-qualified-immunity" :name "Qualified immunity doctrine" :jurisdiction "US" :kind :doctrine :year 1982
+  :enactor "U.S. Supreme Court (Harlow v. Fitzgerald, 1982; line of cases)"
+  :origin "A judge-made doctrine shielding officials (notably police) from civil suit unless they violated 'clearly established' law, which in practice often blocks accountability for rights violations — a coercion asymmetry favoring the state's agents over the citizen."
+  :stakeholders ["Supreme Court" "police" "civil-rights plaintiffs" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.5 :reversibility :statutory :meadows 5
+  :basis "Harlow v. Fitzgerald, 457 U.S. 800 (1982)" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "ph-drug-war-2016" :name "'War on drugs' extrajudicial campaign" :jurisdiction "PH" :kind :institution :year 2016
+  :enactor "Philippine state (Duterte administration policy)"
+  :origin "A state-endorsed anti-drug campaign produced thousands of killings with minimal due process; the ICC opened an investigation — an extreme coercion asymmetry where the state's lethal force operated largely outside courts."
+  :stakeholders ["national police" "victims/families" "ICC" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.75 :reversibility :institutional :meadows 5
+  :basis "Philippine drug war (2016–); ICC investigation" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "mx-militarization" :name "Militarization of public security" :jurisdiction "MX" :kind :institution :year 2006
+  :enactor "Mexican state (from the 2006 'war on drugs'; National Guard 2019)"
+  :origin "Deploying the armed forces for everyday policing — formalized in the 2019 National Guard and expanded since — placed coercive power with a military less accountable to civilian courts, amid high rates of abuse complaints."
+  :stakeholders ["armed forces" "National Guard" "human-rights bodies" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.6 :reversibility :institutional :meadows 5
+  :basis "Mexico militarized security (2006–); National Guard (2019)" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "br-police-lethality" :name "High police lethality + military police" :jurisdiction "BR" :kind :institution :year 1988
+  :enactor "Brazilian state (military-police structure under the 1988 Constitution)"
+  :origin "State military police forces account for among the world's highest rates of killings by police, concentrated in poor and Black communities, with limited accountability — a coercion asymmetry borne unevenly by citizens."
+  :stakeholders ["state military police" "affected communities" "public prosecutors" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.6 :reversibility :institutional :meadows 5
+  :basis "Brazilian police-lethality data; 1988 Constitution Art. 144" :sourcing :representative :confidence 0.4}
+
+ ;; ── small jurisdictions ──
+ {:type :instrument :id "dj-guelleh-rule" :name "Long-term presidency + managed elections" :jurisdiction "DJ" :kind :institution :year 1999
+  :enactor "Djiboutian state (Guelleh presidency since 1999; 2010 term-limit removal)"
+  :origin "A 2010 constitutional change removed presidential term limits, enabling decades of continuous rule with elections the opposition often boycotts — a managed participation channel in a strategically pivotal small state."
+  :stakeholders ["presidency" "ruling coalition" "opposition" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.75 :reversibility :constitutional :meadows 4
+  :basis "Djibouti 2010 constitutional amendment" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "sb-parliamentary-democracy" :name "Parliamentary democracy (post-RAMSI)" :jurisdiction "SB" :kind :institution :year 1978
+  :enactor "Solomon Islands (independence Constitution; RAMSI stabilization 2003–17)"
+  :origin "A Westminster democracy with regular elections, stabilized after 2003 by a regional mission; government instability and 2021 unrest are watch-points, but the electoral participation channel functions."
+  :stakeholders ["National Parliament" "parties" "regional partners" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.45 :reversibility :institutional :meadows 4
+  :basis "Constitution of Solomon Islands (1978)" :sourcing :representative :confidence 0.4}
 ]
