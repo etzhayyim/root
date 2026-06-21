@@ -142,13 +142,19 @@
 ;; ── vital reflex: actually run the suite ─────────────────────────────────────
 
 (defn- run-suite
-  "Execute ./run_tests.sh with a wall-clock budget. :green | :red | :absent |
-   :timeout | :error — the organism's reflex test."
+  "Execute the actor's reflex test with a wall-clock budget. PREFERS the bb-native
+   run_tests.clj (repo clj/bb rule, ADR-2606072802 enforce-forward) and falls back to the
+   legacy run_tests.sh when no .clj runner exists. :green | :red | :absent | :timeout | :error."
   [actor-dir timeout-ms]
-  (let [script (io/file actor-dir "run_tests.sh")]
-    (if-not (.exists script)
+  (let [clj-runner (io/file actor-dir "run_tests.clj")
+        sh-runner  (io/file actor-dir "run_tests.sh")
+        [cmd path] (cond
+                     (.exists clj-runner) ["bb"   (.getPath clj-runner)]
+                     (.exists sh-runner)  ["bash" (.getPath sh-runner)]
+                     :else nil)]
+    (if-not path
       {:reflex :absent}
-      (let [proc (p/process {:dir "." :out :string :err :string} "bash" (.getPath script))
+      (let [proc (p/process {:dir "." :out :string :err :string} cmd path)
             res  (deref (future @proc) timeout-ms ::timeout)]
         (if (= res ::timeout)
           (do (try (p/destroy-tree proc) (catch Exception _ nil)) {:reflex :timeout})

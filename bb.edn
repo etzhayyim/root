@@ -70,6 +70,11 @@
    :task (do (require 'etzhayyim.kotoba.boundary)
              (apply (resolve 'etzhayyim.kotoba.boundary/-main) *command-line-args*))}
 
+  lint:no-new-shell
+  {:doc "Enforce-forward the clj/bb rule (root CLAUDE.md §\"Operational code = clj/bb\"): FAIL on a NEW first-party .sh under 20-actors (existing ones grandfathered in shell-baseline.edn; baseline shrinks-only). New actors ship run_tests.clj, not run_tests.sh. --update rewrites the baseline. ADR-2606072802 enforce-forward"
+   :task (do (require 'etzhayyim.lint.no-new-shell)
+             (apply (resolve 'etzhayyim.lint.no-new-shell/-main) *command-line-args*))}
+
   kotoba:ingest
   {:doc "Ingest an actor seed into the kotoba Datom log (validated, snapshotted). Args: <schema> <seed> [out] [--validate]"
    :task (do (require 'etzhayyim.kotoba.ingest)
