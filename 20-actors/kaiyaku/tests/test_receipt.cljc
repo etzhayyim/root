@@ -89,6 +89,33 @@
         (is (:ok (k/verify-chain p))))
       (finally (io/delete-file p true)))))
 
+;; ── catalog heartbeat (idempotent-by-content) ───────────────────────────────
+
+(deftest test-catalog-beat-append-then-noop
+  (let [p (tmp)]
+    (try
+      (let [b1 (receipt/catalog-beat (entries) p {:tx-id "t1" :as-of "as1"})
+            b2 (receipt/catalog-beat (entries) p {:tx-id "t2" :as-of "as2"})]
+        ;; first beat appends
+        (is (true? (:appended b1)))
+        (is (str/starts-with? (:head b1) "b"))
+        ;; second beat with identical catalog → NO-OP (idempotent-by-content)
+        (is (false? (:appended b2)))
+        (is (= :no-change (:reason b2)))
+        (is (= (:head b1) (:head b2)))           ; head unchanged
+        (is (= 1 (count (k/read-log p))))        ; still one tx
+        (is (:ok (k/verify-chain p))))
+      (finally (io/delete-file p true)))))
+
+(deftest test-catalog-beat-resume-safe
+  ;; re-running the same beat (e.g. after a crash) yields the same head — resume-safe.
+  (let [p (tmp)]
+    (try
+      (let [h1 (:head (receipt/catalog-beat (entries) p {:tx-id "t1" :as-of "as1"}))
+            h2 (:head (receipt/catalog-beat (entries) p {:tx-id "t1" :as-of "as1"}))]
+        (is (= h1 h2)))
+      (finally (io/delete-file p true)))))
+
 (defn -main [& _]
   (let [{:keys [fail error]} (run-tests 'kaiyaku.tests.test-receipt)]
     (System/exit (if (zero? (+ fail error)) 0 1))))

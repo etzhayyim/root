@@ -116,3 +116,24 @@
      Returns the tx cid."
      [descriptors log-path {:keys [tx-id as-of prev-cid] :or {prev-cid ""}}]
      (k/append-tx (k/make-tx (receipt-datoms descriptors as-of) tx-id as-of prev-cid) log-path)))
+
+#?(:clj
+   (defn catalog-beat
+     "IDEMPOTENT-BY-CONTENT catalog heartbeat (the autorun.cljc/beat pattern,
+     ADR-2605262130 commit-DAG). Persists the catalog GROUND datoms to a DEDICATED
+     catalog log; if the datoms equal the last beat's, the beat is a NO-OP (nothing
+     appended). Deterministic (caller supplies tx-id + as-of) → resume-safe: a
+     crash mid-beat re-runs to a byte-identical head. Use a catalog-only log-path
+     (a mixed log would break the last-tx comparison).
+
+     Returns {:head <cid> :count <n> :appended <bool> :reason <kw|nil>}."
+     [entries log-path {:keys [tx-id as-of]}]
+     (let [ds (catalog-datoms entries)
+           prev (k/head-cid log-path)
+           last-ds (let [txs (k/read-log log-path)]
+                     (when (seq txs) (get (last txs) ":tx/datoms")))
+           base {:count (count ds)}]
+       (if (= ds last-ds)
+         (assoc base :head prev :appended false :reason :no-change)
+         (let [head (k/append-tx (k/make-tx ds tx-id as-of prev) log-path)]
+           (assoc base :head head :appended true :reason nil))))))
