@@ -15,7 +15,8 @@
   {:actor "tsumugi"  :since "2026-06-21" :note "power-entity 取-concentration mirror → RELEASE is its negentropy export"}
   {:actor "shionome" :since "2026-06-21" :note "cross-asset capital-flow observatory — flow is literally its substrate"}
   {:actor "kaname"   :since "2026-06-21" :note "system-of-systems leverage synthesizer — IE-flow over the multiplex graph"}
-  {:actor "okaimono" :since "2026-06-21" :note "provisioning commons — checkout flow, value returned to members"}]
+  {:actor "okaimono" :since "2026-06-21" :note "provisioning commons — checkout flow, value returned to members"}
+  {:actor "kafun"    :since "2026-06-21" :note "花粉撲滅 remediation — RECTIFIES scattered pollen-burden (disorder) into prioritized restoration order; verdict sinks feed sanae/inochi/musubi/kamado (the SoS); energy-flow viz at 20-actors/kafun/viz/energy-flow.html (ADR-2606212030)"}]
  :measured-sources
  [{:name "repo-git" :source :git :note "the monorepo measuring its OWN development metabolism (commit = energy-transfer event); flow.kotoba.edn + ingest-provenance.json committed"}]
  :rollout

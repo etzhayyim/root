@@ -59,11 +59,28 @@ methods/kafun_edn.cljc    loader + classify
 methods/remediate.cljc    pollen-burden → verdict → assess → render-datoms → render-report (+ bb CLI)
 methods/kotoba.cljc       持続永続化: content-addressed append-only REMEDIATION LEDGER
 methods/autorun.cljc      持続永続化: deterministic, idempotent-by-content heartbeat (+ bb CLI)
-methods/test_*.cljc       loader + gate verdicts/refusal invariants + ledger + heartbeat
+methods/ie_flow.cljc      SoS: embeds shared etzhayyim.ie-flow.metrics + energy-flow viz generator (+ bb CLI)
+methods/test_*.cljc       loader + gate + ledger + heartbeat + ie-flow invariants
 kotoba/ontology.kafun.edn EAVT schema + enums + refuse-reasons + negative space
 kotoba/seed.edn           12 synthetic stands spanning all verdicts
+viz/energy-flow.html      generated, self-contained energy-flow visualization (ie · SoS)
 data/ (gitignored)        generated remediation ledger — never committed/hand-edited
 manifest.edn              gates G1–G8 + non-goals N1–N5
+```
+
+## ie-flow / energy-flow (system of systems) — ADR-2606212030
+
+kafun embeds the SHARED `etzhayyim.ie-flow.metrics` (order calculus, not a fork). It is a
+**RECTIFIER (整流)**: scattered pollen-burden (散在 disorder) → prioritized restoration order.
+`order-index = 1 − H(value)/H(volume)` (整流度), `η = exported ÷ consumed` (共生軸). Verdict sinks
+feed downstream actors (sanae/inochi/musubi/kamado) = the **system of systems**. The
+visualization `viz/energy-flow.html` (self-contained canvas Sankey, generated from the model)
+shows the transfer. Synthetic-seed: order-index **0.320** (H 2.307→1.569), η **6.58×**, net-gain
+**+133.9**, non-parasitic. kafun moves INFORMATION-energy only (assessment-only; never forestry).
+
+```bash
+bb -cp "20-actors:70-tools/src:20-actors/kotodama/src" 20-actors/kafun/methods/ie_flow.cljc
+open 20-actors/kafun/viz/energy-flow.html
 ```
 
 ## Run
