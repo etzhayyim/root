@@ -64,16 +64,24 @@
 
 ;; ── authorization descriptor → RECEIPT datoms (:kaiyaku.receipt/*) ──────────
 
-(def ^:private secret-shaped
-  "Keys/tokens that must NEVER appear in a receipt value (no-server-key)."
-  #{"cacao_b64" "cacao" "sig" "signature" "private" "seed" "secret" "key"})
+(def ^:private secret-tokens
+  "Unambiguous credential markers that must NEVER appear in a receipt value
+  (no-server-key). Kept PRECISE — short ambiguous substrings like 'seed' / 'key'
+  are NOT here, because they false-positive on benign content (an as-of stamp, a
+  service named 'Keychain'). The real threat — a stored capability/signature — is
+  a long opaque token, caught by the base64 heuristic below."
+  #{"cacao_b64" "cacao_" "private_key" "privatekey" "secret_key" "secretkey"
+    "-----begin" "ed25519_seed"})
 
 (defn- assert-no-secret!
   "A receipt value must not be (or contain) a credential. Defence in depth — the
-  descriptor doesn't carry one, but a future field must not smuggle one in."
+  descriptor doesn't carry one, but a future field must not smuggle one in. Flags
+  an unambiguous credential token OR a long base64-ish opaque blob (a signature /
+  CACAO bytes), while letting benign short text through."
   [v]
   (let [s (str/lower-case (str v))]
-    (when (some #(str/includes? s %) secret-shaped)
+    (when (or (some #(str/includes? s %) secret-tokens)
+              (re-find #"[A-Za-z0-9+/]{40,}={0,2}" (str v)))   ; long opaque base64 (sig/CACAO)
       (throw (ex-info (str "G3/no-server-key: a receipt value looks credential-shaped: " (pr-str v))
                       {:gate :G3 :value v}))))
   v)

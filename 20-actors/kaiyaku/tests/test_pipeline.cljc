@@ -131,6 +131,27 @@
     (is (clojure.string/includes? md "理由:"))
     (is (clojure.string/includes? md "allowlist"))))
 
+(deftest test-run-seed-all-refused-honestly
+  ;; the committed synthetic seed, run with NO capability → every severable tie is refused.
+  (let [r (pipeline/run-seed actor-dir)]
+    (is (pos? (count (:descriptors r))))
+    (is (every? #(= ":refused" (get % "status")) (:descriptors r)))
+    (is (empty? (:severed r)))
+    (is (empty? (:serviceops r)))                ; nothing authorized → no karakuri op
+    ;; the report is honest about it
+    (let [md (pipeline/member-report r)]
+      (is (clojure.string/includes? md "認可(dry-run) 0件")))))
+
+(deftest test-run-seed-with-capability-authorizes
+  ;; provide a capability approving a seed svc that is severable → it authorizes.
+  (let [seed-svc "svc:saas-c"   ; api :available → T1, paid+low-usage → :sever in the seed
+        b {"cacao_b64" "opaque" "aud" "did:web:etzhayyim.com" "capability" "service:cancel"
+           "graph" "graph:kaiyaku" "exp" 9999999999 "nonce" "n" "approved" [seed-svc]}
+        r (pipeline/run-seed actor-dir :bundle b :now-epoch 1000 :as-of "T0")
+        by-svc (into {} (map (juxt #(get % "svc") identity) (:descriptors r)))]
+    (when (contains? by-svc seed-svc)            ; seed contains this severable tie
+      (is (true? (get (by-svc seed-svc) "authorized"))))))
+
 (defn -main [& _]
   (let [{:keys [fail error]} (run-tests 'kaiyaku.tests.test-pipeline)]
     (System/exit (if (zero? (+ fail error)) 0 1))))

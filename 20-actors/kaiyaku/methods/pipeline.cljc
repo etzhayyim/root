@@ -21,6 +21,7 @@
   supplies :now-epoch + :as-of (no wall clock). Pure except the receipt persist
   edge. Portable .cljc."
   (:require [clojure.string :as str]
+            #?(:clj [clojure.java.io :as io])
             [kaiyaku.methods.analyze :as analyze]
             [kaiyaku.methods.plan :as plan]
             [kaiyaku.methods.catalog :as catalog]
@@ -108,3 +109,33 @@
            cid (receipt/persist-receipts! (:descriptors r) log-path
                                           {:tx-id tx-id :as-of as-of :prev-cid prev-cid})]
        (assoc r :receipt-cid cid))))
+
+#?(:clj
+   (defn run-seed
+     "Run the pipeline over the committed SYNTHETIC seed ledger + the real catalog.
+     With no capability (the default CLI demo), every severable tie is REFUSED —
+     honestly: kaiyaku surfaces what it WOULD sever and that nothing is authorized
+     without a member-presented capability. Returns the run result."
+     [actor-dir & {:keys [bundle now-epoch as-of] :or {now-epoch 0 as-of "seed"}}]
+     (let [{:keys [nodes edges]} (analyze/load-file*
+                                  (io/file actor-dir "data" "seed-en-ledger.kotoba.edn"))
+           cat (catalog/by-id (catalog/load-file*
+                               (io/file actor-dir "data" "cancel-procedures.kotoba.edn")))]
+       (run {:nodes nodes :edges edges :catalog cat
+             :bundle bundle :now-epoch now-epoch :as-of as-of}))))
+
+#?(:clj
+   (defn -main
+     "CLI: run the pipeline over the seed (no capability) → out/pipeline-member-report.md.
+     File I/O at the edge; the run itself does no network I/O (dry-run, G6)."
+     [& _]
+     (let [actor-dir (-> *file* io/file .getParentFile .getParentFile)
+           r (run-seed actor-dir)
+           outdir (io/file actor-dir "out")
+           refused (count (filter #(= ":refused" (get % "status")) (:descriptors r)))]
+       (.mkdirs outdir)
+       (spit (io/file outdir "pipeline-member-report.md") (member-report r))
+       (println (str "kaiyaku pipeline (seed · no capability → all refused honestly): "
+                     (count (:descriptors r)) " severable ties, " refused " refused → "
+                     (io/file outdir "pipeline-member-report.md")))
+       0)))

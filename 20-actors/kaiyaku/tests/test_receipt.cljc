@@ -67,6 +67,20 @@
     (is (not (str/includes? joined "cacao")))
     (is (not (str/includes? joined "signature")))))
 
+(deftest test-no-secret-guard-no-false-positives
+  ;; the guard is PRECISE: benign content with substrings like 'seed'/'key' passes,
+  ;; while real credential blobs are refused.
+  (let [benign [{"svc" "keychain-app" "authorized" true "status" ":authorized-dry-run"
+                 "authorized_by" "member"}]
+        ;; an as-of stamp literally 'seed' must NOT trip the guard
+        ds (receipt/receipt-datoms benign "seed")]
+    (is (pos? (count ds))))
+  ;; a long opaque base64 blob (a signature / CACAO) IS refused
+  (is (thrown? clojure.lang.ExceptionInfo
+               (receipt/receipt-datoms
+                [{"svc" "a" "authorized" true
+                  "status" (apply str (repeat 50 "A"))}] "T0"))))
+
 (deftest test-no-person-keys
   ;; N1 — a receipt is keyed on a service, never a person.
   (let [ds (receipt/receipt-datoms descriptors "T0")]
