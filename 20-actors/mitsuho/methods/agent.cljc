@@ -1,6 +1,6 @@
 #!/usr/bin/env bb
 ;; Working Clojure port of py/agent.py (mitsuho food & agriculture actor).
-(ns mitsuho.py.agent
+(ns mitsuho.methods.agent
   "mitsuho 瑞穂 — food & agriculture langgraph actor (kotoba WASM cell).
 
   ADR-2605261015, R0 scaffold. Runs in-WASM on kotoba :8077. Handlers over the

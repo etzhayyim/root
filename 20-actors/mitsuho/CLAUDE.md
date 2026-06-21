@@ -78,20 +78,20 @@ All R0 cells raise `RuntimeError("mitsuho R0 scaffold: activate via Council ADR 
 
 ## Build & Deploy
 
-**R0 status**: Scaffold only. No live agriculture. All cells raise RuntimeError on `.solve()`.
+**R0 status**: Scaffold only. No live agriculture. All cells raise on `solve` (no live actuation).
 
-**Smoke test**:
+mitsuho is fully ported py→cljc (ADR-2605261015 / 2606160842): the canonical impl is
+clojure-on-babashka — the agent handlers (`methods/agent.cljc`), the constitutional-gate
+suite (`methods/test_charter_gates.cljc`), and the 6 R0 cell scaffolds
+(`cells/<name>/cell.cljc`, each `solve` raises until Council activation). The legacy
+Python (`py/agent.py`, the 6 `cells/<name>/cell.py`, the `test_*.py`) was pruned once
+the clj port reached parity (py↔clj deep-parity was verified before removal).
+
+**Test**:
 ```bash
 cd 20-actors/mitsuho
-python -c "from mitsuho.cells.field_cultivation import FieldCultivationCell; assert FieldCultivationCell"
-python -c "from mitsuho.cells.aquaculture import AquacultureCell; assert AquacultureCell"
-python -c "from mitsuho.cells.alt_protein_fermentation import AltProteinFermentationCell; assert AltProteinFermentationCell"
-python -c "from mitsuho.cells.harvest_robotics import HarvestRoboticsCell; assert HarvestRoboticsCell"
-python -c "from mitsuho.cells.food_preservation import FoodPreservationCell; assert FoodPreservationCell"
-python -c "from mitsuho.cells.autonomous_mobile import AutonomousMobileCell; assert AutonomousMobileCell"
+./run_tests.sh           # cljc-only: methods.test-agent + methods.test-charter-gates + cells.test-cells
 ```
-
-All imports pass; `.solve()` raises RuntimeError.
 
 ## Related Files
 
