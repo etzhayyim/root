@@ -133,31 +133,59 @@
                  :drive drive :regime regime :hypothesis? true)))
    loops))
 
+;; DISCLOSED leverage-scoring weights (public + auditable, like the score itself —
+;; a candidate's rank is explainable, never a black box; G11 transparency).
+(def leverage-weights
+  {:amplify {:depth 0.6 :magnitude 0.4}            ;; deeper Meadows level + bigger narrowing pull
+   :flip    {:tractability 0.5 :effective 0.5}})    ;; easier to flip + bigger widening pull
+(def tractability-score {:statutory 3 :institutional 2 :constitutional 1 :cultural 1 :entrenched 0})
+
+(defn amplify-score
+  "Disclosed score for a NARROWING candidate worth amplifying. Returns {:score :components}."
+  [i]
+  (let [depth (/ (- 13 (double (:meadows i))) 12.0)     ;; 0..1, deeper level → higher
+        mag (double (or (:magnitude i) 0))
+        w (:amplify leverage-weights)
+        score (+ (* (:depth w) depth) (* (:magnitude w) mag))]
+    {:score (round3 score)
+     :components {:depth (round3 depth) :magnitude (round3 mag) :weights w}}))
+
+(defn flip-score
+  "Disclosed score for a WIDENING candidate where a loop could flip. {:score :components}."
+  [i]
+  (let [tract (/ (double (get tractability-score (:reversibility i) 0)) 3.0)  ;; 0..1
+        eff (* (double (or (:magnitude i) 0)) (double (or (:confidence i) 1.0)))
+        w (:flip leverage-weights)
+        score (+ (* (:tractability w) tract) (* (:effective w) eff))]
+    {:score (round3 score)
+     :components {:tractability (round3 tract) :effective (round3 eff) :weights w}}))
+
 (defn leverage-candidates
   "Meadows leverage CANDIDATES (G11 prescription? false): the deepest-leverage
   NARROWING instruments already pushing toward balance (amplify-worthy), and the
   highest-magnitude WIDENING instruments whose reversibility is most tractable
-  (where a loop could flip). Candidates WITH uncertainty — never directives."
+  (where a loop could flip). Each candidate carries a DISCLOSED :score + :components
+  so the rank is auditable (transparency, not a directive). Candidates WITH
+  uncertainty — never directives."
   [instruments]
   (let [narrowers (->> instruments
                        (filter #(= :narrow (:polarity %)))
-                       (sort-by (fn [i] [(:meadows i) (- (double (or (:magnitude i) 0)))]))
-                       (take 6)
-                       (mapv (fn [i] {:id (:id i) :name (:name i) :jurisdiction (:jurisdiction i)
-                                      :stock (:stock i) :meadows (:meadows i)
-                                      :role :amplify-narrowing :prescription? false})))
-        tractable {:statutory 3 :institutional 2 :constitutional 1 :cultural 1 :entrenched 0}
+                       (map (fn [i] (merge {:id (:id i) :name (:name i) :jurisdiction (:jurisdiction i)
+                                            :stock (:stock i) :meadows (:meadows i)
+                                            :role :amplify-narrowing :prescription? false}
+                                           (amplify-score i))))
+                       (sort-by #(- (:score %)))
+                       (take 6) vec)
         wideners (->> instruments
                       (filter #(= :widen (:polarity %)))
-                      (sort-by (fn [i] [(- (get tractable (:reversibility i) 0))
-                                        (- (* (double (or (:magnitude i) 0))
-                                              (double (or (:confidence i) 1.0))))]))
-                      (take 6)
-                      (mapv (fn [i] {:id (:id i) :name (:name i) :jurisdiction (:jurisdiction i)
-                                     :stock (:stock i) :meadows (:meadows i)
-                                     :reversibility (:reversibility i)
-                                     :role :flip-widening :prescription? false})))]
-    {:amplify narrowers :flip wideners :prescription? false}))
+                      (map (fn [i] (merge {:id (:id i) :name (:name i) :jurisdiction (:jurisdiction i)
+                                           :stock (:stock i) :meadows (:meadows i)
+                                           :reversibility (:reversibility i)
+                                           :role :flip-widening :prescription? false}
+                                          (flip-score i))))
+                      (sort-by #(- (:score %)))
+                      (take 6) vec)]
+    {:amplify narrowers :flip wideners :weights leverage-weights :prescription? false}))
 
 ;; ── continental region map (for coverage balance; coarse + uncontroversial) ──
 (def jurisdiction-region
@@ -169,7 +197,8 @@
    ;; Americas
    "US" :americas "BR" :americas "MX" :americas "CL" :americas "AR" :americas
    "VE" :americas "CU" :americas "CO" :americas "PE" :americas "BO" :americas
-   "NI" :americas "CR" :americas "UY" :americas
+   "NI" :americas "CR" :americas "UY" :americas "CA" :americas "SV" :americas
+   "HN" :americas "GT" :americas "HT" :americas "EC" :americas
    ;; Asia (incl. Middle East / Central / South / SE / East)
    "CN" :asia "KP" :asia "IN" :asia "ID" :asia "TH" :asia "PH" :asia "PK" :asia
    "VN" :asia "BD" :asia "KH" :asia "TM" :asia "AZ" :asia "KZ" :asia "LK" :asia
@@ -180,9 +209,13 @@
    ;; Europe
    "GB" :europe "EU" :europe "DE" :europe "FR" :europe "IT" :europe "HU" :europe
    "PL" :europe "SE" :europe "NO" :europe "CH" :europe "RS" :europe "BA" :europe
-   "RU" :europe "BY" :europe
+   "RU" :europe "BY" :europe "EE" :europe "IS" :europe "IE" :europe "AL" :europe
+   "GR" :europe
    ;; Oceania
-   "NZ" :oceania "AU" :oceania "FJ" :oceania
+   "NZ" :oceania "AU" :oceania "FJ" :oceania "PG" :oceania "WS" :oceania
+   "TO" :oceania "VU" :oceania
+   ;; Asia (Timor-Leste)
+   "TL" :asia
    ;; transnational
    "GLOBAL" :transnational "UN" :transnational})
 
@@ -396,14 +429,17 @@
                       " | " (:widen-force e) " | " (:narrow-force e)
                       " | " (:net e) " |")))
      "\n\n## Meadows leverage CANDIDATES (G11 — candidates, never directives)\n\n"
+     "_scores are DISCLOSED + weighted (amplify = 0.6·depth + 0.4·magnitude; flip = "
+     "0.5·tractability + 0.5·magnitude·confidence) — the rank is auditable, not a directive._\n\n"
      "**増幅候補 (既に是正方向に働く深いレバレッジ instrument):**\n"
      (str/join "\n" (for [c (get-in analysis ["leverage" :amplify])]
-                      (str "- L" (:meadows c) " · " (:name c) " (" (:jurisdiction c) ", "
-                           (name (:stock c)) ")")))
+                      (str "- [" (:score c) "] L" (:meadows c) " · " (:name c) " ("
+                           (:jurisdiction c) ", " (name (:stock c)) ")")))
      "\n\n**反転候補 (非対称を広げており、最も是正余地のある instrument):**\n"
      (str/join "\n" (for [c (get-in analysis ["leverage" :flip])]
-                      (str "- L" (:meadows c) " · " (:name c) " (" (:jurisdiction c) ", "
-                           (name (:stock c)) ", reversibility=" (name (or (:reversibility c) :-)) ")")))
+                      (str "- [" (:score c) "] L" (:meadows c) " · " (:name c) " ("
+                           (:jurisdiction c) ", " (name (:stock c))
+                           ", reversibility=" (name (or (:reversibility c) :-)) ")")))
      "\n\n## Coverage worklist (next /loop iterations)\n\n"
      (str/join "\n" (map #(str "- " %) (:worklist cov)))
      "\n\n_findings are append-only; surfacing beyond Council is performed by ossekai/kataribe on junkan's behalf, never by junkan (G13). actuation_taken=false throughout._\n")))

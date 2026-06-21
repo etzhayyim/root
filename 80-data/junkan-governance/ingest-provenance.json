@@ -14,23 +14,24 @@
     "report.md"
   ],
   "regenerate": "bb --classpath 20-actors -e \"(require '[junkan.methods.junkan-edn :as je] '[junkan.methods.analyze :as az] '[junkan.methods.kotoba :as k]) (let [is (je/instruments \\\"20-actors/junkan/kotoba/seed.governance-asymmetry.edn\\\") a (az/analyze is) ds (az/datoms is a) tx (k/make-tx ds \\\"junkan-gov-snapshot-0001\\\" \\\"snapshot\\\" \\\"\\\")] (spit \\\"80-data/junkan-governance/governance-asymmetry.datoms.kotoba.edn\\\" (az/render-datoms is a)) (spit \\\"80-data/junkan-governance/findings-ledger.kotoba.edn\\\" (k/tx->edn tx)) (spit \\\"80-data/junkan-governance/report.md\\\" (az/render-report a)))\"",
-  "tx_cid": "b13f8cf77296a399faf0944e8671488dc5f69517157f8fef4f2819b83f67d9e8f",
-  "datoms": 1963,
-  "instruments": 133,
-  "jurisdictions": 92,
-  "regions": {"asia": 41, "africa": 19, "europe": 14, "americas": 13, "oceania": 3, "transnational": 2},
-  "kinds": {"law": 51, "institution": 59, "doctrine": 19, "value": 4},
+  "tx_cid": "b72b68416f8531073028dc068be43df8b9f3a29b0390cc392eda84d40f9179337",
+  "datoms": 2187,
+  "instruments": 149,
+  "jurisdictions": 108,
+  "regions": {"asia": 42, "europe": 19, "africa": 19, "americas": 19, "oceania": 7, "transnational": 2},
+  "kinds": {"law": 52, "institution": 71, "doctrine": 22, "value": 4},
   "tx_cid_note": "tx-cid reproducible byte-for-byte from the seed (deterministic content-address); changes only when the seed changes.",
   "sourcing": "representative (laws/years/enactors/origins are on-the-record public facts; polarity/magnitude/confidence are junkan's disclosed hypotheses, G5)",
   "discipline": "G4 analysis-only / G5 hypothesis-only / G6 aggregate-only / G7 map-not-rank / G11 candidates-not-directives",
   "as_of": "2026-06-21",
-  "iteration": 6,
+  "iteration": 7,
   "iteration_history": [
     {"iteration": 1, "instruments": 35, "jurisdictions": 17, "tx_cid": "bb4be4ac091ae9cc9be30c732d2fc78f773afabea84d6deccb96b784576a1d814"},
     {"iteration": 2, "instruments": 59, "jurisdictions": 31, "note": "Global South / under-represented wave: BR MX ZA NG ID TR IR PH PK VN KE TN CL TW"},
     {"iteration": 3, "instruments": 80, "jurisdictions": 43, "note": "DE FR KR AU AR MM CU BY VE BD IT + GLOBAL values; economic-capture depth; first :value-kind (思想・価値観) instruments; + era-trajectory temporal analytic"},
     {"iteration": 4, "instruments": 98, "jurisdictions": 58, "note": "Gulf/Africa/C.Asia/E.Europe/S.Asia wave: QA AE KZ ET RW UG ZW KH TM AZ PL IL LK MA NP; + query.cljc EAVT/AVET/VAET arrangement queries over the datoms"},
     {"iteration": 5, "instruments": 115, "jurisdictions": 74, "note": "Latin America / sub-Saharan Africa / MENA / Pacific wave: CO PE BO NI GH TZ AO IQ SY AF FJ MN CR UY BW DZ + nationalism value; + loop regimes grounded in member-stock edges (joint drive, not dominant alone)"},
-    {"iteration": 6, "instruments": 133, "jurisdictions": 92, "note": "Central Asia / Balkans / Levant & Gulf / Sahel & S.Africa / SE Asia wave: UZ KG TJ RS BA JO LB KW BH OM SD ML ZM SN LA BT BN MV; + continental region coverage (all 5 continents mapped, balance + gap detection in analyze/coverage)"}
+    {"iteration": 6, "instruments": 133, "jurisdictions": 92, "note": "Central Asia / Balkans / Levant & Gulf / Sahel & S.Africa / SE Asia wave: UZ KG TJ RS BA JO LB KW BH OM SD ML ZM SN LA BT BN MV; + continental region coverage (all 5 continents mapped, balance + gap detection in analyze/coverage)"},
+    {"iteration": 7, "instruments": 149, "jurisdictions": 108, "note": "Thin-continent reinforcement: Pacific (PG WS TO VU TL) + Americas (CA SV HN GT HT EC) + small European democracies (EE IS IE AL GR); + transparent leverage scoring (disclosed weights + per-candidate score/components, auditable rank). Continents balanced: asia 42 / europe 19 / africa 19 / americas 19 / oceania 7"}
   ]
 }

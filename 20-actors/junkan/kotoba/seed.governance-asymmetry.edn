@@ -1010,4 +1010,137 @@
   :stakeholders ["Special Majlis" "Elections Commission" "parties" "citizens"]
   :stock :participation-barrier :polarity :narrow :magnitude 0.55 :reversibility :constitutional :meadows 4
   :basis "Constitution of the Maldives (2008)" :sourcing :representative :confidence 0.45}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 7 — Pacific (PG WS TO VU TL) / Americas (CA SV HN GT HT EC) /
+ ;; small European democracies (EE IS IE AL GR) — strengthen thin continents
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── Papua New Guinea ──
+ {:type :instrument :id "pg-westminster" :name "Westminster parliament (limited-preferential vote)" :jurisdiction "PG" :kind :institution :year 1975
+  :enactor "Independent State of Papua New Guinea (1975 Constitution)"
+  :origin "A working multiparty parliament with limited-preferential voting, but chronic no-confidence churn and weak parties dilute citizen control between elections — participation exists yet is unstable."
+  :stakeholders ["National Parliament" "parties" "Electoral Commission" "citizens"]
+  :stock :participation-barrier :polarity :ambiguous :magnitude 0.4 :reversibility :institutional :meadows 4
+  :basis "Constitution of PNG (1975)" :sourcing :representative :confidence 0.4}
+
+ ;; ── Samoa ──
+ {:type :instrument :id "ws-2021-constitutional-crisis" :name "2021 constitutional crisis (courts uphold election)" :jurisdiction "WS" :kind :institution :year 2021
+  :enactor "Samoan judiciary + Electoral Commission"
+  :origin "After a contested 2021 election the courts upheld the result and enabled the first peaceful transfer of power in decades despite the incumbent's resistance — courts checking executive overreach, narrowing the participation gap."
+  :stakeholders ["Supreme Court" "FAST party" "incumbent (HRPP)" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.55 :reversibility :institutional :meadows 8
+  :basis "2021 Samoan constitutional crisis" :sourcing :representative :confidence 0.45}
+
+ ;; ── Tonga ──
+ {:type :instrument :id "to-2010-reform" :name "2010 democratic reforms" :jurisdiction "TO" :kind :institution :year 2010
+  :enactor "King of Tonga + Legislative Assembly"
+  :origin "Reforms shifted a majority of legislative seats to popularly elected representatives (from noble/royal appointees), a monarch-conceded broadening of citizen participation."
+  :stakeholders ["monarchy" "nobles" "elected representatives" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.5 :reversibility :constitutional :meadows 4
+  :basis "2010 Tongan constitutional reforms" :sourcing :representative :confidence 0.45}
+
+ ;; ── Vanuatu ──
+ {:type :instrument :id "vu-parliamentary-democracy" :name "Parliamentary democracy (Westminster)" :jurisdiction "VU" :kind :institution :year 1980
+  :enactor "Republic of Vanuatu (independence Constitution)"
+  :origin "A functioning multiparty democracy with regular elections since independence; frequent government turnover prompted a 2023 anti-defection amendment to stabilize mandates — participation is real if volatile."
+  :stakeholders ["Parliament" "parties" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.45 :reversibility :institutional :meadows 4
+  :basis "Constitution of Vanuatu (1980); 2023 amendment" :sourcing :representative :confidence 0.4}
+
+ ;; ── Timor-Leste ──
+ {:type :instrument :id "tl-independence-2002" :name "2002 Constitution (post-independence democracy)" :jurisdiction "TL" :kind :doctrine :year 2002
+  :enactor "Constituent Assembly of Timor-Leste (after UN-administered transition)"
+  :origin "Founded Asia's youngest democracy with regular peaceful elections and high turnout; a robust participation channel built directly out of the independence struggle."
+  :stakeholders ["Constituent Assembly" "CNRT/Fretilin" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.55 :reversibility :constitutional :meadows 4
+  :basis "Constitution of Timor-Leste (2002)" :sourcing :representative :confidence 0.45}
+
+ ;; ── Canada ──
+ {:type :instrument :id "ca-charter-1982" :name "Canadian Charter of Rights and Freedoms" :jurisdiction "CA" :kind :doctrine :year 1982
+  :enactor "Parliament of Canada + provinces (patriation, 1982)"
+  :origin "Entrenched judicially enforceable rights in the constitution, empowering citizens to challenge state action — tempered by the s.33 'notwithstanding clause' that lets legislatures override some rights, a built-in tension."
+  :stakeholders ["Supreme Court of Canada" "Parliament/provinces" "citizens"]
+  :stock :paradigm-subordination :polarity :narrow :magnitude 0.6 :reversibility :constitutional :meadows 2
+  :basis "Constitution Act, 1982, Part I" :sourcing :representative :confidence 0.55}
+
+ ;; ── El Salvador ──
+ {:type :instrument :id "sv-bukele-exception-2022" :name "State of exception (régimen de excepción)" :jurisdiction "SV" :kind :law :year 2022
+  :enactor "Legislative Assembly (Bukele supermajority), renewed monthly"
+  :origin "A gang-crackdown emergency suspended due-process guarantees and enabled mass detention (>1% of the population), with the measure renewed continually — a sweeping, popular but rights-suspending coercion expansion."
+  :stakeholders ["presidency" "Legislative Assembly" "detainees" "courts" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.7 :reversibility :statutory :meadows 5
+  :basis "Régimen de excepción (since March 2022)" :sourcing :representative :confidence 0.5}
+
+ ;; ── Honduras ──
+ {:type :instrument :id "hn-2009-coup" :name "2009 coup d'état" :jurisdiction "HN" :kind :institution :year 2009
+  :enactor "Honduran military + Congress + Supreme Court"
+  :origin "The army removed and expelled the president amid a dispute over a referendum; Congress and the court endorsed it — a constitutional-order rupture that interrupted the citizen's elected government."
+  :stakeholders ["military" "Congress" "Supreme Court" "presidency" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.7 :reversibility :institutional :meadows 4
+  :basis "28 June 2009 Honduran coup" :sourcing :representative :confidence 0.5}
+
+ ;; ── Guatemala ──
+ {:type :instrument :id "gt-cicig" :name "CICIG anti-impunity commission (and its expulsion)" :jurisdiction "GT" :kind :institution :year 2007
+  :enactor "Guatemala + United Nations (CICIG, 2007; expelled 2019)"
+  :origin "A UN-backed commission that, with prosecutors, dismantled corruption networks and even toppled a sitting president (2015) — a powerful accountability mechanism, until the government expelled it in 2019, a reversal of the gain."
+  :stakeholders ["CICIG" "Public Ministry" "elites" "citizens"]
+  :stock :economic-capture :polarity :narrow :magnitude 0.55 :reversibility :institutional :meadows 4
+  :basis "CICIG mandate (2007–2019)" :sourcing :representative :confidence 0.5}
+
+ ;; ── Haiti ──
+ {:type :instrument :id "ht-state-collapse" :name "State collapse + unelected governance" :jurisdiction "HT" :kind :institution :year 2021
+  :enactor "Haitian state (post-assassination vacuum, 2021–)"
+  :origin "After the 2021 presidential assassination, elections lapsed, parliament emptied, and gang control spread; with no elected officials remaining, citizens have no functioning electoral channel — asymmetry by state failure rather than by design."
+  :stakeholders ["transitional council" "armed groups" "international actors" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.85 :reversibility :institutional :meadows 4
+  :basis "Post-2021 Haitian governance vacuum" :sourcing :representative :confidence 0.45}
+
+ ;; ── Ecuador ──
+ {:type :instrument :id "ec-2008-constitution" :name "2008 Constitution (Montecristi)" :jurisdiction "EC" :kind :doctrine :year 2008
+  :enactor "Constituent Assembly of Ecuador; 2008 referendum"
+  :origin "Expanded social and nature ('rights of nature') guarantees and participatory mechanisms; later concentrated executive power and re-election disputes (and a 2023 'muerte cruzada' dissolution) made its participation effect mixed."
+  :stakeholders ["Constituent Assembly" "Constitutional Court" "citizens"]
+  :stock :participation-barrier :polarity :ambiguous :magnitude 0.45 :reversibility :constitutional :meadows 4
+  :basis "Constitution of Ecuador (2008)" :sourcing :representative :confidence 0.45}
+
+ ;; ── Estonia ──
+ {:type :instrument :id "ee-i-voting-2005" :name "Nationwide internet voting (i-Hääletamine)" :jurisdiction "EE" :kind :institution :year 2005
+  :enactor "Republic of Estonia (National Electoral Committee)"
+  :origin "The first country to offer binding internet voting in nationwide elections, lowering participation costs via the digital-ID infrastructure — a concrete widening of accessible citizen participation."
+  :stakeholders ["National Electoral Committee" "e-Estonia digital ID" "voters"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.55 :reversibility :institutional :meadows 6
+  :basis "Estonian i-voting (since 2005)" :sourcing :representative :confidence 0.5}
+
+ ;; ── Iceland ──
+ {:type :instrument :id "is-crowdsourced-constitution-2012" :name "Crowdsourced constitution process" :jurisdiction "IS" :kind :institution :year 2012
+  :enactor "Constitutional Council + public (post-2008-crash citizen process)"
+  :origin "After the financial crash, a randomly-sampled forum and an elected council drafted a new constitution with open public input, approved in a 2012 advisory referendum — a landmark in participatory constitution-making (though parliament never enacted it)."
+  :stakeholders ["Constitutional Council" "citizens" "Althingi (parliament)"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.5 :reversibility :institutional :meadows 4
+  :basis "Icelandic constitutional reform (2010–2013)" :sourcing :representative :confidence 0.45}
+
+ ;; ── Ireland ──
+ {:type :instrument :id "ie-citizens-assembly" :name "Citizens' Assembly → referendums" :jurisdiction "IE" :kind :institution :year 2016
+  :enactor "Oireachtas (Irish parliament) establishing deliberative assemblies"
+  :origin "Randomly-selected citizens' assemblies deliberated divisive issues (marriage, abortion) and their recommendations went to binding referendums — a deliberative-democracy innovation that gave ordinary citizens agenda-setting power."
+  :stakeholders ["Citizens' Assembly" "Oireachtas" "electorate"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.55 :reversibility :institutional :meadows 4
+  :basis "Irish Citizens' Assembly (2016–); 2015/2018 referendums" :sourcing :representative :confidence 0.5}
+
+ ;; ── Albania ──
+ {:type :instrument :id "al-democratization-1991" :name "End of one-party rule (1991)" :jurisdiction "AL" :kind :institution :year 1991
+  :enactor "Albanian state + opposition (after Hoxhaist isolation)"
+  :origin "Ended one of Europe's most closed Stalinist states, legalizing parties and holding multiparty elections; the transition was turbulent (1997 collapse) but opened a citizen participation channel where none existed."
+  :stakeholders ["Democratic Party" "former communist authorities" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.55 :reversibility :institutional :meadows 4
+  :basis "Albanian transition (1991)" :sourcing :representative :confidence 0.45}
+
+ ;; ── Greece ──
+ {:type :instrument :id "gr-metapolitefsi-1974" :name "Metapolitefsi (1974 democratic restoration)" :jurisdiction "GR" :kind :institution :year 1974
+  :enactor "Greek state + Konstantinos Karamanlis government (after the junta's fall)"
+  :origin "The collapse of the 1967–74 military junta restored democracy, legalized parties (including the long-banned communists), and a referendum abolished the monarchy — a decisive reopening of citizen participation."
+  :stakeholders ["civilian government" "political parties" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.6 :reversibility :constitutional :meadows 4
+  :basis "Greek Metapolitefsi (1974); 1975 Constitution" :sourcing :representative :confidence 0.5}
 ]

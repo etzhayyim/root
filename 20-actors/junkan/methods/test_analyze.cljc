@@ -81,6 +81,28 @@
     (doseq [c (concat (:amplify lev) (:flip lev))]
       (is (= false (:prescription? c)) "each candidate prescription? false"))))
 
+;; ── transparent leverage scoring (auditable, disclosed weights) ──────────────
+(deftest leverage-scores-disclosed
+  (let [lev (get (a) "leverage")]
+    (is (contains? lev :weights) "weights disclosed at bundle level")
+    (doseq [c (concat (:amplify lev) (:flip lev))]
+      (is (number? (:score c)) "every candidate has a numeric score")
+      (is (contains? c :components) "every candidate discloses its score components")
+      (is (contains? (:components c) :weights) "components disclose the weights used"))
+    ;; candidates are sorted by score descending within each list
+    (let [as (map :score (:amplify lev))
+          fs (map :score (:flip lev))]
+      (is (= as (reverse (sort as))) "amplify candidates ranked by score")
+      (is (= fs (reverse (sort fs))) "flip candidates ranked by score"))))
+
+(deftest leverage-score-math
+  ;; amplify: 0.6·depth + 0.4·magnitude ; depth=(13-meadows)/12 = 1.0 at L1
+  (let [s (az/amplify-score {:meadows 1 :magnitude 0.8})]
+    (is (= 0.92 (:score s)) "0.6·1.0 + 0.4·0.8 = 0.92"))
+  ;; flip: 0.5·(tract/3) + 0.5·mag·conf
+  (let [s (az/flip-score {:reversibility :statutory :magnitude 0.6 :confidence 1.0})]
+    (is (= 0.8 (:score s)) "0.5·(3/3) + 0.5·0.6 = 0.8")))
+
 ;; ── datom emission: flagged + person-free ────────────────────────────────────
 (deftest datoms-flagged-and-person-free
   (let [r (a)
