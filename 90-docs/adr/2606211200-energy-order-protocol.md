@@ -125,9 +125,19 @@ settled.
   approach) AND distance (≤ 5 km); greedy allocation by quality. Seed result: 4 matches,
   1138.5 kW matched, 409.0 kW surplus, 238.4 kW unmet (absorption-f by cascade, spaceheat-e
   by distance). G2 proven (infeasible pairs never match; cooling-load is not a heat sink).
-- **樋 toi / 委 yudane — R0 designed (this ADR), not yet scaffolded.** Each follows the
-  mio/tawami/okibi pattern (analyze/datoms/coverage + kotoba commit-DAG + autorun) and
-  submits claims into mio's ledger via a per-actor `claim` lexicon.
+- **樋 toi — R0 LANDED (2026-06-21).** `20-actors/toi/` clj-native (compute leg):
+  manifest + ontology (job + site kinds) + seed (6 jobs / 5 sites) + `toi_edn`/`analyze`/
+  `kotoba`/`autorun` + routing commit-DAG ledger. **21 tests / 98 assertions green**.
+  Routes deferrable compute by site-score (carbon / surplus-renewable / cooling /
+  heat-sink / transparency); Murakumo default-preferred (G2). Seed result: 5 routed,
+  1422 kgCO2 avoided, 1900 kWh waste heat reusable (→ okibi), commercial GPU unused
+  (score 0.055), pinned job stays in-place. G1 proven (no `:toi/dispatch`; map-not-job-kill).
+- **委 yudane — R0 designed (this ADR), not yet scaffolded.** The human-intention leg
+  (意味変換 / meaning-translation): consented member intention → aggregate energy
+  variables → mio claims. The most charter-sensitive actor — guarded three ways (ibuki
+  revocable-leash consent + mimamori degeneration-series unrepresentability + Rider §2(c)
+  reciprocity); claims are content-free aggregates (no `:mio.person/*`). Scaffolded last,
+  behind its consent gate; the suite is fully operational at 4/5 without it.
 
 # Consequences
 
