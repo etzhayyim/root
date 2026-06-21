@@ -111,9 +111,16 @@ settled.
   result: 15 claims → 9 verified, Flowrate 37313.778 kWh-equiv, 1 double-count rejected,
   1 leakage rejected, 4 insufficient-evidence. G1 backbone proven (no `:consumed-reward`;
   score 0 unless verified).
-- **撓 tawami / 燠 okibi / 樋 toi / 委 yudane — R0 designed (this ADR), not yet scaffolded.**
-  Each will follow the mio pattern (analyze/datoms/coverage + kotoba commit-DAG + autorun)
-  and submit claims into mio's ledger via a per-actor `claim` lexicon.
+- **撓 tawami — R0 LANDED (2026-06-21).** `20-actors/tawami/` clj-native (flexibility
+  leg): manifest + ontology + 12-asset seed (6 resource classes) + `tawami_edn`/`analyze`/
+  `kotoba`/`autorun` + flexibility commit-DAG ledger. **20 tests / 134 assertions green**.
+  Seed result: 12 assets → total flex-value 5472.6 kWh-equiv (fast-flex 3582.75 across 6).
+  flex-value = energy-capacity × availability × responsiveness × time-shift weight; each
+  asset tiered + assigned a best-use mio flow-class. G1 proven (no `:tawami/dispatch`;
+  map-not-dispatch). R1 seam = emit a 澪 mio flow-improvement claim when a flexibility is used.
+- **燠 okibi / 樋 toi / 委 yudane — R0 designed (this ADR), not yet scaffolded.** Each
+  follows the mio/tawami pattern (analyze/datoms/coverage + kotoba commit-DAG + autorun)
+  and submits claims into mio's ledger via a per-actor `claim` lexicon.
 
 # Consequences
 
