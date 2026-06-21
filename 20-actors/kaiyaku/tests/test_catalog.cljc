@@ -92,6 +92,53 @@
     (is (seq (catalog/validate-entry bad-evasion)))
     (is (seq (catalog/validate-entry bad-t2)))))
 
+;; ── enrichment (catalog → plan) ─────────────────────────────────────────────
+
+(defn- plan-for
+  "A minimal string-key plan map (the plan/build-plan shape) for svc."
+  [svc & {:keys [notice penalty] :or {notice 0 penalty 0}}]
+  {"svc" svc "svc_label" svc "tier" "T3" "recommendation" ":sever"
+   "notice_days" notice "penalty_jpy" penalty "steps" [] "mode" "dry-run"})
+
+(deftest test-enrich-plan-adds-disclosed-procedure
+  (let [bi (catalog/by-id (entries))
+        ;; netflix catalog notice/penalty are both 0 → no drift when ledger is 0/0
+        p (catalog/enrich-plan (plan-for "netflix") bi)]
+    (is (true? (get p "catalog_coverage")))
+    (is (seq (get-in p ["catalog" "self_submit_steps"])))
+    (is (= "https://help.netflix.com/ja/node/407" (get-in p ["catalog" "disclosed_source"])))
+    (is (false? (get-in p ["catalog" "operator_verified"])))
+    ;; additive: the original plan fields are untouched
+    (is (= ":sever" (get p "recommendation")))))
+
+(deftest test-enrich-plan-surfaces-g8-drift
+  ;; ledger says 0 penalty, catalog says Adobe ETF > 0 → drift must be SHOWN, never reconciled.
+  (let [bi (catalog/by-id (entries))
+        p (catalog/enrich-plan (plan-for "adobe-cc" :penalty 0) bi)]
+    (is (true? (get p "catalog_coverage")))
+    (is (pos? (get-in p ["catalog" "penalty_jpy"])))
+    (is (seq (get-in p ["catalog" "g8_drift"])))
+    (is (some #(re-find #"penalty_jpy" %) (get-in p ["catalog" "g8_drift"])))))
+
+(deftest test-enrich-plan-gap-is-honest
+  (let [bi (catalog/by-id (entries))
+        p (catalog/enrich-plan (plan-for "svc:not-in-catalog") bi)]
+    (is (false? (get p "catalog_coverage")))
+    (is (nil? (get p "catalog")))))
+
+(deftest test-coverage-of-worklist
+  (let [bi (catalog/by-id (entries))
+        cov (catalog/coverage-of ["netflix" "spotify" "svc:gym-b" "svc:video-a"] bi)]
+    (is (= 4 (:total cov)))
+    (is (= #{"netflix" "spotify"} (set (:covered cov))))
+    (is (= #{"svc:gym-b" "svc:video-a"} (set (:gaps cov))))
+    (is (= 50.0 (:pct cov))))
+  ;; the R0 synthetic seed ids never match real catalog ids → 0% (the gap is the point)
+  (let [bi (catalog/by-id (entries))
+        cov (catalog/coverage-of ["svc:video-a" "svc:gym-b"] bi)]
+    (is (= 0.0 (:pct cov)))
+    (is (empty? (:covered cov)))))
+
 (defn -main [& _]
   (let [{:keys [fail error]} (run-tests 'kaiyaku.tests.test-catalog)]
     (System/exit (if (zero? (+ fail error)) 0 1))))

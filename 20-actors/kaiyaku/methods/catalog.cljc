@@ -147,6 +147,67 @@
          "- **operator-verified: " (:operator-verified c) " / " (:total c)
          "** (G6: every entry must be operator-verified before live use)\n")))
 
+;; ── enrich a severance plan with the disclosed real procedure ───────────────
+
+(defn enrich-plan
+  "ADDITIVELY enrich a plan map (string keys, from plan/build-plan) with the
+  catalog's disclosed real procedure for its svc — WITHOUT mutating any existing
+  plan field (so plan/build-plan's byte-parity is untouched). When the plan's
+  svc has a catalog entry it gains a \"catalog\" submap carrying the disclosed
+  self-submit steps + cost-of-severance + source + the operator-verified flag;
+  otherwise it gains \"catalog_coverage\" false (the gap is surfaced, not hidden).
+
+  G8 honesty: if the catalog's disclosed notice/penalty DIFFER from the plan's
+  (ledger-sourced) values, a \"g8_drift\" note is attached — kaiyaku never
+  silently reconciles a cost-of-severance discrepancy; it shows both."
+  [plan by-id]
+  (let [svc (get plan "svc")
+        e (get by-id svc)]
+    (if-not e
+      (assoc plan "catalog_coverage" false)
+      (let [c-notice (:proc/notice-days e)
+            c-penalty (:proc/penalty-jpy e)
+            drift (cond-> []
+                    (not= c-notice (get plan "notice_days"))
+                    (conj (str "notice_days ledger=" (get plan "notice_days")
+                               " catalog=" c-notice))
+                    (not= c-penalty (get plan "penalty_jpy"))
+                    (conj (str "penalty_jpy ledger=" (get plan "penalty_jpy")
+                               " catalog=" c-penalty)))]
+        (cond-> (assoc plan
+                       "catalog_coverage" true
+                       "catalog" (array-map
+                                  "tier" (derive-tier e)
+                                  "self_submit_steps" (vec (:proc/self-submit-steps e))
+                                  "notice_days" c-notice
+                                  "penalty_jpy" c-penalty
+                                  "disclosed_source" (:proc/disclosed-source e)
+                                  "operator_verified" (:proc/operator-verified e)))
+          (seq drift) (assoc-in ["catalog" "g8_drift"] (vec drift)))))))
+
+(defn enrich-plans
+  "Enrich a vector of plans against the catalog (by-id)."
+  [plans by-id]
+  (mapv #(enrich-plan % by-id) plans))
+
+;; ── catalog coverage of a set of ledger svc-ids (the growth worklist) ───────
+
+(defn coverage-of
+  "Given the svc-ids that appear in a (real, G7-gated) ledger, report which have
+  a catalog procedure and which are GAPS — the prioritized worklist for growing
+  the catalog (the uchiwake crosscheck pattern). Honest: the R0 synthetic seed
+  ids never match the real catalog ids, so on the seed this reports 0% — the gap
+  is the point (the catalog grows as real ledgers arrive)."
+  [svc-ids by-id]
+  (let [ids (vec (distinct svc-ids))
+        covered (filterv #(contains? by-id %) ids)
+        gaps (filterv #(not (contains? by-id %)) ids)]
+    {:total (count ids)
+     :covered covered
+     :gaps gaps
+     :pct (if (zero? (count ids)) 0.0
+              (double (/ (Math/round (* 1000.0 (/ (count covered) (count ids)))) 10.0)))}))
+
 #?(:clj
    (defn -main
      "CLI: validate the catalog + print coverage (file I/O at the edge)."
