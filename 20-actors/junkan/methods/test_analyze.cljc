@@ -175,6 +175,27 @@
     (is (contains? attrs ":junkan.gov.era/net") "era net datom emitted")
     (is (contains? attrs ":junkan.gov.era/widen-force"))))
 
+;; ── stock × region cross-tab (continent × asymmetry, aggregate) ──────────────
+(deftest region-stock-matrix-shape
+  (let [rs (get (a) "region_stock")]
+    (is (map? rs))
+    (is (contains? rs "asia"))
+    (is (contains? rs "africa"))
+    ;; each cell has net + count, and is a HYPOTHESIS aggregate
+    (doseq [[_ m] rs [_ cell] m]
+      (is (contains? cell :net))
+      (is (contains? cell :count))
+      (is (pos? (:count cell)))))
+  ;; transnational (GLOBAL/UN) excluded from continental matrix
+  (is (not (contains? (get (a) "region_stock") "transnational"))))
+
+(deftest region-stock-datoms-emitted
+  (let [r (a)
+        ds (az/datoms (is*) r)
+        attrs (set (map #(nth % 2) ds))]
+    (is (contains? attrs ":junkan.gov.rs/net") "region×stock net datom emitted")
+    (is (contains? attrs ":junkan.gov.rs/region"))))
+
 ;; ── report renders sober markdown ────────────────────────────────────────────
 (deftest report-renders
   (let [md (az/render-report (a))]
@@ -182,6 +203,7 @@
     (is (str/includes? md "分析専用"))
     (is (str/includes? md "仮説")) ; hypothesis framing present (G5/G7)
     (is (str/includes? md "Era trajectory"))
+    (is (str/includes? md "Stock × continent"))
     (is (str/includes? md "leverage CANDIDATES"))))
 
 #?(:clj

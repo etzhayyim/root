@@ -1143,4 +1143,119 @@
   :stakeholders ["civilian government" "political parties" "citizens"]
   :stock :participation-barrier :polarity :narrow :magnitude 0.6 :reversibility :constitutional :meadows 4
   :basis "Greek Metapolitefsi (1974); 1975 Constitution" :sourcing :representative :confidence 0.5}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 8 — Japan + Iberia/E.Europe (ES PT UA CZ RO) + Caribbean (JM TT BB)
+ ;; + remaining Africa (CD MZ NA CI) — widen + narrow
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── Japan ──
+ {:type :instrument :id "jp-constitution-1947" :name "Constitution of Japan (popular sovereignty)" :jurisdiction "JP" :kind :doctrine :year 1947
+  :enactor "Imperial Diet (drafted under Allied Occupation/GHQ, promulgated 1946, in force 1947)"
+  :origin "Replaced imperial sovereignty (kokutai) with popular sovereignty, fundamental human rights, and Article 9 pacifism, recasting subjects as rights-bearing citizens; uniquely never amended, anchoring a durable rights paradigm."
+  :stakeholders ["Imperial Diet" "GHQ/SCAP" "Supreme Court" "citizens"]
+  :stock :paradigm-subordination :polarity :narrow :magnitude 0.7 :reversibility :constitutional :meadows 2
+  :basis "日本国憲法 (1947)" :sourcing :representative :confidence 0.6}
+ {:type :instrument :id "jp-state-secrets-2013" :name "特定秘密保護法 (Designated Secrets Act)" :jurisdiction "JP" :kind :law :year 2013
+  :enactor "National Diet of Japan (Abe government)"
+  :origin "Created severe penalties for leaking broadly-defined 'designated state secrets' with limited oversight, criticized for chilling journalism and weakening citizens' access to government information."
+  :stakeholders ["Cabinet/ministries" "journalists" "Diet oversight board" "citizens"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.5 :reversibility :statutory :meadows 5
+  :basis "特定秘密の保護に関する法律 (2013)" :sourcing :representative :confidence 0.5}
+
+ ;; ── Spain ──
+ {:type :instrument :id "es-1978-constitution" :name "1978 Constitution (post-Franco transition)" :jurisdiction "ES" :kind :doctrine :year 1978
+  :enactor "Constituent Cortes (the 'ponentes'); ratified by referendum"
+  :origin "The Transición replaced the Franco dictatorship with a parliamentary monarchy, autonomous communities, and a constitutional court, broadly opening citizen participation and rights after four decades of authoritarian rule."
+  :stakeholders ["Constituent Cortes" "Constitutional Court" "autonomous communities" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.7 :reversibility :constitutional :meadows 4
+  :basis "Constitución Española (1978)" :sourcing :representative :confidence 0.55}
+
+ ;; ── Portugal ──
+ {:type :instrument :id "pt-carnation-1974" :name "Carnation Revolution → democracy" :jurisdiction "PT" :kind :institution :year 1974
+  :enactor "Armed Forces Movement (MFA) + popular mobilization"
+  :origin "A near-bloodless military-led revolution ended the Estado Novo dictatorship and colonial wars, leading to the 1976 democratic constitution and free elections — a foundational reopening of citizen participation."
+  :stakeholders ["Armed Forces Movement" "political parties" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.65 :reversibility :constitutional :meadows 4
+  :basis "25 April 1974 Revolution; 1976 Constitution" :sourcing :representative :confidence 0.55}
+
+ ;; ── Ukraine ──
+ {:type :instrument :id "ua-euromaidan-2014" :name "Euromaidan / Revolution of Dignity" :jurisdiction "UA" :kind :institution :year 2014
+  :enactor "Ukrainian protest movement → Verkhovna Rada"
+  :origin "Mass protests ousted a president who had abandoned an EU accord and cracked down on demonstrators, restoring the 2004 constitution's parliamentary balance — a citizen reassertion of accountability (under continuing wartime strain)."
+  :stakeholders ["protest movement" "Verkhovna Rada" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.6 :reversibility :institutional :meadows 4
+  :basis "2014 Revolution of Dignity" :sourcing :representative :confidence 0.45}
+
+ ;; ── Czechia ──
+ {:type :instrument :id "cz-velvet-1989" :name "Velvet Revolution (1989)" :jurisdiction "CZ" :kind :institution :year 1989
+  :enactor "Civic Forum + popular protest (Czechoslovakia)"
+  :origin "Peaceful mass protests ended one-party communist rule within weeks, leading to free elections and a democratic constitution — a model of nonviolent transition opening full citizen participation."
+  :stakeholders ["Civic Forum" "communist authorities" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.65 :reversibility :institutional :meadows 4
+  :basis "1989 Velvet Revolution" :sourcing :representative :confidence 0.55}
+
+ ;; ── Romania ──
+ {:type :instrument :id "ro-1989-revolution" :name "1989 Revolution (end of Ceaușescu)" :jurisdiction "RO" :kind :institution :year 1989
+  :enactor "Romanian popular uprising"
+  :origin "The only violent overthrow in the 1989 Eastern Bloc wave ended Ceaușescu's totalitarian rule; subsequent constitution and elections opened participation, though former-regime continuity slowed the transition."
+  :stakeholders ["uprising" "National Salvation Front" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.55 :reversibility :institutional :meadows 4
+  :basis "1989 Romanian Revolution; 1991 Constitution" :sourcing :representative :confidence 0.5}
+
+ ;; ── Jamaica ──
+ {:type :instrument :id "jm-westminster" :name "Westminster parliamentary democracy" :jurisdiction "JM" :kind :institution :year 1962
+  :enactor "Jamaica (independence Constitution)"
+  :origin "Stable two-party competitive elections with regular alternation since independence; an enduring participation channel (the watch-points are crime/emergency powers, not the electoral system)."
+  :stakeholders ["Parliament" "two main parties" "Electoral Commission" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.5 :reversibility :institutional :meadows 4
+  :basis "Constitution of Jamaica (1962)" :sourcing :representative :confidence 0.5}
+
+ ;; ── Trinidad and Tobago ──
+ {:type :instrument :id "tt-westminster" :name "Parliamentary democracy + republic (1976)" :jurisdiction "TT" :kind :institution :year 1976
+  :enactor "Trinidad and Tobago (1976 republican Constitution)"
+  :origin "A competitive Westminster system that became a republic in 1976, with regular elections and peaceful alternation — a working Caribbean participation channel."
+  :stakeholders ["Parliament" "parties" "President (ceremonial)" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.5 :reversibility :institutional :meadows 4
+  :basis "Constitution of Trinidad and Tobago (1976)" :sourcing :representative :confidence 0.5}
+
+ ;; ── Barbados ──
+ {:type :instrument :id "bb-republic-2021" :name "Transition to a republic (2021)" :jurisdiction "BB" :kind :institution :year 2021
+  :enactor "Parliament of Barbados"
+  :origin "Removed the British monarch as head of state and installed a parliament-elected president, completing decolonization of the headship while retaining the stable parliamentary democracy — a symbolic deepening of citizen sovereignty."
+  :stakeholders ["Parliament" "President" "citizens"]
+  :stock :paradigm-subordination :polarity :narrow :magnitude 0.4 :reversibility :constitutional :meadows 3
+  :basis "Constitution (Amendment) Act 2021 (Barbados)" :sourcing :representative :confidence 0.45}
+
+ ;; ── DR Congo ──
+ {:type :instrument :id "cd-electoral-instability" :name "Contested elections + weak state control" :jurisdiction "CD" :kind :institution :year 2006
+  :enactor "DRC state (2006 first multiparty elections; disputed 2018/2023)"
+  :origin "Multiparty elections resumed in 2006 but have been marred by disputed results, delayed polls, and limited state reach amid conflict — a formally open but practically constrained participation channel."
+  :stakeholders ["CENI electoral commission" "incumbents" "opposition" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.6 :reversibility :institutional :meadows 4
+  :basis "DRC elections (2006/2018/2023)" :sourcing :representative :confidence 0.4}
+
+ ;; ── Mozambique ──
+ {:type :instrument :id "mz-frelimo-dominance" :name "FRELIMO single-party dominance" :jurisdiction "MZ" :kind :institution :year 1994
+  :enactor "Mozambican state (FRELIMO, ruling since independence)"
+  :origin "Multiparty elections since 1994 have been repeatedly contested for fraud (notably 2023–24), with one party holding power throughout — competitive in form, dominated in practice."
+  :stakeholders ["FRELIMO" "RENAMO/opposition" "electoral bodies" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.6 :reversibility :institutional :meadows 4
+  :basis "Mozambican elections (1994–2024)" :sourcing :representative :confidence 0.4}
+
+ ;; ── Namibia ──
+ {:type :instrument :id "na-1990-constitution" :name "1990 independence Constitution" :jurisdiction "NA" :kind :doctrine :year 1990
+  :enactor "Constituent Assembly of Namibia (at independence from South African rule)"
+  :origin "Adopted a rights-protective constitution with an entrenched bill of rights and presidential term limits at independence; regular elections (and a 2024 peaceful result) sustain a participation channel (single-party dominance is the watch-point)."
+  :stakeholders ["Constituent Assembly" "SWAPO/opposition" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.5 :reversibility :constitutional :meadows 4
+  :basis "Constitution of Namibia (1990)" :sourcing :representative :confidence 0.45}
+
+ ;; ── Côte d'Ivoire ──
+ {:type :instrument :id "ci-post-conflict-elections" :name "Post-conflict elections + third-term disputes" :jurisdiction "CI" :kind :institution :year 2010
+  :enactor "Ivorian state (2010 disputed election → conflict; 2020 third-term dispute)"
+  :origin "A 2010 election dispute triggered armed conflict, and a contested 2020 third term reopened tensions; elections occur but constitutional-term and eligibility disputes recurrently strain the participation channel — an ambiguous effect."
+  :stakeholders ["electoral commission" "incumbents" "opposition" "citizens"]
+  :stock :participation-barrier :polarity :ambiguous :magnitude 0.5 :reversibility :institutional :meadows 4
+  :basis "Ivorian elections (2010/2020)" :sourcing :representative :confidence 0.4}
 ]

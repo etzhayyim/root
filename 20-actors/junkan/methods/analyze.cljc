@@ -193,12 +193,13 @@
    "NG" :africa "ZA" :africa "KE" :africa "ET" :africa "RW" :africa "UG" :africa
    "ZW" :africa "AO" :africa "TZ" :africa "SD" :africa "ML" :africa "ZM" :africa
    "SN" :africa "DZ" :africa "EG" :africa "MA" :africa "TN" :africa "BW" :africa
-   "GH" :africa
+   "GH" :africa "CD" :africa "MZ" :africa "NA" :africa "CI" :africa
    ;; Americas
    "US" :americas "BR" :americas "MX" :americas "CL" :americas "AR" :americas
    "VE" :americas "CU" :americas "CO" :americas "PE" :americas "BO" :americas
    "NI" :americas "CR" :americas "UY" :americas "CA" :americas "SV" :americas
-   "HN" :americas "GT" :americas "HT" :americas "EC" :americas
+   "HN" :americas "GT" :americas "HT" :americas "EC" :americas "JM" :americas
+   "TT" :americas "BB" :americas
    ;; Asia (incl. Middle East / Central / South / SE / East)
    "CN" :asia "KP" :asia "IN" :asia "ID" :asia "TH" :asia "PH" :asia "PK" :asia
    "VN" :asia "BD" :asia "KH" :asia "TM" :asia "AZ" :asia "KZ" :asia "LK" :asia
@@ -210,12 +211,12 @@
    "GB" :europe "EU" :europe "DE" :europe "FR" :europe "IT" :europe "HU" :europe
    "PL" :europe "SE" :europe "NO" :europe "CH" :europe "RS" :europe "BA" :europe
    "RU" :europe "BY" :europe "EE" :europe "IS" :europe "IE" :europe "AL" :europe
-   "GR" :europe
+   "GR" :europe "ES" :europe "PT" :europe "UA" :europe "CZ" :europe "RO" :europe
    ;; Oceania
    "NZ" :oceania "AU" :oceania "FJ" :oceania "PG" :oceania "WS" :oceania
    "TO" :oceania "VU" :oceania
-   ;; Asia (Timor-Leste)
-   "TL" :asia
+   ;; Asia (Timor-Leste, Japan)
+   "TL" :asia "JP" :asia
    ;; transnational
    "GLOBAL" :transnational "UN" :transnational})
 
@@ -290,6 +291,25 @@
         :net (round3 (/ (reduce + cs) (count cs)))
         :hypothesis? true}))))
 
+;; ── stock × region cross-tab (which asymmetry is most active on which continent) ──
+(def region-order [:africa :americas :asia :europe :oceania])
+
+(defn region-stock-matrix
+  "For each continent × asymmetry stock, the net pressure (mean signed contribution)
+  and instrument count. AGGREGATE + structural (continent × stock, never a per-country
+  ranking, G7); HYPOTHESIS (G5). transnational instruments are excluded (no continent)."
+  [instruments]
+  (into {}
+        (for [r region-order
+              :let [in-r (filter #(= r (region-of (:jurisdiction %))) instruments)]
+              :when (seq in-r)]
+          [r (into {}
+                   (for [s stock-order
+                         :let [is (filter #(= s (:stock %)) in-r)
+                               cs (map contribution is)]
+                         :when (seq is)]
+                     [s {:net (round3 (/ (reduce + cs) (count cs))) :count (count is)}]))])))
+
 (defn analyze
   "Full read-off bundle. Pure; no I/O; no outward channel (G4)."
   [instruments]
@@ -298,6 +318,9 @@
      "loops" (loop-regimes stocks)
      "leverage" (leverage-candidates instruments)
      "trajectory" (era-trajectory instruments)
+     "region_stock" (into {} (map (fn [[r m]]
+                                    [(name r) (into {} (map (fn [[s v]] [(name s) v]) m))])
+                                  (region-stock-matrix instruments)))
      "coverage" (coverage instruments)
      "hypothesis_only" true
      "actuation_taken" false}))
@@ -370,13 +393,30 @@
          (add ent ":junkan/derived" true)]))
     (get analysis "trajectory"))))
 
+(defn region-stock-datoms [analysis]
+  (vec
+   (mapcat
+    (fn [[region m]]
+      (mapcat
+       (fn [[stock {:keys [net count]}]]
+         (let [ent (str "junkan-region-stock:" region ":" stock)]
+           [(add ent ":junkan.gov.rs/region" (str ":" region))
+            (add ent ":junkan.gov.rs/stock" (str ":" stock))
+            (add ent ":junkan.gov.rs/net" net)
+            (add ent ":junkan.gov.rs/count" (long count))
+            (add ent ":junkan/hypothesis" ":true")
+            (add ent ":junkan/derived" true)]))
+       m))
+    (get analysis "region_stock"))))
+
 (defn datoms
-  "All findings datoms for one analysis (instruments + stocks + loops + era trajectory)."
+  "All findings datoms for one analysis (instruments + stocks + loops + era + region×stock)."
   [instruments analysis]
   (vec (concat (instrument-datoms instruments)
                (stock-datoms analysis)
                (loop-datoms analysis)
-               (era-datoms analysis))))
+               (era-datoms analysis)
+               (region-stock-datoms analysis))))
 
 (defn render-datoms [instruments analysis]
   (str "[\n " (str/join "\n " (map pr-str (datoms instruments analysis))) "\n]\n"))
@@ -419,6 +459,18 @@
                       " | " (str/join ", " (map name (:member-stocks lp)))
                       " | " (:drive lp)
                       " | " (name (:regime lp)) " |")))
+     "\n\n## Stock × continent (where each asymmetry is most active, HYPOTHESIS, G5)\n\n"
+     "_net pressure per continent × stock (aggregate, structural — NOT a per-country ranking, G7). net>0 = widening-leaning._\n\n"
+     "| continent | info | participation | coercion | paradigm | economic |\n"
+     "|---|---|---|---|---|---|\n"
+     (str/join "\n"
+               (for [r region-order
+                     :let [m (get (get analysis "region_stock") (name r))]
+                     :when m]
+                 (str "| " (name r)
+                      (apply str (for [s stock-order]
+                                   (let [c (get m (name s))]
+                                     (str " | " (if c (:net c) "·"))))) " |")))
      "\n\n## Era trajectory (system-dynamics over time, HYPOTHESIS, G5)\n\n"
      "_各時代に制定された instrument が非対称を広げる/狭める方向にどれだけ傾くか。構造の時系列であって国家 ranking ではない (G7)。undated な transnational values は除外。_\n\n"
      "| era | n | widen | narrow | net |\n"
