@@ -96,6 +96,17 @@
 #?(:clj (defn read-file [path] (read-all (slurp (str path)))))
 (def load-edn read-file)   ; python name alias
 
+(defn ordered-items
+  "Items of an analyze ordered-map in first-touch (Python defaultdict) order. Mirrors
+  analyze/ordered-items so `ip-edn/ordered-items` — referenced by analyze / kotoba / transact
+  — resolves to identical behaviour (the clj-port placed the fn in analyze but several callers
+  reference it via the ip-edn alias). Keyed on the EXACT meta the analyze loader attaches
+  (:ipaddress.methods.analyze/order); no require on analyze, so no load cycle."
+  [m]
+  (if-let [order (:ipaddress.methods.analyze/order (meta m))]
+    (map (fn [k] [k (get m k)]) order)
+    (seq m)))
+
 ;; ── classifier (port of ip_edn.classify) ────────────────────────────────────
 (def ^:private buckets
   [[":rir/id" "rirs"] [":asn/id" "asns"] [":iprange/id" "ranges"]
