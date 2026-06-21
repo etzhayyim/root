@@ -10,7 +10,7 @@ observatory per domain — tsumugi (power 取), keizu (gov), kabuto (supply), ch
 (Wellbecoming), abaki (monopoly), shionome/busshi/hokorobi (capital/commodity/finance),
 kosatsu (designations), inochi (ecology). kaname **joins** them into ONE **multilayer (multiplex)
 graph** — layers = domains (politics / religion / organization / ideology / economy / ecology /
-security / wellbecoming / ai / information) — and **mathematically** identifies the single
+security / wellbecoming / ai / information / **energy**) — and **mathematically** identifies the single
 structural position (the 要 / 律速段階) whose release would most improve resilience **across the
 maximum number of domains at once**, then **proposes** the intervention (おせっかい) to ossekai.
 
@@ -40,6 +40,17 @@ synthesis between them.
 On the seed: the cross-domain Accreditation Interface is the 要 (L=11.7); the Capital
 Concentrator out-concentrates the Doctrine instrument yet has **lower** leverage (V=1) — proving
 **concentration alone is not the bottleneck**; the open commons scores 0 despite high C.
+
+### `:energy` domain layer (ADR-2606212000, landed)
+
+The 11th multiplex layer. Energy was previously implicit inside `:organization`/`:economy`;
+making it explicit lets a node bearing load in BOTH an energy chokepoint AND another domain
+surface with higher versatility (the SoS discriminator). Fed by **amime 網目**'s multi-site
+mesh (ADR-2606212020): amime commits a kaname-form `:energy` graph (`20-actors/amime/out/
+energy-sos.kotoba.edn` — flow `:concentrates` onto loads, single-path import is a `:depends-on`
+SPOF), joined via the `:amime` adapter in `join.cljc`. Adding the layer took `D` 10→11, which
+rescales every `L` by 10/11 uniformly — **the argmax (the 要) is invariant** (test-pinned).
+Running amime = G7; joining its committed output = what kaname does. See `tests/test_energy_join.cljc`.
 
 ## Constitutional gates (enforced in code + tests — `methods/gates.cljc`)
 

@@ -1,0 +1,47 @@
+;; atsurae 誂え — synthetic PLE feature model (ALL :synthetic, NOT a real product).
+;; An OSS labor-liberation ROBOTICS MOBILITY-BASE product line — the shared body the field
+;; actors (sanae 早苗 / hataori 機織 / kiyome 清め / giemon 黴取り) configure to order.
+;; Illustrative of the feature-model algebra — NOT a build recipe, NOT a license key.
+;;
+;; FEATURE    {:id :parent :kind :group}
+;;   :kind  ∈ {:root :mandatory :optional}  (governs a NON-grouped child)
+;;   :group ∈ {:xor :or nil}                (:xor = exactly 1 child; :or = ≥1 child)
+;; CONSTRAINT {:kind :from :to}  :kind ∈ {:requires :excludes}
+;; BINDING    {:feature :parts [{:part :qty}…]}   feature → parts for BOM derivation
+[
+ ;; — feature tree —
+ {:type :feature :id :robot-base  :parent nil         :kind :root      :group nil}
+ {:type :feature :id :locomotion  :parent :robot-base :kind :mandatory :group :xor}  ;; pick one drive
+ {:type :feature :id :wheels      :parent :locomotion :kind :grouped   :group nil}
+ {:type :feature :id :tracks      :parent :locomotion :kind :grouped   :group nil}
+ {:type :feature :id :legs        :parent :locomotion :kind :grouped   :group nil}
+ {:type :feature :id :power       :parent :robot-base :kind :mandatory :group :xor}  ;; pick one source
+ {:type :feature :id :battery     :parent :power      :kind :grouped   :group nil}
+ {:type :feature :id :fuel-cell   :parent :power      :kind :grouped   :group nil}
+ {:type :feature :id :tethered    :parent :power      :kind :grouped   :group nil}
+ {:type :feature :id :sensing     :parent :robot-base :kind :optional  :group :or}   ;; ≥1 sensor if present
+ {:type :feature :id :lidar       :parent :sensing    :kind :grouped   :group nil}
+ {:type :feature :id :camera      :parent :sensing    :kind :grouped   :group nil}
+ {:type :feature :id :ultrasonic  :parent :sensing    :kind :grouped   :group nil}
+ {:type :feature :id :arm         :parent :robot-base :kind :optional  :group nil}   ;; manipulator
+ {:type :feature :id :autonomy    :parent :robot-base :kind :optional  :group nil}   ;; SAE-L4 stack
+
+ ;; — cross-tree constraints —
+ {:type :constraint :kind :requires :from :autonomy :to :lidar      :note "autonomy needs lidar sensing"}
+ {:type :constraint :kind :excludes :from :legs     :to :tethered   :note "a legged robot cannot be power-tethered"}
+ {:type :constraint :kind :excludes :from :autonomy :to :tethered   :note "a tethered robot does not roam autonomously"}
+
+ ;; — feature → parts bindings (BOM derivation) —
+ {:type :binding :feature :robot-base :parts [{:part :frame :qty 1} {:part :wiring-harness :qty 1}]}
+ {:type :binding :feature :wheels     :parts [{:part :wheel-motor :qty 4} {:part :wheel :qty 4} {:part :chassis-wheeled :qty 1}]}
+ {:type :binding :feature :tracks     :parts [{:part :track-assembly :qty 2} {:part :chassis-tracked :qty 1}]}
+ {:type :binding :feature :legs       :parts [{:part :leg-actuator :qty 4} {:part :leg-link :qty 8} {:part :chassis-legged :qty 1}]}
+ {:type :binding :feature :battery    :parts [{:part :lfp-pack :qty 1} {:part :bms :qty 1}]}
+ {:type :binding :feature :fuel-cell  :parts [{:part :h2-stack :qty 1} {:part :h2-tank :qty 1}]}
+ {:type :binding :feature :tethered   :parts [{:part :tether-reel :qty 1} {:part :power-converter :qty 1}]}
+ {:type :binding :feature :lidar      :parts [{:part :lidar-unit :qty 1}]}
+ {:type :binding :feature :camera     :parts [{:part :camera-module :qty 2}]}
+ {:type :binding :feature :ultrasonic :parts [{:part :ultrasonic-sensor :qty 6}]}
+ {:type :binding :feature :arm        :parts [{:part :arm-6dof :qty 1} {:part :gripper :qty 1}]}
+ {:type :binding :feature :autonomy   :parts [{:part :compute-module :qty 1} {:part :imu :qty 1}]}
+]
