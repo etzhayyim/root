@@ -39,6 +39,7 @@
   {:method/id "ledger"     :method/file "methods/ledger.cljc"     :method/role "metabolic energy ledger: intake/cost/hazard/affordability; ENERGY (conserved)"}
   {:method/id "metabolism" :method/file "methods/metabolism.cljc" :method/role "the dissipative loop: perceive→infer→plan→act→metabolize→live-or-die; EAVT datoms"}
   {:method/id "measure"    :method/file "methods/measure.cljc"    :method/role "real-world energy-flow measurement in 4 honest separate units; never cross-summed; EAVT datoms"}
+  {:method/id "validate"   :method/file "methods/validate.cljc"   :method/role "seed↔ontology integrity validator (self-validating substrate; defends I1–I5 invariants; + bb CLI)"}
   {:method/id "viz"        :method/file "methods/viz.cljc"        :method/role "self-contained data-driven HTML canvas of the coupled energy field + organism trajectories (+ bb CLI)"}
   {:method/id "kotoba"     :method/file "methods/kotoba.cljc"     :method/role "content-addressed append-only INFORMATION log (tx-cid/make-tx/append-tx/read-log/verify-chain)"}
   {:method/id "autorun"    :method/file "methods/autorun.cljc"    :method/role "deterministic heartbeat: live organisms + measure field → append datoms to the log (+ bb CLI)"}]
@@ -73,6 +74,6 @@
  {:runner "babashka"
   :cmd "./20-actors/uzu/run_tests.sh"
   :suites ["methods/test_model.cljc" "methods/test_ledger.cljc" "methods/test_metabolism.cljc"
-           "methods/test_measure.cljc" "methods/test_kotoba.cljc" "methods/test_autorun.cljc"
-           "methods/test_viz.cljc"]
-  :status "42 tests / 111 assertions green (babashka)"}}
+           "methods/test_measure.cljc" "methods/test_validate.cljc" "methods/test_lexicons.cljc"
+           "methods/test_kotoba.cljc" "methods/test_autorun.cljc" "methods/test_viz.cljc"]
+  :status "54 tests / 132 assertions green (babashka)"}}
