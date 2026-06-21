@@ -100,6 +100,42 @@
         (conj! L "")))
     (str (str/join "\n" (persistent! L)) "\n")))
 
+;; ── machine-readable dispatch summary (downstream / yoro wiring) ────────────
+
+(defn summary
+  "Reduce a run result to a stable, machine-readable summary (EDN-native; the
+  kotoba counterpart of tate's response-plans.json). Every service row is
+  executed=false (dry-run); counts partition the descriptors."
+  [{:keys [descriptors serviceops severed]}]
+  (let [status-of #(get % "status")]
+    (array-map
+     :dry-run true                       ; structural — never a live result
+     :total (count descriptors)
+     :authorized (count (filter #(get % "authorized") descriptors))
+     :member-submits (count (filter #(= ":member-submits" (status-of %)) descriptors))
+     :refused (count (filter #(= ":refused" (status-of %)) descriptors))
+     :severed-dry-run (vec (sort severed))
+     :services (vec (for [d descriptors]
+                      (array-map
+                       :svc (get d "svc")
+                       :tier (get d "tier")
+                       :status (get d "status")
+                       :recommendation (get d "recommendation")
+                       :authorized (boolean (get d "authorized"))
+                       :executed false                 ; G6 — always
+                       :notice-days (get d "notice_days")
+                       :penalty-jpy (get d "penalty_jpy")
+                       :operator-verification-required (boolean (get d "operator_verification_required"))
+                       :g8-ack-required (boolean (get d "g8_ack_required")))))
+     ;; the karakuri handoff ops (T1/T2 authorized only)
+     :serviceops (vec serviceops))))
+
+(defn summary-edn
+  "summary → deterministic EDN text (array-maps preserve key order)."
+  [run]
+  (str ";; kaiyaku 解約 — GENERATED R1 dispatch summary (machine-readable; dry-run). DO NOT hand-edit.\n"
+       (pr-str (summary run)) "\n"))
+
 #?(:clj
    (defn run+persist!
      "run, then append the receipt datoms as ONE content-addressed tx to the
@@ -135,7 +171,8 @@
            refused (count (filter #(= ":refused" (get % "status")) (:descriptors r)))]
        (.mkdirs outdir)
        (spit (io/file outdir "pipeline-member-report.md") (member-report r))
+       (spit (io/file outdir "pipeline-summary.edn") (summary-edn r))
        (println (str "kaiyaku pipeline (seed · no capability → all refused honestly): "
                      (count (:descriptors r)) " severable ties, " refused " refused → "
-                     (io/file outdir "pipeline-member-report.md")))
+                     (io/file outdir "pipeline-member-report.md") " + pipeline-summary.edn"))
        0)))

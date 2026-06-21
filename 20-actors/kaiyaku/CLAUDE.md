@@ -97,7 +97,7 @@ advice.
 ├── tools/                             # MEMBER-side runtime (NOT the actor — may do crypto)
 │   └── issue_capability.cljc          # R1: member mints the revocable severance capability (Ed25519/JDK; kaiyaku never signs)
 ├── MATURITY.md                        # GENERATED R1 scorecard (methods/maturity.cljc; freshness-tested)
-├── tests/                             # 99 tests, pure stdlib
+├── tests/                             # 102 tests, pure stdlib
 │   ├── test_analyze.py
 │   ├── test_handoff.py
 │   ├── test_plan.py

@@ -183,6 +183,36 @@
     ;; → no karakuri op for a cascade-refused tie
     (is (empty? (:serviceops r)))))
 
+;; ── machine-readable summary ─────────────────────────────────────────────────
+
+(deftest test-summary-counts-and-shape
+  (let [s (pipeline/summary (run))]
+    (is (true? (:dry-run s)))
+    (is (= (:total s) (count (:services s))))
+    ;; counts partition the descriptors
+    (is (= (:total s) (+ (count (filter #(= ":authorized-dry-run" (:status %)) (:services s)))
+                         (:member-submits s)
+                         (:refused s))))
+    ;; G6 — every row executed=false
+    (is (every? #(false? (:executed %)) (:services s)))
+    ;; the T1 authorized tie surfaces as a karakuri op
+    (is (= 1 (count (:serviceops s))))))
+
+(deftest test-summary-edn-roundtrips
+  ;; the EDN text parses back to the same data (machine-consumable, deterministic).
+  (let [r (run)
+        txt (pipeline/summary-edn r)
+        ;; strip the comment line, read the form
+        parsed (clojure.edn/read-string (clojure.string/replace txt #";;[^\n]*\n" ""))]
+    (is (= (:total parsed) (:total (pipeline/summary r))))
+    (is (true? (:dry-run parsed)))))
+
+(deftest test-summary-seed-all-refused
+  (let [s (pipeline/summary (pipeline/run-seed actor-dir))]
+    (is (= (:total s) (:refused s)))         ; no capability → all refused
+    (is (zero? (:authorized s)))
+    (is (empty? (:serviceops s)))))
+
 (defn -main [& _]
   (let [{:keys [fail error]} (run-tests 'kaiyaku.tests.test-pipeline)]
     (System/exit (if (zero? (+ fail error)) 0 1))))
