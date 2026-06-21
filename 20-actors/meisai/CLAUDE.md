@@ -87,10 +87,13 @@ python3 methods/autorun.py --cycles 1   # ingest data/intake/*.edn → local log
 
 lexicon `com.etzhayyim.meisai.statement`; fleet heartbeat registration; **per-issuer fetch-leg
 adapters** that flip the 100 `:registry-only` sources in `sources/world-card-issuers.edn` to
-`:supported` (member-side, computer-use-clj, G4 read-only posture); the kaiyaku SIDE of the
-recurring-charge handoff (kaiyaku ingesting `data/kaiyaku-handoff.edn` into its 縁-ledger — the
-meisai side `methods/recurring.cljc` landed); FX-rate enrichment for `:meisai.row/{amount,currency}`
-(report-time, never stored as a derived truth).
+`:supported` (member-side, computer-use-clj, G4 read-only posture); FX-rate enrichment for
+`:meisai.row/{amount,currency}` (report-time, never stored as a derived truth).
+
+The kaiyaku SIDE of the recurring-charge handoff **landed** (ADR-2606122400): kaiyaku
+`methods/meisai_ingest.cljc` ingests `data/kaiyaku-handoff.edn` into its 縁-ledger as a
+`:recurring-charge` tie over a `:svc/kind :card-merchant` node — the meisai → kaiyaku round-trip
+is now closed (kaiyaku decides keep/review/sever; meisai never does).
 
 The recurring-charge handoff (`methods/recurring.cljc`) is meisai's first DERIVED view: it folds
 `:meisai.row/*` into subscription candidates and emits an ADVISORY `:review` handoff
