@@ -4,9 +4,9 @@
 
   No test_coverage_scale.py existed, so the expected values were produced by running
   the REAL Python compute(load_data()) over the committed seed-scale-power +
-  seed-banner .kotoba.edn and embedded verbatim (626 nodes / 635 ties / 80 distinct
+  seed-banner .kotoba.edn and embedded verbatim (628 nodes / 637 ties / 80 distinct
   localities / 13 banners / 5 ents / 14 flies; 40 countries; all scales/kinds/sectors
-  exercised; 574 :san nodes → world-listed numerator) — a genuine cross-language oracle."
+  exercised; 576 :san nodes → world-listed numerator) — a genuine cross-language oracle."
   (:require [clojure.test :refer [deftest is testing]]
             [tsumugi.methods.coverage-scale :as cs]))
 
@@ -14,8 +14,8 @@
 
 (deftest raw-counts-match
   (let [raw (get (c) "raw")]
-    (is (= 626 (get raw "nodes")))
-    (is (= 635 (get raw "ties")))
+    (is (= 628 (get raw "nodes")))
+    (is (= 637 (get raw "ties")))
     (is (= 80 (get raw "distinct_localities")))
     (is (= 13 (get raw "banners")))
     (is (= 5 (get raw "ents")))
@@ -41,7 +41,7 @@
 
 (deftest world-listed-numerator-counts-san-nodes
   (let [cov (get-in (c) ["coverages" "World listed companies (approx)"])]
-    (is (= 574 (get cov "numerator")))                ; every :san node
+    (is (= 576 (get cov "numerator")))                ; every :san node
     (is (= 50000 (get cov "denominator")))))
 
 (deftest coverages-have-all-six-denominators
@@ -53,5 +53,5 @@
 (deftest render-is-honest-framing
   (let [md (cs/render (c))]
     (is (clojure.string/includes? md "real-world coverage is ~0 BY DESIGN"))
-    (is (clojure.string/includes? md "Power nodes: 626"))
+    (is (clojure.string/includes? md "Power nodes: 628"))
     (is (clojure.string/includes? md "non-adjudicating"))))
