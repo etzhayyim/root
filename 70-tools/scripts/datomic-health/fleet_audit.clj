@@ -62,9 +62,14 @@
                     These rows are the datomic-ledger STANDARDIZATION worklist."
   [a]
   (let [tmp (str (System/getProperty "java.io.tmpdir") "/datomic-audit-" a "-" (gensym) ".edn")
-        ;; Step 1: can we even load the standard interface? A require failure or a missing
-        ;; symbol means this actor is NOT in the standard family (sibling/earlier-wave
-        ;; convention, or its own pre-existing load issue) → :non-standard, never :fail.
+        ;; Step 1: classify by what loads.
+        ;;   :load-error  — the autorun/kotoba namespace FAILS to require (stale .clj shadow,
+        ;;                  missing fn, broken twin). EVERY ledger actor must at least LOAD →
+        ;;                  this is a FAILURE (exit 1), fleet-wide. (Catches the bug class
+        ;;                  fixed in #2021/#2024 — stale .clj shadows, unported fns — for good.)
+        ;;   {:beat …}    — exposes the standard beat/ground-datoms/verify-chain interface.
+        ;;   :non-standard— loads cleanly but uses a different ledger convention (shared
+        ;;                  kotoba.datom lib / run-cycle arity). NOT a failure — informational.
         iface (try
                 (require (symbol (str a ".methods.autorun")))
                 (require (symbol (str a ".methods.kotoba")))
@@ -75,9 +80,15 @@
                     {:beat beat :ground ground :verify verify}
                     {:non-standard "no standard beat/ground-datoms/verify-chain interface"}))
                 (catch Throwable e
-                  {:non-standard (str "load: " (or (ex-message e) (class e)))}))]
-    (if-let [note (:non-standard iface)]
-      {:actor a :status :non-standard :note note}
+                  {:load-error (str (or (ex-message e) (class e)))}))]
+    (cond
+      (:load-error iface)
+      {:actor a :status :load-error :note (:load-error iface)}
+
+      (:non-standard iface)
+      {:actor a :status :non-standard :note (:non-standard iface)}
+
+      :else
       ;; Step 2: standard family — now any failure of the invariants (or a throw) IS a :fail.
       (try
         (let [{:keys [beat ground verify]} iface
@@ -107,7 +118,11 @@
         results  (mapv audit-actor targets)
         healthy  (filterv #(= :healthy (:status %)) results)
         failed   (filterv #(= :fail (:status %)) results)
+        loaderr  (filterv #(= :load-error (:status %)) results)
         nonstd   (filterv #(= :non-standard (:status %)) results)
+        ;; a ledger actor that does not even LOAD is a failure, fleet-wide (catches stale .clj
+        ;; shadows / unported fns continuously); a standard-family invariant breach is also a fail.
+        broken   (vec (concat failed loaderr))
         total-datoms (reduce + 0 (keep #(when (= :healthy (:status %)) (long (:datoms % 0))) results))]
     (when-not quiet
       (println (str "etzhayyim datomic-ledger FLEET AUDIT — " (count targets) " ledger actors"))
@@ -122,17 +137,21 @@
                            (:actor r) (long (:datoms r 0))
                            (str (:chain-ok r)) (str (:idempotent r))
                            (str (:ground-only r)) (name (:status r))))))
+      (when (seq loaderr)
+        (println (str "\n── LOAD ERRORS (" (count loaderr) ") — a ledger actor that does not load is a FAILURE ──"))
+        (doseq [r (sort-by :actor loaderr)]
+          (println (format "  %-16s %s" (:actor r) (:note r)))))
       (when (seq nonstd)
         (println (str "\n── non-standard ledger actors (" (count nonstd)
-                      ") — datomic-ledger STANDARDIZATION worklist, not failures ──"))
+                      ") — load cleanly, different ledger interface (STANDARDIZATION worklist, not failures) ──"))
         (doseq [r (sort-by :actor nonstd)]
           (println (format "  %-16s %s" (:actor r) (:note r))))))
     (println)
-    (println (format "FLEET: %d standard-family healthy / %d audited · %d non-standard · %d datoms (single-beat ground)%s"
-                     (count healthy) (+ (count healthy) (count failed)) (count nonstd) total-datoms
-                     (if (seq failed) (str " · FAIL: " (str/join ", " (map :actor failed))) "")))
-    ;; exit 1 ONLY when a STANDARD-family actor violates an invariant; non-standard is informational
-    (System/exit (if (seq failed) 1 0))))
+    (println (format "FLEET: %d standard-family healthy / %d audited · %d non-standard · %d load-error · %d datoms (single-beat ground)%s"
+                     (count healthy) (+ (count healthy) (count failed)) (count nonstd) (count loaderr) total-datoms
+                     (if (seq broken) (str " · BROKEN: " (str/join ", " (map :actor broken))) "")))
+    ;; exit 1 when a standard-family actor breaks an invariant OR any ledger actor fails to load.
+    (System/exit (if (seq broken) 1 0))))
 
 (when (= *file* (System/getProperty "babashka.file"))
   (apply -main *command-line-args*))

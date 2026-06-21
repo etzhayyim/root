@@ -15,8 +15,11 @@ bb 70-tools/scripts/datomic-health/fleet_audit.clj --quiet    # summary line onl
 ```
 
 Pure audit: writes only to `java.io.tmpdir` (throwaway ledgers), touches no actor data,
-performs no network I/O (no-server-key). **Exit 0** iff every standard-interface actor is
-healthy; **exit 1** iff a standard-interface actor violates an invariant.
+performs no network I/O (no-server-key). **Exit 1** iff (a) a standard-interface actor violates
+an invariant, OR (b) ANY ledger actor's `methods/autorun` or `methods/kotoba` namespace fails to
+**load** (a `:load-error` — stale `.clj` shadow, unported fn, broken twin). Every ledger actor
+must at least load: this fleet-wide gate catches the bug class fixed in #2021 / #2024 (and the
+recurring babashka `.clj`-shadows-`.cljc` prune oversight) continuously. Otherwise **exit 0**.
 
 ## What each row proves (over the actor's REAL committed seed)
 
