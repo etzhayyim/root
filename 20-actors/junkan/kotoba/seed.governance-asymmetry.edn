@@ -720,4 +720,145 @@
   :stakeholders ["Constituent Assembly" "federal provinces" "Madhesi groups" "citizens"]
   :stock :participation-barrier :polarity :narrow :magnitude 0.6 :reversibility :constitutional :meadows 4
   :basis "Constitution of Nepal (2015)" :sourcing :representative :confidence 0.5}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 5 — Latin America / sub-Saharan Africa / MENA / Pacific
+ ;; (CO PE BO NI GH TZ AO IQ SY AF FJ MN CR UY BW DZ) + a nationalism value
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── Colombia ──
+ {:type :instrument :id "co-1991-constitution" :name "1991 Constitution (acción de tutela)" :jurisdiction "CO" :kind :doctrine :year 1991
+  :enactor "National Constituent Assembly of Colombia"
+  :origin "Replaced the 1886 charter amid violence and a student-led 'séptima papeleta' movement; created the fast individual rights writ (tutela) and a Constitutional Court, giving ordinary citizens a direct route to enforce rights against the state."
+  :stakeholders ["Constituent Assembly" "Constitutional Court" "citizens"]
+  :stock :paradigm-subordination :polarity :narrow :magnitude 0.65 :reversibility :constitutional :meadows 2
+  :basis "Constitución Política de Colombia (1991), Art. 86" :sourcing :representative :confidence 0.55}
+
+ ;; ── Peru ──
+ {:type :instrument :id "pe-fujimori-autogolpe-1992" :name "1992 self-coup (autogolpe)" :jurisdiction "PE" :kind :institution :year 1992
+  :enactor "President Alberto Fujimori (with military backing)"
+  :origin "The president dissolved Congress and suspended the constitution, ruling by decree before convening a compliant constituent assembly — a textbook collapse of the citizen's representative check (later reversed; Fujimori convicted)."
+  :stakeholders ["presidency" "armed forces" "dissolved Congress" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.8 :reversibility :institutional :meadows 4
+  :basis "5 April 1992 autogolpe" :sourcing :representative :confidence 0.55}
+
+ ;; ── Bolivia ──
+ {:type :instrument :id "bo-2009-constitution" :name "2009 Plurinational Constitution" :jurisdiction "BO" :kind :doctrine :year 2009
+  :enactor "Constituent Assembly of Bolivia; 2009 referendum"
+  :origin "Refounded Bolivia as a plurinational state recognizing indigenous autonomy, languages, and communal rights, broadening participation for long-excluded majorities (though re-election disputes later strained it)."
+  :stakeholders ["Constituent Assembly" "indigenous nations" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.6 :reversibility :constitutional :meadows 4
+  :basis "Constitución Política del Estado (2009)" :sourcing :representative :confidence 0.5}
+
+ ;; ── Nicaragua ──
+ {:type :instrument :id "ni-2021-crackdown" :name "Pre-election crackdown + NGO/agent laws" :jurisdiction "NI" :kind :institution :year 2021
+  :enactor "Nicaraguan state (Ortega government; National Assembly 'foreign agents' + 'sovereignty' laws 2020)"
+  :origin "Ahead of the 2021 election the state jailed leading opposition candidates and used new foreign-agent and cybercrime laws to shutter NGOs and media, removing both the electoral and informational channels at once."
+  :stakeholders ["presidency" "National Assembly" "opposition candidates" "NGOs" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.85 :reversibility :institutional :meadows 4
+  :basis "Ley 1040 (foreign agents, 2020); 2021 detentions" :sourcing :representative :confidence 0.5}
+
+ ;; ── Ghana ──
+ {:type :instrument :id "gh-rti-2019" :name "Right to Information Act" :jurisdiction "GH" :kind :law :year 2019
+  :enactor "Parliament of Ghana"
+  :origin "After a ~20-year campaign, gave citizens an enforceable right of access to public information, operationalizing a constitutional guarantee — a notable West African transparency step."
+  :stakeholders ["RTI Commission" "public institutions" "media" "citizens"]
+  :stock :information-asymmetry :polarity :narrow :magnitude 0.5 :reversibility :statutory :meadows 6
+  :basis "Right to Information Act, 2019 (Act 989)" :sourcing :representative :confidence 0.5}
+
+ ;; ── Tanzania ──
+ {:type :instrument :id "tz-media-services-2016" :name "Media Services Act + cybercrimes" :jurisdiction "TZ" :kind :law :year 2016
+  :enactor "Parliament of Tanzania"
+  :origin "Licensing of journalists, broad 'false information' offences, and a 2015 cybercrimes law were used to suspend outlets and prosecute online critics, narrowing the information space (some provisions later challenged at the EACJ)."
+  :stakeholders ["government" "journalists" "bloggers" "EACJ"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.6 :reversibility :statutory :meadows 5
+  :basis "Media Services Act 2016; Cybercrimes Act 2015" :sourcing :representative :confidence 0.45}
+
+ ;; ── Angola ──
+ {:type :instrument :id "ao-oil-state-capture" :name "Oil-rentier state + ruling-party economy" :jurisdiction "AO" :kind :institution :year 1975
+  :enactor "Angolan state (MPLA, since independence)"
+  :origin "Oil revenue channeled through the state and the long-ruling party financed patronage and elite enrichment (documented in the 'Luanda Leaks'), fusing economic control with political dominance."
+  :stakeholders ["MPLA" "state oil company (Sonangol)" "elite networks" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.7 :reversibility :institutional :meadows 4
+  :basis "Angolan oil-rentier economy; Luanda Leaks (2020)" :sourcing :representative :confidence 0.45}
+
+ ;; ── Iraq ──
+ {:type :instrument :id "iq-2005-constitution" :name "2005 Constitution (post-invasion federalism)" :jurisdiction "IQ" :kind :doctrine :year 2005
+  :enactor "Iraqi Transitional National Assembly; 2005 referendum (under occupation)"
+  :origin "Established a federal parliamentary republic with a sectarian power-sharing (muhasasa) practice; it opened elections but the ethno-sectarian quota system also entrenched elite bargaining over citizen accountability — an ambiguous effect."
+  :stakeholders ["Transitional Assembly" "sectarian blocs" "Kurdistan Region" "citizens"]
+  :stock :participation-barrier :polarity :ambiguous :magnitude 0.45 :reversibility :constitutional :meadows 4
+  :basis "Constitution of Iraq (2005)" :sourcing :representative :confidence 0.45}
+
+ ;; ── Syria ──
+ {:type :instrument :id "sy-emergency-1963" :name "Emergency Law (Baath era)" :jurisdiction "SY" :kind :law :year 1963
+  :enactor "Syrian Baath government (1963 coup)"
+  :origin "Imposed after the Baath seizure of power, it suspended most constitutional protections and enabled indefinite detention and special courts for nearly five decades — a near-permanent coercive asymmetry (nominally lifted 2011 amid the uprising, then superseded by wartime measures)."
+  :stakeholders ["Baath state" "security services" "detainees" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.85 :reversibility :statutory :meadows 5
+  :basis "Syrian Emergency Law (1963–2011)" :sourcing :representative :confidence 0.5}
+
+ ;; ── Afghanistan ──
+ {:type :instrument :id "af-taliban-2021" :name "Taliban rule by edict (no constitution)" :jurisdiction "AF" :kind :institution :year 2021
+  :enactor "Taliban (Islamic Emirate), after the 2021 takeover"
+  :origin "The 2004 constitution was suspended and governance proceeds by leadership edicts; women are excluded from secondary education, most work, and public life — an extreme paradigm and participation closure with no electoral or legal recourse for citizens."
+  :stakeholders ["Taliban leadership" "women and girls" "former officials" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.95 :reversibility :entrenched :meadows 2
+  :basis "Islamic Emirate edicts (2021–)" :sourcing :representative :confidence 0.55}
+
+ ;; ── Fiji ──
+ {:type :instrument :id "fj-2013-constitution" :name "2013 Constitution (post-coup)" :jurisdiction "FJ" :kind :doctrine :year 2013
+  :enactor "Military-led government (Bainimarama), imposed after the 2006 coup"
+  :origin "Drafted and decreed by the post-coup government (an earlier civilian draft was rejected), it restored elections in 2014 but entrenched immunity for the coup-makers and high amendment thresholds — a bounded reopening of participation."
+  :stakeholders ["military government" "later civilian governments" "citizens"]
+  :stock :participation-barrier :polarity :ambiguous :magnitude 0.5 :reversibility :constitutional :meadows 4
+  :basis "Constitution of Fiji (2013)" :sourcing :representative :confidence 0.45}
+
+ ;; ── Mongolia ──
+ {:type :instrument :id "mn-democratic-transition-1992" :name "1992 democratic Constitution" :jurisdiction "MN" :kind :institution :year 1992
+  :enactor "State Great Khural (after the 1990 peaceful democratic revolution)"
+  :origin "Following peaceful protests that ended one-party rule, Mongolia adopted a multiparty constitution with regular competitive elections — a durable democratic opening in a region of authoritarian neighbors."
+  :stakeholders ["democratic movement" "State Great Khural" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.65 :reversibility :constitutional :meadows 4
+  :basis "Constitution of Mongolia (1992)" :sourcing :representative :confidence 0.55}
+
+ ;; ── Costa Rica ──
+ {:type :instrument :id "cr-army-abolition-1949" :name "Abolition of the army (1949 Constitution)" :jurisdiction "CR" :kind :doctrine :year 1949
+  :enactor "Costa Rican Constituent Assembly (José Figueres Ferrer)"
+  :origin "Constitutionally abolished the standing army after the 1948 civil war, redirecting spending to education and health and removing the military as a coercive actor against citizens — a rare structural narrowing of the coercion asymmetry."
+  :stakeholders ["Constituent Assembly" "civilian government" "citizens"]
+  :stock :coercion-asymmetry :polarity :narrow :magnitude 0.6 :reversibility :constitutional :meadows 3
+  :basis "Constitución Política de Costa Rica (1949), Art. 12" :sourcing :representative :confidence 0.55}
+
+ ;; ── Uruguay ──
+ {:type :instrument :id "uy-democracy-restoration-1985" :name "1985 democratic restoration" :jurisdiction "UY" :kind :institution :year 1985
+  :enactor "Uruguayan parties + civil society (Naval Club Pact → 1984 elections)"
+  :origin "Negotiated end of the 1973–85 dictatorship restored the 1967 constitution and competitive elections; Uruguay has since ranked among the most robust democracies in the region, with strong participation institutions."
+  :stakeholders ["political parties" "labor/civil society" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.6 :reversibility :constitutional :meadows 4
+  :basis "1984 Naval Club Pact; 1967 Constitution restored" :sourcing :representative :confidence 0.55}
+
+ ;; ── Botswana ──
+ {:type :instrument :id "bw-multiparty-continuity" :name "Continuous multiparty elections since 1966" :jurisdiction "BW" :kind :institution :year 1966
+  :enactor "Republic of Botswana (independence Constitution)"
+  :origin "Held uninterrupted competitive multiparty elections since independence — including a peaceful 2024 alternation of power — a durable participation channel uncommon in the region (long single-party dominance is the watch-point)."
+  :stakeholders ["Independent Electoral Commission" "parties" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.5 :reversibility :institutional :meadows 4
+  :basis "Constitution of Botswana (1966); 2024 alternation" :sourcing :representative :confidence 0.5}
+
+ ;; ── Algeria ──
+ {:type :instrument :id "dz-state-media-control" :name "Pouvoir / state media + protest control" :jurisdiction "DZ" :kind :institution :year 1962
+  :enactor "Algerian state (the 'pouvoir' — military-political establishment)"
+  :origin "An opaque military-political establishment dominates politics and media; despite the 2019 Hirak protest movement and a leadership change, broad 'fake news'/security provisions continued to constrain independent information."
+  :stakeholders ["military establishment" "state media" "Hirak movement" "citizens"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.6 :reversibility :institutional :meadows 5
+  :basis "Algerian political-media structure; post-2019 measures" :sourcing :representative :confidence 0.4}
+
+ ;; ── transnational VALUE ──
+ {:type :instrument :id "gl-nationalism-loyalty" :name "Loyalty-demanding nationalism" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse value (mobilized by many states)"
+  :origin "When national belonging is framed as unconditional loyalty to the state and its leadership, dissent is recoded as betrayal; the value licenses widening of the citizen↔state asymmetry independently of any single law."
+  :stakeholders ["state media" "education systems" "citizens" "minorities/dissenters"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.5 :reversibility :cultural :meadows 2
+  :basis "Comparative literature on nationalism and loyalty" :sourcing :representative :confidence 0.4}
 ]

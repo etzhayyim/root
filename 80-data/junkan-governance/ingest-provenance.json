@@ -14,21 +14,22 @@
     "report.md"
   ],
   "regenerate": "bb --classpath 20-actors -e \"(require '[junkan.methods.junkan-edn :as je] '[junkan.methods.analyze :as az] '[junkan.methods.kotoba :as k]) (let [is (je/instruments \\\"20-actors/junkan/kotoba/seed.governance-asymmetry.edn\\\") a (az/analyze is) ds (az/datoms is a) tx (k/make-tx ds \\\"junkan-gov-snapshot-0001\\\" \\\"snapshot\\\" \\\"\\\")] (spit \\\"80-data/junkan-governance/governance-asymmetry.datoms.kotoba.edn\\\" (az/render-datoms is a)) (spit \\\"80-data/junkan-governance/findings-ledger.kotoba.edn\\\" (k/tx->edn tx)) (spit \\\"80-data/junkan-governance/report.md\\\" (az/render-report a)))\"",
-  "tx_cid": "b80c93aaf00ac0c95f5da15f0e8d1a7649e1d2f6f0a7c423f7b862667a928034b",
-  "datoms": 1468,
-  "instruments": 98,
-  "jurisdictions": 58,
-  "jurisdiction_list": ["AR","AU","AZ","BD","BR","BY","CH","CL","CN","CU","DE","EG","ET","EU","FR","GB","GLOBAL","HU","ID","IL","IN","IR","IT","KE","KH","KP","KR","KZ","LK","MA","MM","MX","NG","NO","NP","NZ","PH","PK","PL","QA","RW","RU","SA","SE","SG","TH","TM","TN","TR","TW","UG","UN","US","AE","VE","VN","ZA","ZW"],
-  "kinds": {"law": 48, "institution": 34, "doctrine": 16, "value": 3},
+  "tx_cid": "b3276bd0d1adcbfb3c5bfb17cfce7a87a252a106feba895740b1207199b1354ab",
+  "datoms": 1711,
+  "instruments": 115,
+  "jurisdictions": 74,
+  "jurisdiction_list": ["AE","AF","AO","AR","AU","AZ","BD","BO","BR","BW","BY","CH","CL","CN","CO","CR","CU","DE","DZ","EG","ET","EU","FJ","FR","GB","GH","GLOBAL","HU","ID","IL","IN","IQ","IR","IT","KE","KH","KP","KR","KZ","LK","MA","MM","MN","MX","NG","NI","NO","NP","NZ","PE","PH","PK","PL","QA","RU","RW","SA","SE","SG","SY","TH","TM","TN","TR","TW","TZ","UG","UN","US","UY","VE","VN","ZA","ZW"],
+  "kinds": {"law": 51, "institution": 42, "doctrine": 19, "value": 4},
   "tx_cid_note": "tx-cid reproducible byte-for-byte from the seed (deterministic content-address); changes only when the seed changes.",
   "sourcing": "representative (laws/years/enactors/origins are on-the-record public facts; polarity/magnitude/confidence are junkan's disclosed hypotheses, G5)",
   "discipline": "G4 analysis-only / G5 hypothesis-only / G6 aggregate-only / G7 map-not-rank / G11 candidates-not-directives",
   "as_of": "2026-06-21",
-  "iteration": 4,
+  "iteration": 5,
   "iteration_history": [
     {"iteration": 1, "instruments": 35, "jurisdictions": 17, "tx_cid": "bb4be4ac091ae9cc9be30c732d2fc78f773afabea84d6deccb96b784576a1d814"},
     {"iteration": 2, "instruments": 59, "jurisdictions": 31, "note": "Global South / under-represented wave: BR MX ZA NG ID TR IR PH PK VN KE TN CL TW"},
     {"iteration": 3, "instruments": 80, "jurisdictions": 43, "note": "DE FR KR AU AR MM CU BY VE BD IT + GLOBAL values; economic-capture depth; first :value-kind (思想・価値観) instruments; + era-trajectory temporal analytic"},
-    {"iteration": 4, "instruments": 98, "jurisdictions": 58, "note": "Gulf/Africa/C.Asia/E.Europe/S.Asia wave: QA AE KZ ET RW UG ZW KH TM AZ PL IL LK MA NP; + query.cljc EAVT/AVET/VAET arrangement queries over the datoms"}
+    {"iteration": 4, "instruments": 98, "jurisdictions": 58, "note": "Gulf/Africa/C.Asia/E.Europe/S.Asia wave: QA AE KZ ET RW UG ZW KH TM AZ PL IL LK MA NP; + query.cljc EAVT/AVET/VAET arrangement queries over the datoms"},
+    {"iteration": 5, "instruments": 115, "jurisdictions": 74, "note": "Latin America / sub-Saharan Africa / MENA / Pacific wave: CO PE BO NI GH TZ AO IQ SY AF FJ MN CR UY BW DZ + nationalism value; + loop regimes grounded in member-stock edges (joint drive, not dominant alone)"}
   ]
 }

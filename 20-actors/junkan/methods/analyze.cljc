@@ -40,12 +40,20 @@
    :economic-capture       "E 経済的レバレッジ集中 (economic)"})
 
 ;; ── canonical structural loops (HYPOTHESES; mirror ontology :loops) ──────────
+;; :stocks = the member stocks the loop's edges connect (from ontology :loops edges).
+;; A loop's regime is read off the JOINT pressure of ALL its member stocks (loop
+;; "drive"), not the dominant stock alone — a more honest read of a coupled loop.
 (def loops
-  [{:id "R-secrecy-spiral"        :type :reinforcing :dominant :information-asymmetry}
-   {:id "R-coercion-paradigm-lock":type :reinforcing :dominant :paradigm-subordination}
-   {:id "R-capture-barrier"       :type :reinforcing :dominant :economic-capture}
-   {:id "B-transparency"          :type :balancing   :dominant :information-asymmetry}
-   {:id "B-participation"         :type :balancing   :dominant :participation-barrier}])
+  [{:id "R-secrecy-spiral"        :type :reinforcing :dominant :information-asymmetry
+    :stocks [:information-asymmetry :economic-capture]}
+   {:id "R-coercion-paradigm-lock":type :reinforcing :dominant :paradigm-subordination
+    :stocks [:coercion-asymmetry :paradigm-subordination]}
+   {:id "R-capture-barrier"       :type :reinforcing :dominant :economic-capture
+    :stocks [:economic-capture :participation-barrier]}
+   {:id "B-transparency"          :type :balancing   :dominant :information-asymmetry
+    :stocks [:information-asymmetry]}
+   {:id "B-participation"         :type :balancing   :dominant :participation-barrier
+    :stocks [:participation-barrier]}])
 
 ;; ── pure read-off ────────────────────────────────────────────────────────────
 (defn- round3 [x] (/ (Math/round (* (double x) 1000.0)) 1000.0))
@@ -91,22 +99,38 @@
   (reduce (fn [m s] (assoc m s (stock-pressure (filter #(= s (:stock %)) instruments))))
           {} stock-order))
 
+(defn loop-drive
+  "JOINT pressure of a loop's member stocks: mean net, summed widen/narrow forces.
+  This is the loop's 'drive' — read from ALL connected stocks, not just the
+  dominant one (HYPOTHESIS, G5)."
+  [stocks member-stocks]
+  (let [sps (keep #(get stocks %) member-stocks)
+        n (count sps)
+        net (if (zero? n) 0.0 (/ (reduce + (map :net sps)) n))
+        pos (reduce + (map :widen-force sps))
+        neg (reduce + (map :narrow-force sps))]
+    {:drive (round3 net) :widen-force (round3 pos) :narrow-force (round3 neg)}))
+
 (defn loop-regimes
-  "Read each canonical loop's regime off its dominant stock (HYPOTHESIS, G5).
-  A reinforcing loop over a widening stock is :vicious; a balancing loop that is
+  "Read each canonical loop's regime off the JOINT pressure of its member stocks
+  (loop drive), not the dominant stock alone (HYPOTHESIS, G5). A reinforcing loop
+  whose coupled stocks are jointly widening is :vicious; a balancing loop that is
   actually narrowing its stock is :virtuous (it is doing its job)."
   [stocks]
   (mapv
-   (fn [{:keys [id type dominant] :as lp}]
-     (let [sp (get stocks dominant)
-           base (:regime sp)
-           regime (cond
-                    (= type :balancing)
+   (fn [{:keys [type dominant] :as lp0}]
+     (let [lp (dissoc lp0 :stocks)
+           member (or (:stocks lp0) [dominant])
+           {:keys [drive widen-force narrow-force]} (loop-drive stocks member)
+           base (regime-of drive widen-force narrow-force)
+           regime (if (= type :balancing)
                     (cond (= base :virtuous) :virtuous
-                          (= base :vicious)  :vicious      ;; balancer is being overwhelmed
+                          (= base :vicious)  :vicious   ;; balancer is being overwhelmed
                           :else base)
-                    :else base)]
-       (assoc lp :dominant-net (:net sp) :regime regime :hypothesis? true)))
+                    base)]
+       (assoc lp :member-stocks (vec member)
+                 :dominant-net (:net (get stocks dominant))
+                 :drive drive :regime regime :hypothesis? true)))
    loops))
 
 (defn leverage-candidates
@@ -255,6 +279,7 @@
       (let [e (str "junkan-loop:" (:id lp))]
         [(add e ":junkan.gov.loop/type" (str (:type lp)))
          (add e ":junkan.gov.loop/dominant-stock" (str (:dominant lp)))
+         (add e ":junkan.gov.loop/drive" (:drive lp))
          (add e ":junkan.gov.loop/regime" (str (:regime lp)))
          (add e ":junkan/hypothesis" ":true")
          (add e ":junkan/derived" true)]))
@@ -310,13 +335,15 @@
                       " | " (:narrow-force sp)
                       " | " (name (:regime sp)) " |")))
      "\n\n_net > 0 = 非対称が広がる方向に loop が回っている (悪循環傾向); net < 0 = 是正方向 (好循環)。_\n\n"
-     "## Structural loops (HYPOTHESIS, G5)\n\n"
-     "| loop | type | dominant stock | regime |\n"
-     "|---|---|---|---|\n"
+     "## Structural loops (HYPOTHESIS, G5 — drive = joint pressure of member stocks)\n\n"
+     "| loop | type | member stocks | drive | regime |\n"
+     "|---|---|---|---|---|\n"
      (str/join "\n"
                (for [lp (get analysis "loops")]
                  (str "| " (:id lp) " | " (name (:type lp))
-                      " | " (name (:dominant lp)) " | " (name (:regime lp)) " |")))
+                      " | " (str/join ", " (map name (:member-stocks lp)))
+                      " | " (:drive lp)
+                      " | " (name (:regime lp)) " |")))
      "\n\n## Era trajectory (system-dynamics over time, HYPOTHESIS, G5)\n\n"
      "_各時代に制定された instrument が非対称を広げる/狭める方向にどれだけ傾くか。構造の時系列であって国家 ranking ではない (G7)。undated な transnational values は除外。_\n\n"
      "| era | n | widen | narrow | net |\n"

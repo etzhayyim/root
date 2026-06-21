@@ -34,6 +34,29 @@
     (is (contains? (get r "leverage") :flip))
     (is (map? (get r "coverage")))))
 
+;; ── loops grounded in member-stock edges (not dominant alone) ────────────────
+(deftest loops-grounded-in-member-stocks
+  (let [r (a)
+        loops (get r "loops")
+        secrecy (first (filter #(= "R-secrecy-spiral" (:id %)) loops))
+        stocks (get r "stocks")]
+    (is (= [:information-asymmetry :economic-capture] (:member-stocks secrecy))
+        "secrecy-spiral couples information + economic stocks")
+    (is (contains? secrecy :drive) "loop carries a joint drive")
+    ;; drive = mean of the member stocks' net pressures (HYPOTHESIS read-off)
+    (let [info (get stocks "information-asymmetry")
+          econ (get stocks "economic-capture")
+          expect (/ (Math/round (* (/ (+ (:net info) (:net econ)) 2.0) 1000.0)) 1000.0)]
+      (is (= expect (:drive secrecy)) "drive is the mean net of member stocks"))))
+
+(deftest loop-drive-fn
+  (let [stocks {:a {:net 0.4 :widen-force 1.0 :narrow-force 0.2}
+                :b {:net -0.2 :widen-force 0.3 :narrow-force 0.9}}
+        d (az/loop-drive stocks [:a :b])]
+    (is (= 0.1 (:drive d)) "mean of 0.4 and -0.2")
+    (is (= 1.3 (:widen-force d)))
+    (is (= 1.1 (:narrow-force d)))))
+
 ;; ── G5 — everything is a HYPOTHESIS, never proven causation ──────────────────
 (deftest g5-hypothesis-only
   (let [r (a)]
