@@ -71,22 +71,33 @@
              "executed" false "server_signed" false "why" why))
 
 (defn- authorized-descriptor [plan reason]
-  (array-map
-   "svc" (get plan "svc")
-   "svc_label" (get plan "svc_label")
-   "tier" (get plan "tier")
-   "recommendation" (get plan "recommendation")
-   "authorized" true
-   ;; the membrane authorizes; a post-R1 driver executes. Still no I/O here.
-   "executed" false
-   "status" (if (= "T3" (get plan "tier")) ":member-submits" ":authorized-dry-run")
-   "authorized_by" "member"        ; G3 — never the server
-   "server_signed" false           ; G3 — never
-   "steps" (get plan "steps")
-   ;; G8 — cost-of-severance carried into the authorization, never planned around
-   "notice_days" (get plan "notice_days")
-   "penalty_jpy" (get plan "penalty_jpy")
-   "note" reason))
+  (let [catalog (get plan "catalog")              ; present iff catalog/enrich-plan ran
+        drift (get catalog "g8_drift")]
+    (cond-> (array-map
+             "svc" (get plan "svc")
+             "svc_label" (get plan "svc_label")
+             "tier" (get plan "tier")
+             "recommendation" (get plan "recommendation")
+             "authorized" true
+             ;; the membrane authorizes; a post-R1 driver executes. Still no I/O here.
+             "executed" false
+             "status" (if (= "T3" (get plan "tier")) ":member-submits" ":authorized-dry-run")
+             "authorized_by" "member"        ; G3 — never the server
+             "server_signed" false           ; G3 — never
+             "steps" (get plan "steps")
+             ;; G8 — cost-of-severance carried into the authorization, never planned around
+             "notice_days" (get plan "notice_days")
+             "penalty_jpy" (get plan "penalty_jpy")
+             "note" reason)
+      ;; surface the disclosed real procedure (catalog/enrich-plan) to the member
+      catalog (assoc "disclosed_procedure" catalog)
+      ;; G6 honesty — a representative (operator-unverified) procedure is flagged even
+      ;; when authorized: the post-R1 driver must operator-verify before touching the service
+      (and catalog (false? (get catalog "operator_verified")))
+      (assoc "operator_verification_required" true)
+      ;; G8 — a cost-of-severance discrepancy between ledger and catalog needs the
+      ;; member's explicit acknowledgment; kaiyaku never reconciles it silently
+      (seq drift) (assoc "g8_ack_required" true "g8_drift" (vec drift)))))
 
 ;; ── dispatch one plan ───────────────────────────────────────────────────────
 

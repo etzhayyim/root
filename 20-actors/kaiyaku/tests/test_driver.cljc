@@ -136,6 +136,48 @@
     (is (= ":member-submits" (get d "status")))
     (is (false? (get d "executed")))))
 
+;; ── catalog-enriched descriptor (catalog → plan → driver) ───────────────────
+
+(defn- enriched-plan
+  "A :sever plan carrying a catalog/enrich-plan-shaped \"catalog\" submap."
+  [svc & {:keys [operator-verified g8-drift]
+          :or {operator-verified false g8-drift nil}}]
+  (assoc (sever-plan svc)
+         "catalog" (cond-> (array-map
+                            "tier" "T3"
+                            "self_submit_steps" ["step 1" "step 2"]
+                            "notice_days" 0
+                            "penalty_jpy" 0
+                            "disclosed_source" "https://help.example/cancel"
+                            "operator_verified" operator-verified)
+                     g8-drift (assoc "g8_drift" g8-drift))))
+
+(deftest test-descriptor-surfaces-disclosed-procedure
+  (let [b (bundle ["svc:a"])
+        d (driver/dispatch (enriched-plan "svc:a") {:bundle b :now-epoch now})]
+    (is (true? (get d "authorized")))
+    (is (map? (get d "disclosed_procedure")))
+    (is (seq (get-in d ["disclosed_procedure" "self_submit_steps"])))
+    ;; G6 honesty — a representative (unverified) procedure is flagged even when authorized
+    (is (true? (get d "operator_verification_required")))
+    ;; still never executed
+    (is (false? (get d "executed")))))
+
+(deftest test-descriptor-g8-ack-required-on-drift
+  (let [b (bundle ["svc:a"])
+        d (driver/dispatch (enriched-plan "svc:a" :g8-drift ["penalty_jpy ledger=0 catalog=5000"])
+                           {:bundle b :now-epoch now})]
+    (is (true? (get d "g8_ack_required")))
+    (is (seq (get d "g8_drift")))))
+
+(deftest test-descriptor-no-catalog-keys-when-unenriched
+  ;; a plain (unenriched) plan must NOT gain catalog keys — additive only.
+  (let [b (bundle ["svc:a"])
+        d (driver/dispatch (sever-plan "svc:a") {:bundle b :now-epoch now})]
+    (is (nil? (get d "disclosed_procedure")))
+    (is (nil? (get d "g8_ack_required")))
+    (is (nil? (get d "operator_verification_required")))))
+
 (defn -main [& _]
   (let [{:keys [fail error]} (run-tests 'kaiyaku.tests.test-driver)]
     (System/exit (if (zero? (+ fail error)) 0 1))))

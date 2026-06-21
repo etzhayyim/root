@@ -90,7 +90,7 @@ advice.
 │   ├── catalog.cljc                   # R1: real-service 解約 procedure catalog loader/validator (tier-parity w/ planner)
 │   ├── handoff_ingest.py              # tate 盾 handoff → notice-window worklist (compose 往復)
 │   └── datom_emit.py                  # kotoba Datom-log (EAVT) emitter — canonical state
-├── tests/                             # 52 tests, pure stdlib
+├── tests/                             # 55 tests, pure stdlib
 │   ├── test_analyze.py
 │   ├── test_handoff.py
 │   ├── test_plan.py
