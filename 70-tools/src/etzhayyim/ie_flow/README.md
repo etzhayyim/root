@@ -84,6 +84,24 @@ bb -cp "20-actors:70-tools/src:20-actors/kotodama/src" \
    70-tools/src/etzhayyim/ie_flow/scoreboard.clj --write   # → 80-data/ie-flow/scoreboard.edn
 ```
 
+### Embedding a gate / observatory actor (`gate-adapter.cljc`)
+
+Verdict-gate + observatory actors (kafun / ugachi / busshi / …) all share the same shape:
+an assessment produces ROWS, each routes to a VERDICT/ROUTE, and the actor rectifies a
+scattered-risk VOLUME into a realised-order VALUE. `gate-adapter` is that shared plumbing —
+an actor supplies only its DOMAIN model (a config map), not 80 forks:
+
+```clojure
+(require '[etzhayyim.ie-flow.gate-adapter :as ga])
+(defn config [rows]
+  {:actor "ugachi" :id-prefix "ugachi-" :source-kind "project" :rows rows
+   :route-key "verdict"
+   :volume-fn #(double (get % "multigen_risk"))         ; the scattered risk it rectifies
+   :value-fn  #(* (volume %) (route-factor (verdict %)) ga/default-value-scale)})  ; realised order
+(defn flow-state  [rows] (ga/flow-state (config rows)))
+(defn record-flow! [rows opts] (ga/record-flow! (config rows) opts))
+```
+
 ## Run
 
 ```bash
