@@ -44,7 +44,9 @@
      "\n\n## Substrate integrity (validate.cljc)\n\n"
      "- **errors**: " (count (:errors validation)) "\n"
      "- **warnings**: " (count (:warnings validation)) "\n"
-     "- **status**: " (if (empty? (:errors validation)) "✅ OK" "❌ has errors") "\n\n"
+     "- **status**: " (if (empty? (:errors validation)) "✅ OK" "❌ has errors") "\n"
+     "- **next focus (self-balancing)**: deepen the thinnest stock — **"
+     (:thinnest-stock cov) "**\n\n"
      "_Discipline: G4 analysis-only · G5 hypothesis-only · G6 aggregate-only · "
      "G7 map-not-target-list · G11 candidates-not-directives._\n")))
 

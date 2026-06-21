@@ -205,7 +205,7 @@
    "NI" :americas "CR" :americas "UY" :americas "CA" :americas "SV" :americas
    "HN" :americas "GT" :americas "HT" :americas "EC" :americas "JM" :americas
    "TT" :americas "BB" :americas "DO" :americas "PA" :americas "GY" :americas
-   "BS" :americas "SR" :americas "LC" :americas "GD" :americas
+   "BS" :americas "SR" :americas "LC" :americas "GD" :americas "BZ" :americas
    ;; Asia (incl. Middle East / Central / South / SE / East)
    "CN" :asia "KP" :asia "IN" :asia "ID" :asia "TH" :asia "PH" :asia "PK" :asia
    "VN" :asia "BD" :asia "KH" :asia "TM" :asia "AZ" :asia "KZ" :asia "LK" :asia
@@ -227,7 +227,7 @@
    ;; Oceania
    "NZ" :oceania "AU" :oceania "FJ" :oceania "PG" :oceania "WS" :oceania
    "TO" :oceania "VU" :oceania "SB" :oceania "PW" :oceania "KI" :oceania
-   "FM" :oceania "TV" :oceania "MH" :oceania
+   "FM" :oceania "TV" :oceania "MH" :oceania "NR" :oceania
    ;; Asia (Timor-Leste, Japan)
    "TL" :asia "JP" :asia
    ;; transnational

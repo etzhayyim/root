@@ -23,6 +23,7 @@
     (is (str/includes? md "Continental balance"))
     (is (str/includes? md "Asymmetry stock regimes"))
     (is (str/includes? md "Substrate integrity"))
+    (is (str/includes? md "next focus (self-balancing)"))
     ;; reflects the real instrument count + clean integrity
     (is (str/includes? md (str "instruments**: " (count (is*)))))
     (is (str/includes? md "✅ OK") "live substrate integrity is clean in the scorecard")))

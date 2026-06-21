@@ -2,9 +2,9 @@
 
 全世界の **具体的な法律・制度・思想・価値観** が citizen↔state の構造的非対称をどう広げる/狭めるかを、5 つの asymmetry STOCK と feedback LOOP で読み取る。**分析専用 (G4): junkan は観るだけで触れない。** 各 regime / leverage は **仮説 (G5)** であり因果の証明ではない。これは resilience/leverage の MAP であって、国家を晒す ranking ではない (G7)。
 
-_coverage_: 297 instruments · 186 jurisdictions · sourcing {:representative 297}
+_coverage_: 307 instruments · 188 jurisdictions · sourcing {:representative 307}
 
-_continental balance_: africa 51 · asia 46 · europe 45 · americas 29 · oceania 13 · transnational 2
+_continental balance_: africa 51 · asia 46 · europe 45 · americas 30 · oceania 14 · transnational 2
 
 **要点 (HYPOTHESIS, G5):** いま最も非対称が広がる方向に圧力がかかる stock は **coercion-asymmetry** (net 0.246)。直近 era **2010–** の net は 0.144。instrument 種類のうち最も是正方向に傾くのは **doctrine** (net -0.07)。最も強く非対称を広げる instrument は **Single-candidate elections (SPA)** (KP)。
 
@@ -29,10 +29,10 @@ _continental balance_: africa 51 · asia 46 · europe 45 · americas 29 · ocean
 | stock | n | net pressure | widen | narrow | regime |
 |---|---|---|---|---|---|
 | A 情報・可視性の非対称 (information) | 40 | 0.056 | 7.222 | 4.972 | transitioning |
-| B 参入・代表性の障壁 (participation) | 132 | 0.017 | 18.765 | 16.485 | transitioning |
+| B 参入・代表性の障壁 (participation) | 134 | 0.016 | 18.765 | 16.665 | transitioning |
 | C 強制力の非対称 (coercion) | 46 | 0.246 | 13.38 | 2.047 | vicious |
 | D 思想・価値観の従属 (paradigm) | 40 | 0.04 | 7.12 | 5.54 | transitioning |
-| E 経済的レバレッジ集中 (economic) | 39 | 0.068 | 5.623 | 2.98 | transitioning |
+| E 経済的レバレッジ集中 (economic) | 47 | 0.064 | 6.563 | 3.565 | transitioning |
 
 _net > 0 = 非対称が広がる方向に loop が回っている (悪循環傾向); net < 0 = 是正方向 (好循環)。_
 
@@ -40,11 +40,11 @@ _net > 0 = 非対称が広がる方向に loop が回っている (悪循環傾�
 
 | loop | type | member stocks | drive | regime |
 |---|---|---|---|---|
-| R-secrecy-spiral | reinforcing | information-asymmetry, economic-capture | 0.062 | transitioning |
+| R-secrecy-spiral | reinforcing | information-asymmetry, economic-capture | 0.06 | transitioning |
 | R-coercion-paradigm-lock | reinforcing | coercion-asymmetry, paradigm-subordination | 0.143 | transitioning |
-| R-capture-barrier | reinforcing | economic-capture, participation-barrier | 0.043 | transitioning |
+| R-capture-barrier | reinforcing | economic-capture, participation-barrier | 0.04 | transitioning |
 | B-transparency | balancing | information-asymmetry | 0.056 | transitioning |
-| B-participation | balancing | participation-barrier | 0.017 | transitioning |
+| B-participation | balancing | participation-barrier | 0.016 | transitioning |
 
 ## Stock × continent (where each asymmetry is most active, HYPOTHESIS, G5)
 
@@ -52,20 +52,20 @@ _net pressure per continent × stock (aggregate, structural — NOT a per-countr
 
 | continent | info | participation | coercion | paradigm | economic |
 |---|---|---|---|---|---|
-| africa | 0.134 | 0.099 | 0.314 | -0.062 | 0.319 |
-| americas | -0.14 | 0.032 | 0.28 | -0.334 | 0.006 |
-| asia | 0.241 | 0.155 | 0.36 | 0.284 | 0.2 |
+| africa | 0.134 | 0.099 | 0.314 | -0.062 | 0.147 |
+| americas | -0.14 | 0.021 | 0.28 | -0.334 | 0.037 |
+| asia | 0.241 | 0.155 | 0.36 | 0.284 | 0.202 |
 | europe | -0.021 | -0.149 | 0.107 | -0.017 | 0.002 |
-| oceania | -0.25 | -0.174 | 0.275 | · | 0.0 |
+| oceania | -0.25 | -0.161 | 0.275 | · | 0.0 |
 
 ## Instrument kind × net pressure (do laws/institutions/doctrines/values widen or narrow?)
 
 | kind | n | net | polarity mix |
 |---|---|---|---|
 | law | 66 | 0.163 | {:widen 47, :ambiguous 1, :narrow 18} |
-| institution | 179 | 0.068 | {:widen 88, :narrow 71, :ambiguous 20} |
+| institution | 188 | 0.065 | {:widen 91, :narrow 75, :ambiguous 22} |
 | doctrine | 39 | -0.07 | {:widen 12, :narrow 20, :ambiguous 7} |
-| value | 13 | -0.014 | {:ambiguous 3, :widen 5, :narrow 5} |
+| value | 14 | 0.002 | {:ambiguous 3, :widen 6, :narrow 5} |
 
 ## Era trajectory (system-dynamics over time, HYPOTHESIS, G5)
 
@@ -76,8 +76,8 @@ _各時代に制定された instrument が非対称を広げる/狭める方向
 | pre-1800 | 5 | 0.0 | 2.175 | -0.435 |
 | 1800–1899 | 3 | 0.2 | 0.713 | -0.171 |
 | 1900–1944 | 9 | 2.21 | 0.2 | 0.223 |
-| 1945–1989 | 79 | 14.21 | 9.912 | 0.054 |
-| 1990–2009 | 86 | 11.52 | 10.347 | 0.014 |
+| 1945–1989 | 82 | 14.21 | 10.272 | 0.048 |
+| 1990–2009 | 91 | 12.02 | 10.752 | 0.014 |
 | 2010– | 103 | 22.44 | 7.62 | 0.144 |
 
 ## Meadows leverage CANDIDATES (G11 — candidates, never directives)
@@ -110,7 +110,7 @@ _scores are DISCLOSED + weighted (amplify = 0.6·depth + 0.4·magnitude; flip = 
 
 ## Coverage worklist (next /loop iterations)
 
-- deepen thinnest stock: economic-capture (n=39)
+- deepen thinnest stock: paradigm-subordination (n=40)
 - broaden jurisdiction coverage (small states / Pacific / Caribbean still light)
 
 _findings are append-only; surfacing beyond Council is performed by ossekai/kataribe on junkan's behalf, never by junkan (G13). actuation_taken=false throughout._

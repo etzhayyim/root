@@ -2240,4 +2240,75 @@
   :stakeholders ["Parliament" "parties" "citizens"]
   :stock :participation-barrier :polarity :narrow :magnitude 0.45 :reversibility :constitutional :meadows 4
   :basis "Grenada constitutional restoration (1984)" :sourcing :representative :confidence 0.4}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 21 — economic-capture toward parity (resource capture + audit/
+ ;; recovery counters) + new jurisdictions (BZ NR)
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── economic-capture (widen) ──
+ {:type :instrument :id "ve-pdvsa-capture" :name "PDVSA state-oil capture" :jurisdiction "VE" :kind :institution :year 2003
+  :enactor "Venezuelan state (PDVSA after the 2002–03 purge)"
+  :origin "After mass dismissals politicized the state oil company, its revenues funded patronage and were drained by corruption while output collapsed — a paradigmatic fusion of resource rents and political power against citizen accountability."
+  :stakeholders ["PDVSA" "presidency" "elite networks" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.7 :reversibility :institutional :meadows 4
+  :basis "PDVSA politicization (2003–)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "mn-mining-capture" :name "Mining-revenue capture risk" :jurisdiction "MN" :kind :institution :year 2009
+  :enactor "Mongolian political economy (large mining deals, e.g. Oyu Tolgoi)"
+  :origin "Vast mineral wealth and opaque deals created recurring capture and 'resource nationalism' disputes; a 2022 parliamentary report on coal-trade corruption triggered mass protests — democratic Mongolia testing whether transparency can hold resource rents accountable."
+  :stakeholders ["parliament" "mining firms" "sovereign-wealth mechanisms" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.55 :reversibility :statutory :meadows 5
+  :basis "Mongolia mining governance; 2022 coal-corruption protests" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-illicit-financial-flows" :name "Illicit financial flows" :jurisdiction "GLOBAL" :kind :institution :year 0
+  :enactor "Diffuse (cross-border movement of illicitly-acquired/­concealed funds)"
+  :origin "Hundreds of billions a year leave (especially developing) countries through trade misinvoicing, tax abuse, and laundering, draining public resources beyond citizen reach — a structural economic asymmetry that transparency and asset-recovery aim to counter."
+  :stakeholders ["enablers" "tax authorities" "FATF/UNCTAD" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.6 :reversibility :institutional :meadows 5
+  :basis "UNCTAD/GFI illicit-financial-flows estimates" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-resource-curse" :name "Resource curse (rentier dependence)" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse pattern (resource-dependent states)"
+  :origin "Where state income comes mainly from resource rents rather than broad taxation, governments depend less on citizens and more on controlling the resource, weakening the fiscal accountability link — a value/structural pattern beneath many specific capture cases."
+  :stakeholders ["resource-state governments" "extractive firms" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.5 :reversibility :cultural :meadows 3
+  :basis "Resource-curse / rentier-state literature" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "za-bee" :name "Black Economic Empowerment (B-BBEE)" :jurisdiction "ZA" :kind :institution :year 2003
+  :enactor "South African state (B-BBEE Act 2003/2013)"
+  :origin "A redress framework to broaden Black ownership and management after apartheid; lauded for its aim but criticized where it enabled narrow elite enrichment ('tenderpreneurship') rather than broad benefit — an ambiguous effect on economic concentration."
+  :stakeholders ["government" "beneficiary firms" "broader workforce" "citizens"]
+  :stock :economic-capture :polarity :ambiguous :magnitude 0.4 :reversibility :statutory :meadows 5
+  :basis "B-BBEE Act 53 of 2003" :sourcing :representative :confidence 0.4}
+
+ ;; ── economic-capture (narrow — audit / recovery counters) ──
+ {:type :instrument :id "za-public-protector" :name "Office of the Public Protector" :jurisdiction "ZA" :kind :institution :year 1995
+  :enactor "South African Constitution (Chapter 9 institution)"
+  :origin "An independent ombudsman whose 'State of Capture' report (2016) helped expose the capture network and trigger the Zondo Commission — a constitutional accountability body narrowing elite impunity (its efficacy depends on who holds the office)."
+  :stakeholders ["Public Protector" "investigated officials" "judiciary" "citizens"]
+  :stock :economic-capture :polarity :narrow :magnitude 0.5 :reversibility :constitutional :meadows 8
+  :basis "SA Constitution Ch.9; State of Capture report (2016)" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "gl-asset-recovery" :name "Stolen-asset recovery (StAR / UNCAC)" :jurisdiction "GLOBAL" :kind :institution :year 2007
+  :enactor "World Bank–UNODC StAR Initiative (under UNCAC, 2005)"
+  :origin "International frameworks to trace, freeze, and return assets stolen by corrupt officials reverse part of the capture by returning funds to citizens — slow and partial, but a structural narrowing channel."
+  :stakeholders ["StAR/UNODC" "requesting states" "financial centres" "citizens"]
+  :stock :economic-capture :polarity :narrow :magnitude 0.45 :reversibility :institutional :meadows 6
+  :basis "UNCAC (2005); StAR Initiative (2007)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-supreme-audit-institutions" :name "Supreme audit institutions (INTOSAI)" :jurisdiction "GLOBAL" :kind :institution :year 1953
+  :enactor "National audit offices (INTOSAI standards, est. 1953)"
+  :origin "Independent national audit bodies that scrutinize how public money is spent and publish findings are a baseline structural check on the diversion of state funds — narrowing economic capture where their independence is real."
+  :stakeholders ["audit offices" "legislatures" "executives" "citizens"]
+  :stock :economic-capture :polarity :narrow :magnitude 0.45 :reversibility :institutional :meadows 6
+  :basis "INTOSAI; Lima Declaration (1977)" :sourcing :representative :confidence 0.4}
+
+ ;; ── new jurisdictions (participation) ──
+ {:type :instrument :id "bz-belize" :name "Westminster parliamentary democracy" :jurisdiction "BZ" :kind :institution :year 1981
+  :enactor "Belize (independence Constitution)"
+  :origin "A stable Central American/Caribbean democracy with regular competitive elections and peaceful alternation since independence — a functioning participation channel."
+  :stakeholders ["National Assembly" "parties" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.45 :reversibility :institutional :meadows 4
+  :basis "Constitution of Belize (1981)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "nr-nauru-instability" :name "Parliamentary democracy + chronic instability" :jurisdiction "NR" :kind :institution :year 1968
+  :enactor "Republic of Nauru (independence Constitution)"
+  :origin "A microstate democracy whose tiny parliament has seen frequent no-confidence turnovers and episodes of restricted opposition/media access, leaving elections functional but governance volatile — an ambiguous participation channel."
+  :stakeholders ["Parliament" "opposition" "citizens"]
+  :stock :participation-barrier :polarity :ambiguous :magnitude 0.4 :reversibility :institutional :meadows 4
+  :basis "Constitution of Nauru (1968)" :sourcing :representative :confidence 0.4}
 ]
