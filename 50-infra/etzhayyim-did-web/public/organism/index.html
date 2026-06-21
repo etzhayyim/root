@@ -69,6 +69,11 @@
   /* staleness badge: a layer overdue past 2× cadence (from health.json) */
   .live.stale{color:var(--dormant);border-color:#4a3a14;background:#1c160e}
   .live.stale .dot{background:var(--dormant);animation:none}
+  /* ── IE-flow (情報エネルギー流) layer: net-gain / order-index / Sankey backbone ── */
+  .iegrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:6px 0 12px}
+  .iestat{background:#0c1219;border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+  .iestat .ienum{font-size:18px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.2}
+  .iestat .iek{font-size:11px;color:var(--mut);margin-top:2px}
   /* respect reduced-motion: still alive, just not animated (104 cells breathing is a lot) */
   @media (prefers-reduced-motion: reduce){
     .dish .cell,.dish .cell.flash,.pulse,.live .dot{animation:none !important}

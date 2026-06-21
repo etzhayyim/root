@@ -262,6 +262,152 @@
         (h :div {:class "muted"
                  :text (str (count beats) " beats · 情緒の as-of 軌跡 = Wellbecoming（静的 score でなく動的軌跡, §1.13）")})))))
 
+;; ── 情報エネルギー流 IE-flow layer: net-gain / order-index / Sankey (ADR-2606211200) ─
+;; The organism is a dissipative structure: it draws free energy from society and is judged by
+;; how much LOW-ENTROPY STRUCTURE it returns. ieflow.json (bb ieflow:report) folds the committed
+;; flow ledger into the scalars the IE-flow co-scientist reasons over — net-gain (代謝が割に合うか)
+;; and order-index (散った flow を成果へ整流した = 負エントロピー輸出) — plus the repo→layer Sankey.
+
+(defn fmt-num [x]
+  (cond
+    (string? x) x
+    (nil? x) "—"
+    (number? x) (let [a (js/Math.abs x)]
+                  (cond (>= a 1e8) (str (.toFixed (/ x 1e8) 2) "億")
+                        (>= a 1e4) (str (.toFixed (/ x 1e4) 1) "万")
+                        (>= a 100) (str (js/Math.round x))
+                        :else (.toFixed x 2)))
+    :else (str x)))
+
+(defn ie-stat [label val color]
+  (h :div {:class "iestat"}
+    (h :div {:class "ienum" :style (str "color:" color) :text val})
+    (h :div {:class "iek" :text label})))
+
+(defn ie-edge-bar [target value net maxv]
+  ;; sqrt scale for the bar width — one layer (20-actors) carries ~99% of value, so a linear bar
+  ;; would erase every other channel; the real value is shown verbatim alongside.
+  (let [w (* 100 (js/Math.sqrt (/ (js/Math.max 0 value) (js/Math.max 1 maxv))))
+        color (if (>= net 0) "#39d98a" "#f0506e")
+        short (.replace (str target) (js/RegExp. "^layer:") "")]
+    (h :div {:class "axis"}
+      (h :span {:class "alab" :text short})
+      (h :div {:class "track"}
+         (h :div {:class "fill" :style (str "width:" w "%;background:" color)}))
+      (h :span {:class "aval" :text (fmt-num value)}))))
+
+(defn ieflow-panel [ie]
+  (if-not ie
+    (h :div {:class "hint" :text "ieflow.json 待機中… (bb ieflow:report)"})
+    (let [edges (:edges ie)
+          maxv (apply max 1 (map :value edges))
+          parasitic (:parasitic ie)
+          oi (:orderIndex ie)]
+      (h :div {}
+        (h :div {:class "moodhead"}
+          (h :span {:class "moodglyph" :style (str "color:" (if parasitic "#f0506e" "#39d98a"))
+                    :text (if parasitic "散逸" "利得")})
+          (h :span {:class "muted"
+                    :text (str (:source ie) " · " (:events ie) " events → " (:flowsN ie) " channels")}))
+        (h :div {:class "iegrid"}
+          (ie-stat "net-gain Φ"   (fmt-num (:netGain ie))   (if parasitic "#f0506e" "#39d98a"))
+          (ie-stat "order-index η" (if (number? oi) (.toFixed oi 3) (str oi)) "#b78bff")
+          (ie-stat "agent-eff"    (fmt-num (:agentEfficiency ie)) "#7aa2ff")
+          (ie-stat "throughput"   (fmt-num (:throughput ie))  "#8b97a6"))
+        (when (number? oi)
+          (h :div {}
+            (h :div {:class "wbline"}
+               (h :b {:text "秩序化 order-index"})
+               (h :span {:class "muted" :text "  flow散 → 成果集中 = 負エントロピー輸出 (1−H後/H前)"}))
+            (axis-bar "整流 η" (js/Math.round (* 100 oi)) 100 "#b78bff")))
+        (h :div {:class "wbline" :style "margin-top:12px"}
+           (h :b {:text "代謝チャネル — repo → layer"})
+           (h :span {:class "muted" :text "  (幅=√value · 赤=net負=受取超)"}))
+        (map (fn [e] (ie-edge-bar (:target e) (:value e) (:net e) maxv)) edges)
+        (h :div {:class "muted" :style "margin-top:8px"
+                 :text (str "value=社会へ返した秩序 / cost=引いた自由エネルギー · " (:generatedAt ie))})))))
+
+;; ── actor system-of-systems graph (ADR-2606211200) ──────────────────────────
+;; Every actor embeds the SAME unforkable substrate (kotoba Datom ledger + organism react-loop +
+;; co-scientist) — so the colony is a SYSTEM OF SYSTEMS, not 80 forks. sos.json is the node-link
+;; topology: the shared core (centre triangle = the loop), the measured sources feeding the ledger,
+;; the adopters embedding it, and kaname synthesising across the multiplex (dashed chords).
+
+(defn- svg-label [root x y size fill s]
+  (let [t (svg :text {:x x :y y :text-anchor "middle" :font-size size :fill fill
+                      :style "user-select:none;pointer-events:none"})]
+    (set! (.-textContent t) (str s))
+    (.appendChild root t)))
+
+(defn sos-layout [nodes]
+  ;; deterministic radial: core subsystems on an inner triangle, sources+actors on an outer ring.
+  (let [cx 380 cy 235
+        cores (filter #(= "core" (:kind %)) nodes)
+        ring  (filter #(#{"actor" "source"} (:kind %)) nodes)
+        place (fn [coll r off]
+                (let [n (count coll)]
+                  (into {} (map-indexed
+                             (fn [i nd]
+                               (let [a (+ (- (/ TAU 4)) off (* TAU (/ i (max 1 n))))]
+                                 [(:id nd) {:x (+ cx (* r (js/Math.cos a)))
+                                            :y (+ cy (* r (js/Math.sin a))) :node nd}]))
+                             coll))))]
+    (merge (place cores 82 0) (place ring 198 0))))
+
+(def sos-edge-style
+  {"core"        {:stroke "#39d98a" :w 2.6 :op 0.9}
+   "measures"    {:stroke "#7aa2ff" :w 2.2 :op 0.85}
+   "embeds"      {:stroke "#3a4a5c" :w 1.0 :op 0.5}
+   "synthesizes" {:stroke "#b78bff" :w 1.5 :op 0.75 :dash "5 3"}})
+
+(defn render-sos [g]
+  (if-not g
+    (h :div {:class "hint" :text "sos.json 待機中… (bb ieflow:sos)"})
+    (let [pos (sos-layout (:nodes g))
+          root (svg :svg {:viewBox "0 0 760 470" :width "100%" :class "dish"})]
+      ;; edges
+      (doseq [e (:edges g)]
+        (let [a (pos (:from e)) b (pos (:to e))
+              s (get sos-edge-style (:type e) {:stroke "#27313e" :w 1 :op 0.4})]
+          (when (and a b)
+            (.appendChild root
+              (svg :line (cond-> {:x1 (:x a) :y1 (:y a) :x2 (:x b) :y2 (:y b)
+                                  :stroke (:stroke s) :stroke-width (:w s) :opacity (:op s)}
+                           (:dash s) (assoc :stroke-dasharray (:dash s))))))))
+      ;; nodes
+      (doseq [[_ p] pos]
+        (let [nd (:node p) k (:kind nd) x (:x p) y (:y p)
+              kaname? (= "kaname" (:label nd))
+              col (case k
+                    "core" "#39d98a"
+                    "source" "#7aa2ff"
+                    (cond kaname? "#b78bff" (:measured nd) "#39d98a" :else "#5b6472"))
+              r (case k "core" 13 "source" 17 12)
+              c (svg :circle {:cx x :cy y :r r :fill col :stroke (if kaname? "#fff" "#0b0f14")
+                              :stroke-width (if kaname? 2 1.5)
+                              :opacity (if (and (= k "actor") (not (:measured nd))) 0.62 1)})
+              ti (svg :title {})]
+          (set! (.-textContent ti) (str (:label nd) (when (:note nd) (str " — " (:note nd)))))
+          (.appendChild c ti)
+          (.appendChild root c)
+          (svg-label root x (+ y r 13) 11 "#e6edf3" (:label nd))
+          (cond
+            (= k "core")   (svg-label root x (+ y r 25) 9 "#8b97a6" (:ja nd))
+            (and (= k "source") (:netGain nd)) (svg-label root x (+ y r 25) 9 "#8b97a6"
+                                                          (str "Φ " (fmt-num (:netGain nd))))
+            (= k "actor")  (svg-label root x (+ y r 25) 9 (if (:measured nd) "#39d98a" "#5b6472")
+                                      (if (:measured nd) "measured" "registered")))))
+      root)))
+
+(defn sos-legend [g]
+  (h :div {:class "legend" :style "margin-top:8px"}
+    (h :span {} (h :i {:style "background:#39d98a"}) "共有基盤 core (ledger·loop·co-scientist)")
+    (h :span {} (h :i {:style "background:#7aa2ff"}) "measured source")
+    (h :span {} (h :i {:style "background:#b78bff"}) "kaname = SoS 合成 (multiplex)")
+    (h :span {} (h :i {:style "background:#5b6472"}) "registered (未測定)")
+    (h :span {:text "── embeds · ┈ synthesizes"})
+    (when g (h :span {:class "muted" :text (str "  " (:generatedAt g))}))))
+
 ;; ── compose (full paint — structure) ────────────────────────────────────────
 
 (defn live-badge [pulse]
@@ -294,7 +440,7 @@
         (h :span {:class "pill"} (h :b {:text (str (:cells s))}) " cells")))))
 
 (defn paint! []
-  (let [{:keys [data traj pulse joucho narr sel]} @state app (gid "app")]
+  (let [{:keys [data traj pulse joucho narr ieflow sos sel]} @state app (gid "app")]
     (clear! app)
     (.appendChild app
       (if-not data
@@ -312,7 +458,14 @@
                  (h :h3 {:text "情緒 — joucho mood + Wellbecoming 軌跡"})
                  (narr-line narr)
                  (joucho-panel joucho))
+              (h :div {:class "card"}
+                 (h :h3 {:text "情報エネルギー流 — IE-flow (代謝が割に合うか)"})
+                 (ieflow-panel ieflow))
               (h :div {:class "card"} (h :h3 {:text "生命進化 — trajectory"}) (evo traj))))
+          (h :div {:class "card"}
+             (h :h3 {:text "actor system-of-systems — 共有基盤を embed する actor 群のグラフ"})
+             (render-sos sos)
+             (sos-legend sos))
           (h :div {:class "foot"
                    :text "脈動=呼吸 · 発光=working-tree 編集中 · 閃光=コミット出力(生産). 構造=kotoba Datom log / 活動=git pulse。"}))))))
 
@@ -460,7 +613,9 @@
     (fn [p] (when p (swap! state assoc :pulse p) (apply-pulse! p)))
     (fn [] (fetchj "pulse.json" false
              (fn [p] (when p (swap! state assoc :pulse p) (apply-pulse! p))))))
-  (fetchj "health.json" false (fn [hh] (when hh (swap! state assoc :health hh) (paint!)))))
+  (fetchj "health.json" false (fn [hh] (when hh (swap! state assoc :health hh) (paint!))))
+  (fetchj "ieflow.json" true (fn [ie] (when ie (swap! state assoc :ieflow ie) (paint!))))
+  (fetchj "sos.json" true (fn [g] (when g (swap! state assoc :sos g) (paint!)))))
 
 ;; ── boot — read the kotoba Datom log (snapshot) in the browser; JSON is fail-open ──────────────
 
@@ -486,7 +641,9 @@
         (fn [] (fetchj "narration.json" true (fn [nr] (when nr (swap! state assoc :narr nr) (paint!))))))
       (fetch-kotoba "joucho.kotoba.edn" kotoba->joucho
         (fn [jo] (swap! state assoc :joucho jo) (paint!))
-        (fn [] (fetchj "joucho.json" true (fn [jo] (swap! state assoc :joucho jo) (paint!))))))
+        (fn [] (fetchj "joucho.json" true (fn [jo] (swap! state assoc :joucho jo) (paint!)))))
+      (fetchj "ieflow.json" true (fn [ie] (when ie (swap! state assoc :ieflow ie) (paint!))))
+      (fetchj "sos.json" true (fn [g] (when g (swap! state assoc :sos g) (paint!)))))
     ;; fail-open: no vitals snapshot yet → JSON projection
     (fn [] (fetchj "organism.json" true
              (fn [d] (swap! state assoc :data d)

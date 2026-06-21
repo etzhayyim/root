@@ -53,6 +53,16 @@
    :task (do (require 'etzhayyim.watchdog)
              (apply (resolve 'etzhayyim.watchdog/-check) *command-line-args*))}
 
+  ieflow:report
+  {:doc "Emit ieflow.json — the organism's information-energy FLOW layer (ADR-2606211200): folds the committed flow ledger (80-data/ie-flow/<source>/flow.kotoba.edn) through etzhayyim.ie-flow.{ledger,metrics} into net-gain / order-index (負エントロピー輸出) / agent-efficiency / throughput + the Sankey edges & stations the /organism page renders. Pure read, no network I/O, no held key. Args: [flow-log-path]"
+   :task (do (require 'etzhayyim.ie-flow.organism)
+             (apply (resolve 'etzhayyim.ie-flow.organism/-report) *command-line-args*))}
+
+  ieflow:sos
+  {:doc "Emit sos.json — the actor SYSTEM-OF-SYSTEMS graph (ADR-2606211200): from 80-data/ie-flow/registry.edn + per-actor flow measurement, builds the node-link graph of the shared unforkable substrate (kotoba ledger / react-loop / co-scientist), the measured sources feeding it, the adopters embedding it, and kaname synthesizing across the multiplex. The /organism page renders it as a radial graph. Pure read, no held key."
+   :task (do (require 'etzhayyim.ie-flow.organism)
+             (apply (resolve 'etzhayyim.ie-flow.organism/-sos) *command-line-args*))}
+
   test:kotoba
   {:doc "etzhayyim.kotoba root-side Datom engine + envelope + analysis (ADR-2605262130 Phase 1/2 + ADR-2605181100; data+impl in root, kotoba is the external generic engine)"
    :task (do (require 'clojure.test 'etzhayyim.kotoba.test-engine
