@@ -640,7 +640,16 @@
                (ie-stat "net-gain Φ" (fmt-num (ix :lab.index/net-gain)) "#39d98a")
                (ie-stat "order-index η" (n3 :lab.index/order-index) "#b78bff")
                (ie-stat "surprise 𝒮" (n3 :lab.index/surprise) "#f5a524")
-               (ie-stat "agent-eff" (fmt-num (ix :lab.index/agent-eff)) "#7aa2ff")))
+               (ie-stat "agent-eff" (fmt-num (ix :lab.index/agent-eff)) "#7aa2ff"))
+             ;; co-scientist score-react + control numbers (loop iteration 1, ADR-2606212200)
+             (h :div {:class "muted" :style "margin-top:10px"}
+               (h :b {:style "color:#39d98a" :text (str "co-scientist react Δ +" (n3 :lab.index/reward-delta))})
+               (h :span {:text (str " → projected R " (n3 :lab.index/reward-projected)
+                                    " via " (ix :lab.react/mechanism) " (→ Maxwell preference signal)")}))
+             (h :div {:class "muted" :style "margin-top:4px"
+                      :text (str "control 制御: reserves→target — settles step " (ix :lab.control/settling-step)
+                                 " · overshoot " (n3 :lab.control/overshoot) "% · final-err "
+                                 (fmt-num (ix :lab.control/final-error)))}))
           ;; RIGHT — datomic-query overlay (drives the SELECTED actor's SD) + live sims
           (h :div {}
              (h :div {:class "wbline"} (h :b {:text (str a " params (datomic-query overlay)")})

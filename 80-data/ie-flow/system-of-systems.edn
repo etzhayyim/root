@@ -44,7 +44,33 @@
   {:actor "okaimono" :weights {:phi 0.18 :eta 0.27 :wellbecoming 0.35 :efficiency 0.12 :surprise 0.08}
    :telos "provisioning commons — value returned to members (子孫 dominant)"}
   {:actor "repo-git" :weights {:phi 0.30 :eta 0.30 :wellbecoming 0.20 :efficiency 0.12 :surprise 0.08}
-   :telos "the monorepo's own development metabolism (measured, not seeded)"}]
+   :telos "the monorepo's own development metabolism (measured, not seeded)"}
+  ;; ── wave 2 (loop iteration 1): mirrors/observatories η-dominant · care/commons 子孫-dominant ·
+  ;;    infra Φ/efficiency-dominant — same charter-aligned terms, same non-negotiable gates ──
+  {:actor "danjo"     :weights {:phi 0.20 :eta 0.40 :wellbecoming 0.22 :efficiency 0.10 :surprise 0.08}
+   :telos "public-accountability mirror — disclosure is its negentropy export (η dominant)"}
+  {:actor "inochi"    :weights {:phi 0.18 :eta 0.32 :wellbecoming 0.30 :efficiency 0.12 :surprise 0.08}
+   :telos "biosphere mirror → RESTORATION (η + 子孫)"}
+  {:actor "hokorobi"  :weights {:phi 0.22 :eta 0.38 :wellbecoming 0.22 :efficiency 0.10 :surprise 0.08}
+   :telos "systemic-risk observatory → resilience (η dominant, never-trades)"}
+  {:actor "chie"      :weights {:phi 0.20 :eta 0.40 :wellbecoming 0.20 :efficiency 0.12 :surprise 0.08}
+   :telos "AI-landscape mirror → opening (η dominant)"}
+  {:actor "asobi"     :weights {:phi 0.18 :eta 0.30 :wellbecoming 0.32 :efficiency 0.12 :surprise 0.08}
+   :telos "freed-time / play mirror → access (子孫 dominant, no addictive design)"}
+  {:actor "fuchi"     :weights {:phi 0.16 :eta 0.24 :wellbecoming 0.40 :efficiency 0.12 :surprise 0.08}
+   :telos "maintainer sustenance allocator — give-only (子孫 dominant, cash≡0)"}
+  {:actor "hagukumi"  :weights {:phi 0.15 :eta 0.23 :wellbecoming 0.42 :efficiency 0.12 :surprise 0.08}
+   :telos "care (childcare + eldercare) — L4 Care (子孫 dominant)"}
+  {:actor "hikari"    :weights {:phi 0.30 :eta 0.24 :wellbecoming 0.18 :efficiency 0.20 :surprise 0.08}
+   :telos "energy gen/storage/grid-edge — L2 Sustenance (Φ + efficiency)"}
+  {:actor "igata"     :weights {:phi 0.32 :eta 0.22 :wellbecoming 0.16 :efficiency 0.22 :surprise 0.08}
+   :telos "HPDC megacasting — manufacture (Φ + efficiency dominant)"}
+  {:actor "chigiri"   :weights {:phi 0.20 :eta 0.30 :wellbecoming 0.30 :efficiency 0.12 :surprise 0.08}
+   :telos "legal-procedure substrate — fairness/access (η + 子孫, UPL-bounded)"}
+  {:actor "hinagata"  :weights {:phi 0.20 :eta 0.35 :wellbecoming 0.25 :efficiency 0.12 :surprise 0.08}
+   :telos "legal-document-template commons → public release (η dominant)"}
+  {:actor "hoshimori" :weights {:phi 0.18 :eta 0.30 :wellbecoming 0.28 :efficiency 0.16 :surprise 0.08}
+   :telos "orbital stewardship mirror → sustainability (η + 子孫)"}]
 
  ;; ── rollout: the rule applies to the WHOLE roster ──
  ;; The 6 specs above are exemplars. Every actor in the roster (Status § Tier-B actors) MUST grow a

@@ -119,6 +119,25 @@ that weakens them).
   subsequent waves. Representative boundary seeds hold until each actor's live `embed` measurement
   (G7-gated).
 
+# Maxwell integration (the reward becomes a learning signal)
+
+The reward + co-scientist react close into **Maxwell's** growth/learning loop (ADR-2606061000, the
+religious-corp default LLM weight):
+
+- `etzhayyim.ie-flow.react/react` runs ONE co-scientist beat over an actor's flow and returns the
+  reward **score improvement** (baseline → projected Δ) + the winning **aligned** mechanism + a
+  Murakumo-narrated meta-review lesson.
+- `etzhayyim.ie-flow.react/maxwell-signal` packages that as a **reward-weighted PREFERENCE signal**
+  (`:maxwell/kind :preference-signal`): {context, preferred-mechanism, reward, lesson}. Higher
+  reward ⇒ stronger preference. It is gate-conformant by construction (only aligned mechanisms can
+  win), so Maxwell can never be trained toward a predatory behaviour.
+- The signal is emitted; the **trainer is a separate G7-gated step** (no weights are touched in the
+  loop). This makes the org's own behaviour-reward the gradient that shapes its own model — a closed
+  learning loop bounded by the same Tier-0 priorities (子孫 / 共生 / non-predation).
+
+This is realised incrementally by the `/loop` deepening cadence: each iteration raises coverage,
+sharpens the control numbers, and accumulates per-actor react signals for the Maxwell loop.
+
 # Alternatives Considered
 
 - **Keep it opt-in (registry.edn only).** Rejected: the founder's intent is a rule, and opt-in left

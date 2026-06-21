@@ -20,7 +20,9 @@
             [etzhayyim.ie-flow.ledger :as ledger]
             [etzhayyim.ie-flow.metrics :as metrics]
             [etzhayyim.ie-flow.boundary :as boundary]
-            [etzhayyim.ie-flow.reward :as reward]))
+            [etzhayyim.ie-flow.reward :as reward]
+            [etzhayyim.ie-flow.react :as react]
+            [etzhayyim.ie-flow.control :as control]))
 
 (def ^:private out-dirs
   ["60-apps/etzhayyim-project-organism/public"
@@ -237,11 +239,15 @@
            (fn [{:keys [id role representative inside imports exports state]}]
              (let [st state oi (double (:order-index st))
                    {:keys [init in]} (sd-params-from-state st)
+                   w (actor-weights rule id)
                    ;; the actor's 報酬系 (ADR-2606212200): reward over its OWN flow, its EDN weights,
                    ;; a representative non-negative 子孫 term (no measured harm → not vetoed).
-                   rwd (reward/reward-signal st {:weights (actor-weights rule id)
-                                                 :descendant 0.3 :wellbecoming 0.3})
+                   rwd (reward/reward-signal st {:weights w :descendant 0.3 :wellbecoming 0.3})
                    r (:reward rwd)
+                   ;; co-scientist score-REACT: the aligned intervention that raises the reward (Δ)
+                   rct (react/react st {:weights w :descendant 0.3 :wellbecoming 0.3})
+                   ;; CONTROL: drive the actor's reserves to a target → settling/overshoot/error numbers
+                   ctl (control/control-stock {:init init :inp in :steps sd-steps})
                    ae (str "lab:a:" id) ie (str "lab:idx:" id) se (str "lab:sd:" id)]
                (concat
                  [(d ae :lab.actor/id id) (d ae :lab.actor/role role)
@@ -257,6 +263,14 @@
                   (d ie :lab.index/parasitic (:parasitic? st))
                   (d ie :lab.index/reward (jnum r))
                   (d ie :lab.index/reward-gated (boolean (:gated? rwd)))
+                  (d ie :lab.index/reward-projected (jnum (:projected rct)))
+                  (d ie :lab.index/reward-delta (jnum (:delta rct)))
+                  (d ie :lab.react/mechanism (str (:mechanism rct)))
+                  (d ie :lab.control/target (jnum (:target ctl)))
+                  (d ie :lab.control/settled (boolean (:settled? ctl)))
+                  (d ie :lab.control/settling-step (or (:settling-step ctl) -1))
+                  (d ie :lab.control/overshoot (jnum (:overshoot-pct ctl)))
+                  (d ie :lab.control/final-error (jnum (:final-error ctl)))
                   (d ie :lab.index/surprise
                      (/ (+ (if (:parasitic? st) 1.0 0.0) (max 0.0 (- 1.0 oi))) 2.0))]
                  ;; membrane: imports (drawn IN)
@@ -336,6 +350,59 @@
                        (when (> (count missing) 24) " …"))))
        (when (seq invalid) (System/exit 1))
        {:roster (count roster) :specced (count (filter specced roster)) :invalid (count invalid)})))
+
+#?(:clj
+   (defn -maturity
+     "bb task: regenerate 80-data/ie-flow/MATURITY.md — the SoS-reward maturity scorecard
+     (ADR-2606212200): components present, coverage over the roster, per-actor reward + score-react.
+     Pure read, deterministic. No held key."
+     [& _]
+     (let [rule (read-sos-rule)
+           specs (:actors rule)
+           roster (->> (.listFiles (io/file "20-actors")) (filter #(.isDirectory %))
+                       (filter #(.exists (io/file % "manifest.jsonld"))) (map #(.getName %)) sort vec)
+           specced (set (map :actor specs))
+           valid (count (filter #(:valid? (reward/validate-spec (reward/spec-for %))) specs))
+           cov (if (seq roster) (* 100.0 (/ (count (filter specced roster)) (count roster))) 0.0)
+           comps [["boundary"   "per-actor system 境界 (membrane: imports/exports)"]
+                  ["metrics"     "Φ net-gain / η order-index / agent-efficiency"]
+                  ["dynamics"    "system-dynamics stocks (step-system)"]
+                  ["control"     "PI feedback control → settling/overshoot/error numbers"]
+                  ["coscientist" "Generate→Reflect→Rank→Evolve charter-clean catalog"]
+                  ["reward"      "報酬系 — charter-aligned reward signal + gate invariants"]
+                  ["react"       "co-scientist score-react (baseline→projected Δ) + Maxwell signal"]
+                  ["lifecycle"   "SENSE→…→PERSIST beat (leak-free Brier)"]
+                  ["ledger"      "append-only kotoba Datom commit-DAG"]]
+           rows (for [a (boundary/adopters)]
+                  (let [st (:state (boundary/boundary a))
+                        rw (reward/reward-signal st {:weights (actor-weights rule a)
+                                                     :descendant 0.3 :wellbecoming 0.3})
+                        rc (react/react st {:weights (actor-weights rule a) :descendant 0.3 :wellbecoming 0.3})]
+                    (format "| %s | %.3f | %s | %.3f | %s |"
+                            a (double (:reward rw)) (if (:gated? rw) "gated" "aligned")
+                            (double (:delta rc)) (str (:mechanism rc)))))
+           md (str "# ie-flow system-of-systems — REWARD maturity scorecard\n\n"
+                   "Generated by `bb ieflow:maturity` (ADR-2606211200 + 2606212200). Deterministic.\n\n"
+                   "## Coverage (the RULE: every actor holds its SoS as its 報酬系)\n\n"
+                   (format "- roster (20-actors with manifest): **%d**\n" (count roster))
+                   (format "- reward specs committed: **%d** (valid: %d / %d)\n" (count specs) valid (count specs))
+                   (format "- roster coverage: **%.1f%%** (%d/%d specced; rest inherit defaults+invariants, never weakened)\n\n"
+                           cov (count (filter specced roster)) (count roster))
+                   "## Components (EDN + Clojure, over the kotoba Datom log)\n\n"
+                   (apply str (map (fn [[n d]] (format "- ✅ `etzhayyim.ie-flow.%s` — %s\n" n d)) comps))
+                   "\n## Per-actor 報酬系 (bounded systems with their own reward + score-react)\n\n"
+                   "| actor | reward R | gate | react Δ | winning mechanism |\n|---|---|---|---|---|\n"
+                   (cstr/join "\n" rows) "\n\n"
+                   "## Energy-flow CAPTURE + CONTROL → numbers\n\n"
+                   "`etzhayyim.ie-flow.control` PI-controls each actor's reserves to a target and reports\n"
+                   "settling-step / overshoot% / steady-state error — the 制御の計算・数字. Shown per actor on /organism.\n\n"
+                   "## Maxwell integration\n\n"
+                   "`react/maxwell-signal` packages each score-react as a reward-weighted PREFERENCE signal\n"
+                   "for Maxwell's learning loop (ADR-2606061000) — aligned-mechanism-only, train = G7-gated.\n")]
+       (spit "80-data/ie-flow/MATURITY.md" md)
+       (println (format "MATURITY.md · coverage %.1f%% · %d specs (%d valid) · %d components"
+                        cov (count specs) valid (count comps)))
+       {:coverage cov :specs (count specs)})))
 
 #?(:clj
    (defn -report

@@ -73,6 +73,11 @@
    :task (do (require 'etzhayyim.ie-flow.organism)
              (apply (resolve 'etzhayyim.ie-flow.organism/-coverage) *command-line-args*))}
 
+  ieflow:maturity
+  {:doc "Regenerate 80-data/ie-flow/MATURITY.md — the SoS-reward maturity scorecard (ADR-2606212200): components present, coverage over the roster, per-actor reward + co-scientist score-react Δ + winning mechanism. Deterministic, pure read."
+   :task (do (require 'etzhayyim.ie-flow.organism)
+             (apply (resolve 'etzhayyim.ie-flow.organism/-maturity) *command-line-args*))}
+
   test:kotoba
   {:doc "etzhayyim.kotoba root-side Datom engine + envelope + analysis (ADR-2605262130 Phase 1/2 + ADR-2605181100; data+impl in root, kotoba is the external generic engine)"
    :task (do (require 'clojure.test 'etzhayyim.kotoba.test-engine
