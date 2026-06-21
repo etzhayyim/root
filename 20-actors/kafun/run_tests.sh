@@ -11,6 +11,7 @@ SUITES=(
   "20-actors/kafun/methods/test_kotoba.cljc"
   "20-actors/kafun/methods/test_autorun.cljc"
   "20-actors/kafun/methods/test_ie_flow.cljc"
+  "20-actors/kafun/methods/test_digest.cljc"
 )
 fail=0
 for s in "${SUITES[@]}"; do
