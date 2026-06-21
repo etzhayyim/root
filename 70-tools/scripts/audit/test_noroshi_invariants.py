@@ -25,8 +25,8 @@ Invariants under test:
   1. N1 (ontology) — force-classes are the 3 civilian classes; :weaponizable absent.
   2. N1 (lexicon) — photonicDevice.forceClass const civilian-comms; isacWaveform
      .civilian const true.
-  3. N1 (guard) — PERMITTED_USES carries no weapon term; enable_laser refuses
-     each FORBIDDEN_USE and passes a civilian Class-1 alignment laser.
+  3. N1 (guard) — permitted-uses carries no weapon term; enable-laser refuses
+     each forbidden-use and passes a civilian Class-1 alignment laser.
   4. N2 (ontology + lexicon) — target-classes is [:object]; :person absent;
      senseEstimate.targetClass const object.
   5. G1 (lexicon) — photonicDevice.process const open-pdk; eda enum ⊆ the open
@@ -34,14 +34,17 @@ Invariants under test:
   6. IEC-60825 (guard) — a hazardous-class laser raises without an enclosure
      interlock, and again without a safety attestation; passes with both.
   7. G7 (lexicon) — packagingJob.serverHeldKey const false + dryRun const true.
+
+NOTE: enforcement points 3 and 6 now exercise the cljc port
+(methods/active_alignment.cljc via bb subprocess) since the Python
+methods/active_alignment.py was migrated to cljc.
 """
 
 from __future__ import annotations
 
-import importlib.util
 import json
 import re
-import sys
+import subprocess
 from pathlib import Path
 
 import pytest
@@ -49,7 +52,7 @@ import pytest
 _REPO = Path(__file__).resolve().parents[3]
 _ONTOLOGY = _REPO / "00-contracts" / "schemas" / "photonic-convergence-ontology.kotoba.edn"
 _LEX = _REPO / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "noroshi"
-_ALIGN = _REPO / "20-actors" / "noroshi" / "methods" / "active_alignment.py"
+_ACTORS = _REPO / "20-actors"
 
 _EXPECTED_FORCE = {"civilian-comms", "civilian-sensing", "fab-process-laser"}
 _OPEN_EDA = {"gdsfactory", "meep", "klayout", "openlane"}
@@ -72,12 +75,15 @@ def _ontology_vector(attr: str) -> set[str]:
     return {t.lstrip(":") for t in re.findall(r":[a-z0-9-]+", m.group(1))}
 
 
-def _import_align():
-    spec = importlib.util.spec_from_file_location("noroshi_active_alignment", _ALIGN)
-    mod = importlib.util.module_from_spec(spec)
-    sys.modules[spec.name] = mod
-    spec.loader.exec_module(mod)
-    return mod
+def _bb(expr: str) -> subprocess.CompletedProcess:
+    """Run a Clojure expression via bb with the actors classpath."""
+    return subprocess.run(
+        ["bb", "--classpath", str(_ACTORS), "-e", expr],
+        capture_output=True,
+        text=True,
+        check=False,
+        cwd=str(_REPO),
+    )
 
 
 # ─────────────────────────────────────────────────────────────────────────
@@ -106,15 +112,47 @@ def test_n1_lexicon_force_class_and_civilian_consts():
 
 
 def test_n1_guard_refuses_weaponised_use():
-    a = _import_align()
-    assert not (set(a.PERMITTED_USES) & {"weapon", "directed-energy", "dazzle", "fire-control"}), (
-        f"N1: PERMITTED_USES must contain no weapon term; got {a.PERMITTED_USES}"
+    """N1: permitted-uses MUST have no weapon term; enable-laser MUST refuse all forbidden-uses (via bb)."""
+    # Check permitted-uses has no weapon terms
+    result_permitted = _bb(
+        "(require '[noroshi.methods.active-alignment :as aa])"
+        "(def weapon-terms #{\"weapon\" \"directed-energy\" \"dazzle\" \"fire-control\"})"
+        "(def intersection (clojure.set/intersection (set aa/permitted-uses) weapon-terms))"
+        "(pr {:permitted aa/permitted-uses :intersection intersection :forbidden aa/forbidden-uses})"
     )
-    for bad in a.FORBIDDEN_USES:
-        with pytest.raises(a.LaserSafetyError):
-            a.enable_laser(a.LaserSpec(laser_class="1", use=bad))
-    # a civilian Class-1 alignment laser energises (returns None, no raise).
-    assert a.enable_laser(a.LaserSpec(laser_class="1", use="alignment")) is None
+    assert result_permitted.returncode == 0, f"bb failed: {result_permitted.stderr}"
+    out = result_permitted.stdout
+    assert ":intersection #{}" in out, (
+        f"N1: permitted-uses must contain no weapon term; stdout={out!r}"
+    )
+
+    # Check that each forbidden-use raises
+    result_forbidden = _bb(
+        "(require '[noroshi.methods.active-alignment :as aa])"
+        "(def results (mapv (fn [bad]"
+        "                     (try (aa/enable-laser (aa/laser-spec :use bad))"
+        "                          :no-throw"
+        "                          (catch Exception e :threw)))"
+        "                   aa/forbidden-uses))"
+        "(pr {:all-threw (every? #{:threw} results) :results results})"
+    )
+    assert result_forbidden.returncode == 0, f"bb failed: {result_forbidden.stderr}"
+    assert ":all-threw true" in result_forbidden.stdout, (
+        "N1: enable-laser MUST throw (LaserSafetyError) for all forbidden-uses "
+        f"(directed-energy/weapon/dazzle/fire-control); stdout={result_forbidden.stdout!r}"
+    )
+
+    # A civilian Class-1 alignment laser passes (returns nil, no exception)
+    result_clean = _bb(
+        "(require '[noroshi.methods.active-alignment :as aa])"
+        "(def r (aa/enable-laser (aa/laser-spec :laser-class \"1\" :use \"alignment\")))"
+        "(pr (nil? r))"
+    )
+    assert result_clean.returncode == 0, f"bb failed: {result_clean.stderr}"
+    assert "true" in result_clean.stdout, (
+        f"N1: a civilian Class-1 alignment laser MUST energise (return nil); "
+        f"stdout={result_clean.stdout!r}"
+    )
 
 
 # ─────────────────────────────────────────────────────────────────────────
@@ -155,18 +193,35 @@ def test_g1_clean_room_open_eda_only():
 
 
 def test_iec60825_hazardous_laser_requires_interlock_and_attestation():
-    a = _import_align()
-    # hazardous class, no interlock → refuse
-    with pytest.raises(a.LaserSafetyError):
-        a.enable_laser(a.LaserSpec(laser_class="4", use="alignment", enclosure_interlock=False))
-    # hazardous class, interlock but no attestation → refuse
-    with pytest.raises(a.LaserSafetyError):
-        a.enable_laser(a.LaserSpec(
-            laser_class="4", use="alignment", enclosure_interlock=True, safety_attestation_ref=""))
-    # hazardous class, interlock + attestation → energises
-    assert a.enable_laser(a.LaserSpec(
-        laser_class="4", use="alignment", enclosure_interlock=True,
-        safety_attestation_ref="attest:noroshi-lsm-001")) is None
+    """IEC 60825: hazardous laser MUST require interlock AND attestation (via bb)."""
+    result = _bb(
+        "(require '[noroshi.methods.active-alignment :as aa])"
+        # hazardous class, no interlock: refuse
+        "(def r1 (try (aa/enable-laser (aa/laser-spec :laser-class \"4\" :use \"alignment\""
+        "                                             :enclosure-interlock false))"
+        "             :no-throw (catch Exception e :threw)))"
+        # hazardous class, interlock but no attestation: refuse
+        "(def r2 (try (aa/enable-laser (aa/laser-spec :laser-class \"4\" :use \"alignment\""
+        "                                             :enclosure-interlock true"
+        "                                             :safety-attestation-ref \"\"))"
+        "             :no-throw (catch Exception e :threw)))"
+        # hazardous class, interlock + valid attestation: energises (returns nil)
+        "(def r3 (aa/enable-laser (aa/laser-spec :laser-class \"4\" :use \"alignment\""
+        "                                        :enclosure-interlock true"
+        "                                        :safety-attestation-ref \"attest:noroshi-lsm-001\")))"
+        "(pr {:r1 r1 :r2 r2 :r3-nil (nil? r3)})"
+    )
+    assert result.returncode == 0, f"bb failed: {result.stderr}"
+    out = result.stdout
+    assert ":r1 :threw" in out, (
+        f"IEC 60825: a Class-4 laser WITHOUT interlock MUST be refused; stdout={out!r}"
+    )
+    assert ":r2 :threw" in out, (
+        f"IEC 60825: a Class-4 laser WITHOUT attestation MUST be refused; stdout={out!r}"
+    )
+    assert ":r3-nil true" in out, (
+        f"IEC 60825: a Class-4 laser WITH interlock + attestation MUST energise; stdout={out!r}"
+    )
 
 
 # ─────────────────────────────────────────────────────────────────────────
