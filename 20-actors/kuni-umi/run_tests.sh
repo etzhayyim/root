@@ -4,7 +4,10 @@
 set -euo pipefail
 cd "$(dirname "$0")/../.."
 exec bb -e '(def nss (quote [kuni-umi.cells.site-survey.test-cell
-                             kuni-umi.cells.deployment-planning.test-cell]))
+                             kuni-umi.cells.deployment-planning.test-cell
+                             kuni-umi.cells.construction-orchestration.test-cell
+                             kuni-umi.cells.decommission.test-cell
+                             kuni-umi.cells.audit-witness.test-cell]))
             (apply require (quote clojure.test) nss)
             (let [r (apply clojure.test/run-tests nss)]
               (System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))'
