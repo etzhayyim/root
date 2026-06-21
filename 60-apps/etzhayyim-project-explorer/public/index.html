@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>etzhayyim — organism</title>
+    <meta name="description" content="etzhayyim — the living organism: kotoba blockchain explorer, node distribution, and aliveness. Serverless, computed in your browser." />
+    <link rel="stylesheet" href="/styles.css" />
+    <script>
+      // Local-dev data origin override. In production this stays "" (same-origin:
+      // the apex etzhayyim-did-web Worker serves /organism/* and /kotoba/*).
+      // For `npm run dev`, point at the live apex so the views have real data:
+      //   window.__DATA_BASE__ = "https://etzhayyim.com";
+      window.__DATA_BASE__ = window.__DATA_BASE__ || "";
+      // Live Datom tail (XRPC sync.subscribe, transit+json SSE). Same-origin in
+      // production (apex Worker proxies it); local dev points at the sync node:
+      window.__SYNC_BASE__ = window.__SYNC_BASE__ ||
+        (location.hostname === "localhost" ? "http://localhost:8720" : "");
+</script>
+  </head>
+  <body>
+    <div id="app">
+      <noscript>This view computes the organism in your browser; please enable JavaScript.</noscript>
+    </div>
+    <script src="/js/main.js"></script>
+  </body>
+</html>

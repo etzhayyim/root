@@ -1,0 +1,10 @@
+# build artifacts
+/public/js/
+/out/
+.shadow-cljs/
+node_modules/
+
+# local dev data fixtures — production serves these from the apex Worker
+# (/organism/* and /kotoba/*), not from this app's bundle.
+/public/organism/
+/public/kotoba/
