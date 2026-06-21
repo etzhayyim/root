@@ -38,7 +38,15 @@
  [{:method/id "kafun_edn" :method/file "methods/kafun_edn.cljc" :method/role "seed loader + classify"}
   {:method/id "remediate" :method/file "methods/remediate.cljc" :method/role "pollen-burden → verdict → assess → render-datoms → render-report (+ bb CLI)"}
   {:method/id "kotoba"    :method/file "methods/kotoba.cljc"    :method/role "持続永続化: content-addressed append-only REMEDIATION LEDGER (tx-cid/make-tx/append-tx/read-log/verify-chain)"}
-  {:method/id "autorun"   :method/file "methods/autorun.cljc"   :method/role "持続永続化: deterministic, idempotent-by-content heartbeat — assess → append verdict datoms to the ledger (+ bb CLI)"}]
+  {:method/id "autorun"   :method/file "methods/autorun.cljc"   :method/role "持続永続化: deterministic, idempotent-by-content heartbeat — assess → append verdict datoms to the ledger (+ bb CLI)"}
+  {:method/id "ie_flow"   :method/file "methods/ie_flow.cljc"   :method/role "SoS: embeds shared etzhayyim.ie-flow.metrics (order calculus) + renders energy-flow viz — assessment → measured flow events → order-index/η + viz/energy-flow.html (ADR-2606212030)"}]
+
+ :actor/ie-flow
+ {:flow/adopted true
+  :flow/adr "2606212030"
+  :flow/registry "80-data/ie-flow/registry.edn"
+  :flow/viz "viz/energy-flow.html"
+  :flow/note "kafun RECTIFIES (整流) scattered pollen-burden (disorder) into prioritized restoration order; embeds the SHARED ie-flow metrics (not a fork). Synthetic-seed result: order-index 0.320, η 6.58×, net-gain +133.9, non-parasitic. Verdict sinks feed sanae/inochi/musubi/kamado = the system of systems. Live record!/beat! to 80-data/ie-flow/kafun/flow.kotoba.edn (gitignored) is the heartbeat/operator step."}
 
  :actor/lex
  [{:lex/id "remediationVerdict"}
@@ -60,4 +68,5 @@
  {:runner "babashka"
   :cmd "./20-actors/kafun/run_tests.sh"
   :suites ["methods/test_kafun_edn.cljc" "methods/test_remediate.cljc"
-           "methods/test_kotoba.cljc" "methods/test_autorun.cljc"]}}
+           "methods/test_kotoba.cljc" "methods/test_autorun.cljc"
+           "methods/test_ie_flow.cljc"]}}

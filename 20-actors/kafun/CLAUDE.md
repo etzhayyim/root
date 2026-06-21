@@ -60,12 +60,32 @@ heartbeat appends verdict datoms as one content-addressed tx (prev-cid chained,
 `:appended false :reason :no-change`); deterministic (caller supplies tx-id +
 as-of, no wall clock) → resume-safe; no-server-key (local file, no network I/O).
 
+## ie-flow / energy-flow (system of systems) — `methods/ie_flow.cljc` (ADR-2606212030)
+
+kafun embeds the SHARED `etzhayyim.ie-flow.metrics` (the order calculus; NOT a fork).
+Its substrate is the 花粉 burden: 散在 (scattered) pollen-source pressure = high-entropy
+disorder. kafun's gate is a **RECTIFIER (整流)**: it folds that scattered burden flow onto
+OUTCOMES — concentrating realised restoration value onto `:reforest-priority` stands and
+routing the rest to named sinks. `order-index = 1 − H(value)/H(volume)` = how much disorder
+was rectified into prioritized restoration order; `η = exported ÷ consumed` = the 共生 axis.
+
+The verdict sinks feed downstream actors = **system of systems**: reforest-priority →
+sanae+inochi · await-sapling-supply → sanae (無花粉苗木 L1-1) · await-consent → musubi ·
+protected-selective → inochi · refuse → kamado · monitor → kafun. The visualization
+(`viz/energy-flow.html`, self-contained canvas Sankey, generated from the model) makes the
+transfer legible. Synthetic-seed result: order-index **0.320** (H 2.307→1.569), η **6.58×**,
+net-gain **+133.9**, non-parasitic. kafun moves INFORMATION-energy (a prioritized map), never
+physical forestry (assessment-only; G5). Live `record!`/`beat!` to
+`80-data/ie-flow/kafun/flow.kotoba.edn` (gitignored) is the heartbeat/operator step.
+
 ## Run
 
 ```bash
-./20-actors/kafun/run_tests.sh                                  # 4 suites (22 tests / 62 assert)
+./20-actors/kafun/run_tests.sh                                  # 5 suites (28 tests / 84 assert)
 bb --classpath 20-actors 20-actors/kafun/methods/remediate.cljc # print the remediation map
 bb --classpath 20-actors 20-actors/kafun/methods/autorun.cljc   # heartbeat → append to ledger
+# energy-flow viz (embeds shared ie-flow metrics; writes viz/energy-flow.html):
+bb -cp "20-actors:70-tools/src:20-actors/kotodama/src" 20-actors/kafun/methods/ie_flow.cljc
 ```
 
 ## Pairs with
