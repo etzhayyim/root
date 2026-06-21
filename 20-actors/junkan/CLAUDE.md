@@ -74,6 +74,9 @@ facts; junkan reads off, as disclosed hypotheses (G5), which feedback loops spin
 - `methods/kotoba.cljc` — content-addressed append-only findings ledger
   (commit-DAG, verify-chain tamper-evident, no-server-key, local file only).
 - `methods/autorun.cljc` — deterministic idempotent-by-content heartbeat.
+- `methods/query.cljc` — read-only EAVT/AVET/VAET arrangement queries over the
+  findings datoms (the kotoba-kqe index model; e.g. instruments-in / stocks-by-
+  regime / loops-including-stock). Read-only (G4 by absence of any write).
 - `80-data/junkan-governance/` — DataLad dataset (datoms snapshot + ledger +
   report + provenance).
 - Tests: `bash 20-actors/junkan/run_tests.sh` → 33 tests / 564 assertions green.

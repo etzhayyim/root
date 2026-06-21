@@ -577,4 +577,147 @@
   :stakeholders ["courts" "civil service" "press" "citizens"]
   :stock :paradigm-subordination :polarity :narrow :magnitude 0.6 :reversibility :cultural :meadows 2
   :basis "Rule-of-law tradition (Dicey; WJP Rule of Law Index as a disclosed proxy)" :sourcing :representative :confidence 0.45}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 4 — Gulf / Africa / Central Asia / Eastern Europe / South Asia
+ ;; (QA AE KZ ET RW UG ZW KH TM AZ PL IL LK MA NP) — both widening + narrowing
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── Qatar ──
+ {:type :instrument :id "qa-shura-council" :name "Shura Council (mostly appointed)" :jurisdiction "QA" :kind :institution :year 2003
+  :enactor "Emir of Qatar; 2003 Constitution"
+  :origin "The constitution promised an elected majority of the advisory Shura Council; a first partial election was held in 2021, then in 2024 a referendum returned the council to fully appointed — closing the limited electoral channel that had opened."
+  :stakeholders ["Emir" "Shura Council" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.75 :reversibility :constitutional :meadows 4
+  :basis "Permanent Constitution of Qatar (2003); 2024 referendum" :sourcing :representative :confidence 0.55}
+
+ ;; ── United Arab Emirates ──
+ {:type :instrument :id "ae-fnc" :name "Federal National Council (half-elected, advisory)" :jurisdiction "AE" :kind :institution :year 2006
+  :enactor "UAE federal government; rulers of the seven emirates"
+  :origin "Half the FNC is chosen by a small, ruler-selected electoral college and the body is purely advisory, so it provides consultation rather than a citizen check on power."
+  :stakeholders ["Supreme Council of Rulers" "FNC" "selected electoral college" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.8 :reversibility :entrenched :meadows 4
+  :basis "UAE Constitution; FNC electoral framework (2006–)" :sourcing :representative :confidence 0.55}
+ {:type :instrument :id "ae-cybercrime-2012" :name "Cybercrime Law (Decree-Law 5/2012, recast 2021)" :jurisdiction "AE" :kind :law :year 2012
+  :enactor "President of the UAE (federal decree-law)"
+  :origin "Broad criminalization of online content 'damaging the reputation of the state' or officials, with heavy penalties, sharply narrowing the space for citizens to criticize the government online."
+  :stakeholders ["public prosecution" "online users" "expatriate residents" "officials"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.7 :reversibility :statutory :meadows 5
+  :basis "Federal Decree-Law No. 5 of 2012; No. 34 of 2021" :sourcing :representative :confidence 0.5}
+
+ ;; ── Kazakhstan ──
+ {:type :instrument :id "kz-super-presidency" :name "Super-presidential system (Nazarbayev era)" :jurisdiction "KZ" :kind :institution :year 1995
+  :enactor "Kazakh state (1995 Constitution; 'Leader of the Nation' status 2010)"
+  :origin "Concentrated power in a presidency with weak legislative/judicial checks and a managed party system; some decentralizing reforms followed the January 2022 unrest, a partial and contested correction."
+  :stakeholders ["presidency" "Mazhilis" "managed parties" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.7 :reversibility :constitutional :meadows 4
+  :basis "Constitution of Kazakhstan (1995); 2022 reforms" :sourcing :representative :confidence 0.5}
+
+ ;; ── Ethiopia ──
+ {:type :instrument :id "et-ethnic-federalism-1995" :name "Ethnic federalism (1995 Constitution)" :jurisdiction "ET" :kind :doctrine :year 1995
+  :enactor "EPRDF-led Constituent Assembly"
+  :origin "Organized the state around ethno-linguistic regions with a constitutional right to secession; intended to devolve power, it has also entrenched ethnic mobilization and contributed to conflict — an ambiguous effect on the citizen↔state balance."
+  :stakeholders ["federal government" "regional states" "ethnic communities" "citizens"]
+  :stock :participation-barrier :polarity :ambiguous :magnitude 0.45 :reversibility :constitutional :meadows 4
+  :basis "Constitution of the FDRE (1995), Art. 39" :sourcing :representative :confidence 0.45}
+
+ ;; ── Rwanda ──
+ {:type :instrument :id "rw-genocide-ideology-law" :name "Genocide-ideology / divisionism laws" :jurisdiction "RW" :kind :law :year 2008
+  :enactor "Parliament of Rwanda"
+  :origin "Post-genocide laws against 'genocide ideology' and 'divisionism' serve a real reconciliation aim but are broadly worded and have been used to restrict opposition and press, narrowing political speech."
+  :stakeholders ["prosecutors" "opposition" "journalists" "citizens"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.55 :reversibility :statutory :meadows 5
+  :basis "Law on genocide ideology (2008; rev. 2013)" :sourcing :representative :confidence 0.45}
+
+ ;; ── Uganda ──
+ {:type :instrument :id "ug-term-age-limit-removal" :name "Removal of presidential term + age limits" :jurisdiction "UG" :kind :institution :year 2005
+  :enactor "Parliament of Uganda (2005 term-limit repeal; 2017 age-limit repeal)"
+  :origin "Two constitutional amendments removed first the two-term limit and then the 75-year age cap on the presidency, dismantling the rotation safeguards on executive power."
+  :stakeholders ["presidency" "Parliament" "opposition" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.7 :reversibility :constitutional :meadows 4
+  :basis "Constitution (Amendment) Acts 2005, 2017" :sourcing :representative :confidence 0.5}
+
+ ;; ── Zimbabwe ──
+ {:type :instrument :id "zw-aippa-2002" :name "Access to Information and Protection of Privacy Act" :jurisdiction "ZW" :kind :law :year 2002
+  :enactor "Parliament of Zimbabwe"
+  :origin "Despite its title, AIPPA created state licensing of journalists and outlets and was used to shut independent papers — a transparency-branded law that in practice widened information control (partly repealed 2020)."
+  :stakeholders ["Media Commission" "journalists" "independent press" "citizens"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.6 :reversibility :statutory :meadows 5
+  :basis "AIPPA (2002)" :sourcing :representative :confidence 0.45}
+
+ ;; ── Cambodia ──
+ {:type :instrument :id "kh-opposition-dissolution-2017" :name "Dissolution of the main opposition (CNRP)" :jurisdiction "KH" :kind :institution :year 2017
+  :enactor "Supreme Court of Cambodia (on government petition)"
+  :origin "The Supreme Court dissolved the Cambodia National Rescue Party and banned 118 of its politicians months before a national election, removing the only competitive electoral challenge."
+  :stakeholders ["ruling party" "Supreme Court" "dissolved opposition" "voters"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.8 :reversibility :institutional :meadows 4
+  :basis "2017 CNRP dissolution ruling" :sourcing :representative :confidence 0.5}
+
+ ;; ── Turkmenistan ──
+ {:type :instrument :id "tm-one-party-cult" :name "One-party state + leader personality cult" :jurisdiction "TM" :kind :institution :year 1991
+  :enactor "Turkmen state (post-independence; Niyazov then Berdimuhamedow dynasties)"
+  :origin "A tightly controlled single-party system with an extensive personality cult and near-total media control leaves citizens with no real electoral or informational channel to power."
+  :stakeholders ["presidency" "state media" "managed parliament" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.9 :reversibility :entrenched :meadows 2
+  :basis "Turkmen political system (post-1991)" :sourcing :representative :confidence 0.5}
+
+ ;; ── Azerbaijan ──
+ {:type :instrument :id "az-managed-succession" :name "Dynastic succession + managed elections" :jurisdiction "AZ" :kind :institution :year 2003
+  :enactor "Azerbaijani state (2003 father-to-son succession; 2009 term-limit removal)"
+  :origin "Power passed within one family and a 2009 referendum removed presidential term limits; elections occur but international monitors report they are not competitive — a managed participation channel."
+  :stakeholders ["presidency" "Central Election Commission" "opposition" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.75 :reversibility :constitutional :meadows 4
+  :basis "2009 constitutional referendum" :sourcing :representative :confidence 0.5}
+
+ ;; ── Poland ──
+ {:type :instrument :id "pl-round-table-1989" :name "Round Table Agreement → semi-free elections" :jurisdiction "PL" :kind :institution :year 1989
+  :enactor "Communist government + Solidarity opposition (Round Table negotiations)"
+  :origin "Negotiations produced partially free elections that Solidarity swept, triggering the peaceful end of communist rule across the bloc — a foundational opening of citizen participation."
+  :stakeholders ["Solidarity" "communist authorities" "Catholic Church" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.7 :reversibility :institutional :meadows 4
+  :basis "1989 Polish Round Table Agreement" :sourcing :representative :confidence 0.55}
+ {:type :instrument :id "pl-judicial-capture-2015" :name "Constitutional Tribunal + judiciary reforms" :jurisdiction "PL" :kind :institution :year 2015
+  :enactor "PiS government + Sejm majority (2015–2023)"
+  :origin "A sequence of laws paralyzed and packed the Constitutional Tribunal and brought courts under political control, eroding the rule-of-law check on the executive (partial reversal began after the 2023 election)."
+  :stakeholders ["Constitutional Tribunal" "judiciary" "European Commission" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.6 :reversibility :statutory :meadows 5
+  :basis "2015–2017 Polish judiciary reforms; CJEU rulings" :sourcing :representative :confidence 0.5}
+
+ ;; ── Israel ──
+ {:type :instrument :id "il-basic-law-dignity-1992" :name "Basic Law: Human Dignity and Liberty" :jurisdiction "IL" :kind :doctrine :year 1992
+  :enactor "Knesset"
+  :origin "Anchored judicial protection of fundamental rights in a state with no single written constitution, enabling the Supreme Court to review legislation — a paradigm step toward bounded state power."
+  :stakeholders ["Knesset" "Supreme Court" "citizens"]
+  :stock :paradigm-subordination :polarity :narrow :magnitude 0.6 :reversibility :constitutional :meadows 2
+  :basis "Basic Law: Human Dignity and Liberty (1992)" :sourcing :representative :confidence 0.5}
+ {:type :instrument :id "il-judicial-overhaul-2023" :name "2023 judicial overhaul (reasonableness limit)" :jurisdiction "IL" :kind :law :year 2023
+  :enactor "Knesset coalition majority"
+  :origin "A law curbing the Supreme Court's 'reasonableness' review of executive decisions prompted mass protests; the Court struck it down in 2024 — a contested attempt to weaken the judicial check, then reversed."
+  :stakeholders ["Knesset" "Supreme Court" "protest movement" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.45 :reversibility :statutory :meadows 5
+  :basis "Amendment to Basic Law: The Judiciary (2023); HCJ 2024" :sourcing :representative :confidence 0.45}
+
+ ;; ── Sri Lanka ──
+ {:type :instrument :id "lk-pta-1979" :name "Prevention of Terrorism Act" :jurisdiction "LK" :kind :law :year 1979
+  :enactor "Parliament of Sri Lanka"
+  :origin "Allows prolonged detention without trial on broad grounds; enacted during the conflict and retained since, it remains a standing coercive power criticized for use against minorities and dissent."
+  :stakeholders ["security forces" "detainees" "Tamil and Muslim communities" "courts"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.65 :reversibility :statutory :meadows 5
+  :basis "Prevention of Terrorism (Temporary Provisions) Act No. 48 of 1979" :sourcing :representative :confidence 0.5}
+
+ ;; ── Morocco ──
+ {:type :instrument :id "ma-2011-constitution" :name "2011 Constitution (post-February-20)" :jurisdiction "MA" :kind :doctrine :year 2011
+  :enactor "King Mohammed VI; 2011 referendum"
+  :origin "Adopted amid Arab-Spring protests, it expanded some rights and the elected government's role but the monarch retained control of security, religion, and key appointments — a partial, palace-bounded opening."
+  :stakeholders ["monarchy" "elected government" "February 20 movement" "citizens"]
+  :stock :participation-barrier :polarity :ambiguous :magnitude 0.45 :reversibility :constitutional :meadows 4
+  :basis "Constitution of Morocco (2011)" :sourcing :representative :confidence 0.45}
+
+ ;; ── Nepal ──
+ {:type :instrument :id "np-2015-constitution" :name "2015 Constitution (federal democratic republic)" :jurisdiction "NP" :kind :doctrine :year 2015
+  :enactor "Constituent Assembly of Nepal"
+  :origin "Completed the transition from a monarchy abolished in 2008 to a federal secular republic with periodic elections, broadening citizen participation (contested by some Madhesi/Tharu groups over federal boundaries)."
+  :stakeholders ["Constituent Assembly" "federal provinces" "Madhesi groups" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.6 :reversibility :constitutional :meadows 4
+  :basis "Constitution of Nepal (2015)" :sourcing :representative :confidence 0.5}
 ]

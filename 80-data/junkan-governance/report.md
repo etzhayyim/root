@@ -2,16 +2,16 @@
 
 全世界の **具体的な法律・制度・思想・価値観** が citizen↔state の構造的非対称をどう広げる/狭めるかを、5 つの asymmetry STOCK と feedback LOOP で読み取る。**分析専用 (G4): junkan は観るだけで触れない。** 各 regime / leverage は **仮説 (G5)** であり因果の証明ではない。これは resilience/leverage の MAP であって、国家を晒す ranking ではない (G7)。
 
-_coverage_: 80 instruments · 43 jurisdictions · sourcing {:representative 80}
+_coverage_: 98 instruments · 58 jurisdictions · sourcing {:representative 98}
 
 ## Asymmetry stocks (regime = HYPOTHESIS)
 
 | stock | n | net pressure | widen | narrow | regime |
 |---|---|---|---|---|---|
-| A 情報・可視性の非対称 (information) | 22 | -0.033 | 3.217 | 3.95 | transitioning |
-| B 参入・代表性の障壁 (participation) | 19 | 0.172 | 5.603 | 2.34 | transitioning |
-| C 強制力の非対称 (coercion) | 14 | 0.288 | 4.977 | 0.943 | vicious |
-| D 思想・価値観の従属 (paradigm) | 16 | 0.047 | 3.398 | 2.642 | transitioning |
+| A 情報・可視性の非対称 (information) | 25 | 0.005 | 4.085 | 3.95 | transitioning |
+| B 参入・代表性の障壁 (participation) | 30 | 0.17 | 8.133 | 3.025 | transitioning |
+| C 強制力の非対称 (coercion) | 15 | 0.291 | 5.302 | 0.943 | vicious |
+| D 思想・価値観の従属 (paradigm) | 19 | 0.063 | 4.148 | 2.942 | transitioning |
 | E 経済的レバレッジ集中 (economic) | 9 | 0.189 | 2.13 | 0.425 | transitioning |
 
 _net > 0 = 非対称が広がる方向に loop が回っている (悪循環傾向); net < 0 = 是正方向 (好循環)。_
@@ -35,9 +35,9 @@ _各時代に制定された instrument が非対称を広げる/狭める方向
 | pre-1800 | 3 | 0.0 | 1.405 | -0.468 |
 | 1800–1899 | 3 | 0.2 | 0.713 | -0.171 |
 | 1900–1944 | 7 | 1.95 | 0.2 | 0.25 |
-| 1945–1989 | 23 | 7.035 | 3.12 | 0.17 |
-| 1990–2009 | 16 | 2.635 | 2.798 | -0.01 |
-| 2010– | 26 | 7.305 | 1.795 | 0.212 |
+| 1945–1989 | 25 | 7.36 | 3.505 | 0.154 |
+| 1990–2009 | 26 | 5.53 | 3.098 | 0.094 |
+| 2010– | 32 | 8.558 | 2.095 | 0.202 |
 
 ## Meadows leverage CANDIDATES (G11 — candidates, never directives)
 

@@ -18,7 +18,7 @@
  {:ontology "20-actors/junkan/kotoba/ontology.junkan-gov.edn"
   :seed     "20-actors/junkan/kotoba/seed.governance-asymmetry.edn"
   :dataset  "80-data/junkan-governance/"
-  :methods  ["junkan_edn" "analyze" "kotoba" "autorun"]}
+  :methods  ["junkan_edn" "analyze" "query" "kotoba" "autorun"]}
 
  :actor/gates
  [{:gate/id "G4" :gate/name "analysis-only-no-actuation" :gate/rule "No outward channel — output is append-only findings + a local ledger; no post/mention/email/tx. Enforced by ABSENCE of any dispatch path; :junkan/actuate + :junkan/dispatch unrepresentable (test-enforced)"}
