@@ -118,9 +118,16 @@ settled.
   flex-value = energy-capacity × availability × responsiveness × time-shift weight; each
   asset tiered + assigned a best-use mio flow-class. G1 proven (no `:tawami/dispatch`;
   map-not-dispatch). R1 seam = emit a 澪 mio flow-improvement claim when a flexibility is used.
-- **燠 okibi / 樋 toi / 委 yudane — R0 designed (this ADR), not yet scaffolded.** Each
-  follows the mio/tawami pattern (analyze/datoms/coverage + kotoba commit-DAG + autorun)
-  and submits claims into mio's ledger via a per-actor `claim` lexicon.
+- **燠 okibi — R0 LANDED (2026-06-21).** `20-actors/okibi/` clj-native (waste-heat leg):
+  manifest + ontology (source + sink kinds) + seed (4 sources / 6 sinks) + `okibi_edn`/
+  `analyze`/`kotoba`/`autorun` + thermal-matching commit-DAG ledger. **21 tests / 92
+  assertions green**. Matching gated by the temperature cascade (source ≥ sink-req +
+  approach) AND distance (≤ 5 km); greedy allocation by quality. Seed result: 4 matches,
+  1138.5 kW matched, 409.0 kW surplus, 238.4 kW unmet (absorption-f by cascade, spaceheat-e
+  by distance). G2 proven (infeasible pairs never match; cooling-load is not a heat sink).
+- **樋 toi / 委 yudane — R0 designed (this ADR), not yet scaffolded.** Each follows the
+  mio/tawami/okibi pattern (analyze/datoms/coverage + kotoba commit-DAG + autorun) and
+  submits claims into mio's ledger via a per-actor `claim` lexicon.
 
 # Consequences
 
