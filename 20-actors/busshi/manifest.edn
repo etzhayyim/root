@@ -36,7 +36,8 @@
  [{:method/id "busshi_edn" :method/file "methods/busshi_edn.cljc" :method/role "seed loader + classify"}
   {:method/id "analyze"    :method/file "methods/analyze.cljc"    :method/role "analyze → datoms → render-datoms → coverage → render-report (+ bb CLI)"}
   {:method/id "kotoba"     :method/file "methods/kotoba.cljc"     :method/role "Wave 2 (ADR-2606171000): content-addressed append-only OBSERVATION LEDGER (tx-cid/append-tx/read-log/verify-chain)"}
-  {:method/id "autorun"    :method/file "methods/autorun.cljc"    :method/role "Wave 2 (ADR-2606171000): deterministic idempotent-by-content heartbeat — analyze → append observation datoms on change (+ bb CLI)"}]
+  {:method/id "autorun"    :method/file "methods/autorun.cljc"    :method/role "Wave 2 (ADR-2606171000): deterministic idempotent-by-content heartbeat — analyze → append observation datoms on change (+ bb CLI)"}
+  {:method/id "ie_flow"    :method/file "methods/ie_flow.cljc"    :method/role "SoS score (ADR-2606212200): embeds shared etzhayyim.ie-flow.metrics — observation → measured flow events (commodity multigen-risk rectified into resilience routes) → order-index/score in the SoS scoreboard; OBSERVATION-ONLY; record-flow! to 80-data/ie-flow/busshi/ (gitignored)"}]
 
  :actor/lex
  [{:lex/id "commodityObservation"}

@@ -26,6 +26,17 @@
     :efficiency 0.5,
     :surprise 0.0,
     :descendant 0.85}}
+  {:actor "busshi",
+   :score 0.394,
+   :throughput 13.074,
+   :vetoed? false,
+   :components
+   {:rectify 0.047,
+    :eta 0.831,
+    :phi 0.967,
+    :efficiency 0.5,
+    :surprise 0.0,
+    :descendant 0.8}}
   {:actor "ugachi",
    :score 0.303,
    :throughput 2.934,
@@ -38,17 +49,17 @@
     :surprise 0.0,
     :descendant 0.8}}],
  :colony
- {:colony-reward 4.935,
-  :colony-order 5,
-  :n 3,
-  :scored-n 3,
+ {:colony-reward 5.781,
+  :colony-order 6,
+  :n 4,
+  :scored-n 4,
   :vetoed-n 0,
-  :mean-score 0.425,
+  :mean-score 0.418,
   :top {:actor "repo-git", :score 0.521}},
  :organism
- {:env-source {:colony-order 5},
+ {:env-source {:colony-order 6},
   :intake-without-colony 14,
-  :intake-with-colony 29,
-  :delta 15,
+  :intake-with-colony 32,
+  :delta 18,
   :note
   "intake-with − intake-without = the free-energy the colony's information-control adds to the organism's Φ (→ reserves → survival). The reward integration, ADR-2606212200."}}
