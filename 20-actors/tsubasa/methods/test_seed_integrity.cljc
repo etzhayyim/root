@@ -4,10 +4,13 @@
 (ns tsubasa.methods.test-seed-integrity
   (:require [clojure.edn :as edn]
             [clojure.string :as str]
+            [babashka.fs :as fs]
             [clojure.test :refer [deftest is run-tests]]))
 
-(def ^:private seed-path "20-actors/tsubasa/data/seed-fares.kotoba.edn")
-(def ^:private onto-path "00-contracts/schemas/flight-fare-ontology.kotoba.edn")
+;; Paths resolved relative to THIS file (cwd-independent) — methods/ → tsubasa/ → 20-actors/ → root.
+(def ^:private here (fs/parent (fs/absolutize *file*)))
+(def ^:private seed-path (str (fs/file here ".." "data" "seed-fares.kotoba.edn")))
+(def ^:private onto-path (str (fs/file here ".." ".." ".." "00-contracts" "schemas" "flight-fare-ontology.kotoba.edn")))
 
 (def ^:private rows (edn/read-string (slurp seed-path)))
 (def ^:private onto (edn/read-string (slurp onto-path)))

@@ -35,11 +35,13 @@ no booking; the member self-books on the airline's own site.
 
 ## Status
 
-**R3** — see [`MATURITY.md`](MATURITY.md). 54 tests / 579 assertions green. The **G8 live-ingest
+**R3** — see [`MATURITY.md`](MATURITY.md). 57 tests / 590 assertions green. The **G8 live-ingest
 gate is UNLOCKED** (founder Lv7+ attested via PR review, 2026-06-21) under structural charter
-bounds — `:public`/`:member-principal` sources only (no paid GDS terminal), no network in the loop
-(no-server-key), G1/G3/G4/G5 enforced at ingest. The code is complete; the actual live pull (with
-public sources / member credentials) and the compiled WASM artifact are the no-server-key operator
-steps. Today the bundled data is still a bounded `:representative` seed.
+bounds — `:public`/`:member-principal` sources only (no paid GDS terminal), G1/G3/G4/G5 enforced
+at ingest. **no-server-key bars a custodial unilateral signing key, not automation, and exempts
+read-only**: so **public sources are fetched AUTONOMOUSLY by the actor** (`methods/fetch.cljc`,
+no key, no human). Only a member-principal pull (member's creds/runtime) and the compiled WASM
+artifact are consent/operator steps; signing the actor's own writes uses a self-`did:key` (sealed,
+present-only) + member CACAO leash. Today the bundled data is still a bounded `:representative` seed.
 
 Per **ADR-2606072800**. Apache 2.0 + etzhayyim Charter Compliance Rider.

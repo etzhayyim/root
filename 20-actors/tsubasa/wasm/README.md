@@ -11,7 +11,7 @@ The component is **compute-only**. `world.wit` exports `compute` and imports **n
 `wasi:sockets` / `wasi:clocks` / `wasi:random`. The *absence* of those imports is the
 guarantee:
 
-- **G1 no-inflow** — no network → it cannot redirect to an affiliate or take a commission; `build.sh` additionally fails the build if a `commission`/`affiliate` symbol is present.
+- **G1 no-inflow** — no network → it cannot redirect to an affiliate or take a commission; `build.clj` (bb) additionally fails the build if a `commission`/`affiliate` symbol is present.
 - **G5 no-person-tracking** — no clock/random/socket → no per-searcher state can leave the module.
 - **G6 Murakumo-only** — the LLM digest stays on the *host* (loopback Murakumo); the component only emits the deterministic template digest.
 
@@ -21,7 +21,7 @@ The host (operator/member runtime) owns every side effect: the ingest **fetch le
 
 ## Status (honest)
 
-This is the **build scaffold**: `world.wit` (the interface) + `build.sh` (the recipe +
+This is the **build scaffold**: `world.wit` (the interface) + `build.clj` (bb) (the recipe +
 charter assertions). The compiled artifact + its pinned CID are the **no-server-key
 operator step** — identical to how `shionome-core` / `tsumugi` / `rasen` landed their
 WASM. The recommended implementation is a tiny Rust `tsubasa-core` crate that ports the
@@ -30,7 +30,7 @@ is the conformance oracle the Rust port must match).
 
 ```
 cargo component build --release --target wasm32-wasip2     # operator
-./build.sh target/wasm32-wasip2/release/tsubasa_core.wasm   # verify + CID
+bb build.clj target/wasm32-wasip2/release/tsubasa_core.wasm   # verify + CID
 # then register the CID in INFRA_ACTORS.tsubasa.wasmCid + public/actor/tsubasa/did.json _meta.wasmCid
 ```
 
