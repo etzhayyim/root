@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-06-20",
+  "updated_at": "2026-06-21",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.md",
@@ -25721,6 +25721,25 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606201200-ibuki-coscientist-entropy-react-loop.md",
+      "id": "adr-2606201200-ibuki-coscientist-entropy-react-loop",
+      "title": "ADR-2606201200: ibuki 息吹 — co-scientist entropy ReAct loop (the organism reasons about how to persist)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "ibuki-coscientist-entropy-react-loop",
+      "authoritative": true,
+      "authoritative_for": [
+        "ibuki-coscientist-entropy-react-loop"
+      ],
+      "related": "[\"2606051800\", \"2606111500\", \"2606012100\", \"2606062101\", \"2605192100\"]",
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": "[\"2606101200\", \"2606101800\", \"2605215000\", \"2605312345\", \"2606062100\"]",
+      "last_verified": "2026-06-20",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606201610-etzhayyim-apex-kotoba-explorer-organism-app.md",
       "id": "adr-2606201610-etzhayyim-apex-kotoba-explorer-organism-app",
       "title": "ADR-2606201610: etzhayyim.com apex — kotoba blockchain explorer + node-distribution + organism app (serverless, browser-side)",
@@ -25746,6 +25765,32 @@
         "adr-2605202359-etzhayyim-apex-yoro-proxy"
       ],
       "last_verified": "2026-06-20",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606211200-ie-flow-datomic-agent-lifecycle.md",
+      "id": "adr-2606211200-ie-flow-datomic-agent-lifecycle",
+      "title": "ADR-2606211200: Information-energy flow — a kotoba/co-scientist agent lifecycle every actor embeds",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "ie-flow-datomic-agent-lifecycle",
+      "authoritative": true,
+      "authoritative_for": [
+        "etzhayyim.ie-flow"
+      ],
+      "related": [
+        "adr-2606101200-ibuki-organism-autonomy",
+        "adr-2605215000-etzhayyim-inference-murakumo-only"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606201200-ibuki-coscientist-entropy-react-loop",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605241500-dataset-cid-substrate"
+      ],
+      "last_verified": "2026-06-21",
       "amends": [],
       "amended_by": []
     },
