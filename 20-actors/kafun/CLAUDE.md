@@ -45,7 +45,10 @@ methods/kafun_edn.cljc    loader + classify
 methods/remediate.cljc    pollen-burden → verdict → assess → render-datoms → render-report (+ bb CLI)
 methods/kotoba.cljc       content-addressed append-only REMEDIATION LEDGER (tx-cid/make-tx/append-tx/read-log/verify-chain)
 methods/autorun.cljc      deterministic, idempotent-by-content heartbeat — assess → append ONLY on change (+ bb CLI)
-methods/test_*.cljc       loader + gate + ledger + heartbeat invariants
+methods/ie_flow.cljc      SoS: shared ie-flow metrics + energy-flow viz + --record (ADR-2606212030)
+methods/digest.cljc       Murakumo-narrated remediation digest (fail-open template, G6; :dry-run only G8)
+cell.cljc                 fleet heartbeat cell — `fire` (KafunRemediationHeartbeatCell, cells.edn)
+methods/test_*.cljc       loader + gate + ledger + heartbeat + ie-flow + digest invariants
 kotoba/ontology.kafun.edn EAVT schema + enums + refuse-reasons + negative space
 kotoba/seed.edn           12 synthetic stands spanning all verdicts
 data/ (gitignored)        generated remediation ledger — never committed/hand-edited
@@ -92,6 +95,14 @@ bb -cp "20-actors:70-tools/src:20-actors/kotodama/src" 20-actors/kafun/methods/i
 # + --record: also record kafun's ie-flow events to the shared SoS ledger (80-data/ie-flow/kafun/, gitignored):
 bb -cp "20-actors:70-tools/src:20-actors/kotodama/src" 20-actors/kafun/methods/ie_flow.cljc --record
 ```
+
+## Fleet (`cell.cljc`)
+
+`KafunRemediationHeartbeatCell` registered in `50-infra/cluster/murakumo/cell-runner/cells.edn`
+— node **simeon**, cron `31 * * * *`, healthz **13091** (the kaname/mimamori track). `fire` runs
+ONE deterministic, idempotent-by-content remediation beat (`autorun/beat`): an unchanged
+assessment is a no-op (`:appended false :reason :no-change`). No-server-key, no external I/O; the
+Murakumo digest `--live` narration + any live-engine bridge stay operator/Council-gated.
 
 ## Pairs with
 
