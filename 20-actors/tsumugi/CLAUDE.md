@@ -64,6 +64,20 @@ python3 20-actors/tsumugi/methods/analyze.py 20-actors/tsumugi/out/woven-graph.k
 python3 20-actors/tsumugi/methods/analyze.py <seed.edn> --out <dir>
 ```
 
+## ie-flow / SoS score (`methods/ie_flow.cljc`, ADR-2606212200)
+
+tsumugi is scored as an **information-control actor** in the SoS scoreboard (`80-data/ie-flow/scoreboard.md`,
+score 0.454) via the SHARED `etzhayyim.ie-flow.gate-adapter`: volume = `held` (each entity's 取-holding
+edge-integral, the scattered input), value = release-target `max(0, held−1)`·scale — concentrating the
+realised RELEASE order onto the few biggest 取-holders (that re-weighting IS the rectification, order-index
+0.369). Every route is `release` (a release MAP, never a target-list, G2). N1 preserved (取 is the
+edge-integral, computed on read; no per-soul score). `record-flow!` → `80-data/ie-flow/tsumugi/` (gitignored).
+
+```bash
+bb 20-actors/tsumugi/methods/ie_flow.cljc            # flow-state (order calculus)
+bb 20-actors/tsumugi/methods/test_ie_flow.cljc       # 5 tests / 13 assertions (wired into run_tests.sh)
+```
+
 Emits the connected spirit-graph (edge-primary) + the 取-concentration intel report. To
 advance over more of the earth (§D7.1, "繋げていって"): drop more `:representative` public
 relations into `data/ingest/`, or (Council-gated, `--live` + `TSUMUGI_OPERATOR_GATE`) wire

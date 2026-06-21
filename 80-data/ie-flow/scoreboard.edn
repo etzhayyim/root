@@ -26,6 +26,17 @@
     :efficiency 0.5,
     :surprise 0.0,
     :descendant 0.75}}
+  {:actor "tsumugi",
+   :score 0.454,
+   :throughput 20.08,
+   :vetoed? false,
+   :components
+   {:rectify 0.369,
+    :eta 0.832,
+    :phi 0.969,
+    :efficiency 0.5,
+    :surprise 0.0,
+    :descendant 0.75}}
   {:actor "kafun",
    :score 0.452,
    :throughput 5.967,
@@ -60,17 +71,17 @@
     :surprise 0.0,
     :descendant 0.8}}],
  :colony
- {:colony-reward 6.788,
-  :colony-order 7,
-  :n 5,
-  :scored-n 5,
+ {:colony-reward 7.843,
+  :colony-order 8,
+  :n 6,
+  :scored-n 6,
   :vetoed-n 0,
-  :mean-score 0.437,
+  :mean-score 0.44,
   :top {:actor "repo-git", :score 0.521}},
  :organism
- {:env-source {:colony-order 7},
+ {:env-source {:colony-order 8},
   :intake-without-colony 14,
-  :intake-with-colony 35,
-  :delta 21,
+  :intake-with-colony 38,
+  :delta 24,
   :note
   "intake-with − intake-without = the free-energy the colony's information-control adds to the organism's Φ (→ reserves → survival). The reward integration, ADR-2606212200."}}
