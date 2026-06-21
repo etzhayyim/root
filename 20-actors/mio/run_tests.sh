@@ -10,6 +10,7 @@ SUITES=(
   "20-actors/mio/methods/test_autorun.cljc"
   "20-actors/mio/methods/test_suite.cljc"
   "20-actors/mio/methods/test_reward.cljc"
+  "20-actors/mio/methods/test_lexicon.cljc"
 )
 
 fail=0

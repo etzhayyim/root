@@ -37,10 +37,12 @@
   {:method/id "analyze"  :method/file "methods/analyze.cljc"  :method/role "verify (§9 gates) → datoms → render-datoms → coverage → render-report (+ bb CLI)"}
   {:method/id "kotoba"   :method/file "methods/kotoba.cljc"   :method/role "content-addressed append-only VERIFICATION LEDGER (tx-cid/append-tx/read-log/verify-chain)"}
   {:method/id "autorun"  :method/file "methods/autorun.cljc"  :method/role "deterministic idempotent-by-content heartbeat — verify → append verdicts on change (+ bb CLI)"}
-  {:method/id "reward"   :method/file "methods/reward.cljc"   :method/role "R1: verified claims → advisory moyai reciprocity-credit reward proposals (drafted-unsent; 1 SBT=1 vote disposes; cash≡0)"}]
+  {:method/id "reward"   :method/file "methods/reward.cljc"   :method/role "R1: verified claims → advisory moyai reciprocity-credit reward proposals (drafted-unsent; 1 SBT=1 vote disposes; cash≡0)"}
+  {:method/id "lexicon"  :method/file "methods/lexicon.cljc"  :method/role "R1: write-surface contract — validate a flow-improvement claim against com.etzhayyim.mio.flowClaim (kotoba/lexicon.flowClaim.edn)"}]
 
  :actor/lex
- [{:lex/id "flowClaim"}
+ [{:lex/id "flowClaim" :lex/file "kotoba/lexicon.flowClaim.edn"
+   :lex/note "the typed write-surface contract for the suite's central interface (撓/燠/樋/委 → mio); validated by methods/lexicon.cljc"}
   {:lex/id "usefulFlowLedger"}]
 
  :actor/seed

@@ -225,10 +225,23 @@ charter-gate attributes verified absent across the 5 actors, 0 failing**; the le
 is proven non-vacuous (a synthetic forbidden attr is caught). This is the suite's regression
 guard against silent charter-gate drift. Suite totals now **141 tests / 996 assertions green**.
 
+## R1 — flowClaim lexicon (write-surface contract) LANDED (2026-06-21)
+
+The suite's central interface (撓/燠/樋/委 → 澪 mio) now has a TYPED CONTRACT:
+`20-actors/mio/kotoba/lexicon.flowClaim.edn` (`com.etzhayyim.mio.flowClaim`) declares the
+required fields, types, enums (flow-class, measurement-source, source-actor), ranges
+(additionality/leakage ∈ 0..1, order-delta ≥ 0), a `:type` const, and a `:forbidden` set
+(consumed-reward / cash / usd / money / equity / trade / signal / person — the PoW→PoUF +
+map-not-market gates at the interface). `methods/lexicon.cljc` validates a claim against it.
+Proven: **all 25 emitted claims conform** (`energy_order/test_conformance.cljc`); each
+violation class is caught; the lexicon rejects mio's deliberately-degenerate blank-baseline
+fixture (the same degeneracy §9 routes to :insufficient-evidence, caught one layer earlier).
+Suite totals now **148 tests / 1057 assertions green**.
+
 Remaining R1 (NOT self-contained — needs a running node / external sources / operator
 credentials, several Council-gated): live operator-gated ingest (real meters/scheduler/CACAO
-capability) + kotoba_bridge to the live engine. The R0+R1 build is otherwise complete and
-fleet-registered.
+capability) + kotoba_bridge to the live engine. The R0+R1 build is otherwise complete,
+fleet-registered, self-validating, and interface-typed.
 
 # Consequences
 
