@@ -180,7 +180,20 @@ proposal advisory + drafted-unsent + binds-fund=false (G7 — mio cannot move fu
 issuance is 1 SBT=1 vote + TitheRouter). On mio's seed: 9 verified claims → 9 advisory
 proposals → 37,313.8 moyai credit, transparently allocated per source actor.
 
-Suite totals now **126 tests / 926 assertions green**. Remaining R1: live operator-gated
+Suite totals now **126 tests / 926 assertions green**.
+
+## R1 — cross-actor digest (suite SSoT) LANDED (2026-06-21)
+
+`20-actors/energy_order/digest.cljc` is the suite ORCHESTRATOR (above all five actors;
+depends on all, depended-on by none). It runs the full pipeline once — 撓/燠/樋/委 claim
+emitters → 澪 mio verify → reward — and renders ONE unified picture: org Flowrate, per-leg
+contribution, per-flow-class breakdown, advisory moyai total. It content-addresses the
+whole digest via the shared `mio.kotoba` commit-DAG CID, so the org-wide Energy Order state
+is one verifiable CID. Current run: 25 claims → 23 verified → **Flowrate 13,039.6 kWh-equiv**
+(by leg: yudane 7257.6 / tawami 2716.8 / toi 2327.5 / okibi 737.7; by class:
+intention/compute-routing/renewable-absorb/waste-heat/peak-shave). +7 tests / 21 assertions.
+
+Suite totals now **133 tests / 947 assertions green**. Remaining R1: live operator-gated
 ingest (real meters/scheduler/CACAO capability) + fleet registration (heartbeat cells).
 
 # Consequences
