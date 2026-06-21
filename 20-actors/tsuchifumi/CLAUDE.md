@@ -24,6 +24,12 @@ clj-native Tier-B actor. earthing (アーシング) under-institutionalization �
   never fear-mongers and never publishes itself (shiori→ossekai pattern).
 - **G6 distribution-only model (非終末論).** The system-dynamics model emits p10/p50/p90
   ensemble bands; a single point forecast is unrepresentable. Forecasting → mitooshi.
+- **Co-scientist (特定+分析) keeps two tracks separate.** `coscientist.cljc` ranks
+  `:action` (no-regret, ≥:emerging → ossekai) by expected relief and `:research`
+  (contested → suimin/mitooshi, studied) by value-of-information. A contested candidate
+  on the `:action` track must stay vetoed — never add a path that lets a contested claim
+  be acted on or asserted. The catalog is closed (aligned mechanisms only); do not let
+  the generator free-write. Keep the tournament deterministic (no randomness/wall clock).
 - **G3 no person-data.** Aggregate cohort/region only.
 - **G8 no-server-key + kotoba EAVT.** State is the kotoba Datom log; the heartbeat holds
   no key and does no network I/O. Live atproto carry is member-signed + done by ossekai.

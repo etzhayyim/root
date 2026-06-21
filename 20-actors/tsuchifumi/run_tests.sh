@@ -7,6 +7,7 @@ SUITES=(
   "20-actors/tsuchifumi/methods/test_analyze.cljc"
   "20-actors/tsuchifumi/methods/test_sysdyn.cljc"
   "20-actors/tsuchifumi/methods/test_risk.cljc"
+  "20-actors/tsuchifumi/methods/test_coscientist.cljc"
   "20-actors/tsuchifumi/methods/test_social.cljc"
   "20-actors/tsuchifumi/methods/test_kotoba.cljc"
   "20-actors/tsuchifumi/methods/test_autorun.cljc"

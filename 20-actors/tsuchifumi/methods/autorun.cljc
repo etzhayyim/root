@@ -3,9 +3,10 @@
 (ns tsuchifumi.methods.autorun
   "autorun.cljc — tsuchifumi 土踏み deterministic heartbeat (ADR-2606212000).
 
-  One beat: load the regions + evidence + drivers, run the relief gate (analyze) AND
-  the risk register (risk), and APPEND the combined verdict + risk datoms as ONE
-  content-addressed transaction to the append-only observation ledger (kotoba.cljc).
+  One beat: load the regions + evidence + drivers, run the relief gate (analyze), the
+  risk register (risk), AND the co-scientist (identify the top action + research
+  hypothesis), and APPEND the combined verdict + risk + identified-hypothesis datoms as
+  ONE content-addressed transaction to the append-only observation ledger (kotoba.cljc).
   prev-cid chaining keeps the ledger tamper-evident + resume-safe — the 持続永続化 leg.
 
   Deterministic by construction: the caller supplies tx-id + as-of (no wall clock,
@@ -15,6 +16,7 @@
   OBSERVATORY ONLY — tsuchifumi never diagnoses, treats, sells, or acts on a person."
   (:require [tsuchifumi.methods.analyze :as an]
             [tsuchifumi.methods.risk :as risk]
+            [tsuchifumi.methods.coscientist :as cs]
             [tsuchifumi.methods.kotoba :as k]
             #?(:clj [clojure.edn :as edn])))
 
@@ -28,14 +30,17 @@
   [{:keys [regions evidence drivers tx-id as-of log-path]}]
   (let [assessment (an/assess regions (or evidence []))
         risk-a (risk/assess (or drivers []))
-        ds (vec (concat (an/datoms assessment) (risk/datoms risk-a)))
+        ident (cs/identify assessment)
+        ds (vec (concat (an/datoms assessment) (risk/datoms risk-a) (cs/datoms ident)))
         prev (k/head-cid log-path)
         last-ds (let [txs (k/read-log log-path)]
                   (when (seq txs) (get (last txs) ":tx/datoms")))
         unchanged? (= ds last-ds)
         base {:count (count ds)
               :verdicts (get assessment "tally")
-              :severity (get risk-a "severity_tally")}]
+              :severity (get risk-a "severity_tally")
+              :identified {:action (get-in ident ["identified" "action" :id])
+                           :research (get-in ident ["identified" "research" :id])}}]
     (if unchanged?
       (assoc base :head prev :appended false :reason :no-change)
       (let [tx (k/make-tx ds tx-id as-of prev)
@@ -60,6 +65,7 @@
                      (when (:reason r) (str " (" (name (:reason r)) ")"))))
        (println (str "verdicts=" (:verdicts r)))
        (println (str "severity=" (:severity r)))
+       (println (str "identified=" (:identified r)))
        (println (str "chain=" (k/verify-chain log-path))))))
 
 #?(:clj

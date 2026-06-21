@@ -40,6 +40,7 @@
   {:method/id "analyze" :method/file "methods/analyze.cljc" :method/role "exposure-load × earthing-deficit → verdict (evidence-honest) → relief-gap → datoms → report (+ bb CLI)"}
   {:method/id "sysdyn"  :method/file "methods/sysdyn.cljc"  :method/role "system-dynamics stocks/flows; distribution-only ensemble; scenario comparison (neglect/baseline/relief) (+ bb CLI)"}
   {:method/id "risk"    :method/file "methods/risk.cljc"    :method/role "risk register (evidence-discounted) + Meadows leverage points → datoms → report (+ bb CLI)"}
+  {:method/id "coscientist" :method/file "methods/coscientist.cljc" :method/role "特定+分析: Generate→Reflect→Rank→Evolve→Meta-review over a charter-clean catalog; IDENTIFY top no-regret action (→ossekai) + top contested research hypothesis (→suimin/mitooshi, studied not acted on) (+ bb CLI)"}
   {:method/id "social"  :method/file "methods/social.cljc"  :method/role "DRY-RUN atproto おせっかい posts (G1/G2/G4/G5 + no-server-key) routed to ossekai (+ bb CLI)"}
   {:method/id "viz"     :method/file "methods/viz.cljc"     :method/role "self-contained HTML viz (system dynamics bands + leverage + relief-gap) from real method output (+ bb CLI)"}
   {:method/id "kotoba"  :method/file "methods/kotoba.cljc"  :method/role "持続永続化: content-addressed append-only OBSERVATION LEDGER (tx-cid/make-tx/append-tx/read-log/verify-chain)"}
@@ -48,7 +49,8 @@
  :actor/lex
  [{:lex/id "reliefVerdict"}
   {:lex/id "earthingEmfMap"}
-  {:lex/id "ossekaiNudge"}]
+  {:lex/id "ossekaiNudge"}
+  {:lex/id "coscientistHypothesis"}]
 
  :actor/ledger
  {:ledger/file "data/persisted/tsuchifumi.observation.kotoba.edn"
@@ -71,6 +73,6 @@
  {:runner "babashka"
   :cmd "./20-actors/tsuchifumi/run_tests.sh"
   :suites ["methods/test_ontology.cljc" "methods/test_analyze.cljc" "methods/test_sysdyn.cljc"
-           "methods/test_risk.cljc" "methods/test_social.cljc" "methods/test_kotoba.cljc"
-           "methods/test_autorun.cljc" "methods/test_viz.cljc"]
-  :green "47 tests / 178 assertions"}}
+           "methods/test_risk.cljc" "methods/test_coscientist.cljc" "methods/test_social.cljc"
+           "methods/test_kotoba.cljc" "methods/test_autorun.cljc" "methods/test_viz.cljc"]
+  :green "56 tests / 197 assertions"}}

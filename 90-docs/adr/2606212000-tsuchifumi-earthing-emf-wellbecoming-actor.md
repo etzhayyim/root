@@ -14,6 +14,7 @@ authoritative_for:
   - the relief-verdict gate (evidence-honest, anti-pseudoscience)
   - the earthing-EMF system-dynamics model (distribution-only)
   - the earthing-EMF risk register + Meadows leverage points
+  - the earthing-EMF co-scientist (特定+分析): action/research-track identify+analyze tournament
   - tsuchifumi's dry-run atproto おせっかい (ossekai) post invariants
   - tsuchifumi's content-addressed observation-ledger persistence (持続永続化)
 depends_on:
@@ -21,6 +22,7 @@ depends_on:
   - adr-2605262130-kotoba-storage-substrate-unification
   - adr-2605312345-kotoba-datom-first-class-canonical-state
 related:
+  - adr-2606201200-ibuki-coscientist-entropy-react-loop
   - adr-2605264000-ossekai-info-arbitrage-wellbecoming-nudge
   - adr-2606073000-inochi-living-world-kg-mirror
   - adr-2606082102-shiori-wellbecoming-detractor-observatory
@@ -136,6 +138,29 @@ body is SCANNED (disclaimer stripped, shionome pattern) and REFUSED on fear/alar
 logged. tsuchifumi never publishes (the shiori→ossekai division of labour);
 `build-live` raises.
 
+### 5. Co-scientist — IDENTIFY (特定) + ANALYZE (分析)
+
+`coscientist.cljc` applies the ibuki co-scientist pattern (ADR-2606201200) —
+**Generate → Reflect → Rank → Evolve → Meta-review** over a CHARTER-CLEAN
+intervention CATALOG (never LLM free-write; a fear/sales/clinical/personal-
+surveillance mechanism is unrepresentable) — to **IDENTIFY** what to do and what
+to study, and **ANALYZE** the field via an Elo tournament. The defining move is
+**G2 honesty applied to a research programme**: candidates split into two tracks
+ranked by DIFFERENT objectives —
+
+- **`:action`** — a no-regret intervention resting on ≥:emerging evidence, ranked
+  by expected relief (`relief · wellbeing · evidence-weight / cost`); the
+  identified winner is handed to `social.cljc` → ossekai (御節介) to carry.
+- **`:research`** — a contested hypothesis worth studying (it must NOT be acted on
+  or asserted), ranked by value-of-information (`relevance · (1−confidence) /
+  cost`); the identified winner is handed to suimin/mitooshi for evidence-synthesis.
+
+A `:contested`/`:anecdotal` candidate on the `:action` track is **vetoed** (you may
+STUDY a contested claim, never ACT on it) — the safety property that keeps the
+programme honest. `autorun` records the identified action + research hypothesis on
+the ledger each beat (the organism reasons, then persists). Murakumo narration of
+the meta-review is the G7-gated live leg; the template fallback is deterministic.
+
 ### Persistence (持続永続化)
 
 `kotoba.cljc` + `autorun.cljc` are the kafun/ugachi/meisai content-addressed
@@ -156,10 +181,12 @@ key, no network I/O.
 - All R0 data is `:synthetic`. Real environmental-EMF / public-health / greenspace
   data (G7), live atproto carry via ossekai (G8), DID registration, fleet
   heartbeat, and IPFS/IPNS publication are operator/Council steps.
-- **47 tests / 178 assertions green** (babashka): verdict spread, evidence honesty
+- **56 tests / 197 assertions green** (babashka): verdict spread, evidence honesty
   (contested never asserted, never relief-priority), risk evidence-discount,
-  ossekai guard refusals, distribution-only + point-forecast refusal, ledger
-  tamper-evidence + idempotent heartbeat, ontology↔seed parity + negative-space.
+  co-scientist identify+analyze (action≥emerging, contested→research-only, forbidden-
+  mechanism + non-falsifiable veto, deterministic tournament), ossekai guard refusals,
+  distribution-only + point-forecast refusal, ledger tamper-evidence + idempotent
+  heartbeat, ontology↔seed parity + negative-space.
 
 ## Alternatives Considered
 

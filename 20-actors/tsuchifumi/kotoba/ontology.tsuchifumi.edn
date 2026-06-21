@@ -37,8 +37,15 @@
 ;;   :tsuchifumi.rel/*     — DERIVED relief factors + verdict + reason + route + evidence-tier
 ;;   :tsuchifumi.ev/*      — evidence-catalog records (claim, tier, source) — the honesty layer
 ;;   :tsuchifumi.risk/*    — DERIVED risk-register entries (likelihood/impact/leverage)
+;;   :tsuchifumi.hyp/*     — co-scientist IDENTIFIED hypotheses (track/mechanism/tier/score/elo)
 ;;   :tsuchifumi/derived   — true on every derived datom
 ;;   :tsuchifumi/sourcing  — ":authoritative" | ":representative" | ":synthetic"
+;;
+;; ── co-scientist (特定・分析) ──
+;; The co-scientist (Generate→Reflect→Rank→Evolve→Meta-review over a charter-clean
+;; CATALOG) IDENTIFIES the top no-regret ACTION (≥:emerging → ossekai) and the top
+;; contested RESEARCH hypothesis (→ suimin/mitooshi, studied not asserted). A contested
+;; candidate on the :action track is vetoed (study a contested claim, never act on it).
 
 {:ontology/id "tsuchifumi"
  :ontology/version "0.1.0"
@@ -70,7 +77,11 @@
                    :infrastructure-gap :monitor}
   :reversibility #{:reversible :slow-reversible :entrenched}
   ;; Meadows 12 leverage levels (12 = weakest/params … 1 = strongest/paradigm); we store the level int.
-  :leverage-band #{:parameter :feedback :structure :goal :paradigm}}
+  :leverage-band #{:parameter :feedback :structure :goal :paradigm}
+  ;; co-scientist hypothesis tracks + aligned mechanisms (the closed catalog vocabulary)
+  :hyp-track     #{:action :research}
+  :hyp-mechanism #{:open-publication :greenspace-advocacy :outdoor-time-nudge
+                   :evening-light-info :reciprocal-measurement :evidence-synthesis-request}}
 
  ;; evidence-tier → confidence weight applied to any burden resting on a claim of that tier (G2)
  :tier-weights
@@ -96,4 +107,9 @@
   ":tsuchifumi/product"           ;; G5 — sells nothing; no earthing mat / device / affiliate
   ":tsuchifumi/buy"               ;; G5
   ":tsuchifumi/point-forecast"    ;; G6 — the system-dynamics model is distribution-only (非終末論)
-  ":tsuchifumi/fear-appeal"]}     ;; G4 — ossekai is no-regret nudge, never a fear/manipulation appeal
+  ":tsuchifumi/fear-appeal"]      ;; G4 — ossekai is no-regret nudge, never a fear/manipulation appeal
+
+ ;; co-scientist forbidden mechanisms — UNREPRESENTABLE in the catalog + rejected by review
+ :forbidden-mechanisms
+ #{:fear-marketing :product-sales :clinical-claim :personal-dosimetry-surveillance
+   :engagement-maximizing :manipulation :deception :ad-targeting}}

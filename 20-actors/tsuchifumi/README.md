@@ -47,6 +47,32 @@ power-mirror 系譜（inochi 命 = 生態圏 / shiori 栞 = 人の detractor）�
    EMF-harm token を scan して **拒否**、dry-run のみ・**no-server-key**、各 post は
    **ossekai (御節介) に渡す proposal**（御節介 が consent-bound + on-chain-logged で carry）。
 
+## co-scientist — 特定 (identify) + 分析 (analyze)
+
+`coscientist.cljc` — ibuki co-scientist (ADR-2606201200) の **Generate → Reflect →
+Rank → Evolve → Meta-review** トーナメントを、**charter-clean な intervention CATALOG**
+（LLM free-write 不可。fear/sales/diagnosis mechanism は構造的に表現不能）に対して実行し、
+何を **やるべきか／研究すべきか** を **特定**・**分析**する。
+
+**この actor の核心的な設計手 (G2 honesty をリサーチ・プログラムに適用)**：候補は
+2トラックに分かれ、**異なる目的関数**でランクされる：
+
+- **`:action`** — ≥emerging な証拠に立つ **no-regret** 介入。`utility = relief ×
+  wellbeing × evidence-weight / cost` でランク → **特定**された最上位を **ossekai 御節介**
+  へ（dry-run, consent-bound）。
+- **`:research`** — **contested** な仮説（**行動も断定もしない**）。`VoI = relevance ×
+  (1−confidence) / cost`（value-of-information）でランク → **suimin / mitooshi** へ
+  evidence-synthesis を依頼。
+
+**:action トラックに contested 候補が来たら veto**（contested な主張は **研究はしても
+行動しない**）— これが research programme を誠実に保つ安全性質。`autorun` heartbeat は
+毎 beat この identified hypothesis を ledger に記録する。
+
+```bash
+# 5. co-scientist: 特定 + 分析（action は ossekai へ、research は suimin/mitooshi へ）
+bb --classpath 20-actors 20-actors/tsuchifumi/methods/coscientist.cljc
+```
+
 ## Gates
 
 | ID | name | rule |
@@ -83,7 +109,7 @@ bb --classpath 20-actors 20-actors/tsuchifumi/methods/viz.cljc
 bb --classpath 20-actors 20-actors/tsuchifumi/methods/autorun.cljc
 
 # tests
-./20-actors/tsuchifumi/run_tests.sh   # 47 tests / 178 assertions green
+./20-actors/tsuchifumi/run_tests.sh   # 56 tests / 197 assertions green
 ```
 
 ## ファイル
@@ -100,6 +126,7 @@ bb --classpath 20-actors 20-actors/tsuchifumi/methods/autorun.cljc
 │   ├── analyze.cljc              # relief gate + evidence honesty
 │   ├── sysdyn.cljc               # system dynamics (distribution-only)
 │   ├── risk.cljc                 # risk register + Meadows leverage
+│   ├── coscientist.cljc          # 特定+分析 tournament (action vs research track)
 │   ├── social.cljc               # atproto dry-run ossekai posts
 │   ├── viz.cljc                  # self-contained HTML generator
 │   ├── kotoba.cljc / autorun.cljc# 持続永続化 (ledger + heartbeat)
