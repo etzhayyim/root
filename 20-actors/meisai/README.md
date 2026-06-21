@@ -95,6 +95,53 @@ bb -e '(require (quote meisai.methods.recurring))(meisai.methods.recurring/-main
   `data/`, never committed/pinned/posted. The pure fns operate on datoms, so they are tested on
   synthetic datoms with no file.
 
+The round-trip is closed on the kaiyaku side: kaiyaku `methods/meisai_ingest.cljc` ingests this
+handoff into its 縁-ledger as a `:recurring-charge` tie over a `:svc/kind :card-merchant` node.
+
+## Report-time FX (R1) — `methods/fx.cljc`
+
+A worldwide statement bills in any currency; the log stores the native amount in integer minor
+units. `fx.cljc` adds a **report-time** JPY-equivalent for the member report / kaiyaku handoff —
+**never a Datom** (a rate snapshot goes stale; baking it into the append-only log would assert a
+false as-of truth):
+
+```clojure
+(fx/to-jpy 999 ":usd" {":usd" 150.0})       ;=> 1499   (999¢ @150)
+(rec/handoff datoms {:rates {":usd" 150.0}}) ;=> non-JPY records gain :handoff/jpy-equivalent
+```
+
+`enrich-handoff` annotates only non-JPY records (`:handoff/jpy-equivalent` + `:handoff/fx-rate` +
+`:handoff/fx-advisory true`), leaving the native amount/currency untouched. With a JPY-equivalent
+present, kaiyaku prices the foreign charge; without a rate it stays cost-0 → kaiyaku routes it to
+`:review`, never auto-`:sever` (G8 honesty). Rates are an INPUT (the member's own snapshot or a
+future G7-gated live leg), never a committed table that would rot.
+
+## Per-issuer fetch adapters (R1, member-side)
+
+`:supported` requires a **fetch-leg adapter** — a member-run, read-only computer-use script in
+[`com-junkawasaki/computer-use-clj`](https://github.com/com-junkawasaki/computer-use-clj) (karakuri
+T2 posture, vault-injected creds, Murakumo-conformant local inference). The in-repo seam is the
+registry `:shape`: the adapter writes a statement EDN with whatever field names the portal yields,
+the member declares those names once in the source's `:shape`, and `sources/normalize` maps them to
+the canonical intake — **no per-issuer code in meisai**. The contract per issuer:
+
+1. write a read-only fetch script for the member's own account (no state-changing controls, G4);
+2. declare its `:shape {:rows … :month … :date … :merchant … :amount … :amount-scale :minor|:major}`
+   on the registry entry (sumitclub is the worked example);
+3. verify it end-to-end on the member's machine → flip `:status :registry-only → :supported`.
+
+Adapters live out-of-repo (member-side, G7); the 100 `:registry-only` sources are the worklist.
+
+## Lexicons & residence (R1)
+
+- **Lexicons** (`cells/lex/`): `com.etzhayyim.meisai.{statement,source,recurringHandoff}` — document
+  the on-log / handoff shapes. `source` is PUBLIC metadata; `statement` + `recurringHandoff` are
+  PERSONAL (local-only, no PAN/credential — the schemas carry no such field by construction).
+- **Residence**: `50-infra/launchd/com.etzhayyim.meisai.heartbeat.plist` — a per-member launchd
+  LaunchAgent that runs the local intake sweep hourly on the member's OWN machine. **Not a shared
+  murakumo fleet cell**: meisai is member-local personal data with no network I/O (G1/G3/G7), so it
+  must not run on shared fleet nodes (the constitutionally-correct reading of "fleet registration").
+
 ## Boundaries
 
 | Sibling | Relation |
@@ -105,11 +152,13 @@ bb -e '(require (quote meisai.methods.recurring))(meisai.methods.recurring/-main
 | toritate 執帳 | corp's OWN on-chain books — a MEMBER's personal card is not that; never conflate |
 | warifu 割符 | the corp's own card rails; meisai only reads external bank-issued cards |
 
-## R0 honesty
+## R1 honesty
 
-Methods + 24 green bb tests (88 assertions); live fetch verified end-to-end against local gemma 4
-QAT (mock-host loop) on 2026-06-12. The worldwide coverage registry (101 sources) + multi-currency
-normalize + the kaiyaku recurring-charge handoff landed; the per-issuer **fetch-leg adapters**
-(which flip the 100 `:registry-only` sources to `:supported`) are the next member-side wave. No lexicon, no fleet cell, no Pregel
-registration yet — R1 work, gated as usual. Aggregate/derived views (monthly totals → kaiyaku
-handoff) are future waves.
+Methods + 28 green bb tests (103 assertions); live fetch verified end-to-end against local gemma 4
+QAT (mock-host loop) on 2026-06-12. Landed: the worldwide coverage registry (101 sources) +
+multi-currency normalize + the kaiyaku recurring-charge handoff (round-trip closed) + report-time
+FX + 3 lexicons (`cells/lex/`) + the member-local launchd heartbeat. The per-issuer **fetch-leg
+adapters** (which flip the 100 `:registry-only` sources to `:supported`) live member-side
+(computer-use-clj, G7) and are the remaining wave. No Pregel/shared-fleet registration — and there
+won't be: meisai is member-local (G1/G3/G7), so it resides as a per-member LaunchAgent, not a fleet
+cell. Aggregate/derived views beyond recurring-charge detection are future waves.

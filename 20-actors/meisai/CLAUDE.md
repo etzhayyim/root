@@ -79,18 +79,25 @@ dep), matching `parse_edn`. Run: `bb -cp 20-actors -e "(require 'meisai.methods.
 ## Build & Test
 
 ```bash
-./run_tests.sh                      # 2 suites, 21 checks, stdlib only, hermetic
-python3 methods/autorun.py --cycles 1   # ingest data/intake/*.edn → local log
+./run_tests.sh                      # 6 bb suites, 28 tests / 103 assertions, hermetic
+bb -cp 20-actors -e "(require 'meisai.methods.autorun)(meisai.methods.autorun/-main \"--cycles\" \"1\")"
 ```
 
 ## R1 triggers (deferred)
 
-lexicon `com.etzhayyim.meisai.statement`; fleet heartbeat registration; **per-issuer fetch-leg
-adapters** that flip the 100 `:registry-only` sources in `sources/world-card-issuers.edn` to
-`:supported` (member-side, computer-use-clj, G4 read-only posture); the kaiyaku SIDE of the
-recurring-charge handoff (kaiyaku ingesting `data/kaiyaku-handoff.edn` into its 縁-ledger — the
-meisai side `methods/recurring.cljc` landed); FX-rate enrichment for `:meisai.row/{amount,currency}`
-(report-time, never stored as a derived truth).
+**per-issuer fetch-leg adapters** that flip the 100 `:registry-only` sources in
+`sources/world-card-issuers.edn` to `:supported` (member-side, computer-use-clj, G4 read-only
+posture — out-of-repo, the seam is the registry `:shape` + `sources/normalize`).
+
+LANDED in R1: lexicons `com.etzhayyim.meisai.{statement,source,recurringHandoff}` (`cells/lex/`);
+member-local launchd heartbeat (`50-infra/launchd/com.etzhayyim.meisai.heartbeat.plist` — NOT a
+shared fleet cell, by G1/G3/G7); report-time FX enrichment (`methods/fx.cljc`,
+`:handoff/jpy-equivalent`, advisory — never a `:meisai.row/*` Datom).
+
+The kaiyaku SIDE of the recurring-charge handoff **landed** (ADR-2606122400): kaiyaku
+`methods/meisai_ingest.cljc` ingests `data/kaiyaku-handoff.edn` into its 縁-ledger as a
+`:recurring-charge` tie over a `:svc/kind :card-merchant` node — the meisai → kaiyaku round-trip
+is now closed (kaiyaku decides keep/review/sever; meisai never does).
 
 The recurring-charge handoff (`methods/recurring.cljc`) is meisai's first DERIVED view: it folds
 `:meisai.row/*` into subscription candidates and emits an ADVISORY `:review` handoff
