@@ -79,6 +79,16 @@
   [organism-config tape]
   (reduce beat (init-organism organism-config) tape))
 
+(defn live-epochs
+  "Live the tape `epochs` times in sequence (seasons), carrying energy and belief across
+  the seam — the organism is born once, not reset each pass. A dead organism stays dead
+  (its loop does not advance), so over a NET-NEGATIVE world even a well-fitted organism
+  eventually starves: self-maintenance needs a net-positive niche, not merely a good model.
+  Deterministic: the repeated tape IS the world (no Math/random)."
+  [organism-config tape epochs]
+  (reduce beat (init-organism organism-config)
+          (apply concat (repeat (max 1 epochs) tape))))
+
 (defn summary
   "Compact survival summary for one lived organism."
   [s]

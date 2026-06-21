@@ -37,7 +37,7 @@
  [{:method/id "uzu_edn"    :method/file "methods/uzu_edn.cljc"    :method/role "seed loader + classify (tape / organisms / flows / edges)"}
   {:method/id "model"      :method/file "methods/model.cljc"      :method/role "generative model: belief update (VFE), expected-free-energy action choice; INFORMATION (nats)"}
   {:method/id "ledger"     :method/file "methods/ledger.cljc"     :method/role "metabolic energy ledger: intake/cost/hazard/affordability; ENERGY (conserved)"}
-  {:method/id "metabolism" :method/file "methods/metabolism.cljc" :method/role "the dissipative loop: perceive→infer→plan→act→metabolize→live-or-die; EAVT datoms"}
+  {:method/id "metabolism" :method/file "methods/metabolism.cljc" :method/role "the dissipative loop: perceive→infer→plan→act→metabolize→live-or-die; multi-epoch seasons (live-epochs); EAVT datoms"}
   {:method/id "measure"    :method/file "methods/measure.cljc"    :method/role "real-world energy-flow measurement in 4 honest separate units; never cross-summed; EAVT datoms"}
   {:method/id "validate"   :method/file "methods/validate.cljc"   :method/role "seed↔ontology integrity validator (self-validating substrate; defends I1–I5 invariants; + bb CLI)"}
   {:method/id "digest"     :method/file "methods/digest.cljc"     :method/role "colony SELF-REFLECTION: who self-maintained, which meanings fit, energy economy, field dissipation → report + :uzu.digest/* datoms (+ bb CLI; Murakumo narration is the gated step)"}
@@ -74,8 +74,8 @@
  :actor/tests
  {:runner "babashka"
   :cmd "./20-actors/uzu/run_tests.sh"
-  :suites ["methods/test_model.cljc" "methods/test_ledger.cljc" "methods/test_metabolism.cljc"
+  :suites ["methods/test_model.cljc" "methods/test_ledger.cljc" "methods/test_metabolism.cljc" "methods/test_epochs.cljc"
            "methods/test_measure.cljc" "methods/test_validate.cljc" "methods/test_lexicons.cljc"
            "methods/test_digest.cljc" "methods/test_kotoba.cljc" "methods/test_autorun.cljc"
            "methods/test_viz.cljc"]
-  :status "60 tests / 151 assertions green (babashka)"}}
+  :status "66 tests / 161 assertions green (babashka)"}}

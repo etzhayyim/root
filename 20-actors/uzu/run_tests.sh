@@ -6,6 +6,7 @@ SUITES=(
   "20-actors/uzu/methods/test_model.cljc"
   "20-actors/uzu/methods/test_ledger.cljc"
   "20-actors/uzu/methods/test_metabolism.cljc"
+  "20-actors/uzu/methods/test_epochs.cljc"
   "20-actors/uzu/methods/test_measure.cljc"
   "20-actors/uzu/methods/test_validate.cljc"
   "20-actors/uzu/methods/test_lexicons.cljc"
