@@ -198,7 +198,7 @@
    "LR" :africa "SS" :africa "MW" :africa "GA" :africa "BF" :africa "NE" :africa
    "BJ" :africa "MG" :africa "TG" :africa "SO" :africa "GN" :africa "MR" :africa
    "TD" :africa "CF" :africa "DJ" :africa "SC" :africa "LS" :africa "KM" :africa
-   "GW" :africa "ST" :africa "CM" :africa
+   "GW" :africa "ST" :africa "CM" :africa "CG" :africa "BI" :africa
    ;; Americas
    "US" :americas "BR" :americas "MX" :americas "CL" :americas "AR" :americas
    "VE" :americas "CU" :americas "CO" :americas "PE" :americas "BO" :americas

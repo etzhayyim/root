@@ -14,20 +14,20 @@
     "report.md"
   ],
   "regenerate": "bb --classpath 20-actors -e \"(require '[junkan.methods.junkan-edn :as je] '[junkan.methods.analyze :as az] '[junkan.methods.kotoba :as k]) (let [is (je/instruments \\\"20-actors/junkan/kotoba/seed.governance-asymmetry.edn\\\") a (az/analyze is) ds (az/datoms is a) tx (k/make-tx ds \\\"junkan-gov-snapshot-0001\\\" \\\"snapshot\\\" \\\"\\\")] (spit \\\"80-data/junkan-governance/governance-asymmetry.datoms.kotoba.edn\\\" (az/render-datoms is a)) (spit \\\"80-data/junkan-governance/findings-ledger.kotoba.edn\\\" (k/tx->edn tx)) (spit \\\"80-data/junkan-governance/report.md\\\" (az/render-report a)))\"",
-  "tx_cid": "b114880483bdd1354d66e731ea00f1b2c4b96ae7ad81b77d2f4bfae96c29facbc",
-  "datoms": 4963,
-  "instruments": 337,
-  "jurisdictions": 194,
-  "regions": {"africa": 51, "europe": 47, "asia": 46, "americas": 34, "oceania": 14, "transnational": 2},
-  "kinds": {"law": 73, "institution": 197, "doctrine": 42, "value": 25},
-  "stocks": {"participation-barrier": 140, "coercion-asymmetry": 54, "information-asymmetry": 48, "paradigm-subordination": 48, "economic-capture": 47},
-  "thinnest_stock": "economic-capture",
+  "tx_cid": "b30d69ee71424b6a2c40aff3f2cf67ac43d3d61440575bdf0a14c93ffef8ff1a7",
+  "datoms": 5075,
+  "instruments": 345,
+  "jurisdictions": 196,
+  "regions": {"africa": 53, "europe": 47, "asia": 46, "americas": 34, "oceania": 14, "transnational": 2},
+  "kinds": {"law": 74, "institution": 204, "doctrine": 42, "value": 25},
+  "stocks": {"participation-barrier": 141, "coercion-asymmetry": 54, "economic-capture": 54, "information-asymmetry": 48, "paradigm-subordination": 48},
+  "thinnest_stock": "paradigm-subordination",
   "generated_scorecard": "SCORECARD.md",
   "tx_cid_note": "tx-cid reproducible byte-for-byte from the seed (deterministic content-address); changes only when the seed changes.",
   "sourcing": "representative (laws/years/enactors/origins are on-the-record public facts; polarity/magnitude/confidence are junkan's disclosed hypotheses, G5)",
   "discipline": "G4 analysis-only / G5 hypothesis-only / G6 aggregate-only / G7 map-not-rank / G11 candidates-not-directives",
   "as_of": "2026-06-22",
-  "iteration": 24,
+  "iteration": 25,
   "iteration_history": [
     {"iteration": 1, "instruments": 35, "jurisdictions": 17, "tx_cid": "bb4be4ac091ae9cc9be30c732d2fc78f773afabea84d6deccb96b784576a1d814"},
     {"iteration": 2, "instruments": 59, "jurisdictions": 31, "note": "Global South / under-represented wave: BR MX ZA NG ID TR IR PH PK VN KE TN CL TW"},
@@ -52,6 +52,7 @@
     {"iteration": 21, "instruments": 307, "jurisdictions": 188, "note": "economic-capture 39→47 toward parity (VE PDVSA, MN mining, illicit financial flows, resource curse, ZA BEE; + counters ZA Public Protector, StAR asset recovery, INTOSAI audit) + new jurisdictions (BZ NR); + SCORECARD surfaces the self-balancing next-focus stock"},
     {"iteration": 22, "instruments": 317, "jurisdictions": 190, "note": "paradigm-subordination 40→48 toward parity (IN Hindutva, IL nation-state law, MM/LK Buddhist nationalism, majoritarianism vs IN constitutional secularism, secular-state + minority-rights norms) + micro-republics (SM MC); thinnest rotated paradigm→information. 317 instruments / 190 jurisdictions; all 5 stocks 40–136"},
     {"iteration": 23, "instruments": 327, "jurisdictions": 192, "note": "information-asymmetry 40→48 toward parity (Pegasus-class spyware, IN internet shutdowns, TR censorship, NG Twitter ban, facial-recognition surveillance vs E2E encryption, EU whistleblower directive, Open Government Partnership) + Caribbean (AG DM). 327 instruments / 192 jurisdictions; 5 stocks tightly balanced 46–138"},
-    {"iteration": 24, "instruments": 337, "jurisdictions": 194, "note": "coercion-asymmetry 46→54 toward parity (US Guantánamo, AU offshore detention, BD RAB, arbitrary detention + enforced disappearance practices vs UN CAT, police oversight, habeas corpus norm) + Caribbean (KN VC). 337 instruments / 194 jurisdictions across all continents; stocks 47–140"}
+    {"iteration": 24, "instruments": 337, "jurisdictions": 194, "note": "coercion-asymmetry 46→54 toward parity (US Guantánamo, AU offshore detention, BD RAB, arbitrary detention + enforced disappearance practices vs UN CAT, police oversight, habeas corpus norm) + Caribbean (KN VC). 337 instruments / 194 jurisdictions across all continents; stocks 47–140"},
+    {"iteration": 25, "instruments": 345, "jurisdictions": 196, "note": "economic-capture 47→54 toward parity (CG oil-state, corporate profit shifting, SWF opacity, directed lending vs OECD global minimum tax, fiscal-transparency standards, KR anti-graft act) + new jurisdictions (CG BI). 345 instruments / 196 jurisdictions across all continents; stocks 48–141"}
   ]
 }

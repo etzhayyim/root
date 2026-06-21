@@ -2524,4 +2524,63 @@
   :stakeholders ["House of Assembly" "parties" "citizens"]
   :stock :participation-barrier :polarity :narrow :magnitude 0.45 :reversibility :institutional :meadows 4
   :basis "Constitution of Saint Vincent and the Grenadines (1979)" :sourcing :representative :confidence 0.4}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 25 — economic-capture toward parity (tax/fiscal capture vs global
+ ;; transparency counters) + new jurisdictions (CG BI)
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── economic-capture (widen) ──
+ {:type :instrument :id "cg-sassou-oil" :name "Oil-state under long-term presidency" :jurisdiction "CG" :kind :institution :year 1997
+  :enactor "Republic of the Congo (Sassou Nguesso, dominant since 1979/1997)"
+  :origin "Decades of personalized rule funded by opaque oil revenue (and 'biens mal acquis' assets abroad) fuse resource rents with one family's political dominance, leaving citizens with little fiscal accountability."
+  :stakeholders ["presidency" "state oil sector" "elite networks" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.65 :reversibility :entrenched :meadows 4
+  :basis "Congo-Brazzaville oil-state; biens mal acquis cases" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-corporate-profit-shifting" :name "Corporate profit shifting (BEPS)" :jurisdiction "GLOBAL" :kind :institution :year 0
+  :enactor "Diffuse (multinationals + low-tax jurisdictions)"
+  :origin "Shifting profits to low-tax jurisdictions deprives states of hundreds of billions in revenue, letting the largest firms under-contribute relative to citizens and SMEs — an economic asymmetry the OECD BEPS process and global minimum tax aim to counter."
+  :stakeholders ["multinationals" "low-tax jurisdictions" "tax authorities" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.55 :reversibility :institutional :meadows 5
+  :basis "OECD BEPS; profit-shifting estimates" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-sovereign-wealth-opacity" :name "Opaque sovereign-wealth funds" :jurisdiction "GLOBAL" :kind :institution :year 0
+  :enactor "Diffuse (some state investment funds with weak disclosure)"
+  :origin "Where sovereign-wealth or state investment funds operate without transparency (cf. the 1MDB scandal), they can become vehicles for capture and diversion of public assets beyond citizen scrutiny — the Santiago Principles seek to narrow this, unevenly."
+  :stakeholders ["state funds" "fund managers" "auditors" "citizens"]
+  :stock :economic-capture :polarity :ambiguous :magnitude 0.4 :reversibility :institutional :meadows 5
+  :basis "Santiago Principles; 1MDB scandal" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-directed-lending" :name "Politically-directed state-bank lending" :jurisdiction "GLOBAL" :kind :institution :year 0
+  :enactor "Diffuse (state-controlled banks directing credit)"
+  :origin "When state-controlled banks allocate credit on political rather than commercial grounds, they channel resources to connected actors and crowd out others — a capture mechanism distinct from procurement or donations."
+  :stakeholders ["state banks" "connected borrowers" "regulators" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.5 :reversibility :institutional :meadows 5
+  :basis "Directed-lending / financial-repression literature" :sourcing :representative :confidence 0.4}
+
+ ;; ── economic-capture (narrow — global transparency counters) ──
+ {:type :instrument :id "gl-global-minimum-tax-2021" :name "OECD/G20 global minimum tax (Pillar Two)" :jurisdiction "GLOBAL" :kind :institution :year 2021
+  :enactor "OECD/G20 Inclusive Framework (~140 jurisdictions, 2021)"
+  :origin "A 15% global minimum corporate tax agreed by ~140 jurisdictions reduces the race-to-the-bottom that let the largest firms escape contribution, partially rebalancing fiscal power toward states and citizens (implementation is phased)."
+  :stakeholders ["OECD/G20" "multinationals" "tax authorities" "citizens"]
+  :stock :economic-capture :polarity :narrow :magnitude 0.5 :reversibility :institutional :meadows 6
+  :basis "OECD Pillar Two global minimum tax (2021)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-fiscal-transparency" :name "Fiscal transparency standards (IMF/GIFT)" :jurisdiction "GLOBAL" :kind :institution :year 1998
+  :enactor "IMF Fiscal Transparency Code + Global Initiative for Fiscal Transparency"
+  :origin "Standards and assessments pushing governments to publish budgets, debt, and spending in accessible form narrow the information-and-economic gap around how public money is raised and used — the Open Budget Survey tracks the wide variation."
+  :stakeholders ["finance ministries" "IMF/GIFT" "Open Budget Survey" "citizens"]
+  :stock :economic-capture :polarity :narrow :magnitude 0.45 :reversibility :institutional :meadows 6
+  :basis "IMF Fiscal Transparency Code; GIFT; Open Budget Survey" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "kr-anti-graft-2016" :name "Improper Solicitation and Graft Act (Kim Young-ran Act)" :jurisdiction "KR" :kind :law :year 2016
+  :enactor "National Assembly of the Republic of Korea"
+  :origin "A sweeping anti-graft law capping gifts/meals to officials, journalists, and teachers, aimed at the everyday networks of influence that enabled capture — a structural narrowing of routine economic-influence channels."
+  :stakeholders ["Anti-Corruption & Civil Rights Commission" "officials/journalists" "businesses" "citizens"]
+  :stock :economic-capture :polarity :narrow :magnitude 0.45 :reversibility :statutory :meadows 5
+  :basis "Improper Solicitation and Graft Act (2016)" :sourcing :representative :confidence 0.4}
+
+ ;; ── new jurisdiction (participation) ──
+ {:type :instrument :id "bi-third-term-crisis" :name "2015 third-term crisis + crackdown" :jurisdiction "BI" :kind :institution :year 2015
+  :enactor "Burundian state (Nkurunziza's contested 2015 third term)"
+  :origin "A disputed bid for a third term breached the Arusha-accord term limits, triggering a failed coup, mass protests, lethal repression, and exodus — collapsing the participation channel and entrenching a one-party dominance later constitutionalized in 2018."
+  :stakeholders ["presidency" "opposition/protesters" "EAC/AU" "citizens"]
+  :stock :participation-barrier :polarity :widen :magnitude 0.8 :reversibility :institutional :meadows 4
+  :basis "Burundi 2015 crisis; 2018 constitutional referendum" :sourcing :representative :confidence 0.4}
 ]
