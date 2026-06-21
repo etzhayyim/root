@@ -4,15 +4,9 @@ set -uo pipefail
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="$(cd "$ROOT/../.." && pwd)"
 cd "$ROOT"
-SUITES=( "methods/test_charter_gates.py" "py/test_agent.py" )
 fail=0
-for s in "${SUITES[@]}"; do
-  [ -f "$s" ] || continue
-  dir="$(dirname "$s")"; file="$(basename "$s")"
-  if ( cd "$dir" && python3 "$file" ); then :; else echo "FAILED: $s"; fail=1; fi
-done
 
-# cljc (babashka) tests — py→cljc port
+# cljc (babashka) tests — py→cljc port (py twins pruned; cljc is canonical)
 BB_CP="20-actors"
 run_cljc() {
   local ns="$1"
