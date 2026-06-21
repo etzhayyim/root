@@ -12,7 +12,7 @@ weight: 0.7
 priority_note: "Exploratory only. No option adopted. Sets up a future authoritative ADR once Council/timeline trade-offs are resolved."
 authoritative_for: []
 depends_on:
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605231400-kotoba-datomic-holochain-iso-substrate
   - adr-2605231500-kotoba-datomic-projection
   - adr-2605181100-mst-encrypted-records-signal-keywrap
@@ -407,7 +407,7 @@ No implementation in this ADR. The following follow-up tasks are decision-pendin
 
 ## References
 
-- ADR-2605172000 (etzhayyim RW-free substrate boundary)
+- ADR-2605172000 (etzhayyim kotoba substrate boundary)
 - ADR-2605172100 (etzhayyim payment substrate hard rules)
 - ADR-2605181100 (encrypted records on MST)
 - ADR-2605192100 (etzhayyim mission charter — constitutional invariants)

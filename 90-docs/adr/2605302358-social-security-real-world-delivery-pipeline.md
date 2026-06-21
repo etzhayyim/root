@@ -190,7 +190,7 @@ All cross-substrate access goes **only via `@etzhayyim/sdk`** (ADR-2605172000): 
 
 # Alternatives Considered
 
-- **A. Centralized web app + Stripe + Postgres + SendGrid.** Rejected: violates substrate boundary (RW-free, on-chain-only payments, no platform key, donation-only) and the whole point of §1.16/§0.3.
+- **A. Centralized web app + Stripe + Postgres + SendGrid.** Rejected: violates substrate boundary (kotoba, on-chain-only payments, no platform key, donation-only) and the whole point of §1.16/§0.3.
 - **B. New did:web Tier-B actor for the pipeline.** Rejected (for now): the work is orchestration over existing substrate; a cell-group (産土 ubusuna) suffices. Promote to a full actor only if scale demands.
 - **C. Mint SBT / send email immediately (skip gating).** Rejected: §1.16 identity-level is unratified (Lv7+ pending 2026-06-19); outward-facing irreversible actions require ratify + consent + Sybil framework (G11).
 - **D. Publish per-adherent records for "transparency".** Rejected: builds a wealth/membership leaderboard → class formation; aggregate-only (G12, ADR-2605301020 §7). PII stays encrypted (G6).

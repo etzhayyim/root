@@ -9,14 +9,14 @@ last_verified: 2026-05-18
 priority: 6.5
 axis: data-contract
 weight: 0.60
-priority_note: "uhl-right-neural project (先天性片側感音難聴/neural軸) の InstitutionMatcherActor (V16) が消費するレジストリの schema と公開ポリシーを凍結する。患者 PII を一切含まない公的情報のみで構成し、RW-free 制約と整合する。"
+priority_note: "uhl-right-neural project (先天性片側感音難聴/neural軸) の InstitutionMatcherActor (V16) が消費するレジストリの schema と公開ポリシーを凍結する。患者 PII を一切含まない公的情報のみで構成し、kotoba 制約と整合する。"
 authoritative_for:
   - Institution / Capability / ProcedureRecord / ReferralPath schema
   - public-only data policy for medical institution registry
   - last_verified_at staleness window (180 days)
 depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
 related:
   - adr-2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp
 supersedes: []
@@ -35,7 +35,7 @@ superseded_by: []
 
 このマッチング actor が消費する**機関レジストリ**を定義する必要がある。スコープと制約:
 
-1. **RW-free 制約 (ADR-2605172000)**: state は AT Protocol MST + IPFS + Base L2 anchor のみ。中央集権 DB を持たない。
+1. **kotoba 制約 (ADR-2605172000)**: state は AT Protocol MST + IPFS + Base L2 anchor のみ。中央集権 DB を持たない。
 2. **PII zero**: レジストリは「施設の capability claim」だけを含む。患者-施設マッチ結果は患者 DID で encrypt された別レコード (本 ADR の対象外)。
 3. **データ鮮度問題**: 文献調査で発見した実例数は古い (例: 「ABI 国内11例」は 2011 時点)。**`last_verified_at` を必須にし、staleness を強制可視化**する必要がある。
 4. **多言語**: 国内 8 施設 + 国際参照 7 施設で開始。フィールド名は英語、表示名は ja/en 並記。
@@ -157,7 +157,7 @@ path_id: <slug, defined in ADR-2605181050>
 
 - **InstitutionMatcherActor (V16) の入力契約が確定** — 他の actor 開発と並行して進められる
 - **Schema が JSON-LD で参照可能** — 将来の AppView (`60-apps/open-otology-uhl-r/`) と XRPC 経由のリクエストに直接使える
-- **RW-free 制約と整合** — 中央 DB を持たない、MST + IPFS で完結
+- **kotoba 制約と整合** — 中央 DB を持たない、MST + IPFS で完結
 - **staleness が可視** — 古い実例数 (ABI 11例 / 2011) のような問題が UI で自動的に flag される
 
 ## 負の効果 / コスト
@@ -193,7 +193,7 @@ path_id: <slug, defined in ADR-2605181050>
 # References
 
 - ADR-2605170900 — etzhayyim/root as canonical home for open ADRs
-- ADR-2605172000 — RW-free substrate
+- ADR-2605172000 — kotoba substrate
 - ADR-2605181050 — UHL-R 海外 referral path (this PR sibling)
 - ADR-2605181060 — Otarmeni access path (this PR sibling)
 - [Clinical Perspectives on Pediatric CI in Cochlear Nerve Aplasia/Hypoplasia (PMC 2025)](https://pmc.ncbi.nlm.nih.gov/articles/PMC12382941/)

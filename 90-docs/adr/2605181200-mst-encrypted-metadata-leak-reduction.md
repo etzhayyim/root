@@ -18,7 +18,7 @@ authoritative_for:
 depends_on:
   - adr-2605181100-mst-encrypted-records-signal-keywrap
 related:
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
 supersedes: []
 superseded_by: []
 ---
@@ -158,7 +158,7 @@ Simplest possible blinding. Rejected because legitimate read-cap holders cannot 
 # References
 
 - ADR-2605181100 [MST encrypted records + Signal key-wrap](./2605181100-mst-encrypted-records-signal-keywrap.md) — design this ADR refines
-- ADR-2605172000 [etzhayyim/root RW-free substrate](./2605172000-etzhayyim-rw-free-substrate.md)
+- ADR-2605172000 [etzhayyim/root kotoba substrate](./2605172000-etzhayyim-kotoba-substrate.md)
 - ISO/IEC 7816-4 padding — used in CMS / TLS 1.3 records
 - BLAKE2b — RFC 7693
 - Sealed Sender (Signal) — https://signal.org/blog/sealed-sender/ (deferred follow-up)

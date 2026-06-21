@@ -15,7 +15,7 @@ authoritative_for:
   - "removal of kotoba-datomic composition spec from authoritative design surface"
   - "removal of Kotoba/Datomic / Lance / Iroh as projection backends"
 depends_on:
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
   - adr-2605181100-mst-encrypted-records-signal-keywrap
@@ -45,7 +45,7 @@ superseded_by: []
 **Status**: proposed
 **Date**: 2026-05-26
 **Deciders**: Jun Kawasaki (author), Council Lv6+ ≥3 (ratify; per-phase re-attestation required at every R-cycle boundary)
-**ADR hierarchy**: Substrate-engine charter. Names a single Rust workspace (`40-engine/kotoba`) as the canonical storage substrate for religious-corp `etzhayyim/root`. Supersedes the prior "kotoba-datomic composition spec + projection escape-hatch" framing (ADRs 2605231400, 2605231500, 2605232300, 2605232400, 2605101000). Does **not** modify constitutional invariants: the on-chain land / SBT / Council / Public Fund substrate (ADR-2605192245 + ADR-2605192300), the `com.etzhayyim.encrypted.*` wire format (ADR-2605181100 + ADR-2605181200), the Murakumo-only inference invariant (ADR-2605215000), and the RW-free + payments-on-chain invariants (ADR-2605172000 + ADR-2605172100) are all preserved bit-identically. What changes is **which Rust workspace computes the CID, walks the MST, indexes the Datalog, terminates the libp2p stream, and applies the XChaCha20 envelope**.
+**ADR hierarchy**: Substrate-engine charter. Names a single Rust workspace (`40-engine/kotoba`) as the canonical storage substrate for religious-corp `etzhayyim/root`. Supersedes the prior "kotoba-datomic composition spec + projection escape-hatch" framing (ADRs 2605231400, 2605231500, 2605232300, 2605232400, 2605101000). Does **not** modify constitutional invariants: the on-chain land / SBT / Council / Public Fund substrate (ADR-2605192245 + ADR-2605192300), the `com.etzhayyim.encrypted.*` wire format (ADR-2605181100 + ADR-2605181200), the Murakumo-only inference invariant (ADR-2605215000), and the kotoba + payments-on-chain invariants (ADR-2605172000 + ADR-2605172100) are all preserved bit-identically. What changes is **which Rust workspace computes the CID, walks the MST, indexes the Datalog, terminates the libp2p stream, and applies the XChaCha20 envelope**.
 
 ## Context
 
@@ -55,7 +55,7 @@ religious-corp `etzhayyim/root` carried two overlapping architectural ADRs that,
 
 1. **`kotoba-datomic` (ADR-2605231400)** named a **composition** of substrate primitives (Chain / DHT / Membrane / Witness / Projection / Cell / Identity, mapped layer-by-layer to Holochain isomorphism). At the time of that ADR, no first-party engine implemented the composition. The seven layers were assembled from a best-of-breed mix of `50-infra/ipfs-pinner/` + `50-infra/mst-projector/` + NATS bridges + `lancedb-wasm` + `tonbo` + `etzhayyim-xrpc-proxy` + scattered `@signalapp/libsignal-client` wrappers. The composition was real; the engine was not.
 
-2. **`kotoba-datomic-projection` (ADR-2605231500)** carved out **Kotoba/Datomic / Lance / Iroh** as regenerable hot-path read backends, gated by three rules (deterministically rebuildable from MST+IPFS / never the sole write home / marked with `// kotoba-datomic-projection`). This was the "hot-path escape hatch" for the RW-free invariant (ADR-2605172000): apps needed range / spatial / aggregate reads, and the MST alone could not serve them efficiently, so a projection layer was allowed as a derived cache.
+2. **`kotoba-datomic-projection` (ADR-2605231500)** carved out **Kotoba/Datomic / Lance / Iroh** as regenerable hot-path read backends, gated by three rules (deterministically rebuildable from MST+IPFS / never the sole write home / marked with `// kotoba-datomic-projection`). This was the "hot-path escape hatch" for the kotoba invariant (ADR-2605172000): apps needed range / spatial / aggregate reads, and the MST alone could not serve them efficiently, so a projection layer was allowed as a derived cache.
 
 Both ADRs were honest about being placeholders. ADR-2605232300 was the explicit "engine options exploration" — a survey of Hummock fork / RW fork / GraphAr+MV no-fork that **deferred the decision pending Council multisig and benchmark data**. ADR-2605232400 closed a Tier-D blob primitive gap but left the substrate layer fragmented. ADR-2605101000 designed a BigQuery → Kotoba/Datomic projection pattern for the open-data ingest, which inherited the same projection-layer assumption.
 
@@ -156,7 +156,7 @@ The following table is the **heart** of this ADR. Every row is the canonical sub
 
 | # | Storage role | Current impl (file / dir) | kotoba crate | Migration phase | Constitutional cross-ref |
 |---|---|---|---|---|---|
-| 1 | DHT — block store (server tier) | `50-infra/ipfs-pinner/` (CF Worker; CAR shard pin + `com.etzhayyim.apps.substrate.ipfsPin` receipt) | `kotoba-store` (`MemoryStore` / `SledStore` / `S3Store`); `kotoba-net` (libp2p Bitswap fetch in `crates/kotoba-net/src/bitswap.rs`) | Phase 1 | ADR-2605172000 RW-free state; D4 (S3 backend NOT for on-chain land/SBT/Council); ADR-2605171800 §Stage 4 |
+| 1 | DHT — block store (server tier) | `50-infra/ipfs-pinner/` (CF Worker; CAR shard pin + `com.etzhayyim.apps.substrate.ipfsPin` receipt) | `kotoba-store` (`MemoryStore` / `SledStore` / `S3Store`); `kotoba-net` (libp2p Bitswap fetch in `crates/kotoba-net/src/bitswap.rs`) | Phase 1 | ADR-2605172000 kotoba state; D4 (S3 backend NOT for on-chain land/SBT/Council); ADR-2605171800 §Stage 4 |
 | 2 | DHT — block store (browser tier; baien edge) | (none — browser had no first-party content-addressed block cache; `lancedb-wasm` snapshot was a vendored placeholder, retired in Phase 4) | `kotoba-store-web` (IndexedDB block store via `wasm-bindgen`; per `crates/kotoba-store-web/`) | Phase 4 | ADR-2605241900 baien edge-target (WASM-32 + iPhone 12+ + Android 4GB); ≤2 GB inference budget @4k ctx applies to the kotoba edge runtime as a whole |
 | 3 | KV / Topic / Journal (durable log) | `50-infra/nats-jetstream-kv-resp/` (Redis RESP over JetStream KV) + `50-infra/nats-jetstream-objectstore-s3/` (S3 REST over JetStream ObjectStore) + `50-infra/nats-tiered-storage/` (Memory → File → Blob tiering sidecar) | `kotoba-kse` (Journal / Topic / Shelf / Vault per `crates/kotoba-kse/src/{journal,topic,shelf,vault,store,secure_vault,sync_window}.rs`) | Phase 3 | ADR-2605231525 server-key invariant (Journal / Topic / Shelf are read-only or member-signed; Vault is encrypted-only) |
 | 4 | Quad / Datalog read+write | (none — MST commits land here directly; no separate projection cache) | `kotoba-kqe` (4-index Arrangement `EAVT / AEVT / AVET / VAET` + Datalog engine + Delta + MV per `crates/kotoba-kqe/src/{arrangement,datalog,delta,mv,quad,sql,cypher,citation}.rs`) + `kotoba-graph` (Quad API + SPARQL→Datalog + Commit DAG per `crates/kotoba-graph/src/{quad_store,sparql,commit,atproto,jetstream,subscribe_repos}.rs`) | Phase 2 | ADR-2605181100 (encrypted records pass through unchanged); D7 (no projection layer); ADR-2605231902 first L1 projection migrates here at Phase 2.5 |
@@ -397,7 +397,7 @@ Step 1+2 are inside the kotoba subrepo's coordination scope (separate from `etzh
 - ADR-2605232400 (kotoba-datomic Tier-D blob substrate closure) — **superseded by this ADR (substrate); SDK API surface preserved**
 - ADR-2605101000 (BigQuery P2 projection design) — **superseded by this ADR**
 - ADR-2605231902 (feed-post membrane + feed-discover projection) — **preserved unchanged; migration target at Phase 2.5**
-- ADR-2605172000 (RW-free substrate) — RW-free invariant (strengthened by D7 + N8 to cover projection backend slot)
+- ADR-2605172000 (kotoba substrate) — kotoba invariant (strengthened by D7 + N8 to cover projection backend slot)
 - ADR-2605172100 (payments on-chain only) — payment substrate invariant
 - ADR-2605215000 (inference Murakumo-only) — D2 + N1 + Phase 7 gate
 - ADR-2605181100 (MST encrypted records + Signal key-wrap) — D6 + N6 bit-identical preservation gate

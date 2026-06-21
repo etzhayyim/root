@@ -10,8 +10,8 @@ Source-of-truth for the Kyber ERP product. The etzhayyim tenancy runs at
 
 ## What's inside
 
-- **kotoba-Datomic reference** (`rw-free/`) — the canonical, fully-tested implementation
-  (34 modules, 100 tests; see `rw-free/README.md`). The complete accounting cycle
+- **kotoba-Datomic reference** (`kotoba/`) — the canonical, fully-tested implementation
+  (34 modules, 100 tests; see `kotoba/README.md`). The complete accounting cycle
   (double-entry GL → AP/AR → payment application → period close → Balance Sheet / Income
   Statement / Cash Flow), moving-average inventory, multi-currency FX, consumption-tax/VAT
   reporting, budgeting, AR/AP aging + credit limits, the fixed-asset register, and a
@@ -20,7 +20,7 @@ Source-of-truth for the Kyber ERP product. The etzhayyim tenancy runs at
   overlay per ISIC Rev.4 section (21, A–U) + division packs (15), with section- and
   division-level chart-of-accounts extensions: a pharma maker gets GMP batch costing, a
   bank an interbank book, etc. A tenant declares its ISIC activity and the packs activate.
-- **Productivity suite** (`rw-free/suite.ts` + engines) — mailer (over openmail Postage),
+- **Productivity suite** (`kotoba/suite.ts` + engines) — mailer (over openmail Postage),
   drive (versioned IPFS files), docs (Markdown outline/TOC), sheets (exact-decimal formula
   engine, bindable to live ERP data), calendar (RRULE expansion). All kotoba-native.
 - **ERP Worker** (`etzhayyim-wasm-kyber-erp-kyb3rerp/`) — the deployed XRPC surface
@@ -32,7 +32,7 @@ Source-of-truth for the Kyber ERP product. The etzhayyim tenancy runs at
 
 ```
 Client → XRPC /xrpc/com.etzhayyim.apps.kyber.*
-      → ERP Worker  ── createXrpcBridge ──▶  rw-free functions
+      → ERP Worker  ── createXrpcBridge ──▶  kotoba functions
       → assert Datoms into the kotoba log   (canonical state)
       → kqe arrangements (EAVT/AEVT/AVET/VAET) for reads + erpCoverage (getApqcCoverage)
 ```
@@ -41,7 +41,7 @@ IPFS = block backend · AT-Proto MST = ingress/interop wire · Base L2 = trust a
 commit-DAG root. See `90-docs/adr/2606037200-…` for the full design and ADR-0025 for the
 prior (superseded read-path) consolidation rationale.
 
-## Coverage (rw-free reference)
+## Coverage (kotoba reference)
 
 Included: GL, AP/AR, payment, period close, BS/PL/CF, inventory (moving-average), fixed
 assets + depreciation (straight-line + declining-balance), multi-currency conversion,
@@ -55,7 +55,7 @@ your own PDS, IPFS, auth, and Tier-3 PII store.
 ## Quickstart (reference)
 
 ```bash
-cd rw-free && pnpm install && pnpm test     # 23 files, 100 tests
+cd kotoba && pnpm install && pnpm test     # 23 files, 100 tests
 ```
 
 The ERP Worker deploy + projector bootstrap are unchanged; see `CLAUDE.md` and

@@ -3,7 +3,7 @@ import {
   extractBearerToken,
   type Etzhayyim,
 } from "@etzhayyim/sdk-auth";
-import * as isbnRwFree from "@etzhayyim/isbn-rw-free";
+import * as isbnRwFree from "@etzhayyim/isbn-kotoba";
 
 interface Env { ACTOR_DID: string; PDS_URL: string; L2_RPC_URL: string; PDS_ACCESS_JWT?: string; PDS_REFRESH_JWT?: string; }
 type Handler = (e: Etzhayyim, input: unknown) => Promise<unknown>;

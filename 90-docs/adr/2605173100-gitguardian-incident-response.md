@@ -19,7 +19,7 @@ authoritative_for:
   - lefthook secret-scan hook regex
   - filter-repo policy
 depends_on:
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
 related: []
 supersedes: []
 superseded_by: []
@@ -258,7 +258,7 @@ Kept as a template for similar lockdowns of other infrastructure.
   these other roles need their own password review; the chart only
   manages `root`)
 - Migration of kotodama Python framework off RW per ADR-2605172000
-  (etzhayyim is RW-free; the ~50 worker `*_main.py` files referencing
+  (etzhayyim is kotoba; the ~50 worker `*_main.py` files referencing
   RW need a substrate-rule audit)
 
 ## Timeline (2026-05-17, JST)
@@ -349,7 +349,7 @@ deferring it has no upside.
 
 # References
 
-- ADR-2605172000 — etzhayyim/root RW-free substrate (the workers
+- ADR-2605172000 — etzhayyim/root kotoba substrate (the workers
   containing the leak should arguably not live in etzhayyim/root)
 - Cloudflare Hyperdrive over Tunnel:
   https://developers.cloudflare.com/hyperdrive/configuration/connect-to-private-database/

@@ -10,16 +10,16 @@
   "devDependencies": {
     "vitest": "^4.1.0",
     "@etzhayyim/sdk-mock": "workspace:*",
-    "@etzhayyim/hanrei-rw-free": "workspace:*",
-    "@etzhayyim/houbun-rw-free": "workspace:*",
-    "@etzhayyim/houki-rw-free": "workspace:*",
-    "@etzhayyim/koke-rw-free": "workspace:*",
-    "@etzhayyim/hakkou-rw-free": "workspace:*",
-    "@etzhayyim/ki-rw-free": "workspace:*",
-    "@etzhayyim/sbom-rw-free": "workspace:*",
-    "@etzhayyim/ipaddress-rw-free": "workspace:*",
-    "@etzhayyim/otakiage-rw-free": "workspace:*",
-    "@etzhayyim/kiyo-rw-free": "workspace:*",
+    "@etzhayyim/hanrei-kotoba": "workspace:*",
+    "@etzhayyim/houbun-kotoba": "workspace:*",
+    "@etzhayyim/houki-kotoba": "workspace:*",
+    "@etzhayyim/koke-kotoba": "workspace:*",
+    "@etzhayyim/hakkou-kotoba": "workspace:*",
+    "@etzhayyim/ki-kotoba": "workspace:*",
+    "@etzhayyim/sbom-kotoba": "workspace:*",
+    "@etzhayyim/ipaddress-kotoba": "workspace:*",
+    "@etzhayyim/otakiage-kotoba": "workspace:*",
+    "@etzhayyim/kiyo-kotoba": "workspace:*",
     "@etzhayyim/mst-projector": "workspace:*"
   }
 }

@@ -74,6 +74,6 @@ The skeleton stays the same shape; production swaps each component for its full 
 ## See also
 
 - ADR-2605171800 — pipeline
-- ADR-2605172000 — RW-free substrate
+- ADR-2605172000 — kotoba substrate
 - ADR-2605172300 — bi-asset substrate (AdherentRegistry + KishaStream layer)
 - `../etzhayyim-sdk/` — the future home of this anchor call (currently direct viem)

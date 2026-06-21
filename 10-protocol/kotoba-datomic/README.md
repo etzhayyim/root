@@ -2,7 +2,7 @@
 
 Holochain-isomorphic substrate composition over `AT Protocol MST + IPFS + Base L2 anchor`.
 
-Canonical name for the architecture mandated by **[ADR-2605172000](../../90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md)** (RW-free substrate). Specified in **[ADR-2605231400](../../90-docs/adr/2605231400-kotoba-datomic-holochain-iso-substrate.md)**.
+Canonical name for the architecture mandated by **[ADR-2605172000](../../90-docs/adr/2605172000-etzhayyim-kotoba-substrate.md)** (kotoba substrate). Specified in **[ADR-2605231400](../../90-docs/adr/2605231400-kotoba-datomic-holochain-iso-substrate.md)**.
 
 > **Status**: spec scaffold v0.0.0. No runtime code yet — kotoba-datomic *is* the
 > composition of primitives already implemented across `50-infra/`, `20-actors/`,
@@ -52,7 +52,7 @@ See **[`SPEC.md`](SPEC.md)** for layer-by-layer detail.
 ## Relation to other substrate ADRs
 
 ```
-ADR-2605172000 (RW-free substrate, mandates the stack)
+ADR-2605172000 (kotoba substrate, mandates the stack)
   └─ ADR-2605231400 (kotoba-datomic, names the composition)  ← this directory
      ├─ ADR-2605171800 (mst-projector → ipfs-pinner → anchor-cron pipeline)
      ├─ ADR-2605181100 (encrypted records, witness validates on ciphertext)
@@ -79,7 +79,7 @@ App-side import remains exclusively via `@etzhayyim/sdk` per ADR-2605172000.
 ## See also
 
 - [ADR-2605231400](../../90-docs/adr/2605231400-kotoba-datomic-holochain-iso-substrate.md) — this protocol's decision record
-- [ADR-2605172000](../../90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) — substrate hard rules
+- [ADR-2605172000](../../90-docs/adr/2605172000-etzhayyim-kotoba-substrate.md) — substrate hard rules
 - [ADR-2605192415](../../90-docs/adr/2605192415-etzhayyim-religious-corp-daemon-architecture.md) — Pregel cell catalog (zome source)
 - [`50-infra/holochain/`](../../50-infra/holochain/) — actual Holochain (seeded sibling, not consumed; kotoba-datomic is *isomorphic to* but built independently of Holochain)
 - [`20-actors/etzhayyim-sdk/`](../../20-actors/etzhayyim-sdk/) — the SDK that composes kotoba-datomic primitives

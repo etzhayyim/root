@@ -16,7 +16,7 @@ authoritative_for:
   - Kotoba/Datomic Hyperdrive → PDS XRPC + IPFS storage migration plan
   - 460+ factory DID migration plan (etzhayyim → etzhayyim)
 depends_on:
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
   - adr-2605171900-yoro-migration-to-etzhayyim
   - adr-2605172400-etzhayyim-vendor-three-axis-split-rule
@@ -67,7 +67,7 @@ This ADR records the multi-phase plan to make tsukuru substrate-clean.
 # Decision
 
 **Migrate tsukuru to etzhayyim/root via business model change.** The
-etzhayyim deploy of tsukuru runs RW-free (PDS + IPFS) and on-chain-only
+etzhayyim deploy of tsukuru runs kotoba (PDS + IPFS) and on-chain-only
 (ERC-4337 + USDC), satisfying ADR-2605172000 and ADR-2605172100.
 
 Multi-phase rollout to avoid breaking the 460+ manufacturer production
@@ -290,7 +290,7 @@ clearer migration arc.
 
 # References
 
-- ADR-2605172000 — etzhayyim RW-free substrate (Phase 2.1 driver)
+- ADR-2605172000 — etzhayyim kotoba substrate (Phase 2.1 driver)
 - ADR-2605172100 — payments on-chain only (Phase 2.2 driver)
 - ADR-2605172400 — 3-axis split rule (this ADR overrides vendor-default verdict)
 - ADR-2605171900 — yoro AppView migration (reference pattern for Stage 3-5)

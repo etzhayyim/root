@@ -175,7 +175,7 @@ judah LiteLLM (192.168.1.17:4000): route `gemma3-coder:4b` 追加
 - ADR-2605231300 (baien-distill ReAct loop)
 - ADR-2605241900 (baien edge-target invariant)
 - ADR-2605192200 (Charter Rider v2.0)
-- ADR-2605172000 (RW-free substrate)
+- ADR-2605172000 (kotoba substrate)
 - `70-tools/baien-distill/src/baien_distill/` (reference implementation)
 - `50-infra/murakumo/fleet.toml` (cell placement)
 - `50-infra/cluster/murakumo/litellm/config.yaml` (gateway)

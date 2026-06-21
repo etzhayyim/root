@@ -2,7 +2,7 @@
 
 **Status**: 🔄 TRANSFORM — seed copied 2026-05-21, codemod pending.
 
-**Codemod required**: §2(a) military-use exclusion + RW-free
+**Codemod required**: §2(a) military-use exclusion + kotoba
 
 ## Substrate-boundary checks (per CLAUDE.md)
 

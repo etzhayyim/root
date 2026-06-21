@@ -26,7 +26,7 @@ depends_on:
   - adr-2605192230-etzhayyim-three-tier-enforcement-implementation
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
   - adr-2605181100-mst-encrypted-records-signal-keywrap
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605231525-no-server-key-religious-corp-architecture
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
   - adr-2605260100-mitate-diagnostic-routing-charter

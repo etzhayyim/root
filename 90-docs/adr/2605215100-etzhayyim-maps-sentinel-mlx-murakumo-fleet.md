@@ -265,7 +265,7 @@ Proposal: Serve only Sentinel-2 optical analyses (changeDetection, landUse) and 
 - **related**:
   - ADR-2605201400 — kuni-umi planetary infra fleet (SiteSurveyCell, AuditWitnessCell use SAR analysis)
   - ADR-2605192245 — etzhayyim global land sovereignty (land trust monitoring use case for Sentinel analysis)
-  - ADR-2605172000 — RW-free substrate (AT MST + IPFS + Base L2 replaces Kotoba/Datomic for scene/analysis record writes)
+  - ADR-2605172000 — kotoba substrate (AT MST + IPFS + Base L2 replaces Kotoba/Datomic for scene/analysis record writes)
 - **Implementation target**: `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/maps_sentinel_murakumo.py` (new file; do not modify vendor `maps_sentinel.py`)
 - **Step 8 cutover sub-list**: `40-engine/kotoba/crates/kotoba-kotodama/py/PYKOTODAMA-MIGRATION-NOTES.md` (sister document; maps_sentinel row)
 - **Lexicons**: `00-contracts/lexicons/com/etzhayyim/apps/maps/sentinelAnalyze.json`, `sentinelIngest.json` (wire contract; description-only PORT-adapted per ADR-2605214000 §2)

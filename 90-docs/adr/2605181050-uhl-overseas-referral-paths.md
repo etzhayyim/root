@@ -197,7 +197,7 @@ output:
 
 - ADR-2605181040 — UHL-R 医療機関レジストリ schema (this PR sibling)
 - ADR-2605181060 — Otarmeni access path (this PR sibling)
-- ADR-2605172000 — RW-free substrate
+- ADR-2605172000 — kotoba substrate
 - [Manchester ABI Service — Highly Specialised Services](https://www.mrcc.org.uk/clinical-diagnostics/highly-specialised-services/auditory-brainstem-implant-service/)
 - [Royal Manchester Children's Hospital — Paediatric CI Programme](https://mft.nhs.uk/rmch/services/manchester-paediatric-cochlear-implant-programme/)
 - [Manchester Royal Infirmary — ABI](https://mft.nhs.uk/mri/services/audiology/abi/)

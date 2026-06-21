@@ -1,6 +1,6 @@
 ---
 id: doc-2605211949-gate-a-execution-checklist
-title: "Phase 3 gate (a) execution checklist — per-worker RW-free port operator runbook"
+title: "Phase 3 gate (a) execution checklist — per-worker kotoba port operator runbook"
 status: active
 doc_type: how-to
 topic: gate-a-execution-checklist
@@ -27,7 +27,7 @@ superseded_by: []
 # Phase 3 gate (a) execution checklist
 
 **Date opened**: 2026-05-21
-**Tracking**: ADR-2605212100 §2(a) Phase 3 gate (a) — per-worker RW-free re-impl
+**Tracking**: ADR-2605212100 §2(a) Phase 3 gate (a) — per-worker kotoba re-impl
 **Closure target**: every row in §1 + §2 + §3 + §4 checked + smoke-tested
 
 ## How to use
@@ -146,7 +146,7 @@ tests use `tempfile.TemporaryDirectory()`.
 
 ## §5 Truly-clean utility workers (5 — no port work, audit only)
 
-These are already RW-free; just verify no hidden RW import survives a fresh
+These are already kotoba; just verify no hidden RW import survives a fresh
 audit, then check off.
 
 | # | Target file | Audit | Done |

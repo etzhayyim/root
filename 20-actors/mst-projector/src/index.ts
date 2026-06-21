@@ -1,5 +1,5 @@
 /**
- * mst-projector — Phase 3 indexed materialized views for rw-free actors.
+ * mst-projector — Phase 3 indexed materialized views for kotoba actors.
  *
  * Subscribes to PDS firehose, maintains LanceDB (text indexes) + DuckDB (aggregates),
  * and serves O(log N) / O(1) queries instead of O(N) collection scans.

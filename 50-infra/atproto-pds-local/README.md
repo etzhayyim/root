@@ -186,6 +186,6 @@ After acceptance, Phase 2 (mini-02 LangGraph worker) can start.
 ## See also
 
 - ADR-2605171800 § Stage 1-2 — PDS + LangGraph cell runtime
-- ADR-2605172000 — RW-free substrate (PDS is the AT MST host)
+- ADR-2605172000 — kotoba substrate (PDS is the AT MST host)
 - Vendor monorepo `etzhayyim/etzhayyim-root/90-docs/adr/2605111300-pds-to-pod-bun-container.md` — Bun container PDS reference (we use the same source, packaged for mini deploy)
 - atproto PDS docs — https://atproto.com/guides/self-hosting

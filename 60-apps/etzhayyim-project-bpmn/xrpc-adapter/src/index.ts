@@ -1,5 +1,5 @@
 import { createAuthedEtzhayyim, extractBearerToken, type Etzhayyim } from "@etzhayyim/sdk-auth";
-import * as bpmnRwFree from "@etzhayyim/bpmn-rw-free";
+import * as bpmnRwFree from "@etzhayyim/bpmn-kotoba";
 interface Env { ACTOR_DID: string; PDS_URL: string; L2_RPC_URL: string; PDS_ACCESS_JWT?: string; PDS_REFRESH_JWT?: string; }
 type Handler = (e: Etzhayyim, input: unknown) => Promise<unknown>;
 const NSID_BASE = "com.etzhayyim.bpmn";

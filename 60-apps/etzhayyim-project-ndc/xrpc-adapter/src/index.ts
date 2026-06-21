@@ -1,13 +1,13 @@
 /**
  * ndc XRPC adapter — CF Worker.
  *
- * Wires the rw-free reference impl (National Drug Code registry)
+ * Wires the kotoba reference impl (National Drug Code registry)
  * into a deployable CF Worker that exposes each function as an XRPC endpoint
  * at https://ndc.etzhayyim.com/xrpc/com.etzhayyim.apps.ndc.<cmd>
  */
 
 import { createAuthedEtzhayyim, extractBearerToken } from "@etzhayyim/sdk-auth";
-import * as ndcRwFree from "@etzhayyim/ndc-rw-free";
+import * as ndcRwFree from "@etzhayyim/ndc-kotoba";
 
 interface Env {
   ACTOR_DID: string;

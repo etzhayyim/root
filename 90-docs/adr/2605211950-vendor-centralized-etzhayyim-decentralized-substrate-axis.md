@@ -16,7 +16,7 @@ authoritative_for:
   - rule: crossover is vendor → etzhayyim only via paid-tier XRPC (progressive enhancement)
 related:
   - "ADR-2605152100 (etzhayyim github org boundary)"
-  - "ADR-2605172000 (etzhayyim RW-free substrate)"
+  - "ADR-2605172000 (etzhayyim kotoba substrate)"
   - "ADR-2605172100 (etzhayyim payments on-chain only)"
   - "ADR-2605172400 (vendor 3-axis split rule)"
   - "vendor: ADR-0074 (ethereum-identity-bridge-cacao-webauthn)"
@@ -43,7 +43,7 @@ superseded_by: []
 The vendor/etzhayyim boundary is governed by four prior ADRs:
 
 - ADR-2605152100 — GitHub org boundary (etzhayyim/root vs etzhayyim/etzhayyim-root).
-- ADR-2605172000 — etzhayyim is RW-free (AT MST + IPFS + Base L2 only, no centralized DB).
+- ADR-2605172000 — etzhayyim is kotoba (AT MST + IPFS + Base L2 only, no centralized DB).
 - ADR-2605172100 — etzhayyim payments are on-chain only (Base L2 + USDC + ERC-4337, no fiat processor).
 - ADR-2605172400 — vendor 3-axis split rule (Liability × Custody × Settlement) for per-project classification.
 
@@ -139,7 +139,7 @@ The **centralization axis** is now the constitutional split between vendor and e
 ## References
 
 - ADR-2605152100 — etzhayyim GitHub org boundary
-- ADR-2605172000 — etzhayyim RW-free substrate
+- ADR-2605172000 — etzhayyim kotoba substrate
 - ADR-2605172100 — etzhayyim payments on-chain only
 - ADR-2605172400 — vendor 3-axis split rule
 - ADR-2605192100 — etzhayyim mission charter (constitutional invariants)

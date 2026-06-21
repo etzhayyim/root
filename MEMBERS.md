@@ -75,4 +75,4 @@ All three checks should resolve to the same `oathHash` (= keccak256 of the canon
 - [ADR-2605172600](90-docs/adr/2605172600-etzhayyim-membership-ritual.md) — protocol spec
 - [`50-infra/etzhayyim-membership-contract/`](50-infra/etzhayyim-membership-contract/) — Solidity source
 - [`00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/oath.json`](00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/oath.json) — AT Record Lexicon
-- [ADR-2605172000](90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) — why the roster lives on MST + L2 + github
+- [ADR-2605172000](90-docs/adr/2605172000-etzhayyim-kotoba-substrate.md) — why the roster lives on MST + L2 + github

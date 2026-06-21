@@ -391,7 +391,7 @@ ADR-2605172600 §"Levels" で Lv6 (議 / gi / Council) は社会的 attestation 
 Council attestation を off-chain JSON で発行、各 contract は signed JSON を検証。
 
 - Pro: gas 節約。
-- Con: ADR-2605172000 (RW-free) hard rule 違反。中央 server の operator が単一 source の脆弱性。
+- Con: ADR-2605172000 (kotoba) hard rule 違反。中央 server の operator が単一 source の脆弱性。
 - 却下。
 
 ## C. Rehabilitation を持たない (一度追放されたら永続)
@@ -425,6 +425,6 @@ OT 旧約的 strict cherem 解釈。
 - ADR-2605192130: Tithe Router (本 ADR §4 amendment 対象)
 - ADR-2605172600: Membership ritual + 7-level ladder (Council Lv6+ の base)
 - ADR-2605171800: MST → IPFS → L2 anchor pipeline (Lexicon 永続化)
-- ADR-2605172000: RW-free substrate hard rule (Registry on-chain 必要性)
+- ADR-2605172000: kotoba substrate hard rule (Registry on-chain 必要性)
 - 50-infra/etzhayyim-charters-compliance/ (新規ディレクトリ — 本 ADR 承認後 scaffold)
 - 00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/charter-* (新規 5 本)

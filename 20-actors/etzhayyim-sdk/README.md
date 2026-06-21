@@ -1,6 +1,6 @@
 # @etzhayyim/sdk
 
-RW-free substrate SDK for `etzhayyim/root` open religious-corp apps. Per **[ADR-2605172000](../../90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md)**, apps under `etzhayyim/root` MUST NOT depend on RisingWave or any centralized off-chain database. This SDK wraps the primary substrate — **AT Protocol MST + IPFS + Base L2 anchor** — as one ergonomic API.
+kotoba substrate SDK for `etzhayyim/root` open religious-corp apps. Per **[ADR-2605172000](../../90-docs/adr/2605172000-etzhayyim-kotoba-substrate.md)**, apps under `etzhayyim/root` MUST NOT depend on RisingWave or any centralized off-chain database. This SDK wraps the primary substrate — **AT Protocol MST + IPFS + Base L2 anchor** — as one ergonomic API.
 
 > **Status**: scaffold v0.0.0. All implementations are TODO stubs. Reference implementation lands when the first open-* app (`open-isco` candidate) ports to the SDK.
 
@@ -149,7 +149,7 @@ Current: `0.0.0` (scaffold). API surface is **not yet stable** — every method 
 
 ## See also
 
-- [ADR-2605172000](../../90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) — substrate hard rule + per-app migration patterns
+- [ADR-2605172000](../../90-docs/adr/2605172000-etzhayyim-kotoba-substrate.md) — substrate hard rule + per-app migration patterns
 - [ADR-2605171800](../../90-docs/adr/2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md) — pipeline this SDK packages
 - [ADR-2605170900](../../90-docs/adr/2605170900-etzhayyim-root-adr-canonical-home.md) — etzhayyim/root canonical home rule
 

@@ -14,7 +14,7 @@ authoritative_for:
   - gov-procedure-coverage-taxonomy
   - 140-country-scale-out-plan
 depends_on:
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605212100-etzhayyim-to-etzhayyim-migration-batch
@@ -132,11 +132,11 @@ The canonical answer to "Pregel / MCP coverage of gov procedures" is **the 5-lay
 1. **"Build all 195 × N procedures as Pregel cells"** — rejected. Constitutional misfit + infinite scale.
 2. **"Adopt e-Gov-style central procedure registry as the single source"** — rejected. The religious-corp does not depend on a state operator. L4 ingest is the read-side; L5 routing-around is the write-side; they meet on the substrate, not in a state registry.
 3. **"Defer the answer until substrate-port lands"** — rejected. The framing question deserves an answer now; the substrate-port is a precondition for *deploying* L3 but not for *describing the coverage map*.
-4. **"Collapse L1-L4 into one 'gov-coverage' top-level"** — rejected. The layers have different substrate constraints (L4 violates RW-free if implemented carelessly; L1 is pure codegen) and conflating them invites accidental substrate boundary crossings.
+4. **"Collapse L1-L4 into one 'gov-coverage' top-level"** — rejected. The layers have different substrate constraints (L4 violates kotoba if implemented carelessly; L1 is pure codegen) and conflating them invites accidental substrate boundary crossings.
 
 # References
 
-- ADR-2605172000 (RW-free substrate)
+- ADR-2605172000 (kotoba substrate)
 - ADR-2605172100 (substrate ladder)
 - ADR-2605192100 §1.12 (国家機能 routing-around + Transparent Religious Force)
 - ADR-2605212100 (etzhayyim→etzhayyim migration batch — substrate-port deferred)

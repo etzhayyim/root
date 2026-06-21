@@ -152,7 +152,7 @@ minimal — `launchctl unload` + `rm -f $INSTALLED_PLIST`、log は retain (post
 ## Constitutional 整合
 
 - ADR-2605191346 §Tier 1 = Murakumo Mac mini only / no commercial K8s に整合 (launchd は macOS native scheduler)
-- ADR-2605172000 RW-free substrate boundary に整合 (Python 側は import 0、cell.py 経由で `@etzhayyim/sdk` sidecar に delegate する設計が変わらない)
+- ADR-2605172000 kotoba substrate boundary に整合 (Python 側は import 0、cell.py 経由で `@etzhayyim/sdk` sidecar に delegate する設計が変わらない)
 - ADR-2605192415 §7.1 launchd 常駐化 の OS-level boot path を実装
 - ADR-2605173100 GitGuardian incident response の precedent (secrets を git に commit しない) を踏襲 — placeholder pattern で personal paths を template 化
 

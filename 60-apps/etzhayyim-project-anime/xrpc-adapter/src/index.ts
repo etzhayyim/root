@@ -5,7 +5,7 @@
 
 import type { Etzhayyim } from "@etzhayyim/sdk";
 import { createAuthedEtzhayyim, extractBearerToken } from "@etzhayyim/sdk-auth";
-import * as animeRwFree from "@etzhayyim/anime-rw-free";
+import * as animeRwFree from "@etzhayyim/anime-kotoba";
 
 interface Env {
   ACTOR_DID: string;

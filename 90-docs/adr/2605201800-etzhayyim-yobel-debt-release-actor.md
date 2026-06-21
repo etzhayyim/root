@@ -68,7 +68,7 @@ etzhayyim Mission Charter (ADR-2605192100) は **構造的労働解放** を最�
 | **Operating entity** | etzhayyim (vendor 関与なし、3-axis split 全 clean) |
 | **License** | Apache-2.0 + Charter Compliance Rider v2.0 |
 | **DID** | `did:web:yobel.etzhayyim.com` (primary) |
-| **Substrate** | AT MST + IPFS + Base L2 (RW-free — vendor の Kotoba/Datomic は使わない) |
+| **Substrate** | AT MST + IPFS + Base L2 (kotoba — vendor の Kotoba/Datomic は使わない) |
 | **Settlement** | USDC on Base L2 via ERC725 Smart Wallet。fiat / Stripe / 銀行決済 禁止 |
 | **NSID (current)** | `com.etzhayyim.apps.etzhayyim.yobel.*` (kuniUmi precedent と整合) |
 | **NSID (canonical, future)** | `org.etzhayyim.yobel.*` (post-org-rename cutover) |

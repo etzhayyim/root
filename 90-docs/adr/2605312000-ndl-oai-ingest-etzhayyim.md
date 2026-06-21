@@ -1,6 +1,6 @@
 ---
 id: adr-2605312000-ndl-oai-ingest-etzhayyim
-title: "ADR-2605312000: NDL (国立国会図書館) OAI-PMH metadata ingest on the etzhayyim RW-free substrate"
+title: "ADR-2605312000: NDL (国立国会図書館) OAI-PMH metadata ingest on the etzhayyim kotoba substrate"
 status: active
 doc_type: adr
 topic: ndl-oai-ingest-etzhayyim
@@ -15,13 +15,13 @@ authoritative_for:
   - ndl persistence seam → kotoba datomic refactor handoff
 depends_on: []
 related:
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605172400-etzhayyim-vendor-three-axis-split-rule
 supersedes: []
 superseded_by: []
 ---
 
-# ADR-2605312000: NDL (国立国会図書館) OAI-PMH metadata ingest on the etzhayyim RW-free substrate
+# ADR-2605312000: NDL (国立国会図書館) OAI-PMH metadata ingest on the etzhayyim kotoba substrate
 
 **Status**: active
 **Date**: 2026-05-31
@@ -38,7 +38,7 @@ adapter **stays in place** — this ADR does not move or delete it.
 NDL bibliographic metadata is public-domain library data (3-axis test: Custody
 clean — public; no Settlement, no Liability), so an open-data harvest of it is a
 legitimate etzhayyim open-data source alongside arxiv / common-crawl / houbun.
-The substrate constraint is that etzhayyim is **RW-free** (ADR-2605172000):
+The substrate constraint is that etzhayyim is **kotoba** (ADR-2605172000):
 AT MST + IPFS only, no Kotoba/Datomic. So this is a **re-build on the open
 substrate**, not a file move of the RW adapter.
 
@@ -76,10 +76,10 @@ only**, following the houbun / site_common_crawl pattern.
 
 **Persistence model:**
 - Resumable OAI checkpoint + domain facts (`vertex_ndl_digital_item`) live in the
-  worker's own RW-free `ingest_ndl.db` SQLite. Resumption depends only on this.
+  worker's own kotoba `ingest_ndl.db` SQLite. Resumption depends only on this.
 - The cross-domain orchestration spine (`ingest.core` run/cursor/artifact) is
   called **best-effort** (`_spine(...)`): it is still RW-coupled via
-  `db_sync.sync_cursor` (the spine's own RW-free migration is incomplete), so a
+  `db_sync.sync_cursor` (the spine's own kotoba migration is incomplete), so a
   missing `KOTOBA_URL` degrades to a logged warning and never aborts an ingest.
 
 **The kotoba handoff (single seam):** domain-fact writes go through exactly one
@@ -93,7 +93,7 @@ ported here** per the user's split of responsibilities.
 
 # Consequences
 
-- NDL open-data harvest runs on the RW-free substrate today; the datomic write is
+- NDL open-data harvest runs on the kotoba substrate today; the datomic write is
   a clean, isolated follow-up owned by kotoba.
 - **Fetch + parse + paging + resume IS live-verified** against the live
   `ndlsearch.ndl.go.jp` OAI-PMH endpoint:
@@ -117,7 +117,7 @@ ported here** per the user's split of responsibilities.
 
 # Alternatives Considered
 
-- **Move the RW adapter as-is** → rejected: incoherent on an RW-free target
+- **Move the RW adapter as-is** → rejected: incoherent on an kotoba target
   (no RW to receive it) and the adapter is vendor-bound commercial-product
   internals (yatabase Settlement axis → vendor).
 - **Port the kotoba datomic client now** → rejected: user assigned the datomic
@@ -129,6 +129,6 @@ ported here** per the user's split of responsibilities.
 # References
 
 - vendor `60-apps/etzhayyim-project-yatabase/lg/lg_yatabase/ndl_ingest.py` (source-fetch origin)
-- `90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md`
+- `90-docs/adr/2605172000-etzhayyim-kotoba-substrate.md`
 - `90-docs/adr/2605172400-etzhayyim-vendor-three-axis-split-rule.md`
 - vendor `90-docs/adr/2605302130-yatabase-rw-to-kotoba-datomic-...md` (kotoba-side refactor target)

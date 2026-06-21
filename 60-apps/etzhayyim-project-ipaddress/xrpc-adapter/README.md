@@ -1,6 +1,6 @@
 # Ipaddress XRPC Adapter
 
-CF Worker exposing 37 rw-free commands as XRPC endpoints.
+CF Worker exposing 37 kotoba commands as XRPC endpoints.
 
 ## Endpoints
 

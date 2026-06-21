@@ -1,5 +1,5 @@
 import { createAuthedEtzhayyim, extractBearerToken } from "@etzhayyim/sdk-auth";
-import * as sbomRwFree from "@etzhayyim/sbom-rw-free";
+import * as sbomRwFree from "@etzhayyim/sbom-kotoba";
 interface Env { ACTOR_DID: string; PDS_URL: string; L2_RPC_URL: string; PDS_ACCESS_JWT?: string; PDS_REFRESH_JWT?: string; }
 type Handler = (e: Etzhayyim, input: unknown) => Promise<unknown>;
 const NSID_BASE = "com.etzhayyim.apps.sbom";

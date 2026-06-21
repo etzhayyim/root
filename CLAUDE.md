@@ -256,7 +256,7 @@ etzhayyim/root/
 │                        # kotoba-datomic (Holochain-iso composition spec, ADR-2605231400)
 ├── 20-actors/           # kotodama (Pregel framework + host SDK + unispsc_agents/ 18,345 LangGraph agents per ADR-2605171300),
 │                        #   kotodama-go, kami-engine-sdk, etzhayyim-bpmn-sdk,
-│                        #   etzhayyim-sdk (RW-free substrate, ADR-2605172000+2605172100)
+│                        #   etzhayyim-sdk (kotoba substrate, ADR-2605172000+2605172100)
 │                        #   kuni-umi      planetary-infra producer    (ADR-2605201400)
 │                        # Tier-B religious-corp actors (30): each has ADR + manifest + cells + lex.
 │                        #   See Status § "Tier-B actors" for the full roster (name · purpose · ADR).
@@ -298,7 +298,7 @@ etzhayyim/root/
 │                        #   etzhayyim-force-authorization/ (Transparent Force, 1 SBT = 1 vote)
 │                        #   murakumo/fleet.toml            (10-node cell placement)
 ├── 60-apps/             # open-*, public-*, atproto, ameno, yoro, comfyui, watashi
-│                        # FIRST RW-FREE REFERENCE IMPL: open-isco/rw-free/
+│                        # FIRST kotoba REFERENCE IMPL: open-isco/kotoba/
 │                        # MAC MINI FLEET: comfyui/ (migrated 2026-05-17)
 │                        # RELIGIOUS-CORP:
 │                        #   etzhayyim-transparent-force-rd/ (open-source R&D registry per ADR-2605192315)
@@ -481,7 +481,7 @@ Snapshot artifacts (run results) live under `90-docs/baien/`:
 
 > **These are IMPLEMENTATION decisions, not constitutional doctrine (per ADR-2606182359 lineage).**
 > The charter holds only **Tier-0 priorities (子・孫 wellbecoming / collective-over-individual /
-> 永久記憶) + the ECL objective function**. Substrate/engineering choices — RW-free (no RisingWave),
+> 永久記憶) + the ECL objective function**. Substrate/engineering choices — kotoba (no RisingWave),
 > the `payment.sent.purpose` enum, ad-blocklists, Murakumo-as-default, kotoba-as-canonical-state —
 > are **工学・governance 判断であって憲法ではない**: they can change at the implementation/governance
 > layer **without a charter amendment** (固定するのは priority; 手段=実装は固定しない). "CRITICAL"
@@ -495,7 +495,7 @@ Layer scored in `70-tools/scripts/charter/layer-classification.edn` + `classify.
 - **Tier-0 (fork-only — the priorities themselves + the few constitutional invariants)**: `Land trust` inalienability (J=9.05, donated land = waqf-equivalent, ADR-2605192245) · `Religious force` transparency invariant (§1.12.B) · `Content` no-CSAM = the catastrophe term (= priority non-negotiable). The four Tier-0 priorities (子孫 wellbecoming / collective / 永久記憶) sit above all of these.
 - **Tier-1 (derived policy — Council Lv7+)**: `License` default (Apache+Rider → ECL, J=8.40) · `Charter compliance` (3-tier) · **`Confidentiality` PRINCIPLE (暗号化≠忘却, J=7.95 — Tier-0-derived from permanent-memory; promoted from 実装 per the score)** · **`Server-side signing` / no-server-key (J=6.90 — non-custody/trustless invariant; promoted from 実装)** · `Content` Eros doctrine (consenting-adult only).
 - **目的関数 (objective-function-assessed, v3.5)**: `Advertising` · `GPU / inference` · the external-commercial line of `Payment purpose` (donation-spirit). These **score**, they do not categorically ban.
-- **実装 (engineering / governance — changeable WITHOUT a charter amendment)**: `State`/`Substrate` engine (kotoba, J=2.90) · `Read path` (kqe) · `Substrate client imports` (`@etzhayyim/sdk`) · `Payment` rails (USDC/Base/ERC-4337 mechanics) · `Identity` mechanics (DID-centric identity is the Tier-1 principle; the specific methods are impl) · `Confidentiality` **cipher** (XChaCha20/Signal choice, J=2.10) · `Server-side signing` **mechanics** (which keys/Safe, vs the no-server-key principle above) · RW-free (J=1.85).
+- **実装 (engineering / governance — changeable WITHOUT a charter amendment)**: `State`/`Substrate` engine (kotoba, J=2.90) · `Read path` (kqe) · `Substrate client imports` (`@etzhayyim/sdk`) · `Payment` rails (USDC/Base/ERC-4337 mechanics) · `Identity` mechanics (DID-centric identity is the Tier-1 principle; the specific methods are impl) · `Confidentiality` **cipher** (XChaCha20/Signal choice, J=2.10) · `Server-side signing` **mechanics** (which keys/Safe, vs the no-server-key principle above) · kotoba (J=1.85).
 
 A "Prohibited" cell in an **実装** row means "wrong engineering choice today," NOT "constitutional violation" — it changes at the implementation/governance layer. Tier-0 is immutable (fork-only); Tier-1 amends by Council Lv7+; 実装 changes freely. Note the principle/mechanism split: the *no-server-key principle* and the *encryption-not-forgetting principle* are Tier-1, but the *specific cipher / which-keys* are 実装. Engineering rules (changeable at the implementation layer):
 

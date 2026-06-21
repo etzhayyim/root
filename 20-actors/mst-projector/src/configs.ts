@@ -1,5 +1,5 @@
 /**
- * Per-actor ProjectorConfig registry for the 26 non-kiyo rw-free actors
+ * Per-actor ProjectorConfig registry for the 26 non-kiyo kotoba actors
  * (kiyo lives in `src/kiyo-config.ts` as the reference impl).
  *
  * Defaults follow the same shape as `kiyoProjector`:
@@ -9,7 +9,7 @@
  *   - attributes:       facet-friendly fields used in dashboards
  *   - aggregates:       same as attributes by default — pre-computed counts
  *
- * Per ADR-2605212000 §"Per-actor `ProjectorConfig` files for all 25 rw-free actors".
+ * Per ADR-2605212000 §"Per-actor `ProjectorConfig` files for all 25 kotoba actors".
  *
  * Refinement loop: after each actor is benchmarked at production scale, edit
  * its entry in this file (or split into `src/configs/<actor>.ts` once the
@@ -382,7 +382,7 @@ export const yoroProjector: ProjectorConfig = {
   },
 };
 
-/** Registry for all 26 non-kiyo rw-free actors. */
+/** Registry for all 26 non-kiyo kotoba actors. */
 export const ALL_PROJECTORS: Record<string, ProjectorConfig> = {
   anime: animeProjector,
   bpmn: bpmnProjector,

@@ -42,7 +42,7 @@ import boto3
 import pyarrow as pa
 import pyarrow.parquet as pq
 
-# Per ADR-2605172000 (RW-free substrate), all maps writes route through
+# Per ADR-2605172000 (kotoba substrate), all maps writes route through
 # the substrate seam below; direct psycopg2 imports in this worker are
 # no longer permitted. The seam still supports a transitional RW mode
 # (psycopg2 under the hood) gated on ETZHAYYIM_SUBSTRATE_MODE.

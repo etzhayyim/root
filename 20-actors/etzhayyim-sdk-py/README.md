@@ -2,7 +2,7 @@
 
 Python client library for the etzhayyim AT Protocol + IPFS + Base L2 substrate. Used by religious-corp Pregel cells (shinka, joucho, yoro, maps_sentinel) running on the Murakumo distributed fleet.
 
-Per ADR-2605172000 (RW-free substrate), ADR-2605214000 (no commercial K8s), ADR-2605215000 (no commercial GPU rental).
+Per ADR-2605172000 (kotoba substrate), ADR-2605214000 (no commercial K8s), ADR-2605215000 (no commercial GPU rental).
 
 ## Modules
 
@@ -74,7 +74,7 @@ All tests use httpx.MockTransport and don't require network access.
 
 ## Architecture
 
-The SDK follows a RW-free substrate pattern per ADR-2605172000. All state lives on:
+The SDK follows a kotoba substrate pattern per ADR-2605172000. All state lives on:
 - **AT Protocol MST** — mutable record store via PDS (shinka / joucho / yoro records)
 - **IPFS** — immutable content + pinning
 - **Base L2** — anchor contracts + land registry
@@ -83,7 +83,7 @@ No centralized databases, no commercial Kubernetes, no commercial GPU rental.
 
 ## References
 
-- ADR-2605172000 — RW-free substrate
+- ADR-2605172000 — kotoba substrate
 - ADR-2605214000 — Murakumo no-VKE mesh
 - ADR-2605215000 — Murakumo-fleet-only inference
 - ADR-2605215500 — mst-projector server-side filter

@@ -37,7 +37,7 @@ superseded_by: []
 The kotoba canonical Datom log (ADR-2605312345) is today served only by a native
 `kotoba serve` process (axum HTTP on `:8077`, Kubo cold tier, wasmtime guests).
 ADR-2606013200 made the yoro feed read through that server via the
-`com.etzhayyim.apps.kotoba.datomic.datoms` XRPC (`@etzhayyim/yoro-rw-free`). Operationally
+`com.etzhayyim.apps.kotoba.datomic.datoms` XRPC (`@etzhayyim/yoro-kotoba`). Operationally
 this leaves every browser read dependent on a reachable server endpoint (currently a
 laptop + CF Tunnel publishing `kotoba.etzhayyim.com`), which is fragile and is *not*
 the edge-first posture the charter mandates: the **baien edge-target invariant**
@@ -123,7 +123,7 @@ Target `wasm32-unknown-unknown` via `wasm-bindgen` (distinct from the `wasm32-wa
 ## D3. Transparent integration via a Service Worker shim
 
 A Service Worker intercepts `fetch('/xrpc/com.etzhayyim.apps.kotoba.*')` and dispatches to
-`kotoba-wasm`. Therefore **`@etzhayyim/yoro-rw-free` is unchanged** — set its
+`kotoba-wasm`. Therefore **`@etzhayyim/yoro-kotoba` is unchanged** — set its
 `KOTOBA_URL` to same-origin (`/`) and the reader cannot tell a local WASM node from a
 remote server. On a local miss for a query the node can't satisfy (e.g. a guest the
 browser hasn't loaded), the SW **write-throughs to a remote kotoba** (hybrid routing).
@@ -191,7 +191,7 @@ no fork, no second guest ABI.
   returns `tsumugi` (native test green; bundle 87 KiB gzip).
 - **P1 ✅ (shipped, kotoba PR #14/#15 + yoro deploy)**: `loadDatoms()` hydration
   from the `datomic.datoms` JSON; **Service-Worker transparent `/xrpc` shim** so
-  `@etzhayyim/yoro-rw-free` is unchanged; **IndexedDB persistence** (reseed-free
+  `@etzhayyim/yoro-kotoba` is unchanged; **IndexedDB persistence** (reseed-free
   reload, verified cold-restart in Chromium); snapshot **delta** refresh. The
   browser node is the durable read path; the SW also **backfills** registered
   actors so `/search` never silently degrades when the live server loses data.

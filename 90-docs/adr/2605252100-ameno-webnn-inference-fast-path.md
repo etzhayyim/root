@@ -19,7 +19,7 @@ depends_on:
   - adr-2605242600-baien-federated-train-via-ameno-webgpu
   - adr-2605242630-baien-federated-r1-webgpu-backward-poc
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
 related:
   - 20-actors/ameno/src/inference.ts
@@ -329,7 +329,7 @@ Apple ships, the path activates automatically via feature detection
   the training path WebNN MUST NOT touch.
 - ADR-2605192200 (Charter Rider v2.0) — license + Rider on every
   first-party module including `webnn.ts`.
-- ADR-2605172000 (RW-free substrate) — untouched (client-side only).
+- ADR-2605172000 (kotoba substrate) — untouched (client-side only).
 - ADR-2605215000 (Murakumo-only inference) — server inference path;
   this ADR is client-side and does not affect it.
 - W3C WebNN API CR Draft, 2026-05-21 — https://www.w3.org/TR/webnn/

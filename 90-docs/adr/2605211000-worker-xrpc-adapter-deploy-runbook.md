@@ -6,12 +6,12 @@
 
 ## Context
 
-[ADR-2605210000](/90-docs/adr/2605210000-phase-e-reference-impl-completion.md) completed the rw-free reference implementation scaffold for all 25 actors. This ADR documents the execution-layer deploy procedure: wiring each rw-free package to a Cloudflare Worker, exposing XRPC endpoints, and smoke-testing.
+[ADR-2605210000](/90-docs/adr/2605210000-phase-e-reference-impl-completion.md) completed the kotoba reference implementation scaffold for all 25 actors. This ADR documents the execution-layer deploy procedure: wiring each kotoba package to a Cloudflare Worker, exposing XRPC endpoints, and smoke-testing.
 
 Each actor has:
 - `60-apps/etzhayyim-project-<actor>/xrpc-adapter/wrangler.jsonc` with route `<actor>.etzhayyim.com/xrpc/*`
-- `src/index.ts` single-file XRPC dispatcher (imports rw-free functions)
-- `package.json` with `@etzhayyim/sdk` + `@etzhayyim/<actor>-rw-free` workspace deps
+- `src/index.ts` single-file XRPC dispatcher (imports kotoba functions)
+- `package.json` with `@etzhayyim/sdk` + `@etzhayyim/<actor>-kotoba` workspace deps
 
 ## Deploy priority tiers
 
@@ -21,7 +21,7 @@ Operator deploys in strict order: Tier 1 → (wait 7 days) → Tier 2 → (wait 
 
 **Actors** (7, CI matrix: `.github/workflows/test.yml` + `wrangler-validate.yml`): `isbn` / `gtin` / `ndc` / `houbun` / `hanrei` / `ipaddress` / `ocel`
 
-> **open-isco excluded from xrpc-adapter cohort** (2026-05-21 reconciliation): the standalone CF Worker runtime is retired for open-isco (see `60-apps/etzhayyim-project-open-isco/CLAUDE.md` §"Active Runtime"). open-isco runs as BPMN + LangServer + LangGraph + UDF (`openIsco.classifyWorker` / `openIsco.recordConcordance`). The `@etzhayyim/open-isco-rw-free` package exists as a read-only embed surface (`queryByPrefix` / `getByCode` against `com.etzhayyim.apps.openIsco.occupation`) for other apps; no xrpc-adapter is shipped. Earlier drafts of this ADR listed open-isco at Tier 1; that was inconsistent with the BPMN-only runtime decision and is corrected here.
+> **open-isco excluded from xrpc-adapter cohort** (2026-05-21 reconciliation): the standalone CF Worker runtime is retired for open-isco (see `60-apps/etzhayyim-project-open-isco/CLAUDE.md` §"Active Runtime"). open-isco runs as BPMN + LangServer + LangGraph + UDF (`openIsco.classifyWorker` / `openIsco.recordConcordance`). The `@etzhayyim/open-isco-kotoba` package exists as a read-only embed surface (`queryByPrefix` / `getByCode` against `com.etzhayyim.apps.openIsco.occupation`) for other apps; no xrpc-adapter is shipped. Earlier drafts of this ADR listed open-isco at Tier 1; that was inconsistent with the BPMN-only runtime decision and is corrected here.
 
 **Rationale**: No PII, no mutations from public callers, idempotent write path (rkey-gated, existing record check before write).
 
@@ -69,7 +69,7 @@ Requires **7-day Tier 1+2 stability + post-incident review** before deploy appro
 
 Before `wrangler deploy`:
 
-- [ ] rw-free package builds: `cd 60-apps/etzhayyim-project-<actor>/rw-free && npm ci && tsc` (exit 0)
+- [ ] kotoba package builds: `cd 60-apps/etzhayyim-project-<actor>/kotoba && npm ci && tsc` (exit 0)
 - [ ] xrpc-adapter builds: `cd 60-apps/etzhayyim-project-<actor>/xrpc-adapter && npm ci && npm run build` (exit 0)
 - [ ] `wrangler.jsonc` syntax: `npx wrangler publish --dry-run` (no errors)
 - [ ] CF DNS record exists: `dig <actor>.etzhayyim.com` (CNAME to CF edge)
@@ -321,7 +321,7 @@ All 25 workers ready for production when:
 
 ## Related ADRs
 
-- [ADR-2605210000](/90-docs/adr/2605210000-phase-e-reference-impl-completion.md) — Phase E rw-free scaffold completion
-- [ADR-2605203000](/90-docs/adr/2605203000-rw-free-write-target-options.md) — rw-free write-target options (foundation)
-- [ADR-2605172000](/90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) — RW-free substrate mandate
+- [ADR-2605210000](/90-docs/adr/2605210000-phase-e-reference-impl-completion.md) — Phase E kotoba scaffold completion
+- [ADR-2605203000](/90-docs/adr/2605203000-kotoba-write-target-options.md) — kotoba write-target options (foundation)
+- [ADR-2605172000](/90-docs/adr/2605172000-etzhayyim-kotoba-substrate.md) — kotoba substrate mandate
 - [ADR-2605172400](/90-docs/adr/2605172400-etzhayyim-vendor-three-axis-split-rule.md) — Vendor/etzhayyim 3-axis split

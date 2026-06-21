@@ -83,7 +83,7 @@ async function evaluateSurprise(
 
 1. **`Xenova/mxbai-embed-xsmall-v1`** — MiniLM より新しい・性能良好。ただし XSmall は HF Xenova mirror 未整備の time あり、stability 優先で MiniLM 採用
 2. **WebGPU で embed pipeline 動かす** — MediaPipe との device 衝突は実害無いが、デバッグ複雑化。WASM 1 スレッドで十分速い
-3. **Embedding を browser でなくサーバで** — ADR-2605172000 (RW-free / server-less) と相反。却下
+3. **Embedding を browser でなくサーバで** — ADR-2605172000 (kotoba / server-less) と相反。却下
 
 ## References
 

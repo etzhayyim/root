@@ -3,7 +3,7 @@ import {
   extractBearerToken,
   type Etzhayyim,
 } from "@etzhayyim/sdk-auth";
-import * as ocelRwFree from "@etzhayyim/ocel-rw-free";
+import * as ocelRwFree from "@etzhayyim/ocel-kotoba";
 
 interface Env {
   ACTOR_DID: string;

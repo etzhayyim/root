@@ -1,12 +1,12 @@
 /**
  * open-banking XRPC adapter — CF Worker.
  *
- * Wires the rw-free reference impl (5 pure TS functions) into a deployable
+ * Wires the kotoba reference impl (5 pure TS functions) into a deployable
  * CF Worker that exposes each function as an XRPC endpoint at
  * https://open-banking.etzhayyim.com/xrpc/com.etzhayyim.apps.openBanking.<cmd>
  *
  * Per ADR-2605210000 first execution-layer demonstration. Instantiates the
- * Etzhayyim SDK from env bindings (PDS_URL + session), calls the rw-free
+ * Etzhayyim SDK from env bindings (PDS_URL + session), calls the kotoba
  * function with parsed input, returns the result as JSON, and maps status
  * codes to HTTP responses.
  *
@@ -35,7 +35,7 @@ import {
   type TransferOutput,
   type ListTransactionsInput,
   type ListTransactionsOutput,
-} from "@etzhayyim/open-banking-rw-free";
+} from "@etzhayyim/open-banking-kotoba";
 
 /**
  * Inline Zod validator for transfer endpoint.

@@ -17,7 +17,7 @@ Runs on every PR and push to main. Invokes the local lefthook pre-commit hook st
 Runs on every PR and push to main.
 
 **Jobs:**
-- `vitest` — runs test suite for each of 25 canonical actors (`60-apps/etzhayyim-project-{actor}/rw-free`)
+- `vitest` — runs test suite for each of 25 canonical actors (`60-apps/etzhayyim-project-{actor}/kotoba`)
 - `tsc --noEmit` — type-check core SDKs and tools (mock, auth, mst-projector, lexicon-to-openapi, integration-tests)
 - `integration-tests` — Phase H cross-actor scenario tests
 
@@ -78,7 +78,7 @@ Auditing for the yorishiro generator (`70-tools/etzhayyim-cli/yorishiro/`) emitt
 ## Adding a new actor
 
 1. Update the 25-actor matrix in both `test.yml` and `wrangler-validate.yml` (alphabetical order)
-2. Verify actor has `60-apps/etzhayyim-project-{actor}/rw-free/package.json` with vitest config
+2. Verify actor has `60-apps/etzhayyim-project-{actor}/kotoba/package.json` with vitest config
 3. Verify actor has `60-apps/etzhayyim-project-{actor}/xrpc-adapter/wrangler.jsonc`
 4. Open a PR with the matrix update
 

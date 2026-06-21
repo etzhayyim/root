@@ -8,7 +8,7 @@ import {
   extractBearerToken,
   type Etzhayyim,
 } from "@etzhayyim/sdk-auth";
-import * as narouRwFree from "@etzhayyim/narou-rw-free";
+import * as narouRwFree from "@etzhayyim/narou-kotoba";
 
 interface Env {
   ACTOR_DID: string;

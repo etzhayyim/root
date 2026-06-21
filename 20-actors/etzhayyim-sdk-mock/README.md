@@ -1,6 +1,6 @@
 # @etzhayyim/sdk-mock
 
-In-memory mock implementation of the `@etzhayyim/sdk` for testing rw-free reference implementations (e.g., open-banking, hanrei, open-denki) without requiring PDS, IPFS, or Base L2 infrastructure.
+In-memory mock implementation of the `@etzhayyim/sdk` for testing kotoba reference implementations (e.g., open-banking, hanrei, open-denki) without requiring PDS, IPFS, or Base L2 infrastructure.
 
 Provides a `MockEtzhayyim` class that simulates the core read/write APIs:
 - `write<T>({ collection, record, rkey })` — persist record and return AT URI
@@ -13,7 +13,7 @@ Records are stored in-memory, ordered by insertion sequence (TID-like), and supp
 
 ```ts
 import { MockEtzhayyim } from "@etzhayyim/sdk-mock";
-import { createAccount, transfer } from "@etzhayyim/open-banking-rw-free";
+import { createAccount, transfer } from "@etzhayyim/open-banking-kotoba";
 
 const mock = new MockEtzhayyim({ did: "did:web:test.etzhayyim.com" });
 

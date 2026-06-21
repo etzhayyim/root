@@ -10,7 +10,7 @@ authoritative_for:
   - bpmn-process-definition-ownership
   - bpmn-engine-infra-ownership
 related:
-  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172000-etzhayyim-kotoba-substrate
   - adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion
   - adr-2605081200-spiffworkflow-bpmn-engine-replacement
   - adr-2605082200-pyzeebe-handler-thin-dispatcher-contract
@@ -25,7 +25,7 @@ ownership を religious-corp substrate (etzhayyim-root) に集約し、
 etzhayyim-root は AT Protocol app surface 専念に絞る。
 
 背景:
-- ADR-2605172000 で `@etzhayyim/sdk` を RW-free substrate (AT Protocol
+- ADR-2605172000 で `@etzhayyim/sdk` を kotoba substrate (AT Protocol
   MST + IPFS + Base L2 anchor) として独立 repo 化。
 - ADR-2605091400 で XRPC + Lexicon JSON を cohort 内部 (cytoplasm) 通信
   専用に降格、MCP を sole external API として cell membrane 化。
@@ -265,7 +265,7 @@ binding registry の AT MST 化を行う別 iter で対応。kotodama 自体が
 - etzhayyim-apps-etzhayyimcojp commit `Import BPMN from etzhayyim-apps-etzhayyimcojp`
   (branch `import-bpmn-from-etzhayyim`)
 - etzhayyim-apps-etzhayyimcojp branch `iter144-bpmn-extract`
-- ADR-2605172000 (etzhayyim RW-free substrate SDK)
+- ADR-2605172000 (etzhayyim kotoba substrate SDK)
 - ADR-2605172100 (etzhayyim on-chain payment substrate — Stripe prohibition)
 - ADR-2605091400 (MCP-as-cell-membrane; XRPC demotion)
 - ADR-2605081200 (SpiffWorkflow BPMN engine)
