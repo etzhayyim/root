@@ -6,7 +6,7 @@
   (1) a small ORDERED fixture (2 nodes + 1 tie + 1 locality) → the exact 18 N-Triples
       lines and the exact sha256 content-address (68cbd922…) — byte-identical because the
       fixture's iteration order is fixed; (2) the committed seed → order-independent counts
-      (626 nodes / 635 edges / 31 localities / 5163 triples)."
+      (628 nodes / 637 edges / 31 localities / 5179 triples)."
   (:require [clojure.test :refer [deftest is testing]]
             [tsumugi.methods.publish :as pub]
             [tsumugi.methods.analyze-scale :as a]))
@@ -68,7 +68,7 @@
         result (a/analyze nodes ties)
         nt (pub/build-triples nodes ties result)
         m (pub/build-manifest nodes ties result nt)]
-    (is (= 626 (get-in m ["counts" "nodes"])))
-    (is (= 635 (get-in m ["counts" "edges"])))
+    (is (= 628 (get-in m ["counts" "nodes"])))
+    (is (= 637 (get-in m ["counts" "edges"])))
     (is (= 31 (get-in m ["counts" "localities"])))
-    (is (= 5163 (get-in m ["counts" "triples"])))))
+    (is (= 5179 (get-in m ["counts" "triples"])))))

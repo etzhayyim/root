@@ -4,9 +4,9 @@
 
   No test_analyze_scale.py existed, so the expected aggregate values were produced by
   running the REAL Python analyze(load(seed)) over the committed
-  seed-scale-power.kotoba.edn and embedded verbatim (626 nodes / 635 ties; top locality
-  jp.aichi concentration 13.2; :national scale load 355.68; :keiretsu collective load
-  634.2; vertical root org.corp.jp.7203 scale-span 3) — a genuine cross-language oracle.
+  seed-scale-power.kotoba.edn and embedded verbatim (628 nodes / 637 ties; top locality
+  jp.aichi concentration 13.2; :national scale load 356.88; :keiretsu collective load
+  636.6; vertical root org.corp.jp.7203 scale-span 3) — a genuine cross-language oracle.
   The S1/S2/S5/range validator refusals mirror the Python ValueErrors."
   (:require [clojure.test :refer [deftest is testing]]
             [tsumugi.methods.analyze-scale :as a]))
@@ -20,8 +20,8 @@
 
 (deftest counts-match-the-real-seed
   (let [r (result)]
-    (is (= 626 (get r "node_count")))
-    (is (= 635 (get r "tie_count")))))
+    (is (= 628 (get r "node_count")))
+    (is (= 637 (get r "tie_count")))))
 
 (deftest top-locality-is-aichi
   (let [locs (get (result) "localities")]
@@ -37,8 +37,8 @@
   (let [scales (get (result) "scales")
         top (first scales)]
     (is (= ":national" (get top "scale")))
-    (is (close? 355.68 (get top "load")))
-    (is (= 592 (get top "ties")))))
+    (is (close? 356.88 (get top "load")))
+    (is (= 594 (get top "ties")))))
 
 (deftest top-broker-spans-three-sectors
   (let [b (first (get (result) "brokers"))]
@@ -49,8 +49,8 @@
 (deftest keiretsu-is-top-collective
   (let [ck (first (get (result) "collective_kinds"))]
     (is (= ":keiretsu" (get ck "kind")))
-    (is (= 557 (get ck "node_count")))
-    (is (close? 634.2 (get ck "load")))))
+    (is (= 559 (get ck "node_count")))
+    (is (close? 636.6 (get ck "load")))))
 
 (deftest vertical-integration-toyota
   (let [v (get (result) "vertical")]
