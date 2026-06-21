@@ -2453,4 +2453,75 @@
   :stakeholders ["House of Assembly" "parties" "citizens"]
   :stock :participation-barrier :polarity :narrow :magnitude 0.4 :reversibility :institutional :meadows 4
   :basis "Constitution of Dominica (1978)" :sourcing :representative :confidence 0.4}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 24 — coercion-asymmetry toward parity (detention regimes vs
+ ;; anti-torture / oversight counters) + new jurisdictions (KN VC)
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── coercion-asymmetry (widen) ──
+ {:type :instrument :id "us-guantanamo" :name "Guantánamo indefinite detention" :jurisdiction "US" :kind :institution :year 2002
+  :enactor "U.S. executive (post-9/11 military detention)"
+  :origin "Holding detainees for years without trial under the laws of war, with military commissions and contested habeas access, created a zone of indefinite executive detention outside ordinary courts — a coercion asymmetry partly checked by Boumediene v. Bush (2008)."
+  :stakeholders ["executive/DoD" "detainees" "Supreme Court" "rights groups"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.6 :reversibility :statutory :meadows 5
+  :basis "Guantánamo (since 2002); Boumediene (2008)" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "au-offshore-detention" :name "Offshore asylum detention" :jurisdiction "AU" :kind :institution :year 2012
+  :enactor "Commonwealth of Australia (offshore-processing policy)"
+  :origin "Mandatory transfer of asylum seekers arriving by boat to offshore detention (Nauru, Manus Island) with prolonged, indefinite confinement and documented harm placed a population beyond ordinary legal protection — coercive control over non-citizens within state reach."
+  :stakeholders ["Home Affairs" "asylum seekers" "courts" "host states"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.55 :reversibility :statutory :meadows 5
+  :basis "Australian offshore processing (2012–)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "bd-rab" :name "Rapid Action Battalion (extrajudicial)" :jurisdiction "BD" :kind :institution :year 2004
+  :enactor "Bangladeshi state (RAB elite force, est. 2004)"
+  :origin "An elite paramilitary force accused of widespread extrajudicial killings ('crossfire') and enforced disappearances, sanctioned by the US in 2021 — coercive force operating largely outside judicial accountability against citizens."
+  :stakeholders ["RAB" "victims/families" "courts" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.65 :reversibility :institutional :meadows 5
+  :basis "Bangladesh RAB; 2021 US sanctions" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-arbitrary-detention" :name "Arbitrary / incommunicado detention (practice)" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse practice (across many states)"
+  :origin "Detention without charge, judicial review, or family/lawyer access — including 'hostage diplomacy' — is a recurring practice that subordinates the individual entirely to executive will; the UN Working Group on Arbitrary Detention documents it as a baseline coercion asymmetry."
+  :stakeholders ["security services" "detainees" "UN WGAD" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.6 :reversibility :cultural :meadows 5
+  :basis "UN Working Group on Arbitrary Detention" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-enforced-disappearance" :name "Enforced disappearance (practice)" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse practice (states + agents)"
+  :origin "The secret detention of a person with refusal to acknowledge it places the victim outside all legal protection and terrorizes families and communities — among the gravest coercion asymmetries, addressed by the 2006 Convention but persisting widely."
+  :stakeholders ["security forces" "disappeared persons" "families" "UN bodies"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.65 :reversibility :cultural :meadows 5
+  :basis "Int'l Convention for Protection from Enforced Disappearance (2006)" :sourcing :representative :confidence 0.4}
+
+ ;; ── coercion-asymmetry (narrow — anti-torture / oversight counters) ──
+ {:type :instrument :id "gl-cat-1984" :name "UN Convention against Torture (CAT)" :jurisdiction "GLOBAL" :kind :institution :year 1984
+  :enactor "UN General Assembly (CAT, 1984; in force 1987)"
+  :origin "The binding global prohibition of torture with no derogation, a monitoring committee, and individual-complaint mechanisms is a foundational narrowing of the state's coercive reach over the body of the citizen (enforcement varies)."
+  :stakeholders ["CAT Committee" "states parties" "detainees" "citizens"]
+  :stock :coercion-asymmetry :polarity :narrow :magnitude 0.55 :reversibility :constitutional :meadows 6
+  :basis "Convention against Torture (1984)" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "gl-police-oversight" :name "Independent police-oversight bodies" :jurisdiction "GLOBAL" :kind :institution :year 0
+  :enactor "Diffuse (national independent police-complaints/oversight bodies)"
+  :origin "Civilian bodies with power to investigate police misconduct independently of the police narrow the impunity that makes coercive force unaccountable — effective where they have real investigative powers and independence."
+  :stakeholders ["oversight bodies" "police" "complainants" "citizens"]
+  :stock :coercion-asymmetry :polarity :narrow :magnitude 0.45 :reversibility :institutional :meadows 6
+  :basis "Comparative independent police-oversight models" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-habeas-corpus-norm" :name "Habeas corpus (global norm)" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse civic norm (inherited from the 1679 English Act)"
+  :origin "The expectation that any detention can be challenged before an independent court — a non-derogable right in many systems — is the paradigmatic narrowing of arbitrary state coercion; its suspension is the classic marker of emergency overreach."
+  :stakeholders ["courts" "detainees" "the executive" "citizens"]
+  :stock :coercion-asymmetry :polarity :narrow :magnitude 0.55 :reversibility :cultural :meadows 5
+  :basis "Habeas corpus tradition (global diffusion)" :sourcing :representative :confidence 0.45}
+
+ ;; ── new jurisdictions (participation) ──
+ {:type :instrument :id "kn-st-kitts" :name "Federal parliamentary democracy" :jurisdiction "KN" :kind :institution :year 1983
+  :enactor "Saint Kitts and Nevis (independence Constitution)"
+  :origin "A small federal democracy with competitive elections and peaceful alternation (and a constitutional secession option for Nevis) — a functioning participation channel."
+  :stakeholders ["National Assembly" "Nevis Island Assembly" "parties" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.45 :reversibility :constitutional :meadows 4
+  :basis "Constitution of Saint Kitts and Nevis (1983)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "vc-st-vincent" :name "Westminster parliamentary democracy" :jurisdiction "VC" :kind :institution :year 1979
+  :enactor "Saint Vincent and the Grenadines (independence Constitution)"
+  :origin "A Caribbean democracy with regular competitive elections and peaceful alternation (and a 2009 referendum that retained the monarchy) — a functioning participation channel."
+  :stakeholders ["House of Assembly" "parties" "citizens"]
+  :stock :participation-barrier :polarity :narrow :magnitude 0.45 :reversibility :institutional :meadows 4
+  :basis "Constitution of Saint Vincent and the Grenadines (1979)" :sourcing :representative :confidence 0.4}
 ]
