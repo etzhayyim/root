@@ -24,6 +24,9 @@
     tsubasa.methods.test-ingest
     tsubasa.methods.test-digest
     tsubasa.methods.test-fetch
+    tsubasa.methods.test-identity
+    tsubasa.methods.test-kotoba-bridge
+    tsubasa.methods.test-openflights
     tsubasa.py.test-agent])
 
 (apply require suites)

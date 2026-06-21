@@ -133,6 +133,46 @@ build on any side-effecting import or a `commission`/`affiliate` symbol. The com
 pinned CID are the operator step (shionome-core / rasen pattern); until then the actor runs
 `service`-model on the bb methods and `did.json` carries `wasmCid: null`.
 
+## R3+ — self-key identity + live-engine bridge + fleet + real source (2026-06-21)
+
+Closes the remaining no-server-key items raised in review — the actor becomes a fully autonomous
+fleet member.
+
+**Self-certifying `did:key`** (`methods/identity.cljc`): the actor **GENERATES its own** Ed25519
+keypair (`gen-keypair`), encodes the public half as `did:key:z6Mk…` (multicodec 0xed01 +
+base58btc), and signs **present-only** (`sign`/`verify`) — the private seed is **sealed** to the
+macOS Keychain / 1Password (`seal-seed!`, CONCEALED, never committed/logged) and used but never
+exfiltrated. This is the code realization of *"the actor makes its own key and does not expose
+it"*: sealed + present-only + (for autonomous writes) member-attributed. It is charter-clean
+because custody stays off the platform and accountability stays on a consenting human (the leash
+below). The strict "the actor itself can never read the seed" guarantee remains a TEE/enclave or
+threshold-MPC construction (repo-future); not required here.
+
+**Live-engine bridge** (`methods/kotoba_bridge.cljc`, kaname/ibuki pattern over tsubasa's local
+ledger): each local fare-observation tx → one `…kotoba.datomic.transact` against a running node
+(:8077). Host allowlist (loopback + EVO-X2) throws before I/O; a durable `:bridge/*` cursor gives
+exactly-once per local tx; the prior `commit_cid` rides as `expected_parent`; **DRY-RUN by
+default** (live = `TSUBASA_KOTOBA_LIVE=1`). **Auth principal = the leash**: a usable member CACAO
+`:delegation` → the push PRESENTS the member-signed `cacao_b64` and the actor writes AS ITS OWN
+did:key (no held key); absent/expired → **fail-open** to the node's unsigned public-DID operator
+bearer (a public identifier, not a secret). Wired into `autorun --bridge` (fail-open: a dead
+engine never crashes the beat).
+
+**Fleet** (`cell.cljc` + `cells.edn`): `TsubasaHeartbeatCell` (node asher, cron `27 * * * *`,
+healthz 13090) — `fire` runs one local heartbeat (no I/O; fetch + bridge stay operator/consent-
+gated).
+
+**Real public source** (`methods/openflights.cljc`): the OpenFlights ODbL public-domain
+`airports.dat` / `airlines.dat` → `:authoritative` `:airport`/`:carrier` coverage rows (real
+coverage off a real source — the original 'raise coverage' ask), read-only autonomous via
+`fetch.cljc`. NO fares are fabricated (OpenFlights has none; fares need `:fare/co2-kg`, G4) — it
+raises airport/carrier coverage only; region is best-effort with an honest `:unknown` fallback.
+
+**74 tests / 634 assertions green** (adds identity 5/10 incl. keygen + present-only sign/verify;
+bridge 7/22 incl. allowlist refusal + exactly-once + member-leash present + expired-leash fail-open;
+openflights 5/12). Live engine push + member-issued CACAO + sealed-key provisioning + the OpenFlights
+full-dataset pull remain the operator/consent steps (no key held here).
+
 **Tooling = clj/bb (no shell).** Per the repo-wide rule (root `CLAUDE.md` §"Operational code =
 clj/bb"), the former `run_tests.sh` / `wasm/build.sh` are replaced by `run_tests.clj` and
 `wasm/build.clj`; `build.clj` shells out to the *system binaries* `wasm-tools` / `ipfs` via
