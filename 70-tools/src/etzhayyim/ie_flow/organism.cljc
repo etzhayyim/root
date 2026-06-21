@@ -14,11 +14,13 @@
   same substrate discipline as vitals/pulse/joucho."
   (:require [clojure.java.io :as io]
             [clojure.edn :as edn]
+            [clojure.string :as cstr]
             [cheshire.core :as json]
             [kotoba.datom :as kd]
             [etzhayyim.ie-flow.ledger :as ledger]
             [etzhayyim.ie-flow.metrics :as metrics]
-            [etzhayyim.ie-flow.boundary :as boundary]))
+            [etzhayyim.ie-flow.boundary :as boundary]
+            [etzhayyim.ie-flow.reward :as reward]))
 
 (def ^:private out-dirs
   ["60-apps/etzhayyim-project-organism/public"
@@ -27,6 +29,19 @@
 (def ^:private default-flow-log "80-data/ie-flow/repo-git/flow.kotoba.edn")
 (def ^:private registry-path "80-data/ie-flow/registry.edn")
 (def ^:private data-root "80-data/ie-flow")
+(def ^:private sos-rule-path "80-data/ie-flow/system-of-systems.edn")
+
+#?(:clj
+   (defn- read-sos-rule []
+     (try (edn/read-string (slurp sos-rule-path)) (catch Exception _ {}))))
+
+#?(:clj
+   (defn- actor-weights
+     "The reward weights for `actor` from the rule EDN (per-actor override, else charter default)."
+     [rule actor]
+     (or (some #(when (= actor (:actor %)) (:weights %)) (:actors rule))
+         (:default-weights rule)
+         reward/default-weights)))
 
 (defn- jnum
   "JSON-safe number: ##Inf / ##-Inf / NaN → a display string (cheshire can't encode them)."
@@ -212,6 +227,7 @@
      (repo-git real + adopters representative) + the colony ABM. Pure over the flow log + roles."
      [log-path]
      (let [adopters (boundary/adopters)
+           rule (read-sos-rule)
            actor-labs (into [(repo-actor-lab log-path)]
                             (map boundary/boundary adopters))
            order (mapv :id actor-labs)
@@ -221,12 +237,17 @@
            (fn [{:keys [id role representative inside imports exports state]}]
              (let [st state oi (double (:order-index st))
                    {:keys [init in]} (sd-params-from-state st)
+                   ;; the actor's 報酬系 (ADR-2606212200): reward over its OWN flow, its EDN weights,
+                   ;; a representative non-negative 子孫 term (no measured harm → not vetoed).
+                   rwd (reward/reward-signal st {:weights (actor-weights rule id)
+                                                 :descendant 0.3 :wellbecoming 0.3})
+                   r (:reward rwd)
                    ae (str "lab:a:" id) ie (str "lab:idx:" id) se (str "lab:sd:" id)]
                (concat
                  [(d ae :lab.actor/id id) (d ae :lab.actor/role role)
                   (d ae :lab.actor/representative (boolean representative))
                   (d ae :lab.actor/inside (vec inside))]
-                 ;; indices
+                 ;; indices + reward (報酬系)
                  [(d ie :lab.index/net-gain (:net-gain st))
                   (d ie :lab.index/order-index oi)
                   (d ie :lab.index/agent-eff (jnum (:agent-efficiency st)))
@@ -234,6 +255,8 @@
                   (d ie :lab.index/total-value (:total-value st))
                   (d ie :lab.index/total-cost (:total-cost st))
                   (d ie :lab.index/parasitic (:parasitic? st))
+                  (d ie :lab.index/reward (jnum r))
+                  (d ie :lab.index/reward-gated (boolean (:gated? rwd)))
                   (d ie :lab.index/surprise
                      (/ (+ (if (:parasitic? st) 1.0 0.0) (max 0.0 (- 1.0 oi))) 2.0))]
                  ;; membrane: imports (drawn IN)
@@ -282,6 +305,37 @@
        (println (str "lab.kotoba.edn · " (count datoms) " datoms · "
                      (count (boundary/adopters)) " adopters + repo-git, each a bounded system"))
        datoms)))
+
+#?(:clj
+   (defn -coverage
+     "bb task: ENFORCE the rule (ADR-2606212200) — every actor must hold a system-of-systems reward
+     spec. Validates each per-actor spec in system-of-systems.edn against the non-negotiable
+     invariants (reward/validate-spec) and reports coverage over the 20-actors roster + a worklist.
+     Exits non-zero if any committed spec is INVALID (a weakened gate). Pure read, no held key."
+     [& _]
+     (let [rule (read-sos-rule)
+           specs (:actors rule)
+           ;; the roster = every actor dir carrying a manifest (the actor marker, like vitals)
+           roster (->> (.listFiles (io/file "20-actors"))
+                       (filter #(.isDirectory %))
+                       (filter #(.exists (io/file % "manifest.jsonld")))
+                       (map #(.getName %)) sort vec)
+           specced (set (map :actor specs))
+           validated (map (fn [s] (assoc (reward/validate-spec (reward/spec-for s)) :actor (:actor s))) specs)
+           invalid (remove :valid? validated)
+           missing (remove specced roster)
+           cov (if (seq roster) (* 100.0 (/ (count (filter specced roster)) (count roster))) 0.0)]
+       (println (format "ie-flow SoS-reward coverage (ADR-2606212200): %d/%d roster actors specced (%.1f%%)"
+                        (count (filter specced roster)) (count roster) cov))
+       (println (format "  · %d specs committed · %d valid · %d INVALID" (count specs)
+                        (count (filter :valid? validated)) (count invalid)))
+       (doseq [s invalid] (println (str "  ✗ INVALID spec: " (:actor s) " → " (:errors s))))
+       (when (seq missing)
+         (println (str "  worklist (" (count missing) " un-specced — inherit defaults+invariants, never weakened): "
+                       (cstr/join " " (take 24 missing))
+                       (when (> (count missing) 24) " …"))))
+       (when (seq invalid) (System/exit 1))
+       {:roster (count roster) :specced (count (filter specced roster)) :invalid (count invalid)})))
 
 #?(:clj
    (defn -report

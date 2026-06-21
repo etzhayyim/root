@@ -626,6 +626,16 @@
           (h :div {}
              (h :div {:class "wbline"} (h :b {:text "system 境界 — membrane (import 引入 / export 秩序)"}))
              (render-boundary db a)
+             ;; 報酬系 — the actor's reward over its own bounded flow (ADR-2606212200)
+             (let [rw (ix :lab.index/reward) gated (ix :lab.index/reward-gated)]
+               (h :div {:class "rewardline"}
+                 (h :span {:class "rewardnum" :style (str "color:" (if gated "#f0506e" "#39d98a"))
+                           :text (if (number? rw) (.toFixed rw 3) (str rw))})
+                 (h :div {}
+                   (h :div {:style "font-weight:600"} (h :span {:text "報酬 R — 共生-gated reward system"}))
+                   (h :div {:class "muted" :style "margin:0"
+                            :text (if gated "⚠ gated (parasitic / 子孫 / catastrophe veto)"
+                                      "aligned · net-gain Φ·order η·子孫·eff − surprise, weights from system-of-systems.edn")}))))
              (h :div {:class "iegrid" :style "margin-top:10px"}
                (ie-stat "net-gain Φ" (fmt-num (ix :lab.index/net-gain)) "#39d98a")
                (ie-stat "order-index η" (n3 :lab.index/order-index) "#b78bff")

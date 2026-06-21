@@ -64,9 +64,14 @@
              (apply (resolve 'etzhayyim.ie-flow.organism/-sos) *command-line-args*))}
 
   ieflow:lab
-  {:doc "Emit lab.kotoba.edn — a flat [e a v tx op] Datom snapshot the /organism lab queries client-side (ADR-2606211200): the Sankey backbone + scalar indices + SYSTEM-DYNAMICS params (init stocks + per-step rates, dynamics/step-system) + ABM params (agents=adopters, Friedkin-Johnsen). Params are datomic-queryable; the page re-simulates live as sliders move them. Pure read, no held key. Args: [flow-log-path]"
+  {:doc "Emit lab.kotoba.edn — a flat [e a v tx op] Datom snapshot the /organism lab queries client-side (ADR-2606211200/2606212200): per-actor bounded systems (boundary + indices + REWARD 報酬系 + system-dynamics) + colony ABM. Params are datomic-queryable; the page re-simulates live as sliders move them. Pure read, no held key. Args: [flow-log-path]"
    :task (do (require 'etzhayyim.ie-flow.organism)
              (apply (resolve 'etzhayyim.ie-flow.organism/-lab) *command-line-args*))}
+
+  ieflow:coverage
+  {:doc "ENFORCE the rule (ADR-2606212200): every actor must hold a system-of-systems reward spec. Validates each per-actor spec in 80-data/ie-flow/system-of-systems.edn against the non-negotiable gate invariants (reward/validate-spec) + reports coverage over the 20-actors roster + a worklist. Exits non-zero on any INVALID (weakened-gate) spec."
+   :task (do (require 'etzhayyim.ie-flow.organism)
+             (apply (resolve 'etzhayyim.ie-flow.organism/-coverage) *command-line-args*))}
 
   test:kotoba
   {:doc "etzhayyim.kotoba root-side Datom engine + envelope + analysis (ADR-2605262130 Phase 1/2 + ADR-2605181100; data+impl in root, kotoba is the external generic engine)"

@@ -1,0 +1,56 @@
+;; system-of-systems.edn — THE RULE, as data. ADR-2606212200.
+;;
+;; RULE: every etzhayyim actor holds its system-of-systems (its membrane + its IE-flow) in EDN +
+;; Clojure (cljc) AND runs it as its 報酬系 (reward system) — the charter-aligned scalar that
+;; reinforces which mechanism it takes next. This file is the machine-readable form of the rule:
+;; the invariants every per-actor reward spec must carry, the tunable defaults, and the per-actor
+;; specs themselves. Validated by `etzhayyim.ie-flow.reward/validate-spec`; covered by
+;; `bb ieflow:coverage`. Generalises the opt-in adoption registry (registry.edn) into a mandate.
+{:rule
+ "Every actor = a bounded dissipative system (etzhayyim.ie-flow.boundary) whose behaviour is
+  reinforced by a reward signal (etzhayyim.ie-flow.reward) computed over ITS OWN IE-flow. The
+  reward rewards ORDER returned to society (共生), never raw profit, and is gated by the Tier-0
+  priorities so an actor can never be reinforced toward predation."
+
+ ;; ── the NON-NEGOTIABLE invariants (the Tier-0 priority itself; not an actor's to weaken) ──
+ :invariants
+ {:gates {:non-parasitism {:eta-floor 0.0}      ; 共生: net-gain ≥ 0 + η ≥ 0 (never a net taker / never dis-orders; η=1.0 is the max)
+          :subordinate    {:descendant-min 0.0} ; 子孫 wellbecoming ≥ 0 (persistence is instrumental)
+          :catastrophe    :veto                  ; child/descendant catastrophe ⇒ reward = −∞ (ECL objective-function.edn)
+          :anti-predatory :reject}               ; forbidden mechanism (manipulation/attention-exploitation/
+                                                 ;   asymmetric-surveillance/lock-in/coercion/deception) ⇒ reject
+  ;; what the reward system MUST structurally exclude (NEVER-a-throne, ADR-2606112200)
+  :exclude #{:social-credit :score-of-soul :person-ranking}
+  ;; the reward currency MUST be non-monetary (cash≡0, non-transferable, decaying — moyai pattern, ADR-2606062101)
+  :currency #{:non-monetary-decaying :non-monetary}
+  :weights-sum 1.0}
+
+ ;; ── the charter default weights (tunable per actor within the rule; η + 子孫 stay dominant) ──
+ :default-weights {:phi 0.25 :eta 0.30 :wellbecoming 0.25 :efficiency 0.12 :surprise 0.08}
+
+ ;; ── per-actor reward specs (partial overrides; spec-for merges these over the invariants) ──
+ ;; Each actor reweights the SAME charter-aligned terms toward its telos — a mirror weights η
+ ;; (release = its negentropy export) high; a commons weights 子孫 wellbecoming high; a synthesizer
+ ;; weights efficiency (leverage per unit drawn). The gates + exclusions are identical for all.
+ :actors
+ [{:actor "ibuki"    :weights {:phi 0.20 :eta 0.30 :wellbecoming 0.30 :efficiency 0.12 :surprise 0.08}
+   :telos "organism metabolism — return food-web commons in 共生"}
+  {:actor "tsumugi"  :weights {:phi 0.20 :eta 0.40 :wellbecoming 0.22 :efficiency 0.10 :surprise 0.08}
+   :telos "取-concentration mirror — RELEASE is the reward (η dominant)"}
+  {:actor "shionome" :weights {:phi 0.22 :eta 0.38 :wellbecoming 0.22 :efficiency 0.10 :surprise 0.08}
+   :telos "capital-flow observatory — map order, never trade"}
+  {:actor "kaname"   :weights {:phi 0.20 :eta 0.30 :wellbecoming 0.20 :efficiency 0.22 :surprise 0.08}
+   :telos "SoS leverage synthesizer — leverage per unit drawn (efficiency up)"}
+  {:actor "okaimono" :weights {:phi 0.18 :eta 0.27 :wellbecoming 0.35 :efficiency 0.12 :surprise 0.08}
+   :telos "provisioning commons — value returned to members (子孫 dominant)"}
+  {:actor "repo-git" :weights {:phi 0.30 :eta 0.30 :wellbecoming 0.20 :efficiency 0.12 :surprise 0.08}
+   :telos "the monorepo's own development metabolism (measured, not seeded)"}]
+
+ ;; ── rollout: the rule applies to the WHOLE roster ──
+ ;; The 6 specs above are exemplars. Every actor in the roster (Status § Tier-B actors) MUST grow a
+ ;; spec here (or a per-actor 20-actors/<name>/system.edn) + embed the reward primitive. Coverage is
+ ;; measured by `bb ieflow:coverage`; un-specced actors fall back to :default-weights + the invariants
+ ;; (so the rule is never violated by omission — only under-tuned). Live per-actor measurement comes
+ ;; from the actor's own `embed` verbs (record!/beat!), G7-gated; until then specs use the
+ ;; representative boundary seed (etzhayyim.ie-flow.boundary).
+ :rollout "exemplar→roster: un-specced actors inherit defaults+invariants; coverage tracked, never weakened."}
