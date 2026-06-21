@@ -12,6 +12,7 @@ SUITES=(
   "20-actors/uzu/methods/test_lexicons.cljc"
   "20-actors/uzu/methods/test_digest.cljc"
   "20-actors/uzu/methods/test_robustness.cljc"
+  "20-actors/uzu/methods/test_scorecard.cljc"
   "20-actors/uzu/methods/test_kotoba.cljc"
   "20-actors/uzu/methods/test_autorun.cljc"
   "20-actors/uzu/methods/test_viz.cljc"

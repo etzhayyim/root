@@ -3,7 +3,7 @@
 **Actor**: uzu 渦 — dissipative information-energy organism + real-world energy measurement/viz
 **ADR**: 2606211500 · **Status**: 🟡 R0 · **Generated** from manifest + test run.
 
-## R0 checklist (20/20)
+## R0 checklist (21/21)
 
 | # | Criterion | State |
 |---|---|---|
@@ -21,12 +21,13 @@
 | 12 | two-ledgers-never-conflated (G1) | ✅ test-enforced |
 | 13 | never-equate-units / no-joules-per-meaning (G2/G3) | ✅ test-enforced |
 | 14 | self-maintenance earned / mortality (G5) | ✅ kurage lives, meial+gyoja die |
-| 15 | tests green | ✅ **78 tests / 175 assertions** |
+| 15 | tests green | ✅ **83 tests / 191 assertions** |
 | 16 | self-validating seed (integrity validator) | ✅ `validate.cljc` (defends I1–I5; + bb CLI) |
 | 17 | lexicons + manifest↔ontology parity | ✅ `organismBeat` / `energyFlow` (drift-locked by test) |
 | 18 | colony self-reflection (digest) | ✅ `digest.cljc` (survival · energy economy · field dissipation; + bb CLI) |
 | 19 | multi-epoch seasons (live-epochs) | ✅ `metabolism/live-epochs` — net-negative world starves even the fittest (self-maintenance needs a net-positive niche) |
 | 20 | robustness / adversarial property suite | ✅ `test_robustness.cljc` — energy accounting exact · belief normalized · choose affordable · finite · deterministic · unit-boundary over all flows |
+| 21 | maturity self-audit (scorecard) | ✅ `scorecard.cljc` — tallies inventory + verifies every method/suite/lexicon file exists (manifest↔fs drift); + bb CLI |
 
 ## Verified heartbeat (autorun)
 

@@ -41,6 +41,7 @@
   {:method/id "measure"    :method/file "methods/measure.cljc"    :method/role "real-world energy-flow measurement in 4 honest separate units; never cross-summed; EAVT datoms"}
   {:method/id "validate"   :method/file "methods/validate.cljc"   :method/role "seed↔ontology integrity validator (self-validating substrate; defends I1–I5 invariants; + bb CLI)"}
   {:method/id "digest"     :method/file "methods/digest.cljc"     :method/role "colony SELF-REFLECTION: who self-maintained, which meanings fit, energy economy, field dissipation → report + :uzu.digest/* datoms (+ bb CLI; Murakumo narration is the gated step)"}
+  {:method/id "scorecard"  :method/file "methods/scorecard.cljc"  :method/role "maturity SELF-AUDIT: tally inventory + verify every declared method/suite/lexicon file exists (manifest↔fs drift) → report + :uzu.scorecard/* datoms (+ bb CLI)"}
   {:method/id "viz"        :method/file "methods/viz.cljc"        :method/role "self-contained data-driven HTML canvas of the coupled energy field + organism trajectories (+ bb CLI)"}
   {:method/id "kotoba"     :method/file "methods/kotoba.cljc"     :method/role "content-addressed append-only INFORMATION log (tx-cid/make-tx/append-tx/read-log/verify-chain)"}
   {:method/id "autorun"    :method/file "methods/autorun.cljc"    :method/role "deterministic heartbeat: live organisms + measure field + SELF-REFLECT (digest) → append datoms to the log (+ bb CLI)"}]
@@ -76,6 +77,6 @@
   :cmd "./20-actors/uzu/run_tests.sh"
   :suites ["methods/test_model.cljc" "methods/test_ledger.cljc" "methods/test_metabolism.cljc" "methods/test_epochs.cljc"
            "methods/test_measure.cljc" "methods/test_validate.cljc" "methods/test_lexicons.cljc"
-           "methods/test_digest.cljc" "methods/test_robustness.cljc" "methods/test_kotoba.cljc" "methods/test_autorun.cljc"
-           "methods/test_viz.cljc"]
-  :status "78 tests / 175 assertions green (babashka)"}}
+           "methods/test_digest.cljc" "methods/test_robustness.cljc" "methods/test_scorecard.cljc"
+           "methods/test_kotoba.cljc" "methods/test_autorun.cljc" "methods/test_viz.cljc"]
+  :status "83 tests / 191 assertions green (babashka)"}}
