@@ -25769,6 +25769,35 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606211200-energy-order-protocol.md",
+      "id": "adr-2606211200-energy-order-protocol",
+      "title": "ADR-2606211200: Energy Order Protocol — Proof-of-Useful-Flow actor suite (澪/撓/燠/樋/委)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "energy-order-protocol",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/mio",
+        "energy-order-protocol-suite"
+      ],
+      "related": [
+        "2606071500",
+        "2605261100",
+        "2606051800",
+        "2606072201",
+        "2606111400",
+        "2605262130",
+        "2605312345",
+        "2606172359"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [],
+      "last_verified": "2026-06-21",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606211200-ie-flow-datomic-agent-lifecycle.md",
       "id": "adr-2606211200-ie-flow-datomic-agent-lifecycle",
       "title": "ADR-2606211200: Information-energy flow — a kotoba/co-scientist agent lifecycle every actor embeds",
