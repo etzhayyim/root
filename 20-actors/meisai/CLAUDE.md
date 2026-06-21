@@ -85,8 +85,15 @@ python3 methods/autorun.py --cycles 1   # ingest data/intake/*.edn → local log
 
 ## R1 triggers (deferred)
 
-lexicon `com.etzhayyim.meisai.statement`; fleet heartbeat registration; kaiyaku handoff
-(recurring-merchant detection over `:meisai.row/*` → 縁-ledger worklist); **per-issuer fetch-leg
+lexicon `com.etzhayyim.meisai.statement`; fleet heartbeat registration; **per-issuer fetch-leg
 adapters** that flip the 100 `:registry-only` sources in `sources/world-card-issuers.edn` to
-`:supported` (member-side, computer-use-clj, G4 read-only posture); FX-rate enrichment for
-`:meisai.row/{amount,currency}` (report-time, never stored as a derived truth).
+`:supported` (member-side, computer-use-clj, G4 read-only posture); the kaiyaku SIDE of the
+recurring-charge handoff (kaiyaku ingesting `data/kaiyaku-handoff.edn` into its 縁-ledger — the
+meisai side `methods/recurring.cljc` landed); FX-rate enrichment for `:meisai.row/{amount,currency}`
+(report-time, never stored as a derived truth).
+
+The recurring-charge handoff (`methods/recurring.cljc`) is meisai's first DERIVED view: it folds
+`:meisai.row/*` into subscription candidates and emits an ADVISORY `:review` handoff
+(`data/kaiyaku-handoff.edn`, PERSONAL → gitignored). meisai SURFACES; kaiyaku decides keep/sever
+(G2 + member-sig). `:sever` is unrepresentable here and a merchant is a SERVICE, never a person
+(kaiyaku N1) — both test-enforced.
