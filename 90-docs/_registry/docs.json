@@ -25834,6 +25834,35 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606211500-uzu-thermodynamic-organism.md",
+      "id": "adr-2606211500-uzu-thermodynamic-organism",
+      "title": "ADR-2606211500: uzu 渦 — a dissipative information-energy artificial organism + real-world energy measurement & visualization",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "uzu-thermodynamic-organism",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/uzu"
+      ],
+      "related": [
+        "2606101200",
+        "2606101800",
+        "2606011501",
+        "2606072002",
+        "2606032000",
+        "2606072201"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605262130",
+        "2605312345"
+      ],
+      "last_verified": "2026-06-21",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
