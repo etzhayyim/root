@@ -99,7 +99,7 @@ advice.
 │   └── issue_capability.cljc          # R1: member mints the revocable severance capability (Ed25519/JDK; kaiyaku never signs)
 ├── MATURITY.md                        # GENERATED R1 scorecard (methods/maturity.cljc; freshness-tested)
 ├── R1-RUNBOOK.md                      # operator how-to for the R1 leg (issue capability → run → persist → audit → G6 path)
-├── tests/                             # 109 tests, pure stdlib
+├── tests/                             # 116 tests, pure stdlib
 │   ├── test_analyze.py
 │   ├── test_handoff.py
 │   ├── test_plan.py
@@ -111,7 +111,8 @@ advice.
 │   ├── test_pipeline.cljc             # R1 END-TO-END: analyze→…→serviceop→receipt compose
 │   ├── test_manifest.cljc             # R1 manifest↔methods↔karakuri-lexicon parity (no doc drift)
 │   ├── test_maturity.cljc             # R1 MATURITY.md scorecard content + freshness
-│   └── test_audit.cljc                # R1 G9 audit read-back + standing no-live-execution check
+│   ├── test_audit.cljc                # R1 G9 audit read-back + standing no-live-execution check
+│   └── test_charter_invariants.cljc   # CONSOLIDATED constitutional guarantees (G3/G5/G6/G8/N1) in one place
 ├── clj/                               # cljc port + Clojure LangGraph actor (see clj/README.md)
 │   ├── deps.edn                       # langgraph-clj + browser-use-clj + computer-use-clj (git deps)
 │   ├── src/kaiyaku/                   # ledger/analyze/plan/datoms (Python numeric parity)
