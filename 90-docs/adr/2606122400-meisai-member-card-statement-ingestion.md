@@ -5,7 +5,7 @@ status: accepted
 doc_type: adr
 topic: meisai-member-card-statement-ingestion
 authoritative: true
-last_verified: 2026-06-12
+last_verified: 2026-06-21
 priority: 3.0
 axis: architecture
 weight: 0.3
@@ -107,3 +107,52 @@ future Council-gated ADR) · N5 not a credential store.
   21 green checks + manifest/README/CLAUDE/MATURITY. Lexicon
   (`com.etzhayyim.meisai.statement`), fleet heartbeat registration, kaiyaku handoff, and
   additional card sources are R1, gated as usual.
+
+## R1 implementation record (2026-06-21)
+
+R1 LANDED (clj-native; the py methods were pruned in the ADR-2606160842 py→clj wave) across
+PR #2007 + #2023. meisai suite 28 bb tests / 103 assertions; kaiyaku 38 / 239; all green.
+Personal data stays member-local (G1/G3) throughout; only PUBLIC metadata is committed.
+
+1. **Worldwide coverage registry** (PR #2007) — `sources/world-card-issuers.edn`: 101 PUBLIC
+   sources (18 global card networks + issuers across JP/US/EU/UK/CN/KR/IN/BR/SEA/MEA + PSP /
+   wallet / BNPL). PUBLIC metadata only (company name, public portal root, accepted networks —
+   no statement/row/credential/PAN), so it is COMMITTED (outside the gitignored `data/`).
+   `methods/sources.cljc` emits `:meisai.source/*` datoms (committed Datom log
+   `sources/world-card-issuers.kotoba.edn`, 922 datoms, deterministic CID), an honest coverage
+   report + ingest worklist, `resolve`, and `normalize` (any issuer's raw statement → canonical
+   intake; JPY keeps `:amount_jpy` parity, other currencies → generic `:amount` + `:currency` in
+   integer minor units). `ingest.cljc` gained an additive, parity-safe multi-currency branch
+   (JP fixture datoms byte-identical).
+
+2. **Recurring-charge → kaiyaku handoff (round-trip closed)** (PR #2007 + #2023) —
+   `methods/recurring.cljc` folds `:meisai.row/*` into recurring-charge candidates and emits an
+   ADVISORY `:review` handoff (`data/kaiyaku-handoff.edn`, PERSONAL → gitignored). kaiyaku
+   `methods/meisai_ingest.cljc` ingests it into the 縁-ledger as a `:recurring-charge` tie over a
+   `:svc/kind :card-merchant` node — kaiyaku's analyze/plan decide keep/review/sever with NO new
+   decision logic. meisai SURFACES, never DECIDES; `:sever` is unrepresentable on the meisai side;
+   a merchant is a SERVICE, never a person (kaiyaku N1). Both invariants test-enforced.
+
+3. **Report-time FX** (PR #2023) — `methods/fx.cljc`: `to-jpy` + `enrich-handoff` add a
+   JPY-equivalent to non-JPY handoff records (`:handoff/jpy-equivalent` + `:fx-rate` +
+   `:fx-advisory`), so kaiyaku can price a foreign charge; absent a rate it stays cost-0 → analyze
+   routes to `:review`, never auto-`:sever` (G8). **FX is REPORT-TIME ONLY — never persisted as a
+   `:meisai.row/*` Datom** (a stale rate baked into the append-only log would assert a false as-of
+   truth). Rates are a member-supplied input, never a committed table.
+
+4. **Lexicons** (PR #2023) — `cells/lex/com.etzhayyim.meisai.{statement,source,recurringHandoff}.json`.
+   `source` is PUBLIC; `statement` + `recurringHandoff` are PERSONAL (no PAN/credential field by
+   construction). Referenced from `manifest.jsonld`.
+
+5. **Residence (NOT a fleet cell)** (PR #2023) — `50-infra/launchd/com.etzhayyim.meisai.heartbeat.plist`,
+   a per-member launchd LaunchAgent running the local intake sweep hourly on the member's OWN
+   machine. meisai is member-local with no network I/O (G1/G3/G7), so it must NOT run on a shared
+   murakumo fleet node; the constitutionally-correct reading of "fleet heartbeat registration" is
+   a per-member LaunchAgent. For the same reason meisai is intentionally ABSENT from the public
+   `actor-profile-seed.kotoba.edn` (consistent with its member-tool siblings karakuri/kaiyaku/
+   tate/tedai/organizer, none of which are registered there).
+
+6. **Per-issuer fetch adapters** remain member-side / out-of-repo (computer-use-clj, G7). The
+   in-repo seam is the registry `:shape` + `sources/normalize`; flipping a source
+   `:registry-only → :supported` requires a verified member-run fetch script. The 100
+   `:registry-only` sources are the documented worklist.

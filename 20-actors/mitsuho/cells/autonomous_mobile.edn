@@ -4,7 +4,7 @@
  :cell/glyph "自"
  :cell/kind :langgraph
  :cell/runtime :wasm
- :cell/entry "py/agent.py"
+ :cell/entry "methods/agent.cljc"
  :cell/handler "handle_autonomous_mobile"
  :cell/doc "Manages the autonomous mobile robotics fleet for various agricultural tasks, including field monitoring, pest control, and logistics."
  :cell/state-graph

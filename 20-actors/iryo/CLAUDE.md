@@ -48,7 +48,7 @@ charter-clean:
 ## 全件対応 (すべての診療行為・薬剤・特定器材・病名)
 
 The official 厚労省/支払基金 master is tens of thousands of copyrighted rows, so iryo does
-NOT embed it — it **ingests** it (`master_loader.py`), making every code resolvable:
+NOT embed it — it **ingests** it (`methods/master_loader.cljc`), making every code resolvable:
 
 - `load_normalized(dir)` — iryo-defined normalized CSV (shinryo/iyaku/tokutei/shobyo/
   shushokugo/comment), fully tested.
@@ -63,7 +63,7 @@ NOT embed it — it **ingests** it (`master_loader.py`), making every code resol
 重ね合わせ + 負担区分、高額療養費 全区分(70歳未満 ア〜オ / 70歳以上 現役並み・一般・低所得、
 外来個人/世帯上限)、入院時食事療養 標準負担額。レセ電は IR/RE/TY/HO/KO/SY/SI/IY/TO/CO/SJ。
 
-## 計算ルール (exact, tested — see py/test_rezept.py)
+## 計算ルール (exact, tested — see methods/test_rezept.cljc)
 
 - **1点 = 10円** (master-driven `tensu_tanka_yen`)
 - **薬剤料 五捨五超四入**: 薬価 ≤15円→1点; >15円→ 薬価/10 を端数「五捨五超」(0.5以下切捨,
@@ -73,7 +73,7 @@ NOT embed it — it **ingests** it (`master_loader.py`), making every code resol
   / ウ 80,100+(-267,000)×1% / エ 57,600 / オ 35,400
 
 Point values are **always resolved through a loaded master** (`masters.Masters`); the
-engine never hard-codes a tariff (G4). The bundled `py/seed_masters.json` is a
+engine never hard-codes a tariff (G4). The bundled `data/seed_masters.json` is a
 **representative seed for verification only** — production loads the official 厚労省 /
 支払基金 master.
 
@@ -111,9 +111,12 @@ engine never hard-codes a tariff (G4). The bundled `py/seed_masters.json` is a
 
 ```bash
 cd 20-actors/iryo
-./run_tests.sh           # 51 tests green (rezept/kogaku/insurance/master_loader/coverage/karte/receden/e2e)
-python3 py/demo.py       # 診療録 → レセプト → レセ電 → FHIR end-to-end
+./run_tests.sh           # 11 cljc suites green (masters/master-loader/insurance/kogaku/rezept/karte/receden/coverage/e2e/datoms/kotoba)
 ```
+
+The engine is fully ported to clojure-on-babashka (`methods/*.cljc`) over the kotoba
+Datom log; the legacy `py/` twin was pruned once the cljc suite reached parity. The
+representative master seed lives at `data/seed_masters.json` (loaded by `methods/masters.cljc`).
 
 ## Cross-actor
 

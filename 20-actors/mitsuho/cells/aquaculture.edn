@@ -4,7 +4,7 @@
  :cell/glyph "水"
  :cell/kind :langgraph
  :cell/runtime :wasm
- :cell/entry "py/agent.py"
+ :cell/entry "methods/agent.cljc"
  :cell/handler "handle_aquaculture"
  :cell/doc "Manages controlled environment fish and aquatic plant cultivation, including water quality monitoring and feeding schedules."
  :cell/state-graph

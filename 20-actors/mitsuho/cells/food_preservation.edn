@@ -4,7 +4,7 @@
  :cell/glyph "蔵"
  :cell/kind :langgraph
  :cell/runtime :wasm
- :cell/entry "py/agent.py"
+ :cell/entry "methods/agent.cljc"
  :cell/handler "handle_food_preservation"
  :cell/doc "Manages the processing and preservation of harvested food, ensuring quality, safety, and extending shelf-life before distribution."
  :cell/state-graph

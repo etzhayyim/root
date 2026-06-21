@@ -37,7 +37,7 @@
      [cycle {:keys [seed-path log-path steps replicas seed author publish swarm transport]
              :or {steps s/default-steps replicas s/default-replicas seed s/default-seed
                   author "" publish false swarm false transport nil}}]
-     (let [[nodes edges] (w/load seed-path)
+     (let [{:keys [nodes edges]} (w/load-file* seed-path)
            [results meta] (if swarm
                             (s/swarm-ensemble nodes edges
                                               {:steps steps :replicas replicas :seed seed

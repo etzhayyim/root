@@ -16,7 +16,7 @@
 (def ^:private seed-file (io/file actor-dir "data" "seed-scenario.kotoba.edn"))
 
 (defn- dist-fixture []
-  (let [[nodes edges] (w/load seed-file)
+  (let [{:keys [nodes edges]} (w/load-file* seed-file)
         [results _] (s/ensemble nodes edges {:steps 12 :replicas 64 :seed 7})]
     (d/distribution results)))
 

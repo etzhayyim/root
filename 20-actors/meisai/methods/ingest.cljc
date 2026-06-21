@@ -1,6 +1,9 @@
 (ns meisai.methods.ingest
   "ingest.cljc — meisai 明細: member card-statement EDN → kotoba EAVT datoms.
-  1:1 Clojure port of `methods/ingest.py` (ADR-2606122400).
+  Clojure port of `methods/ingest.py` (ADR-2606122400). The JP (`:amount_jpy`) path is BYTE-PARITY
+  with ingest.py; the worldwide multi-currency branch (`:amount`/`:currency`,
+  `:statement/total`/`:statement/currency`) is a clj-native superset (ADR-2606122400 R1, fed by
+  `methods/sources.cljc normalize`) — additive, so any JPY intake's datoms are unchanged.
 
   Reads the statement EDN the MEMBER-PRINCIPAL fetch leg wrote locally, normalizes each row into
   append-only EAVT datoms, and (via kotoba) persists them. meisai itself does NO network I/O and
@@ -71,20 +74,34 @@
                (some? (get doc ":statement/total-jpy"))
                (conj (kotoba/add stmt-e ":meisai.stmt/total-jpy" (long (get doc ":statement/total-jpy"))))
                (get doc ":source/url")
-               (conj (kotoba/add stmt-e ":meisai.stmt/source-url" (str (get doc ":source/url")))))]
+               (conj (kotoba/add stmt-e ":meisai.stmt/source-url" (str (get doc ":source/url"))))
+               ;; worldwide (clj-native superset, ADR-2606122400 R1): non-JPY statements carry a
+               ;; generic total + currency. The JP fixture has neither key → datoms byte-identical.
+               (some? (get doc ":statement/total"))
+               (conj (kotoba/add stmt-e ":meisai.stmt/total" (long (get doc ":statement/total"))))
+               (get doc ":statement/currency")
+               (conj (kotoba/add stmt-e ":meisai.stmt/currency" (str (get doc ":statement/currency")))))]
     (into base
           (mapcat
            (fn [i r]
              (let [date (str (get r ":date" "?"))
                    merchant (str (get r ":merchant" "?"))
-                   amount (long (get r ":amount_jpy" 0))
+                   ;; JP rows carry :amount_jpy → canonical :meisai.row/amount-jpy attribute and the
+                   ;; EXACT same hash input (byte-parity with sumitclub/ingest.py). Worldwide rows
+                   ;; carry generic :amount (integer minor units) + :currency.
+                   jpy? (contains? r ":amount_jpy")
+                   amount (long (get r (if jpy? ":amount_jpy" ":amount") 0))
                    h (sha256-hex (str stmt-e "|" i "|" date "|" merchant "|" amount))
                    row-e (str "meisai-row:" (subs h 0 16))
                    ds [(kotoba/add row-e ":meisai.row/stmt" stmt-e)
                        (kotoba/add row-e ":meisai.row/index" i)
                        (kotoba/add row-e ":meisai.row/date" date)
-                       (kotoba/add row-e ":meisai.row/merchant" merchant)
-                       (kotoba/add row-e ":meisai.row/amount-jpy" amount)]]
+                       (kotoba/add row-e ":meisai.row/merchant" merchant)]
+                   ds (if jpy?
+                        (conj ds (kotoba/add row-e ":meisai.row/amount-jpy" amount))
+                        (cond-> (conj ds (kotoba/add row-e ":meisai.row/amount" amount))
+                          (get r ":currency")
+                          (conj (kotoba/add row-e ":meisai.row/currency" (str (get r ":currency"))))))]
                (if (get r ":note")
                  (conj ds (kotoba/add row-e ":meisai.row/note" (str (get r ":note"))))
                  ds)))

@@ -71,6 +71,7 @@ advice.
 | Generic web-service ServiceOp adapters (T1/T2 engine, ToS stances) | **karakuri** (kaiyaku composes; never re-implements) |
 | 解約 / 退会 decision-ledger + severance plan + (gated) execution | **kaiyaku** (this actor) |
 | 不利条項の検出 + 法的手続きへの応答 (防御) | **tate 盾** (ADR-2606112301; its `:kaiyaku` routes feed this ledger via `kaiyaku-handoff.edn` → `handoff_ingest.py` — 自動更新窓の notice-days カレンダー化, wave 26 で往復配線) |
+| カード明細からの定期課金検出 (recurring-charge) | **meisai 明細** (ADR-2606122400; its `recurring.cljc` handoff `data/kaiyaku-handoff.edn` → `meisai_ingest.cljc` becomes a `:recurring-charge` tie over a `:svc/kind :card-merchant` node — kaiyaku decides keep/review/sever, meisai never does) |
 | Harmful human relationships | **kokoro** (support; kaiyaku N1 refuses the domain) |
 
 ## Layout
@@ -85,10 +86,12 @@ advice.
 │   ├── analyze.py                     # edge-primary tie-burden analyzer + cascade-guard
 │   ├── plan.py                        # T1/T2/T3 severance-plan builder (dry-run only)
 │   ├── handoff_ingest.py              # tate 盾 handoff → notice-window worklist (compose 往復)
+│   ├── meisai_ingest.cljc             # meisai 明細 recurring-charge handoff → 縁-ledger tie (compose 往復)
 │   └── datom_emit.py                  # kotoba Datom-log (EAVT) emitter — canonical state
-├── tests/                             # 29 tests, pure stdlib
+├── tests/                             # 36 tests, pure stdlib
 │   ├── test_analyze.py
 │   ├── test_handoff.py
+│   ├── test_meisai_ingest.cljc
 │   └── test_plan.py
 ├── clj/                               # cljc port + Clojure LangGraph actor (see clj/README.md)
 │   ├── deps.edn                       # langgraph-clj + browser-use-clj + computer-use-clj (git deps)

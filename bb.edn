@@ -83,6 +83,11 @@
    :task (do (require 'etzhayyim.ie-flow.organism)
              (apply (resolve 'etzhayyim.ie-flow.organism/-maxwell) *command-line-args*))}
 
+  audit:datomic
+  {:doc "Fleet datomic-ledger health audit — drives every standard-interface ledger actor's heartbeat into a throwaway commit-DAG and asserts GROUND-append + verify-chain + idempotency + ground-only. Non-standard ledger actors are inventoried, never failed. Exits non-zero only on a standard-family regression. Mirrors the datomic-ledger-audit CI gate."
+   :task (do (load-file "70-tools/scripts/datomic-health/fleet_audit.clj")
+             ((resolve 'datomic-health.fleet-audit/-main)))}
+
   test:kotoba
   {:doc "etzhayyim.kotoba root-side Datom engine + envelope + analysis (ADR-2605262130 Phase 1/2 + ADR-2605181100; data+impl in root, kotoba is the external generic engine)"
    :task (do (require 'clojure.test 'etzhayyim.kotoba.test-engine
@@ -99,6 +104,11 @@
   {:doc "Enforce the root↔engine data boundary: NO religious-corp data artifacts (*.kotoba.edn) inside an in-tree kotoba engine clone (ADR-2605262130; data lives in root 00-contracts/80-data)"
    :task (do (require 'etzhayyim.kotoba.boundary)
              (apply (resolve 'etzhayyim.kotoba.boundary/-main) *command-line-args*))}
+
+  lint:no-new-shell
+  {:doc "Enforce-forward the clj/bb rule (root CLAUDE.md §\"Operational code = clj/bb\"): FAIL on a NEW first-party .sh under 20-actors (existing ones grandfathered in shell-baseline.edn; baseline shrinks-only). New actors ship run_tests.clj, not run_tests.sh. --update rewrites the baseline. ADR-2606072802 enforce-forward"
+   :task (do (require 'etzhayyim.lint.no-new-shell)
+             (apply (resolve 'etzhayyim.lint.no-new-shell/-main) *command-line-args*))}
 
   kotoba:ingest
   {:doc "Ingest an actor seed into the kotoba Datom log (validated, snapshotted). Args: <schema> <seed> [out] [--validate]"
