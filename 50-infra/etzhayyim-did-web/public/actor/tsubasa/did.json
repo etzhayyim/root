@@ -28,7 +28,7 @@
     ],
     "source": "kotoba",
     "kind": "tier-b",
-    "status": "r2",
+    "status": "r3",
     "glyph": "翼",
     "wasmCid": null,
     "execModel": "service",

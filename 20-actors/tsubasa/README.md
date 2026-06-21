@@ -31,11 +31,15 @@ no booking; the member self-books on the airline's own site.
 | G4 | emissions-honest — `:fare/co2-kg` REQUIRED + positive; greenest is first-class |
 | G5 | no person fare-tracking — no `:searcher`/`:person` attribute; search is stateless |
 | G7 | kotoba-EAVT-native — no RisingWave/SQL |
-| G8 | outward-gated — live GDS/airline ingest = Council Lv7+ + operator; R0/R1 ship `:representative` |
+| G8 | outward UNLOCKED (R3, charter-bounded) — live ingest `:public`/`:member-principal` only (paid GDS terminal refused), no network in the loop (no-server-key), G1/G3/G4/G5 enforced at ingest |
 
 ## Status
 
-**R2** — see [`MATURITY.md`](MATURITY.md). 39 tests / 532 assertions green. Live fare ingest is
-the gated R3 step; today the data is a bounded `:representative` seed.
+**R3** — see [`MATURITY.md`](MATURITY.md). 54 tests / 579 assertions green. The **G8 live-ingest
+gate is UNLOCKED** (founder Lv7+ attested via PR review, 2026-06-21) under structural charter
+bounds — `:public`/`:member-principal` sources only (no paid GDS terminal), no network in the loop
+(no-server-key), G1/G3/G4/G5 enforced at ingest. The code is complete; the actual live pull (with
+public sources / member credentials) and the compiled WASM artifact are the no-server-key operator
+steps. Today the bundled data is still a bounded `:representative` seed.
 
 Per **ADR-2606072800**. Apache 2.0 + etzhayyim Charter Compliance Rider.
