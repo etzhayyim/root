@@ -8,7 +8,8 @@
 | R1 — inochi grounding | `bridge.cljc`: ground `:protected`/habitat-sensitivity in inochi 命's ecological observation (ugachi/busshi bridge pattern) — a stand in a high-biodiversity biome favors `:protected-selective` over clearcut, never fabricates protection | ⏳ |
 | **ie-flow record!** (R1) | `ie_flow.cljc` `record-flow!` + `--record` flag: records kafun's measured ie-flow events to `80-data/ie-flow/kafun/flow.kotoba.edn` via `etzhayyim.ie-flow.embed` (the ie-flow ADR-2606212200 live-record follow-up) → kafun's SoS scoreboard entry is tool/heartbeat-produced, not adapter-on-demand only | ✅ landed |
 | R1 — Murakumo digest | Murakumo-narrated remediation digest (fail-open template, G6) | ⏳ |
-| R1 — fleet + lexicons | cell-runner registration (+ healthz, the ugachi/kaname maturity track); lexicon JSON under `00-contracts/lexicons/com/etzhayyim/kafun/` | ⏳ |
+| **lexicons** (R1) | AT-proto lexicon JSON under `00-contracts/lexicons/com/etzhayyim/kafun/` — `remediationVerdict` + `pollenRemediationMap` (tatara/kaname convention); G1/G2/G5 guards as `const` (`isCutList:false`, `neverActuates:true`), all 11 verdict/reason/route enums in parity with `remediate.cljc` | ✅ landed |
+| R1 — fleet | cell-runner registration (+ healthz, the ugachi/kaname maturity track) | ⏳ |
 | R1 — real stands (G7) | real cadastral + Sentinel-2/ALOS canopy → kotoba (the legacy ADR-2605100100 scout→cadastral→envoy pipeline, behind an operator flip) | ⏳ (operator/Council step) |
 | R2+ | live forestry — a SEPARATE landowner + operator/Council step, NEVER kafun (G5/G7) | ⏳ (out of kafun scope by G5) |
 
