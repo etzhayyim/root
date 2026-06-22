@@ -2051,6 +2051,21 @@
   :proc/refer-when ["保護額を侵害・複数 trekk が重複・gjeldsordning 検討 → advokat / NAV gjeldsrådgivning / fri rettshjelp"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:no-family" :proc/label "Foreldretvist (家事・ノルウェー)"
+  :proc/jurisdiction :no :proc/track :family
+  :proc/trigger-keywords ["foreldretvist" "barnefordeling" "samvær" "foreldreansvar"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Tilsvar / mekling"
+    :dl/rule "foreldretvist (fast bosted・samvær・foreldreansvar の争い) を court に提起する前に obligatorisk mekling (familievernkontor) を経て meklingsattest (有効期間6か月) を得る必要がある (barneloven §51)。stevning が届いたら saksøkte は tingretten が定める期限 (通常3週間, tvisteloven §9-3) 内に tilsvar を提出。tingretten は conflict-and-reconciliation model で扱い、子に関し専門家 (心理士等) を任命することが多い。重大な暴力・虐待の有罪がある場合は meklingsattest なしでも提訴可"
+    :dl/anchor "barneloven §51 (mekling) + tvisteloven §9-3 (tilsvar)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :tilsvar :opt/kind :self-submit :opt/protective true :opt/label "tingretten が定める期限内に tilsvar を提出 (自分の立場・子の最善を述べる)"}
+   {:opt/id :mekling :opt/kind :self-decide :opt/label "familievernkontor の mekling に出席 (合意の余地; meklingsattest は提訴要件)"}]
+  :proc/refer-when ["fast bosted・samvær・foreldreansvar・vold (親権・面会・DV) が争点 → advokat / fri rettshjelp"
+                    "kokoro 心 (精神的サポート — 家事事件は Wellbecoming 負荷が大きい)"]
+  :proc/verify-current-law true}
+
  ;; ── :dk ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:dk-lejemaal" :proc/label "Opsigelse af lejemål (住居・デンマーク)"
   :proc/jurisdiction :dk :proc/track :housing

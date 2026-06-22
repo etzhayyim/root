@@ -107,7 +107,7 @@ N6 刑事 out of scope → immediate 弁護士 referral. **N2 補足 (wave 8)**:
 ├── data/
 │   ├── jurisdictions.edn          # jurisdiction registry: UPL anchor + directories (R1)
 │   ├── clause-patterns.edn        # jurisdiction-keyed clause registry (72 shapes, 30 juris)
-│   ├── procedure-registry.edn     # jurisdiction-keyed procedure registry (173 procs; :civil 36 + :labor 29 + :housing 29 + :enforcement 27 + :insolvency 26 + :family 26 — track×juris matrix; fake-guard 語彙 registry 自動導出; :dl/critical 期限先頭表示; **非civil全手続きに protective 選択肢必在**)
+│   ├── procedure-registry.edn     # jurisdiction-keyed procedure registry (174 procs; :civil 36 + :labor 29 + :housing 29 + :enforcement 27 + :insolvency 26 + :family 27 — track×juris matrix; fake-guard 語彙 registry 自動導出; :dl/critical 期限先頭表示; **非civil全手続きに protective 選択肢必在**)
 │   ├── us-states.edn              # :us 州サブ管轄 (small-claims 上限 + answer 期限 + ARL)
 │   └── seed-member-docs.edn       # SYNTHETIC member contracts + notices, intl (G1)
 ├── methods/                       # pure-stdlib → kotoba pywasm-runnable
