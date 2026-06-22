@@ -1,6 +1,6 @@
 {
  "disclaimer": "一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
- "count": 165,
+ "count": 166,
  "cases": [
   {
    "slug": "tate-shiharai-tokusoku",
@@ -603,6 +603,13 @@
    "label": "Eviction before the Rent Authority/Court (住居・インド)",
    "jurisdiction": ":in",
    "track": ":housing"
+  },
+  {
+   "slug": "tate-in-enforcement",
+   "did": "did:web:etzhayyim.com:actor:tate-in-enforcement",
+   "label": "Attachment of salary (賃金差押え・執行・インド)",
+   "jurisdiction": ":in",
+   "track": ":enforcement"
   },
   {
    "slug": "tate-de-kontopfaendung",

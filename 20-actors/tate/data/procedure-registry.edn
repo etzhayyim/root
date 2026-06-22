@@ -1391,6 +1391,20 @@
   :proc/refer-when ["事由が複雑・forcible eviction / essential-service cut → advocate / Legal Services Authority (無料法律扶助)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:in-enforcement" :proc/label "Attachment of salary (賃金差押え・執行・インド)"
+  :proc/jurisdiction :in :proc/track :enforcement
+  :proc/trigger-keywords ["attachment of salary" "salary attachment" "execution of decree" "Order XXI"]
+  :proc/genuine-channels [:formal-service :mail]
+  :proc/deadline-rules
+  [{:dl/label "Salary attachment への対応"
+    :dl/rule "decree の execution で salary を attach する場合 (Order XXI Rules 48/48A)、最初の ₹1,000 と残額の2/3 は attachment から免除され、attachable なのは (salary − ₹1,000) の1/3 のみ (maintenance decree を除く)。さらに同一 attachable 部分が通算24か月 attach されたら12か月免除、同一 decree では24か月で最終免除。免除超過は court で異議できる"
+    :dl/anchor "CPC 1908 s.60(1) proviso + Order XXI Rules 48 & 48A" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :objection :opt/kind :self-submit :opt/protective true :opt/label "免除 (最初の₹1,000 + 残額の2/3) を超える attachment には court へ objection を提出 (Order XXI)"}
+   {:opt/id :verify :opt/kind :self-decide :opt/protective true :opt/label "attach 部分が (salary−₹1,000) の1/3 上限・24か月 cap を超えていないか employer/court で確認"}]
+  :proc/refer-when ["免除を侵害・maintenance decree との関係・複数 decree → advocate / Legal Services Authority (無料法律扶助)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:de-kontopfaendung" :proc/label "Konto-/Lohnpfändung (執行・ドイツ)"
   :proc/jurisdiction :de :proc/track :enforcement
   :proc/trigger-keywords ["Pfändungs- und Überweisungsbeschluss" "Kontopfändung"]

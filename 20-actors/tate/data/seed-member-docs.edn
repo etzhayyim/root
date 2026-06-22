@@ -1217,6 +1217,12 @@
   :notice/sourcing :synthetic
   :notice/text "Eviction application before the Rent Authority on the ground of non-payment of rent. You may file a reply within the time stated."}
 
+ {:notice/id "ntc:in-enforcement" :notice/label "IN attachment of salary in execution of decree (employer・post)"
+  :notice/jurisdiction :in
+  :notice/channel :formal-service :notice/claim-amount 200000 :notice/claim-currency "INR"
+  :notice/sourcing :synthetic
+  :notice/text "Order for attachment of salary in execution of a decree, directed to your employer to deduct from your monthly salary."}
+
  ;; registry-seed completeness backfill: every procedure must be exercised (G10 maturity)
  {:notice/id "ntc:us-smallclaims" :notice/label "US small claims notice (certified mail)"
   :notice/jurisdiction :us
