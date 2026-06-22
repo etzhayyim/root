@@ -1760,6 +1760,21 @@
   :proc/refer-when ["garantía・compensación・crédito elevado (担保・相殺・高額債権)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:mx-family" :proc/label "Contestación de demanda de divorcio (家事・メキシコ)"
+  :proc/jurisdiction :mx :proc/track :family
+  :proc/trigger-keywords ["divorcio" "juicio oral familiar" "demanda de divorcio"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Contestación"
+    :dl/rule "juicio oral familiar では demandado は emplazamiento から9 días hábiles 以内に contestación を提出 (CNPCF art.665); 後に audiencia preliminar が15日内に設定される。CNPCF は2023施行だが州ごとに declaratoria で段階適用 — 採用済みの州のみ、未採用州は当該州の CPC を確認"
+    :dl/anchor "Código Nacional de Procedimientos Civiles y Familiares art. 665" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :contestacion :opt/kind :self-submit :opt/protective true :opt/label "contestación を期限内に提出 (請求への認否 + reconvención があれば併せて)"}
+   {:opt/id :audiencia :opt/kind :self-decide :opt/label "audiencia preliminar に出席 (合意・調整の余地)"}]
+  :proc/refer-when ["guarda y custodia・pensión alimenticia・bienes (親権・養育費・財産) が争点 → abogado / Defensoría Pública"
+                    "kokoro 心 (精神的サポート — 家事事件は Wellbecoming 負荷が大きい)"]
+  :proc/verify-current-law true}
+
  ;; ── :no ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:no-husleie" :proc/label "Oppsigelse av leieforhold (住居・ノルウェー)"
   :proc/jurisdiction :no :proc/track :housing

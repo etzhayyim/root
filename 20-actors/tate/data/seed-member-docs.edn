@@ -777,6 +777,12 @@
   :notice/sourcing :synthetic
   :notice/text "La empresa ha sido declarada en concurso mercantil. Los acreedores deben solicitar el reconocimiento de créditos ante el conciliador dentro del plazo legal."}
 
+ {:notice/id "ntc:mx-family" :notice/label "MX demanda de divorcio (demandado・correo)"
+  :notice/jurisdiction :mx
+  :notice/channel :formal-service :notice/claim-amount 0 :notice/claim-currency "MXN"
+  :notice/sourcing :synthetic
+  :notice/text "Se le notifica la demanda de divorcio en juicio oral familiar. Puede presentar su contestación dentro del plazo legal."}
+
  {:notice/id "ntc:us-term" :notice/label "US notice of termination (letter・労働)"
   :notice/jurisdiction :us
   :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "USD"
