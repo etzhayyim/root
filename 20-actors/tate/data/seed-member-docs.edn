@@ -1133,6 +1133,12 @@
   :notice/sourcing :synthetic
   :notice/text "法院已宣告該公司破產。請債權人於公告所定期間內向破產管理人申報債權。"}
 
+ {:notice/id "ntc:tw-housing" :notice/label "TW 終止租約通知 (房客・書面)"
+  :notice/jurisdiction :tw
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "TWD"
+  :notice/sourcing :synthetic
+  :notice/text "出租人依租賃住宅條例提前終止租約，並通知返還房屋及點交。承租人得確認終止事由及通知是否合法。"}
+
  {:notice/id "ntc:sg-sct" :notice/label "SCT claim notice (post)"
   :notice/jurisdiction :sg
   :notice/channel :mail :notice/claim-amount 4000 :notice/claim-currency "SGD"
