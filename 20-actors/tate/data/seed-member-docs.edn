@@ -961,6 +961,12 @@
   :notice/sourcing :synthetic
   :notice/text "Notice of Termination of your tenancy. You may refer a dispute to the RTB if you believe the notice is invalid."}
 
+ {:notice/id "ntc:ie-enforcement" :notice/label "IE notice to attend — instalment order (District Court・post)"
+  :notice/jurisdiction :ie
+  :notice/channel :formal-service :notice/claim-amount 3500 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Notice to attend the District Court for an examination of means and an instalment order to enforce a judgment debt."}
+
  {:notice/id "ntc:ch-zb" :notice/label "CH Zahlungsbefehl (Betreibungsamt)"
   :notice/jurisdiction :ch
   :notice/channel :formal-service :notice/claim-amount 5400 :notice/claim-currency "CHF"
