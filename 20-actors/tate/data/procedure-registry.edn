@@ -2034,6 +2034,20 @@
                     "kokoro 心 (精神的サポート — 家事事件は Wellbecoming 負荷が大きい)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:ie-housing" :proc/label "Notice of Termination dispute (住居・アイルランド)"
+  :proc/jurisdiction :ie :proc/track :housing
+  :proc/trigger-keywords ["notice of termination" "RTB" "residential tenancies" "tenancy"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "RTB dispute"
+    :dl/rule "Notice of Termination が無効と考えるなら、受領から90日以内に RTB へ dispute を申立て (家賃滞納・テナント義務違反による終了は28日); 通知だけで退去義務は生じず、RTB は有効な Notice of Termination 満了後にのみ退去を命じうる"
+    :dl/anchor "Residential Tenancies Act 2004 (RTB dispute)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :rtb-dispute :opt/kind :self-submit :opt/protective true :opt/label "RTB へ dispute を申立て (Notice of Termination の有効性を争う)"}
+   {:opt/id :no-self-help-protection :opt/kind :self-decide :opt/protective true :opt/label "自力救済 (鍵交換・電気停止・脅迫による追い出し) は違法 — 退去は RTB/裁判所命令によってのみ; 受けたら RTB・Threshold・Gardaí へ"}]
+  :proc/refer-when ["有効性が複雑・不法 eviction → solicitor / FLAC / Threshold (housing charity)"]
+  :proc/verify-current-law true}
+
  ;; ── :ch ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:ch-scheidung" :proc/label "Scheidungsklage (家事・スイス)"
   :proc/jurisdiction :ch :proc/track :family
