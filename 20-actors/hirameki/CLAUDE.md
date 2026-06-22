@@ -51,6 +51,7 @@ methods/hirameki_edn.cljc  loader + classify (:field / :patent)
 methods/analyze.cljc       analyze → datoms → render-datoms → coverage → render-report (+ bb CLI)
 methods/cid.cljc           CIDv1 raw/sha2-256 (ipfs-add parity; clj port of rasen/cid.py)
 methods/dataset.cljc       G9: patent corpus → EDN → DataLad (80-data/hirameki-patents/) + manifest (+ bb CLI)
+methods/ingest.cljc        G8/G9 LIVE ingest (USPTO ODP): pure odp->patent normalizer + env-key fetch → merge → re-materialize (+ bb CLI)
 methods/kotoba.cljc        content-addressed append-only OBSERVATION LEDGER (tamper-evident commit-DAG)
 methods/autorun.cljc       deterministic, idempotent-by-content heartbeat — append ONLY on change (+ bb CLI)
 methods/test_*.cljc        loader + analytics + G1/G2/G3/G6 + cid + dataset + ledger/heartbeat invariants
@@ -78,17 +79,41 @@ Disclosed facts: `:hirameki.field/*`, `:hirameki.patent/*`. Derived: `:hirameki.
 bb --classpath 20-actors 20-actors/hirameki/methods/analyze.cljc        # print the RELEASE map
 bb --classpath 20-actors 20-actors/hirameki/methods/dataset.cljc        # corpus → 80-data/hirameki-patents/ (+ CIDs)
 bb --classpath 20-actors 20-actors/hirameki/methods/autorun.cljc        # heartbeat → append observations to ledger
-./20-actors/hirameki/run_tests.sh                                       # 6 suites (32 tests / 120 assertions)
+./20-actors/hirameki/run_tests.sh                                       # 7 suites (39 tests / 145 assertions)
 ```
+
+### G8/G9 LIVE ingest (operator step — needs a free API key)
+
+The key-free PatentsView bulk was retired into the **USPTO Open Data Portal**
+(`data.uspto.gov` / `api.uspto.gov`), which needs a **free** API key. The ingest is
+**no-server-key**: the key is the operator's, read from env, never committed.
+
+```bash
+# 1) get a free key at https://data.uspto.gov  (instant)
+# 2) run the live ingest — fetches authoritative patents, folds them into the corpus,
+#    re-materializes the DataLad snapshot (corpus + datoms + manifest, CID-verified)
+USPTO_ODP_API_KEY=… bb --classpath 20-actors 20-actors/hirameki/methods/ingest.cljc \
+  "applicationMetaData.inventionTitle:semiconductor" 50 "2026-06-22T00:00:00Z"
+```
+
+The PURE normalizer (`odp->patent`) is unit-tested against a fixture (G6 drops inventor
+names; G9 every authoritative row carries a cited `:source` URL). The fetch leg prints the
+live record's keys on first run so a schema mismatch is caught immediately. Without a key
+the CLI fails clear (exit 2) with the exact command — it never fabricates authoritative data.
+The full ~200M-patent corpus then goes via DataLad→IPFS (git-annex); IPFS pin + IPNS = the
+remaining operator publish step.
 
 ## R0 → later waves
 
 - **R0 (ADR-2606212200)**: clj-native scaffold + `:representative` seed + analyze/datoms/coverage +
   CIDv1 content-address (ipfs-parity verified) + DataLad dataset materialization + append-only
   observation ledger + idempotent-by-content heartbeat + 6 test suites.
-- **G8/G9 operator step (live)**: bulk ingest of USPTO PatentsView (CC0) / EPO OPS (free) /
-  WIPO PATENTSCOPE → fold to `:authoritative` rows → push the full corpus via DataLad→IPFS
-  (git-annex); IPFS pin + IPNS publish.
+- **G8/G9 ingest tool (landed, ADR-2606212200)**: `ingest.cljc` makes the live authoritative
+  ingest EXECUTABLE — pure `odp->patent` normalizer (USPTO ODP JSON → `:authoritative` rows
+  with cited source, fixture-tested, G6 drops inventors) + an env-key fetch leg. Note the
+  key-free PatentsView path is RETIRED → USPTO ODP needs a free key (no-server-key, env). The
+  remaining operator step is: set `USPTO_ODP_API_KEY`, run, then push the full corpus via
+  DataLad→IPFS (git-annex) + IPFS pin + IPNS publish.
 - Later: per-field depth (CPC subclass granularity surfaces real de-monopolization cases),
   citation graph (`edge_patent_cites` → tsumugi cross-link), SEP/standards linkage, Murakumo-
   narrated digest, fleet registration, lexicons, DID registration.

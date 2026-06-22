@@ -35,6 +35,7 @@
   {:method/id "analyze"      :method/file "methods/analyze.cljc"      :method/role "analyze (field concentration + patent release-clock) → datoms → render-datoms → coverage → render-report (+ bb CLI)"}
   {:method/id "cid"          :method/file "methods/cid.cljc"          :method/role "CIDv1 raw/sha2-256 content-address (ipfs-add parity), clj port of rasen/cid.py"}
   {:method/id "dataset"      :method/file "methods/dataset.cljc"      :method/role "G9: patent corpus → EDN → DataLad substrate (80-data/hirameki-patents/) + publish-manifest (+ bb CLI)"}
+  {:method/id "ingest"       :method/file "methods/ingest.cljc"       :method/role "G8/G9 LIVE ingest (USPTO ODP): pure odp->patent normalizer (authoritative + cited source, G6 drops inventors) + env-key fetch → merge-corpus → re-materialize (+ bb CLI; no-server-key)"}
   {:method/id "kotoba"       :method/file "methods/kotoba.cljc"       :method/role "content-addressed append-only OBSERVATION LEDGER (tx-cid/append-tx/read-log/verify-chain)"}
   {:method/id "autorun"      :method/file "methods/autorun.cljc"      :method/role "deterministic idempotent-by-content heartbeat — analyze → append release-observation datoms on change (+ bb CLI)"}]
 
@@ -68,4 +69,5 @@
   :cmd "./20-actors/hirameki/run_tests.sh"
   :suites ["methods/test_hirameki_edn.cljc" "methods/test_analyze.cljc"
            "methods/test_cid.cljc" "methods/test_dataset.cljc"
-           "methods/test_kotoba.cljc" "methods/test_autorun.cljc"]}}
+           "methods/test_ingest.cljc" "methods/test_kotoba.cljc"
+           "methods/test_autorun.cljc"]}}
