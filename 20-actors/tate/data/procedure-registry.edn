@@ -1334,6 +1334,21 @@
   :proc/refer-when ["secured/set-off/large claim → advocate / NCLT"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:in-family" :proc/label "Written statement to a matrimonial petition (家事・インド)"
+  :proc/jurisdiction :in :proc/track :family
+  :proc/trigger-keywords ["divorce petition" "matrimonial petition" "hindu marriage act" "family court"]
+  :proc/genuine-channels [:formal-service :mail]
+  :proc/deadline-rules
+  [{:dl/label "Written statement"
+    :dl/rule "summons 送達から30日以内に written statement (各 allegation の認否) を Family Court へ提出 (CPC Order VIII Rule 1); 30日徒過時は理由を記録の上90日まで延長可。Family Court は和解 (reconciliation) 重視で柔軟に延長することがあるが、未提出は ex parte 手続 (Order VIII Rule 10) になりうる"
+    :dl/anchor "CPC 1908 Order VIII Rule 1 + Family Courts Act 1984 (matrimonial)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :written-statement :opt/kind :self-submit :opt/protective true :opt/label "written statement (認否 + 抗弁) を Family Court へ提出 (ex parte decree の回避)"}
+   {:opt/id :reconciliation :opt/kind :self-decide :opt/label "Family Court の reconciliation/調停 に出席 (合意の余地)"}]
+  :proc/refer-when ["custody/maintenance/streedhan (親権・扶養・財産) が争点 → advocate / Legal Services Authority (無料法律扶助)"
+                    "kokoro 心 (精神的サポート — 家事事件は Wellbecoming 負荷が大きい)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:de-kontopfaendung" :proc/label "Konto-/Lohnpfändung (執行・ドイツ)"
   :proc/jurisdiction :de :proc/track :enforcement
   :proc/trigger-keywords ["Pfändungs- und Überweisungsbeschluss" "Kontopfändung"]
