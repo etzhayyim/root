@@ -636,6 +636,12 @@
   :notice/sourcing :synthetic
   :notice/text "The company has been put into liquidation. Creditors must send their creditor claim to the liquidator on or before the day fixed in this notice."}
 
+ {:notice/id "ntc:nz-family" :notice/label "NZ notice of application — Care of Children (respondent・post)"
+  :notice/jurisdiction :nz
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "NZD"
+  :notice/sourcing :synthetic
+  :notice/text "Notice to respondent of an application for a parenting order under the Care of Children Act. You may file a notice of response within the time stated."}
+
  ;; ── wave 19 (:kr insolvency + :au family) ────────────────────────────────────
  {:notice/id "ntc:kr-singo" :notice/label "회생절차 채권신고 안내 (郵送・倒産)"
   :notice/jurisdiction :kr
