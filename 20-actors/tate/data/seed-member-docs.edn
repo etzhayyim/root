@@ -1028,6 +1028,12 @@
   :notice/sourcing :synthetic
   :notice/text "Citação numa ação de divórcio sem consentimento. Pode contestar o pedido no prazo legal junto do juízo de família e menores."}
 
+ {:notice/id "ntc:pt-housing" :notice/label "PT procedimento especial de despejo (arrendatário・carta)"
+  :notice/jurisdiction :pt
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Notificação de procedimento especial de despejo do seu arrendamento. Pode apresentar oposição ao despejo no prazo legal."}
+
  {:notice/id "ntc:jp-kaiko" :notice/label "解雇予告通知書 (郵送・労働)"
   :notice/jurisdiction :jp
   :notice/channel :mail :notice/claim-jpy 0
