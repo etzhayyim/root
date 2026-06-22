@@ -843,6 +843,12 @@
   :notice/sourcing :synthetic
   :notice/text "Innkalling til forliksrådet. De plikter å inngi tilsvar innen fristen."}
 
+ {:notice/id "ntc:no-enforcement" :notice/label "NO varsel om utleggstrekk (namsmannen・brev)"
+  :notice/jurisdiction :no
+  :notice/channel :mail :notice/claim-amount 24000 :notice/claim-currency "NOK"
+  :notice/sourcing :synthetic
+  :notice/text "Varsel om utleggstrekk i lønn fra namsmannen for å dekke et utestående krav."}
+
  {:notice/id "ntc:kr-haego" :notice/label "해고 통지서 (郵送・労働)"
   :notice/jurisdiction :kr
   :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "KRW"

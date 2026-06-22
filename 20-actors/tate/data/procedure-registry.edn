@@ -1993,6 +1993,20 @@
   :proc/refer-when ["NOK 200,000 超や複雑な事案 → advokat"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:no-enforcement" :proc/label "Utleggstrekk (賃金差押え・執行・ノルウェー)"
+  :proc/jurisdiction :no :proc/track :enforcement
+  :proc/trigger-keywords ["utleggstrekk" "trekk i lønn" "namsmannen" "utlegg"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Utleggstrekk への対応"
+    :dl/rule "namsmannen が lønn/trygd から utleggstrekk (控除) を行うが、skyldner は livsopphold (生活費) に必要な額を必ず保持できる (beslagsfrie midler, dekningsloven §2-7)。保護額は forskrift om livsoppholdssatser の標準率で算定し、boligutgifter (家賃/住宅ローン利息・公共料金・暖房) は上乗せされる。namsmannen は食・住・電気等の必要支出を奪わないよう経済状況を考慮する。算定に異議があれば namsmannen/tingretten に klage できる"
+    :dl/anchor "dekningsloven §2-7 + forskrift om livsoppholdssatser (FOR-2014-06-13-724) + tvangsfullbyrdelsesloven" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :klage :opt/kind :self-submit :opt/protective true :opt/label "trekk が livsopphold (livsoppholdssats + boligutgifter) を侵害するなら namsmannen へ見直し/klage を申立て"}
+   {:opt/id :verify :opt/kind :self-decide :opt/protective true :opt/label "残額が livsoppholdssats + boligutgifter を下回っていないか namsmannen と確認 (収入/支出を申告)"}]
+  :proc/refer-when ["保護額を侵害・複数 trekk が重複・gjeldsordning 検討 → advokat / NAV gjeldsrådgivning / fri rettshjelp"]
+  :proc/verify-current-law true}
+
  ;; ── :dk ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:dk-lejemaal" :proc/label "Opsigelse af lejemål (住居・デンマーク)"
   :proc/jurisdiction :dk :proc/track :housing
