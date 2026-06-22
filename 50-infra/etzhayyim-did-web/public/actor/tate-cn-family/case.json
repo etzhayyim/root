@@ -1,0 +1,50 @@
+{
+  "disclaimer": "一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
+  "case": "proc:cn-family",
+  "label": "答辩状 (家事・離婚訴訟・中国)",
+  "jurisdiction": ":cn",
+  "jurisdiction_label": "中国",
+  "track": ":family",
+  "genuine_channels": [
+    ":mail",
+    ":formal-service"
+  ],
+  "service_note": "支付令・起诉状は法院の送达 — SMS/微信の『法院』通知は偽 (96110 へ)",
+  "deadlines": [
+    {
+      "label": "答辩状",
+      "rule": "起诉状副本の受領から15日以内に答辩状を人民法院へ提出 (中国国内に住所のない被告は30日); 管辖异议も同じ答辩期間内に提出。答辩しなくても審理は進む (欠席でも判決されうる)",
+      "anchor": "中华人民共和国民事诉讼法 第128条 (答辩期)",
+      "critical": false,
+      "verify_service_date": true
+    }
+  ],
+  "options": [
+    {
+      "id": ":dabian",
+      "kind": ":self-submit",
+      "protective": true,
+      "label": "答辩状 を人民法院へ提出 (各请求の認否 + 证据 — 管辖异议があれば同時に)"
+    },
+    {
+      "id": ":chuting",
+      "kind": ":self-decide",
+      "protective": false,
+      "label": "开庭审理に出頭 (离婚は調解前置 — 合意の余地)"
+    }
+  ],
+  "referrals": [
+    "子女抚养・财产分割・家庭暴力 (親権・財産分与・DV) が争点 → 律师 / 法律援助",
+    "kokoro 心 (精神的サポート — 家事事件は Wellbecoming 負荷が大きい)"
+  ],
+  "jurisdiction_referrals": [
+    "法律援助 (法律援助法・12348 公共法律服务热线)",
+    "消费者协会 12315"
+  ],
+  "fraud_help": [
+    "tasuke 助 (サイバー犯罪被害支援)",
+    "国家反诈中心 96110",
+    "110"
+  ],
+  "verify_current_law": true
+}

@@ -1069,6 +1069,12 @@
   :notice/sourcing :synthetic
   :notice/text "人民法院已受理对该公司的破产申请。请债权人在公告确定的期限内向管理人申报债权。"}
 
+ {:notice/id "ntc:cn-family" :notice/label "CN 离婚起诉状副本 (被告・送达)"
+  :notice/jurisdiction :cn
+  :notice/channel :formal-service :notice/claim-amount 0 :notice/claim-currency "CNY"
+  :notice/sourcing :synthetic
+  :notice/text "现送达离婚起诉状副本。被告应当在法定期间内提交答辩状。"}
+
  {:notice/id "ntc:us-summons-ca" :notice/label "US summons + complaint (California, personal service)"
   :notice/jurisdiction :us :notice/us-state :us-ca
   :notice/channel :personal-service :notice/claim-amount 7000 :notice/claim-currency "USD"
