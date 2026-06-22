@@ -1815,6 +1815,20 @@
   :proc/refer-when ["€2,000 超" "FLAC の無料相談を先に"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:ie-liquidation" :proc/label "Proof of debt (債権者側・清算・アイルランド)"
+  :proc/jurisdiction :ie :proc/track :insolvency
+  :proc/trigger-keywords ["liquidation" "proof of debt" "liquidator" "winding up"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "Proof of debt"
+    :dl/rule "清算人 (liquidator) が書面通知で証明期限を定める — 通知日から28日以上後でなければならない; 期限内に証明しない債権者は、その債権が証明される前になされた配当の利益から除外される。裁判所は債権者の申立てにより期限を延長できる"
+    :dl/anchor "Companies Act 2014 s.674(1)-(3) (延長: s.674(4))" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :proof :opt/kind :self-submit :opt/protective true
+    :opt/label "proof of debt を liquidator へ提出 (本人可; prepayment・deposit・gift voucher など前払金も debt: kaiyaku 縁-ledger と突合)"}]
+  :proc/refer-when ["secured/set-off/large claim → solicitor (FLAC の無料相談も)"]
+  :proc/verify-current-law true}
+
  ;; ── :ch ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:ch-scheidung" :proc/label "Scheidungsklage (家事・スイス)"
   :proc/jurisdiction :ch :proc/track :family
