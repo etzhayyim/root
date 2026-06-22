@@ -913,6 +913,12 @@
   :notice/sourcing :synthetic
   :notice/text "Family Law Civil Bill served on you as respondent. You may enter an Appearance with the County Registrar within the time stated."}
 
+ {:notice/id "ntc:ie-housing" :notice/label "IE Notice of Termination — tenancy (tenant・post)"
+  :notice/jurisdiction :ie
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Notice of Termination of your tenancy. You may refer a dispute to the RTB if you believe the notice is invalid."}
+
  {:notice/id "ntc:ch-zb" :notice/label "CH Zahlungsbefehl (Betreibungsamt)"
   :notice/jurisdiction :ch
   :notice/channel :formal-service :notice/claim-amount 5400 :notice/claim-currency "CHF"
