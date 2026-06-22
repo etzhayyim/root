@@ -1108,6 +1108,20 @@
   :proc/refer-when ["高額・渉外要素がある場合は律师へ"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:cn-pochan" :proc/label "债权申报 (债権者側・破产・中国)"
+  :proc/jurisdiction :cn :proc/track :insolvency
+  :proc/trigger-keywords ["破产" "债权申报" "管理人"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "债权申报"
+    :dl/rule "人民法院が破产申请受理を公告した日から定める債権申報期限内 — 公告日から30日以上3か月以下 — に 管理人 へ 债权申报 (期限後の補充申報は可だが既了の分配には及ばない)"
+    :dl/anchor "中华人民共和国企业破产法 第45条・第48条" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :shenbao :opt/kind :self-submit :opt/protective true
+    :opt/label "债权申报书 を 管理人 へ提出 (本人可; 预付款・押金・储值卡 など前払金も债权: kaiyaku 縁-ledger と突合)"}]
+  :proc/refer-when ["担保债权・抵销・大额债权"]
+  :proc/verify-current-law true}
+
  ;; ── :tw ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:tw-lihun" :proc/label "離婚調解/訴訟の通知 (家事・台湾)"
   :proc/jurisdiction :tw :proc/track :family

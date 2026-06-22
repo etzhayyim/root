@@ -1003,6 +1003,12 @@
   :notice/sourcing :synthetic
   :notice/text "支付令。债务人应当在法定期间内清偿债务或者提出书面异议。"}
 
+ {:notice/id "ntc:cn-pochan" :notice/label "CN 破产受理公告 (債権者宛・书面)"
+  :notice/jurisdiction :cn
+  :notice/channel :mail :notice/claim-amount 18000 :notice/claim-currency "CNY"
+  :notice/sourcing :synthetic
+  :notice/text "人民法院已受理对该公司的破产申请。请债权人在公告确定的期限内向管理人申报债权。"}
+
  {:notice/id "ntc:us-summons-ca" :notice/label "US summons + complaint (California, personal service)"
   :notice/jurisdiction :us :notice/us-state :us-ca
   :notice/channel :personal-service :notice/claim-amount 7000 :notice/claim-currency "USD"
