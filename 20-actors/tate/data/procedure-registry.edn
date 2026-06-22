@@ -1640,6 +1640,21 @@
   :proc/refer-when ["secured/set-off/large claim → lawyer / Community Law"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:nz-family" :proc/label "Notice of response (家事・ニュージーランド)"
+  :proc/jurisdiction :nz :proc/track :family
+  :proc/trigger-keywords ["care of children" "parenting order" "notice of response" "family court application"]
+  :proc/genuine-channels [:mail :personal-service]
+  :proc/deadline-rules
+  [{:dl/label "Notice of response"
+    :dl/rule "notice of application 受領から21日以内に notice of response (approved form) を court office へ file し全当事者へ serve; 期限内に応答しないと自分抜きで手続が進み、裁判官が意見を聞かずに final order を出しうる"
+    :dl/anchor "Family Court Rules 2002 (SR 2002/261) + Form COC 1 (Care of Children Act 2004)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :response :opt/kind :self-submit :opt/protective true :opt/label "notice of response (approved form) を court office へ file & 全当事者へ serve (自分の立場を述べる)"}
+   {:opt/id :fdr :opt/kind :self-decide :opt/label "Family Dispute Resolution (FDR) mediation の利用を検討 (合意できれば裁判回避)"}]
+  :proc/refer-when ["親権・養育・safety が争点 → lawyer / Family Legal Aid / Community Law"
+                    "kokoro 心 (精神的サポート — 家事事件は Wellbecoming 負荷が大きい)"]
+  :proc/verify-current-law true}
+
  ;; ── :mx ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:mx-despido" :proc/label "Despido (解雇・労働・メキシコ)"
   :proc/jurisdiction :mx :proc/track :labor
