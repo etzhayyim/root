@@ -2870,4 +2870,61 @@
   :stakeholders ["parties" "media" "civil society" "citizens"]
   :stock :paradigm-subordination :polarity :narrow :magnitude 0.55 :reversibility :cultural :meadows 2
   :basis "Pluralism / loyal-opposition tradition" :sourcing :representative :confidence 0.4}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 31 — information-asymmetry within-jurisdiction depth (cybercrime/
+ ;; media-control laws vs press-freedom / journalist-safety norms)
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── information-asymmetry (widen) ──
+ {:type :instrument :id "th-computer-crime-act" :name "Computer Crime Act" :jurisdiction "TH" :kind :law :year 2007
+  :enactor "Thai state (2007; tightened 2017)"
+  :origin "Vague offences for uploading 'false' or 'security-threatening' data, paired with lèse-majesté, are used to prosecute online critics and order takedowns — broad state control over the online information space."
+  :stakeholders ["MDES ministry" "online users" "platforms" "citizens"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.55 :reversibility :statutory :meadows 5
+  :basis "Thai Computer Crime Act (2007/2017)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "jo-cybercrime-2023" :name "Cybercrime Law 2023" :jurisdiction "JO" :kind :law :year 2023
+  :enactor "Jordanian parliament (2023)"
+  :origin "Broadly criminalized online 'false news', 'character assassination', and 'undermining national unity' with prison terms, prompting warnings that it sharply narrows online speech and press freedom in the kingdom."
+  :stakeholders ["government" "journalists/users" "platforms" "citizens"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.6 :reversibility :statutory :meadows 5
+  :basis "Jordan Cybercrime Law (2023)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "eg-media-cyber-2018" :name "Media regulation + cybercrime laws 2018" :jurisdiction "EG" :kind :law :year 2018
+  :enactor "Egyptian parliament (2018)"
+  :origin "Laws treating social-media accounts above a follower threshold as media (subject to regulation/blocking) and broad cybercrime provisions let the state block sites and prosecute online speech — tightening control over citizens' information."
+  :stakeholders ["Supreme Media Council" "journalists/users" "platforms" "citizens"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.6 :reversibility :statutory :meadows 5
+  :basis "Egyptian media-regulation + cybercrime laws (2018)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "by-extremism-media" :name "'Extremist materials' media controls" :jurisdiction "BY" :kind :law :year 2021
+  :enactor "Belarusian state (expanded after 2020)"
+  :origin "Designating independent outlets and even Telegram channels/subscribers as 'extremist' criminalized reading and sharing their content, dismantling independent media after the 2020 protests — extreme narrowing of citizens' information access."
+  :stakeholders ["Information Ministry/KGB" "independent media" "subscribers" "citizens"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.7 :reversibility :statutory :meadows 5
+  :basis "Belarusian 'extremist materials' designations (2021–)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-internet-shutdown-trend" :name "Internet shutdowns (global trend)" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse trend (governments ordering network blackouts)"
+  :origin "Government-ordered internet/social-media shutdowns — around exams, protests, and elections — have risen worldwide (tracked by #KeepItOn/Access Now), a fast-spreading tool that cuts citizens off from information and each other at decisive moments."
+  :stakeholders ["governments" "telecoms" "Access Now/KeepItOn" "citizens"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.55 :reversibility :cultural :meadows 5
+  :basis "Access Now #KeepItOn shutdown tracking" :sourcing :representative :confidence 0.4}
+
+ ;; ── information-asymmetry (narrow — press-freedom / journalist-safety) ──
+ {:type :instrument :id "gl-press-freedom-norm" :name "Press freedom (norm)" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse civic + international norm (Art. 19 ICCPR)"
+  :origin "The protected freedom of an independent press to report and scrutinize power is the citizen's primary instrument for seeing the state; its strength (tracked by the RSF Index) directly narrows the information asymmetry, its decline widens it."
+  :stakeholders ["independent media" "press-freedom bodies" "the state" "citizens"]
+  :stock :information-asymmetry :polarity :narrow :magnitude 0.6 :reversibility :cultural :meadows 6
+  :basis "ICCPR Art. 19; RSF World Press Freedom Index" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-journalist-safety" :name "UN Plan of Action on Safety of Journalists" :jurisdiction "GLOBAL" :kind :institution :year 2012
+  :enactor "UN (UNESCO-led Plan of Action, 2012)"
+  :origin "A UN framework to prevent attacks on journalists and end impunity for their killers protects the people who surface what the state would hide — narrowing the information asymmetry by defending its human carriers (impunity remains the hard problem)."
+  :stakeholders ["UNESCO" "journalists" "states" "citizens"]
+  :stock :information-asymmetry :polarity :narrow :magnitude 0.45 :reversibility :institutional :meadows 6
+  :basis "UN Plan of Action on the Safety of Journalists (2012)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-source-protection" :name "Source protection / journalist shield laws" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse civic norm (shield laws + court protections)"
+  :origin "Legal protection of journalists' confidential sources enables whistleblowers and insiders to expose wrongdoing without exposure, sustaining the flow of information from inside power to the public — a structural narrowing of the asymmetry, eroded where compelled disclosure or surveillance pierces it."
+  :stakeholders ["journalists" "sources/whistleblowers" "courts" "citizens"]
+  :stock :information-asymmetry :polarity :narrow :magnitude 0.45 :reversibility :statutory :meadows 6
+  :basis "Comparative shield laws; source-protection jurisprudence" :sourcing :representative :confidence 0.4}
 ]

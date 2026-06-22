@@ -2,7 +2,7 @@
 
 全世界の **具体的な法律・制度・思想・価値観** が citizen↔state の構造的非対称をどう広げる/狭めるかを、5 つの asymmetry STOCK と feedback LOOP で読み取る。**分析専用 (G4): junkan は観るだけで触れない。** 各 regime / leverage は **仮説 (G5)** であり因果の証明ではない。これは resilience/leverage の MAP であって、国家を晒す ranking ではない (G7)。
 
-_coverage_: 385 instruments · 197 jurisdictions · sourcing {:representative 385}
+_coverage_: 393 instruments · 197 jurisdictions · sourcing {:representative 393}
 
 _continental balance_: africa 53 · europe 48 · asia 46 · americas 34 · oceania 14 · transnational 2
 
@@ -28,7 +28,7 @@ _continental balance_: africa 53 · europe 48 · asia 46 · americas 34 · ocean
 
 | stock | n | net pressure | widen | narrow | regime |
 |---|---|---|---|---|---|
-| A 情報・可視性の非対称 (information) | 56 | 0.061 | 9.755 | 6.34 | transitioning |
+| A 情報・可視性の非対称 (information) | 64 | 0.063 | 10.955 | 6.94 | transitioning |
 | B 参入・代表性の障壁 (participation) | 142 | 0.013 | 19.365 | 17.565 | transitioning |
 | C 強制力の非対称 (coercion) | 62 | 0.199 | 15.705 | 3.348 | transitioning |
 | D 思想・価値観の従属 (paradigm) | 63 | 0.042 | 10.168 | 7.542 | transitioning |
@@ -40,10 +40,10 @@ _net > 0 = 非対称が広がる方向に loop が回っている (悪循環傾�
 
 | loop | type | member stocks | drive | regime |
 |---|---|---|---|---|
-| R-secrecy-spiral | reinforcing | information-asymmetry, economic-capture | 0.061 | transitioning |
+| R-secrecy-spiral | reinforcing | information-asymmetry, economic-capture | 0.062 | transitioning |
 | R-coercion-paradigm-lock | reinforcing | coercion-asymmetry, paradigm-subordination | 0.121 | transitioning |
 | R-capture-barrier | reinforcing | economic-capture, participation-barrier | 0.037 | transitioning |
-| B-transparency | balancing | information-asymmetry | 0.061 | transitioning |
+| B-transparency | balancing | information-asymmetry | 0.063 | transitioning |
 | B-participation | balancing | participation-barrier | 0.013 | transitioning |
 
 ## Stock × continent (where each asymmetry is most active, HYPOTHESIS, G5)
@@ -52,20 +52,20 @@ _net pressure per continent × stock (aggregate, structural — NOT a per-countr
 
 | continent | info | participation | coercion | paradigm | economic |
 |---|---|---|---|---|---|
-| africa | 0.141 | 0.105 | 0.314 | -0.042 | 0.176 |
+| africa | 0.151 | 0.105 | 0.314 | -0.042 | 0.176 |
 | americas | -0.14 | -0.011 | 0.233 | -0.32 | 0.057 |
-| asia | 0.192 | 0.155 | 0.355 | 0.243 | 0.134 |
-| europe | -0.031 | -0.134 | 0.148 | 0.033 | 0.002 |
+| asia | 0.196 | 0.155 | 0.355 | 0.243 | 0.134 |
+| europe | -0.01 | -0.134 | 0.148 | 0.033 | 0.002 |
 | oceania | 0.01 | -0.161 | 0.248 | · | 0.0 |
 
 ## Instrument kind × net pressure (do laws/institutions/doctrines/values widen or narrow?)
 
 | kind | n | net | polarity mix |
 |---|---|---|---|
-| law | 84 | 0.146 | {:widen 59, :ambiguous 1, :narrow 24} |
-| institution | 223 | 0.061 | {:widen 109, :narrow 90, :ambiguous 24} |
+| law | 88 | 0.15 | {:widen 63, :ambiguous 1, :narrow 24} |
+| institution | 224 | 0.06 | {:widen 109, :narrow 91, :ambiguous 24} |
 | doctrine | 47 | -0.039 | {:widen 18, :narrow 22, :ambiguous 7} |
-| value | 31 | -0.005 | {:ambiguous 3, :widen 14, :narrow 14} |
+| value | 34 | -0.011 | {:ambiguous 3, :widen 15, :narrow 16} |
 
 ## Era trajectory (system-dynamics over time, HYPOTHESIS, G5)
 
@@ -77,8 +77,8 @@ _各時代に制定された instrument が非対称を広げる/狭める方向
 | 1800–1899 | 4 | 0.2 | 0.938 | -0.184 |
 | 1900–1944 | 11 | 2.67 | 0.2 | 0.225 |
 | 1945–1989 | 94 | 14.43 | 12.307 | 0.023 |
-| 1990–2009 | 102 | 13.593 | 11.922 | 0.016 |
-| 2010– | 131 | 28.205 | 8.405 | 0.151 |
+| 1990–2009 | 103 | 13.813 | 11.922 | 0.018 |
+| 2010– | 135 | 28.965 | 8.585 | 0.151 |
 
 ## Meadows leverage CANDIDATES (G11 — candidates, never directives)
 
@@ -110,7 +110,7 @@ _scores are DISCLOSED + weighted (amplify = 0.6·depth + 0.4·magnitude; flip = 
 
 ## Coverage worklist (next /loop iterations)
 
-- deepen thinnest stock: information-asymmetry (n=56)
+- deepen thinnest stock: economic-capture (n=62)
 - broaden jurisdiction coverage (small states / Pacific / Caribbean still light)
 
 _findings are append-only; surfacing beyond Council is performed by ossekai/kataribe on junkan's behalf, never by junkan (G13). actuation_taken=false throughout._
