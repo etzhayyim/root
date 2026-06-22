@@ -17,6 +17,11 @@ run_cljc() {
 }
 
 run_cljc "wadachi.methods.test-agent"
+run_cljc "wadachi.cells.route-planning.test-state-machine"
+run_cljc "wadachi.cells.motion-control.test-state-machine"
+run_cljc "wadachi.cells.obstacle-avoidance.test-state-machine"
+run_cljc "wadachi.cells.safety-monitoring.test-state-machine"
+run_cljc "wadachi.cells.telemetry-log.test-state-machine"
 
 if [[ $rc -eq 0 ]]; then
   echo "==> wadachi: ALL GREEN"
