@@ -2230,6 +2230,20 @@
   :proc/refer-when ["有効性が複雑・不法 eviction → solicitor / FLAC / Threshold (housing charity)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:ie-enforcement" :proc/label "Instalment order / attachment of earnings (執行・アイルランド)"
+  :proc/jurisdiction :ie :proc/track :enforcement
+  :proc/trigger-keywords ["instalment order" "attachment of earnings" "examination of means" "enforcement of court order"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Instalment order / means examination への対応"
+    :dl/rule "judgment 債務の execution として creditor は District Court に instalment order を申立て、debtor は出頭し means を establish する (Enforcement of Court Orders Act 1926 s.15)。裁判官は debtor の means を考慮して全額 or 分割を命じる (合理的生活費を残す means ベースの査定)。attachment of earnings は主に maintenance (扶養) order に用いられる。committal は means があるのに wilful refusal を beyond reasonable doubt で立証した場合のみ — debtor は means/支出を申告し過大な instalment の見直しを求められる"
+    :dl/anchor "Enforcement of Court Orders Act 1926 s.15 (+ Acts 1926-2009, O.53 District Court Rules)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :means :opt/kind :self-submit :opt/protective true :opt/label "出頭し means statement を提出 (合理的生活費を踏まえた支払能力を示し、過大な instalment を回避/見直し)"}
+   {:opt/id :verify :opt/kind :self-decide :opt/protective true :opt/label "instalment が means を超えていないか確認; committal は wilful refusal + 立証が要件 (単なる無資力では収監されない)"}]
+  :proc/refer-when ["committal の脅威・複雑な means・attachment of earnings → solicitor / FLAC / MABS (money advice)"]
+  :proc/verify-current-law true}
+
  ;; ── :ch ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:ch-scheidung" :proc/label "Scheidungsklage (家事・スイス)"
   :proc/jurisdiction :ch :proc/track :family
