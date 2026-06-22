@@ -14,20 +14,20 @@
     "report.md"
   ],
   "regenerate": "bb --classpath 20-actors -e \"(require '[junkan.methods.junkan-edn :as je] '[junkan.methods.analyze :as az] '[junkan.methods.kotoba :as k]) (let [is (je/instruments \\\"20-actors/junkan/kotoba/seed.governance-asymmetry.edn\\\") a (az/analyze is) ds (az/datoms is a) tx (k/make-tx ds \\\"junkan-gov-snapshot-0001\\\" \\\"snapshot\\\" \\\"\\\")] (spit \\\"80-data/junkan-governance/governance-asymmetry.datoms.kotoba.edn\\\" (az/render-datoms is a)) (spit \\\"80-data/junkan-governance/findings-ledger.kotoba.edn\\\" (k/tx->edn tx)) (spit \\\"80-data/junkan-governance/report.md\\\" (az/render-report a)))\"",
-  "tx_cid": "bf747397f56688588bc728becbd8b6d8f45fc3f2be72d5c5f23cfbdd2558af8df",
-  "datoms": 6531,
-  "instruments": 449,
+  "tx_cid": "b6d60d6d998923aca94c981654d2e2b5570fcdbb231b3980c9c7c0f4c829204ec",
+  "datoms": 6643,
+  "instruments": 457,
   "jurisdictions": 197,
   "regions": {"africa": 53, "europe": 48, "asia": 46, "americas": 34, "oceania": 14, "transnational": 2},
-  "kinds": {"law": 109, "institution": 247, "doctrine": 50, "value": 43},
-  "stocks": {"participation-barrier": 142, "paradigm-subordination": 79, "coercion-asymmetry": 78, "economic-capture": 78, "information-asymmetry": 72},
-  "thinnest_stock": "information-asymmetry",
+  "kinds": {"law": 109, "institution": 254, "doctrine": 51, "value": 43},
+  "stocks": {"participation-barrier": 142, "information-asymmetry": 80, "paradigm-subordination": 79, "coercion-asymmetry": 78, "economic-capture": 78},
+  "thinnest_stock": "economic-capture",
   "generated_scorecard": "SCORECARD.md",
   "tx_cid_note": "tx-cid reproducible byte-for-byte from the seed (deterministic content-address); changes only when the seed changes.",
   "sourcing": "representative (laws/years/enactors/origins are on-the-record public facts; polarity/magnitude/confidence are junkan's disclosed hypotheses, G5)",
   "discipline": "G4 analysis-only / G5 hypothesis-only / G6 aggregate-only / G7 map-not-rank / G11 candidates-not-directives",
   "as_of": "2026-06-22",
-  "iteration": 38,
+  "iteration": 39,
   "iteration_history": [
     {"iteration": 1, "instruments": 35, "jurisdictions": 17, "tx_cid": "bb4be4ac091ae9cc9be30c732d2fc78f773afabea84d6deccb96b784576a1d814"},
     {"iteration": 2, "instruments": 59, "jurisdictions": 31, "note": "Global South / under-represented wave: BR MX ZA NG ID TR IR PH PK VN KE TN CL TW"},
@@ -66,6 +66,7 @@
     {"iteration": 35, "instruments": 425, "jurisdictions": 197, "note": "information-asymmetry within-jurisdiction depth 64→72 (RU Roskomnadzor/sovereign-internet, PK PEMRA, SA media controls, KZ internet controls, platform jawboning vs KE Access to Information Act, Open Data Charter, public-interest disclosure defence); four non-participation stocks near-identical (70/70/71/72)"},
     {"iteration": 36, "instruments": 433, "jurisdictions": 197, "note": "economic-capture within-jurisdiction depth 70→78 (CZ PM conflict of interest, GR Siemens/Novartis, golden visas, asset-disclosure gaps vs US Sherman Act, EU competition/state-aid, political-finance regulation, competition authorities); thinnest rotated economic→coercion"},
     {"iteration": 37, "instruments": 441, "jurisdictions": 197, "note": "coercion-asymmetry within-jurisdiction depth 70→78 (US immigration detention, JP hostage justice, terror watchlists, capital punishment, immigration detention vs US Miranda, presumption-of-innocence/fair-trial norm, death-penalty abolition protocol); thinnest rotated coercion→paradigm"},
-    {"iteration": 38, "instruments": 449, "jurisdictions": 197, "note": "paradigm-subordination within-jurisdiction depth 71→79 (TR neo-Ottomanism, JP war-memory politics, historical revisionism, anti-gender mobilization, ethnonationalism vs associational-freedom norm, tolerance/coexistence, UNDRIP indigenous rights); non-participation stocks near-equal (72/78/78/79)"}
+    {"iteration": 38, "instruments": 449, "jurisdictions": 197, "note": "paradigm-subordination within-jurisdiction depth 71→79 (TR neo-Ottomanism, JP war-memory politics, historical revisionism, anti-gender mobilization, ethnonationalism vs associational-freedom norm, tolerance/coexistence, UNDRIP indigenous rights); non-participation stocks near-equal (72/78/78/79)"},
+    {"iteration": 39, "instruments": 457, "jurisdictions": 197, "note": "information-asymmetry within-jurisdiction depth 72→80 (AI mass surveillance, biometric-ID expansion, smart-city surveillance, US fusion centers, predictive policing vs IN Puttaswamy right-to-privacy, data-protection authorities, privacy-right norm); four non-participation stocks near-identical (78/78/79/80)"}
   ]
 }

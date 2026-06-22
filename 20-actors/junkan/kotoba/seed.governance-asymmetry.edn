@@ -3326,4 +3326,61 @@
   :stakeholders ["indigenous peoples" "states" "UN bodies" "citizens"]
   :stock :paradigm-subordination :polarity :narrow :magnitude 0.45 :reversibility :institutional :meadows 2
   :basis "UNDRIP (2007)" :sourcing :representative :confidence 0.4}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 39 — information-asymmetry within-jurisdiction depth (AI/biometric
+ ;; mass surveillance vs privacy-right / data-protection counters)
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── information-asymmetry (widen) ──
+ {:type :instrument :id "gl-ai-mass-surveillance" :name "AI-driven mass surveillance" :jurisdiction "GLOBAL" :kind :institution :year 0
+  :enactor "Diffuse (states deploying AI surveillance, often imported)"
+  :origin "AI analytics over CCTV, communications, and social data — exported widely (e.g. Chinese safe-city systems) — let states monitor populations at scale and predict behaviour, a rapidly-growing asymmetric-surveillance channel the EU AI Act seeks to bound."
+  :stakeholders ["security agencies" "AI vendors" "data-protection authorities" "citizens"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.6 :reversibility :statutory :meadows 5
+  :basis "AI Global Surveillance index; safe-city exports" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-biometric-id-expansion" :name "National biometric ID databases" :jurisdiction "GLOBAL" :kind :institution :year 0
+  :enactor "Diffuse (states building centralized biometric ID)"
+  :origin "Centralized biometric identity systems (beyond India's Aadhaar) link services to a state-held biometric record, enabling tracking and exclusion; framed as inclusion/efficiency, they concentrate identifying power in the state with uneven safeguards."
+  :stakeholders ["ID authorities" "service users" "data-protection bodies" "citizens"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.5 :reversibility :statutory :meadows 5
+  :basis "Comparative national biometric-ID programs" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-smart-city-surveillance" :name "Smart-city camera/sensor networks" :jurisdiction "GLOBAL" :kind :institution :year 0
+  :enactor "Diffuse (municipal/state smart-city deployments)"
+  :origin "Dense networks of cameras and sensors marketed for traffic/safety also create persistent location and behaviour tracking of residents, frequently with facial recognition and little public oversight — embedding surveillance into urban infrastructure."
+  :stakeholders ["city/state governments" "tech vendors" "residents" "citizens"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.5 :reversibility :statutory :meadows 5
+  :basis "Comparative smart-city surveillance deployments" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "us-fusion-centers" :name "Domestic intelligence fusion centers" :jurisdiction "US" :kind :institution :year 2003
+  :enactor "U.S. DHS + state/local agencies (post-9/11)"
+  :origin "State/local 'fusion centers' aggregate and share data across agencies on residents, with documented mission-creep into monitoring protest and ordinary activity and weak privacy oversight — a domestic information-asymmetry channel."
+  :stakeholders ["DHS" "state/local police" "civil-liberties groups" "citizens"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.45 :reversibility :institutional :meadows 5
+  :basis "US fusion centers (post-2003); Senate oversight reports" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-predictive-policing" :name "Predictive policing systems" :jurisdiction "GLOBAL" :kind :institution :year 0
+  :enactor "Diffuse (police using algorithmic prediction)"
+  :origin "Algorithmic systems that forecast crime locations or 'risky' individuals direct policing opaquely, entrench bias from historical data, and place residents under heightened scrutiny without transparency or recourse — an information/coercion asymmetry the citizen cannot see or contest."
+  :stakeholders ["police" "vendors" "affected communities" "citizens"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.45 :reversibility :statutory :meadows 5
+  :basis "Comparative predictive-policing deployments" :sourcing :representative :confidence 0.4}
+
+ ;; ── information-asymmetry (narrow — privacy-right / data-protection) ──
+ {:type :instrument :id "in-puttaswamy-2017" :name "Right to privacy (Puttaswamy judgment)" :jurisdiction "IN" :kind :doctrine :year 2017
+  :enactor "Supreme Court of India (9-judge bench, 2017)"
+  :origin "Unanimously held privacy to be a fundamental right under the Constitution, providing the constitutional basis to challenge state surveillance and data practices (incl. Aadhaar limits) — a paradigm-anchoring narrowing of the information asymmetry."
+  :stakeholders ["Supreme Court" "citizens" "the state" "UIDAI"]
+  :stock :information-asymmetry :polarity :narrow :magnitude 0.55 :reversibility :constitutional :meadows 2
+  :basis "Justice K.S. Puttaswamy v. Union of India (2017)" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "gl-data-protection-authorities" :name "Independent data-protection authorities" :jurisdiction "GLOBAL" :kind :institution :year 0
+  :enactor "Diffuse (national DPAs, GDPR-modelled and others)"
+  :origin "Independent regulators with power to investigate and fine unlawful processing — by firms and the state — give citizens an enforceable check on how their data is collected and used, narrowing the asymmetry where the DPA is genuinely independent and resourced."
+  :stakeholders ["data-protection authorities" "controllers (incl. state)" "data subjects" "citizens"]
+  :stock :information-asymmetry :polarity :narrow :magnitude 0.5 :reversibility :institutional :meadows 6
+  :basis "Comparative DPAs (GDPR-modelled and others)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-privacy-right-norm" :name "Privacy as a human/constitutional right (norm)" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse civic + international norm (UDHR Art. 12 / ICCPR Art. 17)"
+  :origin "The recognition of privacy as a protected right (reinforced post-Snowden and by data-protection jurisprudence) gives citizens a normative and legal basis to resist surveillance — the paradigm counterweight to mass-monitoring instruments."
+  :stakeholders ["courts" "data subjects" "the state" "citizens"]
+  :stock :information-asymmetry :polarity :narrow :magnitude 0.5 :reversibility :cultural :meadows 2
+  :basis "UDHR Art. 12; ICCPR Art. 17; privacy jurisprudence" :sourcing :representative :confidence 0.4}
 ]
