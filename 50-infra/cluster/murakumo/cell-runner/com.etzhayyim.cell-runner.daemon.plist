@@ -1,22 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  LaunchDAEMON for the pure-stdlib node cell-runner (lite_runner.py) — the ONE Tier-1 supervisor
-  per Murakumo Mac mini (ADR-2606161645 + 2605192415 §7.1). Replaces per-actor daemons: this single
+  LaunchDAEMON for the clj/bb node cell-runner (lite_runner.cljc) — the ONE Tier-1 supervisor
+  per Murakumo Mac mini (ADR-2606161645 + 2605192415 §7.1 + 2606221900 runtime cutover). This single
   daemon reads cells.edn and runs EVERY cron cell assigned to this node.
 
+  CUTOVER (ADR-2606221900): this now runs the bb runner (`bb -m lite-runner`), the 1:1 cljc port of
+  lite_runner.py. The bb runner fires cljc cells NATIVELY and shells :lang "python" cells via
+  babashka.process; its ops commit-DAG is byte-identical to the python runner's, so the switch is a
+  drop-in (validate per-node with a once-run before bootstrap; the python lite_runner.py is the rollback).
+
   Why a Daemon (system domain), not an Agent: the fleet Macs sit at the login window with no Aqua
-  GUI session, so a LaunchAgent cannot load. KeepAlive=true → launchd restarts it on crash
-  (stability). Pure python3 — no uv/venv/monorepo (the heavy canonical kotoba-kotodama-cell-runner
-  needs those; this lite runner deploys with system python3 alone).
+  GUI session, so a LaunchAgent cannot load. KeepAlive=true → launchd restarts it on crash (stability).
+  bb has no uv/venv/monorepo dependency (the heavy canonical kotoba-kotodama-cell-runner needs those;
+  this lite runner deploys with just the `bb` binary + cells.edn).
 
   Per-node substitution (operator, with sudo):
-    @@USER@@  — tribe user (e.g. issachar)        @@HOME@@ — /Users/<tribe>
-    @@NODE@@  — Murakumo tribe / node name (e.g. issachar)
+    @@USER@@   — tribe user (e.g. issachar)        @@HOME@@ — /Users/<tribe>
+    @@NODE@@   — Murakumo tribe / node name (e.g. issachar)
+    @@BB_PATH@@ — absolute path to the bb binary (e.g. /opt/homebrew/bin/bb). REQUIRED: launchd has a
+                  minimal PATH, so a bare `bb` resolves to exit 127 (bb-not-found) — always an abs path.
 
-  Layout staged under @@HOME@@/.etzhayyim/ (see `bb murakumo:deploy`):
-    @@HOME@@/.etzhayyim/lite_runner.py
+  Layout staged under @@HOME@@/.etzhayyim/ (see deploy_node.py):
+    @@HOME@@/.etzhayyim/lite_runner.cljc     (the bb runner; ns lite-runner)
+    @@HOME@@/.etzhayyim/lite_runner.py       (kept as the rollback runner)
     @@HOME@@/.etzhayyim/cells.edn            (the registry, copied from cell-runner/cells.edn)
-    @@HOME@@/.etzhayyim/cells/<actor>/...    (each assigned actor, e.g. cells/sukashi/cell.py)
+    @@HOME@@/.etzhayyim/cells/<actor>/...    (each assigned actor)
 
   Install / status / remove:
     sudo cp com.etzhayyim.cell-runner.plist /Library/LaunchDaemons/ && \
@@ -34,8 +42,11 @@
   <string>@@USER@@</string>
   <key>ProgramArguments</key>
   <array>
-    <string>/usr/bin/python3</string>
-    <string>@@HOME@@/.etzhayyim/lite_runner.py</string>
+    <string>@@BB_PATH@@</string>
+    <string>--classpath</string>
+    <string>@@HOME@@/.etzhayyim</string>
+    <string>-m</string>
+    <string>lite-runner</string>
     <string>--node</string>
     <string>@@NODE@@</string>
     <string>--registry</string>

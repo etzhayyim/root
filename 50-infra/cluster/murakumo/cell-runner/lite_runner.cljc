@@ -145,33 +145,41 @@
 (defn fire-cell
   "Fire a cell. Returns [status detail]. Native cljc path: require the cell's :module ns
   and call its :entry var (default `fire`). A failing cell must NOT kill the supervisor.
-  A `:lang \"python\"` cell (not yet ported) is shelled via python3 from cells-root
-  (drop-in compatibility with the python runner during the cutover)."
+
+  Cutover-safety (ADR-2606221900): the bb runner must behave IDENTICALLY to the python
+  runner for the cells that exist today (which are python modules). So firing AUTO-FALLS-BACK:
+  it tries the cljc ns natively, and if that ns is simply not on the classpath (a python-only
+  cell), it shells the python module exactly as the python runner did — no per-cell annotation
+  needed. `:lang \"python\"` forces the python shell explicitly; a cell whose cljc ns loads but
+  then THROWS is a real :error (not a fallback)."
   [cell cells-root]
-  (try
+  (let [mod (get cell :module)
+        entry-name (get cell :entry "fire")
+        fire-python
+        (fn []
+          (let [r (p/shell {:out :string :err :string :continue true
+                            :extra-env {"PYTHONPATH" (str cells-root)}}
+                           "python3" "-c"
+                           (str "import importlib,sys; m=importlib.import_module('" mod "'); "
+                                "r=getattr(m,'" entry-name "')(); print((r or {}).get('cid') or (r or {}).get('head') or 'ok')"))]
+            (if (zero? (:exit r))
+              [":ok" (let [s (str/trim (:out r))] (subs s 0 (min 16 (count s))))]
+              [":error" (str/trim (:err r))])))]
     (if (= (get cell :lang) "python")
-      ;; python fallback (drop-in): import <module> + call <entry>() under cells-root
-      (let [mod (get cell :module)
-            entry (get cell :entry "fire")
-            root (str cells-root)
-            r (p/shell {:out :string :err :string :continue true
-                        :extra-env {"PYTHONPATH" root}}
-                       "python3" "-c"
-                       (str "import importlib,sys; m=importlib.import_module('" mod "'); "
-                            "r=getattr(m,'" entry "')(); print((r or {}).get('cid') or (r or {}).get('head') or 'ok')"))]
-        (if (zero? (:exit r))
-          [":ok" (subs (str/trim (:out r)) 0 (min 16 (count (str/trim (:out r)))))]
-          [":error" (str/trim (:err r))]))
-      ;; native cljc path
-      (let [ns-sym (symbol (get cell :module))
-            entry (symbol (get cell :module) (get cell :entry "fire"))]
-        (require ns-sym)
-        (let [f (requiring-resolve entry)
-              res (f)
-              cid (when (map? res) (or (get res "cid") (get res :cid) (get res "head") (get res :head)))]
-          [":ok" (if cid (subs (str cid) 0 (min 16 (count (str cid)))) "ok")])))
-    (catch Throwable e
-      [":error" (str (.getSimpleName (class e)) ": " (.getMessage e))])))
+      (try (fire-python) (catch Throwable e [":error" (str (.getSimpleName (class e)) ": " (.getMessage e))]))
+      ;; native cljc path, with auto-fallback to python when the ns isn't on the classpath
+      (let [native (try
+                     (require (symbol mod))
+                     (let [f (requiring-resolve (symbol mod entry-name))
+                           res (f)
+                           cid (when (map? res) (or (get res "cid") (get res :cid) (get res "head") (get res :head)))]
+                       [":ok" (if cid (subs (str cid) 0 (min 16 (count (str cid)))) "ok")])
+                     (catch java.io.FileNotFoundException _ ::not-on-classpath
+                       )
+                     (catch Throwable e [":error" (str (.getSimpleName (class e)) ": " (.getMessage e))]))]
+        (if (= native ::not-on-classpath)
+          (try (fire-python) (catch Throwable e [":error" (str (.getSimpleName (class e)) ": " (.getMessage e))]))
+          native)))))
 
 ;; ── healthz ──────────────────────────────────────────────────────────────────────
 
@@ -218,13 +226,14 @@
               (recur (if (> (count fired') 256) #{} fired'))))))))
 
 (defn -main [& args]
-  (let [opts (apply hash-map args)
+  (let [once? (boolean (some #{"--once"} args))
+        ;; --once is a valueless flag; strip it before pairing the rest into a kv map
+        opts (apply hash-map (remove #{"--once"} args))
         node (or (get opts "--node") (System/getenv "ETZHAYYIM_NODE_NAME"))
         registry (get opts "--registry")
         cells-root (get opts "--cells-root")
         ops-log (or (get opts "--ops-log") (str (System/getProperty "user.home") "/.etzhayyim/cells/cell-ops.kotoba.edn"))
-        healthz (some-> (get opts "--healthz-port") Integer/parseInt)
-        once? (contains? (set args) "--once")]
+        healthz (some-> (get opts "--healthz-port") Integer/parseInt)]
     (when (or (str/blank? (str node)) (str/blank? (str registry)) (str/blank? (str cells-root)))
       (binding [*out* *err*] (println "ERROR: --node (or ETZHAYYIM_NODE_NAME), --registry, --cells-root required"))
       (System/exit 2))

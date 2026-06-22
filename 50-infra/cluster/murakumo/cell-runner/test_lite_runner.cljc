@@ -42,6 +42,19 @@
   (let [[status _] (lr/fire-cell {:module "test-fixtures.no-such-cell" :entry "fire"} ".")]
     (is (= ":error" status))))
 
+(deftest fire-cell-cutover-safety-python-fallback
+  ;; CUTOVER SAFETY: a python-only cell fires identically to the python runner.
+  ;; (a) explicit :lang "python" → shells the module from cells-root (PYTHONPATH)
+  (let [[status detail] (lr/fire-cell {:module "pycell" :entry "fire" :lang "python"} "test_fixtures")]
+    (is (= ":ok" status))
+    (is (= "bafypyfixture000" detail)))    ;; first 16 chars of the python fixture cid
+  ;; (b) AUTO-FALLBACK: no :lang, no cljc ns on the classpath → falls back to the python
+  ;;     module automatically — what keeps the LIVE issachar/sukashi cell working on cutover
+  ;;     without re-annotating cells.edn
+  (let [[status detail] (lr/fire-cell {:module "pycell" :entry "fire"} "test_fixtures")]
+    (is (= ":ok" status))
+    (is (= "bafypyfixture000" detail))))
+
 (deftest append-run-writes-a-chained-tx
   (let [log (str (System/getProperty "java.io.tmpdir") "/lr-test-" (System/nanoTime) ".edn")]
     (let [c1 (lr/append-run log :node "issachar" :cell "kaname_beat" :status ":ok" :detail "bafyabc" :as-of 202606221753)
