@@ -1817,6 +1817,20 @@
                     "kokoro 心 (精神的サポート — 家事事件は Wellbecoming 負荷が大きい)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:mx-housing" :proc/label "Juicio de arrendamiento / desahucio (住居・メキシコ)"
+  :proc/jurisdiction :mx :proc/track :housing
+  :proc/trigger-keywords ["desahucio" "arrendamiento inmobiliario" "lanzamiento" "desocupación"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Contestación a la demanda de arrendamiento"
+    :dl/rule "juicio especial de arrendamiento の被告 (inquilino) は notificación から原則15 días hábiles 以内に contestación を提出。賃料2か月分の遅延・用途違反等で arrendador は rescisión 可 (CCF art.2489)。通知だけで強制退去はできず、lanzamiento は裁判所の sentencia + ejecución によってのみ。州ごとに手続法が異なる (CNPCF 段階適用 / 地方 CPC) — 通知記載と当該州規則を確認"
+    :dl/anchor "Código Civil Federal art. 2489 (rescisión) + juicio especial de arrendamiento (CPC estatal / CNPCF)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :contestacion :opt/kind :self-submit :opt/protective true :opt/label "contestación を15 días hábiles 以内に提出 (事由・renta 計算・通知の適法性を争う)"}
+   {:opt/id :no-self-help-protection :opt/kind :self-decide :opt/protective true :opt/label "arrendador の autotutela (cambio de cerradura・corte de servicios・sacar pertenencias) は違法・delito になりうる — el lanzamiento は orden judicial によってのみ; 受けたら Ministerio Público・abogado・Defensoría へ"}]
+  :proc/refer-when ["事由が複雑・desalojo ilegal → abogado / Defensoría Pública / PROFECO (consumo)"]
+  :proc/verify-current-law true}
+
  ;; ── :no ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:no-husleie" :proc/label "Oppsigelse av leieforhold (住居・ノルウェー)"
   :proc/jurisdiction :no :proc/track :housing
