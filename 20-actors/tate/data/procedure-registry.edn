@@ -766,6 +766,21 @@
   :proc/refer-when ["CAD $35,000 超 (small claims 上限外)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:ca-family" :proc/label "Answer to a family Application (家事・カナダ ON)"
+  :proc/jurisdiction :ca :proc/track :family
+  :proc/trigger-keywords ["application for divorce" "answer" "family law application"]
+  :proc/genuine-channels [:personal-service :mail]
+  :proc/deadline-rules
+  [{:dl/label "Answer (Form 10) の serve & file"
+    :dl/rule "Application 送達から30日以内に Answer (Form 10) を全当事者へ serve & file (カナダ国外・米国外で送達されたなら60日); 期限内に応答しないと自分抜きで手続が進む。相手の Answer に対しては Reply (Form 10A) を10日以内に (Ontario; 家事手続は州管轄 — 通知記載と州規則を確認)"
+    :dl/anchor "Ontario Family Law Rules (O Reg 114/99) r.10(1)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :answer :opt/kind :self-submit :opt/protective true :opt/label "Answer (Form 10) を全当事者へ serve & file (認否 + 自分の claim があれば併せて)"}
+   {:opt/id :reply :opt/kind :self-submit :opt/label "相手の Answer には Reply (Form 10A) を10日以内に"}]
+  :proc/refer-when ["custody/parenting・child support・property (親権・養育費・財産分与) が争点 → lawyer / Legal Aid Ontario / Community Legal Clinic"
+                    "kokoro 心 (精神的サポート — 家事事件は Wellbecoming 負荷が大きい)"]
+  :proc/verify-current-law true}
+
  ;; ── :it ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:it-licenziamento" :proc/label "Lettera di licenziamento (解雇・労働・イタリア)"
   :proc/jurisdiction :it :proc/track :labor
