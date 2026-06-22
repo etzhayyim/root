@@ -41,31 +41,31 @@
   "cells": [
     {
       "name": "foundation_excavation",
-      "module": "tatekata.cells.foundation_excavation",
+      "module": "tatekata.cells.foundation-excavation.state-machine",
       "murukumoNode": "naphtali",
       "phase": "site prep"
     },
     {
       "name": "structural_assembly",
-      "module": "tatekata.cells.structural_assembly",
+      "module": "tatekata.cells.structural-assembly.state-machine",
       "murukumoNode": "joseph",
       "phase": "structure"
     },
     {
       "name": "mep_installation",
-      "module": "tatekata.cells.mep_installation",
+      "module": "tatekata.cells.mep-installation.cell",
       "murukumoNode": "zebulun",
       "phase": "utilities"
     },
     {
       "name": "finishing_handoff",
-      "module": "tatekata.cells.finishing_handoff",
+      "module": "tatekata.cells.finishing-handoff.state-machine",
       "murukumoNode": "simeon",
       "phase": "finishes"
     },
     {
       "name": "commissioning",
-      "module": "tatekata.cells.commissioning",
+      "module": "tatekata.cells.commissioning.state-machine",
       "murukumoNode": "levi",
       "phase": "closeout"
     }

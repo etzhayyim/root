@@ -79,55 +79,55 @@
   "cells": [
     {
       "name": "hull_ring_fabrication",
-      "module": "watatsumi.cells.hull_ring_fabrication",
+      "module": "watatsumi.cells.hull-ring-fabrication.state-machine",
       "murakumoNode": "naphtali",
       "phase": "L1 — pressure hull ring fabrication"
     },
     {
       "name": "section_assembly",
-      "module": "watatsumi.cells.section_assembly",
+      "module": "watatsumi.cells.section-assembly.state-machine",
       "murakumoNode": "zebulun",
       "phase": "L2 — section stacking + bulkhead + penetrators"
     },
     {
       "name": "weld_inspection",
-      "module": "watatsumi.cells.weld_inspection",
+      "module": "watatsumi.cells.weld-inspection.state-machine",
       "murakumoNode": "joseph",
       "phase": "L3 — 100% RT/UT/PT NDT"
     },
     {
       "name": "system_integration",
-      "module": "watatsumi.cells.system_integration",
+      "module": "watatsumi.cells.system-integration.state-machine",
       "murakumoNode": "simeon",
       "phase": "L4 — propulsion + life support + sensors"
     },
     {
       "name": "section_joining",
-      "module": "watatsumi.cells.section_joining",
+      "module": "watatsumi.cells.section-joining.state-machine",
       "murakumoNode": "dan",
       "phase": "L5a — final ring-to-ring multi-pass TIG + PWHT"
     },
     {
       "name": "pressure_test",
-      "module": "watatsumi.cells.pressure_test",
+      "module": "watatsumi.cells.pressure-test.state-machine",
       "murakumoNode": "dan",
       "phase": "L5b — 1.25× design-depth water-pressure test"
     },
     {
       "name": "sea_trial",
-      "module": "watatsumi.cells.sea_trial",
+      "module": "watatsumi.cells.sea-trial.state-machine",
       "murakumoNode": "levi",
       "phase": "L5c — dock / harbor / deep-water trial"
     },
     {
       "name": "marine_emissions_audit",
-      "module": "watatsumi.cells.marine_emissions_audit",
+      "module": "watatsumi.cells.marine-emissions-audit.state-machine",
       "murakumoNode": "levi",
       "phase": "cross-cutting — MARPOL Annex I-VI + BWMC + biofouling"
     },
     {
       "name": "class_certification_binder",
-      "module": "watatsumi.cells.class_certification_binder",
+      "module": "watatsumi.cells.class-certification-binder.state-machine",
       "murakumoNode": "judah",
       "phase": "terminal — DNV-RU-UWT / ABS Underwater Vehicles audit binder on kotoba-datomic"
     }

@@ -62,15 +62,15 @@
     "Migaki — kanayama coil + body-panel surface inspector reuse (R2+)"
   ],
   "cells": [
-    {"name": "frame_fabrication", "module": "sarutahiko.cells.frame_fabrication", "murakumoNode": "naphtali", "phase": "L1 — chassis frame robotic MIG/MAG welding"},
-    {"name": "powertrain_assembly", "module": "sarutahiko.cells.powertrain_assembly", "murakumoNode": "joseph", "phase": "L2 — engine + transmission + axle (G7 fuel guard)"},
-    {"name": "cab_body_forming", "module": "sarutahiko.cells.cab_body_forming", "murakumoNode": "zebulun", "phase": "L3 — cab hot stamping + spot welding + leak test"},
-    {"name": "final_marriage", "module": "sarutahiko.cells.final_marriage", "murakumoNode": "simeon", "phase": "L4 — chassis + cab + powertrain marriage (≥2 robot witness)"},
-    {"name": "paint_finishing", "module": "sarutahiko.cells.paint_finishing", "murakumoNode": "simeon", "phase": "L5a — KTL primer + base + clear (water-based, VOC <100 g/L)"},
-    {"name": "electrical_integration", "module": "sarutahiko.cells.electrical_integration", "murakumoNode": "levi", "phase": "L5b — harness + ECU flash (G1 open-source) + diagnostics"},
-    {"name": "quality_road_test", "module": "sarutahiko.cells.quality_road_test", "murakumoNode": "levi", "phase": "L5c — roller dyno + 50 km public-road test"},
-    {"name": "emissions_audit", "module": "sarutahiko.cells.emissions_audit", "murakumoNode": "levi", "phase": "cross-cutting — Euro 7 + 大気汚染防止法 + Bharat VI compliance"},
-    {"name": "vin_attestation_binder", "module": "sarutahiko.cells.vin_attestation_binder", "murakumoNode": "judah", "phase": "terminal — per-VIN kotoba-datomic anchor (G2 + G13)"}
+    {"name": "frame_fabrication", "module": "sarutahiko.cells.frame-fabrication.state-machine", "murakumoNode": "naphtali", "phase": "L1 — chassis frame robotic MIG/MAG welding"},
+    {"name": "powertrain_assembly", "module": "sarutahiko.cells.powertrain-assembly.state-machine", "murakumoNode": "joseph", "phase": "L2 — engine + transmission + axle (G7 fuel guard)"},
+    {"name": "cab_body_forming", "module": "sarutahiko.cells.cab-body-forming.state-machine", "murakumoNode": "zebulun", "phase": "L3 — cab hot stamping + spot welding + leak test"},
+    {"name": "final_marriage", "module": "sarutahiko.cells.final-marriage.state-machine", "murakumoNode": "simeon", "phase": "L4 — chassis + cab + powertrain marriage (≥2 robot witness)"},
+    {"name": "paint_finishing", "module": "sarutahiko.cells.paint-finishing.state-machine", "murakumoNode": "simeon", "phase": "L5a — KTL primer + base + clear (water-based, VOC <100 g/L)"},
+    {"name": "electrical_integration", "module": "sarutahiko.cells.electrical-integration.state-machine", "murakumoNode": "levi", "phase": "L5b — harness + ECU flash (G1 open-source) + diagnostics"},
+    {"name": "quality_road_test", "module": "sarutahiko.cells.quality-road-test.state-machine", "murakumoNode": "levi", "phase": "L5c — roller dyno + 50 km public-road test"},
+    {"name": "emissions_audit", "module": "sarutahiko.cells.emissions-audit.state-machine", "murakumoNode": "levi", "phase": "cross-cutting — Euro 7 + 大気汚染防止法 + Bharat VI compliance"},
+    {"name": "vin_attestation_binder", "module": "sarutahiko.cells.vin-attestation-binder.state-machine", "murakumoNode": "judah", "phase": "terminal — per-VIN kotoba-datomic anchor (G2 + G13)"}
   ],
   "lexiconNamespaces": [
     "com.etzhayyim.sarutahiko.frameAttestation",
