@@ -2005,6 +2005,20 @@
   :proc/refer-when ["nakazowe (手形等) は zarzuty に手数料 — 早めに専門家へ"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:pl-upadlosc" :proc/label "Upadłość kontrahenta (債権者側・倒産・ポーランド)"
+  :proc/jurisdiction :pl :proc/track :insolvency
+  :proc/trigger-keywords ["upadłość" "zgłoszenie wierzytelności" "syndyk"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "Zgłoszenie wierzytelności"
+    :dl/rule "破産宣告決定 (postanowienie o ogłoszeniu upadłości, Monitor Sądowy i Gospodarczy 公告) が定める期間内 — 公告日から1か月以上3か月以下 — に zgłoszenie wierzytelności を syndyk へ提出 (2021/12以降は原則 KRZ 電子システム経由); 期限徒過は配当順位を失い既了手続きが対抗される"
+    :dl/anchor "Prawo upadłościowe art. 51 ust. 1 / art. 236" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :zgloszenie :opt/kind :self-submit :opt/protective true
+    :opt/label "zgłoszenie wierzytelności を syndyk へ KRZ 経由で提出 (本人可; przedpłata・voucher・kaucja など前払金も wierzytelność: kaiyaku 縁-ledger と突合)"}]
+  :proc/refer-when ["zabezpieczenie・potrącenie・wysoka wierzytelność (担保・相殺・高額債権)"]
+  :proc/verify-current-law true}
+
  ;; ── :se ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:se-skilsmassa" :proc/label "Ansökan om äktenskapsskillnad (家事・スウェーデン)"
   :proc/jurisdiction :se :proc/track :family

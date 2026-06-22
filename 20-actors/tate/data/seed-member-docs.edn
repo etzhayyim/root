@@ -979,6 +979,12 @@
   :notice/sourcing :synthetic
   :notice/text "Nakaz zapłaty w postępowaniu upominawczym. Pozwany może wnieść sprzeciw."}
 
+ {:notice/id "ntc:pl-upadlosc" :notice/label "PL upadłość kontrahenta (債権者宛・書留)"
+  :notice/jurisdiction :pl
+  :notice/channel :mail :notice/claim-amount 3200 :notice/claim-currency "PLN"
+  :notice/sourcing :synthetic
+  :notice/text "Ogłoszono upadłość spółki. Zgłoś wierzytelność do syndyka w terminie wskazanym w postanowieniu."}
+
  {:notice/id "ntc:se-bf" :notice/label "SE betalningsföreläggande (Kronofogden)"
   :notice/jurisdiction :se
   :notice/channel :mail :notice/claim-amount 9000 :notice/claim-currency "SEK"
