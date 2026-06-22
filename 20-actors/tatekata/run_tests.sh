@@ -16,5 +16,8 @@ run_cljc() {
 
 run_cljc "tatekata.methods.test-charter-gates"
 run_cljc "tatekata.methods.test-agent"
+run_cljc "tatekata.cells.mep-installation.test-cell"
+run_cljc "tatekata.cells.commissioning.test-state-machine"
+run_cljc "tatekata.cells.finishing-handoff.test-state-machine"
 
 [ "$fail" -eq 0 ] && echo "── tatekata: ALL suites green ──" || { echo "── tatekata: FAILURES ──"; exit 1; }
