@@ -2927,4 +2927,61 @@
   :stakeholders ["journalists" "sources/whistleblowers" "courts" "citizens"]
   :stock :information-asymmetry :polarity :narrow :magnitude 0.45 :reversibility :statutory :meadows 6
   :basis "Comparative shield laws; source-protection jurisprudence" :sourcing :representative :confidence 0.4}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 32 — economic-capture within-jurisdiction depth (procurement/
+ ;; financing corruption vs anti-bribery frameworks)
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── economic-capture (widen) ──
+ {:type :instrument :id "es-gurtel" :name "Gürtel illicit party-financing case" :jurisdiction "ES" :kind :institution :year 2009
+  :enactor "Spanish political-business kickback network (exposed from 2009)"
+  :origin "A kickbacks-for-contracts scheme tied to a governing party's illegal financing; the 2018 conviction triggered the no-confidence vote that ousted the government — exposing capture of public contracting through party finance."
+  :stakeholders ["party officials" "contractors" "courts" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.55 :reversibility :institutional :meadows 5
+  :basis "Spain Gürtel case (2009–2018)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "tr-procurement-exemptions" :name "Public-procurement law exemptions" :jurisdiction "TR" :kind :institution :year 2003
+  :enactor "Turkish state (repeated amendments to the 2002 procurement law)"
+  :origin "Scores of amendments carved exemptions out of the public-procurement law, allowing large infrastructure contracts to be awarded to a small set of connected firms with reduced competition — capture via legislated discretion."
+  :stakeholders ["government" "favoured contractors" "competing firms" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.55 :reversibility :statutory :meadows 5
+  :basis "Turkey public-procurement law amendments (post-2003)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "ar-cuadernos" :name "'Cuadernos' (notebooks) bribery case" :jurisdiction "AR" :kind :institution :year 2018
+  :enactor "Argentine public-works bribery network (revealed 2018)"
+  :origin "A driver's notebooks documenting years of cash bribes for public-works contracts implicated officials and executives, exposing systematic capture of infrastructure procurement — a major corruption reckoning."
+  :stakeholders ["officials" "construction firms" "prosecutors" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.55 :reversibility :institutional :meadows 5
+  :basis "Argentina Cuadernos case (2018–)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-privatization-capture" :name "Privatization capture" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse pattern (botched/insider privatizations)"
+  :origin "Where state assets are sold opaquely or to insiders below value, privatization transfers public wealth into private hands and seeds durable economic-political power (cf. post-Soviet loans-for-shares) — a recurring capture mechanism beyond any single country."
+  :stakeholders ["governments" "insider buyers" "auditors" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.5 :reversibility :institutional :meadows 5
+  :basis "Comparative privatization-capture literature" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-market-concentration" :name "Market concentration / monopoly power" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse pattern (concentrated markets shaping policy)"
+  :origin "Rising concentration in many sectors gives a few dominant firms outsized leverage over regulation, prices, and political agendas, weakening both competitors and citizens' bargaining position — the capture that antitrust/competition policy exists to counter."
+  :stakeholders ["dominant firms" "competition authorities" "consumers" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.5 :reversibility :statutory :meadows 5
+  :basis "Market-concentration / antitrust literature" :sourcing :representative :confidence 0.4}
+
+ ;; ── economic-capture (narrow — anti-bribery frameworks) ──
+ {:type :instrument :id "us-fcpa-1977" :name "Foreign Corrupt Practices Act" :jurisdiction "US" :kind :law :year 1977
+  :enactor "U.S. Congress (1977)"
+  :origin "The first major law criminalizing bribery of foreign officials by companies, with global reach via US market ties; it reshaped corporate compliance worldwide and underpinned cases like 1MDB and Odebrecht — a structural narrowing of cross-border capture."
+  :stakeholders ["DOJ/SEC" "multinationals" "foreign officials" "citizens"]
+  :stock :economic-capture :polarity :narrow :magnitude 0.5 :reversibility :statutory :meadows 6
+  :basis "Foreign Corrupt Practices Act, 15 U.S.C. §78dd-1 (1977)" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "gb-bribery-act-2010" :name "Bribery Act 2010" :jurisdiction "GB" :kind :law :year 2010
+  :enactor "UK Parliament"
+  :origin "Among the strictest anti-bribery laws, including a corporate offence of 'failure to prevent bribery' with extraterritorial reach, pushing firms to build anti-corruption controls — a structural narrowing of capture channels."
+  :stakeholders ["SFO" "companies" "foreign officials" "citizens"]
+  :stock :economic-capture :polarity :narrow :magnitude 0.5 :reversibility :statutory :meadows 6
+  :basis "UK Bribery Act 2010" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "gl-uncac-2003" :name "UN Convention against Corruption (UNCAC)" :jurisdiction "GLOBAL" :kind :institution :year 2003
+  :enactor "UN General Assembly (UNCAC, 2003; in force 2005)"
+  :origin "The first global anti-corruption treaty, mandating prevention, criminalization, asset recovery, and peer review across ~190 parties — the framework under which national anti-graft and recovery efforts cohere, narrowing capture (review is non-punitive)."
+  :stakeholders ["UNODC" "states parties" "review mechanism" "citizens"]
+  :stock :economic-capture :polarity :narrow :magnitude 0.5 :reversibility :constitutional :meadows 6
+  :basis "UN Convention against Corruption (2003)" :sourcing :representative :confidence 0.4}
 ]
