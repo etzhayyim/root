@@ -1623,6 +1623,20 @@
   :proc/refer-when ["garantía・compensación・crédito elevado・arancel art.32 (担保・相殺・高額債権)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:ar-housing" :proc/label "Juicio de desalojo (住居・アルゼンチン)"
+  :proc/jurisdiction :ar :proc/track :housing
+  :proc/trigger-keywords ["desalojo" "juicio de desalojo" "lanzamiento" "locación"]
+  :proc/genuine-channels [:formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Contestación de la demanda de desalojo"
+    :dl/rule "juicio sumarísimo de desalojo (falta de pago・vencimiento) では被告 (inquilino) は notificación から5日以内に contestación + prueba を提出。住居の falta de pago では訴提起前に CCyC art.1222 の intimación fehaciente (carta documento — WhatsApp/email/口頭は無効) が必須。通知だけで強制退去はできず、el lanzamiento は orden judicial (sentencia + ejecución) によってのみ"
+    :dl/anchor "CPCCN (proceso sumarísimo de desalojo) + CCyC art. 1222 (intimación previa)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :contestacion :opt/kind :self-submit :opt/protective true :opt/label "contestación + prueba を5日以内に提出 (intimación previa の有無・renta 計算・通知の適法性を確認)"}
+   {:opt/id :no-self-help-protection :opt/kind :self-decide :opt/protective true :opt/label "el locador の autotutela (cambio de cerradura・corte de servicios・sacar pertenencias) は違法 — el lanzamiento は orden judicial によってのみ; 受けたら policía・abogado・patrocinio jurídico gratuito へ"}]
+  :proc/refer-when ["事由が複雑・desalojo sin intimación / lanzamiento ilegal → abogado / patrocinio jurídico gratuito"]
+  :proc/verify-current-law true}
+
  ;; ── :be ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:be-licenciement" :proc/label "Licenciement (解雇・労働・ベルギー)"
   :proc/jurisdiction :be :proc/track :labor

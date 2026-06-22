@@ -723,6 +723,12 @@
   :notice/sourcing :synthetic
   :notice/text "Se ha decretado la apertura del concurso preventivo. Los acreedores deben solicitar la verificación de créditos ante el síndico hasta la fecha fijada."}
 
+ {:notice/id "ntc:ar-housing" :notice/label "AR demanda de desalojo (inquilino・oficial de justicia)"
+  :notice/jurisdiction :ar
+  :notice/channel :formal-service :notice/claim-amount 0 :notice/claim-currency "ARS"
+  :notice/sourcing :synthetic
+  :notice/text "Se le notifica una demanda de desalojo por falta de pago de la locación. Cuenta con un plazo para contestar y ofrecer prueba."}
+
  {:notice/id "ntc:kr-ihon" :notice/label "이혼 조정기일 통지서 (家事)"
   :notice/jurisdiction :kr
   :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "KRW"
