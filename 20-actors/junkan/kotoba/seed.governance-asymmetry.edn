@@ -2756,4 +2756,61 @@
   :stakeholders ["ethics offices" "ex-officials" "industry" "citizens"]
   :stock :economic-capture :polarity :narrow :magnitude 0.4 :reversibility :statutory :meadows 5
   :basis "Comparative post-employment / cooling-off rules" :sourcing :representative :confidence 0.4}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 29 — coercion-asymmetry within-jurisdiction depth (protest/security
+ ;; statutes vs assembly / IHL norms)
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── coercion-asymmetry (widen) ──
+ {:type :instrument :id "gb-public-order-2023" :name "Public Order Act 2023 (protest restrictions)" :jurisdiction "GB" :kind :law :year 2023
+  :enactor "UK Parliament"
+  :origin "Created broad new protest offences (locking-on, tunnelling, 'serious disruption') and expanded stop-and-search and protest-banning orders after disruptive climate protests — narrowing the space for peaceful assembly, criticized by UN rights experts."
+  :stakeholders ["Home Office" "police" "protesters" "courts"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.5 :reversibility :statutory :meadows 5
+  :basis "Public Order Act 2023 (UK)" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "fr-securite-globale-2021" :name "Loi sécurité globale" :jurisdiction "FR" :kind :law :year 2021
+  :enactor "Parliament of France"
+  :origin "Expanded police surveillance powers (drones, body-cams) and (in its contested Article 24) sought to restrict filming of police, prompting mass protests; the Constitutional Council struck parts down — a contested expansion of coercive/observational asymmetry favouring the state."
+  :stakeholders ["Interior Ministry" "police" "journalists/protesters" "Conseil constitutionnel"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.45 :reversibility :statutory :meadows 5
+  :basis "Loi sécurité globale (2021); Art. 24" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "es-ley-mordaza-2015" :name "'Ley Mordaza' (Citizen Security Law)" :jurisdiction "ES" :kind :law :year 2015
+  :enactor "Cortes Generales of Spain"
+  :origin "The 'gag law' created administrative fines for unauthorized protests near institutions, disrespecting police, and unauthorized filming of officers, chilling assembly and press scrutiny of policing — a coercion/information expansion partly reviewed by the Constitutional Court."
+  :stakeholders ["Interior Ministry" "police" "protesters/press" "courts"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.5 :reversibility :statutory :meadows 5
+  :basis "Ley Orgánica 4/2015 (seguridad ciudadana)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "ru-undesirable-orgs-2015" :name "'Undesirable organizations' law" :jurisdiction "RU" :kind :law :year 2015
+  :enactor "State Duma; signed by President Putin"
+  :origin "Lets the state brand foreign/international organizations 'undesirable' and criminalize any participation or funding, dismantling civil-society links and adding criminal coercion atop the foreign-agent regime."
+  :stakeholders ["Prosecutor General" "NGOs" "activists" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.6 :reversibility :statutory :meadows 5
+  :basis "Russian 'undesirable organizations' law (2015)" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "gl-protest-restriction-trend" :name "Tightening of protest law (global trend)" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse trend (across democracies and autocracies)"
+  :origin "A documented worldwide tightening of assembly law — vague 'disruption' offences, protest bans, harsher penalties — incrementally narrows the citizen's core tool for contesting power; a pattern beneath many specific statutes (tracked by CIVICUS Monitor)."
+  :stakeholders ["legislatures/police" "protest movements" "rights monitors" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.5 :reversibility :cultural :meadows 5
+  :basis "CIVICUS Monitor; comparative assembly-law trends" :sourcing :representative :confidence 0.4}
+
+ ;; ── coercion-asymmetry (narrow — assembly / IHL norms) ──
+ {:type :instrument :id "us-posse-comitatus" :name "Posse Comitatus Act (military off domestic policing)" :jurisdiction "US" :kind :law :year 1878
+  :enactor "U.S. Congress (1878)"
+  :origin "Bars the federal military from domestic law enforcement absent explicit authorization, a structural separation keeping the army out of policing citizens — a narrowing of coercion-asymmetry (with debated exceptions like the Insurrection Act)."
+  :stakeholders ["armed forces" "civil law enforcement" "courts" "citizens"]
+  :stock :coercion-asymmetry :polarity :narrow :magnitude 0.5 :reversibility :statutory :meadows 5
+  :basis "Posse Comitatus Act, 18 U.S.C. §1385" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "gl-freedom-of-assembly-norm" :name "Freedom of peaceful assembly (norm)" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse civic + international norm (ICCPR Art. 21)"
+  :origin "The protected right to gather and protest peacefully — codified internationally and constitutionally — is the citizen's primary lever against coercive overreach; UN General Comment 37 (2020) reaffirmed strict limits on its restriction."
+  :stakeholders ["courts" "protesters" "police" "citizens"]
+  :stock :coercion-asymmetry :polarity :narrow :magnitude 0.5 :reversibility :cultural :meadows 5
+  :basis "ICCPR Art. 21; UN HRC General Comment 37 (2020)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-ihl-geneva" :name "International humanitarian law (Geneva Conventions)" :jurisdiction "GLOBAL" :kind :institution :year 1949
+  :enactor "Geneva Conventions states parties (1949; Additional Protocols 1977)"
+  :origin "Binding limits on the use of force in armed conflict — protecting civilians, the wounded, and detainees — narrow the coercive reach of states (and armed actors) over people during war, monitored by the ICRC (compliance is the hard problem)."
+  :stakeholders ["states parties" "ICRC" "civilians/detainees" "combatants"]
+  :stock :coercion-asymmetry :polarity :narrow :magnitude 0.5 :reversibility :constitutional :meadows 6
+  :basis "Geneva Conventions (1949); Additional Protocols (1977)" :sourcing :representative :confidence 0.4}
 ]
