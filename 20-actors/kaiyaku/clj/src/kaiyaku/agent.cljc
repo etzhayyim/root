@@ -27,6 +27,7 @@
             [kaiyaku.plan :as plan]
             [kaiyaku.datoms :as datoms]
             [kaiyaku.driver :as driver]
+            [kaiyaku.catalog :as catalog]
             [kaiyaku.executor :as executor]))
 
 (defn- rehearse-one [{:keys [model browser-for computer-for history-conn max-steps]} p]
@@ -89,11 +90,17 @@
       (g/add-node :dispatch
                   ;; R1 capability-gated AUTHORIZATION (kaiyaku.driver): record a
                   ;; descriptor per approved plan (executed=false ALWAYS, G6).
-                  ;; Does NOT filter :plans — dry-run rehearsal always proceeds;
-                  ;; the capability gates the (post-R1) LIVE path, not the rehearsal.
+                  ;; Plans are first ENRICHED with the disclosed catalog procedure
+                  ;; (kaiyaku.catalog, if a :catalog by-id map is configured) so the
+                  ;; descriptor surfaces the real steps + g8-drift. Does NOT filter
+                  ;; :plans — dry-run rehearsal always proceeds; the capability gates
+                  ;; the (post-R1) LIVE path, not the rehearsal.
                   (fn [{:keys [plans capability]}]
-                    {:descriptors (:results (driver/dispatch-batch
-                                             plans {:bundle capability :now-epoch 0}))}))
+                    (let [enriched (if-let [cat (:catalog opts)]
+                                     (catalog/enrich-plans plans cat)
+                                     plans)]
+                      {:descriptors (:results (driver/dispatch-batch
+                                               enriched {:bundle capability :now-epoch 0}))})))
       (g/add-node :rehearse
                   (fn [{:keys [plans]}]
                     {:rehearsals (mapv #(rehearse-one opts %) plans)}))

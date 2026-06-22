@@ -64,9 +64,10 @@
      "  procedure (and ToS stance) against its disclosed source before any live use.\n"
      "- CBOR-CACAO byte-parity vs the live kotoba node is the operator step (cap bundle uses a\n"
      "  canonical-JSON envelope in `tools/issue_capability.cljc`).\n"
-     "- clj/ langgraph lane: R1 COMPLETE — `kaiyaku.cap` + `kaiyaku.driver` clj-native, wired\n"
-     "  into agent.cljc as the :dispatch node (:approve → :dispatch → :rehearse, capability-gated\n"
-     "  authorization, executed=false; tested via `clojure -X:test`). Both lanes now carry R1.\n")))
+     "- clj/ langgraph lane: R1 functionally equivalent — `kaiyaku.cap` + `kaiyaku.driver` +\n"
+     "  `kaiyaku.catalog` clj-native, wired into agent.cljc as the :dispatch node (:approve →\n"
+     "  :dispatch → :rehearse, capability-gated authorization + catalog-enriched descriptor,\n"
+     "  executed=false; `clojure -X:test`). Both lanes carry R1; catalog EDN is shared.\n")))
 
 #?(:clj
    (defn generate

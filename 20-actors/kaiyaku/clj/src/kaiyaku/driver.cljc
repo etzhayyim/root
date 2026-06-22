@@ -35,19 +35,28 @@
   {:svc svc :authorized false :status :refused :executed false :server-signed false :why why})
 
 (defn- authorized-descriptor [plan reason]
-  {:svc (:svc plan)
-   :svc-label (:svc-label plan)
-   :tier (:tier plan)
-   :recommendation (:recommendation plan)
-   :authorized true
-   :executed false                      ; the membrane authorizes; a post-R1 driver executes
-   :status (if (= "T3" (:tier plan)) :member-submits :authorized-dry-run)
-   :authorized-by "member"              ; G3 — never the server
-   :server-signed false                 ; G3 — never
-   :steps (:steps plan)
-   :notice-days (:notice-days plan)     ; G8
-   :penalty-jpy (:penalty-jpy plan)     ; G8
-   :note reason})
+  (let [catalog (:catalog plan)              ; present iff catalog/enrich-plan ran
+        drift (:g8-drift catalog)]
+    (cond-> {:svc (:svc plan)
+             :svc-label (:svc-label plan)
+             :tier (:tier plan)
+             :recommendation (:recommendation plan)
+             :authorized true
+             :executed false                  ; the membrane authorizes; a post-R1 driver executes
+             :status (if (= "T3" (:tier plan)) :member-submits :authorized-dry-run)
+             :authorized-by "member"          ; G3 — never the server
+             :server-signed false             ; G3 — never
+             :steps (:steps plan)
+             :notice-days (:notice-days plan)  ; G8
+             :penalty-jpy (:penalty-jpy plan)  ; G8
+             :note reason}
+      ;; surface the disclosed real procedure (catalog/enrich-plan) to the member
+      catalog (assoc :disclosed-procedure catalog)
+      ;; G6 honesty — a representative (unverified) procedure is flagged even when authorized
+      (and catalog (false? (:operator-verified catalog)))
+      (assoc :operator-verification-required true)
+      ;; G8 — a ledger↔catalog cost discrepancy needs the member's explicit acknowledgment
+      (seq drift) (assoc :g8-ack-required true :g8-drift (vec drift)))))
 
 (defn dispatch
   "Authorize (never execute) the severance of one member-approved plan."
