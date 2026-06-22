@@ -19,6 +19,7 @@
             [busshi.methods.ie-flow :as busshi-ief]
             [kaname.methods.ie-flow :as kaname-ief]
             [tsumugi.methods.ie-flow :as tsumugi-ief]
+            [shionome.methods.ie-flow :as shionome-ief]
             [kotoba.datom :as kd]))
 
 (def registry-path "80-data/ie-flow/registry.edn")
@@ -37,6 +38,7 @@
         busshi-state (safe #(busshi-ief/flow-state (bse/commodities "20-actors/busshi/kotoba/seed.edn")))
         kaname-state (safe #(kaname-ief/flow-state))
         tsumugi-state (safe #(tsumugi-ief/flow-state))
+        shionome-state (safe #(shionome-ief/flow-state))
         measured (fn [actor] (safe #(let [st (embed/measure actor)]
                                       (when (pos? (:flows-n st 0)) st))))
         candidates (cond-> {}
@@ -44,12 +46,13 @@
                      ugachi-state (assoc "ugachi" ugachi-state)
                      busshi-state (assoc "busshi" busshi-state)
                      kaname-state (assoc "kaname" kaname-state)
-                     tsumugi-state (assoc "tsumugi" tsumugi-state))
+                     tsumugi-state (assoc "tsumugi" tsumugi-state)
+                     shionome-state (assoc "shionome" shionome-state))
         ;; actors scored via their live adapter above are not re-read from a ledger here
         with-ledgers (reduce (fn [m a]
                                (if-let [st (measured a)] (assoc m a st) m))
                              candidates
-                             ["repo-git" "ibuki" "shionome" "okaimono"])]
+                             ["repo-git" "ibuki" "okaimono"])]
     with-ledgers))
 
 (defn descendant-opts
