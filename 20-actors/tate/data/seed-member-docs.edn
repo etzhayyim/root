@@ -1067,6 +1067,12 @@
   :notice/sourcing :synthetic
   :notice/text "A claim has been filed against you at the Small Claims Tribunals. Attend the consultation on the stated date."}
 
+ {:notice/id "ntc:sg-pod" :notice/label "SG notice to file proof of debt (liquidator・post)"
+  :notice/jurisdiction :sg
+  :notice/channel :mail :notice/claim-amount 5200 :notice/claim-currency "SGD"
+  :notice/sourcing :synthetic
+  :notice/text "The company is in winding up. Creditors must lodge a proof of debt with the liquidator by the date stated in this Notice to File Proof of Debt."}
+
  {:notice/id "ntc:in-summons" :notice/label "IN summons (registered post)"
   :notice/jurisdiction :in
   :notice/channel :mail :notice/claim-amount 200000 :notice/claim-currency "INR"
