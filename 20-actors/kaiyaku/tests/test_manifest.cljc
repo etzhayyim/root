@@ -16,7 +16,7 @@
 
 (deftest test-r1-block-present
   (is (map? (:actor/r1 (manifest))))
-  (is (= #{:capability :driver :catalog :receipt :handoff :pipeline}
+  (is (= #{:capability :driver :catalog :receipt :handoff :pipeline :audit}
          (set (keys (:actor/r1 (manifest)))))))
 
 (deftest test-r1-referenced-files-exist
