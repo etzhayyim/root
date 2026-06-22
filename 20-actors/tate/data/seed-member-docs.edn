@@ -735,6 +735,12 @@
   :notice/sourcing :synthetic
   :notice/text "Se le notifica una demanda de desalojo por falta de pago de la locación. Cuenta con un plazo para contestar y ofrecer prueba."}
 
+ {:notice/id "ntc:ar-family" :notice/label "AR petición de divorcio (cónyuge・oficial de justicia)"
+  :notice/jurisdiction :ar
+  :notice/channel :formal-service :notice/claim-amount 0 :notice/claim-currency "ARS"
+  :notice/sourcing :synthetic
+  :notice/text "Se le notifica una petición de divorcio. Puede ofrecer su propia propuesta reguladora ante el juez de familia."}
+
  {:notice/id "ntc:kr-ihon" :notice/label "이혼 조정기일 통지서 (家事)"
   :notice/jurisdiction :kr
   :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "KRW"
