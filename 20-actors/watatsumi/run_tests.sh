@@ -16,6 +16,9 @@ run_cljc() {
 run_cljc "watatsumi.methods.test-charter-gates"
 run_cljc "watatsumi.methods.test-agent"
 run_cljc "watatsumi.cells.pressure-test.test-state-machine"
+run_cljc "watatsumi.cells.sea-trial.test-state-machine"
+run_cljc "watatsumi.cells.class-certification-binder.test-state-machine"
+run_cljc "watatsumi.cells.marine-emissions-audit.test-state-machine"
 
 if [[ $rc -eq 0 ]]; then
   echo "==> watatsumi: ALL GREEN"
