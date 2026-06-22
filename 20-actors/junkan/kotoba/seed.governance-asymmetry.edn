@@ -2813,4 +2813,61 @@
   :stakeholders ["states parties" "ICRC" "civilians/detainees" "combatants"]
   :stock :coercion-asymmetry :polarity :narrow :magnitude 0.5 :reversibility :constitutional :meadows 6
   :basis "Geneva Conventions (1949); Additional Protocols (1977)" :sourcing :representative :confidence 0.4}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 30 — paradigm-subordination within-jurisdiction depth (memory-
+ ;; politics / state-religion doctrines vs pluralism / academic-freedom norms)
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── paradigm-subordination (widen) ──
+ {:type :instrument :id "pl-memory-law-2018" :name "IPN amendment (Holocaust 'memory law')" :jurisdiction "PL" :kind :law :year 2018
+  :enactor "Sejm of Poland (2018 amendment to the IPN Act)"
+  :origin "Criminalized attributing Nazi crimes to the Polish nation/state, chilling historical research and speech about wartime complicity; international pressure forced partial repeal of the criminal clause — a state attempt to fix an official national memory."
+  :stakeholders ["IPN" "historians" "Israel/US" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.5 :reversibility :statutory :meadows 2
+  :basis "Polish IPN Act amendment (2018)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "ru-memory-politics" :name "Memory laws ('rehabilitation of Nazism')" :jurisdiction "RU" :kind :law :year 2014
+  :enactor "State Duma (2014; expanded 2021)"
+  :origin "Criminalizes 'rehabilitation of Nazism' and disrespecting WWII memory in ways used to prosecute critical history and the memorial group Memorial (liquidated 2021), enforcing a state-curated past — a paradigm-level control of collective memory."
+  :stakeholders ["state" "historians/Memorial" "courts" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.55 :reversibility :statutory :meadows 2
+  :basis "Russian memory laws (2014/2021); Memorial liquidation" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "hu-national-cooperation-system" :name "System of National Cooperation (NER)" :jurisdiction "HU" :kind :doctrine :year 2010
+  :enactor "Hungarian government (declared 2010)"
+  :origin "An official ideological framework declaring a post-election 'revolution in the voting booth' that legitimized reshaping media, courts, and culture around the governing camp's national vision — a paradigm subordinating pluralist institutions to a unified national will."
+  :stakeholders ["governing party" "state-aligned media/culture" "opposition" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.5 :reversibility :cultural :meadows 2
+  :basis "Hungarian System of National Cooperation (2010)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "tr-diyanet" :name "Diyanet (state religious authority)" :jurisdiction "TR" :kind :institution :year 1924
+  :enactor "Turkish state (Presidency of Religious Affairs, est. 1924)"
+  :origin "A large state body that administers mosques and frames official religious discourse; once a tool of secular control, it increasingly projects a state-aligned religious orthodoxy into public life — shaping the paradigm within which citizens relate to authority."
+  :stakeholders ["Diyanet" "imams" "religious minorities/seculars" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.45 :reversibility :institutional :meadows 2
+  :basis "Turkey Diyanet (Presidency of Religious Affairs)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-state-memory-laws" :name "State-imposed memory laws (trend)" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse trend (states legislating an official history)"
+  :origin "Laws that mandate or forbid particular interpretations of history move collective memory from open contestation to state decree, narrowing the intellectual space in which citizens form political judgement — a paradigm pattern beneath specific memory statutes."
+  :stakeholders ["legislatures" "historians/educators" "courts" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.45 :reversibility :cultural :meadows 2
+  :basis "Comparative literature on memory laws" :sourcing :representative :confidence 0.4}
+
+ ;; ── paradigm-subordination (narrow — pluralism / academic-freedom norms) ──
+ {:type :instrument :id "us-establishment-clause" :name "Establishment Clause (no state religion)" :jurisdiction "US" :kind :doctrine :year 1791
+  :enactor "U.S. Congress + states (First Amendment) + Supreme Court doctrine"
+  :origin "Bars government establishment of religion, keeping the state from imposing a creed and protecting citizens of all faiths and none — a paradigm anchor of religion-state separation (its scope is actively contested in current jurisprudence)."
+  :stakeholders ["Supreme Court" "religious communities" "non-believers" "citizens"]
+  :stock :paradigm-subordination :polarity :narrow :magnitude 0.55 :reversibility :constitutional :meadows 2
+  :basis "U.S. Constitution, First Amendment (Establishment Clause)" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "gl-academic-freedom-norm" :name "Academic freedom (norm)" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse civic norm (university autonomy + free inquiry)"
+  :origin "The protected freedom to research, teach, and debate without political reprisal sustains an independent space for knowledge and critique of power; its erosion (purges, funding control, 'patriotic' curricula) is a marker of paradigm capture — tracked by the Academic Freedom Index."
+  :stakeholders ["universities" "scholars" "students" "citizens"]
+  :stock :paradigm-subordination :polarity :narrow :magnitude 0.5 :reversibility :cultural :meadows 2
+  :basis "Academic Freedom Index; comparative norms" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-pluralism-norm" :name "Political pluralism (norm)" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse civic norm (acceptance of legitimate opposition)"
+  :origin "The norm that opposition and disagreement are legitimate and that no single party/leader embodies 'the people' is the paradigm counterweight to majoritarian and personalist capture; its decline is the deepest signal of democratic erosion."
+  :stakeholders ["parties" "media" "civil society" "citizens"]
+  :stock :paradigm-subordination :polarity :narrow :magnitude 0.55 :reversibility :cultural :meadows 2
+  :basis "Pluralism / loyal-opposition tradition" :sourcing :representative :confidence 0.4}
 ]
