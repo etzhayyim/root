@@ -1,6 +1,6 @@
 {
  "disclaimer": "一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
- "count": 147,
+ "count": 148,
  "cases": [
   {
    "slug": "tate-shiharai-tokusoku",
@@ -323,6 +323,13 @@
    "label": "Plaintiff's claim (small claims・カナダ ON)",
    "jurisdiction": ":ca",
    "track": ":civil"
+  },
+  {
+   "slug": "tate-ca-family",
+   "did": "did:web:etzhayyim.com:actor:tate-ca-family",
+   "label": "Answer to a family Application (家事・カナダ ON)",
+   "jurisdiction": ":ca",
+   "track": ":family"
   },
   {
    "slug": "tate-it-licenziamento",

@@ -687,6 +687,12 @@
   :notice/sourcing :synthetic
   :notice/text "Form N12: Notice to End your Tenancy because the landlord requires the unit."}
 
+ {:notice/id "ntc:ca-family" :notice/label "CA Application for Divorce (respondent・personal service ON)"
+  :notice/jurisdiction :ca
+  :notice/channel :personal-service :notice/claim-amount 0 :notice/claim-currency "CAD"
+  :notice/sourcing :synthetic
+  :notice/text "Application for divorce served on you as respondent. You may serve and file an Answer (Form 10) within the time stated."}
+
  ;; ── wave 16 (:ar + :kr family + states) ──────────────────────────────────────
  {:doc/id "doc:ar-terminos" :doc/label "AR términos y condiciones (synthetic)"
   :doc/jurisdiction :ar
