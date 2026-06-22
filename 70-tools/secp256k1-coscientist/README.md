@@ -216,9 +216,33 @@ SVD 無しに厳密計算できる。
 
 実行: `bb --config /tmp/empty-bb.edn 70-tools/secp256k1-coscientist/tensor_shor.clj`
 
+## 7b. Tree Tensor Network を modexp 構造に合わせる（`tensor_shor_ttn.clj`）
+
+「線形 MPS でなく、modular exponentiation の依存構造に合わせた木なら χ を下げられるか?」
+（Dang/Seitz/Dumitrescu の方針）を、任意二部分割の Schmidt ランクを GF(p) で厳密測定して検証。
+
+| N | r | MPS自然 max χ | 平衡TTN自然 max χ | TTN/MPS |
+|---|---|---|---|---|
+| 35 | 12 | 12 | 8 | 0.67 |
+| 91 | 12 | 12 | 6 | 0.50 |
+| 143 | 60 | 60 | **30** | **0.50** |
+| 247 | 36 | 36 | **18** | **0.50** |
+
+- **MPS（自然順）の max χ = r** ちょうど（control\|work 境界で周期分を払う）。
+- **悪い順序（control・work 交互）は逆に ~2r へ悪化**（両レジスタを絡める損）。
+- **平衡 TTN（自然葉）は max χ ≈ r/2** — work レジスタを枝に分散し「work 全体を片側に置く
+  カット(=r)」を回避するため。→ **木を構造に合わせると確かに定数倍(~2×)得する**（直感は正しい）。
+- **だが max χ = Θ(r) のまま**（TTN/MPS → 0.50 で飽和）。定数倍は稼ぐが**指数性は消えない**。
+  RSA（r 指数的）では TTN でも χ 指数的 = 圧縮不能。**木構造の工夫は壁を動かさない**。
+
+→ 結論: TN（MPS→TTN）は Shor を *定数倍* 軽くするが、RSA 一般を多項式時間で破る古典手法には
+ならない。χ≈r/2 も Θ(r) であり、§7 の循環の壁は健在。
+
+実行: `bb --config /tmp/empty-bb.edn 70-tools/secp256k1-coscientist/tensor_shor_ttn.clj`
+
 ## 8. 残ロードマップ
 
 - **TN 次段**: post-QFT 状態の χ（複素 SVD が要る）/ ノイズあり回路で χ が落ちる条件
-  （2026 の noisy-TN 解析）/ tree tensor network で modexp 依存構造に合わせる。
+  （2026 の noisy-TN 解析）。※ tree tensor network は §7b で実施済み（χ≈r/2, Θ(r)）。
 - **H2 さらに次段**: Weil-descent が効く拡大体・二進体での対照実験（構造ありで AI 探索が効く側）。
 - **H5 ML 層**：公開台帳の nonce 統計指紋検出（脆弱ウォレットの所有者へ警告する防御運用）。
