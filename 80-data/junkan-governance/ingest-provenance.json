@@ -14,20 +14,20 @@
     "report.md"
   ],
   "regenerate": "bb --classpath 20-actors -e \"(require '[junkan.methods.junkan-edn :as je] '[junkan.methods.analyze :as az] '[junkan.methods.kotoba :as k]) (let [is (je/instruments \\\"20-actors/junkan/kotoba/seed.governance-asymmetry.edn\\\") a (az/analyze is) ds (az/datoms is a) tx (k/make-tx ds \\\"junkan-gov-snapshot-0001\\\" \\\"snapshot\\\" \\\"\\\")] (spit \\\"80-data/junkan-governance/governance-asymmetry.datoms.kotoba.edn\\\" (az/render-datoms is a)) (spit \\\"80-data/junkan-governance/findings-ledger.kotoba.edn\\\" (k/tx->edn tx)) (spit \\\"80-data/junkan-governance/report.md\\\" (az/render-report a)))\"",
-  "tx_cid": "b9c7e190b96a1644bd4f489a90dedecc8e58248027fe3769f85215846d46b469f",
-  "datoms": 5971,
-  "instruments": 409,
+  "tx_cid": "b9f9f8070b3a7a5d5ac2565aa4158444ff5f1a97e779cf7f2eb33964a40de2b12",
+  "datoms": 6083,
+  "instruments": 417,
   "jurisdictions": 197,
   "regions": {"africa": 53, "europe": 48, "asia": 46, "americas": 34, "oceania": 14, "transnational": 2},
-  "kinds": {"law": 99, "institution": 231, "doctrine": 47, "value": 32},
-  "stocks": {"participation-barrier": 142, "coercion-asymmetry": 70, "economic-capture": 70, "information-asymmetry": 64, "paradigm-subordination": 63},
-  "thinnest_stock": "paradigm-subordination",
+  "kinds": {"law": 103, "institution": 231, "doctrine": 47, "value": 36},
+  "stocks": {"participation-barrier": 142, "paradigm-subordination": 71, "coercion-asymmetry": 70, "economic-capture": 70, "information-asymmetry": 64},
+  "thinnest_stock": "information-asymmetry",
   "generated_scorecard": "SCORECARD.md",
   "tx_cid_note": "tx-cid reproducible byte-for-byte from the seed (deterministic content-address); changes only when the seed changes.",
   "sourcing": "representative (laws/years/enactors/origins are on-the-record public facts; polarity/magnitude/confidence are junkan's disclosed hypotheses, G5)",
   "discipline": "G4 analysis-only / G5 hypothesis-only / G6 aggregate-only / G7 map-not-rank / G11 candidates-not-directives",
   "as_of": "2026-06-22",
-  "iteration": 33,
+  "iteration": 34,
   "iteration_history": [
     {"iteration": 1, "instruments": 35, "jurisdictions": 17, "tx_cid": "bb4be4ac091ae9cc9be30c732d2fc78f773afabea84d6deccb96b784576a1d814"},
     {"iteration": 2, "instruments": 59, "jurisdictions": 31, "note": "Global South / under-represented wave: BR MX ZA NG ID TR IR PH PK VN KE TN CL TW"},
@@ -61,6 +61,7 @@
     {"iteration": 30, "instruments": 385, "jurisdictions": 197, "note": "paradigm-subordination within-jurisdiction depth 55→63 (PL/RU memory laws, HU National Cooperation System, TR Diyanet, state-memory-law trend vs US Establishment Clause, academic-freedom + pluralism norms); 30 iterations — the four non-participation stocks now near-identical (56/62/62/63)"},
     {"iteration": 31, "instruments": 393, "jurisdictions": 197, "note": "information-asymmetry within-jurisdiction depth 56→64 (TH Computer Crime Act, JO cybercrime 2023, EG media/cyber 2018, BY extremist-materials, internet-shutdown trend vs press-freedom norm, UN journalist-safety plan, source protection); four non-participation stocks near-identical (62/62/63/64)"},
     {"iteration": 32, "instruments": 401, "jurisdictions": 197, "note": "economic-capture within-jurisdiction depth 62→70 (ES Gürtel, TR procurement exemptions, AR Cuadernos, privatization capture, market concentration vs anti-bribery frameworks US FCPA, UK Bribery Act, UN UNCAC); 401 instruments crossed 400 / 5859 datoms"},
-    {"iteration": 33, "instruments": 409, "jurisdictions": 197, "note": "coercion-asymmetry within-jurisdiction depth 62→70 (ET emergency powers, IQ PMF militias, CO ESMAD, PE 2022-23 protest deaths, PMCs/mercenaries vs UN use-of-force principles, judicial-warrant norm, UN peacekeeping PoC); thinnest rotated coercion→paradigm"}
+    {"iteration": 33, "instruments": 409, "jurisdictions": 197, "note": "coercion-asymmetry within-jurisdiction depth 62→70 (ET emergency powers, IQ PMF militias, CO ESMAD, PE 2022-23 protest deaths, PMCs/mercenaries vs UN use-of-force principles, judicial-warrant norm, UN peacekeeping PoC); thinnest rotated coercion→paradigm"},
+    {"iteration": 34, "instruments": 417, "jurisdictions": 197, "note": "paradigm-subordination within-jurisdiction depth 63→71 (RU/UG group-subordinating laws, blasphemy laws, patriotic curricula, traditional-values doctrine vs ZA Equality Act, CA Multiculturalism Act, freedom-of-conscience norm); four non-participation stocks near-equal (64/70/70/71)"}
   ]
 }

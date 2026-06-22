@@ -3041,4 +3041,61 @@
   :stakeholders ["UN missions" "host states" "civilians" "armed actors"]
   :stock :coercion-asymmetry :polarity :narrow :magnitude 0.4 :reversibility :institutional :meadows 6
   :basis "UN PoC mandates (since UNAMSIL 1999)" :sourcing :representative :confidence 0.35}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 34 — paradigm-subordination within-jurisdiction depth (group-
+ ;; subordinating doctrines vs equality / dignity norms)
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── paradigm-subordination (widen) ──
+ {:type :instrument :id "ru-anti-lgbt-law" :name "'LGBT propaganda' restrictions" :jurisdiction "RU" :kind :law :year 2013
+  :enactor "State Duma (2013; expanded to all ages 2022; 'movement' banned 2023)"
+  :origin "Laws restricting expression about LGBT identities — widened in 2022 and culminating in a 2023 'extremist' designation — subordinate a group of citizens to a state-imposed orthodoxy of acceptable identity and speech (recorded as a governance fact, non-adjudicating)."
+  :stakeholders ["state" "LGBT citizens" "media/NGOs" "courts"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.55 :reversibility :statutory :meadows 2
+  :basis "Russian 'gay propaganda' law (2013/2022); 2023 ruling" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "ug-aha-2023" :name "Anti-Homosexuality Act 2023" :jurisdiction "UG" :kind :law :year 2023
+  :enactor "Parliament of Uganda (2023)"
+  :origin "One of the world's harshest laws targeting a group, with severe penalties, illustrating how the state can codify the subordinated legal standing of a class of citizens (recorded as a governance fact; the World Bank paused lending in response)."
+  :stakeholders ["state" "LGBT citizens" "courts" "external partners"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.6 :reversibility :statutory :meadows 2
+  :basis "Uganda Anti-Homosexuality Act (2023)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-blasphemy-laws" :name "Blasphemy laws (group subordination)" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse (states criminalizing blasphemy/apostasy)"
+  :origin "Where the state criminalizes blasphemy or apostasy, it subordinates dissenters, converts, and minorities to an official creed and chills speech and conscience — a paradigm-level asymmetry present in dozens of jurisdictions."
+  :stakeholders ["state/religious authorities" "minorities/dissenters" "courts" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.5 :reversibility :statutory :meadows 2
+  :basis "Comparative blasphemy/apostasy laws" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-patriotic-curriculum" :name "Mandated patriotic/ideological curricula" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse (states prescribing loyalty-shaping education)"
+  :origin "State-mandated curricula that prescribe a single patriotic or ideological narrative and proscribe dissenting history shape citizens' political formation from childhood toward deference — a paradigm channel beneath specific education laws."
+  :stakeholders ["education ministries" "teachers/students" "historians" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.45 :reversibility :cultural :meadows 2
+  :basis "Comparative civic/patriotic-education mandates" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-traditional-values-doctrine" :name "State 'traditional values' doctrine" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse value (states elevating an official 'traditional values' creed)"
+  :origin "Framing an official set of 'traditional values' as the national essence positions rights claims and pluralism as alien threats, legitimizing restrictions on minorities and dissent — a transnational paradigm beneath several national doctrines."
+  :stakeholders ["governments" "religious/cultural establishments" "minorities" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.45 :reversibility :cultural :meadows 2
+  :basis "Comparative 'traditional values' state doctrines" :sourcing :representative :confidence 0.4}
+
+ ;; ── paradigm-subordination (narrow — equality / dignity norms) ──
+ {:type :instrument :id "za-equality-act-2000" :name "Promotion of Equality / Prevention of Unfair Discrimination Act" :jurisdiction "ZA" :kind :law :year 2000
+  :enactor "Parliament of South Africa (PEPUDA, 2000)"
+  :origin "Gave effect to the constitutional equality guarantee with a broad anti-discrimination framework and dedicated equality courts — a paradigm anchoring equal citizen standing against group subordination."
+  :stakeholders ["equality courts" "marginalized groups" "SAHRC" "citizens"]
+  :stock :paradigm-subordination :polarity :narrow :magnitude 0.5 :reversibility :statutory :meadows 2
+  :basis "PEPUDA (Act 4 of 2000)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "ca-multiculturalism-1988" :name "Canadian Multiculturalism Act" :jurisdiction "CA" :kind :law :year 1988
+  :enactor "Parliament of Canada (1988)"
+  :origin "The first national multiculturalism law, recognizing and protecting cultural diversity as a public value — a paradigm affirming plural citizen identities against assimilationist subordination (debates over its limits continue)."
+  :stakeholders ["federal government" "cultural communities" "citizens"]
+  :stock :paradigm-subordination :polarity :narrow :magnitude 0.45 :reversibility :statutory :meadows 2
+  :basis "Canadian Multiculturalism Act (1988)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-freedom-of-conscience" :name "Freedom of thought, conscience and religion (norm)" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse civic + international norm (ICCPR Art. 18)"
+  :origin "The protected freedom to hold, change, and manifest beliefs — including none — shields the citizen's inner life from state-imposed orthodoxy; it is the paradigm counterweight to blasphemy laws, established creeds, and ideological coercion."
+  :stakeholders ["courts" "believers/non-believers" "the state" "citizens"]
+  :stock :paradigm-subordination :polarity :narrow :magnitude 0.5 :reversibility :cultural :meadows 2
+  :basis "ICCPR Art. 18; freedom-of-conscience tradition" :sourcing :representative :confidence 0.4}
 ]
