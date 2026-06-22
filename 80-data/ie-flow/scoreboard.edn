@@ -92,6 +92,17 @@
     :efficiency 0.5,
     :surprise 0.0,
     :descendant 0.85}}
+  {:actor "asobi",
+   :score 0.428,
+   :throughput 17.05,
+   :vetoed? false,
+   :components
+   {:rectify 0.004,
+    :eta 0.925,
+    :phi 0.98,
+    :efficiency 0.5,
+    :surprise 0.0,
+    :descendant 0.85}}
   {:actor "busshi",
    :score 0.394,
    :throughput 13.074,
@@ -133,17 +144,17 @@
    :note
    "provisioning commons — checkout flow, value returned to members"}],
  :colony
- {:colony-reward 12.557,
-  :colony-order 13,
-  :n 11,
-  :scored-n 11,
+ {:colony-reward 13.523,
+  :colony-order 14,
+  :n 12,
+  :scored-n 12,
   :vetoed-n 0,
   :mean-score 0.428,
   :top {:actor "repo-git", :score 0.521}},
  :organism
- {:env-source {:colony-order 13},
+ {:env-source {:colony-order 14},
   :intake-without-colony 14,
-  :intake-with-colony 53,
-  :delta 39,
+  :intake-with-colony 56,
+  :delta 42,
   :note
   "intake-with − intake-without = the free-energy the colony's information-control adds to the organism's Φ (→ reserves → survival). The reward integration, ADR-2606212200."}}
