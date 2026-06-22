@@ -84,6 +84,24 @@ Removing a stale `.clj` shadow → running the suite → keeping the removal **o
   members: **kanjo / kabuto / watatsuna** (Family-A, paused → Family-B); **tasuke / kosatsu /
   keizu** additionally mix cwd-relative `slurp` path bugs in `test-no-external-io`.
 
+**kosatsu red — fully diagnosed (2026-06, a two-part owner-territory tangle, NOT mechanically
+fixable):** its suite is red under `bb test:actors` for two independent reasons, and the obvious
+fixes each break it worse:
+  1. **`*file*`-under-`require` resource resolution.** `test_kotoba` / `test_autorun` resolve their
+     seed/source via `(-> *file* io/file .getAbsoluteFile .getParentFile …)`. Under `bb test:actors`
+     (which `(apply require …)` the nss), babashka sets `*file*` to a **bare filename** for these,
+     so `.getAbsoluteFile` resolves against the repo-root cwd and the path lands two dirs too high
+     (`<repo>/../data/seed-…`, `<repo>/autorun.clj`). The same pattern works for `.cljc` tests run
+     the same way (danjo is 24/24 green), so it is specific to how these `.clj` test files load —
+     a `*file*`-robust resolution (or a `.clj`->`.cljc` move) is the real fix, owned by the actor.
+  2. **Divergent source shadows.** Removing the `.clj` shadows to load the canonical `.cljc`
+     (the meyasu/fuchi/kanae move) does NOT green it — the `.cljc` ports are INCOMPLETE: e.g.
+     `social.cljc` lacks `MIRROR_PREFIX` that `social.clj` defines, so the suite then fails
+     `Unable to resolve symbol: social/MIRROR_PREFIX`. This is the deeper kanjo/mitooshi class
+     (paused mid-port), needing port-completion, not shadow deletion.
+A pure-logic `test_*.cljc` (no `*file*`, no removed symbol) still lands green here regardless
+(test_integrity #2198) — only the `*file*`/shadow tests are blocked.
+
 So: probe `tests-fail` / `load-error` actors with the oracle; the key-access ones (where the stale
 `.clj` is the ONLY thing wrong and its `.cljc` is the complete canonical) are a safe mechanical fix;
 the divergent-design ones are deferred to their owners — the fix is a design decision, not a port.
