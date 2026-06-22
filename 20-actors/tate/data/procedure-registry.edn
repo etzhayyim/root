@@ -1152,6 +1152,20 @@
                     "kokoro 心 (精神的サポート — 家事事件は Wellbecoming 負荷が大きい)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:cn-enforcement" :proc/label "扣留・提取収入 (賃金差押え・執行・中国)"
+  :proc/jurisdiction :cn :proc/track :enforcement
+  :proc/trigger-keywords ["强制执行" "扣留" "提取" "执行通知"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "执行 (扣留・提取収入) への対応"
+    :dl/rule "执行通知 受領後に履行しないと人民法院は履行すべき部分について収入を扣留・提取できる (民诉法243条; 协助执行通知書で雇用主・銀行等が協力)。ただし被执行人及びその扶養家族の生活必需費用は必ず保留される (当該地の最低生活保障标准で算定、扶養家族分も考慮)。保留額を侵害する執行には法院へ执行异议 (225条) を申立てられる"
+    :dl/anchor "中华人民共和国民事诉讼法 第243条 (扣留・提取 + 生活必需费用保留)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :yiyi :opt/kind :self-submit :opt/protective true :opt/label "生活必需費用の保留を侵害する執行には 执行异议 を法院へ提出 (民诉法225条)"}
+   {:opt/id :verify :opt/kind :self-decide :opt/protective true :opt/label "扣留・提取が当該地の最低生活保障标准 (本人+扶養家族分) を下回らせていないか法院で確認"}]
+  :proc/refer-when ["保留を侵害・扶養家族の認定・複数執行 → 律师 / 法律援助"]
+  :proc/verify-current-law true}
+
  ;; ── :tw ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:tw-lihun" :proc/label "離婚調解/訴訟の通知 (家事・台湾)"
   :proc/jurisdiction :tw :proc/track :family
