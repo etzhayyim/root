@@ -648,6 +648,12 @@
   :notice/sourcing :synthetic
   :notice/text "Notice to terminate your periodic tenancy under the Residential Tenancies Act. The landlord may apply to the Tenancy Tribunal for possession if you do not leave."}
 
+ {:notice/id "ntc:nz-enforcement" :notice/label "NZ attachment order (employer・post)"
+  :notice/jurisdiction :nz
+  :notice/channel :mail :notice/claim-amount 4200 :notice/claim-currency "NZD"
+  :notice/sourcing :synthetic
+  :notice/text "Attachment order: your employer is directed to make a deduction from your wages to satisfy a judgment debt."}
+
  ;; ── wave 19 (:kr insolvency + :au family) ────────────────────────────────────
  {:notice/id "ntc:kr-singo" :notice/label "회생절차 채권신고 안내 (郵送・倒産)"
   :notice/jurisdiction :kr

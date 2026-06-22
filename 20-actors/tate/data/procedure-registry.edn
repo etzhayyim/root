@@ -1814,6 +1814,20 @@
   :proc/refer-when ["通知の有効性が複雑・不法 eviction → Community Law / Tenancy Services 0800"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:nz-enforcement" :proc/label "Attachment order (賃金差押え・執行・ニュージーランド)"
+  :proc/jurisdiction :nz :proc/track :enforcement
+  :proc/trigger-keywords ["attachment order" "deduction from wages" "protected earnings"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "Attachment order への対応"
+    :dl/rule "judgment 後に creditor/debtor が attachment order を申立てると employer が salary/wages から控除する。ただし debtor は net income (税引後) の60% (protected earnings rate) を必ず保持でき、控除は net の40%を超えられない。返済が困難なら court に控除額の variation を申立てられる"
+    :dl/anchor "District Court Act 2016 s.157 (attachment orders) + protected earnings rate 60% net" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :variation :opt/kind :self-submit :opt/protective true :opt/label "返済困難なら court へ deduction 額の variation を申立て (protected earnings rate=net の60% を下回らせない)"}
+   {:opt/id :verify :opt/kind :self-decide :opt/protective true :opt/label "控除が net の40%上限・60% protected を超えていないか employer/court で確認"}]
+  :proc/refer-when ["控除が protected earnings を侵害・複数 order が重複 → Community Law / Ministry of Justice 0800"]
+  :proc/verify-current-law true}
+
  ;; ── :mx ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:mx-despido" :proc/label "Despido (解雇・労働・メキシコ)"
   :proc/jurisdiction :mx :proc/track :labor
