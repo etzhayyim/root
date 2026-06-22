@@ -54,31 +54,31 @@
   "cells": [
     {
       "name": "child_daily_care",
-      "module": "hagukumi.cells.child_daily_care",
+      "module": "hagukumi.cells.child-daily-care.state-machine",
       "murakumoNode": "levi",
       "phase": "child session"
     },
     {
       "name": "elder_companionship",
-      "module": "hagukumi.cells.elder_companionship",
+      "module": "hagukumi.cells.elder-companionship.state-machine",
       "murakumoNode": "levi",
       "phase": "elder session"
     },
     {
       "name": "chronic_continuity",
-      "module": "hagukumi.cells.chronic_continuity",
+      "module": "hagukumi.cells.chronic-continuity.state-machine",
       "murakumoNode": "levi",
       "phase": "post-mitate diagnosis support"
     },
     {
       "name": "meal_delivery",
-      "module": "hagukumi.cells.meal_delivery",
+      "module": "hagukumi.cells.meal-delivery.state-machine",
       "murakumoNode": "simeon+dan",
       "phase": "mitsuho-sourced delivery"
     },
     {
       "name": "respite_support",
-      "module": "hagukumi.cells.respite_support",
+      "module": "hagukumi.cells.respite-support.state-machine",
       "murakumoNode": "levi",
       "phase": "caregiver substitute"
     }
