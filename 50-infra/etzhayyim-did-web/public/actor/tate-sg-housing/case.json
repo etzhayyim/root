@@ -1,0 +1,49 @@
+{
+  "disclaimer": "一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
+  "case": "proc:sg-housing",
+  "label": "Recovery of possession / eviction (住居・シンガポール)",
+  "jurisdiction": ":sg",
+  "jurisdiction_label": "Singapore",
+  "track": ":housing",
+  "genuine_channels": [
+    ":mail",
+    ":formal-service"
+  ],
+  "service_note": "originating claim / SCT notice は court service (post 含む) — SMS/WhatsApp の『court』通知は偽",
+  "deadlines": [
+    {
+      "label": "Possession claim への対応",
+      "rule": "landlord は自力 eviction できず、Conveyancing and Law of Property Act s.18 に基づき書面の termination notice (違反事由を明記) を serve した上で court order を要する。tenant が占有を続ける場合、退去は court order → enforcement order for possession (旧 writ of possession) → Sheriff/Bailiff の執行 + Notice of Eviction (vacate 日時) によってのみ。possession claim を受けたら通知/Rules of Court が定める期間内に応答",
+      "anchor": "Conveyancing and Law of Property Act s.18 + Rules of Court (enforcement order for possession)",
+      "critical": false,
+      "verify_service_date": true
+    }
+  ],
+  "options": [
+    {
+      "id": ":respond",
+      "kind": ":self-submit",
+      "protective": true,
+      "label": "possession claim に期間内に応答 (termination notice の適法性・breach・rent を争う)"
+    },
+    {
+      "id": ":no-self-help-protection",
+      "kind": ":self-decide",
+      "protective": true,
+      "label": "landlord の self-help (lock change・cutting utilities・harassment) は違法 — illegal eviction は criminal trespass (罰金最大 S$5,000) + 民事責任; 退去は court order + Sheriff/Bailiff によってのみ; 受けたら police・lawyer・Legal Aid Bureau へ"
+    }
+  ],
+  "referrals": [
+    "事由が複雑・illegal eviction / harassment → lawyer / Legal Aid Bureau / Community Justice Centre"
+  ],
+  "jurisdiction_referrals": [
+    "Legal Aid Bureau",
+    "Law Society Pro Bono Services"
+  ],
+  "fraud_help": [
+    "tasuke 助 (サイバー犯罪被害支援)",
+    "ScamShield / 1799 anti-scam helpline",
+    "Singapore Police Force"
+  ],
+  "verify_current_law": true
+}
