@@ -22,9 +22,23 @@
 ;;   bb 70-tools/scripts/test-health/fn-coverage.clj --isolated # + list every ISOLATED candidate
 ;;   bb 70-tools/scripts/test-health/fn-coverage.clj <actor>    # one actor, full per-fn breakdown
 (require '[clojure.string :as str]
-         '[babashka.fs :as fs])
+         '[babashka.fs :as fs]
+         '[babashka.classpath :refer [add-classpath]])
 
 (def actors-root "20-actors")
+
+;; Ground-truth which actors the canonical `bb test:actors` discovery runner actually executes:
+;; some actors (ibuki / mimamori / yobel, and hyphenated-dir actors) are EXCLUDED from it and run
+;; by their own dedicated bb task, so a gap closed with a new test_*.cljc there must be verified via
+;; that task, not the discovery runner. We ask the real discovery rather than re-deriving its rules.
+(def ^:private discovery-run?
+  (try
+    (add-classpath "70-tools/src:20-actors/kotodama/src")
+    (let [nss (set (map str ((requiring-resolve 'etzhayyim.tools.discovery/actor-test-nss))))]
+      (fn [actor]
+        (let [prefix (str (str/replace actor "_" "-") ".")]
+          (boolean (some #(str/starts-with? % prefix) nss)))))
+    (catch Throwable _ (constantly :unknown))))
 
 (defn- public-defns [path]
   (->> (str/split-lines (slurp (str path)))
@@ -58,12 +72,14 @@
       one-actor (first (remove #(str/starts-with? % "--") *command-line-args*))
       actors (if one-actor [one-actor] (actor-names))
       rows (mapcat analyze actors)
-      by-actor (group-by :actor rows)]
+      by-actor (group-by :actor rows)
+      ded? (fn [a] (false? (discovery-run? a)))]   ; has cljc tests but NOT in the discovery runner
   (println "fn-coverage — public methods/ functions by how tests reach them")
-  (println "  tested / internal(indirect) / ISOLATED(gap candidate). Triage aid — verify before testing.\n")
+  (println "  tested / internal(indirect) / ISOLATED(gap candidate). Triage aid — verify before testing.")
+  (println "  † = run by a DEDICATED bb task, not `bb test:actors` — verify a new test there.\n")
   (if one-actor
     (do
-      (println (format "%-32s %s" (str one-actor "/<fn>") "class"))
+      (println (format "%-32s %s" (str one-actor (when (ded? one-actor) " †") "/<fn>") "class"))
       (doseq [r (sort-by (juxt :class :file :fn) (by-actor one-actor))]
         (println (format "  %-30s %s" (str (:file r) "/" (:fn r)) (name (:class r))))))
     (do
@@ -72,11 +88,11 @@
         (let [rs (by-actor a)
               c #(count (filter (fn [r] (= % (:class r))) rs))]
           (when (seq rs)
-            (println (format "%-24s %7d %9d %9d" a (c :tested) (c :internal) (c :isolated))))))
+            (println (format "%-24s %7d %9d %9d" (str a (when (ded? a) " †")) (c :tested) (c :internal) (c :isolated))))))
       (let [iso (filter #(= :isolated (:class %)) rows)]
-        (println (format "\nTOTAL ISOLATED candidates: %d across %d actors"
+        (println (format "\nTOTAL ISOLATED candidates: %d across %d actors († = dedicated runner)"
                          (count iso) (count (distinct (map :actor iso)))))
         (when (args "--isolated")
           (println "\n=== ISOLATED candidates (verify, then test) ===")
           (doseq [r (sort-by (juxt :actor :file :fn) iso)]
-            (println (format "  %s/%s/%s" (:actor r) (:file r) (:fn r)))))))))
+            (println (format "  %s%s/%s/%s" (:actor r) (if (ded? (:actor r)) " †" "") (:file r) (:fn r)))))))))
