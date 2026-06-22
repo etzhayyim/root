@@ -15,6 +15,10 @@ run_cljc() {
 
 run_cljc "sarutahiko.methods.test-charter-gates"
 run_cljc "sarutahiko.methods.test-agent"
+run_cljc "sarutahiko.cells.frame-fabrication.test-state-machine"
+run_cljc "sarutahiko.cells.cab-body-forming.test-state-machine"
+run_cljc "sarutahiko.cells.powertrain-assembly.test-state-machine"
+run_cljc "sarutahiko.cells.electrical-integration.test-state-machine"
 
 if [[ $rc -eq 0 ]]; then
   echo "==> sarutahiko: ALL GREEN"
