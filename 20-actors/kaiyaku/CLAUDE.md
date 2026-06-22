@@ -81,24 +81,49 @@ advice.
 ├── CLAUDE.md                          # this file
 ├── manifest.edn                       # actor manifest (5 cells, 9 gates, 6 non-goals)
 ├── data/
-│   └── seed-en-ledger.kotoba.edn      # SYNTHETIC demo 縁-ledger (no real PII — G1)
+│   ├── seed-en-ledger.kotoba.edn      # SYNTHETIC demo 縁-ledger (no real PII — G1)
+│   └── cancel-procedures.kotoba.edn   # R1: REAL-service 解約 procedure catalog (:representative, operator-verified=false)
 ├── methods/                           # pure-stdlib → kotoba pywasm-runnable
 │   ├── analyze.py                     # edge-primary tie-burden analyzer + cascade-guard
 │   ├── plan.py                        # T1/T2/T3 severance-plan builder (dry-run only)
+│   ├── cap.cljc                       # R1: severance CAPABILITY (revocable leash; present-only, no-server-key)
+│   ├── driver.cljc                    # R1: capability-gated dispatch (authorize-never-execute; cascade + exactly-once)
+│   ├── catalog.cljc                   # R1: real-service 解約 procedure catalog loader/validator (tier-parity w/ planner)
+│   ├── receipt.cljc                   # R1: catalog + authorization-receipt Datom emit/persist (G9 audit, no-secrets)
+│   ├── karakuri_bridge.cljc           # R1: kaiyaku plan → karakuri serviceOp handoff (lexicon-checked, no-drift)
+│   ├── pipeline.cljc                  # R1: end-to-end composition (analyze→plan→enrich→dispatch→serviceop→receipt)
+│   ├── maturity.cljc                  # R1: generated MATURITY.md scorecard (manifest+catalog SoT, freshness-tested)
+│   ├── audit.cljc                     # R1: G9 audit READ side — query receipt log + standing no-live-execution check
 │   ├── handoff_ingest.py              # tate 盾 handoff → notice-window worklist (compose 往復)
 │   ├── meisai_ingest.cljc             # meisai 明細 recurring-charge handoff → 縁-ledger tie (compose 往復)
 │   └── datom_emit.py                  # kotoba Datom-log (EAVT) emitter — canonical state
-├── tests/                             # 36 tests, pure stdlib
+├── tools/                             # MEMBER-side runtime (NOT the actor — may do crypto)
+│   └── issue_capability.cljc          # R1: member mints the revocable severance capability (Ed25519/JDK; kaiyaku never signs)
+├── MATURITY.md                        # GENERATED R1 scorecard (methods/maturity.cljc; freshness-tested)
+├── R1-RUNBOOK.md                      # operator how-to for the R1 leg (issue capability → run → persist → audit → G6 path)
+├── tests/                             # 130 tests, pure stdlib
 │   ├── test_analyze.py
 │   ├── test_handoff.py
-│   ├── test_meisai_ingest.cljc
-│   └── test_plan.py
+│   ├── test_meisai_ingest.cljc        # meisai 明細 recurring-charge handoff → 縁-ledger tie
+│   ├── test_plan.py
+│   ├── test_cap.cljc                  # R1 capability: load/validation gate (malformed-bundle rejection)
+│   ├── test_driver.cljc               # R1 driver: capability gating + cascade + exactly-once
+│   ├── test_catalog.cljc              # R1 catalog: tier-parity w/ planner + G3/G6/G8 honesty
+│   ├── test_issue_capability.cljc     # R1 tool: issuance↔cap verification roundtrip + Ed25519
+│   ├── test_receipt.cljc              # R1 audit: catalog/receipt datoms + no-secrets + commit-DAG
+│   ├── test_karakuri_bridge.cljc      # R1 seam: plan→serviceOp lexicon parity (no-drift)
+│   ├── test_pipeline.cljc             # R1 END-TO-END: analyze→…→serviceop→receipt compose
+│   ├── test_manifest.cljc             # R1 manifest↔methods↔karakuri-lexicon parity (no doc drift)
+│   ├── test_maturity.cljc             # R1 MATURITY.md scorecard content + freshness
+│   ├── test_audit.cljc                # R1 G9 audit read-back + standing no-live-execution check
+│   └── test_charter_invariants.cljc   # CONSOLIDATED constitutional guarantees (G3/G5/G6/G8/N1) in one place
 ├── clj/                               # cljc port + Clojure LangGraph actor (see clj/README.md)
 │   ├── deps.edn                       # langgraph-clj + browser-use-clj + computer-use-clj (git deps)
 │   ├── src/kaiyaku/                   # ledger/analyze/plan/datoms (Python numeric parity)
 │   │                                  #   + executor.cljc (T2 rehearsal engines; murakumo-model G4)
-│   │                                  #   + agent.cljc (StateGraph: ingest→analyze→plan→‖member-sig‖→rehearse)
-│   └── test/kaiyaku/                  # 17 tests / 103 assertions
+│   │                                  #   + agent.cljc (StateGraph: ingest→analyze→plan→‖member-sig‖→dispatch→rehearse)
+│   │                                  #   + cap.cljc / driver.cljc / catalog.cljc (R1 clj-native; WIRED into agent :dispatch node, catalog-enriched)
+│   └── test/kaiyaku/                  # 32 tests / 189 assertions (driver_test + catalog_test + agent :dispatch authorization)
 └── out/                               # GENERATED — do not hand-edit
     ├── enkiri-readout.md
     ├── severance-plans.md
@@ -123,7 +148,7 @@ python3 methods/handoff_ingest.py    # tate handoff → out/handoff-worklist.md
 python3 tests/test_analyze.py && python3 tests/test_plan.py \
   && python3 tests/test_handoff.py   # 22 green
 
-cd clj && clojure -X:test             # clj lane: 17 tests / 103 assertions green
+cd clj && clojure -X:test             # clj lane: 32 tests / 189 assertions green (R1 cap/driver/catalog wired into :dispatch)
 ```
 
 ## Do not

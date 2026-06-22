@@ -97,6 +97,44 @@
         (is (empty? (-> out :state :plans)))
         (is (empty? (-> out :state :rehearsals)))))))
 
+(def cancel-cap
+  "A member-presented CACAO leash approving the three demo svcs (R1)."
+  {:cacao-b64 "opaque" :aud "did:web:etzhayyim.com" :capability "service:cancel"
+   :graph "graph:kaiyaku" :exp 9999999999 :nonce "n"
+   :approved ["svc:video-a" "svc:cloud-h" "svc:gym-b"]})
+
+(deftest dispatch-authorizes-with-capability-never-executes
+  (let [actor (build)
+        tid   "kaiyaku-cap"]
+    (agent/run-until-approval actor seed tid)
+    (let [out (agent/resume-with-approval actor tid
+                                          ["svc:video-a" "svc:cloud-h" "svc:gym-b"] cancel-cap)
+          ds (-> out :state :descriptors)
+          by-svc (into {} (map (juxt :svc identity)) ds)]
+      (testing "every approved plan gets an authorization descriptor (executed=false, G6)"
+        (is (= 3 (count ds)))
+        (is (every? #(true? (:authorized %)) ds))
+        (is (every? #(false? (:executed %)) ds))
+        (is (every? #(false? (:server-signed %)) ds)))
+      (testing "tier → status: T1/T2 authorized-dry-run, T3 member-submits"
+        (is (= :authorized-dry-run (:status (by-svc "svc:cloud-h"))))   ; T1
+        (is (= :authorized-dry-run (:status (by-svc "svc:video-a"))))   ; T2
+        (is (= :member-submits (:status (by-svc "svc:gym-b")))))        ; T3
+      (testing "rehearsal still runs (dry-run is never gated by the capability)"
+        (is (= 3 (count (-> out :state :rehearsals))))))))
+
+(deftest dispatch-refuses-without-capability
+  (let [actor (build)
+        tid   "kaiyaku-nocap"]
+    (agent/run-until-approval actor seed tid)
+    (let [out (agent/resume-with-approval actor tid ["svc:video-a" "svc:cloud-h" "svc:gym-b"])
+          ds (-> out :state :descriptors)]
+      (testing "no capability → every descriptor refused, but rehearsal still proceeds (dry-run)"
+        (is (= 3 (count ds)))
+        (is (every? #(= :refused (:status %)) ds))
+        (is (every? #(false? (:executed %)) ds))
+        (is (= 3 (count (-> out :state :rehearsals))))))))
+
 (deftest g5-checkpointer-required
   (is (thrown-with-msg?
        #?(:clj clojure.lang.ExceptionInfo :cljs ExceptionInfo) #"G5"

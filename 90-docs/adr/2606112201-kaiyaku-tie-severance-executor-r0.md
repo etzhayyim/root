@@ -122,6 +122,75 @@ cross-actor table already specified.
 `.solve()` raises) — coded scaffolds, live ingest (G7), member-approval convo leg, and
 any live execution (G6) are R1+ follow-ups, each behind its gate.
 
+## R1 — capability-gated severance driver (added 2026-06-21)
+
+R0 left exactly one gap between a member-approved dry-run plan and an actual
+cancellation: `plan/execute` raised unconditionally, with no designed path to ever
+say *yes*. R1 closes that gap as an **authorization boundary, not live I/O** — the
+karakuri `adapter_live` / fuchi `live_gate` pattern, ported into kaiyaku:
+
+- **`methods/cap.cljc` — the revocable leash.** A severance is destructive, so the
+  credential is neither a platform-held key (prohibited, no-server-key ADR-2605231525)
+  nor a per-tie passkey touch. It is a **scoped, expiring, revocable kotoba CACAO
+  capability** the MEMBER signs in their OWN runtime and hands kaiyaku to PRESENT
+  (kaiyaku holds no key, never signs — present-only, mirrors ibuki `delegation.cljc`,
+  ADR-2606111400). kaiyaku **tightens** the ibuki leash: the bundle carries an
+  `approved` svc-id ALLOWLIST = the exact set the member approved at the G5
+  human-in-the-loop interrupt, so the member-sig gate and the capability scope become
+  ONE artifact. `usable?` is a pure fn of bundle metadata against a caller-supplied
+  `:now-epoch` (no wall clock); `aud` is the kotoba NODE DID; `write_author` resolves
+  to the issuing member (severance attributed on-record to the consenting human).
+- **`methods/driver.cljc` — authorize, never execute.** `dispatch` / `dispatch-batch`
+  verify the capability and return an authorization DESCRIPTOR with `executed:false` /
+  `server_signed:false`; the actual T1-API / T2-browser / T3-handoff driver remains a
+  separate post-R1 component. Four invariants, each test-enforced:
+  1. **G3 no-server-key** — absent/expired/wrong-graph/not-approved capability →
+     `:refused` (the batch never throws, so one bad tie can't abort the rest).
+  2. **G5-in-the-leash** — a tie not in `approved` is never severable, even under a
+     valid unexpired bundle.
+  3. **cascade ordering (依存)** — a `:review-cascade` plan is never live-dispatched
+     (dependents must be re-homed first); for a `:sever` plan, `assert-cascade-order`
+     structurally guarantees every `rehome-dependency` step precedes the irreversible
+     cancel step.
+  4. **exactly-once (冪等)** — `dispatch-batch` threads an `already-severed` cursor;
+     a re-run / resume of the same batch is a no-op (no double cancellation).
+  T3 self-submit is **never sent** — the descriptor says the member submits it.
+
+`plan/execute` still raises (R0 contract untouched): no code path performs a live
+cancellation. R1 is the *design* of the authorized path + its gates, proven green
+(`run_tests.sh`: 41 tests / 254 assertions, +10 `test_driver` deftests), with live
+network I/O still gated to a post-R1 driver behind G6 (Council Lv6+ + operator +
+member-presented capability). Still-open R1 data gap: the real-service cancellation
+procedure catalog (R0 seed is 9 synthetic `:representative` ties).
+
+### R1 follow-on (same wave)
+
+- **`data/cancel-procedures.kotoba.edn` + `methods/catalog.cljc`** — the R1 DATA leg:
+  a `:representative` catalog of real services + their disclosed 解約/退会 procedures
+  (every entry `:operator-verified false`; an operator must verify before live use,
+  the catalog honesty analogue of G6). `catalog/derive-tier` mirrors `plan/select-tier`
+  byte-for-byte (a test pins no data↔logic drift); honesty gates in code: G3 (no T2 over
+  a non-`:permitted` browser stance; no evasion verb in steps), G8 (notice/penalty
+  carried — Adobe ETF + gym notice surfaced), N1. `catalog/enrich-plan` ADDITIVELY
+  attaches the disclosed procedure to a plan (build-plan parity untouched) and flags a
+  ledger↔catalog cost-of-severance discrepancy as `g8_drift` (shown, never reconciled);
+  `coverage-of` is the catalog-growth worklist.
+- **`tools/issue_capability.cljc`** — the MEMBER's own signing-runtime tool (clj/bb,
+  Ed25519 via JDK — no third-party dep) that mints the `cap.cljc` bundle. Proven: the
+  issuance↔verification round-trip (a bundle it builds satisfies `cap` and `usable?`
+  accepts it; the `approved` allowlist + expiry bind). CBOR-CACAO byte-parity vs the live
+  kotoba node is the G6 operator step (honest, like operator-verified=false).
+- **`methods/receipt.cljc`** — G9 audit: the catalog (`:proc/*`) and every driver
+  authorization descriptor (`:kaiyaku.receipt/*`) are persisted to the kotoba commit-DAG
+  (verify-chain tamper-evident). A receipt NEVER stores a credential (no-server-key —
+  a credential-shaped value is refused at emit), `:executed` is always false (G6).
+- **`methods/karakuri_bridge.cljc`** — the cross-actor seam: a kaiyaku plan maps to a
+  karakuri `com.etzhayyim.karakuri.serviceOp` record (kaiyaku decides WHAT, karakuri is
+  the execution substrate). Validated against karakuri's OWN lexicon so the two
+  vocabularies cannot drift (tier scheme parity + enum checks); a 解約 is a `delete`,
+  `dryRun` true, `mutateGate awaiting-member-sig`; T3 self-submit → no op (member's manual
+  procedure). Suite: **75 tests / 852 assertions green** (`run_tests.sh`).
+
 # Consequences
 
 - The 縁切り question now has a designed, test-enforced answer: subscriptions, dormant

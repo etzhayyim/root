@@ -2,14 +2,21 @@
   "kaiyaku 解約 — the Clojure LangGraph actor (ADR-2606112201, cljc port on
   langgraph-clj).
 
-      :ingest → :analyze → :plan → ‖interrupt‖ :approve → :rehearse → END
+      :ingest → :analyze → :plan → ‖interrupt‖ :approve → :dispatch → :rehearse → END
 
   The interrupt BEFORE :approve is the G5 member-sig gate in graph form: the
   graph halts with the dry-run plans on the thread's checkpoint; the MEMBER
-  reviews them (human-in-the-loop) and resumes with {:approved [svc-id …]}.
+  reviews them (human-in-the-loop) and resumes with {:approved [svc-id …]} and
+  optionally a {:capability bundle} (the revocable CACAO leash, kaiyaku.cap).
   Only member-approved plans proceed — T2 plans are REHEARSED against the
   injected surface (R0: pure-data mock; live = G6-gated, not wired), T1/T3
   plans are emitted as prepared handoffs.
+
+  :dispatch is the R1 capability-gated AUTHORIZATION membrane (kaiyaku.driver):
+  per approved plan it records an authorization descriptor (`:executed false`
+  ALWAYS — the membrane authorizes, a post-R1 driver executes; G6) WITHOUT
+  blocking the dry-run rehearsal. Absent a capability every descriptor is
+  :refused (the honest default); rehearsal still runs because it is dry-run.
 
   Datomic premise: with a langgraph datomic-checkpointer every superstep is a
   checkpoint datom, and with a :history-conn every sub-agent action is an
@@ -19,6 +26,8 @@
             [kaiyaku.analyze :as analyze]
             [kaiyaku.plan :as plan]
             [kaiyaku.datoms :as datoms]
+            [kaiyaku.driver :as driver]
+            [kaiyaku.catalog :as catalog]
             [kaiyaku.executor :as executor]))
 
 (defn- rehearse-one [{:keys [model browser-for computer-for history-conn max-steps]} p]
@@ -59,6 +68,8 @@
                    :readout    {}
                    :plans      {:default []}
                    :approved   {:default []}
+                   :capability {:default nil}     ; member-presented CACAO leash (R1) | nil
+                   :descriptors {:default []}      ; R1 authorization descriptors (executed=false)
                    :rehearsals {:reducer (fnil into []) :default []}
                    :datoms     {:default []}}})
       (g/add-node :ingest
@@ -76,6 +87,20 @@
                   ;; approval (G5); narrows the plan set to the approved svc ids.
                   (fn [{:keys [plans approved]}]
                     {:plans (vec (filter (comp (set approved) :svc) plans))}))
+      (g/add-node :dispatch
+                  ;; R1 capability-gated AUTHORIZATION (kaiyaku.driver): record a
+                  ;; descriptor per approved plan (executed=false ALWAYS, G6).
+                  ;; Plans are first ENRICHED with the disclosed catalog procedure
+                  ;; (kaiyaku.catalog, if a :catalog by-id map is configured) so the
+                  ;; descriptor surfaces the real steps + g8-drift. Does NOT filter
+                  ;; :plans — dry-run rehearsal always proceeds; the capability gates
+                  ;; the (post-R1) LIVE path, not the rehearsal.
+                  (fn [{:keys [plans capability]}]
+                    (let [enriched (if-let [cat (:catalog opts)]
+                                     (catalog/enrich-plans plans cat)
+                                     plans)]
+                      {:descriptors (:results (driver/dispatch-batch
+                                               enriched {:bundle capability :now-epoch 0}))})))
       (g/add-node :rehearse
                   (fn [{:keys [plans]}]
                     {:rehearsals (mapv #(rehearse-one opts %) plans)}))
@@ -83,7 +108,8 @@
       (g/add-edge :ingest :analyze)
       (g/add-edge :analyze :plan)
       (g/add-edge :plan :approve)
-      (g/add-edge :approve :rehearse)
+      (g/add-edge :approve :dispatch)
+      (g/add-edge :dispatch :rehearse)
       (g/compile-graph {:checkpointer checkpointer
                         :interrupt-before #{:approve}
                         :recursion-limit 50})))
@@ -95,9 +121,15 @@
   (g/run* actor {:ledger-edn ledger-edn} {:thread-id thread-id}))
 
 (defn resume-with-approval
-  "Phase 2: the MEMBER's approval (svc ids) resumes the graph through
-  :approve → :rehearse. Member-sig VERIFICATION is the membrane's duty
-  upstream (WebAuthn / EIP-712); this graph models the gate itself."
-  [actor thread-id approved-svc-ids]
-  (g/run* actor {:approved (vec approved-svc-ids)}
-          {:thread-id thread-id :resume? true}))
+  "Phase 2: the MEMBER's approval (svc ids) — and optionally a capability bundle
+  (the R1 CACAO leash, kaiyaku.cap) — resumes the graph through
+  :approve → :dispatch → :rehearse. Member-sig VERIFICATION is the membrane's
+  duty upstream (WebAuthn / EIP-712); this graph models the gate itself. Without
+  a capability the :dispatch descriptors are all :refused (dry-run rehearsal
+  still proceeds)."
+  ([actor thread-id approved-svc-ids]
+   (resume-with-approval actor thread-id approved-svc-ids nil))
+  ([actor thread-id approved-svc-ids capability]
+   (g/run* actor (cond-> {:approved (vec approved-svc-ids)}
+                   capability (assoc :capability capability))
+           {:thread-id thread-id :resume? true})))
