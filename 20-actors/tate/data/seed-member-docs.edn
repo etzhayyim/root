@@ -901,6 +901,12 @@
   :notice/sourcing :synthetic
   :notice/text "The company is in liquidation. Creditors are required to send their proof of debt to the liquidator within the time fixed by notice."}
 
+ {:notice/id "ntc:ie-family" :notice/label "IE Family Law Civil Bill (respondent・personal service)"
+  :notice/jurisdiction :ie
+  :notice/channel :personal-service :notice/claim-amount 0 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Family Law Civil Bill served on you as respondent. You may enter an Appearance with the County Registrar within the time stated."}
+
  {:notice/id "ntc:ch-zb" :notice/label "CH Zahlungsbefehl (Betreibungsamt)"
   :notice/jurisdiction :ch
   :notice/channel :formal-service :notice/claim-amount 5400 :notice/claim-currency "CHF"
