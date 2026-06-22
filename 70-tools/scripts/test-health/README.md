@@ -102,6 +102,22 @@ fixes each break it worse:
 A pure-logic `test_*.cljc` (no `*file*`, no removed symbol) still lands green here regardless
 (test_integrity #2198) — only the `*file*`/shadow tests are blocked.
 
+### Owner-territory red-suite register (diagnosed 2026-06; each needs an OWNER fix, not a test add)
+
+After the fn-coverage clean-substantial worklist was exhausted, probing the remaining ISOLATED
+candidates surfaced a handful of actors whose suites are red under `bb test:actors` for reasons that
+are **not** a mechanical shadow-removal. Recorded here so they are not re-investigated and are not
+"fixed" by a change that breaks them worse. A pure-logic `test_*.cljc` still lands green in each
+(with an honest pre-existing-red note, e.g. uchiwake #2214 / kosatsu #2198); only the stale/divergent
+parts are blocked.
+
+| actor | root cause | the owner fix |
+|---|---|---|
+| **kosatsu** | `*file*`-under-`require` + divergent source shadows (see above) | `*file*`-robust paths + port-completion |
+| **uchiwake** | **stale tests vs a changed API** — `test_crosscheck.clj` calls the OLD 0-arg, keyword-keyed `crosscheck`, but `crosscheck.cljc` is now `(crosscheck [g kabuto-rows])` returning a **string**-keyed map; `tests/test_autorun` references a removed `ingest/fetch-off` | rewrite the two stale tests to the current 2-arg / string-keyed API |
+| **mizuho** | **divergent designs, not an incomplete port** — `substrate.clj` exposes a PID API (`make-pid`/`pid-step!`/`pid-reset!`/`round6`); `substrate.cljc` exposes a droop API (`droop`/`droop-command`/`pid`). Neither is a superset | a design decision (which API is canonical) then reconcile |
+| **niyaku** | divergent `crane_dynamics` `.clj` (`make-crane`) vs `.cljc` (`make-gantry-crane`) + parity tests mixing both | reconcile the crane API across `.clj`/`.cljc`/parity |
+
 So: probe `tests-fail` / `load-error` actors with the oracle; the key-access ones (where the stale
 `.clj` is the ONLY thing wrong and its `.cljc` is the complete canonical) are a safe mechanical fix;
 the divergent-design ones are deferred to their owners — the fix is a design decision, not a port.
