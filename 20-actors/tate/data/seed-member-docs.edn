@@ -950,6 +950,12 @@
   :notice/sourcing :synthetic
   :notice/text "Procedimento de injunção. Pode deduzir oposição no prazo legal."}
 
+ {:notice/id "ntc:pt-insolvencia" :notice/label "PT sentença de insolvência (credor・carta)"
+  :notice/jurisdiction :pt
+  :notice/channel :mail :notice/claim-amount 2400 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "A sociedade foi declarada insolvente. Os credores devem reclamar os seus créditos junto do administrador de insolvência no prazo fixado na sentença."}
+
  {:notice/id "ntc:jp-kaiko" :notice/label "解雇予告通知書 (郵送・労働)"
   :notice/jurisdiction :jp
   :notice/channel :mail :notice/claim-jpy 0
