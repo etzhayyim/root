@@ -1183,6 +1183,20 @@
   :proc/refer-when ["NT$500,000 超 (簡易訴訟の上限域)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:tw-pochan" :proc/label "申報債權 (債權者側・破產・台湾)"
+  :proc/jurisdiction :tw :proc/track :insolvency
+  :proc/trigger-keywords ["破產" "申報債權" "破產管理人"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "申報債權"
+    :dl/rule "法院が破產宣告と同時に定める申報期間内 — 破產宣告日から15日以上3か月以下 — に 破產管理人 へ 申報債權 (期間徒過は失權效果で破產財団から配当を受けられない; 破產宣告前に確定判決・支付命令等の執行名義を得た債権は期間に拘束されない)"
+    :dl/anchor "破產法 第64條第1項・第65條第1項第5款" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :shenbao :opt/kind :self-submit :opt/protective true
+    :opt/label "債權申報書 を 破產管理人 へ提出 (本人可; 預付款・押金・儲值卡 など前払金も債權: kaiyaku 縁-ledger と突合)"}]
+  :proc/refer-when ["擔保債權・抵銷・高額債權"]
+  :proc/verify-current-law true}
+
  ;; ── :sg ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:sg-dismissal" :proc/label "Termination of services (解雇・労働・シンガポール)"
   :proc/jurisdiction :sg :proc/track :labor
