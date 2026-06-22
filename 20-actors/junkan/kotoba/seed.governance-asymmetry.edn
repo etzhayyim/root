@@ -3269,4 +3269,61 @@
   :stakeholders ["states parties" "the condemned" "abolition movements" "citizens"]
   :stock :coercion-asymmetry :polarity :narrow :magnitude 0.5 :reversibility :constitutional :meadows 6
   :basis "Second Optional Protocol to the ICCPR (1989)" :sourcing :representative :confidence 0.4}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 38 — paradigm-subordination within-jurisdiction depth (ethno-
+ ;; nationalist / revisionist doctrines vs association / indigenous-rights norms)
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── paradigm-subordination (widen) ──
+ {:type :instrument :id "tr-neo-ottomanism" :name "Neo-Ottoman national-religious identity" :jurisdiction "TR" :kind :doctrine :year 2002
+  :enactor "Turkish governing narrative (post-2002)"
+  :origin "A national identity narrative blending Ottoman heritage and religious conservatism (symbolized by the 2020 reconversion of Hagia Sophia) reframes the citizen's belonging around a state-favoured identity, marginalizing secular and minority self-understandings."
+  :stakeholders ["governing party" "Diyanet" "secular/minority citizens" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.45 :reversibility :cultural :meadows 2
+  :basis "Turkish neo-Ottoman narrative; Hagia Sophia (2020)" :sourcing :representative :confidence 0.35}
+ {:type :instrument :id "jp-memory-politics" :name "War-memory politics (Yasukuni / textbooks)" :jurisdiction "JP" :kind :doctrine :year 1985
+  :enactor "Japanese revisionist-memory currents (official visits, textbook screening)"
+  :origin "Recurring controversies over official Yasukuni visits and textbook treatment of wartime history reflect contested state framing of national memory; where it minimizes past abuses it shapes a paradigm of national pride over critical reckoning (an ambiguous, contested effect)."
+  :stakeholders ["government" "historians/neighbours" "textbook authorities" "citizens"]
+  :stock :paradigm-subordination :polarity :ambiguous :magnitude 0.35 :reversibility :cultural :meadows 2
+  :basis "Japanese war-memory politics (Yasukuni; textbook screening)" :sourcing :representative :confidence 0.35}
+ {:type :instrument :id "gl-historical-revisionism" :name "Official historical revisionism" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse (states reshaping official history)"
+  :origin "State-driven rewriting of history to glorify the nation/regime and erase abuses narrows citizens' capacity to learn from the past and judge power — a paradigm pattern beneath specific memory laws and curricula."
+  :stakeholders ["governments" "historians/educators" "press" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.45 :reversibility :cultural :meadows 2
+  :basis "Comparative state historical-revisionism" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-anti-gender-movement" :name "State 'anti-gender' mobilization" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse (states/movements opposing 'gender ideology')"
+  :origin "A transnational political movement framing equality and LGBT/women's-rights claims as a foreign 'gender ideology' threat legitimizes rolling back protections and subordinating affected groups to a state-favoured family/identity norm — a paradigm beneath several national laws."
+  :stakeholders ["governments/movements" "women/LGBT citizens" "rights bodies" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.45 :reversibility :cultural :meadows 2
+  :basis "Comparative 'anti-gender' mobilization literature" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-ethnonationalism" :name "Ethnonationalism ('blood and soil')" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse value (ethnically-defined nationhood)"
+  :origin "Defining the nation by ethnicity/descent rather than shared citizenship subordinates those outside the dominant group to second-class standing and fuels exclusion — a deep paradigm beneath many specific nationality, language, and citizenship laws."
+  :stakeholders ["dominant group" "ethnic/national minorities" "the state" "citizens"]
+  :stock :paradigm-subordination :polarity :widen :magnitude 0.5 :reversibility :cultural :meadows 2
+  :basis "Comparative ethnonationalism literature" :sourcing :representative :confidence 0.4}
+
+ ;; ── paradigm-subordination (narrow — association / indigenous-rights norms) ──
+ {:type :instrument :id "gl-associational-freedom" :name "Freedom of association / civic space (norm)" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse civic + international norm (ICCPR Art. 22)"
+  :origin "The protected freedom to form unions, parties, NGOs, and associations sustains an autonomous civil society that mediates between citizen and state; its protection narrows the paradigm of an atomized population facing power alone (CIVICUS tracks its global contraction)."
+  :stakeholders ["civil society" "unions/parties" "the state" "citizens"]
+  :stock :paradigm-subordination :polarity :narrow :magnitude 0.5 :reversibility :cultural :meadows 2
+  :basis "ICCPR Art. 22; CIVICUS civic-space monitoring" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-tolerance-coexistence" :name "Pluralist tolerance / coexistence (norm)" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse civic norm (pluralist political culture)"
+  :origin "A civic culture that treats difference (religious, ethnic, political) as legitimate and protected rather than threatening is the paradigm soil in which rights survive; its erosion into us-vs-them framing precedes most group subordination."
+  :stakeholders ["civil society" "minorities" "media/education" "citizens"]
+  :stock :paradigm-subordination :polarity :narrow :magnitude 0.45 :reversibility :cultural :meadows 2
+  :basis "Pluralist political-culture literature" :sourcing :representative :confidence 0.35}
+ {:type :instrument :id "gl-undrip-indigenous-rights" :name "UN Declaration on the Rights of Indigenous Peoples" :jurisdiction "GLOBAL" :kind :institution :year 2007
+  :enactor "UN General Assembly (UNDRIP, 2007)"
+  :origin "Recognized indigenous peoples' rights to self-determination, land, culture, and free prior informed consent, reframing them from subjects of assimilation to rights-bearing peoples — a paradigm narrowing of a long-standing subordination (implementation varies widely)."
+  :stakeholders ["indigenous peoples" "states" "UN bodies" "citizens"]
+  :stock :paradigm-subordination :polarity :narrow :magnitude 0.45 :reversibility :institutional :meadows 2
+  :basis "UNDRIP (2007)" :sourcing :representative :confidence 0.4}
 ]
