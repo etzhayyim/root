@@ -1799,6 +1799,20 @@
   :proc/refer-when ["高額・複雑 → oikeusapu"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:fi-konkurssi" :proc/label "Saatavan valvonta (債権者側・倒産・フィンランド)"
+  :proc/jurisdiction :fi :proc/track :insolvency
+  :proc/trigger-keywords ["konkurssi" "valvonta" "valvontapäivä" "pesänhoitaja"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "Saatavan valvonta"
+    :dl/rule "pesänhoitaja (破産管財人) が定め公告する valvontapäivä (届出日) までに valvontakirjelmä (届出書) で saatava を pesänhoitaja へ valvoa; 期日後の届出 (jälkivalvonta) は手数料を要し、怠ると債権を失うことがある"
+    :dl/anchor "Konkurssilaki (120/2004) 12 luku (valvonta)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :valvonta :opt/kind :self-submit :opt/protective true
+    :opt/label "valvontakirjelmä を pesänhoitaja へ提出 (本人可; ennakkomaksu・vakuus・lahjakortti など前払金も saatava: kaiyaku 縁-ledger と突合)"}]
+  :proc/refer-when ["vakuus・kuittaus・suuri saatava (担保・相殺・高額債権)"]
+  :proc/verify-current-law true}
+
  ;; ── :ie ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:ie-dismissal" :proc/label "Notice of dismissal (解雇・労働・アイルランド)"
   :proc/jurisdiction :ie :proc/track :labor
