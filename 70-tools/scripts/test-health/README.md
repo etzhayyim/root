@@ -61,3 +61,18 @@ Removing a stale `.clj` shadow → running the suite → keeping the removal **o
 So: probe `tests-fail` / `load-error` actors with the oracle; the key-access ones (where the stale
 `.clj` is the ONLY thing wrong and its `.cljc` is the complete canonical) are a safe mechanical fix;
 the divergent-design ones are deferred to their owners — the fix is a design decision, not a port.
+
+## Scan from a worktree, NOT the shared checkout (avoid stale-file false positives)
+
+**Run any suite scan from a fresh git worktree off `origin/main`, never from the shared main
+checkout.** The shared checkout (`CLAUDE.md` § Worktree isolation) is chronically *behind*
+`origin/main` (observed 127 commits) and carries other agents' in-flight + leftover files. Babashka
+loads whatever is on disk, so a file that `origin/main` already **deleted** (e.g. a pre-port
+`autorun.clj` superseded by `autorun.cljc`) still sits in the stale checkout and gets loaded — the
+classic `.clj`-shadow failure mode — producing a **load error that does not exist on `origin/main`**
+(verified 2026-06: a `danjo` "load error" was purely a stale local `methods/autorun.clj`; danjo is
+24/24 green on a fresh worktree). It cuts both ways: a stale *passing* `.clj` can also mask a real
+`.cljc` failure (false green). EnterWorktree (or `git worktree add … origin/main`) gives a clean
+`origin/main` tree; the safe-oracle fixes in this lineage (meyasu/haraedo/todoke/fuchi/kanae) were
+all done in worktrees for exactly this reason. Only trust a red/green verdict produced against
+`origin/main`.
