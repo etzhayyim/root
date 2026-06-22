@@ -1145,6 +1145,12 @@
   :notice/sourcing :synthetic
   :notice/text "Public announcement of corporate insolvency resolution process. Creditors must submit their proof of claim to the resolution professional by the last date stated."}
 
+ {:notice/id "ntc:in-family" :notice/label "IN Family Court notice — divorce petition (respondent・registered post)"
+  :notice/jurisdiction :in
+  :notice/channel :formal-service :notice/claim-amount 0 :notice/claim-currency "INR"
+  :notice/sourcing :synthetic
+  :notice/text "Notice from the Family Court in a divorce petition under the Hindu Marriage Act. You are required to respond within the stated time."}
+
  ;; registry-seed completeness backfill: every procedure must be exercised (G10 maturity)
  {:notice/id "ntc:us-smallclaims" :notice/label "US small claims notice (certified mail)"
   :notice/jurisdiction :us
