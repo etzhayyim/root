@@ -22,6 +22,8 @@
             [shionome.methods.ie-flow :as shionome-ief]
             [inochi.methods.ie-flow :as inochi-ief]
             [hokorobi.methods.ie-flow :as hokorobi-ief]
+            [hoshimori.methods.ie-flow :as hoshimori-ief]
+            [tsugite.methods.ie-flow :as tsugite-ief]
             [kotoba.datom :as kd]))
 
 (def registry-path "80-data/ie-flow/registry.edn")
@@ -43,6 +45,8 @@
         shionome-state (safe #(shionome-ief/flow-state))
         inochi-state (safe #(inochi-ief/flow-state))
         hokorobi-state (safe #(hokorobi-ief/flow-state))
+        hoshimori-state (safe #(hoshimori-ief/flow-state))
+        tsugite-state (safe #(tsugite-ief/flow-state))
         measured (fn [actor] (safe #(let [st (embed/measure actor)]
                                       (when (pos? (:flows-n st 0)) st))))
         candidates (cond-> {}
@@ -53,7 +57,9 @@
                      tsumugi-state (assoc "tsumugi" tsumugi-state)
                      shionome-state (assoc "shionome" shionome-state)
                      inochi-state (assoc "inochi" inochi-state)
-                     hokorobi-state (assoc "hokorobi" hokorobi-state))
+                     hokorobi-state (assoc "hokorobi" hokorobi-state)
+                     hoshimori-state (assoc "hoshimori" hoshimori-state)
+                     tsugite-state (assoc "tsugite" tsugite-state))
         ;; actors scored via their live adapter above are not re-read from a ledger here
         with-ledgers (reduce (fn [m a]
                                (if-let [st (measured a)] (assoc m a st) m))
