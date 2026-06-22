@@ -3155,4 +3155,61 @@
   :stakeholders ["whistleblowers/journalists" "courts" "the state" "citizens"]
   :stock :information-asymmetry :polarity :narrow :magnitude 0.45 :reversibility :statutory :meadows 6
   :basis "Comparative public-interest-defence jurisprudence" :sourcing :representative :confidence 0.4}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 36 — economic-capture within-jurisdiction depth (conflict-of-
+ ;; interest / golden visas vs competition-law / campaign-finance counters)
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── economic-capture (widen) ──
+ {:type :instrument :id "cz-babis-agrofert" :name "PM's agro-conglomerate conflict of interest" :jurisdiction "CZ" :kind :institution :year 2017
+  :enactor "Czech political economy (PM-owned conglomerate + EU subsidies)"
+  :origin "A prime minister retaining beneficial control of a large conglomerate that received public and EU subsidies created a structural conflict of interest, confirmed by EU audits — capture of public/EU funds via overlapping political and business power."
+  :stakeholders ["PM/conglomerate" "EU auditors" "competitors" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.5 :reversibility :statutory :meadows 5
+  :basis "Czech conflict-of-interest case; EU audits (2017–)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gr-novartis-siemens" :name "Cross-border bribery scandals (Siemens/Novartis)" :jurisdiction "GR" :kind :institution :year 2008
+  :enactor "Greek political-business corruption cases"
+  :origin "Major bribery scandals (Siemens kickbacks; later Novartis allegations) exposed how multinationals and officials captured procurement and policy, eroding public trust during and after the debt crisis."
+  :stakeholders ["multinationals" "officials" "prosecutors" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.5 :reversibility :institutional :meadows 5
+  :basis "Greece Siemens (2008) / Novartis cases" :sourcing :representative :confidence 0.35}
+ {:type :instrument :id "gl-golden-visas" :name "Residency/citizenship-by-investment ('golden visas')" :jurisdiction "GLOBAL" :kind :institution :year 0
+  :enactor "Diffuse (states selling residency/citizenship to investors)"
+  :origin "Programs selling residency or citizenship for investment let wealth purchase rights and access that ordinary citizens cannot, and have been linked to money-laundering and sanctions-evasion — an economic asymmetry the EU and others have moved to curb."
+  :stakeholders ["governments" "wealthy investors" "regulators" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.45 :reversibility :statutory :meadows 5
+  :basis "Comparative CBI/RBI programs; EU scrutiny" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-asset-disclosure-gaps" :name "Weak asset-declaration enforcement" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse (asset-disclosure regimes with weak verification)"
+  :origin "Where officials' asset declarations are not required, not public, or not verified, illicit enrichment goes undetected — the gap that lets capture persist; robust, public, verified declarations are the corresponding narrowing instrument."
+  :stakeholders ["ethics agencies" "officials" "press/auditors" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.4 :reversibility :statutory :meadows 5
+  :basis "Comparative asset-declaration regimes" :sourcing :representative :confidence 0.4}
+
+ ;; ── economic-capture (narrow — competition / campaign-finance counters) ──
+ {:type :instrument :id "us-sherman-antitrust-1890" :name "Sherman Antitrust Act" :jurisdiction "US" :kind :law :year 1890
+  :enactor "U.S. Congress (1890)"
+  :origin "The foundational antitrust law banning monopolization and restraints of trade, used to break up trusts; antitrust is the structural check on the market concentration that translates into political power — narrowing economic capture (enforcement intensity varies by era)."
+  :stakeholders ["DOJ/FTC" "dominant firms" "competitors" "citizens"]
+  :stock :economic-capture :polarity :narrow :magnitude 0.5 :reversibility :statutory :meadows 5
+  :basis "Sherman Antitrust Act, 15 U.S.C. §§1–7 (1890)" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "eu-competition-state-aid" :name "EU competition + state-aid control" :jurisdiction "EU" :kind :institution :year 1957
+  :enactor "European Commission (DG COMP; Treaty competition/state-aid rules)"
+  :origin "Supranational enforcement against cartels, abuse of dominance, and distortive state aid limits both corporate concentration and governments favouring connected firms — a strong structural narrowing of economic capture across the single market."
+  :stakeholders ["European Commission" "firms" "member-state governments" "citizens"]
+  :stock :economic-capture :polarity :narrow :magnitude 0.55 :reversibility :constitutional :meadows 5
+  :basis "TFEU Arts. 101–109; DG COMP enforcement" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "gl-political-finance-regulation" :name "Political-finance regulation (caps/public funding)" :jurisdiction "GLOBAL" :kind :institution :year 0
+  :enactor "Diffuse (states regulating campaign/party finance)"
+  :origin "Contribution caps, spending limits, disclosure, and public funding reduce the degree to which concentrated money buys political outcomes — a structural narrowing of capture (strength varies widely; contrast US dark money)."
+  :stakeholders ["electoral commissions" "parties/donors" "voters" "citizens"]
+  :stock :economic-capture :polarity :narrow :magnitude 0.45 :reversibility :statutory :meadows 5
+  :basis "Comparative political-finance regimes (IDEA)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-competition-authorities" :name "Independent competition authorities (norm)" :jurisdiction "GLOBAL" :kind :institution :year 0
+  :enactor "Diffuse (national/regional competition agencies)"
+  :origin "Independent agencies empowered to block anticompetitive mergers and abuses keep markets contestable, preventing the concentration that converts into outsized political leverage — a structural narrowing where they are well-resourced and insulated."
+  :stakeholders ["competition agencies" "firms" "consumers" "citizens"]
+  :stock :economic-capture :polarity :narrow :magnitude 0.45 :reversibility :institutional :meadows 5
+  :basis "Comparative competition-authority frameworks" :sourcing :representative :confidence 0.4}
 ]

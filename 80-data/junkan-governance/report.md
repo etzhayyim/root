@@ -2,7 +2,7 @@
 
 全世界の **具体的な法律・制度・思想・価値観** が citizen↔state の構造的非対称をどう広げる/狭めるかを、5 つの asymmetry STOCK と feedback LOOP で読み取る。**分析専用 (G4): junkan は観るだけで触れない。** 各 regime / leverage は **仮説 (G5)** であり因果の証明ではない。これは resilience/leverage の MAP であって、国家を晒す ranking ではない (G7)。
 
-_coverage_: 425 instruments · 197 jurisdictions · sourcing {:representative 425}
+_coverage_: 433 instruments · 197 jurisdictions · sourcing {:representative 433}
 
 _continental balance_: africa 53 · europe 48 · asia 46 · americas 34 · oceania 14 · transnational 2
 
@@ -32,7 +32,7 @@ _continental balance_: africa 53 · europe 48 · asia 46 · americas 34 · ocean
 | B 参入・代表性の障壁 (participation) | 142 | 0.013 | 19.365 | 17.565 | transitioning |
 | C 強制力の非対称 (coercion) | 70 | 0.187 | 16.965 | 3.868 | transitioning |
 | D 思想・価値観の従属 (paradigm) | 71 | 0.043 | 11.188 | 8.122 | transitioning |
-| E 経済的レバレッジ集中 (economic) | 70 | 0.059 | 9.495 | 5.355 | transitioning |
+| E 経済的レバレッジ集中 (economic) | 78 | 0.052 | 10.21 | 6.187 | transitioning |
 
 _net > 0 = 非対称が広がる方向に loop が回っている (悪循環傾向); net < 0 = 是正方向 (好循環)。_
 
@@ -40,9 +40,9 @@ _net > 0 = 非対称が広がる方向に loop が回っている (悪循環傾�
 
 | loop | type | member stocks | drive | regime |
 |---|---|---|---|---|
-| R-secrecy-spiral | reinforcing | information-asymmetry, economic-capture | 0.062 | transitioning |
+| R-secrecy-spiral | reinforcing | information-asymmetry, economic-capture | 0.059 | transitioning |
 | R-coercion-paradigm-lock | reinforcing | coercion-asymmetry, paradigm-subordination | 0.115 | transitioning |
-| R-capture-barrier | reinforcing | economic-capture, participation-barrier | 0.036 | transitioning |
+| R-capture-barrier | reinforcing | economic-capture, participation-barrier | 0.033 | transitioning |
 | B-transparency | balancing | information-asymmetry | 0.065 | transitioning |
 | B-participation | balancing | participation-barrier | 0.013 | transitioning |
 
@@ -53,19 +53,19 @@ _net pressure per continent × stock (aggregate, structural — NOT a per-countr
 | continent | info | participation | coercion | paradigm | economic |
 |---|---|---|---|---|---|
 | africa | 0.119 | 0.105 | 0.309 | -0.025 | 0.176 |
-| americas | -0.14 | -0.011 | 0.236 | -0.3 | 0.047 |
+| americas | -0.14 | -0.011 | 0.236 | -0.3 | 0.026 |
 | asia | 0.201 | 0.155 | 0.35 | 0.243 | 0.139 |
-| europe | 0.01 | -0.134 | 0.148 | 0.046 | 0.001 |
+| europe | 0.01 | -0.134 | 0.148 | 0.046 | 0.009 |
 | oceania | 0.01 | -0.161 | 0.248 | · | 0.0 |
 
 ## Instrument kind × net pressure (do laws/institutions/doctrines/values widen or narrow?)
 
 | kind | n | net | polarity mix |
 |---|---|---|---|
-| law | 95 | 0.133 | {:widen 65, :ambiguous 1, :narrow 29} |
-| institution | 239 | 0.067 | {:widen 121, :narrow 94, :ambiguous 24} |
+| law | 96 | 0.129 | {:widen 65, :ambiguous 1, :narrow 30} |
+| institution | 245 | 0.065 | {:widen 124, :narrow 97, :ambiguous 24} |
 | doctrine | 47 | -0.039 | {:widen 18, :narrow 22, :ambiguous 7} |
-| value | 44 | 0.0 | {:ambiguous 3, :widen 21, :narrow 20} |
+| value | 45 | 0.004 | {:ambiguous 3, :widen 22, :narrow 20} |
 
 ## Era trajectory (system-dynamics over time, HYPOTHESIS, G5)
 
@@ -74,11 +74,11 @@ _各時代に制定された instrument が非対称を広げる/狭める方向
 | era | n | widen | narrow | net |
 |---|---|---|---|---|
 | pre-1800 | 7 | 0.0 | 2.623 | -0.375 |
-| 1800–1899 | 4 | 0.2 | 0.938 | -0.184 |
+| 1800–1899 | 5 | 0.2 | 1.163 | -0.192 |
 | 1900–1944 | 11 | 2.67 | 0.2 | 0.225 |
-| 1945–1989 | 96 | 14.43 | 12.712 | 0.018 |
-| 1990–2009 | 112 | 15.028 | 12.642 | 0.021 |
-| 2010– | 146 | 30.925 | 9.19 | 0.149 |
+| 1945–1989 | 97 | 14.43 | 12.96 | 0.015 |
+| 1990–2009 | 113 | 15.203 | 12.642 | 0.023 |
+| 2010– | 147 | 31.125 | 9.19 | 0.149 |
 
 ## Meadows leverage CANDIDATES (G11 — candidates, never directives)
 
@@ -110,7 +110,7 @@ _scores are DISCLOSED + weighted (amplify = 0.6·depth + 0.4·magnitude; flip = 
 
 ## Coverage worklist (next /loop iterations)
 
-- deepen thinnest stock: economic-capture (n=70)
+- deepen thinnest stock: coercion-asymmetry (n=70)
 - broaden jurisdiction coverage (small states / Pacific / Caribbean still light)
 
 _findings are append-only; surfacing beyond Council is performed by ossekai/kataribe on junkan's behalf, never by junkan (G13). actuation_taken=false throughout._
