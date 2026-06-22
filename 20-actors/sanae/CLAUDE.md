@@ -37,7 +37,13 @@ throughput · N4 no industrial monoculture (>50 ha single-crop) · N5 no patente
 ```
 python3 methods/test_labor_liberation.py      # LPS ranking (7/7)
 cd cells && <pytest-shim> test_state_machines.py   # weeding state machine + G3/G9 (5/5)
+bb --classpath 20-actors 20-actors/sanae/methods/labor_coverage.cljc   # build-priority worklist (LPS × actor roster)
 ```
+
+`methods/labor_coverage.cljc` cross-references the LPS ranking against the actor roster
+(`build-priority` / `coverage-gaps` / `coverage-report`) to surface the highest-priority toil
+that still has **no liberating actor** — currently **hofuri (meat processing)** and **ama
+(fishing/aquaculture)**. Charter-excluded sectors (LPS 0, e.g. MINING N1) are never build targets.
 
 R0 = design + state-machines + `:representative` seed only. No hardware; field deployment is Council
 Lv6+ + operator gated (G7) **and** dividend-coupled (G2).
