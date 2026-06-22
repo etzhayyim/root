@@ -3212,4 +3212,61 @@
   :stakeholders ["competition agencies" "firms" "consumers" "citizens"]
   :stock :economic-capture :polarity :narrow :magnitude 0.45 :reversibility :institutional :meadows 5
   :basis "Comparative competition-authority frameworks" :sourcing :representative :confidence 0.4}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 37 — coercion-asymmetry within-jurisdiction depth (detention/
+ ;; watchlists/capital punishment vs fair-trial / abolition counters)
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── coercion-asymmetry (widen) ──
+ {:type :instrument :id "us-immigration-detention" :name "Civil immigration detention (ICE)" :jurisdiction "US" :kind :institution :year 1996
+  :enactor "U.S. government (mandatory-detention provisions, 1996 IIRIRA onward)"
+  :origin "Large-scale civil detention of migrants — including prolonged and mandatory detention without a criminal trial, in for-profit facilities — places a population under coercive confinement outside ordinary criminal due process."
+  :stakeholders ["ICE/DHS" "detainees" "immigration courts" "private operators"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.55 :reversibility :statutory :meadows 5
+  :basis "US immigration detention; IIRIRA 1996" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "jp-hostage-justice" :name "'Hostage justice' (prolonged pre-indictment detention)" :jurisdiction "JP" :kind :institution :year 1948
+  :enactor "Japanese criminal-procedure practice"
+  :origin "Suspects can be held and interrogated for extended periods without bail and with limited counsel access, pressuring confessions ('hitojichi shihō') — a coercion asymmetry in the pre-trial process criticized by the UN and rights bodies."
+  :stakeholders ["prosecutors/police" "suspects" "defence counsel" "courts"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.5 :reversibility :statutory :meadows 5
+  :basis "Japanese pre-indictment detention practice ('hostage justice')" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-counterterror-watchlists" :name "Terror watchlists / no-fly lists" :jurisdiction "GLOBAL" :kind :institution :year 0
+  :enactor "Diffuse (states + UN sanctions lists)"
+  :origin "Secret watchlists and no-fly lists impose travel and financial restrictions with little notice, evidence, or appeal, placing individuals under state constraint outside ordinary due process — an opaque coercion channel (UN ombudsperson offers limited recourse)."
+  :stakeholders ["security agencies" "listed individuals" "courts/ombudsperson" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.5 :reversibility :institutional :meadows 5
+  :basis "Comparative watchlists; UN 1267 ombudsperson" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-capital-punishment" :name "Capital punishment (state power over life)" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse (retentionist states)"
+  :origin "The death penalty is the ultimate, irreversible exercise of coercive state power over the citizen's life; its retention (especially for non-lethal offences or after unfair trials) marks the far end of the coercion axis (a global abolition trend is the counter-movement)."
+  :stakeholders ["states" "the condemned" "courts" "abolition movements"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.5 :reversibility :cultural :meadows 5
+  :basis "Comparative death-penalty status (Amnesty/Cornell)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-immigration-detention" :name "Immigration detention without trial (global)" :jurisdiction "GLOBAL" :kind :institution :year 0
+  :enactor "Diffuse (states detaining migrants administratively)"
+  :origin "Administrative (non-criminal) detention of migrants and asylum seekers — sometimes indefinite, sometimes offshore — subjects a vulnerable population to coercive confinement outside criminal due process across many states."
+  :stakeholders ["immigration authorities" "migrants/asylum seekers" "courts" "UNHCR"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.5 :reversibility :statutory :meadows 5
+  :basis "Comparative immigration-detention regimes" :sourcing :representative :confidence 0.4}
+
+ ;; ── coercion-asymmetry (narrow — fair-trial / abolition counters) ──
+ {:type :instrument :id "us-miranda" :name "Miranda rights (right to counsel + silence)" :jurisdiction "US" :kind :doctrine :year 1966
+  :enactor "U.S. Supreme Court (Miranda v. Arizona, 1966)"
+  :origin "Required that suspects be informed of the right to remain silent and to counsel before custodial interrogation, interposing a procedural shield between the citizen and coercive interrogation — a narrowing of the pre-trial coercion asymmetry."
+  :stakeholders ["police" "suspects" "defence counsel" "courts"]
+  :stock :coercion-asymmetry :polarity :narrow :magnitude 0.5 :reversibility :constitutional :meadows 5
+  :basis "Miranda v. Arizona, 384 U.S. 436 (1966)" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "gl-presumption-of-innocence" :name "Presumption of innocence + fair-trial rights (norm)" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse civic + international norm (ICCPR Art. 14)"
+  :origin "The presumption of innocence and fair-trial guarantees (public hearing, counsel, appeal) shift the burden to the state and constrain arbitrary punishment — the paradigmatic procedural narrowing of coercive power over the accused."
+  :stakeholders ["courts" "the accused" "prosecutors" "citizens"]
+  :stock :coercion-asymmetry :polarity :narrow :magnitude 0.55 :reversibility :cultural :meadows 5
+  :basis "ICCPR Art. 14; fair-trial tradition" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-death-penalty-abolition" :name "Death-penalty abolition (Second Optional Protocol)" :jurisdiction "GLOBAL" :kind :institution :year 1989
+  :enactor "UN General Assembly (Second Optional Protocol to the ICCPR, 1989)"
+  :origin "A binding treaty committing states parties to abolish the death penalty, part of a global trend (now ~2/3 of states abolitionist in law or practice) that removes the ultimate coercive power over life — a structural narrowing."
+  :stakeholders ["states parties" "the condemned" "abolition movements" "citizens"]
+  :stock :coercion-asymmetry :polarity :narrow :magnitude 0.5 :reversibility :constitutional :meadows 6
+  :basis "Second Optional Protocol to the ICCPR (1989)" :sourcing :representative :confidence 0.4}
 ]
