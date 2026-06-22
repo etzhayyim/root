@@ -859,6 +859,12 @@
   :notice/sourcing :synthetic
   :notice/text "Civil summons. You are required to enter an appearance within the time stated."}
 
+ {:notice/id "ntc:ie-liquidation" :notice/label "IE notice to creditors — liquidation (post)"
+  :notice/jurisdiction :ie
+  :notice/channel :mail :notice/claim-amount 2200 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "The company is in liquidation. Creditors are required to send their proof of debt to the liquidator within the time fixed by notice."}
+
  {:notice/id "ntc:ch-zb" :notice/label "CH Zahlungsbefehl (Betreibungsamt)"
   :notice/jurisdiction :ch
   :notice/channel :formal-service :notice/claim-amount 5400 :notice/claim-currency "CHF"
