@@ -1227,6 +1227,20 @@
   :proc/refer-when ["S$20,000 超 (SCT 管轄外 → 通常裁判所)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:sg-pod" :proc/label "Proof of debt (債権者側・清算・シンガポール)"
+  :proc/jurisdiction :sg :proc/track :insolvency
+  :proc/trigger-keywords ["winding up" "proof of debt" "liquidator" "notice to file proof"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "Proof of debt"
+    :dl/rule "清算人 (liquidator) が 'Notice to File Proof of Debt' で証明期限を定める; 通知日から14日以内に proof of debt を lodge しない債権者は配当 (dividend) から除外される"
+    :dl/anchor "IRDA 2018 + Insolvency, Restructuring and Dissolution (Court-Ordered Winding Up) Regulations 2020" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :pod :opt/kind :self-submit :opt/protective true
+    :opt/label "proof of debt を liquidator へ lodge (本人可; prepayment・deposit・stored-value/gift voucher など前払金も debt: kaiyaku 縁-ledger と突合)"}]
+  :proc/refer-when ["secured/set-off/large claim → solicitor"]
+  :proc/verify-current-law true}
+
  ;; ── :in ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:in-termination" :proc/label "Termination / retrenchment (解雇・労働・インド)"
   :proc/jurisdiction :in :proc/track :labor
