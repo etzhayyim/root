@@ -459,11 +459,14 @@
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:aburi
-  {:doc "炙り aburi — personal-tracking-exposure: cljc analyzer/coverage tests + python ingest/bridge legs (ADR-2606161630)"
-   :task (do (require 'clojure.test 'aburi.tests.test-analyze 'aburi.tests.test-coverage)
+  {:doc "炙り aburi — personal-tracking-exposure: all cljc tests (analyze/coverage/kotoba/ingest/bridge) + python ingest/bridge legacy (ADR-2606161630)"
+   :task (do (require 'clojure.test 'aburi.tests.test-analyze 'aburi.tests.test-coverage
+                      'aburi.tests.test-kotoba 'aburi.tests.test-ingest 'aburi.tests.test-kotoba-bridge)
              (shell {:dir "20-actors/aburi"} "python3" "tests/test_ingest.py")
              (shell {:dir "20-actors/aburi"} "python3" "tests/test_bridge.py")
-             (let [r (clojure.test/run-tests 'aburi.tests.test-analyze 'aburi.tests.test-coverage)]
+             (let [r (clojure.test/run-tests 'aburi.tests.test-analyze 'aburi.tests.test-coverage
+                                             'aburi.tests.test-kotoba 'aburi.tests.test-ingest
+                                             'aburi.tests.test-kotoba-bridge)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   aburi:build-wasm
@@ -475,10 +478,10 @@
    :task (do (require 'aburi.tools.publish)
              (apply (resolve 'aburi.tools.publish/-main) *command-line-args*))}
   aburi:ingest
-  {:doc "炙り aburi — local heartbeat: ingest the member's OWN exports (data/local/intake) → local commit-DAG"
+  {:doc "炙り aburi — local heartbeat: ingest the member's OWN exports (data/local/intake) → local commit-DAG (cljc port: methods/ingest.cljc + methods/autorun.py)"
    :task (apply shell {:dir "20-actors/aburi"} "python3" "methods/autorun.py" *command-line-args*)}
   aburi:bridge
-  {:doc "炙り aburi — push local exposure log → live kotoba :8077 (dry-run default; live = ABURI_KOTOBA_LIVE=1 + Council)"
+  {:doc "炙り aburi — push local exposure log → live kotoba :8077; cljc port available (dry-run default; live = ABURI_KOTOBA_LIVE=1 + Council)"
    :task (apply shell {:dir "20-actors/aburi"} "python3" "methods/kotoba_bridge.py" *command-line-args*)}
   sukashi:crawl
   {:doc "透かし sukashi — worldwide ad-supply-chain crawler (ads.txt/app-ads.txt/sellers.json/RDAP). DRY-RUN unless SUKASHI_OPERATOR_GATE=1 + Council (G7); files → data/live (gitignored)"
