@@ -16,6 +16,26 @@ bb 70-tools/scripts/test-health/audit.clj --probe    # + RUN each broken shim's 
 bb 70-tools/scripts/test-health/audit.clj --write    # + (re)write AUDIT.md, the committed snapshot
 ```
 
+## Companion: `fn-coverage.clj` — per-function coverage triage
+
+`audit.clj` finds *suite*-level debt (shadows, broken shims). Its companion `fn-coverage.clj`
+finds *function*-level gaps: it classifies every PUBLIC `defn` in an actor's `methods/*.cljc` as
+**tested** (a `test_*.cljc` names it), **internal** (only a sibling method fn calls it — likely
+exercised indirectly), or **ISOLATED** (no test and no internal caller — the strongest gap
+candidate). This institutionalises the manual scan that surfaced the analytical-validation wave
+(suji #2169, funamori #2175, busshi #2179, iryo #2185 were all ISOLATED public functions with a
+real closed-form worth pinning).
+
+```bash
+bb 70-tools/scripts/test-health/fn-coverage.clj             # summary table, all actors
+bb 70-tools/scripts/test-health/fn-coverage.clj --isolated  # + the full ISOLATED worklist
+bb 70-tools/scripts/test-health/fn-coverage.clj <actor>     # one actor, full per-fn breakdown
+```
+
+It is a **triage aid, not a verdict**: an ISOLATED fn may still be exercised by an integration
+test that builds it from data, or be a CLI entry (`-main`/`-report`) that needs no unit test, or be
+reached only via `resolve` (textual matching can't see that). Verify a candidate before testing it.
+
 `--probe` (opt-in, slower) actually runs each broken-shim actor's auto-discovered tests in an
 isolated subprocess and classifies it **clean-repoint** (safe #2043 fix) / **tests-fail** /
 **load-error** — so the register says *which* shims are mechanically fixable vs need investigation.
