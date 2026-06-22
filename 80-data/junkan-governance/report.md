@@ -2,7 +2,7 @@
 
 全世界の **具体的な法律・制度・思想・価値観** が citizen↔state の構造的非対称をどう広げる/狭めるかを、5 つの asymmetry STOCK と feedback LOOP で読み取る。**分析専用 (G4): junkan は観るだけで触れない。** 各 regime / leverage は **仮説 (G5)** であり因果の証明ではない。これは resilience/leverage の MAP であって、国家を晒す ranking ではない (G7)。
 
-_coverage_: 457 instruments · 197 jurisdictions · sourcing {:representative 457}
+_coverage_: 465 instruments · 197 jurisdictions · sourcing {:representative 465}
 
 _continental balance_: africa 53 · europe 48 · asia 46 · americas 34 · oceania 14 · transnational 2
 
@@ -32,7 +32,7 @@ _continental balance_: africa 53 · europe 48 · asia 46 · americas 34 · ocean
 | B 参入・代表性の障壁 (participation) | 142 | 0.013 | 19.365 | 17.565 | transitioning |
 | C 強制力の非対称 (coercion) | 78 | 0.173 | 17.985 | 4.513 | transitioning |
 | D 思想・価値観の従属 (paradigm) | 79 | 0.041 | 11.905 | 8.66 | transitioning |
-| E 経済的レバレッジ集中 (economic) | 78 | 0.052 | 10.21 | 6.187 | transitioning |
+| E 経済的レバレッジ集中 (economic) | 86 | 0.052 | 11.19 | 6.727 | transitioning |
 
 _net > 0 = 非対称が広がる方向に loop が回っている (悪循環傾向); net < 0 = 是正方向 (好循環)。_
 
@@ -52,9 +52,9 @@ _net pressure per continent × stock (aggregate, structural — NOT a per-countr
 
 | continent | info | participation | coercion | paradigm | economic |
 |---|---|---|---|---|---|
-| africa | 0.119 | 0.105 | 0.309 | -0.025 | 0.176 |
-| americas | -0.1 | -0.011 | 0.204 | -0.3 | 0.026 |
-| asia | 0.182 | 0.155 | 0.343 | 0.229 | 0.139 |
+| africa | 0.119 | 0.105 | 0.309 | -0.025 | 0.182 |
+| americas | -0.1 | -0.011 | 0.204 | -0.3 | 0.01 |
+| asia | 0.182 | 0.155 | 0.343 | 0.229 | 0.143 |
 | europe | 0.01 | -0.134 | 0.148 | 0.046 | 0.009 |
 | oceania | 0.01 | -0.161 | 0.248 | · | 0.0 |
 
@@ -63,9 +63,9 @@ _net pressure per continent × stock (aggregate, structural — NOT a per-countr
 | kind | n | net | polarity mix |
 |---|---|---|---|
 | law | 96 | 0.129 | {:widen 65, :ambiguous 1, :narrow 30} |
-| institution | 257 | 0.067 | {:widen 133, :narrow 100, :ambiguous 24} |
+| institution | 261 | 0.066 | {:widen 135, :narrow 102, :ambiguous 24} |
 | doctrine | 51 | -0.042 | {:widen 19, :narrow 24, :ambiguous 8} |
-| value | 53 | 0.003 | {:ambiguous 3, :widen 26, :narrow 24} |
+| value | 57 | 0.009 | {:ambiguous 3, :widen 29, :narrow 25} |
 
 ## Era trajectory (system-dynamics over time, HYPOTHESIS, G5)
 
@@ -76,8 +76,8 @@ _各時代に制定された instrument が非対称を広げる/狭める方向
 | pre-1800 | 7 | 0.0 | 2.623 | -0.375 |
 | 1800–1899 | 5 | 0.2 | 1.163 | -0.192 |
 | 1900–1944 | 11 | 2.67 | 0.2 | 0.225 |
-| 1945–1989 | 101 | 14.63 | 13.385 | 0.012 |
-| 1990–2009 | 117 | 15.76 | 12.822 | 0.025 |
+| 1945–1989 | 103 | 14.85 | 13.585 | 0.012 |
+| 1990–2009 | 118 | 15.98 | 12.822 | 0.027 |
 | 2010– | 148 | 31.125 | 9.437 | 0.147 |
 
 ## Meadows leverage CANDIDATES (G11 — candidates, never directives)
@@ -110,7 +110,7 @@ _scores are DISCLOSED + weighted (amplify = 0.6·depth + 0.4·magnitude; flip = 
 
 ## Coverage worklist (next /loop iterations)
 
-- deepen thinnest stock: economic-capture (n=78)
+- deepen thinnest stock: coercion-asymmetry (n=78)
 - broaden jurisdiction coverage (small states / Pacific / Caribbean still light)
 
 _findings are append-only; surfacing beyond Council is performed by ossekai/kataribe on junkan's behalf, never by junkan (G13). actuation_taken=false throughout._

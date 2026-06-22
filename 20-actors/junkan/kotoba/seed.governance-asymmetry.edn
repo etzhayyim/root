@@ -3383,4 +3383,61 @@
   :stakeholders ["courts" "data subjects" "the state" "citizens"]
   :stock :information-asymmetry :polarity :narrow :magnitude 0.5 :reversibility :cultural :meadows 2
   :basis "UDHR Art. 12; ICCPR Art. 17; privacy jurisprudence" :sourcing :representative :confidence 0.4}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 40 — economic-capture within-jurisdiction depth (palace/party
+ ;; economy + lobbying vs participatory-budgeting / asset-declaration counters)
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── economic-capture (widen) ──
+ {:type :instrument :id "ma-makhzen-economy" :name "Palace-linked economic conglomerates (Makhzen)" :jurisdiction "MA" :kind :institution :year 1999
+  :enactor "Moroccan palace-business nexus (Makhzen)"
+  :origin "Royal holding companies and palace-linked networks hold dominant stakes across strategic sectors, fusing economic and monarchical power and limiting space for independent enterprise and accountability — capture by the apex of the state."
+  :stakeholders ["palace holdings" "connected firms" "competitors" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.55 :reversibility :entrenched :meadows 4
+  :basis "Moroccan Makhzen economy" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "vn-party-soe-economy" :name "Party-linked state-enterprise economy" :jurisdiction "VN" :kind :institution :year 1986
+  :enactor "Vietnamese state (party-controlled SOEs since Đổi Mới)"
+  :origin "Despite market reforms, large state enterprises under party oversight dominate strategic sectors and channel resources through party-linked networks, fusing economic and political control (recurrent corruption purges target its excesses)."
+  :stakeholders ["Communist Party" "SOEs" "private firms" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.55 :reversibility :entrenched :meadows 4
+  :basis "Vietnamese party-SOE economy (post-1986)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-tax-incentive-capture" :name "Bespoke tax incentives for connected firms" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse (states granting firm-specific tax breaks)"
+  :origin "Tailored tax breaks, special economic-zone deals, and rulings negotiated for specific firms transfer public revenue to the well-connected and distort competition — a quiet capture channel distinct from outright bribery (the LuxLeaks rulings are an example)."
+  :stakeholders ["finance ministries" "favoured firms" "competitors" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.45 :reversibility :statutory :meadows 5
+  :basis "Comparative tax-incentive/ruling practices" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-lobbying-expenditure" :name "Concentrated lobbying expenditure" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse (well-resourced interests outspending the public)"
+  :origin "When a few interests vastly outspend diffuse public interests on lobbying and access, policy systematically tilts toward them regardless of formal rules — a structural information-and-economic asymmetry in agenda-setting that transparency only partly offsets."
+  :stakeholders ["corporate/sector lobbies" "legislators" "public-interest groups" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.45 :reversibility :statutory :meadows 5
+  :basis "Comparative lobbying-expenditure asymmetries" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-single-source-contracting" :name "Single-source / emergency contracting abuse" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse (no-bid and emergency procurement misuse)"
+  :origin "No-bid and emergency procurement — legitimate in crises — is recurrently abused (notably during COVID-19) to steer contracts to connected firms without competition or scrutiny, a fast capture channel that open-contracting transparency targets."
+  :stakeholders ["procuring agencies" "connected firms" "auditors" "citizens"]
+  :stock :economic-capture :polarity :widen :magnitude 0.45 :reversibility :statutory :meadows 5
+  :basis "COVID-era no-bid procurement; comparative audits" :sourcing :representative :confidence 0.4}
+
+ ;; ── economic-capture (narrow — participation / declaration counters) ──
+ {:type :instrument :id "br-participatory-budgeting" :name "Participatory budgeting (Orçamento Participativo)" :jurisdiction "BR" :kind :institution :year 1989
+  :enactor "Porto Alegre municipal government (1989; widely replicated)"
+  :origin "Citizens directly deliberate and decide portions of the public budget, shifting allocation power from insider bargaining toward the public and improving services in poorer areas — a structural narrowing of capture over public spending, replicated in thousands of cities."
+  :stakeholders ["municipal governments" "citizen assemblies" "residents" "citizens"]
+  :stock :economic-capture :polarity :narrow :magnitude 0.5 :reversibility :institutional :meadows 4
+  :basis "Porto Alegre participatory budgeting (since 1989)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-public-asset-declarations" :name "Public, verified asset declarations" :jurisdiction "GLOBAL" :kind :institution :year 0
+  :enactor "Diffuse (robust asset-disclosure regimes)"
+  :origin "Where officials must file public, verified declarations of assets and interests, illicit enrichment and conflicts become detectable — the corresponding narrowing instrument to the asset-disclosure gap, strong where declarations are open and checked."
+  :stakeholders ["ethics agencies" "officials" "press/auditors" "citizens"]
+  :stock :economic-capture :polarity :narrow :magnitude 0.45 :reversibility :statutory :meadows 5
+  :basis "Comparative robust asset-declaration regimes" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-social-audits" :name "Citizen social audits" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse civic practice (community verification of spending)"
+  :origin "Community-led verification of public spending and delivery (pioneered by India's MKSS) lets citizens directly detect leakage and capture in programs meant for them — a bottom-up narrowing of economic-capture opacity at the point of delivery."
+  :stakeholders ["communities/NGOs" "local officials" "beneficiaries" "citizens"]
+  :stock :economic-capture :polarity :narrow :magnitude 0.4 :reversibility :cultural :meadows 4
+  :basis "Social-audit practice (MKSS/India and others)" :sourcing :representative :confidence 0.4}
 ]
