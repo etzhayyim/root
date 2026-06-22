@@ -1,0 +1,18 @@
+# Notice to terminate / Tenancy Tribunal (住居・ニュージーランド) — 自己対応チェックリスト
+
+> 一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。
+
+本物の書類の経路: Disputes Tribunal の claim notice は Tribunal からの郵送/email が公式 (email が genuine な希少管轄)
+SMS/メールのみの『裁判所』通知は接触せず: tasuke 助 (サイバー犯罪被害支援) / Netsafe (report.netsafe.org.nz) / NZ Police 105
+
+## 期限 (起算点=送達日を自分で確認)
+- **Tenancy Tribunal 対応**: periodic tenancy の landlord 終了通知は原則90日前 (身体的暴行+警察立件の場合は14日前の approved form)。通知だけで強制退去はできず、tenant が退去しない場合 landlord は Tenancy Tribunal に possession order を申立てる必要がある — 申立てがあれば期日までに応答; tenancy 終了後90日 landlord が possession order を得ないまま居住が続くと新たな periodic tenancy が生じる (Residential Tenancies Act 1986 s.51 (+ Tenancy Tribunal possession) — 要改正確認)
+
+## 選択肢 (member 本人が決めて提出する — 代理はしない)
+🛡 Tenancy Tribunal の申立てに応答・出席 (通知の有効性・期間を争う)
+🛡 自力救済 (鍵交換・荷物搬出・電気停止) は違法 — 強制退去は Tenancy Tribunal の possession order によってのみ; 受けたら Tenancy Services・Community Law へ
+
+## 相談先 (無料/公的)
+- 通知の有効性が複雑・不法 eviction → Community Law / Tenancy Services 0800
+- Community Law Centres (無料)
+- Citizens Advice Bureau NZ

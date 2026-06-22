@@ -642,6 +642,12 @@
   :notice/sourcing :synthetic
   :notice/text "Notice to respondent of an application for a parenting order under the Care of Children Act. You may file a notice of response within the time stated."}
 
+ {:notice/id "ntc:nz-housing" :notice/label "NZ notice to terminate tenancy (tenant・post)"
+  :notice/jurisdiction :nz
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "NZD"
+  :notice/sourcing :synthetic
+  :notice/text "Notice to terminate your periodic tenancy under the Residential Tenancies Act. The landlord may apply to the Tenancy Tribunal for possession if you do not leave."}
+
  ;; ── wave 19 (:kr insolvency + :au family) ────────────────────────────────────
  {:notice/id "ntc:kr-singo" :notice/label "회생절차 채권신고 안내 (郵送・倒産)"
   :notice/jurisdiction :kr
