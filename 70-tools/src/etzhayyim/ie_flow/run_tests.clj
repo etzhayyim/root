@@ -3,6 +3,7 @@
 ;; Exits non-zero on any failure. ADR-2606211200.
 (require '[clojure.test :as t]
          'etzhayyim.ie-flow.test-metrics
+         'etzhayyim.ie-flow.test-metrics-properties
          'etzhayyim.ie-flow.test-dynamics
          'etzhayyim.ie-flow.test-coscientist
          'etzhayyim.ie-flow.test-ledger
@@ -16,6 +17,7 @@
 
 (let [{:keys [fail error]}
       (t/run-tests 'etzhayyim.ie-flow.test-metrics
+                   'etzhayyim.ie-flow.test-metrics-properties
                    'etzhayyim.ie-flow.test-dynamics
                    'etzhayyim.ie-flow.test-coscientist
                    'etzhayyim.ie-flow.test-ledger
