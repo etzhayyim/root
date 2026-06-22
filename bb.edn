@@ -501,8 +501,8 @@
              (shell {:dir "20-actors/sukashi"} "python3" "methods/test_autorun.py")
              (shell {:dir "20-actors/sukashi"} "python3" "tests/test_crawl.py")
              (shell {:dir "20-actors/sukashi"} "python3" "tests/test_fleet_drive.py")
-             (require 'clojure.test 'sukashi.tests.test-sukashi 'sukashi.tests.test-viz)
-             (let [r (clojure.test/run-tests 'sukashi.tests.test-sukashi 'sukashi.tests.test-viz)]
+             (require 'clojure.test 'sukashi.tests.test-sukashi 'sukashi.tests.test-viz 'sukashi.tests.test-crawl)
+             (let [r (clojure.test/run-tests 'sukashi.tests.test-sukashi 'sukashi.tests.test-viz 'sukashi.tests.test-crawl)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   sukashi:viz
