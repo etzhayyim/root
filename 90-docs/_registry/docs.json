@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-06-21",
+  "updated_at": "2026-06-22",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.md",
@@ -26087,6 +26087,34 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606212200-actor-system-of-systems-reward.md",
+      "id": "adr-2606212200-actor-system-of-systems-reward",
+      "title": "ADR-2606212200: Every actor carries its system-of-systems as EDN+Clojure and runs it as its 報酬系 (reward system)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "actor-system-of-systems-reward",
+      "authoritative": true,
+      "authoritative_for": [
+        "per-actor reward-system rule",
+        "etzhayyim.ie-flow.reward primitive",
+        "80-data/ie-flow/system-of-systems.edn"
+      ],
+      "related": [
+        "adr-2606062101-moyai-inference-reciprocity-reward",
+        "adr-2606112200-ehyeh-non-dual-yirah-doctrine",
+        "adr-2606182359-charter-rider-v35-objective-function"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606211200-ie-flow-datomic-agent-lifecycle",
+        "adr-2606201200-ibuki-coscientist-entropy-react-loop"
+      ],
+      "last_verified": "2026-06-21",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606212200-ie-flow-actor-score-organism-reward.md",
       "id": "adr-2606212200-ie-flow-actor-score-organism-reward",
       "title": "ADR-2606212200: ie-flow actor SCORE — information-control 利得 integrated into the artificial-organism reward",
@@ -26110,6 +26138,31 @@
         "adr-2606201200-ibuki-coscientist-entropy-react-loop"
       ],
       "last_verified": "2026-06-21",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606221431-canonical-form-families-cid-unification.md",
+      "id": "adr-2606221431-canonical-form-families-cid-unification",
+      "title": "ADR-2606221431: kotoba commit-DAG canonical-form families — CID unification decision",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "canonical-form-families-cid-unification",
+      "authoritative": true,
+      "authoritative_for": [
+        "kotoba-commit-dag-canonical-form"
+      ],
+      "related": [
+        "adr-2606131300-determinism-golden-file",
+        "adr-2606022000-kabuto-public-company-supply-chain"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2606152000-session-close-food-logistics-clj-coverage-supervised-wave"
+      ],
+      "last_verified": "2026-06-22",
       "amends": [],
       "amended_by": []
     },
