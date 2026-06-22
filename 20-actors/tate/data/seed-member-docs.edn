@@ -1217,6 +1217,12 @@
   :notice/sourcing :synthetic
   :notice/text "Notice of termination of your tenancy and a claim for recovery of vacant possession. You may respond within the time stated."}
 
+ {:notice/id "ntc:sg-enforcement" :notice/label "SG enforcement order — seizure and sale (debtor・post)"
+  :notice/jurisdiction :sg
+  :notice/channel :formal-service :notice/claim-amount 9000 :notice/claim-currency "SGD"
+  :notice/sourcing :synthetic
+  :notice/text "Enforcement order for seizure and sale to enforce a judgment debt against your property."}
+
  {:notice/id "ntc:in-summons" :notice/label "IN summons (registered post)"
   :notice/jurisdiction :in
   :notice/channel :mail :notice/claim-amount 200000 :notice/claim-currency "INR"

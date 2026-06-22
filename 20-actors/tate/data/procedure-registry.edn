@@ -1329,6 +1329,20 @@
   :proc/refer-when ["事由が複雑・illegal eviction / harassment → lawyer / Legal Aid Bureau / Community Justice Centre"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:sg-enforcement" :proc/label "Enforcement order (seizure & sale / attachment of debt) (執行・シンガポール)"
+  :proc/jurisdiction :sg :proc/track :enforcement
+  :proc/trigger-keywords ["seizure and sale" "attachment of a debt" "garnishee" "enforcement order"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Enforcement order への対応"
+    :dl/rule "judgment debt の執行は Enforcement Order for Seizure and Sale (旧 writ of seizure and sale) または Enforcement Order for Attachment of a Debt (旧 garnishee; 銀行預金等の債権を差押え) による (Rules of Court 2021 O.22)。ただし wages・salary・pension・政府の allowance は差押え免除であり、給与そのものは attach できない (Supreme Court of Judicature Act s.13)。wearing apparel・bedding・tools of trade は SGD1,000 まで免除、HDB flat も免除。免除財産が押収されたら court へ異議できる"
+    :dl/anchor "Supreme Court of Judicature Act s.13 (exempt property) + Rules of Court 2021 O.22" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :exempt :opt/kind :self-submit :opt/protective true :opt/label "免除財産 (wages/salary/pension・apparel/bedding/tools ≤SGD1,000・HDB) が押収対象なら court へ異議; 給与は attach 対象外"}
+   {:opt/id :verify :opt/kind :self-decide :opt/protective true :opt/label "押収/attachment が免除財産 (s.13) を侵害していないか確認"}]
+  :proc/refer-when ["免除を侵害・複数 enforcement order・committal 等 → lawyer / Legal Aid Bureau / Community Justice Centre"]
+  :proc/verify-current-law true}
+
  ;; ── :in ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:in-termination" :proc/label "Termination / retrenchment (解雇・労働・インド)"
   :proc/jurisdiction :in :proc/track :labor
