@@ -1,6 +1,6 @@
 ---
 id: 2606222000
-title: etzhayyim-py CLI → babashka/Clojure migration plan (wave 1)
+title: etzhayyim-py CLI → babashka/Clojure migration plan (wave 1 + wave 2)
 status: accepted
 doc_type: adr
 topic: bb-migration
@@ -16,6 +16,7 @@ priority_note: >
 authoritative_for:
   - etzhayyim-py CLI migration strategy + triage classification
   - wave-1 cljc ports (identifier-audit, bonsai, source-graph)
+  - wave-2 cljc ports (shannon-scores, kosei-tiers)
   - babashka.cli / http-client / process mapping reference
 depends_on:
   - 2605262130  # kotoba storage substrate
@@ -114,18 +115,20 @@ sit on the bb classpath at `70-tools/src/` (declared in `bb.edn :paths`).
 | `xrpc.py` | (c) httpx | XRPC client; defer |
 | `yoroshiku.py` | (c) httpx | yoroshiku HTTP; defer (cljc exists co-located but not on classpath) |
 
-**Summary**: class (a) pure-logic = 4 (3 ported wave 1, shannon wave 2); class (b) CLI entry = 1; class (c) IO/network = 38; class (d) superseded = 1.
+**Summary**: class (a) pure-logic = 4 (3 ported wave 1, shannon + kosei-tiers wave 2 ✅); class (b) CLI entry = 1; class (c) IO/network = 38; class (d) superseded = 1.
 
 ---
 
 ## Migration Order Recommendation
 
-**Wave 1 (this PR)**: `identifier_audit`, `bonsai`, `source_graph` → `.cljc` pure logic extracted.
+**Wave 1 (merged PR #2173)**: `identifier_audit`, `bonsai`, `source_graph` → `.cljc` pure logic extracted.
 
-**Wave 2** (next increment):
-- `shannon_scores.cljc` — WEIGHTS, `_cap`, `_sh_entropy`, `build_report` (pure math)
-- `kosei_tiers.cljc` — `_TIER_ETA`, `_TIER_ORDER`, `_suggest_tier` (pure classification)
-- Add bb tasks to `bb.edn` that run these as CLI commands (replacing `e7m shannon`/`e7m bonsai`)
+**Wave 2 (landed ✅)**: 2 new `.cljc` files:
+- `shannon_scores.cljc` — WEIGHTS/cap/sh-entropy/build-report + DSM/Bayes/bottleneck/minimize math (pure math port of `shannon.py`)
+- `kosei_tiers.cljc` — `tier-eta`/`tier-order`/`suggest-tier`/`next-tier`/`prev-tier` (pure classification port of `kosei.py`)
+- `test_bb_migration_wave2.clj` — 38 tests / 67 assertions, all green under `bb`
+- Bug fixed: `.indexOf` on Clojure persistent vector is not supported in bb/SCI — use `keep-indexed` instead
+- Bug fixed: `min-key` over string elements fails in cycle-canonicalization — use `compare` + `reduce`
 
 **Wave 3** (IO layer — `babashka.process` wrappers):
 - `haisen.cljc` — wraps flake8/clang-tidy/semgrep via `babashka.process/shell`
@@ -159,7 +162,7 @@ sit on the bb classpath at `70-tools/src/` (declared in `bb.edn :paths`).
 
 ---
 
-## What This PR Lands
+## What Wave 1 PR (#2173) Landed
 
 3 new `.cljc` files on the bb classpath (`70-tools/src/etzhayyim/`):
 
@@ -174,6 +177,20 @@ Python originals are **not deleted** (additive porting).
 
 ---
 
+## What Wave 2 Lands
+
+2 new `.cljc` files on the bb classpath (`70-tools/src/etzhayyim/`):
+
+- `shannon_scores.cljc` — `weights`, `cap`, `sh-entropy`, `build-report`, `dsm-cuthill-mckee`, `dsm-detect-cycles`, `dsm-find-clusters`, `build-dsm-report`, `build-bayesnet-report`, `build-bottleneck-report`, `build-minimize-report`
+- `kosei_tiers.cljc` — `tier-eta`, `tier-order`, `default-tier`, `valid-tier?`, `tier-eta-of`, `suggest-tier`, `tier-index`, `next-tier`, `prev-tier`
+
+1 test file:
+- `test_bb_migration_wave2.clj` — 38 tests / 67 assertions, all green under `bb`
+
+IO/subprocess functions (`_walk`, `_sh_scan`, duckdb) remain in Python (not ported).
+
+---
+
 ## Parity Notes (vs Python originals)
 
 - **`identifier_audit`**: regex patterns ported 1:1; `re-matches` = Python `re.fullmatch`; `re-seq` = Python `re.findall`. JSON parsing uses `cheshire` (bb classpath) when `:data` not pre-supplied.
@@ -185,7 +202,7 @@ Python originals are **not deleted** (additive porting).
 ## Honest Remaining Scope
 
 - **38 class-(c) IO/network modules** remain in Python (httpx + subprocess). They require either `babashka.http-client` wrapper ports (waves 4+) or are superseded by the kotoba substrate / actor SDKs directly.
-- **`shannon.py` scoring math** (wave 2) is extractable but deferred to keep wave 1 focused.
+- **`shannon.py` scoring math** (wave 2) — ✅ LANDED as `shannon_scores.cljc`.
 - **CLI entry replacement** (`cli.py` → `bb.edn :tasks`) is wave 5+, after most modules are ported.
 - **The Python CLI is NOT deprecated** — it remains the production CLI. This is wave 1 of a multi-wave migration; do NOT claim the CLI is migrated.
 
