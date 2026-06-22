@@ -39,9 +39,9 @@
     (is (empty? (set/intersection uses forbidden-use-values)))))
 
 (deftest test-code-permitted-uses-disjoint-from-forbidden
-  (is (empty? (set/intersection (set aa/PERMITTED-USES) (set aa/FORBIDDEN-USES))))
-  (is (not (some #{"weapon"} aa/PERMITTED-USES)))
-  (is (not (some #{"directed-energy"} aa/PERMITTED-USES))))
+  (is (empty? (set/intersection (set aa/permitted-uses) (set aa/forbidden-uses))))
+  (is (not (some #{"weapon"} aa/permitted-uses)))
+  (is (not (some #{"directed-energy"} aa/permitted-uses))))
 
 ;; ── G4/N2 sensing-not-surveillance ──────────────────────────────────────────────
 (deftest test-sense-estimate-target-class-is-object-const
