@@ -1511,6 +1511,20 @@
   :proc/refer-when ["€5,000 超 → avocat (pro deo の資力要件を確認)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:be-faillite" :proc/label "Déclaration de créance (債権者側・倒産・ベルギー)"
+  :proc/jurisdiction :be :proc/track :insolvency
+  :proc/trigger-keywords ["faillite" "déclaration de créance" "RegSol" "faillissement" "aangifte van schuldvordering"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "Déclaration de créance / aangifte van schuldvordering"
+    :dl/rule "破産判決 (jugement déclaratif de faillite, RegSol + Moniteur belge 公告) が定める期限内に déclaration de créance を RegSol 電子登録簿経由で curateur へ提出; 届出権は破産判決から1年で時効消滅し、期限後の届出はその間に既に命じられた配当を受けられない"
+    :dl/anchor "Code de droit économique Livre XX, art. XX.155" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :declaration :opt/kind :self-submit :opt/protective true
+    :opt/label "déclaration de créance を RegSol 経由で curateur へ提出 (本人可; acompte・caution・bon d'achat など前払金も créance: kaiyaku 縁-ledger と突合)"}]
+  :proc/refer-when ["sûreté・compensation・créance élevée (担保・相殺・高額債権)"]
+  :proc/verify-current-law true}
+
  ;; ── :nz ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:nz-dismissal" :proc/label "Dismissal (解雇・労働・ニュージーランド)"
   :proc/jurisdiction :nz :proc/track :labor
