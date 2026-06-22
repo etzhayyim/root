@@ -19,6 +19,11 @@ run_cljc "watatsumi.cells.pressure-test.test-state-machine"
 run_cljc "watatsumi.cells.sea-trial.test-state-machine"
 run_cljc "watatsumi.cells.class-certification-binder.test-state-machine"
 run_cljc "watatsumi.cells.marine-emissions-audit.test-state-machine"
+run_cljc "watatsumi.cells.hull-ring-fabrication.test-state-machine"
+run_cljc "watatsumi.cells.section-assembly.test-state-machine"
+run_cljc "watatsumi.cells.weld-inspection.test-state-machine"
+run_cljc "watatsumi.cells.system-integration.test-state-machine"
+run_cljc "watatsumi.cells.section-joining.test-state-machine"
 
 if [[ $rc -eq 0 ]]; then
   echo "==> watatsumi: ALL GREEN"
