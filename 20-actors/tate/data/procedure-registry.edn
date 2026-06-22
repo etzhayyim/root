@@ -1707,6 +1707,21 @@
   :proc/refer-when ["事由が複雑・desalojo sin intimación / lanzamiento ilegal → abogado / patrocinio jurídico gratuito"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:ar-family" :proc/label "Divorcio — propuesta reguladora (家事・アルゼンチン)"
+  :proc/jurisdiction :ar :proc/track :family
+  :proc/trigger-keywords ["divorcio" "propuesta reguladora" "convenio regulador" "audiencia de divorcio"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Propuesta reguladora / audiencia"
+    :dl/rule "divorcio の petición には必ず propuesta reguladora (効果の規律案) を添える (CCyC art.438)。一方配偶者のみが申立てた場合、他方は別の propuesta reguladora を提示でき、根拠資料を添付する。判事は propuestas を評価し audiencia に召喚する。divorcio incausado なので convenio の不一致でも離婚判決は停止されない (離婚自体は争えない)。効果 (alimentos・bienes・hijos) に争いがあれば判事が当該州 procesal 法の手続で解決 — traslado の応答期限は当該州 CPC で異なるため通知記載と州規則を確認"
+    :dl/anchor "Código Civil y Comercial art. 438 (+ procesal provincial)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :propuesta :opt/kind :self-submit :opt/protective true :opt/label "自分の propuesta reguladora (alimentos・bienes・hijos の効果案) + 根拠資料を提示 (相手案に同意しない自由)"}
+   {:opt/id :audiencia :opt/kind :self-decide :opt/label "判事召喚の audiencia に出席 (効果の合意・調整の余地; 離婚自体は incausado)"}]
+  :proc/refer-when ["alimentos・cuidado personal de los hijos・bienes (扶養・親権・財産分与) が争点 → abogado / patrocinio jurídico gratuito"
+                    "kokoro 心 (精神的サポート — 家事事件は Wellbecoming 負荷が大きい)"]
+  :proc/verify-current-law true}
+
  ;; ── :be ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:be-licenciement" :proc/label "Licenciement (解雇・労働・ベルギー)"
   :proc/jurisdiction :be :proc/track :labor

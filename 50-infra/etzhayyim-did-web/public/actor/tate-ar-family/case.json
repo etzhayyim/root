@@ -1,0 +1,51 @@
+{
+  "disclaimer": "一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
+  "case": "proc:ar-family",
+  "label": "Divorcio — propuesta reguladora (家事・アルゼンチン)",
+  "jurisdiction": ":ar",
+  "jurisdiction_label": "Argentina",
+  "track": ":family",
+  "genuine_channels": [
+    ":mail",
+    ":formal-service"
+  ],
+  "service_note": "traslado de la demanda は cédula de notificación (oficial notificador) — WhatsApp の『juzgado』通知は偽",
+  "deadlines": [
+    {
+      "label": "Propuesta reguladora / audiencia",
+      "rule": "divorcio の petición には必ず propuesta reguladora (効果の規律案) を添える (CCyC art.438)。一方配偶者のみが申立てた場合、他方は別の propuesta reguladora を提示でき、根拠資料を添付する。判事は propuestas を評価し audiencia に召喚する。divorcio incausado なので convenio の不一致でも離婚判決は停止されない (離婚自体は争えない)。効果 (alimentos・bienes・hijos) に争いがあれば判事が当該州 procesal 法の手続で解決 — traslado の応答期限は当該州 CPC で異なるため通知記載と州規則を確認",
+      "anchor": "Código Civil y Comercial art. 438 (+ procesal provincial)",
+      "critical": false,
+      "verify_service_date": true
+    }
+  ],
+  "options": [
+    {
+      "id": ":propuesta",
+      "kind": ":self-submit",
+      "protective": true,
+      "label": "自分の propuesta reguladora (alimentos・bienes・hijos の効果案) + 根拠資料を提示 (相手案に同意しない自由)"
+    },
+    {
+      "id": ":audiencia",
+      "kind": ":self-decide",
+      "protective": false,
+      "label": "判事召喚の audiencia に出席 (効果の合意・調整の余地; 離婚自体は incausado)"
+    }
+  ],
+  "referrals": [
+    "alimentos・cuidado personal de los hijos・bienes (扶養・親権・財産分与) が争点 → abogado / patrocinio jurídico gratuito",
+    "kokoro 心 (精神的サポート — 家事事件は Wellbecoming 負荷が大きい)"
+  ],
+  "jurisdiction_referrals": [
+    "patrocinio jurídico gratuito (大学・公的)",
+    "Defensa del Consumidor 0800-666-1518",
+    "Defensoría del Pueblo"
+  ],
+  "fraud_help": [
+    "tasuke 助 (サイバー犯罪被害支援)",
+    "Defensa del Consumidor (ventanilla única federal)",
+    "Policía (delitos informáticos)"
+  ],
+  "verify_current_law": true
+}
