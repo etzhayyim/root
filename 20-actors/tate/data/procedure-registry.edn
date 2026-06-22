@@ -1505,6 +1505,20 @@
   :proc/refer-when ["patrocinio jurídico gratuito (CABA 大学・公的の無料代理)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:ar-concurso" :proc/label "Verificación de créditos (acreedor・concurso・アルゼンチン)"
+  :proc/jurisdiction :ar :proc/track :insolvency
+  :proc/trigger-keywords ["concurso preventivo" "quiebra" "verificación de créditos" "síndico"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "Pedido de verificación de créditos"
+    :dl/rule "sentencia de apertura が定める fecha (verificación tempestiva) までに pedido de verificación de créditos を síndico へ (monto・causa・privilegios を明示, art.32); 期日後は verificación tardía (art.56) — concurso 係属中は incidente、終了後は acción individual、いずれも presentación en concurso から2年以内"
+    :dl/anchor "Ley 24.522 art.32 (tempestiva) / art.56 (tardía)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :verificacion :opt/kind :self-submit :opt/protective true
+    :opt/label "pedido de verificación de créditos を síndico へ提出 (本人可; anticipo・seña・vale など前払金も crédito: kaiyaku 縁-ledger と突合)"}]
+  :proc/refer-when ["garantía・compensación・crédito elevado・arancel art.32 (担保・相殺・高額債権)"]
+  :proc/verify-current-law true}
+
  ;; ── :be ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:be-licenciement" :proc/label "Licenciement (解雇・労働・ベルギー)"
   :proc/jurisdiction :be :proc/track :labor

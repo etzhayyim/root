@@ -699,6 +699,12 @@
   :notice/sourcing :synthetic
   :notice/text "Se le corre traslado de la demanda por el plazo de quince días."}
 
+ {:notice/id "ntc:ar-concurso" :notice/label "AR apertura de concurso preventivo (acreedor・correo)"
+  :notice/jurisdiction :ar
+  :notice/channel :mail :notice/claim-amount 480000 :notice/claim-currency "ARS"
+  :notice/sourcing :synthetic
+  :notice/text "Se ha decretado la apertura del concurso preventivo. Los acreedores deben solicitar la verificación de créditos ante el síndico hasta la fecha fijada."}
+
  {:notice/id "ntc:kr-ihon" :notice/label "이혼 조정기일 통지서 (家事)"
   :notice/jurisdiction :kr
   :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "KRW"
