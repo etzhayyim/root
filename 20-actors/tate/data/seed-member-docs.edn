@@ -753,6 +753,12 @@
   :notice/sourcing :synthetic
   :notice/text "La société a été déclarée en faillite. Veuillez introduire votre déclaration de créance via RegSol dans le délai fixé par le jugement."}
 
+ {:notice/id "ntc:be-housing" :notice/label "BE mise en demeure — expulsion (locataire・courrier)"
+  :notice/jurisdiction :be
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Mise en demeure et procédure d'expulsion devant le juge de paix concernant votre bail de résidence, pour défaut de paiement."}
+
  {:notice/id "ntc:fr-creance" :notice/label "FR procédure collective (債権者宛・倒産)"
   :notice/jurisdiction :fr
   :notice/channel :mail :notice/claim-amount 980 :notice/claim-currency "EUR"
