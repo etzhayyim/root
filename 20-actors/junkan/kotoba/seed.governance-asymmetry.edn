@@ -2984,4 +2984,61 @@
   :stakeholders ["UNODC" "states parties" "review mechanism" "citizens"]
   :stock :economic-capture :polarity :narrow :magnitude 0.5 :reversibility :constitutional :meadows 6
   :basis "UN Convention against Corruption (2003)" :sourcing :representative :confidence 0.4}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 33 — coercion-asymmetry within-jurisdiction depth (paramilitary/
+ ;; protest policing vs use-of-force / warrant norms)
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── coercion-asymmetry (widen) ──
+ {:type :instrument :id "et-emergency-powers" :name "States of emergency (Tigray/Amhara conflicts)" :jurisdiction "ET" :kind :institution :year 2021
+  :enactor "Ethiopian state (emergency declarations 2021, 2023)"
+  :origin "Wartime states of emergency enabled mass arrests, detention without charge, and broad command powers during the Tigray and Amhara conflicts — concentrated coercive authority over civilian populations with reduced judicial review."
+  :stakeholders ["federal government" "security forces" "affected regions" "civilians"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.7 :reversibility :statutory :meadows 5
+  :basis "Ethiopia states of emergency (2021/2023)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "iq-pmf-militias" :name "Popular Mobilization Forces (parallel coercion)" :jurisdiction "IQ" :kind :institution :year 2014
+  :enactor "Iraqi state (PMF legally incorporated 2016)"
+  :origin "State-sanctioned but semi-autonomous armed groups exercise coercive power — including in the lethal suppression of the 2019 Tishreen protests — alongside and sometimes beyond regular forces, diffusing accountability for force used against citizens."
+  :stakeholders ["PMF" "state security" "protesters" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.65 :reversibility :institutional :meadows 5
+  :basis "Iraq PMF (2014/2016); 2019 Tishreen crackdown" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "co-esmad" :name "ESMAD riot-police protest policing" :jurisdiction "CO" :kind :institution :year 1999
+  :enactor "Colombian National Police (ESMAD anti-riot squad)"
+  :origin "The anti-disturbance squad was implicated in dozens of deaths and many injuries during the 2021 national strike, prompting reform demands and its 2023 rebranding — disproportionate coercive force against protesters."
+  :stakeholders ["National Police/ESMAD" "protesters" "oversight bodies" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.6 :reversibility :institutional :meadows 5
+  :basis "Colombia ESMAD; 2021 Paro Nacional" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "pe-protest-deaths-2022" :name "Lethal protest crackdown (2022–23)" :jurisdiction "PE" :kind :institution :year 2022
+  :enactor "Peruvian state (security response after Castillo's removal)"
+  :origin "Security forces killed dozens of mostly indigenous protesters during demonstrations following the 2022 political crisis, with findings of excessive and racialized lethal force — an episode of coercion borne unevenly by citizens."
+  :stakeholders ["police/army" "protesters" "human-rights bodies" "citizens"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.65 :reversibility :institutional :meadows 5
+  :basis "Peru 2022–2023 protest deaths" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-pmcs-mercenaries" :name "Private military/security companies (state proxy force)" :jurisdiction "GLOBAL" :kind :institution :year 0
+  :enactor "Diffuse (states outsourcing coercion to PMCs, e.g. Wagner)"
+  :origin "Outsourcing armed force to private military companies lets states project coercion with deniability and outside ordinary chains of accountability — a growing channel (the Montreux Document seeks to constrain it) that diffuses responsibility for violence against people."
+  :stakeholders ["client states" "PMCs" "affected populations" "international bodies"]
+  :stock :coercion-asymmetry :polarity :widen :magnitude 0.55 :reversibility :institutional :meadows 5
+  :basis "PMC proliferation; Montreux Document (2008)" :sourcing :representative :confidence 0.4}
+
+ ;; ── coercion-asymmetry (narrow — use-of-force / warrant norms) ──
+ {:type :instrument :id "gl-use-of-force-principles" :name "UN Basic Principles on Use of Force" :jurisdiction "GLOBAL" :kind :value :year 1990
+  :enactor "UN (Basic Principles on the Use of Force and Firearms, 1990)"
+  :origin "International standards requiring that force by law-enforcement be necessary, proportionate, and accountable — with lethal force only to protect life — narrow the coercive latitude of the state over citizens (compliance is the gap)."
+  :stakeholders ["police" "oversight bodies" "protesters" "citizens"]
+  :stock :coercion-asymmetry :polarity :narrow :magnitude 0.45 :reversibility :cultural :meadows 6
+  :basis "UN Basic Principles on the Use of Force and Firearms (1990)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-judicial-warrant-norm" :name "Judicial-warrant requirement (norm)" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse civic norm (independent judicial authorization)"
+  :origin "Requiring prior, independent judicial authorization for searches, arrests, and surveillance interposes a check between the citizen and the coercive apparatus — a paradigmatic narrowing whose erosion (warrantless powers, rubber-stamp courts) marks overreach."
+  :stakeholders ["courts" "police/agencies" "the accused" "citizens"]
+  :stock :coercion-asymmetry :polarity :narrow :magnitude 0.5 :reversibility :cultural :meadows 5
+  :basis "Warrant-requirement tradition (4th Amendment lineage etc.)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-un-peacekeeping-poc" :name "UN peacekeeping (protection of civilians)" :jurisdiction "GLOBAL" :kind :institution :year 1999
+  :enactor "UN Security Council (PoC mandates from 1999)"
+  :origin "Peacekeeping missions with protection-of-civilians mandates can interpose external force to shield populations from state or armed-group violence — a narrowing of unchecked coercion in conflict (constrained by mandates, capacity, and consent)."
+  :stakeholders ["UN missions" "host states" "civilians" "armed actors"]
+  :stock :coercion-asymmetry :polarity :narrow :magnitude 0.4 :reversibility :institutional :meadows 6
+  :basis "UN PoC mandates (since UNAMSIL 1999)" :sourcing :representative :confidence 0.35}
 ]
