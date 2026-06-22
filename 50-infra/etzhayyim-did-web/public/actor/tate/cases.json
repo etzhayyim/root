@@ -1,6 +1,6 @@
 {
  "disclaimer": "一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
- "count": 171,
+ "count": 172,
  "cases": [
   {
    "slug": "tate-shiharai-tokusoku",
@@ -785,6 +785,13 @@
    "label": "Expulsion / bail de résidence (住居・ベルギー)",
    "jurisdiction": ":be",
    "track": ":housing"
+  },
+  {
+   "slug": "tate-be-family",
+   "did": "did:web:etzhayyim.com:actor:tate-be-family",
+   "label": "Divorce — tribunal de la famille (家事・ベルギー)",
+   "jurisdiction": ":be",
+   "track": ":family"
   },
   {
    "slug": "tate-nz-dismissal",

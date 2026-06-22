@@ -765,6 +765,12 @@
   :notice/sourcing :synthetic
   :notice/text "Mise en demeure et procédure d'expulsion devant le juge de paix concernant votre bail de résidence, pour défaut de paiement."}
 
+ {:notice/id "ntc:be-family" :notice/label "BE citation en divorce (défendeur・huissier)"
+  :notice/jurisdiction :be
+  :notice/channel :formal-service :notice/claim-amount 0 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Citation en divorce pour désunion irrémédiable devant le tribunal de la famille. Vous êtes invité à comparaître à l'audience d'introduction."}
+
  {:notice/id "ntc:fr-creance" :notice/label "FR procédure collective (債権者宛・倒産)"
   :notice/jurisdiction :fr
   :notice/channel :mail :notice/claim-amount 980 :notice/claim-currency "EUR"

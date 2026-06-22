@@ -1783,6 +1783,21 @@
   :proc/refer-when ["事由が複雑・expulsion illégale → avocat / aide juridique (pro deo) / service du logement régional"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:be-family" :proc/label "Divorce — tribunal de la famille (家事・ベルギー)"
+  :proc/jurisdiction :be :proc/track :family
+  :proc/trigger-keywords ["divorce" "tribunal de la famille" "désunion irrémédiable"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Audience d'introduction / conclusions"
+    :dl/rule "désunion irrémédiable に基づく divorce は citation (Code civil art.229) で tribunal de la famille に提起される。被告 (défendeur) は délai de citation (通常8日) 経過後の audience d'introduction に出頭する。その後 calendrier des conclusions (Code judiciaire art.747) が、各当事者が書面 (conclusions) を相手方・裁判官へ提出する期限を確定する。一方的離婚で事実上の別居が1年超なら裁判官は離婚を宣告、未満なら second hearing に延期"
+    :dl/anchor "Code civil art. 229 (désunion irrémédiable) + Code judiciaire (citation 8 jours, art. 747 calendrier des conclusions)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :comparution :opt/kind :self-decide :opt/protective true :opt/label "audience d'introduction に出頭 (tribunal de la famille; 自分の立場を述べる)"}
+   {:opt/id :conclusions :opt/kind :self-submit :opt/label "calendrier des conclusions の期限内に conclusions (書面の言い分) を提出"}]
+  :proc/refer-when ["pension alimentaire・garde des enfants・liquidation (扶養・親権・財産分与) が争点 → avocat / aide juridique (pro deo)"
+                    "kokoro 心 (精神的サポート — 家事事件は Wellbecoming 負荷が大きい)"]
+  :proc/verify-current-law true}
+
  ;; ── :nz ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:nz-dismissal" :proc/label "Dismissal (解雇・労働・ニュージーランド)"
   :proc/jurisdiction :nz :proc/track :labor
