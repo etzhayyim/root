@@ -14,6 +14,7 @@ run_cljc() {
 
 run_cljc "manabi.methods.test-charter-gates"
 run_cljc "manabi.methods.test-agent"
+run_cljc "manabi.cells.cert-prep.test-cert-prep"
 
 if [[ $rc -eq 0 ]]; then
   echo "==> manabi: ALL GREEN"
