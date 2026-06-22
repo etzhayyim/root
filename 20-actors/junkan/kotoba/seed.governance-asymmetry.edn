@@ -3098,4 +3098,61 @@
   :stakeholders ["courts" "believers/non-believers" "the state" "citizens"]
   :stock :paradigm-subordination :polarity :narrow :magnitude 0.5 :reversibility :cultural :meadows 2
   :basis "ICCPR Art. 18; freedom-of-conscience tradition" :sourcing :representative :confidence 0.4}
+
+ ;; ═════════════════════════════════════════════════════════════════════════
+ ;; ITERATION 35 — information-asymmetry within-jurisdiction depth (broadcast/
+ ;; internet regulators + platform pressure vs open-data / access laws)
+ ;; ═════════════════════════════════════════════════════════════════════════
+
+ ;; ── information-asymmetry (widen) ──
+ {:type :instrument :id "ru-roskomnadzor" :name "Roskomnadzor (site blocking + 'sovereign internet')" :jurisdiction "RU" :kind :institution :year 2008
+  :enactor "Russian state (Roskomnadzor; 'sovereign internet' law 2019)"
+  :origin "The communications regulator blocks websites and throttles platforms, and the 2019 'sovereign internet' law built deep-packet infrastructure for centralized control and potential isolation — institutionalizing state control over what citizens can access online (distinct from SORM interception)."
+  :stakeholders ["Roskomnadzor" "ISPs/platforms" "users" "citizens"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.7 :reversibility :statutory :meadows 5
+  :basis "Roskomnadzor; 'sovereign internet' law (2019)" :sourcing :representative :confidence 0.45}
+ {:type :instrument :id "pk-pemra" :name "PEMRA broadcast regulation" :jurisdiction "PK" :kind :institution :year 2002
+  :enactor "Pakistan Electronic Media Regulatory Authority"
+  :origin "The broadcast regulator suspends channels, bans coverage of certain figures/topics, and pressures editorial lines, narrowing the information citizens receive about power (alongside informal military pressure on media)."
+  :stakeholders ["PEMRA" "broadcasters" "journalists" "citizens"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.55 :reversibility :statutory :meadows 5
+  :basis "PEMRA Ordinance (2002)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "sa-media-controls" :name "Centralized media + online controls" :jurisdiction "SA" :kind :institution :year 2011
+  :enactor "Saudi state (media regulation + anti-cyber/terror laws)"
+  :origin "State ownership/oversight of broadcast media plus broad anti-cybercrime and counter-terror provisions tightly constrain reporting and online speech about the state and royal family — comprehensive control of the information environment."
+  :stakeholders ["media ministry" "journalists/users" "platforms" "citizens"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.65 :reversibility :institutional :meadows 5
+  :basis "Saudi media regulation; anti-cyber/terror laws" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "kz-internet-controls" :name "Internet controls + shutdowns" :jurisdiction "KZ" :kind :institution :year 2016
+  :enactor "Kazakh state (national security certificate attempts; 2022 shutdowns)"
+  :origin "Repeated attempts to mandate a 'national security certificate' enabling traffic interception, plus near-total internet shutdowns during the January 2022 unrest, expanded state control over citizens' connectivity and communications."
+  :stakeholders ["government" "ISPs" "users" "citizens"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.55 :reversibility :statutory :meadows 5
+  :basis "Kazakhstan security-certificate attempts; 2022 shutdowns" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-platform-jawboning" :name "Government pressure on platforms ('jawboning')" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse (states informally pressuring platforms to remove/suppress content)"
+  :origin "Informal government pressure on private platforms to remove content or suppress accounts shapes the information environment without formal law or transparency, an opaque channel of state influence over what citizens see — distinct from open censorship statutes."
+  :stakeholders ["governments" "platforms" "users" "citizens"]
+  :stock :information-asymmetry :polarity :widen :magnitude 0.45 :reversibility :cultural :meadows 6
+  :basis "Comparative 'jawboning' / informal-pressure literature" :sourcing :representative :confidence 0.4}
+
+ ;; ── information-asymmetry (narrow — open-data / access laws) ──
+ {:type :instrument :id "ke-access-info-2016" :name "Access to Information Act" :jurisdiction "KE" :kind :law :year 2016
+  :enactor "Parliament of Kenya"
+  :origin "Operationalized the 2010 Constitution's access guarantee, giving citizens an enforceable right to information held by the state and private bodies performing public functions — a concrete East African transparency gain."
+  :stakeholders ["public bodies" "Commission on Administrative Justice" "press" "citizens"]
+  :stock :information-asymmetry :polarity :narrow :magnitude 0.5 :reversibility :statutory :meadows 6
+  :basis "Kenya Access to Information Act (2016)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-open-data-charter" :name "International Open Data Charter" :jurisdiction "GLOBAL" :kind :institution :year 2015
+  :enactor "Open Data Charter (governments + civil society, 2015)"
+  :origin "Principles committing governments to publish public data as open-by-default, accessible, and reusable narrow the information gap by making the workings of the state legible and auditable to citizens (adoption/implementation vary)."
+  :stakeholders ["adopting governments" "civic-tech/journalists" "businesses" "citizens"]
+  :stock :information-asymmetry :polarity :narrow :magnitude 0.45 :reversibility :institutional :meadows 6
+  :basis "International Open Data Charter (2015)" :sourcing :representative :confidence 0.4}
+ {:type :instrument :id "gl-public-interest-defence" :name "Public-interest disclosure defence (norm)" :jurisdiction "GLOBAL" :kind :value :year 0
+  :enactor "Diffuse civic norm (public-interest defences in law/jurisprudence)"
+  :origin "Where disclosing classified or confidential information in the public interest is legally defensible, the citizen's (and journalist's) ability to reveal wrongdoing is protected against secrecy laws — a narrowing of the information asymmetry, weak where no such defence exists (cf. Official Secrets regimes)."
+  :stakeholders ["whistleblowers/journalists" "courts" "the state" "citizens"]
+  :stock :information-asymmetry :polarity :narrow :magnitude 0.45 :reversibility :statutory :meadows 6
+  :basis "Comparative public-interest-defence jurisprudence" :sourcing :representative :confidence 0.4}
 ]
