@@ -41,6 +41,6 @@ NO live cancellation I/O in this codebase (`plan/execute` raises). Dry-run throu
   procedure (and ToS stance) against its disclosed source before any live use.
 - CBOR-CACAO byte-parity vs the live kotoba node is the operator step (cap bundle uses a
   canonical-JSON envelope in `tools/issue_capability.cljc`).
-- clj/ langgraph lane: cap/driver ported as clj-native namespaces (`kaiyaku.cap` +
-  `kaiyaku.driver`, tested via `clojure -X:test`); the agent.cljc graph :dispatch wiring
-  (capability-gated authorization between :approve and :rehearse) is the remaining step.
+- clj/ langgraph lane: R1 COMPLETE — `kaiyaku.cap` + `kaiyaku.driver` clj-native, wired
+  into agent.cljc as the :dispatch node (:approve → :dispatch → :rehearse, capability-gated
+  authorization, executed=false; tested via `clojure -X:test`). Both lanes now carry R1.

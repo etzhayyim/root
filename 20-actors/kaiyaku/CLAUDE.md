@@ -118,9 +118,9 @@ advice.
 │   ├── deps.edn                       # langgraph-clj + browser-use-clj + computer-use-clj (git deps)
 │   ├── src/kaiyaku/                   # ledger/analyze/plan/datoms (Python numeric parity)
 │   │                                  #   + executor.cljc (T2 rehearsal engines; murakumo-model G4)
-│   │                                  #   + agent.cljc (StateGraph: ingest→analyze→plan→‖member-sig‖→rehearse)
-│   │                                  #   + cap.cljc / driver.cljc (R1 clj-native capability + dispatch; graph wiring pending)
-│   └── test/kaiyaku/                  # 26 tests / 132 assertions (incl. driver_test = R1 cap/driver)
+│   │                                  #   + agent.cljc (StateGraph: ingest→analyze→plan→‖member-sig‖→dispatch→rehearse)
+│   │                                  #   + cap.cljc / driver.cljc (R1 clj-native capability + dispatch; WIRED into agent :dispatch node)
+│   └── test/kaiyaku/                  # 28 tests / 144 assertions (incl. driver_test + agent :dispatch authorization)
 └── out/                               # GENERATED — do not hand-edit
     ├── enkiri-readout.md
     ├── severance-plans.md
@@ -145,7 +145,7 @@ python3 methods/handoff_ingest.py    # tate handoff → out/handoff-worklist.md
 python3 tests/test_analyze.py && python3 tests/test_plan.py \
   && python3 tests/test_handoff.py   # 22 green
 
-cd clj && clojure -X:test             # clj lane: 26 tests / 132 assertions green (incl. R1 cap/driver)
+cd clj && clojure -X:test             # clj lane: 28 tests / 144 assertions green (R1 cap/driver wired into :dispatch)
 ```
 
 ## Do not
