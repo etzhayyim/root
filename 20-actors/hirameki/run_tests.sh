@@ -7,6 +7,7 @@ SUITES=(
   "20-actors/hirameki/methods/test_analyze.cljc"
   "20-actors/hirameki/methods/test_cid.cljc"
   "20-actors/hirameki/methods/test_dataset.cljc"
+  "20-actors/hirameki/methods/test_ingest.cljc"
   "20-actors/hirameki/methods/test_kotoba.cljc"
   "20-actors/hirameki/methods/test_autorun.cljc"
 )
