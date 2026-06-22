@@ -155,3 +155,50 @@ bb murakumo:deploy --node issachar             # stage lite_runner + cells.edn +
 
 Staged on each node under `~/.etzhayyim/`: `lite_runner.py`, `cells.edn`, `cells/<actor>/…`. LIVE
 on **issachar** since 2026-06-16 (healthz 13081 → `cells:[SukashiObservatoryHeartbeatCell]`).
+
+### bb runtime cutover (ADR-2606221900)
+
+`lite_runner.cljc` (ns `lite-runner`) is the **clj/bb 1:1 port** of `lite_runner.py`, per the
+repo-wide rule that operational/daemon code be clj/bb over the kotoba Datom log. The daemon plist
+(`com.etzhayyim.cell-runner.daemon.plist`) now invokes the **bb** runner:
+
+```
+@@BB_PATH@@ --classpath @@HOME@@/.etzhayyim -m lite-runner --node @@NODE@@ --registry … --cells-root … --healthz-port 13081
+```
+
+Why the cutover is **safe** (drop-in, node-by-node, reversible):
+
+- **Byte-identical ops log.** The bb runner reproduces the python runner's content-addressed
+  commit-DAG exactly (same `tx-cid` = `"b"+sha256(`canonical JSON`)`, same `_edn_val` line
+  rendering) — `test_lite_runner.cljc::live-ops-log-byte-parity` runs the **real** `lite_runner.py`
+  + the cljc on identical inputs and asserts byte-equality. So a node's audit trail is continuous
+  across the switch.
+- **Auto-fallback for existing cells.** `fire-cell` tries the cljc ns natively, and if it is simply
+  not on the classpath (a python-only cell like the LIVE `sukashi.cell`), it **shells the python
+  module exactly as the python runner did** — no `cells.edn` re-annotation needed. cljc cells fire
+  natively; `:lang "python"` forces the shell explicitly. Verified end-to-end: the bb runner fires a
+  python cell via fallback and records `:ok` to the ops log.
+- **`@@BB_PATH@@` is an absolute path.** launchd has a minimal PATH, so a bare `bb` exits 127
+  (bb-not-found). `deploy_node.py --bb-path` defaults to the Apple-silicon brew location
+  (`/opt/homebrew/bin/bb`).
+
+**Per-node operator runbook** (run from a control machine with Tailscale SSH + sudo to the node —
+the live `launchctl` reload happens ON the fleet Mac, not from CI):
+
+```bash
+# 1. stage the bb runner + install the bb plist (also keeps lite_runner.py as rollback)
+python3 deploy_node.py --node issachar --dry-run     # review the plan
+python3 deploy_node.py --node issachar               # stage + bootstrap the bb daemon
+
+# 2. validate the switch (a once-run must fire + record byte-identically)
+ssh issachar@<ip> 'bb --classpath ~/.etzhayyim -m lite-runner --node issachar \
+  --registry ~/.etzhayyim/cells.edn --cells-root ~/.etzhayyim/cells \
+  --ops-log ~/.etzhayyim/cells/cell-ops.kotoba.edn --once'
+curl -s 127.0.0.1:13081 | python3 -m json.tool       # healthz
+
+# 3. rollback (if needed): revert the plist ProgramArguments to python3 ~/.etzhayyim/lite_runner.py
+```
+
+The bb runner + plist + `deploy_node.py` cutover machinery land here; the actual per-node
+`launchctl bootstrap` on each live fleet Mac is the operator step (those nodes are reachable only
+over the fleet's Tailscale SSH, not from this repo's CI).
