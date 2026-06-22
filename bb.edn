@@ -53,6 +53,41 @@
    :task (do (require 'etzhayyim.watchdog)
              (apply (resolve 'etzhayyim.watchdog/-check) *command-line-args*))}
 
+  ieflow:report
+  {:doc "Emit ieflow.json — the organism's information-energy FLOW layer (ADR-2606211200): folds the committed flow ledger (80-data/ie-flow/<source>/flow.kotoba.edn) through etzhayyim.ie-flow.{ledger,metrics} into net-gain / order-index (負エントロピー輸出) / agent-efficiency / throughput + the Sankey edges & stations the /organism page renders. Pure read, no network I/O, no held key. Args: [flow-log-path]"
+   :task (do (require 'etzhayyim.ie-flow.organism)
+             (apply (resolve 'etzhayyim.ie-flow.organism/-report) *command-line-args*))}
+
+  ieflow:sos
+  {:doc "Emit sos.json — the actor SYSTEM-OF-SYSTEMS graph (ADR-2606211200): from 80-data/ie-flow/registry.edn + per-actor flow measurement, builds the node-link graph of the shared unforkable substrate (kotoba ledger / react-loop / co-scientist), the measured sources feeding it, the adopters embedding it, and kaname synthesizing across the multiplex. The /organism page renders it as a radial graph. Pure read, no held key."
+   :task (do (require 'etzhayyim.ie-flow.organism)
+             (apply (resolve 'etzhayyim.ie-flow.organism/-sos) *command-line-args*))}
+
+  ieflow:lab
+  {:doc "Emit lab.kotoba.edn — a flat [e a v tx op] Datom snapshot the /organism lab queries client-side (ADR-2606211200/2606212200): per-actor bounded systems (boundary + indices + REWARD 報酬系 + system-dynamics) + colony ABM. Params are datomic-queryable; the page re-simulates live as sliders move them. Pure read, no held key. Args: [flow-log-path]"
+   :task (do (require 'etzhayyim.ie-flow.organism)
+             (apply (resolve 'etzhayyim.ie-flow.organism/-lab) *command-line-args*))}
+
+  ieflow:coverage
+  {:doc "ENFORCE the rule (ADR-2606212200): every actor must hold a system-of-systems reward spec. Validates each per-actor spec in 80-data/ie-flow/system-of-systems.edn against the non-negotiable gate invariants (reward/validate-spec) + reports coverage over the 20-actors roster + a worklist. Exits non-zero on any INVALID (weakened-gate) spec."
+   :task (do (require 'etzhayyim.ie-flow.organism)
+             (apply (resolve 'etzhayyim.ie-flow.organism/-coverage) *command-line-args*))}
+
+  ieflow:maturity
+  {:doc "Regenerate 80-data/ie-flow/MATURITY.md — the SoS-reward maturity scorecard (ADR-2606212200): components present, coverage over the roster, per-actor reward + co-scientist score-react Δ + winning mechanism. Deterministic, pure read."
+   :task (do (require 'etzhayyim.ie-flow.organism)
+             (apply (resolve 'etzhayyim.ie-flow.organism/-maturity) *command-line-args*))}
+
+  ieflow:maxwell
+  {:doc "Write 80-data/ie-flow/maxwell-signals.edn — the reward-weighted PREFERENCE signals for Maxwell's learning loop (ADR-2606212200 + 2606061000): per bounded actor, a co-scientist score-react packaged as an aligned-only preference (higher reward ⇒ stronger preference). Emits the SIGNAL only; the trainer is a separate G7-gated step. Deterministic, no held key."
+   :task (do (require 'etzhayyim.ie-flow.organism)
+             (apply (resolve 'etzhayyim.ie-flow.organism/-maxwell) *command-line-args*))}
+
+  audit:datomic
+  {:doc "Fleet datomic-ledger health audit — drives every standard-interface ledger actor's heartbeat into a throwaway commit-DAG and asserts GROUND-append + verify-chain + idempotency + ground-only. Non-standard ledger actors are inventoried, never failed. Exits non-zero only on a standard-family regression. Mirrors the datomic-ledger-audit CI gate."
+   :task (do (load-file "70-tools/scripts/datomic-health/fleet_audit.clj")
+             ((resolve 'datomic-health.fleet-audit/-main)))}
+
   test:kotoba
   {:doc "etzhayyim.kotoba root-side Datom engine + envelope + analysis (ADR-2605262130 Phase 1/2 + ADR-2605181100; data+impl in root, kotoba is the external generic engine)"
    :task (do (require 'clojure.test 'etzhayyim.kotoba.test-engine
@@ -69,6 +104,11 @@
   {:doc "Enforce the root↔engine data boundary: NO religious-corp data artifacts (*.kotoba.edn) inside an in-tree kotoba engine clone (ADR-2605262130; data lives in root 00-contracts/80-data)"
    :task (do (require 'etzhayyim.kotoba.boundary)
              (apply (resolve 'etzhayyim.kotoba.boundary/-main) *command-line-args*))}
+
+  lint:no-new-shell
+  {:doc "Enforce-forward the clj/bb rule (root CLAUDE.md §\"Operational code = clj/bb\"): FAIL on a NEW first-party .sh under 20-actors (existing ones grandfathered in shell-baseline.edn; baseline shrinks-only). New actors ship run_tests.clj, not run_tests.sh. --update rewrites the baseline. ADR-2606072802 enforce-forward"
+   :task (do (require 'etzhayyim.lint.no-new-shell)
+             (apply (resolve 'etzhayyim.lint.no-new-shell/-main) *command-line-args*))}
 
   kotoba:ingest
   {:doc "Ingest an actor seed into the kotoba Datom log (validated, snapshotted). Args: <schema> <seed> [out] [--validate]"
@@ -505,6 +545,9 @@
   test:docs-registry
   {:doc "docs registry generator (70-tools/scripts/docs/regen-registry.clj) — parse-frontmatter / JSON+EDN encoders / byte-parity round-trip + live freshness guard (port of test_regen_registry.py)"
    :task (shell "bb" "70-tools/scripts/docs/test_regen_registry.clj")}
+  audit:test-health
+  {:doc "test-health audit (70-tools/scripts/test-health/audit.clj) — reports .clj/.cljc shadow pairs + broken bb-test shims (the py→cljc port-debt register); --check self-verifies the detector's invariants (exit 1 only if the detector itself breaks, not on debt). Add --probe to classify broken shims, --write to refresh AUDIT.md"
+   :task (shell "bb" "70-tools/scripts/test-health/audit.clj" "--check")}
   test:tools
   {:doc "70-tools Clojure test suite (langgraph-clj maturation agent)"
    :task (do (require 'clojure.test

@@ -5,7 +5,7 @@
   shiori / abaki / shionome / busshi / hokorobi / kosatsu / inochi). Reads a kotoba-EDN
   MULTILAYER graph — :organism/* nodes (entities / interfaces / instruments / public roles)
   and :en/* 縁 each tagged with a :en/domain layer (politics / religion / organization /
-  ideology / economy / ecology / security / wellbecoming / ai / information) — and computes, ON
+  ideology / economy / ecology / security / wellbecoming / ai / information / energy) — and computes, ON
   READ (edge-primary; no stored per-entity score), where the cross-domain BOTTLENECK is: the
   one structural position (the 要 / 律速段階) whose release would most improve resilience across
   the MAXIMUM number of domains at once.
@@ -102,9 +102,13 @@
 ;; ── domain model ──────────────────────────────────────────────────────────────
 
 (def domains
-  "The layers of the multiplex (kept as ':…' strings, matching the reader)."
+  "The layers of the multiplex (kept as ':…' strings, matching the reader).
+  :energy added in ADR-2606212000 — the system-of-systems ENERGY-FLOW domain, fed by amime
+  網目's multi-site mesh concentration (ADR-2606212020). Energy was previously implicit inside
+  :organization/:economy; making it an explicit layer lets a node that bears load in BOTH an
+  energy chokepoint AND another domain surface as a higher-versatility cross-domain 要."
   [":politics" ":religion" ":organization" ":ideology" ":economy"
-   ":ecology" ":security" ":wellbecoming" ":ai" ":information"])
+   ":ecology" ":security" ":wellbecoming" ":ai" ":information" ":energy"])
 
 (def D (count domains))
 

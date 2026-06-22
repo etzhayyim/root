@@ -1,0 +1,42 @@
+{
+  "disclaimer": "一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
+  "case": "proc:tw-pochan",
+  "label": "申報債權 (債權者側・破產・台湾)",
+  "jurisdiction": ":tw",
+  "jurisdiction_label": "台灣",
+  "track": ":insolvency",
+  "genuine_channels": [
+    ":mail"
+  ],
+  "service_note": "支付命令・起訴状は法院の送達 — LINE/SMS の『法院』通知は偽 (165 へ)",
+  "deadlines": [
+    {
+      "label": "申報債權",
+      "rule": "法院が破產宣告と同時に定める申報期間内 — 破產宣告日から15日以上3か月以下 — に 破產管理人 へ 申報債權 (期間徒過は失權效果で破產財団から配当を受けられない; 破產宣告前に確定判決・支付命令等の執行名義を得た債権は期間に拘束されない)",
+      "anchor": "破產法 第64條第1項・第65條第1項第5款",
+      "critical": false,
+      "verify_service_date": true
+    }
+  ],
+  "options": [
+    {
+      "id": ":shenbao",
+      "kind": ":self-submit",
+      "protective": true,
+      "label": "債權申報書 を 破產管理人 へ提出 (本人可; 預付款・押金・儲值卡 など前払金も債權: kaiyaku 縁-ledger と突合)"
+    }
+  ],
+  "referrals": [
+    "擔保債權・抵銷・高額債權"
+  ],
+  "jurisdiction_referrals": [
+    "法律扶助基金會 (Legal Aid Foundation)",
+    "各地律師公會"
+  ],
+  "fraud_help": [
+    "tasuke 助 (サイバー犯罪被害支援)",
+    "165 反詐騙專線",
+    "警政署 110"
+  ],
+  "verify_current_law": true
+}

@@ -263,6 +263,27 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
     adrs: ["2606041827"],
   },
+  tsubasa: {
+    description:
+      "翼 — flight-route / fare discovery commons (the Skyscanner inversion). Honest fare/route meta-search whose every onward link is AFFILIATE-STRIPPED and where the member SELF-BOOKS on the airline's OWN site — tsubasa is never merchant-of-record and takes no commission (G1, no inflow). Ranks by TRUE total cost (fare + baggage) with CO₂ emissions SURFACED on every option as a first-class axis, never hidden or de-ranked away (G4). No ads / no urgency / no 'price will rise' scarcity (G3); a search is STATELESS w.r.t. the searcher — no person fare-tracking (G5). Beyond the live query handlers (search / compare / self-book-handoff), the R2 maturity layer computes per-O–D-route carrier CONCENTRATION (named-HHI + competition reading {:competitive :concentrated :monopoly}) and flags concentrated/monopoly routes :opening (surface alternatives) — a COMPETITION + FARE map routed to OPENING, NEVER a paid ranking and NEVER a target-list. Observations persist to a content-addressed append-only kotoba Datom commit-DAG (tamper-evident verify-chain, no-server-key) via a deterministic idempotent-by-content heartbeat. DYNAMIC sibling of watari 渡り (live aircraft POSITION): tsubasa PLANS, watari TRACKS — both observational, neither an OTA. Live GDS/airline fare ingest is Council Lv7+ + operator gated (G8); R0/R1 ship :representative data. Per ADR-2606072800.",
+    glyph: "翼",
+    displayName: "Tsubasa — Flight-Route / Fare Discovery Commons",
+    primaryLexicon: "com.etzhayyim.tsubasa.fare",
+    primarySchema: "00-contracts/schemas/flight-fare-ontology.kotoba.edn",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:tsubasa#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:tsubasa#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606072800"],
+  },
   kamado: {
     description:
       "竈 — closed-loop carbon refining + fossil-refinery decommissioning/transition + refinery observation. The kotoba-native successor to the legacy oil-refining Cypher/RisingWave actor (which it supersedes; no graph.write). 竈 = the hearth-furnace kami (竈神/荒神); the transformation apparatus is neutral, the carbon origin + fate carry the harm. Empirically (carbon_balance.py): a fossil→combusted pathway is +3.50 tCO2e/t (one-way geological stock→flow = genuinely multi-generational), and full robotic process-control reaches only +3.38 (~3% cut) — robotics makes fossil refining cleaner, never harmless, so net≤0 is reached ONLY by changing the feedstock to closed-loop carbon. That finding is made structural: :fossil-virgin-crude is unrepresentable (the :feedstock/class invariant). Three faces over the kotoba Datom log: (A) observation — refinery/unit/outage + transition-readiness as a resilience + transition map, NEVER a target-list (G4); (B) §2(d) robotics to wind down / remediate / convert existing fossil assets (→ hikari / synthesis / hodoki+kanayama); (C) closed-loop synthetic refining on biogenic / captured-CO2 / recycled carbon only, every design D3-scored. Per ADR-2606051500.",

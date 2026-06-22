@@ -48,8 +48,21 @@ member's machine                                 20-actors/meisai/
 ```
 
 Datom shape: `meisai-stmt:<source>:<YYYY-MM>` entities with `:meisai.stmt/{source,month,
-total-jpy,row-count,intake-cid,source-url}`; `meisai-row:<hash16>` entities with
-`:meisai.row/{stmt,index,date,merchant,amount-jpy,note}`. All `:db/add`, no retract.
+total-jpy,row-count,intake-cid,source-url}` (+ worldwide `:meisai.stmt/{total,currency}`);
+`meisai-row:<hash16>` entities with `:meisai.row/{stmt,index,date,merchant,amount-jpy,note}`
+(+ worldwide `:meisai.row/{amount,currency}` for non-JPY cards). All `:db/add`, no retract.
+
+## Worldwide coverage registry (R1)
+
+`sources/world-card-issuers.edn` is the PUBLIC coverage map of the world's card companies &
+payment services (networks / issuers / PSP / BNPL / wallets) so meisai can ingest ANY issuer, not
+just sumitclub. It is **public metadata** (no statement/row/credential/PAN) → it lives OUTSIDE the
+gitignored `data/` and **IS committed** (do NOT add it to `.gitignore`; that is the whole point —
+it is the one file in this actor that is meant to be public). `methods/sources.cljc` emits
+`:meisai.source/*` datoms (`sources/world-card-issuers.kotoba.edn`, a committed public Datom log),
+an honest coverage report + worklist, `resolve`, and `normalize` (raw issuer intake → canonical;
+JPY → `:amount_jpy`, others → generic `:amount` + `:currency` in integer minor units). G2/G3 are
+unaffected: the registry parses no statement, and normalize feeds ingest where the G2 guard runs.
 
 ## Clojure port (datomic + clojure substrate parity)
 
@@ -66,12 +79,28 @@ dep), matching `parse_edn`. Run: `bb -cp 20-actors -e "(require 'meisai.methods.
 ## Build & Test
 
 ```bash
-./run_tests.sh                      # 2 suites, 21 checks, stdlib only, hermetic
-python3 methods/autorun.py --cycles 1   # ingest data/intake/*.edn → local log
+./run_tests.sh                      # 6 bb suites, 28 tests / 103 assertions, hermetic
+bb -cp 20-actors -e "(require 'meisai.methods.autorun)(meisai.methods.autorun/-main \"--cycles\" \"1\")"
 ```
 
 ## R1 triggers (deferred)
 
-lexicon `com.etzhayyim.meisai.statement`; fleet heartbeat registration; kaiyaku handoff
-(recurring-merchant detection over `:meisai.row/*` → 縁-ledger worklist); additional sources
-(other card portals) in the fetch leg.
+**per-issuer fetch-leg adapters** that flip the 100 `:registry-only` sources in
+`sources/world-card-issuers.edn` to `:supported` (member-side, computer-use-clj, G4 read-only
+posture — out-of-repo, the seam is the registry `:shape` + `sources/normalize`).
+
+LANDED in R1: lexicons `com.etzhayyim.meisai.{statement,source,recurringHandoff}` (`cells/lex/`);
+member-local launchd heartbeat (`50-infra/launchd/com.etzhayyim.meisai.heartbeat.plist` — NOT a
+shared fleet cell, by G1/G3/G7); report-time FX enrichment (`methods/fx.cljc`,
+`:handoff/jpy-equivalent`, advisory — never a `:meisai.row/*` Datom).
+
+The kaiyaku SIDE of the recurring-charge handoff **landed** (ADR-2606122400): kaiyaku
+`methods/meisai_ingest.cljc` ingests `data/kaiyaku-handoff.edn` into its 縁-ledger as a
+`:recurring-charge` tie over a `:svc/kind :card-merchant` node — the meisai → kaiyaku round-trip
+is now closed (kaiyaku decides keep/review/sever; meisai never does).
+
+The recurring-charge handoff (`methods/recurring.cljc`) is meisai's first DERIVED view: it folds
+`:meisai.row/*` into subscription candidates and emits an ADVISORY `:review` handoff
+(`data/kaiyaku-handoff.edn`, PERSONAL → gitignored). meisai SURFACES; kaiyaku decides keep/sever
+(G2 + member-sig). `:sever` is unrepresentable here and a merchant is a SERVICE, never a person
+(kaiyaku N1) — both test-enforced.

@@ -8,6 +8,7 @@ set -euo pipefail
 cd "$(dirname "$0")/../.."
 exec bb -e '(def nss (quote [hikari.methods.test-microgrid
                              hikari.methods.test-panel-install
+                             hikari.methods.test-agent
                              hikari.cells.grid-edge.test-state-machine
                              hikari.cells.solar-pv-install.test-state-machine]))
               (apply require (quote clojure.test) nss)

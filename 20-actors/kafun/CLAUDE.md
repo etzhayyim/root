@@ -45,7 +45,10 @@ methods/kafun_edn.cljc    loader + classify
 methods/remediate.cljc    pollen-burden → verdict → assess → render-datoms → render-report (+ bb CLI)
 methods/kotoba.cljc       content-addressed append-only REMEDIATION LEDGER (tx-cid/make-tx/append-tx/read-log/verify-chain)
 methods/autorun.cljc      deterministic, idempotent-by-content heartbeat — assess → append ONLY on change (+ bb CLI)
-methods/test_*.cljc       loader + gate + ledger + heartbeat invariants
+methods/ie_flow.cljc      SoS: shared ie-flow metrics + energy-flow viz + --record (ADR-2606212030)
+methods/digest.cljc       Murakumo-narrated remediation digest (fail-open template, G6; :dry-run only G8)
+cell.cljc                 fleet heartbeat cell — `fire` (KafunRemediationHeartbeatCell, cells.edn)
+methods/test_*.cljc       loader + gate + ledger + heartbeat + ie-flow + digest invariants
 kotoba/ontology.kafun.edn EAVT schema + enums + refuse-reasons + negative space
 kotoba/seed.edn           12 synthetic stands spanning all verdicts
 data/ (gitignored)        generated remediation ledger — never committed/hand-edited
@@ -60,13 +63,46 @@ heartbeat appends verdict datoms as one content-addressed tx (prev-cid chained,
 `:appended false :reason :no-change`); deterministic (caller supplies tx-id +
 as-of, no wall clock) → resume-safe; no-server-key (local file, no network I/O).
 
+## ie-flow / energy-flow (system of systems) — `methods/ie_flow.cljc` (ADR-2606212030)
+
+kafun embeds the SHARED `etzhayyim.ie-flow.metrics` (the order calculus; NOT a fork).
+Its substrate is the 花粉 burden: 散在 (scattered) pollen-source pressure = high-entropy
+disorder. kafun's gate is a **RECTIFIER (整流)**: it folds that scattered burden flow onto
+OUTCOMES — concentrating realised restoration value onto `:reforest-priority` stands and
+routing the rest to named sinks. `order-index = 1 − H(value)/H(volume)` = how much disorder
+was rectified into prioritized restoration order; `η = exported ÷ consumed` = the 共生 axis.
+
+The verdict sinks feed downstream actors = **system of systems**: reforest-priority →
+sanae+inochi · await-sapling-supply → sanae (無花粉苗木 L1-1) · await-consent → musubi ·
+protected-selective → inochi · refuse → kamado · monitor → kafun. The visualization
+(`viz/energy-flow.html`, self-contained canvas Sankey, generated from the model) makes the
+transfer legible. Synthetic-seed result: order-index **0.320** (H 2.307→1.569), η **6.58×**,
+net-gain **+133.9**, non-parasitic. kafun moves INFORMATION-energy (a prioritized map), never
+physical forestry (assessment-only; G5). Live `record!`/`beat!` to
+`80-data/ie-flow/kafun/flow.kotoba.edn` (gitignored) is the heartbeat/operator step.
+
 ## Run
 
 ```bash
-./20-actors/kafun/run_tests.sh                                  # 4 suites (22 tests / 62 assert)
+./20-actors/kafun/run_tests.sh                                  # 6 suites (38 tests / 111 assert)
 bb --classpath 20-actors 20-actors/kafun/methods/remediate.cljc # print the remediation map
 bb --classpath 20-actors 20-actors/kafun/methods/autorun.cljc   # heartbeat → append to ledger
+# Murakumo-narrated remediation digest (fail-open to template; --live narrates via the fleet):
+bb --classpath 20-actors 20-actors/kafun/methods/digest.cljc          # template (offline-safe)
+bb --classpath 20-actors 20-actors/kafun/methods/digest.cljc --live   # Murakumo loopback (G6, fail-open)
+# energy-flow viz (embeds shared ie-flow metrics; writes viz/energy-flow.html):
+bb -cp "20-actors:70-tools/src:20-actors/kotodama/src" 20-actors/kafun/methods/ie_flow.cljc
+# + --record: also record kafun's ie-flow events to the shared SoS ledger (80-data/ie-flow/kafun/, gitignored):
+bb -cp "20-actors:70-tools/src:20-actors/kotodama/src" 20-actors/kafun/methods/ie_flow.cljc --record
 ```
+
+## Fleet (`cell.cljc`)
+
+`KafunRemediationHeartbeatCell` registered in `50-infra/cluster/murakumo/cell-runner/cells.edn`
+— node **simeon**, cron `31 * * * *`, healthz **13091** (the kaname/mimamori track). `fire` runs
+ONE deterministic, idempotent-by-content remediation beat (`autorun/beat`): an unchanged
+assessment is a no-op (`:appended false :reason :no-change`). No-server-key, no external I/O; the
+Murakumo digest `--live` narration + any live-engine bridge stay operator/Council-gated.
 
 ## Pairs with
 

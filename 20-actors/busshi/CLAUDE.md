@@ -64,7 +64,10 @@ bb --classpath 20-actors 20-actors/busshi/methods/test_busshi_edn.cljc   # loade
 bb --classpath 20-actors 20-actors/busshi/methods/test_analyze.cljc      # analytics + invariants (9 tests / 55 assert)
 bb --classpath 20-actors 20-actors/busshi/methods/analyze.cljc           # print the resilience map
 bb --classpath 20-actors 20-actors/busshi/methods/autorun.cljc           # heartbeat → append observations to ledger
-./20-actors/busshi/run_tests.sh                                          # 4 suites
+# SoS score (ADR-2606212200): observation → measured ie-flow events → order-index/score:
+bb -cp "20-actors:70-tools/src:20-actors/kotodama/src" 20-actors/busshi/methods/ie_flow.cljc          # flow-state
+bb -cp "20-actors:70-tools/src:20-actors/kotodama/src" 20-actors/busshi/methods/ie_flow.cljc --record # record to the SoS ledger (gitignored)
+./20-actors/busshi/run_tests.sh                                          # 5 suites
 ```
 
 ## R0 → later waves

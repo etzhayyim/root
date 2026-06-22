@@ -174,6 +174,61 @@
                          "replicas" replicas "seed" seed "jitter" jitter)]
      [results meta])))
 
+;; ── swarm ensemble (G5/G8 gated LLM-persona variant; ADR-2606111500 R1) ───────────────────────
+;; Same synthetic-agents → ensemble → distribution interface as `ensemble`, but each agent's
+;; per-step update is delegated to a pluggable `step-fn`:
+;;     (step-fn stance neighbour-mean susceptibility anchor) → {"stance" v "via" kw}
+;; (the murakumo.persona-step shape). The step-fn's stance is CLAMPED to [0,1] — a rogue or
+;; over-range step CANNOT escape the unit interval. With NO step-fn the deterministic scalar
+;; Friedkin-Johnsen KERNEL is used (delegates to `ensemble`; swarm_via [":kernel"]) — the default
+;; and test path; the LLM swarm is the gated variant that falls back to this kernel when offline.
+(defn- swarm-run-replica
+  "One forward run where each agent step is the supplied step-fn (clamped to [0,1]). Mirrors
+  run-replica's deterministic jitter + anchor-at-step; collects each step's :via into `vias`."
+  [pids sus base-anchor incoming exposure steps seed replica jitter-amp step-fn vias]
+  (let [jit (reduce (fn [m i] (assoc m i (jitter seed replica i jitter-amp))) {} pids)
+        x0 (reduce (fn [m i] (assoc m i (anchor-at-step (get base-anchor i) (get exposure i) 0 (get jit i)))) {} pids)]
+    (loop [step 1, x x0]
+      (if (> step (long steps))
+        x
+        (let [anchor (reduce (fn [m i] (assoc m i (anchor-at-step (get base-anchor i) (get exposure i) step (get jit i)))) {} pids)
+              nx (reduce (fn [m i]
+                           (let [in (get incoming i)
+                                 nbr (reduce (fn [^double s [j ^double w]] (+ s (* w (double (get x j))))) 0.0 in)
+                                 out (step-fn (double (get x i)) nbr (double (get sus i)) (double (get anchor i)))]
+                             (swap! vias conj (get out "via"))
+                             (assoc m i (clamp01 (double (get out "stance"))))))
+                         {} pids)]
+          (recur (inc step) nx))))))
+
+(defn swarm-ensemble
+  "Return [outcomes-per-replica meta] like `ensemble`, driving each agent with `step-fn`
+  (clamped). With no :step-fn it IS `ensemble` (scalar kernel), tagged meta swarm_via [\":kernel\"].
+  meta[\"swarm_via\"] is the sorted distinct set of :via values the run used."
+  ([nodes edges] (swarm-ensemble nodes edges {}))
+  ([nodes edges {:keys [steps replicas seed jitter step-fn]
+                 :or {steps default-steps replicas default-replicas
+                      seed default-seed jitter default-jitter}}]
+   (if (nil? step-fn)
+     (let [[results meta] (ensemble nodes edges {:steps steps :replicas replicas :seed seed :jitter jitter})]
+       [results (assoc meta "swarm_via" [":kernel"])])
+     (let [{:keys [pids sus base-anchor weight incoming exposure]} (build-topology nodes edges)
+           outs (world/outcomes nodes)
+           member-ids (when (seq outs)
+                        (let [first-out (get outs (first (world/ordered-keys outs)))]
+                          (when (not= (get first-out ":outcome/measures") ":all")
+                            pids)))
+           vias (atom #{})
+           results (mapv (fn [r]
+                           (let [x (swarm-run-replica pids sus base-anchor incoming exposure
+                                                      steps seed r jitter step-fn vias)]
+                             (population-statistic x weight member-ids)))
+                         (range replicas))
+           meta (array-map "personas" (count pids) "edges" (count edges) "steps" steps
+                           "replicas" replicas "seed" seed "jitter" jitter
+                           "swarm_via" (vec (sort @vias)))]
+       [results meta]))))
+
 #?(:clj
    (defn -main
      "CLI entry (file I/O at the edge): ensemble summary over the seed scenario."

@@ -95,6 +95,7 @@
 
 #?(:clj (defn read-file [path] (read-all (slurp (str path)))))
 (def load-edn read-file)   ; python name alias
+(def read-edn read-all)    ; parse one EDN line/text → its form (used by kotoba read-log per line)
 
 ;; ── classifier (port of yabai_edn.classify) ─────────────────────────────────
 (def ^:private buckets

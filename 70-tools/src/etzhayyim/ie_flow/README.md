@@ -57,10 +57,59 @@ The gates: **G-parasitism** (projected order ≥ floor — never a net taker), *
 **G-falsifiable** (a measurable prediction), **G-leash** (outward = member-principal / dry-run;
 no-server-key). Murakumo narrates the meta-review (fail-open template, G6) but never the generation.
 
+## Score + organism reward (`score.cljc`, ADR-2606212200)
+
+Every embedded actor is an **information-control actor** in the system + energy flow. `score.cljc`
+folds an actor's flow-state into ONE composite **info-control-score** ∈ 0..1 — its active-inference
+**利得**: how well it RECTIFIES flow into returned order (`rectify`=order-index), pays for itself
+(`phi`=net-gain), stays 共生 (`eta`), is a 利得 not a paid magic-circle (`efficiency`), minus its
+`surprise` (variational free energy) — **GATED by 子孫 wellbecoming** (`:descendant`; 0 = veto,
+G-subordinate). Weights are DATA (`score-weights.edn`) — re-weighting the whole SoS is a data edit.
+
+The colony aggregate is the **artificial-organism reward**: `colony-reward` = Σ score × (1 +
+log10(1+throughput)); its rounded form `:colony-order` is a **negentropy SOURCE** added to ibuki's
+metabolic intake (`metabolism/intake-weights` → Φ → reserves → survival). So the organism's reward
+= the colony's aggregate information-control. **Active inference at the colony scale.**
+
+```clojure
+(require '[etzhayyim.ie-flow.score :as score])
+(score/info-control-score flow-state {:descendant 0.85})   ; → {:score 0.45 :vetoed? false :components {…}}
+(score/score-roster {actor flow-state …} {actor {:descendant w}})  ; → ranked SoS scoreboard
+(score/as-env-source scoreboard)                            ; → {:colony-order n} (feeds ibuki intake)
+```
+
+```bash
+# the SoS scoreboard: score every actor with a measured flow + fold into the organism reward
+bb -cp "20-actors:70-tools/src:20-actors/kotodama/src" \
+   70-tools/src/etzhayyim/ie_flow/scoreboard.clj --write   # → scoreboard.edn + scoreboard.md
+# scoreboard.md is the human-readable SoS report (ranked 利得 table + organism-reward delta).
+# integration test (needs the actor adapters on the classpath):
+bb -cp "20-actors:70-tools/src:20-actors/kotodama/src" \
+   70-tools/src/etzhayyim/ie_flow/test_scoreboard.clj      # 3 tests / 14 assertions
+```
+
+### Embedding a gate / observatory actor (`gate-adapter.cljc`)
+
+Verdict-gate + observatory actors (kafun / ugachi / busshi / …) all share the same shape:
+an assessment produces ROWS, each routes to a VERDICT/ROUTE, and the actor rectifies a
+scattered-risk VOLUME into a realised-order VALUE. `gate-adapter` is that shared plumbing —
+an actor supplies only its DOMAIN model (a config map), not 80 forks:
+
+```clojure
+(require '[etzhayyim.ie-flow.gate-adapter :as ga])
+(defn config [rows]
+  {:actor "ugachi" :id-prefix "ugachi-" :source-kind "project" :rows rows
+   :route-key "verdict"
+   :volume-fn #(double (get % "multigen_risk"))         ; the scattered risk it rectifies
+   :value-fn  #(* (volume %) (route-factor (verdict %)) ga/default-value-scale)})  ; realised order
+(defn flow-state  [rows] (ga/flow-state (config rows)))
+(defn record-flow! [rows opts] (ga/record-flow! (config rows) opts))
+```
+
 ## Run
 
 ```bash
-# tests (27 tests / 80 assertions)
+# tests (36 tests / 102 assertions — incl. score)
 bb -cp "70-tools/src:20-actors/kotodama/src" 70-tools/src/etzhayyim/ie_flow/run_tests.clj
 
 # real-world ingest: the monorepo measures its OWN development metabolism (git → IE-flow)

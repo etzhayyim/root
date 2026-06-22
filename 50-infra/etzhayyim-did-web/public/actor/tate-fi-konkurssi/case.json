@@ -1,0 +1,42 @@
+{
+  "disclaimer": "一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
+  "case": "proc:fi-konkurssi",
+  "label": "Saatavan valvonta (債権者側・倒産・フィンランド)",
+  "jurisdiction": ":fi",
+  "jurisdiction_label": "Suomi",
+  "track": ":insolvency",
+  "genuine_channels": [
+    ":mail"
+  ],
+  "service_note": "haaste は haastemies / postitse の tiedoksianto — SMS の『käräjäoikeus』通知は偽",
+  "deadlines": [
+    {
+      "label": "Saatavan valvonta",
+      "rule": "pesänhoitaja (破産管財人) が定め公告する valvontapäivä (届出日) までに valvontakirjelmä (届出書) で saatava を pesänhoitaja へ valvoa; 期日後の届出 (jälkivalvonta) は手数料を要し、怠ると債権を失うことがある",
+      "anchor": "Konkurssilaki (120/2004) 12 luku (valvonta)",
+      "critical": false,
+      "verify_service_date": true
+    }
+  ],
+  "options": [
+    {
+      "id": ":valvonta",
+      "kind": ":self-submit",
+      "protective": true,
+      "label": "valvontakirjelmä を pesänhoitaja へ提出 (本人可; ennakkomaksu・vakuus・lahjakortti など前払金も saatava: kaiyaku 縁-ledger と突合)"
+    }
+  ],
+  "referrals": [
+    "vakuus・kuittaus・suuri saatava (担保・相殺・高額債権)"
+  ],
+  "jurisdiction_referrals": [
+    "oikeusapu (julkinen 法律扶助)",
+    "kuluttajaneuvonta (KKV 消費者助言)"
+  ],
+  "fraud_help": [
+    "tasuke 助 (サイバー犯罪被害支援)",
+    "poliisi (nettipetokset 通報)",
+    "kuluttajaneuvonta"
+  ],
+  "verify_current_law": true
+}

@@ -69,6 +69,26 @@
   /* staleness badge: a layer overdue past 2× cadence (from health.json) */
   .live.stale{color:var(--dormant);border-color:#4a3a14;background:#1c160e}
   .live.stale .dot{background:var(--dormant);animation:none}
+  /* ── IE-flow (情報エネルギー流) layer: net-gain / order-index / Sankey backbone ── */
+  .iegrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:6px 0 12px}
+  .iestat{background:#0c1219;border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+  .iestat .ienum{font-size:18px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.2}
+  .iestat .iek{font-size:11px;color:var(--mut);margin-top:2px}
+  /* ── IE-flow lab: Sankey + index (left) / datomic-query sliders + sims (right) ── */
+  .labgrid{display:grid;grid-template-columns:1.1fr .9fr;gap:20px}
+  @media(max-width:760px){.labgrid{grid-template-columns:1fr}}
+  .labctl{margin:8px 0 10px}
+  .labctlhead{display:flex;justify-content:space-between;font-size:12px;color:var(--mut);margin-bottom:3px}
+  .labctlval{color:var(--ink);font-variant-numeric:tabular-nums;font-weight:600}
+  input.labrange{width:100%;accent-color:var(--alive);height:4px;cursor:pointer}
+  .labchips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 2px}
+  .labchip{padding:4px 11px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;
+           border:1px solid var(--line);background:#0c1219;color:var(--mut);user-select:none}
+  .labchip:hover{border-color:#39d98a55}
+  .labchip.on{background:#0e1c16;color:var(--alive);border-color:#1c3a2c}
+  .rewardline{display:flex;align-items:center;gap:12px;margin:12px 0 4px;padding:10px 12px;
+              border:1px solid var(--line);border-radius:12px;background:#0c1219}
+  .rewardnum{font-size:26px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1}
   /* respect reduced-motion: still alive, just not animated (104 cells breathing is a lot) */
   @media (prefers-reduced-motion: reduce){
     .dish .cell,.dish .cell.flash,.pulse,.live .dot{animation:none !important}

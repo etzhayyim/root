@@ -215,6 +215,14 @@
    ;; kaname-form → identity kind-map. See methods/ingest.cljc + data/ingested-pages/.
    :web      {:path "kaname/data/ingested-web.kotoba.edn" :domain ":economy" :source ":web"
               :kind-map {":concentrates" ":concentrates" ":depends-on" ":depends-on"
+                         ":couples" ":couples" ":gates" ":gates"}}
+   ;; :amime — the ENERGY-FLOW mesh mirror (ADR-2606212000 / 2606212020). amime 網目 solves the
+   ;; multi-site energy mesh and commits a kaname-form :energy graph: flow concentrates onto loads
+   ;; (:concentrates), single-path import is a :depends-on SPOF. Already kaname-form → identity
+   ;; kind-map; lifts straight into the :energy domain layer. Running amime = G7; joining its
+   ;; committed out/energy-sos.kotoba.edn = what kaname does here.
+   :amime    {:path "amime/out/energy-sos.kotoba.edn" :domain ":energy" :source ":amime"
+              :kind-map {":concentrates" ":concentrates" ":depends-on" ":depends-on"
                          ":couples" ":couples" ":gates" ":gates"}}})
 
 #?(:clj

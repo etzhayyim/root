@@ -766,6 +766,21 @@
   :proc/refer-when ["CAD $35,000 超 (small claims 上限外)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:ca-family" :proc/label "Answer to a family Application (家事・カナダ ON)"
+  :proc/jurisdiction :ca :proc/track :family
+  :proc/trigger-keywords ["application for divorce" "answer" "family law application"]
+  :proc/genuine-channels [:personal-service :mail]
+  :proc/deadline-rules
+  [{:dl/label "Answer (Form 10) の serve & file"
+    :dl/rule "Application 送達から30日以内に Answer (Form 10) を全当事者へ serve & file (カナダ国外・米国外で送達されたなら60日); 期限内に応答しないと自分抜きで手続が進む。相手の Answer に対しては Reply (Form 10A) を10日以内に (Ontario; 家事手続は州管轄 — 通知記載と州規則を確認)"
+    :dl/anchor "Ontario Family Law Rules (O Reg 114/99) r.10(1)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :answer :opt/kind :self-submit :opt/protective true :opt/label "Answer (Form 10) を全当事者へ serve & file (認否 + 自分の claim があれば併せて)"}
+   {:opt/id :reply :opt/kind :self-submit :opt/label "相手の Answer には Reply (Form 10A) を10日以内に"}]
+  :proc/refer-when ["custody/parenting・child support・property (親権・養育費・財産分与) が争点 → lawyer / Legal Aid Ontario / Community Legal Clinic"
+                    "kokoro 心 (精神的サポート — 家事事件は Wellbecoming 負荷が大きい)"]
+  :proc/verify-current-law true}
+
  ;; ── :it ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:it-licenziamento" :proc/label "Lettera di licenziamento (解雇・労働・イタリア)"
   :proc/jurisdiction :it :proc/track :labor
@@ -1108,6 +1123,20 @@
   :proc/refer-when ["高額・渉外要素がある場合は律师へ"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:cn-pochan" :proc/label "债权申报 (债権者側・破产・中国)"
+  :proc/jurisdiction :cn :proc/track :insolvency
+  :proc/trigger-keywords ["破产" "债权申报" "管理人"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "债权申报"
+    :dl/rule "人民法院が破产申请受理を公告した日から定める債権申報期限内 — 公告日から30日以上3か月以下 — に 管理人 へ 债权申报 (期限後の補充申報は可だが既了の分配には及ばない)"
+    :dl/anchor "中华人民共和国企业破产法 第45条・第48条" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :shenbao :opt/kind :self-submit :opt/protective true
+    :opt/label "债权申报书 を 管理人 へ提出 (本人可; 预付款・押金・储值卡 など前払金も债权: kaiyaku 縁-ledger と突合)"}]
+  :proc/refer-when ["担保债权・抵销・大额债权"]
+  :proc/verify-current-law true}
+
  ;; ── :tw ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:tw-lihun" :proc/label "離婚調解/訴訟の通知 (家事・台湾)"
   :proc/jurisdiction :tw :proc/track :family
@@ -1169,6 +1198,20 @@
   :proc/refer-when ["NT$500,000 超 (簡易訴訟の上限域)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:tw-pochan" :proc/label "申報債權 (債權者側・破產・台湾)"
+  :proc/jurisdiction :tw :proc/track :insolvency
+  :proc/trigger-keywords ["破產" "申報債權" "破產管理人"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "申報債權"
+    :dl/rule "法院が破產宣告と同時に定める申報期間内 — 破產宣告日から15日以上3か月以下 — に 破產管理人 へ 申報債權 (期間徒過は失權效果で破產財団から配当を受けられない; 破產宣告前に確定判決・支付命令等の執行名義を得た債権は期間に拘束されない)"
+    :dl/anchor "破產法 第64條第1項・第65條第1項第5款" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :shenbao :opt/kind :self-submit :opt/protective true
+    :opt/label "債權申報書 を 破產管理人 へ提出 (本人可; 預付款・押金・儲值卡 など前払金も債權: kaiyaku 縁-ledger と突合)"}]
+  :proc/refer-when ["擔保債權・抵銷・高額債權"]
+  :proc/verify-current-law true}
+
  ;; ── :sg ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:sg-dismissal" :proc/label "Termination of services (解雇・労働・シンガポール)"
   :proc/jurisdiction :sg :proc/track :labor
@@ -1197,6 +1240,36 @@
   [{:opt/id :respond :opt/kind :self-submit :opt/label "SCT ポータルで応答・反論を提出 (本人)"}
    {:opt/id :appear :opt/kind :self-decide :opt/label "consultation/hearing に出席"}]
   :proc/refer-when ["S$20,000 超 (SCT 管轄外 → 通常裁判所)"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:sg-pod" :proc/label "Proof of debt (債権者側・清算・シンガポール)"
+  :proc/jurisdiction :sg :proc/track :insolvency
+  :proc/trigger-keywords ["winding up" "proof of debt" "liquidator" "notice to file proof"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "Proof of debt"
+    :dl/rule "清算人 (liquidator) が 'Notice to File Proof of Debt' で証明期限を定める; 通知日から14日以内に proof of debt を lodge しない債権者は配当 (dividend) から除外される"
+    :dl/anchor "IRDA 2018 + Insolvency, Restructuring and Dissolution (Court-Ordered Winding Up) Regulations 2020" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :pod :opt/kind :self-submit :opt/protective true
+    :opt/label "proof of debt を liquidator へ lodge (本人可; prepayment・deposit・stored-value/gift voucher など前払金も debt: kaiyaku 縁-ledger と突合)"}]
+  :proc/refer-when ["secured/set-off/large claim → solicitor"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:sg-family" :proc/label "Memorandum of Appearance + Defence (家事・シンガポール)"
+  :proc/jurisdiction :sg :proc/track :family
+  :proc/trigger-keywords ["memorandum of appearance" "matrimonial" "divorce writ" "family justice"]
+  :proc/genuine-channels [:mail :personal-service]
+  :proc/deadline-rules
+  [{:dl/label "Memorandum of Appearance + Defence"
+    :dl/rule "divorce papers 送達後8日以内 (シンガポール国外で送達なら21日) に Memorandum of Appearance を file; Defence (または Defence and Counterclaim) は MOA 提出から14日以内; MOA 未提出は contested 扱い・default judgment になりうる"
+    :dl/anchor "Family Justice Rules 2014 + Women's Charter" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :moa :opt/kind :self-submit :opt/protective true :opt/label "Memorandum of Appearance を期限内に file (応訴の意思表示)"}
+   {:opt/id :defence :opt/kind :self-submit :opt/label "Defence (必要なら Counterclaim) を MOA から14日以内に file"}]
+  :proc/refer-when ["親権・養育費・ancillary (子の監護・扶養・財産) が争点 → lawyer / Legal Aid Bureau"
+                    "子が21歳未満で counterclaim 提出時は Co-Parenting Programme (CPP) 受講"
+                    "kokoro 心 (精神的サポート — 家事事件は Wellbecoming 負荷が大きい)"]
   :proc/verify-current-law true}
 
  ;; ── :in ──────────────────────────────────────────────────────────────────────
@@ -1230,6 +1303,20 @@
   [{:opt/id :written-statement :opt/kind :self-submit :opt/label "written statement (認否 + 抗弁) を提出"}
    {:opt/id :appear :opt/kind :self-decide :opt/label "期日に出頭 (ex parte decree の回避)"}]
   :proc/refer-when ["高額・複雑な請求は常に advocate 相談"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:in-ibc" :proc/label "Proof of claim (債権者側・CIRP・インド)"
+  :proc/jurisdiction :in :proc/track :insolvency
+  :proc/trigger-keywords ["insolvency" "proof of claim" "resolution professional" "CIRP" "public announcement"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "Proof of claim"
+    :dl/rule "IRP の public announcement 記載の last date — IRP 選任日から14日 — までに proof of claim を IRP/RP へ提出; 14日を徒過した債権者も insolvency commencement date から90日目まで提出できる (reg.12(2))"
+    :dl/anchor "IBC 2016 s.15(1)(c) + IBBI (CIRP) Regulations 2016 reg.6 & 12" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :proof :opt/kind :self-submit :opt/protective true
+    :opt/label "proof of claim (Form B/C) を IRP/RP へ提出 (本人可; advance・deposit・gift voucher など前払金も claim: kaiyaku 縁-ledger と突合)"}]
+  :proc/refer-when ["secured/set-off/large claim → advocate / NCLT"]
   :proc/verify-current-law true}
 
  {:proc/id "proc:de-kontopfaendung" :proc/label "Konto-/Lohnpfändung (執行・ドイツ)"
@@ -1402,6 +1489,20 @@
   :proc/refer-when ["高額 → advogado / apoio judiciário"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:pt-insolvencia" :proc/label "Reclamação de créditos (債権者側・倒産・ポルトガル)"
+  :proc/jurisdiction :pt :proc/track :insolvency
+  :proc/trigger-keywords ["insolvência" "reclamação de créditos" "administrador de insolvência"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "Reclamação de créditos"
+    :dl/rule "破産判決 (sentença declaratória de insolvência, 公告) が定める期限内 — 通常は公告から30日以内 — に reclamação de créditos (requerimento + 疎明資料: 発生原因・期日・元本利息・性質を記載) を administrador de insolvência へ; 期限徒過は insolvência の確定から6か月内に verificação ulterior (別訴) を要する"
+    :dl/anchor "CIRE art. 36.º / art. 128.º (徒過時 art. 146.º)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :reclamacao :opt/kind :self-submit :opt/protective true
+    :opt/label "reclamação de créditos を administrador de insolvência へ提出 (本人可; adiantamento・caução・vale など前払金も crédito: kaiyaku 縁-ledger と突合)"}]
+  :proc/refer-when ["garantia・compensação・crédito elevado (担保・相殺・高額債権)"]
+  :proc/verify-current-law true}
+
  ;; ── :ar ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:ar-despido" :proc/label "Despido (解雇・労働・アルゼンチン)"
   :proc/jurisdiction :ar :proc/track :labor
@@ -1433,6 +1534,20 @@
   [{:opt/id :contestacion :opt/kind :self-submit :opt/label "contestación を提出 (patrocinio letrado 要件を確認)"}
    {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/acuerdo"}]
   :proc/refer-when ["patrocinio jurídico gratuito (CABA 大学・公的の無料代理)"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:ar-concurso" :proc/label "Verificación de créditos (acreedor・concurso・アルゼンチン)"
+  :proc/jurisdiction :ar :proc/track :insolvency
+  :proc/trigger-keywords ["concurso preventivo" "quiebra" "verificación de créditos" "síndico"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "Pedido de verificación de créditos"
+    :dl/rule "sentencia de apertura が定める fecha (verificación tempestiva) までに pedido de verificación de créditos を síndico へ (monto・causa・privilegios を明示, art.32); 期日後は verificación tardía (art.56) — concurso 係属中は incidente、終了後は acción individual、いずれも presentación en concurso から2年以内"
+    :dl/anchor "Ley 24.522 art.32 (tempestiva) / art.56 (tardía)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :verificacion :opt/kind :self-submit :opt/protective true
+    :opt/label "pedido de verificación de créditos を síndico へ提出 (本人可; anticipo・seña・vale など前払金も crédito: kaiyaku 縁-ledger と突合)"}]
+  :proc/refer-when ["garantía・compensación・crédito elevado・arancel art.32 (担保・相殺・高額債権)"]
   :proc/verify-current-law true}
 
  ;; ── :be ──────────────────────────────────────────────────────────────────────
@@ -1483,6 +1598,20 @@
   :proc/refer-when ["€5,000 超 → avocat (pro deo の資力要件を確認)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:be-faillite" :proc/label "Déclaration de créance (債権者側・倒産・ベルギー)"
+  :proc/jurisdiction :be :proc/track :insolvency
+  :proc/trigger-keywords ["faillite" "déclaration de créance" "RegSol" "faillissement" "aangifte van schuldvordering"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "Déclaration de créance / aangifte van schuldvordering"
+    :dl/rule "破産判決 (jugement déclaratif de faillite, RegSol + Moniteur belge 公告) が定める期限内に déclaration de créance を RegSol 電子登録簿経由で curateur へ提出; 届出権は破産判決から1年で時効消滅し、期限後の届出はその間に既に命じられた配当を受けられない"
+    :dl/anchor "Code de droit économique Livre XX, art. XX.155" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :declaration :opt/kind :self-submit :opt/protective true
+    :opt/label "déclaration de créance を RegSol 経由で curateur へ提出 (本人可; acompte・caution・bon d'achat など前払金も créance: kaiyaku 縁-ledger と突合)"}]
+  :proc/refer-when ["sûreté・compensation・créance élevée (担保・相殺・高額債権)"]
+  :proc/verify-current-law true}
+
  ;; ── :nz ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:nz-dismissal" :proc/label "Dismissal (解雇・労働・ニュージーランド)"
   :proc/jurisdiction :nz :proc/track :labor
@@ -1513,6 +1642,35 @@
   :proc/refer-when ["NZ$30,000 超 → District Court / Community Law"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:nz-liquidation" :proc/label "Creditor claim (債権者側・清算・ニュージーランド)"
+  :proc/jurisdiction :nz :proc/track :insolvency
+  :proc/trigger-keywords ["liquidation" "creditor claim" "liquidator" "claim form"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "Creditor claim"
+    :dl/rule "清算人 (liquidator) が公告で claim 期限日を定める — 通知日から10営業日 (working days) 以上後でなければならない; 期限内に claim しない債権者は、claim 前になされた配当の利益から除外される (後日 admit されれば残余資産から配当を受けうる)"
+    :dl/anchor "Companies Act 1993 s.304 / Schedule 7 (Liquidation Regulations 1994)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :claim :opt/kind :self-submit :opt/protective true
+    :opt/label "creditor claim form を liquidator へ提出 (本人可; prepayment・deposit・gift voucher など前払金も debt: kaiyaku 縁-ledger と突合)"}]
+  :proc/refer-when ["secured/set-off/large claim → lawyer / Community Law"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:nz-family" :proc/label "Notice of response (家事・ニュージーランド)"
+  :proc/jurisdiction :nz :proc/track :family
+  :proc/trigger-keywords ["care of children" "parenting order" "notice of response" "family court application"]
+  :proc/genuine-channels [:mail :personal-service]
+  :proc/deadline-rules
+  [{:dl/label "Notice of response"
+    :dl/rule "notice of application 受領から21日以内に notice of response (approved form) を court office へ file し全当事者へ serve; 期限内に応答しないと自分抜きで手続が進み、裁判官が意見を聞かずに final order を出しうる"
+    :dl/anchor "Family Court Rules 2002 (SR 2002/261) + Form COC 1 (Care of Children Act 2004)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :response :opt/kind :self-submit :opt/protective true :opt/label "notice of response (approved form) を court office へ file & 全当事者へ serve (自分の立場を述べる)"}
+   {:opt/id :fdr :opt/kind :self-decide :opt/label "Family Dispute Resolution (FDR) mediation の利用を検討 (合意できれば裁判回避)"}]
+  :proc/refer-when ["親権・養育・safety が争点 → lawyer / Family Legal Aid / Community Law"
+                    "kokoro 心 (精神的サポート — 家事事件は Wellbecoming 負荷が大きい)"]
+  :proc/verify-current-law true}
+
  ;; ── :mx ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:mx-despido" :proc/label "Despido (解雇・労働・メキシコ)"
   :proc/jurisdiction :mx :proc/track :labor
@@ -1541,6 +1699,20 @@
   [{:opt/id :contestacion :opt/kind :self-submit :opt/label "contestación を期限内に提出 (rebeldía = 欠席擬制の回避)"}
    {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/convenio"}]
   :proc/refer-when ["消費者紛争は PROFECO conciliación が先行可能" "高額 → Defensoría Pública"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:mx-concurso" :proc/label "Reconocimiento de créditos (acreedor・concurso・メキシコ)"
+  :proc/jurisdiction :mx :proc/track :insolvency
+  :proc/trigger-keywords ["concurso mercantil" "reconocimiento de créditos" "conciliador" "síndico"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "Solicitud de reconocimiento de créditos"
+    :dl/rule "sentencia de concurso mercantil の DOF (Diario Oficial de la Federación) 公告から20 días naturales 以内に conciliador へ solicitud de reconocimiento de créditos を提出 (art.122 frac.I); その後 lista provisional への objeción 期間・reconocimiento 判決への apelación 期間という後続2機会があるが、frac.III の期間経過後は債権の reconocimiento を求められない"
+    :dl/anchor "Ley de Concursos Mercantiles art.122" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :reconocimiento :opt/kind :self-submit :opt/protective true
+    :opt/label "solicitud de reconocimiento de créditos を conciliador へ提出 (本人可; anticipo・depósito・vale など前払金も crédito: kaiyaku 縁-ledger と突合)"}]
+  :proc/refer-when ["garantía・compensación・crédito elevado (担保・相殺・高額債権)"]
   :proc/verify-current-law true}
 
  ;; ── :no ──────────────────────────────────────────────────────────────────────
@@ -1729,6 +1901,20 @@
   :proc/refer-when ["高額・複雑 → oikeusapu"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:fi-konkurssi" :proc/label "Saatavan valvonta (債権者側・倒産・フィンランド)"
+  :proc/jurisdiction :fi :proc/track :insolvency
+  :proc/trigger-keywords ["konkurssi" "valvonta" "valvontapäivä" "pesänhoitaja"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "Saatavan valvonta"
+    :dl/rule "pesänhoitaja (破産管財人) が定め公告する valvontapäivä (届出日) までに valvontakirjelmä (届出書) で saatava を pesänhoitaja へ valvoa; 期日後の届出 (jälkivalvonta) は手数料を要し、怠ると債権を失うことがある"
+    :dl/anchor "Konkurssilaki (120/2004) 12 luku (valvonta)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :valvonta :opt/kind :self-submit :opt/protective true
+    :opt/label "valvontakirjelmä を pesänhoitaja へ提出 (本人可; ennakkomaksu・vakuus・lahjakortti など前払金も saatava: kaiyaku 縁-ledger と突合)"}]
+  :proc/refer-when ["vakuus・kuittaus・suuri saatava (担保・相殺・高額債権)"]
+  :proc/verify-current-law true}
+
  ;; ── :ie ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:ie-dismissal" :proc/label "Notice of dismissal (解雇・労働・アイルランド)"
   :proc/jurisdiction :ie :proc/track :labor
@@ -1757,6 +1943,20 @@
   [{:opt/id :appearance :opt/kind :self-submit :opt/label "appearance + defence を court office へ"}
    {:opt/id :sct-respond :opt/kind :self-submit :opt/label "small claims なら Registrar 経由で応答 (調停的手続)"}]
   :proc/refer-when ["€2,000 超" "FLAC の無料相談を先に"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:ie-liquidation" :proc/label "Proof of debt (債権者側・清算・アイルランド)"
+  :proc/jurisdiction :ie :proc/track :insolvency
+  :proc/trigger-keywords ["liquidation" "proof of debt" "liquidator" "winding up"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "Proof of debt"
+    :dl/rule "清算人 (liquidator) が書面通知で証明期限を定める — 通知日から28日以上後でなければならない; 期限内に証明しない債権者は、その債権が証明される前になされた配当の利益から除外される。裁判所は債権者の申立てにより期限を延長できる"
+    :dl/anchor "Companies Act 2014 s.674(1)-(3) (延長: s.674(4))" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :proof :opt/kind :self-submit :opt/protective true
+    :opt/label "proof of debt を liquidator へ提出 (本人可; prepayment・deposit・gift voucher など前払金も debt: kaiyaku 縁-ledger と突合)"}]
+  :proc/refer-when ["secured/set-off/large claim → solicitor (FLAC の無料相談も)"]
   :proc/verify-current-law true}
 
  ;; ── :ch ──────────────────────────────────────────────────────────────────────
@@ -2003,6 +2203,20 @@
   [{:opt/id :sprzeciw :opt/kind :self-submit :opt/label "sprzeciw を発令裁判所へ提出 (→ 通常手続へ)"}
    {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/分割交渉"}]
   :proc/refer-when ["nakazowe (手形等) は zarzuty に手数料 — 早めに専門家へ"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:pl-upadlosc" :proc/label "Upadłość kontrahenta (債権者側・倒産・ポーランド)"
+  :proc/jurisdiction :pl :proc/track :insolvency
+  :proc/trigger-keywords ["upadłość" "zgłoszenie wierzytelności" "syndyk"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "Zgłoszenie wierzytelności"
+    :dl/rule "破産宣告決定 (postanowienie o ogłoszeniu upadłości, Monitor Sądowy i Gospodarczy 公告) が定める期間内 — 公告日から1か月以上3か月以下 — に zgłoszenie wierzytelności を syndyk へ提出 (2021/12以降は原則 KRZ 電子システム経由); 期限徒過は配当順位を失い既了手続きが対抗される"
+    :dl/anchor "Prawo upadłościowe art. 51 ust. 1 / art. 236" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :zgloszenie :opt/kind :self-submit :opt/protective true
+    :opt/label "zgłoszenie wierzytelności を syndyk へ KRZ 経由で提出 (本人可; przedpłata・voucher・kaucja など前払金も wierzytelność: kaiyaku 縁-ledger と突合)"}]
+  :proc/refer-when ["zabezpieczenie・potrącenie・wysoka wierzytelność (担保・相殺・高額債権)"]
   :proc/verify-current-law true}
 
  ;; ── :se ──────────────────────────────────────────────────────────────────────

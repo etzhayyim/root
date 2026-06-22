@@ -19,11 +19,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Install pytest
-        run: pip install pytest
-      - name: Run ossekai agent suite
+      - name: Set up Babashka
+        run: |
+          curl -sL https://raw.githubusercontent.com/babashka/babashka/master/install -o /tmp/bb-install
+          chmod +x /tmp/bb-install
+          sudo /tmp/bb-install --version 1.12.218
+      - name: Run ossekai agent suite (cljc)
         run: bash 20-actors/ossekai/run_tests.sh

@@ -14,7 +14,7 @@
   "adr": {
     "master": "etzhayyim:adr:2606122400",
     "r0": "etzhayyim:adr:2606122400",
-    "r1": "reserved"
+    "r1": "etzhayyim:adr:2606122400"
   },
   "tier": "Tier-B",
   "parentActor": null,
@@ -42,15 +42,24 @@
     "N5 — not a credential store (vault stays at the member's host)"
   ],
   "methods": {
-    "kotoba.py": "content-addressed append-only Datom-log writer + EDN reader (family pattern)",
-    "ingest.py": "statement EDN → :meisai.stmt/* + :meisai.row/* datoms; G2 guard",
-    "autorun.py": "autonomous intake-sweep heartbeat; dedup by intake CID; local-only"
+    "kotoba.cljc": "content-addressed append-only Datom-log writer + EDN reader (family pattern)",
+    "ingest.cljc": "statement EDN → :meisai.stmt/* + :meisai.row/* datoms; G2 guard; multi-currency",
+    "autorun.cljc": "autonomous intake-sweep heartbeat; dedup by intake CID; local-only",
+    "sources.cljc": "worldwide card-company coverage registry → :meisai.source/* datoms + coverage + resolve + normalize (any issuer → canonical)",
+    "recurring.cljc": "recurring-charge detection over :meisai.row/* → kaiyaku handoff (advisory :review; meisai surfaces, kaiyaku decides)",
+    "fx.cljc": "REPORT-TIME foreign-exchange conversion (minor units → JPY-equivalent); never persisted as a Datom"
   },
+  "lexicons": [
+    "com.etzhayyim.meisai.statement (cells/lex/meisai.statement.json — statement header; PERSONAL, local-only, no PAN/credential)",
+    "com.etzhayyim.meisai.source (cells/lex/meisai.source.json — coverage source; PUBLIC metadata)",
+    "com.etzhayyim.meisai.recurringHandoff (cells/lex/meisai.recurringHandoff.json — the meisai→kaiyaku recurring-charge handoff; PERSONAL, local-only)"
+  ],
+  "residence": "com.etzhayyim.meisai.heartbeat (50-infra/launchd/com.etzhayyim.meisai.heartbeat.plist) — a per-member launchd LaunchAgent that runs the local autorun intake sweep hourly on the MEMBER's OWN machine. NOT a shared murakumo fleet cell: meisai is member-local personal data with no network I/O (G1/G3/G7), so it must not run on shared fleet nodes.",
   "fetchLeg": {
     "repo": "https://github.com/com-junkawasaki/computer-use-clj",
     "entry": "examples/sumitclub_meisai.clj",
     "stack": "langgraph-clj StateGraph + langchain-clj openai-model (Ollama gemma 4 QAT) + IComputer macOS host + IVault (1Password/Bitwarden)",
     "posture": "read-only, vault-injected credentials, member-principal, operator-run"
   },
-  "status": "R0 — methods + tests landed (21 green); first source = sumitclub.jp (SuMi TRUST CLUB); lexicon + fleet registration deferred to R1"
+  "status": "R1 — worldwide coverage registry (101 sources) + multi-currency normalize + recurring-charge → kaiyaku handoff (round-trip closed) + report-time FX + 3 lexicons + member-local launchd heartbeat; 28 bb tests green. Per-issuer fetch adapters (member-side) are the remaining R1 work; first supported source = sumitclub.jp (SuMi TRUST CLUB)."
 }

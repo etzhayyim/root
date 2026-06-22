@@ -53,6 +53,50 @@ The defining property is **analysis-only (分析するだけ)**:
 
 Full gate table G1..G13 + non-goals N1..N12 in ADR-2605290927.
 
+## Governance-asymmetry substrate (clj-native, added 2026-06-21)
+
+The first concrete analysis junkan carries: **全世界の政府で国民と政府を構造的に
+不均衡にしている具体的な法律・制度・思想・価値観** を system-dynamics で読み取る
+clj-native, kotoba-Datom-native substrate. Each instrument records 誰が定めたか
+(`:enactor`), 経緯 (`:origin`), 関係者 (`:stakeholders`) as on-the-record public
+facts; junkan reads off, as disclosed hypotheses (G5), which feedback loops spin
+好循環/悪循環 + Meadows leverage candidates.
+
+- `kotoba/ontology.junkan-gov.edn` — EAVT schema · 5 asymmetry stocks
+  (information / participation / coercion / paradigm / economic) · canonical
+  structural loops · Meadows 12 levels · negative space.
+- `kotoba/seed.governance-asymmetry.edn` — global instrument seed (grows each
+  `/loop`: 35 instruments · 17 jurisdictions at iteration 1).
+- `methods/junkan_edn.cljc` — loader/classify.
+- `methods/analyze.cljc` — analysis-only read-off (stock regimes + loops +
+  leverage candidates + coverage worklist + EAVT datoms + sober report). **No
+  outward channel (G4 by absence).**
+- `methods/kotoba.cljc` — content-addressed append-only findings ledger
+  (commit-DAG, verify-chain tamper-evident, no-server-key, local file only).
+- `methods/autorun.cljc` — deterministic idempotent-by-content heartbeat.
+- `methods/query.cljc` — read-only EAVT/AVET/VAET arrangement queries over the
+  findings datoms (the kotoba-kqe index model; e.g. instruments-in / stocks-by-
+  regime / loops-including-stock). Read-only (G4 by absence of any write).
+- `methods/validate.cljc` — substrate integrity checker (ontology↔seed↔region-map
+  consistency: 誰が/経緯/関係者 completeness, enum validity, ranges, unique ids,
+  region-mapping, coverage invariants). Runnable scorecard + test-wired.
+- `methods/scorecard.cljc` — generates a live `SCORECARD.md` (coverage + continental
+  balance + stock regimes + era trajectory + integrity verdict) so the scorecard
+  never drifts from the data.
+- `methods/history.cljc` — as-of / regime-trajectory reader over the ledger
+  commit-DAG: which asymmetry stocks/loops CHANGED regime (好循環⇄悪循環,
+  `regimeShiftEvent`) across txs — realizes the ADR's temporal data-model.
+- `80-data/junkan-governance/` — DataLad dataset (datoms snapshot + ledger +
+  report + provenance).
+- Tests: `bash 20-actors/junkan/run_tests.sh` → 33 tests / 564 assertions green.
+
+This substrate keeps junkan's analysis-only spine: G4 (no actuation, no dispatch
+path), G5 (hypothesis-only, `:junkan/hypothesis :true` on every derived datom),
+G6 (aggregate + institutional enactors only, no person/PII), G7 (a resilience/
+leverage MAP, never a target-list or ranking-to-shame), G11 (leverage points are
+candidates, never directives). Composes with danjo/keizu/kanae/ooyake/kosatsu
+(data) and ossekai (which may publish a finding on junkan's behalf, never junkan).
+
 ## Data model — datom / Datalog on kotoba-kqe (NOT proprietary Datomic)
 
 Feedback-loop analysis is temporal: a loop's regime is only readable from how a

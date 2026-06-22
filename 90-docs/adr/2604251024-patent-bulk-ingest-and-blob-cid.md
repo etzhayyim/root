@@ -1,7 +1,7 @@
 ---
 id: adr-2604251024-patent-bulk-ingest-and-blob-cid
 title: "ADR: Patent bulk ingest (USPTO + EPO free) + full PDF/webp/OCR persistence to B2"
-status: proposed
+status: superseded
 doc_type: adr
 topic: patent-coverage
 authoritative: true
@@ -17,8 +17,15 @@ related:
   - adr-0081-worker-direct-hyperdrive-persistence
   - adr-0085-non-federable-nsid-firehose-gate
 supersedes: []
-superseded_by: []
+superseded_by:
+  - adr-2606212200-hirameki-worldwide-patent-kg-mirror
 ---
+
+> **SUPERSEDED by ADR-2606212200 (hirameki 閃き)** — the data-source decision
+> (USPTO PatentsView CC0 + EPO OPS free) is retained, but the substrate
+> (RisingWave `vertex_*` / B2 blob / Hyperdrive / BPMN-as-actor) is discarded in
+> favour of the canonical kotoba Datom log + DataLad/git-annex/IPFS (clj-native,
+> OBSERVATION-only). See `20-actors/hirameki/`.
 
 # Context
 
