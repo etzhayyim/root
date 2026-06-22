@@ -1641,6 +1641,20 @@
   :proc/refer-when ["消費者紛争は PROFECO conciliación が先行可能" "高額 → Defensoría Pública"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:mx-concurso" :proc/label "Reconocimiento de créditos (acreedor・concurso・メキシコ)"
+  :proc/jurisdiction :mx :proc/track :insolvency
+  :proc/trigger-keywords ["concurso mercantil" "reconocimiento de créditos" "conciliador" "síndico"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "Solicitud de reconocimiento de créditos"
+    :dl/rule "sentencia de concurso mercantil の DOF (Diario Oficial de la Federación) 公告から20 días naturales 以内に conciliador へ solicitud de reconocimiento de créditos を提出 (art.122 frac.I); その後 lista provisional への objeción 期間・reconocimiento 判決への apelación 期間という後続2機会があるが、frac.III の期間経過後は債権の reconocimiento を求められない"
+    :dl/anchor "Ley de Concursos Mercantiles art.122" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :reconocimiento :opt/kind :self-submit :opt/protective true
+    :opt/label "solicitud de reconocimiento de créditos を conciliador へ提出 (本人可; anticipo・depósito・vale など前払金も crédito: kaiyaku 縁-ledger と突合)"}]
+  :proc/refer-when ["garantía・compensación・crédito elevado (担保・相殺・高額債権)"]
+  :proc/verify-current-law true}
+
  ;; ── :no ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:no-husleie" :proc/label "Oppsigelse av leieforhold (住居・ノルウェー)"
   :proc/jurisdiction :no :proc/track :housing
