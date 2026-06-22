@@ -2068,6 +2068,20 @@
   :proc/refer-when ["kr. 50,000 超 (småsager 上限外)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:dk-enforcement" :proc/label "Lønindeholdelse / udlæg (賃金差押え・執行・デンマーク)"
+  :proc/jurisdiction :dk :proc/track :enforcement
+  :proc/trigger-keywords ["lønindeholdelse" "udlæg" "fogedret" "rådighedsbeløb"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Lønindeholdelse / udlæg への対応"
+    :dl/rule "公的債務 (税・SU・住宅手当・自治体請求) は Gældsstyrelsen が skattekort の trækprocent を上げて lønindeholdelse する。ただし skyldner は日常費 + 固定 boligudgifter のための rådighedsbeløb を必ず保持でき、これを超える部分のみ控除される (gældsinddrivelsesbekendtgørelsen で算定)。私的債権者 (銀行等) は lønindeholdelse できず fogedret 経由の udlæg のみで、生活に必要な trangsbeneficium (retsplejeloven §509) は差押え免除。算定に異議があれば Gældsstyrelsen/fogedret に klage できる"
+    :dl/anchor "gældsinddrivelsesbekendtgørelsen (rådighedsbeløb) + retsplejeloven §509 (trangsbeneficium)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :klage :opt/kind :self-submit :opt/protective true :opt/label "trækket が rådighedsbeløb (日常費+boligudgifter) を侵害するなら Gældsstyrelsen/fogedret へ見直し/klage を申立て"}
+   {:opt/id :verify :opt/kind :self-decide :opt/protective true :opt/label "残額が rådighedsbeløb + faste boligudgifter を下回っていないか・必要品が trangsbeneficium (§509) で守られているか確認 (budgetskema 提出)"}]
+  :proc/refer-when ["保護額を侵害・複数 gæld・gældssanering 検討 → advokat / kommunal gældsrådgivning / retshjælp"]
+  :proc/verify-current-law true}
+
  ;; ── :fi ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:fi-vuokra" :proc/label "Vuokrasopimuksen irtisanominen (住居・フィンランド)"
   :proc/jurisdiction :fi :proc/track :housing

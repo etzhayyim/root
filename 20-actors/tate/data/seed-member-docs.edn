@@ -890,6 +890,12 @@
   :notice/sourcing :synthetic
   :notice/text "Betalingspåkrav. De kan fremsætte indsigelse inden fristen."}
 
+ {:notice/id "ntc:dk-enforcement" :notice/label "DK varsel om lønindeholdelse (Gældsstyrelsen・brev)"
+  :notice/jurisdiction :dk
+  :notice/channel :mail :notice/claim-amount 24000 :notice/claim-currency "DKK"
+  :notice/sourcing :synthetic
+  :notice/text "Varsel om lønindeholdelse fra Gældsstyrelsen for offentlig gæld."}
+
  {:notice/id "ntc:fi-haaste" :notice/label "FI haastehakemus (tiedoksianto)"
   :notice/jurisdiction :fi
   :notice/channel :mail :notice/claim-amount 1700 :notice/claim-currency "EUR"
