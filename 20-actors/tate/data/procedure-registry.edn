@@ -1274,6 +1274,20 @@
   :proc/refer-when ["高額・複雑な請求は常に advocate 相談"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:in-ibc" :proc/label "Proof of claim (債権者側・CIRP・インド)"
+  :proc/jurisdiction :in :proc/track :insolvency
+  :proc/trigger-keywords ["insolvency" "proof of claim" "resolution professional" "CIRP" "public announcement"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "Proof of claim"
+    :dl/rule "IRP の public announcement 記載の last date — IRP 選任日から14日 — までに proof of claim を IRP/RP へ提出; 14日を徒過した債権者も insolvency commencement date から90日目まで提出できる (reg.12(2))"
+    :dl/anchor "IBC 2016 s.15(1)(c) + IBBI (CIRP) Regulations 2016 reg.6 & 12" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :proof :opt/kind :self-submit :opt/protective true
+    :opt/label "proof of claim (Form B/C) を IRP/RP へ提出 (本人可; advance・deposit・gift voucher など前払金も claim: kaiyaku 縁-ledger と突合)"}]
+  :proc/refer-when ["secured/set-off/large claim → advocate / NCLT"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:de-kontopfaendung" :proc/label "Konto-/Lohnpfändung (執行・ドイツ)"
   :proc/jurisdiction :de :proc/track :enforcement
   :proc/trigger-keywords ["Pfändungs- und Überweisungsbeschluss" "Kontopfändung"]

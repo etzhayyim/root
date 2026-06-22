@@ -1091,6 +1091,12 @@
   :notice/sourcing :synthetic
   :notice/text "Summons to defendant: you are required to file your written statement within the stated period."}
 
+ {:notice/id "ntc:in-ibc" :notice/label "IN public announcement — CIRP (creditor・post)"
+  :notice/jurisdiction :in
+  :notice/channel :mail :notice/claim-amount 250000 :notice/claim-currency "INR"
+  :notice/sourcing :synthetic
+  :notice/text "Public announcement of corporate insolvency resolution process. Creditors must submit their proof of claim to the resolution professional by the last date stated."}
+
  ;; registry-seed completeness backfill: every procedure must be exercised (G10 maturity)
  {:notice/id "ntc:us-smallclaims" :notice/label "US small claims notice (certified mail)"
   :notice/jurisdiction :us
