@@ -753,6 +753,12 @@
   :notice/sourcing :synthetic
   :notice/text "Emplazamiento. Se le corre traslado de la demanda para que conteste en el plazo legal."}
 
+ {:notice/id "ntc:mx-concurso" :notice/label "MX sentencia de concurso mercantil (acreedor・correo)"
+  :notice/jurisdiction :mx
+  :notice/channel :mail :notice/claim-amount 42000 :notice/claim-currency "MXN"
+  :notice/sourcing :synthetic
+  :notice/text "La empresa ha sido declarada en concurso mercantil. Los acreedores deben solicitar el reconocimiento de créditos ante el conciliador dentro del plazo legal."}
+
  {:notice/id "ntc:us-term" :notice/label "US notice of termination (letter・労働)"
   :notice/jurisdiction :us
   :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "USD"
