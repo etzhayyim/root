@@ -36,6 +36,12 @@ It is a **triage aid, not a verdict**: an ISOLATED fn may still be exercised by 
 test that builds it from data, or be a CLI entry (`-main`/`-report`) that needs no unit test, or be
 reached only via `resolve` (textual matching can't see that). Verify a candidate before testing it.
 
+An actor flagged **`†`** (e.g. `ibuki †`, `mimamori †`, hyphenated-dir actors) is **excluded from
+the `bb test:actors` discovery runner** and run by its own dedicated bb task — so a new
+`test_*.cljc` you add there will NOT be picked up by the discovery runner; verify it via that
+actor's task instead. The flag is computed from the real `etzhayyim.tools.discovery/actor-test-nss`
+output, not re-derived, so it tracks the runner exactly.
+
 `--probe` (opt-in, slower) actually runs each broken-shim actor's auto-discovered tests in an
 isolated subprocess and classifies it **clean-repoint** (safe #2043 fix) / **tests-fail** /
 **load-error** — so the register says *which* shims are mechanically fixable vs need investigation.
