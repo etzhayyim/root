@@ -1518,6 +1518,21 @@
   :proc/refer-when ["garantia・compensação・crédito elevado (担保・相殺・高額債権)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:pt-family" :proc/label "Contestação (家事・離婚・ポルトガル)"
+  :proc/jurisdiction :pt :proc/track :family
+  :proc/trigger-keywords ["divórcio sem consentimento" "citação" "contestação" "ação de divórcio"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Contestação"
+    :dl/rule "citação 送達から30日以内に contestação を juízo de família e menores へ提出 (prazo de dilação があればその経過後から起算); 離婚 action では tentativa de conciliação (調停試行) も設定される (家庭内暴力の場合を除く)"
+    :dl/anchor "Código de Processo Civil art. 569.º" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :contestacao :opt/kind :self-submit :opt/protective true :opt/label "contestação を期限内に提出 (請求への認否 + 自分の立場)"}
+   {:opt/id :conciliacao :opt/kind :self-decide :opt/label "tentativa de conciliação に出席 (合意の余地を探る)"}]
+  :proc/refer-when ["responsabilidades parentais・alimentos・partilha (親権・扶養・財産分与) が争点 → advogado / apoio judiciário"
+                    "kokoro 心 (精神的サポート — 家事事件は Wellbecoming 負荷が大きい)"]
+  :proc/verify-current-law true}
+
  ;; ── :ar ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:ar-despido" :proc/label "Despido (解雇・労働・アルゼンチン)"
   :proc/jurisdiction :ar :proc/track :labor
