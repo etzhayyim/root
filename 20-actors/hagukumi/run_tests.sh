@@ -17,6 +17,7 @@ run_cljc() {
 
 run_cljc "hagukumi.methods.test-charter-gates"
 run_cljc "hagukumi.methods.test-agent"
+run_cljc "hagukumi.cells.test-state-machines"
 
 if [[ $rc -eq 0 ]]; then
   echo "==> hagukumi: ALL GREEN"
