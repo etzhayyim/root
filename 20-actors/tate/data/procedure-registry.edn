@@ -1256,6 +1256,22 @@
   :proc/refer-when ["secured/set-off/large claim → solicitor"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:sg-family" :proc/label "Memorandum of Appearance + Defence (家事・シンガポール)"
+  :proc/jurisdiction :sg :proc/track :family
+  :proc/trigger-keywords ["memorandum of appearance" "matrimonial" "divorce writ" "family justice"]
+  :proc/genuine-channels [:mail :personal-service]
+  :proc/deadline-rules
+  [{:dl/label "Memorandum of Appearance + Defence"
+    :dl/rule "divorce papers 送達後8日以内 (シンガポール国外で送達なら21日) に Memorandum of Appearance を file; Defence (または Defence and Counterclaim) は MOA 提出から14日以内; MOA 未提出は contested 扱い・default judgment になりうる"
+    :dl/anchor "Family Justice Rules 2014 + Women's Charter" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :moa :opt/kind :self-submit :opt/protective true :opt/label "Memorandum of Appearance を期限内に file (応訴の意思表示)"}
+   {:opt/id :defence :opt/kind :self-submit :opt/label "Defence (必要なら Counterclaim) を MOA から14日以内に file"}]
+  :proc/refer-when ["親権・養育費・ancillary (子の監護・扶養・財産) が争点 → lawyer / Legal Aid Bureau"
+                    "子が21歳未満で counterclaim 提出時は Co-Parenting Programme (CPP) 受講"
+                    "kokoro 心 (精神的サポート — 家事事件は Wellbecoming 負荷が大きい)"]
+  :proc/verify-current-law true}
+
  ;; ── :in ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:in-termination" :proc/label "Termination / retrenchment (解雇・労働・インド)"
   :proc/jurisdiction :in :proc/track :labor
