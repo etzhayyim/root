@@ -711,6 +711,12 @@
   :notice/sourcing :synthetic
   :notice/text "Citation à comparaître devant le juge de paix à l'audience indiquée."}
 
+ {:notice/id "ntc:be-faillite" :notice/label "BE jugement de faillite (créancier・courrier)"
+  :notice/jurisdiction :be
+  :notice/channel :mail :notice/claim-amount 3100 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "La société a été déclarée en faillite. Veuillez introduire votre déclaration de créance via RegSol dans le délai fixé par le jugement."}
+
  {:notice/id "ntc:fr-creance" :notice/label "FR procédure collective (債権者宛・倒産)"
   :notice/jurisdiction :fr
   :notice/channel :mail :notice/claim-amount 980 :notice/claim-currency "EUR"
