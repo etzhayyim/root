@@ -1363,6 +1363,20 @@
                     "kokoro 心 (精神的サポート — 家事事件は Wellbecoming 負荷が大きい)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:in-housing" :proc/label "Eviction before the Rent Authority/Court (住居・インド)"
+  :proc/jurisdiction :in :proc/track :housing
+  :proc/trigger-keywords ["eviction" "rent authority" "rent control" "rent court"]
+  :proc/genuine-channels [:formal-service :mail]
+  :proc/deadline-rules
+  [{:dl/label "Reply to the eviction application"
+    :dl/rule "出租人は退去を求めるため Rent Authority / Rent Court に申立てる必要があり、警察や force による直接退去はできない。被申立人 (tenant) は通知/Authority が定める期間内に reply を提出 (Model Tenancy Act の3層 Rent Authority→Rent Court→Rent Tribunal、原則60日内に裁定)。退去は Authority/Court の eviction order によってのみ; landlord は essential supply/service を停止できない。州ごとに Rent Control Act が異なり Model Tenancy Act 2021 の adoption も州依存 — 通知記載と当該州法を確認"
+    :dl/anchor "Model Tenancy Act 2021 + state Rent Control Acts" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :reply :opt/kind :self-submit :opt/protective true :opt/label "Rent Authority/Court へ reply を期間内に提出 (事由・rent 計算・通知の適法性を争う)"}
+   {:opt/id :no-self-help-protection :opt/kind :self-decide :opt/protective true :opt/label "landlord の self-help (forcible eviction・lock-change・cutting water/electricity) は違法 — 退去は Rent Authority/Court の eviction order によってのみ; 受けたら police・advocate・Legal Services Authority へ"}]
+  :proc/refer-when ["事由が複雑・forcible eviction / essential-service cut → advocate / Legal Services Authority (無料法律扶助)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:de-kontopfaendung" :proc/label "Konto-/Lohnpfändung (執行・ドイツ)"
   :proc/jurisdiction :de :proc/track :enforcement
   :proc/trigger-keywords ["Pfändungs- und Überweisungsbeschluss" "Kontopfändung"]

@@ -1193,6 +1193,12 @@
   :notice/sourcing :synthetic
   :notice/text "Notice from the Family Court in a divorce petition under the Hindu Marriage Act. You are required to respond within the stated time."}
 
+ {:notice/id "ntc:in-housing" :notice/label "IN eviction application — Rent Authority (tenant・post)"
+  :notice/jurisdiction :in
+  :notice/channel :formal-service :notice/claim-amount 0 :notice/claim-currency "INR"
+  :notice/sourcing :synthetic
+  :notice/text "Eviction application before the Rent Authority on the ground of non-payment of rent. You may file a reply within the time stated."}
+
  ;; registry-seed completeness backfill: every procedure must be exercised (G10 maturity)
  {:notice/id "ntc:us-smallclaims" :notice/label "US small claims notice (certified mail)"
   :notice/jurisdiction :us
