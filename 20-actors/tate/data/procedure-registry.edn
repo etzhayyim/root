@@ -1583,6 +1583,20 @@
   :proc/refer-when ["NZ$30,000 超 → District Court / Community Law"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:nz-liquidation" :proc/label "Creditor claim (債権者側・清算・ニュージーランド)"
+  :proc/jurisdiction :nz :proc/track :insolvency
+  :proc/trigger-keywords ["liquidation" "creditor claim" "liquidator" "claim form"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "Creditor claim"
+    :dl/rule "清算人 (liquidator) が公告で claim 期限日を定める — 通知日から10営業日 (working days) 以上後でなければならない; 期限内に claim しない債権者は、claim 前になされた配当の利益から除外される (後日 admit されれば残余資産から配当を受けうる)"
+    :dl/anchor "Companies Act 1993 s.304 / Schedule 7 (Liquidation Regulations 1994)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :claim :opt/kind :self-submit :opt/protective true
+    :opt/label "creditor claim form を liquidator へ提出 (本人可; prepayment・deposit・gift voucher など前払金も debt: kaiyaku 縁-ledger と突合)"}]
+  :proc/refer-when ["secured/set-off/large claim → lawyer / Community Law"]
+  :proc/verify-current-law true}
+
  ;; ── :mx ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:mx-despido" :proc/label "Despido (解雇・労働・メキシコ)"
   :proc/jurisdiction :mx :proc/track :labor
