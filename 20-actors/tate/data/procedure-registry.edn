@@ -2216,6 +2216,21 @@
   :proc/refer-when ["vakuus・kuittaus・suuri saatava (担保・相殺・高額債権)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:fi-family" :proc/label "Lapsen huolto ja tapaamisoikeus (家事・フィンランド)"
+  :proc/jurisdiction :fi :proc/track :family
+  :proc/trigger-keywords ["lapsen huolto" "tapaamisoikeus" "huoltoriita" "follo-sovittelu"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Vastaus / sovittelu"
+    :dl/rule "lapsen huoltoa ja tapaamisoikeutta koskeva asia tulee käräjäoikeuteen hakemuksella (kumpi tahansa vanhempi, lapsen asuinpaikan käräjäoikeus; laki lapsen huollosta ja tapaamisoikeudesta 361/1983)。hakemus annetaan tiedoksi toiselle vanhemmalle, joka saa antaa vastauksen käräjäoikeuden asettamaan määräpäivään mennessä。käräjäoikeus voi käsitellä asian Follo-sovitteluna (asiantuntija-avusteinen tuomioistuinsovittelu) tai riitaisena pääkäsittelyssä。tarvittaessa hankitaan olosuhdeselvitys hyvinvointialueelta"
+    :dl/anchor "Laki lapsen huollosta ja tapaamisoikeudesta (361/1983) + oikeudenkäymiskaari (vastaus)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :vastaus :opt/kind :self-submit :opt/protective true :opt/label "vastaus käräjäoikeuden määräpäivään mennessä (oma kanta + lapsen etu)"}
+   {:opt/id :sovittelu :opt/kind :self-decide :opt/label "Follo-sovitteluun / perheasioiden sovitteluun osallistuminen (sovinnon mahdollisuus)"}]
+  :proc/refer-when ["huolto・asuminen・elatus・väkivalta (親権・養育・扶養・DV) が争点 → asianajaja / oikeusapu"
+                    "kokoro 心 (精神的サポート — 家事事件は Wellbecoming 負荷が大きい)"]
+  :proc/verify-current-law true}
+
  ;; ── :ie ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:ie-dismissal" :proc/label "Notice of dismissal (解雇・労働・アイルランド)"
   :proc/jurisdiction :ie :proc/track :labor

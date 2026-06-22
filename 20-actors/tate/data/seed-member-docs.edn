@@ -926,6 +926,12 @@
   :notice/sourcing :synthetic
   :notice/text "Yhtiö on asetettu konkurssiin. Velkojien on valvottava saatavansa pesänhoitajalle valvontapäivään mennessä."}
 
+ {:notice/id "ntc:fi-family" :notice/label "FI hakemus lapsen huolto (vastaaja・tiedoksianto)"
+  :notice/jurisdiction :fi
+  :notice/channel :formal-service :notice/claim-amount 0 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Hakemus lapsen huolto ja tapaamisoikeus -asiassa (huoltoriita). Teille varataan tilaisuus antaa vastaus määräajassa."}
+
  {:notice/id "ntc:jp-chotei" :notice/label "家事調停期日通知書 (郵送・家事)"
   :notice/jurisdiction :jp
   :notice/channel :mail :notice/claim-jpy 0
