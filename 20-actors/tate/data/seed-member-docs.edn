@@ -914,6 +914,12 @@
   :notice/sourcing :synthetic
   :notice/text "Varsel om lønindeholdelse fra Gældsstyrelsen for offentlig gæld."}
 
+ {:notice/id "ntc:dk-family" :notice/label "DK sag om forældremyndighed (Familieretshuset・brev)"
+  :notice/jurisdiction :dk
+  :notice/channel :formal-service :notice/claim-amount 0 :notice/claim-currency "DKK"
+  :notice/sourcing :synthetic
+  :notice/text "Sag om forældremyndighed, bopæl og samvær i Familieretshuset. Du har mulighed for at deltage og svare."}
+
  {:notice/id "ntc:fi-haaste" :notice/label "FI haastehakemus (tiedoksianto)"
   :notice/jurisdiction :fi
   :notice/channel :mail :notice/claim-amount 1700 :notice/claim-currency "EUR"

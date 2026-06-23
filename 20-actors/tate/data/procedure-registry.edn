@@ -2141,6 +2141,21 @@
   :proc/refer-when ["保護額を侵害・複数 gæld・gældssanering 検討 → advokat / kommunal gældsrådgivning / retshjælp"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:dk-family" :proc/label "Forældremyndighed / samvær (家事・デンマーク)"
+  :proc/jurisdiction :dk :proc/track :family
+  :proc/trigger-keywords ["forældremyndighed" "samvær" "Familieretshuset" "bopæl"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Familieretshuset / Familieretten への対応"
+    :dl/rule "forældremyndighed・barnets bopæl・samvær について不一致なら、まず必ず Familieretshuset に申立てる (Forældreansvarsloven)。Familieretshuset は børnesagkyndig rådgivning / konfliktmægling を offer し、当事者は møder に出席する。不一致が続けば事件は Familieretten (家事裁判所) へ送られる。出発点は fælles forældremyndighed の継続。Familieretshuset の決定 (samvær/bopæl/forældremyndighed) には受領から4週間以内に klage できる"
+    :dl/anchor "Forældreansvarsloven (+ Familieretshuset/Familieretten 手続)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :svar :opt/kind :self-submit :opt/protective true :opt/label "Familieretshuset/Familieretten へ自分の立場を提出・møder に出席 (barnets bedste を中心に)"}
+   {:opt/id :klage :opt/kind :self-submit :opt/label "Familieretshuset の決定に不服なら受領から4週間以内に klage を提出"}]
+  :proc/refer-when ["forældremyndighed・bopæl・samvær・vold (親権・居所・面会・DV) が争点 → advokat / retshjælp"
+                    "kokoro 心 (精神的サポート — 家事事件は Wellbecoming 負荷が大きい)"]
+  :proc/verify-current-law true}
+
  ;; ── :fi ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:fi-vuokra" :proc/label "Vuokrasopimuksen irtisanominen (住居・フィンランド)"
   :proc/jurisdiction :fi :proc/track :housing
