@@ -158,7 +158,7 @@
  {:doc/id "doc:it-tos" :doc/label "IT condizioni generali (synthetic)"
   :doc/jurisdiction :it
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "Si esclude ogni responsabilità per danni. Il contratto si rinnova per tacito rinnovo di anno in anno."}
+  :doc/text "Si esclude ogni responsabilità per danni. Il contratto si rinnova per tacito rinnovo di anno in anno. In caso di inadempimento il consumatore dovrà pagare una penale di importo manifestamente eccessivo. Il professionista può modificare unilateralmente le clausole del contratto senza un giustificato motivo."}
 
  {:notice/id "ntc:au-soc" :notice/label "AU statement of claim (personal service)"
   :notice/jurisdiction :au
