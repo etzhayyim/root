@@ -59,7 +59,7 @@
  {:doc/id "doc:us-saas-tos" :doc/label "US SaaS Terms of Service (synthetic)"
   :doc/jurisdiction :us
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "Any dispute shall be resolved by binding arbitration and you waive your right to a jury trial. This is a class action waiver. Your subscription automatically renews each month unless you cancel before the renewal date. An early termination fee applies if you cancel during the commitment period."}
+  :doc/text "Any dispute shall be resolved by binding arbitration and you waive your right to a jury trial. This is a class action waiver. Your subscription automatically renews each month unless you cancel before the renewal date. An early termination fee applies if you cancel during the commitment period. We are not liable for any personal injury caused by the product."}
 
  {:doc/id "doc:eu-sub-tos" :doc/label "EU subscription terms (synthetic)"
   :doc/jurisdiction :eu
