@@ -7,7 +7,7 @@
 (Datom = canonical state)
 
 **Jurisdictions (R1)**: `:jp :us :eu :uk :de :kr :fr :au :ca :it :es :nl :br :tw :sg :in :cn :pl :se :at :pt :ie :ch :dk :fi :no :mx :be :ar :nz` — representative 30 of ~193, plus `us-states.edn` (**50/50 州完遂** — :us 通知に州が分かれば州規則を開示追記、州不明は honest degrade)
-(`coverage_report.py` measures + names the gap, G10; the worklist drops entries off
+(`coverage_report.cljc` measures + names the gap, G10; the worklist drops entries off
 automatically once covered). Uncovered jurisdictions degrade to
 `:unknown-jurisdiction` — tate **never guesses foreign law**.
 
@@ -16,7 +16,7 @@ automatically once covered). Uncovered jurisdictions degrade to
 The **defensive paper layer** for a member as a private individual (盾 = shield — it only
 ever defends). Two legs over the member's OWN documents:
 
-1. **不利条項スキャン** (`methods/terms_scan.py`) — the member's consumer ToS /
+1. **不利条項スキャン** (`methods/terms_scan.cljc`) — the member's consumer ToS /
    credit-card member agreements / B2B 法人契約 matched against a coded clause-pattern
    registry (`data/clause-patterns.edn`): 自動更新トラップ, 過大違約金, 全部免責,
    年14.6%超の遅延損害金, 専属管轄, リボ自動設定, 支払停止の抗弁の放棄, 無限賠償,
@@ -29,7 +29,7 @@ ever defends). Two legs over the member's OWN documents:
    itself** so the kotoba Datom log is self-provenancing. G10: a URL is recorded only when
    actually verified (never guessed/remembered); `coverage_report` names the provenance gap
    (worklist, drops off as entries are back-filled).
-2. **法的手続き応答支援** (`methods/respond_plan.py`) — notices an individual RECEIVES
+2. **法的手続き応答支援** (`methods/respond_plan.cljc`) — notices an individual RECEIVES
    (支払督促 / 少額訴訟呼出 / 訴状 / 行政処分 / 内容証明) classified against a coded
    procedure registry (`data/procedure-registry.edn`) → DISCLOSED deadline **rules**
    (民訴391・393条 督促異議 2週間, 373条 通常移行, 378条 異議, 159条 擬制自白;
@@ -133,20 +133,24 @@ N6 刑事 out of scope → immediate 弁護士 referral. **N2 補足 (wave 8)**:
 │   ├── procedure-registry.edn     # jurisdiction-keyed procedure registry (181 procs; :civil 36 + :labor 29 + :housing 29 + :enforcement 29 + :insolvency 29 + :family 29 — track×juris matrix; fake-guard 語彙 registry 自動導出; :dl/critical 期限先頭表示; **非civil全手続きに protective 選択肢必在**; :dl/source-url 一次ソース URL を verified deadline-rule に記録)
 │   ├── us-states.edn              # :us 州サブ管轄 (small-claims 上限 + answer 期限 + ARL)
 │   └── seed-member-docs.edn       # SYNTHETIC member contracts + notices, intl (G1)
-├── methods/                       # pure-stdlib → kotoba pywasm-runnable
-│   ├── terms_scan.py              # 不利条項 scanner (non-adjudicating flags, G10 filter)
-│   ├── respond_plan.py            # response planner + fake-notice guard (G6/G10)
-│   ├── coverage_report.py         # honest jurisdiction coverage + named gaps (G10)
-│   ├── site_gen.py                # crawlable static site (FAQPage JSON-LD + sitemap — Google 可視化)
-│   ├── case_actors_gen.py         # 1 case = 1 keyless actor (profile + case.json/checklist DL + 相談先)
+├── methods/                       # clj/bb (.cljc) — kotoba-native; py→clj port complete (ADR-2606160842)
+│   ├── terms_scan.cljc            # 不利条項 scanner (non-adjudicating flags, G10 filter)
+│   ├── respond_plan.cljc          # response planner + fake-notice guard (G6/G10)
+│   ├── coverage_report.cljc       # honest jurisdiction coverage + named gaps (G10)
 │   ├── coverage_publish.cljc      # PUBLIC anonymized AGGREGATE coverage digest (mesh-distributable, content-addressed; G1 member-leak? guard)
 │   ├── cid.cljc                   # kotoba IPFS content-address (CIDv1/raw/sha2-256, ipfs-parity)
-│   └── datom_emit.py              # kotoba Datom-log (EAVT) emitter
-├── tests/                         # 120 tests, pure stdlib
-│   ├── test_terms.py
-│   ├── test_respond.py
-│   ├── test_site.py
-│   └── test_coverage.py
+│   ├── site_gen.cljc              # crawlable static site (FAQPage JSON-LD + sitemap — Google 可視化)
+│   ├── case_actors_gen.cljc       # 1 case = 1 keyless actor (profile + case.json/checklist DL + 相談先)
+│   ├── datom_emit.cljc            # kotoba Datom-log (EAVT) emitter
+│   └── edn.cljc                   # EDN load/serialize helpers (registry + seed readers)
+├── tests/                         # clj/bb (.cljc) — bb run_tests.sh (129 tests / 7,865 assertions)
+│   ├── test_terms.cljc
+│   ├── test_respond.cljc
+│   ├── test_site.cljc
+│   ├── test_coverage.cljc
+│   ├── test_coverage_publish.cljc
+│   ├── test_case_actors.cljc
+│   └── test_kotoba.cljc
 └── out/                           # GENERATED — do not hand-edit
     ├── clause-readout.md
     ├── kaiyaku-handoff.edn          # :kaiyaku ルートの機械可読ハンドオフ (actors compose)
@@ -158,13 +162,13 @@ N6 刑事 out of scope → immediate 弁護士 referral. **N2 補足 (wave 8)**:
 ## Run
 
 ```bash
-cd 20-actors/tate
-python3 methods/terms_scan.py        # → out/clause-readout.md
-python3 methods/respond_plan.py      # → out/response-plans.md (dry-run)
-python3 methods/coverage_report.py   # → out/coverage-report.md (21/193 + 10/50 states + tracks, named gaps)
-python3 methods/datom_emit.py        # → out/tate-datoms.kotoba.edn (EAVT)
-python3 tests/test_terms.py && python3 tests/test_respond.py \
-  && python3 tests/test_coverage.py  # 120 green
+# clj/bb (babashka), run from the repo root (classpath = 20-actors). NOT python.
+bash 20-actors/tate/run_tests.sh   # full suite: 129 tests / 7,865 assertions green
+
+# ad-hoc, from repo root:
+bb --classpath 20-actors -e '(require (quote [tate.methods.coverage-report :as c])) (print (c/report (c/coverage)))'        # honest coverage report
+bb --classpath 20-actors -e '(require (quote [tate.methods.coverage-publish :as p])) (print (p/coverage-json))'             # PUBLIC anonymized coverage digest (mesh)
+bb --classpath 20-actors -e '(require (quote [tate.methods.datom-emit :as d])) (println (count (d/emit)))'                  # kotoba Datom-log (EAVT) count
 ```
 
 ## Do not
