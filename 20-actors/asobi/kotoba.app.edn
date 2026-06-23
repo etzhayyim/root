@@ -1,0 +1,13 @@
+;; kotoba.app.edn — actor:asobi 遊び KOTOBA Mesh application manifest (generated scaffold).
+;; Deploy:  kotoba app deploy kotoba.app.edn  (compiles methods/mesh.clj → CID → control datoms)
+{:kotoba.app/name    "asobi"
+ :kotoba.app/version "0.1.0"
+ :kotoba.app/components
+ [{:name     "asobi"
+   :src      "methods/mesh.clj"                  ; Clojure default → run + on-http
+   :scale    1
+   :triggers [{:type :http :route "/asobi"}]
+   :requires #{:cap/kqe}}]
+
+ :kotoba.app/placement {:spread  :zone
+                        :require {:tier "edge"}}}
