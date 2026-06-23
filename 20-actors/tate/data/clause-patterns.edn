@@ -485,6 +485,22 @@
   :clause/anchor "Fair Trading Act 1986 (unfair contract terms regime) — 解約窓のカレンダー化"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ {:clause/id "cl:nz-unilateral-termination" :clause/label "一方当事者のみの解約権 (unfair term の例)"
+  :clause/jurisdiction :nz
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["cancel this contract at our discretion"]
+  :clause/anchor "Fair Trading Act 1986 s.46M (一方のみ解約可 — unfair contract term の例) — standard-form consumer contract で significant-imbalance テスト適用"
+  :clause/source-url "https://www.legislation.govt.nz/act/public/1986/0121/latest/DLM6410749.html"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:nz-penalty-one-party" :clause/label "一方当事者のみへの違約罰 (unfair term の例)"
+  :clause/jurisdiction :nz
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["you will be charged a penalty if you cancel"]
+  :clause/anchor "Fair Trading Act 1986 s.46M (一方のみ違約罰 — unfair contract term の例) — standard-form consumer contract で significant-imbalance テスト適用"
+  :clause/source-url "https://www.legislation.govt.nz/act/public/1986/0121/latest/DLM6410749.html"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :no — Norge (G10) ────────────────────────────────────────────────────────
  {:clause/id "cl:no-ansvarsfraskrivelse" :clause/label "全部免責 (ansvarsfraskrivelse)"
   :clause/jurisdiction :no

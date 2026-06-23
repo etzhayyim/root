@@ -616,7 +616,7 @@
  {:doc/id "doc:nz-terms" :doc/label "NZ subscription terms (synthetic)"
   :doc/jurisdiction :nz
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "Consumer guarantees do not apply to this service. Your plan automatically rolls over each year."}
+  :doc/text "Consumer guarantees do not apply to this service. Your plan automatically rolls over each year. We may cancel this contract at our discretion. You will be charged a penalty if you cancel."}
 
  {:notice/id "ntc:au-garnishee" :notice/label "AU garnishee order (mail・執行)"
   :notice/jurisdiction :au
