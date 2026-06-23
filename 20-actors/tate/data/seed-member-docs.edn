@@ -1228,7 +1228,7 @@
  {:doc/id "doc:sg-tos" :doc/label "SG subscription terms (synthetic)"
   :doc/jurisdiction :sg
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "We shall not be liable for any loss arising from the service. Your plan is automatically renewed each year."}
+  :doc/text "We shall not be liable for any loss arising from the service. Your plan is automatically renewed each year. We reserve the right to render a performance substantially different from that reasonably expected. You shall indemnify us against any liability for our negligence."}
 
  {:doc/id "doc:in-tos" :doc/label "IN terms of service (synthetic)"
   :doc/jurisdiction :in
