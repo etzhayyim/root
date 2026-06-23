@@ -1158,7 +1158,7 @@
  {:doc/id "doc:pl-regulamin" :doc/label "PL regulamin (synthetic)"
   :doc/jurisdiction :pl
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "Nie ponosimy odpowiedzialności za jakiekolwiek szkody. Umowa ulega automatyczne przedłużenie na kolejny rok."}
+  :doc/text "Nie ponosimy odpowiedzialności za jakiekolwiek szkody. Umowa ulega automatyczne przedłużenie na kolejny rok. W razie niewykonania zobowiązania konsument zapłaci rażąco wygórowaną karę umowną. Przedsiębiorca jest uprawniony do jednostronnej zmiany istotnych cech świadczenia bez ważnych przyczyn."}
 
  {:doc/id "doc:se-villkor" :doc/label "SE allmänna villkor (synthetic)"
   :doc/jurisdiction :se
