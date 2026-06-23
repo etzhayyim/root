@@ -608,6 +608,22 @@
   :clause/anchor "— (CH は黙示更新の一般規制が薄い — 条項どおり有効になりやすい; 解約窓を kaiyaku でカレンダー化)"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ {:clause/id "cl:ch-uebermaessige-konventionalstrafe" :clause/label "過大な違約金 (herabsetzbar)"
+  :clause/jurisdiction :ch
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["eine übermässig hohe Konventionalstrafe"]
+  :clause/anchor "OR Art. 163 Abs. 3 (eine übermässig hohe Konventionalstrafe hat der Richter nach seinem Ermessen herabzusetzen — Ausfluss von Treu und Glauben)"
+  :clause/source-url "https://www.fedlex.admin.ch/eli/cc/27/317_321_377/de#art_163"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:ch-missverhaeltnis-agb" :clause/label "AGB の著しい不均衡 (missbräuchlich)"
+  :clause/jurisdiction :ch
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["erhebliches und ungerechtfertigtes Missverhältnis"]
+  :clause/anchor "UWG Art. 8 (missbräuchliche Geschäftsbedingungen — AGB, die in Treu und Glauben verletzender Weise zum Nachteil der Konsumentinnen und Konsumenten ein erhebliches und ungerechtfertigtes Missverhältnis zwischen vertraglichen Rechten und Pflichten vorsehen)"
+  :clause/source-url "https://www.fedlex.admin.ch/eli/cc/1988/223_223_223/de#art_8"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :at — Österreich (G10) ───────────────────────────────────────────────────
  {:clause/id "cl:at-haftungsausschluss" :clause/label "全部免責 (Haftungsausschluss)"
   :clause/jurisdiction :at
