@@ -154,6 +154,20 @@
   :clause/anchor "Consumer Rights Act 2015 s.62 (fairness) / s.65 (negligence 死傷責任は排除不可)"
   :clause/route :referral :clause/verify-current-law true}
 
+ {:clause/id "cl:uk-disproportionate-termination-fee" :clause/label "解約時の不均衡な termination fee"
+  :clause/jurisdiction :uk
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["pay the entire balance of the remaining membership" "cancellation fee for the remaining term"]
+  :clause/anchor "Consumer Rights Act 2015 Sch 2 para 5 (grey list — disproportionately high termination charge) / s.62 (fairness)"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:uk-no-refunds-statutory-rights" :clause/label "返金一切不可・法定権利の排除"
+  :clause/jurisdiction :uk
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["non-refundable under any circumstances" "statutory rights do not apply"]
+  :clause/anchor "Consumer Rights Act 2015 s.31 (goods) / s.57 (services) — statutory rights cannot be excluded; s.62 (fairness)"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :de — Deutschland (G10) ─────────────────────────────────────────────────
  {:clause/id "cl:de-price-increase" :clause/label "短期の一方的値上げ条項"
   :clause/jurisdiction :de

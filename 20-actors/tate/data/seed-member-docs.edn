@@ -69,7 +69,7 @@
  {:doc/id "doc:uk-gym-terms" :doc/label "UK gym membership terms (synthetic)"
   :doc/jurisdiction :uk
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "We accept no liability whatsoever for injury, loss or damage howsoever caused on the premises."}
+  :doc/text "We accept no liability whatsoever for injury, loss or damage howsoever caused on the premises. If you cancel early you must pay the entire balance of the remaining membership as a cancellation fee for the remaining term. All payments are non-refundable under any circumstances and your statutory rights do not apply."}
 
  {:doc/id "doc:de-agb" :doc/label "DE Mobilfunk-AGB (synthetic)"
   :doc/jurisdiction :de
