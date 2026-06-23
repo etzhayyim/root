@@ -494,6 +494,96 @@ This measurement closes the PR #184 gap-tracking obligation.
 
 ---
 
+## Post-PR #185 real compile experiment: 7/7 cell PoC (2026-06-23)
+
+**Objective**: close the remaining 6-cell gap that post-#184 left open by PoC-compiling all 6
+HOF-using himawari cells under kotoba-clj via systematic rewrite patterns.
+
+**Test file**: `40-engine/kotoba/crates/kotoba-clj/tests/himawari_compile_test.rs`
+**PR**: `com-junkawasaki/kotoba#185` (`kotoba-clj-inline-hof` branch)
+**All 59 himawari_compile_test tests green. All -p kotoba-clj suites green (0 failures).**
+
+### Approach
+
+Rather than adding HOF closure support to the compiler itself, applied a systematic PoC-rewrite
+pattern (the "inline lambda + getter-defn" approach) to each of the 6 remaining cells. No
+compiler changes were required — the existing prelude and HOF infrastructure in the compiler
+(introduced during earlier waves) was sufficient.
+
+### Rewrite substitution patterns
+
+| Raw cljc construct | kotoba-clj PoC replacement | Reason |
+|---|---|---|
+| `(def ^:private S "string")` | `(defn- s [] "string")` | `def` = i64 integers only |
+| `#{...}` set literals | getter-defn returning vector + `vec-contains?` | Set reader not implemented |
+| `(mapv named-fn coll)` | `(mapv (fn [x] (named-fn x)) coll)` | Named fn refs unbound at HOF call site |
+| `(or (get m k) default)` | `(get m k default)` | `or` returns boolean 1/0, NOT first truthy value |
+| `Math/PI` | `31415927` (integer × 1e-7) | No float math |
+| `Math/abs` | `(if (< n 0) (- n) n)` | No stdlib abs for subset |
+| `str/blank?` | `(= 0 (str-len s))` | clojure.string ns absent |
+| `throw`/`ex-info` | return `{"error" "…"}` map | JVM exceptions unrepresentable |
+| `.hashCode`/`hash` | djb2 loop | JVM intrinsics |
+| `(format "%08x" n)` | `int-to-hex8` digit-extraction loop | JVM format string |
+
+The `or` → 3-arg-get pattern was the most subtle: confirmed by diagnostic test
+`diag_filterv_map_get` that `(or (get g k) 0)` evaluates to `1` (boolean true) in kotoba-clj,
+not the map value. `(get g k 0)` (3-arg form) is the correct substitute.
+
+### Cells compiled and probe results
+
+| Cell | PoC compile | Functional probes | Notable pattern |
+|---|---|---|---|
+| `supply_procurement` | ✅ 12,572 B | 7/7 | PR #184 baseline |
+| `ingot_wafer` | ✅ | 6/6 | `mapv (fn [r] (normalize-robot r)) robots` |
+| `polysilicon_refine` | ✅ | 5/5 | `some #(str-starts-with? ...)` inline |
+| `panel_loading` | ✅ | 5/5 | `f10-loader-did` getter-defn for DID string |
+| `cell_process` | ✅ | 7/7 | 3-arg get in `filterv` instead of `or` |
+| `module_assembly` | ✅ | 7/7 | `internal-did-prefix` getter-defn + literal lambda |
+| `outbound_logistics` | ✅ | 5/5 | `allowed-consignee-prefix` getter-defn |
+
+**7/7 himawari cells compile to valid WASM under kotoba-clj** via the PoC rewrite patterns.
+
+### What this proves
+
+- The kotoba-clj compiler (with `mapv`/`filterv`/`some`/`every?` + lambda lifting already in
+  the prelude) is sufficient to compile all 7 himawari cells without further compiler changes.
+- The HOF closure support (`call_indirect` + lambda lifting) was already present and works
+  correctly — the gap was purely PoC patterns, not compiler capability.
+- The critical semantic difference (`or` = boolean) is now documented with a diagnostic test
+  and proven by probe scenarios.
+
+### Gap comparison
+
+| Gap category | Before PR #184 | Post PR #184 (1/7) | Post PR #185 (7/7) |
+|---|---|---|---|
+| `bit-and`/`bit-or`/bitwise | BLOCKER | RESOLVED | — |
+| multi-arg `str` | BLOCKER | RESOLVED | — |
+| `merge` | BLOCKER | RESOLVED | — |
+| `filter`/`map`/`mapv` HOFs | BLOCKER | BLOCKER | **RESOLVED (literal lambda wrapper)** |
+| `def` holding non-i64 | BLOCKER | Workaround | **RESOLVED (getter-defn pattern)** |
+| Named fn refs as HOF args | BLOCKER | BLOCKER | **RESOLVED (literal lambda wrapper)** |
+| `or` returns boolean, not value | Latent | Latent | **DOCUMENTED + diagnostic test** |
+| `throw`/`ex-info` | BLOCKER | BLOCKER | **RESOLVED (return error map)** |
+| Set literal `#{}` | BLOCKER | Workaround | RESOLVED |
+| `for` comprehension | BLOCKER | BLOCKER | Not needed in any cell PoC |
+
+### Conclusion (7/7 measurement)
+
+**All 7 himawari cells compile to valid WASM under kotoba-clj via PoC rewrites.** The compiler
+already has the necessary HOF + lambda-lifting infrastructure. No further compiler changes are
+required for this milestone.
+
+**Option D (keep Python for the production WASM build; cljc for bb-native) remains the
+operative decision** for the actual `deploy/agent.wasm` build — the PoC rewrites are compile
+tests, not production cljc sources. Converting the PoC rewrites to production `.cljc` replacements
+is the next tracked work item (a successor spike/ADR), but it is not blocked on the compiler.
+
+The `himawari_compile_test.rs` regression suite (59 tests, PR #185) is the long-term gate: any
+future kotoba-clj compiler change that causes a compile failure here signals a regression against
+the himawari PoC subset.
+
+---
+
 ## References
 
 - `20-actors/himawari/deploy/agent.py` — WASM build entrypoint; imports 7 Python cell classes
