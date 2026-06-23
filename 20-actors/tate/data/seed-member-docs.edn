@@ -983,7 +983,7 @@
  {:doc/id "doc:ch-agb" :doc/label "CH AGB (synthetic)"
   :doc/jurisdiction :ch
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "Jegliche Haftung wird ausgeschlossen. Das Abonnement verlängert sich stillschweigend um ein weiteres Jahr."}
+  :doc/text "Jegliche Haftung wird ausgeschlossen. Das Abonnement verlängert sich stillschweigend um ein weiteres Jahr. Bei Vertragsverletzung ist eine übermässig hohe Konventionalstrafe geschuldet. Diese AGB sehen ein erhebliches und ungerechtfertigtes Missverhältnis zum Nachteil des Konsumenten vor."}
 
  {:notice/id "ntc:ie-summons" :notice/label "IE civil summons (court office)"
   :notice/jurisdiction :ie
