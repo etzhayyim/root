@@ -148,7 +148,7 @@
  {:doc/id "doc:au-tos" :doc/label "AU subscription terms (synthetic)"
   :doc/jurisdiction :au
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "We may vary these terms at any time. To the fullest extent, we exclude all liability for any loss."}
+  :doc/text "We may vary these terms at any time. To the fullest extent, we exclude all liability for any loss. We may terminate this agreement at any time at our sole discretion. If you cancel, you must pay a penalty for early termination."}
 
  {:doc/id "doc:ca-tos" :doc/label "CA retail terms (synthetic)"
   :doc/jurisdiction :ca
