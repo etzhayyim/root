@@ -138,6 +138,14 @@
   :clause/anchor "州 UDAP (unfair or deceptive acts and practices) — 過大な ETF は争いうる"
   :clause/route :referral :clause/verify-current-law true}
 
+ {:clause/id "cl:us-exculpatory-personal-injury" :clause/label "人身損害の免責 (prima facie unconscionable)"
+  :clause/jurisdiction :us
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["not liable for any personal injury caused by the product"]
+  :clause/anchor "UCC §2-719(3) (model code adopted by states — limitation of consequential damages for injury to the person in the case of consumer goods is prima facie unconscionable)"
+  :clause/source-url "https://www.law.cornell.edu/ucc/2/2-719"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :eu — EU instruments (G10) ──────────────────────────────────────────────
  {:clause/id "cl:eu-withdrawal-exclusion" :clause/label "14日撤回権の排除"
   :clause/jurisdiction :eu
