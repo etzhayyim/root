@@ -1,0 +1,96 @@
+;; sarutahiko 猿田彦 — WASM Component deploy manifest (ADR-2606230001, 2026-06-23)
+;;
+;; EDN deploy descriptor for the sarutahiko WASM Component.
+;; Distinct from 20-actors/sarutahiko/manifest.jsonld (the actor manifest consumed
+;; by the repo-wide manifest-lexicon-drift audit).
+;;
+;; Build: bb sarutahiko:build-wasm
+
+{:deploy/actor         "sarutahiko"
+ :deploy/did           "did:web:etzhayyim.com:actor:sarutahiko"
+ :deploy/adr           "etzhayyim:adr:2605252500"
+ :deploy/phase         :r0
+
+ ;; WASM Component artefact (kotoba-clj compiled)
+ :deploy/component
+ {:component/source    "deploy/agent.cljc"
+  :component/output    "deploy/agent.wasm"
+  :component/compiler  "kotoba-clj"
+  :component/features  ["component" "cli"]
+  :component/model     :wasm-component-model
+  :component/cid       nil
+  :component/validated? false
+  :component/smoke-run? false
+  :component/cells-ok   9}
+
+ ;; safe-rewrites applied in deploy/agent.cljc (additive; bb-native untouched):
+ ;; - Rewrite D: (:require [clojure.string :as str]) + str/includes? in electrical_integration → str-includes?
+ ;; - Rewrite F/E: #{"B100-biodiesel-hybrid"...} set literal + contains? in powertrain_assembly → vec + vec-contains?
+ :deploy/safe-rewrites [:D :E :F]
+
+ ;; 9-cell WIT exports (one export per Pregel cell)
+ :deploy/cells
+ [{:cell/name          :frame-fabrication
+   :cell/ns            "sarutahiko.cells.frame-fabrication"
+   :cell/wit-export    "frame-fabrication"
+   :cell/murakumo-node "reuben"
+   :cell/gates         [:G4 :G8 :G11]}
+  {:cell/name          :cab-body-forming
+   :cell/ns            "sarutahiko.cells.cab-body-forming"
+   :cell/wit-export    "cab-body-forming"
+   :cell/murakumo-node "simeon"
+   :cell/gates         [:G8 :G11]}
+  {:cell/name          :powertrain-assembly
+   :cell/ns            "sarutahiko.cells.powertrain-assembly"
+   :cell/wit-export    "powertrain-assembly"
+   :cell/murakumo-node "levi"
+   :cell/gates         [:G7 :G11]}
+  {:cell/name          :paint-finishing
+   :cell/ns            "sarutahiko.cells.paint-finishing"
+   :cell/wit-export    "paint-finishing"
+   :cell/murakumo-node "judah"
+   :cell/gates         [:G8 :G11]}
+  {:cell/name          :electrical-integration
+   :cell/ns            "sarutahiko.cells.electrical-integration"
+   :cell/wit-export    "electrical-integration"
+   :cell/murakumo-node "issachar"
+   :cell/gates         [:G1 :N8 :G11]}
+  {:cell/name          :final-marriage
+   :cell/ns            "sarutahiko.cells.final-marriage"
+   :cell/wit-export    "final-marriage"
+   :cell/murakumo-node "zebulun"
+   :cell/gates         [:G4 :G11]}
+  {:cell/name          :quality-road-test
+   :cell/ns            "sarutahiko.cells.quality-road-test"
+   :cell/wit-export    "quality-road-test"
+   :cell/murakumo-node "benjamin"
+   :cell/gates         [:G12 :N3]}
+  {:cell/name          :vin-attestation-binder
+   :cell/ns            "sarutahiko.cells.vin-attestation-binder"
+   :cell/wit-export    "vin-attestation-binder"
+   :cell/murakumo-node "dan"
+   :cell/gates         [:G2 :G13]}
+  {:cell/name          :emissions-audit
+   :cell/ns            "sarutahiko.cells.emissions-audit"
+   :cell/wit-export    "emissions-audit"
+   :cell/murakumo-node "naphtali"
+   :cell/gates         [:G8 :G11]}]
+
+ ;; Tier classification
+ :deploy/tier :t1
+
+ ;; Trigger
+ :deploy/trigger :on-http
+
+ ;; Mesh activation gate
+ :deploy/activated?    false
+ :deploy/activation-gate "ADR-2605252500 §R1 (post-Council)"
+
+ ;; Build toolchain
+ :deploy/build
+ {:build/script        "deploy/build_wasm.clj"
+  :build/task          "sarutahiko:build-wasm"
+  :build/prereqs       ["cargo + wasm32-wasip1 target"
+                        "wasm-tools (cargo install wasm-tools)"
+                        "wasmtime (cargo install wasmtime-cli --features component-model)"
+                        "kotoba submodule populated (40-engine/kotoba/)"]}}

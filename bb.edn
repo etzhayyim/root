@@ -509,6 +509,15 @@
   himawari:build-wasm
   {:doc "向日葵 himawari — build deploy/agent.cljc → deploy/agent.wasm via kotoba-clj, wasm-tools validate, wasmtime smoke (operator step; ADR-2606021200 R0.2)"
    :task (load-file "20-actors/himawari/deploy/build_wasm.clj")}
+  yamabiko:build-wasm
+  {:doc "山彦 yamabiko — build deploy/agent.cljc → deploy/agent.wasm via kotoba-clj, wasm-tools validate, wasmtime smoke (operator step; ADR-2605252600 / ADR-2606230001)"
+   :task (load-file "20-actors/yamabiko/deploy/build_wasm.clj")}
+  gov_municipality:build-wasm
+  {:doc "自治体 gov_municipality — build deploy/agent.cljc → deploy/agent.wasm via kotoba-clj, wasm-tools validate, wasmtime smoke (operator step; ADR-2605250800 / ADR-2606230001)"
+   :task (load-file "20-actors/gov_municipality/deploy/build_wasm.clj")}
+  sarutahiko:build-wasm
+  {:doc "猿田彦 sarutahiko — build deploy/agent.cljc → deploy/agent.wasm via kotoba-clj, wasm-tools validate, wasmtime smoke (operator step; ADR-2605252500 / ADR-2606230001)"
+   :task (load-file "20-actors/sarutahiko/deploy/build_wasm.clj")}
   aburi:publish
   {:doc "炙り aburi — one-shot publish orchestrator; flags: --pin --deploy --kv --verify --all (operator; ADR-2606013800)"
    :task (do (require 'aburi.tools.publish)

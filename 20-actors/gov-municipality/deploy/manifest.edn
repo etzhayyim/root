@@ -1,0 +1,64 @@
+;; gov_municipality 自治体 — WASM Component deploy manifest (ADR-2606230001, 2026-06-23)
+;;
+;; EDN deploy descriptor for the gov_municipality WASM Component.
+;; Distinct from 20-actors/gov_municipality/manifest.jsonld (the actor manifest consumed
+;; by the repo-wide manifest-lexicon-drift audit).
+;;
+;; Build: bb gov_municipality:build-wasm
+
+{:deploy/actor         "gov_municipality"
+ :deploy/did           "did:web:etzhayyim.com:actor:gov-municipality"
+ :deploy/adr           "etzhayyim:adr:2605250800"
+ :deploy/phase         :r0
+
+ ;; WASM Component artefact (kotoba-clj compiled)
+ :deploy/component
+ {:component/source    "deploy/agent.cljc"
+  :component/output    "deploy/agent.wasm"
+  :component/compiler  "kotoba-clj"
+  :component/features  ["component" "cli"]
+  :component/model     :wasm-component-model
+  :component/cid       nil
+  :component/validated? false
+  :component/smoke-run? false
+  :component/cells-ok   3}
+
+ ;; safe-rewrites: none required (0 blockers)
+ :deploy/safe-rewrites []
+
+ ;; 3-cell WIT exports (one export per Pregel cell)
+ :deploy/cells
+ [{:cell/name          :permit-submission
+   :cell/ns            "gov-municipality.cells.permit-submission"
+   :cell/wit-export    "permit-submission"
+   :cell/murakumo-node "reuben"
+   :cell/gates         [:G1 :G5 :G13]}
+  {:cell/name          :inspection-scheduling
+   :cell/ns            "gov-municipality.cells.inspection-scheduling"
+   :cell/wit-export    "inspection-scheduling"
+   :cell/murakumo-node "simeon"
+   :cell/gates         [:G1 :G5]}
+  {:cell/name          :final-sign-off
+   :cell/ns            "gov-municipality.cells.final-sign-off"
+   :cell/wit-export    "final-sign-off"
+   :cell/murakumo-node "levi"
+   :cell/gates         [:G1 :G13]}]
+
+ ;; Tier classification
+ :deploy/tier :t1
+
+ ;; Trigger
+ :deploy/trigger :on-http
+
+ ;; Mesh activation gate
+ :deploy/activated?    false
+ :deploy/activation-gate "ADR-2605250800 §R1 (post-Council)"
+
+ ;; Build toolchain
+ :deploy/build
+ {:build/script        "deploy/build_wasm.clj"
+  :build/task          "gov_municipality:build-wasm"
+  :build/prereqs       ["cargo + wasm32-wasip1 target"
+                        "wasm-tools (cargo install wasm-tools)"
+                        "wasmtime (cargo install wasmtime-cli --features component-model)"
+                        "kotoba submodule populated (40-engine/kotoba/)"]}}

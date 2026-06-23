@@ -13,13 +13,31 @@
 ;;   40-engine/kotoba/crates/kotoba-clj/tests/actor_mesh_compile_test.rs (ADR-2606230001)
 
 [
- ;; ── MESH-READY (cells present, 0 compile blockers anywhere) ─────────────────
- {:actor "yamabiko"          :cljc 16 :cells 9  :blocker-lines 0   :status :mesh-ready
-  :trigger :on-http :note "rail car manufacturing — 9 cells all clean; kotoba.app.edn generated"}
- {:actor "gov_municipality"  :cljc 9  :cells 3  :blocker-lines 0   :status :mesh-ready
-  :trigger :on-http :note "permit workflow — 3 cells clean; kotoba.app.edn generated"}
- {:actor "sarutahiko"        :cljc 22 :cells 9  :blocker-lines 2   :status :mesh-ready
-  :trigger :on-http :note "heavy truck mfg — 2 method-level blocker lines, cells themselves clean"}
+ ;; ── ONBOARDED (deploy/ created, WASM Component built+validated, bb-native green) ─
+ {:actor "yamabiko"          :cljc 16 :cells 9  :blocker-lines 0   :status :onboarded
+  :trigger :on-http :onboarded-adr "etzhayyim:adr:2606230001"
+  :deploy/component-source "20-actors/yamabiko/deploy/agent.cljc"
+  :deploy/component-bytes 22355
+  :deploy/wasm-tools-validated? true
+  :deploy/smoke-output "yamabiko:9/9:cells-ok"
+  :deploy/safe-rewrites [:B :D :E :F]
+  :note "rail car mfg — 9 cells; safe-rewrites B(int-to-hex8)+D(str-includes?)+E/F(vec-contains?) applied in deploy/agent.cljc only; wasm-tools validate PASS; smoke yamabiko:9/9:cells-ok"}
+ {:actor "gov_municipality"  :cljc 9  :cells 3  :blocker-lines 0   :status :onboarded
+  :trigger :on-http :onboarded-adr "etzhayyim:adr:2606230001"
+  :deploy/component-source "20-actors/gov_municipality/deploy/agent.cljc"
+  :deploy/component-bytes 12169
+  :deploy/wasm-tools-validated? true
+  :deploy/smoke-output "gov_municipality:3/3:cells-ok"
+  :deploy/safe-rewrites [:B]
+  :note "permit workflow — 3 cells; safe-rewrite B(int-to-hex8) applied; wasm-tools validate PASS; smoke gov_municipality:3/3:cells-ok"}
+ {:actor "sarutahiko"        :cljc 22 :cells 9  :blocker-lines 2   :status :onboarded
+  :trigger :on-http :onboarded-adr "etzhayyim:adr:2606230001"
+  :deploy/component-source "20-actors/sarutahiko/deploy/agent.cljc"
+  :deploy/component-bytes 21205
+  :deploy/wasm-tools-validated? true
+  :deploy/smoke-output "sarutahiko:9/9:cells-ok"
+  :deploy/safe-rewrites [:B :D :E :F]
+  :note "heavy truck mfg — 9 cells; 2 method-level blockers (electrical_integration str/includes? + powertrain_assembly #{}); safe-rewrites B+D+E/F applied in deploy/agent.cljc only; wasm-tools validate PASS; smoke sarutahiko:9/9:cells-ok"}
 
  ;; ── CELLS-CLEAN (cells are clean, some method-level blockers) ────────────────
  {:actor "kanayama"          :cljc 22 :cells 9  :blocker-lines 4   :status :cells-clean

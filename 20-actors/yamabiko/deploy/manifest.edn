@@ -1,0 +1,97 @@
+;; yamabiko 山彦 — WASM Component deploy manifest (ADR-2606230001, 2026-06-23)
+;;
+;; EDN deploy descriptor for the yamabiko WASM Component.
+;; Distinct from 20-actors/yamabiko/manifest.jsonld (the actor manifest consumed
+;; by the repo-wide manifest-lexicon-drift audit).
+;;
+;; Build: bb yamabiko:build-wasm
+
+{:deploy/actor         "yamabiko"
+ :deploy/did           "did:web:etzhayyim.com:actor:yamabiko"
+ :deploy/adr           "etzhayyim:adr:2605252600"
+ :deploy/phase         :r0
+
+ ;; WASM Component artefact (kotoba-clj compiled)
+ :deploy/component
+ {:component/source    "deploy/agent.cljc"
+  :component/output    "deploy/agent.wasm"
+  :component/compiler  "kotoba-clj"
+  :component/features  ["component" "cli"]
+  :component/model     :wasm-component-model
+  ;; CID is populated by operator after build + ipfs add --raw-leaves --cid-version=1
+  :component/cid       nil
+  :component/validated? false
+  :component/smoke-run? false
+  :component/cells-ok   9}
+
+ ;; safe-rewrites applied in deploy/agent.cljc (additive; bb-native untouched):
+ ;; - Rewrite D: clojure.string/includes? (bare inline in traction_electrical) → str-includes?
+ ;; - Rewrite F/E: #{"..."} set literals + contains? → vec getter-defn + vec-contains?
+ :deploy/safe-rewrites [:D :E :F]
+
+ ;; 9-cell WIT exports (one export per Pregel cell)
+ :deploy/cells
+ [{:cell/name          :carbody-fabrication
+   :cell/ns            "yamabiko.cells.carbody-fabrication"
+   :cell/wit-export    "carbody-fabrication"
+   :cell/murakumo-node "reuben"
+   :cell/gates         [:G4 :G8 :G11]}
+  {:cell/name          :bogie-assembly
+   :cell/ns            "yamabiko.cells.bogie-assembly"
+   :cell/wit-export    "bogie-assembly"
+   :cell/murakumo-node "simeon"
+   :cell/gates         [:G4 :G8 :G11]}
+  {:cell/name          :traction-electrical
+   :cell/ns            "yamabiko.cells.traction-electrical"
+   :cell/wit-export    "traction-electrical"
+   :cell/murakumo-node "levi"
+   :cell/gates         [:G1 :G7 :N4 :N5]}
+  {:cell/name          :interior-hvac
+   :cell/ns            "yamabiko.cells.interior-hvac"
+   :cell/wit-export    "interior-hvac"
+   :cell/murakumo-node "judah"
+   :cell/gates         [:G5 :N6 :N8 :N10]}
+  {:cell/name          :final-assembly
+   :cell/ns            "yamabiko.cells.final-assembly"
+   :cell/wit-export    "final-assembly"
+   :cell/murakumo-node "issachar"
+   :cell/gates         [:G4 :N6 :G11]}
+  {:cell/name          :dynamic-test
+   :cell/ns            "yamabiko.cells.dynamic-test"
+   :cell/wit-export    "dynamic-test"
+   :cell/murakumo-node "zebulun"
+   :cell/gates         [:G12 :N7]}
+  {:cell/name          :emissions-acoustic-audit
+   :cell/ns            "yamabiko.cells.emissions-acoustic-audit"
+   :cell/wit-export    "emissions-acoustic-audit"
+   :cell/murakumo-node "benjamin"
+   :cell/gates         [:G8 :G11]}
+  {:cell/name          :homologation-binder
+   :cell/ns            "yamabiko.cells.homologation-binder"
+   :cell/wit-export    "homologation-binder"
+   :cell/murakumo-node "dan"
+   :cell/gates         [:G2 :G13]}
+  {:cell/name          :silen-rail-review
+   :cell/ns            "yamabiko.cells.silen-rail-review"
+   :cell/wit-export    "silen-rail-review"
+   :cell/murakumo-node "naphtali"
+   :cell/gates         [:G13]}]
+
+ ;; Tier classification (ADR-2606014500/014600)
+ :deploy/tier :t1
+
+ ;; Trigger
+ :deploy/trigger :on-http
+
+ ;; Mesh activation gate
+ :deploy/activated?    false
+ :deploy/activation-gate "ADR-2605252600 §R1 (post-Council)"
+
+ ;; Build toolchain
+ :deploy/build
+ {:build/script        "deploy/build_wasm.clj"
+  :build/task          "yamabiko:build-wasm"
+  :build/prereqs       ["cargo + wasm32-wasip1 target"
+                        "wasm-tools (cargo install wasm-tools)"
+                        "wasmtime (cargo install wasmtime-cli --features component-model)"
+                        "kotoba submodule populated (40-engine/kotoba/)"]}}
