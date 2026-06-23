@@ -40,10 +40,10 @@
     :dl/anchor "民事訴訟法159条・254条" :dl/source-url "https://laws.e-gov.go.jp/law/408AC0000000109" :dl/verify-service-date true}
    {:dl/label "通常訴訟への移行申述"
     :dl/rule "最初の口頭弁論期日において弁論をするまで"
-    :dl/anchor "民事訴訟法373条" :dl/verify-service-date true}
+    :dl/anchor "民事訴訟法373条" :dl/source-url "https://laws.e-gov.go.jp/law/408AC0000000109" :dl/verify-service-date true}
    {:dl/label "少額訴訟判決への異議"
     :dl/rule "判決書等の送達を受けた日から2週間以内"
-    :dl/anchor "民事訴訟法378条" :dl/verify-service-date true}]
+    :dl/anchor "民事訴訟法378条" :dl/source-url "https://laws.e-gov.go.jp/law/408AC0000000109" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :touben :opt/kind :self-submit :opt/label "答弁書の提出 (言い分・証拠を整理)"}
    {:opt/id :ikou :opt/kind :self-submit :opt/label "通常訴訟への移行申述 (反訴・控訴が必要な場合)"}
@@ -88,10 +88,10 @@
   :proc/deadline-rules
   [{:dl/label "解雇理由証明書の請求"
     :dl/rule "請求すれば使用者は遅滞なく交付義務 — 理由の確定が全ての応答の起点"
-    :dl/anchor "労働基準法22条" :dl/verify-service-date true}
+    :dl/anchor "労働基準法22条" :dl/source-url "https://laws.e-gov.go.jp/law/322AC0000000049" :dl/verify-service-date true}
    {:dl/label "賃金請求権の消滅時効"
     :dl/rule "未払賃金の請求権は3年で時効 (当分の間) — 異議・交渉は早いほど良い"
-    :dl/anchor "労働基準法115条" :dl/verify-service-date true}]
+    :dl/anchor "労働基準法115条" :dl/source-url "https://laws.e-gov.go.jp/law/322AC0000000049" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :riyuu-shoumeisho :opt/kind :self-submit :opt/protective true :opt/label "解雇理由証明書を書面で請求 (労基法22条)"}
    {:opt/id :igi-teppai :opt/kind :self-decide :opt/label "解雇に異議を留めて撤回交渉 (承諾と誤解される言動を避ける)"}
