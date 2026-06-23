@@ -411,7 +411,7 @@
   :proc/deadline-rules
   [{:dl/label "Widerspruch (異議)"
     :dl/rule "送達から2週間以内の Widerspruch が原則 (経過後も Vollstreckungsbescheid 発令まで可; 発令後は2週間以内の Einspruch)"
-    :dl/anchor "ZPO §692・694・700" :dl/verify-service-date true}]
+    :dl/anchor "ZPO §692・694・700" :dl/source-url "https://www.gesetze-im-internet.de/zpo/" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :widerspruch :opt/kind :self-submit :opt/label "同封の Widerspruch 用紙で異議 (→ 通常訴訟へ)"}
    {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/分割の交渉"}]
@@ -1440,10 +1440,10 @@
   :proc/deadline-rules
   [{:dl/label "P-Konto への転換 (口座保護)"
     :dl/rule "口座を P-Konto (Pfändungsschutzkonto) に転換すれば月額 Grundfreibetrag が自動的に保護される — 転換は銀行へ請求 (差押え後でも可)"
-    :dl/anchor "ZPO §850k・§850c" :dl/verify-service-date true}
+    :dl/anchor "ZPO §850k・§850c" :dl/source-url "https://www.gesetze-im-internet.de/zpo/" :dl/verify-service-date true}
    {:dl/label "Erinnerung (執行異議)"
     :dl/rule "執行処分の方式違背には Erinnerung を申立て可能"
-    :dl/anchor "ZPO §766" :dl/verify-service-date true}]
+    :dl/anchor "ZPO §766" :dl/source-url "https://www.gesetze-im-internet.de/zpo/" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :p-konto :opt/kind :self-submit :opt/protective true
     :opt/label "銀行に P-Konto 転換を請求 (書式は銀行所定 — 法定の権利)"}
