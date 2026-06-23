@@ -2158,25 +2158,9 @@ def test_docs_validate_valid_registry(tmp_path):
         ],
     }
     (reg_dir / "docs.json").write_text(json.dumps(registry))
-    # Minimal graph.jsonld
-    graph = {
-        "@context": {"doc": "https://etzhayyim.com/ns/docs/"},
-        "@graph": [
-            {
-                "id": "doc:test-adr-001",
-                "type": "adr",
-                "title": "Test ADR",
-                "status": "active",
-                "topic": "testing",
-                "authoritative": True,
-                "authoritativeFor": [],
-                "related": [],
-                "supersedes": [],
-                "supersededBy": [],
-            }
-        ],
-    }
-    (reg_dir / "graph.jsonld").write_text(json.dumps(graph))
+    # Note: the relation graph (graph.edn) is a pure projection of docs.edn,
+    # validated by docs-graph-edn-freshness — docs validate no longer
+    # cross-checks it, so no graph fixture is needed here.
     # Create the .md file with proper front matter
     md_dir = tmp_path / "90-docs"
     (md_dir / "test.md").write_text(

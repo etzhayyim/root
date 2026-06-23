@@ -418,28 +418,28 @@ pre-commit:
       stage_fixed: false
 
 
-    docs-graph-jsonld-freshness:
-      # When docs.json changes (which happens via docs-registry-freshness
+    docs-graph-edn-freshness:
+      # When docs.edn changes (which happens via docs-registry-freshness
       # hook above) or any 90-docs/**/*.md changes, verify
-      # 90-docs/_registry/graph.jsonld stays in sync
-      # (70-tools/scripts/docs/regen-graph-jsonld.py --check; ADR-2605271100
-      # cycle 49). Chain: .md → docs.json → graph.jsonld. Both sidecars
-      # regen idempotently from canonical .md source. ~0.2s overhead.
+      # 90-docs/_registry/graph.edn stays in sync
+      # (70-tools/scripts/docs/regen-graph-edn.clj --check). Chain:
+      # .md → docs.edn → graph.edn. Successor to the retired
+      # graph.jsonld (JSON-LD) hook, per "use EDN, not JSON-LD". ~0.3s.
       glob:
         - "90-docs/**/*.md"
-        - "90-docs/_registry/docs.json"
+        - "90-docs/_registry/docs.edn"
       run: |
-        python3 70-tools/scripts/docs/regen-graph-jsonld.py --check \
+        bb 70-tools/scripts/docs/regen-graph-edn.clj --check \
           > /tmp/docs-graph-check.$$.txt 2>&1
         rc=$?
         if [ $rc -ne 0 ]; then
-          echo "✘ graph.jsonld drift detected:"
+          echo "✘ graph.edn drift detected:"
           cat /tmp/docs-graph-check.$$.txt
           rm -f /tmp/docs-graph-check.$$.txt
           echo ""
           echo "  Run the regenerator and stage the result:"
-          echo "    python3 70-tools/scripts/docs/regen-graph-jsonld.py"
-          echo "    git add 90-docs/_registry/graph.jsonld"
+          echo "    bb 70-tools/scripts/docs/regen-graph-edn.clj"
+          echo "    git add 90-docs/_registry/graph.edn"
           exit 1
         fi
         rm -f /tmp/docs-graph-check.$$.txt
@@ -557,8 +557,8 @@ pre-commit:
     registry-schema-validation:
       # When any 90-docs/_registry/ artifact changes, run schema
       # validation (ADR-2605271100 cycle 50; promoted to PR-gate cycle 51
-      # after all 32 baseline violations were cleaned). 4th registry axis
-      # after docs-registry-freshness + docs-graph-jsonld-freshness +
+      # after all 32 baseline violations were cleaned). A registry axis
+      # after docs-registry-freshness + docs-graph-edn-freshness +
       # deps-toml-paths.
       #
       # **Cycle 51 mode: STRICT by default** (baseline = 0). Hook fails
@@ -569,9 +569,7 @@ pre-commit:
       # CI installs jsonschema via pip and runs strict mode unconditionally.
       glob:
         - "90-docs/_registry/docs.json"
-        - "90-docs/_registry/graph.jsonld"
         - "90-docs/_registry/schemas/docs.schema.json"
-        - "90-docs/_registry/schemas/graph.schema.json"
       run: |
         python3 70-tools/scripts/docs/validate-registry-schemas.py \
           > /tmp/registry-validation.$$.txt 2>&1
@@ -583,9 +581,9 @@ pre-commit:
           cat /tmp/registry-validation.$$.txt
           rm -f /tmp/registry-validation.$$.txt
           echo ""
-          echo "  Fix the .md front-matter to match docs.schema.json /"
-          echo "  graph.schema.json, then re-stage and retry. CI runs the"
-          echo "  same check unconditionally."
+          echo "  Fix the .md front-matter to match docs.schema.json,"
+          echo "  then re-stage and retry. CI runs the same check"
+          echo "  unconditionally."
           exit 1
         fi
         if grep -q "jsonschema package not installed" /tmp/registry-validation.$$.txt 2>/dev/null; then
