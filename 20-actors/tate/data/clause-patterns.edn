@@ -227,6 +227,20 @@
   :clause/anchor "Code de la consommation L215-1 (loi Chatel — 更新前通知義務; 不履行なら随時解約可)"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ {:clause/id "cl:fr-unilateral-modification" :clause/label "価格・特性の一方的変更 (clause noire)"
+  :clause/jurisdiction :fr
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["se réserve le droit de modifier unilatéralement" "modifier unilatéralement le prix"]
+  :clause/anchor "Code de la consommation R212-1 (liste noire — clause autorisant le professionnel à modifier unilatéralement la durée, les caractéristiques ou le prix; réputée non écrite)"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:fr-disproportionate-penalty" :clause/label "不履行時の不均衡な違約金 (clause grise)"
+  :clause/jurisdiction :fr
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["indemnité d'un montant manifestement disproportionné"]
+  :clause/anchor "Code de la consommation R212-2 (liste grise — indemnité d'un montant manifestement disproportionné mise à la charge du consommateur qui n'exécute pas; présumée abusive)"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :au — Australia (G10) ────────────────────────────────────────────────────
  {:clause/id "cl:au-unfair-variation" :clause/label "一方的変更権 (unfair term)"
   :clause/jurisdiction :au

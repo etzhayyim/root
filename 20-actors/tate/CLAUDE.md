@@ -106,7 +106,7 @@ N6 刑事 out of scope → immediate 弁護士 referral. **N2 補足 (wave 8)**:
 ├── manifest.edn                   # actor manifest (5 cells, 9 gates, 6 non-goals)
 ├── data/
 │   ├── jurisdictions.edn          # jurisdiction registry: UPL anchor + directories (R1)
-│   ├── clause-patterns.edn        # jurisdiction-keyed clause registry (76 shapes, 30 juris)
+│   ├── clause-patterns.edn        # jurisdiction-keyed clause registry (78 shapes, 30 juris)
 │   ├── procedure-registry.edn     # jurisdiction-keyed procedure registry (181 procs; :civil 36 + :labor 29 + :housing 29 + :enforcement 29 + :insolvency 29 + :family 29 — track×juris matrix; fake-guard 語彙 registry 自動導出; :dl/critical 期限先頭表示; **非civil全手続きに protective 選択肢必在**)
 │   ├── us-states.edn              # :us 州サブ管轄 (small-claims 上限 + answer 期限 + ARL)
 │   └── seed-member-docs.edn       # SYNTHETIC member contracts + notices, intl (G1)
