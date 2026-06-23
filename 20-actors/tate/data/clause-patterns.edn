@@ -594,6 +594,22 @@
   :clause/anchor "KSL / kuluttaja-asiamies の自動継続ガイドライン (事前通知・容易な解約導線)"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ {:clause/id "cl:fi-korkea-viivastyskorko" :clause/label "過大な遅延利息 (tehoton)"
+  :clause/jurisdiction :fi
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["viivästyskorko 30 prosenttia"]
+  :clause/anchor "korkolaki (633/1982) 4 § (viivästyskorko = viitekorko + 7 prosenttiyksikköä) + 11 § (kuluttajasopimuksessa sitoumus on tehoton siltä osin kuin kuluttaja maksaisi enemmän viivästyskorkoa kuin korkolaissa säädetään)"
+  :clause/source-url "https://www.finlex.fi/fi/laki/ajantasa/1982/19820633"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:fi-yksipuolinen-muutos" :clause/label "正当理由なき一方的変更 (kohtuuton ehto)"
+  :clause/jurisdiction :fi
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["muuttaa sopimusehtoja yksipuolisesti ilman perusteltua syytä"]
+  :clause/anchor "kuluttajansuojalaki (38/1978) 4 luku 1 § (kohtuuton sopimusehto — tuomioistuin voi sovitella tai jättää sen huomioon ottamatta; esim. elinkeinonharjoittajan yksipuolinen muutosoikeus ilman perusteltua syytä)"
+  :clause/source-url "https://www.finlex.fi/fi/laki/ajantasa/1978/19780038"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :ie — Ireland (G10) ──────────────────────────────────────────────────────
  {:clause/id "cl:ie-liability" :clause/label "包括免責 (unfair term)"
   :clause/jurisdiction :ie

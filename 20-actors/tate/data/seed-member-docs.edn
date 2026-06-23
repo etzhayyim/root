@@ -918,7 +918,7 @@
  {:doc/id "doc:fi-ehdot" :doc/label "FI sopimusehdot (synthetic)"
   :doc/jurisdiction :fi
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "Emme vastaa mistään vahingoista. Tilaus jatkuu automaattisesti vuoden kerrallaan."}
+  :doc/text "Emme vastaa mistään vahingoista. Tilaus jatkuu automaattisesti vuoden kerrallaan. Maksun viivästyessä peritään viivästyskorko 30 prosenttia vuodessa. Elinkeinonharjoittaja voi muuttaa sopimusehtoja yksipuolisesti ilman perusteltua syytä."}
 
  {:notice/id "ntc:dk-bp" :notice/label "DK betalingspåkrav (fogedretten)"
   :notice/jurisdiction :dk
