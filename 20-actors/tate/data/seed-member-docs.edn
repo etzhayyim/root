@@ -1082,6 +1082,12 @@
   :notice/sourcing :synthetic
   :notice/text "Zahlungsbefehl. Sie können binnen der Frist Einspruch erheben."}
 
+ {:notice/id "ntc:at-insolvency" :notice/label "AT Insolvenzedikt (Gläubiger・Brief)"
+  :notice/jurisdiction :at
+  :notice/channel :mail :notice/claim-amount 5200 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Insolvenzedikt: Über das Vermögen der Gesellschaft wurde ein Insolvenzverfahren eröffnet. Gläubiger haben ihre Forderungsanmeldung innerhalb der Anmeldefrist beim Landesgericht einzubringen."}
+
  {:notice/id "ntc:pt-injuncao" :notice/label "PT injunção (notificação)"
   :notice/jurisdiction :pt
   :notice/channel :mail :notice/claim-amount 1900 :notice/claim-currency "EUR"
