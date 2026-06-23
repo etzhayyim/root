@@ -440,6 +440,22 @@
   :clause/anchor "Ley 24.240 + Res. 424/2020 (**botón de baja** — オンライン解約はワンクリック義務)"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ {:clause/id "cl:ar-renuncia-derechos" :clause/label "消費者権利の放棄/制限 (no convenida)"
+  :clause/jurisdiction :ar
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["el consumidor renuncia a sus derechos"]
+  :clause/anchor "Ley 24.240 art. 37 inc. b (cláusulas que importen renuncia o restricción de los derechos del consumidor o amplíen los derechos de la otra parte — se tienen por no convenidas)"
+  :clause/source-url "http://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/638/texact.htm"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:ar-inversion-carga-prueba" :clause/label "立証責任の転換 (no convenida)"
+  :clause/jurisdiction :ar
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["la carga de la prueba en perjuicio del consumidor"]
+  :clause/anchor "Ley 24.240 art. 37 inc. c (cláusulas que impongan la inversión de la carga de la prueba en perjuicio del consumidor — se tienen por no convenidas)"
+  :clause/source-url "http://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/638/texact.htm"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :be — Belgique (G10) ─────────────────────────────────────────────────────
  {:clause/id "cl:be-exoneration" :clause/label "全部免責 (clause abusive)"
   :clause/jurisdiction :be
