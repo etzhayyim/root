@@ -45,6 +45,23 @@
       :compressive-load-kgf (/ compressive segment/gravity)
       :multiplier-vs-head (/ compressive head-weight-n)})))
 
+(defn cervical-load-sensitivity
+  "Marginal cervical compressive load per degree of forward head flexion AT a given posture — the
+  local slope d(compressive-load)/d(flexion) of the Hansraj forward-head-posture model, by central
+  finite difference. A purely MECHANICAL quantity (N of compressive load per additional degree;
+  G1 non-diagnostic — no clinical key, never a prescription) and self-referenced to the SAME posture
+  (G3 — the model's local derivative here, never a population rank). It makes a small posture
+  change's MODELLED load effect legible: because the load curve is concave, the first degrees off
+  neutral cost the most per degree. Returns {:head-flexion-deg :compressive-load-n :d-load-per-deg-n}."
+  ([head-flexion-deg head-weight-n] (cervical-load-sensitivity head-flexion-deg head-weight-n 0.5))
+  ([head-flexion-deg head-weight-n delta-deg]
+   (let [load-at (fn [a] (:compressive-load-n (cervical-load a head-weight-n)))]
+     {:head-flexion-deg head-flexion-deg
+      :compressive-load-n (load-at head-flexion-deg)
+      :d-load-per-deg-n (/ (- (load-at (+ head-flexion-deg delta-deg))
+                              (load-at (- head-flexion-deg delta-deg)))
+                           (* 2.0 delta-deg))})))
+
 ;; --- Generic static joint moment (RNEA gravity term) -------------------------
 (defn- ->joint-load
   ([joint moment-nm] (->joint-load joint moment-nm ""))
