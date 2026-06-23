@@ -130,7 +130,7 @@ N6 刑事 out of scope → immediate 弁護士 referral. **N2 補足 (wave 8)**:
 ├── data/
 │   ├── jurisdictions.edn          # jurisdiction registry: UPL anchor + directories (R1)
 │   ├── clause-patterns.edn        # jurisdiction-keyed clause registry (128 shapes, 30 juris — 実 R1 全 29 法域が ≥4 patterns、:eu のみ 2(越境 instruments メタ); :clause/source-url 一次ソース URL を verified entry に記録, coverage が provenance gap を可視化)
-│   ├── procedure-registry.edn     # jurisdiction-keyed procedure registry (181 procs; :civil 36 + :labor 29 + :housing 29 + :enforcement 29 + :insolvency 29 + :family 29 — track×juris matrix; fake-guard 語彙 registry 自動導出; :dl/critical 期限先頭表示; **非civil全手続きに protective 選択肢必在**; :dl/source-url 一次ソース URL を verified deadline-rule に記録 — proc-level provenance 12/181 (rule-level 16)、:jp 民訴法・労基法・行審法・行訴法群は e-Gov 公式で裏取り済み、法令単位で back-fill 継続)
+│   ├── procedure-registry.edn     # jurisdiction-keyed procedure registry (181 procs; :civil 36 + :labor 29 + :housing 29 + :enforcement 29 + :insolvency 29 + :family 29 — track×juris matrix; fake-guard 語彙 registry 自動導出; :dl/critical 期限先頭表示; **非civil全手続きに protective 選択肢必在**; :dl/source-url 一次ソース URL を verified deadline-rule に記録 — proc-level provenance 14/181 (rule-level 20)、:jp 民訴法・労基法・行審法・行訴法・借地借家法・民事執行法群は e-Gov 公式で裏取り済み、法令単位で back-fill 継続)
 │   ├── us-states.edn              # :us 州サブ管轄 (small-claims 上限 + answer 期限 + ARL)
 │   └── seed-member-docs.edn       # SYNTHETIC member contracts + notices, intl (G1)
 ├── methods/                       # clj/bb (.cljc) — kotoba-native; py→clj port complete (ADR-2606160842)
