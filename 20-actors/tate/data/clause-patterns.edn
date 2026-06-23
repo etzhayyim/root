@@ -665,6 +665,22 @@
   :clause/anchor "消保法11條之1 (審閲期間) / 定型化契約應記載及不得記載事項 — 業種別告示を確認"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ {:clause/id "cl:tw-disproportionate-liability" :clause/label "顯不相當之賠償責任 (違反平等互惠)"
+  :clause/jurisdiction :tw
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["顯不相當之賠償責任"]
+  :clause/anchor "消費者保護法12條第2項第1款 + 施行細則14條 (消費者違約時負擔顯不相當之賠償責任 = 違反平等互惠原則 → 推定顯失公平 → 無效)"
+  :clause/source-url "https://law.moj.gov.tw/LawClass/LawSingle.aspx?pcode=J0170001&flno=12"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:tw-defeats-purpose" :clause/label "契約目的難以達成 (主要權利限制)"
+  :clause/jurisdiction :tw
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["致契約之目的難以達成"]
+  :clause/anchor "消費者保護法12條第2項第3款 (契約之主要權利或義務因條款限制致契約之目的難以達成 → 推定顯失公平 → 無效)"
+  :clause/source-url "https://law.moj.gov.tw/LawClass/LawSingle.aspx?pcode=J0170001&flno=12"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :sg — Singapore (G10) ────────────────────────────────────────────────────
  {:clause/id "cl:sg-liability-exclusion" :clause/label "包括免責 (reasonableness test)"
   :clause/jurisdiction :sg
