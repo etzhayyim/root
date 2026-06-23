@@ -502,6 +502,22 @@
   :clause/anchor "LFPC arts. 85–86 (contrato de adhesión の要件) — 解約導線のカレンダー化"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ {:clause/id "cl:mx-modificacion-unilateral" :clause/label "一方的契約変更 (no puesta)"
+  :clause/jurisdiction :mx
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["modificar unilateralmente el contenido del contrato"]
+  :clause/anchor "LFPC art. 90 frac. I (cláusulas que permitan al proveedor modificar unilateralmente el contenido del contrato o sustraerse unilateralmente de sus obligaciones — no serán válidas, se tendrán por no puestas)"
+  :clause/source-url "https://www.diputados.gob.mx/LeyesBiblio/pdf/LFPC.pdf"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:mx-renuncia-ley" :clause/label "法定保護の放棄/外国裁判所 (no puesta)"
+  :clause/jurisdiction :mx
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["renunciar a la protección de esta ley"]
+  :clause/anchor "LFPC art. 90 (cláusulas que obliguen al consumidor a renunciar a la protección de esta ley o lo sometan a la competencia de tribunales extranjeros — no serán válidas, se tendrán por no puestas)"
+  :clause/source-url "https://www.diputados.gob.mx/LeyesBiblio/pdf/LFPC.pdf"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :nz — Aotearoa NZ (G10) ──────────────────────────────────────────────────
  {:clause/id "cl:nz-cga-exclusion" :clause/label "consumer guarantees の排除"
   :clause/jurisdiction :nz
