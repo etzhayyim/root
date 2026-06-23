@@ -10,6 +10,13 @@
 ;;                      (G10; see data/jurisdictions.edn; coverage_report.py names gaps)
 ;; :clause/route        :kurashimori (JP rights) | :kaiyaku (sever the tie)
 ;;                      | :referral (professional) | :info
+;; :clause/source-url   OPTIONAL — the primary legal source (official legislation portal
+;;                      where possible) the :clause/anchor was VERIFIED against. Recorded in
+;;                      the data itself so the kotoba Datom log is self-provenancing (a reader
+;;                      navigates to the statute without leaving the substrate). G10: only a
+;;                      URL actually checked is recorded — never a guessed/remembered link;
+;;                      entries still being back-filled carry the anchor text only, and
+;;                      coverage_report names the provenance gap (worklist, drops off once filled).
 
 [{:clause/id "cl:auto-renewal-trap" :clause/label "自動更新 + 狭い解約通知窓"
   :clause/jurisdiction :jp
@@ -159,6 +166,7 @@
   :clause/context :consumer :clause/risk :high
   :clause/keywords ["pay the entire balance of the remaining membership" "cancellation fee for the remaining term"]
   :clause/anchor "Consumer Rights Act 2015 Sch 2 para 5 (grey list — disproportionately high termination charge) / s.62 (fairness)"
+  :clause/source-url "https://www.legislation.gov.uk/ukpga/2015/15/schedule/2/enacted"
   :clause/route :referral :clause/verify-current-law true}
 
  {:clause/id "cl:uk-no-refunds-statutory-rights" :clause/label "返金一切不可・法定権利の排除"
@@ -166,6 +174,7 @@
   :clause/context :consumer :clause/risk :high
   :clause/keywords ["non-refundable under any circumstances" "statutory rights do not apply"]
   :clause/anchor "Consumer Rights Act 2015 s.31 (goods) / s.57 (services) — statutory rights cannot be excluded; s.62 (fairness)"
+  :clause/source-url "https://www.legislation.gov.uk/ukpga/2015/15/section/31"
   :clause/route :referral :clause/verify-current-law true}
 
  ;; ── :de — Deutschland (G10) ─────────────────────────────────────────────────
@@ -188,6 +197,7 @@
   :clause/context :consumer :clause/risk :high
   :clause/keywords ["Haftung für Körper- und Gesundheitsschäden" "für grobe Fahrlässigkeit ist ausgeschlossen"]
   :clause/anchor "BGB §309 Nr.7 (Haftungsausschluss bei Verletzung von Leben, Körper, Gesundheit (a) und bei grobem Verschulden (b) — unwirksam)"
+  :clause/source-url "https://www.gesetze-im-internet.de/bgb/__309.html"
   :clause/route :referral :clause/verify-current-law true}
 
  {:clause/id "cl:de-long-term-auto-renewal" :clause/label "2年超の拘束/長期解約予告付き自動更新"
@@ -195,6 +205,7 @@
   :clause/context :consumer :clause/risk :high
   :clause/keywords ["Mindestlaufzeit von drei Jahren" "verlängert sich automatisch um ein weiteres Jahr"]
   :clause/anchor "BGB §309 Nr.9 n.F. (ab 1.3.2022 — Erstlaufzeit >2 Jahre unwirksam; stillschweigende Verlängerung nur auf unbestimmte Zeit mit Kündigungsfrist ≤1 Monat)"
+  :clause/source-url "https://www.gesetze-im-internet.de/bgb/__309.html"
   :clause/route :referral :clause/verify-current-law true}
 
  ;; ── :kr — 대한민국 (G10) ─────────────────────────────────────────────────────
@@ -232,6 +243,7 @@
   :clause/context :consumer :clause/risk :high
   :clause/keywords ["se réserve le droit de modifier unilatéralement" "modifier unilatéralement le prix"]
   :clause/anchor "Code de la consommation R212-1 (liste noire — clause autorisant le professionnel à modifier unilatéralement la durée, les caractéristiques ou le prix; réputée non écrite)"
+  :clause/source-url "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000032807196"
   :clause/route :referral :clause/verify-current-law true}
 
  {:clause/id "cl:fr-disproportionate-penalty" :clause/label "不履行時の不均衡な違約金 (clause grise)"
@@ -239,6 +251,7 @@
   :clause/context :consumer :clause/risk :high
   :clause/keywords ["indemnité d'un montant manifestement disproportionné"]
   :clause/anchor "Code de la consommation R212-2 (liste grise — indemnité d'un montant manifestement disproportionné mise à la charge du consommateur qui n'exécute pas; présumée abusive)"
+  :clause/source-url "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000032807198"
   :clause/route :referral :clause/verify-current-law true}
 
  ;; ── :au — Australia (G10) ────────────────────────────────────────────────────
@@ -261,6 +274,7 @@
   :clause/context :consumer :clause/risk :high
   :clause/keywords ["we may terminate this agreement at any time" "terminate at our sole discretion"]
   :clause/anchor "Australian Consumer Law (CCA Sch 2) s 25(1)(b) (一方のみ解約可 — unfair term の例) / s 24 (significant imbalance テスト)"
+  :clause/source-url "https://www.australiancompetitionlaw.org/legislation/provisions/acl25.html"
   :clause/route :referral :clause/verify-current-law true}
 
  {:clause/id "cl:au-penalty-one-party" :clause/label "一方当事者のみへの違約罰 (unfair term)"
@@ -268,6 +282,7 @@
   :clause/context :consumer :clause/risk :high
   :clause/keywords ["you must pay a penalty for early termination"]
   :clause/anchor "Australian Consumer Law (CCA Sch 2) s 25(1)(c) (一方のみ違約罰 — unfair term の例) / s 24 (significant imbalance テスト)"
+  :clause/source-url "https://www.australiancompetitionlaw.org/legislation/provisions/acl25.html"
   :clause/route :referral :clause/verify-current-law true}
 
  ;; ── :ca — Canada (G10; 仲裁条項の効力が :us と逆になる好例) ──────────────────
@@ -335,6 +350,7 @@
   :clause/context :consumer :clause/risk :high
   :clause/keywords ["recht op ontbinding van de overeenkomst is uitgesloten" "ontbinding is uitgesloten"]
   :clause/anchor "BW 6:236 (zwarte lijst — beding dat de bevoegdheid tot ontbinding uitsluit/beperkt; onvoorwaardelijk onredelijk bezwarend, geen tegenbewijs mogelijk)"
+  :clause/source-url "https://wetboekplus.nl/burgerlijk-wetboek-boek-6-artikel-236-zwarte-lijst/"
   :clause/route :referral :clause/verify-current-law true}
 
  {:clause/id "cl:nl-wijzigingsbeding" :clause/label "一方的 prestatie 変更権 (grijze lijst)"
@@ -342,6 +358,7 @@
   :clause/context :consumer :clause/risk :mid
   :clause/keywords ["de prestatie eenzijdig wijzigen" "eenzijdig te wijzigen"]
   :clause/anchor "BW 6:237 (grijze lijst — eenzijdig wijzigingsbeding ten aanzien van de prestatie; vermoed onredelijk bezwarend, weerlegbaar)"
+  :clause/source-url "https://wetboekplus.nl/burgerlijk-wetboek-boek-6-artikel-237-grijze-lijst/"
   :clause/route :referral :clause/verify-current-law true}
 
  ;; ── :ar — Argentina (G10) ────────────────────────────────────────────────────

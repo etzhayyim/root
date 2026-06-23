@@ -85,8 +85,18 @@
          civil-only-gap (if (seq civil-only)
                           (str "専門トラック未開削の管轄 (civil のみ): " (str/join " " civil-only))
                           "全管轄に専門トラックあり (:eu は越境 instruments のみで対象外)")
+         ;; provenance: how many clause patterns carry a verified primary-source URL in the
+         ;; data itself (G10 — only checked URLs recorded; the rest carry anchor text only)
+         src-count (count (filter #(get % ":clause/source-url") patterns))
+         pat-total (count patterns)
+         source-url-gap (if (>= src-count pat-total)
+                          (str ":clause/source-url 出典: " src-count "/" pat-total
+                               " 全パターンに一次ソース URL を記録")
+                          (str ":clause/source-url 出典: " src-count "/" pat-total
+                               " のパターンに一次ソース URL を記録 — 残りは anchor のみ "
+                               "(worklist; 一次ソース検証後に付与、推測 URL は入れない G10)"))
          named-gaps (concat (map #(str % " — 未収載 (worklist)") remaining)
-                            [us-state-gap track-gap civil-only-gap]
+                            [us-state-gap track-gap civil-only-gap source-url-gap]
                             structural-gaps)
          all-tracks-order [":civil" ":labor" ":housing" ":enforcement" ":insolvency" ":family"]
          sort-track-map (fn [ts] (into (sorted-map) ts))]
@@ -105,6 +115,8 @@
       "patterns_by_jurisdiction" (into (sorted-map) pat-by-j)
       "procedures_by_jurisdiction" (into (sorted-map) proc-by-j)
       "covered_count" (count covered)
+      "clause_source_url_count" src-count
+      "clause_total" pat-total
       "un_member_states" un-member-states
       "coverage_ratio" (round-half-even (/ (double (count covered)) un-member-states) 4)
       "worklist_remaining" (vec remaining)
