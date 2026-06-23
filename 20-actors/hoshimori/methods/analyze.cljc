@@ -225,6 +225,34 @@
           :else
           (recur (rest es) congestion stewardship fragility congestion-out))))))
 
+(defn stewardship-gap
+  "Orbital shells that are CONGESTED yet have NO stewardship touching them — the UNADDRESSED
+  congestion priority. `analyze` ranks shells by congestion, but the most-congested shell may already
+  be stewarded (remediation / deconfliction / deorbit edges); this surfaces the shells that bear
+  hazard load and NO :remediates/:deconflicts/:deorbits edge at all — where stewardship is MISSING,
+  not merely where congestion is high. Shell-level aggregate (no precise ephemeris / no per-object
+  positional data, G1); edge-primary, counted on read (G2); routed to stewardship, never a targeting
+  aid. Returns [shell congestion-load label] for the unstewarded congested shells, by load descending."
+  ([nodes edges] (stewardship-gap nodes edges 20))
+  ([nodes edges limit]
+   (let [congested (reduce (fn [m e]
+                             (if (contains? hazard-kinds (get e ":en/kind"))
+                               (update m (get e ":en/to") (fnil + 0.0) (->load e))
+                               m))
+                           {} edges)
+         stewarded (reduce (fn [s e]
+                             (if (contains? stewardship-kinds (get e ":en/kind"))
+                               (conj s (get e ":en/to") (get e ":en/from"))
+                               s))
+                           #{} edges)]
+     (->> congested
+          (remove (fn [[shell _]] (contains? stewarded shell)))
+          (filter (fn [[_ load]] (pos? load)))
+          (sort-by (fn [[_ load]] (- load)))
+          (map (fn [[shell load]] [shell load (get-in nodes [shell ":organism/label"] shell)]))
+          (take limit)
+          vec))))
+
 (defn- omap-items
   "Items of an ordered-map in first-touch order (falls back to seq order if no ::order)."
   [d]
