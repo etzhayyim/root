@@ -16,16 +16,16 @@
 ;; ── Constitutional constants for procurement ──
 
 ;; G2: solar-grade feedstock grades ONLY — never logic-grade 9N+ EG-Si (N1).
-(def ^:private SOLAR_GRADES #{"solar-grade-6N" "solar-grade-6N+" "recycled-kerf"})
+(defn- solar-grades [] ["solar-grade-6N" "solar-grade-6N+" "recycled-kerf"])
 
 ;; G2: forced-labor / XUAR-exclusion is non-negotiable.
-(def ^:private XUAR_REGIONS #{"xuar" "xinjiang" "新疆" "uyghur"})
+(defn- xuar-regions [] ["xuar" "xinjiang" "新疆" "uyghur"])
 
 ;; G8: intra-fab transport of received lots routes to the giemon AGV.
-(def ^:private INTRA_FAB_TRANSPORT "giemon-agv")
+(defn- intra-fab-transport [] "giemon-agv")
 
 ;; Commons-first ring ordering (mirrors okaimono RING_ORDER).
-(def ^:private RING_ORDER ["commons" "internal" "external"])
+(defn- ring-order [] ["commons" "internal" "external"])
 
 ;; Default tithe in basis points (mirrors okaimono TITHE_BPS = 10%).
 (def ^:private TITHE_BPS 1000)
@@ -50,12 +50,12 @@
   (let [grade  (get need "feedstockGrade")
         origin (str/lower-case (str/trim (str (get need "originRegion" ""))))]
     (cond
-      (and (some? grade) (not (contains? SOLAR_GRADES grade)))
+      (and (some? grade) (not (some #(= % grade) (solar-grades))))
       {"state"  "refused"
        "reason" (str "feedstockGrade " (pr-str grade) " is not solar-grade (N1: solar-grade only, "
-                     "never logic-grade EG-Si); allowed=" (pr-str (sort SOLAR_GRADES)))}
+                     "never logic-grade EG-Si); allowed=" (pr-str (sort (solar-grades))))}
 
-      (and (seq origin) (some #(str/includes? origin (str/lower-case %)) XUAR_REGIONS))
+      (and (seq origin) (some #(str/includes? origin (str/lower-case %)) (xuar-regions)))
       {"state"  "refused"
        "reason" "origin region is XUAR/forced-labor excluded (G2/N6 constitutional — NO XUAR polysilicon ever); closes hikari §G2 structurally"}
 
@@ -70,7 +70,7 @@
   [need]
   (let [explicit (get need "ring")]
     (cond
-      (some #(= explicit %) RING_ORDER)
+      (some #(= explicit %) (ring-order))
       explicit
       ;; recycled-kerf feedstock is, by definition, a commons (closed-loop) source.
       (= (get need "feedstockGrade") "recycled-kerf")
@@ -90,7 +90,7 @@
                "needText"         (str (get need "needText" ""))
                "ring"             ring
                "buyerDid"         buyer
-               "intraFabTransport" INTRA_FAB_TRANSPORT}]
+               "intraFabTransport" (intra-fab-transport)}]
     (case ring
       "commons"
       (merge base {"state" "commons-recovery" "settlement" "commons-none" "titheMinor" 0})
@@ -155,7 +155,7 @@
   kotoba `:cdx/*` datoms (G8)."
   [need order]
   (let [lot-id     (str (or (get need "lotId") (get order "needText") "unknown-lot"))
-        extra-comps (vec (get need "components" []))
+        extra-comps (into [] (get need "components" []))
         components  (if (get need "feedstockGrade")
                       (into [(feedstock-component need)] extra-comps)
                       extra-comps)
@@ -192,7 +192,7 @@
                        "supplierDid"                (get need "supplierDid")
                        "sourcingAuditCid"           (get need "sourcingAuditCid")
                        "attestingEngineerDid"       (get need "attestingEngineerDid")
-                       "attestingRobots"            (vec (get need "attestingRobots" []))
+                       "attestingRobots"            (into [] (get need "attestingRobots" []))
                        "embodiedEnergyWhPerKg"      (get need "embodiedEnergyWhPerKg")}
         missing (filterv #(let [v (get record %)]
                             (or (nil? v) (and (string? v) (str/blank? v)) (and (coll? v) (empty? v))))
@@ -205,7 +205,7 @@
         attested (empty? missing)
         record   (cond-> (assoc record "attested" attested)
                    (seq missing) (assoc "unattestedReason"
-                                        (str "missing G2 provenance fields: " (vec missing))))
+                                        (str "missing G2 provenance fields: " (into [] missing))))
         claims   (cond-> [{"pred" "provenance/lot"                    "value" (str (get record "lotId"))}
                            {"pred" "provenance/grade"                  "value" (str (get record "feedstockGrade"))}
                            {"pred" "provenance/originAttestationCid"   "value" (str (get record "originRegionAttestationCid"))}
@@ -259,11 +259,11 @@
           (merge state {"procurementOrder" order "refused" true "reason" (get order "reason")})
           (let [sbom      (build-sbom-attestation need order)
                 prov      (when (get need "lotId") (build-provenance-attestation need))
-                writes    (cond-> (vec (get sbom "kotobaEntities"))
+                writes    (cond-> (into [] (get sbom "kotobaEntities"))
                             (some? prov) (conj (get prov "kotobaEntity")))]
             (merge state
                    {"procurementOrder"      order
                     "sbomAttestation"       sbom
                     "provenanceAttestation" prov
-                    "intraFabTransport"     INTRA_FAB_TRANSPORT
+                    "intraFabTransport"     (intra-fab-transport)
                     "kotobaWrites"          writes})))))))

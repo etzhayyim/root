@@ -12,16 +12,16 @@
   (:require [clojure.string :as str]))
 
 ;; G13 / N1: himawari modules are produced for INTERNAL hikari install only.
-(def ^:private ALLOWED_CONSIGNEE_PREFIX "did:web:etzhayyim.com:hikari")
+(defn- allowed-consignee-prefix [] "did:web:etzhayyim.com:hikari")
 
 ;; Customs engine lexicon namespace (verified to exist on disk).
-(def ^:private CUSTOMS_ENGINE "com.etzhayyim.etzhayyim.apps.customsClearance")
-(def ^:private CUSTOMS_BPMN "00-contracts/bpmn/com/etzhayyim/open-customs-clearance")
+(defn- customs-engine [] "com.etzhayyim.etzhayyim.apps.customsClearance")
+(defn- customs-bpmn [] "00-contracts/bpmn/com/etzhayyim/open-customs-clearance")
 
 ;; kami-autodrive vehicle classes (mirror of the lexicon knownValues +
 ;; the Rust enum VehicleClass { Car, Ship, Drone, Aircraft }).
 ;; himawari composes kami-autodrive; it does not define new vehicle classes.
-(def ^:private VEHICLE_CLASSES #{"car" "ship" "drone" "aircraft"})
+(defn- vehicle-classes [] ["car" "ship" "drone" "aircraft"])
 
 ;; ── #robotSignature normalization ──
 
@@ -60,9 +60,9 @@
             "recordedAt"       (str (get state "recordedAt" ""))
             "loadingId"        (str (or (get loading "loadingId") (get state "loadingId") ""))
             "loadingRecordCid" (or (get loading "recordCid") (get state "loadingRecordCid"))
-            "moduleSerials"    (vec (or (get loading "moduleSerials") (get state "moduleSerials") []))
+            "moduleSerials"    (into [] (or (get loading "moduleSerials") (get state "moduleSerials") []))
             "consigneeDid"     (str (get state "consigneeDid" ""))
-            "attestingRobots"  (vec (or (get state "attestingRobots") []))
+            "attestingRobots"  (into [] (or (get state "attestingRobots") []))
             "completionPct"    0}
            "next_node" "bind_carrier")))
 
@@ -73,22 +73,22 @@
         requested (str/lower-case (str/trim (str (get state "carrierClass" ""))))
         mode      (str/lower-case (str (get state "transportMode" "road")))
         requested (if (str/blank? requested)
-                    (if (#{"marine" "sea" "ocean"} mode) "ship" "car")
+                    (if (some #(= % mode) ["marine" "sea" "ocean"]) "ship" "car")
                     requested)]
     ;; Validate vehicle class against the kami-autodrive VehicleClass enum.
-    (when-not (contains? VEHICLE_CLASSES requested)
+    (when-not (some #(= % requested) (vehicle-classes))
       (throw (ex-info (str "himawari outbound_logistics: carrier class " (pr-str requested)
                            " is not a kami-autodrive VehicleClass "
-                           (pr-str (sort VEHICLE_CLASSES))
+                           (pr-str (sort (vehicle-classes)))
                            " (ADR-2606010600). himawari composes kami-autodrive; "
                            "it does not define new vehicle classes.")
                       {:type ::invalid-carrier-class :class requested})))
     ;; G13: own-module → hikari sites only. Reject any non-hikari consignee.
     (let [consignee (str (get os "consigneeDid" ""))]
-      (when-not (str/starts-with? consignee ALLOWED_CONSIGNEE_PREFIX)
+      (when-not (str/starts-with? consignee (allowed-consignee-prefix))
         (throw (ex-info (str "himawari outbound_logistics G13 violation: consignee "
                              (pr-str consignee) " is not a hikari install site ("
-                             ALLOWED_CONSIGNEE_PREFIX "*). himawari modules ship to internal "
+                             (allowed-consignee-prefix) "*). himawari modules ship to internal "
                              "hikari install only (SBT↔SBT carve-out, ADR-2605192115 §3); no "
                              "external commercial logistics carriage (N10).")
                         {:type ::g13-violation :consignee consignee})))
@@ -112,7 +112,7 @@
         customs
         (if cross-border
           (let [hs-code         (str (get state "hsCode" "854143"))
-                declared-value  (long (Math/round (double (or (get state "declaredValueUsd") 0.0))))
+                declared-value  (long (Math/round (double (or (get state "declaredValueUsd") 0))))
                 lodged-at       (str (or (get state "lodgedAt") (get os "recordedAt") (get os "manifestId") ""))
                 manifest-id     (get os "manifestId")]
             {"lodgeDeclaration"
@@ -124,8 +124,8 @@
               "sanctionsScreeningVid"  (get state "sanctionsScreeningVid")
               "lodgedAt"               lodged-at}
              "releaseShipmentRef" (str manifest-id ":release")
-             "bpmn"               CUSTOMS_BPMN
-             "engine"             CUSTOMS_ENGINE})
+             "bpmn"               (customs-bpmn)
+             "engine"             (customs-engine)})
           {"required" false "reason" "domestic leg — no customs declaration"})]
     (assoc state
            "outbound_state" (assoc os "phase" "customs_cleared" "customs" customs "completionPct" 55)
@@ -140,7 +140,7 @@
                 "vehicleClass"     (get os "carrierClass")
                 "origin"           origin
                 "destination"      (get os "consigneeDid")
-                "waypoints"        (vec (get state "waypoints" []))
+                "waypoints"        (into [] (get state "waypoints" []))
                 "telemetryChannel" "com.etzhayyim.encrypted.telemetry"}]
     (assoc state
            "outbound_state" (assoc os
@@ -159,7 +159,7 @@
                  "recordedAt"         (str (get os "recordedAt" ""))
                  "loadingId"          (str (get os "loadingId" ""))
                  "loadingRecordCid"   (get os "loadingRecordCid")
-                 "moduleSerials"      (vec (get os "moduleSerials" []))
+                 "moduleSerials"      (into [] (get os "moduleSerials" []))
                  "consigneeDid"       (get os "consigneeDid")
                  "originSite"         (str (or (get os "originSite") (get state "originSite") "did:web:etzhayyim.com:himawari"))
                  "carrierClass"       (get os "carrierClass")

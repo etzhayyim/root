@@ -584,6 +584,117 @@ the himawari PoC subset.
 
 ---
 
+## Deployable component build (2026-06-23)
+
+**Objective**: produce a deployable WASM Component Model binary (`assert_loads()` passes under
+wasmtime) from the production `.cljc` cell sources via `compile_component_str()`, without
+faking results.
+
+**Test file**: `40-engine/kotoba/crates/kotoba-clj/tests/himawari_component_build.rs`
+**bb safety gate**: `20-actors/himawari/run_tests.sh` — 75 tests, 155 assertions, 0 failures.
+This gate was verified green before and after every source edit.
+
+### STEP 1: Safe rewrites applied to all 7 cells (bb-green throughout)
+
+The following semantics-preserving rewrites were applied to make the production `.cljc` files
+pass as much of the kotoba-clj compilation pipeline as possible. Every intermediate state
+was verified against the bb test suite.
+
+| Rewrite pattern | Reason | Cells affected |
+|---|---|---|
+| `(def ^:private S "str")` → `(defn- s [] "str")` + call sites | `def` accepts only i64 constants in kotoba-clj | All 7 |
+| `#{...}` set literals → `[...]` vectors + `contains?` → `(some #(= % x) coll)` | Set reader not implemented | `cell_process`, `supply_procurement`, `polysilicon_refine` |
+| `0.0`, `11.0`, `10.4`, `81.5` etc. → integer equivalents | Float literals unsupported | `outbound_logistics`, `cell_process` |
+| `(def ^:private MIN_DRE 0.99)` → `9900` (basis points) + all use sites updated | Float literal | `cell_process` |
+| `(defn- kerf-fraction [] {"diamond-wire" 0.40 ...})` → `40`, `55` (integer pct) + arithmetic adjusted | Float literals | `ingot_wafer` |
+| `wafer-mass-g` rewritten with integer approximation (π ≈ 355/113, density as mg/cm³) | `Math/PI`, float division | `ingot_wafer` |
+| `0xFFFFFFFFFFFF` → `281474976710655` | Hex literals unsupported | `panel_loading`, `cell_process` |
+| `(mapv named-fn coll)` → `(mapv (fn [x] (named-fn x)) coll)` | Named fn as HOF arg unbound | `panel_loading`, `outbound_logistics`, `supply_procurement` |
+| `(last (str/split name #":"))` → `(get (robot-roles) name)` | Regex literal `#"..."` unsupported | `module_assembly` |
+
+**bb gate result after all STEP 1 rewrites**: 75 tests, 155 assertions, 0 failures. ✓
+
+### STEP 2: Component build attempt
+
+**Test**: `kotoba_clj::component::compile_component_str()` called with
+`prelude() + cell_source + "(defn run [input] (solve input))"`.
+
+**Key finding (session): prelude must be prepended manually.** `compile_component_str()` calls
+`compile_core()` directly, which does NOT include the standard prelude (vec-make, into, mapv,
+etc.). The test was updated to prepend `kotoba_clj::prelude()` explicitly.
+
+### Result: 0/7 cells produce a deployable component
+
+The revised test (`himawari_component_build.rs`, current session) compiles and runs. All 7
+cell tests fail at the codegen phase with **missing function** errors. The production `.cljc`
+cells use Clojure standard library functions that are not in the kotoba-clj prelude:
+
+| Missing function | Error message | Cells affected |
+|---|---|---|
+| `str` (arity 1, 3, …) | `Codegen("call to unknown function 'str' with arity N")` | All 7 |
+| `merge` (arity 2) | `Codegen("call to unknown function 'merge' with arity 2")` | `cell_process`, `module_assembly`, others |
+| `int` (arity 1) | `Codegen("call to unknown function 'int' with arity 1")` | `ingot_wafer`, `supply_procurement` |
+| `assoc` (arity 5) | `Codegen("call to unknown function 'assoc' with arity 5")` | `outbound_logistics` |
+
+Note: `str` is used 12–45 times per cell. This is a systemic gap, not a configuration issue.
+
+### Honest finding
+
+**0 of 7 production `.cljc` cells produce a loadable WASM component today.** The gap is
+systemic: the production cells use `str`, `merge`, `int`, multi-arity `assoc`, `cond->`,
+`boolean`, `long`, `for`, `ex-info`, `Math/abs`, `Math/round`, `format`, `hash`, `sort`,
+and other Clojure stdlib functions not present in the kotoba-clj prelude.
+
+The earlier post-PR-#185 PoC (see above) DID compile all 7 cells — but those were carefully
+hand-rewritten PoC stubs in the test file, NOT the production `.cljc` sources. The production
+sources require additional rewrites (eliminating `str` calls, `merge`, `int`, multi-arity
+`assoc`, etc.) or additional functions being added to the kotoba-clj prelude.
+
+### Gap between PoC and production sources
+
+| Category | PoC (PR #185) | Production sources (this session) |
+|---|---|---|
+| `str` multi-arg concat | Uses `(str a b c)` via PR#184 | Still uses `(str ...)` — available via PR#184 but prelude must be included |
+| `merge` | Uses `merge` via PR#184 prelude | Same — needs prelude |
+| `int` coercion | Removed (all i64) | Still uses `(int x)` |
+| Multi-arity `assoc` | Not used in PoC | Used: `(assoc m k1 v1 k2 v2)` → needs 5-arg form |
+| **Critical: prelude not included** | N/A (test used `compile_str_with_prelude`) | `compile_component_str` does NOT auto-include prelude |
+
+The root cause of the 0/7 failure in this session's compile attempt is that
+`compile_component_str` uses `compile_core` (no prelude). Once the prelude is manually
+prepended (as in the updated test), the `vec-make` and `into`/`mapv` errors disappear, but
+`str`, `merge`, and `int` errors surface because those are in the prelude (PR#184) but `int`
+is NOT.
+
+### Remaining blockers for production source compilation
+
+1. **`int` coercion**: `(int x)` is not in the prelude. Workaround: remove all `(int ...)` wrappers since kotoba-clj is i64-native.
+2. **Multi-arity `assoc`**: `(assoc m k1 v1 k2 v2)` not supported. Workaround: chain single-arity calls.
+3. **`Math/abs`, `Math/round`, `Math/ceil`**: Not in prelude subset. Workaround: `(if (< n 0) (- n) n)` etc.
+4. **`cond->`**: threading macro — may or may not be supported (untested).
+5. **`for`**: not in prelude. Workaround: loop/recur.
+6. **`ex-info`/`throw`**: Not in prelude. Workaround: return error map.
+7. **`str/trim`, `str/blank?`, `str/join`, `str/starts-with?`, `str/lower-case`**: Not in prelude.
+
+These are the same categories identified in the post-PR-#185 PoC analysis (see above). The
+PoC demonstrated that all 7 cells CAN be compiled with systematic rewrites. Converting the
+production sources to the kotoba-clj subset is the next tracked work item.
+
+### Next step
+
+Estimated additional work to make all 7 production `.cljc` cells produce `assert_loads()` ✓:
+- Remove `(int ...)` / `(long ...)` / `(boolean ...)` wrappers: ~1 hour across all cells
+- Rewrite multi-arity `assoc`: ~0.5 hours
+- Replace `Math/*` calls: ~0.5 hours  
+- Replace `str/blank?`, `str/starts-with?`, `cond->`, `for`, `ex-info`: ~3 hours
+- Verify bb tests remain green after each change: ongoing
+- Re-run cargo test until `assert_loads()` passes: ~1 hour
+
+**Estimated total**: ~6–8 additional engineering hours to reach a `assert_loads()`-verified
+deployable component from production `.cljc` sources.
+
+---
+
 ## References
 
 - `20-actors/himawari/deploy/agent.py` — WASM build entrypoint; imports 7 Python cell classes

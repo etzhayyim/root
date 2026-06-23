@@ -11,13 +11,12 @@
   (:require [clojure.string :as str]))
 
 ;; sarutahiko F10 LoaderRobot cycle phases (mirror of the authoritative Rust enum).
-(def ^:private LOAD_PHASES
-  ["ToPick" "Carry" "Lower" "Done"])
+(defn- load-phases [] ["ToPick" "Carry" "Lower" "Done"])
 
-(def ^:private LOAD_PHASE_DONE "Done")
+(defn- load-phase-done [] "Done")
 
 ;; F10 lineage DID.
-(def ^:private F10_LOADER_DID "did:web:etzhayyim.com:sarutahiko#F10-loader")
+(defn- f10-loader-did [] "did:web:etzhayyim.com:sarutahiko#F10-loader")
 
 (defn- pallet-count
   "Ceil-divide modules into pallets (the F10 straddle loader moves one pallet per cycle)."
@@ -30,13 +29,13 @@
   "G7: content-address the displaced-manual-task manifest for the Liberation Metric."
   [loading-id removed-tasks]
   (let [payload (str loading-id "|" (str/join "+" (sort removed-tasks)))
-        digest (bit-and (Math/abs (hash payload)) 0xFFFFFFFFFFFF)]
+        digest (bit-and (Math/abs (hash payload)) 281474976710655)]
     (str "bafyhimawari" (format "%012x" digest))))
 
 (defn- cid
   "Deterministic content-address placeholder (R0 stand-in for CIDv1)."
   [payload]
-  (let [digest (bit-and (Math/abs (hash payload)) 0xFFFFFFFFFFFF)]
+  (let [digest (bit-and (Math/abs (hash payload)) 281474976710655)]
     (str "bafyhimawari" (format "%012x" digest))))
 
 (defn- attesting-robots
@@ -80,7 +79,7 @@
             (throw (ex-info "panel_loading: loadingId is required"
                             {:type ::invalid-input})))
 
-        module-serials (vec (filter #(str/trim (str %))
+        module-serials (into [] (filter #(str/trim (str %))
                                     (get state "moduleSerials" [])))
         _ (when (empty? module-serials)
             (throw (ex-info "panel_loading: moduleSerials must be non-empty"
@@ -97,20 +96,20 @@
             (throw (ex-info "panel_loading G12 violation: external carrier refused"
                             {:type ::g12-violation})))
 
-        loader-phase (str (get state "loaderPhase" LOAD_PHASE_DONE))
-        _ (when-not (some #(= % loader-phase) LOAD_PHASES)
+        loader-phase (str (get state "loaderPhase" (load-phase-done)))
+        _ (when-not (some #(= % loader-phase) (load-phases))
             (throw (ex-info (str "panel_loading: loaderPhase " loader-phase " not a LoaderRobot phase")
                             {:type ::invalid-input})))
 
-        cycle-complete (= loader-phase LOAD_PHASE_DONE)
-        loader-robot-did (str (or (get state "loaderRobotDid") F10_LOADER_DID))
+        cycle-complete (= loader-phase (load-phase-done))
+        loader-robot-did (str (or (get state "loaderRobotDid") (f10-loader-did)))
 
         ;; Palletize: split modules into pallets
         pallet-capacity (max 1 (int (get state "palletCapacity" 36)))
         pallet-count (pallet-count (count module-serials) pallet-capacity)
 
         ;; G7 — labor-liberation transparency
-        human-tasks-removed (vec (filter #(str/trim (str %))
+        human-tasks-removed (into [] (filter #(str/trim (str %))
                                           (get state "humanTasksRemoved" [])))
         human-tasks-removed-cid (liberation-cid loading-id human-tasks-removed)
 

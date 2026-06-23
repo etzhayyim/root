@@ -11,22 +11,22 @@
   (:require [clojure.string :as str]))
 
 ;; ── G2 / N6: XUAR + forced-labor exclusion terms (constitutional, case-insensitive substring) ──
-(def ^:private EXCLUDED_ORIGIN_TERMS
+(defn- excluded-origin-terms []
   ["xuar" "xinjiang" "新疆" "uyghur" "uighur" "ujgur" "kashgar" "hotan" "aksu"])
 
 ;; ── Solar-grade feedstock grades (N1: solar-grade only, never logic-grade 9N+ EG-Si) ──
-(def ^:private VALID_GRADES
-  #{"solar-grade-6N" "solar-grade-6N+" "recycled-kerf"})
+(defn- valid-grades []
+  ["solar-grade-6N" "solar-grade-6N+" "recycled-kerf"])
 
 ;; ── Accepted refining processes ──
-(def ^:private VALID_PROCESSES
-  #{"siemens" "fbr" "umg-upgraded" "recycled"})
+(defn- valid-processes []
+  ["siemens" "fbr" "umg-upgraded" "recycled"])
 
 ;; ── Conflict-mineral dopants / elements that must NOT appear in solar feedstock (G2) ──
-(def ^:private CONFLICT_ELEMENTS #{"In" "Ga"})
+(defn- conflict-elements [] ["In" "Ga"])
 
 ;; ── Required chain-of-custody evidence (each must be a non-empty CID-or-DID string) ──
-(def ^:private REQUIRED_PROVENANCE
+(defn- required-provenance []
   ["originRegionAttestationCid"
    "supplierDid"
    "sourcingAuditCid"
@@ -88,7 +88,7 @@
         origin-cid      (str/trim (str (get state "originRegionAttestationCid" "")))
         audit-cid       (str/trim (str (get state "sourcingAuditCid" "")))
         engineer-did    (str/trim (str (get state "attestingEngineerDid" "")))
-        provided        (vec (or (get state "chainOfCustody") []))]
+        provided        (into [] (or (get state "chainOfCustody") []))]
     (if (seq provided)
       ;; Pass through caller-supplied hops, filling any missing required fields.
       (mapv (fn [hop]
@@ -134,8 +134,8 @@
         declared-orig (str/trim (str (get state "declaredOrigin" "")))
         supplier-did  (str/trim (str (get state "supplierDid" "")))
         recorded-at   (str/trim (str (get state "recordedAt" "")))
-        robots-in     (vec (or (get state "attestingRobots") []))
-        dopants       (vec (or (get state "dopantElements") []))
+        robots-in     (into [] (or (get state "attestingRobots") []))
+        dopants       (into [] (or (get state "dopantElements") []))
 
         ;; Normalize attestingRobots → vector of #robotSignature objects
         attesting-robots (robot-signatures robots-in recorded-at)
@@ -147,24 +147,24 @@
               (conj "lotId is required (no anonymous feedstock, G2)"))
 
             ;; --- N1: solar-grade only ---
-            (cond-> (not (contains? VALID_GRADES grade))
+            (cond-> (not (some #(= % grade) (valid-grades)))
               (conj (str "feedstockGrade " (pr-str grade) " not solar-grade — must be one of "
-                         (pr-str (sort VALID_GRADES)) " (N1: NOT logic-grade 9N+ EG-Si)")))
-            (cond-> (not (contains? VALID_PROCESSES process))
+                         (pr-str (sort (valid-grades))) " (N1: NOT logic-grade 9N+ EG-Si)")))
+            (cond-> (not (some #(= % process) (valid-processes)))
               (conj (str "process " (pr-str process) " unknown — must be one of "
-                         (pr-str (sort VALID_PROCESSES)))))
+                         (pr-str (sort (valid-processes))))))
 
             ;; --- G2 / N6: XUAR + forced-labor exclusion (constitutional) ---
-            (cond-> (some #(str/includes? (str/lower-case declared-orig) %) EXCLUDED_ORIGIN_TERMS)
+            (cond-> (some #(str/includes? (str/lower-case declared-orig) %) (excluded-origin-terms))
               (conj (str "declaredOrigin " (pr-str declared-orig)
                          " matches excluded forced-labor region — REFUSED (N6 constitutional, no waiver, ever)")))
             (cond-> (str/blank? declared-orig)
               (conj "declaredOrigin is required for XUAR-exclusion screening (G2)"))
 
             ;; --- G2: conflict-mineral dopant screen ---
-            (cond-> (seq (filter #(contains? CONFLICT_ELEMENTS %) dopants))
+            (cond-> (seq (filter #(some (fn [e] (= e %)) (conflict-elements)) dopants))
               (conj (str "conflict-mineral element(s) "
-                         (sort (filter #(contains? CONFLICT_ELEMENTS %) dopants))
+                         (sort (filter #(some (fn [e] (= e %)) (conflict-elements)) dopants))
                          " present — refused (G2; also a CdTe/CIGS thin-film tell, N2/N3)")))
 
             ;; --- G2: complete chain-of-custody evidence ---
@@ -173,7 +173,7 @@
                  (if (str/blank? (str/trim (str (get state k ""))))
                    (conj acc (str "missing chain-of-custody evidence: " k " (G2 §2(g))"))
                    acc))
-               % REQUIRED_PROVENANCE))
+               % (required-provenance)))
 
             ;; --- recordedAt is required (G11 as-of) ---
             (cond-> (str/blank? recorded-at)

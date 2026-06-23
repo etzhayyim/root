@@ -15,28 +15,28 @@
   (:require [clojure.string :as str]))
 
 ;; G3: high-GWP etch/clean gases (AR5 100-yr GWP values, industry-standard).
-(def ^:private HIGH_GWP_GASES
+(defn- high-gwp-gases []
   {"NF3" 16100
    "SF6" 23500
    "CF4" 6630
    "C2F6" 11100
    "C3F8" 8900})
 
-(def ^:private MIN_DRE 0.99)  ;; G3: ≥99% destruction-removal efficiency floor
+(def ^:private MIN_DRE 9900)  ;; G3: ≥99% DRE floor in basis points (9900 = 99.00%)
 
 ;; G6: Ag→Cu low-toxicity metallization roadmap.
-(def ^:private METALLIZATION_KNOWN
-  #{"silver" "ag-cu-hybrid" "copper"})
+(defn- metallization-known []
+  ["silver" "ag-cu-hybrid" "copper"])
 
-(def ^:private METALLIZATION_ON_ROADMAP
-  #{"ag-cu-hybrid" "copper"})
+(defn- metallization-on-roadmap []
+  ["ag-cu-hybrid" "copper"])
 
-(def ^:private CELL_ARCH_KNOWN
-  #{"PERC" "TOPCon" "HJT"})
+(defn- cell-arch-known []
+  ["PERC" "TOPCon" "HJT"])
 
 ;; Robot DIDs (composed from kuni-umi, not re-implemented).
-(def ^:private OTETE_DID "did:web:etzhayyim.com:kuni-umi:otete")
-(def ^:private MIMI_DID "did:web:etzhayyim.com:kuni-umi:mimi")
+(defn- otete-did [] "did:web:etzhayyim.com:kuni-umi:otete")
+(defn- mimi-did [] "did:web:etzhayyim.com:kuni-umi:mimi")
 
 (defn- default-cell-state
   "CellState defaults merged with any existing \"cell_state\" map."
@@ -71,7 +71,7 @@
   [prefix payload]
   (let [keysig (str/join "|" (map #(str % "=" (get payload %))
                                    (sort (keys payload))))
-        hash-val (bit-and (Math/abs (hash keysig)) 0xFFFFFFFFFFFF)]
+        hash-val (bit-and (Math/abs (hash keysig)) 281474976710655)]
     (str prefix ":" (format "%012x" hash-val))))
 
 (defn transition-init
@@ -81,9 +81,9 @@
         wafer-batch-id (str (get state "waferBatchId" "wafer-unknown"))
         batch-id (str (or (get state "batchId") (str "cell-" wafer-batch-id)))
         arch (let [a (str (get state "cellArchitecture" "TOPCon"))]
-               (if (contains? CELL_ARCH_KNOWN a) a "TOPCon"))
+               (if (some #(= % a) (cell-arch-known)) a "TOPCon"))
         metallization (let [m (str (get state "metallization" "ag-cu-hybrid"))]
-                        (if (contains? METALLIZATION_KNOWN m) m "ag-cu-hybrid"))
+                        (if (some #(= % m) (metallization-known)) m "ag-cu-hybrid"))
         wafer-count (max 0 (int (get state "waferCount" 1000)))
         recorded-at (str (get state "recordedAt" ""))
         cs {"phase" "textured"
@@ -118,9 +118,9 @@
         arch (get cs "cellArchitecture")
         etch-chem (if (= arch "PERC") "HF-HNO3-acid" "KOH-IPA-alkaline")
         metrics {"etch_chemistry" etch-chem
-                 "target_reflectance_pct" 11.0
-                 "achieved_reflectance_pct" 10.4
-                 "saw_damage_removed_um" 4.0}
+                 "target_reflectance_pct" 110
+                 "achieved_reflectance_pct" 104
+                 "saw_damage_removed_um" 4}
         cs (assoc cs
                   "textureMetrics" metrics
                   "phase" "textured"
@@ -156,7 +156,7 @@
                  "fingers" 110
                  "busbars" (if (= metallization "silver") "9BB" "busbarless-multiwire")
                  "no_lead_solder" true}
-        flags (if (not (contains? METALLIZATION_ON_ROADMAP metallization))
+        flags (if (not (some #(= % metallization) (metallization-on-roadmap)))
                 [(str "G6:silver-only-off-roadmap:" metallization
                       "; Ag→Cu (ag-cu-hybrid|copper) substitution required for R2+")]
                 [])
@@ -186,7 +186,7 @@
                  "median_pmax_milliwp" median-mwp
                  "median_voc_mv" 695
                  "median_isc_ma" 13500
-                 "median_fill_factor_pct" 81.5}
+                 "median_fill_factor_pct" 815}
         cs (assoc cs
                   "flashIvMedianMilliwp" median-mwp
                   "flashIvMetrics" metrics
@@ -205,9 +205,9 @@
         substitutions {}
         gas-lines (for [gas used-gases]
                     (let [substituted (contains? substitutions gas)
-                          dre (if substituted 1.0 0.995)]
+                          dre (if substituted 10000 9950)]
                       {"gas" gas
-                       "gwp100" (get HIGH_GWP_GASES gas 0)
+                       "gwp100" (get (high-gwp-gases) gas 0)
                        "substituted" substituted
                        "substituteWith" (get substitutions gas)
                        "destructionRemovalEfficiency" dre
@@ -244,11 +244,11 @@
   "ABATEMENT_VERIFIED → WITNESS_WAIT: collect ≥2 robot Ed25519 signatures."
   [state]
   (let [cs (default-cell-state state)
-        sigs [{"robotDid" OTETE_DID
+        sigs [{"robotDid" (otete-did)
                "role" "cell_line_executor"
                "timestamp" "2026-06-02T00:00:00Z"
                "signature" "ed25519:otete-cell-process-sig"}
-              {"robotDid" MIMI_DID
+              {"robotDid" (mimi-did)
                "role" "flash_iv_metrology_witness"
                "timestamp" "2026-06-02T00:00:05Z"
                "signature" "ed25519:mimi-flash-iv-sig"}]

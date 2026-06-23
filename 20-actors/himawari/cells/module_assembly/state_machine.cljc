@@ -19,11 +19,11 @@
   (:require [clojure.string :as str]))
 
 ;; Murakumo node identity for this cell (manifest.jsonld: module_assembly → asher).
-(def ^:private MURAKUMO_NODE "asher")
+(defn- murakumo-node [] "asher")
 
 ;; G12: internal-only destinations (SBT↔SBT carve-out; himawari modules install on hikari only).
-(def ^:private INTERNAL_DID_PREFIX "did:web:etzhayyim.com:")
-(def ^:private INSTALL_ACTORS #{"hikari"})
+(defn- internal-did-prefix [] "did:web:etzhayyim.com:")
+(defn- install-actors [] ["hikari"])
 
 ;; G11: at least two co-witnessing robots (one process + one metrology).
 (def ^:private MIN_ATTESTING_ROBOTS 2)
@@ -35,10 +35,10 @@
 (def ^:private FLASH_TOLERANCE_BPS 500)
 
 ;; Public domain-separation tag (NOT a secret).
-(def ^:private SIGN_DOMAIN "com.etzhayyim.himawari.moduleAttestation/v1")
+(defn- sign-domain [] "com.etzhayyim.himawari.moduleAttestation/v1")
 
 ;; Default witness roles for kuni-umi process + metrology robots.
-(def ^:private ROBOT_ROLES
+(defn- robot-roles []
   {"otete" "framing"
    "mimi"  "metrology"})
 
@@ -78,18 +78,18 @@
 
 (defn- sign-module
   "Produce the per-module provenance signature over the canonical module bytes (G11).
-  HONEST TODO: deterministic content-binding over SIGN_DOMAIN + payload bytes.
+  HONEST TODO: deterministic content-binding over (sign-domain) + payload bytes.
   At R1 activation, replace with Ed25519 sign over the SAME `payload` bytes; the
   `signedDigest`/verification contract is unchanged."
   [record chain-digest]
   (let [payload (canonical-module-bytes record chain-digest)
-        full (str SIGN_DOMAIN "|" payload)
+        full (str (sign-domain) "|" payload)
         signed-digest (int-hash-hex full)
-        binding (int-hash-hex (str SIGN_DOMAIN payload))]
+        binding (int-hash-hex (str (sign-domain) payload))]
     {"alg"           "content-binding-sha256"
      "signedDigest"  (str "sha256:" signed-digest)
      "binding"       binding
-     "signer"        MURAKUMO_NODE
+     "signer"        (murakumo-node)
      "serverHeldKey" false}))
 
 ;; ── G11 provenance chain ──
@@ -125,17 +125,17 @@
   (cond
     (str/blank? dest-did)
     [false "G12: module has no destination actor DID"]
-    (not (str/starts-with? dest-did INTERNAL_DID_PREFIX))
+    (not (str/starts-with? dest-did (internal-did-prefix)))
     [false (str "G12: external destination " (pr-str dest-did)
                 " refused — modules install on internal etzhayyim actors only"
                 " (no external commercial PV sale)")]
     :else
-    (let [actor (subs dest-did (count INTERNAL_DID_PREFIX))]
-      (if (contains? INSTALL_ACTORS actor)
+    (let [actor (subs dest-did (count (internal-did-prefix)))]
+      (if (some #(= % actor) (install-actors))
         [true "internal hikari install (SBT↔SBT carve-out)"]
         [false (str "G12: destination actor " (pr-str actor)
                     " is not a sanctioned install actor (expected one of "
-                    (pr-str (sort INSTALL_ACTORS)) ")")]))))
+                    (pr-str (sort (install-actors))) ")")]))))
 
 ;; ── G11 flash binning ──
 
@@ -178,7 +178,7 @@
               (let [name (str/trim (str (or (get entry "robotDid") (get entry "name") "")))
                     rdid (robot-did name)
                     role (or (get entry "role")
-                             (get ROBOT_ROLES (last (str/split name #":")))
+                             (get (robot-roles) name)
                              "metrology")
                     sig  (or (let [s (get entry "signature")]
                                (when (and s (not (str/blank? (str s)))) (str s)))
@@ -189,7 +189,7 @@
                   (assoc "timestamp" (get record "recordedAt"))))
               (let [n    (str/trim (str entry))
                     rdid (robot-did n)
-                    role (get ROBOT_ROLES n "metrology")]
+                    role (get (robot-roles) n "metrology")]
                 (cond-> {"robotDid" rdid
                          "signature" (witness-binding rdid payload)
                          "role" role}
@@ -217,7 +217,7 @@
         rated-wp       (int (or (get state "ratedWp") 0))
         recorded-at    (str (get state "recordedAt" ""))
         dest-did       (str (get state "destinationActorDid" ""))
-        robots-in      (vec (or (get state "attestingRobots") []))
+        robots-in      (into [] (or (get state "attestingRobots") []))
 
         ;; G11: serial <-> feedstock lot traceability is mandatory
         chain (provenance-chain module-serial cell-batch-id feedstock-lot)]
@@ -266,7 +266,7 @@
                                         "provenanceChainDigest" chain-digest
                                         "signature" signature
                                         "attestingRobots" attesting
-                                        "attestingNode" MURAKUMO_NODE)
+                                        "attestingNode" (murakumo-node))
                            binned (assoc "binned" true "binReason" bin-reason))]
 
               (merge state

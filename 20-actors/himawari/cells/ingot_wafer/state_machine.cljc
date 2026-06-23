@@ -13,19 +13,21 @@
 (def ^:private KERF_RECOVERY_MIN_BPS 9000)
 
 ;; G4: renewable-only process energy.
-(def ^:private RENEWABLE_SOURCES
-  #{"hikari-solar" "hikari-wind" "hikari-hydro" "hikari-storage"})
+(defn- renewable-sources []
+  ["hikari-solar" "hikari-wind" "hikari-hydro" "hikari-storage"])
 
 ;; Known ingot methods (mirrors lexicon).
-(def ^:private INGOT_METHODS
-  #{"czochralski-monocrystalline" "directional-cast-multicrystalline"})
+(defn- ingot-methods []
+  ["czochralski-monocrystalline" "directional-cast-multicrystalline"])
 
-;; Kerf-loss fraction by saw technology.
-(def ^:private KERF_FRACTION
-  {"diamond-wire" 0.40
-   "slurry-wire" 0.55})
+;; Kerf-loss fraction by saw technology (in hundredths: 40 = 40%).
+;; Integer representation: 40 means 40/100 = 0.40 kerf fraction.
+(defn- kerf-fraction []
+  {"diamond-wire" 40
+   "slurry-wire" 55})
 
-(def ^:private SI_DENSITY_G_PER_CM3 2.329)
+;; SI density in mg/cm³ (2329 = 2.329 g/cm³)
+(def ^:private SI_DENSITY_MG_PER_CM3 2329)
 
 (defn- kerf-recovery-bps
   "Recovered kerf as a fraction of generated kerf, in basis points (0-10000)."
@@ -38,15 +40,18 @@
   "True iff every declared process-energy source is hikari-renewable (G4)."
   [sources]
   (and (not (empty? sources))
-       (every? #(contains? RENEWABLE_SOURCES %) sources)))
+       (every? (fn [s] (some #(= % s) (renewable-sources))) sources)))
 
 (defn- wafer-mass-g
-  "Per-wafer silicon mass (grams) for one wire-saw slice."
+  "Per-wafer silicon mass in grams (integer approx; π ≈ 355/113).
+  mass_g = π*(d_mm/20)²_cm² * (t_μm/10000)_cm * ρ_g/cm³
+         = 355*d²*t*SI_DENSITY_MG_PER_CM3 / (113*400*10000*1000)"
   [thickness-um diameter-mm]
-  (let [t-cm (/ (max (int thickness-um) 1) 10000.0)
-        r-cm (/ (max (int diameter-mm) 1) 20.0)
-        area-cm2 (* Math/PI r-cm r-cm)]
-    (* area-cm2 t-cm SI_DENSITY_G_PER_CM3)))
+  (let [d (max 1 (int diameter-mm))
+        t (max 1 (int thickness-um))
+        numerator (* (* 355 d d) (* t SI_DENSITY_MG_PER_CM3))
+        denominator (* (* 113 4) 1000000000)]
+    (quot numerator denominator)))
 
 (defn- robot-signature
   "Normalize one attesting robot into a lexicon #robotSignature object."
@@ -79,14 +84,14 @@
         lot-id (str (get state "polysiliconLotId" ""))
         method (str (get state "ingotMethod" ""))
         wafer-count (int (get state "waferCount" 0))
-        robots (vec (get state "attestingRobots" []))
+        robots (into [] (get state "attestingRobots" []))
 
         ;; Validation (raises on contract violation)
         _ (when (str/blank? batch-id) (throw (ex-info "ingot_wafer: batchId is required"
                                                       {:type ::invalid-input})))
         _ (when (str/blank? lot-id) (throw (ex-info "ingot_wafer: polysiliconLotId is required"
                                                     {:type ::invalid-input})))
-        _ (when-not (contains? INGOT_METHODS method)
+        _ (when-not (some #(= % method) (ingot-methods))
             (throw (ex-info "ingot_wafer: ingotMethod not a known solar ingot method"
                             {:type ::invalid-input :method method})))
         _ (when (<= wafer-count 0)
@@ -99,17 +104,19 @@
         thickness-um (int (get state "waferThicknessUm" 150))
         diameter-mm (int (get state "waferDiameterMm" 210))
         slice-method (or (get state "sliceMethod") (get state "sawTech") "diamond-wire")
-        kerf-fraction (get KERF_FRACTION slice-method 0.40)
+        ;; kerf-fraction-pct: integer percentage (40 = 40% kerf loss, 55 = 55%)
+        kerf-fraction-pct (get (kerf-fraction) slice-method 40)
 
         ;; Process model: per-wafer mass + total kerf generated
+        ;; kerf = wafered_si * (kf / (100 - kf))
         wafer-g (wafer-mass-g thickness-um diameter-mm)
         wafered-si-g (* wafer-g wafer-count)
-        kerf-generated-g (int (Math/round (* wafered-si-g (/ kerf-fraction (- 1.0 kerf-fraction)))))
+        kerf-generated-g (quot (* wafered-si-g kerf-fraction-pct) (- 100 kerf-fraction-pct))
 
         ;; Kerf recovered: caller may report measured; otherwise model 90% of generated
         kerf-recovered-g (if (contains? state "kerfRecoveredGrams")
                            (int (get state "kerfRecoveredGrams"))
-                           (long (Math/ceil (* kerf-generated-g 0.90))))
+                           (quot (* kerf-generated-g 90) 100))
 
         recovery-bps (kerf-recovery-bps kerf-generated-g kerf-recovered-g)
 
@@ -120,7 +127,7 @@
         kerf-ok (>= recovery-bps KERF_RECOVERY_MIN_BPS)
 
         ;; G4 gate: renewable-only process energy
-        energy-sources (vec (get state "energySources" ["hikari-solar"]))
+        energy-sources (into [] (get state "energySources" ["hikari-solar"]))
         process-energy-wh (int (get state "processEnergyWh" 0))
         renewable (energy-is-renewable energy-sources)
         energy-ok (or (zero? process-energy-wh) renewable)
@@ -133,7 +140,7 @@
                 "ingotMethod" method
                 "sliceMethod" slice-method
                 "waferCount" wafer-count
-                "attestingRobots" (mapv robot-signature robots)
+                "attestingRobots" (mapv (fn [r] (robot-signature r)) robots)
                 "waferThicknessUm" thickness-um
                 "kerfRecoveredGrams" kerf-recovered-g
                 "kerfRecoveryFractionBps" recovery-bps
