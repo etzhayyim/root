@@ -103,6 +103,36 @@
                         "critical_chokepoints" (count (filter #(= (get % "chokepoint_risk") :critical) crows))}))]
     {"commodities" rows "classes" classes}))
 
+(defn cross-commodity-chokepoints
+  "Per-PRODUCER cross-commodity view: which producers are the TOP source for the MOST commodities at
+  once, weighted by each commodity's multi-gen risk. The per-commodity HHI surfaces one fragile
+  commodity; this surfaces the producer whose dominance SPANS many commodities — the systemic §2(l)
+  de-monopolization / resilience priority a per-commodity ranking cannot show (a producer topping
+  one commodity is less systemically concentrating than one topping five high-multigen-risk ones).
+  Aggregate-first (producer↔commodity counts + a summed multigen-risk weight; no coordinates, no
+  person data); a resilience / de-monopolization MAP routed to diversification + recovery, NEVER a
+  target-list (G2/G5) and never a trade/forecast (G1/G3 — it folds DISCLOSED top-producer facts).
+  Takes an `analyze` result; returns [{:producer :commodities-count :risk-weight :commodities} …]
+  sorted by (risk-weight desc, count desc, producer)."
+  ([analysis] (cross-commodity-chokepoints analysis 10))
+  ([analysis limit]
+   (let [by-prod (reduce (fn [m row]
+                           (if-let [p (get row "top_producer")]
+                             (-> m
+                                 (update-in [p :commodities] (fnil conj []) (get row "name"))
+                                 (update-in [p :risk] (fnil + 0.0) (get row "multigen_risk")))
+                             m))
+                         {} (get analysis "commodities"))]
+     (->> by-prod
+          (map (fn [[p {:keys [commodities risk]}]]
+                 {:producer p :commodities-count (count commodities)
+                  :risk-weight (/ (Math/round (* (double risk) 1000.0)) 1000.0)
+                  :commodities (vec (sort-by str commodities))}))
+          (sort-by (fn [{:keys [risk-weight commodities-count producer]}]
+                     [(- risk-weight) (- commodities-count) (str producer)]))
+          (take limit)
+          vec))))
+
 ;; ── datom emission (append-only EAVT; every derived datom flagged) ───────────
 
 (defn- add [e a v] [":db/add" e a v])
