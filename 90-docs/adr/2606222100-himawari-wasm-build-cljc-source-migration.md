@@ -373,17 +373,142 @@ work before it becomes viable.
 
 ---
 
+
+---
+
+## Post-PR #184 real compile experiment (2026-06-23)
+
+**Objective**: empirically measure how far the `supply_procurement` cell (the most complex of
+the 7) can be compiled by kotoba-clj after PR #184 landed (adding `bit-and`/`bit-or`/`bit-xor`/
+`bit-shift-left`/`bit-shift-right` builtins, multi-arg `str` desugaring, `merge` prelude).
+
+**Test file**: `40-engine/kotoba/crates/kotoba-clj/tests/himawari_compile_test.rs`
+**Cell measured**: `20-actors/himawari/cells/supply_procurement/state_machine.cljc` (269 lines)
+**Compiler commit**: post-PR-#184 (kotoba submodule HEAD at time of experiment)
+
+### Raw cell blockers (11 found against `supply_procurement`)
+
+| # | Blocker | EXACT error from `compile_str` | Fix applied in rewrite |
+|---|---------|-------------------------------|------------------------|
+| A | `.hashCode` not in subset | `Codegen("call to unknown function \`hashCode\` with arity 1")` | djb2 loop (`loop`/`recur`/`byte-at`) |
+| B | `format "%08x"` not in subset | `Codegen("call to unknown function \`format\` with arity 2")` | `int-to-hex8` manual digit-by-digit loop |
+| C | `str/lower-case` not in subset | `Codegen("call to unknown function \`str/lower-case\` with arity 1")` | removed (all EXCLUDED_TERMS already lowercase) |
+| D | `str/trim` not in subset | `Codegen("call to unknown function \`str/trim\` with arity 1")` | removed (inputs assumed clean) |
+| E | `str/blank?` not in subset | `Codegen("call to unknown function \`str/blank?\` with arity 1")` | `(= 0 (str-len s))` |
+| F | `str/includes?` not in subset | `Codegen("call to unknown function \`str/includes?\` with arity 2")` | `(str-includes? haystack needle)` (prelude) |
+| G | `contains?` on set | (set literal itself fails first — see I) | `(vec-contains? v x)` after set→vec rewrite |
+| H | `pr-str` not in subset | `Codegen("call to unknown function \`pr-str\` with arity 1")` | `(str x)` |
+| I | Hex literals (`0xFFFFFFFF` etc.) | `Read("invalid number \"0xFFFFFFFF\" at offset …")` | Replaced with decimal: `4294967295`, `15`, `9223372036854775807` |
+| J | `def` initializer holding vector/set/string | `` Codegen("`let` is not supported in a `def` initialiser") `` | All constant `def` forms → `(defn- const [] ...)` getter functions |
+| K | `(long x)` coercion | `Codegen("call to unknown function \`long\` with arity 1")` | Removed `(long ...)` wrapper — all values are i64 |
+
+### Rewrite strategy
+
+All 11 blockers were resolved in a PoC rewrite (`SUPPLY_PROCUREMENT_REWRITE` constant in the
+test file). The rewritten source:
+
+- Replaces all constant `def` forms with `(defn- …)` getter functions (Blocker J)
+- Implements `djb2` hash via `loop`/`recur`/`byte-at` (Blocker A)
+- Implements `int-to-hex8` via digit-extraction loop (Blocker B)
+- Uses only prelude functions: `str-includes?`, `str-len`, `str-cat`, `vec-contains?`,
+  `map-get`, `byte-at` (Blockers C–H)
+- Uses decimal integer literals only (Blocker I)
+- Removes `(long ...)` type coercions — all values are i64 in kotoba-clj (Blocker K)
+
+### Test results (9/9 pass)
+
+```
+test rewritten_supply_procurement_compiles ... ok   (REWRITE COMPILE: SUCCESS — 12572 bytes)
+test raw_supply_procurement_compile_result ... ok   (informational — raw cell fails as expected)
+test probe_xuar_refusal ... ok                     (scenario 1: XUAR origin → refused)
+test probe_non_solar_grade_refused ... ok           (scenario 2: non-solar-grade → refused)
+test probe_valid_solar_grade_accepted ... ok        (scenario 3: valid inputs → accepted)
+test probe_bit_and_hash_pr184 ... ok               (scenario 4: bit-and from PR#184)
+test probe_tithe_calculation ... ok                (scenario 5: tithe = gross * rate / 10000)
+test probe_merge_pr184 ... ok                      (scenario 6: merge from PR#184)
+test probe_multi_arg_str_pr184 ... ok              (scenario 7: 3-arg str from PR#184)
+```
+
+**WASM output size**: **12,572 bytes** (rewritten `supply_procurement`; debug profile unoptimized).
+
+### Compiler: `def` initializer constraint (CRITICAL — applies to ALL cells)
+
+kotoba-clj enforces that `def` forms hold only compile-time i64 integer constants (`codegen.rs`
+`eval_const`). The exact error when a string, vector, set, or function-call appears:
+
+```
+Codegen("`let` is not supported in a `def` initialiser")
+```
+
+Fix pattern:
+```clojure
+;; BEFORE (fails):
+(def ^:private EXCLUDED_ORIGIN_TERMS ["xuar" "xinjiang" ...])
+
+;; AFTER (compiles):
+(defn- excluded-origin-terms [] ["xuar" "xinjiang" ...])
+;; Call site: (vec-contains? (excluded-origin-terms) term)
+```
+
+### PR #184 builtins verified live
+
+| Builtin | Test | Verified result |
+|---------|------|-----------------|
+| `(bit-and x mask)` | `probe_bit_and_hash_pr184` | djb2 hash `"test" & 4294967295 = 1936946164` |
+| `(merge m1 m2)` | `probe_merge_pr184` | `{:b 3 :c 4}` overrides `{:a 1 :b 2}` |
+| `(str a b c)` multi-arg | `probe_multi_arg_str_pr184` | `"abc"` from 3-arg `str` |
+
+### Gap summary vs original Option F spike
+
+| Gap category | Before PR #184 | After PR #184 |
+|---|---|---|
+| `bit-and`/`bit-or`/bitwise | BLOCKER | **RESOLVED** (PR #184) |
+| multi-arg `str` | BLOCKER | **RESOLVED** (PR #184) |
+| `merge` | BLOCKER | **RESOLVED** (PR #184) |
+| `str/lower-case`, `str/trim`, `str/blank?`, `str/includes?` | BLOCKER | **Workaround feasible** |
+| `pr-str`, `long`, `.hashCode`, `format` | BLOCKER | **Workaround feasible** |
+| `def` holding non-i64 | BLOCKER | **Workaround feasible** (getter `defn`) |
+| Hex literals | BLOCKER | **Workaround feasible** (decimal) |
+| Set literal `#{}` | BLOCKER | **Workaround feasible** (vec + `vec-contains?`) |
+| `filter`/`map`/`mapv` HOF closures | BLOCKER | **Still a blocker** |
+| `for` comprehension | BLOCKER | **Still a blocker** |
+| `throw`/`ex-info` | BLOCKER | **Still a blocker** |
+| `str/join` (clojure.string) | BLOCKER | **Still a blocker** (other cells) |
+
+**For `supply_procurement` specifically**: all 11 blockers were resolved via workarounds.
+`supply_procurement` is the one himawari cell **without** `filter`/`map`/`mapv` HOFs in its
+hot path — it uses explicit `loop/recur` patterns — which is why full compilation was achievable.
+
+### Conclusion (post-#184 measurement)
+
+**`supply_procurement` compiles to 12,572 bytes under kotoba-clj (post-PR #184).** This is a
+real WASM module that passes 7 functional scenario probes and 2 structural tests.
+
+The remaining 6 cells all use `filter`/`map`/`mapv` with HOF closures, which still block
+full compilation. Option F remains feasible but requires either:
+- (a) kotoba-clj adding HOF closure support (~1–2 weeks compiler work), or
+- (b) loop-rewriting all HOF patterns in the 6 remaining cells (~2–3 days cell work)
+
+**Option D (keep Python for WASM build, cljc for bb-native) remains the operative decision.**
+This measurement closes the PR #184 gap-tracking obligation.
+
+---
+
 ## References
 
 - `20-actors/himawari/deploy/agent.py` — WASM build entrypoint; imports 7 Python cell classes
 - `20-actors/himawari/deploy/README.md` — build instructions; verified 2026-06-02
-- `20-actors/himawari/deploy/deploy.sh` — build orchestration; documents why multi-path import is required
+- `20-actors/himawari/deploy/deploy.sh` — build orchestration
 - `40-engine/kotoba/crates/kotoba-clj/` — Clojure/EDN-subset → WASM compiler (Option F source)
-- `40-engine/kotoba/crates/kotoba-runtime/wit/world.wit` — kotoba-node WIT world (`kotoba:kais@0.1.0`)
-- `20-actors/shionome/wasm/shionome-core/src/lib.rs` — T1 Rust actor pattern (Option E reference)
-- `20-actors/kadode/wasm/app.cljc` — parallel cljc WIT-world design artifact (not yet a live build entrypoint)
-- `20-actors/rasen/wasm/README.md` — pywasm component design; same dual-source pattern as Option D
-- `50-infra/etzhayyim-did-web/public/organism/scittle.js` — SCI in repo (browser-UI only; not a WASM Component build path)
+- `40-engine/kotoba/crates/kotoba-clj/tests/himawari_compile_test.rs` — post-#184 experiment (9/9)
+- `40-engine/kotoba/crates/kotoba-clj/src/codegen.rs` — `eval_const` enforces `def`=i64-only
+- `40-engine/kotoba/crates/kotoba-clj/src/lib.rs` — prelude: `str-includes?`/`str-len`/`merge`
+- `40-engine/kotoba/crates/kotoba-edn/src/parser.rs` — decimal-only integer parser
+- `40-engine/kotoba/crates/kotoba-runtime/wit/world.wit` — kotoba-node WIT world
+- `20-actors/shionome/wasm/shionome-core/src/lib.rs` — T1 Rust actor pattern (Option E ref)
+- `20-actors/kadode/wasm/app.cljc` — parallel cljc WIT-world design artifact
+- `20-actors/rasen/wasm/README.md` — pywasm dual-source pattern (Option D ref)
+- `50-infra/etzhayyim-did-web/public/organism/scittle.js` — SCI (browser-UI only)
 - ADR-2606014500 — One Worker, many WASM actors
 - ADR-2606014600 — WASM-actor runtime (gateway + loader + componentize-py)
 - ADR-2605302356 — kotoba LangGraph LLM verified + durable routing
