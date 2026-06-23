@@ -712,6 +712,22 @@
   :clause/anchor "CPFTA / CASE guidance (自動更新の事前開示) — 解約窓のカレンダー化"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ {:clause/id "cl:sg-substantially-different" :clause/label "著しく異なる/無履行を留保 (reasonableness test)"
+  :clause/jurisdiction :sg
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["render a performance substantially different from that reasonably expected" "to render no performance at all"]
+  :clause/anchor "Unfair Contract Terms Act (Cap 396) s.3 (consumer / written standard terms — performance substantially different from that reasonably expected or no performance は reasonableness test 服従)"
+  :clause/source-url "https://sso.agc.gov.sg/Act/UCTA1977"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:sg-unreasonable-indemnity" :clause/label "消費者への補償義務付け (reasonableness test)"
+  :clause/jurisdiction :sg
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["indemnify us against any liability for our negligence"]
+  :clause/anchor "Unfair Contract Terms Act (Cap 396) s.4 (消費者に他者の negligence/breach の indemnify を課す条項は reasonableness test 服従)"
+  :clause/source-url "https://sso.agc.gov.sg/Act/UCTA1977"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :in — India (G10; 'binding arbitration' の第3の意味) ─────────────────────
  {:clause/id "cl:in-liability-exclusion" :clause/label "包括免責 (unfair contract)"
   :clause/jurisdiction :in
