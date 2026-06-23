@@ -315,6 +315,22 @@
   :clause/anchor "Codice del consumo art. 65-bis 系 / L. 99/2009 (黙示更新の事前告知) — 通知なき更新は争いうる"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ {:clause/id "cl:it-penale-eccessiva" :clause/label "過大な penale (clausola vessatoria)"
+  :clause/jurisdiction :it
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["una penale di importo manifestamente eccessivo"]
+  :clause/anchor "Codice del consumo (D.Lgs. 206/2005) art. 33 c.2 lett. e (penale di importo manifestamente eccessivo — clausola presunta vessatoria, salvo prova contraria; nullità di protezione art. 36)"
+  :clause/source-url "https://www.brocardi.it/codice-del-consumo/parte-iii/titolo-i/art33.html"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:it-modifica-unilaterale" :clause/label "giustificato motivo なき一方的変更 (clausola vessatoria)"
+  :clause/jurisdiction :it
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["modificare unilateralmente le clausole del contratto senza un giustificato motivo"]
+  :clause/anchor "Codice del consumo (D.Lgs. 206/2005) art. 33 c.2 lett. m (modifica unilaterale delle clausole o delle caratteristiche senza giustificato motivo indicato nel contratto — clausola presunta vessatoria; nullità di protezione art. 36)"
+  :clause/source-url "https://www.brocardi.it/codice-del-consumo/parte-iii/titolo-i/art33.html"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :es — España (G10) ───────────────────────────────────────────────────────
  {:clause/id "cl:es-clausula-abusiva" :clause/label "全部免責 (cláusula abusiva)"
   :clause/jurisdiction :es
