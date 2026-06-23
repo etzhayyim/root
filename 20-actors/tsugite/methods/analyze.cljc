@@ -210,6 +210,34 @@
           :else
           (recur (rest es) continuity protection fragility pressure-out))))))
 
+(defn double-jeopardy
+  "Per-COLLECTIVE double jeopardy: the product of continuity-pressure × transmission-fragility — the
+  collectives bearing BOTH displacement/erasure pressure (continuity) AND a fragile people↔language
+  `:speaks` coupling (fragility), at risk of losing safe passage AND their tongue at once. This
+  operationalizes the documented coupling — when displacement imperils a people, transmission-
+  fragility shows the language at downstream risk, BOTH routed to continuity. The continuity ranking
+  alone misses the language dimension and the fragility ranking misses the displacement dimension;
+  their product surfaces the collectives where the two strands COMPOUND (it lists ONLY those with
+  both > 0) — the highest continuity priority (safe passage + revitalization together). Aggregate,
+  collective-scale (no individual / location / person-tracking, G1); reads the on-read integrals
+  (G2, no stored score). Takes an `analyze` result + nodes; returns
+  [collective jeopardy continuity fragility label] by jeopardy descending."
+  ([analysis nodes] (double-jeopardy analysis nodes 20))
+  ([analysis nodes limit]
+   (let [continuity (get analysis "continuity" {})
+         fragility (get analysis "fragility" {})
+         ids (distinct (concat (keys continuity) (keys fragility)))]
+     (->> ids
+          (keep (fn [id]
+                  (let [c (double (get continuity id 0.0))
+                        f (double (get fragility id 0.0))
+                        j (* c f)]
+                    (when (pos? j)
+                      [id j c f (get-in nodes [id ":organism/label"] id)]))))
+          (sort-by (fn [[_ j _ _ _]] (- j)))
+          (take limit)
+          vec))))
+
 (defn- omap-items
   "Items of an ordered-map in first-touch order (falls back to seq order if no ::order)."
   [d]
