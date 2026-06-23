@@ -913,7 +913,7 @@
  {:doc/id "doc:dk-vilkaar" :doc/label "DK abonnementsvilkår (synthetic)"
   :doc/jurisdiction :dk
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "Selskabet fraskriver sig ethvert ansvar for tab. Abonnementet forlænges automatisk med et år."}
+  :doc/text "Selskabet fraskriver sig ethvert ansvar for tab. Abonnementet forlænges automatisk med et år. Ved forsinket betaling påløber en morarente på 30 procent årligt. Den erhvervsdrivende kan ændre vilkårene ensidigt uden gyldig grund."}
 
  {:doc/id "doc:fi-ehdot" :doc/label "FI sopimusehdot (synthetic)"
   :doc/jurisdiction :fi

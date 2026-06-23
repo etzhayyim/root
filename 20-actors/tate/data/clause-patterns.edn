@@ -563,6 +563,22 @@
   :clause/anchor "forbrugeraftaleloven §28 (拘束5か月経過後は1か月通知で解約可 — 長期ロックは効かない)"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ {:clause/id "cl:dk-hoj-morarente" :clause/label "過大な遅延利息 (lovbestemt sats)"
+  :clause/jurisdiction :dk
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["morarente på 30 procent"]
+  :clause/anchor "renteloven §5 (morarente = Nationalbankens referencesats + 8 procent, fastsat 1. jan/1. juli) + §7 (i forbrugerforhold kan §§3-5 ikke fraviges til skade for forbrugeren) + aftaleloven §36 (urimeligt vilkår tilsidesættes)"
+  :clause/source-url "https://danskelove.dk/renteloven/5"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:dk-ensidig-aendring" :clause/label "正当理由なき一方的変更 (urimeligt vilkår)"
+  :clause/jurisdiction :dk
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["ændre vilkårene ensidigt uden gyldig grund"]
+  :clause/anchor "aftaleloven §38c jf. §36 (urimelige forbrugeraftalevilkår — fx ensidig ret for den erhvervsdrivende til at ændre vilkår/pris uden gyldig grund; tilsidesættes)"
+  :clause/source-url "https://danskelove.dk/aftaleloven/38c"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :fi — Suomi (G10) ────────────────────────────────────────────────────────
  {:clause/id "cl:fi-vastuunrajoitus" :clause/label "全部免責 (vastuunrajoitus)"
   :clause/jurisdiction :fi
