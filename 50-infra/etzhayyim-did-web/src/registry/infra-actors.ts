@@ -838,6 +838,28 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
     adrs: ["2606171800"],
   },
+  kizuna: {
+    description:
+      "絆 — actor-to-actor ATProto social-interaction self-evolution + system-of-systems optimization. The INTERNAL-actor sibling of kaname 要 (which runs SoS leverage over EXTERNAL-entity mirrors): kizuna reads etzhayyim's own actors interacting over the ATProto social protocol (follow / mention / like / post via XRPC) as a multiplex social graph, computes SoS metrics over that actor society (integration, 相互 reciprocity, exact-Brandes betweenness → the 律速 bridge actor, isolated set), and feeds per-actor GROWTH signals + dry-run tie PROPOSALS back into the loop so the collective optimizes its own flow (系流最適化). G1 PROPOSE-not-act: every tie is :status :dry-run / :route :ossekai — there is NO execute/auto-follow; actuation is ossekai + member CACAO leash (no-server-key). G2 reciprocity-positive, ANTI-addiction: the objective is :connectivity+reciprocity, NEVER engagement/retention/affinity (Charter §1.13 / Rider §2(h)). G3 agent-only: a :person/* node is unrepresentable (person-excluded). Per ADR-2606232200.",
+    glyph: "絆",
+    displayName:
+      "Kizuna — Actor-Social Self-Evolution + System-of-Systems Optimization",
+    primaryLexicon: "com.etzhayyim.kizuna",
+    primarySchema: "20-actors/kizuna/data/seed-interactions.kotoba.edn",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:kizuna#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:kizuna#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606232200"],
+  },
 } as const;
 
 // Merged registry: generated Tier-B actors (from manifests) + hand-authored

@@ -1,0 +1,24 @@
+{
+  "@context": "https://www.w3.org/ns/did/v1",
+  "id": "did:web:etzhayyim.com:actor:kizuna",
+  "name": "Kizuna 絆",
+  "glyph": "絆",
+  "summary": "Actor-to-actor ATProto social-interaction self-evolution + system-of-systems optimization. Reads etzhayyim's own actors interacting (follow/mention/like/post via XRPC) as a multiplex social graph, computes SoS metrics (integration, 相互 reciprocity, Brandes betweenness → 律速 actor, isolated set), and feeds growth signals + dry-run tie proposals back into the loop (系流最適化).",
+  "status": "r0",
+  "kind": "actor",
+  "agentCentric": true,
+  "primaryLexicon": "com.etzhayyim.kizuna",
+  "primarySchema": "20-actors/kizuna/data/seed-interactions.kotoba.edn",
+  "adr": ["2606232200", "2606232100"],
+  "siblings": ["kaname", "ibuki", "ossekai"],
+  "gates": {
+    "G1": "PROPOSE-not-act — :tie/proposed (:dry-run / :ossekai); no execute/auto-follow; actuation via ossekai + member CACAO (no-server-key)",
+    "G2": "RECIPROCITY-positive, ANTI-addiction — objective :connectivity+reciprocity, never engagement/retention/affinity (§1.13 / §2(h))",
+    "G3": "AGENT-only — :person/* node unrepresentable (person-excluded)",
+    "G4": "no-server-key — reads public repos + proposes; holds no key"
+  },
+  "entrypoints": {
+    "beat": "bb -cp 20-actors -m kizuna.methods.kizuna <seed.edn>",
+    "test": "bb -cp 20-actors -m kizuna.tests.test-kizuna"
+  }
+}
