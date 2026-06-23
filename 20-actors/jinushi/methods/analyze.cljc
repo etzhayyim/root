@@ -194,6 +194,25 @@
                 :per-country per-country}
      :return-candidates ret})))
 
+(defn owner-type-concentration
+  "Global holder-TYPE breakdown of the acquired land: the worldwide area held by each :owner/type
+  (:public :private :ngo :cooperative :unknown) with each type's share of the total. This is the
+  STRUCTURAL 'how much of what we have mapped sits in PRIVATE hands vs already-commons (public /
+  cooperative / ngo)' view — the commons-return-relevant roll-up that the per-owner HHI (single
+  holders) and the per-country :by-country breakdown do not aggregate worldwide. A read-time
+  aggregate MAP, advisory only (G1/G2/G3 — owners are types, never persons; jinushi proposes
+  RETURN-to-commons but only the on-chain LandRegistry moves land). Takes an `analyze` result;
+  returns [{:type :area-m2 :share} …] sorted by area desc."
+  [analysis]
+  (let [by-type (reduce (fn [m [_ cc]]
+                          (reduce (fn [m [t a]] (update m t (fnil + 0.0) a)) m (:owner-types cc)))
+                        {} (:by-country analysis))
+        total (reduce + 0.0 (vals by-type))]
+    (->> by-type
+         (map (fn [[t a]] {:type t :area-m2 a :share (if (pos? total) (/ a total) 0.0)}))
+         (sort-by (fn [{:keys [area-m2 type]}] [(- area-m2) (str type)]))
+         vec)))
+
 #?(:clj
    (defn -main [& argv]
      (let [here (or (some-> (when (and *file* (not= *file* "NO_SOURCE_PATH")) (io/file *file*)) .getParentFile .getParentFile) (io/file "20-actors/jinushi"))
