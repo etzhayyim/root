@@ -865,7 +865,7 @@
  {:doc/id "doc:no-vilkar" :doc/label "NO abonnementsvilkår (synthetic)"
   :doc/jurisdiction :no
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "Selskapet fraskriver seg ethvert ansvar for tap. Abonnementet fornyes automatisk hvert år."}
+  :doc/text "Selskapet fraskriver seg ethvert ansvar for tap. Abonnementet fornyes automatisk hvert år. Ved forsinket betaling påløper forsinkelsesrente på 30 prosent per år. Disse vilkårene fraviker forbrukerkjøpsloven til ugunst for forbrukeren."}
 
  {:notice/id "ntc:no-forlik" :notice/label "NO innkalling til forliksrådet (brev)"
   :notice/jurisdiction :no
