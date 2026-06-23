@@ -2001,6 +2001,20 @@
   :proc/refer-when ["事由が複雑・desalojo ilegal → abogado / Defensoría Pública / PROFECO (consumo)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:mx-enforcement" :proc/label "Embargo de salario (賃金差押え・執行・メキシコ)"
+  :proc/jurisdiction :mx :proc/track :enforcement
+  :proc/trigger-keywords ["embargo de salario" "embargo de sueldo" "descuento de salario" "embargo de remuneraciones"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Embargo de salario への対応"
+    :dl/rule "原則 salario は embargable でない (LFT art.112) — salario mínimo は inembargable で、唯一の例外は pensión alimenticia (art.110 fracc.V)。民事・商事債務では SCJN の判例上、salario mínimo を超える excedente についてのみ、かつ原則その30%まで embargo 可。pensión alimenticia では excedente の全部に及びうる。descuentos も salario mínimo 超過分の30%が上限 (art.110)。上限超過の embargo には juez へ異議・tercería を申立てられる"
+    :dl/anchor "Ley Federal del Trabajo art. 112 (inembargabilidad) + art. 110 (30% del excedente) + jurisprudencia SCJN" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :oposicion :opt/kind :self-submit :opt/protective true :opt/label "salario mínimo inembargable・excedente の30%上限を超える embargo には juez へ異議を提出 (pensión alimenticia を除く)"}
+   {:opt/id :verify :opt/kind :self-decide :opt/protective true :opt/label "descuento/embargo が salario mínimo 床・excedente の30%上限を超えていないか empleador/expediente で確認"}]
+  :proc/refer-when ["保護額を侵害・pensión alimenticia・複数 embargo → abogado / Defensoría Pública / PROFEDET"]
+  :proc/verify-current-law true}
+
  ;; ── :no ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:no-husleie" :proc/label "Oppsigelse av leieforhold (住居・ノルウェー)"
   :proc/jurisdiction :no :proc/track :housing

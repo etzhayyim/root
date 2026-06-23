@@ -837,6 +837,12 @@
   :notice/sourcing :synthetic
   :notice/text "Se le notifica una demanda de desahucio sobre el arrendamiento inmobiliario. Puede presentar su contestación dentro del plazo legal."}
 
+ {:notice/id "ntc:mx-enforcement" :notice/label "MX orden de embargo de salario (patrón・notificación)"
+  :notice/jurisdiction :mx
+  :notice/channel :formal-service :notice/claim-amount 30000 :notice/claim-currency "MXN"
+  :notice/sourcing :synthetic
+  :notice/text "Orden de embargo de salario dirigida a su patrón para descontar de su sueldo."}
+
  {:notice/id "ntc:us-term" :notice/label "US notice of termination (letter・労働)"
   :notice/jurisdiction :us
   :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "USD"
