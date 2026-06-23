@@ -177,6 +177,14 @@
   :clause/source-url "https://www.legislation.gov.uk/ukpga/2015/15/section/31"
   :clause/route :referral :clause/verify-current-law true}
 
+ {:clause/id "cl:uk-unilateral-variation" :clause/label "正当理由なき一方的変更 (grey list)"
+  :clause/jurisdiction :uk
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["alter the terms of the contract unilaterally without a valid reason"]
+  :clause/anchor "Consumer Rights Act 2015 Sch 2 para 11 (a term enabling the trader to alter the terms of the contract unilaterally without a valid reason which is specified in the contract — grey list) / s.62 (fairness)"
+  :clause/source-url "https://www.legislation.gov.uk/ukpga/2015/15/schedule/2/enacted"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :de — Deutschland (G10) ─────────────────────────────────────────────────
  {:clause/id "cl:de-price-increase" :clause/label "短期の一方的値上げ条項"
   :clause/jurisdiction :de
