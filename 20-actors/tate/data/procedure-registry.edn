@@ -106,10 +106,10 @@
   :proc/deadline-rules
   [{:dl/label "賃貸人からの解約申入れの要件"
     :dl/rule "6か月前の申入れ + 正当事由が必要 — 通知だけで退去義務は生じない"
-    :dl/anchor "借地借家法27条・28条" :dl/verify-service-date true}
+    :dl/anchor "借地借家法27条・28条" :dl/source-url "https://laws.e-gov.go.jp/law/403AC0000000090" :dl/verify-service-date true}
    {:dl/label "法定更新"
     :dl/rule "期間満了後も使用を継続し賃貸人が遅滞なく異議を述べなければ法定更新"
-    :dl/anchor "借地借家法26条" :dl/verify-service-date true}]
+    :dl/anchor "借地借家法26条" :dl/source-url "https://laws.e-gov.go.jp/law/403AC0000000090" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :check-seitou-jiyuu :opt/kind :self-decide :opt/label "正当事由・立退料提示の有無を確認 (28条は立退料を考慮要素とする)"}
    {:opt/id :keep-paying :opt/kind :self-decide :opt/label "賃料は払い続ける (受領拒否なら供託) — 債務不履行を作らない"}
@@ -125,10 +125,10 @@
   :proc/deadline-rules
   [{:dl/label "執行抗告"
     :dl/rule "差押命令の送達から1週間以内に執行抗告が可能"
-    :dl/anchor "民事執行法10条2項" :dl/verify-service-date true}
+    :dl/anchor "民事執行法10条2項" :dl/source-url "https://laws.e-gov.go.jp/law/354AC0000000004" :dl/verify-service-date true}
    {:dl/label "差押禁止の範囲 (生活保護)"
     :dl/rule "給与は手取りの3/4が差押禁止 (33万円を超える部分は別) — 生活維持分は法律上守られている"
-    :dl/anchor "民事執行法152条" :dl/verify-service-date true}]
+    :dl/anchor "民事執行法152条" :dl/source-url "https://laws.e-gov.go.jp/law/354AC0000000004" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :hani-henkou :opt/kind :self-submit :opt/protective true
     :opt/label "生活が困難なら差押禁止債権の範囲変更を申立て (民執153条) — 法定の権利であり債務逃れではない"}
