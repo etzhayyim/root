@@ -532,6 +532,22 @@
   :clause/anchor "markedsføringsloven / Forbrukertilsynet の自動更新ガイドライン (事前通知・容易な解約)"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ {:clause/id "cl:no-hoy-forsinkelsesrente" :clause/label "過大な遅延利息 (lovbestemt sats)"
+  :clause/jurisdiction :no
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["forsinkelsesrente på 30 prosent"]
+  :clause/anchor "forsinkelsesrenteloven (lov 1976-12-17-100) §3 (forsinkelsesrenten fastsettes av Finansdepartementet halvårlig = Norges Banks styringsrente + minst 8 prosentpoeng) + avtaleloven §36 (urimelig vilkår lempes)"
+  :clause/source-url "https://lovdata.no/lov/1976-12-17-100"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:no-fravik-forbrukerkjopsloven" :clause/label "消費者法からの不利な逸脱 (ufravikelig)"
+  :clause/jurisdiction :no
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["fraviker forbrukerkjøpsloven til ugunst for forbrukeren"]
+  :clause/anchor "forbrukerkjøpsloven (lov 2002-06-21-34) §3 (loven kan ikke fravikes ved avtale til ugunst for forbrukeren — slikt vilkår er ugyldig)"
+  :clause/source-url "https://lovdata.no/lov/2002-06-21-34"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :dk — Danmark (G10) ──────────────────────────────────────────────────────
  {:clause/id "cl:dk-ansvarsfraskrivelse" :clause/label "全部免責 (ansvarsfraskrivelse)"
   :clause/jurisdiction :dk
