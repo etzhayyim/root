@@ -36,8 +36,13 @@
                    g ((resolve 'etzhayyim.actor-publish/manifest->genesis) a m)]
                (println ((resolve 'etzhayyim.kotoba-rad/rad-uri) g))))}
 
+  actor:keygen
+  {:doc "Generate an Ed25519 member key for an actor (kotoba-rad sovereign signing). Prints pub-hex + did:key. DRY-RUN prints the priv (not stored); --apply stores it in macOS Keychain (service etzhayyim.kotoba-rad). no-server-key: this is the MEMBER key. Args: <name> [--apply]"
+   :task (do (require 'etzhayyim.kotoba-rad-sign)
+             (apply (resolve 'etzhayyim.kotoba-rad-sign/-keygen) *command-line-args*))}
+
   test:kotoba-rad
-  {:doc "kotoba-rad sovereign-identity invariants (ADR-2606231200): did:key convention, RID content-addressing, did.json 3-identity cross-link, append-only/idempotent publish."
+  {:doc "kotoba-rad sovereign-identity invariants (ADR-2606231200): did:key convention, RID content-addressing, did.json 3-identity cross-link, append-only/idempotent publish, Ed25519 sign/verify + CID base32 parity."
    :task (do (require 'etzhayyim.test-kotoba-rad)
              (apply (resolve 'etzhayyim.test-kotoba-rad/-main) *command-line-args*))}
 

@@ -22,7 +22,8 @@
             [clojure.java.io :as io]
             [cheshire.core :as json]
             [babashka.process :as p]
-            [etzhayyim.kotoba-rad :as rad]))
+            [etzhayyim.kotoba-rad :as rad]
+            [etzhayyim.kotoba-rad-sign :as rad-sign]))
 
 (def org "etzhayyim")
 (defn repo-name [actor] (str "com-" org "-" actor))
@@ -102,15 +103,21 @@
               {:planned (not apply?) :cmd ["write" out (str (count (str doc)) "B")]})
     {:genesis genesis :did-doc-path out}))
 
-(defn step-kotoba-rad [actor genesis apply?]
-  ;; no signer wired here (no-server-key): unsigned in dry-run / pilot.
-  (let [res (when apply? (rad/publish-identity! actor genesis {:sign-fn nil}))]
-    (log-step 4 (str "kotoba-rad RID " (rad/rid genesis))
+(defn step-kotoba-rad [actor genesis apply? pubkey-hex]
+  ;; no-server-key: a signer is built ONLY if the member's key is in Keychain
+  ;; (and the pubkey is known); otherwise publish unsigned (pilot/--no-network).
+  (let [sign-fn (when (and pubkey-hex apply?)
+                  (rad-sign/sign-fn-for-actor actor pubkey-hex))
+        res (when apply? (rad/publish-identity! actor genesis {:sign-fn sign-fn}))]
+    (log-step 4 (str "kotoba-rad RID " (rad/rid genesis)
+                     (cond apply? "" pubkey-hex " (will sign if key in Keychain)"
+                           :else " (unsigned: no --pubkey)"))
               (if res
                 {:exit 0 :out (str (:rad-uri res) " head=" (:head res)
                                    " signed=" (:signed? res))}
                 {:planned true :cmd ["kotoba-rad/publish-identity!" actor
-                                     (rad/rad-uri genesis)]}))
+                                     (rad/rad-uri genesis)
+                                     (if pubkey-hex "sign-if-keychain" "unsigned")]}))
     (assoc (or res {}) :rid (rad/rid genesis) :rad-uri (rad/rad-uri genesis))))
 
 (defn step-aozora
@@ -138,7 +145,7 @@
     (step-josh-split actor apply?)
     (step-gh-repo actor apply?)
     (let [{:keys [genesis]} (step-did-web actor manifest apply? pubkey-hex)
-          rad-res (step-kotoba-rad actor genesis apply?)
+          rad-res (step-kotoba-rad actor genesis apply? pubkey-hex)
           aoz (step-aozora actor genesis apply?)]
       (println (format "✔ %s  rad=%s  repo=%s  did=did:web:%s.etzhayyim.com\n"
                        actor (:rad-uri rad-res) (repo-name actor) actor))
