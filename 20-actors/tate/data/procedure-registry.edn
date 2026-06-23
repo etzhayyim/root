@@ -71,10 +71,10 @@
   :proc/deadline-rules
   [{:dl/label "審査請求"
     :dl/rule "処分があったことを知った日の翌日から起算して3月以内"
-    :dl/anchor "行政不服審査法18条1項" :dl/verify-service-date true}
+    :dl/anchor "行政不服審査法18条1項" :dl/source-url "https://laws.e-gov.go.jp/law/426AC0000000068" :dl/verify-service-date true}
    {:dl/label "取消訴訟"
     :dl/rule "処分があったことを知った日から6箇月以内"
-    :dl/anchor "行政事件訴訟法14条1項" :dl/verify-service-date true}]
+    :dl/anchor "行政事件訴訟法14条1項" :dl/source-url "https://laws.e-gov.go.jp/law/337AC0000000139" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :shinsa-seikyu :opt/kind :self-submit :opt/label "審査請求書の提出 (教示記載の審査庁へ)"}
    {:opt/id :chouki :opt/kind :self-decide :opt/label "聴聞・弁明の機会への対応 (通知に従う)"}]
