@@ -501,6 +501,9 @@
   {:doc "炙り aburi — build the WASM component (componentize-py) + report CID (operator step; ADR-2606014600)"
    :task (do (require 'aburi.tools.build)
              (apply (resolve 'aburi.tools.build/-main) *command-line-args*))}
+  himawari:build-wasm
+  {:doc "向日葵 himawari — build deploy/agent.cljc → deploy/agent.wasm via kotoba-clj, wasm-tools validate, wasmtime smoke (operator step; ADR-2606021200 R0.2)"
+   :task (load-file "20-actors/himawari/deploy/build_wasm.clj")}
   aburi:publish
   {:doc "炙り aburi — one-shot publish orchestrator; flags: --pin --deploy --kv --verify --all (operator; ADR-2606013800)"
    :task (do (require 'aburi.tools.publish)
