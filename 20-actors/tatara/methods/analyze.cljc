@@ -162,6 +162,33 @@
   (sort-by (fn [cp] [(- (count (get-in a [:choke-plants cp]))) (name cp)])
            (keys (:choke-plants a))))
 
+(defn cross-sector-chokepoints
+  "Per-COUNTRY cross-sector view: which countries are the dominant (top) source for the MOST
+  sectors at once, and which of those they are the single source for. The per-sector HHI surfaces
+  a fragile sector in isolation; this surfaces the country whose dominance SPANS many sectors —
+  the highest systemic REDUNDANCY / reshoring priority, which a per-sector ranking cannot show
+  (a country that tops only one sector with a huge share is less systemically concentrating than
+  one that tops five). Aggregate-first (country↔sector counts only — no facility/worker detail,
+  G4); a resilience/diversification map routed to redundancy, NEVER a target-list (G2). Ranked
+  [country dominates-count single-source-count sectors] by (single-source desc, dominates desc,
+  country)."
+  ([a] (cross-sector-chokepoints a 10))
+  ([a limit]
+   (->> (:sector-stats a)
+        (reduce (fn [m [sector st]]
+                  (if-let [c (:top-country st)]
+                    (-> m
+                        (update-in [c :dominates] (fnil conj []) sector)
+                        (cond-> (:single-source st)
+                          (update-in [c :single-source] (fnil conj []) sector)))
+                    m))
+                {})
+        (map (fn [[c {:keys [dominates single-source]}]]
+               [c (count dominates) (count (or single-source [])) (vec (sort-by name dominates))]))
+        (sort-by (fn [[c dom ss _]] [(- ss) (- dom) (str c)]))
+        (take limit)
+        vec)))
+
 (defn- fmt-num [x]
   (let [n (long x)] (str/replace (str n) #"\B(?=(\d{3})+(?!\d))" ",")))
 
