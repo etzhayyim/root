@@ -461,6 +461,8 @@ a{color:inherit}
 
 <p class="sub"><strong>${grandTotal}</strong> resolvable actors: ${named.length} named + ${infra.length} substrate services + <strong>${entityTotal}</strong> entity mirrors (below) + ${unispscTotal} UNSPSC agents. The named actors are the operators; the entity mirrors are the world they datafy, each given its own DID + profile + searchable presence.</p>
 
+<p class="sub">How this ecosystem grows autonomously — <strong>organism</strong> heartbeat (the living body) → <strong>kaname 要</strong> system-of-systems leverage (律速点 = argmax L) → <strong>ECL objective function</strong> J (子・孫 Wellbecoming への net 寄与で評価, not fixed 掟) — is visualized at <a href="/sos">/sos</a>. Live body feeds: <a href="/organism">/organism</a>.</p>
+
 <h2>Knowledge-graph &amp; Tier-B actors</h2>
 <p class="sub" id="kotoba-verify" data-enhance="actors-v1" hidden></p>
 ${namedCards}
