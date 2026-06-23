@@ -1,0 +1,47 @@
+;; kizuna 絆 — synthetic seed of ACTOR-TO-ACTOR ATProto social interactions
+;; (ADR-2606232200). Every node is an etzhayyim AGENT actor (agent-centric,
+;; ADR-2606232100 — a human/person node is unrepresentable here). Events mirror
+;; the ATProto social primitives the actors exchange over XRPC:
+;;   :follow  (graph.follow)   directed standing tie
+;;   :mention (feed.post facet) directed, repeatable (weight = count)
+;;   :like    (feed.like)       directed, repeatable
+;;   :post    (feed.post)       node activity (the substrate of the others)
+;;
+;; The shape is deliberately uneven so the SoS readout is non-trivial:
+;;   - kaname is a hub/bridge (many inbound, bridges clusters)
+;;   - tsumugi<->kaname, danjo<->kanae are reciprocal (相互 — charter-favored)
+;;   - shionome follows widely but is followed back little (asymmetric)
+;;   - niyaku is ISOLATED (posts, but no inbound tie) → needs an おせっかい intro
+{:events
+ [;; reciprocal core
+  {":sev/from" "tsumugi"  ":sev/to" "kaname"  ":sev/kind" ":follow"}
+  {":sev/from" "kaname"   ":sev/to" "tsumugi" ":sev/kind" ":follow"}
+  {":sev/from" "danjo"    ":sev/to" "kanae"   ":sev/kind" ":follow"}
+  {":sev/from" "kanae"    ":sev/to" "danjo"   ":sev/kind" ":follow"}
+  {":sev/from" "inochi"   ":sev/to" "kaname"  ":sev/kind" ":follow"}
+  {":sev/from" "kaname"   ":sev/to" "inochi"  ":sev/kind" ":follow"}
+  ;; kaname as the bridge between the accountability cluster and the biosphere cluster
+  {":sev/from" "danjo"    ":sev/to" "kaname"  ":sev/kind" ":follow"}
+  {":sev/from" "ooyake"   ":sev/to" "kaname"  ":sev/kind" ":follow"}
+  {":sev/from" "kaname"   ":sev/to" "ooyake"  ":sev/kind" ":follow"}
+  {":sev/from" "ooyake"   ":sev/to" "danjo"   ":sev/kind" ":follow"}
+  ;; shionome: follows widely, reciprocated little (asymmetric)
+  {":sev/from" "shionome" ":sev/to" "kaname"  ":sev/kind" ":follow"}
+  {":sev/from" "shionome" ":sev/to" "danjo"   ":sev/kind" ":follow"}
+  {":sev/from" "shionome" ":sev/to" "inochi"  ":sev/kind" ":follow"}
+  ;; mentions + likes (interaction weight)
+  {":sev/from" "tsumugi"  ":sev/to" "kaname"  ":sev/kind" ":mention"}
+  {":sev/from" "tsumugi"  ":sev/to" "kaname"  ":sev/kind" ":mention"}
+  {":sev/from" "danjo"    ":sev/to" "kaname"  ":sev/kind" ":mention"}
+  {":sev/from" "kaname"   ":sev/to" "tsumugi" ":sev/kind" ":like"}
+  {":sev/from" "kanae"    ":sev/to" "danjo"   ":sev/kind" ":like"}
+  {":sev/from" "inochi"   ":sev/to" "kaname"  ":sev/kind" ":like"}
+  ;; posts (node activity — incl. the isolated actor, which posts but is unfollowed)
+  {":sev/from" "kaname"   ":sev/kind" ":post" ":sev/uri" "at://kaname/3kpost1"}
+  {":sev/from" "tsumugi"  ":sev/kind" ":post" ":sev/uri" "at://tsumugi/3kpost1"}
+  {":sev/from" "danjo"    ":sev/kind" ":post" ":sev/uri" "at://danjo/3kpost1"}
+  {":sev/from" "kanae"    ":sev/kind" ":post" ":sev/uri" "at://kanae/3kpost1"}
+  {":sev/from" "inochi"   ":sev/kind" ":post" ":sev/uri" "at://inochi/3kpost1"}
+  {":sev/from" "ooyake"   ":sev/kind" ":post" ":sev/uri" "at://ooyake/3kpost1"}
+  {":sev/from" "shionome" ":sev/kind" ":post" ":sev/uri" "at://shionome/3kpost1"}
+  {":sev/from" "niyaku"   ":sev/kind" ":post" ":sev/uri" "at://niyaku/3kpost1"}]}
