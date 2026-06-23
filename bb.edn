@@ -41,6 +41,11 @@
    :task (do (require 'etzhayyim.kotoba-rad-sign)
              (apply (resolve 'etzhayyim.kotoba-rad-sign/-keygen) *command-line-args*))}
 
+  actor:mesh
+  {:doc "ADR-2606230001 — kotoba mesh pipeline: discover cljc cells, static-analyse for compile blockers, generate kotoba.app.edn. Args: <actor-name> [--trigger on-http|on-kse|on-tick] [--dry-run] | --survey"
+   :task (do (require 'etzhayyim.actor-mesh)
+             (apply (resolve 'etzhayyim.actor-mesh/-main) *command-line-args*))}
+
   test:kotoba-rad
   {:doc "kotoba-rad sovereign-identity invariants (ADR-2606231200): did:key convention, RID content-addressing, did.json 3-identity cross-link, append-only/idempotent publish, Ed25519 sign/verify + CID base32 parity."
    :task (do (require 'etzhayyim.test-kotoba-rad)
