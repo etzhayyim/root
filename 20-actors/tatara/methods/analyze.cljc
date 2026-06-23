@@ -189,6 +189,25 @@
         (take limit)
         vec)))
 
+(defn sector-supply-diversity
+  "Per-sector supply RESILIENCE: the EFFECTIVE number of independent source countries a sector draws
+  on = 1 / its country HHI (the inverse-Simpson / Hill number — 4 equal source countries read as 4.0,
+  a single-source sector as 1.0). The risk lenses (the single-source flag, cross-sector-chokepoints)
+  surface where supply is FRAGILE; this surfaces where it is ROBUST — the resilience benchmark a
+  reshoring plan steers a concentrated sector toward (diversification, never interdiction, G2).
+  Aggregate-first (sector↔country-diversity, no facility/worker detail, G4). Ranked
+  [sector effective-sources hhi countries] by effective-sources descending (most diversified first)."
+  ([a] (sector-supply-diversity a 10))
+  ([a limit]
+   (->> (:sector-stats a)
+        (keep (fn [[sector st]]
+                (let [hhi (:hhi st)]
+                  (when (and hhi (pos? hhi))
+                    [sector (/ 1.0 hhi) hhi (:countries st)]))))
+        (sort-by (fn [[sector eff _ _]] [(- eff) (name sector)]))
+        (take limit)
+        vec)))
+
 (defn- fmt-num [x]
   (let [n (long x)] (str/replace (str n) #"\B(?=(\d{3})+(?!\d))" ",")))
 
