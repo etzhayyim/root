@@ -2428,6 +2428,20 @@
   :proc/refer-when ["Rechtsöffnung (異議排除) を申し立てられた場合"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:ch-insolvency" :proc/label "Forderungseingabe (債権者側・倒産・スイス)"
+  :proc/jurisdiction :ch :proc/track :insolvency
+  :proc/trigger-keywords ["Konkurs" "Forderungseingabe" "Schuldenruf" "Konkursamt"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "Forderungseingabe"
+    :dl/rule "Konkurseröffnung 後、Konkursamt は Schuldenruf を SHAB / 官報に公告し、Gläubiger に書面の Forderungseingabe を呼びかける (SchKG Art. 232)。期限は公告から1か月 (30日)。証拠書類を添付する (不十分なら Konkursamt が追加提出期限を設定 or 却下しうる)。有効な債権は Kollokationsplan で確定し20日間縦覧され、不服は20日以内に Kollokationsklage で争える。期限後の遅延 Eingabe も可能だが追加費用は債権者負担で、既了の中間配当には与れない"
+    :dl/anchor "SchKG Art. 232 (Schuldenruf, 1 Monat) + Art. 244-250 (Kollokationsplan)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :eingabe :opt/kind :self-submit :opt/protective true
+    :opt/label "Forderungseingabe を Konkursamt へ書面提出 (本人可; Anzahlung・Kaution・Gutschein など前払金も Forderung: kaiyaku 縁-ledger と突合)"}]
+  :proc/refer-when ["Pfandrecht・Verrechnung・hohe Forderung・Kollokationsklage (担保・相殺・高額債権)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:fr-divorce-assignation" :proc/label "Assignation en divorce (家事・フランス)"
   :proc/jurisdiction :fr :proc/track :family
   :proc/trigger-keywords ["assignation en divorce"]
