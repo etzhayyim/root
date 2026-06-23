@@ -124,7 +124,7 @@
  {:doc/id "doc:fr-abonnement" :doc/label "FR conditions générales d'abonnement (synthetic)"
   :doc/jurisdiction :fr
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "Nous déclinons toute responsabilité en cas de dommage. Le contrat est renouvelé par reconduction tacite pour une durée d'un an."}
+  :doc/text "Nous déclinons toute responsabilité en cas de dommage. Le contrat est renouvelé par reconduction tacite pour une durée d'un an. Le professionnel se réserve le droit de modifier unilatéralement le prix et les caractéristiques du service. En cas d'inexécution par le client, une indemnité d'un montant manifestement disproportionné sera exigible."}
 
  {:notice/id "ntc:kr-jigeup" :notice/label "지급명령 (法院送達)"
   :notice/jurisdiction :kr
