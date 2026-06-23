@@ -361,3 +361,27 @@
       {:permitted false
        :violation (:gate (ex-data e))
        :message #?(:clj (.getMessage e) :cljs (.-message e))})))
+
+(defn design-margins
+  "Feasibility headroom of a salinity-gradient design vs the three §1 gates — Δsalinity ≥ 30 g/L
+  (条件4 / G4), power-density ≥ 1.0 W/m² (条件6 R3 floor / G5), rated power ≤ 50 kW/site (条件9 / G6).
+  For each gate reports the absolute margin (how far inside the limit) and the RELATIVE margin
+  (margin ÷ the limit, so the three different-unit gates compare on one scale), names the BINDING
+  constraint (the smallest relative margin — the design's limiting factor), and whether the design is
+  feasible (every margin ≥ 0). A DESCRIPTIVE design-analysis over the SAME gates the assert-* fns
+  enforce — reported as headroom rather than thrown, so a near-limit OR infeasible design is legible
+  (a negative margin marks the violated gate). It only READS the gate constants; it never relaxes,
+  tunes, or weakens a gate (the floors/cap stay Tier-1). Takes the computed design metrics (the exact
+  keys a permitted `evaluate-site` result already carries); returns
+  {:salinity {:margin :relative} :power-density {…} :power {…} :binding-constraint k :feasible bool}."
+  [{:keys [salinity-diff-g-l power-density-w-m2 rated-kw]}]
+  (let [gates {:salinity      [(- salinity-diff-g-l min-salinity-diff-g-l) min-salinity-diff-g-l]
+               :power-density [(- power-density-w-m2 r3-power-density-floor) r3-power-density-floor]
+               :power         [(- max-kw-per-site rated-kw) max-kw-per-site]}
+        rows (into {} (for [[k [margin ref]] gates]
+                        [k {:margin margin :relative (/ margin ref)}]))]
+    {:salinity (:salinity rows)
+     :power-density (:power-density rows)
+     :power (:power rows)
+     :binding-constraint (key (apply min-key (comp :relative val) rows))
+     :feasible (every? #(>= (:margin %) 0.0) (vals rows))}))
