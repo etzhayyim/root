@@ -187,7 +187,7 @@
  {:doc/id "doc:nl-voorwaarden" :doc/label "NL algemene voorwaarden (synthetic)"
   :doc/jurisdiction :nl
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "Iedere aansprakelijkheid is uitgesloten. Het abonnement wordt stilzwijgend verlengd."}
+  :doc/text "Iedere aansprakelijkheid is uitgesloten. Het abonnement wordt stilzwijgend verlengd. Het recht op ontbinding van de overeenkomst is uitgesloten. De ondernemer mag de prestatie eenzijdig wijzigen."}
 
  {:doc/id "doc:br-termos" :doc/label "BR termos de uso (synthetic)"
   :doc/jurisdiction :br
