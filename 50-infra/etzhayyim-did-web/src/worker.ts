@@ -876,7 +876,7 @@ function isKnownHandle(handle: string): boolean {
   return true;
 }
 
-function buildPerActorDidDoc(handle: string, env: Env): Record<string, unknown> {
+export function buildPerActorDidDoc(handle: string, env: Env): Record<string, unknown> {
   const pathBasedDid = `did:web:etzhayyim.com:actor:${handle}`;
   const subdomainDid = `did:web:${handle}.etzhayyim.com`;
   const alsoKnownAs: string[] = [subdomainDid];
@@ -895,7 +895,32 @@ function buildPerActorDidDoc(handle: string, env: Env): Record<string, unknown> 
   // Default service[] (Phase α P1 — chain lookup placeholder). Infra
   // actors override this entirely with their declared service set
   // (PDS endpoint, libp2p Multiaddr, HTTPS legacy fallback).
+  //
+  // AGENT-CENTRIC registration (ADR-2606232100): only etzhayyim's own AGENT
+  // actors are registered ATProto repos. The `#atproto_pds` entry is what makes
+  // a resolvable DID a *registered* ATProto repo identity (relays/AppView index
+  // it; it can host app.bsky.feed.post records → its posts appear in the feed
+  // instead of only the high-volume external poster's). It declares WHERE the
+  // repo lives; it does NOT mint a signing key (verificationMethod stays empty /
+  // on-chain-mirrored) and does NOT enable server-side posting — writes stay
+  // self-`did:key` + CACAO leash (no-server-key, ADR-2606072802).
+  //
+  // It is added ONLY for namespaced AGENT handles (`registered` = unispsc /
+  // entity-shape agents). Free-form handles are council seats / human members
+  // (per isKnownHandle Phase α) — humans are NOT posting actors on etzhayyim
+  // (agent-centric: etzhayyim is, for now, exclusively its own actors), so they
+  // get the authz resolver only and NO PDS. Hand-authored infra/Tier-B agents
+  // take the override branch (their own service[] already carries #atproto_pds).
   const defaultService: Record<string, unknown>[] = [
+    ...(registered
+      ? [
+          {
+            id: `${pathBasedDid}#atproto_pds`,
+            type: "AtprotoPersonalDataServer",
+            serviceEndpoint: "https://pds.etzhayyim.com",
+          },
+        ]
+      : []),
     {
       id: `${pathBasedDid}#etzhayyim-authz`,
       type: "EtzhayyimAuthzResolver",
