@@ -210,6 +210,25 @@
      (with-meta per {::order order})
      (with-meta evidence {::order order})]))
 
+(defn score-contributions
+  "Decompose a candidate's DD fit into PER-CRITERION contributions: weight_c × min(1, evidence_c), the
+  amount each rubric criterion adds to the total `dd-fit` score (the fit is exactly the SUM of these).
+  It names WHICH criteria drove the score — mission-fit vs openness vs additionality — so a voter can
+  SEE why a candidate scored as it did, the transparency the public-weights rubric exists for (G4;
+  voters verify the bytes). Advisory detail on the advisory scorecard — a 参考意見 decomposition over
+  DISCLOSED weights + evidence, never a verdict on the org's worth (G3) and never the decision (G1 —
+  the vote decides, 1 SBT = 1 vote). Takes the rubric `crit` (from `criteria`, whose values carry the
+  criterion's weight/code/label) + the `per` evidence map from `dd-fit`; returns
+  [criterion contribution weight code label] by contribution descending."
+  [crit per]
+  (->> crit
+       (map (fn [[c node]]
+              (let [w (->float (get node ":criterion/weight"))
+                    met (min 1.0 (double (get per c 0.0)))]
+                [c (* w met) w (get node ":criterion/code") (get node ":fs/label" c)])))
+       (sort-by (fn [[_ contrib _ _ _]] (- contrib)))
+       vec))
+
 (defn- round6 [v] (/ (Math/rint (* (double v) 1000000.0)) 1000000.0))
 
 (defn recommend-route
