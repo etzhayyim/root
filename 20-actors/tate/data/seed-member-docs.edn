@@ -1098,7 +1098,7 @@
  {:doc/id "doc:pt-condicoes" :doc/label "PT condições gerais (synthetic)"
   :doc/jurisdiction :pt
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "Exclui-se qualquer responsabilidade por danos. O contrato tem renovação automática anual."}
+  :doc/text "Exclui-se qualquer responsabilidade por danos. O contrato tem renovação automática anual. É prevista uma cláusula penal desproporcionada aos danos a ressarcir. O predisponente pode alterar unilateralmente os termos do contrato."}
 
  {:notice/id "ntc:at-zb" :notice/label "AT Zahlungsbefehl (Zustellung)"
   :notice/jurisdiction :at

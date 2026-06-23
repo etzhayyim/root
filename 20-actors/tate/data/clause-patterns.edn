@@ -622,6 +622,22 @@
   :clause/anchor "DL 446/85 (cláusulas contratuais gerais) — 黙示更新条項は相対的禁止類型として争いうる"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ {:clause/id "cl:pt-penalidade-desproporcionada" :clause/label "不均衡な違約金 (cláusula relativamente proibida)"
+  :clause/jurisdiction :pt
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["cláusula penal desproporcionada aos danos"]
+  :clause/anchor "Decreto-Lei 446/85 art. 19 c) (cláusulas penais desproporcionadas aos danos a ressarcir — relativamente proibida, aplicável a consumidores; nula)"
+  :clause/source-url "https://diariodarepublica.pt/dr/legislacao-consolidada/decreto-lei/1985-34436475"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:pt-alteracao-unilateral" :clause/label "一方的契約変更 (relações com consumidores)"
+  :clause/jurisdiction :pt
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["alterar unilateralmente os termos do contrato"]
+  :clause/anchor "Decreto-Lei 446/85 art. 22 (relações com consumidores — cláusula que atribui ao predisponente o direito de alterar unilateralmente os termos do contrato; relativamente proibida, nula)"
+  :clause/source-url "https://diariodarepublica.pt/dr/legislacao-consolidada/decreto-lei/1985-34436475"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :pl — Polska (G10) ───────────────────────────────────────────────────────
  {:clause/id "cl:pl-niedozwolona" :clause/label "全部免責 (klauzula niedozwolona)"
   :clause/jurisdiction :pl
