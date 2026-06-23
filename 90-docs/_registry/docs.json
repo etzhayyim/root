@@ -26245,7 +26245,8 @@
       ],
       "related": [
         "adr-2605302356-kotoba-langgraph-llm-verified",
-        "adr-2605301625-kotoba-actor-deploy-murakumo-live"
+        "adr-2605301625-kotoba-actor-deploy-murakumo-live",
+        "com-junkawasaki/kototama ADR-0001 (canonical unified Clojure->WASM runtime; path dep on kotoba-clj)"
       ],
       "supersedes": [],
       "superseded_by": [],
