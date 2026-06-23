@@ -1187,7 +1187,7 @@
  {:doc/id "doc:cn-tos" :doc/label "CN 服务条款 (synthetic)"
   :doc/jurisdiction :cn
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "因使用本服务造成的任何损失，本公司概不负责。本服务到期后自动续费。"}
+  :doc/text "因使用本服务造成的任何损失，本公司概不负责。本服务到期后自动续费。本协议加重消费者责任。本格式条款排除消费者主要权利。"}
 
  {:notice/id "ntc:cn-zhifuling" :notice/label "支付令 (法院送达)"
   :notice/jurisdiction :cn
