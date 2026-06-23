@@ -811,7 +811,7 @@
  {:doc/id "doc:mx-terminos" :doc/label "MX términos y condiciones (synthetic)"
   :doc/jurisdiction :mx
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "No nos hacemos responsables por daños. El plan tiene renovación automática anual."}
+  :doc/text "No nos hacemos responsables por daños. El plan tiene renovación automática anual. El proveedor puede modificar unilateralmente el contenido del contrato. El contrato obliga al consumidor a renunciar a la protección de esta ley y a someterse a tribunales extranjeros."}
 
  {:notice/id "ntc:mx-empl" :notice/label "MX emplazamiento (actuario)"
   :notice/jurisdiction :mx
