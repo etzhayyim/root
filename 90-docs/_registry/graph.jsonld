@@ -16543,6 +16543,57 @@
       "lastVerified": "2026-06-23"
     },
     {
+      "id": "doc:adr-2606231808-sos-self-growth-visualization",
+      "type": "TechArticle",
+      "title": "ADR-2606231808: /sos — 自律成長の3層可視化 (organism 身体 × kaname 要 SoS × ECL 目的関数 J)",
+      "status": "accepted",
+      "topic": "sos-self-growth-visualization",
+      "authoritative": true,
+      "lastVerified": "2026-06-23"
+    },
+    {
+      "id": "doc:adr-2606232100-atproto-actor-registration-root-and-subdids",
+      "type": "TechArticle",
+      "title": "ADR-2606232100: ATProto actor registration for the root entity + every per-actor / sub-DID",
+      "status": "proposed",
+      "topic": "atproto-actor-registration",
+      "authoritative": true,
+      "authoritativeFor": [
+        "atproto-actor-registration"
+      ],
+      "related": "doc:adr-2606072802",
+      "lastVerified": "2026-06-23"
+    },
+    {
+      "id": "doc:adr-2606232130-apex-feed-curation-quarantine-boost-own",
+      "type": "TechArticle",
+      "title": "ADR-2606232130: apex home/discover feed curation — quarantine EXCLUDE'd externals + boost own actors",
+      "status": "proposed",
+      "topic": "apex-feed-curation",
+      "authoritative": true,
+      "authoritativeFor": [
+        "apex-feed-curation"
+      ],
+      "related": "doc:adr-2606211752",
+      "lastVerified": "2026-06-23"
+    },
+    {
+      "id": "doc:adr-2606232200-kizuna-actor-social-self-evolution-sos",
+      "type": "TechArticle",
+      "title": "ADR-2606232200: kizuna 絆 — actor-to-actor ATProto social-interaction self-evolution + SoS optimization",
+      "status": "proposed",
+      "topic": "kizuna-actor-social-sos",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/kizuna"
+      ],
+      "related": [
+        "doc:adr-2605264000",
+        "doc:adr-2606211752"
+      ],
+      "lastVerified": "2026-06-23"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
