@@ -1,7 +1,7 @@
 {
   "actor": "tate",
   "kind": "coverage-digest",
-  "cid": "bafkreie6gvzuppb7wogntcq7sfzind44gyh3huhvsh4ef6cbvgl4h33m2e",
+  "cid": "bafkreicbeksjef2gvuj2rlhd4aqinr3aia3wbuv5r5jgzyfrnnjfkm2yfq",
   "g1": "member-data-free (aggregate-only)",
   "_meta": {
     "source": "tate coverage_report (registries only; never seed-member-docs)",
@@ -15,7 +15,7 @@
   },
   "digest": {
     "un_member_states": 193,
-    "clause_source_url_count": 44,
+    "clause_source_url_count": 46,
     "procedures_by_jurisdiction": {
       ":ar": 6,
       ":at": 6,
@@ -61,7 +61,7 @@
       ":us 州レベル: 全50州収載 — 次の課題は改正追跡 (:verify-current-law) と DC/準州",
       "専門トラック: :labor 29 / :housing 29 / :enforcement 29 / :insolvency 29 / :family 29 件 — 計画トラックは全て開削済み; 次の深化は各トラックの管轄横展開 (多くは jp/us/de の3管轄のみ)",
       "全管轄に専門トラックあり (:eu は越境 instruments のみで対象外)",
-      ":source-url 出典: clause 44/116 + proc 7/181 に一次ソース URL を記録 — 残りは anchor のみ (worklist; 一次ソース検証後に付与、推測 URL は入れない G10)",
+      ":source-url 出典: clause 46/118 + proc 7/181 に一次ソース URL を記録 — 残りは anchor のみ (worklist; 一次ソース検証後に付与、推測 URL は入れない G10)",
       ":eu は越境 instruments のみ (加盟国国内法は各国エントリで個別収載)",
       "刑事手続は全管轄でスコープ外 (N6 — 即時弁護士照会のみ)"
     ],
@@ -304,7 +304,7 @@
         ":labor": 1
       }
     },
-    "clause_total": 116,
+    "clause_total": 118,
     "critical_deadline_count": 31,
     "coverage_ratio": 0.1554,
     "kind": "coverage-digest",
@@ -319,7 +319,7 @@
       ":ch": 4,
       ":cn": 4,
       ":de": 4,
-      ":dk": 2,
+      ":dk": 4,
       ":es": 4,
       ":eu": 2,
       ":fi": 2,
