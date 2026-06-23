@@ -1558,6 +1558,20 @@
   :proc/refer-when ["高額・渉外要素 → Rechtsanwalt"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:at-insolvency" :proc/label "Forderungsanmeldung (債権者側・倒産・オーストリア)"
+  :proc/jurisdiction :at :proc/track :insolvency
+  :proc/trigger-keywords ["Forderungsanmeldung" "Insolvenzverwalter" "Prüfungstagsatzung" "Insolvenzedikt"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "Forderungsanmeldung"
+    :dl/rule "Gläubiger は Insolvenzedikt (Ediktsdatei) に定める Anmeldefrist 内に Forderungsanmeldung を zuständiges Landesgericht へ提出する。Anmeldefrist は通常 allgemeine Prüfungstagsatzung の14日前に終わる (概ね6〜8週間)。Prüfungstagsatzung で Insolvenzverwalter が anerkannt/bestritten を判断。期限後の nachträgliche Anmeldung は Schlussrechnungstagsatzung の14日前まで可能だが €50+USt の費用 (besondere Prüfungstagsatzung) を要する (早期提出が不可能だった場合を除く)"
+    :dl/anchor "Insolvenzordnung (IO) §§ 102 ff. (Anmeldung) + Insolvenzedikt (Anmeldefrist)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :anmeldung :opt/kind :self-submit :opt/protective true
+    :opt/label "Forderungsanmeldung を Landesgericht へ提出 (本人可; Anzahlung・Kaution・Gutschein など前払金も Forderung: kaiyaku 縁-ledger と突合)"}]
+  :proc/refer-when ["besicherte Forderung・Aufrechnung・hohe Forderung (担保・相殺・高額債権)"]
+  :proc/verify-current-law true}
+
  ;; ── :pt ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:pt-penhora" :proc/label "Penhora de vencimentos (賃金差押え・執行・ポルトガル)"
   :proc/jurisdiction :pt :proc/track :enforcement
