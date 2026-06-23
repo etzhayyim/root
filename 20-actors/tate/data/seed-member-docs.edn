@@ -747,6 +747,12 @@
   :notice/sourcing :synthetic
   :notice/text "Se le notifica una petición de divorcio. Puede ofrecer su propia propuesta reguladora ante el juez de familia."}
 
+ {:notice/id "ntc:ar-enforcement" :notice/label "AR oficio de embargo de remuneraciones (empleador・cédula)"
+  :notice/jurisdiction :ar
+  :notice/channel :formal-service :notice/claim-amount 350000 :notice/claim-currency "ARS"
+  :notice/sourcing :synthetic
+  :notice/text "Oficio de embargo de remuneraciones dirigido a su empleador para descontar de su sueldo."}
+
  {:notice/id "ntc:kr-ihon" :notice/label "이혼 조정기일 통지서 (家事)"
   :notice/jurisdiction :kr
   :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "KRW"

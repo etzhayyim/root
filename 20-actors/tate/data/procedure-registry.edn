@@ -1736,6 +1736,20 @@
                     "kokoro 心 (精神的サポート — 家事事件は Wellbecoming 負荷が大きい)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:ar-enforcement" :proc/label "Embargo de remuneraciones (賃金差押え・執行・アルゼンチン)"
+  :proc/jurisdiction :ar :proc/track :enforcement
+  :proc/trigger-keywords ["embargo de sueldo" "embargo de remuneraciones" "embargo de salario" "oficio de embargo"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Embargo de remuneraciones への対応"
+    :dl/rule "remuneración は1 SMVM (salario mínimo vital y móvil) まで inembargable (Dec. 484/87 art.1; 月給と SAC 各回ごと)。SMVM を超える excedente のみ差押え可: 1〜2 SMVM の間は超過分の10%、2 SMVM 超は超過分の20% が上限。cuota alimentaria・litis expensas はこの一般制限の例外 (LCT arts.120/147・Dec.484/87 art.4) で、判事が alimentante の subsistencia を保ちつつ額を定める。上限超過の embargo には judge へ pedido de levantamiento/reducción を申立てられる"
+    :dl/anchor "Decreto 484/87 (art.1・art.4) + LCT arts. 120, 147" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :levantamiento :opt/kind :self-submit :opt/protective true :opt/label "1 SMVM inembargable・10%/20% escala を超える embargo には judge へ levantamiento/reducción を申立て"}
+   {:opt/id :verify :opt/kind :self-decide :opt/protective true :opt/label "descuento が 1 SMVM 床・excedente の10%/20% を超えていないか empleador/expediente で確認"}]
+  :proc/refer-when ["保護額を侵害・複数 embargo・cuota alimentaria → abogado / patrocinio jurídico gratuito"]
+  :proc/verify-current-law true}
+
  ;; ── :be ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:be-licenciement" :proc/label "Licenciement (解雇・労働・ベルギー)"
   :proc/jurisdiction :be :proc/track :labor
