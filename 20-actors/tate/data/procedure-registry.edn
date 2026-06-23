@@ -1472,7 +1472,7 @@
   :proc/deadline-rules
   [{:dl/label "Anwaltszwang (弁護士強制)"
     :dl/rule "Familiensachen は Familiengericht で弁護士強制 — 申立てに対抗する手続行為は本人では行えない (単に同意するだけなら自分の弁護士不要の場合あり); tate が雛形を出せない管轄類型であることを正直に開示"
-    :dl/anchor "FamFG §114" :dl/verify-service-date true}]
+    :dl/anchor "FamFG §114" :dl/source-url "https://www.gesetze-im-internet.de/famfg/" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :anwalt-sofort :opt/kind :self-decide
     :opt/label "速やかに Fachanwalt für Familienrecht へ (対抗には必須)"}
