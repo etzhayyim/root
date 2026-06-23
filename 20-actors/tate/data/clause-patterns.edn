@@ -725,4 +725,20 @@
   :clause/context :consumer :clause/risk :info
   :clause/keywords ["binding arbitration"]
   :clause/anchor "CPA 2019 + 判例法 — 仲裁条項があっても消費者委員会の管轄は排除されない (:us FAA とも :ca 無効とも異なる第3の帰結)"
-  :clause/route :info :clause/verify-current-law true}]
+  :clause/route :info :clause/verify-current-law true}
+
+ {:clause/id "cl:in-disproportionate-penalty" :clause/label "損害に不相当な違約罰 (unfair contract)"
+  :clause/jurisdiction :in
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["a penalty wholly disproportionate to the loss"]
+  :clause/anchor "Consumer Protection Act 2019 s.2(46)(ii) (penalty wholly disproportionate to the loss = unfair contract — Consumer Commission で争いうる)"
+  :clause/source-url "https://www.indiacode.nic.in/handle/123456789/15256?locale=en"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:in-unilateral-termination" :clause/label "正当理由なき一方的解約 (unfair contract)"
+  :clause/jurisdiction :in
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["terminate this contract unilaterally without reasonable cause"]
+  :clause/anchor "Consumer Protection Act 2019 s.2(46)(iv) (entitling a party to terminate unilaterally without reasonable cause = unfair contract)"
+  :clause/source-url "https://www.indiacode.nic.in/handle/123456789/15256?locale=en"
+  :clause/route :referral :clause/verify-current-law true}]
