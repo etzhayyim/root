@@ -978,7 +978,7 @@
  {:doc/id "doc:ie-terms" :doc/label "IE subscription terms (synthetic)"
   :doc/jurisdiction :ie
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "We accept no liability for any loss. Your plan will automatically renew each year."}
+  :doc/text "We accept no liability for any loss. Your plan will automatically renew each year. If you fail to perform you must pay a disproportionately high sum in compensation. We may alter the terms of this contract unilaterally without a valid reason."}
 
  {:doc/id "doc:ch-agb" :doc/label "CH AGB (synthetic)"
   :doc/jurisdiction :ch

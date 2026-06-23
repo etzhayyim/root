@@ -577,6 +577,22 @@
   :clause/anchor "Consumer Rights Act 2022 (transparency) — CCPC guidance; 解約窓のカレンダー化"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ {:clause/id "cl:ie-disproportionate-compensation" :clause/label "不均衡な補償 (indicative unfair term)"
+  :clause/jurisdiction :ie
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["pay a disproportionately high sum in compensation"]
+  :clause/anchor "Consumer Rights Act 2022 Sch 5 Part 1 item 5 (requiring a consumer who fails to fulfil their obligation to pay a disproportionately high sum in compensation — indicative unfair term)"
+  :clause/source-url "https://www.irishstatutebook.ie/eli/2022/act/37/schedule/5/enacted/en/html"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:ie-unilateral-variation" :clause/label "正当理由なき一方的変更 (indicative unfair term)"
+  :clause/jurisdiction :ie
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["alter the terms of this contract unilaterally without a valid reason"]
+  :clause/anchor "Consumer Rights Act 2022 Sch 5 Part 1 item 11 (enabling the trader to alter the terms of the contract unilaterally without a valid reason — indicative unfair term)"
+  :clause/source-url "https://www.irishstatutebook.ie/eli/2022/act/37/schedule/5/enacted/en/html"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :ch — Schweiz (G10) ──────────────────────────────────────────────────────
  {:clause/id "cl:ch-haftungsausschluss" :clause/label "全部免責 (ungewöhnliche AGB)"
   :clause/jurisdiction :ch
