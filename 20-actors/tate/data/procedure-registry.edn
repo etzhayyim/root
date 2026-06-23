@@ -348,7 +348,7 @@
   :proc/deadline-rules
   [{:dl/label "ACAS early conciliation → ET claim"
     :dl/rule "employment tribunal への claim は dismissal (EDT) から3か月マイナス1日以内が原則 — その前に ACAS early conciliation の通知が必須 (期間は EC で停止)"
-    :dl/anchor "Employment Rights Act 1996 s.111 / ETA 1996 (ACAS EC)" :dl/verify-service-date true}]
+    :dl/anchor "Employment Rights Act 1996 s.111 / ETA 1996 (ACAS EC)" :dl/source-url "https://www.legislation.gov.uk/ukpga/1996/18" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :acas-ec :opt/kind :self-submit :opt/protective true :opt/label "ACAS early conciliation に通知 (無料・必須の前置)"}
    {:opt/id :internal-appeal :opt/kind :self-submit :opt/label "社内 appeal を書面で (ACAS Code — 後の補償額にも影響)"}]
@@ -362,10 +362,10 @@
   :proc/deadline-rules
   [{:dl/label "通知の有効性確認"
     :dl/rule "s.21 (no-fault) は最低2か月の通知 + 形式要件 (deposit protection / EPC / gas safety 不備で無効になり得る); s.8 は ground に依存"
-    :dl/anchor "Housing Act 1988 ss.8/21 + Deregulation Act 2015" :dl/verify-service-date true}
+    :dl/anchor "Housing Act 1988 ss.8/21 + Deregulation Act 2015" :dl/source-url "https://www.legislation.gov.uk/ukpga/1988/50" :dl/verify-service-date true}
    {:dl/label "退去義務の発生時点"
     :dl/rule "退去義務は court の possession order + bailiff によってのみ生じる — 通知のみで退去する必要はない; 違法な追い出しは犯罪"
-    :dl/anchor "Protection from Eviction Act 1977" :dl/verify-service-date true}]
+    :dl/anchor "Protection from Eviction Act 1977" :dl/source-url "https://www.legislation.gov.uk/ukpga/1977/43" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :check-validity :opt/kind :self-decide :opt/label "通知の形式要件を点検 (不備なら無効主張の余地)"}
    {:opt/id :get-advice :opt/kind :self-decide :opt/label "Shelter / Citizens Advice の住宅相談 (無料)"}
@@ -577,7 +577,7 @@
   :proc/deadline-rules
   [{:dl/label "7 clear days"
     :dl/rule "enforcement agent は notice から7 clear days 経過後にのみ訪問できる — この間が支払交渉/controlled goods agreement の窓"
-    :dl/anchor "Tribunals, Courts and Enforcement Act 2007 Sch 12 / Taking Control of Goods Regs 2013" :dl/verify-service-date true}]
+    :dl/anchor "Tribunals, Courts and Enforcement Act 2007 Sch 12 / Taking Control of Goods Regs 2013" :dl/source-url "https://www.legislation.gov.uk/ukpga/2007/15" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :negotiate :opt/kind :self-decide :opt/label "7日以内に支払/分割を書面で交渉 (訪問費用の加算を防ぐ)"}
    {:opt/id :exempt-goods :opt/kind :self-decide :opt/protective true
