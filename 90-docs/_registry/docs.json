@@ -26254,7 +26254,7 @@
         "adr-2606014500-one-worker-many-wasm-actors",
         "adr-2606014600-wasm-actor-runtime"
       ],
-      "last_verified": "2026-06-22",
+      "last_verified": "2026-06-23",
       "amends": [],
       "amended_by": []
     },
@@ -28820,6 +28820,24 @@
       "supersedes": [],
       "superseded_by": [],
       "last_verified": "2026-03-20",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/spikes/2606230000-himawari-kotoba-clj-option-f-spike.md",
+      "id": "spike-2606230000-himawari-kotoba-clj",
+      "title": "Option F Spike — himawari cljc cells → kotoba-clj compiler",
+      "status": "active",
+      "doc_type": "explanation",
+      "topic": "himawari-wasm-build",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "90-docs/adr/2606222100-himawari-wasm-build-cljc-source-migration.md"
+      ],
+      "last_verified": "2026-06-23",
+      "supersedes": [],
+      "superseded_by": [],
       "amends": [],
       "amended_by": []
     },

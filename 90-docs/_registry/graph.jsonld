@@ -16539,7 +16539,7 @@
         "doc:adr-2605302356-kotoba-langgraph-llm-verified",
         "doc:adr-2605301625-kotoba-actor-deploy-murakumo-live"
       ],
-      "lastVerified": "2026-06-22"
+      "lastVerified": "2026-06-23"
     },
     {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
@@ -18427,6 +18427,16 @@
         "doc:security-crypto-agility-policy"
       ],
       "lastVerified": "2026-03-20"
+    },
+    {
+      "id": "doc:spike-2606230000-himawari-kotoba-clj",
+      "type": "Article",
+      "title": "Option F Spike — himawari cljc cells → kotoba-clj compiler",
+      "status": "active",
+      "topic": "himawari-wasm-build",
+      "authoritative": false,
+      "related": "doc:90-docs/adr/2606222100-himawari-wasm-build-cljc-source-migration.md",
+      "lastVerified": "2026-06-23"
     },
     {
       "id": "doc:transparency-ingress-disclosure-notice",
