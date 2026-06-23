@@ -428,7 +428,7 @@
     :dl/anchor "KSchG §4・§7" :dl/critical true :dl/verify-service-date true}
    {:dl/label "形式要件"
     :dl/rule "Kündigung は書面必須で電子形式は無効 — email/SMS のみの解雇通知は形式無効の疑い (書面を要求)"
-    :dl/anchor "BGB §623" :dl/verify-service-date true}]
+    :dl/anchor "BGB §623" :dl/source-url "https://www.gesetze-im-internet.de/bgb/" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :kuendigungsschutzklage :opt/kind :self-submit :opt/protective true
     :opt/label "Kündigungsschutzklage を Arbeitsgericht へ (1. Instanz は弁護士強制なし — 自分の雇用を守る防御)"}
@@ -443,10 +443,10 @@
   :proc/deadline-rules
   [{:dl/label "Widerspruch (Sozialklausel)"
     :dl/rule "賃貸借終了の2か月前までに書面で Widerspruch (Härtefall — 高齢・疾病・代替住居困難など)"
-    :dl/anchor "BGB §574・§574b" :dl/verify-service-date true}
+    :dl/anchor "BGB §574・§574b" :dl/source-url "https://www.gesetze-im-internet.de/bgb/" :dl/verify-service-date true}
    {:dl/label "Kündigung の要件"
     :dl/rule "賃貸人の Kündigung は berechtigtes Interesse (例 Eigenbedarf) + 書面 + 理由記載が必要 — 不備は無効主張の余地"
-    :dl/anchor "BGB §573・§568" :dl/verify-service-date true}]
+    :dl/anchor "BGB §573・§568" :dl/source-url "https://www.gesetze-im-internet.de/bgb/" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :widerspruch :opt/kind :self-submit :opt/label "書面で Widerspruch を賃貸人へ (期限内)"}
    {:opt/id :check-grounds :opt/kind :self-decide :opt/label "Eigenbedarf 等の理由の真実性を点検 (Mieterverein 相談)"}
