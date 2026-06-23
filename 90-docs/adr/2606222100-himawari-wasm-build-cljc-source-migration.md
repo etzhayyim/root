@@ -5,7 +5,7 @@ status: proposed
 doc_type: adr
 topic: himawari-wasm-build-cljc-source-migration
 authoritative: true
-last_verified: 2026-06-22
+last_verified: 2026-06-23
 priority: 4.5
 axis: architecture
 weight: 0.40
@@ -258,6 +258,118 @@ That spike unlocks the full py→cljc prune for the WASM build layer.
 | D — Keep Python for WASM (ADOPTED) | Pragmatic today: zero build risk, unblocks prune tracking, dual-source duplication accepted |
 | E — T1 Rust rewrite | Wrong target: T1 is for stateless browser-local actors; himawari is a stateful 7-cell LangGraph chain with host bindings |
 | F — kotoba-clj compiler (future) | Architecturally aligned: compiler exists and langgraph workstream is complete; but himawari-specific spike required to validate defgraph migration cost and Clojure-subset coverage |
+
+---
+
+## Option F spike (2026-06-23)
+
+**Empirical validation** of the kotoba-clj compiler against the actual himawari cljc cells.
+Full detail in `90-docs/spikes/2606230000-himawari-kotoba-clj-option-f-spike.md`.
+
+### What kotoba-clj is
+
+- A **Clojure/EDN-subset → WebAssembly compiler** (NOT an interpreter). Emits real WASM bytes.
+- `cargo check -p kotoba-clj` exits 0 in 14s. The `factorial` example builds and runs:
+  `compiled 223 bytes of wasm … n=5 fact=120`.
+- Langgraph workstream steps A–E all ✅ as claimed in the Option F description.
+- Stack values are i64; strings are packed `(offset << 32) | len` handles into linear memory.
+
+### Spike methodology
+
+Wrote 15 construct tests drawn directly from `cell_process/state_machine.cljc` and
+`panel_loading/state_machine.cljc` and compiled them through `kotoba_clj::compile_str`.
+Built and ran under `cargo run -p kotoba-clj --example himawari_spike`. A compile failure is
+a **finding**, not an error to suppress.
+
+### Constructs that PASS (compile OK)
+
+| Construct | Himawari use |
+|---|---|
+| `map-make`/`map-get`/`map-assoc!` (prelude) | All 7 cells — core state |
+| `loop`/`recur` | `run-sequential` in cell_process |
+| `case` | `transition-junction` arch dispatch |
+| `defgraph` DSL + `if-edge` conditional routing | Graph execution |
+| `vec-make`/`vec-conj!`/`vec-count` (prelude) | flags/signatures arrays |
+| `assoc` (lowers to `assoc!`) | state merging |
+| `count`, `into`, `keys`, `vals`, `contains-key?` | general prelude ops |
+| `abs` / `Math/abs` | `content-ref` (abs in subset) |
+| `cond->` threading macro | conditional flag building |
+| `=`, `>`, `>=`, `if`, `when`, `cond`, `let` | throughout |
+
+### Constructs that FAIL (blockers)
+
+| Construct | Error | Himawari use | Gap type |
+|---|---|---|---|
+| `str/join` | `unknown function clojure.string/join` | `content-ref`, gas error msgs, liberation-cid | Missing namespace |
+| `for` comprehension | `unknown function for` | gas-lines in transition-gas-abatement | Missing syntax |
+| `merge` | `unknown function merge arity 2` | `default-cell-state`, ALL transition results | Missing builtin |
+| `hash` | `unknown function hash` | `content-ref`, `liberation-cid` (ALL cells) | Missing JVM fn |
+| `bit-and`, `bit-or`, `bit-shift-*` | `unknown function bit-and` | Masking in `content-ref` | Bitwise ops absent from subset |
+| `mapv`, `map` (HOF), `filter` | `unbound symbol inc/pos?` | `transition-emit-record`, attesting-robots | HOF closures unsupported |
+| `str` multi-arg concat | `unknown function str arity 3` | Error/flag message building | Arity limit |
+| Set literal `#{}` | Reader error at `#` | `METALLIZATION_KNOWN`, `CELL_ARCH_KNOWN` | Reader not implemented |
+| `throw`/`ex-info` | (not tested, known missing) | G12 violations in panel_loading | JVM exception |
+| `sort` | `unknown function sort` | `liberation-cid` | Missing builtin |
+
+**Note**: `Math/abs` PASSES (abs is in the subset). `assoc` immutable PASSES (lowers to assoc!).
+`bit-and` FAILS with arity-2 error — bitwise ops are entirely absent from the current subset.
+
+### Gap coverage
+
+The current kotoba-clj subset covers **~40–50%** of the constructs actually present in the
+himawari cljc cells. The blockers fall into three categories:
+
+1. **kotoba-clj missing builtins** (tractable to add): `bit-and`/`bit-or`, multi-arg `str`,
+   `merge`, `str/join`. Estimated 2–4 days of Rust/wasm-encoder work per group.
+
+2. **HOF closures** (`filter`/`map`/`mapv` with lambda or named-fn reference): Not in the
+   subset. Requires either: (a) loop-unrolled rewrite in cljc, or (b) kotoba-clj extending to
+   support first-class function values (significant compiler work, 1–2 weeks).
+
+3. **JVM-only constructs** (`hash`, `throw`/`ex-info`, `for`, set literals): Require either
+   reimplementation in the kotoba subset or structural rewrites in the cljc cells.
+
+### Effort estimate
+
+To fully migrate all 7 himawari cells to compile under kotoba-clj:
+
+| Work item | Estimate |
+|---|---|
+| kotoba-clj: add `bit-and`/`bit-or`/`bit-shift-*` | 0.5–1 day |
+| kotoba-clj: add multi-arg `str` concat | 0.5 day |
+| kotoba-clj: add `merge` | 1 day |
+| kotoba-clj: add `filter`/`map`/`mapv` HOF | 2–3 days |
+| kotoba-clj: add set literal `#{}` | 1 day |
+| kotoba-clj: add `str/join` (clojure.string) | 0.5–1 day |
+| himawari cljc: rewrite all `merge` patterns | 2 days (structural — all 7 cells) |
+| himawari cljc: rewrite `for` → `loop/recur` | 1 day |
+| himawari cljc: replace set literals with maps | 0.5 day |
+| himawari cljc: rewrite string building | 1 day |
+| himawari cljc: rewrite `hash`/`bit-and` in content-ref | 0.5 day |
+| himawari cljc: replace `throw`/`ex-info` | 1 day |
+| himawari cljc: rewrite `mapv`/`filter` | 1.5 days |
+| Integration: compile + run all 7 cells on kotoba-runtime | 2 days |
+| **Total** | **~15–18 engineering days** |
+
+### Verdict
+
+**Option F is FEASIBLE but NOT cheap.** The kotoba-clj compiler is real, builds and runs,
+and the core subset covers loop/map/defgraph/conditional-routing patterns cleanly.
+
+**But:** 50–60% of the actual himawari cljc patterns hit hard blockers — most critically:
+`merge` (used in ALL 7 cells × N transitions), `filter`/`map`/`mapv` HOFs, `str/join`,
+`hash`, `bit-and`, set literals, and `throw`/`ex-info`. These are genuine compiler gaps,
+not configuration issues.
+
+**Recommended next step**: The blocking constructs (especially `bit-and`/`str`-concat/`merge`)
+should be added to kotoba-clj as part of its normal roadmap (a separate PR, not tied to
+himawari). Once those 3 blockers are addressed, re-run the spike — the gap narrows to HOFs
+and JVM-idioms only, which may be acceptable via loop-rewrites.
+
+**In the meantime: Option D (keep Python for WASM build, cljc for bb-native) remains the
+correct and only practical decision.** The prune-blocker is real, Option D explicitly accepts
+the duplication, and Option F requires ~15–18 engineering days of compiler + cell-rewrite
+work before it becomes viable.
 
 ---
 
