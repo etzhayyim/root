@@ -732,6 +732,22 @@
   :clause/anchor "Lag (2014:1449) om konsumentskydd vid automatisk avtalsförlängning (更新前の書面リマインド義務 — 怠れば随時解約可)"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ {:clause/id "cl:se-hog-drojsmalsranta" :clause/label "過大な遅延利息 (jämkbar)"
+  :clause/jurisdiction :se
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["dröjsmålsränta med 30 procent"]
+  :clause/anchor "Räntelagen (1975:635) 6 § (lagstadgad dröjsmålsränta = Riksbankens referensränta + 8 procentenheter) + 36 § avtalslagen (oskäligt villkor jämkas)"
+  :clause/source-url "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/rantelag-1975635_sfs-1975-635/"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:se-rantenedsattning-utesluten" :clause/label "利息減額権の排除 (utan verkan)"
+  :clause/jurisdiction :se
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["nedsättning av ränta enligt 8 § räntelagen är utesluten"]
+  :clause/anchor "Räntelagen (1975:635) 8 § (vid sjukdom/arbetslöshet m.m. utom gäldenärens kontroll kan räntan sättas ned; ett avtalsvillkor som inskränker denna rätt är utan verkan mot gäldenären)"
+  :clause/source-url "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/rantelag-1975635_sfs-1975-635/"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :br — Brasil (G10) ───────────────────────────────────────────────────────
  {:clause/id "cl:br-exoneracao" :clause/label "全部免責 (cláusula abusiva)"
   :clause/jurisdiction :br
