@@ -5,7 +5,7 @@ status: accepted
 doc_type: adr
 topic: hirameki-patent-kg-mirror
 authoritative: true
-last_verified: 2026-06-21
+last_verified: 2026-06-23
 priority: 6.0
 axis: architecture
 weight: 0.60
@@ -135,6 +135,50 @@ N5 no person/individual inventor data.
 - **Cost**: a new ~200M-record DataLad/IPFS dataset is a real storage commitment, deferred to the
   operator G9 step; R0 commits only the bounded snapshot (no git-lfs).
 
+# Implementation record — live ingest (2026-06-23)
+
+The G8/G9 live-ingest path was exercised end-to-end; this records what was learned and the
+reusable tooling it produced (across the sibling `com-junkawasaki/*` clj stack).
+
+- **USPTO ODP is now ID.me-gated.** PatentsView was retired into the USPTO Open Data Portal
+  (`api.uspto.gov`), whose API key now requires a USPTO.gov account **+ ID.me identity
+  verification (gov photo-ID + selfie) + MFA**. That is human-only identity proofing — not
+  automatable and not appropriate to automate. So the first live source pivoted to **EPO Open
+  Patent Services (OPS)**: the free "Non-paying" tier (3.5 GB/week), **no ID.me**, OAuth2
+  (`https://ops.epo.org/3.2/auth/accesstoken`, REST base `…/3.2/rest-services/`). `ingest.cljc`
+  currently targets the USPTO ODP shape; an **EPO OPS OAuth ingest adapter is the next code step**
+  (TODO), keyed on `EPO_OPS_KEY`/`EPO_OPS_SECRET` from the vault, no-server-key.
+
+- **Account provisioning** is automated as a *reusable, recorded recipe*, not a vision agent.
+  After three attempts with desktop/global-input computer-use proved unreliable in this
+  environment (a fullscreen-terminal macOS Space re-asserts itself between actions → the agent
+  is blind to / mis-clicks the browser; a 4B local model also fails to converge), the durable
+  solution is **DOM-targeted, recorded-tag automation over Playwright** (the user's "tag を覚える"
+  idea):
+  - **langchain-clj** — added `langchain.model/openai-model` (OpenAI/Ollama/Gemini-compatible),
+    unblocking the local-model agent path that every example depended on
+    (com-junkawasaki/langchain-clj PR #2; 37/118 tests green; verified vs live Ollama gemma).
+  - **computer-use-clj** — `cloudflare_email_verify` + `epo_ops_register` examples + focus/
+    main-display fixes (PR #1, #2). Kept for desktop tasks; **not** the reliable path for web
+    forms here.
+  - **browser-use-clj** — the reliable path: `browseruse.recipe` (data-driven runner that
+    REMEMBERS TAGS as *semantic DOM matchers* — tag + name/placeholder/text, re-resolved against
+    live indexed elements each step, so it is index-shift-robust and replayable; supports
+    fill/select/check/click/assert/screenshot/wait-human + secret injection) + `playwright-session`
+    (own Chromium context = no OS-input/focus/Space contention, DOM-indexed elements, full-page
+    screenshots) + an **EPO registration recipe**. Recipe tests green; a one-shot discovery run
+    learned the exact EPO form tags; the recipe then **auto-fills the entire form flawlessly**
+    (username/email/password×2/name/Japan/**Non-paying**/org/purpose/branch + both consent
+    checkboxes; password "Strong", matches), leaving only the **text CAPTCHA + Review** for the
+    human (a CAPTCHA must not be auto-solved).
+
+- **State as of this checkpoint**: EPO account credentials provisioned in 1Password
+  (`epo.ops/developer-account`, vault `gftdcojp`; receiving address `epo@etzhayyim.com` via the
+  etzhayyim.com Cloudflare Email Routing catch-all → operator Gmail). Registration form
+  auto-fill verified in the Playwright Chromium window; **pending the human CAPTCHA + Review/
+  submit** → EPO confirmation email → My Apps → Consumer Key/Secret → vault → run the (TODO) EPO
+  OPS ingest adapter to fold the first `:authoritative` patent rows into the corpus + DataLad.
+
 # Alternatives Considered
 
 1. **Resurrect ADR-2604251024 as-is (RisingWave/B2/BPMN)** — rejected: prohibited substrate;
@@ -151,8 +195,15 @@ N5 no person/individual inventor data.
 
 # References
 
-- `/20-actors/hirameki/` — the actor (methods + ontology + seed + tests + CLAUDE.md)
+- `/20-actors/hirameki/` — the actor (methods + ontology + seed + tests + CLAUDE.md);
+  `methods/ingest.cljc` = USPTO ODP ingest (EPO OPS adapter = TODO)
 - `/80-data/hirameki-patents/` — DataLad dataset substrate (corpus + datoms + manifest, CID-verified)
 - ADR-2604251024 (superseded), ADR-2606171300 (tokigusuri), ADR-2605262130 (kotoba),
   ADR-2605312345 (Datom-first state), ADR-2605241500 (DataLad/IPFS CID substrate)
-- USPTO PatentsView (CC0) · EPO OPS · WIPO PATENTSCOPE
+- Live sources: USPTO ODP `api.uspto.gov` (ID.me-gated) · **EPO OPS** `ops.epo.org/3.2`
+  (free Non-paying, OAuth2 `…/auth/accesstoken`) · WIPO PATENTSCOPE
+- Registration tooling (sibling repos): `com-junkawasaki/langchain-clj` (`openai-model`, PR #2) ·
+  `com-junkawasaki/browser-use-clj` (`browseruse.recipe` + `playwright-session` + EPO recipe) ·
+  `com-junkawasaki/computer-use-clj` (cloudflare-verify + epo-register examples)
+- EPO account: 1Password `epo.ops/developer-account` (vault gftdcojp); recv `epo@etzhayyim.com`
+  via etzhayyim.com Cloudflare Email Routing catch-all
