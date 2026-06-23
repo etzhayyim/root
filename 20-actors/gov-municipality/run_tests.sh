@@ -20,6 +20,8 @@ run_cljc() {
 
 run_cljc "gov-municipality.methods.test-agent"
 run_cljc "gov-municipality.cells.permit-submission.test-state-machine"
+run_cljc "gov-municipality.cells.final-sign-off.test-state-machine"
+run_cljc "gov-municipality.cells.inspection-scheduling.test-state-machine"
 
 if [[ $rc -eq 0 ]]; then
   echo "==> gov-municipality: ALL GREEN"
