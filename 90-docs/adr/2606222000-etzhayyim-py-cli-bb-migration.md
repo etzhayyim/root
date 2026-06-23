@@ -1,11 +1,11 @@
 ---
 id: 2606222000
-title: etzhayyim-py CLI → babashka/Clojure migration plan (wave 1 + wave 2)
+title: etzhayyim-py CLI → babashka/Clojure migration plan (waves 1–8 + bb CLI capstone — module ports COMPLETE)
 status: accepted
 doc_type: adr
 topic: bb-migration
 authoritative: true
-last_verified: 2026-06-22
+last_verified: 2026-06-23
 priority: implementation
 axis: substrate
 weight: 0.20
@@ -15,8 +15,9 @@ priority_note: >
   over the kotoba Datom log".
 authoritative_for:
   - etzhayyim-py CLI migration strategy + triage classification
-  - wave-1 cljc ports (identifier-audit, bonsai, source-graph)
-  - wave-2 cljc ports (shannon-scores, kosei-tiers)
+  - the COMPLETE ~49-module cljc port record (waves 1–8) + the bb CLI capstone (etzhayyim.cli / `bb e7m`)
+  - the bb/SCI IO-rewrite pattern (injectable :http-fn/:proc-fn/:fs-fn + build-X-request/command shape layer + dry-run)
+  - the consolidated bb/SCI porting gotchas reference
   - babashka.cli / http-client / process mapping reference
 depends_on:
   - 2605262130  # kotoba storage substrate
@@ -130,18 +131,74 @@ sit on the bb classpath at `70-tools/src/` (declared in `bb.edn :paths`).
 - Bug fixed: `.indexOf` on Clojure persistent vector is not supported in bb/SCI — use `keep-indexed` instead
 - Bug fixed: `min-key` over string elements fails in cycle-canonicalization — use `compare` + `reduce`
 
-**Wave 3** (IO layer — `babashka.process` wrappers):
-- `haisen.cljc` — wraps flake8/clang-tidy/semgrep via `babashka.process/shell`
-- `kashika.cljc` — calls `haisen.cljc`
-- Filesystem-walk host wrappers that supply `{:path :content}` maps to the pure-logic fns
+---
 
-**Wave 4** (HTTP commands — `babashka.http-client` wrappers):
-- Start with the highest-value commands (deploy, metrics, kaizen, actors)
-- Each Python `@click.group` → a `bb.edn` task + `babashka.cli/dispatch`
+## Migration status: module ports COMPLETE (waves 1–8 + bb CLI capstone)
 
-**Wave 5** (CLI entry consolidation):
-- Replace `cli.py` entry with a bb.edn `:tasks` map + `babashka.cli`
-- Delete or archive the Python package once all tasks are ported
+All ~49 command modules now have an additive `etzhayyim.<name>.cljc` port under
+`70-tools/src/etzhayyim/` (the `.py` originals are kept). Pure logic is parity-verified;
+IO/subprocess legs use the injectable-fn + shape-layer pattern (below) and are dry-run-safe.
+
+| Wave | PR(s) | Modules | Kind |
+|---|---|---|---|
+| 1 | #2173 | identifier_audit, bonsai, source_graph | pure logic |
+| 2 | #2174 | shannon_scores, kosei_tiers | pure logic |
+| 3a / 3b | #2178 / #2177 | coverage, dodaf, deps, metrics / mokuteki, haisen, hinshitsu, code_quality | pure + IO |
+| 4a / 4b | #2180 / #2182 | kashika, logs / bunseki, process_mining, systemofsystem, complex_stubs | pure + IO |
+| 5a / 5b | #2184 / #2186 | auth, authn, authz, agent_token, agent_runtime, identity / kagami, kaizen, vertex | pure helpers (crypto deferred) |
+| IO-pattern | #2189 | dns_sync | **established the IO-rewrite pattern** |
+| 6a / 6b / 6c | #2218 / #2220 / #2223 | actors, apps / deploy, agent_cmd / kosei, shannon (remaining) | httpx / subprocess / large-pure |
+| 7a / 7b | #2221 / #2222 | monitor, xrpc / murakumo_cmd, database | http+ws / infra-subprocess |
+| 8a / 8b | #2228 / #2227 | cohort, nono, mitama, yoroshiku / projector, training, workspace, lint | small IO |
+| capstone | (this PR) | `etzhayyim.cli` (`bb e7m`) | CLI dispatcher |
+
+### The IO-rewrite pattern (reusable; established by dns_sync #2189)
+
+Every side-effecting command is split into a PURE shape layer + an INJECTABLE executor:
+
+- `build-X-request` → `{:method :url :headers :body?}` (httpx) / `build-X-command` → argv vector
+  (subprocess, injection-safe — a string vector, never shell-interpolated). These are pure and
+  unit-tested by asserting the constructed shape matches the Python's request/command **without
+  executing it**.
+- The executor takes an injectable `:http-fn` / `:proc-fn` / `:fs-fn` (default = the real
+  `babashka.{http-client,process,fs}`); tests inject a fake that records calls.
+- A `--dry-run` / `:apply? false` / `:no-X?` mode performs zero mutating calls.
+- Secrets are read lazily from the env at call time, never at load time.
+- **Honest limit**: live behavioral parity (against real PDS / Cloudflare / docker / kubectl)
+  needs operator credentials and is NOT exercised offline — only the request/command SHAPING is.
+
+### bb CLI capstone (`etzhayyim.cli` / `bb e7m`)
+
+`70-tools/src/etzhayyim/cli.cljc` is the bb counterpart of `cli.py`'s click dispatcher:
+`bb e7m list` prints the migration record (every ported module), `bb e7m <cmd>` dispatches
+commands that expose a `-main` (murakumo, vitals). A module without a wired CLI entry reports
+honestly that it is ported as a **library** (`ns etzhayyim.<cmd>`) and that its per-command
+argv-wiring (click options → `babashka.cli` spec) is the remaining mechanical finish — the Python
+`e7m` runs alongside until then. No business logic lives in the dispatcher; it only routes.
+
+### Deferred (operator-IO legs that are live-verification-gated, by design)
+
+These need a live host / credentials / a lib bb lacks, so they stay behind the injectable fn with a
+documented note: `murakumo_cmd` fleet-watch poll-loop + concurrent-SSH models-list + fleet-plan;
+`database` repair-order (`psycopg`); `actors` async concurrency (`asyncio.gather` → sequential);
+the file-IO scan legs of `kosei`/`shannon`/`coverage`; `monitor` live websocket connect.
+
+### Consolidated bb/SCI porting gotchas (discovered across waves — apply preemptively)
+
+- `.indexOf` on a Clojure **vector** is unsupported in bb/SCI → use `keep-indexed` (`.indexOf` is fine on strings).
+- `min-key`/`max-key` require **numeric** keys; over strings → rewrite with `compare` + `reduce`.
+- Python `a or b` treats `0`/`""` as falsy; Clojure `or` does not → a `py-or` helper where it matters.
+- `(or (seq s) …)` returns a **char-seq**, not the string → use `(or (when (seq s) s) …)`.
+- `re-seq` with non-capturing `(?:…)` groups returns **strings** (don't `map first`); with capture groups → `map second`.
+- `str/trimr` has **no 2-arg form** in SCI; `format "%.2f"` on a `Long` throws → coerce `(double x)`.
+- `#?(:bb …)` reader-conditional: use **separate** forms, never two `:bb` keys in one `#?`; `sort` returns a **seq**, not a vector.
+- bb loads `.clj` **before** `.cljc` (shadow hazard) — a stale `.clj` silently wins.
+
+### Remaining mechanical finish (low-leverage, optional)
+
+Per-command argv-wiring for the ~47 library-only commands (each click command's options →
+`babashka.cli` spec + dispatch in `etzhayyim.cli`) + the deferred operator-IO legs above. The
+Python `e7m` keeps working in parallel, so this is convention-completion, not a blocker.
 
 ---
 

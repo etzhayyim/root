@@ -18,7 +18,12 @@
         {:git/url "https://github.com/com-junkawasaki/langgraph-clj"
          :git/sha "c7daa07d4e50f55d7e2a02e4b89dbeb2b200961d"}}
  :tasks
- {vitals:report
+ {e7m
+  {:doc "etzhayyim CLI (babashka port; capstone of the etzhayyim-py→bb migration, ADR-2606222000). `bb e7m list` shows every ported command module; `bb e7m <cmd> [args]` dispatches commands that expose a -main (murakumo, vitals); other commands are ported as libraries (ns etzhayyim.<cmd>) pending argv-wiring."
+   :task (do (require 'etzhayyim.cli)
+             (apply (resolve 'etzhayyim.cli/-main) *command-line-args*))}
+
+  vitals:report
   {:doc "Per-actor LIFE-ACTIVITY vitals — scores each manifest-bearing cell on 3 axes (clj 内部代謝 / actor 細胞間シグナル / atproto 外界代謝), RUNS its run_tests.sh reflex, classifies 生/休眠/死, and transacts the vitals into the kotoba Datom log (as-of trajectory). Flags: --no-tests --limit N --actors a,b --timeout-ms N"
    :task (do (require 'etzhayyim.vitals)
              (apply (resolve 'etzhayyim.vitals/-main) *command-line-args*))}

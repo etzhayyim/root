@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-06-22",
+  "updated_at": "2026-06-23",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.md",
@@ -1427,6 +1427,36 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606222000-etzhayyim-py-cli-bb-migration.md",
+      "id": "2606222000",
+      "title": "etzhayyim-py CLI → babashka/Clojure migration plan (waves 1–8 + bb CLI capstone — module ports COMPLETE)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "bb-migration",
+      "authoritative": true,
+      "authoritative_for": [
+        "etzhayyim-py CLI migration strategy + triage classification",
+        "the COMPLETE ~49-module cljc port record (waves 1–8) + the bb CLI capstone (etzhayyim.cli / `bb e7m`)",
+        "the bb/SCI IO-rewrite pattern (injectable :http-fn/:proc-fn/:fs-fn + build-X-request/command shape layer + dry-run)",
+        "the consolidated bb/SCI porting gotchas reference",
+        "babashka.cli / http-client / process mapping reference"
+      ],
+      "related": [
+        "2606101200",
+        "2606172100",
+        "2606211712"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605262130",
+        "2605312345"
+      ],
+      "last_verified": "2026-06-23",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2605291700-moemoekyun-plateau-and-bestofn-path.md",
       "id": "ADR-2605291700",
       "title": "baien-moemoekyun plateau analysis (cycles 17-114) + Best-of-N as the deployable score-lift path",
@@ -2104,7 +2134,7 @@
       "path": "90-docs/adr/2604251024-patent-bulk-ingest-and-blob-cid.md",
       "id": "adr-2604251024-patent-bulk-ingest-and-blob-cid",
       "title": "ADR: Patent bulk ingest (USPTO + EPO free) + full PDF/webp/OCR persistence to B2",
-      "status": "proposed",
+      "status": "superseded",
       "doc_type": "adr",
       "topic": "patent-coverage",
       "authoritative": true,
@@ -2121,7 +2151,9 @@
         "adr-0085-non-federable-nsid-firehose-gate"
       ],
       "supersedes": [],
-      "superseded_by": [],
+      "superseded_by": [
+        "adr-2606212200-hirameki-worldwide-patent-kg-mirror"
+      ],
       "last_verified": "2026-04-25",
       "amends": [],
       "amended_by": []
@@ -26115,6 +26147,39 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606212200-hirameki-worldwide-patent-kg-mirror.md",
+      "id": "adr-2606212200-hirameki-worldwide-patent-kg-mirror",
+      "title": "ADR-2606212200: hirameki 閃き — world public-patent KG-mirror (kotoba + DataLad), superseding the legacy RisingWave/B2 patent pipeline",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "hirameki-patent-kg-mirror",
+      "authoritative": true,
+      "authoritative_for": [
+        "hirameki actor scope + gates (public-patent KG-mirror)",
+        "patent corpus persistence (kotoba EDN + DataLad/git-annex/IPFS, CIDv1)",
+        "relationship to tokigusuri (pharma subset) and open-patent app (generation)"
+      ],
+      "related": [
+        "2604251024",
+        "2606171300",
+        "2604271830",
+        "2606022000",
+        "2606161730"
+      ],
+      "supersedes": [
+        "2604251024"
+      ],
+      "superseded_by": [],
+      "depends_on": [
+        "2605262130",
+        "2605312345",
+        "2605241500"
+      ],
+      "last_verified": "2026-06-21",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606212200-ie-flow-actor-score-organism-reward.md",
       "id": "adr-2606212200-ie-flow-actor-score-organism-reward",
       "title": "ADR-2606212200: ie-flow actor SCORE — information-control 利得 integrated into the artificial-organism reward",
@@ -26161,6 +26226,33 @@
       "depends_on": [
         "adr-2605312345-kotoba-datom-first-class-canonical-state",
         "adr-2606152000-session-close-food-logistics-clj-coverage-supervised-wave"
+      ],
+      "last_verified": "2026-06-22",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606222100-himawari-wasm-build-cljc-source-migration.md",
+      "id": "adr-2606222100-himawari-wasm-build-cljc-source-migration",
+      "title": "ADR-2606222100: himawari WASM build — cljc source migration design",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "himawari-wasm-build-cljc-source-migration",
+      "authoritative": true,
+      "authoritative_for": [
+        "himawari-wasm-build-strategy",
+        "himawari-python-cell-prune-gate"
+      ],
+      "related": [
+        "adr-2605302356-kotoba-langgraph-llm-verified",
+        "adr-2605301625-kotoba-actor-deploy-murakumo-live"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2606014500-one-worker-many-wasm-actors",
+        "adr-2606014600-wasm-actor-runtime"
       ],
       "last_verified": "2026-06-22",
       "amends": [],

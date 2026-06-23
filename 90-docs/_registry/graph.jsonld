@@ -911,6 +911,27 @@
       "lastVerified": "2026-06-10"
     },
     {
+      "id": "doc:2606222000",
+      "type": "TechArticle",
+      "title": "etzhayyim-py CLI → babashka/Clojure migration plan (waves 1–8 + bb CLI capstone — module ports COMPLETE)",
+      "status": "accepted",
+      "topic": "bb-migration",
+      "authoritative": true,
+      "authoritativeFor": [
+        "etzhayyim-py CLI migration strategy + triage classification",
+        "the COMPLETE ~49-module cljc port record (waves 1–8) + the bb CLI capstone (etzhayyim.cli / `bb e7m`)",
+        "the bb/SCI IO-rewrite pattern (injectable :http-fn/:proc-fn/:fs-fn + build-X-request/command shape layer + dry-run)",
+        "the consolidated bb/SCI porting gotchas reference",
+        "babashka.cli / http-client / process mapping reference"
+      ],
+      "related": [
+        "doc:2606101200",
+        "doc:2606172100",
+        "doc:2606211712"
+      ],
+      "lastVerified": "2026-06-23"
+    },
+    {
       "id": "doc:ADR-2605291700",
       "type": "TechArticle",
       "title": "baien-moemoekyun plateau analysis (cycles 17-114) + Best-of-N as the deployable score-lift path",
@@ -1424,7 +1445,7 @@
       "id": "doc:adr-2604251024-patent-bulk-ingest-and-blob-cid",
       "type": "TechArticle",
       "title": "ADR: Patent bulk ingest (USPTO + EPO free) + full PDF/webp/OCR persistence to B2",
-      "status": "proposed",
+      "status": "superseded",
       "topic": "patent-coverage",
       "authoritative": true,
       "authoritativeFor": [
@@ -1439,6 +1460,7 @@
         "doc:adr-0081-worker-direct-hyperdrive-persistence",
         "doc:adr-0085-non-federable-nsid-firehose-gate"
       ],
+      "supersededBy": "doc:adr-2606212200-hirameki-worldwide-patent-kg-mirror",
       "lastVerified": "2026-04-25"
     },
     {
@@ -16428,6 +16450,47 @@
       "lastVerified": "2026-06-21"
     },
     {
+      "id": "doc:adr-2606212200-actor-system-of-systems-reward",
+      "type": "TechArticle",
+      "title": "ADR-2606212200: Every actor carries its system-of-systems as EDN+Clojure and runs it as its 報酬系 (reward system)",
+      "status": "accepted",
+      "topic": "actor-system-of-systems-reward",
+      "authoritative": true,
+      "authoritativeFor": [
+        "per-actor reward-system rule",
+        "etzhayyim.ie-flow.reward primitive",
+        "80-data/ie-flow/system-of-systems.edn"
+      ],
+      "related": [
+        "doc:adr-2606062101-moyai-inference-reciprocity-reward",
+        "doc:adr-2606112200-ehyeh-non-dual-yirah-doctrine",
+        "doc:adr-2606182359-charter-rider-v35-objective-function"
+      ],
+      "lastVerified": "2026-06-21"
+    },
+    {
+      "id": "doc:adr-2606212200-hirameki-worldwide-patent-kg-mirror",
+      "type": "TechArticle",
+      "title": "ADR-2606212200: hirameki 閃き — world public-patent KG-mirror (kotoba + DataLad), superseding the legacy RisingWave/B2 patent pipeline",
+      "status": "accepted",
+      "topic": "hirameki-patent-kg-mirror",
+      "authoritative": true,
+      "authoritativeFor": [
+        "hirameki actor scope + gates (public-patent KG-mirror)",
+        "patent corpus persistence (kotoba EDN + DataLad/git-annex/IPFS, CIDv1)",
+        "relationship to tokigusuri (pharma subset) and open-patent app (generation)"
+      ],
+      "related": [
+        "doc:2604251024",
+        "doc:2606171300",
+        "doc:2604271830",
+        "doc:2606022000",
+        "doc:2606161730"
+      ],
+      "supersedes": "doc:2604251024",
+      "lastVerified": "2026-06-21"
+    },
+    {
       "id": "doc:adr-2606212200-ie-flow-actor-score-organism-reward",
       "type": "TechArticle",
       "title": "ADR-2606212200: ie-flow actor SCORE — information-control 利得 integrated into the artificial-organism reward",
@@ -16444,6 +16507,39 @@
         "doc:adr-2605312345-kotoba-datom-first-class-canonical-state"
       ],
       "lastVerified": "2026-06-21"
+    },
+    {
+      "id": "doc:adr-2606221431-canonical-form-families-cid-unification",
+      "type": "TechArticle",
+      "title": "ADR-2606221431: kotoba commit-DAG canonical-form families — CID unification decision",
+      "status": "proposed",
+      "topic": "canonical-form-families-cid-unification",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kotoba-commit-dag-canonical-form"
+      ],
+      "related": [
+        "doc:adr-2606131300-determinism-golden-file",
+        "doc:adr-2606022000-kabuto-public-company-supply-chain"
+      ],
+      "lastVerified": "2026-06-22"
+    },
+    {
+      "id": "doc:adr-2606222100-himawari-wasm-build-cljc-source-migration",
+      "type": "TechArticle",
+      "title": "ADR-2606222100: himawari WASM build — cljc source migration design",
+      "status": "proposed",
+      "topic": "himawari-wasm-build-cljc-source-migration",
+      "authoritative": true,
+      "authoritativeFor": [
+        "himawari-wasm-build-strategy",
+        "himawari-python-cell-prune-gate"
+      ],
+      "related": [
+        "doc:adr-2605302356-kotoba-langgraph-llm-verified",
+        "doc:adr-2605301625-kotoba-actor-deploy-murakumo-live"
+      ],
+      "lastVerified": "2026-06-22"
     },
     {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
