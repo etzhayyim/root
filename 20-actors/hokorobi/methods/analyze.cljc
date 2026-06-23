@@ -206,6 +206,28 @@
           :else
           (recur (rest es) systemic resilience risk-out))))))
 
+(defn contagion-linchpins
+  "Per-node CONTAGION degree: the count of :interconnects edges incident to a node — how
+  interconnected it is, hence how widely its distress would PROPAGATE through the system. The
+  systemic-risk integral weighs the load a node bears; this counts the contagion LINKS, surfacing the
+  linchpin market infrastructure (clearing CCPs, dealer banks) whose interconnectedness makes them
+  systemic concentrators regardless of their own borne load — routed to resilience (redundancy /
+  ring-fencing). A structural NETWORK reading (degree/centrality), NEVER a per-institution solvency
+  verdict or a panic / trading signal (G1); edge-primary, on read (G2). Returns
+  [node contagion-degree label] by degree descending."
+  ([nodes edges] (contagion-linchpins nodes edges 20))
+  ([nodes edges limit]
+   (->> edges
+        (filter #(= ":interconnects" (get % ":en/kind")))
+        (reduce (fn [m e] (-> m
+                              (update (get e ":en/from") (fnil inc 0))
+                              (update (get e ":en/to") (fnil inc 0))))
+                {})
+        (sort-by (fn [[n d]] [(- d) (str n)]))
+        (map (fn [[n d]] [n d (get-in nodes [n ":organism/label"] n)]))
+        (take limit)
+        vec)))
+
 (defn- omap-items
   "Items of an ordered-map in first-touch order (falls back to seq order if no ::order)."
   [d]
