@@ -721,7 +721,7 @@
  {:doc/id "doc:ar-terminos" :doc/label "AR términos y condiciones (synthetic)"
   :doc/jurisdiction :ar
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "No asumimos responsabilidad por daños. La suscripción tiene renovación automática."}
+  :doc/text "No asumimos responsabilidad por daños. La suscripción tiene renovación automática. El consumidor renuncia a sus derechos y se amplían los derechos de la empresa. Se invierte la carga de la prueba en perjuicio del consumidor."}
 
  {:notice/id "ntc:ar-traslado" :notice/label "AR traslado de la demanda (cédula)"
   :notice/jurisdiction :ar
