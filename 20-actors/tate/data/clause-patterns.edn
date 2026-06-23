@@ -256,6 +256,20 @@
   :clause/anchor "ACL s 64 (consumer guarantees は契約で排除不可)"
   :clause/route :referral :clause/verify-current-law true}
 
+ {:clause/id "cl:au-unilateral-termination" :clause/label "一方当事者のみの解約権 (unfair term)"
+  :clause/jurisdiction :au
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["we may terminate this agreement at any time" "terminate at our sole discretion"]
+  :clause/anchor "Australian Consumer Law (CCA Sch 2) s 25(1)(b) (一方のみ解約可 — unfair term の例) / s 24 (significant imbalance テスト)"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:au-penalty-one-party" :clause/label "一方当事者のみへの違約罰 (unfair term)"
+  :clause/jurisdiction :au
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["you must pay a penalty for early termination"]
+  :clause/anchor "Australian Consumer Law (CCA Sch 2) s 25(1)(c) (一方のみ違約罰 — unfair term の例) / s 24 (significant imbalance テスト)"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :ca — Canada (G10; 仲裁条項の効力が :us と逆になる好例) ──────────────────
  {:clause/id "cl:ca-arbitration-consumer" :clause/label "消費者契約の仲裁条項 (ON では無効)"
   :clause/jurisdiction :ca
