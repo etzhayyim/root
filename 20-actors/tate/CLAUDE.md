@@ -36,6 +36,24 @@ ever defends). Two legs over the member's OWN documents:
    行審法18条1項 3月; 行訴法14条1項 6箇月) + response options (督促異議 / 答弁書 /
    通常移行申述 / 審査請求 / 書面回答) + self-submit checklist + referral triggers.
 
+## Public face (atproto actor + mesh-distributable coverage)
+
+tate is a **resolvable atproto actor** so people can find/identify it — handle
+`tate.etzhayyim.com`, DID `did:web:etzhayyim.com:actor:tate`, registered in the canonical
+`00-contracts/schemas/actor-profile-seed.kotoba.edn` SSoT (backs did.json + getProfile per
+ADR-2606013800) with static fallbacks `public/actor/tate/{did.json,profile.json}`
+(verificationMethod `[]` — **no-server-key**, did:web TLS trust root, ADR-2605231525).
+
+Its **only** public surface is **(a)** an anonymized **AGGREGATE coverage digest** and
+**(b)** the crawlable static site — **a member's OWN private documents are never published
+(G1)**. `methods/coverage_publish.cljc` builds the digest from `coverage_report` (registries
+ONLY — never `seed-member-docs`), selects an explicit aggregate allowlist, and
+content-addresses it (`methods/cid.cljc`, CIDv1/raw/sha2-256, ipfs-parity) → mesh-distributable
++ verifiable (`public/actor/tate/coverage.json`). `member-leak?` is a **structural,
+test-enforced G1 guard**: a member-document marker can never appear in the published bytes.
+(The full mesh-RUNTIME component is a staged follow-up — the per-actor `mesh.cljc` pattern is
+not yet merged to main.)
+
 **架空請求 guard (G6)**: genuine 支払督促/訴状 arrive by **特別送達 only**. Court
 vocabulary on SMS / email / 普通郵便 → `:suspected-fake`: the plan's first step is
 `do-not-contact-sender`, evidence is preserved, and the member routes to **tasuke 助 /
@@ -121,6 +139,8 @@ N6 刑事 out of scope → immediate 弁護士 referral. **N2 補足 (wave 8)**:
 │   ├── coverage_report.py         # honest jurisdiction coverage + named gaps (G10)
 │   ├── site_gen.py                # crawlable static site (FAQPage JSON-LD + sitemap — Google 可視化)
 │   ├── case_actors_gen.py         # 1 case = 1 keyless actor (profile + case.json/checklist DL + 相談先)
+│   ├── coverage_publish.cljc      # PUBLIC anonymized AGGREGATE coverage digest (mesh-distributable, content-addressed; G1 member-leak? guard)
+│   ├── cid.cljc                   # kotoba IPFS content-address (CIDv1/raw/sha2-256, ipfs-parity)
 │   └── datom_emit.py              # kotoba Datom-log (EAVT) emitter
 ├── tests/                         # 120 tests, pure stdlib
 │   ├── test_terms.py
