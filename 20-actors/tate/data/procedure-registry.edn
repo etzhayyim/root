@@ -20,7 +20,7 @@
   :proc/deadline-rules
   [{:dl/label "督促異議の申立て"
     :dl/rule "支払督促の送達を受けた日から2週間以内 (経過後も仮執行宣言送達から2週間は申立て可)"
-    :dl/anchor "民事訴訟法391条・393条" :dl/critical true :dl/verify-service-date true}]
+    :dl/anchor "民事訴訟法391条・393条" :dl/source-url "https://laws.e-gov.go.jp/law/408AC0000000109" :dl/critical true :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :tokusoku-igi :opt/kind :self-submit :opt/protective true
     :opt/label "督促異議申立書を発した簡易裁判所へ提出 (→ 通常訴訟へ移行)"}
@@ -37,7 +37,7 @@
   :proc/deadline-rules
   [{:dl/label "答弁書の提出"
     :dl/rule "呼出状に記載された裁判所指定の期限まで (欠席は擬制自白のリスク)"
-    :dl/anchor "民事訴訟法159条・254条" :dl/verify-service-date true}
+    :dl/anchor "民事訴訟法159条・254条" :dl/source-url "https://laws.e-gov.go.jp/law/408AC0000000109" :dl/verify-service-date true}
    {:dl/label "通常訴訟への移行申述"
     :dl/rule "最初の口頭弁論期日において弁論をするまで"
     :dl/anchor "民事訴訟法373条" :dl/verify-service-date true}
@@ -58,7 +58,7 @@
   :proc/deadline-rules
   [{:dl/label "答弁書の提出"
     :dl/rule "呼出状に記載された裁判所指定の期限まで (欠席+答弁書なし → 欠席判決)"
-    :dl/anchor "民事訴訟法159条3項・254条" :dl/verify-service-date true}]
+    :dl/anchor "民事訴訟法159条3項・254条" :dl/source-url "https://laws.e-gov.go.jp/law/408AC0000000109" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :touben :opt/kind :self-submit :opt/label "答弁書の提出 (請求の認否 + 抗弁)"}]
   :proc/refer-when ["請求額が大きい" "常に弁護士相談を強く推奨 (本訴は高リスク)"]
