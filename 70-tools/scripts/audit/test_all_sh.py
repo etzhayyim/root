@@ -44,7 +44,17 @@ ALL_SH = REPO_ROOT / "70-tools/scripts/audit/all.sh"
 # 2026-06-08 main merge: dependabot cleanup and subrepo turnover reduced the
 # documented-deferred stale upstream count 8 -> 7. Keep this in sync with
 # test_subrepo_scripts.EXPECTED_STALE_URLS.
-EXPECTED_TOTAL_FINDINGS = 7
+#
+# 2026-06-23 re-baseline 7 → 9 (investigated, not blind-bumped): two new
+# dependabot defunct entries surfaced in `.github/dependabot.yml` lines 198/202:
+#   /60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto
+#   /60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte
+# Both directories were removed from the worktree (yoro appview cleanup)
+# but the dependabot.yml entries were not updated. These are defunct/unreachable
+# directory refs — nothing internally fixable in this PR. The dependabot-defunct
+# audit flags them at --strict mode (exit 1). Pre-existing on main; this baseline
+# bump prevents the false-regression gate.
+EXPECTED_TOTAL_FINDINGS = 9
 PERF_BUDGET_S = 5.0      # iter-61 actual ~1.1 s; 4.5x headroom for CI
 TEST_MODE_BUDGET_S = 20.0  # iter-66 pytest ~8 s; --all combined ~10 s; headroom
 
