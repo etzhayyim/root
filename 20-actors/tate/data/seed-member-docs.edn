@@ -182,7 +182,7 @@
  {:doc/id "doc:es-tos" :doc/label "ES condiciones generales (synthetic)"
   :doc/jurisdiction :es
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "Se excluye toda responsabilidad por daños. El contrato se renueva por prórroga automática."}
+  :doc/text "Se excluye toda responsabilidad por daños. El contrato se renueva por prórroga automática. El empresario podrá resolver el contrato discrecionalmente. En caso de desistimiento, el consumidor abonará una indemnización que no se corresponde con los daños efectivamente causados."}
 
  {:doc/id "doc:nl-voorwaarden" :doc/label "NL algemene voorwaarden (synthetic)"
   :doc/jurisdiction :nl

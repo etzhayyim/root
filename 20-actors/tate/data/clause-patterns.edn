@@ -330,6 +330,22 @@
   :clause/anchor "TRLGDCU art. 62.3 (継続的契約の解約権 — 妨げる条項は無効)"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ {:clause/id "cl:es-falta-reciprocidad" :clause/label "empresario の裁量解約 (falta de reciprocidad)"
+  :clause/jurisdiction :es
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["el empresario podrá resolver el contrato discrecionalmente" "resolver el contrato discrecionalmente"]
+  :clause/anchor "TRLGDCU (RDL 1/2007) art. 87 (cláusulas abusivas por falta de reciprocidad — p.ej. resolución discrecional por el empresario sin igual facultad del consumidor; nulas de pleno derecho art. 83)"
+  :clause/source-url "https://www.boe.es/buscar/act.php?id=BOE-A-2007-20555"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:es-indemnizacion-desproporcionada" :clause/label "不均衡な indemnización (perfeccionamiento/ejecución)"
+  :clause/jurisdiction :es
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["una indemnización que no se corresponde con los daños efectivamente causados"]
+  :clause/anchor "TRLGDCU (RDL 1/2007) art. 89 (cláusulas abusivas — perfeccionamiento y ejecución; indemnización que no se corresponde con los daños efectivamente causados; nulas de pleno derecho art. 83)"
+  :clause/source-url "https://www.boe.es/buscar/act.php?id=BOE-A-2007-20555"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :nl — Nederland (G10) ────────────────────────────────────────────────────
  {:clause/id "cl:nl-exoneratie" :clause/label "全部免責 (exoneratiebeding)"
   :clause/jurisdiction :nl
