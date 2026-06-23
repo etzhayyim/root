@@ -1,5 +1,19 @@
 # etzhayyim-organism
 
+> **Python runtime superseded (2026-06).** The live organism heartbeat now runs as
+> a bb/Clojure task (`organism:heartbeat`) via the launchd LaunchAgent
+> `50-infra/launchd/com.etzhayyim.organism.heartbeat.plist`
+> (`/opt/homebrew/bin/bb organism:heartbeat`), backed by
+> `70-tools/src/etzhayyim/organism.cljc` + `vitals.cljc` on the kotoba Datom log
+> (ADR-2605312345 + CLAUDE.md § "Operational code = clj/bb").
+> The Python runtime files (`cns.py` / `emitter.py` / `scheduler.py` /
+> `__main__.py`) and `tests/test_smoke.py` have been removed.
+> `constitution.py` is **retained** because
+> `60-apps/etzhayyim-organism-viz/ecosystem.py` imports `AXES` from it.
+> The **sensor layer** (`sensors/*.py` + `sensors/*.cljc`) is RETAINED as the
+> parity oracle and is still used by external consumers
+> (e.g. `etzhayyim_organism.sensors.charter_rider.scan()`).
+
 **Religious-corp artificial-organism daemon.** CNS (中枢神経) for the monorepo
 treated as a living body per `README.md § "As Artificial Organism Ecosystem"`
 and ADR-2605192100 (mission charter).
@@ -49,34 +63,33 @@ Change the heuristic, change the scoring — no global rewrite.
 
 ## Run
 
-### Local (development)
+> **Python runtime removed.** The live organism loop runs via babashka:
+
+```bash
+# bb task (replaces python -m etzhayyim_organism):
+bb organism:heartbeat --once
+```
+
+The launchd resident agent (`50-infra/launchd/com.etzhayyim.organism.heartbeat.plist`)
+runs `organism:heartbeat` automatically on the Mac mini fleet. See
+`70-tools/src/etzhayyim/organism.cljc` for the implementation.
+
+### Sensor tests (still runnable)
 
 ```bash
 cd 20-actors/etzhayyim-organism
-PYTHONPATH=src python3 -m etzhayyim_organism --repo "$(git rev-parse --show-toplevel)" --once
+PYTHONPATH=src python3 -m pytest tests/test_charter_rider_scanner.py -v
 ```
 
-### Container
+### Legacy container (pre-built image only)
+
+The Dockerfile references the now-removed Python runtime. The pre-built image
+`etzhayyim-organism:0.1.0` still runs in Orbstack (`imagePullPolicy: IfNotPresent`),
+but a fresh `docker build` will fail until the Dockerfile is updated to the bb runtime.
 
 ```bash
-docker build -t etzhayyim-organism:0.1.0 .
-docker run --rm \
-  -v "$(git rev-parse --show-toplevel)":/repo \
-  -e ETZ_TICK_INTERVAL=86400 \
-  etzhayyim-organism:0.1.0 --once
-```
-
-### Pod (Orbstack k8s, local Mac mini fleet)
-
-```bash
-kubectl --context orbstack apply -k 50-infra/k8s/etzhayyim-organism/
 kubectl --context orbstack -n etzhayyim-organism logs -f deploy/etzhayyim-organism
 ```
-
-The Orbstack manifest mounts the live repo via `hostPath`. For Murakumo
-production fleet, swap to `emptyDir` + `git-clone` init container and a
-separate operator-supervised push step (substrate boundary §1.6 prohibits
-the daemon from holding write credentials).
 
 ## Knobs
 
@@ -109,30 +122,28 @@ grows ring-by-ring (ADR-2605192100 §1.15).
 
 ```
 20-actors/etzhayyim-organism/
-├── Dockerfile
+├── Dockerfile                             # (legacy k8s image; Python runtime removed from source)
 ├── README.md                              # this file
 ├── pyproject.toml
 ├── src/etzhayyim_organism/
-│   ├── __init__.py
-│   ├── __main__.py                        # CLI entrypoint
-│   ├── constitution.py                    # the prior (ADR-2605192100 §1)
-│   ├── cns.py                             # tick orchestrator
-│   ├── emitter.py                         # writes _observations/*.md
-│   ├── scheduler.py                       # daemon loop
-│   └── sensors/
+│   ├── __init__.py                        # package namespace (kept for sensor imports)
+│   ├── constitution.py                    # RETAINED — AXES data used by etzhayyim-organism-viz
+│   └── sensors/                          # RETAINED — parity oracle + charter_rider scanner
 │       ├── common.py                      # AxisReading + helpers
-│       ├── autopoiesis.py
-│       ├── metabolism.py
-│       ├── homeostasis.py
-│       ├── active_inference.py
-│       ├── reproduction.py
-│       ├── symbiosis.py
-│       ├── diversity.py
-│       ├── wellbecoming.py
-│       ├── antifragility.py
-│       └── sanctification.py
+│       ├── autopoiesis.py  + .cljc
+│       ├── metabolism.py   + .cljc
+│       ├── homeostasis.py  + .cljc
+│       ├── active_inference.py + .cljc
+│       ├── reproduction.py + .cljc
+│       ├── symbiosis.py    + .cljc
+│       ├── diversity.py    + .cljc
+│       ├── wellbecoming.py + .cljc
+│       ├── antifragility.py + .cljc
+│       ├── sanctification.py + .cljc
+│       ├── charter_rider.py + .cljc      # used by external actors + baien-distill
+│       └── test_sensors.cljc
 └── tests/
-    └── test_smoke.py
+    └── test_charter_rider_scanner.py      # sensors/charter_rider tests (kept)
 
 50-infra/k8s/etzhayyim-organism/
 ├── namespace.yaml
