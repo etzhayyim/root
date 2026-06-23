@@ -676,10 +676,87 @@ math without the basis-point degradation that caused PR #2268 to be rejected.
 | Deployable WASM Component from cells | **NOT DONE** (0/7 — prelude gap + i64-only) |
 | PR #2268 cell-degradation to integer basis-points | **CLOSED/REJECTED** — cells stay clean |
 | kototama runtime discovered as canonical unified path | **DONE** (ADR-0001, 2026-06-21) |
-| kototama-based component build attempt | **NOT YET** — recommended next step |
+| kototama-based component build attempt | **DONE (NEGATIVE)** — kototama does NOT close prelude gap (spike 2026-06-23) |
 | f64 support in kotoba-clj | **NOT YET** — alternative path |
-| himawari Python cell prune | **BLOCKED** — depends on kototama-or-f64 path |
+| himawari Python cell prune | **BLOCKED** — depends on f64 support or new compile_component_str_with_prelude |
 
+
+## kototama compile_clj spike (2026-06-23)
+
+**Objective**: test whether `com-junkawasaki/kototama`'s `compile_clj` / `compile_game` API
+closes the component-prelude gap identified above — whether kototama's prelude unification makes
+it possible to compile himawari cells better than bare `kotoba_clj::compile_str`.
+
+**Test file**: `/tmp/kototama-spike/kototama/tests/himawari_spike.rs` (13 tests)
+
+### kototama architecture (confirmed from source)
+
+```
+com-junkawasaki/kototama (ADR-0001, 2026-06-21)
+  compile_clj(src)  = kotoba_clj::compile_str(src)                       // NO prelude
+  compile_game(src) = kami_engine_clj::compile_str_with_prelude(src)     // GAME_PRELUDE only
+  pub use kotoba_clj;  // re-export
+```
+
+kototama is built with `kotoba-clj = { default-features = false }` — the `component` feature
+(which exposes `compile_component_str`) is NOT enabled. GAME_PRELUDE contains vec3/timer/vec-make/
+map-make helpers but does NOT contain Clojure stdlib compat aliases (`get`/`assoc`/`merge`/
+`hash-map`) which are only in kotoba-clj's PRELUDE (prepended by `compile_str_with_prelude`).
+
+### Spike test matrix
+
+| Test | What it tests | Result | Bytes | Error |
+|------|--------------|--------|-------|-------|
+| T1 compile_clj simple | bare `compile_str`, no stdlib | PASS | 195 | — |
+| T2 compile_str_with_prelude stdlib | `get`/`assoc`/`merge`/`hash-map` with full prelude | PASS | 10,366 | — |
+| T3 compile_game simple | GAME_PRELUDE, no stdlib needed | PASS | 1,695 | — |
+| T4 compile_game with stdlib | `hash-map`/`assoc`/`merge` via GAME_PRELUDE | **FAIL** | — | `call to undefined function 'hash-map'` |
+| T5 ns-qualified calls | `str/lower-case` (himawari pattern) | **FAIL** | — | `unknown function 'clojure.string/lower-case'` |
+| T6 set literal `#{}` | `#{"solar-grade-6N" ...}` (himawari pattern) | **FAIL** | — | `` `let` is not supported in a `def` initialiser `` |
+| T7 .hashCode | JVM intrinsic | **FAIL** | — | `unknown function 'int' with arity 1` |
+| T8 PoC rewrite (draft) | forbidden `def` vector initializer | **FAIL** | — | `` `let` is not supported in a `def` initialiser `` |
+| T9 kototama re-export | `kototama::kotoba_clj::compile_str_with_prelude` | PASS | 10,241 | — |
+| T10 def constraint | `def` holding vector/string vs integer | PASS (info) | — | strings/vectors fail; integer works |
+| T12 PoC v3 final | getter-defn pattern + `compile_str_with_prelude` | PASS | 10,561 | — |
+| T13 wasm-tools validate | write WASM, validate with wasm-tools | PASS | 10,561 (core module) | — |
+
+**T8 failure analysis**: the draft PoC rewrite used `(def SOLAR_GRADES ["solar-grade-6N" ...])` —
+a vector literal in `def`. kotoba-clj `def` accepts only compile-time i64 integers. Fix:
+`(defn solar-grades [] ...)` getter function → T12 PASS (10,561 bytes, `wasm-tools validate` green).
+
+**T13 CORE MODULE**: `wasm-tools validate` PASS. Output type = **CORE MODULE** (magic bytes
+`\0asm` + version `0x01 0x00 0x00 0x00`), NOT a Component (`0x0D 0x00 0x01 0x00`). The
+component-prelude gap stands: `compile_str_with_prelude` produces a valid WASM core module, not
+a deployable Component.
+
+### Verdict: kototama does NOT close the component-prelude gap
+
+| Hypothesis | Reality |
+|-----------|---------|
+| `compile_clj` provides a richer prelude | `compile_clj` = bare `compile_str` (NO prelude) |
+| `compile_game` has Clojure stdlib compat | GAME_PRELUDE = vec3/timer only — `hash-map`/`assoc`/`merge` ABSENT |
+| kototama exposes a better component path | `component` feature disabled; `compile_component_str` unavailable |
+| kototama helps himawari more than kotoba-clj alone | No — kotoba-clj re-exported through kototama is identical |
+
+**The correct compilation path for himawari cells remains `kotoba_clj::compile_str_with_prelude`
+(directly, not via kototama).** This produces a valid core WASM module (10,561 bytes after PoC
+rewrite, `wasm-tools validate` green) but NOT a deployable WIT Component. Producing a deployable
+Component still requires one of:
+
+1. A new `compile_component_str_with_prelude()` in kotoba-clj's `component.rs` that combines
+   the stdlib prelude with Component Model wrapping (estimated 1–2 day addition).
+2. f64 support in kotoba-clj, enabling production cljc cells (which use natural float math) to
+   compile without the integer basis-point degradation rejected in PR #2268.
+
+**Option D (keep Python for WASM build, cljc for bb-native) remains the operative decision.**
+
+### Spike artifacts
+
+- Test file: `/tmp/kototama-spike/kototama/tests/himawari_spike.rs` (13 tests)
+- Validated WASM: `/tmp/kototama-spike/himawari-supply.wasm` (10,561 bytes, core module)
+- Spike environment: `/tmp/kototama-spike/{kototama, kotoba→symlink, kami-engine}`
+
+---
 
 ## References
 
