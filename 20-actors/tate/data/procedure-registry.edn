@@ -145,7 +145,7 @@
   :proc/deadline-rules
   [{:dl/label "債権届出"
     :dl/rule "債権届出期間は開始決定で裁判所が定める (通知記載) — 期間内に届け出ないと配当から漏れ得る (一般調査期間後の届出は制限)"
-    :dl/anchor "破産法31条・111条" :dl/verify-service-date true}]
+    :dl/anchor "破産法31条・111条" :dl/source-url "https://laws.e-gov.go.jp/law/416AC0000000075" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :saiken-todoke :opt/kind :self-submit :opt/protective true
     :opt/label "債権届出書を提出 — 前払金・預け金・未消化サブスク・ポイントも債権 (kaiyaku 縁-ledger と突合)"}
@@ -160,7 +160,7 @@
   :proc/deadline-rules
   [{:dl/label "期日への出頭"
     :dl/rule "通知記載の調停期日に出頭 (正当な理由のない不出頭は5万円以下の過料があり得る) — 出頭困難なら期日変更を早めに申し出る"
-    :dl/anchor "家事事件手続法51条・258条" :dl/verify-service-date true}]
+    :dl/anchor "家事事件手続法51条・258条" :dl/source-url "https://laws.e-gov.go.jp/law/423AC0000000052" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :shuttou :opt/kind :self-decide :opt/label "期日に出頭 (調停は話合いの場 — 合意するまで成立しない)"}
    {:opt/id :jijou-setsumei :opt/kind :self-submit :opt/protective true :opt/label "答弁書・事情説明書を事前提出 (言い分を整理)"}
