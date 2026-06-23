@@ -65,5 +65,5 @@ spec:
         # a separate operator-supervised step.
         - name: repo
           hostPath:
-            path: /Users/junkawasaki/github/etzhayyim-root
+            path: __REPO_ROOT__
             type: Directory
