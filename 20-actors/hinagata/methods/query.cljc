@@ -121,6 +121,22 @@
         present (filter #(contains? nodes %) major-jurisdictions)]
     (sort (filter #(not (contains? have %)) present))))
 
+(defn statute-reach
+  "Per STATUTE, the count of distinct clauses + templates that CITE it (:cites-statute / :mandated-by)
+  — the statute's reach across the commons, operationalizing the ontology's derived `:bond/statute-pull`.
+  `statutes-grounding-template` is the forward query (a template's statutes); this is the INVERSE:
+  which statute the commons most DEPENDS on, so a change to a widely-cited statute (a GDPR amendment, a
+  民法 revision) shows exactly how many published clauses/templates must be re-checked. A DISCLOSED
+  structural fact (citation counts), never an enforceability verdict (G1 commons-not-law / G3); on read
+  (G2). Returns [statute citer-count label] by count descending."
+  [nodes edges]
+  (->> edges
+       (filter #(#{":cites-statute" ":mandated-by"} (get % ":en/kind")))
+       (reduce (fn [m e] (update m (get e ":en/to") (fnil conj #{}) (get e ":en/from"))) {})
+       (map (fn [[statute citers]] [statute (count citers) (label nodes statute)]))
+       (sort-by (fn [[s cnt _]] [(- cnt) (str s)]))
+       vec))
+
 ;; command table (verb wording 1:1 with query.py _COMMANDS)
 (def commands
   {"templates-in" ["templates-in-jurisdiction" "templates governed by"]
