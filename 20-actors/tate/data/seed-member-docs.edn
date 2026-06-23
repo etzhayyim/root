@@ -1093,7 +1093,7 @@
  {:doc/id "doc:at-agb" :doc/label "AT AGB (synthetic)"
   :doc/jurisdiction :at
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "Wir übernehmen keine Haftung für Schäden. Der Vertrag verlängert sich automatisch um ein Jahr."}
+  :doc/text "Wir übernehmen keine Haftung für Schäden. Der Vertrag verlängert sich automatisch um ein Jahr. Der Verbraucher ist unangemessen lange an den Vertrag gebunden. Der Unternehmer ist zu einer Preiserhöhung innerhalb von zwei Monaten nach Vertragsabschluss berechtigt."}
 
  {:doc/id "doc:pt-condicoes" :doc/label "PT condições gerais (synthetic)"
   :doc/jurisdiction :pt
