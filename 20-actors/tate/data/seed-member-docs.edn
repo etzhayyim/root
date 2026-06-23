@@ -74,7 +74,7 @@
  {:doc/id "doc:de-agb" :doc/label "DE Mobilfunk-AGB (synthetic)"
   :doc/jurisdiction :de
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "Der Anbieter behält sich eine Preiserhöhung jederzeit vor. Bei Vertragsverletzung wird ein pauschalierter Schadensersatz in Höhe von drei Monatsbeiträgen fällig."}
+  :doc/text "Der Anbieter behält sich eine Preiserhöhung jederzeit vor. Bei Vertragsverletzung wird ein pauschalierter Schadensersatz in Höhe von drei Monatsbeiträgen fällig. Die Haftung für Körper- und Gesundheitsschäden sowie für grobe Fahrlässigkeit ist ausgeschlossen. Der Vertrag hat eine Mindestlaufzeit von drei Jahren und verlängert sich automatisch um ein weiteres Jahr, wenn nicht mit einer Frist von drei Monaten gekündigt wird."}
 
  ;; ── worldwide: intl notices ──────────────────────────────────────────────────
  {:notice/id "ntc:us-summons-real" :notice/label "US summons + complaint (personal service)"

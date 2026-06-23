@@ -183,6 +183,20 @@
   :clause/anchor "BGB §309 Nr.5 (Pauschalierung von Schadensersatzansprüchen)"
   :clause/route :referral :clause/verify-current-law true}
 
+ {:clause/id "cl:de-liability-body-gross" :clause/label "生命・身体・健康/重過失の免責"
+  :clause/jurisdiction :de
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["Haftung für Körper- und Gesundheitsschäden" "für grobe Fahrlässigkeit ist ausgeschlossen"]
+  :clause/anchor "BGB §309 Nr.7 (Haftungsausschluss bei Verletzung von Leben, Körper, Gesundheit (a) und bei grobem Verschulden (b) — unwirksam)"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:de-long-term-auto-renewal" :clause/label "2年超の拘束/長期解約予告付き自動更新"
+  :clause/jurisdiction :de
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["Mindestlaufzeit von drei Jahren" "verlängert sich automatisch um ein weiteres Jahr"]
+  :clause/anchor "BGB §309 Nr.9 n.F. (ab 1.3.2022 — Erstlaufzeit >2 Jahre unwirksam; stillschweigende Verlängerung nur auf unbestimmte Zeit mit Kündigungsfrist ≤1 Monat)"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :kr — 대한민국 (G10) ─────────────────────────────────────────────────────
  {:clause/id "cl:kr-full-exemption" :clause/label "사업자 전부 면책 (전면 면책조항)"
   :clause/jurisdiction :kr
