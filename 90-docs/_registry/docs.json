@@ -26259,6 +26259,81 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606232100-atproto-actor-registration-root-and-subdids.md",
+      "id": "adr-2606232100-atproto-actor-registration-root-and-subdids",
+      "title": "ADR-2606232100: ATProto actor registration for the root entity + every per-actor / sub-DID",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "atproto-actor-registration",
+      "authoritative": true,
+      "authoritative_for": [
+        "atproto-actor-registration"
+      ],
+      "related": [
+        "adr-2606072802"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606013800-actor-profile-dynamic-didjson",
+        "adr-2606042330-entity-as-actor-society-scale-mirror",
+        "adr-2605231902-feed-post-membrane-and-feed-discover-projection"
+      ],
+      "last_verified": "2026-06-23",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606232130-apex-feed-curation-quarantine-boost-own.md",
+      "id": "adr-2606232130-apex-feed-curation-quarantine-boost-own",
+      "title": "ADR-2606232130: apex home/discover feed curation — quarantine EXCLUDE'd externals + boost own actors",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "apex-feed-curation",
+      "authoritative": true,
+      "authoritative_for": [
+        "apex-feed-curation"
+      ],
+      "related": [
+        "adr-2606211752"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606232100-atproto-actor-registration-root-and-subdids",
+        "adr-2605212245-shinshi-migration-disposition"
+      ],
+      "last_verified": "2026-06-23",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606232200-kizuna-actor-social-self-evolution-sos.md",
+      "id": "adr-2606232200-kizuna-actor-social-self-evolution-sos",
+      "title": "ADR-2606232200: kizuna 絆 — actor-to-actor ATProto social-interaction self-evolution + SoS optimization",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "kizuna-actor-social-sos",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/kizuna"
+      ],
+      "related": [
+        "adr-2605264000",
+        "adr-2606211752"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606232100-atproto-actor-registration-root-and-subdids",
+        "adr-2606172100",
+        "adr-2606201200"
+      ],
+      "last_verified": "2026-06-23",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
