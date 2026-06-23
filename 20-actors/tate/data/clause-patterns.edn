@@ -330,6 +330,20 @@
   :clause/anchor "BW 6:236 sub j/p (zwarte lijst — Wet Van Dam: 黙示更新後は月次解約可)"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ {:clause/id "cl:nl-ontbinding-uitsluiting" :clause/label "ontbinding 権の排除 (zwarte lijst)"
+  :clause/jurisdiction :nl
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["recht op ontbinding van de overeenkomst is uitgesloten" "ontbinding is uitgesloten"]
+  :clause/anchor "BW 6:236 (zwarte lijst — beding dat de bevoegdheid tot ontbinding uitsluit/beperkt; onvoorwaardelijk onredelijk bezwarend, geen tegenbewijs mogelijk)"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:nl-wijzigingsbeding" :clause/label "一方的 prestatie 変更権 (grijze lijst)"
+  :clause/jurisdiction :nl
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["de prestatie eenzijdig wijzigen" "eenzijdig te wijzigen"]
+  :clause/anchor "BW 6:237 (grijze lijst — eenzijdig wijzigingsbeding ten aanzien van de prestatie; vermoed onredelijk bezwarend, weerlegbaar)"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :ar — Argentina (G10) ────────────────────────────────────────────────────
  {:clause/id "cl:ar-exoneracion" :clause/label "全部免責 (cláusula abusiva)"
   :clause/jurisdiction :ar
