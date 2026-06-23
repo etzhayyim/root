@@ -113,6 +113,27 @@
      "max" (if (pos? n) (peek s) 0.0)
      "histogram" (histogram s))))
 
+(defn distribution-entropy
+  "Shannon entropy of the forecast histogram, and the EFFECTIVE NUMBER OF OUTCOMES it implies
+  (perplexity = exp H — the Hill number of the distribution). Where the quantile spread (p90−p10)
+  measures the RANGE of the forecast, this measures its SHAPE: a consensus histogram (all mass in one
+  bin) reads as 1.0 effective outcome, a bimodal one as ≈2.0 (the forecast has two likely futures),
+  a flat one as the full bin count (maximal uncertainty). The :normalized value (H ÷ ln bins ∈ [0,1])
+  is the fraction of maximal uncertainty — the preparedness read: how many distinct futures the box
+  must plan for. Distribution-SHAPE only — it asserts no point (G2, 非終末論) and does not steer
+  (G3, resilience-only). Takes a histogram (bin counts); returns {:entropy :effective-outcomes
+  :normalized}."
+  [counts]
+  (let [tot (reduce + 0.0 counts)
+        nb (count counts)]
+    (if (or (not (pos? tot)) (<= nb 1))
+      {:entropy 0.0 :effective-outcomes (if (pos? tot) 1.0 0.0) :normalized 0.0}
+      (let [ps (->> counts (map #(/ (double %) tot)) (remove zero?))
+            h (- (reduce + 0.0 (map (fn [p] (* p (Math/log p))) ps)))]
+        {:entropy h
+         :effective-outcomes (Math/exp h)
+         :normalized (/ h (Math/log nb))}))))
+
 ;; ── forecast record (G2 distribution-only, G3 resilience-use-only) ────────────
 (defn forecast-record
   "mitooshi-shaped forecast record — DISTRIBUTION-ONLY (G2), resilience-USE-only (G3).
