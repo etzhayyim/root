@@ -142,4 +142,6 @@
   :trigger :on-kse :note "public-accountability oversight — methods have blockers"}
  {:actor "hakoniwa"  :cljc 15 :cells 0 :blocker-lines 70  :status :no-cells
   :trigger :on-tick :note "forward-simulation observatory — methods have blockers"}
+ {:actor "tate"      :cljc 18 :cells 0 :blocker-lines 181 :status :no-cells
+  :trigger :on-kse :note "citizen legal-defense concierge — observatory pattern; methods use str/includes? for clause/notice matching (181 blocker-lines). Mesh contribution = the host-emitted ANONYMIZED coverage digest (methods/coverage_publish.cljc, content-addressed CIDv1, G1 member-data-free — never member docs); atproto profile did:web:etzhayyim.com:actor:tate. cells .solve() is R0 scaffold (no Pregel cells to compile)."}
 ]
