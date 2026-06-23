@@ -589,6 +589,22 @@
   :clause/anchor "Kodeks cywilny art. 385³ pkt 18 (黙示更新は grey list 該当類型)"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ {:clause/id "cl:pl-kara-wygorowana" :clause/label "過大違約金 (rażąco wygórowana kara)"
+  :clause/jurisdiction :pl
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["rażąco wygórowaną karę umowną"]
+  :clause/anchor "Kodeks cywilny art. 385³ pkt 17 (rażąco wygórowana kara umowna / odstępne — niedozwolone postanowienie umowne)"
+  :clause/source-url "https://lexlege.pl/kc/art-385-3/"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:pl-jednostronna-zmiana" :clause/label "正当理由なき一方的変更 (jednostronna zmiana)"
+  :clause/jurisdiction :pl
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["jednostronnej zmiany istotnych cech świadczenia bez ważnych przyczyn"]
+  :clause/anchor "Kodeks cywilny art. 385³ pkt 19 (jednostronna zmiana istotnych cech świadczenia bez ważnych przyczyn — niedozwolone postanowienie umowne)"
+  :clause/source-url "https://lexlege.pl/kc/art-385-3/"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :se — Sverige (G10; 自動更新の事前通知を義務付ける専用法あり) ─────────────
  {:clause/id "cl:se-friskrivning" :clause/label "全部免責 (friskrivning)"
   :clause/jurisdiction :se
