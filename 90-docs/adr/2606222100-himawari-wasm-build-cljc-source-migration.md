@@ -20,6 +20,7 @@ depends_on:
 related:
   - adr-2605302356-kotoba-langgraph-llm-verified
   - adr-2605301625-kotoba-actor-deploy-murakumo-live
+  - com-junkawasaki/kototama ADR-0001 (canonical unified Clojure->WASM runtime; path dep on kotoba-clj)
 supersedes: []
 superseded_by: []
 ---
@@ -493,6 +494,192 @@ full compilation. Option F remains feasible but requires either:
 This measurement closes the PR #184 gap-tracking obligation.
 
 ---
+
+## Post-PR #185 real compile experiment: 7/7 cell PoC (2026-06-23)
+
+**Objective**: close the remaining 6-cell gap that post-#184 left open by PoC-compiling all 6
+HOF-using himawari cells under kotoba-clj via systematic rewrite patterns.
+
+**Test file**: `40-engine/kotoba/crates/kotoba-clj/tests/himawari_compile_test.rs`
+**PR**: `com-junkawasaki/kotoba#185` (`kotoba-clj-inline-hof` branch)
+**All 59 himawari_compile_test tests green. All -p kotoba-clj suites green (0 failures).**
+
+### Approach
+
+Rather than adding HOF closure support to the compiler itself, applied a systematic PoC-rewrite
+pattern (the "inline lambda + getter-defn" approach) to each of the 6 remaining cells. No
+compiler changes were required — the existing prelude and HOF infrastructure in the compiler
+(introduced during earlier waves) was sufficient.
+
+### Rewrite substitution patterns
+
+| Raw cljc construct | kotoba-clj PoC replacement | Reason |
+|---|---|---|
+| `(def ^:private S "string")` | `(defn- s [] "string")` | `def` = i64 integers only |
+| `#{...}` set literals | getter-defn returning vector + `vec-contains?` | Set reader not implemented |
+| `(mapv named-fn coll)` | `(mapv (fn [x] (named-fn x)) coll)` | Named fn refs unbound at HOF call site |
+| `(or (get m k) default)` | `(get m k default)` | `or` returns boolean 1/0, NOT first truthy value |
+| `Math/PI` | `31415927` (integer × 1e-7) | No float math |
+| `Math/abs` | `(if (< n 0) (- n) n)` | No stdlib abs for subset |
+| `str/blank?` | `(= 0 (str-len s))` | clojure.string ns absent |
+| `throw`/`ex-info` | return `{"error" "…"}` map | JVM exceptions unrepresentable |
+| `.hashCode`/`hash` | djb2 loop | JVM intrinsics |
+| `(format "%08x" n)` | `int-to-hex8` digit-extraction loop | JVM format string |
+
+The `or` → 3-arg-get pattern was the most subtle: confirmed by diagnostic test
+`diag_filterv_map_get` that `(or (get g k) 0)` evaluates to `1` (boolean true) in kotoba-clj,
+not the map value. `(get g k 0)` (3-arg form) is the correct substitute.
+
+### Cells compiled and probe results
+
+| Cell | PoC compile | Functional probes | Notable pattern |
+|---|---|---|---|
+| `supply_procurement` | ✅ 12,572 B | 7/7 | PR #184 baseline |
+| `ingot_wafer` | ✅ | 6/6 | `mapv (fn [r] (normalize-robot r)) robots` |
+| `polysilicon_refine` | ✅ | 5/5 | `some #(str-starts-with? ...)` inline |
+| `panel_loading` | ✅ | 5/5 | `f10-loader-did` getter-defn for DID string |
+| `cell_process` | ✅ | 7/7 | 3-arg get in `filterv` instead of `or` |
+| `module_assembly` | ✅ | 7/7 | `internal-did-prefix` getter-defn + literal lambda |
+| `outbound_logistics` | ✅ | 5/5 | `allowed-consignee-prefix` getter-defn |
+
+**7/7 himawari cells compile to valid WASM under kotoba-clj** via the PoC rewrite patterns.
+
+### What this proves
+
+- The kotoba-clj compiler (with `mapv`/`filterv`/`some`/`every?` + lambda lifting already in
+  the prelude) is sufficient to compile all 7 himawari cells without further compiler changes.
+- The HOF closure support (`call_indirect` + lambda lifting) was already present and works
+  correctly — the gap was purely PoC patterns, not compiler capability.
+- The critical semantic difference (`or` = boolean) is now documented with a diagnostic test
+  and proven by probe scenarios.
+
+### Gap comparison
+
+| Gap category | Before PR #184 | Post PR #184 (1/7) | Post PR #185 (7/7) |
+|---|---|---|---|
+| `bit-and`/`bit-or`/bitwise | BLOCKER | RESOLVED | — |
+| multi-arg `str` | BLOCKER | RESOLVED | — |
+| `merge` | BLOCKER | RESOLVED | — |
+| `filter`/`map`/`mapv` HOFs | BLOCKER | BLOCKER | **RESOLVED (literal lambda wrapper)** |
+| `def` holding non-i64 | BLOCKER | Workaround | **RESOLVED (getter-defn pattern)** |
+| Named fn refs as HOF args | BLOCKER | BLOCKER | **RESOLVED (literal lambda wrapper)** |
+| `or` returns boolean, not value | Latent | Latent | **DOCUMENTED + diagnostic test** |
+| `throw`/`ex-info` | BLOCKER | BLOCKER | **RESOLVED (return error map)** |
+| Set literal `#{}` | BLOCKER | Workaround | RESOLVED |
+| `for` comprehension | BLOCKER | BLOCKER | Not needed in any cell PoC |
+
+### Conclusion (7/7 measurement)
+
+**All 7 himawari cells compile to valid WASM under kotoba-clj via PoC rewrites.** The compiler
+already has the necessary HOF + lambda-lifting infrastructure. No further compiler changes are
+required for this milestone.
+
+**Option D (keep Python for the production WASM build; cljc for bb-native) remains the
+operative decision** for the actual `deploy/agent.wasm` build — the PoC rewrites are compile
+tests, not production cljc sources. Converting the PoC rewrites to production `.cljc` replacements
+is the next tracked work item (a successor spike/ADR), but it is not blocked on the compiler.
+
+The `himawari_compile_test.rs` regression suite (59 tests, PR #185) is the long-term gate: any
+future kotoba-clj compiler change that causes a compile failure here signals a regression against
+the himawari PoC subset.
+
+---
+
+---
+
+## WASM build status + kototama runtime (2026-06-23, consolidated)
+
+This section is the **current authoritative status** as of 2026-06-23. It supersedes the
+individually-dated section headers above in terms of overall conclusions.
+
+### kotoba-clj core extensions landed (PRs #184, #185, #187)
+
+Three kotoba-clj PRs landed that directly unblock the himawari compile path:
+
+| PR | What landed | Impact on himawari |
+|---|---|---|
+| #184 | `bit-and`/`bit-or`/`bit-xor`/bit-shift builtins + multi-arg `str` desugaring + `merge` prelude | 3 of the original 10 blockers resolved; `supply_procurement` compiles (12,572 bytes) |
+| #185 | `himawari_compile_test.rs` — 59-test regression suite; HOF `mapv`/`filterv`/`some`/`every?` + lambda lifting; `or`/`and` correct first-truthy-VALUE semantics | All 7 cells compile via PoC rewrites |
+| #187 | `or`/`and` correct Clojure semantics + `def-string-literal` macro | Semantic correctness required for the PoC rewrites |
+
+After these PRs: **7/7 himawari cljc cells compile individually to WASM via kotoba-clj** using
+the PoC rewrite patterns documented in the "Post-PR #185" section above.
+
+### Deployable component build — honest negative (still 0/7)
+
+The 7/7 individual-cell compile result does **NOT** translate to a deployable WASM Component:
+
+1. **`compile_component_str()` does NOT auto-include the prelude.** The component-model prelude
+   path differs from the `compile_str` path tested above; calling `compile_component_str` on any
+   cell produces a stripped output missing Clojure stdlib functions.
+2. **kotoba-clj is i64-only (no f64/float).** The himawari cells use floating-point math
+   (percentages, mass densities, capacity factors). Making cells compile via kotoba-clj required
+   degrading them to integer basis-points — an approach tried in PR #2268 and **CLOSED/REJECTED**
+   to keep the live dual-purpose cells clean. The production cljc cells (used by bb-native runtime
+   and tests) use natural float math and MUST NOT be degraded.
+3. **Result: 0/7 cells produce a loadable component** via the current kotoba-clj component path.
+
+**DECISION (HELD)**: Keep the live himawari cells as clean float cljc, unchanged on
+`origin/main`. Do NOT degrade production cells for an incomplete WASM path. Option D (keep
+Python/componentize-py for the WASM build; cljc for bb-native) remains the **operative decision**.
+The himawari py->cljc prune is NOT done.
+
+### kototama discovery (strategic finding, 2026-06-21)
+
+`com-junkawasaki/kototama` (ADR-0001, 2026-06-21) is the **canonical unified Clojure->WASM
+runtime** — a seam that unifies:
+
+- **`kotoba-clj`** (general CORE; `compile_str` / Component-Model emission)
+- **`kami-engine-clj`** (GAME_PRELUDE + kami:engine ABI)
+
+via one reader (`kotoba-edn`), and adds the **in-browser compile path** (`compile_clj` /
+`compile_game` via wasm-bindgen): author CLJ -> compile to wasm -> `WebAssembly.instantiate` ->
+run, no server. This powers the network-isekai browser flow.
+
+**Dependency structure**: kototama depends on kotoba-clj via a `path` dep
+(`../kotoba/crates/kotoba-clj`). This means the #184/#185/#187 core extensions **flow into
+kototama automatically** — no separate porting step. The kotoba-clj work was the correct
+abstraction layer ("new language capability = extend the core").
+
+**Critical naming distinction**: `com-junkawasaki/kototama` is NOT the same as
+`com-junkawasaki/kototama-clj`. The latter is the UNSPSC functional-actors port (18,342
+actors, ADR-2606131645) and is unrelated to the compiler. Do not conflate them.
+
+### Why kototama matters for the himawari forward path
+
+The component-prelude gap (point 2 above) is specific to the current `kotoba-clj`
+`compile_component_str` path. The kototama runtime unifies kotoba-clj's component-model emission
+with kami-engine-clj's GAME_PRELUDE — which includes a richer prelude covering more stdlib.
+Re-attempting the himawari WASM build via **kototama's `compile_clj` / `compile_game`** is the
+recommended next step: it is likely to close the component-prelude gap that blocked Option F
+from producing a loadable component.
+
+Separately, **adding f64/float support to kotoba-clj** would allow cells to keep natural float
+math without the basis-point degradation that caused PR #2268 to be rejected.
+
+### Recommended forward path (not yet done)
+
+1. **Re-attempt via kototama `compile_clj`/`compile_game`** — unifies the prelude; likely closes
+   the component-prelude gap. This is the architecturally aligned next spike.
+2. **OR add f64 float support to kotoba-clj** — allows cells to keep natural float math, removing
+   the i64-only constraint that required the rejected basis-point degradation.
+3. Until either of the above is verified: **Option D holds**. Python cells (`cells/*/cell.py`)
+   are NOT pruned. The bb-native cljc cells remain the clean production source for tests and
+   local execution.
+
+### Current state summary table
+
+| Milestone | Status |
+|---|---|
+| kotoba-clj PRs #184/#185/#187 landed | **DONE** |
+| 7/7 himawari cells compile individually (kotoba-clj, PoC rewrites) | **DONE** |
+| Deployable WASM Component from cells | **NOT DONE** (0/7 — prelude gap + i64-only) |
+| PR #2268 cell-degradation to integer basis-points | **CLOSED/REJECTED** — cells stay clean |
+| kototama runtime discovered as canonical unified path | **DONE** (ADR-0001, 2026-06-21) |
+| kototama-based component build attempt | **NOT YET** — recommended next step |
+| f64 support in kotoba-clj | **NOT YET** — alternative path |
+| himawari Python cell prune | **BLOCKED** — depends on kototama-or-f64 path |
+
 
 ## References
 

@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@atproto/common-web": "^0.5.0",
-    "@atproto/syntax": "^0.6.1"
+    "@atproto/syntax": "^0.6.2"
   },
   "files": [
     "src"

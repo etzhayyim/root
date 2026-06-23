@@ -10,6 +10,13 @@
 ;;                      (G10; see data/jurisdictions.edn; coverage_report.py names gaps)
 ;; :clause/route        :kurashimori (JP rights) | :kaiyaku (sever the tie)
 ;;                      | :referral (professional) | :info
+;; :clause/source-url   OPTIONAL — the primary legal source (official legislation portal
+;;                      where possible) the :clause/anchor was VERIFIED against. Recorded in
+;;                      the data itself so the kotoba Datom log is self-provenancing (a reader
+;;                      navigates to the statute without leaving the substrate). G10: only a
+;;                      URL actually checked is recorded — never a guessed/remembered link;
+;;                      entries still being back-filled carry the anchor text only, and
+;;                      coverage_report names the provenance gap (worklist, drops off once filled).
 
 [{:clause/id "cl:auto-renewal-trap" :clause/label "自動更新 + 狭い解約通知窓"
   :clause/jurisdiction :jp
@@ -159,6 +166,7 @@
   :clause/context :consumer :clause/risk :high
   :clause/keywords ["pay the entire balance of the remaining membership" "cancellation fee for the remaining term"]
   :clause/anchor "Consumer Rights Act 2015 Sch 2 para 5 (grey list — disproportionately high termination charge) / s.62 (fairness)"
+  :clause/source-url "https://www.legislation.gov.uk/ukpga/2015/15/schedule/2/enacted"
   :clause/route :referral :clause/verify-current-law true}
 
  {:clause/id "cl:uk-no-refunds-statutory-rights" :clause/label "返金一切不可・法定権利の排除"
@@ -166,6 +174,7 @@
   :clause/context :consumer :clause/risk :high
   :clause/keywords ["non-refundable under any circumstances" "statutory rights do not apply"]
   :clause/anchor "Consumer Rights Act 2015 s.31 (goods) / s.57 (services) — statutory rights cannot be excluded; s.62 (fairness)"
+  :clause/source-url "https://www.legislation.gov.uk/ukpga/2015/15/section/31"
   :clause/route :referral :clause/verify-current-law true}
 
  ;; ── :de — Deutschland (G10) ─────────────────────────────────────────────────
@@ -188,6 +197,7 @@
   :clause/context :consumer :clause/risk :high
   :clause/keywords ["Haftung für Körper- und Gesundheitsschäden" "für grobe Fahrlässigkeit ist ausgeschlossen"]
   :clause/anchor "BGB §309 Nr.7 (Haftungsausschluss bei Verletzung von Leben, Körper, Gesundheit (a) und bei grobem Verschulden (b) — unwirksam)"
+  :clause/source-url "https://www.gesetze-im-internet.de/bgb/__309.html"
   :clause/route :referral :clause/verify-current-law true}
 
  {:clause/id "cl:de-long-term-auto-renewal" :clause/label "2年超の拘束/長期解約予告付き自動更新"
@@ -195,6 +205,7 @@
   :clause/context :consumer :clause/risk :high
   :clause/keywords ["Mindestlaufzeit von drei Jahren" "verlängert sich automatisch um ein weiteres Jahr"]
   :clause/anchor "BGB §309 Nr.9 n.F. (ab 1.3.2022 — Erstlaufzeit >2 Jahre unwirksam; stillschweigende Verlängerung nur auf unbestimmte Zeit mit Kündigungsfrist ≤1 Monat)"
+  :clause/source-url "https://www.gesetze-im-internet.de/bgb/__309.html"
   :clause/route :referral :clause/verify-current-law true}
 
  ;; ── :kr — 대한민국 (G10) ─────────────────────────────────────────────────────
@@ -210,6 +221,22 @@
   :clause/context :consumer :clause/risk :high
   :clause/keywords ["위약금으로 잔여기간 이용료 전액" "위약금으로 잔여 기간"]
   :clause/anchor "약관규제법 8조 (과중한 손해배상액의 예정 — 無効)"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:kr-unfair-termination" :clause/label "사업자에 부당한 해지권 (계약의 해제·해지)"
+  :clause/jurisdiction :kr
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["언제든지 계약을 해지할 수 있습니다" "법률에 규정되지 않은 해지권"]
+  :clause/anchor "약관규제법 9조 (계약의 해제·해지 — 고객의 해지권 배제 / 사업자에 법률에 없는 해지권 부여로 고객에 부당 불이익을 주는 조항은 無効)"
+  :clause/source-url "https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=203797"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:kr-unilateral-performance" :clause/label "급부내용의 일방적 결정·변경 (채무의 이행)"
+  :clause/jurisdiction :kr
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["급부의 내용을 일방적으로 변경할 수 있습니다" "급부의 내용을 사업자가 일방적으로"]
+  :clause/anchor "약관규제법 10조 1호 (채무의 이행 — 상당한 이유 없이 급부의 내용을 사업자가 일방적으로 결정·변경하는 조항은 無効)"
+  :clause/source-url "https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=203797"
   :clause/route :referral :clause/verify-current-law true}
 
  ;; ── :fr — France (G10; EU加盟国国内法の初収載 — EU instruments は :eu のまま) ──
@@ -232,6 +259,7 @@
   :clause/context :consumer :clause/risk :high
   :clause/keywords ["se réserve le droit de modifier unilatéralement" "modifier unilatéralement le prix"]
   :clause/anchor "Code de la consommation R212-1 (liste noire — clause autorisant le professionnel à modifier unilatéralement la durée, les caractéristiques ou le prix; réputée non écrite)"
+  :clause/source-url "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000032807196"
   :clause/route :referral :clause/verify-current-law true}
 
  {:clause/id "cl:fr-disproportionate-penalty" :clause/label "不履行時の不均衡な違約金 (clause grise)"
@@ -239,6 +267,7 @@
   :clause/context :consumer :clause/risk :high
   :clause/keywords ["indemnité d'un montant manifestement disproportionné"]
   :clause/anchor "Code de la consommation R212-2 (liste grise — indemnité d'un montant manifestement disproportionné mise à la charge du consommateur qui n'exécute pas; présumée abusive)"
+  :clause/source-url "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000032807198"
   :clause/route :referral :clause/verify-current-law true}
 
  ;; ── :au — Australia (G10) ────────────────────────────────────────────────────
@@ -261,6 +290,7 @@
   :clause/context :consumer :clause/risk :high
   :clause/keywords ["we may terminate this agreement at any time" "terminate at our sole discretion"]
   :clause/anchor "Australian Consumer Law (CCA Sch 2) s 25(1)(b) (一方のみ解約可 — unfair term の例) / s 24 (significant imbalance テスト)"
+  :clause/source-url "https://www.australiancompetitionlaw.org/legislation/provisions/acl25.html"
   :clause/route :referral :clause/verify-current-law true}
 
  {:clause/id "cl:au-penalty-one-party" :clause/label "一方当事者のみへの違約罰 (unfair term)"
@@ -268,6 +298,7 @@
   :clause/context :consumer :clause/risk :high
   :clause/keywords ["you must pay a penalty for early termination"]
   :clause/anchor "Australian Consumer Law (CCA Sch 2) s 25(1)(c) (一方のみ違約罰 — unfair term の例) / s 24 (significant imbalance テスト)"
+  :clause/source-url "https://www.australiancompetitionlaw.org/legislation/provisions/acl25.html"
   :clause/route :referral :clause/verify-current-law true}
 
  ;; ── :ca — Canada (G10; 仲裁条項の効力が :us と逆になる好例) ──────────────────
@@ -300,6 +331,22 @@
   :clause/anchor "Codice del consumo art. 65-bis 系 / L. 99/2009 (黙示更新の事前告知) — 通知なき更新は争いうる"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ {:clause/id "cl:it-penale-eccessiva" :clause/label "過大な penale (clausola vessatoria)"
+  :clause/jurisdiction :it
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["una penale di importo manifestamente eccessivo"]
+  :clause/anchor "Codice del consumo (D.Lgs. 206/2005) art. 33 c.2 lett. e (penale di importo manifestamente eccessivo — clausola presunta vessatoria, salvo prova contraria; nullità di protezione art. 36)"
+  :clause/source-url "https://www.brocardi.it/codice-del-consumo/parte-iii/titolo-i/art33.html"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:it-modifica-unilaterale" :clause/label "giustificato motivo なき一方的変更 (clausola vessatoria)"
+  :clause/jurisdiction :it
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["modificare unilateralmente le clausole del contratto senza un giustificato motivo"]
+  :clause/anchor "Codice del consumo (D.Lgs. 206/2005) art. 33 c.2 lett. m (modifica unilaterale delle clausole o delle caratteristiche senza giustificato motivo indicato nel contratto — clausola presunta vessatoria; nullità di protezione art. 36)"
+  :clause/source-url "https://www.brocardi.it/codice-del-consumo/parte-iii/titolo-i/art33.html"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :es — España (G10) ───────────────────────────────────────────────────────
  {:clause/id "cl:es-clausula-abusiva" :clause/label "全部免責 (cláusula abusiva)"
   :clause/jurisdiction :es
@@ -315,6 +362,22 @@
   :clause/anchor "TRLGDCU art. 62.3 (継続的契約の解約権 — 妨げる条項は無効)"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ {:clause/id "cl:es-falta-reciprocidad" :clause/label "empresario の裁量解約 (falta de reciprocidad)"
+  :clause/jurisdiction :es
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["el empresario podrá resolver el contrato discrecionalmente" "resolver el contrato discrecionalmente"]
+  :clause/anchor "TRLGDCU (RDL 1/2007) art. 87 (cláusulas abusivas por falta de reciprocidad — p.ej. resolución discrecional por el empresario sin igual facultad del consumidor; nulas de pleno derecho art. 83)"
+  :clause/source-url "https://www.boe.es/buscar/act.php?id=BOE-A-2007-20555"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:es-indemnizacion-desproporcionada" :clause/label "不均衡な indemnización (perfeccionamiento/ejecución)"
+  :clause/jurisdiction :es
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["una indemnización que no se corresponde con los daños efectivamente causados"]
+  :clause/anchor "TRLGDCU (RDL 1/2007) art. 89 (cláusulas abusivas — perfeccionamiento y ejecución; indemnización que no se corresponde con los daños efectivamente causados; nulas de pleno derecho art. 83)"
+  :clause/source-url "https://www.boe.es/buscar/act.php?id=BOE-A-2007-20555"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :nl — Nederland (G10) ────────────────────────────────────────────────────
  {:clause/id "cl:nl-exoneratie" :clause/label "全部免責 (exoneratiebeding)"
   :clause/jurisdiction :nl
@@ -329,6 +392,22 @@
   :clause/keywords ["stilzwijgend verlengd"]
   :clause/anchor "BW 6:236 sub j/p (zwarte lijst — Wet Van Dam: 黙示更新後は月次解約可)"
   :clause/route :kaiyaku :clause/verify-current-law true}
+
+ {:clause/id "cl:nl-ontbinding-uitsluiting" :clause/label "ontbinding 権の排除 (zwarte lijst)"
+  :clause/jurisdiction :nl
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["recht op ontbinding van de overeenkomst is uitgesloten" "ontbinding is uitgesloten"]
+  :clause/anchor "BW 6:236 (zwarte lijst — beding dat de bevoegdheid tot ontbinding uitsluit/beperkt; onvoorwaardelijk onredelijk bezwarend, geen tegenbewijs mogelijk)"
+  :clause/source-url "https://wetboekplus.nl/burgerlijk-wetboek-boek-6-artikel-236-zwarte-lijst/"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:nl-wijzigingsbeding" :clause/label "一方的 prestatie 変更権 (grijze lijst)"
+  :clause/jurisdiction :nl
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["de prestatie eenzijdig wijzigen" "eenzijdig te wijzigen"]
+  :clause/anchor "BW 6:237 (grijze lijst — eenzijdig wijzigingsbeding ten aanzien van de prestatie; vermoed onredelijk bezwarend, weerlegbaar)"
+  :clause/source-url "https://wetboekplus.nl/burgerlijk-wetboek-boek-6-artikel-237-grijze-lijst/"
+  :clause/route :referral :clause/verify-current-law true}
 
  ;; ── :ar — Argentina (G10) ────────────────────────────────────────────────────
  {:clause/id "cl:ar-exoneracion" :clause/label "全部免責 (cláusula abusiva)"
@@ -510,6 +589,22 @@
   :clause/anchor "Kodeks cywilny art. 385³ pkt 18 (黙示更新は grey list 該当類型)"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ {:clause/id "cl:pl-kara-wygorowana" :clause/label "過大違約金 (rażąco wygórowana kara)"
+  :clause/jurisdiction :pl
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["rażąco wygórowaną karę umowną"]
+  :clause/anchor "Kodeks cywilny art. 385³ pkt 17 (rażąco wygórowana kara umowna / odstępne — niedozwolone postanowienie umowne)"
+  :clause/source-url "https://lexlege.pl/kc/art-385-3/"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:pl-jednostronna-zmiana" :clause/label "正当理由なき一方的変更 (jednostronna zmiana)"
+  :clause/jurisdiction :pl
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["jednostronnej zmiany istotnych cech świadczenia bez ważnych przyczyn"]
+  :clause/anchor "Kodeks cywilny art. 385³ pkt 19 (jednostronna zmiana istotnych cech świadczenia bez ważnych przyczyn — niedozwolone postanowienie umowne)"
+  :clause/source-url "https://lexlege.pl/kc/art-385-3/"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :se — Sverige (G10; 自動更新の事前通知を義務付ける専用法あり) ─────────────
  {:clause/id "cl:se-friskrivning" :clause/label "全部免責 (friskrivning)"
   :clause/jurisdiction :se
@@ -555,6 +650,22 @@
   :clause/anchor "消费者权益保护法26条 / 网络交易监督管理办法 (自動更新は事前の顕著な同意取得・更新前リマインド義務)"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ {:clause/id "cl:cn-aggravate-liability" :clause/label "加重消费者责任 (格式条款无效)"
+  :clause/jurisdiction :cn
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["加重消费者责任"]
+  :clause/anchor "民法典497条 (不合理地加重对方责任的格式条款无效) + 消费者权益保护法26条 (加重消费者责任の格式条款 其内容无效)"
+  :clause/source-url "https://www.gov.cn/zhengce/content/202403/content_6940158.htm"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:cn-exclude-main-rights" :clause/label "排除消费者主要权利 (格式条款无效)"
+  :clause/jurisdiction :cn
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["排除消费者主要权利" "限制消费者主要权利"]
+  :clause/anchor "民法典497条 (排除对方主要权利的格式条款无效) + 消费者权益保护法26条 (排除或限制消费者权利の格式条款 其内容无效)"
+  :clause/source-url "https://www.gov.cn/zhengce/content/202403/content_6940158.htm"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :tw — 台灣 (G10) ─────────────────────────────────────────────────────────
  {:clause/id "cl:tw-full-exemption" :clause/label "全部免責 (概不負責)"
   :clause/jurisdiction :tw
@@ -569,6 +680,22 @@
   :clause/keywords ["自動續約"]
   :clause/anchor "消保法11條之1 (審閲期間) / 定型化契約應記載及不得記載事項 — 業種別告示を確認"
   :clause/route :kaiyaku :clause/verify-current-law true}
+
+ {:clause/id "cl:tw-disproportionate-liability" :clause/label "顯不相當之賠償責任 (違反平等互惠)"
+  :clause/jurisdiction :tw
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["顯不相當之賠償責任"]
+  :clause/anchor "消費者保護法12條第2項第1款 + 施行細則14條 (消費者違約時負擔顯不相當之賠償責任 = 違反平等互惠原則 → 推定顯失公平 → 無效)"
+  :clause/source-url "https://law.moj.gov.tw/LawClass/LawSingle.aspx?pcode=J0170001&flno=12"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:tw-defeats-purpose" :clause/label "契約目的難以達成 (主要權利限制)"
+  :clause/jurisdiction :tw
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["致契約之目的難以達成"]
+  :clause/anchor "消費者保護法12條第2項第3款 (契約之主要權利或義務因條款限制致契約之目的難以達成 → 推定顯失公平 → 無效)"
+  :clause/source-url "https://law.moj.gov.tw/LawClass/LawSingle.aspx?pcode=J0170001&flno=12"
+  :clause/route :referral :clause/verify-current-law true}
 
  ;; ── :sg — Singapore (G10) ────────────────────────────────────────────────────
  {:clause/id "cl:sg-liability-exclusion" :clause/label "包括免責 (reasonableness test)"
@@ -598,4 +725,20 @@
   :clause/context :consumer :clause/risk :info
   :clause/keywords ["binding arbitration"]
   :clause/anchor "CPA 2019 + 判例法 — 仲裁条項があっても消費者委員会の管轄は排除されない (:us FAA とも :ca 無効とも異なる第3の帰結)"
-  :clause/route :info :clause/verify-current-law true}]
+  :clause/route :info :clause/verify-current-law true}
+
+ {:clause/id "cl:in-disproportionate-penalty" :clause/label "損害に不相当な違約罰 (unfair contract)"
+  :clause/jurisdiction :in
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["a penalty wholly disproportionate to the loss"]
+  :clause/anchor "Consumer Protection Act 2019 s.2(46)(ii) (penalty wholly disproportionate to the loss = unfair contract — Consumer Commission で争いうる)"
+  :clause/source-url "https://www.indiacode.nic.in/handle/123456789/15256?locale=en"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:in-unilateral-termination" :clause/label "正当理由なき一方的解約 (unfair contract)"
+  :clause/jurisdiction :in
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["terminate this contract unilaterally without reasonable cause"]
+  :clause/anchor "Consumer Protection Act 2019 s.2(46)(iv) (entitling a party to terminate unilaterally without reasonable cause = unfair contract)"
+  :clause/source-url "https://www.indiacode.nic.in/handle/123456789/15256?locale=en"
+  :clause/route :referral :clause/verify-current-law true}]

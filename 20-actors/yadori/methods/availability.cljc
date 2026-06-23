@@ -168,6 +168,58 @@
 (defn tld-of [ascii-fqdn]
   (last (str/split ascii-fqdn #"\.")))
 
+(def ^:private script-ranges
+  "Unicode block ranges for the scripts most relevant to IDN HOMOGRAPH confusion — the visually
+  confusable Latin / Greek / Cyrillic triad plus CJK Han / Japanese Kana. Digits and the hyphen are
+  script-neutral (:common)."
+  [[:latin 0x41 0x5a] [:latin 0x61 0x7a] [:latin 0x00c0 0x024f]
+   [:greek 0x0370 0x03ff] [:cyrillic 0x0400 0x04ff]
+   [:han 0x4e00 0x9fff] [:kana 0x3040 0x30ff]])
+
+(defn- char-script [ch]
+  (let [c (int ch)]
+    (if (or (<= 0x30 c 0x39) (= c 0x2d))
+      :common
+      (or (some (fn [[s lo hi]] (when (<= lo c hi) s)) script-ranges) :other))))
+
+(defn label-scripts
+  "The set of Unicode scripts present in a (Unicode, NOT punycode) domain label, excluding the
+  script-neutral :common (digits, hyphen). Covers the homograph-relevant scripts Latin / Greek /
+  Cyrillic / Han / Kana; anything else is :other."
+  [label]
+  (->> label (map char-script) (remove #{:common}) set))
+
+(defn mixed-script-label?
+  "Confusable-screen primitive (G6 no-squatting / N2 no-impersonation): is a domain label an IDN
+  HOMOGRAPH — does it MIX Unicode scripts, e.g. a Cyrillic 'а' inside an otherwise-Latin 'аpple' that
+  visually impersonates 'apple'? Read-only (G1; a pure string check, no socket, no zone enumeration)
+  — it flags the risk so yadori can refuse to SURFACE or register a confusable name, never silently.
+  A single-script label (all Latin 'café', all Cyrillic 'яндекс', all Han '東京') is legitimate and
+  NOT flagged. Takes the Unicode label (decode punycode first); true iff ≥2 non-common scripts."
+  [label]
+  (> (count (label-scripts label)) 1))
+
+(defn confusable-labels
+  "The labels of a (Unicode, NOT punycode) domain that are IDN HOMOGRAPHS — each a single label that
+  MIXES scripts (per `mixed-script-label?`). The DOMAIN-level confusable screen: a real FQDN has
+  several labels and a homograph can hide in any of them (a Cyrillic char in the second-level name, a
+  lookalike in a subdomain), so screening one label is not enough. Splits on '.', returns the
+  confusable labels in order (empty = every label is script-consistent — note this allows a
+  legitimately different script PER label, e.g. a Latin name under a Cyrillic IDN ccTLD, which is not
+  a within-label homograph). Decode punycode first."
+  [fqdn]
+  (->> (str/split (str fqdn) #"\.")
+       (filter mixed-script-label?)
+       vec))
+
+(defn confusable-fqdn?
+  "Whether a (Unicode) domain carries ANY IDN-homograph label — the FQDN-level confusable screen that
+  G6 (no-squatting) / N2 (no-impersonation) call for, so yadori can refuse to SURFACE or register a
+  confusable name. Read-only (G1; pure string check, no socket / no zone enumeration). True iff some
+  label mixes Unicode scripts."
+  [fqdn]
+  (boolean (seq (confusable-labels fqdn))))
+
 (defn rdap-url
   "Construct the RDAP query URL, or nil if the TLD is not in the bootstrap table."
   ([ascii-fqdn] (rdap-url ascii-fqdn nil))

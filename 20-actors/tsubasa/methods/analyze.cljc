@@ -94,6 +94,25 @@
      "fastest_carrier" (:fare/carrier fastest)
      "sourcing" sourcing}))
 
+(defn green-premium
+  "The explicit cost↔emissions tradeoff on a route: the GREEN PREMIUM a traveller pays to take the
+  lowest-CO₂ fare instead of the cheapest, and the CO₂ it saves. `analyze-route` surfaces the
+  cheapest and the greenest fares separately; this quantifies the gap BETWEEN them so the member can
+  judge the trade for themselves (emissions-honest, G4 — neither the cost nor the emissions of going
+  green is hidden; transparent, never a dark pattern, G3). premium-minor = greenest's TRUE total cost
+  − cheapest's true total cost (≤ 0 when the greenest fare is also the cheapest — a win-win);
+  co2-saved-kg = cheapest's CO₂ − greenest's CO₂. Takes a route's fares; returns
+  {:cheapest-total-minor :greenest-total-minor :premium-minor :co2-saved-kg :green-is-cheapest?}."
+  [route-fares]
+  (let [cheapest (apply min-key total-minor route-fares)
+        greenest (apply min-key co2 route-fares)
+        premium  (- (total-minor greenest) (total-minor cheapest))]
+    {:cheapest-total-minor (total-minor cheapest)
+     :greenest-total-minor (total-minor greenest)
+     :premium-minor premium
+     :co2-saved-kg (- (co2 cheapest) (co2 greenest))
+     :green-is-cheapest? (<= premium 0)}))
+
 (defn analyze-carrier
   "Per-carrier coverage observation."
   [[carrier carrier-fares]]

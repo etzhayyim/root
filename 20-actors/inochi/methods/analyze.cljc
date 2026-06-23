@@ -193,6 +193,31 @@
           :else
           (recur (rest es) restoration fragility pressure-out))))))
 
+(defn systemic-pressures
+  "Per-PRESSURE reach: how many DISTINCT bearers (species / ecosystems / biomes) each pressure
+  threatens, alongside the total grasping-load it imposes. `analyze`'s pressure_out ranks pressures
+  by total LOAD; this ranks them by BREADTH — a threat spreading across many bearers is more
+  SYSTEMIC than one concentrated on a few (even at equal load), the restoration priority a load-only
+  view misses. The 取-holder ranked here is the PRESSURE, never a bearer — it is a restoration map,
+  never a hunting / target-list (G1), and reach + load are edge-primary, counted on read
+  (G2; no stored score, no occurrence coordinates). Ranked [pressure reach total-load label] by
+  (reach desc, total-load desc)."
+  ([nodes edges] (systemic-pressures nodes edges 20))
+  ([nodes edges limit]
+   (->> edges
+        (reduce (fn [m e]
+                  (if (contains? pressure-kinds (get e ":en/kind"))
+                    (-> m
+                        (update-in [(get e ":en/from") :bearers] (fnil conj #{}) (get e ":en/to"))
+                        (update-in [(get e ":en/from") :load] (fnil + 0.0) (->load e)))
+                    m))
+                {})
+        (map (fn [[p {:keys [bearers load]}]]
+               [p (count bearers) load (get-in nodes [p ":organism/label"] p)]))
+        (sort-by (fn [[_ reach load _]] [(- reach) (- load)]))
+        (take limit)
+        vec)))
+
 (defn- omap-items
   "Items of an ordered-map in first-touch order (falls back to seq order if no ::order)."
   [d]

@@ -24,6 +24,11 @@ ever defends). Two legs over the member's OWN documents:
    **pattern + DISCLOSED statutory anchor** (消費者契約法8–10条 / 民法548条の2 /
    割賦販売法 / 下請法 / 独禁法) + **route**: `:kurashimori` (rights) / `:kaiyaku`
    (sever the tie) / `:referral` (professional) / `:info`. **Never a validity verdict.**
+   Verified entries also carry **`:clause/source-url`** — the primary legal source
+   (official legislation portal) the anchor was checked against, recorded **in the EDN
+   itself** so the kotoba Datom log is self-provenancing. G10: a URL is recorded only when
+   actually verified (never guessed/remembered); `coverage_report` names the provenance gap
+   (worklist, drops off as entries are back-filled).
 2. **法的手続き応答支援** (`methods/respond_plan.py`) — notices an individual RECEIVES
    (支払督促 / 少額訴訟呼出 / 訴状 / 行政処分 / 内容証明) classified against a coded
    procedure registry (`data/procedure-registry.edn`) → DISCLOSED deadline **rules**
@@ -106,8 +111,8 @@ N6 刑事 out of scope → immediate 弁護士 referral. **N2 補足 (wave 8)**:
 ├── manifest.edn                   # actor manifest (5 cells, 9 gates, 6 non-goals)
 ├── data/
 │   ├── jurisdictions.edn          # jurisdiction registry: UPL anchor + directories (R1)
-│   ├── clause-patterns.edn        # jurisdiction-keyed clause registry (80 shapes, 30 juris)
-│   ├── procedure-registry.edn     # jurisdiction-keyed procedure registry (181 procs; :civil 36 + :labor 29 + :housing 29 + :enforcement 29 + :insolvency 29 + :family 29 — track×juris matrix; fake-guard 語彙 registry 自動導出; :dl/critical 期限先頭表示; **非civil全手続きに protective 選択肢必在**)
+│   ├── clause-patterns.edn        # jurisdiction-keyed clause registry (96 shapes, 30 juris; :clause/source-url 一次ソース URL を verified entry に記録, coverage が provenance gap を可視化)
+│   ├── procedure-registry.edn     # jurisdiction-keyed procedure registry (181 procs; :civil 36 + :labor 29 + :housing 29 + :enforcement 29 + :insolvency 29 + :family 29 — track×juris matrix; fake-guard 語彙 registry 自動導出; :dl/critical 期限先頭表示; **非civil全手続きに protective 選択肢必在**; :dl/source-url 一次ソース URL を verified deadline-rule に記録)
 │   ├── us-states.edn              # :us 州サブ管轄 (small-claims 上限 + answer 期限 + ARL)
 │   └── seed-member-docs.edn       # SYNTHETIC member contracts + notices, intl (G1)
 ├── methods/                       # pure-stdlib → kotoba pywasm-runnable
