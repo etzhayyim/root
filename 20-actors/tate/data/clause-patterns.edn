@@ -843,6 +843,22 @@
   :clause/anchor "CDC art. 51 (消費者に過大な不利益) / art. 39 (práticas abusivas) — 事前同意なき更新は争いうる"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ {:clause/id "cl:br-variacao-preco-unilateral" :clause/label "一方的な価格変更 (nula)"
+  :clause/jurisdiction :br
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["variar o preço de maneira unilateral"]
+  :clause/anchor "CDC (Lei 8.078/1990) art. 51 X (cláusulas que permitam ao fornecedor variar o preço de maneira unilateral — nulas de pleno direito)"
+  :clause/source-url "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:br-modificacao-unilateral" :clause/label "締結後の一方的内容変更 (nula)"
+  :clause/jurisdiction :br
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["modificar unilateralmente o conteúdo ou a qualidade do contrato"]
+  :clause/anchor "CDC (Lei 8.078/1990) art. 51 XIII (cláusulas que autorizem o fornecedor a modificar unilateralmente o conteúdo ou a qualidade do contrato após sua celebração — nulas de pleno direito)"
+  :clause/source-url "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :cn — 中国 (G10; 簡体字 — :tw の繁体字パターンとは別エントリ) ─────────────
  {:clause/id "cl:cn-full-exemption" :clause/label "全部免責 (概不负责)"
   :clause/jurisdiction :cn

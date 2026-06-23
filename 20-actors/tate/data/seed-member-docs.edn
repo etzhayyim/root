@@ -192,7 +192,7 @@
  {:doc/id "doc:br-termos" :doc/label "BR termos de uso (synthetic)"
   :doc/jurisdiction :br
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "Não nos responsabilizamos por quaisquer danos. O plano tem renovação automática."}
+  :doc/text "Não nos responsabilizamos por quaisquer danos. O plano tem renovação automática. O fornecedor poderá variar o preço de maneira unilateral. O fornecedor poderá modificar unilateralmente o conteúdo ou a qualidade do contrato após a celebração."}
 
  {:notice/id "ntc:es-monitorio" :notice/label "ES requerimiento de pago (送達)"
   :notice/jurisdiction :es
