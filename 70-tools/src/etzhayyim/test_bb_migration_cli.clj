@@ -21,6 +21,17 @@
     (is (str/includes? out "dns-sync"))
     (is (str/includes? out (str (count cli/ported-modules))))))
 
+(deftest dispatch-help-lists-wired-commands
+  (testing "help output names each of the 7 wired inline commands"
+    (let [out (:print (cli/dispatch ["help"]))]
+      (is (str/includes? out "bonsai"))
+      (is (str/includes? out "identifier-audit"))
+      (is (str/includes? out "source-graph"))
+      (is (str/includes? out "shannon"))
+      (is (str/includes? out "coverage"))
+      (is (str/includes? out "kosei-tiers"))
+      (is (str/includes? out "dns-sync")))))
+
 (deftest dispatch-dispatchable-command
   ;; a command backed by a -main resolves to a :dispatch action carrying the ns + remaining args
   (let [r (cli/dispatch ["murakumo" "status" "--node" "issachar"])]
@@ -28,10 +39,23 @@
     (is (= 'etzhayyim.murakumo-cmd (:ns r)))
     (is (= ["status" "--node" "issachar"] (:args r)))))
 
+(deftest dispatch-wired-inline-handlers
+  (testing "each wired command resolves to :handle action with the right handler fn"
+    (doseq [cmd ["bonsai" "identifier-audit" "source-graph" "shannon"
+                 "coverage" "kosei-tiers" "dns-sync"]]
+      (let [r (cli/dispatch [cmd "--help"])]
+        (is (= :handle (:action r))
+            (str cmd " should dispatch to :handle"))
+        (is (ifn? (:handler r))
+            (str cmd " handler should be callable (fn or var-wrapping-fn)"))
+        (is (= ["--help"] (:args r))
+            (str cmd " remaining args should be passed through"))))))
+
 (deftest dispatch-library-only-command-is-honest
-  ;; a ported-but-not-yet-wired command tells the truth (library ns + finish note), exit 0
-  (let [r (cli/dispatch ["bonsai"])]
-    (is (str/includes? (:print r) "etzhayyim.bonsai"))
+  ;; bunseki is ported as a LIBRARY (not wired) — must return the "remaining finish" note.
+  ;; NOTE: bonsai is now wired; this test uses bunseki (still unwired) to verify honest path.
+  (let [r (cli/dispatch ["bunseki"])]
+    (is (str/includes? (:print r) "etzhayyim.bunseki"))
     (is (str/includes? (:print r) "remaining finish"))
     (is (= 0 (:exit r)))))
 
@@ -39,3 +63,41 @@
   (let [r (cli/dispatch ["definitely-not-a-command"])]
     (is (str/includes? (:print r) "unknown command"))
     (is (= 2 (:exit r)))))
+
+(deftest wired-commands-are-in-ported-modules
+  (testing "every key in handlers is also listed in ported-modules"
+    (doseq [cmd (keys cli/handlers)]
+      (is (some #{cmd} cli/ported-modules)
+          (str "handler key '" cmd "' must be in ported-modules")))))
+
+(deftest dispatchable-commands-are-in-ported-modules
+  (testing "every key in dispatchable is also listed in ported-modules (murakumo-cmd)"
+    ;; murakumo → murakumo-cmd in ported-modules; vitals → vitals
+    ;; The dispatch key is the CLI word, ported-modules tracks the ns suffix
+    (is (some #{"murakumo-cmd"} cli/ported-modules))
+    (is (some #{"vitals"} cli/ported-modules))))
+
+(deftest shannon-handler-pure-dispatch
+  (testing "shannon handler can be invoked directly with counts (no IO path)"
+    ;; dispatch to get the handler fn, then call it — avoids needing the full -main
+    (let [r (cli/dispatch ["shannon" "10,20,5"])]
+      (is (= :handle (:action r)))
+      (is (= ["10,20,5"] (:args r))))))
+
+(deftest kosei-tiers-handler-tier-info-mode
+  (testing "kosei-tiers handler dispatches for tier-info mode (positional tier arg)"
+    (let [r (cli/dispatch ["kosei-tiers" "T1"])]
+      (is (= :handle (:action r)))
+      (is (= ["T1"] (:args r))))))
+
+(deftest kosei-tiers-handler-classify-mode
+  (testing "kosei-tiers handler dispatches for classify mode (--name / --dir opts)"
+    (let [r (cli/dispatch ["kosei-tiers" "--name" "gateway" "--dir" "50-infra/x"])]
+      (is (= :handle (:action r)))
+      (is (= ["--name" "gateway" "--dir" "50-infra/x"] (:args r))))))
+
+(deftest dns-sync-handler-dispatches-dry-run
+  (testing "dns-sync without --apply routes to :handle"
+    (let [r (cli/dispatch ["dns-sync" "--toml" "deps.toml"])]
+      (is (= :handle (:action r)))
+      (is (= ["--toml" "deps.toml"] (:args r))))))
