@@ -455,6 +455,22 @@
   :clause/anchor "CDE VI.91/4 系 (黙示更新後は通知期間2か月以内で随時解約可)"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ {:clause/id "cl:be-non-reciprocal-penalty" :clause/label "非相互的な違約金 (clause abusive)"
+  :clause/jurisdiction :be
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["indemnité à charge du consommateur sans indemnité équivalente"]
+  :clause/anchor "Code de droit économique art. VI.83, 17° (indemnité due par le consommateur défaillant sans indemnité équivalente à charge de l'entreprise défaillante — clause abusive de la liste noire, nulle)"
+  :clause/source-url "https://economie.fgov.be/fr/themes/ventes/contrats/clauses-abusives"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:be-unilateral-modification" :clause/label "本質的特性の一方的変更 (clause abusive)"
+  :clause/jurisdiction :be
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["modifier unilatéralement les caractéristiques essentielles du produit"]
+  :clause/anchor "Code de droit économique art. VI.83 (liste noire — clause réservant à l'entreprise le droit de modifier unilatéralement les caractéristiques essentielles du produit — clause abusive, nulle)"
+  :clause/source-url "https://economie.fgov.be/fr/themes/ventes/contrats/clauses-abusives"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :mx — México (G10) ───────────────────────────────────────────────────────
  {:clause/id "cl:mx-exoneracion" :clause/label "全部免責 (cláusula abusiva)"
   :clause/jurisdiction :mx

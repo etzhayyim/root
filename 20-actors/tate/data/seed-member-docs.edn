@@ -763,7 +763,7 @@
  {:doc/id "doc:be-conditions" :doc/label "BE conditions générales (synthetic)"
   :doc/jurisdiction :be
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "Aucune responsabilité ne peut nous être imputée. Le contrat se renouvelle par tacite reconduction."}
+  :doc/text "Aucune responsabilité ne peut nous être imputée. Le contrat se renouvelle par tacite reconduction. Une indemnité à charge du consommateur sans indemnité équivalente à charge de l'entreprise est prévue. L'entreprise se réserve le droit de modifier unilatéralement les caractéristiques essentielles du produit."}
 
  {:notice/id "ntc:be-citation" :notice/label "BE citation à comparaître (huissier)"
   :notice/jurisdiction :be
