@@ -1,23 +1,22 @@
 name: registry-schema-validation
 
-# Validate 90-docs/_registry/docs.json against docs.schema.json AND
-# 90-docs/_registry/graph.jsonld against graph.schema.json.
+# Validate 90-docs/_registry/docs.json against docs.schema.json.
 #
-# Fourth axis of registry enforcement (ADR-2605271100 closure cycle 50).
+# An axis of registry enforcement (ADR-2605271100 closure cycle 50).
 # Parallel pattern to cycles 27-30 deps-toml-paths.yml + cycle 48
-# docs-registry-freshness.yml + cycle 49 docs-graph-jsonld-freshness.yml.
+# docs-registry-freshness.yml + docs-graph-edn-freshness.yml.
 #
-# **Cycle 51 mode: PR-GATE** (promoted from cycle 50's nightly-tracker
-# baseline). Cycle 51 cleaned all 32 baseline .md front-matter
-# violations (4 missing topic + 1 garbage last_verified + 27 empty
-# related strings + others). Baseline = 0; ANY new schema violation
-# fails CI.
+# **PR-GATE mode**: Baseline = 0; ANY new schema violation fails CI.
 #
-# Source chain (all 4 layers):
-#   .md → docs.json → graph.jsonld
-#               ↓             ↓
-#        docs.schema.json   graph.schema.json
+# Source chain:
+#   .md → docs.json
+#               ↓
+#        docs.schema.json
 #        (this workflow)
+#
+# Note: the relation graph moved JSON-LD → EDN (graph.jsonld → graph.edn).
+# graph.edn is a pure deterministic projection of docs.edn, guarded by
+# docs-graph-edn-freshness — it is no longer JSON-Schema-validated here.
 #
 # Per 90-docs/CLAUDE.md "Documentation System Rules" — enforces
 # normalized JSON shape conformance in addition to freshness.
@@ -27,24 +26,20 @@ on:
     branches: [main]
     paths:
       - '90-docs/_registry/docs.json'
-      - '90-docs/_registry/graph.jsonld'
       - '90-docs/_registry/schemas/docs.schema.json'
-      - '90-docs/_registry/schemas/graph.schema.json'
       - '70-tools/scripts/docs/validate-registry-schemas.py'
       - '.github/workflows/registry-schema-validation.yml'
   pull_request:
     branches: [main]
     paths:
       - '90-docs/_registry/docs.json'
-      - '90-docs/_registry/graph.jsonld'
       - '90-docs/_registry/schemas/docs.schema.json'
-      - '90-docs/_registry/schemas/graph.schema.json'
       - '70-tools/scripts/docs/validate-registry-schemas.py'
       - '.github/workflows/registry-schema-validation.yml'
   schedule:
     # Nightly at 03:35 UTC = ~12:35 JST. Off-minute :35 (different from
-    # docs-graph-jsonld :29 / docs-registry :23 / deps-toml :17) for
-    # runner load spread across the 4 axes.
+    # docs-graph-edn :29 / docs-registry :23 / deps-toml :17) for
+    # runner load spread across the axes.
     - cron: '35 3 * * *'
   workflow_dispatch:
 
@@ -92,19 +87,14 @@ jobs:
         run: |
           if [ -f /tmp/validation.json ]; then
             docs_errors=$(python3 -c "import json; print(json.load(open('/tmp/validation.json'))['docs']['error_count'])")
-            graph_errors=$(python3 -c "import json; print(json.load(open('/tmp/validation.json'))['graph']['error_count'])")
-            total=$((docs_errors + graph_errors))
+            total=$docs_errors
             {
               echo "## Registry schema validation"
               echo ""
               echo "- **docs.json errors**: ${docs_errors}"
-              echo "- **graph.jsonld errors**: ${graph_errors}"
               echo "- **Total**: ${total}"
               echo ""
-              echo "Baseline as of ADR-2605271100 closure cycle 51 (2026-05-27):"
-              echo "  - 0 docs.json errors (all 31 baseline violations cleaned in cycle 51)"
-              echo "  - 0 graph.jsonld errors (1 garbage-lastVerified cleaned)"
-              echo "  - **PR-GATE mode**: any new violation fails CI"
+              echo "Baseline: 0 docs.json errors. **PR-GATE mode**: any new violation fails CI."
               echo ""
               if [ "$total" -gt 0 ]; then
                 echo "⚠️ **${total} schema violation(s)** — PR is blocked."
@@ -114,11 +104,11 @@ jobs:
                 cat /tmp/validation.json
                 echo '```'
                 echo ""
-                echo "Fix: edit the .md front-matter to match docs.schema.json /"
-                echo "graph.schema.json. Run locally:"
+                echo "Fix: edit the .md front-matter to match docs.schema.json."
+                echo "Run locally:"
                 echo "  python3 70-tools/scripts/docs/validate-registry-schemas.py"
               else
-                echo "✓ All registry artifacts are schema-valid."
+                echo "✓ docs.json is schema-valid."
               fi
             } >> "$GITHUB_STEP_SUMMARY"
           else

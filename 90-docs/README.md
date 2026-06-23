@@ -21,8 +21,8 @@ superseded_by: []
 
 ## Read Order
 
-1. `docs/_registry/docs.json`
-2. `docs/_registry/graph.jsonld`
+1. `docs/_registry/docs.json` (EDN twin: `docs.edn`)
+2. `docs/_registry/graph.edn`
 3. 対象 topic の authoritative doc
 4. 関連する ADR
 
@@ -31,8 +31,8 @@ superseded_by: []
 - `docs/{lexicon.foldername}/*.md`: lexicon/folder 単位の design / evaluation / reference 本文
 - `docs/*.md`: docs system 直下ドキュメント
 - `docs/adr/*.md`: architecture decision records
-- `docs/_registry/docs.json`: authoritative registry
-- `docs/_registry/graph.jsonld`: relation graph
+- `docs/_registry/docs.json`: authoritative registry (EDN twin: `docs.edn`)
+- `docs/_registry/graph.edn`: relation graph (EDN projection of `docs.edn`)
 
 ## Consolidation Policy
 
