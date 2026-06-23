@@ -185,7 +185,7 @@
                (->> cljc-files
                     (mapcat #(let [src (slurp (str %))]
                                (filter (fn [line]
-                                         (some #(str/includes? line %) COMPILE-BLOCKERS))
+                                         (some (fn [b] (str/includes? line b)) COMPILE-BLOCKERS))
                                        (str/split-lines src))))
                     count)
                status (cond
