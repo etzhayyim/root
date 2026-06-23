@@ -26260,6 +26260,30 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606231200-kotoba-rad-sovereign-actor-identity.md",
+      "id": "adr-2606231200-kotoba-rad-sovereign-actor-identity",
+      "title": "ADR-2606231200: kotoba-rad — sovereign per-actor repo identity on the kotoba substrate",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "kotoba-rad-sovereign-actor-identity",
+      "authoritative": true,
+      "authoritative_for": [
+        "per-actor-repo-identity",
+        "kotoba-rad"
+      ],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605231525",
+        "adr-2605312345",
+        "adr-2605203000"
+      ],
+      "last_verified": "2026-06-23",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606231808-sos-self-growth-visualization.md",
       "id": "adr-2606231808-sos-self-growth-visualization",
       "title": "ADR-2606231808: /sos — 自律成長の3層可視化 (organism 身体 × kaname 要 SoS × ECL 目的関数 J)",

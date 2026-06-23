@@ -23,6 +23,29 @@
    :task (do (require 'etzhayyim.cli)
              (apply (resolve 'etzhayyim.cli/-main) *command-line-args*))}
 
+  actor:publish
+  {:doc "ADR-2606231200 — publish a 20-actors/<name> actor as a sovereign unit: josh/subtree split → gh repo com-etzhayyim-<name> → did:web did.json → kotoba-rad RID/did:key (sovereign identity on the kotoba Datom log) → aozora(yoro) PDS profile-write plan. DRY-RUN by default; --apply executes side effects; --pubkey=<hex> pins the Ed25519 key. no-server-key (signing/PDS-write are member/operator legs). Args: <name> [<name>...] [--apply] [--pubkey=hex]"
+   :task (do (require 'etzhayyim.actor-publish)
+             (apply (resolve 'etzhayyim.actor-publish/-main) *command-line-args*))}
+
+  actor:rid
+  {:doc "Print the kotoba-rad rad: URI (genesis-block CIDv1 RID) for an actor, derived from its actor-manifest.jsonld. Read-only. Args: <name>"
+   :task (do (require 'etzhayyim.actor-publish 'etzhayyim.kotoba-rad)
+             (let [a (first *command-line-args*)
+                   m ((resolve 'etzhayyim.actor-publish/read-manifest) a)
+                   g ((resolve 'etzhayyim.actor-publish/manifest->genesis) a m)]
+               (println ((resolve 'etzhayyim.kotoba-rad/rad-uri) g))))}
+
+  actor:keygen
+  {:doc "Generate an Ed25519 member key for an actor (kotoba-rad sovereign signing). Prints pub-hex + did:key. DRY-RUN prints the priv (not stored); --apply stores it in macOS Keychain (service etzhayyim.kotoba-rad). no-server-key: this is the MEMBER key. Args: <name> [--apply]"
+   :task (do (require 'etzhayyim.kotoba-rad-sign)
+             (apply (resolve 'etzhayyim.kotoba-rad-sign/-keygen) *command-line-args*))}
+
+  test:kotoba-rad
+  {:doc "kotoba-rad sovereign-identity invariants (ADR-2606231200): did:key convention, RID content-addressing, did.json 3-identity cross-link, append-only/idempotent publish, Ed25519 sign/verify + CID base32 parity."
+   :task (do (require 'etzhayyim.test-kotoba-rad)
+             (apply (resolve 'etzhayyim.test-kotoba-rad/-main) *command-line-args*))}
+
   vitals:report
   {:doc "Per-actor LIFE-ACTIVITY vitals — scores each manifest-bearing cell on 3 axes (clj 内部代謝 / actor 細胞間シグナル / atproto 外界代謝), RUNS its run_tests.sh reflex, classifies 生/休眠/死, and transacts the vitals into the kotoba Datom log (as-of trajectory). Flags: --no-tests --limit N --actors a,b --timeout-ms N"
    :task (do (require 'etzhayyim.vitals)
