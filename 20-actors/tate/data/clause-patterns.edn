@@ -650,6 +650,22 @@
   :clause/anchor "消费者权益保护法26条 / 网络交易监督管理办法 (自動更新は事前の顕著な同意取得・更新前リマインド義務)"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ {:clause/id "cl:cn-aggravate-liability" :clause/label "加重消费者责任 (格式条款无效)"
+  :clause/jurisdiction :cn
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["加重消费者责任"]
+  :clause/anchor "民法典497条 (不合理地加重对方责任的格式条款无效) + 消费者权益保护法26条 (加重消费者责任の格式条款 其内容无效)"
+  :clause/source-url "https://www.gov.cn/zhengce/content/202403/content_6940158.htm"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:cn-exclude-main-rights" :clause/label "排除消费者主要权利 (格式条款无效)"
+  :clause/jurisdiction :cn
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["排除消费者主要权利" "限制消费者主要权利"]
+  :clause/anchor "民法典497条 (排除对方主要权利的格式条款无效) + 消费者权益保护法26条 (排除或限制消费者权利の格式条款 其内容无效)"
+  :clause/source-url "https://www.gov.cn/zhengce/content/202403/content_6940158.htm"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :tw — 台灣 (G10) ─────────────────────────────────────────────────────────
  {:clause/id "cl:tw-full-exemption" :clause/label "全部免責 (概不負責)"
   :clause/jurisdiction :tw
