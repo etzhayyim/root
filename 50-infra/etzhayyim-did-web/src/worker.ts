@@ -36,6 +36,7 @@ import {
 } from "./registry/gov-procedures.gen";
 import { fetchKotobaActorRecord, relayKotobaWrite } from "./kotoba";
 import { cacaoToCborBase64 } from "./cbor";
+import { CURATED_FEED_NSIDS, curateFeed, type FeedBody } from "./feed-curation";
 import { handleBlockPut, handleBlockHas, handleRootGet, handleStatsGet, serveBlockFromKv } from "./kotoba-publish";
 import { isRawCidV1, isDagPbCidV1, verifyRawCid } from "./cid";
 import { verifyCarToBytes } from "./car";
@@ -842,6 +843,35 @@ async function proxyXrpc(
       },
     );
   }
+}
+
+// proxyXrpc + transparent home/discover feed curation (ADR-2606232130): quarantine
+// the EXCLUDE'd external poster (shinshi) from the AGGREGATE feed and stable-boost
+// etzhayyim's own actors. Falls through to the raw response on any non-JSON / parse
+// failure (fail-open). Author-scoped feeds are never routed here (see dispatch).
+async function proxyCuratedFeed(
+  request: Request,
+  upstream: string,
+  nsid: string,
+): Promise<Response> {
+  const resp = await proxyXrpc(request, upstream, nsid);
+  if (!resp.ok) return resp;
+  if (!(resp.headers.get("content-type") ?? "").includes("json")) return resp;
+  let body: FeedBody;
+  try {
+    body = (await resp.clone().json()) as FeedBody;
+  } catch {
+    return resp; // fail-open: serve the raw feed if it isn't parseable JSON.
+  }
+  const curated = curateFeed(body);
+  const headers = new Headers(resp.headers);
+  headers.set("x-etzhayyim-feed-curated", "quarantine+boost-own");
+  headers.delete("content-length");
+  return new Response(JSON.stringify(curated), {
+    status: resp.status,
+    statusText: resp.statusText,
+    headers,
+  });
 }
 
 // ─── Per-actor DID Document ─────────────────────────────────────────────
@@ -2128,6 +2158,14 @@ a{color:inherit}
               headers: { "content-type": "application/json; charset=utf-8" },
             },
           );
+        }
+        // Aggregate home/discover feeds get transparent curation (quarantine the
+        // EXCLUDE'd external poster + boost own actors); everything else proxies raw.
+        if (
+          CURATED_FEED_NSIDS.has(nsid) &&
+          (request.method === "GET" || request.method === "HEAD")
+        ) {
+          return proxyCuratedFeed(request, upstream, nsid);
         }
         return proxyXrpc(request, upstream, nsid);
       }
