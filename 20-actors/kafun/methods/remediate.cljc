@@ -104,6 +104,43 @@
      "protected"         (count (filter #(= :protected-selective (get % "verdict")) rows))
      "refused"           (count (filter #(= :refuse (get % "verdict")) rows))}))
 
+(def ^:private blocker-relax
+  "How resolving each pipeline blocker is MODELLED for the counterfactual — the external input that,
+  once supplied, unblocks a stalled stand. :await-sapling-supply is the 無花粉苗木 L1-1 隘路 (→ sanae);
+  :await-consent is land-sovereignty consent (→ musubi). Modelling only — kafun supplies neither."
+  {:await-sapling-supply #(assoc % :sapling-supply :ok)
+   :await-consent #(assoc % :consent true)})
+
+(defn remediation-bottlenecks
+  "Pipeline bottleneck view over a set of stands: tallies the verdict each reaches, then surfaces
+  which BLOCKING stage (a stand stalled waiting on an external input — :await-sapling-supply, the
+  無花粉苗木 L1-1 隘路, or :await-consent) holds the most stands, plus the COUNTERFACTUAL value of
+  resolving it: how many of the binding constraint's stalled stands would advance to
+  :reforest-priority (主伐再造林) once that input is supplied. The per-stand verdict says what to do
+  with ONE stand and `assess` tallies the distribution; this names WHERE 再造林 is jammed and what
+  un-jamming it buys — the constraint to clear first (→ sanae for L1-1, musubi for consent). The
+  counterfactual is pure ASSESSMENT (a hypothetical re-scoring, never actuation — kafun supplies no
+  sapling and grants no consent, G5); aggregate (verdict counts, no per-owner detail, G2). Returns
+  {:tally {verdict count} :blockers [[verdict count] …] :binding-constraint verdict|nil
+   :unblock-potential n|nil}."
+  [stands]
+  (let [tally (frequencies (map #(:verdict (verdict %)) stands))
+        blockers (->> tally
+                      (filter (fn [[v _]] (blocker-relax v)))
+                      (sort-by (fn [[v c]] [(- c) (str v)]))
+                      (mapv vec))
+        binding (ffirst blockers)
+        unblock-potential (when binding
+                            (let [relax (blocker-relax binding)]
+                              (->> stands
+                                   (filter #(= binding (:verdict (verdict %))))
+                                   (filter #(= :reforest-priority (:verdict (verdict (relax %)))))
+                                   count)))]
+    {:tally tally
+     :blockers blockers
+     :binding-constraint binding
+     :unblock-potential unblock-potential}))
+
 ;; ── datom emission (append-only EAVT; flagged) ──────────────────────────────
 
 (defn- add [e a v] [":db/add" e a v])
