@@ -333,7 +333,7 @@
   :proc/deadline-rules
   [{:dl/label "Acknowledgment of service / Defence"
     :dl/rule "particulars of claim 送達から14日以内に defence (acknowledgment を出せば28日)"
-    :dl/anchor "CPR Part 10 / 15.4" :dl/verify-service-date true}]
+    :dl/anchor "CPR Part 10 / 15.4" :dl/source-url "https://www.justice.gov.uk/courts/procedure-rules/civil/rules/part10" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :acknowledge :opt/kind :self-submit :opt/label "Acknowledgment of service (応答期間を28日に延長)"}
    {:opt/id :defence :opt/kind :self-submit :opt/label "Defence を提出 (認否 + 反論)"}
@@ -381,7 +381,7 @@
   :proc/deadline-rules
   [{:dl/label "Proof of debt"
     :dl/rule "liquidator/administrator の通知記載の last date for proving までに提出 — 配当 (dividend) から漏れない"
-    :dl/anchor "Insolvency (England and Wales) Rules 2016 Pt 14" :dl/verify-service-date true}]
+    :dl/anchor "Insolvency (England and Wales) Rules 2016 Pt 14" :dl/source-url "https://www.legislation.gov.uk/uksi/2016/1024" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :prove :opt/kind :self-submit :opt/protective true
     :opt/label "proof of debt form を提出 (無料・本人可) — 前払金・gift card 残高も債権: kaiyaku 縁-ledger と突合"}]
@@ -395,7 +395,7 @@
   :proc/deadline-rules
   [{:dl/label "Acknowledgement of service"
     :dl/rule "application 送達から14日以内に acknowledgement of service — no-fault 制 (DDSA 2020) のため離婚自体を争える事由は管轄等に限定; 財産は financial remedy の別手続"
-    :dl/anchor "FPR 2010 Pt 7 / Divorce, Dissolution and Separation Act 2020" :dl/verify-service-date true}]
+    :dl/anchor "FPR 2010 Pt 7 / Divorce, Dissolution and Separation Act 2020" :dl/source-url "https://www.legislation.gov.uk/uksi/2010/2955" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :acknowledge :opt/kind :self-submit :opt/protective true :opt/label "acknowledgement of service をオンライン提出 (14日)"}
    {:opt/id :financial-separate :opt/kind :self-decide :opt/label "financial remedy / 年金分割は別途 — 合意前にアドバイスを"}]
