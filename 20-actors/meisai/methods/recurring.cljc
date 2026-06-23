@@ -80,6 +80,33 @@
         (sort-by (juxt (comp - :occurrences) :merchant))
         vec)))
 
+(defn price-increases
+  "Recurring charges whose amount has CREPT UP across the statements — the stealth subscription price
+  hike. `recurring` reports an :amount-stable? flag (a yes/no within a tolerance) but not the
+  DIRECTION or MAGNITUDE of a change; this reconstructs the member's OWN rows, groups by merchant,
+  orders each group by statement MONTH, and surfaces those whose latest amount exceeds the earliest by
+  more than `:min-pct` (default 0.05) — a stronger 解約 (kaiyaku) REVIEW signal than 'unstable'. meisai
+  SURFACES; kaiyaku decides keep/review/sever (a merchant is a SERVICE, never a person). Read-only over
+  the local Datom log (G3/G4); member-own only (G1); no credential/PAN — only merchant + amount-minor +
+  month (G2). Returns [{:merchant :currency :first-amount :last-amount :increase :pct :months}] by pct
+  descending."
+  ([datoms] (price-increases datoms {}))
+  ([datoms {:keys [min-pct] :or {min-pct 0.05}}]
+   (->> (rows datoms)
+        (group-by (juxt :merchant :currency))
+        (keep (fn [[[merchant currency] rs]]
+                (let [sorted (sort-by :month rs)
+                      months (count (distinct (map :month rs)))
+                      f (double (:amount (first sorted)))
+                      l (double (:amount (last sorted)))]
+                  (when (and (> months 1) (pos? f) (> l (* f (+ 1.0 min-pct))))
+                    {:merchant merchant :currency currency
+                     :first-amount (long f) :last-amount (long l)
+                     :increase (long (- l f)) :pct (/ (- l f) f)
+                     :months months}))))
+        (sort-by (comp - :pct))
+        vec)))
+
 ;; ── kaiyaku handoff ──────────────────────────────────────────────────────────
 (defn handoff
   "Recurring candidates → kaiyaku-consumable handoff records. meisai PROPOSES :review only; the
