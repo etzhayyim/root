@@ -607,6 +607,22 @@
   :clause/anchor "KSchG §6 Abs 1 Z 2 (Erklärungsfiktion — 黙示更新には特段の注意喚起が必要)"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ {:clause/id "cl:at-lange-bindung" :clause/label "不当に長い契約拘束 (unzulässig)"
+  :clause/jurisdiction :at
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["unangemessen lange an den Vertrag gebunden"]
+  :clause/anchor "KSchG §6 Abs 1 Z 1 (unangemessen lange/unbestimmte Bindung des Verbrauchers an den Vertrag — nicht verbindlich; OGH 判例 Fitness-Studio)"
+  :clause/source-url "https://www.ris.bka.gv.at/NormDokument.wxe?Abfrage=Bundesnormen&Gesetzesnummer=10002462&Paragraf=6"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:at-preiserhoehung-2monate" :clause/label "2か月以内の値上げ (nicht verbindlich)"
+  :clause/jurisdiction :at
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["Preiserhöhung innerhalb von zwei Monaten nach Vertragsabschluss"]
+  :clause/anchor "KSchG §6 Abs 2 Z 4 (innerhalb von zwei Monaten nach Vertragsabschluss zu erbringende Leistung — höheres Entgelt nicht verbindlich, sofern nicht im Einzelnen ausgehandelt)"
+  :clause/source-url "https://www.ris.bka.gv.at/NormDokument.wxe?Abfrage=Bundesnormen&Gesetzesnummer=10002462&Paragraf=6"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :pt — Portugal (G10) ─────────────────────────────────────────────────────
  {:clause/id "cl:pt-exclusao" :clause/label "全部免責 (cláusula proibida)"
   :clause/jurisdiction :pt
