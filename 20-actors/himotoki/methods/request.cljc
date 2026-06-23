@@ -83,6 +83,36 @@
     [false "G10: live dispatch needs HIMOTOKI_OPERATOR_GATE=1 (Council + operator)"]
     :else [true ""]))
 
+(defn deadline-status
+  "Operational status of an OUTSTANDING request's response clock — the deadline_tracker's read, for
+  chasing / appeal routing. Pure arithmetic over the request's OWN figures (the statutory + extension
+  day-counts come from the verified target registry / chigiri — himotoki TRACKS, chigiri owns the
+  law; nothing statutory is hardcoded here). Given days elapsed since dispatch it returns the days
+  remaining and a status ∈ {:open, :due-soon (within the notice window of the statutory deadline),
+  :overdue (past the deadline but still inside any documented extension), :appeal-eligible (past
+  deadline + extension — the member may now escalate via appeal_route)}. A request whose regime sets
+  no fixed day-count (APPI 遅滞なく / PIPL timely → statutoryDeadlineDays nil) is :no-fixed-deadline.
+  Deterministic (elapsed-days is supplied — no wall clock); operational request-management, never
+  legal advice (G5/UPL). Returns {:status :remaining :elapsed :statutory-deadline-days :extension-days}."
+  ([request elapsed-days] (deadline-status request elapsed-days 7))
+  ([request elapsed-days notice-days]
+   (let [d (get request "statutoryDeadlineDays")
+         e (long elapsed-days)]
+     (if (nil? d)
+       {:status :no-fixed-deadline :elapsed e}
+       (let [d (long d)
+             x (long (or (get request "extensionDays") 0))
+             remaining (- d e)]
+         {:status (cond
+                    (> e (+ d x)) :appeal-eligible
+                    (> e d)       :overdue
+                    (<= remaining notice-days) :due-soon
+                    :else         :open)
+          :remaining remaining
+          :elapsed e
+          :statutory-deadline-days d
+          :extension-days x})))))
+
 (defn build-batch
   "Build drafts for several targets. RAISES (G8) if more than MAX-BATCH — no mass-filing."
   [target-ids member registry]
