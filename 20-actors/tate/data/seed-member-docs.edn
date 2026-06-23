@@ -119,7 +119,7 @@
  {:doc/id "doc:kr-tos" :doc/label "KR 구독 서비스 이용약관 (synthetic)"
   :doc/jurisdiction :kr
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "회사는 어떠한 손해에 대해서도 책임을 지지 않습니다. 중도 해지 시 위약금으로 잔여기간 이용료 전액을 청구합니다."}
+  :doc/text "회사는 어떠한 손해에 대해서도 책임을 지지 않습니다. 중도 해지 시 위약금으로 잔여기간 이용료 전액을 청구합니다. 회사는 언제든지 계약을 해지할 수 있습니다. 회사는 상당한 이유 없이 급부의 내용을 일방적으로 변경할 수 있습니다."}
 
  {:doc/id "doc:fr-abonnement" :doc/label "FR conditions générales d'abonnement (synthetic)"
   :doc/jurisdiction :fr

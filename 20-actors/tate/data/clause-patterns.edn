@@ -223,6 +223,22 @@
   :clause/anchor "약관규제법 8조 (과중한 손해배상액의 예정 — 無効)"
   :clause/route :referral :clause/verify-current-law true}
 
+ {:clause/id "cl:kr-unfair-termination" :clause/label "사업자에 부당한 해지권 (계약의 해제·해지)"
+  :clause/jurisdiction :kr
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["언제든지 계약을 해지할 수 있습니다" "법률에 규정되지 않은 해지권"]
+  :clause/anchor "약관규제법 9조 (계약의 해제·해지 — 고객의 해지권 배제 / 사업자에 법률에 없는 해지권 부여로 고객에 부당 불이익을 주는 조항은 無効)"
+  :clause/source-url "https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=203797"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:kr-unilateral-performance" :clause/label "급부내용의 일방적 결정·변경 (채무의 이행)"
+  :clause/jurisdiction :kr
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["급부의 내용을 일방적으로 변경할 수 있습니다" "급부의 내용을 사업자가 일방적으로"]
+  :clause/anchor "약관규제법 10조 1호 (채무의 이행 — 상당한 이유 없이 급부의 내용을 사업자가 일방적으로 결정·변경하는 조항은 無効)"
+  :clause/source-url "https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=203797"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :fr — France (G10; EU加盟国国内法の初収載 — EU instruments は :eu のまま) ──
  {:clause/id "cl:fr-liability-exclusion" :clause/label "responsabilité の全面排除 (clause noire)"
   :clause/jurisdiction :fr
