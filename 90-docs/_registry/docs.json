@@ -28943,6 +28943,24 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/spikes/2606230001-kototama-compile-clj-himawari-spike.md",
+      "id": "spike-2606230001-kototama-compile-clj-himawari",
+      "title": "Spike 2606230001: kototama compile_clj vs himawari cells — can kototama close the component-prelude gap?",
+      "status": "completed",
+      "doc_type": "explanation",
+      "topic": "kototama-compile-clj-himawari-spike",
+      "authoritative": false,
+      "related": [
+        "adr-2606222100-himawari-wasm-build-cljc-source-migration"
+      ],
+      "last_verified": "2026-06-23",
+      "authoritative_for": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/transparency/ingress-disclosure-notice.md",
       "id": "transparency-ingress-disclosure-notice",
       "title": "Ingress Disclosure Notice — standing text (ja / en)",
