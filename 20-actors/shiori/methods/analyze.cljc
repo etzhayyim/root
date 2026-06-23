@@ -242,6 +242,35 @@
      "route_coverage" route-cov
      "unrouted_detractors" (vec unrouted)}))
 
+(defn gap-drivers
+  "Which structural DETRACTORS' harm lands most on the UNDER-SERVED. `analyze` gives each cohort's
+  relief-gap (burden − relief, > 0 = under-served) and `imposed` ranks detractors by total load; this
+  WEIGHTS each detractor's :diminishes load by the relief-gap of the cohort it lands on — surfacing
+  the detractors whose harm concentrates on the cohorts with the LEAST relief (the highest
+  structural-relief priority), which neither the raw imposed-load nor the per-cohort gap shows alone.
+  Cohort-aggregate; the ranked 取-holder is a STRUCTURAL detractor (a pattern, never a person/org, G1);
+  a relief map routed structural-first (danjo/tsumugi for transparency, ossekai for relief), never
+  per-person affect / manipulation. Returns [detractor gap-weighted-harm label] by weighted harm
+  descending (only detractors that reach an under-served cohort)."
+  ([analysis nodes edges] (gap-drivers analysis nodes edges 20))
+  ([analysis nodes edges limit]
+   (let [gap (get analysis "gap" {})]
+     (->> edges
+          (reduce (fn [m e]
+                    (if (contains? diminish-kinds (get e ":en/kind"))
+                      (let [g (double (get gap (get e ":en/to") 0.0))
+                            load (double (or (get e ":en/load") 0.0))]
+                        (if (pos? g)
+                          (update m (get e ":en/from") (fnil + 0.0) (* load g))
+                          m))
+                      m))
+                  {})
+          (filter (fn [[_ v]] (pos? v)))
+          (sort-by (fn [[d v]] [(- v) (str d)]))
+          (map (fn [[d v]] [d v (get-in nodes [d ":organism/label"] d)]))
+          (take limit)
+          vec))))
+
 (defn rank
   "Top-`limit` (id, label, value) rows of d, sorted by -value only (STABLE — ties keep
   first-touch insertion order, mirroring Python's `sorted(d.items(), key=lambda kv: -kv[1])`
