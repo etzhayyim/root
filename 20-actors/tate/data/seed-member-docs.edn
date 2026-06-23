@@ -1163,7 +1163,7 @@
  {:doc/id "doc:se-villkor" :doc/label "SE allmänna villkor (synthetic)"
   :doc/jurisdiction :se
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "Bolaget friskriver sig från allt ansvar för skador. Abonnemanget förlängs automatiskt med ett år."}
+  :doc/text "Bolaget friskriver sig från allt ansvar för skador. Abonnemanget förlängs automatiskt med ett år. Vid sen betalning utgår dröjsmålsränta med 30 procent per år. Rätten till nedsättning av ränta enligt 8 § räntelagen är utesluten."}
 
  {:notice/id "ntc:pl-nakaz" :notice/label "PL nakaz zapłaty (書留)"
   :notice/jurisdiction :pl
