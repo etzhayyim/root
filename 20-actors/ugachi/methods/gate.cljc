@@ -94,6 +94,34 @@
      "permitted_r0" (count (filter #(= :propose-r0 (get % "verdict")) rows))
      "routed_to_recovery" (count (filter #(= :route-to-recovery (get % "verdict")) rows))}))
 
+(defn refusal-drivers
+  "Among the projects the §2(l) gate REFUSES, which constitutional concern drives the refusals — by
+  COUNT (how many projects each reason refuses) and by SEVERITY (the summed multigen-risk of the
+  projects it refuses). The per-project verdict says why ONE project is refused and `assess` tallies
+  the verdicts; this profiles the failure modes and surfaces whether the most FREQUENT refusal
+  reason is also the most SEVERE (no-consent refusals can be common but low-risk; irreversible-harm
+  refusals rarer but high-risk). The reasons map to the gates: :no-consent (G5 land sovereignty),
+  :carbon-positive (G6 / §2(d)), :monopoly-entrenchment (G3 / §1.12), :irreversible-multigen-harm
+  (G3). ASSESSMENT only — a stewardship profile aggregating the constitutional REASONS (never an
+  industry name, G2), never a target-list (G2/G5). Returns
+  {:refused n :by-count [[reason count] …] :by-severity [[reason risk-sum] …]
+   :dominant-by-count reason|nil :dominant-by-severity reason|nil}."
+  [projects]
+  (let [refused (filter #(= :refuse (get % "verdict")) (map assess-project projects))
+        r3 (fn [x] (/ (Math/round (* (double x) 1000.0)) 1000.0))
+        by-count (->> refused (map #(get % "reason")) frequencies
+                      (sort-by (fn [[r c]] [(- c) (str r)])) (mapv vec))
+        by-severity (->> refused
+                         (reduce (fn [m row] (update m (get row "reason") (fnil + 0.0)
+                                                     (get row "multigen_risk"))) {})
+                         (sort-by (fn [[r s]] [(- s) (str r)]))
+                         (mapv (fn [[r s]] [r (r3 s)])))]
+    {:refused (count refused)
+     :by-count by-count
+     :by-severity by-severity
+     :dominant-by-count (ffirst by-count)
+     :dominant-by-severity (ffirst by-severity)}))
+
 ;; ── datom emission (append-only EAVT; flagged) ──────────────────────────────
 
 (defn- add [e a v] [":db/add" e a v])

@@ -734,8 +734,9 @@
           (h :div {:class "card"}
              (h :h3 {:text "IE-flow lab — actor ごとの bounded system（system 境界 + 自前の system-dynamics）"})
              (lab-panel))
-          (h :div {:class "foot"
-                   :text "脈動=呼吸 · 発光=working-tree 編集中 · 閃光=コミット出力(生産). 構造=kotoba Datom log / 活動=git pulse。"}))))))
+          (h :div {:class "foot"}
+             (h :span {:text "脈動=呼吸 · 発光=working-tree 編集中 · 閃光=コミット出力(生産). 構造=kotoba Datom log / 活動=git pulse。 "})
+             (h :a {:href "/sos" :text "自律成長の全体図 (organism × kaname 要 × 目的関数) → /sos"})))))))
 
 ;; ── realtime overlay: apply pulse without rebuilding the dish ────────────────
 

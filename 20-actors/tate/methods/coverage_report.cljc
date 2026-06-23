@@ -85,8 +85,24 @@
          civil-only-gap (if (seq civil-only)
                           (str "専門トラック未開削の管轄 (civil のみ): " (str/join " " civil-only))
                           "全管轄に専門トラックあり (:eu は越境 instruments のみで対象外)")
+         ;; provenance: how many clause patterns carry a verified primary-source URL in the
+         ;; data itself (G10 — only checked URLs recorded; the rest carry anchor text only)
+         src-count (count (filter #(get % ":clause/source-url") patterns))
+         pat-total (count patterns)
+         proc-src-count (count (filter (fn [p] (some #(get % ":dl/source-url")
+                                                     (get p ":proc/deadline-rules" [])))
+                                       procs))
+         proc-total (count procs)
+         source-url-gap (if (and (>= src-count pat-total) (>= proc-src-count proc-total))
+                          (str ":source-url 出典: clause " src-count "/" pat-total
+                               " + proc " proc-src-count "/" proc-total
+                               " 全エントリに一次ソース URL を記録")
+                          (str ":source-url 出典: clause " src-count "/" pat-total
+                               " + proc " proc-src-count "/" proc-total
+                               " に一次ソース URL を記録 — 残りは anchor のみ "
+                               "(worklist; 一次ソース検証後に付与、推測 URL は入れない G10)"))
          named-gaps (concat (map #(str % " — 未収載 (worklist)") remaining)
-                            [us-state-gap track-gap civil-only-gap]
+                            [us-state-gap track-gap civil-only-gap source-url-gap]
                             structural-gaps)
          all-tracks-order [":civil" ":labor" ":housing" ":enforcement" ":insolvency" ":family"]
          sort-track-map (fn [ts] (into (sorted-map) ts))]
@@ -105,6 +121,10 @@
       "patterns_by_jurisdiction" (into (sorted-map) pat-by-j)
       "procedures_by_jurisdiction" (into (sorted-map) proc-by-j)
       "covered_count" (count covered)
+      "clause_source_url_count" src-count
+      "clause_total" pat-total
+      "proc_source_url_count" proc-src-count
+      "proc_total" proc-total
       "un_member_states" un-member-states
       "coverage_ratio" (round-half-even (/ (double (count covered)) un-member-states) 4)
       "worklist_remaining" (vec remaining)

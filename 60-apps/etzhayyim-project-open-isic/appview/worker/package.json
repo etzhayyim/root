@@ -13,11 +13,11 @@
   },
   "dependencies": {
     "@etzhayyim/kotodama-host-sdk": "workspace:*",
-    "hono": "^4.12.25"
+    "hono": "^4.12.26"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20260613.1",
+    "@cloudflare/workers-types": "^4.20260621.1",
     "typescript": "^6.0.3",
-    "wrangler": "^4.100.0"
+    "wrangler": "^4.103.0"
   }
 }

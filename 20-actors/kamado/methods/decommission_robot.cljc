@@ -68,6 +68,24 @@
              (assoc st :c (max 0.0 (+ c (* dcdt dt)))))))
   nil)
 
+(defn purge-time
+  "MODELLED time (s) for a hazardous-gas zone to fall from concentration `c0` to the safe-entry
+  target `c-target` under a CONSTANT purge flow — the linear-dilution model `gas-step!` integrates:
+  dc/dt = leak − k-purge·flow (constant for a fixed flow), so t = (c0 − c-target)/(k-purge·flow −
+  leak). Returns nil when the purge cannot win against the leak (k-purge·flow ≤ leak — an UNVENTABLE
+  zone the entry gate must refuse), and 0.0 when already at/below target. This is a MODELLING
+  estimate of the entry-wait (so robotics can sequence the H₂S/benzene hot-zone decommission, G9),
+  NOT a certified safe-entry clearance — actual entry requires certified continuous gas detection,
+  never a computed time (G11 safety-honesty: kamado is not a certified safety system). It models; it
+  neither actuates nor clears entry. Takes the zone spec (`:k-purge`, `:leak`) + the purge flow +
+  c0 + c-target."
+  [{:keys [k-purge leak] :or {leak 0.0}} flow c0 c-target]
+  (let [net-rate (- (* k-purge (max 0.0 flow)) leak)]
+    (cond
+      (<= c0 c-target) 0.0
+      (<= net-rate 0.0) nil
+      :else (/ (- c0 c-target) net-rate))))
+
 ;; ── PurgeController — PI purge controller driving concentration DOWN ─────────
 ;; substrate `simulate` calls (step error dt) with error = setpoint − pv = target − C.
 ;; When C is above target this error is negative; the purge flow must be POSITIVE to

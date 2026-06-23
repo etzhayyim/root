@@ -10,7 +10,10 @@ exec bb -e '(def nss (quote [hikari.methods.test-microgrid
                              hikari.methods.test-panel-install
                              hikari.methods.test-agent
                              hikari.cells.grid-edge.test-state-machine
-                             hikari.cells.solar-pv-install.test-state-machine]))
+                             hikari.cells.solar-pv-install.test-state-machine
+                             hikari.cells.consumption-audit.test-state-machine
+                             hikari.cells.geothermal-micro.test-state-machine
+                             hikari.cells.storage-battery.test-state-machine]))
               (apply require (quote clojure.test) nss)
               (let [r (apply clojure.test/run-tests nss)]
                 (System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))'

@@ -69,12 +69,12 @@
  {:doc/id "doc:uk-gym-terms" :doc/label "UK gym membership terms (synthetic)"
   :doc/jurisdiction :uk
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "We accept no liability whatsoever for injury, loss or damage howsoever caused on the premises."}
+  :doc/text "We accept no liability whatsoever for injury, loss or damage howsoever caused on the premises. If you cancel early you must pay the entire balance of the remaining membership as a cancellation fee for the remaining term. All payments are non-refundable under any circumstances and your statutory rights do not apply."}
 
  {:doc/id "doc:de-agb" :doc/label "DE Mobilfunk-AGB (synthetic)"
   :doc/jurisdiction :de
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "Der Anbieter behält sich eine Preiserhöhung jederzeit vor. Bei Vertragsverletzung wird ein pauschalierter Schadensersatz in Höhe von drei Monatsbeiträgen fällig."}
+  :doc/text "Der Anbieter behält sich eine Preiserhöhung jederzeit vor. Bei Vertragsverletzung wird ein pauschalierter Schadensersatz in Höhe von drei Monatsbeiträgen fällig. Die Haftung für Körper- und Gesundheitsschäden sowie für grobe Fahrlässigkeit ist ausgeschlossen. Der Vertrag hat eine Mindestlaufzeit von drei Jahren und verlängert sich automatisch um ein weiteres Jahr, wenn nicht mit einer Frist von drei Monaten gekündigt wird."}
 
  ;; ── worldwide: intl notices ──────────────────────────────────────────────────
  {:notice/id "ntc:us-summons-real" :notice/label "US summons + complaint (personal service)"
@@ -119,12 +119,12 @@
  {:doc/id "doc:kr-tos" :doc/label "KR 구독 서비스 이용약관 (synthetic)"
   :doc/jurisdiction :kr
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "회사는 어떠한 손해에 대해서도 책임을 지지 않습니다. 중도 해지 시 위약금으로 잔여기간 이용료 전액을 청구합니다."}
+  :doc/text "회사는 어떠한 손해에 대해서도 책임을 지지 않습니다. 중도 해지 시 위약금으로 잔여기간 이용료 전액을 청구합니다. 회사는 언제든지 계약을 해지할 수 있습니다. 회사는 상당한 이유 없이 급부의 내용을 일방적으로 변경할 수 있습니다."}
 
  {:doc/id "doc:fr-abonnement" :doc/label "FR conditions générales d'abonnement (synthetic)"
   :doc/jurisdiction :fr
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "Nous déclinons toute responsabilité en cas de dommage. Le contrat est renouvelé par reconduction tacite pour une durée d'un an."}
+  :doc/text "Nous déclinons toute responsabilité en cas de dommage. Le contrat est renouvelé par reconduction tacite pour une durée d'un an. Le professionnel se réserve le droit de modifier unilatéralement le prix et les caractéristiques du service. En cas d'inexécution par le client, une indemnité d'un montant manifestement disproportionné sera exigible."}
 
  {:notice/id "ntc:kr-jigeup" :notice/label "지급명령 (法院送達)"
   :notice/jurisdiction :kr
@@ -148,17 +148,17 @@
  {:doc/id "doc:au-tos" :doc/label "AU subscription terms (synthetic)"
   :doc/jurisdiction :au
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "We may vary these terms at any time. To the fullest extent, we exclude all liability for any loss."}
+  :doc/text "We may vary these terms at any time. To the fullest extent, we exclude all liability for any loss. We may terminate this agreement at any time at our sole discretion. If you cancel, you must pay a penalty for early termination."}
 
  {:doc/id "doc:ca-tos" :doc/label "CA retail terms (synthetic)"
   :doc/jurisdiction :ca
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "Any dispute will be resolved by binding arbitration. All sales are final."}
+  :doc/text "Any dispute will be resolved by binding arbitration. All sales are final. You waive all rights under consumer protection legislation. We may amend this agreement unilaterally at any time."}
 
  {:doc/id "doc:it-tos" :doc/label "IT condizioni generali (synthetic)"
   :doc/jurisdiction :it
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "Si esclude ogni responsabilità per danni. Il contratto si rinnova per tacito rinnovo di anno in anno."}
+  :doc/text "Si esclude ogni responsabilità per danni. Il contratto si rinnova per tacito rinnovo di anno in anno. In caso di inadempimento il consumatore dovrà pagare una penale di importo manifestamente eccessivo. Il professionista può modificare unilateralmente le clausole del contratto senza un giustificato motivo."}
 
  {:notice/id "ntc:au-soc" :notice/label "AU statement of claim (personal service)"
   :notice/jurisdiction :au
@@ -182,12 +182,12 @@
  {:doc/id "doc:es-tos" :doc/label "ES condiciones generales (synthetic)"
   :doc/jurisdiction :es
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "Se excluye toda responsabilidad por daños. El contrato se renueva por prórroga automática."}
+  :doc/text "Se excluye toda responsabilidad por daños. El contrato se renueva por prórroga automática. El empresario podrá resolver el contrato discrecionalmente. En caso de desistimiento, el consumidor abonará una indemnización que no se corresponde con los daños efectivamente causados."}
 
  {:doc/id "doc:nl-voorwaarden" :doc/label "NL algemene voorwaarden (synthetic)"
   :doc/jurisdiction :nl
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "Iedere aansprakelijkheid is uitgesloten. Het abonnement wordt stilzwijgend verlengd."}
+  :doc/text "Iedere aansprakelijkheid is uitgesloten. Het abonnement wordt stilzwijgend verlengd. Het recht op ontbinding van de overeenkomst is uitgesloten. De ondernemer mag de prestatie eenzijdig wijzigen."}
 
  {:doc/id "doc:br-termos" :doc/label "BR termos de uso (synthetic)"
   :doc/jurisdiction :br
@@ -587,6 +587,12 @@
   :notice/sourcing :synthetic
   :notice/text "Comunicação de dispensa sem justa causa, com aviso prévio indenizado."}
 
+ {:notice/id "ntc:br-insolvency" :notice/label "BR edital de falência (credor・carta)"
+  :notice/jurisdiction :br
+  :notice/channel :mail :notice/claim-amount 18000 :notice/claim-currency "BRL"
+  :notice/sourcing :synthetic
+  :notice/text "Foi decretada a falência da sociedade. Os credores devem apresentar a habilitação de crédito ao administrador judicial no prazo legal."}
+
  {:notice/id "ntc:tw-zigian" :notice/label "TW 資遣通知書 (労働)"
   :notice/jurisdiction :tw
   :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "TWD"
@@ -610,7 +616,7 @@
  {:doc/id "doc:nz-terms" :doc/label "NZ subscription terms (synthetic)"
   :doc/jurisdiction :nz
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "Consumer guarantees do not apply to this service. Your plan automatically rolls over each year."}
+  :doc/text "Consumer guarantees do not apply to this service. Your plan automatically rolls over each year. We may cancel this contract at our discretion. You will be charged a penalty if you cancel."}
 
  {:notice/id "ntc:au-garnishee" :notice/label "AU garnishee order (mail・執行)"
   :notice/jurisdiction :au
@@ -741,6 +747,12 @@
   :notice/sourcing :synthetic
   :notice/text "Se le notifica una petición de divorcio. Puede ofrecer su propia propuesta reguladora ante el juez de familia."}
 
+ {:notice/id "ntc:ar-enforcement" :notice/label "AR oficio de embargo de remuneraciones (empleador・cédula)"
+  :notice/jurisdiction :ar
+  :notice/channel :formal-service :notice/claim-amount 350000 :notice/claim-currency "ARS"
+  :notice/sourcing :synthetic
+  :notice/text "Oficio de embargo de remuneraciones dirigido a su empleador para descontar de su sueldo."}
+
  {:notice/id "ntc:kr-ihon" :notice/label "이혼 조정기일 통지서 (家事)"
   :notice/jurisdiction :kr
   :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "KRW"
@@ -824,6 +836,12 @@
   :notice/channel :formal-service :notice/claim-amount 0 :notice/claim-currency "MXN"
   :notice/sourcing :synthetic
   :notice/text "Se le notifica una demanda de desahucio sobre el arrendamiento inmobiliario. Puede presentar su contestación dentro del plazo legal."}
+
+ {:notice/id "ntc:mx-enforcement" :notice/label "MX orden de embargo de salario (patrón・notificación)"
+  :notice/jurisdiction :mx
+  :notice/channel :formal-service :notice/claim-amount 30000 :notice/claim-currency "MXN"
+  :notice/sourcing :synthetic
+  :notice/text "Orden de embargo de salario dirigida a su patrón para descontar de su sueldo."}
 
  {:notice/id "ntc:us-term" :notice/label "US notice of termination (letter・労働)"
   :notice/jurisdiction :us
@@ -1140,7 +1158,7 @@
  {:doc/id "doc:pl-regulamin" :doc/label "PL regulamin (synthetic)"
   :doc/jurisdiction :pl
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "Nie ponosimy odpowiedzialności za jakiekolwiek szkody. Umowa ulega automatyczne przedłużenie na kolejny rok."}
+  :doc/text "Nie ponosimy odpowiedzialności za jakiekolwiek szkody. Umowa ulega automatyczne przedłużenie na kolejny rok. W razie niewykonania zobowiązania konsument zapłaci rażąco wygórowaną karę umowną. Przedsiębiorca jest uprawniony do jednostronnej zmiany istotnych cech świadczenia bez ważnych przyczyn."}
 
  {:doc/id "doc:se-villkor" :doc/label "SE allmänna villkor (synthetic)"
   :doc/jurisdiction :se
@@ -1169,7 +1187,7 @@
  {:doc/id "doc:cn-tos" :doc/label "CN 服务条款 (synthetic)"
   :doc/jurisdiction :cn
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "因使用本服务造成的任何损失，本公司概不负责。本服务到期后自动续费。"}
+  :doc/text "因使用本服务造成的任何损失，本公司概不负责。本服务到期后自动续费。本协议加重消费者责任。本格式条款排除消费者主要权利。"}
 
  {:notice/id "ntc:cn-zhifuling" :notice/label "支付令 (法院送达)"
   :notice/jurisdiction :cn
@@ -1205,17 +1223,17 @@
  {:doc/id "doc:tw-tos" :doc/label "TW 服務條款 (synthetic)"
   :doc/jurisdiction :tw
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "因使用本服務所生之任何損害，本公司概不負責。本服務期滿後自動續約一年。"}
+  :doc/text "因使用本服務所生之任何損害，本公司概不負責。本服務期滿後自動續約一年。消費者違約時應負擔顯不相當之賠償責任。消費者主要權利因條款限制，致契約之目的難以達成。"}
 
  {:doc/id "doc:sg-tos" :doc/label "SG subscription terms (synthetic)"
   :doc/jurisdiction :sg
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "We shall not be liable for any loss arising from the service. Your plan is automatically renewed each year."}
+  :doc/text "We shall not be liable for any loss arising from the service. Your plan is automatically renewed each year. We reserve the right to render a performance substantially different from that reasonably expected. You shall indemnify us against any liability for our negligence."}
 
  {:doc/id "doc:in-tos" :doc/label "IN terms of service (synthetic)"
   :doc/jurisdiction :in
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "The company shall not be liable for any loss. All disputes shall be settled by binding arbitration."}
+  :doc/text "The company shall not be liable for any loss. All disputes shall be settled by binding arbitration. On breach you shall pay a penalty wholly disproportionate to the loss. The company may terminate this contract unilaterally without reasonable cause."}
 
  {:notice/id "ntc:tw-payment" :notice/label "支付命令 (法院送達)"
   :notice/jurisdiction :tw

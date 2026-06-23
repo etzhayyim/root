@@ -206,6 +206,30 @@
           :else
           (recur (rest es) openness enclosure enclosure-out))))))
 
+(defn opening-priority
+  "Per-node OPENING priority by the openness↔enclosure BALANCE: enclosure − openness. `analyze`
+  reports enclosure (the 取 borne) and openness separately, but a work can be heavily enclosed in one
+  venue AND openly accessible in another (e.g. a film paywalled on a platform yet screened free in
+  the public domain), so enclosure alone overstates the priority. The NET (enclosure minus openness)
+  surfaces the works gated MORE than they are open — the real opening priority — while a negative net
+  marks the accessible exemplars (net-open). An ACCESS map, never an engagement / popularity ranking
+  (G1; the 取-holder is the enclosure, routed to OPENING, no retention metric, G8); aggregate +
+  edge-primary, reading the on-read integrals (G2, no stored score). Takes an `analyze` result + the
+  nodes; returns [node net enclosure openness label] by net descending."
+  ([analysis nodes] (opening-priority analysis nodes 20))
+  ([analysis nodes limit]
+   (let [openness (get analysis "openness" {})
+         enclosure (get analysis "enclosure" {})
+         ids (distinct (concat (keys enclosure) (keys openness)))]
+     (->> ids
+          (map (fn [id]
+                 (let [e (double (get enclosure id 0.0))
+                       o (double (get openness id 0.0))]
+                   [id (- e o) e o (get-in nodes [id ":organism/label"] id)])))
+          (sort-by (fn [[_ net _ _ _]] (- net)))
+          (take limit)
+          vec))))
+
 (defn- omap-items
   "Items of an ordered-map in first-touch order (falls back to seq order if no ::order)."
   [d]

@@ -59,6 +59,14 @@ Three concrete needs:
 
 ## 1. CNS daemon (`20-actors/etzhayyim-organism/`)
 
+> **Runtime superseded (2026-06).** The live heartbeat now runs as a bb/Clojure task
+> (`organism:heartbeat`, `50-infra/launchd/com.etzhayyim.organism.heartbeat.plist`)
+> backed by `70-tools/src/etzhayyim/organism.cljc` on the kotoba Datom log.
+> The Python runtime files `cns.py` / `emitter.py` / `scheduler.py` / `__main__.py`
+> have been removed. `constitution.py` (AXES data) is retained for
+> `etzhayyim-organism-viz`. Sensor layer (`sensors/*`) is retained as parity oracle.
+> Historical design below is preserved for record.
+
 A Python package that runs as a singleton Pod on Murakumo / Orbstack. Every tick:
 
 1. Reads repo state through 10 axis-sensors (one per constitutional invariant in `constitution.py`).

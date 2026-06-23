@@ -128,3 +128,29 @@
                outlays)))))
       []
       (sort-by key (get ledger "groups"))))))
+
+(defn net-flows
+  "Per-ENDPOINT fiscal net flow over the assembled fundFlowEdges: each fiscal-authority endpoint's
+  total INFLOW (amounts on edges where it is the toEndpoint) minus its OUTFLOW (where it is the
+  fromEndpoint) — the factual flow balance the viz renders as a node's net position (a net RECEIVER
+  vs a net SOURCE of fiscal flows). Aggregate-first by construction (it rolls up to the
+  fiscal-authority labels the assembled edges already carry — never a per-individual element, G10)
+  and NON-adjudicating (a sum of DISCLOSED amounts, never a verdict on whether a flow is right or
+  wrong; danjo finds, kanae renders, G4). Amounts are summed in the edges' own units, so scope to a
+  single currency before calling if the ledger mixes them. Returns [{:endpoint :inflow :outflow
+  :net} …] sorted by net descending (the biggest net receivers first)."
+  [edges]
+  (let [acc (reduce (fn [m e]
+                      (let [amt (try (Double/parseDouble (str (get e "amount"))) (catch Exception _ 0.0))
+                            from (get-in e ["fromEndpoint" "label"])
+                            to (get-in e ["toEndpoint" "label"])]
+                        (cond-> m
+                          from (update-in [from :outflow] (fnil + 0.0) amt)
+                          to (update-in [to :inflow] (fnil + 0.0) amt))))
+                    {} edges)]
+    (->> acc
+         (map (fn [[ep {:keys [inflow outflow]}]]
+                (let [i (or inflow 0.0) o (or outflow 0.0)]
+                  {:endpoint ep :inflow i :outflow o :net (- i o)})))
+         (sort-by (fn [{:keys [net endpoint]}] [(- net) (str endpoint)]))
+         vec)))

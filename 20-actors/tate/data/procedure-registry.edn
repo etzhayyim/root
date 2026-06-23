@@ -1565,7 +1565,7 @@
   :proc/deadline-rules
   [{:dl/label "Forderungsanmeldung"
     :dl/rule "Gläubiger は Insolvenzedikt (Ediktsdatei) に定める Anmeldefrist 内に Forderungsanmeldung を zuständiges Landesgericht へ提出する。Anmeldefrist は通常 allgemeine Prüfungstagsatzung の14日前に終わる (概ね6〜8週間)。Prüfungstagsatzung で Insolvenzverwalter が anerkannt/bestritten を判断。期限後の nachträgliche Anmeldung は Schlussrechnungstagsatzung の14日前まで可能だが €50+USt の費用 (besondere Prüfungstagsatzung) を要する (早期提出が不可能だった場合を除く)"
-    :dl/anchor "Insolvenzordnung (IO) §§ 102 ff. (Anmeldung) + Insolvenzedikt (Anmeldefrist)" :dl/verify-service-date true}]
+    :dl/anchor "Insolvenzordnung (IO) §§ 102 ff. (Anmeldung) + Insolvenzedikt (Anmeldefrist)" :dl/source-url "https://www.jusline.at/gesetz/io/paragraf/107" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :anmeldung :opt/kind :self-submit :opt/protective true
     :opt/label "Forderungsanmeldung を Landesgericht へ提出 (本人可; Anzahlung・Kaution・Gutschein など前払金も Forderung: kaiyaku 縁-ledger と突合)"}]
@@ -1734,6 +1734,20 @@
    {:opt/id :audiencia :opt/kind :self-decide :opt/label "判事召喚の audiencia に出席 (効果の合意・調整の余地; 離婚自体は incausado)"}]
   :proc/refer-when ["alimentos・cuidado personal de los hijos・bienes (扶養・親権・財産分与) が争点 → abogado / patrocinio jurídico gratuito"
                     "kokoro 心 (精神的サポート — 家事事件は Wellbecoming 負荷が大きい)"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:ar-enforcement" :proc/label "Embargo de remuneraciones (賃金差押え・執行・アルゼンチン)"
+  :proc/jurisdiction :ar :proc/track :enforcement
+  :proc/trigger-keywords ["embargo de sueldo" "embargo de remuneraciones" "embargo de salario" "oficio de embargo"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Embargo de remuneraciones への対応"
+    :dl/rule "remuneración は1 SMVM (salario mínimo vital y móvil) まで inembargable (Dec. 484/87 art.1; 月給と SAC 各回ごと)。SMVM を超える excedente のみ差押え可: 1〜2 SMVM の間は超過分の10%、2 SMVM 超は超過分の20% が上限。cuota alimentaria・litis expensas はこの一般制限の例外 (LCT arts.120/147・Dec.484/87 art.4) で、判事が alimentante の subsistencia を保ちつつ額を定める。上限超過の embargo には judge へ pedido de levantamiento/reducción を申立てられる"
+    :dl/anchor "Decreto 484/87 (art.1・art.4) + LCT arts. 120, 147" :dl/source-url "https://www.trabajo.gba.gov.ar/delegaciones/biblioteca_deles/DN484_1987.pdf" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :levantamiento :opt/kind :self-submit :opt/protective true :opt/label "1 SMVM inembargable・10%/20% escala を超える embargo には judge へ levantamiento/reducción を申立て"}
+   {:opt/id :verify :opt/kind :self-decide :opt/protective true :opt/label "descuento が 1 SMVM 床・excedente の10%/20% を超えていないか empleador/expediente で確認"}]
+  :proc/refer-when ["保護額を侵害・複数 embargo・cuota alimentaria → abogado / patrocinio jurídico gratuito"]
   :proc/verify-current-law true}
 
  ;; ── :be ──────────────────────────────────────────────────────────────────────
@@ -1987,6 +2001,20 @@
   :proc/refer-when ["事由が複雑・desalojo ilegal → abogado / Defensoría Pública / PROFECO (consumo)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:mx-enforcement" :proc/label "Embargo de salario (賃金差押え・執行・メキシコ)"
+  :proc/jurisdiction :mx :proc/track :enforcement
+  :proc/trigger-keywords ["embargo de salario" "embargo de sueldo" "descuento de salario" "embargo de remuneraciones"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Embargo de salario への対応"
+    :dl/rule "原則 salario は embargable でない (LFT art.112) — salario mínimo は inembargable で、唯一の例外は pensión alimenticia (art.110 fracc.V)。民事・商事債務では SCJN の判例上、salario mínimo を超える excedente についてのみ、かつ原則その30%まで embargo 可。pensión alimenticia では excedente の全部に及びうる。descuentos も salario mínimo 超過分の30%が上限 (art.110)。上限超過の embargo には juez へ異議・tercería を申立てられる"
+    :dl/anchor "Ley Federal del Trabajo art. 112 (inembargabilidad) + art. 110 (30% del excedente) + jurisprudencia SCJN" :dl/source-url "https://mexico.justia.com/federales/leyes/ley-federal-del-trabajo/titulo-tercero/capitulo-vii/" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :oposicion :opt/kind :self-submit :opt/protective true :opt/label "salario mínimo inembargable・excedente の30%上限を超える embargo には juez へ異議を提出 (pensión alimenticia を除く)"}
+   {:opt/id :verify :opt/kind :self-decide :opt/protective true :opt/label "descuento/embargo が salario mínimo 床・excedente の30%上限を超えていないか empleador/expediente で確認"}]
+  :proc/refer-when ["保護額を侵害・pensión alimenticia・複数 embargo → abogado / Defensoría Pública / PROFEDET"]
+  :proc/verify-current-law true}
+
  ;; ── :no ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:no-husleie" :proc/label "Oppsigelse av leieforhold (住居・ノルウェー)"
   :proc/jurisdiction :no :proc/track :housing
@@ -2162,7 +2190,7 @@
   :proc/deadline-rules
   [{:dl/label "Familieretshuset / Familieretten への対応"
     :dl/rule "forældremyndighed・barnets bopæl・samvær について不一致なら、まず必ず Familieretshuset に申立てる (Forældreansvarsloven)。Familieretshuset は børnesagkyndig rådgivning / konfliktmægling を offer し、当事者は møder に出席する。不一致が続けば事件は Familieretten (家事裁判所) へ送られる。出発点は fælles forældremyndighed の継続。Familieretshuset の決定 (samvær/bopæl/forældremyndighed) には受領から4週間以内に klage できる"
-    :dl/anchor "Forældreansvarsloven (+ Familieretshuset/Familieretten 手続)" :dl/verify-service-date true}]
+    :dl/anchor "Forældreansvarsloven (+ Familieretshuset/Familieretten 手続)" :dl/source-url "https://www.domstol.dk/alle-emner/familie-og-skilsmisse/naar-foraeldre-gaar-fra-hinanden/foraeldreansvar-barnets-bopael-og-samvaer/" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :svar :opt/kind :self-submit :opt/protective true :opt/label "Familieretshuset/Familieretten へ自分の立場を提出・møder に出席 (barnets bedste を中心に)"}
    {:opt/id :klage :opt/kind :self-submit :opt/label "Familieretshuset の決定に不服なら受領から4週間以内に klage を提出"}]
@@ -2252,7 +2280,7 @@
   :proc/deadline-rules
   [{:dl/label "Vastaus / sovittelu"
     :dl/rule "lapsen huoltoa ja tapaamisoikeutta koskeva asia tulee käräjäoikeuteen hakemuksella (kumpi tahansa vanhempi, lapsen asuinpaikan käräjäoikeus; laki lapsen huollosta ja tapaamisoikeudesta 361/1983)。hakemus annetaan tiedoksi toiselle vanhemmalle, joka saa antaa vastauksen käräjäoikeuden asettamaan määräpäivään mennessä。käräjäoikeus voi käsitellä asian Follo-sovitteluna (asiantuntija-avusteinen tuomioistuinsovittelu) tai riitaisena pääkäsittelyssä。tarvittaessa hankitaan olosuhdeselvitys hyvinvointialueelta"
-    :dl/anchor "Laki lapsen huollosta ja tapaamisoikeudesta (361/1983) + oikeudenkäymiskaari (vastaus)" :dl/verify-service-date true}]
+    :dl/anchor "Laki lapsen huollosta ja tapaamisoikeudesta (361/1983) + oikeudenkäymiskaari (vastaus)" :dl/source-url "https://e-justice.europa.eu/topics/family-matters-inheritance/parental-responsibility-child-custody-and-contact-rights/fi_en" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :vastaus :opt/kind :self-submit :opt/protective true :opt/label "vastaus käräjäoikeuden määräpäivään mennessä (oma kanta + lapsen etu)"}
    {:opt/id :sovittelu :opt/kind :self-decide :opt/label "Follo-sovitteluun / perheasioiden sovitteluun osallistuminen (sovinnon mahdollisuus)"}]
@@ -2435,7 +2463,7 @@
   :proc/deadline-rules
   [{:dl/label "Forderungseingabe"
     :dl/rule "Konkurseröffnung 後、Konkursamt は Schuldenruf を SHAB / 官報に公告し、Gläubiger に書面の Forderungseingabe を呼びかける (SchKG Art. 232)。期限は公告から1か月 (30日)。証拠書類を添付する (不十分なら Konkursamt が追加提出期限を設定 or 却下しうる)。有効な債権は Kollokationsplan で確定し20日間縦覧され、不服は20日以内に Kollokationsklage で争える。期限後の遅延 Eingabe も可能だが追加費用は債権者負担で、既了の中間配当には与れない"
-    :dl/anchor "SchKG Art. 232 (Schuldenruf, 1 Monat) + Art. 244-250 (Kollokationsplan)" :dl/verify-service-date true}]
+    :dl/anchor "SchKG Art. 232 (Schuldenruf, 1 Monat) + Art. 244-250 (Kollokationsplan)" :dl/source-url "https://www.betreibung-konkurs.ch/informationen/konkurs" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :eingabe :opt/kind :self-submit :opt/protective true
     :opt/label "Forderungseingabe を Konkursamt へ書面提出 (本人可; Anzahlung・Kaution・Gutschein など前払金も Forderung: kaiyaku 縁-ledger と突合)"}]
@@ -2795,4 +2823,18 @@
   [{:opt/id :contestacao :opt/kind :self-submit :opt/label "contestação を提出 (revelia = 欠席擬制の回避)"}
    {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/acordo"}]
   :proc/refer-when ["Juizados 20 salários mínimos 超は advogado 必須 (Lei 9.099/1995 art. 9)"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:br-insolvency" :proc/label "Habilitação de crédito (債権者側・倒産・ブラジル)"
+  :proc/jurisdiction :br :proc/track :insolvency
+  :proc/trigger-keywords ["falência" "habilitação de crédito" "administrador judicial" "quadro geral de credores"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "Habilitação de crédito"
+    :dl/rule "edital (falência: art.99 par. único / recuperação: art.52 §1) の公告後15日以内に、credor は administrador judicial へ habilitação (relação に無い場合) もしくは divergência (relação にあるが分類・額に不服) を提出する (Lei 11.101 art.7 §1)。administrador judicial は45日内に relação de credores の edital を公告し、その republicação から10日内に impugnação を裁判所へ。期限後は habilitação retardatária となり、falência では既了の rateios を失い custas を負担する"
+    :dl/anchor "Lei 11.101/2005 art. 7º §1º (15 dias) + art. 99 (edital de falência)" :dl/source-url "https://www2.camara.leg.br/legin/fed/lei/2005/lei-11101-9-fevereiro-2005-535663-normaatualizada-pl.html" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :habilitacao :opt/kind :self-submit :opt/protective true
+    :opt/label "habilitação/divergência を administrador judicial へ15日内に提出 (本人可; adiantamento・caução・vale-presente など前払金も crédito: kaiyaku 縁-ledger と突合)"}]
+  :proc/refer-when ["garantia・compensação・crédito elevado・impugnação (担保・相殺・高額債権)"]
   :proc/verify-current-law true}]

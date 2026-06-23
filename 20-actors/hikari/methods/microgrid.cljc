@@ -91,6 +91,17 @@
                         (max worst (/ (Math/abs (- f1 f0)) dt))
                         worst))))))))))
 
+(defn initial-rocof
+  "The instantaneous |df/dt| (Hz/s) the moment a per-unit power imbalance appears, BEFORE damping or
+  droop control respond — the swing equation's t=0 slope |ΔP_pu|·f_nom/(2·H), the same term
+  `plant-step!` integrates (at f = f_nom the damping term is zero, so the first step is pure
+  inertia). This is the grid-INERTIA response: how fast frequency falls when generation is suddenly
+  lost, and why more inertia H (or a smaller imbalance) buys a gentler, more stable fall — the
+  inertia-adequacy reading a `rocof` relay later measures on the trajectory. A descriptive physics
+  quantity. Takes a plant spec (`:f-nom`, `:inertia-h`) + the per-unit imbalance."
+  [{:keys [f-nom inertia-h] :or {f-nom 50.0 inertia-h 4.0}} imbalance-pu]
+  (Math/abs (/ (* (double imbalance-pu) f-nom) (* 2.0 inertia-h))))
+
 ;; ── CommissioningResult ─────────────────────────────────────────────────────
 (defn ->commissioning-result
   "Frozen CommissioningResult ≅ Python dataclass. Kebab keyword keys."

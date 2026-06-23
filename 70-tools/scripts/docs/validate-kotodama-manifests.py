@@ -8,7 +8,7 @@ Validate every `60-apps/<app>/kotodama.jsonld` against
 deferred follow-on; landed in cycle 53). Parallel pattern to:
   - cycles 27-30: deps.toml book-keeping (axis 1)
   - cycle 48: docs.json freshness (axis 2)
-  - cycle 49: graph.jsonld freshness (axis 3)
+  - graph.edn freshness (axis 3; docs-graph-edn-freshness)
   - cycle 50-51: registry schema validation (axis 4)
   - **cycle 53: kotodama manifest validation (axis 5; this script)**
 

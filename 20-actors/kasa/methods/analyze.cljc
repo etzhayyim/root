@@ -186,6 +186,38 @@
    []
    (omap-keys sy)))
 
+(defn doubling-period
+  "The doubling PERIOD (years) implied by a MEASURED CAGR: ln 2 / ln(1 + cagr) — the canonical
+  compute-growth reading (a 100%/yr CAGR ≡ a 1-year doubling; a 59%/yr ≡ ~1.5-year doubling). This
+  is the measured 年間増加量 expressed in different units (doubling-years), exactly as
+  `:compute.growth/*` is documented to be 'a measured rate of change, not a forecast'. It is a PURE
+  transform of the already-observed rate: it projects NO dated future value and asserts NOTHING
+  about whether the rate continues (G4 — kasa records past/present actuals + measured growth, never
+  a forecast; that is mitooshi 見通し). Returns nil for a non-positive CAGR (no doubling at zero or
+  negative growth)."
+  [cagr]
+  (when (and cagr (pos? (double cagr)))
+    (/ (Math/log 2.0) (Math/log (+ 1.0 (double cagr))))))
+
+(defn series-doubling-periods
+  "Attach the doubling-period to each measured :cagr growth row — the readable companion to CAGR
+  (a 59% CAGR is more legible as a ~1.5-year doubling). Filters the :cagr rows out of a
+  `derive-growth` result, computes each series' doubling period from its MEASURED CAGR (skipping
+  non-positive CAGRs, which do not double), and returns [{:series :cagr :doubling-years} …] sorted
+  by doubling-years ascending (the fastest-doubling measured series first). Descriptive only — same
+  G2/G4 stance as the CAGR it restates (no forecast, no entity ranking; the series are capacity
+  dimensions, not countries/companies)."
+  [growth-rows]
+  (->> growth-rows
+       (filter #(= ":cagr" (get % ":compute.growth/kind")))
+       (keep (fn [r]
+               (when-let [dp (doubling-period (get r ":compute.growth/value"))]
+                 {:series (get r ":compute.growth/series")
+                  :cagr (get r ":compute.growth/value")
+                  :doubling-years (round4 dp)})))
+       (sort-by :doubling-years)
+       vec))
+
 (defn- agg-row [domain metric unit scale y sum n]
   (with-meta
     {":compute.agg/id" (str "agg." (subs domain 1) "." (subs metric 1) "." (subs unit 1) "." (subs scale 1) "." y)

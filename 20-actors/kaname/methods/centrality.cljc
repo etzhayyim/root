@@ -197,6 +197,28 @@
   [res1 nodes]
   (first (sos/rank (:leverage-r1 res1) nodes 1)))
 
+(defn leverage-concentration
+  "Meta-metric on the R1 leverage distribution: is the system's leverage CONCENTRATED in one 要 (a
+  single structural position whose opening dominates — effectively a single point of leverage) or
+  DISTRIBUTED across many comparable positions (no single chokepoint; more resilient, but no one
+  fix)? Computes the HHI of the per-node leverage shares, the top position's share, and the EFFECTIVE
+  NUMBER of leverage points (1/HHI, the inverse-Simpson / Hill number — '≈N comparable points'). A
+  structural read OF the leverage MAP — an aggregate distribution property, not a per-entity score
+  (G4) and never a target-list (G1, structural positions only) — routed to the resilience picture: a
+  low effective-number says the 要 is decisive (act there); a high one says leverage is diffuse.
+  Returns {:hhi :top-share :top-id :effective-points :concentrated?} (concentrated? = fewer than 2
+  effective points); an empty / zero leverage map yields nils + concentrated? false."
+  [res1]
+  (let [lev (:leverage-r1 res1)
+        total (reduce + 0.0 (vals lev))]
+    (if (pos? total)
+      (let [shares (into {} (map (fn [[k v]] [k (/ v total)]) lev))
+            hhi (reduce + 0.0 (map #(* % %) (vals shares)))
+            [top-id top-share] (apply max-key val shares)]
+        {:hhi hhi :top-share top-share :top-id top-id
+         :effective-points (/ 1.0 hhi) :concentrated? (< (/ 1.0 hhi) 2.0)})
+      {:hhi nil :top-share nil :top-id nil :effective-points nil :concentrated? false})))
+
 ;; ── report ─────────────────────────────────────────────────────────────────────
 
 (defn- fmt3 [v] (format "%.3f" (double v)))

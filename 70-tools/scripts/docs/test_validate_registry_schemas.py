@@ -1,7 +1,9 @@
-"""Tests for validate-registry-schemas.py (cycle 56).
+"""Tests for validate-registry-schemas.py.
 
-The validator checks docs.json against docs.schema.json + graph.jsonld
-against graph.schema.json. Tests cover:
+The validator checks docs.json against docs.schema.json. (The relation
+graph moved JSON-LD → EDN; graph.edn is a pure projection of docs.edn
+validated by docs-graph-edn-freshness, so it is no longer schema-checked
+here.) Tests cover:
   - graceful jsonschema fallback (when package not installed)
   - strict-mode exit on jsonschema missing
   - schema-clean data → exit 0
@@ -33,21 +35,17 @@ def _run(*args: str, env: dict | None = None) -> subprocess.CompletedProcess:
     )
 
 
-def _make_fixture(tmp_path: Path, docs_data: dict, graph_data: dict, docs_schema: dict, graph_schema: dict) -> dict:
+def _make_fixture(tmp_path: Path, docs_data: dict, docs_schema: dict) -> dict:
     """Write a complete repo-shaped fixture and return paths."""
     reg = tmp_path / "90-docs" / "_registry"
     reg.mkdir(parents=True)
     schemas = reg / "schemas"
     schemas.mkdir()
     (reg / "docs.json").write_text(json.dumps(docs_data))
-    (reg / "graph.jsonld").write_text(json.dumps(graph_data))
     (schemas / "docs.schema.json").write_text(json.dumps(docs_schema))
-    (schemas / "graph.schema.json").write_text(json.dumps(graph_schema))
     return {
         "docs_json": reg / "docs.json",
-        "graph_jsonld": reg / "graph.jsonld",
         "docs_schema": schemas / "docs.schema.json",
-        "graph_schema": schemas / "graph.schema.json",
     }
 
 
@@ -84,12 +82,10 @@ def test_repo_paths_canonical():
     spec.loader.exec_module(mod)
     assert mod.DOCS_JSON.name == "docs.json"
     assert mod.DOCS_SCHEMA.name == "docs.schema.json"
-    assert mod.GRAPH_JSONLD.name == "graph.jsonld"
-    assert mod.GRAPH_SCHEMA.name == "graph.schema.json"
 
 
 def test_live_repo_validates_clean():
-    """The actual repo's docs.json + graph.jsonld validate-clean as of cycle 56.
+    """The actual repo's docs.json validates-clean.
 
     Regression guard: any future change that breaks this means the validator
     or the registry artifacts drifted.
@@ -114,7 +110,6 @@ def test_json_output_schema_with_jsonschema_installed():
     # Required top-level keys (cycle 50 schema)
     assert "ok" in payload
     assert "docs" in payload
-    assert "graph" in payload
     assert "schema" in payload["docs"]
     assert "data" in payload["docs"]
     assert "error_count" in payload["docs"]

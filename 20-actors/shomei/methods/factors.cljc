@@ -93,3 +93,36 @@
   "Sybil-RESISTANCE (not sybil-proof): ≥2 independent classes. Never a person ranking."
   [level n-classes]
   (and (>= level 2) (>= n-classes 2)))
+
+(defn step-up-requirement
+  "What a member must still ADD to raise their Identity Assurance Level to `target-ial`, given the SET
+  of factor classes they have already verified and their factor count — the constructive inverse of
+  `assurance-level`. This is identity-strengthening GUIDANCE (the factor PROOF still required), never
+  a worth / behavior / reputation score (G8 — it measures what's needed for identity proof, not the
+  person). Returns {:current-ial :target-ial :met? :additional-factors :distinct-classes-needed
+  :missing-classes :note}: :additional-factors / :distinct-classes-needed are how many more verified
+  factors / distinct classes are still required, and :missing-classes names the specific class still
+  needed (a covenant factor for IAL-3, a government factor for IAL-4). The IAL-4 :note flags that the
+  government leg is Council-attested — surfaced, not self-reachable."
+  [classes count target-ial]
+  (let [cs (set classes)
+        cur (assurance-level cs count)
+        n (clojure.core/count cs)
+        t (long target-ial)
+        met? (>= cur t)
+        absent (fn [k] (when-not (contains? cs k) k))
+        named-missing (vec (keep identity (case t 3 [(absent "covenant")] 4 [(absent "government")] [])))
+        diversity-need (if (or met? (< t 2)) 0 (max 0 (- 2 n)))]
+    {:current-ial cur
+     :target-ial t
+     :met? met?
+     :additional-factors (if met? 0 (case t 0 0, 1 (max 0 (- 1 count)), (max 0 (- 2 count))))
+     :distinct-classes-needed (if met? 0 (max diversity-need (clojure.core/count named-missing)))
+     :missing-classes named-missing
+     :note (case t
+             4 "a government factor + ≥1 other class — Council-attested, not self-reachable"
+             3 "IAL-2 (≥2 factors across ≥2 classes) plus a covenant factor"
+             2 "≥2 verified factors across ≥2 distinct classes"
+             1 "any one verified factor"
+             0 "no factors needed"
+             "target IAL must be 0..4")}))
