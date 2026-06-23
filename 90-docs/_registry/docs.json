@@ -26260,6 +26260,31 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606231808-sos-self-growth-visualization.md",
+      "id": "adr-2606231808-sos-self-growth-visualization",
+      "title": "ADR-2606231808: /sos — 自律成長の3層可視化 (organism 身体 × kaname 要 SoS × ECL 目的関数 J)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "sos-self-growth-visualization",
+      "authoritative": true,
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606172100",
+        "2606172300",
+        "2606062100",
+        "2606182359",
+        "2606201200",
+        "2606172200",
+        "2605312345"
+      ],
+      "last_verified": "2026-06-23",
+      "authoritative_for": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606232100-atproto-actor-registration-root-and-subdids.md",
       "id": "adr-2606232100-atproto-actor-registration-root-and-subdids",
       "title": "ADR-2606232100: ATProto actor registration for the root entity + every per-actor / sub-DID",
