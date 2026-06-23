@@ -316,6 +316,22 @@
   :clause/anchor "ON CPA 2002 (unfair practices) / Sale of Goods Act implied conditions"
   :clause/route :referral :clause/verify-current-law true}
 
+ {:clause/id "cl:ca-no-waiver" :clause/label "消費者権利の放棄 (ON: 放棄は無効)"
+  :clause/jurisdiction :ca
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["waive all rights under consumer protection legislation" "waive any rights under consumer protection"]
+  :clause/anchor "Ontario Consumer Protection Act 2002 s.7(1) (substantive/procedural rights apply despite any agreement or waiver to the contrary — 放棄条項は無効)"
+  :clause/source-url "https://www.ontario.ca/laws/statute/02c30"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:ca-unilateral-amendment" :clause/label "一方的契約変更 (QC: 安全装置なきは禁止)"
+  :clause/jurisdiction :ca
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["amend this agreement unilaterally"]
+  :clause/anchor "Québec Consumer Protection Act (P-40.1) art. 11.2 (商人の一方的契約変更は、変更可能要素の特定・30日前書面通知・増負担時は消費者の無償解除権を欠く限り禁止)"
+  :clause/source-url "https://legisquebec.gouv.qc.ca/en/showdoc/cs/P-40.1"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :it — Italia (G10) ───────────────────────────────────────────────────────
  {:clause/id "cl:it-clausola-vessatoria" :clause/label "全部免責 (clausola vessatoria)"
   :clause/jurisdiction :it
