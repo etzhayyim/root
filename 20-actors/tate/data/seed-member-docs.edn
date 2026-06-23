@@ -1223,7 +1223,7 @@
  {:doc/id "doc:tw-tos" :doc/label "TW 服務條款 (synthetic)"
   :doc/jurisdiction :tw
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "因使用本服務所生之任何損害，本公司概不負責。本服務期滿後自動續約一年。"}
+  :doc/text "因使用本服務所生之任何損害，本公司概不負責。本服務期滿後自動續約一年。消費者違約時應負擔顯不相當之賠償責任。消費者主要權利因條款限制，致契約之目的難以達成。"}
 
  {:doc/id "doc:sg-tos" :doc/label "SG subscription terms (synthetic)"
   :doc/jurisdiction :sg
