@@ -425,7 +425,7 @@
   :proc/deadline-rules
   [{:dl/label "Kündigungsschutzklage (解雇無効確認)"
     :dl/rule "Kündigung の到達 (Zugang) から3週間以内に Arbeitsgericht へ提訴 — 徒過すると解雇は有効と擬制される (最重要短期期限)"
-    :dl/anchor "KSchG §4・§7" :dl/critical true :dl/verify-service-date true}
+    :dl/anchor "KSchG §4・§7" :dl/source-url "https://www.gesetze-im-internet.de/kschg/" :dl/critical true :dl/verify-service-date true}
    {:dl/label "形式要件"
     :dl/rule "Kündigung は書面必須で電子形式は無効 — email/SMS のみの解雇通知は形式無効の疑い (書面を要求)"
     :dl/anchor "BGB §623" :dl/source-url "https://www.gesetze-im-internet.de/bgb/" :dl/verify-service-date true}]
@@ -1458,7 +1458,7 @@
   :proc/deadline-rules
   [{:dl/label "Forderungsanmeldung"
     :dl/rule "Eröffnungsbeschluss の定める期間内に Insolvenzverwalter へ債権を anmelden (遅延届出も可だが追加費用)"
-    :dl/anchor "InsO §28・§174" :dl/verify-service-date true}]
+    :dl/anchor "InsO §28・§174" :dl/source-url "https://www.gesetze-im-internet.de/inso/" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :anmelden :opt/kind :self-submit :opt/protective true
     :opt/label "Forderungsanmeldung を Verwalter へ (書式は通知同封 — 本人可; Gutschein・前払金も債権: kaiyaku 縁-ledger と突合)"}]
