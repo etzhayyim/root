@@ -587,6 +587,12 @@
   :notice/sourcing :synthetic
   :notice/text "Comunicação de dispensa sem justa causa, com aviso prévio indenizado."}
 
+ {:notice/id "ntc:br-insolvency" :notice/label "BR edital de falência (credor・carta)"
+  :notice/jurisdiction :br
+  :notice/channel :mail :notice/claim-amount 18000 :notice/claim-currency "BRL"
+  :notice/sourcing :synthetic
+  :notice/text "Foi decretada a falência da sociedade. Os credores devem apresentar a habilitação de crédito ao administrador judicial no prazo legal."}
+
  {:notice/id "ntc:tw-zigian" :notice/label "TW 資遣通知書 (労働)"
   :notice/jurisdiction :tw
   :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "TWD"

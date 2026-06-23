@@ -2795,4 +2795,18 @@
   [{:opt/id :contestacao :opt/kind :self-submit :opt/label "contestação を提出 (revelia = 欠席擬制の回避)"}
    {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/acordo"}]
   :proc/refer-when ["Juizados 20 salários mínimos 超は advogado 必須 (Lei 9.099/1995 art. 9)"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:br-insolvency" :proc/label "Habilitação de crédito (債権者側・倒産・ブラジル)"
+  :proc/jurisdiction :br :proc/track :insolvency
+  :proc/trigger-keywords ["falência" "habilitação de crédito" "administrador judicial" "quadro geral de credores"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "Habilitação de crédito"
+    :dl/rule "edital (falência: art.99 par. único / recuperação: art.52 §1) の公告後15日以内に、credor は administrador judicial へ habilitação (relação に無い場合) もしくは divergência (relação にあるが分類・額に不服) を提出する (Lei 11.101 art.7 §1)。administrador judicial は45日内に relação de credores の edital を公告し、その republicação から10日内に impugnação を裁判所へ。期限後は habilitação retardatária となり、falência では既了の rateios を失い custas を負担する"
+    :dl/anchor "Lei 11.101/2005 art. 7º §1º (15 dias) + art. 99 (edital de falência)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :habilitacao :opt/kind :self-submit :opt/protective true
+    :opt/label "habilitação/divergência を administrador judicial へ15日内に提出 (本人可; adiantamento・caução・vale-presente など前払金も crédito: kaiyaku 縁-ledger と突合)"}]
+  :proc/refer-when ["garantia・compensação・crédito elevado・impugnação (担保・相殺・高額債権)"]
   :proc/verify-current-law true}]
