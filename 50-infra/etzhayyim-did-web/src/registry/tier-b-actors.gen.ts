@@ -13,7 +13,7 @@
 import type { InfraActorEntry } from "./infra-actors";
 
 export const TIER_B_GENERATED_AT = "2026-06-04T00:00:00+00:00";
-export const TIER_B_TOTAL_COUNT = 115;
+export const TIER_B_TOTAL_COUNT = 116;
 
 export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
   "ainori": {
@@ -783,6 +783,19 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       },
     ],
   },
+  "mitate": {
+    description: "Religious-corp first-party diagnostic + treatment routing actor — sibling of yakushi (drug-side). Wave 1 reference = chronic nasal congestion 5-condition triage (allergic-rhinitis-perennial / vasomotor-rhinitis / chronic-sinusitis / septal-deviation / rhinitis-medicamentosa). All 13 cells gated import-time RuntimeError until Council Lv6+ ≥ 3 silen-mitate-review attestation + licensed-MD-in-loop registry per ADR-2605260100. Per ADR-2605260100/115/130/145/160/175.",
+    glyph: "見立て",
+    displayName: "見立て (mitate)",
+    adrs: ["2605260100", "2605260115", "2605260130", "2605260145", "2605260160", "2605260175", "2605192100", "2605192115", "2605192200", "2605192230", "2605192315", "2605192400", "2605192415", "2605201400", "2605181100", "2605172000", "2605231500", "2605231525", "2605215000", "2605250500"],
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:mitate#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+    ],
+  },
   "mitsuho": {
     description: "Food production Tier-B actor (plant agriculture + freshwater aquaculture + alternative protein). Delivers L2 Sustenance Tier (≥4,500 kJ/day staple per adherent) of the Liberation Ladder. R0 scope excludes animal slaughter, industrial monoculture, patented seeds, GMO without Council attestation, contract farming, commodities trading, ocean factory-fishing.",
     glyph: "瑞穂",
@@ -1135,10 +1148,10 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "tadori": {
-    description: "辿 — Trace (authorized on-chain transaction tracing + actor attribution)",
+    description: "Non-profit religious-corp authorized, case-anchored on-chain transaction-tracing + actor-attribution actor. kotoba-EAVT-native consolidation point for the malak pursuit Pregel output (ADR-2605152000), ipaddress 1次 IP/WHOIS/GeoIP collection, and yabai CTI/DNS/IP-history/access-audit. Owns the durable case graph + the cross-store attribution join (address → cluster → ip-obs → dns-obs → person) that no single store produces today, expressed as kotoba-kqe Datalog rules over the four arrangements (EAVT/AEVT/AVET/VAET; VAET reverse-edge = yabai correlate-ip-activity, 2-hop). Authorized-investigation-only, open-source, on-chain-monitorable, PII-encrypted, evidence-producing (NOT enforcement). 6 cells / 4 Lexicons under com.etzhayyim.tadori.* / 12 immutable gates / 12 non-goals. kotoba-native (datom/EAVT + MST; NOT yata SQL / RisingWave).",
     glyph: "辿",
     displayName: "辿 — Trace (authorized on-chain transaction tracing + actor attribution)",
-    adrs: ["2605301400", "2605152000", "2605192100", "2605262130"],
+    adrs: ["2605192100", "2605262130", "2605301400", "2605152000"],
     service: [
       {
         id: "did:web:etzhayyim.com:actor:tadori#atproto_pds",

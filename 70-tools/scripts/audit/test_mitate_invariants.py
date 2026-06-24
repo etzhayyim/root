@@ -24,7 +24,7 @@ import pytest
 
 _REPO = Path(__file__).resolve().parents[3]
 _LEX = _REPO / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "mitate"
-_MANIFEST = _REPO / "20-actors" / "mitate" / "manifest.jsonld"
+# manifest invariants → 20-actors/mitate/methods/test_manifest_invariants.cljc (jsonld retired)
 
 # Lexicon stem → its required encrypted-envelope field (PHI content carriers).
 _ENC_FIELD = {
@@ -81,29 +81,3 @@ class TestLexiconHygiene:
 
 # ─── 3. manifest ↔ disk consistency (the orphan this suite closed) ──────
 
-
-class TestManifestConsistency:
-    def _declared(self) -> set[str]:
-        m = _load(_MANIFEST)
-        out: list[str] = []
-        for key in ("lexicons", "lexiconNamespaces"):
-            v = m.get(key, [])
-            if isinstance(v, list):
-                out.extend(v)
-        return {ns.rsplit(".", 1)[-1] for ns in out}
-
-    def test_every_disk_lexicon_is_declared(self):
-        on_disk = {p.stem for p in _LEX.glob("*.json")}
-        declared = self._declared()
-        assert on_disk <= declared, (
-            f"undeclared mitate lexicon(s) on disk (orphan): {on_disk - declared}"
-        )
-
-    def test_diagnostic_consent_receipt_declared(self):
-        # Direct regression pin for the orphan this commit re-declared.
-        assert "diagnosticConsentReceipt" in self._declared()
-
-    def test_no_phantom_declaration(self):
-        on_disk = {p.stem for p in _LEX.glob("*.json")}
-        for stem in self._declared():
-            assert stem in on_disk, f"manifest declares {stem!r} but no JSON file exists"
