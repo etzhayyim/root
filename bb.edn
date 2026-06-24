@@ -52,7 +52,7 @@
              (apply (resolve 'etzhayyim.actor-mesh/-main) *command-line-args*))}
 
   actor:evolve
-  {:doc "ADR-2606241500 — evolve an actor's CODE (20-actors/<name>) AND DATA (80-data/<name> + its kotoba-rad identity journal) through git: encrypt-secrets (sops+age) → branch → commit → push → PR → merge, recording each step as a signed :rad/evolution on the sovereign identity log. DRY-RUN by default; --apply mutates locally; --push/--pr/--merge gate the outward legs (member gh+git creds, no-server-key). Args: <name> [--message=<m>] [--apply] [--push] [--pr] [--merge] [--pubkey=<hex>]"
+  {:doc "ADR-2606241500/2606242400 — evolve an actor's CODE (20-actors/<name>) AND DATA (80-data/<name> + its kotoba-rad identity journal) through git: encrypt-secrets (sops+age) → branch → record signed :rad/evolution → [--pages: publish the identity log as a CID-queryable CARv1 tier at 20-actors/<name>/data/] → commit → push → PR → merge. DRY-RUN by default; --apply mutates locally; --push/--pr/--merge gate the outward legs (member gh+git creds, no-server-key). Args: <name> [--message=<m>] [--apply] [--pages] [--push] [--pr] [--merge] [--pubkey=<hex>]"
    :task (do (require 'etzhayyim.actor-evolve)
              (apply (resolve 'etzhayyim.actor-evolve/-main) *command-line-args*))}
 
