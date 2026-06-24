@@ -27,7 +27,7 @@
   ["ingest" "committee_graph" "money_graph" "relation_weave" "social_post"])
 
 (defn- manifest []
-  #?(:clj (json/parse-string (slurp (io/file actors-dir "keizu" "manifest.jsonld")))))
+  #?(:clj (:actor/manifest (clojure.edn/read-string (slurp (io/file actors-dir "keizu" "manifest.edn"))))))
 
 ;; ── Tests ──────────────────────────────────────────────────────────────────────
 (deftest test-manifest-tier-b

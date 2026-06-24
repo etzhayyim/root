@@ -8,9 +8,9 @@
             [shionome.methods.weave :as weave]))
 
 (def seed-path "20-actors/shionome/data/seed-capital-flow-graph.kotoba.edn")
-(def manifest-path "20-actors/shionome/manifest.jsonld")
+(def manifest-path "20-actors/shionome/manifest.edn")
 (defn- g [] (weave/weave (edn/load-edn seed-path)))
-(defn- manifest [] (json/parse-string (slurp manifest-path)))
+(defn- manifest [] (:actor/manifest (clojure.edn/read-string (slurp manifest-path))))
 (defn- bare [x] (str/replace (str x) #"^:+" ""))
 
 (deftest seed-validates-cleanly
