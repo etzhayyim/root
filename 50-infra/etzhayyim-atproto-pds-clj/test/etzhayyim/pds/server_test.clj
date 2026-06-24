@@ -237,19 +237,34 @@
           (is (= "did:web:alice.etzhayyim.com" (get (json/parse-string (:body login)) "did")))  ; password login
           (.delete (clojure.java.io/file acct-file)))))))
 
+(deftest jwt-expiry
+  (testing "an expired JWT does not verify; a fresh one does"
+    (is (nil? (account/verify-jwt tsecret (account/make-jwt tsecret "did:web:x.etzhayyim.com" -1))))
+    (is (= "did:web:x.etzhayyim.com" (account/verify-jwt tsecret (account/make-jwt tsecret "did:web:x.etzhayyim.com" 3600))))))
+
 (deftest write-auth-gate
-  (testing "with require-auth, a write without a valid Bearer is 401; with one it succeeds"
+  (testing "with require-auth: no Bearer → 401, own-repo Bearer → 200, other-repo Bearer → 403"
     (with-redefs [cfg/require-auth true]
       (let [st (store/->mem-store)
             h (server/make-handler st (.getPrivate (repo/gen-keypair)) "z6Mkx" tsecret)
             body (json/generate-string {"repo" "atproto.etzhayyim.com" "collection" "app.bsky.feed.post" "record" {"text" "x"}})
-            noauth (h {:uri "/xrpc/com.atproto.repo.createRecord" :request-method :post
-                       :headers {"content-type" "application/json"} :body body})
-            jwt (account/make-jwt tsecret "did:web:atproto.etzhayyim.com")
-            authed (h {:uri "/xrpc/com.atproto.repo.createRecord" :request-method :post
-                       :headers {"content-type" "application/json" "authorization" (str "Bearer " jwt)} :body body})]
-        (is (= 401 (:status noauth)))
-        (is (= 200 (:status authed)))))))
+            req (fn [auth] (h (cond-> {:uri "/xrpc/com.atproto.repo.createRecord" :request-method :post
+                                       :headers {"content-type" "application/json"} :body body}
+                                auth (assoc-in [:headers "authorization"] (str "Bearer " auth)))))]
+        (is (= 401 (:status (req nil))))
+        (is (= 200 (:status (req (account/make-jwt tsecret "did:web:atproto.etzhayyim.com")))))
+        (is (= 403 (:status (req (account/make-jwt tsecret "did:web:someone-else.etzhayyim.com")))))))))
+
+(deftest blob-ref-validation
+  (testing "createRecord referencing an absent blob is rejected (400)"
+    (let [h (server/make-handler (store/->mem-store) (.getPrivate (repo/gen-keypair)) "z6Mkx" tsecret)
+          body (json/generate-string
+                {"repo" "atproto.etzhayyim.com" "collection" "app.bsky.feed.post"
+                 "record" {"text" "see image" "image" {"$type" "blob" "ref" {"$link" "bafkreiabsentblobxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"} "mimeType" "image/png" "size" 1}}})
+          resp (h {:uri "/xrpc/com.atproto.repo.createRecord" :request-method :post
+                   :headers {"content-type" "application/json"} :body body})]
+      (is (= 400 (:status resp)))
+      (is (str/includes? (:body resp) "BlobNotFound")))))
 
 (deftest import-repo-roundtrips
   (testing "export a repo to a CAR, import it into a fresh store → records recovered"

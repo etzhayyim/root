@@ -33,6 +33,26 @@
           {:bytes data
            :mime (if (.exists (mime-file dir cid)) (slurp (mime-file dir cid)) "application/octet-stream")})))))
 
+(defn- gv [m k] (or (get m k) (get m (keyword k))))   ; string- or keyword-keyed
+
+(defn blob-refs
+  "All blob-ref CIDs referenced in a record value: `{$type:blob, ref:{$link:cid}}`.
+  Handles both string- and keyword-keyed maps (incoming JSON vs stored records)."
+  [value]
+  (cond
+    (map? value)
+    (let [link (gv (gv value "ref") "$link")]
+      (if (and (= "blob" (gv value "$type")) link)
+        [link]
+        (mapcat blob-refs (vals value))))
+    (sequential? value) (mapcat blob-refs value)
+    :else []))
+
+(defn missing-refs
+  "Blob-ref CIDs in `value` that are NOT present in the store (validation on write)."
+  [dir value]
+  (vec (remove #(.exists (blob-file dir %)) (blob-refs value))))
+
 (defn list-blobs
   "All blob cids in the store."
   [dir]

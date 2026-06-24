@@ -19,7 +19,8 @@ breaking the gftd.ai dependency. Updated by the maturity `/loop`.
 | **DAG-CBOR decoder + CAR parser** | ✅ | inverse codec; encode↔decode + build↔parse roundtrips tested |
 | `com.atproto.repo.applyWrites` | ✅ | batch create/update/delete in one call; verified live |
 | **`com.atproto.repo.importRepo`** | ✅ | parse CAR → walk MST → ingest records; verified live (getRepo→importRepo roundtrip, 3 records) |
-| **account + session auth** | ✅ | `createAccount` (PBKDF2) / `createSession` / `getSession` (HS256 JWT); opt-in write-auth gate (`PDS_REQUIRE_AUTH`); verified live |
+| **account + session auth** | ✅ | `createAccount` (PBKDF2) / `createSession` / `getSession` (HS256 JWT, `exp` expiry); opt-in write-auth gate (`PDS_REQUIRE_AUTH`) **scoped: session `sub` must own the repo** (401 no-session / 403 wrong-repo); verified live |
+| **blob-ref integrity** | ✅ | a record referencing an absent blob is rejected (400); verified live (absent→400, real→200) |
 | Signing key stable + published | ✅ | `PDS_SIGNING_KEY_FILE`; did.json `#atproto` Multikey `z6Mk…` |
 | **sync read surface** | ✅ | getRepo / getRecord / getBlocks / getLatestCommit / getRepoStatus / listRepos |
 | **`subscribeRepos` firehose** | ✅ | websocket; binary `#commit` frame (CAR + ops) on connect; verified live (opcode 2, header `a26174`) |
@@ -37,13 +38,12 @@ signing-key-published-and-stable, commit-signature-roundtrips,
 relay-verification-chain, relay-verifies-from-served-car (parse real CAR → verify),
 firehose-frame-wellformed, firehose-frame-carries-the-repo (decode #commit → CAR),
 apply-writes-batch, import-repo-roundtrips (export→import 12 records),
-account-and-session-auth, write-auth-gate (401 without/200 with Bearer), blob-store-roundtrips.
+account-and-session-auth, jwt-expiry, write-auth-gate (401 / 200 own-repo / 403 other-repo),
+blob-ref-validation (400 absent blob), blob-store-roundtrips.
 
 ## Next maturity steps (loop)
 
-1. scope write-auth's `sub` to the repo did (not just any valid session) + token
-   expiry (`exp`) + refresh.
-2. blob ref validation on createRecord/applyWrites (verify `{$type:blob}` link
-   bytes resolve in the blob store) + a `listBlobs`-since cursor.
-3. an HTTP-socket firehose integration test (connect → read the binary frame off
-   the wire → parse the `#commit` body's CAR → confirm the record block).
+1. an HTTP-socket firehose integration test (start server → connect → read the
+   binary frame off the wire → parse the `#commit` body's CAR → confirm the record).
+2. `refreshSession` (rotate the access JWT from a refresh token) + `deleteSession`.
+3. a `listRecords` reverse cursor + `getRepo` `since` (incremental sync) param.

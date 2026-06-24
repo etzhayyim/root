@@ -137,12 +137,29 @@
     "com.atproto.repo.deleteRecord" "com.atproto.repo.applyWrites"
     "com.atproto.repo.uploadBlob" "com.atproto.repo.importRepo"})
 
+(def ^:private repo-write-methods
+  #{"com.atproto.repo.createRecord" "com.atproto.repo.putRecord"
+    "com.atproto.repo.deleteRecord" "com.atproto.repo.applyWrites"})
+
+(defn- write-values [nsid params]
+  (if (= nsid "com.atproto.repo.applyWrites")
+    (keep #(or (:value %) (get % "value")) (:writes params))
+    (remove nil? [(or (:record params) (:value params))])))
+
 (defn make-handler [store signing-key signing-multibase jwt-secret]
   (fn [req]
     (let [uri (:uri req)
-          method (:request-method req)
           qp (parse-query (:query-string req))
-          nsid (when (str/starts-with? uri "/xrpc/") (subs uri 6))]
+          nsid (when (str/starts-with? uri "/xrpc/") (subs uri 6))
+          binary? (#{"com.atproto.repo.uploadBlob" "com.atproto.repo.importRepo"} nsid)
+          ws? (= nsid "com.atproto.sync.subscribeRepos")
+          ;; read the JSON body ONCE (binary + ws bodies are read raw by their handlers)
+          jbody (when (and nsid (not binary?) (not ws?)) (try (read-body req) (catch Exception _ nil)))
+          params (merge qp jbody)
+          auth-sub (account/verify-jwt jwt-secret (get-in req [:headers "authorization"]))
+          ;; every blob ref in a write must already resolve in the blob store
+          blob-missing (when (repo-write-methods nsid)
+                         (mapcat #(blob/missing-refs cfg/blob-dir %) (write-values nsid params)))]
       (cond
         ;; health
         (= uri "/health")
@@ -155,14 +172,23 @@
         (nil? nsid)
         (json-response {:status 404 :body {"error" "NotFound" "message" uri}})
 
-        ;; opt-in write auth (PDS_REQUIRE_AUTH): writes need a valid session Bearer
-        (and cfg/require-auth (contains? write-methods nsid)
-             (nil? (account/verify-jwt jwt-secret (get-in req [:headers "authorization"]))))
+        ;; opt-in write auth (PDS_REQUIRE_AUTH): a valid session is required…
+        (and cfg/require-auth (contains? write-methods nsid) (nil? auth-sub))
         (json-response {:status 401 :body {"error" "AuthRequired" "message" "valid session Bearer required"}})
+
+        ;; …and for a repo write, the session `sub` must own the target repo
+        (and cfg/require-auth (repo-write-methods nsid)
+             (when-let [rd (xrpc/resolve-repo (:repo params))] (not= auth-sub rd)))
+        (json-response {:status 403 :body {"error" "Forbidden" "message" "session does not own this repo"}})
+
+        ;; blob-ref integrity: a record may not reference an absent blob
+        (seq blob-missing)
+        (json-response {:status 400 :body {"error" "BlobNotFound"
+                                           "message" (str "unresolved blob refs: " (str/join "," blob-missing))}})
 
         ;; account + session
         (= nsid "com.atproto.server.createAccount")
-        (let [{:keys [handle password did]} (merge qp (try (read-body req) (catch Exception _ nil)))]
+        (let [{:keys [handle password did]} params]
           (try
             (let [a (account/create-account cfg/accounts-file {:handle handle :password password :did did})]
               (json-response {:status 200 :body {"did" (:did a) "handle" (:handle a)
@@ -170,17 +196,16 @@
             (catch Exception e (json-response {:status 400 :body {"error" "InvalidRequest" "message" (.getMessage e)}}))))
 
         (= nsid "com.atproto.server.createSession")
-        (let [{:keys [identifier password]} (merge qp (try (read-body req) (catch Exception _ nil)))]
+        (let [{:keys [identifier password]} params]
           (if-let [did (and password (account/verify-password cfg/accounts-file identifier password))]
             (json-response {:status 200 :body {"did" did "handle" identifier
                                                "accessJwt" (account/make-jwt jwt-secret did)
                                                "refreshJwt" (account/make-jwt jwt-secret did)}})
-            ;; fall back to the minimal non-cryptographic session for unregistered handles
             (json-response (xrpc/create-session (merge qp {:identifier identifier})))))
 
         (= nsid "com.atproto.server.getSession")
-        (if-let [did (account/verify-jwt jwt-secret (get-in req [:headers "authorization"]))]
-          (json-response {:status 200 :body {"did" did "handle" did "active" true}})
+        (if auth-sub
+          (json-response {:status 200 :body {"did" auth-sub "handle" auth-sub "active" true}})
           (json-response {:status 401 :body {"error" "AuthRequired" "message" "valid session Bearer required"}}))
 
         ;; repo import (binary CAR body → walk MST → ingest records)
@@ -208,9 +233,7 @@
         (sync-response store signing-key nsid qp)
 
         :else
-        (let [body (try (read-body req) (catch Exception _ nil))
-              params (merge qp body)
-              resp (case nsid
+        (let [resp (case nsid
                      "com.atproto.server.describeServer" (xrpc/describe-server params)
                      "com.atproto.server.createSession"  (xrpc/create-session params)
                      "com.atproto.identity.resolveHandle" (xrpc/resolve-handle params)

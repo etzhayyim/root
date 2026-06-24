@@ -50,15 +50,21 @@
 (defn- hmac ^bytes [^bytes secret ^bytes msg]
   (let [m (Mac/getInstance "HmacSHA256")] (.init m (SecretKeySpec. secret "HmacSHA256")) (.doFinal m msg)))
 
-(defn make-jwt [^bytes secret did]
-  (let [h (b64url (.getBytes "{\"alg\":\"HS256\",\"typ\":\"JWT\"}" "UTF-8"))
-        p (b64url (.getBytes (json/generate-string {:sub did :iss "etzhayyim-pds"}) "UTF-8"))
-        sig (b64url (hmac secret (.getBytes (str h "." p) "UTF-8")))]
-    (str h "." p "." sig)))
+(defn- now-s [] (quot (System/currentTimeMillis) 1000))
+
+(defn make-jwt
+  "Issue an HS256 session JWT for `did`, expiring in `ttl` seconds (default 24h)."
+  ([^bytes secret did] (make-jwt secret did 86400))
+  ([^bytes secret did ttl]
+   (let [now (now-s)
+         h (b64url (.getBytes "{\"alg\":\"HS256\",\"typ\":\"JWT\"}" "UTF-8"))
+         p (b64url (.getBytes (json/generate-string {:sub did :iss "etzhayyim-pds" :iat now :exp (+ now ttl)}) "UTF-8"))
+         sig (b64url (hmac secret (.getBytes (str h "." p) "UTF-8")))]
+     (str h "." p "." sig))))
 
 (defn verify-jwt
-  "Return the `sub` did if the token's HS256 signature checks out, else nil.
-  Accepts an optional `Bearer ` prefix."
+  "Return the `sub` did if the token's HS256 signature checks out AND it is not
+  expired, else nil. Accepts an optional `Bearer ` prefix."
   [^bytes secret token]
   (when token
     (let [token (str/replace token #"^Bearer +" "")
@@ -66,7 +72,9 @@
       (when (= 3 (count parts))
         (let [[h p sig] parts]
           (when (= sig (b64url (hmac secret (.getBytes (str h "." p) "UTF-8"))))
-            (:sub (json/parse-string (String. (b64url-dec p) "UTF-8") true))))))))
+            (let [claims (json/parse-string (String. (b64url-dec p) "UTF-8") true)]
+              (when (or (nil? (:exp claims)) (> (:exp claims) (now-s)))
+                (:sub claims)))))))))
 
 (defn secret-from-key
   "Derive a stable HMAC secret from the persisted signing key's bytes."
