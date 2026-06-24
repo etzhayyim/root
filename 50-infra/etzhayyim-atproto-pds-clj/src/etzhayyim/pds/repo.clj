@@ -10,7 +10,8 @@
             [etzhayyim.pds.store :as pstore]
             [etzhayyim.aozora.repo.blockstore :as bs]
             [etzhayyim.aozora.repo.repo :as repo]
-            [etzhayyim.aozora.repo.sync :as sync]))
+            [etzhayyim.aozora.repo.sync :as sync]
+            [etzhayyim.aozora.repo.firehose :as fh]))
 
 (defn- all-records
   "Every record for `did` across its collections, as
@@ -53,3 +54,16 @@
   "CARv1 of the requested `cids` from the rebuilt repo."
   [pds-store did cids]
   (sync/get-blocks (:store (build! pds-store did)) cids))
+
+(defn subscribe-frames
+  "MVP `com.atproto.sync.subscribeRepos` egress: the current repo as a single
+  spec-correct #commit frame (seq 1, full-state CAR) when `cursor` < 1, else [].
+  mst-projector applies it to bootstrap. (Per-write incremental event log + the
+  WebSocket transport are the next increment.) Returns a vector of ^bytes frames."
+  [pds-store did cursor]
+  (if (and cursor (>= cursor 1))
+    []
+    (let [{:keys [store commit rev]} (build! pds-store did)]
+      [(fh/commit-frame {:seq 1 :repo did :commit commit :rev rev :since nil
+                         :car (sync/get-repo store did)
+                         :ops [] :time "1970-01-01T00:00:00Z"})])))

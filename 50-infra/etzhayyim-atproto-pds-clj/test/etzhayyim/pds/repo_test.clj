@@ -24,7 +24,12 @@
           (is (string? (:cid lc)))
           (is (= "r2" (:rev lc)))))
       (testing "getRepo returns a non-empty CARv1"
-        (is (pos? (alength ^bytes (pdsrepo/get-repo-car st did))))))))
+        (is (pos? (alength ^bytes (pdsrepo/get-repo-car st did)))))
+      (testing "subscribeRepos egress: one #commit frame from cursor 0, none from 1"
+        (is (= 1 (count (pdsrepo/subscribe-frames st did nil))))
+        (is (= 1 (count (pdsrepo/subscribe-frames st did 0))))
+        (is (zero? (count (pdsrepo/subscribe-frames st did 1))))
+        (is (pos? (alength ^bytes (first (pdsrepo/subscribe-frames st did nil)))))))))
 
 (deftest sync-over-http
   (let [st (store/->mem-store)
