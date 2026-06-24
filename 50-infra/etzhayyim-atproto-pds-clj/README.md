@@ -62,7 +62,10 @@ This is a functional, independent PDS for first-party etzhayyim records. It is
 2. **Spec-exact CIDv1** — dag-cbor multihash CIDs (today: sha-256 content hash for
    intra-PDS addressing only).
 3. **Auth** — real JWT/OAuth session issuance + DPoP (today: minimal session stub).
-4. **Account lifecycle** — `createAccount`, handle registry, `uploadBlob` + blob store.
+4. ✅ **Account lifecycle — LANDED (ADR-2606242330 P1)**: `com.atproto.server.createAccount`
+   (handle under a user-domain → `did:web:<handle>`, duplicate-rejecting handle registry on
+   the Datom log) + `com.atproto.server.getSession` + `com.atproto.repo.uploadBlob` /
+   `com.atproto.sync.getBlob` + blob store (`:blob/*` datoms). Real JWT/OAuth stays in #3.
 5. **Verify `KotobaStore` wire** against the live kotoba engine at cutover.
 
 See `deploy/RUNBOOK.md` for the deploy + DNS cutover (credential-gated).

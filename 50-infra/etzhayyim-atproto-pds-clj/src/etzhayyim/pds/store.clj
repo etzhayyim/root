@@ -32,7 +32,17 @@
   (list-records [_ did collection limit cursor]
     "Return {:records [{:uri :cid :value}] :cursor next-rkey-or-nil}, rkey-desc.")
   (describe-repo [_ did]
-    "Return {:did :collections [coll ..] :count n}."))
+    "Return {:did :collections [coll ..] :count n}.")
+  ;; ── account lifecycle (ADR-2606242330 P1) ──────────────────────────────────
+  (create-account [_ did handle email]
+    "Register an account (handle->did). Returns {:did :handle :createdAt} or
+     {:error ...} if the did/handle is already taken.")
+  (get-account [_ identifier]
+    "Resolve an account by did OR handle. Returns {:did :handle :createdAt} or nil.")
+  (put-blob [_ did mime ^bytes data]
+    "Store a blob for `did`. Returns {:cid :mimeType :size}.")
+  (get-blob [_ cid]
+    "Return {:bytes :mimeType :size} for a stored blob, or nil."))
 
 ;; ── in-process datom-log backend ─────────────────────────────────────────────
 ;; State: an atom holding the ordered datom log (vector of [e a v]). Reads fold
@@ -87,7 +97,45 @@
     (let [db (d/build-db @log)
           uris (filter #(= did (read-attr db % :record/did)) (live-uris db))
           colls (->> uris (keep #(read-attr db % :record/collection)) distinct sort vec)]
-      {:did did :collections colls :count (count uris)})))
+      {:did did :collections colls :count (count uris)}))
+  (create-account [_ did handle email]
+    (let [db (d/build-db @log)
+          taken (first (get-in db [:ave :account/handle handle]))]
+      (cond
+        (read-attr db did :account/createdAt) {:error "did already registered"}
+        (and taken (not= taken did))           {:error "handle already taken"}
+        :else
+        (let [ts (util/now-iso)]
+          (swap! log into (cond-> [[did :account/handle handle]
+                                   [did :account/createdAt ts]
+                                   [did :account/active true]]
+                            email (conj [did :account/email email])))
+          {:did did :handle handle :createdAt ts}))))
+  (get-account [_ identifier]
+    (let [db (d/build-db @log)
+          did (if (read-attr db identifier :account/createdAt)
+                identifier
+                (first (get-in db [:ave :account/handle identifier])))]
+      (when (and did (read-attr db did :account/createdAt))
+        {:did did
+         :handle (read-attr db did :account/handle)
+         :createdAt (read-attr db did :account/createdAt)})))
+  (put-blob [_ did mime data]
+    (let [cid (util/blob-cid data)
+          mime (or mime "application/octet-stream")
+          size (alength ^bytes data)]
+      (swap! log into [[cid :blob/did did]
+                       [cid :blob/mimeType mime]
+                       [cid :blob/size size]
+                       [cid :blob/data (util/b64-encode data)]
+                       [cid :blob/createdAt (util/now-iso)]])
+      {:cid cid :mimeType mime :size size}))
+  (get-blob [_ cid]
+    (let [db (d/build-db @log)]
+      (when-let [b64 (read-attr db cid :blob/data)]
+        {:bytes (util/b64-decode b64)
+         :mimeType (read-attr db cid :blob/mimeType)
+         :size (read-attr db cid :blob/size)}))))
 
 (defn ->mem-store [] (->MemStore (atom [])))
 
@@ -140,6 +188,39 @@
        :cursor (:cursor r)}))
   (describe-repo [_ did]
     (kpost base "/xrpc/com.etzhayyim.apps.kotoba.kg.describe_repo"
-           {:graph graph :did did})))
+           {:graph graph :did did}))
+  (create-account [_ did handle email]
+    (let [ts (util/now-iso)]
+      (kpost base "/xrpc/com.etzhayyim.apps.kotoba.kg.ingest_batch"
+             {:graph graph :datoms (cond-> [[did "account/handle" handle]
+                                            [did "account/createdAt" ts]
+                                            [did "account/active" true]]
+                                     email (conj [did "account/email" email]))})
+      {:did did :handle handle :createdAt ts}))
+  (get-account [_ identifier]
+    ;; did lookup only at this phase; handle->did resolution needs a kotoba
+    ;; query endpoint (verified at cutover, README staged item 5).
+    (let [r (kpost base "/xrpc/com.etzhayyim.apps.kotoba.kg.get_entity"
+                   {:graph graph :entity identifier})]
+      (when (:account/createdAt r)
+        {:did identifier :handle (:account/handle r) :createdAt (:account/createdAt r)})))
+  (put-blob [_ did mime data]
+    (let [cid (util/blob-cid data)
+          mime (or mime "application/octet-stream")
+          size (alength ^bytes data)]
+      (kpost base "/xrpc/com.etzhayyim.apps.kotoba.kg.ingest_batch"
+             {:graph graph :datoms [[cid "blob/did" did]
+                                    [cid "blob/mimeType" mime]
+                                    [cid "blob/size" size]
+                                    [cid "blob/data" (util/b64-encode data)]
+                                    [cid "blob/createdAt" (util/now-iso)]]})
+      {:cid cid :mimeType mime :size size}))
+  (get-blob [_ cid]
+    (let [r (kpost base "/xrpc/com.etzhayyim.apps.kotoba.kg.get_entity"
+                   {:graph graph :entity cid})]
+      (when (:blob/data r)
+        {:bytes (util/b64-decode (:blob/data r))
+         :mimeType (:blob/mimeType r)
+         :size (:blob/size r)}))))
 
 (defn ->kotoba-store [base graph] (->KotobaStore base graph))

@@ -73,3 +73,71 @@
       (is (str/includes? (:body did-resp) "did:web:atproto.etzhayyim.com"))
       (is (= 200 (:status desc)))
       (is (not (str/includes? (:body desc) "gftd"))))))
+
+;; ── account lifecycle + blobs (ADR-2606242330 P1) ────────────────────────────
+
+(deftest account-lifecycle
+  (let [st (store/->mem-store)]
+    (testing "createAccount registers a handle under a user-domain"
+      (let [r (xrpc/create-account st {:handle "alice.etzhayyim.com" :email "a@etzhayyim.com"})]
+        (is (= 200 (:status r)))
+        (is (= "did:web:alice.etzhayyim.com" (get-in r [:body "did"])))
+        (is (= "alice.etzhayyim.com" (get-in r [:body "handle"])))
+        (is (str/starts-with? (get-in r [:body "accessJwt"]) "etzhayyim-session."))))
+    (testing "a handle outside the user-domain is rejected (etzhayyim-only)"
+      (let [r (xrpc/create-account st {:handle "bob.example.com"})]
+        (is (= 400 (:status r)))
+        (is (= "InvalidHandle" (get-in r [:body "error"])))))
+    (testing "a duplicate handle is rejected"
+      (let [r (xrpc/create-account st {:handle "alice.etzhayyim.com"})]
+        (is (= 400 (:status r)))
+        (is (= "HandleNotAvailable" (get-in r [:body "error"])))))
+    (testing "getSession reflects the account by handle and by did"
+      (is (= "did:web:alice.etzhayyim.com"
+             (get-in (xrpc/get-session st {:identifier "alice.etzhayyim.com"}) [:body "did"])))
+      (is (= "alice.etzhayyim.com"
+             (get-in (xrpc/get-session st {:identifier "did:web:alice.etzhayyim.com"}) [:body "handle"]))))
+    (testing "getSession for an unknown identifier is a 400"
+      (is (= 400 (:status (xrpc/get-session st {:identifier "ghost.etzhayyim.com"})))))))
+
+(deftest blob-round-trip
+  (let [st (store/->mem-store)
+        did "did:web:alice.etzhayyim.com"
+        data (.getBytes "shalom-blob-bytes" "UTF-8")
+        up (xrpc/upload-blob st did "text/plain" data)
+        cid (get-in up [:body "blob" "ref" "$link"])]
+    (testing "uploadBlob returns a content-addressed blob ref"
+      (is (= 200 (:status up)))
+      (is (= "blob" (get-in up [:body "blob" "$type"])))
+      (is (str/starts-with? cid "b"))
+      (is (= (alength data) (get-in up [:body "blob" "size"]))))
+    (testing "getBlob returns the same bytes + mimeType via :blob"
+      (let [g (xrpc/get-blob st {:cid cid})]
+        (is (= 200 (:status g)))
+        (is (= "shalom-blob-bytes" (String. ^bytes (get-in g [:blob :bytes]) "UTF-8")))
+        (is (= "text/plain" (get-in g [:blob :mimeType])))))
+    (testing "identical bytes content-address to the same cid (idempotent)"
+      (is (= cid (get-in (xrpc/upload-blob st did "text/plain" data)
+                         [:body "blob" "ref" "$link"]))))
+    (testing "a missing blob is a 404"
+      (is (= 404 (:status (xrpc/get-blob st {:cid "bdoesnotexist"})))))
+    (testing "an empty blob is rejected"
+      (is (= 400 (:status (xrpc/upload-blob st did "text/plain" (byte-array 0))))))))
+
+(deftest http-account-and-blob
+  (testing "createAccount over the ring handler (JSON)"
+    (let [h (server/make-handler (store/->mem-store))
+          resp (h {:uri "/xrpc/com.atproto.server.createAccount"
+                   :request-method :post
+                   :body (json/generate-string {"handle" "carol.etzhayyim.com"})})]
+      (is (= 200 (:status resp)))
+      (is (str/includes? (:body resp) "did:web:carol.etzhayyim.com"))))
+  (testing "uploadBlob over the ring handler (raw bytes in, JSON ref out)"
+    (let [h (server/make-handler (store/->mem-store))
+          resp (h {:uri "/xrpc/com.atproto.repo.uploadBlob"
+                   :request-method :post
+                   :headers {"content-type" "application/octet-stream"}
+                   :body (.getBytes "raw-bytes-blob" "UTF-8")})]
+      (is (= 200 (:status resp)))
+      (is (str/includes? (:body resp) "$type"))
+      (is (str/includes? (:body resp) "blob")))))

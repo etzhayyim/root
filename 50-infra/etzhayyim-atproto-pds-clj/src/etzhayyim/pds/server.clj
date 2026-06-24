@@ -32,6 +32,13 @@
       (when-not (str/blank? s)
         (json/parse-string s true)))))
 
+(defn- read-raw-bytes ^bytes [req]
+  (when-let [b (:body req)]
+    (cond
+      (string? b) (.getBytes ^String b "UTF-8")
+      (bytes? b)  b
+      :else       (.readAllBytes ^java.io.InputStream b))))
+
 (defn make-handler [store]
   (fn [req]
     (let [uri (:uri req)
@@ -50,12 +57,31 @@
         (nil? nsid)
         (json-response {:status 404 :body {"error" "NotFound" "message" uri}})
 
+        ;; uploadBlob: raw bytes IN (content-type = the blob mime), JSON ref OUT
+        (= nsid "com.atproto.repo.uploadBlob")
+        (let [data (try (read-raw-bytes req) (catch Exception _ nil))
+              mime (get-in req [:headers "content-type"])
+              did  (or (xrpc/resolve-repo (:repo qp)) (:did qp) cfg/pds-did)]
+          (json-response (xrpc/upload-blob store did mime data)))
+
+        ;; getBlob: JSON error OR the raw blob bytes (served with its mimeType)
+        (= nsid "com.atproto.sync.getBlob")
+        (let [resp (xrpc/get-blob store qp)]
+          (if-let [b (:blob resp)]
+            {:status 200
+             :headers {"content-type" (or (:mimeType b) "application/octet-stream")
+                       "access-control-allow-origin" "*"}
+             :body (java.io.ByteArrayInputStream. (:bytes b))}
+            (json-response resp)))
+
         :else
         (let [body (try (read-body req) (catch Exception _ nil))
               params (merge qp body)
               resp (case nsid
                      "com.atproto.server.describeServer" (xrpc/describe-server params)
                      "com.atproto.server.createSession"  (xrpc/create-session params)
+                     "com.atproto.server.createAccount"  (xrpc/create-account store params)
+                     "com.atproto.server.getSession"     (xrpc/get-session store params)
                      "com.atproto.identity.resolveHandle" (xrpc/resolve-handle params)
                      "com.atproto.repo.createRecord" (xrpc/create-record store params)
                      "com.atproto.repo.putRecord"    (xrpc/put-record store params)
