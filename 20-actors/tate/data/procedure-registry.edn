@@ -500,7 +500,7 @@
   :proc/deadline-rules
   [{:dl/label "조정기일 출석"
     :dl/rule "이혼 등 나류 가사사건は조정전치주의 (調停前置) — 기일 불출석は과태료/조정에 갈음하는 결정のリスク; 出席困難は事前に期日変更を"
-    :dl/anchor "가사소송법 50조 (조정전치) ・ 민사조정법 準用" :dl/verify-service-date true}]
+    :dl/anchor "가사소송법 50조 (조정전치) ・ 민사조정법 準用" :dl/source-url "https://www.law.go.kr/법령/가사소송법" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :chulseok :opt/kind :self-decide :opt/label "기일에 출석 (調停は合意するまで成立しない)"}
    {:opt/id :dapbyeonseo :opt/kind :self-submit :opt/protective true :opt/label "답변서・의견서を事前提出 (言い分の整理)"}]
@@ -533,7 +533,7 @@
   :proc/deadline-rules
   [{:dl/label "채권신고 (債権届出)"
     :dl/rule "회생/파산 개시결정이 정한 채권신고기간 내に신고 — 회생では미신고 채권の실권 리스크"
-    :dl/anchor "채무자 회생 및 파산에 관한 법률 (회생 148조 이하・파산 447조 이하)" :dl/verify-service-date true}]
+    :dl/anchor "채무자 회생 및 파산에 관한 법률 (회생 148조 이하・파산 447조 이하)" :dl/source-url "https://www.law.go.kr/법령/채무자 회생 및 파산에 관한 법률" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :singo :opt/kind :self-submit :opt/protective true
     :opt/label "채권신고서を期間内に提出 — 선불금・포인트・예치금も債権 (kaiyaku 縁-ledger 突合)"}
