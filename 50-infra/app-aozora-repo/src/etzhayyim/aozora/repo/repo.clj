@@ -19,6 +19,8 @@
   on, and it keeps every block on kotoba (never an `@atproto/repo` side store)."
   (:require [etzhayyim.aozora.repo.cid :as cid]
             [etzhayyim.aozora.repo.dag-cbor :as dc]
+            [etzhayyim.aozora.repo.mst :as mst]
+            [etzhayyim.aozora.repo.commit :as commit]
             [etzhayyim.aozora.repo.blockstore :as bs]))
 
 (defn lift-links
@@ -79,3 +81,23 @@
                    (nil? prev) (assoc "prev" nil))
         {:keys [cid bytes]} (cid/block unsigned)]
     {:cid cid :bytes bytes :unsigned unsigned}))
+
+;; ── full repo build (the entry point the PDS calls; ADR-2606242330 P-wiring) ──
+
+(defn commit-records!
+  "Store each record as a block + EAVT projection, build the MST data root, sign
+  + store the commit, advance the repo head — all on the kotoba blockstore.
+
+  This is the single entry point `etzhayyim-atproto-pds-clj` calls to materialise
+  a signed AT-Proto repo from its first-party records (`records` =
+  [{:collection :rkey :value}]). `sign-fn` is the member/operator key seam
+  (no-server-key). Returns {:commit :rev :data-root :signed?}."
+  [store {:keys [did rev prev sign-fn]} records]
+  (let [kvs (mapv (fn [{:keys [collection rkey value]}]
+                    (let [{:keys [cid]} (put-record store did collection rkey value)]
+                      {:key (str collection "/" rkey) :val cid}))
+                  records)
+        data-root (mst/data-root! store kvs)
+        c (commit/commit! store {:did did :data-cid data-root :rev rev
+                                 :prev prev :sign-fn sign-fn})]
+    {:commit (:cid c) :rev rev :data-root data-root :signed? (:signed? c)}))
