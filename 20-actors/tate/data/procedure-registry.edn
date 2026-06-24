@@ -805,7 +805,7 @@
   :proc/deadline-rules
   [{:dl/label "Udienza di convalida"
     :dl/rule "citazione 記載の udienza に出頭して opposizione — 欠席または無異議は convalida (執行名義の確定)"
-    :dl/anchor "c.p.c. artt. 657-669" :dl/critical true :dl/verify-service-date true}
+    :dl/anchor "c.p.c. artt. 657-669" :dl/source-url "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:regio.decreto:1940-10-28;1443" :dl/critical true :dl/verify-service-date true}
    {:dl/label "Termine di grazia (支払猶予)"
     :dl/rule "morosità 型は udienza で termine di grazia (最大90日) を求め全額支払で解消できる場合がある"
     :dl/anchor "L. 392/1978 art. 55" :dl/verify-service-date true}]
@@ -825,7 +825,7 @@
   :proc/deadline-rules
   [{:dl/label "Costituzione (応訴)"
     :dl/rule "riforma Cartabia の統一家事手続: costituzione (comparsa di costituzione) は udienza の30日前まで; prima udienza への本人出頭が原則"
-    :dl/anchor "c.p.c. art. 473-bis.12 以下" :dl/verify-service-date true}]
+    :dl/anchor "c.p.c. art. 473-bis.12 以下" :dl/source-url "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:regio.decreto:1940-10-28;1443" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :costituzione :opt/kind :self-decide :opt/protective true
     :opt/label "期限内の costituzione (avvocato 経由 — patrocinio a spese dello Stato 可) で言い分を確保"}
@@ -855,10 +855,10 @@
   :proc/deadline-rules
   [{:dl/label "Un quinto (1/5 ルール)"
     :dl/rule "給与の差押えは原則 un quinto (1/5) まで; 年金は minimo vitale (assegno sociale の1.5倍相当) が差押禁止 — 複数差押えの合算上限も法定"
-    :dl/anchor "c.p.c. art. 545 / DL 83/2015" :dl/verify-service-date true}
+    :dl/anchor "c.p.c. art. 545 / DL 83/2015" :dl/source-url "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:regio.decreto:1940-10-28;1443" :dl/verify-service-date true}
    {:dl/label "Opposizione"
     :dl/rule "違法・過大な pignoramento には opposizione all'esecuzione/agli atti"
-    :dl/anchor "c.p.c. artt. 615・617" :dl/verify-service-date true}]
+    :dl/anchor "c.p.c. artt. 615・617" :dl/source-url "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:regio.decreto:1940-10-28;1443" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :quinto-check :opt/kind :self-decide :opt/protective true
     :opt/label "1/5 上限と minimo vitale が守られているか確認 (超過は opposizione)"}
@@ -873,7 +873,7 @@
   :proc/deadline-rules
   [{:dl/label "Opposizione (異議)"
     :dl/rule "notifica から40日以内に opposizione (→ 通常訴訟へ)"
-    :dl/anchor "Codice di procedura civile art. 641" :dl/verify-service-date true}]
+    :dl/anchor "Codice di procedura civile art. 641" :dl/source-url "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:regio.decreto:1940-10-28;1443" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :opposizione :opt/kind :self-submit :opt/label "発令裁判所へ opposizione を提起"}
    {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/和解"}]
