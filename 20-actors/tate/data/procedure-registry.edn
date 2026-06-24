@@ -2672,10 +2672,10 @@
   :proc/deadline-rules
   [{:dl/label "Ogiltigförklaring の underrättelse"
     :dl/rule "uppsägning の無効を争う underrättelse は2 veckor 以内 (besked に教示がなければ1か月) — その後2週間で提訴; 世界最短級"
-    :dl/anchor "LAS (1982:80) 40§" :dl/critical true :dl/verify-service-date true}
+    :dl/anchor "LAS (1982:80) 40§" :dl/source-url "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/lag-198280-om-anstallningsskydd_sfs-1982-80/" :dl/critical true :dl/verify-service-date true}
    {:dl/label "Skadestånd"
     :dl/rule "損害賠償の underrättelse は4か月以内"
-    :dl/anchor "LAS 41§" :dl/verify-service-date true}]
+    :dl/anchor "LAS 41§" :dl/source-url "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/lag-198280-om-anstallningsskydd_sfs-1982-80/" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :underrattelse :opt/kind :self-submit :opt/protective true
     :opt/label "書面 underrättelse を雇用主へ (2 veckor — まず期限を止める)"}
@@ -2737,7 +2737,7 @@
   :proc/deadline-rules
   [{:dl/label "Bestrida (異議)"
     :dl/rule "föreläggande 記載の förklaringstid (回答期限 — 通常2週間程度) 内に書面で bestrida"
-    :dl/anchor "Lag (1990:746) om betalningsföreläggande och handräckning" :dl/verify-service-date true}]
+    :dl/anchor "Lag (1990:746) om betalningsföreläggande och handräckning" :dl/source-url "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/lag-1990746-om-betalningsforelaggande-och_sfs-1990-746/" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :bestrida :opt/kind :self-submit :opt/label "Kronofogden へ書面で bestrida (→ 申立人が裁判所移行を選択)"}
    {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い (記録に注意 — betalningsanmärkning)"}]
