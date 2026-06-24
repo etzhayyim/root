@@ -905,10 +905,10 @@
   :proc/deadline-rules
   [{:dl/label "Oposición"
     :dl/rule "demanda de desahucio への oposición は10日 (días hábiles) 以内 — 無応答は審理なく lanzamiento (退去執行) の日程へ進む高速手続"
-    :dl/anchor "LEC arts. 440.3・441" :dl/critical true :dl/verify-service-date true}
+    :dl/anchor "LEC arts. 440.3・441" :dl/source-url "https://www.boe.es/buscar/act.php?id=BOE-A-2000-323" :dl/critical true :dl/verify-service-date true}
    {:dl/label "Enervación (滞納の解消)"
     :dl/rule "賃料滞納型は期限内の全額支払 (enervación) で1回に限り手続を解消できる場合がある"
-    :dl/anchor "LEC art. 22.4" :dl/verify-service-date true}]
+    :dl/anchor "LEC art. 22.4" :dl/source-url "https://www.boe.es/buscar/act.php?id=BOE-A-2000-323" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :oposicion :opt/kind :self-submit :opt/protective true
     :opt/label "oposición を10日以内に (justicia gratuita の指定弁護士は申請で停止効も)"}
@@ -925,7 +925,7 @@
   :proc/deadline-rules
   [{:dl/label "Contestación"
     :dl/rule "contestación は20 días hábiles — ただし divorcio contencioso は abogado + procurador が必須 (本人では応答できない類型; justicia gratuita で両方を立てられる)"
-    :dl/anchor "LEC arts. 753・770" :dl/critical true :dl/verify-service-date true}]
+    :dl/anchor "LEC arts. 753・770" :dl/source-url "https://www.boe.es/buscar/act.php?id=BOE-A-2000-323" :dl/critical true :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :justicia-gratuita :opt/kind :self-submit :opt/protective true
     :opt/label "justicia gratuita の申請は本人可 — 申請で手続が実務上止まり, abogado/procurador が付く"}
@@ -955,7 +955,7 @@
   :proc/deadline-rules
   [{:dl/label "Inembargabilidad (生計保護)"
     :dl/rule "SMI (最低賃金) までは全額差押禁止 — 超過分は累進スケール (30/50/60/75/90%) でのみ差押え可; 適用は自動だが計算誤りは是正請求"
-    :dl/anchor "LEC art. 607" :dl/verify-service-date true}]
+    :dl/anchor "LEC art. 607" :dl/source-url "https://www.boe.es/buscar/act.php?id=BOE-A-2000-323" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :escala-check :opt/kind :self-decide :opt/protective true
     :opt/label "SMI 控除と累進スケールが正しく適用されているか給与明細で確認 (誤りは LAJ へ)"}
@@ -971,7 +971,7 @@
   :proc/deadline-rules
   [{:dl/label "Pagar u oponerse (支払い又は異議)"
     :dl/rule "requerimiento の受領から20日 (días hábiles・営業日) 以内に支払い又は oposición"
-    :dl/anchor "LEC arts. 815.1・818" :dl/verify-service-date true}]
+    :dl/anchor "LEC arts. 815.1・818" :dl/source-url "https://www.boe.es/buscar/act.php?id=BOE-A-2000-323" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :oposicion :opt/kind :self-submit :opt/label "escrito de oposición を提出 (→ 対審手続へ)"}
    {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い"}]
