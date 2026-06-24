@@ -1001,10 +1001,10 @@
   :proc/deadline-rules
   [{:dl/label "Verzoekschrift (vervaltermijn — 失権期間)"
     :dl/rule "instemming なき opzegging への vernietiging / billijke vergoeding の verzoekschrift は2か月以内 (kantonrechter) — vervaltermijn のため停止・中断なし"
-    :dl/anchor "BW 7:686a lid 4" :dl/critical true :dl/verify-service-date true}
+    :dl/anchor "BW 7:686a lid 4" :dl/source-url "https://wetten.overheid.nl/BWBR0005290" :dl/critical true :dl/verify-service-date true}
    {:dl/label "Transitievergoeding"
     :dl/rule "transitievergoeding の請求は雇用終了から3か月以内 (同じく vervaltermijn)"
-    :dl/anchor "BW 7:673 / 7:686a lid 4 sub b" :dl/verify-service-date true}]
+    :dl/anchor "BW 7:673 / 7:686a lid 4 sub b" :dl/source-url "https://wetten.overheid.nl/BWBR0005290" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :verzoekschrift :opt/kind :self-submit :opt/protective true
     :opt/label "kantonrechter へ verzoekschrift (2か月 — kanton は本人可)"}
@@ -1050,7 +1050,7 @@
   :proc/deadline-rules
   [{:dl/label "同意しない自由 (huurbescherming)"
     :dl/rule "verhuurder の opzegging だけでは賃貸借は終了しない — 賃借人が6週間以内に書面で同意しない限り, verhuurder は kantonrechter の判断を求めるしかない (同意する義務はない)"
-    :dl/anchor "BW 7:272" :dl/verify-service-date true}]
+    :dl/anchor "BW 7:272" :dl/source-url "https://wetten.overheid.nl/BWBR0005290" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :do-not-agree :opt/kind :self-decide :opt/protective true
     :opt/label "同意しない (沈黙でも借家権は続く — 裁判所が判断するまで居住継続)"}
