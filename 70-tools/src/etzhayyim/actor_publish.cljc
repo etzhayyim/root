@@ -35,10 +35,18 @@
 
 ;; ── manifest ────────────────────────────────────────────────────────────────
 
-(defn manifest-path [actor] (str (prefix actor) "/actor-manifest.jsonld"))
+(defn manifest-path
+  "Locate the actor manifest. Utility/older actors use `actor-manifest.jsonld`;
+   the clj-native flagship actors (kaname/tsumugi/ibuki…) use `manifest.jsonld`
+   (no `triggers`, lexicons listed under `:lexicons`). Prefer the former, fall
+   back to the latter."
+  [actor]
+  (let [a (io/file (str (prefix actor) "/actor-manifest.jsonld"))
+        m (io/file (str (prefix actor) "/manifest.jsonld"))]
+    (cond (.exists a) a (.exists m) m :else a)))
 
 (defn read-manifest [actor]
-  (let [f (io/file (manifest-path actor))]
+  (let [f (manifest-path actor)]
     (when (.exists f) (json/parse-string (slurp f) true))))
 
 (defn manifest->genesis
@@ -46,10 +54,14 @@
    did:web is normalized to the github.io PATH form
    (did:web:etzhayyim.github.io:com-etzhayyim-<name>; ADR-2606231200 addendum
    2026-06-24), so the DID resolves to the actor repo's STATIC GitHub Pages
-   did.json — no custom domain, no dynamic generation."
+   did.json — no custom domain, no dynamic generation.
+   The collection NSID is the first declared collection/lexicon minus its final
+   record-type segment: `actor-manifest.jsonld` lists it under
+   :triggers/:subscribeRepos/:collections, `manifest.jsonld` under :lexicons."
   [actor manifest & {:keys [pubkey-hex]}]
-  (let [coll (-> manifest :triggers :subscribeRepos :collections first)
-        ns* (when coll (str/join "." (take 4 (str/split coll #"\."))))]
+  (let [coll (or (-> manifest :triggers :subscribeRepos :collections first)
+                 (-> manifest :lexicons first))
+        ns* (when coll (str/join "." (butlast (str/split coll #"\."))))]
     (rad/genesis-block
      {:name actor
       :did-web (str "did:web:etzhayyim.github.io:" (repo-name actor))
