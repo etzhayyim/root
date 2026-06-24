@@ -2057,7 +2057,7 @@
   :proc/deadline-rules
   [{:dl/label "Fordringsanmeldelse"
     :dl/rule "債権は bostyrer へ anmeld — Brønnøysund 公告記載の frist 内に (遅延届出も審査され得るが配当リスク)"
-    :dl/anchor "konkursloven §109 以下" :dl/verify-service-date true}]
+    :dl/anchor "konkursloven §109 以下" :dl/source-url "https://lovdata.no/lov/1984-06-08-58" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :anmeld-no :opt/kind :self-submit :opt/protective true
     :opt/label "bostyrer へ fordring を anmeld (forskudd・gavekort も債権: kaiyaku 縁-ledger と突合)"}
@@ -2086,7 +2086,7 @@
   :proc/deadline-rules
   [{:dl/label "Utleggstrekk への対応"
     :dl/rule "namsmannen が lønn/trygd から utleggstrekk (控除) を行うが、skyldner は livsopphold (生活費) に必要な額を必ず保持できる (beslagsfrie midler, dekningsloven §2-7)。保護額は forskrift om livsoppholdssatser の標準率で算定し、boligutgifter (家賃/住宅ローン利息・公共料金・暖房) は上乗せされる。namsmannen は食・住・電気等の必要支出を奪わないよう経済状況を考慮する。算定に異議があれば namsmannen/tingretten に klage できる"
-    :dl/anchor "dekningsloven §2-7 + forskrift om livsoppholdssatser (FOR-2014-06-13-724) + tvangsfullbyrdelsesloven" :dl/verify-service-date true}]
+    :dl/anchor "dekningsloven §2-7 + forskrift om livsoppholdssatser (FOR-2014-06-13-724) + tvangsfullbyrdelsesloven" :dl/source-url "https://lovdata.no/lov/1984-06-08-59" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :klage :opt/kind :self-submit :opt/protective true :opt/label "trekk が livsopphold (livsoppholdssats + boligutgifter) を侵害するなら namsmannen へ見直し/klage を申立て"}
    {:opt/id :verify :opt/kind :self-decide :opt/protective true :opt/label "残額が livsoppholdssats + boligutgifter を下回っていないか namsmannen と確認 (収入/支出を申告)"}]
