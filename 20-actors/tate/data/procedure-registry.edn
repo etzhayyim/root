@@ -1278,7 +1278,7 @@
   :proc/deadline-rules
   [{:dl/label "応答/出頭 (consultation)"
     :dl/rule "通知記載の consultation 期日・指示に従い応答 (SCT ≤ S$20,000; 弁護士代理は禁止 — 本人手続が原則)"
-    :dl/anchor "Small Claims Tribunals Act 1984" :dl/verify-service-date true}]
+    :dl/anchor "Small Claims Tribunals Act 1984" :dl/source-url "https://sso.agc.gov.sg/Act/SCTA1984" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :respond :opt/kind :self-submit :opt/label "SCT ポータルで応答・反論を提出 (本人)"}
    {:opt/id :appear :opt/kind :self-decide :opt/label "consultation/hearing に出席"}]
@@ -1322,7 +1322,7 @@
   :proc/deadline-rules
   [{:dl/label "Possession claim への対応"
     :dl/rule "landlord は自力 eviction できず、Conveyancing and Law of Property Act s.18 に基づき書面の termination notice (違反事由を明記) を serve した上で court order を要する。tenant が占有を続ける場合、退去は court order → enforcement order for possession (旧 writ of possession) → Sheriff/Bailiff の執行 + Notice of Eviction (vacate 日時) によってのみ。possession claim を受けたら通知/Rules of Court が定める期間内に応答"
-    :dl/anchor "Conveyancing and Law of Property Act s.18 + Rules of Court (enforcement order for possession)" :dl/verify-service-date true}]
+    :dl/anchor "Conveyancing and Law of Property Act s.18 + Rules of Court (enforcement order for possession)" :dl/source-url "https://sso.agc.gov.sg/Act/CLPA1886" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :respond :opt/kind :self-submit :opt/protective true :opt/label "possession claim に期間内に応答 (termination notice の適法性・breach・rent を争う)"}
    {:opt/id :no-self-help-protection :opt/kind :self-decide :opt/protective true :opt/label "landlord の self-help (lock change・cutting utilities・harassment) は違法 — illegal eviction は criminal trespass (罰金最大 S$5,000) + 民事責任; 退去は court order + Sheriff/Bailiff によってのみ; 受けたら police・lawyer・Legal Aid Bureau へ"}]
