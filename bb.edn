@@ -66,8 +66,13 @@
    :task (do (require 'etzhayyim.kotoba.pages-store)
              (apply (resolve 'etzhayyim.kotoba.pages-store/-query) *command-line-args*))}
 
+  pages:deploy
+  {:doc "ADR-2606242400 — deploy a published Pages dir to a REAL GitHub repo + enable Pages (creates repo, pushes, enables Pages from gh-pages root; member gh creds, no-server-key). --verify polls the live URL and reconstructs the graph over HTTPS Range. Args: <dir> <owner/repo> <graph> [--verify]"
+   :task (do (require 'etzhayyim.kotoba.pages-store)
+             (apply (resolve 'etzhayyim.kotoba.pages-store/-deploy) *command-line-args*))}
+
   test:pages-store
-  {:doc "ADR-2606242400 CARv1 + GitHubPagesBlockStore invariants: varint round-trip, CID bytes framing, CAR roots/index slices recompute to their CID, tamper detection, publish→Range-fetch→CID-verify→reassemble round-trip. Hermetic (no network)."
+  {:doc "ADR-2606242400 CARv1 + prolly-tree + GitHubPagesBlockStore invariants: varint, CID framing, CAR roots/index slices, tamper detection, flat publish→Range→verify→reassemble round-trip, prolly multi-level/determinism/seek-locality/path-copy. Hermetic (no network)."
    :task (do (require 'etzhayyim.kotoba.test-pages-store)
              (apply (resolve 'etzhayyim.kotoba.test-pages-store/-main) *command-line-args*))}
 

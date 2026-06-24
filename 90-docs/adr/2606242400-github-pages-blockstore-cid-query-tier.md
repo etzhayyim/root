@@ -76,6 +76,17 @@ over the existing CID primitives. Three new namespaces under `70-tools/src`:
   layout stays the default for small graphs (exact log order, stable head-cid).
 - `bb pages:publish [--prolly] [--bits=N]` / `pages:query [--http]` / `test:pages-store`.
 
+## did:web integration + real deployment
+
+- **did:web** — `kotoba-rad/did-web-doc` gains an optional `KotobaDataGraph`
+  service entry (`{root, car, head}`), so resolving an actor's DID **locates its
+  CID-queryable data tier** (the root CID + the CAR path on its Pages site).
+  Additive — existing callers/tests are unchanged.
+- **`pages-store/deploy!`** + `bb pages:deploy <dir> <owner/repo> <graph>
+  [--verify]` — creates the repo if missing, pushes the Pages dir to `gh-pages`,
+  enables GitHub Pages from that branch root (member gh creds, no-server-key),
+  and `--verify` polls the live URL and reconstructs the graph over HTTPS Range.
+
 **Publish writes files only**; committing/pushing them is the ADR-2606241500
 git tier (no-server-key). So an actor's data graph rides the SAME git flow as its
 code, and is then queryable by anyone over plain HTTPS — no IPFS daemon, no

@@ -25,6 +25,7 @@
             [clojure.edn :as edn]
             [clojure.java.io :as io]
             [cheshire.core :as json]
+            [babashka.process :as p]
             [babashka.http-client :as http]
             [etzhayyim.kotoba.cid :as cid]
             [etzhayyim.kotoba.car :as car]
@@ -178,6 +179,57 @@
     (throw (ex-info "seek requires a :prolly-layout graph" {:layout (:layout index)})))
   (prolly/seek-datom (get-fn ranger index) (:root index) datom))
 
+;; ── real GitHub Pages deployment ─────────────────────────────────────────────
+
+(defn- gh [& args] (apply p/sh "gh" args))
+(defn- git-c [dir & args] (apply p/sh (concat ["git" "-C" dir] args)))
+
+(defn deploy!
+  "Deploy a published Pages dir to a REAL GitHub repo + enable Pages. Creates
+   `owner/repo` if missing, pushes the dir to `branch` (gh-pages), enables Pages
+   from that branch root. Uses the caller's gh auth (no-server-key: member creds).
+   Returns {:repo :branch :pages-url :pushed?}."
+  [dir owner repo & {:keys [branch message] :or {branch "gh-pages" message "kotoba pages tier (ADR-2606242400)"}}]
+  (let [full (str owner "/" repo)
+        exists? (zero? (:exit (gh "repo" "view" full)))]
+    (when-not exists?
+      (let [{:keys [exit err]} (gh "repo" "create" full "--public"
+                                   "--description" "kotoba GitHubPagesBlockStore — CID-queryable static tier (ADR-2606242400)")]
+        (when-not (zero? exit)
+          (throw (ex-info (str "gh repo create failed: " (str/trim (str err))) {:repo full})))))
+    (let [tmp (str (System/getProperty "java.io.tmpdir") "/kotoba-deploy-" (System/currentTimeMillis))]
+      (.mkdirs (io/file tmp))
+      (p/sh "cp" "-R" (str dir "/.") tmp)
+      (git-c tmp "init" "-q" "-b" branch)
+      (git-c tmp "add" "-A")
+      (git-c tmp "-c" "user.email=poc@etzhayyim.com" "-c" "user.name=kotoba"
+             "commit" "-q" "-m" message)
+      (git-c tmp "remote" "add" "origin" (str "https://github.com/" full ".git"))
+      (let [push (git-c tmp "push" "-f" "origin" branch)
+            ;; enable Pages (idempotent: 409 if already on). p/sh opts map FIRST.
+            _ (p/sh {:in (json/generate-string {:source {:branch branch :path "/"}})}
+                    "gh" "api" "--method" "POST" (str "repos/" full "/pages") "--input" "-")]
+        {:repo full :branch branch :pushed? (zero? (:exit push))
+         :pages-url (str "https://" owner ".github.io/" repo "/")}))))
+
+(defn verify-live!
+  "Poll the live Pages URL until <graph>.car.idx.edn is served, then reconstruct
+   the graph over HTTP Range and CID-verify. Returns {:ok? :tries :datoms :root}."
+  [pages-url graph & {:keys [max-tries sleep-ms] :or {max-tries 40 sleep-ms 15000}}]
+  (let [base (str pages-url graph)
+        idx-url (str base ".car.idx.edn")]
+    (loop [t 1]
+      (let [resp (try (http/get idx-url {:throw false}) (catch Exception _ nil))]
+        (if (and resp (= 200 (:status resp)))
+          (let [index (index-from-http idx-url)
+                ranger (http-ranger (str base ".car"))
+                back (fetch-log ranger index)]
+            {:ok? true :tries t :datoms (count back) :root (:root index)
+             :pages-url base})
+          (if (>= t max-tries)
+            {:ok? false :tries t :pages-url base :reason "Pages not live (build pending?)"}
+            (do (Thread/sleep sleep-ms) (recur (inc t)))))))))
+
 ;; ── CLI ──────────────────────────────────────────────────────────────────────
 
 (defn -publish
@@ -219,7 +271,30 @@
               [(index-from-file (str base "/" graph ".car.idx.edn"))
                (file-ranger (str base "/" graph ".car"))]))
           logv (fetch-log ranger index)]
-      (println "graph " (:graph index) " root " (:root index))
-      (println "head  " (:head index) " (recomputed:" (klog/head-cid logv) ")")
+      (println "graph " (:graph index) " root " (:root index) " layout " (:layout index))
+      (println "head  " (:head index)
+               (when-not (= :prolly (:layout index)) (str "(recomputed: " (klog/head-cid logv) ")")))
       (println "datoms" (count logv) "— reassembled + CID-verified from"
                (if http? "HTTPS Range" "local CAR")))))
+
+(defn -deploy
+  "bb pages:deploy <dir> <owner/repo> <graph> [--verify]. Deploys a published
+   Pages dir to a REAL GitHub repo (creates it, pushes, enables Pages). --verify
+   polls the live URL and reconstructs the graph over HTTPS Range."
+  [& args]
+  (let [verify? (contains? (set args) "--verify")
+        [dir owner+repo graph] (remove #(str/starts-with? % "--") args)]
+    (when-not (and dir owner+repo graph)
+      (println "usage: bb pages:deploy <dir> <owner/repo> <graph> [--verify]") (System/exit 2))
+    (let [[owner repo] (str/split owner+repo #"/")
+          r (deploy! dir owner repo)]
+      (println "deployed" (:repo r) "branch=" (:branch r) "pushed=" (:pushed? r))
+      (println "  pages :" (:pages-url r))
+      (println "  car   :" (str (:pages-url r) graph ".car") "(query by root CID over HTTPS Range)")
+      (when verify?
+        (println "  verifying live (Pages build may take a minute)…")
+        (let [v (verify-live! (:pages-url r) graph)]
+          (if (:ok? v)
+            (println "  LIVE ✓ root=" (:root v) "datoms=" (:datoms v) "tries=" (:tries v))
+            (println "  PENDING — " (:reason v) "(tries=" (:tries v) "); re-run: bb pages:query"
+                     (str (:pages-url r) graph) "--http")))))))
