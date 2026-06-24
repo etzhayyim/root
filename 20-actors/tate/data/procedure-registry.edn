@@ -2206,7 +2206,7 @@
   :proc/deadline-rules
   [{:dl/label "Irtisanomissuoja (解約保護)"
     :dl/rule "賃貸人の irtisanominen には正当事由が必要 — 借家人は käräjäoikeus に無効 (julistettava tehottomaksi) を求められる; 通知には事由記載が必須"
-    :dl/anchor "AHVL (laki asuinhuoneiston vuokrauksesta) 56-57§§" :dl/verify-service-date true}]
+    :dl/anchor "AHVL (laki asuinhuoneiston vuokrauksesta) 56-57§§" :dl/source-url "https://www.finlex.fi/fi/laki/ajantasa/1995/19950481" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :tehottomuus :opt/kind :self-submit :opt/protective true
     :opt/label "正当事由を欠く場合は無効の kanne (oikeusapu 併用可)"}
@@ -2237,7 +2237,7 @@
   :proc/deadline-rules
   [{:dl/label "Suojaosuus (保護部分)"
     :dl/rule "**suojaosuus (日額×扶養人数の保護部分) は必ず残り**, 原則として手取りの1/3まで — vapaakuukaudet (差押え休止月) も請求できる"
-    :dl/anchor "ulosottokaari 4 luku 48§・52-53§§" :dl/verify-service-date true}]
+    :dl/anchor "ulosottokaari 4 luku 48§・52-53§§" :dl/source-url "https://www.finlex.fi/fi/laki/ajantasa/2007/20070705" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :suojaosuus-check :opt/kind :self-decide :opt/protective true
     :opt/label "suojaosuus の計算を確認 (扶養の申告; oikaisu は ulosottomies へ)"}
