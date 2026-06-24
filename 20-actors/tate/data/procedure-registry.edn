@@ -2072,7 +2072,7 @@
   :proc/deadline-rules
   [{:dl/label "Tilsvar (答弁) / 出席義務"
     :dl/rule "innkalling 記載の期限内に tilsvar — 無応答・無断欠席は fraværsdom (欠席判決); 小額民事は forliksrådet 前置が原則 (本人手続前提の制度)"
-    :dl/anchor "tvisteloven §6-3・§6-6" :dl/verify-service-date true}]
+    :dl/anchor "tvisteloven §6-3・§6-6" :dl/source-url "https://lovdata.no/lov/2005-06-17-90" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :tilsvar :opt/kind :self-submit :opt/label "tilsvar を forliksrådet へ (認否 + 言い分)"}
    {:opt/id :møte :opt/kind :self-decide :opt/label "調停期日に出席 (和解の場 — 合意義務はない)"}]
@@ -2100,7 +2100,7 @@
   :proc/deadline-rules
   [{:dl/label "Tilsvar / mekling"
     :dl/rule "foreldretvist (fast bosted・samvær・foreldreansvar の争い) を court に提起する前に obligatorisk mekling (familievernkontor) を経て meklingsattest (有効期間6か月) を得る必要がある (barneloven §51)。stevning が届いたら saksøkte は tingretten が定める期限 (通常3週間, tvisteloven §9-3) 内に tilsvar を提出。tingretten は conflict-and-reconciliation model で扱い、子に関し専門家 (心理士等) を任命することが多い。重大な暴力・虐待の有罪がある場合は meklingsattest なしでも提訴可"
-    :dl/anchor "barneloven §51 (mekling) + tvisteloven §9-3 (tilsvar)" :dl/verify-service-date true}]
+    :dl/anchor "barneloven §51 (mekling) + tvisteloven §9-3 (tilsvar)" :dl/source-url "https://lovdata.no/lov/2005-06-17-90" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :tilsvar :opt/kind :self-submit :opt/protective true :opt/label "tingretten が定める期限内に tilsvar を提出 (自分の立場・子の最善を述べる)"}
    {:opt/id :mekling :opt/kind :self-decide :opt/label "familievernkontor の mekling に出席 (合意の余地; meklingsattest は提訴要件)"}]
