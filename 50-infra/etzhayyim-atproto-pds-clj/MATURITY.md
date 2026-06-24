@@ -21,6 +21,7 @@ breaking the gftd.ai dependency. Updated by the maturity `/loop`.
 | **`com.atproto.repo.importRepo`** | ✅ | parse CAR → walk MST → ingest records; verified live (getRepo→importRepo roundtrip, 3 records) |
 | **account + session auth** | ✅ | `createAccount` (PBKDF2) / `createSession` / `getSession` / `refreshSession` / `deleteSession` (HS256 JWT, `exp` expiry); opt-in write-auth gate (`PDS_REQUIRE_AUTH`) **scoped: session `sub` must own the repo** (401 no-session / 403 wrong-repo); verified live |
 | **blob-ref integrity** | ✅ | a record referencing an absent blob is rejected (400); verified live (absent→400, real→200) |
+| **identity / error envelopes** | ✅ | `resolveHandle` account-backed (registered did wins, else did:web); `describeRepo` handle/didDoc/recordCount; consistent 400/404/501 `error` envelopes; verified live |
 | Signing key stable + published | ✅ | `PDS_SIGNING_KEY_FILE`; did.json `#atproto` Multikey `z6Mk…` |
 | **sync read surface** | ✅ | getRepo / getRecord / getBlocks / getLatestCommit / getRepoStatus / listRepos |
 | **`subscribeRepos` firehose** | ✅ | websocket; binary `#commit` frame (CAR + ops) on connect; verified live (opcode 2, header `a26174`) |
@@ -40,13 +41,12 @@ firehose-frame-wellformed, firehose-frame-carries-the-repo (decode #commit → C
 apply-writes-batch, import-repo-roundtrips (export→import 12 records),
 account-and-session-auth, jwt-expiry, write-auth-gate (401 / 200 own-repo / 403 other-repo),
 blob-ref-validation (400 absent blob), firehose-websocket-integration (real WS over a
-socket → #commit frame → CAR), blob-store-roundtrips.
+socket → #commit frame → CAR), resolve-handle-account-backed, error-paths (400/404/501
+envelopes), blob-store-roundtrips.
 
 ## Next maturity steps (loop)
 
-1. `getRepo` `since` param (incremental sync — only blocks after a rev) + a
-   `listRecords` reverse/`rkeyStart` cursor.
-2. `com.atproto.identity.resolveHandle` over the account store + `describeRepo`
-   `handleIsCorrect`.
-3. a conformance smoke against the goat/`@atproto` CLI shapes (CAR header, commit
-   fields) where feasible offline.
+1. `listRecords` `reverse` + `rkeyStart`/`rkeyEnd` cursor (full param surface).
+2. record value sanity on write (reject non-map / missing `$type`) + a per-collection
+   record count in `describeRepo`.
+3. a conformance smoke against the `@atproto` CAR/commit shapes where feasible offline.

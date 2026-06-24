@@ -256,6 +256,35 @@
         (is (= 200 (:status (req (account/make-jwt tsecret "did:web:atproto.etzhayyim.com")))))
         (is (= 403 (:status (req (account/make-jwt tsecret "did:web:someone-else.etzhayyim.com")))))))))
 
+(deftest resolve-handle-account-backed
+  (testing "a registered account's did wins; an unregistered handle falls back to did:web"
+    (let [acct (str (System/getProperty "java.io.tmpdir") "/pds-rh-" (hash (str (gensym))) ".edn")]
+      (with-redefs [cfg/accounts-file acct]
+        (account/create-account acct {:handle "bob.etzhayyim.com" :password "pw" :did "did:plc:bob123"})
+        (is (= "did:plc:bob123" (get-in (xrpc/resolve-handle {:handle "bob.etzhayyim.com"}) [:body "did"])))
+        (is (= "did:web:carol.etzhayyim.com" (get-in (xrpc/resolve-handle {:handle "carol.etzhayyim.com"}) [:body "did"])))
+        (is (= 400 (:status (xrpc/resolve-handle {:handle ""}))))
+        (.delete (clojure.java.io/file acct))))))
+
+(deftest error-paths
+  (testing "consistent error envelopes for bad/absent requests"
+    (let [st (store/->mem-store)
+          h (server/make-handler st (.getPrivate (repo/gen-keypair)) "z6Mkx" tsecret)
+          post (fn [nsid m] (h {:uri (str "/xrpc/" nsid) :request-method :post
+                                :headers {"content-type" "application/json"} :body (json/generate-string m)}))
+          get* (fn [nsid qs] (h {:uri (str "/xrpc/" nsid) :request-method :get :query-string qs}))]
+      (is (= 400 (:status (post "com.atproto.repo.createRecord" {"repo" "atproto.etzhayyim.com" "record" {"x" 1}})))) ; no collection
+      (is (= 400 (:status (post "com.atproto.repo.createRecord" {"repo" "atproto.etzhayyim.com" "collection" "c"}))))  ; no record
+      (is (= 400 (:status (post "com.atproto.repo.applyWrites" {"repo" "atproto.etzhayyim.com"}))))                    ; no writes
+      (is (= 404 (:status (get* "com.atproto.repo.getRecord" "repo=atproto.etzhayyim.com&collection=c&rkey=nope"))))   ; absent record
+      (is (= 404 (:status (get* "com.atproto.sync.getBlob" "cid=bafkreiabsentxyz"))))                                  ; absent blob
+      (is (= 404 (:status (get* "com.atproto.sync.getRecord" "did=did:web:atproto.etzhayyim.com&collection=c&rkey=nope")))) ; absent sync record
+      (is (= 501 (:status (get* "com.atproto.repo.notAMethod" ""))))                                                   ; unknown method
+      (testing "every error response carries an \"error\" key"
+        (doseq [resp [(post "com.atproto.repo.createRecord" {}) (get* "com.atproto.sync.getBlob" "cid=x")
+                      (get* "com.atproto.repo.notAMethod" "")]]
+          (is (contains? (json/parse-string (:body resp)) "error")))))))
+
 (deftest firehose-websocket-integration
   (testing "a websocket client receives a binary #commit frame carrying the repo (over the wire)"
     (let [st (store/->mem-store)

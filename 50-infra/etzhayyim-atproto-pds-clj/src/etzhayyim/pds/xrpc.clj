@@ -6,6 +6,7 @@
   (:require [clojure.string :as str]
             [etzhayyim.pds.config :as cfg]
             [etzhayyim.pds.store :as store]
+            [etzhayyim.pds.account :as account]
             [etzhayyim.pds.util :as util]))
 
 (defn- ok [body] {:status 200 :body body})
@@ -27,9 +28,10 @@
 
 ;; ── identity ─────────────────────────────────────────────────────────────────
 (defn resolve-handle [{:keys [handle]}]
-  (if-let [did (and handle (resolve-repo handle))]
-    (ok {"did" did})
-    (err 400 "InvalidRequest" "handle is required")))
+  (if (str/blank? handle)
+    (err 400 "InvalidRequest" "handle is required")
+    ;; a registered account's did wins; otherwise fall back to the did:web mapping
+    (ok {"did" (or (account/account-did cfg/accounts-file handle) (resolve-repo handle))})))
 
 ;; ── server ───────────────────────────────────────────────────────────────────
 (defn describe-server [_] (ok (cfg/describe-server)))
