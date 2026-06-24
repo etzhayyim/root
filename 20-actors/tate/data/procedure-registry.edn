@@ -1354,7 +1354,7 @@
     :dl/anchor "Industrial Disputes Act 1947 ss.25F・2A" :dl/source-url "https://www.indiacode.nic.in/handle/123456789/18592" :dl/verify-service-date true}
    {:dl/label "Gratuity (退職金)"
     :dl/rule "5年以上勤続なら gratuity を30日以内に Form I で申請 (遅れても受理され得るが早く)"
-    :dl/anchor "Payment of Gratuity Act 1972 / Rules 7" :dl/verify-service-date true}]
+    :dl/anchor "Payment of Gratuity Act 1972 / Rules 7" :dl/source-url "https://www.indiacode.nic.in/handle/123456789/1703" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :form-i :opt/kind :self-submit :opt/protective true
     :opt/label "gratuity Form I + 未払賃金/PF の請求を書面で (EPFO ポータル)"}
@@ -1383,7 +1383,7 @@
   :proc/deadline-rules
   [{:dl/label "Proof of claim"
     :dl/rule "IRP の public announcement 記載の last date — IRP 選任日から14日 — までに proof of claim を IRP/RP へ提出; 14日を徒過した債権者も insolvency commencement date から90日目まで提出できる (reg.12(2))"
-    :dl/anchor "IBC 2016 s.15(1)(c) + IBBI (CIRP) Regulations 2016 reg.6 & 12" :dl/verify-service-date true}]
+    :dl/anchor "IBC 2016 s.15(1)(c) + IBBI (CIRP) Regulations 2016 reg.6 & 12" :dl/source-url "https://www.indiacode.nic.in/handle/123456789/2154" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :proof :opt/kind :self-submit :opt/protective true
     :opt/label "proof of claim (Form B/C) を IRP/RP へ提出 (本人可; advance・deposit・gift voucher など前払金も claim: kaiyaku 縁-ledger と突合)"}]
