@@ -70,6 +70,39 @@
 
         :else (.toString sb)))))
 
+(def ^:private b32-idx
+  (into {} (map-indexed (fn [i c] [c i]) b32-alphabet)))
+
+(defn- base32-lower-decode
+  "Inverse of base32-lower* (RFC4648 lower, no pad) -> byte-array."
+  ^bytes [^String s]
+  (let [out (java.io.ByteArrayOutputStream.)]
+    (loop [cs (seq s) buf 0 bits 0]
+      (if (empty? cs)
+        (.toByteArray out)
+        (let [v (b32-idx (first cs))
+              buf (bit-or (bit-shift-left buf 5) (int v))
+              bits (+ bits 5)]
+          (if (>= bits 8)
+            (do (.write out (bit-and (unsigned-bit-shift-right buf (- bits 8)) 0xff))
+                (recur (rest cs) buf (- bits 8)))
+            (recur (rest cs) buf bits)))))))
+
+(defn cid-str->bytes
+  "The raw binary CID a CIDv1 string addresses — base32-decode after the 'b'
+   multibase prefix. This is the on-the-wire CID form CARv1 sections carry
+   (`<varint len> <cid-bytes> <data>`). Inverse of the framing built in `cid`."
+  ^bytes [^String c]
+  (when-not (str/starts-with? c "b")
+    (throw (ex-info "expected base32 'b' multibase CIDv1" {:cid c})))
+  (base32-lower-decode (subs c 1)))
+
+(defn cid-bytes->str
+  "Re-attach the 'b' base32 multibase to a binary CIDv1 frame -> CID string.
+   Inverse of `cid-str->bytes`."
+  [^bytes frame]
+  (str "b" (base32-lower* frame)))
+
 (defn- ->bytes ^bytes [s]
   #?(:clj (.getBytes ^String s "UTF-8")
      :cljs (throw (ex-info "cljs not wired" {}))))

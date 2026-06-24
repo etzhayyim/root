@@ -56,6 +56,21 @@
    :task (do (require 'etzhayyim.actor-evolve)
              (apply (resolve 'etzhayyim.actor-evolve/-main) *command-line-args*))}
 
+  pages:publish
+  {:doc "ADR-2606242400 — pack a kotoba Datom journal into a STATIC GitHub-Pages CAR tier: <dir>/<graph>.car + .car.idx.edn + head.json + .nojekyll. Commit the dir → GitHub Pages serves it; clients query by root CID over HTTPS Range (no IPFS daemon). Args: <graph> <journal.edn> [out-dir]"
+   :task (do (require 'etzhayyim.kotoba.pages-store)
+             (apply (resolve 'etzhayyim.kotoba.pages-store/-publish) *command-line-args*))}
+
+  pages:query
+  {:doc "ADR-2606242400 — reconstruct + CID-verify a published graph by its root CID. Default reads a local published dir; --http treats the arg as a base URL (…/<graph>) and uses HTTP Range against GitHub Pages. Args: <dir-or-base> [--http]"
+   :task (do (require 'etzhayyim.kotoba.pages-store)
+             (apply (resolve 'etzhayyim.kotoba.pages-store/-query) *command-line-args*))}
+
+  test:pages-store
+  {:doc "ADR-2606242400 CARv1 + GitHubPagesBlockStore invariants: varint round-trip, CID bytes framing, CAR roots/index slices recompute to their CID, tamper detection, publish→Range-fetch→CID-verify→reassemble round-trip. Hermetic (no network)."
+   :task (do (require 'etzhayyim.kotoba.test-pages-store)
+             (apply (resolve 'etzhayyim.kotoba.test-pages-store/-main) *command-line-args*))}
+
   sops:keygen
   {:doc "ADR-2606241500 — generate an age identity for an actor (or __org__ for the org-wide recovery key), print the recipient. DRY-RUN prints the secret; --apply stores it in macOS Keychain (service etzhayyim.sops-age, MEMBER key, no-server-key). Args: <actor|__org__> [--apply]"
    :task (do (require 'etzhayyim.sops-age)
