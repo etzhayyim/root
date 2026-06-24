@@ -1351,7 +1351,7 @@
   :proc/deadline-rules
   [{:dl/label "ID Act の手続要件"
     :dl/rule "workman の retrenchment は1か月の notice (または賃金) + 15日/年の補償が要件 — 不備は無効主張の余地; dispute は conciliation officer へ (s.2A 直接申立ては3年以内)"
-    :dl/anchor "Industrial Disputes Act 1947 ss.25F・2A" :dl/verify-service-date true}
+    :dl/anchor "Industrial Disputes Act 1947 ss.25F・2A" :dl/source-url "https://www.indiacode.nic.in/handle/123456789/18592" :dl/verify-service-date true}
    {:dl/label "Gratuity (退職金)"
     :dl/rule "5年以上勤続なら gratuity を30日以内に Form I で申請 (遅れても受理され得るが早く)"
     :dl/anchor "Payment of Gratuity Act 1972 / Rules 7" :dl/verify-service-date true}]
@@ -1369,7 +1369,7 @@
   :proc/deadline-rules
   [{:dl/label "Written statement の提出"
     :dl/rule "送達から30日以内 (裁判所の裁量で最大90日まで伸長可)"
-    :dl/anchor "CPC 1908 Order VIII Rule 1" :dl/verify-service-date true}]
+    :dl/anchor "CPC 1908 Order VIII Rule 1" :dl/source-url "https://www.indiacode.nic.in/handle/123456789/2191" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :written-statement :opt/kind :self-submit :opt/label "written statement (認否 + 抗弁) を提出"}
    {:opt/id :appear :opt/kind :self-decide :opt/label "期日に出頭 (ex parte decree の回避)"}]
@@ -1397,7 +1397,7 @@
   :proc/deadline-rules
   [{:dl/label "Written statement"
     :dl/rule "summons 送達から30日以内に written statement (各 allegation の認否) を Family Court へ提出 (CPC Order VIII Rule 1); 30日徒過時は理由を記録の上90日まで延長可。Family Court は和解 (reconciliation) 重視で柔軟に延長することがあるが、未提出は ex parte 手続 (Order VIII Rule 10) になりうる"
-    :dl/anchor "CPC 1908 Order VIII Rule 1 + Family Courts Act 1984 (matrimonial)" :dl/verify-service-date true}]
+    :dl/anchor "CPC 1908 Order VIII Rule 1 + Family Courts Act 1984 (matrimonial)" :dl/source-url "https://www.indiacode.nic.in/handle/123456789/2191" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :written-statement :opt/kind :self-submit :opt/protective true :opt/label "written statement (認否 + 抗弁) を Family Court へ提出 (ex parte decree の回避)"}
    {:opt/id :reconciliation :opt/kind :self-decide :opt/label "Family Court の reconciliation/調停 に出席 (合意の余地)"}]
@@ -1426,7 +1426,7 @@
   :proc/deadline-rules
   [{:dl/label "Salary attachment への対応"
     :dl/rule "decree の execution で salary を attach する場合 (Order XXI Rules 48/48A)、最初の ₹1,000 と残額の2/3 は attachment から免除され、attachable なのは (salary − ₹1,000) の1/3 のみ (maintenance decree を除く)。さらに同一 attachable 部分が通算24か月 attach されたら12か月免除、同一 decree では24か月で最終免除。免除超過は court で異議できる"
-    :dl/anchor "CPC 1908 s.60(1) proviso + Order XXI Rules 48 & 48A" :dl/verify-service-date true}]
+    :dl/anchor "CPC 1908 s.60(1) proviso + Order XXI Rules 48 & 48A" :dl/source-url "https://www.indiacode.nic.in/handle/123456789/2191" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :objection :opt/kind :self-submit :opt/protective true :opt/label "免除 (最初の₹1,000 + 残額の2/3) を超える attachment には court へ objection を提出 (Order XXI)"}
    {:opt/id :verify :opt/kind :self-decide :opt/protective true :opt/label "attach 部分が (salary−₹1,000) の1/3 上限・24か月 cap を超えていないか employer/court で確認"}]
