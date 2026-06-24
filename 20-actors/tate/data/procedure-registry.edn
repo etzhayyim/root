@@ -1864,7 +1864,7 @@
   :proc/deadline-rules
   [{:dl/label "Response / hearing 出席"
     :dl/rule "claim notice 記載の hearing までに response・出席 — ≤NZ$30,000; 弁護士代理は法律で原則排除 (本人手続前提)"
-    :dl/anchor "Disputes Tribunal Act 1988 (s.38 lawyers excluded)" :dl/verify-service-date true}]
+    :dl/anchor "Disputes Tribunal Act 1988 (s.38 lawyers excluded)" :dl/source-url "https://www.legislation.govt.nz/act/public/1988/0110/latest/whole.html" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :respond :opt/kind :self-submit :opt/label "response を Tribunal へ (オンライン可)"}
    {:opt/id :attend :opt/kind :self-decide :opt/label "hearing に出席 (referee による調停的審理)"}]
@@ -1878,7 +1878,7 @@
   :proc/deadline-rules
   [{:dl/label "Creditor claim"
     :dl/rule "清算人 (liquidator) が公告で claim 期限日を定める — 通知日から10営業日 (working days) 以上後でなければならない; 期限内に claim しない債権者は、claim 前になされた配当の利益から除外される (後日 admit されれば残余資産から配当を受けうる)"
-    :dl/anchor "Companies Act 1993 s.304 / Schedule 7 (Liquidation Regulations 1994)" :dl/verify-service-date true}]
+    :dl/anchor "Companies Act 1993 s.304 / Schedule 7 (Liquidation Regulations 1994)" :dl/source-url "https://www.legislation.govt.nz/act/public/1993/0105/latest/whole.html" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :claim :opt/kind :self-submit :opt/protective true
     :opt/label "creditor claim form を liquidator へ提出 (本人可; prepayment・deposit・gift voucher など前払金も debt: kaiyaku 縁-ledger と突合)"}]
@@ -1892,7 +1892,7 @@
   :proc/deadline-rules
   [{:dl/label "Notice of response"
     :dl/rule "notice of application 受領から21日以内に notice of response (approved form) を court office へ file し全当事者へ serve; 期限内に応答しないと自分抜きで手続が進み、裁判官が意見を聞かずに final order を出しうる"
-    :dl/anchor "Family Court Rules 2002 (SR 2002/261) + Form COC 1 (Care of Children Act 2004)" :dl/verify-service-date true}]
+    :dl/anchor "Family Court Rules 2002 (SR 2002/261) + Form COC 1 (Care of Children Act 2004)" :dl/source-url "https://www.legislation.govt.nz/act/public/2004/0090/latest/whole.html" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :response :opt/kind :self-submit :opt/protective true :opt/label "notice of response (approved form) を court office へ file & 全当事者へ serve (自分の立場を述べる)"}
    {:opt/id :fdr :opt/kind :self-decide :opt/label "Family Dispute Resolution (FDR) mediation の利用を検討 (合意できれば裁判回避)"}]
@@ -1921,7 +1921,7 @@
   :proc/deadline-rules
   [{:dl/label "Attachment order への対応"
     :dl/rule "judgment 後に creditor/debtor が attachment order を申立てると employer が salary/wages から控除する。ただし debtor は net income (税引後) の60% (protected earnings rate) を必ず保持でき、控除は net の40%を超えられない。返済が困難なら court に控除額の variation を申立てられる"
-    :dl/anchor "District Court Act 2016 s.157 (attachment orders) + protected earnings rate 60% net" :dl/verify-service-date true}]
+    :dl/anchor "District Court Act 2016 s.157 (attachment orders) + protected earnings rate 60% net" :dl/source-url "https://www.legislation.govt.nz/act/public/2016/0049/latest/whole.html" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :variation :opt/kind :self-submit :opt/protective true :opt/label "返済困難なら court へ deduction 額の variation を申立て (protected earnings rate=net の60% を下回らせない)"}
    {:opt/id :verify :opt/kind :self-decide :opt/protective true :opt/label "控除が net の40%上限・60% protected を超えていないか employer/court で確認"}]
