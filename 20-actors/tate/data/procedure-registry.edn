@@ -1292,7 +1292,7 @@
   :proc/deadline-rules
   [{:dl/label "Proof of debt"
     :dl/rule "清算人 (liquidator) が 'Notice to File Proof of Debt' で証明期限を定める; 通知日から14日以内に proof of debt を lodge しない債権者は配当 (dividend) から除外される"
-    :dl/anchor "IRDA 2018 + Insolvency, Restructuring and Dissolution (Court-Ordered Winding Up) Regulations 2020" :dl/verify-service-date true}]
+    :dl/anchor "IRDA 2018 + Insolvency, Restructuring and Dissolution (Court-Ordered Winding Up) Regulations 2020" :dl/source-url "https://sso.agc.gov.sg/Act/IRDA2018" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :pod :opt/kind :self-submit :opt/protective true
     :opt/label "proof of debt を liquidator へ lodge (本人可; prepayment・deposit・stored-value/gift voucher など前払金も debt: kaiyaku 縁-ledger と突合)"}]
@@ -1336,7 +1336,7 @@
   :proc/deadline-rules
   [{:dl/label "Enforcement order への対応"
     :dl/rule "judgment debt の執行は Enforcement Order for Seizure and Sale (旧 writ of seizure and sale) または Enforcement Order for Attachment of a Debt (旧 garnishee; 銀行預金等の債権を差押え) による (Rules of Court 2021 O.22)。ただし wages・salary・pension・政府の allowance は差押え免除であり、給与そのものは attach できない (Supreme Court of Judicature Act s.13)。wearing apparel・bedding・tools of trade は SGD1,000 まで免除、HDB flat も免除。免除財産が押収されたら court へ異議できる"
-    :dl/anchor "Supreme Court of Judicature Act s.13 (exempt property) + Rules of Court 2021 O.22" :dl/verify-service-date true}]
+    :dl/anchor "Supreme Court of Judicature Act s.13 (exempt property) + Rules of Court 2021 O.22" :dl/source-url "https://sso.agc.gov.sg/Act/SCJA1969" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :exempt :opt/kind :self-submit :opt/protective true :opt/label "免除財産 (wages/salary/pension・apparel/bedding/tools ≤SGD1,000・HDB) が押収対象なら court へ異議; 給与は attach 対象外"}
    {:opt/id :verify :opt/kind :self-decide :opt/protective true :opt/label "押収/attachment が免除財産 (s.13) を侵害していないか確認"}]
