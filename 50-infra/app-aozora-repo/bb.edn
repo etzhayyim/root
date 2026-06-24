@@ -7,9 +7,11 @@
    :requires ([clojure.test :as t]
               [etzhayyim.aozora.repo.repo-test]
               [etzhayyim.aozora.repo.mst-test]
-              [etzhayyim.aozora.repo.commit-sync-test])
+              [etzhayyim.aozora.repo.commit-sync-test]
+              [etzhayyim.aozora.repo.firehose-test])
    :task (let [{:keys [fail error]}
                (t/run-tests 'etzhayyim.aozora.repo.repo-test
                             'etzhayyim.aozora.repo.mst-test
-                            'etzhayyim.aozora.repo.commit-sync-test)]
+                            'etzhayyim.aozora.repo.commit-sync-test
+                            'etzhayyim.aozora.repo.firehose-test)]
            (System/exit (if (pos? (+ fail error)) 1 0)))}}}

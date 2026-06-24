@@ -40,28 +40,33 @@ MST root ──────────────────▶ unsigned v3 c
 | `mst.clj` | atproto **Merkle Search Tree** (`data-root!`): keys → record CIDs, leading-zero fanout, layer-skip pass-through nodes, dag-cbor node serialization. |
 | `commit.clj` | unsigned + **signed** AT-Proto v3 commit (`commit!`); `sign-fn` = member-key seam (no-server-key). |
 | `car.clj` / `sync.clj` | CARv1 export + `com.atproto.sync.{getRepo,getLatestCommit,getBlocks}`. |
+| `firehose.clj` | `com.atproto.sync.subscribeRepos` #commit frame (header ‖ body dag-cbor + embedded CAR) + seq-indexed replay log. |
 
 ### Verification (spec-exact, cross-checked against the official impls)
 
-`bb test` (**13 tests / 52 assertions**) checks:
+`bb test` (**14 tests / 57 assertions**) checks:
 
 - record/node **CIDs byte-identical to go-ipfs 0.41 `ipfs dag put --store-codec
   dag-cbor`** (9 data vectors + tag-42 CID-link);
 - **MST root CIDs byte-identical to `@atproto/repo` `MST.getPointer()`** (empty /
   1 / 3 / 30-entry trees — incl. multi-layer + skip nodes);
 - the **CARv1 export decodes under `@ipld/car`** with every block CID re-verified
-  and the signed v3 commit decoding cleanly (cross-checked, see PR).
+  and the signed v3 commit decoding cleanly;
+- the **subscribeRepos #commit frame decodes under `@ipld/dag-cbor`** (header ‖
+  body) with its embedded CAR re-verified under `@ipld/car` (cross-checked, see PR).
 
 ```bash
-bb test   # 13 tests / 52 assertions green
+bb test   # 14 tests / 57 assertions green
 ```
 
 ## Status
 
 1. ✅ **MST tree** — `mst/data-root!`, verified vs `@atproto/repo`.
 2. ✅ **Signed commit** — `commit/commit!` with the no-server-key `sign-fn` seam.
-3. ✅ **CAR + `com.atproto.sync.*`** — `getRepo`/`getLatestCommit`/`getBlocks`,
-   verified vs `@ipld/car`. (`subscribeRepos` firehose = a later increment.)
+3. ✅ **CAR + `com.atproto.sync.*`** — `getRepo`/`getLatestCommit`/`getBlocks`
+   (verified vs `@ipld/car`) + **`subscribeRepos` #commit frame + replay log**
+   (`firehose.clj`, verified vs `@ipld/dag-cbor`+`@ipld/car`). The per-write
+   incremental event log + the WebSocket transport are the remaining wrapper.
 4. ✅ **Wired into `etzhayyim-atproto-pds-clj`** — `etzhayyim.pds.repo` builds the
    repo from the PDS records via `commit-records!` and serves
    `com.atproto.sync.{getRepo,getLatestCommit,getBlocks}` (CARv1 / JSON) from
