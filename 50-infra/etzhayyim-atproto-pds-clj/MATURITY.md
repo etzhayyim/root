@@ -19,7 +19,7 @@ breaking the gftd.ai dependency. Updated by the maturity `/loop`.
 | **DAG-CBOR decoder + CAR parser** | ✅ | inverse codec; encode↔decode + build↔parse roundtrips tested |
 | `com.atproto.repo.applyWrites` | ✅ | batch create/update/delete in one call; verified live |
 | **`com.atproto.repo.importRepo`** | ✅ | parse CAR → walk MST → ingest records; verified live (getRepo→importRepo roundtrip, 3 records) |
-| **account + session auth** | ✅ | `createAccount` (PBKDF2) / `createSession` / `getSession` (HS256 JWT, `exp` expiry); opt-in write-auth gate (`PDS_REQUIRE_AUTH`) **scoped: session `sub` must own the repo** (401 no-session / 403 wrong-repo); verified live |
+| **account + session auth** | ✅ | `createAccount` (PBKDF2) / `createSession` / `getSession` / `refreshSession` / `deleteSession` (HS256 JWT, `exp` expiry); opt-in write-auth gate (`PDS_REQUIRE_AUTH`) **scoped: session `sub` must own the repo** (401 no-session / 403 wrong-repo); verified live |
 | **blob-ref integrity** | ✅ | a record referencing an absent blob is rejected (400); verified live (absent→400, real→200) |
 | Signing key stable + published | ✅ | `PDS_SIGNING_KEY_FILE`; did.json `#atproto` Multikey `z6Mk…` |
 | **sync read surface** | ✅ | getRepo / getRecord / getBlocks / getLatestCommit / getRepoStatus / listRepos |
@@ -39,11 +39,14 @@ relay-verification-chain, relay-verifies-from-served-car (parse real CAR → ver
 firehose-frame-wellformed, firehose-frame-carries-the-repo (decode #commit → CAR),
 apply-writes-batch, import-repo-roundtrips (export→import 12 records),
 account-and-session-auth, jwt-expiry, write-auth-gate (401 / 200 own-repo / 403 other-repo),
-blob-ref-validation (400 absent blob), blob-store-roundtrips.
+blob-ref-validation (400 absent blob), firehose-websocket-integration (real WS over a
+socket → #commit frame → CAR), blob-store-roundtrips.
 
 ## Next maturity steps (loop)
 
-1. an HTTP-socket firehose integration test (start server → connect → read the
-   binary frame off the wire → parse the `#commit` body's CAR → confirm the record).
-2. `refreshSession` (rotate the access JWT from a refresh token) + `deleteSession`.
-3. a `listRecords` reverse cursor + `getRepo` `since` (incremental sync) param.
+1. `getRepo` `since` param (incremental sync — only blocks after a rev) + a
+   `listRecords` reverse/`rkeyStart` cursor.
+2. `com.atproto.identity.resolveHandle` over the account store + `describeRepo`
+   `handleIsCorrect`.
+3. a conformance smoke against the goat/`@atproto` CLI shapes (CAR header, commit
+   fields) where feasible offline.

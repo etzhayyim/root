@@ -208,6 +208,18 @@
           (json-response {:status 200 :body {"did" auth-sub "handle" auth-sub "active" true}})
           (json-response {:status 401 :body {"error" "AuthRequired" "message" "valid session Bearer required"}}))
 
+        ;; rotate the access/refresh JWTs from a valid (refresh) Bearer
+        (= nsid "com.atproto.server.refreshSession")
+        (if auth-sub
+          (json-response {:status 200 :body {"did" auth-sub "handle" auth-sub
+                                             "accessJwt" (account/make-jwt jwt-secret auth-sub)
+                                             "refreshJwt" (account/make-jwt jwt-secret auth-sub)}})
+          (json-response {:status 401 :body {"error" "AuthRequired" "message" "valid refresh Bearer required"}}))
+
+        ;; stateless sessions: the client discards the token (no server-side revocation list)
+        (= nsid "com.atproto.server.deleteSession")
+        (json-response {:status 200 :body {}})
+
         ;; repo import (binary CAR body → walk MST → ingest records)
         (= nsid "com.atproto.repo.importRepo")
         (let [{:keys [did records]} (repo/import-records (read-bytes req))]

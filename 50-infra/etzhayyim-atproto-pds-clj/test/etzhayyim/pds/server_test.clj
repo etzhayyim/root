@@ -10,7 +10,8 @@
             [etzhayyim.pds.blob :as blob]
             [etzhayyim.pds.account :as account]
             [etzhayyim.pds.xrpc :as xrpc]
-            [etzhayyim.pds.server :as server]))
+            [etzhayyim.pds.server :as server]
+            [org.httpkit.server :as http]))
 
 (def repo cfg/host) ;; "atproto.etzhayyim.com"
 (def tsecret (.getBytes "etzhayyim-test-secret-32bytes!!!!" "UTF-8"))
@@ -254,6 +255,50 @@
         (is (= 401 (:status (req nil))))
         (is (= 200 (:status (req (account/make-jwt tsecret "did:web:atproto.etzhayyim.com")))))
         (is (= 403 (:status (req (account/make-jwt tsecret "did:web:someone-else.etzhayyim.com")))))))))
+
+(deftest firehose-websocket-integration
+  (testing "a websocket client receives a binary #commit frame carrying the repo (over the wire)"
+    (let [st (store/->mem-store)
+          _ (store/put-record st cfg/pds-did "app.bsky.feed.post" "3kws1" {"$type" "app.bsky.feed.post" "text" "wire"})
+          port 19287
+          handler (server/make-handler st (.getPrivate (repo/gen-keypair))
+                                       (repo/pubkey-multibase (.getPublic (repo/gen-keypair))) tsecret)
+          stop (http/run-server handler {:port port})]
+      (try
+        (let [sock (java.net.Socket. "127.0.0.1" (int port))]
+          (.setSoTimeout sock 2500)
+          (let [out (.getOutputStream sock)
+                in (.getInputStream sock)
+                wskey (.encodeToString (java.util.Base64/getEncoder) (.getBytes "0123456789abcdef"))
+                req (str "GET /xrpc/com.atproto.sync.subscribeRepos HTTP/1.1\r\n"
+                         "Host: localhost\r\nUpgrade: websocket\r\nConnection: Upgrade\r\n"
+                         "Sec-WebSocket-Key: " wskey "\r\nSec-WebSocket-Version: 13\r\n\r\n")
+                baos (java.io.ByteArrayOutputStream.)
+                buf (byte-array 4096)]
+            (.write out (.getBytes req "UTF-8")) (.flush out)
+            (loop []  ; read until the server stops sending (frame then idle → SoTimeout)
+              (let [n (try (.read in buf) (catch java.net.SocketTimeoutException _ -1))]
+                (when (pos? n) (.write baos buf 0 n) (recur))))
+            (.close sock)
+            (let [data (.toByteArray baos)
+                  s (String. data "ISO-8859-1")
+                  bidx (.indexOf s "\r\n\r\n")
+                  fstart (+ bidx 4)
+                  b1 (bit-and (aget data (inc fstart)) 0x7f)
+                  [plen poff] (if (= b1 126)
+                                [(+ (* 256 (bit-and (aget data (+ fstart 2)) 0xff)) (bit-and (aget data (+ fstart 3)) 0xff)) (+ fstart 4)]
+                                [b1 (+ fstart 2)])
+                  payload (java.util.Arrays/copyOfRange data poff (+ poff plen))
+                  hlen (alength (repo/dag-cbor {:op 1 :t "#commit"}))
+                  header (repo/dag-cbor-decode (java.util.Arrays/copyOfRange payload 0 hlen))
+                  body (repo/dag-cbor-decode (java.util.Arrays/copyOfRange payload hlen (alength payload)))
+                  parsed (repo/car-parse (get body "blocks"))]
+              (is (str/includes? (subs s 0 bidx) "101"))               ; HTTP 101 upgrade
+              (is (= 2 (bit-and (aget data fstart) 0x0f)))             ; binary opcode
+              (is (= "#commit" (get header "t")))
+              (is (= cfg/pds-did (get body "repo")))
+              (is (pos? (count (:blocks parsed)))))))
+        (finally (stop))))))
 
 (deftest blob-ref-validation
   (testing "createRecord referencing an absent blob is rejected (400)"
