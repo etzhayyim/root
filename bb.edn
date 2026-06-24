@@ -46,6 +46,36 @@
    :task (do (require 'etzhayyim.actor-mesh)
              (apply (resolve 'etzhayyim.actor-mesh/-main) *command-line-args*))}
 
+  actor:evolve
+  {:doc "ADR-2606241500 — evolve an actor's CODE (20-actors/<name>) AND DATA (80-data/<name> + its kotoba-rad identity journal) through git: encrypt-secrets (sops+age) → branch → commit → push → PR → merge, recording each step as a signed :rad/evolution on the sovereign identity log. DRY-RUN by default; --apply mutates locally; --push/--pr/--merge gate the outward legs (member gh+git creds, no-server-key). Args: <name> [--message=<m>] [--apply] [--push] [--pr] [--merge] [--pubkey=<hex>]"
+   :task (do (require 'etzhayyim.actor-evolve)
+             (apply (resolve 'etzhayyim.actor-evolve/-main) *command-line-args*))}
+
+  sops:keygen
+  {:doc "ADR-2606241500 — generate an age identity for an actor (or __org__ for the org-wide recovery key), print the recipient. DRY-RUN prints the secret; --apply stores it in macOS Keychain (service etzhayyim.sops-age, MEMBER key, no-server-key). Args: <actor|__org__> [--apply]"
+   :task (do (require 'etzhayyim.sops-age)
+             (apply (resolve 'etzhayyim.sops-age/-keygen) *command-line-args*))}
+
+  sops:yaml
+  {:doc "Regenerate .sops.yaml from the per-actor :rad/age-recipient on each kotoba-rad identity journal (the SoT). Read-only over Keychain (recipients are public). No args."
+   :task (do (require 'etzhayyim.sops-age)
+             (apply (resolve 'etzhayyim.sops-age/-yaml) *command-line-args*))}
+
+  sops:encrypt
+  {:doc "sops-encrypt a plaintext secret to its .enc.* sibling for an actor's recipients (actor key + org recovery). Args: <actor> <in> [out]"
+   :task (do (require 'etzhayyim.sops-age)
+             (apply (resolve 'etzhayyim.sops-age/-encrypt) *command-line-args*))}
+
+  sops:decrypt
+  {:doc "sops-decrypt a .enc.* file using the actor's Keychain age key; prints plaintext to stdout. Args: <actor> <file.enc.*>"
+   :task (do (require 'etzhayyim.sops-age)
+             (apply (resolve 'etzhayyim.sops-age/-decrypt) *command-line-args*))}
+
+  test:sops-age
+  {:doc "ADR-2606241500 secrets-layer invariants: age recipient derivation, enc-path mapping, :rad/age-recipient bound to the RID (idempotent), .sops.yaml render, and the sops encrypt→redaction→decrypt round-trip (wrong key refused). Hermetic (no Keychain)."
+   :task (do (require 'etzhayyim.test-sops-age)
+             (apply (resolve 'etzhayyim.test-sops-age/-main) *command-line-args*))}
+
   test:kotoba-rad
   {:doc "kotoba-rad sovereign-identity invariants (ADR-2606231200): did:key convention, RID content-addressing, did.json 3-identity cross-link, append-only/idempotent publish, Ed25519 sign/verify + CID base32 parity."
    :task (do (require 'etzhayyim.test-kotoba-rad)

@@ -12,7 +12,7 @@
 (def pk "9f3a7c2e1b4d5a6f8090a1b2c3d4e5f60718293a4b5c6d7e8f9012345678abcd")
 
 (defn g [] (rad/genesis-block
-            {:name "cargo" :did-web "did:web:cargo.etzhayyim.com"
+            {:name "cargo" :did-web "did:web:etzhayyim.github.io:com-etzhayyim-cargo"
              :delegates [(rad/did-key pk)] :threshold 1
              :repo "github.com/etzhayyim/com-etzhayyim-cargo"
              :pds "https://pds.etzhayyim.com" :collection "com.etzhayyim.apps.cargo"}))
@@ -32,7 +32,7 @@
 (deftest did-doc-cross-links-three-identities
   (let [doc (rad/did-web-doc {:name "cargo" :genesis (g) :pubkey-hex pk})
         aka (set (get doc "alsoKnownAs"))]
-    (is (= "did:web:cargo.etzhayyim.com" (get doc "id")))
+    (is (= "did:web:etzhayyim.github.io:com-etzhayyim-cargo" (get doc "id")))
     (is (contains? aka "at://cargo.etzhayyim.com"))
     (is (contains? aka "https://github.com/etzhayyim/com-etzhayyim-cargo"))
     (is (contains? aka (rad/rad-uri (g))) "sovereign rad: URI present")
