@@ -5,9 +5,11 @@
 (ns etzhayyim.kotoba.test-pages-store
   (:require [clojure.test :refer [deftest is testing run-tests]]
             [clojure.java.io :as io]
+            [clojure.set]
             [etzhayyim.kotoba.cid :as cid]
             [etzhayyim.kotoba.car :as car]
             [etzhayyim.kotoba.log :as klog]
+            [etzhayyim.kotoba.prolly :as prolly]
             [etzhayyim.kotoba.pages-store :as ps]))
 
 (deftest varint-roundtrip
@@ -76,6 +78,67 @@
     (is (= (count logv) (:count man)))
     (is (= (count logv) (count (:blocks man))) "manifest links every datom block")
     (is (= root (cid/cid (second (first blocks)))) "root == manifest block CID")))
+
+;; ── prolly-tree (multi-level Merkle DAG) ─────────────────────────────────────
+
+(def ^:private big-log
+  (vec (for [i (range 80)] [(str "e" (format "%03d" i)) :a/v i (inc i) :add])))
+
+(deftest prolly-is-multilevel-deterministic-and-walks
+  (let [t (prolly/build big-log :bits 2)
+        m (into {} (:blocks t))
+        get-fn (fn [c] (get m c))
+        back (prolly/walk get-fn (:root t))]
+    (testing "content-defined chunking yields a MULTI-level DAG (not a flat list)"
+      (is (> (:levels t) 1) (str "levels=" (:levels t)))
+      (is (> (:nodes t) 1)))
+    (testing "history-independent: shuffled input -> identical root CID"
+      (is (= (:root t) (:root (prolly/build (shuffle big-log) :bits 2)))))
+    (testing "walk reassembles the full datom set (sorted)"
+      (is (= (set big-log) (set back)))
+      (is (= back (vec (sort-by prolly/key-str big-log))) "in-order"))))
+
+(deftest prolly-seek-is-logarithmic-locality
+  (let [t (prolly/build big-log :bits 2)
+        m (into {} (:blocks t))
+        get-fn (fn [c] (get m c))
+        target (nth big-log 53)
+        r (prolly/seek-datom get-fn (:root t) target)]
+    (is (:found? r) "target found by descending one spine")
+    (is (= (prolly/key-of target) (prolly/key-of (:datom r))))
+    (testing "a point seek fetches ~tree-depth nodes, NOT the whole tree"
+      (is (<= (:fetched r) (:levels t)))
+      (is (< (:fetched r) (:nodes t)) (str "fetched " (:fetched r) " of " (:nodes t))))))
+
+(deftest prolly-path-copy-on-change
+  (let [t1 (prolly/build big-log :bits 2)
+        t2 (prolly/build (conj big-log ["e999" :a/v 999 999 :add]) :bits 2)
+        s1 (set (map first (:blocks t1)))
+        s2 (set (map first (:blocks t2)))]
+    (is (not= (:root t1) (:root t2)) "root changes with content")
+    (testing "most leaf/internal CIDs are SHARED (path-copy, not full rewrite)"
+      (is (pos? (count (clojure.set/intersection s1 s2)))))))
+
+(deftest prolly-publish-query-roundtrip-file
+  (let [dir (str (System/getProperty "java.io.tmpdir") "/etz-pages-prolly")
+        graph "big"]
+    (io/make-parents (io/file (str dir "/x")))
+    (try
+      (let [r (ps/publish! dir graph big-log :layout :prolly :bits 2)
+            index (ps/index-from-file (str dir "/" graph ".car.idx.edn"))
+            ranger (ps/file-ranger (str dir "/" graph ".car"))]
+        (is (= :prolly (:layout index)))
+        (is (> (:levels r) 1) "published a multi-level tree")
+        (testing "fetch-log over the CAR reassembles the full set, CID-verified"
+          (is (= (set big-log) (set (ps/fetch-log ranger index)))))
+        (testing "seek over the Pages store finds a datom with O(log n) Range fetches"
+          (let [s (ps/seek ranger index (nth big-log 17))]
+            (is (:found? s))
+            (is (< (:fetched s) (:n-blocks r))))))
+      (finally
+        (doseq [f [(str dir "/" graph ".car") (str dir "/" graph ".car.idx.edn")
+                   (str dir "/head.json") (str dir "/.nojekyll")]]
+          (io/delete-file f true))))))
 
 (defn -main [& _]
   (let [{:keys [fail error]} (run-tests 'etzhayyim.kotoba.test-pages-store)]

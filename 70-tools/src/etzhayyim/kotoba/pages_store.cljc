@@ -28,6 +28,7 @@
             [babashka.http-client :as http]
             [etzhayyim.kotoba.cid :as cid]
             [etzhayyim.kotoba.car :as car]
+            [etzhayyim.kotoba.prolly :as prolly]
             [etzhayyim.kotoba.log :as klog])
   (:import (java.io RandomAccessFile)))
 
@@ -58,29 +59,47 @@
     {:root man-cid :head head
      :blocks (into [[man-cid man-bytes]] datom-blocks)}))
 
+(defn blocks-of-log-prolly
+  "Map a kotoba Datom log to a PROLLY-TREE Merkle DAG (etzhayyim.kotoba.prolly):
+   a multi-level, content-defined, history-independent B-tree. Returns
+   {:root <prolly-root-cid> :head <log-head-cid> :blocks ([cid ^bytes]…)
+    :levels :nodes}. For large graphs a seek descends one spine (O(log n) Range
+   fetches) instead of pulling a flat manifest of every datom CID."
+  [_graph logv & {:keys [bits]}]
+  (let [t (apply prolly/build logv (when bits [:bits bits]))]
+    (assoc (select-keys t [:root :blocks :levels :nodes])
+           :head (klog/head-cid (vec logv)))))
+
 ;; ── publish (write the static Pages asset) ───────────────────────────────────
 
 (defn publish!
   "Pack `logv` into <dir>/<graph>.car (+ .car.idx.edn + head.json + .nojekyll).
-   Returns {:root :head :car :idx :head-json :n-blocks}. Side-effect = file
-   writes only; commit/push is the git tier."
-  [dir graph logv]
-  (let [{:keys [root head blocks]} (blocks-of-log graph logv)
-        {:keys [car index roots]} (car/pack [root] blocks)
+   `:layout` ∈ {:flat (default — root manifest lists every datom CID, exact-log
+   reassembly) | :prolly (multi-level Merkle B-tree, O(log n) seek for large
+   graphs)}. Returns {:root :head :car :idx :head-json :n-blocks :layout}.
+   Side-effect = file writes only; commit/push is the git tier."
+  [dir graph logv & {:keys [layout bits] :or {layout :flat}}]
+  (let [{:keys [root head blocks levels]}
+        (case layout
+          :prolly (blocks-of-log-prolly graph logv :bits bits)
+          (blocks-of-log graph logv))
+        {:keys [car index]} (car/pack [root] blocks)
         car-path (str dir "/" graph ".car")
         idx-path (str dir "/" graph ".car.idx.edn")
         head-path (str dir "/head.json")]
     (io/make-parents (io/file car-path))
     (with-open [o (io/output-stream car-path)] (.write o ^bytes car))
-    (spit idx-path (pr-str {:graph graph :root root :head head
-                            :version 1 :index index}))
+    (spit idx-path (pr-str (cond-> {:graph graph :root root :head head
+                                    :layout layout :version 1 :index index}
+                             levels (assoc :levels levels))))
     (spit head-path (str (json/generate-string
-                          {:graph graph :root root :head head
-                           :car (str graph ".car") :idx (str graph ".car.idx.edn")}
+                          (cond-> {:graph graph :root root :head head :layout layout
+                                   :car (str graph ".car") :idx (str graph ".car.idx.edn")}
+                            levels (assoc :levels levels))
                           {:pretty true}) "\n"))
     (spit (str dir "/.nojekyll") "")
     {:root root :head head :car car-path :idx idx-path :head-json head-path
-     :n-blocks (count blocks)}))
+     :n-blocks (count blocks) :layout layout :levels levels}))
 
 ;; ── index loaders ────────────────────────────────────────────────────────────
 
@@ -129,35 +148,58 @@
 
 ;; ── graph query (resolve root -> walk -> reassemble the log) ─────────────────
 
-(defn fetch-log
-  "Resolve the graph's root CID, read the manifest, Range-fetch + verify each
-   child block, and reassemble the Datom log vector — all over `ranger`, all
-   CID-checked. This is `query a static site by CID`, end to end."
+(defn get-fn
+  "A (fn [cid] -> ^bytes) CID-verifying block reader bound to ranger+index —
+   the seam the prolly walker/seeker consumes."
   [ranger index]
-  (let [root (:root index)
-        manifest (edn/read-string (String. (get-block ranger index root) "UTF-8"))]
-    (when-not (:kotoba/car-root manifest)
-      (throw (ex-info "root is not a kotoba CAR manifest" {:root root})))
-    (mapv (fn [cid-str]
-            (edn/read-string (String. (get-block ranger index cid-str) "UTF-8")))
-          (:blocks manifest))))
+  (fn [cid-str] (get-block ranger index cid-str)))
+
+(defn fetch-log
+  "Resolve the graph's root CID and reassemble its Datom log — over `ranger`,
+   every block CID-checked. `:flat` walks the root manifest's child list (exact
+   log order); `:prolly` descends the Merkle B-tree (sorted, set-equal). This is
+   `query a static site by CID`, end to end."
+  [ranger index]
+  (if (= :prolly (:layout index))
+    (prolly/walk (get-fn ranger index) (:root index))
+    (let [root (:root index)
+          manifest (edn/read-string (String. (get-block ranger index root) "UTF-8"))]
+      (when-not (:kotoba/car-root manifest)
+        (throw (ex-info "root is not a kotoba CAR manifest" {:root root})))
+      (mapv (fn [cid-str]
+              (edn/read-string (String. (get-block ranger index cid-str) "UTF-8")))
+            (:blocks manifest)))))
+
+(defn seek
+  "Prolly point lookup over the Pages store: descend ONE spine (O(log n) Range
+   fetches) to find `datom`. Returns {:found? :datom :fetched}. :prolly only."
+  [ranger index datom]
+  (when-not (= :prolly (:layout index))
+    (throw (ex-info "seek requires a :prolly-layout graph" {:layout (:layout index)})))
+  (prolly/seek-datom (get-fn ranger index) (:root index) datom))
 
 ;; ── CLI ──────────────────────────────────────────────────────────────────────
 
 (defn -publish
-  "bb pages:publish <graph> <journal.edn> [out-dir]. Packs a kotoba journal into
-   a static Pages CAR bundle (out-dir default 80-data/pages/<graph>)."
+  "bb pages:publish <graph> <journal.edn> [out-dir] [--prolly] [--bits=N]. Packs a
+   kotoba journal into a static Pages CAR bundle (out-dir default
+   80-data/pages/<graph>). --prolly = multi-level Merkle B-tree (O(log n) seek)."
   [& args]
-  (let [[graph journal out] (remove #(str/starts-with? % "--") args)]
+  (let [[graph journal out] (remove #(str/starts-with? % "--") args)
+        layout (if (contains? (set args) "--prolly") :prolly :flat)
+        bits (some->> args (filter #(str/starts-with? % "--bits=")) first
+                      (drop 7) (apply str) not-empty Integer/parseInt)]
     (when-not (and graph journal)
-      (println "usage: bb pages:publish <graph> <journal.edn> [out-dir]") (System/exit 2))
+      (println "usage: bb pages:publish <graph> <journal.edn> [out-dir] [--prolly] [--bits=N]") (System/exit 2))
     (let [dir (or out (str "80-data/pages/" graph))
           logv (klog/read-log journal)
-          r (publish! dir graph logv)]
-      (println "published" graph "->" (:car r))
+          r (publish! dir graph logv :layout layout :bits bits)]
+      (println "published" graph "->" (:car r) (str "(" (name (:layout r)) ")"))
       (println "  root  " (:root r))
       (println "  head  " (:head r))
-      (println "  blocks" (:n-blocks r) "| idx" (:idx r) "| head.json" (:head-json r))
+      (println "  blocks" (:n-blocks r)
+               (when (:levels r) (str "| levels " (:levels r)))
+               "| idx" (:idx r) "| head.json" (:head-json r))
       (println "  serve : commit" dir "-> GitHub Pages; query by root CID over HTTPS Range"))))
 
 (defn -query

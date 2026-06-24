@@ -65,7 +65,16 @@ over the existing CID primitives. Three new namespaces under `70-tools/src`:
     **the static host is untrusted** (tamper-evident).
   - `fetch-log` — resolve root → read manifest → Range-fetch + verify each child
     → reassemble the Datom log. "Query a static site by CID", end to end.
-- `bb pages:publish` / `pages:query [--http]` / `test:pages-store`.
+- **`etzhayyim.kotoba.prolly`** — the multi-level layout (`publish! :layout
+  :prolly`). A probabilistic (prolly) tree replaces the flat manifest: datoms
+  sorted by key [e a v tx], chunk boundaries CONTENT-DEFINED (low `bits` of
+  sha2-256(key) = 0 → avg leaf 2^bits), built level-by-level into a Merkle
+  B-tree. It is **history-independent** (same datoms → same root, any insert
+  order) and **path-copies** on change (only the touched leaf + spine get new
+  CIDs). `seek` descends ONE spine — **O(log n) Range fetches** for a point/range
+  query against a large graph — and `walk` does the full in-order scan. The flat
+  layout stays the default for small graphs (exact log order, stable head-cid).
+- `bb pages:publish [--prolly] [--bits=N]` / `pages:query [--http]` / `test:pages-store`.
 
 **Publish writes files only**; committing/pushing them is the ADR-2606241500
 git tier (no-server-key). So an actor's data graph rides the SAME git flow as its
@@ -87,15 +96,16 @@ never in the CAR/Pages tier.
   zero IPFS infrastructure — a browser/peer reads it over HTTPS Range.
 - One CAR + index per graph keeps the git tree small (no per-CID file blow-up);
   the same bundle is a valid CARv1, so it can also be `ipfs dag import`-ed later.
-- Reuses the canonical CID framing; the manifest is the seam to a real
-  prolly-tree DAG walk (chunked blocks) when graphs outgrow one-block-per-datom.
+- `:prolly` layout scales to large graphs: a point/range seek is O(log n) Range
+  fetches over the static host, the tree is history-independent (dedup across
+  versions) and path-copies on change (cheap incremental publish).
 
 **負 / リスク**
 - GitHub Pages soft limits (~1 GB site, ~100 GB/mo bandwidth, publish-build
   latency) — fine for read-mostly index/datom blocks, wrong for large binaries
   (→ B2/DataLad) and for the hot write path (→ embedded store).
-- One-block-per-datom is the PoC granularity; a true prolly-tree chunker (so the
-  manifest is a multi-level DAG, not a flat list) is the next step for big graphs.
+- `:prolly` reconstruction is set-equal, not log-ordered (the tree sorts by key);
+  exact log order + stable head-cid is the `:flat` layout. Both are provided.
 - `head.json` is mutable (last-writer per publish); Pages build latency makes it
   eventually-consistent — acceptable for an export tier, not for hot reads.
 
