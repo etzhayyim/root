@@ -1189,7 +1189,7 @@
   :proc/deadline-rules
   [{:dl/label "事由の法定性"
     :dl/rule "解僱は勞基法11條 (資遣 — 預告期間+資遣費) / 12條 (懲戒 — 知った時から30日内) の法定事由に限る — 事由なき解僱は無効主張の余地"
-    :dl/anchor "勞動基準法11條・12條・16條・17條" :dl/verify-service-date true}]
+    :dl/anchor "勞動基準法11條・12條・16條・17條" :dl/source-url "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0030001" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :tiaojie :opt/kind :self-submit :opt/protective true
     :opt/label "勞資爭議調解を労工局へ申請 (無料・本人可 — 確認僱傭關係/資遣費)"}
@@ -1220,7 +1220,7 @@
   :proc/deadline-rules
   [{:dl/label "異議 (不変期間)"
     :dl/rule "支付命令の送達後20日の不変期間内に異議 (→ 通常/簡易訴訟へ)"
-    :dl/anchor "台湾民事訴訟法516條" :dl/verify-service-date true}]
+    :dl/anchor "台湾民事訴訟法516條" :dl/source-url "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=B0010001" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :yiyi :opt/kind :self-submit :opt/label "異議状を発令法院へ提出 (理由不要)"}
    {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/和解"}]
