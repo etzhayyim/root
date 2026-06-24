@@ -2383,7 +2383,7 @@
   :proc/deadline-rules
   [{:dl/label "応答 / 別居要件"
     :dl/rule "一方的 Scheidungsklage は**2年の別居 (Getrenntleben) が要件** (ZGB 114) — 満たさない訴えには異議可; gemeinsames Begehren (共同申立て ZGB 111) なら要件不要で低負担"
-    :dl/anchor "ZGB 111・114" :dl/verify-service-date true}]
+    :dl/anchor "ZGB 111・114" :dl/source-url "https://www.fedlex.admin.ch/eli/cc/24/233_245_233/de" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :gemeinsam :opt/kind :self-decide :opt/protective true
     :opt/label "合意できるなら gemeinsames Begehren へ転換 (本人可・最速)"}
@@ -2398,7 +2398,7 @@
   :proc/deadline-rules
   [{:dl/label "Einsprache (missbräuchliche Kündigung)"
     :dl/rule "missbräuchlich と争うなら Einsprache を **Kündigungsfrist の満了前まで** に書面で — その後雇用終了から180日以内に提訴 (徒過で失権)"
-    :dl/anchor "OR Art. 336b" :dl/critical true :dl/verify-service-date true}]
+    :dl/anchor "OR Art. 336b" :dl/source-url "https://www.fedlex.admin.ch/eli/cc/27/317_321_377/de" :dl/critical true :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :einsprache :opt/kind :self-submit :opt/protective true
     :opt/label "書面 Einsprache を雇用主へ (Kündigungsfrist 内 — まず期限を止める)"}
@@ -2414,7 +2414,7 @@
   :proc/deadline-rules
   [{:dl/label "Anfechtung / Erstreckung"
     :dl/rule "Kündigung の Anfechtung (missbräuchlich) と Erstreckung (賃貸借の延長) は**30日以内に Schlichtungsbehörde へ** (無料・本人手続) — 公式 Formular なしの Kündigung は無効"
-    :dl/anchor "OR Art. 271・273・266l" :dl/critical true :dl/verify-service-date true}]
+    :dl/anchor "OR Art. 271・273・266l" :dl/source-url "https://www.fedlex.admin.ch/eli/cc/27/317_321_377/de" :dl/critical true :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :schlichtung :opt/kind :self-submit :opt/protective true
     :opt/label "Schlichtungsbehörde へ申立て (30日 — 無料; Erstreckung は最大4年/家族住居)"}
@@ -2431,7 +2431,7 @@
   :proc/deadline-rules
   [{:dl/label "Betreibungsrechtliches Existenzminimum"
     :dl/rule "賃金は**Existenzminimum を超える部分のみ**差押え可 (SchKG 93) — Betreibungsamt が世帯事情で算定; 事情変更 (家賃・扶養・医療) は再計算 (Revision) を請求できる"
-    :dl/anchor "SchKG Art. 93" :dl/verify-service-date true}]
+    :dl/anchor "SchKG Art. 93" :dl/source-url "https://www.fedlex.admin.ch/eli/cc/11/529_488_529/de" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :revision :opt/kind :self-submit :opt/protective true
     :opt/label "Existenzminimum の再計算を Betreibungsamt へ請求 (家賃・保険料等の領収書添付)"}
@@ -2446,7 +2446,7 @@
   :proc/deadline-rules
   [{:dl/label "Rechtsvorschlag (異議)"
     :dl/rule "Zustellung から10日以内に Rechtsvorschlag (理由不要・口頭でも可) — これだけで手続が止まる; Betreibung は証拠不要で誰でも開始できるため、身に覚えがなければ必ず異議"
-    :dl/anchor "SchKG Art. 74" :dl/critical true :dl/verify-service-date true}]
+    :dl/anchor "SchKG Art. 74" :dl/source-url "https://www.fedlex.admin.ch/eli/cc/11/529_488_529/de" :dl/critical true :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :rechtsvorschlag :opt/kind :self-submit :opt/protective true
     :opt/label "Betreibungsamt へ Rechtsvorschlag (10日以内 — 受領時にその場で宣言も可)"}
