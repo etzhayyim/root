@@ -238,7 +238,7 @@
   :proc/deadline-rules
   [{:dl/label "Exemption claim (保護申立て)"
     :dl/rule "exemption claim の期限・様式は州法 (通知記載を確認); federal floor: 差押えは可処分所得の25% または連邦最低賃金30倍を超える部分の小さい方まで — 生活維持分は連邦法で守られている"
-    :dl/anchor "CCPA Title III (15 U.S.C. §1673) + 州 exemption law" :dl/verify-service-date true}]
+    :dl/anchor "CCPA Title III (15 U.S.C. §1673) + 州 exemption law" :dl/source-url "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title15-section1673&num=0&edition=prelim" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :claim-exemptions :opt/kind :self-submit :opt/protective true
     :opt/label "exemption claim form を期限内に提出 (head-of-household 等の州保護も確認) — 法定の権利"}
@@ -284,7 +284,7 @@
   :proc/deadline-rules
   [{:dl/label "EEOC charge (差別解雇)"
     :dl/rule "米国は原則 at-will (解雇自体は広く適法) — ただし差別・報復が疑われる場合、EEOC charge を180日 (州 FEPA があれば300日) 以内に — 私訴の前提条件"
-    :dl/anchor "Title VII / 42 U.S.C. §2000e-5(e)(1)" :dl/verify-service-date true}
+    :dl/anchor "Title VII / 42 U.S.C. §2000e-5(e)(1)" :dl/source-url "https://uscode.house.gov/view.xhtml?req=(title:42+section:2000e-5+edition:prelim)" :dl/verify-service-date true}
    {:dl/label "Unemployment insurance"
     :dl/rule "UI は速やかに申請 (遡及が利かない州が多い); final paycheck の支払期限は州法"
     :dl/anchor "州 UI law / 州 final-pay statutes" :dl/verify-service-date true}]
