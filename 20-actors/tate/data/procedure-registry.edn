@@ -2609,10 +2609,10 @@
   :proc/deadline-rules
   [{:dl/label "判決によらない退去なし + lokal socjalny"
     :dl/rule "eksmisja は wyrok + komornik によってのみ — 判決では lokal socjalny (社会住宅) 権が判断され, 妊婦・未成年同居・障害者・高齢者は強い保護"
-    :dl/anchor "ustawa o ochronie praw lokatorów art. 14" :dl/verify-service-date true}
+    :dl/anchor "ustawa o ochronie praw lokatorów art. 14" :dl/source-url "https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20010710733" :dl/verify-service-date true}
    {:dl/label "Okres ochronny (冬季保護)"
     :dl/rule "11月1日〜3月31日は代替住居なき eksmisja の執行が停止される (okres ochronny)"
-    :dl/anchor "同法 art. 16" :dl/verify-service-date true}]
+    :dl/anchor "同法 art. 16" :dl/source-url "https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20010710733" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :lokal-socjalny :opt/kind :self-decide :opt/protective true
     :opt/label "lokal socjalny 権の主張 (該当属性を裁判所に示す — 認められれば gmina の住宅提供まで執行不可)"}
@@ -2642,7 +2642,7 @@
   :proc/deadline-rules
   [{:dl/label "Zgłoszenie wierzytelności"
     :dl/rule "破産宣告決定 (postanowienie o ogłoszeniu upadłości, Monitor Sądowy i Gospodarczy 公告) が定める期間内 — 公告日から1か月以上3か月以下 — に zgłoszenie wierzytelności を syndyk へ提出 (2021/12以降は原則 KRZ 電子システム経由); 期限徒過は配当順位を失い既了手続きが対抗される"
-    :dl/anchor "Prawo upadłościowe art. 51 ust. 1 / art. 236" :dl/verify-service-date true}]
+    :dl/anchor "Prawo upadłościowe art. 51 ust. 1 / art. 236" :dl/source-url "https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20030600535" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :zgloszenie :opt/kind :self-submit :opt/protective true
     :opt/label "zgłoszenie wierzytelności を syndyk へ KRZ 経由で提出 (本人可; przedpłata・voucher・kaucja など前払金も wierzytelność: kaiyaku 縁-ledger と突合)"}]
