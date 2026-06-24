@@ -563,7 +563,7 @@
   :proc/deadline-rules
   [{:dl/label "Opposition (異議)"
     :dl/rule "signification (commissaire de justice による送達) から1か月以内に opposition"
-    :dl/anchor "Code de procédure civile art. 1416" :dl/verify-service-date true}]
+    :dl/anchor "Code de procédure civile art. 1416" :dl/source-url "https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000006070716/" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :opposition :opt/kind :self-submit :opt/label "発令裁判所の greffe へ opposition を提出 (→ 対審手続へ)"}
    {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/échéancier の交渉"}]
@@ -2477,7 +2477,7 @@
   :proc/deadline-rules
   [{:dl/label "Constitution d'avocat (弁護士必須)"
     :dl/rule "divorce contentieux は avocat による代理が必須 — 本人では対抗手続不能 (DE Anwaltszwang と同型); tate が雛形を出せない管轄類型であることを正直に開示"
-    :dl/anchor "CPC art. 1108 以下 / loi du 23 mars 2019" :dl/verify-service-date true}]
+    :dl/anchor "CPC art. 1108 以下 / loi du 23 mars 2019" :dl/source-url "https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000006070716/" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :avocat-sofort :opt/kind :self-decide :opt/label "速やかに avocat へ (audience d'orientation 前に)"}
    {:opt/id :aj :opt/kind :self-submit :opt/protective true
@@ -2493,10 +2493,10 @@
   :proc/deadline-rules
   [{:dl/label "Contestation (prud'hommes)"
     :dl/rule "licenciement の通知から12か月以内に conseil de prud'hommes へ異議 (本人可)"
-    :dl/anchor "Code du travail L.1471-1" :dl/verify-service-date true}
+    :dl/anchor "Code du travail L.1471-1" :dl/source-url "https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000006072050/" :dl/verify-service-date true}
    {:dl/label "Précision des motifs"
     :dl/rule "通知から15日以内に理由の明確化を請求できる (後の争いで理由が固定される)"
-    :dl/anchor "Code du travail L.1235-2" :dl/verify-service-date true}]
+    :dl/anchor "Code du travail L.1235-2" :dl/source-url "https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000006072050/" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :precision-motifs :opt/kind :self-submit :opt/label "lettre recommandée で motifs の précision を請求 (15日)"}
    {:opt/id :prudhommes :opt/kind :self-submit :opt/protective true
