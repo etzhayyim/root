@@ -280,6 +280,30 @@
       (is (= 200 (:status (xrpc/create-record st {:repo repo :collection "c" :record {"$type" "app.x" "text" "ok"}}))))
       (is (= 400 (:status (xrpc/put-record st {:repo repo :collection "c" :rkey "self" :record {"no" "type"}})))))))
 
+(deftest describe-repo-collection-counts
+  (testing "describeRepo reports total + per-collection record counts"
+    (let [st (store/->mem-store)]
+      (store/put-record st cfg/pds-did "app.bsky.feed.post" "3a" {"$type" "x"})
+      (store/put-record st cfg/pds-did "app.bsky.feed.post" "3b" {"$type" "x"})
+      (store/put-record st cfg/pds-did "app.bsky.actor.profile" "self" {"$type" "y"})
+      (let [d (xrpc/describe-repo st {:repo repo})]
+        (is (= 3 (get-in d [:body "recordCount"])))
+        (is (= 2 (get-in d [:body "collectionCounts" "app.bsky.feed.post"])))
+        (is (= 1 (get-in d [:body "collectionCounts" "app.bsky.actor.profile"])))))))
+
+(deftest list-missing-blobs
+  (testing "listMissingBlobs surfaces blob refs not present in the store"
+    (let [st (store/->mem-store)
+          h (server/make-handler st (.getPrivate (repo/gen-keypair)) "z6Mkx" tsecret)]
+      ;; put a record (store-level, as importRepo would) referencing an un-uploaded blob
+      (store/put-record st cfg/pds-did "app.bsky.feed.post" "3mb1"
+                        {"$type" "app.bsky.feed.post" "text" "x"
+                         "img" {"$type" "blob" "ref" {"$link" "bafkreimissing1"} "mimeType" "image/png" "size" 1}})
+      (let [resp (h {:uri "/xrpc/com.atproto.repo.listMissingBlobs" :request-method :get
+                     :query-string (str "repo=" cfg/pds-did)})]
+        (is (= 200 (:status resp)))
+        (is (= ["bafkreimissing1"] (mapv #(get % "cid") (get (json/parse-string (:body resp)) "blobs"))))))))
+
 (deftest resolve-handle-account-backed
   (testing "a registered account's did wins; an unregistered handle falls back to did:web"
     (let [acct (str (System/getProperty "java.io.tmpdir") "/pds-rh-" (hash (str (gensym))) ".edn")]

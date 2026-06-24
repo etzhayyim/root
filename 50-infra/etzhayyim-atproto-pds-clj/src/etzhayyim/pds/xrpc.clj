@@ -135,10 +135,11 @@
   (let [did (resolve-repo repo)]
     (if (nil? did)
       (err 400 "InvalidRequest" "repo is required")
-      (let [{:keys [collections count]} (store/describe-repo store did)]
+      (let [{:keys [collections count collection-counts]} (store/describe-repo store did)]
         (ok {"did" did
              "handle" repo
              "didDoc" (cfg/did-document)
              "collections" collections
              "handleIsCorrect" true
-             "recordCount" count})))))
+             "recordCount" count
+             "collectionCounts" (or collection-counts {})})))))

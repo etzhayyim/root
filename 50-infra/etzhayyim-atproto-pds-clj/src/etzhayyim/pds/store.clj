@@ -60,6 +60,14 @@
      :cid (read-attr db uri :record/cid)
      :value (json/parse-string (read-attr db uri :record/value))}))
 
+(defn repo-summary
+  "describeRepo projection from an EAVT `db`: collections + total + per-collection counts."
+  [db did]
+  (let [uris (filter #(= did (read-attr db % :record/did)) (live-uris db))
+        by-coll (frequencies (keep #(read-attr db % :record/collection) uris))]
+    {:did did :collections (vec (sort (keys by-coll))) :count (count uris)
+     :collection-counts by-coll}))
+
 (defn query-records
   "Project listRecords from an EAVT `db`. opts: {:limit :cursor :reverse :rkey-start
   :rkey-end}. Records are ordered by rkey (ascending; `reverse` → descending); the
@@ -104,10 +112,7 @@
   (list-records [_ did collection opts]
     (query-records (d/build-db @log) did collection opts))
   (describe-repo [_ did]
-    (let [db (d/build-db @log)
-          uris (filter #(= did (read-attr db % :record/did)) (live-uris db))
-          colls (->> uris (keep #(read-attr db % :record/collection)) distinct sort vec)]
-      {:did did :collections colls :count (count uris)})))
+    (repo-summary (d/build-db @log) did)))
 
 (defn ->mem-store [] (->MemStore (atom [])))
 
@@ -159,10 +164,7 @@
   (list-records [_ did collection opts]
     (query-records (d/build-db @log) did collection opts))
   (describe-repo [_ did]
-    (let [db (d/build-db @log)
-          uris (filter #(= did (read-attr db % :record/did)) (live-uris db))
-          colls (->> uris (keep #(read-attr db % :record/collection)) distinct sort vec)]
-      {:did did :collections colls :count (count uris)})))
+    (repo-summary (d/build-db @log) did)))
 
 (defn ->durable-store
   "Datom-log store persisted to `path` (newline-delimited EDN), replayed on boot."

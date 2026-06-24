@@ -236,6 +236,13 @@
                                                      "ref" {"$link" cid}
                                                      "mimeType" mime "size" size}}}))
 
+        ;; blobs the repo references but has not uploaded
+        (= nsid "com.atproto.repo.listMissingBlobs")
+        (let [did (xrpc/resolve-repo (or (:repo params) cfg/pds-did))
+              refs (distinct (mapcat #(blob/blob-refs (:value %)) (all-records store did)))
+              missing (remove #(blob/present? cfg/blob-dir %) refs)]
+          (json-response {:status 200 :body {"blobs" (mapv (fn [c] {"cid" c}) missing)}}))
+
         ;; federation firehose: com.atproto.sync.subscribeRepos (websocket)
         (= nsid "com.atproto.sync.subscribeRepos")
         (subscribe-handler req store signing-key)

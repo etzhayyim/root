@@ -26,14 +26,15 @@ breaking the gftd.ai dependency. Updated by the maturity `/loop`.
 | Signing key stable + published | ✅ | `PDS_SIGNING_KEY_FILE`; did.json `#atproto` Multikey `z6Mk…` |
 | **sync read surface** | ✅ | getRepo / getRecord / getBlocks / getLatestCommit / getRepoStatus / listRepos |
 | **`subscribeRepos` firehose** | ✅ | websocket; binary `#commit` frame (CAR + ops) on connect; verified live (opcode 2, header `a26174`) |
-| **blob store** | ✅ | `repo.uploadBlob` (CIDv1 raw `bafkrei…`) / `sync.getBlob` (CID-verified) / `sync.listBlobs`; verified live |
+| **blob store** | ✅ | `repo.uploadBlob` (CIDv1 raw `bafkrei…`) / `sync.getBlob` (CID-verified) / `sync.listBlobs` / `repo.listMissingBlobs` (refs absent from the store); verified live |
+| **`describeRepo` counts** | ✅ | total + per-collection record counts (`collectionCounts`); verified live |
 | **relay-verification chain** | ✅ | relay parses the served getRepo CAR → decodes the commit → verifies `sig` from the did.json key (test; tampered fails) |
 | Public-hostname cutover | ⏳ operator | `cloudflared tunnel login` → `atproto.etzhayyim.com` |
 | Relay registration | ⏳ operator | `requestCrawl` to a relay after cutover |
 
 ## Tests
 
-`bb test` — 26 deftests / 101 assertions green, covering: identity + did doc,
+`bb test` — 28 deftests / 106 assertions green, covering: identity + did doc,
 record CRUD + sanity, durable store, dag-cbor (spec vector) + decoder/CAR roundtrips,
 the full sync surface (getRepo/getRecord/getBlocks/getRepoStatus/listRepos), signed
 commit + relay verification from the served CAR, the firehose (frame + real-websocket
@@ -44,6 +45,7 @@ listRecords reverse/bounds/paging, resolveHandle (account-backed), and error env
 
 ## Next maturity steps (loop)
 
-1. a per-collection record-count breakdown in `describeRepo`.
+1. refresh the README to document the now-rich method surface (it predates the
+   federation/auth/blob work).
 2. `getRepo` `since` (incremental — only blocks after a rev) once a commit log exists.
 3. a conformance smoke against the `@atproto` CAR/commit shapes where feasible offline.

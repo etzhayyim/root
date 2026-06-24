@@ -33,6 +33,8 @@
           {:bytes data
            :mime (if (.exists (mime-file dir cid)) (slurp (mime-file dir cid)) "application/octet-stream")})))))
 
+(defn present? [dir cid] (.exists (blob-file dir cid)))
+
 (defn- gv [m k] (or (get m k) (get m (keyword k))))   ; string- or keyword-keyed
 
 (defn blob-refs
