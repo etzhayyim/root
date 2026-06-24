@@ -272,6 +272,37 @@
           (is (= ["3a" "3b" "3c" "3d" "3e"]
                  (mapv :rkey (concat (:records p1) (:records p2) (:records p3))))))))))
 
+(deftest update-and-revive-latest-wins
+  (testing "an updated record reflects its newest value (latest-wins), and a re-create after delete revives it"
+    (let [st (store/->mem-store)]
+      (store/put-record st cfg/pds-did "c" "r" {"$type" "x" "v" 1})
+      (store/put-record st cfg/pds-did "c" "r" {"$type" "x" "v" 2})   ; update
+      (is (= 2 (get (:value (store/get-record st cfg/pds-did "c" "r")) "v")))
+      (store/delete-record st cfg/pds-did "c" "r")
+      (is (nil? (store/get-record st cfg/pds-did "c" "r")))
+      (store/put-record st cfg/pds-did "c" "r" {"$type" "x" "v" 3})   ; re-create
+      (is (= 3 (get (:value (store/get-record st cfg/pds-did "c" "r")) "v")))
+      (is (= 1 (:count (store/describe-repo st cfg/pds-did)))))))
+
+(deftest swap-record-concurrency
+  (testing "swapRecord acts as compare-and-set: matching CID succeeds, stale CID 409s"
+    (let [st (store/->mem-store)
+          coll "app.bsky.actor.profile"
+          v1 {"$type" coll "displayName" "v1"}
+          {cid1 :cid} (store/put-record st cfg/pds-did coll "self" v1)]
+      ;; stale/wrong swap → 409 InvalidSwap
+      (is (= 409 (:status (xrpc/put-record st {:repo repo :collection coll :rkey "self"
+                                               :record {"$type" coll "displayName" "v2"} :swapRecord "bafyreiwrong"}))))
+      ;; correct swap (current cid) → 200
+      (let [r (xrpc/put-record st {:repo repo :collection coll :rkey "self"
+                                   :record {"$type" coll "displayName" "v2"} :swapRecord cid1})]
+        (is (= 200 (:status r)))
+        ;; the old cid is now stale → a second swap on cid1 409s
+        (is (= 409 (:status (xrpc/delete-record st {:repo repo :collection coll :rkey "self" :swapRecord cid1}))))
+        ;; delete with the new cid → ok
+        (is (= 200 (:status (xrpc/delete-record st {:repo repo :collection coll :rkey "self"
+                                                    :swapRecord (get-in r [:body "cid"])}))))))))
+
 (deftest lexicon-validation
   (testing "with PDS_VALIDATE_RECORDS, known collections enforce their shape"
     (with-redefs [cfg/validate-records true]

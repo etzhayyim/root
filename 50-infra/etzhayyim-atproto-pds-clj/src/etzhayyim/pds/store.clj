@@ -44,13 +44,20 @@
 ;; State: an atom holding the ordered datom log (vector of [e a v]). Reads fold
 ;; the log into an EAVT db and project current (non-tombstoned, latest) records.
 
+(defn latest-db
+  "Fold the ordered datom log into {entity {attr latest-value}} — later assertions
+  overwrite earlier ones, so an UPDATED record reflects its newest value (the EAVT
+  set index from `build-db` is unordered and cannot express latest-wins)."
+  [log]
+  (reduce (fn [m [e a v]] (assoc-in m [e a] v)) {} log))
+
 (defn- read-attr [db uri attr]
-  (first (get-in db [:eav uri attr])))
+  (get-in db [uri attr]))
 
 (defn- live-uris [db]
-  (let [all (keys (:eav db))
-        dead? (fn [uri] (read-attr db uri :record/deleted))]
-    (->> all (filter #(read-attr db % :record/did)) (remove dead?))))
+  (->> (keys db)
+       (filter #(get-in db [% :record/did]))
+       (remove #(get-in db [% :record/deleted]))))
 
 (defn- materialize [db uri]
   (when (and (read-attr db uri :record/did)
@@ -102,17 +109,18 @@
                        [uri :record/rkey rkey]
                        [uri :record/cid cid]
                        [uri :record/value (json/generate-string value)]
-                       [uri :record/createdAt ts]])
+                       [uri :record/createdAt ts]
+                       [uri :record/deleted false]])   ; revive on re-create after delete
       {:uri uri :cid cid :value value}))
   (get-record [_ did collection rkey]
-    (materialize (d/build-db @log) (at-uri did collection rkey)))
+    (materialize (latest-db @log) (at-uri did collection rkey)))
   (delete-record [_ did collection rkey]
     (swap! log conj [(at-uri did collection rkey) :record/deleted true])
     true)
   (list-records [_ did collection opts]
-    (query-records (d/build-db @log) did collection opts))
+    (query-records (latest-db @log) did collection opts))
   (describe-repo [_ did]
-    (repo-summary (d/build-db @log) did)))
+    (repo-summary (latest-db @log) did)))
 
 (defn ->mem-store [] (->MemStore (atom [])))
 
@@ -150,21 +158,22 @@
                   [uri :record/rkey rkey]
                   [uri :record/cid cid]
                   [uri :record/value (json/generate-string value)]
-                  [uri :record/createdAt ts]]]
+                  [uri :record/createdAt ts]
+                  [uri :record/deleted false]]]    ; revive on re-create after delete
       (append-datoms! path datoms)               ; durable first…
       (swap! log into datoms)                     ; …then in-memory index
       {:uri uri :cid cid :value value}))
   (get-record [_ did collection rkey]
-    (materialize (d/build-db @log) (at-uri did collection rkey)))
+    (materialize (latest-db @log) (at-uri did collection rkey)))
   (delete-record [_ did collection rkey]
     (let [datoms [[(at-uri did collection rkey) :record/deleted true]]]
       (append-datoms! path datoms)
       (swap! log into datoms)
       true))
   (list-records [_ did collection opts]
-    (query-records (d/build-db @log) did collection opts))
+    (query-records (latest-db @log) did collection opts))
   (describe-repo [_ did]
-    (repo-summary (d/build-db @log) did)))
+    (repo-summary (latest-db @log) did)))
 
 (defn ->durable-store
   "Datom-log store persisted to `path` (newline-delimited EDN), replayed on boot."

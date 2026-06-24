@@ -47,7 +47,7 @@
          "refreshJwt" (str "etzhayyim-refresh." (util/content-cid (str did "/r")))})))
 
 ;; ── repo ─────────────────────────────────────────────────────────────────────
-(declare record-error)
+(declare record-error swap-conflict)
 
 (defn apply-writes
   "com.atproto.repo.applyWrites — a batch of create/update/delete in one call.
@@ -56,12 +56,18 @@
   (let [did (resolve-repo repo)
         w-coll #(or (:collection %) (get % "collection"))
         w-val  #(or (:value %) (get % "value"))
+        w-rkey #(or (:rkey %) (get % "rkey"))
+        w-swap #(or (:swapRecord %) (get % "swapRecord"))
         w-del? #(str/ends-with? (str (or (:$type %) (get % "$type"))) "#delete")
-        bad-write (some (fn [w] (when-not (w-del? w) (record-error (w-coll w) (w-val w)))) writes)]
+        bad-write (when (sequential? writes)
+                    (some (fn [w] (when-not (w-del? w) (record-error (w-coll w) (w-val w)))) writes))
+        swap-bad (when (and did (sequential? writes))
+                   (some (fn [w] (swap-conflict store did (w-coll w) (w-rkey w) (w-swap w))) writes))]
     (cond
       (or (str/blank? repo) (nil? did)) (err 400 "InvalidRequest" "repo is required")
       (not (sequential? writes)) (err 400 "InvalidRequest" "writes[] is required")
       bad-write (err 400 "InvalidRequest" bad-write)
+      swap-bad (err 409 "InvalidSwap" swap-bad)
       :else
       (ok {"results"
            (vec (for [w writes
@@ -102,13 +108,23 @@
             {:keys [uri cid]} (store/put-record store did collection rkey record)]
         (ok {"uri" uri "cid" cid})))))
 
-(defn put-record [store {:keys [repo collection rkey record]}]
+(defn swap-conflict
+  "Optimistic concurrency: when `swap` (an expected record CID) is given, the current
+  record's CID must match. Returns an error string on mismatch, else nil. A blank
+  `swap` means no precondition."
+  [store did collection rkey swap]
+  (when-not (str/blank? (str swap))
+    (when (not= swap (:cid (store/get-record store did collection rkey)))
+      "swapRecord CID did not match the current record")))
+
+(defn put-record [store {:keys [repo collection rkey record swapRecord]}]
   (let [did (resolve-repo repo)]
     (cond
       (or (str/blank? repo) (nil? did)) (err 400 "InvalidRequest" "repo is required")
       (str/blank? collection) (err 400 "InvalidRequest" "collection is required")
       (str/blank? rkey) (err 400 "InvalidRequest" "rkey is required")
       (record-error collection record) (err 400 "InvalidRequest" (record-error collection record))
+      (swap-conflict store did collection rkey swapRecord) (err 409 "InvalidSwap" (swap-conflict store did collection rkey swapRecord))
       :else
       (let [{:keys [uri cid]} (store/put-record store did collection rkey record)]
         (ok {"uri" uri "cid" cid})))))
@@ -120,12 +136,13 @@
       (ok {"uri" (:uri r) "cid" (:cid r) "value" (:value r)})
       (err 404 "RecordNotFound" "record not found"))))
 
-(defn delete-record [store {:keys [repo collection rkey]}]
+(defn delete-record [store {:keys [repo collection rkey swapRecord]}]
   (let [did (resolve-repo repo)]
     (cond
       (or (str/blank? repo) (nil? did)) (err 400 "InvalidRequest" "repo is required")
       (str/blank? collection) (err 400 "InvalidRequest" "collection is required")
       (str/blank? rkey) (err 400 "InvalidRequest" "rkey is required")
+      (swap-conflict store did collection rkey swapRecord) (err 409 "InvalidSwap" (swap-conflict store did collection rkey swapRecord))
       :else (do (store/delete-record store did collection rkey) (ok {})))))
 
 (defn list-records [store {:keys [repo collection limit cursor reverse rkeyStart rkeyEnd]}]
