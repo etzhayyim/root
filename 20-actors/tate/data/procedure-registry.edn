@@ -1624,7 +1624,7 @@
   :proc/deadline-rules
   [{:dl/label "Reclamação de créditos"
     :dl/rule "破産判決 (sentença declaratória de insolvência, 公告) が定める期限内 — 通常は公告から30日以内 — に reclamação de créditos (requerimento + 疎明資料: 発生原因・期日・元本利息・性質を記載) を administrador de insolvência へ; 期限徒過は insolvência の確定から6か月内に verificação ulterior (別訴) を要する"
-    :dl/anchor "CIRE art. 36.º / art. 128.º (徒過時 art. 146.º)" :dl/verify-service-date true}]
+    :dl/anchor "CIRE art. 36.º / art. 128.º (徒過時 art. 146.º)" :dl/source-url "https://diariodarepublica.pt/dr/legislacao-consolidada/decreto-lei/2004-34529075" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :reclamacao :opt/kind :self-submit :opt/protective true
     :opt/label "reclamação de créditos を administrador de insolvência へ提出 (本人可; adiantamento・caução・vale など前払金も crédito: kaiyaku 縁-ledger と突合)"}]
@@ -1653,7 +1653,7 @@
   :proc/deadline-rules
   [{:dl/label "Oposição ao despejo"
     :dl/rule "通知 (notificação) を受けてから15日以内に oposição を提出 (procedimento especial de despejo, BAS — 旧 Balcão Nacional do Arrendamento)。家賃滞納2か月以上で senhorio は契約 resolução 可。通知だけで自力 desocupação はできず、退去は PED/裁判所の título によってのみ"
-    :dl/anchor "NRAU (Lei 6/2006) + Procedimento Especial de Despejo / BAS (Lei 56/2023)" :dl/verify-service-date true}]
+    :dl/anchor "NRAU (Lei 6/2006) + Procedimento Especial de Despejo / BAS (Lei 56/2023)" :dl/source-url "https://diariodarepublica.pt/dr/legislacao-consolidada/lei/2006-34578375" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :oposicao :opt/kind :self-submit :opt/protective true :opt/label "oposição ao despejo を15日以内に提出 (事由・renda 計算・通知の適法性を争う; renda 滞納なら供託・清算も検討)"}
    {:opt/id :no-self-help-protection :opt/kind :self-decide :opt/protective true :opt/label "senhorio の autotutela (鍵交換・水電停止・物品搬出) は違法 — desocupação は PED/裁判所の título によってのみ; 受けたら GNR/PSP・advogado・apoio judiciário へ"}]
