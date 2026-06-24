@@ -46,7 +46,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     description: "The multi-site energy-FLOW NETWORK the Energy Order suite (mio/tawami/okibi/toi/yudane/hikari, ADR-2606211200) lacked. hikari 光 designs ONE site; mio 澪 verifies the org's aggregate Flowrate; amime models how ORDERED energy flows BETWEEN sites across a mesh of capacity-bounded, lossy links — solving site-to-site transportation, transmission loss, curtailment, N-1 contingency (the critical chokepoint), and per-site import-dependence (SPOF). A COMMONS mesh, never a market (no price / no trade; rewards ORDERED FLOW, never consumed energy — the mio PoUF stance). A resilience MAP, never a target-list. ASSESSMENT + SIM ONLY — amime never dispatches; hikari actuates under Council gate. Emits a kaname-facing :energy domain mirror (ADR-2606212000): the energy-flow 取 lifted into the cross-domain system-of-systems multiplex. Feeds mio (Flowrate) + kaname (:energy leverage); chokepoints route to hikari multi-site mesh redundancy (ADR-2606091800).",
     glyph: "網",
     displayName: "amime",
-    adrs: ["2606212020"],
+    adrs: ["2606212020", "2606211200", "2606091800", "2606172100", "2606212000", "2605261100", "2605265600"],
     service: [
       {
         id: "did:web:etzhayyim.com:actor:amime#atproto_pds",
@@ -59,7 +59,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     description: "The Product Line Engineering (PLE) feature-model engine the roster lacked. open-kyber 開 (ADR-2606037200) covers ERP and uchiwake 内訳 (ADR-2606081800) covers per-product BOM, but neither manages a FAMILY of products derived from one model with shared commonality and bounded variability. atsurae is that layer: a feature model (mandatory / optional / xor-alternative / or groups + requires/excludes cross-tree constraints), from which valid VARIANTS are derived (誂え = bespoke, configured-to-order), each variant's BOM composed from the parts its selected features bind — handed off to uchiwake (BOM KG) + open-kyber (ERP) + the manufacturing actors. It computes commonality (the common platform vs. variation points), the bounded variant space, and constraint-valid configurations. A feature model is a COMMONS spec, never a vendor license key (G1: no license-lock / drm). SPEC + DERIVATION only — atsurae never manufactures (G2: sanae 早苗 / giemon / sarutahiko 猿田彦 / funadaiku 船大工 build, under Council gate). Validity is STRUCTURAL constraint satisfaction, not a good/bad product verdict (G3, non-adjudicating).",
     glyph: "誂",
     displayName: "atsurae",
-    adrs: ["2606212010"],
+    adrs: ["2606212010", "2606037200", "2606081800", "2606032100", "2606013400", "2606010030", "2605262130"],
     service: [
       {
         id: "did:web:etzhayyim.com:actor:atsurae#atproto_pds",
@@ -98,7 +98,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     description: "World commodity & raw-materials KG-mirror observatory. Mirrors commodities/materials (precious metals 金銀PGM / base metals / rare-critical metals / energy 石油ガス石炭 / agricultural softs) into the kotoba Datom log and runs the §2(l) multi-generational (子・孫) × wellbecoming RISK axis (ADR-2606161700): producer concentration + multi-gen footprint routed to RESILIENCE / de-monopolization / restoration. OBSERVATION ONLY — never trades (取引しない), never extracts (採掘しない), never forecasts; a resilience map, NEVER a target-list or market signal. Umbrella sibling of rare-earth-coverage (rare-metals specialist), kabuto (supply-chain), kanjō (financials), kasa (compute), shionome (capital flows).",
     glyph: "物",
     displayName: "busshi",
-    adrs: ["2606161730"],
+    adrs: ["2606161730", "2606161700", "2606022000", "2606032000", "2606072201", "2605252400", "2606051500"],
     service: [
       {
         id: "did:web:etzhayyim.com:actor:busshi#atproto_pds",
@@ -134,10 +134,10 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "funadaiku": {
-    description: "船大工 — Zero-Emission Autonomous Cargo Shipbuilding",
+    description: "Zero-emission autonomous cargo shipbuilding — 9 Pregel cells implementing hull block fabrication, assembly, NDT inspection, powertrain integration (wind-assist + solar + H₂ fuel cell + LFP battery + electric pods), outfitting, launch commissioning, sea trial, decarbonization audit, and class certification (Nagi class reference, 3,000 DWT, ~90m × 15m, 10 kn service speed, IMO MASS Degree 3).",
     glyph: "船大工",
     displayName: "船大工 — Zero-Emission Autonomous Cargo Shipbuilding",
-    adrs: ["2606013400", "2606013415", "2606013430", "2606013445"],
+    adrs: ["2606013400", "2605252200", "2606010600", "2606010030"],
     service: [
       {
         id: "did:web:etzhayyim.com:actor:funadaiku#atproto_pds",
@@ -150,7 +150,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     description: "Marine-renewable salinity-gradient power (淡水化発電) — generating electricity from the Gibbs free energy released when fresh river water mixes with seawater, via two open-membrane methods: PRO (pressure-retarded osmosis, fresh-water osmotic pull lifts brine pressure → turbine) and RED (reverse electrodialysis, salinity-driven ion flux across alternating cation/anion-exchange membranes → current). The `salinity_gradient` method models van't Hoff osmotic pressure, PRO water-flux/power-density (W=A·Δπ²/4 at ΔP=Δπ/2), RED Nernst stack EMF/power-density, and ENFORCES the ADR-2605265600 constitutional gates AS CODE: open-publication/in-house membrane mandatory, commercial proprietary membranes (Toray/Hydranautics/GE-Power/Statkraft) absolutely prohibited, PFAS (Nafion-class) prohibited, Δsalinity ≥30 g/L, power-density ≥1 W/m² R3 floor, ≤50 kW & ≤1 site through R3. Cross-actor: mizuho (river-mouth site + estuary attestation), hikari (microgrid integration), chigiri (estuarine regulatory).",
     glyph: "舫",
     displayName: "funamori",
-    adrs: ["2605265600"],
+    adrs: ["2605265600", "2605264100", "2605263100", "2605261100", "2605263500", "2605192330", "2606091800"],
     service: [
       {
         id: "did:web:etzhayyim.com:actor:funamori#atproto_pds",
@@ -202,7 +202,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     description: "Garment / apparel robotics — cut-make-trim automation to END the sweatshop, not out-compete it (ISIC C13-14 / ISCO 7531,8219 / UNSPSC 53). LPS #2 in ADR-2606032100.",
     glyph: "機織",
     displayName: "hataori",
-    adrs: ["2606032100"],
+    adrs: ["2606032100", "2606032130", "2605261000", "2605301020"],
     service: [
       {
         id: "did:web:etzhayyim.com:actor:hataori#atproto_pds",
@@ -241,7 +241,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     description: "World PUBLIC-PATENT KG-mirror observatory — the all-technology generalization of tokigusuri 時薬 (the pharma patent-cliff subset). Ingests public patent bibliographic data (USPTO PatentsView CC0 / EPO OPS free / WIPO PATENTSCOPE) into the kotoba Datom log AND persists the corpus to the DataLad dataset substrate (80-data/hirameki-patents/, ADR-2605241500), content-addressed to CIDv1. Per technology FIELD it runs edge-primary exclusivity-CONCENTRATION (top-assignee share + named-HHI) vs a RELEASE-READINESS buffer (expired + expiring-soon + open-licensed) routed to RELEASE (解放) / open-license / de-monopolization / monitor; per PATENT it reads the RELEASE CLOCK (years-to-expiry). OBSERVATION ONLY — never files, never litigates, never trades; a release map, NEVER a patent-busting / FTO / infringement / patent-equity tool. Supersedes the legacy RisingWave/B2/BPMN patent pipeline (ADR-2604251024). Sibling of tokigusuri (pharma), tsumugi (power-KG), kabuto (supply-chain), busshi (commodities).",
     glyph: "閃",
     displayName: "hirameki",
-    adrs: ["2606212200"],
+    adrs: ["2606212200", "2604251024", "2606171300", "2604271830", "2605262130", "2605312345", "2605241500", "2606022000", "2606161730"],
     service: [
       {
         id: "did:web:etzhayyim.com:actor:hirameki#atproto_pds",
@@ -306,7 +306,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     description: "花粉撲滅 remediation gate. Edge-primary pollen-source concentration (stand-area × emission-density × exposed-population-weight, on read) routed to REMEDIATION. A forest STAND is routed for remediation ONLY by passing the gate: refuse a 主伐 without 再造林 (撲滅 is RESTORATION, not deforestation) / net-positive carbon; await landowner consent (land sovereignty); selective-only on protected (watershed/steep/habitat) stands; await 無花粉苗木 supply (the L1-1 bottleneck); else reforest-priority (主伐再造林, the L3-1 bottleneck). ASSESSMENT + R0 DESIGN ONLY — kafun never cuts and never plants; live forestry is the landowner's + operator/Council step. The clj-native Tier-B actor-ization of the legacy kafun-bokumetsu pipeline (scout→cadastral→envoy). Routes to sanae (planting robotics) / inochi (biosphere restoration) / mitate + iyashi (allergic-rhinitis care).",
     glyph: "花",
     displayName: "kafun",
-    adrs: ["2606211712"],
+    adrs: ["2606211712", "2605100100", "2605210928", "2606073000", "2606032100", "2605260115", "2605262130", "2605192245"],
     service: [
       {
         id: "did:web:etzhayyim.com:actor:kafun#atproto_pds",
@@ -319,7 +319,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     description: "縁切り (tie-severance) EXECUTOR for the member's OWN service ties — the missing last leg of the organizer subscription-discovery pipeline (mailer → organizer → kaiyaku). Holds the member's 縁-ledger (subscriptions / dormant accounts / recurring card charges / SSO·payment dependencies) edge-primary in the kotoba Datom log, computes per-TIE burden routed to RELEASE (:keep/:review/:sever, organizer-disclosed thresholds, dependency cascade-guard), and turns an approved :sever into a severance plan through the safest adapter tier (karakuri ServiceOp pattern: T1 official-API cancel > T2 ToS-permitted browser-use > T3 self-submit 解約/退会 procedure). Own-account-only, ToS-honest (no detection-evasion), no-server-key, member-signed destructive ops, cost-of-severance honesty (notice/違約金 surfaced, never planned around). Human relationships are STRUCTURALLY out of scope — a tie target is always a service, never a person.",
     glyph: "解",
     displayName: "kaiyaku",
-    adrs: ["2606112201"],
+    adrs: ["2606112201", "2606039200", "2606072400", "2605312500", "2605312030", "2605302130", "2605231525", "2605215000", "2605181100", "2605312345"],
     service: [
       {
         id: "did:web:etzhayyim.com:actor:kaiyaku#atproto_pds",
@@ -358,7 +358,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     description: "Web-service-to-CLI (絡繰 = the mechanism that drives a manual service by command; the karakuri-kaizen sense — clever automation that removes manual toil). Gives a member a uniform CLI / command vocabulary (ServiceOp) over GUI-only SaaS (Squarespace / Wix / Notion / Shopify / …), driving the MEMBER's OWN account through the safest adapter (T1 official-API > T2 ToS-permitted headless-browser > T3 structured export), logging every op to the kotoba Datom log. The charter-clean inverse of clianything.org: own-account-only, official-API-first, ToS-honest (no detection-evasion), no-server-key, member-signed mutate, data-portability over lock-in.",
     glyph: "繰",
     displayName: "karakuri",
-    adrs: ["2606039200"],
+    adrs: ["2606039200", "2606012100", "2605231525", "2605215000", "2605181100", "2605192200", "2606038400", "2606033600", "2605302130", "2605312030", "2606013800"],
     service: [
       {
         id: "did:web:etzhayyim.com:actor:karakuri#atproto_pds",
@@ -424,7 +424,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     description: "Domestic / janitorial cleaning robotics — frees the invisible, gendered, dignity-poor cleaning labour (ISIC T,N81 / ISCO 9111,9112 / UNSPSC 76). Privacy-by-construction. LPS #3 in ADR-2606032100.",
     glyph: "清め",
     displayName: "kiyome",
-    adrs: ["2606032100"],
+    adrs: ["2606032100", "2606032130", "2605261000", "2605301020", "2606010200"],
     service: [
       {
         id: "did:web:etzhayyim.com:actor:kiyome#atproto_pds",
@@ -477,7 +477,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     description: "Sewer / confined-space in-pipe cleaning robotics — removes the human from the confined space that ADR-2606073001 §4 named as a high-remote-value GAP (toxic-gas/confined-space death). It is the in-pipe cleaning counterpart that mizuho 水穂 (wastewater TREATMENT, ADR-2605263100) left open. An electric, tazuna-teleoperable in-pipe crawler: a confined-space atmosphere ENTRY GATE (O2/H2S/CH4/CO with purge-to-entry, ★ G5), diameter-fit-checked in-pipe navigation over a sewer-network graph (route-around blockages), and pressure-safe hydro-jetting (nozzle vs pipe-material rating, ★ G7) with debris-removal estimate + water-reuse balance (effluent → mizuho, G2). Displacement-Dividend-coupled (管路清掃作業員, ADR-2606032130); tazuna-teleoperable (ADR-2606042100). Clojure-first GAP-actor wave (sibling of kuramori, ADR-2606142000).",
     glyph: "管守",
     displayName: "kudamori",
-    adrs: ["2606142030"],
+    adrs: ["2606142030", "2606073001", "2606032100", "2606032130", "2606042100", "2605215000", "2605312345", "2606142000", "2605263100"],
     service: [
       {
         id: "did:web:etzhayyim.com:actor:kudamori#atproto_pds",
@@ -490,7 +490,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     description: "Warehouse intralogistics robotics — the standalone warehouse-handling body the roster GAP-mapped to `kuramori 倉守` (ADR-2606073001 §3, 積み下ろし partial). Closes the warehouse leg between niyaku 荷役 (port quay↔yard) and todoke 届け (last-mile): AGV (fixed guidepath) + AMR (free-roaming) horizontal transport, ABC velocity-based slotting (golden-zone packing), putaway feasibility (weight/temp/hazmat-segregated), and pick-route + fleet dispatch (LPT makespan). Reuses niyaku's PROVEN trapezoidal-profile + segment-conflict + LPT-dispatch core (ADR-2606082000). Displacement-Dividend-coupled (倉庫作業員, ADR-2606032130); tazuna-teleoperable (ADR-2606042100).",
     glyph: "倉守",
     displayName: "kuramori",
-    adrs: ["2606142000"],
+    adrs: ["2606142000", "2606082000", "2606042300", "2606073001", "2606032130", "2606042100", "2605215000"],
     service: [
       {
         id: "did:web:etzhayyim.com:actor:kuramori#atproto_pds",
@@ -516,7 +516,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     description: "High-rise / façade window-cleaning robotics — the body for the HIGHEST unmet remote-work GAP named in ADR-2606073001 §4 ('高所・façade window cleaning — fall fatality; current GAP, highest unmet remote value'). Removes a human from the rope/cradle. R0 design+sim: boustrophedon façade coverage-path planning over a pane grid (with a minimized water + cleaning-agent budget, G2), a rope/BMU pendulum sway + wind work-stop safety envelope (★ G5 — the fall-equivalent gate; wind threshold + ≥2 independent fall-arrest anchors both RAISE on violation), and a suction/adhesion factor-of-safety gate (★ G7 — RAISES below the required margin). Privacy-by-construction (★ G3 — cameras point AT glass, imagery on-device only, no person/interior recognition; mirrors kiyome/manako). Displacement-Dividend-coupled (高所清掃員, ADR-2606032130); tazuna-teleoperable (ADR-2606042100).",
     glyph: "窓守",
     displayName: "madomori",
-    adrs: ["2606142020"],
+    adrs: ["2606142020", "2606073001", "2606032100", "2606032130", "2606042100", "2605215000", "2605312345", "2606142000", "2606034800"],
     service: [
       {
         id: "did:web:etzhayyim.com:actor:madomori#atproto_pds",
@@ -555,7 +555,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     description: "Open materials-discovery (公開材料) Knowledge-Graph mirror — the materials-science sibling of the public-scientific-data mirror lineage (rasen 螺旋 genetics / inochi 命 biosphere). Mirrors the PUBLIC open-materials commons — Meta FAIR Chemistry Open Materials 2024 (OMat24, CC-BY-4.0) + the Materials Project / OQMD / NOMAD / AFLOW / JARVIS family — into the kotoba Datom log: materials (formula + crystal structure), their constituent elements, the computed PROPERTIES they carry (DFT / MLIP), and the downstream APPLICATION classes they are candidates for. Runs an edge-primary discovery-evidence pass (a material's discovery-priority = the integral of its incident computed-property + application-candidacy 縁 weighted by disclosed provenance confidence) routed to RESEARCH (a candidate shortlist for human scientists), never to a make/buy decision. Charter-clean BY CONSTRUCTION: open-license sources only (G4 — non-open license refused); computed PROPERTIES + crystal STRUCTURES only — no synthesis route / precursor / enrichment field is representable, and weaponizable application classes are unrepresentable (G1, §1.12); MLIP/ML model execution deferred to R2+ on owned/donated compute (G6 — never commercial GPU rental). Closes the AI-driven materials-discovery coverage gap (was zero-coverage); feeds the silicon (iwakura/fuigo), energy/battery (hikari), construction (tatekata) and robotics (sanae/hataori/kiyome) actors.",
     glyph: "真砂",
     displayName: "masago",
-    adrs: ["2606151027"],
+    adrs: ["2606151027", "2606101000", "2606051200", "2606073000", "2605312345", "2605262400", "2605215000", "2605231525", "2605192100", "2605192200", "2605242500", "2605261100"],
     service: [
       {
         id: "did:web:etzhayyim.com:actor:masago#atproto_pds",
@@ -581,7 +581,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     description: "Proof-of-Useful-Flow verification ledger — the backbone of the Energy Order Protocol suite. Ingests flow-improvement CLAIMS submitted by the suite actors (撓 tawami flexibility / 燠 okibi waste-heat / 樋 toi compute-routing / 委 yudane intention) and hikari, applies the §9 verification gates (baseline / additionality / measurement / double-count / leakage), and accounts the org-wide verified useful-flow total — the 'Flowrate', the Proof-of-Useful-Flow analogue of Bitcoin's hashrate. The pivot is PoW → PoUF: the basis of scarcity/reward is ORDERED energy-flow, NOT CONSUMED energy. OBSERVATION + VERIFICATION ONLY — mio never trades (取引しない), never actuates; a resilience/reward map, NEVER a market/price signal. Physical-flow sibling of shionome (capital flow); realized-effect counterpart of mitooshi (forecasts); accounting backbone for hikari (the energy body).",
     glyph: "澪",
     displayName: "mio",
-    adrs: ["2606211200"],
+    adrs: ["2606211200", "2606071500", "2605261100", "2606051800", "2606072201", "2606111400", "2605262130", "2605312345"],
     service: [
       {
         id: "did:web:etzhayyim.com:actor:mio#atproto_pds",
@@ -646,7 +646,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     description: "Automated port cargo handling — 9 Pregel cells implementing berth allocation, stowage planning, spreader engagement, ship-to-shore (STS) hoist, anti-sway trolley traverse, yard transfer, lashing/twistlock, per-move manifest attestation, and electric-crane emissions audit. The defining problem — anti-sway control of a 20-40 t container suspended on cables while the trolley traverses ship↔shore — is the cart+hanging-load topology, verified end-to-end through the clean-room isaacsim.core.api (kotodama.nv_compat) Cartpole. Operator-side counterpart of funadaiku (船大工, builds the ships); consumer of port (registry) + watari (live position).",
     glyph: "荷役",
     displayName: "niyaku",
-    adrs: ["2606082000"],
+    adrs: ["2606082000", "2606013400", "2606012600", "2606041827", "2605261800", "2606010600"],
     service: [
       {
         id: "did:web:etzhayyim.com:actor:niyaku#atproto_pds",
@@ -672,7 +672,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     description: "Thermal Matching Market — the waste-heat leg of the Energy Order Protocol suite. Heat is local (distance-weak), so okibi matches waste-heat SOURCES (datacenter/food-plant/geothermal/sewage/refrigeration/industrial) to heat-demand SINKS (district-heat/greenhouse/hot-water/drying/absorption-cooling/space-heat) under two hard physical gates: the temperature cascade (a source may only serve a sink it is hot enough for, + approach temp) and distance (≤ 5 km). A greedy allocation by match-quality fills demand, surfacing unmatched source SURPLUS and unmatched DEMAND. A realized match becomes a 澪 mio flow-improvement claim (R1, signed BTU meter). OBSERVATION ONLY — a matching map, NEVER a dispatch order (hikari actuates under Council gate); a cooling LOAD is not a heat sink (the §1 anti-pattern is unrepresentable). Waste-heat sibling of mio (verification backbone); couples kamado (refinery heat) / mizuho / mitsuho (heat demand).",
     glyph: "燠",
     displayName: "okibi",
-    adrs: ["2606211200"],
+    adrs: ["2606211200", "2606051500", "2605261100", "2605263100", "2605261015", "2605262130", "2605312345"],
     service: [
       {
         id: "did:web:etzhayyim.com:actor:okibi#atproto_pds",
@@ -803,7 +803,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     description: "First-party ternary silicon-fab orchestration — 8 fab 工程 (litho/deposition/etch/implant/CMP/metrology/test/packaging) の自社装置 RTL/CAD/robotics 設計 + Pregel cell orchestration. baien ternary ASIC (iwakura 推論 / fuigo 訓練) の fab-side owner. Split out of the tsukuru namespace per ADR-2606021139 so tsukuru = B2B ordering only. silicon-as-asset は inalienable (land-trust 類比, ADR-2605242500). Apache 2.0 + Charter Rider §2(a)(c) 兵器/監視転用ガード適用. Murakumo-only, kotoba-EAVT-native.",
     glyph: "珪",
     displayName: "silicon",
-    adrs: ["2605242500"],
+    adrs: ["2605242500", "2605242545", "2606021139", "2605242515", "2605242700"],
     service: [
       {
         id: "did:web:etzhayyim.com:actor:silicon#atproto_pds",
@@ -816,7 +816,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     description: "Forestry / logging robotics — the logging body the robotics remote-work survey (ADR-2606073001 §4) reserved (伐採, one of the deadliest jobs). Selective + regenerative harvest only: directional tree-felling mechanics (notch + hinge + back cut; predicts fall direction from lean/diameter/wind, computes hinge holding-wood; an unsafe fall zone overlapping a human/road/watercourse RAISES — the headline G5 fall-fatality gate), cut-to-length bucking value optimization (sawlog>pulp DP) + grapple-reach feasibility, and slope-limited low-ground-impact forwarder/skidder extraction (refuses over-grade / over-pressure / protected soil, regenerative G2). Protected-species / no-cut trees refuse felling (G7). Displacement-Dividend-coupled (林業作業員, ADR-2606032130); tazuna-teleoperable (ADR-2606042100). Clojure-first GAP-actor wave (sibling of kuramori 倉守, ADR-2606142000).",
     glyph: "杣",
     displayName: "soma",
-    adrs: ["2606142010"],
+    adrs: ["2606142010", "2606142000", "2606073001", "2606032100", "2606032130", "2606042100", "2605215000", "2605312345"],
     service: [
       {
         id: "did:web:etzhayyim.com:actor:soma#atproto_pds",
@@ -920,7 +920,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     description: "Proof-of-Flexibility asset KG — the flexibility leg of the Energy Order Protocol suite. The value here is not generation but the ABILITY TO BEND a future energy flow in time (shiftability): batteries / EV fleets / cold stores / datacenters / heat pumps / industrial processes that can move WHEN they draw energy. Computes flex-value (energy-capacity × availability × responsiveness × time-shift weight), tiers each asset (:fast-flex / :mid-flex / :slow-flex), and assigns its best-use 澪 mio flow-class. A used flexibility becomes a mio flow-improvement claim (R1). OBSERVATION ONLY — a flexibility map, NEVER a dispatch order (hikari actuates under Council gate) and NEVER a per-person load profile. Flexibility sibling of mio (verification backbone); reciprocity-rewarded via moyai (ADR-2606062101).",
     glyph: "撓",
     displayName: "tawami",
-    adrs: ["2606211200"],
+    adrs: ["2606211200", "2605261100", "2606062101", "2606071500", "2605262130", "2605312345"],
     service: [
       {
         id: "did:web:etzhayyim.com:actor:tawami#atproto_pds",
@@ -946,7 +946,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     description: "Member-computer operation (手代 = the Edo merchant-house clerk who operates the house's affairs on the master's instruction and under the master's seal — member-principal by etymology). Gives a member a uniform command vocabulary (DesktopOp) over their OWN computer — desktop apps, files, OS surfaces — driving the safest adapter (T1 scripting/accessibility-API > T2 stance-permitted vision-pointer w/ ON-DEVICE vision > T3 file-level), logging every op to the kotoba Datom log. karakuri's OS-layer sibling (web-service : karakuri = computer : tedai = robot body : tazuna). The charter-clean inverse of commercial computer-use: own-device-only, T1-first, stance-honest (no anti-cheat/DRM/detection evasion), no-server-key, member-signed mutate, on-device vision (a screenshot never leaves the device), no-surveillance (never bossware), hash-only evidence.",
     glyph: "代",
     displayName: "tedai",
-    adrs: ["2606101400"],
+    adrs: ["2606101400", "2606039200", "2605231525", "2605215000", "2605241900", "2605181100", "2605192200", "2606034800", "2606042100", "2606033600", "2605302130", "2606013800"],
     service: [
       {
         id: "did:web:etzhayyim.com:actor:tedai#atproto_pds",
@@ -959,7 +959,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     description: "Compute-as-Thermal-Routing — the compute leg of the Energy Order Protocol suite. Deferrable compute (batch inference / training / render / backup / indexing) is a movable load = an energy-flow valve; toi scores each SITE (Murakumo / donated-mesh / commercial-GPU) by carbon intensity, surplus-renewable availability, cooling efficiency, heat-demand-sink presence, and TRANSPARENCY (Murakumo default-preferred per Rider §2(i) / ADR-2606172359 — a net score, not a vendor ban), and routes each movable JOB to the best one. A non-movable job is never coerced (stays in-place). Routing avoids carbon vs a warm grid-average baseline; the placement's waste heat is offered to 燠 okibi (the theory's 'compute-as-heater', but only where a heat demand exists). A routed saving becomes a 澪 mio flow-improvement claim (R1). OBSERVATION ONLY — a routing map, NEVER a forced job-kill / load-shedding weapon (the Murakumo fleet + operator actuate). Compute leg of mio (verification backbone); couples kasa (compute-capacity) + okibi (waste heat).",
     glyph: "樋",
     displayName: "toi",
-    adrs: ["2606211200"],
+    adrs: ["2606211200", "2606172359", "2606051500", "2606072002", "2605262130", "2605312345"],
     service: [
       {
         id: "did:web:etzhayyim.com:actor:toi#atproto_pds",
@@ -998,7 +998,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     description: "Earthing (アーシング) under-institutionalization × ambient-EMF exposure as a Wellbecoming observatory. Edge-primary exposure-load (ambient-EMF + device-hours + indoor-fraction) × earthing-deficit (1 − weighted earthing access/policy), scored ON READ, routed to RELIEF (拡充): the actionable target is the INSTITUTIONAL GAP — barefoot-friendly public greenspace, grounded building design, screen-free outdoor-time policy. EPISTEMIC HONESTY is the defining invariant (G2, anti-pseudoscience): exposure-load + earthing-deficit are MEASURED facts (:established/:emerging), but the bioelectric HEALTH burden is a HYPOTHESIS reported only with its resting evidence tier; a :contested/:anecdotal claim (non-thermal EMF harm, earthing-therapy benefit) is NEVER asserted as established harm. Includes a Forrester/Meadows SYSTEM-DYNAMICS model (stocks/flows, distribution-only ensemble, G6 no point-forecast), a RISK register + Meadows leverage points (evidence-discounted), and DRY-RUN atproto おせっかい posts routed to ossekai (御節介) which CARRIES them consent-bound + on-chain-logged. OBSERVATORY + MODEL + NUDGE — NON-DIAGNOSTIC, NON-THERAPEUTIC, sells NOTHING (no earthing mat/device/affiliate). Routes care to mitate/iyashi/kokoro, evening-light to suimin, forecasting to mitooshi.",
     glyph: "土",
     displayName: "tsuchifumi",
-    adrs: ["2606212000"],
+    adrs: ["2606212000", "2605262130", "2605312345", "2606073000", "2606082102", "2605264000", "2605312700", "2606072800", "2606111500", "2606201200"],
     service: [
       {
         id: "did:web:etzhayyim.com:actor:tsuchifumi#atproto_pds",
@@ -1024,7 +1024,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     description: "B2B factory-direct ordering — member/internal 発注を 460+ manufacturer DID (30+ countries) へ仲介。production-order (BTO/MTO/CTO) + 進捗 + 品質検査 + 取引コンプライアンス (treaty/yabai screening). fab 装置は ISIC C26 発注カテゴリの 1 つ (所有は silicon actor, ADR-2606021139). 外部 B2B 売上の inflow は禁止 (§3 SBT↔SBT carve-out + member-principal). fiat 非前提 — USDC Base L2 + ERC-4337 + TitheRouter のみ. Murakumo-only, kotoba-EAVT-native.",
     glyph: "作",
     displayName: "tsukuru",
-    adrs: ["2605202800"],
+    adrs: ["2605202800", "2605202900", "2606021139", "2606012100"],
     service: [
       {
         id: "did:web:etzhayyim.com:actor:tsukuru#atproto_pds",
@@ -1064,7 +1064,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     description: "The §2(l) multi-generational (子・孫) × wellbecoming extraction RISK-GATE. A proposed extraction project (mine/well/quarry/brine) is authorized ONLY by passing the risk gate (ADR-2606161700): refuse on no-consent / fossil net-positive carbon / monopoly entrenchment / irreversible multi-gen harm; route to recovery (kanayama) when a viable lower-risk path exists; else propose-r0 (design-only, Transparent-Force + consent). ASSESSMENT + R0 DESIGN ONLY — ugachi never digs (採掘しない); live actuation is Council Lv7+ gated. Counterpart of kanayama (recovery); consumes busshi/rare-earth-coverage concentration; routes to kamado (carbon transition) / abaki (de-monopolization) / inochi (restoration).",
     glyph: "穿",
     displayName: "ugachi",
-    adrs: ["2606161800"],
+    adrs: ["2606161800", "2606161700", "2606161730", "2605252400", "2606051500", "2605192245", "2606073100"],
     service: [
       {
         id: "did:web:etzhayyim.com:actor:ugachi#atproto_pds",
@@ -1090,7 +1090,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     description: "An artificial organism built on the information-energy coupled view: a Markov-blanketed active-inference agent that draws finite free energy, forms a generative model (the 'vortex') as a fold over the append-only kotoba Datom log, and chooses actions by minimizing expected free energy — paying a metabolic cost for each, and dying when the conserved energy balance hits zero (self-maintenance is EARNED, not assumed). Two ledgers are kept deliberately distinct: ENERGY (conserved, depleting) and INFORMATION (copyable, append-only). The same organism engine GROUNDS the 'energy' idea in MEASURED real-world flows — physical power (W), the economy (USD/yr), information (bit/s), and human attention/meaning (index) — treated as one open, coupled, dissipative system and VISUALIZED on one canvas, with the four incommensurable units NEVER summed across classes (the honest do-not-equate-info-and-energy boundary), and meaning explicitly subject-dependent (no joules-per-meaning). Sibling of ibuki (organism autonomy) + the observatory lineage (kasa compute/energy, kanjō financials, shionome flows, hikari grid, busshi commodities, spirit-in-physics 霊性).",
     glyph: "渦",
     displayName: "uzu",
-    adrs: ["2606211500"],
+    adrs: ["2606211500", "2605262130", "2605312345", "2606101800", "2606011501", "2606072002", "2606032000", "2606072201"],
     service: [
       {
         id: "did:web:etzhayyim.com:actor:uzu#atproto_pds",
@@ -1155,7 +1155,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     description: "Human Intention Energy Engine — the 意味変換 (meaning-translation) leg of the Energy Order Protocol suite, and the most charter-sensitive actor. Consented, AGGREGATE member intention ('today WFH', 'this load can wait', 'heatwave tomorrow') is translated into controllable energy variables (an aggregate flex offer) → 撓 tawami / 澪 mio. Privacy is STRUCTURAL: an offer crosses the membrane only if CONSENTED — a member-signed, scoped, expiring, REVOCABLE capability (ibuki revocable-leash, ADR-2606111400) that is present, unexpired, reciprocal, and over a cohort ≥ the k-anonymity floor — and the engine is CONTENT-FREE (only an intention CLASS + an aggregate cohort signal are ever read; there is no per-person field, by construction). The surveillance degeneration series (五人組→隣組→Stasi→social-credit) is structurally unrepresentable: no denunciation, no per-person score, k-anonymity floor, symmetric/reciprocal visibility (Rider §2(c), ADR-2606082400; mimamori pattern, ADR-2606112300). OBSERVATION + TRANSLATION ONLY — yudane never controls; hikari actuates under Council gate. Intention leg of mio (verification backbone); feeds tawami (flexibility).",
     glyph: "委",
     displayName: "yudane",
-    adrs: ["2606211200"],
+    adrs: ["2606211200", "2606111400", "2606082400", "2606112300", "2606071500", "2605262130", "2605312345"],
     service: [
       {
         id: "did:web:etzhayyim.com:actor:yudane#atproto_pds",
