@@ -149,6 +149,13 @@
         (nil? nsid)
         (json-response {:status 404 :body {"error" "NotFound" "message" uri}})
 
+        ;; repo import (binary CAR body → walk MST → ingest records)
+        (= nsid "com.atproto.repo.importRepo")
+        (let [{:keys [did records]} (repo/import-records (read-bytes req))]
+          (doseq [[collection rkey value] records]
+            (store/put-record store did collection rkey value))
+          (json-response {:status 200 :body {"imported" (count records) "did" did}}))
+
         ;; blob upload (binary body, content-addressed)
         (= nsid "com.atproto.repo.uploadBlob")
         (let [data (read-bytes req)
@@ -208,6 +215,6 @@
     (start! store (:private kp) multibase cfg/port)
     (println (format "[pds] etzhayyim atproto PDS up: %s  did=%s  domains=%s  :%d"
                      cfg/host cfg/pds-did (str/join "," cfg/user-domains) cfg/port))
-    (println "[pds] sync surface: com.atproto.sync.{getRepo,getRecord,getBlocks,getLatestCommit,getRepoStatus,listRepos,subscribeRepos,getBlob,listBlobs} + repo.uploadBlob")
+    (println "[pds] sync surface: com.atproto.sync.{getRepo,getRecord,getBlocks,getLatestCommit,getRepoStatus,listRepos,subscribeRepos,getBlob,listBlobs} + repo.{uploadBlob,importRepo,applyWrites}")
     (println "[pds] signing key published in did.json: #atproto" multibase)
     @(promise)))

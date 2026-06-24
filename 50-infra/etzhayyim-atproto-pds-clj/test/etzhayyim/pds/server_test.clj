@@ -213,6 +213,24 @@
       (is (= cfg/pds-did (get body "repo")))
       (is (contains? (:blocks parsed) (:commit-cid build))))))
 
+(deftest import-repo-roundtrips
+  (testing "export a repo to a CAR, import it into a fresh store → records recovered"
+    (let [k (.getPrivate (repo/gen-keypair))
+          src (store/->mem-store)]
+      (doseq [i (range 12)]
+        (store/put-record src cfg/pds-did "app.bsky.feed.post" (str "3p" i) {"text" (str "n" i)}))
+      (let [recs (for [c ["app.bsky.feed.post"]
+                       r (:records (store/list-records src cfg/pds-did c 100 nil))] r)
+            build (repo/build-repo cfg/pds-did recs "3rev" k)
+            car (repo/blocks-car build nil)
+            {:keys [did records]} (repo/import-records car)
+            dst (store/->mem-store)]
+        (is (= cfg/pds-did did))
+        (is (= 12 (count records)))
+        (doseq [[coll rkey value] records] (store/put-record dst did coll rkey value))
+        (is (= 12 (:count (store/describe-repo dst cfg/pds-did))))
+        (is (= "n7" (get (:value (store/get-record dst cfg/pds-did "app.bsky.feed.post" "3p7")) "text")))))))
+
 (deftest apply-writes-batch
   (testing "applyWrites creates a batch of records in one call"
     (let [st (store/->mem-store)

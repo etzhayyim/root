@@ -382,6 +382,40 @@
               block (Arrays/copyOfRange ba cid-end end)]
           (recur end (assoc blocks cid block)))))))
 
+;; ── MST walk + repo import (inverse of build-repo) ───────────────────────────
+
+(defn- cidk [link] (cid-str (::cid link)))   ; cid-str of a decoded cid-link
+
+(defn mst-records
+  "In-order [key value-cid-str] pairs from an MST rooted at `node-cid`, undoing the
+  prefix compression (entry `p` = chars shared with the previous key in the node)."
+  [blocks node-cid]
+  (let [node (dag-cbor-decode (get blocks node-cid))
+        l (get node "l")]
+    (loop [es (get node "e")
+           prevkey ""
+           out (if l (vec (mst-records blocks (cidk l))) [])]
+      (if (empty? es)
+        out
+        (let [e (first es)
+              key (str (subs prevkey 0 (get e "p")) (String. ^bytes (get e "k") "UTF-8"))
+              t (get e "t")
+              out (conj out [key (cidk (get e "v"))])
+              out (if t (into out (mst-records blocks (cidk t))) out)]
+          (recur (rest es) key out))))))
+
+(defn import-records
+  "Parse an incoming repo CAR → {:did :rev :records [[collection rkey value] …]}.
+  Walks the commit → MST root → record blocks. Inverse of repo-car."
+  [^bytes car-bytes]
+  (let [{:keys [header blocks]} (car-parse car-bytes)
+        commit (dag-cbor-decode (get blocks (cidk (first (get header "roots")))))
+        did (get commit "did")
+        records (for [[key vcid] (mst-records blocks (cidk (get commit "data")))
+                      :let [[collection rkey] (str/split key #"/" 2)]]
+                  [collection rkey (dag-cbor-decode (get blocks vcid))])]
+    {:did did :rev (get commit "rev") :records (vec records)}))
+
 ;; ── assemble a full repo CAR from PdsStore records ───────────────────────────
 
 (defn build-repo

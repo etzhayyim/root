@@ -18,6 +18,7 @@ breaking the gftd.ai dependency. Updated by the maturity `/loop`.
 | **CAR v1** serialization | ✅ | header `{roots,version}` + length-prefixed blocks |
 | **DAG-CBOR decoder + CAR parser** | ✅ | inverse codec; encode↔decode + build↔parse roundtrips tested |
 | `com.atproto.repo.applyWrites` | ✅ | batch create/update/delete in one call; verified live |
+| **`com.atproto.repo.importRepo`** | ✅ | parse CAR → walk MST → ingest records; verified live (getRepo→importRepo roundtrip, 3 records) |
 | Signing key stable + published | ✅ | `PDS_SIGNING_KEY_FILE`; did.json `#atproto` Multikey `z6Mk…` |
 | **sync read surface** | ✅ | getRepo / getRecord / getBlocks / getLatestCommit / getRepoStatus / listRepos |
 | **`subscribeRepos` firehose** | ✅ | websocket; binary `#commit` frame (CAR + ops) on connect; verified live (opcode 2, header `a26174`) |
@@ -28,19 +29,19 @@ breaking the gftd.ai dependency. Updated by the maturity `/loop`.
 
 ## Tests
 
-`bb test` — 16 deftests / 59 assertions green: independent-identity, http-layer,
+`bb test` — 17 deftests / 63 assertions green: independent-identity, http-layer,
 durable-store-survives-restart, dag-cbor-is-spec-correct, dag-cbor-and-car-roundtrip,
 federation-sync-surface (getRepo/getRecord/getBlocks/getRepoStatus + 404),
 signing-key-published-and-stable, commit-signature-roundtrips,
 relay-verification-chain, relay-verifies-from-served-car (parse real CAR → verify),
 firehose-frame-wellformed, firehose-frame-carries-the-repo (decode #commit → CAR),
-apply-writes-batch, blob-store-roundtrips.
+apply-writes-batch, import-repo-roundtrips (export→import 12 records), blob-store-roundtrips.
 
 ## Next maturity steps (loop)
 
-1. `com.atproto.repo.importRepo` — parse an incoming CAR, walk the MST, ingest the
-   records (uses the new decoder + parser).
-2. blob ref validation on createRecord/applyWrites (verify `{$type:blob}` link
+1. blob ref validation on createRecord/applyWrites (verify `{$type:blob}` link
    bytes resolve in the blob store) + a `listBlobs`-since cursor.
-3. an HTTP-socket firehose integration test (connect → read the binary frame off
+2. an HTTP-socket firehose integration test (connect → read the binary frame off
    the wire → parse the `#commit` body's CAR → confirm the record block).
+3. `com.atproto.server.createAccount` + minimal session JWT verification (so writes
+   can be auth-scoped per repo rather than open).
