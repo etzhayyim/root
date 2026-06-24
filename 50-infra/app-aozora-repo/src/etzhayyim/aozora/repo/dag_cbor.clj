@@ -126,3 +126,67 @@
   "Encode a Clojure value to deterministic dag-cbor bytes."
   ^bytes [v]
   (let [o (ByteArrayOutputStream.)] (encode! o v) (.toByteArray o)))
+
+;; ── base32 encode + binary→CID (inverse of cid-str->binary, for the decoder) ─
+(defn- base32-encode [^bytes data]
+  (let [n (alength data) sb (StringBuilder.)]
+    (loop [i 0 buf 0 bits 0]
+      (cond
+        (>= bits 5) (let [idx (bit-and (unsigned-bit-shift-right buf (- bits 5)) 0x1f)]
+                      (.append sb (.charAt b32-alphabet idx)) (recur i buf (- bits 5)))
+        (< i n)     (recur (inc i) (bit-or (bit-shift-left buf 8) (bit-and (aget data i) 0xff)) (+ bits 8))
+        (pos? bits) (let [idx (bit-and (bit-shift-left buf (- 5 bits)) 0x1f)]
+                      (.append sb (.charAt b32-alphabet idx)) (recur i 0 0))
+        :else       (.toString sb)))))
+
+(defn binary->cid-str
+  "Encode binary CID bytes (version‖codec‖multihash) to a `b`-prefixed base32 string."
+  [^bytes bin]
+  (str "b" (base32-encode bin)))
+
+;; ── dag-cbor decoder (round-trips encode; CID links → CidLink) ───────────────
+(defn- uint-from ^long [^bytes b ^long i ^long n]
+  (loop [k 0 acc 0] (if (= k n) acc (recur (inc k) (bit-or (bit-shift-left acc 8)
+                                                           (bit-and (aget b (int (+ i k))) 0xff))))))
+
+(defn- read-head
+  "Return [major arg next-index] for the CBOR head at `i`."
+  [^bytes b ^long i]
+  (let [b0 (bit-and (aget b (int i)) 0xff)
+        major (bit-shift-right b0 5)
+        info (bit-and b0 0x1f)]
+    (cond
+      (< info 24) [major info (inc i)]
+      (= info 24) [major (bit-and (aget b (int (inc i))) 0xff) (+ i 2)]
+      (= info 25) [major (uint-from b (inc i) 2) (+ i 3)]
+      (= info 26) [major (uint-from b (inc i) 4) (+ i 5)]
+      (= info 27) [major (uint-from b (inc i) 8) (+ i 9)]
+      :else (throw (ex-info "dag-cbor: bad head info" {:info info})))))
+
+(defn- decode-at [^bytes b ^long i]
+  (let [[major arg j] (read-head b i)]
+    (case (int major)
+      0 [arg j]
+      1 [(- (- arg) 1) j]
+      2 [(java.util.Arrays/copyOfRange b (int j) (int (+ j arg))) (+ j arg)]
+      3 [(String. b (int j) (int arg) "UTF-8") (+ j arg)]
+      4 (loop [k 0 idx j acc []]
+          (if (= k arg) [acc idx]
+              (let [[v ni] (decode-at b idx)] (recur (inc k) ni (conj acc v)))))
+      5 (loop [k 0 idx j acc {}]
+          (if (= k arg) [acc idx]
+              (let [[kk ni] (decode-at b idx) [vv n2] (decode-at b ni)]
+                (recur (inc k) n2 (assoc acc kk vv)))))
+      6 (if (= arg 42)
+          (let [[bs ni] (decode-at b j)]   ;; byte string = 0x00 ‖ binary CID
+            [(->CidLink (binary->cid-str (java.util.Arrays/copyOfRange ^bytes bs 1 (alength ^bytes bs)))) ni])
+          (throw (ex-info "dag-cbor: unsupported tag" {:tag arg})))
+      7 (case (int arg) 20 [false j] 21 [true j] 22 [nil j]
+              (throw (ex-info "dag-cbor: unsupported simple/float" {:arg arg})))
+      (throw (ex-info "dag-cbor: bad major" {:major major})))))
+
+(defn decode
+  "Decode dag-cbor bytes to a Clojure value (round-trips `encode`; maps have
+  string keys, CID links become `CidLink`, byte strings become byte-arrays)."
+  [^bytes b]
+  (first (decode-at b 0)))

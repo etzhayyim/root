@@ -6,11 +6,13 @@
   {:doc "Spec-conformance + round-trip suite (CIDs vs go-ipfs; MST vs @atproto/repo)."
    :requires ([clojure.test :as t]
               [etzhayyim.aozora.repo.repo-test]
+              [etzhayyim.aozora.repo.dag-cbor-test]
               [etzhayyim.aozora.repo.mst-test]
               [etzhayyim.aozora.repo.commit-sync-test]
               [etzhayyim.aozora.repo.firehose-test])
    :task (let [{:keys [fail error]}
                (t/run-tests 'etzhayyim.aozora.repo.repo-test
+                            'etzhayyim.aozora.repo.dag-cbor-test
                             'etzhayyim.aozora.repo.mst-test
                             'etzhayyim.aozora.repo.commit-sync-test
                             'etzhayyim.aozora.repo.firehose-test)]
