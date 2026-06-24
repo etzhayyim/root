@@ -28,6 +28,43 @@ superseded_by: []
 **Date**: 2026-06-23
 **Deciders**: Jun Kawasaki
 
+## Addendum 2026-06-24 — actor did.json は静的・github.io path 型（動的配信しない）
+
+per-actor repo + per-actor DID にした時点で、**actor の did.json に動的配信は不要**。
+オペレータ指示で、各 actor は**独自ドメインを使わず GitHub Pages のデフォルト
+`etzhayyim.github.io` のまま**運用する。よって本 ADR の did:web を下記に確定する:
+
+- **DID** = `did:web:etzhayyim.github.io:com-etzhayyim-<name>`（path 型）
+- **解決先** = `https://etzhayyim.github.io/com-etzhayyim-<name>/.well-known/did.json`
+- **配信** = repo に**静的コミットした did.json を GitHub Pages がそのまま配信**（github.io
+  自身の TLS）。`.nojekyll` を repo ルートに同梱し、`/.well-known/` と `*.wasm` を生配信。
+- **CF Worker / wildcard TLS / 動的 KV-DID は actor には不要**。apex Worker（ADR-2606013800
+  / 2606112100 の動的 did.json）は **組織自身の `did:web:etzhayyim.com` + IPFS gateway +
+  XRPC + donation 専用**に縮小。「apex は did:web を 1 ホストからしか解決できない」という
+  Pages 却下理由（2606112100）は path 型 = 1 actor = 1 静的ファイルには当てはまらない。
+
+**根拠（なぜ動的が消えるか）**: 旧 `did:web:etzhayyim.com:actor:<h>` は apex 単一ホストに
+多数 actor を相乗りさせる前提で、apex が KV/kotoba から did.json を**動的生成**していた。
+本 ADR の per-subdomain/per-repo モデルでは 1 actor = 1 ホスト = 1 静的ファイルなので、
+多重化も生成ロジックも不要。静的 did.json の更新は **commit/PR** で、これは no-server-key
+（鍵 rotation = KV write ではなく署名コミット）と PR ベース自己進化により整合する。
+
+**副産物**: did.json が静的になるので、**GitHub Pages が wasm + did.json + edn を一体ホスト**
+できる（Pages 却下の唯一の理由＝動的 DID エンドポイントが path 型には不在）。
+1 repo = Pages(コード/wasm/did.json) + IPFS(content-address) + kotoba(状態) + PR(進化)。
+
+**主権の担保**: controller ドメインが `github.io`（非所有）になるが、主権同一性は
+`kotoba-rad RID + did:key`（kotoba log 上）で、did:web は `alsoKnownAs` の1ポインタに過ぎない
+— GitHub が消えても RID/did:key で actor 同一性は残る（本 ADR の元設計どおり）。
+
+**AT ハンドル**: `at://<name>.etzhayyim.com` ハンドルは DNS TXT `_atproto.<name>.etzhayyim.com`
+で解決でき、Web ホスト（Pages/サブドメイン）を必要としない。よって did:web を github.io に
+置いても at:// ハンドルは etzhayyim.com 名前空間に維持できる（別 id・別解決経路、矛盾なし）。
+
+**実装差分（本追補と同 PR）**: `manifest->genesis` の `:did-web` を path 型に変更・
+`did-web-doc` の既定 DID を path 型に・`step-did-web` に `.nojekyll` 同梱を追加
+（`70-tools/src/etzhayyim/{actor_publish,kotoba_rad}.cljc`）。
+
 # Context
 
 `orgs/etzhayyim/root/20-actors/<name>/` の各 actor を
@@ -95,14 +132,15 @@ actor 1体の主権同一性を、kotoba Datom log に追記する。genesis ide
 
 ```
 A コード配布 : josh-proxy   monorepo ⇄ com-etzhayyim-<name>（双方向 view・PR 受け可）
-B 同一性(web): did:web:<name>.etzhayyim.com           aozora/yoro と整合（確証済）
+B 同一性(web): did:web:etzhayyim.github.io:com-etzhayyim-<name>   静的・Pages 直（追補2606-24）
 B 同一性(主権): kotoba-rad   RID(genesis CID)+did:key  alsoKnownAs に併記（本 ADR）
 C 状態       : ATProto MST/PDS（e.write Option B）+ IPFS pin   既存・DeltaDB 不要
 登録         : PDS に profile write → mst-projector index → yoro searchActors に出現
-配信         : <name>.etzhayyim.com/.well-known/did.json を josh ミラーから CF Worker(wildcard)
+配信         : repo の /.well-known/did.json を GitHub Pages が STATIC 配信（github.io TLS）
+              — CF Worker / wildcard TLS / 動的生成は actor には不要（追補 2026-06-24）
 ```
 
-`alsoKnownAs` で3つの同一性を相互リンク:
+`alsoKnownAs` で3つの同一性を相互リンク（at:// ハンドルは DNS TXT `_atproto` で解決、Web ホスト不要）:
 
 ```
 did:web の did.json:  alsoKnownAs = [ "at://<name>.etzhayyim.com",
