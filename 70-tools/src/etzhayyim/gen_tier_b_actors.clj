@@ -104,7 +104,10 @@
                         :glyph (:actor/glyph e)
                         :purpose (:actor/purpose e)
                         :primary-lexicon (:actor/primary-lexicon e)
-                        :adrs (adr-ids (or (:actor/adr e) (:actor/related e)))})
+                        ;; union of own ADR(s) + related, ordered + deduped
+                        :adrs (adr-ids (concat (let [a (:actor/adr e)]
+                                                 (if (sequential? a) a [a]))
+                                               (:actor/related e)))})
                      (catch Exception _ nil)))]
     (when (and m (= (:tier m) "Tier-B"))
       (let [handle (str/lower-case (str (or (:name m) a)))]

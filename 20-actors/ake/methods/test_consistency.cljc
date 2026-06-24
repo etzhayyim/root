@@ -30,7 +30,7 @@
 #?(:clj
    (defn- manifest []
      (let [parse-json (requiring-resolve 'cheshire.core/parse-string)]
-       (parse-json (slurp (str root "/manifest.jsonld"))))))
+       (:actor/manifest (clojure.edn/read-string (slurp (str root "/manifest.edn")))))))
 
 #?(:clj
    (defn- load-edn [path] (edn/load-edn path)))

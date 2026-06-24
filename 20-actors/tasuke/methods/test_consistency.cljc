@@ -18,7 +18,7 @@
 #?(:clj (def ^:private ontology-file (io/file repo-dir "00-contracts" "schemas" "cybercrime-victim-support-ontology.kotoba.edn")))
 #?(:clj (def ^:private profile-seed-file (io/file repo-dir "00-contracts" "schemas" "actor-profile-seed.kotoba.edn")))
 
-#?(:clj (defn- manifest [] (json/parse-string (slurp (io/file actor-dir "manifest.jsonld")))))
+#?(:clj (defn- manifest [] (:actor/manifest (clojure.edn/read-string (slurp (io/file actor-dir "manifest.edn"))))))
 
 ;; ── manifest cells ↔ cell tree ──────────────────────────────────────────────
 (deftest test-manifest-cells-have-dirs-and-state-machines
