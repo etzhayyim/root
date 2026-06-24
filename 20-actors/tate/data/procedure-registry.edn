@@ -789,7 +789,7 @@
   :proc/deadline-rules
   [{:dl/label "Impugnazione (異議)"
     :dl/rule "licenziamento の通知から60日以内に書面で impugnazione (stragiudiziale — PEC/raccomandata で足りる); その後180日以内に提訴/調停申立て — 徒過は失権"
-    :dl/anchor "L. 604/1966 art. 6 (L. 183/2010 改正)" :dl/critical true :dl/verify-service-date true}]
+    :dl/anchor "L. 604/1966 art. 6 (L. 183/2010 改正)" :dl/source-url "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:legge:1966-07-15;604" :dl/critical true :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :impugnazione :opt/kind :self-submit :opt/protective true
     :opt/label "60日以内に書面 impugnazione を送付 (PEC 可 — まず期限を止める)"}
@@ -808,7 +808,7 @@
     :dl/anchor "c.p.c. artt. 657-669" :dl/source-url "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:regio.decreto:1940-10-28;1443" :dl/critical true :dl/verify-service-date true}
    {:dl/label "Termine di grazia (支払猶予)"
     :dl/rule "morosità 型は udienza で termine di grazia (最大90日) を求め全額支払で解消できる場合がある"
-    :dl/anchor "L. 392/1978 art. 55" :dl/verify-service-date true}]
+    :dl/anchor "L. 392/1978 art. 55" :dl/source-url "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:legge:1978-07-27;392" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :opposizione :opt/kind :self-decide :opt/protective true
     :opt/label "udienza に出頭して opposizione (欠席が最悪手)"}
@@ -840,7 +840,7 @@
   :proc/deadline-rules
   [{:dl/label "Domanda di insinuazione"
     :dl/rule "udienza di verifica dello stato passivo の30日前までに PEC で提出 — 遅れは tardiva (要正当化・費用負担)"
-    :dl/anchor "CCII artt. 200-201 (旧 L.F. 93-101)" :dl/critical true :dl/verify-service-date true}]
+    :dl/anchor "CCII artt. 200-201 (旧 L.F. 93-101)" :dl/source-url "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2019-01-12;14" :dl/critical true :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :insinuazione :opt/kind :self-submit :opt/protective true
     :opt/label "domanda di insinuazione を PEC で (前払金・voucher も債権: kaiyaku 縁-ledger と突合)"}
