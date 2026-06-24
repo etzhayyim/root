@@ -106,6 +106,11 @@
    :task (do (require 'etzhayyim.test-kotoba-rad)
              (apply (resolve 'etzhayyim.test-kotoba-rad/-main) *command-line-args*))}
 
+  test:identifier-audit
+  {:doc "identifier-audit pure-helper invariants: audit-jsonld-data (nanoid 8-12 / did plc·web·key·pkh / kebab-name rules, accumulation), violations->report (total + by-rule frequencies)."
+   :task (do (require 'etzhayyim.test-identifier-audit)
+             (apply (resolve 'etzhayyim.test-identifier-audit/-main) *command-line-args*))}
+
   vitals:report
   {:doc "Per-actor LIFE-ACTIVITY vitals — scores each manifest-bearing cell on 3 axes (clj 内部代謝 / actor 細胞間シグナル / atproto 外界代謝), RUNS its run_tests.sh reflex, classifies 生/休眠/死, and transacts the vitals into the kotoba Datom log (as-of trajectory). Flags: --no-tests --limit N --actors a,b --timeout-ms N"
    :task (do (require 'etzhayyim.vitals)
