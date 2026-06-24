@@ -463,10 +463,10 @@
   :proc/deadline-rules
   [{:dl/label "부당해고 구제신청"
     :dl/rule "해고일로부터 3개월 이내に 노동위원회へ구제신청 (不当解雇の救済申立て — 最重要短期期限)"
-    :dl/anchor "근로기준법 28조" :dl/critical true :dl/verify-service-date true}
+    :dl/anchor "근로기준법 28조" :dl/source-url "https://www.law.go.kr/법령/근로기준법" :dl/critical true :dl/verify-service-date true}
    {:dl/label "서면 통지 요건"
     :dl/rule "解雇は事由・時期を書面で通知しなければ効力なし — 口頭/SMS のみの解雇は無効主張の余地"
-    :dl/anchor "근로기준법 27조" :dl/verify-service-date true}]
+    :dl/anchor "근로기준법 27조" :dl/source-url "https://www.law.go.kr/법령/근로기준법" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :gujeshincheong :opt/kind :self-submit :opt/protective true
     :opt/label "노동위원회に구제신청 (3개월 이내 — 本人可・無料; 自分の雇用を守る防御)"}
@@ -548,7 +548,7 @@
   :proc/deadline-rules
   [{:dl/label "이의신청 (異議申立て)"
     :dl/rule "지급명령 송달일로부터 2주 이내 (異議で通常訴訟へ移行)"
-    :dl/anchor "민사소송법 470조" :dl/verify-service-date true}]
+    :dl/anchor "민사소송법 470조" :dl/source-url "https://www.law.go.kr/법령/민사소송법" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :i-ui-sincheong :opt/kind :self-submit :opt/label "이의신청서를 発令法院へ提出 (→ 訴訟移行)"}
    {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/分割の相談"}]
