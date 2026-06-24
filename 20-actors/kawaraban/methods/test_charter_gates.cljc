@@ -20,7 +20,17 @@
      (def ^:private actor-dir (.getParentFile here))                        ;; kawaraban/
      (def ^:private lexdir (java.io.File. actor-dir "lex"))
      (defn- lex [name] (edn/read-string (slurp (java.io.File. lexdir (str name ".edn")))))
-     (defn- manifest [] (json/parse-string (slurp (java.io.File. actor-dir "manifest.jsonld"))))))
+     (defn- manifest []
+  (let [e (clojure.edn/read-string (slurp (java.io.File. actor-dir "manifest.edn")))
+        gm (into {} (map (fn [g] [(:gate/id g) g]) (:actor/gates e)))]
+    {"constitutionalGates" {"gates" gm}
+     "gates" gm
+     "nonGoals" (:actor/non-goals e)
+     "cells" (:actor/cells e)
+     "name" (:actor/id e)
+     "purpose" (:actor/purpose e)
+     "tier" "Tier-B"
+     "status" (some-> (:actor/status e) name)}))))
 
 ;; ── generic walkers: collect {field-keyword → attr-value} anywhere in the lexicon tree ──
 (defn- collect [doc attr]

@@ -121,7 +121,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "chigiri": {
-    description: "契 — Covenant (legal procedure substrate)",
+    description: "Non-profit religious-corp legal procedure substrate. Procedural template + on-chain attestation + routing substrate for the 任意団体 internal procedures, external state-system interfaces, and Charter §1.12 state-function routing-around. NOT a commercial law firm and NOT an unauthorized practice of law (UPL constitutionally prohibited per G14). 13 cells / 11 Lexicons under com.etzhayyim.chigiri.* / 17 immutable gates / 12 non-goals. Adds a free legal-aid lane (legal_aid_clinic cell, ADR-2605302200, G14/G15/G16) + a Japan 認証ADR mediation lane (dispute_mediation, ADR-2605302330, G17); advice/representation is delivered by jurisdiction-licensed human counsel via the Public Fund, never by chigiri. Consumes the global legal corpus from ADR-2605262800 (statutes / cases / treaties / procedures / templates). Replaces the legacy lawfirm.etzhayyim.com reference in hanrei.",
     glyph: "契",
     displayName: "契 — Covenant (legal procedure substrate)",
     adrs: ["2605262700", "2605192100"],
@@ -134,7 +134,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "danjo": {
-    description: "弾正 — Public-Accountability Oversight",
+    description: "kotoba-native public-accountability oversight substrate. Ingests the already-IPFS-pinned open-government corpus (JP 国会会議録 / 予算書 / 政府調達 per ADR-2605263900) into kotoba EAVT and emits FACTUAL, source-cited, NON-adjudicating discrepancy observations + aggregate transparency reports. The censor's eye without the censor's sword: observation + transparent publication ONLY. NON-adjudicating (G4, UPL-equivalent). Passive-only ingestion (G3; pre-published public records only; no live scraping, no surveillance, no leak intake). Open method (G6). Murakumo-only inference (G7). Transparent Religious Force discipline (G11, ADR-2605192100 §1.12). 6 cells / 4 Lexicons / 13 gates / 12 non-goals.",
     glyph: "弾正",
     displayName: "弾正 — Public-Accountability Oversight",
     adrs: ["2605301600", "2605263900"],
@@ -251,7 +251,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "himotoki": {
-    description: "繙き — Active Disclosure-Request Filer",
+    description: "kotoba-native ACTIVE disclosure-request substrate. The outbound counterpart to the passive-only danjo/tadori: himotoki EXERCISES A RIGHT OF ACCESS. It files (a) data-subject access / 個人情報開示請求 (APPI §33 / GDPR Art.15 / CCPA) to private controllers (Discord / Google / LINE / Meta / Amazon …) on behalf of CONSENTING members for their OWN data, and (b) freedom-of-information / 行政文書開示請求 (行政機関情報公開法 / FOIA) to public organs. Carries a CODED target registry (disclosureTarget) of each organization's 窓口 / 住所 / 連絡先 / メールアドレス / portal / 手続き / fee / statutory deadline so the actor can route + file procedurally. Tracks deadlines, routes lawful appeals, and custodies responses — disclosed PII lands ONLY in com.etzhayyim.encrypted.* DID-bound envelopes (G6). Consent-gated own-data-only (G3), transparent + non-pretextual (G4), UPL-equivalent (G5), rate-limited / non-vexatious (G8), lawful-channel-only (G10), dispatch ONLY against a verified target (G14), Murakumo-only (G7), Transparent Religious Force discipline (G11). 7 cells / 5 Lexicons / 14 gates / 13 non-goals.",
     glyph: "繙き",
     displayName: "繙き — Active Disclosure-Request Filer",
     adrs: ["2605302130", "2605262700"],
@@ -472,7 +472,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "kataribe": {
-    description: "語部 — Press + Publishing + Translation",
+    description: "Non-profit religious-corp press + publishing + translation substrate. Community journalism + doctrine commentary + multilingual translation + community historical chronicle + whistleblower channel. Etymology: 古代日本 oral historian / storyteller / chronicler class; 万人祭司 + Sola Scriptura + Charter §1.7 多世代 + §1.15 non-eschatological. NO ad-supported revenue (G3: Charter §1.13+§1.15). NO clickbait/apocalyptic (G4: §1.15 non-eschatological; toneAttestation enum excludes apocalyptic/clickbait/engagement-optimized). NO commercial publishing platform (G5: Substack/Medium/News Corp/The Atlantic/NYTimes-as-vendor/WordPress-Pro/Ghost-Pro/Mailchimp/ConvertKit/Beehiiv PROHIBITED per Charter Rider §2(e)+§2(c)). NO single-doctrinal monopoly (G6: cross-doctrinal Wellbecoming). NO commercial AI translation (G12: DeepL Pro/Google Translate API/Grammarly PROHIBITED). NO surveillance investigative journalism (G8: Charter §2(c)). 6 cells / 5 Lexicons / 13 gates / 12 non-goals.",
     glyph: "語部",
     displayName: "語部 — Press + Publishing + Translation",
     adrs: ["2605263600", "2605192100"],
@@ -498,7 +498,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "kazaori": {
-    description: "風折 — Civilian Disaster Response",
+    description: "Non-profit religious-corp civilian disaster response substrate. Earthquake / typhoon / flood / wildfire / pandemic / power outage / water shortage / food shortage / building damage / mass evacuation / medical surge coordination. NOT military (G5+N1; force authorization separate per ADR-2605192315). NOT war-zone humanitarian (N2). NO commercial disaster mgmt software (G4: Veoci/NC4/Crisis Track/Everbridge/OnSolve/SAP DR/Microsoft DR Hub/IBM Crisis Response PROHIBITED per Charter Rider §2(e)+§2(c)). NO surveillance (G6: opt-in self-check-in only; aerial drone / facial-recognition / Bluetooth-beacon PROHIBITED per Charter §2(c)). Time-bounded carve-outs (G8: 60-day initial + Council Lv7+ unanimity extension + auto-revoke). Sphere Standards reference (G9). Council Lv6+ ≥4/7 declaration (G10). 6 cells / 6 Lexicons / 12 gates / 12 non-goals.",
     glyph: "風折",
     displayName: "風折 — Civilian Disaster Response",
     adrs: ["2605263200", "2605192100"],
@@ -538,7 +538,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "kizashi": {
-    description: "兆 — Non-invasive Multimodal Body-Scan / Sign-Sensing",
+    description: "Non-profit religious-corp non-invasive multimodal body-scan / sign-sensing substrate — the 'futuristic scan pod' sensing/instrument layer of the L4 Care Tier. Senses physical-burden SIGNS (腰痛 posture/筋, 肩こり 筋硬度/血流, 鼻詰まり 構造/気流, アレルギー via consented microsampling, 炎症 thermal/biomarker) via multimodal capture → fusion → PROBABILISTIC NON-DIAGNOSTIC attribution + self-referenced Wellbecoming trajectory + triage referral. kizashi SENSES → mitate DIAGNOSES → iyashi TREATS. NON-DIAGNOSTIC (G3, 医師法 §17). Medical-device regulatory boundary (G4, 薬機法/SaMD — R0..R2 software+simulation+non-ionizing non-regulated only; regulated/ionizing modalities R3-gated). Encrypted biometric envelope MANDATORY (G2, 要配慮 PII per ADR-2605181100). Verified-modality-only / anti-pseudoscience (G10; bio-resonance/aura/波動 EXCLUDED). Self-referenced Wellbecoming (G8; no population ranking). Murakumo-only inference (G14). 6 cells / 6 Lexicons / 14 gates / 12 non-goals. Cross-actor: mitate (sign→diagnosis) / iyashi (clinical) / kokoro (psychosocial) / yakushi (medication via iyashi) / hagukumi (consent) / chigiri (consent+steward) / toritate (Public Fund grant) / manabi (operator training).",
     glyph: "兆",
     displayName: "兆 — Non-invasive Multimodal Body-Scan / Sign-Sensing",
     adrs: ["2605312700", "2605261000"],
@@ -603,7 +603,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "kurashimori": {
-    description: "暮らし守 — Citizen Consumer-Protection Concierge",
+    description: "kotoba-native citizen consumer-protection self-help concierge — the 国民生活センター / 消費生活センター-equivalent, citizen↔MERCHANT sibling of toritsugi (citizen↔government) and moushibumi (citizen→state). 暮らし守 = guardian of everyday life. Three member-initiated, consent-bound self-help channels: (1) クーリングオフ (detect statutory cooling-off window per 特定商取引法 — 訪問販売 8日 / 連鎖販売 20日, assist drafting the 通知, member sends); (2) 返金/苦情 (assist drafting a refund demand / complaint to the merchant, track response); (3) エスカレーション (stalled self-help → route to 消費生活センター / 消費者ホットライン 188 / ADR / chigiri + licensed counsel). Default = 診断 + 起草補助 + 本人送付; 代行 (本人同意ベース) is the gated R3 exception. Driven by a CODED remedyTarget registry (remedy kind / 根拠法令 / statutory window 日数 / 様式 / channel / escalation forum). Consent + own-matter-only (G3), transparent (G4), UPL/司法書士法/弁護士法-bounded (G5, no advice + no representation + no rights-determination; cooling-off output is date-computation not a legal opinion → chigiri + licensed), PII-encrypted (G6), Murakumo-only (G7), non-fabrication (G8), no claims-buying/no contingency/no 取立 (G9), lawful + non-harassment (G10), Transparent Religious Force (G11), data-minimization (G12), verified-remedy-only send (G14), member-self-action default (G15). JP-first (R0); architecture jurisdiction-generic. 7 cells / 7 Lexicons / 15 gates / 13 non-goals.",
     glyph: "暮らし守",
     displayName: "暮らし守 — Citizen Consumer-Protection Concierge",
     adrs: ["2605312500", "2605312030"],
@@ -707,7 +707,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "mizuho": {
-    description: "水穂 — Water + Sanitation",
+    description: "Non-profit religious-corp water + sanitation substrate. Community-scale only (NOT large municipal utility, N1). Upstream of mitsuho (irrigation), hagukumi (daily-living water), iyashi (clinical-grade), yakushi (WFI feed). NO commercial water utility software (G4: Veolia/Suez/American Water/Aquarion/Évian/Nestlé Pure Life/Beck Water/Trojan UV PROHIBITED per Charter Rider §2(e)+§2(c)). NO bottled water vendor (G5: single-use plastic PROHIBITED per Charter §1.13). NO mandatory fluoridation (G6: per-member consent). Greywater recycling MANDATORY for new construction (G10). Water-source rights honor waqf-equivalent inalienability (G11 per ADR-2605192245). 6 cells / 5 Lexicons / 12 gates / 12 non-goals.",
     glyph: "水穂",
     displayName: "水穂 — Water + Sanitation",
     adrs: ["2605263100", "2605192100"],
@@ -720,7 +720,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "moushibumi": {
-    description: "申文 — Citizen Democratic-Participation Concierge",
+    description: "kotoba-native citizen democratic-participation concierge — the citizen's VOICE INTO the state, sibling to toritsugi (government procedures) and counterpart to danjo (which watches the state's output). 申文 = a Heian formal submission to authority. Three member-initiated, consent-bound channels: (1) 選挙情報 INFO-ONLY (when/where to vote, 期日前/不在者投票 mechanics, neutral pointers to official 選挙公報 — NEVER campaigning/endorsement/GOTV, 公職選挙法 + political-neutrality G3); (2) 請願/陳情 (assist drafting a 請願書 [請願法] / 陳情 to a 議会, member submits); (3) パブリックコメント (行政手続法 §39 意見公募手続, assist drafting + submitting opinion). Default = 案内 + 起草補助 + 本人提出; 代行 (本人同意ベース) is the gated R3 exception. Driven by a CODED participationTarget registry (organ / channel / 根拠法令 / 様式 / 期限 / 紹介議員-flag). Consent + own-voice-only (G4), 公職選挙法/political-neutral (G3), UPL-bounded (G5), PII + political-opinion encrypted (G6, APPI special-care), Murakumo-only (G7), non-fabrication (G8), non-partisan + non-commercial (G9), lawful-channel-only (G10), Transparent Religious Force (G11), data-minimization/no-opinion-profiling (G12), verified-target-only (G14), member-self-submission default (G15). JP-first (R0); architecture jurisdiction-generic. 7 cells / 6 Lexicons / 15 gates / 13 non-goals.",
     glyph: "申文",
     displayName: "申文 — Citizen Democratic-Participation Concierge",
     adrs: ["2605312400", "2605312030"],
@@ -733,7 +733,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "musubi": {
-    description: "結 — Covenant Ceremony",
+    description: "Non-profit religious-corp covenant ceremony performance substrate. TIGHT PAIR of chigiri (chigiri attests on-chain; musubi performs ceremony). Marriage / naming / funeral / vocation vow / rededication / seasonal communal ceremony. NO clergy class (G3: Reformed 万人祭司; officiants are L5 vocation-flow community-witnessed-competent; officiantClass enum DELIBERATELY excludes clergy/ordained/priest/bishop). NO mandatory ritual attendance (G4: free conscience). NO commercial wedding/funeral industry software (G6: Aisle Planner/Honeybook/The Knot/WeddingWire/Zola/SRS Computing/Aldor/Wilbert/Frazer Consultants PROHIBITED per Charter Rider §2(e)+§2(c)). NO bride price/dowry (G7: anti-coercive ceremony economy). NO video without per-party consent (G8). NO transubstantiation (G9: Sola Scriptura + Reformed memorial view). NO payroll for officiants (G12). Multi-generational invariant (G10). 6 cells / 5 Lexicons / 13 gates / 12 non-goals.",
     glyph: "結",
     displayName: "結 — Covenant Ceremony",
     adrs: ["2605263400", "2605262700"],
@@ -811,7 +811,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "ossekai": {
-    description: "御節介 — Information-Arbitrage Elimination + Wellbecoming Nudge",
+    description: "Non-profit religious-corp artificial-organism actor for societal information-arbitrage elimination + Wellbecoming-nudge delivery. Dual-channel architecture: (1) aggregate public-good publication (anonymized, AT Proto `app.bsky.feed.post` + custom feed generator `feed.ossekai.wellbecoming`) is the DEFAULT mode; (2) opt-in member digest (encrypted envelope per ADR-2605181100) + Council-gated single-touch non-member @mention (Council Lv6+ ≥3 attestation; ≥4 if >50 handles) is the secondary mode. First-touch channel = AT Protocol; NO email / SMTP at R0-R2 (N1). NO commercial intel/CRM/marketing software (G5: Salesforce / HubSpot / Marketo / Mailchimp / SendGrid commercial / Constant Contact / Pardot / ZoomInfo / Apollo / Clay / Lemlist / Outreach / SalesLoft / Gong / Chorus / 6sense / Cognism / LeadIQ / Drift PROHIBITED per Charter Rider §2(e)+§2(c)). NO surveillance (G3 PASSIVE-ONLY per ADR-2605262400). NO dark patterns (G6 — AT Proto native mute/block/quote-block honored structurally at projection layer G15). 8 cells / 9 Lexicons / 15 gates / 12 non-goals.",
     glyph: "御節介",
     displayName: "御節介 — Information-Arbitrage Elimination + Wellbecoming Nudge",
     adrs: ["2605264000", "2605192100"],
@@ -876,7 +876,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "shidemori": {
-    description: "死出守 — Memorial + Cemetery",
+    description: "Non-profit religious-corp memorial + cemetery substrate. FINAL gap-closure actor (gap audit row 10; completes 10-actor 30min-loop wave). Memorial NFT mint + cemetery Land Registry waqf-equivalent + 鎮魂 annual remembrance + chigiri.inheritanceChain handoff + external mortuary engagement (UPL-equivalent). Etymology: 死出守 = guardian of the death-journey (死出 = 死出の旅 classical imagery; 守 = keeper). Cross-tradition (Reformed memorial + Shinto 鎮魂 + 仏 49日 + secular humanist). Charter §1.15 non-eschatological G3 (NO apocalyptic/millennial/specific-heaven-hell-mapping; afterlifeDoctrineImposed const false). Cross-doctrinal Wellbecoming G4. NOT state-licensed mortuary G5 (community-witnessed-competent guardians; external licensed via Public Fund). NO commercial memorial software G6 (Frazer Consultants/Tribute Center/FuneralOne/ASD/SRS Computing/Wilbert/Aldor/Adobe Cemetery Mgmt PROHIBITED). NO embalming chemicals G7 (Charter Rider §2(d); green burial + cremation only). NO mortuary surveillance G8 (Charter §2(c)). Member burial-or-cremation directive G9 (free conscience). Land Trust waqf-equivalent cemetery rights G10 (mizuho G11 pattern shared). NO payroll G11. Murakumo-only G12. chigiri.inheritanceChain emit MANDATORY G13. 6 cells / 5 Lexicons / 13 gates / 12 non-goals.",
     glyph: "死出守",
     displayName: "死出守 — Memorial + Cemetery",
     adrs: ["2605263800", "2605192100"],
