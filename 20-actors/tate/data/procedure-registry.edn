@@ -1504,7 +1504,7 @@
   :proc/deadline-rules
   [{:dl/label "Anfechtung (ArbVG)"
     :dl/rule "sozialwidrig/motivwidrig な Kündigung の Anfechtung は Arbeits- und Sozialgericht へ2 Wochen 以内 — 極端に短い; Betriebsrat の有無で手続が変わる"
-    :dl/anchor "ArbVG §105 (3)-(4)" :dl/critical true :dl/verify-service-date true}]
+    :dl/anchor "ArbVG §105 (3)-(4)" :dl/source-url "https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=10008329" :dl/critical true :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :ak-vertretung :opt/kind :self-decide :opt/protective true
     :opt/label "即 AK (Arbeiterkammer) へ — 労働者は無料の法的代理を受けられる"}
@@ -1534,7 +1534,7 @@
   :proc/deadline-rules
   [{:dl/label "Einwendungen"
     :dl/rule "MRG 適用住居の賃貸人解約は**裁判所経由 (gerichtliche Aufkündigung) のみ** + §30 の列挙事由限定 — Einwendungen は送達から4 Wochen 以内"
-    :dl/anchor "MRG §30・§33" :dl/critical true :dl/verify-service-date true}]
+    :dl/anchor "MRG §30・§33" :dl/source-url "https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=10002531" :dl/critical true :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :einwendungen :opt/kind :self-submit :opt/protective true
     :opt/label "Einwendungen を4週間以内に (理由は後で補える — まず期限を守る)"}
@@ -1551,7 +1551,7 @@
   :proc/deadline-rules
   [{:dl/label "Einspruch (異議)"
     :dl/rule "Zustellung から4週間以内に Einspruch (→ 通常手続へ)"
-    :dl/anchor "österr. ZPO §248 (Mahnverfahren)" :dl/verify-service-date true}]
+    :dl/anchor "österr. ZPO §248 (Mahnverfahren)" :dl/source-url "https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=10001699" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :einspruch :opt/kind :self-submit :opt/label "Einspruch を発令裁判所へ提出 (理由不要)"}
    {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/和解"}]
