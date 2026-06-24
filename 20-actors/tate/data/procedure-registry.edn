@@ -1610,7 +1610,7 @@
   :proc/deadline-rules
   [{:dl/label "Oposição (異議)"
     :dl/rule "notificação から15日以内に oposição (→ 司法手続へ)"
-    :dl/anchor "DL 269/98 (procedimento de injunção)" :dl/verify-service-date true}]
+    :dl/anchor "DL 269/98 (procedimento de injunção)" :dl/source-url "https://diariodarepublica.pt/dr/detalhe/decreto-lei/269-1998-566629" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :oposicao :opt/kind :self-submit :opt/label "oposição を提出 (Balcão Nacional de Injunções)"}
    {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/和解"}]
