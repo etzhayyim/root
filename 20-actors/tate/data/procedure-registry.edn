@@ -1174,7 +1174,7 @@
   :proc/deadline-rules
   [{:dl/label "調解前置"
     :dl/rule "離婚等の家事事件は**調解前置** — 通知記載の調解期日に出席 (無断欠席は調解に代わる裁定・過料があり得る); 合意するまで成立しない"
-    :dl/anchor "家事事件法 23條・32條" :dl/verify-service-date true}]
+    :dl/anchor "家事事件法 23條・32條" :dl/source-url "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=B0010048" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :chuxi :opt/kind :self-decide :opt/protective true
     :opt/label "調解期日に出席して言い分を述べる (程序監理人・社工の同席請求も可)"}
@@ -1205,7 +1205,7 @@
   :proc/deadline-rules
   [{:dl/label "薪資 1/3 限度 (生計保護)"
     :dl/rule "薪資の強制執行は各期 1/3 を限度とし, 債務人と共同生活親属の**最低生活費は差押え不可** — 超過は声明異議"
-    :dl/anchor "強制執行法 115-1條・122條" :dl/verify-service-date true}]
+    :dl/anchor "強制執行法 115-1條・122條" :dl/source-url "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=B0010004" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :shengming-yiyi :opt/kind :self-submit :opt/protective true
     :opt/label "1/3 超過・最低生活費侵害は声明異議 (強制執行法12條)"}
@@ -1234,7 +1234,7 @@
   :proc/deadline-rules
   [{:dl/label "申報債權"
     :dl/rule "法院が破產宣告と同時に定める申報期間内 — 破產宣告日から15日以上3か月以下 — に 破產管理人 へ 申報債權 (期間徒過は失權效果で破產財団から配当を受けられない; 破產宣告前に確定判決・支付命令等の執行名義を得た債権は期間に拘束されない)"
-    :dl/anchor "破產法 第64條第1項・第65條第1項第5款" :dl/verify-service-date true}]
+    :dl/anchor "破產法 第64條第1項・第65條第1項第5款" :dl/source-url "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=B0010006" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :shenbao :opt/kind :self-submit :opt/protective true
     :opt/label "債權申報書 を 破產管理人 へ提出 (本人可; 預付款・押金・儲值卡 など前払金も債權: kaiyaku 縁-ledger と突合)"}]
