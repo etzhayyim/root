@@ -36,30 +36,37 @@ MST root ──────────────────▶ unsigned v3 c
 | `dag_cbor.clj` | deterministic IPLD **dag-cbor** encoder (null/bool/int/text/bytes/array/map + tag-42 CID links; map keys length-first sorted; floats rejected). base32 decode to recover binary CIDs. |
 | `cid.clj` | **CIDv1(dag-cbor)** framing (codec 0x71, sha2-256, base32 'b'). `block` / `cid-of`. |
 | `blockstore.clj` | content-addressed **block store on the kotoba Datom log** (`BlockStore` protocol + `MemBlockstore`; blocks + repo head + record projection are all datoms). |
-| `repo.clj` | `put-record` (block + EAVT projection), `record-cid`, `format-commit` (unsigned AT-Proto v3 commit object). |
+| `repo.clj` | `put-record` (block + EAVT projection), `record-cid`, **`commit-records!`** (full repo build — the PDS entry point). |
+| `mst.clj` | atproto **Merkle Search Tree** (`data-root!`): keys → record CIDs, leading-zero fanout, layer-skip pass-through nodes, dag-cbor node serialization. |
+| `commit.clj` | unsigned + **signed** AT-Proto v3 commit (`commit!`); `sign-fn` = member-key seam (no-server-key). |
+| `car.clj` / `sync.clj` | CARv1 export + `com.atproto.sync.{getRepo,getLatestCommit,getBlocks}`. |
 
-### Verification (spec-exact, not a placeholder)
+### Verification (spec-exact, cross-checked against the official impls)
 
-`bb test` checks every record CID against **go-ipfs 0.41 `ipfs dag put --store-codec
-dag-cbor`** golden vectors — the pure-clj encoder is **byte-identical** to the
-reference IPLD encoding (9 data vectors + the tag-42 CID-link vector). So record
-and MST-node CIDs are spec-exact while living entirely on kotoba.
+`bb test` (**13 tests / 52 assertions**) checks:
+
+- record/node **CIDs byte-identical to go-ipfs 0.41 `ipfs dag put --store-codec
+  dag-cbor`** (9 data vectors + tag-42 CID-link);
+- **MST root CIDs byte-identical to `@atproto/repo` `MST.getPointer()`** (empty /
+  1 / 3 / 30-entry trees — incl. multi-layer + skip nodes);
+- the **CARv1 export decodes under `@ipld/car`** with every block CID re-verified
+  and the signed v3 commit decoding cleanly (cross-checked, see PR).
 
 ```bash
-bb test   # 6 tests / 27 assertions green
+bb test   # 13 tests / 52 assertions green
 ```
 
-## Next (separate increments)
+## Status
 
-1. **MST tree** — order record keys → record CIDs into the data root (atproto MST:
-   leading-zero-of-sha256 fanout, node serialization as dag-cbor). Backed by this
-   blockstore (MST nodes = `:block/*` datoms). Verify node CIDs vs `@atproto/repo`.
-2. **Signed commit** — sign `format-commit` bytes with the member/operator key
-   (no-server-key; the sig is the only non-kotoba secret, off-platform).
-3. **CAR + `com.atproto.sync.*`** — `getRepo`/`getBlocks`/`getLatestCommit`/
-   `subscribeRepos` over the blockstore → feeds `mst-projector` + federation.
-4. **Wire into `etzhayyim-atproto-pds-clj`** — its `put-record` emits a repo block
-   here; **P2 cutover** points `pds.etzhayyim.com` origin at the clj-on-kotoba PDS.
+1. ✅ **MST tree** — `mst/data-root!`, verified vs `@atproto/repo`.
+2. ✅ **Signed commit** — `commit/commit!` with the no-server-key `sign-fn` seam.
+3. ✅ **CAR + `com.atproto.sync.*`** — `getRepo`/`getLatestCommit`/`getBlocks`,
+   verified vs `@ipld/car`. (`subscribeRepos` firehose = a later increment.)
+4. 🟡 **Wire into `etzhayyim-atproto-pds-clj`** — the entry point
+   `repo/commit-records!` (records → MST → signed commit → head) is ready; the PDS
+   calls it on write and adds the `com.atproto.sync.*` routes (a small server.clj
+   change, sequenced after the PDS account PR). **P2 cutover** then points
+   `pds.etzhayyim.com` origin at the clj-on-kotoba PDS → resolves the 530.
 
 See ADR-2606242330 (PDS consolidation) §addendum for the kotoba-canonical-repo
 invariant this module enforces.
