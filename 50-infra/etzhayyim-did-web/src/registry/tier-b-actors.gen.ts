@@ -433,7 +433,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "iyashi": {
-    description: "癒 — Clinical Care Provider",
+    description: "Non-profit religious-corp clinical care provider substrate. Community-clinic-model primary care + chronic followup + vaccination + acute first-line + maternity/pediatric clinical. Encrypted PHI envelope MANDATORY (G2 per ADR-2605181100). NO commercial EHR (G11; Epic/Cerner/Athena/Allscripts/NextGen/eClinicalWorks/Greenway/Practice Fusion PROHIBITED per Charter Rider §2(e)+§2(c)). NO insurance billing (G13; funded via Public Fund grant + sliding-scale donation). NO payroll for providers (G14; vocation-flow L5 stewards). Murakumo-only inference (G12). NO video recording firmware-level (G3). Human-in-loop ALWAYS (G8). 6 cells / 6 Lexicons / 14 gates / 12 non-goals. Cross-actor: mitate (diagnosis) / hagukumi (daily-living) / yakushi (medication) / toritate (funding) / chigiri (consent + procedural) / manabi (provider CME) / kokoro (mental health, future).",
     glyph: "癒",
     displayName: "癒 — Clinical Care Provider",
     adrs: ["2605263000", "2605261000"],
@@ -615,7 +615,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "kokoro": {
-    description: "心 — Mental Health Support",
+    description: "Non-profit religious-corp mental health support substrate. Community + spiritual + relational framing (NOT clinical psychiatry). Peer support circles + post-funeral grief support + chronic mental health continuity + postnatal mood screening (opt-in) + acute crisis escalation (mitate G5) + counseling referral. **CRITICAL boundary**: NOT clinical psychiatric entity; NOT state-licensed psych; counselors are L5 vocation-flow community-witnessed-competent (musubi G3 pattern). Does NOT diagnose (mitate). Does NOT prescribe (yakushi). Encrypted envelope MANDATORY (G4). NO conversion therapy (G5). Human-in-loop ALWAYS (G6). NO commercial mental health software (G7: BetterHelp/Talkspace/Cerebral/Modern Health/Lyra/Calm-business/Headspace-Enterprise/Spring Health/Brightline/Octave/Two Chairs/Charlie Health PROHIBITED). NO commercial AI therapy chatbot (G8: Woebot/Wysa/Replika-as-therapy/character.ai-as-therapy/GPT-as-therapy/Anthropic-direct-therapy/Claude-as-therapy PROHIBITED). NO mandatory screening (G9: opt-in only). NO surveillance-based mood monitoring (G10: Charter §2(c)). Multi-gen peer support (G11). Cross-doctrinal Wellbecoming (G12). Acute crisis → mitate G5 emergency keyword (G13). 6 cells / 5 Lexicons / 14 gates / 12 non-goals.",
     glyph: "心",
     displayName: "心 — Mental Health Support",
     adrs: ["2605263700", "2605192100"],
