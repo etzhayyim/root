@@ -539,10 +539,10 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "manabi": {
-    description: "学び — Education",
+    description: "Open-curriculum education (literacy + numeracy + civics/charter + vocational + lifelong inquiry). Anti-credentialism (no degrees/transcripts, only skillAttestation). Anti-addiction UX (no streaks/rewards/leaderboards). Minor privacy (aggregate-only attestations, 30-day rotating pseudonym DID). Comparative-religion mandatory. Content-distribution heavy, compute-light. Murakumo-only, kotoba-EAVT-native.",
     glyph: "学び",
     displayName: "学び — Education",
-    adrs: ["2605261045", "2605261000"],
+    adrs: ["2605261045", "2605261000", "2605181200", "2605192200", "2605192100"],
     service: [
       {
         id: "did:web:etzhayyim.com:actor:manabi#atproto_pds",

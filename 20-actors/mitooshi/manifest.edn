@@ -1,5 +1,6 @@
 {:actor/id        "mitooshi"
  :actor/glyph     "見通し"
+ :actor/display-name "見通し — Probabilistic Forecasting Observatory"
  :actor/tier      :tier-b
  :actor/domain    "mitooshi.etzhayyim.com"
  :actor/did       "did:web:etzhayyim.com:actor:mitooshi"
