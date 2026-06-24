@@ -23,6 +23,11 @@
    :task (do (require 'etzhayyim.cli)
              (apply (resolve 'etzhayyim.cli/-main) *command-line-args*))}
 
+  gen:tier-b-actors
+  {:doc "Regenerate 50-infra/etzhayyim-did-web/src/registry/tier-b-actors.gen.ts from each 20-actors/<a>/manifest.{jsonld,edn} (Tier-B, non-hand-authored). clj/bb port of the legacy gen-tier-b-actors.mjs; manifest.jsonld preferred, manifest.edn (Gen-3 kotoba-native) fallback. ADR-2606042330."
+   :task (do (require 'etzhayyim.gen-tier-b-actors)
+             (apply (resolve 'etzhayyim.gen-tier-b-actors/-main) *command-line-args*))}
+
   actor:publish
   {:doc "ADR-2606231200 — publish a 20-actors/<name> actor as a sovereign unit: josh/subtree split → gh repo com-etzhayyim-<name> → did:web did.json → kotoba-rad RID/did:key (sovereign identity on the kotoba Datom log) → aozora(yoro) PDS profile-write plan. DRY-RUN by default; --apply executes side effects; --pubkey=<hex> pins the Ed25519 key. no-server-key (signing/PDS-write are member/operator legs). Args: <name> [<name>...] [--apply] [--pubkey=hex]"
    :task (do (require 'etzhayyim.actor-publish)
