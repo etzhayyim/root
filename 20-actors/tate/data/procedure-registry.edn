@@ -888,7 +888,7 @@
   :proc/deadline-rules
   [{:dl/label "Demanda por despido"
     :dl/rule "despido の効力発生から20日 (días hábiles・営業日) 以内に papeleta de conciliación → demanda — 欧州最短級; 徒過は caducidad (失権)"
-    :dl/anchor "Estatuto de los Trabajadores art. 59.3 / LRJS art. 103" :dl/critical true :dl/verify-service-date true}]
+    :dl/anchor "Estatuto de los Trabajadores art. 59.3 / LRJS art. 103" :dl/source-url "https://www.boe.es/buscar/act.php?id=BOE-A-2015-11430" :dl/critical true :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :papeleta :opt/kind :self-submit :opt/protective true
     :opt/label "papeleta de conciliación を SMAC へ (20日を止める — 本人可・無料)"}
@@ -940,7 +940,7 @@
   :proc/deadline-rules
   [{:dl/label "Comunicación de créditos"
     :dl/rule "BOE 公告から1 mes 以内に administración concursal へ債権を comunicar — 遅延は subordinación (劣後) のリスク"
-    :dl/anchor "TRLC arts. 28・255 系" :dl/critical true :dl/verify-service-date true}]
+    :dl/anchor "TRLC arts. 28・255 系" :dl/source-url "https://www.boe.es/buscar/act.php?id=BOE-A-2020-4859" :dl/critical true :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :comunicar :opt/kind :self-submit :opt/protective true
     :opt/label "債権を comunicar (1 mes — 前払金・bono も債権: kaiyaku 縁-ledger と突合)"}
