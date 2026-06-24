@@ -1849,7 +1849,7 @@
   :proc/deadline-rules
   [{:dl/label "Personal grievance (90日)"
     :dl/rule "personal grievance は dismissal から90日以内に雇用主へ raise — NZ 労働法で最も周知された期限 (sexual harassment は12か月)"
-    :dl/anchor "Employment Relations Act 2000 s.114" :dl/critical true :dl/verify-service-date true}]
+    :dl/anchor "Employment Relations Act 2000 s.114" :dl/source-url "https://www.legislation.govt.nz/act/public/2000/0024/latest/whole.html" :dl/critical true :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :raise-pg :opt/kind :self-submit :opt/protective true
     :opt/label "書面で personal grievance を raise (90日 — mediation は MBIE 無料)"}
@@ -1907,7 +1907,7 @@
   :proc/deadline-rules
   [{:dl/label "Tenancy Tribunal 対応"
     :dl/rule "periodic tenancy の landlord 終了通知は原則90日前 (身体的暴行+警察立件の場合は14日前の approved form)。通知だけで強制退去はできず、tenant が退去しない場合 landlord は Tenancy Tribunal に possession order を申立てる必要がある — 申立てがあれば期日までに応答; tenancy 終了後90日 landlord が possession order を得ないまま居住が続くと新たな periodic tenancy が生じる"
-    :dl/anchor "Residential Tenancies Act 1986 s.51 (+ Tenancy Tribunal possession)" :dl/verify-service-date true}]
+    :dl/anchor "Residential Tenancies Act 1986 s.51 (+ Tenancy Tribunal possession)" :dl/source-url "https://www.legislation.govt.nz/act/public/1986/0120/latest/whole.html" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :tribunal-response :opt/kind :self-submit :opt/protective true :opt/label "Tenancy Tribunal の申立てに応答・出席 (通知の有効性・期間を争う)"}
    {:opt/id :no-self-help-protection :opt/kind :self-decide :opt/protective true :opt/label "自力救済 (鍵交換・荷物搬出・電気停止) は違法 — 強制退去は Tenancy Tribunal の possession order によってのみ; 受けたら Tenancy Services・Community Law へ"}]
