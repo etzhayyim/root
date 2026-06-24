@@ -13,7 +13,7 @@
 import type { InfraActorEntry } from "./infra-actors";
 
 export const TIER_B_GENERATED_AT = "2026-06-04T00:00:00+00:00";
-export const TIER_B_TOTAL_COUNT = 115;
+export const TIER_B_TOTAL_COUNT = 114;
 
 export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
   "ainori": {
@@ -30,7 +30,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "akashi": {
-    description: "kotoba-native public ad-disclosure transparency actor. Passively ingests already-public platform ad-library disclosures into kotoba EAVT and emits source-cited, non-adjudicating transparency links and aggregate reports. Sibling to danjo; bounded away from malak except for reviewed fraud/malware-ad evidence candidates.",
+    description: "証 — Public Ad Disclosure Transparency",
     glyph: "証",
     displayName: "証 — Public Ad Disclosure Transparency",
     adrs: ["2606022300"],
@@ -134,7 +134,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "chigiri": {
-    description: "Non-profit religious-corp legal procedure substrate. Procedural template + on-chain attestation + routing substrate for the 任意団体 internal procedures, external state-system interfaces, and Charter §1.12 state-function routing-around. NOT a commercial law firm and NOT an unauthorized practice of law (UPL constitutionally prohibited per G14). 13 cells / 11 Lexicons under com.etzhayyim.chigiri.* / 17 immutable gates / 12 non-goals. Adds a free legal-aid lane (legal_aid_clinic cell, ADR-2605302200, G14/G15/G16) + a Japan 認証ADR mediation lane (dispute_mediation, ADR-2605302330, G17); advice/representation is delivered by jurisdiction-licensed human counsel via the Public Fund, never by chigiri. Consumes the global legal corpus from ADR-2605262800 (statutes / cases / treaties / procedures / templates). Replaces the legacy lawfirm.etzhayyim.com reference in hanrei.",
+    description: "契 — Covenant (legal procedure substrate)",
     glyph: "契",
     displayName: "契 — Covenant (legal procedure substrate)",
     adrs: ["2605262700", "2605192100"],
@@ -433,7 +433,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "iyashi": {
-    description: "Non-profit religious-corp clinical care provider substrate. Community-clinic-model primary care + chronic followup + vaccination + acute first-line + maternity/pediatric clinical. Encrypted PHI envelope MANDATORY (G2 per ADR-2605181100). NO commercial EHR (G11; Epic/Cerner/Athena/Allscripts/NextGen/eClinicalWorks/Greenway/Practice Fusion PROHIBITED per Charter Rider §2(e)+§2(c)). NO insurance billing (G13; funded via Public Fund grant + sliding-scale donation). NO payroll for providers (G14; vocation-flow L5 stewards). Murakumo-only inference (G12). NO video recording firmware-level (G3). Human-in-loop ALWAYS (G8). 6 cells / 6 Lexicons / 14 gates / 12 non-goals. Cross-actor: mitate (diagnosis) / hagukumi (daily-living) / yakushi (medication) / toritate (funding) / chigiri (consent + procedural) / manabi (provider CME) / kokoro (mental health, future).",
+    description: "癒 — Clinical Care Provider",
     glyph: "癒",
     displayName: "癒 — Clinical Care Provider",
     adrs: ["2605263000", "2605261000"],
@@ -615,7 +615,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "kokoro": {
-    description: "Non-profit religious-corp mental health support substrate. Community + spiritual + relational framing (NOT clinical psychiatry). Peer support circles + post-funeral grief support + chronic mental health continuity + postnatal mood screening (opt-in) + acute crisis escalation (mitate G5) + counseling referral. **CRITICAL boundary**: NOT clinical psychiatric entity; NOT state-licensed psych; counselors are L5 vocation-flow community-witnessed-competent (musubi G3 pattern). Does NOT diagnose (mitate). Does NOT prescribe (yakushi). Encrypted envelope MANDATORY (G4). NO conversion therapy (G5). Human-in-loop ALWAYS (G6). NO commercial mental health software (G7: BetterHelp/Talkspace/Cerebral/Modern Health/Lyra/Calm-business/Headspace-Enterprise/Spring Health/Brightline/Octave/Two Chairs/Charlie Health PROHIBITED). NO commercial AI therapy chatbot (G8: Woebot/Wysa/Replika-as-therapy/character.ai-as-therapy/GPT-as-therapy/Anthropic-direct-therapy/Claude-as-therapy PROHIBITED). NO mandatory screening (G9: opt-in only). NO surveillance-based mood monitoring (G10: Charter §2(c)). Multi-gen peer support (G11). Cross-doctrinal Wellbecoming (G12). Acute crisis → mitate G5 emergency keyword (G13). 6 cells / 5 Lexicons / 14 gates / 12 non-goals.",
+    description: "心 — Mental Health Support",
     glyph: "心",
     displayName: "心 — Mental Health Support",
     adrs: ["2605263700", "2605192100"],
@@ -778,19 +778,6 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     service: [
       {
         id: "did:web:etzhayyim.com:actor:mio#atproto_pds",
-        type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
-      },
-    ],
-  },
-  "mitate": {
-    description: "Religious-corp first-party diagnostic + treatment routing actor — sibling of yakushi (drug-side). Wave 1 reference = chronic nasal congestion 5-condition triage (allergic-rhinitis-perennial / vasomotor-rhinitis / chronic-sinusitis / septal-deviation / rhinitis-medicamentosa). All 13 cells gated import-time RuntimeError until Council Lv6+ ≥ 3 silen-mitate-review attestation + licensed-MD-in-loop registry per ADR-2605260100. Per ADR-2605260100/115/130/145/160/175.",
-    glyph: "見立て",
-    displayName: "見立て (mitate)",
-    adrs: ["2605260100", "2605260115", "2605260130", "2605260145", "2605260160", "2605260175", "2605192100", "2605192115", "2605192200", "2605192230", "2605192315", "2605192400", "2605192415", "2605201400", "2605181100", "2605172000", "2605231500", "2605231525", "2605215000", "2605250500"],
-    service: [
-      {
-        id: "did:web:etzhayyim.com:actor:mitate#atproto_pds",
         type: "AtprotoPersonalDataServer",
         serviceEndpoint: "https://pds.etzhayyim.com",
       },
@@ -1070,7 +1057,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "sonae": {
-    description: "Non-profit religious-corp civilian PRE-disaster substrate: prevention / mitigation / preparedness / early warning. The 'before' half of the disaster cycle; response (during) is kazaori (ADR-2605263200) and sonae MUST NOT do response (N3, clean phase boundary). Hazard watch from OPEN government feeds (USGS / PHIVOLCS / JMA / GDACS / Copernicus EMS / WMO GTS) → community risk assessment → official-warning RELAY (relay-only, authoritativeSource cited) → preparedness planning + stockpile pre-positioning → drills → imminence signal handoff to kazaori. NOT military (G5+N1; force separate per ADR-2605192315). NO false authority (G8 — MUST NOT originate official seismic/tsunami warnings; relayOnly const true). NO unilateral disaster declaration (G10 — only kazaori Council Lv6+ >=4/7 may declare). NO commercial disaster-prediction software (G4: One Concern / FloodFlash / Jupiter Intelligence / RMS / Tomorrow.io enterprise / Everbridge / OnSolve / AlertMedia PROHIBITED per Charter Rider §2(e)+§2(c)). NO surveillance (G6: open feeds + opt-in self-report only; no individual tracking / no person-profiling). Murakumo-only inference (G7). Community-scale only (G3; NOT national early-warning replacement). Sendai Framework + Sphere reference (G9). 6 cells / 6 Lexicons / 12 gates / 12 non-goals.",
+    description: "備え — Civilian Pre-Disaster Foresight + Preparedness + Early-Warning",
     glyph: "備え",
     displayName: "備え — Civilian Pre-Disaster Foresight + Preparedness + Early-Warning",
     adrs: ["2606091200", "2605192100", "2605263200"],
@@ -1148,10 +1135,10 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "tadori": {
-    description: "Non-profit religious-corp authorized, case-anchored on-chain transaction-tracing + actor-attribution actor. kotoba-EAVT-native consolidation point for the malak pursuit Pregel output (ADR-2605152000), ipaddress 1次 IP/WHOIS/GeoIP collection, and yabai CTI/DNS/IP-history/access-audit. Owns the durable case graph + the cross-store attribution join (address → cluster → ip-obs → dns-obs → person) that no single store produces today, expressed as kotoba-kqe Datalog rules over the four arrangements (EAVT/AEVT/AVET/VAET; VAET reverse-edge = yabai correlate-ip-activity, 2-hop). Authorized-investigation-only, open-source, on-chain-monitorable, PII-encrypted, evidence-producing (NOT enforcement). 6 cells / 4 Lexicons under com.etzhayyim.tadori.* / 12 immutable gates / 12 non-goals. kotoba-native (datom/EAVT + MST; NOT yata SQL / RisingWave).",
+    description: "辿 — Trace (authorized on-chain transaction tracing + actor attribution)",
     glyph: "辿",
     displayName: "辿 — Trace (authorized on-chain transaction tracing + actor attribution)",
-    adrs: ["2605192100", "2605262130", "2605301400", "2605152000"],
+    adrs: ["2605301400", "2605152000", "2605192100", "2605262130"],
     service: [
       {
         id: "did:web:etzhayyim.com:actor:tadori#atproto_pds",
@@ -1278,7 +1265,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "toritate": {
-    description: "Non-profit religious-corp accounting + audit substrate. Aggregates on-chain TitheRouter + Public Fund Safe + Council Safe + Land Registry transactions into transparent reports. 100% on-chain transparency invariant (G3). No commercial accounting software (G8 PROHIBITED). No tax-advice rendering (G5; external opinion via Public Fund Council Lv6+). No payroll (volunteer ≠ employee). 6 cells / 5 Lexicons / 12 gates / 12 non-goals.",
+    description: "執帳 — Accounting + Audit",
     glyph: "執帳",
     displayName: "執帳 — Accounting + Audit",
     adrs: ["2605262900", "2605192145"],
@@ -1291,7 +1278,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "toritsugi": {
-    description: "kotoba-native citizen-facing government-procedure concierge — the SERVICE-DELIVERY counterpart to passive danjo (watches the state) and himotoki (exercises a right of access). toritsugi stands at the 窓口 ON THE CITIZEN'S SIDE and relays a CONSENTING member through a government / municipal procedure (the LINE 公式アカウント role): proactively surfaces available 制度/給付, explains the 手続き, assembles the 必要書類 checklist, and assists filling the 様式 so the MEMBER THEMSELVES submits + signs (案内 + 伴走 + 本人提出支援, default mode). A gated R3 exception adds 本人同意ベース提出代行 — filing the member's OWN procedure via the official channel under explicit per-submission consent + DID/SBT + 行政書士法 clearance + Council Lv7+. Driven by a CODED procedure registry (procedure) holding each procedure's 窓口 / 所管 / オンライン申請URL / 必要書類 / 様式 / 手数料 / 法定処理期間 / 根拠法令 / channel. Consent-gated own-procedure-only (G3), transparent + non-pretextual (G4), 行政書士法/UPL-bounded (G5, no advice + no 作成代理 → chigiri + licensed), PII-encrypted (G6), Murakumo-only (G7), non-fabrication (G8), non-profit (G9), lawful-channel-only (G10), Transparent Religious Force (G11), verified-procedure-only submission (G14), member-self-submission default (G15). JP-first (R0); architecture jurisdiction-generic. 7 cells / 6 Lexicons / 15 gates / 14 non-goals.",
+    description: "取次 — Citizen-Facing Government-Procedure Concierge",
     glyph: "取次",
     displayName: "取次 — Citizen-Facing Government-Procedure Concierge",
     adrs: ["2605312030", "2605262700"],
@@ -1330,7 +1317,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "tsukuroi": {
-    description: "Non-profit religious-corp authorized vulnerability-remediation + patch-proposal actor; the constructive sibling of akuma (悪魔, ADR-2605151400). Closes the akuma diagnosis loop (akuma states automated patch generation/submission is out of scope): consumes an owner-attested vulnerability finding → synthesizes a defensive fix patch (Murakumo-only LLM) → validates in an egress-restricted sandbox → PROPOSES it to the authorized target (fork-and-PR / signed patch bundle). PROPOSE-ONLY: a human owner merges; tsukuroi performs NO probing and holds NO merge/deploy authority and NO platform master key. 7 cells / 5 Lexicons under com.etzhayyim.tsukuroi.* / 13 immutable gates / 12 non-goals. kotoba-native (datom/EAVT + MST; NOT akuma's older RisingWave plane).",
+    description: "繕い — Mend (authorized vulnerability remediation + patch proposal)",
     glyph: "繕い",
     displayName: "繕い — Mend (authorized vulnerability remediation + patch proposal)",
     adrs: ["2605291500", "2605151400", "2605192100"],
@@ -1447,7 +1434,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "wakai": {
-    description: "Non-profit religious-corp mutual aid substrate. NOT insurance (no premium-as-contract; no actuarial pricing; no claim adjudication; no policy denial). Member-to-member solidarity pooling per Charter §1.7 反個人主義 + 多世代. Pool in USDC on Base L2 stable-asset only. NO commercial insurance software (G4: Guidewire/Duck Creek/Insurity/Sapiens/Majesco/SAP Insurance/Oracle Insurance/Lemonade/Hippo PROHIBITED per Charter Rider §2(e)+§2(c)). NO commercial re-insurance (G5: Munich Re/Swiss Re/SCOR/Hannover Re PROHIBITED). NO investment return promise (G6: Charter Rider §2(b) speculative finance). NO pre-existing condition discrimination (G7). Voluntary ability-scaled contribution (G8). Community discernment distribution (G9: Council Lv6+ ≥3 + ≥3 community attestation). Public Fund backstop (G10). NO payroll (G11). 6 cells / 5 Lexicons / 12 gates / 12 non-goals.",
+    description: "和会 — Mutual Aid",
     glyph: "和会",
     displayName: "和会 — Mutual Aid",
     adrs: ["2605263500", "2605192145"],
