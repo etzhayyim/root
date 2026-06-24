@@ -2296,7 +2296,7 @@
   :proc/deadline-rules
   [{:dl/label "WRC complaint"
     :dl/rule "unfair dismissal complaint は WRC へ6か月以内 (reasonable cause で最大12か月) — 原則1年以上の継続雇用が適格要件"
-    :dl/anchor "Unfair Dismissals Act 1977 / Workplace Relations Act 2015 s.41" :dl/critical true :dl/verify-service-date true}]
+    :dl/anchor "Unfair Dismissals Act 1977 / Workplace Relations Act 2015 s.41" :dl/source-url "https://www.irishstatutebook.ie/eli/1977/act/10/" :dl/critical true :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :wrc :opt/kind :self-submit :opt/protective true
     :opt/label "WRC へオンライン complaint (無料・本人可)"}
@@ -2325,7 +2325,7 @@
   :proc/deadline-rules
   [{:dl/label "Proof of debt"
     :dl/rule "清算人 (liquidator) が書面通知で証明期限を定める — 通知日から28日以上後でなければならない; 期限内に証明しない債権者は、その債権が証明される前になされた配当の利益から除外される。裁判所は債権者の申立てにより期限を延長できる"
-    :dl/anchor "Companies Act 2014 s.674(1)-(3) (延長: s.674(4))" :dl/verify-service-date true}]
+    :dl/anchor "Companies Act 2014 s.674(1)-(3) (延長: s.674(4))" :dl/source-url "https://www.irishstatutebook.ie/eli/2014/act/38/" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :proof :opt/kind :self-submit :opt/protective true
     :opt/label "proof of debt を liquidator へ提出 (本人可; prepayment・deposit・gift voucher など前払金も debt: kaiyaku 縁-ledger と突合)"}]
@@ -2354,7 +2354,7 @@
   :proc/deadline-rules
   [{:dl/label "RTB dispute"
     :dl/rule "Notice of Termination が無効と考えるなら、受領から90日以内に RTB へ dispute を申立て (家賃滞納・テナント義務違反による終了は28日); 通知だけで退去義務は生じず、RTB は有効な Notice of Termination 満了後にのみ退去を命じうる"
-    :dl/anchor "Residential Tenancies Act 2004 (RTB dispute)" :dl/verify-service-date true}]
+    :dl/anchor "Residential Tenancies Act 2004 (RTB dispute)" :dl/source-url "https://www.irishstatutebook.ie/eli/2004/act/27/" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :rtb-dispute :opt/kind :self-submit :opt/protective true :opt/label "RTB へ dispute を申立て (Notice of Termination の有効性を争う)"}
    {:opt/id :no-self-help-protection :opt/kind :self-decide :opt/protective true :opt/label "自力救済 (鍵交換・電気停止・脅迫による追い出し) は違法 — 退去は RTB/裁判所命令によってのみ; 受けたら RTB・Threshold・Gardaí へ"}]
