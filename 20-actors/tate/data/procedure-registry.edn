@@ -2657,7 +2657,7 @@
   :proc/deadline-rules
   [{:dl/label "Svaromål / betänketid"
     :dl/rule "tingsrätt の通知期限内に svaromål — 16歳未満の子と同居 or 一方が争う場合は **betänketid (考慮期間) 6か月〜24か月** が自動で入る (即時離婚にならない)"
-    :dl/anchor "äktenskapsbalken 5 kap. 1-3§§" :dl/verify-service-date true}]
+    :dl/anchor "äktenskapsbalken 5 kap. 1-3§§" :dl/source-url "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/aktenskapsbalk-1987230_sfs-1987-230/" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :svaromal :opt/kind :self-submit :opt/protective true
     :opt/label "svaromål を提出 (本人可 — bodelning 財産分割は別手続)"}
@@ -2690,7 +2690,7 @@
   :proc/deadline-rules
   [{:dl/label "Förbehållsbelopp (existensminimum)"
     :dl/rule "Kronofogden は förbehållsbelopp (生活維持額 — normalbelopp + 住居費) を必ず残す — 世帯事情の変化は再計算を請求できる"
-    :dl/anchor "utsökningsbalken 7 kap. 4-5§§" :dl/verify-service-date true}]
+    :dl/anchor "utsökningsbalken 7 kap. 4-5§§" :dl/source-url "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/utsokningsbalk-1981774_sfs-1981-774/" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :forbehall-check :opt/kind :self-submit :opt/protective true
     :opt/label "förbehållsbelopp の再計算を Kronofogden へ請求 (扶養・医療費等を申告)"}
@@ -2722,7 +2722,7 @@
   :proc/deadline-rules
   [{:dl/label "Anmälan / bevakning"
     :dl/rule "債権は konkursförvaltare へ anmäl — bevakningsförfarande (届出手続) は裁判所が命じた場合のみで, その場合は公告の frist 内に bevaka (徒過は配当外リスク)"
-    :dl/anchor "konkurslagen 9 kap." :dl/verify-service-date true}]
+    :dl/anchor "konkurslagen 9 kap." :dl/source-url "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/konkurslag-1987672_sfs-1987-672/" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :anmala :opt/kind :self-submit :opt/protective true
     :opt/label "förvaltare へ債権を anmäl (förskott・presentkort も債権: kaiyaku 縁-ledger と突合)"}
