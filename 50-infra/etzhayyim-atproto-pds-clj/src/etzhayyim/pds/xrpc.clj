@@ -102,3 +102,62 @@
              "collections" collections
              "handleIsCorrect" true
              "recordCount" count})))))
+
+;; ── account lifecycle (ADR-2606242330 P1) ────────────────────────────────────
+
+(defn- under-user-domain? [handle]
+  (boolean (and handle (some #(or (= handle %) (str/ends-with? handle (str "." %)))
+                             cfg/user-domains))))
+
+(defn- session-tokens [did]
+  {"accessJwt"  (str "etzhayyim-session." (util/content-cid did))
+   "refreshJwt" (str "etzhayyim-refresh." (util/content-cid (str did "/r")))})
+
+(defn create-account
+  "com.atproto.server.createAccount — register a handle under a user-domain and
+  open its repo. Real JWT/OAuth issuance stays staged (README #3); the session
+  token shape mirrors createSession."
+  [store {:keys [handle did email]}]
+  (cond
+    (str/blank? handle) (err 400 "InvalidRequest" "handle is required")
+    (not (under-user-domain? handle))
+    (err 400 "InvalidHandle"
+         (str "handle must be under one of: " (str/join ", " cfg/user-domains)))
+    :else
+    (let [did (if (str/blank? did) (str "did:web:" handle) did)
+          res (store/create-account store did handle email)]
+      (if (:error res)
+        (err 400 "HandleNotAvailable" (:error res))
+        (ok (merge {"did" did "handle" handle} (session-tokens did)))))))
+
+(defn get-session
+  "com.atproto.server.getSession — reflect the account for an identifier (did or
+  handle). Auth is stubbed (README #3); identity is taken from the param here."
+  [store {:keys [identifier handle did]}]
+  (let [ident (or identifier handle did)
+        acct (and (not (str/blank? ident)) (store/get-account store ident))]
+    (if acct
+      (ok {"did" (:did acct) "handle" (:handle acct) "active" true})
+      (err 400 "InvalidRequest" "no account for identifier"))))
+
+(defn upload-blob
+  "com.atproto.repo.uploadBlob — store raw bytes, return a blob ref. `did` is the
+  uploading repo (from the stubbed session / optional param)."
+  [store did mime ^bytes data]
+  (if (or (nil? data) (zero? (alength data)))
+    (err 400 "InvalidRequest" "blob body is empty")
+    (let [{:keys [cid mimeType size]} (store/put-blob store did mime data)]
+      (ok {"blob" {"$type" "blob"
+                   "ref" {"$link" cid}
+                   "mimeType" mimeType
+                   "size" size}}))))
+
+(defn get-blob
+  "com.atproto.sync.getBlob — return the raw blob. The HTTP layer serves
+  `:blob` as the raw body with its mimeType; JSON errors use the usual shape."
+  [store {:keys [cid]}]
+  (if (str/blank? cid)
+    (err 400 "InvalidRequest" "cid is required")
+    (if-let [b (store/get-blob store cid)]
+      {:status 200 :blob b}
+      (err 404 "BlobNotFound" "blob not found"))))
