@@ -19,6 +19,6 @@
   ;; derive — 取-concentration → release priority (Datalog).
   (kqe-query "release(?d) :- grasps(?d)."))
 
-(defn on-http [req]
-  ;; read path for the /tsumugi route.
+(defn on-kse [topic payload]
+  ;; KSE-topic trigger (observatory on-kse pattern, ADR-2606230001 §4).
   (kqe-query "release(?d) :- grasps(?d)."))

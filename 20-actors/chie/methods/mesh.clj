@@ -18,6 +18,6 @@
   ;; derive — capability concentration → opening priority (Datalog).
   (kqe-query "opening(?c) :- holds(?c)."))
 
-(defn on-http [req]
-  ;; read path for the /chie route.
+(defn on-kse [topic payload]
+  ;; KSE-topic trigger (observatory on-kse pattern, ADR-2606230001 §4).
   (kqe-query "opening(?c) :- holds(?c)."))

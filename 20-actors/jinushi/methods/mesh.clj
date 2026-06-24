@@ -19,6 +19,6 @@
   ;; derive — ownership concentration → commons-return priority (Datalog).
   (kqe-query "commons-return(?l) :- holds(?l)."))
 
-(defn on-http [req]
-  ;; read path for the /jinushi route.
+(defn on-kse [topic payload]
+  ;; KSE-topic trigger (observatory on-kse pattern, ADR-2606230001 §4).
   (kqe-query "commons-return(?l) :- holds(?l)."))

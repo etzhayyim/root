@@ -18,6 +18,6 @@
   ;; derive — enclosure concentration → opening priority (Datalog).
   (kqe-query "opening(?w) :- gates(?w)."))
 
-(defn on-http [req]
-  ;; read path for the /asobi route.
+(defn on-kse [topic payload]
+  ;; KSE-topic trigger (observatory on-kse pattern, ADR-2606230001 §4).
   (kqe-query "opening(?w) :- gates(?w)."))

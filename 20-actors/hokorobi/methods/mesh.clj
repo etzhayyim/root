@@ -18,6 +18,6 @@
   ;; derive — systemic-risk concentration → resilience priority (Datalog).
   (kqe-query "resilience(?b) :- stresses(?b)."))
 
-(defn on-http [req]
-  ;; read path for the /hokorobi route.
+(defn on-kse [topic payload]
+  ;; KSE-topic trigger (observatory on-kse pattern, ADR-2606230001 §4).
   (kqe-query "resilience(?b) :- stresses(?b)."))
