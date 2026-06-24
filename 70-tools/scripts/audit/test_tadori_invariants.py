@@ -39,7 +39,9 @@ _CASE = _TADORI_LEX / "caseMandate.json"
 _ATTR = _TADORI_LEX / "attributionFinding.json"
 _TRACE = _TADORI_LEX / "traceReport.json"
 _SILEN = _TADORI_LEX / "silenTadoriReview.json"
-_MANIFEST = _REPO / "20-actors" / "tadori" / "manifest.jsonld"
+# manifest invariants moved to 20-actors/tadori/methods/test_manifest_invariants.cljc
+# (reads manifest.edn; the jsonld is retired). This suite keeps the lexicon + Python
+# cell-scaffold invariants, which do not read the manifest.
 _CELLS = _REPO / "20-actors" / "kotodama" / "cells"
 
 _CELL_NAMES = [
@@ -184,60 +186,19 @@ class TestCellsRaiseAtImport:
         assert present == set(_CELL_NAMES), f"cell set drifted: {present ^ set(_CELL_NAMES)}"
 
 
-# ─── 6. manifest gates ──────────────────────────────────────────────────
+# ─── 6. manifest gates + manifest↔disk consistency ──────────────────────
+# Moved to 20-actors/tadori/methods/test_manifest_invariants.cljc (reads
+# manifest.edn; the jsonld is retired). The lexicon-id ↔ filename check below
+# reads only the lexicon JSONs (no manifest), so it stays here.
 
 
-class TestManifestGates:
-    def test_twelve_gates_present(self):
-        gates = _load(_MANIFEST)["constitutionalGates"]["gates"]
-        assert set(gates) == {f"G{i}" for i in range(1, 13)}, "must pin exactly G1..G12"
-
-    def test_evidence_only_not_enforcement(self):
-        ceiling = _load(_MANIFEST)["capabilityCeiling"]
-        assert "evidenceOnlyNotEnforcement" in ceiling, (
-            "G7: tadori is evidence-producing; enforcement routes via yabai + Council"
-        )
-
-    def test_lexicon_namespaces_match_the_four_lexicons(self):
-        ns = set(_load(_MANIFEST)["lexiconNamespaces"])
-        assert ns == {
-            "com.etzhayyim.tadori.caseMandate",
-            "com.etzhayyim.tadori.attributionFinding",
-            "com.etzhayyim.tadori.traceReport",
-            "com.etzhayyim.tadori.silenTadoriReview",
-        }, "manifest lexiconNamespaces must match the 4 shipped Lexicons"
-
-
-# ─── 7. manifest ↔ on-disk artifact consistency (drift guards) ──────────
-
-
-class TestManifestArtifactConsistency:
-    def test_namespaces_match_disk_lexicon_files_bidirectionally(self):
-        # Every declared namespace has a file; every file (minus README) is
-        # declared — catches an orphan lexicon or a phantom namespace.
-        declared = {ns.rsplit(".", 1)[-1] for ns in _load(_MANIFEST)["lexiconNamespaces"]}
-        on_disk = {p.stem for p in _TADORI_LEX.glob("*.json")}
-        assert declared == on_disk, (
-            f"manifest namespaces vs disk lexicons drifted: {declared ^ on_disk}"
-        )
-
+class TestLexiconArtifactConsistency:
     def test_each_lexicon_id_matches_its_namespace(self):
         for p in _TADORI_LEX.glob("*.json"):
             lex_id = _load(p)["id"]
             assert lex_id == f"com.etzhayyim.tadori.{p.stem}", (
                 f"{p.name}: lexicon id {lex_id!r} must match its filename + namespace"
             )
-
-    def test_manifest_cell_modules_match_cell_dirs(self):
-        modules = {c["module"] for c in _load(_MANIFEST)["cells"]}
-        expected = {f"kotodama.cells.{name}" for name in _CELL_NAMES}
-        assert modules == expected, f"manifest cell modules vs dirs drifted: {modules ^ expected}"
-
-    def test_did_is_consistent_across_artifacts(self):
-        man = _load(_MANIFEST)
-        assert man["id"] == "did:web:tadori.etzhayyim.com"
-        assert man["name"] == "tadori"
-        assert man["tier"] == "Tier-B"
 
 
 # ─── 8. lexicon enum coverage (designed value sets) ─────────────────────
