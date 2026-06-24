@@ -2222,7 +2222,7 @@
   :proc/deadline-rules
   [{:dl/label "Kanneaika (出訴期間)"
     :dl/rule "perusteeton irtisanominen の korvaus 請求は työsuhteen päättymisestä 2 vuotta 以内"
-    :dl/anchor "työsopimuslaki 13 luku 9§" :dl/verify-service-date true}]
+    :dl/anchor "työsopimuslaki 13 luku 9§" :dl/source-url "https://www.finlex.fi/fi/laki/ajantasa/2001/20010055" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :liitto :opt/kind :self-decide :opt/protective true
     :opt/label "liitto (組合) + työttömyyskassa へ即連絡 (給付と法的支援)"}
@@ -2266,7 +2266,7 @@
   :proc/deadline-rules
   [{:dl/label "Saatavan valvonta"
     :dl/rule "pesänhoitaja (破産管財人) が定め公告する valvontapäivä (届出日) までに valvontakirjelmä (届出書) で saatava を pesänhoitaja へ valvoa; 期日後の届出 (jälkivalvonta) は手数料を要し、怠ると債権を失うことがある"
-    :dl/anchor "Konkurssilaki (120/2004) 12 luku (valvonta)" :dl/verify-service-date true}]
+    :dl/anchor "Konkurssilaki (120/2004) 12 luku (valvonta)" :dl/source-url "https://www.finlex.fi/fi/laki/ajantasa/2004/20040120" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :valvonta :opt/kind :self-submit :opt/protective true
     :opt/label "valvontakirjelmä を pesänhoitaja へ提出 (本人可; ennakkomaksu・vakuus・lahjakortti など前払金も saatava: kaiyaku 縁-ledger と突合)"}]
