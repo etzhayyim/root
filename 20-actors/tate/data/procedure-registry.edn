@@ -694,7 +694,7 @@
   :proc/deadline-rules
   [{:dl/label "Form 31 proof of claim"
     :dl/rule "LIT (trustee) からの通知後 Form 31 を提出 — first meeting 前なら投票可, dividend の前提; **倒産雇用主の元従業員は WEPP (賃金保護) を別途申請できる**"
-    :dl/anchor "BIA s.124 / Form 31; WEPP Act" :dl/verify-service-date true}]
+    :dl/anchor "BIA s.124 / Form 31; WEPP Act" :dl/source-url "https://laws-lois.justice.gc.ca/eng/acts/B-3/" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :form31 :opt/kind :self-submit :opt/protective true
     :opt/label "Form 31 を提出 (無料・本人可 — 前払金・deposit も債権: kaiyaku 縁-ledger と突合)"}
@@ -743,7 +743,7 @@
   :proc/deadline-rules
   [{:dl/label "80% 保護 (生計保護)"
     :dl/rule "ON では賃金の80%が差押禁止 (差押え可能は20%まで; support 債権は50%まで) — hardship なら判事が保護割合をさらに増やせる"
-    :dl/anchor "ON Wages Act s.7" :dl/verify-service-date true}]
+    :dl/anchor "ON Wages Act s.7" :dl/source-url "https://www.ontario.ca/laws/statute/90w01" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :exemption-motion :opt/kind :self-submit :opt/protective true
     :opt/label "生活困難なら保護割合の引上げを motion で申立て (Wages Act s.7(3) — 法定の権利)"}
@@ -759,7 +759,7 @@
   :proc/deadline-rules
   [{:dl/label "Defence (Form 9A) の提出"
     :dl/rule "送達から20日以内 (ON Rules of the Small Claims Court r. 9.01; 州により異なる)"
-    :dl/anchor "ON Small Claims Rules r. 9.01" :dl/verify-service-date true}]
+    :dl/anchor "ON Small Claims Rules r. 9.01" :dl/source-url "https://www.ontario.ca/laws/regulation/980258" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :defence :opt/kind :self-submit :opt/label "Defence を提出 (認否 + 分割払い提案も可)"}
    {:opt/id :settle :opt/kind :self-decide :opt/label "settlement conference 前の和解検討"}]
@@ -773,7 +773,7 @@
   :proc/deadline-rules
   [{:dl/label "Answer (Form 10) の serve & file"
     :dl/rule "Application 送達から30日以内に Answer (Form 10) を全当事者へ serve & file (カナダ国外・米国外で送達されたなら60日); 期限内に応答しないと自分抜きで手続が進む。相手の Answer に対しては Reply (Form 10A) を10日以内に (Ontario; 家事手続は州管轄 — 通知記載と州規則を確認)"
-    :dl/anchor "Ontario Family Law Rules (O Reg 114/99) r.10(1)" :dl/verify-service-date true}]
+    :dl/anchor "Ontario Family Law Rules (O Reg 114/99) r.10(1)" :dl/source-url "https://www.ontario.ca/laws/regulation/990114" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :answer :opt/kind :self-submit :opt/protective true :opt/label "Answer (Form 10) を全当事者へ serve & file (認否 + 自分の claim があれば併せて)"}
    {:opt/id :reply :opt/kind :self-submit :opt/label "相手の Answer には Reply (Form 10A) を10日以内に"}]
