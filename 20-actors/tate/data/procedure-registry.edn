@@ -1489,7 +1489,7 @@
   :proc/deadline-rules
   [{:dl/label "Klagebeantwortung / 期日"
     :dl/rule "Bezirksgericht の指定に従い応答・出頭 — **einvernehmliche Scheidung (§55a EheG, 半年別居+合意) への転換が最も低負担**; 争訟型は Verschulden が財産・扶養に影響"
-    :dl/anchor "EheG §49・§55a / ZPO" :dl/verify-service-date true}]
+    :dl/anchor "EheG §49・§55a / ZPO" :dl/source-url "https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=10001871" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :einvernehmlich :opt/kind :self-decide :opt/protective true
     :opt/label "合意できるなら §55a 転換 (両者で申立て — 弁護士なしも可)"}
@@ -1519,7 +1519,7 @@
   :proc/deadline-rules
   [{:dl/label "Existenzminimum (生計保護)"
     :dl/rule "**unpfändbares Existenzminimum** (扶養で増額) は必ず手元に残る — 雇用主が表で自動計算; 誤りや事情変更は Exekutionsgericht へ"
-    :dl/anchor "EO §291a 以下 (Existenzminimum-Verordnung)" :dl/verify-service-date true}]
+    :dl/anchor "EO §291a 以下 (Existenzminimum-Verordnung)" :dl/source-url "https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=10001700" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :em-check :opt/kind :self-decide :opt/protective true
     :opt/label "Existenzminimum 表との一致を確認 (AK が無料で再計算してくれる)"}
