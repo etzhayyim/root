@@ -2564,7 +2564,7 @@
   :proc/deadline-rules
   [{:dl/label "Odwołanie do sądu pracy"
     :dl/rule "wypowiedzenie/rozwiązanie への odwołanie は21 dni 以内に sąd pracy へ — 徒過は原則失権 (przywrócenie terminu は例外)"
-    :dl/anchor "Kodeks pracy art. 264" :dl/critical true :dl/verify-service-date true}]
+    :dl/anchor "Kodeks pracy art. 264" :dl/source-url "https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU19740240141" :dl/critical true :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :odwolanie :opt/kind :self-submit :opt/protective true
     :opt/label "odwołanie を sąd pracy へ (21日 — 労働事件は手数料免除が広い)"}
@@ -2579,7 +2579,7 @@
   :proc/deadline-rules
   [{:dl/label "Kwota wolna (生計保護)"
     :dl/rule "差押えは賃金の50%まで (alimenty は3/5) + **最低賃金 (minimalne wynagrodzenie) 相当は kwota wolna として必ず残る**"
-    :dl/anchor "Kodeks pracy art. 87・87¹" :dl/verify-service-date true}]
+    :dl/anchor "Kodeks pracy art. 87・87¹" :dl/source-url "https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU19740240141" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :kwota-check :opt/kind :self-decide :opt/protective true
     :opt/label "kwota wolna が残っているか給与明細で確認 (誤りは komornik へ skarga)"}
@@ -2594,7 +2594,7 @@
   :proc/deadline-rules
   [{:dl/label "Odpowiedź na pozew"
     :dl/rule "sąd okręgowy 指定の期限内に odpowiedź na pozew — 無応答でも審理は進む (rozwód は職権調査事項あり); mediacja への付託を求められる"
-    :dl/anchor "KPC art. 2051・436" :dl/verify-service-date true}]
+    :dl/anchor "KPC art. 2051・436" :dl/source-url "https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU19640430296" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :odpowiedz :opt/kind :self-submit :opt/protective true
     :opt/label "odpowiedź na pozew を期限内に (本人可 — 子・住居・winy の争点を整理)"}
@@ -2628,7 +2628,7 @@
   :proc/deadline-rules
   [{:dl/label "Sprzeciw / zarzuty (異議)"
     :dl/rule "doręczenie (送達) から2週間以内に sprzeciw (upominawcze) または zarzuty (nakazowe)"
-    :dl/anchor "KPC art. 480² § 1 / art. 505" :dl/verify-service-date true}]
+    :dl/anchor "KPC art. 480² § 1 / art. 505" :dl/source-url "https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU19640430296" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :sprzeciw :opt/kind :self-submit :opt/label "sprzeciw を発令裁判所へ提出 (→ 通常手続へ)"}
    {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/分割交渉"}]
