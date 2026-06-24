@@ -11,6 +11,7 @@ breaking the gftd.ai dependency. Updated by the maturity `/loop`.
 | Resident deploy (self-healing) | ✅ | LaunchDaemon on `asher` (RunAtLoad+KeepAlive), live |
 | `com.atproto.repo.*` (CRUD) | ✅ | create/get/put/delete/listRecords/describeRepo; **record sanity on write** (object + `$type` required, 400 else); **latest-wins updates** + revive-after-delete (store folds the ordered log, not unordered EAVT sets) |
 | **`swapRecord` concurrency** | ✅ | compare-and-set on put/delete/applyWrites — stale CID → 409 `InvalidSwap`; verified live |
+| **`getRecord` cid pin + applyWrites atomicity** | ✅ | `getRecord?cid=` returns 404 on version mismatch; an `applyWrites` batch with any invalid write applies NONE (validated up front); verified live |
 | **lexicon-shape validation** | ✅ | opt-in (`PDS_VALIDATE_RECORDS`): known `app.bsky.*` collections enforce required fields + string types (createRecord/putRecord/applyWrites); unknown collections pass |
 | **`listRecords` full cursor** | ✅ | `reverse` + `rkeyStart`/`rkeyEnd` bounds + `limit`+`cursor` paging (rkey-ordered); verified live |
 | **Durable storage** (restart-safe) | ✅ | `DurableStore` append-only EDN journal + replay; verified write→restart→present |
@@ -36,7 +37,7 @@ breaking the gftd.ai dependency. Updated by the maturity `/loop`.
 
 ## Tests
 
-`bb test` — 31 deftests / 119 assertions green, covering: identity + did doc,
+`bb test` — 33 deftests / 124 assertions green, covering: identity + did doc,
 record CRUD + sanity, durable store, dag-cbor (spec vector) + decoder/CAR roundtrips,
 the full sync surface (getRepo/getRecord/getBlocks/getRepoStatus/listRepos), signed
 commit + relay verification from the served CAR, the firehose (frame + real-websocket

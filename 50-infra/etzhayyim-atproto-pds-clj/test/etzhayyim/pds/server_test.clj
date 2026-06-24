@@ -272,6 +272,27 @@
           (is (= ["3a" "3b" "3c" "3d" "3e"]
                  (mapv :rkey (concat (:records p1) (:records p2) (:records p3))))))))))
 
+(deftest get-record-cid-pin
+  (testing "getRecord with a matching cid returns the record; a mismatch 404s"
+    (let [st (store/->mem-store)
+          {cid :cid} (store/put-record st cfg/pds-did "c" "r" {"$type" "x" "v" 1})]
+      (is (= 200 (:status (xrpc/get-record st {:repo repo :collection "c" :rkey "r" :cid cid}))))
+      (is (= 404 (:status (xrpc/get-record st {:repo repo :collection "c" :rkey "r" :cid "bafyreiwrong"}))))
+      (is (= 200 (:status (xrpc/get-record st {:repo repo :collection "c" :rkey "r"})))))))   ; no cid → current
+
+(deftest apply-writes-atomic-on-validation
+  (testing "a batch with an invalid write applies NONE of the writes (validated up front)"
+    (let [st (store/->mem-store)
+          h (server/make-handler st (.getPrivate (repo/gen-keypair)) "z6Mkx" tsecret)
+          resp (h {:uri "/xrpc/com.atproto.repo.applyWrites" :request-method :post
+                   :headers {"content-type" "application/json"}
+                   :body (json/generate-string
+                          {"repo" "atproto.etzhayyim.com"
+                           "writes" [{"$type" "com.atproto.repo.applyWrites#create" "collection" "app.bsky.feed.post" "rkey" "ok1" "value" {"$type" "app.bsky.feed.post" "text" "a"}}
+                                     {"$type" "com.atproto.repo.applyWrites#create" "collection" "app.bsky.feed.post" "rkey" "bad1" "value" {"text" "no type"}}]})})]
+      (is (= 400 (:status resp)))
+      (is (= 0 (:count (store/describe-repo st cfg/pds-did)))))))   ; nothing applied
+
 (deftest update-and-revive-latest-wins
   (testing "an updated record reflects its newest value (latest-wins), and a re-create after delete revives it"
     (let [st (store/->mem-store)]

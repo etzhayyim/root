@@ -129,12 +129,15 @@
       (let [{:keys [uri cid]} (store/put-record store did collection rkey record)]
         (ok {"uri" uri "cid" cid})))))
 
-(defn get-record [store {:keys [repo collection rkey]}]
-  (let [did (resolve-repo repo)]
-    (if-let [r (and did (not (str/blank? collection)) (not (str/blank? rkey))
-                    (store/get-record store did collection rkey))]
-      (ok {"uri" (:uri r) "cid" (:cid r) "value" (:value r)})
-      (err 404 "RecordNotFound" "record not found"))))
+(defn get-record [store {:keys [repo collection rkey cid]}]
+  (let [did (resolve-repo repo)
+        r (and did (not (str/blank? collection)) (not (str/blank? rkey))
+               (store/get-record store did collection rkey))]
+    (cond
+      (nil? r) (err 404 "RecordNotFound" "record not found")
+      ;; optional `cid` pins a specific version: a mismatch is not-found
+      (and (not (str/blank? cid)) (not= cid (:cid r))) (err 404 "RecordNotFound" "record cid mismatch")
+      :else (ok {"uri" (:uri r) "cid" (:cid r) "value" (:value r)}))))
 
 (defn delete-record [store {:keys [repo collection rkey swapRecord]}]
   (let [did (resolve-repo repo)]
