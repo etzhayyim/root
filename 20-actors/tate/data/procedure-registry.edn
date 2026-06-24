@@ -986,7 +986,7 @@
   :proc/deadline-rules
   [{:dl/label "Verweerschrift (advocaat 必須)"
     :dl/rule "verweerschrift は原則6週間以内 — ただし家事は **advocaat による提出が必須** (本人不可の類型; gesubsidieerde rechtsbijstand で立てられる); 子がいれば ouderschapsplan が要件"
-    :dl/anchor "Rv 815-816 / Wet op de rechtsbijstand" :dl/critical true :dl/verify-service-date true}]
+    :dl/anchor "Rv 815-816 / Wet op de rechtsbijstand" :dl/source-url "https://wetten.overheid.nl/BWBR0001827" :dl/critical true :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :rechtsbijstand :opt/kind :self-submit :opt/protective true
     :opt/label "gesubsidieerde rechtsbijstand (toevoeging) の申請は本人可 — 資力に応じ advocaat が付く"}
@@ -1020,7 +1020,7 @@
   :proc/deadline-rules
   [{:dl/label "Beslagvrije voet (差押禁止最低額)"
     :dl/rule "beslagvrije voet (生活維持最低額) は2021年法で自動計算され必ず手元に残る — 計算の基礎データ誤り (世帯構成等) は deurwaarder へ是正請求"
-    :dl/anchor "Wet vereenvoudiging beslagvrije voet / Rv 475da" :dl/verify-service-date true}]
+    :dl/anchor "Wet vereenvoudiging beslagvrije voet / Rv 475da" :dl/source-url "https://wetten.overheid.nl/BWBR0001827" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :bvv-check :opt/kind :self-decide :opt/protective true
     :opt/label "beslagvrije voet の計算根拠 (uwbeslagvrijevoet.nl) を確認 — 誤りは是正される"}
@@ -1035,7 +1035,7 @@
   :proc/deadline-rules
   [{:dl/label "Indiening ter verificatie"
     :dl/rule "債権は curator へ ter verificatie に提出 — 期限は verificatievergadering の公告/レターで確認 (遅延は原則締切)"
-    :dl/anchor "Faillissementswet artt. 108-110" :dl/verify-service-date true}]
+    :dl/anchor "Faillissementswet artt. 108-110" :dl/source-url "https://wetten.overheid.nl/BWBR0001860" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :indienen :opt/kind :self-submit :opt/protective true
     :opt/label "vordering を curator へ提出 (前払金・tegoed も債権: kaiyaku 縁-ledger と突合)"}
@@ -1067,7 +1067,7 @@
   :proc/deadline-rules
   [{:dl/label "Verschijnen / antwoord (出頭・答弁)"
     :dl/rule "dagvaarding 記載の roldatum (期日) までに出頭または schriftelijk antwoord (kanton ≤€25,000 は本人可)"
-    :dl/anchor "Rv art. 111 (dagvaarding の必要的記載事項)" :dl/verify-service-date true}]
+    :dl/anchor "Rv art. 111 (dagvaarding の必要的記載事項)" :dl/source-url "https://wetten.overheid.nl/BWBR0001827" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :antwoord :opt/kind :self-submit :opt/label "conclusie van antwoord を提出 (認否 + 反論)"}
    {:opt/id :appear :opt/kind :self-decide :opt/label "roldatum に出頭 (verstek = 欠席判決の回避)"}]
