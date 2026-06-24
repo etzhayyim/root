@@ -232,3 +232,56 @@ cd 40-engine/kotoba && cargo test --test actor_mesh_compile_test
 - The `mesh-ready.edn` registry is the honest single source of truth for mesh-readiness.
 - The kotoba mesh CLI binary gap is explicitly documented — no false claims are made
   about actors being "deployed" to the mesh when only WASM compilation is proven.
+
+---
+
+## Implementation record (2026-06-24) — three mesh patterns, end-to-end via the real CLI
+
+The `kotoba-cli` binary gap noted above is **closed**: `kotoba component build` /
+`kotoba app deploy` now run end-to-end. The on-kse / on-tick ABI landed upstream in
+`kotoba-clj` (world export `on-kse: func(topic: string, payload: list<u8>) ->
+result<list<u8>, string>` and `on-tick: func(epoch-ms: u64) -> …`), and
+`kotoba component build` prepends the kotoba-clj prelude. **63 actors** now ship
+`methods/mesh.clj` + `kotoba.app.edn`, every one **build + deploy verified** with the
+real CLI (not just static analysis).
+
+### The three confirmed actor→mesh patterns
+
+| Family | Trigger | mesh.clj entry | Doc |
+|---|---|---|---|
+| Observatory / KG-mirror (no cells) | `:on-kse` topic `etzhayyim/actor/<a>` | `run` + `on-kse` | this ADR §4 |
+| **Service / concierge** (request-driven) | `:on-http` `/<a>` | `run` + `on-http` | `70-tools/actor-mesh/SERVICE-MESH-PATTERN.md` |
+| Manufacturing (cells) | `:on-http` `/<a>/<cell>` | per-cell — **blocked** | `70-tools/actor-mesh/CELL-DEPLOY-GAPS.md` |
+
+- **Observatory (~55 actors):** hand-authored `run` + `on-kse` slices (observe edges
+  → `kqe-assert!` → derive concentration via `kqe-query`), routed per each actor's
+  charter (release / resilience / opening / restoration / stewardship / …). All
+  build + deploy green.
+- **Service / concierge (6 actors):** request-driven `:on-http`; the handler records
+  the member request and returns coded procedure steps. UPL/self-submit + dry-run/
+  no-server-key invariants preserved in the slice (the component does no outward
+  action). See SERVICE-MESH-PATTERN.md.
+
+### Correction to the readiness heuristic (important)
+
+`mesh-ready.edn` tiers are a **static text-pattern heuristic** and do **not** reflect
+actual mesh-compilability. Measured with the real CLI, **every cell-bearing manifest
+fails to deploy** — including the landed yamabiko / gov_municipality / kanayama
+manifests. Across 23 sampled cells (yamabiko 9 + sarutahiko 9 + wadachi 5), **0/23
+compile**; blockers: `let` in a `def` initialiser (14) and variadic `assoc`
+arity 7/9 (9). An entry wrapper is necessary but not sufficient — the cell bodies
+themselves exceed the kotoba-clj subset. Full detail + repro: CELL-DEPLOY-GAPS.md.
+
+### Real unblock for the manufacturing track
+
+Two `kotoba-clj` compiler enhancements (NOT a `bb actor:mesh` fix):
+1. variadic `assoc` — `(assoc m k1 v1 k2 v2 …)` (left-fold of arity-3, like `merge`),
+2. `let` in a `def` initialiser — `(def x (let […] body))`.
+
+These cover 23/23 sampled blockers and are in scope for the concurrent kotoba-clj
+mesh work (`himawari_compile_test.rs` / `actor_mesh_compile_test.rs`). Once they land,
+`bb actor:mesh` should also emit manifest-relative `:src` and a per-cell entry wrapper.
+
+### Companion artifacts (this wave)
+- `70-tools/actor-mesh/SERVICE-MESH-PATTERN.md` — service/concierge on-http pattern.
+- `70-tools/actor-mesh/CELL-DEPLOY-GAPS.md` — empirical cell-deploy gap analysis.
