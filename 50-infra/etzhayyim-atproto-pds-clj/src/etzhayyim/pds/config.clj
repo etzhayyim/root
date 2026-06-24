@@ -58,6 +58,9 @@
 (def accounts-file (env "PDS_ACCOUNTS_FILE" "accounts.edn"))
 (def require-auth (some? (env "PDS_REQUIRE_AUTH")))
 
+;; Opt-in lexicon-shape validation for known collections (off by default).
+(def validate-records (some? (env "PDS_VALIDATE_RECORDS")))
+
 (defn did-document
   "did:web:<host> document. Service endpoints are all etzhayyim-owned — this is
   the structural break from gftd: nothing here points at *.gftd.ai. When the

@@ -7,6 +7,7 @@
             [etzhayyim.pds.config :as cfg]
             [etzhayyim.pds.store :as store]
             [etzhayyim.pds.account :as account]
+            [etzhayyim.pds.lexicon :as lexicon]
             [etzhayyim.pds.util :as util]))
 
 (defn- ok [body] {:status 200 :body body})
@@ -46,14 +47,21 @@
          "refreshJwt" (str "etzhayyim-refresh." (util/content-cid (str did "/r")))})))
 
 ;; ── repo ─────────────────────────────────────────────────────────────────────
+(declare record-error)
+
 (defn apply-writes
   "com.atproto.repo.applyWrites — a batch of create/update/delete in one call.
   Each write's action is keyed by its `$type` suffix (#create/#update/#delete)."
   [store {:keys [repo writes]}]
-  (let [did (resolve-repo repo)]
+  (let [did (resolve-repo repo)
+        w-coll #(or (:collection %) (get % "collection"))
+        w-val  #(or (:value %) (get % "value"))
+        w-del? #(str/ends-with? (str (or (:$type %) (get % "$type"))) "#delete")
+        bad-write (some (fn [w] (when-not (w-del? w) (record-error (w-coll w) (w-val w)))) writes)]
     (cond
       (or (str/blank? repo) (nil? did)) (err 400 "InvalidRequest" "repo is required")
       (not (sequential? writes)) (err 400 "InvalidRequest" "writes[] is required")
+      bad-write (err 400 "InvalidRequest" bad-write)
       :else
       (ok {"results"
            (vec (for [w writes
@@ -74,19 +82,21 @@
                        "uri" uri "cid" cid}))))}))))
 
 (defn record-error
-  "Why `record` is not a valid atproto record (must be an object with a $type), or nil."
-  [record]
+  "Why `record` is not a valid atproto record (must be an object with a $type; and,
+  when PDS_VALIDATE_RECORDS is set, must satisfy the known lexicon shape), or nil."
+  [collection record]
   (cond
     (nil? record) "record is required"
     (not (map? record)) "record must be an object"
-    (str/blank? (str (or (get record "$type") (get record :$type)))) "record must have a $type"))
+    (str/blank? (str (or (get record "$type") (get record :$type)))) "record must have a $type"
+    :else (when cfg/validate-records (lexicon/validate collection record))))
 
 (defn create-record [store {:keys [repo collection record rkey]}]
   (let [did (resolve-repo repo)]
     (cond
       (or (str/blank? repo) (nil? did)) (err 400 "InvalidRequest" "repo is required")
       (str/blank? collection) (err 400 "InvalidRequest" "collection is required")
-      (record-error record) (err 400 "InvalidRequest" (record-error record))
+      (record-error collection record) (err 400 "InvalidRequest" (record-error collection record))
       :else
       (let [rkey (if (str/blank? rkey) (util/tid) rkey)
             {:keys [uri cid]} (store/put-record store did collection rkey record)]
@@ -98,7 +108,7 @@
       (or (str/blank? repo) (nil? did)) (err 400 "InvalidRequest" "repo is required")
       (str/blank? collection) (err 400 "InvalidRequest" "collection is required")
       (str/blank? rkey) (err 400 "InvalidRequest" "rkey is required")
-      (record-error record) (err 400 "InvalidRequest" (record-error record))
+      (record-error collection record) (err 400 "InvalidRequest" (record-error collection record))
       :else
       (let [{:keys [uri cid]} (store/put-record store did collection rkey record)]
         (ok {"uri" uri "cid" cid})))))

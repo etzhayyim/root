@@ -272,6 +272,20 @@
           (is (= ["3a" "3b" "3c" "3d" "3e"]
                  (mapv :rkey (concat (:records p1) (:records p2) (:records p3))))))))))
 
+(deftest lexicon-validation
+  (testing "with PDS_VALIDATE_RECORDS, known collections enforce their shape"
+    (with-redefs [cfg/validate-records true]
+      (let [st (store/->mem-store)
+            mk (fn [rec] (xrpc/create-record st {:repo repo :collection "app.bsky.feed.post" :record rec}))]
+        (is (= 400 (:status (mk {"$type" "app.bsky.feed.post" "text" "hi"}))))                            ; no createdAt
+        (is (= 400 (:status (mk {"$type" "app.bsky.feed.post" "text" 42 "createdAt" "t"}))))             ; text not string
+        (is (= 200 (:status (mk {"$type" "app.bsky.feed.post" "text" "hi" "createdAt" "2026-01-01T00:00:00Z"}))))
+        (is (= 200 (:status (xrpc/create-record st {:repo repo :collection "com.example.custom"          ; unknown collection passes
+                                                    :record {"$type" "x" "n" 1}})))))))
+  (testing "off by default: a createdAt-less post is accepted"
+    (is (= 200 (:status (xrpc/create-record (store/->mem-store) {:repo repo :collection "app.bsky.feed.post"
+                                                                 :record {"$type" "app.bsky.feed.post" "text" "hi"}}))))))
+
 (deftest record-sanity-on-write
   (testing "createRecord/putRecord reject a non-object or $type-less record"
     (let [st (store/->mem-store)]
@@ -414,8 +428,8 @@
                    :headers {"content-type" "application/json"}
                    :body (json/generate-string
                           {"repo" "atproto.etzhayyim.com"
-                           "writes" [{"$type" "com.atproto.repo.applyWrites#create" "collection" "app.bsky.feed.post" "rkey" "3w1" "value" {"text" "a"}}
-                                     {"$type" "com.atproto.repo.applyWrites#create" "collection" "app.bsky.feed.post" "rkey" "3w2" "value" {"text" "b"}}]})})
+                           "writes" [{"$type" "com.atproto.repo.applyWrites#create" "collection" "app.bsky.feed.post" "rkey" "3w1" "value" {"$type" "app.bsky.feed.post" "text" "a"}}
+                                     {"$type" "com.atproto.repo.applyWrites#create" "collection" "app.bsky.feed.post" "rkey" "3w2" "value" {"$type" "app.bsky.feed.post" "text" "b"}}]})})
           results (get (json/parse-string (:body resp)) "results")]
       (is (= 200 (:status resp)))
       (is (= 2 (count results)))
