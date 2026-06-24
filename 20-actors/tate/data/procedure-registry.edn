@@ -1116,7 +1116,7 @@
   :proc/deadline-rules
   [{:dl/label "清偿または书面异议"
     :dl/rule "支付令の受領から15日以内に債務の清償または書面による異議 (異議で支付令失効)"
-    :dl/anchor "中华人民共和国民事诉讼法 (督促程序)" :dl/verify-service-date true}]
+    :dl/anchor "中华人民共和国民事诉讼法 (督促程序)" :dl/source-url "https://flk.npc.gov.cn/detail?id=2c909fdd678bf17901678bf856910a05" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :shumian-yiyi :opt/kind :self-submit :opt/label "書面异议を発令法院へ提出"}
    {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 清償/和解"}]
@@ -1144,7 +1144,7 @@
   :proc/deadline-rules
   [{:dl/label "答辩状"
     :dl/rule "起诉状副本の受領から15日以内に答辩状を人民法院へ提出 (中国国内に住所のない被告は30日); 管辖异议も同じ答辩期間内に提出。答辩しなくても審理は進む (欠席でも判決されうる)"
-    :dl/anchor "中华人民共和国民事诉讼法 第128条 (答辩期)" :dl/verify-service-date true}]
+    :dl/anchor "中华人民共和国民事诉讼法 第128条 (答辩期)" :dl/source-url "https://flk.npc.gov.cn/detail?id=2c909fdd678bf17901678bf856910a05" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :dabian :opt/kind :self-submit :opt/protective true :opt/label "答辩状 を人民法院へ提出 (各请求の認否 + 证据 — 管辖异议があれば同時に)"}
    {:opt/id :chuting :opt/kind :self-decide :opt/label "开庭审理に出頭 (离婚は調解前置 — 合意の余地)"}]
@@ -1159,7 +1159,7 @@
   :proc/deadline-rules
   [{:dl/label "执行 (扣留・提取収入) への対応"
     :dl/rule "执行通知 受領後に履行しないと人民法院は履行すべき部分について収入を扣留・提取できる (民诉法243条; 协助执行通知書で雇用主・銀行等が協力)。ただし被执行人及びその扶養家族の生活必需費用は必ず保留される (当該地の最低生活保障标准で算定、扶養家族分も考慮)。保留額を侵害する執行には法院へ执行异议 (225条) を申立てられる"
-    :dl/anchor "中华人民共和国民事诉讼法 第243条 (扣留・提取 + 生活必需费用保留)" :dl/verify-service-date true}]
+    :dl/anchor "中华人民共和国民事诉讼法 第243条 (扣留・提取 + 生活必需费用保留)" :dl/source-url "https://flk.npc.gov.cn/detail?id=2c909fdd678bf17901678bf856910a05" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :yiyi :opt/kind :self-submit :opt/protective true :opt/label "生活必需費用の保留を侵害する執行には 执行异议 を法院へ提出 (民诉法225条)"}
    {:opt/id :verify :opt/kind :self-decide :opt/protective true :opt/label "扣留・提取が当該地の最低生活保障标准 (本人+扶養家族分) を下回らせていないか法院で確認"}]
