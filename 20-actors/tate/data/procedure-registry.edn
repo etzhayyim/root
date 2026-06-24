@@ -594,7 +594,7 @@
   :proc/deadline-rules
   [{:dl/label "Proof of debt"
     :dl/rule "administrator/liquidator の通知記載期限までに formal proof of debt — 配当と (administration では) 投票の前提; **雇用債権は FEG (国の保証) で別途回収できる場合がある**"
-    :dl/anchor "Corporations Act 2001 / Insolvency Practice Rules" :dl/verify-service-date true}]
+    :dl/anchor "Corporations Act 2001 / Insolvency Practice Rules" :dl/source-url "https://www.legislation.gov.au/C2004A00818" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :prove :opt/kind :self-submit :opt/protective true
     :opt/label "proof of debt を提出 (無料・本人可 — 前払金・gift card も債権: kaiyaku 縁-ledger と突合)"}
@@ -646,7 +646,7 @@
   :proc/deadline-rules
   [{:dl/label "Response to divorce"
     :dl/rule "国内送達なら送達から28日以内 (海外42日) に response — no-fault (12か月 separation) のため離婚自体の争点は限定; 財産 (property) ・子 (parenting) は別手続"
-    :dl/anchor "Family Law Act 1975 s.48 / FCFCOA (Family Law) Rules 2021" :dl/verify-service-date true}]
+    :dl/anchor "Family Law Act 1975 s.48 / FCFCOA (Family Law) Rules 2021" :dl/source-url "https://www.legislation.gov.au/C2004A00275" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :response :opt/kind :self-submit :opt/protective true
     :opt/label "Response to divorce をオンライン提出 (28日 — 異議は管轄・separation 期間等)"}
