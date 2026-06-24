@@ -9,7 +9,8 @@
             [org.httpkit.server :as http]
             [etzhayyim.pds.config :as cfg]
             [etzhayyim.pds.store :as store]
-            [etzhayyim.pds.xrpc :as xrpc]))
+            [etzhayyim.pds.xrpc :as xrpc]
+            [etzhayyim.pds.repo :as pdsrepo]))
 
 (defn- json-response [{:keys [status body]}]
   {:status status
@@ -74,6 +75,19 @@
              :body (java.io.ByteArrayInputStream. (:bytes b))}
             (json-response resp)))
 
+        ;; sync.getRepo / getBlocks: rebuild the repo (app-aozora-repo MST/commit)
+        ;; and serve it as a CARv1 (no-server-key → unsigned on read).
+        (#{"com.atproto.sync.getRepo" "com.atproto.sync.getBlocks"} nsid)
+        (let [did (or (xrpc/resolve-repo (:did qp)) cfg/pds-did)
+              ^bytes car (if (= nsid "com.atproto.sync.getRepo")
+                           (pdsrepo/get-repo-car store did)
+                           (pdsrepo/get-blocks-car store did
+                             (some-> (or (:cids qp) (:cid qp)) (str/split #","))))]
+          {:status 200
+           :headers {"content-type" "application/vnd.ipld.car"
+                     "access-control-allow-origin" "*"}
+           :body (java.io.ByteArrayInputStream. car)})
+
         :else
         (let [body (try (read-body req) (catch Exception _ nil))
               params (merge qp body)
@@ -89,6 +103,11 @@
                      "com.atproto.repo.deleteRecord" (xrpc/delete-record store params)
                      "com.atproto.repo.listRecords"  (xrpc/list-records store params)
                      "com.atproto.repo.describeRepo" (xrpc/describe-repo store params)
+                     "com.atproto.sync.getLatestCommit"
+                     (let [did (or (xrpc/resolve-repo (:repo params) ) (:did params) cfg/pds-did)]
+                       (if-let [lc (pdsrepo/get-latest-commit store did)]
+                         {:status 200 :body {"cid" (:cid lc) "rev" (:rev lc)}}
+                         {:status 404 :body {"error" "RepoNotFound" "message" "no repo for did"}}))
                      {:status 501 :body {"error" "MethodNotImplemented"
                                          "message" (str nsid " is not implemented by this PDS")}})]
           (json-response resp))))))
