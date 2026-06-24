@@ -2252,7 +2252,7 @@
   :proc/deadline-rules
   [{:dl/label "Vastaus (答弁)"
     :dl/rule "呼出記載の期限内に vastaus — 無応答は yksipuolinen tuomio (欠席判決)"
-    :dl/anchor "oikeudenkäymiskaari 5 luku" :dl/verify-service-date true}]
+    :dl/anchor "oikeudenkäymiskaari 5 luku" :dl/source-url "https://www.finlex.fi/fi/laki/ajantasa/1734/17340004000" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :vastaus :opt/kind :self-submit :opt/label "vastaus を käräjäoikeus へ (認否 + 反論)"}
    {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/sovinto"}]
