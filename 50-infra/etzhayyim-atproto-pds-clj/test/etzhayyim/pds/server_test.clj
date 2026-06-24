@@ -169,6 +169,65 @@
       (testing "a tampered commit fails verification"
         (is (not (repo/verify relay-pub (repo/dag-cbor (assoc (dissoc commit :sig) :rev "evil")) (:sig commit))))))))
 
+(deftest dag-cbor-and-car-roundtrip
+  (testing "dag-cbor encode→decode is lossless (nesting/ints/arrays/bools)"
+    (let [v {"text" "hi" "n" 42 "nested" {"a" 1} "arr" [1 2 3] "flag" true}]
+      (is (= v (repo/dag-cbor-decode (repo/dag-cbor v))))))
+  (testing "cid-links survive (bytes compared by value)"
+    (let [link (repo/cid-link (repo/block-cid {}))
+          dec (repo/dag-cbor-decode (repo/dag-cbor {"link" link}))]
+      (is (= (seq (:etzhayyim.pds.repo/cid link))
+             (seq (:etzhayyim.pds.repo/cid (get dec "link")))))))
+  (testing "CAR build→parse recovers every block"
+    (let [k (.getPrivate (repo/gen-keypair))
+          build (repo/build-repo cfg/pds-did
+                                 [{:uri (str "at://" cfg/pds-did "/app.bsky.feed.post/3a") :value {"x" 1}}] "3a" k)
+          parsed (repo/car-parse (repo/blocks-car build nil))]
+      (is (= (set (keys (:blocks build))) (set (keys (:blocks parsed)))))
+      (is (contains? (:blocks parsed) (:commit-cid build))))))
+
+(deftest relay-verifies-from-served-car
+  (testing "the full relay path: parse the getRepo CAR → decode commit → verify sig from did.json key"
+    (let [kp (repo/gen-keypair)
+          mb (repo/pubkey-multibase (.getPublic kp))           ; published in did.json
+          build (repo/build-repo cfg/pds-did
+                                 [{:uri (str "at://" cfg/pds-did "/app.bsky.feed.post/3a") :value {"x" 1}}] "3a" (.getPrivate kp))
+          parsed (repo/car-parse (repo/blocks-car build nil))   ; what a relay receives
+          commit (repo/dag-cbor-decode (get (:blocks parsed) (:commit-cid build)))
+          relay-pub (repo/multibase->pubkey mb)]
+      (is (repo/verify relay-pub (repo/dag-cbor (dissoc commit "sig")) (get commit "sig"))))))
+
+(deftest firehose-frame-carries-the-repo
+  (testing "the #commit frame body decodes to a CAR containing the commit"
+    (let [k (.getPrivate (repo/gen-keypair))
+          path "app.bsky.feed.post/3kfd"
+          build (repo/build-repo cfg/pds-did
+                                 [{:uri (str "at://" cfg/pds-did "/" path) :value {"$type" "app.bsky.feed.post" "text" "hi"}}] "3kfd" k)
+          ops [{:action "create" :path path :cid-bytes (get-in build [:blocks (get-in build [:record-cids path]) :cid])}]
+          frame (repo/commit-frame 1 cfg/pds-did build ops "2026-01-01T00:00:00Z")
+          hlen (alength (repo/dag-cbor {:op 1 :t "#commit"}))
+          header (repo/dag-cbor-decode (java.util.Arrays/copyOfRange frame 0 hlen))
+          body (repo/dag-cbor-decode (java.util.Arrays/copyOfRange frame hlen (alength frame)))
+          parsed (repo/car-parse (get body "blocks"))]
+      (is (= "#commit" (get header "t")))
+      (is (= cfg/pds-did (get body "repo")))
+      (is (contains? (:blocks parsed) (:commit-cid build))))))
+
+(deftest apply-writes-batch
+  (testing "applyWrites creates a batch of records in one call"
+    (let [st (store/->mem-store)
+          h (server/make-handler st (.getPrivate (repo/gen-keypair)) "z6Mkx")
+          resp (h {:uri "/xrpc/com.atproto.repo.applyWrites" :request-method :post
+                   :headers {"content-type" "application/json"}
+                   :body (json/generate-string
+                          {"repo" "atproto.etzhayyim.com"
+                           "writes" [{"$type" "com.atproto.repo.applyWrites#create" "collection" "app.bsky.feed.post" "rkey" "3w1" "value" {"text" "a"}}
+                                     {"$type" "com.atproto.repo.applyWrites#create" "collection" "app.bsky.feed.post" "rkey" "3w2" "value" {"text" "b"}}]})})
+          results (get (json/parse-string (:body resp)) "results")]
+      (is (= 200 (:status resp)))
+      (is (= 2 (count results)))
+      (is (= 2 (:count (store/describe-repo st cfg/pds-did)))))))
+
 (deftest blob-store-roundtrips
   (testing "uploadBlob → content-addressed ref; getBlob returns the verified bytes"
     (let [dir (str (System/getProperty "java.io.tmpdir") "/pds-blobs-" (hash (str (gensym))))

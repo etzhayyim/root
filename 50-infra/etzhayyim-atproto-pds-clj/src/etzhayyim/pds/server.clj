@@ -174,6 +174,7 @@
                      "com.atproto.server.createSession"  (xrpc/create-session params)
                      "com.atproto.identity.resolveHandle" (xrpc/resolve-handle params)
                      "com.atproto.repo.createRecord" (xrpc/create-record store params)
+                     "com.atproto.repo.applyWrites"  (xrpc/apply-writes store params)
                      "com.atproto.repo.putRecord"    (xrpc/put-record store params)
                      "com.atproto.repo.getRecord"    (xrpc/get-record store params)
                      "com.atproto.repo.deleteRecord" (xrpc/delete-record store params)

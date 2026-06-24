@@ -44,6 +44,33 @@
          "refreshJwt" (str "etzhayyim-refresh." (util/content-cid (str did "/r")))})))
 
 ;; ── repo ─────────────────────────────────────────────────────────────────────
+(defn apply-writes
+  "com.atproto.repo.applyWrites — a batch of create/update/delete in one call.
+  Each write's action is keyed by its `$type` suffix (#create/#update/#delete)."
+  [store {:keys [repo writes]}]
+  (let [did (resolve-repo repo)]
+    (cond
+      (or (str/blank? repo) (nil? did)) (err 400 "InvalidRequest" "repo is required")
+      (not (sequential? writes)) (err 400 "InvalidRequest" "writes[] is required")
+      :else
+      (ok {"results"
+           (vec (for [w writes
+                      :let [t (str (or (:$type w) (get w "$type")))
+                            collection (or (:collection w) (get w "collection"))
+                            rkey (let [k (or (:rkey w) (get w "rkey"))] (if (str/blank? k) (util/tid) k))
+                            value (or (:value w) (get w "value"))]]
+                  (cond
+                    (str/ends-with? t "#delete")
+                    (do (store/delete-record store did collection rkey)
+                        {"$type" "com.atproto.repo.applyWrites#deleteResult"
+                         "uri" (store/at-uri did collection rkey)})
+                    :else
+                    (let [{:keys [uri cid]} (store/put-record store did collection rkey value)]
+                      {"$type" (if (str/ends-with? t "#update")
+                                 "com.atproto.repo.applyWrites#updateResult"
+                                 "com.atproto.repo.applyWrites#createResult")
+                       "uri" uri "cid" cid}))))}))))
+
 (defn create-record [store {:keys [repo collection record rkey]}]
   (let [did (resolve-repo repo)]
     (cond

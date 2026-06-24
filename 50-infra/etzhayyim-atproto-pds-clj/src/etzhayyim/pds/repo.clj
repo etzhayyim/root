@@ -322,6 +322,66 @@
     (doseq [[_ {:keys [cid bytes]}] blocks] (car-block! out cid bytes))
     (.toByteArray out)))
 
+;; ── DAG-CBOR decoder (inverse of the encoder) ────────────────────────────────
+
+(defn- be-uint [^bytes ba pos len]
+  (loop [i 0 acc 0] (if (= i len) acc (recur (inc i) (+ (* acc 256) (bit-and (aget ba (+ pos i)) 0xff))))))
+
+(defn- read-arg [^bytes ba pos info]
+  (cond (< info 24) [info pos]
+        (= info 24) [(bit-and (aget ba pos) 0xff) (inc pos)]
+        (= info 25) [(be-uint ba pos 2) (+ pos 2)]
+        (= info 26) [(be-uint ba pos 4) (+ pos 4)]
+        :else       [(be-uint ba pos 8) (+ pos 8)]))
+
+(defn- decode* [^bytes ba pos]
+  (let [b (bit-and (aget ba pos) 0xff)
+        major (bit-shift-right b 5)
+        info (bit-and b 0x1f)
+        [n p] (read-arg ba (inc pos) info)]
+    (case major
+      0 [n p]
+      1 [(- -1 n) p]
+      2 [(Arrays/copyOfRange ba p (+ p n)) (+ p n)]
+      3 [(String. (Arrays/copyOfRange ba p (+ p n)) "UTF-8") (+ p n)]
+      4 (loop [i 0 pp p acc []]  (if (= i n) [acc pp] (let [[v np] (decode* ba pp)] (recur (inc i) np (conj acc v)))))
+      5 (loop [i 0 pp p acc {}]  (if (= i n) [acc pp] (let [[k kp] (decode* ba pp) [v vp] (decode* ba kp)] (recur (inc i) vp (assoc acc k v)))))
+      6 (if (= n 42)
+          (let [[bs np] (decode* ba p)] [(cid-link (Arrays/copyOfRange bs 1 (alength bs))) np])  ; strip 0x00
+          (decode* ba p))
+      7 (cond (= info 20) [false p] (= info 21) [true p] :else [nil p]))))
+
+(defn dag-cbor-decode [^bytes ba] (first (decode* ba 0)))
+
+;; ── CAR v1 parser (inverse of `car`) ─────────────────────────────────────────
+
+(defn- read-varint [^bytes ba pos]
+  (loop [shift 0 pos pos acc 0]
+    (let [b (bit-and (aget ba pos) 0xff)]
+      (if (zero? (bit-and b 0x80))
+        [(bit-or acc (bit-shift-left b shift)) (inc pos)]
+        (recur (+ shift 7) (inc pos) (bit-or acc (bit-shift-left (bit-and b 0x7f) shift)))))))
+
+(defn car-parse
+  "Parse a CAR v1 → {:header <decoded> :blocks {cid-str → bytes}}."
+  [^bytes ba]
+  (let [[hlen p0] (read-varint ba 0)
+        header (dag-cbor-decode (Arrays/copyOfRange ba p0 (+ p0 hlen)))]
+    (loop [pos (+ p0 hlen) blocks {}]
+      (if (>= pos (alength ba))
+        {:header header :blocks blocks}
+        (let [[blen bp] (read-varint ba pos)
+              end (+ bp blen)
+              ;; CIDv1: version, codec, hash-fn, digest-len varints, then digest
+              [_ p1] (read-varint ba bp)
+              [_ p2] (read-varint ba p1)
+              [_ p3] (read-varint ba p2)
+              [dlen p4] (read-varint ba p3)
+              cid-end (+ p4 dlen)
+              cid (cid-str (Arrays/copyOfRange ba bp cid-end))
+              block (Arrays/copyOfRange ba cid-end end)]
+          (recur end (assoc blocks cid block)))))))
+
 ;; ── assemble a full repo CAR from PdsStore records ───────────────────────────
 
 (defn build-repo
