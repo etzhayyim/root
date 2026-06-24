@@ -1,5 +1,11 @@
 # etzhayyim-atproto-pds-clj
 
+> **Status: `canonical` (record layer) — per ADR-2606242330** (PDS consolidation).
+> The single canonical PDS *record/translation layer* for `pds.etzhayyim.com`:
+> clj/bb over the kotoba Datom log. The XRPC surface eventually moves to
+> kotoba-server (ADR-2606015002 D2); the Bun PDS pod (`50-infra/k8s/atproto-pds`)
+> stays `bridge-only` until this reaches server/repo/identity parity. AppView = aozora.
+
 An **independent** atproto Personal Data Server for `atproto.etzhayyim.com`,
 written in **Clojure** (babashka) on the **kotoba Datom log**. It exists to break
 the current dependency where `atproto.etzhayyim.com` is a byte-identical alias of
