@@ -78,7 +78,7 @@
       (when-not (str/blank? s)
         (json/parse-string s true)))))
 
-(defn make-handler [store signing-key]
+(defn make-handler [store signing-key signing-multibase]
   (fn [req]
     (let [uri (:uri req)
           method (:request-method req)
@@ -89,9 +89,9 @@
         (= uri "/health")
         (json-response {:status 200 :body {"status" "ok" "did" cfg/pds-did}})
 
-        ;; did:web document
+        ;; did:web document — publishes the atproto signing key (relay verifies sig)
         (= uri "/.well-known/did.json")
-        (json-response {:status 200 :body (cfg/did-document)})
+        (json-response {:status 200 :body (cfg/did-document signing-multibase)})
 
         (nil? nsid)
         (json-response {:status 404 :body {"error" "NotFound" "message" uri}})
@@ -129,17 +129,18 @@
     (do (println "[pds] storage = in-process datom log (ephemeral; set PDS_STORE_PATH or KOTOBA_URL)")
         (store/->mem-store))))
 
-(defn start! [store signing-key port]
-  (http/run-server (make-handler store signing-key) {:port port :legacy-return-value? false}))
+(defn start! [store signing-key signing-multibase port]
+  (http/run-server (make-handler store signing-key signing-multibase)
+                   {:port port :legacy-return-value? false}))
 
 (defn -main [& _]
   (let [store (make-store)
-        ;; commit signing key (present-only). Sealed off-platform in production;
-        ;; here generated per-process — the did:web doc must publish its public key
-        ;; for a relay to verify `sig` (the remaining federation step).
-        signing-key (.getPrivate (repo/gen-keypair))]
-    (start! store signing-key cfg/port)
+        ;; stable commit signing key (present-only, persisted at PDS_SIGNING_KEY_FILE).
+        kp (repo/load-or-create-keypair cfg/signing-key-file)
+        multibase (repo/pubkey-multibase (:public kp))]
+    (start! store (:private kp) multibase cfg/port)
     (println (format "[pds] etzhayyim atproto PDS up: %s  did=%s  domains=%s  :%d"
                      cfg/host cfg/pds-did (str/join "," cfg/user-domains) cfg/port))
     (println "[pds] sync surface: com.atproto.sync.{getRepo,getLatestCommit,listRepos}")
+    (println "[pds] signing key published in did.json: #atproto" multibase)
     @(promise)))

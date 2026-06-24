@@ -66,15 +66,31 @@
     (is (= "did:web:atproto.etzhayyim.com" (xrpc/resolve-repo "did:web:atproto.etzhayyim.com")))))
 
 (deftest http-layer
-  (testing "the ring handler serves did.json and describeServer"
-    (let [k (.getPrivate (repo/gen-keypair))
-          h (server/make-handler (store/->mem-store) k)
+  (testing "the ring handler serves did.json (with signing key) and describeServer"
+    (let [kp (repo/gen-keypair)
+          mb (repo/pubkey-multibase (.getPublic kp))
+          h (server/make-handler (store/->mem-store) (.getPrivate kp) mb)
           did-resp (h {:uri "/.well-known/did.json" :request-method :get})
           desc (h {:uri "/xrpc/com.atproto.server.describeServer" :request-method :get})]
       (is (= 200 (:status did-resp)))
       (is (str/includes? (:body did-resp) "did:web:atproto.etzhayyim.com"))
+      (is (str/includes? (:body did-resp) mb))                 ; signing key published
+      (is (str/includes? (:body did-resp) "Multikey"))
       (is (= 200 (:status desc)))
       (is (not (str/includes? (:body desc) "gftd"))))))
+
+(deftest signing-key-published-and-stable
+  (testing "pubkey multibase is a did:key Ed25519 (z6Mk…)"
+    (is (str/starts-with? (repo/pubkey-multibase (.getPublic (repo/gen-keypair))) "z6Mk")))
+  (testing "the signing key file is created once and reloaded stably"
+    (let [path (str (System/getProperty "java.io.tmpdir") "/pds-key-" (hash (str (gensym))) ".edn")
+          a (repo/load-or-create-keypair path)
+          b (repo/load-or-create-keypair path)]    ; reloads the same key
+      (is (= (repo/pubkey-multibase (:public a)) (repo/pubkey-multibase (:public b))))
+      ;; a commit signed by the reloaded key verifies against the published key
+      (let [[_ _ commit] (repo/make-commit cfg/pds-did (repo/block-cid {}) "3kr" nil (:private b))]
+        (is (repo/verify (:public a) (repo/dag-cbor (dissoc commit :sig)) (:sig commit))))
+      (.delete (clojure.java.io/file path)))))
 
 (deftest durable-store-survives-restart
   (testing "a record written to a durable store is replayed from disk by a fresh store"
@@ -99,7 +115,7 @@
     (let [k (.getPrivate (repo/gen-keypair))
           st (store/->mem-store)]
       (store/put-record st cfg/pds-did "app.bsky.feed.post" "3kfed1" {"$type" "app.bsky.feed.post" "text" "x"})
-      (let [h (server/make-handler st k)
+      (let [h (server/make-handler st k (repo/pubkey-multibase (.getPublic (repo/gen-keypair))))
             car (h {:uri "/xrpc/com.atproto.sync.getRepo" :request-method :get
                     :query-string (str "did=" cfg/pds-did)})
             commit (h {:uri "/xrpc/com.atproto.sync.getLatestCommit" :request-method :get

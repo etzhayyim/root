@@ -14,12 +14,14 @@
   remaining federation step — until then this PDS *serves* a well-formed repo CAR
   but is not yet registered with a relay."
   (:require [clojure.string :as str]
+            [clojure.java.io :as io]
+            [clojure.edn :as edn]
             [etzhayyim.pds.datom :as d])
   (:import [java.io ByteArrayOutputStream]
-           [java.security MessageDigest KeyPairGenerator Signature]
+           [java.math BigInteger]
+           [java.security MessageDigest KeyPairGenerator Signature KeyFactory]
            [java.security.spec PKCS8EncodedKeySpec X509EncodedKeySpec]
-           [java.security KeyFactory]
-           [java.util Base64]))
+           [java.util Base64 Arrays]))
 
 ;; ── hashing / base32 ─────────────────────────────────────────────────────────
 
@@ -199,6 +201,55 @@
 
 (defn verify [pub ^bytes msg ^bytes sig]
   (let [s (Signature/getInstance "Ed25519")] (.initVerify s pub) (.update s msg) (.verify s sig)))
+
+(defn- b64e [^bytes b] (.encodeToString (Base64/getEncoder) b))
+(defn- b64d ^bytes [^String s] (.decode (Base64/getDecoder) s))
+
+(defn load-or-create-keypair
+  "Stable signing key persisted (PKCS8 priv + X509 pub, base64) at `path` — created
+  present-only on first boot, reloaded after, so the commit `sig` is stable across
+  restarts and the did:web doc can pin its public key. Returns {:private :public}."
+  [path]
+  (let [f (io/file path)
+        kf (KeyFactory/getInstance "Ed25519")]
+    (if (.exists f)
+      (let [m (edn/read-string (slurp f))]
+        {:private (.generatePrivate kf (PKCS8EncodedKeySpec. (b64d (:priv m))))
+         :public  (.generatePublic  kf (X509EncodedKeySpec. (b64d (:pub m))))})
+      (let [kp (gen-keypair)]
+        (io/make-parents f)
+        (spit f (pr-str {:priv (b64e (.getEncoded (.getPrivate kp)))
+                         :pub  (b64e (.getEncoded (.getPublic kp)))}))
+        {:private (.getPrivate kp) :public (.getPublic kp)}))))
+
+;; ── did:key multibase publication of the Ed25519 public key ──────────────────
+
+(def ^:private b58-alphabet "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz")
+
+(defn- base58btc [^bytes data]
+  (let [zeros (count (take-while zero? (seq data)))
+        sb (StringBuilder.)
+        fifty8 (BigInteger/valueOf 58)]
+    (loop [n (BigInteger. 1 data)]
+      (when (pos? (.signum n))
+        (.append sb (.charAt b58-alphabet (.intValue (.mod n fifty8))))
+        (recur (.divide n fifty8))))
+    (dotimes [_ zeros] (.append sb (.charAt b58-alphabet 0)))
+    (str/reverse (str sb))))
+
+(defn- raw-ed25519-pub ^bytes [pub]
+  (let [enc (.getEncoded pub)] (Arrays/copyOfRange enc (- (alength enc) 32) (alength enc))))
+
+(defn pubkey-multibase
+  "atproto did:key Multikey `publicKeyMultibase` for an Ed25519 public key:
+  z + base58btc(0xed01 multicodec ++ raw32). Always begins `z6Mk`."
+  [pub]
+  (let [raw (raw-ed25519-pub pub)
+        prefixed (byte-array (+ 2 (alength raw)))]
+    (aset-byte prefixed 0 (unchecked-byte 0xed))
+    (aset-byte prefixed 1 (unchecked-byte 0x01))
+    (System/arraycopy raw 0 prefixed 2 (alength raw))
+    (str "z" (base58btc prefixed))))
 
 ;; ── commit ───────────────────────────────────────────────────────────────────
 

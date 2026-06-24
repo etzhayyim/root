@@ -45,25 +45,37 @@
 ;; it on boot — records survive a restart with no external service.
 (def store-path (env "PDS_STORE_PATH"))
 
+;; Stable Ed25519 commit-signing key file (present-only). Persisted so the commit
+;; `sig` is stable across restarts and its public key can be pinned in the did doc.
+(def signing-key-file (env "PDS_SIGNING_KEY_FILE" "signing-key.edn"))
+
 (defn did-document
   "did:web:<host> document. Service endpoints are all etzhayyim-owned — this is
-  the structural break from gftd: nothing here points at *.gftd.ai."
-  []
-  {"@context" ["https://www.w3.org/ns/did/v1"
-               "https://w3id.org/security/multikey/v1"]
-   "id" pds-did
-   "alsoKnownAs" [(str "https://" host)]
-   "verificationMethod" []
-   "service"
-   [{"id" "#atproto_pds"
-     "type" "AtprotoPersonalDataServer"
-     "serviceEndpoint" (str "https://" host)}
-    {"id" "#bsky_appview"
-     "type" "BskyAppView"
-     "serviceEndpoint" appview-url}
-    {"id" "#bsky_chat"
-     "type" "BskyChatService"
-     "serviceEndpoint" chat-url}]})
+  the structural break from gftd: nothing here points at *.gftd.ai. When the
+  signing key's `multibase` is supplied, publish it as the atproto Multikey so a
+  relay can verify the repo commit `sig`."
+  ([] (did-document nil))
+  ([multibase]
+   {"@context" ["https://www.w3.org/ns/did/v1"
+                "https://w3id.org/security/multikey/v1"]
+    "id" pds-did
+    "alsoKnownAs" [(str "https://" host)]
+    "verificationMethod" (if multibase
+                           [{"id" (str pds-did "#atproto")
+                             "type" "Multikey"
+                             "controller" pds-did
+                             "publicKeyMultibase" multibase}]
+                           [])
+    "service"
+    [{"id" "#atproto_pds"
+      "type" "AtprotoPersonalDataServer"
+      "serviceEndpoint" (str "https://" host)}
+     {"id" "#bsky_appview"
+      "type" "BskyAppView"
+      "serviceEndpoint" appview-url}
+     {"id" "#bsky_chat"
+      "type" "BskyChatService"
+      "serviceEndpoint" chat-url}]}))
 
 (defn describe-server
   "com.atproto.server.describeServer payload — independent etzhayyim identity."
