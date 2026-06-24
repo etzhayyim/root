@@ -1,0 +1,9 @@
+{;; app-aozora-repo — AT Protocol repo layer (dag-cbor / CIDv1 / blocks / commit)
+ ;; on the kotoba Datom log. babashka runner, no external deps.
+ :paths ["src" "test"]
+ :tasks
+ {test
+  {:doc "Run the repo spec-conformance + round-trip suite (ipfs-verified CIDs)."
+   :requires ([clojure.test :as t] [etzhayyim.aozora.repo.repo-test])
+   :task (let [{:keys [fail error]} (t/run-tests 'etzhayyim.aozora.repo.repo-test)]
+           (System/exit (if (pos? (+ fail error)) 1 0)))}}}
