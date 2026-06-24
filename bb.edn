@@ -52,9 +52,29 @@
              (apply (resolve 'etzhayyim.actor-mesh/-main) *command-line-args*))}
 
   actor:evolve
-  {:doc "ADR-2606241500 — evolve an actor's CODE (20-actors/<name>) AND DATA (80-data/<name> + its kotoba-rad identity journal) through git: encrypt-secrets (sops+age) → branch → commit → push → PR → merge, recording each step as a signed :rad/evolution on the sovereign identity log. DRY-RUN by default; --apply mutates locally; --push/--pr/--merge gate the outward legs (member gh+git creds, no-server-key). Args: <name> [--message=<m>] [--apply] [--push] [--pr] [--merge] [--pubkey=<hex>]"
+  {:doc "ADR-2606241500/2606242400 — evolve an actor's CODE (20-actors/<name>) AND DATA (80-data/<name> + its kotoba-rad identity journal) through git: encrypt-secrets (sops+age) → branch → record signed :rad/evolution → [--pages: publish the identity log as a CID-queryable CARv1 tier at 20-actors/<name>/data/] → commit → push → PR → merge. DRY-RUN by default; --apply mutates locally; --push/--pr/--merge gate the outward legs (member gh+git creds, no-server-key). Args: <name> [--message=<m>] [--apply] [--pages] [--push] [--pr] [--merge] [--pubkey=<hex>]"
    :task (do (require 'etzhayyim.actor-evolve)
              (apply (resolve 'etzhayyim.actor-evolve/-main) *command-line-args*))}
+
+  pages:publish
+  {:doc "ADR-2606242400 — pack a kotoba Datom journal into a STATIC GitHub-Pages CAR tier: <dir>/<graph>.car + .car.idx.edn + head.json + .nojekyll. Commit the dir → GitHub Pages serves it; clients query by root CID over HTTPS Range (no IPFS daemon). Args: <graph> <journal.edn> [out-dir]"
+   :task (do (require 'etzhayyim.kotoba.pages-store)
+             (apply (resolve 'etzhayyim.kotoba.pages-store/-publish) *command-line-args*))}
+
+  pages:query
+  {:doc "ADR-2606242400 — reconstruct + CID-verify a published graph by its root CID. Default reads a local published dir; --http treats the arg as a base URL (…/<graph>) and uses HTTP Range against GitHub Pages. Args: <dir-or-base> [--http]"
+   :task (do (require 'etzhayyim.kotoba.pages-store)
+             (apply (resolve 'etzhayyim.kotoba.pages-store/-query) *command-line-args*))}
+
+  pages:deploy
+  {:doc "ADR-2606242400 — deploy a published Pages dir to a REAL GitHub repo + enable Pages (creates repo, pushes, enables Pages from gh-pages root; member gh creds, no-server-key). --verify polls the live URL and reconstructs the graph over HTTPS Range. Args: <dir> <owner/repo> <graph> [--verify]"
+   :task (do (require 'etzhayyim.kotoba.pages-store)
+             (apply (resolve 'etzhayyim.kotoba.pages-store/-deploy) *command-line-args*))}
+
+  test:pages-store
+  {:doc "ADR-2606242400 CARv1 + prolly-tree + GitHubPagesBlockStore invariants: varint, CID framing, CAR roots/index slices, tamper detection, flat publish→Range→verify→reassemble round-trip, prolly multi-level/determinism/seek-locality/path-copy. Hermetic (no network)."
+   :task (do (require 'etzhayyim.kotoba.test-pages-store)
+             (apply (resolve 'etzhayyim.kotoba.test-pages-store/-main) *command-line-args*))}
 
   sops:keygen
   {:doc "ADR-2606241500 — generate an age identity for an actor (or __org__ for the org-wide recovery key), print the recipient. DRY-RUN prints the secret; --apply stores it in macOS Keychain (service etzhayyim.sops-age, MEMBER key, no-server-key). Args: <actor|__org__> [--apply]"

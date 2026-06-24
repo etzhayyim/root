@@ -138,22 +138,31 @@
   "W3C DID Document for did:web:etzhayyim.github.io:com-etzhayyim-<name>,
    cross-linking the sovereign rad: identity, the AT handle, and the GitHub
    mirror in alsoKnownAs. `pubkey-hex` (optional) adds an Ed25519
-   verificationMethod. Served STATICALLY from the repo's GitHub Pages root."
-  [{:keys [name did-web genesis pubkey-hex]}]
+   verificationMethod. `data-graph` (optional, {:root :car :head}) adds a
+   KotobaDataGraph service so resolving the DID locates the CID-queryable Pages
+   data tier (ADR-2606242400). Served STATICALLY from the repo's Pages root."
+  [{:keys [name did-web genesis pubkey-hex data-graph]}]
   (let [did (or did-web (str "did:web:etzhayyim.github.io:com-etzhayyim-" name))
-        dk  (some-> pubkey-hex did-key)]
+        dk  (some-> pubkey-hex did-key)
+        services (cond-> [{"id" (str did "#atproto_pds")
+                           "type" "AtprotoPersonalDataServer"
+                           "serviceEndpoint" "https://pds.etzhayyim.com"}
+                          {"id" (str did "#aozora")
+                           "type" "AozoraAppView"
+                           "serviceEndpoint" "https://aozora.app"}]
+                   data-graph
+                   (conj {"id" (str did "#kotoba-data")
+                          "type" "KotobaDataGraph"
+                          "serviceEndpoint" {"root" (:root data-graph)
+                                             "car" (or (:car data-graph) "data/")
+                                             "head" (or (:head data-graph) "data/head.json")}}))]
     (cond-> {"@context" ["https://www.w3.org/ns/did/v1"
                          "https://w3id.org/security/suites/ed25519-2020/v1"]
              "id" did
              "alsoKnownAs" (cond-> [(str "at://" name ".etzhayyim.com")
                                     (str "https://github.com/etzhayyim/com-etzhayyim-" name)]
                              genesis (conj (rad-uri genesis)))
-             "service" [{"id" (str did "#atproto_pds")
-                         "type" "AtprotoPersonalDataServer"
-                         "serviceEndpoint" "https://pds.etzhayyim.com"}
-                        {"id" (str did "#aozora")
-                         "type" "AozoraAppView"
-                         "serviceEndpoint" "https://aozora.app"}]}
+             "service" services}
       dk (assoc "verificationMethod"
                 [{"id" (str did "#key-0")
                   "type" "Ed25519VerificationKey2020"

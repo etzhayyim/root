@@ -31,6 +31,7 @@
             [etzhayyim.kotoba-rad :as rad]
             [etzhayyim.kotoba-rad-sign :as rad-sign]
             [etzhayyim.sops-age :as sops]
+            [etzhayyim.kotoba.pages-store :as pages]
             [etzhayyim.actor-publish :as pub]))
 
 (defn code-prefix [actor] (str "20-actors/" actor))
@@ -114,8 +115,10 @@
 
 ;; ── driver ───────────────────────────────────────────────────────────────────
 
+(defn pages-dir [actor] (str "20-actors/" actor "/data"))
+
 (defn evolve-one
-  [actor {:keys [apply? push? pr? merge? message pubkey-hex]}]
+  [actor {:keys [apply? push? pr? merge? pages? message pubkey-hex]}]
   (let [manifest (pub/read-manifest actor)
         _ (when-not manifest
             (throw (ex-info (str "no manifest for " actor) {:actor actor})))
@@ -170,6 +173,20 @@
         (when apply?
           (git "add" "--" (str rad/journal-dir "/" actor ".identity.journal.edn"))))
 
+      ;; 4b. publish the (now-updated) identity log as a CID-queryable CARv1 tier
+      ;;     at the actor's Pages root (ADR-2606242400) — the data graph becomes
+      ;;     fetchable by root CID over HTTPS Range once the repo's Pages is live.
+      (when pages?
+        (let [dir (pages-dir actor)
+              jpath (rad/journal-path actor)]
+          (if (and apply? (.exists (io/file jpath)))
+            (let [r (pages/publish! dir actor (log/read-log jpath))]
+              (git "add" "--" dir)
+              (println "  [pages]    " (str dir "/" actor ".car")
+                       "root=" (:root r) "blocks=" (:n-blocks r)))
+            (println "  [pages]    " (if apply? (str "skip (no journal at " jpath ")")
+                                         (str "PLAN: pages/publish! " dir " (" actor ".car + idx + head.json)"))))))
+
       ;; 5. commit
       (let [msg (or message (str "evolve(" actor "): code + data"))
             full (str msg "\n\nrad: " (rad/rad-uri genesis)
@@ -219,11 +236,12 @@
               :push?  (contains? flags "--push")
               :pr?    (contains? flags "--pr")
               :merge? (contains? flags "--merge")
+              :pages? (contains? flags "--pages")
               :message msg
               :pubkey-hex (some->> args (filter #(str/starts-with? % "--pubkey="))
                                    first (drop 9) (apply str) not-empty)}
         actors (remove #(str/starts-with? % "--") args)]
     (when (empty? actors)
-      (println "usage: bb actor:evolve <name> [--message=<m>] [--apply] [--push] [--pr] [--merge] [--pubkey=<hex>]")
+      (println "usage: bb actor:evolve <name> [--message=<m>] [--apply] [--pages] [--push] [--pr] [--merge] [--pubkey=<hex>]")
       (System/exit 2))
     (doseq [a actors] (evolve-one a opts))))
