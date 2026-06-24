@@ -1761,7 +1761,7 @@
     :dl/anchor "CCT nr. 109" :dl/critical true :dl/verify-service-date true}
    {:dl/label "時効"
     :dl/rule "雇用契約上の請求は契約終了から1 an"
-    :dl/anchor "loi 03.07.1978 art. 15" :dl/verify-service-date true}]
+    :dl/anchor "loi 03.07.1978 art. 15" :dl/source-url "https://www.ejustice.just.fgov.be/eli/loi/1978/07/03/1978070303/justel" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :demande-motifs :opt/kind :self-submit :opt/protective true
     :opt/label "書留で motivation を請求 (2 mois — まず理由を固定する)"}
@@ -1776,7 +1776,7 @@
   :proc/deadline-rules
   [{:dl/label "Quotités saisissables (生計保護)"
     :dl/rule "差押えは**所得階層別の quotités** (毎年indexé) の範囲のみ — 下限帯は全額保護; **enfant à charge 1人ごとに保護額が増える** (申告制 — 様式で申告しないと反映されない)"
-    :dl/anchor "Code judiciaire art. 1409・1409bis" :dl/verify-service-date true}]
+    :dl/anchor "Code judiciaire art. 1409・1409bis" :dl/source-url "https://www.ejustice.just.fgov.be/eli/loi/1967/10/10/1967101056/justel" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :enfant-declare :opt/kind :self-submit :opt/protective true
     :opt/label "enfant à charge を様式で申告 (保護増額は自動でない — 必ず申告)"}
