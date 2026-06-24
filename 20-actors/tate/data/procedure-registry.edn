@@ -1263,7 +1263,7 @@
   :proc/deadline-rules
   [{:dl/label "TADM mediation (前置)"
     :dl/rule "wrongful dismissal claim は dismissal から1か月以内に TADM へ (mediation 前置 — 不調なら ECT へ); salary 未払は6か月以内"
-    :dl/anchor "Employment Claims Act 2016 / Employment Act s.14" :dl/critical true :dl/verify-service-date true}]
+    :dl/anchor "Employment Claims Act 2016 / Employment Act s.14" :dl/source-url "https://sso.agc.gov.sg/Act/ECA2016" :dl/critical true :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :tadm :opt/kind :self-submit :opt/protective true
     :opt/label "TADM へオンライン申立て (低額手数料・本人手続 — ECT も弁護士代理禁止)"}
@@ -1306,7 +1306,7 @@
   :proc/deadline-rules
   [{:dl/label "Memorandum of Appearance + Defence"
     :dl/rule "divorce papers 送達後8日以内 (シンガポール国外で送達なら21日) に Memorandum of Appearance を file; Defence (または Defence and Counterclaim) は MOA 提出から14日以内; MOA 未提出は contested 扱い・default judgment になりうる"
-    :dl/anchor "Family Justice Rules 2014 + Women's Charter" :dl/verify-service-date true}]
+    :dl/anchor "Family Justice Rules 2014 + Women's Charter" :dl/source-url "https://sso.agc.gov.sg/Act/WC1961" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :moa :opt/kind :self-submit :opt/protective true :opt/label "Memorandum of Appearance を期限内に file (応訴の意思表示)"}
    {:opt/id :defence :opt/kind :self-submit :opt/label "Defence (必要なら Counterclaim) を MOA から14日以内に file"}]
