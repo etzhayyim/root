@@ -709,7 +709,7 @@
   :proc/deadline-rules
   [{:dl/label "ESA 最低基準 / wrongful dismissal"
     :dl/rule "ESA の termination pay (勤続1年あたり1週・上限8週) は最低基準 — common law の reasonable notice はそれを大きく上回り得る; ESA complaint は2年以内, 民事 (wrongful dismissal) は ON 時効2年"
-    :dl/anchor "ON ESA 2000 Pt XV / Limitations Act 2002 s.4" :dl/verify-service-date true}]
+    :dl/anchor "ON ESA 2000 Pt XV / Limitations Act 2002 s.4" :dl/source-url "https://www.ontario.ca/laws/statute/00e41" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :esa-complaint :opt/kind :self-submit :opt/label "Ministry of Labour へ ESA complaint (無料・本人可)"}
    {:opt/id :severance-review :opt/kind :self-decide :opt/protective true
@@ -724,10 +724,10 @@
   :proc/deadline-rules
   [{:dl/label "N12 の要件"
     :dl/rule "landlord 自己使用の N12 は60日以上の通知 + 1か月分の補償が必須; 悪意 (bad faith) の N12 は T5 で救済 (最大12か月分の賠償等)"
-    :dl/anchor "ON RTA 2006 ss.48・48.1・55.1・57" :dl/verify-service-date true}
+    :dl/anchor "ON RTA 2006 ss.48・48.1・55.1・57" :dl/source-url "https://www.ontario.ca/laws/statute/06r17" :dl/verify-service-date true}
    {:dl/label "退去義務の発生時点"
     :dl/rule "退去執行は LTB の order + Sheriff のみ — N12 だけで退去義務はない; 期日で事情を述べられる"
-    :dl/anchor "ON RTA 2006 (LTB) / Courts of Justice Act" :dl/verify-service-date true}]
+    :dl/anchor "ON RTA 2006 (LTB) / Courts of Justice Act" :dl/source-url "https://www.ontario.ca/laws/statute/06r17" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :verify-good-faith :opt/kind :self-decide :opt/label "自己使用の真実性を点検 (再賃貸の形跡は T5 の証拠)"}
    {:opt/id :compensation-check :opt/kind :self-decide :opt/label "1か月分補償の受領を確認 (未払いなら N12 無効主張)"}
