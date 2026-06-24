@@ -45,7 +45,7 @@ listRecords reverse/bounds/paging, resolveHandle (account-backed), and error env
 
 ## Next maturity steps (loop)
 
-1. refresh the README to document the now-rich method surface (it predates the
-   federation/auth/blob work).
-2. `getRepo` `since` (incremental — only blocks after a rev) once a commit log exists.
-3. a conformance smoke against the `@atproto` CAR/commit shapes where feasible offline.
+1. `getRepo` `since` (incremental — only blocks after a rev) once a commit log exists.
+2. a conformance smoke against the `@atproto` CAR/commit shapes where feasible offline.
+3. lexicon-shape validation for known collections (e.g. `app.bsky.feed.post` needs
+   `text`+`createdAt`) behind a flag.
