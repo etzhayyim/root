@@ -329,7 +329,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "hodoki": {
-    description: "解き — ELV Disassembly + Materials Recovery",
+    description: "End-of-life vehicle (ELV) disassembly + materials recovery Tier-B actor. Adopts mature OEM-run ELV facility methodology (depollution → parts harvest → shred → sort); religious-corp-ised by mandatory ECU data wipe (G8, §2(c) anti-surveillance constitutional first), right-to-repair parts catalog (G12, §2(e) anti-gatekeeping constitutional first), ≥95% material recovery (G13), ≥95% F-gas capture (G6), ≥95% PGM yield (G14), Li-ion second-life classification (L2 hikari handoff), and cross-actor circular feed mandatory (kanayama metals + makura seat foam G13 closure + silicon Wave 2 ECU + hikari R2+ second-life). Military vehicles + aerospace + marine + rail + buses + trucks ≥3.5t + Tesla-class proprietary cell harvest + H2 FCV are constitutional non-goals.",
     glyph: "解き",
     displayName: "解き — ELV Disassembly + Materials Recovery",
     adrs: ["2605261215", "2605261230", "2605261245", "2605261300"],
@@ -511,7 +511,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "kanayama": {
-    description: "金山 — Circular Metallurgy",
+    description: "Closed-loop material recovery / circular metallurgy Tier-B actor. Wave 1 reference = closed-loop aluminum used beverage container (UBC) recycling adopted from European integrated recycling-rolling mill practice. Constitutional posture strongly favorable (§2(g) habitat + §2(h) circular economy + §2(e) anti-gatekeeping). Primary mining (bauxite / iron / copper / etc.) is out of kanayama scope (N1, recovery-first by preference); NOT constitutionally forbidden — extraction is gated by a multi-generational (子・孫) × wellbecoming risk assessment per ADR-2606161700 (Rider §2(l) v3.2), not a blanket ban. Wave 2-4 (steel / copper / rare-earth) deferred to separate ADRs.",
     glyph: "金山",
     displayName: "金山 — Circular Metallurgy",
     adrs: ["2605252400", "2605252415", "2605252430", "2605252445"],
@@ -719,7 +719,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "makura": {
-    description: "枕 — Foam Pillow Manufacturing",
+    description: "Foam pillow manufacturing Tier-B actor. Adopts mature global slabstock + shredding + sewing + filling methodology; religious-corp-ised by full BoM disclosure, take-back recycling ≥10% by R3, closed-loop isocyanate handling (worker exposure ≤5 ppb MDI / ≤2 ppb TDI 8h TWA), brominated-FR exclusion (no PBDE/TDCPP/TCEP/Sb₂O₃), anti-surveillance (no RFID/NFC/IoT), anti-IP-licensing, and anti-fragrance-addictive-design gates. Mattresses, medical-claim pillows, smart-IoT, and licensed-IP co-branding are constitutional non-goals per Charter Rider §2(c) + §2(g) + §1.13.",
     glyph: "枕",
     displayName: "枕 — Foam Pillow Manufacturing",
     adrs: ["2605261115", "2605261130", "2605261145", "2605261200"],
