@@ -2705,7 +2705,7 @@
   :proc/deadline-rules
   [{:dl/label "Besittningsskydd (継続保護)"
     :dl/rule "居住用賃借人は強い besittningsskydd — 争いは hyresnämnden へ付託 (uppsägning には付託先の anvisning 記載が必須; 不備は無効主張の余地)"
-    :dl/anchor "Jordabalken 12 kap. 46§・49§" :dl/verify-service-date true}]
+    :dl/anchor "Jordabalken 12 kap. 46§・49§" :dl/source-url "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/jordabalk-1970994_sfs-1970-994/" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :hyresnamnden :opt/kind :self-submit :opt/protective true
     :opt/label "hyresnämnden へ付託 (無料・本人手続)"}
