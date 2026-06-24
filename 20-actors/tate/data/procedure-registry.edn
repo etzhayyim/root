@@ -2511,10 +2511,10 @@
   :proc/deadline-rules
   [{:dl/label "Congé の有効要件"
     :dl/rule "bailleur の congé は期間満了の6か月前まで + 理由 (vente / reprise / motif légitime) と形式が必須 — 不備は無効; 高齢・低資力の locataire は保護"
-    :dl/anchor "Loi 89-462 art. 15" :dl/verify-service-date true}
+    :dl/anchor "Loi 89-462 art. 15" :dl/source-url "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000509310" :dl/verify-service-date true}
    {:dl/label "退去義務の発生時点"
     :dl/rule "expulsion は juge + commissaire de justice によってのみ; trêve hivernale (冬季) は執行停止 — 通知のみで退去不要"
-    :dl/anchor "CPCE L.412-6 (trêve hivernale)" :dl/verify-service-date true}]
+    :dl/anchor "CPCE L.412-6 (trêve hivernale)" :dl/source-url "https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000025024948/" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :verifier-validite :opt/kind :self-decide :opt/label "congé の形式・理由・期限を点検 (ADIL 無料相談)"}
    {:opt/id :preemption :opt/kind :self-decide :opt/label "vente の場合は droit de préemption (優先買取権) を確認"}
@@ -2530,10 +2530,10 @@
   :proc/deadline-rules
   [{:dl/label "Contestation"
     :dl/rule "dénonciation から1か月以内に juge de l'exécution へ contestation"
-    :dl/anchor "CPCE R.211-11" :dl/verify-service-date true}
+    :dl/anchor "CPCE R.211-11" :dl/source-url "https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000025024948/" :dl/verify-service-date true}
    {:dl/label "Solde bancaire insaisissable (SBI)"
     :dl/rule "口座には SBI (RSA 単身者額) が申請不要で自動的に残される — 生活維持分は守られている"
-    :dl/anchor "CPCE R.162-2" :dl/verify-service-date true}]
+    :dl/anchor "CPCE R.162-2" :dl/source-url "https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000025024948/" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :sbi-check :opt/kind :self-decide :opt/protective true
     :opt/label "SBI が残されているか口座を確認 (自動 — 不足なら銀行へ是正請求)"}
@@ -2548,7 +2548,7 @@
   :proc/deadline-rules
   [{:dl/label "Déclaration de créance"
     :dl/rule "BODACC 公告から2か月以内 (国外債権者は+2か月) に mandataire judiciaire へ déclaration — 徒過は forclusion (失権; relevé de forclusion は例外的)"
-    :dl/anchor "Code de commerce L.622-24・R.622-24" :dl/critical true :dl/verify-service-date true}]
+    :dl/anchor "Code de commerce L.622-24・R.622-24" :dl/source-url "https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000005634379/" :dl/critical true :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :declarer :opt/kind :self-submit :opt/protective true
     :opt/label "déclaration de créance を期限内に (オンライン可) — 前払金・avoir も債権 (kaiyaku 縁-ledger 突合)"}
