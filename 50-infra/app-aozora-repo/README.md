@@ -62,10 +62,11 @@ bb test   # 13 tests / 52 assertions green
 2. ✅ **Signed commit** — `commit/commit!` with the no-server-key `sign-fn` seam.
 3. ✅ **CAR + `com.atproto.sync.*`** — `getRepo`/`getLatestCommit`/`getBlocks`,
    verified vs `@ipld/car`. (`subscribeRepos` firehose = a later increment.)
-4. 🟡 **Wire into `etzhayyim-atproto-pds-clj`** — the entry point
-   `repo/commit-records!` (records → MST → signed commit → head) is ready; the PDS
-   calls it on write and adds the `com.atproto.sync.*` routes (a small server.clj
-   change, sequenced after the PDS account PR). **P2 cutover** then points
+4. ✅ **Wired into `etzhayyim-atproto-pds-clj`** — `etzhayyim.pds.repo` builds the
+   repo from the PDS records via `commit-records!` and serves
+   `com.atproto.sync.{getRepo,getLatestCommit,getBlocks}` (CARv1 / JSON) from
+   `server.clj`; app-aozora-repo is on the PDS classpath. (`subscribeRepos`
+   firehose + signed-on-write are later increments.) **P2 cutover** then points
    `pds.etzhayyim.com` origin at the clj-on-kotoba PDS → resolves the 530.
 
 See ADR-2606242330 (PDS consolidation) §addendum for the kotoba-canonical-repo
