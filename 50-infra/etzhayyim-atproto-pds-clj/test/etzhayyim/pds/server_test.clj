@@ -7,6 +7,7 @@
             [etzhayyim.pds.config :as cfg]
             [etzhayyim.pds.store :as store]
             [etzhayyim.pds.repo :as repo]
+            [etzhayyim.pds.blob :as blob]
             [etzhayyim.pds.xrpc :as xrpc]
             [etzhayyim.pds.server :as server]))
 
@@ -157,3 +158,27 @@
           [_ _ commit] (repo/make-commit cfg/pds-did (repo/block-cid {}) "3krev" nil (.getPrivate kp))
           unsigned (dissoc commit :sig)]
       (is (repo/verify (.getPublic kp) (repo/dag-cbor unsigned) (:sig commit))))))
+
+(deftest relay-verification-chain
+  (testing "a relay reconstructs the key from did.json multibase + verifies the commit sig"
+    (let [kp (repo/gen-keypair)
+          mb (repo/pubkey-multibase (.getPublic kp))   ; published in did.json
+          relay-pub (repo/multibase->pubkey mb)         ; what a relay derives from it
+          [_ _ commit] (repo/make-commit cfg/pds-did (repo/block-cid {}) "3kr" nil (.getPrivate kp))]
+      (is (repo/verify relay-pub (repo/dag-cbor (dissoc commit :sig)) (:sig commit)))
+      (testing "a tampered commit fails verification"
+        (is (not (repo/verify relay-pub (repo/dag-cbor (assoc (dissoc commit :sig) :rev "evil")) (:sig commit))))))))
+
+(deftest blob-store-roundtrips
+  (testing "uploadBlob → content-addressed ref; getBlob returns the verified bytes"
+    (let [dir (str (System/getProperty "java.io.tmpdir") "/pds-blobs-" (hash (str (gensym))))
+          data (.getBytes "fake image bytes" "UTF-8")
+          {:keys [cid size]} (blob/put-blob dir data "image/png")]
+      (is (str/starts-with? cid "bafkrei"))   ; CIDv1 raw / sha2-256
+      (is (= (alength data) size))
+      (let [{:keys [bytes mime]} (blob/get-blob dir cid)]
+        (is (= "fake image bytes" (String. bytes "UTF-8")))
+        (is (= "image/png" mime)))
+      (is (= [cid] (blob/list-blobs dir)))
+      (doseq [f (.listFiles (clojure.java.io/file dir))] (.delete f))
+      (.delete (clojure.java.io/file dir)))))

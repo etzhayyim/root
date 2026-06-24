@@ -10,6 +10,7 @@
             [etzhayyim.pds.config :as cfg]
             [etzhayyim.pds.store :as store]
             [etzhayyim.pds.repo :as repo]
+            [etzhayyim.pds.blob :as blob]
             [etzhayyim.pds.xrpc :as xrpc]))
 
 (defn- json-response [{:keys [status body]}]
@@ -23,6 +24,16 @@
    :headers {"content-type" "application/vnd.ipld.car"
              "access-control-allow-origin" "*"}
    :body (java.io.ByteArrayInputStream. car)})
+
+(defn- bytes-response [^bytes data mime]
+  {:status 200
+   :headers {"content-type" (or mime "application/octet-stream")
+             "access-control-allow-origin" "*"}
+   :body (java.io.ByteArrayInputStream. data)})
+
+(defn- read-bytes ^bytes [req]
+  (when-let [b (:body req)]
+    (if (bytes? b) b (with-open [in (clojure.java.io/input-stream b)] (.readAllBytes in)))))
 
 (defn- all-records
   "Every live record of a repo, across its collections (folds list-records)."
@@ -73,6 +84,14 @@
       "com.atproto.sync.getBlocks"
       (let [want (some-> (:cids params) (str/split #",") set)]
         (car-response (repo/blocks-car @repo* (when want (conj want (:commit-cid @repo*))))))
+
+      "com.atproto.sync.getBlob"
+      (if-let [{:keys [bytes mime]} (blob/get-blob cfg/blob-dir (:cid params))]
+        (bytes-response bytes mime)
+        (json-response {:status 404 :body {"error" "BlobNotFound" "message" (:cid params)}}))
+
+      "com.atproto.sync.listBlobs"
+      (json-response {:status 200 :body {"cids" (blob/list-blobs cfg/blob-dir)}})
 
       (json-response {:status 501 :body {"error" "MethodNotImplemented" "message" nsid}}))))
 
@@ -130,6 +149,15 @@
         (nil? nsid)
         (json-response {:status 404 :body {"error" "NotFound" "message" uri}})
 
+        ;; blob upload (binary body, content-addressed)
+        (= nsid "com.atproto.repo.uploadBlob")
+        (let [data (read-bytes req)
+              {:keys [cid size mime]} (blob/put-blob cfg/blob-dir data
+                                                     (get-in req [:headers "content-type"]))]
+          (json-response {:status 200 :body {"blob" {"$type" "blob"
+                                                     "ref" {"$link" cid}
+                                                     "mimeType" mime "size" size}}}))
+
         ;; federation firehose: com.atproto.sync.subscribeRepos (websocket)
         (= nsid "com.atproto.sync.subscribeRepos")
         (subscribe-handler req store signing-key)
@@ -179,6 +207,6 @@
     (start! store (:private kp) multibase cfg/port)
     (println (format "[pds] etzhayyim atproto PDS up: %s  did=%s  domains=%s  :%d"
                      cfg/host cfg/pds-did (str/join "," cfg/user-domains) cfg/port))
-    (println "[pds] sync surface: com.atproto.sync.{getRepo,getRecord,getBlocks,getLatestCommit,getRepoStatus,listRepos,subscribeRepos}")
+    (println "[pds] sync surface: com.atproto.sync.{getRepo,getRecord,getBlocks,getLatestCommit,getRepoStatus,listRepos,subscribeRepos,getBlob,listBlobs} + repo.uploadBlob")
     (println "[pds] signing key published in did.json: #atproto" multibase)
     @(promise)))

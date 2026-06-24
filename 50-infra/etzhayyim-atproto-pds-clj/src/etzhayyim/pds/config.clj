@@ -49,6 +49,9 @@
 ;; `sig` is stable across restarts and its public key can be pinned in the did doc.
 (def signing-key-file (env "PDS_SIGNING_KEY_FILE" "signing-key.edn"))
 
+;; Content-addressed blob store directory (uploadBlob / sync.getBlob / listBlobs).
+(def blob-dir (env "PDS_BLOB_DIR" "blobs"))
+
 (defn did-document
   "did:web:<host> document. Service endpoints are all etzhayyim-owned — this is
   the structural break from gftd: nothing here points at *.gftd.ai. When the

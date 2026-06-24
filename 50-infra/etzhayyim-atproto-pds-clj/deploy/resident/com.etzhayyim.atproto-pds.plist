@@ -11,6 +11,7 @@
     <key>PDS_HOST</key><string>atproto.etzhayyim.com</string>
     <key>PDS_STORE_PATH</key><string>/Users/asher/.etzhayyim-pds/repo.edn</string>
     <key>PDS_SIGNING_KEY_FILE</key><string>/Users/asher/.etzhayyim-pds/signing-key.edn</string>
+    <key>PDS_BLOB_DIR</key><string>/Users/asher/.etzhayyim-pds/blobs</string>
   </dict>
   <key>RunAtLoad</key><true/>
   <key>KeepAlive</key><true/>

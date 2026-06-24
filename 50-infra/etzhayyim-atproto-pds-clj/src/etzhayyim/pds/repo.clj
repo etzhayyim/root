@@ -111,6 +111,16 @@
     (System/arraycopy d 0 b 4 (alength d))
     b))
 
+(defn raw-cid-of-bytes
+  "CIDv1 raw (0x55) / sha2-256 — for blobs (opaque bytes, not dag-cbor)."
+  ^bytes [^bytes block]
+  (let [d (sha256 block)
+        b (byte-array (+ 4 (alength d)))]
+    (aset-byte b 0 (byte 0x01)) (aset-byte b 1 (byte 0x55))  ; cidv1, raw
+    (aset-byte b 2 (byte 0x12)) (aset-byte b 3 (byte 0x20))  ; sha2-256, 32 bytes
+    (System/arraycopy d 0 b 4 (alength d))
+    b))
+
 (defn cid-str [^bytes cid-bytes] (str "b" (base32-lower cid-bytes)))
 (defn block-cid ^bytes [v] (cid-of-bytes (dag-cbor v)))
 
@@ -250,6 +260,29 @@
     (aset-byte prefixed 1 (unchecked-byte 0x01))
     (System/arraycopy raw 0 prefixed 2 (alength raw))
     (str "z" (base58btc prefixed))))
+
+(defn- base58btc-decode ^bytes [^String s]
+  (let [zeros (count (take-while #(= % \1) s))
+        fifty8 (BigInteger/valueOf 58)
+        bi (reduce (fn [acc c]
+                     (.add (.multiply acc fifty8)
+                           (BigInteger/valueOf (.indexOf b58-alphabet (int c)))))
+                   BigInteger/ZERO (seq s))
+        ba (.toByteArray bi)
+        ba (if (and (> (alength ba) 1) (zero? (aget ba 0))) (Arrays/copyOfRange ba 1 (alength ba)) ba)]
+    (byte-array (concat (repeat zeros (byte 0)) (seq ba)))))
+
+(defn multibase->pubkey
+  "Reconstruct the Ed25519 public key a RELAY derives from the did:web Multikey
+  `publicKeyMultibase` — the inverse of pubkey-multibase. Lets a relay verify the
+  repo commit `sig` using only the published did.json."
+  [^String mb]
+  (let [decoded (base58btc-decode (subs mb 1))                ; drop 'z'
+        raw (Arrays/copyOfRange decoded 2 (alength decoded))  ; drop 0xed01 multicodec
+        x509 (byte-array (map unchecked-byte
+                              (concat [0x30 0x2a 0x30 0x05 0x06 0x03 0x2b 0x65 0x70 0x03 0x21 0x00]
+                                      (seq raw))))]
+    (.generatePublic (KeyFactory/getInstance "Ed25519") (X509EncodedKeySpec. x509))))
 
 ;; ── commit ───────────────────────────────────────────────────────────────────
 
