@@ -11,6 +11,7 @@
             [etzhayyim.pds.store :as store]
             [etzhayyim.pds.repo :as repo]
             [etzhayyim.pds.blob :as blob]
+            [etzhayyim.pds.account :as account]
             [etzhayyim.pds.xrpc :as xrpc]))
 
 (defn- json-response [{:keys [status body]}]
@@ -131,7 +132,12 @@
            (http/send! ch frame))
          (catch Exception e (binding [*out* *err*] (println "[pds] subscribeRepos:" (.getMessage e))))))}))
 
-(defn make-handler [store signing-key signing-multibase]
+(def ^:private write-methods
+  #{"com.atproto.repo.createRecord" "com.atproto.repo.putRecord"
+    "com.atproto.repo.deleteRecord" "com.atproto.repo.applyWrites"
+    "com.atproto.repo.uploadBlob" "com.atproto.repo.importRepo"})
+
+(defn make-handler [store signing-key signing-multibase jwt-secret]
   (fn [req]
     (let [uri (:uri req)
           method (:request-method req)
@@ -148,6 +154,34 @@
 
         (nil? nsid)
         (json-response {:status 404 :body {"error" "NotFound" "message" uri}})
+
+        ;; opt-in write auth (PDS_REQUIRE_AUTH): writes need a valid session Bearer
+        (and cfg/require-auth (contains? write-methods nsid)
+             (nil? (account/verify-jwt jwt-secret (get-in req [:headers "authorization"]))))
+        (json-response {:status 401 :body {"error" "AuthRequired" "message" "valid session Bearer required"}})
+
+        ;; account + session
+        (= nsid "com.atproto.server.createAccount")
+        (let [{:keys [handle password did]} (merge qp (try (read-body req) (catch Exception _ nil)))]
+          (try
+            (let [a (account/create-account cfg/accounts-file {:handle handle :password password :did did})]
+              (json-response {:status 200 :body {"did" (:did a) "handle" (:handle a)
+                                                 "accessJwt" (account/make-jwt jwt-secret (:did a))}}))
+            (catch Exception e (json-response {:status 400 :body {"error" "InvalidRequest" "message" (.getMessage e)}}))))
+
+        (= nsid "com.atproto.server.createSession")
+        (let [{:keys [identifier password]} (merge qp (try (read-body req) (catch Exception _ nil)))]
+          (if-let [did (and password (account/verify-password cfg/accounts-file identifier password))]
+            (json-response {:status 200 :body {"did" did "handle" identifier
+                                               "accessJwt" (account/make-jwt jwt-secret did)
+                                               "refreshJwt" (account/make-jwt jwt-secret did)}})
+            ;; fall back to the minimal non-cryptographic session for unregistered handles
+            (json-response (xrpc/create-session (merge qp {:identifier identifier})))))
+
+        (= nsid "com.atproto.server.getSession")
+        (if-let [did (account/verify-jwt jwt-secret (get-in req [:headers "authorization"]))]
+          (json-response {:status 200 :body {"did" did "handle" did "active" true}})
+          (json-response {:status 401 :body {"error" "AuthRequired" "message" "valid session Bearer required"}}))
 
         ;; repo import (binary CAR body → walk MST → ingest records)
         (= nsid "com.atproto.repo.importRepo")
@@ -203,18 +237,20 @@
     (do (println "[pds] storage = in-process datom log (ephemeral; set PDS_STORE_PATH or KOTOBA_URL)")
         (store/->mem-store))))
 
-(defn start! [store signing-key signing-multibase port]
-  (http/run-server (make-handler store signing-key signing-multibase)
+(defn start! [store signing-key signing-multibase jwt-secret port]
+  (http/run-server (make-handler store signing-key signing-multibase jwt-secret)
                    {:port port :legacy-return-value? false}))
 
 (defn -main [& _]
   (let [store (make-store)
         ;; stable commit signing key (present-only, persisted at PDS_SIGNING_KEY_FILE).
         kp (repo/load-or-create-keypair cfg/signing-key-file)
-        multibase (repo/pubkey-multibase (:public kp))]
-    (start! store (:private kp) multibase cfg/port)
+        multibase (repo/pubkey-multibase (:public kp))
+        jwt-secret (account/secret-from-key (.getEncoded (:private kp)))]
+    (start! store (:private kp) multibase jwt-secret cfg/port)
     (println (format "[pds] etzhayyim atproto PDS up: %s  did=%s  domains=%s  :%d"
                      cfg/host cfg/pds-did (str/join "," cfg/user-domains) cfg/port))
     (println "[pds] sync surface: com.atproto.sync.{getRepo,getRecord,getBlocks,getLatestCommit,getRepoStatus,listRepos,subscribeRepos,getBlob,listBlobs} + repo.{uploadBlob,importRepo,applyWrites}")
+    (println "[pds] auth: createAccount/createSession/getSession (HS256); write-auth" (if cfg/require-auth "ENFORCED" "open"))
     (println "[pds] signing key published in did.json: #atproto" multibase)
     @(promise)))

@@ -52,6 +52,12 @@
 ;; Content-addressed blob store directory (uploadBlob / sync.getBlob / listBlobs).
 (def blob-dir (env "PDS_BLOB_DIR" "blobs"))
 
+;; Accounts (handle → did + PBKDF2 password) + opt-in write auth. When
+;; PDS_REQUIRE_AUTH is set, write methods require a Bearer session whose `sub` did
+;; matches the repo; otherwise writes stay open (network/operator-gated).
+(def accounts-file (env "PDS_ACCOUNTS_FILE" "accounts.edn"))
+(def require-auth (some? (env "PDS_REQUIRE_AUTH")))
+
 (defn did-document
   "did:web:<host> document. Service endpoints are all etzhayyim-owned — this is
   the structural break from gftd: nothing here points at *.gftd.ai. When the

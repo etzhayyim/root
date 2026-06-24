@@ -19,6 +19,7 @@ breaking the gftd.ai dependency. Updated by the maturity `/loop`.
 | **DAG-CBOR decoder + CAR parser** | ✅ | inverse codec; encode↔decode + build↔parse roundtrips tested |
 | `com.atproto.repo.applyWrites` | ✅ | batch create/update/delete in one call; verified live |
 | **`com.atproto.repo.importRepo`** | ✅ | parse CAR → walk MST → ingest records; verified live (getRepo→importRepo roundtrip, 3 records) |
+| **account + session auth** | ✅ | `createAccount` (PBKDF2) / `createSession` / `getSession` (HS256 JWT); opt-in write-auth gate (`PDS_REQUIRE_AUTH`); verified live |
 | Signing key stable + published | ✅ | `PDS_SIGNING_KEY_FILE`; did.json `#atproto` Multikey `z6Mk…` |
 | **sync read surface** | ✅ | getRepo / getRecord / getBlocks / getLatestCommit / getRepoStatus / listRepos |
 | **`subscribeRepos` firehose** | ✅ | websocket; binary `#commit` frame (CAR + ops) on connect; verified live (opcode 2, header `a26174`) |
@@ -29,19 +30,20 @@ breaking the gftd.ai dependency. Updated by the maturity `/loop`.
 
 ## Tests
 
-`bb test` — 17 deftests / 63 assertions green: independent-identity, http-layer,
+`bb test` — 19 deftests / 70 assertions green: independent-identity, http-layer,
 durable-store-survives-restart, dag-cbor-is-spec-correct, dag-cbor-and-car-roundtrip,
 federation-sync-surface (getRepo/getRecord/getBlocks/getRepoStatus + 404),
 signing-key-published-and-stable, commit-signature-roundtrips,
 relay-verification-chain, relay-verifies-from-served-car (parse real CAR → verify),
 firehose-frame-wellformed, firehose-frame-carries-the-repo (decode #commit → CAR),
-apply-writes-batch, import-repo-roundtrips (export→import 12 records), blob-store-roundtrips.
+apply-writes-batch, import-repo-roundtrips (export→import 12 records),
+account-and-session-auth, write-auth-gate (401 without/200 with Bearer), blob-store-roundtrips.
 
 ## Next maturity steps (loop)
 
-1. blob ref validation on createRecord/applyWrites (verify `{$type:blob}` link
+1. scope write-auth's `sub` to the repo did (not just any valid session) + token
+   expiry (`exp`) + refresh.
+2. blob ref validation on createRecord/applyWrites (verify `{$type:blob}` link
    bytes resolve in the blob store) + a `listBlobs`-since cursor.
-2. an HTTP-socket firehose integration test (connect → read the binary frame off
+3. an HTTP-socket firehose integration test (connect → read the binary frame off
    the wire → parse the `#commit` body's CAR → confirm the record block).
-3. `com.atproto.server.createAccount` + minimal session JWT verification (so writes
-   can be auth-scoped per repo rather than open).

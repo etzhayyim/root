@@ -8,10 +8,12 @@
             [etzhayyim.pds.store :as store]
             [etzhayyim.pds.repo :as repo]
             [etzhayyim.pds.blob :as blob]
+            [etzhayyim.pds.account :as account]
             [etzhayyim.pds.xrpc :as xrpc]
             [etzhayyim.pds.server :as server]))
 
 (def repo cfg/host) ;; "atproto.etzhayyim.com"
+(def tsecret (.getBytes "etzhayyim-test-secret-32bytes!!!!" "UTF-8"))
 
 (deftest independent-identity
   (testing "describeServer is etzhayyim, never gftd"
@@ -70,7 +72,7 @@
   (testing "the ring handler serves did.json (with signing key) and describeServer"
     (let [kp (repo/gen-keypair)
           mb (repo/pubkey-multibase (.getPublic kp))
-          h (server/make-handler (store/->mem-store) (.getPrivate kp) mb)
+          h (server/make-handler (store/->mem-store) (.getPrivate kp) mb tsecret)
           did-resp (h {:uri "/.well-known/did.json" :request-method :get})
           desc (h {:uri "/xrpc/com.atproto.server.describeServer" :request-method :get})]
       (is (= 200 (:status did-resp)))
@@ -116,7 +118,7 @@
     (let [k (.getPrivate (repo/gen-keypair))
           st (store/->mem-store)]
       (store/put-record st cfg/pds-did "app.bsky.feed.post" "3kfed1" {"$type" "app.bsky.feed.post" "text" "x"})
-      (let [h (server/make-handler st k (repo/pubkey-multibase (.getPublic (repo/gen-keypair))))
+      (let [h (server/make-handler st k (repo/pubkey-multibase (.getPublic (repo/gen-keypair))) tsecret)
             car (h {:uri "/xrpc/com.atproto.sync.getRepo" :request-method :get
                     :query-string (str "did=" cfg/pds-did)})
             commit (h {:uri "/xrpc/com.atproto.sync.getLatestCommit" :request-method :get
@@ -134,7 +136,7 @@
         (is (= "application/vnd.ipld.car" (get-in getrec [:headers "content-type"]))) ; record found → CAR
         (is (= "application/vnd.ipld.car" (get-in blocks [:headers "content-type"]))))
       (testing "getRecord for a missing rkey 404s"
-        (let [h (server/make-handler st k "z6Mkx")
+        (let [h (server/make-handler st k "z6Mkx" tsecret)
               miss (h {:uri "/xrpc/com.atproto.sync.getRecord" :request-method :get
                        :query-string (str "did=" cfg/pds-did "&collection=app.bsky.feed.post&rkey=nope")})]
           (is (= 404 (:status miss))))))))
@@ -213,6 +215,42 @@
       (is (= cfg/pds-did (get body "repo")))
       (is (contains? (:blocks parsed) (:commit-cid build))))))
 
+(deftest account-and-session-auth
+  (testing "createAccount → accessJwt; getSession verifies it; createSession by password"
+    (let [acct-file (str (System/getProperty "java.io.tmpdir") "/pds-acct-" (hash (str (gensym))) ".edn")]
+      (with-redefs [cfg/accounts-file acct-file]
+        (let [h (server/make-handler (store/->mem-store) (.getPrivate (repo/gen-keypair)) "z6Mkx" tsecret)
+              created (h {:uri "/xrpc/com.atproto.server.createAccount" :request-method :post
+                          :headers {"content-type" "application/json"}
+                          :body (json/generate-string {"handle" "alice.etzhayyim.com" "password" "hunter2"})})
+              jwt (get (json/parse-string (:body created)) "accessJwt")
+              sess (h {:uri "/xrpc/com.atproto.server.getSession" :request-method :get
+                       :headers {"authorization" (str "Bearer " jwt)}})
+              nosess (h {:uri "/xrpc/com.atproto.server.getSession" :request-method :get})
+              login (h {:uri "/xrpc/com.atproto.server.createSession" :request-method :post
+                        :headers {"content-type" "application/json"}
+                        :body (json/generate-string {"identifier" "alice.etzhayyim.com" "password" "hunter2"})})]
+          (is (= 200 (:status created)))
+          (is (= "did:web:alice.etzhayyim.com" (get (json/parse-string (:body created)) "did")))
+          (is (= "did:web:alice.etzhayyim.com" (get (json/parse-string (:body sess)) "did")))   ; JWT verified
+          (is (= 401 (:status nosess)))                                                          ; no Bearer → 401
+          (is (= "did:web:alice.etzhayyim.com" (get (json/parse-string (:body login)) "did")))  ; password login
+          (.delete (clojure.java.io/file acct-file)))))))
+
+(deftest write-auth-gate
+  (testing "with require-auth, a write without a valid Bearer is 401; with one it succeeds"
+    (with-redefs [cfg/require-auth true]
+      (let [st (store/->mem-store)
+            h (server/make-handler st (.getPrivate (repo/gen-keypair)) "z6Mkx" tsecret)
+            body (json/generate-string {"repo" "atproto.etzhayyim.com" "collection" "app.bsky.feed.post" "record" {"text" "x"}})
+            noauth (h {:uri "/xrpc/com.atproto.repo.createRecord" :request-method :post
+                       :headers {"content-type" "application/json"} :body body})
+            jwt (account/make-jwt tsecret "did:web:atproto.etzhayyim.com")
+            authed (h {:uri "/xrpc/com.atproto.repo.createRecord" :request-method :post
+                       :headers {"content-type" "application/json" "authorization" (str "Bearer " jwt)} :body body})]
+        (is (= 401 (:status noauth)))
+        (is (= 200 (:status authed)))))))
+
 (deftest import-repo-roundtrips
   (testing "export a repo to a CAR, import it into a fresh store → records recovered"
     (let [k (.getPrivate (repo/gen-keypair))
@@ -234,7 +272,7 @@
 (deftest apply-writes-batch
   (testing "applyWrites creates a batch of records in one call"
     (let [st (store/->mem-store)
-          h (server/make-handler st (.getPrivate (repo/gen-keypair)) "z6Mkx")
+          h (server/make-handler st (.getPrivate (repo/gen-keypair)) "z6Mkx" tsecret)
           resp (h {:uri "/xrpc/com.atproto.repo.applyWrites" :request-method :post
                    :headers {"content-type" "application/json"}
                    :body (json/generate-string
