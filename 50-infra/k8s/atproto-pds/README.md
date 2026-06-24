@@ -1,5 +1,11 @@
 # 50-infra/k8s/atproto-pds
 
+> **Status: `bridge-only` — per ADR-2606242330** (PDS consolidation).
+> Bun reference `@atproto/pds` (SQL + B2) — NOT on the kotoba substrate. Kept as the
+> interim production PDS *only* until `50-infra/etzhayyim-atproto-pds-clj` (canonical,
+> clj-on-kotoba) reaches server/repo/identity parity, then retired. **Do not add new
+> features here** — they belong in the clj-on-kotoba PDS / kotoba-server (ADR-2606015002).
+
 K8s pod replacement for the `atproto.etzhayyim.com` PDS CF Worker (`etzhayyim-pds-2603241700`).
 
 **ADR**: [`90-docs/adr/2605111300-pds-to-pod-bun-container.md`](../../../90-docs/adr/2605111300-pds-to-pod-bun-container.md)
