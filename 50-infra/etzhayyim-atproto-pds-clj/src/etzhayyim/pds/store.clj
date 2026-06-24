@@ -5,16 +5,21 @@
   materialization of that append-only log. Two backends implement the same
   `PdsStore` protocol:
 
-    * `->mem-store`    — in-process datom log (single node; local/dev + tests).
-    * `->kotoba-store` — the live kotoba engine over HTTP (production), so the
-                         PDS owns no separate DB — records land on the canonical
-                         content-addressed Datom log (ADR-2605262130).
+    * `->mem-store`     — in-process datom log (single node; local/dev + tests).
+    * `->durable-store` — the same datom log, write-through to an append-only file
+                          on disk and replayed on boot, so records survive a PDS
+                          restart with no external dependency (the PDS owns its own
+                          on-disk kotoba Datom log).
+    * `->kotoba-store`  — the live kotoba engine over HTTP, so the PDS owns no DB —
+                          records land on the canonical Datom log (ADR-2605262130).
 
   Record identity: an at-uri `at://<did>/<collection>/<rkey>`. Each write emits
   datoms [uri :record/did did] [uri :record/collection coll] [uri :record/rkey
   rkey] [uri :record/cid cid] [uri :record/value <json>] [uri :record/createdAt
   ts]. Deletes append a tombstone [uri :record/deleted true]."
   (:require [cheshire.core :as json]
+            [clojure.edn :as edn]
+            [clojure.java.io :as io]
             [babashka.http-client :as http]
             [etzhayyim.pds.datom :as d]
             [etzhayyim.pds.util :as util]))
@@ -90,6 +95,74 @@
       {:did did :collections colls :count (count uris)})))
 
 (defn ->mem-store [] (->MemStore (atom [])))
+
+;; ── durable on-disk datom-log backend ────────────────────────────────────────
+;; The same append-only EAVT log as MemStore, but every appended datom is also
+;; written (write-through) to a newline-delimited EDN file, and the file is
+;; replayed into the log on boot. Crash-safe to the last completed write, no
+;; external service — the PDS carries its own Datom journal on disk.
+
+(defn- append-datoms! [path datoms]
+  (locking path
+    (io/make-parents path)
+    (with-open [w (io/writer path :append true)]
+      (doseq [datom datoms]
+        (.write w (pr-str datom))
+        (.write w "\n")))))
+
+(defn- replay-log [path]
+  (let [f (io/file path)]
+    (if (.exists f)
+      (with-open [r (io/reader f)]
+        (->> (line-seq r)
+             (remove #(re-matches #"\s*" %))
+             (mapv edn/read-string)))
+      [])))
+
+(defrecord DurableStore [path log]
+  PdsStore
+  (put-record [_ did collection rkey value]
+    (let [uri (at-uri did collection rkey)
+          cid (util/content-cid value)
+          ts (util/now-iso)
+          datoms [[uri :record/did did]
+                  [uri :record/collection collection]
+                  [uri :record/rkey rkey]
+                  [uri :record/cid cid]
+                  [uri :record/value (json/generate-string value)]
+                  [uri :record/createdAt ts]]]
+      (append-datoms! path datoms)               ; durable first…
+      (swap! log into datoms)                     ; …then in-memory index
+      {:uri uri :cid cid :value value}))
+  (get-record [_ did collection rkey]
+    (materialize (d/build-db @log) (at-uri did collection rkey)))
+  (delete-record [_ did collection rkey]
+    (let [datoms [[(at-uri did collection rkey) :record/deleted true]]]
+      (append-datoms! path datoms)
+      (swap! log into datoms)
+      true))
+  (list-records [_ did collection limit cursor]
+    (let [db (d/build-db @log)
+          recs (->> (live-uris db)
+                    (filter #(and (= did (read-attr db % :record/did))
+                                  (= collection (read-attr db % :record/collection))))
+                    (keep #(materialize db %))
+                    (sort-by :uri)
+                    reverse)
+          recs (if cursor (drop-while #(>= (compare (:uri %) cursor) 0) recs) recs)
+          page (take limit recs)]
+      {:records (vec page)
+       :cursor (when (= (count page) limit) (:uri (last page)))}))
+  (describe-repo [_ did]
+    (let [db (d/build-db @log)
+          uris (filter #(= did (read-attr db % :record/did)) (live-uris db))
+          colls (->> uris (keep #(read-attr db % :record/collection)) distinct sort vec)]
+      {:did did :collections colls :count (count uris)})))
+
+(defn ->durable-store
+  "Datom-log store persisted to `path` (newline-delimited EDN), replayed on boot."
+  [path]
+  (->DurableStore path (atom (replay-log path))))
 
 ;; ── kotoba engine backend (production) ───────────────────────────────────────
 ;; Persists each record-tx to the live kotoba Datom log over its XRPC/HTTP

@@ -40,6 +40,11 @@
 (def kotoba-url (env "KOTOBA_URL"))
 (def kotoba-graph (env "KOTOBA_GRAPH" "etzhayyim-pds"))
 
+;; Durable on-disk datom log. When PDS_STORE_PATH is set (and KOTOBA_URL is not)
+;; the PDS write-throughs to an append-only EDN journal at that path and replays
+;; it on boot — records survive a restart with no external service.
+(def store-path (env "PDS_STORE_PATH"))
+
 (defn did-document
   "did:web:<host> document. Service endpoints are all etzhayyim-owned — this is
   the structural break from gftd: nothing here points at *.gftd.ai."

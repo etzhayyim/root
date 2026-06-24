@@ -9,6 +9,7 @@
             [org.httpkit.server :as http]
             [etzhayyim.pds.config :as cfg]
             [etzhayyim.pds.store :as store]
+            [etzhayyim.pds.repo :as repo]
             [etzhayyim.pds.xrpc :as xrpc]))
 
 (defn- json-response [{:keys [status body]}]
@@ -16,6 +17,51 @@
    :headers {"content-type" "application/json; charset=utf-8"
              "access-control-allow-origin" "*"}
    :body (json/generate-string body)})
+
+(defn- car-response [^bytes car]
+  {:status 200
+   :headers {"content-type" "application/vnd.ipld.car"
+             "access-control-allow-origin" "*"}
+   :body (java.io.ByteArrayInputStream. car)})
+
+(defn- all-records
+  "Every live record of a repo, across its collections (folds list-records)."
+  [store did]
+  (let [{:keys [collections]} (store/describe-repo store did)]
+    (mapcat (fn [coll]
+              (loop [cursor nil acc []]
+                (let [{:keys [records cursor]} (store/list-records store did coll 100 cursor)
+                      acc (into acc records)]
+                  (if cursor (recur cursor acc) acc))))
+            collections)))
+
+(defn- repo-rev
+  "A monotonic repo revision = the highest record rkey (TID-sortable), or a base."
+  [records]
+  (or (some->> records (map #(last (str/split (:uri %) #"/"))) sort last) "3zzzzzzzzzzzz"))
+
+(defn- sync-response
+  "com.atproto.sync.* — getRepo returns a CAR; the rest return JSON."
+  [store signing-key nsid params]
+  (let [did (or (:did params) cfg/pds-did)]
+    (case nsid
+      "com.atproto.sync.getRepo"
+      (let [records (all-records store did)
+            {:keys [car]} (repo/repo-car did records (repo-rev records) signing-key)]
+        (car-response car))
+
+      "com.atproto.sync.getLatestCommit"
+      (let [records (all-records store did)
+            rev (repo-rev records)
+            {:keys [commit-cid]} (repo/repo-car did records rev signing-key)]
+        (json-response {:status 200 :body {"cid" commit-cid "rev" rev}}))
+
+      "com.atproto.sync.listRepos"
+      (json-response {:status 200 :body {"repos" [{"did" cfg/pds-did
+                                                   "head" (:commit-cid (repo/repo-car cfg/pds-did (all-records store cfg/pds-did) (repo-rev (all-records store cfg/pds-did)) signing-key))
+                                                   "rev" (repo-rev (all-records store cfg/pds-did))}]}})
+
+      (json-response {:status 501 :body {"error" "MethodNotImplemented" "message" nsid}}))))
 
 (defn- parse-query [qs]
   (if (str/blank? qs)
@@ -32,7 +78,7 @@
       (when-not (str/blank? s)
         (json/parse-string s true)))))
 
-(defn make-handler [store]
+(defn make-handler [store signing-key]
   (fn [req]
     (let [uri (:uri req)
           method (:request-method req)
@@ -49,6 +95,10 @@
 
         (nil? nsid)
         (json-response {:status 404 :body {"error" "NotFound" "message" uri}})
+
+        ;; federation: com.atproto.sync.* (getRepo → CAR; rest → JSON)
+        (str/starts-with? nsid "com.atproto.sync.")
+        (sync-response store signing-key nsid qp)
 
         :else
         (let [body (try (read-body req) (catch Exception _ nil))
@@ -68,18 +118,28 @@
           (json-response resp))))))
 
 (defn make-store []
-  (if cfg/kotoba-url
+  (cond
+    cfg/kotoba-url
     (do (println "[pds] storage = kotoba engine" cfg/kotoba-url "graph" cfg/kotoba-graph)
         (store/->kotoba-store cfg/kotoba-url cfg/kotoba-graph))
-    (do (println "[pds] storage = in-process datom log (KOTOBA_URL unset)")
+    cfg/store-path
+    (do (println "[pds] storage = durable on-disk datom log" cfg/store-path)
+        (store/->durable-store cfg/store-path))
+    :else
+    (do (println "[pds] storage = in-process datom log (ephemeral; set PDS_STORE_PATH or KOTOBA_URL)")
         (store/->mem-store))))
 
-(defn start! [store port]
-  (http/run-server (make-handler store) {:port port :legacy-return-value? false}))
+(defn start! [store signing-key port]
+  (http/run-server (make-handler store signing-key) {:port port :legacy-return-value? false}))
 
 (defn -main [& _]
-  (let [store (make-store)]
-    (start! store cfg/port)
+  (let [store (make-store)
+        ;; commit signing key (present-only). Sealed off-platform in production;
+        ;; here generated per-process — the did:web doc must publish its public key
+        ;; for a relay to verify `sig` (the remaining federation step).
+        signing-key (.getPrivate (repo/gen-keypair))]
+    (start! store signing-key cfg/port)
     (println (format "[pds] etzhayyim atproto PDS up: %s  did=%s  domains=%s  :%d"
                      cfg/host cfg/pds-did (str/join "," cfg/user-domains) cfg/port))
+    (println "[pds] sync surface: com.atproto.sync.{getRepo,getLatestCommit,listRepos}")
     @(promise)))

@@ -6,6 +6,7 @@
             [cheshire.core :as json]
             [etzhayyim.pds.config :as cfg]
             [etzhayyim.pds.store :as store]
+            [etzhayyim.pds.repo :as repo]
             [etzhayyim.pds.xrpc :as xrpc]
             [etzhayyim.pds.server :as server]))
 
@@ -66,10 +67,50 @@
 
 (deftest http-layer
   (testing "the ring handler serves did.json and describeServer"
-    (let [h (server/make-handler (store/->mem-store))
+    (let [k (.getPrivate (repo/gen-keypair))
+          h (server/make-handler (store/->mem-store) k)
           did-resp (h {:uri "/.well-known/did.json" :request-method :get})
           desc (h {:uri "/xrpc/com.atproto.server.describeServer" :request-method :get})]
       (is (= 200 (:status did-resp)))
       (is (str/includes? (:body did-resp) "did:web:atproto.etzhayyim.com"))
       (is (= 200 (:status desc)))
       (is (not (str/includes? (:body desc) "gftd"))))))
+
+(deftest durable-store-survives-restart
+  (testing "a record written to a durable store is replayed from disk by a fresh store"
+    (let [path (str (System/getProperty "java.io.tmpdir") "/pds-durable-" (hash (str (gensym))) ".edn")
+          s1 (store/->durable-store path)]
+      (store/put-record s1 "did:web:atproto.etzhayyim.com" "app.bsky.feed.post" "3kdur1"
+                        {"$type" "app.bsky.feed.post" "text" "durable"})
+      (let [s2 (store/->durable-store path)            ; fresh store replays the journal
+            got (store/get-record s2 "did:web:atproto.etzhayyim.com" "app.bsky.feed.post" "3kdur1")]
+        (is (= "durable" (get (:value got) "text")))
+        (.delete (clojure.java.io/file path))))))
+
+(deftest dag-cbor-is-spec-correct
+  (testing "empty-map CID matches the canonical IPLD vector"
+    (is (= "bafyreigbtj4x7ip5legnfznufuopl4sg4knzc2cof6duas4b3q2fy6swua"
+           (repo/cid-str (repo/block-cid {})))))
+  (testing "dag-cbor map key order is deterministic"
+    (is (= (seq (repo/dag-cbor {:b 2 :a 1})) (seq (repo/dag-cbor {:a 1 :b 2}))))))
+
+(deftest federation-sync-surface
+  (testing "getRepo returns a non-empty CAR; getLatestCommit returns a commit cid"
+    (let [k (.getPrivate (repo/gen-keypair))
+          st (store/->mem-store)]
+      (store/put-record st cfg/pds-did "app.bsky.feed.post" "3kfed1" {"$type" "app.bsky.feed.post" "text" "x"})
+      (let [h (server/make-handler st k)
+            car (h {:uri "/xrpc/com.atproto.sync.getRepo" :request-method :get
+                    :query-string (str "did=" cfg/pds-did)})
+            commit (h {:uri "/xrpc/com.atproto.sync.getLatestCommit" :request-method :get
+                       :query-string (str "did=" cfg/pds-did)})]
+        (is (= "application/vnd.ipld.car" (get-in car [:headers "content-type"])))
+        (is (instance? java.io.InputStream (:body car)))
+        (is (str/starts-with? (get (json/parse-string (:body commit)) "cid") "bafyrei"))))))
+
+(deftest commit-signature-roundtrips
+  (testing "the repo commit signature verifies against the signing key"
+    (let [kp (repo/gen-keypair)
+          [_ _ commit] (repo/make-commit cfg/pds-did (repo/block-cid {}) "3krev" nil (.getPrivate kp))
+          unsigned (dissoc commit :sig)]
+      (is (repo/verify (.getPublic kp) (repo/dag-cbor unsigned) (:sig commit))))))

@@ -9,6 +9,7 @@
   <dict>
     <key>PORT</key><string>9911</string>
     <key>PDS_HOST</key><string>atproto.etzhayyim.com</string>
+    <key>PDS_STORE_PATH</key><string>/Users/asher/.etzhayyim-pds/repo.edn</string>
   </dict>
   <key>RunAtLoad</key><true/>
   <key>KeepAlive</key><true/>

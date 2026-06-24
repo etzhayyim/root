@@ -48,13 +48,27 @@ returns `did:web:atproto.etzhayyim.com` (the independent PDS), not gftd's. Flip 
 apex DNS / Worker so the etzhayyim DID document advertises this PDS as the actor
 service endpoint.
 
-## 3. Durability + federation (follow-ups)
+## 3. Durability — DONE
 
-- **Data durability across PDS restarts**: the resident PDS runs on the in-process
-  `MemStore`. Set `KOTOBA_URL=http://localhost:8077` (the co-located kotoba mesh
-  node) once `store.clj`'s `KotobaStore` is wired to a verified kotoba write
-  endpoint — then records persist to the append-only kotoba Datom log.
-- **Federation** (so posts appear on AppViews/relays): implement
-  `com.atproto.sync.{getRepo,getBlocks,subscribeRepos}` + MST/CAR (the PDS README's
-  R1) and register the repo with a relay. Until then the PDS stores + serves
-  records but does not federate into the public bsky network.
+The resident PDS persists to a **durable on-disk datom log**: set
+`PDS_STORE_PATH=/Users/asher/.etzhayyim-pds/repo.edn` (now in the plist). Every
+record write is write-through to an append-only EDN journal and replayed on boot,
+so records **survive a restart** with no external service. (Setting `KOTOBA_URL`
+instead routes to the live kotoba engine; `store.clj` `KotobaStore` is the
+engine-backed variant.) Verified live on `asher`.
+
+## 4. Federation sync surface — R1 implemented
+
+`com.atproto.sync.{getRepo,getLatestCommit,listRepos}` are served (`repo.clj`):
+- **DAG-CBOR** deterministic encoder (validated against the canonical IPLD vector:
+  `cid({}) == bafyreigbtj4x7ip5legnfznufuopl4sg4knzc2cof6duas4b3q2fy6swua`),
+- **CIDv1** (dag-cbor / sha2-256),
+- an **MST** over the repo records (atproto reference layering, 2 zero-bits/level),
+- an **Ed25519-signed commit** (`sig` over the dag-cbor commit; sign/verify tested),
+- **CAR v1** serialization. `getRepo` returns `application/vnd.ipld.car`.
+
+**Remaining federation step**: publish the commit signing key in the did:web
+document (`config.clj` `verificationMethod`) so a relay can verify `sig`, then
+register the repo with a relay (`com.atproto.sync.subscribeRepos` firehose is the
+further R2). Until then the PDS *serves* a well-formed, signed repo CAR but is not
+yet crawled by the public network.
