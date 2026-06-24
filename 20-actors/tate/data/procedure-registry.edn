@@ -481,10 +481,10 @@
   :proc/deadline-rules
   [{:dl/label "갱신요구권 (更新要求権)"
     :dl/rule "임차인は1回に限り契約更新を要求でき (2年), 임대인の拒絶事由は実居住等の法定列挙に限定 — 虚偽の実居住理由は損害賠償対象"
-    :dl/anchor "주택임대차보호법 6조의3" :dl/verify-service-date true}
+    :dl/anchor "주택임대차보호법 6조의3" :dl/source-url "https://www.law.go.kr/법령/주택임대차보호법" :dl/verify-service-date true}
    {:dl/label "묵시적 갱신"
     :dl/rule "期間満了6〜2か月前に通知がなければ黙示更新 (同一条件・2年)"
-    :dl/anchor "주택임대차보호법 6조" :dl/verify-service-date true}]
+    :dl/anchor "주택임대차보호법 6조" :dl/source-url "https://www.law.go.kr/법령/주택임대차보호법" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :gaengsin-yogu :opt/kind :self-submit :opt/protective true
     :opt/label "갱신요구권を書面で行使 (内容証明 — 拒絶事由の該当性を質す)"}
@@ -515,10 +515,10 @@
   :proc/deadline-rules
   [{:dl/label "즉시항고"
     :dl/rule "압류명령 송달부터 1주 이내に즉시항고 가능 (手続違背)"
-    :dl/anchor "민사집행법 15조・227조" :dl/verify-service-date true}
+    :dl/anchor "민사집행법 15조・227조" :dl/source-url "https://www.law.go.kr/법령/민사집행법" :dl/verify-service-date true}
    {:dl/label "압류금지 범위 (생계 보호)"
     :dl/rule "급여は1/2까지만 압류 가능 + 월 185만원 (最低生計費・시행령 기준) 이하は全額 압류금지 — 生活維持分は法律上守られている"
-    :dl/anchor "민사집행법 246조・동 시행령" :dl/verify-service-date true}]
+    :dl/anchor "민사집행법 246조・동 시행령" :dl/source-url "https://www.law.go.kr/법령/민사집행법" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :beomwi-byeongyeong :opt/kind :self-submit :opt/protective true
     :opt/label "압류금지채권 범위변경 신청 (생계 곤란 시 — 法定の権利)"}
