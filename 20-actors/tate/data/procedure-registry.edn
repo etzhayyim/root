@@ -2339,7 +2339,7 @@
   :proc/deadline-rules
   [{:dl/label "Appearance + Defence"
     :dl/rule "Family Law Civil Bill 送達から10日以内に County Registrar へ Appearance を enter; defend するなら Appearance から10日以内に Defence (nature & grounds) を deliver — 財産的救済が争点なら Affidavit of Means、子の福祉が問題なら関係書類も。期限は厳格でなく徒過後も受理されることが多いが早期対応が安全"
-    :dl/anchor "Circuit Court Rules (Family Law) 2018 (S.I. No. 427/2018)" :dl/verify-service-date true}]
+    :dl/anchor "Circuit Court Rules (Family Law) 2018 (S.I. No. 427/2018)" :dl/source-url "https://www.irishstatutebook.ie/eli/2018/si/427/made/en/print" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :appearance :opt/kind :self-submit :opt/protective true :opt/label "Appearance を County Registrar へ enter (応訴の意思表示)"}
    {:opt/id :defence :opt/kind :self-submit :opt/label "Defence + (必要なら) Affidavit of Means を Appearance から10日以内に deliver"}]
@@ -2368,7 +2368,7 @@
   :proc/deadline-rules
   [{:dl/label "Instalment order / means examination への対応"
     :dl/rule "judgment 債務の execution として creditor は District Court に instalment order を申立て、debtor は出頭し means を establish する (Enforcement of Court Orders Act 1926 s.15)。裁判官は debtor の means を考慮して全額 or 分割を命じる (合理的生活費を残す means ベースの査定)。attachment of earnings は主に maintenance (扶養) order に用いられる。committal は means があるのに wilful refusal を beyond reasonable doubt で立証した場合のみ — debtor は means/支出を申告し過大な instalment の見直しを求められる"
-    :dl/anchor "Enforcement of Court Orders Act 1926 s.15 (+ Acts 1926-2009, O.53 District Court Rules)" :dl/verify-service-date true}]
+    :dl/anchor "Enforcement of Court Orders Act 1926 s.15 (+ Acts 1926-2009, O.53 District Court Rules)" :dl/source-url "https://www.irishstatutebook.ie/eli/1926/act/18/" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :means :opt/kind :self-submit :opt/protective true :opt/label "出頭し means statement を提出 (合理的生活費を踏まえた支払能力を示し、過大な instalment を回避/見直し)"}
    {:opt/id :verify :opt/kind :self-decide :opt/protective true :opt/label "instalment が means を超えていないか確認; committal は wilful refusal + 立証が要件 (単なる無資力では収監されない)"}]
