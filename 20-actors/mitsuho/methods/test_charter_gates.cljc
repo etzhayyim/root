@@ -14,7 +14,7 @@
 (def ^:private non-chemical-preservation
   #{"dried" "canned" "lacto-fermented" "cold-stored" "vacuum-sealed" "freeze-dried"})
 
-(defn- manifest [] (json/parse-string (slurp (java.io.File. actor-dir "manifest.jsonld"))))
+(defn- manifest [] (:actor/manifest (clojure.edn/read-string (slurp (java.io.File. actor-dir "manifest.edn")))))
 (defn- lex [name] (json/parse-string (slurp (java.io.File. lexdir (str name ".json")))))
 
 (defn- collect [doc attr]

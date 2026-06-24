@@ -225,7 +225,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "hagukumi": {
-    description: "育み — Care",
+    description: "Daily-living care actor (childcare ages 2+ / eldercare / chronic-care continuity / meal delivery / respite support). Delivers L4 Care Tier of the Liberation Ladder. Privacy-first: ADR-2605181100 XChaCha20 envelope mandatory; no video recording; structural anti-surveillance enforcement.",
     glyph: "育み",
     displayName: "育み — Care",
     adrs: ["2605261030", "2605261000"],
@@ -277,7 +277,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "hikari": {
-    description: "光 — Energy",
+    description: "Distributed renewable energy Tier-B actor (solar PV + small wind ≤100 kW + geothermal micro ≤500 kW + battery storage + grid-edge microgrid). Anti-nuclear + anti-fossil + anti-rare-earth-permanent-magnet constitutional invariants. Powers L2 Sustenance Tier (≥3 kWh/day per adherent) + cross-actor infrastructure (Murakumo + mitate/yakushi/hagukumi/manabi facilities + mitsuho greenhouse + tatekata site + silicon Wave 2 fab partial load R3+).",
     glyph: "光",
     displayName: "光 — Energy",
     adrs: ["2605261100", "2605261000"],
@@ -784,7 +784,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "mitsuho": {
-    description: "瑞穂 — Food / Agriculture",
+    description: "Food production Tier-B actor (plant agriculture + freshwater aquaculture + alternative protein). Delivers L2 Sustenance Tier (≥4,500 kJ/day staple per adherent) of the Liberation Ladder. R0 scope excludes animal slaughter, industrial monoculture, patented seeds, GMO without Council attestation, contract farming, commodities trading, ocean factory-fishing.",
     glyph: "瑞穂",
     displayName: "瑞穂 — Food / Agriculture",
     adrs: ["2605261015", "2605261000"],
@@ -940,7 +940,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "sarutahiko": {
-    description: "猿田彦 — Heavy Truck Manufacturing",
+    description: "Heavy-truck manufacturing Tier-B actor. Manufacturing-side counterpart of wadachi (operator-side autonomous mobility, ADR-2605242000). Wave 1 reference = civilian Class-8 cargo truck (~26-40 t GVWR). Methodology adopted from Turkey OEM-class large-scale heavy-truck plant practice; military / weapons / mining / fossil-tanker / surveillance / MaaS-rental applications rejected per Charter Rider §2(a) + §2(d) + §2(g) + §2(b) + §2(c).",
     glyph: "猿田彦",
     displayName: "猿田彦 — Heavy Truck Manufacturing",
     adrs: ["2605252500", "2605252515", "2605252530", "2605252545"],
@@ -1174,7 +1174,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "tatekata": {
-    description: "建方 — Construction",
+    description: "Infrastructure construction robotics orchestration. Tier-B actor coordinating multi-robot site workflows (Giemon, Otete, Mimi), material routing, permit compliance, and safety governance for civil + MEP projects (≤2 story, ≤5000m² R0 scope).",
     glyph: "建方",
     displayName: "建方 — Construction",
     adrs: ["2605250715", "2605250730", "2605250745", "2605250760"],
@@ -1343,7 +1343,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "tsutae": {
-    description: "伝え — Handheld Communication Device",
+    description: "Handheld communication device (smartphone-class consumer electronics) Tier-B actor. religious-corp first-party assembly + firmware for adherent / 信者 reliable + private + non-coercive communication infrastructure. Consumer electronics tier of vendor independence chain (silicon Wave 1 SoC + igata Al chassis + kanayama EOL Al + tsutae handheld). Methodology source = YouTube `J4GoOScUO5k` Samsung smartphone factory documentary; manufacturing methodology adopted; surveillance / addiction / IP locking / closed bootloader / mass production at any cost rejected per §2(b) + §2(c) + §2(d) + §2(e).",
     glyph: "伝え",
     displayName: "伝え — Handheld Communication Device",
     adrs: ["2605261300", "2605261315", "2605261330", "2605261345"],
@@ -1460,7 +1460,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "yamabiko": {
-    description: "山彦 — High-Speed Rail Manufacturing",
+    description: "High-speed rail trainset manufacturing Tier-B actor. Wave 1 reference = civilian Shinkansen-class trainset (~250-320 km/h, 8-16 cars). Methodology adopted from Hitachi A-Train / Kawasaki efSET / Talgo Avril / Siemens Velaro / Alstom Avelia class. Military rail / NBC transport / mass-surveillance / advertising wraps / luxury-only trains rejected per Charter Rider §2(a) + §2(d) + §2(c) + §2(e). Land-mobility sibling of sarutahiko (road manufacturer) + wadachi (road operator).",
     glyph: "山彦",
     displayName: "山彦 — High-Speed Rail Manufacturing",
     adrs: ["2605252600", "2605252615", "2605252630", "2605252645"],
