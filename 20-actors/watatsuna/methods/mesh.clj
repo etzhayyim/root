@@ -19,6 +19,6 @@
   ;; derive — chokepoint cable-load concentration → redundancy priority (Datalog).
   (kqe-query "redundancy(?c) :- transits(?c)."))
 
-(defn on-http [req]
-  ;; read path for the /watatsuna route.
+(defn on-kse [topic payload]
+  ;; KSE-topic trigger (observatory on-kse pattern, ADR-2606230001 §4).
   (kqe-query "redundancy(?c) :- transits(?c)."))

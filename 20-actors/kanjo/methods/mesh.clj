@@ -19,6 +19,6 @@
   ;; derive — disclosure coverage (a fact map, never advice/forecast) (Datalog).
   (kqe-query "disclosure(?m) :- discloses(?m)."))
 
-(defn on-http [req]
-  ;; read path for the /kanjo route.
+(defn on-kse [topic payload]
+  ;; KSE-topic trigger (observatory on-kse pattern, ADR-2606230001 §4).
   (kqe-query "disclosure(?m) :- discloses(?m)."))

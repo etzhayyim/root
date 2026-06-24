@@ -19,6 +19,6 @@
   ;; derive — orbital-congestion concentration → stewardship priority (Datalog).
   (kqe-query "stewardship(?r) :- occupies(?r)."))
 
-(defn on-http [req]
-  ;; read path for the /hoshimori route.
+(defn on-kse [topic payload]
+  ;; KSE-topic trigger (observatory on-kse pattern, ADR-2606230001 §4).
   (kqe-query "stewardship(?r) :- occupies(?r)."))

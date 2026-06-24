@@ -16,9 +16,9 @@
  :kotoba.app/version "0.1.0"
  :kotoba.app/components
  [{:name     "busshi"
-   :src      "methods/mesh.clj"                  ; Clojure default → run + on-http
+   :src      "methods/mesh.clj"                  ; Clojure default → run + on-kse
    :scale    1
-   :triggers [{:type :http :route "/busshi"}]    ; on-http read path: producer-concentration query
+   :triggers [{:type :kse :topic "etzhayyim/actor/busshi"}]  ; observatory on-kse (ADR-2606230001 §4)
    :requires #{:cap/kqe}}]                        ; kqe-assert! / kqe-query host-imports
 
  :kotoba.app/placement {:spread  :zone

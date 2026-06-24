@@ -19,6 +19,6 @@
   ;; derive — net rotation (どこからどこへ) as observation (Datalog).
   (kqe-query "rotation(?to) :- flows-to(?to)."))
 
-(defn on-http [req]
-  ;; read path for the /shionome route.
+(defn on-kse [topic payload]
+  ;; KSE-topic trigger (observatory on-kse pattern, ADR-2606230001 §4).
   (kqe-query "rotation(?to) :- flows-to(?to)."))

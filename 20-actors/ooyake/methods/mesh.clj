@@ -18,6 +18,6 @@
   ;; derive — structural hierarchy → wayfinding map (Datalog).
   (kqe-query "wayfinding(?u) :- under(?u)."))
 
-(defn on-http [req]
-  ;; read path for the /ooyake route.
+(defn on-kse [topic payload]
+  ;; KSE-topic trigger (observatory on-kse pattern, ADR-2606230001 §4).
   (kqe-query "wayfinding(?u) :- under(?u)."))

@@ -4,9 +4,9 @@
  :kotoba.app/version "0.1.0"
  :kotoba.app/components
  [{:name     "tatara"
-   :src      "methods/mesh.clj"                  ; Clojure default → run + on-http
+   :src      "methods/mesh.clj"                  ; Clojure default → run + on-kse
    :scale    1
-   :triggers [{:type :http :route "/tatara"}]
+   :triggers [{:type :kse :topic "etzhayyim/actor/tatara"}]  ; observatory on-kse (ADR-2606230001 §4)
    :requires #{:cap/kqe}}]
 
  :kotoba.app/placement {:spread  :zone

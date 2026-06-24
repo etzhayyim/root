@@ -32,6 +32,6 @@
   ;; language (a resilience / de-monopolization map; never a market signal, G2).
   (kqe-query "concentration(?p) :- produces(?p)."))
 
-(defn on-http [req]
-  ;; read path for the /busshi route: surface the producer-concentration query.
+(defn on-kse [topic payload]
+  ;; KSE-topic trigger (observatory on-kse pattern, ADR-2606230001 §4). surface the producer-concentration query.
   (kqe-query "concentration(?p) :- produces(?p)."))

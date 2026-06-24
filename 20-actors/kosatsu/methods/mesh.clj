@@ -19,6 +19,6 @@
   ;; derive — designation divergence/coverage → transparency map (Datalog).
   (kqe-query "transparency(?s) :- designates(?s)."))
 
-(defn on-http [req]
-  ;; read path for the /kosatsu route.
+(defn on-kse [topic payload]
+  ;; KSE-topic trigger (observatory on-kse pattern, ADR-2606230001 §4).
   (kqe-query "transparency(?s) :- designates(?s)."))
