@@ -627,10 +627,10 @@
   :proc/deadline-rules
   [{:dl/label "通知期間の点検"
     :dl/rule "通知期間は事由により30〜90日 (NSW; 州により異なる) — 期間不足の通知は無効主張の余地"
-    :dl/anchor "NSW Residential Tenancies Act 2010 ss.84-87" :dl/verify-service-date true}
+    :dl/anchor "NSW Residential Tenancies Act 2010 ss.84-87" :dl/source-url "https://legislation.nsw.gov.au/view/html/inforce/current/act-2010-042" :dl/verify-service-date true}
    {:dl/label "退去義務の発生時点"
     :dl/rule "tenant が残る場合、landlord は NCAT の possession order が必要 — 通知のみで退去義務はない"
-    :dl/anchor "NSW RTA 2010 s.119 (NCAT)" :dl/verify-service-date true}]
+    :dl/anchor "NSW RTA 2010 s.119 (NCAT)" :dl/source-url "https://legislation.nsw.gov.au/view/html/inforce/current/act-2010-042" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :check-notice :opt/kind :self-decide :opt/label "通知期間・様式を点検 (Tenants' Union NSW 無料相談)"}
    {:opt/id :ncat-respond :opt/kind :self-decide :opt/label "NCAT 期日に出席して事情を述べる (hardship 主張可)"}
@@ -663,7 +663,7 @@
   :proc/deadline-rules
   [{:dl/label "Protected amount (生計保護)"
     :dl/rule "賃金 garnishee では weekly protected (standard) amount が必ず手元に残される — 生活維持分は法律上保護; Centrelink 給付は原則差押え不可"
-    :dl/anchor "NSW Civil Procedure Act 2005 ss.119・122" :dl/verify-service-date true}]
+    :dl/anchor "NSW Civil Procedure Act 2005 ss.119・122" :dl/source-url "https://legislation.nsw.gov.au/view/html/inforce/current/act-2005-028" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :protected-check :opt/kind :self-decide :opt/protective true
     :opt/label "protected amount が控除されているか給与明細で確認 (不足は court registry へ)"}
@@ -679,7 +679,7 @@
   :proc/deadline-rules
   [{:dl/label "Defence の提出"
     :dl/rule "送達から28日以内 (NSW UCPR 14.3 — 州・裁判所により異なる; 書面記載の期限を確認)"
-    :dl/anchor "NSW UCPR r 14.3 / 各州 court rules" :dl/verify-service-date true}]
+    :dl/anchor "NSW UCPR r 14.3 / 各州 court rules" :dl/source-url "https://legislation.nsw.gov.au/view/html/inforce/current/sl-2005-418" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :defence :opt/kind :self-submit :opt/label "Defence を提出 (default judgment 回避)"}
    {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/和解"}]
