@@ -9,7 +9,8 @@ breaking the gftd.ai dependency. Updated by the maturity `/loop`.
 |---|---|---|
 | Independent identity (no gftd) | ✅ | `describeServer` did=`did:web:atproto.etzhayyim.com`, domains=`etzhayyim.com` |
 | Resident deploy (self-healing) | ✅ | LaunchDaemon on `asher` (RunAtLoad+KeepAlive), live |
-| `com.atproto.repo.*` (CRUD) | ✅ | create/get/put/delete/listRecords/describeRepo |
+| `com.atproto.repo.*` (CRUD) | ✅ | create/get/put/delete/listRecords/describeRepo; **record sanity on write** (object + `$type` required, 400 else) |
+| **`listRecords` full cursor** | ✅ | `reverse` + `rkeyStart`/`rkeyEnd` bounds + `limit`+`cursor` paging (rkey-ordered); verified live |
 | **Durable storage** (restart-safe) | ✅ | `DurableStore` append-only EDN journal + replay; verified write→restart→present |
 | **DAG-CBOR** (deterministic) | ✅ | validated vs canonical IPLD vector `cid({})==bafyrei…y6swua` |
 | **CIDv1** (dag-cbor/sha2-256) | ✅ | `cid-of-bytes`, base32 |
@@ -32,21 +33,17 @@ breaking the gftd.ai dependency. Updated by the maturity `/loop`.
 
 ## Tests
 
-`bb test` — 19 deftests / 70 assertions green: independent-identity, http-layer,
-durable-store-survives-restart, dag-cbor-is-spec-correct, dag-cbor-and-car-roundtrip,
-federation-sync-surface (getRepo/getRecord/getBlocks/getRepoStatus + 404),
-signing-key-published-and-stable, commit-signature-roundtrips,
-relay-verification-chain, relay-verifies-from-served-car (parse real CAR → verify),
-firehose-frame-wellformed, firehose-frame-carries-the-repo (decode #commit → CAR),
-apply-writes-batch, import-repo-roundtrips (export→import 12 records),
-account-and-session-auth, jwt-expiry, write-auth-gate (401 / 200 own-repo / 403 other-repo),
-blob-ref-validation (400 absent blob), firehose-websocket-integration (real WS over a
-socket → #commit frame → CAR), resolve-handle-account-backed, error-paths (400/404/501
-envelopes), blob-store-roundtrips.
+`bb test` — 26 deftests / 101 assertions green, covering: identity + did doc,
+record CRUD + sanity, durable store, dag-cbor (spec vector) + decoder/CAR roundtrips,
+the full sync surface (getRepo/getRecord/getBlocks/getRepoStatus/listRepos), signed
+commit + relay verification from the served CAR, the firehose (frame + real-websocket
+integration), applyWrites + importRepo roundtrip, blob store + blob-ref integrity,
+account/session auth (create/login/refresh/expiry, write-auth 401/200/403),
+listRecords reverse/bounds/paging, resolveHandle (account-backed), and error envelopes
+(400/404/501).
 
 ## Next maturity steps (loop)
 
-1. `listRecords` `reverse` + `rkeyStart`/`rkeyEnd` cursor (full param surface).
-2. record value sanity on write (reject non-map / missing `$type`) + a per-collection
-   record count in `describeRepo`.
+1. a per-collection record-count breakdown in `describeRepo`.
+2. `getRepo` `since` (incremental — only blocks after a rev) once a commit log exists.
 3. a conformance smoke against the `@atproto` CAR/commit shapes where feasible offline.

@@ -42,7 +42,7 @@
   (let [{:keys [collections]} (store/describe-repo store did)]
     (mapcat (fn [coll]
               (loop [cursor nil acc []]
-                (let [{:keys [records cursor]} (store/list-records store did coll 100 cursor)
+                (let [{:keys [records cursor]} (store/list-records store did coll {:limit 100 :cursor cursor})
                       acc (into acc records)]
                   (if cursor (recur cursor acc) acc))))
             collections)))

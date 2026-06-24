@@ -73,12 +73,20 @@
                                  "com.atproto.repo.applyWrites#createResult")
                        "uri" uri "cid" cid}))))}))))
 
+(defn record-error
+  "Why `record` is not a valid atproto record (must be an object with a $type), or nil."
+  [record]
+  (cond
+    (nil? record) "record is required"
+    (not (map? record)) "record must be an object"
+    (str/blank? (str (or (get record "$type") (get record :$type)))) "record must have a $type"))
+
 (defn create-record [store {:keys [repo collection record rkey]}]
   (let [did (resolve-repo repo)]
     (cond
       (or (str/blank? repo) (nil? did)) (err 400 "InvalidRequest" "repo is required")
       (str/blank? collection) (err 400 "InvalidRequest" "collection is required")
-      (nil? record) (err 400 "InvalidRequest" "record is required")
+      (record-error record) (err 400 "InvalidRequest" (record-error record))
       :else
       (let [rkey (if (str/blank? rkey) (util/tid) rkey)
             {:keys [uri cid]} (store/put-record store did collection rkey record)]
@@ -90,7 +98,7 @@
       (or (str/blank? repo) (nil? did)) (err 400 "InvalidRequest" "repo is required")
       (str/blank? collection) (err 400 "InvalidRequest" "collection is required")
       (str/blank? rkey) (err 400 "InvalidRequest" "rkey is required")
-      (nil? record) (err 400 "InvalidRequest" "record is required")
+      (record-error record) (err 400 "InvalidRequest" (record-error record))
       :else
       (let [{:keys [uri cid]} (store/put-record store did collection rkey record)]
         (ok {"uri" uri "cid" cid})))))
@@ -110,13 +118,16 @@
       (str/blank? rkey) (err 400 "InvalidRequest" "rkey is required")
       :else (do (store/delete-record store did collection rkey) (ok {})))))
 
-(defn list-records [store {:keys [repo collection limit cursor]}]
+(defn list-records [store {:keys [repo collection limit cursor reverse rkeyStart rkeyEnd]}]
   (let [did (resolve-repo repo)
         limit (let [n (try (Integer/parseInt (str (or limit "50"))) (catch Exception _ 50))]
-                (max 1 (min 100 n)))]
+                (max 1 (min 100 n)))
+        reverse? (contains? #{true "true" "1"} reverse)]
     (if (or (nil? did) (str/blank? collection))
       (err 400 "InvalidRequest" "repo and collection are required")
-      (let [{:keys [records cursor]} (store/list-records store did collection limit cursor)]
+      (let [{:keys [records cursor]} (store/list-records store did collection
+                                                         {:limit limit :cursor cursor :reverse reverse?
+                                                          :rkey-start rkeyStart :rkey-end rkeyEnd})]
         (ok (cond-> {"records" (mapv (fn [r] {"uri" (:uri r) "cid" (:cid r) "value" (:value r)}) records)}
               cursor (assoc "cursor" cursor)))))))
 

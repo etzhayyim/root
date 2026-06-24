@@ -31,7 +31,7 @@
 (deftest record-round-trip
   (let [st (store/->mem-store)
         coll "app.bsky.feed.post"
-        rec {"text" "shalom from etzhayyim" "createdAt" "2026-06-17T00:00:00Z"}
+        rec {"$type" "app.bsky.feed.post" "text" "shalom from etzhayyim" "createdAt" "2026-06-17T00:00:00Z"}
         created (xrpc/create-record st {:repo repo :collection coll :record rec})
         uri (get-in created [:body "uri"])
         rkey (last (str/split uri #"/"))]
@@ -49,10 +49,10 @@
         (is (= 1 (count (get-in l [:body "records"]))))))
     (testing "putRecord overwrites at a fixed rkey"
       (let [p (xrpc/put-record st {:repo repo :collection coll :rkey "self"
-                                   :record {"displayName" "etzhayyim"}})
+                                   :record {"$type" "app.bsky.actor.profile" "displayName" "etzhayyim"}})
             g (xrpc/get-record st {:repo repo :collection coll :rkey "self"})]
         (is (= 200 (:status p)))
-        (is (= {"displayName" "etzhayyim"} (get-in g [:body "value"])))))
+        (is (= {"$type" "app.bsky.actor.profile" "displayName" "etzhayyim"} (get-in g [:body "value"])))))
     (testing "deleteRecord tombstones the record"
       (xrpc/delete-record st {:repo repo :collection coll :rkey rkey})
       (let [g (xrpc/get-record st {:repo repo :collection coll :rkey rkey})]
@@ -248,13 +248,37 @@
     (with-redefs [cfg/require-auth true]
       (let [st (store/->mem-store)
             h (server/make-handler st (.getPrivate (repo/gen-keypair)) "z6Mkx" tsecret)
-            body (json/generate-string {"repo" "atproto.etzhayyim.com" "collection" "app.bsky.feed.post" "record" {"text" "x"}})
+            body (json/generate-string {"repo" "atproto.etzhayyim.com" "collection" "app.bsky.feed.post" "record" {"$type" "app.bsky.feed.post" "text" "x"}})
             req (fn [auth] (h (cond-> {:uri "/xrpc/com.atproto.repo.createRecord" :request-method :post
                                        :headers {"content-type" "application/json"} :body body}
                                 auth (assoc-in [:headers "authorization"] (str "Bearer " auth)))))]
         (is (= 401 (:status (req nil))))
         (is (= 200 (:status (req (account/make-jwt tsecret "did:web:atproto.etzhayyim.com")))))
         (is (= 403 (:status (req (account/make-jwt tsecret "did:web:someone-else.etzhayyim.com")))))))))
+
+(deftest list-records-cursor-and-order
+  (testing "reverse, rkeyStart/rkeyEnd, and limit+cursor paging"
+    (let [st (store/->mem-store)]
+      (doseq [k ["3a" "3b" "3c" "3d" "3e"]]
+        (store/put-record st cfg/pds-did "app.bsky.feed.post" k {"$type" "x" "k" k}))
+      (let [rkeys (fn [opts] (mapv :rkey (:records (store/list-records st cfg/pds-did "app.bsky.feed.post" opts))))]
+        (is (= ["3a" "3b" "3c" "3d" "3e"] (rkeys {})))                       ; ascending default
+        (is (= ["3e" "3d" "3c" "3b" "3a"] (rkeys {:reverse true})))          ; reverse
+        (is (= ["3b" "3c" "3d"] (rkeys {:rkey-start "3b" :rkey-end "3d"})))  ; bounds
+        ;; limit + cursor paging walks the whole set without dupes/gaps
+        (let [p1 (store/list-records st cfg/pds-did "app.bsky.feed.post" {:limit 2})
+              p2 (store/list-records st cfg/pds-did "app.bsky.feed.post" {:limit 2 :cursor (:cursor p1)})
+              p3 (store/list-records st cfg/pds-did "app.bsky.feed.post" {:limit 2 :cursor (:cursor p2)})]
+          (is (= ["3a" "3b" "3c" "3d" "3e"]
+                 (mapv :rkey (concat (:records p1) (:records p2) (:records p3))))))))))
+
+(deftest record-sanity-on-write
+  (testing "createRecord/putRecord reject a non-object or $type-less record"
+    (let [st (store/->mem-store)]
+      (is (= 400 (:status (xrpc/create-record st {:repo repo :collection "c" :record "not-a-map"}))))
+      (is (= 400 (:status (xrpc/create-record st {:repo repo :collection "c" :record {"text" "no type"}}))))
+      (is (= 200 (:status (xrpc/create-record st {:repo repo :collection "c" :record {"$type" "app.x" "text" "ok"}}))))
+      (is (= 400 (:status (xrpc/put-record st {:repo repo :collection "c" :rkey "self" :record {"no" "type"}})))))))
 
 (deftest resolve-handle-account-backed
   (testing "a registered account's did wins; an unregistered handle falls back to did:web"
@@ -347,7 +371,7 @@
       (doseq [i (range 12)]
         (store/put-record src cfg/pds-did "app.bsky.feed.post" (str "3p" i) {"text" (str "n" i)}))
       (let [recs (for [c ["app.bsky.feed.post"]
-                       r (:records (store/list-records src cfg/pds-did c 100 nil))] r)
+                       r (:records (store/list-records src cfg/pds-did c {:limit 100}))] r)
             build (repo/build-repo cfg/pds-did recs "3rev" k)
             car (repo/blocks-car build nil)
             {:keys [did records]} (repo/import-records car)

@@ -34,8 +34,9 @@
     "Return {:uri :cid :value} or nil if absent/tombstoned.")
   (delete-record [_ did collection rkey]
     "Append a tombstone. Returns true.")
-  (list-records [_ did collection limit cursor]
-    "Return {:records [{:uri :cid :value}] :cursor next-rkey-or-nil}, rkey-desc.")
+  (list-records [_ did collection opts]
+    "Return {:records [{:uri :rkey :cid :value}] :cursor next-rkey-or-nil}. opts:
+     {:limit :cursor :reverse :rkey-start :rkey-end}.")
   (describe-repo [_ did]
     "Return {:did :collections [coll ..] :count n}."))
 
@@ -55,8 +56,32 @@
   (when (and (read-attr db uri :record/did)
              (not (read-attr db uri :record/deleted)))
     {:uri uri
+     :rkey (read-attr db uri :record/rkey)
      :cid (read-attr db uri :record/cid)
      :value (json/parse-string (read-attr db uri :record/value))}))
+
+(defn query-records
+  "Project listRecords from an EAVT `db`. opts: {:limit :cursor :reverse :rkey-start
+  :rkey-end}. Records are ordered by rkey (ascending; `reverse` → descending); the
+  cursor is the last rkey returned. Shared by the mem + durable backends."
+  [db did collection {:keys [limit cursor reverse rkey-start rkey-end] :or {limit 50}}]
+  (let [recs (->> (live-uris db)
+                  (filter #(and (= did (read-attr db % :record/did))
+                                (= collection (read-attr db % :record/collection))))
+                  (keep #(materialize db %))
+                  (sort-by :rkey))
+        recs (cond->> recs
+               rkey-start (filter #(>= (compare (:rkey %) rkey-start) 0))
+               rkey-end   (filter #(<= (compare (:rkey %) rkey-end) 0))
+               reverse    (#(clojure.core/reverse %)))
+        recs (if cursor
+               (if reverse
+                 (drop-while #(>= (compare (:rkey %) cursor) 0) recs)
+                 (drop-while #(<= (compare (:rkey %) cursor) 0) recs))
+               recs)
+        page (take limit recs)]
+    {:records (vec page)
+     :cursor (when (= (count page) limit) (:rkey (last page)))}))
 
 (defrecord MemStore [log]
   PdsStore
@@ -76,18 +101,8 @@
   (delete-record [_ did collection rkey]
     (swap! log conj [(at-uri did collection rkey) :record/deleted true])
     true)
-  (list-records [_ did collection limit cursor]
-    (let [db (d/build-db @log)
-          recs (->> (live-uris db)
-                    (filter #(and (= did (read-attr db % :record/did))
-                                  (= collection (read-attr db % :record/collection))))
-                    (keep #(materialize db %))
-                    (sort-by :uri)
-                    reverse)
-          recs (if cursor (drop-while #(>= (compare (:uri %) cursor) 0) recs) recs)
-          page (take limit recs)]
-      {:records (vec page)
-       :cursor (when (= (count page) limit) (:uri (last page)))}))
+  (list-records [_ did collection opts]
+    (query-records (d/build-db @log) did collection opts))
   (describe-repo [_ did]
     (let [db (d/build-db @log)
           uris (filter #(= did (read-attr db % :record/did)) (live-uris db))
@@ -141,18 +156,8 @@
       (append-datoms! path datoms)
       (swap! log into datoms)
       true))
-  (list-records [_ did collection limit cursor]
-    (let [db (d/build-db @log)
-          recs (->> (live-uris db)
-                    (filter #(and (= did (read-attr db % :record/did))
-                                  (= collection (read-attr db % :record/collection))))
-                    (keep #(materialize db %))
-                    (sort-by :uri)
-                    reverse)
-          recs (if cursor (drop-while #(>= (compare (:uri %) cursor) 0) recs) recs)
-          page (take limit recs)]
-      {:records (vec page)
-       :cursor (when (= (count page) limit) (:uri (last page)))}))
+  (list-records [_ did collection opts]
+    (query-records (d/build-db @log) did collection opts))
   (describe-repo [_ did]
     (let [db (d/build-db @log)
           uris (filter #(= did (read-attr db % :record/did)) (live-uris db))
@@ -203,10 +208,11 @@
     (kpost base "/xrpc/com.etzhayyim.apps.kotoba.kg.ingest_batch"
            {:graph graph :datoms [[(at-uri did collection rkey) "record/deleted" true]]})
     true)
-  (list-records [_ did collection limit cursor]
+  (list-records [_ did collection {:keys [limit cursor reverse rkey-start rkey-end]}]
     (let [r (kpost base "/xrpc/com.etzhayyim.apps.kotoba.kg.list_records"
                    {:graph graph :did did :collection collection
-                    :limit limit :cursor cursor})]
+                    :limit limit :cursor cursor :reverse reverse
+                    :rkeyStart rkey-start :rkeyEnd rkey-end})]
       {:records (mapv (fn [m] {:uri (:uri m) :cid (:cid m)
                                :value (json/parse-string (:value m))})
                       (:records r))
