@@ -27,7 +27,7 @@
 (def root (-> actor-dir .getParentFile .getParentFile))
 (def schema (io/file root "00-contracts" "schemas" "ad-supply-chain-ontology.kotoba.edn"))
 (def seed (io/file actor-dir "data" "seed-ad-supply-chain.kotoba.edn"))
-(def manifest (io/file actor-dir "manifest.jsonld"))
+(def manifest (io/file actor-dir "manifest.edn"))
 (def lex-dir (io/file root "00-contracts" "lexicons" "com" "etzhayyim" "sukashi"))
 
 (defn graph
@@ -236,7 +236,7 @@
       (is (contains? idents core)))))
 
 (deftest test-manifest-declares-13-gates-and-matches-lexicons
-  (let [m (json/parse-string (slurp manifest))]
+  (let [m (:actor/manifest (clojure.edn/read-string (slurp manifest)))]
     (is (= (get m "status") "R0-design-only"))
     (is (= (get m "tier") "B"))
     (is (>= (count (get m "gates")) 13))

@@ -13,7 +13,7 @@
 import type { InfraActorEntry } from "./infra-actors";
 
 export const TIER_B_GENERATED_AT = "2026-06-04T00:00:00+00:00";
-export const TIER_B_TOTAL_COUNT = 106;
+export const TIER_B_TOTAL_COUNT = 107;
 
 export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
   "ainori": {
@@ -30,7 +30,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "akashi": {
-    description: "証 — Public Ad Disclosure Transparency",
+    description: "kotoba-native public ad-disclosure transparency actor. Passively ingests already-public platform ad-library disclosures into kotoba EAVT and emits source-cited, non-adjudicating transparency links and aggregate reports. Sibling to danjo; bounded away from malak except for reviewed fraud/malware-ad evidence candidates.",
     glyph: "証",
     displayName: "証 — Public Ad Disclosure Transparency",
     adrs: ["2606022300"],
@@ -514,7 +514,6 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     description: "Weaves government procurement + money + statements + human-relationships + committee/advisory-council composition into one kotoba Datom relation-graph + dry-run social posts; aggregate-first, edge-primary, non-adjudicating, mirror-not-target.",
     glyph: "系図",
     displayName: "系図 — Government Power-Relations Graph",
-    primaryLexicon: "com.etzhayyim.keizu.relationEdge",
     adrs: ["2606066000", "2605301600"],
     service: [
       {
@@ -688,6 +687,19 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     service: [
       {
         id: "did:web:etzhayyim.com:actor:mio#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+    ],
+  },
+  "mitate": {
+    description: "Religious-corp first-party diagnostic + treatment routing actor — sibling of yakushi (drug-side). Wave 1 reference = chronic nasal congestion 5-condition triage (allergic-rhinitis-perennial / vasomotor-rhinitis / chronic-sinusitis / septal-deviation / rhinitis-medicamentosa). All 13 cells gated import-time RuntimeError until Council Lv6+ ≥ 3 silen-mitate-review attestation + licensed-MD-in-loop registry per ADR-2605260100. Per ADR-2605260100/115/130/145/160/175.",
+    glyph: "見立て",
+    displayName: "見立て (mitate)",
+    adrs: ["2605260100", "2605260115", "2605260130", "2605260145", "2605260160", "2605260175", "2605192100", "2605192115", "2605192200", "2605192230", "2605192315", "2605192400", "2605192415", "2605201400", "2605181100", "2605172000", "2605231500", "2605231525", "2605215000", "2605250500"],
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:mitate#atproto_pds",
         type: "AtprotoPersonalDataServer",
         serviceEndpoint: "https://pds.etzhayyim.com",
       },
