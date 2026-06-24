@@ -1085,7 +1085,7 @@
     :dl/anchor "劳动争议调解仲裁法 5条・27条" :dl/verify-service-date true}
    {:dl/label "经济补偿の基準"
     :dl/rule "経済補償は勤続1年につき1か月分 (N); 違法解除はその2倍 (2N)"
-    :dl/anchor "劳动合同法 46条・47条・87条" :dl/verify-service-date true}]
+    :dl/anchor "劳动合同法 46条・47条・87条" :dl/source-url "https://flk.npc.gov.cn/detail?id=2c909fdd678bf17901678bf74d7106b3" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :zhongcai :opt/kind :self-submit :opt/protective true
     :opt/label "劳动仲裁を申请 (無料・本人可 — N/2N の算定根拠を添付)"}
