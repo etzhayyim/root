@@ -609,10 +609,10 @@
   :proc/deadline-rules
   [{:dl/label "FWC unfair dismissal application"
     :dl/rule "dismissal の発効から21日以内に Fair Work Commission へ申立て — 延長は例外的 (世界屈指の短期期限)"
-    :dl/anchor "Fair Work Act 2009 s.394(2)" :dl/critical true :dl/verify-service-date true}
+    :dl/anchor "Fair Work Act 2009 s.394(2)" :dl/source-url "https://www.legislation.gov.au/C2009A00028" :dl/critical true :dl/verify-service-date true}
    {:dl/label "適格要件"
     :dl/rule "最低雇用期間 (6か月; 小規模事業者は12か月) と高所得閾値の適格を確認 — general protections (s.365) は別ルート (同じく21日)"
-    :dl/anchor "FW Act ss.382-384・365" :dl/verify-service-date true}]
+    :dl/anchor "FW Act ss.382-384・365" :dl/source-url "https://www.legislation.gov.au/C2009A00028" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :fwc-application :opt/kind :self-submit :opt/protective true
     :opt/label "FWC へ unfair dismissal application (21日 — オンライン・低額手数料・本人可)"}
