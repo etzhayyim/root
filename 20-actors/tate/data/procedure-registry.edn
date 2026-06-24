@@ -191,7 +191,7 @@
   :proc/deadline-rules
   [{:dl/label "Answer の提出"
     :dl/rule "連邦: 送達から21日以内 (FRCP 12(a)(1)(A)); 州裁判所は概ね20〜30日 — サモンズ記載の期限と州規則を確認"
-    :dl/anchor "FRCP 12(a) / 各州 Rules of Civil Procedure" :dl/verify-service-date true}]
+    :dl/anchor "FRCP 12(a) / 各州 Rules of Civil Procedure" :dl/source-url "https://www.uscourts.gov/forms-rules/current-rules-practice-procedure/federal-rules-civil-procedure" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :answer :opt/kind :self-submit :opt/label "Answer (認否 + affirmative defenses) を裁判所へ提出"}
    {:opt/id :appear :opt/kind :self-decide :opt/label "default judgment 回避のため必ず応答 (欠席 = 敗訴扱い)"}]
@@ -254,7 +254,7 @@
   :proc/deadline-rules
   [{:dl/label "Proof of claim (bar date)"
     :dl/rule "proof of claim の bar date は通知記載 — chapter 7 no-asset 事件では届出不要の指示が来ることもある (通知の指示に従う)"
-    :dl/anchor "Fed. R. Bankr. P. 3002" :dl/verify-service-date true}]
+    :dl/anchor "Fed. R. Bankr. P. 3002" :dl/source-url "https://www.uscourts.gov/forms-rules/current-rules-practice-procedure/federal-rules-bankruptcy-procedure" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :file-claim :opt/kind :self-submit :opt/protective true
     :opt/label "Official Form 410 で proof of claim を提出 (無料・本人可 — 前払金・gift card も債権: kaiyaku 縁-ledger と突合)"}
