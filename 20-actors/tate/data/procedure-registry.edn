@@ -2023,7 +2023,7 @@
   :proc/deadline-rules
   [{:dl/label "Protest (書面異議)"
     :dl/rule "**1か月以内に書面で protest すると oppsigelse は失効し, 賃貸人が3か月以内に提訴しない限り無効** — 異議の負担が借家人に有利に逆転する構造"
-    :dl/anchor "husleieloven §9-8" :dl/critical true :dl/verify-service-date true}]
+    :dl/anchor "husleieloven §9-8" :dl/source-url "https://lovdata.no/lov/1999-03-26-17" :dl/critical true :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :protest :opt/kind :self-submit :opt/protective true
     :opt/label "書面 protest を1か月以内に (理由不要 — まず構造を逆転させる)"}
@@ -2039,10 +2039,10 @@
   :proc/deadline-rules
   [{:dl/label "Forhandlinger (協議請求)"
     :dl/rule "oppsigelse を争う forhandlinger の請求は2 uker 以内 — 在職継続権 (stå i stilling) の起点にもなる"
-    :dl/anchor "arbeidsmiljøloven §17-3" :dl/critical true :dl/verify-service-date true}
+    :dl/anchor "arbeidsmiljøloven §17-3" :dl/source-url "https://lovdata.no/lov/2005-06-17-62" :dl/critical true :dl/verify-service-date true}
    {:dl/label "Søksmål (提訴)"
     :dl/rule "無効 (ugyldighet) の søksmål は8 uker 以内・erstatning のみなら6か月以内 (forhandling 終了から起算)"
-    :dl/anchor "arbeidsmiljøloven §17-4" :dl/verify-service-date true}]
+    :dl/anchor "arbeidsmiljøloven §17-4" :dl/source-url "https://lovdata.no/lov/2005-06-17-62" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :forhandlinger :opt/kind :self-submit :opt/protective true
     :opt/label "書面で forhandlinger を請求 (2 uker — まず期限と stå i stilling を確保)"}
