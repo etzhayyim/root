@@ -33,7 +33,16 @@
      (defn- lex [name]
        (json/parse-string (slurp (java.io.File. lexdir (str name ".json")))))
      (defn- manifest []
-       (json/parse-string (slurp (java.io.File. actor-dir "manifest.jsonld"))))))
+  (let [e (clojure.edn/read-string (slurp (java.io.File. actor-dir "manifest.edn")))
+        gm (into {} (map (fn [g] [(:gate/id g) g]) (:actor/gates e)))]
+    {"constitutionalGates" {"gates" gm}
+     "gates" gm
+     "nonGoals" (:actor/non-goals e)
+     "cells" (:actor/cells e)
+     "name" (:actor/id e)
+     "purpose" (:actor/purpose e)
+     "tier" "Tier-B"
+     "status" (some-> (:actor/status e) name)}))))
 
 (defn- record-node [doc]
   (let [main (get-in doc ["defs" "main"])] (or (get main "record") main)))
