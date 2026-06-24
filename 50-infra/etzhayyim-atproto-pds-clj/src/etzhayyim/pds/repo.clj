@@ -291,24 +291,36 @@
 
 ;; ── assemble a full repo CAR from PdsStore records ───────────────────────────
 
-(defn repo-car
-  "Build the signed-commit + MST + record-block CAR for one repo.
-  records = seq of {:uri :value} (value = the record map). Returns
-  {:car bytes :commit-cid str :rev str :root str}."
+(defn build-repo
+  "Assemble the signed-commit + MST + record blocks for one repo.
+  records = seq of {:uri :value}. Returns
+  {:commit-cid str :root str :rev str :blocks {cid-str→{:cid :bytes}}
+   :record-cids {collection/rkey→cid-str}}."
   [did records rev priv]
-  (let [;; record blocks (each record value → dag-cbor block)
-        rec-blocks (atom {})
+  (let [rec-blocks (atom {})
+        rec-cids (atom {})
         entries (for [{:keys [uri value]} records
                       :let [key (->> (str/split uri #"/") (drop 3) (str/join "/"))  ; collection/rkey
                             cb (dag-cbor value)
                             cid (cid-of-bytes cb)]]
                   (do (swap! rec-blocks assoc (cid-str cid) {:cid cid :bytes cb})
+                      (swap! rec-cids assoc key (cid-str cid))
                       [key cid]))
         [root mst-blocks] (build-mst (vec entries))
         [commit-cid commit-bytes _] (make-commit did root rev nil priv)
         all (merge @rec-blocks mst-blocks {(cid-str commit-cid) {:cid commit-cid :bytes commit-bytes}})]
-    {:car (car commit-cid all)
-     :commit-cid (cid-str commit-cid)
-     :root (cid-str root)
-     :rev rev
-     :blocks (count all)}))
+    {:commit-cid (cid-str commit-cid) :commit-cid-bytes commit-cid
+     :root (cid-str root) :rev rev :blocks all :record-cids @rec-cids}))
+
+(defn repo-car
+  "Full repo CAR (commit root). Returns {:car bytes :commit-cid :root :rev :blocks}."
+  [did records rev priv]
+  (let [{:keys [commit-cid-bytes commit-cid root rev blocks]} (build-repo did records rev priv)]
+    {:car (car commit-cid-bytes blocks)
+     :commit-cid commit-cid :root root :rev rev :blocks (count blocks)}))
+
+(defn blocks-car
+  "CAR carrying a chosen subset of blocks (root = commit). `want` = set of cid-strs;
+  nil → all blocks. For sync.getBlocks / sync.getRecord."
+  [{:keys [commit-cid-bytes blocks]} want]
+  (car commit-cid-bytes (if want (select-keys blocks want) blocks)))

@@ -119,10 +119,24 @@
             car (h {:uri "/xrpc/com.atproto.sync.getRepo" :request-method :get
                     :query-string (str "did=" cfg/pds-did)})
             commit (h {:uri "/xrpc/com.atproto.sync.getLatestCommit" :request-method :get
+                       :query-string (str "did=" cfg/pds-did)})
+            status (h {:uri "/xrpc/com.atproto.sync.getRepoStatus" :request-method :get
+                       :query-string (str "did=" cfg/pds-did)})
+            getrec (h {:uri "/xrpc/com.atproto.sync.getRecord" :request-method :get
+                       :query-string (str "did=" cfg/pds-did "&collection=app.bsky.feed.post&rkey=3kfed1")})
+            blocks (h {:uri "/xrpc/com.atproto.sync.getBlocks" :request-method :get
                        :query-string (str "did=" cfg/pds-did)})]
         (is (= "application/vnd.ipld.car" (get-in car [:headers "content-type"])))
         (is (instance? java.io.InputStream (:body car)))
-        (is (str/starts-with? (get (json/parse-string (:body commit)) "cid") "bafyrei"))))))
+        (is (str/starts-with? (get (json/parse-string (:body commit)) "cid") "bafyrei"))
+        (is (true? (get (json/parse-string (:body status)) "active")))
+        (is (= "application/vnd.ipld.car" (get-in getrec [:headers "content-type"]))) ; record found → CAR
+        (is (= "application/vnd.ipld.car" (get-in blocks [:headers "content-type"]))))
+      (testing "getRecord for a missing rkey 404s"
+        (let [h (server/make-handler st k "z6Mkx")
+              miss (h {:uri "/xrpc/com.atproto.sync.getRecord" :request-method :get
+                       :query-string (str "did=" cfg/pds-did "&collection=app.bsky.feed.post&rkey=nope")})]
+          (is (= 404 (:status miss))))))))
 
 (deftest commit-signature-roundtrips
   (testing "the repo commit signature verifies against the signing key"

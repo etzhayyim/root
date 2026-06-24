@@ -41,25 +41,38 @@
   (or (some->> records (map #(last (str/split (:uri %) #"/"))) sort last) "3zzzzzzzzzzzz"))
 
 (defn- sync-response
-  "com.atproto.sync.* — getRepo returns a CAR; the rest return JSON."
+  "com.atproto.sync.* — getRepo/getRecord/getBlocks return CARs; the rest JSON."
   [store signing-key nsid params]
-  (let [did (or (:did params) cfg/pds-did)]
+  (let [did (or (:did params) cfg/pds-did)
+        repo* (delay (repo/build-repo did (all-records store did)
+                                      (repo-rev (all-records store did)) signing-key))]
     (case nsid
       "com.atproto.sync.getRepo"
-      (let [records (all-records store did)
-            {:keys [car]} (repo/repo-car did records (repo-rev records) signing-key)]
-        (car-response car))
+      (car-response (repo/blocks-car @repo* nil))
 
       "com.atproto.sync.getLatestCommit"
-      (let [records (all-records store did)
-            rev (repo-rev records)
-            {:keys [commit-cid]} (repo/repo-car did records rev signing-key)]
-        (json-response {:status 200 :body {"cid" commit-cid "rev" rev}}))
+      (json-response {:status 200 :body {"cid" (:commit-cid @repo*) "rev" (:rev @repo*)}})
+
+      "com.atproto.sync.getRepoStatus"
+      (json-response {:status 200 :body {"did" did "active" true "rev" (:rev @repo*)}})
 
       "com.atproto.sync.listRepos"
       (json-response {:status 200 :body {"repos" [{"did" cfg/pds-did
-                                                   "head" (:commit-cid (repo/repo-car cfg/pds-did (all-records store cfg/pds-did) (repo-rev (all-records store cfg/pds-did)) signing-key))
-                                                   "rev" (repo-rev (all-records store cfg/pds-did))}]}})
+                                                   "head" (:commit-cid @repo*)
+                                                   "rev" (:rev @repo*)
+                                                   "active" true}]}})
+
+      "com.atproto.sync.getRecord"
+      (let [{:keys [collection rkey]} params
+            key (str collection "/" rkey)
+            cid (get-in @repo* [:record-cids key])]
+        (if cid
+          (car-response (repo/blocks-car @repo* #{cid (:commit-cid @repo*) (:root @repo*)}))
+          (json-response {:status 404 :body {"error" "RecordNotFound" "message" key}})))
+
+      "com.atproto.sync.getBlocks"
+      (let [want (some-> (:cids params) (str/split #",") set)]
+        (car-response (repo/blocks-car @repo* (when want (conj want (:commit-cid @repo*))))))
 
       (json-response {:status 501 :body {"error" "MethodNotImplemented" "message" nsid}}))))
 
@@ -141,6 +154,6 @@
     (start! store (:private kp) multibase cfg/port)
     (println (format "[pds] etzhayyim atproto PDS up: %s  did=%s  domains=%s  :%d"
                      cfg/host cfg/pds-did (str/join "," cfg/user-domains) cfg/port))
-    (println "[pds] sync surface: com.atproto.sync.{getRepo,getLatestCommit,listRepos}")
+    (println "[pds] sync surface: com.atproto.sync.{getRepo,getRecord,getBlocks,getLatestCommit,getRepoStatus,listRepos}")
     (println "[pds] signing key published in did.json: #atproto" multibase)
     @(promise)))
