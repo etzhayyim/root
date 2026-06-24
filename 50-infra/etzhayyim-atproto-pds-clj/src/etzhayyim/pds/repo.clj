@@ -324,3 +324,30 @@
   nil → all blocks. For sync.getBlocks / sync.getRecord."
   [{:keys [commit-cid-bytes blocks]} want]
   (car commit-cid-bytes (if want (select-keys blocks want) blocks)))
+
+;; ── subscribeRepos firehose frame ────────────────────────────────────────────
+;; Wire format: dag-cbor(header {:op 1 :t "#commit"}) ++ dag-cbor(body). Sent as
+;; one binary websocket message. `blocks` carries the commit as a CAR so a relay
+;; can ingest without a follow-up getRepo.
+
+(defn- concat-bytes [^bytes a ^bytes b]
+  (let [out (byte-array (+ (alength a) (alength b)))]
+    (System/arraycopy a 0 out 0 (alength a))
+    (System/arraycopy b 0 out (alength a) (alength b))
+    out))
+
+(defn commit-frame
+  "A #commit firehose frame for the current head of `build` (from build-repo).
+  `ops` = seq of {:action :path :cid-bytes-or-nil}."
+  [seq did build ops time-iso]
+  (let [header (dag-cbor {:op 1 :t "#commit"})
+        body (dag-cbor {:seq seq :rebase false :tooBig false
+                        :repo did
+                        :commit (cid-link (:commit-cid-bytes build))
+                        :rev (:rev build) :since nil
+                        :blocks (blocks-car build nil)
+                        :ops (vec (for [{:keys [action path cid-bytes]} ops]
+                                    {:action action :path path
+                                     :cid (if cid-bytes (cid-link cid-bytes) nil)}))
+                        :blobs [] :time time-iso})]
+    (concat-bytes header body)))

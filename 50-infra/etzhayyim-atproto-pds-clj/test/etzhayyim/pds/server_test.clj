@@ -138,6 +138,19 @@
                        :query-string (str "did=" cfg/pds-did "&collection=app.bsky.feed.post&rkey=nope")})]
           (is (= 404 (:status miss))))))))
 
+(deftest firehose-frame-wellformed
+  (testing "commit-frame is dag-cbor(#commit header) ++ dag-cbor(body)"
+    (let [k (.getPrivate (repo/gen-keypair))
+          build (repo/build-repo cfg/pds-did
+                                 [{:uri (str "at://" cfg/pds-did "/app.bsky.feed.post/3kfh1") :value {"$type" "app.bsky.feed.post" "text" "y"}}]
+                                 "3kfh1" k)
+          ops [{:action "create" :path "app.bsky.feed.post/3kfh1" :cid-bytes nil}]
+          frame (repo/commit-frame 1 cfg/pds-did build ops "2026-06-24T00:00:00Z")
+          header (repo/dag-cbor {:op 1 :t "#commit"})]
+      ;; frame begins with the exact #commit header bytes
+      (is (= (seq header) (take (count header) (seq frame))))
+      (is (> (alength frame) (alength header))))))  ; a body follows the header
+
 (deftest commit-signature-roundtrips
   (testing "the repo commit signature verifies against the signing key"
     (let [kp (repo/gen-keypair)

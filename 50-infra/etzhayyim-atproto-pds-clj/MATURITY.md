@@ -18,21 +18,20 @@ breaking the gftd.ai dependency. Updated by the maturity `/loop`.
 | **CAR v1** serialization | ✅ | header `{roots,version}` + length-prefixed blocks |
 | Signing key stable + published | ✅ | `PDS_SIGNING_KEY_FILE`; did.json `#atproto` Multikey `z6Mk…` |
 | **sync read surface** | ✅ | getRepo / getRecord / getBlocks / getLatestCommit / getRepoStatus / listRepos |
-| `subscribeRepos` firehose | ⏳ R2 | websocket commit-event stream (next loop iteration) |
-| `uploadBlob` / `getBlob` | ⏳ R2 | blob store |
+| **`subscribeRepos` firehose** | ✅ | websocket; binary `#commit` frame (CAR + ops) on connect; verified live (opcode 2, header `a26174`) |
+| `uploadBlob` / `getBlob` | ⏳ R2 | blob store (next loop iteration) |
 | Public-hostname cutover | ⏳ operator | `cloudflared tunnel login` → `atproto.etzhayyim.com` |
 | Relay registration | ⏳ operator | requestCrawl to a relay after cutover |
 
 ## Tests
 
-`bb test` — 9 deftests / 39 assertions green: independent-identity, http-layer,
+`bb test` — 10 deftests / 41 assertions green: independent-identity, http-layer,
 durable-store-survives-restart, dag-cbor-is-spec-correct, federation-sync-surface
 (getRepo/getRecord/getBlocks/getRepoStatus + 404), signing-key-published-and-stable,
-commit-signature-roundtrips.
+commit-signature-roundtrips, firehose-frame-wellformed.
 
 ## Next maturity steps (loop)
 
-1. `com.atproto.sync.subscribeRepos` firehose (websocket, framed commit events).
-2. blob store (`uploadBlob` / `sync.getBlob` / `listBlobs`).
-3. an end-to-end relay-verification harness (decode did.json multibase → verify a
+1. blob store (`uploadBlob` / `sync.getBlob` / `listBlobs`).
+2. an end-to-end relay-verification harness (decode did.json multibase → verify a
    getRepo commit `sig` from the CAR) as a test.

@@ -91,6 +91,27 @@
       (when-not (str/blank? s)
         (json/parse-string s true)))))
 
+(defn- iso-now [] (str (java.time.Instant/now)))
+
+(defn- subscribe-handler
+  "com.atproto.sync.subscribeRepos — a websocket firehose. On connect, emit a
+  #commit frame carrying the current head (CAR + create ops) so a relay can
+  bootstrap; the connection stays open for future commit events."
+  [req store signing-key]
+  (http/as-channel req
+    {:on-open
+     (fn [ch]
+       (try
+         (let [records (all-records store cfg/pds-did)
+               build (repo/build-repo cfg/pds-did records (repo-rev records) signing-key)
+               ops (for [{:keys [uri]} records
+                         :let [path (->> (str/split uri #"/") (drop 3) (str/join "/"))
+                               cs (get-in build [:record-cids path])]]
+                     {:action "create" :path path :cid-bytes (get-in build [:blocks cs :cid])})
+               frame (repo/commit-frame 1 cfg/pds-did build (vec ops) (iso-now))]
+           (http/send! ch frame))
+         (catch Exception e (binding [*out* *err*] (println "[pds] subscribeRepos:" (.getMessage e))))))}))
+
 (defn make-handler [store signing-key signing-multibase]
   (fn [req]
     (let [uri (:uri req)
@@ -108,6 +129,10 @@
 
         (nil? nsid)
         (json-response {:status 404 :body {"error" "NotFound" "message" uri}})
+
+        ;; federation firehose: com.atproto.sync.subscribeRepos (websocket)
+        (= nsid "com.atproto.sync.subscribeRepos")
+        (subscribe-handler req store signing-key)
 
         ;; federation: com.atproto.sync.* (getRepo → CAR; rest → JSON)
         (str/starts-with? nsid "com.atproto.sync.")
@@ -154,6 +179,6 @@
     (start! store (:private kp) multibase cfg/port)
     (println (format "[pds] etzhayyim atproto PDS up: %s  did=%s  domains=%s  :%d"
                      cfg/host cfg/pds-did (str/join "," cfg/user-domains) cfg/port))
-    (println "[pds] sync surface: com.atproto.sync.{getRepo,getRecord,getBlocks,getLatestCommit,getRepoStatus,listRepos}")
+    (println "[pds] sync surface: com.atproto.sync.{getRepo,getRecord,getBlocks,getLatestCommit,getRepoStatus,listRepos,subscribeRepos}")
     (println "[pds] signing key published in did.json: #atproto" multibase)
     @(promise)))
