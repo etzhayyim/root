@@ -1248,7 +1248,7 @@
   :proc/deadline-rules
   [{:dl/label "終止租約への対応"
     :dl/rule "出租人の提前終止は法定事由 (修繕拒否・賃料2か月分の遅延+催告・無断転貸 等) + 終止30日前の書面通知が必要。通知だけで強制退去はできず、房屋の返還は當事者共同の點交による (一方が催告後も応じなければ點交完了とみなす)。房客が争うなら事由・通知の適法性を確認し点交期日に対応"
-    :dl/anchor "租賃住宅市場發展及管理條例 第10條 (出租人提前終止)" :dl/verify-service-date true}]
+    :dl/anchor "租賃住宅市場發展及管理條例 第10條 (出租人提前終止)" :dl/source-url "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0060125" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :dispute :opt/kind :self-submit :opt/protective true :opt/label "終止事由・通知期間の適法性を確認し書面で反論 (点交期日にも対応)"}
    {:opt/id :no-self-help-protection :opt/kind :self-decide :opt/protective true :opt/label "房東の自力救濟 (強制鎖門・斷水斷電・荷物搬出) は違法 — 房屋の収回は訴訟/強制執行の合法手続によってのみ; 受けたら警察・律師・消保官へ"}]
