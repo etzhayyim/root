@@ -89,6 +89,32 @@
       "type" "BskyChatService"
       "serviceEndpoint" chat-url}]}))
 
+(defn actor-did-document
+  "did:web document for ONE etzhayyim actor (e.g. did:web:etzhayyim.com:actor:<h>).
+  Publishes the actor's OWN signing key as the `#atproto` Multikey so any verifier
+  resolves the doc and checks that actor's record signatures (Path B). The PDS holds
+  no key — `multibase` is the actor's published PUBLIC key (etzhayyim.pds.keys/multikey).
+  `handle` (optional) becomes alsoKnownAs; the PDS service endpoint is this host.
+
+  This is the artifact a verifier needs to close the loop: sign with the actor's
+  sealed key → resolve this doc → verify against the published Multikey."
+  ([actor-did multibase] (actor-did-document actor-did multibase nil))
+  ([actor-did multibase handle]
+   {"@context" ["https://www.w3.org/ns/did/v1"
+                "https://w3id.org/security/multikey/v1"]
+    "id" actor-did
+    "alsoKnownAs" (if handle [(str "https://" handle) (str "at://" handle)] [])
+    "verificationMethod" (if (and multibase (not (str/blank? multibase)))
+                           [{"id" (str actor-did "#atproto")
+                             "type" "Multikey"
+                             "controller" actor-did
+                             "publicKeyMultibase" multibase}]
+                           [])
+    "service"
+    [{"id" "#atproto_pds"
+      "type" "AtprotoPersonalDataServer"
+      "serviceEndpoint" (str "https://" host)}]}))
+
 (defn describe-server
   "com.atproto.server.describeServer payload — independent etzhayyim identity."
   []
