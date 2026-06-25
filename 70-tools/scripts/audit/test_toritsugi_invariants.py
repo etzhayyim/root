@@ -46,7 +46,7 @@ _GUIDE = _LEX / "procedureGuide.json"
 _DRAFT = _LEX / "applicationDraft.json"
 _SUBMISSION = _LEX / "submissionRecord.json"
 _STATUS = _LEX / "statusTrack.json"
-_MANIFEST = _REPO / "20-actors" / "toritsugi" / "manifest.jsonld"
+# manifest invariants -> 20-actors/toritsugi/methods/test_manifest_invariants.cljc (jsonld retired)
 _SEED = _REPO / "20-actors" / "toritsugi" / "registry" / "procedures.seed.json"
 _CELLS = _REPO / "20-actors" / "kotodama" / "cells"
 
@@ -92,27 +92,6 @@ def test_seven_cells_raise_at_import():
 # ─────────────────────────────────────────────────────────────────────────
 # 2. manifest pins 15 gates + 6 namespaces + 7 cells matching disk
 # ─────────────────────────────────────────────────────────────────────────
-
-
-def test_manifest_gates_namespaces_cells():
-    m = _load(_MANIFEST)
-    gates = m["constitutionalGates"]["gates"]
-    assert len(gates) == 15, "ADR-2605312030 pins 15 gates G1..G15"
-    assert set(gates) == {f"G{i}" for i in range(1, 16)}, "gates are exactly G1..G15"
-
-    ns = m["lexiconNamespaces"]
-    assert len(ns) == 6, "6 lexiconNamespaces"
-    for n in ns:
-        leaf = n.split(".")[-1]
-        assert (_LEX / f"{leaf}.json").exists(), f"missing lexicon: {leaf}"
-
-    cells = m["cells"]
-    assert len(cells) == 7, "7 cells"
-    for c in cells:
-        mod = c["module"]
-        assert mod.startswith("kotodama.cells.toritsugi_"), mod
-        dir_name = mod.split(".")[-1]
-        assert (_CELLS / dir_name / "cell.py").exists(), f"no disk cell for {mod}"
 
 
 # ─────────────────────────────────────────────────────────────────────────
@@ -270,3 +249,4 @@ def test_pii_only_via_encrypted_pointer():
 
 if __name__ == "__main__":
     raise SystemExit(pytest.main([__file__, "-v"]))
+
