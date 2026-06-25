@@ -8,8 +8,10 @@
    :task (server/-main)}
 
   test
-  {:doc "Run the PDS test suite (server round-trip + util identifier primitives)."
-   :requires ([clojure.test :as t] [etzhayyim.pds.server-test] [etzhayyim.pds.util-test])
+  {:doc "Run the PDS test suite (server round-trip + util primitives + xrpc handlers)."
+   :requires ([clojure.test :as t] [etzhayyim.pds.server-test]
+              [etzhayyim.pds.util-test] [etzhayyim.pds.xrpc-test])
    :task (let [{:keys [fail error]} (t/run-tests 'etzhayyim.pds.server-test
-                                                 'etzhayyim.pds.util-test)]
+                                                 'etzhayyim.pds.util-test
+                                                 'etzhayyim.pds.xrpc-test)]
            (System/exit (if (pos? (+ fail error)) 1 0)))}}}
