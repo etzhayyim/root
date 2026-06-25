@@ -6,6 +6,6 @@
 set -euo pipefail
 cd "$(dirname "$0")/../.."
 exec bb --classpath "20-actors:20-actors/kotodama/src:20-actors/kotodama/tests" \
-  -e '(require (quote clojure.test) (quote kotodama.tests.test-cells))
-      (let [r (clojure.test/run-tests (quote kotodama.tests.test-cells))]
+  -e '(require (quote clojure.test) (quote kotodama.tests.test-cells) (quote kotodama.tests.test-datom))
+      (let [r (clojure.test/run-tests (quote kotodama.tests.test-cells) (quote kotodama.tests.test-datom))]
         (System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))'
