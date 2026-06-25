@@ -212,12 +212,16 @@
     (der->compact (.sign sg))))
 
 (defn verify
-  "Verify a 64-byte compact signature against `pub` (a PublicKey) over `msg`."
+  "Verify a 64-byte compact signature against `pub` (a PublicKey) over `msg`.
+  DEFENSIVE: a malformed signature (bad length / non-DER) returns false, never throws —
+  this consumes untrusted input (a remote record's sig)."
   [pub ^bytes msg ^bytes sig64]
-  (let [vr (doto (Signature/getInstance +jca-sig-alg+)
-             (.initVerify pub)
-             (.update msg))]
-    (.verify vr (compact->der sig64))))
+  (try
+    (let [vr (doto (Signature/getInstance +jca-sig-alg+)
+               (.initVerify pub)
+               (.update msg))]
+      (.verify vr (compact->der sig64)))
+    (catch Exception _ false)))
 
 ;; ── multikey → PublicKey (decompress) → verify from the PUBLISHED key alone ───
 (defn- mod-sqrt
@@ -254,9 +258,13 @@
 
 (defn verify-multikey
   "Verify a 64-byte compact signature over `msg` using ONLY the published multikey —
-  no access to the actor's key object. This is the remote-verifier path."
+  no access to the actor's key object. This is the remote-verifier path.
+  DEFENSIVE: a malformed/garbage multikey (bad multibase / not-p256 / off-curve point)
+  or signature returns false, never throws — both come from untrusted input."
   [^String mk ^bytes msg ^bytes sig64]
-  (verify (pubkey-from-multikey mk) msg sig64))
+  (try
+    (verify (pubkey-from-multikey mk) msg sig64)
+    (catch Exception _ false)))
 
 ;; ── base64 sig convenience (string-friendly, for datoms / JSON) ───────────────
 (defn sign-b64
@@ -265,9 +273,12 @@
   (->b64 (sign sealed msg)))
 
 (defn verify-b64
-  "Verify a base64 compact signature over `msg` against the published multikey."
+  "Verify a base64 compact signature over `msg` against the published multikey.
+  DEFENSIVE: malformed base64 / multikey / signature returns false, never throws."
   [^String mk ^bytes msg ^String sig-b64]
-  (verify-multikey mk msg (<-b64 sig-b64)))
+  (try
+    (verify-multikey mk msg (<-b64 sig-b64))
+    (catch Exception _ false)))
 
 (defn record-signer
   "A crypto-agnostic store signer for ONE actor's sealed handle: a closure
