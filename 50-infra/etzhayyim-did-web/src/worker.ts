@@ -672,6 +672,12 @@ interface Env {
   // templates; `{cid}` is substituted, else `<gw>/ipfs/<cid>` is used. Fetched
   // bytes are CID-verified before serving, so these are UNTRUSTED upstreams.
   IPFS_GATEWAYS?: string;
+  // Static GitHub-Pages CID gateway fallback (ADR-2606242400). When the IPFS
+  // gateways are unreachable (e.g. pinning stalled), `/ipfs/<cid>` also tries
+  // `<PAGES_GATEWAY_BASE>/ipfs/<cid>` — same CID re-verification, so the static
+  // host stays UNTRUSTED. Tried FIRST (fast hit for published actors; a 404 for
+  // an un-published CID falls straight through to IPFS). Inert when unset.
+  PAGES_GATEWAY_BASE?: string;
   // Per-NSID-family XRPC upstream origins (populated from wrangler.toml [vars]).
   // New actors are added here, NOT as new subdomains — this Worker is the
   // single etzhayyim.com endpoint per ADR-2605212030 §D2.
@@ -1670,13 +1676,21 @@ a{color:inherit}
             { status: 501, headers: ACTOR_JSON_HEADERS },
           );
         }
-        const gateways = (
+        const ipfsGateways = (
           env.IPFS_GATEWAYS ||
           "https://{cid}.ipfs.dweb.link,https://ipfs.io/ipfs/{cid}"
         )
           .split(",")
           .map((g) => g.trim())
           .filter(Boolean);
+        // Static GitHub-Pages CID gateway tried FIRST (reliable, fast) when
+        // configured; an un-published CID 404s and falls through to IPFS. The
+        // Pages bytes go through the SAME CID re-verification below, so the
+        // static host is never trusted (ADR-2606242400).
+        const pagesBase = (env.PAGES_GATEWAY_BASE || "").trim().replace(/\/$/, "");
+        const gateways = pagesBase
+          ? [`${pagesBase}/ipfs/{cid}`, ...ipfsGateways]
+          : ipfsGateways;
         let lastErr = "no gateway configured";
         for (const tmpl of gateways) {
           const base = tmpl.includes("{cid}")
