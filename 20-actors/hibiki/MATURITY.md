@@ -7,7 +7,7 @@ The ossekai-proposal sibling of utsushie 写し絵 (ADR-2606161536).
 |---|---|
 | Lexicon | ✅ `lex/presentation.edn` — `com.etzhayyim.hibiki.presentation` with H1–H8 structural gates |
 | Methods | ✅ `methods/present_plan.cljc` — offline, pure, deterministic plan builder + R0-gated `render` |
-| Tests | ✅ `methods/test_charter_gates.cljc` (8/14, lexicon conformance) + `methods/test_present_plan.cljc` (7/21, builder) — `./run_tests.sh` green; auto-discovered by `bb run test:actors` (ADR-2606131500) |
+| Tests | ✅ `methods/test_charter_gates.cljc` (8/14, lexicon conformance) + `methods/test_present_plan.cljc` (7/21, builder) — `bb run_tests.clj` green; auto-discovered by `bb run test:actors` (ADR-2606131500) |
 | Cells | ⛔ none yet (R1 — Pregel cell wrapping build-plan + the G8 render step) |
 | Manifest | ✅ `manifest.jsonld` — `did:web:etzhayyim.com:actor:hibiki`, Tier-B, H1–H8 gates, sibling map (R0 runtime=offline-method) |
 | Render | ⛔ R0-gated (H5/G8 + Murakumo-only) — `render` raises by design; reuses utsushie's render/TTS leg at R1 |

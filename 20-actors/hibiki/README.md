@@ -14,7 +14,7 @@ weaponize sound, or hide the exit. The **last storyboard scene is always the con
 ## Run
 
 ```bash
-./20-actors/hibiki/run_tests.sh              # charter-gates + present-plan, all green
+bb 20-actors/hibiki/run_tests.clj            # charter-gates + present-plan, all green
 bb -cp 20-actors -m hibiki.methods.test-present-plan
 # auto-discovered fleet-wide:
 bb run test:actors
