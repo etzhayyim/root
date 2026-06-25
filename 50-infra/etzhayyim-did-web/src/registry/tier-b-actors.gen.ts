@@ -186,7 +186,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "futawa": {
-    description: "二輪 — Small-Displacement Motorcycle Manufacturing",
+    description: "Small-displacement motorcycle manufacturing Tier-B actor for adherent personal mobility. Adopts mature global motorcycle OEM methodology (frame → drivetrain → harness/suspension/paint → final → dyno); religious-corp-ised by 4 constitutional firsts: G7 ABS-mandatory ≥125cc / ≥6kW electric (safety constitutional), G8 build-time anti-surveillance (NO GPS / connected-app / telematics / V2X built-in; companion to hodoki G8 EOL data destroy), G12 right-to-repair forward-publishing (IPFS-pinned parts catalog + CAD + firmware source at manufacture; companion to hodoki G12 EOL catalog), G14 30-year design service life (anti-planned-obsolescence). R0 scope = ≤250cc 4-stroke single OR ≤15kW electric / curb ≤200kg / commuter+utility. ≥500cc, racing, luxury, connected-app surveillance, trikes/sidecars, pure bicycles, H2 FCV are constitutional non-goals.",
     glyph: "二輪",
     displayName: "二輪 — Small-Displacement Motorcycle Manufacturing",
     adrs: ["2605261330", "2605261345", "2605261400", "2605261415"],
@@ -1291,7 +1291,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "toritsugi": {
-    description: "取次 — Citizen-Facing Government-Procedure Concierge",
+    description: "kotoba-native citizen-facing government-procedure concierge — the SERVICE-DELIVERY counterpart to passive danjo (watches the state) and himotoki (exercises a right of access). toritsugi stands at the 窓口 ON THE CITIZEN'S SIDE and relays a CONSENTING member through a government / municipal procedure (the LINE 公式アカウント role): proactively surfaces available 制度/給付, explains the 手続き, assembles the 必要書類 checklist, and assists filling the 様式 so the MEMBER THEMSELVES submits + signs (案内 + 伴走 + 本人提出支援, default mode). A gated R3 exception adds 本人同意ベース提出代行 — filing the member's OWN procedure via the official channel under explicit per-submission consent + DID/SBT + 行政書士法 clearance + Council Lv7+. Driven by a CODED procedure registry (procedure) holding each procedure's 窓口 / 所管 / オンライン申請URL / 必要書類 / 様式 / 手数料 / 法定処理期間 / 根拠法令 / channel. Consent-gated own-procedure-only (G3), transparent + non-pretextual (G4), 行政書士法/UPL-bounded (G5, no advice + no 作成代理 → chigiri + licensed), PII-encrypted (G6), Murakumo-only (G7), non-fabrication (G8), non-profit (G9), lawful-channel-only (G10), Transparent Religious Force (G11), verified-procedure-only submission (G14), member-self-submission default (G15). JP-first (R0); architecture jurisdiction-generic. 7 cells / 6 Lexicons / 15 gates / 14 non-goals.",
     glyph: "取次",
     displayName: "取次 — Citizen-Facing Government-Procedure Concierge",
     adrs: ["2605312030", "2605262700"],
@@ -1330,7 +1330,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "tsukuroi": {
-    description: "繕い — Mend (authorized vulnerability remediation + patch proposal)",
+    description: "Non-profit religious-corp authorized vulnerability-remediation + patch-proposal actor; the constructive sibling of akuma (悪魔, ADR-2605151400). Closes the akuma diagnosis loop (akuma states automated patch generation/submission is out of scope): consumes an owner-attested vulnerability finding → synthesizes a defensive fix patch (Murakumo-only LLM) → validates in an egress-restricted sandbox → PROPOSES it to the authorized target (fork-and-PR / signed patch bundle). PROPOSE-ONLY: a human owner merges; tsukuroi performs NO probing and holds NO merge/deploy authority and NO platform master key. 7 cells / 5 Lexicons under com.etzhayyim.tsukuroi.* / 13 immutable gates / 12 non-goals. kotoba-native (datom/EAVT + MST; NOT akuma's older RisingWave plane).",
     glyph: "繕い",
     displayName: "繕い — Mend (authorized vulnerability remediation + patch proposal)",
     adrs: ["2605291500", "2605151400", "2605192100"],
@@ -1460,7 +1460,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "watatsumi": {
-    description: "綿津見 — Civilian Submersible Manufacturing",
+    description: "Civilian deep-sea submersible manufacturing Tier-B actor. Adopts modular ring-section construction methodology from mature European shipyard practice; civilianised by metallurgical, propulsion, and acoustic-emission constraints. Naval weapons, nuclear propulsion, and military stealth are constitutional non-goals per Charter Rider §2(a).",
     glyph: "綿津見",
     displayName: "綿津見 — Civilian Submersible Manufacturing",
     adrs: ["2605252200", "2605252215", "2605252230", "2605252245"],

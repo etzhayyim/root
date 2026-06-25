@@ -26,7 +26,7 @@ import pytest
 
 _REPO = Path(__file__).resolve().parents[3]
 _LEX = _REPO / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "watatsumi"
-_MANIFEST = _REPO / "20-actors" / "watatsumi" / "manifest.jsonld"
+# manifest invariants -> 20-actors/watatsumi/methods/test_manifest_invariants.cljc (jsonld retired)
 
 
 def _load(p: Path) -> dict:
@@ -120,11 +120,3 @@ class TestManifestConsistency:
         for p in _LEX.glob("*.json"):
             assert _load(p)["id"] == f"com.etzhayyim.watatsumi.{p.stem}"
 
-    def test_manifest_namespaces_match_disk(self):
-        m = _load(_MANIFEST)
-        declared = {ns.rsplit(".", 1)[-1] for ns in (m.get("lexiconNamespaces") or m.get("lexicons") or [])}
-        on_disk = {p.stem for p in _LEX.glob("*.json")}
-        assert declared == on_disk, f"manifest namespaces vs disk drifted: {declared ^ on_disk}"
-
-    def test_did(self):
-        assert _load(_MANIFEST)["id"] == "did:web:etzhayyim.com:watatsumi"
