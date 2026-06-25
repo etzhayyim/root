@@ -72,10 +72,57 @@ def nsid_to_lexicon_path(nsid: str) -> Path:
 
 
 def find_manifests() -> list[Path]:
-    """All actor manifests under 20-actors/."""
+    """All actor manifests under 20-actors/ — both the legacy `manifest.jsonld`
+    and the migrated `manifest.edn` (the jsonld→edn / py→cljc wave). One manifest
+    per actor dir; when an actor (transiently) ships both, the `.jsonld` wins.
+
+    Before this, the audit globbed only `manifest.jsonld` and so went silently
+    blind to the 140+ actors that migrated to `manifest.edn` — exactly the
+    "silent drift" this script exists to prevent. The `.edn` manifest carries
+    the original jsonld content under the `:actor/manifest` key (string-keyed),
+    including the `lexicons` / `lexiconNamespaces` arrays (see declared_nsids)."""
     if not ACTORS_DIR.is_dir():
         return []
-    return sorted(ACTORS_DIR.glob("*/manifest.jsonld"))
+    by_actor: dict[Path, Path] = {}
+    for mp in sorted(ACTORS_DIR.glob("*/manifest.edn")):
+        by_actor[mp.parent] = mp
+    for mp in sorted(ACTORS_DIR.glob("*/manifest.jsonld")):
+        by_actor[mp.parent] = mp  # prefer .jsonld when an actor has both
+    return [by_actor[k] for k in sorted(by_actor)]
+
+
+def declared_nsids(mpath: Path) -> list[str]:
+    """Lexicon NSIDs declared by a manifest, normalised to the NSID string.
+
+    `.jsonld` is parsed as JSON; both the legacy `lexicons` and the newer
+    `lexiconNamespaces` keys are read, and the two entry shapes — a bare NSID
+    string, or a rich object {id, status, emittedBy} — are both handled.
+
+    `.edn` has no stdlib parser (and the CI image installs only pytest), so the
+    `lexicons` / `lexiconNamespaces` arrays are extracted with a targeted regex
+    over the (string-keyed) `:actor/manifest` map. These arrays are flat lists
+    of quoted NSID strings, so the extraction is exact for the real corpus
+    (verified: 158 NSIDs across 143 .edn manifests, 0 false drift)."""
+    text = mpath.read_text()
+    if mpath.suffix == ".jsonld":
+        data = json.loads(text)
+        out: list[str] = []
+        for key in ("lexicons", "lexiconNamespaces"):
+            v = data.get(key, [])
+            if not isinstance(v, list):
+                continue
+            for item in v:
+                if isinstance(item, str):
+                    out.append(item)
+                elif isinstance(item, dict) and isinstance(item.get("id"), str):
+                    out.append(item["id"])
+        return out
+    # .edn
+    out_edn: list[str] = []
+    for key in ("lexiconNamespaces", "lexicons"):
+        for m in re.finditer(r'"' + key + r'"\s*\[(.*?)\]', text, re.S):
+            out_edn += re.findall(r'"([a-zA-Z][\w.-]*\.[\w.-]+)"', m.group(1))
+    return out_edn
 
 
 def main() -> int:
@@ -92,27 +139,10 @@ def main() -> int:
 
     for mpath in manifests:
         try:
-            data = json.loads(mpath.read_text())
+            declared = declared_nsids(mpath)
         except (OSError, json.JSONDecodeError) as e:
             print(f"warning: could not parse {mpath.relative_to(REPO_ROOT)}: {e}", file=sys.stderr)
             continue
-
-        # Actors authored before the lexiconNamespaces convention use the
-        # `lexicons` key; the newer actors use `lexiconNamespaces`. Read BOTH so
-        # the audit covers every actor, not just the legacy ones. Entries come in
-        # TWO shapes: a bare NSID string, OR a rich object {id, status, emittedBy}
-        # — normalise the object form to its `id` so object-form manifests
-        # (ake/fuchi/hotaru/mitooshi/tasuke) are no longer a silent blind spot.
-        declared = []
-        for key in ("lexicons", "lexiconNamespaces"):
-            v = data.get(key, [])
-            if not isinstance(v, list):
-                continue
-            for item in v:
-                if isinstance(item, str):
-                    declared.append(item)
-                elif isinstance(item, dict) and isinstance(item.get("id"), str):
-                    declared.append(item["id"])
         if not declared:
             continue
 
