@@ -119,7 +119,7 @@
               [etzhayyim.test-dns-sync] [etzhayyim.test-deploy] [etzhayyim.test-metrics]
               [etzhayyim.test-shannon] [etzhayyim.test-shannon-scores]
               [etzhayyim.test-systemofsystem] [etzhayyim.test-vertex]
-              [etzhayyim.test-source-graph] [etzhayyim.test-xrpc] [etzhayyim.test-mokuteki] [etzhayyim.test-projector] [etzhayyim.test-actor-publish] [etzhayyim.test-yoroshiku] [etzhayyim.test-mitama] [etzhayyim.test-training] [etzhayyim.test-murakumo-cmd] [etzhayyim.test-monitor] [etzhayyim.test-nono] [etzhayyim.test-workspace])
+              [etzhayyim.test-source-graph] [etzhayyim.test-xrpc] [etzhayyim.test-mokuteki] [etzhayyim.test-projector] [etzhayyim.test-actor-publish] [etzhayyim.test-yoroshiku] [etzhayyim.test-mitama] [etzhayyim.test-training] [etzhayyim.test-murakumo-cmd] [etzhayyim.test-monitor] [etzhayyim.test-nono] [etzhayyim.test-workspace] [etzhayyim.test-tithe])
    :task (let [{:keys [fail error]}
                (apply t/run-tests
                       '[etzhayyim.test-authz etzhayyim.test-agent-token etzhayyim.test-bonsai
@@ -132,7 +132,7 @@
                         etzhayyim.test-dns-sync etzhayyim.test-deploy etzhayyim.test-metrics
                         etzhayyim.test-shannon etzhayyim.test-shannon-scores
                         etzhayyim.test-systemofsystem etzhayyim.test-vertex
-                        etzhayyim.test-source-graph etzhayyim.test-xrpc etzhayyim.test-mokuteki etzhayyim.test-projector etzhayyim.test-actor-publish etzhayyim.test-yoroshiku etzhayyim.test-mitama etzhayyim.test-training etzhayyim.test-murakumo-cmd etzhayyim.test-monitor etzhayyim.test-nono etzhayyim.test-workspace])]
+                        etzhayyim.test-source-graph etzhayyim.test-xrpc etzhayyim.test-mokuteki etzhayyim.test-projector etzhayyim.test-actor-publish etzhayyim.test-yoroshiku etzhayyim.test-mitama etzhayyim.test-training etzhayyim.test-murakumo-cmd etzhayyim.test-monitor etzhayyim.test-nono etzhayyim.test-workspace etzhayyim.test-tithe])]
            (System/exit (if (pos? (+ fail error)) 1 0)))}
 
   vitals:report
