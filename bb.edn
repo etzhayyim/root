@@ -107,7 +107,7 @@
              (apply (resolve 'etzhayyim.test-kotoba-rad/-main) *command-line-args*))}
 
   test:helpers
-  {:doc "Aggregate of all 70-tools pure-helper test namespaces (/loop coverage 成熟度向上 — 28 modules): authz · agent-token · bonsai · code-quality · deps · bunseki · cohort · apps · authn · auth · database · agent-runtime · complex-stubs · actor-mesh · agent-cmd · actors-helpers · dodaf · coverage · identifier-audit · haisen · hinshitsu · dns-sync · deploy · metrics · shannon · shannon-scores · systemofsystem · vertex."
+  {:doc "Aggregate of all 70-tools pure-helper test namespaces (/loop coverage 成熟度向上 — 29 modules): authz · agent-token · bonsai · code-quality · deps · bunseki · cohort · apps · authn · auth · database · agent-runtime · complex-stubs · actor-mesh · agent-cmd · actors-helpers · dodaf · coverage · identifier-audit · haisen · hinshitsu · dns-sync · deploy · metrics · shannon · shannon-scores · systemofsystem · vertex · source-graph."
    :requires ([clojure.test :as t]
               [etzhayyim.test-authz] [etzhayyim.test-agent-token] [etzhayyim.test-bonsai]
               [etzhayyim.test-code-quality] [etzhayyim.test-deps] [etzhayyim.test-bunseki]
@@ -118,7 +118,8 @@
               [etzhayyim.test-identifier-audit] [etzhayyim.test-haisen] [etzhayyim.test-hinshitsu]
               [etzhayyim.test-dns-sync] [etzhayyim.test-deploy] [etzhayyim.test-metrics]
               [etzhayyim.test-shannon] [etzhayyim.test-shannon-scores]
-              [etzhayyim.test-systemofsystem] [etzhayyim.test-vertex])
+              [etzhayyim.test-systemofsystem] [etzhayyim.test-vertex]
+              [etzhayyim.test-source-graph])
    :task (let [{:keys [fail error]}
                (apply t/run-tests
                       '[etzhayyim.test-authz etzhayyim.test-agent-token etzhayyim.test-bonsai
@@ -130,7 +131,8 @@
                         etzhayyim.test-identifier-audit etzhayyim.test-haisen etzhayyim.test-hinshitsu
                         etzhayyim.test-dns-sync etzhayyim.test-deploy etzhayyim.test-metrics
                         etzhayyim.test-shannon etzhayyim.test-shannon-scores
-                        etzhayyim.test-systemofsystem etzhayyim.test-vertex])]
+                        etzhayyim.test-systemofsystem etzhayyim.test-vertex
+                        etzhayyim.test-source-graph])]
            (System/exit (if (pos? (+ fail error)) 1 0)))}
 
   vitals:report
