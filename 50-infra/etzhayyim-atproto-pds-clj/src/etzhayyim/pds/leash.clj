@@ -128,3 +128,13 @@
             (<= (long (get claims "exp" 0)) (long now)) {:valid? false :member iss :reason :expired}
             :else                             {:valid? true :member iss :reason :ok}))))
     (catch Exception _ {:valid? false :member nil :reason :malformed})))
+
+(defn leash-author
+  "Glue for the write path: given a PRESENTED leash (or nil) + env {:aud :now [:scope]},
+  return the consenting member's did to ATTRIBUTE the write to — or nil if no leash is
+  presented or it does not verify. The PDS passes this as store/put-record's {:author …}.
+  nil leash → nil (the write proceeds unattributed; fail-open, no key, no live posting)."
+  [leash env]
+  (when leash
+    (let [{:keys [valid? member]} (verify-leash leash env)]
+      (when valid? member))))

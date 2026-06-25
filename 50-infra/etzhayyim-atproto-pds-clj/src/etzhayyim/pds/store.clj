@@ -28,8 +28,11 @@
   (str "at://" did "/" collection "/" rkey))
 
 (defprotocol PdsStore
-  (put-record   [_ did collection rkey value]
-    "Assert a record. Returns {:uri :cid :value}.")
+  (put-record   [_ did collection rkey value] [_ did collection rkey value opts]
+    "Assert a record. Returns {:uri :cid :value}. The 6-arg form takes
+     opts {:author <member-did>} — a consenting member (from a verified CACAO
+     leash, etzhayyim.pds.leash) to whom this autonomous write is ATTRIBUTED;
+     recorded as :record/author and surfaced on read. nil opts = unattributed.")
   (get-record   [_ did collection rkey]
     "Return {:uri :cid :value} or nil if absent/tombstoned.")
   (delete-record [_ did collection rkey]
@@ -62,12 +65,14 @@
 (defn- materialize [db uri]
   (when (and (read-attr db uri :record/did)
              (not (read-attr db uri :record/deleted)))
-    (let [sig (read-attr db uri :record/sig)]
+    (let [sig (read-attr db uri :record/sig)
+          author (read-attr db uri :record/author)]
       (cond-> {:uri uri
                :rkey (read-attr db uri :record/rkey)
                :cid (read-attr db uri :record/cid)
                :value (json/parse-string (read-attr db uri :record/value))}
-        sig (assoc :sig sig :signedBy (read-attr db uri :record/signedBy))))))
+        sig (assoc :sig sig :signedBy (read-attr db uri :record/signedBy))
+        author (assoc :author author)))))
 
 ;; An actor signer is a crypto-agnostic closure `(fn [did ^bytes payload] ->
 ;; {:sig <base64> :multikey <str>})` (see etzhayyim.pds.keys/record-signer for a
@@ -111,7 +116,9 @@
 
 (defrecord MemStore [log signer]
   PdsStore
-  (put-record [_ did collection rkey value]
+  (put-record [this did collection rkey value]
+    (put-record this did collection rkey value nil))
+  (put-record [_ did collection rkey value {:keys [author]}]
     (let [uri (at-uri did collection rkey)
           cid (util/content-cid value)
           ts (util/now-iso)
@@ -124,10 +131,12 @@
                 [uri :record/createdAt ts]
                 [uri :record/deleted false]]           ; revive on re-create after delete
           datoms (cond-> base
-                   sp (conj [uri :record/sig (:sig sp)] [uri :record/signedBy (:multikey sp)]))]
+                   sp (conj [uri :record/sig (:sig sp)] [uri :record/signedBy (:multikey sp)])
+                   author (conj [uri :record/author author]))]
       (swap! log into datoms)
       (cond-> {:uri uri :cid cid :value value}
-        sp (assoc :sig (:sig sp) :signedBy (:multikey sp)))))
+        sp (assoc :sig (:sig sp) :signedBy (:multikey sp))
+        author (assoc :author author))))
   (get-record [_ did collection rkey]
     (materialize (latest-db @log) (at-uri did collection rkey)))
   (delete-record [_ did collection rkey]
@@ -169,7 +178,9 @@
 
 (defrecord DurableStore [path log signer]
   PdsStore
-  (put-record [_ did collection rkey value]
+  (put-record [this did collection rkey value]
+    (put-record this did collection rkey value nil))
+  (put-record [_ did collection rkey value {:keys [author]}]
     (let [uri (at-uri did collection rkey)
           cid (util/content-cid value)
           ts (util/now-iso)
@@ -181,11 +192,13 @@
                           [uri :record/value (json/generate-string value)]
                           [uri :record/createdAt ts]
                           [uri :record/deleted false]]    ; revive on re-create after delete
-                   sp (conj [uri :record/sig (:sig sp)] [uri :record/signedBy (:multikey sp)]))]
+                   sp (conj [uri :record/sig (:sig sp)] [uri :record/signedBy (:multikey sp)])
+                   author (conj [uri :record/author author]))]
       (append-datoms! path datoms)               ; durable first…
       (swap! log into datoms)                     ; …then in-memory index
       (cond-> {:uri uri :cid cid :value value}
-        sp (assoc :sig (:sig sp) :signedBy (:multikey sp)))))
+        sp (assoc :sig (:sig sp) :signedBy (:multikey sp))
+        author (assoc :author author))))
   (get-record [_ did collection rkey]
     (materialize (latest-db @log) (at-uri did collection rkey)))
   (delete-record [_ did collection rkey]
@@ -220,7 +233,9 @@
 
 (defrecord KotobaStore [base graph signer]
   PdsStore
-  (put-record [_ did collection rkey value]
+  (put-record [this did collection rkey value]
+    (put-record this did collection rkey value nil))
+  (put-record [_ did collection rkey value {:keys [author]}]
     (let [uri (at-uri did collection rkey)
           cid (util/content-cid value)
           ts (util/now-iso)
@@ -231,11 +246,13 @@
                           [uri "record/cid" cid]
                           [uri "record/value" (json/generate-string value)]
                           [uri "record/createdAt" ts]]
-                   sp (conj [uri "record/sig" (:sig sp)] [uri "record/signedBy" (:multikey sp)]))]
+                   sp (conj [uri "record/sig" (:sig sp)] [uri "record/signedBy" (:multikey sp)])
+                   author (conj [uri "record/author" author]))]
       (kpost base "/xrpc/com.etzhayyim.apps.kotoba.kg.ingest_batch"
              {:graph graph :datoms datoms})
       (cond-> {:uri uri :cid cid :value value}
-        sp (assoc :sig (:sig sp) :signedBy (:multikey sp)))))
+        sp (assoc :sig (:sig sp) :signedBy (:multikey sp))
+        author (assoc :author author))))
   (get-record [_ did collection rkey]
     (let [uri (at-uri did collection rkey)
           r (kpost base "/xrpc/com.etzhayyim.apps.kotoba.kg.get_entity"

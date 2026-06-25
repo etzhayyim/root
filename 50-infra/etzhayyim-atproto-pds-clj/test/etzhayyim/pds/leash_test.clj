@@ -3,7 +3,8 @@
   member; expiry / audience / scope / tamper all rejected; garbage never throws."
   (:require [clojure.test :refer [deftest is testing]]
             [clojure.string :as str]
-            [etzhayyim.pds.leash :as leash]))
+            [etzhayyim.pds.leash :as leash]
+            [etzhayyim.pds.store :as store]))
 
 (def pds "did:web:atproto.etzhayyim.com")
 (def now 1782000000)
@@ -43,6 +44,32 @@
             other (leash/issue-leash m2 {:aud pds :exp (+ now 3600)})
             forged (str (first (str/split other #"\." 2)) "." s64)]
         (is (false? (:valid? (leash/verify-leash forged {:aud pds :now now}))))))))
+
+(deftest leash-author-glue
+  (testing "leash-author returns the member only for a verifying leash, nil otherwise"
+    (let [m (leash/gen-member-key)
+          good (leash/issue-leash m {:aud pds :exp (+ now 3600)})
+          expired (leash/issue-leash m {:aud pds :exp (- now 1)})]
+      (is (= (:did m) (leash/leash-author good {:aud pds :now now})))
+      (is (nil? (leash/leash-author expired {:aud pds :now now})))
+      (is (nil? (leash/leash-author nil {:aud pds :now now})) "no leash → unattributed")
+      (is (nil? (leash/leash-author "garbage" {:aud pds :now now}))))))
+
+(deftest write-attributed-to-consenting-member
+  (testing "a leash-derived author is persisted as :record/author + surfaced on read"
+    (let [m (leash/gen-member-key)
+          leash (leash/issue-leash m {:aud pds :exp (+ now 3600)})
+          author (leash/leash-author leash {:aud pds :now now})
+          s (store/->mem-store)]
+      ;; unattributed write (no leash) → no :author
+      (store/put-record s "did:web:a.example" "app.bsky.feed.post" "r1" {"text" "hi"})
+      (is (nil? (:author (store/get-record s "did:web:a.example" "app.bsky.feed.post" "r1"))))
+      ;; leash-attributed write → :record/author = the consenting member
+      (let [res (store/put-record s "did:web:a.example" "app.bsky.feed.post" "r2"
+                                  {"text" "signed life"} {:author author})]
+        (is (= (:did m) (:author res)))
+        (is (= (:did m) (:author (store/get-record s "did:web:a.example"
+                                                   "app.bsky.feed.post" "r2"))))))))
 
 (deftest garbage-never-throws
   (testing "malformed leashes return {:valid? false}, never throw (untrusted input)"
