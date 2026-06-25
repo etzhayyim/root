@@ -1,7 +1,7 @@
 {
   "method_policy": {
     "publicRead": false,
-    "allowedScopes": ["rpc?lxm=com.etzhayyim.mcp.*", "rpc?lxm=com.etzhayyim.actor.*"],
+    "allowedScopes": ["rpc[?]lxm=com.etzhayyim.mcp.*", "rpc[?]lxm=com.etzhayyim.actor.*"],
     "allowedPermissionSets": ["com.etzhayyim.actor.authActorManagement"]
   }
 }
