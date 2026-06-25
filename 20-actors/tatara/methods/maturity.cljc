@@ -15,7 +15,7 @@
 ;; ── the R0→R1 checklist: [label relative-paths-any-of] — ✅ iff a path exists ──
 (def checklist
   [["ADR-2606171800 (master)"                          ["../../90-docs/adr/2606171800-tatara-global-manufacturing-plant-kg.md"]]
-   ["manifest + README + CLAUDE.md"                     ["manifest.jsonld" "README.md" "CLAUDE.md"]]
+   ["manifest + README + CLAUDE.md"                     ["manifest.edn" "README.md" "CLAUDE.md"]]
    ["ontology (manufacturing-plant-ontology)"           ["../../00-contracts/schemas/manufacturing-plant-ontology.kotoba.edn"]]
    ["seed graph (:representative)"                       ["data/seed-plant-graph.kotoba.edn"]]
    ["analyze engine (HHI / chokepoint / capacity)"      ["methods/analyze.cljc"]]
