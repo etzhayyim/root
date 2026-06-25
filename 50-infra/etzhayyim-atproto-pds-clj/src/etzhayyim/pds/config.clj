@@ -8,7 +8,8 @@
 
   All values are overridable via env so the same image can serve a staging
   host. Defaults are the production etzhayyim identity."
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [clojure.java.io :as io]))
 
 (defn- env
   ([k] (env k nil))
@@ -67,6 +68,23 @@
 ;; both unset → the /actor/<h>/did.json route stays off (default).
 (def actor-keys-dir (env "PDS_ACTOR_KEYS_DIR"))
 (def actor-seal-secret (env "MURAKUMO_SEAL_KEY"))
+
+;; Member CACAO leash revocation list (Path B). A member/operator kills a leaked or
+;; abused leash BEFORE its expiry by appending its jti here (one per line; blank lines
+;; and `;`-comments ignored). Absent file → #{} (no revocations). Read fresh each call
+;; so a new revocation takes effect without a restart. The PDS holds no key — this is a
+;; deny-list of capability ids, not a secret.
+(def leash-revocation-file (env "PDS_LEASH_REVOCATION_FILE" "leash-revocations.txt"))
+
+(defn revoked-jtis
+  "The current set of revoked leash jtis from PDS_LEASH_REVOCATION_FILE (or #{})."
+  []
+  (let [f (io/file leash-revocation-file)]
+    (if (.exists f)
+      (into #{} (->> (str/split-lines (slurp f))
+                     (map str/trim)
+                     (remove #(or (str/blank? %) (str/starts-with? % ";")))))
+      #{})))
 
 (defn did-document
   "did:web:<host> document. Service endpoints are all etzhayyim-owned — this is

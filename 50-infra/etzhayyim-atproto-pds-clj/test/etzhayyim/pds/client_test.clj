@@ -9,6 +9,8 @@
             [etzhayyim.pds.actorkeys :as ak]
             [etzhayyim.pds.store :as store]
             [etzhayyim.pds.xrpc :as xrpc]
+            [etzhayyim.pds.leash :as leash]
+            [etzhayyim.pds.config :as cfg]
             [etzhayyim.pds.util :as util]))
 
 (def secret "node-secret")
@@ -59,6 +61,31 @@
           ;; tampered cid, or an unknown actor, both fail to verify
           (is (false? (client/verify-record base handle "bafkrei-wrong" (:sig res) :transport transport)))
           (is (false? (client/verify-record base "no-such-actor" (:cid res) (:sig res) :transport transport))))
+        (finally (rm-rf dir))))))
+
+(deftest actor-presents-leash-write-attributed-to-member
+  (testing "actor PRESENTS a member leash through the client → PDS attributes the member (end-to-end)"
+    (let [dir       (tmp-dir)
+          transport (fake-pds dir)
+          actor     (ak/handle->actor-did handle)
+          member    (leash/gen-member-key)
+          ;; exp far in the future so the PDS's wall-clock `now` accepts it
+          presented (leash/issue-leash member {:aud cfg/pds-did :exp 4070908800})
+          rec       {"$type" "app.bsky.feed.post" "text" "attributed by consent"}]
+      (try
+        ;; with a presented leash → response echoes the consenting member as author
+        (let [res (client/create-record! base {:repo actor :collection "app.bsky.feed.post"
+                                               :record rec :rkey "lz" :leash presented}
+                                         :transport transport)]
+          (is (= 200 (:status res)))
+          (is (string? (:sig res)) "still actor-signed (key path unchanged)")
+          (is (= (:did member) (:author res)) "the consenting human is named"))
+        ;; without a leash → unattributed (back-compat)
+        (let [res (client/create-record! base {:repo actor :collection "app.bsky.feed.post"
+                                               :record rec :rkey "lz2"}
+                                         :transport transport)]
+          (is (= 200 (:status res)))
+          (is (nil? (:author res))))
         (finally (rm-rf dir))))))
 
 (deftest verify-record-handles-unresolvable-actor

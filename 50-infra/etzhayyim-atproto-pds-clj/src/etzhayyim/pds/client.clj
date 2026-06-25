@@ -26,16 +26,23 @@
 
 (defn create-record!
   "POST com.atproto.repo.createRecord to `base`. Returns
-  {:status :uri :cid :sig :signedBy}. The PDS signs with the actor's registry key;
-  this client just submits the record (the actor never hands over its key)."
-  [base {:keys [repo collection record rkey]}
+  {:status :uri :cid :sig :signedBy :author}. The PDS signs with the actor's registry
+  key; this client just submits the record (the actor never hands over its key).
+
+  An optional `leash` (an opaque member CACAO leash the actor PRESENTS — never signs;
+  etzhayyim.pds.leash) is forwarded in the request so the PDS attributes the autonomous
+  write to the consenting member; the verified member is echoed back as :author. Absent
+  → the write is unattributed (back-compat)."
+  [base {:keys [repo collection record rkey leash]}
    & {:keys [transport] :or {transport default-transport}}]
   (let [{:keys [status body]}
         (transport :post (str base "/xrpc/com.atproto.repo.createRecord")
                    (cond-> {:repo repo :collection collection :record record}
-                     rkey (assoc :rkey rkey)))]
+                     rkey  (assoc :rkey rkey)
+                     leash (assoc :leash leash)))]
     {:status status :uri (get body "uri") :cid (get body "cid")
-     :sig (get body "sig") :signedBy (get body "signedBy")}))
+     :sig (get body "sig") :signedBy (get body "signedBy")
+     :author (get body "author")}))
 
 (defn resolve-actor-multikey
   "GET /actor/<handle>/did.json from `base`; return the actor's #atproto
