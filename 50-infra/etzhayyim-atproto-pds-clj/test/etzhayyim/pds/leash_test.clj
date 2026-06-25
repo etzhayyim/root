@@ -102,6 +102,26 @@
         (is (= 200 (:status resp)))
         (is (not (contains? (:body resp) "author")))))))
 
+(deftest member-key-seal-roundtrip-and-issue
+  (testing "a member seals their key, re-opens it under their secret, and issues a verifying leash"
+    (let [m (leash/gen-member-key)
+          secret "member-held-secret"
+          blob (leash/seal-member m secret)
+          ;; the sealed blob carries the public did + ciphertext only — no clear private
+          _ (is (= (:did m) (:did blob)))
+          _ (is (not (str/includes? (pr-str blob) "PRIVATE")))
+          ;; re-open under the SAME secret → issue a leash → it verifies as the same member
+          m2 (leash/unseal-member blob secret)
+          _ (is (= (:did m) (:did m2)))
+          l (leash/issue-leash m2 {:aud pds :exp (+ now 3600)})
+          v (leash/verify-leash l {:aud pds :now now})]
+      (is (true? (:valid? v)))
+      (is (= (:did m) (:member v)) "issued-from-sealed leash names the original member"))
+    (testing "a wrong secret cannot unseal (AES-GCM auth tag fails)"
+      (let [m (leash/gen-member-key)
+            blob (leash/seal-member m "right-secret")]
+        (is (thrown? Exception (leash/unseal-member blob "wrong-secret")))))))
+
 (deftest garbage-never-throws
   (testing "malformed leashes return {:valid? false}, never throw (untrusted input)"
     (doseq [bad ["" "no-dot" "a.b" "...." "x.y.z"

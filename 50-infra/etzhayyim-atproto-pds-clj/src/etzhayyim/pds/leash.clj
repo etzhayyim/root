@@ -17,8 +17,10 @@
   Pure JVM/babashka, no external deps (Ed25519 via the bundled SunEC)."
   (:require [cheshire.core :as json]
             [clojure.string :as str])
-  (:import [java.security KeyPairGenerator KeyFactory Signature]
-           [java.security.spec X509EncodedKeySpec]
+  (:import [java.security KeyPairGenerator KeyFactory Signature SecureRandom MessageDigest]
+           [java.security.spec X509EncodedKeySpec PKCS8EncodedKeySpec]
+           [javax.crypto Cipher]
+           [javax.crypto.spec GCMParameterSpec SecretKeySpec]
            [java.math BigInteger]
            [java.util Base64]))
 
@@ -128,6 +130,35 @@
             (<= (long (get claims "exp" 0)) (long now)) {:valid? false :member iss :reason :expired}
             :else                             {:valid? true :member iss :reason :ok}))))
     (catch Exception _ {:valid? false :member nil :reason :malformed})))
+
+;; ── member key at-rest sealing (AES-256-GCM) — for the MEMBER's own runtime ────
+;; The member generates their key once and seals the Ed25519 PKCS#8 private under a
+;; secret THEY hold (never the platform). The sealed blob persists; issuing a leash
+;; unseals it in the member's runtime. did is public (it IS the public key), kept in
+;; the clear so the public key is recoverable without the secret.
+(defn- aes-key ^SecretKeySpec [^String secret]
+  (SecretKeySpec. (.digest (MessageDigest/getInstance "SHA-256") (.getBytes secret "UTF-8")) "AES"))
+
+(defn seal-member
+  "Seal a member key {:private :did} for at-rest persistence under `secret` (the
+  MEMBER's own sealing key — the platform never holds it). Returns a JSON-safe map."
+  [member ^String secret]
+  (let [iv (let [b (byte-array 12)] (.nextBytes (SecureRandom.) b) b)
+        c  (doto (Cipher/getInstance "AES/GCM/NoPadding")
+             (.init Cipher/ENCRYPT_MODE (aes-key secret) (GCMParameterSpec. 128 iv)))
+        ct (.doFinal c (.getEncoded (:private member)))]   ; Ed25519 PKCS#8
+    {:v 1 :did (:did member) :iv (->u iv) :ct (->u ct)}))
+
+(defn unseal-member
+  "Reconstitute {:private :did} from `seal-member` output + the member `secret`.
+  Sufficient to issue leashes (issue-leash uses only :private + :did)."
+  [blob ^String secret]
+  (let [iv (<-u (:iv blob))
+        c  (doto (Cipher/getInstance "AES/GCM/NoPadding")
+             (.init Cipher/DECRYPT_MODE (aes-key secret) (GCMParameterSpec. 128 iv)))
+        pkcs8 (.doFinal c (<-u (:ct blob)))
+        priv (.generatePrivate (KeyFactory/getInstance "Ed25519") (PKCS8EncodedKeySpec. pkcs8))]
+    {:private priv :did (:did blob)}))
 
 (defn leash-author
   "Glue for the write path: given a PRESENTED leash (or nil) + env {:aud :now [:scope]},
