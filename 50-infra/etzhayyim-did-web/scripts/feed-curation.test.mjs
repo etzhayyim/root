@@ -43,6 +43,17 @@ test("quarantines the EXCLUDE'd external poster (shinshi) by did or handle", () 
   assert.equal(isQuarantinedAuthor({ handle: "tsumugi.etzhayyim.com" }), false);
 });
 
+test("quarantines the LIVE gftd.ai shinshi poster (drop the gftd.ai dependency)", () => {
+  // the actual flooding author observed on prod is did:web:sh1n5h1x.gftd.ai
+  assert.ok(isQuarantinedAuthor({ did: "did:web:sh1n5h1x.gftd.ai" }));
+  assert.ok(isQuarantinedAuthor({ handle: "sh1n5h1x.gftd.ai" }));
+  assert.ok(isQuarantinedAuthor({ did: "did:web:shinshi.gftd.ai" }));
+  // a gftd.ai poster is never treated as one of etzhayyim's own actors
+  assert.equal(isOwnActor({ did: "did:web:sh1n5h1x.gftd.ai" }), false);
+  // an unrelated gftd.ai entity is NOT swept up (only the shinshi family)
+  assert.equal(isQuarantinedAuthor({ did: "did:web:atproto.gftd.ai" }), false);
+});
+
 test("own actors = root / agents / mirrors, but NOT the quarantined external", () => {
   assert.ok(isOwnActor({ did: "did:web:etzhayyim.com" }));
   assert.ok(isOwnActor({ did: "did:web:etzhayyim.com:actor:tsumugi" }));
