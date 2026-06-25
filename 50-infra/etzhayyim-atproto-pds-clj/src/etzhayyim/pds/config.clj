@@ -61,6 +61,13 @@
 ;; Opt-in lexicon-shape validation for known collections (off by default).
 (def validate-records (some? (env "PDS_VALIDATE_RECORDS")))
 
+;; Per-actor sealed-key registry (Path B). When PDS_ACTOR_KEYS_DIR is set the PDS
+;; serves each actor's did:web doc (publishing its #atproto Multikey) from the
+;; registry. MURAKUMO_SEAL_KEY is the per-node sealing secret (no platform fallback);
+;; both unset → the /actor/<h>/did.json route stays off (default).
+(def actor-keys-dir (env "PDS_ACTOR_KEYS_DIR"))
+(def actor-seal-secret (env "MURAKUMO_SEAL_KEY"))
+
 (defn did-document
   "did:web:<host> document. Service endpoints are all etzhayyim-owned — this is
   the structural break from gftd: nothing here points at *.gftd.ai. When the
@@ -88,6 +95,32 @@
      {"id" "#bsky_chat"
       "type" "BskyChatService"
       "serviceEndpoint" chat-url}]}))
+
+(defn actor-did-document
+  "did:web document for ONE etzhayyim actor (e.g. did:web:etzhayyim.com:actor:<h>).
+  Publishes the actor's OWN signing key as the `#atproto` Multikey so any verifier
+  resolves the doc and checks that actor's record signatures (Path B). The PDS holds
+  no key — `multibase` is the actor's published PUBLIC key (etzhayyim.pds.keys/multikey).
+  `handle` (optional) becomes alsoKnownAs; the PDS service endpoint is this host.
+
+  This is the artifact a verifier needs to close the loop: sign with the actor's
+  sealed key → resolve this doc → verify against the published Multikey."
+  ([actor-did multibase] (actor-did-document actor-did multibase nil))
+  ([actor-did multibase handle]
+   {"@context" ["https://www.w3.org/ns/did/v1"
+                "https://w3id.org/security/multikey/v1"]
+    "id" actor-did
+    "alsoKnownAs" (if handle [(str "https://" handle) (str "at://" handle)] [])
+    "verificationMethod" (if (and multibase (not (str/blank? multibase)))
+                           [{"id" (str actor-did "#atproto")
+                             "type" "Multikey"
+                             "controller" actor-did
+                             "publicKeyMultibase" multibase}]
+                           [])
+    "service"
+    [{"id" "#atproto_pds"
+      "type" "AtprotoPersonalDataServer"
+      "serviceEndpoint" (str "https://" host)}]}))
 
 (defn describe-server
   "com.atproto.server.describeServer payload — independent etzhayyim identity."

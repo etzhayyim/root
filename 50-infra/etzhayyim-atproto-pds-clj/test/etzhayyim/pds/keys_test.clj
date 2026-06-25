@@ -2,7 +2,8 @@
   "actor-sealed key invariants: structure of the multikey, sign/verify round-trip,
   low-S, at-rest sealing, and the no-private-scalar-accessor posture."
   (:require [clojure.test :refer [deftest is testing]]
-            [etzhayyim.pds.keys :as keys])
+            [etzhayyim.pds.keys :as keys]
+            [etzhayyim.pds.config :as cfg])
   (:import [java.util Base64]
            [java.math BigInteger]))
 
@@ -118,6 +119,27 @@
       ;; tampered payload + wrong actor's multikey both fail
       (is (false? (keys/verify-b64 multikey (.getBytes "other-cid" "UTF-8") sig)))
       (is (false? (keys/verify-b64 (:multikey k2) payload sig))))))
+
+(deftest actor-did-document-closes-the-verification-loop
+  (testing "an actor signs; its did:web doc publishes the key; a verifier resolves the doc and checks"
+    (let [k        (keys/new-actor-key)
+          actor    "did:web:etzhayyim.com:actor:unspsc-10101500"
+          doc      (cfg/actor-did-document actor (:multikey k) "unspsc-10101500.etzhayyim.com")
+          vm       (first (get doc "verificationMethod"))
+          payload  (.getBytes "bzdj227… a record content id" "UTF-8")
+          sig      (keys/sign-b64 k payload)]
+      ;; the doc publishes exactly the actor's #atproto Multikey
+      (is (= actor (get doc "id")))
+      (is (= (str actor "#atproto") (get vm "id")))
+      (is (= "Multikey" (get vm "type")))
+      (is (= actor (get vm "controller")))
+      (is (= (:multikey k) (get vm "publicKeyMultibase")))
+      ;; a verifier who has ONLY the resolved doc verifies the signature from it
+      (is (true?  (keys/verify-b64 (get vm "publicKeyMultibase") payload sig)))
+      (is (false? (keys/verify-b64 (get vm "publicKeyMultibase") (.getBytes "tampered" "UTF-8") sig)))))
+  (testing "no key → empty verificationMethod (no-server-key honest default)"
+    (let [doc (cfg/actor-did-document "did:web:etzhayyim.com:actor:x" nil)]
+      (is (= [] (get doc "verificationMethod"))))))
 
 (deftest no-private-scalar-accessor
   (testing "the public API exposes no way to read the private scalar as bytes"
