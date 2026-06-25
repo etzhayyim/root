@@ -12,6 +12,7 @@
             [etzhayyim.pds.repo :as repo]
             [etzhayyim.pds.blob :as blob]
             [etzhayyim.pds.account :as account]
+            [etzhayyim.pds.actorkeys :as actorkeys]
             [etzhayyim.pds.xrpc :as xrpc]))
 
 (defn- json-response [{:keys [status body]}]
@@ -168,6 +169,17 @@
         ;; did:web document — publishes the atproto signing key (relay verifies sig)
         (= uri "/.well-known/did.json")
         (json-response {:status 200 :body (cfg/did-document signing-multibase)})
+
+        ;; per-actor did:web doc (Path B) — published from the actor-keys registry
+        ;; when configured (PDS_ACTOR_KEYS_DIR + MURAKUMO_SEAL_KEY). Each actor's doc
+        ;; carries its own #atproto Multikey so a verifier checks the actor's record
+        ;; signatures from the resolved doc alone. Unconfigured → falls through to 404.
+        (re-matches #"/actor/[^/]+/did\.json" uri)
+        (if-let [resp (actorkeys/serve-actor-did
+                       cfg/actor-keys-dir cfg/actor-seal-secret
+                       (second (re-matches #"/actor/([^/]+)/did\.json" uri)))]
+          (json-response resp)
+          (json-response {:status 404 :body {"error" "NotFound" "message" uri}}))
 
         (nil? nsid)
         (json-response {:status 404 :body {"error" "NotFound" "message" uri}})

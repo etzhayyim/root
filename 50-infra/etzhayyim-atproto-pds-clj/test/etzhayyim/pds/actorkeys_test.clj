@@ -72,6 +72,37 @@
           (is (not (re-find #"(?i)private|scalar|secret-key" js))))
         (finally (rm-rf dir))))))
 
+(deftest serve-actor-did-publishes-resolvable-doc
+  (testing "serve-actor-did returns a did doc whose key verifies the actor's signatures"
+    (let [dir (tmp-dir)]
+      (try
+        (let [k       (ak/load-or-create! dir actor secret)     ; mint the key first
+              handle  "unspsc-10101500"
+              resp    (ak/serve-actor-did dir secret handle)
+              vm      (first (get-in resp [:body "verificationMethod"]))
+              payload (.getBytes "a-record-cid" "UTF-8")]
+          (is (= 200 (:status resp)))
+          (is (= (ak/handle->actor-did handle) (get-in resp [:body "id"])))
+          (is (= (:multikey k) (get vm "publicKeyMultibase")))
+          ;; resolved doc's key verifies a signature the actor makes
+          (is (true? (keys/verify-b64 (get vm "publicKeyMultibase")
+                                      payload (keys/sign-b64 k payload)))))
+        (finally (rm-rf dir))))))
+
+(deftest serve-actor-did-404-and-passthrough
+  (testing "a GET never mints a key (404 when absent), and unconfigured registry → nil passthrough"
+    (let [dir (tmp-dir)]
+      (try
+        ;; key was never created → 404, and (crucially) the file is NOT created by the GET
+        (let [resp (ak/serve-actor-did dir secret "never-seen")]
+          (is (= 404 (:status resp)))
+          (is (not (.exists (io/file (ak/key-path dir (ak/handle->actor-did "never-seen")))))))
+        (finally (rm-rf dir))))
+    (testing "no dir or no secret → nil (route falls through)"
+      (is (nil? (ak/serve-actor-did nil secret "x")))
+      (is (nil? (ak/serve-actor-did "/tmp/whatever" nil "x")))
+      (is (nil? (ak/serve-actor-did "/tmp/whatever" secret ""))))))
+
 (deftest refuses-without-node-secret
   (testing "no sealing secret → refuse (the platform holds no fallback key)"
     (let [dir (tmp-dir)]

@@ -62,3 +62,21 @@
   ([dir actor-did secret] (did-document-for dir actor-did secret nil))
   ([dir actor-did secret handle]
    (cfg/actor-did-document actor-did (multikey-for dir actor-did secret) handle)))
+
+(defn handle->actor-did
+  "Canonical actor DID for a handle: did:web:etzhayyim.com:actor:<handle>."
+  [handle]
+  (str "did:web:etzhayyim.com:actor:" handle))
+
+(defn serve-actor-did
+  "Ring-style response {:status :body} serving the per-actor did:web doc, IFF the
+  registry is configured (dir + secret) AND the actor already has a sealed key.
+  Returns a 404 body when the key is absent, nil when the registry is unconfigured
+  (so the caller can fall through). A GET never MINTS a key — only an explicit
+  load-or-create! does, so a stray request cannot create identities."
+  [dir secret handle]
+  (when (and dir (not (str/blank? (str secret))) (not (str/blank? (str handle))))
+    (let [actor (handle->actor-did handle)]
+      (if (.exists (io/file (key-path dir actor)))
+        {:status 200 :body (did-document-for dir actor secret (str handle ".etzhayyim.com"))}
+        {:status 404 :body {"error" "NotFound" "message" (str "no key for " actor)}}))))

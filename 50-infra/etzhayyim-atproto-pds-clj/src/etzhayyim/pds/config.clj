@@ -61,6 +61,13 @@
 ;; Opt-in lexicon-shape validation for known collections (off by default).
 (def validate-records (some? (env "PDS_VALIDATE_RECORDS")))
 
+;; Per-actor sealed-key registry (Path B). When PDS_ACTOR_KEYS_DIR is set the PDS
+;; serves each actor's did:web doc (publishing its #atproto Multikey) from the
+;; registry. MURAKUMO_SEAL_KEY is the per-node sealing secret (no platform fallback);
+;; both unset → the /actor/<h>/did.json route stays off (default).
+(def actor-keys-dir (env "PDS_ACTOR_KEYS_DIR"))
+(def actor-seal-secret (env "MURAKUMO_SEAL_KEY"))
+
 (defn did-document
   "did:web:<host> document. Service endpoints are all etzhayyim-owned — this is
   the structural break from gftd: nothing here points at *.gftd.ai. When the
