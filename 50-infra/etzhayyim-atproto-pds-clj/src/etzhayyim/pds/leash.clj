@@ -95,24 +95,42 @@
         pub (.getPublic kp)]
     {:private (.getPrivate kp) :public pub :did (pubkey->did-key pub)}))
 
+(defn gen-jti
+  "A unique leash id (token id) — 16 SecureRandom bytes, base64url. Lets a member
+  REVOKE a specific leash before its expiry (the charter's 'revocable' property)."
+  ^String []
+  (->u (let [b (byte-array 16)] (.nextBytes (SecureRandom.) b) b)))
+
 (defn issue-leash
-  "The MEMBER signs a scoped/expiring capability in their OWN runtime. Returns the
-  compact `<payload-b64url>.<sig-b64url>`. `member` = gen-member-key map. opts:
-  {:aud <pds-did> :exp <unix-seconds> :scope <str, default \"datom:transact\">}."
-  ^String [member {:keys [aud exp scope] :or {scope "datom:transact"}}]
+  "The MEMBER signs a scoped/expiring/REVOCABLE capability in their OWN runtime. Returns
+  the compact `<payload-b64url>.<sig-b64url>`. `member` = gen-member-key map. opts:
+  {:aud <pds-did> :exp <unix-seconds> :scope <str, default \"datom:transact\">
+   :jti <str, default a fresh gen-jti>} — the jti is what a revocation list names."
+  ^String [member {:keys [aud exp scope jti] :or {scope "datom:transact"}}]
   (let [payload (.getBytes (json/generate-string {"iss" (:did member) "aud" aud
-                                                  "exp" exp "scope" scope}
+                                                  "exp" exp "scope" scope
+                                                  "jti" (or jti (gen-jti))}
                                                  {:sort-keys true}) "UTF-8")
         sg (doto (Signature/getInstance "Ed25519") (.initSign (:private member)) (.update payload))]
     (str (->u payload) "." (->u (.sign sg)))))
 
+(defn jti-of
+  "The token id of a leash (for building/inspecting a revocation list), or nil."
+  [^String leash]
+  (try
+    (let [[p64] (str/split (str leash) #"\." 2)]
+      (get (json/parse-string (String. (<-u p64) "UTF-8")) "jti"))
+    (catch Exception _ nil)))
+
 (defn verify-leash
   "Verify a presented leash for this PDS. Returns
   {:valid? bool :member <did:key or nil> :reason <keyword>}. Checks, in order: shape,
-  member Ed25519 signature over the payload, audience == `aud`, not expired (exp >
-  `now` seconds), and scope == `scope`. NEVER throws — a malformed/garbage leash is
-  simply {:valid? false} (it comes from an actor presenting untrusted bytes)."
-  [^String leash {:keys [aud now scope] :or {scope "datom:transact"}}]
+  member Ed25519 signature over the payload, audience == `aud`, scope == `scope`,
+  NOT revoked (jti ∉ `revoked`), and not expired (exp > `now` seconds). NEVER throws —
+  a malformed/garbage leash is simply {:valid? false} (untrusted actor-presented bytes).
+  `revoked` (default #{}) is the member/operator revocation set of jtis — a leaked or
+  abused leash is killed BEFORE its expiry (the charter's 'revocable' property)."
+  [^String leash {:keys [aud now scope revoked] :or {scope "datom:transact" revoked #{}}}]
   (try
     (let [[p64 s64] (str/split (str leash) #"\." 2)]
       (if (or (nil? p64) (nil? s64))
@@ -127,6 +145,7 @@
             (not sig-ok)                      {:valid? false :member iss :reason :bad-signature}
             (not= (get claims "aud") aud)     {:valid? false :member iss :reason :wrong-audience}
             (not= (get claims "scope") scope) {:valid? false :member iss :reason :wrong-scope}
+            (contains? revoked (get claims "jti")) {:valid? false :member iss :reason :revoked}
             (<= (long (get claims "exp" 0)) (long now)) {:valid? false :member iss :reason :expired}
             :else                             {:valid? true :member iss :reason :ok}))))
     (catch Exception _ {:valid? false :member nil :reason :malformed})))

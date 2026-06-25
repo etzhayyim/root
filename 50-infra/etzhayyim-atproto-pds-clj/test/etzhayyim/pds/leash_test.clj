@@ -102,6 +102,26 @@
         (is (= 200 (:status resp)))
         (is (not (contains? (:body resp) "author")))))))
 
+(deftest revocable-leash
+  (testing "a leash carries a jti and can be REVOKED before expiry (charter 'revocable')"
+    (let [m (leash/gen-member-key)
+          l (leash/issue-leash m {:aud pds :exp (+ now 3600)})
+          jti (leash/jti-of l)]
+      (is (string? jti) "leash names a token id")
+      ;; not in the revocation set → still valid
+      (is (true? (:valid? (leash/verify-leash l {:aud pds :now now :revoked #{}}))))
+      ;; member revokes THIS leash → invalid though unexpired
+      (is (= :revoked (:reason (leash/verify-leash l {:aud pds :now now :revoked #{jti}}))))
+      (is (false? (:valid? (leash/verify-leash l {:aud pds :now now :revoked #{jti}}))))
+      ;; revoking a DIFFERENT jti does not affect this leash
+      (is (true? (:valid? (leash/verify-leash l {:aud pds :now now :revoked #{"some-other-jti"}}))))
+      ;; leash-author honors revocation too (write goes unattributed)
+      (is (nil? (leash/leash-author l {:aud pds :now now :revoked #{jti}})))
+      (is (= (:did m) (leash/leash-author l {:aud pds :now now :revoked #{}})))
+      ;; a fixed jti round-trips through issue → jti-of
+      (is (= "fixed-jti-123"
+             (leash/jti-of (leash/issue-leash m {:aud pds :exp (+ now 3600) :jti "fixed-jti-123"})))))))
+
 (deftest member-key-seal-roundtrip-and-issue
   (testing "a member seals their key, re-opens it under their secret, and issues a verifying leash"
     (let [m (leash/gen-member-key)
