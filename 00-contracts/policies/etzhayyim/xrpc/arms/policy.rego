@@ -6,8 +6,8 @@ default allow := false
 
 nsid := input.route.nsid
 
-method_policy := data.method_policy[nsid] if {
-  nsid in object.keys(data.method_policy)
+method_policy := data.etzhayyim.xrpc.arms.method_policy[nsid] if {
+  nsid in object.keys(data.etzhayyim.xrpc.arms.method_policy)
 }
 
 internal_service if input.auth.method == "service-jwt"
@@ -41,7 +41,7 @@ requires_holder_session if {
 # Export control gate: block custody transfers to ATT/Wassenaar restricted jurisdictions
 export_restricted if {
   nsid in {"com.etzhayyim.apps.arms.transferCustody", "com.etzhayyim.apps.arms.reportIncident"}
-  some jur in data.export_restricted_jurisdictions
+  some jur in data.etzhayyim.xrpc.arms.export_restricted_jurisdictions
   input.params.destinationJurisdiction == jur
 }
 
