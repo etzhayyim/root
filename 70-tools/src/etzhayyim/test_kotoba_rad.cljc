@@ -38,6 +38,19 @@
     (is (contains? aka (rad/rad-uri (g))) "sovereign rad: URI present")
     (is (= pk (get-in doc ["verificationMethod" 0 "publicKeyHex"])))))
 
+(deftest did-doc-data-graph-service
+  (testing "a KotobaDataGraph service points the DID at its CID-queryable Pages tier (ADR-2606242400)"
+    (let [doc (rad/did-web-doc {:name "cargo" :genesis (g)
+                                :data-graph {:root "bafkreiROOTcid" :car "data/cargo.car"
+                                             :head "data/head.json"}})
+          svc (->> (get doc "service") (filter #(= "KotobaDataGraph" (get % "type"))) first)]
+      (is (some? svc) "service entry present")
+      (is (= "bafkreiROOTcid" (get-in svc ["serviceEndpoint" "root"])))
+      (is (= "data/cargo.car" (get-in svc ["serviceEndpoint" "car"]))))
+    (testing "absent by default (no :data-graph) — existing callers unchanged"
+      (let [doc (rad/did-web-doc {:name "cargo" :genesis (g)})]
+        (is (nil? (->> (get doc "service") (filter #(= "KotobaDataGraph" (get % "type"))) first)))))))
+
 (deftest publish-is-append-only-and-idempotent
   (let [a "__test_kotoba_rad__"
         path (rad/journal-path a)]

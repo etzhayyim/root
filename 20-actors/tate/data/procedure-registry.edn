@@ -191,7 +191,7 @@
   :proc/deadline-rules
   [{:dl/label "Answer の提出"
     :dl/rule "連邦: 送達から21日以内 (FRCP 12(a)(1)(A)); 州裁判所は概ね20〜30日 — サモンズ記載の期限と州規則を確認"
-    :dl/anchor "FRCP 12(a) / 各州 Rules of Civil Procedure" :dl/verify-service-date true}]
+    :dl/anchor "FRCP 12(a) / 各州 Rules of Civil Procedure" :dl/source-url "https://www.uscourts.gov/forms-rules/current-rules-practice-procedure/federal-rules-civil-procedure" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :answer :opt/kind :self-submit :opt/label "Answer (認否 + affirmative defenses) を裁判所へ提出"}
    {:opt/id :appear :opt/kind :self-decide :opt/label "default judgment 回避のため必ず応答 (欠席 = 敗訴扱い)"}]
@@ -238,7 +238,7 @@
   :proc/deadline-rules
   [{:dl/label "Exemption claim (保護申立て)"
     :dl/rule "exemption claim の期限・様式は州法 (通知記載を確認); federal floor: 差押えは可処分所得の25% または連邦最低賃金30倍を超える部分の小さい方まで — 生活維持分は連邦法で守られている"
-    :dl/anchor "CCPA Title III (15 U.S.C. §1673) + 州 exemption law" :dl/verify-service-date true}]
+    :dl/anchor "CCPA Title III (15 U.S.C. §1673) + 州 exemption law" :dl/source-url "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title15-section1673&num=0&edition=prelim" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :claim-exemptions :opt/kind :self-submit :opt/protective true
     :opt/label "exemption claim form を期限内に提出 (head-of-household 等の州保護も確認) — 法定の権利"}
@@ -254,7 +254,7 @@
   :proc/deadline-rules
   [{:dl/label "Proof of claim (bar date)"
     :dl/rule "proof of claim の bar date は通知記載 — chapter 7 no-asset 事件では届出不要の指示が来ることもある (通知の指示に従う)"
-    :dl/anchor "Fed. R. Bankr. P. 3002" :dl/verify-service-date true}]
+    :dl/anchor "Fed. R. Bankr. P. 3002" :dl/source-url "https://www.uscourts.gov/forms-rules/current-rules-practice-procedure/federal-rules-bankruptcy-procedure" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :file-claim :opt/kind :self-submit :opt/protective true
     :opt/label "Official Form 410 で proof of claim を提出 (無料・本人可 — 前払金・gift card も債権: kaiyaku 縁-ledger と突合)"}
@@ -284,7 +284,7 @@
   :proc/deadline-rules
   [{:dl/label "EEOC charge (差別解雇)"
     :dl/rule "米国は原則 at-will (解雇自体は広く適法) — ただし差別・報復が疑われる場合、EEOC charge を180日 (州 FEPA があれば300日) 以内に — 私訴の前提条件"
-    :dl/anchor "Title VII / 42 U.S.C. §2000e-5(e)(1)" :dl/verify-service-date true}
+    :dl/anchor "Title VII / 42 U.S.C. §2000e-5(e)(1)" :dl/source-url "https://uscode.house.gov/view.xhtml?req=(title:42+section:2000e-5+edition:prelim)" :dl/verify-service-date true}
    {:dl/label "Unemployment insurance"
     :dl/rule "UI は速やかに申請 (遡及が利かない州が多い); final paycheck の支払期限は州法"
     :dl/anchor "州 UI law / 州 final-pay statutes" :dl/verify-service-date true}]
@@ -1085,7 +1085,7 @@
     :dl/anchor "劳动争议调解仲裁法 5条・27条" :dl/verify-service-date true}
    {:dl/label "经济补偿の基準"
     :dl/rule "経済補償は勤続1年につき1か月分 (N); 違法解除はその2倍 (2N)"
-    :dl/anchor "劳动合同法 46条・47条・87条" :dl/verify-service-date true}]
+    :dl/anchor "劳动合同法 46条・47条・87条" :dl/source-url "https://flk.npc.gov.cn/detail?id=2c909fdd678bf17901678bf74d7106b3" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :zhongcai :opt/kind :self-submit :opt/protective true
     :opt/label "劳动仲裁を申请 (無料・本人可 — N/2N の算定根拠を添付)"}
@@ -1116,7 +1116,7 @@
   :proc/deadline-rules
   [{:dl/label "清偿または书面异议"
     :dl/rule "支付令の受領から15日以内に債務の清償または書面による異議 (異議で支付令失効)"
-    :dl/anchor "中华人民共和国民事诉讼法 (督促程序)" :dl/verify-service-date true}]
+    :dl/anchor "中华人民共和国民事诉讼法 (督促程序)" :dl/source-url "https://flk.npc.gov.cn/detail?id=2c909fdd678bf17901678bf856910a05" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :shumian-yiyi :opt/kind :self-submit :opt/label "書面异议を発令法院へ提出"}
    {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 清償/和解"}]
@@ -1144,7 +1144,7 @@
   :proc/deadline-rules
   [{:dl/label "答辩状"
     :dl/rule "起诉状副本の受領から15日以内に答辩状を人民法院へ提出 (中国国内に住所のない被告は30日); 管辖异议も同じ答辩期間内に提出。答辩しなくても審理は進む (欠席でも判決されうる)"
-    :dl/anchor "中华人民共和国民事诉讼法 第128条 (答辩期)" :dl/verify-service-date true}]
+    :dl/anchor "中华人民共和国民事诉讼法 第128条 (答辩期)" :dl/source-url "https://flk.npc.gov.cn/detail?id=2c909fdd678bf17901678bf856910a05" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :dabian :opt/kind :self-submit :opt/protective true :opt/label "答辩状 を人民法院へ提出 (各请求の認否 + 证据 — 管辖异议があれば同時に)"}
    {:opt/id :chuting :opt/kind :self-decide :opt/label "开庭审理に出頭 (离婚は調解前置 — 合意の余地)"}]
@@ -1159,7 +1159,7 @@
   :proc/deadline-rules
   [{:dl/label "执行 (扣留・提取収入) への対応"
     :dl/rule "执行通知 受領後に履行しないと人民法院は履行すべき部分について収入を扣留・提取できる (民诉法243条; 协助执行通知書で雇用主・銀行等が協力)。ただし被执行人及びその扶養家族の生活必需費用は必ず保留される (当該地の最低生活保障标准で算定、扶養家族分も考慮)。保留額を侵害する執行には法院へ执行异议 (225条) を申立てられる"
-    :dl/anchor "中华人民共和国民事诉讼法 第243条 (扣留・提取 + 生活必需费用保留)" :dl/verify-service-date true}]
+    :dl/anchor "中华人民共和国民事诉讼法 第243条 (扣留・提取 + 生活必需费用保留)" :dl/source-url "https://flk.npc.gov.cn/detail?id=2c909fdd678bf17901678bf856910a05" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :yiyi :opt/kind :self-submit :opt/protective true :opt/label "生活必需費用の保留を侵害する執行には 执行异议 を法院へ提出 (民诉法225条)"}
    {:opt/id :verify :opt/kind :self-decide :opt/protective true :opt/label "扣留・提取が当該地の最低生活保障标准 (本人+扶養家族分) を下回らせていないか法院で確認"}]
@@ -1174,7 +1174,7 @@
   :proc/deadline-rules
   [{:dl/label "調解前置"
     :dl/rule "離婚等の家事事件は**調解前置** — 通知記載の調解期日に出席 (無断欠席は調解に代わる裁定・過料があり得る); 合意するまで成立しない"
-    :dl/anchor "家事事件法 23條・32條" :dl/verify-service-date true}]
+    :dl/anchor "家事事件法 23條・32條" :dl/source-url "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=B0010048" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :chuxi :opt/kind :self-decide :opt/protective true
     :opt/label "調解期日に出席して言い分を述べる (程序監理人・社工の同席請求も可)"}
@@ -1189,7 +1189,7 @@
   :proc/deadline-rules
   [{:dl/label "事由の法定性"
     :dl/rule "解僱は勞基法11條 (資遣 — 預告期間+資遣費) / 12條 (懲戒 — 知った時から30日内) の法定事由に限る — 事由なき解僱は無効主張の余地"
-    :dl/anchor "勞動基準法11條・12條・16條・17條" :dl/verify-service-date true}]
+    :dl/anchor "勞動基準法11條・12條・16條・17條" :dl/source-url "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0030001" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :tiaojie :opt/kind :self-submit :opt/protective true
     :opt/label "勞資爭議調解を労工局へ申請 (無料・本人可 — 確認僱傭關係/資遣費)"}
@@ -1205,7 +1205,7 @@
   :proc/deadline-rules
   [{:dl/label "薪資 1/3 限度 (生計保護)"
     :dl/rule "薪資の強制執行は各期 1/3 を限度とし, 債務人と共同生活親属の**最低生活費は差押え不可** — 超過は声明異議"
-    :dl/anchor "強制執行法 115-1條・122條" :dl/verify-service-date true}]
+    :dl/anchor "強制執行法 115-1條・122條" :dl/source-url "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=B0010004" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :shengming-yiyi :opt/kind :self-submit :opt/protective true
     :opt/label "1/3 超過・最低生活費侵害は声明異議 (強制執行法12條)"}
@@ -1220,7 +1220,7 @@
   :proc/deadline-rules
   [{:dl/label "異議 (不変期間)"
     :dl/rule "支付命令の送達後20日の不変期間内に異議 (→ 通常/簡易訴訟へ)"
-    :dl/anchor "台湾民事訴訟法516條" :dl/verify-service-date true}]
+    :dl/anchor "台湾民事訴訟法516條" :dl/source-url "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=B0010001" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :yiyi :opt/kind :self-submit :opt/label "異議状を発令法院へ提出 (理由不要)"}
    {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/和解"}]
@@ -1234,7 +1234,7 @@
   :proc/deadline-rules
   [{:dl/label "申報債權"
     :dl/rule "法院が破產宣告と同時に定める申報期間内 — 破產宣告日から15日以上3か月以下 — に 破產管理人 へ 申報債權 (期間徒過は失權效果で破產財団から配当を受けられない; 破產宣告前に確定判決・支付命令等の執行名義を得た債権は期間に拘束されない)"
-    :dl/anchor "破產法 第64條第1項・第65條第1項第5款" :dl/verify-service-date true}]
+    :dl/anchor "破產法 第64條第1項・第65條第1項第5款" :dl/source-url "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=B0010006" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :shenbao :opt/kind :self-submit :opt/protective true
     :opt/label "債權申報書 を 破產管理人 へ提出 (本人可; 預付款・押金・儲值卡 など前払金も債權: kaiyaku 縁-ledger と突合)"}]
@@ -1248,7 +1248,7 @@
   :proc/deadline-rules
   [{:dl/label "終止租約への対応"
     :dl/rule "出租人の提前終止は法定事由 (修繕拒否・賃料2か月分の遅延+催告・無断転貸 等) + 終止30日前の書面通知が必要。通知だけで強制退去はできず、房屋の返還は當事者共同の點交による (一方が催告後も応じなければ點交完了とみなす)。房客が争うなら事由・通知の適法性を確認し点交期日に対応"
-    :dl/anchor "租賃住宅市場發展及管理條例 第10條 (出租人提前終止)" :dl/verify-service-date true}]
+    :dl/anchor "租賃住宅市場發展及管理條例 第10條 (出租人提前終止)" :dl/source-url "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0060125" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :dispute :opt/kind :self-submit :opt/protective true :opt/label "終止事由・通知期間の適法性を確認し書面で反論 (点交期日にも対応)"}
    {:opt/id :no-self-help-protection :opt/kind :self-decide :opt/protective true :opt/label "房東の自力救濟 (強制鎖門・斷水斷電・荷物搬出) は違法 — 房屋の収回は訴訟/強制執行の合法手続によってのみ; 受けたら警察・律師・消保官へ"}]
@@ -1263,7 +1263,7 @@
   :proc/deadline-rules
   [{:dl/label "TADM mediation (前置)"
     :dl/rule "wrongful dismissal claim は dismissal から1か月以内に TADM へ (mediation 前置 — 不調なら ECT へ); salary 未払は6か月以内"
-    :dl/anchor "Employment Claims Act 2016 / Employment Act s.14" :dl/critical true :dl/verify-service-date true}]
+    :dl/anchor "Employment Claims Act 2016 / Employment Act s.14" :dl/source-url "https://sso.agc.gov.sg/Act/ECA2016" :dl/critical true :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :tadm :opt/kind :self-submit :opt/protective true
     :opt/label "TADM へオンライン申立て (低額手数料・本人手続 — ECT も弁護士代理禁止)"}
@@ -1278,7 +1278,7 @@
   :proc/deadline-rules
   [{:dl/label "応答/出頭 (consultation)"
     :dl/rule "通知記載の consultation 期日・指示に従い応答 (SCT ≤ S$20,000; 弁護士代理は禁止 — 本人手続が原則)"
-    :dl/anchor "Small Claims Tribunals Act 1984" :dl/verify-service-date true}]
+    :dl/anchor "Small Claims Tribunals Act 1984" :dl/source-url "https://sso.agc.gov.sg/Act/SCTA1984" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :respond :opt/kind :self-submit :opt/label "SCT ポータルで応答・反論を提出 (本人)"}
    {:opt/id :appear :opt/kind :self-decide :opt/label "consultation/hearing に出席"}]
@@ -1292,7 +1292,7 @@
   :proc/deadline-rules
   [{:dl/label "Proof of debt"
     :dl/rule "清算人 (liquidator) が 'Notice to File Proof of Debt' で証明期限を定める; 通知日から14日以内に proof of debt を lodge しない債権者は配当 (dividend) から除外される"
-    :dl/anchor "IRDA 2018 + Insolvency, Restructuring and Dissolution (Court-Ordered Winding Up) Regulations 2020" :dl/verify-service-date true}]
+    :dl/anchor "IRDA 2018 + Insolvency, Restructuring and Dissolution (Court-Ordered Winding Up) Regulations 2020" :dl/source-url "https://sso.agc.gov.sg/Act/IRDA2018" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :pod :opt/kind :self-submit :opt/protective true
     :opt/label "proof of debt を liquidator へ lodge (本人可; prepayment・deposit・stored-value/gift voucher など前払金も debt: kaiyaku 縁-ledger と突合)"}]
@@ -1306,7 +1306,7 @@
   :proc/deadline-rules
   [{:dl/label "Memorandum of Appearance + Defence"
     :dl/rule "divorce papers 送達後8日以内 (シンガポール国外で送達なら21日) に Memorandum of Appearance を file; Defence (または Defence and Counterclaim) は MOA 提出から14日以内; MOA 未提出は contested 扱い・default judgment になりうる"
-    :dl/anchor "Family Justice Rules 2014 + Women's Charter" :dl/verify-service-date true}]
+    :dl/anchor "Family Justice Rules 2014 + Women's Charter" :dl/source-url "https://sso.agc.gov.sg/Act/WC1961" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :moa :opt/kind :self-submit :opt/protective true :opt/label "Memorandum of Appearance を期限内に file (応訴の意思表示)"}
    {:opt/id :defence :opt/kind :self-submit :opt/label "Defence (必要なら Counterclaim) を MOA から14日以内に file"}]
@@ -1322,7 +1322,7 @@
   :proc/deadline-rules
   [{:dl/label "Possession claim への対応"
     :dl/rule "landlord は自力 eviction できず、Conveyancing and Law of Property Act s.18 に基づき書面の termination notice (違反事由を明記) を serve した上で court order を要する。tenant が占有を続ける場合、退去は court order → enforcement order for possession (旧 writ of possession) → Sheriff/Bailiff の執行 + Notice of Eviction (vacate 日時) によってのみ。possession claim を受けたら通知/Rules of Court が定める期間内に応答"
-    :dl/anchor "Conveyancing and Law of Property Act s.18 + Rules of Court (enforcement order for possession)" :dl/verify-service-date true}]
+    :dl/anchor "Conveyancing and Law of Property Act s.18 + Rules of Court (enforcement order for possession)" :dl/source-url "https://sso.agc.gov.sg/Act/CLPA1886" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :respond :opt/kind :self-submit :opt/protective true :opt/label "possession claim に期間内に応答 (termination notice の適法性・breach・rent を争う)"}
    {:opt/id :no-self-help-protection :opt/kind :self-decide :opt/protective true :opt/label "landlord の self-help (lock change・cutting utilities・harassment) は違法 — illegal eviction は criminal trespass (罰金最大 S$5,000) + 民事責任; 退去は court order + Sheriff/Bailiff によってのみ; 受けたら police・lawyer・Legal Aid Bureau へ"}]
@@ -1336,7 +1336,7 @@
   :proc/deadline-rules
   [{:dl/label "Enforcement order への対応"
     :dl/rule "judgment debt の執行は Enforcement Order for Seizure and Sale (旧 writ of seizure and sale) または Enforcement Order for Attachment of a Debt (旧 garnishee; 銀行預金等の債権を差押え) による (Rules of Court 2021 O.22)。ただし wages・salary・pension・政府の allowance は差押え免除であり、給与そのものは attach できない (Supreme Court of Judicature Act s.13)。wearing apparel・bedding・tools of trade は SGD1,000 まで免除、HDB flat も免除。免除財産が押収されたら court へ異議できる"
-    :dl/anchor "Supreme Court of Judicature Act s.13 (exempt property) + Rules of Court 2021 O.22" :dl/verify-service-date true}]
+    :dl/anchor "Supreme Court of Judicature Act s.13 (exempt property) + Rules of Court 2021 O.22" :dl/source-url "https://sso.agc.gov.sg/Act/SCJA1969" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :exempt :opt/kind :self-submit :opt/protective true :opt/label "免除財産 (wages/salary/pension・apparel/bedding/tools ≤SGD1,000・HDB) が押収対象なら court へ異議; 給与は attach 対象外"}
    {:opt/id :verify :opt/kind :self-decide :opt/protective true :opt/label "押収/attachment が免除財産 (s.13) を侵害していないか確認"}]
@@ -1351,10 +1351,10 @@
   :proc/deadline-rules
   [{:dl/label "ID Act の手続要件"
     :dl/rule "workman の retrenchment は1か月の notice (または賃金) + 15日/年の補償が要件 — 不備は無効主張の余地; dispute は conciliation officer へ (s.2A 直接申立ては3年以内)"
-    :dl/anchor "Industrial Disputes Act 1947 ss.25F・2A" :dl/verify-service-date true}
+    :dl/anchor "Industrial Disputes Act 1947 ss.25F・2A" :dl/source-url "https://www.indiacode.nic.in/handle/123456789/18592" :dl/verify-service-date true}
    {:dl/label "Gratuity (退職金)"
     :dl/rule "5年以上勤続なら gratuity を30日以内に Form I で申請 (遅れても受理され得るが早く)"
-    :dl/anchor "Payment of Gratuity Act 1972 / Rules 7" :dl/verify-service-date true}]
+    :dl/anchor "Payment of Gratuity Act 1972 / Rules 7" :dl/source-url "https://www.indiacode.nic.in/handle/123456789/1703" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :form-i :opt/kind :self-submit :opt/protective true
     :opt/label "gratuity Form I + 未払賃金/PF の請求を書面で (EPFO ポータル)"}
@@ -1369,7 +1369,7 @@
   :proc/deadline-rules
   [{:dl/label "Written statement の提出"
     :dl/rule "送達から30日以内 (裁判所の裁量で最大90日まで伸長可)"
-    :dl/anchor "CPC 1908 Order VIII Rule 1" :dl/verify-service-date true}]
+    :dl/anchor "CPC 1908 Order VIII Rule 1" :dl/source-url "https://www.indiacode.nic.in/handle/123456789/2191" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :written-statement :opt/kind :self-submit :opt/label "written statement (認否 + 抗弁) を提出"}
    {:opt/id :appear :opt/kind :self-decide :opt/label "期日に出頭 (ex parte decree の回避)"}]
@@ -1383,7 +1383,7 @@
   :proc/deadline-rules
   [{:dl/label "Proof of claim"
     :dl/rule "IRP の public announcement 記載の last date — IRP 選任日から14日 — までに proof of claim を IRP/RP へ提出; 14日を徒過した債権者も insolvency commencement date から90日目まで提出できる (reg.12(2))"
-    :dl/anchor "IBC 2016 s.15(1)(c) + IBBI (CIRP) Regulations 2016 reg.6 & 12" :dl/verify-service-date true}]
+    :dl/anchor "IBC 2016 s.15(1)(c) + IBBI (CIRP) Regulations 2016 reg.6 & 12" :dl/source-url "https://www.indiacode.nic.in/handle/123456789/2154" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :proof :opt/kind :self-submit :opt/protective true
     :opt/label "proof of claim (Form B/C) を IRP/RP へ提出 (本人可; advance・deposit・gift voucher など前払金も claim: kaiyaku 縁-ledger と突合)"}]
@@ -1397,7 +1397,7 @@
   :proc/deadline-rules
   [{:dl/label "Written statement"
     :dl/rule "summons 送達から30日以内に written statement (各 allegation の認否) を Family Court へ提出 (CPC Order VIII Rule 1); 30日徒過時は理由を記録の上90日まで延長可。Family Court は和解 (reconciliation) 重視で柔軟に延長することがあるが、未提出は ex parte 手続 (Order VIII Rule 10) になりうる"
-    :dl/anchor "CPC 1908 Order VIII Rule 1 + Family Courts Act 1984 (matrimonial)" :dl/verify-service-date true}]
+    :dl/anchor "CPC 1908 Order VIII Rule 1 + Family Courts Act 1984 (matrimonial)" :dl/source-url "https://www.indiacode.nic.in/handle/123456789/2191" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :written-statement :opt/kind :self-submit :opt/protective true :opt/label "written statement (認否 + 抗弁) を Family Court へ提出 (ex parte decree の回避)"}
    {:opt/id :reconciliation :opt/kind :self-decide :opt/label "Family Court の reconciliation/調停 に出席 (合意の余地)"}]
@@ -1426,7 +1426,7 @@
   :proc/deadline-rules
   [{:dl/label "Salary attachment への対応"
     :dl/rule "decree の execution で salary を attach する場合 (Order XXI Rules 48/48A)、最初の ₹1,000 と残額の2/3 は attachment から免除され、attachable なのは (salary − ₹1,000) の1/3 のみ (maintenance decree を除く)。さらに同一 attachable 部分が通算24か月 attach されたら12か月免除、同一 decree では24か月で最終免除。免除超過は court で異議できる"
-    :dl/anchor "CPC 1908 s.60(1) proviso + Order XXI Rules 48 & 48A" :dl/verify-service-date true}]
+    :dl/anchor "CPC 1908 s.60(1) proviso + Order XXI Rules 48 & 48A" :dl/source-url "https://www.indiacode.nic.in/handle/123456789/2191" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :objection :opt/kind :self-submit :opt/protective true :opt/label "免除 (最初の₹1,000 + 残額の2/3) を超える attachment には court へ objection を提出 (Order XXI)"}
    {:opt/id :verify :opt/kind :self-decide :opt/protective true :opt/label "attach 部分が (salary−₹1,000) の1/3 上限・24か月 cap を超えていないか employer/court で確認"}]
@@ -1580,7 +1580,7 @@
   :proc/deadline-rules
   [{:dl/label "Impenhorabilidade 2/3 (生計保護)"
     :dl/rule "**手取りの2/3は差押え不可** (差押えは1/3まで) + 下限として salário mínimo nacional 相当は必ず残る"
-    :dl/anchor "CPC art. 738" :dl/verify-service-date true}]
+    :dl/anchor "CPC art. 738" :dl/source-url "https://diariodarepublica.pt/dr/legislacao-consolidada/lei/2013-34580575" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :tercos-check :opt/kind :self-decide :opt/protective true
     :opt/label "1/3 上限と salário mínimo 下限の遵守を確認 (超過は agente de execução へ)"}
@@ -1595,7 +1595,7 @@
   :proc/deadline-rules
   [{:dl/label "Impugnação judicial"
     :dl/rule "ação de impugnação は despedimento から60日以内; 効力停止 (suspensão de despedimento) を求めるなら5日 (úteis) 以内 — 極端に短い"
-    :dl/anchor "Código do Trabalho arts. 386・387" :dl/critical true :dl/verify-service-date true}]
+    :dl/anchor "Código do Trabalho arts. 386・387" :dl/source-url "https://diariodarepublica.pt/dr/legislacao-consolidada/lei/2009-34546475" :dl/critical true :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :impugnacao :opt/kind :self-submit :opt/protective true
     :opt/label "formulário de impugnação を tribunal へ (60日 — apoio judiciário 併用可)"}
@@ -1610,7 +1610,7 @@
   :proc/deadline-rules
   [{:dl/label "Oposição (異議)"
     :dl/rule "notificação から15日以内に oposição (→ 司法手続へ)"
-    :dl/anchor "DL 269/98 (procedimento de injunção)" :dl/verify-service-date true}]
+    :dl/anchor "DL 269/98 (procedimento de injunção)" :dl/source-url "https://diariodarepublica.pt/dr/detalhe/decreto-lei/269-1998-566629" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :oposicao :opt/kind :self-submit :opt/label "oposição を提出 (Balcão Nacional de Injunções)"}
    {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/和解"}]
@@ -1624,7 +1624,7 @@
   :proc/deadline-rules
   [{:dl/label "Reclamação de créditos"
     :dl/rule "破産判決 (sentença declaratória de insolvência, 公告) が定める期限内 — 通常は公告から30日以内 — に reclamação de créditos (requerimento + 疎明資料: 発生原因・期日・元本利息・性質を記載) を administrador de insolvência へ; 期限徒過は insolvência の確定から6か月内に verificação ulterior (別訴) を要する"
-    :dl/anchor "CIRE art. 36.º / art. 128.º (徒過時 art. 146.º)" :dl/verify-service-date true}]
+    :dl/anchor "CIRE art. 36.º / art. 128.º (徒過時 art. 146.º)" :dl/source-url "https://diariodarepublica.pt/dr/legislacao-consolidada/decreto-lei/2004-34529075" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :reclamacao :opt/kind :self-submit :opt/protective true
     :opt/label "reclamação de créditos を administrador de insolvência へ提出 (本人可; adiantamento・caução・vale など前払金も crédito: kaiyaku 縁-ledger と突合)"}]
@@ -1638,7 +1638,7 @@
   :proc/deadline-rules
   [{:dl/label "Contestação"
     :dl/rule "citação 送達から30日以内に contestação を juízo de família e menores へ提出 (prazo de dilação があればその経過後から起算); 離婚 action では tentativa de conciliação (調停試行) も設定される (家庭内暴力の場合を除く)"
-    :dl/anchor "Código de Processo Civil art. 569.º" :dl/verify-service-date true}]
+    :dl/anchor "Código de Processo Civil art. 569.º" :dl/source-url "https://diariodarepublica.pt/dr/legislacao-consolidada/lei/2013-34580575" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :contestacao :opt/kind :self-submit :opt/protective true :opt/label "contestação を期限内に提出 (請求への認否 + 自分の立場)"}
    {:opt/id :conciliacao :opt/kind :self-decide :opt/label "tentativa de conciliação に出席 (合意の余地を探る)"}]
@@ -1653,7 +1653,7 @@
   :proc/deadline-rules
   [{:dl/label "Oposição ao despejo"
     :dl/rule "通知 (notificação) を受けてから15日以内に oposição を提出 (procedimento especial de despejo, BAS — 旧 Balcão Nacional do Arrendamento)。家賃滞納2か月以上で senhorio は契約 resolução 可。通知だけで自力 desocupação はできず、退去は PED/裁判所の título によってのみ"
-    :dl/anchor "NRAU (Lei 6/2006) + Procedimento Especial de Despejo / BAS (Lei 56/2023)" :dl/verify-service-date true}]
+    :dl/anchor "NRAU (Lei 6/2006) + Procedimento Especial de Despejo / BAS (Lei 56/2023)" :dl/source-url "https://diariodarepublica.pt/dr/legislacao-consolidada/lei/2006-34578375" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :oposicao :opt/kind :self-submit :opt/protective true :opt/label "oposição ao despejo を15日以内に提出 (事由・renda 計算・通知の適法性を争う; renda 滞納なら供託・清算も検討)"}
    {:opt/id :no-self-help-protection :opt/kind :self-decide :opt/protective true :opt/label "senhorio の autotutela (鍵交換・水電停止・物品搬出) は違法 — desocupação は PED/裁判所の título によってのみ; 受けたら GNR/PSP・advogado・apoio judiciário へ"}]
@@ -1761,7 +1761,7 @@
     :dl/anchor "CCT nr. 109" :dl/critical true :dl/verify-service-date true}
    {:dl/label "時効"
     :dl/rule "雇用契約上の請求は契約終了から1 an"
-    :dl/anchor "loi 03.07.1978 art. 15" :dl/verify-service-date true}]
+    :dl/anchor "loi 03.07.1978 art. 15" :dl/source-url "https://www.ejustice.just.fgov.be/eli/loi/1978/07/03/1978070303/justel" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :demande-motifs :opt/kind :self-submit :opt/protective true
     :opt/label "書留で motivation を請求 (2 mois — まず理由を固定する)"}
@@ -1776,7 +1776,7 @@
   :proc/deadline-rules
   [{:dl/label "Quotités saisissables (生計保護)"
     :dl/rule "差押えは**所得階層別の quotités** (毎年indexé) の範囲のみ — 下限帯は全額保護; **enfant à charge 1人ごとに保護額が増える** (申告制 — 様式で申告しないと反映されない)"
-    :dl/anchor "Code judiciaire art. 1409・1409bis" :dl/verify-service-date true}]
+    :dl/anchor "Code judiciaire art. 1409・1409bis" :dl/source-url "https://www.ejustice.just.fgov.be/eli/loi/1967/10/10/1967101056/justel" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :enfant-declare :opt/kind :self-submit :opt/protective true
     :opt/label "enfant à charge を様式で申告 (保護増額は自動でない — 必ず申告)"}
@@ -1849,7 +1849,7 @@
   :proc/deadline-rules
   [{:dl/label "Personal grievance (90日)"
     :dl/rule "personal grievance は dismissal から90日以内に雇用主へ raise — NZ 労働法で最も周知された期限 (sexual harassment は12か月)"
-    :dl/anchor "Employment Relations Act 2000 s.114" :dl/critical true :dl/verify-service-date true}]
+    :dl/anchor "Employment Relations Act 2000 s.114" :dl/source-url "https://www.legislation.govt.nz/act/public/2000/0024/latest/whole.html" :dl/critical true :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :raise-pg :opt/kind :self-submit :opt/protective true
     :opt/label "書面で personal grievance を raise (90日 — mediation は MBIE 無料)"}
@@ -1864,7 +1864,7 @@
   :proc/deadline-rules
   [{:dl/label "Response / hearing 出席"
     :dl/rule "claim notice 記載の hearing までに response・出席 — ≤NZ$30,000; 弁護士代理は法律で原則排除 (本人手続前提)"
-    :dl/anchor "Disputes Tribunal Act 1988 (s.38 lawyers excluded)" :dl/verify-service-date true}]
+    :dl/anchor "Disputes Tribunal Act 1988 (s.38 lawyers excluded)" :dl/source-url "https://www.legislation.govt.nz/act/public/1988/0110/latest/whole.html" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :respond :opt/kind :self-submit :opt/label "response を Tribunal へ (オンライン可)"}
    {:opt/id :attend :opt/kind :self-decide :opt/label "hearing に出席 (referee による調停的審理)"}]
@@ -1878,7 +1878,7 @@
   :proc/deadline-rules
   [{:dl/label "Creditor claim"
     :dl/rule "清算人 (liquidator) が公告で claim 期限日を定める — 通知日から10営業日 (working days) 以上後でなければならない; 期限内に claim しない債権者は、claim 前になされた配当の利益から除外される (後日 admit されれば残余資産から配当を受けうる)"
-    :dl/anchor "Companies Act 1993 s.304 / Schedule 7 (Liquidation Regulations 1994)" :dl/verify-service-date true}]
+    :dl/anchor "Companies Act 1993 s.304 / Schedule 7 (Liquidation Regulations 1994)" :dl/source-url "https://www.legislation.govt.nz/act/public/1993/0105/latest/whole.html" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :claim :opt/kind :self-submit :opt/protective true
     :opt/label "creditor claim form を liquidator へ提出 (本人可; prepayment・deposit・gift voucher など前払金も debt: kaiyaku 縁-ledger と突合)"}]
@@ -1892,7 +1892,7 @@
   :proc/deadline-rules
   [{:dl/label "Notice of response"
     :dl/rule "notice of application 受領から21日以内に notice of response (approved form) を court office へ file し全当事者へ serve; 期限内に応答しないと自分抜きで手続が進み、裁判官が意見を聞かずに final order を出しうる"
-    :dl/anchor "Family Court Rules 2002 (SR 2002/261) + Form COC 1 (Care of Children Act 2004)" :dl/verify-service-date true}]
+    :dl/anchor "Family Court Rules 2002 (SR 2002/261) + Form COC 1 (Care of Children Act 2004)" :dl/source-url "https://www.legislation.govt.nz/act/public/2004/0090/latest/whole.html" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :response :opt/kind :self-submit :opt/protective true :opt/label "notice of response (approved form) を court office へ file & 全当事者へ serve (自分の立場を述べる)"}
    {:opt/id :fdr :opt/kind :self-decide :opt/label "Family Dispute Resolution (FDR) mediation の利用を検討 (合意できれば裁判回避)"}]
@@ -1907,7 +1907,7 @@
   :proc/deadline-rules
   [{:dl/label "Tenancy Tribunal 対応"
     :dl/rule "periodic tenancy の landlord 終了通知は原則90日前 (身体的暴行+警察立件の場合は14日前の approved form)。通知だけで強制退去はできず、tenant が退去しない場合 landlord は Tenancy Tribunal に possession order を申立てる必要がある — 申立てがあれば期日までに応答; tenancy 終了後90日 landlord が possession order を得ないまま居住が続くと新たな periodic tenancy が生じる"
-    :dl/anchor "Residential Tenancies Act 1986 s.51 (+ Tenancy Tribunal possession)" :dl/verify-service-date true}]
+    :dl/anchor "Residential Tenancies Act 1986 s.51 (+ Tenancy Tribunal possession)" :dl/source-url "https://www.legislation.govt.nz/act/public/1986/0120/latest/whole.html" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :tribunal-response :opt/kind :self-submit :opt/protective true :opt/label "Tenancy Tribunal の申立てに応答・出席 (通知の有効性・期間を争う)"}
    {:opt/id :no-self-help-protection :opt/kind :self-decide :opt/protective true :opt/label "自力救済 (鍵交換・荷物搬出・電気停止) は違法 — 強制退去は Tenancy Tribunal の possession order によってのみ; 受けたら Tenancy Services・Community Law へ"}]
@@ -1921,7 +1921,7 @@
   :proc/deadline-rules
   [{:dl/label "Attachment order への対応"
     :dl/rule "judgment 後に creditor/debtor が attachment order を申立てると employer が salary/wages から控除する。ただし debtor は net income (税引後) の60% (protected earnings rate) を必ず保持でき、控除は net の40%を超えられない。返済が困難なら court に控除額の variation を申立てられる"
-    :dl/anchor "District Court Act 2016 s.157 (attachment orders) + protected earnings rate 60% net" :dl/verify-service-date true}]
+    :dl/anchor "District Court Act 2016 s.157 (attachment orders) + protected earnings rate 60% net" :dl/source-url "https://www.legislation.govt.nz/act/public/2016/0049/latest/whole.html" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :variation :opt/kind :self-submit :opt/protective true :opt/label "返済困難なら court へ deduction 額の variation を申立て (protected earnings rate=net の60% を下回らせない)"}
    {:opt/id :verify :opt/kind :self-decide :opt/protective true :opt/label "控除が net の40%上限・60% protected を超えていないか employer/court で確認"}]
@@ -2023,7 +2023,7 @@
   :proc/deadline-rules
   [{:dl/label "Protest (書面異議)"
     :dl/rule "**1か月以内に書面で protest すると oppsigelse は失効し, 賃貸人が3か月以内に提訴しない限り無効** — 異議の負担が借家人に有利に逆転する構造"
-    :dl/anchor "husleieloven §9-8" :dl/critical true :dl/verify-service-date true}]
+    :dl/anchor "husleieloven §9-8" :dl/source-url "https://lovdata.no/lov/1999-03-26-17" :dl/critical true :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :protest :opt/kind :self-submit :opt/protective true
     :opt/label "書面 protest を1か月以内に (理由不要 — まず構造を逆転させる)"}
@@ -2039,10 +2039,10 @@
   :proc/deadline-rules
   [{:dl/label "Forhandlinger (協議請求)"
     :dl/rule "oppsigelse を争う forhandlinger の請求は2 uker 以内 — 在職継続権 (stå i stilling) の起点にもなる"
-    :dl/anchor "arbeidsmiljøloven §17-3" :dl/critical true :dl/verify-service-date true}
+    :dl/anchor "arbeidsmiljøloven §17-3" :dl/source-url "https://lovdata.no/lov/2005-06-17-62" :dl/critical true :dl/verify-service-date true}
    {:dl/label "Søksmål (提訴)"
     :dl/rule "無効 (ugyldighet) の søksmål は8 uker 以内・erstatning のみなら6か月以内 (forhandling 終了から起算)"
-    :dl/anchor "arbeidsmiljøloven §17-4" :dl/verify-service-date true}]
+    :dl/anchor "arbeidsmiljøloven §17-4" :dl/source-url "https://lovdata.no/lov/2005-06-17-62" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :forhandlinger :opt/kind :self-submit :opt/protective true
     :opt/label "書面で forhandlinger を請求 (2 uker — まず期限と stå i stilling を確保)"}
@@ -2057,7 +2057,7 @@
   :proc/deadline-rules
   [{:dl/label "Fordringsanmeldelse"
     :dl/rule "債権は bostyrer へ anmeld — Brønnøysund 公告記載の frist 内に (遅延届出も審査され得るが配当リスク)"
-    :dl/anchor "konkursloven §109 以下" :dl/verify-service-date true}]
+    :dl/anchor "konkursloven §109 以下" :dl/source-url "https://lovdata.no/lov/1984-06-08-58" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :anmeld-no :opt/kind :self-submit :opt/protective true
     :opt/label "bostyrer へ fordring を anmeld (forskudd・gavekort も債権: kaiyaku 縁-ledger と突合)"}
@@ -2072,7 +2072,7 @@
   :proc/deadline-rules
   [{:dl/label "Tilsvar (答弁) / 出席義務"
     :dl/rule "innkalling 記載の期限内に tilsvar — 無応答・無断欠席は fraværsdom (欠席判決); 小額民事は forliksrådet 前置が原則 (本人手続前提の制度)"
-    :dl/anchor "tvisteloven §6-3・§6-6" :dl/verify-service-date true}]
+    :dl/anchor "tvisteloven §6-3・§6-6" :dl/source-url "https://lovdata.no/lov/2005-06-17-90" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :tilsvar :opt/kind :self-submit :opt/label "tilsvar を forliksrådet へ (認否 + 言い分)"}
    {:opt/id :møte :opt/kind :self-decide :opt/label "調停期日に出席 (和解の場 — 合意義務はない)"}]
@@ -2086,7 +2086,7 @@
   :proc/deadline-rules
   [{:dl/label "Utleggstrekk への対応"
     :dl/rule "namsmannen が lønn/trygd から utleggstrekk (控除) を行うが、skyldner は livsopphold (生活費) に必要な額を必ず保持できる (beslagsfrie midler, dekningsloven §2-7)。保護額は forskrift om livsoppholdssatser の標準率で算定し、boligutgifter (家賃/住宅ローン利息・公共料金・暖房) は上乗せされる。namsmannen は食・住・電気等の必要支出を奪わないよう経済状況を考慮する。算定に異議があれば namsmannen/tingretten に klage できる"
-    :dl/anchor "dekningsloven §2-7 + forskrift om livsoppholdssatser (FOR-2014-06-13-724) + tvangsfullbyrdelsesloven" :dl/verify-service-date true}]
+    :dl/anchor "dekningsloven §2-7 + forskrift om livsoppholdssatser (FOR-2014-06-13-724) + tvangsfullbyrdelsesloven" :dl/source-url "https://lovdata.no/lov/1984-06-08-59" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :klage :opt/kind :self-submit :opt/protective true :opt/label "trekk が livsopphold (livsoppholdssats + boligutgifter) を侵害するなら namsmannen へ見直し/klage を申立て"}
    {:opt/id :verify :opt/kind :self-decide :opt/protective true :opt/label "残額が livsoppholdssats + boligutgifter を下回っていないか namsmannen と確認 (収入/支出を申告)"}]
@@ -2100,7 +2100,7 @@
   :proc/deadline-rules
   [{:dl/label "Tilsvar / mekling"
     :dl/rule "foreldretvist (fast bosted・samvær・foreldreansvar の争い) を court に提起する前に obligatorisk mekling (familievernkontor) を経て meklingsattest (有効期間6か月) を得る必要がある (barneloven §51)。stevning が届いたら saksøkte は tingretten が定める期限 (通常3週間, tvisteloven §9-3) 内に tilsvar を提出。tingretten は conflict-and-reconciliation model で扱い、子に関し専門家 (心理士等) を任命することが多い。重大な暴力・虐待の有罪がある場合は meklingsattest なしでも提訴可"
-    :dl/anchor "barneloven §51 (mekling) + tvisteloven §9-3 (tilsvar)" :dl/verify-service-date true}]
+    :dl/anchor "barneloven §51 (mekling) + tvisteloven §9-3 (tilsvar)" :dl/source-url "https://lovdata.no/lov/2005-06-17-90" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :tilsvar :opt/kind :self-submit :opt/protective true :opt/label "tingretten が定める期限内に tilsvar を提出 (自分の立場・子の最善を述べる)"}
    {:opt/id :mekling :opt/kind :self-decide :opt/label "familievernkontor の mekling に出席 (合意の余地; meklingsattest は提訴要件)"}]
@@ -2206,7 +2206,7 @@
   :proc/deadline-rules
   [{:dl/label "Irtisanomissuoja (解約保護)"
     :dl/rule "賃貸人の irtisanominen には正当事由が必要 — 借家人は käräjäoikeus に無効 (julistettava tehottomaksi) を求められる; 通知には事由記載が必須"
-    :dl/anchor "AHVL (laki asuinhuoneiston vuokrauksesta) 56-57§§" :dl/verify-service-date true}]
+    :dl/anchor "AHVL (laki asuinhuoneiston vuokrauksesta) 56-57§§" :dl/source-url "https://www.finlex.fi/fi/laki/ajantasa/1995/19950481" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :tehottomuus :opt/kind :self-submit :opt/protective true
     :opt/label "正当事由を欠く場合は無効の kanne (oikeusapu 併用可)"}
@@ -2222,7 +2222,7 @@
   :proc/deadline-rules
   [{:dl/label "Kanneaika (出訴期間)"
     :dl/rule "perusteeton irtisanominen の korvaus 請求は työsuhteen päättymisestä 2 vuotta 以内"
-    :dl/anchor "työsopimuslaki 13 luku 9§" :dl/verify-service-date true}]
+    :dl/anchor "työsopimuslaki 13 luku 9§" :dl/source-url "https://www.finlex.fi/fi/laki/ajantasa/2001/20010055" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :liitto :opt/kind :self-decide :opt/protective true
     :opt/label "liitto (組合) + työttömyyskassa へ即連絡 (給付と法的支援)"}
@@ -2237,7 +2237,7 @@
   :proc/deadline-rules
   [{:dl/label "Suojaosuus (保護部分)"
     :dl/rule "**suojaosuus (日額×扶養人数の保護部分) は必ず残り**, 原則として手取りの1/3まで — vapaakuukaudet (差押え休止月) も請求できる"
-    :dl/anchor "ulosottokaari 4 luku 48§・52-53§§" :dl/verify-service-date true}]
+    :dl/anchor "ulosottokaari 4 luku 48§・52-53§§" :dl/source-url "https://www.finlex.fi/fi/laki/ajantasa/2007/20070705" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :suojaosuus-check :opt/kind :self-decide :opt/protective true
     :opt/label "suojaosuus の計算を確認 (扶養の申告; oikaisu は ulosottomies へ)"}
@@ -2252,7 +2252,7 @@
   :proc/deadline-rules
   [{:dl/label "Vastaus (答弁)"
     :dl/rule "呼出記載の期限内に vastaus — 無応答は yksipuolinen tuomio (欠席判決)"
-    :dl/anchor "oikeudenkäymiskaari 5 luku" :dl/verify-service-date true}]
+    :dl/anchor "oikeudenkäymiskaari 5 luku" :dl/source-url "https://www.finlex.fi/fi/laki/ajantasa/1734/17340004000" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :vastaus :opt/kind :self-submit :opt/label "vastaus を käräjäoikeus へ (認否 + 反論)"}
    {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/sovinto"}]
@@ -2266,7 +2266,7 @@
   :proc/deadline-rules
   [{:dl/label "Saatavan valvonta"
     :dl/rule "pesänhoitaja (破産管財人) が定め公告する valvontapäivä (届出日) までに valvontakirjelmä (届出書) で saatava を pesänhoitaja へ valvoa; 期日後の届出 (jälkivalvonta) は手数料を要し、怠ると債権を失うことがある"
-    :dl/anchor "Konkurssilaki (120/2004) 12 luku (valvonta)" :dl/verify-service-date true}]
+    :dl/anchor "Konkurssilaki (120/2004) 12 luku (valvonta)" :dl/source-url "https://www.finlex.fi/fi/laki/ajantasa/2004/20040120" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :valvonta :opt/kind :self-submit :opt/protective true
     :opt/label "valvontakirjelmä を pesänhoitaja へ提出 (本人可; ennakkomaksu・vakuus・lahjakortti など前払金も saatava: kaiyaku 縁-ledger と突合)"}]
@@ -2339,7 +2339,7 @@
   :proc/deadline-rules
   [{:dl/label "Appearance + Defence"
     :dl/rule "Family Law Civil Bill 送達から10日以内に County Registrar へ Appearance を enter; defend するなら Appearance から10日以内に Defence (nature & grounds) を deliver — 財産的救済が争点なら Affidavit of Means、子の福祉が問題なら関係書類も。期限は厳格でなく徒過後も受理されることが多いが早期対応が安全"
-    :dl/anchor "Circuit Court Rules (Family Law) 2018 (S.I. No. 427/2018)" :dl/verify-service-date true}]
+    :dl/anchor "Circuit Court Rules (Family Law) 2018 (S.I. No. 427/2018)" :dl/source-url "https://www.irishstatutebook.ie/eli/2018/si/427/made/en/print" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :appearance :opt/kind :self-submit :opt/protective true :opt/label "Appearance を County Registrar へ enter (応訴の意思表示)"}
    {:opt/id :defence :opt/kind :self-submit :opt/label "Defence + (必要なら) Affidavit of Means を Appearance から10日以内に deliver"}]
@@ -2368,7 +2368,7 @@
   :proc/deadline-rules
   [{:dl/label "Instalment order / means examination への対応"
     :dl/rule "judgment 債務の execution として creditor は District Court に instalment order を申立て、debtor は出頭し means を establish する (Enforcement of Court Orders Act 1926 s.15)。裁判官は debtor の means を考慮して全額 or 分割を命じる (合理的生活費を残す means ベースの査定)。attachment of earnings は主に maintenance (扶養) order に用いられる。committal は means があるのに wilful refusal を beyond reasonable doubt で立証した場合のみ — debtor は means/支出を申告し過大な instalment の見直しを求められる"
-    :dl/anchor "Enforcement of Court Orders Act 1926 s.15 (+ Acts 1926-2009, O.53 District Court Rules)" :dl/verify-service-date true}]
+    :dl/anchor "Enforcement of Court Orders Act 1926 s.15 (+ Acts 1926-2009, O.53 District Court Rules)" :dl/source-url "https://www.irishstatutebook.ie/eli/1926/act/18/" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :means :opt/kind :self-submit :opt/protective true :opt/label "出頭し means statement を提出 (合理的生活費を踏まえた支払能力を示し、過大な instalment を回避/見直し)"}
    {:opt/id :verify :opt/kind :self-decide :opt/protective true :opt/label "instalment が means を超えていないか確認; committal は wilful refusal + 立証が要件 (単なる無資力では収監されない)"}]
@@ -2383,7 +2383,7 @@
   :proc/deadline-rules
   [{:dl/label "応答 / 別居要件"
     :dl/rule "一方的 Scheidungsklage は**2年の別居 (Getrenntleben) が要件** (ZGB 114) — 満たさない訴えには異議可; gemeinsames Begehren (共同申立て ZGB 111) なら要件不要で低負担"
-    :dl/anchor "ZGB 111・114" :dl/verify-service-date true}]
+    :dl/anchor "ZGB 111・114" :dl/source-url "https://www.fedlex.admin.ch/eli/cc/24/233_245_233/de" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :gemeinsam :opt/kind :self-decide :opt/protective true
     :opt/label "合意できるなら gemeinsames Begehren へ転換 (本人可・最速)"}
@@ -2398,7 +2398,7 @@
   :proc/deadline-rules
   [{:dl/label "Einsprache (missbräuchliche Kündigung)"
     :dl/rule "missbräuchlich と争うなら Einsprache を **Kündigungsfrist の満了前まで** に書面で — その後雇用終了から180日以内に提訴 (徒過で失権)"
-    :dl/anchor "OR Art. 336b" :dl/critical true :dl/verify-service-date true}]
+    :dl/anchor "OR Art. 336b" :dl/source-url "https://www.fedlex.admin.ch/eli/cc/27/317_321_377/de" :dl/critical true :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :einsprache :opt/kind :self-submit :opt/protective true
     :opt/label "書面 Einsprache を雇用主へ (Kündigungsfrist 内 — まず期限を止める)"}
@@ -2414,7 +2414,7 @@
   :proc/deadline-rules
   [{:dl/label "Anfechtung / Erstreckung"
     :dl/rule "Kündigung の Anfechtung (missbräuchlich) と Erstreckung (賃貸借の延長) は**30日以内に Schlichtungsbehörde へ** (無料・本人手続) — 公式 Formular なしの Kündigung は無効"
-    :dl/anchor "OR Art. 271・273・266l" :dl/critical true :dl/verify-service-date true}]
+    :dl/anchor "OR Art. 271・273・266l" :dl/source-url "https://www.fedlex.admin.ch/eli/cc/27/317_321_377/de" :dl/critical true :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :schlichtung :opt/kind :self-submit :opt/protective true
     :opt/label "Schlichtungsbehörde へ申立て (30日 — 無料; Erstreckung は最大4年/家族住居)"}
@@ -2431,7 +2431,7 @@
   :proc/deadline-rules
   [{:dl/label "Betreibungsrechtliches Existenzminimum"
     :dl/rule "賃金は**Existenzminimum を超える部分のみ**差押え可 (SchKG 93) — Betreibungsamt が世帯事情で算定; 事情変更 (家賃・扶養・医療) は再計算 (Revision) を請求できる"
-    :dl/anchor "SchKG Art. 93" :dl/verify-service-date true}]
+    :dl/anchor "SchKG Art. 93" :dl/source-url "https://www.fedlex.admin.ch/eli/cc/11/529_488_529/de" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :revision :opt/kind :self-submit :opt/protective true
     :opt/label "Existenzminimum の再計算を Betreibungsamt へ請求 (家賃・保険料等の領収書添付)"}
@@ -2446,7 +2446,7 @@
   :proc/deadline-rules
   [{:dl/label "Rechtsvorschlag (異議)"
     :dl/rule "Zustellung から10日以内に Rechtsvorschlag (理由不要・口頭でも可) — これだけで手続が止まる; Betreibung は証拠不要で誰でも開始できるため、身に覚えがなければ必ず異議"
-    :dl/anchor "SchKG Art. 74" :dl/critical true :dl/verify-service-date true}]
+    :dl/anchor "SchKG Art. 74" :dl/source-url "https://www.fedlex.admin.ch/eli/cc/11/529_488_529/de" :dl/critical true :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :rechtsvorschlag :opt/kind :self-submit :opt/protective true
     :opt/label "Betreibungsamt へ Rechtsvorschlag (10日以内 — 受領時にその場で宣言も可)"}
@@ -2657,7 +2657,7 @@
   :proc/deadline-rules
   [{:dl/label "Svaromål / betänketid"
     :dl/rule "tingsrätt の通知期限内に svaromål — 16歳未満の子と同居 or 一方が争う場合は **betänketid (考慮期間) 6か月〜24か月** が自動で入る (即時離婚にならない)"
-    :dl/anchor "äktenskapsbalken 5 kap. 1-3§§" :dl/verify-service-date true}]
+    :dl/anchor "äktenskapsbalken 5 kap. 1-3§§" :dl/source-url "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/aktenskapsbalk-1987230_sfs-1987-230/" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :svaromal :opt/kind :self-submit :opt/protective true
     :opt/label "svaromål を提出 (本人可 — bodelning 財産分割は別手続)"}
@@ -2672,10 +2672,10 @@
   :proc/deadline-rules
   [{:dl/label "Ogiltigförklaring の underrättelse"
     :dl/rule "uppsägning の無効を争う underrättelse は2 veckor 以内 (besked に教示がなければ1か月) — その後2週間で提訴; 世界最短級"
-    :dl/anchor "LAS (1982:80) 40§" :dl/critical true :dl/verify-service-date true}
+    :dl/anchor "LAS (1982:80) 40§" :dl/source-url "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/lag-198280-om-anstallningsskydd_sfs-1982-80/" :dl/critical true :dl/verify-service-date true}
    {:dl/label "Skadestånd"
     :dl/rule "損害賠償の underrättelse は4か月以内"
-    :dl/anchor "LAS 41§" :dl/verify-service-date true}]
+    :dl/anchor "LAS 41§" :dl/source-url "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/lag-198280-om-anstallningsskydd_sfs-1982-80/" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :underrattelse :opt/kind :self-submit :opt/protective true
     :opt/label "書面 underrättelse を雇用主へ (2 veckor — まず期限を止める)"}
@@ -2690,7 +2690,7 @@
   :proc/deadline-rules
   [{:dl/label "Förbehållsbelopp (existensminimum)"
     :dl/rule "Kronofogden は förbehållsbelopp (生活維持額 — normalbelopp + 住居費) を必ず残す — 世帯事情の変化は再計算を請求できる"
-    :dl/anchor "utsökningsbalken 7 kap. 4-5§§" :dl/verify-service-date true}]
+    :dl/anchor "utsökningsbalken 7 kap. 4-5§§" :dl/source-url "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/utsokningsbalk-1981774_sfs-1981-774/" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :forbehall-check :opt/kind :self-submit :opt/protective true
     :opt/label "förbehållsbelopp の再計算を Kronofogden へ請求 (扶養・医療費等を申告)"}
@@ -2705,7 +2705,7 @@
   :proc/deadline-rules
   [{:dl/label "Besittningsskydd (継続保護)"
     :dl/rule "居住用賃借人は強い besittningsskydd — 争いは hyresnämnden へ付託 (uppsägning には付託先の anvisning 記載が必須; 不備は無効主張の余地)"
-    :dl/anchor "Jordabalken 12 kap. 46§・49§" :dl/verify-service-date true}]
+    :dl/anchor "Jordabalken 12 kap. 46§・49§" :dl/source-url "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/jordabalk-1970994_sfs-1970-994/" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :hyresnamnden :opt/kind :self-submit :opt/protective true
     :opt/label "hyresnämnden へ付託 (無料・本人手続)"}
@@ -2722,7 +2722,7 @@
   :proc/deadline-rules
   [{:dl/label "Anmälan / bevakning"
     :dl/rule "債権は konkursförvaltare へ anmäl — bevakningsförfarande (届出手続) は裁判所が命じた場合のみで, その場合は公告の frist 内に bevaka (徒過は配当外リスク)"
-    :dl/anchor "konkurslagen 9 kap." :dl/verify-service-date true}]
+    :dl/anchor "konkurslagen 9 kap." :dl/source-url "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/konkurslag-1987672_sfs-1987-672/" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :anmala :opt/kind :self-submit :opt/protective true
     :opt/label "förvaltare へ債権を anmäl (förskott・presentkort も債権: kaiyaku 縁-ledger と突合)"}
@@ -2737,7 +2737,7 @@
   :proc/deadline-rules
   [{:dl/label "Bestrida (異議)"
     :dl/rule "föreläggande 記載の förklaringstid (回答期限 — 通常2週間程度) 内に書面で bestrida"
-    :dl/anchor "Lag (1990:746) om betalningsföreläggande och handräckning" :dl/verify-service-date true}]
+    :dl/anchor "Lag (1990:746) om betalningsföreläggande och handräckning" :dl/source-url "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/lag-1990746-om-betalningsforelaggande-och_sfs-1990-746/" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :bestrida :opt/kind :self-submit :opt/label "Kronofogden へ書面で bestrida (→ 申立人が裁判所移行を選択)"}
    {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い (記録に注意 — betalningsanmärkning)"}]

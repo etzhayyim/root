@@ -33,6 +33,31 @@ superseded_by: []
 **Date**: 2026-06-24
 **Deciders**: Jun Kawasaki
 
+## Addendum 2026-06-24 — repo 層の kotoba-canonical 不変条件 + `app-aozora-repo`
+
+PDS の repo 層（dag-cbor block → MST → 署名 commit → `com.atproto.sync.*`）を巡る
+2026-06-24 調査で判明:
+
+- **MST は既に実装されているが read 側 projector**（`50-infra/mst-projector/src/mst.ts`、
+  公式 `@atproto/repo` の MST + dag-cbor CID + CAR を使用、firehose を消費）。clj PDS の
+  **write 側 repo-MST/署名 commit は未実装**。
+- 素朴に `@atproto/repo` を再利用すると、その既定 `MemoryBlockstore`/SQLite に repo state が
+  載り **kotoba がバイパスされ二重台帳が復活**する（本 ADR が潰す対象そのもの）。
+
+**不変条件（本 ADR の repo 層への適用）**: repo の dag-cbor block・commit head は
+**kotoba Datom log 上の content-addressed Datom**でなければならない（ADR-2605312345:
+Datom log = first-class canonical state / MST = interop wire / IPFS = block backend）。
+`@atproto/repo` の MST/CID アルゴリズムを再利用する場合も、**blockstore は必ず
+kotoba-backed**（`MemoryBlockstore` 禁止）。最終形は kotoba-server(Rust, ADR-2606015002)
+が kotoba 自身の content-addressed block 上で MST をネイティブ計算する。
+
+**実装の起点 = `50-infra/app-aozora-repo/`（kotoba-clj, R0, 本追補と同 PR）**: dag-cbor /
+CIDv1(dag-cbor) / kotoba-backed blockstore / record-block + commit object。record の正準形は
+dag-cbor block（`[<cid> :block/bytes ..]`）、`:record/*` は同一 log 上の datalog 射影。
+**CID は go-ipfs `dag put` と byte 一致を検証**（spec 厳密、staged #2 を clj on kotoba で解決）。
+MST tree / 署名 / CAR / sync は後続増分（README §Next）。これにより repo 層でも
+「block の住処は常に kotoba」が構造的に保証される。
+
 # Context
 
 `pds.etzhayyim.com` の実装が **事実上複数並存**している（2026-06-24 survey）。これらは
