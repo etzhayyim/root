@@ -119,7 +119,7 @@
               [etzhayyim.test-dns-sync] [etzhayyim.test-deploy] [etzhayyim.test-metrics]
               [etzhayyim.test-shannon] [etzhayyim.test-shannon-scores]
               [etzhayyim.test-systemofsystem] [etzhayyim.test-vertex]
-              [etzhayyim.test-source-graph] [etzhayyim.test-xrpc] [etzhayyim.test-mokuteki] [etzhayyim.test-projector] [etzhayyim.test-actor-publish] [etzhayyim.test-yoroshiku] [etzhayyim.test-mitama] [etzhayyim.test-training] [etzhayyim.test-murakumo-cmd] [etzhayyim.test-monitor] [etzhayyim.test-nono] [etzhayyim.test-workspace] [etzhayyim.test-tithe])
+              [etzhayyim.test-source-graph] [etzhayyim.test-xrpc] [etzhayyim.test-mokuteki] [etzhayyim.test-projector] [etzhayyim.test-actor-publish] [etzhayyim.test-yoroshiku] [etzhayyim.test-mitama] [etzhayyim.test-training] [etzhayyim.test-murakumo-cmd] [etzhayyim.test-monitor] [etzhayyim.test-nono] [etzhayyim.test-workspace] [etzhayyim.test-tithe] [etzhayyim.lint.test-no-new-ts])
    :task (let [{:keys [fail error]}
                (apply t/run-tests
                       '[etzhayyim.test-authz etzhayyim.test-agent-token etzhayyim.test-bonsai
@@ -132,7 +132,7 @@
                         etzhayyim.test-dns-sync etzhayyim.test-deploy etzhayyim.test-metrics
                         etzhayyim.test-shannon etzhayyim.test-shannon-scores
                         etzhayyim.test-systemofsystem etzhayyim.test-vertex
-                        etzhayyim.test-source-graph etzhayyim.test-xrpc etzhayyim.test-mokuteki etzhayyim.test-projector etzhayyim.test-actor-publish etzhayyim.test-yoroshiku etzhayyim.test-mitama etzhayyim.test-training etzhayyim.test-murakumo-cmd etzhayyim.test-monitor etzhayyim.test-nono etzhayyim.test-workspace etzhayyim.test-tithe])]
+                        etzhayyim.test-source-graph etzhayyim.test-xrpc etzhayyim.test-mokuteki etzhayyim.test-projector etzhayyim.test-actor-publish etzhayyim.test-yoroshiku etzhayyim.test-mitama etzhayyim.test-training etzhayyim.test-murakumo-cmd etzhayyim.test-monitor etzhayyim.test-nono etzhayyim.test-workspace etzhayyim.test-tithe etzhayyim.lint.test-no-new-ts])]
            (System/exit (if (pos? (+ fail error)) 1 0)))}
 
   vitals:report
@@ -234,6 +234,11 @@
   {:doc "Enforce-forward the clj/bb rule (root CLAUDE.md §\"Operational code = clj/bb\"): FAIL on a NEW first-party .sh under 20-actors (existing ones grandfathered in shell-baseline.edn; baseline shrinks-only). New actors ship run_tests.clj, not run_tests.sh. --update rewrites the baseline. ADR-2606072802 enforce-forward"
    :task (do (require 'etzhayyim.lint.no-new-shell)
              (apply (resolve 'etzhayyim.lint.no-new-shell/-main) *command-line-args*))}
+
+  lint:no-new-ts
+  {:doc "Enforce-forward the TS→cljs+edn migration (ADR-2606251200 §Decision 6): FAIL on a NEW first-party .ts in a MIGRATED app (enforced-roots; pilot=explorer, already cljs-first). Existing TS grandfathered in ts-baseline.edn, shrinks-only. --update rewrites the baseline. Mirrors lint:no-new-shell."
+   :task (do (require 'etzhayyim.lint.no-new-ts)
+             (apply (resolve 'etzhayyim.lint.no-new-ts/-main) *command-line-args*))}
 
   kotoba:ingest
   {:doc "Ingest an actor seed into the kotoba Datom log (validated, snapshotted). Args: <schema> <seed> [out] [--validate]"
