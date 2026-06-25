@@ -182,6 +182,20 @@
           (is (= "self" (drain/rkey-from ""))))
         (finally (rm-rf dir))))))
 
+(deftest preview-is-pure-and-reports-what-would-post
+  (testing "preview parses + reports without posting or minting any key"
+    (let [text (str/join "\n" [(qline 1) "{bad" (qline 2)])
+          pv   (drain/preview text)]
+      (is (= 1 (count (:parse-errors pv))))
+      (is (= 2 (count (:would-post pv))))
+      (is (= #{:repo :collection :rkey :key} (set (keys (first (:would-post pv))))) "no record body leaked")
+      (is (= "1000" (:rkey (first (:would-post pv)))) "deterministic rkey previewed")
+      (is (= {"did:web:etzhayyim.com:actor:unspsc-1" 1
+              "did:web:etzhayyim.com:actor:unspsc-2" 1} (:by-actor pv)))
+      ;; purity: preview has no :receipts and no :posted (it never drains)
+      (is (nil? (:receipts pv)))
+      (is (nil? (:posted pv))))))
+
 (deftest post-key-falls-back-to-content-hash
   (testing "no explicit :key → stable content-based key (same record → same key)"
     (let [s {:repo "did:web:etzhayyim.com:actor:x" :collection "c"

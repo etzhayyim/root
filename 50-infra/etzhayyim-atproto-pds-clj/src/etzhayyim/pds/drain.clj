@@ -117,6 +117,17 @@
          [e :receipt/status :submitted]]))
     receipts)))
 
+(defn preview
+  "Dry-run: parse a queue and report what a drain WOULD post — {:would-post
+  [{:repo :collection :rkey :key} ..] :by-actor {repo n} :parse-errors [..]} —
+  WITHOUT posting anything or touching any key (pure). The pre-flight safety check
+  before a live drain, in keeping with ibuki's dry-run-first ethos."
+  [queue-text]
+  (let [{:keys [specs errors]} (parse-queue queue-text)]
+    {:parse-errors errors
+     :would-post  (mapv #(select-keys % [:repo :collection :rkey :key]) specs)
+     :by-actor    (frequencies (map :repo specs))}))
+
 (defn run-queue!
   "Parse an ibuki NDJSON queue and drain its valid specs. Returns the `drain!` result
   merged with {:parse-errors [..] :datoms [..]} — the `:receipt/*` provenance datoms
