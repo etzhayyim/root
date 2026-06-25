@@ -122,6 +122,23 @@
       (is (= "fixed-jti-123"
              (leash/jti-of (leash/issue-leash m {:aud pds :exp (+ now 3600) :jti "fixed-jti-123"})))))))
 
+(deftest create-record-enforces-server-side-revocation
+  (testing "createRecord attributes a fresh leash but REFUSES attribution once its jti is revoked"
+    (let [m (leash/gen-member-key)
+          l (leash/issue-leash m {:aud cfg/pds-did :exp (+ now 3600)})
+          jti (leash/jti-of l)
+          s (store/->mem-store)
+          rec {"$type" "app.bsky.feed.post" "text" "revocable consent"}
+          mk (fn [rkey revoked]
+               (xrpc/create-record s {:repo cfg/pds-did :collection "app.bsky.feed.post"
+                                      :rkey rkey :record rec :leash l} now revoked))]
+      ;; not revoked → attributed to the member
+      (is (= (:did m) (get (:body (mk "a" #{})) "author")))
+      ;; server-side revocation of this jti → write proceeds but UNATTRIBUTED
+      (let [resp (mk "b" #{jti})]
+        (is (= 200 (:status resp)))
+        (is (not (contains? (:body resp) "author")) "revoked leash → no author")))))
+
 (deftest member-key-seal-roundtrip-and-issue
   (testing "a member seals their key, re-opens it under their secret, and issues a verifying leash"
     (let [m (leash/gen-member-key)

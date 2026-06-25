@@ -104,16 +104,19 @@
   verifies for this PDS (aud = cfg/pds-did), the record carries :record/author and the
   response echoes \"author\". No/invalid leash → unattributed (fail-open, no key). `now`
   (unix seconds) is injectable for tests; defaults to the wall clock."
-  ([store params] (create-record store params (quot (System/currentTimeMillis) 1000)))
-  ([store {:keys [repo collection record rkey leash]} now]
+  ([store params] (create-record store params (quot (System/currentTimeMillis) 1000) (cfg/revoked-jtis)))
+  ([store params now] (create-record store params now (cfg/revoked-jtis)))
+  ([store {:keys [repo collection record rkey leash]} now revoked]
    (let [did (resolve-repo repo)]
      (cond
        (or (str/blank? repo) (nil? did)) (err 400 "InvalidRequest" "repo is required")
        (str/blank? collection) (err 400 "InvalidRequest" "collection is required")
        (record-error collection record) (err 400 "InvalidRequest" (record-error collection record))
        :else
+       ;; `revoked` is SERVER-side (cfg/revoked-jtis) — a client cannot supply its own
+       ;; revocation set (the request's leash is verified against the PDS's deny-list).
        (let [rkey (if (str/blank? rkey) (util/tid) rkey)
-             member (leash/leash-author leash {:aud cfg/pds-did :now now})
+             member (leash/leash-author leash {:aud cfg/pds-did :now now :revoked revoked})
              {:keys [uri cid sig signedBy author]}
              (store/put-record store did collection rkey record {:author member})]
          (ok (cond-> {"uri" uri "cid" cid}
