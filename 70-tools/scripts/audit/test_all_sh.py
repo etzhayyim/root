@@ -54,7 +54,13 @@ ALL_SH = REPO_ROOT / "70-tools/scripts/audit/all.sh"
 # directory refs — nothing internally fixable in this PR. The dependabot-defunct
 # audit flags them at --strict mode (exit 1). Pre-existing on main; this baseline
 # bump prevents the false-regression gate.
-EXPECTED_TOTAL_FINDINGS = 9
+#
+# 2026-06-25 re-baseline 9 → 7 (investigated, not blind-bumped): the himawari +
+# tatara manifest.jsonld → manifest.edn retirement (jsonld py→cljc wave) removes
+# those two actors from the manifest-lexicon-drift fileset, dropping the aggregate
+# rollup by 2. This is the documented "drop below baseline → update the baseline"
+# response, not a masked regression.
+EXPECTED_TOTAL_FINDINGS = 7
 PERF_BUDGET_S = 5.0      # iter-61 actual ~1.1 s; 4.5x headroom for CI
 TEST_MODE_BUDGET_S = 20.0  # iter-66 pytest ~8 s; --all combined ~10 s; headroom
 
