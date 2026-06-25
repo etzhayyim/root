@@ -34,6 +34,12 @@
     (is (string? (get-in s ["links" "privacyPolicy"])))
     (is (string? (get-in s ["contact" "email"])))))
 
+(deftest revoked-jtis-defaults-empty
+  (testing "with no revocation file present, revoked-jtis is the empty set (no revocations)"
+    ;; the default file name is unlikely to exist in the test sandbox
+    (is (set? (cfg/revoked-jtis)))
+    (is (empty? (cfg/revoked-jtis)))))
+
 (defn -main [& _]
   (let [{:keys [fail error]} (run-tests 'etzhayyim.pds.config-test)]
     (System/exit (if (pos? (+ fail error)) 1 0))))

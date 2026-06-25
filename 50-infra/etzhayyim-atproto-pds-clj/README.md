@@ -44,7 +44,7 @@ signing key is persisted (present-only) at `PDS_SIGNING_KEY_FILE`.
 
 ## Run / test
 ```bash
-bb test                                        # 28 deftests / 106 assertions
+bb test                                        # 91 deftests / 430 assertions
 PORT=9911 PDS_STORE_PATH=./repo.edn bb serve
 curl localhost:9911/xrpc/com.atproto.server.describeServer
 curl -X POST localhost:9911/xrpc/com.atproto.repo.createRecord -H content-type:application/json \
@@ -68,6 +68,33 @@ cutover: see `deploy/resident/RUNBOOK.md`.
 
 Optional auth: set `PDS_REQUIRE_AUTH` to require a session Bearer on writes, scoped
 so the session `sub` must own the target repo (401 / 403 otherwise).
+
+## Consent attribution (member CACAO leash)
+Records are signed by the **actor's own sealed key** (`PDS_ACTOR_KEYS_DIR` +
+`MURAKUMO_SEAL_KEY`; the platform never reads the private scalar — `leash.clj`,
+`keys.clj`). For an **autonomous** write the charter requires the write be attributed
+to a *consenting human* via a member CACAO leash — a scoped/expiring/**revocable**
+capability the MEMBER signs in their OWN runtime (kaname/ibuki/tsubasa pattern). The
+actor only PRESENTS the opaque leash; it never signs it. No platform-held key.
+
+**Member runbook** (their own machine — the secret never leaves it):
+```bash
+# 1. once: mint a member did:key, sealed under a secret the MEMBER holds
+LEASH_SEAL_SECRET=… bb leash-keygen          # → {did, sealed}; keep the sealed blob
+# 2. issue a scoped/expiring leash for THIS PDS whenever needed
+LEASH_SEAL_SECRET=… LEASH_SEALED='<blob>' \
+  LEASH_AUD=did:web:atproto.etzhayyim.com LEASH_EXP=<unix-seconds> bb leash-issue
+```
+The actor forwards the printed leash on `createRecord` (the `leash` field; or
+`client/create-record!` `:leash`). The PDS verifies it (Ed25519 signature recovered
+from the issuer did:key + audience == this PDS + scope + not-expired + not-revoked) and
+records `:record/author` = the consenting member, echoed on `createRecord` /`getRecord`
+/`listRecords`. **Absent or invalid leash → the write proceeds UNATTRIBUTED** (fail-open;
+the actor key path is unchanged).
+
+**Operator — revocation**: kill a leaked/abused leash before its expiry by appending its
+`jti` (one per line) to `PDS_LEASH_REVOCATION_FILE`. Read fresh on each write — takes
+effect without a restart. This is a deny-list of capability ids, not a secret.
 
 ## Conformance + what remains
 The codec is verified against the canonical IPLD vector

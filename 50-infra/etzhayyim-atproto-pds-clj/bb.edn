@@ -13,7 +13,8 @@
               [etzhayyim.pds.util-test] [etzhayyim.pds.xrpc-test]
               [etzhayyim.pds.datom-test] [etzhayyim.pds.config-test]
               [etzhayyim.pds.keys-test] [etzhayyim.pds.actorkeys-test]
-              [etzhayyim.pds.client-test] [etzhayyim.pds.drain-test])
+              [etzhayyim.pds.client-test] [etzhayyim.pds.drain-test]
+              [etzhayyim.pds.leash-test])
    :task (let [{:keys [fail error]} (t/run-tests 'etzhayyim.pds.server-test
                                                  'etzhayyim.pds.util-test
                                                  'etzhayyim.pds.xrpc-test
@@ -22,7 +23,8 @@
                                                  'etzhayyim.pds.keys-test
                                                  'etzhayyim.pds.actorkeys-test
                                                  'etzhayyim.pds.client-test
-                                                 'etzhayyim.pds.drain-test)]
+                                                 'etzhayyim.pds.drain-test
+                                                 'etzhayyim.pds.leash-test)]
            (System/exit (if (pos? (+ fail error)) 1 0)))}
 
   keys-test
@@ -51,4 +53,31 @@
                             (count (:would-post pv)) (count (:parse-errors pv))
                             (count (:by-actor pv))))
            (doseq [w (:would-post pv)]
-             (println "  " (:repo w) (:collection w) "rkey=" (:rkey w))))}}}
+             (println "  " (:repo w) (:collection w) "rkey=" (:rkey w))))}
+
+  leash-keygen
+  {:doc "MEMBER runtime: mint a member Ed25519 did:key + print {did, sealed} under
+         LEASH_SEAL_SECRET (the member's OWN secret; the platform never holds it).
+         Store the sealed blob to re-issue leashes later. no-server-key."
+   :requires ([etzhayyim.pds.leash :as leash] [cheshire.core :as json])
+   :task (let [secret (or (System/getenv "LEASH_SEAL_SECRET")
+                          (throw (ex-info "LEASH_SEAL_SECRET is required (member-held)" {})))
+               m (leash/gen-member-key)
+               blob (leash/seal-member m secret)]
+           (println (json/generate-string {:did (:did m) :sealed blob} {:pretty true})))}
+
+  leash-issue
+  {:doc "MEMBER runtime: issue a scoped/expiring leash from a sealed member key.
+         Env: LEASH_SEAL_SECRET + LEASH_SEALED (sealed blob JSON) + LEASH_AUD (the PDS
+         did) + LEASH_EXP (unix seconds) [+ LEASH_SCOPE]. Prints the compact leash the
+         actor PRESENTS to the PDS. no-server-key (the member signs in their runtime)."
+   :requires ([etzhayyim.pds.leash :as leash] [cheshire.core :as json])
+   :task (let [secret (or (System/getenv "LEASH_SEAL_SECRET")
+                          (throw (ex-info "LEASH_SEAL_SECRET is required" {})))
+               blob (json/parse-string (or (System/getenv "LEASH_SEALED")
+                                           (throw (ex-info "LEASH_SEALED is required" {}))) true)
+               m (leash/unseal-member blob secret)
+               leash (leash/issue-leash m {:aud (System/getenv "LEASH_AUD")
+                                           :exp (Long/parseLong (System/getenv "LEASH_EXP"))
+                                           :scope (or (System/getenv "LEASH_SCOPE") "datom:transact")})]
+           (println leash))}}}

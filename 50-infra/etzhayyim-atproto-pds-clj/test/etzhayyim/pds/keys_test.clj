@@ -142,6 +142,30 @@
     (let [doc (cfg/actor-did-document "did:web:etzhayyim.com:actor:x" nil)]
       (is (= [] (get doc "verificationMethod"))))))
 
+(deftest verifier-is-defensive-against-malformed-input
+  (testing "the verifier returns false (never throws) on garbage multikey / sig — untrusted input"
+    (let [k   (keys/new-actor-key)
+          mk  (:multikey k)
+          msg (.getBytes "real message" "UTF-8")
+          sig (keys/sign-b64 k msg)]
+      ;; sanity: a real one still verifies true
+      (is (true? (keys/verify-b64 mk msg sig)))
+      ;; malformed MULTIKEY → false
+      (is (false? (keys/verify-b64 "znotrealbase58" msg sig)))
+      (is (false? (keys/verify-b64 "" msg sig)))
+      (is (false? (keys/verify-b64 "Qm-not-z-prefixed" msg sig)))
+      ;; an off-curve / non-p256 z-multikey (well-formed base58 but wrong bytes) → false
+      (is (false? (keys/verify-b64 "z111111111111" msg sig)))
+      ;; malformed SIGNATURE → false
+      (is (false? (keys/verify-b64 mk msg "!!!not-base64")))
+      (is (false? (keys/verify-b64 mk msg "QUFB")))          ; valid b64 but wrong length
+      (is (false? (keys/verify-b64 mk msg "")))
+      ;; verify-multikey (raw 64-byte path) also defensive
+      (is (false? (keys/verify-multikey "znope" msg (byte-array 64))))
+      (is (false? (keys/verify-multikey mk msg (byte-array 7))))   ; wrong-length sig
+      ;; pubkey-from-multikey reconstructs a valid mk losslessly (unchanged behaviour)
+      (is (= mk (keys/multikey (keys/pubkey-from-multikey mk)))))))
+
 (deftest no-private-scalar-accessor
   (testing "the public API exposes no way to read the private scalar as bytes"
     (let [api (->> (ns-publics 'etzhayyim.pds.keys) keys (map name) set)]
