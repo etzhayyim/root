@@ -122,6 +122,29 @@
       (is (= "fixed-jti-123"
              (leash/jti-of (leash/issue-leash m {:aud pds :exp (+ now 3600) :jti "fixed-jti-123"})))))))
 
+(deftest author-is-readable-back-via-getrecord-and-listrecords
+  (testing "the consenting member is OBSERVABLE on read (accountability by consent)"
+    (let [m (leash/gen-member-key)
+          l (leash/issue-leash m {:aud cfg/pds-did :exp (+ now 3600)})
+          s (store/->mem-store)
+          rec {"$type" "app.bsky.feed.post" "text" "visible consent"}]
+      ;; attributed write
+      (xrpc/create-record s {:repo cfg/pds-did :collection "app.bsky.feed.post"
+                             :rkey "g1" :record rec :leash l} now #{})
+      ;; getRecord surfaces the author
+      (let [g (xrpc/get-record s {:repo cfg/pds-did :collection "app.bsky.feed.post" :rkey "g1"})]
+        (is (= 200 (:status g)))
+        (is (= (:did m) (get (:body g) "author"))))
+      ;; listRecords surfaces the author per record
+      (let [lr (xrpc/list-records s {:repo cfg/pds-did :collection "app.bsky.feed.post"})
+            row (first (get (:body lr) "records"))]
+        (is (= (:did m) (get row "author"))))
+      ;; an UNATTRIBUTED write (no leash) carries no author key on read
+      (xrpc/create-record s {:repo cfg/pds-did :collection "app.bsky.feed.post"
+                             :rkey "g2" :record rec} now #{})
+      (let [g (xrpc/get-record s {:repo cfg/pds-did :collection "app.bsky.feed.post" :rkey "g2"})]
+        (is (not (contains? (:body g) "author")))))))
+
 (deftest create-record-enforces-server-side-revocation
   (testing "createRecord attributes a fresh leash but REFUSES attribution once its jti is revoked"
     (let [m (leash/gen-member-key)

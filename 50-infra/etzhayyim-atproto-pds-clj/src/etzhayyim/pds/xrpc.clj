@@ -153,7 +153,8 @@
       ;; optional `cid` pins a specific version: a mismatch is not-found
       (and (not (str/blank? cid)) (not= cid (:cid r))) (err 404 "RecordNotFound" "record cid mismatch")
       :else (ok (cond-> {"uri" (:uri r) "cid" (:cid r) "value" (:value r)}
-                  (:sig r) (assoc "sig" (:sig r) "signedBy" (:signedBy r)))))))
+                  (:sig r) (assoc "sig" (:sig r) "signedBy" (:signedBy r))
+                  (:author r) (assoc "author" (:author r)))))))
 
 (defn delete-record [store {:keys [repo collection rkey swapRecord]}]
   (let [did (resolve-repo repo)]
@@ -174,7 +175,9 @@
       (let [{:keys [records cursor]} (store/list-records store did collection
                                                          {:limit limit :cursor cursor :reverse reverse?
                                                           :rkey-start rkeyStart :rkey-end rkeyEnd})]
-        (ok (cond-> {"records" (mapv (fn [r] {"uri" (:uri r) "cid" (:cid r) "value" (:value r)}) records)}
+        (ok (cond-> {"records" (mapv (fn [r] (cond-> {"uri" (:uri r) "cid" (:cid r) "value" (:value r)}
+                                               (:author r) (assoc "author" (:author r))))
+                                     records)}
               cursor (assoc "cursor" cursor)))))))
 
 (defn describe-repo [store {:keys [repo]}]
