@@ -170,6 +170,11 @@
         (= uri "/.well-known/did.json")
         (json-response {:status 200 :body (cfg/did-document signing-multibase)})
 
+        ;; registry index (Path B) — enumerate the PDS's actors + their published
+        ;; keys so a relay/worker can discover + verify them. Public (no secret read).
+        (= uri "/actors.json")
+        (json-response {:status 200 :body (actorkeys/actors-index cfg/actor-keys-dir)})
+
         ;; per-actor did:web doc (Path B) — published from the actor-keys registry
         ;; when configured (PDS_ACTOR_KEYS_DIR + MURAKUMO_SEAL_KEY). Each actor's doc
         ;; carries its own #atproto Multikey so a verifier checks the actor's record

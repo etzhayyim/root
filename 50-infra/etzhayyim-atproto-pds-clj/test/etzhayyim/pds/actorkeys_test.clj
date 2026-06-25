@@ -125,6 +125,27 @@
           (is (false? (keys/verify-b64 (get b2 "signedBy") (.getBytes (util/content-cid rec1) "UTF-8") (get b1 "sig")))))
         (finally (rm-rf dir))))))
 
+(deftest actors-index-enumerates-without-secret
+  (testing "actors-index lists every registered actor + multikey, readable WITHOUT the secret"
+    (let [dir (tmp-dir)
+          a1  "did:web:etzhayyim.com:actor:unspsc-10101500"
+          a2  "did:web:etzhayyim.com:actor:unspsc-50221000"]
+      (try
+        (let [k1 (ak/load-or-create! dir a1 secret)
+              k2 (ak/load-or-create! dir a2 secret)
+              idx (ak/actors-index dir)              ; NOTE: no secret passed
+              by-did (into {} (map (juxt #(get % "did") #(get % "multikey")) (get idx "actors")))]
+          (is (= 2 (count (get idx "actors"))))
+          (is (= [a1 a2] (mapv #(get % "did") (get idx "actors"))) "sorted by did")
+          (is (= (:multikey k1) (by-did a1)))
+          (is (= (:multikey k2) (by-did a2)))
+          ;; the listed key actually verifies a signature that actor makes
+          (let [msg (.getBytes "x" "UTF-8")]
+            (is (true? (keys/verify-b64 (by-did a1) msg (keys/sign-b64 k1 msg))))))
+        (finally (rm-rf dir)))))
+  (testing "absent / empty dir → empty index (never throws)"
+    (is (= {"actors" []} (ak/actors-index (str (System/getProperty "java.io.tmpdir") "/nope-" (hash (str (gensym)))))))))
+
 (deftest refuses-without-node-secret
   (testing "no sealing secret → refuse (the platform holds no fallback key)"
     (let [dir (tmp-dir)]

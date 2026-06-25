@@ -42,13 +42,35 @@
       (keys/unseal (keys/json->seal (slurp f)) secret)
       (let [k (keys/new-actor-key)]
         (io/make-parents p)
-        (spit p (keys/seal->json (keys/seal k secret)))
+        ;; persist the seal blob + the actor's DID in the clear (both DID and the
+        ;; public multikey are public) so the registry can be ENUMERATED without the
+        ;; sealing secret (actors-index below); the private key stays ciphertext.
+        (spit p (keys/seal->json (assoc (keys/seal k secret) :did actor-did)))
         k))))
 
 (defn multikey-for
   "The actor's published multikey (its public signing key)."
   [dir actor-did secret]
   (:multikey (load-or-create! dir actor-did secret)))
+
+(defn actors-index
+  "Enumerate the registry's actors from the on-disk seal blobs WITHOUT the sealing
+  secret — each blob carries its DID + public multikey in the clear. Returns
+  {\"actors\" [{\"did\" .. \"multikey\" ..} ..]} sorted by DID. A relay/worker uses
+  this to discover etzhayyim's actors and verify their records (private keys never
+  read). Returns an empty index when the dir is absent."
+  [dir]
+  (let [d (io/file dir)
+        files (when (and dir (.isDirectory d))
+                (filter #(.endsWith (.getName %) ".json") (seq (.listFiles d))))]
+    {"actors"
+     (->> files
+          (keep (fn [f]
+                  (let [m (try (keys/json->seal (slurp f)) (catch Exception _ nil))]
+                    (when (and (:did m) (:multikey m))
+                      {"did" (:did m) "multikey" (:multikey m)}))))
+          (sort-by #(get % "did"))
+          vec)}))
 
 (defn signer-for
   "A store signer (etzhayyim.pds.store/->mem-store etc.) bound to ONE actor's key,
