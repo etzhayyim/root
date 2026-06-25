@@ -7,7 +7,7 @@
 //   4) AUTH_SERVICE service binding 経由の passkey lookup 実装済
 {
   "name": "etzhayyim-accounts",
-  "main": "src-ts/index.ts",
+  "main": "src-cljs/index.mjs",
   "compatibility_date": "2025-03-17",
   "assets": {
     "directory": "./svelte/build",

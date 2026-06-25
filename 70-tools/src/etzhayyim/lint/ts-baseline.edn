@@ -1,4 +1,4 @@
 ;; etzhayyim.lint.no-new-ts — grandfathered first-party .ts baseline (per-migrated-app).
 ;; Shrinks-only: porting a .ts to cljs + deleting it drops it here. NEVER add by hand.
 ;; Regenerate: bb lint:no-new-ts --update
-["60-apps/etzhayyim-project-accounts/worker/src-ts/index.ts"]
+[]
