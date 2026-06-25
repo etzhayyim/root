@@ -62,10 +62,20 @@
 (defn- materialize [db uri]
   (when (and (read-attr db uri :record/did)
              (not (read-attr db uri :record/deleted)))
-    {:uri uri
-     :rkey (read-attr db uri :record/rkey)
-     :cid (read-attr db uri :record/cid)
-     :value (json/parse-string (read-attr db uri :record/value))}))
+    (let [sig (read-attr db uri :record/sig)]
+      (cond-> {:uri uri
+               :rkey (read-attr db uri :record/rkey)
+               :cid (read-attr db uri :record/cid)
+               :value (json/parse-string (read-attr db uri :record/value))}
+        sig (assoc :sig sig :signedBy (read-attr db uri :record/signedBy))))))
+
+;; An actor signer is a crypto-agnostic closure `(fn [^bytes payload] ->
+;; {:sig <base64> :multikey <str>})` (see etzhayyim.pds.keys/record-signer). When
+;; present, each write is signed over the record's content id, so a write is an
+;; actor-attributed, independently-verifiable assertion (Path B). Absent → records
+;; are unsigned exactly as before (fail-open; the store holds no key either way).
+(defn- sign-pair [signer ^String cid]
+  (when signer (signer (.getBytes cid "UTF-8"))))
 
 (defn repo-summary
   "describeRepo projection from an EAVT `db`: collections + total + per-collection counts."
@@ -98,20 +108,25 @@
     {:records (vec page)
      :cursor (when (= (count page) limit) (:rkey (last page)))}))
 
-(defrecord MemStore [log]
+(defrecord MemStore [log signer]
   PdsStore
   (put-record [_ did collection rkey value]
     (let [uri (at-uri did collection rkey)
           cid (util/content-cid value)
-          ts (util/now-iso)]
-      (swap! log into [[uri :record/did did]
-                       [uri :record/collection collection]
-                       [uri :record/rkey rkey]
-                       [uri :record/cid cid]
-                       [uri :record/value (json/generate-string value)]
-                       [uri :record/createdAt ts]
-                       [uri :record/deleted false]])   ; revive on re-create after delete
-      {:uri uri :cid cid :value value}))
+          ts (util/now-iso)
+          sp (sign-pair signer cid)
+          base [[uri :record/did did]
+                [uri :record/collection collection]
+                [uri :record/rkey rkey]
+                [uri :record/cid cid]
+                [uri :record/value (json/generate-string value)]
+                [uri :record/createdAt ts]
+                [uri :record/deleted false]]           ; revive on re-create after delete
+          datoms (cond-> base
+                   sp (conj [uri :record/sig (:sig sp)] [uri :record/signedBy (:multikey sp)]))]
+      (swap! log into datoms)
+      (cond-> {:uri uri :cid cid :value value}
+        sp (assoc :sig (:sig sp) :signedBy (:multikey sp)))))
   (get-record [_ did collection rkey]
     (materialize (latest-db @log) (at-uri did collection rkey)))
   (delete-record [_ did collection rkey]
@@ -122,7 +137,11 @@
   (describe-repo [_ did]
     (repo-summary (latest-db @log) did)))
 
-(defn ->mem-store [] (->MemStore (atom [])))
+(defn ->mem-store
+  "In-process datom-log store. With a `signer` (etzhayyim.pds.keys/record-signer)
+  each write is actor-signed; without one, records are unsigned (back-compat)."
+  ([] (->MemStore (atom []) nil))
+  ([signer] (->MemStore (atom []) signer)))
 
 ;; ── durable on-disk datom-log backend ────────────────────────────────────────
 ;; The same append-only EAVT log as MemStore, but every appended datom is also
@@ -147,22 +166,25 @@
              (mapv edn/read-string)))
       [])))
 
-(defrecord DurableStore [path log]
+(defrecord DurableStore [path log signer]
   PdsStore
   (put-record [_ did collection rkey value]
     (let [uri (at-uri did collection rkey)
           cid (util/content-cid value)
           ts (util/now-iso)
-          datoms [[uri :record/did did]
-                  [uri :record/collection collection]
-                  [uri :record/rkey rkey]
-                  [uri :record/cid cid]
-                  [uri :record/value (json/generate-string value)]
-                  [uri :record/createdAt ts]
-                  [uri :record/deleted false]]]    ; revive on re-create after delete
+          sp (sign-pair signer cid)
+          datoms (cond-> [[uri :record/did did]
+                          [uri :record/collection collection]
+                          [uri :record/rkey rkey]
+                          [uri :record/cid cid]
+                          [uri :record/value (json/generate-string value)]
+                          [uri :record/createdAt ts]
+                          [uri :record/deleted false]]    ; revive on re-create after delete
+                   sp (conj [uri :record/sig (:sig sp)] [uri :record/signedBy (:multikey sp)]))]
       (append-datoms! path datoms)               ; durable first…
       (swap! log into datoms)                     ; …then in-memory index
-      {:uri uri :cid cid :value value}))
+      (cond-> {:uri uri :cid cid :value value}
+        sp (assoc :sig (:sig sp) :signedBy (:multikey sp)))))
   (get-record [_ did collection rkey]
     (materialize (latest-db @log) (at-uri did collection rkey)))
   (delete-record [_ did collection rkey]
@@ -176,9 +198,10 @@
     (repo-summary (latest-db @log) did)))
 
 (defn ->durable-store
-  "Datom-log store persisted to `path` (newline-delimited EDN), replayed on boot."
-  [path]
-  (->DurableStore path (atom (replay-log path))))
+  "Datom-log store persisted to `path` (newline-delimited EDN), replayed on boot.
+  Optional `signer` actor-signs each write (etzhayyim.pds.keys/record-signer)."
+  ([path] (->DurableStore path (atom (replay-log path)) nil))
+  ([path signer] (->DurableStore path (atom (replay-log path)) signer)))
 
 ;; ── kotoba engine backend (production) ───────────────────────────────────────
 ;; Persists each record-tx to the live kotoba Datom log over its XRPC/HTTP
@@ -194,21 +217,24 @@
       :body
       (json/parse-string true)))
 
-(defrecord KotobaStore [base graph]
+(defrecord KotobaStore [base graph signer]
   PdsStore
   (put-record [_ did collection rkey value]
     (let [uri (at-uri did collection rkey)
           cid (util/content-cid value)
           ts (util/now-iso)
-          datoms [[uri "record/did" did]
-                  [uri "record/collection" collection]
-                  [uri "record/rkey" rkey]
-                  [uri "record/cid" cid]
-                  [uri "record/value" (json/generate-string value)]
-                  [uri "record/createdAt" ts]]]
+          sp (sign-pair signer cid)
+          datoms (cond-> [[uri "record/did" did]
+                          [uri "record/collection" collection]
+                          [uri "record/rkey" rkey]
+                          [uri "record/cid" cid]
+                          [uri "record/value" (json/generate-string value)]
+                          [uri "record/createdAt" ts]]
+                   sp (conj [uri "record/sig" (:sig sp)] [uri "record/signedBy" (:multikey sp)]))]
       (kpost base "/xrpc/com.etzhayyim.apps.kotoba.kg.ingest_batch"
              {:graph graph :datoms datoms})
-      {:uri uri :cid cid :value value}))
+      (cond-> {:uri uri :cid cid :value value}
+        sp (assoc :sig (:sig sp) :signedBy (:multikey sp)))))
   (get-record [_ did collection rkey]
     (let [uri (at-uri did collection rkey)
           r (kpost base "/xrpc/com.etzhayyim.apps.kotoba.kg.get_entity"
@@ -232,4 +258,6 @@
     (kpost base "/xrpc/com.etzhayyim.apps.kotoba.kg.describe_repo"
            {:graph graph :did did})))
 
-(defn ->kotoba-store [base graph] (->KotobaStore base graph))
+(defn ->kotoba-store
+  ([base graph] (->KotobaStore base graph nil))
+  ([base graph signer] (->KotobaStore base graph signer)))

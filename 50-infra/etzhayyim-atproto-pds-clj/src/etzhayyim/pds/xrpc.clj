@@ -105,8 +105,9 @@
       (record-error collection record) (err 400 "InvalidRequest" (record-error collection record))
       :else
       (let [rkey (if (str/blank? rkey) (util/tid) rkey)
-            {:keys [uri cid]} (store/put-record store did collection rkey record)]
-        (ok {"uri" uri "cid" cid})))))
+            {:keys [uri cid sig signedBy]} (store/put-record store did collection rkey record)]
+        (ok (cond-> {"uri" uri "cid" cid}
+              sig (assoc "sig" sig "signedBy" signedBy)))))))
 
 (defn swap-conflict
   "Optimistic concurrency: when `swap` (an expected record CID) is given, the current
@@ -137,7 +138,8 @@
       (nil? r) (err 404 "RecordNotFound" "record not found")
       ;; optional `cid` pins a specific version: a mismatch is not-found
       (and (not (str/blank? cid)) (not= cid (:cid r))) (err 404 "RecordNotFound" "record cid mismatch")
-      :else (ok {"uri" (:uri r) "cid" (:cid r) "value" (:value r)}))))
+      :else (ok (cond-> {"uri" (:uri r) "cid" (:cid r) "value" (:value r)}
+                  (:sig r) (assoc "sig" (:sig r) "signedBy" (:signedBy r)))))))
 
 (defn delete-record [store {:keys [repo collection rkey swapRecord]}]
   (let [did (resolve-repo repo)]

@@ -9,6 +9,8 @@
             [etzhayyim.pds.repo :as repo]
             [etzhayyim.pds.blob :as blob]
             [etzhayyim.pds.account :as account]
+            [etzhayyim.pds.util :as util]
+            [etzhayyim.pds.keys :as ekeys]
             [etzhayyim.pds.xrpc :as xrpc]
             [etzhayyim.pds.server :as server]
             [org.httpkit.server :as http]))
@@ -500,3 +502,32 @@
       (is (= [cid] (blob/list-blobs dir)))
       (doseq [f (.listFiles (clojure.java.io/file dir))] (.delete f))
       (.delete (clojure.java.io/file dir)))))
+
+(deftest signed-write-is-independently-verifiable
+  (testing "with an actor-sealed signer, a write is signed and verifies from the multikey alone"
+    (let [k    (ekeys/new-actor-key)
+          st   (store/->mem-store (ekeys/record-signer k))
+          coll "app.bsky.feed.post"
+          rec  {"$type" coll
+                "text" "観測を続けている。 [mirror, not advice]"
+                "createdAt" "2026-06-25T00:00:00Z"}
+          created (xrpc/create-record st {:repo repo :collection coll :record rec})
+          body (:body created)
+          rkey (last (str/split (get body "uri") #"/"))]
+      (is (= 200 (:status created)))
+      (is (= (:multikey k) (get body "signedBy")) "write attributed to the actor's published key")
+      (is (string? (get body "sig")))
+      ;; a remote verifier recomputes the record cid and checks the sig with the multikey only
+      (let [cid (util/content-cid rec)]
+        (is (= cid (get body "cid")))
+        (is (true? (ekeys/verify-b64 (get body "signedBy") (.getBytes cid "UTF-8") (get body "sig")))))
+      ;; getRecord also surfaces the signature
+      (let [g (xrpc/get-record st {:repo repo :collection coll :rkey rkey})]
+        (is (= (get body "sig") (get-in g [:body "sig"]))))))
+  (testing "without a signer, writes stay unsigned (back-compat)"
+    (let [st (store/->mem-store)
+          created (xrpc/create-record st {:repo repo :collection "app.bsky.feed.post"
+                                          :record {"$type" "app.bsky.feed.post"
+                                                   "text" "x" "createdAt" "2026-06-25T00:00:00Z"}})]
+      (is (= 200 (:status created)))
+      (is (nil? (get-in created [:body "sig"]))))))
