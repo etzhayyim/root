@@ -115,25 +115,24 @@ class TestEndToEnd:
 
     def test_finds_some_manifests(self, audit):
         manifests = audit.find_manifests()
-        # At least 10 Tier-B actors should ship manifest.jsonld files.
-        # As of iter-52: 33 manifest.jsonld files under 20-actors/.
+        # The audit now discovers BOTH manifest.jsonld (legacy) and manifest.edn
+        # (the jsonld→edn migration). As of 2026-06-25: 7 .jsonld + 143 .edn = 150
+        # actors. The floor stays a generous sanity check (not a tight count).
         assert len(manifests) >= 10
 
     def test_post_closure_zero_drift(self, audit):
-        # Iter-52 closed the last manifest-lexicon-drift finding.
-        # Running the audit's internals should return 0 drift now.
+        # Iter-52 closed the last manifest-lexicon-drift finding. Re-running the
+        # audit's internals — over BOTH .jsonld and .edn manifests, via the shared
+        # declared_nsids() helper so this canary sees the migrated actors too —
+        # should still return 0 drift.
         manifests = audit.find_manifests()
         missing_count = 0
         for mpath in manifests:
             try:
-                import json
-                data = json.loads(mpath.read_text())
+                declared = audit.declared_nsids(mpath)
             except Exception:
                 continue
-            lexicons = data.get("lexicons", [])
-            if not isinstance(lexicons, list):
-                continue
-            for nsid in lexicons:
+            for nsid in declared:
                 if not isinstance(nsid, str):
                     continue
                 if not audit.NSID_RE.match(nsid):
@@ -165,8 +164,10 @@ class TestBothKeysAndReverse:
         )
 
     def test_reads_lexicon_namespaces_key(self):
-        # Legacy-only (`lexicons`) counted ~42; reading lexiconNamespaces too
-        # pushes the declared total well past 100 (39 actors covered, not 8).
+        # Reading lexiconNamespaces (not just the legacy `lexicons` key) AND
+        # the migrated manifest.edn corpus pushes the declared total well past
+        # 100 (2026-06-25: ~193 across 150 actors). A regression to legacy-only
+        # or jsonld-only would drop it far below this floor.
         out = self._run().stdout
         m = re.search(r"Lexicons declared \(total\):\s*(\d+)", out)
         assert m, f"missing declared-total line:\n{out}"

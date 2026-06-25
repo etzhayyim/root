@@ -33,6 +33,7 @@ on:
       # the just-closed category — needs to fire on these paths
       # to actually catch drift introduction).
       - '20-actors/**/manifest.jsonld'
+      - '20-actors/**/manifest.edn'
       - '00-contracts/lexicons/**/*.json'
       # ADR files (audited by adr-cross-ref-health). Any new ADR or
       # rename can change the orphan set and the standalone audit's
@@ -46,6 +47,7 @@ on:
       - '70-tools/scripts/audit/**'
       - '**/.gitrepo'
       - '20-actors/**/manifest.jsonld'
+      - '20-actors/**/manifest.edn'
       - '00-contracts/lexicons/**/*.json'
       - '90-docs/adr/**/*.md'
   workflow_dispatch:
@@ -78,6 +80,19 @@ jobs:
 
       - name: Install pytest (for audit script tests)
         run: pip install pytest
+
+      # The aggregator (all.sh → test_all_sh.py) runs pytest over the WHOLE
+      # audit dir, which includes the actor-invariant suites (hotaru / mitooshi
+      # / noroshi / nusa / todoke …) that shell out to `bb` (babashka) to load
+      # the cljc invariant guards. Without bb those tests raise FileNotFoundError
+      # and the strict job fails on every PR + on main. Install the official
+      # babashka so the invariant suites actually run.
+      - name: Install babashka
+        run: |
+          curl -sLO https://raw.githubusercontent.com/babashka/babashka/master/install
+          chmod +x install
+          sudo ./install
+          bb --version
 
       - name: Run audit script tests (strict — fail on regression)
         env:
