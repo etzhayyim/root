@@ -46,9 +46,18 @@ export const CURATED_FEED_NSIDS: ReadonlySet<string> = new Set([
 
 // External posters EXCLUDE'd from etzhayyim governance (ADR-2605212245). Matched
 // as a substring of the author DID or handle (covers did:web + handle families).
+//
+// The LIVE shinshi pipeline actually posts as `did:web:sh1n5h1x.gftd.ai` — it runs
+// on gftd.ai infrastructure, NOT under *.etzhayyim.com, so the original markers
+// below (the ADR-2605212245 mental model) never matched it and the apex aggregate
+// feed stayed flooded by gftd's shinshi. Per the founder directive "drop the gftd.ai
+// dependency" we quarantine the gftd.ai shinshi domain family too: etzhayyim's
+// aggregate home/discover feed must not be dominated by a poster on gftd.ai infra.
 export const QUARANTINED_AUTHOR_MARKERS: readonly string[] = [
   "shinshi.etzhayyim.com",
   "sh1n5h1x.etzhayyim.com",
+  "sh1n5h1x.gftd.ai",
+  "shinshi.gftd.ai",
 ];
 
 function authorId(a?: FeedAuthor | null): string {
