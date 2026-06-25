@@ -153,6 +153,49 @@
           (is (not-any? #(= :published %) (map (fn [[_ _ v]] v) ds))))
         (finally (rm-rf dir))))))
 
+(defn- shared-pds
+  "A fake PDS over ONE persistent signed store (so two drains share state)."
+  [dir]
+  (let [st (store/->mem-store (ak/registry-signer dir secret))]
+    {:store st
+     :transport (fn [method url body]
+                  (if (and (= method :post) (str/ends-with? url "createRecord"))
+                    (xrpc/create-record st body)
+                    {:status 404 :body nil}))}))
+
+(deftest deterministic-rkey-prevents-duplicate-on-cursor-loss
+  (testing "draining the same queue twice with NO cursor (crash) → ONE record, not two"
+    (let [dir (tmp-dir)]
+      (try
+        (let [{:keys [store transport]} (shared-pds dir)
+              actor "did:web:etzhayyim.com:actor:unspsc-1"
+              text  (qline 1)]
+          ;; simulate a crash that lost the cursor: drain the SAME queue twice fresh
+          (drain/run-queue! base text {:transport transport})
+          (drain/run-queue! base text {:transport transport})
+          ;; the deterministic rkey makes the second write a PUT (overwrite), not a dup
+          (let [recs (get-in (xrpc/list-records store {:repo actor :collection "app.bsky.feed.post"})
+                             [:body "records"])]
+            (is (= 1 (count recs)) "deterministic rkey → overwrite, no duplicate"))
+          (is (= "1000" (drain/rkey-from "1000")))
+          (is (= "x-y" (drain/rkey-from "x/y")) "invalid chars sanitised")
+          (is (= "self" (drain/rkey-from ""))))
+        (finally (rm-rf dir))))))
+
+(deftest preview-is-pure-and-reports-what-would-post
+  (testing "preview parses + reports without posting or minting any key"
+    (let [text (str/join "\n" [(qline 1) "{bad" (qline 2)])
+          pv   (drain/preview text)]
+      (is (= 1 (count (:parse-errors pv))))
+      (is (= 2 (count (:would-post pv))))
+      (is (= #{:repo :collection :rkey :key} (set (keys (first (:would-post pv))))) "no record body leaked")
+      (is (= "1000" (:rkey (first (:would-post pv)))) "deterministic rkey previewed")
+      (is (= {"did:web:etzhayyim.com:actor:unspsc-1" 1
+              "did:web:etzhayyim.com:actor:unspsc-2" 1} (:by-actor pv)))
+      ;; purity: preview has no :receipts and no :posted (it never drains)
+      (is (nil? (:receipts pv)))
+      (is (nil? (:posted pv))))))
+
 (deftest post-key-falls-back-to-content-hash
   (testing "no explicit :key → stable content-based key (same record → same key)"
     (let [s {:repo "did:web:etzhayyim.com:actor:x" :collection "c"

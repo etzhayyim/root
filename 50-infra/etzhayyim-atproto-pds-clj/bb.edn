@@ -45,6 +45,16 @@
                             (count (:receipts res)) (count (:errors res))
                             (count (:parse-errors res)))))}
 
+  drain-preview
+  {:doc "Dry-run: show what `bb drain` WOULD post (PDS_DRAIN_QUEUE) — no posting, no key."
+   :requires ([clojure.java.io :as io] [etzhayyim.pds.drain :as drain])
+   :task (let [pv (drain/preview (slurp (System/getenv "PDS_DRAIN_QUEUE")))]
+           (println (format "[drain-preview] would-post=%d parse-errors=%d actors=%d"
+                            (count (:would-post pv)) (count (:parse-errors pv))
+                            (count (:by-actor pv))))
+           (doseq [w (:would-post pv)]
+             (println "  " (:repo w) (:collection w) "rkey=" (:rkey w))))}
+
   leash-keygen
   {:doc "MEMBER runtime: mint a member Ed25519 did:key + print {did, sealed} under
          LEASH_SEAL_SECRET (the member's OWN secret; the platform never holds it).
