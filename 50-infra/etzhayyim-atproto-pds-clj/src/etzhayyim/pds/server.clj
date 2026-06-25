@@ -170,6 +170,11 @@
         (= uri "/.well-known/did.json")
         (json-response {:status 200 :body (cfg/did-document signing-multibase)})
 
+        ;; registry index (Path B) — enumerate the PDS's actors + their published
+        ;; keys so a relay/worker can discover + verify them. Public (no secret read).
+        (= uri "/actors.json")
+        (json-response {:status 200 :body (actorkeys/actors-index cfg/actor-keys-dir)})
+
         ;; per-actor did:web doc (Path B) — published from the actor-keys registry
         ;; when configured (PDS_ACTOR_KEYS_DIR + MURAKUMO_SEAL_KEY). Each actor's doc
         ;; carries its own #atproto Multikey so a verifier checks the actor's record
@@ -280,16 +285,21 @@
           (json-response resp))))))
 
 (defn make-store []
-  (cond
-    cfg/kotoba-url
-    (do (println "[pds] storage = kotoba engine" cfg/kotoba-url "graph" cfg/kotoba-graph)
-        (store/->kotoba-store cfg/kotoba-url cfg/kotoba-graph))
-    cfg/store-path
-    (do (println "[pds] storage = durable on-disk datom log" cfg/store-path)
-        (store/->durable-store cfg/store-path))
-    :else
-    (do (println "[pds] storage = in-process datom log (ephemeral; set PDS_STORE_PATH or KOTOBA_URL)")
-        (store/->mem-store))))
+  ;; When the actor-keys registry is configured, every write is signed by ITS OWN
+  ;; actor's sealed key (multi-actor; Path B). Otherwise writes are unsigned.
+  (let [signer (when (and cfg/actor-keys-dir (not (str/blank? (str cfg/actor-seal-secret))))
+                 (do (println "[pds] writes signed per-actor from registry" cfg/actor-keys-dir)
+                     (actorkeys/registry-signer cfg/actor-keys-dir cfg/actor-seal-secret)))]
+    (cond
+      cfg/kotoba-url
+      (do (println "[pds] storage = kotoba engine" cfg/kotoba-url "graph" cfg/kotoba-graph)
+          (store/->kotoba-store cfg/kotoba-url cfg/kotoba-graph signer))
+      cfg/store-path
+      (do (println "[pds] storage = durable on-disk datom log" cfg/store-path)
+          (store/->durable-store cfg/store-path signer))
+      :else
+      (do (println "[pds] storage = in-process datom log (ephemeral; set PDS_STORE_PATH or KOTOBA_URL)")
+          (store/->mem-store signer)))))
 
 (defn start! [store signing-key signing-multibase jwt-secret port]
   (http/run-server (make-handler store signing-key signing-multibase jwt-secret)

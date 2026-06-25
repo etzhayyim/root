@@ -69,13 +69,14 @@
                :value (json/parse-string (read-attr db uri :record/value))}
         sig (assoc :sig sig :signedBy (read-attr db uri :record/signedBy))))))
 
-;; An actor signer is a crypto-agnostic closure `(fn [^bytes payload] ->
-;; {:sig <base64> :multikey <str>})` (see etzhayyim.pds.keys/record-signer). When
-;; present, each write is signed over the record's content id, so a write is an
-;; actor-attributed, independently-verifiable assertion (Path B). Absent → records
-;; are unsigned exactly as before (fail-open; the store holds no key either way).
-(defn- sign-pair [signer ^String cid]
-  (when signer (signer (.getBytes cid "UTF-8"))))
+;; An actor signer is a crypto-agnostic closure `(fn [did ^bytes payload] ->
+;; {:sig <base64> :multikey <str>})` (see etzhayyim.pds.keys/record-signer for a
+;; single actor, or actorkeys/registry-signer for a multi-actor PDS that picks the
+;; key BY the write's `did`). When present, each write is signed over the record's
+;; content id, so a write is an actor-attributed, independently-verifiable assertion
+;; (Path B). Absent → records are unsigned (fail-open; the store holds no key either way).
+(defn- sign-pair [signer did ^String cid]
+  (when signer (signer did (.getBytes cid "UTF-8"))))
 
 (defn repo-summary
   "describeRepo projection from an EAVT `db`: collections + total + per-collection counts."
@@ -114,7 +115,7 @@
     (let [uri (at-uri did collection rkey)
           cid (util/content-cid value)
           ts (util/now-iso)
-          sp (sign-pair signer cid)
+          sp (sign-pair signer did cid)
           base [[uri :record/did did]
                 [uri :record/collection collection]
                 [uri :record/rkey rkey]
@@ -172,7 +173,7 @@
     (let [uri (at-uri did collection rkey)
           cid (util/content-cid value)
           ts (util/now-iso)
-          sp (sign-pair signer cid)
+          sp (sign-pair signer did cid)
           datoms (cond-> [[uri :record/did did]
                           [uri :record/collection collection]
                           [uri :record/rkey rkey]
@@ -223,7 +224,7 @@
     (let [uri (at-uri did collection rkey)
           cid (util/content-cid value)
           ts (util/now-iso)
-          sp (sign-pair signer cid)
+          sp (sign-pair signer did cid)
           datoms (cond-> [[uri "record/did" did]
                           [uri "record/collection" collection]
                           [uri "record/rkey" rkey]

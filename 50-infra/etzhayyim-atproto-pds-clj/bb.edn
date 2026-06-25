@@ -13,7 +13,7 @@
               [etzhayyim.pds.util-test] [etzhayyim.pds.xrpc-test]
               [etzhayyim.pds.datom-test] [etzhayyim.pds.config-test]
               [etzhayyim.pds.keys-test] [etzhayyim.pds.actorkeys-test]
-              [etzhayyim.pds.client-test])
+              [etzhayyim.pds.client-test] [etzhayyim.pds.drain-test])
    :task (let [{:keys [fail error]} (t/run-tests 'etzhayyim.pds.server-test
                                                  'etzhayyim.pds.util-test
                                                  'etzhayyim.pds.xrpc-test
@@ -21,11 +21,24 @@
                                                  'etzhayyim.pds.config-test
                                                  'etzhayyim.pds.keys-test
                                                  'etzhayyim.pds.actorkeys-test
-                                                 'etzhayyim.pds.client-test)]
+                                                 'etzhayyim.pds.client-test
+                                                 'etzhayyim.pds.drain-test)]
            (System/exit (if (pos? (+ fail error)) 1 0)))}
 
   keys-test
   {:doc "Run the actor-sealed key invariants (etzhayyim.pds.keys)."
    :requires ([clojure.test :as t] [etzhayyim.pds.keys-test])
    :task (let [{:keys [fail error]} (t/run-tests 'etzhayyim.pds.keys-test)]
-           (System/exit (if (pos? (+ fail error)) 1 0)))}}}
+           (System/exit (if (pos? (+ fail error)) 1 0)))}
+
+  drain
+  {:doc "Drain an ibuki NDJSON post-queue to the PDS. Env: PDS_DRAIN_BASE (PDS url) +
+         PDS_DRAIN_QUEUE (queue file) + optional PDS_DRAIN_CURSOR / PDS_DRAIN_RECEIPTS."
+   :requires ([etzhayyim.pds.drain :as drain])
+   :task (let [res (drain/run-file! {:base (System/getenv "PDS_DRAIN_BASE")
+                                     :queue-path (System/getenv "PDS_DRAIN_QUEUE")
+                                     :cursor-path (System/getenv "PDS_DRAIN_CURSOR")
+                                     :receipts-path (System/getenv "PDS_DRAIN_RECEIPTS")})]
+           (println (format "[drain] posted=%d errors=%d parse-errors=%d"
+                            (count (:receipts res)) (count (:errors res))
+                            (count (:parse-errors res)))))}}}
