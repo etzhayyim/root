@@ -14,7 +14,8 @@
          'etzhayyim.ie-flow.test-colony
          'etzhayyim.ie-flow.test-score
          'etzhayyim.ie-flow.test-gate-adapter
-         'etzhayyim.ie-flow.test-boundary)
+         'etzhayyim.ie-flow.test-boundary
+         'etzhayyim.ie-flow.test-embed)
 
 (let [{:keys [fail error]}
       (t/run-tests 'etzhayyim.ie-flow.test-metrics
@@ -29,7 +30,8 @@
                    'etzhayyim.ie-flow.test-colony
                    'etzhayyim.ie-flow.test-score
                    'etzhayyim.ie-flow.test-gate-adapter
-                   'etzhayyim.ie-flow.test-boundary)]
+                   'etzhayyim.ie-flow.test-boundary
+                   'etzhayyim.ie-flow.test-embed)]
   (if (pos? (+ (or fail 0) (or error 0)))
     (do (println "── ie-flow: FAILURES above ──") (System/exit 1))
     (println "── ie-flow: ALL suites green ──")))
