@@ -84,12 +84,33 @@
    {:receipts [] :posted posted :errors []}
    specs))
 
+(defn receipts->datoms
+  "Turn drain receipts into `:receipt/*` EAVT datoms for the actor's kotoba Datom log
+  — the provenance edge recording what ACTUALLY went out (uri/cid/sig/signedBy/key).
+  This is ibuki's `:receipt/*` return edge: the actor logs that a member-/actor-signed
+  submission happened (`:submitted`), and never asserts `:published` on its own
+  authority. One entity `receipt-<key>` per receipt; shape matches store.clj's [e a v]."
+  [receipts]
+  (vec
+   (mapcat
+    (fn [{:keys [key uri cid sig signedBy]}]
+      (let [e (str "receipt-" key)]
+        [[e :receipt/key key]
+         [e :receipt/uri uri]
+         [e :receipt/cid cid]
+         [e :receipt/sig sig]
+         [e :receipt/signed-by signedBy]
+         [e :receipt/status :submitted]]))
+    receipts)))
+
 (defn run-queue!
   "Parse an ibuki NDJSON queue and drain its valid specs. Returns the `drain!` result
-  merged with {:parse-errors [..]}. The operational entry the `bb drain` task wraps."
+  merged with {:parse-errors [..] :datoms [..]} — the `:receipt/*` provenance datoms
+  for the actor's kotoba log. The operational entry the `bb drain` task wraps."
   [base queue-text opts]
-  (let [{:keys [specs errors]} (parse-queue queue-text)]
-    (assoc (drain! base specs opts) :parse-errors errors)))
+  (let [{:keys [specs errors]} (parse-queue queue-text)
+        res (drain! base specs opts)]
+    (assoc res :parse-errors errors :datoms (receipts->datoms (:receipts res)))))
 
 (defn run-file!
   "`bb drain` task entry: drain the NDJSON queue at `:queue-path` to PDS `:base`,

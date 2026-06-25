@@ -133,6 +133,26 @@
             (is (= #{"1000" "2000"} (:posted r2)))))
         (finally (rm-rf dir))))))
 
+(deftest receipts-become-receipt-datoms
+  (testing "drain receipts → :receipt/* provenance datoms (what actually went out, :submitted)"
+    (let [dir (tmp-dir)]
+      (try
+        (let [text (str/join "\n" [(qline 1) (qline 2)])
+              r   (drain/run-queue! base text {:transport (fake-pds dir #{})})
+              ds  (:datoms r)
+              ;; fold the EAVT datoms into {entity {attr v}} the same way store does
+              db  (reduce (fn [m [e a v]] (assoc-in m [e a] v)) {} ds)]
+          (is (= 12 (count ds)) "6 datoms × 2 receipts")
+          (is (= :submitted (get-in db ["receipt-1000" :receipt/status])))
+          (is (= "1000" (get-in db ["receipt-1000" :receipt/key])))
+          (is (str/starts-with? (get-in db ["receipt-1000" :receipt/uri]) "at://"))
+          ;; the recorded signedBy is the actor's published key (verifiable via actors.json)
+          (is (= (ak/multikey-for dir "did:web:etzhayyim.com:actor:unspsc-1" secret)
+                 (get-in db ["receipt-1000" :receipt/signed-by])))
+          ;; ibuki invariant: the actor never asserts :published on its own authority
+          (is (not-any? #(= :published %) (map (fn [[_ _ v]] v) ds))))
+        (finally (rm-rf dir))))))
+
 (deftest post-key-falls-back-to-content-hash
   (testing "no explicit :key → stable content-based key (same record → same key)"
     (let [s {:repo "did:web:etzhayyim.com:actor:x" :collection "c"
