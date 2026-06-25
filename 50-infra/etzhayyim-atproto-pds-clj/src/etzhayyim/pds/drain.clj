@@ -21,16 +21,30 @@
 (def ^:private SCHEMA-VERSION 1)
 (def ^:private REQUIRED ["v" "ts" "actorDid" "text" "lexicon" "createdAt"])
 
+(defn rkey-from
+  "A stable, atproto-valid record key derived from the queue key. atproto rkeys allow
+  [A-Za-z0-9.~_-] (1–512 chars); other chars → '-'. A DETERMINISTIC rkey makes the PDS
+  write a PUT (overwrite) so re-draining the same queue item — even after the client
+  cursor is LOST (crash) — never creates a duplicate record."
+  [key]
+  (let [s (str/replace (str key) #"[^A-Za-z0-9.~_-]" "-")]
+    (cond (str/blank? s) "self"
+          (> (count s) 512) (subs s 0 512)
+          :else s)))
+
 (defn queue-line->spec
   "Map one ADR-2605240100 v=1 queue line (a parsed map) to a drain post-spec. The
-  queue `ts` is the idempotency key; lexicon is the collection + record $type."
+  queue `ts` is the idempotency key AND the deterministic rkey (so the PDS write is
+  idempotent); lexicon is the collection + record $type."
   [m]
-  {:key (str (get m "ts"))
-   :repo (get m "actorDid")
-   :collection (get m "lexicon")
-   :record {"$type" (get m "lexicon")
-            "text" (get m "text")
-            "createdAt" (get m "createdAt")}})
+  (let [ts (str (get m "ts"))]
+    {:key ts
+     :rkey (rkey-from ts)
+     :repo (get m "actorDid")
+     :collection (get m "lexicon")
+     :record {"$type" (get m "lexicon")
+              "text" (get m "text")
+              "createdAt" (get m "createdAt")}}))
 
 (defn parse-queue
   "Parse NDJSON queue `text` → {:specs [..] :errors [\"line N: ..\"]}. Unknown schema
