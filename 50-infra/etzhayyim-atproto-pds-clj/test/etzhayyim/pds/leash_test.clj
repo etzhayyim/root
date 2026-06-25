@@ -4,7 +4,9 @@
   (:require [clojure.test :refer [deftest is testing]]
             [clojure.string :as str]
             [etzhayyim.pds.leash :as leash]
-            [etzhayyim.pds.store :as store]))
+            [etzhayyim.pds.store :as store]
+            [etzhayyim.pds.xrpc :as xrpc]
+            [etzhayyim.pds.config :as cfg]))
 
 (def pds "did:web:atproto.etzhayyim.com")
 (def now 1782000000)
@@ -70,6 +72,35 @@
         (is (= (:did m) (:author res)))
         (is (= (:did m) (:author (store/get-record s "did:web:a.example"
                                                    "app.bsky.feed.post" "r2"))))))))
+
+(deftest create-record-attributes-via-presented-leash
+  (testing "xrpc/createRecord with a verifying leash → :record/author = member, echoed in response"
+    (let [m (leash/gen-member-key)
+          ;; the member signs a leash whose audience IS this PDS
+          good (leash/issue-leash m {:aud cfg/pds-did :exp (+ now 3600)})
+          s (store/->mem-store)
+          rec {"$type" "app.bsky.feed.post" "text" "attributed life"}
+          resp (xrpc/create-record s {:repo cfg/pds-did :collection "app.bsky.feed.post"
+                                      :rkey "r1" :record rec :leash good} now)]
+      (is (= 200 (:status resp)))
+      (is (= (:did m) (get (:body resp) "author")) "response echoes the consenting member")
+      (is (= (:did m) (:author (store/get-record s cfg/pds-did "app.bsky.feed.post" "r1")))))
+    (testing "no leash → unattributed, no \"author\" key (fail-open, unchanged)"
+      (let [s (store/->mem-store)
+            rec {"$type" "app.bsky.feed.post" "text" "anon life"}
+            resp (xrpc/create-record s {:repo cfg/pds-did :collection "app.bsky.feed.post"
+                                        :rkey "r2" :record rec} now)]
+        (is (= 200 (:status resp)))
+        (is (not (contains? (:body resp) "author")))))
+    (testing "expired leash → unattributed (write still proceeds)"
+      (let [m (leash/gen-member-key)
+            stale (leash/issue-leash m {:aud cfg/pds-did :exp (- now 1)})
+            s (store/->mem-store)
+            rec {"$type" "app.bsky.feed.post" "text" "stale life"}
+            resp (xrpc/create-record s {:repo cfg/pds-did :collection "app.bsky.feed.post"
+                                        :rkey "r3" :record rec :leash stale} now)]
+        (is (= 200 (:status resp)))
+        (is (not (contains? (:body resp) "author")))))))
 
 (deftest garbage-never-throws
   (testing "malformed leashes return {:valid? false}, never throw (untrusted input)"

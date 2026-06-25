@@ -8,6 +8,7 @@
             [etzhayyim.pds.store :as store]
             [etzhayyim.pds.account :as account]
             [etzhayyim.pds.lexicon :as lexicon]
+            [etzhayyim.pds.leash :as leash]
             [etzhayyim.pds.util :as util]))
 
 (defn- ok [body] {:status 200 :body body})
@@ -97,17 +98,27 @@
     (str/blank? (str (or (get record "$type") (get record :$type)))) "record must have a $type"
     :else (when cfg/validate-records (lexicon/validate collection record))))
 
-(defn create-record [store {:keys [repo collection record rkey]}]
-  (let [did (resolve-repo repo)]
-    (cond
-      (or (str/blank? repo) (nil? did)) (err 400 "InvalidRequest" "repo is required")
-      (str/blank? collection) (err 400 "InvalidRequest" "collection is required")
-      (record-error collection record) (err 400 "InvalidRequest" (record-error collection record))
-      :else
-      (let [rkey (if (str/blank? rkey) (util/tid) rkey)
-            {:keys [uri cid sig signedBy]} (store/put-record store did collection rkey record)]
-        (ok (cond-> {"uri" uri "cid" cid}
-              sig (assoc "sig" sig "signedBy" signedBy)))))))
+(defn create-record
+  "com.atproto.repo.createRecord. An optional `leash` (a presented member CACAO
+  leash, etzhayyim.pds.leash) attributes the write to the consenting member: when it
+  verifies for this PDS (aud = cfg/pds-did), the record carries :record/author and the
+  response echoes \"author\". No/invalid leash → unattributed (fail-open, no key). `now`
+  (unix seconds) is injectable for tests; defaults to the wall clock."
+  ([store params] (create-record store params (quot (System/currentTimeMillis) 1000)))
+  ([store {:keys [repo collection record rkey leash]} now]
+   (let [did (resolve-repo repo)]
+     (cond
+       (or (str/blank? repo) (nil? did)) (err 400 "InvalidRequest" "repo is required")
+       (str/blank? collection) (err 400 "InvalidRequest" "collection is required")
+       (record-error collection record) (err 400 "InvalidRequest" (record-error collection record))
+       :else
+       (let [rkey (if (str/blank? rkey) (util/tid) rkey)
+             member (leash/leash-author leash {:aud cfg/pds-did :now now})
+             {:keys [uri cid sig signedBy author]}
+             (store/put-record store did collection rkey record {:author member})]
+         (ok (cond-> {"uri" uri "cid" cid}
+               sig (assoc "sig" sig "signedBy" signedBy)
+               author (assoc "author" author))))))))
 
 (defn swap-conflict
   "Optimistic concurrency: when `swap` (an expected record CID) is given, the current
