@@ -270,12 +270,14 @@
   (verify-multikey mk msg (<-b64 sig-b64)))
 
 (defn record-signer
-  "A crypto-agnostic store signer for an actor's sealed handle: a closure
-  `(fn [^bytes payload] -> {:sig <base64> :multikey <str>})`. The PDS store calls
-  it to sign each record's content id; the store never sees the key. Anyone
+  "A crypto-agnostic store signer for ONE actor's sealed handle: a closure
+  `(fn [did ^bytes payload] -> {:sig <base64> :multikey <str>})`. The PDS store
+  calls it (did, content-id) to sign each record; the store never sees the key.
+  This binds a single actor's key, so `did` is ignored — for a multi-actor store
+  use etzhayyim.pds.actorkeys/registry-signer, which picks the key BY did. Anyone
   verifies the result with `verify-b64` + the actor's published multikey."
   [sealed]
-  (fn [^bytes payload]
+  (fn [_did ^bytes payload]
     {:sig (sign-b64 sealed payload) :multikey (:multikey sealed)}))
 
 ;; ── generation ───────────────────────────────────────────────────────────────

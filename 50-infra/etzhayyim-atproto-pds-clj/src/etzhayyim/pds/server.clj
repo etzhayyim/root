@@ -280,16 +280,21 @@
           (json-response resp))))))
 
 (defn make-store []
-  (cond
-    cfg/kotoba-url
-    (do (println "[pds] storage = kotoba engine" cfg/kotoba-url "graph" cfg/kotoba-graph)
-        (store/->kotoba-store cfg/kotoba-url cfg/kotoba-graph))
-    cfg/store-path
-    (do (println "[pds] storage = durable on-disk datom log" cfg/store-path)
-        (store/->durable-store cfg/store-path))
-    :else
-    (do (println "[pds] storage = in-process datom log (ephemeral; set PDS_STORE_PATH or KOTOBA_URL)")
-        (store/->mem-store))))
+  ;; When the actor-keys registry is configured, every write is signed by ITS OWN
+  ;; actor's sealed key (multi-actor; Path B). Otherwise writes are unsigned.
+  (let [signer (when (and cfg/actor-keys-dir (not (str/blank? (str cfg/actor-seal-secret))))
+                 (do (println "[pds] writes signed per-actor from registry" cfg/actor-keys-dir)
+                     (actorkeys/registry-signer cfg/actor-keys-dir cfg/actor-seal-secret)))]
+    (cond
+      cfg/kotoba-url
+      (do (println "[pds] storage = kotoba engine" cfg/kotoba-url "graph" cfg/kotoba-graph)
+          (store/->kotoba-store cfg/kotoba-url cfg/kotoba-graph signer))
+      cfg/store-path
+      (do (println "[pds] storage = durable on-disk datom log" cfg/store-path)
+          (store/->durable-store cfg/store-path signer))
+      :else
+      (do (println "[pds] storage = in-process datom log (ephemeral; set PDS_STORE_PATH or KOTOBA_URL)")
+          (store/->mem-store signer)))))
 
 (defn start! [store signing-key signing-multibase jwt-secret port]
   (http/run-server (make-handler store signing-key signing-multibase jwt-secret)

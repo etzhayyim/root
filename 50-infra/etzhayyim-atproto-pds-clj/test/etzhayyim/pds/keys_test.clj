@@ -112,7 +112,8 @@
           sign    (keys/record-signer k)
           cid     "bzdj227… (a record content id)"
           payload (.getBytes cid "UTF-8")
-          {:keys [sig multikey]} (sign payload)]
+          ;; the signer takes (did, payload); a single-actor record-signer ignores did
+          {:keys [sig multikey]} (sign "did:web:etzhayyim.com:actor:x" payload)]
       (is (= (:multikey k) multikey))
       (is (string? sig))
       (is (true?  (keys/verify-b64 multikey payload sig)))

@@ -51,10 +51,20 @@
   (:multikey (load-or-create! dir actor-did secret)))
 
 (defn signer-for
-  "A store signer (etzhayyim.pds.store/->mem-store etc.) bound to this actor's key,
-  so each of the actor's writes is signed by the actor itself."
+  "A store signer (etzhayyim.pds.store/->mem-store etc.) bound to ONE actor's key,
+  so each of that actor's writes is signed by the actor itself."
   [dir actor-did secret]
   (keys/record-signer (load-or-create! dir actor-did secret)))
+
+(defn registry-signer
+  "A MULTI-ACTOR store signer: `(fn [did ^bytes payload] -> {:sig :multikey})` that
+  picks (load-or-creates) the key for the WRITE's own actor `did`. This is what a
+  PDS hosting many actors uses, so each actor's writes are signed by ITS OWN key —
+  not one shared key. nil/blank secret → refuse (no platform fallback)."
+  [dir secret]
+  (fn [did ^bytes payload]
+    (let [{:keys [multikey] :as sealed} (load-or-create! dir did secret)]
+      {:sig (keys/sign-b64 sealed payload) :multikey multikey})))
 
 (defn did-document-for
   "The actor's did:web document, publishing its #atproto Multikey so any verifier

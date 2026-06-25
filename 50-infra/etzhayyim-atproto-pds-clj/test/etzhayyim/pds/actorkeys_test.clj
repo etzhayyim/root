@@ -103,6 +103,28 @@
       (is (nil? (ak/serve-actor-did "/tmp/whatever" nil "x")))
       (is (nil? (ak/serve-actor-did "/tmp/whatever" secret ""))))))
 
+(deftest registry-signer-signs-each-actor-with-its-own-key
+  (testing "a multi-actor store signs each actor's write with ITS OWN key (not one shared key)"
+    (let [dir   (tmp-dir)
+          a1    "did:web:etzhayyim.com:actor:unspsc-10101500"
+          a2    "did:web:etzhayyim.com:actor:unspsc-50221000"
+          st    (store/->mem-store (ak/registry-signer dir secret))
+          coll  "app.bsky.feed.post"
+          rec1  {"$type" coll "text" "a1" "createdAt" "2026-06-25T00:00:00Z"}
+          rec2  {"$type" coll "text" "a2" "createdAt" "2026-06-25T00:00:00Z"}]
+      (try
+        (let [b1 (:body (xrpc/create-record st {:repo a1 :collection coll :record rec1}))
+              b2 (:body (xrpc/create-record st {:repo a2 :collection coll :record rec2}))]
+          ;; each write is signed by a DIFFERENT key (each actor's own)
+          (is (not= (get b1 "signedBy") (get b2 "signedBy")) "distinct per-actor keys")
+          (is (= (ak/multikey-for dir a1 secret) (get b1 "signedBy")))
+          (is (= (ak/multikey-for dir a2 secret) (get b2 "signedBy")))
+          ;; each verifies under its own actor's published key; cross-verify fails
+          (is (true?  (keys/verify-b64 (get b1 "signedBy") (.getBytes (util/content-cid rec1) "UTF-8") (get b1 "sig"))))
+          (is (true?  (keys/verify-b64 (get b2 "signedBy") (.getBytes (util/content-cid rec2) "UTF-8") (get b2 "sig"))))
+          (is (false? (keys/verify-b64 (get b2 "signedBy") (.getBytes (util/content-cid rec1) "UTF-8") (get b1 "sig")))))
+        (finally (rm-rf dir))))))
+
 (deftest refuses-without-node-secret
   (testing "no sealing secret → refuse (the platform holds no fallback key)"
     (let [dir (tmp-dir)]
