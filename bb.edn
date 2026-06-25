@@ -209,13 +209,14 @@
   {:doc "etzhayyim.kotoba root-side Datom engine + envelope + analysis (ADR-2605262130 Phase 1/2 + ADR-2605181100; data+impl in root, kotoba is the external generic engine)"
    :task (do (require 'clojure.test 'etzhayyim.kotoba.test-engine
                       'etzhayyim.kotoba.test-crypto 'etzhayyim.kotoba.test-actor
-                      'etzhayyim.kotoba.test-cbor 'etzhayyim.kotoba.test-cid 'etzhayyim.kotoba.test-datom)
+                      'etzhayyim.kotoba.test-cbor 'etzhayyim.kotoba.test-cid 'etzhayyim.kotoba.test-datom 'etzhayyim.kotoba.test-query)
              (let [r (clojure.test/run-tests 'etzhayyim.kotoba.test-engine
                                              'etzhayyim.kotoba.test-crypto
                                              'etzhayyim.kotoba.test-actor
                                              'etzhayyim.kotoba.test-cbor
                                              'etzhayyim.kotoba.test-cid
-                                             'etzhayyim.kotoba.test-datom)]
+                                             'etzhayyim.kotoba.test-datom
+                                             'etzhayyim.kotoba.test-query)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
 
