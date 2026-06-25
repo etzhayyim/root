@@ -47,11 +47,8 @@
     (str (long->b32 ts 11) (long->b32 clockid 2))))
 
 ;; ── content addressing ───────────────────────────────────────────────────────
-(defn sha256-bytes ^bytes [^bytes bs]
-  (.digest (MessageDigest/getInstance "SHA-256") bs))
-
 (defn- sha256 ^bytes [^String s]
-  (sha256-bytes (.getBytes s "UTF-8")))
+  (.digest (MessageDigest/getInstance "SHA-256") (.getBytes s "UTF-8")))
 
 (defn content-cid
   "Deterministic content identifier for a record value (stable JSON → sha-256 →
@@ -61,20 +58,6 @@
   [value]
   (let [canonical (json/generate-string value {:sort-keys true})]
     (str "b" (bytes->b32 (sha256 canonical)))))
-
-(defn blob-cid
-  "Content identifier for a raw blob (sha-256 of the bytes → base32, `b`-prefixed).
-  Same intra-PDS addressing family as `content-cid`; spec-exact CIDv1 raw (0x55)
-  multihash is the same staged follow-up as record CIDs (README)."
-  [^bytes bs]
-  (str "b" (bytes->b32 (sha256-bytes bs))))
-
-;; ── base64 (blob payload at rest on the datom log) ───────────────────────────
-(defn b64-encode ^String [^bytes bs]
-  (.encodeToString (java.util.Base64/getEncoder) bs))
-
-(defn b64-decode ^bytes [^String s]
-  (.decode (java.util.Base64/getDecoder) s))
 
 (defn now-iso []
   (str (java.time.Instant/now)))

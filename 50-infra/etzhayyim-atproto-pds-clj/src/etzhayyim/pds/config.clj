@@ -40,25 +40,54 @@
 (def kotoba-url (env "KOTOBA_URL"))
 (def kotoba-graph (env "KOTOBA_GRAPH" "etzhayyim-pds"))
 
+;; Durable on-disk datom log. When PDS_STORE_PATH is set (and KOTOBA_URL is not)
+;; the PDS write-throughs to an append-only EDN journal at that path and replays
+;; it on boot — records survive a restart with no external service.
+(def store-path (env "PDS_STORE_PATH"))
+
+;; Stable Ed25519 commit-signing key file (present-only). Persisted so the commit
+;; `sig` is stable across restarts and its public key can be pinned in the did doc.
+(def signing-key-file (env "PDS_SIGNING_KEY_FILE" "signing-key.edn"))
+
+;; Content-addressed blob store directory (uploadBlob / sync.getBlob / listBlobs).
+(def blob-dir (env "PDS_BLOB_DIR" "blobs"))
+
+;; Accounts (handle → did + PBKDF2 password) + opt-in write auth. When
+;; PDS_REQUIRE_AUTH is set, write methods require a Bearer session whose `sub` did
+;; matches the repo; otherwise writes stay open (network/operator-gated).
+(def accounts-file (env "PDS_ACCOUNTS_FILE" "accounts.edn"))
+(def require-auth (some? (env "PDS_REQUIRE_AUTH")))
+
+;; Opt-in lexicon-shape validation for known collections (off by default).
+(def validate-records (some? (env "PDS_VALIDATE_RECORDS")))
+
 (defn did-document
   "did:web:<host> document. Service endpoints are all etzhayyim-owned — this is
-  the structural break from gftd: nothing here points at *.gftd.ai."
-  []
-  {"@context" ["https://www.w3.org/ns/did/v1"
-               "https://w3id.org/security/multikey/v1"]
-   "id" pds-did
-   "alsoKnownAs" [(str "https://" host)]
-   "verificationMethod" []
-   "service"
-   [{"id" "#atproto_pds"
-     "type" "AtprotoPersonalDataServer"
-     "serviceEndpoint" (str "https://" host)}
-    {"id" "#bsky_appview"
-     "type" "BskyAppView"
-     "serviceEndpoint" appview-url}
-    {"id" "#bsky_chat"
-     "type" "BskyChatService"
-     "serviceEndpoint" chat-url}]})
+  the structural break from gftd: nothing here points at *.gftd.ai. When the
+  signing key's `multibase` is supplied, publish it as the atproto Multikey so a
+  relay can verify the repo commit `sig`."
+  ([] (did-document nil))
+  ([multibase]
+   {"@context" ["https://www.w3.org/ns/did/v1"
+                "https://w3id.org/security/multikey/v1"]
+    "id" pds-did
+    "alsoKnownAs" [(str "https://" host)]
+    "verificationMethod" (if multibase
+                           [{"id" (str pds-did "#atproto")
+                             "type" "Multikey"
+                             "controller" pds-did
+                             "publicKeyMultibase" multibase}]
+                           [])
+    "service"
+    [{"id" "#atproto_pds"
+      "type" "AtprotoPersonalDataServer"
+      "serviceEndpoint" (str "https://" host)}
+     {"id" "#bsky_appview"
+      "type" "BskyAppView"
+      "serviceEndpoint" appview-url}
+     {"id" "#bsky_chat"
+      "type" "BskyChatService"
+      "serviceEndpoint" chat-url}]}))
 
 (defn describe-server
   "com.atproto.server.describeServer payload — independent etzhayyim identity."

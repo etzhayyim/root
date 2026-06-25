@@ -1,8 +1,6 @@
 {;; Independent etzhayyim atproto PDS — babashka runner (no external deps; uses
  ;; bb built-in org.httpkit.server / cheshire / babashka.http-client).
- ;; app-aozora-repo on the classpath: the PDS's com.atproto.sync.* egress builds
- ;; the AT-Proto repo (MST/commit/CAR) via it, on the same kotoba blockstore.
- :paths ["src" "test" "../app-aozora-repo/src"]
+ :paths ["src" "test"]
  :tasks
  {serve
   {:doc "Run the PDS HTTP server (PORT, PDS_HOST, KOTOBA_URL env overridable)."
@@ -10,8 +8,7 @@
    :task (server/-main)}
 
   test
-  {:doc "Run the PDS round-trip test suite (incl. the sync/repo bridge)."
-   :requires ([clojure.test :as t] [etzhayyim.pds.server-test] [etzhayyim.pds.repo-test])
-   :task (let [{:keys [fail error]}
-               (t/run-tests 'etzhayyim.pds.server-test 'etzhayyim.pds.repo-test)]
+  {:doc "Run the PDS round-trip test suite."
+   :requires ([clojure.test :as t] [etzhayyim.pds.server-test])
+   :task (let [{:keys [fail error]} (t/run-tests 'etzhayyim.pds.server-test)]
            (System/exit (if (pos? (+ fail error)) 1 0)))}}}
