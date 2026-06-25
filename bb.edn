@@ -106,6 +106,29 @@
    :task (do (require 'etzhayyim.test-kotoba-rad)
              (apply (resolve 'etzhayyim.test-kotoba-rad/-main) *command-line-args*))}
 
+  test:helpers
+  {:doc "Aggregate of all 70-tools pure-helper test namespaces (/loop coverage 成熟度向上 — 24 modules): authz · agent-token · bonsai · code-quality · deps · bunseki · cohort · apps · authn · auth · database · agent-runtime · complex-stubs · actor-mesh · agent-cmd · actors-helpers · dodaf · coverage · identifier-audit · haisen · hinshitsu · dns-sync · deploy · metrics."
+   :requires ([clojure.test :as t]
+              [etzhayyim.test-authz] [etzhayyim.test-agent-token] [etzhayyim.test-bonsai]
+              [etzhayyim.test-code-quality] [etzhayyim.test-deps] [etzhayyim.test-bunseki]
+              [etzhayyim.test-cohort] [etzhayyim.test-apps] [etzhayyim.test-authn]
+              [etzhayyim.test-auth] [etzhayyim.test-database] [etzhayyim.test-agent-runtime]
+              [etzhayyim.test-complex-stubs] [etzhayyim.test-actor-mesh] [etzhayyim.test-agent-cmd]
+              [etzhayyim.test-actors-helpers] [etzhayyim.test-dodaf] [etzhayyim.test-coverage]
+              [etzhayyim.test-identifier-audit] [etzhayyim.test-haisen] [etzhayyim.test-hinshitsu]
+              [etzhayyim.test-dns-sync] [etzhayyim.test-deploy] [etzhayyim.test-metrics])
+   :task (let [{:keys [fail error]}
+               (apply t/run-tests
+                      '[etzhayyim.test-authz etzhayyim.test-agent-token etzhayyim.test-bonsai
+                        etzhayyim.test-code-quality etzhayyim.test-deps etzhayyim.test-bunseki
+                        etzhayyim.test-cohort etzhayyim.test-apps etzhayyim.test-authn
+                        etzhayyim.test-auth etzhayyim.test-database etzhayyim.test-agent-runtime
+                        etzhayyim.test-complex-stubs etzhayyim.test-actor-mesh etzhayyim.test-agent-cmd
+                        etzhayyim.test-actors-helpers etzhayyim.test-dodaf etzhayyim.test-coverage
+                        etzhayyim.test-identifier-audit etzhayyim.test-haisen etzhayyim.test-hinshitsu
+                        etzhayyim.test-dns-sync etzhayyim.test-deploy etzhayyim.test-metrics])]
+           (System/exit (if (pos? (+ fail error)) 1 0)))}
+
   vitals:report
   {:doc "Per-actor LIFE-ACTIVITY vitals — scores each manifest-bearing cell on 3 axes (clj 内部代謝 / actor 細胞間シグナル / atproto 外界代謝), RUNS its run_tests.sh reflex, classifies 生/休眠/死, and transacts the vitals into the kotoba Datom log (as-of trajectory). Flags: --no-tests --limit N --actors a,b --timeout-ms N"
    :task (do (require 'etzhayyim.vitals)
