@@ -3,6 +3,7 @@
   member; expiry / audience / scope / tamper all rejected; garbage never throws."
   (:require [clojure.test :refer [deftest is testing]]
             [clojure.string :as str]
+            [clojure.java.io :as io]
             [etzhayyim.pds.leash :as leash]
             [etzhayyim.pds.store :as store]
             [etzhayyim.pds.xrpc :as xrpc]
@@ -121,6 +122,22 @@
       ;; a fixed jti round-trips through issue → jti-of
       (is (= "fixed-jti-123"
              (leash/jti-of (leash/issue-leash m {:aud pds :exp (+ now 3600) :jti "fixed-jti-123"})))))))
+
+(deftest author-survives-durable-restart
+  (testing "a leash-attributed write's :record/author survives a DurableStore crash/replay"
+    (let [m    (leash/gen-member-key)
+          path (str (System/getProperty "java.io.tmpdir") "/pds-leash-dur-" (hash (gensym)) ".ndjson")]
+      (try
+        ;; write through a durable store, attributed to the consenting member
+        (let [s1 (store/->durable-store path)]
+          (store/put-record s1 cfg/pds-did "app.bsky.feed.post" "d1"
+                            {"$type" "app.bsky.feed.post" "text" "durable consent"}
+                            {:author (:did m)}))
+        ;; simulate a restart: a fresh store replays the on-disk journal
+        (let [s2 (store/->durable-store path)
+              r  (store/get-record s2 cfg/pds-did "app.bsky.feed.post" "d1")]
+          (is (= (:did m) (:author r)) "the consenting member is recovered from the journal"))
+        (finally (.delete (io/file path)))))))
 
 (deftest author-is-readable-back-via-getrecord-and-listrecords
   (testing "the consenting member is OBSERVABLE on read (accountability by consent)"
