@@ -40,3 +40,23 @@
     (throw (ex-info (str "[tithe] micros must be a non-negative integer string, got \"" s "\"")
                     {:s s})))
   #?(:clj (bigint s) :cljs (js/BigInt s)))
+
+;; ── order math (consolidates the pure core of 60-apps/*/kotoba/src/order.ts) ──
+
+(defn- ->big [n] #?(:clj (bigint n) :cljs (js/BigInt n)))
+
+(defn order-total-micros
+  "Σ over order `lines` of parse-micros(unit-price) · qty. Each line is
+  {:unit-price-micros <digit-string> :qty <int>}. Returns a bigint.
+  Mirrors orderTotalMicros() in order.ts (used by ec/shopping/omise/okaimono…)."
+  [lines]
+  (reduce (fn [acc {:keys [unit-price-micros qty]}]
+            (+ acc (* (parse-micros unit-price-micros) (->big qty))))
+          zero
+          lines))
+
+(defn order-tithe
+  "Order `lines` → {:gross :tithe :net}: the order total run through the
+  constitutional 10% split. The pure heart of an order's settlement record."
+  [lines]
+  (split-tithe (order-total-micros lines)))

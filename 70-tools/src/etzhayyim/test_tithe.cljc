@@ -37,6 +37,20 @@
     (is (= 100000N tithe))
     (is (= 900000N net))))
 
+(deftest order-math
+  (testing "order-total-micros = Σ unit·qty over lines"
+    (is (= 400N (t/order-total-micros [{:unit-price-micros "100" :qty 3}
+                                       {:unit-price-micros "50"  :qty 2}])))
+    (is (= 0N (t/order-total-micros [])))
+    (is (= 100N (t/order-total-micros [{:unit-price-micros "100" :qty 1}]))))
+  (testing "order-tithe = total run through the 10% split"
+    (is (= {:gross 400N :tithe 40N :net 360N}
+           (t/order-tithe [{:unit-price-micros "100" :qty 3} {:unit-price-micros "50" :qty 2}])))
+    (is (= {:gross 0N :tithe 0N :net 0N} (t/order-tithe []))))
+  (testing "a bad unit-price string in a line throws (parse-micros guard)"
+    (is (thrown? clojure.lang.ExceptionInfo
+                 (t/order-total-micros [{:unit-price-micros "x" :qty 1}])))))
+
 (defn -main [& _]
   (let [{:keys [fail error]} (run-tests 'etzhayyim.test-tithe)]
     (System/exit (if (pos? (+ fail error)) 1 0))))
