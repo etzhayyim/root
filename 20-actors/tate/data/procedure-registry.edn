@@ -1671,7 +1671,7 @@
     :dl/anchor "ley 23.789 (telegrama obrero gratuito)" :dl/verify-service-date true}
    {:dl/label "Prescripción"
     :dl/rule "労働債権の prescripción は2 años (indemnización art. 245 含む)"
-    :dl/anchor "LCT arts. 245・256" :dl/verify-service-date true}]
+    :dl/anchor "LCT arts. 245・256" :dl/source-url "https://servicios.infoleg.gob.ar/infolegInternet/verNorma.do?id=25552" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :telegrama :opt/kind :self-submit :opt/protective true
     :opt/label "telegrama laboral を送付 (無料 — 解雇の存在・態様を記録に固定)"}
@@ -1700,7 +1700,7 @@
   :proc/deadline-rules
   [{:dl/label "Pedido de verificación de créditos"
     :dl/rule "sentencia de apertura が定める fecha (verificación tempestiva) までに pedido de verificación de créditos を síndico へ (monto・causa・privilegios を明示, art.32); 期日後は verificación tardía (art.56) — concurso 係属中は incidente、終了後は acción individual、いずれも presentación en concurso から2年以内"
-    :dl/anchor "Ley 24.522 art.32 (tempestiva) / art.56 (tardía)" :dl/verify-service-date true}]
+    :dl/anchor "Ley 24.522 art.32 (tempestiva) / art.56 (tardía)" :dl/source-url "https://servicios.infoleg.gob.ar/infolegInternet/verNorma.do?id=25379" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :verificacion :opt/kind :self-submit :opt/protective true
     :opt/label "pedido de verificación de créditos を síndico へ提出 (本人可; anticipo・seña・vale など前払金も crédito: kaiyaku 縁-ledger と突合)"}]
