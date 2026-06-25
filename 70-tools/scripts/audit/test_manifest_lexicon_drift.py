@@ -217,3 +217,37 @@ class TestBothKeysAndReverse:
                     if not audit.nsid_to_lexicon_path(nsid).exists():
                         missing += 1
         assert missing == 0, f"{missing} declared lexicon(s) (incl. lexiconNamespaces) have no JSON file"
+
+
+# ─── minimal EDN reader robustness ─────────────────────────────────────
+
+
+class TestEdnReader:
+    """The dependency-free EDN reader replaced a regex that truncated arrays at
+    the first `]` (inside nested `{id … "refs" [...]}` entries) and was blind to
+    `;` comments / string escapes. Lock in the cases the regex got wrong."""
+
+    def test_flat_string_array(self, audit):
+        edn = '{:actor/manifest {"lexiconNamespaces" ["com.etzhayyim.a.foo" "com.etzhayyim.b.bar"]}}'
+        assert audit.edn_lexicons(edn) == ["com.etzhayyim.a.foo", "com.etzhayyim.b.bar"]
+
+    def test_rich_object_entry_uses_id(self, audit):
+        # {id, status} entry → only the id is a lexicon; status is ignored.
+        edn = '{"lexicons" [{"id" "com.etzhayyim.c.baz" "status" "active"}]}'
+        assert audit.edn_lexicons(edn) == ["com.etzhayyim.c.baz"]
+
+    def test_nested_brackets_not_truncated(self, audit):
+        # The regex stopped at the first `]` here, dropping `d.two`.
+        edn = ('{"lexiconNamespaces" '
+               '[{"id" "com.etzhayyim.d.one" "refs" ["x" "y"]} "com.etzhayyim.d.two"]}')
+        assert audit.edn_lexicons(edn) == ["com.etzhayyim.d.one", "com.etzhayyim.d.two"]
+
+    def test_ignores_comments_and_other_keys(self, audit):
+        edn = ('{:actor/manifest\n'
+               '  {"name" "x"  ; a comment with ] and "quotes"\n'
+               '   "lexiconNamespaces" ["com.etzhayyim.e.foo"]\n'
+               '   "other" ["not.a.lexicon.but.dotted"]}}')
+        assert audit.edn_lexicons(edn) == ["com.etzhayyim.e.foo"]
+
+    def test_no_lexicons_is_empty(self, audit):
+        assert audit.edn_lexicons('{:actor/id "x" :actor/glyph "兜"}') == []
