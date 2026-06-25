@@ -8,17 +8,18 @@
    :task (server/-main)}
 
   test
-  {:doc "Run the PDS test suite (server + util + xrpc + datom + config + keys)."
+  {:doc "Run the PDS test suite (server + util + xrpc + datom + config + keys + actorkeys)."
    :requires ([clojure.test :as t] [etzhayyim.pds.server-test]
               [etzhayyim.pds.util-test] [etzhayyim.pds.xrpc-test]
               [etzhayyim.pds.datom-test] [etzhayyim.pds.config-test]
-              [etzhayyim.pds.keys-test])
+              [etzhayyim.pds.keys-test] [etzhayyim.pds.actorkeys-test])
    :task (let [{:keys [fail error]} (t/run-tests 'etzhayyim.pds.server-test
                                                  'etzhayyim.pds.util-test
                                                  'etzhayyim.pds.xrpc-test
                                                  'etzhayyim.pds.datom-test
                                                  'etzhayyim.pds.config-test
-                                                 'etzhayyim.pds.keys-test)]
+                                                 'etzhayyim.pds.keys-test
+                                                 'etzhayyim.pds.actorkeys-test)]
            (System/exit (if (pos? (+ fail error)) 1 0)))}
 
   keys-test
