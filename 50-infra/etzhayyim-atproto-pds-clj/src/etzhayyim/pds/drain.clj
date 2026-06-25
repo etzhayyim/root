@@ -10,7 +10,49 @@
   transport, so it is deterministic and offline-testable.
 
   Stdlib + the PDS client; no external deps."
-  (:require [etzhayyim.pds.client :as client]))
+  (:require [clojure.string :as str]
+            [clojure.java.io :as io]
+            [cheshire.core :as json]
+            [etzhayyim.pds.client :as client]))
+
+;; ── ibuki post-queue (ADR-2605240100 §Line schema, v=1) → drain specs ─────────
+;; ibuki's react_loop --live already appends NDJSON lines of this shape; the drainer
+;; consumes them verbatim so the actor side needs NO change — it just writes its queue.
+(def ^:private SCHEMA-VERSION 1)
+(def ^:private REQUIRED ["v" "ts" "actorDid" "text" "lexicon" "createdAt"])
+
+(defn queue-line->spec
+  "Map one ADR-2605240100 v=1 queue line (a parsed map) to a drain post-spec. The
+  queue `ts` is the idempotency key; lexicon is the collection + record $type."
+  [m]
+  {:key (str (get m "ts"))
+   :repo (get m "actorDid")
+   :collection (get m "lexicon")
+   :record {"$type" (get m "lexicon")
+            "text" (get m "text")
+            "createdAt" (get m "createdAt")}})
+
+(defn parse-queue
+  "Parse NDJSON queue `text` → {:specs [..] :errors [\"line N: ..\"]}. Unknown schema
+  versions and missing keys are REJECTED (never guessed), exactly like ibuki's
+  drainer; blank lines are skipped."
+  [text]
+  (reduce
+   (fn [acc [i line]]
+     (let [line (str/trim line)]
+       (if (str/blank? line)
+         acc
+         (let [m (try (json/parse-string line) (catch Exception _ ::bad))]
+           (cond
+             (= m ::bad) (update acc :errors conj (str "line " i ": not JSON"))
+             (not= (get m "v") SCHEMA-VERSION)
+             (update acc :errors conj (str "line " i ": unknown schema version " (pr-str (get m "v"))))
+             (seq (remove #(contains? m %) REQUIRED))
+             (update acc :errors conj (str "line " i ": missing keys "
+                                           (pr-str (vec (remove #(contains? m %) REQUIRED)))))
+             :else (update acc :specs conj (queue-line->spec m)))))))
+   {:specs [] :errors []}
+   (map-indexed vector (str/split-lines (str text)))))
 
 (defn post-key
   "A stable idempotency key for a post-spec: the explicit `:key` (the queue's own id —
@@ -41,3 +83,25 @@
              (update acc :errors conj {:key k :status (:status res)}))))))
    {:receipts [] :posted posted :errors []}
    specs))
+
+(defn run-queue!
+  "Parse an ibuki NDJSON queue and drain its valid specs. Returns the `drain!` result
+  merged with {:parse-errors [..]}. The operational entry the `bb drain` task wraps."
+  [base queue-text opts]
+  (let [{:keys [specs errors]} (parse-queue queue-text)]
+    (assoc (drain! base specs opts) :parse-errors errors)))
+
+(defn run-file!
+  "`bb drain` task entry: drain the NDJSON queue at `:queue-path` to PDS `:base`,
+  persisting the posted-key cursor at `:cursor-path` (one key/line) so re-runs are
+  idempotent, and writing receipts NDJSON to `:receipts-path`. Stdlib file IO; the
+  posting uses the live HTTP client (the actor holds no key — the PDS signs)."
+  [{:keys [base queue-path cursor-path receipts-path transport]}]
+  (let [seed (if (and cursor-path (.exists (io/file cursor-path)))
+               (set (remove str/blank? (str/split-lines (slurp cursor-path)))) #{})
+        res (run-queue! base (slurp queue-path)
+                        (cond-> {:posted seed} transport (assoc :transport transport)))]
+    (when cursor-path (spit cursor-path (str/join "\n" (sort (:posted res)))))
+    (when receipts-path
+      (spit receipts-path (str/join "\n" (map json/generate-string (:receipts res)))))
+    res))
