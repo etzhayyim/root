@@ -30,7 +30,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "akashi": {
-    description: "証 — Public Ad Disclosure Transparency",
+    description: "kotoba-native public ad-disclosure transparency actor. Passively ingests already-public platform ad-library disclosures into kotoba EAVT and emits source-cited, non-adjudicating transparency links and aggregate reports. Sibling to danjo; bounded away from malak except for reviewed fraud/malware-ad evidence candidates.",
     glyph: "証",
     displayName: "証 — Public Ad Disclosure Transparency",
     adrs: ["2606022300"],
