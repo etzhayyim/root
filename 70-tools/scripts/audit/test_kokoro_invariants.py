@@ -26,7 +26,7 @@ import pytest
 
 _REPO = Path(__file__).resolve().parents[3]
 _LEX = _REPO / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "kokoro"
-_MANIFEST = _REPO / "20-actors" / "kokoro" / "manifest.jsonld"
+# manifest invariants → 20-actors/kokoro/methods/test_manifest_invariants.cljc (jsonld retired)
 
 # silenKokoroReview counters that MUST be structurally zero (the ethics red lines).
 _ZERO_COUNTERS = [
@@ -137,12 +137,3 @@ class TestLexiconHygiene:
         for p in _LEX.glob("*.json"):
             assert _load(p)["id"] == f"com.etzhayyim.kokoro.{p.stem}"
 
-    def test_manifest_namespaces_match_disk(self):
-        declared = {ns.rsplit(".", 1)[-1] for ns in _load(_MANIFEST)["lexiconNamespaces"]}
-        on_disk = {p.stem for p in _LEX.glob("*.json")}
-        assert declared == on_disk, f"manifest namespaces vs disk drifted: {declared ^ on_disk}"
-
-    def test_did_name_tier(self):
-        m = _load(_MANIFEST)
-        assert m["id"] == "did:web:kokoro.etzhayyim.com"
-        assert m["name"] == "kokoro"

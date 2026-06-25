@@ -33,7 +33,7 @@
      (defn- lex [name]
        (json/parse-string (slurp (java.io.File. lexdir (str name ".json")))))
      (defn- manifest []
-       (json/parse-string (slurp (java.io.File. actor-dir "manifest.jsonld"))))))
+       (:actor/manifest (clojure.edn/read-string (slurp (java.io.File. actor-dir "manifest.edn")))))))
 
 (defn- record-node [doc]
   (let [main (get-in doc ["defs" "main"])] (or (get main "record") main)))

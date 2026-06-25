@@ -13,7 +13,7 @@
 import type { InfraActorEntry } from "./infra-actors";
 
 export const TIER_B_GENERATED_AT = "2026-06-04T00:00:00+00:00";
-export const TIER_B_TOTAL_COUNT = 115;
+export const TIER_B_TOTAL_COUNT = 116;
 
 export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
   "ainori": {
@@ -433,7 +433,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "iyashi": {
-    description: "癒 — Clinical Care Provider",
+    description: "Non-profit religious-corp clinical care provider substrate. Community-clinic-model primary care + chronic followup + vaccination + acute first-line + maternity/pediatric clinical. Encrypted PHI envelope MANDATORY (G2 per ADR-2605181100). NO commercial EHR (G11; Epic/Cerner/Athena/Allscripts/NextGen/eClinicalWorks/Greenway/Practice Fusion PROHIBITED per Charter Rider §2(e)+§2(c)). NO insurance billing (G13; funded via Public Fund grant + sliding-scale donation). NO payroll for providers (G14; vocation-flow L5 stewards). Murakumo-only inference (G12). NO video recording firmware-level (G3). Human-in-loop ALWAYS (G8). 6 cells / 6 Lexicons / 14 gates / 12 non-goals. Cross-actor: mitate (diagnosis) / hagukumi (daily-living) / yakushi (medication) / toritate (funding) / chigiri (consent + procedural) / manabi (provider CME) / kokoro (mental health, future).",
     glyph: "癒",
     displayName: "癒 — Clinical Care Provider",
     adrs: ["2605263000", "2605261000"],
@@ -615,7 +615,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "kokoro": {
-    description: "心 — Mental Health Support",
+    description: "Non-profit religious-corp mental health support substrate. Community + spiritual + relational framing (NOT clinical psychiatry). Peer support circles + post-funeral grief support + chronic mental health continuity + postnatal mood screening (opt-in) + acute crisis escalation (mitate G5) + counseling referral. **CRITICAL boundary**: NOT clinical psychiatric entity; NOT state-licensed psych; counselors are L5 vocation-flow community-witnessed-competent (musubi G3 pattern). Does NOT diagnose (mitate). Does NOT prescribe (yakushi). Encrypted envelope MANDATORY (G4). NO conversion therapy (G5). Human-in-loop ALWAYS (G6). NO commercial mental health software (G7: BetterHelp/Talkspace/Cerebral/Modern Health/Lyra/Calm-business/Headspace-Enterprise/Spring Health/Brightline/Octave/Two Chairs/Charlie Health PROHIBITED). NO commercial AI therapy chatbot (G8: Woebot/Wysa/Replika-as-therapy/character.ai-as-therapy/GPT-as-therapy/Anthropic-direct-therapy/Claude-as-therapy PROHIBITED). NO mandatory screening (G9: opt-in only). NO surveillance-based mood monitoring (G10: Charter §2(c)). Multi-gen peer support (G11). Cross-doctrinal Wellbecoming (G12). Acute crisis → mitate G5 emergency keyword (G13). 6 cells / 5 Lexicons / 14 gates / 12 non-goals.",
     glyph: "心",
     displayName: "心 — Mental Health Support",
     adrs: ["2605263700", "2605192100"],
@@ -778,6 +778,19 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     service: [
       {
         id: "did:web:etzhayyim.com:actor:mio#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+    ],
+  },
+  "mitate": {
+    description: "Religious-corp first-party diagnostic + treatment routing actor — sibling of yakushi (drug-side). Wave 1 reference = chronic nasal congestion 5-condition triage (allergic-rhinitis-perennial / vasomotor-rhinitis / chronic-sinusitis / septal-deviation / rhinitis-medicamentosa). All 13 cells gated import-time RuntimeError until Council Lv6+ ≥ 3 silen-mitate-review attestation + licensed-MD-in-loop registry per ADR-2605260100. Per ADR-2605260100/115/130/145/160/175.",
+    glyph: "見立て",
+    displayName: "見立て (mitate)",
+    adrs: ["2605260100", "2605260115", "2605260130", "2605260145", "2605260160", "2605260175", "2605192100", "2605192115", "2605192200", "2605192230", "2605192315", "2605192400", "2605192415", "2605201400", "2605181100", "2605172000", "2605231500", "2605231525", "2605215000", "2605250500"],
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:mitate#atproto_pds",
         type: "AtprotoPersonalDataServer",
         serviceEndpoint: "https://pds.etzhayyim.com",
       },
@@ -1135,10 +1148,10 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "tadori": {
-    description: "辿 — Trace (authorized on-chain transaction tracing + actor attribution)",
+    description: "Non-profit religious-corp authorized, case-anchored on-chain transaction-tracing + actor-attribution actor. kotoba-EAVT-native consolidation point for the malak pursuit Pregel output (ADR-2605152000), ipaddress 1次 IP/WHOIS/GeoIP collection, and yabai CTI/DNS/IP-history/access-audit. Owns the durable case graph + the cross-store attribution join (address → cluster → ip-obs → dns-obs → person) that no single store produces today, expressed as kotoba-kqe Datalog rules over the four arrangements (EAVT/AEVT/AVET/VAET; VAET reverse-edge = yabai correlate-ip-activity, 2-hop). Authorized-investigation-only, open-source, on-chain-monitorable, PII-encrypted, evidence-producing (NOT enforcement). 6 cells / 4 Lexicons under com.etzhayyim.tadori.* / 12 immutable gates / 12 non-goals. kotoba-native (datom/EAVT + MST; NOT yata SQL / RisingWave).",
     glyph: "辿",
     displayName: "辿 — Trace (authorized on-chain transaction tracing + actor attribution)",
-    adrs: ["2605301400", "2605152000", "2605192100", "2605262130"],
+    adrs: ["2605192100", "2605262130", "2605301400", "2605152000"],
     service: [
       {
         id: "did:web:etzhayyim.com:actor:tadori#atproto_pds",
