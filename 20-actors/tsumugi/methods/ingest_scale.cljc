@@ -206,3 +206,47 @@
                            "FRUIT → switch substrate (Wikidata exhausted): run --gleif, or add a new registry anchor source"
                            (str "GROW → next ring anchors on " (count frontier) " frontier tips (--ring2)"))
         "niche" "植物-producer also publishes (publish.py) — the colony feeds humanity, not only itself"})))
+
+#?(:clj
+   (defn -main
+     "CLI entry: mirrors ingest_scale.main offline + --forage paths. --forage writes a substrate
+     foraging plan; offline ingest-offline(fixtures, seed) → out/scale-ingested.kotoba.edn +
+     out/seed-plus-ingest-scale.kotoba.edn (out/ only). --live (Wikidata/GLEIF) is G7-gated network
+     and not ported (refused). ADR-2606261200 cljc-native operator leg."
+     [& argv]
+     (let [argv     (vec argv)
+           here     (let [f  (when (and *file* (not (str/blank? *file*))) (io/file *file*))
+                          pp (some-> f .getAbsoluteFile .getParentFile .getParentFile)]
+                      (if (and pp (.isDirectory (io/file pp "data"))) pp (io/file "20-actors" "tsumugi")))
+           seed     (io/file here "data" "seed-scale-power.kotoba.edn")
+           fixtures (io/file here "data" "ingest-scale")
+           out      (if (some #{"--out"} argv) (io/file (nth argv (inc (.indexOf argv "--out")))) (io/file here "out"))]
+       (.mkdirs out)
+       (cond
+         (some #{"--forage"} argv)
+         (let [plan (forage-plan (.getPath seed))]
+           (spit (io/file out "forage-plan.json") (json/generate-string plan {:pretty true}))
+           (println (str "[tsumugi/forage] " (get plan "recommendation") " → out/forage-plan.json")))
+         (some #{"--live"} argv)
+         (binding [*out* *err*]
+           (println (str "REFUSED: live scale ingest (Wikidata/GLEIF) is G7-gated network + an R0 "
+                         "scaffold (not ported). Requires TSUMUGI_OPERATOR_GATE=1 + "
+                         "TSUMUGI_OPERATOR_DID; offline fixture ingest runs without --live.")))
+         :else
+         (let [[_n _t new-nodes new-ties _d] (ingest-offline (.getPath fixtures) (.getPath seed))
+               enode     (fn [coll] (str/join "\n" (map #(str " " (edn %)) coll)))
+               add-lines (concat [";; tsumugi 紡ぎ — GENERATED scale ingest (ADR-2606061500). DO NOT hand-edit."
+                                  ";; :representative; out/ only — promotion into the committed seed is a separate human-reviewed PR."
+                                  "[" ";; ── ingested org nodes ──"]
+                                 (map #(str " " (edn %)) new-nodes)
+                                 [";; ── ingested custody 縁 ──"]
+                                 (map #(str " " (edn %)) new-ties)
+                                 ["]"])
+               add-file  (io/file out "scale-ingested.kotoba.edn")
+               base      (str/trimr (slurp seed))
+               combined  (io/file out "seed-plus-ingest-scale.kotoba.edn")]
+           (spit add-file (str (str/join "\n" add-lines) "\n"))
+           (spit combined (str (subs base 0 (dec (count base)))
+                               "\n ;; ── INGESTED ──\n" (enode new-nodes) "\n" (enode new-ties) "]\n"))
+           (println (str "[tsumugi/ingest-scale] +" (count new-nodes) " nodes · +"
+                         (count new-ties) " 縁 → " (.getPath add-file))))))))

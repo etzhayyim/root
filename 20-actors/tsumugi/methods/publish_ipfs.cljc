@@ -145,3 +145,18 @@
 ;; exposed for the round-trip test (gz/gunzip are private)
 (defn gz* [^bytes data] (gz data))
 (defn gunzip* [^bytes data] (gunzip data))
+
+#?(:clj
+   (defn -main
+     "CLI entry: mirrors publish_ipfs.main — content-address the 80-data/tsumugi-power artifacts
+     to kotoba CIDv1 + write the publish manifest + served descriptors (--verify checks an existing
+     manifest, exit 0/1). ADR-2606261200 cljc-native operator leg."
+     [& argv]
+     (if (some #{"--verify"} (vec argv))
+       (System/exit (verify))
+       (let [pm   (pin)
+             arts (or (get pm "artifacts") (:artifacts pm))]
+         (println (str "[tsumugi/pin] 80-data/tsumugi-power/ — " (count arts)
+                       " artifacts content-addressed to IPFS CIDv1:"))
+         (doseq [v arts] (println (str "    " (get v "file") "  " (get v "bytes") "B  " (get v "cid"))))
+         (println "  served: https://etzhayyim.com/ns/power · /dataset/tsumugi-power.json (next deploy)")))))
