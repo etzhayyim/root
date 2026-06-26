@@ -16,7 +16,7 @@
               [etzhayyim.pds.client-test] [etzhayyim.pds.drain-test]
               [etzhayyim.pds.leash-test] [etzhayyim.pds.repo-test]
               [etzhayyim.pds.integration-test] [etzhayyim.pds.account-test]
-              [etzhayyim.pds.blob-test])
+              [etzhayyim.pds.blob-test] [etzhayyim.pds.lexicon-test])
    :task (let [{:keys [fail error]} (t/run-tests 'etzhayyim.pds.server-test
                                                  'etzhayyim.pds.util-test
                                                  'etzhayyim.pds.xrpc-test
@@ -30,7 +30,8 @@
                                                  'etzhayyim.pds.repo-test
                                                  'etzhayyim.pds.integration-test
                                                  'etzhayyim.pds.account-test
-                                                 'etzhayyim.pds.blob-test)]
+                                                 'etzhayyim.pds.blob-test
+                                                 'etzhayyim.pds.lexicon-test)]
            (System/exit (if (pos? (+ fail error)) 1 0)))}
 
   keys-test
