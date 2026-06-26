@@ -84,3 +84,29 @@
                           (map (fn [f] {:name (fname f) :records (asc/read-edn (slurp f)) :seed? false})
                                ingest-files))]
         (weave-sources sources)))))
+
+#?(:clj
+   (defn -main
+     "CLI entry: mirrors ingest.main — fixture-mode weave (seed + data/ingest/*.edn) →
+     out/woven-graph.kotoba.edn. --live is G11/Council-gated + R0 scaffold (refused).
+     ADR-2606261200 cljc-native operator leg (was `python3 methods/ingest.py`)."
+     [& argv]
+     (if (some #{"--live"} (vec argv))
+       (binding [*out* *err*]
+         (println (str "REFUSED: live atproto ingest is G11/Council-gated + an R0 scaffold "
+                       "(not implemented). Set TSUMUGI_OPERATOR_GATE + wire "
+                       "app.bsky.graph.getFollows under Council (ADR-2605231902), then re-run.")))
+       (let [here   (let [f  (when (and *file* (not (str/blank? *file*))) (io/file *file*))
+                          pp (some-> f .getAbsoluteFile .getParentFile .getParentFile)]
+                      (if (and pp (.isDirectory (io/file pp "data"))) pp (io/file "20-actors" "tsumugi")))
+             {:keys [merged counts]} (weave)
+             orgs   (filter #(contains? % ":organism/id") merged)
+             edges  (filter #(contains? % ":en/id") merged)
+             latent (count (filter #(false? (get % ":organism/claimed?")) orgs))
+             out    (io/file here "out")]
+         (.mkdirs out)
+         (spit (io/file out "woven-graph.kotoba.edn") (to-edn merged))
+         (println "woven (fixture mode — no network):")
+         (doseq [[name n] counts] (println (str "  + " n " new records from " name)))
+         (println (str "= " (count orgs) " organisms (" latent " latent/unclaimed) · " (count edges) " 縁"))
+         (println (str "✓ wrote " (.getPath (io/file out "woven-graph.kotoba.edn"))))))))
