@@ -152,7 +152,7 @@ routes through Murakumo (G6). New lexicons: `com.etzhayyim.influence.{influenceP
 # honest coverage report (eras, civilizational streams, denominators, gap map)
 bb -cp 20-actors -m tsumugi.methods.coverage-report
 # offline influence ingest (Wikidata-P737-shaped fixtures → :flow/ 縁, merged with seed)
-python3 20-actors/tsumugi/methods/ingest_influence.py
+bb -cp 20-actors -m tsumugi.methods.ingest-influence
 #   → out/seed-plus-ingest.kotoba.edn — run analyze/coverage on THIS to see the lift
 bb -cp 20-actors -m tsumugi.methods.analyze-influence 20-actors/tsumugi/out/seed-plus-ingest.kotoba.edn
 # live ingest (REAL Wikidata WDQS P737 fetch, stdlib urllib) — G7-gated, refused w/o operator gate:
