@@ -101,6 +101,11 @@
    :task (do (require 'etzhayyim.test-sops-age)
              (apply (resolve 'etzhayyim.test-sops-age/-main) *command-line-args*))}
 
+  actor:delegate-add
+  {:doc "ADR-2606251200 A-2 — register a member did:key as a :rad/delegate of an EXISTING actor identity, RID-stable (append-only, genesis untouched). Operationalizes sovereign git push for the delegate-less pilot journals. --keygen mints a fresh member key (--apply stores priv in Keychain) or --pubkey=<hex> adds a held one; DRY-RUN by default. no-server-key (member-signed sigref via Keychain). Args: <name> (--keygen | --pubkey=hex) [--apply]"
+   :task (do (require 'etzhayyim.kotoba-rad-sign)
+             (apply (resolve 'etzhayyim.kotoba-rad-sign/-delegate-add) *command-line-args*))}
+
   test:kotoba-rad
   {:doc "kotoba-rad sovereign-identity invariants (ADR-2606231200): did:key convention, RID content-addressing, did.json 3-identity cross-link, append-only/idempotent publish, Ed25519 sign/verify + CID base32 parity."
    :task (do (require 'etzhayyim.test-kotoba-rad)

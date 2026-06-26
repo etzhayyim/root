@@ -152,3 +152,49 @@
           (println "next    bb actor:publish" actor "--apply --pubkey=" pub-hex))
       (do (println "priv-b64 (DRY-RUN, NOT stored — pass --apply to store in Keychain):")
           (println priv-b64)))))
+
+;; ── CLI: actor:delegate-add ─────────────────────────────────────────────────
+
+(defn -delegate-add
+  "Register a member did:key as a :rad/delegate of an EXISTING actor identity,
+   RID-stable (ADR-2606251200 A-2 §Remaining — operationalizes sovereign git push
+   for the delegate-less pilot journals). Sources the key two ways:
+     --keygen          generate a fresh Ed25519 member key (with --apply, store
+                       the priv in Keychain), then add its did:key as a delegate.
+     --pubkey=<hex>    add an already-held member key (priv expected in Keychain
+                       under (etzhayyim.kotoba-rad, <actor>) so the new delegate's
+                       sigref can be member-signed).
+   DRY-RUN by default; --apply writes the journal (+ Keychain on --keygen).
+   no-server-key: the signature is the MEMBER's, via the Keychain sign-fn seam."
+  [& args]
+  (let [flags  (set (filter #(str/starts-with? % "--") args))
+        apply? (contains? flags "--apply")
+        keygen? (contains? flags "--keygen")
+        actor  (first (remove #(str/starts-with? % "--") args))
+        pubkey-arg (some->> args (filter #(str/starts-with? % "--pubkey="))
+                            first (drop 9) (apply str) not-empty)]
+    (when-not actor
+      (println "usage: bb actor:delegate-add <name> (--keygen | --pubkey=<hex>) [--apply]")
+      (System/exit 2))
+    (let [{:keys [pub-hex]}
+          (cond keygen?    (let [kp (gen-keypair)]
+                             (when apply? (keychain-store! actor (:priv-b64 kp))
+                                          (println "stored  priv in Keychain:"
+                                                   keychain-service "/" actor))
+                             kp)
+                pubkey-arg {:pub-hex pubkey-arg}
+                :else      (do (println "error: pass --keygen or --pubkey=<hex>")
+                               (System/exit 2)))
+          sign-fn (when apply? (sign-fn-for-actor actor pub-hex))]
+      (println "actor   " actor)
+      (println "did:key " (rad/did-key pub-hex))
+      (when (and apply? (not sign-fn))
+        (println "WARN    no member key in Keychain for" actor
+                 "— the delegate's sigref will be UNSIGNED"))
+      (if apply?
+        (let [res (rad/add-delegate! actor pub-hex {:sign-fn sign-fn})]
+          (println "rid     " (:rid res))
+          (println "added?  " (:added? res) " signed?" (:signed? res)
+                   " head" (:head res)))
+        (println "DRY-RUN — would append :rad/delegate" (rad/did-key pub-hex)
+                 "to the journal of" actor "(pass --apply to write)")))))
