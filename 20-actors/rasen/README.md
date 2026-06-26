@@ -19,7 +19,7 @@ python3 methods/coverage_report.py  # → out/coverage-report.md       (honest c
 python3 methods/ingest.py           # OUTWARD (G7): public APIs → kotoba EDN/Datom → IPFS CID (+pin)
 python3 methods/publish.py          # OUTWARD (G7): pin + IPNS-publish + snapshot to 80-data/genome
 python3 wasm/app.py analyze         # the WASM component's export body, dev mode
-python3 tests/test_analyze.py && python3 tests/test_coverage.py && python3 tests/test_ingest.py && python3 tests/test_wasm.py  # 23 green
+bash run_tests.sh  # cljc tests, green
 ```
 
 `ingest.py` pulls a bounded, **public + aggregate-only** slice (MyGene.info + MyVariant.info +

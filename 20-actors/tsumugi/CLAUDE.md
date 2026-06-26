@@ -236,7 +236,7 @@ anyone by conviction — by construction.
 
 ```bash
 python3 20-actors/tsumugi/methods/analyze_banner.py      # → out/banner-report.md + banner-graph.kotoba.edn
-python3 20-actors/tsumugi/tests/test_banner.py           # 11 tests (one per gate + camps/bridges/genealogy)
+bash 20-actors/tsumugi/run_tests.sh # 11 tests (one per gate + camps/bridges/genealogy)
 ```
 
 **R0 design-only.** `:representative` bounded seeds (学会X / 政党A·B·C are representative

@@ -64,7 +64,7 @@ service (`ipfs://<cid>`), issued dynamically by the apex Worker (ADR-2606013800)
 
 **Build-ready.** The world (`wit/world.wit`), the export bodies (`app.py`), the build script
 (`build.sh` — embed seed → componentize-py → CID → DID-doc `EtzhayyimWasmComponent` service),
-and CI coverage (`tests/test_wasm.py`, 4 tests) are all in place; the export bodies run in dev
+and CI coverage (`tests/test_wasm.cljc`, 4 tests) are all in place; the export bodies run in dev
 mode (`python3 app.py {analyze|datoms|coverage}`). The only remaining step is the
 **componentize-py build itself** (operator/build-env toolchain — not a runtime dep), which
 emits `dist/rasen.wasm` + `dist/rasen.cid` + `did-service.json` for advertisement in the actor
