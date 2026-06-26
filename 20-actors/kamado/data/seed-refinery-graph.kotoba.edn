@@ -9,7 +9,7 @@
 ;;
 ;; INVARIANT (G1): every :synthesis/feedstock-class is a member of :feedstock/class
 ;;   allowed set; NO record carries :fossil-virgin-crude as a synthesis feedstock — the
-;;   data model cannot hold a fossil-fed refining design (see schema + feedstock_guard.py).
+;;   data model cannot hold a fossil-fed refining design (see schema + feedstock_guard.cljc).
 ;;
 ;; SOURCING (G7): every node carries :*/sourcing. BOUNDED illustrative seed. Refinery
 ;;   names/locations are matters of public record; throughput/status :representative.
