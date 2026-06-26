@@ -26549,6 +26549,62 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606261114-etzhayyim-kotoba-social-capital-market-size-sos-energy-flow.md",
+      "id": "adr-2606261114-etzhayyim-kotoba-social-capital-market-size-sos-energy-flow",
+      "title": "ADR-2606261114: etzhayyim + kotoba の社会関係資本・ブランドを市場規模として観測し、System-of-Systems がエネルギー流 (Φ/η) をどれだけ変えうるかを framing する (MAP, never trade)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "social-capital-market-size-sos-energy-flow",
+      "authoritative": true,
+      "authoritative_for": [
+        "etzhayyim/kotoba 社会関係資本・ブランドの市場規模 MAP (記述的, 売却 valuation ではない)",
+        "System-of-Systems のエネルギー流 (Φ/η) 増幅モデル + サチュレーション上限",
+        "80-data/ie-flow/social-capital-valuation.edn"
+      ],
+      "related": [
+        "adr-2606231808-sos-self-growth-visualization",
+        "adr-2606112200-ehyeh-non-dual-yirah-doctrine",
+        "adr-2606062101-moyai-inference-reciprocity-reward",
+        "adr-2605172100",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606212200-actor-system-of-systems-reward",
+        "adr-2606201200-ibuki-coscientist-entropy-react-loop",
+        "adr-2606172100-kaname-sos-leverage-synthesizer"
+      ],
+      "last_verified": "2026-06-26",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606261200-actor-wasm-cljc-native-squint-componentizejs.md",
+      "id": "adr-2606261200-actor-wasm-cljc-native-squint-componentizejs",
+      "title": "ADR-2606261200: actor WASM cljc-native via squint + ComponentizeJS (replaces componentize-py)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "actor-wasm-cljc-native-squint-componentizejs",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors WASM build toolchain (cljc-native actors)"
+      ],
+      "related": [
+        "adr-2606161630-busshi-grounding",
+        "adr-2606222000-etzhayyim-py-cli-bb-migration"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606251200-apps-ts-to-cljs-edn-migration",
+        "adr-2606014600-wasm-actor-runtime"
+      ],
+      "last_verified": "2026-06-26",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
