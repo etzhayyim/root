@@ -158,3 +158,37 @@
     ;; network leg omitted in the cljc port (urllib → LiteLLM); operator-gated on the fleet.
     (throw (ex-info "infer network leg omitted in cljc port (run on the Murakumo fleet via the py twin)"
                     {:gate "G7-network-leg"}))))
+
+#?(:clj
+   (defn -main
+     "CLI entry: mirrors narrate.main/run — fuse analyze-scale + analyze-banner into an aggregate
+     intel digest/datoms, build the Murakumo prompt, and write the G7 dry-run artifact. The live
+     Murakumo (G6/LiteLLM) network leg is operator-gated and omitted (infer returns dry-run unless
+     --live / TSUMUGI_MURAKUMO_GATE=1). ADR-2606261200 cljc-native operator leg."
+     [& argv]
+     (let [gate  (or (some #{"--live"} (vec argv)) (= (System/getenv "TSUMUGI_MURAKUMO_GATE") "1"))
+           here  (let [f  (when (and *file* (not (str/blank? *file*))) (clojure.java.io/file *file*))
+                       pp (some-> f .getAbsoluteFile .getParentFile .getParentFile)]
+                   (if (and pp (.isDirectory (clojure.java.io/file pp "data"))) pp (clojure.java.io/file "20-actors" "tsumugi")))
+           out   (clojure.java.io/file here "out")
+           s-load (requiring-resolve 'tsumugi.methods.analyze-scale/load-graph)
+           s-an   (requiring-resolve 'tsumugi.methods.analyze-scale/analyze)
+           b-load (requiring-resolve 'tsumugi.methods.analyze-banner/load-file*)
+           b-an   (requiring-resolve 'tsumugi.methods.analyze-banner/analyze)
+           [s-nodes s-ties] (s-load (str (clojure.java.io/file here "data" "seed-scale-power.kotoba.edn")))
+           scale  (s-an s-nodes s-ties)
+           {:keys [banners ents flies]} (b-load (str (clojure.java.io/file here "data" "seed-banner.kotoba.edn")))
+           banner (b-an banners ents flies)
+           prompt (build-prompt scale banner)
+           [text status] (infer prompt {:gate gate})]
+       (.mkdirs out)
+       (spit (clojure.java.io/file out "intel-digest.kotoba.edn") (build-digest scale banner))
+       (spit (clojure.java.io/file out "intel-datoms.kotoba.edn") (build-datoms scale banner))
+       (spit (clojure.java.io/file out "narration.dryrun.md")
+             (str "<!-- tsumugi Murakumo narration — model=" MURAKUMO-MODEL " via " MURAKUMO-BASE-URL
+                  " (G6 Murakumo-only); status=" status "; published=false (G7) -->\n\n"
+                  "## SYSTEM\n" SYSTEM-PROMPT "\n\n## USER (aggregate intel)\n" prompt "\n"
+                  (if text (str "\n## MURAKUMO OUTPUT\n" text "\n") "")))
+       (when text (spit (clojure.java.io/file out "narration.md") (str text "\n")))
+       (println (str "[tsumugi/narrate] status=" status " · model=" MURAKUMO-MODEL
+                     " · published=false → " (.getPath (clojure.java.io/file out "narration.dryrun.md")))))))
