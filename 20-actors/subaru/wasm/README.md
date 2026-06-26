@@ -1,4 +1,4 @@
-# subaru 昴 — kotoba pywasm actor (componentize-py)
+# subaru 昴 — kotoba cljc-native WASM actor (cherry+ComponentizeJS, ADR-2606261200)
 
 Design for running subaru's constellation sim as a **kotoba pywasm actor** under the
 "one Worker, many WASM actors" model (ADR-2606014500 / 2606014600), identical in shape to
