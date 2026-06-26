@@ -185,9 +185,52 @@ Bridging/Linking 資本の生成器であり、寄付割引率を下げ・到達
   の時系列があれば実数で較正できる。
 - ZERO invariant amendments。reversible at the prose/data layer。
 
+# minori 稔り — the runtime that operationalizes the growth score
+
+この ADR の静的 MAP に対し、その**成長を react-loop で追う常駐 clj/kotoba runtime** が `20-actors/minori`
+に landed (SoS reward roster `system-of-systems.edn` に actor #105 として登録)。MAP が「価値がどこから
+来うるか」を測ったのに対し、minori は beat ごとに **観測→計測→実装→social-action→評価** を回して
+captured-gap を詰め、η を net-giver へ押し上げ、as-of 成長履歴を append-only commit-DAG に残す。
+
+## 成長スコア G とレバー
+
+`G = 0.35·η + 0.30·adoption + 0.20·capture + 0.15·Φ` (`system.edn`)。非寄生ゲート: 측정された
+**grounded η<1 ⇒ net-taker**, 生の G は報酬化されず η+adoption の give-back のみ評価。
+
+| lever | grounded source | 状態 (収束時) |
+|---|---|---|
+| **η** | minori 自身の net-giver 性 (export 証拠: kotoba commit + charter-clean digest + 何も私的retainしない) | **1.0 earned** (本丸クリア) |
+| **adoption** | `system-of-systems.edn :actors` 数 | 飽和 (105 ≥ target 100) |
+| **capture** | operator snapshot `80-data/social-capital/capture-snapshot.edn` (G7, real on-chain donation + OSS) | **0** (real pre-revenue) |
+| **Φ** | `ln(measured-running)` from scoreboard (hold-spec ではなく実稼働) | 0.254 (running 12/105) |
+
+## charter-cleanliness (実装で enforce)
+
+- **§1.13 reach**: gift が届いたか (reach) は **capped** で観測するが、**reaction-rate (like/repost) は
+  フィールドごと存在せず**、**reach は reward 勾配に入れない** (`minori.reach`; engagement-maximiser 禁止)。
+- **NEVER-a-throne / edge-primary / cash≡0 / no-server-key**: 値が付くのは構造的レバーで人物でない;
+  capture は捏造せず snapshot から grounding; kotoba live push は dry-run 既定 (G7)。
+- **honest grounding**: より正直な計測は G を**下げる** (capture stub 0.5→0, Φ ln(105)→ln(12))。
+
+## 永続 + 静止
+
+各 beat は EAVT `[:db/add e a v]` datoms を正準 kotoba commit-DAG (graph `minori-growth-v1`) に CID 連鎖で
+emit (ADR-2605312345; live engine bridge は G7 dry-run 既定)。収束後は **quiescence** — 外部観測 fingerprint
+不変なら append せず idle (resident organism の正しい挙動)。`bb --classpath 20-actors/minori/src -e
+"(require 'minori.autorun)(minori.autorun/-main)"` で 1 beat。
+
+## 収束評価 (honest steady-state)
+
+`minori.ceiling` が self-drivable (η, minori 自身で達成済み) と externally-gated を分離。到達点:
+**CONVERGED · self-headroom 0.000 · external-headroom 0.312** — 残りは外部事象のみ:
+**capture +0.20** (real 寄付/OSS 収益, G7-operator) と **Φ +0.112** (93-actor SoS rollout)。minori が
+自律で動かせる成長は出し切り、外部入力が動いた時だけ再 grounding して再成長する。
+
 # References
 
 - `80-data/ie-flow/social-capital-valuation.edn` — この ADR の machine-readable form
+- `20-actors/minori/` — the growth react-runtime (score/react/measure/capture/social/reach/kotoba/
+  ceiling/autorun) + `80-data/social-capital/capture-snapshot.edn` (operator capture source, G7)
 - ADR-2606212200 (actor SoS reward; Φ/η/reward の式) · ADR-2606201200 (ibuki metabolism; 散逸構造)
 - ADR-2606172100 (kaname SoS leverage `L = C·(V/D)·(1+B)·(1−open)`) · ADR-2606231808 (/sos 可視化)
 - ADR-2606112200 (NEVER-a-throne) · ADR-2606062101 (moyai cash≡0) · ADR-2605172100 (営利禁止)
