@@ -4,6 +4,7 @@
 ;; Migration plan: 90-docs/260602-manabi-kotoba-native-migration-plan.md (Phase 2 scaffold)
 {:actor/id        "manabi"
  :actor/glyph     "学"
+ :actor/display-name "学び — Education"
  :actor/tier      :tier-b
  :actor/domain    "manabi.etzhayyim.com"
  :actor/purpose   "Open-curriculum education (literacy + numeracy + civics/charter + vocational + lifelong inquiry). Anti-credentialism (no degrees/transcripts, only skillAttestation). Anti-addiction UX (no streaks/rewards/leaderboards). Minor privacy (aggregate-only attestations, 30-day rotating pseudonym DID). Comparative-religion mandatory. Content-distribution heavy, compute-light. Murakumo-only, kotoba-EAVT-native."
@@ -46,7 +47,7 @@
   {:lex/id "skillAttestation"}]
 
  ;; legacy (gen-1) artifacts pending decommission per migration plan Phase 3/5
+ ;; (manifest.jsonld retired — this manifest.edn is now the sole manifest)
  :actor/legacy
- {:manifest    "manifest.jsonld"
-  :cells-python ["cells/literacy" "cells/numeracy" "cells/civics_charter" "cells/vocational" "cells/lifelong_inquiry" "cells/cert_prep"]
+ {:cells-python ["cells/literacy" "cells/numeracy" "cells/civics_charter" "cells/vocational" "cells/lifelong_inquiry" "cells/cert_prep"]
   :note "Python cell deprecation synchronized with kotodama atomic rename wave (ADR-2605214000 §3) after legal registration."}}

@@ -1,4 +1,5 @@
 import didDoc from "../did.json";
+import { findXrpcRoute, resolveUpstream } from "./xrpc-routes";
 import {
   UNISPSC_HANDLES,
   UNISPSC_GENERATED_AT,
@@ -672,6 +673,12 @@ interface Env {
   // templates; `{cid}` is substituted, else `<gw>/ipfs/<cid>` is used. Fetched
   // bytes are CID-verified before serving, so these are UNTRUSTED upstreams.
   IPFS_GATEWAYS?: string;
+  // Static GitHub-Pages CID gateway fallback (ADR-2606242400). When the IPFS
+  // gateways are unreachable (e.g. pinning stalled), `/ipfs/<cid>` also tries
+  // `<PAGES_GATEWAY_BASE>/ipfs/<cid>` — same CID re-verification, so the static
+  // host stays UNTRUSTED. Tried FIRST (fast hit for published actors; a 404 for
+  // an un-published CID falls straight through to IPFS). Inert when unset.
+  PAGES_GATEWAY_BASE?: string;
   // Per-NSID-family XRPC upstream origins (populated from wrangler.toml [vars]).
   // New actors are added here, NOT as new subdomains — this Worker is the
   // single etzhayyim.com endpoint per ADR-2605212030 §D2.
@@ -680,6 +687,10 @@ interface Env {
   // for the yoro frontend (which currently embeds relative `/xrpc/...` paths).
   XRPC_BSKY_UPSTREAM?: string;
   XRPC_ATPROTO_UPSTREAM?: string;
+  // Method A (independent etzhayyim PDS): com.atproto.repo.*/sync.* route here.
+  // Empty → those families fall back to XRPC_ATPROTO_UPSTREAM (INERT — prod is
+  // byte-identical until ops sets this to the deployed PDS origin at cutover).
+  XRPC_PDS_UPSTREAM?: string;
   XRPC_CHAT_UPSTREAM?: string;
   XRPC_etzhayyim_UPSTREAM?: string;
   // kotoba graph query/MV surface (com.etzhayyim.apps.kotoba.* / .kotobase.*) →
@@ -726,39 +737,10 @@ const SUBSTRATE_PASSTHROUGH_PREFIXES: readonly string[] = [
 
 // ─── XRPC routing ───────────────────────────────────────────────────────
 //
-// All `/xrpc/{NSID}` requests are routed by NSID *prefix* to the upstream
-// declared in env. Keeping this as a static map (rather than a generic
-// "look up the NSID owner" call) means the Worker stays a single fetch hop
-// and a misconfigured upstream is a deploy-time error, not a runtime one.
-
-interface NsidRoute {
-  prefix: string;
-  upstream: keyof Env; // must point to a string-valued Env field
-}
-
-const XRPC_ROUTES: NsidRoute[] = [
-  { prefix: "com.etzhayyim.apps.unispsc.", upstream: "XRPC_UNISPSC_UPSTREAM" },
-  // AT Protocol / Bluesky read+write (PDS handles both write paths and
-  // pipethrough to AppView for reads). yoro frontend sends app.bsky.feed.*,
-  // app.bsky.actor.*, app.bsky.graph.*, com.atproto.* via these routes.
-  { prefix: "app.bsky.",             upstream: "XRPC_ATPROTO_UPSTREAM" },
-  { prefix: "com.atproto.",          upstream: "XRPC_ATPROTO_UPSTREAM" },
-  { prefix: "chat.bsky.",            upstream: "XRPC_CHAT_UPSTREAM" },
-  // kotoba graph query / SPARQL / MaterializedView surface → the kotoba node
-  // (more specific than the com.etzhayyim. catch-all below, so it must come
-  // first — findXrpcRoute returns the first matching prefix).
-  { prefix: "com.etzhayyim.apps.kotoba.",   upstream: "XRPC_KOTOBA_UPSTREAM" },
-  { prefix: "com.etzhayyim.apps.kotobase.", upstream: "XRPC_KOTOBA_UPSTREAM" },
-  // etzhayyim platform extensions (convo, signal, kagami, projector, mcp, rtc).
-  { prefix: "com.etzhayyim.",              upstream: "XRPC_etzhayyim_UPSTREAM" },
-];
-
-function findXrpcRoute(nsid: string): NsidRoute | null {
-  for (const r of XRPC_ROUTES) {
-    if (nsid.startsWith(r.prefix)) return r;
-  }
-  return null;
-}
+// NSID-prefix → upstream routing lives in `./xrpc-routes` (unit-testable in
+// isolation). `resolveUpstream` honors a route's `fallback`, so Method A's
+// com.atproto.repo.*/sync.* → independent PDS stays inert (falls back to the
+// AppView upstream) until XRPC_PDS_UPSTREAM is provisioned at cutover.
 
 async function proxyXrpc(
   request: Request,
@@ -1670,13 +1652,21 @@ a{color:inherit}
             { status: 501, headers: ACTOR_JSON_HEADERS },
           );
         }
-        const gateways = (
+        const ipfsGateways = (
           env.IPFS_GATEWAYS ||
           "https://{cid}.ipfs.dweb.link,https://ipfs.io/ipfs/{cid}"
         )
           .split(",")
           .map((g) => g.trim())
           .filter(Boolean);
+        // Static GitHub-Pages CID gateway tried FIRST (reliable, fast) when
+        // configured; an un-published CID 404s and falls through to IPFS. The
+        // Pages bytes go through the SAME CID re-verification below, so the
+        // static host is never trusted (ADR-2606242400).
+        const pagesBase = (env.PAGES_GATEWAY_BASE || "").trim().replace(/\/$/, "");
+        const gateways = pagesBase
+          ? [`${pagesBase}/ipfs/{cid}`, ...ipfsGateways]
+          : ipfsGateways;
         let lastErr = "no gateway configured";
         for (const tmpl of gateways) {
           const base = tmpl.includes("{cid}")
@@ -2145,12 +2135,15 @@ a{color:inherit}
             },
           );
         }
-        const upstream = env[route.upstream] as string | undefined;
+        const upstream = resolveUpstream(
+          route,
+          env as unknown as Record<string, string | undefined>,
+        );
         if (!upstream) {
           return new Response(
             JSON.stringify({
               error: "UpstreamNotConfigured",
-              message: `env.${String(route.upstream)} is empty`,
+              message: `env.${route.upstream}${route.fallback ? ` (and fallback env.${route.fallback})` : ""} is empty`,
               nsid,
             }),
             {

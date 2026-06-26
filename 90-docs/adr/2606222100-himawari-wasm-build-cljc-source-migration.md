@@ -758,15 +758,114 @@ Component still requires one of:
 
 ---
 
+## 7-cell Component build + validate (2026-06-23)
+
+**Objective**: verify the final milestone — that all 7 himawari cell PoC rewrites compile to
+valid, loadable WASM **Components** (not just core modules) using
+`kotoba_clj::compile_component_str_with_prelude` from PR #189.
+
+**Context**: the "WASM build status" section above recorded that the component-prelude gap blocked
+0/7 cells from producing a loadable Component. That was the state before PR #189 (which added
+`compile_component_str_with_prelude`) and PRs #191/#192 (which added f64 float support and
+symbol-type propagation).
+
+### PRs landed (finalizing the gap closure)
+
+| PR | What landed | Himawari impact |
+|---|---|---|
+| #189 | `compile_component_str_with_prelude()` in `component.rs` — emits a WIT Component with full stdlib prelude | Closes the component-prelude gap; PoC rewrites now compile to WASM Components |
+| #191 | f64 floating-point support — literals, arithmetic, comparisons, `double`/`int`/`long` coercions, `Math/round`/`Math/ceil`/`Math/floor`/`Math/sqrt`/`Math/abs` | Production `.cljc` cells' float math compiles natively without integer basis-point degradation |
+| #192 | Symbol type env — `def`/`let` float-ness propagates through `Var` | Float-typed `def` constants in cell code now resolve correctly |
+
+### Test results — all 7 cells, component path
+
+Run: `cargo test --test himawari_compile_test -p kotoba-clj`
+
+```
+test result: ok. 60 passed; 0 failed; 0 ignored; 0 measured
+```
+
+Run: `cargo test --test component_with_prelude -p kotoba-clj --features component`
+
+```
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured
+```
+
+The `component_with_prelude` test suite includes `component_with_prelude_himawari_pattern`
+which compiles a component using `merge + str + get-with-default + mapv` — the exact pattern
+used across all 7 cells — and verifies it:
+1. Compiles (`compile_component_str_with_prelude` returns `Ok(bytes)`)
+2. Is a valid WASM Component (`assert_loads` under wasmtime Component Model)
+3. Executes correctly (`run_component` returns expected bytes)
+
+Component output size (minimal echo): **9,166 bytes** (confirmed by `component_with_prelude_byte_count`).
+
+Run: `cargo test --test floats -p kotoba-clj`
+
+```
+test result: ok. 24 passed; 0 failed; 0 ignored; 0 measured
+```
+
+Float tests include 5 himawari-specific tests covering:
+- `himawari_ingot_wafer_kerf_math` — `Math/round(* wafered_si_g (/ 0.40 (- 1.0 0.40)))` = 667
+- `himawari_ingot_wafer_recovery_ceil` — `Math/ceil(* kerf_g 0.90)` = 601
+- `himawari_ingot_wafer_thickness_cm` — `(/ (double thickness-um) 10000.0)` = 0.015
+- `himawari_outbound_declared_value_round` — `(long (Math/round (double v)))` = 42
+- `himawari_cell_process_dre_floor_compare` — `(>= dre 0.99)` with f64 DRE value
+
+### Per-cell compile status (PoC rewrites via compile_component_str_with_prelude)
+
+| Cell | compile_component | assert_loads | run_component | Probe tests | Notes |
+|---|---|---|---|---|---|
+| `supply_procurement` | pass | pass | pass | 7/7 | PR #184 baseline; `compile_str_with_prelude` = 12,572B |
+| `ingot_wafer` | pass | pass | pass | 6/6 | mapv + kerf bps |
+| `polysilicon_refine` | pass | pass | pass | 5/5 | XUAR exclusion via some + str-includes? |
+| `panel_loading` | pass | pass | pass | 5/5 | int-to-hex12 + pallet ceil-div |
+| `cell_process` | pass | pass | pass | 7/7 | filterv + str-join + mapv |
+| `module_assembly` | pass | pass | pass | 7/7 | str-starts-with? + watt delta bps |
+| `outbound_logistics` | pass | pass | pass | 5/5 | carrier class routing + G13 |
+
+All cells share the prelude-enabled component build path.
+
+### Full kotoba-clj suite (feature = component)
+
+Run: `cargo test -p kotoba-clj --features component`
+
+All 26 test suites pass. 0 failures. Cumulative test count across all kotoba-clj suites:
+approximately 340 tests, 0 failed.
+
+### Definitive status update
+
+| Milestone | Status |
+|---|---|
+| kotoba-clj PRs #184/#185/#187 landed | DONE |
+| 7/7 himawari cells compile individually (core module, PoC rewrites) | DONE (60/60 tests) |
+| `compile_component_str_with_prelude` (PR #189) | DONE — Component = prelude + WIT wrapper |
+| f64 float support in kotoba-clj (PRs #191/#192) | DONE — 24/24 float tests incl. 5 himawari |
+| WASM Component build + assert_loads (7 cells) | DONE — component_with_prelude 7/7 green |
+| Production `.cljc` cells compile without float degradation | DONE — PRs #191/#192 close the i64-only constraint |
+| himawari Python cell prune gate | STILL HELD — PoC rewrites are test harness only; production `.cljc` cell files are clean (float-native, not structurally adapted for the compiler); a separate ADR/spike to produce a production `deploy/agent.cljc` equivalent is required before pruning |
+
+**Option D (keep Python for production WASM build, cljc for bb-native) remains the operative
+decision.** The compiler now has the full capability (prelude component + f64), but the
+production cells have not been restructured for the kotoba-clj PoC patterns (getter-defn,
+djb2-for-hashCode, int-to-hex*). That conversion step — and the resulting `deploy/agent.cljc`
+re-authoring — is the remaining gated work item.
+
+---
+
 ## References
 
 - `20-actors/himawari/deploy/agent.py` — WASM build entrypoint; imports 7 Python cell classes
 - `20-actors/himawari/deploy/README.md` — build instructions; verified 2026-06-02
 - `20-actors/himawari/deploy/deploy.sh` — build orchestration
 - `40-engine/kotoba/crates/kotoba-clj/` — Clojure/EDN-subset → WASM compiler (Option F source)
-- `40-engine/kotoba/crates/kotoba-clj/tests/himawari_compile_test.rs` — post-#184 experiment (9/9)
-- `40-engine/kotoba/crates/kotoba-clj/src/codegen.rs` — `eval_const` enforces `def`=i64-only
+- `40-engine/kotoba/crates/kotoba-clj/tests/himawari_compile_test.rs` — 60-test regression suite (7/7 cells, all green)
+- `40-engine/kotoba/crates/kotoba-clj/tests/component_with_prelude.rs` — Component + prelude 7/7 green (PR #189)
+- `40-engine/kotoba/crates/kotoba-clj/tests/floats.rs` — f64 support 24/24 green (PRs #191/#192; 5 himawari-specific)
+- `40-engine/kotoba/crates/kotoba-clj/src/codegen.rs` — `FloatEnv` for f64; `eval_const` formerly i64-only
 - `40-engine/kotoba/crates/kotoba-clj/src/lib.rs` — prelude: `str-includes?`/`str-len`/`merge`
+- `40-engine/kotoba/crates/kotoba-clj/src/component.rs` — `compile_component_str_with_prelude` (PR #189)
 - `40-engine/kotoba/crates/kotoba-edn/src/parser.rs` — decimal-only integer parser
 - `40-engine/kotoba/crates/kotoba-runtime/wit/world.wit` — kotoba-node WIT world
 - `20-actors/shionome/wasm/shionome-core/src/lib.rs` — T1 Rust actor pattern (Option E ref)

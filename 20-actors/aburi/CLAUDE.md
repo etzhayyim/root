@@ -114,16 +114,16 @@ member-sig + outward-gated (G7).
 │   ├── autorun.py                         # (B) local heartbeat: sweep intake → append tx (dedup by CID)
 │   └── kotoba_bridge.py                   # (A) push local log → live kotoba :8077 (dry-run; injected)
 ├── tests/                                 # pure stdlib (incl. G1 / G3 / G8 inversions)
-│   ├── test_analyze.py / .cljc
-│   ├── test_coverage.py / .cljc
-│   ├── test_ingest.py                     # (B) adapters + G8 guard + analyzable end-to-end
+│   ├── test_analyze.cljc
+│   ├── test_coverage.cljc
+│   ├── test_ingest.cljc                   # (B) adapters + G8 guard + analyzable end-to-end
 │   └── test_bridge.py                     # (A) heartbeat + exactly-once cursor + no-server-key
 ├── tools/                                 # bb task impl (no .sh in this repo)
-│   ├── build.clj                          #   `bb aburi:build-wasm` — componentize-py + CID
+│   ├── build.clj                          #   `bb aburi:build-wasm` — cljc-native (cherry+ComponentizeJS) + CID
 │   └── publish.clj                        #   `bb aburi:publish` — pin/deploy/kv orchestrator
-├── wasm/                                  # (C) build-ready componentize-py component
+├── wasm/                                  # (C) cljc-native WASM component (cherry+ComponentizeJS, ADR-2606261200)
 │   ├── wit/world.wit                      #   exports analyze / datoms / coverage
-│   ├── app.py · README.md                 #   built via `bb aburi:build-wasm` (operator step)
+│   ├── app.cljs · README.md               #   cljc entry; built via `bb aburi:build-wasm` (operator step)
 └── out/                                   # GENERATED — do not hand-edit
 ```
 
@@ -141,7 +141,7 @@ tasks run from the repo root; the pure analyzer methods can also be invoked dire
 bb test:aburi                       # cljc analyzer/coverage (14 tests / 1369 assert) + python ingest/bridge (17)
 bb aburi:ingest --cycles 1          # (B) ingest member exports in data/local/intake/ → local commit-DAG
 bb aburi:bridge                     # (A) push local log → live kotoba :8077 (dry-run default)
-bb aburi:build-wasm                 # (C) build the WASM component (componentize-py) + report CID  [operator]
+bb aburi:build-wasm                 # (C) build the WASM component (cljc-native: cherry+ComponentizeJS) + report CID  [operator]
 bb aburi:publish --deploy --pin --kv --verify   # (C) materialize + deploy to etzhayyim.com  [operator, CF auth]
 
 # pure reports (methods are python/.cljc, not scripts):
@@ -166,8 +166,8 @@ cd 20-actors/aburi && python3 methods/analyze.py   # → out/tracking-exposure-r
   offline).
 - **(C) publish** is the answer to 「etzhayyim.com で公開?」: registered in the three homes above +
   a build-ready WASM component, all driven by **bb** (`bb aburi:build-wasm`, `bb aburi:publish`;
-  impl `tools/{build,publish}.clj`). The componentize-py build, IPFS pin, KV/kotoba ingest, and
-  Worker deploy are the **operator steps**. `wasmCid` stays **null** by design — componentize-py is
+  impl `tools/{build,publish}.clj`). The cljc-native (cherry+ComponentizeJS) build, IPFS pin, KV/kotoba ingest, and
+  Worker deploy are the **operator steps**. `wasmCid` stays **null** by design until the operator pins —
   **not byte-reproducible** (each build yields a different CID, and the apex `/ipfs` gateway
   re-verifies bytes against the CID), so the operator records the **pinned** CID at
   `bb aburi:publish --pin` time, never committed in advance.

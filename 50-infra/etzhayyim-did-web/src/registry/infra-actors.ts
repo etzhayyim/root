@@ -331,6 +331,40 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
     adrs: ["2606011800"],
   },
+  tate: {
+    description:
+      "盾 — citizen legal-defense concierge (worldwide), defensive only. Two legs over a member's OWN documents: (1) 不利条項スキャン — consumer ToS / card agreements / B2B contracts matched against a coded clause-pattern registry (112 shapes / 18 jurisdictions deepened + :clause/source-url primary-source URLs); (2) 法的手続き応答支援 — notices the member RECEIVES (支払督促 / 訴状 / 行政処分 …) matched against a coded procedure registry (181 procs / 30 jurisdictions × civil/labor/housing/enforcement/insolvency/family) → DISCLOSED deadline rules + response options + 架空請求 guard. G1 member-principal-own-documents-only, G2 non-adjudicating (anchor is a pointer, never a verdict), G3 UPL (member self-submits; no representation), G10 never guesses foreign law. PUBLIC face = an ANONYMIZED aggregate coverage digest (content-addressed, member-data-free) + a crawlable static site; member documents are never published. clj/bb over the kotoba Datom log; kotoba-mesh registry status :no-cells (observatory, on-kse). Per ADR-2606112301 + 2606112400.",
+    glyph: "盾",
+    displayName: "Tate — Citizen Legal-Defense Concierge (worldwide)",
+    primaryLexicon: "com.etzhayyim.tate",
+    primarySchema: "20-actors/tate/data/procedure-registry.edn",
+    // No WASM actor: tate is a :no-cells observatory (clj/bb over the kotoba Datom log).
+    // Its PUBLIC mesh artifact is the anonymized, content-addressed coverage digest
+    // (20-actors/tate/methods/coverage_publish.cljc; G1 member-data-free).
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:tate#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:tate#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:tate#coverage",
+        type: "EtzhayyimCoverageDigest",
+        serviceEndpoint: "https://etzhayyim.com/actor/tate/coverage.json",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:tate#site",
+        type: "EtzhayyimStaticSite",
+        serviceEndpoint: "https://etzhayyim.com/tate/",
+      },
+    ],
+    adrs: ["2606112301", "2606112400", "2606122000", "2606122300", "2606013800"],
+  },
   kanae: {
     description:
       "鼎 — global government fiscal-flow VISUALIZATION. Aggregates public fundFlowEdges (appropriation→outlay→recipient + inter-governmental transfers) into kotoba EAVT and renders aggregate-first, NON-adjudicating summaries (danjo finds, kanae renders). Per ADR-2605302300.",

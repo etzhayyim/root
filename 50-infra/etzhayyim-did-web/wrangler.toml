@@ -94,11 +94,22 @@ KOTOBA_ENDPOINT = ""
 # Comma-separated; `{cid}` substituted, else `<gw>/ipfs/<cid>`. Default (empty)
 # uses dweb.link + ipfs.io. Point at the etzhayyim kotoba/IPFS pin once live.
 IPFS_GATEWAYS = ""
+# Static GitHub-Pages CID gateway fallback (ADR-2606242400). Tried FIRST for
+# GET /ipfs/<cid> when set (reliable while IPFS pinning is stalled); bytes are
+# CID-re-verified identically, so the static host stays UNTRUSTED. Empty = off
+# (IPFS-only). Point at an etzhayyim-owned Pages mirror serving /ipfs/<cid>.
+PAGES_GATEWAY_BASE = ""
 # AT Protocol / Bluesky stack — target the etzhayyim.com subdomain (handled by
 # etzhayyim-xrpc-proxy worker, which forwards via service binding to the
 # upstream etzhayyim-pds / etzhayyim-appview workers without hitting the
 # public-HTTP Bot Management blocks).
 XRPC_ATPROTO_UPSTREAM = "https://atproto.etzhayyim.com"
+# Method A cutover (independent etzhayyim PDS, gftd.ai dependency drop): when set,
+# com.atproto.repo.*/sync.* route to the independent etzhayyim PDS instead of the
+# AppView host. EMPTY = INERT (those families fall back to XRPC_ATPROTO_UPSTREAM,
+# so prod is byte-identical). Set to the deployed PDS origin (e.g.
+# https://pds.etzhayyim.com) at the actual operator cutover.
+XRPC_PDS_UPSTREAM = ""
 XRPC_CHAT_UPSTREAM = "https://atproto.etzhayyim.com"
 XRPC_etzhayyim_UPSTREAM = "https://atproto.etzhayyim.com"
 # kotoba graph query surface — INTENTIONALLY EMPTY: kotoba is browser-only

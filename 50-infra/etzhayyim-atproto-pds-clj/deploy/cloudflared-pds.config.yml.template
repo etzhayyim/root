@@ -1,0 +1,25 @@
+# Cloudflare Tunnel — exposes the mesh-resident PDS to the apex Worker WITHOUT k8s.
+#
+# The apex CF Worker (50-infra/etzhayyim-did-web) routes com.atproto.repo.* / sync.* +
+# app.bsky.feed.getAuthorFeed to XRPC_PDS_UPSTREAM. Point XRPC_PDS_UPSTREAM at the
+# PUBLIC HOSTNAME below; this tunnel terminates it on the mesh node's loopback PDS
+# (`bb serve`, port @PORT@). No LoadBalancer, no Ingress, no public IP on the node.
+#
+# Setup (operator, one-time):
+#   cloudflared tunnel login
+#   cloudflared tunnel create etzhayyim-pds          # → writes <UUID>.json credentials
+#   cloudflared tunnel route dns etzhayyim-pds @PDS_HOST@
+#   cp deploy/cloudflared-pds.config.yml.template ~/.cloudflared/etzhayyim-pds.yml
+#   # fill @TUNNEL_UUID@ + credentials-file path, then run as a LaunchAgent:
+#   cloudflared --config ~/.cloudflared/etzhayyim-pds.yml tunnel run
+#
+# Credentials live in ~/.cloudflared (machine-local) and are NEVER committed.
+
+tunnel: @TUNNEL_UUID@
+credentials-file: @HOME@/.cloudflared/@TUNNEL_UUID@.json
+
+ingress:
+  - hostname: @PDS_HOST@
+    service: http://127.0.0.1:@PORT@
+  # everything else → 404 (the tunnel only serves the PDS)
+  - service: http_status:404

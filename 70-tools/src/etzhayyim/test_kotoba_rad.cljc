@@ -12,7 +12,7 @@
 (def pk "9f3a7c2e1b4d5a6f8090a1b2c3d4e5f60718293a4b5c6d7e8f9012345678abcd")
 
 (defn g [] (rad/genesis-block
-            {:name "cargo" :did-web "did:web:cargo.etzhayyim.com"
+            {:name "cargo" :did-web "did:web:etzhayyim.github.io:com-etzhayyim-cargo"
              :delegates [(rad/did-key pk)] :threshold 1
              :repo "github.com/etzhayyim/com-etzhayyim-cargo"
              :pds "https://pds.etzhayyim.com" :collection "com.etzhayyim.apps.cargo"}))
@@ -32,11 +32,24 @@
 (deftest did-doc-cross-links-three-identities
   (let [doc (rad/did-web-doc {:name "cargo" :genesis (g) :pubkey-hex pk})
         aka (set (get doc "alsoKnownAs"))]
-    (is (= "did:web:cargo.etzhayyim.com" (get doc "id")))
+    (is (= "did:web:etzhayyim.github.io:com-etzhayyim-cargo" (get doc "id")))
     (is (contains? aka "at://cargo.etzhayyim.com"))
     (is (contains? aka "https://github.com/etzhayyim/com-etzhayyim-cargo"))
     (is (contains? aka (rad/rad-uri (g))) "sovereign rad: URI present")
     (is (= pk (get-in doc ["verificationMethod" 0 "publicKeyHex"])))))
+
+(deftest did-doc-data-graph-service
+  (testing "a KotobaDataGraph service points the DID at its CID-queryable Pages tier (ADR-2606242400)"
+    (let [doc (rad/did-web-doc {:name "cargo" :genesis (g)
+                                :data-graph {:root "bafkreiROOTcid" :car "data/cargo.car"
+                                             :head "data/head.json"}})
+          svc (->> (get doc "service") (filter #(= "KotobaDataGraph" (get % "type"))) first)]
+      (is (some? svc) "service entry present")
+      (is (= "bafkreiROOTcid" (get-in svc ["serviceEndpoint" "root"])))
+      (is (= "data/cargo.car" (get-in svc ["serviceEndpoint" "car"]))))
+    (testing "absent by default (no :data-graph) — existing callers unchanged"
+      (let [doc (rad/did-web-doc {:name "cargo" :genesis (g)})]
+        (is (nil? (->> (get doc "service") (filter #(= "KotobaDataGraph" (get % "type"))) first)))))))
 
 (deftest publish-is-append-only-and-idempotent
   (let [a "__test_kotoba_rad__"

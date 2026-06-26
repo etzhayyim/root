@@ -32,6 +32,6 @@
   ;; is the query language (resilience map so buyers DIVERSIFY; never a verdict).
   (kqe-query "concentration(?c) :- supplies(?c)."))
 
-(defn on-http [req]
-  ;; read path for the /kabuto route: surface the supply-concentration query.
+(defn on-kse [topic payload]
+  ;; KSE-topic trigger (observatory on-kse pattern, ADR-2606230001 §4). surface the supply-concentration query.
   (kqe-query "concentration(?c) :- supplies(?c)."))

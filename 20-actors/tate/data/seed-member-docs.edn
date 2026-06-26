@@ -59,7 +59,7 @@
  {:doc/id "doc:us-saas-tos" :doc/label "US SaaS Terms of Service (synthetic)"
   :doc/jurisdiction :us
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "Any dispute shall be resolved by binding arbitration and you waive your right to a jury trial. This is a class action waiver. Your subscription automatically renews each month unless you cancel before the renewal date. An early termination fee applies if you cancel during the commitment period."}
+  :doc/text "Any dispute shall be resolved by binding arbitration and you waive your right to a jury trial. This is a class action waiver. Your subscription automatically renews each month unless you cancel before the renewal date. An early termination fee applies if you cancel during the commitment period. We are not liable for any personal injury caused by the product."}
 
  {:doc/id "doc:eu-sub-tos" :doc/label "EU subscription terms (synthetic)"
   :doc/jurisdiction :eu
@@ -69,7 +69,7 @@
  {:doc/id "doc:uk-gym-terms" :doc/label "UK gym membership terms (synthetic)"
   :doc/jurisdiction :uk
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "We accept no liability whatsoever for injury, loss or damage howsoever caused on the premises. If you cancel early you must pay the entire balance of the remaining membership as a cancellation fee for the remaining term. All payments are non-refundable under any circumstances and your statutory rights do not apply."}
+  :doc/text "We accept no liability whatsoever for injury, loss or damage howsoever caused on the premises. If you cancel early you must pay the entire balance of the remaining membership as a cancellation fee for the remaining term. All payments are non-refundable under any circumstances and your statutory rights do not apply. We may alter the terms of the contract unilaterally without a valid reason."}
 
  {:doc/id "doc:de-agb" :doc/label "DE Mobilfunk-AGB (synthetic)"
   :doc/jurisdiction :de
@@ -192,7 +192,7 @@
  {:doc/id "doc:br-termos" :doc/label "BR termos de uso (synthetic)"
   :doc/jurisdiction :br
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "Não nos responsabilizamos por quaisquer danos. O plano tem renovação automática."}
+  :doc/text "Não nos responsabilizamos por quaisquer danos. O plano tem renovação automática. O fornecedor poderá variar o preço de maneira unilateral. O fornecedor poderá modificar unilateralmente o conteúdo ou a qualidade do contrato após a celebração."}
 
  {:notice/id "ntc:es-monitorio" :notice/label "ES requerimiento de pago (送達)"
   :notice/jurisdiction :es
@@ -721,7 +721,7 @@
  {:doc/id "doc:ar-terminos" :doc/label "AR términos y condiciones (synthetic)"
   :doc/jurisdiction :ar
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "No asumimos responsabilidad por daños. La suscripción tiene renovación automática."}
+  :doc/text "No asumimos responsabilidad por daños. La suscripción tiene renovación automática. El consumidor renuncia a sus derechos y se amplían los derechos de la empresa. Se invierte la carga de la prueba en perjuicio del consumidor."}
 
  {:notice/id "ntc:ar-traslado" :notice/label "AR traslado de la demanda (cédula)"
   :notice/jurisdiction :ar
@@ -811,7 +811,7 @@
  {:doc/id "doc:mx-terminos" :doc/label "MX términos y condiciones (synthetic)"
   :doc/jurisdiction :mx
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "No nos hacemos responsables por daños. El plan tiene renovación automática anual."}
+  :doc/text "No nos hacemos responsables por daños. El plan tiene renovación automática anual. El proveedor puede modificar unilateralmente el contenido del contrato. El contrato obliga al consumidor a renunciar a la protección de esta ley y a someterse a tribunales extranjeros."}
 
  {:notice/id "ntc:mx-empl" :notice/label "MX emplazamiento (actuario)"
   :notice/jurisdiction :mx
@@ -865,7 +865,7 @@
  {:doc/id "doc:no-vilkar" :doc/label "NO abonnementsvilkår (synthetic)"
   :doc/jurisdiction :no
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "Selskapet fraskriver seg ethvert ansvar for tap. Abonnementet fornyes automatisk hvert år."}
+  :doc/text "Selskapet fraskriver seg ethvert ansvar for tap. Abonnementet fornyes automatisk hvert år. Ved forsinket betaling påløper forsinkelsesrente på 30 prosent per år. Disse vilkårene fraviker forbrukerkjøpsloven til ugunst for forbrukeren."}
 
  {:notice/id "ntc:no-forlik" :notice/label "NO innkalling til forliksrådet (brev)"
   :notice/jurisdiction :no
@@ -913,12 +913,12 @@
  {:doc/id "doc:dk-vilkaar" :doc/label "DK abonnementsvilkår (synthetic)"
   :doc/jurisdiction :dk
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "Selskabet fraskriver sig ethvert ansvar for tab. Abonnementet forlænges automatisk med et år."}
+  :doc/text "Selskabet fraskriver sig ethvert ansvar for tab. Abonnementet forlænges automatisk med et år. Ved forsinket betaling påløber en morarente på 30 procent årligt. Den erhvervsdrivende kan ændre vilkårene ensidigt uden gyldig grund."}
 
  {:doc/id "doc:fi-ehdot" :doc/label "FI sopimusehdot (synthetic)"
   :doc/jurisdiction :fi
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "Emme vastaa mistään vahingoista. Tilaus jatkuu automaattisesti vuoden kerrallaan."}
+  :doc/text "Emme vastaa mistään vahingoista. Tilaus jatkuu automaattisesti vuoden kerrallaan. Maksun viivästyessä peritään viivästyskorko 30 prosenttia vuodessa. Elinkeinonharjoittaja voi muuttaa sopimusehtoja yksipuolisesti ilman perusteltua syytä."}
 
  {:notice/id "ntc:dk-bp" :notice/label "DK betalingspåkrav (fogedretten)"
   :notice/jurisdiction :dk
@@ -978,12 +978,12 @@
  {:doc/id "doc:ie-terms" :doc/label "IE subscription terms (synthetic)"
   :doc/jurisdiction :ie
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "We accept no liability for any loss. Your plan will automatically renew each year."}
+  :doc/text "We accept no liability for any loss. Your plan will automatically renew each year. If you fail to perform you must pay a disproportionately high sum in compensation. We may alter the terms of this contract unilaterally without a valid reason."}
 
  {:doc/id "doc:ch-agb" :doc/label "CH AGB (synthetic)"
   :doc/jurisdiction :ch
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "Jegliche Haftung wird ausgeschlossen. Das Abonnement verlängert sich stillschweigend um ein weiteres Jahr."}
+  :doc/text "Jegliche Haftung wird ausgeschlossen. Das Abonnement verlängert sich stillschweigend um ein weiteres Jahr. Bei Vertragsverletzung ist eine übermässig hohe Konventionalstrafe geschuldet. Diese AGB sehen ein erhebliches und ungerechtfertigtes Missverhältnis zum Nachteil des Konsumenten vor."}
 
  {:notice/id "ntc:ie-summons" :notice/label "IE civil summons (court office)"
   :notice/jurisdiction :ie
@@ -1093,7 +1093,7 @@
  {:doc/id "doc:at-agb" :doc/label "AT AGB (synthetic)"
   :doc/jurisdiction :at
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "Wir übernehmen keine Haftung für Schäden. Der Vertrag verlängert sich automatisch um ein Jahr."}
+  :doc/text "Wir übernehmen keine Haftung für Schäden. Der Vertrag verlängert sich automatisch um ein Jahr. Der Verbraucher ist unangemessen lange an den Vertrag gebunden. Der Unternehmer ist zu einer Preiserhöhung innerhalb von zwei Monaten nach Vertragsabschluss berechtigt."}
 
  {:doc/id "doc:pt-condicoes" :doc/label "PT condições gerais (synthetic)"
   :doc/jurisdiction :pt
@@ -1163,7 +1163,7 @@
  {:doc/id "doc:se-villkor" :doc/label "SE allmänna villkor (synthetic)"
   :doc/jurisdiction :se
   :doc/context :consumer :doc/sourcing :synthetic
-  :doc/text "Bolaget friskriver sig från allt ansvar för skador. Abonnemanget förlängs automatiskt med ett år."}
+  :doc/text "Bolaget friskriver sig från allt ansvar för skador. Abonnemanget förlängs automatiskt med ett år. Vid sen betalning utgår dröjsmålsränta med 30 procent per år. Rätten till nedsättning av ränta enligt 8 § räntelagen är utesluten."}
 
  {:notice/id "ntc:pl-nakaz" :notice/label "PL nakaz zapłaty (書留)"
   :notice/jurisdiction :pl

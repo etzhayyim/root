@@ -38,7 +38,7 @@ _PROPOSAL = _LEX / "patchProposal.json"
 _VALIDATION = _LEX / "patchValidationResult.json"
 _CLOSURE = _LEX / "closureAttestation.json"
 _SILEN = _LEX / "silenTsukuroiReview.json"
-_MANIFEST = _REPO / "20-actors" / "tsukuroi" / "manifest.jsonld"
+# manifest invariants -> 20-actors/tsukuroi/methods/test_manifest_invariants.cljc (jsonld retired)
 _CELLS = _REPO / "20-actors" / "kotodama" / "cells"
 
 _CELL_NAMES = [
@@ -186,21 +186,7 @@ class TestCellsRaiseAtImport:
 
 
 class TestManifestConsistency:
-    def test_thirteen_gates_present(self):
-        gates = _load(_MANIFEST)["constitutionalGates"]["gates"]
-        assert set(gates) == {f"G{i}" for i in range(1, 14)}, "must pin exactly G1..G13"
-
-    def test_namespaces_match_disk_lexicons_bidirectionally(self):
-        declared = {ns.rsplit(".", 1)[-1] for ns in _load(_MANIFEST)["lexiconNamespaces"]}
-        on_disk = {p.stem for p in _LEX.glob("*.json")}
-        assert declared == on_disk, f"manifest namespaces vs disk drifted: {declared ^ on_disk}"
-
     def test_each_lexicon_id_matches_namespace(self):
         for p in _LEX.glob("*.json"):
             assert _load(p)["id"] == f"com.etzhayyim.tsukuroi.{p.stem}"
 
-    def test_did_name_tier(self):
-        m = _load(_MANIFEST)
-        assert m["id"] == "did:web:tsukuroi.etzhayyim.com"
-        assert m["name"] == "tsukuroi"
-        assert m["tier"] == "Tier-B"

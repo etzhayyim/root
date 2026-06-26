@@ -5,7 +5,10 @@
 ;; `etzhayyim.kotoba.{cid,datom,log}` — rather than running a separate
 ;; radicle-node. The actor's three identities are cross-linked:
 ;;
-;;   B-web    did:web:<name>.etzhayyim.com         (aozora / yoro controller DID)
+;;   B-web    did:web:etzhayyim.github.io:com-etzhayyim-<name>  (static did.json,
+;;            GitHub Pages — no custom domain, no dynamic generation; ADR addendum
+;;            2026-06-24. The AT handle <name>.etzhayyim.com is a SEPARATE id
+;;            resolved by a DNS TXT _atproto record, needing no web host.)
 ;;   B-rad    rad:<RID>  +  did:key:z<hex>          (sovereign, this file)
 ;;   A-repo   github.com/etzhayyim/com-etzhayyim-<name>
 ;;
@@ -125,27 +128,41 @@
     {:rid rid* :rad-uri (str "rad:" rid*) :head head
      :datoms-appended (count all) :signed? (boolean sig)}))
 
-;; ── did:web did.json (subdomain form, cross-linked to rad + repo) ───────────
+;; ── did:web did.json (github.io path form, static — cross-linked to rad+repo) ─
+;; ADR-2606231200 addendum (2026-06-24): the actor did.json is a STATIC file at
+;; the repo's Pages root (/.well-known/did.json), served by GitHub Pages over
+;; github.io's own TLS. No custom domain, no CF Worker, no dynamic generation —
+;; key rotation is a commit/PR, which is the no-server-key + self-evolution path.
 
 (defn did-web-doc
-  "W3C DID Document for did:web:<name>.etzhayyim.com, cross-linking the
-   sovereign rad: identity, the AT handle, and the GitHub mirror in
-   alsoKnownAs. `pubkey-hex` (optional) adds an Ed25519 verificationMethod."
-  [{:keys [name did-web genesis pubkey-hex]}]
-  (let [did (or did-web (str "did:web:" name ".etzhayyim.com"))
-        dk  (some-> pubkey-hex did-key)]
+  "W3C DID Document for did:web:etzhayyim.github.io:com-etzhayyim-<name>,
+   cross-linking the sovereign rad: identity, the AT handle, and the GitHub
+   mirror in alsoKnownAs. `pubkey-hex` (optional) adds an Ed25519
+   verificationMethod. `data-graph` (optional, {:root :car :head}) adds a
+   KotobaDataGraph service so resolving the DID locates the CID-queryable Pages
+   data tier (ADR-2606242400). Served STATICALLY from the repo's Pages root."
+  [{:keys [name did-web genesis pubkey-hex data-graph]}]
+  (let [did (or did-web (str "did:web:etzhayyim.github.io:com-etzhayyim-" name))
+        dk  (some-> pubkey-hex did-key)
+        services (cond-> [{"id" (str did "#atproto_pds")
+                           "type" "AtprotoPersonalDataServer"
+                           "serviceEndpoint" "https://pds.etzhayyim.com"}
+                          {"id" (str did "#aozora")
+                           "type" "AozoraAppView"
+                           "serviceEndpoint" "https://aozora.app"}]
+                   data-graph
+                   (conj {"id" (str did "#kotoba-data")
+                          "type" "KotobaDataGraph"
+                          "serviceEndpoint" {"root" (:root data-graph)
+                                             "car" (or (:car data-graph) "data/")
+                                             "head" (or (:head data-graph) "data/head.json")}}))]
     (cond-> {"@context" ["https://www.w3.org/ns/did/v1"
                          "https://w3id.org/security/suites/ed25519-2020/v1"]
              "id" did
              "alsoKnownAs" (cond-> [(str "at://" name ".etzhayyim.com")
                                     (str "https://github.com/etzhayyim/com-etzhayyim-" name)]
                              genesis (conj (rad-uri genesis)))
-             "service" [{"id" (str did "#atproto_pds")
-                         "type" "AtprotoPersonalDataServer"
-                         "serviceEndpoint" "https://pds.etzhayyim.com"}
-                        {"id" (str did "#aozora")
-                         "type" "AozoraAppView"
-                         "serviceEndpoint" "https://aozora.app"}]}
+             "service" services}
       dk (assoc "verificationMethod"
                 [{"id" (str did "#key-0")
                   "type" "Ed25519VerificationKey2020"

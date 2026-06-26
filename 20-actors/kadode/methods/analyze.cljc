@@ -228,6 +228,29 @@
      "route_use" route-use
      "routes" routes}))
 
+(defn risk-counters
+  "Per employer 引き止め RISK pattern, the legal GROUNDS that counter it — the worker's preparedness
+  map: facing a tactic (退職拒否 / 損害賠償脅迫 / 有給拒否 …) they see the disclosed law that answers
+  it (民法627 the unilateral right; 労基法16 no penalty-for-resigning; …). `analyze`'s risk_coverage
+  gives each risk's total counter-WEIGHT; this names the SPECIFIC counter-grounds behind that number.
+  Each ground is a DISCLOSED legal fact with a citation (G3/N3), never a kadode verdict — kadode
+  INFORMS, it does not advise / represent / negotiate (G1 使者-not-代理人). A risk with no counter
+  (a coverage gap) is included with an empty list. Returns [risk pattern label counter-grounds] (each
+  ground = [id label]) by counter-count descending."
+  [nodes edges]
+  (let [counters (reduce (fn [m e]
+                           (if (= ":counters" (get e ":en/kind"))
+                             (update m (get e ":en/to") (fnil conj []) (get e ":en/from"))
+                             m))
+                         {} edges)]
+    (->> nodes
+         (filter (fn [[_ n]] (= ":risk" (get n ":lx/kind"))))
+         (map (fn [[rid n]]
+                [rid (get n ":risk/pattern" rid) (get n ":lx/label" "")
+                 (mapv (fn [gid] [gid (get-in nodes [gid ":lx/label"] gid)]) (get counters rid []))]))
+         (sort-by (fn [[rid _ _ grounds]] [(- (count grounds)) (str rid)]))
+         vec)))
+
 ;; ── report rendering (matches report_md's f-strings) ────────────────────────
 
 (defn- omap-items

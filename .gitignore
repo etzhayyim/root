@@ -148,3 +148,13 @@ foundry.lock
 # Council-authorised live-ingest DataLad datasets (data → DataLad/git-annex/IPFS, not git).
 # Git-tracked pointer = 80-data/coverage-manifests/<name>-manifest.json (ADR-2605241500 + 2606111330).
 /80-data/*-coverage/
+
+# sops/age (ADR-2606241500): plaintext actor secrets are NEVER committed — only
+# the sops *.enc.* ciphertext siblings are. The global `secrets/` rule above
+# ignores the whole directory, and git cannot re-include a file whose PARENT dir
+# is excluded — so re-include the directory FIRST, then re-ignore its contents,
+# then re-include only the ciphertext (+ a .gitkeep).
+!20-actors/*/secrets/
+20-actors/*/secrets/*
+!20-actors/*/secrets/*.enc.*
+!20-actors/*/secrets/.gitkeep

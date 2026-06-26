@@ -8,7 +8,80 @@
    :task (server/-main)}
 
   test
-  {:doc "Run the PDS round-trip test suite."
-   :requires ([clojure.test :as t] [etzhayyim.pds.server-test])
-   :task (let [{:keys [fail error]} (t/run-tests 'etzhayyim.pds.server-test)]
-           (System/exit (if (pos? (+ fail error)) 1 0)))}}}
+  {:doc "Run the PDS test suite (server + util + xrpc + datom + config + keys + actorkeys)."
+   :requires ([clojure.test :as t] [etzhayyim.pds.server-test]
+              [etzhayyim.pds.util-test] [etzhayyim.pds.xrpc-test]
+              [etzhayyim.pds.datom-test] [etzhayyim.pds.config-test]
+              [etzhayyim.pds.keys-test] [etzhayyim.pds.actorkeys-test]
+              [etzhayyim.pds.client-test] [etzhayyim.pds.drain-test]
+              [etzhayyim.pds.leash-test] [etzhayyim.pds.repo-test])
+   :task (let [{:keys [fail error]} (t/run-tests 'etzhayyim.pds.server-test
+                                                 'etzhayyim.pds.util-test
+                                                 'etzhayyim.pds.xrpc-test
+                                                 'etzhayyim.pds.datom-test
+                                                 'etzhayyim.pds.config-test
+                                                 'etzhayyim.pds.keys-test
+                                                 'etzhayyim.pds.actorkeys-test
+                                                 'etzhayyim.pds.client-test
+                                                 'etzhayyim.pds.drain-test
+                                                 'etzhayyim.pds.leash-test
+                                                 'etzhayyim.pds.repo-test)]
+           (System/exit (if (pos? (+ fail error)) 1 0)))}
+
+  keys-test
+  {:doc "Run the actor-sealed key invariants (etzhayyim.pds.keys)."
+   :requires ([clojure.test :as t] [etzhayyim.pds.keys-test])
+   :task (let [{:keys [fail error]} (t/run-tests 'etzhayyim.pds.keys-test)]
+           (System/exit (if (pos? (+ fail error)) 1 0)))}
+
+  drain
+  {:doc "Drain an ibuki NDJSON post-queue to the PDS. Env: PDS_DRAIN_BASE (PDS url) +
+         PDS_DRAIN_QUEUE (queue file) + optional PDS_DRAIN_CURSOR / PDS_DRAIN_RECEIPTS +
+         optional PDS_DRAIN_LEASH (a member CACAO leash the drainer PRESENTS so the PDS
+         attributes each write to the consenting member; absent → unattributed)."
+   :requires ([etzhayyim.pds.drain :as drain])
+   :task (let [res (drain/run-file! {:base (System/getenv "PDS_DRAIN_BASE")
+                                     :queue-path (System/getenv "PDS_DRAIN_QUEUE")
+                                     :cursor-path (System/getenv "PDS_DRAIN_CURSOR")
+                                     :receipts-path (System/getenv "PDS_DRAIN_RECEIPTS")
+                                     :leash (System/getenv "PDS_DRAIN_LEASH")})]
+           (println (format "[drain] posted=%d errors=%d parse-errors=%d"
+                            (count (:receipts res)) (count (:errors res))
+                            (count (:parse-errors res)))))}
+
+  drain-preview
+  {:doc "Dry-run: show what `bb drain` WOULD post (PDS_DRAIN_QUEUE) — no posting, no key."
+   :requires ([clojure.java.io :as io] [etzhayyim.pds.drain :as drain])
+   :task (let [pv (drain/preview (slurp (System/getenv "PDS_DRAIN_QUEUE")))]
+           (println (format "[drain-preview] would-post=%d parse-errors=%d actors=%d"
+                            (count (:would-post pv)) (count (:parse-errors pv))
+                            (count (:by-actor pv))))
+           (doseq [w (:would-post pv)]
+             (println "  " (:repo w) (:collection w) "rkey=" (:rkey w))))}
+
+  leash-keygen
+  {:doc "MEMBER runtime: mint a member Ed25519 did:key + print {did, sealed} under
+         LEASH_SEAL_SECRET (the member's OWN secret; the platform never holds it).
+         Store the sealed blob to re-issue leashes later. no-server-key."
+   :requires ([etzhayyim.pds.leash :as leash] [cheshire.core :as json])
+   :task (let [secret (or (System/getenv "LEASH_SEAL_SECRET")
+                          (throw (ex-info "LEASH_SEAL_SECRET is required (member-held)" {})))
+               m (leash/gen-member-key)
+               blob (leash/seal-member m secret)]
+           (println (json/generate-string {:did (:did m) :sealed blob} {:pretty true})))}
+
+  leash-issue
+  {:doc "MEMBER runtime: issue a scoped/expiring leash from a sealed member key.
+         Env: LEASH_SEAL_SECRET + LEASH_SEALED (sealed blob JSON) + LEASH_AUD (the PDS
+         did) + LEASH_EXP (unix seconds) [+ LEASH_SCOPE]. Prints the compact leash the
+         actor PRESENTS to the PDS. no-server-key (the member signs in their runtime)."
+   :requires ([etzhayyim.pds.leash :as leash] [cheshire.core :as json])
+   :task (let [secret (or (System/getenv "LEASH_SEAL_SECRET")
+                          (throw (ex-info "LEASH_SEAL_SECRET is required" {})))
+               blob (json/parse-string (or (System/getenv "LEASH_SEALED")
+                                           (throw (ex-info "LEASH_SEALED is required" {}))) true)
+               m (leash/unseal-member blob secret)
+               leash (leash/issue-leash m {:aud (System/getenv "LEASH_AUD")
+                                           :exp (Long/parseLong (System/getenv "LEASH_EXP"))
+                                           :scope (or (System/getenv "LEASH_SCOPE") "datom:transact")})]
+           (println leash))}}}

@@ -138,6 +138,14 @@
   :clause/anchor "州 UDAP (unfair or deceptive acts and practices) — 過大な ETF は争いうる"
   :clause/route :referral :clause/verify-current-law true}
 
+ {:clause/id "cl:us-exculpatory-personal-injury" :clause/label "人身損害の免責 (prima facie unconscionable)"
+  :clause/jurisdiction :us
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["not liable for any personal injury caused by the product"]
+  :clause/anchor "UCC §2-719(3) (model code adopted by states — limitation of consequential damages for injury to the person in the case of consumer goods is prima facie unconscionable)"
+  :clause/source-url "https://www.law.cornell.edu/ucc/2/2-719"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :eu — EU instruments (G10) ──────────────────────────────────────────────
  {:clause/id "cl:eu-withdrawal-exclusion" :clause/label "14日撤回権の排除"
   :clause/jurisdiction :eu
@@ -175,6 +183,14 @@
   :clause/keywords ["non-refundable under any circumstances" "statutory rights do not apply"]
   :clause/anchor "Consumer Rights Act 2015 s.31 (goods) / s.57 (services) — statutory rights cannot be excluded; s.62 (fairness)"
   :clause/source-url "https://www.legislation.gov.uk/ukpga/2015/15/section/31"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:uk-unilateral-variation" :clause/label "正当理由なき一方的変更 (grey list)"
+  :clause/jurisdiction :uk
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["alter the terms of the contract unilaterally without a valid reason"]
+  :clause/anchor "Consumer Rights Act 2015 Sch 2 para 11 (a term enabling the trader to alter the terms of the contract unilaterally without a valid reason which is specified in the contract — grey list) / s.62 (fairness)"
+  :clause/source-url "https://www.legislation.gov.uk/ukpga/2015/15/schedule/2/enacted"
   :clause/route :referral :clause/verify-current-law true}
 
  ;; ── :de — Deutschland (G10) ─────────────────────────────────────────────────
@@ -440,6 +456,22 @@
   :clause/anchor "Ley 24.240 + Res. 424/2020 (**botón de baja** — オンライン解約はワンクリック義務)"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ {:clause/id "cl:ar-renuncia-derechos" :clause/label "消費者権利の放棄/制限 (no convenida)"
+  :clause/jurisdiction :ar
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["el consumidor renuncia a sus derechos"]
+  :clause/anchor "Ley 24.240 art. 37 inc. b (cláusulas que importen renuncia o restricción de los derechos del consumidor o amplíen los derechos de la otra parte — se tienen por no convenidas)"
+  :clause/source-url "http://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/638/texact.htm"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:ar-inversion-carga-prueba" :clause/label "立証責任の転換 (no convenida)"
+  :clause/jurisdiction :ar
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["la carga de la prueba en perjuicio del consumidor"]
+  :clause/anchor "Ley 24.240 art. 37 inc. c (cláusulas que impongan la inversión de la carga de la prueba en perjuicio del consumidor — se tienen por no convenidas)"
+  :clause/source-url "http://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/638/texact.htm"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :be — Belgique (G10) ─────────────────────────────────────────────────────
  {:clause/id "cl:be-exoneration" :clause/label "全部免責 (clause abusive)"
   :clause/jurisdiction :be
@@ -485,6 +517,22 @@
   :clause/keywords ["renovación automática"]
   :clause/anchor "LFPC arts. 85–86 (contrato de adhesión の要件) — 解約導線のカレンダー化"
   :clause/route :kaiyaku :clause/verify-current-law true}
+
+ {:clause/id "cl:mx-modificacion-unilateral" :clause/label "一方的契約変更 (no puesta)"
+  :clause/jurisdiction :mx
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["modificar unilateralmente el contenido del contrato"]
+  :clause/anchor "LFPC art. 90 frac. I (cláusulas que permitan al proveedor modificar unilateralmente el contenido del contrato o sustraerse unilateralmente de sus obligaciones — no serán válidas, se tendrán por no puestas)"
+  :clause/source-url "https://www.diputados.gob.mx/LeyesBiblio/pdf/LFPC.pdf"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:mx-renuncia-ley" :clause/label "法定保護の放棄/外国裁判所 (no puesta)"
+  :clause/jurisdiction :mx
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["renunciar a la protección de esta ley"]
+  :clause/anchor "LFPC art. 90 (cláusulas que obliguen al consumidor a renunciar a la protección de esta ley o lo sometan a la competencia de tribunales extranjeros — no serán válidas, se tendrán por no puestas)"
+  :clause/source-url "https://www.diputados.gob.mx/LeyesBiblio/pdf/LFPC.pdf"
+  :clause/route :referral :clause/verify-current-law true}
 
  ;; ── :nz — Aotearoa NZ (G10) ──────────────────────────────────────────────────
  {:clause/id "cl:nz-cga-exclusion" :clause/label "consumer guarantees の排除"
@@ -532,6 +580,22 @@
   :clause/anchor "markedsføringsloven / Forbrukertilsynet の自動更新ガイドライン (事前通知・容易な解約)"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ {:clause/id "cl:no-hoy-forsinkelsesrente" :clause/label "過大な遅延利息 (lovbestemt sats)"
+  :clause/jurisdiction :no
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["forsinkelsesrente på 30 prosent"]
+  :clause/anchor "forsinkelsesrenteloven (lov 1976-12-17-100) §3 (forsinkelsesrenten fastsettes av Finansdepartementet halvårlig = Norges Banks styringsrente + minst 8 prosentpoeng) + avtaleloven §36 (urimelig vilkår lempes)"
+  :clause/source-url "https://lovdata.no/lov/1976-12-17-100"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:no-fravik-forbrukerkjopsloven" :clause/label "消費者法からの不利な逸脱 (ufravikelig)"
+  :clause/jurisdiction :no
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["fraviker forbrukerkjøpsloven til ugunst for forbrukeren"]
+  :clause/anchor "forbrukerkjøpsloven (lov 2002-06-21-34) §3 (loven kan ikke fravikes ved avtale til ugunst for forbrukeren — slikt vilkår er ugyldig)"
+  :clause/source-url "https://lovdata.no/lov/2002-06-21-34"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :dk — Danmark (G10) ──────────────────────────────────────────────────────
  {:clause/id "cl:dk-ansvarsfraskrivelse" :clause/label "全部免責 (ansvarsfraskrivelse)"
   :clause/jurisdiction :dk
@@ -546,6 +610,22 @@
   :clause/keywords ["forlænges automatisk"]
   :clause/anchor "forbrugeraftaleloven §28 (拘束5か月経過後は1か月通知で解約可 — 長期ロックは効かない)"
   :clause/route :kaiyaku :clause/verify-current-law true}
+
+ {:clause/id "cl:dk-hoj-morarente" :clause/label "過大な遅延利息 (lovbestemt sats)"
+  :clause/jurisdiction :dk
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["morarente på 30 procent"]
+  :clause/anchor "renteloven §5 (morarente = Nationalbankens referencesats + 8 procent, fastsat 1. jan/1. juli) + §7 (i forbrugerforhold kan §§3-5 ikke fraviges til skade for forbrugeren) + aftaleloven §36 (urimeligt vilkår tilsidesættes)"
+  :clause/source-url "https://danskelove.dk/renteloven/5"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:dk-ensidig-aendring" :clause/label "正当理由なき一方的変更 (urimeligt vilkår)"
+  :clause/jurisdiction :dk
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["ændre vilkårene ensidigt uden gyldig grund"]
+  :clause/anchor "aftaleloven §38c jf. §36 (urimelige forbrugeraftalevilkår — fx ensidig ret for den erhvervsdrivende til at ændre vilkår/pris uden gyldig grund; tilsidesættes)"
+  :clause/source-url "https://danskelove.dk/aftaleloven/38c"
+  :clause/route :referral :clause/verify-current-law true}
 
  ;; ── :fi — Suomi (G10) ────────────────────────────────────────────────────────
  {:clause/id "cl:fi-vastuunrajoitus" :clause/label "全部免責 (vastuunrajoitus)"
@@ -562,6 +642,22 @@
   :clause/anchor "KSL / kuluttaja-asiamies の自動継続ガイドライン (事前通知・容易な解約導線)"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ {:clause/id "cl:fi-korkea-viivastyskorko" :clause/label "過大な遅延利息 (tehoton)"
+  :clause/jurisdiction :fi
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["viivästyskorko 30 prosenttia"]
+  :clause/anchor "korkolaki (633/1982) 4 § (viivästyskorko = viitekorko + 7 prosenttiyksikköä) + 11 § (kuluttajasopimuksessa sitoumus on tehoton siltä osin kuin kuluttaja maksaisi enemmän viivästyskorkoa kuin korkolaissa säädetään)"
+  :clause/source-url "https://www.finlex.fi/fi/laki/ajantasa/1982/19820633"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:fi-yksipuolinen-muutos" :clause/label "正当理由なき一方的変更 (kohtuuton ehto)"
+  :clause/jurisdiction :fi
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["muuttaa sopimusehtoja yksipuolisesti ilman perusteltua syytä"]
+  :clause/anchor "kuluttajansuojalaki (38/1978) 4 luku 1 § (kohtuuton sopimusehto — tuomioistuin voi sovitella tai jättää sen huomioon ottamatta; esim. elinkeinonharjoittajan yksipuolinen muutosoikeus ilman perusteltua syytä)"
+  :clause/source-url "https://www.finlex.fi/fi/laki/ajantasa/1978/19780038"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :ie — Ireland (G10) ──────────────────────────────────────────────────────
  {:clause/id "cl:ie-liability" :clause/label "包括免責 (unfair term)"
   :clause/jurisdiction :ie
@@ -576,6 +672,22 @@
   :clause/keywords ["automatically renew"]
   :clause/anchor "Consumer Rights Act 2022 (transparency) — CCPC guidance; 解約窓のカレンダー化"
   :clause/route :kaiyaku :clause/verify-current-law true}
+
+ {:clause/id "cl:ie-disproportionate-compensation" :clause/label "不均衡な補償 (indicative unfair term)"
+  :clause/jurisdiction :ie
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["pay a disproportionately high sum in compensation"]
+  :clause/anchor "Consumer Rights Act 2022 Sch 5 Part 1 item 5 (requiring a consumer who fails to fulfil their obligation to pay a disproportionately high sum in compensation — indicative unfair term)"
+  :clause/source-url "https://www.irishstatutebook.ie/eli/2022/act/37/schedule/5/enacted/en/html"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:ie-unilateral-variation" :clause/label "正当理由なき一方的変更 (indicative unfair term)"
+  :clause/jurisdiction :ie
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["alter the terms of this contract unilaterally without a valid reason"]
+  :clause/anchor "Consumer Rights Act 2022 Sch 5 Part 1 item 11 (enabling the trader to alter the terms of the contract unilaterally without a valid reason — indicative unfair term)"
+  :clause/source-url "https://www.irishstatutebook.ie/eli/2022/act/37/schedule/5/enacted/en/html"
+  :clause/route :referral :clause/verify-current-law true}
 
  ;; ── :ch — Schweiz (G10) ──────────────────────────────────────────────────────
  {:clause/id "cl:ch-haftungsausschluss" :clause/label "全部免責 (ungewöhnliche AGB)"
@@ -592,6 +704,22 @@
   :clause/anchor "— (CH は黙示更新の一般規制が薄い — 条項どおり有効になりやすい; 解約窓を kaiyaku でカレンダー化)"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ {:clause/id "cl:ch-uebermaessige-konventionalstrafe" :clause/label "過大な違約金 (herabsetzbar)"
+  :clause/jurisdiction :ch
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["eine übermässig hohe Konventionalstrafe"]
+  :clause/anchor "OR Art. 163 Abs. 3 (eine übermässig hohe Konventionalstrafe hat der Richter nach seinem Ermessen herabzusetzen — Ausfluss von Treu und Glauben)"
+  :clause/source-url "https://www.fedlex.admin.ch/eli/cc/27/317_321_377/de#art_163"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:ch-missverhaeltnis-agb" :clause/label "AGB の著しい不均衡 (missbräuchlich)"
+  :clause/jurisdiction :ch
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["erhebliches und ungerechtfertigtes Missverhältnis"]
+  :clause/anchor "UWG Art. 8 (missbräuchliche Geschäftsbedingungen — AGB, die in Treu und Glauben verletzender Weise zum Nachteil der Konsumentinnen und Konsumenten ein erhebliches und ungerechtfertigtes Missverhältnis zwischen vertraglichen Rechten und Pflichten vorsehen)"
+  :clause/source-url "https://www.fedlex.admin.ch/eli/cc/1988/223_223_223/de#art_8"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :at — Österreich (G10) ───────────────────────────────────────────────────
  {:clause/id "cl:at-haftungsausschluss" :clause/label "全部免責 (Haftungsausschluss)"
   :clause/jurisdiction :at
@@ -606,6 +734,22 @@
   :clause/keywords ["verlängert sich automatisch"]
   :clause/anchor "KSchG §6 Abs 1 Z 2 (Erklärungsfiktion — 黙示更新には特段の注意喚起が必要)"
   :clause/route :kaiyaku :clause/verify-current-law true}
+
+ {:clause/id "cl:at-lange-bindung" :clause/label "不当に長い契約拘束 (unzulässig)"
+  :clause/jurisdiction :at
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["unangemessen lange an den Vertrag gebunden"]
+  :clause/anchor "KSchG §6 Abs 1 Z 1 (unangemessen lange/unbestimmte Bindung des Verbrauchers an den Vertrag — nicht verbindlich; OGH 判例 Fitness-Studio)"
+  :clause/source-url "https://www.ris.bka.gv.at/NormDokument.wxe?Abfrage=Bundesnormen&Gesetzesnummer=10002462&Paragraf=6"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:at-preiserhoehung-2monate" :clause/label "2か月以内の値上げ (nicht verbindlich)"
+  :clause/jurisdiction :at
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["Preiserhöhung innerhalb von zwei Monaten nach Vertragsabschluss"]
+  :clause/anchor "KSchG §6 Abs 2 Z 4 (innerhalb von zwei Monaten nach Vertragsabschluss zu erbringende Leistung — höheres Entgelt nicht verbindlich, sofern nicht im Einzelnen ausgehandelt)"
+  :clause/source-url "https://www.ris.bka.gv.at/NormDokument.wxe?Abfrage=Bundesnormen&Gesetzesnummer=10002462&Paragraf=6"
+  :clause/route :referral :clause/verify-current-law true}
 
  ;; ── :pt — Portugal (G10) ─────────────────────────────────────────────────────
  {:clause/id "cl:pt-exclusao" :clause/label "全部免責 (cláusula proibida)"
@@ -684,6 +828,22 @@
   :clause/anchor "Lag (2014:1449) om konsumentskydd vid automatisk avtalsförlängning (更新前の書面リマインド義務 — 怠れば随時解約可)"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ {:clause/id "cl:se-hog-drojsmalsranta" :clause/label "過大な遅延利息 (jämkbar)"
+  :clause/jurisdiction :se
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["dröjsmålsränta med 30 procent"]
+  :clause/anchor "Räntelagen (1975:635) 6 § (lagstadgad dröjsmålsränta = Riksbankens referensränta + 8 procentenheter) + 36 § avtalslagen (oskäligt villkor jämkas)"
+  :clause/source-url "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/rantelag-1975635_sfs-1975-635/"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:se-rantenedsattning-utesluten" :clause/label "利息減額権の排除 (utan verkan)"
+  :clause/jurisdiction :se
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["nedsättning av ränta enligt 8 § räntelagen är utesluten"]
+  :clause/anchor "Räntelagen (1975:635) 8 § (vid sjukdom/arbetslöshet m.m. utom gäldenärens kontroll kan räntan sättas ned; ett avtalsvillkor som inskränker denna rätt är utan verkan mot gäldenären)"
+  :clause/source-url "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/rantelag-1975635_sfs-1975-635/"
+  :clause/route :referral :clause/verify-current-law true}
+
  ;; ── :br — Brasil (G10) ───────────────────────────────────────────────────────
  {:clause/id "cl:br-exoneracao" :clause/label "全部免責 (cláusula abusiva)"
   :clause/jurisdiction :br
@@ -698,6 +858,22 @@
   :clause/keywords ["renovação automática"]
   :clause/anchor "CDC art. 51 (消費者に過大な不利益) / art. 39 (práticas abusivas) — 事前同意なき更新は争いうる"
   :clause/route :kaiyaku :clause/verify-current-law true}
+
+ {:clause/id "cl:br-variacao-preco-unilateral" :clause/label "一方的な価格変更 (nula)"
+  :clause/jurisdiction :br
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["variar o preço de maneira unilateral"]
+  :clause/anchor "CDC (Lei 8.078/1990) art. 51 X (cláusulas que permitam ao fornecedor variar o preço de maneira unilateral — nulas de pleno direito)"
+  :clause/source-url "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:br-modificacao-unilateral" :clause/label "締結後の一方的内容変更 (nula)"
+  :clause/jurisdiction :br
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["modificar unilateralmente o conteúdo ou a qualidade do contrato"]
+  :clause/anchor "CDC (Lei 8.078/1990) art. 51 XIII (cláusulas que autorizem o fornecedor a modificar unilateralmente o conteúdo ou a qualidade do contrato após sua celebração — nulas de pleno direito)"
+  :clause/source-url "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm"
+  :clause/route :referral :clause/verify-current-law true}
 
  ;; ── :cn — 中国 (G10; 簡体字 — :tw の繁体字パターンとは別エントリ) ─────────────
  {:clause/id "cl:cn-full-exemption" :clause/label "全部免責 (概不负责)"

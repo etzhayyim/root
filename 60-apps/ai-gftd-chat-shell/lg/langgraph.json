@@ -1,0 +1,13 @@
+{
+  "$comment": "LangGraph Server config — chat.gftd.ai general-purpose assistant. Sprint 1 (2026-05-23). Replaces pymagatama.chat_server aiohttp pod which lacks /runs/stream.",
+  "dependencies": ["./lg_chat"],
+  "graphs": {
+    "agent_chat": "./lg_chat/graphs/agent_chat.py:GRAPH",
+    "sodai_submit": "./lg_chat/graphs/sodai_submit.py:GRAPH"
+  },
+  "env": ".env",
+  "python_version": "3.11",
+  "auth": {
+    "$comment": "x-api-key shared with CF Worker CHAT_AGENT_URL proxy. Empty = no auth (dev only)."
+  }
+}

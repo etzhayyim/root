@@ -1,0 +1,15 @@
+;; Allowlist for the no-ignorable-staged pre-commit guard
+;; (70-tools/scripts/lint/no-ignorable-staged.bb).
+;;
+;; Each :allow entry is a regex (matched with re-find against the repo-relative
+;; staged path). A staged path matching ANY entry is exempted from the denylist —
+;; use this for the rare case where a normally-ignored path is intentionally tracked
+;; (e.g. a committed test fixture that must live under a __pycache__/-shaped dir, or
+;; a vendored dist/ bundle a downstream genuinely needs).
+;;
+;; Keep this list SMALL and justify each entry in a comment — every exemption is a
+;; hole in the guard. Prefer fixing the .gitignore over adding an exemption.
+{:allow
+ [
+  ;; (none yet)
+ ]}

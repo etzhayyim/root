@@ -39,7 +39,7 @@ control can fix it.
    excludes `:fossil-virgin-crude`.
 2. **lexicon** `lex/feedstockProvenance.edn` / `lex/synthesisRun.edn` — `feedstockClass` enum has
    no `fossil-virgin-crude` member; `closedLoop`/`screened` `const true`.
-3. **code** `methods/feedstock_guard.py` + `cells/feedstock_guard/state_machine.py` — `ValueError`
+3. **code** `methods/feedstock_guard.cljc` + `cells/feedstock_guard/state_machine.py` — `ValueError`
    on any fossil feedstock (and `screen_intervention` raises on `:expand`/`:restart-fossil`, G3).
 
 ## Cells (langgraph→WASM; Murakumo-only; `.solve()` raises at R0)

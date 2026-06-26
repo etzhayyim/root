@@ -3,6 +3,7 @@
   Substrate-native Clojure (ADR-2606160842). 1:1 port of the pruned methods/test_charter_gates.py."
   (:require [clojure.test :refer [deftest is run-tests]]
             [clojure.set :as set]
+            [clojure.edn :as edn]
             [cheshire.core :as json]))
 
 (def ^:private here (.getParentFile (java.io.File. ^String *file*)))      ;; methods/
@@ -10,7 +11,7 @@
 (def ^:private actor-name (.getName actor-dir))
 (def ^:private root (.. actor-dir getParentFile getParentFile))          ;; 20-actors → ROOT
 (def ^:private lexdir (java.io.File. root (str "00-contracts/lexicons/com/etzhayyim/" actor-name)))
-(defn- manifest [] (json/parse-string (slurp (java.io.File. actor-dir "manifest.jsonld"))))
+(defn- manifest [] (edn/read-string (slurp (java.io.File. actor-dir "manifest.edn"))))
 (defn- lex [name] (json/parse-string (slurp (java.io.File. lexdir (str name ".json")))))
 
 (def ^:private all-records
@@ -37,7 +38,7 @@
 
 ;; ── full gate set ──
 (deftest test-all-14-gates-declared
-  (is (= (set (keys (get-in (manifest) ["constitutionalGates" "gates"])))
+  (is (= (set (map :gate/id (:actor/gates (manifest))))
          (set (map #(str "G" %) (range 1 15))))))
 
 ;; ── G13 — every powertrain + decarbonization record attests fossil-engine status ──
