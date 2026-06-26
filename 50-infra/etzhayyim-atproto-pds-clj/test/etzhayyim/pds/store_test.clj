@@ -5,6 +5,9 @@
   live kotoba engine and is covered at cutover, not here."
   (:require [clojure.test :refer [deftest is testing]]
             [clojure.java.io :as io]
+            [clojure.string :as str]
+            [cheshire.core :as json]
+            [babashka.http-client :as http]
             [etzhayyim.pds.store :as store]))
 
 (def did  "did:web:etzhayyim.com:actor:unspsc-10101500")
@@ -136,3 +139,106 @@
       (let [s2 (store/->durable-store path)]               ; reopen = replay the journal
         (is (= {"text" "persisted"} (:value (store/get-record s2 did "app.bsky.feed.post" "r1"))))
         (is (nil? (store/get-record s2 did "app.bsky.feed.post" "r2")) "tombstone survived the reopen")))))
+
+;; ── KotobaStore: the production backend's kotoba XRPC wire contract ───────────
+;; The live engine is absent in CI, so we mock babashka.http-client/post to capture
+;; the request KotobaStore builds + feed it a stub response. This locks the kg.*
+;; endpoint + body shape (change-detectable BEFORE cutover), independent of a server.
+
+(defmacro ^:private with-kpost
+  "Run `body` with http/post stubbed: every call is recorded into the `reqs` atom as
+  {:url :body(parsed)} and returns {:body (json of (resp-for url))}. `resp-for` is a
+  fn url→clj-map (the engine's JSON response)."
+  [reqs resp-for & body]
+  `(with-redefs [http/post (fn [url# opts#]
+                             (swap! ~reqs conj {:url url# :body (json/parse-string (:body opts#) true)})
+                             {:body (json/generate-string (~resp-for url#))})]
+     ~@body))
+
+(def kbase "http://kotoba.local")
+(def kgraph "etzhayyim-pds")
+
+(deftest kotoba-put-record-wire-shape
+  (testing "put-record POSTs kg.ingest_batch with {:graph :datoms} carrying the record fields"
+    (let [reqs (atom [])]
+      (with-kpost reqs (constantly {})
+        (let [s (store/->kotoba-store kbase kgraph)
+              res (store/put-record s did "app.bsky.feed.post" "r1" {"text" "hi"})]
+          (is (= 1 (count @reqs)))
+          (let [{:keys [url body]} (first @reqs)]
+            (is (str/ends-with? url "/xrpc/com.etzhayyim.apps.kotoba.kg.ingest_batch"))
+            (is (= kgraph (:graph body)))
+            (let [attrs (set (map second (:datoms body)))]
+              (is (contains? attrs "record/did"))
+              (is (contains? attrs "record/value"))
+              (is (contains? attrs "record/cid"))
+              (is (not (contains? attrs "record/sig")) "unsigned when no signer")))
+          (is (= (str "at://" did "/app.bsky.feed.post/r1") (:uri res)))
+          (is (= {"text" "hi"} (:value res))))))))
+
+(deftest kotoba-put-record-signed-adds-sig-datoms
+  (testing "with a signer the ingest carries record/sig + record/signedBy datoms (Path B)"
+    (let [reqs (atom [])]
+      (with-kpost reqs (constantly {})
+        (store/put-record (store/->kotoba-store kbase kgraph fake-signer)
+                          did "app.bsky.feed.post" "r1" {"text" "hi"})
+        (let [attrs (set (map second (:datoms (:body (first @reqs)))))]
+          (is (contains? attrs "record/sig"))
+          (is (contains? attrs "record/signedBy")))))))
+
+(deftest kotoba-get-record-parses-and-honours-tombstone
+  (testing "get-record reads kg.get_entity, parses :record/value, returns nil when deleted"
+    (let [reqs (atom [])
+          resp (fn [_url] {(keyword "record/value") (json/generate-string {"text" "hi"})
+                           (keyword "record/cid") "cid1"})]
+      (with-kpost reqs resp
+        (let [got (store/get-record (store/->kotoba-store kbase kgraph) did "app.bsky.feed.post" "r1")]
+          (is (str/ends-with? (:url (first @reqs)) "/xrpc/com.etzhayyim.apps.kotoba.kg.get_entity"))
+          (is (= (str "at://" did "/app.bsky.feed.post/r1") (:uri got)))
+          (is (= {"text" "hi"} (:value got)))
+          (is (= "cid1" (:cid got))))))
+    (testing "a tombstoned entity → nil"
+      (let [reqs (atom [])
+            resp (fn [_] {(keyword "record/value") (json/generate-string {"text" "x"})
+                          (keyword "record/deleted") true})]
+        (with-kpost reqs resp
+          (is (nil? (store/get-record (store/->kotoba-store kbase kgraph) did "app.bsky.feed.post" "r1"))))))))
+
+(deftest kotoba-delete-posts-a-tombstone-datom
+  (testing "delete-record POSTs kg.ingest_batch with a record/deleted=true datom"
+    (let [reqs (atom [])]
+      (with-kpost reqs (constantly {})
+        (is (true? (store/delete-record (store/->kotoba-store kbase kgraph) did "app.bsky.feed.post" "r1")))
+        (let [{:keys [url body]} (first @reqs)]
+          (is (str/ends-with? url "/xrpc/com.etzhayyim.apps.kotoba.kg.ingest_batch"))
+          (is (= [[(str "at://" did "/app.bsky.feed.post/r1") "record/deleted" true]] (:datoms body))))))))
+
+(deftest kotoba-list-and-recent-feed-map-the-response
+  (testing "list-records queries kg.list_records + maps {:uri :cid :value}"
+    (let [reqs (atom [])
+          resp (fn [_] {:records [{:uri "u1" :cid "c1" :value (json/generate-string {"text" "a"})}]
+                        :cursor "cur"})]
+      (with-kpost reqs resp
+        (let [{:keys [records cursor]} (store/list-records (store/->kotoba-store kbase kgraph)
+                                                           did "app.bsky.feed.post" {:limit 10})]
+          (is (str/ends-with? (:url (first @reqs)) "/xrpc/com.etzhayyim.apps.kotoba.kg.list_records"))
+          (is (= [{:uri "u1" :cid "c1" :value {"text" "a"}}] records))
+          (is (= "cur" cursor))))))
+  (testing "recent-feed queries kg.recent_feed + carries :did per record"
+    (let [reqs (atom [])
+          resp (fn [_] {:records [{:uri "u1" :did did :cid "c1" :value (json/generate-string {"text" "a"})}]
+                        :cursor nil})]
+      (with-kpost reqs resp
+        (let [{:keys [records]} (store/recent-feed (store/->kotoba-store kbase kgraph)
+                                                   "app.bsky.feed.post" {:limit 10})]
+          (is (str/ends-with? (:url (first @reqs)) "/xrpc/com.etzhayyim.apps.kotoba.kg.recent_feed"))
+          (is (= did (:did (first records)))))))))
+
+(deftest kotoba-describe-repo-and-commit-sig
+  (testing "describe-repo queries kg.describe_repo"
+    (let [reqs (atom [])]
+      (with-kpost reqs (constantly {:did did :collections [] :count 0})
+        (store/describe-repo (store/->kotoba-store kbase kgraph) did)
+        (is (str/ends-with? (:url (first @reqs)) "/xrpc/com.etzhayyim.apps.kotoba.kg.describe_repo")))))
+  (testing "commit-sig is nil — the live engine signs its own commits (PDS holds no key)"
+    (is (nil? (store/commit-sig (store/->kotoba-store kbase kgraph) did (.getBytes "m" "UTF-8"))))))
