@@ -6,6 +6,7 @@
             [minori.react   :as react]
             [minori.ledger  :as ledger]
             [minori.measure :as measure]
+            [minori.capture :as capture]
             [clojure.set    :as set]))
 
 (def model
@@ -74,6 +75,18 @@
     ;; grounding capture sets the real (pre-revenue) ratio
     (check :measure-grounds-capture
            (= 0.0 (:capture-grounded (measure/ground {} {:capture {:ratio 0.0}}))))
+
+    ;; CAPTURE source: a :template snapshot is honestly ungrounded (ratio 0); a :live one grounds for real
+    (check :capture-template-ungrounded
+           (let [r (capture/ratio-of {:status :template :grounded? false
+                                      :a {:captured-usd-per-year 0 :addressable-usd-per-year 5.0e9}})]
+             (and (not (:grounded? r)) (zero? (:ratio r)))))
+    (check :capture-live-grounds
+           (let [r (capture/ratio-of {:status :live :grounded? true
+                                      :a {:captured-usd-per-year 5.0e6 :addressable-usd-per-year 5.0e9}
+                                      :b {:captured-usd-per-year 0     :addressable-usd-per-year 3.0e9}})]
+             (and (:grounded? r) (< (Math/abs (- (:ratio r) (/ 5.0e6 8.0e9))) 1e-12))))
+    (check :capture-absent-failopen (not (:grounded? (capture/ratio-of nil))))
 
     (let [all @results
           pass (count (filter second all))

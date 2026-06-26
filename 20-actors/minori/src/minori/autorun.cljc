@@ -16,11 +16,12 @@
             [clojure.edn    :as edn]))
 
 (def defaults
-  {:system     "20-actors/minori/system.edn"
-   :valuation  "80-data/ie-flow/social-capital-valuation.edn"
-   :sos        "80-data/ie-flow/system-of-systems.edn"
-   :scoreboard "80-data/ie-flow/scoreboard.edn"
-   :ledger     "20-actors/minori/data/ledger.edn"})
+  {:system           "20-actors/minori/system.edn"
+   :valuation        "80-data/ie-flow/social-capital-valuation.edn"
+   :sos              "80-data/ie-flow/system-of-systems.edn"
+   :scoreboard       "80-data/ie-flow/scoreboard.edn"
+   :capture-snapshot "80-data/social-capital/capture-snapshot.edn"
+   :ledger           "20-actors/minori/data/ledger.edn"})
 
 (defn next-worklist
   "The :intervention-worklist export (system.edn) — the prioritized REAL (mostly G7-gated) next
@@ -45,7 +46,7 @@
 
 (defn run
   ([] (run defaults))
-  ([{:keys [system valuation sos scoreboard ledger] :as paths}]
+  ([{:keys [system valuation sos scoreboard capture-snapshot ledger] :as paths}]
    (let [sys      (edn/read-string (slurp system))
          model    (:score/model sys)
          _val     (score/read-edn valuation)            ; the MAP being tracked (presence = observed)
@@ -59,7 +60,7 @@
          ;; 観測: minori is an observatory — it reads ALL available truth every beat (η from the
          ;; scoreboard, Φ from the roster, capture from the valuation MAP) and GROUNDS it into the
          ;; score (truth beats the loop's stubs; grounding can LOWER an optimistic stub — honest).
-         obs      (measure/observe {:scoreboard scoreboard :valuation valuation} (:adopted adoption))
+         obs      (measure/observe {:scoreboard scoreboard :capture-snapshot capture-snapshot} (:adopted adoption))
          state''  (measure/ground state' obs)
          grounded? (boolean (get-in obs [:colony-eta :mean]))
          m-after  (score/growth state'' model adoption)

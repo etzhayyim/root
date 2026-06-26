@@ -1,0 +1,22 @@
+;; capture-snapshot.edn — the REAL captured÷addressable source for minori's capture lever.
+;; ADR-2606261114. Pattern: snapshot = SoT, the loop never queries an API, live fetch = operator
+;; step (G7) — like kabuto/jinushi/hirameki. minori reads this read-only (no-server-key).
+;;
+;; STATUS = :template ⇒ grounded capture stays 0.0 (the honest pre-revenue truth; minori never
+;; fabricates a captured figure). To GROUND capture > 0, an operator replaces the zeros with REAL
+;; figures and flips :status :live + :grounded? true:
+;;   - captured-usd-per-year   = realized inflow: on-chain donation USDC via TitheRouter
+;;                               (.well-known/donation.json) — NOT pledges, only settled.
+;;   - addressable-usd-per-year = the SAM lower bound from the valuation MAP (social-capital-
+;;                               valuation.edn :market-size <entity> :sam :usd-per-year first elem).
+;; OSS adoption (contributors/stars) is recorded for transparency; the ratio uses USD/yr only.
+{:status :template          ; operator → :live (G7)
+ :grounded? false
+ :note "pre-revenue: captured = 0 until an operator wires real on-chain donation + OSS figures (G7)."
+ :etzhayyim {:captured-usd-per-year 0
+             :addressable-usd-per-year 5.0e9     ; SAM low end (faith-tech/DID), from the valuation MAP
+             :source ".well-known/donation.json (on-chain USDC, TitheRouter) — operator snapshot, G7"}
+ :kotoba    {:captured-usd-per-year 0
+             :addressable-usd-per-year 3.0e9     ; SAM low end (graph-DB/DePIN), from the valuation MAP
+             :contributors 0 :stars 0
+             :source "github contributors/stars snapshot — operator snapshot, G7"}}
