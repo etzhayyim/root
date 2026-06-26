@@ -15,8 +15,11 @@
             [etzhayyim.pds.actorkeys :as ak]
             [etzhayyim.pds.client :as client]
             [etzhayyim.pds.repo :as repo]
+            [etzhayyim.pds.keys :as keys]
             [etzhayyim.pds.config :as cfg]
             [etzhayyim.pds.util :as util]))
+
+(defn- b64 ^String [^bytes b] (.encodeToString (java.util.Base64/getEncoder) b))
 
 (def secret "node-secret")
 (def handle "unspsc-30202000")
@@ -104,6 +107,43 @@
       (is (= cfg/pds-did (get did "id")))
       (is (= mb (get (first (get did "verificationMethod")) "publicKeyMultibase")))
       (is (= cfg/pds-did (get desc "did"))))))
+
+(deftest getrepo-commit-is-relay-verifiable-against-the-actor-did-doc
+  (testing "a relay GETs the actor's repo CAR + did.json and verifies the COMMIT sig from the published key alone (Path B slice 2, over the wire)"
+    (let [dir (tmp-dir)]
+      (try
+        (with-redefs [cfg/actor-keys-dir    dir
+                      cfg/actor-seal-secret secret
+                      cfg/require-auth      false]
+          (let [store   (store/->mem-store (ak/registry-signer dir secret))
+                kp      (repo/gen-keypair)
+                handler (server/make-handler store (.getPrivate kp)
+                                             (repo/pubkey-multibase (.getPublic kp)) "jwt-secret")
+                t       (->handler-transport handler)
+                actor   (ak/handle->actor-did handle)
+                rec     {"$type" "app.bsky.feed.post" "text" "commit signed by the actor"
+                         "createdAt" "2026-06-26T00:00:00Z"}]
+            ;; the actor posts (mints its sealed key + signs the record)
+            (is (= 200 (:status (client/create-record! "" {:repo actor :collection "app.bsky.feed.post" :record rec}
+                                                       :transport t))))
+            ;; a RELAY pulls the repo CAR and reads the COMMIT from the CAR's own root
+            ;; (the commit is the CAR header root; a P-256 sig is randomized so each build
+            ;; differs — the relay must read the root from the CAR it holds, not re-derive)
+            (let [car-resp (handler {:uri "/xrpc/com.atproto.sync.getRepo"
+                                     :request-method :get :query-string (str "did=" actor)})
+                  car-bytes (.readAllBytes ^java.io.InputStream (:body car-resp))
+                  {:keys [header blocks]} (repo/car-parse car-bytes)
+                  root-cid (repo/cid-str (:etzhayyim.pds.repo/cid (first (get header "roots"))))
+                  commit (repo/dag-cbor-decode (get blocks root-cid))
+                  ;; the relay reconstructs the signed bytes = the commit WITHOUT its sig
+                  unsigned (repo/dag-cbor (dissoc commit "sig"))
+                  ;; ...and resolves the actor's PUBLISHED key from /actor/<h>/did.json
+                  mk (client/resolve-actor-multikey "" handle :transport t)]
+              (is (= actor (get commit "did")) "the commit binds the actor's DID")
+              (is (= 64 (alength ^bytes (get commit "sig"))) "a P-256 compact commit sig")
+              (is (true? (keys/verify-b64 mk unsigned (b64 (get commit "sig"))))
+                  "the repo commit verifies under the actor's published Multikey — no PDS key, no shared secret"))))
+        (finally (rm-rf dir))))))
 
 (defn -main [& _]
   (let [{:keys [fail error]} (run-tests 'etzhayyim.pds.integration-test)]
