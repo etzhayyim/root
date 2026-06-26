@@ -280,6 +280,9 @@
                      "com.atproto.repo.deleteRecord" (xrpc/delete-record store params)
                      "com.atproto.repo.listRecords"  (xrpc/list-records store params)
                      "com.atproto.repo.describeRepo" (xrpc/describe-repo store params)
+                     ;; AppView read rendering from the local kotoba log (Method A)
+                     "app.bsky.feed.getAuthorFeed"   (xrpc/get-author-feed store params)
+                     "app.bsky.actor.getProfile"     (xrpc/get-profile store params)
                      {:status 501 :body {"error" "MethodNotImplemented"
                                          "message" (str nsid " is not implemented by this PDS")}})]
           (json-response resp))))))
