@@ -37,7 +37,12 @@ import {
 } from "./registry/gov-procedures.gen";
 import { fetchKotobaActorRecord, relayKotobaWrite } from "./kotoba";
 import { cacaoToCborBase64 } from "./cbor";
-import { CURATED_FEED_NSIDS, curateFeed, type FeedBody } from "./feed-curation";
+import {
+  CURATED_FEED_NSIDS,
+  curateFeed,
+  discoverFeedTarget,
+  type FeedBody,
+} from "./feed-curation";
 import { handleBlockPut, handleBlockHas, handleRootGet, handleStatsGet, serveBlockFromKv } from "./kotoba-publish";
 import { isRawCidV1, isDagPbCidV1, verifyRawCid } from "./cid";
 import { verifyCarToBytes } from "./car";
@@ -2152,12 +2157,20 @@ a{color:inherit}
             },
           );
         }
-        // Aggregate home/discover feeds get transparent curation (quarantine the
-        // EXCLUDE'd external poster + boost own actors); everything else proxies raw.
+        // Aggregate home/discover feeds: when XRPC_PDS_UPSTREAM is provisioned
+        // (Method A), render them from the independent PDS's local kotoba discover
+        // feed (shinshi-free at the source); otherwise transparently curate the
+        // gftd feed (quarantine the EXCLUDE'd poster + boost own actors). INERT
+        // until cutover — empty XRPC_PDS_UPSTREAM keeps today's behavior.
         if (
           CURATED_FEED_NSIDS.has(nsid) &&
           (request.method === "GET" || request.method === "HEAD")
         ) {
+          const dt = discoverFeedTarget(
+            (env as unknown as Record<string, string | undefined>)
+              .XRPC_PDS_UPSTREAM,
+          );
+          if (dt) return proxyXrpc(request, dt.upstream, dt.nsid);
           return proxyCuratedFeed(request, upstream, nsid);
         }
         return proxyXrpc(request, upstream, nsid);
