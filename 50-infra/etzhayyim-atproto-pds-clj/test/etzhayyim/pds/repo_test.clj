@@ -4,7 +4,12 @@
   The crux is the RELAY-side property — a verifier holding ONLY the published
   `publicKeyMultibase` can reconstruct the key and verify the repo commit `sig`."
   (:require [clojure.test :refer [deftest is testing run-tests]]
-            [etzhayyim.pds.repo :as repo]))
+            [etzhayyim.pds.repo :as repo]
+            [etzhayyim.pds.keys :as keys]
+            [etzhayyim.pds.store :as store]
+            [etzhayyim.pds.actorkeys :as ak]))
+
+(defn- b64 ^String [^bytes b] (.encodeToString (java.util.Base64/getEncoder) b))
 
 (deftest multibase-publishes-an-ed25519-did-key
   (testing "pubkey-multibase emits an atproto did:key Multikey (z6Mk…)"
@@ -89,6 +94,43 @@
       (is (true? (repo/verify (:public kp1) msg (repo/sign (:private kp2) msg))))
       (clojure.java.io/delete-file path true)
       (clojure.java.io/delete-file dir true))))
+
+(deftest actor-signed-commit-verifies-against-the-actor-multikey
+  (testing "make-commit with an actor P-256 sign-fn → the commit verifies under the actor's PUBLISHED multikey (Path B)"
+    (let [sealed (keys/new-actor-key)
+          mk     (:multikey sealed)
+          did    "did:web:etzhayyim.com:actor:unspsc-1"
+          [root _] (repo/build-mst [["app.bsky.feed.post/r1" (repo/block-cid {"t" 1})]])
+          actor-sign (fn [^bytes msg] (keys/sign sealed msg))            ; sealed P-256, raw compact bytes
+          [_ _ commit] (repo/make-commit did root "rev-1" nil actor-sign)
+          unsigned-cbor (repo/dag-cbor (dissoc commit :sig))]
+      (is (bytes? (:sig commit)))
+      (is (= 64 (alength ^bytes (:sig commit))) "a P-256 compact commit sig is 64 bytes")
+      ;; a relay verifies the repo commit using ONLY the actor's did:key Multikey — no PDS key
+      (is (true? (keys/verify-b64 mk unsigned-cbor (b64 (:sig commit)))))
+      ;; the OLD behaviour (commit signed by an Ed25519 PDS key) does NOT verify against the
+      ;; actor's P-256 multikey — exactly the gap this slice closes
+      (let [[_ _ pds-commit] (repo/make-commit did root "rev-1" nil (.getPrivate (repo/gen-keypair)))]
+        (is (false? (keys/verify-b64 mk (repo/dag-cbor (dissoc pds-commit :sig))
+                                     (b64 (:sig pds-commit)))))))))
+
+(deftest store-commit-sig-is-actor-verifiable
+  (testing "store/commit-sig signs a commit with the actor's sealed key; nil when unsigned (PDS fallback)"
+    (let [dir    (str (System/getProperty "java.io.tmpdir") "/pds-commit-sig-" (System/nanoTime))
+          secret "node-secret"
+          actor  "did:web:etzhayyim.com:actor:unspsc-2"
+          store  (store/->mem-store (ak/registry-signer dir secret))
+          mk     (ak/multikey-for dir actor secret)
+          msg    (.getBytes "the-unsigned-commit-bytes" "UTF-8")
+          sig    (store/commit-sig store actor msg)]
+      (try
+        (is (bytes? sig))
+        (is (true? (keys/verify-b64 mk msg (b64 sig))) "the store's commit sig verifies under the actor multikey")
+        ;; a store with NO signer returns nil → the caller falls back to the PDS commit key
+        (is (nil? (store/commit-sig (store/->mem-store) actor msg)))
+        (finally
+          (let [d (clojure.java.io/file dir)]
+            (when (.exists d) (doseq [f (.listFiles d)] (.delete f)) (.delete d))))))))
 
 (defn -main [& _]
   (let [{:keys [fail error]} (run-tests 'etzhayyim.pds.repo-test)]
