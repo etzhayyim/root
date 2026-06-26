@@ -95,7 +95,7 @@ python3 methods/ingest.py           # live fetch (MyGene.info + MyVariant.info) 
 python3 methods/ingest.py --offline --no-pin   # re-content-address an existing ingested graph
 python3 methods/cid.py out/ingested-genome-graph.kotoba.edn   # print the kotoba IPFS CID
 
-python3 tests/test_analyze.py && python3 tests/test_coverage.py && python3 tests/test_ingest.py && python3 tests/test_wasm.py  # 23 green
+bash run_tests.sh  # cljc tests, green
 ```
 
 The ingest is **PUBLIC + aggregate only** (G1): gene reference models (Ensembl + coarse
