@@ -168,3 +168,22 @@
         (spit (str out-dir "/etzhayyim-power-graph.jsonld") (pr-str jsonld))
         (spit (str out-dir "/dataset-manifest.json") (pr-str manifest))
         manifest))))
+
+#?(:clj
+   (defn -main
+     "CLI entry: mirrors publish.main — serialize the power-graph as N-Triples + JSON-LD +
+     a content-addressed dataset-manifest.json (etzhayyim as a power-data PROVIDER). All offline
+     serialization (no network); IPFS pin is publish_ipfs (separate). ADR-2606261200."
+     [& argv]
+     (let [argv (vec argv)
+           here (let [f  (when (and *file* (not (str/blank? *file*))) (io/file *file*))
+                      pp (some-> f .getAbsoluteFile .getParentFile .getParentFile)]
+                  (if (and pp (.isDirectory (io/file pp "data"))) pp (io/file "20-actors" "tsumugi")))
+           out  (if (some #{"--out"} argv) (io/file (nth argv (inc (.indexOf argv "--out")))) (io/file here "out"))
+           m    (publish (.getPath out))
+           ch   (str (or (get m :contentHash) (get m "contentHash")))
+           cnt  (or (get m :counts) (get m "counts"))]
+       (println (str "[tsumugi/publish] etzhayyim is now a power-data PROVIDER — "
+                     (or (get cnt :nodes) (get cnt "nodes")) " nodes / "
+                     (or (get cnt :triples) (get cnt "triples")) " triples / "
+                     (subs ch 0 (min 23 (count ch))) "… → out/etzhayyim-power-graph.{nt,jsonld} + dataset-manifest.json")))))
