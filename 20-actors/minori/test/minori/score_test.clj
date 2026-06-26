@@ -8,6 +8,7 @@
             [minori.measure :as measure]
             [minori.capture :as capture]
             [minori.social  :as social]
+            [minori.kotoba  :as kotoba]
             [clojure.set    :as set]))
 
 (def model
@@ -99,6 +100,21 @@
     (check :social-no-server-key (get-in (social/digest {:eta 0.8 :adopted 1 :realized-phi 0.0
                                                          :next-step "x" :next-gate :none})
                                          [:charter :no-server-key]))
+
+    ;; KOTOBA: EAVT [:db/add e a v] form, deterministic CID, content-chained, values never keyword-like
+    (let [beat {:beat 7 :G 0.65 :dG 0.0 :eta 0.81 :adoption 1.0
+                :components {:capture 0.0 :phi 0.47} :net-giver? false :gated? true}
+          ds   (kotoba/datoms-of beat)]
+      (check :kotoba-eavt-shape (every? #(and (= :db/add (first %)) (= 4 (count %))) ds))
+      (check :kotoba-values-not-keywordish
+             (not-any? #(clojure.string/starts-with? (str (nth % 3)) ":") ds))
+      (let [c1 (kotoba/commit ds nil)
+            c2 (kotoba/commit ds nil)
+            c3 (kotoba/commit (kotoba/datoms-of (assoc beat :G 0.66)) (:cid c1))]
+        (check :kotoba-deterministic-cid (= (:cid c1) (:cid c2)))     ; same datoms+parent ⇒ same CID
+        (check :kotoba-chains-on-parent (= (:cid c1) (:parent c3)))
+        (check :kotoba-tamper-evident (not= (:cid c1) (:cid c3)))))   ; different content ⇒ different CID
+    (check :kotoba-bridge-dryrun-default (= :dry-run (:mode (kotoba/bridge! {:cid "x" :datoms []}))))
 
     (let [all @results
           pass (count (filter second all))

@@ -13,6 +13,7 @@
             [minori.react   :as react]
             [minori.measure :as measure]
             [minori.social  :as social]
+            [minori.kotoba  :as kotoba]
             [minori.ledger  :as ledger]
             [clojure.edn    :as edn]
             [clojure.java.io :as io]))
@@ -79,6 +80,15 @@
                                     :next-step (:step next-action)
                                     :next-gate (:gate next-action)})
          _        (when digest (io/make-parents digest) (spit digest (:body digest-art)))
+         ;; kotoba 常駐runtime: emit this beat as EAVT datoms on the canonical kotoba commit-DAG,
+         ;; chained on the previous beat's kotoba CID; bridge to the live engine is dry-run (G7).
+         beat-n   (count led)
+         kdatoms  (kotoba/datoms-of {:beat beat-n :G (:G m-after) :dG dG
+                                     :eta (:eta m-after) :adoption (:p adoption)
+                                     :components (:components m-after)
+                                     :net-giver? (:net-giver? m-after) :gated? gated?})
+         kcommit  (kotoba/commit kdatoms (get-in prev [:kotoba :cid]))
+         kbridge  (kotoba/bridge! kcommit)
          entry    {:actor "minori"
                    :adr "2606261114"
                    :kind :react-beat
@@ -103,6 +113,9 @@
                                    :charter-clean (:charter-clean digest-art)
                                    :bytes (:bytes digest-art)
                                    :artifact digest}
+                   :kotoba {:graph (:graph kcommit) :cid (:cid kcommit)
+                            :parent (:parent kcommit) :datom-count (count kdatoms)
+                            :bridge (:mode kbridge)}
                    :adoption (:p adoption)}
          appended (ledger/append! ledger entry)
          appended? (:appended? appended)
@@ -123,6 +136,8 @@
       :next-action next-action
       :social-action {:status (:status digest-art) :charter-clean (:charter-clean digest-art)
                       :bytes (:bytes digest-art) :artifact digest}
+      :kotoba {:graph (:graph kcommit) :cid (:cid kcommit) :parent (:parent kcommit)
+               :datom-count (count kdatoms) :bridge (:mode kbridge)}
       :gated? gated?
       :reward reward
       :components (:components m-after)
@@ -150,5 +165,9 @@
     (when-let [sa (:social-action r)]
       (println (format "social-action: %s (charter-clean=%s, %d bytes) → %s"
                        (name (:status sa)) (:charter-clean sa) (:bytes sa) (:artifact sa))))
+    (when-let [k (:kotoba r)]
+      (println (format "kotoba: graph=%s tx-cid=%s… (%d datoms, parent=%s) bridge=%s"
+                       (:graph k) (subs (str (:cid k)) 0 12) (:datom-count k)
+                       (if (:parent k) (subs (str (:parent k)) 0 8) "∅-root") (name (:bridge k)))))
     (println (format "head-cid=%s…  verify-chain=%s" (subs (str (:head-cid r)) 0 12) (:verify-chain r)))
     r))
