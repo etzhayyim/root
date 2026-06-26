@@ -2,10 +2,11 @@
   "minori charter + correctness tests — runnable under bb:
      bb --classpath 20-actors/minori/src:20-actors/minori/test \\
         -e \"(require 'minori.score-test) (minori.score-test/run)\""
-  (:require [minori.score  :as score]
-            [minori.react  :as react]
-            [minori.ledger :as ledger]
-            [clojure.set   :as set]))
+  (:require [minori.score   :as score]
+            [minori.react   :as react]
+            [minori.ledger  :as ledger]
+            [minori.measure :as measure]
+            [clojure.set    :as set]))
 
 (def model
   {:weights {:eta 0.35 :adoption 0.30 :capture 0.20 :phi 0.15}
@@ -51,6 +52,16 @@
           e1 {:a 2 :cid (ledger/sha256-hex (str c2 "|" (:cid e0) "|" 1)) :parent (:cid e0) :beat 1}]
       (check :ledger-verify-ok (:ok (ledger/verify-chain [e0 e1])))
       (check :ledger-tamper-detected (not (:ok (ledger/verify-chain [e0 (assoc e1 :a 99)])))))
+
+    ;; MEASURE: grounding is monotone (never lowers η) + fail-open on absent scoreboard
+    (check :measure-failopen-absent (nil? (measure/colony-eta "20-actors/minori/data/__nope__.edn")))
+    (check :measure-realized-phi (< (Math/abs (- (measure/realized-phi 105) (Math/log 105.0))) 1e-9))
+    (let [grounded (measure/ground {:eta-estimate 0.10}
+                                   {:colony-eta {:mean 0.95} :realized-phi 4.65})]
+      (check :measure-grounds-eta-up (= 0.95 (:eta-estimate grounded)))
+      (check :measure-monotone-no-lower
+             (= 0.99 (:eta-estimate (measure/ground {:eta-estimate 0.99}
+                                                    {:colony-eta {:mean 0.95}})))))
 
     (let [all @results
           pass (count (filter second all))
