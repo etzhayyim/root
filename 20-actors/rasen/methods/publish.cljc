@@ -269,3 +269,31 @@
            (binding [*out* *err*]
              (println (ex-message e)))
            (System/exit 1))))))
+
+#?(:clj
+   (defn -main
+     "CLI entry: mirrors publish.main — content-address the ingested genome graph + datoms to
+     kotoba CIDv1 (ipfs pin + IPNS publish). --graph PATH / --no-ipns / --offline-ipns.
+     ADR-2606261200 cljc-native operator leg (was `python3 methods/publish.py`)."
+     [& argv]
+     (let [argv  (vec argv)
+           here  (let [f  (when (and *file* (not (str/blank? *file*))) (io/file *file*))
+                       pp (some-> f .getAbsoluteFile .getParentFile .getParentFile)]
+                   (if (and pp (.isDirectory (io/file pp "data"))) pp (io/file "20-actors" "rasen")))
+           graph (if (some #{"--graph"} argv) (nth argv (inc (.indexOf argv "--graph")))
+                     (str (io/file here "out" "ingested-genome-graph.kotoba.edn")))]
+       ;; mirror the Python main's pre-checks (publish! reads the graph eagerly).
+       (when-not (.exists (io/file graph))
+         (binding [*out* *err*]
+           (println (str "publish: " graph " not found — run methods/ingest first")))
+         (System/exit 1))
+       (let [res (publish! {:graph         graph
+                            :no-ipns?      (boolean (some #{"--no-ipns"} argv))
+                            :offline-ipns? (boolean (some #{"--offline-ipns"} argv))})]
+         (if (:ok res)
+           (let [arts (get (:manifest res) "artifacts")]
+             (println (str "[rasen/publish] genome graph content-addressed — " (count arts) " artifacts:"))
+             (doseq [[label v] arts] (println (str "  pin " label ": " (get v "cid")))))
+           (binding [*out* *err*]
+             (println (str "publish failed: " (:error res)))
+             (System/exit 1)))))))
