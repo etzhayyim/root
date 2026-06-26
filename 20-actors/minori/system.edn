@@ -1,0 +1,36 @@
+;; minori 稔り — system-of-systems membrane + 報酬系 (reward) spec.
+;; ADR-2606261114 (social-capital market-size MAP + SoS energy-flow) · ADR-2606212200 (per-actor reward).
+;;
+;; TELOS: drive the social-capital GROWTH score toward its targets via a react loop —
+;;   観測(observe) → 計測(measure) → 実装(implement) → social-action(dry-run) → 評価(evaluate growth).
+;; minori = 稔り/実り (fruition/yield): it does not trade, does not sell, does not rank persons.
+;; It is the resident runtime that REACTS to close the captured-vs-addressable gap and raise η→1.
+{:actor "minori"
+ :adr ["2606261114" "2606212200"]
+ :kind :react-runtime
+ :doctrine #{:map-not-trade :never-a-throne :cash-zero :non-transferable :edge-primary
+             :person-excluded :no-server-key :dry-run-outward}
+
+ ;; ── membrane: what minori imports (negentropy SOURCE = social capital) and exports (order) ──
+ :system/boundary
+ {:imports  [:valuation-map        ; social-capital-valuation.edn (the MAP it tracks)
+             :ie-flow-scoreboard    ; Φ/η per actor (when wired, G7)
+             :sos-roster]           ; system-of-systems.edn adoption (the Part-3 lever)
+  :exports  [:growth-evaluation     ; the as-of growth readout (negentropy export = order returned)
+             :intervention-worklist ; the next observe/measure/implement/social-action to deepen
+             :dry-run-social-action]} ; prepared (never sent) outreach toward donors/contributors
+
+ ;; ── reward spec (η + 子孫 dominant; same charter-aligned terms as every actor) ──
+ :system/reward
+ {:weights {:phi 0.18 :eta 0.34 :wellbecoming 0.28 :efficiency 0.12 :surprise 0.08}
+  :telos "raise η toward 1 (net-giver) + close captured-gap, in 共生 — growth is fruition, never extraction"}
+
+ ;; ── the GROWTH-score model minori climbs (composite of the ADR's four levers) ──
+ ;; G = Σ wᵢ·componentᵢ, gated by non-parasitism (η<1 ⇒ raw G not rewarded; reward = η+adoption movement).
+ :score/model
+ {:weights {:eta 0.35 :adoption 0.30 :capture 0.20 :phi 0.15}
+  :targets {:eta 1.0            ; η: 0 (net taker) → ≥1 (net giver) — the phase transition (本丸)
+            :capture 0.01       ; captured/addressable: pre → 1% SOM milestone
+            :phi-potential 9.8  ; ln(n=18342) ≈ realized Φ multiplier ceiling
+            :adoption 100}      ; SoS rule full-roster adoption (the Part-3 capture-rate lever)
+  :gate {:non-parasitism {:eta-floor 0.0}}}}
