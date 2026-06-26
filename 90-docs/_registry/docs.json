@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-06-23",
+  "updated_at": "2026-06-26",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.md",
@@ -26380,6 +26380,171 @@
         "adr-2606201200"
       ],
       "last_verified": "2026-06-23",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606241500-sops-age-kotoba-rad-actor-git-evolution.md",
+      "id": "adr-2606241500-sops-age-kotoba-rad-actor-git-evolution",
+      "title": "ADR-2606241500: sops/age secrets + kotoba-rad — actor self-evolution of code AND data via git",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "actor-git-evolution",
+      "authoritative": true,
+      "authoritative_for": [
+        "actor-git-evolution",
+        "sops-age-secrets"
+      ],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606231200",
+        "adr-2605231525",
+        "adr-2605312345"
+      ],
+      "last_verified": "2026-06-24",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606241600-hibiki-ossekai-proposal-dougaka-presentation.md",
+      "id": "adr-2606241600-hibiki-ossekai-proposal-dougaka-presentation",
+      "title": "ADR-2606241600: hibiki 響 — ossekai 御節介 proposal → persuasive presentation (動画化), the 説得力-as-resonance knife-edge; utsushie's proposal-side sibling",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "hibiki-ossekai-proposal-dougaka-presentation",
+      "authoritative": true,
+      "authoritative_for": [
+        "hibiki (響) ossekai-proposal → presentation actor scope + charter gates H1–H8 (R0 design)",
+        "The 説得力-as-resonance reframing and its charter boundary (the 御節介 knife-edge applied to presentation)",
+        "Proposal→presentation pipeline composition (ossekai source+carrier · utsushie render leg · kataribe i18n · kotoba persist)"
+      ],
+      "related": [
+        "20-actors/hibiki/",
+        "20-actors/utsushie/",
+        "20-actors/ossekai/",
+        "20-actors/kataribe/"
+      ],
+      "depends_on": [
+        "adr-2606161536-primary-source-to-multilingual-video-atproto-pipeline",
+        "adr-2605264000-ossekai-info-arbitrage-wellbecoming-nudge",
+        "adr-2605192100-mission-charter-wellbecoming-anti-individualism",
+        "adr-2605231902-feed-post-membrane-and-feed-discover-projection",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605231525-no-server-held-key",
+        "adr-2605263600-kataribe-press-publishing-translation-substrate"
+      ],
+      "last_verified": "2026-06-24",
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606242330-pds-consolidation-kotoba-clj-aozora.md",
+      "id": "adr-2606242330-pds-consolidation-kotoba-clj-aozora",
+      "title": "ADR-2606242330: PDS consolidation — pds.etzhayyim.com を kotoba + clj + aozora 単一実装に一本化",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "pds-consolidation-kotoba-clj-aozora",
+      "authoritative": true,
+      "authoritative_for": [
+        "pds.etzhayyim.com canonical implementation",
+        "PDS/AppView 実装の単一化方針"
+      ],
+      "related": [
+        "adr-2605111300",
+        "adr-2605203000",
+        "adr-2605231525",
+        "adr-2606231200",
+        "adr-2605173000"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605262130",
+        "adr-2605312345",
+        "adr-2606015002"
+      ],
+      "last_verified": "2026-06-24",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606242400-github-pages-blockstore-cid-query-tier.md",
+      "id": "adr-2606242400-github-pages-blockstore-cid-query-tier",
+      "title": "ADR-2606242400: GitHubPagesBlockStore — CARv1 + HTTP-Range CID query tier",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "github-pages-blockstore",
+      "authoritative": true,
+      "authoritative_for": [
+        "github-pages-blockstore",
+        "car-cid-query-tier"
+      ],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606241500",
+        "adr-2605312345",
+        "adr-2605262130"
+      ],
+      "last_verified": "2026-06-24",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606251200-apps-ts-to-cljs-edn-migration.md",
+      "id": "adr-2606251200-apps-ts-to-cljs-edn-migration",
+      "title": "ADR-2606251200: 60-apps TypeScript → ClojureScript + EDN migration",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "apps-ts-to-cljs-edn-migration",
+      "authoritative": true,
+      "authoritative_for": [
+        "60-apps language/data-format direction (app/frontend layer)"
+      ],
+      "related": [
+        "adr-2606222000-etzhayyim-py-cli-bb-migration",
+        "adr-2606072802-tsubasa-r3-no-new-shell"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605262130-kotoba-storage-substrate-unification"
+      ],
+      "last_verified": "2026-06-25",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606251200-kotoba-rad-git-transport-binding.md",
+      "id": "adr-2606251200-kotoba-rad-git-transport-binding",
+      "title": "ADR-2606251200: kotoba-rad ⇄ git transport — rad-rooted push auth, sigref⇄ref attestation, gossip phases",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "kotoba-rad-git-transport-binding",
+      "authoritative": true,
+      "authoritative_for": [
+        "kotoba-rad-git-transport-binding",
+        "rad-rooted-git-push-auth",
+        "rad-sigref-git-ref-attestation"
+      ],
+      "related": [
+        "adr-2605231525"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606231200",
+        "adr-2605312345",
+        "adr-2606015000",
+        "adr-2606036400"
+      ],
+      "last_verified": "2026-06-25",
       "amends": [],
       "amended_by": []
     },
