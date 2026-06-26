@@ -150,7 +150,7 @@ routes through Murakumo (G6). New lexicons: `com.etzhayyim.influence.{influenceP
 
 ```bash
 # honest coverage report (eras, civilizational streams, denominators, gap map)
-python3 20-actors/tsumugi/methods/coverage_report.py
+bb -cp 20-actors -m tsumugi.methods.coverage-report
 # offline influence ingest (Wikidata-P737-shaped fixtures → :flow/ 縁, merged with seed)
 python3 20-actors/tsumugi/methods/ingest_influence.py
 #   → out/seed-plus-ingest.kotoba.edn — run analyze/coverage on THIS to see the lift
@@ -275,7 +275,7 @@ python3 20-actors/tsumugi/tests/test_narrate.py         # 9 tests (Murakumo-only
 
 ```bash
 # honest gap audit (per-scale/kind/sector/country + denominators, all ~0 real by design)
-python3 20-actors/tsumugi/methods/coverage_scale.py        # → out/coverage-report.md
+bb -cp 20-actors -m tsumugi.methods.coverage-scale        # → out/coverage-report.md
 python3 20-actors/tsumugi/tests/test_coverage_scale.py     # 6 tests
 # OFFLINE structural-public org ingest (Wikidata-P749-shaped fixtures → :pwr + :tie :custodies)
 python3 20-actors/tsumugi/methods/ingest_scale.py

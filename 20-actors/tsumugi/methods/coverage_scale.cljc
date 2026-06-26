@@ -141,3 +141,19 @@
                            " (" (fmt4 (get v "percent")) "%)"))
                     (get c "coverages")))]
     (str (str/join "\n" lines) "\n")))
+
+#?(:clj
+   (defn -main
+     "CLI entry: mirrors coverage_scale.main — [--out OUTDIR]. ADR-2606261200."
+     [& argv]
+     (let [argv (vec argv)
+           here (let [f  (when (and *file* (not (str/blank? *file*))) (io/file *file*))
+                      pp (some-> f .getAbsoluteFile .getParentFile .getParentFile)]
+                  (if (and pp (.isDirectory (io/file pp "data"))) pp (io/file "20-actors" "tsumugi")))
+           out  (if (some #{"--out"} argv) (io/file (nth argv (inc (.indexOf argv "--out")))) (io/file here "out"))
+           [nodes ties banners ents flies] (load-data)
+           c    (compute nodes ties banners ents flies)]
+       (.mkdirs out)
+       (spit (io/file out "coverage-report.md") (render c))
+       (println (str "[tsumugi/coverage-scale] " (count nodes) " nodes · " (count banners)
+                     " banners → " (.getPath (io/file out "coverage-report.md")))))))
