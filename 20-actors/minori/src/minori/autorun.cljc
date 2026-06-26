@@ -13,6 +13,7 @@
             [minori.react   :as react]
             [minori.measure :as measure]
             [minori.social  :as social]
+            [minori.reach   :as reach]
             [minori.kotoba  :as kotoba]
             [minori.ceiling :as ceiling]
             [minori.ledger  :as ledger]
@@ -81,6 +82,10 @@
                                     :next-step (:step next-action)
                                     :next-gate (:gate next-action)})
          _        (when digest (io/make-parents digest) (spit digest (:body digest-art)))
+         ;; §1.13 reach: OBSERVE (capped) whether the gift actually reached humanity — reaction-rate
+         ;; is unrepresentable here, and reach is NOT a reward gradient (rewarding reactions = an
+         ;; engagement-maximiser, forbidden). Digest is prepared-unsent ⇒ no real send receipts ⇒ 0.
+         reach-obs (reach/observe {:send-receipts nil})
          ;; (b) minori's OWN net-giver η — EARNED from real evidence this run: it EXPORTS order (the
          ;; kotoba commit persisted below + the public charter-clean digest), retains NOTHING privately
          ;; (no key, sells nothing; any captured value routes to the Public Fund, never to minori), and
@@ -135,6 +140,8 @@
                                    :charter-clean (:charter-clean digest-art)
                                    :bytes (:bytes digest-art)
                                    :artifact digest}
+                   :reach {:reach (:reach reach-obs) :cap (:cap reach-obs)
+                           :rewarded? false :note (:note reach-obs)}   ; §1.13: observed, never a reward gradient
                    :kotoba {:graph (:graph kcommit) :cid (:cid kcommit)
                             :parent (:parent kcommit) :datom-count (count kdatoms)
                             :bridge (:mode kbridge)}
@@ -165,6 +172,8 @@
       :kotoba {:graph (:graph kcommit) :cid (:cid kcommit) :parent (:parent kcommit)
                :datom-count (count kdatoms) :bridge (:mode kbridge)}
       :convergence convergence
+      :reach {:reach (:reach reach-obs) :cap (:cap reach-obs)
+              :rewarded? false :note (:note reach-obs)}
       :gated? gated?
       :reward reward
       :components (:components m-after)
@@ -195,6 +204,9 @@
     (when-let [sa (:social-action r)]
       (println (format "social-action: %s (charter-clean=%s, %d bytes) → %s"
                        (name (:status sa)) (:charter-clean sa) (:bytes sa) (:artifact sa))))
+    (when-let [re (:reach r)]
+      (println (format "reach(§1.13): %d/%d capped, rewarded?=%s — %s"
+                       (:reach re) (:cap re) (:rewarded? re) (:note re))))
     (when-let [k (:kotoba r)]
       (println (format "kotoba: graph=%s tx-cid=%s… (%d datoms, parent=%s) bridge=%s"
                        (:graph k) (subs (str (:cid k)) 0 12) (:datom-count k)

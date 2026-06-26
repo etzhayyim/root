@@ -10,6 +10,7 @@
             [minori.social  :as social]
             [minori.kotoba  :as kotoba]
             [minori.ceiling :as ceiling]
+            [minori.reach   :as reach]
             [clojure.set    :as set]))
 
 (def model
@@ -141,6 +142,16 @@
            (not (:converged? (ceiling/evaluate (:weights model)
                                                {:eta 1.0 :adoption 1.0 :capture 0.0 :phi 0.254}
                                                {:recent-dG [0.067 0.0 0.0]}))))
+
+    ;; §1.13 REACH: capped, reaction-rate unrepresentable, never a reward gradient
+    (let [r0 (reach/observe {:send-receipts nil})
+          r9 (reach/observe {:send-receipts (repeat 9 :receipt)})]
+      (check :reach-zero-when-unsent (= 0 (:reach r0)))
+      (check :reach-capped (= reach/reach-cap (:reach r9)))          ; 9 receipts capped to the ceiling
+      (check :reach-no-reaction-field (reach/clean? r0))             ; reading has no like/repost/reply field
+      (check :reach-detects-reaction-field (not (reach/clean? {:likes 100 :reach 1}))))
+    ;; reach is NOT in the score model — G never rewards reach (only η/adoption/capture/phi)
+    (check :reach-not-in-G (= #{:eta :adoption :capture :phi} (set (keys (:weights model)))))
 
     (let [all @results
           pass (count (filter second all))
