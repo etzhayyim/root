@@ -72,6 +72,28 @@
           (sort-by #(get % "did"))
           vec)}))
 
+(defn export-verification-methods
+  "Seal-free export of the per-actor `#atproto` P-256 verificationMethod registry —
+  the artifact the APEX worker ingests so that resolving an actor's did:web doc (the
+  resolution authority consumers actually hit, NOT the PDS) publishes the SAME signing
+  key the PDS signs that actor's repo commits with. Without this, a post-cutover
+  verifier resolves the actor doc, finds no P-256 key, and every Path B signature
+  fails (slice 3 at the apex layer).
+
+  Reads ONLY `actors-index` (public DIDs + multikeys, no sealing secret) and rebuilds
+  each actor's verificationMethod via `cfg/actor-did-document` from that PUBLIC key —
+  so it is safe to run anywhere (CI, the apex build), holds no private scalar, and
+  needs no MURAKUMO_SEAL_KEY. Returns
+  {\"actors\" [{\"did\" .. \"verificationMethod\" [{#atproto Multikey} ..]} ..]},
+  sorted by DID (inherits actors-index order); empty when the dir is absent."
+  [dir]
+  {"actors"
+   (->> (get (actors-index dir) "actors")
+        (mapv (fn [{:strs [did multikey]}]
+                {"did" did
+                 "verificationMethod"
+                 (get (cfg/actor-did-document did multikey) "verificationMethod")})))})
+
 (defn signer-for
   "A store signer (etzhayyim.pds.store/->mem-store etc.) bound to ONE actor's key,
   so each of that actor's writes is signed by the actor itself."
