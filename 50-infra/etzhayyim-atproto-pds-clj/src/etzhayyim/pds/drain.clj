@@ -81,14 +81,15 @@
   `{:receipts [{:key :status :uri :cid :sig :signedBy} ..] :posted <updated set>
     :errors [{:key :status} ..]}`. A non-200 leaves the key UN-posted (retryable);
   an already-posted key is skipped (idempotent)."
-  [base specs {:keys [posted transport] :or {posted #{}}}]
+  [base specs {:keys [posted transport leash] :or {posted #{}}}]
   (reduce
    (fn [acc spec]
      (let [k (post-key spec)]
        (if (contains? (:posted acc) k)
          acc                                          ; idempotent: already posted
          (let [res (client/create-record!
-                    base (select-keys spec [:repo :collection :record :rkey])
+                    base (cond-> (select-keys spec [:repo :collection :record :rkey])
+                           leash (assoc :leash leash))   ; present the member leash → PDS attributes the consenting member
                     :transport transport)]
            (if (= 200 (:status res))
              (-> acc
@@ -107,14 +108,15 @@
   [receipts]
   (vec
    (mapcat
-    (fn [{:keys [key uri cid sig signedBy]}]
+    (fn [{:keys [key uri cid sig signedBy author]}]
       (let [e (str "receipt-" key)]
-        [[e :receipt/key key]
-         [e :receipt/uri uri]
-         [e :receipt/cid cid]
-         [e :receipt/sig sig]
-         [e :receipt/signed-by signedBy]
-         [e :receipt/status :submitted]]))
+        (cond-> [[e :receipt/key key]
+                 [e :receipt/uri uri]
+                 [e :receipt/cid cid]
+                 [e :receipt/sig sig]
+                 [e :receipt/signed-by signedBy]
+                 [e :receipt/status :submitted]]
+          author (conj [e :receipt/author author]))))   ; the consenting member, when a leash attributed the write
     receipts)))
 
 (defn preview
@@ -142,11 +144,13 @@
   persisting the posted-key cursor at `:cursor-path` (one key/line) so re-runs are
   idempotent, and writing receipts NDJSON to `:receipts-path`. Stdlib file IO; the
   posting uses the live HTTP client (the actor holds no key — the PDS signs)."
-  [{:keys [base queue-path cursor-path receipts-path transport]}]
+  [{:keys [base queue-path cursor-path receipts-path transport leash]}]
   (let [seed (if (and cursor-path (.exists (io/file cursor-path)))
                (set (remove str/blank? (str/split-lines (slurp cursor-path)))) #{})
         res (run-queue! base (slurp queue-path)
-                        (cond-> {:posted seed} transport (assoc :transport transport)))]
+                        (cond-> {:posted seed}
+                          transport (assoc :transport transport)
+                          leash (assoc :leash leash)))]
     (when cursor-path (spit cursor-path (str/join "\n" (sort (:posted res)))))
     (when receipts-path
       (spit receipts-path (str/join "\n" (map json/generate-string (:receipts res)))))
