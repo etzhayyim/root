@@ -9,6 +9,7 @@
             [minori.capture :as capture]
             [minori.social  :as social]
             [minori.kotoba  :as kotoba]
+            [minori.ceiling :as ceiling]
             [clojure.set    :as set]))
 
 (def model
@@ -125,6 +126,21 @@
     (let [s (measure/ground {:eta-grounded 0.809} {:eta-self 1.0})
           r (score/growth s model adoption)]
       (check :self-eta-crosses-gate (and (= 1.0 (:eta-grounded s)) (:net-giver? r) (not (:gated? r)))))
+
+    ;; CEILING: converged when self-drivable (η) is maxed AND no recent upward progress; blockers named
+    (let [conv (ceiling/evaluate (:weights model)
+                                 {:eta 1.0 :adoption 1.0 :capture 0.0 :phi 0.254}
+                                 {:recent-dG [0.0 -0.033 0.0]})]
+      (check :ceiling-converged (:converged? conv))
+      (check :ceiling-self-headroom-zero (< (:self-drivable-headroom conv) 1e-6))
+      (check :ceiling-external-headroom-pos (> (:external-headroom conv) 0.0))
+      (check :ceiling-blocks-capture-and-phi
+             (= #{:capture :phi} (set (map :lever (:blocked-on conv))))))
+    ;; NOT converged while a recent beat still made upward progress
+    (check :ceiling-not-converged-on-progress
+           (not (:converged? (ceiling/evaluate (:weights model)
+                                               {:eta 1.0 :adoption 1.0 :capture 0.0 :phi 0.254}
+                                               {:recent-dG [0.067 0.0 0.0]}))))
 
     (let [all @results
           pass (count (filter second all))

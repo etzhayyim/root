@@ -14,6 +14,7 @@
             [minori.measure :as measure]
             [minori.social  :as social]
             [minori.kotoba  :as kotoba]
+            [minori.ceiling :as ceiling]
             [minori.ledger  :as ledger]
             [clojure.edn    :as edn]
             [clojure.java.io :as io]))
@@ -102,6 +103,12 @@
                                      :net-giver? (:net-giver? m-after) :gated? gated?})
          kcommit  (kotoba/commit kdatoms (get-in prev [:kotoba :cid]))
          kbridge  (kotoba/bridge! kcommit)
+         ;; 成長を評価する (mature): convergence/ceiling — self-drivable vs externally-gated headroom,
+         ;; over the last 3 beats' real ΔG. Reports an HONEST plateau with the external blockers named.
+         recent-dG (conj (vec (take-last 2 (map :dG led))) dG)
+         convergence (ceiling/evaluate (:weights model)
+                                       (:components m-after)
+                                       {:recent-dG recent-dG})
          entry    {:actor "minori"
                    :adr "2606261114"
                    :kind :react-beat
@@ -131,6 +138,7 @@
                    :kotoba {:graph (:graph kcommit) :cid (:cid kcommit)
                             :parent (:parent kcommit) :datom-count (count kdatoms)
                             :bridge (:mode kbridge)}
+                   :convergence convergence
                    :adoption (:p adoption)}
          appended (ledger/append! ledger entry)
          appended? (:appended? appended)
@@ -156,6 +164,7 @@
                       :bytes (:bytes digest-art) :artifact digest}
       :kotoba {:graph (:graph kcommit) :cid (:cid kcommit) :parent (:parent kcommit)
                :datom-count (count kdatoms) :bridge (:mode kbridge)}
+      :convergence convergence
       :gated? gated?
       :reward reward
       :components (:components m-after)
@@ -190,5 +199,11 @@
       (println (format "kotoba: graph=%s tx-cid=%s… (%d datoms, parent=%s) bridge=%s"
                        (:graph k) (subs (str (:cid k)) 0 12) (:datom-count k)
                        (if (:parent k) (subs (str (:parent k)) 0 8) "∅-root") (name (:bridge k)))))
+    (when-let [c (:convergence r)]
+      (println (format "評価: %s%s  (self-headroom=%.3f, external-headroom=%.3f)"
+                       (if (:converged? c) "CONVERGED — " "") (:verdict c)
+                       (:self-drivable-headroom c) (:external-headroom c)))
+      (doseq [b (:blocked-on c)]
+        (println (format "   blocked: %s +%.4f (gate=%s)" (name (:lever b)) (:headroom b) (name (:gate b))))))
     (println (format "head-cid=%s…  verify-chain=%s" (subs (str (:head-cid r)) 0 12) (:verify-chain r)))
     r))
