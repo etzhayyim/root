@@ -86,14 +86,14 @@ It answers the question "is there an actor that hosts public genetic data and an
 
 ```bash
 cd 20-actors/rasen
-python3 methods/analyze.py          # → out/care-report.md
-python3 methods/datom_emit.py       # → out/genome-datoms.kotoba.edn (EAVT)
-python3 methods/coverage_report.py  # → out/coverage-report.md
+bb -cp 20-actors -m rasen.methods.analyze          # → out/care-report.md
+bb -cp 20-actors -m rasen.methods.datom-emit       # → out/genome-datoms.kotoba.edn (EAVT)
+bb -cp 20-actors -m rasen.methods.coverage-report  # → out/coverage-report.md
 
 # OUTWARD (G7) — pull bounded PUBLIC reference genetics → kotoba EDN/Datom → IPFS CID
-python3 methods/ingest.py           # live fetch (MyGene.info + MyVariant.info) + ipfs pin
-python3 methods/ingest.py --offline --no-pin   # re-content-address an existing ingested graph
-python3 methods/cid.py out/ingested-genome-graph.kotoba.edn   # print the kotoba IPFS CID
+bb -cp 20-actors -m rasen.methods.ingest           # live fetch (MyGene.info + MyVariant.info) + ipfs pin
+bb -cp 20-actors -m rasen.methods.ingest --offline --no-pin   # re-content-address an existing ingested graph
+bb -cp 20-actors -m rasen.methods.cid out/ingested-genome-graph.kotoba.edn   # print the kotoba IPFS CID
 
 bash run_tests.sh  # cljc tests, green
 ```

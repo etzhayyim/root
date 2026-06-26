@@ -13,10 +13,10 @@ fact (ClinVar/OMIM style), never a rasen verdict (N3).
 
 ```bash
 cd 20-actors/rasen
-python3 methods/analyze.py          # → out/care-report.md          (gene care-priority)
-python3 methods/datom_emit.py       # → out/genome-datoms.kotoba.edn (EAVT canonical state)
-python3 methods/coverage_report.py  # → out/coverage-report.md       (honest coverage + gaps)
-python3 methods/ingest.py           # OUTWARD (G7): public APIs → kotoba EDN/Datom → IPFS CID (+pin)
+bb -cp 20-actors -m rasen.methods.analyze          # → out/care-report.md          (gene care-priority)
+bb -cp 20-actors -m rasen.methods.datom-emit       # → out/genome-datoms.kotoba.edn (EAVT canonical state)
+bb -cp 20-actors -m rasen.methods.coverage-report  # → out/coverage-report.md       (honest coverage + gaps)
+bb -cp 20-actors -m rasen.methods.ingest           # OUTWARD (G7): public APIs → kotoba EDN/Datom → IPFS CID (+pin)
 bb -cp 20-actors -m rasen.methods.publish          # OUTWARD (G7): pin + IPNS-publish + snapshot to 80-data/genome
 python3 wasm/app.cljs analyze         # the WASM component's export body, dev mode
 bash run_tests.sh  # cljc tests, green
