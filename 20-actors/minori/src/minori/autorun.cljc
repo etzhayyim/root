@@ -22,6 +22,27 @@
    :scoreboard "80-data/ie-flow/scoreboard.edn"
    :ledger     "20-actors/minori/data/ledger.edn"})
 
+(defn next-worklist
+  "The :intervention-worklist export (system.edn) — the prioritized REAL (mostly G7-gated) next
+   step to MOVE the truth, ranked by lowest component first (highest leverage). minori sees the
+   truth; its job is to surface what would actually raise it (dry-run; live legs operator/member-gated)."
+  [m-after obs]
+  (let [comps (:components m-after)
+        items [{:lever :capture :value (:capture comps)
+                :step "wire live donation-flow + OSS-adoption metric → real captured÷addressable"
+                :gate :G7-operator}
+               {:lever :eta :value (:eta comps)
+                :step "raise REAL net-export (η→1) via member-principal deepen-symbiosis live leg"
+                :gate :G7-member}
+               {:lever :phi :value (:phi comps)
+                :step "raise adopted toward n=18342 via SoS-rule rollout to the remaining roster"
+                :gate :none}
+               {:lever :adoption :value (:adoption comps)
+                :step "sustain SoS-reward adoption across the roster"
+                :gate :none}]]
+    (assoc (first (sort-by :value items))
+           :capture-note (get-in obs [:capture :note]))))
+
 (defn run
   ([] (run defaults))
   ([{:keys [system valuation sos scoreboard ledger] :as paths}]
@@ -35,21 +56,24 @@
          done     (set (or (:done prev) []))
          {:keys [pick state' done' measure-before]}
            (react/beat {:state state :done done} model adoption)
-         ;; 観測: read-only observation every beat (transparency). 計測/実装: GROUND the η/Φ
-         ;; estimate from REAL data when a :measure lever fires (stub → truth).
-         obs      (measure/observe {:scoreboard scoreboard} (:adopted adoption))
-         grounded? (= :measure (:kind pick))
-         state''  (if grounded? (measure/ground state' obs) state')
+         ;; 観測: minori is an observatory — it reads ALL available truth every beat (η from the
+         ;; scoreboard, Φ from the roster, capture from the valuation MAP) and GROUNDS it into the
+         ;; score (truth beats the loop's stubs; grounding can LOWER an optimistic stub — honest).
+         obs      (measure/observe {:scoreboard scoreboard :valuation valuation} (:adopted adoption))
+         state''  (measure/ground state' obs)
+         grounded? (boolean (get-in obs [:colony-eta :mean]))
          m-after  (score/growth state'' model adoption)
          dG       (- (:G m-after) (:G measure-before))
          reward   (:reward m-after)
          gated?   (:gated? m-after)
+         next-action (next-worklist m-after obs)        ; the :intervention-worklist export
          entry    {:actor "minori"
                    :adr "2606261114"
                    :kind :react-beat
                    :observed {:valuation valuation :sos-adopted (:adopted adoption)
                               :colony-eta (get-in obs [:colony-eta :mean])
                               :realized-phi (:realized-phi obs)
+                              :capture-grounded (get-in obs [:capture :ratio])
                               :grounded? grounded?}
                    :pick pick
                    :state state''
@@ -62,6 +86,7 @@
                    :gated? gated?
                    :reward reward
                    :components (:components m-after)
+                   :next-action next-action
                    :adoption (:p adoption)}
          appended (ledger/append! ledger entry)
          appended? (:appended? appended)
@@ -79,6 +104,7 @@
       :grounded? grounded?
       :colony-eta (get-in obs [:colony-eta :mean])
       :realized-phi (:realized-phi obs)
+      :next-action next-action
       :gated? gated?
       :reward reward
       :components (:components m-after)
@@ -100,5 +126,8 @@
     (when (:colony-eta r)
       (println (format "観測: colony-η=%.3f (real scoreboard)  realized-Φ=ln(adopted)=%.2f  grounded?=%s"
                        (:colony-eta r) (or (:realized-phi r) 0.0) (:grounded? r))))
+    (when-let [na (:next-action r)]
+      (println (format "次の一手: [%s %.3f, gate=%s] %s"
+                       (name (:lever na)) (:value na) (name (:gate na)) (:step na))))
     (println (format "head-cid=%s…  verify-chain=%s" (subs (str (:head-cid r)) 0 12) (:verify-chain r)))
     r))

@@ -27,9 +27,18 @@
       (check :gated-when-net-taker (:gated? r))
       (check :gated-reward-is-give-back (< (Math/abs (- (:reward r) (* 0.5 (+ 0.0 0.8)))) 1e-9)))
 
-    ;; η≥1 ⇒ net-giver, reward = raw G (no clamp)
-    (let [r (score/growth {:eta-estimate 1.0} model adoption)]
+    ;; GROUNDED η≥1 ⇒ net-giver, reward = raw G (no clamp)
+    (let [r (score/growth {:eta-grounded 1.0} model adoption)]
       (check :ungated-when-net-giver (and (:net-giver? r) (= (:reward r) (:G r)))))
+
+    ;; HONESTY: a huge STUB η can never cross the net-giver gate — only GROUNDED η can
+    (check :stub-cannot-cross-gate (not (:net-giver? (score/growth {:eta-estimate 5.0} model adoption))))
+    (check :grounded-crosses-gate (:net-giver? (score/growth {:eta-grounded 1.0} model adoption)))
+
+    ;; HONESTY: grounding capture to the real pre-revenue ratio LOWERS the optimistic stub
+    (let [stub     (score/growth {:eta-grounded 0.8 :capture-estimate 0.005} model adoption)
+          grounded (score/growth {:eta-grounded 0.8 :capture-estimate 0.005 :capture-grounded 0.0} model adoption)]
+      (check :capture-grounding-lowers-G (< (:G grounded) (:G stub))))
 
     ;; CHARTER: the catalog cannot represent a predatory / extractive / outward-send mechanism
     (let [kinds (set (map :kind (react/catalog)))]
@@ -56,12 +65,15 @@
     ;; MEASURE: grounding is monotone (never lowers η) + fail-open on absent scoreboard
     (check :measure-failopen-absent (nil? (measure/colony-eta "20-actors/minori/data/__nope__.edn")))
     (check :measure-realized-phi (< (Math/abs (- (measure/realized-phi 105) (Math/log 105.0))) 1e-9))
-    (let [grounded (measure/ground {:eta-estimate 0.10}
+    (let [grounded (measure/ground {:eta-grounded 0.10}
                                    {:colony-eta {:mean 0.95} :realized-phi 4.65})]
-      (check :measure-grounds-eta-up (= 0.95 (:eta-estimate grounded)))
+      (check :measure-grounds-eta-up (= 0.95 (:eta-grounded grounded)))
       (check :measure-monotone-no-lower
-             (= 0.99 (:eta-estimate (measure/ground {:eta-estimate 0.99}
+             (= 0.99 (:eta-grounded (measure/ground {:eta-grounded 0.99}
                                                     {:colony-eta {:mean 0.95}})))))
+    ;; grounding capture sets the real (pre-revenue) ratio
+    (check :measure-grounds-capture
+           (= 0.0 (:capture-grounded (measure/ground {} {:capture {:ratio 0.0}}))))
 
     (let [all @results
           pass (count (filter second all))

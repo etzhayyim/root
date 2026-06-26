@@ -19,26 +19,34 @@
 
 (defn growth
   "Compute G ∈ [0,1] + components + the non-parasitism-gated reward.
-   `state` carries the loop's running estimates (η, capture, Φ-realized), advanced by react beats."
-  [{:keys [eta-estimate capture-estimate phi-realized] :or {eta-estimate 0.0
-                                                            capture-estimate 0.0
-                                                            phi-realized 0.0}}
+   STUB vs GROUNDED honesty: `:eta-estimate`/`:capture-estimate` are the loop's optimistic
+   projections; `:eta-grounded`/`:capture-grounded` are set ONLY by real measurement (the
+   scoreboard / the valuation MAP). The η/capture COMPONENTS use grounded-if-present (truth
+   beats projection), and — critically — the NET-GIVER GATE fires only on GROUNDED η, so a
+   stub increment can never win the phase transition: η≥1 must be MEASURED, never assumed."
+  [{:keys [eta-estimate capture-estimate phi-realized eta-grounded capture-grounded]
+    :or {eta-estimate 0.0 capture-estimate 0.0 phi-realized 0.0}}
    model adoption]
   (let [{:keys [weights targets]} model
-        eta-p      (clamp01 eta-estimate)                                  ; 0→1 phase transition
-        capture-p  (clamp01 (/ (double capture-estimate) (double (:capture targets))))
-        phi-p      (clamp01 (/ (double phi-realized)     (double (:phi-potential targets))))
+        eta-eff     (double (or eta-grounded eta-estimate))                ; truth beats projection
+        capture-eff (double (or capture-grounded capture-estimate))
+        eta-p      (clamp01 eta-eff)
+        capture-p  (clamp01 (/ capture-eff (double (:capture targets))))
+        phi-p      (clamp01 (/ (double phi-realized) (double (:phi-potential targets))))
         adopt-p    (clamp01 (:p adoption))
         comps      {:eta eta-p :adoption adopt-p :capture capture-p :phi phi-p}
         G          (reduce-kv (fn [acc k w] (+ acc (* w (get comps k 0.0)))) 0.0 weights)
-        ;; non-parasitism: a net taker (η<1) is never rewarded for raw growth; reward = η+adoption movement
-        net-giver? (>= (double eta-estimate) (double (:eta targets)))
+        ;; non-parasitism: a net taker is never rewarded for raw growth. The gate is on GROUNDED η
+        ;; only — a stub can project but never CROSS it. reward = η+adoption movement while gated.
+        net-giver? (>= (double (or eta-grounded 0.0)) (double (:eta targets)))
         reward     (if net-giver?
                      G
                      (* 0.5 (+ eta-p adopt-p)))]               ; gated: only the give-back levers count
     {:G (double G)
      :components comps
-     :eta (double eta-estimate)
+     :eta eta-eff
+     :eta-grounded eta-grounded
+     :grounded? (boolean eta-grounded)
      :net-giver? net-giver?
      :gated? (not net-giver?)
      :reward (double reward)}))
