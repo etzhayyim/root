@@ -32,16 +32,25 @@
   #"[\s,]+|;[^\n]*|(\[|\]|\{|\}|\"(?:\\.|[^\"\\])*\"|[^\s,\[\]{}]+)")
 
 (defn tokens
-  "Lazy seq of significant tokens (group 1 of each tok-re match that captured)."
+  "Significant tokens (group 1 of each tok-re match that captured). Portable: clj uses a JVM
+  Matcher; cljs (cherry/ComponentizeJS wasm, ADR-2606261200) uses a native global RegExp .exec
+  loop over the same pattern (tok-re is JVM/JS-compatible regex syntax)."
   [s]
-  (let [m (re-matcher tok-re s)]
-    ((fn step []
-       (lazy-seq
-        (when (.find m)
-          (let [t (.group m 1)]
-            (if (nil? t)
-              (step)
-              (cons t (step))))))))))
+  #?(:clj
+     (let [m (re-matcher tok-re s)]
+       ((fn step []
+          (lazy-seq
+           (when (.find m)
+             (let [t (.group m 1)]
+               (if (nil? t) (step) (cons t (step)))))))))
+     :cljs
+     (let [re  (js/RegExp. (.-source tok-re) "g")
+           out #js []]
+       (loop [mm (.exec re s)]
+         (when mm
+           (let [t (aget mm 1)] (when (some? t) (.push out t)))
+           (recur (.exec re s))))
+       out)))
 
 (defn atom-of
   "Port of _atom: \"…\" → unescaped string; true/false/nil → bool/nil; \":…\" kept as string;

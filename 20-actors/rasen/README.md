@@ -18,7 +18,7 @@ python3 methods/datom_emit.py       # → out/genome-datoms.kotoba.edn (EAVT can
 python3 methods/coverage_report.py  # → out/coverage-report.md       (honest coverage + gaps)
 python3 methods/ingest.py           # OUTWARD (G7): public APIs → kotoba EDN/Datom → IPFS CID (+pin)
 python3 methods/publish.py          # OUTWARD (G7): pin + IPNS-publish + snapshot to 80-data/genome
-python3 wasm/app.py analyze         # the WASM component's export body, dev mode
+python3 wasm/app.cljs analyze         # the WASM component's export body, dev mode
 bash run_tests.sh  # cljc tests, green
 ```
 
@@ -27,7 +27,7 @@ Reactome → Ensembl/NCBI + ClinVar + gnomAD super-population frequencies + GO &
 pathways), normalises it into the genome-ontology kotoba graph, and content-addresses it to a
 kotoba IPFS CIDv1 that matches `ipfs add --cid-version=1 --raw-leaves` (verifiable without a
 daemon). `publish.py` pins + IPNS-publishes it and snapshots the durable record into
-`80-data/genome/`. `wasm/` is the build-ready componentize-py component. No individual data, ever.
+`80-data/genome/`. `wasm/` is the build-ready cherry+ComponentizeJS (ADR-2606261200) component. No individual data, ever.
 
 See `CLAUDE.md` for the constitutional gates and ontology, and
 `00-contracts/schemas/genome-ontology.kotoba.edn` for the vocabulary. Status: 🟢 R1+ — public
