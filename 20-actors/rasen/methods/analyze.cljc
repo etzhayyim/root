@@ -304,7 +304,7 @@
      "CLI entry: analyze a seed EDN graph → out/care-report.md (file I/O at the edge)."
      [& argv]
      (let [argv (vec argv)
-           here (-> *file* clojure.java.io/file .getParentFile .getParentFile)
+           here (clojure.java.io/file (or (System/getenv "RASEN_ACTOR_DIR") "20-actors/rasen"))
            seed (if (and (seq argv) (not (str/starts-with? (first argv) "--")))
                   (clojure.java.io/file (first argv))
                   (clojure.java.io/file here "data" "seed-genome-graph.kotoba.edn"))
