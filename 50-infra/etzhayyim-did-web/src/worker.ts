@@ -1,4 +1,5 @@
 import didDoc from "../did.json";
+import { findXrpcRoute, resolveUpstream } from "./xrpc-routes";
 import {
   UNISPSC_HANDLES,
   UNISPSC_GENERATED_AT,
@@ -686,6 +687,10 @@ interface Env {
   // for the yoro frontend (which currently embeds relative `/xrpc/...` paths).
   XRPC_BSKY_UPSTREAM?: string;
   XRPC_ATPROTO_UPSTREAM?: string;
+  // Method A (independent etzhayyim PDS): com.atproto.repo.*/sync.* route here.
+  // Empty → those families fall back to XRPC_ATPROTO_UPSTREAM (INERT — prod is
+  // byte-identical until ops sets this to the deployed PDS origin at cutover).
+  XRPC_PDS_UPSTREAM?: string;
   XRPC_CHAT_UPSTREAM?: string;
   XRPC_etzhayyim_UPSTREAM?: string;
   // kotoba graph query/MV surface (com.etzhayyim.apps.kotoba.* / .kotobase.*) →
@@ -732,39 +737,10 @@ const SUBSTRATE_PASSTHROUGH_PREFIXES: readonly string[] = [
 
 // ─── XRPC routing ───────────────────────────────────────────────────────
 //
-// All `/xrpc/{NSID}` requests are routed by NSID *prefix* to the upstream
-// declared in env. Keeping this as a static map (rather than a generic
-// "look up the NSID owner" call) means the Worker stays a single fetch hop
-// and a misconfigured upstream is a deploy-time error, not a runtime one.
-
-interface NsidRoute {
-  prefix: string;
-  upstream: keyof Env; // must point to a string-valued Env field
-}
-
-const XRPC_ROUTES: NsidRoute[] = [
-  { prefix: "com.etzhayyim.apps.unispsc.", upstream: "XRPC_UNISPSC_UPSTREAM" },
-  // AT Protocol / Bluesky read+write (PDS handles both write paths and
-  // pipethrough to AppView for reads). yoro frontend sends app.bsky.feed.*,
-  // app.bsky.actor.*, app.bsky.graph.*, com.atproto.* via these routes.
-  { prefix: "app.bsky.",             upstream: "XRPC_ATPROTO_UPSTREAM" },
-  { prefix: "com.atproto.",          upstream: "XRPC_ATPROTO_UPSTREAM" },
-  { prefix: "chat.bsky.",            upstream: "XRPC_CHAT_UPSTREAM" },
-  // kotoba graph query / SPARQL / MaterializedView surface → the kotoba node
-  // (more specific than the com.etzhayyim. catch-all below, so it must come
-  // first — findXrpcRoute returns the first matching prefix).
-  { prefix: "com.etzhayyim.apps.kotoba.",   upstream: "XRPC_KOTOBA_UPSTREAM" },
-  { prefix: "com.etzhayyim.apps.kotobase.", upstream: "XRPC_KOTOBA_UPSTREAM" },
-  // etzhayyim platform extensions (convo, signal, kagami, projector, mcp, rtc).
-  { prefix: "com.etzhayyim.",              upstream: "XRPC_etzhayyim_UPSTREAM" },
-];
-
-function findXrpcRoute(nsid: string): NsidRoute | null {
-  for (const r of XRPC_ROUTES) {
-    if (nsid.startsWith(r.prefix)) return r;
-  }
-  return null;
-}
+// NSID-prefix → upstream routing lives in `./xrpc-routes` (unit-testable in
+// isolation). `resolveUpstream` honors a route's `fallback`, so Method A's
+// com.atproto.repo.*/sync.* → independent PDS stays inert (falls back to the
+// AppView upstream) until XRPC_PDS_UPSTREAM is provisioned at cutover.
 
 async function proxyXrpc(
   request: Request,
@@ -2159,12 +2135,15 @@ a{color:inherit}
             },
           );
         }
-        const upstream = env[route.upstream] as string | undefined;
+        const upstream = resolveUpstream(
+          route,
+          env as unknown as Record<string, string | undefined>,
+        );
         if (!upstream) {
           return new Response(
             JSON.stringify({
               error: "UpstreamNotConfigured",
-              message: `env.${String(route.upstream)} is empty`,
+              message: `env.${route.upstream}${route.fallback ? ` (and fallback env.${route.fallback})` : ""} is empty`,
               nsid,
             }),
             {
