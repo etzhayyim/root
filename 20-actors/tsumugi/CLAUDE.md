@@ -132,7 +132,7 @@ influence (the 産霊 receiving side) — never authored as a source over others
 bb -cp 20-actors -m tsumugi.methods.analyze-influence            # default seed
 bb -cp 20-actors -m tsumugi.methods.analyze-influence <seed.edn> --out <dir>
 # dry-run mirror posts (observer voice, published=false; impersonation refused)
-python3 20-actors/tsumugi/methods/project_influence_posts.py
+bb -cp 20-actors -m tsumugi.methods.project-influence-posts
 # tests (12 — one per invariant + seed/projector checks)
 python3 20-actors/tsumugi/tests/test_influence.py
 ```
