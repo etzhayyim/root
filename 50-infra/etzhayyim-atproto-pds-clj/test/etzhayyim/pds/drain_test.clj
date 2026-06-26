@@ -9,7 +9,9 @@
             [etzhayyim.pds.drain :as drain]
             [etzhayyim.pds.actorkeys :as ak]
             [etzhayyim.pds.store :as store]
-            [etzhayyim.pds.xrpc :as xrpc]))
+            [etzhayyim.pds.xrpc :as xrpc]
+            [etzhayyim.pds.leash :as leash]
+            [etzhayyim.pds.config :as cfg]))
 
 (def secret "node-secret")
 (def base "https://pds.example")
@@ -36,6 +38,28 @@
    :repo (str "did:web:etzhayyim.com:actor:unspsc-" n)
    :collection "app.bsky.feed.post"
    :record {"$type" "app.bsky.feed.post" "text" (str "post " n) "createdAt" "2026-06-25T00:00:00Z"}})
+
+(deftest drain-presents-leash-attributing-the-consenting-member
+  (testing "a PRESENTED leash flows drain → client → PDS; receipts + :receipt/* carry the member"
+    (let [dir (tmp-dir)]
+      (try
+        (let [m   (leash/gen-member-key)
+              ;; far-future exp so the PDS's wall-clock `now` accepts it; aud = this PDS
+              lz  (leash/issue-leash m {:aud cfg/pds-did :exp 4070908800})
+              t   (fake-pds dir #{})
+              ;; WITH a leash → each receipt names the consenting member
+              r   (drain/drain! base [(spec 1) (spec 2)] {:transport t :leash lz})
+              datoms (drain/receipts->datoms (:receipts r))]
+          (is (= 2 (count (:receipts r))))
+          (is (every? #(= (:did m) (:author %)) (:receipts r)) "every receipt carries the member")
+          (is (some (fn [[_ a v]] (and (= a :receipt/author) (= v (:did m)))) datoms)
+              ":receipt/author provenance datom emitted")
+          ;; WITHOUT a leash → unattributed (back-compat)
+          (let [r0 (drain/drain! base [(spec 3)] {:transport (fake-pds dir #{})})]
+            (is (nil? (:author (first (:receipts r0)))))
+            (is (not-any? (fn [[_ a _]] (= a :receipt/author))
+                          (drain/receipts->datoms (:receipts r0))))))
+        (finally (rm-rf dir))))))
 
 (deftest drains-once-and-is-idempotent
   (testing "all posts go out once; re-draining with the returned cursor posts nothing"

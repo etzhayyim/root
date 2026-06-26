@@ -35,12 +35,15 @@
 
   drain
   {:doc "Drain an ibuki NDJSON post-queue to the PDS. Env: PDS_DRAIN_BASE (PDS url) +
-         PDS_DRAIN_QUEUE (queue file) + optional PDS_DRAIN_CURSOR / PDS_DRAIN_RECEIPTS."
+         PDS_DRAIN_QUEUE (queue file) + optional PDS_DRAIN_CURSOR / PDS_DRAIN_RECEIPTS +
+         optional PDS_DRAIN_LEASH (a member CACAO leash the drainer PRESENTS so the PDS
+         attributes each write to the consenting member; absent → unattributed)."
    :requires ([etzhayyim.pds.drain :as drain])
    :task (let [res (drain/run-file! {:base (System/getenv "PDS_DRAIN_BASE")
                                      :queue-path (System/getenv "PDS_DRAIN_QUEUE")
                                      :cursor-path (System/getenv "PDS_DRAIN_CURSOR")
-                                     :receipts-path (System/getenv "PDS_DRAIN_RECEIPTS")})]
+                                     :receipts-path (System/getenv "PDS_DRAIN_RECEIPTS")
+                                     :leash (System/getenv "PDS_DRAIN_LEASH")})]
            (println (format "[drain] posted=%d errors=%d parse-errors=%d"
                             (count (:receipts res)) (count (:errors res))
                             (count (:parse-errors res)))))}
