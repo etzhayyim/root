@@ -71,7 +71,7 @@ It answers the question "is there an actor that hosts public genetic data and an
 ├── tests/                                 # 23 tests, pure stdlib (network-free)
 │   ├── test_analyze.py · test_coverage.py · test_ingest.py · test_wasm.py
 │   └── fixtures/{myvariant_rs334, mygene_brca1_go, reactome_brca1}.json
-├── wasm/                                  # kotoba pywasm component (componentize-py)
+├── wasm/                                  # kotoba pywasm component (cherry+ComponentizeJS (ADR-2606261200))
 │   ├── README.md · wit/world.wit          # WIT world (analyze/datoms/coverage exports)
 │   ├── app.py                             # export bodies (runnable in dev; embeds seed for WASM)
 │   └── build.sh                           # embed seed → componentize → CID → DID service descriptor
@@ -132,9 +132,9 @@ trustless gateway already make the content publicly fetchable + re-verifiable.
 
 `wasm/` holds the kotoba pywasm component: `wit/world.wit` (the `rasen-actor` world exporting
 `analyze`/`datoms`/`coverage`), `app.py` (the export bodies — runnable now in dev mode:
-`python3 wasm/app.py analyze`, and embedding the seed for the no-FS WASM runtime), and
-`build.sh` (embed seed → `componentize-py` → CID → DID-doc `EtzhayyimWasmComponent` service
-descriptor). The build itself is the operator step (componentize-py toolchain); the export
+`python3 wasm/app.cljs analyze`, and embedding the seed for the no-FS WASM runtime), and
+`build.sh` (embed seed → `cherry+ComponentizeJS (ADR-2606261200)` → CID → DID-doc `EtzhayyimWasmComponent` service
+descriptor). The build itself is the operator step (cherry+ComponentizeJS (ADR-2606261200) toolchain); the export
 logic is CI-covered by `tests/test_wasm.py`. G1 holds in WASM — the component embeds only the
 bounded PUBLIC seed, so it cannot leak what it does not contain.
 
