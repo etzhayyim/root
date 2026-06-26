@@ -287,12 +287,16 @@
 ;; ── commit ───────────────────────────────────────────────────────────────────
 
 (defn make-commit
-  "Build + sign the repo commit. Returns [commit-cid-bytes commit-block-bytes commit-map]."
-  [did ^bytes data-cid rev prev priv]
+  "Build + sign the repo commit. Returns [commit-cid-bytes commit-block-bytes commit-map].
+  `signer` is either an Ed25519 PrivateKey (the PDS self-repo key, signed via `sign`) OR
+  a fn `(fn [^bytes msg] -> ^bytes sig)` — pass the latter to sign the commit with the
+  ACTOR's own sealed P-256 key (Path B), so a relay verifies the commit against the
+  actor's published did:web Multikey, not a shared PDS key."
+  [did ^bytes data-cid rev prev signer]
   (let [unsigned (cond-> {:did did :version 3 :data (cid-link data-cid) :rev rev}
                    prev (assoc :prev (cid-link prev))
                    (not prev) (assoc :prev nil))
-        sig (sign priv (dag-cbor unsigned))
+        sig (if (fn? signer) (signer (dag-cbor unsigned)) (sign signer (dag-cbor unsigned)))
         commit (assoc unsigned :sig sig)
         cb (dag-cbor commit)]
     [(cid-of-bytes cb) cb commit]))
@@ -422,8 +426,9 @@
   "Assemble the signed-commit + MST + record blocks for one repo.
   records = seq of {:uri :value}. Returns
   {:commit-cid str :root str :rev str :blocks {cid-str→{:cid :bytes}}
-   :record-cids {collection/rkey→cid-str}}."
-  [did records rev priv]
+   :record-cids {collection/rkey→cid-str}}. `signer` = an Ed25519 PrivateKey OR an
+  actor sign-fn `(fn [^bytes msg] -> ^bytes sig)` (see make-commit)."
+  [did records rev signer]
   (let [rec-blocks (atom {})
         rec-cids (atom {})
         entries (for [{:keys [uri value]} records
@@ -434,15 +439,16 @@
                       (swap! rec-cids assoc key (cid-str cid))
                       [key cid]))
         [root mst-blocks] (build-mst (vec entries))
-        [commit-cid commit-bytes _] (make-commit did root rev nil priv)
+        [commit-cid commit-bytes _] (make-commit did root rev nil signer)
         all (merge @rec-blocks mst-blocks {(cid-str commit-cid) {:cid commit-cid :bytes commit-bytes}})]
     {:commit-cid (cid-str commit-cid) :commit-cid-bytes commit-cid
      :root (cid-str root) :rev rev :blocks all :record-cids @rec-cids}))
 
 (defn repo-car
-  "Full repo CAR (commit root). Returns {:car bytes :commit-cid :root :rev :blocks}."
-  [did records rev priv]
-  (let [{:keys [commit-cid-bytes commit-cid root rev blocks]} (build-repo did records rev priv)]
+  "Full repo CAR (commit root). Returns {:car bytes :commit-cid :root :rev :blocks}.
+  `signer` = an Ed25519 PrivateKey OR an actor sign-fn (see build-repo / make-commit)."
+  [did records rev signer]
+  (let [{:keys [commit-cid-bytes commit-cid root rev blocks]} (build-repo did records rev signer)]
     {:car (car commit-cid-bytes blocks)
      :commit-cid commit-cid :root root :rev rev :blocks (count blocks)}))
 

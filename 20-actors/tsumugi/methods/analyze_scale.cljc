@@ -300,3 +300,23 @@
                        (get result "localities"))
                   ["]"]))
        "\n"))
+
+#?(:clj
+   (defn -main
+     "CLI entry: mirrors analyze_scale.main — [seed.edn] [--out OUTDIR]. ADR-2606261200
+     cljc-native operator leg (was `python3 methods/analyze_scale.py`)."
+     [& argv]
+     (let [argv (vec argv)
+           args (vec (remove #(str/starts-with? % "--") argv))
+           here (let [f  (when (and *file* (not (str/blank? *file*))) (io/file *file*))
+                      pp (some-> f .getAbsoluteFile .getParentFile .getParentFile)]
+                  (if (and pp (.isDirectory (io/file pp "data"))) pp (io/file "20-actors" "tsumugi")))
+           seed (if (seq args) (io/file (first args)) (io/file here "data" "seed-scale-power.kotoba.edn"))
+           out  (if (some #{"--out"} argv) (io/file (nth argv (inc (.indexOf argv "--out")))) (io/file here "out"))
+           [nodes ties] (load-graph seed)
+           result (analyze nodes ties)]
+       (.mkdirs out)
+       (spit (io/file out "scale-report.md") (render-report result))
+       (spit (io/file out "scale-graph.kotoba.edn") (render-graph-edn result))
+       (println (str "[tsumugi/scale] " (count nodes) " nodes · " (count ties)
+                     " ties → " (.getPath (io/file out "scale-report.md")))))))

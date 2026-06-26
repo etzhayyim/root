@@ -78,3 +78,23 @@
        (io/make-parents (str log-path))
        (spit (str log-path) (str tx-line "\n") :append true)
        {"cid" cid "prev" head "beat" n "datoms" (into {} datoms)})))
+
+#?(:clj
+   (defn -main
+     "CLI entry: mirrors autorun.main — [--cycles N] [--fresh]. Offline autonomous heartbeat:
+     each beat re-derives the cycle datoms and appends to the local (gitignored) cycle log.
+     ADR-2606261200 cljc-native operator leg."
+     [& argv]
+     (let [argv   (vec argv)
+           cycles (if (some #{"--cycles"} argv)
+                    (Integer/parseInt (nth argv (inc (.indexOf argv "--cycles")))) 1)
+           fresh  (boolean (some #{"--fresh"} argv))
+           log    (io/file LOG)]
+       (when (and fresh (.exists log)) (.delete log))
+       (when-let [p (.getParentFile log)] (.mkdirs p))
+       (let [last-beat (reduce (fn [_ _] (beat LOG)) nil (range cycles))]
+         (when last-beat
+           (let [d (or (:datoms last-beat) (get last-beat "datoms"))]
+             (println (str "♥ tsumugi beat " (or (:beat last-beat) (get last-beat "beat")) ": "
+                           (or (get d ":tsumugi.cycle/seed-nodes") (get d "seed-nodes")) " nodes"))))
+         (println (str "→ " LOG))))))

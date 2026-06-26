@@ -5,8 +5,8 @@
 | Dimension | State |
 |---|---|
 | Lexicon | ✅ `lex/video.edn` — `com.etzhayyim.utsushie.video` with U1–U6 structural gates |
-| Methods | ✅ `methods/render_plan.py` — offline, pure, deterministic plan builder + R0-gated `render()` |
-| Tests | ✅ `methods/test_render_plan.py` — 9 standalone tests (gate enforcement); `./run_tests.sh` green |
+| Methods | ✅ `methods/render_plan.cljc` — offline, pure, deterministic plan builder + R0-gated `render()` |
+| Tests | ✅ `methods/test_render_plan.cljc` — 23 tests (render-plan + charter-gates) (gate enforcement); `./run_tests.sh` green |
 | Cells | ⛔ none yet (R1 — Pregel cell wrapping build_plan + the G8 render step) |
 | Manifest | ✅ `manifest.jsonld` — `did:web:etzhayyim.com:actor:utsushie`, Tier-B, U1–U6 exclusions, sibling map (R0 runtime=offline-method; Murakumo fleet placement = R1) |
 | Render | ⛔ R0-gated (G8 + Murakumo-only, U5 = G6) — `render()` raises by design |

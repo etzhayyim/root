@@ -276,3 +276,40 @@
                      (swap! seen-flows conj fid)
                      (swap! new-flows conj (make-edge src dst)))))))))
        [nodes flows @new-nodes @new-flows @dropped])))
+
+#?(:clj
+   (defn -main
+     "CLI entry: mirrors ingest_influence.main offline path — ingest-offline(fixtures, seed) →
+     out/influence-ingested.kotoba.edn + out/seed-plus-ingest.kotoba.edn (out/ only; promotion
+     into the seed is a separate human PR). --live (Wikidata P737) is G7-gated network and not
+     ported (refused). ADR-2606261200 cljc-native operator leg."
+     [& argv]
+     (if (some #{"--live"} (vec argv))
+       (binding [*out* *err*]
+         (println (str "REFUSED: live influence ingest (Wikidata P737) is G7-gated network and "
+                       "an R0 scaffold (not ported). Requires TSUMUGI_OPERATOR_GATE=1 + "
+                       "TSUMUGI_OPERATOR_DID; offline fixture ingest runs without --live.")))
+       (let [here    (let [f  (when (and *file* (not (str/blank? *file*))) (io/file *file*))
+                           pp (some-> f .getAbsoluteFile .getParentFile .getParentFile)]
+                       (if (and pp (.isDirectory (io/file pp "data"))) pp (io/file "20-actors" "tsumugi")))
+             seed    (io/file here "data" "seed-influence-history.kotoba.edn")
+             fixtures (io/file here "data" "ingest-influence")
+             out     (io/file here "out")
+             [_nodes _flows new-nodes new-flows _dropped] (ingest-offline (.getPath fixtures) (.getPath seed))
+             enode   (fn [coll] (str/join "\n" (map #(str " " (edn-node %)) coll)))]
+         (.mkdirs out)
+         (let [add-lines (concat [";; tsumugi 紡ぎ — GENERATED ingest (ADR-2606061500). DO NOT hand-edit."
+                                  ";; :representative :scholarship; mirror-only (N2); out/ only — promotion into the committed seed is a separate human-reviewed PR."
+                                  "[" ";; ── ingested figure nodes ──"]
+                                 (map #(str " " (edn-node %)) new-nodes)
+                                 [";; ── ingested influence 縁 ──"]
+                                 (map #(str " " (edn-node %)) new-flows)
+                                 ["]"])
+               add-file (io/file out "influence-ingested.kotoba.edn")
+               base     (str/trimr (slurp seed))
+               combined (io/file out "seed-plus-ingest.kotoba.edn")]
+           (spit add-file (str (str/join "\n" add-lines) "\n"))
+           (spit combined (str (subs base 0 (dec (count base)))
+                               "\n ;; ── INGESTED ──\n" (enode new-nodes) "\n" (enode new-flows) "]\n"))
+           (println (str "[tsumugi/ingest-influence] +" (count new-nodes) " nodes · +"
+                         (count new-flows) " 縁 → " (.getPath add-file))))))))

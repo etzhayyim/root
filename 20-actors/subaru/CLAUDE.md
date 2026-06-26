@@ -70,10 +70,10 @@ hoshimori's posture into **operate-but-only-Transparently**.
 
 ```bash
 cd 20-actors/subaru
-python3 methods/link_budget.py       # → out/link-budget-report.md
-python3 methods/coverage.py          # → out/coverage-report.md
-python3 methods/stewardship.py       # → out/stewardship-report.md
-python3 methods/datom_emit.py        # → out/constellation-datoms.kotoba.edn (EAVT)
+bb -cp 20-actors -m subaru.methods.link-budget       # → out/link-budget-report.md
+bb -cp 20-actors -m subaru.methods.coverage          # → out/coverage-report.md
+bb -cp 20-actors -m subaru.methods.stewardship       # → out/stewardship-report.md
+bb -cp 20-actors -m subaru.methods.datom-emit        # → out/constellation-datoms.kotoba.edn (EAVT)
 ```
 
 ## Cross-links

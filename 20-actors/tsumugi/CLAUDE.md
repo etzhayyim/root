@@ -58,10 +58,10 @@ It is the upper layer over **danjo** (power 取), **kanae** (fiscal-flow render)
 
 ```bash
 # 1. weave the graph (fixture mode — NO network; latent organisms flagged claimed?=false)
-python3 20-actors/tsumugi/methods/ingest.py
+bb -cp 20-actors -m tsumugi.methods.ingest
 # 2. analyze the woven graph (or a specific seed)
-python3 20-actors/tsumugi/methods/analyze.py 20-actors/tsumugi/out/woven-graph.kotoba.edn --out 20-actors/tsumugi/out
-python3 20-actors/tsumugi/methods/analyze.py <seed.edn> --out <dir>
+bb -cp 20-actors -m tsumugi.methods.analyze 20-actors/tsumugi/out/woven-graph.kotoba.edn --out 20-actors/tsumugi/out
+bb -cp 20-actors -m tsumugi.methods.analyze <seed.edn> --out <dir>
 ```
 
 ## ie-flow / SoS score (`methods/ie_flow.cljc`, ADR-2606212200)
@@ -129,10 +129,10 @@ influence (the 産霊 receiving side) — never authored as a source over others
 
 ```bash
 # diachronic influence analysis (temporal-DAG check + Katz reach + spirit embed)
-python3 20-actors/tsumugi/methods/analyze_influence.py            # default seed
-python3 20-actors/tsumugi/methods/analyze_influence.py <seed.edn> --out <dir>
+bb -cp 20-actors -m tsumugi.methods.analyze-influence            # default seed
+bb -cp 20-actors -m tsumugi.methods.analyze-influence <seed.edn> --out <dir>
 # dry-run mirror posts (observer voice, published=false; impersonation refused)
-python3 20-actors/tsumugi/methods/project_influence_posts.py
+bb -cp 20-actors -m tsumugi.methods.project-influence-posts
 # tests (12 — one per invariant + seed/projector checks)
 python3 20-actors/tsumugi/tests/test_influence.py
 ```
@@ -150,11 +150,11 @@ routes through Murakumo (G6). New lexicons: `com.etzhayyim.influence.{influenceP
 
 ```bash
 # honest coverage report (eras, civilizational streams, denominators, gap map)
-python3 20-actors/tsumugi/methods/coverage_report.py
+bb -cp 20-actors -m tsumugi.methods.coverage-report
 # offline influence ingest (Wikidata-P737-shaped fixtures → :flow/ 縁, merged with seed)
-python3 20-actors/tsumugi/methods/ingest_influence.py
+bb -cp 20-actors -m tsumugi.methods.ingest-influence
 #   → out/seed-plus-ingest.kotoba.edn — run analyze/coverage on THIS to see the lift
-python3 20-actors/tsumugi/methods/analyze_influence.py 20-actors/tsumugi/out/seed-plus-ingest.kotoba.edn
+bb -cp 20-actors -m tsumugi.methods.analyze-influence 20-actors/tsumugi/out/seed-plus-ingest.kotoba.edn
 # live ingest (REAL Wikidata WDQS P737 fetch, stdlib urllib) — G7-gated, refused w/o operator gate:
 TSUMUGI_OPERATOR_GATE=1 TSUMUGI_OPERATOR_DID=did:web:… \
   python3 …/ingest_influence.py --live --limit 200 [--no-pantheon]
@@ -208,7 +208,7 @@ routed to OPENING — a structural fact, never a verdict, never a target-list.
 - **S6 map-not-target** — openness/resilience map routed to opening.
 
 ```bash
-python3 20-actors/tsumugi/methods/analyze_scale.py        # → out/scale-report.md + scale-graph.kotoba.edn
+bb -cp 20-actors -m tsumugi.methods.analyze-scale        # → out/scale-report.md + scale-graph.kotoba.edn
 python3 20-actors/tsumugi/tests/test_scale.py             # 11 tests (one per gate + 長崎 flagship)
 ```
 First run: `jp.nagasaki` is the top cluster (all 4 産官学報 sectors woven, concentration 12.08;
@@ -235,7 +235,7 @@ anyone by conviction — by construction.
 - **H7 sourcing** — every `:flies` ≥2 public citations (own manifesto/statement/vote).
 
 ```bash
-python3 20-actors/tsumugi/methods/analyze_banner.py      # → out/banner-report.md + banner-graph.kotoba.edn
+bb -cp 20-actors -m tsumugi.methods.analyze-banner      # → out/banner-report.md + banner-graph.kotoba.edn
 bash 20-actors/tsumugi/run_tests.sh # 11 tests (one per gate + camps/bridges/genealogy)
 ```
 
@@ -267,7 +267,7 @@ Gemma-4 Murakumo fleet. Standing structure:
   See `deploy/README.md`.
 
 ```bash
-python3 20-actors/tsumugi/methods/narrate.py            # dry-run → out/narration.dryrun.md
+bb -cp 20-actors -m tsumugi.methods.narrate            # dry-run → out/narration.dryrun.md
 python3 20-actors/tsumugi/tests/test_narrate.py         # 9 tests (Murakumo-only + aggregate-safe)
 ```
 
@@ -275,16 +275,16 @@ python3 20-actors/tsumugi/tests/test_narrate.py         # 9 tests (Murakumo-only
 
 ```bash
 # honest gap audit (per-scale/kind/sector/country + denominators, all ~0 real by design)
-python3 20-actors/tsumugi/methods/coverage_scale.py        # → out/coverage-report.md
+bb -cp 20-actors -m tsumugi.methods.coverage-scale        # → out/coverage-report.md
 python3 20-actors/tsumugi/tests/test_coverage_scale.py     # 6 tests
 # OFFLINE structural-public org ingest (Wikidata-P749-shaped fixtures → :pwr + :tie :custodies)
-python3 20-actors/tsumugi/methods/ingest_scale.py
+bb -cp 20-actors -m tsumugi.methods.ingest-scale
 #   → out/seed-plus-ingest-scale.kotoba.edn — run analyze_scale on THIS for the lift
 # LIVE Wikidata P749 fetch (stdlib urllib) — G7-gated, refused without the operator gate:
 TSUMUGI_OPERATOR_GATE=1 TSUMUGI_OPERATOR_DID=did:web:… \
-  python3 20-actors/tsumugi/methods/ingest_scale.py --live --ring2 --limit 400   # Wikidata, SELF-EXPANDING
+  bb -cp 20-actors -m tsumugi.methods.ingest-scale --live --ring2 --limit 400   # Wikidata, SELF-EXPANDING
 TSUMUGI_OPERATOR_GATE=1 TSUMUGI_OPERATOR_DID=did:web:… \
-  python3 20-actors/tsumugi/methods/ingest_scale.py --live --gleif --limit 150   # GLEIF L2 (second source)
+  bb -cp 20-actors -m tsumugi.methods.ingest-scale --live --gleif --limit 150   # GLEIF L2 (second source)
 #   → writes out/ ONLY; the committed seed is NEVER auto-mutated (promotion = reviewed PR =
 #     the Council ratification act). --ring2 derives anchors from the seed's own citation QIDs
 #     (each promotion enriches the next ring); --gleif uses curated VERIFIED LEIs + a runtime
@@ -304,10 +304,10 @@ python3 20-actors/tsumugi/tests/test_ingest_scale.py       # 24 tests (S2/S4/S5/
 
 ```bash
 # PUBLISH the woven graph as self-sovereign linked data (etzhayyim's OWN vocabulary)
-python3 20-actors/tsumugi/methods/publish.py        # → out/etzhayyim-power-graph.{nt,jsonld} + dataset-manifest.json
+bb -cp 20-actors -m tsumugi.methods.publish        # → out/etzhayyim-power-graph.{nt,jsonld} + dataset-manifest.json
 python3 20-actors/tsumugi/tests/test_publish.py     # 14 tests
 # FORAGE — 粘菌/菌糸 growth plan (offline, from the seed): harvested vs frontier tips, starvation→fruit
-python3 20-actors/tsumugi/methods/ingest_scale.py --forage   # → out/forage-plan.json
+bb -cp 20-actors -m tsumugi.methods.ingest-scale --forage   # → out/forage-plan.json
 ```
 
 - **Provider** (`publish.py`): the inversion of dependence — etzhayyim stops being only a
@@ -329,7 +329,7 @@ beats `methods/autorun.py`), recording each cycle on the **local append-only kot
 so it could only re-promote offline fixtures). Self-sovereign substrate, mirroring ibuki/shionome.
 
 ```bash
-python3 20-actors/tsumugi/methods/autorun.py --cycles 1   # one offline beat → :tsumugi.cycle/* datoms
+bb -cp 20-actors -m tsumugi.methods.autorun --cycles 1   # one offline beat → :tsumugi.cycle/* datoms
 ACTORS="tsumugi" 70-tools/scripts/fleet-heartbeat/heartbeat.sh   # via the fleet beat (tsumugi is in DEFAULT_ACTORS)
 ```
 
@@ -349,8 +349,8 @@ python3 20-actors/tsumugi/tests/test_autorun.py   # 11 tests (content-addressed 
 ## Pinned to IPFS + resolves at etzhayyim.com (ADR-2606092000 wave 5)
 
 ```bash
-python3 20-actors/tsumugi/methods/publish_ipfs.py            # pin: 80-data/tsumugi-power/ + apex descriptor
-python3 20-actors/tsumugi/methods/publish_ipfs.py --verify   # re-content-address vs the manifest
+bb -cp 20-actors -m tsumugi.methods.publish-ipfs            # pin: 80-data/tsumugi-power/ + apex descriptor
+bb -cp 20-actors -m tsumugi.methods.publish-ipfs --verify   # re-content-address vs the manifest
 python3 20-actors/tsumugi/tests/test_publish_ipfs.py         # 11 tests (incl. ipfs-add CID vector)
 ```
 

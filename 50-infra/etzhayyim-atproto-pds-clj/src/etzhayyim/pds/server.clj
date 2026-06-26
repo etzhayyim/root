@@ -57,8 +57,12 @@
   "com.atproto.sync.* — getRepo/getRecord/getBlocks return CARs; the rest JSON."
   [store signing-key nsid params]
   (let [did (or (:did params) cfg/pds-did)
+        ;; Path B: sign the repo commit with the ACTOR's own sealed key when the store
+        ;; holds one (so a relay verifies it against the actor's did:web Multikey); fall
+        ;; back to the PDS-level Ed25519 key for the self-repo / unsigned stores.
+        signer (fn [^bytes msg] (or (store/commit-sig store did msg) (repo/sign signing-key msg)))
         repo* (delay (repo/build-repo did (all-records store did)
-                                      (repo-rev (all-records store did)) signing-key))]
+                                      (repo-rev (all-records store did)) signer))]
     (case nsid
       "com.atproto.sync.getRepo"
       (car-response (repo/blocks-car @repo* nil))

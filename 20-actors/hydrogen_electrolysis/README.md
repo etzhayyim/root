@@ -11,9 +11,9 @@ Responsibilities:
 The actor does not control a physical electrolyzer. It is a deterministic design-comparison actor.
 
 ```bash
-cd methods
-python3 test_electrolysis.py
-python3 analyze.py
+# cljc-native (ADR-2606261200); run from the actor root:
+bash run_tests.sh                                    # cljc test suite (electrolysis + charter gates)
+bb -cp .. -m hydrogen-electrolysis.methods.analyze   # efficiency comparison -> out/comparison.{json,md}
 ```
 
 Kotoba deploy dry-run:
