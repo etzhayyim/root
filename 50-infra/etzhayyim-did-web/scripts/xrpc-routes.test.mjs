@@ -34,11 +34,27 @@ test("repo.* and sync.* route to the PDS upstream (more specific, first match)",
   assert.equal(findXrpcRoute("com.atproto.sync.getRepo").upstream, "XRPC_PDS_UPSTREAM");
 });
 
+test("getAuthorFeed cuts over to the PDS (exact match); getProfile + aggregate feeds stay on AppView", () => {
+  // an actor's OWN feed renders from the independent PDS
+  assert.equal(findXrpcRoute("app.bsky.feed.getAuthorFeed").upstream, "XRPC_PDS_UPSTREAM");
+  // exact-match: a hypothetical sibling NSID does NOT capture (falls through to app.bsky.)
+  assert.equal(findXrpcRoute("app.bsky.feed.getAuthorFeeds").upstream, "XRPC_ATPROTO_UPSTREAM");
+  // getProfile stays on the AppView (richer displayName/avatar)
+  assert.equal(findXrpcRoute("app.bsky.actor.getProfile").upstream, "XRPC_ATPROTO_UPSTREAM");
+  // aggregate home/discover feeds are NOT moved
+  assert.equal(findXrpcRoute("app.bsky.feed.getTimeline").upstream, "XRPC_ATPROTO_UPSTREAM");
+});
+
 test("the rest of com.atproto.* and app.bsky.* stay on the AppView upstream", () => {
   assert.equal(findXrpcRoute("com.atproto.server.createSession").upstream, "XRPC_ATPROTO_UPSTREAM");
   assert.equal(findXrpcRoute("com.atproto.identity.resolveHandle").upstream, "XRPC_ATPROTO_UPSTREAM");
-  assert.equal(findXrpcRoute("app.bsky.feed.getTimeline").upstream, "XRPC_ATPROTO_UPSTREAM");
-  assert.equal(findXrpcRoute("app.bsky.actor.getProfile").upstream, "XRPC_ATPROTO_UPSTREAM");
+  assert.equal(findXrpcRoute("app.bsky.graph.getFollows").upstream, "XRPC_ATPROTO_UPSTREAM");
+});
+
+test("getAuthorFeed is INERT until cutover (falls back to AppView when XRPC_PDS_UPSTREAM empty)", () => {
+  const route = findXrpcRoute("app.bsky.feed.getAuthorFeed");
+  assert.equal(resolveUpstream(route, { XRPC_ATPROTO_UPSTREAM: APPVIEW, XRPC_PDS_UPSTREAM: "" }), APPVIEW);
+  assert.equal(resolveUpstream(route, { XRPC_ATPROTO_UPSTREAM: APPVIEW, XRPC_PDS_UPSTREAM: PDS }), PDS);
 });
 
 test("other families are unaffected", () => {

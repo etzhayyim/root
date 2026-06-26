@@ -20,6 +20,9 @@ export interface NsidRoute {
   /** optional env key used when `upstream` is empty/unset — lets a cutover route
    *  stay inert (fall back to the prior upstream) until ops provisions the new one. */
   fallback?: string;
+  /** match the NSID EXACTLY (not by prefix). Used for single-method cutover routes
+   *  so e.g. `app.bsky.feed.getAuthorFeed` does not also capture `…getAuthorFeeds`. */
+  exact?: boolean;
 }
 
 export const XRPC_ROUTES: NsidRoute[] = [
@@ -29,6 +32,12 @@ export const XRPC_ROUTES: NsidRoute[] = [
   // These MUST precede the generic `com.atproto.` below (first-match wins).
   { prefix: "com.atproto.repo.", upstream: "XRPC_PDS_UPSTREAM", fallback: "XRPC_ATPROTO_UPSTREAM" },
   { prefix: "com.atproto.sync.", upstream: "XRPC_PDS_UPSTREAM", fallback: "XRPC_ATPROTO_UPSTREAM" },
+  // Method A (feed rendering): an actor's OWN feed renders from the independent
+  // PDS's local kotoba log (the records it holds are authoritative). EXACT match,
+  // ahead of the generic `app.bsky.` so it wins. Inert until XRPC_PDS_UPSTREAM is
+  // set. getProfile stays on the AppView for now (richer displayName/avatar);
+  // the aggregate home/discover feeds (getTimeline/getFeed) are NOT moved here.
+  { prefix: "app.bsky.feed.getAuthorFeed", upstream: "XRPC_PDS_UPSTREAM", fallback: "XRPC_ATPROTO_UPSTREAM", exact: true },
   // AT Protocol / Bluesky read+write. app.bsky.* = AppView reads (feed/profile);
   // the remaining com.atproto.* (server/identity/admin) stay on the AppView host.
   { prefix: "app.bsky.",             upstream: "XRPC_ATPROTO_UPSTREAM" },
@@ -44,7 +53,7 @@ export const XRPC_ROUTES: NsidRoute[] = [
 
 export function findXrpcRoute(nsid: string): NsidRoute | null {
   for (const r of XRPC_ROUTES) {
-    if (nsid.startsWith(r.prefix)) return r;
+    if (r.exact ? nsid === r.prefix : nsid.startsWith(r.prefix)) return r;
   }
   return null;
 }
