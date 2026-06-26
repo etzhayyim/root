@@ -1,24 +1,14 @@
 #!/usr/bin/env bash
-# utsushie 写し絵 — run the whole test suite with one command.
-# Tests are standalone-runnable (the repo pytest plugin env is broken); each prints its own
-# count and exits non-zero on failure.
-set -uo pipefail
-cd "$(dirname "$0")"
-
-SUITES=(
-  "methods/test_render_plan.py"
-)
-
-fail=0
-for s in "${SUITES[@]}"; do
-  dir="$(dirname "$s")"; file="$(basename "$s")"
-  if ( cd "$dir" && python3 "$file" ); then :; else
-    echo "FAILED: $s"; fail=1
-  fi
-done
-
-if [ "$fail" -eq 0 ]; then
-  echo "── utsushie: ALL suites green ──"
-else
-  echo "── utsushie: FAILURES above ──"; exit 1
-fi
+# utsushie 写し絵 — run the whole cljc test suite with one command.
+# cljc-native (ADR-2606261200): the canonical impl is methods/render_plan.cljc; the gate
+# invariants (U1–U6) live in methods/render_plan.cljc + lex/video.edn (touch one, touch both).
+set -euo pipefail
+cd "$(dirname "$0")/../.."   # repo root
+exec bb -cp "20-actors" -e '
+(require (quote clojure.test)
+         (quote utsushie.methods.test-render-plan)
+         (quote utsushie.methods.test-charter-gates))
+(let [r (apply clojure.test/run-tests
+                (quote [utsushie.methods.test-render-plan
+                        utsushie.methods.test-charter-gates]))]
+  (System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))'
