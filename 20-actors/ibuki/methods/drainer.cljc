@@ -128,3 +128,33 @@
      (throw (member-signature-required
              "operator_ack=True required — outward posting is operator-gated (G8)")))
    (mapv (fn [env] (member-signer env)) envelopes)))
+
+;; ── unify the outward path onto etzhayyim's OWN Path B PDS ─────────────────
+;; Slice 4 (react_loop --live → drainer → 自前 PDS createRecord). Instead of
+;; member CREDENTIALS at a generic AppView (member_submit's bsky.social default),
+;; the envelope becomes a Path B `createRecord` REQUEST for the etzhayyim PDS
+;; (50-infra/etzhayyim-atproto-pds-clj): the PDS signs the record with the ACTOR's
+;; OWN sealed P-256 key and ATTRIBUTES the autonomous write to the consenting member
+;; via the PRESENTED CACAO `leash` (present-only — ibuki never signs, serverHeldKey
+;; stays false, no-server-key). This is PURE — it only composes the request the PDS
+;; client/xrpc consume; it does NOT send (the HTTP send stays operator/member-gated,
+;; G7/G8 — drainer has no network path and reads no credential).
+
+(defn pds-request
+  "Turn a member-sign-ready `envelope` into a Path B createRecord REQUEST for the OWN
+  PDS. opts: {:pds-base <https url, required>  :leash <opaque member CACAO leash, optional>}.
+  Returns {:base <pds-base> :spec {:repo :collection :record (:leash)} :server-held-key false},
+  the exact args the 50-infra `client/create-record! base spec` consumes. Throws if
+  pds-base is blank or the envelope is not a createRecord (closed-vocabulary discipline)."
+  [envelope {:keys [pds-base leash]}]
+  (when (str/blank? (str pds-base))
+    (throw (ex-info "pds-base required (etzhayyim's own PDS host)" {:ibuki/pds-request true})))
+  (when-not (= "com.atproto.repo.createRecord" (get envelope "xrpc"))
+    (throw (ex-info "not a createRecord envelope" {:ibuki/pds-request true
+                                                   :xrpc (get envelope "xrpc")})))
+  {:base pds-base
+   :spec (cond-> {:repo (get envelope "repo")
+                  :collection (get envelope "collection")
+                  :record (get envelope "record")}
+           leash (assoc :leash leash))      ; member CACAO leash, present-only (attribution by consent)
+   :server-held-key false})                 ; the PDS signs with the actor's sealed key, not ibuki

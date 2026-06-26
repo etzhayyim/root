@@ -90,3 +90,33 @@
     (doseq [needle ["token" "secret" "PRIVATE_KEY" "urllib" "requests" "http.client"]]
       (is (not (str/includes? src needle))
           (str "drainer must stay credential-free + offline: " needle)))))
+
+;; ── slice 4: unify the outward path onto the OWN Path B PDS ───────────────
+
+(deftest pds-request-builds-own-pds-path-b-createRecord
+  (let [env (drainer/envelope (line))
+        req (drainer/pds-request env {:pds-base "https://atproto.etzhayyim.com"
+                                      :leash "cacao_b64_opaque_member_capability"})]
+    ;; the request targets the OWN PDS + carries the envelope's repo/collection/record
+    (is (= "https://atproto.etzhayyim.com" (:base req)))
+    (is (= (get env "repo") (get-in req [:spec :repo])))
+    (is (= "app.bsky.feed.post" (get-in req [:spec :collection])))
+    (is (= (get env "record") (get-in req [:spec :record])))
+    ;; the member CACAO leash is PRESENTED (attribution by consent), never a held key
+    (is (= "cacao_b64_opaque_member_capability" (get-in req [:spec :leash])))
+    ;; the PDS signs with the actor's sealed key — ibuki holds none (no-server-key)
+    (is (= false (:server-held-key req)))))
+
+(deftest pds-request-omits-leash-when-absent
+  (let [req (drainer/pds-request (drainer/envelope (line)) {:pds-base "https://atproto.etzhayyim.com"})]
+    (is (not (contains? (:spec req) :leash)) "no leash → unattributed (back-compat), never fabricated")
+    (is (= false (:server-held-key req)))))
+
+(deftest pds-request-requires-pds-base
+  (is (thrown? Exception (drainer/pds-request (drainer/envelope (line)) {})))
+  (is (thrown? Exception (drainer/pds-request (drainer/envelope (line)) {:pds-base "   "}))))
+
+(deftest pds-request-rejects-non-createRecord
+  ;; closed-vocabulary discipline: only a createRecord envelope routes to the PDS
+  (is (thrown? Exception (drainer/pds-request {"xrpc" "com.atproto.repo.deleteRecord"}
+                                              {:pds-base "https://atproto.etzhayyim.com"}))))
