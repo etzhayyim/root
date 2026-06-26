@@ -109,3 +109,20 @@
                      (if (and (= 1 (count (get c "components"))) (empty? (get c "isolated"))) "fully connected" "fragmented") "**.")
                 "- All-humanity coverage remains effectively 0 (by design)."])]
     (str (str/join "\n" lines) "\n")))
+
+#?(:clj
+   (defn -main
+     "CLI entry: mirrors coverage_report.main — [seed.edn] [--out OUTDIR]. ADR-2606261200."
+     [& argv]
+     (let [argv (vec argv)
+           args (vec (remove #(str/starts-with? % "--") argv))
+           here (let [f  (when (and *file* (not (str/blank? *file*))) (io/file *file*))
+                      pp (some-> f .getAbsoluteFile .getParentFile .getParentFile)]
+                  (if (and pp (.isDirectory (io/file pp "data"))) pp (io/file "20-actors" "tsumugi")))
+           seed (if (seq args) (io/file (first args)) (io/file here "data" "seed-influence-history.kotoba.edn"))
+           out  (if (some #{"--out"} argv) (io/file (nth argv (inc (.indexOf argv "--out")))) (io/file here "out"))
+           c    (compute (str seed))]
+       (.mkdirs out)
+       (spit (io/file out "coverage-report.md") (render c))
+       (println (str "[tsumugi/coverage] nodes " (get c "nodes") " · edges " (get c "edges")
+                     " → " (.getPath (io/file out "coverage-report.md")))))))
