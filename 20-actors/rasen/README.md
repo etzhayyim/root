@@ -17,7 +17,7 @@ python3 methods/analyze.py          # → out/care-report.md          (gene care
 python3 methods/datom_emit.py       # → out/genome-datoms.kotoba.edn (EAVT canonical state)
 python3 methods/coverage_report.py  # → out/coverage-report.md       (honest coverage + gaps)
 python3 methods/ingest.py           # OUTWARD (G7): public APIs → kotoba EDN/Datom → IPFS CID (+pin)
-python3 methods/publish.py          # OUTWARD (G7): pin + IPNS-publish + snapshot to 80-data/genome
+bb -cp 20-actors -m rasen.methods.publish          # OUTWARD (G7): pin + IPNS-publish + snapshot to 80-data/genome
 python3 wasm/app.cljs analyze         # the WASM component's export body, dev mode
 bash run_tests.sh  # cljc tests, green
 ```
