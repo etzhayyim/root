@@ -14,7 +14,8 @@
               [etzhayyim.pds.datom-test] [etzhayyim.pds.config-test]
               [etzhayyim.pds.keys-test] [etzhayyim.pds.actorkeys-test]
               [etzhayyim.pds.client-test] [etzhayyim.pds.drain-test]
-              [etzhayyim.pds.leash-test] [etzhayyim.pds.repo-test])
+              [etzhayyim.pds.leash-test] [etzhayyim.pds.repo-test]
+              [etzhayyim.pds.integration-test])
    :task (let [{:keys [fail error]} (t/run-tests 'etzhayyim.pds.server-test
                                                  'etzhayyim.pds.util-test
                                                  'etzhayyim.pds.xrpc-test
@@ -25,7 +26,8 @@
                                                  'etzhayyim.pds.client-test
                                                  'etzhayyim.pds.drain-test
                                                  'etzhayyim.pds.leash-test
-                                                 'etzhayyim.pds.repo-test)]
+                                                 'etzhayyim.pds.repo-test
+                                                 'etzhayyim.pds.integration-test)]
            (System/exit (if (pos? (+ fail error)) 1 0)))}
 
   keys-test
