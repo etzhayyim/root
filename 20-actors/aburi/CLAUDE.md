@@ -114,9 +114,9 @@ member-sig + outward-gated (G7).
 │   ├── autorun.py                         # (B) local heartbeat: sweep intake → append tx (dedup by CID)
 │   └── kotoba_bridge.py                   # (A) push local log → live kotoba :8077 (dry-run; injected)
 ├── tests/                                 # pure stdlib (incl. G1 / G3 / G8 inversions)
-│   ├── test_analyze.py / .cljc
-│   ├── test_coverage.py / .cljc
-│   ├── test_ingest.py                     # (B) adapters + G8 guard + analyzable end-to-end
+│   ├── test_analyze.cljc
+│   ├── test_coverage.cljc
+│   ├── test_ingest.cljc                   # (B) adapters + G8 guard + analyzable end-to-end
 │   └── test_bridge.py                     # (A) heartbeat + exactly-once cursor + no-server-key
 ├── tools/                                 # bb task impl (no .sh in this repo)
 │   ├── build.clj                          #   `bb aburi:build-wasm` — componentize-py + CID
