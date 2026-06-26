@@ -116,6 +116,16 @@
         (check :kotoba-tamper-evident (not= (:cid c1) (:cid c3)))))   ; different content ⇒ different CID
     (check :kotoba-bridge-dryrun-default (= :dry-run (:mode (kotoba/bridge! {:cid "x" :datoms []}))))
 
+    ;; (b) self-η is EARNED from real evidence, never asserted: all three required, else no claim
+    (check :eta-self-earned (= 1.0 (measure/eta-self {:exported? true :privately-retained? false :gives-freely? true})))
+    (check :eta-self-no-export (nil? (measure/eta-self {:exported? false :privately-retained? false :gives-freely? true})))
+    (check :eta-self-retained  (nil? (measure/eta-self {:exported? true :privately-retained? true :gives-freely? true})))
+    (check :eta-self-not-clean (nil? (measure/eta-self {:exported? true :privately-retained? false :gives-freely? false})))
+    ;; earned self-η raises grounded η to 1.0 ⇒ net-giver ⇒ ungated
+    (let [s (measure/ground {:eta-grounded 0.809} {:eta-self 1.0})
+          r (score/growth s model adoption)]
+      (check :self-eta-crosses-gate (and (= 1.0 (:eta-grounded s)) (:net-giver? r) (not (:gated? r)))))
+
     (let [all @results
           pass (count (filter second all))
           tot  (count all)]

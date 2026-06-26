@@ -37,16 +37,30 @@
    :realized-phi  (realized-phi adopted)
    :capture       (capture/captured-ratio capture-snapshot)})
 
+(defn eta-self
+  "minori's OWN order-export rectification η — EARNED from real evidence, never asserted.
+   A pure observatory consumes reads and returns ALL resulting order to the commons (public,
+   content-addressed kotoba datoms + charter-clean dry-run digests + worklists), retaining NOTHING
+   privately: it holds no key, sells nothing, and any captured value routes to the Public Fund
+   (90/10 tithe), never to minori. So when there is REAL export evidence this run AND nothing is
+   privately retained AND it gives freely (charter-clean), minori is a PERFECT net-giver — η=1.0
+   (the rectification ceiling, ADR-2606212200: η∈(−∞,1], 1.0 = all consumed order returned).
+   Returns nil (no self-claim) absent any of the three — the net-giver gate must be EARNED."
+  [{:keys [exported? privately-retained? gives-freely?]}]
+  (when (and exported? (not privately-retained?) gives-freely?) 1.0))
+
 (defn ground
-  "Apply the observation to state (the 実装/計測 step). Sets GROUNDED fields (truth), distinct
-   from the loop's stub estimates: :eta-grounded rises toward the observed colony mean (monotone),
-   :phi-realized = real ln(adopted), :capture-grounded = the real pre-revenue ratio (≈0).
-   Honestly reveals η≈colony-mean<1 (net-taker, transition not yet won) and capture≈0 (no live
-   value captured) — grounding can LOWER the optimistic stub; that is the point."
+  "Apply the observation to state (the 実装/計測 step). Sets GROUNDED fields (truth), distinct from
+   the loop's stub estimates: :eta-grounded = max(observed colony mean, minori's earned self-η) —
+   monotone; :phi-realized = real ln(adopted); :capture-grounded = the real pre-revenue ratio (≈0).
+   Grounding can LOWER an optimistic stub (capture) AND can legitimately RAISE η to 1.0 when minori
+   has demonstrably exported everything and retained nothing (:eta-self in obs)."
   [state obs]
   (cond-> state
     (get-in obs [:colony-eta :mean])
       (update :eta-grounded (fnil max 0.0) (get-in obs [:colony-eta :mean]))
+    (:eta-self obs)
+      (update :eta-grounded (fnil max 0.0) (:eta-self obs))
     (:realized-phi obs)
       (assoc :phi-realized (:realized-phi obs))
     (:capture obs)

@@ -65,21 +65,32 @@
          ;; scoreboard, Φ from the roster, capture from the valuation MAP) and GROUNDS it into the
          ;; score (truth beats the loop's stubs; grounding can LOWER an optimistic stub — honest).
          obs      (measure/observe {:scoreboard scoreboard :capture-snapshot capture-snapshot} (:adopted adoption))
-         state''  (measure/ground state' obs)
+         state''  (measure/ground state' obs)              ; grounds colony-η + capture (truth)
          grounded? (boolean (get-in obs [:colony-eta :mean]))
-         m-after  (score/growth state'' model adoption)
-         dG       (- (:G m-after) (:G measure-before))
-         reward   (:reward m-after)
-         gated?   (:gated? m-after)
-         next-action (next-worklist m-after obs)        ; the :intervention-worklist export
-         ;; social action: PREPARE (never send) a charter-clean donor/contributor digest — the
-         ;; :dry-run-social-action export. Written to a local artifact a MEMBER reviews + sends (G7).
-         digest-art (social/digest {:eta (get-in m-after [:components :eta])
+         m1       (score/growth state'' model adoption)    ; preliminary (colony-grounded η)
+         next-action (next-worklist m1 obs)                ; the :intervention-worklist export
+         ;; social action: PREPARE (never send) a charter-clean donor/contributor digest. The donor
+         ;; digest reports the COLONY/org η (0.809) — that is the right number for donors, not
+         ;; minori's own self-η. :dry-run-social-action export; a MEMBER reviews + sends (G7).
+         digest-art (social/digest {:eta (get-in m1 [:components :eta])
                                     :adopted (:adopted adoption)
                                     :realized-phi (or (:realized-phi obs) 0.0)
                                     :next-step (:step next-action)
                                     :next-gate (:gate next-action)})
          _        (when digest (io/make-parents digest) (spit digest (:body digest-art)))
+         ;; (b) minori's OWN net-giver η — EARNED from real evidence this run: it EXPORTS order (the
+         ;; kotoba commit persisted below + the public charter-clean digest), retains NOTHING privately
+         ;; (no key, sells nothing; any captured value routes to the Public Fund, never to minori), and
+         ;; gives freely (charter-clean). All three real + checkable ⇒ a perfect net-giver, η_self=1.0
+         ;; (ADR-2606212200 rectification ceiling). If any fails (e.g. a non-clean digest) ⇒ no claim.
+         eta-self (measure/eta-self {:exported? true
+                                     :privately-retained? false
+                                     :gives-freely? (:charter-clean digest-art)})
+         state-f  (measure/ground state'' {:eta-self eta-self})
+         m-after  (score/growth state-f model adoption)    ; final (η raised to minori's earned 1.0)
+         dG       (- (:G m-after) (:G measure-before))
+         reward   (:reward m-after)
+         gated?   (:gated? m-after)
          ;; kotoba 常駐runtime: emit this beat as EAVT datoms on the canonical kotoba commit-DAG,
          ;; chained on the previous beat's kotoba CID; bridge to the live engine is dry-run (G7).
          beat-n   (count led)
@@ -98,7 +109,8 @@
                               :capture-grounded (get-in obs [:capture :ratio])
                               :grounded? grounded?}
                    :pick pick
-                   :state state''
+                   :state state-f
+                   :eta-self eta-self
                    :done (vec done')
                    :G (:G m-after)
                    :G-prev (:G measure-before)
@@ -132,6 +144,8 @@
       :sos-adopted (:adopted adoption)
       :grounded? grounded?
       :colony-eta (get-in obs [:colony-eta :mean])
+      :eta-self eta-self
+      :net-giver? (:net-giver? m-after)
       :realized-phi (:realized-phi obs)
       :next-action next-action
       :social-action {:status (:status digest-art) :charter-clean (:charter-clean digest-art)
@@ -151,8 +165,10 @@
     (println (format "beat #%s   pick=%s (%s)" (:beat r) (name (:id (:pick r))) (name (:kind (:pick r)))))
     (println (format "G: %.4f → %.4f   ΔG=%+.5f   η=%.3f   adoption=%d actors (%.3f)"
                      (:G-prev r) (:G r) (:dG r) (:eta r) (:sos-adopted r) (:adoption r)))
-    (println (format "reward=%.4f  gated?=%s (η<1 ⇒ only η+adoption rewarded)  appended?=%s"
-                     (:reward r) (:gated? r) (:appended? r)))
+    (println (format "reward=%.4f  net-giver?=%s  gated?=%s%s  appended?=%s"
+                     (:reward r) (:net-giver? r) (:gated? r)
+                     (if (:eta-self r) (format " (self-η earned=%.1f)" (:eta-self r)) "")
+                     (:appended? r)))
     (println (format "components: η=%.3f adoption=%.3f capture=%.3f Φ=%.3f"
                      (get-in r [:components :eta]) (get-in r [:components :adoption])
                      (get-in r [:components :capture]) (get-in r [:components :phi])))
