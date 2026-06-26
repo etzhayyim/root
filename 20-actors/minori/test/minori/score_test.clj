@@ -7,6 +7,7 @@
             [minori.ledger  :as ledger]
             [minori.measure :as measure]
             [minori.capture :as capture]
+            [minori.social  :as social]
             [clojure.set    :as set]))
 
 (def model
@@ -87,6 +88,17 @@
                                       :b {:captured-usd-per-year 0     :addressable-usd-per-year 3.0e9}})]
              (and (:grounded? r) (< (Math/abs (- (:ratio r) (/ 5.0e6 8.0e9))) 1e-12))))
     (check :capture-absent-failopen (not (:grounded? (capture/ratio-of nil))))
+
+    ;; SOCIAL ACTION: the prepared digest is charter-clean + unsent; manipulative bodies are detected
+    (let [d (social/digest {:eta 0.809 :adopted 105 :realized-phi 4.65
+                            :next-step "wire live donation metric" :next-gate :G7-operator})]
+      (check :social-prepared-unsent (= :prepared-unsent (:status d)))
+      (check :social-charter-clean (:charter-clean d))
+      (check :social-mentions-anti-class (clojure.string/includes? (:body d) "earns you nothing")))
+    (check :social-detects-manipulation (not (social/clean? "Donate now — limited time, VIP perks!")))
+    (check :social-no-server-key (get-in (social/digest {:eta 0.8 :adopted 1 :realized-phi 0.0
+                                                         :next-step "x" :next-gate :none})
+                                         [:charter :no-server-key]))
 
     (let [all @results
           pass (count (filter second all))

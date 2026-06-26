@@ -12,8 +12,10 @@
   (:require [minori.score   :as score]
             [minori.react   :as react]
             [minori.measure :as measure]
+            [minori.social  :as social]
             [minori.ledger  :as ledger]
-            [clojure.edn    :as edn]))
+            [clojure.edn    :as edn]
+            [clojure.java.io :as io]))
 
 (def defaults
   {:system           "20-actors/minori/system.edn"
@@ -21,6 +23,7 @@
    :sos              "80-data/ie-flow/system-of-systems.edn"
    :scoreboard       "80-data/ie-flow/scoreboard.edn"
    :capture-snapshot "80-data/social-capital/capture-snapshot.edn"
+   :digest           "20-actors/minori/data/last-digest.md"
    :ledger           "20-actors/minori/data/ledger.edn"})
 
 (defn next-worklist
@@ -46,7 +49,7 @@
 
 (defn run
   ([] (run defaults))
-  ([{:keys [system valuation sos scoreboard capture-snapshot ledger] :as paths}]
+  ([{:keys [system valuation sos scoreboard capture-snapshot digest ledger] :as paths}]
    (let [sys      (edn/read-string (slurp system))
          model    (:score/model sys)
          _val     (score/read-edn valuation)            ; the MAP being tracked (presence = observed)
@@ -68,6 +71,14 @@
          reward   (:reward m-after)
          gated?   (:gated? m-after)
          next-action (next-worklist m-after obs)        ; the :intervention-worklist export
+         ;; social action: PREPARE (never send) a charter-clean donor/contributor digest — the
+         ;; :dry-run-social-action export. Written to a local artifact a MEMBER reviews + sends (G7).
+         digest-art (social/digest {:eta (get-in m-after [:components :eta])
+                                    :adopted (:adopted adoption)
+                                    :realized-phi (or (:realized-phi obs) 0.0)
+                                    :next-step (:step next-action)
+                                    :next-gate (:gate next-action)})
+         _        (when digest (io/make-parents digest) (spit digest (:body digest-art)))
          entry    {:actor "minori"
                    :adr "2606261114"
                    :kind :react-beat
@@ -88,6 +99,10 @@
                    :reward reward
                    :components (:components m-after)
                    :next-action next-action
+                   :social-action {:status (:status digest-art)
+                                   :charter-clean (:charter-clean digest-art)
+                                   :bytes (:bytes digest-art)
+                                   :artifact digest}
                    :adoption (:p adoption)}
          appended (ledger/append! ledger entry)
          appended? (:appended? appended)
@@ -106,6 +121,8 @@
       :colony-eta (get-in obs [:colony-eta :mean])
       :realized-phi (:realized-phi obs)
       :next-action next-action
+      :social-action {:status (:status digest-art) :charter-clean (:charter-clean digest-art)
+                      :bytes (:bytes digest-art) :artifact digest}
       :gated? gated?
       :reward reward
       :components (:components m-after)
@@ -130,5 +147,8 @@
     (when-let [na (:next-action r)]
       (println (format "次の一手: [%s %.3f, gate=%s] %s"
                        (name (:lever na)) (:value na) (name (:gate na)) (:step na))))
+    (when-let [sa (:social-action r)]
+      (println (format "social-action: %s (charter-clean=%s, %d bytes) → %s"
+                       (name (:status sa)) (:charter-clean sa) (:bytes sa) (:artifact sa))))
     (println (format "head-cid=%s…  verify-chain=%s" (subs (str (:head-cid r)) 0 12) (:verify-chain r)))
     r))
