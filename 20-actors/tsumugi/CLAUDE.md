@@ -129,8 +129,8 @@ influence (the 産霊 receiving side) — never authored as a source over others
 
 ```bash
 # diachronic influence analysis (temporal-DAG check + Katz reach + spirit embed)
-python3 20-actors/tsumugi/methods/analyze_influence.py            # default seed
-python3 20-actors/tsumugi/methods/analyze_influence.py <seed.edn> --out <dir>
+bb -cp 20-actors -m tsumugi.methods.analyze-influence            # default seed
+bb -cp 20-actors -m tsumugi.methods.analyze-influence <seed.edn> --out <dir>
 # dry-run mirror posts (observer voice, published=false; impersonation refused)
 python3 20-actors/tsumugi/methods/project_influence_posts.py
 # tests (12 — one per invariant + seed/projector checks)
@@ -154,7 +154,7 @@ python3 20-actors/tsumugi/methods/coverage_report.py
 # offline influence ingest (Wikidata-P737-shaped fixtures → :flow/ 縁, merged with seed)
 python3 20-actors/tsumugi/methods/ingest_influence.py
 #   → out/seed-plus-ingest.kotoba.edn — run analyze/coverage on THIS to see the lift
-python3 20-actors/tsumugi/methods/analyze_influence.py 20-actors/tsumugi/out/seed-plus-ingest.kotoba.edn
+bb -cp 20-actors -m tsumugi.methods.analyze-influence 20-actors/tsumugi/out/seed-plus-ingest.kotoba.edn
 # live ingest (REAL Wikidata WDQS P737 fetch, stdlib urllib) — G7-gated, refused w/o operator gate:
 TSUMUGI_OPERATOR_GATE=1 TSUMUGI_OPERATOR_DID=did:web:… \
   python3 …/ingest_influence.py --live --limit 200 [--no-pantheon]
@@ -208,7 +208,7 @@ routed to OPENING — a structural fact, never a verdict, never a target-list.
 - **S6 map-not-target** — openness/resilience map routed to opening.
 
 ```bash
-python3 20-actors/tsumugi/methods/analyze_scale.py        # → out/scale-report.md + scale-graph.kotoba.edn
+bb -cp 20-actors -m tsumugi.methods.analyze-scale        # → out/scale-report.md + scale-graph.kotoba.edn
 python3 20-actors/tsumugi/tests/test_scale.py             # 11 tests (one per gate + 長崎 flagship)
 ```
 First run: `jp.nagasaki` is the top cluster (all 4 産官学報 sectors woven, concentration 12.08;
