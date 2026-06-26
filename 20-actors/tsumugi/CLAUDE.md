@@ -267,7 +267,7 @@ Gemma-4 Murakumo fleet. Standing structure:
   See `deploy/README.md`.
 
 ```bash
-python3 20-actors/tsumugi/methods/narrate.py            # dry-run → out/narration.dryrun.md
+bb -cp 20-actors -m tsumugi.methods.narrate            # dry-run → out/narration.dryrun.md
 python3 20-actors/tsumugi/tests/test_narrate.py         # 9 tests (Murakumo-only + aggregate-safe)
 ```
 
