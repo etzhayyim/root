@@ -109,6 +109,36 @@
       ;; limit is clamped to [1,100]
       (is (= 1 (count (get (:body (x/get-author-feed s {:actor actor :limit 1})) "feed")))))))
 
+(deftest discover-feed-aggregates-across-actors
+  (testing "getDiscover renders the newest app.bsky.feed.post ACROSS ALL actors, newest-first"
+    (let [s (store/->mem-store)
+          a1 "did:web:etzhayyim.com:actor:unspsc-1"
+          a2 "did:web:etzhayyim.com:actor:unspsc-2"
+          mk (fn [did rkey ts] (store/put-record s did "app.bsky.feed.post" rkey
+                                                 {"$type" "app.bsky.feed.post" "text" (str did "/" rkey)
+                                                  "createdAt" ts}))]
+      (mk a1 "p1" "2026-06-25T01:00:00Z")
+      (mk a2 "p2" "2026-06-25T03:00:00Z")   ; newest
+      (mk a1 "p3" "2026-06-25T02:00:00Z")
+      ;; a non-post record from another collection must NOT appear in the feed
+      (store/put-record s a2 "app.bsky.actor.profile" "self" {"$type" "app.bsky.actor.profile"})
+      (let [body (:body (x/get-discover-feed s {}))
+            feed (get body "feed")]
+        ;; newest-first by createdAt, across both actors, posts only
+        (is (= ["2026-06-25T03:00:00Z" "2026-06-25T02:00:00Z" "2026-06-25T01:00:00Z"]
+               (mapv #(get-in % ["post" "record" "createdAt"]) feed)))
+        ;; each post carries its OWN author did + derived handle (cross-actor)
+        (is (= [a2 a1 a1] (mapv #(get-in % ["post" "author" "did"]) feed)))
+        (is (= "unspsc-2.etzhayyim.com" (get-in (first feed) ["post" "author" "handle"]))))
+      ;; pagination across actors via the opaque cursor
+      (let [p1 (:body (x/get-discover-feed s {:limit 2}))
+            cur (get p1 "cursor")
+            p2 (:body (x/get-discover-feed s {:limit 2 :cursor cur}))]
+        (is (= 2 (count (get p1 "feed"))))
+        (is (string? cur))
+        (is (= ["2026-06-25T01:00:00Z"] (mapv #(get-in % ["post" "record" "createdAt"]) (get p2 "feed"))))
+        (is (nil? (get p2 "cursor")))))))
+
 (defn -main [& _]
   (let [{:keys [fail error]} (run-tests 'etzhayyim.pds.xrpc-test)]
     (System/exit (if (pos? (+ fail error)) 1 0))))
