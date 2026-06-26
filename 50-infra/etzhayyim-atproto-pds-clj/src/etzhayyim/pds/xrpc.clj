@@ -231,6 +231,23 @@
         (ok (cond-> {"feed" (mapv (fn [r] {"post" (post-view did handle r)}) records)}
               cursor (assoc "cursor" cursor)))))))
 
+(defn get-discover-feed
+  "com.etzhayyim.feed.getDiscover — the local DISCOVER feed: the most-recent
+  app.bsky.feed.post records ACROSS ALL actors on this PDS, newest-first, rendered
+  from the local kotoba Datom log (no gftd AppView). Because only etzhayyim actors
+  write here, the firehose-flooding noise of the upstream home feed never appears.
+  Cursor is the store's opaque continuation token, NOT an rkey."
+  [store {:keys [limit cursor]}]
+  (let [lim (let [n (try (Integer/parseInt (str (or limit "50"))) (catch Exception _ 50))]
+              (max 1 (min 100 n)))
+        {:keys [records cursor]} (store/recent-feed store "app.bsky.feed.post"
+                                                    {:limit lim :cursor cursor})]
+    (ok (cond-> {"feed" (mapv (fn [r]
+                                (let [did (:did r)]
+                                  {"post" (post-view did (author-handle did) r)}))
+                              records)}
+          cursor (assoc "cursor" cursor)))))
+
 (defn get-profile
   "app.bsky.actor.getProfile — a minimal profileView from the actor's repo (did +
   handle + postsCount), rendered locally. displayName/avatar are the worker's

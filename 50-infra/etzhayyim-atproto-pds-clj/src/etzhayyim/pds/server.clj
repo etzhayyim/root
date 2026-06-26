@@ -282,6 +282,7 @@
                      "com.atproto.repo.describeRepo" (xrpc/describe-repo store params)
                      ;; AppView read rendering from the local kotoba log (Method A)
                      "app.bsky.feed.getAuthorFeed"   (xrpc/get-author-feed store params)
+                     "com.etzhayyim.feed.getDiscover" (xrpc/get-discover-feed store params)
                      "app.bsky.actor.getProfile"     (xrpc/get-profile store params)
                      {:status 501 :body {"error" "MethodNotImplemented"
                                          "message" (str nsid " is not implemented by this PDS")}})]
