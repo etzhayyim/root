@@ -21,6 +21,8 @@
             [ibuki.methods.datoms :as datoms]
             #?(:clj [clojure.java.io :as io])))
 
+(declare pds-request)   ; forward ref: drain may route envelopes to the own Path B PDS
+
 (def schema-version 1)
 
 (def required-keys
@@ -94,23 +96,29 @@
 #?(:clj
    (defn drain
      "Drain the queue into envelopes + :drain/* datoms (status :prepared — the ONLY status this
-     module can write). Returns {:envelopes :datoms :errors}."
-     [queue-path {:keys [as-of beat]}]
+     module can write). Returns {:envelopes :datoms :errors}. When opts carries a `:pds-base`
+     (+ optional `:leash`), ALSO routes each envelope onto the OWN Path B PDS — returns
+     `:pds-reqs` (one createRecord request per envelope, via pds-request) and records the
+     routing intent on the log as `:drain/pds-target`. Still PURE/dry-run: drain never sends."
+     [queue-path {:keys [as-of beat pds-base] :as opts}]
      (let [[posts errors] (parse-queue queue-path)
            envelopes (mapv envelope posts)
+           own-pds? (not (str/blank? (str pds-base)))
            out (vec (mapcat
                      (fn [i p env]
                        (let [e (str "drain-" beat "-" i)]
-                         [(datoms/add e ":drain/of" (get p "actorDid"))
-                          (datoms/add e ":drain/lexicon" (get env "collection"))
-                          (datoms/add e ":drain/queue-ts" (get p "ts"))
-                          (datoms/add e ":drain/status" ":prepared")
-                          (datoms/add e ":drain/requires-member-sig" true)
-                          (datoms/add e ":drain/server-held-key" false)
-                          (datoms/add e ":drain/beat" beat)
-                          (datoms/add e ":drain/as-of" as-of)]))
+                         (cond-> [(datoms/add e ":drain/of" (get p "actorDid"))
+                                  (datoms/add e ":drain/lexicon" (get env "collection"))
+                                  (datoms/add e ":drain/queue-ts" (get p "ts"))
+                                  (datoms/add e ":drain/status" ":prepared")
+                                  (datoms/add e ":drain/requires-member-sig" true)
+                                  (datoms/add e ":drain/server-held-key" false)
+                                  (datoms/add e ":drain/beat" beat)
+                                  (datoms/add e ":drain/as-of" as-of)]
+                           own-pds? (conj (datoms/add e ":drain/pds-target" pds-base)))))
                      (range) posts envelopes))]
-       {:envelopes envelopes :datoms out :errors errors})))
+       (cond-> {:envelopes envelopes :datoms out :errors errors}
+         own-pds? (assoc :pds-reqs (mapv #(pds-request % opts) envelopes))))))
 
 ;; ── submit (forward to the MEMBER's own signing runtime) ──────────────────
 

@@ -120,3 +120,26 @@
   ;; closed-vocabulary discipline: only a createRecord envelope routes to the PDS
   (is (thrown? Exception (drainer/pds-request {"xrpc" "com.atproto.repo.deleteRecord"}
                                               {:pds-base "https://atproto.etzhayyim.com"}))))
+
+(deftest drain-without-pds-base-is-unchanged
+  ;; back-compat: no :pds-base → no :pds-reqs, no :drain/pds-target (today's behaviour)
+  (let [q (write-queue (tmpdir) [(line)])
+        out (drainer/drain q {:as-of 2606100001 :beat 1})]
+    (is (not (contains? out :pds-reqs)))
+    (is (empty? (->> (:datoms out) (filter #(= ":drain/pds-target" (nth % 2))))))))
+
+(deftest drain-routes-to-own-pds-when-base-given
+  (let [q (write-queue (tmpdir) [(line) (line {"ts" 2000})])
+        out (drainer/drain q {:as-of 2606100001 :beat 1
+                              :pds-base "https://atproto.etzhayyim.com"
+                              :leash "cacao_b64_opaque"})]
+    ;; one Path B createRecord request per envelope, each targeting the OWN PDS + carrying the leash
+    (is (= 2 (count (:pds-reqs out))))
+    (is (every? #(= "https://atproto.etzhayyim.com" (:base %)) (:pds-reqs out)))
+    (is (every? #(= "cacao_b64_opaque" (get-in % [:spec :leash])) (:pds-reqs out)))
+    (is (every? #(= false (:server-held-key %)) (:pds-reqs out)))
+    ;; the routing intent is on the log; status stays :prepared (still dry-run, never sent)
+    (is (= ["https://atproto.etzhayyim.com" "https://atproto.etzhayyim.com"]
+           (->> (:datoms out) (filter #(= ":drain/pds-target" (nth % 2))) (mapv #(nth % 3)))))
+    (is (every? #(= ":prepared" %)
+                (->> (:datoms out) (filter #(= ":drain/status" (nth % 2))) (mapv #(nth % 3)))))))
