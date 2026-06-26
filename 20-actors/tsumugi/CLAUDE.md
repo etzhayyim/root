@@ -58,7 +58,7 @@ It is the upper layer over **danjo** (power 取), **kanae** (fiscal-flow render)
 
 ```bash
 # 1. weave the graph (fixture mode — NO network; latent organisms flagged claimed?=false)
-python3 20-actors/tsumugi/methods/ingest.py
+bb -cp 20-actors -m tsumugi.methods.ingest
 # 2. analyze the woven graph (or a specific seed)
 bb -cp 20-actors -m tsumugi.methods.analyze 20-actors/tsumugi/out/woven-graph.kotoba.edn --out 20-actors/tsumugi/out
 bb -cp 20-actors -m tsumugi.methods.analyze <seed.edn> --out <dir>
