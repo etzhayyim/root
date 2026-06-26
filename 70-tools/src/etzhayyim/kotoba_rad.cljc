@@ -128,6 +128,57 @@
     {:rid rid* :rad-uri (str "rad:" rid*) :head head
      :datoms-appended (count all) :signed? (boolean sig)}))
 
+(defn- genesis-rid-in
+  "The RID (genesis identity entity) recorded in an existing journal log, or nil."
+  [existing]
+  (some (fn [dm] (when (and (= (d/d-a dm) :rad/type) (= (d/d-v dm) :identity))
+                   (d/d-e dm)))
+        existing))
+
+(defn add-delegate!
+  "Register a member `did:key` (from raw Ed25519 `pubkey-hex`) as a `:rad/delegate`
+   of an EXISTING actor identity by APPENDING to the journal — the genesis block is
+   left untouched, so the **RID is stable** (ADR-2606231200: 'delegate 追加・rotation
+   は新しい identity Datom + 旧 head 参照として追記', ADR-2606251200 A-2/§Remaining).
+   This is the retrofit path for the delegate-less pilot journals; once present, the
+   kotoba-server `rad_registry` reads the delegate and the node roots that repo's git
+   push authority in it (sovereign push).
+
+   Idempotent by value: a delegate already present adds no datom (only a fresh
+   sigref re-attesting the head). `sign-fn` (optional) is the no-server-key member
+   signing seam (fn [head-cid] -> {:by did-key :sig hex}); absent => unsigned + warn.
+   Returns {:rid :did-key :head :added? :signed?}."
+  [actor pubkey-hex {:keys [sign-fn]}]
+  (let [path     (journal-path actor)
+        existing (log/read-log path)
+        rid*     (genesis-rid-in existing)
+        _        (when-not rid*
+                   (throw (ex-info (str "no genesis identity in journal for " actor
+                                        " — run actor:publish first")
+                                   {:actor actor :path path})))
+        dk       (did-key pubkey-hex)
+        _        (when-not dk
+                   (throw (ex-info (str "invalid pubkey-hex for " actor)
+                                   {:actor actor :pubkey-hex pubkey-hex})))
+        present? (some (fn [dm] (and (= (d/d-e dm) rid*)
+                                     (= (d/d-a dm) :rad/delegate)
+                                     (= (d/d-v dm) dk)))
+                       existing)
+        tx       (inc (log/max-tx existing))
+        del-dms  (when-not present? [(d/datom rid* :rad/delegate dk tx)])
+        ;; head AFTER the delegate datom lands, so the sigref attests it
+        head     (log/head-cid (into (vec existing) (vec del-dms)))
+        {:keys [by sig]} (when sign-fn (sign-fn head))
+        _        (when-not sign-fn
+                   (binding [*out* *err*]
+                     (println "WARN kotoba-rad add-delegate!: no :sign-fn —"
+                              "sigref attesting the new delegate is UNSIGNED")))
+        sig-dms  (sigref-datom rid* head (or by dk) sig tx)
+        all      (into (vec del-dms) sig-dms)]
+    (log/append! path all)
+    {:rid rid* :did-key dk :head head
+     :added? (boolean (seq del-dms)) :signed? (boolean sig)}))
+
 ;; ── did:web did.json (github.io path form, static — cross-linked to rad+repo) ─
 ;; ADR-2606231200 addendum (2026-06-24): the actor did.json is a STATIC file at
 ;; the repo's Pages root (/.well-known/did.json), served by GitHub Pages over
