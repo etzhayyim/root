@@ -87,6 +87,28 @@
       (is (= 400 (:status (x/get-author-feed s {}))))
       (is (= 400 (:status (x/get-profile s {})))))))
 
+(deftest author-feed-paginates-via-cursor
+  (testing "getAuthorFeed limit + cursor walk the actor's posts page by page (newest-first)"
+    (let [s (store/->mem-store)
+          actor "did:web:etzhayyim.com:actor:unspsc-20202000"
+          mk (fn [rkey] (store/put-record s actor "app.bsky.feed.post" rkey
+                                          {"$type" "app.bsky.feed.post" "text" rkey
+                                           "createdAt" "2026-06-25T00:00:00Z"}))]
+      (doseq [k ["a" "b" "c"]] (mk k))   ; rkeys sort a<b<c; reverse feed = c,b,a
+      ;; page 1: limit 2 → [c b] + cursor
+      (let [p1 (:body (x/get-author-feed s {:actor actor :limit 2}))
+            f1 (get p1 "feed")
+            cur (get p1 "cursor")]
+        (is (= ["c" "b"] (mapv #(get-in % ["post" "record" "text"]) f1)))
+        (is (string? cur) "a cursor is returned when the page is full")
+        ;; page 2: same limit + cursor → [a], no further cursor
+        (let [p2 (:body (x/get-author-feed s {:actor actor :limit 2 :cursor cur}))
+              f2 (get p2 "feed")]
+          (is (= ["a"] (mapv #(get-in % ["post" "record" "text"]) f2)))
+          (is (nil? (get p2 "cursor")) "last page → no cursor")))
+      ;; limit is clamped to [1,100]
+      (is (= 1 (count (get (:body (x/get-author-feed s {:actor actor :limit 1})) "feed")))))))
+
 (defn -main [& _]
   (let [{:keys [fail error]} (run-tests 'etzhayyim.pds.xrpc-test)]
     (System/exit (if (pos? (+ fail error)) 1 0))))
