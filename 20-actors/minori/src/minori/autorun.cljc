@@ -40,7 +40,9 @@
                 :step "raise REAL net-export (η→1) via member-principal deepen-symbiosis live leg"
                 :gate :G7-member}
                {:lever :phi :value (:phi comps)
-                :step "raise adopted toward n=18342 via SoS-rule rollout to the remaining roster"
+                :step (format "close the SoS RUNNING gap: %d actors hold the reward spec but only %d are measured running — roll out SoS-rule (run + scoreboard) to the remaining %d"
+                              (or (:hold-spec obs) 0) (or (:running obs) 0)
+                              (- (or (:hold-spec obs) 0) (or (:running obs) 0)))
                 :gate :none}
                {:lever :adoption :value (:adoption comps)
                 :step "sustain SoS-reward adoption across the roster"
@@ -106,6 +108,7 @@
                    :observed {:valuation valuation :sos-adopted (:adopted adoption)
                               :colony-eta (get-in obs [:colony-eta :mean])
                               :realized-phi (:realized-phi obs)
+                              :running (:running obs) :hold-spec (:hold-spec obs)
                               :capture-grounded (get-in obs [:capture :ratio])
                               :grounded? grounded?}
                    :pick pick
@@ -147,6 +150,7 @@
       :eta-self eta-self
       :net-giver? (:net-giver? m-after)
       :realized-phi (:realized-phi obs)
+      :running (:running obs) :hold-spec (:hold-spec obs)
       :next-action next-action
       :social-action {:status (:status digest-art) :charter-clean (:charter-clean digest-art)
                       :bytes (:bytes digest-art) :artifact digest}
@@ -173,8 +177,9 @@
                      (get-in r [:components :eta]) (get-in r [:components :adoption])
                      (get-in r [:components :capture]) (get-in r [:components :phi])))
     (when (:colony-eta r)
-      (println (format "観測: colony-η=%.3f (real scoreboard)  realized-Φ=ln(adopted)=%.2f  grounded?=%s"
-                       (:colony-eta r) (or (:realized-phi r) 0.0) (:grounded? r))))
+      (println (format "観測: colony-η=%.3f (real scoreboard)  Φ=ln(running %d/%d hold-spec)=%.2f  grounded?=%s"
+                       (:colony-eta r) (or (:running r) 0) (or (:hold-spec r) 0)
+                       (or (:realized-phi r) 0.0) (:grounded? r))))
     (when-let [na (:next-action r)]
       (println (format "次の一手: [%s %.3f, gate=%s] %s"
                        (name (:lever na)) (:value na) (name (:gate na)) (:step na))))

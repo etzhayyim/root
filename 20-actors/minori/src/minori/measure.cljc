@@ -30,12 +30,17 @@
 
 (defn observe
   "Read-only observation snapshot taken every beat (for transparency in the ledger):
-   η from the live scoreboard, Φ from the roster, capture from the operator capture snapshot
-   (minori.capture — snapshot=SoT, G7). All read-only, no-server-key, fail-open."
+   η from the live scoreboard, Φ from the MEASURED-RUNNING actor count (honest coupling — energy
+   flow is realized only by actors actually EXPORTING order on the scoreboard, not by those merely
+   HOLDING the spec), capture from the operator snapshot. All read-only, no-server-key, fail-open."
   [{:keys [scoreboard capture-snapshot]} adopted]
-  {:colony-eta    (colony-eta scoreboard)
-   :realized-phi  (realized-phi adopted)
-   :capture       (capture/captured-ratio capture-snapshot)})
+  (let [ce      (colony-eta scoreboard)
+        running (:n ce)]                       ; actors measured running their reward loop
+    {:colony-eta    ce
+     :running       running
+     :hold-spec     adopted                    ; actors that HOLD the reward spec (system-of-systems.edn)
+     :realized-phi  (realized-phi (or running adopted))   ; Φ = ln(measured-running) — real coupling
+     :capture       (capture/captured-ratio capture-snapshot)}))
 
 (defn eta-self
   "minori's OWN order-export rectification η — EARNED from real evidence, never asserted.
