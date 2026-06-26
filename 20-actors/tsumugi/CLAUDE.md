@@ -278,13 +278,13 @@ python3 20-actors/tsumugi/tests/test_narrate.py         # 9 tests (Murakumo-only
 bb -cp 20-actors -m tsumugi.methods.coverage-scale        # → out/coverage-report.md
 python3 20-actors/tsumugi/tests/test_coverage_scale.py     # 6 tests
 # OFFLINE structural-public org ingest (Wikidata-P749-shaped fixtures → :pwr + :tie :custodies)
-python3 20-actors/tsumugi/methods/ingest_scale.py
+bb -cp 20-actors -m tsumugi.methods.ingest-scale
 #   → out/seed-plus-ingest-scale.kotoba.edn — run analyze_scale on THIS for the lift
 # LIVE Wikidata P749 fetch (stdlib urllib) — G7-gated, refused without the operator gate:
 TSUMUGI_OPERATOR_GATE=1 TSUMUGI_OPERATOR_DID=did:web:… \
-  python3 20-actors/tsumugi/methods/ingest_scale.py --live --ring2 --limit 400   # Wikidata, SELF-EXPANDING
+  bb -cp 20-actors -m tsumugi.methods.ingest-scale --live --ring2 --limit 400   # Wikidata, SELF-EXPANDING
 TSUMUGI_OPERATOR_GATE=1 TSUMUGI_OPERATOR_DID=did:web:… \
-  python3 20-actors/tsumugi/methods/ingest_scale.py --live --gleif --limit 150   # GLEIF L2 (second source)
+  bb -cp 20-actors -m tsumugi.methods.ingest-scale --live --gleif --limit 150   # GLEIF L2 (second source)
 #   → writes out/ ONLY; the committed seed is NEVER auto-mutated (promotion = reviewed PR =
 #     the Council ratification act). --ring2 derives anchors from the seed's own citation QIDs
 #     (each promotion enriches the next ring); --gleif uses curated VERIFIED LEIs + a runtime
@@ -307,7 +307,7 @@ python3 20-actors/tsumugi/tests/test_ingest_scale.py       # 24 tests (S2/S4/S5/
 bb -cp 20-actors -m tsumugi.methods.publish        # → out/etzhayyim-power-graph.{nt,jsonld} + dataset-manifest.json
 python3 20-actors/tsumugi/tests/test_publish.py     # 14 tests
 # FORAGE — 粘菌/菌糸 growth plan (offline, from the seed): harvested vs frontier tips, starvation→fruit
-python3 20-actors/tsumugi/methods/ingest_scale.py --forage   # → out/forage-plan.json
+bb -cp 20-actors -m tsumugi.methods.ingest-scale --forage   # → out/forage-plan.json
 ```
 
 - **Provider** (`publish.py`): the inversion of dependence — etzhayyim stops being only a
@@ -349,8 +349,8 @@ python3 20-actors/tsumugi/tests/test_autorun.py   # 11 tests (content-addressed 
 ## Pinned to IPFS + resolves at etzhayyim.com (ADR-2606092000 wave 5)
 
 ```bash
-python3 20-actors/tsumugi/methods/publish_ipfs.py            # pin: 80-data/tsumugi-power/ + apex descriptor
-python3 20-actors/tsumugi/methods/publish_ipfs.py --verify   # re-content-address vs the manifest
+bb -cp 20-actors -m tsumugi.methods.publish-ipfs            # pin: 80-data/tsumugi-power/ + apex descriptor
+bb -cp 20-actors -m tsumugi.methods.publish-ipfs --verify   # re-content-address vs the manifest
 python3 20-actors/tsumugi/tests/test_publish_ipfs.py         # 11 tests (incl. ipfs-add CID vector)
 ```
 
