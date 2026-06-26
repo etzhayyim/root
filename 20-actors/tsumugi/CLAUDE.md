@@ -60,8 +60,8 @@ It is the upper layer over **danjo** (power 取), **kanae** (fiscal-flow render)
 # 1. weave the graph (fixture mode — NO network; latent organisms flagged claimed?=false)
 python3 20-actors/tsumugi/methods/ingest.py
 # 2. analyze the woven graph (or a specific seed)
-python3 20-actors/tsumugi/methods/analyze.py 20-actors/tsumugi/out/woven-graph.kotoba.edn --out 20-actors/tsumugi/out
-python3 20-actors/tsumugi/methods/analyze.py <seed.edn> --out <dir>
+bb -cp 20-actors -m tsumugi.methods.analyze 20-actors/tsumugi/out/woven-graph.kotoba.edn --out 20-actors/tsumugi/out
+bb -cp 20-actors -m tsumugi.methods.analyze <seed.edn> --out <dir>
 ```
 
 ## ie-flow / SoS score (`methods/ie_flow.cljc`, ADR-2606212200)
@@ -235,7 +235,7 @@ anyone by conviction — by construction.
 - **H7 sourcing** — every `:flies` ≥2 public citations (own manifesto/statement/vote).
 
 ```bash
-python3 20-actors/tsumugi/methods/analyze_banner.py      # → out/banner-report.md + banner-graph.kotoba.edn
+bb -cp 20-actors -m tsumugi.methods.analyze-banner      # → out/banner-report.md + banner-graph.kotoba.edn
 bash 20-actors/tsumugi/run_tests.sh # 11 tests (one per gate + camps/bridges/genealogy)
 ```
 
