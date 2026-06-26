@@ -2,6 +2,7 @@
   "com.atproto.* handler invariants: identity resolution + a repo round-trip
   over the in-process MemStore (also exercises store.clj end-to-end)."
   (:require [clojure.test :refer [deftest is testing run-tests]]
+            [clojure.string :as str]
             [etzhayyim.pds.xrpc :as x]
             [etzhayyim.pds.store :as store]
             [etzhayyim.pds.config :as cfg]))
@@ -59,6 +60,32 @@
     (testing "delete → subsequent get is 404"
       (is (= 200 (:status (x/delete-record s {:repo repo :collection coll :rkey "rk1"}))))
       (is (= 404 (:status (x/get-record s {:repo repo :collection coll :rkey "rk1"})))))))
+
+(deftest appview-read-rendering-from-local-log
+  (testing "getAuthorFeed + getProfile render an actor's feed/profile from the local kotoba log (Method A)"
+    (let [s (store/->mem-store)
+          actor "did:web:etzhayyim.com:actor:unspsc-10101500"
+          post (fn [rkey text] (store/put-record s actor "app.bsky.feed.post" rkey
+                                                 {"$type" "app.bsky.feed.post" "text" text
+                                                  "createdAt" "2026-06-25T00:00:00Z"}))]
+      (post "a" "first") (post "b" "second")
+      ;; getAuthorFeed → AppView-shaped feed of the actor's posts (newest first), no gftd
+      (let [resp (x/get-author-feed s {:actor actor})
+            feed (get (:body resp) "feed")]
+        (is (= 200 (:status resp)))
+        (is (= 2 (count feed)))
+        (is (= "second" (get-in (first feed) ["post" "record" "text"])) "reverse: newest first")
+        (is (= {"did" actor "handle" "unspsc-10101500.etzhayyim.com"}
+               (get-in (first feed) ["post" "author"])) "author rendered from did:web:…:actor:<h>")
+        (is (str/starts-with? (get-in (first feed) ["post" "uri"]) (str "at://" actor))))
+      ;; getProfile → minimal profileView with the authoritative postsCount
+      (let [resp (x/get-profile s {:actor actor})]
+        (is (= 200 (:status resp)))
+        (is (= actor (get (:body resp) "did")))
+        (is (= 2 (get (:body resp) "postsCount"))))
+      ;; missing actor → 400
+      (is (= 400 (:status (x/get-author-feed s {}))))
+      (is (= 400 (:status (x/get-profile s {})))))))
 
 (defn -main [& _]
   (let [{:keys [fail error]} (run-tests 'etzhayyim.pds.xrpc-test)]

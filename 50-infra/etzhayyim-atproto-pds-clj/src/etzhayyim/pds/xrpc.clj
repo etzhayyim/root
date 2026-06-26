@@ -192,3 +192,54 @@
              "handleIsCorrect" true
              "recordCount" count
              "collectionCounts" (or collection-counts {})})))))
+
+;; ── AppView read rendering from the local kotoba log (Method A) ──────────────
+;; The independent PDS renders an actor's OWN feed + profile from the records it
+;; holds — no gftd AppView. Read-only (no-server-key). The worker routes
+;; app.bsky.feed.getAuthorFeed / actor.getProfile here at the feed-rendering
+;; cutover; until then these are simply available and unit-tested.
+
+(defn- author-handle [did]
+  ;; did:web:<host>  → <host>; did:web:etzhayyim.com:actor:<h> → <h>.etzhayyim.com
+  (let [parts (str/split (str did) #":")]
+    (cond
+      (and (= (count parts) 5) (= "actor" (nth parts 3))) (str (nth parts 4) "." (nth parts 2))
+      (>= (count parts) 3) (nth parts 2)
+      :else did)))
+
+(defn- post-view [did handle r]
+  ;; an app.bsky.feed.defs#postView over a stored app.bsky.feed.post record
+  (cond-> {"uri" (:uri r) "cid" (:cid r)
+           "author" {"did" did "handle" handle}
+           "record" (:value r)
+           "indexedAt" (or (get (:value r) "createdAt") (util/now-iso))}
+    (:author r) (assoc-in ["author" "attributedTo"] (:author r))   ; consenting member (leash), surfaced
+    (:sig r) (assoc "sig" (:sig r) "signedBy" (:signedBy r))))     ; actor signature, verifiable from the did doc
+
+(defn get-author-feed
+  "app.bsky.feed.getAuthorFeed — the actor's OWN app.bsky.feed.post records as an
+  AppView feed, rendered from the local kotoba Datom log (no gftd AppView)."
+  [store {:keys [actor limit cursor]}]
+  (let [did (resolve-repo actor)]
+    (if (or (str/blank? (str actor)) (nil? did))
+      (err 400 "InvalidRequest" "actor is required")
+      (let [lim (let [n (try (Integer/parseInt (str (or limit "50"))) (catch Exception _ 50))]
+                  (max 1 (min 100 n)))
+            handle (author-handle did)
+            {:keys [records cursor]} (store/list-records store did "app.bsky.feed.post"
+                                                         {:limit lim :cursor cursor :reverse true})]
+        (ok (cond-> {"feed" (mapv (fn [r] {"post" (post-view did handle r)}) records)}
+              cursor (assoc "cursor" cursor)))))))
+
+(defn get-profile
+  "app.bsky.actor.getProfile — a minimal profileView from the actor's repo (did +
+  handle + postsCount), rendered locally. displayName/avatar are the worker's
+  actor-profile registry concern; this is the PDS's authoritative count layer."
+  [store {:keys [actor]}]
+  (let [did (resolve-repo actor)]
+    (if (or (str/blank? (str actor)) (nil? did))
+      (err 400 "InvalidRequest" "actor is required")
+      (let [{:keys [collection-counts]} (store/describe-repo store did)]
+        (ok {"did" did
+             "handle" (author-handle did)
+             "postsCount" (get collection-counts "app.bsky.feed.post" 0)})))))
