@@ -69,6 +69,15 @@
          ;; scoreboard, Φ from the roster, capture from the valuation MAP) and GROUNDS it into the
          ;; score (truth beats the loop's stubs; grounding can LOWER an optimistic stub — honest).
          obs      (measure/observe {:scoreboard scoreboard :capture-snapshot capture-snapshot} (:adopted adoption))
+         ;; QUIESCENCE: a resident organism idles when nothing external changed. Fingerprint the REAL
+         ;; observed inputs; if the last beat was CONVERGED and the fingerprint is unchanged, this beat
+         ;; is a no-op — we do NOT append a redundant entry and do NOT grow the stub state (which would
+         ;; thrash forever). minori only does real work + appends when an observation shifts.
+         obs-fp   (ledger/sha256-hex (pr-str [(get-in obs [:colony-eta :mean]) (:running obs)
+                                              (get-in obs [:capture :ratio]) (:adopted adoption)
+                                              (:hold-spec obs)]))
+         quiescent? (boolean (and prev (get-in prev [:convergence :converged?])
+                                  (= obs-fp (:obs-fingerprint prev))))
          state''  (measure/ground state' obs)              ; grounds colony-η + capture (truth)
          grounded? (boolean (get-in obs [:colony-eta :mean]))
          m1       (score/growth state'' model adoption)    ; preliminary (colony-grounded η)
@@ -146,12 +155,17 @@
                             :parent (:parent kcommit) :datom-count (count kdatoms)
                             :bridge (:mode kbridge)}
                    :convergence convergence
+                   :obs-fingerprint obs-fp
                    :adoption (:p adoption)}
-         appended (ledger/append! ledger entry)
+         ;; quiescent ⇒ idle: do NOT append a redundant entry, do NOT persist stub growth.
+         appended (if quiescent?
+                    {:appended? false :head prev :ledger led}
+                    (ledger/append! ledger entry))
          appended? (:appended? appended)
          head     (:head appended)
          chain    (ledger/verify-chain (:ledger appended))]
      {:appended? appended?
+      :quiescent? quiescent?
       :beat (:beat head)
       :pick pick
       :G-prev (:G measure-before)
@@ -184,7 +198,10 @@
   (let [paths (if (seq args) (merge defaults (apply hash-map (map read-string args))) defaults)
         r (run paths)]
     (println "─── minori 稔り react beat ───────────────────────────")
-    (println (format "beat #%s   pick=%s (%s)" (:beat r) (name (:id (:pick r))) (name (:kind (:pick r)))))
+    (when (:quiescent? r)
+      (println (format "⏸ QUIESCENT — no external change since beat #%s; resident runtime idling (no append, no stub growth)" (:beat r))))
+    (println (format "beat #%s   pick=%s (%s)%s" (:beat r) (name (:id (:pick r))) (name (:kind (:pick r)))
+                     (if (:quiescent? r) "  [idle]" "")))
     (println (format "G: %.4f → %.4f   ΔG=%+.5f   η=%.3f   adoption=%d actors (%.3f)"
                      (:G-prev r) (:G r) (:dG r) (:eta r) (:sos-adopted r) (:adoption r)))
     (println (format "reward=%.4f  net-giver?=%s  gated?=%s%s  appended?=%s"
