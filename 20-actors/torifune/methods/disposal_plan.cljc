@@ -46,7 +46,7 @@
 #?(:clj
    (defn -main [& argv]
      (let [argv (vec argv)
-           here (-> *file* clojure.java.io/file .getParentFile .getParentFile)
+           here (clojure.java.io/file (or (System/getenv "TORIFUNE_ACTOR_DIR") "20-actors/torifune"))
            seed (if (and (seq argv) (not (str/starts-with? (first argv) "--")))
                   (clojure.java.io/file (first argv))
                   (clojure.java.io/file here "data" "seed-ama-vehicle.kotoba.edn"))
