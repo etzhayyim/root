@@ -1,7 +1,12 @@
-# aburi 炙り — kotoba pywasm actor (componentize-py) design
+# aburi 炙り — kotoba cljc-native WASM actor (cherry + ComponentizeJS) design
+
+> **ADR-2606261200**: this actor is built cljc-native — `methods/*.cljc` → cherry(JS) →
+> ComponentizeJS(jco) → WASI Component. The entry is `app.cljs` (was `app.py`); the WIT
+> world (`wit/world.wit`) is unchanged. The notes below describe the build shape; the
+> componentize-py history is superseded.
 
 aburi's methods are **pure stdlib** (no numpy, no network) precisely so they can run as a
-content-addressed kotoba WASM actor under componentize-py (the rasen / shiori pattern), where the
+content-addressed kotoba WASM actor under cherry + ComponentizeJS (ADR-2606261200), where the
 **host owns the log** and the component is a stateless analyzer.
 
 ## Exports (planned)
@@ -29,6 +34,6 @@ content-addressed kotoba WASM actor under componentize-py (the rasen / shiori pa
 
 ## Build (operator step, deferred)
 
-`componentize-py` over `methods/` against the aburi world (to be authored at R1), CID-pinned and
+cherry + ComponentizeJS over `methods/*.cljc` against the aburi world (to be authored at R1), CID-pinned and
 verified the way rasen/shionome T1 actors are. R0 ships the analyzer + ontology + representative
 seed only; the build is an explicit operator step, never a cron.
