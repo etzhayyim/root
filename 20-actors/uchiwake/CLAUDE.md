@@ -105,11 +105,11 @@ reproduce dict insertion order (CID parity).
 
 ```bash
 cd 20-actors/uchiwake
-python3 methods/ingest.py            # offline: bridge data/ingest/*.json + seed (twin: ingest.py↔ingest.clj)
+bb -cp 20-actors -m uchiwake.methods.ingest            # offline: bridge data/ingest/*.json + seed (cljc-native; ADR-2606261200)
 python3 methods/analyze.py            # → out/intel-report.md + out/product-criticality.kotoba.edn
 python3 -m unittest tests.test_uchiwake -v   # 21 tests (twins: ingest/analyze/crosscheck)
 # live ingest (G7-gated, twin):
-UCHIWAKE_OPERATOR_GATE=1 python3 methods/ingest.py --live --gtin 3017620422003  # OFF fetch (Nutella)
+UCHIWAKE_OPERATOR_GATE=1 UCHIWAKE_OPERATOR_GATE=1 bb -cp 20-actors -m uchiwake.methods.ingest --live --gtin 3017620422003  # OFF fetch (Nutella)
 
 # clj-native heartbeat + bridge (SSoT — Clojure, no Python twin):
 bb -cp 20-actors -e "(require 'uchiwake.methods.autorun)(apply uchiwake.methods.autorun/-main [\"--cycles\" \"3\" \"--fresh\"])"

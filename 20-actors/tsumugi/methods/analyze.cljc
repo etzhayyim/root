@@ -419,3 +419,24 @@
               "- 取-concentration is an accountability lens on power, never a per-person score (N1/§D9)."
               "- Outward / live atproto-follow ingest over real persons is G11 + Council-gated."]]
     (str (str/join "\n" (concat head rank-rows spirit comp-rows tail)) "\n")))
+
+#?(:clj
+   (defn -main
+     "CLI entry: mirrors analyze.main — optional [seed.edn] [--out OUTDIR]. ADR-2606261200
+     cljc-native operator leg (was `python3 methods/analyze.py`)."
+     [& argv]
+     (let [argv (vec argv)
+           args (vec (remove #(str/starts-with? % "--") argv))
+           here (let [f  (when (and *file* (not (str/blank? *file*))) (io/file *file*))
+                      pp (some-> f .getAbsoluteFile .getParentFile .getParentFile)]
+                  (if (and pp (.isDirectory (io/file pp "data"))) pp
+                      (io/file "20-actors" "tsumugi")))
+           seed (if (seq args) (io/file (first args)) (io/file here "data" "seed-power-graph.kotoba.edn"))
+           out  (if (some #{"--out"} argv) (io/file (nth argv (inc (.indexOf argv "--out")))) (io/file here "out"))
+           [orgs edges] (load seed)
+           result (analyze orgs edges)]
+       (.mkdirs out)
+       (spit (io/file out "spirit-graph.kotoba.edn") (render-graph-edn result))
+       (spit (io/file out "intel-report.md") (render-report result))
+       (println (str "[tsumugi/analyze] " (count orgs) " organisms · " (count edges)
+                     " 縁 → " (.getPath (io/file out "intel-report.md")))))))

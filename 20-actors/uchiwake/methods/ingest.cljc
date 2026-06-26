@@ -95,9 +95,46 @@
    (defn -main
      "CLI entry (1:1 with main()): offline bridge of data/ingest/*.json (OFF adapter for
      openfoodfacts*, datom docs otherwise) + the seed, merged to products.merged.kotoba.edn
-     (seed wins on id). Live ingest is G7-gated. File I/O only at this edge. The full --live
-     path + the JSON reader are host-bound; this entry documents the offline behavior."
-     [& _argv]
-     (throw (ex-info (str "ingest -main is a host-IO entry; invoke seed-ids / "
-                          "admit-datom-doc-rows / admit-off-datoms / emit-bridged-edn "
-                          "directly over already-read rows") {}))))
+     (seed wins on id; seed text preserved verbatim, bridged datoms spliced before the closing
+     ']'). Live ingest (--live) is G7-gated — refused without UCHIWAKE_OPERATOR_GATE=1 (offline
+     fallback); the wired single-GTIN live OFF fetch stays host-bound. File I/O only at this edge.
+     ADR-2606261200 cljc-native operator leg. UCHIWAKE_ACTOR_DIR overrides the actor root."
+     [& argv]
+     (let [io-file  (requiring-resolve 'clojure.java.io/file)
+           parse    (requiring-resolve 'cheshire.core/parse-string)
+           read-edn (requiring-resolve 'uchiwake.methods.uchiwake-edn/read-edn)
+           off-norm (requiring-resolve 'uchiwake.methods.adapters.openfoodfacts/normalize-dataset)
+           root     (io-file (or (System/getenv "UCHIWAKE_ACTOR_DIR") "20-actors/uchiwake"))
+           seed-f   (io-file root "data" "seed-products.kotoba.edn")
+           ingest-d (io-file root "data" "ingest")
+           merged-f (io-file root "data" "products.merged.kotoba.edn")
+           argv     (vec argv)]
+       (when (and (some #{"--live"} argv) (not= (System/getenv "UCHIWAKE_OPERATOR_GATE") "1"))
+         (binding [*out* *err*]
+           (println "REFUSED (G7): live ingest requires UCHIWAKE_OPERATOR_GATE=1 + Council; running offline.")))
+       (let [seed-rows (read-edn (slurp seed-f))
+             sids      (seed-ids seed-rows)
+             files     (when (.isDirectory ingest-d)
+                         (->> (.listFiles ingest-d)
+                              (filter #(.endsWith (.getName %) ".json"))
+                              (sort-by #(.getName %))))
+             bridged   (reduce
+                        (fn [acc f]
+                          (let [doc (parse (slurp f))]
+                            (if (str/starts-with? (.getName f) "openfoodfacts")
+                              (let [recs (if (map? doc) (get doc "products" []) doc)]
+                                (into acc (admit-off-datoms (first (off-norm recs)) sids)))
+                              (let [rows (if (sequential? doc) doc (get doc "datoms" []))]
+                                (into acc (admit-datom-doc-rows rows sids))))))
+                        []
+                        (or files []))
+             seed-txt  (slurp seed-f)]
+       (if (seq bridged)
+         (let [block   (emit-bridged-edn bridged)
+               trimmed (str/trimr seed-txt)
+               cut     (.lastIndexOf trimmed "]")
+               out     (str (subs trimmed 0 cut) "\n" block "\n]\n")]
+           (spit merged-f out)
+           (println (str "-> data/products.merged.kotoba.edn (seed + " (count bridged) " bridged datoms)")))
+         (do (spit merged-f seed-txt)
+             (println "-> data/products.merged.kotoba.edn (== seed; no external ingest)")))))))

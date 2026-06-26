@@ -1,4 +1,4 @@
-# torifune 鳥船 — kotoba pywasm actor (componentize-py)
+# torifune 鳥船 — kotoba cljc-native WASM actor (cherry+ComponentizeJS, ADR-2606261200)
 
 Design for running torifune's launch-vehicle sim as a **kotoba pywasm actor** under the
 "one Worker, many WASM actors" model (ADR-2606014500 / 2606014600), identical in shape to
@@ -10,7 +10,7 @@ ameno, or the donated mesh via e7m-wasm-runner) — **no per-actor server** (no-
 ## Why pywasm fits torifune
 
 torifune's methods are **pure-stdlib Python (no numpy)** so they compile to a WASM Component
-via **componentize-py**. The staged Tsiolkovsky Δv, the carbon balance, and the disposal
+via **cherry + ComponentizeJS** (ADR-2606261200). The staged Tsiolkovsky Δv, the carbon balance, and the disposal
 check are arithmetic + a graph fold over the launch-vehicle ontology — no native deps
 (`math.log` is stdlib). The same code runs as a CLI cell on a mesh node and in-WASM in the
 browser with zero server trust (the reader recomputes the component CID and compares it to the

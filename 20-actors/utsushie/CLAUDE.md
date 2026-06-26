@@ -12,15 +12,15 @@ links out** — the 映像 sibling of 瓦版's printed sheet. It is a **medium, 
 
 ## When editing
 
-- `methods/render_plan.py` is **pure and offline** — no network, no model, no clock/RNG.
+- `methods/render_plan.cljc` is **pure and offline** — no network, no model, no clock/RNG.
   Keep it deterministic. `render()` MUST keep raising at R0 (live render is G8-gated +
   Murakumo-fleet only, U5 = G6, ADR-2605215000). Do NOT wire it to RunPod/external GPU.
 - The U1–U6 gates live in **two places**: `lex/video.edn` (`const false` / `maxLength`)
-  AND `methods/render_plan.py` (`CharterRefusal`). Touch one, touch both or you create a
+  AND `methods/render_plan.cljc` (`CharterRefusal`). Touch one, touch both or you create a
   representable charter violation.
 - **U3 anti-deepfake is the highest-risk gate** — never emit a path that depicts a named
   real person photoreally or clones a voice. Neutral synthetic narrator only.
-- Tests are standalone-runnable (`python3 methods/test_render_plan.py`) AND pytest-style.
+- Tests are standalone-runnable (`bash run_tests.sh`) AND pytest-style.
   Keep them so. One-command runner: `./run_tests.sh`.
 
 ## Roadmap

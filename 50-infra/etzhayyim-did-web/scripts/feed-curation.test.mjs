@@ -10,7 +10,7 @@ import { fileURLToPath } from "node:url";
 import esbuild from "esbuild";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-let curateFeed, isQuarantinedAuthor, isOwnActor, CURATED_FEED_NSIDS;
+let curateFeed, isQuarantinedAuthor, isOwnActor, CURATED_FEED_NSIDS, discoverFeedTarget;
 
 before(async () => {
   const hash = createHash("sha1").update(HERE).digest("hex").slice(0, 8);
@@ -22,12 +22,30 @@ before(async () => {
     platform: "node",
     outfile: out,
   });
-  ({ curateFeed, isQuarantinedAuthor, isOwnActor, CURATED_FEED_NSIDS } = await import(
+  ({ curateFeed, isQuarantinedAuthor, isOwnActor, CURATED_FEED_NSIDS, discoverFeedTarget } = await import(
     `${out}?t=${Date.now()}`
   ));
 });
 
 const item = (did, handle) => ({ post: { author: { did, handle }, text: "x" } });
+
+test("discoverFeedTarget is INERT until XRPC_PDS_UPSTREAM is provisioned", () => {
+  // empty / unset → null: the worker keeps curating the gftd feed (prod unchanged)
+  assert.equal(discoverFeedTarget(undefined), null);
+  assert.equal(discoverFeedTarget(null), null);
+  assert.equal(discoverFeedTarget(""), null);
+  assert.equal(discoverFeedTarget("   "), null);
+  // provisioned → render the aggregate feed from the PDS's local discover feed
+  assert.deepEqual(discoverFeedTarget("https://pds.etzhayyim.com"), {
+    upstream: "https://pds.etzhayyim.com",
+    nsid: "com.etzhayyim.feed.getDiscover",
+  });
+  // surrounding whitespace is trimmed (env values often carry a trailing newline)
+  assert.deepEqual(discoverFeedTarget(" https://pds.etzhayyim.com\n"), {
+    upstream: "https://pds.etzhayyim.com",
+    nsid: "com.etzhayyim.feed.getDiscover",
+  });
+});
 
 test("only aggregate feeds are curated (author feed / thread are not)", () => {
   assert.ok(CURATED_FEED_NSIDS.has("app.bsky.feed.getTimeline"));

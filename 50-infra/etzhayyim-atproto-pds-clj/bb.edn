@@ -14,7 +14,9 @@
               [etzhayyim.pds.datom-test] [etzhayyim.pds.config-test]
               [etzhayyim.pds.keys-test] [etzhayyim.pds.actorkeys-test]
               [etzhayyim.pds.client-test] [etzhayyim.pds.drain-test]
-              [etzhayyim.pds.leash-test])
+              [etzhayyim.pds.leash-test] [etzhayyim.pds.repo-test]
+              [etzhayyim.pds.integration-test] [etzhayyim.pds.account-test]
+              [etzhayyim.pds.blob-test] [etzhayyim.pds.lexicon-test])
    :task (let [{:keys [fail error]} (t/run-tests 'etzhayyim.pds.server-test
                                                  'etzhayyim.pds.util-test
                                                  'etzhayyim.pds.xrpc-test
@@ -24,7 +26,12 @@
                                                  'etzhayyim.pds.actorkeys-test
                                                  'etzhayyim.pds.client-test
                                                  'etzhayyim.pds.drain-test
-                                                 'etzhayyim.pds.leash-test)]
+                                                 'etzhayyim.pds.leash-test
+                                                 'etzhayyim.pds.repo-test
+                                                 'etzhayyim.pds.integration-test
+                                                 'etzhayyim.pds.account-test
+                                                 'etzhayyim.pds.blob-test
+                                                 'etzhayyim.pds.lexicon-test)]
            (System/exit (if (pos? (+ fail error)) 1 0)))}
 
   keys-test
@@ -32,6 +39,17 @@
    :requires ([clojure.test :as t] [etzhayyim.pds.keys-test])
    :task (let [{:keys [fail error]} (t/run-tests 'etzhayyim.pds.keys-test)]
            (System/exit (if (pos? (+ fail error)) 1 0)))}
+
+  export-keys
+  {:doc "Emit the per-actor #atproto P-256 verificationMethod registry as JSON — the
+         artifact the APEX worker ingests so resolving an actor's did:web doc publishes
+         the SAME key the PDS signs its commits with (slice 3 at the resolution authority;
+         closes the cutover-blocker where the apex doc lacked the P-256 key). SEAL-FREE:
+         reads only public multikeys (PDS_ACTOR_KEYS_DIR), no MURAKUMO_SEAL_KEY needed."
+   :requires ([etzhayyim.pds.actorkeys :as ak] [cheshire.core :as json])
+   :task (let [dir (or (System/getenv "PDS_ACTOR_KEYS_DIR")
+                       (throw (ex-info "PDS_ACTOR_KEYS_DIR is required" {})))]
+           (println (json/generate-string (ak/export-verification-methods dir) {:pretty true})))}
 
   drain
   {:doc "Drain an ibuki NDJSON post-queue to the PDS. Env: PDS_DRAIN_BASE (PDS url) +

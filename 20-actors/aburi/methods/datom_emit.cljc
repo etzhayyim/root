@@ -42,11 +42,17 @@
   "Mirror Python's f-string `{v:g}` for our (moderate-magnitude) doubles: 6 significant
   digits, trailing zeros stripped, an integral value renders with no decimal point (1.0 → \"1\")."
   [v]
-  (let [d (double v)]
-    (if (and (not (Double/isInfinite d)) (not (Double/isNaN d))
-             (== d (Math/rint d)) (< (Math/abs d) 1e15))
-      (str (long d))
-      (let [s (format "%.6g" d)]
+  ;; Portable: clj uses JVM Math/format; cljs (squint/ComponentizeJS wasm,
+  ;; ADR-2606261200) uses native Number/Math/toPrecision. The :clj branch is
+  ;; unchanged (bb test parity); the :cljs branch is deterministic valid EDN.
+  (let [d         #?(:clj (double v) :cljs (js/Number v))
+        finite?   #?(:clj (and (not (Double/isInfinite d)) (not (Double/isNaN d)))
+                     :cljs (js/isFinite d))
+        rint      #?(:clj (Math/rint d) :cljs (js/Math.round d))
+        absd      #?(:clj (Math/abs d) :cljs (js/Math.abs d))]
+    (if (and finite? (== d rint) (< absd 1e15))
+      (str #?(:clj (long d) :cljs (js/Math.trunc d)))
+      (let [s #?(:clj (format "%.6g" d) :cljs (.toPrecision d 6))]
         (if (str/includes? s ".")
           (-> s (str/replace #"0+$" "") (str/replace #"\.$" ""))
           s)))))

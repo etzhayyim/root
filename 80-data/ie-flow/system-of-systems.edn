@@ -193,7 +193,9 @@
   {:actor "shirabe"   :weights {:phi 0.20 :eta 0.36 :wellbecoming 0.24 :efficiency 0.12 :surprise 0.08} :telos "inquiry/observatory (η)"}
   {:actor "umisachi"  :weights {:phi 0.28 :eta 0.24 :wellbecoming 0.22 :efficiency 0.18 :surprise 0.08} :telos "marine-resource (Φ + 子孫)"}
   {:actor "utsushie"  :weights {:phi 0.22 :eta 0.32 :wellbecoming 0.26 :efficiency 0.12 :surprise 0.08} :telos "rendering/mirror (η)"}
-  {:actor "yamabiko"  :weights {:phi 0.22 :eta 0.32 :wellbecoming 0.26 :efficiency 0.12 :surprise 0.08} :telos "signal/echo mirror (η)"}]
+  {:actor "yamabiko"  :weights {:phi 0.22 :eta 0.32 :wellbecoming 0.26 :efficiency 0.12 :surprise 0.08} :telos "signal/echo mirror (η)"}
+  ;; ── social-capital growth react-runtime (ADR-2606261114): η→1 + close captured-gap ──
+  {:actor "minori"    :weights {:phi 0.18 :eta 0.34 :wellbecoming 0.28 :efficiency 0.12 :surprise 0.08} :telos "social-capital growth runtime — raise η→1 (net-giver) + close captured-gap, 共生 (η dominant)"}]
 
  ;; ── rollout: the rule applies to the WHOLE roster ──
  ;; The 6 specs above are exemplars. Every actor in the roster (Status § Tier-B actors) MUST grow a

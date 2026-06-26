@@ -33,7 +33,7 @@ and Council + operator gated (G7).
 ## Run
 
 ```bash
-python3 methods/ingest.py            # offline bridge + seed → products.merged (live = G7-gated)
+bb -cp 20-actors -m uchiwake.methods.ingest            # offline bridge + seed → products.merged (live = G7-gated)
 python3 methods/analyze.py            # resilience report + derived concentration datoms
 python3 methods/crosscheck.py         # measured uchiwake ⇄ kabuto coverage linkage
 python3 methods/adapters/openfoodfacts.py   # bulk-ingest normalizer: OFF records → datoms

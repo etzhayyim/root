@@ -151,3 +151,48 @@
     (let [dir (tmp-dir)]
       (is (thrown? Exception (ak/load-or-create! dir actor nil)))
       (is (thrown? Exception (ak/load-or-create! dir actor ""))))))
+
+;; ── slice 3 (apex layer): seal-free P-256 verificationMethod export ──────────
+;; The apex (the did:web resolution authority consumers actually hit) must publish
+;; the SAME P-256 key the PDS signs each actor's commits with, or post-cutover
+;; verification fails. export-verification-methods is the bridge the apex ingests.
+
+(deftest export-vm-carries-the-p256-signing-key
+  (testing "the export publishes each actor's #atproto P-256 vm == the key the registry signs with"
+    (let [dir (tmp-dir)
+          a2 "did:web:etzhayyim.com:actor:unspsc-99999999"]
+      (try
+        ;; seal two actors (writes need the secret) …
+        (ak/load-or-create! dir actor secret)
+        (ak/load-or-create! dir a2 secret)
+        (let [exp (get (ak/export-verification-methods dir) "actors")
+              by-did (into {} (map (juxt #(get % "did") identity) exp))
+              vm-of (fn [did] (-> (by-did did) (get "verificationMethod") first))
+              signer (ak/registry-signer dir secret)]
+          (is (= 2 (count exp)) "every registry actor is exported")
+          (doseq [d [actor a2]]
+            (let [vm (vm-of d)]
+              (is (= (str d "#atproto") (get vm "id")) "the canonical #atproto vm id")
+              (is (= "Multikey" (get vm "type")))
+              ;; THE BINDING: the published multibase == the actor's actual signing key
+              (is (= (ak/multikey-for dir d secret) (get vm "publicKeyMultibase")))
+              (is (= (:multikey (signer d (.getBytes "x" "UTF-8")))
+                     (get vm "publicKeyMultibase"))
+                  "a consumer resolving this vm can verify what the PDS actually signs"))))
+        (finally (rm-rf dir))))))
+
+(deftest export-vm-is-seal-free
+  (testing "export reads ONLY public multikeys — it never needs MURAKUMO_SEAL_KEY"
+    (let [dir (tmp-dir)]
+      (try
+        (ak/load-or-create! dir actor secret)            ; sealing needs the secret …
+        ;; … but the export takes NO secret arg and must still produce the vm
+        (let [vm (-> (ak/export-verification-methods dir) (get "actors") first
+                     (get "verificationMethod") first)]
+          (is (= (ak/multikey-for dir actor secret) (get vm "publicKeyMultibase"))
+              "public key recovered without the seal — safe to run in CI / the apex build"))
+        (finally (rm-rf dir)))))
+  (testing "absent / empty dir → empty export (never throws)"
+    (is (= {"actors" []}
+           (ak/export-verification-methods
+            (str (System/getProperty "java.io.tmpdir") "/nope-vm-" (hash (str (gensym)))))))))

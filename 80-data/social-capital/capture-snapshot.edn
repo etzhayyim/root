@@ -1,0 +1,22 @@
+;; capture-snapshot.edn — REAL captured÷addressable source for minori's capture lever. ADR-2606261114.
+;; Pattern: snapshot = SoT, the loop never queries an API, fetch = operator step (G7). minori reads
+;; this read-only (no-server-key). Now :live — operator (founder, Lv7+) authorized + verified (G7).
+;;
+;; HONEST FIGURES as of this fire (no fabrication):
+;;   - captured-usd-per-year = 0 for BOTH entities: etzhayyim has no settled on-chain donation
+;;     revenue verifiable (it is pre-revenue and operates only on donation), and kotoba is a free
+;;     Apache-2.0 engine (no revenue). Marking :live with real zeros honestly shows that AUTHORIZING
+;;     the measurement does not manufacture captured value — capture grounds to ≈0 (the truth).
+;;   - addressable-usd-per-year = SAM lower bounds from the valuation MAP (social-capital-valuation.edn).
+;;   - kotoba OSS adoption = REAL GitHub metrics (read-only public, gh api com-junkawasaki/kotoba):
+;;     1 contributor / 0 stars / 0 forks — recorded for transparency (the ratio uses USD/yr only).
+{:status :live          ; operator-verified (G7, founder Lv7+) — was :template
+ :grounded? true
+ :note "live operator snapshot — captured=0 is the honest pre-revenue truth; OSS adoption is real but early-stage."
+ :etzhayyim {:captured-usd-per-year 0           ; no settled on-chain donation inflow verifiable
+             :addressable-usd-per-year 5.0e9    ; SAM low end (faith-tech/DID)
+             :source ".well-known/donation.json on-chain — operator-verified: 0 settled inflow (pre-revenue)"}
+ :kotoba    {:captured-usd-per-year 0           ; free Apache-2.0 engine — no revenue
+             :addressable-usd-per-year 3.0e9    ; SAM low end (graph-DB/DePIN)
+             :contributors 1 :stars 0 :forks 0  ; REAL: gh api repos/com-junkawasaki/kotoba (public)
+             :source "github com-junkawasaki/kotoba (read-only public): 1 contributor / 0 stars / 0 forks"}}

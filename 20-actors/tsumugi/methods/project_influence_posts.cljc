@@ -61,3 +61,39 @@
                           :else (str k " " v)))
                       p))
        "}"))
+
+#?(:clj
+   (defn -main
+     "CLI entry: mirrors project_influence_posts.main — [seed.edn] [--out OUTDIR]. ADR-2606261200
+     cljc-native operator leg. Reuses analyze_influence/load; the projection itself is pure."
+     [& argv]
+     (let [load*    (requiring-resolve 'tsumugi.methods.analyze-influence/load)
+           argv     (vec argv)
+           args     (vec (remove #(str/starts-with? % "--") argv))
+           here     (let [f  (when (and *file* (not (str/blank? *file*))) (clojure.java.io/file *file*))
+                          pp (some-> f .getAbsoluteFile .getParentFile .getParentFile)]
+                      (if (and pp (.isDirectory (clojure.java.io/file pp "data"))) pp
+                          (clojure.java.io/file "20-actors" "tsumugi")))
+           seed     (if (seq args) (clojure.java.io/file (first args))
+                        (clojure.java.io/file here "data" "seed-influence-history.kotoba.edn"))
+           out      (if (some #{"--out"} argv) (clojure.java.io/file (nth argv (inc (.indexOf argv "--out"))))
+                        (clojure.java.io/file here "out"))
+           [nodes flows] (load* seed)
+           tick     0
+           edge-posts (for [f flows
+                            :when (and (contains? nodes (get f ":flow/from"))
+                                       (contains? nodes (get f ":flow/to")))]
+                        (project-post (get nodes (get f ":flow/to")) f nodes tick))
+           node-posts (for [[_ nd] nodes] (project-post nd nil nodes tick))
+           posts    (vec (concat edge-posts node-posts))
+           header   [";; tsumugi 紡ぎ — GENERATED dry-run mirror posts (ADR-2606061500). DO NOT hand-edit."
+                     ";; N2 mirror-only: every post is OBSERVER voice ABOUT a node — never the figure speaking."
+                     ";; G7 outward-gated: every :post/published is false. Live firehose = Council + operator."
+                     "["]
+           lines    (concat header (map edn-str posts) ["]"])]
+       (assert (every? #(= (get % ":post/voice") ":observer") posts) "N2: all posts must be observer voice")
+       (assert (every? #(false? (get % ":post/published")) posts) "G7: all posts must be dry-run")
+       (.mkdirs out)
+       (spit (clojure.java.io/file out "influence-posts.dryrun.kotoba.edn") (str (str/join "\n" lines) "\n"))
+       (println (str "[tsumugi/posts] " (count posts) " dry-run mirror posts → "
+                     (.getPath (clojure.java.io/file out "influence-posts.dryrun.kotoba.edn")))))))

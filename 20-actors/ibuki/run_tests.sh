@@ -1,44 +1,59 @@
 #!/usr/bin/env bash
-# 息吹 (ibuki) — run the whole test suite with one command.
-# Tests are standalone-runnable (no pytest needed); each prints its own count and exits
-# non-zero on failure. This aggregates them and reports a grand total.
-set -uo pipefail
-cd "$(dirname "$0")"
-
-SUITES=(
-  "methods/test_datoms.py"
-  "methods/test_joucho.py"
-  "methods/test_heartbeat.py"
-  "methods/test_infer.py"
-  "methods/test_drainer.py"
-  "methods/test_kaizen_feedback.py"
-  "methods/test_autorun.py"
-  "methods/test_fleet.py"
-  "methods/test_perception.py"
-  "methods/test_member_submit.py"
-  "methods/test_kotoba_bridge.py"
-  "methods/test_delegation.py"
-  "methods/test_kaizen_outcomes.py"
-  "methods/test_health.py"
-  "methods/test_symbiosis.py"
-  "methods/test_quorum.py"
-  "methods/test_digest.py"
-  "methods/test_integration.py"
-  "methods/test_sick_colony.py"
-  "methods/test_ecosystem.py"
-  "methods/test_charter_invariants.py"
-)
-
-fail=0
-for s in "${SUITES[@]}"; do
-  dir="$(dirname "$s")"; file="$(basename "$s")"
-  if ( cd "$dir" && python3 "$file" ); then :; else
-    echo "FAILED: $s"; fail=1
-  fi
-done
-
-if [ "$fail" -eq 0 ]; then
-  echo "── ibuki: ALL suites green ──"
-else
-  echo "── ibuki: FAILURES above ──"; exit 1
-fi
+# ibuki 息吹 — cljc test suite (ADR-2606261200 py->cljc port wave). All cljc test namespaces.
+# NOTE: test-ecosystem is a heavy multi-cycle integration sim (~minutes); the suite is correct but slow.
+set -euo pipefail
+cd "$(dirname "$0")/../.."   # repo root
+exec bb -cp "20-actors/ibuki:20-actors/ibuki/methods:20-actors:20-actors/kotodama/src" -e '
+(require (quote clojure.test)
+         (quote ibuki.methods.test-autorun)
+         (quote ibuki.methods.test-charter-invariants)
+         (quote ibuki.methods.test-coscientist)
+         (quote ibuki.methods.test-datoms)
+         (quote ibuki.methods.test-delegation)
+         (quote ibuki.methods.test-digest)
+         (quote ibuki.methods.test-drainer)
+         (quote ibuki.methods.test-ecosystem)
+         (quote ibuki.methods.test-fleet)
+         (quote ibuki.methods.test-health)
+         (quote ibuki.methods.test-heartbeat)
+         (quote ibuki.methods.test-infer)
+         (quote ibuki.methods.test-integration)
+         (quote ibuki.methods.test-joucho)
+         (quote ibuki.methods.test-kaizen-feedback)
+         (quote ibuki.methods.test-kaizen-outcomes)
+         (quote ibuki.methods.test-kotoba-bridge)
+         (quote ibuki.methods.test-member-submit)
+         (quote ibuki.methods.test-metabolism)
+         (quote ibuki.methods.test-perception)
+         (quote ibuki.methods.test-quorum)
+         (quote ibuki.methods.test-react-loop)
+         (quote ibuki.methods.test-sick-colony)
+         (quote ibuki.methods.test-symbiosis)
+         (quote ibuki.methods.test-wellbecoming))
+(let [r (apply clojure.test/run-tests
+                (quote [ibuki.methods.test-autorun
+             ibuki.methods.test-charter-invariants
+             ibuki.methods.test-coscientist
+             ibuki.methods.test-datoms
+             ibuki.methods.test-delegation
+             ibuki.methods.test-digest
+             ibuki.methods.test-drainer
+             ibuki.methods.test-ecosystem
+             ibuki.methods.test-fleet
+             ibuki.methods.test-health
+             ibuki.methods.test-heartbeat
+             ibuki.methods.test-infer
+             ibuki.methods.test-integration
+             ibuki.methods.test-joucho
+             ibuki.methods.test-kaizen-feedback
+             ibuki.methods.test-kaizen-outcomes
+             ibuki.methods.test-kotoba-bridge
+             ibuki.methods.test-member-submit
+             ibuki.methods.test-metabolism
+             ibuki.methods.test-perception
+             ibuki.methods.test-quorum
+             ibuki.methods.test-react-loop
+             ibuki.methods.test-sick-colony
+             ibuki.methods.test-symbiosis
+             ibuki.methods.test-wellbecoming]))]
+  (System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))'
