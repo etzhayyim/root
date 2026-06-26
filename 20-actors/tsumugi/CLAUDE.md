@@ -304,7 +304,7 @@ python3 20-actors/tsumugi/tests/test_ingest_scale.py       # 24 tests (S2/S4/S5/
 
 ```bash
 # PUBLISH the woven graph as self-sovereign linked data (etzhayyim's OWN vocabulary)
-python3 20-actors/tsumugi/methods/publish.py        # → out/etzhayyim-power-graph.{nt,jsonld} + dataset-manifest.json
+bb -cp 20-actors -m tsumugi.methods.publish        # → out/etzhayyim-power-graph.{nt,jsonld} + dataset-manifest.json
 python3 20-actors/tsumugi/tests/test_publish.py     # 14 tests
 # FORAGE — 粘菌/菌糸 growth plan (offline, from the seed): harvested vs frontier tips, starvation→fruit
 python3 20-actors/tsumugi/methods/ingest_scale.py --forage   # → out/forage-plan.json
@@ -329,7 +329,7 @@ beats `methods/autorun.py`), recording each cycle on the **local append-only kot
 so it could only re-promote offline fixtures). Self-sovereign substrate, mirroring ibuki/shionome.
 
 ```bash
-python3 20-actors/tsumugi/methods/autorun.py --cycles 1   # one offline beat → :tsumugi.cycle/* datoms
+bb -cp 20-actors -m tsumugi.methods.autorun --cycles 1   # one offline beat → :tsumugi.cycle/* datoms
 ACTORS="tsumugi" 70-tools/scripts/fleet-heartbeat/heartbeat.sh   # via the fleet beat (tsumugi is in DEFAULT_ACTORS)
 ```
 
