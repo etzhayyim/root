@@ -61,3 +61,25 @@ tests/test_handlers.py        # 8 tests (A1 parse, grid round-trip, COLUMNS, bat
 cd 60-apps/etzhayyim-project-sheets/lg && python3 -m pytest tests/ -q
 cd 50-infra/cloudflare/workers/sheets-compat && node --test test/*.test.ts
 ```
+
+## Clojure port (ADR-2606280030, langgraph-python → langgraph-clj)
+
+`lg/src/sheets/*.cljc` is the **clj/bb twin** of `lg_sheets/*.py` (faithful: same XRPC
+endpoints, same `:sheet/*` datom mapping, same A1/grid/revision behavior, same sparse
+GitOffice round-trip). The `health` graph is now a **langgraph-clj StateGraph**
+(`sheets.graphs.health`, START→probe→END); `httpx`→`babashka.http-client`,
+JSON→`cheshire`, FastAPI→`org.httpkit.server` (`sheets.server`). Map keys stay strings
+(JSON wire shape). Stores are synchronous (the Python `async` is dropped).
+
+```bash
+cd 60-apps/etzhayyim-project-sheets/lg && bb run_tests.clj   # clj twin: 13 tests / 43 assertions
+bb run -m sheets.server                                       # or `bb serve` (org.httpkit on :PORT)
+```
+
+**Coexistence (CRITICAL — app in active use):** every `.py` is KEPT. The deployed pod
+still runs the Python FastAPI server (`lg_sheets.server:app`) and `langgraph.json`
+(`graphs.health → ./lg_sheets/graphs/health.py:GRAPH`) + `Dockerfile` + `pyproject.toml`
+reference it. The cljc twin is verified-green under bb but NOT yet wired into deploy;
+cutover (point `langgraph.json`/`Dockerfile` at the clj server + retire the `.py`) is a
+follow-up once the clj pod is deployment-validated. Nothing imports the `.py` from outside
+the app, so removal is safe ONLY after the deploy cutover — left coexisting for now.
