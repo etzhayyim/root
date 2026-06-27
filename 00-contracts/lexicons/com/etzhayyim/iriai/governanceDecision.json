@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.iriai.governanceDecision",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "The governance envelope for a lifeline-commons funding proposal (ADR-2606272200). iriai PROPOSES; the commons (1 SBT = 1 vote) DECIDES; the producer actor (under Council) ACTS. Compute-only R0: the decision stops at :intent — the live act (energize/flow/ignite/activate) is the producer cell under Council Lv7+ + operator-DID + member signature (G5, §1.12 Transparent-Force). no-server-key: iriai holds no key; writes are member-CACAO-attributed (G6).",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["region", "lifeline", "verdict", "governance", "councilAttestation", "actuationClass", "serverHeldKey", "attribution", "advisory"],
+        "properties": {
+          "region": { "type": "string" },
+          "regionName": { "type": "string", "maxLength": 512 },
+          "lifeline": { "type": "string", "enum": [":electric", ":water", ":gas", ":telecom"] },
+          "verdict": { "type": "string", "enum": [":provision", ":reinforce", ":redundancy"] },
+          "governance": { "type": "string", "const": "1-sbt-1-vote", "description": "PublicFundGovernance: 20% quorum / 50% of cast / 7-day vote / 48h timelock" },
+          "quorum": { "type": "string" },
+          "approval": { "type": "string" },
+          "timelock": { "type": "string" },
+          "councilAttestation": {
+            "type": "string",
+            "enum": ["council-lv6+", "council-lv7+"],
+            "description": "Council attestation level (= PR review in bootstrap); critical-infra (electric/water) provision escalates to Lv7+ (Transparent-Force §1.12)"
+          },
+          "actuationClass": {
+            "type": "string",
+            "const": ":intent",
+            "description": "G5 — compute-only R0; iriai stops at :intent; live actuation is the producer cell under Council Lv7+ + operator-DID + member-sig"
+          },
+          "liveActuationGate": { "type": "string", "description": "the gate the live act must pass (producer-cell + council-lv7+ + operator-did + member-sig)" },
+          "serverHeldKey": { "type": "boolean", "const": false, "description": "G6 — no-server-key; iriai holds no signing key" },
+          "attribution": { "type": "string", "const": "member-cacao-leash", "description": "autonomous writes attributed to a consenting member via a revocable CACAO leash (ADR-2606111400)" },
+          "transparency": { "type": "string", "description": "on-chain-log + open-source (§1.12)" },
+          "advisory": { "type": "boolean", "const": true, "description": "G3 — iriai never unilaterally decides or dispatches" }
+        }
+      }
+    }
+  }
+}

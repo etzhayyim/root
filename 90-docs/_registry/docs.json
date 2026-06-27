@@ -26664,6 +26664,80 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606272100-moyoshi-convening-social-capital.md",
+      "id": "adr-2606272100-moyoshi-convening-social-capital",
+      "title": "ADR-2606272100: moyoshi 催し — event design / convening actor that MINTS validated social capital (not turnout)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "moyoshi-actor-convening-social-capital",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/moyoshi"
+      ],
+      "related": [
+        "SOCIAL-CAPITAL-LEDGER (kotoba/docs)",
+        "adr-2606062100-moyai-credit",
+        "adr-2605263400-musubi-covenant-ceremony"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606232200-kizuna-actor-social-self-evolution-sos",
+        "adr-2606073200-asobi-play-cultural-kg-mirror",
+        "adr-2605264000-ossekai-information-arbitrage-wellbecoming"
+      ],
+      "last_verified": "2026-06-27",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606272200-iriai-lifeline-commons-infra-funding-management.md",
+      "id": "adr-2606272200-iriai-lifeline-commons-infra-funding-management",
+      "title": "ADR-2606272200: iriai 入会 — global lifeline-commons (電気/水道/ガス/通信) infra + 資金 + 管理",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "iriai-lifeline-commons",
+      "authoritative": true,
+      "authoritative_for": [
+        "iriai-lifeline-commons",
+        "lifeline-commons-funding-§1.16-in-kind",
+        "lifeline-commons-governance-1sbt1vote"
+      ],
+      "related": [
+        "2605250900",
+        "2605261100",
+        "2605263100",
+        "2606051500",
+        "2606051600",
+        "2605201400",
+        "2606091800",
+        "2606101430",
+        "2606162355",
+        "2606122001",
+        "2606052300",
+        "2606032130",
+        "2605301020",
+        "2605302357",
+        "2606012100",
+        "2606111800",
+        "2605192245",
+        "2606111400",
+        "2606212020",
+        "2606172100"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605262130",
+        "2605312345",
+        "2605192100",
+        "2605231525"
+      ],
+      "last_verified": "2026-06-27",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606272300-atproto-repo-content-addressed-edge-retire-pds.md",
       "id": "adr-2606272300-atproto-repo-content-addressed-edge-retire-pds",
       "title": "ADR-2606272300: Serve the actor AT-repo content-addressed from the edge; retire the stateful PDS",
