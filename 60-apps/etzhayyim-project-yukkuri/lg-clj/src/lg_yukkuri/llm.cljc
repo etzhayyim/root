@@ -1,0 +1,79 @@
+(ns lg-yukkuri.llm
+  "Shared LLM seam for the yukkuri scriptwriter + critic graphs.
+
+  DEVIATION (noted): the Python graphs post to a RunPod vLLM proxy URL
+  (`VLLM_URL`). Per ADR-2605215000 (Murakumo DEFAULT-PREFERRED, loopback gateway
+  127.0.0.1:4000, no-server-key / read-only) the inference edge here defaults to
+  the Murakumo LiteLLM loopback and ASSERTS the endpoint is on the Murakumo
+  fleet allowlist (ibuki guard pattern). The chat call itself is an INJECTABLE
+  dynamic var so tests rebind it to a deterministic stub and verify offline."
+  (:require [clojure.string :as str]))
+
+(defn- clip [s n] (let [s (str s)] (subs s 0 (min n (count s)))))
+
+;; Murakumo fleet (ADR-2605215000) — the ONLY inference endpoints representable.
+(def murakumo-allowed-hosts
+  #{"127.0.0.1:4000" "localhost:4000"
+    "192.168.1.70:8077" "192.168.1.70:11434"
+    "127.0.0.1:11434" "localhost:11434"})
+
+(def llm-url   (-> (or (System/getenv "VLLM_URL") "http://127.0.0.1:4000/v1")
+                   (str/replace #"/+$" "")))
+(def llm-model (or (System/getenv "VLLM_MODEL") "tier0-general"))
+(def llm-timeout-sec (Double/parseDouble (or (System/getenv "VLLM_TIMEOUT_SEC") "90")))
+
+(defn assert-murakumo
+  "Refuse any LLM endpoint outside the Murakumo fleet (http loopback only)."
+  [endpoint]
+  (when-let [[_ scheme host] (re-find #"^([A-Za-z][A-Za-z0-9+.\-]*)://([^/?#]*)" (str endpoint))]
+    (when-not (and (= "http" (str/lower-case scheme))
+                   (contains? murakumo-allowed-hosts (str/lower-case host)))
+      (throw (ex-info (str "inference endpoint " (pr-str endpoint)
+                           " is outside the Murakumo fleet (ADR-2605215000)")
+                      {:murakumo-only-violation true :endpoint endpoint})))))
+
+(defn default-chat-json
+  "Default `*chat-json*`: POST a chat-completions request (JSON response mode)
+  to the Murakumo loopback gateway. Returns the raw assistant content string or
+  {:error ...}. opts = {:max-tokens :temperature}."
+  [system user {:keys [max-tokens temperature]}]
+  (try
+    (assert-murakumo llm-url)
+    (let [post     (requiring-resolve 'babashka.http-client/post)
+          generate (requiring-resolve 'cheshire.core/generate-string)
+          parse    (requiring-resolve 'cheshire.core/parse-string)
+          resp     (post (str llm-url "/chat/completions")
+                         {:headers {"Content-Type" "application/json"}
+                          :timeout (long (* 1000 llm-timeout-sec))
+                          :throw   false
+                          :body (generate {:model llm-model
+                                           :messages [{:role "system" :content system}
+                                                      {:role "user" :content user}]
+                                           :max_tokens (or max-tokens 1000)
+                                           :temperature (or temperature 0.7)
+                                           :response_format {:type "json_object"}})})
+          status   (:status resp)]
+      (if (>= status 400)
+        {:error (str "vllm " status ": " (clip (:body resp) 200))}
+        (let [body (parse (:body resp) true)
+              txt  (some-> (get-in body [:choices 0 :message :content]) str)]
+          (or txt ""))))
+    (catch Exception e {:error (clip (.getMessage e) 200)})))
+
+(def ^:dynamic *chat-json*
+  "Injectable chat edge. (system user opts) → content string | {:error ...}."
+  default-chat-json)
+
+(defn parse-json-object
+  "Lenient JSON-object parse mirroring the Python fallback: try whole string,
+  else extract the first {...} block. Returns a clj map (keyword keys) or nil."
+  [raw]
+  (let [parse (requiring-resolve 'cheshire.core/parse-string)
+        try1  (try (parse (str raw) true) (catch Exception _ nil))]
+    (if (map? try1)
+      try1
+      (let [s (str raw)
+            i (str/index-of s "{")
+            j (str/last-index-of s "}")]
+        (when (and i j (< i j))
+          (try (parse (subs s i (inc j)) true) (catch Exception _ nil)))))))
