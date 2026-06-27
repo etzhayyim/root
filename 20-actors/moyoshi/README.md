@@ -2,8 +2,8 @@
 
 **DID**: `did:web:moyoshi.etzhayyim.com`
 **Namespace**: `com.etzhayyim.moyoshi.*`
-**ADR**: ADR-2606272100 (R0 design-only scaffold)
-**Status**: R1 — `manifest.edn` + `methods/moyoshi.cljc` + `kotoba.app.edn` + tests (10/30 green via `bb run_tests.clj`); live kizuna ingest + settlement decay-window job + on-kse mesh wrapper are R2.
+**ADR**: ADR-2606272100
+**Status**: R2 — R1 convening core + the three R2 legs: live kizuna ingest (`methods/ingest`), settlement decay-window job (`methods/settle`), commit-DAG persistence (`methods/kotoba`), on-kse mesh wrapper (`methods/mesh.clj`), autonomous heartbeat (`autorun`). 18 tests / 58 assertions green (`bb run_tests.clj`); heartbeat verified live (propose → record → persist → verify-chain :ok; idempotent on re-beat). Live kizuna-log read + kotoba live-engine bridge + fleet cell = R3.
 **TIGHT PAIR**: kizuna 絆 (fragility-in / settlement-baseline), ossekai 御節介 (actuator).
 
 > **催し (moyoshi)** — a thing one *holds*; 催す = to host/convene. The name is the
@@ -43,12 +43,14 @@ kizuna fragility signal  +  injected openness/consent/accessibility context
 **moyoshi never books, charges, invites, or posts on its own, and never mints from
 attendance.**
 
-## The loop (one beat — `moyoshi.methods.moyoshi/beat`, R1)
+## The loop (one heartbeat — `moyoshi.autorun/beat`, R2)
 
-`perceive` kizuna fragility + asobi openness gaps → `design` (sealed LLM) →
-`govern` (G2..G6) → `propose` (`:event/proposed` :dry-run → ossekai) → `settle`
-(survived anti-sybil ties → mint signal) → `persist` (content-addressed kotoba
-commit-DAG).
+`ingest` a committed kizuna 絆 readout (`methods/ingest`) → `design` (sealed LLM stand-in)
+→ `govern` (ConveningGovernor, G2..G6) → `propose` (`:event/proposed` :dry-run → ossekai)
+→ `record` a pending gathering (settle-at = epoch + S) → `settle` any gathering whose
+window has elapsed (`methods/settle`, survived + new + anti-sybil ties → mint signal) →
+`persist` (content-addressed kotoba commit-DAG, `methods/kotoba`, idempotent-by-content,
+verify-chain tamper-evident). The on-kse face is `methods/mesh.clj`.
 
 ## Constitutional gates (enforced in code + tests at R1)
 
