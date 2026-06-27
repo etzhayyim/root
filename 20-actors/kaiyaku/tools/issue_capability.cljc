@@ -33,27 +33,18 @@
       Revoke by letting `exp` pass (stop re-issuing)."
   (:require [clojure.string :as str]
             [kaiyaku.methods.cap :as cap]
+            [multiformats.core :as mf]
             #?(:clj [clojure.java.io :as io]))
   #?(:clj (:import [java.security KeyPairGenerator Signature]
                    [java.util Base64])))
 
 ;; ── base58btc (did:key) ─────────────────────────────────────────────────────
 
-(def ^:private B58 "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz")
-
 (defn b58
-  "base58btc encode a byte seq (leading-zero bytes → leading '1')."
+  "base58btc encode a byte seq (leading-zero bytes → leading '1').
+   Delegates to the shared com-junkawasaki/multiformats-clj (portable clj+cljs)."
   [bytes]
-  (let [bs (mapv #(bit-and (long %) 0xff) bytes)
-        n (reduce (fn [acc b] (+ (* acc 256N) (bigint b))) 0N bs)
-        sb (StringBuilder.)]
-    (loop [n n]
-      (when (pos? n)
-        (.append sb (.charAt B58 (int (mod n 58))))
-        (recur (quot n 58))))
-    (let [body (str/reverse (str sb))
-          zeros (count (take-while zero? bs))]
-      (str (apply str (repeat zeros "1")) (if (empty? body) "" body)))))
+  (mf/base58btc bytes))
 
 (defn did-key-from-pubkey
   "Raw 32-byte Ed25519 pubkey → did:key:z6Mk… (multicodec 0xed01 + base58btc,
