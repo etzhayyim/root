@@ -1,7 +1,7 @@
 #!/usr/bin/env bb
 ;; iriai 入会 — commons-ledger kotoba Datom-log writer (content-addressed).
 (ns iriai.methods.kotoba
-  "kotoba.cljc — iriai 入会 append-only COMMONS LEDGER writer (ADR-2606272100, on
+  "kotoba.cljc — iriai 入会 append-only COMMONS LEDGER writer (ADR-2606272200, on
   ADR-2605262130 + ADR-2605312345; the same content-addressed commit-DAG machinery
   as the kafun/ugachi/busshi/meisai family).
 
@@ -129,7 +129,7 @@
            (spit f (str ";; iriai 入会 — COMMONS LEDGER (append-only, content-addressed "
                         "EAVT commit-DAG of lifeline-commons coverage/funding/governance DECISIONS). "
                         "Generated; DO NOT hand-edit. A record of provision/resilience decisions, "
-                        "never a shut-off list. ADR-2606272100.\n")))
+                        "never a shut-off list. ADR-2606272200.\n")))
          (spit f (str (tx->edn tx) "\n") :append true)
          (get tx ":tx/cid")))
 

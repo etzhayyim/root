@@ -3,7 +3,7 @@
 ;; held as a traditional commons (入会権), delivered §1.16 social-security IN-KIND (cash≡0),
 ;; governed 1 SBT = 1 vote. The System-of-Systems umbrella over the producer actors
 ;; (hikari/mizuho/kamado/noroshi) covering infra + 資金 (funding) + 管理 (management).
-;; ADR-2606272100 (R0).
+;; ADR-2606272200 (R0).
 {:actor/id        "iriai"
  :actor/glyph     "入"
  :actor/tier      :tier-b
@@ -11,7 +11,7 @@
  :actor/kind      :lifeline-commons-synthesizer
  :actor/purpose   "Global lifeline-commons (ライフライン: 電気/水道/ガス/通信) System-of-Systems synthesizer + funding + governance. 入会 (iriai) = the traditional Japanese COMMONS — shared rights of use over a collectively-held resource; here the resource is the four lifelines. The umbrella over the producer actors (電気→hikari 光 · 水道→mizuho 水穂 · ガス→kamado 竈 · 通信→noroshi 烽), the way kaname 要 / amime 網目 synthesize across single-domain mirrors. THREE LAYERS: (infra) edge-primary commons-gap = (1−coverage)·essentiality·vulnerability + resilience (single-source SPOF / N-1) per region × lifeline → verdict {:await-consent :provision :reinforce :redundancy :maintain :monitor}; (資金 fund) each provision/reinforce/redundancy cell → a §1.16 social-security IN-KIND funding proposal on the existing non-profit rails (donation → TitheRouter 10% → Public Fund → grant/milestone-escrow/in-kind), cash≡0 to the consumer, imputed market-equivalent value for transparency only (the subaru 昴 precedent + Displacement-Dividend coupling); (管理 manage) each proposal wrapped in 1 SBT = 1 vote governance (20% quorum / 50% / 48h timelock) + Council Lv6+/Lv7+ attestation, actuation-class :intent (compute-only R0 — live energize/flow/ignite/activate is the producer cell under Council Lv7+ + operator-DID + member-sig), no-server-key (member-CACAO leash). A COVERAGE + RESILIENCE map, NEVER a target-list, NEVER a shut-off list — a lifeline is a commons right, never withheld as leverage, never billed, never disconnected. ASSESSMENT + R0 DESIGN ONLY — iriai never produces nor actuates a lifeline; production is the producer actors' under Council. Inversion of the for-profit utility (Veolia/Suez/utility-PE) and of utility-as-coercion."
  :actor/status    :r0
- :actor/adr       "2606272100"
+ :actor/adr       "2606272200"
  :actor/related   ["2605250900" "2605261100" "2605263100" "2606051500" "2606051600" "2605261300"
                    "2605201400" "2606091800" "2606101430" "2606162355" "2606122001" "2606052300"
                    "2606032130" "2605301020" "2605302357" "2606012100" "2606111800"

@@ -1,7 +1,7 @@
 #!/usr/bin/env bb
 ;; iriai 入会 — the lifeline-commons MANAGEMENT (管理) / governance layer (clj-native).
 (ns iriai.methods.manage
-  "iriai 入会 — the MANAGEMENT (管理) layer (ADR-2606272100).
+  "iriai 入会 — the MANAGEMENT (管理) layer (ADR-2606272200).
 
   Wraps every funding proposal in the religious-corp GOVERNANCE envelope and the
   Transparent-Force (§1.12) actuation discipline. iriai PROPOSES; the commons DECIDES;

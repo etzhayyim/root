@@ -13,7 +13,7 @@ iriai is the **System-of-Systems umbrella** over the producer actors (the way **
 · ガス→**kamado 竈** · 通信→**noroshi 烽**. It does **infra + 資金 (funding) + 管理 (management)**
 in one heartbeat. It **never produces and never actuates** a lifeline — ASSESSMENT + R0 DESIGN ONLY.
 
-`did:web:etzhayyim.com:iriai` · `com.etzhayyim.iriai.*` · ADR-2606272100 · clj-native R0.
+`did:web:etzhayyim.com:iriai` · `com.etzhayyim.iriai.*` · ADR-2606272200 · clj-native R0.
 
 ## The three layers
 
@@ -92,7 +92,7 @@ bb --classpath 20-actors 20-actors/iriai/methods/autorun.cljc     # heartbeat �
 - **funding**: tanemaki 種蒔き (Public Fund steward) · fuchi 扶持 (in-kind sustenance) ·
   TitheRouter / PublicFundGovernance · Displacement Dividend · §1.16 social security
 - **SoS pattern**: kaname 要 (leverage synthesizer) · amime 網目 (energy N-1 mesh)
-- Authorized by **ADR-2606272100**. Live production + actuation = producer actors under Council Lv7+, never iriai.
+- Authorized by **ADR-2606272200**. Live production + actuation = producer actors under Council Lv7+, never iriai.
 
 ## R0 → later
 

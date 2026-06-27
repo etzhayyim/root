@@ -1,7 +1,7 @@
 #!/usr/bin/env bb
 ;; iriai 入会 — the lifeline-commons FUNDING (資金) model (clj-native, pure stdlib).
 (ns iriai.methods.fund
-  "iriai 入会 — the FUNDING (資金) layer (ADR-2606272100).
+  "iriai 入会 — the FUNDING (資金) layer (ADR-2606272200).
 
   Turns each infra cell that needs action (:provision / :reinforce / :redundancy)
   into a charter-clean FUNDING PROPOSAL on the existing non-profit rails — the

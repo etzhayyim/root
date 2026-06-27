@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "record",
-      "description": "A lifeline-commons coverage + resilience verdict for one region × lifeline cell, computed on read (ADR-2606272100). 入会 (iriai) = the traditional COMMONS; the lifelines (電気/水道/ガス/通信) are held as a commons right of use. A COVERAGE + RESILIENCE map, NEVER a target-list, NEVER a shut-off list — a lifeline is never withheld as leverage (G1). ASSESSMENT + R0 DESIGN ONLY — iriai never produces nor actuates; production is hikari/mizuho/kamado/noroshi under Council.",
+      "description": "A lifeline-commons coverage + resilience verdict for one region × lifeline cell, computed on read (ADR-2606272200). 入会 (iriai) = the traditional COMMONS; the lifelines (電気/水道/ガス/通信) are held as a commons right of use. A COVERAGE + RESILIENCE map, NEVER a target-list, NEVER a shut-off list — a lifeline is never withheld as leverage (G1). ASSESSMENT + R0 DESIGN ONLY — iriai never produces nor actuates; production is hikari/mizuho/kamado/noroshi under Council.",
       "key": "tid",
       "record": {
         "type": "object",

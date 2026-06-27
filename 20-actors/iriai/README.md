@@ -11,7 +11,7 @@ iriai is the **System-of-Systems umbrella** over the producers — 電気→**hi
 (management)** in one heartbeat. It **never produces and never actuates** a lifeline
 (ASSESSMENT + R0 DESIGN ONLY).
 
-`did:web:etzhayyim.com:iriai` · `com.etzhayyim.iriai.*` · **ADR-2606272100** · clj-native R0
+`did:web:etzhayyim.com:iriai` · `com.etzhayyim.iriai.*` · **ADR-2606272200** · clj-native R0
 (40 tests / 311 assertions green).
 
 ## Three layers

@@ -1,4 +1,4 @@
-;; iriai 入会 — synthetic lifeline-commons seed (ADR-2606272100, R0).
+;; iriai 入会 — synthetic lifeline-commons seed (ADR-2606272200, R0).
 ;; 6 regions × 4 lifelines (電気/水道/ガス/通信) = 24 cells, spanning every verdict:
 ;;   :provision (kibou) · :redundancy (shima) · :reinforce (saigai) ·
 ;;   :maintain (midori) · :await-consent (yama) · :monitor (machi gas).

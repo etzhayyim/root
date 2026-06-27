@@ -4,7 +4,7 @@
   "iriai 入会 — load + classify the lifeline-commons seed substrate.
   Reads the actor's own EDN substrate (kotoba/seed.edn) into Clojure data and
   splits by :type. Dependency-free (clojure.edn stdlib; file I/O :clj-only).
-  Sibling of the kafun/ugachi/busshi *_edn loaders. ADR-2606272100.
+  Sibling of the kafun/ugachi/busshi *_edn loaders. ADR-2606272200.
 
   入会 (iriai) = the traditional Japanese COMMONS — shared rights of use over a
   collectively-held resource (forest/water/pasture). Here the commons is the four

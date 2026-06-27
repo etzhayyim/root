@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "record",
-      "description": "The governance envelope for a lifeline-commons funding proposal (ADR-2606272100). iriai PROPOSES; the commons (1 SBT = 1 vote) DECIDES; the producer actor (under Council) ACTS. Compute-only R0: the decision stops at :intent — the live act (energize/flow/ignite/activate) is the producer cell under Council Lv7+ + operator-DID + member signature (G5, §1.12 Transparent-Force). no-server-key: iriai holds no key; writes are member-CACAO-attributed (G6).",
+      "description": "The governance envelope for a lifeline-commons funding proposal (ADR-2606272200). iriai PROPOSES; the commons (1 SBT = 1 vote) DECIDES; the producer actor (under Council) ACTS. Compute-only R0: the decision stops at :intent — the live act (energize/flow/ignite/activate) is the producer cell under Council Lv7+ + operator-DID + member signature (G5, §1.12 Transparent-Force). no-server-key: iriai holds no key; writes are member-CACAO-attributed (G6).",
       "key": "tid",
       "record": {
         "type": "object",

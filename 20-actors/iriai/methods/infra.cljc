@@ -1,7 +1,7 @@
 #!/usr/bin/env bb
 ;; iriai 入会 — the lifeline-commons INFRA gate (System-of-Systems, clj-native, pure stdlib).
 (ns iriai.methods.infra
-  "iriai 入会 — the lifeline-commons INFRA layer (ADR-2606272100).
+  "iriai 入会 — the lifeline-commons INFRA layer (ADR-2606272200).
 
   The System-of-Systems synthesizer over the four lifeline (ライフライン) domains —
   電気 (hikari 光) · 水道 (mizuho 水穂) · ガス (kamado 竈) · 通信 (noroshi 烽 / tsutae 伝え) —
@@ -169,7 +169,7 @@
     (str
      "# iriai 入会 — lifeline-commons COVERAGE + RESILIENCE map\n\n"
      "入会 (iriai) = the traditional COMMONS. The lifelines (電気/水道/ガス/通信) are held "
-     "as a commons right of use (ADR-2606272100) — a COVERAGE + RESILIENCE map, **never a "
+     "as a commons right of use (ADR-2606272200) — a COVERAGE + RESILIENCE map, **never a "
      "target-list, never a shut-off list**; a lifeline is never WITHHELD as leverage (G1). "
      "**ASSESSMENT + R0 DESIGN ONLY — iriai never energizes, flows, ignites, or activates** "
      "(G5); production is hikari/mizuho/kamado/noroshi under Council. All cells are :synthetic.\n\n"

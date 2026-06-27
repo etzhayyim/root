@@ -1,7 +1,7 @@
 #!/usr/bin/env bb
 ;; iriai 入会 — constitutional gate assertions (clj-native, pure stdlib).
 (ns iriai.methods.gates
-  "iriai 入会 — the constitutional GATES (ADR-2606272100), as throwing assertions +
+  "iriai 入会 — the constitutional GATES (ADR-2606272200), as throwing assertions +
   structural checks. The charter-clean inversion of a for-profit utility: a lifeline
   (ライフライン) is a COMMONS right of use (入会権), never a metered product, never
   leverage, never withheld.

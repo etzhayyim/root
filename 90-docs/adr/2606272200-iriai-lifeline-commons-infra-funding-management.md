@@ -1,6 +1,6 @@
 ---
-id: adr-2606272100-iriai-lifeline-commons-infra-funding-management
-title: "ADR-2606272100: iriai 入会 — global lifeline-commons (電気/水道/ガス/通信) infra + 資金 + 管理"
+id: adr-2606272200-iriai-lifeline-commons-infra-funding-management
+title: "ADR-2606272200: iriai 入会 — global lifeline-commons (電気/水道/ガス/通信) infra + 資金 + 管理"
 status: accepted
 doc_type: adr
 topic: iriai-lifeline-commons
@@ -44,7 +44,7 @@ supersedes: []
 superseded_by: []
 ---
 
-# ADR-2606272100: iriai 入会 — global lifeline-commons (電気/水道/ガス/通信) infra + 資金 + 管理
+# ADR-2606272200: iriai 入会 — global lifeline-commons (電気/水道/ガス/通信) infra + 資金 + 管理
 
 **Status**: accepted
 **Date**: 2026-06-27

@@ -1,9 +1,9 @@
-;; iriai 入会 — EAVT ontology (kotoba-Datom-native). ADR-2606272100.
+;; iriai 入会 — EAVT ontology (kotoba-Datom-native). ADR-2606272200.
 ;; The lifeline-commons (電気/水道/ガス/通信) coverage + funding + governance schema.
 ;; The NEGATIVE SPACE (forbidden attrs) is declared explicitly — it is the charter
 ;; inversion made structural (a lifeline is a commons, never a metered product/leverage).
 {:ontology/id "iriai"
- :ontology/adr "2606272100"
+ :ontology/adr "2606272200"
 
  :ontology/entities
  [{:entity :region        :note "a lifeline service area (the commons boundary)"}

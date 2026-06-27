@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "record",
-      "description": "A §1.16 social-security IN-KIND funding proposal for a lifeline-commons cell (ADR-2606272100). Funded on the non-profit rails: donation → TitheRouter 10% → Public Fund → grant/milestone-escrow/in-kind. Delivery is §1.16 in-kind: cash ≡ 0 to the consumer (G2) — a lifeline is a commons right, never billed, never disconnected for non-payment. iriai is a STEWARD, not a sovereign (G3): every proposal is advisory; the Public Fund (1 SBT = 1 vote) decides. The subaru 昴 in-kind precedent + Displacement-Dividend coupling.",
+      "description": "A §1.16 social-security IN-KIND funding proposal for a lifeline-commons cell (ADR-2606272200). Funded on the non-profit rails: donation → TitheRouter 10% → Public Fund → grant/milestone-escrow/in-kind. Delivery is §1.16 in-kind: cash ≡ 0 to the consumer (G2) — a lifeline is a commons right, never billed, never disconnected for non-payment. iriai is a STEWARD, not a sovereign (G3): every proposal is advisory; the Public Fund (1 SBT = 1 vote) decides. The subaru 昴 in-kind precedent + Displacement-Dividend coupling.",
       "key": "tid",
       "record": {
         "type": "object",

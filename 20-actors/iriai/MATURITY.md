@@ -1,6 +1,6 @@
 # iriai 入会 — MATURITY
 
-**ADR-2606272100** · clj-native R0 · `did:web:etzhayyim.com:iriai`
+**ADR-2606272200** · clj-native R0 · `did:web:etzhayyim.com:iriai`
 
 ## R0 checklist (15/15)
 
@@ -17,7 +17,7 @@
 - [x] tests — 6 suites, **40 tests / 311 assertions green** (bb)
 - [x] runner — `run_tests.clj` (bb-native, no shell, ADR-2606072802)
 - [x] docs — README.md + CLAUDE.md + this MATURITY.md
-- [x] ADR — `90-docs/adr/2606272100-iriai-lifeline-commons-infra-funding-management.md`
+- [x] ADR — `90-docs/adr/2606272200-iriai-lifeline-commons-infra-funding-management.md`
 - [x] gitignore — `data/persisted/` (generated ledger never committed)
 
 ## Verdict distribution (synthetic seed)

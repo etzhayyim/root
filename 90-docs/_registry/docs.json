@@ -26664,9 +26664,36 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2606272100-iriai-lifeline-commons-infra-funding-management.md",
-      "id": "adr-2606272100-iriai-lifeline-commons-infra-funding-management",
-      "title": "ADR-2606272100: iriai 入会 — global lifeline-commons (電気/水道/ガス/通信) infra + 資金 + 管理",
+      "path": "90-docs/adr/2606272100-moyoshi-convening-social-capital.md",
+      "id": "adr-2606272100-moyoshi-convening-social-capital",
+      "title": "ADR-2606272100: moyoshi 催し — event design / convening actor that MINTS validated social capital (not turnout)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "moyoshi-actor-convening-social-capital",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/moyoshi"
+      ],
+      "related": [
+        "SOCIAL-CAPITAL-LEDGER (kotoba/docs)",
+        "adr-2606062100-moyai-credit",
+        "adr-2605263400-musubi-covenant-ceremony"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606232200-kizuna-actor-social-self-evolution-sos",
+        "adr-2606073200-asobi-play-cultural-kg-mirror",
+        "adr-2605264000-ossekai-information-arbitrage-wellbecoming"
+      ],
+      "last_verified": "2026-06-27",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606272200-iriai-lifeline-commons-infra-funding-management.md",
+      "id": "adr-2606272200-iriai-lifeline-commons-infra-funding-management",
+      "title": "ADR-2606272200: iriai 入会 — global lifeline-commons (電気/水道/ガス/通信) infra + 資金 + 管理",
       "status": "accepted",
       "doc_type": "adr",
       "topic": "iriai-lifeline-commons",
