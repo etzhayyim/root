@@ -26797,6 +26797,30 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606280030-60apps-e7m-dataset-langgraph-python-to-clj-full-migration.md",
+      "id": "adr-2606280030-60apps-e7m-dataset-langgraph-python-to-clj-full-migration",
+      "title": "ADR-2606280030: 60-apps + e7m-dataset langgraph-python → clj full migration",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "60apps-e7m-dataset-langgraph-clj-migration",
+      "authoritative": true,
+      "authoritative_for": [
+        "60-apps-langgraph-clj-migration",
+        "e7m-dataset-clj-migration"
+      ],
+      "related": [
+        "adr-2606222000-etzhayyim-cli-babashka-port",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [],
+      "last_verified": "2026-06-27",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606280900-iriai-physical-twin-and-maintenance-lifecycle.md",
       "id": "adr-2606280900-iriai-physical-twin-and-maintenance-lifecycle",
       "title": "ADR-2606280900: iriai 入会 — physical-simulation twin + operations/maintenance lifecycle (+ 道路)",
