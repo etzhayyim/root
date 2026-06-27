@@ -26635,6 +26635,35 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606271700-nyusatsu-worldwide-procurement-social-actor.md",
+      "id": "adr-2606271700-nyusatsu-worldwide-procurement-social-actor",
+      "title": "ADR-2606271700: nyusatsu 入札 — JP→worldwide public-procurement mirror, OCDS-normalized, jurisdiction-attributed, social-derived",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "nyusatsu-worldwide-procurement-mirror",
+      "authoritative": true,
+      "authoritative_for": [
+        "nyusatsu-worldwide-procurement-mirror",
+        "govFiscal-procurementBid-lexicon"
+      ],
+      "related": [
+        "2606212200",
+        "2605301600",
+        "0035"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605262130",
+        "2605312345",
+        "2606230001",
+        "2606072000"
+      ],
+      "last_verified": "2026-06-27",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606272300-atproto-repo-content-addressed-edge-retire-pds.md",
       "id": "adr-2606272300-atproto-repo-content-addressed-edge-retire-pds",
       "title": "ADR-2606272300: Serve the actor AT-repo content-addressed from the edge; retire the stateful PDS",
