@@ -41,7 +41,7 @@
              (apply (resolve 'etzhayyim.issue-cacao/-main) *command-line-args*))}
 
   kotobase:pin
-  {:doc "Register a CID with kotobase.net's IPFS Pinning Service via a self-sovereign kotobase:pin CACAO (clj; replaces the throwaway node script, ADR-2606111330). Reads the tenant seed from env KOTOBA_SEED_HEX (your own vault), mints the CACAO in-process (no-server-key), POSTs /pins. Args: <cid> [name] [--endpoint <url>]"
+  {:doc "Register a CID with kotobase.net's IPFS Pinning Service via a self-sovereign kotobase:pin CACAO (clj; replaces the throwaway node script, ADR-2606111330). The tenant seed is AUTO-RESOLVED — env KOTOBA_SEED_HEX, else 1Password via `op` (interactive session OR OP_SERVICE_ACCOUNT_TOKEN for cron) — so no secret is re-pasted each run. Mints the CACAO in-process (no-server-key), POSTs /pins over babashka.http-client. Args: <cid> [name] [--endpoint <url>]. Override the vault item via KOTOBASE_OP_{ITEM,VAULT,FIELD}."
    :task (do (require 'etzhayyim.kotobase-pin)
              (apply (resolve 'etzhayyim.kotobase-pin/-main) *command-line-args*))}
 
