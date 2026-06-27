@@ -1,0 +1,89 @@
+;; iriai 入会 — actor manifest (clj-native, kotoba-Datom-native)
+;; The non-profit GLOBAL LIFELINE-COMMONS actor: the four lifelines (電気/水道/ガス/通信)
+;; held as a traditional commons (入会権), delivered §1.16 social-security IN-KIND (cash≡0),
+;; governed 1 SBT = 1 vote. The System-of-Systems umbrella over the producer actors
+;; (hikari/mizuho/kamado/noroshi) covering infra + 資金 (funding) + 管理 (management).
+;; ADR-2606272100 (R0).
+{:actor/id        "iriai"
+ :actor/glyph     "入"
+ :actor/tier      :tier-b
+ :actor/domain    "iriai.etzhayyim.com"
+ :actor/kind      :lifeline-commons-synthesizer
+ :actor/purpose   "Global lifeline-commons (ライフライン: 電気/水道/ガス/通信) System-of-Systems synthesizer + funding + governance. 入会 (iriai) = the traditional Japanese COMMONS — shared rights of use over a collectively-held resource; here the resource is the four lifelines. The umbrella over the producer actors (電気→hikari 光 · 水道→mizuho 水穂 · ガス→kamado 竈 · 通信→noroshi 烽), the way kaname 要 / amime 網目 synthesize across single-domain mirrors. THREE LAYERS: (infra) edge-primary commons-gap = (1−coverage)·essentiality·vulnerability + resilience (single-source SPOF / N-1) per region × lifeline → verdict {:await-consent :provision :reinforce :redundancy :maintain :monitor}; (資金 fund) each provision/reinforce/redundancy cell → a §1.16 social-security IN-KIND funding proposal on the existing non-profit rails (donation → TitheRouter 10% → Public Fund → grant/milestone-escrow/in-kind), cash≡0 to the consumer, imputed market-equivalent value for transparency only (the subaru 昴 precedent + Displacement-Dividend coupling); (管理 manage) each proposal wrapped in 1 SBT = 1 vote governance (20% quorum / 50% / 48h timelock) + Council Lv6+/Lv7+ attestation, actuation-class :intent (compute-only R0 — live energize/flow/ignite/activate is the producer cell under Council Lv7+ + operator-DID + member-sig), no-server-key (member-CACAO leash). A COVERAGE + RESILIENCE map, NEVER a target-list, NEVER a shut-off list — a lifeline is a commons right, never withheld as leverage, never billed, never disconnected. ASSESSMENT + R0 DESIGN ONLY — iriai never produces nor actuates a lifeline; production is the producer actors' under Council. Inversion of the for-profit utility (Veolia/Suez/utility-PE) and of utility-as-coercion."
+ :actor/status    :r0
+ :actor/adr       "2606272100"
+ :actor/related   ["2605250900" "2605261100" "2605263100" "2606051500" "2606051600" "2605261300"
+                   "2605201400" "2606091800" "2606101430" "2606162355" "2606122001" "2606052300"
+                   "2606032130" "2605301020" "2605302357" "2606012100" "2606111800"
+                   "2605192100" "2605192245" "2605231525" "2606111400" "2605262130" "2605312345"]
+
+ :actor/charter-rider
+ {:rider/version "3.5"
+  :rider/applied true}
+
+ :actor/composes
+ [{:lifeline :electric :producer "hikari"  :adr "2605261100"}
+  {:lifeline :water    :producer "mizuho"  :adr "2605263100"}
+  {:lifeline :gas      :producer "kamado"  :adr "2606051500"}
+  {:lifeline :telecom  :producer "noroshi" :adr "2606051600"}
+  {:role :connection   :actor "infra-utility-connect" :adr "2605250900"}
+  {:role :production-robotics :actor "kuni-umi" :adr "2605201400" :note "infra-robotics 3-layer (ADR-2606091800)"}]
+
+ :actor/gates
+ [{:gate/id "G1" :gate/name "commons-map-not-shutoff-list" :gate/rule "A COVERAGE + RESILIENCE map, NEVER a target-list / shut-off list; a lifeline is a commons right of use (入会権), never WITHHELD as leverage. :iriai/shutoff + :iriai/disconnect + :iriai.region/deny + :iriai.person/* unrepresentable (test-enforced); aggregate region-scale only, no per-person connection/location"}
+  {:gate/id "G2" :gate/name "commons-not-a-market" :gate/rule "cash ≡ 0 to the consumer (§1.16 in-kind); never billed, never disconnected for non-payment. Instruments {:grant :milestone-escrow :in-kind} ONLY — :iriai.fund/tariff + :iriai.fund/price + :iriai.fund/subscription + :iriai.fund/equity + :iriai.fund/disconnect-for-nonpayment unrepresentable. Imputed value is market-equivalent transparency-only, NOT a price"}
+  {:gate/id "G3" :gate/name "steward-not-sovereign" :gate/rule "iriai PROPOSES; the commons (1 SBT = 1 vote) DECIDES. NO :iriai/fund / :iriai.manage/decide / :iriai.manage/dispatch route; every proposal advisory:true / binds-fund:false / decided-by 1-sbt-1-vote (the tanemaki steward pattern)"}
+  {:gate/id "G4" :gate/name "non-profit-rails-only" :gate/rule "Funding is donation → TitheRouter 10% → Public Fund (USDC/Base/ERC-4337, or non-custodial fiat→USDC on-ramp); no custodial-fiat / no ad-funding / no for-profit utility capture as a funding source"}
+  {:gate/id "G5" :gate/name "assessment-r0-only-never-acts" :gate/rule "Compute-only R0; iriai stops at actuation-class :intent. :iriai/actuate + :iriai.infra/energize + open-valve + ignite + activate-link unrepresentable; live actuation is the producer actor's cell under Council Lv7+ + operator-DID + member-sig (infra-robotics R0 precedent, §1.12 Transparent-Force)"}
+  {:gate/id "G6" :gate/name "no-server-key" :gate/rule "Platform holds no signing key; the heartbeat performs no network I/O (local append-only ledger). Autonomous writes attributed to a consenting member via a CACAO leash (ADR-2606111400/2605231525); server-held-key structurally false"}
+  {:gate/id "G7" :gate/name "kotoba-eavt-native" :gate/rule "State is kotoba EAVT Datoms (content-addressed commit-DAG, verify-chain); datoms flagged :iriai/derived + :iriai/sourcing"}
+  {:gate/id "G8" :gate/name "synthetic-seed" :gate/rule "R0 seed is :synthetic; real region/utility-coverage data is an operator/Council step (no-server-key bars a custodial key, not read-only public ingest — a future G7 leg)"}]
+
+ :actor/non-goals
+ [{:n/id "N1" :n/rule "Never PRODUCES a lifeline — production is hikari/mizuho/kamado/noroshi; iriai is the SoS synthesizer + funding + governance umbrella only"}
+  {:n/id "N2" :n/rule "Never ACTUATES — never energizes a grid, opens a valve, ignites gas, or activates a link (R0 assessment + design; live actuation unrepresentable, producer + Council Lv7+ only)"}
+  {:n/id "N3" :n/rule "Never a metered product, never a market — no tariff/price/subscription/bill; the lifeline is a commons right delivered §1.16 in-kind (cash≡0)"}
+  {:n/id "N4" :n/rule "Never withholds a lifeline as leverage — there is no shut-off/disconnect/deny route; the inversion of utility-as-coercion"}
+  {:n/id "N5" :n/rule "Never decides funding — iriai proposes (advisory); the Public Fund (1 SBT = 1 vote) decides; no per-person connection/location data (aggregate region-scale only)"}]
+
+ :actor/methods
+ [{:method/id "iriai_edn" :method/file "methods/iriai_edn.cljc" :method/role "seed loader + classify (regions + lifeline-cells)"}
+  {:method/id "infra"   :method/file "methods/infra.cljc"   :method/role "infra: SoS coverage/resilience gate — commons-gap → verdict → assess → datoms → report"}
+  {:method/id "fund"    :method/file "methods/fund.cljc"    :method/role "資金: §1.16 in-kind funding proposal (cash≡0, give-only instruments, imputed value) → plan → datoms → report"}
+  {:method/id "manage"  :method/file "methods/manage.cljc"  :method/role "管理: 1 SBT=1 vote governance + :intent actuation + no-server-key → ledger → datoms → report"}
+  {:method/id "gates"   :method/file "methods/gates.cljc"   :method/role "constitutional gate assertions (ex-info) + structural forbidden-absent? (the charter inversions)"}
+  {:method/id "kotoba"  :method/file "methods/kotoba.cljc"  :method/role "持続永続化: content-addressed append-only COMMONS LEDGER (tx-cid/make-tx/append-tx/read-log/verify-chain)"}
+  {:method/id "autorun" :method/file "methods/autorun.cljc" :method/role "持続永続化: deterministic, idempotent-by-content heartbeat — infra+fund+manage → append (+ bb CLI)"}]
+
+ :actor/lex
+ [{:lex/id "lifelineCoverageMap" :lex/nsid "com.etzhayyim.iriai.lifelineCoverageMap"
+   :lex/file "00-contracts/lexicons/com/etzhayyim/iriai/lifelineCoverageMap.json"}
+  {:lex/id "commonsFundingProposal" :lex/nsid "com.etzhayyim.iriai.commonsFundingProposal"
+   :lex/file "00-contracts/lexicons/com/etzhayyim/iriai/commonsFundingProposal.json"}
+  {:lex/id "governanceDecision" :lex/nsid "com.etzhayyim.iriai.governanceDecision"
+   :lex/file "00-contracts/lexicons/com/etzhayyim/iriai/governanceDecision.json"}]
+
+ :actor/ledger
+ {:ledger/file "data/persisted/iriai.commons.kotoba.edn"
+  :ledger/kind :append-only-content-addressed-commit-dag
+  :ledger/gitignored true
+  :ledger/note "Generated commons ledger of lifeline coverage/funding/governance DECISIONS; tamper-evident (verify-chain); no-server-key; a record of provision/resilience decisions, never a shut-off list."}
+
+ :actor/seed
+ {:seed/file "kotoba/seed.edn"
+  :seed/ontology "kotoba/ontology.iriai.edn"
+  :seed/sourcing :synthetic
+  :seed/scale "6 regions × 4 lifelines = 24 cells"
+  :seed/verdicts [:await-consent :provision :reinforce :redundancy :maintain :monitor]}
+
+ :actor/tests
+ {:runner "babashka"
+  :cmd "bb 20-actors/iriai/run_tests.clj"
+  :suites ["methods/test_infra.cljc" "methods/test_fund.cljc" "methods/test_manage.cljc"
+           "methods/test_gates.cljc" "methods/test_kotoba.cljc" "methods/test_autorun.cljc"]
+  :status "40 tests / 311 assertions green (bb)"}
+
+ :actor/r0-later
+ {:r1 "real region/utility-coverage ingest behind a G7 operator flip (public open-data: World Bank/IEA/JMP/ITU coverage stats — read-only, no key); inochi/jinushi land-sovereignty grounding for consent; amime N-1 energy-mesh join for the electric layer"
+  :r2 "fleet registration (cell-runner cells.edn + healthz, the kaname/kafun track); Murakumo-narrated commons digest; live kotoba-engine bridge (ibuki-R3 pattern); lexicon JSON under 00-contracts/lexicons/com/etzhayyim/iriai/"
+  :note "Live production + actuation stays the producer actors' (hikari/mizuho/kamado/noroshi) under Council Lv7+, never iriai."}}

@@ -1,0 +1,81 @@
+;; iriai 入会 — synthetic lifeline-commons seed (ADR-2606272100, R0).
+;; 6 regions × 4 lifelines (電気/水道/ガス/通信) = 24 cells, spanning every verdict:
+;;   :provision (kibou) · :redundancy (shima) · :reinforce (saigai) ·
+;;   :maintain (midori) · :await-consent (yama) · :monitor (machi gas).
+;; ALL :synthetic (G8). Real region/utility data is an operator/Council step (G7).
+;; A cell = one region × one lifeline; :source names the producer actor (iriai composes).
+[
+ ;; ── regions ───────────────────────────────────────────────────────────────
+ {:type :region :id "kibou"  :name "Kibou Village"   :country "—" :population 1000 :vulnerability 0.8
+  :note "off-grid rural — the §1.16 reach gap on all four lifelines"}
+ {:type :region :id "shima"  :name "Shima Atoll"     :country "—" :population 1000 :vulnerability 0.6
+  :note "island — served but single-source on power + telecom (SPOF)"}
+ {:type :region :id "saigai" :name "Saigai Town"     :country "—" :population 1000 :vulnerability 0.7
+  :note "post-disaster — coverage degraded below baseline"}
+ {:type :region :id "midori" :name "Midori Commons"  :country "—" :population 1000 :vulnerability 0.3
+  :note "fully served + resilient commons — steady state"}
+ {:type :region :id "yama"   :name "Yama Hamlet"     :country "—" :population 1000 :vulnerability 0.7
+  :note "needs a build but landowner/community consent is NOT in hand"}
+ {:type :region :id "machi"  :name "Machi Ward"      :country "—" :population 5000 :vulnerability 0.2
+  :note "adequate urban ward — low gap; gas below adequate → observe"}
+
+ ;; ── kibou: unconnected → :provision (all four) ────────────────────────────
+ {:type :lifeline-cell :region "kibou" :region-name "Kibou Village" :lifeline :electric :source "hikari"
+  :served-pop 200 :total-pop 1000 :vulnerability 0.8 :single-source? false :n1-margin 0.1 :consent true :disaster-degraded? false}
+ {:type :lifeline-cell :region "kibou" :region-name "Kibou Village" :lifeline :water :source "mizuho"
+  :served-pop 150 :total-pop 1000 :vulnerability 0.8 :single-source? false :n1-margin 0.1 :consent true :disaster-degraded? false}
+ {:type :lifeline-cell :region "kibou" :region-name "Kibou Village" :lifeline :gas :source "kamado"
+  :served-pop 100 :total-pop 1000 :vulnerability 0.8 :single-source? false :n1-margin 0.1 :consent true :disaster-degraded? false}
+ {:type :lifeline-cell :region "kibou" :region-name "Kibou Village" :lifeline :telecom :source "noroshi"
+  :served-pop 300 :total-pop 1000 :vulnerability 0.8 :single-source? false :n1-margin 0.1 :consent true :disaster-degraded? false}
+
+ ;; ── shima: single-source power+telecom → :redundancy; water+gas resilient → :maintain ──
+ {:type :lifeline-cell :region "shima" :region-name "Shima Atoll" :lifeline :electric :source "hikari"
+  :served-pop 950 :total-pop 1000 :vulnerability 0.6 :single-source? true :n1-margin -0.2 :consent true :disaster-degraded? false}
+ {:type :lifeline-cell :region "shima" :region-name "Shima Atoll" :lifeline :telecom :source "noroshi"
+  :served-pop 920 :total-pop 1000 :vulnerability 0.6 :single-source? true :n1-margin -0.1 :consent true :disaster-degraded? false}
+ {:type :lifeline-cell :region "shima" :region-name "Shima Atoll" :lifeline :water :source "mizuho"
+  :served-pop 980 :total-pop 1000 :vulnerability 0.6 :single-source? false :n1-margin 0.3 :consent true :disaster-degraded? false}
+ {:type :lifeline-cell :region "shima" :region-name "Shima Atoll" :lifeline :gas :source "kamado"
+  :served-pop 900 :total-pop 1000 :vulnerability 0.6 :single-source? false :n1-margin 0.2 :consent true :disaster-degraded? false}
+
+ ;; ── saigai: disaster-degraded → :reinforce (all four) ─────────────────────
+ {:type :lifeline-cell :region "saigai" :region-name "Saigai Town" :lifeline :water :source "mizuho"
+  :served-pop 600 :total-pop 1000 :vulnerability 0.7 :single-source? false :n1-margin 0.1 :consent true :disaster-degraded? true}
+ {:type :lifeline-cell :region "saigai" :region-name "Saigai Town" :lifeline :electric :source "hikari"
+  :served-pop 700 :total-pop 1000 :vulnerability 0.7 :single-source? false :n1-margin 0.1 :consent true :disaster-degraded? true}
+ {:type :lifeline-cell :region "saigai" :region-name "Saigai Town" :lifeline :telecom :source "noroshi"
+  :served-pop 650 :total-pop 1000 :vulnerability 0.7 :single-source? false :n1-margin 0.1 :consent true :disaster-degraded? true}
+ {:type :lifeline-cell :region "saigai" :region-name "Saigai Town" :lifeline :gas :source "kamado"
+  :served-pop 500 :total-pop 1000 :vulnerability 0.7 :single-source? false :n1-margin 0.1 :consent true :disaster-degraded? true}
+
+ ;; ── midori: fully served + resilient → :maintain (all four) ───────────────
+ {:type :lifeline-cell :region "midori" :region-name "Midori Commons" :lifeline :electric :source "hikari"
+  :served-pop 995 :total-pop 1000 :vulnerability 0.3 :single-source? false :n1-margin 0.5 :consent true :disaster-degraded? false}
+ {:type :lifeline-cell :region "midori" :region-name "Midori Commons" :lifeline :water :source "mizuho"
+  :served-pop 1000 :total-pop 1000 :vulnerability 0.3 :single-source? false :n1-margin 0.5 :consent true :disaster-degraded? false}
+ {:type :lifeline-cell :region "midori" :region-name "Midori Commons" :lifeline :gas :source "kamado"
+  :served-pop 980 :total-pop 1000 :vulnerability 0.3 :single-source? false :n1-margin 0.4 :consent true :disaster-degraded? false}
+ {:type :lifeline-cell :region "midori" :region-name "Midori Commons" :lifeline :telecom :source "noroshi"
+  :served-pop 990 :total-pop 1000 :vulnerability 0.3 :single-source? false :n1-margin 0.4 :consent true :disaster-degraded? false}
+
+ ;; ── yama: high need but NO consent → :await-consent (all four; G3 land sovereignty) ──
+ {:type :lifeline-cell :region "yama" :region-name "Yama Hamlet" :lifeline :electric :source "hikari"
+  :served-pop 100 :total-pop 1000 :vulnerability 0.7 :single-source? false :n1-margin 0.1 :consent false :disaster-degraded? false}
+ {:type :lifeline-cell :region "yama" :region-name "Yama Hamlet" :lifeline :water :source "mizuho"
+  :served-pop 80 :total-pop 1000 :vulnerability 0.7 :single-source? false :n1-margin 0.1 :consent false :disaster-degraded? false}
+ {:type :lifeline-cell :region "yama" :region-name "Yama Hamlet" :lifeline :gas :source "kamado"
+  :served-pop 50 :total-pop 1000 :vulnerability 0.7 :single-source? false :n1-margin 0.1 :consent false :disaster-degraded? false}
+ {:type :lifeline-cell :region "yama" :region-name "Yama Hamlet" :lifeline :telecom :source "noroshi"
+  :served-pop 120 :total-pop 1000 :vulnerability 0.7 :single-source? false :n1-margin 0.1 :consent false :disaster-degraded? false}
+
+ ;; ── machi: adequate → :maintain; gas below adequate but low-burden → :monitor ──
+ {:type :lifeline-cell :region "machi" :region-name "Machi Ward" :lifeline :electric :source "hikari"
+  :served-pop 4900 :total-pop 5000 :vulnerability 0.2 :single-source? false :n1-margin 0.4 :consent true :disaster-degraded? false}
+ {:type :lifeline-cell :region "machi" :region-name "Machi Ward" :lifeline :water :source "mizuho"
+  :served-pop 4950 :total-pop 5000 :vulnerability 0.2 :single-source? false :n1-margin 0.4 :consent true :disaster-degraded? false}
+ {:type :lifeline-cell :region "machi" :region-name "Machi Ward" :lifeline :telecom :source "noroshi"
+  :served-pop 4800 :total-pop 5000 :vulnerability 0.2 :single-source? false :n1-margin 0.3 :consent true :disaster-degraded? false}
+ {:type :lifeline-cell :region "machi" :region-name "Machi Ward" :lifeline :gas :source "kamado"
+  :served-pop 4100 :total-pop 5000 :vulnerability 0.2 :single-source? false :n1-margin 0.1 :consent true :disaster-degraded? false}
+]
