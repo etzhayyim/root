@@ -81,15 +81,15 @@ Status: ⬜ pending · 🟡 in-flight · ✅ migrated (cljc twin verified, .py r
 
 | app | py | httpx | lg | status |
 |---|---|---|---|---|
-| etzhayyim-project-mangaka | 96 | 6 | ✓ | ⬜ |
-| etzhayyim-project-animeka | 44 | 14 | ✓ | ⬜ |
+| etzhayyim-project-mangaka | 96 | 6 | ✓ | 🟡 partial #2649 |
+| etzhayyim-project-animeka | 44 | 14 | ✓ | 🟢 twin #2652 |
 | etzhayyim-project-open-ot | 32 | 0 | | ⬜ |
-| etzhayyim-project-yukkuri | 25 | 12 | ✓ | ⬜ |
+| etzhayyim-project-yukkuri | 25 | 12 | ✓ | 🟢 twin #2648 |
 | kotoba-erp | 23 | 0 | | ⬜ |
 | etzhayyim-project-maps | 22 | 0 | | ⬜ |
-| etzhayyim-project-jukyu | 21 | 1 | ✓ | ⬜ |
+| etzhayyim-project-jukyu | 21 | 1 | ✓ | 🟢 twin #2651 |
 | etzhayyim-project-states | 20 | 0 | | ⬜ |
-| etzhayyim-project-hakken | 19 | 10 | ✓ | ⬜ |
+| etzhayyim-project-hakken | 19 | 10 | ✓ | 🟡 partial #2650 |
 | ai-gftd-chat-shell | 17 | 2 | ✓ | 🟢 twin #2631 |
 | etzhayyim-chat-shell | 17 | 2 | ✓ | 🟢 twin #2634 |
 | etzhayyim-project-kyber | 17 | 3 | ✓ | 🟢 twin #2632 |
@@ -103,25 +103,25 @@ Status: ⬜ pending · 🟡 in-flight · ✅ migrated (cljc twin verified, .py r
 | etzhayyim-project-webmk | 12 | 1 | ✓ | 🟢 twin #2620 |
 | etzhayyim-organism-viz | 11 | 0 | | ⬜ |
 | etzhayyim-project-drive | 11 | 2 | ✓ | 🟢 twin #2624 |
-| etzhayyim-project-patent | 11 | 0 | ✓ | ⬜ |
+| etzhayyim-project-patent | 11 | 0 | ✓ | 🟢 twin #2640 |
 | etzhayyim-project-x | 11 | 3 | ✓ | 🟢 twin #2628 |
-| etzhayyim-project-open-isic | 10 | 0 | ✓ | ⬜ |
-| etzhayyim-project-open-patent | 10 | 0 | ✓ | ⬜ |
+| etzhayyim-project-open-isic | 10 | 0 | ✓ | 🟢 twin #2639 |
+| etzhayyim-project-open-patent | 10 | 0 | ✓ | 🟢 twin #2642 |
 | etzhayyim-project-recap | 10 | 1 | ✓ | 🟢 twin #2622 |
 | etzhayyim-project-dougaka | 8 | 1 | ✓ | 🟢 twin #2621 |
-| etzhayyim-project-lawfirm | 7 | 0 | ✓ | ⬜ |
-| etzhayyim-project-open-jpn-mynumber | 7 | 0 | ✓ | ⬜ |
+| etzhayyim-project-lawfirm | 7 | 0 | ✓ | 🟢 twin #2636 |
+| etzhayyim-project-open-jpn-mynumber | 7 | 0 | ✓ | 🟢 twin #2644 |
 | etzhayyim-project-browser | 6 | 1 | | ⬜ |
 | spirit-in-physics | 6 | 0 | | ⬜ |
 | etzhayyim-project-vpn | 5 | 1 | | ⬜ |
 | etzhayyim-project-comfyui | 4 | 2 | | ⬜ |
-| etzhayyim-project-curpus2skill | 4 | 0 | ✓ | ⬜ |
-| etzhayyim-project-karma | 4 | 0 | ✓ | ⬜ |
-| etzhayyim-project-kenkyusha | 4 | 0 | ✓ | ⬜ |
-| etzhayyim-project-ki | 4 | 0 | ✓ | ⬜ |
-| etzhayyim-project-legal-entity | 4 | 0 | ✓ | ⬜ |
-| etzhayyim-project-pregel | 4 | 0 | ✓ | ⬜ |
-| etzhayyim-project-public-domain-colorization | 4 | 0 | ✓ | ⬜ |
+| etzhayyim-project-curpus2skill | 4 | 0 | ✓ | 🟢 twin #2637 |
+| etzhayyim-project-karma | 4 | 0 | ✓ | 🟢 twin #2638 |
+| etzhayyim-project-kenkyusha | 4 | 0 | ✓ | 🟢 twin #2641 |
+| etzhayyim-project-ki | 4 | 0 | ✓ | 🟢 twin #2646 |
+| etzhayyim-project-legal-entity | 4 | 0 | ✓ | 🟢 twin #2643 |
+| etzhayyim-project-pregel | 4 | 0 | ✓ | 🟢 twin #2647 |
+| etzhayyim-project-public-domain-colorization | 4 | 0 | ✓ | 🟢 twin #2645 |
 | etzhayyim-project-web4 | 3 | 0 | | ⬜ |
 | etzhayyim-project-murakumo | 2 | 0 | | ⬜ |
 | etzhayyim-project-okaimono | 2 | 0 | | ⬜ |
