@@ -894,6 +894,42 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
     adrs: ["2606232200"],
   },
+  maps: {
+    description:
+      "地図 — graph-first spatial intelligence on the kotoba :feature/* Datom substrate (geocode / reverse / place search / H3-AVET chunking). Ships an おすすめ温泉 (onsen) discovery + transparent place-quality ranking: ingests hot-spring POIs from OpenStreetMap (Overpass, ODbL) and ranks them by public PLACE-facts (spring authenticity / notability / amenities) — a feature is a PLACED THING, never a person (G9); no per-person affect/profile/engagement metric, fully auditable via :why. Per ADR-2606064500.",
+    glyph: "地図",
+    displayName: "Maps — Spatial Substrate + Onsen Discovery",
+    primarySchema: "00-contracts/schemas/maps-spatial-ontology.kotoba.edn",
+    // Content-addressed T1 WASM actor (20-actors/maps/wasm/maps-core) — compact Rust
+    // core computing the onsen おすすめ ranking (place_not_person:true), raw CID →
+    // browser-local (ameno) / donated mesh (ADR-2606015200). The full MapLibre+KAMI
+    // renderer stays the TS Worker until the kotoba-native migration (ADR-2606064500
+    // R1→R3) lands. ipfs pin of the bytes = operator step.
+    wasmCid: "bafkreib7d3fzjkhsswr7flwkxejkjhauy67offbfd5o7pukqytdvifdbty",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:maps#wasm",
+        type: "EtzhayyimWasmComponent",
+        serviceEndpoint:
+          "ipfs://bafkreib7d3fzjkhsswr7flwkxejkjhauy67offbfd5o7pukqytdvifdbty",
+        "x-exec": "browser-local|donated-mesh",
+        "x-cid-codec": "raw",
+        "x-runtime": "kotoba-wasm",
+        "x-view": "onsen-osusume",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:maps#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:maps#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606064500", "2606015200"],
+  },
 } as const;
 
 // Merged registry: generated Tier-B actors (from manifests) + hand-authored
