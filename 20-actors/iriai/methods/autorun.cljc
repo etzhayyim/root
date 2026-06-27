@@ -23,6 +23,7 @@
             [iriai.methods.manage :as manage]
             [iriai.methods.twin :as twin]
             [iriai.methods.maintain :as maintain]
+            [iriai.methods.forecast :as forecast]
             [iriai.methods.kotoba :as k]
             #?(:clj [clojure.edn :as edn])))
 
@@ -43,11 +44,13 @@
         assets (or assets [])
         tw (twin/assess assets)
         maint (maintain/plan assets)
+        fcst (forecast/schedule assets)
         ds (vec (concat (infra/datoms assessment)
                         (fund/datoms plan)
                         (manage/datoms gov)
                         (twin/datoms tw)
-                        (maintain/datoms maint)))
+                        (maintain/datoms maint)
+                        (forecast/datoms fcst)))
         prev (k/head-cid log-path)
         last-ds (let [txs (k/read-log log-path)]
                   (when (seq txs) (get (last txs) ":tx/datoms")))
@@ -57,7 +60,8 @@
               :fund (get plan "count")
               :gov (get gov "count")
               :twin (get tw "count")
-              :maint (get maint "tally")}]
+              :maint (get maint "tally")
+              :forecast {:due-now (get fcst "due-now") :within-5yr (get fcst "within-5yr")}}]
     (if unchanged?
       (assoc base :head prev :appended false :reason :no-change)
       (let [tx (k/make-tx ds tx-id as-of prev)
