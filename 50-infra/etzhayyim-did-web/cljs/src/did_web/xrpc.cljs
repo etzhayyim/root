@@ -308,4 +308,25 @@
              (fn [r] (if (= r ::continue)
                        (route-after-shortcircuits request env nsid deps)
                        r)))
+      ;; AT-repo content-addressed edge serving (ADR-2606272300): serve the
+      ;; actor repo CAR statelessly from ACTOR_KV (`at-repo:<did>`) — the AT-repo
+      ;; read off the Cloudflare edge with no operated server (the canonical
+      ;; browser-complete / no-server-state architecture). A repo not yet
+      ;; published to the edge falls through to the PDS proxy (route-after-…).
+      (and read? (= nsid "com.atproto.sync.getRepo"))
+      (let [did (or (.get (.-searchParams (js/URL. (.-url request))) "did") "")
+            kv  (e env "ACTOR_KV")]
+        (if (and (not= did "") kv)
+          (-> (.get kv (str "at-repo:" did) #js {:type "arrayBuffer"})
+              (.then (fn [car]
+                       (if car
+                         (js/Response. car
+                                       #js {:status 200
+                                            :headers #js {"content-type" "application/vnd.ipld.car; version=1"
+                                                          "cache-control" "public, max-age=60"
+                                                          "x-proxied-by" "etzhayyim-did-web"
+                                                          "x-etzhayyim-substrate" "edge-content-addressed"}})
+                         (route-after-shortcircuits request env nsid deps))))
+              (.catch (fn [_] (route-after-shortcircuits request env nsid deps))))
+          (route-after-shortcircuits request env nsid deps)))
       :else (route-after-shortcircuits request env nsid deps))))
