@@ -26638,7 +26638,7 @@
       "path": "90-docs/adr/2606271700-nyusatsu-worldwide-procurement-social-actor.md",
       "id": "adr-2606271700-nyusatsu-worldwide-procurement-social-actor",
       "title": "ADR-2606271700: nyusatsu 入札 — JP→worldwide public-procurement mirror, OCDS-normalized, jurisdiction-attributed, social-derived",
-      "status": "proposed",
+      "status": "accepted",
       "doc_type": "adr",
       "topic": "nyusatsu-worldwide-procurement-mirror",
       "authoritative": true,

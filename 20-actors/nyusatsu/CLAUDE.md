@@ -1,6 +1,10 @@
 # nyusatsu — Worldwide Public-Procurement Mirror
 
-**DID** `did:web:etzhayyim.com:actor:nyusatsu` · **Tier** B · **Status** R0+R1-offline · **ADR** 2606271700 (worldwide), 0035 (JP origin)
+**DID** `did:web:etzhayyim.com:actor:nyusatsu` · **Tier** B · **Status** R0+R1-offline · **G8 UNLOCKED** (founder Lv7+ 2026-06-27, ADR §8.1) · **ADR** 2606271700 (worldwide), 0035 (JP origin)
+
+> **G8 解禁済み**だが outbound はまだ動かない: live 投稿には **R2 常駐**（autorun + cell + launchd +
+> kotoba_bridge）+ アクター封印 did:key + member CACAO leash（G7）が必要。G8 はゲートを外しただけで
+> パイプラインは未実装。次の一歩 = R2 実装。
 
 ## Quick start
 

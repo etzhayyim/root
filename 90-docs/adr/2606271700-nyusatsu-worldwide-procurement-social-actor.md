@@ -1,7 +1,7 @@
 ---
 id: adr-2606271700-nyusatsu-worldwide-procurement-social-actor
 title: "ADR-2606271700: nyusatsu 入札 — JP→worldwide public-procurement mirror, OCDS-normalized, jurisdiction-attributed, social-derived"
-status: proposed
+status: accepted
 doc_type: adr
 topic: nyusatsu-worldwide-procurement-mirror
 authoritative: true
@@ -28,7 +28,7 @@ superseded_by: []
 
 # ADR-2606271700: nyusatsu 入札 — JP→worldwide public-procurement mirror
 
-**Status**: proposed
+**Status**: accepted (founder Lv7+ attested 2026-06-27; G8 unlocked, §8.1)
 **Date**: 2026-06-27
 **Deciders**: Jun Kawasaki
 
@@ -224,6 +224,28 @@ a **world coverage snapshot** (jurisdictions covered / OCDS-native vs HTML / fre
   member signature + award→contract writes; the HTML/PDF fallback tier (Murakumo extract) for
   non-OCDS jurisdictions (e.g. JP GEPS). GitHub/PR push, where used, is **member-/operator-
   principal** (their own credentials or the actor's leashed self-key), never a platform key.
+
+### 8.1 G8 attestation (outward-gate UNLOCKED)
+
+**G8 is UNLOCKED for nyusatsu — founder Lv7+ (Council 1/1), 2026-06-27.** Per the Bootstrap
+operational premise (Council attestation = PR-review), the attestation is executed as the
+review/merge of this ADR change. This authorizes the OUTBOUND class: live social posting and
+live award→contract writes.
+
+**Necessary, not sufficient** — what G8-unlock does NOT do by itself:
+
+1. It does **not** create the posting pipeline. Live posting still requires the **R2 residence**
+   legs (`autorun` + `cell` registered in `cell-runner/cells.edn` + launchd LaunchAgent +
+   `kotoba_bridge`) and an **R3 live-post path**, none of which are built yet (R1 = offline only).
+2. It does **not** relax **G7 (non-custodial)**. Every live post/write must be signed by the
+   actor's OWN sealed `did:key` (off-platform, present-only) + a member **CACAO leash** — never a
+   platform-held key. G8 lifts the governance gate; G7 still dictates *how* the signing happens.
+3. The G3/G2/G1/G5 content gates are unaffected — an unlocked actor still posts only attributed,
+   primary-sourced, non-adjudicating, PII-clean records.
+
+Operational sequence now authorized: build R2 (residence + autonomous read-only ingest, already
+G7-exempt) → generate the actor's sealed `did:key` + member leash → enable the R3 live-post path
+(`:dry-run` → `:prepared` → `:published`). Each step lands by PR.
 
 # Consequences
 
