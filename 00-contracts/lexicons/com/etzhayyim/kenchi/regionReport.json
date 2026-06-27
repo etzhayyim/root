@@ -1,0 +1,27 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kenchi.regionReport",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "An H3/region DISTRIBUTION of external-market valuations (median + quartiles). AGGREGATE-ONLY (G4): names no parcel, so it is publishable even where per-parcel valuation is barred by law or ToS. EXCLUDES inalienable Land Trust holdings (G5). rkey = region|h3.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["region", "medianUsd", "nComps", "nAuthorities", "license", "asof", "createdAt"],
+        "properties": {
+          "region":       { "type": "string", "maxLength": 128, "description": "Region label (country / admin area / postcode district). NO single parcel." },
+          "h3":           { "type": "string", "maxLength": 32 },
+          "medianUsd":    { "type": "string" },
+          "p25Usd":       { "type": "string" },
+          "p75Usd":       { "type": "string" },
+          "nComps":       { "type": "integer", "minimum": 0 },
+          "nAuthorities": { "type": "integer", "minimum": 1 },
+          "license":      { "type": "string", "knownValues": ["open", "derived-only"] },
+          "asof":         { "type": "string", "format": "datetime" },
+          "createdAt":    { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}
