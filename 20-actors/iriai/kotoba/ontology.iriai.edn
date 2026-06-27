@@ -7,18 +7,30 @@
 
  :ontology/entities
  [{:entity :region        :note "a lifeline service area (the commons boundary)"}
-  {:entity :lifeline-cell :note "one region × one lifeline (electric/water/gas/telecom)"}
+  {:entity :lifeline-cell :note "one region × one lifeline (electric/water/gas/telecom/road)"}
   {:entity :proposal      :note "a §1.16 in-kind funding proposal for a cell (advisory)"}
-  {:entity :decision      :note "a 1-SBT-1-vote governance decision for a proposal (advisory)"}]
+  {:entity :decision      :note "a 1-SBT-1-vote governance decision for a proposal (advisory)"}
+  {:entity :asset         :note "a DEPLOYED piece of infrastructure (twin + maintenance), ADR-2606280900"}]
 
  :ontology/lifelines
- [{:lifeline :water    :source "mizuho"  :essentiality 1.0}
-  {:lifeline :electric :source "hikari"  :essentiality 0.9}
-  {:lifeline :telecom  :source "noroshi" :essentiality 0.7}
-  {:lifeline :gas      :source "kamado"  :essentiality 0.6}]
+ [{:lifeline :water    :source "mizuho"   :essentiality 1.0}
+  {:lifeline :electric :source "hikari"   :essentiality 0.9}
+  {:lifeline :telecom  :source "noroshi"  :essentiality 0.7}
+  {:lifeline :road     :source "tatekata" :essentiality 0.65 :note "道路 (ADR-2606280900)"}
+  {:lifeline :gas      :source "kamado"   :essentiality 0.6}]
 
  :ontology/verdicts
  [:await-consent :provision :reinforce :redundancy :maintain :monitor]
+
+ :ontology/maintenance-verdicts
+ [:decommission :renew :corrective-repair :refurbish :preventive-service :inspect :ok]
+
+ :ontology/degradation-models
+ [{:lifeline :electric :model "IEEE C57.91 transformer thermal aging (load → hot-spot → FAA loss-of-life)"}
+  {:lifeline :water    :model "Hazen-Williams C-factor decline (roughness growth)"}
+  {:lifeline :gas      :model "wall-thickness corrosion → leak-probability (safety floor)"}
+  {:lifeline :telecom  :model "fibre attenuation creep vs link budget"}
+  {:lifeline :road     :model "pavement PCI deterioration + bridge load-rating"}]
 
  :ontology/instruments
  [:grant :milestone-escrow :in-kind] ; G2: give-only (no equity/debt/revenue-share)
@@ -58,6 +70,23 @@
   {:attr ":iriai.manage/server-held-key" :type :bool :const false :note "G6: no-server-key"}
   {:attr ":iriai.manage/attribution" :type :string :const "member-cacao-leash"}
   {:attr ":iriai.manage/advisory"   :type :bool :const true}
+  ;; twin (physical simulation — degradation; ADR-2606280900)
+  {:attr ":iriai.asset/lifeline"  :type :keyword-str}
+  {:attr ":iriai.asset/age-years" :type :float}
+  {:attr ":iriai.twin/condition"  :type :float :range [0.0 1.0] :note "1 = new, 0 = worn out"}
+  {:attr ":iriai.twin/rul-years"  :type :float :note "remaining useful life (years); ≤0 = past end-of-life"}
+  {:attr ":iriai.twin/op-margin"  :type :float :note "operating-envelope margin (short timescale)"}
+  {:attr ":iriai.twin/safety"     :type :keyword-str :enum [":ok" ":unsafe"]}
+  ;; maintenance (operations lifecycle)
+  {:attr ":iriai.maint/lifeline"  :type :keyword-str}
+  {:attr ":iriai.maint/condition" :type :float}
+  {:attr ":iriai.maint/rul-years" :type :float}
+  {:attr ":iriai.maint/safety"    :type :keyword-str}
+  {:attr ":iriai.maint/verdict"   :type :keyword-str :enum [":decommission" ":renew" ":corrective-repair" ":refurbish" ":preventive-service" ":inspect" ":ok"]}
+  {:attr ":iriai.maint/reason"    :type :keyword-str :note ":safety-floor / :unsafe-eol / :end-of-life"}
+  {:attr ":iriai.maint/executor"  :type :string :note "kuni-umi/tazuna/giemon/noroshi/hodoki+kanayama"}
+  {:attr ":iriai.maint/opex-usd"  :type :float :note "imputed §1.16 in-kind upkeep cost; cash≡0 to consumer"}
+  {:attr ":iriai.maint/actuation-class" :type :keyword-str :const ":intent" :note "G5: design only"}
   ;; provenance
   {:attr ":iriai/sourcing" :type :keyword-str :note ":synthetic at R0"}
   {:attr ":iriai/derived"  :type :bool}]
@@ -84,9 +113,15 @@
   {:attr ":iriai/fund"             :gate "G3" :why "no self-fund route; 1 SBT = 1 vote decides"}
   {:attr ":iriai.manage/decide"    :gate "G3" :why "iriai proposes; the commons decides"}
   {:attr ":iriai.manage/dispatch"  :gate "G3" :why "iriai never dispatches"}
-  ;; G5 — assessment only, never acts
+  ;; G5 — assessment / simulation only, never acts (infra + twin + maintenance)
   {:attr ":iriai/actuate"          :gate "G5" :why "no actuation; producer cell under Council Lv7+"}
   {:attr ":iriai.infra/energize"   :gate "G5" :why "iriai never energizes a grid"}
   {:attr ":iriai.infra/open-valve" :gate "G5" :why "iriai never opens a valve"}
   {:attr ":iriai.infra/ignite"     :gate "G5" :why "iriai never ignites gas"}
-  {:attr ":iriai.infra/activate-link" :gate "G5" :why "iriai never activates a link"}]}
+  {:attr ":iriai.infra/activate-link" :gate "G5" :why "iriai never activates a link"}
+  {:attr ":iriai.twin/energize"    :gate "G5" :why "the twin simulates; it never actuates"}
+  {:attr ":iriai.maint/dispatch-crew" :gate "G5" :why "iriai plans upkeep; the executor dispatches under Council"}
+  {:attr ":iriai.maint/actuate"    :gate "G5" :why "no maintenance actuation"}
+  ;; G2 — upkeep is a commons, never billed
+  {:attr ":iriai.maint/consumer-bill" :gate "G2" :why "upkeep OpEx is §1.16 in-kind; the consumer is never billed"}
+  {:attr ":iriai.maint/tariff"     :gate "G2" :why "no maintenance tariff"}]}
