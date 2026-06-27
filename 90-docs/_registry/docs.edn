@@ -1,5 +1,5 @@
 {:version 2
- :updated-at "2026-06-27"
+ :updated-at "2026-06-28"
  :entries
  [{:path "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.md" :id "260319-kotodama-wit-dodaf-nist-coverage" :title "App WIT — DoDAF v2 / NIST CSF 2.0 Coverage Map" :status "active" :doc-type "reference" :topic "wit-coverage" :authoritative true :authoritative-for ["kotodama wit package coverage and compliance mapping"] :related ["260320-kotodama-cloudflare-containers-evaluation"] :supersedes [] :superseded-by [] :last-verified "2026-03-20" :amends [] :amended-by []}
   {:path "90-docs/kotodama/260320-kotodama-cloudflare-containers-evaluation.md" :id "260320-kotodama-cloudflare-containers-evaluation" :title "Kotodama vs Cloudflare Containers Evaluation" :status "active" :doc-type "explanation" :topic "runtime-selection" :authoritative true :authoritative-for ["kotodama runtime default vs container fallback"] :related ["260320-kotodama-cloudflare-containers-evaluation" "260320-kotodama-cloudflare-worker-rpc-optimization"] :supersedes [] :superseded-by [] :last-verified "2026-03-20" :amends [] :amended-by []}
