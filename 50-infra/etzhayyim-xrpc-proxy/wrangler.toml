@@ -1,6 +1,11 @@
 name = "etzhayyim-xrpc-proxy"
-main = "src/worker.ts"
+main = "src-cljs/worker.mjs"
 compatibility_date = "2026-05-22"
+
+# squint compiles src-cljs/worker.cljs -> src-cljs/worker.mjs before deploy
+# (ADR-2606251200 TS->cljs). `wrangler deploy` runs this automatically.
+[build]
+command = "npm install && npm run build"
 
 # Route bindings — one per subdomain. `custom_domain = true` makes wrangler
 # auto-provision the DNS record for each Custom Domain so the subdomain
