@@ -1,0 +1,25 @@
+{;; lg-curpus2skill — clj-native port of the Python LangGraph server
+ ;; (ADR-2606280030, langgraph-python → langgraph-clj). Scoped to THIS app only
+ ;; (does NOT touch the repo-root bb.edn). Pins langgraph-clj / langchain-clj to
+ ;; the same SHAs as the repo-root bb.edn so the StateGraph idiom is identical to
+ ;; the wave-1 twins (recap / docs / webmk / kyber). cheshire + babashka.http-client
+ ;; are bb built-ins.
+ ;;
+ ;;   src   — lg-curpus2skill.* namespaces (graphs + store + audit + server)
+ ;;   test  — lg-curpus2skill.smoke-test (clojure.test)
+ ;;
+ ;; Run the suite:  bb test   (or:  bb run_tests.clj)
+ ;; Start server:   bb serve  [PORT]
+ :paths ["src" "test"]
+ :deps {com-junkawasaki/langgraph-clj
+        {:git/url "https://github.com/com-junkawasaki/langgraph-clj"
+         :git/sha "c7daa07d4e50f55d7e2a02e4b89dbeb2b200961d"}
+        com-junkawasaki/langchain-clj
+        {:git/url "https://github.com/com-junkawasaki/langchain-clj"
+         :git/sha "2b03859c3ee722b64f3eddd0b615a54019b17c81"}}
+ :tasks
+ {test  {:doc "Run the lg-curpus2skill clojure.test suite under bb."
+         :task (load-file "run_tests.clj")}
+  serve {:doc "Start the lg-curpus2skill XRPC/runs HTTP server."
+         :requires ([lg-curpus2skill.server])
+         :task (apply lg-curpus2skill.server/-main *command-line-args*)}}}
