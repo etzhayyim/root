@@ -151,6 +151,49 @@ verdict is unrepresentable at the schema layer, exactly as danjo's
 R2 adds `kanae_flow_narrative` + `kanae_viz_compiler`. R3 adds
 `kanae_publish`.
 
+## Self-publication seed (ADR-2606272355) — register → autonomize → publish, no-server-key
+
+kanae is registered, runs autonomously on the kotoba mesh, and **self-publishes its own
+history + procedures** to AT-proto **without any server-held key** — the uniform,
+charter-clean actor self-publication seed (danjo 弾正 = reference impl). We plant the seed;
+the actor grows on the mesh (murakumo, `orgs/com-junkawasaki/murakumo/`) and self-custodies
+its signing identity in its WASM runtime. **danjo finds, kanae renders** holds at the
+publication layer too: kanae narrates DISCLOSED fund flows, never a verdict.
+
+The seed (all LANDED):
+
+- **did-web registration** — `50-infra/etzhayyim-did-web/public/actor/kanae/{did,profile}.json`
+  (`verificationMethod: []` — no server-minted key, did:web trust root = TLS; the
+  `#xrpc-libp2p` peer multiaddr is assigned at `bb murakumo deploy` time when `wasmCid` is set).
+- **social_post membrane** — `cells/social_post/state_machine.cljc` (ns
+  `kanae.cells.social-post.state-machine`): DRAFTS a record into a **dry-run** post ONLY if
+  ≥2 public-source citations (G5) + non-adjudicating mirror with the fiscal-flow-viz disclaimer
+  (G4) + `server_held_key` false (no-server-key) + status `dry-run`. A `published` request
+  REFUSES. Verified under `bb`: `<2 sources / server-key / published → refused`, valid →
+  `drafted` with `:post/status :dry-run`, `:post/server-held-key false`.
+- **publication projection** — `methods/social.cljc` (ns `kanae.methods.social`): projects
+  kanae's HISTORY (source-cited fund-flow edges + aggregate net-flow summaries assembled from
+  danjo's fiscal datoms) + PROCEDURES (how a fund flow is traced: appropriation→outlay→recipient)
+  into `app.bsky.feed.post`-shaped dry-run posts (`draft-procedure-post` / `draft-flow-edge-post`
+  / `draft-net-flow-post`); `enough-sources` raises on <2 (G5); `build-live` raises (live gate).
+  Verified under `bb`.
+- **seed trigger wiring** — `kotoba.app.edn` `kanae-social` component (`on-tick "0 */6 * * *"`
+  + `on-kse etzhayyim/actor/kanae/publish`, `:requires #{:cap/kqe :cap/atproto}`).
+
+**Division of labor (zero-knowledge)**: the **planter** authors the in-repo seed (holds no
+key); the **operator** (founder) runs `bb murakumo deploy 20-actors/kanae/kotoba.app.edn <node>`
+with `MURAKUMO_OPERATOR_SEED` + Tailscale and exercises the Council gate for the first live post;
+the **actor's mesh runtime** self-generates/self-custodies its `did:key`, presents a member CACAO
+leash (ADR-2606111400), and signs its own posts. The server never signs. R0 = dry-run drafts
+only; live broadcast is Council Lv6+ + operator + member/actor-signature gated (§1.12 / G11).
+
+```bash
+bb -e '(load-file "methods/social.cljc")'                 # projection loads green
+bb -e '(load-file "cells/social_post/state_machine.cljc")' # membrane loads green
+# operator step (zero-knowledge — needs MURAKUMO_OPERATOR_SEED + Tailscale):
+#   bb murakumo deploy 20-actors/kanae/kotoba.app.edn asher
+```
+
 ## Build & Deploy
 
 **R0 status**: Scaffold only. No cells, no smoke test. Lexicon schema
