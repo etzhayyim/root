@@ -34,8 +34,14 @@
   write to the consenting member; the verified member is echoed back as :author. Absent
   → the write is unattributed (back-compat)."
   [base {:keys [repo collection record rkey leash]}
-   & {:keys [transport] :or {transport default-transport}}]
-  (let [{:keys [status body]}
+   & {:keys [transport]}]
+  ;; coalesce nil → default: a destructuring `:or` does NOT fire on an explicit
+  ;; `:transport nil` (only on an absent key), and `drain!` passes `:transport transport`
+  ;; where transport is nil on the production path (no injected fake) — that nil was
+  ;; being called as a fn → NPE. The test suite always injects a transport, so this
+  ;; latent break never surfaced there; it only bit the live `bb drain` runtime.
+  (let [transport (or transport default-transport)
+        {:keys [status body]}
         (transport :post (str base "/xrpc/com.atproto.repo.createRecord")
                    (cond-> {:repo repo :collection collection :record record}
                      rkey  (assoc :rkey rkey)

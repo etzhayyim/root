@@ -57,7 +57,7 @@ not fabricate. They are run BY the member/operator, not by ibuki or any agent:
 ## What is a physical operator deploy (outside any agent — ADR-2606071000)
 
 - **continuous fleet operation**: `cells/fleet_beat/cell.py` `.solve()` runs the durable beat
-  and is registered on joseph/issachar/dan in `50-infra/murakumo/fleet.toml` (cron 3/33/43).
+  and is registered on joseph/issachar/dan in `50-infra/murakumo/fleet.edn` (cron 3/33/43).
   Turning it into a running k3s DaemonSet via the Ansible playbook on the physical Mac-mini
   fleet is the operator's hardware step — one human action away.
 
