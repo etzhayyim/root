@@ -1,0 +1,15 @@
+;; kotoba.app.edn — actor:moyoshi KOTOBA Mesh application manifest (ADR-2606272100).
+;; Deploy: kotoba app deploy kotoba.app.edn
+;; NOTE: the on-kse mesh wrapper (methods/mesh.clj, kizuna's pattern) is an R1 leg; the
+;; component below points at the pure namespace directly for the R0/R1 design + test pass.
+{:kotoba.app/name    "moyoshi"
+ :kotoba.app/version "0.1.0"
+ :kotoba.app/components
+ [{:name     "moyoshi"
+   :src      "methods/moyoshi.cljc"
+   :scale    1
+   :triggers [{:type :kse :topic "etzhayyim/actor/moyoshi"}]
+   :requires #{:cap/kqe}}]
+
+ :kotoba.app/placement {:spread  :zone
+                        :require {:tier "edge"}}}
