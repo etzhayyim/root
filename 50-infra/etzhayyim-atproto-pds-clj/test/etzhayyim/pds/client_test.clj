@@ -92,3 +92,23 @@
   (testing "verify-record is false (never throws) when the did doc can't be resolved"
     (let [transport (fn [_ _ _] {:status 404 :body nil})]
       (is (false? (client/verify-record base handle "cid" "sig" :transport transport))))))
+
+(deftest nil-transport-coalesces-to-default-not-npe
+  ;; Regression (found via the ADR-2606271400 live drain proof): `drain!` passes
+  ;; `:transport transport` where transport is nil on the production path (no injected
+  ;; fake). A destructuring `:or {transport default-transport}` does NOT fire on an
+  ;; explicit `:transport nil`, so the nil was being CALLED as a fn → NullPointerException.
+  ;; The whole suite always injects a transport, so this never surfaced in tests — only
+  ;; in the live `bb drain` runtime. After the fix, an explicit nil must reach
+  ;; default-transport (a real HTTP attempt to a dead port → a connection error), NEVER
+  ;; a NullPointerException.
+  (testing "an explicit :transport nil resolves to default-transport, not a called nil"
+    (let [ex (try (client/create-record! "http://127.0.0.1:1"
+                    {:repo "did:web:x" :collection "app.bsky.feed.post"
+                     :record {"$type" "app.bsky.feed.post"} :rkey "r"}
+                    :transport nil)
+                  nil
+                  (catch Exception e e))]
+      (is (some? ex) "a dead port must produce a connection error")
+      (is (not (instance? NullPointerException ex))
+          "must reach default-transport (connection error), not NPE on a called nil"))))

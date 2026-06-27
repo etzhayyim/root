@@ -86,7 +86,7 @@ Run (bb, classpath includes `20-actors` + `20-actors/kotodama/src`):
   allowlist (violation raises before I/O), credential-free, `IBUKI_PERCEPTION_LIVE=1` to
   enable, fail-open to the representative pattern. Per founder direction 2026-06-10 the
   Council gate is exercised as PR merge — `cells/fleet_beat/cell.py` `.solve()` RUNS the
-  beat (registered on joseph/issachar/dan in `50-infra/murakumo/fleet.toml`).
+  beat (registered on joseph/issachar/dan in `50-infra/murakumo/fleet.edn`).
 - **非終末論 append-only** — `:db/add` only; no retraction op exists; re-observation is a new
   datom, never an overwrite.
 - **Closed vocabularies raise, never guess** — joucho event kinds, kaizen outcomes, queue

@@ -180,6 +180,16 @@
    :task (do (require 'etzhayyim.watchdog)
              (apply (resolve 'etzhayyim.watchdog/-check) *command-line-args*))}
 
+  fleet:probe
+  {:doc "RESIDENCE PROBE (ADR-2606271400) — does the murakumo heartbeat fleet ACTUALLY run, or is it only DEFINED in cells.edn? Reads cells.edn/fleet.edn, maps tailscale online state, and (over `ssh <node>`) checks each node's launchctl + pgrep + loopback healthz (the healthz server binds 127.0.0.1 only, so residence is observable only ON the node). Classifies every cron/lan-api heartbeat :alive / :defined-only-silent / :node-unreachable, probes the evo-x2 inference backend + issachar kotoba :8077, writes out/fleet-probe.edn + a human summary. Shells out to ssh/tailscale/curl (system binaries); logic is clj. Flags: --nodes a,b | --no-ssh"
+   :task (do (require 'etzhayyim.fleet-probe)
+             (apply (resolve 'etzhayyim.fleet-probe/-main) *command-line-args*))}
+
+  fleet:deploy
+  {:doc "Render + install the resident LaunchAgents that make the self-evolution loop ACTUALLY run (ADR-2606271400 D4/D5). Renders the post-drain agent (`bb drain` on an interval, presenting a member leash so ibuki's prepared posts flow to the etzhayyim PDS attributed to the consenting member — leashed-autonomous posting, no held key). `--render` (default, pure) prints the plist; `--install-local`/`--uninstall-local` act on ~/Library/LaunchAgents on THIS machine via launchctl. The leash is read from the member-provided env at run time (PDS_DRAIN_LEASH), never embedded."
+   :task (do (require 'etzhayyim.fleet-deploy)
+             (apply (resolve 'etzhayyim.fleet-deploy/-main) *command-line-args*))}
+
   ieflow:report
   {:doc "Emit ieflow.json — the organism's information-energy FLOW layer (ADR-2606211200): folds the committed flow ledger (80-data/ie-flow/<source>/flow.kotoba.edn) through etzhayyim.ie-flow.{ledger,metrics} into net-gain / order-index (負エントロピー輸出) / agent-efficiency / throughput + the Sankey edges & stations the /organism page renders. Pure read, no network I/O, no held key. Args: [flow-log-path]"
    :task (do (require 'etzhayyim.ie-flow.organism)

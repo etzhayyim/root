@@ -301,7 +301,7 @@ etzhayyim/root/
 │                        #   etzhayyim-public-fund/         (5-of-7 Safe + 1 SBT = 1 vote)
 │                        #   etzhayyim-land-registry/       (geth-private + Base L2 ERC-721 mirror)
 │                        #   etzhayyim-force-authorization/ (Transparent Force, 1 SBT = 1 vote)
-│                        #   murakumo/fleet.toml            (10-node cell placement)
+│                        #   murakumo/fleet.edn             (10-node cell placement)
 ├── 60-apps/             # open-*, public-*, atproto, ameno, yoro, comfyui, watashi
 │                        # FIRST kotoba REFERENCE IMPL: open-isco/kotoba/
 │                        # MAC MINI FLEET: comfyui/ (migrated 2026-05-17)
@@ -574,7 +574,7 @@ Apps that need fiat / paid features call an external backend via XRPC consent-ca
 - `/CHARTER-RIDER.md` — license addendum canonical text
 - `/LANDS.md` — Land Trust roster
 - `/MEMBERS.md` — 信者 roster
-- `50-infra/murakumo/fleet.toml` — religious-corp cell placement (10 nodes × 15 cells)
+- `50-infra/murakumo/fleet.edn` — religious-corp cell placement (10 nodes × 15 cells). NB: cron/lan-api heartbeat RESIDENCY (defined here + in `50-infra/cluster/murakumo/cell-runner/cells.edn`) is verified live with `bb fleet:probe` — definition ≠ running daemon
 - `20-actors/etzhayyim-sdk/README.md` — SDK API surface + hard rules
 - `40-engine/kotoba/crates/kotoba-kotodama/cells/README.md` — religious-corp Pregel cell catalog
 - `90-docs/adr/2605262130-kotoba-storage-substrate-unification.md` — canonical storage substrate engine (kotoba); supersedes kotoba-datomic composition + projection layers; no RisingWave
