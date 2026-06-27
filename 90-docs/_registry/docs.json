@@ -26635,6 +26635,35 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606272300-atproto-repo-content-addressed-edge-retire-pds.md",
+      "id": "adr-2606272300-atproto-repo-content-addressed-edge-retire-pds",
+      "title": "ADR-2606272300: Serve the actor AT-repo content-addressed from the edge; retire the stateful PDS",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "atproto-repo-content-addressed-edge",
+      "authoritative": true,
+      "authoritative_for": [
+        "atproto-repo-serving",
+        "pds-retirement"
+      ],
+      "related": [
+        "50-infra/etzhayyim-did-web/src/{car,cbor,kotoba,identity,xrpc-routes}.ts",
+        "50-infra/etzhayyim-atproto-pds-clj/",
+        "deps.edn"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605262130",
+        "2605312345",
+        "2606242400",
+        "2606271400"
+      ],
+      "last_verified": "2026-06-27",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
