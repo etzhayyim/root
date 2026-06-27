@@ -32,13 +32,11 @@ printf "  %-12s  %-10s  %-12s  %s\n" "----" "-------" "----------" "------------
 for h in $FLEET; do
   ssh -o ConnectTimeout=3 -o BatchMode=yes "$h@${h}nomac-mini.local" \
     "cat ~/etzhayyim/first-breath/state.json 2>/dev/null" 2>/dev/null \
-    | python3 -c "
-import sys, json
-try:
-    s = json.load(sys.stdin)
-    print('$h:counter:%s:block:%s:ts:%s' % (s.get('counter','?'), s.get('last_block','?'), s.get('last_tick_at','?')[:19]))
-except: pass
-" 2>/dev/null | awk -F: '{printf "  %-12s  %-10s  %-12s  %s\n", $1, $3, $5, $7}'
+    | bb -e "(let [s (try (cheshire.core/parse-string (slurp *in*)) (catch Throwable _ nil))]
+               (when s (println (str \"$h:counter:\" (get s \"counter\" \"?\")
+                                     \":block:\" (get s \"last_block\" \"?\")
+                                     \":ts:\" (subs (str (get s \"last_tick_at\" \"?\")) 0 (min 19 (count (str (get s \"last_tick_at\" \"?\")))))))))" \
+        2>/dev/null | awk -F: '{printf "  %-12s  %-10s  %-12s  %s\n", $1, $3, $5, $7}'
 done
 
 echo

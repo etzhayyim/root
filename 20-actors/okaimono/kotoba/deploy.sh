@@ -24,14 +24,14 @@ fi
 
 # 0.5 R1: regenerate the Ring 1 internal catalog from each maker actor's products.edn
 echo "--> R1 internal-catalog ingest (maker products.edn → internal-catalog.edn)"
-python3 "${ACTOR_DIR}/kotoba/ingest_internal.py"
+bb "${ACTOR_DIR}/kotoba/ingest_internal.cljc"
 
 if [[ -z "${KOTOBA_TOKEN:-}" ]]; then
   echo "--> KOTOBA_TOKEN unset → DRY RUN (no writes). Set an operator AT-session-JWT to ingest."
-  python3 "${ACTOR_DIR}/kotoba/ingest_mcp.py" --url "${KOTOBA_URL}" --graph "${GRAPH}" --dry-run
+  bb "${ACTOR_DIR}/kotoba/ingest_mcp.cljc" --url "${KOTOBA_URL}" --graph "${GRAPH}" --dry-run
 else
   echo "--> ingesting seed datoms via MCP (operator token present)"
-  KOTOBA_TOKEN="${KOTOBA_TOKEN}" python3 "${ACTOR_DIR}/kotoba/ingest_mcp.py" \
+  KOTOBA_TOKEN="${KOTOBA_TOKEN}" bb "${ACTOR_DIR}/kotoba/ingest_mcp.cljc" \
     --url "${KOTOBA_URL}" --graph "${GRAPH}" --via mcp
   echo "--> sealing hot arrangement (kotoba commit)"
   kotoba --url "${KOTOBA_URL}" --token "${KOTOBA_TOKEN}" commit

@@ -16,7 +16,27 @@
          :git/sha "2b03859c3ee722b64f3eddd0b615a54019b17c81"}
         com-junkawasaki/langgraph-clj
         {:git/url "https://github.com/com-junkawasaki/langgraph-clj"
-         :git/sha "c7daa07d4e50f55d7e2a02e4b89dbeb2b200961d"}}
+         :git/sha "c7daa07d4e50f55d7e2a02e4b89dbeb2b200961d"}
+        com-junkawasaki/ed25519-clj
+        {:git/url "https://github.com/com-junkawasaki/ed25519-clj"
+         :git/sha "ec077bca1f90027bc718557f1e8bb6fbc004fe5a"}
+        com-junkawasaki/multiformats-clj
+        {:git/url "https://github.com/com-junkawasaki/multiformats-clj"
+         :git/sha "e3a75a6376441cbf7aaefefce463b404b4254404"}
+        com-junkawasaki/dag-cbor-clj
+        {:git/url "https://github.com/com-junkawasaki/dag-cbor-clj"
+         :git/sha "52b008d96820660196ee8dd15e7d213c9022a6b5"}
+        com-junkawasaki/cacao-clj
+        {:git/url "https://github.com/com-junkawasaki/cacao-clj"
+         :git/sha "32fe0b63a815afc0827729394435deee627ea582"}
+        ;; eth-crypto-clj — dependency-free Ethereum crypto (Keccak-256 / secp256k1
+        ;; ecrecover + RFC-6979 ECDSA signing / EIP-712 / EIP-55 / RLP / EIP-155
+        ;; legacy tx), pure clojure.* (bb-safe). Used by yobel's concrete ports +
+        ;; first-breath's signer (replaces eth_account); verified vs the EIP-712 +
+        ;; EIP-155 spec vectors.
+        com-junkawasaki/eth-crypto-clj
+        {:git/url "https://github.com/com-junkawasaki/eth-crypto-clj"
+         :git/sha "9208ecc09a32cf51627ed32eb417e4834f208324"}}
  :tasks
  {e7m
   {:doc "etzhayyim CLI (babashka port; capstone of the etzhayyim-py→bb migration, ADR-2606222000). `bb e7m list` shows every ported command module; `bb e7m <cmd> [args]` dispatches commands that expose a -main (murakumo, vitals); other commands are ported as libraries (ns etzhayyim.<cmd>) pending argv-wiring."
@@ -27,6 +47,11 @@
   {:doc "MEMBER-side CACAO leash issuer (clj port of 20-actors/ibuki/tools/issue_delegation.py, repo-rule clj/bb). Mints a scoped/expiring/revocable CAIP-122 SIWE CACAO (capability=datom:transact, aud=node operator DID, resources=[kotoba://can/datom:transact, kotoba://graph/<cid>]) Ed25519-signed with the member's OWN key → cacao_b64 sidecar the autonomous actor (ibuki/kaname/tsubasa) PRESENTS (present-only, never signs; no-server-key). Args: --node-did <did> --exp <ISO-8601> --out <path> [--graph <name>] [--nonce <s>] [--iat <ISO>] (--gen-key | --member-priv-b64 <b64> --member-pub-hex <hex>)"
    :task (do (require 'etzhayyim.issue-cacao)
              (apply (resolve 'etzhayyim.issue-cacao/-main) *command-line-args*))}
+
+  kotobase:pin
+  {:doc "Register a CID with kotobase.net's IPFS Pinning Service via a self-sovereign kotobase:pin CACAO (clj; replaces the throwaway node script, ADR-2606111330). The tenant seed is AUTO-RESOLVED — env KOTOBA_SEED_HEX, else 1Password via `op` (interactive session OR OP_SERVICE_ACCOUNT_TOKEN for cron) — so no secret is re-pasted each run. Mints the CACAO in-process (no-server-key), POSTs /pins over babashka.http-client. Args: <cid> [name] [--endpoint <url>]. Override the vault item via KOTOBASE_OP_{ITEM,VAULT,FIELD}."
+   :task (do (require 'etzhayyim.kotobase-pin)
+             (apply (resolve 'etzhayyim.kotobase-pin/-main) *command-line-args*))}
 
   gen:tier-b-actors
   {:doc "Regenerate 50-infra/etzhayyim-did-web/src/registry/tier-b-actors.gen.ts from each 20-actors/<a>/manifest.{jsonld,edn} (Tier-B, non-hand-authored). clj/bb port of the legacy gen-tier-b-actors.mjs; manifest.jsonld preferred, manifest.edn (Gen-3 kotoba-native) fallback. ADR-2606042330."

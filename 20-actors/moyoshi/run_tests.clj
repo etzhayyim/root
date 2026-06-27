@@ -18,7 +18,9 @@
 (cp/add-classpath (str (fs/parent (fs/parent (fs/absolutize *file*)))))
 
 (def suites
-  '[moyoshi.tests.test-moyoshi])
+  '[moyoshi.tests.test-moyoshi
+    moyoshi.tests.test-r2
+    moyoshi.tests.test-r3])
 
 (apply require suites)
 

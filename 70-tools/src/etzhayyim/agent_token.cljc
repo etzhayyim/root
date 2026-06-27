@@ -25,7 +25,9 @@
 ;;                                  "did:web:atproto.etzhayyim.com" nil)
 ;;   ;=> {"lxm" "..." "exp" ... "aud" "did:web:..."}
 
-(ns etzhayyim.agent-token)
+(ns etzhayyim.agent-token
+  (:require [clojure.string :as str]
+            [cheshire.core  :as json]))
 
 ;; ── pure helpers ─────────────────────────────────────────────────────────────
 
@@ -53,3 +55,46 @@
   [pds-base]
   (str (clojure.string/replace (or pds-base "") #"/+$" "")
        "/xrpc/com.atproto.server.getServiceAuth"))
+
+;; ── CLI -main ──────────────────────────────────────────────────────────────────
+;; Mirrors the python `agent-token` click COMMAND (not a group) argv contract:
+;;   e7m agent-token --lxm NSID [--aud DID] [--pds URL] [--ttl SECS] [--sub DID] [-v]
+;; The twin ports the PURE payload + URL builders; the actual
+;; httpx POST getServiceAuth (which returns the token) is the un-ported IO leg.
+;; -main computes exp, builds the payload + endpoint URL, and prints them.
+;; It does NOT perform the network fetch (no token is minted here).
+
+(defn- at-parse
+  [args bool-flags]
+  (loop [a (seq args) pos [] flags {}]
+    (if-not a
+      [pos flags]
+      (let [t (first a)]
+        (cond
+          (and (str/starts-with? t "--") (contains? bool-flags (subs t 2)))
+          (recur (next a) pos (assoc flags (subs t 2) true))
+          (or (= t "-v") (= t "--verbose"))
+          (recur (next a) pos (assoc flags "verbose" true))
+          (str/starts-with? t "--")
+          (recur (nnext a) pos (assoc flags (subs t 2) (fnext a)))
+          :else
+          (recur (next a) (conj pos t) flags))))))
+
+(defn -main [& args]
+  (let [[_ flags] (at-parse args #{"verbose" "json"})
+        lxm (get flags "lxm")
+        aud (get flags "aud")
+        ttl (try (Long/parseLong (or (get flags "ttl") "60")) (catch Exception _ 60))
+        pds (or (get flags "pds")
+                (System/getenv "etzhayyim_PDS_URL")
+                "https://etzhayyim-pds-2603241700.etzhayyim.com")]
+    (if-not lxm
+      (println "usage: agent-token --lxm NSID [--aud DID] [--pds URL] [--ttl SECS] [--sub DID] [-v]")
+      (let [exp     (+ (quot (System/currentTimeMillis) 1000) ttl)
+            payload (build-agent-token-payload lxm exp aud (get flags "sub"))
+            url     (agent-token-xrpc-url pds)]
+        (if (get flags "json")
+          (println (json/generate-string {:url url :payload payload} {:pretty true}))
+          (do (println (str "POST " url))
+              (println (str "  payload: " (json/generate-string payload)))
+              (println "  (token fetch is the un-ported httpx IO leg; not executed here)")))))))

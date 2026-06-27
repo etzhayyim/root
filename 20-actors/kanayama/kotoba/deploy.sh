@@ -25,7 +25,7 @@ fi
 
 # ingest seed datoms (intake + full recycling process)
 echo "--> seed datoms ingest (intake/* + decoating/* + ... + settlement/*)"
-python3 "${ACTOR_DIR}/kotoba/ingest_mcp.py" --url "${KOTOBA_URL}" --graph "${GRAPH}" \
+bb "${ACTOR_DIR}/kotoba/ingest_mcp.cljc" --url "${KOTOBA_URL}" --graph "${GRAPH}" \
   $([[ -z "${KOTOBA_TOKEN:-}" ]] && echo --dry-run)
 
 if [[ -z "${KOTOBA_TOKEN:-}" ]]; then

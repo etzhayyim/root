@@ -27,6 +27,7 @@
 
 (ns etzhayyim.workspace
   (:require [clojure.string :as str]
+            #?(:bb [cheshire.core :as json])
             #?(:bb [babashka.process :as proc]
                :default [])
             #?(:bb [babashka.fs :as bfs]
@@ -141,3 +142,67 @@
     (println-fn (str "workspace: " root))
     (println-fn (str "  actors: " actors))
     {:root root :actors actors}))
+
+;; ---------------------------------------------------------------------------
+;; CLI entrypoint — mirrors the `workspace` click group (JVM/bb only).
+;;
+;;   status — read-only (root + actor count) → runs for real.
+;;   sync   — SIDE-EFFECTING (rsync to a remote). -main DEFAULTS TO A PLAN
+;;            (prints the rsync argv build-rsync-command would run, never
+;;            executes); the live leg runs only with an explicit --execute flag.
+;; ---------------------------------------------------------------------------
+
+#?(:clj
+   (do
+     (defn- w-parse [args bool-flags]
+       (loop [a (seq args) flags {} pos []]
+         (if (empty? a)
+           [flags pos]
+           (let [tok (first a)]
+             (cond
+               (contains? bool-flags tok) (recur (rest a) (assoc flags tok true) pos)
+               (str/starts-with? tok "--") (recur (drop 2 a) (assoc flags tok (second a)) pos)
+               :else (recur (rest a) flags (conj pos tok)))))))
+
+     (defn- w-collect
+       "Collect all values following repeated occurrences of flag (e.g. --exclude)."
+       [args flag]
+       (->> (partition 2 1 args) (filter #(= (first %) flag)) (map second) vec))
+
+     (defn- w-usage []
+       (println "usage: workspace <subcommand> [options]")
+       (println "subcommands: sync status")
+       (println "  sync   --remote U@H:/path [--workspace-dir D] [--exclude P]* [--dry-run] [--delete] [--execute]")
+       (println "         (default = print rsync plan, does NOT run; --execute to run)")
+       (println "  status [--workspace-dir D] [--json]"))
+
+     (defn -main [& args]
+       (let [bool-flags #{"--json" "--dry-run" "--delete" "--execute"}
+             [sub & rst] args
+             [flags _pos] (w-parse rst bool-flags)]
+         (case sub
+           nil (w-usage)
+           "status"
+           (let [root   (resolve-workspace-root (get flags "--workspace-dir") {})
+                 actors (count-actor-files root {})]
+             (if (get flags "--json")
+               (println (json/generate-string {:workspace root :actors actors}))
+               (do (println (str "workspace: " root))
+                   (println (str "  actors: " actors)))))
+           "sync"
+           (let [excludes (w-collect rst "--exclude")
+                 sync-opts {:workspace-dir (get flags "--workspace-dir")
+                            :remote (get flags "--remote")
+                            :excludes (seq excludes)
+                            :dry-run (boolean (get flags "--dry-run"))
+                            :delete (boolean (get flags "--delete"))}]
+             (cond
+               (not (:remote sync-opts))
+               (println "error: --remote is required")
+               (get flags "--execute")
+               (let [r (run-sync sync-opts {})]
+                 (println "rsync exit:" (:exit r)))
+               :else
+               (do (println "PLAN (dry-run — rsync NOT executed; pass --execute to run):")
+                   (println (str/join " " (build-rsync-command sync-opts))))))
+           (do (println "unknown subcommand:" sub) (w-usage)))))))

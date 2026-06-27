@@ -2,6 +2,32 @@
 
 Web Marketing Proposal Agent. OSS LangGraph FastAPI pattern (mirrors lg-yukkuri).
 
+## Clojure port (ADR-2606280030 — langgraph-python → langgraph-clj)
+
+A faithful `langgraph-clj` (babashka) twin of the Python LangGraph app lives under
+`lg/src/lg_webmk/` (+ `lg/tests/`, `lg/bb.edn`, `lg/run_tests.clj`). Same 5 graphs,
+same node topology, same NSID surface. The Python (`lg/lg_webmk/*.py`) and the clj
+twin **COEXIST** — the `.py` is still the wired deployment (`pyproject.toml`,
+`langgraph.json`, `Dockerfile`, helm `50-infra/vultr/lg-webmk-pool/`, and the
+`kotodama.webmk_worker_main` worker), so nothing is removed yet.
+
+| Python | clj twin | notes |
+|---|---|---|
+| `langgraph.graph.StateGraph` | `langgraph.graph` (`io.github.com-junkawasaki/langgraph-clj`) | `:nodes`/`:edges`/`add-conditional-edges` |
+| `httpx` | `babashka.http-client` | research fetch + Resend REST |
+| `langchain_anthropic.ChatAnthropic` | `lg-webmk.llm` → Murakumo LiteLLM loopback (`/v1/chat/completions`, gemma-4-e4b-it) | read-only, fail-open template fallback (ADR-2605215000 / 2606172359) |
+| JSON | `cheshire` | — |
+| RisingWave / `psycopg` | `lg-webmk.store` swap seam (in-process append-only; kotoba-Datom-log target) | substrate boundary forbids RisingWave (ADR-2605262130 / 2605312345) |
+| FastAPI | `org.httpkit.server` (`lg-webmk.server`) | same `/runs` `/runs/stream` `/xrpc/{nsid}` `/health` surface |
+
+**Deviation (noted):** the Python quality-retry router can loop indefinitely on the
+no-LLM fallback path (the gate stops incrementing `retry_count` after the first retry
+while the router keeps routing back). The clj port preserves the *intent* ("retry
+once") with a terminating gate (always increments; regenerates only while
+`retry_count < 2`).
+
+Run: `bb --config 60-apps/etzhayyim-project-webmk/lg/bb.edn test` (9 tests / 29 assertions green).
+
 ## Layout
 
 ```

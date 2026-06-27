@@ -930,6 +930,27 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
     adrs: ["2606064500", "2606015200"],
   },
+  iriai: {
+    description:
+      "入会 — the non-profit GLOBAL LIFELINE-COMMONS actor. 入会 (iriai) = the traditional Japanese COMMONS (collectively-held rights of use over a shared resource); here the resource is the four lifelines (ライフライン) — 電気 / 水道 / ガス / 通信 — held as a commons right of use (入会権), delivered §1.16 social-security IN-KIND (cash ≡ 0), governed 1 SBT = 1 vote. The System-of-Systems umbrella over the producer actors (電気→hikari 光 · 水道→mizuho 水穂 · ガス→kamado 竈 · 通信→noroshi 烽), the way kaname 要 / amime 網目 synthesize across single-domain mirrors — covering infra + 資金 (funding) + 管理 (management) in one heartbeat. INFRA: edge-primary commons-gap (1−coverage)·essentiality·vulnerability + resilience (single-source SPOF / N-1) per region × lifeline → verdict {:await-consent :provision :reinforce :redundancy :maintain :monitor} — a COVERAGE + RESILIENCE map, NEVER a target-list, NEVER a shut-off list; a lifeline is never withheld as leverage (G1). 資金: each action cell → a §1.16 IN-KIND funding proposal on the non-profit rails (donation → TitheRouter 10% → Public Fund → grant/milestone-escrow/in-kind), cash ≡ 0 to the consumer, imputed market-equivalent value transparency-only; give-only instruments (G2); advisory, decided 1 SBT = 1 vote (steward-not-sovereign, G3). 管理: 1 SBT = 1 vote governance (20% quorum / 50% / 48h) + Council Lv6+/Lv7+; actuation-class :intent (compute-only R0 — live energize/flow/ignite/activate is the producer cell under Council Lv7+ + operator-DID + member-sig, G5, §1.12); no-server-key (member-CACAO leash, G6). ASSESSMENT + R0 DESIGN ONLY — iriai never produces nor actuates a lifeline. The charter-clean inversion of the for-profit utility and of utility-as-coercion. Per ADR-2606272200.",
+    glyph: "入",
+    displayName: "Iriai — Global Lifeline-Commons (電気/水道/ガス/通信)",
+    primaryLexicon: "com.etzhayyim.iriai.lifelineCoverageMap",
+    primarySchema: "20-actors/iriai/kotoba/ontology.iriai.edn",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:iriai#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:iriai#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606272200", "2606280900"],
+  },
 } as const;
 
 // Merged registry: generated Tier-B actors (from manifests) + hand-authored

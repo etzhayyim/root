@@ -26635,6 +26635,228 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606271700-nyusatsu-worldwide-procurement-social-actor.md",
+      "id": "adr-2606271700-nyusatsu-worldwide-procurement-social-actor",
+      "title": "ADR-2606271700: nyusatsu 入札 — JP→worldwide public-procurement mirror, OCDS-normalized, jurisdiction-attributed, social-derived",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "nyusatsu-worldwide-procurement-mirror",
+      "authoritative": true,
+      "authoritative_for": [
+        "nyusatsu-worldwide-procurement-mirror",
+        "govFiscal-procurementBid-lexicon"
+      ],
+      "related": [
+        "2606212200",
+        "2605301600",
+        "0035"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605262130",
+        "2605312345",
+        "2606230001",
+        "2606072000"
+      ],
+      "last_verified": "2026-06-27",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606272100-moyoshi-convening-social-capital.md",
+      "id": "adr-2606272100-moyoshi-convening-social-capital",
+      "title": "ADR-2606272100: moyoshi 催し — event design / convening actor that MINTS validated social capital (not turnout)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "moyoshi-actor-convening-social-capital",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/moyoshi"
+      ],
+      "related": [
+        "SOCIAL-CAPITAL-LEDGER (kotoba/docs)",
+        "adr-2606062100-moyai-credit",
+        "adr-2605263400-musubi-covenant-ceremony"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606232200-kizuna-actor-social-self-evolution-sos",
+        "adr-2606073200-asobi-play-cultural-kg-mirror",
+        "adr-2605264000-ossekai-information-arbitrage-wellbecoming"
+      ],
+      "last_verified": "2026-06-27",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606272200-iriai-lifeline-commons-infra-funding-management.md",
+      "id": "adr-2606272200-iriai-lifeline-commons-infra-funding-management",
+      "title": "ADR-2606272200: iriai 入会 — global lifeline-commons (電気/水道/ガス/通信) infra + 資金 + 管理",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "iriai-lifeline-commons",
+      "authoritative": true,
+      "authoritative_for": [
+        "iriai-lifeline-commons",
+        "lifeline-commons-funding-§1.16-in-kind",
+        "lifeline-commons-governance-1sbt1vote"
+      ],
+      "related": [
+        "2605250900",
+        "2605261100",
+        "2605263100",
+        "2606051500",
+        "2606051600",
+        "2605201400",
+        "2606091800",
+        "2606101430",
+        "2606162355",
+        "2606122001",
+        "2606052300",
+        "2606032130",
+        "2605301020",
+        "2605302357",
+        "2606012100",
+        "2606111800",
+        "2605192245",
+        "2606111400",
+        "2606212020",
+        "2606172100"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605262130",
+        "2605312345",
+        "2605192100",
+        "2605231525"
+      ],
+      "last_verified": "2026-06-27",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606272300-atproto-repo-content-addressed-edge-retire-pds.md",
+      "id": "adr-2606272300-atproto-repo-content-addressed-edge-retire-pds",
+      "title": "ADR-2606272300: Serve the actor AT-repo content-addressed from the edge; retire the stateful PDS",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "atproto-repo-content-addressed-edge",
+      "authoritative": true,
+      "authoritative_for": [
+        "atproto-repo-serving",
+        "pds-retirement"
+      ],
+      "related": [
+        "50-infra/etzhayyim-did-web/src/{car,cbor,kotoba,identity,xrpc-routes}.ts",
+        "50-infra/etzhayyim-atproto-pds-clj/",
+        "deps.edn"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605262130",
+        "2605312345",
+        "2606242400",
+        "2606271400"
+      ],
+      "last_verified": "2026-06-27",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606272355-actor-self-publication-seed-on-kotoba-mesh.md",
+      "id": "adr-2606272355-actor-self-publication-seed-on-kotoba-mesh",
+      "title": "ADR-2606272355: Actor self-publication seed — register, autonomize, and publish each government-mirror actor on the kotoba mesh (zero-knowledge / no-server-key)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "actor-self-publication-seed",
+      "authoritative": true,
+      "authoritative_for": [
+        "actor-self-publication-seed-pattern",
+        "jp-gov-mirror-constellation-registration"
+      ],
+      "related": [
+        "2606066001",
+        "2606013800",
+        "2606014500"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605231525",
+        "2606230001",
+        "2606111400",
+        "2606021600",
+        "2605301600"
+      ],
+      "last_verified": "2026-06-27",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606280030-60apps-e7m-dataset-langgraph-python-to-clj-full-migration.md",
+      "id": "adr-2606280030-60apps-e7m-dataset-langgraph-python-to-clj-full-migration",
+      "title": "ADR-2606280030: 60-apps + e7m-dataset langgraph-python → clj full migration",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "60apps-e7m-dataset-langgraph-clj-migration",
+      "authoritative": true,
+      "authoritative_for": [
+        "60-apps-langgraph-clj-migration",
+        "e7m-dataset-clj-migration"
+      ],
+      "related": [
+        "adr-2606222000-etzhayyim-cli-babashka-port",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [],
+      "last_verified": "2026-06-27",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606280900-iriai-physical-twin-and-maintenance-lifecycle.md",
+      "id": "adr-2606280900-iriai-physical-twin-and-maintenance-lifecycle",
+      "title": "ADR-2606280900: iriai 入会 — physical-simulation twin + operations/maintenance lifecycle (+ 道路)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "iriai-twin-maintenance",
+      "authoritative": true,
+      "authoritative_for": [
+        "iriai-twin-maintenance",
+        "lifeline-asset-degradation-simulation",
+        "lifeline-operations-maintenance-lifecycle"
+      ],
+      "related": [
+        "2606091800",
+        "2606101430",
+        "2605201400",
+        "2606042100",
+        "2605261215",
+        "2605252400",
+        "2605250715",
+        "2605312700",
+        "2606051800",
+        "2606032130"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606272200",
+        "2605262130",
+        "2605312345"
+      ],
+      "last_verified": "2026-06-28",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

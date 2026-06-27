@@ -3,8 +3,8 @@
 ## Identity
 
 - **Name**: junkan (循環 — circulation / cycle)
-- **DID**: `did:web:junkan.etzhayyim.com`
-- **ADR**: ADR-2605290927 (R0 scaffold, 2026-05-29)
+- **DID**: `did:web:etzhayyim.com:actor:junkan` (canonical; `alsoKnownAs did:web:junkan.etzhayyim.com`) — **REGISTERED** in did-web (`50-infra/etzhayyim-did-web/public/actor/junkan/{did,profile}.json`), per ADR-2606013800 + ADR-2606272355
+- **ADR**: ADR-2605290927 (R0 scaffold, 2026-05-29); **ADR-2606272355** (self-publication seed on the kotoba mesh, 2026-06-27)
 - **Parent ADR**: ADR-2605192100 (Mission Charter — §1.4 anti-individualism + §1.13 Wellbecoming + §1.15 non-eschatological + §1.12 routing-around)
 - **Status**: R0 scaffold — 8 cells path-reserved + 5 Lexicon skeletons
 - **Form**: 任意団体 internal societal-systems-analysis substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格 — Preamble §0.4 Lv7+ unanimity lock)
@@ -96,6 +96,53 @@ G6 (aggregate + institutional enactors only, no person/PII), G7 (a resilience/
 leverage MAP, never a target-list or ranking-to-shame), G11 (leverage points are
 candidates, never directives). Composes with danjo/keizu/kanae/ooyake/kosatsu
 (data) and ossekai (which may publish a finding on junkan's behalf, never junkan).
+
+## Self-publication seed (ADR-2606272355) — register → autonomize → publish, no-server-key
+
+junkan is wired with the **actor self-publication seed**: the uniform, charter-clean way
+for a government-mirror actor to be registered at etzhayyim.com, run autonomously on the
+kotoba mesh, and **self-publish its own history + findings** to AT-proto **without any
+server-held key**. We plant the seed; the actor grows on the mesh (murakumo,
+`orgs/com-junkawasaki/murakumo/`) and self-custodies its signing identity in its WASM runtime.
+
+**junkan is ANALYSIS-ONLY (G4) — so this seed is the narrowest possible exception.** junkan
+has no outward channel by its own discipline; the membrane below is the ONE careful path
+out, and it publishes only DISCLOSED HYPOTHESES (G5) + on-record public facts as **dry-run
+MIRROR posts**, never as verdicts, never proven causation, never directives. Live broadcast,
+when it happens, is carried via ossekai/kataribe on junkan's behalf — never by junkan (G13).
+
+The seed (all LANDED):
+
+- **did-web registration** — `50-infra/etzhayyim-did-web/public/actor/junkan/{did,profile}.json`
+  (`verificationMethod: []` — no server-minted key, did:web trust root = TLS; the
+  `#xrpc-libp2p` peer multiaddr is assigned at `bb murakumo deploy` time when `wasmCid` is set).
+- **social_post membrane** — `cells/social_post/state_machine.cljc`: DRAFTS a record into a
+  **dry-run** post ONLY if ≥2 public-source citations (G5) + non-adjudicating MIRROR with the
+  analysis-only disclaimer (G7) + `server_held_key` false (no-server-key) + status `dry-run`.
+  A `published` request REFUSES. Verified under `bb`: `<2 sources / server-key / published →
+  refused`, valid → `drafted` with `:post/status :dry-run`, `:post/server-held-key false`.
+- **publication projection** — `methods/social.cljc`: projects junkan's HISTORY (on-record
+  governance-asymmetry instruments — law/institution + 誰が定めたか/経緯/関係者) + FINDINGS
+  (disclosed-hypothesis loop read-offs 好循環/悪循環 + Meadows leverage candidates) into
+  `app.bsky.feed.post`-shaped dry-run posts (`draft-instrument-post` / `draft-loop-post` /
+  `draft-leverage-post`); `enough-sources` raises on <2 (G5); `build-live` raises (live gate).
+  Verified under `bb`.
+- **seed trigger wiring** — `kotoba.app.edn` `junkan-social` component (`on-tick "0 */6 * * *"`
+  + `on-kse etzhayyim/actor/junkan/publish`, `:requires #{:cap/kqe :cap/atproto}`).
+
+**Division of labor (zero-knowledge)**: the **planter** authors the in-repo seed (holds no
+key); the **operator** (founder) runs `bb murakumo deploy 20-actors/junkan/kotoba.app.edn <node>`
+with `MURAKUMO_OPERATOR_SEED` + Tailscale and exercises the Council gate for the first live post;
+the **actor's mesh runtime** self-generates/self-custodies its `did:key`, presents a member CACAO
+leash (ADR-2606111400), and signs its own posts. The server never signs. R0 = dry-run drafts
+only; live broadcast is Council Lv6+ + operator + member/actor-signature gated (§1.12 / G11 / G13).
+
+```bash
+bb -e '(load-file "methods/social.cljc")'                 # projection loads green
+bb -e '(load-file "cells/social_post/state_machine.cljc")' # membrane loads green
+# operator step (zero-knowledge — needs MURAKUMO_OPERATOR_SEED + Tailscale):
+#   bb murakumo deploy 20-actors/junkan/kotoba.app.edn <node>
+```
 
 ## Data model — datom / Datalog on kotoba-kqe (NOT proprietary Datomic)
 

@@ -130,3 +130,84 @@
         (if (and expires-in (pos? expires-in))
           (assoc base "expires_at" (+ now-unix (int expires-in)))
           base)))))
+
+;; ── CLI entrypoint (JVM/bb only) ──────────────────────────────────────────────
+;; Mirrors the Python click group `authn` (authn.py). Read-only commands
+;; (whoami / token) run for real off ~/.etzhayyim/auth.json. Every side-effecting
+;; command (signin/login = OAuth+file write, signout/logout/revoke = file delete +
+;; network, migrate = network + file write) is GUARDED: it prints a plan and is a
+;; no-op unless the operator opts in with the same explicit flag Python requires.
+
+#?(:clj
+   (do
+     (require '[cheshire.core :as json])
+
+     (def ^:private auth-file
+       (str (System/getProperty "user.home") "/.etzhayyim/auth.json"))
+
+     (defn- load-auth []
+       (try (json/parse-string (slurp auth-file)) (catch Exception _ {})))
+
+     (defn- parse-opts
+       "Tiny argv parser. bool-flags is a set of flag tokens taken as booleans;
+        any other --flag / -x consumes the next token as its value.
+        Returns [positionals opts-map] (opts keyed by the flag token string)."
+       [args bool-flags]
+       (loop [a args pos [] opts {}]
+         (if (empty? a)
+           [pos opts]
+           (let [t (first a)]
+             (cond
+               (contains? bool-flags t) (recur (rest a) pos (assoc opts t true))
+               (str/starts-with? t "-") (recur (drop 2 a) pos (assoc opts t (second a)))
+               :else                    (recur (rest a) (conj pos t) opts))))))
+
+     (def ^:private bool-flags #{"--json" "--dry-run" "--keep-local" "-q"})
+
+     (defn- usage []
+       (println "usage: authn <signin|token|whoami|signout|login|logout|revoke|migrate> [--opts]")
+       (println "  read-only: token, whoami [--json]")
+       (println "  side-effecting (guarded): signin/login [--pds], signout/logout, revoke, migrate [--dry-run]"))
+
+     (defn -main [& args]
+       (let [[pos opts] (parse-opts (rest args) bool-flags)
+             sub (first args)
+             auth (load-auth)]
+         (case sub
+           nil       (usage)
+           "whoami"  (if (empty? auth)
+                       (binding [*out* *err*] (println "not signed in — run: authn signin"))
+                       (if (get opts "--json")
+                         (println (json/generate-string auth {:pretty true}))
+                         (let [did (or (get auth "did") (get auth "sub") "")
+                               handle (get auth "handle" "")
+                               pds (or (get auth "pds") (get auth "service") "")]
+                           (println (str "did:    " did))
+                           (when (seq handle) (println (str "handle: " handle)))
+                           (when (seq pds) (println (str "pds:    " pds))))))
+           "token"   (let [tok (or (get auth "accessJwt") (get auth "access_token")
+                                   (get auth "token") (prefer-token auth))]
+                       (if (seq tok)
+                         (println tok)
+                         (binding [*out* *err*] (println "not signed in — run: authn signin"))))
+           ("signin" "login")
+                     (println (str "authn " sub ": OAuth2 Auth-Code+PKCE browser flow + token "
+                                   "write to " auth-file " — interactive IO leg, not run here. "
+                                   "Run the Python CLI for live sign-in."))
+           ("signout" "logout")
+                     (println (str "authn " sub " (guarded, no-op): would remove " auth-file
+                                   (if (.exists (java.io.File. auth-file)) "" " (not signed in)")))
+           "revoke"  (println (str "authn revoke (guarded, no-op): would POST /oauth/revoke for stored "
+                                   "tokens and remove " auth-file
+                                   (when (get opts "--keep-local") " (--keep-local: file kept)")
+                                   ". Live revoke = run the Python CLI."))
+           "migrate" (let [name (get opts "--name" "etzhayyim-cli-migrated")]
+                       ;; mirror Python's --dry-run plan; never take the live network path here
+                       (if (get auth "api_key")
+                         (println "✓ Already migrated (api_key is set). No action needed.")
+                         (do
+                           (println (str "Would: POST createApiKey (name=" name ") using session JWT."))
+                           (println (str "Would: overwrite " auth-file " with api_key entry."))
+                           (when-not (get opts "--dry-run")
+                             (println "(guarded: live createApiKey needs a session token + network — run the Python CLI)")))))
+           (binding [*out* *err*] (println (str "authn: unknown subcommand: " sub)) (usage)))))))

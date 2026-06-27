@@ -23,6 +23,7 @@ command = "npm run build:cljs"
 # Repopulate after a kotoba bump:  ./scripts/build-kotoba-wasm.sh
 [assets]
 directory = "./public"
+binding = "ASSETS"
 
 # Catch-all routes. Worker handles:
 #   - /.well-known/did.json  → DID Document (local)

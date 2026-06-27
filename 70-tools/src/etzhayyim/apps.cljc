@@ -327,3 +327,154 @@
         (when (= (:status resp) 200)
           (json/parse-string (:body resp) true)))
       (catch Exception _ nil))))
+
+;; ---------------------------------------------------------------------------
+;; CLI -main — mirrors the python `apps` click group argv contract:
+;;   e7m apps [--json]                         (group: XRPC listApps — network)
+;;   e7m apps list [--workspace-dir D] [--json]
+;;   e7m apps health --url URL [--nanoid N] [--json]
+;;   e7m apps coverage <nanoid> [--pds URL] [--json]
+;;   e7m apps kyumei-koji <nanoid> [--fast] [--json]
+;; list/coverage/kyumei run the PURE scoring legs for real over local files
+;; (no network). The live PDS/XRPC legs (list-pds-records / xrpc-coverage-stats)
+;; are read-only IO and are not exercised here (treated as live=0).
+;; ---------------------------------------------------------------------------
+
+(defn- apps-parse
+  [args bool-flags]
+  (loop [a (seq args) pos [] flags {}]
+    (if-not a
+      [pos flags]
+      (let [t (first a)]
+        (cond
+          (and (str/starts-with? t "--") (contains? bool-flags (subs t 2)))
+          (recur (next a) pos (assoc flags (subs t 2) true))
+          (str/starts-with? t "--")
+          (recur (nnext a) pos (assoc flags (subs t 2) (fnext a)))
+          :else
+          (recur (next a) (conj pos t) flags))))))
+
+(defn- kotodama-files
+  "Seq of kotodama.jsonld java.io.File under root."
+  [root]
+  (filter #(= "kotodama.jsonld" (.getName ^java.io.File %))
+          (file-seq (java.io.File. (str root)))))
+
+(defn- read-jsonld [^java.io.File f]
+  (try (json/parse-string (slurp f) true) (catch Exception _ nil)))
+
+(defn- find-app-dir
+  "Find the dir of the app whose kotodama.jsonld :nanoid matches, under root/60-apps."
+  [root nanoid]
+  (some (fn [f] (let [d (read-jsonld f)]
+                  (when (= (get d :nanoid) nanoid)
+                    {:name (get d :name nanoid)
+                     :did  (get d :did (str "did:web:" nanoid ".etzhayyim.com"))
+                     :dir  (.getParent ^java.io.File f)})))
+        (kotodama-files (str root "/60-apps"))))
+
+(defn- read-app-src
+  "Read the first existing app.ts-style source under dir, or \"\" if none."
+  [dir]
+  (or (some (fn [c] (let [f (java.io.File. (str dir "/" c))]
+                      (when (.exists f) (try (slurp f) (catch Exception _ nil)))))
+            ["src/app.ts" "app.ts" "src/index.ts"])
+      ""))
+
+(defn -main [& args]
+  (let [[pos flags] (apps-parse args #{"json" "fast"})
+        sub   (first pos)
+        json? (boolean (get flags "json"))
+        root  (or (get flags "workspace-dir") ".")]
+    (case sub
+      "list"
+      (let [apps (->> (kotodama-files (str root "/60-apps"))
+                      (keep read-jsonld)
+                      (filter #(seq (str (get % :nanoid ""))))
+                      (mapv (fn [d] {:nanoid (get d :nanoid "")
+                                     :name   (get d :name "")
+                                     :performerType (get d :performerType "")})))]
+        (if json?
+          (println (json/generate-string apps {:pretty true}))
+          (do (println (str "apps: " (count apps)))
+              (doseq [a apps]
+                (println (str "  " (:nanoid a) "  " (:name a) "  [" (:performerType a) "]"))))))
+
+      "health"
+      (if-let [url (get flags "url")]
+        (let [st (check-app-health (or (get flags "nanoid") "") "" url {})]
+          (if json?
+            (println (json/generate-string st {:pretty true}))
+            (println (str "  [" (if (:health-ok st) "OK  " "FAIL") "] " url "  "
+                          (:health-code st) "  " (:latency-ms st) "ms"
+                          (when (seq (:error st)) (str "  " (:error st)))))))
+        (println "usage: apps health --url URL [--nanoid N] [--json]"))
+
+      "coverage"
+      (if-let [nanoid (second pos)]
+        (let [app   (find-app-dir root nanoid)
+              src   (read-app-src (:dir app))
+              dom   (score-domain-static-src src)
+              scores (compute-coverage-scores (:domain-score dom) 0 0.0 0)
+              report {:nanoid nanoid
+                      :name   (or (:name app) nanoid)
+                      :did    (or (:did app) (str "did:web:" nanoid ".etzhayyim.com"))
+                      :domain-score (:domain-score dom)
+                      :domain-grade (:grade dom)
+                      :collections  (:collections dom)
+                      :sql-labels   (:sql-labels dom)
+                      :sub-did-paths (:sub-did-paths dom)
+                      :live-records 0
+                      :overall-score (:overall scores)
+                      :overall-grade (:overall-grade scores)
+                      :note "static-only (live PDS/XRPC legs not exercised here)"}]
+          (if json?
+            (println (json/generate-string report {:pretty true}))
+            (do (println (str "App Coverage Report: " (:name report) " (" nanoid ")"))
+                (println (str "DID: " (:did report)))
+                (println (str "Overall:      " (:overall-grade report) "  "
+                              (format "%.1f" (:overall-score report)) " / 100"))
+                (println (str "Domain Score: " (:domain-grade report) "  " (:domain-score report) " / 100"))
+                (println (str "Collections:  " (count (:collections report))))
+                (println (str "Live Records: 0 (static-only)")))))
+        (println "usage: apps coverage <nanoid> [--pds URL] [--json]"))
+
+      "kyumei-koji"
+      (if-let [nanoid (second pos)]
+        (let [app     (find-app-dir root nanoid)
+              src     (read-app-src (:dir app))
+              dom     (score-domain-static-src src)
+              sources (extract-sources-from-src src)
+              cols    (:collections dom)
+              paths   (:sub-did-paths dom)
+              readiness (min 100.0
+                          (double (+ (min (* (count sources) 10) 25)
+                                     (* (tier-score 0 1 10 100) 0.40)
+                                     (min (* (count paths) 5) 15)
+                                     (min (* (count cols) 5) 20))))
+              report {:nanoid nanoid
+                      :name (or (:name app) nanoid)
+                      :did  (or (:did app) (str "did:web:" nanoid ".etzhayyim.com"))
+                      :declared-sources sources
+                      :collections cols
+                      :sub-did-paths paths
+                      :readiness-score readiness
+                      :readiness-grade (kyumei-grade readiness)
+                      :note "static-only (live PDS legs not exercised here)"}]
+          (if json?
+            (println (json/generate-string report {:pretty true}))
+            (do (println (str "Kyumei-Koji Report: " (:name report) " (" nanoid ")"))
+                (println (str "DID: " (:did report)))
+                (println (str "Readiness:        " (:readiness-grade report) "  "
+                              (format "%.1f" (:readiness-score report)) " / 100"))
+                (println (str "Declared Sources: " (count sources)))
+                (println (str "Collections:      " (count cols)))
+                (println (str "Sub-DID Paths:    " (count paths))))))
+        (println "usage: apps kyumei-koji <nanoid> [--fast] [--json]"))
+
+      nil
+      (println (str "usage: apps [--json] | apps <list|health|coverage|kyumei-koji> [args] [--opts]\n"
+                    "  (bare `apps` lists deployed apps via XRPC com.etzhayyim.apps.listApps — "
+                    "needs a live PDS; not run here)"))
+
+      (println "usage: apps <list|health|coverage|kyumei-koji> [args] [--opts]"))))

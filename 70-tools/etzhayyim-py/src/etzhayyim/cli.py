@@ -41,7 +41,7 @@ from .kagami import kagami
 from .kaizen import kaizen
 from .kashika import kashika
 from .kosei import kosei
-from .lint import lint
+# .lint retired (ADR-2606222000): ported to etzhayyim.lint.cljc → `bb e7m lint`.
 from .logs import logs
 from .metrics import metrics
 from .mitama import mitama
@@ -100,7 +100,6 @@ main.add_command(kagami)
 main.add_command(kaizen)
 main.add_command(kashika)
 main.add_command(kosei)
-main.add_command(lint)
 main.add_command(logs)
 main.add_command(metrics)
 main.add_command(migrate_manifest, name="migrate-manifest")

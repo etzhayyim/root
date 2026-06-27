@@ -19,7 +19,8 @@
 (ns etzhayyim.kotoba-rad-sign
   (:require [clojure.string :as str]
             [babashka.process :as p]
-            [etzhayyim.kotoba-rad :as rad])
+            [etzhayyim.kotoba-rad :as rad]
+            [ed25519.core :as ed])
   (:import (java.security KeyPairGenerator Signature KeyFactory)
            (java.security.spec PKCS8EncodedKeySpec X509EncodedKeySpec)
            (java.util Base64)))
@@ -123,14 +124,25 @@
         "-l" (str "etzhayyim kotoba-rad Ed25519 priv (" actor ")")
         "-w" priv-b64))
 
+(defn pubkey-hex-from-priv-b64
+  "Recover the raw-hex Ed25519 public key from a PKCS8 base64 private key, by
+   deriving it from the seed (the PKCS8 tail) via ed25519.core
+   (com-junkawasaki/ed25519-clj). This is the derivation bb's JCA can't do — it
+   removes the need for callers to carry pub-hex alongside the private key."
+  ^String [^String priv-b64]
+  (let [seed (byte-array (take-last 32 (seq (.decode (Base64/getDecoder) priv-b64))))]
+    (ed/hexify (ed/pubkey-from-seed seed))))
+
 (defn sign-fn-for-actor
-  "If the actor's key is in Keychain, return a ready sign-fn; else nil.
-   pub-hex is recovered by signing+self-derive is not possible from PKCS8 alone
-   without the EdEC API, so the caller passes the known pub-hex (from did.json /
-   --pubkey). Here we accept it explicitly."
-  [actor pub-hex]
-  (when-let [priv-b64 (keychain-read actor)]
-    (make-sign-fn {:priv-b64 priv-b64 :pub-hex pub-hex})))
+  "If the actor's key is in Keychain, return a ready sign-fn; else nil. pub-hex is
+   now OPTIONAL: when omitted it is DERIVED from the stored private key via
+   ed25519.core (previously impossible without the EdEC API, so the caller had to
+   pass it from did.json / --pubkey)."
+  ([actor] (sign-fn-for-actor actor nil))
+  ([actor pub-hex]
+   (when-let [priv-b64 (keychain-read actor)]
+     (make-sign-fn {:priv-b64 priv-b64
+                    :pub-hex (or pub-hex (pubkey-hex-from-priv-b64 priv-b64))}))))
 
 ;; ── CLI: actor:keygen ───────────────────────────────────────────────────────
 

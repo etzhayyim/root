@@ -402,3 +402,82 @@
           (throw (ex-info (str "XRPC error: " (:status resp))
                           {:status (:status resp) :body (:body resp)})))
         (json/parse-string (:body resp) true)))))
+
+;; ---------------------------------------------------------------------------
+;; CLI -main — mirrors the python `actors` click group argv contract:
+;;   e7m actors <shinka|jokyo|migrate-to-plc|cc-coverage|common-crawler-coverage> [opts]
+;; SAFETY: shinka (LLM + PDS applyWrites) and jokyo (/_heartbeat POST) are
+;; side-effecting; they default to a plan/no-op path. migrate-to-plc runs its
+;; pure --offline mock for real; live PDS is gated behind explicit flags.
+;; ---------------------------------------------------------------------------
+
+(defn- cli-parse
+  "Minimal argv parser → [positionals flags]. bool-flags = set of names (no --)."
+  [args bool-flags]
+  (loop [a (seq args) pos [] flags {}]
+    (if-not a
+      [pos flags]
+      (let [t (first a)]
+        (cond
+          (and (str/starts-with? t "--") (contains? bool-flags (subs t 2)))
+          (recur (next a) pos (assoc flags (subs t 2) true))
+          (str/starts-with? t "--")
+          (recur (nnext a) pos (assoc flags (subs t 2) (fnext a)))
+          :else
+          (recur (next a) (conj pos t) flags))))))
+
+(defn -main [& args]
+  (let [[pos flags] (cli-parse args #{"json" "dry-run" "offline" "apply"
+                                      "live" "no-live" "murakumo" "no-murakumo"})
+        sub   (first pos)
+        json? (boolean (get flags "json"))]
+    (case sub
+      "migrate-to-plc"
+      (let [actor    (get flags "actor")
+            handle   (or (get flags "handle") "")
+            offline? (boolean (get flags "offline"))]
+        (cond
+          (nil? actor)
+          (println "usage: actors migrate-to-plc --actor NAME [--handle H] [--offline] [--apply] [--pds URL] [--json]")
+          offline?
+          (let [res (migrate-to-plc "" actor handle {:offline? true})]
+            (if json?
+              (println (json/generate-string res {:pretty true}))
+              (do (println (str "actor:       " actor))
+                  (println (str "current DID: " (:legacyDid res)))
+                  (println (str "mode:        offline + dry-run (mock, no write)"))
+                  (println (str "new DID:     " (:did res)))
+                  (println (str "genesis CID: " (:genesisCid res))))))
+          :else
+          (println (str "actors migrate-to-plc (live PDS XRPC com.etzhayyim.plc.migrateActor) "
+                        "needs a reachable PDS + auth token. Re-run with --offline for the "
+                        "dry-run mock, or use the Go CLI for the live migration."))))
+
+      "shinka"
+      (let [model   (or (get flags "model") "gemma3:4b")
+            limit   (or (get flags "limit") "50")
+            filt    (or (get flags "filter") "")
+            backend (if (get flags "no-murakumo") "ollama" "murakumo")]
+        (println "actors shinka — domain-knowledge generation (LLM + PDS applyWrites).")
+        (println (str "  plan: backend=" backend " model=" model " limit=" limit
+                      (when (seq filt) (str " filter=" filt))))
+        (println "  SIDE-EFFECTING: calls an LLM backend then writes records via")
+        (println "  com.atproto.repo.applyWrites. The full parallel loop is not a single")
+        (println "  ported fn (build-prompt/parse-result/fetch-actors/write-result are the")
+        (println "  building blocks). Run the Go/py CLI for the live loop; not executed here."))
+
+      "jokyo"
+      (let [filt (or (get flags "filter") "")
+            live (not (get flags "no-live"))]
+        (println "actors jokyo — autonomous-agent health scoring.")
+        (println (str "  plan: live=" live (when (seq filt) (str " filter=" filt))))
+        (println "  SIDE-EFFECTING when live (POST /_heartbeat per actor). score-jokyo +")
+        (println "  build-health-request/build-heartbeat-request are ported; the discovery+")
+        (println "  fan-out loop is not. Not executed here (no destructive probe)."))
+
+      ("cc-coverage" "common-crawler-coverage")
+      (println (str "actors " sub " requires direct Kotoba/Datomic access (pgxpool). "
+                    "Use the Go binary: etzhayyim actors " sub))
+
+      (println (str "usage: actors <shinka|jokyo|migrate-to-plc|cc-coverage|"
+                    "common-crawler-coverage> [--opts]")))))

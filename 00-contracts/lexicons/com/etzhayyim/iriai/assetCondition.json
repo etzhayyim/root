@@ -1,0 +1,30 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.iriai.assetCondition",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "A physical-simulation digital-twin condition snapshot for one DEPLOYED lifeline asset (ADR-2606280900). A REAL degradation model per lifeline (transformer IEEE C57.91 thermal aging / water-main Hazen-Williams decline / gas-main corrosion→leak / fibre attenuation creep / road pavement PCI + bridge load-rating) computes condition (0..1) + remaining-useful-life + operating margin + structural safety. SIMULATION ONLY (G5) — the twin computes; it never energizes/flows/ignites/opens a road. A condition MAP, never a person record (G1).",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["asset", "lifeline", "condition", "rulYears", "safety", "simulationOnly", "sourcing"],
+        "properties": {
+          "asset": { "type": "string", "description": "asset id (e.g. xfmr-midori-1); a piece of infrastructure, never a person (G1)" },
+          "name": { "type": "string", "maxLength": 512 },
+          "lifeline": { "type": "string", "enum": [":electric", ":water", ":gas", ":telecom", ":road"] },
+          "region": { "type": "string", "description": "coarse region tag (aggregate; no per-asset precise location, G1)" },
+          "ageYears": { "type": "integer" },
+          "designLife": { "type": "integer" },
+          "condition": { "type": "integer", "description": "condition index ×1000 (fixed-point): 1000 = new, 0 = worn out, from the degradation model" },
+          "rulYears": { "type": "integer", "description": "remaining-useful-life ×10 (fixed-point); ≤0 = past end of life" },
+          "opMargin": { "type": "integer", "description": "operating-envelope margin ×1000 (short-timescale 'holds load within the safe envelope')" },
+          "safety": { "type": "string", "enum": [":ok", ":unsafe"], "description": "structural safety flag (gas leak-prob / bridge under-rating / insulation loss-of-life)" },
+          "driver": { "type": "string", "description": "the dominant degradation driver (e.g. θh=120°C FAA=2.71 / wall=3.4mm leak-p=0.91 / PCI=51)" },
+          "simulationOnly": { "type": "boolean", "const": true, "description": "G5 — the twin simulates; :iriai.twin/energize / :iriai/actuate unrepresentable" },
+          "sourcing": { "type": "string", "enum": [":synthetic", ":authoritative"], "description": "G8 — :synthetic at R0; real condition telemetry (kizashi sensing) is an operator/Council step" }
+        }
+      }
+    }
+  }
+}

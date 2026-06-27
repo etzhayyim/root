@@ -187,10 +187,48 @@ coerced, pay-to-enter, or exclusionary. `burn_extractive_mult > 1` keeps the
 
 ## Status / scope
 
-**R0 design-only** (this ADR + `manifest.edn` + `README.md`; methods + `kotoba.app.edn`
-+ tests are R1). Live kizuna ingest and the settlement decay-window job are
-G1/G6-gated R1 legs (the kizuna/kaname read-only fetch pattern). No mint predicate is
-written until the anti-sybil membrane (moyai PoC) is wired and Council-attested.
+**R3 — code-complete on a verified commit-DAG + LIVE-engine bridge + fleet residence** (this
+ADR + `manifest.edn` + `README.md` + `methods/moyoshi.cljc` core + `kotoba.app.edn` + tests, R1;
+plus the R2 + R3 legs below). 23 tests / 58→76 assertions green (`bb run_tests.clj`).
+
+- **R1** — the pure convening core: `design-gathering` / `govern` (ConveningGovernor,
+  G1..G6) / `validated-ties` + `settle` (G4 mint) / `beat`.
+- **R2** — the three named legs, the kaname/ibuki pattern:
+  - *live kizuna ingest* (`methods/ingest`) — lifts a COMMITTED kizuna 絆 readout into
+    moyoshi's fragility input (running kizuna = G7; joining its committed output = the
+    actor's job, the kaname join pattern). no-server-key.
+  - *settlement decay-window job* (`methods/settle`) — a pending-gathering ledger +
+    `settle-at = epoch + S` scheduler around the pure mint core; mints only at the
+    window's end, only from survived + new + anti-sybil ties (G4).
+  - *commit-DAG persistence* (`methods/kotoba`) — each beat is one content-addressed,
+    idempotent-by-content tx of EAVT datoms (verify-chain tamper-evident, resume-safe),
+    via the shared `kotoba.datom` binding. no-server-key (local append).
+  - *on-kse mesh wrapper* (`methods/mesh.clj`) — the KOTOBA Mesh entry the
+    `kotoba.app.edn` component points at; *autonomous heartbeat* (`autorun`) wires
+    ingest → design → govern → record → settle → persist. **Verified live**: beat #0
+    proposes (host=kaname) + records the pending gathering + persists (verify-chain :ok);
+    beat #1 at the same epoch is idempotent (`:no-change`).
+- **R3** — code-complete, the kaname/ibuki residence pattern:
+  - *kotoba live-engine bridge* (`methods/kotoba_bridge`) — each local tx becomes one
+    `com.etzhayyim.apps.kotoba.datomic.transact` against a running node (host allowlist
+    refuses off-fleet endpoints BEFORE any I/O; exactly-once `:bridge/*` cursor keyed by
+    local CID; `:moyoshi.tx/*` provenance; `expected_parent` chaining; DRY-RUN by default,
+    live = `MOYOSHI_KOTOBA_LIVE=1`; unsigned public-DID operator bearer on the loopback
+    trust boundary — no-server-key).
+  - *autorun `--bridge`* — pushes the commit-DAG after persist, **FAIL-OPEN** (engine down /
+    operator DID absent → the beat still completes locally). *epoch-from-clock* (the 1-day
+    ledger clock, isolated in the clj `-main` so `beat` stays deterministic). *settlement
+    now-graph* `ingest/observe-from-kizuna` (settle due gatherings against kizuna's CURRENT
+    reciprocal ties). **Verified**: a `--bridge` beat with no live engine fail-opens
+    (`bridge: fail-open (ConnectException)`) and still persists + verify-chain :ok.
+  - *fleet cell* (`cell.cljc` → `MoyoshiHeartbeatCell`, registered in cell-runner
+    `cells.edn`: node reuben, cron `39 * * * *`, healthz 13092 — LOCAL-only, no bridge).
+  - *LaunchAgent* (`deploy/`, bb-native per ADR-2606072802: `install.clj` + plist template +
+    `run-heartbeat.clj`) — hourly `--bridge` residence; reads the operator DID dynamically
+    from the running node's env. Live install + live-engine push = the operator step.
+
+No mint predicate effect is realized on the LIVE engine until the anti-sybil membrane (moyai
+PoC) is wired and Council-attested; the local commit-DAG is a content-addressed append-only log.
 
 ## Consequences
 

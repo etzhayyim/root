@@ -35,7 +35,8 @@
 ;;   (ar/build-holochain-plan "did:web:etzhayyim.com" "myapp" "ipfs://baf..." "bafy..." ...)
 
 (ns etzhayyim.agent-runtime
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [cheshire.core  :as json]))
 
 ;; ── constants ─────────────────────────────────────────────────────────────────
 
@@ -162,3 +163,116 @@
                                   {"name"  "DNA_HASH"   "value" dna-hash}
                                   {"name"  "ROLE_NAME"  "value" role-name}
                                   {"name"  "ZOME_NAME"  "value" zome-name}]}})
+
+;; ── CLI -main ──────────────────────────────────────────────────────────────────
+;; Mirrors the python `agent-runtime` click group argv contract:
+;;   e7m agent-runtime <status|list|logs|restart|render|publish|register|
+;;                      publish-agent|holochain-plan> [args] [--opts]
+;; SAFETY: status/list/logs need the httpx IO leg (not ported → message).
+;; restart + live (--no-dry-run) publish/register/publish-agent require the Go
+;; binary (mirror python ClickException). The dry-run result builders + the
+;; holochain plan are PURE and run for real here. --dry-run is the default.
+
+(defn- sha256-hex
+  "'0x' + sha256 hex of a UTF-8 string. Mirrors python hashlib.sha256(...).hexdigest()."
+  [s]
+  (let [md (java.security.MessageDigest/getInstance "SHA-256")]
+    (.update md (.getBytes (str s) "UTF-8"))
+    (str "0x" (apply str (map #(format "%02x" (bit-and % 0xff)) (seq (.digest md)))))))
+
+(defn- ar-parse
+  [args bool-flags]
+  (loop [a (seq args) pos [] flags {}]
+    (if-not a
+      [pos flags]
+      (let [t (first a)]
+        (cond
+          (and (str/starts-with? t "--") (contains? bool-flags (subs t 2)))
+          (recur (next a) pos (assoc flags (subs t 2) true))
+          (str/starts-with? t "--")
+          (recur (nnext a) pos (assoc flags (subs t 2) (fnext a)))
+          :else
+          (recur (next a) (conj pos t) flags))))))
+
+(defn- ar-emit [data] (println (json/generate-string data {:pretty true})))
+
+(defn -main [& args]
+  (let [[pos flags] (ar-parse args #{"dry-run" "no-dry-run" "json"})
+        sub      (first pos)
+        live?    (boolean (get flags "no-dry-run"))]
+    (case sub
+      ("status" "list" "logs")
+      (println (str "agent-runtime " sub " needs the bb httpx IO leg (XRPC GET, not "
+                    "ported in this twin — only the pure dry-run builders are). "
+                    "Use the Go/py CLI."))
+
+      "restart"
+      (println "agent-runtime restart requires the Go binary or kubectl.")
+
+      "render"
+      (let [cluster   (or (get flags "cluster") "")
+            manifests (mapv (fn [p] {"path" p "content" ""}) (rest pos))]
+        (ar-emit (build-runtime-doc cluster manifests)))
+
+      "publish"
+      (if live?
+        (println "Live IPFS publish requires the Go binary (macOS Keychain IPFS_HMAC).")
+        (let [cluster  (or (get flags "cluster") "")
+              ipfs     (or (get flags "ipfs") default-ipfs)
+              rendered (json/generate-string (build-runtime-doc cluster []))]
+          (ar-emit (build-publish-result cluster (sha256-hex rendered)
+                                         (count rendered) true ipfs))))
+
+      "register"
+      (if live?
+        (println "Live on-chain registration requires the Go binary (EVM signing).")
+        (let [root-did (or (get flags "root-did") "")
+              owner    (or (get flags "owner") "")]
+          (cond
+            (empty? root-did) (println "error: --root-did is required (no --registration provided)")
+            (empty? owner)    (println "error: --owner is required (no --registration provided)")
+            :else
+            (ar-emit (build-register-result
+                      (or (get flags "agent-uri") "")
+                      root-did owner
+                      (or (get flags "metadata-hash") (str "0x" (apply str (repeat 64 "0"))))
+                      (or (get flags "registry") default-registry)
+                      (or (get flags "rpc-url") default-rpc)
+                      (or (get flags "chain-id") default-chain-id)
+                      true)))))
+
+      "publish-agent"
+      (if live?
+        (println "Live publish-agent requires the Go binary.")
+        (let [cluster  (or (get flags "cluster") "")
+              rendered "{}"]
+          (ar-emit (build-publish-agent-result
+                    cluster (sha256-hex rendered) (count rendered)
+                    (sha256-hex "{}")
+                    (or (get flags "root-did") "") (or (get flags "owner") "")
+                    (or (get flags "registry") default-registry)
+                    (or (get flags "ipfs") default-ipfs)))))
+
+      "holochain-plan"
+      (let [agent-did (get flags "agent-did")
+            happ-uri  (get flags "happ-uri")
+            dna-hash  (get flags "dna-hash")]
+        (cond
+          (= (get flags "namespace") "default")
+          (println "error: --namespace must not be default")
+          (and agent-did happ-uri dna-hash)
+          (ar-emit (build-holochain-plan
+                    (cond-> {:agent-did agent-did :happ-uri happ-uri :dna-hash dna-hash}
+                      (get flags "happ-name")       (assoc :happ-name (get flags "happ-name"))
+                      (get flags "happ-sha256")     (assoc :happ-sha256 (get flags "happ-sha256"))
+                      (get flags "role")            (assoc :role-name (get flags "role"))
+                      (get flags "zome")            (assoc :zome-name (get flags "zome"))
+                      (get flags "conductor-image") (assoc :conductor-image (get flags "conductor-image"))
+                      (get flags "cluster")         (assoc :cluster (get flags "cluster"))
+                      (get flags "namespace")       (assoc :namespace (get flags "namespace"))
+                      (get flags "workload")        (assoc :workload (get flags "workload")))))
+          :else
+          (println "usage: agent-runtime holochain-plan --agent-did DID --happ-uri URI --dna-hash HASH [--opts]")))
+
+      (println (str "usage: agent-runtime <status|list|logs|restart|render|publish|"
+                    "register|publish-agent|holochain-plan> [args] [--opts]")))))

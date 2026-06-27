@@ -27,9 +27,11 @@ v0.0.0 scaffold. Local-only (anvil). Runs once per invocation (cron- or systemd-
 ```
 first-breath/
 ├── README.md
-├── pyproject.toml           # uv / pip deps: web3, eth-account
-├── breath.py                # the cell — single Python module
-└── state.json               # persistent cell state (counter + last_anchor)
+├── bb.edn                  # babashka deps: eth-crypto-clj (the cljc signer)
+├── breath.cljc             # the cell — babashka port (DEPLOYED impl; no web3/eth_account)
+├── pyproject.toml          # uv / pip deps: web3, eth-account (python reference impl)
+├── breath.py               # the cell — original Python module (kept for reference)
+└── state.json              # persistent cell state (counter + last_anchor)
 ```
 
 ## Quick run (against local anvil)
@@ -38,12 +40,25 @@ Prereqs:
 1. `anvil --chain-id 260425 --port 8545` running locally
 2. EtzhayyimAnchor deployed at the address in `deps.toml [platform.l2.anchor_contract].address_local_anvil` (= `0x5fbdb2315678afecb367f032d93f642f64180aa3` as of 2026-05-17)
 
+**babashka (cljc) — the deployed impl** (`deploy.sh` / `monitor.sh` use this; tx is
+built + signed by the pure-Clojure `eth-crypto-clj`, no web3 / no eth_account):
+
 ```bash
 cd 20-actors/first-breath
+bb breath.cljc            # single breath
+bb breath.cljc --dry-run  # build + SIGN locally, do NOT broadcast (no-server-key)
+bb breath.cljc selftest   # offline EIP-155 sign-path self-check
+# or repeated:
+while true; do bb breath.cljc; sleep 60; done
+```
+
+**python (original reference impl)** — `breath.py` is retained alongside the cljc
+(its `pyproject.toml` still declares the web3 / eth_account project); not used by
+deploy/monitor:
+
+```bash
 uv sync                   # or: pip install web3 eth-account
 uv run breath.py          # single breath
-# or repeated:
-while true; do uv run breath.py; sleep 60; done
 ```
 
 ## What you see

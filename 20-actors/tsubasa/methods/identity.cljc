@@ -19,21 +19,15 @@
 
   Pure stdlib (java.security Ed25519 + base58btc); deterministic verify; no network."
   (:require [clojure.string :as str]
+            [multiformats.core :as mf]
             #?(:clj [babashka.process :as p])))
 
 ;; ── base58btc (Bitcoin alphabet) — for did:key multibase 'z' ──────────────────
-(def ^:private b58-alphabet "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz")
-
 (defn b58btc
-  "Encode bytes as base58btc (no checksum), preserving leading-zero bytes as '1's."
-  [^bytes bs]
-  (let [n (alength bs)
-        lead (count (take-while zero? (map #(bit-and (long %) 0xff) bs)))]
-    (loop [acc (BigInteger. 1 bs) out ""]
-      (if (pos? (.signum acc))
-        (let [[q r] [(.divide acc (BigInteger/valueOf 58)) (.intValue (.mod acc (BigInteger/valueOf 58)))]]
-          (recur q (str (nth b58-alphabet r) out)))
-        (str (apply str (repeat lead \1)) out)))))
+  "Encode bytes as base58btc (no checksum), preserving leading-zero bytes as '1's.
+   Delegates to the shared com-junkawasaki/multiformats-clj (portable clj+cljs)."
+  [bs]
+  (mf/base58btc bs))
 
 ;; ── did:key (Ed25519 multicodec 0xed 0x01) ───────────────────────────────────
 (defn did-key

@@ -39,7 +39,9 @@
 ;; actor. The actor only ever sees `cacao_b64` (opaque) + the sidecar metadata.
 
 (ns etzhayyim.issue-cacao
-  (:require [clojure.string :as str])
+  (:require [clojure.string :as str]
+            [ed25519.core :as ed]
+            [cacao.core :as cacao])
   (:import (java.security KeyPairGenerator KeyFactory Signature MessageDigest)
            (java.security.spec PKCS8EncodedKeySpec)
            (java.time ZonedDateTime)
@@ -61,20 +63,6 @@
     (byte-array (map (fn [[a b]] (unchecked-byte (Integer/parseInt (str a b) 16)))
                      (partition 2 s)))))
 
-(def ^:private b58-alphabet
-  "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz")
-
-(defn b58 ^String [^bytes b]
-  ;; base58btc (Bitcoin alphabet) — leading zero bytes → leading '1's.
-  (let [n (BigInteger. 1 b)
-        fifty8 (BigInteger/valueOf 58)]
-    (loop [n n acc ""]
-      (if (pos? (.signum n))
-        (let [[q r] [(.divide n fifty8) (.intValue (.mod n fifty8))]]
-          (recur q (str (.charAt b58-alphabet r) acc)))
-        (let [lead (count (take-while zero? (seq b)))]
-          (str (apply str (repeat lead \1)) acc))))))
-
 (def ^:private b32-alphabet "abcdefghijklmnopqrstuvwxyz234567") ; RFC4648 lower
 
 (defn b32-lower ^String [^bytes b]
@@ -92,10 +80,11 @@
 
 ;; ── DID + graph CID (must match KotobaCid::from_bytes + did:key spec) ─────────
 
-(defn did-key-from-pub ^String [^bytes pub]
-  ;; raw 32-byte Ed25519 pubkey → did:key:z6Mk… (multicodec 0xed01 + base58btc).
-  (str "did:key:z" (b58 (byte-array (concat [(unchecked-byte 0xed) (unchecked-byte 0x01)]
-                                            (seq pub))))))
+(defn did-key-from-pub
+  "raw 32-byte Ed25519 pubkey → did:key:z6Mk… (multicodec 0xed01 + base58btc).
+   Delegates to the shared ed25519.core library (com-junkawasaki/ed25519-clj)."
+  ^String [^bytes pub]
+  (ed/did-key-from-pub pub))
 
 (defn graph-cid ^String [^String name]
   ;; KotobaCid::from_bytes(name) — CIDv1 dag-cbor sha2-256, base32lower, 'b' prefix.
@@ -122,40 +111,10 @@
                 (:resources p) (into (map #(str "- " %) (:resources p))))]
     (str/join "\n" lines)))
 
-;; ── minimal definite-length CBOR (small text-string maps/arrays) ─────────────
-;; Maps are built from ORDERED [k v-bytes] pairs (not Clojure maps) so the byte
-;; layout is deterministic and matches the .py dict-insertion order.
-
-(defn- cbor-str ^bytes [^String s]
-  (let [b (.getBytes s "UTF-8") n (count b)
-        head (cond (< n 24)  (byte-array [(unchecked-byte (bit-or 0x60 n))])
-                   (< n 256) (byte-array [(unchecked-byte 0x78) (unchecked-byte n)])
-                   :else     (byte-array [(unchecked-byte 0x79)
-                                          (unchecked-byte (bit-shift-right n 8))
-                                          (unchecked-byte (bit-and n 0xff))]))]
-    (byte-array (concat (seq head) (seq b)))))
-
-(defn- cbor-arr ^bytes [items]
-  (byte-array (concat [(unchecked-byte (bit-or 0x80 (count items)))]
-                      (mapcat seq items))))
-
-(defn- cbor-map ^bytes [pairs]
-  ;; pairs = ordered seq of [key-string value-bytes]
-  (byte-array (concat [(unchecked-byte (bit-or 0xA0 (count pairs)))]
-                      (mapcat (fn [[k v]] (concat (seq (cbor-str k)) (seq v))) pairs))))
-
-(defn build-cacao ^bytes [payload ^String sig-b64]
-  (let [p [["iss" (cbor-str (:iss payload))]
-           ["aud" (cbor-str (:aud payload))]
-           ["iat" (cbor-str (:iat payload))]
-           ["exp" (cbor-str (:exp payload))]
-           ["nonce" (cbor-str (:nonce payload))]
-           ["domain" (cbor-str (:domain payload))]
-           ["version" (cbor-str (:version payload))]
-           ["resources" (cbor-arr (map cbor-str (:resources payload)))]]]
-    (cbor-map [["h" (cbor-map [["t" (cbor-str "eip4361")]])]
-               ["p" (cbor-map p)]
-               ["s" (cbor-map [["t" (cbor-str "EdDSA")] ["s" (cbor-str sig-b64)]])]])))
+;; The CBOR CACAO envelope ({h,p,s}) is now built + signed by the shared
+;; com-junkawasaki/cacao-clj library (verified BYTE-IDENTICAL to the prior
+;; hand-rolled encoder). `siwe-message` above is retained as the independent
+;; EIP-4361 reference the tests pin cacao-clj's output against.
 
 ;; ── Ed25519 keys (JCA "Ed25519"; raw pub = last 32B of X.509 SPKI, per kotoba_rad_sign) ──
 
@@ -196,23 +155,28 @@
 
 ;; ── issue ────────────────────────────────────────────────────────────────────
 
+(defn- seed-from-priv-b64
+  "The raw 32-byte Ed25519 seed is the tail of a PKCS8-encoded private key."
+  ^bytes [^String priv-b64]
+  (byte-array (take-last 32 (seq (.decode (Base64/getDecoder) priv-b64)))))
+
 (defn issue
   "Mint the delegation bundle. `key` = {:priv-b64 … :pub-hex …} (the member's key).
    Returns the {cacao_b64, aud, capability, graph, exp(epoch), exp_iso, nonce, …}
-   sidecar the actor's delegation loader consumes."
+   sidecar the actor's delegation loader consumes. The SIWE+CBOR+Ed25519 CACAO is
+   built by com-junkawasaki/cacao-clj (byte-identical to the prior hand-roll)."
   [{:keys [node-did graph iat exp nonce domain key]
     :or {domain default-domain}}]
-  (let [member-did (did-key-from-pub (unhex (:pub-hex key)))
-        gcid (graph-cid graph)
-        payload {:iss member-did :aud node-did :iat iat :exp exp :nonce nonce
-                 :domain domain :version "1"
-                 :resources [(str "kotoba://can/" capability)
-                             (str "kotoba://graph/" gcid)]}
-        sig (sign-bytes (:priv-b64 key) (.getBytes (siwe-message payload) "UTF-8"))
-        cacao (build-cacao payload (b64 sig))]
-    {:cacao_b64 (b64 cacao)
+  (let [gcid (graph-cid graph)
+        {:keys [cacao-b64 iss]}
+        (cacao/mint {:seed (seed-from-priv-b64 (:priv-b64 key))
+                     :aud node-did :iat iat :exp exp :nonce nonce
+                     :domain domain :version "1"
+                     :resources [(str "kotoba://can/" capability)
+                                 (str "kotoba://graph/" gcid)]})]
+    {:cacao_b64 cacao-b64
      :aud node-did :capability capability :graph graph
-     :exp (iso->epoch exp) :exp_iso exp :nonce nonce :_issuer member-did
+     :exp (iso->epoch exp) :exp_iso exp :nonce nonce :_issuer iss
      :_note "member-signed; the actor presents this, never signs. Revoke by letting exp pass."}))
 
 ;; ── tiny JSON emit (sidecar; avoids a runtime dep — values are flat strings/longs) ──
@@ -240,14 +204,24 @@
         :else (recur r m))
       m)))
 
+(defn key-from-seed-hex
+  "Recover the member key from an EXISTING raw 32-byte Ed25519 seed (hex). Closes
+   the prior 'must GENERATE a keypair' limitation: the JCA Ed25519 provider cannot
+   derive a public key from a seed, so ed25519.core (com-junkawasaki/ed25519-clj)
+   does it. Returns {:priv-b64 <PKCS8 b64> :pub-hex <raw32 hex>}."
+  [seed-hex]
+  (let [seed (ed/unhex seed-hex)]
+    {:priv-b64 (.encodeToString (Base64/getEncoder) (.getEncoded (ed/private-from-seed seed)))
+     :pub-hex  (ed/hexify (ed/pubkey-from-seed seed))}))
+
 (defn -main [& args]
-  (let [{:keys [node-did graph exp nonce iat out gen-key member-priv-b64 member-pub-hex]
+  (let [{:keys [node-did graph exp nonce iat out gen-key member-priv-b64 member-pub-hex member-seed-hex]
          :or {graph "ibuki" nonce "leash0001" iat "2026-06-11T00:00:00Z"}} (parse-args args)]
     (when-not (and node-did exp out)
       (binding [*out* *err*]
         (println "usage: issue-cacao --node-did <did> --exp <ISO-8601> --out <path>"
                  "[--graph <name>] [--nonce <s>] [--iat <ISO>]"
-                 "(--gen-key | --member-priv-b64 <b64> --member-pub-hex <hex>)"))
+                 "(--gen-key | --member-seed-hex <hex> | --member-priv-b64 <b64> --member-pub-hex <hex>)"))
       (System/exit 2))
     (let [key (cond
                 gen-key (let [kp (gen-keypair)]
@@ -256,9 +230,10 @@
                             (println (str "#   --member-priv-b64 " (:priv-b64 kp)))
                             (println (str "#   --member-pub-hex  " (:pub-hex kp))))
                           kp)
+                member-seed-hex (key-from-seed-hex member-seed-hex)
                 (and member-priv-b64 member-pub-hex) {:priv-b64 member-priv-b64 :pub-hex member-pub-hex}
                 :else (binding [*out* *err*]
-                        (println "need --gen-key OR (--member-priv-b64 + --member-pub-hex)")
+                        (println "need --gen-key OR --member-seed-hex <hex> OR (--member-priv-b64 + --member-pub-hex)")
                         (System/exit 2)))
           bundle (issue {:node-did node-did :graph graph :iat iat :exp exp :nonce nonce :key key})]
       (spit out (->json bundle))
