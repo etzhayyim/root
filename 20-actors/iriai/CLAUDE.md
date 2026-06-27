@@ -86,10 +86,11 @@ methods/fund.cljc        §1.16 in-kind funding proposal (cash≡0, give-only) �
 methods/manage.cljc      1 SBT=1 vote governance + :intent + no-server-key → ledger → datoms → report
 methods/twin.cljc        物理シミュレーション: per-asset degradation physics → condition/RUL/safety (+ project, bb CLI)
 methods/maintain.cljc    運用メンテナンス: lifecycle gate (safety-floor first) + OpEx + executor routing
+methods/forecast.cljc    予測保全: twin.project run-ahead → per-asset lead-time to next action → schedule (mitooshi 見通し)
 methods/gates.cljc       constitutional assertions (ex-info, incl. G9 safety-floor) + structural forbidden-absent?
 methods/kotoba.cljc      content-addressed append-only COMMONS LEDGER (tx-cid/make-tx/append-tx/verify-chain)
-methods/autorun.cljc     deterministic, idempotent-by-content heartbeat — infra+fund+manage+twin+maintain → append
-methods/test_*.cljc      9 suites: infra·fund·manage·twin·maintain·gates·kotoba·autorun·cell (56 tests / 425 assert)
+methods/autorun.cljc     deterministic, idempotent-by-content heartbeat — infra+fund+manage+twin+maintain+forecast → append
+methods/test_*.cljc      10 suites: infra·fund·manage·twin·maintain·forecast·gates·kotoba·autorun·cell (62 tests / 443 assert)
 cell.cljc                fleet heartbeat cell — `fire` runs one commons beat (IriaiCommonsHeartbeatCell)
 deploy/                  LaunchAgent residency (install.clj + plist template + README; machine-local)
 kotoba/ontology.iriai.edn EAVT schema + verdicts + instruments + degradation-models + NEGATIVE SPACE
@@ -102,13 +103,14 @@ run_tests.clj            bb-native runner (no shell, ADR-2606072802)
 ## Run
 
 ```bash
-bb 20-actors/iriai/run_tests.clj                                  # 8 suites (56 tests / 425 assert)
+bb 20-actors/iriai/run_tests.clj                                  # 10 suites (62 tests / 443 assert)
 bb --classpath 20-actors 20-actors/iriai/methods/infra.cljc       # coverage + resilience map
 bb --classpath 20-actors 20-actors/iriai/methods/fund.cljc        # §1.16 in-kind funding plan
 bb --classpath 20-actors 20-actors/iriai/methods/manage.cljc      # 1 SBT=1 vote governance ledger
 bb --classpath 20-actors 20-actors/iriai/methods/twin.cljc        # physical-simulation asset condition
 bb --classpath 20-actors 20-actors/iriai/methods/maintain.cljc    # operations/maintenance plan
-bb --classpath 20-actors 20-actors/iriai/methods/autorun.cljc     # heartbeat → append (all 5 layers)
+bb --classpath 20-actors 20-actors/iriai/methods/forecast.cljc    # predictive-maintenance schedule
+bb --classpath 20-actors 20-actors/iriai/methods/autorun.cljc     # heartbeat → append (all 6 layers)
 ```
 
 ## Pairs with

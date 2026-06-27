@@ -87,6 +87,11 @@
   {:attr ":iriai.maint/executor"  :type :string :note "kuni-umi/tazuna/giemon/noroshi/hodoki+kanayama"}
   {:attr ":iriai.maint/opex-usd"  :type :float :note "imputed §1.16 in-kind upkeep cost; cash≡0 to consumer"}
   {:attr ":iriai.maint/actuation-class" :type :keyword-str :const ":intent" :note "G5: design only"}
+  ;; forecast (predictive maintenance — twin run-ahead; ADR-2606280900)
+  {:attr ":iriai.forecast/lifeline"   :type :keyword-str}
+  {:attr ":iriai.forecast/lead-time-years" :type :long :note "years to the next condition/safety action; -1 = beyond horizon"}
+  {:attr ":iriai.forecast/predicted-verdict" :type :keyword-str}
+  {:attr ":iriai.forecast/model-based" :type :bool :const true :note "a MODEL projection (mitooshi honesty); real telemetry refines it (R1)"}
   ;; provenance
   {:attr ":iriai/sourcing" :type :keyword-str :note ":synthetic at R0"}
   {:attr ":iriai/derived"  :type :bool}]

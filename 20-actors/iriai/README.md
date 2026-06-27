@@ -12,7 +12,7 @@ iriai is the **System-of-Systems umbrella** over the producers — 電気→**hi
 (ASSESSMENT + R0 DESIGN ONLY).
 
 `did:web:etzhayyim.com:iriai` · `com.etzhayyim.iriai.*` · **ADR-2606272200 + 2606280900** · clj-native R0
-(56 tests / 425 assertions green).
+(62 tests / 443 assertions green).
 
 ## Five layers
 

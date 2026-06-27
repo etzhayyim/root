@@ -57,9 +57,10 @@
   {:method/id "manage"  :method/file "methods/manage.cljc"  :method/role "管理: 1 SBT=1 vote governance + :intent actuation + no-server-key → ledger → datoms → report"}
   {:method/id "twin"    :method/file "methods/twin.cljc"    :method/role "物理シミュレーション: per-asset degradation physics (transformer IEEE C57.91 / pipe Hazen-Williams / gas corrosion-leak / fibre attenuation / road PCI) → condition + RUL + op-margin + safety; project run-ahead; SIM ONLY (ADR-2606280900)"}
   {:method/id "maintain" :method/file "methods/maintain.cljc" :method/role "運用メンテナンス: lifecycle gate (decommission→renew→corrective→refurbish→preventive→inspect→ok, SAFETY FLOOR first) + OpEx + executor routing; :intent only (ADR-2606280900)"}
+  {:method/id "forecast" :method/file "methods/forecast.cljc" :method/role "予測保全 (mitooshi 見通し discipline): twin.project run-ahead → per-asset lead-time to the next condition/safety action → prioritized schedule; model-based + horizon-bounded; SIM only (ADR-2606280900)"}
   {:method/id "gates"   :method/file "methods/gates.cljc"   :method/role "constitutional gate assertions (ex-info, incl. G9 safety-floor) + structural forbidden-absent? (the charter inversions)"}
   {:method/id "kotoba"  :method/file "methods/kotoba.cljc"  :method/role "持続永続化: content-addressed append-only COMMONS LEDGER (tx-cid/make-tx/append-tx/read-log/verify-chain)"}
-  {:method/id "autorun" :method/file "methods/autorun.cljc" :method/role "持続永続化: deterministic, idempotent-by-content heartbeat — infra+fund+manage+twin+maintain → append (+ bb CLI)"}]
+  {:method/id "autorun" :method/file "methods/autorun.cljc" :method/role "持続永続化: deterministic, idempotent-by-content heartbeat — infra+fund+manage+twin+maintain+forecast → append (+ bb CLI)"}]
 
  :actor/lex
  [{:lex/id "lifelineCoverageMap" :lex/nsid "com.etzhayyim.iriai.lifelineCoverageMap"
