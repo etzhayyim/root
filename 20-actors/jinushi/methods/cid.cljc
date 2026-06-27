@@ -8,41 +8,26 @@
 
   Scope (honest): this is the **raw single-block** CIDv1 — `multibase(base32, 0x01 0x55 0x12 0x20
   <sha2-256>)` — the content hash of the file bytes. It is NOT the dag-pb/UnixFS CID that
-  `ipfs add` (default, chunked) produces for large files; UnixFS parity is a later leg. A
-  raw-codec CIDv1/sha2-256 always renders with the `bafkrei…` prefix."
+  `ipfs add` (default, chunked) produces for large files; UnixFS parity is a later leg.
+
+  The CID machinery now delegates to the shared **com-junkawasaki/multiformats-clj** library
+  (`.cljc`, byte-identical to the prior local copy + to `ipfs add --raw-leaves`). The public
+  surface (sha256-bytes / base32-nopad / cidv1-raw / string->cidv1 / file->cidv1) is unchanged."
   (:require [clojure.string :as str]
+            [multiformats.core :as mf]
             #?(:clj [clojure.java.io :as io])))
 
-(def ^:private b32 "abcdefghijklmnopqrstuvwxyz234567") ;; RFC4648 base32 lower, multibase 'b'
-
-(defn sha256-bytes [^bytes data]
-  #?(:clj (.digest (java.security.MessageDigest/getInstance "SHA-256") data)
-     :cljs (throw (ex-info "cid: :clj only" {}))))
-
-(defn base32-nopad
-  "RFC4648 base32 (lower, no padding) of a byte array — multibase base32 body."
-  [^bytes data]
-  (let [bits (mapcat (fn [b] (let [u (bit-and (long b) 0xff)]
-                               (map #(bit-and (unsigned-bit-shift-right u %) 1) [7 6 5 4 3 2 1 0])))
-                     data)]
-    (apply str (map (fn [g] (let [g (concat g (repeat (- 5 (count g)) 0))
-                                  v (reduce (fn [a x] (+ (* 2 a) x)) 0 g)]
-                              (.charAt b32 (int v))))
-                    (partition-all 5 bits)))))
-
-(defn cidv1-raw
-  "CIDv1 (raw 0x55 / sha2-256) string for content bytes → \"bafkrei…\"."
-  [^bytes content]
-  (let [digest (sha256-bytes content)
-        prefix (byte-array [0x01 0x55 0x12 0x20])          ;; cidv1 · raw · sha2-256 · len 32
-        cid-bytes (byte-array (concat (seq prefix) (seq digest)))]
-    (str "b" (base32-nopad cid-bytes))))
+(def sha256-bytes mf/sha256)        ;; ^bytes → sha2-256 digest
+(def base32-nopad mf/base32)        ;; RFC4648 base32 lower, no padding (multibase 'b' body)
+(def cidv1-raw    mf/cidv1-raw)     ;; content bytes → "bafkrei…" (raw 0x55 / sha2-256)
 
 (defn string->cidv1 [^String s]
   #?(:clj (cidv1-raw (.getBytes s "UTF-8")) :cljs (throw (ex-info "cid: :clj only" {}))))
 
-#?(:clj
-   (defn file->cidv1 [f] (cidv1-raw (java.nio.file.Files/readAllBytes (.toPath (io/file f))))))
+;; NB: cidv1-raw of the whole file bytes (single-block, any size) — NOT mf/cid-of-file,
+;; which caps at 256 KiB; jinushi's raw-CID contract intentionally hashes large
+;; snapshots too (it never claimed dag-pb/UnixFS parity).
+#?(:clj (defn file->cidv1 [f] (cidv1-raw (java.nio.file.Files/readAllBytes (.toPath (io/file f))))))
 
 #?(:clj
    (defn -main [& argv]
