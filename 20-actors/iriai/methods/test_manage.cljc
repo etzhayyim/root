@@ -15,7 +15,7 @@
 
 ;; ── one decision per funding proposal ──────────────────────────────────────────
 (deftest decision-per-proposal
-  (is (= 10 (get (lg) "count")) "10 fundable cells → 10 governance decisions"))
+  (is (= 11 (get (lg) "count")) "11 fundable cells (incl. kibou road) → 11 governance decisions"))
 
 ;; ── governance route is 1 SBT = 1 vote + Council ───────────────────────────────
 (deftest governance-is-one-sbt-one-vote

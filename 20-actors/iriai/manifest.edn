@@ -79,6 +79,18 @@
   :ledger/gitignored true
   :ledger/note "Generated commons ledger of lifeline coverage/funding/governance DECISIONS; tamper-evident (verify-chain); no-server-key; a record of provision/resilience decisions, never a shut-off list."}
 
+ :actor/fleet
+ {:cell/name "IriaiCommonsHeartbeatCell"
+  :cell/module "iriai.cell"
+  :cell/entry "fire"
+  :cell/node "judah"
+  :cell/cron "44 * * * *"
+  :cell/healthz-port 13093
+  :cell/registry "50-infra/cluster/murakumo/cell-runner/cells.edn"
+  :cell/deploy "deploy/install.clj (LaunchAgent, hourly :44)"
+  :cell/adr "2606280900"
+  :cell/note "one deterministic commons beat per fire (infra+fund+manage+twin+maintain); idempotent-by-content (unchanged = no-op); no-server-key, no external I/O; Murakumo digest + live-engine bridge + crew dispatch stay operator/Council-gated"}
+
  :actor/seed
  {:seed/file "kotoba/seed.edn"
   :seed/ontology "kotoba/ontology.iriai.edn"

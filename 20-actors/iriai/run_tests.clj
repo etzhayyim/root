@@ -24,7 +24,8 @@
     iriai.methods.test-maintain
     iriai.methods.test-gates
     iriai.methods.test-kotoba
-    iriai.methods.test-autorun])
+    iriai.methods.test-autorun
+    iriai.test-cell])
 
 (apply require suites)
 

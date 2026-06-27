@@ -24,8 +24,8 @@
 
 (deftest plan-totals
   (let [pl (fund/plan (cells))]
-    ;; kibou 4 (provision) + shima 2 (redundancy) + saigai 4 (reinforce) = 10
-    (is (= 10 (get pl "count")))
+    ;; kibou 5 (4 utilities + road provision) + shima 2 (redundancy) + saigai 4 (reinforce) = 11
+    (is (= 11 (get pl "count")))
     (is (pos? (get pl "imputed_annual_usd_total")))
     (is (= 0 (get pl "cash_to_consumer_total")))))
 
