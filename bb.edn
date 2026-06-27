@@ -19,10 +19,16 @@
          :git/sha "c7daa07d4e50f55d7e2a02e4b89dbeb2b200961d"}
         com-junkawasaki/ed25519-clj
         {:git/url "https://github.com/com-junkawasaki/ed25519-clj"
-         :git/sha "2354d1ca98af16acc80c9c17875a69b5de5dd2d3"}
+         :git/sha "ec077bca1f90027bc718557f1e8bb6fbc004fe5a"}
         com-junkawasaki/multiformats-clj
         {:git/url "https://github.com/com-junkawasaki/multiformats-clj"
-         :git/sha "9031996fb6c57fddb7c7de95365ecff35e497d1e"}}
+         :git/sha "9031996fb6c57fddb7c7de95365ecff35e497d1e"}
+        com-junkawasaki/dag-cbor-clj
+        {:git/url "https://github.com/com-junkawasaki/dag-cbor-clj"
+         :git/sha "52b008d96820660196ee8dd15e7d213c9022a6b5"}
+        com-junkawasaki/cacao-clj
+        {:git/url "https://github.com/com-junkawasaki/cacao-clj"
+         :git/sha "32fe0b63a815afc0827729394435deee627ea582"}}
  :tasks
  {e7m
   {:doc "etzhayyim CLI (babashka port; capstone of the etzhayyim-py→bb migration, ADR-2606222000). `bb e7m list` shows every ported command module; `bb e7m <cmd> [args]` dispatches commands that expose a -main (murakumo, vitals); other commands are ported as libraries (ns etzhayyim.<cmd>) pending argv-wiring."
@@ -33,6 +39,11 @@
   {:doc "MEMBER-side CACAO leash issuer (clj port of 20-actors/ibuki/tools/issue_delegation.py, repo-rule clj/bb). Mints a scoped/expiring/revocable CAIP-122 SIWE CACAO (capability=datom:transact, aud=node operator DID, resources=[kotoba://can/datom:transact, kotoba://graph/<cid>]) Ed25519-signed with the member's OWN key → cacao_b64 sidecar the autonomous actor (ibuki/kaname/tsubasa) PRESENTS (present-only, never signs; no-server-key). Args: --node-did <did> --exp <ISO-8601> --out <path> [--graph <name>] [--nonce <s>] [--iat <ISO>] (--gen-key | --member-priv-b64 <b64> --member-pub-hex <hex>)"
    :task (do (require 'etzhayyim.issue-cacao)
              (apply (resolve 'etzhayyim.issue-cacao/-main) *command-line-args*))}
+
+  kotobase:pin
+  {:doc "Register a CID with kotobase.net's IPFS Pinning Service via a self-sovereign kotobase:pin CACAO (clj; replaces the throwaway node script, ADR-2606111330). Reads the tenant seed from env KOTOBA_SEED_HEX (your own vault), mints the CACAO in-process (no-server-key), POSTs /pins. Args: <cid> [name] [--endpoint <url>]"
+   :task (do (require 'etzhayyim.kotobase-pin)
+             (apply (resolve 'etzhayyim.kotobase-pin/-main) *command-line-args*))}
 
   gen:tier-b-actors
   {:doc "Regenerate 50-infra/etzhayyim-did-web/src/registry/tier-b-actors.gen.ts from each 20-actors/<a>/manifest.{jsonld,edn} (Tier-B, non-hand-authored). clj/bb port of the legacy gen-tier-b-actors.mjs; manifest.jsonld preferred, manifest.edn (Gen-3 kotoba-native) fallback. ADR-2606042330."
