@@ -1,14 +1,17 @@
-;; moyoshi 催し — actor manifest (R2, ADR-2606272100).
+;; moyoshi 催し — actor manifest (R3, ADR-2606272100).
 ;; Convening actor: designs/hosts gatherings whose telos is VALIDATED social capital
 ;; (survived, anti-sybil tie-formation), never turnout. Sealed EventDesigner-LLM behind
 ;; an independent ConveningGovernor; human host in the actuation loop (ossekai + CACAO).
-;; R2 = live kizuna ingest (methods/ingest) + settlement decay-window job (methods/settle)
-;; + commit-DAG persistence (methods/kotoba) + on-kse mesh wrapper (methods/mesh.clj)
-;; + autonomous heartbeat (autorun). Live kizuna-log read + kotoba live-engine bridge = R3.
+;; R2 = live kizuna ingest + settlement decay-window job + commit-DAG persistence + on-kse
+;; mesh wrapper + autonomous heartbeat. R3 = kotoba live-engine bridge (methods/kotoba_bridge,
+;; host allowlist + exactly-once cursor + dry-run default + fail-open) wired into autorun
+;; --bridge + epoch-from-clock + settlement now-graph (ingest/observe-from-kizuna); fleet cell
+;; (cell.cljc → MoyoshiHeartbeatCell, node reuben, cron 39, healthz 13092); LaunchAgent (deploy/,
+;; bb-native). Live install + live-engine push = operator step (verified to fail-open).
 {:actor/id     "moyoshi"
  :actor/glyph  "催"
  :actor/tier   :tier-b
- :actor/status :r2
+ :actor/status :r3
  :actor/adr    ["2606272100"]
  :actor/telos  "raise social capital by designing/convening gatherings that form ties"
  :actor/pairs  ["kizuna"   ; fragility signal in + baseline graph for settlement
