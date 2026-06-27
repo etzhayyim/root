@@ -39,7 +39,8 @@
 ;; actor. The actor only ever sees `cacao_b64` (opaque) + the sidecar metadata.
 
 (ns etzhayyim.issue-cacao
-  (:require [clojure.string :as str])
+  (:require [clojure.string :as str]
+            [ed25519.core :as ed])
   (:import (java.security KeyPairGenerator KeyFactory Signature MessageDigest)
            (java.security.spec PKCS8EncodedKeySpec)
            (java.time ZonedDateTime)
@@ -61,20 +62,6 @@
     (byte-array (map (fn [[a b]] (unchecked-byte (Integer/parseInt (str a b) 16)))
                      (partition 2 s)))))
 
-(def ^:private b58-alphabet
-  "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz")
-
-(defn b58 ^String [^bytes b]
-  ;; base58btc (Bitcoin alphabet) — leading zero bytes → leading '1's.
-  (let [n (BigInteger. 1 b)
-        fifty8 (BigInteger/valueOf 58)]
-    (loop [n n acc ""]
-      (if (pos? (.signum n))
-        (let [[q r] [(.divide n fifty8) (.intValue (.mod n fifty8))]]
-          (recur q (str (.charAt b58-alphabet r) acc)))
-        (let [lead (count (take-while zero? (seq b)))]
-          (str (apply str (repeat lead \1)) acc))))))
-
 (def ^:private b32-alphabet "abcdefghijklmnopqrstuvwxyz234567") ; RFC4648 lower
 
 (defn b32-lower ^String [^bytes b]
@@ -92,10 +79,11 @@
 
 ;; ── DID + graph CID (must match KotobaCid::from_bytes + did:key spec) ─────────
 
-(defn did-key-from-pub ^String [^bytes pub]
-  ;; raw 32-byte Ed25519 pubkey → did:key:z6Mk… (multicodec 0xed01 + base58btc).
-  (str "did:key:z" (b58 (byte-array (concat [(unchecked-byte 0xed) (unchecked-byte 0x01)]
-                                            (seq pub))))))
+(defn did-key-from-pub
+  "raw 32-byte Ed25519 pubkey → did:key:z6Mk… (multicodec 0xed01 + base58btc).
+   Delegates to the shared ed25519.core library (com-junkawasaki/ed25519-clj)."
+  ^String [^bytes pub]
+  (ed/did-key-from-pub pub))
 
 (defn graph-cid ^String [^String name]
   ;; KotobaCid::from_bytes(name) — CIDv1 dag-cbor sha2-256, base32lower, 'b' prefix.
@@ -240,14 +228,24 @@
         :else (recur r m))
       m)))
 
+(defn key-from-seed-hex
+  "Recover the member key from an EXISTING raw 32-byte Ed25519 seed (hex). Closes
+   the prior 'must GENERATE a keypair' limitation: the JCA Ed25519 provider cannot
+   derive a public key from a seed, so ed25519.core (com-junkawasaki/ed25519-clj)
+   does it. Returns {:priv-b64 <PKCS8 b64> :pub-hex <raw32 hex>}."
+  [seed-hex]
+  (let [seed (ed/unhex seed-hex)]
+    {:priv-b64 (.encodeToString (Base64/getEncoder) (.getEncoded (ed/private-from-seed seed)))
+     :pub-hex  (ed/hexify (ed/pubkey-from-seed seed))}))
+
 (defn -main [& args]
-  (let [{:keys [node-did graph exp nonce iat out gen-key member-priv-b64 member-pub-hex]
+  (let [{:keys [node-did graph exp nonce iat out gen-key member-priv-b64 member-pub-hex member-seed-hex]
          :or {graph "ibuki" nonce "leash0001" iat "2026-06-11T00:00:00Z"}} (parse-args args)]
     (when-not (and node-did exp out)
       (binding [*out* *err*]
         (println "usage: issue-cacao --node-did <did> --exp <ISO-8601> --out <path>"
                  "[--graph <name>] [--nonce <s>] [--iat <ISO>]"
-                 "(--gen-key | --member-priv-b64 <b64> --member-pub-hex <hex>)"))
+                 "(--gen-key | --member-seed-hex <hex> | --member-priv-b64 <b64> --member-pub-hex <hex>)"))
       (System/exit 2))
     (let [key (cond
                 gen-key (let [kp (gen-keypair)]
@@ -256,9 +254,10 @@
                             (println (str "#   --member-priv-b64 " (:priv-b64 kp)))
                             (println (str "#   --member-pub-hex  " (:pub-hex kp))))
                           kp)
+                member-seed-hex (key-from-seed-hex member-seed-hex)
                 (and member-priv-b64 member-pub-hex) {:priv-b64 member-priv-b64 :pub-hex member-pub-hex}
                 :else (binding [*out* *err*]
-                        (println "need --gen-key OR (--member-priv-b64 + --member-pub-hex)")
+                        (println "need --gen-key OR --member-seed-hex <hex> OR (--member-priv-b64 + --member-pub-hex)")
                         (System/exit 2)))
           bundle (issue {:node-did node-did :graph graph :iat iat :exp exp :nonce nonce :key key})]
       (spit out (->json bundle))
