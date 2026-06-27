@@ -37,9 +37,24 @@
        (map (fn [p] (vec (sort (seq p)))))
        (sort) vec))
 
+(defn observe-from-kizuna
+  "R3 settlement now-graph: build a settlement observation {:surviving :distinct-dids
+  :colluding} from a kizuna NOW-readout (its CURRENT reciprocal ties + actor set). The
+  `surviving` ties = kizuna's present reciprocal pairs (the ties that still hold); the
+  `distinct-dids` = the actor set kizuna sees; `colluding` defaults to none — the moyai
+  proof-of-contribution anti-sybil membrane is the R3+ live leg (until wired, a tie must
+  still be NEW vs baseline AND survived to mint, G4). Returns a fn gathering-id → obs so it
+  drops straight into `settle/settle-due`. Pure."
+  [kizuna-now & [{:keys [colluding] :or {colluding []}}]]
+  (let [obs {:surviving     (reciprocal-ties kizuna-now)
+             :distinct-dids (set (keys (:assessment kizuna-now)))
+             :colluding     (vec colluding)}]
+    (fn [_gathering-id] obs)))
+
 #?(:clj
    (defn load-kizuna
      "Read a committed kizuna readout edn (the file kizuna's heartbeat persists, or any
-     beat output dumped as edn). Returns the readout map."
+     beat output dumped as edn). Returns the readout map. R3 live leg: point this at
+     kizuna's OWN committed log/readout (read-only, no key — the kaname join pattern)."
      [path]
      (-> (slurp path) (edn/read-string))))

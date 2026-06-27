@@ -19,7 +19,8 @@
 
 (def suites
   '[moyoshi.tests.test-moyoshi
-    moyoshi.tests.test-r2])
+    moyoshi.tests.test-r2
+    moyoshi.tests.test-r3])
 
 (apply require suites)
 

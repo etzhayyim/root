@@ -3,7 +3,7 @@
 **DID**: `did:web:moyoshi.etzhayyim.com`
 **Namespace**: `com.etzhayyim.moyoshi.*`
 **ADR**: ADR-2606272100
-**Status**: R2 — R1 convening core + the three R2 legs: live kizuna ingest (`methods/ingest`), settlement decay-window job (`methods/settle`), commit-DAG persistence (`methods/kotoba`), on-kse mesh wrapper (`methods/mesh.clj`), autonomous heartbeat (`autorun`). 18 tests / 58 assertions green (`bb run_tests.clj`); heartbeat verified live (propose → record → persist → verify-chain :ok; idempotent on re-beat). Live kizuna-log read + kotoba live-engine bridge + fleet cell = R3.
+**Status**: R3 — R1 convening core + R2 legs + R3: kotoba **live-engine bridge** (`methods/kotoba_bridge`, host allowlist + exactly-once `:bridge` cursor + dry-run default) wired into `autorun --bridge` (fail-open) + epoch-from-clock + settlement **now-graph** from kizuna (`ingest/observe-from-kizuna`); **fleet cell** (`cell.cljc` → `MoyoshiHeartbeatCell`, node reuben, cron `39`, healthz 13092); **LaunchAgent** (`deploy/`, bb-native). 23 tests / 76 assertions green (`bb run_tests.clj`); `--bridge` heartbeat verified to fail-open (engine down → beat completes locally, verify-chain :ok). Live LaunchAgent install + live-engine push = operator step.
 **TIGHT PAIR**: kizuna 絆 (fragility-in / settlement-baseline), ossekai 御節介 (actuator).
 
 > **催し (moyoshi)** — a thing one *holds*; 催す = to host/convene. The name is the
