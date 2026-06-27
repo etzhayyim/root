@@ -187,10 +187,33 @@ coerced, pay-to-enter, or exclusionary. `burn_extractive_mult > 1` keeps the
 
 ## Status / scope
 
-**R0 design-only** (this ADR + `manifest.edn` + `README.md`; methods + `kotoba.app.edn`
-+ tests are R1). Live kizuna ingest and the settlement decay-window job are
-G1/G6-gated R1 legs (the kizuna/kaname read-only fetch pattern). No mint predicate is
-written until the anti-sybil membrane (moyai PoC) is wired and Council-attested.
+**R2 — code-complete on a verified commit-DAG** (this ADR + `manifest.edn` + `README.md`
++ `methods/moyoshi.cljc` design/govern/settle/mint core + `kotoba.app.edn` + tests, R1;
+plus the R2 legs below). 18 tests / 58 assertions green (`bb run_tests.clj`).
+
+- **R1** — the pure convening core: `design-gathering` / `govern` (ConveningGovernor,
+  G1..G6) / `validated-ties` + `settle` (G4 mint) / `beat`.
+- **R2** — the three named legs, the kaname/ibuki pattern:
+  - *live kizuna ingest* (`methods/ingest`) — lifts a COMMITTED kizuna 絆 readout into
+    moyoshi's fragility input (running kizuna = G7; joining its committed output = the
+    actor's job, the kaname join pattern). no-server-key.
+  - *settlement decay-window job* (`methods/settle`) — a pending-gathering ledger +
+    `settle-at = epoch + S` scheduler around the pure mint core; mints only at the
+    window's end, only from survived + new + anti-sybil ties (G4).
+  - *commit-DAG persistence* (`methods/kotoba`) — each beat is one content-addressed,
+    idempotent-by-content tx of EAVT datoms (verify-chain tamper-evident, resume-safe),
+    via the shared `kotoba.datom` binding. no-server-key (local append).
+  - *on-kse mesh wrapper* (`methods/mesh.clj`) — the KOTOBA Mesh entry the
+    `kotoba.app.edn` component points at; *autonomous heartbeat* (`autorun`) wires
+    ingest → design → govern → record → settle → persist. **Verified live**: beat #0
+    proposes (host=kaname) + records the pending gathering + persists (verify-chain :ok);
+    beat #1 at the same epoch is idempotent (`:no-change`).
+- **R3** (gated) — the live kizuna-LOG read + the epoch-from-clock + the settlement
+  now-graph `observe` from kizuna's live reciprocal-tie firehose + the kotoba
+  live-engine bridge (the kaname `kotoba_bridge` pattern) + fleet cell registration.
+
+No mint predicate is written to the LIVE engine until the anti-sybil membrane (moyai
+PoC) is wired and Council-attested; the R2 commit-DAG is a LOCAL append-only log.
 
 ## Consequences
 
