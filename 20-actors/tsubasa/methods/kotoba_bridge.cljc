@@ -19,6 +19,7 @@
   HTTP is injectable (:http-post / :transport). Deterministic; no wall clock."
   (:require [tsubasa.methods.kotoba :as k]
             [clojure.string :as str]
+            [multiformats.core :as mf]
             #?(:clj [babashka.http-client :as http])
             #?(:clj [cheshire.core :as json])))
 
@@ -44,27 +45,11 @@
   nil)
 
 ;; ── graph-cid (CIDv1 dag-cbor sha2-256 over the graph NAME; kotoba-core cid.rs parity) ──
-(defn- b32-lower ^String [^bytes bs]
-  (let [alphabet "abcdefghijklmnopqrstuvwxyz234567" sb (StringBuilder.) n (alength bs)]
-    (loop [i 0 buf 0 bits 0]
-      (cond
-        (>= bits 5)
-        (let [shift (- bits 5)]
-          (.append sb ^char (nth alphabet (bit-and (bit-shift-right buf shift) 0x1f)))
-          (recur i (bit-and buf (dec (bit-shift-left 1 shift))) shift))
-        (< i n)
-        (recur (inc i) (bit-or (bit-shift-left buf 8) (bit-and (long (aget bs i)) 0xff)) (+ bits 8))
-        :else
-        (do (when (pos? bits)
-              (.append sb ^char (nth alphabet (bit-and (bit-shift-left buf (- 5 bits)) 0x1f))))
-            (str sb))))))
-
 (defn graph-cid
-  "CIDv1 + dag-cbor(0x71) + sha2-256 over the raw graph-NAME bytes, multibase base32lower ('b')."
+  "CIDv1 + dag-cbor(0x71) + sha2-256 over the raw graph-NAME bytes, multibase base32lower ('b').
+  Delegates to com-junkawasaki/multiformats-clj (byte-identical)."
   ^String [^String name]
-  (let [digest (.digest (java.security.MessageDigest/getInstance "SHA-256") (.getBytes name "UTF-8"))
-        raw (byte-array (concat [0x01 0x71 0x12 0x20] (seq digest)))]
-    (str "b" (b32-lower raw))))
+  (mf/kotoba-cid name))
 
 ;; ── datom + tx rendering ──────────────────────────────────────────────────────
 (defn- val->edn [v]
