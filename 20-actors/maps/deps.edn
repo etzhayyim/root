@@ -23,7 +23,8 @@
          :transit       "methods/transit.cljc"
          :verify        "methods/verify.cljc"
          :datom-emit    "methods/datom_emit.cljc"
-         :coverage-report "methods/coverage_report.cljc"}
- :tests {:count 38
+         :coverage-report "methods/coverage_report.cljc"
+         :onsen         "methods/onsen.cljc"}
+ :tests {:count 62
          :runner "bb test:maps"
          :network false}}

@@ -554,7 +554,7 @@
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:maps
-  {:doc "maps — kotoba-native Clojure method tests (analyze/ingest/chunk/search/reverse/transit/verify/datom-emit; ADR-2606064500)"
+  {:doc "maps — kotoba-native Clojure method tests (analyze/ingest/chunk/search/reverse/transit/verify/datom-emit/onsen; ADR-2606064500)"
    :task (do (require 'clojure.test
                       'maps.tests.test-analyze
                       'maps.tests.test-ingest
@@ -562,14 +562,16 @@
                       'maps.tests.test-search
                       'maps.tests.test-reverse
                       'maps.tests.test-transit
-                      'maps.tests.test-verify)
+                      'maps.tests.test-verify
+                      'maps.tests.test-onsen)
              (let [r (clojure.test/run-tests 'maps.tests.test-analyze
                                              'maps.tests.test-ingest
                                              'maps.tests.test-chunk
                                              'maps.tests.test-search
                                              'maps.tests.test-reverse
                                              'maps.tests.test-transit
-                                             'maps.tests.test-verify)]
+                                             'maps.tests.test-verify
+                                             'maps.tests.test-onsen)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:matsurigoto
