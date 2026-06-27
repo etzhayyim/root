@@ -775,4 +775,26 @@
    :actor/wasm-tier "T2"
    :actor/vm []
    :actor/service [{"id" "did:web:etzhayyim.com:actor:aburi#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
-                   {"id" "did:web:etzhayyim.com:actor:aburi#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}]}
+                   {"id" "did:web:etzhayyim.com:actor:aburi#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  ;; ── tsubasa 翼 — flight-route/fare discovery commons (the Skyscanner inversion) ──
+  ;; Already live + searchable via the INFRA_ACTORS fallback + static public/actor/tsubasa/.
+  ;; This entry brings it into the canonical SSoT the publisher materializes from. ADR-2606072800.
+  {:actor/handle "tsubasa"
+   :actor/did "did:web:etzhayyim.com:actor:tsubasa"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r3
+   :actor/glyph "翼"
+   :actor/display-name-ja "翼 — 航空券・運賃 ディスカバリー コモンズ"
+   :actor/display-name-en "Tsubasa — Flight-Route / Fare Discovery Commons"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Skyscanner の inversion。正直な fare/route メタ検索で、onward link は全て affiliate-stripped、会員は航空会社の自社サイトで self-book する(tsubasa は merchant-of-record にならず commission を取らない、G1 no-inflow)。TRUE total cost(運賃+手荷物)でランク、CO₂ を全 option に surfaced(G4 first-class axis、隠さない/ランクアウトしない)。広告なし/urgency なし/'price will rise' scarcity なし(G3)、検索は searcher に対し stateless(G5 no person-tracking)。R2 成熟層は O–D route ごとの carrier 集中度(named-HHI + competition reading {:competitive :concentrated :monopoly})を計算し、集中/独占 route を :opening(代替提示)へ — COMPETITION + FARE マップであって有料ランキングでも target-list でもない。観測は content-addressed append-only kotoba Datom commit-DAG(verify-chain tamper-evident, no-server-key)へ idempotent-by-content heartbeat で永続化。watari 渡り(live 位置)の動的兄弟 — tsubasa が PLAN、watari が TRACK。live GDS/airline ingest は Council Lv7+ + operator gated(G8)、R0/R1 は :representative。Per ADR-2606072800。"
+   :actor/primary-lexicon "com.etzhayyim.tsubasa.fare"
+   :actor/primary-schema "00-contracts/schemas/flight-fare-ontology.kotoba.edn"
+   :actor/adr ["2606072800"]
+   :actor/created-at "2026-06-21"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:tsubasa#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:tsubasa#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}]}
