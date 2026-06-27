@@ -16,7 +16,10 @@
          :git/sha "2b03859c3ee722b64f3eddd0b615a54019b17c81"}
         com-junkawasaki/langgraph-clj
         {:git/url "https://github.com/com-junkawasaki/langgraph-clj"
-         :git/sha "c7daa07d4e50f55d7e2a02e4b89dbeb2b200961d"}}
+         :git/sha "c7daa07d4e50f55d7e2a02e4b89dbeb2b200961d"}
+        com-junkawasaki/ed25519-clj
+        {:git/url "https://github.com/com-junkawasaki/ed25519-clj"
+         :git/sha "2354d1ca98af16acc80c9c17875a69b5de5dd2d3"}}
  :tasks
  {e7m
   {:doc "etzhayyim CLI (babashka port; capstone of the etzhayyim-py→bb migration, ADR-2606222000). `bb e7m list` shows every ported command module; `bb e7m <cmd> [args]` dispatches commands that expose a -main (murakumo, vitals); other commands are ported as libraries (ns etzhayyim.<cmd>) pending argv-wiring."
