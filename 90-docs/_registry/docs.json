@@ -26664,6 +26664,36 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606272355-actor-self-publication-seed-on-kotoba-mesh.md",
+      "id": "adr-2606272355-actor-self-publication-seed-on-kotoba-mesh",
+      "title": "ADR-2606272355: Actor self-publication seed — register, autonomize, and publish each government-mirror actor on the kotoba mesh (zero-knowledge / no-server-key)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "actor-self-publication-seed",
+      "authoritative": true,
+      "authoritative_for": [
+        "actor-self-publication-seed-pattern",
+        "jp-gov-mirror-constellation-registration"
+      ],
+      "related": [
+        "2606066001",
+        "2606013800",
+        "2606014500"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605231525",
+        "2606230001",
+        "2606111400",
+        "2606021600",
+        "2605301600"
+      ],
+      "last_verified": "2026-06-27",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
