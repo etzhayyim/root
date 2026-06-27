@@ -67,14 +67,14 @@ service = "yoro-xrpc-adapter"
 
 # ── Actor-profile dynamic did.json issuance (ADR-2606013800) ──────────────
 # ACTOR_KV holds the materialized ActorRecord JSON per actor (`actor:<handle>`),
-# pushed by `scripts/publish-actor-records.mjs` from the kotoba `actors-v1`
+# pushed by `scripts/publish-actor-records.cljs` from the kotoba `actors-v1`
 # graph. The Worker reads KV first (fast, origin-independent), then falls back
 # to a kotoba pull (KOTOBA_ENDPOINT), then to the compiled INFRA_ACTORS
 # registry — so did:web resolution stays live even with KV + kotoba both down.
 #
 # ENABLE (operator, once): create the namespace, paste its id below, publish:
 #   wrangler kv namespace create ACTOR_KV
-#   node scripts/publish-actor-records.mjs --put-kv
+#   npx nbb scripts/publish-actor-records.cljs --put-kv
 # Until enabled the binding is absent and the Worker serves the compiled
 # fallback — now routed through the SAME toDidDoc/toGetProfileView mappers, so
 # behaviour is identical; KV just promotes kotoba to live source of truth.
