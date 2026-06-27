@@ -949,7 +949,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
         serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
       },
     ],
-    adrs: ["2606272200"],
+    adrs: ["2606272200", "2606280900"],
   },
 } as const;
 

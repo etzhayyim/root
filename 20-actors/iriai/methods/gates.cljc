@@ -38,9 +38,12 @@
    ":iriai.fund/revenue-share" ":iriai.fund/disconnect-for-nonpayment"
    ;; G3 — steward, not sovereign
    ":iriai/fund" ":iriai.manage/decide" ":iriai.manage/dispatch"
-   ;; G5 — assessment only, never acts
+   ;; G5 — assessment only, never acts (infra + twin + maintenance)
    ":iriai/actuate" ":iriai.infra/energize" ":iriai.infra/open-valve"
-   ":iriai.infra/ignite" ":iriai.infra/activate-link"])
+   ":iriai.infra/ignite" ":iriai.infra/activate-link"
+   ":iriai.twin/energize" ":iriai.maint/dispatch-crew" ":iriai.maint/actuate"
+   ;; G2 — upkeep is a commons, never billed (maintenance side)
+   ":iriai.maint/consumer-bill" ":iriai.maint/tariff"])
 
 (def fundable-instruments
   "G2: give-only instrument algebra. Anything outside this set is unrepresentable."
@@ -95,3 +98,16 @@
     (throw (ex-info "G6 violation: no-server-key — iriai holds no key; server-held-key must be false; writes are member-CACAO-attributed"
                     {:gate "G6" :server-held-key server-held-key})))
   server-held-key)
+
+(def ^:private safety-verdicts #{:corrective-repair :decommission})
+
+(defn check-safety-floor
+  "G9 (maintenance): an UNSAFE asset is never deferred for cost — its maintenance
+  verdict must be :corrective-repair or :decommission, never :ok / :inspect /
+  :preventive-service / :refurbish (mirrors mizuho's chlorination clamp + kamado's
+  purge-to-entry gate + kafun's refuse-precedes-routing). Throws otherwise."
+  [safety verdict]
+  (when (and (= :unsafe safety) (not (safety-verdicts verdict)))
+    (throw (ex-info "G9 violation: an UNSAFE asset must route to :corrective-repair or :decommission — safety is never deferred for cost"
+                    {:gate "G9" :safety safety :verdict verdict})))
+  verdict)

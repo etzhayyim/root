@@ -13,9 +13,9 @@ iriai is the **System-of-Systems umbrella** over the producer actors (the way **
 · ガス→**kamado 竈** · 通信→**noroshi 烽**. It does **infra + 資金 (funding) + 管理 (management)**
 in one heartbeat. It **never produces and never actuates** a lifeline — ASSESSMENT + R0 DESIGN ONLY.
 
-`did:web:etzhayyim.com:iriai` · `com.etzhayyim.iriai.*` · ADR-2606272200 · clj-native R0.
+`did:web:etzhayyim.com:iriai` · `com.etzhayyim.iriai.*` · ADR-2606272200 + **2606280900** · clj-native R0.
 
-## The three layers
+## The five layers
 
 ### infra (`methods/infra.cljc`) — coverage + resilience
 
@@ -47,12 +47,32 @@ Each proposal → governance envelope: 1 SBT = 1 vote (20% quorum / 50% / 48h) +
 (critical-infra → Lv7+); **actuation-class :intent** (compute-only R0 — live act is the producer
 cell under Council Lv7+ + operator-DID + member-sig, G5); **no-server-key** (member-CACAO leash, G6).
 
+### 物理シミュレーション twin (`methods/twin.cljc`) — degradation + condition (ADR-2606280900)
+
+Per DEPLOYED asset, a **real engineering degradation model** → condition (0..1) + remaining-useful-life
+(RUL, yr) + operating margin + structural safety:
+
+- electric (transformer) — IEEE C57.91 thermal aging: load → hot-spot θh → `FAA = exp(15000/383 − 15000/(θh+273))` → loss-of-life
+- water (main) — Hazen-Williams `C(t)=C0−k·t`; gas (main) — wall corrosion → leak-prob (safety floor)
+- telecom (fibre) — attenuation creep vs link budget; **road (道路)** — pavement PCI `100−a·t^b` + bridge load-rating
+
+`project` runs the twin **ahead** of reality → maintenance is **preventive**. SIM ONLY (G5). Same
+twin discipline as the infra-robotics device-loop (ADR-2606101430), at the condition timescale.
+
+### 運用メンテナンス maintain (`methods/maintain.cljc`) — lifecycle + OpEx (ADR-2606280900)
+
+Twin → maintenance verdict, **SAFETY FLOOR FIRST**:
+`{:decommission :renew :corrective-repair :refurbish :preventive-service :inspect :ok}`. An unsafe
+asset is never deferred for cost (G9). Each routes to an **executor** (kuni-umi / tazuna / giemon /
+noroshi / hodoki+kanayama) and imputes **OpEx** onto the §1.16 rails — **cash≡0 to the consumer**
+(upkeep never billed, G2). DESIGN ONLY (:intent) — iriai plans, the executor acts under Council Lv7+.
+
 ## Gates (the charter inversions, structurally enforced — `methods/gates.cljc`)
 
 - **G1** commons-map-not-shutoff-list · **G2** commons-not-a-market (cash≡0, give-only) ·
   **G3** steward-not-sovereign (advisory + 1 SBT=1 vote) · **G4** non-profit-rails-only ·
-  **G5** assessment-r0-only-never-acts (:intent) · **G6** no-server-key · **G7** kotoba-EAVT ·
-  **G8** synthetic-seed.
+  **G5** assessment/sim-only-never-acts (:intent) · **G6** no-server-key · **G7** kotoba-EAVT ·
+  **G8** synthetic-seed · **G9** maintenance-safety-floor (unsafe → corrective/decommission, never deferred).
 - Strongest gates are **structural**: forbidden acts have no attribute (`gates/forbidden-absent?`
   proves the whole datom stream is clean, test-enforced). The negative space is declared in
   `kotoba/ontology.iriai.edn`.
@@ -64,12 +84,14 @@ methods/iriai_edn.cljc   seed loader + classify (regions + lifeline-cells)
 methods/infra.cljc       SoS coverage/resilience gate → verdict → assess → datoms → report (+ bb CLI)
 methods/fund.cljc        §1.16 in-kind funding proposal (cash≡0, give-only) → plan → datoms → report
 methods/manage.cljc      1 SBT=1 vote governance + :intent + no-server-key → ledger → datoms → report
-methods/gates.cljc       constitutional assertions (ex-info) + structural forbidden-absent?
+methods/twin.cljc        物理シミュレーション: per-asset degradation physics → condition/RUL/safety (+ project, bb CLI)
+methods/maintain.cljc    運用メンテナンス: lifecycle gate (safety-floor first) + OpEx + executor routing
+methods/gates.cljc       constitutional assertions (ex-info, incl. G9 safety-floor) + structural forbidden-absent?
 methods/kotoba.cljc      content-addressed append-only COMMONS LEDGER (tx-cid/make-tx/append-tx/verify-chain)
-methods/autorun.cljc     deterministic, idempotent-by-content heartbeat — infra+fund+manage → append (+ bb CLI)
-methods/test_*.cljc      6 suites: infra · fund · manage · gates · kotoba · autorun (40 tests / 311 assert)
-kotoba/ontology.iriai.edn EAVT schema + verdicts + instruments + NEGATIVE SPACE (forbidden attrs)
-kotoba/seed.edn          6 regions × 4 lifelines = 24 synthetic cells (all six verdicts)
+methods/autorun.cljc     deterministic, idempotent-by-content heartbeat — infra+fund+manage+twin+maintain → append
+methods/test_*.cljc      8 suites: infra·fund·manage·twin·maintain·gates·kotoba·autorun (54 tests / 394 assert)
+kotoba/ontology.iriai.edn EAVT schema + verdicts + instruments + degradation-models + NEGATIVE SPACE
+kotoba/seed.edn          6 regions × 4 lifelines = 24 cells + 11 deployed assets (5 lifelines incl. road)
 data/ (gitignored)       generated commons ledger — never committed
 manifest.edn             gates G1–G8 + non-goals N1–N5 + composes the producer actors
 run_tests.clj            bb-native runner (no shell, ADR-2606072802)
@@ -78,11 +100,13 @@ run_tests.clj            bb-native runner (no shell, ADR-2606072802)
 ## Run
 
 ```bash
-bb 20-actors/iriai/run_tests.clj                                  # 6 suites (40 tests / 311 assert)
+bb 20-actors/iriai/run_tests.clj                                  # 8 suites (54 tests / 394 assert)
 bb --classpath 20-actors 20-actors/iriai/methods/infra.cljc       # coverage + resilience map
 bb --classpath 20-actors 20-actors/iriai/methods/fund.cljc        # §1.16 in-kind funding plan
 bb --classpath 20-actors 20-actors/iriai/methods/manage.cljc      # 1 SBT=1 vote governance ledger
-bb --classpath 20-actors 20-actors/iriai/methods/autorun.cljc     # heartbeat → append to commons ledger
+bb --classpath 20-actors 20-actors/iriai/methods/twin.cljc        # physical-simulation asset condition
+bb --classpath 20-actors 20-actors/iriai/methods/maintain.cljc    # operations/maintenance plan
+bb --classpath 20-actors 20-actors/iriai/methods/autorun.cljc     # heartbeat → append (all 5 layers)
 ```
 
 ## Pairs with

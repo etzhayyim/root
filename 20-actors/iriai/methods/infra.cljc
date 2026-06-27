@@ -34,15 +34,17 @@
 ;; ── disclosed constants (life-first essentiality; aggregate vulnerability mix) ──
 (def essentiality
   "Disclosed essentiality weight per lifeline (0..1). Water first (life), then power,
-  then telecom (modern participation), then gas (largely substitutable for cooking/heat)."
-  {:water 1.0 :electric 0.9 :telecom 0.7 :gas 0.6})
+  then telecom (modern participation), then road access, then gas (largely substitutable for
+  cooking/heat). Road (道路) joins as a first-class commons lifeline (ADR-2606280900)."
+  {:water 1.0 :electric 0.9 :telecom 0.7 :road 0.65 :gas 0.6})
 
 (def ^:private provision-threshold 0.30)
 (def ^:private adequate-coverage 0.85)
 
 (def source-actor
-  "Which producer actor sources each lifeline (iriai composes, never produces)."
-  {:electric "hikari" :water "mizuho" :gas "kamado" :telecom "noroshi"})
+  "Which producer actor sources each lifeline (iriai composes, never produces).
+  Road (道路) is built/maintained by tatekata (construction) + the kuni-umi robotics fleet."
+  {:electric "hikari" :water "mizuho" :gas "kamado" :telecom "noroshi" :road "tatekata"})
 
 ;; ── pure scoring (on read) ─────────────────────────────────────────────────────
 (defn coverage [c]

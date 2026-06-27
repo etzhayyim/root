@@ -26,8 +26,11 @@
   {:lifeline :water    :producer "mizuho"  :adr "2605263100"}
   {:lifeline :gas      :producer "kamado"  :adr "2606051500"}
   {:lifeline :telecom  :producer "noroshi" :adr "2606051600"}
+  {:lifeline :road     :producer "tatekata" :adr "2605250715" :note "道路 (ADR-2606280900)"}
   {:role :connection   :actor "infra-utility-connect" :adr "2605250900"}
-  {:role :production-robotics :actor "kuni-umi" :adr "2605201400" :note "infra-robotics 3-layer (ADR-2606091800)"}]
+  {:role :production-robotics :actor "kuni-umi" :adr "2605201400" :note "infra-robotics 3-layer (ADR-2606091800)"}
+  {:role :maintenance-executors :actors ["kuni-umi" "tazuna" "giemon" "noroshi" "hodoki" "kanayama"] :adr "2606280900"
+   :note "upkeep crews — iriai plans, they act under Council Lv7+"}]
 
  :actor/gates
  [{:gate/id "G1" :gate/name "commons-map-not-shutoff-list" :gate/rule "A COVERAGE + RESILIENCE map, NEVER a target-list / shut-off list; a lifeline is a commons right of use (入会権), never WITHHELD as leverage. :iriai/shutoff + :iriai/disconnect + :iriai.region/deny + :iriai.person/* unrepresentable (test-enforced); aggregate region-scale only, no per-person connection/location"}
@@ -37,7 +40,8 @@
   {:gate/id "G5" :gate/name "assessment-r0-only-never-acts" :gate/rule "Compute-only R0; iriai stops at actuation-class :intent. :iriai/actuate + :iriai.infra/energize + open-valve + ignite + activate-link unrepresentable; live actuation is the producer actor's cell under Council Lv7+ + operator-DID + member-sig (infra-robotics R0 precedent, §1.12 Transparent-Force)"}
   {:gate/id "G6" :gate/name "no-server-key" :gate/rule "Platform holds no signing key; the heartbeat performs no network I/O (local append-only ledger). Autonomous writes attributed to a consenting member via a CACAO leash (ADR-2606111400/2605231525); server-held-key structurally false"}
   {:gate/id "G7" :gate/name "kotoba-eavt-native" :gate/rule "State is kotoba EAVT Datoms (content-addressed commit-DAG, verify-chain); datoms flagged :iriai/derived + :iriai/sourcing"}
-  {:gate/id "G8" :gate/name "synthetic-seed" :gate/rule "R0 seed is :synthetic; real region/utility-coverage data is an operator/Council step (no-server-key bars a custodial key, not read-only public ingest — a future G7 leg)"}]
+  {:gate/id "G8" :gate/name "synthetic-seed" :gate/rule "R0 seed is :synthetic; real region/utility-coverage data is an operator/Council step (no-server-key bars a custodial key, not read-only public ingest — a future G7 leg)"}
+  {:gate/id "G9" :gate/name "maintenance-safety-floor" :gate/rule "An UNSAFE asset is never deferred for cost — its maintenance verdict MUST be :corrective-repair or :decommission, never :ok/:inspect/:preventive-service/:refurbish (test-enforced; mirrors mizuho chlorination clamp + kamado purge gate + kafun refuse-precedes-routing). The twin SIMULATES; iriai never actuates upkeep (:iriai.maint/dispatch-crew unrepresentable, G5); upkeep OpEx is §1.16 in-kind — never billed (:iriai.maint/consumer-bill unrepresentable, G2). ADR-2606280900"}]
 
  :actor/non-goals
  [{:n/id "N1" :n/rule "Never PRODUCES a lifeline — production is hikari/mizuho/kamado/noroshi; iriai is the SoS synthesizer + funding + governance umbrella only"}
@@ -51,9 +55,11 @@
   {:method/id "infra"   :method/file "methods/infra.cljc"   :method/role "infra: SoS coverage/resilience gate — commons-gap → verdict → assess → datoms → report"}
   {:method/id "fund"    :method/file "methods/fund.cljc"    :method/role "資金: §1.16 in-kind funding proposal (cash≡0, give-only instruments, imputed value) → plan → datoms → report"}
   {:method/id "manage"  :method/file "methods/manage.cljc"  :method/role "管理: 1 SBT=1 vote governance + :intent actuation + no-server-key → ledger → datoms → report"}
-  {:method/id "gates"   :method/file "methods/gates.cljc"   :method/role "constitutional gate assertions (ex-info) + structural forbidden-absent? (the charter inversions)"}
+  {:method/id "twin"    :method/file "methods/twin.cljc"    :method/role "物理シミュレーション: per-asset degradation physics (transformer IEEE C57.91 / pipe Hazen-Williams / gas corrosion-leak / fibre attenuation / road PCI) → condition + RUL + op-margin + safety; project run-ahead; SIM ONLY (ADR-2606280900)"}
+  {:method/id "maintain" :method/file "methods/maintain.cljc" :method/role "運用メンテナンス: lifecycle gate (decommission→renew→corrective→refurbish→preventive→inspect→ok, SAFETY FLOOR first) + OpEx + executor routing; :intent only (ADR-2606280900)"}
+  {:method/id "gates"   :method/file "methods/gates.cljc"   :method/role "constitutional gate assertions (ex-info, incl. G9 safety-floor) + structural forbidden-absent? (the charter inversions)"}
   {:method/id "kotoba"  :method/file "methods/kotoba.cljc"  :method/role "持続永続化: content-addressed append-only COMMONS LEDGER (tx-cid/make-tx/append-tx/read-log/verify-chain)"}
-  {:method/id "autorun" :method/file "methods/autorun.cljc" :method/role "持続永続化: deterministic, idempotent-by-content heartbeat — infra+fund+manage → append (+ bb CLI)"}]
+  {:method/id "autorun" :method/file "methods/autorun.cljc" :method/role "持続永続化: deterministic, idempotent-by-content heartbeat — infra+fund+manage+twin+maintain → append (+ bb CLI)"}]
 
  :actor/lex
  [{:lex/id "lifelineCoverageMap" :lex/nsid "com.etzhayyim.iriai.lifelineCoverageMap"
@@ -61,7 +67,11 @@
   {:lex/id "commonsFundingProposal" :lex/nsid "com.etzhayyim.iriai.commonsFundingProposal"
    :lex/file "00-contracts/lexicons/com/etzhayyim/iriai/commonsFundingProposal.json"}
   {:lex/id "governanceDecision" :lex/nsid "com.etzhayyim.iriai.governanceDecision"
-   :lex/file "00-contracts/lexicons/com/etzhayyim/iriai/governanceDecision.json"}]
+   :lex/file "00-contracts/lexicons/com/etzhayyim/iriai/governanceDecision.json"}
+  {:lex/id "assetCondition" :lex/nsid "com.etzhayyim.iriai.assetCondition"
+   :lex/file "00-contracts/lexicons/com/etzhayyim/iriai/assetCondition.json"}
+  {:lex/id "maintenanceVerdict" :lex/nsid "com.etzhayyim.iriai.maintenanceVerdict"
+   :lex/file "00-contracts/lexicons/com/etzhayyim/iriai/maintenanceVerdict.json"}]
 
  :actor/ledger
  {:ledger/file "data/persisted/iriai.commons.kotoba.edn"
@@ -73,17 +83,19 @@
  {:seed/file "kotoba/seed.edn"
   :seed/ontology "kotoba/ontology.iriai.edn"
   :seed/sourcing :synthetic
-  :seed/scale "6 regions × 4 lifelines = 24 cells"
-  :seed/verdicts [:await-consent :provision :reinforce :redundancy :maintain :monitor]}
+  :seed/scale "6 regions × 4 lifelines = 24 cells + 11 deployed assets (5 lifelines incl. road)"
+  :seed/verdicts [:await-consent :provision :reinforce :redundancy :maintain :monitor]
+  :seed/maintenance-verdicts [:decommission :renew :corrective-repair :refurbish :preventive-service :inspect :ok]}
 
  :actor/tests
  {:runner "babashka"
   :cmd "bb 20-actors/iriai/run_tests.clj"
   :suites ["methods/test_infra.cljc" "methods/test_fund.cljc" "methods/test_manage.cljc"
+           "methods/test_twin.cljc" "methods/test_maintain.cljc"
            "methods/test_gates.cljc" "methods/test_kotoba.cljc" "methods/test_autorun.cljc"]
-  :status "40 tests / 311 assertions green (bb)"}
+  :status "54 tests / 394 assertions green (bb)"}
 
  :actor/r0-later
- {:r1 "real region/utility-coverage ingest behind a G7 operator flip (public open-data: World Bank/IEA/JMP/ITU coverage stats — read-only, no key); inochi/jinushi land-sovereignty grounding for consent; amime N-1 energy-mesh join for the electric layer"
-  :r2 "fleet registration (cell-runner cells.edn + healthz, the kaname/kafun track); Murakumo-narrated commons digest; live kotoba-engine bridge (ibuki-R3 pattern); lexicon JSON under 00-contracts/lexicons/com/etzhayyim/iriai/"
-  :note "Live production + actuation stays the producer actors' (hikari/mizuho/kamado/noroshi) under Council Lv7+, never iriai."}}
+ {:r1 "real region/utility-coverage ingest behind a G7 operator flip (public open-data: World Bank/IEA/JMP/ITU coverage stats — read-only, no key); inochi/jinushi land-sovereignty grounding for consent; amime N-1 energy-mesh join for the electric layer; REAL asset-condition telemetry (kizashi non-invasive sensing → condition) behind a G7 flip; producer-twin device-in-the-loop coupling (the infra-robotics WASM device-loop, ADR-2606101430)"
+  :r2 "fleet registration (cell-runner cells.edn + healthz, the kaname/kafun track); Murakumo-narrated commons digest; live kotoba-engine bridge (ibuki-R3 pattern); road coverage-cells (currently road is twin/maintenance only); lexicon JSON under 00-contracts/lexicons/com/etzhayyim/iriai/"
+  :note "Live production + actuation + actual upkeep dispatch stays the producer/executor actors' (hikari/mizuho/kamado/noroshi/tatekata + kuni-umi/tazuna/giemon/hodoki/kanayama) under Council Lv7+, never iriai."}}

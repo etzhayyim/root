@@ -20,7 +20,8 @@
     "tier": "B",
     "status": "r0",
     "adr": [
-      "2606272200"
+      "2606272200",
+      "2606280900"
     ],
     "primaryLexicon": "com.etzhayyim.iriai.lifelineCoverageMap",
     "primarySchema": "20-actors/iriai/kotoba/ontology.iriai.edn",

@@ -26797,6 +26797,42 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606280900-iriai-physical-twin-and-maintenance-lifecycle.md",
+      "id": "adr-2606280900-iriai-physical-twin-and-maintenance-lifecycle",
+      "title": "ADR-2606280900: iriai 入会 — physical-simulation twin + operations/maintenance lifecycle (+ 道路)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "iriai-twin-maintenance",
+      "authoritative": true,
+      "authoritative_for": [
+        "iriai-twin-maintenance",
+        "lifeline-asset-degradation-simulation",
+        "lifeline-operations-maintenance-lifecycle"
+      ],
+      "related": [
+        "2606091800",
+        "2606101430",
+        "2605201400",
+        "2606042100",
+        "2605261215",
+        "2605252400",
+        "2605250715",
+        "2605312700",
+        "2606051800",
+        "2606032130"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606272200",
+        "2605262130",
+        "2605312345"
+      ],
+      "last_verified": "2026-06-28",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

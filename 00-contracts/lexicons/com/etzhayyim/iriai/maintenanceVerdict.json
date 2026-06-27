@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.iriai.maintenanceVerdict",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "An operations/maintenance (運用メンテナンス) verdict for one DEPLOYED lifeline asset (ADR-2606280900), computed from its physical-simulation twin (condition/RUL/safety). The lifecycle gate routes the asset to a maintenance action and an EXECUTOR (kuni-umi build/commission fleet / tazuna teleop inspection / giemon repair arm / noroshi fibre splice / hodoki disassembly + kanayama material recovery) and imputes OpEx onto the §1.16 non-profit rails — cash ≡ 0 to the consumer (upkeep is never billed, G2). SAFETY FLOOR: an unsafe asset is never deferred for cost (G9). DESIGN ONLY — iriai plans the maintenance; the executor acts under Council Lv7+ (actuation-class :intent, G5).",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["asset", "lifeline", "condition", "safety", "verdict", "executor", "cashToConsumer", "actuationClass", "sourcing"],
+        "properties": {
+          "asset": { "type": "string" },
+          "name": { "type": "string", "maxLength": 512 },
+          "lifeline": { "type": "string", "enum": [":electric", ":water", ":gas", ":telecom", ":road"] },
+          "region": { "type": "string" },
+          "condition": { "type": "integer", "description": "twin condition ×1000 (fixed-point)" },
+          "rulYears": { "type": "integer", "description": "twin RUL ×10 (fixed-point)" },
+          "safety": { "type": "string", "enum": [":ok", ":unsafe"] },
+          "verdict": {
+            "type": "string",
+            "enum": [":decommission", ":renew", ":corrective-repair", ":refurbish", ":preventive-service", ":inspect", ":ok"],
+            "description": "the maintenance lifecycle decision (SAFETY FLOOR first — an unsafe asset is :corrective-repair or :decommission, never deferred)"
+          },
+          "reason": {
+            "type": "string",
+            "enum": [":safety-floor", ":unsafe-eol", ":end-of-life"],
+            "description": "present when the verdict is forced by safety or end-of-life"
+          },
+          "executor": { "type": "string", "description": "which actor carries the action (iriai plans; the executor acts under Council)" },
+          "opexUsd": { "type": "integer", "description": "imputed annual upkeep OpEx ×100 (fixed-point); §1.16 in-kind, cash ≡ 0 to consumer" },
+          "cashToConsumer": { "type": "integer", "const": 0, "description": "G2 — upkeep is never billed to the lifeline consumer" },
+          "actuationClass": { "type": "string", "const": ":intent", "description": "G5 — design only; live upkeep is the executor's cell under Council Lv7+ + operator-DID + member-sig" },
+          "sourcing": { "type": "string", "enum": [":synthetic", ":authoritative"], "description": "G8 — :synthetic at R0" }
+        }
+      }
+    }
+  }
+}
