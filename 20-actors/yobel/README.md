@@ -67,6 +67,24 @@ Tier C escalation は generic
 - **Council Lv6+ ratification.** rite declaration は Three-Tier Enforcement tier 3 同等の重要性 (ADR-2605192230)
 - **Tax warning, not tax advice.** `verifyEligibility.warnings[]` で per-jurisdiction COD income warning。税務 advice は vendor:lawfirm.etzhayyim.com に delegate
 
+## Tests
+
+`bash run_tests.sh` runs every cljc test namespace via babashka (no Python). The
+suite is fully ported off `web3`/`eth_account` — all Ethereum crypto/signing goes
+through **eth-crypto-clj** (`sign-tx-legacy` EIP-155, `secp256k1-sign`,
+`eip712-digest`/`ecrecover`, `keccak256`, RLP); the `web3`/`eth_account` Python
+dependency is **fully removed**.
+
+The EVM integration harness — `tests_integration/test_web3_roundtrip.cljc`
+(bb port of the deleted `tests_integration/test_web3_roundtrip.py`) — is
+**operator-run**: it needs foundry's `anvil` on PATH. When `anvil` is ABSENT it
+**skips gracefully** (logs + passes with zero assertions, so CI stays green); its
+ABI-selector verification, `sign-tx-legacy` signing path, and EIP-712 signed-consent
+accept/reject legs still run unconditionally (no chain needed). With `anvil` present it
+spawns it, deploys `YobelRiteRegistry` + `YobelReleaseRegistry` from the `abi/*.json`
+bytecode via `eth_sendRawTransaction`, and runs the declare→ratify→release roundtrip +
+the §2(b) over-cap revert through the cljc ports.
+
 ## See also
 
 - [ADR-2605201800](../../90-docs/adr/2605201800-etzhayyim-yobel-debt-release-actor.md) — design SSoT
