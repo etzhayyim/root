@@ -5,7 +5,7 @@
 - DID: `did:web:kenchi.etzhayyim.com`（公開 `did:web:etzhayyim.github.io:com-etzhayyim-kenchi`）
 - Namespace: `com.etzhayyim.kenchi.*`
 - Parent ADRs: ADR-2605192245（Land Trust 主権 — 譲渡不能地の境界）, ADR-2605192330（拡張 land sovereignty）, ADR-2605262900（toritate sibling）, ADR-2605192200（Charter Rider）, ADR-2605215000（Murakumo-only 推論）
-- 実装: `git@github.com:com-junkawasaki/kenchi-actor`（langgraph-clj エンジン。fusion/governor/parcel StateGraph + ingest adapters + Common Crawl + flywheel。18 tests / 60 assertions green、HM Land Registry + BIS + Common Crawl で live 検証済み）
+- 実装: `git@github.com:com-junkawasaki/kenchi-clj`（langgraph-clj エンジン。fusion/governor/parcel StateGraph + ingest adapters + Common Crawl + flywheel。18 tests / 60 assertions green、HM Land Registry + BIS + Common Crawl で live 検証済み）
 
 ## 課題
 
@@ -53,7 +53,7 @@ parcel は場所であって人ではない。owner/person 等の PII 列は val
 
 ### 5. アクター構成（6 cells / 4 Lexicons / 10 gates / 10 non-goals）
 
-実装は `com-junkawasaki/kenchi-actor`（langgraph-clj）。本セルは**公開アイデンティティ
+実装は `com-junkawasaki/kenchi-clj`（langgraph-clj）。本セルは**公開アイデンティティ
 （DID）+ 憲章 + lexicons + ソース registry**。cells: ingest / fusion / provenance_governor /
 publish / region_aggregate / flywheel（naphtali・judah に path-reserved）。
 Lexicons: `valuation` / `regionReport` / `provenanceAttestation` / `sourceLicense`。

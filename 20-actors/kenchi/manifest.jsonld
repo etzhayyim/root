@@ -21,7 +21,7 @@
   },
   "tier": "Tier-B",
   "parentActor": null,
-  "implementation": "git@github.com:com-junkawasaki/kenchi-actor (langgraph-clj engine — fusion/governor/parcel StateGraph + ingest adapters + Common Crawl + flywheel). This actor cell is the published etzhayyim identity + charter + lexicons + source registry over that engine.",
+  "implementation": "git@github.com:com-junkawasaki/kenchi-clj (langgraph-clj engine — fusion/governor/parcel StateGraph + ingest adapters + Common Crawl + flywheel). This actor cell is the published etzhayyim identity + charter + lexicons + source registry over that engine.",
   "crossActorBoundary": [
     "did:web:toritate.etzhayyim.com (EXTERNAL-MARKET context boundary, 1-way: kenchi MAY provide external comparables for Land Registry acquisition due-diligence read, but NEVER values toritate's inalienable Land Trust holdings; the internal commons-asset value — non-market imputed STOCK, ACCESS-NOT-TITLE — is toritate.commons_asset_value per ADR-2605301020 §2 + ADR-2605192245)",
     "Land Registry on-chain contract (acquisition read — external market comparables only, advisory transparency, NEVER a valuation of acquired-then-inalienable trust land)"
@@ -100,7 +100,7 @@
     }
   },
   "roadmap": [
-    { "phase": "R0", "date": "2026-06-27", "scope": "Scaffold. 6 cells path-reserved over the com-junkawasaki/kenchi-actor engine. 4 Lexicon skeletons. manifest + README + CLAUDE.md + DID + charter-gate test.", "murakumoFleet": "No deployment", "gate": "ADR-2606272030 (PROPOSED)" },
+    { "phase": "R0", "date": "2026-06-27", "scope": "Scaffold. 6 cells path-reserved over the com-junkawasaki/kenchi-clj engine. 4 Lexicon skeletons. manifest + README + CLAUDE.md + DID + charter-gate test.", "murakumoFleet": "No deployment", "gate": "ADR-2606272030 (PROPOSED)" },
     { "phase": "R1", "date": "post-Council Lv6+ ≥3 ratify", "scope": "3 core cells (ingest / fusion / provenance_governor) live; valuation + provenanceAttestation full schema; first open-authority valuations (HM Land Registry + BIS + OECD) published derived/aggregate", "murakumoFleet": "naphtali (1 node)", "gate": "Future ADR + Council Lv6+ ≥3 per cell" },
     { "phase": "R2", "date": "post-R1 + 30-day public objection", "scope": "+publish + region_aggregate; regionReport for ≥3 jurisdictions; Common Crawl listing breadth wired (derived-only)", "murakumoFleet": "naphtali + judah", "gate": "Council Lv6+ ≥4 + 30-day public comment" },
     { "phase": "R3", "date": "post-R2 + ≥1 flywheel backtest cycle", "scope": "All 6 cells live. flywheel calibration vs realized sales battle-tested; cross-jurisdictional coverage widened where ≥2 open authorities exist", "murakumoFleet": "Full edge fleet", "gate": "Council Lv7+ unanimity + completed backtest cycle" }
@@ -113,6 +113,6 @@
       "toritate": "/90-docs/adr/2605262900-toritate-accounting-audit-tier-b-actor-r0.md",
       "charterRider": "/90-docs/adr/2605192200-etzhayyim-ip-free-release-charter-rider.md"
     },
-    "implementation": "git@github.com:com-junkawasaki/kenchi-actor"
+    "implementation": "git@github.com:com-junkawasaki/kenchi-clj"
   }
 }
