@@ -158,3 +158,4 @@ foundry.lock
 20-actors/*/secrets/*
 !20-actors/*/secrets/*.enc.*
 !20-actors/*/secrets/.gitkeep
+20-actors/monosashi/data/*.datoms.kotoba.edn
