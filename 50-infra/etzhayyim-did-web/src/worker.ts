@@ -2127,6 +2127,34 @@ a{color:inherit}
           }
         }
 
+        // ── AT-repo content-addressed edge serving (ADR-2606272300) ──────────
+        // Serve the actor repo CAR statelessly from ACTOR_KV (`at-repo:<did>`),
+        // so the AT-Proto repo is read off the Cloudflare edge with no operated
+        // server (the canonical browser-complete / no-server-state architecture;
+        // deps.edn tier-0). A repo NOT yet published to the edge falls through to
+        // the generic XRPC proxy (XRPC_ATPROTO_UPSTREAM = the interim PDS).
+        if (
+          nsid === "com.atproto.sync.getRepo" &&
+          (request.method === "GET" || request.method === "HEAD")
+        ) {
+          const did = url.searchParams.get("did") ?? "";
+          if (did && env.ACTOR_KV) {
+            const car = await env.ACTOR_KV.get(`at-repo:${did}`, "arrayBuffer");
+            if (car) {
+              const h = new Headers({
+                "content-type": "application/vnd.ipld.car; version=1",
+                "cache-control": "public, max-age=60",
+                "x-proxied-by": "etzhayyim-did-web",
+                "x-etzhayyim-substrate": "edge-content-addressed (no PDS)",
+              });
+              return request.method === "HEAD"
+                ? new Response(null, { headers: h })
+                : new Response(car, { headers: h });
+            }
+          }
+          // not published to the edge → fall through to the PDS proxy below
+        }
+
         const route = findXrpcRoute(nsid);
         if (!route) {
           return new Response(
