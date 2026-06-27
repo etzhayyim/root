@@ -1,7 +1,7 @@
 ---
 id: adr-2606272300-atproto-repo-content-addressed-edge-retire-pds
 title: "ADR-2606272300: Serve the actor AT-repo content-addressed from the edge; retire the stateful PDS"
-status: proposed
+status: accepted
 doc_type: adr
 topic: atproto-repo-content-addressed-edge
 authoritative: true
@@ -129,6 +129,40 @@ Cloudflare Pages + kotoba-wasm needs no server.
 4. **Flip + retire** — set did.json `#atproto_pds` → `https://etzhayyim.com`; decommission the
    asher/laptop PDS + the `etzhayyim-pds` tunnel + LaunchAgents; remove the repo-family
    `XRPC_ATPROTO_UPSTREAM` proxy.
+
+# Implementation status (2026-06-27)
+
+**D2 — apex serves the AT-repo from the edge: ✅ LIVE.** `com.atproto.sync.getRepo` on
+`etzhayyim.com` returns the actor repo CAR content-addressed off the Cloudflare edge with
+no operated server (`x-etzhayyim-substrate: edge-content-addressed`→`edge-static-car`;
+`application/vnd.ipld.car; version=1`), verified for `unspsc-10101500/14111500/50221000`;
+unpublished dids fall through to the interim PDS proxy; `did:web:etzhayyim.com` resolution
+unaffected. The handler lives in the cljs XRPC dispatch (`cljs/src/did_web/xrpc.cljs`
+`handle` — `core.cljs` routes `:xrpc → xrpc/handle`; NOT `worker.ts`).
+
+**Storage tier — STATIC CAR, not KV.** The ADR specifies content-addressed serving via
+`ACTOR_KV` **and/or `./public` static CAR and/or IPFS**. The KV path was implemented first
+but **`env.ACTOR_KV.get` returned null at runtime** despite the key being present in the
+bound namespace (`d33de8e0…`) and readable via `wrangler kv` — diagnosed live with
+`wrangler tail` (handler fires, `did` correct, `kvBound=true`, but `car?=false`): a
+persistent CF KV **control-plane↔edge-runtime consistency gap**. So the handler reads the
+CAR from a **static asset** instead: `./public/at-repo/<handle>.car` via the `ASSETS`
+binding — deterministic, no operated server, no KV consistency dependency (PR landing the
+`edge-static-car` handler + `binding = "ASSETS"` + the seed CARs). The CAR is also directly
+fetchable at `/at-repo/<handle>.car`.
+
+**Activation findings (corrections to the session's earlier hypotheses).** There is **no
+Workers Builds / git-CI** on `etzhayyim-did-web` (service has no `build_config`/`git`);
+manual `wrangler deploy` **does** take effect (a `wrangler versions deploy …@100%` promote
+is needed in this worker's gradual-deployment mode); the single account is `ai-gftd-cloud`
+and the `etzhayyim.com/*` route binds `etzhayyim-did-web` there. The earlier "active version
+pinned to 06-25 / multi-account / CI-managed" readings were wrong.
+
+**Still pending:** D1 (member-signed client-side write → publish CAR) is exercised manually
+(CARs exported from the interim PDS + bundled as static assets); D3 (flip did.json
+`#atproto_pds` → `etzhayyim.com`) and D4 (retire the asher/laptop PDS + tunnel) are the
+remaining steps — safe to do now that edge serving is verified live. A follow-up may also
+publish to IPFS / GitHub-Pages CAR (ADR-2606242400) for a non-CF-coupled tier.
 
 # Alternatives Considered
 
