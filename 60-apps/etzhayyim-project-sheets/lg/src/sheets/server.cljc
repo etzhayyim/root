@@ -1,0 +1,91 @@
+(ns sheets.server
+  "HTTP server for lg-sheets (clj port of lg_sheets/server.py).
+
+  FastAPI -> org.httpkit.server (bundled with babashka); JSON -> cheshire. Same
+  routes / auth / persistence contract:
+
+    GET  /health /ok
+    GET  /xrpc/ai.etzhayyim.apps.sheets.spreadsheetsGet
+    POST /xrpc/ai.etzhayyim.apps.sheets.spreadsheetsCreate
+    GET  /xrpc/ai.etzhayyim.apps.sheets.valuesGet
+    POST /xrpc/ai.etzhayyim.apps.sheets.valuesUpdate
+    POST /xrpc/ai.etzhayyim.apps.sheets.valuesBatchUpdate
+
+  Persistence = kotoba datomic (graph sheets-v1). x-api-key (LG_SHEETS_API_KEY)
+  optional auth; atproto actor-worker x-internal-trust is the edge boundary."
+  (:require [cheshire.core :as json]
+            [clojure.string :as str]
+            [org.httpkit.server :as httpkit]
+            [sheets.handlers :as handlers]
+            [sheets.kotoba-datomic :as kd]
+            [sheets.store :as store]))
+
+(defn- store-for-request []
+  (store/kotoba-sheet-store (kd/make)))
+
+(defn- enforce-auth!
+  "Raises {:status 401} when LG_SHEETS_API_KEY is set and x-api-key mismatches."
+  [headers]
+  (let [expected (System/getenv "LG_SHEETS_API_KEY")
+        provided (get headers "x-api-key")]
+    (when (and expected (not (str/blank? expected))
+               (or (not provided) (not= provided expected)))
+      (throw (ex-info "x-api-key mismatch" {:http-status 401})))))
+
+(defn- parse-query [qs]
+  (if (str/blank? qs)
+    {}
+    (into {}
+          (for [pair (str/split qs #"&")
+                :let [[k v] (str/split pair #"=" 2)]]
+            [(java.net.URLDecoder/decode k "UTF-8")
+             (java.net.URLDecoder/decode (or v "") "UTF-8")]))))
+
+(defn- json-resp [status body]
+  {:status status
+   :headers {"Content-Type" "application/json"}
+   :body (json/generate-string body)})
+
+(defn- read-body [req]
+  (let [b (:body req)]
+    (cond
+      (nil? b) {}
+      (string? b) (if (str/blank? b) {} (json/parse-string b))
+      :else (let [s (slurp b)] (if (str/blank? s) {} (json/parse-string s))))))
+
+(def ^:private xrpc-prefix "/xrpc/ai.etzhayyim.apps.sheets.")
+
+(defn handler [req]
+  (try
+    (let [uri (:uri req)
+          method (:request-method req)
+          headers (:headers req)]
+      (cond
+        (and (= method :get) (#{"/health" "/ok"} uri))
+        (json-resp 200 {"ok" true "app" "lg-sheets" "ts" (System/currentTimeMillis)})
+
+        (str/starts-with? uri xrpc-prefix)
+        (let [op (subs uri (count xrpc-prefix))]
+          (enforce-auth! headers)
+          (let [st (store-for-request)]
+            (case op
+              "spreadsheetsCreate" (json-resp 200 (handlers/spreadsheets-create st (read-body req)))
+              "valuesUpdate"       (json-resp 200 (handlers/values-update st (read-body req)))
+              "valuesBatchUpdate"  (json-resp 200 (handlers/values-batch-update st (read-body req)))
+              "spreadsheetsGet"    (json-resp 200 (handlers/spreadsheets-get st (parse-query (:query-string req))))
+              "valuesGet"          (json-resp 200 (handlers/values-get st (parse-query (:query-string req))))
+              (json-resp 404 {"error" "not found" "op" op}))))
+
+        :else (json-resp 404 {"error" "not found"})))
+    (catch clojure.lang.ExceptionInfo e
+      (if-let [s (:http-status (ex-data e))]
+        (json-resp s {"detail" (.getMessage e)})
+        (json-resp 500 {"error" (.getMessage e)})))
+    (catch Exception e
+      (json-resp 500 {"error" (.getMessage e)}))))
+
+(defn -main [& _args]
+  (let [port (Long/parseLong (or (System/getenv "PORT") "8080"))]
+    (httpkit/run-server handler {:port port})
+    (println (str "lg-sheets listening on :" port))
+    @(promise)))

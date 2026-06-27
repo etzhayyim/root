@@ -1,0 +1,91 @@
+(ns sheets.handlers-test
+  "Deterministic sheets-handler + A1 tests using FakeSheetStore (clj port of
+  tests/test_handlers.py). Verifies create/get, A1 range read/write into the cell
+  grid, range slicing, COLUMNS major dimension, batch update, revision-based
+  optimistic concurrency, not-found, and provider-id lookup — no live kotoba pod."
+  (:require [clojure.test :refer [deftest is testing]]
+            [sheets.a1 :as a1]
+            [sheets.handlers :as handlers]
+            [sheets.store :as store]))
+
+(defn- new-store [] (store/fake-sheet-store))
+
+(deftest a1-parse
+  (is (= (a1/parse-range "Sheet1!A1:C10") (a1/a1-range "Sheet1" 0 0 9 2)))
+  (is (= (a1/parse-range "B2") (a1/a1-range nil 1 1 1 1)))
+  (is (and (= (a1/col->idx "A") 0) (= (a1/col->idx "Z") 25) (= (a1/col->idx "AA") 26)))
+  (is (and (= (a1/idx->col 0) "A") (= (a1/idx->col 26) "AA"))))
+
+(deftest create-get
+  (let [st (new-store)
+        res (handlers/spreadsheets-create st {"title" "Budget"})]
+    (is (= "Budget" (get-in res ["spreadsheet" "title"])))
+    (is (= 0 (get-in res ["spreadsheet" "revision"])))
+    (is (= "Sheet1" (get (first (get-in res ["spreadsheet" "sheets"])) "title")))
+    (let [got (handlers/spreadsheets-get st {"spreadsheetId" (get res "spreadsheetId")})]
+      (is (true? (get got "found")))
+      (is (= "Budget" (get-in got ["spreadsheet" "title"]))))))
+
+(deftest get-missing
+  (is (= {"found" false}
+         (handlers/spreadsheets-get (new-store) {"spreadsheetId" "missing001"}))))
+
+(deftest values-update-then-get-roundtrip
+  (let [st (new-store)
+        sid (get (handlers/spreadsheets-create st {"title" "T"}) "spreadsheetId")
+        upd (handlers/values-update st {"spreadsheetId" sid
+                                        "valueRange" {"range" "Sheet1!A1:B2"
+                                                      "rows" [{"cells" ["a" "b"]} {"cells" ["c" "d"]}]}})]
+    (is (true? (get upd "ok")))
+    (is (= 4 (get upd "updatedCells")))
+    (is (= 1 (get upd "revision")))
+    (let [got (handlers/values-get st {"spreadsheetId" sid "range" "Sheet1!A1:B2"})]
+      (is (true? (get got "found")))
+      (is (= [["a" "b"] ["c" "d"]]
+             (mapv #(get % "cells") (get-in got ["valueRange" "rows"])))))
+    (testing "partial range read"
+      (let [sub (handlers/values-get st {"spreadsheetId" sid "range" "Sheet1!B1:B2"})]
+        (is (= [["b"] ["d"]]
+               (mapv #(get % "cells") (get-in sub ["valueRange" "rows"]))))))))
+
+(deftest values-get-columns-major
+  (let [st (new-store)
+        sid (get (handlers/spreadsheets-create st {"title" "T"}) "spreadsheetId")]
+    (handlers/values-update st {"spreadsheetId" sid
+                                "valueRange" {"range" "Sheet1!A1:B2"
+                                              "rows" [{"cells" ["a" "b"]} {"cells" ["c" "d"]}]}})
+    (let [got (handlers/values-get st {"spreadsheetId" sid "range" "Sheet1!A1:B2"
+                                       "majorDimension" "COLUMNS"})]
+      (is (= [["a" "c"] ["b" "d"]]
+             (mapv #(get % "cells") (get-in got ["valueRange" "rows"])))))))
+
+(deftest batch-update
+  (let [st (new-store)
+        sid (get (handlers/spreadsheets-create st {"title" "T"}) "spreadsheetId")
+        res (handlers/values-batch-update st {"spreadsheetId" sid
+                                              "data" [{"range" "Sheet1!A1" "rows" [{"cells" ["x"]}]}
+                                                      {"range" "Sheet1!C3:C4" "rows" [{"cells" ["y"]} {"cells" ["z"]}]}]})]
+    (is (and (true? (get res "ok")) (= 3 (get res "totalUpdatedCells"))))
+    (let [c3 (handlers/values-get st {"spreadsheetId" sid "range" "Sheet1!C3:C4"})]
+      (is (= [["y"] ["z"]]
+             (mapv #(get % "cells") (get-in c3 ["valueRange" "rows"])))))))
+
+(deftest revision-concurrency
+  (let [st (new-store)
+        sid (get (handlers/spreadsheets-create st {"title" "T"}) "spreadsheetId")
+        ok (handlers/values-update st {"spreadsheetId" sid "ifRevision" 0
+                                       "valueRange" {"range" "Sheet1!A1" "rows" [{"cells" ["1"]}]}})]
+    (is (and (true? (get ok "ok")) (= 1 (get ok "revision"))))
+    (let [stale (handlers/values-update st {"spreadsheetId" sid "ifRevision" 0
+                                            "valueRange" {"range" "Sheet1!A1" "rows" [{"cells" ["2"]}]}})]
+      (is (= {"ok" false "conflict" true} stale)))
+    (let [missing (handlers/values-update st {"spreadsheetId" "nope01"
+                                              "valueRange" {"range" "A1" "rows" []}})]
+      (is (= {"ok" false "notFound" true} missing)))))
+
+(deftest lookup-by-provider-id
+  (let [st (new-store)]
+    (handlers/spreadsheets-create st {"title" "Imported" "googleSpreadsheetId" "gsheet_1"})
+    (let [got (handlers/spreadsheets-get st {"spreadsheetId" "gsheet_1"})]
+      (is (and (true? (get got "found"))
+               (= "Imported" (get-in got ["spreadsheet" "title"])))))))
