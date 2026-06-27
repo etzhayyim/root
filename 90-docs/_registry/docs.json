@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-06-26",
+  "updated_at": "2026-06-27",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.md",
@@ -26601,6 +26601,36 @@
         "adr-2606014600-wasm-actor-runtime"
       ],
       "last_verified": "2026-06-26",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606271400-self-evolution-leash-and-consent-gate-consolidation.md",
+      "id": "adr-2606271400-self-evolution-leash-and-consent-gate-consolidation",
+      "title": "ADR-2606271400: Agent self-evolution — leash-everywhere + single consent gate at PR-merge",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "self-evolution-consent-gate",
+      "authoritative": true,
+      "authoritative_for": [
+        "agent-self-evolution-loop",
+        "consent-gate-placement",
+        "leashed-outward-action"
+      ],
+      "related": [
+        "90-docs/260617-r2-autonomous-live-gate-removal-charter-audit.md",
+        "50-infra/etzhayyim-atproto-pds-clj/src/etzhayyim/pds/leash.clj",
+        "70-tools/src/etzhayyim/fleet_probe.cljc"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606101200",
+        "2606111400",
+        "2605231525",
+        "2606072802"
+      ],
+      "last_verified": "2026-06-27",
       "amends": [],
       "amended_by": []
     },
