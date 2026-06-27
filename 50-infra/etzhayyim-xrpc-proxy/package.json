@@ -2,13 +2,18 @@
   "name": "etzhayyim-xrpc-proxy",
   "version": "0.1.0",
   "private": true,
-  "main": "src/worker.ts",
+  "type": "module",
+  "main": "src-cljs/worker.mjs",
   "scripts": {
+    "build": "squint compile",
+    "predeploy": "npm run build",
     "deploy": "wrangler deploy",
     "tail": "wrangler tail"
   },
+  "dependencies": {
+    "squint-cljs": "^0.8.0"
+  },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20251114.0",
     "wrangler": "^4.93.1"
   }
 }

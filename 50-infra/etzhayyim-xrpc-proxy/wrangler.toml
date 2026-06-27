@@ -1,6 +1,11 @@
 name = "etzhayyim-xrpc-proxy"
-main = "src/worker.ts"
+main = "src-cljs/worker.mjs"
 compatibility_date = "2026-05-22"
+
+# squint compiles src-cljs/worker.cljs -> src-cljs/worker.mjs before deploy
+# (ADR-2606251200 TS->cljs). `wrangler deploy` runs this automatically.
+[build]
+command = "npm install && npm run build"
 
 # Route bindings — one per subdomain. `custom_domain = true` makes wrangler
 # auto-provision the DNS record for each Custom Domain so the subdomain
@@ -8,13 +13,14 @@ compatibility_date = "2026-05-22"
 #
 # Each request is forwarded via service binding to the corresponding
 # upstream worker (which still owns the etzhayyim.com routes). This lets the
-# etzhayyim.com zone reuse the existing PDS / AppView / Auth / MCP
-# workers without redeploying them.
-[[routes]]
-pattern = "atproto.etzhayyim.com"
-zone_name = "etzhayyim.com"
-custom_domain = true
-
+# etzhayyim.com zone reuse the existing AppView / Auth / MCP workers without
+# redeploying them.
+#
+# NOTE (ADR-2606271400 legacy prune): the `atproto.etzhayyim.com` route + its
+# `PDS` service binding (→ legacy `etzhayyim-pds-2603241700`, a Kysely/CF-Worker
+# PDS that aliased `did:web:atproto.gftd.ai`) are REMOVED. atproto.etzhayyim.com
+# now resolves to the independent clj+kotoba PDS (`50-infra/etzhayyim-atproto-pds-clj`,
+# `did:web:atproto.etzhayyim.com`) via a Cloudflare Tunnel — NOT through this proxy.
 [[routes]]
 pattern = "bsky.etzhayyim.com"
 zone_name = "etzhayyim.com"
@@ -33,10 +39,6 @@ custom_domain = true
 # Service bindings — Worker→Worker calls within etzhayyim-cloud account.
 # These bypass the CF Bot Management blocks at the public HTTP edge that
 # affect *.etzhayyim.com requests.
-[[services]]
-binding = "PDS"
-service = "etzhayyim-pds-2603241700"
-
 [[services]]
 binding = "APPVIEW"
 service = "etzhayyim-appview"
