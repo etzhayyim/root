@@ -1,0 +1,28 @@
+{
+  "did" : "did:web:etzhayyim.com:gov:jpn:legislature",
+  "handle" : "legislature.jpn.gov.etzhayyim.com",
+  "displayName" : "National Diet (etzhayyim mirror)",
+  "displayNameJa" : "国会(観測ミラー)",
+  "description" : "国会(National Diet)の etzhayyim 観測ミラー記録。これは etzhayyim による OBSERVATIONAL MIRROR(観測ミラー)であり、当該の公的機関そのものではなく、公式チャネルでもありません。当該機関に代わって何かを発行・受理することは一切ありません(ADR-2606021600 §4 なりすまし禁止 / ooyake G3)。当該機関の公式サイト: http://www.sangiin.go.jp/eng/index.htm — 公式情報は必ず公式サイトを参照してください。サーバ署名鍵を持ちません(verificationMethod は空、did:web の trust root = TLS、ADR-2605231525 no-server-key)。",
+  "avatar" : "",
+  "banner" : "",
+  "followersCount" : 0,
+  "followsCount" : 0,
+  "postsCount" : 0,
+  "indexedAt" : "2026-06-27T00:00:00.000Z",
+  "labels" : [ ],
+  "viewer" : { },
+  "performerType" : "system",
+  "uiType" : "appview",
+  "glyph" : "公",
+  "_etzhayyim" : {
+    "kind" : "gov-unit-mirror",
+    "mirror" : true,
+    "unit-id" : "gov.jpn.legislature",
+    "official-url" : "http://www.sangiin.go.jp/eng/index.htm",
+    "official-did" : null,
+    "source" : "ooyake",
+    "adr" : [ "2606021600", "2606272355" ],
+    "didDocument" : "https://etzhayyim.com/gov/jpn/legislature/did.json"
+  }
+}

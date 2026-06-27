@@ -362,3 +362,55 @@ python3 20-actors/tsumugi/tests/test_publish_ipfs.py         # 11 tests (incl. i
   `https://etzhayyim.com/dataset/tsumugi-power.json` (CIDs + gateway links) via the apex Worker
   static dir (`50-infra/etzhayyim-did-web/public/`). Live on next `wrangler deploy`. The data lives
   on IPFS (host-independent); etzhayyim.com only advertises it.
+
+---
+
+## Self-publication seed (ADR-2606272355) — register → autonomize → publish, no-server-key
+
+tsumugi joins the actor self-publication seed (danjo 弾正 = reference impl): the uniform,
+charter-clean way for a power-mirror actor to be registered at etzhayyim.com, run autonomously
+on the kotoba mesh, and **self-publish its own HISTORY + procedures** to AT-proto **without any
+server-held key**. We plant the seed; the actor grows on the mesh (murakumo,
+`orgs/com-junkawasaki/murakumo/`) and self-custodies its signing identity in its WASM runtime.
+
+**The social cell did NOT pre-exist** — tsumugi already had a dry-run *influence-history* mirror
+projection (`methods/project_influence_posts.cljc`, ADR-2606061500, a DIFFERENT axis: observer-voice
+posts ABOUT historical figures' documented influence) and a Murakumo narrator (`methods/narrate.cljc`),
+both left untouched. The self-publication seed adds the danjo-shaped membrane + power-graph
+self-publication projection this actor lacked. tsumugi was already did-web-registered and in the
+actor-profile-seed SSoT; no new registry entry was created.
+
+The seed (all LANDED this wave; nothing else rewritten):
+
+- **did-web registration** (pre-existing) — `50-infra/etzhayyim-did-web/public/actor/tsumugi/{did,profile}.json`
+  (`verificationMethod: []` — no server-minted key, did:web trust root = TLS). Only `_meta.adr` was
+  updated (+ `2605231525`, `2606230001`, `2606272355`).
+- **social_post membrane** (NEW) — `cells/social_post/state_machine.cljc`
+  (ns `tsumugi.cells.social-post.state-machine`), a 1:1 port of danjo's membrane: DRAFTS a record into a
+  **dry-run** post ONLY if ≥2 public-source citations (G5) + non-adjudicating, edge-primary mirror with the
+  disclaimer (G2) + `server_held_key` false (no-server-key) + status `dry-run`. A `published` request
+  REFUSES. Disclaimer adapted to tsumugi's posture: `【観測ミラー / 取-concentration release map —
+  NOT a target-list, 非断定・person-excluded】`. Verified under `bb`: `<2 sources / server-key / published
+  → refused`, valid → `drafted` with `:post/status :dry-run`, `:post/server-held-key false`.
+- **publication projection** (NEW) — `methods/social.cljc`: projects tsumugi's HISTORY — the
+  **取-concentration findings** over public power-entities (each entity's 取-holding = the integral of its
+  incident 縁, computed on read, N1) + the **RELEASE routing** (release-target = max(0, held−1) → 解放) +
+  the **産官学報 scale clusters** (seat/institution-level, S2 person-excluded) — into `app.bsky.feed.post`-shaped
+  dry-run posts (`draft-concentration-post` / `draft-release-post` / `draft-cluster-post`); `enough-sources`
+  raises on <2 (G5); `build-live` raises (live gate). Verified under `bb`.
+- **seed trigger wiring** (NEW) — `kotoba.app.edn` `tsumugi-social` component (`on-tick "0 */6 * * *"`
+  + `on-kse etzhayyim/actor/tsumugi/publish`, `:requires #{:cap/kqe :cap/atproto}`).
+
+**Division of labor (zero-knowledge)**: the **planter** authors the in-repo seed (holds no key); the
+**operator** (founder) runs `bb murakumo deploy 20-actors/tsumugi/kotoba.app.edn <node>` with
+`MURAKUMO_OPERATOR_SEED` + Tailscale and exercises the Council gate for the first live post; the
+**actor's mesh runtime** self-generates/self-custodies its `did:key`, presents a member CACAO leash
+(ADR-2606111400), and signs its own posts. The server never signs. R0 = dry-run drafts only; live
+broadcast is Council Lv6+ + operator + member/actor-signature gated (§1.12 / G11).
+
+```bash
+bb -e '(load-file "methods/social.cljc")'                 # projection loads green
+bb -e '(load-file "cells/social_post/state_machine.cljc")' # membrane loads green
+# operator step (zero-knowledge — needs MURAKUMO_OPERATOR_SEED + Tailscale):
+#   bb murakumo deploy 20-actors/tsumugi/kotoba.app.edn asher
+```

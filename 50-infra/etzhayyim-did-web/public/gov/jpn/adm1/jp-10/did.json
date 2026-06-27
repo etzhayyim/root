@@ -1,0 +1,32 @@
+{
+  "@context" : [ "https://www.w3.org/ns/did/v1", "https://w3id.org/security/suites/jws-2020/v1" ],
+  "id" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-10",
+  "alsoKnownAs" : [ ],
+  "verificationMethod" : [ ],
+  "service" : [ {
+    "id" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-10#atproto_pds",
+    "type" : "AtprotoPersonalDataServer",
+    "serviceEndpoint" : "https://pds.etzhayyim.com"
+  } ],
+  "_meta" : {
+    "mirror" : true,
+    "mirrors" : {
+      "name-local" : "群馬県",
+      "name-en" : "Gunma Prefecture"
+    },
+    "official-url" : "https://www.pref.gunma.jp/",
+    "official-did" : null,
+    "source" : "ooyake",
+    "kind" : "gov-unit-mirror",
+    "unit-id" : "gov.jpn.adm1.jp-10",
+    "level" : "subdivision",
+    "branch" : "local",
+    "jurisdiction" : "jpn",
+    "cofog" : [ "01" ],
+    "wikidata" : "Q129499",
+    "adr" : [ "2606021600", "2606272355" ],
+    "verification-status" : "maintainer-verified",
+    "generated" : "2026-06-27",
+    "note" : "This is an etzhayyim OBSERVATIONAL MIRROR record of a real public body — it is NOT the government, NOT an official channel, and issues/accepts nothing on the body's behalf (ADR-2606021600 §4 impersonation ban, ooyake G3). The mirror links the body's own official-url. No server-minted key: verificationMethod is [] and the did:web trust root = TLS (ADR-2605231525 no-server-key)."
+  }
+}

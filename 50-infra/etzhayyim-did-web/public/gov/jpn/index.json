@@ -1,0 +1,547 @@
+[ {
+  "id" : "gov.jpn",
+  "did" : "did:web:etzhayyim.com:gov:jpn",
+  "name-local" : "日本国",
+  "name-en" : "Japan",
+  "official-url" : "https://www.japan.go.jp/",
+  "path" : "gov/jpn"
+}, {
+  "id" : "gov.jpn.adm1.jp-01",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-01",
+  "name-local" : "北海道",
+  "name-en" : "Hokkaidō",
+  "official-url" : "https://www.pref.hokkaido.lg.jp/",
+  "path" : "gov/jpn/adm1/jp-01"
+}, {
+  "id" : "gov.jpn.adm1.jp-02",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-02",
+  "name-local" : "青森県",
+  "name-en" : "Aomori Prefecture",
+  "official-url" : "https://www.pref.aomori.lg.jp/",
+  "path" : "gov/jpn/adm1/jp-02"
+}, {
+  "id" : "gov.jpn.adm1.jp-03",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-03",
+  "name-local" : "岩手県",
+  "name-en" : "Iwate Prefecture",
+  "official-url" : "https://www.pref.iwate.jp/",
+  "path" : "gov/jpn/adm1/jp-03"
+}, {
+  "id" : "gov.jpn.adm1.jp-04",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-04",
+  "name-local" : "宮城県",
+  "name-en" : "Miyagi Prefecture",
+  "official-url" : "https://www.pref.miyagi.jp/",
+  "path" : "gov/jpn/adm1/jp-04"
+}, {
+  "id" : "gov.jpn.adm1.jp-05",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-05",
+  "name-local" : "秋田県",
+  "name-en" : "Akita Prefecture",
+  "official-url" : "https://www.pref.akita.lg.jp/",
+  "path" : "gov/jpn/adm1/jp-05"
+}, {
+  "id" : "gov.jpn.adm1.jp-06",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-06",
+  "name-local" : "山形県",
+  "name-en" : "Yamagata Prefecture",
+  "official-url" : "https://www.pref.yamagata.jp/",
+  "path" : "gov/jpn/adm1/jp-06"
+}, {
+  "id" : "gov.jpn.adm1.jp-07",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-07",
+  "name-local" : "福島県",
+  "name-en" : "Fukushima Prefecture",
+  "official-url" : "http://www.pref.fukushima.lg.jp/site/portal-es/",
+  "path" : "gov/jpn/adm1/jp-07"
+}, {
+  "id" : "gov.jpn.adm1.jp-08",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-08",
+  "name-local" : "茨城県",
+  "name-en" : "Ibaraki Prefecture",
+  "official-url" : "https://www.pref.ibaraki.jp/",
+  "path" : "gov/jpn/adm1/jp-08"
+}, {
+  "id" : "gov.jpn.adm1.jp-09",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-09",
+  "name-local" : "栃木県",
+  "name-en" : "Tochigi Prefecture",
+  "official-url" : "https://www.pref.tochigi.lg.jp/",
+  "path" : "gov/jpn/adm1/jp-09"
+}, {
+  "id" : "gov.jpn.adm1.jp-10",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-10",
+  "name-local" : "群馬県",
+  "name-en" : "Gunma Prefecture",
+  "official-url" : "https://www.pref.gunma.jp/",
+  "path" : "gov/jpn/adm1/jp-10"
+}, {
+  "id" : "gov.jpn.adm1.jp-11",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-11",
+  "name-local" : "埼玉県",
+  "name-en" : "Saitama Prefecture",
+  "official-url" : "https://www.pref.saitama.lg.jp/",
+  "path" : "gov/jpn/adm1/jp-11"
+}, {
+  "id" : "gov.jpn.adm1.jp-12",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-12",
+  "name-local" : "千葉県",
+  "name-en" : "Chiba Prefecture",
+  "official-url" : "https://www.pref.chiba.lg.jp/",
+  "path" : "gov/jpn/adm1/jp-12"
+}, {
+  "id" : "gov.jpn.adm1.jp-14",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-14",
+  "name-local" : "神奈川県",
+  "name-en" : "Kanagawa Prefecture",
+  "official-url" : "https://www.pref.kanagawa.jp/",
+  "path" : "gov/jpn/adm1/jp-14"
+}, {
+  "id" : "gov.jpn.adm1.jp-15",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-15",
+  "name-local" : "新潟県",
+  "name-en" : "Niigata Prefecture",
+  "official-url" : "https://www.pref.niigata.lg.jp/",
+  "path" : "gov/jpn/adm1/jp-15"
+}, {
+  "id" : "gov.jpn.adm1.jp-16",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-16",
+  "name-local" : "富山県",
+  "name-en" : "Toyama Prefecture",
+  "official-url" : "https://www.pref.toyama.jp/",
+  "path" : "gov/jpn/adm1/jp-16"
+}, {
+  "id" : "gov.jpn.adm1.jp-17",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-17",
+  "name-local" : "石川県",
+  "name-en" : "Ishikawa Prefecture",
+  "official-url" : "https://www.pref.ishikawa.lg.jp/",
+  "path" : "gov/jpn/adm1/jp-17"
+}, {
+  "id" : "gov.jpn.adm1.jp-18",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-18",
+  "name-local" : "福井県",
+  "name-en" : "Fukui Prefecture",
+  "official-url" : "https://www.pref.fukui.lg.jp/",
+  "path" : "gov/jpn/adm1/jp-18"
+}, {
+  "id" : "gov.jpn.adm1.jp-19",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-19",
+  "name-local" : "山梨県",
+  "name-en" : "Yamanashi Prefecture",
+  "official-url" : "https://www.pref.yamanashi.jp/",
+  "path" : "gov/jpn/adm1/jp-19"
+}, {
+  "id" : "gov.jpn.adm1.jp-20",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-20",
+  "name-local" : "長野県",
+  "name-en" : "Nagano Prefecture",
+  "official-url" : "https://www.pref.nagano.lg.jp/",
+  "path" : "gov/jpn/adm1/jp-20"
+}, {
+  "id" : "gov.jpn.adm1.jp-21",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-21",
+  "name-local" : "岐阜県",
+  "name-en" : "Gifu Prefecture",
+  "official-url" : "https://www.pref.gifu.lg.jp/",
+  "path" : "gov/jpn/adm1/jp-21"
+}, {
+  "id" : "gov.jpn.adm1.jp-22",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-22",
+  "name-local" : "静岡県",
+  "name-en" : "Shizuoka Prefecture",
+  "official-url" : "https://www.pref.shizuoka.jp",
+  "path" : "gov/jpn/adm1/jp-22"
+}, {
+  "id" : "gov.jpn.adm1.jp-23",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-23",
+  "name-local" : "愛知県",
+  "name-en" : "Aichi Prefecture",
+  "official-url" : "http://www.pref.aichi.jp/global/en/",
+  "path" : "gov/jpn/adm1/jp-23"
+}, {
+  "id" : "gov.jpn.adm1.jp-24",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-24",
+  "name-local" : "三重県",
+  "name-en" : "Mie Prefecture",
+  "official-url" : "https://www.pref.mie.lg.jp/",
+  "path" : "gov/jpn/adm1/jp-24"
+}, {
+  "id" : "gov.jpn.adm1.jp-25",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-25",
+  "name-local" : "滋賀県",
+  "name-en" : "Shiga Prefecture",
+  "official-url" : "https://www.pref.shiga.lg.jp/",
+  "path" : "gov/jpn/adm1/jp-25"
+}, {
+  "id" : "gov.jpn.adm1.jp-26",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-26",
+  "name-local" : "京都府",
+  "name-en" : "Kyoto Prefecture",
+  "official-url" : "https://www.pref.kyoto.jp/",
+  "path" : "gov/jpn/adm1/jp-26"
+}, {
+  "id" : "gov.jpn.adm1.jp-27",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-27",
+  "name-local" : "大阪府",
+  "name-en" : "Osaka Prefecture",
+  "official-url" : "https://www.pref.osaka.lg.jp/",
+  "path" : "gov/jpn/adm1/jp-27"
+}, {
+  "id" : "gov.jpn.adm1.jp-28",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-28",
+  "name-local" : "兵庫県",
+  "name-en" : "Hyōgo Prefecture",
+  "official-url" : "https://web.pref.hyogo.lg.jp/",
+  "path" : "gov/jpn/adm1/jp-28"
+}, {
+  "id" : "gov.jpn.adm1.jp-29",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-29",
+  "name-local" : "奈良県",
+  "name-en" : "Nara Prefecture",
+  "official-url" : "https://www.pref.nara.jp/",
+  "path" : "gov/jpn/adm1/jp-29"
+}, {
+  "id" : "gov.jpn.adm1.jp-30",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-30",
+  "name-local" : "和歌山県",
+  "name-en" : "Wakayama Prefecture",
+  "official-url" : "https://www.pref.wakayama.lg.jp/",
+  "path" : "gov/jpn/adm1/jp-30"
+}, {
+  "id" : "gov.jpn.adm1.jp-31",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-31",
+  "name-local" : "鳥取県",
+  "name-en" : "Tottori Prefecture",
+  "official-url" : "https://www.pref.tottori.lg.jp/",
+  "path" : "gov/jpn/adm1/jp-31"
+}, {
+  "id" : "gov.jpn.adm1.jp-32",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-32",
+  "name-local" : "島根県",
+  "name-en" : "Shimane Prefecture",
+  "official-url" : "https://www.pref.shimane.lg.jp/",
+  "path" : "gov/jpn/adm1/jp-32"
+}, {
+  "id" : "gov.jpn.adm1.jp-33",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-33",
+  "name-local" : "岡山県",
+  "name-en" : "Okayama Prefecture",
+  "official-url" : "https://www.pref.okayama.jp/",
+  "path" : "gov/jpn/adm1/jp-33"
+}, {
+  "id" : "gov.jpn.adm1.jp-34",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-34",
+  "name-local" : "広島県",
+  "name-en" : "Hiroshima Prefecture",
+  "official-url" : "https://www.pref.hiroshima.lg.jp/",
+  "path" : "gov/jpn/adm1/jp-34"
+}, {
+  "id" : "gov.jpn.adm1.jp-35",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-35",
+  "name-local" : "山口県",
+  "name-en" : "Yamaguchi Prefecture",
+  "official-url" : "https://www.pref.yamaguchi.lg.jp/",
+  "path" : "gov/jpn/adm1/jp-35"
+}, {
+  "id" : "gov.jpn.adm1.jp-36",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-36",
+  "name-local" : "徳島県",
+  "name-en" : "Tokushima Prefecture",
+  "official-url" : "https://www.pref.tokushima.lg.jp/",
+  "path" : "gov/jpn/adm1/jp-36"
+}, {
+  "id" : "gov.jpn.adm1.jp-37",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-37",
+  "name-local" : "香川県",
+  "name-en" : "Kagawa Prefecture",
+  "official-url" : "https://www.pref.kagawa.lg.jp/",
+  "path" : "gov/jpn/adm1/jp-37"
+}, {
+  "id" : "gov.jpn.adm1.jp-38",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-38",
+  "name-local" : "愛媛県",
+  "name-en" : "Ehime Prefecture",
+  "official-url" : "https://www.pref.ehime.jp",
+  "path" : "gov/jpn/adm1/jp-38"
+}, {
+  "id" : "gov.jpn.adm1.jp-39",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-39",
+  "name-local" : "高知県",
+  "name-en" : "Kōchi Prefecture",
+  "official-url" : "https://www.pref.kochi.lg.jp/",
+  "path" : "gov/jpn/adm1/jp-39"
+}, {
+  "id" : "gov.jpn.adm1.jp-40",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-40",
+  "name-local" : "福岡県",
+  "name-en" : "Fukuoka Prefecture",
+  "official-url" : "https://www.pref.fukuoka.lg.jp/",
+  "path" : "gov/jpn/adm1/jp-40"
+}, {
+  "id" : "gov.jpn.adm1.jp-41",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-41",
+  "name-local" : "佐賀県",
+  "name-en" : "Saga Prefecture",
+  "official-url" : "https://www.pref.saga.lg.jp/",
+  "path" : "gov/jpn/adm1/jp-41"
+}, {
+  "id" : "gov.jpn.adm1.jp-42",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-42",
+  "name-local" : "長崎県",
+  "name-en" : "Nagasaki Prefecture",
+  "official-url" : "https://www.pref.nagasaki.jp/",
+  "path" : "gov/jpn/adm1/jp-42"
+}, {
+  "id" : "gov.jpn.adm1.jp-43",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-43",
+  "name-local" : "熊本県",
+  "name-en" : "Kumamoto Prefecture",
+  "official-url" : "https://www.pref.kumamoto.jp/",
+  "path" : "gov/jpn/adm1/jp-43"
+}, {
+  "id" : "gov.jpn.adm1.jp-44",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-44",
+  "name-local" : "大分県",
+  "name-en" : "Ōita Prefecture",
+  "official-url" : "https://www.pref.oita.jp/",
+  "path" : "gov/jpn/adm1/jp-44"
+}, {
+  "id" : "gov.jpn.adm1.jp-45",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-45",
+  "name-local" : "宮崎県",
+  "name-en" : "Miyazaki Prefecture",
+  "official-url" : "https://www.pref.miyazaki.lg.jp/",
+  "path" : "gov/jpn/adm1/jp-45"
+}, {
+  "id" : "gov.jpn.adm1.jp-46",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-46",
+  "name-local" : "鹿児島県",
+  "name-en" : "Kagoshima Prefecture",
+  "official-url" : "https://www.pref.kagoshima.jp",
+  "path" : "gov/jpn/adm1/jp-46"
+}, {
+  "id" : "gov.jpn.adm1.jp-47",
+  "did" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-47",
+  "name-local" : "沖縄県",
+  "name-en" : "Okinawa Prefecture",
+  "official-url" : "https://www.pref.okinawa.lg.jp/",
+  "path" : "gov/jpn/adm1/jp-47"
+}, {
+  "id" : "gov.jpn.archives",
+  "did" : "did:web:etzhayyim.com:gov:jpn:agency:national-archives",
+  "name-local" : "国立公文書館",
+  "name-en" : "National Archives of Japan",
+  "official-url" : "https://www.archives.go.jp/",
+  "path" : "gov/jpn/agency/national-archives"
+}, {
+  "id" : "gov.jpn.audit",
+  "did" : "did:web:etzhayyim.com:gov:jpn:agency:audit-institution",
+  "name-local" : "会計検査院",
+  "name-en" : "Board of Audit",
+  "official-url" : "https://www.jbaudit.go.jp/",
+  "path" : "gov/jpn/agency/audit-institution"
+}, {
+  "id" : "gov.jpn.boj",
+  "did" : "did:web:etzhayyim.com:gov:jpn:central-bank:boj",
+  "name-local" : "日本銀行",
+  "name-en" : "Bank of Japan",
+  "official-url" : "https://www.boj.or.jp/",
+  "path" : "gov/jpn/central-bank/boj"
+}, {
+  "id" : "gov.jpn.cao",
+  "did" : "did:web:etzhayyim.com:gov:jpn:cabinet-office:cao",
+  "name-local" : "内閣府",
+  "name-en" : "Cabinet Office",
+  "official-url" : "https://www.cao.go.jp/",
+  "path" : "gov/jpn/cabinet-office/cao"
+}, {
+  "id" : "gov.jpn.city.13104",
+  "did" : "did:web:etzhayyim.com:gov:jpn:city:13104",
+  "name-local" : "新宿区",
+  "name-en" : "Shinjuku City",
+  "official-url" : "https://www.city.shinjuku.lg.jp/",
+  "path" : "gov/jpn/city/13104"
+}, {
+  "id" : "gov.jpn.competition",
+  "did" : "did:web:etzhayyim.com:gov:jpn:agency:competition-authority",
+  "name-local" : "公正取引委員会",
+  "name-en" : "Fair Trade Commission",
+  "official-url" : "http://www.jftc.go.jp/",
+  "path" : "gov/jpn/agency/competition-authority"
+}, {
+  "id" : "gov.jpn.culture",
+  "did" : "did:web:etzhayyim.com:gov:jpn:ministry:culture",
+  "name-local" : "文化庁",
+  "name-en" : "Agency for Cultural Affairs",
+  "official-url" : "https://www.bunka.go.jp",
+  "path" : "gov/jpn/ministry/culture"
+}, {
+  "id" : "gov.jpn.dataprotection",
+  "did" : "did:web:etzhayyim.com:gov:jpn:agency:data-protection-authority",
+  "name-local" : "個人情報保護委員会",
+  "name-en" : "Personal Information Protection Commission",
+  "official-url" : "https://www.ppc.go.jp/",
+  "path" : "gov/jpn/agency/data-protection-authority"
+}, {
+  "id" : "gov.jpn.digital",
+  "did" : "did:web:etzhayyim.com:gov:jpn:agency:digital",
+  "name-local" : "デジタル庁",
+  "name-en" : "Digital Agency",
+  "official-url" : "https://www.digital.go.jp/",
+  "path" : "gov/jpn/agency/digital"
+}, {
+  "id" : "gov.jpn.executive",
+  "did" : "did:web:etzhayyim.com:gov:jpn:cabinet",
+  "name-local" : "内閣",
+  "name-en" : "Cabinet of Japan",
+  "official-url" : "https://www.kantei.go.jp/jp/naikaku/",
+  "path" : "gov/jpn/cabinet"
+}, {
+  "id" : "gov.jpn.finreg",
+  "did" : "did:web:etzhayyim.com:gov:jpn:agency:financial-regulator",
+  "name-local" : "金融庁",
+  "name-en" : "Financial Services Agency",
+  "official-url" : "http://www.fsa.go.jp",
+  "path" : "gov/jpn/agency/financial-regulator"
+}, {
+  "id" : "gov.jpn.legislature",
+  "did" : "did:web:etzhayyim.com:gov:jpn:legislature",
+  "name-local" : "国会",
+  "name-en" : "National Diet",
+  "official-url" : "http://www.sangiin.go.jp/eng/index.htm",
+  "path" : "gov/jpn/legislature"
+}, {
+  "id" : "gov.jpn.library",
+  "did" : "did:web:etzhayyim.com:gov:jpn:agency:national-library",
+  "name-local" : "国立国会図書館",
+  "name-en" : "National Diet Library",
+  "official-url" : "https://www.ndl.go.jp/",
+  "path" : "gov/jpn/agency/national-library"
+}, {
+  "id" : "gov.jpn.maff",
+  "did" : "did:web:etzhayyim.com:gov:jpn:ministry:maff",
+  "name-local" : "農林水産省",
+  "name-en" : "Ministry of Agriculture, Forestry and Fisheries",
+  "official-url" : "https://www.maff.go.jp/",
+  "path" : "gov/jpn/ministry/maff"
+}, {
+  "id" : "gov.jpn.meti",
+  "did" : "did:web:etzhayyim.com:gov:jpn:ministry:meti",
+  "name-local" : "経済産業省",
+  "name-en" : "Ministry of Economy, Trade and Industry",
+  "official-url" : "https://www.meti.go.jp/",
+  "path" : "gov/jpn/ministry/meti"
+}, {
+  "id" : "gov.jpn.mext",
+  "did" : "did:web:etzhayyim.com:gov:jpn:ministry:mext",
+  "name-local" : "文部科学省",
+  "name-en" : "Ministry of Education, Culture, Sports, Science and Technology",
+  "official-url" : "https://www.mext.go.jp/",
+  "path" : "gov/jpn/ministry/mext"
+}, {
+  "id" : "gov.jpn.mhlw",
+  "did" : "did:web:etzhayyim.com:gov:jpn:ministry:mhlw",
+  "name-local" : "厚生労働省",
+  "name-en" : "Ministry of Health, Labour and Welfare",
+  "official-url" : "https://www.mhlw.go.jp/",
+  "path" : "gov/jpn/ministry/mhlw"
+}, {
+  "id" : "gov.jpn.mic",
+  "did" : "did:web:etzhayyim.com:gov:jpn:ministry:mic",
+  "name-local" : "総務省",
+  "name-en" : "Ministry of Internal Affairs and Communications",
+  "official-url" : "https://www.soumu.go.jp/",
+  "path" : "gov/jpn/ministry/mic"
+}, {
+  "id" : "gov.jpn.mlit",
+  "did" : "did:web:etzhayyim.com:gov:jpn:ministry:mlit",
+  "name-local" : "国土交通省",
+  "name-en" : "Ministry of Land, Infrastructure, Transport and Tourism",
+  "official-url" : "https://www.mlit.go.jp/",
+  "path" : "gov/jpn/ministry/mlit"
+}, {
+  "id" : "gov.jpn.mod",
+  "did" : "did:web:etzhayyim.com:gov:jpn:ministry:mod",
+  "name-local" : "防衛省",
+  "name-en" : "Ministry of Defense",
+  "official-url" : "https://www.mod.go.jp/",
+  "path" : "gov/jpn/ministry/mod"
+}, {
+  "id" : "gov.jpn.moe",
+  "did" : "did:web:etzhayyim.com:gov:jpn:ministry:moe",
+  "name-local" : "環境省",
+  "name-en" : "Ministry of the Environment",
+  "official-url" : "https://www.env.go.jp/",
+  "path" : "gov/jpn/ministry/moe"
+}, {
+  "id" : "gov.jpn.mof",
+  "did" : "did:web:etzhayyim.com:gov:jpn:ministry:mof",
+  "name-local" : "財務省",
+  "name-en" : "Ministry of Finance",
+  "official-url" : "https://www.mof.go.jp/",
+  "path" : "gov/jpn/ministry/mof"
+}, {
+  "id" : "gov.jpn.mof.nta",
+  "did" : "did:web:etzhayyim.com:gov:jpn:agency:nta",
+  "name-local" : "国税庁",
+  "name-en" : "National Tax Agency",
+  "official-url" : "https://www.nta.go.jp/",
+  "path" : "gov/jpn/agency/nta"
+}, {
+  "id" : "gov.jpn.mof.nta.tokyo",
+  "did" : "did:web:etzhayyim.com:gov:jpn:bureau:nta-tokyo",
+  "name-local" : "東京国税局",
+  "name-en" : "Tokyo Regional Taxation Bureau",
+  "official-url" : "https://www.nta.go.jp/about/organization/tokyo/",
+  "path" : "gov/jpn/bureau/nta-tokyo"
+}, {
+  "id" : "gov.jpn.mof.nta.tokyo.kojimachi",
+  "did" : "did:web:etzhayyim.com:gov:jpn:office:nta-kojimachi",
+  "name-local" : "麹町税務署",
+  "name-en" : "Kojimachi Tax Office",
+  "official-url" : "https://www.nta.go.jp/about/organization/tokyo/location/kojimachi.htm",
+  "path" : "gov/jpn/office/nta-kojimachi"
+}, {
+  "id" : "gov.jpn.mofa",
+  "did" : "did:web:etzhayyim.com:gov:jpn:ministry:mofa",
+  "name-local" : "外務省",
+  "name-en" : "Ministry of Foreign Affairs",
+  "official-url" : "https://www.mofa.go.jp/",
+  "path" : "gov/jpn/ministry/mofa"
+}, {
+  "id" : "gov.jpn.moj",
+  "did" : "did:web:etzhayyim.com:gov:jpn:ministry:moj",
+  "name-local" : "法務省",
+  "name-en" : "Ministry of Justice",
+  "official-url" : "https://www.moj.go.jp/",
+  "path" : "gov/jpn/ministry/moj"
+}, {
+  "id" : "gov.jpn.pref.13",
+  "did" : "did:web:etzhayyim.com:gov:jpn:pref:13",
+  "name-local" : "東京都",
+  "name-en" : "Tokyo Metropolis",
+  "official-url" : "https://www.metro.tokyo.lg.jp/",
+  "path" : "gov/jpn/pref/13"
+}, {
+  "id" : "gov.jpn.reconstruction",
+  "did" : "did:web:etzhayyim.com:gov:jpn:agency:reconstruction",
+  "name-local" : "復興庁",
+  "name-en" : "Reconstruction Agency",
+  "official-url" : "https://www.reconstruction.go.jp/",
+  "path" : "gov/jpn/agency/reconstruction"
+}, {
+  "id" : "gov.jpn.statistics",
+  "did" : "did:web:etzhayyim.com:gov:jpn:agency:statistical-office",
+  "name-local" : "総務省統計局",
+  "name-en" : "Statistics Japan",
+  "official-url" : "https://www.stat.go.jp/",
+  "path" : "gov/jpn/agency/statistical-office"
+}, {
+  "id" : "gov.jpn.supreme-court",
+  "did" : "did:web:etzhayyim.com:gov:jpn:court:supreme",
+  "name-local" : "最高裁判所",
+  "name-en" : "Supreme Court of Japan",
+  "official-url" : "https://www.courts.go.jp/index.html",
+  "path" : "gov/jpn/court/supreme"
+} ]

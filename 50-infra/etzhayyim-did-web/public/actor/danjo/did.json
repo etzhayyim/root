@@ -1,0 +1,36 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/suites/jws-2020/v1"
+  ],
+  "id": "did:web:etzhayyim.com:actor:danjo",
+  "alsoKnownAs": [
+    "did:web:danjo.etzhayyim.com"
+  ],
+  "verificationMethod": [],
+  "service": [
+    {
+      "id": "did:web:etzhayyim.com:actor:danjo#atproto_pds",
+      "type": "AtprotoPersonalDataServer",
+      "serviceEndpoint": "https://pds.etzhayyim.com"
+    }
+  ],
+  "_meta": {
+    "adr": [
+      "2605301600",
+      "2605263900",
+      "2605231525",
+      "2606230001",
+      "2606272355"
+    ],
+    "source": "kotoba",
+    "kind": "tier-b",
+    "status": "r0",
+    "glyph": "弾正",
+    "wasmCid": null,
+    "execModel": "mesh-component",
+    "primaryLexicon": "com.etzhayyim.danjo",
+    "primarySchema": "00-contracts/schemas/danjo-oversight-ontology.kotoba.edn",
+    "note": "verificationMethod empty — no server-minted key (ADR-2605231525). did:web trust root = TLS. The actor's own signing identity is self-custodied in its kotoba-mesh WASM runtime on murakumo placement; the #xrpc-libp2p service (peer multiaddr) is assigned at `bb murakumo deploy` time when wasmCid is set. Observational accountability mirror (G4 non-adjudicating) — NOT the government, NOT a prosecutor."
+  }
+}
