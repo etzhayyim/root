@@ -30,11 +30,13 @@
         {:git/url "https://github.com/com-junkawasaki/cacao-clj"
          :git/sha "32fe0b63a815afc0827729394435deee627ea582"}
         ;; eth-crypto-clj — dependency-free Ethereum crypto (Keccak-256 / secp256k1
-        ;; ecrecover / EIP-712 / EIP-55), pure clojure.* (bb-safe). Used by yobel's
-        ;; concrete ports; verified vs the EIP-712 spec vector.
+        ;; ecrecover + RFC-6979 ECDSA signing / EIP-712 / EIP-55 / RLP / EIP-155
+        ;; legacy tx), pure clojure.* (bb-safe). Used by yobel's concrete ports +
+        ;; first-breath's signer (replaces eth_account); verified vs the EIP-712 +
+        ;; EIP-155 spec vectors.
         com-junkawasaki/eth-crypto-clj
         {:git/url "https://github.com/com-junkawasaki/eth-crypto-clj"
-         :git/sha "c3dfd2dd92d62d87f28888be9b05ef60b33a72cc"}}
+         :git/sha "9208ecc09a32cf51627ed32eb417e4834f208324"}}
  :tasks
  {e7m
   {:doc "etzhayyim CLI (babashka port; capstone of the etzhayyim-py→bb migration, ADR-2606222000). `bb e7m list` shows every ported command module; `bb e7m <cmd> [args]` dispatches commands that expose a -main (murakumo, vitals); other commands are ported as libraries (ns etzhayyim.<cmd>) pending argv-wiring."
