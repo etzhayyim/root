@@ -9,7 +9,7 @@
 (require '[babashka.deps :as deps])
 (deps/add-deps '{:deps {com-junkawasaki/multiformats-clj
                         {:git/url "https://github.com/com-junkawasaki/multiformats-clj"
-                         :git/sha "9031996fb6c57fddb7c7de95365ecff35e497d1e"}}})
+                         :git/sha "e102733fe5a1db9d6d2ec103bc8563ae81128a17"}}})
 (require '[babashka.process :refer [shell]]
          '[babashka.fs :as fs]
          '[multiformats.core :as mf])
