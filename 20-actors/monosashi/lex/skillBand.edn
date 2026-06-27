@@ -1,0 +1,32 @@
+;; com.etzhayyim.monosashi.skillBand — a predictive actor's forecast-skill reliability band.
+;; G1/G6 distribution-only; G3 anti-Goodhart (NO reward/target field exists); G12 honest-skilled.
+{:lexicon 1
+ :id "com.etzhayyim.monosashi.skillBand"
+ :defs
+ {:main
+  {:type "record"
+   :key "tid"
+   :record
+   {:type "object"
+    :required ["eval/actor" "eval/baseline" "eval/as-of" "eval/p50" "eval/n" "eval/point-asserted"]
+    :properties
+    {:eval/actor          {:type "string" :description "predictive actor handle (hakoniwa/mitooshi/tsuchifumi/…)"}
+     :eval/baseline       {:type "string" :description "G12 — the ONE documented baseline this band's skill is vs (climatology/persistence/random-walk). Bands are grouped per (actor, baseline); skill is never pooled across baselines."}
+     :eval/as-of          {:type "string" :description "ISO-8601 evaluation boundary; every residual :score/observed-at is REQUIRED and MUST be ≤ this, compared as instants (G5)"}
+     :eval/n              {:type "integer" :description "number of scored forecasts in the band"}
+     :eval/kind           {:type "string" :const ":skill-band"}
+     :eval/use            {:type "string" :enum ["model-assessment" "resilience" "planning" "research"]
+                           :description "G2 non-speculative use; trade/position/target are NOT members"}
+     :eval/p10            {:type "number" :description "10th percentile skill-vs-baseline"}
+     :eval/p50            {:type "number" :description "median skill-vs-baseline (>0 ⇒ beats baseline)"}
+     :eval/p90            {:type "number" :description "90th percentile skill-vs-baseline"}
+     :eval/point-asserted {:type "boolean" :const false
+                           :description "G1 INVARIANT — a skill grade is a BAND, never a point"}
+     :eval/skilled        {:type "boolean" :description "G12 — true ONLY if p50 > 0 vs the documented baseline"}
+     :eval/calibration-deviation {:type "number" :description "PIT-histogram deviation Σ|freq−1/bins| (0 = uniform = CALIBRATED; larger = over/under-confident). The mitooshi calibration-summary primitive."}
+     :eval/coherence      {:type "number" :description "OPTIONAL same-series band-width coherence vs a tsuchifumi sysdyn ensemble over the SAME quantity (1 = coherent); a DIAGNOSTIC, not part of the grade. Omitted unless a same-series structural model is supplied."}}
+    ;; STRUCTURAL G3 ANTI-GOODHART: there is intentionally NO :eval/reward, :eval/target,
+    ;; :eval/payout, :eval/incentive or :eval/stake property — a measure must never become a
+    ;; target. Reward lives in mio (Proof-of-Useful-Flow), decoupled. score/assert-no-reward
+    ;; refuses any such key at runtime.
+    }}}}
