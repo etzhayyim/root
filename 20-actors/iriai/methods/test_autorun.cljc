@@ -19,8 +19,8 @@
   (let [r (autorun/beat {:cells (cells) :tx-id "b1" :as-of "a1" :log-path tmp})]
     (is (:appended r))
     (is (pos? (:count r)) "infra + fund + manage datoms")
-    (is (= 10 (:fund r)) "10 fundable cells")
-    (is (= 10 (:gov r))  "10 governance decisions")
+    (is (= 11 (:fund r)) "11 fundable cells (incl. kibou road)")
+    (is (= 11 (:gov r))  "11 governance decisions")
     (is (:ok (k/verify-chain tmp)))
     (clean!)))
 

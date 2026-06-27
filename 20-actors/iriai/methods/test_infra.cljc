@@ -82,7 +82,7 @@
   (is (= 0.2 (infra/coverage (cell "kibou" :electric))))
   (let [a (infra/assess (cells))]
     (is (pos? (get a "unserved_pop")))
-    (is (= 24 (apply + (vals (get a "tally")))) "every cell has exactly one verdict")
+    (is (= 27 (apply + (vals (get a "tally")))) "every cell (incl. 3 road) has exactly one verdict")
     (is (= 6 (count (keys (get a "tally")))) "all six verdicts are reached by the seed")))
 
 #?(:clj

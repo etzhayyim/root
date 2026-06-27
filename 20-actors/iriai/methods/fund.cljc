@@ -36,7 +36,7 @@
   "Disclosed market-equivalent reference: what one person's annual lifeline service would
   cost at a commercial utility (USD/person/yr). Used ONLY to impute the §1.16 in-kind
   income value (aggregate, method-versioned). NOT a price, NOT a bill (G2)."
-  {:water 100.0 :electric 450.0 :gas 400.0 :telecom 120.0})
+  {:water 100.0 :electric 450.0 :gas 400.0 :telecom 120.0 :road 150.0})
 
 (def fundable-verdicts #{:provision :reinforce :redundancy})
 

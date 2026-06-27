@@ -89,7 +89,9 @@ methods/maintain.cljc    運用メンテナンス: lifecycle gate (safety-floor 
 methods/gates.cljc       constitutional assertions (ex-info, incl. G9 safety-floor) + structural forbidden-absent?
 methods/kotoba.cljc      content-addressed append-only COMMONS LEDGER (tx-cid/make-tx/append-tx/verify-chain)
 methods/autorun.cljc     deterministic, idempotent-by-content heartbeat — infra+fund+manage+twin+maintain → append
-methods/test_*.cljc      8 suites: infra·fund·manage·twin·maintain·gates·kotoba·autorun (54 tests / 394 assert)
+methods/test_*.cljc      9 suites: infra·fund·manage·twin·maintain·gates·kotoba·autorun·cell (56 tests / 425 assert)
+cell.cljc                fleet heartbeat cell — `fire` runs one commons beat (IriaiCommonsHeartbeatCell)
+deploy/                  LaunchAgent residency (install.clj + plist template + README; machine-local)
 kotoba/ontology.iriai.edn EAVT schema + verdicts + instruments + degradation-models + NEGATIVE SPACE
 kotoba/seed.edn          6 regions × 4 lifelines = 24 cells + 11 deployed assets (5 lifelines incl. road)
 data/ (gitignored)       generated commons ledger — never committed
@@ -100,7 +102,7 @@ run_tests.clj            bb-native runner (no shell, ADR-2606072802)
 ## Run
 
 ```bash
-bb 20-actors/iriai/run_tests.clj                                  # 8 suites (54 tests / 394 assert)
+bb 20-actors/iriai/run_tests.clj                                  # 8 suites (56 tests / 425 assert)
 bb --classpath 20-actors 20-actors/iriai/methods/infra.cljc       # coverage + resilience map
 bb --classpath 20-actors 20-actors/iriai/methods/fund.cljc        # §1.16 in-kind funding plan
 bb --classpath 20-actors 20-actors/iriai/methods/manage.cljc      # 1 SBT=1 vote governance ledger
@@ -118,10 +120,20 @@ bb --classpath 20-actors 20-actors/iriai/methods/autorun.cljc     # heartbeat �
 - **SoS pattern**: kaname 要 (leverage synthesizer) · amime 網目 (energy N-1 mesh)
 - Authorized by **ADR-2606272200**. Live production + actuation = producer actors under Council Lv7+, never iriai.
 
+## Fleet residency (ADR-2606280900)
+
+`IriaiCommonsHeartbeatCell` is registered in `50-infra/cluster/murakumo/cell-runner/cells.edn`
+(node **judah**, cron **44 * * * ***, healthz **13093**) and runs one deterministic,
+idempotent-by-content beat per fire (infra+fund+manage+twin+maintain → local commons ledger).
+Local LaunchAgent residency: `bb 20-actors/iriai/deploy/install.clj install` (hourly :44).
+No-server-key, no external I/O; Murakumo digest + live-engine bridge + crew dispatch stay
+operator/Council-gated.
+
 ## R0 → later
 
 - **R1+ (G7-gated)**: real region/utility-coverage ingest from public open data (World Bank / IEA /
-  WHO-JMP / ITU — read-only, no key); inochi/jinushi land-sovereignty grounding for consent; amime
-  N-1 energy-mesh join for the electric layer. **R2**: fleet registration (cell-runner + healthz);
-  Murakumo-narrated commons digest; live kotoba-engine bridge (ibuki-R3); lexicon JSON. Live
-  actuation stays the producer actors' under Council Lv7+, never iriai.
+  WHO-JMP / ITU — read-only, no key); real asset-condition telemetry (kizashi sensing); inochi/jinushi
+  land-sovereignty grounding for consent; amime N-1 energy-mesh join; predictive maintenance via
+  mitooshi; producer-twin device-in-the-loop coupling. **R2**: Murakumo-narrated commons digest; live
+  kotoba-engine bridge (ibuki-R3); road coverage already landed; lexicon JSON deploy. Live actuation +
+  crew dispatch stays the producer/executor actors' under Council Lv7+, never iriai.

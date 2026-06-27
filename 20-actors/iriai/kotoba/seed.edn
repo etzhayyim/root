@@ -79,6 +79,14 @@
  {:type :lifeline-cell :region "machi" :region-name "Machi Ward" :lifeline :gas :source "kamado"
   :served-pop 4100 :total-pop 5000 :vulnerability 0.2 :single-source? false :n1-margin 0.1 :consent true :disaster-degraded? false}
 
+ ;; ── 道路 road coverage-cells (5th lifeline in all layers, ADR-2606280900) ──
+ {:type :lifeline-cell :region "kibou" :region-name "Kibou Village" :lifeline :road :source "tatekata"
+  :served-pop 100 :total-pop 1000 :vulnerability 0.8 :single-source? false :n1-margin 0.1 :consent true :disaster-degraded? false}   ; off-grid hamlet, no road → :provision
+ {:type :lifeline-cell :region "midori" :region-name "Midori Commons" :lifeline :road :source "tatekata"
+  :served-pop 990 :total-pop 1000 :vulnerability 0.3 :single-source? false :n1-margin 0.4 :consent true :disaster-degraded? false}  ; served + resilient → :maintain
+ {:type :lifeline-cell :region "machi" :region-name "Machi Ward" :lifeline :road :source "tatekata"
+  :served-pop 4900 :total-pop 5000 :vulnerability 0.2 :single-source? false :n1-margin 0.4 :consent true :disaster-degraded? false} ; adequate urban road → :maintain
+
  ;; ── DEPLOYED ASSETS (the physical-simulation twin + maintenance layer, ADR-2606280900) ──
  ;; Each :asset is a built piece of infrastructure with a degradation model + maintenance
  ;; schedule, spanning every maintenance verdict + both safety-floor domains. All :synthetic.
