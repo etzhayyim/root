@@ -334,3 +334,53 @@
          (visit start [start] #{start})))
      {:cycles       (vec (take top @cycles))
       :total_cycles (count @cycles)})))
+
+;; ── CLI entrypoint (JVM/bb only) ──────────────────────────────────────────────
+;; Mirrors the Python click group `bunseki` (bunseki.py): top-level group prints
+;; the subcommand hint; `arch` is a subgroup (scan/dfg/variants/conformance/cycles)
+;; that needs a haisen workspace scan (IO leg NOT in this twin); `bi`/`domain` +
+;; the OCEL leaves (scan/dfg/variants/conformance/performance/recommendations)
+;; need the PDS/CF-Analytics fetch (network). All such data legs are GUARDED here
+;; — the ported pure analytics fns (arch-grade/build-dfg/analyze-variants/…) are
+;; available for callers that already hold the edges/apps/events.
+
+#?(:clj
+   (do
+     (def ^:private arch-subs #{"scan" "dfg" "variants" "conformance" "cycles"})
+     (def ^:private ocel-subs #{"scan" "dfg" "variants" "conformance" "performance" "recommendations"})
+
+     (defn- usage []
+       (println "bunseki (分析): subcommands: arch, bi, domain")
+       (println "  arch <scan|dfg|variants|conformance|cycles> [--workspace-dir D] [--top N] [--json]")
+       (println "  bi [--metric M] [--json] | domain [--json]")
+       (println "  <scan|dfg|variants|conformance|performance|recommendations> [--minutes N] [--limit N] [--top N] [--object-type T] [--json]  (OCEL)"))
+
+     (defn -main [& args]
+       (let [sub (first args)]
+         (cond
+           (nil? sub) (usage)
+
+           (= sub "arch")
+           (let [a2 (second args)]
+             (if (contains? arch-subs a2)
+               (println (str "bunseki arch " a2 " (guarded): needs a haisen workspace scan "
+                             "(_scan_workspace IO leg, not in this twin). Pure analytics "
+                             "(arch-dfg/arch-variants/arch-conformance/arch-cycles/arch-grade) "
+                             "are available once edges+apps are supplied."))
+               (println "bunseki arch: subcommands: scan, dfg, variants, conformance, cycles")))
+
+           (= sub "bi")
+           (println "bunseki bi (guarded): would GET com.etzhayyim.bunseki.getBIMetrics (network). Run the Python CLI for live BI.")
+
+           (= sub "domain")
+           (println "bunseki domain (guarded): would GET com.etzhayyim.bunseki.getDomainAnalysis (network). Run the Python CLI for live domain analysis.")
+
+           (contains? ocel-subs sub)
+           (println (str "bunseki " sub " (guarded): needs the OCEL event fetch "
+                         "(CF Analytics / PDS _pds/ocel, network). Pure process-mining "
+                         "(build-traces/build-dfg/analyze-variants/analyze-performance/"
+                         "check-conformance/compute-score) are available once events are supplied."))
+
+           :else
+           (do (binding [*out* *err*] (println (str "bunseki: unknown subcommand: " sub)))
+               (usage)))))))

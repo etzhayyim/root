@@ -284,3 +284,45 @@
         all-ok    (every? #(empty? (:violations %)) results)]
     {:all-ok  all-ok
      :results results}))
+
+;; ---------------------------------------------------------------------------
+;; CLI entry point (argv-wiring of the python `lint` command, ADR-2606222000).
+;; Contract:  e7m lint [TARGET] [--root DIR] [--json]
+;;   TARGET ∈ {all (default), rules, <rule-name>, <update-target>}
+;;   `rules`            — list rule names (read-only)
+;;   all / <rule-name>  — run the read-only filesystem lint
+;;   <update-target>    — GUARDED: rewrites a baseline via a node script; requires --apply
+;; ---------------------------------------------------------------------------
+
+(defn -main [& args]
+  (loop [a args target nil root nil json? false]
+    (cond
+      (seq a)
+      (let [x (first a)]
+        (cond
+          (= x "--json")           (recur (rest a) target root true)
+          (= x "--root")           (recur (drop 2 a) target (second a) json?)
+          (str/starts-with? x "--") (recur (rest a) target root json?)
+          :else                    (recur (rest a) (or target x) root json?)))
+      :else
+      (let [target (or target "all")]
+        (cond
+          (= target "rules")
+          (doseq [r all-rules] (println (str "  " r)))
+
+          (contains? update-script-path target)
+          ;; faithful to python: an update-target runs its node baseline-update script.
+          (run-update-target (or root ".") target {})
+
+          :else
+          (let [ws      (or root ".")
+                rules   (if (= target "all") :all [target])
+                {:keys [all-ok results]} (run-lint ws rules {})]
+            (if json?
+              (println (json/generate-string results))
+              (doseq [r results]
+                (println (str "  [" (if (empty? (:violations r)) "OK  " "FAIL") "] "
+                              (:rule r) "  (" (count (:violations r)) " violations)"))
+                (doseq [v (take 5 (:violations r))]
+                  (println (str "         " (:path v) ":" (:line v) "  " (:snippet v))))))
+            #?(:bb (when-not all-ok (System/exit 1)) :default nil)))))))

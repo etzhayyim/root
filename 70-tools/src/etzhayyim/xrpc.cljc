@@ -189,3 +189,74 @@
                        :nsid   nsid
                        :url    (:url req)})))
     resp))
+
+;; ---------------------------------------------------------------------------
+;; CLI entrypoint — mirrors the single `xrpc` click command (JVM/bb only).
+;;
+;; Invokes an XRPC endpoint over HTTP (network dependency).  -main DEFAULTS TO
+;; A PLAN (prints the request map build-xrpc-request assembles, no network).
+;; The live call (call-xrpc / babashka.http-client) runs only with --execute;
+;; a "could not reach host" then exits cleanly.  argv mirrors python:
+;;   xrpc <nsid> [-d/--data JSON] [--app NANOID] [--url BASE]
+;;        [-X/--method GET|POST] [--json] [-v/--verbose] [--execute]
+;; ---------------------------------------------------------------------------
+
+#?(:clj
+   (do
+     (defn- x-parse
+       "Parse argv supporting -short and --long flags. bool-flags = no-value set."
+       [args bool-flags]
+       (loop [a (seq args) flags {} pos []]
+         (if (empty? a)
+           [flags pos]
+           (let [tok (first a)]
+             (cond
+               (contains? bool-flags tok) (recur (rest a) (assoc flags tok true) pos)
+               (str/starts-with? tok "-") (recur (drop 2 a) (assoc flags tok (second a)) pos)
+               :else (recur (rest a) flags (conj pos tok)))))))
+
+     (defn- x-flag [flags & ks] (some #(get flags %) ks))
+
+     (defn- x-usage []
+       (println "usage: xrpc <nsid> [options]")
+       (println "  -d/--data JSON   body (POST) or query params (GET)")
+       (println "  --app NANOID     target App Worker (overrides NSID inference)")
+       (println "  --url BASE       full base URL (overrides --app + inference)")
+       (println "  -X/--method M    GET|POST (default: POST if -d given, else GET)")
+       (println "  --json           pretty-print JSON response")
+       (println "  -v/--verbose     verbose")
+       (println "  --execute        actually send (default = print request plan, no network)"))
+
+     (defn -main [& args]
+       (let [bool-flags #{"--json" "-v" "--verbose" "--execute"}
+             [flags pos] (x-parse args bool-flags)
+             nsid (first pos)]
+         (if-not nsid
+           (x-usage)
+           (let [data-raw (x-flag flags "-d" "--data")
+                 payload  (when data-raw
+                            (try (json/parse-string data-raw)
+                                 (catch Exception e
+                                   (println "error: Invalid JSON for -d:" (ex-message e))
+                                   nil)))
+                 method   (some-> (x-flag flags "-X" "--method") str/lower-case keyword)
+                 pds-url  (or (System/getenv "E7M_PDS") "https://pds.local")
+                 opts     {:method method :payload payload
+                           :auth-headers {} :pds-url pds-url
+                           :app (get flags "--app") :url (get flags "--url")}
+                 req      (build-xrpc-request nsid opts)]
+             (cond
+               (not (get flags "--execute"))
+               (do (println "PLAN (request not sent; pass --execute to call):")
+                   (println (str (clojure.string/upper-case (name (:method req))) " " (:url req)))
+                   (when (:body req)   (println "  body:  " (json/generate-string (:body req))))
+                   (when (:params req) (println "  params:" (json/generate-string (:params req)))))
+               :else
+               (try
+                 (let [resp (call-xrpc nsid opts)
+                       [body _] (parse-xrpc-response-body (:body resp) (boolean (get flags "--json")))]
+                   (println body))
+                 (catch Exception e
+                   (binding [*out* *err*]
+                     (println "xrpc call failed (network/host):" (ex-message e)))
+                   (System/exit 1))))))))))

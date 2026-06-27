@@ -12,7 +12,8 @@
 ;; Load check: bb --classpath 70-tools/src -e "(require 'etzhayyim.vertex)(println :ok)"
 
 (ns etzhayyim.vertex
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            #?(:bb [cheshire.core :as json])))
 
 ;; ── regex patterns ────────────────────────────────────────────────────────────
 
@@ -120,3 +121,100 @@
      :tier-b nb
      :tier-c nc
      :total  (+ na nb nc)}))
+
+;; ---------------------------------------------------------------------------
+;; CLI entrypoint — mirrors the `vertex` click group (JVM/bb only).
+;;
+;; This twin ports ONLY the pure tier-registry logic (parse/lookup/stats).  The
+;; emit/query/labels subcommands are live XRPC legs that are NOT ported here
+;; (no http-client in this twin) — -main dispatches them to a NOT-PORTED notice
+;; rather than rewriting logic.  tier/list/stats are real read-only local-file
+;; commands and run for real off 30-graph/deps.toml.
+;; ---------------------------------------------------------------------------
+
+#?(:clj
+   (do
+     (defn- v-parse [args bool-flags]
+       (loop [a (seq args) flags {} pos []]
+         (if (empty? a)
+           [flags pos]
+           (let [tok (first a)]
+             (cond
+               (contains? bool-flags tok) (recur (rest a) (assoc flags tok true) pos)
+               (str/starts-with? tok "--") (recur (drop 2 a) (assoc flags tok (second a)) pos)
+               :else (recur (rest a) flags (conj pos tok)))))))
+
+     (defn- v-resolve-deps
+       "Resolve the 30-graph/deps.toml path: --deps override, else 30-graph/deps.toml
+        under --workspace-dir (or cwd), walking up to find it. Returns path or nil."
+       [flags]
+       (or (get flags "--deps")
+           (let [start (java.io.File. (or (get flags "--workspace-dir")
+                                          (System/getProperty "user.dir")))]
+             (loop [d start]
+               (when d
+                 (let [c (java.io.File. d "30-graph/deps.toml")]
+                   (if (.exists c) (.getPath c) (recur (.getParentFile d)))))))))
+
+     (defn- v-load [flags]
+       (let [dp (v-resolve-deps flags)]
+         (when-not (and dp (.exists (java.io.File. ^String dp)))
+           (throw (ex-info "30-graph/deps.toml not found; use --deps to specify path" {})))
+         [dp (parse-tier-registry (slurp dp))]))
+
+     (defn- v-usage []
+       (println "usage: vertex <subcommand> [options]")
+       (println "subcommands: emit query labels tier list stats")
+       (println "  tier/list/stats: read 30-graph/deps.toml (read-only, ported)")
+       (println "  emit/query/labels: live XRPC legs — NOT ported in cljc twin"))
+
+     (defn -main [& args]
+       (let [bool-flags #{"--json"}
+             [sub & rst] args
+             [flags pos] (v-parse rst bool-flags)]
+         (case sub
+           nil (v-usage)
+           ("emit" "query" "labels")
+           (println (str "vertex " sub ": live XRPC leg not ported in the cljc twin "
+                         "(only tier-registry pure logic is ported); use the python CLI."))
+           "tier"
+           (try
+             (let [[_ reg] (v-load flags)
+                   tn (first pos)
+                   t  (lookup-tier reg tn)]
+               (cond
+                 (get flags "--json")
+                 (println (json/generate-string {:table tn :tier (some-> t name)
+                                                 :classified (some? t)}))
+                 (nil? t)
+                 (do (binding [*out* *err*]
+                       (println (str tn ": not classified (default tier = C per ADR-0040)")))
+                     (System/exit 1))
+                 :else (println (str tn "\t" (name t)))))
+             (catch clojure.lang.ExceptionInfo e (println "error:" (ex-message e))))
+           "list"
+           (try
+             (let [[_ reg] (v-load flags)
+                   tf (some-> (get flags "--tier") clojure.string/upper-case keyword)
+                   lim (some-> (get flags "--limit") parse-long)
+                   tables (cond->> (tier-tables reg tf)
+                            (and lim (pos? lim)) (take lim))]
+               (if (get flags "--json")
+                 (println (json/generate-string {:tier (some-> tf name) :count (count tables)
+                                                 :tables (vec tables)}))
+                 (doseq [t tables] (println t))))
+             (catch clojure.lang.ExceptionInfo e (println "error:" (ex-message e))))
+           "stats"
+           (try
+             (let [[dp reg] (v-load flags)
+                   {:keys [tier-a tier-b tier-c total]} (tier-stats reg)]
+               (if (get flags "--json")
+                 (println (json/generate-string {:tier_a tier-a :tier_b tier-b :tier_c tier-c
+                                                 :total total :adr "adr-0040-vertex-did-tier-policy"}))
+                 (do (println (str "ADR-0040 Vertex DID Tier registry (" dp ")"))
+                     (println (format "  Tier A (actor DID):         %4d" tier-a))
+                     (println (format "  Tier B (sub-path did:etzhayyim): %4d" tier-b))
+                     (println (format "  Tier C (no DID):            %4d" tier-c))
+                     (println (format "  Total:                      %4d" total)))))
+             (catch clojure.lang.ExceptionInfo e (println "error:" (ex-message e))))
+           (do (println "unknown subcommand:" sub) (v-usage)))))))

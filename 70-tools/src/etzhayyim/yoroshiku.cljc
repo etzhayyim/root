@@ -175,3 +175,57 @@
           (throw (ex-info (str "yoroshiku.registerWorkspace HTTP " (:status resp))
                           {:status (:status resp) :body (:body resp)})))
         (json/parse-string (or (:body resp) "{}") true)))))
+
+;; ---------------------------------------------------------------------------
+;; CLI entrypoint — mirrors the `yoroshiku` click group (JVM/bb only).
+;;
+;;   (default, no subcommand) — readiness checks + summary (read-only fs) → live.
+;;   check                    — readiness checks, no summary (read-only fs) → live.
+;;   register                 — XRPC registerWorkspace (write). -main DEFAULTS TO
+;;                              DRY-RUN (the twin's :dry-run? path) printing the
+;;                              request shape; live only with --execute + token.
+;; ---------------------------------------------------------------------------
+
+#?(:clj
+   (do
+     (defn- y-parse [args bool-flags]
+       (loop [a (seq args) flags {} pos []]
+         (if (empty? a)
+           [flags pos]
+           (let [tok (first a)]
+             (cond
+               (contains? bool-flags tok) (recur (rest a) (assoc flags tok true) pos)
+               (str/starts-with? tok "--") (recur (drop 2 a) (assoc flags tok (second a)) pos)
+               :else (recur (rest a) flags (conj pos tok)))))))
+
+     (defn- y-ws [flags] (or (get flags "--workspace-dir") (System/getProperty "user.dir")))
+
+     (defn- y-print-readiness [checks summary?]
+       (when summary? (println (format-readiness-summary checks)))
+       (doseq [c checks] (println (format-check-line c))))
+
+     (defn -main [& args]
+       (let [bool-flags #{"--json" "--execute"}
+             [sub & rst] args
+             [flags _pos] (y-parse rst bool-flags)]
+         (case sub
+           ("check" nil)
+           (let [checks (run-readiness-checks (y-ws flags) {})]
+             (if (get flags "--json")
+               (println (json/generate-string checks {:pretty true}))
+               (y-print-readiness checks (nil? sub))))
+           "register"
+           (let [pds   (or (get flags "--pds") "https://pds.local")
+                 token (or (System/getenv "E7M_TOKEN") "")
+                 ws    (y-ws flags)
+                 res   (register-workspace pds token ws
+                                           {:dry-run? (not (get flags "--execute"))})]
+             (if (get flags "--json")
+               (println (json/generate-string res {:pretty true}))
+               (if (:dry-run res)
+                 (do (println "DRY-RUN (registerWorkspace not sent; pass --execute to send):")
+                     (println (str "POST " (get-in res [:request :url])))
+                     (println (str "  body: " (json/generate-string (get-in res [:request :body])))))
+                 (println (str "registered workspace: " (get res "id" ""))))))
+           (do (println "usage: yoroshiku [check|register] [--workspace-dir D] [--pds U] [--json] [--execute]")
+               (println "  (no subcommand) — run readiness checks with summary")))))))
