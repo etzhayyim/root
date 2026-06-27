@@ -1,0 +1,115 @@
+(ns lgx.test-smoke
+  "clj port of `lg/tests/test_smoke.py` — structural smoke tests for the lg-x
+  dispatch core + the three ported StateGraphs (ADR-2606280030).
+
+  Network-free: the LLM/audit legs default to error/best-effort, so every graph
+  runs to completion deterministically (matching the Python smoke that never hit
+  the network either). Run: `bb test` (from clj/) or `bb run_tests.clj`."
+  (:require [clojure.test :refer [deftest is testing run-tests]]
+            [clojure.java.io :as io]
+            [cheshire.core :as json]
+            [lgx.server :as server]
+            [lgx.graphs.health :as health]
+            [lgx.graphs.agent-chat :as agent-chat]
+            [lgx.graphs.compose-tweet :as compose-tweet]
+            [lgx.cron :as cron]
+            [langgraph.graph :as g]))
+
+;; charter-aligned defaults for a hermetic run
+(System/setProperty "LG_AUDIT_DISABLED" "1")
+
+(def expected-graphs #{"health" "compose_tweet" "agent_chat"})
+
+(def expected-nsid-map
+  {"com.etzhayyim.apps.x.health"       "health"
+   "com.etzhayyim.apps.x.composeTweet" "compose_tweet"
+   "com.etzhayyim.apps.x.chat"         "agent_chat"
+   "com.etzhayyim.apps.x.agentChat"    "agent_chat"})
+
+(deftest test-server-module-loads
+  (is (map? server/GRAPHS))
+  (is (map? server/NSID->ASSISTANT)))
+
+(deftest test-graphs-match-expected-set
+  (is (= (set (keys server/GRAPHS)) expected-graphs)))
+
+(deftest test-nsid-map-completeness
+  (is (= server/NSID->ASSISTANT expected-nsid-map)))
+
+(deftest test-nsid-map-references-known-graphs
+  (doseq [[nsid gname] server/NSID->ASSISTANT]
+    (is (contains? server/GRAPHS gname)
+        (str "NSID->ASSISTANT[" nsid "] → " gname " not in GRAPHS"))))
+
+(deftest test-langgraph-json-graphs-match-server
+  (let [cfg (json/parse-string (slurp (io/file ".." "langgraph.json")) true)
+        declared (set (map name (keys (:graphs cfg))))]
+    (is (= declared expected-graphs)
+        (str "drift: langgraph.json=" declared " server=" expected-graphs))))
+
+(deftest test-langgraph-json-has-no-crons
+  (let [cfg (json/parse-string (slurp (io/file ".." "langgraph.json")) true)]
+    (is (= [] (or (:crons cfg) [])))))
+
+(deftest test-all-graphs-are-compiled
+  (doseq [[gname d] server/GRAPHS]
+    (is (some? @d) (str "GRAPHS[" gname "] failed to compile"))))
+
+(deftest test-camel-to-snake
+  (is (= "elon_musk" (server/camel->snake "elonMusk")))
+  (is (= "handle" (server/camel->snake "handle")))
+  (is (= "actor_role" (server/camel->snake "actorRole"))))
+
+(deftest test-xrpc-input-translation
+  ;; camelCase JSON body → kebab keyword graph input
+  (is (= {:actor-role "strategist" :max-tokens 100}
+         (server/xrpc-input->graph-input {"actorRole" "strategist" "maxTokens" 100}))))
+
+(deftest test-ok-lists-graphs
+  (let [o (server/ok)]
+    (is (true? (:ok o)))
+    (is (= expected-graphs (set (:graphs o))))))
+
+(deftest test-xrpc-unknown-nsid-404
+  (is (= 404 (:status (server/xrpc "com.etzhayyim.apps.x.unknownMethod" {})))))
+
+(deftest test-health-graph-runs
+  ;; no RW_URL → rw-ok false, ok false; graph completes through emit-audit
+  (let [out (g/invoke @health/GRAPH {})]
+    (is (false? (:rw-ok out)))
+    (is (false? (:ok out)))
+    (is (string? (:server-now out)))))
+
+(deftest test-agent-chat-empty-message-errors
+  ;; empty message short-circuits in llm-call (network-free), graph completes
+  (let [out (g/invoke @agent-chat/GRAPH {:actor-role "analyst"})]
+    (is (= "analyst" (:actor-role out)))
+    (is (= (str "did:web:x.etzhayyim.com:actor:analyst") (:actor-did out)))
+    (is (= "message required" (:error out)))))
+
+(deftest test-compose-tweet-empty-topic-errors
+  (let [out (g/invoke @compose-tweet/GRAPH {:format "single"})]
+    (is (= "topic required" (:error out)))))
+
+(deftest test-compose-enforce-280
+  (is (= "short" (compose-tweet/enforce-280 "short")))
+  (let [long-s (apply str (repeat 300 "a"))
+        out (compose-tweet/enforce-280 long-s)]
+    (is (<= (count out) 271))
+    (is (clojure.string/ends-with? out "…"))))
+
+(deftest test-compose-parse-llm-json
+  (is (= {:tweets ["a"] :rationale "x" :hashtags []}
+         (compose-tweet/parse-llm-json "{\"tweets\":[\"a\"],\"rationale\":\"x\",\"hashtags\":[]}")))
+  ;; code-fence wrapped
+  (is (= ["a"] (:tweets (compose-tweet/parse-llm-json "```json\n{\"tweets\":[\"a\"]}\n```"))))
+  ;; garbage → {}
+  (is (= {} (compose-tweet/parse-llm-json "not json at all"))))
+
+(deftest test-cron-specs-empty
+  ;; langgraph.json has crons: [] → loader returns []
+  (is (= [] (cron/load-cron-specs (str (io/file ".." "langgraph.json"))))))
+
+(defn -main [& _]
+  (let [{:keys [fail error]} (run-tests 'lgx.test-smoke)]
+    (when (pos? (+ fail error)) (System/exit 1))))
