@@ -359,3 +359,107 @@
           (throw (ex-info (str "cohort.gen HTTP " (:status resp))
                           {:status (:status resp) :body (:body resp)})))
         (json/parse-string (:body resp) true)))))
+
+;; ---------------------------------------------------------------------------
+;; CLI entrypoint (JVM/bb only) — mirrors the Python click group `cohort`
+;; (cohort.py). `gen --dry-run` runs for real (build-gen-segment, prints the
+;; segment, exactly like Python). Read-only network commands (list/get/stats/
+;; dashboard/coverage/gap/forest/lineage/lineage-stats/evidence/snapshot) need a
+;; live PDS + auth and are GUARDED no-ops. Mutating POSTs (create/seed/fission/
+;; emit/repair-edge) are GUARDED. `bootstrap` mirrors Python's Go-binary notice.
+;; ---------------------------------------------------------------------------
+
+#?(:clj
+   (do
+     (def ^:private read-subs
+       #{"list" "get" "stats" "dashboard" "coverage" "gap" "forest"
+         "lineage" "lineage-stats" "evidence" "snapshot"})
+     (def ^:private write-subs
+       #{"create" "seed" "emit" "repair-edge"})
+     (def ^:private cohort-bool-flags #{"--json" "--dry-run"})
+
+     (defn- coh-parse-opts [args]
+       (loop [a args pos [] opts {}]
+         (if (empty? a)
+           [pos opts]
+           (let [t (first a)]
+             (cond
+               (contains? cohort-bool-flags t) (recur (rest a) pos (assoc opts t true))
+               (str/starts-with? t "-")        (recur (drop 2 a) pos (assoc opts t (second a)))
+               :else                           (recur (rest a) (conj pos t) opts))))))
+
+     (defn- usage []
+       (println "usage: cohort <sub> [args] [--opts]")
+       (println "  offline: gen --dry-run [--pcf-l1 .. --role .. -k N], diff <a.json> <b.json>, drift [--dir D]")
+       (println "  read (guarded, network): list get stats dashboard coverage gap forest lineage lineage-stats evidence snapshot")
+       (println "  write (guarded, network): create seed fission emit repair-edge")
+       (println "  bootstrap (Go binary)"))
+
+     (defn -main [& args]
+       (let [sub (first args)
+             [pos opts] (coh-parse-opts (rest args))]
+         (cond
+           (nil? sub) (usage)
+
+           (= sub "gen")
+           (let [seg (build-gen-segment (get opts "--pcf-l1" "") (get opts "--role" "")
+                                        (get opts "--industry" "") (get opts "--seniority" "")
+                                        (get opts "--locale" "ja")
+                                        (try (Integer/parseInt (get opts "-k" "50")) (catch Exception _ 50)))]
+             (if (get opts "--dry-run")
+               ;; Python dry-run prints the segment JSON-LD and returns.
+               (println (json/generate-string seg {:pretty true}))
+               (println (str "cohort gen (guarded, no-op): would POST com.etzhayyim.cohort.seed with "
+                             (json/generate-string seg) ". Add --dry-run to preview, or run the Python CLI for live seed."))))
+
+           (= sub "fission")
+           (let [did (get opts "--did" "")]
+             (if (get opts "--dry-run")
+               (println (str "dry-run: would fission cohort " did))
+               (println (str "cohort fission (guarded, no-op): would POST com.etzhayyim.cohort.fission did=" did
+                             ". Add --dry-run, or run the Python CLI for live fission."))))
+
+           (= sub "diff")
+           (let [[a b] pos]
+             (if (and a b (.exists (java.io.File. ^String a)) (.exists (java.io.File. ^String b)))
+               (let [d (diff-snapshots (json/parse-string (slurp a) true)
+                                       (json/parse-string (slurp b) true))]
+                 (if (get opts "--json")
+                   (println (json/generate-string d {:pretty true}))
+                   (println (str "  from=" (:from-ts d) "  to=" (:to-ts d)
+                                 "  total_delta=" (:delta d)))))
+               (binding [*out* *err*] (println "cohort diff: needs two existing snapshot JSON files: <a> <b>"))))
+
+           (= sub "drift")
+           (let [dir (get opts "--dir" "data/cohort-coverage")
+                 d (java.io.File. ^String dir)]
+             (if-not (.exists d)
+               (binding [*out* *err*] (println (str "snapshot dir not found: " dir)))
+               (let [files (sort (filter #(str/ends-with? (.getName ^java.io.File %) ".json")
+                                         (seq (.listFiles d))))]
+                 (if (< (count files) 2)
+                   (binding [*out* *err*] (println "need at least 2 snapshots for drift analysis"))
+                   (let [a (json/parse-string (slurp (first files)) true)
+                         b (json/parse-string (slurp (last files)) true)
+                         delta (diff-snapshots a b)]
+                     (println (str "  drift: " (:from-ts delta) " → " (:to-ts delta)
+                                   "  total_delta=" (:delta delta)
+                                   "  over " (count files) " snapshots")))))))
+
+           (= sub "bootstrap")
+           (binding [*out* *err*]
+             (println (str "cohort bootstrap reads deps.toml [[cohort_actors]] and requires the Go binary. "
+                           "Run: etzhayyim cohort bootstrap")))
+
+           (contains? read-subs sub)
+           (println (str "cohort " sub " (guarded): read-only XRPC over a live PDS + auth — "
+                         "not contacted in verify. Request-shaping (build-list/inspect/lineage/…-request) "
+                         "and parsing (compute-dashboard/build-coverage-matrix/find-gaps) are available."))
+
+           (contains? write-subs sub)
+           (println (str "cohort " sub " (guarded, no-op): would POST com.etzhayyim.cohort." sub
+                         " (network). Run the Python CLI for the live mutation."))
+
+           :else
+           (do (binding [*out* *err*] (println (str "cohort: unknown subcommand: " sub)))
+               (usage)))))))

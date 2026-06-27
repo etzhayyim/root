@@ -331,3 +331,58 @@
 
              report (build-report results)]
          (assoc report :evaluated-at now)))))
+
+;; ── CLI entrypoint (JVM/bb only) ──────────────────────────────────────────────
+;; Mirrors the Python click group `code-quality` (code_quality.py): single
+;; subcommand `run` with --workspace-dir/--rust-dir/--go-dir/--ts-dir/--skip/--json.
+;; The checks are READ-ONLY analysis (cargo machete / cargo tree -d / go vet /
+;; go mod tidy) — non-destructive — so `run` executes for real via run-checks.
+
+#?(:clj
+   (do
+     (defn- cq-parse-opts [args]
+       (loop [a args opts {}]
+         (if (empty? a)
+           opts
+           (let [t (first a)]
+             (cond
+               (= t "--json")           (recur (rest a) (assoc opts "--json" true))
+               (str/starts-with? t "-") (recur (drop 2 a) (assoc opts t (second a)))
+               :else                    (recur (rest a) opts))))))
+
+     (defn- git-root []
+       (try
+         (let [r (proc/sh {:out :string :err :string} ["git" "rev-parse" "--show-toplevel"])]
+           (when (zero? (:exit r)) (str/trim (:out r))))
+         (catch Exception _ nil)))
+
+     (defn- usage []
+       (println "usage: code-quality run [--workspace-dir D] [--rust-dir D] [--go-dir D] [--ts-dir D] [--skip a,b] [--json]"))
+
+     (defn- print-report [report]
+       (println (str "code quality report  " (:evaluated-at report)))
+       (println (str "overall score: " (/ (:overall-score report) 10.0) "/100  "
+                     "(tools: " (:available-tools report) " available, "
+                     (:skipped-tools report) " skipped)"))
+       (println "")
+       (doseq [c (:checks report)]
+         (println (format "  %-22s score=%s issues=%s %s"
+                          (:name c)
+                          (if (:available c) (str (int (:score c))) "—")
+                          (if (:available c) (str (:issues c)) "—")
+                          (let [d (:details c)] (if (str/blank? d) "ok" d))))))
+
+     (defn -main [& args]
+       (let [sub (first args)]
+         (if (not= sub "run")
+           (usage)
+           (let [opts (cq-parse-opts (rest args))
+                 ws   (or (get opts "--workspace-dir") (git-root) (System/getProperty "user.dir"))
+                 rust (or (get opts "--rust-dir") (str ws "/20-actors/kotodama"))
+                 go   (or (get opts "--go-dir")   (str ws "/70-tools/etzhayyim"))
+                 ts   (or (get opts "--ts-dir")   (str ws "/20-actors"))
+                 skip (set (remove str/blank? (str/split (get opts "--skip" "") #",")))
+                 report (run-checks ws rust go ts skip)]
+             (if (get opts "--json")
+               (println (json/generate-string report {:pretty true}))
+               (print-report report))))))))

@@ -252,3 +252,105 @@
       (let [resp (http-fn url headers (or body {}))
             data (json/parse-string (:body resp))]
         data))))
+
+;; ---------------------------------------------------------------------------
+;; CLI entrypoint — mirrors the `training` click group (JVM/bb only).
+;;
+;; SIDE-EFFECTING actor: `run`/`start`/`promote`/`eval`/`cancel` launch real
+;; training jobs over XRPC.  -main DEFAULTS TO A DRY-RUN PLAN (prints the
+;; request map the python CLI would POST/GET, never sends it).  The live leg
+;; would require an access token + reachable PDS; verification never sends.
+;; ---------------------------------------------------------------------------
+
+#?(:clj
+   (do
+     (defn- t-parse
+       "Tiny argv parser. bool-flags = set of flags taking no value.
+        Returns [flags-map positionals]."
+       [args bool-flags]
+       (loop [a (seq args) flags {} pos []]
+         (if (empty? a)
+           [flags pos]
+           (let [tok (first a)]
+             (cond
+               (contains? bool-flags tok) (recur (rest a) (assoc flags tok true) pos)
+               (str/starts-with? tok "--") (recur (drop 2 a) (assoc flags tok (second a)) pos)
+               :else (recur (rest a) flags (conj pos tok)))))))
+
+     (defn- t-pds [flags] (or (get flags "--pds") "https://pds.local"))
+
+     (defn- t-emit [req flags]
+       (if (get flags "--json")
+         (println (json/generate-string req {:pretty true}))
+         (do
+           (println "PLAN (dry-run — not sent):")
+           (println (str (clojure.string/upper-case (name (:method req))) " " (:url req)))
+           (when (:params req) (println "  params:" (json/generate-string (:params req))))
+           (when (:body req)   (println "  body:  " (json/generate-string (:body req)))))))
+
+     (defn- t-usage []
+       (println "usage: training <subcommand> [options]")
+       (println "subcommands: list get run start cancel promote eval")
+       (println "             list-runs list-checkpoints list-snapshots coverage serving")
+       (println "side-effecting (run/start/promote/eval/cancel): default = dry-run plan"))
+
+     (defn -main [& args]
+       (let [bool-flags #{"--json" "--only-final"}
+             [sub & rst] args
+             [flags pos] (t-parse rst bool-flags)
+             pds (t-pds flags)]
+         (case sub
+           nil    (t-usage)
+           "list" (t-emit (build-list-request {:pds-url pds :filter-status (get flags "--status")}) flags)
+           "get"  (t-emit (build-get-request {:pds-url pds :job-id (first pos)}) flags)
+           "start" (t-emit (build-start-request {:pds-url pds
+                                                 :job-type (or (get flags "--type") "lora")
+                                                 :model (or (get flags "--model") "")
+                                                 :dataset (or (get flags "--dataset") "")}) flags)
+           "cancel" (t-emit (build-cancel-request {:pds-url pds :job-id (first pos)}) flags)
+           "run"  (try
+                    (let [m {:pds-url pds
+                             :kind (or (get flags "--kind") "sft")
+                             :dataset (or (get flags "--dataset") "")
+                             :base-model (or (get flags "--base") "")
+                             :student-base (or (get flags "--student-base") "")
+                             :label (get flags "--label")
+                             :run-id (get flags "--run-id")
+                             :gpu-target (get flags "--gpu")
+                             :seed (some-> (get flags "--seed") parse-long)
+                             :rationale (get flags "--rationale")
+                             :eval-benches (or (get flags "--eval-benches") "internal-loss")
+                             :hyperparams (some-> (get flags "--hyperparams") (json/parse-string))
+                             :teacher-kind (get flags "--teacher-kind")
+                             :teacher-run-id (get flags "--teacher-run-id")
+                             :teacher-actor (get flags "--teacher-actor")
+                             :distill-method (or (get flags "--distill-method") "soft-logits")}]
+                      (validate-run-opts! m)
+                      (t-emit (build-run-request m) flags))
+                    (catch clojure.lang.ExceptionInfo e
+                      (println "error:" (ex-message e))))
+           "promote" (t-emit (build-promote-request {:pds-url pds :checkpoint-id (first pos)
+                                                     :alias (get flags "--alias")
+                                                     :target (get flags "--target")
+                                                     :by (get flags "--by")
+                                                     :rationale (get flags "--rationale")}) flags)
+           "eval" (try
+                    (t-emit (build-eval-request {:pds-url pds :checkpoint-id (first pos)
+                                                 :bench (or (get flags "--bench") "internal-loss")
+                                                 :eval-dataset (get flags "--eval-dataset")
+                                                 :eval-revision (get flags "--eval-revision")
+                                                 :limit (some-> (get flags "--limit") parse-long)
+                                                 :gpu (get flags "--gpu")}) flags)
+                    (catch clojure.lang.ExceptionInfo e (println "error:" (ex-message e))))
+           "list-runs" (t-emit (build-list-runs-request {:pds-url pds :kind (get flags "--kind")
+                                                         :filter-status (get flags "--status")
+                                                         :limit (or (some-> (get flags "--limit") parse-long) 50)}) flags)
+           "list-checkpoints" (t-emit (build-list-checkpoints-request {:pds-url pds :run (get flags "--run")
+                                                                       :only-final (get flags "--only-final")
+                                                                       :limit (or (some-> (get flags "--limit") parse-long) 50)}) flags)
+           "list-snapshots" (t-emit (build-list-snapshots-request {:pds-url pds :dataset (get flags "--dataset")
+                                                                   :filter-status (get flags "--status")
+                                                                   :limit (or (some-> (get flags "--limit") parse-long) 50)}) flags)
+           "coverage" (t-emit (build-coverage-request {:pds-url pds}) flags)
+           "serving" (t-emit (build-serving-request {:pds-url pds :alias (get flags "--alias")}) flags)
+           (do (println "unknown subcommand:" sub) (t-usage)))))))

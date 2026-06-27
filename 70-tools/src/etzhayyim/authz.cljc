@@ -67,3 +67,73 @@
   [did primary]
   (str "  " did
        (when (= did primary) " (active)")))
+
+;; ── CLI entrypoint (JVM/bb only) ──────────────────────────────────────────────
+;; Mirrors the Python click group `authz` (authz.py). Read-only `dids` runs for
+;; real off ~/.etzhayyim/auth.json via controlled-dids/format-did-row. Network
+;; commands (create-api-key / list-api-keys / revoke-api-key = XRPC) and the
+;; file-writing `switch` are GUARDED no-ops here.
+
+#?(:clj
+   (do
+     (require '[cheshire.core :as json])
+
+     (def ^:private auth-file
+       (str (System/getProperty "user.home") "/.etzhayyim/auth.json"))
+
+     (defn- load-auth []
+       (try (json/parse-string (slurp auth-file)) (catch Exception _ {})))
+
+     (defn- parse-opts [args bool-flags]
+       (loop [a args pos [] opts {}]
+         (if (empty? a)
+           [pos opts]
+           (let [t (first a)]
+             (cond
+               (contains? bool-flags t) (recur (rest a) pos (assoc opts t true))
+               (str/starts-with? t "-") (recur (drop 2 a) pos (assoc opts t (second a)))
+               :else                    (recur (rest a) (conj pos t) opts))))))
+
+     (def ^:private bool-flags #{"--json" "--test" "-q"})
+
+     (defn- usage []
+       (println "usage: authz <create-api-key|list-api-keys|revoke-api-key|dids|switch> [args] [--opts]")
+       (println "  read-only: dids [--json]")
+       (println "  network (guarded): create-api-key, list-api-keys, revoke-api-key <id>")
+       (println "  file-write (guarded): switch <did>"))
+
+     (defn -main [& args]
+       (let [[pos opts] (parse-opts (rest args) bool-flags)
+             sub (first args)
+             auth (load-auth)]
+         (case sub
+           nil  (usage)
+           "dids" (if (empty? auth)
+                    (binding [*out* *err*] (println "not signed in — run: authn signin"))
+                    (let [dids (controlled-dids auth)
+                          primary (get auth "did" "")]
+                      (if (get opts "--json")
+                        (println (json/generate-string {"dids" dids} {:pretty true}))
+                        (doseq [d dids] (println (format-did-row d primary))))))
+           "create-api-key"
+                (println (str "authz create-api-key (guarded, no-op): would POST "
+                              "com.etzhayyim.auth.createApiKey (name="
+                              (get opts "--name" "default") " scopes="
+                              (get opts "--scopes" "read,write")
+                              (when (get opts "--test") " test=true")
+                              "). Live issue = run the Python CLI."))
+           "list-api-keys"
+                (println "authz list-api-keys (guarded, no-op): would GET com.etzhayyim.authz.listApiKeys. Live = run the Python CLI.")
+           "revoke-api-key"
+                (let [kid (first pos)]
+                  (if kid
+                    (println (str "authz revoke-api-key (guarded, no-op): would POST "
+                                  "com.etzhayyim.authz.revokeApiKey id=" kid ". Live = run the Python CLI."))
+                    (binding [*out* *err*] (println "authz revoke-api-key: missing KEY_ID argument"))))
+           "switch"
+                (let [did (first pos)]
+                  (if did
+                    (println (str "authz switch (guarded, no-op): would set active did=" did
+                                  " in " auth-file ". Live = run the Python CLI."))
+                    (binding [*out* *err*] (println "authz switch: missing DID argument"))))
+           (binding [*out* *err*] (println (str "authz: unknown subcommand: " sub)) (usage)))))))
