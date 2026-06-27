@@ -58,6 +58,7 @@ logs/
 !.env.example
 *.pem
 *.key
+**/signing-key.edn
 *.csr
 *.crt
 secrets/
