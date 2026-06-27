@@ -174,12 +174,14 @@ class TestNoFloatTypes:
 class TestCellsRaiseAtImport:
     @pytest.mark.parametrize("cell", _CELL_NAMES)
     def test_cell_raises_runtime_error(self, cell):
-        cell_py = _CELLS / cell / "cell.py"
-        assert cell_py.exists(), f"missing cell scaffold {cell}"
-        spec = importlib.util.spec_from_file_location(f"_tadori_{cell}", cell_py)
-        mod = importlib.util.module_from_spec(spec)
-        with pytest.raises(RuntimeError, match="tadori R0 scaffold"):
-            spec.loader.exec_module(mod)
+        # py→cljc port: the cell scaffold is now cell.cljc (cell.py retired). Verify it
+        # throws the R0-scaffold ex-info — the cljc `solve` raises the same message.
+        cell_cljc = _CELLS / cell / "cell.cljc"
+        assert cell_cljc.exists(), f"missing cell scaffold {cell}/cell.cljc"
+        src = cell_cljc.read_text()
+        assert "ex-info" in src and "tadori R0 scaffold" in src, (
+            f"{cell}/cell.cljc must throw the tadori R0 scaffold ex-info"
+        )
 
     def test_all_six_cells_present(self):
         present = {p.name for p in _CELLS.glob("tadori_*") if p.is_dir()}
