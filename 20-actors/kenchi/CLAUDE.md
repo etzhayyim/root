@@ -45,8 +45,8 @@ never collide on the inalienable Trust. External price ≠ internal access value
 ## Editing rules
 
 - The lexicons live in `00-contracts/lexicons/com/etzhayyim/kenchi/`. The
-  charter-gate test (`methods/test_charter_gates.py`) pins the gates against
-  them — keep them in sync. Run `./run_tests.sh` before committing.
+  charter-gate test (`methods/test_charter_gates.clj`) pins the gates against
+  them — keep them in sync. Run `bb run_tests.clj` before committing.
 - Never add an `owner`/`person`/PII field to `valuation` (G6). Never add a
   `license` value outside `{open, derived-only}` to a *published* record (G4).
   Never broaden `assetClass` beyond `external-market` (G5).

@@ -68,7 +68,7 @@ G10 NO-ADVICE。
 ## 帰結
 
 - **実物**: lexicons（4）+ charter-gate テスト（G3/G4/G5/G6/N8 を schema 層で pin、
-  `./run_tests.sh` で 6/6 green）+ manifest + DID + ソース registry。エンジンは上流で
+  `bb run_tests.clj` で 6/6 green）+ manifest + DID + ソース registry。エンジンは上流で
   live 検証済み（HM Land Registry + BIS + Common Crawl、3 authority で publishable=TRUE、
   Common Crawl が license を derived-only 化）。
 - **公開**: `etzhayyim/com-etzhayyim-kenchi` を **public** リポジトリとして GitHub Pages 公開
