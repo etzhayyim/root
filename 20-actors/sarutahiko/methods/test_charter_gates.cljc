@@ -13,7 +13,7 @@
   #{"B100-biodiesel-hybrid" "diesel-hybrid" "LFP-battery"
     "H2-fuel-cell" "NH3-fuel-cell" "methanol-fuel-cell"})
 
-(defn- manifest [] (json/parse-string (slurp (java.io.File. actor-dir "manifest.jsonld"))))
+(defn- manifest [] (:actor/manifest (clojure.edn/read-string (slurp (java.io.File. actor-dir "manifest.edn")))))
 (defn- lex [name] (json/parse-string (slurp (java.io.File. lexdir name))))
 
 (defn- consts [doc]

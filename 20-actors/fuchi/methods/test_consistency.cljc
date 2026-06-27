@@ -94,10 +94,10 @@
 #?(:clj (def ^:private root-dir (-> actor-dir .getParentFile .getParentFile)))
 #?(:clj (def ^:private schema-file
           (io/file root-dir "00-contracts" "schemas" "maintainer-sustenance-ontology.kotoba.edn")))
-#?(:clj (def ^:private manifest-file (io/file actor-dir "manifest.jsonld")))
+#?(:clj (def ^:private manifest-file (io/file actor-dir "manifest.edn")))
 #?(:clj (def ^:private seed-file (io/file actor-dir "data" "seed-sustenance-graph.kotoba.edn")))
 
-#?(:clj (defn- manifest [] (parse-json (slurp manifest-file))))
+#?(:clj (defn- manifest [] (:actor/manifest (clojure.edn/read-string (slurp manifest-file)))))
 
 ;; ── tests ─────────────────────────────────────────────────────────────────
 (deftest test-manifest-cells-match-cell-dirs

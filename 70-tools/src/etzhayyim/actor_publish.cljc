@@ -5,7 +5,11 @@
 ;;
 ;;   1. josh-split   monorepo prefix 20-actors/<name> -> com-etzhayyim-<name>
 ;;   2. gh-repo      ensure public github.com/etzhayyim/com-etzhayyim-<name>
-;;   3. did-web      generate <name>.etzhayyim.com/.well-known/did.json
+;;   3. did-web      generate a STATIC /.well-known/did.json (+ .nojekyll) at the
+;;                   repo's GitHub Pages root, served as
+;;                   etzhayyim.github.io/com-etzhayyim-<name>/.well-known/did.json
+;;                   (ADR addendum 2026-06-24: no custom domain, no CF Worker, no
+;;                   dynamic generation — the apex Worker is org-DID only)
 ;;   4. kotoba-rad   mint RID + did:key, append sovereign identity to the log
 ;;   5. aozora       write the actor profile to the PDS (Option B e.write)
 ;;
@@ -31,22 +35,36 @@
 
 ;; ── manifest ────────────────────────────────────────────────────────────────
 
-(defn manifest-path [actor] (str (prefix actor) "/actor-manifest.jsonld"))
+(defn manifest-path
+  "Locate the actor manifest. Utility/older actors use `actor-manifest.jsonld`;
+   the clj-native flagship actors (kaname/tsumugi/ibuki…) use `manifest.jsonld`
+   (no `triggers`, lexicons listed under `:lexicons`). Prefer the former, fall
+   back to the latter."
+  [actor]
+  (let [a (io/file (str (prefix actor) "/actor-manifest.jsonld"))
+        m (io/file (str (prefix actor) "/manifest.jsonld"))]
+    (cond (.exists a) a (.exists m) m :else a)))
 
 (defn read-manifest [actor]
-  (let [f (io/file (manifest-path actor))]
+  (let [f (manifest-path actor)]
     (when (.exists f) (json/parse-string (slurp f) true))))
 
 (defn manifest->genesis
   "Derive the kotoba-rad genesis block from the actor manifest.
-   did:web is normalized to the SUBDOMAIN form (ADR-2606231200 decision),
-   regardless of whether the manifest's @id used the path form."
+   did:web is normalized to the github.io PATH form
+   (did:web:etzhayyim.github.io:com-etzhayyim-<name>; ADR-2606231200 addendum
+   2026-06-24), so the DID resolves to the actor repo's STATIC GitHub Pages
+   did.json — no custom domain, no dynamic generation.
+   The collection NSID is the first declared collection/lexicon minus its final
+   record-type segment: `actor-manifest.jsonld` lists it under
+   :triggers/:subscribeRepos/:collections, `manifest.jsonld` under :lexicons."
   [actor manifest & {:keys [pubkey-hex]}]
-  (let [coll (-> manifest :triggers :subscribeRepos :collections first)
-        ns* (when coll (str/join "." (take 4 (str/split coll #"\."))))]
+  (let [coll (or (-> manifest :triggers :subscribeRepos :collections first)
+                 (-> manifest :lexicons first))
+        ns* (when coll (str/join "." (butlast (str/split coll #"\."))))]
     (rad/genesis-block
      {:name actor
-      :did-web (str "did:web:" actor ".etzhayyim.com")
+      :did-web (str "did:web:etzhayyim.github.io:" (repo-name actor))
       :delegates (when pubkey-hex [(rad/did-key pubkey-hex)])
       :threshold 1
       :repo (str "github.com/" org "/" (repo-name actor))
@@ -94,14 +112,23 @@
 
 (defn step-did-web [actor manifest apply? pubkey-hex]
   (let [genesis (manifest->genesis actor manifest :pubkey-hex pubkey-hex)
-        doc (rad/did-web-doc {:name actor :genesis genesis :pubkey-hex pubkey-hex})
-        out (str (prefix actor) "/.well-known/did.json")]
+        ;; pass the genesis did:web through so the doc `id` == the genesis DID
+        ;; (single source of truth — never re-derive a divergent string).
+        doc (rad/did-web-doc {:name actor :did-web (:rad/did-web genesis)
+                              :genesis genesis :pubkey-hex pubkey-hex})
+        out (str (prefix actor) "/.well-known/did.json")
+        ;; .nojekyll: GitHub Pages' Jekyll ignores dot-prefixed paths, so without
+        ;; this the static /.well-known/did.json (and the actor's *.wasm) are not
+        ;; served. The bytes are served raw — exactly what did:web + wasm need.
+        nojekyll (str (prefix actor) "/.nojekyll")]
     (when apply?
       (io/make-parents (io/file out))
-      (spit out (str (json/generate-string doc {:pretty true}) "\n")))
-    (log-step 3 (str "did:web doc -> " out)
-              {:planned (not apply?) :cmd ["write" out (str (count (str doc)) "B")]})
-    {:genesis genesis :did-doc-path out}))
+      (spit out (str (json/generate-string doc {:pretty true}) "\n"))
+      (spit nojekyll ""))
+    (log-step 3 (str "static did:web doc -> " out " (+ .nojekyll)")
+              {:planned (not apply?) :cmd ["write" out (str (count (str doc)) "B")
+                                           "+" nojekyll]})
+    {:genesis genesis :did-doc-path out :nojekyll-path nojekyll}))
 
 (defn step-kotoba-rad [actor genesis apply? pubkey-hex]
   ;; no-server-key: a signer is built ONLY if the member's key is in Keychain
@@ -145,12 +172,13 @@
     (step-josh-split actor apply?)
     (step-gh-repo actor apply?)
     (let [{:keys [genesis]} (step-did-web actor manifest apply? pubkey-hex)
+          did (:rad/did-web genesis)
           rad-res (step-kotoba-rad actor genesis apply? pubkey-hex)
           aoz (step-aozora actor genesis apply?)]
-      (println (format "✔ %s  rad=%s  repo=%s  did=did:web:%s.etzhayyim.com\n"
-                       actor (:rad-uri rad-res) (repo-name actor) actor))
+      (println (format "✔ %s  rad=%s  repo=%s  did=%s\n"
+                       actor (:rad-uri rad-res) (repo-name actor) did))
       {:actor actor :rid (:rid rad-res) :rad-uri (:rad-uri rad-res)
-       :repo (repo-name actor) :did (str "did:web:" actor ".etzhayyim.com")
+       :repo (repo-name actor) :did did
        :aozora-collection (:collection aoz)})))
 
 (defn -main [& args]

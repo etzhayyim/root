@@ -43,7 +43,7 @@
         wopts {:dir worker :inherit true}]
 
     ;; 1. build the WASM component + CID drift guard
-    (say "1. build WASM component (componentize-py) + CID drift check")
+    (say "1. build WASM component (cljc-native: cherry+ComponentizeJS, ADR-2606261200) + CID drift check")
     (let [built (build/build actor-dir)
           recorded (did-wasm-cid worker)]
       (println (str "   built    CID: " built))

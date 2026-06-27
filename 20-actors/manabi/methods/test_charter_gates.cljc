@@ -3,6 +3,7 @@
   (:require [clojure.test :refer [deftest is run-tests]]
             [clojure.set :as set]
             [clojure.string :as str]
+            [clojure.edn :as edn]
             [cheshire.core :as json]))
 
 (def ^:private here (.getParentFile (java.io.File. ^String *file*)))
@@ -11,7 +12,7 @@
 (def ^:private root (.. actor-dir getParentFile getParentFile))
 (def ^:private lexdir (java.io.File. root (str "00-contracts/lexicons/com/etzhayyim/" actor-name)))
 
-(defn- manifest [] (json/parse-string (slurp (java.io.File. actor-dir "manifest.jsonld"))))
+(defn- manifest [] (edn/read-string (slurp (java.io.File. actor-dir "manifest.edn"))))
 (defn- lex [name] (json/parse-string (slurp (java.io.File. lexdir (str name ".json")))))
 
 (defn- collect [doc attr]
@@ -33,7 +34,7 @@
 
 ;; ── full gate set ──
 (deftest test-all-14-gates-declared
-  (let [gates (set (keys (get-in (manifest) ["constitutionalGates" "gates"])))]
+  (let [gates (set (map :gate/id (:actor/gates (manifest))))]
     (is (= gates (set (map #(str "G" %) (range 1 15)))))))
 
 ;; ── G7 — anti-credentialism: no degree/credential claimed ──

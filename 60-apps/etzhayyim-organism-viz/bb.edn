@@ -1,0 +1,9 @@
+{;; bb runner for the clj-native pruning detector (pruning.cljc). The Python
+ ;; side has tests/test_aliveness.py; this covers the .cljc port.
+ :paths ["src" "test"]
+ :tasks
+ {test
+  {:doc "Run the pruning detector tests (pure fns + a tmp-dir FS-scan fixture)."
+   :requires ([clojure.test :as t] [etzhayyim-organism-viz.pruning-test])
+   :task (let [{:keys [fail error]} (t/run-tests 'etzhayyim-organism-viz.pruning-test)]
+           (System/exit (if (pos? (+ fail error)) 1 0)))}}}

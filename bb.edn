@@ -28,6 +28,11 @@
    :task (do (require 'etzhayyim.issue-cacao)
              (apply (resolve 'etzhayyim.issue-cacao/-main) *command-line-args*))}
 
+  gen:tier-b-actors
+  {:doc "Regenerate 50-infra/etzhayyim-did-web/src/registry/tier-b-actors.gen.ts from each 20-actors/<a>/manifest.{jsonld,edn} (Tier-B, non-hand-authored). clj/bb port of the legacy gen-tier-b-actors.mjs; manifest.jsonld preferred, manifest.edn (Gen-3 kotoba-native) fallback. ADR-2606042330."
+   :task (do (require 'etzhayyim.gen-tier-b-actors)
+             (apply (resolve 'etzhayyim.gen-tier-b-actors/-main) *command-line-args*))}
+
   actor:publish
   {:doc "ADR-2606231200 — publish a 20-actors/<name> actor as a sovereign unit: josh/subtree split → gh repo com-etzhayyim-<name> → did:web did.json → kotoba-rad RID/did:key (sovereign identity on the kotoba Datom log) → aozora(yoro) PDS profile-write plan. DRY-RUN by default; --apply executes side effects; --pubkey=<hex> pins the Ed25519 key. no-server-key (signing/PDS-write are member/operator legs). Args: <name> [<name>...] [--apply] [--pubkey=hex]"
    :task (do (require 'etzhayyim.actor-publish)
@@ -51,10 +56,94 @@
    :task (do (require 'etzhayyim.actor-mesh)
              (apply (resolve 'etzhayyim.actor-mesh/-main) *command-line-args*))}
 
+  actor:evolve
+  {:doc "ADR-2606241500/2606242400 — evolve an actor's CODE (20-actors/<name>) AND DATA (80-data/<name> + its kotoba-rad identity journal) through git: encrypt-secrets (sops+age) → branch → record signed :rad/evolution → [--pages: publish the identity log as a CID-queryable CARv1 tier at 20-actors/<name>/data/] → commit → push → PR → merge. DRY-RUN by default; --apply mutates locally; --push/--pr/--merge gate the outward legs (member gh+git creds, no-server-key). Args: <name> [--message=<m>] [--apply] [--pages] [--push] [--pr] [--merge] [--pubkey=<hex>]"
+   :task (do (require 'etzhayyim.actor-evolve)
+             (apply (resolve 'etzhayyim.actor-evolve/-main) *command-line-args*))}
+
+  pages:publish
+  {:doc "ADR-2606242400 — pack a kotoba Datom journal into a STATIC GitHub-Pages CAR tier: <dir>/<graph>.car + .car.idx.edn + head.json + .nojekyll. Commit the dir → GitHub Pages serves it; clients query by root CID over HTTPS Range (no IPFS daemon). Args: <graph> <journal.edn> [out-dir]"
+   :task (do (require 'etzhayyim.kotoba.pages-store)
+             (apply (resolve 'etzhayyim.kotoba.pages-store/-publish) *command-line-args*))}
+
+  pages:query
+  {:doc "ADR-2606242400 — reconstruct + CID-verify a published graph by its root CID. Default reads a local published dir; --http treats the arg as a base URL (…/<graph>) and uses HTTP Range against GitHub Pages. Args: <dir-or-base> [--http]"
+   :task (do (require 'etzhayyim.kotoba.pages-store)
+             (apply (resolve 'etzhayyim.kotoba.pages-store/-query) *command-line-args*))}
+
+  pages:deploy
+  {:doc "ADR-2606242400 — deploy a published Pages dir to a REAL GitHub repo + enable Pages (creates repo, pushes, enables Pages from gh-pages root; member gh creds, no-server-key). --verify polls the live URL and reconstructs the graph over HTTPS Range. Args: <dir> <owner/repo> <graph> [--verify]"
+   :task (do (require 'etzhayyim.kotoba.pages-store)
+             (apply (resolve 'etzhayyim.kotoba.pages-store/-deploy) *command-line-args*))}
+
+  test:pages-store
+  {:doc "ADR-2606242400 CARv1 + prolly-tree + GitHubPagesBlockStore invariants: varint, CID framing, CAR roots/index slices, tamper detection, flat publish→Range→verify→reassemble round-trip, prolly multi-level/determinism/seek-locality/path-copy. Hermetic (no network)."
+   :task (do (require 'etzhayyim.kotoba.test-pages-store)
+             (apply (resolve 'etzhayyim.kotoba.test-pages-store/-main) *command-line-args*))}
+
+  sops:keygen
+  {:doc "ADR-2606241500 — generate an age identity for an actor (or __org__ for the org-wide recovery key), print the recipient. DRY-RUN prints the secret; --apply stores it in macOS Keychain (service etzhayyim.sops-age, MEMBER key, no-server-key). Args: <actor|__org__> [--apply]"
+   :task (do (require 'etzhayyim.sops-age)
+             (apply (resolve 'etzhayyim.sops-age/-keygen) *command-line-args*))}
+
+  sops:yaml
+  {:doc "Regenerate .sops.yaml from the per-actor :rad/age-recipient on each kotoba-rad identity journal (the SoT). Read-only over Keychain (recipients are public). No args."
+   :task (do (require 'etzhayyim.sops-age)
+             (apply (resolve 'etzhayyim.sops-age/-yaml) *command-line-args*))}
+
+  sops:encrypt
+  {:doc "sops-encrypt a plaintext secret to its .enc.* sibling for an actor's recipients (actor key + org recovery). Args: <actor> <in> [out]"
+   :task (do (require 'etzhayyim.sops-age)
+             (apply (resolve 'etzhayyim.sops-age/-encrypt) *command-line-args*))}
+
+  sops:decrypt
+  {:doc "sops-decrypt a .enc.* file using the actor's Keychain age key; prints plaintext to stdout. Args: <actor> <file.enc.*>"
+   :task (do (require 'etzhayyim.sops-age)
+             (apply (resolve 'etzhayyim.sops-age/-decrypt) *command-line-args*))}
+
+  test:sops-age
+  {:doc "ADR-2606241500 secrets-layer invariants: age recipient derivation, enc-path mapping, :rad/age-recipient bound to the RID (idempotent), .sops.yaml render, and the sops encrypt→redaction→decrypt round-trip (wrong key refused). Hermetic (no Keychain)."
+   :task (do (require 'etzhayyim.test-sops-age)
+             (apply (resolve 'etzhayyim.test-sops-age/-main) *command-line-args*))}
+
+  actor:delegate-add
+  {:doc "ADR-2606251200 A-2 — register a member did:key as a :rad/delegate of an EXISTING actor identity, RID-stable (append-only, genesis untouched). Operationalizes sovereign git push for the delegate-less pilot journals. --keygen mints a fresh member key (--apply stores priv in Keychain) or --pubkey=<hex> adds a held one; DRY-RUN by default. no-server-key (member-signed sigref via Keychain). Args: <name> (--keygen | --pubkey=hex) [--apply]"
+   :task (do (require 'etzhayyim.kotoba-rad-sign)
+             (apply (resolve 'etzhayyim.kotoba-rad-sign/-delegate-add) *command-line-args*))}
+
   test:kotoba-rad
   {:doc "kotoba-rad sovereign-identity invariants (ADR-2606231200): did:key convention, RID content-addressing, did.json 3-identity cross-link, append-only/idempotent publish, Ed25519 sign/verify + CID base32 parity."
    :task (do (require 'etzhayyim.test-kotoba-rad)
              (apply (resolve 'etzhayyim.test-kotoba-rad/-main) *command-line-args*))}
+
+  test:helpers
+  {:doc "Aggregate of all 70-tools pure-helper test namespaces (/loop coverage 成熟度向上 — 40 modules): authz · agent-token · bonsai · code-quality · deps · bunseki · cohort · apps · authn · auth · database · agent-runtime · complex-stubs · actor-mesh · agent-cmd · actors-helpers · dodaf · coverage · identifier-audit · haisen · hinshitsu · dns-sync · deploy · metrics · shannon · shannon-scores · systemofsystem · vertex · source-graph · xrpc · mokuteki · projector · actor-publish · yoroshiku · mitama · training · murakumo-cmd · monitor · nono · workspace."
+   :requires ([clojure.test :as t]
+              [etzhayyim.test-authz] [etzhayyim.test-agent-token] [etzhayyim.test-bonsai]
+              [etzhayyim.test-code-quality] [etzhayyim.test-deps] [etzhayyim.test-bunseki]
+              [etzhayyim.test-cohort] [etzhayyim.test-apps] [etzhayyim.test-authn]
+              [etzhayyim.test-auth] [etzhayyim.test-database] [etzhayyim.test-agent-runtime]
+              [etzhayyim.test-complex-stubs] [etzhayyim.test-actor-mesh] [etzhayyim.test-agent-cmd]
+              [etzhayyim.test-actors-helpers] [etzhayyim.test-dodaf] [etzhayyim.test-coverage]
+              [etzhayyim.test-identifier-audit] [etzhayyim.test-haisen] [etzhayyim.test-hinshitsu]
+              [etzhayyim.test-dns-sync] [etzhayyim.test-deploy] [etzhayyim.test-metrics]
+              [etzhayyim.test-shannon] [etzhayyim.test-shannon-scores]
+              [etzhayyim.test-systemofsystem] [etzhayyim.test-vertex]
+              [etzhayyim.test-source-graph] [etzhayyim.test-xrpc] [etzhayyim.test-mokuteki] [etzhayyim.test-projector] [etzhayyim.test-actor-publish] [etzhayyim.test-yoroshiku] [etzhayyim.test-mitama] [etzhayyim.test-training] [etzhayyim.test-murakumo-cmd] [etzhayyim.test-monitor] [etzhayyim.test-nono] [etzhayyim.test-workspace] [etzhayyim.test-tithe] [etzhayyim.lint.test-no-new-ts] [etzhayyim.app-sdk.test-record] [etzhayyim.app-sdk.test-xrpc] [etzhayyim.app-sdk.test-ids])
+   :task (let [{:keys [fail error]}
+               (apply t/run-tests
+                      '[etzhayyim.test-authz etzhayyim.test-agent-token etzhayyim.test-bonsai
+                        etzhayyim.test-code-quality etzhayyim.test-deps etzhayyim.test-bunseki
+                        etzhayyim.test-cohort etzhayyim.test-apps etzhayyim.test-authn
+                        etzhayyim.test-auth etzhayyim.test-database etzhayyim.test-agent-runtime
+                        etzhayyim.test-complex-stubs etzhayyim.test-actor-mesh etzhayyim.test-agent-cmd
+                        etzhayyim.test-actors-helpers etzhayyim.test-dodaf etzhayyim.test-coverage
+                        etzhayyim.test-identifier-audit etzhayyim.test-haisen etzhayyim.test-hinshitsu
+                        etzhayyim.test-dns-sync etzhayyim.test-deploy etzhayyim.test-metrics
+                        etzhayyim.test-shannon etzhayyim.test-shannon-scores
+                        etzhayyim.test-systemofsystem etzhayyim.test-vertex
+                        etzhayyim.test-source-graph etzhayyim.test-xrpc etzhayyim.test-mokuteki etzhayyim.test-projector etzhayyim.test-actor-publish etzhayyim.test-yoroshiku etzhayyim.test-mitama etzhayyim.test-training etzhayyim.test-murakumo-cmd etzhayyim.test-monitor etzhayyim.test-nono etzhayyim.test-workspace etzhayyim.test-tithe etzhayyim.lint.test-no-new-ts etzhayyim.app-sdk.test-record etzhayyim.app-sdk.test-xrpc etzhayyim.app-sdk.test-ids])]
+           (System/exit (if (pos? (+ fail error)) 1 0)))}
 
   vitals:report
   {:doc "Per-actor LIFE-ACTIVITY vitals — scores each manifest-bearing cell on 3 axes (clj 内部代謝 / actor 細胞間シグナル / atproto 外界代謝), RUNS its run_tests.sh reflex, classifies 生/休眠/死, and transacts the vitals into the kotoba Datom log (as-of trajectory). Flags: --no-tests --limit N --actors a,b --timeout-ms N"
@@ -130,11 +219,19 @@
   {:doc "etzhayyim.kotoba root-side Datom engine + envelope + analysis (ADR-2605262130 Phase 1/2 + ADR-2605181100; data+impl in root, kotoba is the external generic engine)"
    :task (do (require 'clojure.test 'etzhayyim.kotoba.test-engine
                       'etzhayyim.kotoba.test-crypto 'etzhayyim.kotoba.test-actor
-                      'etzhayyim.kotoba.test-cbor)
+                      'etzhayyim.kotoba.test-cbor 'etzhayyim.kotoba.test-cid 'etzhayyim.kotoba.test-datom 'etzhayyim.kotoba.test-query 'etzhayyim.kotoba.test-graph 'etzhayyim.kotoba.test-schema 'etzhayyim.kotoba.test-encrypted 'etzhayyim.kotoba.test-metrics 'etzhayyim.kotoba.test-boundary)
              (let [r (clojure.test/run-tests 'etzhayyim.kotoba.test-engine
                                              'etzhayyim.kotoba.test-crypto
                                              'etzhayyim.kotoba.test-actor
-                                             'etzhayyim.kotoba.test-cbor)]
+                                             'etzhayyim.kotoba.test-cbor
+                                             'etzhayyim.kotoba.test-cid
+                                             'etzhayyim.kotoba.test-datom
+                                             'etzhayyim.kotoba.test-query
+                                             'etzhayyim.kotoba.test-graph
+                                             'etzhayyim.kotoba.test-schema
+                                             'etzhayyim.kotoba.test-encrypted
+                                             'etzhayyim.kotoba.test-metrics
+                                             'etzhayyim.kotoba.test-boundary)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
 
@@ -147,6 +244,11 @@
   {:doc "Enforce-forward the clj/bb rule (root CLAUDE.md §\"Operational code = clj/bb\"): FAIL on a NEW first-party .sh under 20-actors (existing ones grandfathered in shell-baseline.edn; baseline shrinks-only). New actors ship run_tests.clj, not run_tests.sh. --update rewrites the baseline. ADR-2606072802 enforce-forward"
    :task (do (require 'etzhayyim.lint.no-new-shell)
              (apply (resolve 'etzhayyim.lint.no-new-shell/-main) *command-line-args*))}
+
+  lint:no-new-ts
+  {:doc "Enforce-forward the TS→cljs+edn migration (ADR-2606251200 §Decision 6): FAIL on a NEW first-party .ts in a MIGRATED app (enforced-roots; pilot=explorer, already cljs-first). Existing TS grandfathered in ts-baseline.edn, shrinks-only. --update rewrites the baseline. Mirrors lint:no-new-shell."
+   :task (do (require 'etzhayyim.lint.no-new-ts)
+             (apply (resolve 'etzhayyim.lint.no-new-ts/-main) *command-line-args*))}
 
   kotoba:ingest
   {:doc "Ingest an actor seed into the kotoba Datom log (validated, snapshotted). Args: <schema> <seed> [out] [--validate]"

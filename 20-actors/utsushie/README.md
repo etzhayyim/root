@@ -41,8 +41,8 @@ utsushie/
 ├── run_tests.sh                     # one-command runner
 ├── lex/video.edn                    # com.etzhayyim.utsushie.video (U1–U6 structural gates)
 └── methods/
-    ├── render_plan.py               # offline, pure: build_plan() + R0-gated render()
-    └── test_render_plan.py          # 9 standalone tests (gate enforcement)
+    ├── render_plan.cljc             # offline, pure: build_plan() + R0-gated render()
+    └── test_render_plan.cljc        # render-plan + charter-gates tests
 ```
 
 ## Siblings / boundaries

@@ -17,7 +17,7 @@
  :actor/charter-rider {:rider/version "2.0" :rider/applied true}
 
  :actor/gates
- [{:gate/id "G1" :gate/name "closed-loop-carbon-only" :gate/req "synthesis feedstock :feedstock/class ∈ {:biogenic :captured-co2 :recycled-carbon :existing-inventory-decommission}; :fossil-virgin-crude is NOT representable (schema enum + lexicon const + feedstock_guard.py ValueError); a fossil-fed refining design is excluded by construction (ADR-2605263500 D3 + Charter-Rider §2(d))"}
+ [{:gate/id "G1" :gate/name "closed-loop-carbon-only" :gate/req "synthesis feedstock :feedstock/class ∈ {:biogenic :captured-co2 :recycled-carbon :existing-inventory-decommission}; :fossil-virgin-crude is NOT representable (schema enum + lexicon const + feedstock_guard.cljc ValueError); a fossil-fed refining design is excluded by construction (ADR-2605263500 D3 + Charter-Rider §2(d))"}
   {:gate/id "G2" :gate/name "net-atmospheric-carbon-delta-le-0" :gate/req "every synthesis design carries a carbon balance (methods/carbon_balance.py); admissible only if net Δ ≤ D3 tolerance (renewable-powered + closed-loop carbon, or carbon locked into durable material)"}
   {:gate/id "G3" :gate/name "decommission-transition-only" :gate/req "robotics on an EXISTING fossil asset = :decommission|:remediate|:convert|:monitor ONLY (§2(d)); :expand/:restart-fossil/life-extension NOT representable (feedstock_guard.screen_intervention)"}
   {:gate/id "G4" :gate/name "observation-not-target-list" :gate/req "asset observation is aggregate-first, non-adjudicating, a resilience+transition map; observation ≠ operation; never a target-list (watari/watatsuna G2 sibling); operator = org id, never a person"}

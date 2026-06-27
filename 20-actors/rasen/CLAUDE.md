@@ -71,7 +71,7 @@ It answers the question "is there an actor that hosts public genetic data and an
 ├── tests/                                 # 23 tests, pure stdlib (network-free)
 │   ├── test_analyze.py · test_coverage.py · test_ingest.py · test_wasm.py
 │   └── fixtures/{myvariant_rs334, mygene_brca1_go, reactome_brca1}.json
-├── wasm/                                  # kotoba pywasm component (componentize-py)
+├── wasm/                                  # kotoba pywasm component (cherry+ComponentizeJS (ADR-2606261200))
 │   ├── README.md · wit/world.wit          # WIT world (analyze/datoms/coverage exports)
 │   ├── app.py                             # export bodies (runnable in dev; embeds seed for WASM)
 │   └── build.sh                           # embed seed → componentize → CID → DID service descriptor
@@ -86,16 +86,16 @@ It answers the question "is there an actor that hosts public genetic data and an
 
 ```bash
 cd 20-actors/rasen
-python3 methods/analyze.py          # → out/care-report.md
-python3 methods/datom_emit.py       # → out/genome-datoms.kotoba.edn (EAVT)
-python3 methods/coverage_report.py  # → out/coverage-report.md
+bb -cp 20-actors -m rasen.methods.analyze          # → out/care-report.md
+bb -cp 20-actors -m rasen.methods.datom-emit       # → out/genome-datoms.kotoba.edn (EAVT)
+bb -cp 20-actors -m rasen.methods.coverage-report  # → out/coverage-report.md
 
 # OUTWARD (G7) — pull bounded PUBLIC reference genetics → kotoba EDN/Datom → IPFS CID
-python3 methods/ingest.py           # live fetch (MyGene.info + MyVariant.info) + ipfs pin
-python3 methods/ingest.py --offline --no-pin   # re-content-address an existing ingested graph
-python3 methods/cid.py out/ingested-genome-graph.kotoba.edn   # print the kotoba IPFS CID
+bb -cp 20-actors -m rasen.methods.ingest           # live fetch (MyGene.info + MyVariant.info) + ipfs pin
+bb -cp 20-actors -m rasen.methods.ingest --offline --no-pin   # re-content-address an existing ingested graph
+bb -cp 20-actors -m rasen.methods.cid out/ingested-genome-graph.kotoba.edn   # print the kotoba IPFS CID
 
-python3 tests/test_analyze.py && python3 tests/test_coverage.py && python3 tests/test_ingest.py && python3 tests/test_wasm.py  # 23 green
+bash run_tests.sh  # cljc tests, green
 ```
 
 The ingest is **PUBLIC + aggregate only** (G1): gene reference models (Ensembl + coarse
@@ -132,9 +132,9 @@ trustless gateway already make the content publicly fetchable + re-verifiable.
 
 `wasm/` holds the kotoba pywasm component: `wit/world.wit` (the `rasen-actor` world exporting
 `analyze`/`datoms`/`coverage`), `app.py` (the export bodies — runnable now in dev mode:
-`python3 wasm/app.py analyze`, and embedding the seed for the no-FS WASM runtime), and
-`build.sh` (embed seed → `componentize-py` → CID → DID-doc `EtzhayyimWasmComponent` service
-descriptor). The build itself is the operator step (componentize-py toolchain); the export
+`python3 wasm/app.cljs analyze`, and embedding the seed for the no-FS WASM runtime), and
+`build.sh` (embed seed → `cherry+ComponentizeJS (ADR-2606261200)` → CID → DID-doc `EtzhayyimWasmComponent` service
+descriptor). The build itself is the operator step (cherry+ComponentizeJS (ADR-2606261200) toolchain); the export
 logic is CI-covered by `tests/test_wasm.py`. G1 holds in WASM — the component embeds only the
 bounded PUBLIC seed, so it cannot leak what it does not contain.
 

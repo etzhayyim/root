@@ -46,9 +46,32 @@ export const CURATED_FEED_NSIDS: ReadonlySet<string> = new Set([
 
 // External posters EXCLUDE'd from etzhayyim governance (ADR-2605212245). Matched
 // as a substring of the author DID or handle (covers did:web + handle families).
+//
+/** Method A discover-feed cutover. When XRPC_PDS_UPSTREAM is provisioned, the
+ *  aggregate home/discover feeds (CURATED_FEED_NSIDS) render from the independent
+ *  PDS's LOCAL kotoba discover feed (`com.etzhayyim.feed.getDiscover`) — only
+ *  etzhayyim actors write to that PDS, so the gftd shinshi flood structurally
+ *  cannot appear (the source-side fix the quarantine below approximated).
+ *  Returns null when XRPC_PDS_UPSTREAM is empty/unset → INERT: keep curating the
+ *  gftd feed exactly as today (prod byte-identical until ops flips the env). */
+export function discoverFeedTarget(
+  pdsUpstream: string | undefined | null,
+): { upstream: string; nsid: string } | null {
+  const u = (pdsUpstream ?? "").trim();
+  return u ? { upstream: u, nsid: "com.etzhayyim.feed.getDiscover" } : null;
+}
+
+// The LIVE shinshi pipeline actually posts as `did:web:sh1n5h1x.gftd.ai` — it runs
+// on gftd.ai infrastructure, NOT under *.etzhayyim.com, so the original markers
+// below (the ADR-2605212245 mental model) never matched it and the apex aggregate
+// feed stayed flooded by gftd's shinshi. Per the founder directive "drop the gftd.ai
+// dependency" we quarantine the gftd.ai shinshi domain family too: etzhayyim's
+// aggregate home/discover feed must not be dominated by a poster on gftd.ai infra.
 export const QUARANTINED_AUTHOR_MARKERS: readonly string[] = [
   "shinshi.etzhayyim.com",
   "sh1n5h1x.etzhayyim.com",
+  "sh1n5h1x.gftd.ai",
+  "shinshi.gftd.ai",
 ];
 
 function authorId(a?: FeedAuthor | null): string {

@@ -1,5 +1,6 @@
 {:actor/id        "hotaru"
  :actor/glyph     "蛍"
+ :actor/display-name "蛍 — III-V / InP Substrate Open-Commons"
  :actor/tier      :tier-b
  :actor/domain    "hotaru.etzhayyim.com"
  :actor/did       "did:web:etzhayyim.com:actor:hotaru"

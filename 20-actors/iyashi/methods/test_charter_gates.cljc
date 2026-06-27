@@ -30,7 +30,7 @@
      (defn- lex [name]
        (json/parse-string (slurp (java.io.File. lexdir (str name ".json")))))
      (defn- manifest []
-       (json/parse-string (slurp (java.io.File. actor-dir "manifest.jsonld"))))))
+       (:actor/manifest (clojure.edn/read-string (slurp (java.io.File. actor-dir "manifest.edn")))))))
 
 ;; ── navigation over an AT-Proto lexicon (string keys) ──
 (defn- record-node [doc]

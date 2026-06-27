@@ -1,0 +1,144 @@
+(ns etzhayyim.pds.xrpc-test
+  "com.atproto.* handler invariants: identity resolution + a repo round-trip
+  over the in-process MemStore (also exercises store.clj end-to-end)."
+  (:require [clojure.test :refer [deftest is testing run-tests]]
+            [clojure.string :as str]
+            [etzhayyim.pds.xrpc :as x]
+            [etzhayyim.pds.store :as store]
+            [etzhayyim.pds.config :as cfg]))
+
+(deftest resolve-repo-rules
+  (is (nil? (x/resolve-repo nil)))
+  (testing "a did passes through unchanged"
+    (is (= "did:web:foo" (x/resolve-repo "did:web:foo"))))
+  (testing "the PDS host resolves to the PDS did"
+    (is (= cfg/pds-did (x/resolve-repo cfg/host))))
+  (testing "a handle under a user-domain → did:web:<handle>"
+    (is (= "did:web:alice.etzhayyim.com" (x/resolve-repo "alice.etzhayyim.com")))
+    (is (= "did:web:etzhayyim.com" (x/resolve-repo "etzhayyim.com"))))
+  (testing "an unknown identifier passes through"
+    (is (= "random.example" (x/resolve-repo "random.example")))))
+
+(deftest identity-and-server-handlers
+  (testing "resolveHandle requires a handle"
+    (is (= 200 (:status (x/resolve-handle {:handle "did:plc:x"}))))
+    (is (= "did:plc:x" (get-in (x/resolve-handle {:handle "did:plc:x"}) [:body "did"])))
+    (is (= 400 (:status (x/resolve-handle {})))))
+  (testing "describeServer reports the etzhayyim identity"
+    (let [r (x/describe-server nil)]
+      (is (= 200 (:status r)))
+      (is (= cfg/pds-did (get-in r [:body "did"])))))
+  (testing "createSession issues a did-bound session token"
+    (let [r (x/create-session {:identifier "alice.etzhayyim.com"})]
+      (is (= "did:web:alice.etzhayyim.com" (get-in r [:body "did"])))
+      (is (re-find #"^etzhayyim-session\." (get-in r [:body "accessJwt"]))))))
+
+(deftest create-record-validation
+  (let [s (store/->mem-store)]
+    (is (= 400 (:status (x/create-record s {:repo "" :collection "c" :record {}}))))
+    (is (= 400 (:status (x/create-record s {:repo "did:web:x" :collection "" :record {}}))))
+    (is (= 400 (:status (x/create-record s {:repo "did:web:x" :collection "c" :record nil}))))))
+
+(deftest repo-round-trip
+  (let [s    (store/->mem-store)
+        repo "did:web:x"
+        coll "app.bsky.feed.post"]
+    (testing "create → get returns the stored value + a uri/cid"
+      (let [rec {"$type" coll "text" "hi"}     ;; atproto records must carry a $type
+            c (x/create-record s {:repo repo :collection coll :rkey "rk1" :record rec})]
+        (is (= 200 (:status c)))
+        (is (string? (get-in c [:body "uri"])))
+        (is (string? (get-in c [:body "cid"])))
+        (let [g (x/get-record s {:repo repo :collection coll :rkey "rk1"})]
+          (is (= 200 (:status g)))
+          (is (= rec (get-in g [:body "value"]))))))
+    (testing "list-records returns the created record; missing repo → 400"
+      (let [l (x/list-records s {:repo repo :collection coll})]
+        (is (= 200 (:status l)))
+        (is (= 1 (count (get-in l [:body "records"])))))
+      (is (= 400 (:status (x/list-records s {:repo repo :collection ""})))))
+    (testing "delete → subsequent get is 404"
+      (is (= 200 (:status (x/delete-record s {:repo repo :collection coll :rkey "rk1"}))))
+      (is (= 404 (:status (x/get-record s {:repo repo :collection coll :rkey "rk1"})))))))
+
+(deftest appview-read-rendering-from-local-log
+  (testing "getAuthorFeed + getProfile render an actor's feed/profile from the local kotoba log (Method A)"
+    (let [s (store/->mem-store)
+          actor "did:web:etzhayyim.com:actor:unspsc-10101500"
+          post (fn [rkey text] (store/put-record s actor "app.bsky.feed.post" rkey
+                                                 {"$type" "app.bsky.feed.post" "text" text
+                                                  "createdAt" "2026-06-25T00:00:00Z"}))]
+      (post "a" "first") (post "b" "second")
+      ;; getAuthorFeed → AppView-shaped feed of the actor's posts (newest first), no gftd
+      (let [resp (x/get-author-feed s {:actor actor})
+            feed (get (:body resp) "feed")]
+        (is (= 200 (:status resp)))
+        (is (= 2 (count feed)))
+        (is (= "second" (get-in (first feed) ["post" "record" "text"])) "reverse: newest first")
+        (is (= {"did" actor "handle" "unspsc-10101500.etzhayyim.com"}
+               (get-in (first feed) ["post" "author"])) "author rendered from did:web:…:actor:<h>")
+        (is (str/starts-with? (get-in (first feed) ["post" "uri"]) (str "at://" actor))))
+      ;; getProfile → minimal profileView with the authoritative postsCount
+      (let [resp (x/get-profile s {:actor actor})]
+        (is (= 200 (:status resp)))
+        (is (= actor (get (:body resp) "did")))
+        (is (= 2 (get (:body resp) "postsCount"))))
+      ;; missing actor → 400
+      (is (= 400 (:status (x/get-author-feed s {}))))
+      (is (= 400 (:status (x/get-profile s {})))))))
+
+(deftest author-feed-paginates-via-cursor
+  (testing "getAuthorFeed limit + cursor walk the actor's posts page by page (newest-first)"
+    (let [s (store/->mem-store)
+          actor "did:web:etzhayyim.com:actor:unspsc-20202000"
+          mk (fn [rkey] (store/put-record s actor "app.bsky.feed.post" rkey
+                                          {"$type" "app.bsky.feed.post" "text" rkey
+                                           "createdAt" "2026-06-25T00:00:00Z"}))]
+      (doseq [k ["a" "b" "c"]] (mk k))   ; rkeys sort a<b<c; reverse feed = c,b,a
+      ;; page 1: limit 2 → [c b] + cursor
+      (let [p1 (:body (x/get-author-feed s {:actor actor :limit 2}))
+            f1 (get p1 "feed")
+            cur (get p1 "cursor")]
+        (is (= ["c" "b"] (mapv #(get-in % ["post" "record" "text"]) f1)))
+        (is (string? cur) "a cursor is returned when the page is full")
+        ;; page 2: same limit + cursor → [a], no further cursor
+        (let [p2 (:body (x/get-author-feed s {:actor actor :limit 2 :cursor cur}))
+              f2 (get p2 "feed")]
+          (is (= ["a"] (mapv #(get-in % ["post" "record" "text"]) f2)))
+          (is (nil? (get p2 "cursor")) "last page → no cursor")))
+      ;; limit is clamped to [1,100]
+      (is (= 1 (count (get (:body (x/get-author-feed s {:actor actor :limit 1})) "feed")))))))
+
+(deftest discover-feed-aggregates-across-actors
+  (testing "getDiscover renders the newest app.bsky.feed.post ACROSS ALL actors, newest-first"
+    (let [s (store/->mem-store)
+          a1 "did:web:etzhayyim.com:actor:unspsc-1"
+          a2 "did:web:etzhayyim.com:actor:unspsc-2"
+          mk (fn [did rkey ts] (store/put-record s did "app.bsky.feed.post" rkey
+                                                 {"$type" "app.bsky.feed.post" "text" (str did "/" rkey)
+                                                  "createdAt" ts}))]
+      (mk a1 "p1" "2026-06-25T01:00:00Z")
+      (mk a2 "p2" "2026-06-25T03:00:00Z")   ; newest
+      (mk a1 "p3" "2026-06-25T02:00:00Z")
+      ;; a non-post record from another collection must NOT appear in the feed
+      (store/put-record s a2 "app.bsky.actor.profile" "self" {"$type" "app.bsky.actor.profile"})
+      (let [body (:body (x/get-discover-feed s {}))
+            feed (get body "feed")]
+        ;; newest-first by createdAt, across both actors, posts only
+        (is (= ["2026-06-25T03:00:00Z" "2026-06-25T02:00:00Z" "2026-06-25T01:00:00Z"]
+               (mapv #(get-in % ["post" "record" "createdAt"]) feed)))
+        ;; each post carries its OWN author did + derived handle (cross-actor)
+        (is (= [a2 a1 a1] (mapv #(get-in % ["post" "author" "did"]) feed)))
+        (is (= "unspsc-2.etzhayyim.com" (get-in (first feed) ["post" "author" "handle"]))))
+      ;; pagination across actors via the opaque cursor
+      (let [p1 (:body (x/get-discover-feed s {:limit 2}))
+            cur (get p1 "cursor")
+            p2 (:body (x/get-discover-feed s {:limit 2 :cursor cur}))]
+        (is (= 2 (count (get p1 "feed"))))
+        (is (string? cur))
+        (is (= ["2026-06-25T01:00:00Z"] (mapv #(get-in % ["post" "record" "createdAt"]) (get p2 "feed"))))
+        (is (nil? (get p2 "cursor")))))))
+
+(defn -main [& _]
+  (let [{:keys [fail error]} (run-tests 'etzhayyim.pds.xrpc-test)]
+    (System/exit (if (pos? (+ fail error)) 1 0))))

@@ -69,10 +69,10 @@ unrepresentable, debris-responsible, dividend-coupled, every live leg Council-ga
 
 ```bash
 cd 20-actors/torifune
-python3 methods/ascent_sim.py        # → out/ascent-report.md
-python3 methods/carbon_balance.py    # → out/carbon-report.md
-python3 methods/disposal_plan.py     # → out/disposal-plan.kotoba.edn
-python3 methods/datom_emit.py        # → out/launch-datoms.kotoba.edn (EAVT)
+bb -cp 20-actors -m torifune.methods.ascent-sim        # → out/ascent-report.md
+bb -cp 20-actors -m torifune.methods.carbon-balance    # → out/carbon-report.md
+bb -cp 20-actors -m torifune.methods.disposal-plan     # → out/disposal-plan.kotoba.edn
+bb -cp 20-actors -m torifune.methods.datom-emit        # → out/launch-datoms.kotoba.edn (EAVT)
 ```
 
 ## Cross-links

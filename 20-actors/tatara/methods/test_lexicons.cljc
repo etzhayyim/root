@@ -16,13 +16,13 @@
 (def actor-dir (-> *file* io/file .getParentFile .getParentFile))
 (def repo-root (-> actor-dir .getParentFile .getParentFile))   ; …/<worktree>
 (def lex-dir (io/file repo-root "00-contracts" "lexicons" "com" "etzhayyim" "tatara"))
-(def manifest (io/file actor-dir "manifest.jsonld"))
+(def manifest (io/file actor-dir "manifest.edn"))
 (def seed (io/file actor-dir "data" "seed-plant-graph.kotoba.edn"))
 
 (defn- lex [name] (j/parse-string (slurp (io/file lex-dir (str name ".json")))))
 
 (deftest test-manifest-namespaces-have-matching-lexicon-files
-  (let [m (j/parse-string (slurp manifest))
+  (let [m (:actor/manifest (clojure.edn/read-string (slurp manifest)))
         declared (get m "lexiconNamespaces")]
     (is (= 4 (count declared)))
     (doseq [ns declared]

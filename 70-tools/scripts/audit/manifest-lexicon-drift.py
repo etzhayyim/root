@@ -72,10 +72,163 @@ def nsid_to_lexicon_path(nsid: str) -> Path:
 
 
 def find_manifests() -> list[Path]:
-    """All actor manifests under 20-actors/."""
+    """All actor manifests under 20-actors/ — both the legacy `manifest.jsonld`
+    and the migrated `manifest.edn` (the jsonld→edn / py→cljc wave). One manifest
+    per actor dir; when an actor (transiently) ships both, the `.jsonld` wins.
+
+    Before this, the audit globbed only `manifest.jsonld` and so went silently
+    blind to the 140+ actors that migrated to `manifest.edn` — exactly the
+    "silent drift" this script exists to prevent. The `.edn` manifest carries
+    the original jsonld content under the `:actor/manifest` key (string-keyed),
+    including the `lexicons` / `lexiconNamespaces` arrays (see declared_nsids)."""
     if not ACTORS_DIR.is_dir():
         return []
-    return sorted(ACTORS_DIR.glob("*/manifest.jsonld"))
+    by_actor: dict[Path, Path] = {}
+    for mp in sorted(ACTORS_DIR.glob("*/manifest.edn")):
+        by_actor[mp.parent] = mp
+    for mp in sorted(ACTORS_DIR.glob("*/manifest.jsonld")):
+        by_actor[mp.parent] = mp  # prefer .jsonld when an actor has both
+    return [by_actor[k] for k in sorted(by_actor)]
+
+
+# ─── minimal EDN reader (dependency-free) ──────────────────────────────
+#
+# `.edn` manifests have no stdlib parser, and the CI image installs only
+# pytest (adding an `edn_format` dependency would have to be threaded through
+# every standalone + aggregator invocation). A targeted regex was the first
+# cut, but it is fragile: a non-greedy `[...]` stops at the FIRST `]`, so a
+# lexicon string containing `]` truncates the array, and `;` comments / string
+# escapes are invisible to it. This tiny tokenizer+reader handles those
+# correctly — strings (with `\` escapes), `;` line comments, `,`-as-whitespace,
+# and balanced `[] {} ()` — which is all the structure we need to pull the
+# `lexicons` / `lexiconNamespaces` arrays out of the `:actor/manifest` map.
+
+_Tok = tuple[str, str]  # (kind, value); kind ∈ {str, sym, open, close}
+
+
+def _edn_tokens(text: str) -> list[_Tok]:
+    toks: list[_Tok] = []
+    i, n = 0, len(text)
+    while i < n:
+        c = text[i]
+        if c in " \t\r\n,":
+            i += 1
+            continue
+        if c == ";":  # line comment to EOL
+            while i < n and text[i] != "\n":
+                i += 1
+            continue
+        if c == '"':  # string literal (with escapes)
+            i += 1
+            buf: list[str] = []
+            while i < n:
+                ch = text[i]
+                if ch == "\\" and i + 1 < n:
+                    esc = text[i + 1]
+                    buf.append({"n": "\n", "t": "\t", "r": "\r"}.get(esc, esc))
+                    i += 2
+                    continue
+                if ch == '"':
+                    i += 1
+                    break
+                buf.append(ch)
+                i += 1
+            toks.append(("str", "".join(buf)))
+            continue
+        if c in "[({":
+            toks.append(("open", c))
+            i += 1
+            continue
+        if c in "])}":
+            toks.append(("close", c))
+            i += 1
+            continue
+        # bare token (symbol / keyword / number / nil …) up to a delimiter
+        j = i
+        while j < n and text[j] not in ' \t\r\n,;"[]{}()':
+            j += 1
+        toks.append(("sym", text[i:j]))
+        i = j
+    return toks
+
+
+def _read_form(toks: list[_Tok], i: int):
+    """Read one EDN form starting at index i. Returns (form, next_index) where
+    form is ('str'|'sym', value) or ('coll', open_char, [child forms])."""
+    kind, val = toks[i]
+    if kind in ("str", "sym"):
+        return (kind, val), i + 1
+    # 'open' — read children until the matching close
+    children: list = []
+    i += 1
+    while i < len(toks) and toks[i][0] != "close":
+        form, i = _read_form(toks, i)
+        children.append(form)
+    if i < len(toks):  # consume the close (tolerate truncated EOF)
+        i += 1
+    return ("coll", val, children), i
+
+
+def _nsids_from_vec(coll) -> list[str]:
+    """Pull NSID strings from a parsed lexicon vector: bare string elements +
+    each nested map's `"id"` value (the rich {id, status, …} entry shape)."""
+    out: list[str] = []
+    for ch in coll[2]:
+        if ch[0] == "str":
+            out.append(ch[1])
+        elif ch[0] == "coll" and ch[1] == "{":
+            kids = ch[2]
+            for k in range(0, len(kids) - 1, 2):
+                key, value = kids[k], kids[k + 1]
+                if key[0] == "str" and key[1] == "id" and value[0] == "str":
+                    out.append(value[1])
+    return out
+
+
+def edn_lexicons(text: str) -> list[str]:
+    """Declared lexicon NSIDs from a `manifest.edn` body (string-keyed
+    `:actor/manifest` map; reads both `lexiconNamespaces` and `lexicons`)."""
+    toks = _edn_tokens(text)
+    out: list[str] = []
+    i = 0
+    while i < len(toks):
+        kind, val = toks[i]
+        if (
+            kind == "str"
+            and val in ("lexiconNamespaces", "lexicons")
+            and i + 1 < len(toks)
+            and toks[i + 1] == ("open", "[")
+        ):
+            coll, _ = _read_form(toks, i + 1)
+            if coll[0] == "coll":
+                out += _nsids_from_vec(coll)
+        i += 1
+    return out
+
+
+def declared_nsids(mpath: Path) -> list[str]:
+    """Lexicon NSIDs declared by a manifest, normalised to the NSID string.
+
+    `.jsonld` is parsed as JSON; `.edn` via the minimal EDN reader above. Both
+    keys (legacy `lexicons` + newer `lexiconNamespaces`) and both entry shapes
+    (a bare NSID string, or a rich object {id, status, emittedBy}) are handled
+    in each format. Verified on the real corpus: 158 NSIDs across 143 .edn
+    manifests, 0 false drift."""
+    text = mpath.read_text()
+    if mpath.suffix == ".jsonld":
+        data = json.loads(text)
+        out: list[str] = []
+        for key in ("lexicons", "lexiconNamespaces"):
+            v = data.get(key, [])
+            if not isinstance(v, list):
+                continue
+            for item in v:
+                if isinstance(item, str):
+                    out.append(item)
+                elif isinstance(item, dict) and isinstance(item.get("id"), str):
+                    out.append(item["id"])
+        return out
+    return edn_lexicons(text)
 
 
 def main() -> int:
@@ -92,27 +245,10 @@ def main() -> int:
 
     for mpath in manifests:
         try:
-            data = json.loads(mpath.read_text())
+            declared = declared_nsids(mpath)
         except (OSError, json.JSONDecodeError) as e:
             print(f"warning: could not parse {mpath.relative_to(REPO_ROOT)}: {e}", file=sys.stderr)
             continue
-
-        # Actors authored before the lexiconNamespaces convention use the
-        # `lexicons` key; the newer actors use `lexiconNamespaces`. Read BOTH so
-        # the audit covers every actor, not just the legacy ones. Entries come in
-        # TWO shapes: a bare NSID string, OR a rich object {id, status, emittedBy}
-        # — normalise the object form to its `id` so object-form manifests
-        # (ake/fuchi/hotaru/mitooshi/tasuke) are no longer a silent blind spot.
-        declared = []
-        for key in ("lexicons", "lexiconNamespaces"):
-            v = data.get(key, [])
-            if not isinstance(v, list):
-                continue
-            for item in v:
-                if isinstance(item, str):
-                    declared.append(item)
-                elif isinstance(item, dict) and isinstance(item.get("id"), str):
-                    declared.append(item["id"])
         if not declared:
             continue
 

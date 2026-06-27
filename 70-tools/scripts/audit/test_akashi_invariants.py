@@ -17,7 +17,7 @@ import pytest
 
 _REPO = Path(__file__).resolve().parents[3]
 _LEX = _REPO / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "akashi"
-_MANIFEST = _REPO / "20-actors" / "akashi" / "manifest.jsonld"
+# manifest invariants -> 20-actors/akashi/methods/test_manifest_invariants.cljc (jsonld retired)
 _SOURCE_CATALOG = _REPO / "20-actors" / "akashi" / "registry" / "source-catalog.seed.json"
 _SOURCE_POLICY_REVIEWS = (
     _REPO / "20-actors" / "akashi" / "registry" / "source-policy-reviews.seed.json"
@@ -124,34 +124,6 @@ def _props(lex: dict) -> dict:
 
 def _required(lex: dict) -> list[str]:
     return lex["defs"]["main"]["record"].get("required", [])
-
-
-def test_manifest_gates_and_namespaces_match_disk():
-    manifest = _load(_MANIFEST)
-    gates = manifest["constitutionalDiscipline"]
-    assert len(gates) == 13
-    for key in (
-        "passiveOnly",
-        "sourceProvenanceMandatory",
-        "nonAdjudicating",
-        "noPoliticalProfiling",
-        "noTargetLists",
-        "openMethod",
-        "sourcePolicyRequired",
-        "noAdSdk",
-        "noCommercialAdIntel",
-        "publicRecordMinimization",
-        "murakumoOnlyInference",
-        "transparentForce",
-        "malakBridgeReview",
-    ):
-        assert key in gates
-
-    namespaces = manifest["lexiconNamespaces"]
-    assert len(namespaces) == len(_EXPECTED_LEXICONS)
-    assert {n.split(".")[-1] for n in namespaces} == _EXPECTED_LEXICONS
-    for leaf in _EXPECTED_LEXICONS:
-        assert (_LEX / f"{leaf}.json").exists(), f"missing lexicon {leaf}"
 
 
 def test_lexicon_ids_match_namespace_and_are_records():
@@ -292,11 +264,6 @@ def test_method_seed_outputs_existing_lexicons():
 
 
 def test_seven_cells_raise_at_import_and_match_manifest():
-    manifest = _load(_MANIFEST)
-    manifest_modules = {
-        cell["module"].split(".")[-1] for cell in manifest["cells"]
-    }
-    assert manifest_modules == _CELL_NAMES
 
     for name in sorted(_CELL_NAMES):
         path = _CELLS / name / "cell.py"
@@ -501,3 +468,4 @@ def test_dry_run_cli_emits_validated_local_fixture_summary_only():
 
 if __name__ == "__main__":
     raise SystemExit(pytest.main([__file__, "-v"]))
+

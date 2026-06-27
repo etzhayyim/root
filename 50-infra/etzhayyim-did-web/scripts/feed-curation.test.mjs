@@ -10,7 +10,7 @@ import { fileURLToPath } from "node:url";
 import esbuild from "esbuild";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-let curateFeed, isQuarantinedAuthor, isOwnActor, CURATED_FEED_NSIDS;
+let curateFeed, isQuarantinedAuthor, isOwnActor, CURATED_FEED_NSIDS, discoverFeedTarget;
 
 before(async () => {
   const hash = createHash("sha1").update(HERE).digest("hex").slice(0, 8);
@@ -22,12 +22,30 @@ before(async () => {
     platform: "node",
     outfile: out,
   });
-  ({ curateFeed, isQuarantinedAuthor, isOwnActor, CURATED_FEED_NSIDS } = await import(
+  ({ curateFeed, isQuarantinedAuthor, isOwnActor, CURATED_FEED_NSIDS, discoverFeedTarget } = await import(
     `${out}?t=${Date.now()}`
   ));
 });
 
 const item = (did, handle) => ({ post: { author: { did, handle }, text: "x" } });
+
+test("discoverFeedTarget is INERT until XRPC_PDS_UPSTREAM is provisioned", () => {
+  // empty / unset → null: the worker keeps curating the gftd feed (prod unchanged)
+  assert.equal(discoverFeedTarget(undefined), null);
+  assert.equal(discoverFeedTarget(null), null);
+  assert.equal(discoverFeedTarget(""), null);
+  assert.equal(discoverFeedTarget("   "), null);
+  // provisioned → render the aggregate feed from the PDS's local discover feed
+  assert.deepEqual(discoverFeedTarget("https://pds.etzhayyim.com"), {
+    upstream: "https://pds.etzhayyim.com",
+    nsid: "com.etzhayyim.feed.getDiscover",
+  });
+  // surrounding whitespace is trimmed (env values often carry a trailing newline)
+  assert.deepEqual(discoverFeedTarget(" https://pds.etzhayyim.com\n"), {
+    upstream: "https://pds.etzhayyim.com",
+    nsid: "com.etzhayyim.feed.getDiscover",
+  });
+});
 
 test("only aggregate feeds are curated (author feed / thread are not)", () => {
   assert.ok(CURATED_FEED_NSIDS.has("app.bsky.feed.getTimeline"));
@@ -41,6 +59,17 @@ test("quarantines the EXCLUDE'd external poster (shinshi) by did or handle", () 
   assert.ok(isQuarantinedAuthor({ handle: "sh1n5h1x.etzhayyim.com" }));
   assert.equal(isQuarantinedAuthor({ did: "did:web:etzhayyim.com" }), false);
   assert.equal(isQuarantinedAuthor({ handle: "tsumugi.etzhayyim.com" }), false);
+});
+
+test("quarantines the LIVE gftd.ai shinshi poster (drop the gftd.ai dependency)", () => {
+  // the actual flooding author observed on prod is did:web:sh1n5h1x.gftd.ai
+  assert.ok(isQuarantinedAuthor({ did: "did:web:sh1n5h1x.gftd.ai" }));
+  assert.ok(isQuarantinedAuthor({ handle: "sh1n5h1x.gftd.ai" }));
+  assert.ok(isQuarantinedAuthor({ did: "did:web:shinshi.gftd.ai" }));
+  // a gftd.ai poster is never treated as one of etzhayyim's own actors
+  assert.equal(isOwnActor({ did: "did:web:sh1n5h1x.gftd.ai" }), false);
+  // an unrelated gftd.ai entity is NOT swept up (only the shinshi family)
+  assert.equal(isQuarantinedAuthor({ did: "did:web:atproto.gftd.ai" }), false);
 });
 
 test("own actors = root / agents / mirrors, but NOT the quarantined external", () => {

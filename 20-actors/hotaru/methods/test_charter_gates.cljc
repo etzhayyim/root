@@ -31,7 +31,7 @@
      (defn- lex [name]
        (edn/read-string (slurp (java.io.File. lexdir (str name ".edn")))))
      (defn- manifest []
-       (json/parse-string (slurp (java.io.File. actor-dir "manifest.jsonld"))))))
+       (edn/read-string (slurp (java.io.File. actor-dir "manifest.edn"))))))
 
 (defn- record-node [doc] (get-in doc [:defs :main :record]))
 (defn- enum-of [doc field]
@@ -41,12 +41,11 @@
 
 ;; ── 11 gates + non-goals declared ──
 (deftest gates-and-nongoals-declared
-  (let [cg (get (manifest) "constitutionalGates")
-        gm (or (get cg "gates") cg)
-        gn (->> (keys gm) (keep #(second (re-matches #"G(\d+).*" %)))
+  (let [gn (->> (:actor/gates (manifest)) (map :gate/id)
+                (keep #(second (re-matches #"G(\d+).*" %)))
                 (map #(Integer/parseInt %)) set)]
     (is (= (set (range 1 12)) gn) "manifest must declare G1–G11")
-    (is (contains? (manifest) "nonGoals") "manifest must declare nonGoals")))
+    (is (seq (:actor/non-goals (manifest))) "manifest must declare nonGoals")))
 
 ;; ── G2 — design-only / NOT fabricated (the headline 'not a fab' gate) ──
 (deftest g2-not-fabricated

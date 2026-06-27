@@ -6,25 +6,25 @@ default allow := false
 
 nsid := input.route.nsid
 
-method_policy := data.method_policy[nsid] if {
-  nsid in object.keys(data.method_policy)
+method_policy_item := data.etzhayyim.xrpc.arms.method_policy[nsid] if {
+  nsid in object.keys(data.etzhayyim.xrpc.arms.method_policy)
 }
 
 internal_service if input.auth.method == "service-jwt"
 
 public_read if {
-  method_policy.publicRead == true
+  method_policy_item.publicRead == true
 }
 
 scope_allowed if {
   some scope in input.auth.scopes
-  some allowed in method_policy.allowedScopes
+  some allowed in method_policy_item.allowedScopes
   glob.match(allowed, [], scope)
 }
 
 permission_set_allowed if {
   some permission_set in input.permission_sets
-  permission_set in method_policy.allowedPermissionSets
+  permission_set in method_policy_item.allowedPermissionSets
 }
 
 # holder_auth_session_valid: the calling DID has a passed auth session recorded
@@ -35,13 +35,13 @@ holder_auth_session_valid if {
 
 # For methods requiring a holder auth session, deny if it's absent
 requires_holder_session if {
-  method_policy.requiresHolderAuthSession == true
+  method_policy_item.requiresHolderAuthSession == true
 }
 
 # Export control gate: block custody transfers to ATT/Wassenaar restricted jurisdictions
 export_restricted if {
   nsid in {"com.etzhayyim.apps.arms.transferCustody", "com.etzhayyim.apps.arms.reportIncident"}
-  some jur in data.export_restricted_jurisdictions
+  some jur in data.etzhayyim.xrpc.arms.export_restricted_jurisdictions
   input.params.destinationJurisdiction == jur
 }
 
@@ -51,7 +51,7 @@ allow if {
 }
 
 allow if {
-  not method_policy.requiresAuth
+  not method_policy_item.requiresAuth
   public_read
   not export_restricted
 }

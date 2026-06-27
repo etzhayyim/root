@@ -1,5 +1,10 @@
 # atproto-pds-local — Phase 1 bring-up runbook (mini-01 → mini-04)
 
+> **Status: `dev-scaffold` — per ADR-2606242330** (PDS consolidation).
+> Local Bun reference `@atproto/pds` for dev / upstream-compat checks only — NOT the
+> canonical PDS. The canonical `pds.etzhayyim.com` stack is clj-on-kotoba
+> (`50-infra/etzhayyim-atproto-pds-clj`) + kotoba-server + aozora AppView.
+
 Local PDS (AT Protocol Personal Data Server) + Kubo IPFS for the etzhayyim Mac-mini fleet. Phase 1 of the artificial-organism bootstrap (per the substrate ADRs).
 
 ## What this gives you

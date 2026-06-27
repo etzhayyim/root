@@ -586,3 +586,23 @@
        "- Influence readouts are edge-integrals (N1), an analytic lens — never a per-soul score,"
        "  a verdict on a tradition's truth (N3), or a ranking of human worth (N4)."
        "- Outward / live ingest (archives, citation graphs) + any published post is G7+Council-gated."]))))
+
+#?(:clj
+   (defn -main
+     "CLI entry: mirrors analyze_influence.main — [seed.edn] [--out OUTDIR]. ADR-2606261200
+     cljc-native operator leg (was `python3 methods/analyze_influence.py`)."
+     [& argv]
+     (let [argv (vec argv)
+           args (vec (remove #(str/starts-with? % "--") argv))
+           here (let [f  (when (and *file* (not (str/blank? *file*))) (io/file *file*))
+                      pp (some-> f .getAbsoluteFile .getParentFile .getParentFile)]
+                  (if (and pp (.isDirectory (io/file pp "data"))) pp (io/file "20-actors" "tsumugi")))
+           seed (if (seq args) (io/file (first args)) (io/file here "data" "seed-influence-history.kotoba.edn"))
+           out  (if (some #{"--out"} argv) (io/file (nth argv (inc (.indexOf argv "--out")))) (io/file here "out"))
+           [nodes flows] (load seed)
+           result (analyze nodes flows)]
+       (.mkdirs out)
+       (spit (io/file out "influence-graph.kotoba.edn") (render-influence-graph-edn result))
+       (spit (io/file out "influence-report.md") (render-influence-report result))
+       (println (str "[tsumugi/influence] " (count nodes) " nodes · " (count flows)
+                     " flows → " (.getPath (io/file out "influence-report.md")))))))
