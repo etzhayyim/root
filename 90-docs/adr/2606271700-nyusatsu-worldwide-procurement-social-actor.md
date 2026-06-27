@@ -163,12 +163,42 @@ The legacy single JP-template `derive` is replaced by a `networkPost` projection
   (ADR-0018); off-graph encrypted.
 - **G6 robots/legality** — per-source robots.txt + rate-limit; rely on each jurisdiction's
   publication-mandate (e.g. JP 会計法29条/地方自治法234条/情報公開法; EU TED mandate; etc.).
-- **G7 no-server-key** — posts member-signed; no per-tender/per-bidder score.
-- **G8 outward-gated** — live ingest + live posting = Council Lv6+ + operator; R0 dry-run;
-  `ingest --live` REFUSED.
+- **G7 no-server-key (non-custodial — NOT anti-automation)** — nyusatsu holds NO
+  platform-custodial unilateral signing key in a hosted Worker/pod/CronJob/CI. It MAY act
+  autonomously: (a) **read-only public ingest is exempt** — the actor fetches OCDS/REST
+  sources itself, no key, no operator (ADR-2606072802 clarification); (b) **autonomous
+  writes/posts are permitted** when signed by the actor's OWN self-generated `did:key` (seed
+  sealed off-platform in Keychain/1Password, present-only) and attributed to a consenting
+  member via a CACAO leash (ADR-2605231525 + ADR-2606111400; the deployed kaname/ibuki/
+  tsubasa pattern). No per-tender/per-bidder score. **`no-server-key` ≠ "do not automate/
+  post/push"** — it forbids only a custodial central key.
+- **G8 outward-gated (the DISTINCT governance lever)** — what holds live PUBLICATION back is
+  Council Lv6+ attestation (= PR-review in Bootstrap) + member signature, NOT G7. Until G8 is
+  unlocked, social posts are `:dry-run` and award→contract / external writes are withheld.
+  **Do not conflate G7 with G8**: a read-only public ingest needs neither a key (G7-exempt)
+  nor a Council gate (G8 gates outbound publication, not inbound observation) — so the ingest
+  cell runs autonomously *before* G8; only posting/writing waits on G8.
 - **G9 map-not-target** — outputs serve transparency/SME-access/market visibility; never a
   "who-to-influence/lobby/collude" target-list.
 - **G10 sourcing-honesty** — `:representative` (synthetic seed) vs `:authoritative` declared per datom.
+
+### 6.1 Two distinct levers (do not conflate)
+
+`no-server-key` (G7) and `outward-gated` (G8) are orthogonal charter levers; an earlier draft
+conflated them. To be explicit:
+
+| | **G7 no-server-key** | **G8 outward-gated** |
+|---|---|---|
+| Concern | *who holds the signing key* (non-custody / anti-centralization) | *when outbound publication is allowed* (governance) |
+| Forbids | a platform-custodial unilateral key in a hosted Worker/pod/CI | live posting / external writes before Council attestation |
+| Read-only ingest | **exempt** — autonomous fetch, no key | **not gated** — ingest is inbound, not outbound |
+| Autonomous write/post | **allowed** via actor self-`did:key` (sealed off-platform) + member CACAO leash | allowed once G8 is unlocked (member-signed) |
+| Lifts at | never (it is a standing non-custody invariant) | R3, by Council Lv6+ = PR-review attestation |
+
+Consequence for residence: nyusatsu can **run resident and ingest the world's procurement
+autonomously at R2** (G7-clean, G8-irrelevant for inbound); only the *outbound* social post /
+contract write waits for the G8 unlock. There is no charter bar on a resident actor that
+posts or pushes — only on a *custodial central key* doing so unilaterally.
 
 ## 7. Shinka (self-evolution) loop
 
@@ -180,10 +210,20 @@ a **world coverage snapshot** (jurisdictions covered / OCDS-native vs HTML / fre
 
 - **R0 (this ADR)**: `manifest.edn` + `registry/sources.edn` + `govFiscal.procurementBid`
   lexicon spec + clj method scaffolds raising R0; JP rows imported; seed = `:representative`.
-- **R1**: clj `ingest.clj`/`normalize.clj` green offline over OCDS-native jurisdictions
-  (UA ProZorro, UK FTS, MX, AU) + JP GEPS; dry-run posts.
-- **R2**: live ingest (Council Lv6+) on OCDS-native tier; coverage snapshot live.
-- **R3**: HTML/PDF fallback tier (Murakumo extract); live posting on member signature.
+- **R1** (landed): clj `edn`/`normalize`/`ingest`/`social` green OFFLINE over OCDS-native
+  jurisdictions + JP; dry-run posts; 24 tests / 67 assertions green.
+- **R2 — RESIDENCE + autonomous read-only ingest** (kaname/ibuki/tsubasa pattern):
+  `autorun.cljc` heartbeat + `cell.cljc` registered in `50-infra/.../cell-runner/cells.edn`
+  (cron) + launchd `LaunchAgent` (OS residence, not a `nohup &`) + `kotoba_bridge.cljc`
+  (commit-DAG → live kotoba Datom log; actor self `did:key` sealed off-platform + member CACAO
+  leash; exactly-once cursor; fail-open). **Read-only OCDS ingest runs AUTONOMOUSLY here —
+  G7-exempt, NOT G8-gated** (the actor fetches public sources itself, no operator). Bids
+  persist `:representative`→`:authoritative`; coverage snapshot live. Social posts stay
+  `:dry-run`/`:prepared`.
+- **R3 — OUTBOUND unlock (G8 = Council Lv6+ PR-review attestation)**: live social posting on
+  member signature + award→contract writes; the HTML/PDF fallback tier (Murakumo extract) for
+  non-OCDS jurisdictions (e.g. JP GEPS). GitHub/PR push, where used, is **member-/operator-
+  principal** (their own credentials or the actor's leashed self-key), never a platform key.
 
 # Consequences
 
