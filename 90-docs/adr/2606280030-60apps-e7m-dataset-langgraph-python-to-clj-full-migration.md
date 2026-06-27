@@ -90,25 +90,25 @@ Status: ⬜ pending · 🟡 in-flight · ✅ migrated (cljc twin verified, .py r
 | etzhayyim-project-jukyu | 21 | 1 | ✓ | ⬜ |
 | etzhayyim-project-states | 20 | 0 | | ⬜ |
 | etzhayyim-project-hakken | 19 | 10 | ✓ | ⬜ |
-| ai-gftd-chat-shell | 17 | 2 | ✓ | ⬜ |
-| etzhayyim-chat-shell | 17 | 2 | ✓ | ⬜ |
-| etzhayyim-project-kyber | 17 | 3 | ✓ | ⬜ |
+| ai-gftd-chat-shell | 17 | 2 | ✓ | 🟢 twin #2631 |
+| etzhayyim-chat-shell | 17 | 2 | ✓ | 🟢 twin #2634 |
+| etzhayyim-project-kyber | 17 | 3 | ✓ | 🟢 twin #2632 |
 | etzhayyim-project-open-robo | 16 | 0 | | ⬜ |
 | etzhayyim-project-common-crawl | 16 | 2 | | ⬜ |
-| etzhayyim-project-docs | 14 | 2 | ✓ | ⬜ |
-| etzhayyim-project-sheets | 14 | 2 | ✓ | ⬜ |
-| etzhayyim-project-media-gamers | 13 | 4 | ✓ | ⬜ |
-| etzhayyim-project-calendar | 12 | 2 | ✓ | ⬜ |
-| etzhayyim-project-narou | 12 | 2 | ✓ | ⬜ |
-| etzhayyim-project-webmk | 12 | 1 | ✓ | ⬜ |
+| etzhayyim-project-docs | 14 | 2 | ✓ | 🟢 twin #2627 |
+| etzhayyim-project-sheets | 14 | 2 | ✓ | 🟢 twin #2626 |
+| etzhayyim-project-media-gamers | 13 | 4 | ✓ | 🟢 twin #2629 |
+| etzhayyim-project-calendar | 12 | 2 | ✓ | 🟢 twin #2625 |
+| etzhayyim-project-narou | 12 | 2 | ✓ | 🟢 twin #2623 |
+| etzhayyim-project-webmk | 12 | 1 | ✓ | 🟢 twin #2620 |
 | etzhayyim-organism-viz | 11 | 0 | | ⬜ |
-| etzhayyim-project-drive | 11 | 2 | ✓ | ⬜ |
+| etzhayyim-project-drive | 11 | 2 | ✓ | 🟢 twin #2624 |
 | etzhayyim-project-patent | 11 | 0 | ✓ | ⬜ |
-| etzhayyim-project-x | 11 | 3 | ✓ | ⬜ |
+| etzhayyim-project-x | 11 | 3 | ✓ | 🟢 twin #2628 |
 | etzhayyim-project-open-isic | 10 | 0 | ✓ | ⬜ |
 | etzhayyim-project-open-patent | 10 | 0 | ✓ | ⬜ |
-| etzhayyim-project-recap | 10 | 1 | ✓ | ⬜ |
-| etzhayyim-project-dougaka | 8 | 1 | ✓ | ⬜ |
+| etzhayyim-project-recap | 10 | 1 | ✓ | 🟢 twin #2622 |
+| etzhayyim-project-dougaka | 8 | 1 | ✓ | 🟢 twin #2621 |
 | etzhayyim-project-lawfirm | 7 | 0 | ✓ | ⬜ |
 | etzhayyim-project-open-jpn-mynumber | 7 | 0 | ✓ | ⬜ |
 | etzhayyim-project-browser | 6 | 1 | | ⬜ |
@@ -165,3 +165,13 @@ Status: ⬜ pending · 🟡 in-flight · ✅ migrated (cljc twin verified, .py r
 
 This ADR is the migration SSoT. Each wave appends its landed PRs here. The fan-out is
 driven by multi-agent orchestration; per-app status lives in the inventory table above.
+
+## Wave log
+
+- **Wave 1 (2026-06-27)** — 13 small/medium lg apps migrated to langgraph-clj twins
+  (additive, coexist; python still deployed). All bb-verified green; merged #2620–#2634:
+  webmk #2620, dougaka #2621, recap #2622, narou #2623, drive #2624, calendar #2625,
+  sheets #2626, docs #2627, x #2628, media-gamers #2629, ai-gftd-chat-shell #2631,
+  kyber #2632, etzhayyim-chat-shell #2634. **httpx not yet eliminated** — each app's
+  deployment cutover (langgraph.json/Dockerfile/Helm → clj runtime + retire .py) is a
+  dedicated follow-up pass after all twins are built.
