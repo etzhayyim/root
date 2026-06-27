@@ -9,9 +9,9 @@ toritate's non-market commons-asset STOCK.
 | Dimension | State |
 |---|---|
 | Lexicons | ✅ 4 under `com.etzhayyim.kenchi.*` (valuation / regionReport / provenanceAttestation / sourceLicense) |
-| Cells | 🟡 6 path-reserved over the `com-junkawasaki/kenchi-actor` engine (R0) |
+| Cells | 🟡 6 path-reserved over the `com-junkawasaki/kenchi-clj` engine (R0) |
 | Manifest | ✅ present (10 gates / 10 non-goals / R0–R3 roadmap) |
-| Engine | ✅ real & tested upstream — `com-junkawasaki/kenchi-actor` (18 tests / 60 assertions green; live HM Land Registry + BIS + Common Crawl) |
+| Engine | ✅ real & tested upstream — `com-junkawasaki/kenchi-clj` (18 tests / 60 assertions green; live HM Land Registry + BIS + Common Crawl) |
 | Tests | ✅ `methods/test_charter_gates.py` — pins G3/G4/G5/G6 + N8 at the schema layer; `./run_tests.sh` |
 | Source registry | ✅ `valuation/v1-sources.json` (open authorities; flywheel recalibrates priors) |
 

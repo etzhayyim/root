@@ -8,7 +8,7 @@
 - **Parent ADRs**: ADR-2605192245 (Land Trust sovereignty), ADR-2605192330 (extended land sovereignty), ADR-2605262900 (toritate sibling), ADR-2605192200 (Charter Rider), ADR-2605215000 (Murakumo-only inference)
 - **Sibling**: toritate (執帳) — internal on-chain accounting + non-market commons-asset value
 - **Status**: R0 scaffold — 6 cells path-reserved + 4 Lexicon skeletons
-- **Implementation**: `com-junkawasaki/kenchi-actor` (langgraph-clj engine)
+- **Implementation**: `com-junkawasaki/kenchi-clj` (langgraph-clj engine)
 - **Form**: 公共財 external-market valuation + transparency substrate (NOT a brokerage / AVM vendor / appraisal firm / 法人格)
 
 ## Constitutional Discipline (CRITICAL — IMMUTABLE)
@@ -50,5 +50,5 @@ never collide on the inalienable Trust. External price ≠ internal access value
 - Never add an `owner`/`person`/PII field to `valuation` (G6). Never add a
   `license` value outside `{open, derived-only}` to a *published* record (G4).
   Never broaden `assetClass` beyond `external-market` (G5).
-- The compute lives in `com-junkawasaki/kenchi-actor`; this cell is the
+- The compute lives in `com-junkawasaki/kenchi-clj`; this cell is the
   published identity + charter + contracts. Don't fork the engine here.

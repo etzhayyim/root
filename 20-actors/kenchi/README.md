@@ -5,7 +5,7 @@
 **ADR**: ADR-2606272030 (R0 scaffold)
 **Status**: R0 scaffold (2026-06-27) — 6 cells path-reserved + 4 Lexicon skeletons
 **Parent ADRs**: ADR-2605192245 (Land Trust sovereignty — the inalienable-land boundary), ADR-2605192330 (extended land sovereignty), ADR-2605262900 (toritate — sibling boundary)
-**Implementation**: `git@github.com:com-junkawasaki/kenchi-actor` (langgraph-clj engine)
+**Implementation**: `git@github.com:com-junkawasaki/kenchi-clj` (langgraph-clj engine)
 
 > **検地** (*Taikō Kenchi*) — the cadastral land survey that first measured and
 > ledgered land value across an entire realm. This actor is that survey for the
