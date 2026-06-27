@@ -92,7 +92,7 @@ if [ "$TEST" -eq 1 ]; then
       exit 1
     fi
   else
-    echo "── pytest suite (36 files / 419 tests) ──"
+    echo "── pytest suite (35 files / 411 tests) ──"
     if ! PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytest \
          70-tools/scripts/audit/test_adr_cross_ref_health.py \
          70-tools/scripts/audit/test_manifest_lexicon_drift.py \
@@ -108,7 +108,6 @@ if [ "$TEST" -eq 1 ]; then
          70-tools/scripts/audit/test_mitate_invariants.py \
          70-tools/scripts/audit/test_futawa_invariants.py \
          70-tools/scripts/audit/test_watatsumi_invariants.py \
-         70-tools/scripts/audit/test_kamado_invariants.py \
          70-tools/scripts/audit/test_nusa_invariants.py \
          70-tools/scripts/audit/test_todoke_invariants.py \
          70-tools/scripts/audit/test_hotaru_invariants.py \
@@ -134,6 +133,19 @@ if [ "$TEST" -eq 1 ]; then
       echo "pytest suite FAILED — see output above" >&2
       exit 1
     fi
+
+    # cljc audit invariant tests (py→cljc port wave, ADR-2606160842): the kamado
+    # feedstock guard moved to feedstock_guard.cljc, so its invariant lock-in is
+    # now bb, not pytest. Run every test_*.clj under the audit dir via babashka.
+    echo "── cljc audit invariants (bb) ──"
+    for t in 70-tools/scripts/audit/test_*.clj; do
+      [ -e "$t" ] || continue
+      echo "  bb $t"
+      if ! bb "$t"; then
+        echo "cljc audit test FAILED: $t" >&2
+        exit 1
+      fi
+    done
   fi
 fi
 
