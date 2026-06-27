@@ -22,7 +22,7 @@
          :git/sha "ec077bca1f90027bc718557f1e8bb6fbc004fe5a"}
         com-junkawasaki/multiformats-clj
         {:git/url "https://github.com/com-junkawasaki/multiformats-clj"
-         :git/sha "e102733fe5a1db9d6d2ec103bc8563ae81128a17"}
+         :git/sha "e3a75a6376441cbf7aaefefce463b404b4254404"}
         com-junkawasaki/dag-cbor-clj
         {:git/url "https://github.com/com-junkawasaki/dag-cbor-clj"
          :git/sha "52b008d96820660196ee8dd15e7d213c9022a6b5"}
