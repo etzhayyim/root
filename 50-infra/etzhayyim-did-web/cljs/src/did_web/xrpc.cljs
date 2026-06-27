@@ -314,18 +314,23 @@
       ;; browser-complete / no-server-state architecture). A repo not yet
       ;; published to the edge falls through to the PDS proxy (route-after-…).
       (and read? (= nsid "com.atproto.sync.getRepo"))
-      (let [did (or (.get (.-searchParams (js/URL. (.-url request))) "did") "")
-            kv  (e env "ACTOR_KV")]
-        (if (and (not= did "") kv)
-          (-> (.get kv (str "at-repo:" did) #js {:type "arrayBuffer"})
-              (.then (fn [car]
-                       (if car
-                         (js/Response. car
+      ;; AT-repo content-addressed edge serving (ADR-2606272300): serve the actor
+      ;; repo CAR from a STATIC asset (./public/at-repo/<handle>.car) via the
+      ;; ASSETS binding — deterministic, no operated server, no KV consistency gap.
+      ;; A repo not bundled falls through to the PDS proxy (route-after-…).
+      (let [did    (or (.get (.-searchParams (js/URL. (.-url request))) "did") "")
+            handle (last (.split did ":"))
+            assets (e env "ASSETS")]
+        (if (and handle (not= handle "") assets)
+          (-> (.fetch assets (js/Request. (str "https://assets.local/at-repo/" handle ".car")))
+              (.then (fn [resp]
+                       (if (and resp (= 200 (.-status resp)))
+                         (js/Response. (.-body resp)
                                        #js {:status 200
                                             :headers #js {"content-type" "application/vnd.ipld.car; version=1"
-                                                          "cache-control" "public, max-age=60"
+                                                          "cache-control" "public, max-age=300"
                                                           "x-proxied-by" "etzhayyim-did-web"
-                                                          "x-etzhayyim-substrate" "edge-content-addressed"}})
+                                                          "x-etzhayyim-substrate" "edge-static-car"}})
                          (route-after-shortcircuits request env nsid deps))))
               (.catch (fn [_] (route-after-shortcircuits request env nsid deps))))
           (route-after-shortcircuits request env nsid deps)))
