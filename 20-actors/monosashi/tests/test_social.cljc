@@ -89,3 +89,16 @@
       (is (false? (:appended? r2)) "S3: identical re-run is a no-op (idempotent-by-content)")
       (is (= 1 (count (kotoba/read-log log))) "exactly one tx in the log")
       (io/delete-file log true))))
+
+(deftest s3-autorun-appends-when-post-content-changes
+  (let [log (str (io/file (System/getProperty "java.io.tmpdir")
+                          (str "monosashi-post-change-" (hash band) ".edn")))
+        base {:as-of "2026-06-27T00:00:00Z" :tx-id "c1" :log log}
+        published (assoc base :tx-id "c2" :status ":published" :author member)]
+    (io/delete-file log true)
+    (let [r1 (autorun/run-cycle seed base)
+          r2 (autorun/run-cycle seed published)]
+      (is (true? (:appended? r1)) "first cycle appends")
+      (is (true? (:appended? r2)) "post status/author change appends a new tx")
+      (is (= 2 (count (kotoba/read-log log))) "both post states are preserved")
+      (io/delete-file log true))))
