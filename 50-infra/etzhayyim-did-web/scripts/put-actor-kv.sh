@@ -35,7 +35,7 @@ HANDLE="${1:?usage: put-actor-kv.sh <handle>}"
 NS="d33de8e083874cf5b8e2dbdb637ccdb4"   # ACTOR_KV namespace id (see wrangler.toml)
 
 cd "$(dirname "$0")/.."
-node scripts/publish-actor-records.mjs --actor "$HANDLE" >/dev/null
+npx nbb scripts/publish-actor-records.cljs --actor "$HANDLE" >/dev/null
 REC="out/actor-records/${HANDLE}.record.json"
 [ -f "$REC" ] || { echo "no materialized record: $REC" >&2; exit 1; }
 
