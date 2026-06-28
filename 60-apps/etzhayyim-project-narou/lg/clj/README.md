@@ -2,10 +2,14 @@
 
 clj/bb twin of `lg_narou/**.py`: the narou LangGraph graphs + OSS server,
 ported langgraph-python → **langgraph-clj** per ADR-2606280030 (and the
-repo-wide clj/bb rule). **Coexistence: the `.py` modules are unchanged and
-still drive the live deploy** (`langgraph.json` graphs → `*.py:GRAPH`,
-`Dockerfile` → `uvicorn lg_narou.server:app`). Nothing is retired; the clj
-port runs alongside until a human flips the runtime.
+repo-wide clj/bb rule). **The clj twin is now CANONICAL** — the twinned
+`lg_narou/**.py` modules (server / audit / cron / graphs) + their python
+scaffolding (`pyproject.toml` / `langgraph.json` / `Dockerfile` / `tests/`)
+have been deleted (founder directive "twin の py を削除", DEV-stage). The
+RisingWave `checkpointer.py` was deleted with the package: it was imported
+only by the deleted `server.py`, RisingWave is charter-deprecated
+(ADR-2605262130/2605312345), and langgraph-clj checkpoints are
+datomic-isomorphic — the clj server compiles graphs without it.
 
 ## Layout (`clj/` source root, scoped `bb.edn`)
 
@@ -17,10 +21,11 @@ port runs alongside until a human flips the runtime.
 | `lg-narou.cron` | `lg_narou/cron.cljc` | `cron.py` | cron spec loader + `_rotateSceneByEpoch` fire-input shaping |
 | `lg-narou.server` | `lg_narou/server.cljc` | `server.py` | httpkit server: `/ok /health /runs /runs/stream /xrpc/{nsid} /threads/{tid}/state` |
 
-`checkpointer.py` is **intentionally not ported** — it is a RisingWave/Postgres
+`checkpointer.py` had **no `.cljc` twin** — it was a RisingWave/Postgres
 `AsyncPostgresSaver` subclass, and the charter deprecates RisingWave in favour
 of the kotoba Datom log (ADR-2605262130/2605312345). langgraph-clj checkpoints
-are datomic-isomorphic; the clj server compiles graphs without it.
+are datomic-isomorphic; the clj server compiles graphs without it. It was
+deleted with the python package (its only importer was the deleted `server.py`).
 
 ## Run (bb)
 
