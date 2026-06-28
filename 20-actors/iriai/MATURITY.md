@@ -16,7 +16,7 @@
 - [x] persistence — `methods/kotoba.cljc` (content-addressed append-only commit-DAG, verify-chain)
 - [x] heartbeat — `methods/autorun.cljc` (5 layers; deterministic, idempotent-by-content, resume-safe)
 - [x] seed loader — `methods/iriai_edn.cljc`
-- [x] tests — 12 suites, **73 tests / 499 assertions green** (bb)
+- [x] tests — 13 suites, **79 tests / 512 assertions green** (bb)
 - [x] runner — `run_tests.clj` (bb-native, no shell, ADR-2606072802)
 - [x] docs — README.md + CLAUDE.md + this MATURITY.md
 - [x] ADRs — `2606272200` (commons) + `2606280900` (twin + maintenance + road)
