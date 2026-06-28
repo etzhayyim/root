@@ -1,6 +1,10 @@
 {;; Independent etzhayyim atproto PDS — babashka runner (no external deps; uses
  ;; bb built-in org.httpkit.server / cheshire / babashka.http-client).
- :paths ["src" "test"]
+ ;; The repo data-structure layer (dag-cbor / CIDv1 / MST / commit) is the SIBLING
+ ;; app-aozora-repo lib (golden-verified vs @atproto/repo) — on the classpath here,
+ ;; NOT re-implemented. Resolves in the monorepo checkout where the
+ ;; PDS runs `bb serve` (both are tracked siblings under 50-infra/).
+ :paths ["src" "test" "../app-aozora-repo/src"]
  :tasks
  {serve
   {:doc "Run the PDS HTTP server (PORT, PDS_HOST, KOTOBA_URL env overridable)."
@@ -15,6 +19,7 @@
               [etzhayyim.pds.keys-test] [etzhayyim.pds.actorkeys-test]
               [etzhayyim.pds.client-test] [etzhayyim.pds.drain-test]
               [etzhayyim.pds.leash-test] [etzhayyim.pds.repo-test]
+              [etzhayyim.pds.repo-conformance-test]
               [etzhayyim.pds.integration-test] [etzhayyim.pds.account-test]
               [etzhayyim.pds.blob-test] [etzhayyim.pds.lexicon-test]
               [etzhayyim.pds.store-test])
@@ -29,6 +34,7 @@
                                                  'etzhayyim.pds.drain-test
                                                  'etzhayyim.pds.leash-test
                                                  'etzhayyim.pds.repo-test
+                                                 'etzhayyim.pds.repo-conformance-test
                                                  'etzhayyim.pds.integration-test
                                                  'etzhayyim.pds.account-test
                                                  'etzhayyim.pds.blob-test

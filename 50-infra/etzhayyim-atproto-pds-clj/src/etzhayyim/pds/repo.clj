@@ -2,20 +2,33 @@
   "atproto repo federation primitives — the com.atproto.sync.* read surface so the
   repo can be crawled by a relay / AppView.
 
-  Implements, from scratch (no SDK): deterministic DAG-CBOR encoding, CIDv1
-  (dag-cbor / sha2-256), a Merkle Search Tree over the repo's records following
-  the atproto reference layering (2 leading-zero-bits per level), an Ed25519-signed
-  commit object, and CAR v1 serialization.
+  The repo DATA-STRUCTURE layer (deterministic DAG-CBOR, CIDv1(dag-cbor/sha2-256),
+  the Merkle Search Tree, and the unsigned-commit object it anchors) is DELEGATED to
+  the canonical, golden-verified library `etzhayyim.aozora.repo.*` (app-aozora-repo) —
+  whose MST root CIDs are byte-identical to the official `@atproto/repo`
+  `MST.create(...).getPointer()` (its mst_test golden vectors were produced by a node
+  harness against @atproto/repo + multiformats). This namespace keeps ONLY the
+  PDS-specific glue: blob raw-CIDs (codec 0x55), did:key Multikey publication, the
+  persisted Ed25519 signing keypair, the inbound CAR→records import, and the
+  build-repo / CAR / firehose orchestration.
 
-  Conformance note (R1): the MST + commit follow the atproto reference algorithm
-  and the encoders are round-trip + cross-checked in tests (CID determinism, CAR
-  parse, sign/verify). Byte-exact validation against a LIVE relay + publishing the
-  commit signing key in the did:web document (so a relay can verify `sig`) is the
-  remaining federation step — until then this PDS *serves* a well-formed repo CAR
-  but is not yet registered with a relay."
+  Consolidation note: this was previously a SECOND, from-scratch
+  implementation of the same primitives. A byte-for-byte conformance gate proved the
+  DAG-CBOR / CID / signed-commit encoders were already identical to the lib, but the
+  two MSTs DIVERGED — and the prior in-house MST was unverified (its own docstring
+  flagged byte-exact validation as 'the remaining federation step'), producing
+  non-spec roots. Delegating to the golden-verified lib both removes the duplication
+  (~160 LOC) AND fixes spec-conformance. Safe to change: the PDS is not yet
+  relay-registered, so no cached external CID depends on the old (wrong) roots.
+  A regression test (`repo-conformance-test`) pins this namespace to the lib's
+  @atproto golden vectors."
   (:require [clojure.string :as str]
             [clojure.java.io :as io]
             [clojure.edn :as edn]
+            [etzhayyim.aozora.repo.dag-cbor :as dc]
+            [etzhayyim.aozora.repo.cid :as acid]
+            [etzhayyim.aozora.repo.mst :as amst]
+            [etzhayyim.aozora.repo.blockstore :as abs]
             [etzhayyim.pds.datom :as d])
   (:import [java.io ByteArrayOutputStream]
            [java.math BigInteger]
@@ -23,183 +36,80 @@
            [java.security.spec PKCS8EncodedKeySpec X509EncodedKeySpec]
            [java.util Base64 Arrays]))
 
-;; ── hashing / base32 ─────────────────────────────────────────────────────────
+;; ── hashing / base64 ─────────────────────────────────────────────────────────
 
 (defn- sha256 ^bytes [^bytes b]
   (.digest (MessageDigest/getInstance "SHA-256") b))
 
-(def ^:private b32 "abcdefghijklmnopqrstuvwxyz234567")
+(defn- b64e [^bytes b] (.encodeToString (Base64/getEncoder) b))
+(defn- b64d ^bytes [^String s] (.decode (Base64/getDecoder) s))
 
-(defn- base32-lower [^bytes raw]
-  (let [bits (mapcat (fn [byte] (map #(bit-and (bit-shift-right (bit-and (int byte) 0xff) %) 1) [7 6 5 4 3 2 1 0])) (seq raw))]
-    (->> (partition 5 5 (repeat 0) bits)
-         (map (fn [c] (.charAt b32 (reduce #(+ (* %1 2) %2) 0 c))))
-         (apply str))))
-
-;; ── DAG-CBOR (deterministic) ─────────────────────────────────────────────────
-;; A CID link is represented as {::cid <byte-array>}.
+;; ── DAG-CBOR + CID (delegated to the canonical lib) ──────────────────────────
+;; This namespace threads a CID link as {::cid <binary-cid-bytes>} (the form the
+;; CAR / commit-frame / import glue uses); the lib threads it as a CidLink wrapping
+;; the base32 cid STRING. `->lib` / `->b` bridge the two reprs at the encode/decode
+;; boundary so the glue is unchanged but the bytes are the lib's (golden) bytes.
 
 (defn cid-link [^bytes cid-bytes] {::cid cid-bytes})
 (defn cid-link? [x] (and (map? x) (contains? x ::cid)))
 
-(defn- w-type [^ByteArrayOutputStream out major n]
-  (let [m (bit-shift-left major 5)]
-    (cond
-      (< n 24)         (.write out (int (+ m n)))
-      (< n 0x100)      (do (.write out (int (+ m 24))) (.write out (int n)))
-      (< n 0x10000)    (do (.write out (int (+ m 25)))
-                           (.write out (int (bit-and (bit-shift-right n 8) 0xff)))
-                           (.write out (int (bit-and n 0xff))))
-      (< n 0x100000000) (do (.write out (int (+ m 26)))
-                            (doseq [s [24 16 8 0]] (.write out (int (bit-and (bit-shift-right n s) 0xff)))))
-      :else            (do (.write out (int (+ m 27)))
-                           (doseq [s [56 48 40 32 24 16 8 0]] (.write out (int (bit-and (bit-shift-right n s) 0xff))))))))
+(defn cid-str
+  "Base32 'b'-multibase string of binary CID bytes (version‖codec‖multihash)."
+  [^bytes cid-bytes] (dc/binary->cid-str cid-bytes))
 
-(defn- map-key-order
-  "DAG-CBOR sorts map keys length-first, then bytewise."
-  [ks]
-  (sort-by (fn [k] (let [b (.getBytes ^String k "UTF-8")] [(alength b) (vec b)])) ks))
-
-(defn- encode! [^ByteArrayOutputStream out v]
+(defn- ->lib
+  "Recursively rewrite this ns's {::cid bytes} links to the lib's CidLink(string)."
+  [v]
   (cond
-    (cid-link? v)
-    (do (w-type out 6 42)                                  ; tag 42
-        (let [cb ^bytes (::cid v)
-              wrapped (byte-array (inc (alength cb)))]
-          (aset-byte wrapped 0 (byte 0))                   ; 0x00 multibase identity prefix
-          (System/arraycopy cb 0 wrapped 1 (alength cb))
-          (w-type out 2 (alength wrapped))
-          (.write out wrapped)))
+    (cid-link? v)   (dc/cid-link (cid-str (::cid v)))
+    (map? v)        (into (empty v) (map (fn [[k val]] [k (->lib val)])) v)
+    (sequential? v) (mapv ->lib v)
+    :else v))
 
-    (string? v)
-    (let [b (.getBytes ^String v "UTF-8")] (w-type out 3 (alength b)) (.write out b))
+(defn- ->b
+  "Recursively rewrite the lib's decoded CidLink(string) back to {::cid bytes}."
+  [v]
+  (cond
+    (dc/cid-link? v) {::cid (dc/cid-str->binary (:cid v))}
+    (map? v)         (into {} (map (fn [[k val]] [k (->b val)])) v)
+    (sequential? v)  (mapv ->b v)
+    :else v))
 
-    (bytes? v)
-    (do (w-type out 2 (alength ^bytes v)) (.write out ^bytes v))
+(defn dag-cbor ^bytes [v] (dc/encode (->lib v)))
+(defn dag-cbor-decode [^bytes ba] (->b (dc/decode ba)))
 
-    (integer? v)
-    (if (>= v 0) (w-type out 0 v) (w-type out 1 (dec (- v))))
-
-    (boolean? v)
-    (.write out (int (if v 0xf5 0xf4)))
-
-    (nil? v)
-    (.write out (int 0xf6))
-
-    (map? v)
-    (let [ks (map-key-order (map name (keys v)))]
-      (w-type out 5 (count ks))
-      (doseq [k ks]
-        (encode! out k)
-        (encode! out (or (get v k) (get v (keyword k))))))
-
-    (sequential? v)
-    (do (w-type out 4 (count v)) (doseq [x v] (encode! out x)))
-
-    :else (throw (ex-info "dag-cbor: unencodable" {:v v}))))
-
-(defn dag-cbor ^bytes [v]
-  (let [out (ByteArrayOutputStream.)] (encode! out v) (.toByteArray out)))
-
-;; ── CIDv1 (dag-cbor / sha2-256) ──────────────────────────────────────────────
-
-(defn cid-of-bytes ^bytes [^bytes block]
-  (let [d (sha256 block)
-        b (byte-array (+ 4 (alength d)))]
-    (aset-byte b 0 (byte 0x01)) (aset-byte b 1 (byte 0x71))  ; cidv1, dag-cbor
-    (aset-byte b 2 (byte 0x12)) (aset-byte b 3 (byte 0x20))  ; sha2-256, 32 bytes
-    (System/arraycopy d 0 b 4 (alength d))
-    b))
+(defn cid-of-bytes
+  "Binary CIDv1(dag-cbor / sha2-256) of already-encoded dag-cbor `block`."
+  ^bytes [^bytes block]
+  (dc/cid-str->binary (acid/cid-of-cbor block)))
 
 (defn raw-cid-of-bytes
-  "CIDv1 raw (0x55) / sha2-256 — for blobs (opaque bytes, not dag-cbor)."
+  "CIDv1 raw (codec 0x55) / sha2-256 — for blobs (opaque bytes, not dag-cbor).
+  PDS-local: the lib is dag-cbor-only, blobs are not repo records."
   ^bytes [^bytes block]
   (let [d (sha256 block)
         b (byte-array (+ 4 (alength d)))]
-    (aset-byte b 0 (byte 0x01)) (aset-byte b 1 (byte 0x55))  ; cidv1, raw
-    (aset-byte b 2 (byte 0x12)) (aset-byte b 3 (byte 0x20))  ; sha2-256, 32 bytes
+    (aset-byte b 0 (byte 0x01)) (aset-byte b 1 (byte 0x55))   ; cidv1, raw
+    (aset-byte b 2 (byte 0x12)) (aset-byte b 3 (byte 0x20))   ; sha2-256, 32 bytes
     (System/arraycopy d 0 b 4 (alength d))
     b))
 
-(defn cid-str [^bytes cid-bytes] (str "b" (base32-lower cid-bytes)))
 (defn block-cid ^bytes [v] (cid-of-bytes (dag-cbor v)))
 
-;; ── MST (atproto reference layering) ─────────────────────────────────────────
-
-(defn leading-zeros
-  "atproto MST depth of a key: 2 leading-zero-bits per level on sha256(key)."
-  [^String key]
-  (let [digest (sha256 (.getBytes key "UTF-8"))]
-    (loop [i 0 z 0]
-      (if (>= i (alength digest))
-        z
-        (let [b (bit-and (aget digest i) 0xff)]
-          (cond
-            (zero? b)  (recur (inc i) (+ z 4))
-            (< b 4)    (+ z 3)
-            (< b 16)   (+ z 2)
-            (< b 64)   (+ z 1)
-            :else      z))))))
-
-(defn- common-prefix-len [^String a ^String b]
-  (let [n (min (count a) (count b))]
-    (loop [i 0] (if (and (< i n) (= (.charAt a i) (.charAt b i))) (recur (inc i)) i))))
-
-;; A node is built recursively: entries at the current layer, with subtrees for
-;; keys that hash to a deeper layer slotted between them.
-
-(defn- build-layer
-  "entries = sorted seq of [key value-cid-bytes]. Returns [node-map blocks] where
-  blocks is a map of cid-str→{:cid bytes :bytes bytes :node map}. Recursively emits
-  child nodes. layer = current tree layer."
-  [entries layer blocks*]
-  (let [at-layer (filter #(= layer (leading-zeros (first %))) entries)
-        ;; split the remaining (deeper) entries into the gaps around at-layer keys
-        boundaries (map first at-layer)
-        deeper (filter #(< (leading-zeros (first %)) layer) entries)  ; never (sorted)
-        subtree (fn [lo hi]
-                  (let [sub (filter (fn [[k _]]
-                                      (and (or (nil? lo) (pos? (compare k lo)))
-                                           (or (nil? hi) (neg? (compare k hi)))
-                                           (< (leading-zeros k) layer))) entries)]
-                    (when (seq sub)
-                      (let [[child cblocks] (build-layer sub (dec layer) blocks*)
-                            cb (dag-cbor child)
-                            cid (cid-of-bytes cb)
-                            cs (cid-str cid)]
-                        (swap! blocks* assoc cs {:cid cid :bytes cb :node child})
-                        (cid-link cid)))))
-        ks (vec boundaries)
-        ;; left subtree (before first key)
-        l (subtree nil (first ks))
-        es (loop [i 0 acc [] prevk nil]
-             (if (>= i (count at-layer))
-               acc
-               (let [[k v] (nth at-layer i)
-                     pfx (if prevk (common-prefix-len prevk k) 0)
-                     t (subtree k (when (< (inc i) (count ks)) (nth ks (inc i))))]
-                 (recur (inc i)
-                        (conj acc (cond-> {:p pfx
-                                           :k (.getBytes (subs k pfx) "UTF-8")
-                                           :v (cid-link v)}
-                                    t (assoc :t t)))
-                        k))))]
-    [{:l l :e es} blocks*]))
+;; ── MST (delegated to the golden-verified lib over an in-memory blockstore) ───
 
 (defn build-mst
-  "Build the MST over record entries → [root-cid-bytes blocks]. entries = seq of
-  [key value-cid-bytes]; key = 'collection/rkey'."
+  "Build the AT-Proto MST over record entries → [root-cid-bytes blocks].
+  entries = seq of [key value-cid-bytes]; key = 'collection/rkey'. `blocks` is a
+  map cid-str→{:cid <bytes> :bytes <bytes>} of the MST NODE blocks (record blocks
+  are added by build-repo). Delegates to etzhayyim.aozora.repo.mst (spec-exact)."
   [entries]
-  (let [entries (sort-by first entries)
-        blocks* (atom {})]
-    (if (empty? entries)
-      (let [node {:l nil :e []} cb (dag-cbor node) cid (cid-of-bytes cb)]
-        [cid {(cid-str cid) {:cid cid :bytes cb :node node}}])
-      (let [maxlayer (apply max (map #(leading-zeros (first %)) entries))
-            [root _] (build-layer entries maxlayer blocks*)
-            cb (dag-cbor root) cid (cid-of-bytes cb)]
-        (swap! blocks* assoc (cid-str cid) {:cid cid :bytes cb :node root})
-        [cid @blocks*]))))
+  (let [store (abs/->mem-blockstore)
+        kvs   (mapv (fn [[k vbytes]] {:key k :val (cid-str vbytes)}) entries)
+        root  (amst/data-root! store kvs)
+        blocks (into {} (for [[cid a b64] (abs/datoms store) :when (= a :block/bytes)]
+                          [cid {:cid (dc/cid-str->binary cid) :bytes (b64d b64)}]))]
+    [(dc/cid-str->binary root) blocks]))
 
 ;; ── Ed25519 signing key (present-only; sealed off-platform in production) ─────
 
@@ -211,9 +121,6 @@
 
 (defn verify [pub ^bytes msg ^bytes sig]
   (let [s (Signature/getInstance "Ed25519")] (.initVerify s pub) (.update s msg) (.verify s sig)))
-
-(defn- b64e [^bytes b] (.encodeToString (Base64/getEncoder) b))
-(defn- b64d ^bytes [^String s] (.decode (Base64/getDecoder) s))
 
 (defn load-or-create-keypair
   "Stable signing key persisted (PKCS8 priv + X509 pub, base64) at `path` — created
@@ -291,7 +198,8 @@
   `signer` is either an Ed25519 PrivateKey (the PDS self-repo key, signed via `sign`) OR
   a fn `(fn [^bytes msg] -> ^bytes sig)` — pass the latter to sign the commit with the
   ACTOR's own sealed P-256 key (Path B), so a relay verifies the commit against the
-  actor's published did:web Multikey, not a shared PDS key."
+  actor's published did:web Multikey, not a shared PDS key. The unsigned-commit shape
+  and signed bytes are byte-identical to etzhayyim.aozora.repo.commit (conformance-pinned)."
   [did ^bytes data-cid rev prev signer]
   (let [unsigned (cond-> {:did did :version 3 :data (cid-link data-cid) :rev rev}
                    prev (assoc :prev (cid-link prev))
@@ -301,7 +209,7 @@
         cb (dag-cbor commit)]
     [(cid-of-bytes cb) cb commit]))
 
-;; ── CAR v1 ───────────────────────────────────────────────────────────────────
+;; ── CAR v1 (PDS-local: A has no inbound CAR parser; B owns the import side) ───
 
 (defn- write-varint [^ByteArrayOutputStream out n]
   (loop [n n]
@@ -325,39 +233,6 @@
     (.write out header)
     (doseq [[_ {:keys [cid bytes]}] blocks] (car-block! out cid bytes))
     (.toByteArray out)))
-
-;; ── DAG-CBOR decoder (inverse of the encoder) ────────────────────────────────
-
-(defn- be-uint [^bytes ba pos len]
-  (loop [i 0 acc 0] (if (= i len) acc (recur (inc i) (+ (* acc 256) (bit-and (aget ba (+ pos i)) 0xff))))))
-
-(defn- read-arg [^bytes ba pos info]
-  (cond (< info 24) [info pos]
-        (= info 24) [(bit-and (aget ba pos) 0xff) (inc pos)]
-        (= info 25) [(be-uint ba pos 2) (+ pos 2)]
-        (= info 26) [(be-uint ba pos 4) (+ pos 4)]
-        :else       [(be-uint ba pos 8) (+ pos 8)]))
-
-(defn- decode* [^bytes ba pos]
-  (let [b (bit-and (aget ba pos) 0xff)
-        major (bit-shift-right b 5)
-        info (bit-and b 0x1f)
-        [n p] (read-arg ba (inc pos) info)]
-    (case major
-      0 [n p]
-      1 [(- -1 n) p]
-      2 [(Arrays/copyOfRange ba p (+ p n)) (+ p n)]
-      3 [(String. (Arrays/copyOfRange ba p (+ p n)) "UTF-8") (+ p n)]
-      4 (loop [i 0 pp p acc []]  (if (= i n) [acc pp] (let [[v np] (decode* ba pp)] (recur (inc i) np (conj acc v)))))
-      5 (loop [i 0 pp p acc {}]  (if (= i n) [acc pp] (let [[k kp] (decode* ba pp) [v vp] (decode* ba kp)] (recur (inc i) vp (assoc acc k v)))))
-      6 (if (= n 42)
-          (let [[bs np] (decode* ba p)] [(cid-link (Arrays/copyOfRange bs 1 (alength bs))) np])  ; strip 0x00
-          (decode* ba p))
-      7 (cond (= info 20) [false p] (= info 21) [true p] :else [nil p]))))
-
-(defn dag-cbor-decode [^bytes ba] (first (decode* ba 0)))
-
-;; ── CAR v1 parser (inverse of `car`) ─────────────────────────────────────────
 
 (defn- read-varint [^bytes ba pos]
   (loop [shift 0 pos pos acc 0]
@@ -392,7 +267,7 @@
 
 (defn mst-records
   "In-order [key value-cid-str] pairs from an MST rooted at `node-cid`, undoing the
-  prefix compression (entry `p` = chars shared with the previous key in the node)."
+  prefix compression (entry `p` = bytes shared with the previous key in the node)."
   [blocks node-cid]
   (let [node (dag-cbor-decode (get blocks node-cid))
         l (get node "l")]
@@ -402,7 +277,15 @@
       (if (empty? es)
         out
         (let [e (first es)
-              key (str (subs prevkey 0 (get e "p")) (String. ^bytes (get e "k") "UTF-8"))
+              ;; key = prevkey[0:p] ‖ suffix-bytes (p counts UTF-8 BYTES, lib-canonical)
+              prevb (.getBytes ^String prevkey "UTF-8")
+              keyb (let [pfx (Arrays/copyOfRange prevb 0 (int (get e "p")))
+                         suf ^bytes (get e "k")
+                         out (byte-array (+ (alength pfx) (alength suf)))]
+                     (System/arraycopy pfx 0 out 0 (alength pfx))
+                     (System/arraycopy suf 0 out (alength pfx) (alength suf))
+                     out)
+              key (String. ^bytes keyb "UTF-8")
               t (get e "t")
               out (conj out [key (cidk (get e "v"))])
               out (if t (into out (mst-records blocks (cidk t))) out)]

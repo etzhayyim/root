@@ -8,8 +8,11 @@ An **independent** atproto Personal Data Server for `atproto.etzhayyim.com`,
 written in **Clojure** (babashka). It breaks the dependency where
 `atproto.etzhayyim.com` was a byte-identical alias of the gftd.ai PDS worker
 (`did:web:atproto.gftd.ai`, RisingWave/TypeScript). This server reuses **none** of
-that code, points at **no** `*.gftd.ai` endpoint, and implements the atproto repo
-format (DAG-CBOR / CIDv1 / MST / signed commit / CAR) **from scratch — no SDK**.
+that code, points at **no** `*.gftd.ai` endpoint, and builds the atproto repo
+format (DAG-CBOR / CIDv1 / MST / signed commit / CAR) **with no external SDK** — the
+repo data-structure layer is the sibling first-party lib `app-aozora-repo`
+(`etzhayyim.aozora.repo.*`), whose MST roots are golden-verified byte-identical to
+`@atproto/repo` `MST.getPointer()`. `repo.clj` delegates to it (no second copy).
 
 ## Identity (independent)
 - DID: `did:web:atproto.etzhayyim.com`; `availableUserDomains`: `["etzhayyim.com"]`
@@ -35,7 +38,7 @@ signing key is persisted (present-only) at `PDS_SIGNING_KEY_FILE`.
 | `src/etzhayyim/pds/datom.clj`   | vendored kotoba Datom-log + tiny datalog `q` |
 | `src/etzhayyim/pds/util.clj`    | TID rkeys, base32, content CID, timestamps |
 | `src/etzhayyim/pds/store.clj`   | `PdsStore` protocol + `MemStore` / `DurableStore` / `KotobaStore` |
-| `src/etzhayyim/pds/repo.clj`    | **DAG-CBOR (en/decoder) + CIDv1 + MST + Ed25519 signed commit + CAR (read/write) + did:key multibase** |
+| `src/etzhayyim/pds/repo.clj`    | repo federation glue — **delegates** DAG-CBOR / CIDv1 / MST / commit to `app-aozora-repo`; keeps blob raw-CID + Ed25519 keypair + did:key multibase + CAR import |
 | `src/etzhayyim/pds/blob.clj`    | content-addressed blob store + blob-ref validation |
 | `src/etzhayyim/pds/account.clj` | account store (PBKDF2) + HS256 session JWTs |
 | `src/etzhayyim/pds/xrpc.clj`    | `com.atproto.*` JSON method handlers |
