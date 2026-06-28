@@ -13,7 +13,7 @@
 import type { InfraActorEntry } from "./infra-actors";
 
 export const TIER_B_GENERATED_AT = "2026-06-04T00:00:00+00:00";
-export const TIER_B_TOTAL_COUNT = 116;
+export const TIER_B_TOTAL_COUNT = 122;
 
 export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
   "ainori": {
@@ -159,6 +159,19 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       },
     ],
   },
+  "denwaban": {
+    description: "Voice receptionist — answers an inbound call (PSTN/SIP via twilio-compat, or a WebRTC soft-phone over kotoba-net), converses by voice (STT=whisper-compat, dialog=KotobaLLM, TTS=elevenlabs-compat), and BOOKS by delegating to yotei (no-double-book + member-signed). The telephone/voice counterpart of toritsugi (text/LINE window). Holds no booking state, no buyer-of-record role, no call recording without consent. Murakumo-only.",
+    glyph: "電話番",
+    displayName: "denwaban",
+    adrs: ["2606271930"],
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:denwaban#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+    ],
+  },
   "funadaiku": {
     description: "Zero-emission autonomous cargo shipbuilding — 9 Pregel cells implementing hull block fabrication, assembly, NDT inspection, powertrain integration (wind-assist + solar + H₂ fuel cell + LFP battery + electric pods), outfitting, launch commissioning, sea trial, decarbonization audit, and class certification (Nagi class reference, 3,000 DWT, ~90m × 15m, 10 kn service speed, IMO MASS Degree 3).",
     glyph: "船大工",
@@ -271,6 +284,20 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     service: [
       {
         id: "did:web:etzhayyim.com:actor:hataori#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+    ],
+  },
+  "hibiki": {
+    description: "響 — ossekai-proposal → persuasive presentation (dougaka; utsushie's proposal-side sibling)",
+    glyph: "響",
+    displayName: "響 — ossekai-proposal → persuasive presentation (dougaka; utsushie's proposal-side sibling)",
+    primaryLexicon: "com.etzhayyim.hibiki.presentation",
+    adrs: ["2606241600", "2606161536", "2605264000", "2605192100", "2605231902", "2605215000", "2605231525"],
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:hibiki#atproto_pds",
         type: "AtprotoPersonalDataServer",
         serviceEndpoint: "https://pds.etzhayyim.com",
       },
@@ -588,6 +615,19 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       },
     ],
   },
+  "kenchi": {
+    description: "検地 — Worldwide Real-Estate Valuation (External-Market Transparency)",
+    glyph: "検地",
+    displayName: "検地 — Worldwide Real-Estate Valuation (External-Market Transparency)",
+    adrs: ["2606272030", "2605192245"],
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:kenchi#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+    ],
+  },
   "kiyome": {
     description: "Domestic / janitorial cleaning robotics — frees the invisible, gendered, dignity-poor cleaning labour (ISIC T,N81 / ISCO 9111,9112 / UNSPSC 76). Privacy-by-construction. LPS #3 in ADR-2606032100.",
     glyph: "清め",
@@ -700,6 +740,20 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     service: [
       {
         id: "did:web:etzhayyim.com:actor:kurashimori#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+    ],
+  },
+  "kyoninka": {
+    description: "Robotaxi legal-deployment permitting actor — answers, per jurisdiction and with an immutable paper trail, \"are we legally clear to operate a driverless-taxi service here, and who must sign off?\". A contained reg-LLM (regulatory advisor) proposes a legal-readiness recommendation from a deployment's permitting facts; an independent PermitGovernor censors it against the jurisdiction's mandatory-permit / minimum-insurance / required-filing / SAE-level invariants; a public-road launch ALWAYS routes to a human regulatory authority. observe → recommend ONLY: the actor never grants a permit and never activates a vehicle. The jurisdiction rulebook (JP 改正道路交通法 特定自動運行 / 道路運送車両法 型式指定 / 道路運送法; US-CA DMV+CPUC+FMVSS; DE StVG AFGBV+UNECE+GDPR; SG LTA) is DATA, not code. kotoba-EAVT-native; the runnable langgraph-clj StateGraph lives in orgs/etzhayyim/kyoninka-actor.",
+    glyph: "許認可",
+    displayName: "許認可 — Robotaxi Legal-Deployment Permitting",
+    primaryLexicon: "com.etzhayyim.kyoninka.deploymentReadiness",
+    adrs: ["2606272337", "2605262700", "2606021600", "2605231525", "2605312345"],
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:kyoninka#atproto_pds",
         type: "AtprotoPersonalDataServer",
         serviceEndpoint: "https://pds.etzhayyim.com",
       },
@@ -822,6 +876,20 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       },
     ],
   },
+  "monosashi": {
+    description: "Cross-actor forecast-skill YARDSTICK (proper-scoring meta-evaluator). Reads mitooshi's leak-free score residuals (CRPS / pinball / logscore / skill-vs-baseline / PIT) and cross-checks them against tsuchifumi's system-dynamics ensemble for band-width coherence, emitting a DISTRIBUTION-ONLY reliability band (p10/p50/p90) of each predictive actor's skill. It is a MEASURE, never a TARGET (anti-Goodhart): the skill score is structurally firewalled from reward (mio) — no :eval/reward attribute exists and none may ever be added (mirrors mio's :consumed-reward ban). Routed to planners / Council for attention, member-signed (G7); never a trade signal (G2).",
+    glyph: "物差し",
+    displayName: "物差し — Predictive-Actor Skill Yardstick",
+    primaryLexicon: "com.etzhayyim.monosashi.skillBand",
+    adrs: ["2606271800", "2606051800", "2606111500", "2606212000", "2606212200"],
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:monosashi#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+    ],
+  },
   "moushibumi": {
     description: "kotoba-native citizen democratic-participation concierge — the citizen's VOICE INTO the state, sibling to toritsugi (government procedures) and counterpart to danjo (which watches the state's output). 申文 = a Heian formal submission to authority. Three member-initiated, consent-bound channels: (1) 選挙情報 INFO-ONLY (when/where to vote, 期日前/不在者投票 mechanics, neutral pointers to official 選挙公報 — NEVER campaigning/endorsement/GOTV, 公職選挙法 + political-neutrality G3); (2) 請願/陳情 (assist drafting a 請願書 [請願法] / 陳情 to a 議会, member submits); (3) パブリックコメント (行政手続法 §39 意見公募手続, assist drafting + submitting opinion). Default = 案内 + 起草補助 + 本人提出; 代行 (本人同意ベース) is the gated R3 exception. Driven by a CODED participationTarget registry (organ / channel / 根拠法令 / 様式 / 期限 / 紹介議員-flag). Consent + own-voice-only (G4), 公職選挙法/political-neutral (G3), UPL-bounded (G5), PII + political-opinion encrypted (G6, APPI special-care), Murakumo-only (G7), non-fabrication (G8), non-partisan + non-commercial (G9), lawful-channel-only (G10), Transparent Religious Force (G11), data-minimization/no-opinion-profiling (G12), verified-target-only (G14), member-self-submission default (G15). JP-first (R0); architecture jurisdiction-generic. 7 cells / 6 Lexicons / 15 gates / 13 non-goals.",
     glyph: "申文",
@@ -830,6 +898,19 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     service: [
       {
         id: "did:web:etzhayyim.com:actor:moushibumi#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+    ],
+  },
+  "moyoshi": {
+    description: "moyoshi",
+    glyph: "催",
+    displayName: "moyoshi",
+    adrs: ["2606272100"],
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:moyoshi#atproto_pds",
         type: "AtprotoPersonalDataServer",
         serviceEndpoint: "https://pds.etzhayyim.com",
       },
@@ -1408,7 +1489,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
   },
   "utsushie": {
-    description: "A NEWS→VIDEO MEDIUM. Turns a kawaraban :article/面 into a short narrated, multilingual video that LINKS OUT — the 映像 (moving-image) sibling of 瓦版's printed sheet (写し絵 = Edo-period magic-lantern moving-picture show, Japan's pre-cinema projected image). Like kawaraban it is a MEDIUM, never a source (G11): it narrates a :mirror/:actor-event, never an :original. At R0 it is an OFFLINE render-PLAN builder (methods/render_plan.py): it does NOT render and does NOT call a model; live render is G8-gated (Council Lv6+ + operator) and Murakumo-fleet only (U5 = G6, ADR-2605215000). The 6 gates U1–U6 (= kawaraban's, concretized for video) are structural in lex/video.edn AND methods/render_plan.py: U1=G1 no verdict (attributive narration only), U2=G4 narration ≤ the article's ≤280-char fair-use excerpt (full body never narrated), U3=G9 ANTI-DEEPFAKE (no photoreal likeness / voice clone of a named real person; neutral synthetic narrator), U4=G2 no engagement/dwell-driven edit, U5=G6 Murakumo-only (external-GPU render unrepresentable), U6=G7 member-signed publish (no server-held key). Per ADR-2606161536 §D2.",
+    description: "A NEWS→VIDEO MEDIUM. Turns a kawaraban :article/面 into a short narrated, multilingual video that LINKS OUT — the 映像 (moving-image) sibling of 瓦版's printed sheet (写し絵 = Edo-period magic-lantern moving-picture show, Japan's pre-cinema projected image). Like kawaraban it is a MEDIUM, never a source (G11): it narrates a :mirror/:actor-event, never an :original. At R0 it is an OFFLINE render-PLAN builder (methods/render_plan.cljc): it does NOT render and does NOT call a model; live render is G8-gated (Council Lv6+ + operator) and Murakumo-fleet only (U5 = G6, ADR-2605215000). The 6 gates U1–U6 (= kawaraban's, concretized for video) are structural in lex/video.edn AND methods/render_plan.cljc: U1=G1 no verdict (attributive narration only), U2=G4 narration ≤ the article's ≤280-char fair-use excerpt (full body never narrated), U3=G9 ANTI-DEEPFAKE (no photoreal likeness / voice clone of a named real person; neutral synthetic narrator), U4=G2 no engagement/dwell-driven edit, U5=G6 Murakumo-only (external-GPU render unrepresentable), U6=G7 member-signed publish (no server-held key). Per ADR-2606161536 §D2.",
     glyph: "写し絵",
     displayName: "写し絵 — News→Video Medium (kawaraban's projected-image sibling)",
     adrs: ["2606161536", "2606061900", "2605231902", "2605140740", "2605215000", "2605231525"],

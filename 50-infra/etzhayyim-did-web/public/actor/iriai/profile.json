@@ -1,0 +1,31 @@
+{
+  "did": "did:web:etzhayyim.com:actor:iriai",
+  "handle": "iriai.etzhayyim.com",
+  "displayName": "Iriai — Global Lifeline-Commons (電気/水道/ガス/通信)",
+  "description": "The non-profit operator of the four lifelines (ライフライン: 電気/水道/ガス/通信) AS ONE COMMONS. 入会 (iriai) = the traditional Japanese commons — collectively-held rights of use over a shared resource. The lifelines are held as a commons right of use (入会権), delivered §1.16 social-security IN-KIND (cash ≡ 0), governed 1 SBT = 1 vote. The System-of-Systems umbrella over the producer actors (hikari 光 / mizuho 水穂 / kamado 竈 / noroshi 烽) covering infra + 資金 (funding) + 管理 (management). A coverage + resilience map, NEVER a target-list, NEVER a shut-off list — a lifeline is never withheld as leverage. ASSESSMENT + R0 DESIGN ONLY — iriai never produces nor actuates; production is the producer actors' under Council Lv7+. The charter-clean inversion of the for-profit utility.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-27T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "入",
+  "displayNameJa": "入会 — 全世界ライフライン・コモンズ（電気/水道/ガス/通信）",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2606272200",
+      "2606280900"
+    ],
+    "primaryLexicon": "com.etzhayyim.iriai.lifelineCoverageMap",
+    "primarySchema": "20-actors/iriai/kotoba/ontology.iriai.edn",
+    "didDocument": "https://etzhayyim.com/actor/iriai/did.json",
+    "source": "kotoba"
+  }
+}

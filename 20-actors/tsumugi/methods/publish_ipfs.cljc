@@ -15,9 +15,9 @@
   (:require [clojure.string :as str]
             [cheshire.core :as json]
             [tsumugi.methods.publish :as publish]
+            [multiformats.core :as mf]
             [clojure.java.io :as io])
-  (:import [java.security MessageDigest]
-           [java.io ByteArrayOutputStream]
+  (:import [java.io ByteArrayOutputStream]
            [java.util.zip GZIPOutputStream GZIPInputStream]))
 
 (def DATA-DIR "80-data/tsumugi-power")
@@ -25,36 +25,11 @@
 (def PUBLISHED-AT "2026-06-11")
 (def GATEWAYS ["https://ipfs.io/ipfs/" "https://dweb.link/ipfs/" "https://cloudflare-ipfs.com/ipfs/"])
 (def ^:private SINGLE-BLOCK (* 256 1024))
-(def ^:private B32 "abcdefghijklmnopqrstuvwxyz234567")
-
-(defn- base32
-  "RFC4648-lower base32 without padding (mirror of the Python _base32)."
-  [^bytes data]
-  (let [sb (StringBuilder.) n (alength data)]
-    (loop [i 0, val 0, bits 0]
-      (if (< i n)
-        (let [[val* bits*]
-              (loop [v (bit-or (bit-shift-left val 8) (bit-and (aget data i) 0xFF))
-                     b (+ bits 8)]
-                (if (>= b 5)
-                  (do (.append sb (.charAt B32 (bit-and (unsigned-bit-shift-right v (- b 5)) 31)))
-                      (recur (bit-and v (dec (bit-shift-left 1 (- b 5)))) (- b 5)))
-                  [v b]))]
-          (recur (inc i) val* bits*))
-        (do (when (> bits 0)
-              (.append sb (.charAt B32 (bit-and (bit-shift-left val (- 5 bits)) 31))))
-            (str sb))))))
-
-(defn- sha256-bytes [^bytes data]
-  (.digest (doto (MessageDigest/getInstance "SHA-256") (.update data))))
-
 (defn cidv1-raw
-  "kotoba IPFS CIDv1 (raw 0x55, sha2-256) of a single <256KiB block — 'b' + base32(0x01 0x55 +
-  0x12 0x20 + sha256). Byte-identical to `ipfs add --cid-version=1 --raw-leaves`."
+  "kotoba IPFS CIDv1 (raw 0x55, sha2-256) of a single <256KiB block. Byte-identical to
+  `ipfs add --cid-version=1 --raw-leaves`. Delegates to com-junkawasaki/multiformats-clj."
   [^bytes data]
-  (let [mh (byte-array (concat [(byte 0x12) (byte 0x20)] (seq (sha256-bytes data))))
-        prefixed (byte-array (concat [(byte 0x01) (byte 0x55)] (seq mh)))]
-    (str "b" (base32 prefixed))))
+  (mf/cidv1-raw data))
 
 (defn- gz
   "gzip bytes (deterministic — java writes mtime=0)."

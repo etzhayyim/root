@@ -159,7 +159,7 @@
    :actor/ui-type :appview
    :actor/description "Spirit-in-Physics over real public power-entities + their 縁 to surface 取-concentration routed to release. An aggregate-first accountability map, NEVER a target-list (edge-primary karma, N1)."
    :actor/primary-schema "00-contracts/schemas/engi-organism-ontology.kotoba.edn (+ spirit-ontology.kotoba.edn)"
-   :actor/adr ["2606011800"]
+   :actor/adr ["2606011800" "2606272355"]
    :actor/created-at "2026-06-01"
    ;; content-addressed WASM actor (20-actors/tsumugi/wasm/tsumugi-core) — runs
    ;; browser-local (ameno) / donated mesh, NO per-actor server (ADR-2606014500)
@@ -180,7 +180,7 @@
    :actor/ui-type :appview
    :actor/description "Aggregates public fundFlowEdges (appropriation→outlay→recipient + inter-governmental transfers) into kotoba EAVT and renders aggregate-first, NON-adjudicating summaries (danjo finds, kanae renders)."
    :actor/primary-lexicon "com.etzhayyim.kanae"
-   :actor/adr ["2605302300"]
+   :actor/adr ["2605302300" "2606272355"]
    :actor/created-at "2026-06-01"
    ;; content-addressed T1 WASM actor (20-actors/kanae/wasm/kanae-core) — compact
    ;; Rust core, raw CID → browser-local (ameno) / donated mesh (ADR-2606015200)
@@ -245,11 +245,95 @@
    :actor/description "kotoba-Datomic structural atlas of every government unit on Earth (国→省→庁→局→課→窓口) with 住所/窓口/書式/手続き/BPMN. The read-side SSoT danjo/kanae/tsumugi/toritsugi/himotoki consume. An observational MIRROR + civic wayfinding map — NEVER the government, NEVER an official channel, NEVER a target-list (G3/G10)."
    :actor/primary-lexicon "com.etzhayyim.ooyake"
    :actor/primary-schema "00-contracts/schemas/gov-atlas-ontology.kotoba.edn"
-   :actor/adr ["2606021600"]
+   :actor/adr ["2606021600" "2606272355"]
    :actor/created-at "2026-06-02"
    :actor/vm []
    :actor/service [{"id" "did:web:etzhayyim.com:actor:ooyake#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
                    {"id" "did:web:etzhayyim.com:actor:ooyake#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  ;; danjo 弾正 — public-accountability oversight mirror. Registered + self-publication
+  ;; seed (did-web + social_post membrane + on-tick self-publish) per ADR-2606272355.
+  ;; #xrpc-libp2p peer multiaddr assigned at `bb murakumo deploy` time (wasmCid set).
+  {:actor/handle "danjo"
+   :actor/did "did:web:etzhayyim.com:actor:danjo"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "弾正"
+   :actor/display-name-ja "弾正 — 公開情報による行政アカウンタビリティの観測ミラー (非断定)"
+   :actor/display-name-en "Danjo — Public-Accountability Oversight (observational mirror)"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "国家が既に公開した open-government corpus (国会会議録/予算書/政府調達) + 歳入レジストリ (17 国税 + 12 地方税, FY2023/2024) を kotoba EAVT に取り込み、出典付き NON-adjudicating な discrepancy observation と集計透明性レポートを emit する。censor の目であって剣ではない: 観測と透明な公開のみ。自律 social 公開は no-server-key — 投稿は actor 自身が mesh runtime 内で self-custody する鍵で署名し、サーバは署名しない (ADR-2605231525); live は Council Lv6+ + operator + member-signature gated、R0 は dry-run draft のみ。G4 非断定 / G3 passive-only / G5 ≥2 出典 / G6 open method / G11 Transparent Force。NOT 会計検査院, NOT prosecutor, NOT surveillance, NOT target-list。"
+   :actor/primary-lexicon "com.etzhayyim.danjo"
+   :actor/primary-schema "00-contracts/schemas/danjo-oversight-ontology.kotoba.edn"
+   :actor/adr ["2605301600" "2605263900" "2606272355"]
+   :actor/created-at "2026-06-27"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:danjo#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}]}
+
+  ;; toritsugi 取次 — citizen government-procedure concierge (wayfinding mirror). Registered +
+  ;; self-publication seed (did-web + social_post membrane + on-tick self-publish) per ADR-2606272355.
+  ;; #xrpc-libp2p peer multiaddr assigned at `bb murakumo deploy` time (wasmCid set).
+  {:actor/handle "toritsugi"
+   :actor/did "did:web:etzhayyim.com:actor:toritsugi"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "取次"
+   :actor/display-name-ja "取次 — 市民の側に立つ行政手続きコンシェルジュ (案内+伴走+本人提出支援)"
+   :actor/display-name-en "Toritsugi — Citizen Government-Procedure Concierge (wayfinding mirror)"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "窓口で『市民の側』に立ち、同意した信者を 自治体・政府手続き に伴走する citizen-facing concierge。利用可能な 制度/給付 を能動的に提示し、手続き を説明し、必要書類 チェックリストを整え、様式 入力を補助して、最終的な 提出・署名 は 本人 が行う (案内+伴走+本人提出支援、既定モード)。各手続きの 窓口/所管/オンライン申請URL/必要書類/様式/手数料/法定処理期間/根拠法令/channel を コード化した procedure registry が駆動する。自律 social 公開は no-server-key — 投稿は actor 自身が mesh runtime 内で self-custody する鍵で署名し、サーバは署名しない (ADR-2605231525); live は Council Lv6+ + operator + member-signature gated、R0 は dry-run draft のみ。G5 行政書士法/UPL 境界 (情報提供+案内+入力補助 only, NO advice + NO 作成代理) / G3 同意必須・本人手続き限定 / G4 透明・非 pretext / G8 非捏造 (根拠法令+provenance 明示) / G14 検証済 procedure のみ提出 / G15 本人提出 default。NOT a 行政書士/弁護士 firm, NOT an official 自治体 channel, NOT a paid filing-mill, NOT danjo (opposite posture)。"
+   :actor/primary-lexicon "com.etzhayyim.toritsugi.procedure"
+   :actor/primary-schema "00-contracts/lexicons/com/etzhayyim/toritsugi/procedure.json"
+   :actor/adr ["2605312030" "2605262700" "2606272355"]
+   :actor/created-at "2026-06-27"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:toritsugi#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}]}
+
+  ;; himotoki 繙き — active disclosure-request filer (consent-bound, own-data-only). Registered +
+  ;; self-publication seed (did-web + social_post membrane + on-tick self-publish) per ADR-2606272355.
+  ;; #xrpc-libp2p peer multiaddr assigned at `bb murakumo deploy` time (wasmCid set).
+  {:actor/handle "himotoki"
+   :actor/did "did:web:etzhayyim.com:actor:himotoki"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "繙き"
+   :actor/display-name-ja "繙き — 同意ベース・本人データのみの能動的 開示請求 filer"
+   :actor/display-name-en "Himotoki — Active Disclosure-Request Filer (consent-bound, own-data-only)"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "passive な danjo/tadori の active-outbound の対(つい)。同意した member 本人のために、本人の OWN data の開示請求 (DSAR — 個人情報開示請求 APPI §33 / GDPR Art.15 / CCPA) を private controller へ、行政文書開示請求 (FOIA — 行政機関情報公開法 / FOIA) を公的機関へ、coded target registry 経由で file・track・appeal し、開示記録を custody する。自律 social 公開は no-server-key — 投稿は member/actor 自身が mesh runtime 内で self-custody する鍵で署名し、サーバは署名しない (ADR-2605231525); live は Council Lv6+ + operator + member-signature gated、R0 は dry-run draft のみ。公開するのは himotoki 自身の HISTORY (filed-request / disclosure-received の own-data-only 集計) と PROCEDURES (DSAR/FOIA 手続き) のみ — 第三者の個人データは決して掲載しない。G3 consent-bound own-data-only / G4 transparent + non-pretextual / G5 UPL-equivalent / G6 PII は encrypted DID-bound envelope のみ / G14 verified-target-only / G11 Transparent Force。NOT a law firm, NOT a private-investigator/people-search, NOT a data-broker, NOT a re-disclosure/leak channel, NOT target-list。"
+   :actor/primary-lexicon "com.etzhayyim.himotoki"
+   :actor/primary-schema "00-contracts/lexicons/com/etzhayyim/himotoki/disclosureRequest.json"
+   :actor/adr ["2605302130" "2605262700" "2606272355"]
+   :actor/created-at "2026-06-27"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:himotoki#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}]}
+
+  ;; junkan 循環 — citizen↔state-asymmetry systems-dynamics observer (analysis-only). Registered +
+  ;; self-publication seed (did-web + social_post membrane + on-tick self-publish) per ADR-2606272355.
+  ;; #xrpc-libp2p peer multiaddr assigned at `bb murakumo deploy` time (wasmCid set).
+  {:actor/handle "junkan"
+   :actor/did "did:web:etzhayyim.com:actor:junkan"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "循環"
+   :actor/display-name-ja "循環 — 国民↔国家の非対称性 システム・ダイナミクス観測者 (分析専用)"
+   :actor/display-name-en "Junkan — Citizen↔State-Asymmetry Systems-Dynamics Observer (analysis-only)"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "国民↔国家の構造的非対称性を passive・public・aggregate データから読む ANALYSIS-ONLY のシステム・ダイナミクス観測者。法律・制度・思想・価値観を、誰が定めたか(:enactor)・経緯(:origin)・関係者(:stakeholders)という on-record の公開事実として編み、好循環/悪循環ループと Meadows leverage 候補を DISCLOSED HYPOTHESIS (G5) として read-off する(因果断定なし・指示なし)。自律 social 公開は no-server-key — 投稿はメンバー/actor 自身が mesh runtime 内で self-custody する鍵で署名し、サーバは署名しない (ADR-2605231525)。R0 は disclosed-hypothesis findings + on-record facts のみを dry-run mirror post として下書きする(verdict なし); live publication は Council Lv6+ + operator + member-signature gated で、ossekai/kataribe が junkan に代わって行う(G4/G13)。NOT a verdict-engine, NOT proven-causation, NOT an outward actuator (analysis-only, non-eschatological/sober read-off)。"
+   :actor/primary-lexicon "com.etzhayyim.junkan"
+   :actor/primary-schema "20-actors/junkan/kotoba/ontology.junkan-gov.edn"
+   :actor/adr ["2605290927" "2606272355"]
+   :actor/created-at "2026-06-27"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:junkan#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}]}
 
   {:actor/handle "yadori"
    :actor/did "did:web:etzhayyim.com:actor:yadori"
@@ -593,7 +677,7 @@
    :actor/description "ooyake(観測アトラス)の EXECUTION 兄弟。ooyake が行政の who/where/how を read-only でミラーするのに対し、matsurigoto は UN COFOG 機能分類をバックボーンに、公式仕様から導いた kotoba-wasm 実行可能な普遍サービス標準を定義し各国向けに調整する。etzhayyim IS a government — 神の王国(Charter §0.1)で統治機構を持つ。二つの principal: (A) :etzhayyim-sovereign(王国が信者を Council Lv7+/1 SBT=1 vote/Public Fund Safe で統治、Transparent §1.12)、(B) :nation-state-adopter(既存国家が自国の鍵で同標準を運用)。三つの構造不変条件: G1 no-operator-master-key(:server-held-authority const false; 権威は常に Council multisig か採用国家の鍵、platform key 不可、ADR-2605231525)/ G2 spec-derived-only(COFOG/ICAO 9303/eIDAS/ISO 20022/OpenCRVS/ISO 17442; proprietary GovTech は表現不能)/ G3 authority-bearing(:operated-by ∈ council|state)。R0+R1: 4 実行スライス(tax-assess=JP速算表 / civil-registry=UN CRVS / corp-registry=ISO 17442 LEI / credential-issue=ICAO 9303 MRZ)が公式仕様の検証ベクタを完全再現、WIT 契約 + kotoba Datom 永続化 + 署名権威層(verify-only)。live deploy は Council+operator gated。invariant 改正ゼロ — no-server-key/kotoba-canonical/Transparent Force を強化。"
    :actor/primary-lexicon "com.etzhayyim.matsurigoto"
    :actor/primary-schema "00-contracts/schemas/egov-execution-ontology.kotoba.edn"
-   :actor/adr ["2606062300"]
+   :actor/adr ["2606062300" "2606272355"]
    :actor/created-at "2026-06-06"
    :actor/vm []
    :actor/service [{"id" "did:web:etzhayyim.com:actor:matsurigoto#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
@@ -612,7 +696,8 @@
    :actor/description "世界の政府の人脈・お金・発言・委員会構成を一つの kotoba Datom 関係グラフに編むグローバル knowledge graph。公開情報からお金の流れ(調達・補助金・政治献金・予算執行)をすべて追い、審議会・委員会の構成メンバー(=公的な席)を分析し、調達・お金・発言・人間関係を一つの関係グラフに編んで集計所見を dry-run social post として narrate する。兄弟(danjo/kanae/tsumugi/tadori/ooyake)が埋めない明確な空白=公的役職の関係グラフ(誰がどの委員会に座り、誰が誰に資金を出し、誰が誰に発注し、誰が何を発言したか)。accountability/wayfinding の地図であって target-list ではない(G5)。非裁定(G2): 観測された関係と開示 share を記録するのみ、犯罪・不正・有罪を断定しない(法的性格付けは chigiri 経由 external counsel)。edge-primary(G4): 集中度は read 時に edge から計算、個人スコア不在。public-role-only(G1): node は公的な席/組織で私人は表現不能(no-doxxing)。出典必須(G3): 関係・資金フローごと ≥2 公開出典。no-server-key(G7)+ outward-gated(G8): social post は本人署名、live ingest/posting は Council Lv6+ + operator + 本人署名 gated、R0 は offline + dry-run。invariant 改正ゼロ。Per ADR-2606066000。"
    :actor/primary-lexicon "com.etzhayyim.keizu.relationEdge"
    :actor/primary-schema "00-contracts/schemas/government-relations-ontology.kotoba.edn"
-   :actor/adr ["2606066000"]
+   ;; ADR-2606272355: did-web-registered + self-publication seed trigger-wired (social cell pre-existing).
+   :actor/adr ["2606066000" "2606272355"]
    :actor/created-at "2026-06-06"
    :actor/vm []
    :actor/service [{"id" "did:web:etzhayyim.com:actor:keizu#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
@@ -690,4 +775,26 @@
    :actor/wasm-tier "T2"
    :actor/vm []
    :actor/service [{"id" "did:web:etzhayyim.com:actor:aburi#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
-                   {"id" "did:web:etzhayyim.com:actor:aburi#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}]}
+                   {"id" "did:web:etzhayyim.com:actor:aburi#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  ;; ── tsubasa 翼 — flight-route/fare discovery commons (the Skyscanner inversion) ──
+  ;; Already live + searchable via the INFRA_ACTORS fallback + static public/actor/tsubasa/.
+  ;; This entry brings it into the canonical SSoT the publisher materializes from. ADR-2606072800.
+  {:actor/handle "tsubasa"
+   :actor/did "did:web:etzhayyim.com:actor:tsubasa"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r3
+   :actor/glyph "翼"
+   :actor/display-name-ja "翼 — 航空券・運賃 ディスカバリー コモンズ"
+   :actor/display-name-en "Tsubasa — Flight-Route / Fare Discovery Commons"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Skyscanner の inversion。正直な fare/route メタ検索で、onward link は全て affiliate-stripped、会員は航空会社の自社サイトで self-book する(tsubasa は merchant-of-record にならず commission を取らない、G1 no-inflow)。TRUE total cost(運賃+手荷物)でランク、CO₂ を全 option に surfaced(G4 first-class axis、隠さない/ランクアウトしない)。広告なし/urgency なし/'price will rise' scarcity なし(G3)、検索は searcher に対し stateless(G5 no person-tracking)。R2 成熟層は O–D route ごとの carrier 集中度(named-HHI + competition reading {:competitive :concentrated :monopoly})を計算し、集中/独占 route を :opening(代替提示)へ — COMPETITION + FARE マップであって有料ランキングでも target-list でもない。観測は content-addressed append-only kotoba Datom commit-DAG(verify-chain tamper-evident, no-server-key)へ idempotent-by-content heartbeat で永続化。watari 渡り(live 位置)の動的兄弟 — tsubasa が PLAN、watari が TRACK。live GDS/airline ingest は Council Lv7+ + operator gated(G8)、R0/R1 は :representative。Per ADR-2606072800。"
+   :actor/primary-lexicon "com.etzhayyim.tsubasa.fare"
+   :actor/primary-schema "00-contracts/schemas/flight-fare-ontology.kotoba.edn"
+   :actor/adr ["2606072800"]
+   :actor/created-at "2026-06-21"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:tsubasa#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:tsubasa#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}]}

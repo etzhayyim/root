@@ -381,3 +381,99 @@ Use `etzhayyim agent run <agent-id>` via the Go CLI."
           "agent-organism-publish requires the Go etzhayyim binary (not available in bb cljc).
 Use `etzhayyim agent organism publish <organism-url>` via the Go CLI."
           {:go-binary-required true})))
+
+;; ---------------------------------------------------------------------------
+;; CLI -main — mirrors the python `agent` click group argv contract:
+;;   e7m agent <list|get|stop|run|verify|organism> [args] [--opts]
+;;   e7m agent organism <status|publish> [--opts]
+;; SAFETY: stop (POST stopAgent) is side-effecting → gated behind --yes.
+;; run / organism publish require the Go binary (mirror python sys.exit).
+;; list/get/organism-status are read-only XRPC (need a live PDS).
+;; verify is local (git + proof file reads) and runs for real.
+;; ---------------------------------------------------------------------------
+
+(defn- cli-parse
+  [args bool-flags]
+  (loop [a (seq args) pos [] flags {}]
+    (if-not a
+      [pos flags]
+      (let [t (first a)]
+        (cond
+          (and (str/starts-with? t "--") (contains? bool-flags (subs t 2)))
+          (recur (next a) pos (assoc flags (subs t 2) true))
+          (str/starts-with? t "--")
+          (recur (nnext a) pos (assoc flags (subs t 2) (fnext a)))
+          :else
+          (recur (next a) (conj pos t) flags))))))
+
+(defn- emit-json [data] (println (json/generate-string data {:pretty true})))
+
+(defn -main [& args]
+  (let [[pos flags] (cli-parse args #{"json" "dry-run" "yes" "confirm"})
+        sub   (first pos)
+        json? (boolean (get flags "json"))
+        pds   (get flags "pds")
+        opts  (cond-> {} pds (assoc :pds-url pds))]
+    (case sub
+      "list"
+      (try
+        (let [agents (list-agents (cond-> opts
+                                    (get flags "status")
+                                    (assoc :filters {"status" (get flags "status")})))]
+          (if json?
+            (emit-json agents)
+            (doseq [a agents]
+              (println (str "  " (get a :id "") "  " (get a :name "") "  " (get a :status ""))))))
+        (catch Exception e (println (str "list failed: " (ex-message e)))))
+
+      "get"
+      (if-let [id (second pos)]
+        (try
+          (let [a (get-agent id opts)]
+            (if json? (emit-json a)
+                (doseq [[k v] a] (println (str "  " (name k) ": " v)))))
+          (catch Exception e (println (str "get failed: " (ex-message e)))))
+        (println "usage: agent get <agent-id> [--pds URL] [--json]"))
+
+      "stop"
+      (if-let [id (second pos)]
+        (if (or (get flags "yes") (get flags "confirm"))
+          (try (stop-agent id opts) (println (str "stopped: " id))
+               (catch Exception e (println (str "stop failed: " (ex-message e)))))
+          (println (str "would stop agent " id
+                        " (side-effecting POST stopAgent; pass --yes to execute)")))
+        (println "usage: agent stop <agent-id> [--yes] [--pds URL]"))
+
+      "run"
+      (try (agent-run)
+           (catch Exception e (println (str "agent run: " (ex-message e)))))
+
+      "verify"
+      (try
+        (let [res (verify-agent ".")]
+          (if json?
+            (emit-json res)
+            (do (println (str "agent verify  git-root=" (:git-root res)))
+                (doseq [[i p] (map-indexed vector (:proofs res))]
+                  (println (str "  proof-" (inc i) ": " (if p "loaded" "absent")))))))
+        (catch Exception e (println (str "verify failed: " (ex-message e)))))
+
+      "organism"
+      (let [osub (second pos)]
+        (case osub
+          "status"
+          (try
+            (let [st (organism-status (cond-> {} (get flags "url")
+                                              (assoc :organism-url (get flags "url"))))]
+              (if json? (emit-json st)
+                  (println (str "organism status: " (get st :status "unknown")))))
+            (catch Exception e (println (str "organism status: probe failed: " (ex-message e)))))
+          "publish"
+          (if (get flags "dry-run")
+            (println (str "dry-run: would publish organism registration for DID="
+                          (or (get flags "agent-did") "—")))
+            (try (agent-organism-publish)
+                 (catch Exception e (println (str "organism publish: " (ex-message e))))))
+          (println "usage: agent organism <status|publish> [--opts]")))
+
+      (println "usage: agent <list|get|stop|run|verify|organism> [args] [--opts]"))))

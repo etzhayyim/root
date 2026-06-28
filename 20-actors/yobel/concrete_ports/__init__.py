@@ -1,17 +1,9 @@
 """Concrete port implementations binding yobel cells to real backends.
 
-This module provides web3.py-backed implementations of the Protocols defined
-in `yobel.ports`. Each concrete port wraps a deployed Solidity contract or
-cryptographic primitive. They're independent of the cell logic — cells stay
-Protocol-typed and accept any Port implementation.
-
-Use:
-    from yobel.concrete_ports.web3_rite_registry import Web3RiteRegistryPort
-    from yobel.concrete_ports.eip712_erc725 import Eip712Erc725Port
-    rite_port = Web3RiteRegistryPort(w3, rite_registry_address)
-    erc725_port = Eip712Erc725Port(chain_id=84532, contract_name="YobelRite")
-
-S2: ports here mirror the structure of conftest.py FakePorts but call real
-chains / verify real signatures. Switching from Fake to Web3 is a one-line
-change in orchestrator wiring.
+Ported off python web3.py/eth_account to bb/cljc (ADR-2605201800; final py→cljc
+prune). The live implementations now live in the sibling `.cljc` files —
+`web3_rpc.cljc` (JSON-RPC + ABI codec), `web3_rite_registry.cljc`,
+`web3_release_registry.cljc`, `eip712_erc725.cljc` — all driven by
+eth-crypto-clj (no web3/eth_account). This package marker is retained only so
+`concrete_ports/tests/` stays importable; no python port code remains here.
 """

@@ -101,7 +101,7 @@ sit on the bb classpath at `70-tools/src/` (declared in `bb.edn :paths`).
 | `identity.py` | (c) httpx | identity HTTP; defer |
 | `kagami.py` | (c) httpx | mirror HTTP; defer |
 | `kaizen.py` | (c) httpx | kaizen HTTP; defer |
-| `lint.py` | (c) subprocess | lint subprocess; defer |
+| `lint.py` | (d) RETIRED | ported to `etzhayyim.lint.cljc` → `bb e7m lint [all\|rules\|<rule>] [--root D] [--json]`; read-only parity verified green, update-target node-script leg preserved; `lint.py` + its python tests `git rm`'d (finish pass) |
 | `logs.py` | (c) httpx | logs HTTP; defer |
 | `metrics.py` | (c) httpx | metrics HTTP; defer |
 | `mitama.py` | (c) httpx | mitama HTTP; defer |

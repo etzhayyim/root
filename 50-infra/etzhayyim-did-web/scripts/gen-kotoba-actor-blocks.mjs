@@ -13,10 +13,10 @@
  *
  * SSoT = the same actor-profile seed the did:web Worker resolves from
  * (00-contracts/schemas/actor-profile-seed.kotoba.edn → materialised via
- * `node scripts/publish-actor-records.mjs` into ./out/actor-records/*.record.json).
+ * `npx nbb scripts/publish-actor-records.cljs` into ./out/actor-records/*.record.json).
  *
  * Run (after the wasm is built with exportBlocks — build-kotoba-wasm.sh):
- *   node scripts/publish-actor-records.mjs            # refresh out/actor-records
+ *   npx nbb scripts/publish-actor-records.cljs            # refresh out/actor-records
  *   node scripts/gen-kotoba-actor-blocks.mjs
  *
  * Datom schema (one entity per actor, e = "actor.<handle>"):
@@ -37,7 +37,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 import { createHash } from 'node:crypto';
 
-// CIDv1 (raw, sha2-256) of bytes — identical to scripts/publish-actor-records.mjs
+// CIDv1 (raw, sha2-256) of bytes — identical to scripts/publish-actor-records.cljs
 // + the worker's cid.ts, so a reader can recompute the DID-doc CID and verify the
 // handle→didDoc binding with no server (ADR-2606015400 / 2606015600).
 function _base32(bytes) {
@@ -69,7 +69,7 @@ const GRAPH = 'actors-v1';
 
 if (!existsSync(recordsDir)) {
   console.error(
-    `✗ ${recordsDir} missing — run \`node scripts/publish-actor-records.mjs\` first.`,
+    `✗ ${recordsDir} missing — run \`npx nbb scripts/publish-actor-records.cljs\` first.`,
   );
   process.exit(1);
 }

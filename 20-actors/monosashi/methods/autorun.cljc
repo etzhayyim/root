@@ -28,8 +28,8 @@
   "Run one heartbeat cycle. opts:
      :as-of (required, G5)  :tx-id (required, deterministic)  :author (member-DID, G7)
      :status (:dry-run|:published)  :transport (operator relay fn, optional)  :log (path)
-  Returns {:bands :posts :receipts :tx :appended?}. Idempotent-by-content: if the new band-datoms
-  equal the last tx's band-datoms, no tx is appended (:appended? false). Pure except the one append."
+  Returns {:bands :posts :receipts :tx :appended?}. Idempotent-by-content: if the new datoms
+  equal the last tx's datoms, no tx is appended (:appended? false). Pure except the one append."
   [{:keys [residuals sysdyn]}
    {:keys [as-of tx-id author status transport log]
     :or {author "" status ":dry-run" log #?(:clj kotoba/log-default :cljs nil)}}]

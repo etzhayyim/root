@@ -1,0 +1,13 @@
+{;; Scoped babashka project for the lg-sheets clj port (ADR-2606280030).
+ ;; langgraph-python -> langgraph-clj; httpx -> babashka.http-client; JSON -> cheshire.
+ ;; Run the tests with:  bb run_tests.clj
+ :paths ["src" "test"]
+ :deps {com-junkawasaki/langgraph-clj
+        {:git/url "https://github.com/com-junkawasaki/langgraph-clj"
+         :git/sha "c7daa07d4e50f55d7e2a02e4b89dbeb2b200961d"}}
+ :tasks
+ {test  {:doc "Run the clojure.test suite (run_tests.clj)."
+         :task (load-file "run_tests.clj")}
+  serve {:doc "Start the lg-sheets HTTP server (sheets.server/-main)."
+         :requires ([sheets.server])
+         :task (apply sheets.server/-main *command-line-args*)}}}

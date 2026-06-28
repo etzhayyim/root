@@ -1,0 +1,8 @@
+;; etzhayyim-project-common-crawl — scoped bb config for the clj/cljc port
+;; (ADR-2606280030). The ported namespaces are pure + bb-batteries only
+;; (cheshire + babashka.http-client are bundled in bb), so no external deps are
+;; pinned here and the repo-root bb.edn is untouched.
+{:paths ["clj"]
+ :tasks
+ {test {:doc "Run the common-crawl clj/cljc test suites under bb."
+        :task (load-file "run_tests.clj")}}}

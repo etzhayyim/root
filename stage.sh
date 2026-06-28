@@ -1,4 +1,20 @@
 #!/bin/bash
+# etzhayyim-py → bb CLI migration (ADR-2606222000) staging helper.
+#
+# CLI status after the 2606222000 finishing pass (see the ADR migration table):
+#   - EVERY python e7m subcommand is now reachable via `bb e7m <cmd>` (cli.cljc):
+#       * bonsai/coverage/identifier-audit/source-graph/shannon/kosei-tiers/dns-sync — inline handlers (run green)
+#       * actors/agent/agent-runtime/agent-token/apps/authn/authz/bunseki/code-quality/cohort/
+#         training/vertex/workspace/xrpc/yoroshiku/vitals/lint — per-twin -main (argv mirrors click)
+#       * database/deploy/deps/dodaf/haisen/hinshitsu/identity/kagami/kaizen/kashika/kosei/logs/
+#         metrics/mitama/mokuteki/monitor/nono/organism/process-mining/projector/systemofsystem/murakumo
+#         — library-dispatch (ns loads + argv parses; live/destructive legs guarded → use the python
+#           module's flags via the python e7m for live runs until each twin's live IO leg is parity-verified)
+#   - RETIRED: lint.py (full read-only parity in etzhayyim.lint.cljc → `bb e7m lint`) — git rm'd.
+#   - The 7 py modules staged below (deps/mitama/database/coverage/bonsai/kashika/actors) + the python
+#     test COEXIST: their clj twins are wired for dispatch but their live HTTP/scan legs still run via
+#     python, so they are intentionally NOT retired here. Run them via `bb e7m <cmd>` (dispatch) or the
+#     python e7m (live). httpx-in-etzhayyim-py remains until those live legs are ported.
 git add \
   50-infra/k8s/claim-consumer-actor/README.md \
   50-infra/k8s/atproto-pds/deployment.yaml \

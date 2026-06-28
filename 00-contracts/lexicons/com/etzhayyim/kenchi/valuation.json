@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kenchi.valuation",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "A provenance-stamped, uncertainty-quantified EXTERNAL-MARKET valuation of one parcel, fused by kenchi from multiple independent authorities and cleared by the ProvenanceGovernor (G3 PROVENANCE-OR-SILENCE). EXCLUDES etzhayyim Land Trust inalienable holdings (G5; ADR-2605192245 — inalienable land has no market price). A parcel is a place, not a person (G6 NO-PII). rkey = sanitized parcel id.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["parcel", "valueUsd", "ciLoUsd", "ciHiUsd", "nComps", "nAuthorities", "license", "provenance", "asof", "createdAt"],
+        "properties": {
+          "parcel":       { "type": "string", "maxLength": 256, "description": "Canonical parcel id (place, not person — G6 NO-PII; no owner linkage)." },
+          "h3":           { "type": "string", "maxLength": 32 },
+          "assetClass":   { "type": "string", "knownValues": ["external-market"], "description": "ONLY external-market. Inalienable Land Trust / commons-asset access is NOT valued here (G5; toritate.commonsAssetAccess owns that as non-market STOCK)." },
+          "valueUsd":     { "type": "string", "description": "Fused point estimate from recorded PRICE comps only, USD decimal string." },
+          "ciLoUsd":      { "type": "string" },
+          "ciHiUsd":      { "type": "string" },
+          "nComps":       { "type": "integer", "minimum": 3, "description": "Independent recorded comps anchoring the point (G3: ≥3)." },
+          "nAuthorities": { "type": "integer", "minimum": 2, "description": "Independent data authorities corroborating (G3/N8: ≥2; no single-source oracle)." },
+          "maxAgeDays":   { "type": "integer", "minimum": 0 },
+          "license":      { "type": "string", "knownValues": ["open", "derived-only"], "description": "Republication class of THIS record. NEVER 'raw'/'restricted' — ToS-restricted inputs publish derived-only (G4)." },
+          "provenance":   { "type": "array", "description": "Receipts: sources/authorities/kinds/licenses that produced the number (G2 lineage).", "items": { "type": "ref", "ref": "#receipt" } },
+          "asof":         { "type": "string", "format": "datetime" },
+          "createdAt":    { "type": "string", "format": "datetime" }
+        }
+      }
+    },
+    "receipt": {
+      "type": "object",
+      "required": ["authority", "kind", "license"],
+      "properties": {
+        "source":    { "type": "string", "maxLength": 128 },
+        "authority": { "type": "string", "maxLength": 128, "description": "Independent provider (independence counted by authority, not source)." },
+        "kind":      { "type": "string", "knownValues": ["sale", "assessment", "avm", "list", "index"] },
+        "license":   { "type": "string", "knownValues": ["open", "derived-only", "restricted"] }
+      }
+    }
+  }
+}

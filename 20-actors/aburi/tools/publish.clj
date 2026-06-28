@@ -53,8 +53,8 @@
                       " (did.json + infra-actors.ts + actor-profile-seed.kotoba.edn)"))))
 
     ;; 2. materialize did/profile/record from the registry (proves the registry edit is wired)
-    (say "2. materialize did/profile/record from the registry (publish-actor-records.mjs)")
-    (shell wopts "node" "scripts/publish-actor-records.mjs"
+    (say "2. materialize did/profile/record from the registry (publish-actor-records.cljs)")
+    (shell wopts "npx" "nbb" "scripts/publish-actor-records.cljs"
            "--actor" handle "--emit-dir" "out/actor-records")
     (let [emitted (fs/file worker "out" "actor-records" (str handle ".did.json"))
           static (fs/file worker "public" "actor" handle "did.json")]

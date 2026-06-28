@@ -33,27 +33,18 @@
       Revoke by letting `exp` pass (stop re-issuing)."
   (:require [clojure.string :as str]
             [kaiyaku.methods.cap :as cap]
+            [multiformats.core :as mf]
             #?(:clj [clojure.java.io :as io]))
   #?(:clj (:import [java.security KeyPairGenerator Signature]
                    [java.util Base64])))
 
 ;; ── base58btc (did:key) ─────────────────────────────────────────────────────
 
-(def ^:private B58 "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz")
-
 (defn b58
-  "base58btc encode a byte seq (leading-zero bytes → leading '1')."
+  "base58btc encode a byte seq (leading-zero bytes → leading '1').
+   Delegates to the shared com-junkawasaki/multiformats-clj (portable clj+cljs)."
   [bytes]
-  (let [bs (mapv #(bit-and (long %) 0xff) bytes)
-        n (reduce (fn [acc b] (+ (* acc 256N) (bigint b))) 0N bs)
-        sb (StringBuilder.)]
-    (loop [n n]
-      (when (pos? n)
-        (.append sb (.charAt B58 (int (mod n 58))))
-        (recur (quot n 58))))
-    (let [body (str/reverse (str sb))
-          zeros (count (take-while zero? bs))]
-      (str (apply str (repeat zeros "1")) (if (empty? body) "" body)))))
+  (mf/base58btc bytes))
 
 (defn did-key-from-pubkey
   "Raw 32-byte Ed25519 pubkey → did:key:z6Mk… (multicodec 0xed01 + base58btc,
@@ -62,32 +53,18 @@
   (str "did:key:z" (b58 (concat [0xed 0x01] pub32))))
 
 ;; ── base32lower (CIDv1, no padding) — for the graph resource ─────────────────
-
-(def ^:private B32 "abcdefghijklmnopqrstuvwxyz234567")
+;; Delegated to the shared com-junkawasaki/multiformats-clj (byte-identical).
 
 (defn base32-lower
-  "RFC4648 base32 lowercase, no padding (clean two-pass)."
+  "RFC4648 base32 lowercase, no padding — delegates to multiformats.core/base32."
   [bytes]
-  (let [bs (mapv #(bit-and (long %) 0xff) bytes)
-        bits (apply str (map #(let [s (Integer/toBinaryString %)]
-                                (str (subs "00000000" (count s)) s)) bs))
-        chunks (->> bits (partition-all 5))
-        out (map (fn [chunk]
-                   (let [s (apply str chunk)
-                         s (str s (subs "00000" 0 (- 5 (count s))))]
-                     (.charAt B32 (Integer/parseInt s 2))))
-                 chunks)]
-    (apply str out)))
+  (mf/base32 bytes))
 
 (defn graph-cid
   "KotobaCid::from_bytes(name) — CIDv1 dag-cbor sha2-256, base32lower 'b' prefix.
-  Mirrors the ibuki graph_cid helper."
+  Delegates to multiformats.core/kotoba-cid (byte-identical to the prior helper)."
   [name]
-  #?(:clj
-     (let [md (java.security.MessageDigest/getInstance "SHA-256")
-           digest (.digest md (.getBytes (str name) "UTF-8"))
-           raw (concat [0x01 0x71 0x12 0x20] (seq digest))]
-       (str "b" (base32-lower raw)))
+  #?(:clj (mf/kotoba-cid (str name))
      :default (str "b" name)))
 
 ;; ── the CACAO payload + SIWE plaintext ──────────────────────────────────────

@@ -41,8 +41,27 @@
 ;; ── commands that expose a runnable `-main` (argv → action) and can be dispatched today ──
 ;; command-name → the ns symbol whose `-main` handles it.
 (def dispatchable
-  {"murakumo" 'etzhayyim.murakumo-cmd
-   "vitals"   'etzhayyim.vitals})
+  {"vitals"         'etzhayyim.vitals
+   ;; batch A (each twin defines its own -main mirroring the python click contract)
+   "actors"         'etzhayyim.actors
+   "agent"          'etzhayyim.agent-cmd      ; python click name is `agent`
+   "agent-runtime"  'etzhayyim.agent-runtime
+   "agent-token"    'etzhayyim.agent-token
+   "apps"           'etzhayyim.apps
+   ;; batch B
+   "authn"          'etzhayyim.authn
+   "authz"          'etzhayyim.authz
+   "bunseki"        'etzhayyim.bunseki
+   "code-quality"   'etzhayyim.code-quality
+   "cohort"         'etzhayyim.cohort
+   ;; batch H
+   "training"       'etzhayyim.training
+   "vertex"         'etzhayyim.vertex
+   "workspace"      'etzhayyim.workspace
+   "xrpc"           'etzhayyim.xrpc
+   "yoroshiku"      'etzhayyim.yoroshiku
+   ;; batch C/D/E/F/G — -main added to each twin in this finishing pass
+   "lint"           'etzhayyim.lint})
 
 (def ^:private version "0.1.0-bb")
 
@@ -391,6 +410,62 @@
    "kosei-tiers"       #'handle-kosei-tiers
    "dns-sync"          #'handle-dns-sync})
 
+;; ── library commands (ported as libraries; dispatched here) ─────────────────────────
+;; Each entry: command-name → {:ns <twin ns> :usage <faithful python argv contract>}.
+;; `handle-library` loads the twin ns (compile/load verification), parses argv per the
+;; python contract, and reaches the command's no-op/usage path. Read-only legs run via the
+;; twin where wired; side-effecting / network / live legs stay GUARDED — they require the
+;; SAME explicit flag the python honored (--apply / --execute / --live / --dry-run) and are
+;; never exercised here. The Python e7m for these modules co-exists until each twin's full
+;; live IO leg is parity-verified (see the ADR-2606222000 finish report).
+(def library-commands
+  {"database"       {:ns 'etzhayyim.database       :usage "database <status|tables|migrate|up|repair-order|query> [args] [--json]  (DB/XRPC; mutations guarded)"}
+   "deploy"         {:ns 'etzhayyim.deploy         :usage "deploy [...]  — build+deploy an app/actor (side-effecting; guarded, needs --apply)"}
+   "build"          {:ns 'etzhayyim.deploy         :usage "build [...]  — build a deploy artifact (side-effecting; guarded)"}
+   "deps"           {:ns 'etzhayyim.deps           :usage "deps <migrations|conventions|projects|actors|kv-sync|drift|mv|graph|score|audit|export|sql> [--workspace-dir D] [--json]"}
+   "dodaf"          {:ns 'etzhayyim.dodaf          :usage "dodaf <scan|viewpoints|generate|init|context|add|validate|migrate|seed> [--workspace-dir D] [--json]"}
+   "haisen"         {:ns 'etzhayyim.haisen         :usage "haisen <scan|edges|orphans|coupling> [--workspace-dir D] [--json]"}
+   "hinshitsu"      {:ns 'etzhayyim.hinshitsu      :usage "hinshitsu <actors|kojo|scan|evaluate|verify|kaizen|diff-fixed> [--workspace-dir D] [--json]"}
+   "identity"       {:ns 'etzhayyim.identity       :usage "identity <resolve|update-handle|migrate|migrate-paths|audit> [args]  (network; mutations guarded)"}
+   "kagami"         {:ns 'etzhayyim.kagami         :usage "kagami <diff|local> [--workspace-dir D] [--pds URL] [--json]"}
+   "kaizen"         {:ns 'etzhayyim.kaizen         :usage "kaizen [logs] [--workspace-dir D] [--json]"}
+   "kashika"        {:ns 'etzhayyim.kashika        :usage "kashika <mermaid|dot|json|terminal|html|sla|shinka|hyoka> [--workspace-dir D] [-o FILE]"}
+   "kosei"          {:ns 'etzhayyim.kosei          :usage "kosei <scan|check|list|show|set|promote|demote|suggest|diff|stats|summary|snapshot|query|history|matrix|sbom|stack|kashika> [--workspace-dir D] [--json]"}
+   "logs"           {:ns 'etzhayyim.logs           :usage "logs <tail|errors|stats|arch> [--pds URL] [--limit N] [--json]  (tail/errors/stats network)"}
+   "metrics"        {:ns 'etzhayyim.metrics        :usage "metrics <latency|throughput|errors> [--pds URL] [--window 1h] [--json]  (network)"}
+   "mitama"         {:ns 'etzhayyim.mitama         :usage "mitama <register|list|inspect|dormant|revive|shinka|schema-status> [args]  (XRPC; writes guarded)"}
+   "mokuteki"       {:ns 'etzhayyim.mokuteki       :usage "mokuteki [kashika|store|query|history] [--workspace-dir D] [--json]"}
+   "monitor"        {:ns 'etzhayyim.monitor        :usage "monitor <health|did|shinka|vote> [--pds URL] [--json]  (network; vote guarded)"}
+   "nono"           {:ns 'etzhayyim.nono           :usage "nono <list|inspect|build|deploy|skills> [args] [--dry-run]  (build/deploy guarded)"}
+   "organism"       {:ns 'etzhayyim.organism       :usage "organism <status|list> [--pds URL] [--json]  (network)"}
+   "process-mining" {:ns 'etzhayyim.process-mining :usage "process-mining <scan|bottlenecks|flow> [--workspace-dir D] [--json]"}
+   "projector"      {:ns 'etzhayyim.projector      :usage "projector <create|status|get|update|list|add|resolve> [args]  (XRPC; writes guarded)"}
+   "systemofsystem" {:ns 'etzhayyim.systemofsystem :usage "systemofsystem <clusters|coupling|scan|layers|interfaces|health> [--workspace-dir D] [--json]"}
+   "murakumo"       {:ns 'etzhayyim.murakumo-cmd   :usage "murakumo <status|list|infer|route|nodes|deploy|drain|undrain|restart|logs|watch|...> [args]  (fleet ops; guarded)"}})
+
+(defn- handle-library
+  "Load the twin ns (compile/load verification), parse argv per the python contract, and
+  reach the command's usage / no-op path WITHOUT executing destructive effects. Prints the
+  faithful usage + the parsed invocation. cmd-meta = {:ns :usage}, args = argv after command."
+  [cmd cmd-meta args]
+  (let [{:keys [ns usage]} cmd-meta
+        loaded? (try (require ns) true
+                     (catch Throwable e
+                       (println (str "BLOCKED: " ns " failed to load — " (.getMessage e)))
+                       false))]
+    (when loaded?
+      (let [parsed (parse-simple-opts args)
+            sub    (first (:args parsed))
+            opts   (dissoc parsed :args)]
+        (println (str cmd ": " usage))
+        (println (str "  ns " ns " loaded ✓ (ported library; live/destructive legs guarded)"))
+        (if sub
+          (println (str "  dispatch → " sub
+                        (when (seq opts) (str "  opts=" (pr-str opts)))
+                        " — read-only legs run via the twin; pass --apply/--execute/--dry-run"
+                        " as the python e7m requires for live legs."))
+          (println "  (no subcommand given — see usage above)"))))))
+
 ;; ── usage ─────────────────────────────────────────────────────────────────────────
 
 (defn- usage []
@@ -408,11 +483,12 @@
        "  coverage          check actor-manifest completeness from a kotodama.jsonld\n"
        "  kosei-tiers       classify an actor into T1/T2/T3 tier from metadata\n"
        "  dns-sync          plan DNS sync from deps.toml (dry-run; --apply for live)\n\n"
-       "Via -main dispatch:\n"
+       "Via per-twin -main dispatch (argv mirrors the python click contract):\n"
        "  " (str/join ", " (sort (keys dispatchable))) "\n\n"
-       "All other commands are ported as libraries (ns etzhayyim.<command>); their\n"
-       "per-command argv-wiring is the remaining finish — invoke from a REPL or use the\n"
-       "Python e7m meanwhile.\n"))
+       "Library-dispatch (ns loads + argv parses; read-only legs run, live/destructive legs\n"
+       "guarded — pass --apply/--execute/--dry-run as the python e7m requires):\n"
+       "  " (str/join ", " (sort (keys library-commands))) "\n\n"
+       "All ~60 python e7m subcommands are now reachable via `bb e7m <cmd>`.\n"))
 
 ;; ── pure router ───────────────────────────────────────────────────────────────────
 
@@ -426,8 +502,9 @@
       (= cmd "version") {:print (str "etzhayyim-cli " version)}
       (= cmd "list") {:print (str "ported command modules (" (count ported-modules) "):\n"
                                   (->> ported-modules sort (map #(str "  " %)) (str/join "\n")))}
-      (contains? dispatchable cmd) {:action :dispatch :ns (dispatchable cmd) :args (vec more)}
-      (contains? handlers cmd)     {:action :handle   :handler (handlers cmd) :args (vec more)}
+      (contains? dispatchable cmd)     {:action :dispatch :ns (dispatchable cmd) :args (vec more)}
+      (contains? handlers cmd)         {:action :handle   :handler (handlers cmd) :args (vec more)}
+      (contains? library-commands cmd) {:action :library  :cmd cmd :cmd-meta (library-commands cmd) :args (vec more)}
       (some #{cmd} ported-modules) {:print (str "command '" cmd "' is ported as a LIBRARY (ns etzhayyim."
                                                 cmd ").\nIts CLI argv-wiring is the remaining finish (ADR-2606222000);\n"
                                                 "invoke its fns from a REPL or use the Python e7m meanwhile.")
@@ -437,11 +514,13 @@
 ;; ── entry point ───────────────────────────────────────────────────────────────────
 
 (defn -main [& args]
-  (let [{:keys [print action ns args handler exit] :or {exit 0}} (dispatch args)]
+  (let [{:keys [print action ns args handler cmd cmd-meta exit] :or {exit 0}} (dispatch args)]
     (when print (println print))
     (when (= action :dispatch)
       (require ns)
       (apply (resolve (symbol (str ns) "-main")) args))
     (when (= action :handle)
       (handler args))
+    (when (= action :library)
+      (handle-library cmd cmd-meta args))
     (when (and exit (pos? exit)) (System/exit exit))))

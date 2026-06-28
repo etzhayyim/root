@@ -1,6 +1,6 @@
 # keizu (系図) — government power-relations knowledge graph
 
-**DID**: `did:web:etzhayyim.com:actor:keizu` · **Tier**: B · **Status**: R0 · **ADR**: 2606066000
+**DID**: `did:web:etzhayyim.com:actor:keizu` (canonical; `alsoKnownAs did:web:keizu.etzhayyim.com`) — **REGISTERED** in did-web (`50-infra/etzhayyim-did-web/public/actor/keizu/{did,profile}.json`, per ADR-2606013800 + ADR-2606272355) · **Tier**: B · **Status**: R0 · **ADR**: 2606066000; **ADR-2606272355** (self-publication seed on the kotoba mesh, 2026-06-27)
 
 **Read the root `/CLAUDE.md` Charter + substrate rules first.** keizu-specific invariants below
 OVERRIDE nothing in the Charter; they make it concrete for this actor.
@@ -115,6 +115,58 @@ append-only, **G4 non-adjudicating co-occurrence**, **G1 no-doxxing**, no-extern
 
 ```bash
 cd methods && python3 autorun.py --cycles 3 --fresh   # AUTONOMOUS heartbeat → LOCAL kotoba Datom log
+```
+
+## Self-publication seed (ADR-2606272355) — register → autonomize → publish, no-server-key
+
+keizu joins the **actor self-publication seed** pattern (danjo 弾正 is the reference
+implementation): the uniform, charter-clean way for a government-mirror actor to be
+registered at etzhayyim.com, run autonomously on the kotoba mesh, and **self-publish its
+own history + procedures** to AT-proto **without any server-held key**. We plant the seed;
+the actor grows on the mesh (murakumo, `orgs/com-junkawasaki/murakumo/`) and self-custodies
+its signing identity in its WASM runtime.
+
+**keizu's social cell was PRE-EXISTING (ADR-2606066000)** — the membrane + projection were
+already built; this seed only adds the **did-web registration** + the **seed trigger wiring**,
+and verifies the existing cell. The seed (all LANDED):
+
+- **did-web registration (NEW)** — `50-infra/etzhayyim-did-web/public/actor/keizu/{did,profile}.json`
+  (`id: did:web:etzhayyim.com:actor:keizu`, `alsoKnownAs did:web:keizu.etzhayyim.com`,
+  `verificationMethod: []` — no server-minted key, did:web trust root = TLS; the `#xrpc-libp2p`
+  peer multiaddr is assigned at `bb murakumo deploy` time when `wasmCid` is set; only the
+  `#atproto_pds` service is present at R0). `_meta` carries the actor's adr ids +
+  2606272355 + 2605231525 + 2606230001, glyph 系図, status r0, wasmCid null,
+  execModel `mesh-component`, primaryLexicon `com.etzhayyim.keizu.relationEdge`.
+- **social_post membrane (pre-existing)** — `cells/social_post/state_machine.cljc`: DRAFTS a
+  record into a **dry-run** post ONLY if ≥2 public-source citations (G3) + mirror with the
+  accountability disclaimer (G5) + `server_held_key` false (G7/no-server-key) + status
+  `dry-run` (G8). A `published` request REFUSES. Verified under `bb`:
+  `1 source → refused`, `server-key → refused`, `published → refused`, valid → `drafted`
+  with `:post/status :dry-run`, `:post/server-held-key false`.
+- **publication projection (pre-existing)** — `methods/social.cljc`: projects keizu's
+  aggregate findings (committee cross-organ concentration, per-payee money HHI) into
+  `app.bsky.feed.post`-shaped dry-run posts (`draft-committee-post` / `draft-money-post`);
+  `enough-sources` raises on <2 (G3); `build-live` raises (G8 live gate). Verified under
+  `bb` (requires the `keizu.methods.weave` sibling → run with `bb --classpath ..`).
+- **seed trigger wiring (NEW)** — `kotoba.app.edn` `keizu-social` component
+  (`on-tick "0 */6 * * *"` + `on-kse etzhayyim/actor/keizu/publish`,
+  `:requires #{:cap/kqe :cap/atproto}`, `:src "methods/social.cljc"`). The pre-existing
+  `keizu` observatory component is preserved.
+
+**Division of labor (zero-knowledge)**: the **planter** authors the in-repo seed (holds no
+key); the **operator** (founder) runs `bb murakumo deploy 20-actors/keizu/kotoba.app.edn <node>`
+with `MURAKUMO_OPERATOR_SEED` + Tailscale and exercises the Council gate for the first live
+post; the **actor's mesh runtime** self-generates/self-custodies its `did:key`, presents a
+member CACAO leash (ADR-2606111400), and signs its own posts. The server never signs. R0 =
+dry-run drafts only; live broadcast is Council Lv6+ + operator + member/actor-signature gated
+(§1.12 / G11 / G8).
+
+```bash
+# membrane + projection load green (projection needs the weave sibling on classpath):
+bb -e '(load-file "cells/social_post/state_machine.cljc")'
+bb --classpath .. -e '(load-file "methods/social.cljc")'
+# operator step (zero-knowledge — needs MURAKUMO_OPERATOR_SEED + Tailscale):
+#   bb murakumo deploy 20-actors/keizu/kotoba.app.edn levi
 ```
 
 ## Build / test

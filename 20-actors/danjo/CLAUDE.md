@@ -3,8 +3,8 @@
 ## Identity
 
 - **Name**: danjo (弾正 — Nara/Heian 律令制 Censorate; the 弾正台 Danjōdai monitored official misconduct. Here: the censor's EYE only, never the censor's SWORD)
-- **DID**: `did:web:danjo.etzhayyim.com`
-- **ADR**: ADR-2605301600 (R0 scaffold, 2026-05-30)
+- **DID**: `did:web:etzhayyim.com:actor:danjo` (canonical; `alsoKnownAs did:web:danjo.etzhayyim.com`) — **REGISTERED** in did-web (`50-infra/etzhayyim-did-web/public/actor/danjo/{did,profile}.json`) + the actor-profile-seed SSoT (`00-contracts/schemas/actor-profile-seed.kotoba.edn`), per ADR-2606013800 + ADR-2606272355
+- **ADR**: ADR-2605301600 (R0 scaffold, 2026-05-30); **ADR-2606272355** (self-publication seed on the kotoba mesh, 2026-06-27)
 - **Parent ADRs**: ADR-2605263900 (open-gov corpus — primary input), ADR-2605262130 (kotoba EAVT), ADR-2605192100 (Mission Charter §1.12 + §2(c)), ADR-2605192200 (Charter Rider), ADR-2605192300 (Council 5-of-7), ADR-2605215000 (Murakumo-only inference)
 - **Cross-actor siblings**: toritate (ADR-2605262900; boundary), chigiri (ADR-2605262700; UPL routing), ossekai (ADR-2605264000; publication), tadori (ADR-2605301400; kotoba-native investigation sibling)
 - **Status**: R0 scaffold — 6 cells path-reserved + 4 Lexicon skeletons
@@ -154,6 +154,47 @@ provenance, no-external-I/O).
 
 ```bash
 python3 methods/autorun.py --cycles 3 --fresh   # AUTONOMOUS heartbeat → LOCAL kotoba Datom log
+```
+
+## Self-publication seed (ADR-2606272355) — register → autonomize → publish, no-server-key
+
+danjo is the **reference implementation** of the actor self-publication seed: the
+uniform, charter-clean way for a government-mirror actor to be registered at
+etzhayyim.com, run autonomously on the kotoba mesh, and **self-publish its own history +
+procedures** to AT-proto **without any server-held key**. We plant the seed; the actor
+grows on the mesh (murakumo, `orgs/com-junkawasaki/murakumo/`) and self-custodies its
+signing identity in its WASM runtime.
+
+The seed (all LANDED):
+
+- **did-web registration** — `50-infra/etzhayyim-did-web/public/actor/danjo/{did,profile}.json`
+  (`verificationMethod: []` — no server-minted key, did:web trust root = TLS; the
+  `#xrpc-libp2p` peer multiaddr is assigned at `bb murakumo deploy` time when `wasmCid` is set).
+- **social_post membrane** — `cells/social_post/state_machine.cljc`: DRAFTS a record into a
+  **dry-run** post ONLY if ≥2 public-source citations (G5) + non-adjudicating mirror with the
+  disclaimer (G4) + `server_held_key` false (no-server-key) + status `dry-run`. A `published`
+  request REFUSES. Verified under `bb`: `<2 sources / server-key / published → refused`,
+  valid → `drafted` with `:post/status :dry-run`, `:post/server-held-key false`.
+- **publication projection** — `methods/social.cljc`: projects danjo's HISTORY (oversight
+  observations + revenue-ledger lines) + PROCEDURES (per-yen tax traceability from
+  `data/jp-national-taxes.edn`) into `app.bsky.feed.post`-shaped dry-run posts
+  (`draft-procedure-post` / `draft-revenue-post` / `draft-observation-post`); `enough-sources`
+  raises on <2 (G5); `build-live` raises (live gate). Verified under `bb`.
+- **seed trigger wiring** — `kotoba.app.edn` `danjo-social` component (`on-tick "0 */6 * * *"`
+  + `on-kse etzhayyim/actor/danjo/publish`, `:requires #{:cap/kqe :cap/atproto}`).
+
+**Division of labor (zero-knowledge)**: the **planter** authors the in-repo seed (holds no
+key); the **operator** (founder) runs `bb murakumo deploy 20-actors/danjo/kotoba.app.edn <node>`
+with `MURAKUMO_OPERATOR_SEED` + Tailscale and exercises the Council gate for the first live post;
+the **actor's mesh runtime** self-generates/self-custodies its `did:key`, presents a member CACAO
+leash (ADR-2606111400), and signs its own posts. The server never signs. R0 = dry-run drafts
+only; live broadcast is Council Lv6+ + operator + member/actor-signature gated (§1.12 / G11).
+
+```bash
+bb -e '(load-file "methods/social.cljc")'                 # projection loads green
+bb -e '(load-file "cells/social_post/state_machine.cljc")' # membrane loads green
+# operator step (zero-knowledge — needs MURAKUMO_OPERATOR_SEED + Tailscale):
+#   bb murakumo deploy 20-actors/danjo/kotoba.app.edn asher
 ```
 
 ## Build & Deploy

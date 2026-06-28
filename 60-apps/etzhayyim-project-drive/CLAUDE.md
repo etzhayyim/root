@@ -47,15 +47,15 @@ Join key `:drive/sha256` (Google `sha256Checksum` == MS `file.hashes.sha256Hash`
 ## ファイル構成
 
 ```
-lg/  (Dockerfile, pyproject.toml, langgraph.json)
-└── lg_drive/{server,handlers,store,mapping,kotoba_datomic,edn,ids}.py + graphs/health.py
-tests/test_handlers.py        # 8 deterministic tests (CRUD/list/version/changes/about)
+lg/  (bb.edn, run_tests.clj)   # canonical = the clj twin (ADR-2606280030); DEV-stage py deleted
+└── clj/lg_drive/{server,handlers,store,mapping,kotoba_datomic,edn,ids}.cljc + graphs/health.cljc
+    clj/lg_drive/{test_handlers,test_graph}.cljc   # 13 tests (CRUD/list/version/changes/about + graph/server)
 (edge) 50-infra/cloudflare/workers/drive-compat/   # Google + MS skins (12 tests)
 (infra) 50-infra/vultr/lg-drive-pool/              # Helm (mirror lg-calendar-pool)
 ```
 
 ## Test
 ```bash
-cd 60-apps/etzhayyim-project-drive/lg && python3 -m pytest tests/ -q
+cd 60-apps/etzhayyim-project-drive/lg && bb run_tests.clj
 cd 50-infra/cloudflare/workers/drive-compat && node --test test/*.test.ts
 ```

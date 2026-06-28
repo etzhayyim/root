@@ -12,7 +12,7 @@ KOTOBA_URL="${KOTOBA_URL:-http://127.0.0.1:8077}"
 # Defaults (override via env)
 SCHEMA_FILE="${SCHEMA_FILE:-$(dirname "$0")/schema.edn}"
 SEED_FILE="${SEED_FILE:-$(dirname "$0")/seed.edn}"
-INGEST_SCRIPT="${INGEST_SCRIPT:-$(dirname "$0")/ingest_mcp.py}"
+INGEST_SCRIPT="${INGEST_SCRIPT:-$(dirname "$0")/ingest_mcp.cljc}"
 
 echo "[infra-utility-connect] deploying to $KOTOBA_URL ..."
 

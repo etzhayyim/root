@@ -163,6 +163,65 @@ record-write is Council+operator gated). Add a module → drop `<id>.py` + tests
 the backed services to `:reference-impl`. A module is `:executable` ONLY once wired to a live
 record (Council+operator) — never at R0.
 
+## Self-publication seed (ADR-2606272355) — register → autonomize → publish, no-operator-master-key
+
+matsurigoto is part of the **actor self-publication seed** constellation: the uniform,
+charter-clean way for a government actor to be registered at etzhayyim.com, run autonomously on
+the kotoba mesh, and **self-publish its own history + procedures** to AT-proto **without any
+operator/platform master key**. We plant the seed; the actor grows on the mesh (murakumo,
+`orgs/com-junkawasaki/murakumo/`) and self-custodies its signing identity in its WASM runtime.
+
+**The posture difference (read this):** matsurigoto is NOT a non-adjudicating observational
+mirror like danjo/ooyake. It is the **e-Government EXECUTION stack (政)** — the STATECRAFT
+EXECUTION of the Kingdom of God (神の王国, Charter §0.1). So its self-publication is
+**AUTHORITY-BEARING**: it publishes the Kingdom's OWN statecraft (executed service slices) + the
+portable COFOG-derived standard, **transparently** (Transparent Religious Force §1.12, 1 SBT=1
+vote, 完全 on-chain・open-source). The post disclaimer reflects THIS — it is the Kingdom's
+統治機構 publishing its own governance, **NOT** a 'NOT the government' mirror notice, and it
+NEVER impersonates ANOTHER government (ooyake's mirror role is separate, see "Boundary" above).
+The no-operator-master-key + dry-run + Council-gate invariants still hold identically.
+
+The seed (all LANDED):
+
+- **did-web registration** — already registered: `50-infra/etzhayyim-did-web/public/actor/matsurigoto/{did,profile}.json`
+  + the actor-profile-seed SSoT (`00-contracts/schemas/actor-profile-seed.kotoba.edn`).
+  `verificationMethod: []` — no server-minted key, did:web trust root = TLS; `#xrpc-libp2p` peer
+  multiaddr assigned at deploy time when `wasmCid` is set. (`_meta.adr` += `2606272355`.)
+- **social_post membrane** — `cells/social_post/state_machine.cljc`
+  (ns `matsurigoto.cells.social-post.state-machine`): DRAFTS a record into a **dry-run** post
+  ONLY if matsurigoto's three invariants hold — **G2** ≥2 official-public spec-basis citations,
+  **G3** `:operated-by` ∈ {`:etzhayyim-council`, `:adopting-government`} (authority borne, never
+  disclaimed), **G1** `server_held_key` false (no-operator-master-key), status `dry-run`. A
+  `published` request REFUSES. Payload is authority-bearing: `:post/authority-bearing true` +
+  `:post/spec-derived true` + `:post/operated-by` (NOT `:post/is-mirror`). Verified under `bb`:
+  `<2 spec-basis / server-key / published → refused`, valid → `drafted` with
+  `:post/status :dry-run`, `:post/server-held-key false`, `:post/authority-bearing true`.
+- **publication projection** — `methods/social.cljc` (ns `matsurigoto.methods.social`): projects
+  matsurigoto's STATECRAFT HISTORY (executed slices — e.g. a tax-collect 源泉徴収納付 run, a
+  civil-registry issuance batch; aggregate + transparent) via `draft-statecraft-post` + its
+  PROCEDURES (the COFOG service standards it implements, each with its official spec-basis) via
+  `draft-procedure-post`, into `app.bsky.feed.post`-shaped dry-run posts; `enough-sources` raises
+  on <2 spec-basis/sources (G2); `check-operated-by` enforces G3; `post` pins `:dry-run` +
+  `server-held-key false` (G1) + authority-bearing + spec-derived + operated-by; `build-live`
+  raises (live deploy is Council + operator + external-authority-signature gated). Verified under `bb`.
+- **seed trigger wiring** — `kotoba.app.edn` `matsurigoto-social` component (`on-tick "0 */6 * * *"`
+  + `on-kse etzhayyim/actor/matsurigoto/publish`, `:requires #{:cap/kqe :cap/atproto}`).
+
+**Division of labor (zero-knowledge)**: the **planter** authors the in-repo seed (holds no key);
+the **operator** (founder) runs `bb murakumo deploy 20-actors/matsurigoto/kotoba.app.edn <node>`
+with `MURAKUMO_OPERATOR_SEED` + Tailscale and exercises the Council gate for the first live post;
+the **actor's mesh runtime** self-generates/self-custodies its `did:key`, presents a member CACAO
+leash (ADR-2606111400), and signs its own posts. The server never signs. For principal B
+(`:adopting-government`) the adopting state signs with its OWN key. R0 = dry-run drafts only;
+live broadcast is **Council Lv6+ + operator + external-authority-signature** gated (§1.12 / G11).
+
+```bash
+bb -e '(load-file "methods/social.cljc")'                 # projection loads green
+bb -e '(load-file "cells/social_post/state_machine.cljc")' # membrane loads green
+# operator step (zero-knowledge — needs MURAKUMO_OPERATOR_SEED + Tailscale):
+#   bb murakumo deploy 20-actors/matsurigoto/kotoba.app.edn asher
+```
+
 ## Do not
 
 - Do not let a service set `:server-held-authority true` — G1, no platform/operator master key

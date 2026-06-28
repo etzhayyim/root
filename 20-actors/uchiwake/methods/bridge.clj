@@ -15,6 +15,7 @@
   (:require [clojure.string :as str]
             [clojure.java.io :as io]
             [cheshire.core :as json]
+            [multiformats.core :as mf]
             [uchiwake.methods.uchiwake-edn :as uedn]
             [uchiwake.methods.kotoba :as k]))
 
@@ -24,33 +25,12 @@
       "http://127.0.0.1:8077/xrpc/com.kotoba.datomic.transact"))
 (def ^:private base-as-of 26060816)
 
-;; ── base32 (RFC4648 lowercase, no padding) — matches Python b32encode(...).rstrip('=').lower() ──
-(def ^:private b32-alpha "abcdefghijklmnopqrstuvwxyz234567")
-
-(defn- base32-lower [^bytes data]
-  (let [sb (StringBuilder.)]
-    (loop [i 0 buf 0 bits 0]
-      (if (< i (alength data))
-        (let [buf (bit-or (bit-shift-left buf 8) (bit-and (long (aget data i)) 0xff))
-              bits (+ bits 8)
-              [buf bits] (loop [buf buf bits bits]
-                           (if (>= bits 5)
-                             (do (.append sb (.charAt b32-alpha
-                                                      (bit-and (unsigned-bit-shift-right buf (- bits 5)) 0x1f)))
-                                 (recur buf (- bits 5)))
-                             [buf bits]))]
-          (recur (inc i) buf bits))
-        (do (when (pos? bits)
-              (.append sb (.charAt b32-alpha (bit-and (bit-shift-left buf (- 5 bits)) 0x1f))))
-            (str sb))))))
-
+;; ── kotoba graph CID — delegated to com-junkawasaki/multiformats-clj (byte-identical) ──
 (defn graph-cid
   "The kotoba graph identifier for a graph NAME: dag-cbor (0x71) multihash sha2-256, multibase
-  base32 ('b' prefix) — 1:1 with bridge.py graph_cid."
+  base32 ('b' prefix). Delegates to multiformats.core/kotoba-cid."
   [name]
-  (let [digest (.digest (java.security.MessageDigest/getInstance "SHA-256") (.getBytes (str name) "UTF-8"))
-        raw (byte-array (concat [(byte 0x01) (byte 0x71) (byte 0x12) (byte 0x20)] (seq digest)))]
-    (str "b" (base32-lower raw))))
+  (mf/kotoba-cid (str name)))
 
 (defn bridge-state
   "Replay the durable push cursor from the local log: the LAST :bridge/* checkpoint wins.

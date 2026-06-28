@@ -19,5 +19,5 @@ if ! curl -fsS -m 5 "${KOTOBA_URL}/health" >/dev/null 2>&1; then
   exit 1
 fi
 
-python3 "${SCRIPT_DIR}/ingest_efficiency.py" --url "${KOTOBA_URL}" --graph "${GRAPH}"
+bb "${SCRIPT_DIR}/ingest_efficiency.cljc" --url "${KOTOBA_URL}" --graph "${GRAPH}"
 echo "==> done"

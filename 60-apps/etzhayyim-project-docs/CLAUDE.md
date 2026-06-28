@@ -45,15 +45,19 @@ merge)/replaceText/insertHeading/appendParagraph; `startIndex/endIndex` computed
 
 ## ファイル構成
 ```
-lg/  (Dockerfile, pyproject.toml, langgraph.json)
-└── lg_docs/{server,handlers,store,mapping,docbody,kotoba_datomic,edn,ids}.py + graphs/health.py
-tests/test_handlers.py        # 9 tests (index engine, cross-element delete, replace-body, revision)
+lg-clj/  (canonical — langgraph-clj port, ADR-2606280030)
+└── src/lg_docs/{server,handlers,store,mapping,docbody,kotoba_datomic,edn,ids,graph}.cljc
+tests/lg_docs/*_test.cljc     # clojure.test (23 tests / 54 assertions)
 (edge) 50-infra/cloudflare/workers/docs-compat/  # Google + MS skins (10 tests)
 (infra) 50-infra/vultr/lg-docs-pool/             # Helm (mirror lg-sheets-pool)
 ```
 
+The DEV-stage Python appview (`lg/`: Dockerfile + pyproject.toml + langgraph.json +
+`lg_docs/*.py`) was **deleted** once the `lg-clj/` twin was verified (ADR-2606280030,
+founder directive "twin の py を削除", 2026-06-28); `lg-clj/` is now the canonical code.
+
 ## Test
 ```bash
-cd 60-apps/etzhayyim-project-docs/lg && python3 -m pytest tests/ -q
+cd 60-apps/etzhayyim-project-docs/lg-clj && bb run_tests.clj
 cd 50-infra/cloudflare/workers/docs-compat && node --test test/*.test.ts
 ```
