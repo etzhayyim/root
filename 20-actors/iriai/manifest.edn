@@ -60,7 +60,8 @@
   {:method/id "forecast" :method/file "methods/forecast.cljc" :method/role "予測保全 (mitooshi 見通し discipline): twin.project run-ahead → per-asset lead-time to the next condition/safety action → prioritized schedule; model-based + horizon-bounded; SIM only (ADR-2606280900)"}
   {:method/id "gates"   :method/file "methods/gates.cljc"   :method/role "constitutional gate assertions (ex-info, incl. G9 safety-floor) + structural forbidden-absent? (the charter inversions)"}
   {:method/id "kotoba"  :method/file "methods/kotoba.cljc"  :method/role "持続永続化: content-addressed append-only COMMONS LEDGER (tx-cid/make-tx/append-tx/read-log/verify-chain)"}
-  {:method/id "autorun" :method/file "methods/autorun.cljc" :method/role "持続永続化: deterministic, idempotent-by-content heartbeat — infra+fund+manage+twin+maintain+forecast → append (+ bb CLI)"}]
+  {:method/id "kotoba_bridge" :method/file "methods/kotoba_bridge.cljc" :method/role "LIVE-engine bridge (ibuki-R3/kaname pattern): push local commit-DAG → kotoba :8077 datomic.transact; host allowlist + :iriai.tx/* provenance + :bridge/* exactly-once cursor + expected_parent; DRY-RUN default, fail-open; live = G7 operator step (ADR-2606280900)"}
+  {:method/id "autorun" :method/file "methods/autorun.cljc" :method/role "持続永続化: deterministic, idempotent-by-content heartbeat — infra+fund+manage+twin+maintain+forecast → append; --bridge pushes to live engine (fail-open)"}]
 
  :actor/lex
  [{:lex/id "lifelineCoverageMap" :lex/nsid "com.etzhayyim.iriai.lifelineCoverageMap"

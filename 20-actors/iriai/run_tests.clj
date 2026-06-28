@@ -25,6 +25,7 @@
     iriai.methods.test-forecast
     iriai.methods.test-gates
     iriai.methods.test-kotoba
+    iriai.methods.test-kotoba-bridge
     iriai.methods.test-autorun
     iriai.test-cell])
 
