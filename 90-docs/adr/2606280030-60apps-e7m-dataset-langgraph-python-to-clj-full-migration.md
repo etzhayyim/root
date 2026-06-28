@@ -83,25 +83,25 @@ Status: ⬜ pending · 🟡 in-flight · ✅ migrated (cljc twin verified, .py r
 |---|---|---|---|---|
 | etzhayyim-project-mangaka | 96 | 6 | ✓ | 🟡 partial #2649 |
 | etzhayyim-project-animeka | 44 | 14 | ✓ | 🟢 twin #2652 |
-| etzhayyim-project-open-ot | 32 | 0 | | ⬜ |
+| etzhayyim-project-open-ot | 32 | 0 | | 🟠 draft #2656 |
 | etzhayyim-project-yukkuri | 25 | 12 | ✓ | 🟢 twin #2648 |
-| kotoba-erp | 23 | 0 | | ⬜ |
-| etzhayyim-project-maps | 22 | 0 | | ⬜ |
+| kotoba-erp | 23 | 0 | | 🟢 twin #2661 |
+| etzhayyim-project-maps | 22 | 0 | | 🟡 partial #2657 |
 | etzhayyim-project-jukyu | 21 | 1 | ✓ | 🟢 twin #2651 |
-| etzhayyim-project-states | 20 | 0 | | ⬜ |
+| etzhayyim-project-states | 20 | 0 | | 🟡 partial #2659 |
 | etzhayyim-project-hakken | 19 | 10 | ✓ | 🟡 partial #2650 |
 | ai-gftd-chat-shell | 17 | 2 | ✓ | 🟢 twin #2631 |
 | etzhayyim-chat-shell | 17 | 2 | ✓ | 🟢 twin #2634 |
 | etzhayyim-project-kyber | 17 | 3 | ✓ | 🟢 twin #2632 |
-| etzhayyim-project-open-robo | 16 | 0 | | ⬜ |
-| etzhayyim-project-common-crawl | 16 | 2 | | ⬜ |
+| etzhayyim-project-open-robo | 16 | 0 | | 🟡 partial #2654 |
+| etzhayyim-project-common-crawl | 16 | 2 | | 🟡 partial #2660 |
 | etzhayyim-project-docs | 14 | 2 | ✓ | 🟢 twin #2627 |
 | etzhayyim-project-sheets | 14 | 2 | ✓ | 🟢 twin #2626 |
 | etzhayyim-project-media-gamers | 13 | 4 | ✓ | 🟢 twin #2629 |
 | etzhayyim-project-calendar | 12 | 2 | ✓ | 🟢 twin #2625 |
 | etzhayyim-project-narou | 12 | 2 | ✓ | 🟢 twin #2623 |
 | etzhayyim-project-webmk | 12 | 1 | ✓ | 🟢 twin #2620 |
-| etzhayyim-organism-viz | 11 | 0 | | ⬜ |
+| etzhayyim-organism-viz | 11 | 0 | | 🟡 partial #2655 |
 | etzhayyim-project-drive | 11 | 2 | ✓ | 🟢 twin #2624 |
 | etzhayyim-project-patent | 11 | 0 | ✓ | 🟢 twin #2640 |
 | etzhayyim-project-x | 11 | 3 | ✓ | 🟢 twin #2628 |
@@ -111,8 +111,8 @@ Status: ⬜ pending · 🟡 in-flight · ✅ migrated (cljc twin verified, .py r
 | etzhayyim-project-dougaka | 8 | 1 | ✓ | 🟢 twin #2621 |
 | etzhayyim-project-lawfirm | 7 | 0 | ✓ | 🟢 twin #2636 |
 | etzhayyim-project-open-jpn-mynumber | 7 | 0 | ✓ | 🟢 twin #2644 |
-| etzhayyim-project-browser | 6 | 1 | | ⬜ |
-| spirit-in-physics | 6 | 0 | | ⬜ |
+| etzhayyim-project-browser | 6 | 1 | | 🟢 twin #2658 |
+| spirit-in-physics | 6 | 0 | | ⛔ blocked |
 | etzhayyim-project-vpn | 5 | 1 | | ⬜ |
 | etzhayyim-project-comfyui | 4 | 2 | | ⬜ |
 | etzhayyim-project-curpus2skill | 4 | 0 | ✓ | 🟢 twin #2637 |
@@ -175,3 +175,23 @@ driven by multi-agent orchestration; per-app status lives in the inventory table
   kyber #2632, etzhayyim-chat-shell #2634. **httpx not yet eliminated** — each app's
   deployment cutover (langgraph.json/Dockerfile/Helm → clj runtime + retire .py) is a
   dedicated follow-up pass after all twins are built.
+
+- **Wave 2 (2026-06-27)** — 17 lg apps → twins; 15 migrated + 2 partial (hakken #2650,
+  mangaka #2649); merged #2636–#2652. 30 apps now twinned.
+- **Wave 3 (2026-06-28)** — non-lg python apps; 9 of 23 completed before hitting the
+  weekly usage limit (14 not attempted). Merged: kotoba-erp #2661 (full ERP, 20 ns),
+  browser #2658 (migrated); open-robo #2654, organism-viz #2655, maps #2657, states #2659,
+  common-crawl #2660 (partial — heavy-numerics/wasmtime/RisingWave layers kept as .py per
+  the substrate boundary). open-ot #2656 left DRAFT (unrelated Rust CI fail). spirit-in-physics
+  blocked. All merged twins additive/coexist (py_removed=0).
+
+## PAUSED (2026-06-28)
+
+Migration **paused** at founder request ("py を停止していいよ") + a weekly usage-limit cap.
+State: **37 apps have clj twins** (30 🟢 full + 7 🟡 partial) merged & coexisting, all
+bb-verified; 1 🟠 draft (open-ot #2656), 1 ⛔ blocked (spirit-in-physics). **Remaining ⬜**:
+14 small non-lg apps (vpn/comfyui/web4/murakumo/okaimono/onion/open-unispsc/ma/ohanashi/
+open-saas/real-estate/runpod/search/telecom — not attempted, weekly limit) + **e7m-dataset**
+(57 files). **httpx not yet eliminated anywhere** — every merged twin is additive; the
+deployment cutover (langgraph.json/Dockerfile/Helm → clj runtime + retire .py) is the
+unstarted final pass. Resume by fanning out the remaining ⬜ rows + then the cutover pass.
