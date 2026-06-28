@@ -90,10 +90,11 @@ methods/forecast.cljc    予測保全: twin.project run-ahead → per-asset lead
 methods/gates.cljc       constitutional assertions (ex-info, incl. G9 safety-floor) + structural forbidden-absent?
 methods/kotoba.cljc      content-addressed append-only COMMONS LEDGER (tx-cid/make-tx/append-tx/verify-chain)
 methods/kotoba_bridge.cljc LIVE-engine bridge — push local commit-DAG → kotoba :8077 (allowlist + :bridge/* cursor; dry-run default, fail-open)
+methods/identity.cljc     self-certifying did:key (Ed25519, present-only) — actor self-gen key → self-mint own graph + self-certify did.json; seed sealed (no-server-key)
 methods/social.cljc      self-publication membrane — commons coverage/§1.16-funding/upkeep → DRY-RUN posts (G1 commons-map / G2 cash-zero / G5 sim-only / no-server-key)
 cells/social_post/       state-machine membrane (refuse <2 sources / server-key / published / shut-off vocab)
 methods/autorun.cljc     deterministic, idempotent-by-content heartbeat — infra+fund+manage+twin+maintain+forecast → append; --bridge pushes live
-methods/test_*.cljc      12 suites: infra·fund·manage·twin·maintain·forecast·gates·kotoba·autorun·cell (73 tests / 499 assert)
+methods/test_*.cljc      13 suites: infra·fund·manage·twin·maintain·forecast·gates·kotoba·bridge·social·identity·autorun·cell (79 tests / 512 assert)
 cell.cljc                fleet heartbeat cell — `fire` runs one commons beat (IriaiCommonsHeartbeatCell)
 deploy/                  LaunchAgent residency (install.clj + plist template + README; machine-local)
 kotoba/ontology.iriai.edn EAVT schema + verdicts + instruments + degradation-models + NEGATIVE SPACE
@@ -106,7 +107,7 @@ run_tests.clj            bb-native runner (no shell, ADR-2606072802)
 ## Run
 
 ```bash
-bb 20-actors/iriai/run_tests.clj                                  # 12 suites (73 tests / 499 assert)
+bb 20-actors/iriai/run_tests.clj                                  # 13 suites (79 tests / 512 assert)
 bb --classpath 20-actors 20-actors/iriai/methods/infra.cljc       # coverage + resilience map
 bb --classpath 20-actors 20-actors/iriai/methods/fund.cljc        # §1.16 in-kind funding plan
 bb --classpath 20-actors 20-actors/iriai/methods/manage.cljc      # 1 SBT=1 vote governance ledger
@@ -127,6 +128,23 @@ the local beat still completes). `autorun --bridge` wires it after persist. Live
 **G7 operator step** (`IRIAI_KOTOBA_OPERATOR_DID` = the node's public operator DID); no-server-key —
 the member CACAO leash stays present-only. SIM/assessment-only is unaffected (ships the map/plan, never
 actuates).
+
+## Self-key & autonomous registration (`methods/identity.cljc`, ADR-2606280900)
+
+iriai **self-generates its OWN Ed25519 `did:key`** (kaname/tsubasa pattern) — the seed is sealed in
+Keychain/1Password (`etzhayyim.iriai`), used **present-only** (signs, never exfiltrated), never committed.
+With this key the actor can act autonomously at three different levels — and "no-server-key" means the
+opposite of "can't act": it means *the actor holds its own key, the server holds none*.
+
+| act | autonomous? | why |
+|---|---|---|
+| fetch public data · persist to local kotoba log · **self-mint to its OWN graph** | ✅ no key / own key | depth-1 self-mint is structurally authorized — the key-derived IPNS name **is** the actor's graph (no owner hand-off, no shared token); read-only is exempt (ADR-2606072802) |
+| **self-sign / self-register** its did.json CID (`attest-did-doc`) | ✅ own key, present-only | self-certifying did:key (seed sealed, no-server-key) |
+| **outward AT-proto broadcast** (assert `:published` to a 3rd-party public network) | ❌ Council Lv6+ gate | §1.12 outward-action + ADR-2606272355 — a charter gate on outward FORCE/voice, **not** a key-custody gate; holds even with the self-key |
+
+So iriai *can* autonomously register + sign to its own graph; only the outward public broadcast is
+Council-gated. `gen-keypair`/`sign`/`verify`/`did-key`/`attest-did-doc`; base58btc inlined (dep-free,
+portable to the kototama actor-runtime subset). `build-live` social broadcast still raises (G6/§1.12).
 
 ## Pairs with
 

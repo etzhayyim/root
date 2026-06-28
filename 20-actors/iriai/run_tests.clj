@@ -27,6 +27,7 @@
     iriai.methods.test-kotoba
     iriai.methods.test-kotoba-bridge
     iriai.methods.test-social
+    iriai.methods.test-identity
     iriai.methods.test-autorun
     iriai.test-cell])
 
