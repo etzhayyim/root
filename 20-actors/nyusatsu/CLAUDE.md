@@ -1,6 +1,10 @@
 # nyusatsu — Worldwide Public-Procurement Mirror
 
-**DID** `did:web:etzhayyim.com:actor:nyusatsu` · **Tier** B · **Status** R0+R1-offline · **ADR** 2606271700 (worldwide), 0035 (JP origin)
+**DID** `did:web:etzhayyim.com:actor:nyusatsu` · **Tier** B · **Status** R0+R1-offline · **G8 UNLOCKED** (founder Lv7+ 2026-06-27, ADR §8.1) · **ADR** 2606271700 (worldwide), 0035 (JP origin)
+
+> **G8 解禁済み**だが outbound はまだ動かない: live 投稿には **R2 常駐**（autorun + cell + launchd +
+> kotoba_bridge）+ アクター封印 did:key + member CACAO leash（G7）が必要。G8 はゲートを外しただけで
+> パイプラインは未実装。次の一歩 = R2 実装。
 
 ## Quick start
 
@@ -60,9 +64,22 @@ clj methods（kosatsu 規約）: `methods/ingest.clj`（`--live` は R0 で REFU
 ## Charter gates
 
 G1 mirror-not-author · G2 non-adjudicating · G3 primary-source-only（≥1 / award ≥2）·
-G4 event-log/as-of · G5 PII Tier-3 · G6 robots/legality（≥1500ms） · G7 no-server-key/no-score ·
-G8 outward-gated（live = Council Lv6+） · G9 map-not-target · G10 sourcing-honesty
-（`:representative` vs `:authoritative`）。
+G4 event-log/as-of · G5 PII Tier-3 · G6 robots/legality（≥1500ms） · **G7 no-server-key
+（非カストディであって自動化禁止ではない）** · **G8 outward-gated** · G9 map-not-target ·
+G10 sourcing-honesty（`:representative` vs `:authoritative`）。
+
+### G7 と G8 は別レバー（混同しない）
+
+- **G7 no-server-key** = *鍵を誰が持つか*（非カストディ／中央集権回避）。プラットフォーム常駐の
+  親権的・単独署名鍵を禁じるだけ。**read-only ingest は exempt**（鍵も operator も不要で自律取得、
+  ADR-2606072802）。**自律的な書込/投稿も可**（アクター自身の封印 did:key〔Keychain/1Password、
+  present-only〕+ member CACAO leash。kaname/ibuki/tsubasa パターン）。**自動化・push の禁止ではない。**
+- **G8 outward-gated** = *アウトバウンド公開をいつ許すか*（ガバナンス）。live 投稿・award/contract
+  書込は Council Lv6+（= PR-review attestation）+ member 署名で解禁。**read-only ingest は G8 対象外**
+  （inbound ≠ outbound）。
+- 帰結: **R2 で常駐 + 全世界調達の自律 ingest は可能**（G7 clean・G8 は inbound に無関係）。
+  待つのは *outbound* の投稿/書込だけ。常駐アクターが投稿/push すること自体に憲章上の禁止はなく、
+  禁じられるのは *親権的中央鍵* が単独でそれを行うこと。
 
 ## Source registry（抜粋）
 

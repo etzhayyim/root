@@ -5,7 +5,7 @@
  :actor/id "nyusatsu"
  :actor/did "did:web:etzhayyim.com:actor:nyusatsu"
  :actor/tier :tier-b
- :actor/status :r0-design-only
+ :actor/status :r1-offline    ;; R0 design + R1 offline clj green; G8 UNLOCKED (founder Lv7+ 2026-06-27), R2 residence pending
  :actor/adr ["2606271700" "2606072000"]
 
  :actor/purpose
@@ -60,8 +60,8 @@
   #:gate{:id "G4" :rule "event-log / as-of — tender.status transitions are NEW datoms (planning→active→complete/cancelled/unsuccessful); nothing overwritten"}
   #:gate{:id "G5" :rule "PII — bidder sole-proprietor address / personal identifiers = Tier-3 (ADR-0018); redaction hook mandatory; encrypted off-graph"}
   #:gate{:id "G6" :rule "robots/legality — per-source robots.txt + rate-limit (≥1500ms default); rely on each jurisdiction's publication mandate (JP 会計法29/地方自治法234/情報公開法; EU TED; etc.)"}
-  #:gate{:id "G7" :rule "no-server-key + no per-entity score — posts member-signed (server-held-key false); no :tender/risk / :bidder/score; market visibility computed on read (edge-primary)"}
-  #:gate{:id "G8" :rule "outward-gated — live ingest + live posting = Council Lv6+ + operator + member signature; R0 dry-run; cells .solve() raise; ingest --live REFUSED"}
+  #:gate{:id "G7" :rule "no-server-key (NON-CUSTODIAL, NOT anti-automation) — holds NO platform-custodial unilateral signing key; READ-ONLY public ingest is EXEMPT (autonomous fetch, no key/operator, ADR-2606072802); autonomous writes/posts allowed via the actor's OWN sealed did:key (off-platform Keychain/1Password, present-only) + member CACAO leash (kaname/ibuki/tsubasa, ADR-2605231525/2606111400); posts member-signed (server-held-key false); no :tender/risk or :bidder/score"}
+  #:gate{:id "G8" :rule "outward-gated (DISTINCT from G7, do not conflate) — live POSTING + award/contract WRITES = Council Lv6+ (PR-review attestation) + member signature. *** UNLOCKED: founder Lv7+ attested 2026-06-27 (ADR-2606271700 §8.1) *** — outbound now AUTHORIZED, but still requires the R2 residence legs + the actor's sealed did:key + member CACAO leash (G7) before any live post fires; G8 lifts the gate, it does not build the pipeline. READ-ONLY ingest is NOT G8-gated (inbound ≠ outbound) and runs autonomously at residence (R2)"}
   #:gate{:id "G9" :rule "map-not-target / no-enforcement — outputs route to transparency / SME market-access / spend visibility; never a who-to-lobby/influence/collude target-list"}
   #:gate{:id "G10" :rule "sourcing-honesty — :representative (synthetic seed) vs :authoritative declared on every datom; committed seed is :representative"}]
 
