@@ -5,14 +5,15 @@ canonical XRPC surface (`ai.etzhayyim.apps.drive.*`), same graph topology, same
 handler behavior (concurrency / not-found / pagination / change-feed), persisted
 on the same kotoba datomic graph (`drive-v1`).
 
-## Coexistence (the `.py` is NOT removed)
+## Canonical (the DEV-stage `.py` was removed)
 
-The Python pod is **actively deployed** — `lg/Dockerfile` runs
-`uvicorn lg_drive.server:app`, `lg/langgraph.json` points at
-`lg_drive/graphs/health.py:GRAPH`, and `lg/pyproject.toml` declares the runtime.
-Per the coexist discipline (the app is in active use), **every `.py` is kept**.
-This clj port is verified standalone and runs in parallel; cutting the deploy
-over to clj (Dockerfile/langgraph.json/Helm) is a follow-up, not part of this PR.
+This clj twin is now the **canonical** code. The DEV-stage Python it was ported
+from (`lg_drive/*.py`, `tests/test_handlers.py`) and its python-only scaffolding
+(`Dockerfile`, `langgraph.json`, `pyproject.toml`) were deleted once this port
+reached full parity (founder directive "twin の py を削除", ADR-2606280030).
+The namespace map below records what each ns was ported from. The deploy cutover
+to clj (a clj `-main` / Dockerfile / Helm) is a separate follow-up — not part of
+this deletion.
 
 ## Namespace map (1:1 with the Python modules)
 
