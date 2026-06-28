@@ -195,3 +195,30 @@ open-saas/real-estate/runpod/search/telecom — not attempted, weekly limit) + *
 (57 files). **httpx not yet eliminated anywhere** — every merged twin is additive; the
 deployment cutover (langgraph.json/Dockerfile/Helm → clj runtime + retire .py) is the
 unstarted final pass. Resume by fanning out the remaining ⬜ rows + then the cutover pass.
+
+## Python deletion (2026-06-28) — clj twins are now canonical
+
+Founder directive: "twinのpy を削除" (delete the twinned python; the python is DEV-stage,
+not production). Fanned out a deletion pass (worktree-isolated, one PR/app) over the 37
+twinned apps. **309 .py deleted across 35 apps** (271 first pass #2665–#2693 + 38 retry
+#2694–#2701); the clj twin is now the canonical code for each.
+
+**CRON PROTECTED throughout** ("cron は停止しないで"): no cron/scheduled job was stopped.
+Any `langgraph.json` `"crons"`, `cron.py`/APScheduler runner, cell-runner cron cell, or
+`.py` a live cron imports was KEPT by default. Hard native deps with no clj equivalent
+(numpy/scipy/torch/wasmtime/asyncpg/RisingWave-checkpointer) were also kept.
+
+- **17 apps — all twinned py deleted** (full twins, no cron/hard-dep blockers): recap,
+  dougaka, webmk, calendar, drive, docs, sheets, open-isic, lawfirm, curpus2skill, karma,
+  kenkyusha, ki, legal-entity, public-domain-colorization, browser, kotoba-erp.
+- **16 apps — twinned py deleted, cron + hard-deps kept**: narou, x, ai-gftd-chat-shell,
+  etzhayyim-chat-shell, open-patent, open-jpn-mynumber, pregel, yukkuri, hakken,
+  organism-viz, states, patent, media-gamers, animeka, mangaka, open-robo, maps, common-crawl.
+- **2 apps — kept all py (zero safely deletable)**: kyber + jukyu — every twinned module is
+  a live `langgraph.json` cron target OR an asyncpg/hard-dep OR import-critical to the live
+  cron host; deleting any would stop a cron (correctly refused per cron-protection). These
+  retire once their remaining graphs + the apscheduler runner are ported to a clj entrypoint.
+
+**Remaining of the full program** (still ⬜, unstarted): 14 small non-lg apps + e7m-dataset
+(57 files) not yet twinned; e7m-py httpx (32 modules); and for the cron-blocked/partial apps,
+finishing the untwinned graphs + a clj cron runner so the rest of the py can retire.
