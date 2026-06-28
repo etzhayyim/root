@@ -27,6 +27,7 @@
 
 (ns etzhayyim.vitals
   (:require [clojure.string :as str]
+            [clojure.edn :as edn]
             [clojure.java.io :as io]
             [babashka.process :as p]
             [cheshire.core :as json]
@@ -39,12 +40,15 @@
 ;; ── discovery ───────────────────────────────────────────────────────────────
 
 (defn actor-dirs
-  "Every actor dir under 20-actors that carries a manifest.jsonld — the named
-   organism cells (Tier-B religious-corp actors), not the mass-scaffold mirrors."
+  "Every actor dir under 20-actors that carries a manifest — the named organism cells (Tier-B
+   religious-corp actors), not the mass-scaffold mirrors. Recognizes BOTH the legacy
+   manifest.jsonld AND the Gen-3 kotoba-native manifest.edn (the jsonld→edn migration the
+   tier-b-actors generator already follows); without this, edn-native actors read as 0 cells."
   []
   (->> (.listFiles (io/file actors-root))
        (filter #(.isDirectory ^java.io.File %))
-       (filter #(.exists (io/file % "manifest.jsonld")))
+       (filter #(or (.exists (io/file % "manifest.jsonld"))
+                    (.exists (io/file % "manifest.edn"))))
        (sort-by #(.getName ^java.io.File %))
        vec))
 
@@ -61,9 +65,25 @@
   (let [d (io/file dir)]
     (if (.isDirectory d) (filter #(.isDirectory ^java.io.File %) (.listFiles d)) [])))
 
+(defn- edn->manifest-view
+  "Translate a Gen-3 kotoba-native manifest.edn into the string-keyed view this tool reads from the
+   legacy jsonld manifest (`integrates` / `tier` / `status` / `name` / `glyph` / `displayName`)."
+  [e]
+  (let [tier (:actor/tier e)]
+    {"integrates"  (vec (:actor/integrates e))
+     "tier"        (cond (= tier :tier-b) "Tier-B" (keyword? tier) (name tier) :else (or tier "unknown"))
+     "status"      (or (:actor/status e) "unknown")
+     "name"        (:actor/id e)
+     "glyph"       (:actor/glyph e)
+     "displayName" (:actor/display-name e)}))
+
 (defn- read-manifest [actor-dir]
-  (try (json/parse-string (slurp (io/file actor-dir "manifest.jsonld")))
-       (catch Exception _ {})))
+  (let [jf (io/file actor-dir "manifest.jsonld")
+        ef (io/file actor-dir "manifest.edn")]
+    (cond
+      (.exists jf) (try (json/parse-string (slurp jf)) (catch Exception _ {}))
+      (.exists ef) (try (edn->manifest-view (edn/read-string (slurp ef))) (catch Exception _ {}))
+      :else {})))
 
 ;; ── axis signals ────────────────────────────────────────────────────────────
 
