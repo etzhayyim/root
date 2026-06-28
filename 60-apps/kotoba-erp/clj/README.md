@@ -40,8 +40,17 @@ The repository adapters speak only to the injected `store` seam. The default
 deploy injects a store whose fns write the canonical **kotoba Datom log** (EAVT
 quads, ADR-2605262130). RisingWave/Postgres are forbidden and never appear here.
 
-## Coexistence (do not break the deployed app)
+## Python retirement (clj twin is canonical, ADR-2606280030)
 
-The Python modules are compiled into live PyWasm components (`*/app.wasm`,
-~19 MB each) and are **retained** — this port is an additive clj twin, not a
-replacement. `py_removed = 0`. No deploy manifest was edited.
+The 23 DEV-stage Python modules (FI / MM / SD / CRM clean-architecture
+namespaces + their `tests/test_*.py`) were **deleted** — the `.cljc` twin above
+is now the canonical code (founder directive "twin の py を削除", 2026-06-28).
+The clj suite (15 tests / 54 assertions) stays green; nothing outside this app
+imported the deleted modules; there was no Python package scaffolding
+(`pyproject.toml` / `langgraph.json` / `requirements*.txt` / `__init__.py` /
+`Dockerfile`) and **no cron / scheduled job** to preserve.
+
+The compiled PyWasm components (`*/app.wasm`, ~18 MB each) are **retained** —
+they are binary deploy artifacts, not Python source, and removing the live
+component would be a deploy cutover (out of scope for this deletion). No deploy
+manifest was edited.
