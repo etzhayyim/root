@@ -61,6 +61,7 @@
   {:method/id "gates"   :method/file "methods/gates.cljc"   :method/role "constitutional gate assertions (ex-info, incl. G9 safety-floor) + structural forbidden-absent? (the charter inversions)"}
   {:method/id "kotoba"  :method/file "methods/kotoba.cljc"  :method/role "持続永続化: content-addressed append-only COMMONS LEDGER (tx-cid/make-tx/append-tx/read-log/verify-chain)"}
   {:method/id "kotoba_bridge" :method/file "methods/kotoba_bridge.cljc" :method/role "LIVE-engine bridge (ibuki-R3/kaname pattern): push local commit-DAG → kotoba :8077 datomic.transact; host allowlist + :iriai.tx/* provenance + :bridge/* exactly-once cursor + expected_parent; DRY-RUN default, fail-open; live = G7 operator step (ADR-2606280900)"}
+  {:method/id "social"  :method/file "methods/social.cljc" :method/role "self-publication membrane (ADR-2606272355, danjo pattern): commons coverage/§1.16-funding/upkeep → DRY-RUN posts; is-commons-map (G1, never a shut-off list) + cash-zero (G2) + sim-only (G5) + server-held-key false (no-server-key); ≥2 provenance; build-live raises (Council Lv6+ + member-sig)"}
   {:method/id "autorun" :method/file "methods/autorun.cljc" :method/role "持続永続化: deterministic, idempotent-by-content heartbeat — infra+fund+manage+twin+maintain+forecast → append; --bridge pushes to live engine (fail-open)"}]
 
  :actor/lex
@@ -92,6 +93,19 @@
   :cell/deploy "deploy/install.clj (LaunchAgent, hourly :44)"
   :cell/adr "2606280900"
   :cell/note "one deterministic commons beat per fire (infra+fund+manage+twin+maintain); idempotent-by-content (unchanged = no-op); no-server-key, no external I/O; Murakumo digest + live-engine bridge + crew dispatch stay operator/Council-gated"}
+
+ :actor/social
+ {:social/adr "2606272355"
+  :social/method "methods/social.cljc"
+  :social/cell "cells/social_post/state_machine.cljc"
+  :social/kinds [:coverage :funding :upkeep]
+  :social/status :dry-run
+  :social/server-held-key false
+  :social/gates ["G1 is-commons-map (never a shut-off/target list; shut-off/per-person vocab refused)"
+                 "G2 cash-zero (§1.16 in-kind, never billed)"
+                 "G5 sim-only (narrates the map, never actuates)"
+                 "no-server-key (actor self-signs in its mesh runtime; build-live raises)"]
+  :social/note "DRY-RUN self-publication membrane (danjo pattern): projects iriai's commons coverage/§1.16-funding/upkeep readout into app.bsky.feed.post-shaped posts. ≥2 provenance citations. Live broadcast = Council Lv6+ + operator + member/actor-signature gated (build-live raises); the AT-proto relay is an operator step."}
 
  :actor/seed
  {:seed/file "kotoba/seed.edn"
