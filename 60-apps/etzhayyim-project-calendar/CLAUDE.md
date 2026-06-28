@@ -57,20 +57,19 @@ listCalendars`). Legacy `connectAccount/cronTick/syncFromGoogle` = the older ing
 ## ファイル構成
 
 ```
-lg/
-├── Dockerfile                  # ghcr.io/etzhayyim/lg-calendar (remote BuildKit etzhayyim-vke)
-├── pyproject.toml
-├── langgraph.json
-├── lg_calendar/
-│   ├── server.py               # FastAPI XRPC surface (/xrpc/ai.etzhayyim.apps.calendar.*)
-│   ├── handlers.py             # canonical method logic (SSoT for behavior)
-│   ├── store.py                # KotobaCalendarStore + FakeCalendarStore (tests)
-│   ├── mapping.py              # canonical event <-> :cal/* datoms
-│   ├── kotoba_datomic.py       # datomic transact/q/pull wire client
-│   ├── edn.py                  # Python → EDN encoder
-│   ├── ids.py                  # slug / DID / at-uri / iCalUid
-│   └── graphs/health.py
-└── tests/test_handlers.py      # 8 deterministic CRUD/concurrency/pagination tests
+lg/                             # clj twin is canonical (ADR-2606280030; python deleted)
+├── bb.edn                      # scoped babashka project (langgraph-clj StateGraph deps)
+├── run_tests.clj               # clojure.test runner (bb test)
+├── src/lg_calendar/
+│   ├── server.cljc             # XRPC surface (/xrpc/ai.etzhayyim.apps.calendar.*)
+│   ├── handlers.cljc           # canonical method logic (SSoT for behavior)
+│   ├── store.cljc              # KotobaCalendarStore + FakeCalendarStore (tests)
+│   ├── mapping.cljc            # canonical event <-> :cal/* datoms
+│   ├── kotoba_datomic.cljc     # datomic transact/q/pull wire client
+│   ├── edn.cljc                # EDN encoder
+│   ├── ids.cljc                # slug / DID / at-uri / iCalUid
+│   └── graphs/health.cljc
+└── test/lg_calendar/test_handlers.cljc   # deterministic CRUD/concurrency/pagination tests
 
 (edge) 50-infra/cloudflare/workers/calendar-compat/  — Google + MS REST skins (Hono)
 (infra) 50-infra/vultr/lg-calendar-pool/             — Helm chart (mirror lg-yatabase-pool)
@@ -79,12 +78,11 @@ lg/
 ## Test / deploy
 
 ```bash
-# pod logic (no live kotoba needed)
-cd 60-apps/etzhayyim-project-calendar/lg && python3 -m pytest tests/ -q
+# pod logic (no live kotoba needed) — clj twin (ADR-2606280030), python deleted
+cd 60-apps/etzhayyim-project-calendar/lg && bb test
 # compat skins (mappers + route integration)
 cd 50-infra/cloudflare/workers/calendar-compat && node --test test/*.test.ts
-# build + deploy (infra)
-cd 60-apps/etzhayyim-project-calendar/lg && docker buildx build --builder etzhayyim-vke --platform linux/amd64 -t ghcr.io/etzhayyim/lg-calendar:0.1.0-amd64 --push .
+# deploy (infra) — Helm chart only; the python Dockerfile was removed with the python twin
 helm upgrade --install lg-calendar-pool 50-infra/vultr/lg-calendar-pool -n mitama-udf
 cd 50-infra/cloudflare/workers/calendar-compat && npx wrangler deploy
 # PREREQUISITE before XRPC routes: regenerate the lexicon bundle (PDS validator)
