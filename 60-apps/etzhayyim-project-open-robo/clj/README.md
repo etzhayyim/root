@@ -48,9 +48,15 @@ firmware, launched via `firmware/armcrawler/ros2/launch/*.launch.py`):
 | `kinematics/ik.py` | `numpy` / `scipy` (damped least-squares Jacobian IK) | heavy numerics — per ADR/task rule, do NOT reimplement numpy/scipy |
 | `ros2/launch/*.launch.py`, `ros2/setup.py`, `ros2/.../__init__.py` | ROS2 ament / launch | deploy manifests, not first-party logic |
 
-The classifier/sorter nodes `import` `urban_mining_core`, so the python module
-**must stay** even though its cljc twin is verified — removing it would break the
-deployed robot. `py_removed = 0` by design (coexistence rule).
+The single pure-logic module `urban_mining_core.py` has been **deleted** — its
+verified `.cljc` twin (`src/etzhayyim/open_robo/urban_mining_core.cljc`) is now
+the canonical home for the e-waste inspection → sort-decision logic
+(ADR-2606280030, founder directive "twin の py を削除"). The dev-stage ROS2
+classifier/sorter nodes still carry an in-repo `import` of the old
+`armcrawler_ros2.urban_mining_core`; that python module is intentionally gone, so
+the canonical sort-decision logic lives in cljc. `py_removed = 1`
+(`urban_mining_core.py`); the 15 hardware/ROS2/numpy-bound modules above stay
+`.py` (no babashka equivalent).
 
 ## Why this is `partial`, not a full port
 
