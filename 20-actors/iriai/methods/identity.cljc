@@ -69,6 +69,12 @@
        (let [enc (.getEncoded pk) n (alength enc)]
          (java.util.Arrays/copyOfRange enc (- n 32) n)))
 
+     (defn raw-ed25519-private-seed
+       "Last 32 bytes of the PKCS#8 Ed25519 PrivateKeyInfo = the private seed to seal."
+       [priv]
+       (let [enc (.getEncoded priv) n (alength enc)]
+         (java.util.Arrays/copyOfRange enc (- n 32) n)))
+
      (defn gen-keypair
        "GENERATE a fresh Ed25519 keypair IN the actor. Returns
        {:did <did:key> :public <bytes32> :private <PrivateKey>}.
@@ -77,8 +83,12 @@
        []
        (let [kpg (java.security.KeyPairGenerator/getInstance "Ed25519")
              kp (.generateKeyPair kpg)
-             pub (raw-ed25519-public (.getPublic kp))]
-         {:did (did-key pub) :public pub :private (.getPrivate kp)}))
+             pub (raw-ed25519-public (.getPublic kp))
+             priv (.getPrivate kp)]
+         {:did (did-key pub)
+          :public pub
+          :private priv
+          :seed (raw-ed25519-private-seed priv)}))
 
      (defn sign
        "Sign msg-bytes with the actor's sealed private key (present-only — used, never exfiltrated)."
@@ -121,7 +131,7 @@
 ;; ── CLI (bb) — provision: generate + (optionally) seal ────────────────────────
 #?(:clj
    (defn -main [& args]
-     (let [{:keys [did public private]} (gen-keypair)
+     (let [{:keys [did public private seed]} (gen-keypair)
            msg (.getBytes "iriai self-key provisioning probe" "UTF-8")
            sig (sign private msg)
            ok (verify public msg sig)]
@@ -129,7 +139,9 @@
        (println (str "  sign+verify round-trip: " ok))
        (println (str "  did:key prefix z6Mk: " (str/starts-with? did "did:key:z6Mk")))
        (if (some #{"--seal"} args)
-         (println (str "  (sealing seed into Keychain " keychain-service " — operator step)"))
+         (do
+           (seal-seed! seed)
+           (println (str "  sealed seed into Keychain " keychain-service)))
          (println "  (dry-run: pass --seal to seal the seed into the Keychain)")))))
 
 #?(:clj

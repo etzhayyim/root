@@ -17,9 +17,10 @@
   (is (= "1111" (id/b58btc (byte-array [0 0 0 0])))))
 
 (deftest actor-generates-its-own-keypair
-  (let [{:keys [did public private]} (id/gen-keypair)]
+  (let [{:keys [did public private seed]} (id/gen-keypair)]
     (is (str/starts-with? did "did:key:z6Mk"))   ; a real Ed25519 did:key
     (is (= 32 (alength public)))                  ; raw public key
+    (is (= 32 (alength seed)))                    ; raw private seed for Keychain sealing
     (is (some? private))
     (is (= did (id/did-key public)))))            ; did is a pure fn of the public key
 
