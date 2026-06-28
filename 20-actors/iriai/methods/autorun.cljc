@@ -74,6 +74,7 @@
            log-path (or (second args)
                         (-> (clojure.java.io/file *file*) .getParentFile .getParentFile
                             (clojure.java.io/file "data" "persisted" "iriai.commons.kotoba.edn") str))
+           bridge? (some #{"--bridge"} args)
            rows (edn/read-string (slurp seed))
            cells (vec (filter #(= (:type %) :lifeline-cell) rows))
            assets (vec (filter #(= (:type %) :asset) rows))
@@ -85,7 +86,18 @@
                      (when (:reason r) (str " (" (name (:reason r)) ")"))))
        (println (str "infra=" (:infra r) " fund=" (:fund r) " gov=" (:gov r)
                      " twin=" (:twin r) " maint=" (:maint r)))
-       (println (str "chain=" (k/verify-chain log-path))))))
+       (println (str "chain=" (k/verify-chain log-path)))
+       (when bridge?
+         ;; push the local commit-DAG to the LIVE kotoba engine (DRY-RUN unless IRIAI_KOTOBA_LIVE=1,
+         ;; FAIL-OPEN: engine down / boundary → :error, the beat still completed locally). G7 operator step.
+         (let [br (try (require 'iriai.methods.kotoba-bridge)
+                       ((resolve 'iriai.methods.kotoba-bridge/push) log-path)
+                       (catch Exception e {:mode "error" :error (.getMessage e)}))]
+           (println (str "bridge=" (:mode br)
+                         (when-let [p (:pending br)] (str " pending=" p))
+                         (when-let [p (:pushed br)] (str " pushed=" p))
+                         (when-let [d (:datoms-confirmed br)] (str " datoms-confirmed=" d))
+                         (when (:error br) (str " (" (:error br) ")")))))))))
 
 #?(:clj
    (when (= *file* (System/getProperty "babashka.file"))

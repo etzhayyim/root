@@ -89,8 +89,9 @@ methods/maintain.cljc    運用メンテナンス: lifecycle gate (safety-floor 
 methods/forecast.cljc    予測保全: twin.project run-ahead → per-asset lead-time to next action → schedule (mitooshi 見通し)
 methods/gates.cljc       constitutional assertions (ex-info, incl. G9 safety-floor) + structural forbidden-absent?
 methods/kotoba.cljc      content-addressed append-only COMMONS LEDGER (tx-cid/make-tx/append-tx/verify-chain)
-methods/autorun.cljc     deterministic, idempotent-by-content heartbeat — infra+fund+manage+twin+maintain+forecast → append
-methods/test_*.cljc      10 suites: infra·fund·manage·twin·maintain·forecast·gates·kotoba·autorun·cell (62 tests / 443 assert)
+methods/kotoba_bridge.cljc LIVE-engine bridge — push local commit-DAG → kotoba :8077 (allowlist + :bridge/* cursor; dry-run default, fail-open)
+methods/autorun.cljc     deterministic, idempotent-by-content heartbeat — infra+fund+manage+twin+maintain+forecast → append; --bridge pushes live
+methods/test_*.cljc      11 suites: infra·fund·manage·twin·maintain·forecast·gates·kotoba·autorun·cell (67 tests / 466 assert)
 cell.cljc                fleet heartbeat cell — `fire` runs one commons beat (IriaiCommonsHeartbeatCell)
 deploy/                  LaunchAgent residency (install.clj + plist template + README; machine-local)
 kotoba/ontology.iriai.edn EAVT schema + verdicts + instruments + degradation-models + NEGATIVE SPACE
@@ -103,7 +104,7 @@ run_tests.clj            bb-native runner (no shell, ADR-2606072802)
 ## Run
 
 ```bash
-bb 20-actors/iriai/run_tests.clj                                  # 10 suites (62 tests / 443 assert)
+bb 20-actors/iriai/run_tests.clj                                  # 11 suites (67 tests / 466 assert)
 bb --classpath 20-actors 20-actors/iriai/methods/infra.cljc       # coverage + resilience map
 bb --classpath 20-actors 20-actors/iriai/methods/fund.cljc        # §1.16 in-kind funding plan
 bb --classpath 20-actors 20-actors/iriai/methods/manage.cljc      # 1 SBT=1 vote governance ledger
@@ -111,7 +112,19 @@ bb --classpath 20-actors 20-actors/iriai/methods/twin.cljc        # physical-sim
 bb --classpath 20-actors 20-actors/iriai/methods/maintain.cljc    # operations/maintenance plan
 bb --classpath 20-actors 20-actors/iriai/methods/forecast.cljc    # predictive-maintenance schedule
 bb --classpath 20-actors 20-actors/iriai/methods/autorun.cljc     # heartbeat → append (all 6 layers)
+bb --classpath 20-actors 20-actors/iriai/methods/autorun.cljc <seed> <log> --bridge  # + push to live kotoba :8077 (dry-run unless IRIAI_KOTOBA_LIVE=1)
 ```
+
+## Live-engine bridge (ADR-2606280900, ibuki-R3/kaname pattern)
+
+`methods/kotoba_bridge.cljc` pushes each local commit-DAG tx to the LIVE kotoba engine
+(`com.etzhayyim.apps.kotoba.datomic.transact`): host allowlist (loopback + EVO-X2 LAN), `:iriai.tx/*`
+provenance, `:bridge/*` exactly-once cursor, `expected_parent` chaining. **DRY-RUN by default**
+(`IRIAI_KOTOBA_LIVE=1` or `:live true` for live), **fail-open** (engine down / boundary → `:error`,
+the local beat still completes). `autorun --bridge` wires it after persist. Live push is the documented
+**G7 operator step** (`IRIAI_KOTOBA_OPERATOR_DID` = the node's public operator DID); no-server-key —
+the member CACAO leash stays present-only. SIM/assessment-only is unaffected (ships the map/plan, never
+actuates).
 
 ## Pairs with
 
