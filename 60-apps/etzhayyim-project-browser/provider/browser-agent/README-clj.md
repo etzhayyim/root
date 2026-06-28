@@ -1,9 +1,11 @@
 # browser-agent — Clojure twin (ADR-2606280030)
 
-Idiomatic clj/bb port of the Python `browser_agent` package (Genspark-like
-Sparkpage search synthesis). Coexists with `src/browser_agent/*.py` — the Python
-stays because it is wired to a live deploy (`Dockerfile` CMD, `langgraph.json`).
-**No `.py` was removed.**
+Idiomatic clj/bb port of the (now-removed) Python `browser_agent` package
+(Genspark-like Sparkpage search synthesis). **The clj twin is the canonical code**
+(ADR-2606280030, founder directive "twin の py を削除"): the DEV-stage Python
+(`src/browser_agent/*.py` + `pyproject.toml` / `langgraph.json` / `Dockerfile`)
+was deleted once the twin was verified and nothing imported it. The module map
+below records the python→clj provenance.
 
 ## Module map (python → clj)
 
@@ -30,5 +32,5 @@ PORT=8000 bb serve
 ## Substrate boundary
 
 RisingWave/psycopg state is not ported here; per ADR-2605312345 any persisted
-state goes through an injectable kotoba-Datom-log store seam (the python's
-`langgraph-checkpoint-postgres` is deploy-only and untouched).
+state goes through an injectable kotoba-Datom-log store seam (the removed
+python's `langgraph-checkpoint-postgres` checkpointer was deploy-only).
