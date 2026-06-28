@@ -11,8 +11,7 @@
             [lg-open-jpn-mynumber.server :as server]
             [lg-open-jpn-mynumber.store :as store]
             [lg-open-jpn-mynumber.tasks :as tasks]
-            [lg-open-jpn-mynumber.util :as u]
-            #?(:clj [cheshire.core :as json])))
+            [lg-open-jpn-mynumber.util :as u]))
 
 (def task-tails
   ["verifyJpki" "registerPerson" "lookupNonresidentAddress" "assignNonresidentAddress"
@@ -48,19 +47,12 @@
 (deftest tasks-count-17
   (is (= 17 (count tasks/TASKS))))
 
-;; langgraph.json (the deployed Python config) graphs must match the clj GRAPHS.
-#?(:clj
-   (deftest langgraph-json-graphs-match-server
-     (let [path (->> ["../lg/langgraph.json"
-                      "60-apps/etzhayyim-project-open-jpn-mynumber/lg/langgraph.json"]
-                     (filter #(.exists (java.io.File. ^String %)))
-                     first)]
-       (is (some? path) "langgraph.json not found from test cwd")
-       (when path
-         (let [cfg (json/parse-string (slurp path) true)]
-           (is (= expected-graphs (set (map name (keys (:graphs cfg)))))
-               "drift: langgraph.json graphs vs clj GRAPHS")
-           (is (empty? (:crons cfg)) "unexpected cron entries in langgraph.json"))))))
+;; NOTE: a former `langgraph-json-graphs-match-server` drift-guard read the
+;; Python `lg/langgraph.json` deploy descriptor to assert python↔clj graph
+;; parity (and that it carried no `:crons`). That python descriptor was retired
+;; with the rest of the python twin (ADR-2606280030 — the clj twin is now
+;; canonical), so the test was removed. `graphs-match-expected-set` above keeps
+;; the clj `server/GRAPHS` pinned to `expected-graphs` (the 17 tasks + health).
 
 ;; ── dispatch surface (/ok, /health, /runs, /xrpc) ───────────────────────────
 
