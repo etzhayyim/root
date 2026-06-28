@@ -34,11 +34,14 @@ The large Python dict literals (`COUNTRY`, `FRAMEWORKS`, `EXT`, `T3`, `FINAL`,
 `resources/etzhayyim/states/data/` (zero-transcription faithfulness) and are
 loaded with cheshire.
 
-## Coexistence (CRITICAL)
+## Canonical (the clj twin replaces the ported Python)
 
-All original `.py` and `.sh` files are **kept** — `py_removed = 0`. The cljc
-twins are additive and verified, but the Python tools may still be referenced by
-operators / the `tools/260303-adm2-*.sh` runners, so nothing is deleted.
+The 10 ported `scripts/*.py` modules listed above were **deleted** — this clj
+twin is now the canonical code (ADR-2606280030, founder "twin の py を削除").
+The deletion is grep-confirmed safe: nothing outside this app imports them, and
+no cron / `langgraph.json` / scheduler / `.sh` runner invokes them. The larger
+`tools/*.py` generators (see "Not yet ported" below) have **no** clj twin yet and
+are **kept**.
 
 ## Not yet ported (status: partial)
 
