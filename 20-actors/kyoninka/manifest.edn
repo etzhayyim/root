@@ -39,7 +39,21 @@
   {:gate/id "G9" :gate/name "murakumo-only"
    :gate/rule "reg-LLM の実モデルは Murakumo 既定(ADR-2605215000 / v3.5 目的関数評価)。外部 LLM への秘匿事実送出はしない"}
   {:gate/id "G10" :gate/name "no-server-key"
-   :gate/rule "actor 鍵は自己生成 did:key(present-only、seed 封印)。秘密鍵を git にコミットしない(.kyoninka/identity.edn gitignore)"}]
+   :gate/rule "actor 鍵は自己生成 did:key(present-only、seed 封印)。秘密鍵を git にコミットしない(.kyoninka/identity.edn gitignore)"}
+  {:gate/id "G11" :gate/name "autonomous-publication"
+   :gate/rule "kyoninka は許認可準備度のダイジェストを自律的に投稿してよい(ADR-2606281500 種をまく doctrine)。事前承認は不要。soil(rails): self-did:key present-only + 取消可能な member CACAO leash + append-only 公開ログ + Rider §2 catastrophe-veto コンテンツスキャン + 個人非追跡 + Murakumo 既定。publication ≠ actuation: 公道走行(launch)の当局サインオフ(G3)・許認可付与/車両起動の禁止(G1)はゲート維持。actor は『launch-ready と査定した』と自律発言できるが、車両は自律起動しない"}]
+
+ ;; ADR-2606281500: autonomous publication ON by default (no per-post prior restraint).
+ :actor/social
+ {:social/autonomous? true
+  :social/principal :member-cacao-leash    ; revocable; the off-switch
+  :social/key :self-did-key                ; present-only, sealed seed (no custodial key)
+  :social/transparency :append-only-public-log
+  :social/content-scan :rider-s2-catastrophe-veto
+  :social/posts ["許認可準備度ダイジェスト(法域別・デプロイ別の充足状況と判定)"]
+  :social/boundary "publication only — launch sign-off / permit-grant / vehicle-activation stay human-gated"
+  :social/cell "methods/organism.cljc (kototama organism)"
+  :social/status :enabled}                 ; cell built + tested; live emit needs member leash + PDS
 
  :actor/cells
  [{:cell/id "advise"  :cell/kind :langgraph :cell/runtime :wasm
@@ -51,7 +65,11 @@
    :cell/doc "段階導入ゲート込みで commit / hold / 当局サインオフ へ振り分け"}
   {:cell/id "site"    :cell/kind :clojure :cell/runtime :wasm
    :cell/method "methods/site_gen.cljc:-main"
-   :cell/doc "手続きの可視化 — 手続きフロー + 法域別要件マトリクス + デプロイ準備状況を crawlable static HTML へ(etzhayyim.com/kyoninka)"}]
+   :cell/doc "手続きの可視化 — 手続きフロー + 法域別要件マトリクス + デプロイ準備状況を crawlable static HTML へ(etzhayyim.com/kyoninka)"}
+  {:cell/id "organism" :cell/kind :clojure :cell/runtime :wasm
+   :cell/method "methods/organism.cljc:beat"
+   :cell/reuses "kototama (orgs/com-junkawasaki/kototama-clj) — 共通 organism/cell lib"
+   :cell/doc "自律投稿 heartbeat(種をまく doctrine, ADR-2606281500) — kototama organism として許認可準備ダイジェストを app-aozora / com-etzhayyim へ member-leash 付き dry-run 投稿(:published は主張しない)"}]
 
  :actor/lexicons
  ["com.etzhayyim.kyoninka.deploymentReadiness"
