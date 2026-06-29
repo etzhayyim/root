@@ -1,0 +1,50 @@
+;; shinan 指南 — seed of TOPICS (demand) + OPEN RESOURCES (supply) for CN/KR/JP
+;; exam study. :sourcing :synthetic — illustrative of the supply/demand mapping, NOT
+;; an exhaustive catalog. ALL resources carry an OPEN license (proprietary/paid is
+;; unrepresentable — validated on load). This maps WHERE open learning exists and
+;; WHERE the gap is; it never scores, ranks, or predicts any learner (学習解放).
+[
+ ;; ── TOPICS (demand) — a study topic in the exam space ────────────────────────
+ {:type :topic :id "t-cn-math-gaokao" :name "高考 数学" :subject :math :country :cn :exam "cn-gaokao" :priority :high}
+ {:type :topic :id "t-cn-chinese"     :name "高考 语文" :subject :chinese :country :cn :exam "cn-gaokao" :priority :high}
+ {:type :topic :id "t-cn-english"     :name "高考 英语" :subject :foreign-language :country :cn :exam "cn-gaokao" :priority :med}
+ {:type :topic :id "t-cn-science"     :name "高考 理科综合" :subject :science :country :cn :exam "cn-gaokao" :priority :med}
+ {:type :topic :id "t-kr-math"        :name "수능 수학" :subject :math :country :kr :exam "kr-suneung" :priority :high}
+ {:type :topic :id "t-kr-korean"      :name "수능 국어" :subject :korean :country :kr :exam "kr-suneung" :priority :high}
+ {:type :topic :id "t-kr-english"     :name "수능 영어" :subject :english :country :kr :exam "kr-suneung" :priority :med}
+ {:type :topic :id "t-jp-math"        :name "共通テスト 数学" :subject :math :country :jp :exam "jp-kyotsu" :priority :high}
+ {:type :topic :id "t-jp-japanese"    :name "共通テスト 国語" :subject :japanese :country :jp :exam "jp-kyotsu" :priority :high}
+ {:type :topic :id "t-jp-english"     :name "共通テスト 英語" :subject :foreign-language :country :jp :exam "jp-kyotsu" :priority :med}
+ {:type :topic :id "t-jp-science"     :name "共通テスト 理科" :subject :science :country :jp :exam "jp-kyotsu" :priority :med}
+
+ ;; ── RESOURCES (supply) — OPEN learning resources only ───────────────────────
+ {:type :resource :id "r-khan-math" :name "Khan Academy Mathematics" :subject :math
+  :covers ["t-cn-math-gaokao" "t-kr-math" "t-jp-math"] :license :free-access :languages [:en]
+  :openness 0.95 :modality :video}
+ {:type :resource :id "r-mext-curriculum" :name "文部科学省 学習指導要領・解説 (gov-open)" :subject :general
+  :covers ["t-jp-math" "t-jp-japanese" "t-jp-science" "t-jp-english"] :license :gov-open :languages [:ja]
+  :openness 0.9 :modality :text}
+ {:type :resource :id "r-nhk-koukou" :name "NHK高校講座" :subject :general
+  :covers ["t-jp-math" "t-jp-japanese" "t-jp-science"] :license :free-access :languages [:ja]
+  :openness 0.85 :modality :video}
+ {:type :resource :id "r-ck12" :name "CK-12 open textbooks" :subject :science
+  :covers ["t-jp-science"] :license :cc-by :languages [:en] :openness 0.9 :modality :text}
+ {:type :resource :id "r-ewant" :name "ewant 育網 開放教育平台" :subject :general
+  :covers ["t-cn-math-gaokao" "t-cn-chinese"] :license :open-courseware :languages [:zh]
+  :openness 0.8 :modality :video}
+ {:type :resource :id "r-kocw" :name "KOCW 한국형 오픈코스웨어" :subject :general
+  :covers ["t-kr-math" "t-kr-korean"] :license :open-courseware :languages [:ko]
+  :openness 0.85 :modality :video}
+ {:type :resource :id "r-aozora" :name "青空文庫 (public-domain texts)" :subject :japanese
+  :covers ["t-jp-japanese"] :license :public-domain :languages [:ja] :openness 1.0 :modality :text}
+ {:type :resource :id "r-mit-ocw" :name "MIT OpenCourseWare" :subject :general
+  :covers ["t-cn-math-gaokao" "t-kr-math" "t-jp-math"] :license :open-courseware :languages [:en]
+  :openness 0.9 :modality :text}
+ {:type :resource :id "r-wikibooks" :name "Wikibooks" :subject :general
+  :covers ["t-jp-science"] :license :cc-by-sa :languages [:en :ja :zh :ko] :openness 0.9 :modality :text}
+ {:type :resource :id "r-oer-english" :name "Open English OER collection" :subject :foreign-language
+  :covers ["t-cn-english" "t-kr-english"] :license :cc-by :languages [:en] :openness 0.8 :modality :interactive}
+ ;; low-availability resource → routes to :monitor (still open-license)
+ {:type :resource :id "r-archived-notes" :name "アーカイブ済み公開講義ノート" :subject :foreign-language
+  :covers ["t-jp-english"] :license :free-access :languages [:ja] :openness 0.4 :modality :text}
+]

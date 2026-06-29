@@ -1,0 +1,64 @@
+;; shinan 指南 — actor manifest (clj-native, kotoba-Datom-native)
+;; 学習支援 (learning-support) actor for CN/KR/JP exam students, under the 学習解放
+;; (learning-liberation) framing. Hands the learner an OPEN scaffold (足場) toward the
+;; reality of an exam, while scoring / ranking / pass-prediction / gating / credentialing
+;; are STRUCTURALLY UNREPRESENTABLE — it inherits manabi 学び's anti-credentialism (G7),
+;; anti-examination-coercion (G10), and anti-addictive-design (G3) WITHOUT a carve-out.
+;; Sibling of 関門 kanmon (kanmon maps the gate; shinan hands the open scaffold).
+;; ADR-2606291501 (R0).
+{:actor/id        "shinan"
+ :actor/glyph     "指"
+ :actor/tier      :tier-b
+ :actor/domain    "shinan.etzhayyim.com"
+ :actor/kind      :learning-support-commons
+ :actor/purpose   "学習支援 commons for CN/KR/JP exam students (学習解放 framing). Maps the OPEN-learning SUPPLY (resources, open-license only) against the DEMAND (study topics in the 高考/수능/共通テスト space) and surfaces WHERE open learning exists and WHERE the gap is — a coverage map routed to OFFERING the scaffold and to a 学習解放 worklist (coverage-gap → create open material; needs-localization → translate). It hands the learner a freely-available足場; it does NOT score, grade, rank, gate, credential, or predict pass/fail for any learner — those are STRUCTURALLY UNREPRESENTABLE (inherits manabi 学び G7/G10/N3 with no carve-out). There is no learner in the data model at all. Composes with 関門 kanmon: kanmon's :open-pathway/:destake routes inform shinan's coverage priorities. We sow the scaffold; growth belongs to the learner."
+ :actor/status    :r0
+ :actor/adr       "2606291501"
+ :actor/related   ["2605261045" "2605264400" "2606291500" "2606073000" "2605262130" "2605312345"]
+
+ :actor/charter-rider
+ {:rider/version "3.5"
+  :rider/applied true}
+
+ :actor/gates
+ [{:gate/id "G1" :gate/name "no-scoring-no-rank" :gate/rule "Inherits manabi 学び G7: never scores, grades, or ranks a learner (no 偏差値/序列). :shinan/score + :shinan/grade + :shinan/rank are unrepresentable (test-enforced)."}
+  {:gate/id "G2" :gate/name "no-pass-prediction" :gate/rule "Never predicts an individual's pass/fail (manabi N11/N3). :shinan/pass-prediction unrepresentable."}
+  {:gate/id "G3" :gate/name "no-gatekeeping-no-credential" :gate/rule "Inherits manabi G7 anti-credentialism: issues no degree/credential/transcript, gatekeeps nothing. :shinan/gate + :shinan/credential + :shinan/transcript unrepresentable."}
+  {:gate/id "G4" :gate/name "no-coercion-no-addiction" :gate/rule "Inherits manabi G10 (no time-limited testing — self-paced demonstration only) + G3 (no leaderboard/streak/variable-reward). :shinan/timed-test + :shinan/leaderboard + :shinan/streak unrepresentable."}
+  {:gate/id "G5" :gate/name "no-person-data" :gate/rule "Aggregate supply/demand map only; there is NO learner in the model. :shinan.learner/* + :shinan.person/* unrepresentable."}
+  {:gate/id "G6" :gate/name "open-license-only" :gate/rule "The commons holds only openly-licensed material; a proprietary/paid/enrollment-gated resource is inadmissible (validated on load + at heartbeat; non-open license is not an enum member, test-enforced)."}
+  {:gate/id "G7" :gate/name "structure-not-official-content" :gate/rule "Inherits cert_prep G16: never reproduces official past-exam questions; maps TOPICS + links to open material, not exam content. :shinan/official-pastquestion unrepresentable."}
+  {:gate/id "G8" :gate/name "no-server-key-no-network" :gate/rule "Platform holds no key; the heartbeat performs no network I/O — appends to a local ledger only. Live open-resource ingest is an operator step (G9)."}
+  {:gate/id "G9" :gate/name "sourcing-honest" :gate/rule "R0 seed is :synthetic; live curated open-resource ingest (official open-courseware/gov-open catalogs) is an operator/Council step. Every datom carries its :shinan/sourcing."}]
+
+ :actor/non-goals
+ [{:n/id "N1" :n/rule "Not a cram school / 予備校 / scoring engine — provides scaffolding (open resources + coverage map), never a 合格判定 or 偏差値."}
+  {:n/id "N2" :n/rule "Never a 'how to beat the exam' / gaming guide; it offers open material toward understanding, and routes structural gaps to creation/translation."}
+  {:n/id "N3" :n/rule "Holds no proprietary/paid material — the inverse of a paywalled cram platform (G6)."}
+  {:n/id "N4" :n/rule "Models no learner; collects no per-student data (G5). Self-paced demonstration belongs to the learner, off-substrate."}
+  {:n/id "N5" :n/rule "Not the gate-observatory — exam STRUCTURE/制度 mapping is 関門 kanmon; shinan is the learning-support side."}]
+
+ :actor/methods
+ [{:method/id "shinan_edn" :method/file "methods/shinan_edn.cljc" :method/role "seed loader + classify + OPEN-LICENSE guard (validate-open!)"}
+  {:method/id "analyze"    :method/file "methods/analyze.cljc"    :method/role "coverage engine: topic route (covered/needs-localization/coverage-gap) + resource route (offer/monitor) + worklist + EAVT datoms + report (+ bb CLI)"}
+  {:method/id "kotoba"     :method/file "methods/kotoba.cljc"     :method/role "持続永続化: content-addressed append-only COVERAGE LEDGER (tx-cid/make-tx/append-tx/read-log/head-cid/verify-chain)"}
+  {:method/id "autorun"    :method/file "methods/autorun.cljc"    :method/role "持続永続化: deterministic, idempotent-by-content heartbeat — assess → append coverage datoms (refuses non-open resources) (+ bb CLI)"}]
+
+ :actor/ledger
+ {:ledger/file "data/persisted/shinan.coverage.kotoba.edn"
+  :ledger/kind :append-only-content-addressed-commit-dag
+  :ledger/gitignored true
+  :ledger/note "Generated coverage ledger of open-learning supply/demand assessments; tamper-evident (verify-chain); no-server-key; a record of where OPEN scaffolds exist + where the gap is, never a record of any learner (there is no learner in the model)."}
+
+ :actor/seed
+ {:seed/file "kotoba/seed.edn"
+  :seed/ontology "kotoba/ontology.shinan.edn"
+  :seed/sourcing :synthetic
+  :seed/topic-routes [:covered :needs-localization :coverage-gap]
+  :seed/resource-routes [:offer :monitor]}
+
+ :actor/tests
+ {:runner "babashka"
+  :cmd "bb 20-actors/shinan/run_tests.clj"
+  :suites ["methods/test_shinan_edn.cljc" "methods/test_analyze.cljc"
+           "methods/test_kotoba.cljc" "methods/test_autorun.cljc"]}}

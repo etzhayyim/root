@@ -1,0 +1,75 @@
+;; shinan 指南 — ontology (kotoba EAVT schema, ADR-2606291501)
+;; 学習支援 (learning-support) actor for CN/KR/JP exam students, under the
+;; 学習解放 (learning-liberation) framing: it hands the learner an OPEN scaffold
+;; (足場) toward the reality of an exam, but scoring / ranking / pass-prediction /
+;; gating / credentialing are STRUCTURALLY UNREPRESENTABLE — it inherits manabi 学び's
+;; anti-credentialism (G7), anti-examination-coercion (G10), and anti-addictive-design
+;; (G3) WITHOUT a carve-out. We sow the scaffold; growth belongs to the learner.
+;;
+;; Two node-kinds = a supply/demand map of OPEN learning:
+;;   :topic     a study topic in the exam space (the DEMAND), tied to country/exam/subject
+;;   :resource  an OPEN learning resource (the SUPPLY) covering one or more topics —
+;;              open license ONLY (proprietary/paid is unrepresentable, validated on load)
+;;
+;; Routing surfaces WHERE open learning exists and WHERE the gap is (the 学習解放 value):
+;;   topic route ∈ {:covered :needs-localization :coverage-gap}
+;;     :covered            — ∃ open resource covering it in the topic's country language
+;;     :needs-localization — covered, but no resource in the country language (→ translate)
+;;     :coverage-gap       — no open resource covers it (→ create open material)
+;;   resource route ∈ {:offer :monitor}
+;;     :offer    — openness ≥ 0.6 → freely offer as commons
+;;     :monitor  — low availability → observe (still open-license by construction)
+;;
+;; Attribute namespaces:
+;;   :shinan.topic/*    — disclosed topic facts (subject, country, exam)
+;;   :shinan.resource/* — disclosed resource facts (license, openness, languages, modality)
+;;   :shinan.rem/*      — DERIVED route + reason
+;;   :shinan/derived    — true on every derived datom
+;;   :shinan/sourcing   — ":authoritative" | ":representative" | ":synthetic"
+
+{:ontology/id "shinan"
+ :ontology/version "0.1.0"
+ :ontology/adr ["2606291501" "2605261045" "2605264400" "2606291500" "2605262130" "2605312345"]
+
+ :node-kinds
+ [{:kind :topic
+   :doc "A study topic in the exam space — the DEMAND side. e.g. 高考 数学, 수능 국어, 共通テスト 理科."
+   :keys [:id :name :subject :country :exam :priority]}
+  {:kind :resource
+   :doc "An OPEN learning resource — the SUPPLY side. Open license ONLY (proprietary unrepresentable)."
+   :keys [:id :name :subject :covers :license :languages :openness :modality]}]
+
+ :enums
+ {:country  #{:cn :kr :jp}
+  :subject  #{:math :chinese :korean :japanese :foreign-language :english :science :general}
+  :priority #{:high :med :low}
+  :modality #{:text :video :interactive :practice-concept}
+  ;; OPEN licenses ONLY — proprietary / paid / enrollment-gated are not enum members,
+  ;; so a non-open resource cannot be represented (validated on load, test-enforced).
+  :license  #{:public-domain :cc0 :cc-by :cc-by-sa :open-courseware :gov-open :free-access}
+  :topic-route    #{:covered :needs-localization :coverage-gap}
+  :resource-route #{:offer :monitor}}
+
+ :thresholds
+ {:offer-openness-min 0.6}  ;; resource openness ≥ this → :offer, else :monitor
+
+ ;; country → the language a learner most needs the resource in
+ :country-language {:cn :zh :kr :ko :jp :ja}
+
+ ;; negative space — the CHARTER HEART of shinan (学習解放 framing, no carve-out).
+ ;; Every one of these is structurally absent from the ontology/seed/emitter and
+ ;; proven by tests — this is what makes a learning-support actor charter-clean.
+ :unrepresentable
+ [":shinan/score"               ;; manabi G7 — never scores a learner
+  ":shinan/grade"               ;; manabi G7 — never grades
+  ":shinan/rank"                ;; manabi G7 — never ranks learners (no 偏差値/序列)
+  ":shinan/pass-prediction"     ;; manabi N11/N3 — never predicts pass/fail
+  ":shinan.learner/*"           ;; no individual learner data
+  ":shinan.person/*"            ;; no person-level data of any kind
+  ":shinan/gate"                ;; manabi G7 — never gatekeeps
+  ":shinan/credential"          ;; manabi G7 — issues no degree/credential
+  ":shinan/transcript"          ;; manabi G7 — keeps no transcript/GPA
+  ":shinan/timed-test"          ;; manabi G10 — no time-limited testing (self-paced only)
+  ":shinan/leaderboard"         ;; manabi G3 — no leaderboard (anti-addictive)
+  ":shinan/streak"              ;; manabi G3 — no streak/variable-reward
+  ":shinan/official-pastquestion"]} ;; cert_prep G16 — never reproduces official past questions
