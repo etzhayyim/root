@@ -1,6 +1,6 @@
 ---
 id: adr-2606242330-pds-consolidation-kotoba-clj-aozora
-title: "ADR-2606242330: PDS consolidation — pds.etzhayyim.com を kotoba + clj + aozora 単一実装に一本化"
+title: "ADR-2606242330: AT Protocol consolidation — app-aozora に PDS/AppView を集約し etzhayyim.com は PDS を持たない"
 status: proposed
 doc_type: adr
 topic: pds-consolidation-kotoba-clj-aozora
@@ -9,10 +9,11 @@ last_verified: 2026-06-24
 priority: 7.0
 axis: architecture
 weight: 0.70
-priority_note: "Operator-directed (2026-06-24): pds.etzhayyim.com の複数実装を kotoba(substrate) + clj(PDS record layer) + aozora(AppView) の単一スタックに一本化。Bun 参照 PDS は bridge-only に降格。"
+priority_note: "Operator-directed (2026-06-29): AT Protocol/PDS/AppView surface は app-aozora に集約。etzhayyim.com は組織サイト・DID/static public surface に限定し、PDS を持たない。"
 authoritative_for:
-  - pds.etzhayyim.com canonical implementation
-  - PDS/AppView 実装の単一化方針
+  - app-aozora canonical AT Protocol implementation
+  - PDS/AppView 実装の app-aozora 集約方針
+  - etzhayyim.com does not host PDS
 depends_on:
   - adr-2605262130  # kotoba canonical substrate engine
   - adr-2605312345  # kotoba Datom log = first-class canonical state
@@ -27,11 +28,45 @@ supersedes: []
 superseded_by: []
 ---
 
-# ADR-2606242330: PDS consolidation — pds.etzhayyim.com を kotoba + clj + aozora 単一実装に一本化
+# ADR-2606242330: AT Protocol consolidation — app-aozora に PDS/AppView を集約し etzhayyim.com は PDS を持たない
 
 **Status**: proposed
 **Date**: 2026-06-24
 **Deciders**: Jun Kawasaki
+
+## Addendum 2026-06-29 — `app-aozora` 集約 + `etzhayyim.com` no-PDS 方針
+
+2026-06-24 時点の本 ADR は `pds.etzhayyim.com` を canonical PDS として整理していた。
+2026-06-29 の operator 指示により、この境界を更新する:
+
+**AT Protocol 関係は `app-aozora` に集約する。`etzhayyim.com` は PDS/AppView を持たない。**
+
+新しい責務分界:
+
+| 名称 | 責務 | 持ってよいもの | 持たないもの |
+|---|---|---|---|
+| `kotoba` | sovereign data/compute substrate | CID, Datom log, WASM runtime, auth/network primitives | domain actor identity policy |
+| `kototama` | organism/actor common platform | artificial organism patterns, governed actor libs, runtime adapters | individual actor identity itself |
+| `app-aozora` | AT Protocol product boundary | PDS, AppView, XRPC adapter, lexicons, feeds/search, actor profile publish target | etzhayyim.com marketing/static site ownership |
+| `etzhayyim.com` | organization/public surface | corporate/religious-corp site, static DID/doc discovery, links to app-aozora | PDS, repo store, AppView, atproto write path |
+| `com-etzhayyim-*` | domain artificial organism | domain code/data, actor manifest, kotoba-rad identity, aozora profile records | first-class PDS implementation |
+
+`com-etzhayyim-kyoninka` などの repo は **domain artificial organism** であり、
+AT Protocol actor として外界に出る場合も、write/read surface は `app-aozora` の PDS/AppView
+を使う。repo 名は `com-etzhayyim-kyoninka` のように domain を正面に置く。`actor` は
+implementation category なので first-class organism repo 名には入れない。
+
+Canonical endpoint policy:
+
+- canonical PDS/AppView endpoint: `https://aozora.app`（`app-aozora`）
+- deprecated / legacy bridge only: `https://pds.etzhayyim.com`,
+  `https://atproto.etzhayyim.com`
+- `https://etzhayyim.com` は `/xrpc/*` を canonical に持たない。必要なリンク・リダイレクト・
+  DID/static discovery は許すが、PDS state や repo write path は持たない。
+
+これにより、古い「`pds.etzhayyim.com` canonical」という本文中の記述は歴史的な移行説明として
+読む。今後の実装・deploy helper・DID serviceEndpoint・docs は `app-aozora` / `aozora.app`
+を正準にする。
 
 ## Addendum 2026-06-24 — repo 層の kotoba-canonical 不変条件 + `app-aozora-repo`
 
@@ -89,12 +124,14 @@ kotoba-server で提供し、別建ての TS PDS worker を退役させる"* と
 
 # Decision
 
-**pds.etzhayyim.com の canonical 実装を `kotoba + clj + aozora` の単一スタックに一本化する。**
-他の PDS 系実装は bridge-only / dev-scaffold / 薄い resolver として降格・整理する。
+**AT Protocol の canonical 実装を `app-aozora` に一本化する。**
+`etzhayyim.com` は PDS/AppView を持たない。古い PDS 系実装は bridge-only /
+dev-scaffold / 薄い resolver として降格・整理する。
 
 ## 単一スタック（canonical）
 
 ```
+endpoint        : https://aozora.app（app-aozora）
 状態(state)     : kotoba Datom log（EAVT, content-addressed, ADR-2605312345）
                   — PDS の repo/record は at://<did>/<collection>/<rkey> を Datom 化
 record 変換層    : etzhayyim-atproto-pds-clj（clj/bb・Datom-native, #2）
@@ -102,12 +139,12 @@ record 変換層    : etzhayyim-atproto-pds-clj（clj/bb・Datom-native, #2）
 XRPC 実行 runtime: kotoba-server（Rust WASM Component, #6 / ADR-2606015002 D2）
                   — clj 層が定義した record 操作の XRPC surface を最終的にここで提供
                   — no-server-key（session PoP verify, zero-access, ADR-2605231525）
-AppView         : aozora（yoro kotoba-appview, #9）
+AppView/PDS     : app-aozora（yoro kotoba-appview + PDS/XRPC adapter, #9）
                   — 単一 AppView。actor 登録(profile-write)・searchActors・feed
                   — bsky.etzhayyim.com の別建て計画(#8)は廃し aozora に畳む
-did:web 解決     : etzhayyim-pds-did-web(#3) + etzhayyim-did-web(#4) は薄い静的
-                  resolver として保持（PDS 実装ではない）。ただし apex の動的
-                  per-actor did は ADR-2606231200 追補で退役（actor は github.io 静的）
+did:web 解決     : etzhayyim.com 系は薄い静的 resolver / public discovery としてのみ保持
+                  （PDS 実装ではない）。apex の動的 per-actor did は退役し、
+                  actor は github.io 静的 DID + app-aozora profile を使う。
 ```
 
 **「kotoba + clj + aozora」の役割分担**: kotoba = 基盤（状態 + Rust runtime）、
@@ -124,19 +161,21 @@ clj = PDS の record 意味論を Datom 上に書く層（移行中の SoT・参
 - **#8 bsky.etzhayyim.com 別建て AppView**: **不採用**。aozora(#9) に一本化。
 - **#3/#4 did:web worker**: 実装としては保持（PDS ではなく DID 解決層）。
 
-## 移行フェーズ
+## 移行フェーズ（2026-06-29 改訂）
 
-1. **P0（本 ADR）**: canonical 宣言 + Bun pod 降格 + 各実装 README に status マーカー
-   （`canonical` / `bridge-only` / `dev-scaffold` / `resolver`）を付す。
+1. **P0（本 ADR）**: canonical 宣言を `app-aozora` に更新し、`etzhayyim.com no-PDS`
+   を明文化する。`aozora:deploy` は `https://aozora.app` を default とし、legacy
+   `pds.etzhayyim.com` / `atproto.etzhayyim.com` / apex endpoint を bridge-only とする。
 2. **P1**: `etzhayyim-atproto-pds-clj`(#2) を staged の残段（federation sync, 完全な
-   com.atproto.repo/sync）まで進め、`KOTOBA_URL` で live engine に wire。`bb test` 緑。
-3. **P2**: `pds.etzhayyim.com` の origin を Bun pod → clj-on-kotoba PDS に切替（CF
-   Tunnel の上流差し替え）。530 復旧はこの切替で解消（本番 origin を kotoba 系へ）。
+   com.atproto.repo/sync）まで進め、app-aozora の PDS backend として `KOTOBA_URL` で
+   live engine に wire。`bb test` 緑。
+3. **P2**: `aozora.app` / app-aozora の PDS origin を clj-on-kotoba PDS に切替。
+   `pds.etzhayyim.com` は canonical ではなく、必要なら一時 redirect/bridge のみ。
 4. **P3**: ADR-2606015002 D2 を実装し、XRPC surface を kotoba-server(#6, Rust WASM)
    へ移す。clj 層(#2)は record 意味論の参照実装/移行ブリッジとして残置 or 吸収。
-5. **P4**: Bun pod(#5) 退役。aozora(#9) を単一 AppView として searchActors/feed 本番化
-   → ADR-2606231200 の actor 登録（profile-write）が通り、etzhayyim.com 検索に actor
-   が出る。
+5. **P4**: Bun pod(#5) 退役。app-aozora を単一 AppView として searchActors/feed 本番化
+   → actor 登録（profile-write）は `aozora.app` に集約される。`etzhayyim.com` は検索・
+   profile 表示の canonical host ではなく public entry/link surface に留める。
 
 # Consequences
 
