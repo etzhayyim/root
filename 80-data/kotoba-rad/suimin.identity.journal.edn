@@ -9,3 +9,4 @@
 ["sigref:bafkreib652yhgyxsisftd63msrfhidilbz53s6szsdcthtcflsqoaye2hi" :rad/rid "bafkreib652yhgyxsisftd63msrfhidilbz53s6szsdcthtcflsqoaye2hi" 1 :add]
 ["sigref:bafkreib652yhgyxsisftd63msrfhidilbz53s6szsdcthtcflsqoaye2hi" :rad/head "bafkreidd4wcthvbfm7rfstt3vn7lo23vixrqwppozms2eyyxdxvexgkxfa" 1 :add]
 ["sigref:bafkreib652yhgyxsisftd63msrfhidilbz53s6szsdcthtcflsqoaye2hi" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-suimin" 1 :add]
+["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:suimin" 2 :add]

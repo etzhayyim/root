@@ -9,3 +9,4 @@
 ["sigref:bafkreiagjm5ie75f4srkwta7ushe5vmavusxj6gmgoiuh5u3dlvzkr5zeu" :rad/rid "bafkreiagjm5ie75f4srkwta7ushe5vmavusxj6gmgoiuh5u3dlvzkr5zeu" 1 :add]
 ["sigref:bafkreiagjm5ie75f4srkwta7ushe5vmavusxj6gmgoiuh5u3dlvzkr5zeu" :rad/head "bafkreidk2puufpiycnzncuttkwtyhyxhtycrbsz65apdodsgcdjxmhwapm" 1 :add]
 ["sigref:bafkreiagjm5ie75f4srkwta7ushe5vmavusxj6gmgoiuh5u3dlvzkr5zeu" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-inochi" 1 :add]
+["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:inochi" 2 :add]

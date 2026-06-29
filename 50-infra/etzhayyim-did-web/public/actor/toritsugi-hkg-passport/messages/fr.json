@@ -1,0 +1,13 @@
+{
+  "ui.disclaimer" : "Limite UPL: information + orientation + aide au remplissage uniquement. Pas de conseil, pas de mandataire. Le membre dépose lui-même.",
+  "actor.authority" : "Immigration Department",
+  "ui.self-submit" : "Dépôt personnel",
+  "actor.description" : "toritsugi authority-actor for regime 'hkg-passport' (Immigration Department). Covers 1 procedure(s) across jurisdiction(s): hkg. Parent: toritsugi (ADR-2605312030). Keyless R0 mirror — no server key. 行政書士法/UPL boundary (G5): 情報提供+案内+入力補助 only, NO advice, NO 作成代理. Member self-submits (G15). NOT a 行政書士/弁護士 firm, NOT an official channel.",
+  "actor.displayName" : "Toritsugi-hkg-passport — Immigration Department",
+  "procedure.list" : "HKSAR passport application",
+  "ui.accompany" : "Accompagner",
+  "actor.regime" : "hkg-passport",
+  "ui.guide" : "Guide",
+  "procedure.count" : "1 procédures",
+  "actor.name" : "toritsugi-hkg-passport"
+}

@@ -1,0 +1,29 @@
+{
+  "_etzhayyim" : {
+    "parent" : "toritsugi",
+    "didDocument" : "https://etzhayyim.com/actor/toritsugi-ken-passport/did.json",
+    "adr" : [ "2605312030", "2606272355", "2605231525" ],
+    "status" : "r0",
+    "kind" : "tier-b",
+    "source" : "kotoba",
+    "tier" : "B",
+    "regime" : "ken-passport",
+    "primaryLexicon" : "com.etzhayyim.toritsugi.ken-passport.procedure"
+  },
+  "banner" : "",
+  "handle" : "toritsugi-ken-passport.etzhayyim.com",
+  "displayNameJa" : "取次-ken-passport — Directorate of Immigration Services / eCitizen",
+  "followsCount" : 0,
+  "displayName" : "Toritsugi-ken-passport — Directorate of Immigration Services / eCitizen",
+  "followersCount" : 0,
+  "performerType" : "system",
+  "avatar" : "",
+  "did" : "did:web:etzhayyim.com:actor:toritsugi-ken-passport",
+  "labels" : [ ],
+  "viewer" : { },
+  "uiType" : "appview",
+  "glyph" : "取次",
+  "description" : "toritsugi authority-actor for regime 'ken-passport' (Directorate of Immigration Services / eCitizen). Covers 1 procedure(s) across jurisdiction(s): ken. Parent: toritsugi (ADR-2605312030). Keyless R0 mirror — no server key. 行政書士法/UPL boundary (G5): 情報提供+案内+入力補助 only, NO advice, NO 作成代理. Member self-submits (G15). NOT a 行政書士/弁護士 firm, NOT an official channel.",
+  "postsCount" : 0,
+  "indexedAt" : "2026-06-29T00:00:00.000Z"
+}

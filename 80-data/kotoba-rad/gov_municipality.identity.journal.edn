@@ -9,3 +9,4 @@
 ["sigref:bafkreihpz3ej2hxzv3jv7e4lqg26hjyo3jimddmf7povywykfr6ssdqysa" :rad/rid "bafkreihpz3ej2hxzv3jv7e4lqg26hjyo3jimddmf7povywykfr6ssdqysa" 1 :add]
 ["sigref:bafkreihpz3ej2hxzv3jv7e4lqg26hjyo3jimddmf7povywykfr6ssdqysa" :rad/head "bafkreidaim5ryke4zwumw6rnoawhsgup2nnlhko76jfzrd6a66p4jjjbpu" 1 :add]
 ["sigref:bafkreihpz3ej2hxzv3jv7e4lqg26hjyo3jimddmf7povywykfr6ssdqysa" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-gov_municipality" 1 :add]
+["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:gov_municipality" 2 :add]

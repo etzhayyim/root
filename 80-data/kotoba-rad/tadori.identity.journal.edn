@@ -9,3 +9,4 @@
 ["sigref:bafkreib6oselxxz4i5r5ll4buvt67m4mupzlng6etmpgznpvogkpk2l74a" :rad/rid "bafkreib6oselxxz4i5r5ll4buvt67m4mupzlng6etmpgznpvogkpk2l74a" 1 :add]
 ["sigref:bafkreib6oselxxz4i5r5ll4buvt67m4mupzlng6etmpgznpvogkpk2l74a" :rad/head "bafkreiafhnfa7qgghi6zxxdhhgzlfiirc75ge6ekfxnfl7ui7nkqxc3mey" 1 :add]
 ["sigref:bafkreib6oselxxz4i5r5ll4buvt67m4mupzlng6etmpgznpvogkpk2l74a" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-tadori" 1 :add]
+["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:tadori" 2 :add]

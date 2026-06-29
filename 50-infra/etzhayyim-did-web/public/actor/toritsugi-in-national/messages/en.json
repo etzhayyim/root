@@ -1,0 +1,13 @@
+{
+  "ui.disclaimer" : "UPL boundary: information + wayfinding + form-fill assist only. No advice, no proxy. Member submits themselves.",
+  "actor.authority" : "Unique Identification Authority of India (UIDAI), Ministry of Electronics and Information Technology (MeitY)",
+  "ui.self-submit" : "Self-submit",
+  "actor.description" : "toritsugi authority-actor for regime 'in-national' (Unique Identification Authority of India (UIDAI), Ministry of Electronics and Information Technology (MeitY)). Covers 1 procedure(s) across jurisdiction(s): ind. Parent: toritsugi (ADR-2605312030). Keyless R0 mirror — no server key. 行政書士法/UPL boundary (G5): 情報提供+案内+入力補助 only, NO advice, NO 作成代理. Member self-submits (G15). NOT a 行政書士/弁護士 firm, NOT an official channel.",
+  "actor.displayName" : "Toritsugi-in-national — Unique Identification Authority of India (UIDAI), Ministry of Electronics and Information Technology (MeitY)",
+  "procedure.list" : "India Aadhaar enrolment (आधार नामांकन)",
+  "ui.accompany" : "Accompany",
+  "actor.regime" : "in-national",
+  "ui.guide" : "Guide",
+  "procedure.count" : "1 procedures",
+  "actor.name" : "toritsugi-in-national"
+}

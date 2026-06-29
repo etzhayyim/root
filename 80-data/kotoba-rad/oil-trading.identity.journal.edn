@@ -9,3 +9,4 @@
 ["sigref:bafkreiass7n24zschzgprqrp2rq4jig62ezetlkxhejtsn4v6rxo4fxzou" :rad/rid "bafkreiass7n24zschzgprqrp2rq4jig62ezetlkxhejtsn4v6rxo4fxzou" 1 :add]
 ["sigref:bafkreiass7n24zschzgprqrp2rq4jig62ezetlkxhejtsn4v6rxo4fxzou" :rad/head "bafkreiepnysle6eytng27dn2xrsbvgbjo465f6ie4q6h4jstmvcvxof36u" 1 :add]
 ["sigref:bafkreiass7n24zschzgprqrp2rq4jig62ezetlkxhejtsn4v6rxo4fxzou" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-oil-trading" 1 :add]
+["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:oil-trading" 2 :add]

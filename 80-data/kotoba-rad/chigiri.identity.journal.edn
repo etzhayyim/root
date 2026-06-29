@@ -9,3 +9,4 @@
 ["sigref:bafkreiefwjpl4y35ayvwdk75xeng6d55offezopxzgdw4rwj6nzlw7pmkq" :rad/rid "bafkreiefwjpl4y35ayvwdk75xeng6d55offezopxzgdw4rwj6nzlw7pmkq" 1 :add]
 ["sigref:bafkreiefwjpl4y35ayvwdk75xeng6d55offezopxzgdw4rwj6nzlw7pmkq" :rad/head "bafkreiaimjfil3doed3hxjncyqor7kni75kspbur4cdpkc5etbrivtly5y" 1 :add]
 ["sigref:bafkreiefwjpl4y35ayvwdk75xeng6d55offezopxzgdw4rwj6nzlw7pmkq" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-chigiri" 1 :add]
+["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:chigiri" 2 :add]

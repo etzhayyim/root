@@ -1,0 +1,13 @@
+{
+  "ui.disclaimer" : "Límite UPL: solo información + orientación + ayuda con formularios. Sin asesoramiento, sin representación. El miembro presenta personalmente.",
+  "actor.authority" : "U.S. Department of State, Bureau of Consular Affairs — Passport Services / U.S. Social Security Administration (SSA)",
+  "ui.self-submit" : "Presentación personal",
+  "actor.description" : "toritsugi authority-actor for regime 'us-federal' (U.S. Department of State, Bureau of Consular Affairs — Passport Services / U.S. Social Security Administration (SSA)). Covers 2 procedure(s) across jurisdiction(s): usa. Parent: toritsugi (ADR-2605312030). Keyless R0 mirror — no server key. 行政書士法/UPL boundary (G5): 情報提供+案内+入力補助 only, NO advice, NO 作成代理. Member self-submits (G15). NOT a 行政書士/弁護士 firm, NOT an official channel.",
+  "actor.displayName" : "Toritsugi-us-federal — U.S. Department of State, Bureau of Consular Affairs — Passport Services",
+  "procedure.list" : "Application for a Social Security Card (Form SS-5 / Social Security number application) / Application for a U.S. Passport (Form DS-11, first-time / in-person) (米国旅券申請)",
+  "ui.accompany" : "Acompañar",
+  "actor.regime" : "us-federal",
+  "ui.guide" : "Guía",
+  "procedure.count" : "2 procedimientos",
+  "actor.name" : "toritsugi-us-federal"
+}

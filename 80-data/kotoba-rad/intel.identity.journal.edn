@@ -9,3 +9,4 @@
 ["sigref:bafkreic3oghuhqxzkpke53v4ipa7f5tssztqrgcdmqdbtbfa5xv626iqaq" :rad/rid "bafkreic3oghuhqxzkpke53v4ipa7f5tssztqrgcdmqdbtbfa5xv626iqaq" 1 :add]
 ["sigref:bafkreic3oghuhqxzkpke53v4ipa7f5tssztqrgcdmqdbtbfa5xv626iqaq" :rad/head "bafkreihlhqnya7m5tkkzwikc4e2bia3vs6t4spkpvyyd5b5tx66upl247y" 1 :add]
 ["sigref:bafkreic3oghuhqxzkpke53v4ipa7f5tssztqrgcdmqdbtbfa5xv626iqaq" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-intel" 1 :add]
+["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:intel" 2 :add]

@@ -9,3 +9,4 @@
 ["sigref:bafkreickojqhzgi3pbrbcxl3wezuikdm3h36iutniqcb74qd37dftza2v4" :rad/rid "bafkreickojqhzgi3pbrbcxl3wezuikdm3h36iutniqcb74qd37dftza2v4" 1 :add]
 ["sigref:bafkreickojqhzgi3pbrbcxl3wezuikdm3h36iutniqcb74qd37dftza2v4" :rad/head "bafkreiehfrw5qypqc6kedlww4uwug2mshzxxvdlanmma67ohthpx4kb5ya" 1 :add]
 ["sigref:bafkreickojqhzgi3pbrbcxl3wezuikdm3h36iutniqcb74qd37dftza2v4" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-subaru" 1 :add]
+["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:subaru" 2 :add]

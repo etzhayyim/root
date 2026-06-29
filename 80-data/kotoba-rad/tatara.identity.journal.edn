@@ -9,3 +9,4 @@
 ["sigref:bafkreiehbxgawrx2ntjivlxgfz7l7qthjh4hybwadw3arwyzexbu7ftbqm" :rad/rid "bafkreiehbxgawrx2ntjivlxgfz7l7qthjh4hybwadw3arwyzexbu7ftbqm" 1 :add]
 ["sigref:bafkreiehbxgawrx2ntjivlxgfz7l7qthjh4hybwadw3arwyzexbu7ftbqm" :rad/head "bafkreiac6k5w2equ6ztdfusu4n57garn2qji2q443ibpuycassq6xt7eai" 1 :add]
 ["sigref:bafkreiehbxgawrx2ntjivlxgfz7l7qthjh4hybwadw3arwyzexbu7ftbqm" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-tatara" 1 :add]
+["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:tatara" 2 :add]

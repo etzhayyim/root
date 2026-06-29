@@ -9,3 +9,4 @@
 ["sigref:bafkreigjhpukgts5owsyexqxho4jnhuicldt2ieyxaxck4qntcy6z33fyi" :rad/rid "bafkreigjhpukgts5owsyexqxho4jnhuicldt2ieyxaxck4qntcy6z33fyi" 1 :add]
 ["sigref:bafkreigjhpukgts5owsyexqxho4jnhuicldt2ieyxaxck4qntcy6z33fyi" :rad/head "bafkreic3cr35c72h6mbrqb4loisc5nklcaxiucod4camszugovq2snrp5e" 1 :add]
 ["sigref:bafkreigjhpukgts5owsyexqxho4jnhuicldt2ieyxaxck4qntcy6z33fyi" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-makura" 1 :add]
+["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:makura" 2 :add]

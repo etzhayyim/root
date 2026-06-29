@@ -1,0 +1,13 @@
+{
+  "ui.disclaimer" : "حدود UPL: معلومات + توجيه + مساعدة في تعبئة النماذج فقط. بدون استشارة، بدون وكالة. يقدم العضو بنفسه.",
+  "actor.authority" : "Administración Nacional de la Seguridad Social (ANSES) / Registro Nacional de las Personas (RENAPER), Ministerio del Interior",
+  "ui.self-submit" : "تقديم شخصي",
+  "actor.description" : "toritsugi authority-actor for regime 'ar-national' (Administración Nacional de la Seguridad Social (ANSES) / Registro Nacional de las Personas (RENAPER), Ministerio del Interior). Covers 2 procedure(s) across jurisdiction(s): arg. Parent: toritsugi (ADR-2605312030). Keyless R0 mirror — no server key. 行政書士法/UPL boundary (G5): 情報提供+案内+入力補助 only, NO advice, NO 作成代理. Member self-submits (G15). NOT a 行政書士/弁護士 firm, NOT an official channel.",
+  "actor.displayName" : "Toritsugi-ar-national — Administración Nacional de la Seguridad Social (ANSES)",
+  "procedure.list" : "Argentina CUIL (labor identification code) issuance — Código Único de Identificación Laboral (CUIL) / Argentina National Identity Document (DNI) issuance / renewal — Documento Nacional de Identidad (DNI)",
+  "ui.accompany" : "مرافقة",
+  "actor.regime" : "ar-national",
+  "ui.guide" : "إرشاد",
+  "procedure.count" : "2 إجراءات",
+  "actor.name" : "toritsugi-ar-national"
+}

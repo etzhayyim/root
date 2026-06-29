@@ -9,3 +9,4 @@
 ["sigref:bafkreicr66dstcwedrgxbsn7v73ntfchcxh64sknj6w4jnfc7jfabo2xxu" :rad/rid "bafkreicr66dstcwedrgxbsn7v73ntfchcxh64sknj6w4jnfc7jfabo2xxu" 1 :add]
 ["sigref:bafkreicr66dstcwedrgxbsn7v73ntfchcxh64sknj6w4jnfc7jfabo2xxu" :rad/head "bafkreialjy4q557sq6vyksu2maw2ohh7mdawfv3yt26nkyfcf5ky6dyzaq" 1 :add]
 ["sigref:bafkreicr66dstcwedrgxbsn7v73ntfchcxh64sknj6w4jnfc7jfabo2xxu" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-rare-earth-coverage" 1 :add]
+["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:rare-earth-coverage" 2 :add]

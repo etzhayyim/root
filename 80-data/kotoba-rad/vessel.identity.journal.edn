@@ -17,3 +17,4 @@
 ["sigref:bafkreicffdwfczskau5exbthvflzp3a3e2vkhhsedv2gcup3ecidokytwm" :rad/rid "bafkreicffdwfczskau5exbthvflzp3a3e2vkhhsedv2gcup3ecidokytwm" 3 :add]
 ["sigref:bafkreicffdwfczskau5exbthvflzp3a3e2vkhhsedv2gcup3ecidokytwm" :rad/head "bafkreifjahfdgpaib2bindaqb2jd4ljpwmjirzsilnqr6r4nr7rttau6be" 3 :add]
 ["sigref:bafkreicffdwfczskau5exbthvflzp3a3e2vkhhsedv2gcup3ecidokytwm" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-vessel" 3 :add]
+["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:vessel" 2 :add]
