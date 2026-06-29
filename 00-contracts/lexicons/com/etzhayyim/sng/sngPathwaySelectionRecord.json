@@ -1,0 +1,22 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.sng.sngPathwaySelectionRecord",
+  "description": "Council Lv6+≥3 quarterly pathway-selection record: biomethane primary vs Sabatier when (a) waste exhausted, (b) dispatchable/compact production needed, or (c) surplus H₂+DAC capacity ≥50%. Never both pathways simultaneously at the same facility without Council per-facility justification. High-stakes → always human signoff. Per ADR-2605265900 §1 / ADR-2606290000.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "facilityDid": {"type": "string"},
+          "quarter": {"type": "string", "description": "ISO quarter (e.g. 2026-Q2)"},
+          "selectedPathway": {"type": "string", "knownValues": ["biomethane", "sabatier"]},
+          "rationale": {"type": "string", "knownValues": ["waste-exhausted", "dispatchable-compact", "surplus-h2-dac", "per-facility-justification"]},
+          "councilSignoffs": {"type": "array", "items": {"type": "string"}, "description": "≥3 Council Lv6+ member DIDs"},
+          "approvedBy": {"type": "string", "description": "Council seat DID authorizing the allocation"}
+        },
+        "required": ["facilityDid", "quarter", "selectedPathway", "rationale", "councilSignoffs", "approvedBy"]
+      }
+    }
+  }
+}
