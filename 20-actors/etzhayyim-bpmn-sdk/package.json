@@ -22,7 +22,7 @@
     "docs:serve": "npx http-server docs/api -p 8080"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.0",
+    "@biomejs/biome": "^2.5.1",
     "@types/node": "^26.0.1",
     "@vitest/coverage-v8": "^4.1.8",
     "http-server": "^14.1.1",
