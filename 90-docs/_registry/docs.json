@@ -26948,6 +26948,34 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606292130-google-ads-charter-clean-outreach-performance-marketing-actor-r0.md",
+      "id": "adr-2606292130-google-ads-charter-clean-outreach-performance-marketing-actor-r0",
+      "title": "ADR-2606292130: com-google-ads — charter-clean outreach & performance-marketing actor (R0)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "google-ads-charter-clean-outreach-actor",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/com-google-ads"
+      ],
+      "related": [
+        "260607",
+        "2605181100"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606022300",
+        "2606072600",
+        "2605215000",
+        "2605262130",
+        "2605301600"
+      ],
+      "last_verified": "2026-06-29",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
