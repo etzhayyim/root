@@ -26858,6 +26858,38 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606290000-sng-standalone-actor-r0.md",
+      "id": "adr-2606290000-sng-standalone-actor-r0",
+      "title": "com-etzhayyim-sng — promote e-methane (Sabatier SNG) from a hikari path-reserved cell to a standalone Tier-B actor (R0)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "sng-standalone-actor",
+      "authoritative": true,
+      "authoritative_for": [
+        "com-etzhayyim-sng actor identity and repo-premise registration",
+        "Sabatier SNG CarbonGovernor hard invariants (closed-loop carbon / open catalyst / cap / leak / storage / mass-balance / high-temp-council / no-actuation)",
+        "SNG lexicon namespace com.etzhayyim.sng.*"
+      ],
+      "related": [
+        "adr-2605265900-sng-methanation-sabatier-d-gate-evaluation-r0",
+        "adr-2605264700-methanol-dme-synfuel-d-gate-evaluation-r0"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605265900-sng-methanation-sabatier-d-gate-evaluation-r0",
+        "adr-2605263500-energy-substrate-dependency-vs-substance-reframing",
+        "adr-2605263600-hydrogen-economy-d-gate-evaluation-r0",
+        "adr-2605264600-direct-air-capture-d-gate-evaluation-r0",
+        "adr-2605263800-biomethane-d-gate-evaluation-r0",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
+      "last_verified": "2026-06-29",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606290830-cultural-auspicious-number-donation-and-root-design.md",
       "id": "adr-2606290830-cultural-auspicious-number-donation-and-root-design",
       "title": "ADR-2606290830: Cultural auspicious-number defaults for donation and root surfaces",
