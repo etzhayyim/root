@@ -1,7 +1,7 @@
 ---
 id: adr-2606292000-toritsugi-authority-actor-fanout
 title: "ADR-2606292000: toritsugi authority-actor fanout — per-regime keyless mirror actors on apex did:web + i18n"
-status: proposed
+status: accepted
 doc_type: adr
 topic: toritsugi-authority-actor-fanout
 authoritative: true
@@ -29,9 +29,10 @@ superseded_by: []
 
 # ADR-2606292000: toritsugi authority-actor fanout — per-regime keyless mirror actors on apex did:web + i18n
 
-**Status**: proposed
+**Status**: accepted
 **Date**: 2026-06-29
 **Deciders**: Jun Kawasaki (founder, Council Lv7+ 1/1)
+**Merged**: PR #2758 (root) + PR #1 (com-etzhayyim-toritsugi) — 2026-06-29
 
 # Context
 
