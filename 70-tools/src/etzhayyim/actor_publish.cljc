@@ -24,12 +24,14 @@
 (ns etzhayyim.actor-publish
   (:require [clojure.string :as str]
             [clojure.java.io :as io]
+            [clojure.edn :as edn]
             [cheshire.core :as json]
             [babashka.process :as p]
             [etzhayyim.kotoba-rad :as rad]
             [etzhayyim.kotoba-rad-sign :as rad-sign]))
 
 (def org "etzhayyim")
+(def canonical-aozora-pds "https://aozora.app")
 (defn repo-name [actor] (str "com-" org "-" actor))
 (defn prefix [actor] (str "20-actors/" actor))
 
@@ -38,16 +40,20 @@
 (defn manifest-path
   "Locate the actor manifest. Utility/older actors use `actor-manifest.jsonld`;
    the clj-native flagship actors (kaname/tsumugi/ibuki…) use `manifest.jsonld`
-   (no `triggers`, lexicons listed under `:lexicons`). Prefer the former, fall
-   back to the latter."
+   (no `triggers`, lexicons listed under `:lexicons`). Gen-3 kotoba-native
+   actors may use `manifest.edn`. Prefer jsonld, fall back to edn."
   [actor]
   (let [a (io/file (str (prefix actor) "/actor-manifest.jsonld"))
-        m (io/file (str (prefix actor) "/manifest.jsonld"))]
-    (cond (.exists a) a (.exists m) m :else a)))
+        m (io/file (str (prefix actor) "/manifest.jsonld"))
+        e (io/file (str (prefix actor) "/manifest.edn"))]
+    (cond (.exists a) a (.exists m) m (.exists e) e :else a)))
 
 (defn read-manifest [actor]
   (let [f (manifest-path actor)]
-    (when (.exists f) (json/parse-string (slurp f) true))))
+    (when (.exists f)
+      (if (str/ends-with? (.getName f) ".edn")
+        (edn/read-string (slurp f))
+        (json/parse-string (slurp f) true)))))
 
 (defn manifest->genesis
   "Derive the kotoba-rad genesis block from the actor manifest.
@@ -60,7 +66,9 @@
    :triggers/:subscribeRepos/:collections, `manifest.jsonld` under :lexicons."
   [actor manifest & {:keys [pubkey-hex]}]
   (let [coll (or (-> manifest :triggers :subscribeRepos :collections first)
-                 (-> manifest :lexicons first))
+                 (-> manifest :lexicons first)
+                 (-> manifest :actor/lexicons first)
+                 (:actor/primary-lexicon manifest))
         ns* (when coll (str/join "." (butlast (str/split coll #"\."))))]
     (rad/genesis-block
      {:name actor
@@ -68,7 +76,7 @@
       :delegates (when pubkey-hex [(rad/did-key pubkey-hex)])
       :threshold 1
       :repo (str "github.com/" org "/" (repo-name actor))
-      :pds "https://pds.etzhayyim.com"
+      :pds canonical-aozora-pds
       :collection (or ns* (str "com.etzhayyim.apps." actor))})))
 
 ;; ── step helpers (dry-run aware) ────────────────────────────────────────────
@@ -148,18 +156,34 @@
     (assoc (or res {}) :rid (rad/rid genesis) :rad-uri (rad/rad-uri genesis))))
 
 (defn step-aozora
-  "Plan the PDS profile write (Option B `e.write`). Actual write is the
-   member/operator-key leg — surfaced as the command, executed out-of-band."
+  "Deploy the actor profile to the aozora PDS via createRecord.
+   When --apply is set and LEASH env is present, executes the PDS write via
+   etzhayyim.pds.client/create-record!. Otherwise plans only (dry-run)."
   [actor genesis apply?]
   (let [coll (-> genesis :rad/aozora :collection)
-        profile-coll (str coll ".profile")]
-    (log-step 5 (str "aozora PDS profile write " profile-coll)
-              {:planned true
-               :cmd ["@etzhayyim/sdk" "e.write"
-                     (str "collection=" profile-coll)
-                     (str "did=" (:rad/did-web genesis))
-                     "rkey=self" "<- member/operator key (no-server-key)"]})
-    {:collection profile-coll}))
+        profile-coll (str coll ".profile")
+        pds (-> genesis :rad/aozora :pds)
+        did (:rad/did-web genesis)]
+    (if apply?
+      (let [deploy-ns (do (require '[etzhayyim.aozora-deploy])
+                          (find-ns 'etzhayyim.aozora-deploy))
+            deploy-fn (ns-resolve deploy-ns 'deploy-one)
+            res (deploy-fn actor {:apply? true
+                                  :leash (System/getenv "LEASH")
+                                  :pds-override pds})]
+        (log-step 5 (str "aozora PDS profile write " profile-coll)
+                  (if (:deployed res)
+                    {:exit 0 :out (str "uri=" (:uri res) " cid=" (:cid res))}
+                    {:exit 1 :err (str "status=" (:status res) " FAILED")}))
+        res)
+      (do
+        (log-step 5 (str "aozora PDS profile write " profile-coll)
+                  {:planned true
+                   :cmd ["bb" "aozora:deploy" actor "--apply"
+                         (str "pds=" pds)
+                         (str "did=" did)
+                         "rkey=self" "<- member/operator key (no-server-key)"]})
+        {:collection profile-coll}))))
 
 ;; ── driver ──────────────────────────────────────────────────────────────────
 
