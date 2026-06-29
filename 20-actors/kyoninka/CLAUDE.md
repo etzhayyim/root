@@ -14,7 +14,7 @@ a vehicle.**
 
 ## Implementation
 
-- **Runnable engine**: `orgs/etzhayyim/kyoninka-actor` — the langgraph-clj
+- **Runnable engine**: `orgs/etzhayyim/com-etzhayyim-kyoninka` — the langgraph-clj
   StateGraph actor (reg-LLM ⊣ PermitGovernor), the robotaxi-actor / ai-gftd-
   itonami sibling. 10 contract tests green; `clojure -M:dev:run` drives the demo.
 - **Platform form (here)**: `methods/procedure.cljc` is the same domain logic

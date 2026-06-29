@@ -73,7 +73,7 @@ to the etzhayyim platform:
 
 ## Implementation (R0)
 
-- **Runnable engine**: `orgs/etzhayyim/kyoninka-actor` — the langgraph-clj
+- **Runnable engine**: `orgs/etzhayyim/com-etzhayyim-kyoninka` — the langgraph-clj
   StateGraph actor (reg-LLM ⊣ PermitGovernor), robotaxi-actor / itonami sibling;
   10 contract tests green; `MemStore ≡ DatomicStore` proven; `clojure -M:dev:run`
   drives JP-clean→authority-signoff, CA-deficient→HARD HOLD, ZZ-over-level→HOLD,
