@@ -1,0 +1,29 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.sng.sngBatchAttestation",
+  "description": "Per-batch Sabatier SNG (e-methane) attestation. Cites source CIDs (green-H₂ + DAC-CO₂), Ni/γ-Al₂O₃ open catalyst lot, mass-balance ≥95%. CarbonGovernor-enforced: commercial-CO₂ feedstock and proprietary catalysts are not representable (ADR-2605265900 §1, D1+D3+D5). Per ADR-2606290000.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "batchId": {"type": "string"},
+          "facilityDid": {"type": "string", "description": "religious-corp methanation facility DID"},
+          "pathway": {"type": "string", "knownValues": ["sabatier", "biomethane-tailgas"]},
+          "greenH2Cid": {"type": "string", "description": "CID of cited green-H₂ feedstock lot (ADR-2605263600)"},
+          "dacCo2Cid": {"type": "string", "description": "CID of cited DAC-CO₂ feedstock lot (ADR-2605264600)"},
+          "catalystFormula": {"type": "string", "knownValues": ["ni-alumina-open"], "description": "open-formula Ni/γ-Al₂O₃ only; proprietary lots PROHIBITED (D5)"},
+          "catalystLotCid": {"type": "string"},
+          "opTempC": {"type": "integer", "description": "250-400 °C; >350 requires Council Lv6+≥3 signoff"},
+          "opPressureBar": {"type": "integer"},
+          "nm3Produced": {"type": "integer", "description": "CH₄ produced this batch (Nm³)"},
+          "massBalancePct": {"type": "integer", "description": "≥95 required"},
+          "exothermicHeatMj": {"type": "integer", "description": "~10.3 MJ/kg-CH₄ byproduct; routed cross-actor (district heating / DAC regen / mitsuho)"},
+          "attestationBy": {"type": "string", "description": "auto | Council-seat DID"}
+        },
+        "required": ["batchId", "facilityDid", "pathway", "greenH2Cid", "dacCo2Cid", "catalystFormula", "opTempC", "nm3Produced", "massBalancePct", "attestationBy"]
+      }
+    }
+  }
+}

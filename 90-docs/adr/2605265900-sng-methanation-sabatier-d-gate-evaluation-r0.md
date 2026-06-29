@@ -158,3 +158,28 @@ com.etzhayyim.hikari.{
 - ADR-2605265800 (HTHP low-grade heat consumer)
 - Sabatier P. + Senderens J.B. *Comptes Rendus* 134 (1902) — original public-domain reference
 - IEA P2G (Power-to-Gas) — open-publication SNG tech state
+
+---
+
+## Amendment 2026-06-29 — promotion to standalone actor (ADR-2606290000)
+
+The SNG pathway is **promoted from a path-reserved cell under `hikari`**
+(`20-actors/hikari/cells/sng_sabatier/`, never scaffolded) **to a standalone
+Tier-B actor `com-etzhayyim-sng`**, per ADR-2606290000, following the `kamado`
+precedent (D-gate sub-ADR → standalone actor). Consequently:
+
+- The `20-actors/hikari/cells/sng_sabatier/` path reservation (§5 R0 row) is
+  **withdrawn**; hikari's 5 energy cells are unchanged.
+- The four SNG lexicons (§6) are **re-namespaced** `com.etzhayyim.hikari.*`
+  → `com.etzhayyim.sng.*` (`sngBatchAttestation`, `sngStorageInventory`,
+  `sngPathwaySelectionRecord`, `silenSngReview`). The `hikari` namespace was
+  never materialized, so there are no existing references to migrate.
+- The D1–D5 verdict, the combined biomethane+SNG ≤200 Nm³/day cap, the
+  open-Ni/γ-Al₂O₃ catalyst mandate, the green-H₂+DAC-CO₂-only feedstock
+  chain, the commercial-CO₂ ABSOLUTE PROHIBITION, and the Council Lv6+≥3
+  pathway-selection review are unchanged and are now enforced as the
+  CarbonGovernor hard invariants of the standalone actor.
+
+The status of this ADR remains `proposed-pending-council-ratification`; the
+standalone-actor ADR-2606290000 is the implementation scaffold pending that
+ratification.
