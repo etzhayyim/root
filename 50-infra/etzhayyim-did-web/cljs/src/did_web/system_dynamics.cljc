@@ -200,7 +200,7 @@
        :description "System dynamics stock/flow and feedback-loop view of etzhayyim and its actors."
        :active "/system-dynamics"
        :main main
-       :footer-html "Rendered from <code>did_web/system_dynamics.cljc</code>. Static HTML/SVG only: no script, no external assets, no cookies."})))
+       :footer-html "Rendered from <code>did_web/system_dynamics.cljc</code>. Static HTML/SVG only: no script, no external assets, no cookies."}))))
 
 (defn- round1 [x]
   (/ (Math/round (* 10.0 (double x))) 10.0))
@@ -369,7 +369,7 @@
                                      (str "The actor stays inside the charter boundary: no server-held key, no hidden impersonation, and no unbounded authority. Source = " source ", status = " status "."))
                     (actor-loop-card "Repair / drift control"
                                      "balancing"
-                                     (str "ADR coverage " adr-text ", services " services ", vm " vm-text ", primary surface " (or primary-lexicon primary-schema "none") ".")])
+                                     (str "ADR coverage " adr-text ", services " services ", vm " vm-text ", primary surface " (or primary-lexicon primary-schema "none") "."))]
         main (str "<p class=\"eyebrow\">actor-specific system dynamics</p><h1>" (h title) "</h1>"
                   "<p class=\"lead\">" (h (or description "No actor description available yet.")) "</p>"
                   "<p class=\"next\"><strong>Role lens:</strong> " (h (:title mode)) ".</p>"
@@ -398,4 +398,4 @@
       :description (str "Actor-specific system dynamics for etzhayyim handle " (h handle))
       :active "/actors"
       :main main
-      :footer-html "Rendered from <code>did_web/system_dynamics.cljc</code>. Actor page is static HTML/SVG only; it reflects the actor record, not a live runtime."}))
+      :footer-html "Rendered from <code>did_web/system_dynamics.cljc</code>. Actor page is static HTML/SVG only; it reflects the actor record, not a live runtime."})))

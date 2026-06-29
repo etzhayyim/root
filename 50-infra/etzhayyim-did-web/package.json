@@ -5,7 +5,7 @@
   "description": "Cloudflare Worker serving did:web:etzhayyim.com DID Document at /.well-known/did.json",
   "scripts": {
     "build:cljs": "cd cljs && npm install --silent && npm run build",
-    "test:cljs": "cd cljs && bb --classpath \"src:test\" -e '(require (quote did-web.router-test)) (let [{:keys [fail error]} (clojure.test/run-tests (quote did-web.router-test))] (System/exit (if (pos? (+ fail error)) 1 0)))'",
+    "test:cljs": "cd cljs && bb --classpath \"src:test\" -e '(require (quote did-web.router-test) (quote did-web.shell-test)) (let [r1 (clojure.test/run-tests (quote did-web.router-test)) r2 (clojure.test/run-tests (quote did-web.shell-test))] (System/exit (if (pos? (+ (:fail r1) (:error r1) (:fail r2) (:error r2))) 1 0)))'",
     "predeploy": "npm run build:cljs",
     "deploy": "wrangler deploy",
     "predev": "npm run build:cljs",

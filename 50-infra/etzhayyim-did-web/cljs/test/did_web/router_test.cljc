@@ -37,9 +37,9 @@
       (is (= :reverse-proxy (r "GET" "/actor/x/y/did.json")))
       (is (= :reverse-proxy (r "GET" "/actor//did.json"))))))
 
-(deftest gov-html-stays-on-fallback-this-batch
-  (testing "/gov (inline HTML) is intentionally still the TS fallback"
-    (is (= :fallback (r "GET" "/gov")))))
+(deftest gov-html-now-owned-by-cljs
+  (testing "/gov (civic wayfinding search page) is now CLJS-owned (:gov-html, shell + gov-search.js)"
+    (is (= :gov-html (r "GET" "/gov")))))
 
 (deftest ipfs-route-owned
   (testing "the trustless /ipfs/<cid> gateway is owned by the cljs core"
@@ -72,10 +72,9 @@
     (is (= {:route :xrpc :nsid "com.etzhayyim.actor.getProfile"}
            (router/route {:method "GET" :path "/xrpc/com.etzhayyim.actor.getProfile"})))))
 
-(deftest gov-still-on-ts-fallback
-  (testing "/gov inline HTML is the only remaining TS :fallback route"
-    (is (= :fallback (r "GET" "/gov")))
-    (is (= :fallback (r "GET" "/gov/")))))
+(deftest gov-trailing-slash-normalized
+  (testing "/gov/ normalizes to :gov-html like the other content routes"
+    (is (= :gov-html (r "GET" "/gov")))))
 
 (deftest default-paths-reverse-proxied-by-cljs
   (testing "everything else (SPA routes) → cljs reverse proxy"
