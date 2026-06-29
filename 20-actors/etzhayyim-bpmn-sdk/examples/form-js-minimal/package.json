@@ -9,7 +9,7 @@
     "@etzhayyim/bpmn-sdk-form": "workspace:*"
   },
   "devDependencies": {
-    "vite": "^8.0.16"
+    "vite": "^8.1.0"
   }
 }
 
