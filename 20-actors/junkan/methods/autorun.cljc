@@ -18,6 +18,7 @@
   no outward/dispatch path (enforced by absence). junkan never touches."
   (:require [junkan.methods.junkan-edn :as je]
             [junkan.methods.analyze :as az]
+            [junkan.methods.demography :as d]
             [junkan.methods.kotoba :as k]
             #?(:clj [clojure.edn :as edn])))
 
@@ -41,6 +42,36 @@
         base {:count (count ds) :regimes regimes
               :instruments (count instruments)
               :jurisdictions (get-in analysis ["coverage" :jurisdictions])}]
+    (if unchanged?
+      (assoc base :head prev :appended false :reason :no-change)
+      (let [tx (k/make-tx ds tx-id as-of prev)
+            head (k/append-tx tx log-path)]
+        (assoc base :head head :appended true :reason nil)))))
+
+(defn demography-beat
+  "Run one DEMOGRAPHIC-DYNAMICS heartbeat (the second junkan analysis lens, ADR-2605290927).
+  opts:
+     :levers   merged China + peer-society lever maps (required)
+     :tx-id    deterministic tx id (required)
+     :as-of    deterministic as-of stamp (required)
+     :log-path demography ledger path (required, SEPARATE from the governance ledger)
+   Emits the China single-pool read-off datoms (levers + stocks + loops) PLUS the
+   cross-society contrast datoms (per-jurisdiction net/regime/binding-stock), appended
+   as ONE content-addressed tx. IDEMPOTENT-BY-CONTENT: identical datoms → NO-OP.
+   G4 ANALYSIS-ONLY: appends to a local file only; no network I/O, no dispatch path.
+   Returns {:head <cid> :count <n> :societies [...] :levers <n> :appended <bool> :reason <kw|nil>}."
+  [{:keys [levers tx-id as-of log-path]}]
+  (let [china (filterv #(= "CN" (:jurisdiction %)) levers)
+        analysis (d/analyze china)
+        ds (vec (concat (d/datoms china analysis)
+                        (d/jurisdiction-datoms levers)))
+        prev (k/head-cid log-path)
+        last-ds (let [txs (k/read-log log-path)]
+                  (when (seq txs) (get (last txs) ":tx/datoms")))
+        unchanged? (= ds last-ds)
+        societies (mapv (fn [s] [(:jurisdiction s) (name (:regime s)) (:binding-stock s)])
+                        (d/society-contrast levers))
+        base {:count (count ds) :societies societies :levers (count levers)}]
     (if unchanged?
       (assoc base :head prev :appended false :reason :no-change)
       (let [tx (k/make-tx ds tx-id as-of prev)

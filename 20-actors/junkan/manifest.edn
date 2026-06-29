@@ -31,6 +31,23 @@
    :methods  ["demography"]
    :note     "China one-child policy SD read-off + KR/JP/IT/SG cross-society contrast (ADR-2605290927, 2026-06-29)"}]
 
+ ;; Fleet heartbeat cells DECLARED here (the per-actor SSoT). NOTE: distinct from
+ ;; `:actor/cells` (the actor's internal Pregel/LangGraph cell CATALOG, :cell/id+:cell/kind);
+ ;; `:actor/heartbeat-cells` declares the cron cells the kotodama cell-runner schedules on
+ ;; the fleet. `bb gen:cells` folds these into 50-infra/cluster/murakumo/cell-runner/cells.edn
+ ;; (the fleet registry the cell-runner reads) — so an actor registers ONCE in its own
+ ;; manifest and deploy-fleet picks it up, with NO per-actor `murakumo deploy` step.
+ ;; `bb gen:cells --check` fails on drift. ANALYSIS-ONLY: `fire` only appends to a local
+ ;; kotoba ledger (G4, no-server-key).
+ :actor/heartbeat-cells
+ [{:cell/name    "JunkanDemographyHeartbeatCell"
+   :cell/module  "junkan.cell"
+   :cell/entry   "fire"
+   :cell/node    "dan"
+   :cell/cron    "58 * * * *"
+   :cell/healthz 13094
+   :cell/adr     ["2605290927" "2606091000"]}]
+
  :actor/gates
  [{:gate/id "G4" :gate/name "analysis-only-no-actuation" :gate/rule "No outward channel — output is append-only findings + a local ledger; no post/mention/email/tx. Enforced by ABSENCE of any dispatch path; :junkan/actuate + :junkan/dispatch unrepresentable (test-enforced)"}
   {:gate/id "G5" :gate/name "no-causal-overclaim" :gate/rule "Every loop/regime is a HYPOTHESIS (:junkan/hypothesis :true); correlation/structural-sign only, never proven causation; :junkan.gov.loop/proven-cause unrepresentable"}

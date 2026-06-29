@@ -58,6 +58,11 @@
    :task (do (require 'etzhayyim.gen-tier-b-actors)
              (apply (resolve 'etzhayyim.gen-tier-b-actors/-main) *command-line-args*))}
 
+  gen:cells
+  {:doc "Fold each actor's OWN `:actor/cells` declaration (20-actors/<a>/manifest.edn) into the fleet cell registry 50-infra/cluster/murakumo/cell-runner/cells.edn (read by the kotodama cell-runner). Register an actor heartbeat ONCE in its manifest; `bb gen:cells --apply` adds it fleet-wide (deploy-fleet picks it up, no per-actor `murakumo deploy`). No-arg / `--check` FAILS on drift (the gen-west-manifest discipline). clj/bb, no new shell."
+   :task (do (require 'etzhayyim.gen-cells)
+             (apply (resolve 'etzhayyim.gen-cells/-main) *command-line-args*))}
+
   actor:publish
   {:doc "ADR-2606231200 — publish a 20-actors/<name> actor as a sovereign unit: josh/subtree split → gh repo com-etzhayyim-<name> → did:web did.json → kotoba-rad RID/did:key (sovereign identity on the kotoba Datom log) → aozora(yoro) PDS profile-write plan. DRY-RUN by default; --apply executes side effects; --pubkey=<hex> pins the Ed25519 key. no-server-key (signing/PDS-write are member/operator legs). Args: <name> [<name>...] [--apply] [--pubkey=hex]"
    :task (do (require 'etzhayyim.actor-publish)
@@ -154,7 +159,7 @@
               [etzhayyim.test-dns-sync] [etzhayyim.test-deploy] [etzhayyim.test-metrics]
               [etzhayyim.test-shannon] [etzhayyim.test-shannon-scores]
               [etzhayyim.test-systemofsystem] [etzhayyim.test-vertex]
-              [etzhayyim.test-source-graph] [etzhayyim.test-xrpc] [etzhayyim.test-mokuteki] [etzhayyim.test-projector] [etzhayyim.test-actor-publish] [etzhayyim.test-yoroshiku] [etzhayyim.test-mitama] [etzhayyim.test-training] [etzhayyim.test-murakumo-cmd] [etzhayyim.test-monitor] [etzhayyim.test-nono] [etzhayyim.test-workspace] [etzhayyim.test-tithe] [etzhayyim.lint.test-no-new-ts] [etzhayyim.app-sdk.test-record] [etzhayyim.app-sdk.test-xrpc] [etzhayyim.app-sdk.test-ids])
+              [etzhayyim.test-source-graph] [etzhayyim.test-xrpc] [etzhayyim.test-mokuteki] [etzhayyim.test-projector] [etzhayyim.test-actor-publish] [etzhayyim.test-yoroshiku] [etzhayyim.test-mitama] [etzhayyim.test-training] [etzhayyim.test-murakumo-cmd] [etzhayyim.test-monitor] [etzhayyim.test-nono] [etzhayyim.test-workspace] [etzhayyim.test-tithe] [etzhayyim.test-gen-cells] [etzhayyim.lint.test-no-new-ts] [etzhayyim.app-sdk.test-record] [etzhayyim.app-sdk.test-xrpc] [etzhayyim.app-sdk.test-ids])
    :task (let [{:keys [fail error]}
                (apply t/run-tests
                       '[etzhayyim.test-authz etzhayyim.test-agent-token etzhayyim.test-bonsai
@@ -167,7 +172,7 @@
                         etzhayyim.test-dns-sync etzhayyim.test-deploy etzhayyim.test-metrics
                         etzhayyim.test-shannon etzhayyim.test-shannon-scores
                         etzhayyim.test-systemofsystem etzhayyim.test-vertex
-                        etzhayyim.test-source-graph etzhayyim.test-xrpc etzhayyim.test-mokuteki etzhayyim.test-projector etzhayyim.test-actor-publish etzhayyim.test-yoroshiku etzhayyim.test-mitama etzhayyim.test-training etzhayyim.test-murakumo-cmd etzhayyim.test-monitor etzhayyim.test-nono etzhayyim.test-workspace etzhayyim.test-tithe etzhayyim.lint.test-no-new-ts etzhayyim.app-sdk.test-record etzhayyim.app-sdk.test-xrpc etzhayyim.app-sdk.test-ids])]
+                        etzhayyim.test-source-graph etzhayyim.test-xrpc etzhayyim.test-mokuteki etzhayyim.test-projector etzhayyim.test-actor-publish etzhayyim.test-yoroshiku etzhayyim.test-mitama etzhayyim.test-training etzhayyim.test-murakumo-cmd etzhayyim.test-monitor etzhayyim.test-nono etzhayyim.test-workspace etzhayyim.test-tithe etzhayyim.test-gen-cells etzhayyim.lint.test-no-new-ts etzhayyim.app-sdk.test-record etzhayyim.app-sdk.test-xrpc etzhayyim.app-sdk.test-ids])]
            (System/exit (if (pos? (+ fail error)) 1 0)))}
 
   vitals:report

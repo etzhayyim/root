@@ -4,6 +4,7 @@
 (ns junkan.methods.test-demography
   (:require [junkan.methods.junkan-edn :as je]
             [junkan.methods.demography :as d]
+            [junkan.methods.autorun :as autorun]
             [clojure.edn :as edn]
             [clojure.set :as cset]
             [clojure.string :as str]
@@ -116,6 +117,20 @@
     (is (contains? attrs ":junkan/hypothesis") "G5 — hypothesis flag present")
     (is (not (some #(str/includes? (str %) "actuate") attrs)) "G4 — no :actuate attr")
     (is (not (some #(str/includes? (str %) "person") attrs)) "G6 — no :person attr")))
+
+;; ── fleet heartbeat (autorun/demography-beat — the JunkanDemographyHeartbeatCell beat) ──
+(deftest demography-beat-appends-then-idempotent
+  (let [tmp (str (System/getProperty "java.io.tmpdir") "/junkan-demog-test-" (System/nanoTime) ".kotoba.edn")
+        levers (merged*)
+        r1 (autorun/demography-beat {:levers levers :tx-id "t0" :as-of "a0" :log-path tmp})
+        r2 (autorun/demography-beat {:levers levers :tx-id "t1" :as-of "a1" :log-path tmp})]
+    (is (true? (:appended r1)) "first beat appends")
+    (is (pos? (:count r1)) "datoms emitted")
+    (is (= 5 (count (:societies r1))) "5 societies in the beat summary")
+    (is (some? (:head r1)) "head CID set")
+    (is (false? (:appended r2)) "second beat is idempotent (no-op)")
+    (is (= :no-change (:reason r2)) "idempotent-by-content")
+    (.delete (java.io.File. tmp))))
 
 (defn -main [& _]
   (let [r (run-tests 'junkan.methods.test-demography)]

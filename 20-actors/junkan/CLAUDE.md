@@ -150,6 +150,35 @@ gender)** — the textbook "weakest-leverage" case. Keeps junkan's analysis-only
 reproduce** (`:junkan.demog/coerce-reproduction` is unrepresentable). A resilience MAP,
 never a population target or a country ranking.
 
+## Fleet heartbeat — register once, no per-actor deploy (`:actor/heartbeat-cells` + `bb gen:cells`)
+
+junkan's demographic-dynamics lens runs autonomously on the Murakumo fleet via the
+kotodama cell-runner — **without** a junkan-specific `murakumo deploy` step:
+
+- `cell.cljc` (`junkan.cell/fire`) — the cell-runner contract entry (ADR-2605192415 §7.1,
+  kafun.cell pattern). One deterministic DEMOGRAPHIC heartbeat: load the China + KR/JP/IT/SG
+  levers → `autorun/demography-beat` (China single-pool read-off datoms + the cross-society
+  contrast datoms) → APPEND as ONE content-addressed tx to a LOCAL kotoba ledger
+  (`data/persisted/junkan.demography.kotoba.edn`) **only when changed** (idempotent-by-content).
+  NO external I/O, no held key (G4 / no-server-key); summary is aggregate-only (per-society
+  regime + binding stock + head CID), never per-person (G6).
+- `methods/autorun.cljc` `demography-beat` — the heartbeat fn (sibling of the governance
+  `beat`); idempotent-by-content; ANALYSIS-ONLY (appends to a local file, no dispatch path).
+- **`manifest.edn` `:actor/heartbeat-cells`** — the per-actor SSoT declaration of the fleet
+  cell (`JunkanDemographyHeartbeatCell`, node dan, cron `58 * * * *`, healthz 13094). NOTE:
+  distinct from `:actor/cells` (the internal Pregel cell *catalog*).
+- **`bb gen:cells`** (`70-tools/src/etzhayyim/gen_cells.clj`) — folds every actor's
+  `:actor/heartbeat-cells` into the fleet registry `50-infra/cluster/murakumo/cell-runner/cells.edn`
+  (read by the cell-runner). `bb gen:cells --apply` registers it fleet-wide (a format-preserving
+  append; existing cells stay byte-identical); `bb gen:cells` (`--check`) FAILS on drift — the
+  gen-west-manifest discipline. So an actor registers ONCE in its own manifest and
+  `deploy-fleet` picks it up — NO per-actor deploy. clj/bb, no new shell.
+
+The cell appends to a local ledger only; the Murakumo digest / live-engine bridge stay
+operator/Council-gated. (Follow-up: the fleet supervisor distribution itself —
+`deploy-fleet.sh` / `install.sh` / `deploy_node.py` — is still shell/Python; porting it to a
+`bb murakumo:deploy-fleet` task is a separate clj/bb migration.)
+
 ## Self-publication seed (ADR-2606272355) — register → autonomize → publish, no-server-key
 
 junkan is wired with the **actor self-publication seed**: the uniform, charter-clean way
