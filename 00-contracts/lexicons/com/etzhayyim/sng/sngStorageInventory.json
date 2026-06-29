@@ -1,0 +1,23 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.sng.sngStorageInventory",
+  "description": "Per-LANDS-parcel SNG storage inventory. CarbonGovernor-enforced bounds: ≤500 Nm³/parcel, aggregate ≤2,000 Nm³ (parity with biomethane, ADR-2605265900 §1). Per ADR-2606290000.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "facilityDid": {"type": "string"},
+          "parcelId": {"type": "string", "description": "LANDS parcel identifier"},
+          "nm3": {"type": "integer", "description": "stored CH₄ (Nm³); ≤500 per parcel"},
+          "pressureBar": {"type": "integer"},
+          "storageType": {"type": "string", "knownValues": ["low-pressure", "high-pressure", "salt-cavern"]},
+          "aggregateNm3": {"type": "integer", "description": "facility aggregate; ≤2,000 Nm³"},
+          "asOfDate": {"type": "integer", "description": "yyyymmdd"}
+        },
+        "required": ["facilityDid", "parcelId", "nm3", "pressureBar", "storageType", "asOfDate"]
+      }
+    }
+  }
+}
