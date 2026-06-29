@@ -18,7 +18,7 @@
  {:ontology "20-actors/shinogi/kotoba/ontology.shinogi-exam.edn"
   :seed     "20-actors/shinogi/kotoba/seed.exam-involution.edn"
   :dataset  "80-data/shinogi-exam/"
-  :methods  ["shinogi_edn" "analyze" "kotoba" "autorun"]}
+  :methods  ["shinogi_edn" "analyze" "simulate" "energy_flow" "kotoba" "autorun" "social"]}
 
  :actor/gates
  [{:gate/id "G4" :gate/name "analysis-only-no-actuation" :gate/rule "No outward channel — output is append-only findings + a local ledger; no post/mention/email/tx. Enforced by ABSENCE of any dispatch path; :shinogi/actuate + :shinogi/dispatch unrepresentable (test-enforced)"}
@@ -28,7 +28,8 @@
   {:gate/id "G8" :gate/name "relief-map-not-shame-rank" :gate/rule "A relief/leverage MAP — never a student shame-list, school shame-ranking, or country ranking-to-shame; :shinogi.exam.student/ranking unrepresentable"}
   {:gate/id "G9" :gate/name "append-only-immutable" :gate/rule "Findings are append-only content-addressed datoms on a tamper-evident commit-DAG; nothing retracted"}
   {:gate/id "G11" :gate/name "candidates-not-directives" :gate/rule "Meadows leverage points are CANDIDATES with uncertainty (:prescription? false); no directive issued; :shinogi/prescription unrepresentable"}
-  {:gate/id "G13" :gate/name "council-internal-default" :gate/rule "Default audience = Council/internal; surfacing beyond is performed by ossekai/kataribe on shinogi's behalf, never by shinogi (preserves G4)"}]
+  {:gate/id "G13" :gate/name "council-internal-default" :gate/rule "Default audience = Council/internal; surfacing beyond is performed by ossekai/kataribe on shinogi's behalf, never by shinogi (preserves G4)"}
+  {:gate/id "G14" :gate/name "publication-membrane-dry-run-no-server-key" :gate/rule "The social-protocol membrane (social.cljc) DRAFTS dry-run AT-proto mirror posts only: ≥2 disclosed sources (G5), non-adjudicating + analysis-only disclaimer (G7), person-excluded (G6), :post/server-held-key false (no-server-key, ADR-2605231525), :post/status :dry-run. build-live RAISES — live broadcast is gated on a member CACAO leash (ADR-2606111400) + Council Lv6+ (G13/ADR-2606281500 seed-and-grow). G4 preserved BY ABSENCE of any autonomous live-publish path"}]
 
  :actor/non-goals
  [{:n/id "N1" :n/rule "Never intervenes/actuates (not ossekai — no nudge/post/mention/email/tx)"}
@@ -45,4 +46,5 @@
   :manabi "open-curriculum education — the alternative-pathway relief lens"
   :hakoniwa "forward-simulation of synthetic student cohorts navigating the mapped loops"
   :tsugite "peoples-continuity (demographic) lens on the family-capture stock"
-  :ossekai "may publish a shinogi finding ON shinogi's behalf (G13), never shinogi"}}
+  :uzu "the dissipative information-energy organism (ADR-2606211500) — energy_flow.cljc adopts uzu's two-ledger discipline (effort-energy flow ≠ wellbecoming index)"
+  :ossekai "may publish a shinogi finding / energy-flow design ON shinogi's behalf (G13), never shinogi"}}

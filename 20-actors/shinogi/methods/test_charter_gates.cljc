@@ -22,6 +22,8 @@
   It weakens no gate; it asserts them."
   (:require [shinogi.methods.shinogi-edn :as se]
             [shinogi.methods.analyze :as az]
+            [shinogi.methods.energy-flow :as ef]
+            [shinogi.methods.social :as social]
             [clojure.edn :as edn]
             [clojure.string :as str]
             [clojure.test :refer [deftest is run-tests]]
@@ -93,6 +95,19 @@
   (let [fc (get (az/analyze (se/drivers seed-path)) "failure_cycle")]
     (is (= ["kokoro" "shiori"] (:route-to fc)) "failure cycle routes to relief actors")
     (is (str/includes? (:note fc) "never") "the note disclaims amplification/shame")))
+
+;; ── G14 — the social-protocol membrane never auto-broadcasts (live is gated) ──
+(deftest g14-live-broadcast-refused
+  (is (thrown? clojure.lang.ExceptionInfo (social/build-live))
+      "G4/G13/G14: shinogi never autonomously broadcasts — live needs member CACAO leash + Council")
+  (is (some #(= "G14" (:gate/id %)) (:actor/gates (manifest))) "G14 declared in manifest"))
+
+;; ── G11 — the wellbecoming energy-flow design is a candidate, never a directive ──
+(deftest g11-energy-flow-is-candidate
+  (let [d (ef/design)]
+    (is (false? (:prescription? d)) "energy-flow design carries prescription? false (G11)")
+    (is (every? #(<= % 0.0) (vals (:drive-overrides d)))
+        "energy-flow re-routing is relief-only (never adds pressure)")))
 
 #?(:clj
    (defn -main [& _]

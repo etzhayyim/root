@@ -111,12 +111,39 @@ tractable intensifying drivers where the spiral could ease).
 - **G13 council-internal default** — surfacing beyond Council is performed by ossekai/kataribe
   on shinogi's behalf, never by shinogi (preserves G4).
 
+**Three deeper layers (R0, landed).** Beyond the static regime read-off, shinogi carries:
+
+1. **Stock-flow SIMULATION** (`simulate.cljc`) — the loops become a coupling matrix and the
+   driver net pressures the exogenous forcing; the 9 stocks roll forward (deterministic Euler, no
+   Math/random) to an equilibrium. Applying a structural intervention flips the vicious spiral —
+   on the seed the involution-index falls **0.59 → 0.16** (頑張れない 1.0→0.03, 躺平 0.80→0.04). A
+   structural WHAT-IF (G5), never a forecast (N3), never a directive (G11).
+2. **Wellbecoming ENERGY-FLOW design** (`energy_flow.cljc`) — the answer to "design the energy
+   flow that turns this causality into wellbecoming." Adopting the uzu 渦 dissipative-energy view
+   (ADR-2606211500): society pours an enormous **effort-energy** flow in, but today it **dissipates**
+   in the 内卷 zero-sum channels (current wellbecoming ≈ 0.04 despite maximal effort). shinogi
+   designs a **re-routing of the same effort-energy** into wellbecoming-yielding channels (intrinsic
+   learning / wellbeing protection / alternative pathways / labor absorption) → designed wellbecoming
+   ≈ 0.42 (gain 0.38, conserving the total flow). **Two ledgers are never the same unit** (uzu
+   G1/G2): effort-energy is a conserved FLOW, wellbecoming a separate INDEX (§1.13); `:yield` is a
+   reference coupling, never an identity. The design's drive-overrides feed `simulate` to exhibit the
+   flip. A structural DESIGN / CANDIDATE (§1.4 — it re-routes systemic effort, never directs a
+   person; G11), every override relief-only (never adds pressure).
+3. **Social-protocol ACTIVITY** (`social.cljc`) — shinogi is active on AT-proto: it projects its
+   disclosed-hypothesis findings + the energy-flow design into `app.bsky.feed.post`-shaped DRY-RUN
+   mirror posts (≥2 sources G5, non-adjudicating + analysis-only disclaimer G7, person-excluded G6,
+   `:post/server-held-key false`). **G14**: `build-live` RAISES — live broadcast is gated on a member
+   CACAO leash (ADR-2606111400) + Council Lv6+ (ADR-2606281500 seed-and-grow doctrine); G4 is
+   preserved BY ABSENCE of any autonomous live-publish path (drafts are inert until a member signs).
+   This reconciles "the actor performs social-protocol activity" with shinogi's analysis-only spine.
+
 **Implementation (R0, landed).** clj-native, kotoba-Datom-native (root CLAUDE.md §"Operational
 code = clj/bb"): `20-actors/shinogi/` with ontology (9 stocks / 10 loops) + 33-driver/
-6-jurisdiction seed + 4 methods (`shinogi_edn` loader · `analyze` read-off · `kotoba`
-content-addressed append-only findings ledger · `autorun` deterministic idempotent-by-content
-heartbeat) + 5 test suites (`bb 20-actors/shinogi/run_tests.clj` → **27 tests / 408 assertions
-green**). Static did.json/profile under `50-infra/etzhayyim-did-web/public/actor/shinogi/`
+6-jurisdiction seed + 7 methods (`shinogi_edn` loader · `analyze` read-off · `simulate`
+stock-flow simulation · `energy_flow` wellbecoming re-routing · `kotoba` content-addressed
+append-only findings ledger · `autorun` deterministic idempotent-by-content heartbeat · `social`
+dry-run publication membrane) + 8 test suites (`bb 20-actors/shinogi/run_tests.clj` → **43 tests
+/ 446 assertions green**). Static did.json/profile under `50-infra/etzhayyim-did-web/public/actor/shinogi/`
 (verificationMethod `[]`, no server-minted key). The loop does no network I/O; live public-data
 ingest (MOE/KICE/MEXT/NTA aggregate statistics) is a G7/operator-gated R1 leg.
 

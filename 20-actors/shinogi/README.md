@@ -51,6 +51,32 @@ Two sober relief read-offs are foregrounded: the **受験失敗 cycle** and the 
 & 躺平) cycle** — both routed to RELIEF (kokoro 心 / shiori 栞 / manabi 学び), never amplified or
 moralized.
 
+## Three deeper layers (SD simulation · wellbecoming energy-flow · social activity)
+
+- **`simulate.cljc` — time-series stock-flow simulation.** Deepens the static regime read-off
+  into a deterministic discrete-time simulation: the loops become a coupling matrix, the driver
+  net pressures the exogenous forcing, and the 9 stocks roll forward to an equilibrium. Apply a
+  structural intervention and watch the vicious spiral flip — on the seed, the involution-index
+  drops **0.59 → 0.16** (頑張れない 1.0→0.03, 躺平 0.80→0.04). A structural **what-if** (G5),
+  never a forecast (N3), never a directive (G11).
+
+- **`energy_flow.cljc` — the wellbecoming energy-flow design.** Society pours an enormous
+  **effort-energy** flow into the system; today most of it **dissipates** in the 内卷 zero-sum
+  channels (effort in, ranking unchanged, wellbeing eroded — current wellbecoming ≈ **0.04**
+  despite maximal effort). shinogi designs a **re-routing of the same effort-energy** from the
+  dissipative channels into wellbecoming-yielding ones (intrinsic learning, wellbeing protection,
+  alternative pathways, labor absorption) → designed wellbecoming ≈ **0.42** (gain 0.38). The
+  re-routing's drive-overrides feed `simulate` to show the flip. **Two ledgers, never the same
+  unit** (the uzu 渦 discipline, ADR-2606211500): effort-energy is a conserved *flow*,
+  wellbecoming is a separate *index*; `:yield` is a reference coupling, never an identity. A
+  structural **design / candidate** (§1.4 / G11), never a directive to any person.
+
+- **`social.cljc` — social-protocol activity.** Projects shinogi's findings + the energy-flow
+  design into `app.bsky.feed.post`-shaped **dry-run** mirror posts (≥2 sources, non-adjudicating,
+  person-excluded, `server-held-key false`). `build-live` **raises** — live broadcast is gated on
+  a member CACAO leash (ADR-2606111400) + Council Lv6+ (ADR-2606281500 seed-and-grow). shinogi is
+  active on the protocol but never autonomously broadcasts on a platform key (G4 by absence, G14).
+
 ## The discipline (gates)
 
 - **G4 ANALYSIS-ONLY** — no outward channel (no post/mention/email/tx); enforced by *absence*.
@@ -58,7 +84,8 @@ moralized.
 - **G6** aggregate + institutional only — **no per-student record, no exam score of any person, no PII**.
 - **G7** the failure cycle is stated **soberly** and **routed to relief** (kokoro 心 / shiori 栞), never despair-amplified.
 - **G8** a relief/leverage **MAP** — never a student/school/country **shame-ranking**.
-- **G11** Meadows leverage points are **candidates with uncertainty**, never directives.
+- **G11** Meadows leverage points (and the energy-flow design) are **candidates with uncertainty**, never directives.
+- **G14** the social-protocol membrane drafts **dry-run, no-server-key** posts only; `build-live` raises (live = member CACAO leash + Council).
 
 `:shinogi/actuate`, `:shinogi/dispatch`, `:shinogi.exam.driver/person`,
 `:shinogi.exam.student/score`, `:shinogi.exam.student/ranking`,
@@ -74,8 +101,14 @@ bb --classpath 20-actors 20-actors/shinogi/methods/analyze.cljc
 # one autonomous heartbeat → append findings to the local content-addressed ledger
 bb --classpath 20-actors 20-actors/shinogi/methods/autorun.cljc
 
+# the wellbecoming energy-flow design (re-route effort → wellbecoming)
+bb --classpath 20-actors 20-actors/shinogi/methods/energy_flow.cljc
+
+# stock-flow simulation: vicious spiral vs the relief intervention
+bb --classpath 20-actors 20-actors/shinogi/methods/simulate.cljc
+
 # tests
-bb 20-actors/shinogi/run_tests.clj      # 27 tests / 408 assertions green
+bb 20-actors/shinogi/run_tests.clj      # 43 tests / 446 assertions green
 ```
 
 ## Files
@@ -84,9 +117,12 @@ bb 20-actors/shinogi/run_tests.clj      # 27 tests / 408 assertions green
 - `kotoba/seed.exam-involution.edn` — 33 drivers / 6 jurisdictions (China-primary lifecycle: exam→labor→withdrawal; grows each /loop)
 - `methods/shinogi_edn.cljc` — loader/classify
 - `methods/analyze.cljc` — analysis-only read-off (stocks + loops + the two **failure / withdrawal cycles** + leverage + coverage + EAVT datoms + sober report). No outward channel (G4 by absence).
+- `methods/simulate.cljc` — deterministic time-series stock-flow simulation + intervention what-if (vicious→virtuous flip)
+- `methods/energy_flow.cljc` — the wellbecoming effort-energy re-routing design (two-ledger discipline; feeds `simulate`)
+- `methods/social.cljc` — social-protocol activity (dry-run AT-proto mirror posts; no-server-key; `build-live` gated)
 - `methods/kotoba.cljc` — content-addressed append-only findings ledger (commit-DAG, verify-chain, no-server-key, local file only)
 - `methods/autorun.cljc` — deterministic idempotent-by-content heartbeat
-- `run_tests.clj` — bb-native test runner
+- `run_tests.clj` — bb-native test runner (8 suites)
 
 ## Boundaries (who shinogi is NOT)
 

@@ -21,6 +21,9 @@
     shinogi.methods.test-analyze
     shinogi.methods.test-kotoba
     shinogi.methods.test-autorun
+    shinogi.methods.test-simulate
+    shinogi.methods.test-energy-flow
+    shinogi.methods.test-social
     shinogi.methods.test-charter-gates])
 
 (apply require suites)

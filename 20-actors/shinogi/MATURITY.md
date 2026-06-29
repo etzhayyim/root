@@ -9,11 +9,14 @@ ADR-2606291200 · R0 scaffold · generated from the substrate (do not hand-drift
 - [x] ontology (`kotoba/ontology.shinogi-exam.edn`) — 9 stocks · 10 loops · Meadows 12 · negative space
 - [x] seed (`kotoba/seed.exam-involution.edn`) — 33 drivers / 6 jurisdictions (China-primary)
 - [x] loader (`methods/shinogi_edn.cljc`)
-- [x] analysis-only read-off (`methods/analyze.cljc`) — stocks/loops/failure-cycle/leverage/coverage/datoms/report
+- [x] analysis-only read-off (`methods/analyze.cljc`) — stocks/loops/failure-cycle/youth-withdrawal/leverage/coverage/datoms/report
+- [x] time-series stock-flow simulation + intervention what-if (`methods/simulate.cljc`)
+- [x] wellbecoming energy-flow design (`methods/energy_flow.cljc`, two-ledger discipline)
+- [x] social-protocol activity membrane (`methods/social.cljc`, dry-run / no-server-key / live-gated)
 - [x] content-addressed append-only ledger (`methods/kotoba.cljc`, verify-chain)
 - [x] idempotent-by-content heartbeat (`methods/autorun.cljc`)
-- [x] tests green — `bb 20-actors/shinogi/run_tests.clj` → 27 tests / 408 assertions
-- [x] gates pinned (G4/G5/G6/G7/G8/G9/G11 — manifest + ontology negative space + analyze emission)
+- [x] tests green — `bb 20-actors/shinogi/run_tests.clj` → 43 tests / 446 assertions
+- [x] gates pinned (G4/G5/G6/G7/G8/G9/G11/G13/G14 — manifest + ontology negative space + analyze/social/energy enforcement)
 - [x] static did.json/profile (`50-infra/etzhayyim-did-web/public/actor/shinogi/`, verificationMethod [])
 
 ## Coverage (seed iteration 1)

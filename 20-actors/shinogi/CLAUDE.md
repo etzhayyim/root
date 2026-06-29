@@ -7,7 +7,7 @@
 - **ADR**: ADR-2606291200 (R0 scaffold)
 - **Parent method**: junkan 循環 (ADR-2605290927) — shinogi is its **exam-domain specialization**
 - **Parent ADR**: ADR-2605192100 (Mission Charter — §1.13 Wellbecoming + §1.15 non-eschatological + §1.4 anti-individualism)
-- **Status**: R0 scaffold — clj-native substrate (ontology + seed + 4 methods + 5 test suites, 26 tests / 256 assertions green)
+- **Status**: R0 scaffold — clj-native substrate (ontology + seed + 7 methods + 8 test suites, 43 tests / 446 assertions green)
 - **Form**: 任意団体 internal societal-systems-analysis substrate (NOT 法人格)
 
 ## What shinogi is
@@ -45,8 +45,12 @@ Like junkan, **it may only look, never touch.**
    (`:prescription? false`); `:shinogi/prescription` unrepresentable.
 8. **G13 — default audience = Council/internal**; surfacing beyond is performed by
    ossekai/kataribe on shinogi's behalf, never by shinogi (preserves G4).
+9. **G14 — publication membrane dry-run / no-server-key.** `social.cljc` drafts dry-run
+   AT-proto mirror posts only (≥2 sources, person-excluded, `server-held-key false`);
+   `build-live` raises. Live broadcast = member CACAO leash (ADR-2606111400) + Council Lv6+
+   (ADR-2606281500 seed-and-grow). G4 preserved by absence of any autonomous live-publish path.
 
-Full gate table G4..G13 + non-goals N1..N6 in the manifest + ADR-2606291200.
+Full gate table G4..G14 + non-goals N1..N6 in the manifest + ADR-2606291200.
 
 ## Substrate (clj-native, kotoba-Datom-native)
 
@@ -62,10 +66,21 @@ Full gate table G4..G13 + non-goals N1..N6 in the manifest + ADR-2606291200.
 - `methods/analyze.cljc` — analysis-only read-off (stock regimes + loops + **two relief
   read-offs: the 受験失敗 cycle + the 卒業後 頑張れない/躺平 cycle** + leverage candidates +
   coverage worklist + EAVT datoms + sober report). **No outward channel (G4 by absence).**
+- `methods/simulate.cljc` — deterministic time-series stock-flow simulation: the loops become a
+  coupling matrix, driver nets the forcing; an intervention (the energy-flow re-routing) flips the
+  vicious spiral (involution-index 0.59→0.16 on the seed). A structural what-if (G5), not a forecast (N3).
+- `methods/energy_flow.cljc` — **the wellbecoming energy-flow design** (the answer to "turn this
+  causality into wellbecoming"): re-routes the society's effort-energy from the dissipative 内卷
+  zero-sum channels into wellbecoming-yielding ones (intrinsic learning / wellbeing protection /
+  alternative pathways / labor absorption). Two ledgers never conflated (uzu G1/G2: effort=flow,
+  wellbecoming=index). A candidate/design (G11), feeds `simulate`.
+- `methods/social.cljc` — **social-protocol activity**: dry-run AT-proto mirror posts of findings +
+  the energy-flow design (≥2 sources G5, person-excluded G6, no-server-key, `build-live` raises;
+  live = member CACAO leash + Council per G13/G14/ADR-2606281500).
 - `methods/kotoba.cljc` — content-addressed append-only findings ledger (commit-DAG,
   verify-chain tamper-evident, no-server-key, local file only).
 - `methods/autorun.cljc` — deterministic idempotent-by-content heartbeat.
-- Tests: `bb 20-actors/shinogi/run_tests.clj` → 27 tests / 408 assertions green.
+- Tests: `bb 20-actors/shinogi/run_tests.clj` → 43 tests / 446 assertions green.
 
 ## Data model — datom / Datalog on kotoba-kqe (NOT proprietary Datomic)
 
