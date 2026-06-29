@@ -10,8 +10,10 @@
             [clojure.test :refer [deftest is run-tests]]))
 
 (def seed-path "20-actors/junkan/kotoba/seed.china-one-child.edn")
+(def societies-path "20-actors/junkan/kotoba/seed.low-fertility-societies.edn")
 (def onto-path "20-actors/junkan/kotoba/ontology.junkan-demography.edn")
 (defn- is* [] (je/instruments seed-path))
+(defn- merged* [] (vec (concat (je/instruments seed-path) (je/instruments societies-path))))
 (defn- enums [] (:enums (edn/read-string (slurp onto-path))))
 (defn- a [] (d/analyze (is*)))
 
@@ -81,6 +83,39 @@
         attrs (set (map #(nth % 2) (d/datoms (is*) (a))))]
     (is (empty? (cset/intersection unrep attrs))
         "no unrepresentable attribute is ever emitted")))
+
+;; ── cross-society contrast (CN/KR/JP/IT/SG) ──────────────────────────────────
+(deftest merged-seed-validates-clean
+  (let [{:keys [errors]} (d/validate (merged*) (enums))]
+    (is (empty? errors) (str "merged validate errors: " (pr-str errors)))))
+
+(deftest contrast-covers-five-societies
+  (let [sc (d/society-contrast (merged*))
+        jurs (set (map :jurisdiction sc))]
+    (is (= 5 (count sc)) "five societies in the contrast")
+    (is (= #{"CN" "KR" "JP" "IT" "SG"} jurs) "CN/KR/JP/IT/SG all present")
+    (is (every? #(= :vicious (:regime %)) sc) "every society reads collapse-ward (vicious)")
+    (is (every? :binding-stock sc) "every society has a binding stock identified")
+    ;; sorted by net collapse pressure, descending
+    (is (apply >= (map :net sc)) "contrast is sorted most-pressured first")))
+
+(deftest binding-constraints-differ-by-society
+  (let [by (d/by-jurisdiction (merged*))]
+    ;; China's binding constraint is the small-family-norm lock-in (R2)
+    (is (= "small-family-norm" (:binding-stock (get by "CN"))) "CN bound by norm lock-in")
+    ;; Japan's binding constraint is the reproductive cohort (non-marriage / work culture)
+    (is (= "reproductive-cohort" (:binding-stock (get by "JP"))) "JP bound by reproductive-cohort")
+    ;; the societies do NOT all share one binding stock — the contrast is real
+    (is (> (count (distinct (map :binding-stock (vals by)))) 1)
+        "binding constraints genuinely differ across societies")))
+
+(deftest society-datoms-carry-discipline
+  (let [ds (d/jurisdiction-datoms (merged*))
+        attrs (set (map #(nth % 2) ds))]
+    (is (pos? (count ds)) "society datoms emitted")
+    (is (contains? attrs ":junkan/hypothesis") "G5 — hypothesis flag present")
+    (is (not (some #(str/includes? (str %) "actuate") attrs)) "G4 — no :actuate attr")
+    (is (not (some #(str/includes? (str %) "person") attrs)) "G6 — no :person attr")))
 
 (defn -main [& _]
   (let [r (run-tests 'junkan.methods.test-demography)]

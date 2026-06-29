@@ -203,6 +203,49 @@
                                           " (n=" (get stock-counts thinnest) ")")])
                      ["extend to peer low-fertility cases (KR / JP / IT / SG) for cross-society contrast"]))}))
 
+;; ── cross-society contrast (per-jurisdiction read-off; structural, not a ranking) ──
+(def jurisdiction-label
+  {"CN" "中国 (China)" "KR" "韓国 (South Korea)" "JP" "日本 (Japan)"
+   "IT" "イタリア (Italy)" "SG" "シンガポール (Singapore)"})
+
+(defn by-jurisdiction
+  "Per-society read-off: net pressure, suppress/boost force, regime, and the BINDING
+  constraint = the demographic stock under the highest collapse-ward pressure in that
+  society, plus its strongest single driver lever. AGGREGATE + structural (a society's
+  own stock mix, NEVER a cross-country good/bad ranking, G7); HYPOTHESIS (G5)."
+  [instruments]
+  (into {}
+        (for [j (sort (distinct (map :jurisdiction instruments)))
+              :let [in-j (filter #(= j (:jurisdiction %)) instruments)
+                    cs (map contribution in-j)
+                    n (count cs)
+                    net (if (zero? n) 0.0 (/ (reduce + cs) n))
+                    pos (reduce + (filter pos? cs))
+                    neg (- (reduce + (filter neg? cs)))
+                    stocks (by-stock in-j)
+                    present (filter (fn [[_ sp]] (pos? (:count sp))) stocks)
+                    dom (when (seq present) (key (apply max-key (comp :net val) present)))
+                    top-driver (->> in-j (sort-by #(- (contribution %))) first)]]
+          [j {:count n
+              :net (az/round3 net)
+              :suppress-force (az/round3 pos)
+              :boost-force (az/round3 neg)
+              :regime (az/regime-of net pos neg)
+              :binding-stock (some-> dom name)
+              :binding-stock-net (some-> dom (#(:net (get stocks %))))
+              :top-driver (:name top-driver)
+              :top-driver-stock (some-> (:stock top-driver) name)}])))
+
+(defn society-contrast
+  "Vector of per-society summaries sorted by net collapse-ward pressure (most-pressured
+  first). The cross-society MAP: each society's distinct binding constraint side by
+  side (HYPOTHESIS, G5; structural, not a shaming ranking, G7)."
+  [instruments]
+  (->> (by-jurisdiction instruments)
+       (map (fn [[j s]] (assoc s :jurisdiction j :label (jurisdiction-label j j))))
+       (sort-by #(- (:net %)))
+       vec))
+
 (defn analyze
   "Full read-off bundle. Pure; no I/O; no outward channel (G4)."
   [instruments]
@@ -270,6 +313,21 @@
          (add e ":junkan/hypothesis" ":true")
          (add e ":junkan/derived" true)]))
     (get analysis "loops"))))
+
+(defn jurisdiction-datoms
+  "Append-only EAVT datoms for the per-society contrast read-off (HYPOTHESIS, G5; G4 no actuation)."
+  [instruments]
+  (vec
+   (mapcat
+    (fn [[j s]]
+      (let [e (str "junkan-demog-society:" j)]
+        [(add e ":junkan.demog.society/net" (:net s))
+         (add e ":junkan.demog.society/regime" (str (:regime s)))
+         (add e ":junkan.demog.society/binding-stock" (str (:binding-stock s)))
+         (add e ":junkan.demog.society/count" (long (:count s)))
+         (add e ":junkan/hypothesis" ":true")
+         (add e ":junkan/derived" true)]))
+    (by-jurisdiction instruments))))
 
 (defn datoms
   "All findings datoms for one analysis (levers + stocks + loops)."
@@ -371,21 +429,59 @@
      "\n\n_findings are append-only; surfacing beyond Council is performed by ossekai/kataribe on "
      "junkan's behalf, never by junkan (G13). actuation_taken=false throughout._\n")))
 
+;; ── cross-society contrast report (sober / map-not-rank, G7) ─────────────────
+(defn render-contrast-report [instruments]
+  (let [sc (society-contrast instruments)]
+    (str
+     "# junkan 循環 — 低出生社会の system-dynamics 比較 (cross-society contrast)\n\n"
+     "同じ 5-stock / 5-loop / Meadows フレームを **中国・韓国・日本・イタリア・"
+     "シンガポール** に当て、各社会の **binding constraint (拘束 stock)** を並べて読む。"
+     "**分析専用 (G4)・仮説 (G5)。** これは各社会が抱える構造の MAP であって、"
+     "どの国が良い/悪いという ranking ではない (G7)。\n\n"
+     "| society | levers | net (崩壊圧) | regime | 拘束 stock (binding) | 最強ドライバー |\n"
+     "|---|---|---|---|---|---|\n"
+     (str/join "\n"
+               (for [s sc]
+                 (str "| " (:label s) " | " (:count s) " | " (:net s)
+                      " | " (name (:regime s))
+                      " | " (or (:binding-stock s) "·") " (net " (:binding-stock-net s) ")"
+                      " | " (:top-driver s) " |")))
+     "\n\n_net > 0 = 出生抑制が優勢 (崩壊方向)。binding stock = その社会で最も崩壊圧の高い"
+     " demographic stock。_\n\n"
+     "**読みの核 (HYPOTHESIS, G5):** どの社会も sub-replacement だが **拘束条件は異なる** — "
+     "中国は規範ロックイン (small-family-norm) と 4-2-1、韓国は教育コストとジェンダー・ペナルティ、"
+     "日本は非婚化と労働・性別文化、イタリアは若年 precarity と familism、シンガポールは教育コストと"
+     "結晶化した小家族規範。**共通項は『最弱の Meadows レバー (出産奨励金/許可数) では拘束 stock に"
+     "届かない』こと。** 是正は各社会の binding stock — コスト・住宅・ジェンダー分業・非婚・規範 — "
+     "を動かす深いレバー (L2–L5) を要する。junkan は誰が産むべきかを指示しない (G11, anti-coercion)。\n\n"
+     "_findings are append-only; surfacing beyond Council は ossekai/kataribe が junkan に代わって"
+     "行う (G13)。actuation_taken=false。_\n")))
+
 ;; ── CLI (bb) ─────────────────────────────────────────────────────────────────
 #?(:clj
+   (defn- load-levers [path]
+     (vec (filter #(= (:type %) :instrument) (clojure.edn/read-string (slurp path))))))
+
+#?(:clj
    (defn -main [& args]
-     (let [seed (or (first args) "20-actors/junkan/kotoba/seed.china-one-child.edn")
-           onto (or (second args) "20-actors/junkan/kotoba/ontology.junkan-demography.edn")
-           rows (clojure.edn/read-string (slurp seed))
-           is (vec (filter #(= (:type %) :instrument) rows))
+     ;; args = seed paths (default: china + peer low-fertility societies). The LAST
+     ;; jurisdiction-pool drives the cross-society contrast when >1 jurisdiction.
+     (let [seeds (if (seq args) (vec args)
+                     ["20-actors/junkan/kotoba/seed.china-one-child.edn"
+                      "20-actors/junkan/kotoba/seed.low-fertility-societies.edn"])
+           onto "20-actors/junkan/kotoba/ontology.junkan-demography.edn"
+           is (vec (mapcat load-levers seeds))
            enums (:enums (clojure.edn/read-string (slurp onto)))
            {:keys [errors warnings]} (validate is enums)
-           a (analyze is)]
-       (println (render-report a))
+           china (filter #(= "CN" (:jurisdiction %)) is)]
+       (when (seq china) (println (render-report (analyze china))))
+       (when (> (count (distinct (map :jurisdiction is))) 1)
+         (println "\n") (println (render-contrast-report is)))
        (println (str "\n-- validate: " (count errors) " errors · " (count warnings) " warnings --"))
        (doseq [e errors] (println "  ERROR  " e))
        (doseq [w warnings] (println "  warn   " w))
-       (println (str "-- " (count is) " levers analysed · substrate "
+       (println (str "-- " (count is) " levers · "
+                     (count (distinct (map :jurisdiction is))) " societies · substrate "
                      (if (empty? errors) "OK ✅" "BROKEN ❌") " --")))))
 
 #?(:clj

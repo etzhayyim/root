@@ -120,10 +120,26 @@ question — *why reversing the policy did not reverse the fertility decline*
   not reuse the governance `validate.cljc` which hardwires `:widen`/`:narrow`). Reuses
   `analyze.cljc` generics (`round3`/`regime-of`/`amplify-score`/`flip-score`/`era-of`).
   **No outward channel (G4 by absence).**
-- `methods/test_demography.cljc` — 8 tests (contribution sign · clean validate · both
-  polarities + all 5 stocks · analysis shape · R2/R3 vicious · top-flip = the one-child
-  mandate · G4/G5/G6 datom discipline · ontology negative-space absent). Wired into
-  `run_tests.sh`. Full suite: **73 tests / 6430 assertions green**.
+- `kotoba/seed.low-fertility-societies.edn` — peer low-fertility societies for
+  **cross-society contrast**: 22 levers across **KR / JP / IT / SG** (same 5-stock
+  frame). Loaded alongside the China seed; `society-contrast` / `by-jurisdiction` /
+  `render-contrast-report` in `demography.cljc` give the per-society read-off, and
+  `bb … methods/demography.cljc` prints both the China report and the contrast.
+- `methods/test_demography.cljc` — 12 tests (contribution sign · clean validate ·
+  both polarities + all 5 stocks · analysis shape · R2/R3 vicious · top-flip = the
+  one-child mandate · G4/G5/G6 datom discipline · ontology negative-space absent ·
+  merged-seed validate · 5-society contrast · binding constraints differ · society
+  datom discipline). Wired into `run_tests.sh`. Full suite: **77 tests / 6443
+  assertions green**.
+
+**Cross-society contrast (HYPOTHESIS, G5):** every society reads vicious (collapse-ward)
+but the **binding constraint differs** — 中国 small-family-norm + 4-2-1 · 韓国
+education-cost + gender-penalty (reproductive-cohort) · 日本 non-marriage
+(reproductive-cohort) · イタリア youth-precarity + familism · シンガポール
+education-cost + crystallized small-family-norm. The shared lesson: the weakest Meadows
+lever (a pronatal subsidy or a permitted-child number) never reaches the binding stock;
+correction needs the deep L2–L5 levers (cost / housing / gender division / non-marriage /
+norm). A resilience MAP, never a country ranking (G7).
 
 Read-off (HYPOTHESIS, G5): the most-pressured stock is **small-family-norm** (the R2
 lock-in core, vicious); R2/R3 spin vicious while B2 pronatal-incentive is overwhelmed;
