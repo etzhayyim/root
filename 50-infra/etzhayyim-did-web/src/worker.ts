@@ -1,5 +1,6 @@
 import didDoc from "../did.json";
 import { findXrpcRoute, resolveUpstream } from "./xrpc-routes";
+import { renderShell } from "./shell";
 import {
   UNISPSC_HANDLES,
   UNISPSC_GENERATED_AT,
@@ -227,29 +228,14 @@ const DONATION_POLICY = {
 // Static, dependency-free, cookie-free. No external resource, no inline script
 // (Charter Rider §2(c) — the page itself must not track). Information about
 // etzhayyim's own religious activity = not advertising (ADR-2605192115 §1.2).
-const DONATE_HTML = `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Donate · etzhayyim</title>
-<meta name="description" content="etzhayyim is a religious corp operated only on donation. Give money or compute.">
-<style>
-:root{color-scheme:light dark}
-*{box-sizing:border-box}
-body{margin:0;font:16px/1.6 system-ui,-apple-system,"Hiragino Kaku Gothic ProN",sans-serif;max-width:48rem;padding:2.5rem 1.25rem;margin-inline:auto}
-h1{font-size:1.6rem;line-height:1.25;margin:0 0 .25rem}
-.sub{opacity:.7;margin:0 0 2rem}
-h2{font-size:1.15rem;margin:2rem 0 .5rem;border-bottom:1px solid currentColor;padding-bottom:.25rem}
-.card{border:1px solid color-mix(in srgb,currentColor 25%,transparent);border-radius:.6rem;padding:1rem 1.1rem;margin:.75rem 0}
-.tag{display:inline-block;font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;opacity:.65;border:1px solid currentColor;border-radius:1rem;padding:.05rem .55rem;margin-right:.4rem}
-code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;background:color-mix(in srgb,currentColor 10%,transparent);padding:.1rem .35rem;border-radius:.3rem}
-ul{margin:.4rem 0 .4rem 1.1rem;padding:0}
-footer{margin-top:2.5rem;font-size:.85rem;opacity:.7}
-a{color:inherit}
-</style>
-</head>
-<body>
+const DONATE_HTML = renderShell({
+  title: "Donate · etzhayyim",
+  lang: "en",
+  description:
+    "etzhayyim is a religious corp operated only on donation. Give money or compute.",
+  active: "/donate",
+  wrapClass: "donate-wrap",
+  main: `
 <h1>etzhayyim is operated <em>only</em> on donation.</h1>
 <p class="sub">A 宗教法人 (unincorporated religious association). We take no advertising, sell nothing, and never pay any member cash. You can give <strong>money</strong> (USDC, other crypto, or fiat) or <strong>compute</strong> — or pay one of our bills.</p>
 
@@ -302,13 +288,10 @@ a{color:inherit}
 
 <p style="opacity:.85"><strong>A gift earns you nothing</strong> — no perks, no tiers, no priority, no recognition leaderboard. We say so plainly: you give because the mission (人類の構造的労働解放) is worth it, not for a benefit.</p>
 
-<footer>
-Machine-readable policy: <a href="/.well-known/donation.json">/.well-known/donation.json</a> · How to give: <a href="https://github.com/etzhayyim/root/blob/main/DONATE.md">DONATE.md</a> · Entity DID: <a href="/.well-known/did.json">did:web:etzhayyim.com</a><br>
-Design: ADR-2606012100 + ADR-2606111700 · non-profit / donation-only / ad-free / no-adherent-cash are constitutional invariants.
-</footer>
-</body>
-</html>
-`;
+`,
+  footerHtml: `Machine-readable policy: <a href="/.well-known/donation.json">/.well-known/donation.json</a> · How to give: <a href="https://github.com/etzhayyim/root/blob/main/DONATE.md">DONATE.md</a> · Entity DID: <a href="/.well-known/did.json">did:web:etzhayyim.com</a><br>
+Design: ADR-2606012100 + ADR-2606111700 · non-profit / donation-only / ad-free / no-adherent-cash are constitutional invariants.`,
+});
 
 function buildHomeHtml(): string {
   const namedCount = Object.keys(INFRA_ACTORS).filter((h) => INFRA_ACTORS[h].glyph).length;
@@ -332,143 +315,14 @@ function buildHomeHtml(): string {
         `<li><span><strong>${name}</strong><small>${note}</small></span><b>${score}/10</b></li>`,
     )
     .join("");
-  const liveScript = `<script>
-(function(){
-  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => {
-    if (c === "&") return "&amp;";
-    if (c === "<") return "&lt;";
-    if (c === ">") return "&gt;";
-    if (c === '"') return "&quot;";
-    return "&#39;";
-  });
-  const n = (v) => new Intl.NumberFormat("en-US").format(Number(v || 0));
-  const pct = (v, max) => Math.max(0, Math.min(100, (Number(v || 0) / Math.max(1, Number(max || 1))) * 100));
-  const ageLabel = (ms) => {
-    const s = Math.max(0, Math.round(Number(ms || 0) / 1000));
-    if (s < 60) return s + "s ago";
-    const m = Math.floor(s / 60);
-    if (m < 60) return m + "m ago";
-    const h = Math.floor(m / 60);
-    return h + "h ago";
-  };
-  const set = (id, value) => {
-    const el = document.getElementById(id);
-    if (el) el.innerHTML = value;
-  };
-  const render = async () => {
-    try {
-      const [pulseRes, healthRes, statsRes] = await Promise.all([
-        fetch("/organism/pulse.json", { cache: "no-store" }),
-        fetch("/organism/health.json", { cache: "no-store" }),
-        fetch("/xrpc/com.etzhayyim.apps.kotoba.stats?graph=yoro-social-v1", { cache: "no-store" }),
-      ]);
-      const pulse = pulseRes.ok ? await pulseRes.json() : null;
-      const health = healthRes.ok ? await healthRes.json() : null;
-      const stats = statsRes.ok ? await statsRes.json() : null;
-      const actors = Object.entries((pulse && pulse.actors) || {})
-        .sort((a, b) => ((b[1] && b[1].lastAt) || 0) - ((a[1] && a[1].lastAt) || 0))
-        .slice(0, 6);
-      const actorList = actors.length
-        ? actors.map(([actor, info]) =>
-            "<li><strong>" + esc(actor) + "</strong><span>" +
-            esc(info && info.lastSubject ? info.lastSubject : "activity stream") +
-            "</span><small>" + n((info && info.commits) || 0) + " commits · " +
-            ageLabel(Date.now() - Number((info && info.lastAt) || 0)) + "</small></li>",
-          ).join("")
-        : "<li><strong>loading</strong><span>no pulse data yet</span><small>waiting for organism feed</small></li>";
-      const hostState = health && health.anyStale ? "degraded" : "live";
-      set("murakumo-host-state", hostState);
-      set("murakumo-host-meta", "pulse " + esc(hostState) + " · updated " + esc((health && health.generatedAt) || "unknown"));
-      set("murakumo-host-bar", "<span style=\"width:" + pct(((health && health.layers && health.layers.pulse && health.layers.pulse.cadenceMs) || 6000) - ((health && health.layers && health.layers.pulse && health.layers.pulse.ageMs) || 0), (health && health.layers && health.layers.pulse && health.layers.pulse.cadenceMs) || 6000) + "%\"></span>");
-      set("murakumo-host-list", actorList);
-      set("kotobase-root", esc((stats && stats.root) || "no published root yet"));
-      set("kotobase-meta", "advances " + n((stats && stats.advances) || 0) + " · conflicts " + n((stats && stats.conflicts) || 0) + " · rate-limited " + n((stats && stats.rateLimited) || 0) + " · updated " + esc((stats && stats.updatedAt) || "unknown"));
-      set("kotobase-bar", "<span style=\"width:" + pct(${KOTOBASE_BLOCK_BYTES}, 4_194_304) + "%\"></span>");
-    } catch (_err) {
-      set("murakumo-host-state", "offline");
-      set("murakumo-host-meta", "live feed unavailable");
-      set("murakumo-host-list", "<li><strong>offline</strong><span>could not load organism feed</span><small>retrying</small></li>");
-      set("kotobase-meta", "live publish stats unavailable");
-    }
-  };
-  render();
-  setInterval(render, 15000);
-})();
-</script>`;
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>etzhayyim</title>
-<meta name="description" content="Public root and observation surface for etzhayyim, a religious artificial organism.">
-<style>
-:root{color-scheme:light dark;--line:color-mix(in srgb,currentColor 18%,transparent);--soft:color-mix(in srgb,currentColor 7%,transparent)}
-*{box-sizing:border-box}
-body{margin:0;font:15px/1.55 system-ui,-apple-system,"Hiragino Kaku Gothic ProN",sans-serif;background:Canvas;color:CanvasText}
-a{color:inherit}
-.wrap{max-width:74rem;margin:0 auto;padding:1.25rem}
-header{display:flex;align-items:center;justify-content:space-between;gap:1rem;border-bottom:1px solid var(--line);padding:.75rem 0 1rem}
-.brand{font-weight:700;letter-spacing:.02em}
-nav{display:flex;gap:.35rem;flex-wrap:wrap;justify-content:flex-end}
-nav a,.btn{display:inline-flex;align-items:center;gap:.35rem;border:1px solid var(--line);border-radius:.45rem;padding:.42rem .62rem;text-decoration:none;background:var(--soft);font-size:.86rem}
-main{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(18rem,.75fr);gap:1.1rem;padding:1.1rem 0 2rem}
-.hero,.panel{border:1px solid var(--line);border-radius:.5rem;background:var(--soft)}
-.hero{padding:1.3rem}
-.eyebrow{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;opacity:.65;margin:0 0 .5rem}
-h1{font-size:clamp(2.2rem,5vw,4.8rem);line-height:.96;margin:.1rem 0 .8rem;letter-spacing:0}
-.lead{font-size:1.05rem;max-width:45rem;margin:0 0 1.1rem;color:color-mix(in srgb,currentColor 78%,transparent)}
-.status{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.6rem;margin:1.1rem 0 0}
-.metric{border:1px solid var(--line);border-radius:.45rem;padding:.75rem;background:Canvas}
-.metric b{display:block;font-size:1.5rem;line-height:1.1}
-.metric span{display:block;font-size:.78rem;opacity:.68;margin-top:.2rem}
-.panel{padding:1rem}
-.panel h2{font-size:.98rem;margin:0 0 .65rem}
-.identity{display:grid;gap:.45rem}
-.kv{display:grid;grid-template-columns:6rem minmax(0,1fr);gap:.5rem;border-bottom:1px solid var(--line);padding:.35rem 0}
-.kv span:first-child{opacity:.62}
-code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88em;background:var(--soft);border:1px solid var(--line);border-radius:.28rem;padding:.08rem .28rem;overflow-wrap:anywhere}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.1rem;margin-top:1.1rem}
-.card{border:1px solid var(--line);border-radius:.5rem;padding:1rem;background:var(--soft)}
-.card h2{font-size:1rem;margin:0 0 .45rem}
-.card p{margin:.25rem 0 .7rem;color:color-mix(in srgb,currentColor 75%,transparent)}
-.axes{list-style:none;margin:.2rem 0 0;padding:0;display:grid;gap:.35rem}
-.axes li{display:flex;justify-content:space-between;gap:.7rem;align-items:baseline;border-bottom:1px solid var(--line);padding:.32rem 0}
-.axes small{display:block;opacity:.58;font-size:.77rem}
-.live-band{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.1rem;margin-top:1.1rem}
-.live-card{min-height:14rem}
-.live-row{display:flex;align-items:baseline;justify-content:space-between;gap:.7rem;margin:.1rem 0 .45rem}
-.live-row b{font-size:1.35rem;line-height:1.1}
-.live-meta{font-size:.82rem;opacity:.68}
-.meter{height:.6rem;border:1px solid var(--line);border-radius:999px;background:Canvas;overflow:hidden;margin:.7rem 0 .6rem}
-.meter > span{display:block;height:100%;width:0;background:currentColor;opacity:.32}
-.live-list{list-style:none;margin:.2rem 0 0;padding:0;display:grid;gap:.45rem}
-.live-list li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.15rem .7rem;padding:.45rem 0;border-bottom:1px solid var(--line)}
-.live-list strong{font-size:.92rem}
-.live-list span{grid-column:1 / -1;font-size:.88rem;opacity:.84}
-.live-list small{font-size:.75rem;opacity:.62}
-.tagline{font-size:.84rem;opacity:.72;margin:.1rem 0 .6rem}
-.boundary{grid-column:span 2}
-.next{border-left:3px solid currentColor;padding-left:.8rem}
-footer{border-top:1px solid var(--line);padding:1rem 0 0;color:color-mix(in srgb,currentColor 65%,transparent);font-size:.85rem}
-@media (max-width:820px){main{grid-template-columns:1fr}.status{grid-template-columns:repeat(2,minmax(0,1fr))}.grid{grid-template-columns:1fr}.live-band{grid-template-columns:1fr}.boundary{grid-column:auto}header{align-items:flex-start;flex-direction:column}nav{justify-content:flex-start}}
-</style>
-</head>
-<body>
-<div class="wrap">
-<header>
-<div class="brand">etzhayyim</div>
-<nav aria-label="Primary">
-<a href="/organism">organism</a>
-<a href="/system-dynamics">system dynamics</a>
-<a href="/actors">actors</a>
-<a href="/gov">gov atlas</a>
-<a href="/donate">donate</a>
-<a href="/.well-known/did.json">DID</a>
-</nav>
-</header>
-
-<main>
+  // Initial kotobase meter width (server-rendered; home-feed.js updates the
+  // dynamic host/pulse/stats fields from same-origin JSON).
+  const kbBarPct = Math.max(
+    0,
+    Math.min(100, (KOTOBASE_BLOCK_BYTES / Math.max(1, 4_194_304)) * 100),
+  );
+  const main = `
+<section class="home-grid">
 <section class="hero">
 <p class="eyebrow">public root / observation surface</p>
 <h1>etzhayyim</h1>
@@ -492,7 +346,7 @@ footer{border-top:1px solid var(--line);padding:1rem 0 0;color:color-mix(in srgb
 <div class="kv"><span>Policy</span><a href="/.well-known/donation.json">donation-only</a></div>
 </div>
 </aside>
-</main>
+</section>
 
 <section class="grid" aria-label="Public root sections">
 <article class="card">
@@ -535,20 +389,22 @@ footer{border-top:1px solid var(--line);padding:1rem 0 0;color:color-mix(in srgb
 <article class="card live-card">
 <h2>Kotobase storage</h2>
 <div class="live-row"><b id="kotobase-root">${KOTOBASE_BLOCK_HUMAN}</b><span class="live-meta">${KOTOBASE_BLOCK_COUNT} blocks · ${KOTOBASE_BLOCK_BYTES.toLocaleString("en-US")} bytes</span></div>
-<div class="meter"><span id="kotobase-bar" style="width:0"></span></div>
+<div class="meter"><span id="kotobase-bar" style="width:${kbBarPct}%"></span></div>
 <p class="tagline">Local kotobase mirror footprint for the public block store. Live publish stats come from the root KV head.</p>
 <div class="live-meta" id="kotobase-meta">loading publish stats…</div>
 </article>
 </section>
-
-<footer>
-Machine roots: <a href="/.well-known/did.json">/.well-known/did.json</a> · <a href="/.well-known/actors.json">/.well-known/actors.json</a> · <a href="/.well-known/donation.json">/.well-known/donation.json</a>. Live host + actor pulse are refreshed from same-origin JSON every 15s.
-</footer>
-</div>
-${liveScript}
-</body>
-</html>
 `;
+  return renderShell({
+    title: "etzhayyim",
+    lang: "en",
+    description: "Public root and observation surface for etzhayyim, a religious artificial organism.",
+    active: "/",
+    main,
+    footerHtml:
+      'Machine roots: <a href="/.well-known/did.json">/.well-known/did.json</a> · <a href="/.well-known/actors.json">/.well-known/actors.json</a> · <a href="/.well-known/donation.json">/.well-known/donation.json</a>. Live host + actor pulse are refreshed from same-origin JSON every 15s.',
+    scriptSrc: "/_shell/home-feed.js",
+  });
 }
 
 // ─── Actor registry index (/actors + /.well-known/actors.json) ─────────────
@@ -680,39 +536,13 @@ function buildActorsHtml(): string {
   const grandTotal = (
     named.length + infra.length + ENTITY_TOTAL_COUNT + UNISPSC_TOTAL_COUNT
   ).toLocaleString("en-US");
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Actors · etzhayyim</title>
-<meta name="description" content="Actors registered on etzhayyim — each resolves a did:web DID and is kotoba-native.">
-<style>
-:root{color-scheme:light dark}
-*{box-sizing:border-box}
-body{margin:0;font:16px/1.6 system-ui,-apple-system,"Hiragino Kaku Gothic ProN",sans-serif;max-width:52rem;padding:2.5rem 1.25rem;margin-inline:auto}
-h1{font-size:1.6rem;line-height:1.25;margin:0 0 .25rem}
-.sub{opacity:.7;margin:0 0 2rem}
-h2{font-size:1.15rem;margin:2.25rem 0 .5rem;border-bottom:1px solid currentColor;padding-bottom:.25rem}
-h3{font-size:1.05rem;margin:0 0 .15rem;font-weight:600}
-.glyph{font-size:1.2em}
-.name{opacity:.85;margin:.1rem 0 .5rem;font-size:.95rem}
-.card{border:1px solid color-mix(in srgb,currentColor 22%,transparent);border-radius:.6rem;padding:1rem 1.1rem;margin:.75rem 0}
-.meta{margin:.6rem 0 .4rem;line-height:2}
-.tag{display:inline-block;font-size:.72rem;letter-spacing:.03em;opacity:.7;border:1px solid currentColor;border-radius:1rem;padding:.05rem .55rem;margin:0 .35rem .15rem 0}
-.did{margin:.4rem 0 0;font-size:.82rem;opacity:.75}
-code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;background:color-mix(in srgb,currentColor 10%,transparent);padding:.1rem .35rem;border-radius:.3rem}
-footer{margin-top:2.5rem;font-size:.85rem;opacity:.7}
-a{color:inherit}
-</style>
-</head>
-<body>
+  const main = `
 <h1>Actors on etzhayyim</h1>
 <p class="sub">Each actor resolves a <code>did:web:etzhayyim.com:actor:&lt;handle&gt;</code> DID and is kotoba-native (state lives in the kotoba Datom log; inference is Murakumo-only). Below is the registry — the same data is machine-readable at <a href="/.well-known/actors.json">/.well-known/actors.json</a>.</p>
 
 <p class="sub"><strong>${grandTotal}</strong> resolvable actors: ${named.length} named + ${infra.length} substrate services + <strong>${entityTotal}</strong> entity mirrors (below) + ${unispscTotal} UNSPSC agents. The named actors are the operators; the entity mirrors are the world they datafy, each given its own DID + profile + searchable presence.</p>
 
-<p class="sub">How this ecosystem grows autonomously — <strong>organism</strong> heartbeat (the living body) → <strong>kaname 要</strong> system-of-systems leverage (律速点 = argmax L) → <strong>ECL objective function</strong> J (子・孫 Wellbecoming への net 寄与で評価, not fixed 掟) — is visualized at <a href="/sos">/sos</a>. Live body feeds: <a href="/organism">/organism</a>.</p>
+<p class="sub">How this ecosystem grows autonomously — <strong>organism</strong> heartbeat (the living body) → <strong>kaname 要</strong> system-of-systems leverage (律速点 = argmax L) → <strong>ECL objective function</strong> J (子・孫 Wellbecoming への net 寄与で評価, not fixed 掟) — is visualized at <a href="/system-dynamics">/system-dynamics</a>. Live body feeds: <a href="/organism">/organism</a>.</p>
 
 <h2>Knowledge-graph &amp; Tier-B actors</h2>
 <p class="sub" id="kotoba-verify" data-enhance="actors-v1" hidden></p>
@@ -724,19 +554,23 @@ ${nsRows}
 
 <h2>Substrate service DIDs</h2>
 ${infraCards}
-
-<footer>
-Registry source of truth: <code>50-infra/etzhayyim-did-web/src/registry/infra-actors.ts</code> + generated <code>entity-handles.&lt;ns&gt;.gen.ts</code> · Entity DID: <a href="/.well-known/did.json">did:web:etzhayyim.com</a> · <a href="/donate">Donate</a><br>
-Per ADR-2605241800 (single did-web Worker) + ADR-2605212030 + ADR-2606042330 (entity-as-actor) + ADR-2605171300 (UNSPSC). Free-form member/council handles also resolve but are not listed here.
-</footer>
-<!-- Progressive enhancement: first-party, same-origin, zero-egress ES module
-     (CSP connect-src 'self') resolves the named actors + self-verifies each DID
-     from the content-addressed /kotoba blocks in the visitor's own browser. The
-     page is fully functional without it. Not surveillance (ADR-2606064500). -->
-<script type="module" src="/kotoba/actors-enhance.js"></script>
-</body>
-</html>
 `;
+  return renderShell({
+    title: "Actors · etzhayyim",
+    lang: "en",
+    description:
+      "Actors registered on etzhayyim — each resolves a did:web DID and is kotoba-native.",
+    active: "/actors",
+    main,
+    footerHtml: `Registry source of truth: <code>50-infra/etzhayyim-did-web/src/registry/infra-actors.ts</code> + generated <code>entity-handles.&lt;ns&gt;.gen.ts</code> · Entity DID: <a href="/.well-known/did.json">did:web:etzhayyim.com</a> · <a href="/donate">Donate</a><br>
+Per ADR-2605241800 (single did-web Worker) + ADR-2605212030 + ADR-2606042330 (entity-as-actor) + ADR-2605171300 (UNSPSC). Free-form member/council handles also resolve but are not listed here.`,
+    // Progressive enhancement: first-party, same-origin, zero-egress ES module
+    // (CSP connect-src 'self') resolves named actors + self-verifies each DID
+    // from content-addressed /kotoba blocks in the visitor's own browser. The
+    // page is fully functional without it. Not surveillance (ADR-2606064500).
+    scriptSrc: "/kotoba/actors-enhance.js",
+    scriptType: "module",
+  });
 }
 
 // `/organism` — visualizes the artificial-organism self-evolution ecosystem:

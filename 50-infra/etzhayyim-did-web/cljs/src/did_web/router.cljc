@@ -17,7 +17,7 @@
 ;; Routes that only accept GET/HEAD (a non-GET/HEAD request → 405 in the core).
 (def get-head-only
   #{:home-html :did-json :donation-json :donate-html :actors-json :actors-html
-    :gov-units-json :gov-procedures-json :organism-html :system-dynamics-html
+    :gov-units-json :gov-procedures-json :gov-html :organism-html :system-dynamics-html
     :actor-did :actor-profile :actor-procedures :actor-system-dynamics-html
     :ipfs})
 
@@ -92,8 +92,8 @@
      ;; matched above; the cljs handler delegates ONLY the CACAO-crypto auth
      ;; short-circuits back to the TS fallback).
      (when-let [[_ n] (re-matches #"^/xrpc/([A-Za-z0-9._-]+)$" path)] {:route :xrpc :nsid n})
-     ;; /gov (inline HTML) still on the TS fallback (next: extract the template).
-     (when (= p "/gov")                                  {:route :fallback})
+     ;; /gov — civic wayfinding search page (CLJS-owned, shell + gov-search.js).
+     (when (= p "/gov")                                  {:route :gov-html})
      ;; everything else (SPA routes, apex landing, …) → cljs reverse proxy
      {:route :reverse-proxy})))
 

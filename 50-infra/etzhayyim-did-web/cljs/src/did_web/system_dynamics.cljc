@@ -4,7 +4,8 @@
   This is deliberately data-first: stocks, flows, and feedback loops are plain
   EDN so the same model can be rendered in the Worker (CLJS) and asserted in bb
   tests. No JS interop, no network, no runtime state."
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [did-web.shell :as shell]))
 
 (def stocks
   [{:id :trust
@@ -77,21 +78,6 @@
       (str/replace ">" "&gt;")
       (str/replace "\"" "&quot;")))
 
-(defn- nav-link [href label active?]
-  (str "<a href=\"" (h href) "\" class=\"inline-flex items-center rounded-full border px-3 py-1.5 text-sm "
-       (if active? "border-slate-100/40 bg-slate-100 text-slate-950" "border-slate-500/30 bg-slate-900/40 text-slate-100")
-       "\">" (h label) "</a>"))
-
-(defn- common-menu-html [active]
-  (str "<header class=\"mb-8 flex flex-wrap items-center justify-between gap-4 border-b border-slate-800 pb-4\">"
-       "<a href=\"/\" class=\"text-lg font-semibold tracking-tight text-slate-50\">etzhayyim</a>"
-       "<nav class=\"flex flex-wrap gap-2\">"
-       (nav-link "/" "root" (= active :root))
-       (nav-link "/organism" "organism" (= active :organism))
-       (nav-link "/actors" "actors" (= active :actors))
-       (nav-link "/system-dynamics" "system dynamics" (= active :system-dynamics))
-       "</nav></header>"))
-
 (defn- stock-by-id [id]
   (some #(when (= id (:id %)) %) stocks))
 
@@ -100,22 +86,22 @@
         {x2 :x y2 :y} (stock-by-id to)
         mx (/ (+ x1 x2) 2)
         my (/ (+ y1 y2) 2)]
-    (str "<path class=\"fill-none stroke-slate-400/60\" d=\"M" x1 " " y1 " L" x2 " " y2 "\" marker-end=\"url(#arrow)\"/>"
-         "<text class=\"fill-slate-300/70 text-[11px]\" text-anchor=\"middle\" x=\"" mx "\" y=\"" (- my 8) "\">" (h label) "</text>")))
+    (str "<path class=\"flow\" d=\"M" x1 " " y1 " L" x2 " " y2 "\" marker-end=\"url(#arrow)\"/>"
+         "<text class=\"flow-label\" text-anchor=\"middle\" x=\"" mx "\" y=\"" (- my 8) "\">" (h label) "</text>")))
 
 (defn- stock-node [{:keys [label ja x y note]}]
-  (str "<g transform=\"translate(" x "," y ")\">"
-       "<rect class=\"fill-slate-950 stroke-slate-600/70\" x=\"-78\" y=\"-34\" width=\"156\" height=\"68\" rx=\"8\"/>"
-       "<text class=\"fill-slate-50 text-[15px] font-semibold\" text-anchor=\"middle\" y=\"-4\">" (h label) "</text>"
-       "<text class=\"fill-slate-300/70 text-[12px]\" text-anchor=\"middle\" y=\"14\">" (h ja) "</text>"
+  (str "<g class=\"stock\" transform=\"translate(" x "," y ")\">"
+       "<rect x=\"-78\" y=\"-34\" width=\"156\" height=\"68\" rx=\"8\"/>"
+       "<text class=\"stock-label\" text-anchor=\"middle\" y=\"-4\">" (h label) "</text>"
+       "<text class=\"stock-ja\" text-anchor=\"middle\" y=\"14\">" (h ja) "</text>"
        "<title>" (h note) "</title>"
        "</g>"))
 
 (defn diagram-svg []
-  (str "<svg class=\"my-4 block h-auto w-full rounded-xl border border-slate-800 bg-slate-950/30\" viewBox=\"0 0 740 500\" role=\"img\" aria-label=\"etzhayyim system dynamics stock and flow diagram\">"
+  (str "<svg class=\"diagram\" viewBox=\"0 0 740 500\" role=\"img\" aria-label=\"etzhayyim system dynamics stock and flow diagram\">"
        "<defs><marker id=\"arrow\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L8,3 L0,6 Z\" fill=\"currentColor\" opacity=\".72\"/></marker></defs>"
-       "<rect class=\"fill-none stroke-slate-600/30 stroke-dasharray-[5_6]\" x=\"26\" y=\"32\" width=\"688\" height=\"428\" rx=\"14\"/>"
-       "<text class=\"fill-slate-300/60 text-[13px]\" x=\"46\" y=\"58\">etzhayyim.com public root boundary</text>"
+       "<rect class=\"boundary\" x=\"26\" y=\"32\" width=\"688\" height=\"428\" rx=\"14\"/>"
+       "<text class=\"boundary-label\" x=\"46\" y=\"58\">etzhayyim.com public root boundary</text>"
        (apply str (map flow-line flows))
        (apply str (map stock-node stocks))
        "</svg>"))
@@ -194,44 +180,27 @@
   ([]
    (page-html []))
   ([actors]
-     (str "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\">"
-         "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"
-         "<title>System Dynamics · etzhayyim</title>"
-         "<meta name=\"description\" content=\"System dynamics stock/flow and feedback-loop view of etzhayyim and its actors.\">"
-         "<script src=\"https://cdn.tailwindcss.com\"></script>"
-         "<style>"
-        ":root{color-scheme:light dark;--line:color-mix(in srgb,currentColor 20%,transparent);--soft:color-mix(in srgb,currentColor 7%,transparent)}"
-        "*{box-sizing:border-box}body{margin:0;font:15px/1.55 system-ui,-apple-system,\"Hiragino Kaku Gothic ProN\",sans-serif;color:CanvasText;background:Canvas}"
-        ".wrap{max-width:74rem;margin:0 auto;padding:1.25rem}a{color:inherit}header{display:flex;justify-content:space-between;gap:1rem;align-items:center;border-bottom:1px solid var(--line);padding:.8rem 0 1rem}"
-        "nav{display:flex;gap:.35rem;flex-wrap:wrap}nav a,.btn{display:inline-flex;border:1px solid var(--line);border-radius:.45rem;padding:.42rem .62rem;text-decoration:none;background:var(--soft);font-size:.86rem}"
-        ".eyebrow{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;opacity:.65;margin:1.1rem 0 .35rem}h1{font-size:clamp(2rem,4.8vw,4.2rem);line-height:.98;margin:0 0 .8rem;letter-spacing:0}"
-        ".lead{font-size:1.05rem;max-width:52rem;color:color-mix(in srgb,currentColor 78%,transparent)}"
-        ".diagram{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:.55rem;background:var(--soft);margin:1rem 0}"
-        ".boundary{fill:none;stroke:currentColor;stroke-width:1;opacity:.24;stroke-dasharray:5 6}.boundary-label{font-size:13px;fill:currentColor;opacity:.62}"
-        ".flow{fill:none;stroke:currentColor;stroke-width:1.7;opacity:.58}.flow-label{font-size:11px;fill:currentColor;opacity:.68;text-anchor:middle}"
-        ".stock rect{fill:Canvas;stroke:currentColor;stroke-width:1}.stock-label{font-size:15px;font-weight:700;text-anchor:middle;fill:currentColor}.stock-ja{font-size:12px;text-anchor:middle;fill:currentColor;opacity:.68}"
-         ".grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem;margin:1rem 0}.card{border:1px solid var(--line);border-radius:.55rem;background:var(--soft);padding:1rem}.card h2{font-size:1rem;margin:0 0 .35rem}.card p{margin:.25rem 0;color:color-mix(in srgb,currentColor 76%,transparent)}"
-         ".actor-card{display:flex;flex-direction:column;gap:.45rem}.actor-head{display:flex;justify-content:space-between;gap:.75rem;align-items:flex-start}.actor-head h2{margin:0}.actor-handle{margin:0;font-size:.72rem;opacity:.72;text-transform:uppercase;letter-spacing:.08em}.actor-desc{font-size:.92rem}.tag-row,.actor-services{display:flex;flex-wrap:wrap;gap:.25rem .3rem}.actor-grid-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.55rem .8rem;margin:.2rem 0}.actor-grid-meta strong{display:block;font-size:.72rem;opacity:.68}.actor-grid-meta span{display:block;font-size:.86rem;line-height:1.35}.actor-flow{border:1px solid var(--line);border-radius:.45rem;padding:.7rem .75rem;background:Canvas}.actor-flow-head{display:flex;justify-content:space-between;gap:.75rem;align-items:baseline;font-size:.86rem}.actor-flow-head strong{font-size:.74rem;text-transform:uppercase;letter-spacing:.08em;opacity:.68}.actor-flow-head span{font-variant-numeric:tabular-nums}.scorebar{height:6px;border-radius:999px;background:color-mix(in srgb,currentColor 12%,transparent);overflow:hidden;margin:.45rem 0 .25rem}.scorebar span{display:block;height:100%;background:currentColor;opacity:.72}.actor-flow-note{margin:0;font-size:.78rem;opacity:.68}.actor-card .diagram{margin:.35rem 0 .1rem}.actor-card .btn{align-self:flex-start}"
-        ".tag{display:inline-block;font-size:.72rem;opacity:.7;border:1px solid currentColor;border-radius:1rem;padding:.05rem .55rem}.constraints{columns:2;gap:1.5rem}.constraints li{break-inside:avoid;margin:.25rem 0}footer{border-top:1px solid var(--line);padding:1rem 0 0;margin-top:1.5rem;font-size:.85rem;opacity:.68}"
-        "@media(max-width:820px){header{align-items:flex-start;flex-direction:column}.grid{grid-template-columns:1fr}.constraints{columns:1}}"
-         "</style></head><body><div class=\"wrap\">"
-        (common-menu-html :system-dynamics)
-        "<p class=\"eyebrow\">cljc system dynamics model</p><h1>System Dynamics</h1>"
-        "<p class=\"lead\">A stock/flow view of etzhayyim as a living public root, followed by one mini system per first-party actor. The overview explains the shared boundary; the cards below show each actor's own loop and energy-flow score.</p>"
-        (diagram-svg)
-        "<section class=\"grid\">" (apply str (map loop-card feedback-loops)) "</section>"
-        (let [sorted-actors (sort-by (fn [a] [(- (double (or (:flow-score a) 0))) (or (:handle a) "")]) actors)
-              total-score (reduce + 0.0 (map #(double (or (:flow-score %) 0)) sorted-actors))
-              avg-score (if (seq sorted-actors) (/ total-score (count sorted-actors)) 0.0)]
-          (str "<section class=\"card\"><h2>Actor dynamics</h2><p>Showing " (h (count sorted-actors)) " first-party actor snapshots, scored as energy-flow proxies.</p>"
-               "<p><strong>Total score:</strong> " (h (str (Math/round (* 10.0 total-score)) "/100")) " · "
-               "<strong>Average:</strong> " (h (str (round1 avg-score) "/10")) "</p></section>"
-               "<section class=\"grid\">" (apply str (map actor-summary-card sorted-actors)) "</section>"))
-        "<section class=\"card\"><h2>Boundary Conditions</h2><ul class=\"constraints\">"
-        (apply str (map #(str "<li>" (h %) "</li>") constraints))
-        "</ul></section>"
-        "<footer>Rendered from <code>did_web/system_dynamics.cljc</code>. Static HTML/SVG only: no script, no external assets, no cookies.</footer>"
-        "</div></body></html>")))
+   (let [sorted-actors (sort-by (fn [a] [(- (double (or (:flow-score a) 0))) (or (:handle a) "")]) actors)
+         total-score (reduce + 0.0 (map #(double (or (:flow-score %) 0)) sorted-actors))
+         avg-score (if (seq sorted-actors) (/ total-score (count sorted-actors)) 0.0)
+         main (str "<p class=\"eyebrow\">cljc system dynamics model</p><h1>System Dynamics</h1>"
+                   "<p class=\"lead\">A stock/flow view of etzhayyim as a living public root, followed by one mini system per first-party actor. The overview explains the shared boundary; the cards below show each actor's own loop and energy-flow score.</p>"
+                   (diagram-svg)
+                   "<section class=\"grid\">" (apply str (map loop-card feedback-loops)) "</section>"
+                   "<section class=\"card\"><h2>Actor dynamics</h2><p>Showing " (h (count sorted-actors)) " first-party actor snapshots, scored as energy-flow proxies.</p>"
+                   "<p><strong>Total score:</strong> " (h (str (Math/round (* 10.0 total-score)) "/100")) " · "
+                   "<strong>Average:</strong> " (h (str (round1 avg-score) "/10")) "</p></section>"
+                   "<section class=\"grid\">" (apply str (map actor-summary-card sorted-actors)) "</section>"
+                   "<section class=\"card\"><h2>Boundary Conditions</h2><ul class=\"constraints\">"
+                   (apply str (map #(str "<li>" (h %) "</li>") constraints))
+                   "</ul></section>")]
+     (shell/page-html
+      {:title "System Dynamics · etzhayyim"
+       :lang "en"
+       :description "System dynamics stock/flow and feedback-loop view of etzhayyim and its actors."
+       :active "/system-dynamics"
+       :main main
+       :footer-html "Rendered from <code>did_web/system_dynamics.cljc</code>. Static HTML/SVG only: no script, no external assets, no cookies."})))
 
 (defn- round1 [x]
   (/ (Math/round (* 10.0 (double x))) 10.0))
@@ -400,49 +369,33 @@
                                      (str "The actor stays inside the charter boundary: no server-held key, no hidden impersonation, and no unbounded authority. Source = " source ", status = " status "."))
                     (actor-loop-card "Repair / drift control"
                                      "balancing"
-                                     (str "ADR coverage " adr-text ", services " services ", vm " vm-text ", primary surface " (or primary-lexicon primary-schema "none") "."))]]
-    (str "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\">"
-         "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"
-         "<title>" (h title) " · actor dynamics · etzhayyim</title>"
-         "<meta name=\"description\" content=\"Actor-specific system dynamics for etzhayyim handle " (h handle) "\">"
-         "<script src=\"https://cdn.tailwindcss.com\"></script>"
-         "<style>"
-         ":root{color-scheme:light dark;--line:color-mix(in srgb,currentColor 20%,transparent);--soft:color-mix(in srgb,currentColor 7%,transparent)}"
-         "*{box-sizing:border-box}body{margin:0;font:15px/1.55 system-ui,-apple-system,\"Hiragino Kaku Gothic ProN\",sans-serif;color:CanvasText;background:Canvas}"
-         ".wrap{max-width:74rem;margin:0 auto;padding:1.25rem}a{color:inherit}header{display:flex;justify-content:space-between;gap:1rem;align-items:center;border-bottom:1px solid var(--line);padding:.8rem 0 1rem}"
-         "nav{display:flex;gap:.35rem;flex-wrap:wrap}nav a,.btn{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:.45rem;padding:.42rem .62rem;text-decoration:none;background:var(--soft);font-size:.86rem}"
-         ".eyebrow{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;opacity:.65;margin:1.1rem 0 .35rem}h1{font-size:clamp(2rem,4.8vw,4.2rem);line-height:.98;margin:0 0 .8rem;letter-spacing:0}"
-         ".lead{font-size:1.05rem;max-width:52rem;color:color-mix(in srgb,currentColor 78%,transparent)}"
-         ".diagram{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:.55rem;background:var(--soft);margin:1rem 0}"
-         ".boundary{fill:none;stroke:currentColor;stroke-width:1;opacity:.24;stroke-dasharray:5 6}.boundary-label{font-size:13px;fill:currentColor;opacity:.62}"
-         ".flow{fill:none;stroke:currentColor;stroke-width:1.7;opacity:.58}.flow-label{font-size:11px;fill:currentColor;opacity:.68;text-anchor:middle}"
-         ".stock rect{fill:Canvas;stroke:currentColor;stroke-width:1}.stock-label{font-size:15px;font-weight:700;text-anchor:middle;fill:currentColor}.stock-ja{font-size:12px;text-anchor:middle;fill:currentColor;opacity:.68}"
-         ".grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem;margin:1rem 0}.card{border:1px solid var(--line);border-radius:.55rem;background:var(--soft);padding:1rem}.card h2{font-size:1rem;margin:0 0 .35rem}.card p{margin:.25rem 0;color:color-mix(in srgb,currentColor 76%,transparent)}"
-         ".tag{display:inline-block;font-size:.72rem;opacity:.7;border:1px solid currentColor;border-radius:1rem;padding:.05rem .55rem;margin:0 .25rem .2rem 0}.constraints{columns:2;gap:1.5rem}.constraints li{break-inside:avoid;margin:.25rem 0}footer{border-top:1px solid var(--line);padding:1rem 0 0;margin-top:1.5rem;font-size:.85rem;opacity:.68}"
-         "@media(max-width:820px){header{align-items:flex-start;flex-direction:column}.grid{grid-template-columns:1fr}.constraints{columns:1}}"
-         "</style></head><body><div class=\"wrap\">"
-         (common-menu-html :actors)
-         "<p class=\"eyebrow\">actor-specific system dynamics</p><h1>" (h title) "</h1>"
-         "<p class=\"lead\">" (h (or description "No actor description available yet.")) "</p>"
-         "<p class=\"next\"><strong>Role lens:</strong> " (h (:title mode)) ".</p>"
-         "<div class=\"grid\">"
-         "<div class=\"card\"><h2>Identity</h2><p>" (h handle) "</p><p class=\"tag-row\">" (apply str tags) "</p></div>"
-         "<div class=\"card\"><h2>Runtime</h2><p>" (h services) "</p><p>" (h (str "source " source " · status " status " · vm " vm-text)) "</p><p>" service-tags "</p></div>"
-         "<div class=\"card\"><h2>Surface</h2><p>" (h (or primary-lexicon primary-schema "none")) "</p><p>" (h (str "performer " performer-type " · ui " ui-type " · adr " adr-text)) "</p></div>"
-         "</div>"
-         "<section class=\"card\"><h2>Energy flow</h2><div class=\"actor-flow-head\"><strong>Flow score</strong><span>" (h (str (or flow-score 0) "/10")) "</span></div><div class=\"scorebar\"><span style=\"width:" score-pct "%\"></span></div><p class=\"actor-flow-note\">" (h (or flow-source "runtime + surface proxy")) "</p></section>"
-         (actor-diagram-svg actor)
-         "<section class=\"grid\">" (apply str loop-cards) "</section>"
-         "<section class=\"card\"><h2>Boundary Conditions</h2><ul class=\"constraints\">"
-        (apply str
-                (map #(str "<li>" (h %) "</li>")
-                     [did
-                      (str "profile handle " handle ".etzhayyim.com")
-                      (str "source: " source)
-                      (str "services: " services)
-                      "no server-held key"
-                      "no external assets"
-                      "no cookies"]))
-         "</ul></section>"
-         "<footer>Rendered from <code>did_web/system_dynamics.cljc</code>. Actor page is static HTML/SVG only; it reflects the actor record, not a live runtime.</footer>"
-         "</div></body></html>")))
+                                     (str "ADR coverage " adr-text ", services " services ", vm " vm-text ", primary surface " (or primary-lexicon primary-schema "none") ".")])
+        main (str "<p class=\"eyebrow\">actor-specific system dynamics</p><h1>" (h title) "</h1>"
+                  "<p class=\"lead\">" (h (or description "No actor description available yet.")) "</p>"
+                  "<p class=\"next\"><strong>Role lens:</strong> " (h (:title mode)) ".</p>"
+                  "<div class=\"grid\">"
+                  "<div class=\"card\"><h2>Identity</h2><p>" (h handle) "</p><p class=\"tag-row\">" (apply str tags) "</p></div>"
+                  "<div class=\"card\"><h2>Runtime</h2><p>" (h services) "</p><p>" (h (str "source " source " · status " status " · vm " vm-text)) "</p><p>" service-tags "</p></div>"
+                  "<div class=\"card\"><h2>Surface</h2><p>" (h (or primary-lexicon primary-schema "none")) "</p><p>" (h (str "performer " performer-type " · ui " ui-type " · adr " adr-text)) "</p></div>"
+                  "</div>"
+                  "<section class=\"card\"><h2>Energy flow</h2><div class=\"actor-flow-head\"><strong>Flow score</strong><span>" (h (str (or flow-score 0) "/10")) "</span></div><div class=\"scorebar\"><span style=\"width:" score-pct "%\"></span></div><p class=\"actor-flow-note\">" (h (or flow-source "runtime + surface proxy")) "</p></section>"
+                  (actor-diagram-svg actor)
+                  "<section class=\"grid\">" (apply str loop-cards) "</section>"
+                  "<section class=\"card\"><h2>Boundary Conditions</h2><ul class=\"constraints\">"
+                  (apply str
+                         (map #(str "<li>" (h %) "</li>")
+                              [did
+                               (str "profile handle " handle ".etzhayyim.com")
+                               (str "source: " source)
+                               (str "services: " services)
+                               "no server-held key"
+                               "no external assets"
+                               "no cookies"]))
+                  "</ul></section>")]
+    (shell/page-html
+     {:title (str (h title) " · actor dynamics · etzhayyim")
+      :lang "en"
+      :description (str "Actor-specific system dynamics for etzhayyim handle " (h handle))
+      :active "/actors"
+      :main main
+      :footer-html "Rendered from <code>did_web/system_dynamics.cljc</code>. Actor page is static HTML/SVG only; it reflects the actor record, not a live runtime."}))
