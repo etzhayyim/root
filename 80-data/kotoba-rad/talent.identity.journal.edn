@@ -9,3 +9,4 @@
 ["sigref:bafkreihtkktpqgv43px3grhgcbhpaag633bp4kbxvg7jmqyioy6ps2ruxu" :rad/rid "bafkreihtkktpqgv43px3grhgcbhpaag633bp4kbxvg7jmqyioy6ps2ruxu" 1 :add]
 ["sigref:bafkreihtkktpqgv43px3grhgcbhpaag633bp4kbxvg7jmqyioy6ps2ruxu" :rad/head "bafkreidnfvssdbbr3swl5vtwhgvubby5eut5jn44lg5kmab5eexahvtf3y" 1 :add]
 ["sigref:bafkreihtkktpqgv43px3grhgcbhpaag633bp4kbxvg7jmqyioy6ps2ruxu" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-talent" 1 :add]
+["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:talent" 2 :add]

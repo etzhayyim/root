@@ -17,3 +17,4 @@
 ["sigref:bafkreicsoydmfipltyjgyluand56wspcpnsyybl22qshxuuyoxm7fzj6ku" :rad/rid "bafkreicsoydmfipltyjgyluand56wspcpnsyybl22qshxuuyoxm7fzj6ku" 3 :add]
 ["sigref:bafkreicsoydmfipltyjgyluand56wspcpnsyybl22qshxuuyoxm7fzj6ku" :rad/head "bafkreiaaeucei5jrim5tvj3mr4f63bel7tlpj2eymnpnl5evl764fqaaza" 3 :add]
 ["sigref:bafkreicsoydmfipltyjgyluand56wspcpnsyybl22qshxuuyoxm7fzj6ku" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-wakai" 3 :add]
+["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:wakai" 2 :add]

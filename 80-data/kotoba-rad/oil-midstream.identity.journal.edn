@@ -9,3 +9,4 @@
 ["sigref:bafkreihdvsvct5megy2fr5tarnfo5mslnnyawis2wbxmxyauix2kdnkmre" :rad/rid "bafkreihdvsvct5megy2fr5tarnfo5mslnnyawis2wbxmxyauix2kdnkmre" 1 :add]
 ["sigref:bafkreihdvsvct5megy2fr5tarnfo5mslnnyawis2wbxmxyauix2kdnkmre" :rad/head "bafkreicnvzanzu3pepina6wlxj46aqc4q4qq6lontm6xubhggk5rqmezem" 1 :add]
 ["sigref:bafkreihdvsvct5megy2fr5tarnfo5mslnnyawis2wbxmxyauix2kdnkmre" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-oil-midstream" 1 :add]
+["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:oil-midstream" 2 :add]

@@ -17,3 +17,4 @@
 ["sigref:bafkreibn67eqgvwznam4e4l6sznryrdkjltdbapuppfsfmdrxzqhhaeuuu" :rad/rid "bafkreibn67eqgvwznam4e4l6sznryrdkjltdbapuppfsfmdrxzqhhaeuuu" 3 :add]
 ["sigref:bafkreibn67eqgvwznam4e4l6sznryrdkjltdbapuppfsfmdrxzqhhaeuuu" :rad/head "bafkreidkj5dhmlbwqcwjqy5vkz4q2x4ibangwnutqxalubxzhvrouo3c24" 3 :add]
 ["sigref:bafkreibn67eqgvwznam4e4l6sznryrdkjltdbapuppfsfmdrxzqhhaeuuu" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-watatsuna" 3 :add]
+["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:watatsuna" 2 :add]

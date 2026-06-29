@@ -1,0 +1,13 @@
+{
+  "ui.disclaimer" : "Límite UPL: solo información + orientación + ayuda con formularios. Sin asesoramiento, sin representación. El miembro presenta personalmente.",
+  "actor.authority" : "Bureau of Consular Affairs, Ministry of Foreign Affairs",
+  "ui.self-submit" : "Presentación personal",
+  "actor.description" : "toritsugi authority-actor for regime 'twn-passport' (Bureau of Consular Affairs, Ministry of Foreign Affairs). Covers 1 procedure(s) across jurisdiction(s): twn. Parent: toritsugi (ADR-2605312030). Keyless R0 mirror — no server key. 行政書士法/UPL boundary (G5): 情報提供+案内+入力補助 only, NO advice, NO 作成代理. Member self-submits (G15). NOT a 行政書士/弁護士 firm, NOT an official channel.",
+  "actor.displayName" : "Toritsugi-twn-passport — Bureau of Consular Affairs, Ministry of Foreign Affairs",
+  "procedure.list" : "Taiwan (ROC) passport application",
+  "ui.accompany" : "Acompañar",
+  "actor.regime" : "twn-passport",
+  "ui.guide" : "Guía",
+  "procedure.count" : "1 procedimientos",
+  "actor.name" : "toritsugi-twn-passport"
+}

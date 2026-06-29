@@ -9,3 +9,4 @@
 ["sigref:bafkreiafulxjd72lwylo64xbkazydwmyuhecu2uciog3x7vilogqq2k3km" :rad/rid "bafkreiafulxjd72lwylo64xbkazydwmyuhecu2uciog3x7vilogqq2k3km" 1 :add]
 ["sigref:bafkreiafulxjd72lwylo64xbkazydwmyuhecu2uciog3x7vilogqq2k3km" :rad/head "bafkreif7bb5bnkambg3rqm66cis4z6bq6pwptl5sweieu4c6xxlwyewkqu" 1 :add]
 ["sigref:bafkreiafulxjd72lwylo64xbkazydwmyuhecu2uciog3x7vilogqq2k3km" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-demining" 1 :add]
+["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:demining" 2 :add]

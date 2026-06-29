@@ -17,3 +17,4 @@
 ["sigref:bafkreie4zsa7je27so2ds47tvtdw2w25fakc7cyph5a7y6poxrgoeiwgfa" :rad/rid "bafkreie4zsa7je27so2ds47tvtdw2w25fakc7cyph5a7y6poxrgoeiwgfa" 3 :add]
 ["sigref:bafkreie4zsa7je27so2ds47tvtdw2w25fakc7cyph5a7y6poxrgoeiwgfa" :rad/head "bafkreih3jedknubjlg6hemtwxy7c6o3rpe5cjm47lhxshd2ni4m7nmxmym" 3 :add]
 ["sigref:bafkreie4zsa7je27so2ds47tvtdw2w25fakc7cyph5a7y6poxrgoeiwgfa" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-utsushie" 3 :add]
+["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:utsushie" 2 :add]

@@ -1,0 +1,13 @@
+{
+  "ui.disclaimer" : "Граница UPL: только информация + навигация + помощь в заполнении. Без консультаций, без представительства. Член подаёт сам.",
+  "actor.authority" : "Servicio de Registro Civil e Identificación (SRCeI) / Servicio de Registro Civil e Identificación (SRCeI); platform operated by División de Gobierno Digital, SEGPRES",
+  "ui.self-submit" : "Самостоятельная подача",
+  "actor.description" : "toritsugi authority-actor for regime 'cl-national' (Servicio de Registro Civil e Identificación (SRCeI) / Servicio de Registro Civil e Identificación (SRCeI); platform operated by División de Gobierno Digital, SEGPRES). Covers 2 procedure(s) across jurisdiction(s): chl. Parent: toritsugi (ADR-2605312030). Keyless R0 mirror — no server key. 行政書士法/UPL boundary (G5): 情報提供+案内+入力補助 only, NO advice, NO 作成代理. Member self-submits (G15). NOT a 行政書士/弁護士 firm, NOT an official channel.",
+  "actor.displayName" : "Toritsugi-cl-national — Servicio de Registro Civil e Identificación (SRCeI)",
+  "procedure.list" : "Chile national ID card issuance / renewal — Cédula de Identidad / Chile single sign-on digital identity (ClaveÚnica) issuance — Obtención de la ClaveÚnica",
+  "ui.accompany" : "Сопровождение",
+  "actor.regime" : "cl-national",
+  "ui.guide" : "Навигация",
+  "procedure.count" : "2 процедур",
+  "actor.name" : "toritsugi-cl-national"
+}

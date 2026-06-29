@@ -17,3 +17,4 @@
 ["sigref:bafkreif5ocq5xa7rtuiarrz6x7hhafjfbiico633s3llpf3lixwecjrlgq" :rad/rid "bafkreif5ocq5xa7rtuiarrz6x7hhafjfbiico633s3llpf3lixwecjrlgq" 3 :add]
 ["sigref:bafkreif5ocq5xa7rtuiarrz6x7hhafjfbiico633s3llpf3lixwecjrlgq" :rad/head "bafkreie6pl7xugupkyul6zmh24457hf7rzjuadlhq6arntase2rousngji" 3 :add]
 ["sigref:bafkreif5ocq5xa7rtuiarrz6x7hhafjfbiico633s3llpf3lixwecjrlgq" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-yakushi" 3 :add]
+["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:yakushi" 2 :add]

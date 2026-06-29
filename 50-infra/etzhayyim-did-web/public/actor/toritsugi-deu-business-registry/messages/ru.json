@@ -1,0 +1,13 @@
+{
+  "ui.disclaimer" : "Граница UPL: только информация + навигация + помощь в заполнении. Без консультаций, без представительства. Член подаёт сам.",
+  "actor.authority" : "Handelsregister (Amtsgericht; notarial)",
+  "ui.self-submit" : "Самостоятельная подача",
+  "actor.description" : "toritsugi authority-actor for regime 'deu-business-registry' (Handelsregister (Amtsgericht; notarial)). Covers 1 procedure(s) across jurisdiction(s): deu. Parent: toritsugi (ADR-2605312030). Keyless R0 mirror — no server key. 行政書士法/UPL boundary (G5): 情報提供+案内+入力補助 only, NO advice, NO 作成代理. Member self-submits (G15). NOT a 行政書士/弁護士 firm, NOT an official channel.",
+  "actor.displayName" : "Toritsugi-deu-business-registry — Handelsregister (Amtsgericht; notarial)",
+  "procedure.list" : "Commercial-register entry (Handelsregistereintragung)",
+  "ui.accompany" : "Сопровождение",
+  "actor.regime" : "deu-business-registry",
+  "ui.guide" : "Навигация",
+  "procedure.count" : "1 процедур",
+  "actor.name" : "toritsugi-deu-business-registry"
+}

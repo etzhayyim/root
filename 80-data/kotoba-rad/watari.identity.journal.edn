@@ -17,3 +17,4 @@
 ["sigref:bafkreigffqiy4i3cs2hwrzojayn7jlhzdiip5l4nc5esj7puwgh27bsa6i" :rad/rid "bafkreigffqiy4i3cs2hwrzojayn7jlhzdiip5l4nc5esj7puwgh27bsa6i" 3 :add]
 ["sigref:bafkreigffqiy4i3cs2hwrzojayn7jlhzdiip5l4nc5esj7puwgh27bsa6i" :rad/head "bafkreihiz6aoikzt3ixuefh7nj3yc35hctbzk7orm352kbvdtnzmmzhgkm" 3 :add]
 ["sigref:bafkreigffqiy4i3cs2hwrzojayn7jlhzdiip5l4nc5esj7puwgh27bsa6i" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-watari" 3 :add]
+["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:watari" 2 :add]

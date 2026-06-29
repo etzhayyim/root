@@ -17,3 +17,4 @@
 ["sigref:bafkreib3mgzsspeh6xogzky5boiayztbf6bjcq5xejgoaggbcrjaw2ofui" :rad/rid "bafkreib3mgzsspeh6xogzky5boiayztbf6bjcq5xejgoaggbcrjaw2ofui" 3 :add]
 ["sigref:bafkreib3mgzsspeh6xogzky5boiayztbf6bjcq5xejgoaggbcrjaw2ofui" :rad/head "bafkreifpo45ufi3neouffjf6gevj7j7aqze44kc6jqhjhmzzzsbtvmcy4a" 3 :add]
 ["sigref:bafkreib3mgzsspeh6xogzky5boiayztbf6bjcq5xejgoaggbcrjaw2ofui" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-uchiwake" 3 :add]
+["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:uchiwake" 2 :add]

@@ -1,0 +1,29 @@
+{
+  "_etzhayyim" : {
+    "parent" : "toritsugi",
+    "didDocument" : "https://etzhayyim.com/actor/toritsugi-mx-national/did.json",
+    "adr" : [ "2605312030", "2606272355", "2605231525" ],
+    "status" : "r0",
+    "kind" : "tier-b",
+    "source" : "kotoba",
+    "tier" : "B",
+    "regime" : "mx-national",
+    "primaryLexicon" : "com.etzhayyim.toritsugi.mx-national.procedure"
+  },
+  "banner" : "",
+  "handle" : "toritsugi-mx-national.etzhayyim.com",
+  "displayNameJa" : "取次-mx-national — Registro Nacional de Población e Identidad (RENAPO), Secretaría de Gobernación (SEGOB)",
+  "followsCount" : 0,
+  "displayName" : "Toritsugi-mx-national — Registro Nacional de Población e Identidad (RENAPO), Secretaría de Gobernación (SEGOB)",
+  "followersCount" : 0,
+  "performerType" : "system",
+  "avatar" : "",
+  "did" : "did:web:etzhayyim.com:actor:toritsugi-mx-national",
+  "labels" : [ ],
+  "viewer" : { },
+  "uiType" : "appview",
+  "glyph" : "取次",
+  "description" : "toritsugi authority-actor for regime 'mx-national' (Registro Nacional de Población e Identidad (RENAPO), Secretaría de Gobernación (SEGOB)). Covers 1 procedure(s) across jurisdiction(s): mex. Parent: toritsugi (ADR-2605312030). Keyless R0 mirror — no server key. 行政書士法/UPL boundary (G5): 情報提供+案内+入力補助 only, NO advice, NO 作成代理. Member self-submits (G15). NOT a 行政書士/弁護士 firm, NOT an official channel.",
+  "postsCount" : 0,
+  "indexedAt" : "2026-06-29T00:00:00.000Z"
+}
