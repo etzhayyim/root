@@ -198,7 +198,15 @@ per-step-confirmed). Completion condition:
   `00-contracts/schemas/actor-profile-seed.kotoba.edn`; the RAD journal +
   `did.json`/`profile.json` are generated from it.
 
-**Status**: ADR + scaffold (manifest + EAVT schema + lexicons + did + DESIGN)
-authored; child repo + west pin + RAD identity are the outward steps, landed
-in an isolated root worktree + PR (the shared root checkout is raced by
-concurrent agents per root CLAUDE.md «Worktree isolation»).
+**Status (landed)**: ADR + scaffold (manifest + EAVT schema + lexicons + did + DESIGN)
+authored. Outward registration: ✅ child repo `github.com/etzhayyim/com-google-ads`
+(private, HEAD `e9ffefb`) created + pushed; ✅ west pin — `repos.edn`
+`:extra-projects` + `west.yml` block (pin `e9ffefb` == child HEAD) via API
+single-entry commit `d57f86f` on `com-junkawasaki/root` main (survived a
+concurrent rebase to tip `640a8f9`); ✅ `actor-profile-seed.kotoba.edn` SSoT
+entry (apex `did:web:etzhayyim.com:actor:com-google-ads`, glyph 広, lexicon
+`com.etzhayyim.googleads`) added in this PR. ⏳ signed RAD identity journal —
+operator-key step via `70-tools/src/etzhayyim/kotoba_rad_sign.clj`
+(no-server-key; the seed entry is the precursor). `gen-west-manifest.bb --check`
+to be run once the superproject is synced (origin/main is volatile / force-pushed
+by concurrent agents).
