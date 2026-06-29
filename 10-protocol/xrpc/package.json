@@ -21,7 +21,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@atproto/common-web": "^0.5.1",
+    "@atproto/common-web": "^0.5.2",
     "@atproto/syntax": "^0.6.3"
   },
   "files": [
