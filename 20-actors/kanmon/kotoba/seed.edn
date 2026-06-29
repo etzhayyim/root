@@ -1,0 +1,83 @@
+;; kanmon 関門 — seed of high-stakes ENTRANCE-EXAM SYSTEMS (CN/KR/JP) under
+;; barrier-load assessment. :sourcing :representative — these are REAL exam systems,
+;; but the numeric factors (selectivity/single-shot/stakes/alt-pathways/transparency/
+;; equity) and annual-candidates are ILLUSTRATIVE public-order-of-magnitude figures,
+;; NOT precise official statistics. Precise live figures (倍率/受験者数 from the
+;; ministry/test-body) are an operator/Council ingest step (G7). This is an OPENING
+;; map of GATES, never a target-list and never a per-student record (G1/G2).
+;;
+;; factors ∈ 0..1:
+;;   selectivity   competitiveness (few pass / high 倍率)
+;;   single-shot   one-exam/one-day/no-retake intensity
+;;   stakes        breadth of life-opportunity the gate controls
+;;   alt-pathways  availability of ALTERNATIVE admission routes (high = more open)
+;;   transparency  how public/legible the scoring & criteria are (high = more open)
+;;   equity        evenness of access across region/income (low = concentrated)
+;; barrier-load = selectivity · (0.5+0.5·single-shot) · (0.5+0.5·stakes)
+[
+ ;; ── 中国 CN ──────────────────────────────────────────────────────────────────
+ {:type :exam :id "cn-gaokao" :name "普通高等学校招生全国统一考试 (高考 / gaokao)"
+  :country :cn :body :synthetic-moe-cn :kind :university-entrance :annual-candidates 13000000
+  :selectivity 0.7 :single-shot 0.95 :stakes 0.95 :alt-pathways 0.2 :transparency 0.6 :equity 0.35
+  :subjects [:chinese :math :foreign-language :comprehensive]
+  :note "The canonical one-shot life-gate: a single two-day exam largely determines university placement → :destake (reduce one-shot dependence)."}
+ {:type :exam :id "cn-zhongkao" :name "初中学业水平考试 (中考 / zhongkao)"
+  :country :cn :body :synthetic-moe-cn :kind :secondary-entrance :annual-candidates 12000000
+  :selectivity 0.6 :single-shot 0.85 :stakes 0.65 :alt-pathways 0.3 :transparency 0.55 :equity 0.3
+  :subjects [:chinese :math :foreign-language :science :pe]
+  :note "普职分流 (academic/vocational split) at 15; strong urban/rural disparity → :equity-watch."}
+ {:type :exam :id "cn-kaoyan" :name "全国硕士研究生招生考试 (考研 / kaoyan)"
+  :country :cn :body :synthetic-moe-cn :kind :postgraduate-entrance :annual-candidates 4000000
+  :selectivity 0.8 :single-shot 0.75 :stakes 0.6 :alt-pathways 0.3 :transparency 0.5 :equity 0.5
+  :subjects [:politics :foreign-language :major-1 :major-2]
+  :note "Surging competition + degree-inflation, few alternative routes to graduate study → :open-pathway."}
+ {:type :exam :id "cn-zizhao" :name "综合评价/强基计划 (comprehensive-evaluation admission)"
+  :country :cn :body :synthetic-moe-cn :kind :university-entrance :annual-candidates 200000
+  :selectivity 0.7 :single-shot 0.5 :stakes 0.6 :alt-pathways 0.5 :transparency 0.3 :equity 0.4
+  :subjects [:portfolio :interview :school-assessment]
+  :note "Discretionary comprehensive-evaluation track with opaque selection criteria → :transparency-gap (route to disclosure)."}
+
+ ;; ── 韓国 KR ──────────────────────────────────────────────────────────────────
+ {:type :exam :id "kr-suneung" :name "대학수학능력시험 (수능 / CSAT / Suneung)"
+  :country :kr :body :synthetic-kice :kind :university-entrance :annual-candidates 500000
+  :selectivity 0.75 :single-shot 0.9 :stakes 0.9 :alt-pathways 0.35 :transparency 0.65 :equity 0.4
+  :subjects [:korean :math :english :korean-history :electives]
+  :note "A single nationwide day (flights grounded during the listening section) heavily gates university entry → :destake."}
+ {:type :exam :id "kr-naesin" :name "내신/학생부 (school-record as admission factor)"
+  :country :kr :body :synthetic-schools-kr :kind :university-entrance :annual-candidates 400000
+  :selectivity 0.6 :single-shot 0.2 :stakes 0.7 :alt-pathways 0.5 :transparency 0.35 :equity 0.45
+  :subjects [:gpa :activities :comprehensive-record]
+  :note "학생부종합 (comprehensive) admission weight with low legibility of how records convert to outcomes → :transparency-gap."}
+ {:type :exam :id "kr-susi" :name "수시모집 (rolling / record-based admission)"
+  :country :kr :body :synthetic-universities-kr :kind :university-entrance :annual-candidates 450000
+  :selectivity 0.6 :single-shot 0.3 :stakes 0.7 :alt-pathways 0.5 :transparency 0.45 :equity 0.3
+  :subjects [:school-record :essay :interview]
+  :note "Majority-of-seats rolling track but private-tutoring (사교육) concentration skews access → :equity-watch."}
+
+ ;; ── 日本 JP ──────────────────────────────────────────────────────────────────
+ {:type :exam :id "jp-kyotsu" :name "大学入学共通テスト (Common Test for University Admissions)"
+  :country :jp :body :synthetic-dnc :kind :university-entrance :annual-candidates 490000
+  :selectivity 0.5 :single-shot 0.6 :stakes 0.7 :alt-pathways 0.6 :transparency 0.75 :equity 0.6
+  :subjects [:japanese :math :foreign-language :science :social-studies]
+  :note "Two-stage system + diverse admission types (総合型選抜/学校推薦型) already provide alternatives → :monitor."}
+ {:type :exam :id "jp-nijishiken" :name "個別学力検査 (二次試験 / university second-stage)"
+  :country :jp :body :synthetic-universities-jp :kind :university-entrance :annual-candidates 400000
+  :selectivity 0.7 :single-shot 0.75 :stakes 0.65 :alt-pathways 0.3 :transparency 0.5 :equity 0.45
+  :subjects [:major-specific :essay]
+  :note "Per-university second stage with few cross-routes into selective faculties → :open-pathway."}
+ {:type :exam :id "jp-chugaku" :name "中学受験 (private/integrated secondary entrance)"
+  :country :jp :body :synthetic-schools-jp :kind :secondary-entrance :annual-candidates 60000
+  :selectivity 0.65 :single-shot 0.85 :stakes 0.5 :alt-pathways 0.5 :transparency 0.6 :equity 0.25
+  :subjects [:japanese :math :science :social-studies]
+  :note "塾 (cram-school) dependency makes access strongly income/region concentrated → :equity-watch."}
+ {:type :exam :id "jp-koukou" :name "高校受験 (public high-school entrance)"
+  :country :jp :body :synthetic-prefectures-jp :kind :secondary-entrance :annual-candidates 900000
+  :selectivity 0.45 :single-shot 0.7 :stakes 0.55 :alt-pathways 0.6 :transparency 0.65 :equity 0.55
+  :subjects [:japanese :math :english :science :social-studies]
+  :note "Public-school entry with 内申 + exam, comparatively distributed access → :monitor."}
+ {:type :exam :id "jp-daigakuin" :name "大学院入試 (graduate-school entrance)"
+  :country :jp :body :synthetic-universities-jp :kind :postgraduate-entrance :annual-candidates 100000
+  :selectivity 0.5 :single-shot 0.6 :stakes 0.5 :alt-pathways 0.6 :transparency 0.6 :equity 0.6
+  :subjects [:major-specific :research-plan :interview]
+  :note "Lab-by-lab entry with multiple intakes and routes → :monitor."}
+]

@@ -1,0 +1,59 @@
+;; kanmon 関門 — actor manifest (clj-native, kotoba-Datom-native)
+;; 入試 (college/secondary entrance-exam) OBSERVATORY / mirror actor for the
+;; CN / KR / JP exam systems. A KG-mirror in the inochi/tsumugi/busshi lineage:
+;; mirrors the PUBLIC STRUCTURE of high-stakes exams (制度/倍率/配点/出題区分) into
+;; the kotoba Datom log and runs edge-primary BARRIER-LOAD (selectivity × single-shot
+;; × stakes-breadth, on read) routed to OPENING (開放). ADR-2606291500 (R0).
+{:actor/id        "kanmon"
+ :actor/glyph     "関"
+ :actor/tier      :tier-b
+ :actor/domain    "kanmon.etzhayyim.com"
+ :actor/kind      :exam-gate-observatory
+ :actor/purpose   "入試 observatory. Mirrors the public structure of the CN/KR/JP high-stakes entrance-exam systems (高考/中考/考研 · 수능/내신 · 大学入学共通テスト/二次/中学・高校受験) into the kotoba Datom log, and runs edge-primary BARRIER-LOAD — how exclusively a single exam gates life-opportunity = selectivity × (single-shot intensity) × (stakes breadth), computed ON READ — routed to OPENING: surface alternative admission pathways (:open-pathway), demand disclosure of opaque criteria (:transparency-gap), reduce one-shot/one-day life-gating (:destake), or flag access disparity (:equity-watch). A 関門 (barrier gate) is mapped in order to be OPENED, never to be optimized-into. OBSERVATION ONLY — kanmon mirrors structure, it does NOT prep students, NOT score/rank/predict any individual, NOT a target-list. Composes with 指南 shinan (learning support): kanmon maps the gate, shinan hands the learner an open scaffold; kanmon's :open-pathway/:destake routes inform shinan's coverage priorities."
+ :actor/status    :r0
+ :actor/adr       "2606291500"
+ :actor/related   ["2605261045" "2606291501" "2606073000" "2605262130" "2605312345" "2606042330"]
+
+ :actor/charter-rider
+ {:rider/version "3.5"
+  :rider/applied true}
+
+ :actor/gates
+ [{:gate/id "G1" :gate/name "map-not-target-not-prep" :gate/rule "An OPENING map of where the gate is most exclusive — NEVER a target-list, NEVER an exam-prep / how-to-pass / gaming guide (that is structurally not kanmon; :kanmon/gaming-guide + :kanmon/target-list unrepresentable, test-enforced). Student-facing learning support is 指南 shinan, and even there scoring is unrepresentable."}
+  {:gate/id "G2" :gate/name "no-person-no-rank" :gate/rule "Aggregate exam-SYSTEM scale only; an individual examinee is structurally unrepresentable (no :kanmon.student/* / :kanmon.person/* attr). kanmon never scores, ranks, or predicts pass/fail for any individual (:kanmon/rank-student + :kanmon/pass-prediction unrepresentable)."}
+  {:gate/id "G3" :gate/name "non-adjudicating" :gate/rule "Mirrors DISCLOSED public structure; it does not judge an exam good/bad or a system right/wrong — it surfaces the structural barrier and routes to opening. Routes are openings, not verdicts on people."}
+  {:gate/id "G4" :gate/name "opening-only-routing" :gate/rule "Routes ∈ {:open-pathway :transparency-gap :destake :equity-watch :monitor} — all toward OPENING/redundancy/transparency. Capture/entrench/optimize-to-win the gate is unrepresentable (no such route)."}
+  {:gate/id "G5" :gate/name "edge-primary-on-read" :gate/rule "barrier-load is computed ON READ from disclosed factors; no stored score-of-a-system. Derived datoms flagged :kanmon/derived + :kanmon/sourcing."}
+  {:gate/id "G6" :gate/name "no-server-key-no-network" :gate/rule "Platform holds no key; the heartbeat performs no network I/O — appends to a local ledger only. Live primary-source ingest (official ministry/test-body figures) is an operator/Council step (G7)."}
+  {:gate/id "G7" :gate/name "sourcing-honest" :gate/rule "R0 seed is :representative (real exam systems, approximate/illustrative public figures) or :synthetic; precise live figures (倍率/受験者数) are an operator/Council ingest step. Every datom carries its :kanmon/sourcing."}]
+
+ :actor/non-goals
+ [{:n/id "N1" :n/rule "Not an exam-prep / 受験対策 actor — provides no study material, no practice questions, no pass-coaching (that domain is 指南 shinan, and even there no scoring)."}
+  {:n/id "N2" :n/rule "Never reproduces official past-exam questions; mirrors STRUCTURE (区分/配点/制度), not content."}
+  {:n/id "N3" :n/rule "Never ranks examinees, schools, or 偏差値 of individuals; barrier-load is a property of the GATE, not of any person or institution's prestige."}
+  {:n/id "N4" :n/rule "Never predicts an individual's pass/fail or recommends 'how to beat' an exam."}
+  {:n/id "N5" :n/rule "Not a do-nothing observatory — it routes the most exclusive gates to concrete OPENINGS (alternative pathways / disclosure / de-staking / equity)."}]
+
+ :actor/methods
+ [{:method/id "kanmon_edn" :method/file "methods/kanmon_edn.cljc" :method/role "seed loader + classify"}
+  {:method/id "analyze"    :method/file "methods/analyze.cljc"    :method/role "barrier-load → route → assess → render-datoms (EAVT) → coverage + report (+ bb CLI)"}
+  {:method/id "kotoba"     :method/file "methods/kotoba.cljc"     :method/role "持続永続化: content-addressed append-only OBSERVATION LEDGER (tx-cid/make-tx/append-tx/read-log/head-cid/verify-chain)"}
+  {:method/id "autorun"    :method/file "methods/autorun.cljc"    :method/role "持続永続化: deterministic, idempotent-by-content heartbeat — assess → append route datoms to the ledger (+ bb CLI)"}]
+
+ :actor/ledger
+ {:ledger/file "data/persisted/kanmon.observations.kotoba.edn"
+  :ledger/kind :append-only-content-addressed-commit-dag
+  :ledger/gitignored true
+  :ledger/note "Generated observation ledger of barrier-load route assessments; tamper-evident (verify-chain); no-server-key; a record of OPENING priorities over exam GATES, never a target-list or a per-student record."}
+
+ :actor/seed
+ {:seed/file "kotoba/seed.edn"
+  :seed/ontology "kotoba/ontology.kanmon.edn"
+  :seed/sourcing :representative
+  :seed/routes [:open-pathway :transparency-gap :destake :equity-watch :monitor]}
+
+ :actor/tests
+ {:runner "babashka"
+  :cmd "bb 20-actors/kanmon/run_tests.clj"
+  :suites ["methods/test_kanmon_edn.cljc" "methods/test_analyze.cljc"
+           "methods/test_kotoba.cljc" "methods/test_autorun.cljc"]}}

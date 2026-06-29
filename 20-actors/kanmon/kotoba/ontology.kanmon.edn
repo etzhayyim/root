@@ -1,0 +1,63 @@
+;; kanmon 関門 — ontology (kotoba EAVT schema, ADR-2606291500)
+;; 入試 OBSERVATORY / mirror actor for the CN/KR/JP high-stakes entrance exams.
+;; A KG-mirror in the inochi/tsumugi/busshi lineage, folded onto the kotoba Datom log.
+;;
+;; Edge-primary BARRIER-LOAD (how exclusively a single exam gates life-opportunity)
+;; computed ON READ:
+;;   barrier-load = selectivity · (0.5 + 0.5·single-shot) · (0.5 + 0.5·stakes)
+;;     selectivity   ∈ 0..1  competitiveness (few pass / high 倍率)
+;;     single-shot   ∈ 0..1  one-exam/one-day/no-retake intensity
+;;     stakes        ∈ 0..1  breadth of life-opportunity the gate controls
+;; routed to OPENING (開放) — a 関門 is mapped in order to be OPENED, never optimized-into.
+;;
+;; Route ∈ {:transparency-gap :destake :equity-watch :open-pathway :monitor}
+;;   :transparency-gap  — opaque scoring/criteria (transparency < 0.4) → route to DISCLOSURE
+;;   :destake           — extreme one-shot life-gating (single-shot ≥ 0.7 ∧ stakes ≥ 0.7)
+;;                        → route to reducing single-shot dependence (multiple attempts/holistic)
+;;   :equity-watch      — access disparity (equity < 0.4, concentration of who-can-pass by
+;;                        region/income) → route to EQUITY opening
+;;   :open-pathway      — high barrier-load with few alternatives (barrier-load ≥ 0.5 ∧
+;;                        alt-pathways < 0.4) → surface ALTERNATIVE admission pathways
+;;   :monitor           — already comparatively open → observe only
+;;
+;; Attribute namespaces:
+;;   :kanmon.exam/*  — disclosed exam-system facts (country, body, candidates, subjects…)
+;;   :kanmon.rem/*   — DERIVED factors + barrier-load + route + reason
+;;   :kanmon/derived — true on every derived datom
+;;   :kanmon/sourcing — ":authoritative" | ":representative" | ":synthetic"
+
+{:ontology/id "kanmon"
+ :ontology/version "0.1.0"
+ :ontology/adr ["2606291500" "2605261045" "2605262130" "2605312345" "2606073000"]
+
+ :node-kinds
+ [{:kind :exam
+   :doc "A high-stakes entrance-exam SYSTEM that gates access to education/opportunity — e.g. 高考 (gaokao), 수능 (CSAT/Suneung), 大学入学共通テスト. The gate, never an examinee."
+   :keys [:id :name :country :body :kind
+          :annual-candidates :selectivity :single-shot :stakes
+          :alt-pathways :transparency :equity :subjects :note]}]
+
+ :enums
+ {:country     #{:cn :kr :jp}
+  :exam-kind   #{:university-entrance :secondary-entrance :postgraduate-entrance}
+  :route       #{:transparency-gap :destake :equity-watch :open-pathway :monitor}}
+
+ ;; route thresholds (the gate is pure routing — no refuse; a mirror opens, it does not forbid)
+ :thresholds
+ {:transparency-min 0.4   ;; below → :transparency-gap
+  :single-shot-min  0.7   ;; with stakes-min → :destake
+  :stakes-min       0.7
+  :equity-min       0.4   ;; below → :equity-watch
+  :barrier-open     0.5   ;; at/above, with alt-pathways below alt-max → :open-pathway
+  :alt-max          0.4}
+
+ ;; negative space — structurally absent (enforced by tests). The charter heart of kanmon:
+ ;; it maps the gate to OPEN it, never to help one person jump it, never to rank anyone.
+ :unrepresentable
+ [":kanmon.student/*"       ;; G2 — no individual examinee; aggregate exam-SYSTEM scale only
+  ":kanmon.person/*"        ;; G2 — no person-level data of any kind
+  ":kanmon/rank-student"    ;; G2/N3 — never ranks/scores any individual
+  ":kanmon/pass-prediction" ;; G2/N4 — never predicts an individual's pass/fail
+  ":kanmon/gaming-guide"    ;; G1/N1 — never a 'how to beat the exam' guide (not exam-prep)
+  ":kanmon/target-list"     ;; G1 — an opening map, never a target-list
+  ":kanmon.exam/official-pastquestion"]} ;; N2 — mirrors STRUCTURE, never official past-question content
