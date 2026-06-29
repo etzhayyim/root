@@ -1,0 +1,32 @@
+{
+  "did": "did:web:etzhayyim.com:actor:musubi",
+  "handle": "musubi.etzhayyim.com",
+  "displayName": "結 — Covenant Ceremony",
+  "description": "Non-profit religious-corp covenant ceremony performance substrate. TIGHT PAIR of chigiri (chigiri attests on-chain; musubi performs ceremony). Marriage / naming / funeral / vocation vow / rededication / seasonal communal ceremony. NO clergy class (G3: Reformed 万人祭司; officiants are L5 vocation-flow community-witnessed-competent; officiantClass enum DELIBERATELY excludes clergy/ordained/priest/bishop). NO mandatory ritual attendance (G4: free conscience). NO commercial wedding/funeral industry ...",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-05-26T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "結",
+  "displayNameJa": "結 — Covenant Ceremony",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2605263400",
+      "2605263400",
+      "reserved"
+    ],
+    "primaryLexicon": "com.etzhayyim.musubi",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/musubi/did.json",
+    "source": "kotoba"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "did": "did:web:etzhayyim.com:actor:uchiwake",
+  "handle": "uchiwake.etzhayyim.com",
+  "displayName": "内訳 — World Product Bill-of-Materials / GTIN Knowledge Graph",
+  "description": "The product-level layer beneath kabuto 兜. Datafies the world's TRADE ITEMS keyed on the GS1 GTIN, decomposed to their bill of materials (PRODUCT → PART → raw MATERIAL) plus the PROCESS steps that make them, the LOGISTICS legs that move them, and the DESIGN/standard refs that specify them, into the kotoba Datom log. Brand-owners link into kabuto's :company/id space; ownership edges roll a brand-owning SUBSIDIARY up to its ULTIMATE parent (子会社, GLEIF Level-2 RR). Surfaces material / processing-...",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-08T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "内訳",
+  "displayNameJa": "内訳 — World Product Bill-of-Materials / GTIN Knowledge Graph",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2606081800"
+    ],
+    "primaryLexicon": "com.etzhayyim.uchiwake",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/uchiwake/did.json",
+    "source": "kotoba"
+  }
+}

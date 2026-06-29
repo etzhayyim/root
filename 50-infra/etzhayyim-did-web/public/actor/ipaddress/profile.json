@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:ipaddress",
+  "handle": "ipaddress.etzhayyim.com",
+  "displayName": "IP/ASN Intelligence",
+  "description": "IP address, ASN, WHOIS, GeoIP, reverse DNS, port scan intelligence. Role-based DID hierarchy (treaty/charter/standard/sovereign/contract/RIR/NIR/provider/ASN/prefix/IPv4/IPv6). 1st-source collection from RIR APIs, WHOIS, GeoIP databases. Governance hierarchy from ITU through ICANN/RIR/NIR to end users.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "IP/ASN Intelligence",
+  "displayNameJa": "IP/ASN Intelligence",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.ipaddress",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/ipaddress/did.json",
+    "source": "kotoba"
+  }
+}

@@ -5,7 +5,7 @@
   ],
   "id": "did:web:etzhayyim.com:actor:tate",
   "alsoKnownAs": [
-    "at://tate.etzhayyim.com"
+    "did:web:tate.etzhayyim.com"
   ],
   "verificationMethod": [],
   "service": [
@@ -37,16 +37,23 @@
   ],
   "_meta": {
     "adr": [
+      "2605212030",
+      "2605241800",
+      "2606013800",
+      "2606014500",
       "2606112301",
       "2606112400",
       "2606122000",
-      "2606122300",
-      "2606013800"
+      "2606122300"
     ],
-    "source": "actor-profile-seed.kotoba.edn",
-    "kind": "concierge",
+    "source": "kotoba",
+    "kind": "tier-b",
+    "status": "r2",
     "glyph": "盾",
-    "no_server_key": "verificationMethod is [] — did:web TLS is the trust root; no platform-held key (ADR-2605231525)",
-    "g1": "PUBLIC face only — anonymized aggregate coverage digest + crawlable static site; a member's own private documents are never published"
+    "wasmCid": null,
+    "execModel": "service",
+    "primaryLexicon": "com.etzhayyim.tate",
+    "primarySchema": "20-actors/tate/data/procedure-registry.edn",
+    "note": "verificationMethod empty — on-chain ERC725 mirror pending; did:web trust root = TLS (no server-minted key, ADR-2605231525)"
   }
 }

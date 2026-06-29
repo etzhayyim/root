@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:tsukuru",
+  "handle": "tsukuru.etzhayyim.com",
+  "displayName": "OEM D2C Manufacturing",
+  "description": "B2B factory-direct ordering platform. 460+ manufacturer DIDs across 30+ countries. Production order management (BTO/MTO/CTO), trade compliance, quality inspection, KAMI 3D manufacturing cell design, industrial software integration (CAD/CAE/CAM/PLM/MES/SCADA/QMS/WMS/TMS/ERP/CMMS), CNC/3D-printer output, robot-arm operation, material-handling flow, transport route planning, drone operations, and autonomous-driving mission planning. Unified batch-flush write-buffer path (Shannon eta 99.8%).",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "OEM D2C Manufacturing",
+  "displayNameJa": "OEM D2C Manufacturing",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.tsukuru",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/tsukuru/did.json",
+    "source": "kotoba"
+  }
+}

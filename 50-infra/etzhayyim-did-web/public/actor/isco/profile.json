@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:isco",
+  "handle": "isco.etzhayyim.com",
+  "displayName": "ISCO Workforce Coordinator",
+  "description": "ILO ISCO-08 full classification managed as 1 app x 619 Multi-DIDs. 4-level hierarchy (major/submajor/minor/unit). Workforce mobility, compensation, and skills gap analysis via dedicated WIT interfaces.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "ISCO Workforce Coordinator",
+  "displayNameJa": "ISCO Workforce Coordinator",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.isco",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/isco/did.json",
+    "source": "kotoba"
+  }
+}

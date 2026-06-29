@@ -1,0 +1,32 @@
+{
+  "did": "did:web:etzhayyim.com:actor:seigyo",
+  "handle": "seigyo.etzhayyim.com",
+  "displayName": "制御 — Industrial Control Layer",
+  "description": "Industrial control layer (ISA-95 L0–L2) substrate actor for all religious-corp manufacturing actors. DCS-equivalent assembled from open components — OpenPLC (IEC 61131-3, L1) + FUXA/Rapid SCADA (L2) + OPC UA open62541 (L2.5) — under one attestation regime. Commercial DCS/PLC/SCADA runtimes prohibited (generalizes ADR-2605265000 §1.9). Safety interlocks hardwired L1S only; no LLM, Murakumo inference, or kotoba cell ever in the safety path.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-11T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "制御",
+  "displayNameJa": "制御 — Industrial Control Layer",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2606111000",
+      "2606111000",
+      "2606111100"
+    ],
+    "primaryLexicon": "com.etzhayyim.seigyo",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/seigyo/did.json",
+    "source": "kotoba"
+  }
+}

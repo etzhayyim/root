@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:gtin",
+  "handle": "gtin.etzhayyim.com",
+  "displayName": "GTIN Global Product Registry",
+  "description": "Global canonical product registry for GTIN, JAN, UPC, and EAN identified trade items. Resolves path-based product DIDs, validates GS1-style identifiers, and serves as the upstream identity layer for comparison, commerce, and inventory actors.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "GTIN Global Product Registry",
+  "displayNameJa": "GTIN Global Product Registry",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.gtin",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/gtin/did.json",
+    "source": "kotoba"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:vessel",
+  "handle": "vessel.etzhayyim.com",
+  "displayName": "Vessel Registry & Maritime Intelligence",
+  "description": "Ship registry (IMO/MMSI), AIS position tracking, voyage management, port call tracking, owner-vessel-port-satellite chain intelligence. 16 shipping companies, 25 vessels (container/tanker/bulk/LNG), 15 flag state registries.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Vessel Registry & Maritime Intelligence",
+  "displayNameJa": "Vessel Registry & Maritime Intelligence",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.vessel",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/vessel/did.json",
+    "source": "kotoba"
+  }
+}

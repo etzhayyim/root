@@ -1,0 +1,32 @@
+{
+  "did": "did:web:etzhayyim.com:actor:chigiri",
+  "handle": "chigiri.etzhayyim.com",
+  "displayName": "契 — Covenant (legal procedure substrate)",
+  "description": "Non-profit religious-corp legal procedure substrate. Procedural template + on-chain attestation + routing substrate for the 任意団体 internal procedures, external state-system interfaces, and Charter §1.12 state-function routing-around. NOT a commercial law firm and NOT an unauthorized practice of law (UPL constitutionally prohibited per G14). 13 cells / 11 Lexicons under com.etzhayyim.chigiri.* / 17 immutable gates / 12 non-goals. Adds a free legal-aid lane (legal_aid_clinic cell, ADR-2605302200...",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-05-26T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "契",
+  "displayNameJa": "契 — Covenant (legal procedure substrate)",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2605262700",
+      "2605262700",
+      "reserved"
+    ],
+    "primaryLexicon": "com.etzhayyim.chigiri",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/chigiri/did.json",
+    "source": "kotoba"
+  }
+}

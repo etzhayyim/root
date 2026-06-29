@@ -1,8 +1,8 @@
 {
   "did": "did:web:etzhayyim.com:actor:tatara",
   "handle": "tatara.etzhayyim.com",
-  "displayName": "Tatara — World Manufacturing-Plant + Logistics Geographic Knowledge Graph",
-  "description": "World manufacturing-plant + logistics geographic knowledge graph — the facility-scale layer of the supply lineage. Places the world's producing FACILITIES on the planet (where they sit, at what aggregate scale: employment / floor area / production capacity) feeding which logistics corridor; :plant/operator joins kabuto org.corp.*. Surfaces per-sector country HHI + chokepoint export-dependence routed to redundancy / reshoring. A resilience map, NEVER a target-list (sibling of kabuto/uchiwake/watari/watatsuna). Disclosed aggregate facility figures only — no per-worker data (G4).",
+  "displayName": "tatara",
+  "description": "The geographic / facility-scale layer beneath the kabuto supply-chain KG (org→org edges) and uchiwake product-BOM KG: where the world's manufacturing actually SITS on the planet, at what scale, feeding which logistics corridors. Mirror-lineage sibling of kabuto/tsumugi/inochi — edge-primary geographic CONCENTRATION (per-sector country HHI + chokepoint export-dependence) routed to REDUNDANCY / reshoring options. A resilience map, NEVER a target-list. Carries the disclosed AGGREGATE facility fi...",
   "avatar": "",
   "banner": "",
   "followersCount": 0,
@@ -14,7 +14,6 @@
   "performerType": "system",
   "uiType": "appview",
   "glyph": "鑪",
-  "displayNameJa": "鑪 — 全世界製造拠点・物流ジオグラフィ知識グラフ",
   "_etzhayyim": {
     "kind": "tier-b",
     "tier": "B",
@@ -23,7 +22,7 @@
       "2606171800"
     ],
     "primaryLexicon": "com.etzhayyim.tatara",
-    "primarySchema": "00-contracts/schemas/manufacturing-plant-ontology.kotoba.edn",
+    "primarySchema": null,
     "didDocument": "https://etzhayyim.com/actor/tatara/did.json",
     "source": "kotoba"
   }

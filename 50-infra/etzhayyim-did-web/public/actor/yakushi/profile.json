@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:yakushi",
+  "handle": "yakushi.etzhayyim.com",
+  "displayName": "薬師 (yakushi)",
+  "description": "Religious-corp first-party pharmaceutical R&D actor — Wave 1 reference = OTC 抗アレルギー点眼薬 triplet (sodium cromoglicate, naphazoline HCl, chlorpheniramine maleate). Wave 1b extends API catalog to 12 化合物 across 3 dosage forms (sterile eye drop + oral tablet + topical cream/gel). Wave 1c adds 7 化合物 (omeprazole chiral + 4 laxatives + 2 cough-expectorant) + 1 chiral resolution cell. All cells gated import-time RuntimeError until Council Lv6+ ≥ 3 silen-pharma-review attestation per ADR-2605250500. Per...",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "薬師 (yakushi)",
+  "displayNameJa": "薬師 (yakushi)",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.pharma.rawMaterialAttestation",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/yakushi/did.json",
+    "source": "kotoba"
+  }
+}

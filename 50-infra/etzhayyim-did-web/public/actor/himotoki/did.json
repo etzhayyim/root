@@ -17,20 +17,22 @@
   ],
   "_meta": {
     "adr": [
+      "2605212030",
+      "2605241800",
+      "2606013800",
+      "2606014500",
       "2605302130",
       "2605262700",
-      "2606272355",
-      "2605231525",
-      "2606230001"
+      "2606272355"
     ],
     "source": "kotoba",
     "kind": "tier-b",
     "status": "r0",
     "glyph": "繙き",
     "wasmCid": null,
-    "execModel": "mesh-component",
+    "execModel": "service",
     "primaryLexicon": "com.etzhayyim.himotoki",
     "primarySchema": "00-contracts/lexicons/com/etzhayyim/himotoki/disclosureRequest.json",
-    "note": "verificationMethod empty — no server-minted key (ADR-2605231525). did:web trust root = TLS. The actor's own signing identity is self-custodied in its kotoba-mesh WASM runtime on murakumo placement; the #xrpc-libp2p service (peer multiaddr) is assigned at `bb murakumo deploy` time when wasmCid is set. Active disclosure-request filer (consent-bound DSAR APPI/GDPR/CCPA + FOIA) — own-data-only, never a third party's PII; self-publishes only ABOUT its own disclosure procedures + own-data results (G4 non-adjudicating mirror). NOT a law firm, NOT a people-search / private-investigator, NOT a re-disclosure / leak channel."
+    "note": "verificationMethod empty — on-chain ERC725 mirror pending; did:web trust root = TLS (no server-minted key, ADR-2605231525)"
   }
 }

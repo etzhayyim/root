@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:hanrei",
+  "handle": "hanrei.etzhayyim.com",
+  "displayName": "Global Case Law & Legislation Intelligence",
+  "description": "Case law, legislation, and judicial intelligence covering 83 jurisdictions (75 national + 8 international courts: ICJ/ICC/ECHR/CJEU/IACHR/ACHPR/ITLOS/WTO AB), 4 legal systems (civil/common/islamic/mixed). Japan deep coverage with 6 court DIDs + 2 source DIDs (kanpo/egov). 27 XRPC commands.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Global Case Law & Legislation Intelligence",
+  "displayNameJa": "Global Case Law & Legislation Intelligence",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.hanrei",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/hanrei/did.json",
+    "source": "kotoba"
+  }
+}

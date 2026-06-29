@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:marine-insurance",
+  "handle": "marine-insurance.etzhayyim.com",
+  "displayName": "Marine Insurance & P&I Intelligence",
+  "description": "Hull & Machinery, Protection & Indemnity (P&I), Cargo insurance, War Risk, General Average. Full marine insurance lifecycle from quotation to claims settlement.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Marine Insurance & P&I Intelligence",
+  "displayNameJa": "Marine Insurance & P&I Intelligence",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.marine-insurance",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/marine-insurance/did.json",
+    "source": "kotoba"
+  }
+}

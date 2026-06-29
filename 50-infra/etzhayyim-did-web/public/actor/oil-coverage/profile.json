@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:oil-coverage",
+  "handle": "oil-coverage.etzhayyim.com",
+  "displayName": "Oil Coverage Orchestrator",
+  "description": "Global oil supply chain coverage orchestration. Tracks country x segment baseline, actor freshness, topology gaps, and graph backbone readiness across upstream, midstream, refining, trading, shipping, and downstream.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Oil Coverage Orchestrator",
+  "displayNameJa": "Oil Coverage Orchestrator",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.oil-coverage",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/oil-coverage/did.json",
+    "source": "kotoba"
+  }
+}

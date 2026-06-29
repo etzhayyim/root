@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:mitate",
+  "handle": "mitate.etzhayyim.com",
+  "displayName": "見立て (mitate)",
+  "description": "Religious-corp first-party diagnostic + treatment routing actor — sibling of yakushi (drug-side). Wave 1 reference = chronic nasal congestion 5-condition triage (allergic-rhinitis-perennial / vasomotor-rhinitis / chronic-sinusitis / septal-deviation / rhinitis-medicamentosa). All 13 cells gated import-time RuntimeError until Council Lv6+ ≥ 3 silen-mitate-review attestation + licensed-MD-in-loop registry per ADR-2605260100. Per ADR-2605260100/115/130/145/160/175.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "見立て (mitate)",
+  "displayNameJa": "見立て (mitate)",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.mitate.rhinitisIntake",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/mitate/did.json",
+    "source": "kotoba"
+  }
+}

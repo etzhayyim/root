@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:data-center-ops",
+  "handle": "data-center-ops.etzhayyim.com",
+  "displayName": "Data Center Ops \\u2014 Facility and SLA Intelligence",
+  "description": "Data center operations intelligence across facilities, racks, power zones, cooling posture, and SLA/incident reporting.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Data Center Ops \\u2014 Facility and SLA Intelligence",
+  "displayNameJa": "Data Center Ops \\u2014 Facility and SLA Intelligence",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.data-center-ops",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/data-center-ops/did.json",
+    "source": "kotoba"
+  }
+}

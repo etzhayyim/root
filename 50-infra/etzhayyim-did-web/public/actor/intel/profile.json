@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:intel",
+  "handle": "intel.etzhayyim.com",
+  "displayName": "Intel — Multi-INT Fusion Intelligence",
+  "description": "Multi-INT fusion intelligence platform covering 30 INT disciplines (OSINT, SIGINT, HUMINT, GEOINT, MASINT, CYBINT, FININT, etc.). Murakumo LLM analysis, entity graph correlation, cross-source fusion, and priority alerting.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Intel",
+  "displayNameJa": "Intel — Multi-INT Fusion Intelligence",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.intel",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/intel/did.json",
+    "source": "kotoba"
+  }
+}

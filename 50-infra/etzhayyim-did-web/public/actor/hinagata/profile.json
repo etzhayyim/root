@@ -1,0 +1,29 @@
+{
+  "did": "did:web:etzhayyim.com:actor:hinagata",
+  "handle": "hinagata.etzhayyim.com",
+  "displayName": "hinagata",
+  "description": "Legal-document-template commons (法律文書雛形) — weaves fair, neutral, openly-licensed legal-document templates (contracts / agreements / covenants), decomposed into reusable clauses, into the kotoba Datom log, and binds every clause to the ACTUAL public statute it cites or is mandated by (:cites-statute / :mandated-by 縁). Surfaces integrated statutory groundedness over a template, routed to PUBLIC RELEASE (anyone may use it freely), and executes contracts electronically via the existing esign subs...",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-11T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "雛形",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2606111954"
+    ],
+    "primaryLexicon": "com.etzhayyim.hinagata.template",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/hinagata/did.json",
+    "source": "kotoba"
+  }
+}

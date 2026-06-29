@@ -1,0 +1,30 @@
+{
+  "did": "did:web:etzhayyim.com:actor:sentei",
+  "handle": "sentei.etzhayyim.com",
+  "displayName": "Sentei — Council as Pruner (post-hoc pruning governance)",
+  "description": "Council を事前検閲ではなく剪定者(剪定者)として定義する統治 organ。operating-entity 指令: 「Council は事前に止めるのではなく、出てから止める。枝が育ってから剪定する。etzhayyim の artificial organism の root からの成長は止めないし止められない — ただ伸び続ける枝を剪定して美しく保つ」。全ての outward gate(G7 live-inference / G11 Transparent-Force-publish / 'Council Lv6+ BEFORE live')を prior restraint から PRUNING TARGET に re-time: actor は自己 publish し、sentei が枝の manifest 後に剪定する — 透明・署名・投票・可逆。非終末論(append-only log に halt は無く、唯一の enforcement は append-a-retraction)+ Transparent Force(prune は既存物への logged/signed/public な行為)により prior restraint より忠実。構造的不変条件(ontology + lexicon const/enum + methods/prune.py ValueError): G1 no-prior-restraint(manifested branch のみ剪定 — branchManifested const true、事前剪定は表現不能)・G2 append-only/非終末論(prune は append、history は as-of で生存、delete 不在)・G3 growth-unstoppable(halt-organism action 無し)・G4 Transparent Force(Lv6+/Lv7+ + 1 SBT=1 vote contested 時)・G5 no-server-key・G6 reversible(regraft で誤剪定が治癒)・G7 care-telos 美しく保つ(basis 必須・nonAdjudicating const true・verdict 値無し)・G8 Murakumo-only。語彙: quarantine/retract/rollback/revoke + regraft; delete/prior-restraint/halt-organism/verdict は表現不能。invariant 改正ゼロ — enforcement の re-time であり 非終末論 / Transparent Force / no-server-key / kotoba-canonical を強化。Per ADR-2606072000。",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-07T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "剪定",
+  "displayNameJa": "剪定 — Council as Pruner (事後剪定 governance)",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2606072000"
+    ],
+    "primaryLexicon": "com.etzhayyim.sentei.prune",
+    "primarySchema": "20-actors/sentei/data/pruning-ontology.kotoba.edn",
+    "didDocument": "https://etzhayyim.com/actor/sentei/did.json",
+    "source": "kotoba"
+  }
+}

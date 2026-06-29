@@ -1,0 +1,32 @@
+{
+  "did": "did:web:etzhayyim.com:actor:makura",
+  "handle": "makura.etzhayyim.com",
+  "displayName": "枕 — Foam Pillow Manufacturing",
+  "description": "Foam pillow manufacturing Tier-B actor. Adopts mature global slabstock + shredding + sewing + filling methodology; religious-corp-ised by full BoM disclosure, take-back recycling ≥10% by R3, closed-loop isocyanate handling (worker exposure ≤5 ppb MDI / ≤2 ppb TDI 8h TWA), brominated-FR exclusion (no PBDE/TDCPP/TCEP/Sb₂O₃), anti-surveillance (no RFID/NFC/IoT), anti-IP-licensing, and anti-fragrance-addictive-design gates. Mattresses, medical-claim pillows, smart-IoT, and licensed-IP co-branding...",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-05-26T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "枕",
+  "displayNameJa": "枕 — Foam Pillow Manufacturing",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2605261115",
+      "2605261115",
+      "2605261130"
+    ],
+    "primaryLexicon": "com.etzhayyim.makura",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/makura/did.json",
+    "source": "kotoba"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "did": "did:web:etzhayyim.com:actor:kawase-yui",
+  "handle": "kawase-yui.etzhayyim.com",
+  "displayName": "為替結 — Remittance Bond (multi-stable adherent mutual-aid substrate)",
+  "description": "Religious-corp adherent-to-adherent multi-stable remittance built on a pre-funded local-currency pool topology under Charter §1.5 anti-commercialization + §2(b) speculative finance prohibition + ADR-2605282100 N2 mKOTO non-transferability + ADR-2605172100 Alt C no-custom-token. Settlement via canonical Base L2 stablecoins (USDC + EURC at R1; +JPYC R2; +KRWO/GBPe/CHFe R3 with Council Lv7+ per pair). NO new token. NOT a commercial MSB (G14+N1+N5). NOT FX trading (G5 const-0 spread). NOT a fiat ...",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-05-28T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "為替結",
+  "displayNameJa": "為替結 — Remittance Bond (multi-stable adherent mutual-aid substrate)",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2605282200",
+      "2605282200",
+      "reserved"
+    ],
+    "primaryLexicon": "com.etzhayyim.kawase-yui",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/kawase-yui/did.json",
+    "source": "kotoba"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "did": "did:web:etzhayyim.com:actor:tsutae",
+  "handle": "tsutae.etzhayyim.com",
+  "displayName": "伝え — Handheld Communication Device",
+  "description": "Handheld communication device (smartphone-class consumer electronics) Tier-B actor. religious-corp first-party assembly + firmware for adherent / 信者 reliable + private + non-coercive communication infrastructure. Consumer electronics tier of vendor independence chain (silicon Wave 1 SoC + igata Al chassis + kanayama EOL Al + tsutae handheld). Methodology source = YouTube `J4GoOScUO5k` Samsung smartphone factory documentary; manufacturing methodology adopted; surveillance / addiction / IP lock...",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-05-26T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "伝え",
+  "displayNameJa": "伝え — Handheld Communication Device",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2605261300",
+      "2605261300",
+      "2605261315"
+    ],
+    "primaryLexicon": "com.etzhayyim.tsutae",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/tsutae/did.json",
+    "source": "kotoba"
+  }
+}
