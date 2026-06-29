@@ -1,0 +1,23 @@
+;; com.etzhayyim.googleads.audience — lexicon (EDN form)
+;; A SELF-SOVEREIGN opt-in cohort (G3 — cohort-owner consent). The finest targeting granularity (G2 —
+;; there is no individual-member record). Identifying contact fields MUST be signal:v1: ciphertext.
+;; Hard-retracted on forgetAudience (G3 GDPR Art 17 — no soft-delete flag). talent-G1/G4 lineage.
+;; ADR-2606292130
+{:lexicon 1
+ :id "com.etzhayyim.googleads.audience"
+ :defs
+ {:main
+  {:type "record"
+   :key "tid"
+   :record
+   {:type "object"
+    :required ["cohortId" "isco" "country" "source" "consentDid"]
+    :properties
+    {:cohortId   {:type "string" :description "cohort key (isco × country); the finest target grain (G2)"}
+     :isco       {:type "string" :description "ISCO-08 cohort key (talent lineage)"}
+     :country    {:type "string" :description "ISO-3166 (cohort key)"}
+     :source     {:type "string" :description "self-optin|orcid|github-public|public-credential-registry ONLY (G3)"}
+     :consentDid {:type "string" :description "cohort-owner DID — self-sovereign opt-in (G3)"}
+     :count      {:type "integer" :description "published only when ≥ k (G2 k-anonymity)"}
+     :encContact {:type "array" :items {:type "string"} :description "signal:v1: ciphertext ONLY (G3) — outreach contact PII; plaintext refused"}
+     :registeredBy {:type "string" :description "MUST equal consentDid (G3); member-signed"}}}}}}
