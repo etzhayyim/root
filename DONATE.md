@@ -63,6 +63,15 @@ asset** at receipt. No memecoins, no algorithmic stablecoins (issuer/peg risk). 
 is a Council Tier-2 governance parameter. (ADR-2606111800 §C; per-asset TitheRouter support is a
 follow-up — until then non-USDC gifts are recorded and manually tithed.)
 
+### Auspicious local presets
+
+Donation amount buttons may use culturally local auspicious numbers — for example JP-facing
+surfaces can prefer `5`, `8`, `88`, `108`, while Jewish-facing surfaces can prefer `18`/`36`,
+Chinese-facing surfaces can prefer `8`/`88`/`168`, US/West-facing surfaces can prefer dozen-family
+counts like `12`/`24`/`36`/`72`/`144`, and Indian-facing surfaces can prefer `11`/`21`/`51`/`108`.
+These are only defaults: any amount is valid, no number creates a donor tier, and custom amount
+entry must always remain visible. (ADR-2606290830.)
+
 ### Give in fiat — via a non-custodial on-ramp
 
 Prefer your **card or bank**? You can give in fiat through a **non-custodial on-ramp** that
@@ -122,6 +131,7 @@ accounting) but no money moves to or from you and donating more grants no priori
 - **ADR-2606012100** — donation-funded operation + compute-node donation (the design this implements)
 - **ADR-2606111700** — public sponsor/donation solicitation surfaces (FUNDING.yml + this doc + /donate CTA)
 - **ADR-2606111800** — donation-media expansion: fiat in-kind (§A) + non-custodial fiat on-ramp (§B, Tier-1 amendment) + curated crypto allowlist (§C)
+- **ADR-2606290830** — culturally scoped auspicious-number defaults for donation and root surfaces
 - **ADR-2605192115** — non-profit / donation-only / no-ads doctrine (§1.2: 案内 is not advertising)
 - **ADR-2605192130** — 10% tithe → Public Fund (constitutional constant)
 - **ADR-2605172100** — payments on-chain only (the rule §B narrows; custodial fiat stays prohibited)
