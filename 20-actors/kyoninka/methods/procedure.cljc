@@ -6,7 +6,7 @@
   so the 手続き (procedure) can be evaluated and rendered on the web without the
   full langgraph-clj runtime. The runnable StateGraph actor (reg-LLM ⊣
   PermitGovernor, the robotaxi/itonami sibling) lives in the west repo
-  `orgs/etzhayyim/kyoninka-actor`; this namespace is the same domain logic in
+  `orgs/etzhayyim/com-etzhayyim-kyoninka`; this namespace is the same domain logic in
   the kotoba-native, observe-only form the etzhayyim platform consumes.
 
   Charter alignment: observe → recommend ONLY. kyoninka never *grants* a permit

@@ -58,7 +58,7 @@ reviewed edit, not a code change (G5).
 | `methods/procedure.cljc` | the jurisdiction rulebook + PermitGovernor legal invariants (bb-runnable) |
 | `methods/site_gen.cljc` | the 手続き web-viz generator (crawlable static HTML) |
 | `methods/test_procedure.cljc` | the permitting contract as executable tests |
-| (impl) `orgs/etzhayyim/kyoninka-actor` | the runnable langgraph-clj StateGraph actor (reg-LLM ⊣ PermitGovernor) |
+| (impl) `orgs/etzhayyim/com-etzhayyim-kyoninka` | the runnable langgraph-clj StateGraph actor (reg-LLM ⊣ PermitGovernor) |
 
 ## Hard prohibitions (structural, not policy)
 

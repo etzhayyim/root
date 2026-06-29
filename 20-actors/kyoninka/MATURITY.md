@@ -8,7 +8,7 @@
 | Domain logic | ✅ | `methods/procedure.cljc` — jurisdiction rulebook + PermitGovernor invariants (bb-runnable, dependency-free) |
 | Contract tests | ✅ | `methods/test_procedure.cljc` — 5 tests / 14 assertions green |
 | Web visualization | ✅ | `methods/site_gen.cljc` → `public/kyoninka/` (index + 4 deployment pages); deploy = operator step |
-| Runnable actor | ✅ | langgraph-clj StateGraph in `orgs/etzhayyim/kyoninka-actor` (10 contract tests green) |
+| Runnable actor | ✅ | langgraph-clj StateGraph in `orgs/etzhayyim/com-etzhayyim-kyoninka` (10 contract tests green) |
 | kotoba lexicons | 🟡 R1 | `com.etzhayyim.kyoninka.*` named in manifest; schema EDN to land |
 | Live ingest / signoff | ⏳ | Council Lv6+ + operator gate; reg-LLM real model (Murakumo) = R1 |
 | Self-key (did:key) | ⏳ R1 | present-only Ed25519, seed sealed (no-server-key, ADR-2605231525) |
