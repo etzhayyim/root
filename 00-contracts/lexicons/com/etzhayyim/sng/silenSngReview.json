@@ -1,0 +1,24 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.sng.silenSngReview",
+  "description": "Annual silen (サイレン = silent/oversight) Council Lv6+≥3 review of the SNG pathway: aggregate cap discipline, leak-rate trend, catalyst-lot provenance audit, commercial-CO₂ exclusion verification. Per ADR-2605265900 §1 condition 10 / ADR-2606290000.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "facilityDid": {"type": "string"},
+          "reviewYear": {"type": "integer", "description": "yyyy"},
+          "aggregateNm3PerDay": {"type": "integer", "description": "combined biomethane+SNG; ≤200 Nm³/day R3 cap"},
+          "leakRatePctTrend": {"type": "array", "items": {"type": "integer"}, "description": "quarterly OGI leak-rate %; ≤1% bound"},
+          "catalystLotAudit": {"type": "string", "description": "all lots ni-alumina-open; proprietary PROHIBITED"},
+          "commercialCo2ExclusionVerified": {"type": "boolean"},
+          "councilSignoffs": {"type": "array", "items": {"type": "string"}, "description": "≥3 Council Lv6+ member DIDs"},
+          "disposition": {"type": "string", "knownValues": ["renew", "conditional", "suspend"]}
+        },
+        "required": ["facilityDid", "reviewYear", "aggregateNm3PerDay", "commercialCo2ExclusionVerified", "councilSignoffs", "disposition"]
+      }
+    }
+  }
+}
