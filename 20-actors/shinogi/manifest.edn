@@ -1,0 +1,48 @@
+;; shinogi 鎬 — clj-native actor manifest (kotoba-Datom-native).
+;; ANALYSIS-ONLY exam-competition involution (内卷) + failure-cycle observer.
+;; The junkan 循環 system-dynamics method (ADR-2605290927) pointed at one domain:
+;; high-stakes examination systems (China 高考 first). ADR-2606291200 (R0).
+{:actor/id        "shinogi"
+ :actor/glyph     "鎬"
+ :actor/tier      :tier-b
+ :actor/domain    "shinogi.etzhayyim.com"
+ :actor/kind      :exam-competition-systems-dynamics-observer
+ :actor/purpose   "ANALYSIS-ONLY system-dynamics observer of high-stakes examination competition. From passive, public, AGGREGATE data it reads which feedback loops are spinning 悪循環/好循環 in the 内卷 (involution) of exam systems — China 高考 first, with Korea 수능 / Japan 受験 / India JEE-NEET / Finland / Germany comparative siblings — and which Meadows leverage candidates could ease the spiral. Each driver (policy/institution/practice/norm) records 誰が定めたか (:enactor), 経緯 (:origin), 関係者 (:stakeholders) as on-the-record public facts; shinogi reads off, as disclosed HYPOTHESES (G5), the involution arms-race and — foregrounded — the 受験失敗 system cycle (failure → stigma → wellbeing erosion → lost opportunity), which it routes toward RELIEF (kokoro 心 / shiori 栞), never amplifies. It may ONLY look, never touch (G4, no outward channel; enforced by absence). 名 鎬: 「鎬を削る」= grinding one another's blade-ridge in fierce competition for no relative gain — exactly involution. A relief/leverage MAP, never a student/school/country shame-ranking (G7+G8)."
+ :actor/status    :r0
+ :actor/adr       "2606291200"
+ :actor/related   ["2605290927" "2605192100" "2605262130" "2605312345" "2606082102" "2605263700" "2605261045"]
+
+ :actor/charter-rider {:rider/version "3.5" :rider/applied true}
+
+ :actor/substrate
+ {:ontology "20-actors/shinogi/kotoba/ontology.shinogi-exam.edn"
+  :seed     "20-actors/shinogi/kotoba/seed.exam-involution.edn"
+  :dataset  "80-data/shinogi-exam/"
+  :methods  ["shinogi_edn" "analyze" "kotoba" "autorun"]}
+
+ :actor/gates
+ [{:gate/id "G4" :gate/name "analysis-only-no-actuation" :gate/rule "No outward channel — output is append-only findings + a local ledger; no post/mention/email/tx. Enforced by ABSENCE of any dispatch path; :shinogi/actuate + :shinogi/dispatch unrepresentable (test-enforced)"}
+  {:gate/id "G5" :gate/name "no-causal-overclaim" :gate/rule "Every loop/regime is a HYPOTHESIS (:shinogi/hypothesis :true); correlation/structural-sign only, never proven causation; :shinogi.exam.loop/proven-cause unrepresentable"}
+  {:gate/id "G6" :gate/name "aggregate-only-no-individual" :gate/rule "Drivers + institutional/public enactors only; NO private-individual modeling, NO per-student exam score/record, NO PII; :shinogi.exam.driver/person + :shinogi.exam.student/score unrepresentable"}
+  {:gate/id "G7" :gate/name "wellbecoming-positive-non-eschatological" :gate/rule "The 受験失敗 failure cycle is stated SOBERLY and routed toward RELIEF (kokoro/shiori), never despair-amplified, never doom framing (§1.13 + §1.15)"}
+  {:gate/id "G8" :gate/name "relief-map-not-shame-rank" :gate/rule "A relief/leverage MAP — never a student shame-list, school shame-ranking, or country ranking-to-shame; :shinogi.exam.student/ranking unrepresentable"}
+  {:gate/id "G9" :gate/name "append-only-immutable" :gate/rule "Findings are append-only content-addressed datoms on a tamper-evident commit-DAG; nothing retracted"}
+  {:gate/id "G11" :gate/name "candidates-not-directives" :gate/rule "Meadows leverage points are CANDIDATES with uncertainty (:prescription? false); no directive issued; :shinogi/prescription unrepresentable"}
+  {:gate/id "G13" :gate/name "council-internal-default" :gate/rule "Default audience = Council/internal; surfacing beyond is performed by ossekai/kataribe on shinogi's behalf, never by shinogi (preserves G4)"}]
+
+ :actor/non-goals
+ [{:n/id "N1" :n/rule "Never intervenes/actuates (not ossekai — no nudge/post/mention/email/tx)"}
+  {:n/id "N2" :n/rule "Not a test-prep / coaching / score-optimization service — it never helps anyone WIN the involution, only maps it"}
+  {:n/id "N3" :n/rule "Not a forecaster / prediction-market (describes the present regime; no point-forecasts-as-fact)"}
+  {:n/id "N4" :n/rule "Not a policy-prescriber / lobby (candidates with uncertainty only)"}
+  {:n/id "N5" :n/rule "Not a student profiler / per-person record — aggregate + institutional only (G6)"}
+  {:n/id "N6" :n/rule "Not a clinical / crisis service — the failure cycle is ROUTED to kokoro/shiori, shinogi does not counsel"}]
+
+ :actor/composes-with
+ {:junkan "the parent system-dynamics method (stocks/loops/Meadows); shinogi is its exam-domain specialization"
+  :shiori "Wellbecoming detractor + relief-gap; shinogi's failure-cycle relief gap feeds shiori"
+  :kokoro "mental-health support — the relief destination for the 受験失敗 cycle (G7)"
+  :manabi "open-curriculum education — the alternative-pathway relief lens"
+  :hakoniwa "forward-simulation of synthetic student cohorts navigating the mapped loops"
+  :tsugite "peoples-continuity (demographic) lens on the family-capture stock"
+  :ossekai "may publish a shinogi finding ON shinogi's behalf (G13), never shinogi"}}

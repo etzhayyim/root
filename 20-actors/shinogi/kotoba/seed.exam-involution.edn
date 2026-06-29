@@ -1,0 +1,154 @@
+;; shinogi 鎬 — exam-competition INVOLUTION driver seed.
+;;
+;; Concrete policies / institutions / practices / norms that INTENSIFY or RELIEVE
+;; the high-stakes examination involution (内卷) and the FAILURE cycle. Each row
+;; records the driver, WHO established/sustains it (:enactor — institutional /
+;; public bodies, NOT private individuals, G6), the CIRCUMSTANCES (:origin / 経緯),
+;; and the related parties (:stakeholders / 関係者).
+;;
+;; :polarity/:magnitude/:confidence are shinogi's DISCLOSED HYPOTHESES (G5), not
+;; proven causation; the policy/year/enactor/origin are on-the-record public facts
+;; (:sourcing :representative). This is a relief/leverage MAP — NEVER a student
+;; shame-list, school ranking, or country ranking-to-shame (G7 + G8 sober framing).
+;; The failure cycle is routed toward RELIEF (kokoro/shiori), never amplified.
+;;
+;; magnitude ∈ 0..1 (estimated contribution to the stock) · confidence ∈ 0..1
+;; meadows ∈ 1..12 (deeper = lower number) · China-primary; the set is comparative
+;; (KR/JP/IN/FI/DE siblings) and grows each /loop. polarity :intensify worsens the
+;; spiral, :relieve eases it, :ambiguous is contested.
+[
+ ;; ═════════════════════════════════════════════════════════════════════════════
+ ;; CHINA 高考 — the primary subject
+ ;; ═════════════════════════════════════════════════════════════════════════════
+ {:type :driver :id "cn-gaokao" :name "普通高等学校招生全国统一考试 (Gaokao)" :jurisdiction "CN" :kind :institution :year 1952
+  :enactor "Ministry of Education of the PRC (instituted 1952; suspended 1966–1976 in the Cultural Revolution; restored 1977 under Deng Xiaoping)"
+  :origin "A single, once-a-year, nationally-unified university entrance examination. Restored in 1977 as a meritocratic access channel; in its current single-shot high-stakes form it concentrates a cohort's life chances into a few days, funneling ~13M annual candidates toward a fixed elite-seat pool."
+  :stakeholders ["Ministry of Education" "provincial exam authorities" "~13M annual candidates" "families" "universities"]
+  :stock :positional-scarcity :polarity :intensify :magnitude 0.8 :reversibility :entrenched :meadows 5
+  :basis "教育部 高校招生统一考试制度 (1952/1977–)" :sourcing :representative :confidence 0.7}
+
+ {:type :driver :id "cn-985-211-dfc" :name "985 / 211 / 双一流 university tiering" :jurisdiction "CN" :kind :institution :year 1995
+  :enactor "State Council / Ministry of Education (Project 211 1995; Project 985 1998; Double First-Class 2017)"
+  :origin "State programmes concentrating funding + prestige into a small set of universities. The sharp tiering turns admission into a steep prestige cliff, so the marginal value of one more point near the cutoff is enormous — sharpening the zero-sum scramble."
+  :stakeholders ["State Council" "Ministry of Education" "tier-1 universities" "employers screening by tier" "candidates"]
+  :stock :credential-signaling :polarity :intensify :magnitude 0.7 :reversibility :institutional :meadows 5
+  :basis "211工程 (1995) / 985工程 (1998) / 双一流 (2017)" :sourcing :representative :confidence 0.6}
+
+ {:type :driver :id "cn-hukou-quota" :name "户籍-linked provincial admission quotas" :jurisdiction "CN" :kind :policy :year 1977
+  :enactor "Ministry of Education + provincial governments (quota system tied to the 户籍 household-registration regime)"
+  :origin "University places are allocated by provincial quota and scored against one's registered province, so the effective cutoff varies sharply by hukou. The same score yields very different chances by province — a structural barrier that locks families into place-bound competition."
+  :stakeholders ["provincial education bureaus" "户籍 holders" "migrant families" "universities"]
+  :stock :positional-scarcity :polarity :intensify :magnitude 0.6 :reversibility :institutional :meadows 5
+  :basis "分省定额录取 / 户籍制度 (1958–; applied to 高考 admission)" :sourcing :representative :confidence 0.55}
+
+ {:type :driver :id "cn-shuangjian-2021" :name "双减 (Double Reduction) policy" :jurisdiction "CN" :kind :policy :year 2021
+  :enactor "General Office of the CPC Central Committee + State Council (2021 双减 Opinion)"
+  :origin "Banned for-profit academic tutoring for compulsory-education grades, capped homework, and limited weekend/holiday cramming — an explicit state attempt to deflate the shadow-education arms race and ease household burden. Effect is contested: some tutoring moved underground/one-to-one, so the relief is partial."
+  :stakeholders ["CPC Central Committee" "State Council" "tutoring firms (新东方/好未来)" "families" "students"]
+  :stock :family-capture :polarity :relieve :magnitude 0.5 :reversibility :policy :meadows 5
+  :basis "关于进一步减轻义务教育阶段学生作业负担和校外培训负担的意见 (2021)" :sourcing :representative :confidence 0.5
+  :note "Contested effect — drove some tutoring underground; relief is partial, not complete."}
+
+ {:type :driver :id "cn-fudu-repeat" :name "复读 (repeat-year retake) culture" :jurisdiction "CN" :kind :practice :year 1977
+  :enactor "Sustained by 复读 schools + families (no single enactor; an emergent response to the single-shot exam)"
+  :origin "Because the gaokao is once-a-year and decisive, large numbers of candidates repeat the final year to retake it, adding a year of intensive cramming. The retake option both relieves a single failure AND inflates the effective effort everyone must match."
+  :stakeholders ["复读 schools" "repeat candidates (往届生)" "families" "first-time candidates competing against them"]
+  :stock :effort-inflation :polarity :intensify :magnitude 0.55 :reversibility :cultural :meadows 6
+  :basis "复读 / 往届生 高考 participation (1977–)" :sourcing :representative :confidence 0.5}
+
+ {:type :driver :id "cn-hengshui-model" :name "衡水模式 (exam-factory high schools)" :jurisdiction "CN" :kind :practice :year 2000
+  :enactor "Exam-factory high schools (衡水中学 archetype) emulated nationwide; tolerated by local education bureaus for results"
+  :origin "Highly regimented, militarized boarding schools optimizing every waking minute for gaokao score. The model's measurable success pressures other schools to emulate it, ratcheting up baseline study intensity and eroding sleep/rest."
+  :stakeholders ["exam-factory schools" "local education bureaus" "students under regimented schedules" "parents seeking results"]
+  :stock :wellbeing-erosion :polarity :intensify :magnitude 0.6 :reversibility :cultural :meadows 4
+  :basis "衡水中学 model + nationwide emulation (c.2000–)" :sourcing :representative :confidence 0.5}
+
+ {:type :driver :id "cn-neijuan-norm" :name "内卷 (involution) social norm" :jurisdiction "CN" :kind :norm :year 2018
+  :enactor "Emergent cultural norm (no enactor); names the phenomenon — entered mass usage c.2018–2020"
+  :origin "The normalization of zero-sum over-competition where everyone must invest ever more just to hold position. As a shared expectation it makes non-participation feel irrational, sustaining the arms race at the level of mindset (a deep Meadows leverage point)."
+  :stakeholders ["students" "parents" "employers" "wider society"]
+  :stock :effort-inflation :polarity :intensify :magnitude 0.5 :reversibility :cultural :meadows 2
+  :basis "内卷 (involution) as mass-cultural concept (c.2018–)" :sourcing :representative :confidence 0.5}
+
+ {:type :driver :id "cn-tangping-counter" :name "躺平 (lying flat) counter-norm" :jurisdiction "CN" :kind :norm :year 2021
+  :enactor "Emergent youth counter-norm (no enactor); spread online 2021"
+  :origin "A refusal/withdrawal stance — declining to run the arms race — that functions as a pressure-release valve on individual wellbeing and effort, while also signaling distress. Ambiguous: it eases the treadmill for those who opt out but is itself a symptom of the spiral."
+  :stakeholders ["youth" "online communities" "employers" "state media (critical of it)"]
+  :stock :wellbeing-erosion :polarity :relieve :magnitude 0.25 :reversibility :cultural :meadows 2
+  :basis "躺平 (lying flat) movement (2021–)" :sourcing :representative :confidence 0.4
+  :note "Ambiguous — a relief valve AND a distress signal; modeled as low-magnitude relief."}
+
+ {:type :driver :id "cn-puzhi-fenliu" :name "普职分流 (academic / vocational streaming)" :jurisdiction "CN" :kind :policy :year 1985
+  :enactor "Ministry of Education (vocational-streaming targets; ~50% diversion at upper-secondary, reaffirmed in the 2022 Vocational Education Law)"
+  :origin "A large share of students are diverted after the 中考 (junior-high exam) into vocational rather than academic high school. In principle an alternative pathway, but vocational tracks carry stigma and weaker university access, so the 中考 becomes an early, high-stakes sort that intensifies pressure and failure penalty."
+  :stakeholders ["Ministry of Education" "中考 candidates" "vocational high schools" "families fearing the vocational track"]
+  :stock :failure-penalty :polarity :intensify :magnitude 0.5 :reversibility :institutional :meadows 5
+  :basis "普职分流 / 中考 streaming; 职业教育法 (1996 rev. 2022)" :sourcing :representative :confidence 0.5
+  :note "Could be a relieving alternative pathway if de-stigmatized (cf. de-dual-vocational)."}
+
+ {:type :driver :id "cn-one-child-legacy" :name "一人っ子政策 legacy (concentrated investment)" :jurisdiction "CN" :kind :policy :year 1979
+  :enactor "State Council one-child policy (1979–2015); demographic legacy persists post-repeal"
+  :origin "Decades of single-child households concentrated family hope, savings, and expectation onto one child (the 4-2-1 grandparents-parents-child pyramid). That concentration raises the perceived stakes of the exam and the household resources poured into it."
+  :stakeholders ["households (4-2-1 structure)" "the single child" "grandparents/parents" "tutoring market"]
+  :stock :family-capture :polarity :intensify :magnitude 0.45 :reversibility :entrenched :meadows 3
+  :basis "计划生育政策 (one-child, 1979–2015) demographic legacy" :sourcing :representative :confidence 0.45}
+
+ {:type :driver :id "cn-kaogong-kaoyan" :name "考研 / 考公 (post-grad exam escalation)" :jurisdiction "CN" :kind :practice :year 2000
+  :enactor "Sustained by graduate-admission + civil-service recruitment systems (Ministry of Education 考研; civil-service 考录 administered by central/provincial HR bureaus)"
+  :origin "As bachelor's degrees inflate, competition migrates downstream into the graduate-school exam (考研) and the civil-service exam (考公), extending the high-stakes funnel years past the gaokao. Record applicant counts signal the spiral re-forming at each new gate."
+  :stakeholders ["graduate-school applicants" "civil-service candidates" "Ministry of Education" "HR/personnel bureaus" "employers"]
+  :stock :credential-signaling :polarity :intensify :magnitude 0.55 :reversibility :institutional :meadows 5
+  :basis "全国硕士研究生招生考试 / 国家公务员考试 record applicant growth (2000s–)" :sourcing :representative :confidence 0.5}
+
+ {:type :driver :id "cn-mental-health-2023" :name "全面加强和改进学生心理健康工作 (student mental-health plan)" :jurisdiction "CN" :kind :policy :year 2023
+  :enactor "Ministry of Education + 17 departments (2023 student mental-health action plan)"
+  :origin "A multi-agency plan to strengthen psychological-health services in schools, screening, and counselling capacity — an explicit institutional attempt to cushion the wellbeing erosion the exam pressure produces."
+  :stakeholders ["Ministry of Education" "schools" "school counsellors" "students" "parents"]
+  :stock :wellbeing-erosion :polarity :relieve :magnitude 0.35 :reversibility :policy :meadows 6
+  :basis "全面加强和改进新时代学生心理健康工作专项行动计划 (2023–2025)" :sourcing :representative :confidence 0.45}
+
+ ;; ═════════════════════════════════════════════════════════════════════════════
+ ;; COMPARATIVE SIBLINGS — the involution is not China-only (coverage + contrast)
+ ;; ═════════════════════════════════════════════════════════════════════════════
+ {:type :driver :id "kr-suneung-hagwon" :name "수능 (CSAT) + 학원 hagwon shadow education" :jurisdiction "KR" :kind :institution :year 1994
+  :enactor "Korea Institute for Curriculum and Evaluation (수능 from 1994); private 학원 industry"
+  :origin "A single national university-entrance test paired with a vast private cram-school (학원) industry. The combination of one decisive exam and heavy shadow-education spend is a textbook involution — high household cost, escalating hours, intense status anxiety."
+  :stakeholders ["KICE" "학원 industry" "candidates" "families bearing 사교육비 spend"]
+  :stock :effort-inflation :polarity :intensify :magnitude 0.7 :reversibility :entrenched :meadows 5
+  :basis "대학수학능력시험 (수능, 1994–) + 사교육 spend" :sourcing :representative :confidence 0.55}
+
+ {:type :driver :id "kr-hagwon-curfew" :name "학원 10pm curfew" :jurisdiction "KR" :kind :policy :year 2009
+  :enactor "Seoul Metropolitan Office of Education + provincial ordinances (10pm 학원 operating-hour cap)"
+  :origin "Local ordinances barring cram schools from operating past 22:00, an explicit attempt to claw back students' sleep and curb the shadow-education arms race. Partial relief — enforcement and at-home/online cramming limit its reach."
+  :stakeholders ["metropolitan/provincial education offices" "학원 operators" "students' sleep" "parents"]
+  :stock :wellbeing-erosion :polarity :relieve :magnitude 0.3 :reversibility :policy :meadows 5
+  :basis "학원 교습시간 제한 ordinances (Seoul 2009–)" :sourcing :representative :confidence 0.45}
+
+ {:type :driver :id "jp-juken-ronin" :name "受験 / 浪人 (entrance exams + repeat-year)" :jurisdiction "JP" :kind :institution :year 1979
+  :enactor "MEXT + National Center for University Entrance Examinations (共通一次 1979 → センター試験 → 共通テスト 2021); 予備校 industry"
+  :origin "A multi-stage entrance system (national common test + per-university exams) with a long-standing 浪人 repeat-year culture and 予備校 cram schools. Sustains intense adolescent study load and a recognized failure-and-retry track (浪人)."
+  :stakeholders ["MEXT" "DNC/universities" "予備校 industry" "受験生" "浪人生" "families"]
+  :stock :effort-inflation :polarity :intensify :magnitude 0.55 :reversibility :institutional :meadows 5
+  :basis "共通一次 (1979) → センター試験 → 大学入学共通テスト (2021); 浪人 culture" :sourcing :representative :confidence 0.5}
+
+ {:type :driver :id "in-jee-neet-kota" :name "JEE / NEET + Kota coaching factories" :jurisdiction "IN" :kind :institution :year 2010
+  :enactor "National Testing Agency (NEET/JEE-Main); IITs (JEE-Advanced); private coaching hubs (Kota archetype)"
+  :origin "Nationwide engineering (JEE) and medical (NEET) entrance exams feed a few elite institutes, sustaining enormous coaching hubs (Kota) where students board for years of single-goal cramming. Extreme positional scarcity + documented wellbeing harm."
+  :stakeholders ["National Testing Agency" "IITs / medical colleges" "Kota coaching industry" "aspirants" "families"]
+  :stock :positional-scarcity :polarity :intensify :magnitude 0.7 :reversibility :institutional :meadows 5
+  :basis "JEE / NEET national entrance exams; Kota coaching ecosystem (2010s–)" :sourcing :representative :confidence 0.5}
+
+ {:type :driver :id "fi-no-highstakes" :name "Finland — no high-stakes ranking exams (comprehensive school)" :jurisdiction "FI" :kind :institution :year 1970
+  :enactor "Finnish National Agency for Education (peruskoulu comprehensive-school reform, 1970s–)"
+  :origin "A comprehensive-school system with no high-stakes ranking exams before the upper-secondary matriculation, no school league tables, and broad equity of provision. A structural counter-example: the absence of a single decisive sort keeps positional scarcity low — relief at the level of system goals."
+  :stakeholders ["Finnish National Agency for Education" "comprehensive schools" "students" "teachers (high autonomy)"]
+  :stock :positional-scarcity :polarity :relieve :magnitude 0.6 :reversibility :institutional :meadows 3
+  :basis "peruskoulu comprehensive-school model (1970s–); no national ranking exams" :sourcing :representative :confidence 0.5}
+
+ {:type :driver :id "de-dual-vocational" :name "Germany — dual vocational system (Ausbildung)" :jurisdiction "DE" :kind :institution :year 1969
+  :enactor "Federal Ministry of Education + chambers of commerce/industry (Vocational Training Act, Berufsbildungsgesetz 1969)"
+  :origin "A strong, socially respected apprenticeship track combining paid on-the-job training with vocational school, giving a non-academic pathway to skilled, well-paid careers. A de-stigmatized alternative pathway lowers the all-or-nothing stakes of the academic exam route — relief on scarcity and failure penalty."
+  :stakeholders ["Federal Ministry of Education" "chambers (IHK/HWK)" "employers" "apprentices" "vocational schools"]
+  :stock :failure-penalty :polarity :relieve :magnitude 0.5 :reversibility :institutional :meadows 4
+  :basis "Berufsbildungsgesetz (BBiG, 1969); dual Ausbildung system" :sourcing :representative :confidence 0.5}
+]

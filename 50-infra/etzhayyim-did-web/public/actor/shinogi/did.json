@@ -1,0 +1,34 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/suites/jws-2020/v1"
+  ],
+  "id": "did:web:etzhayyim.com:actor:shinogi",
+  "alsoKnownAs": [
+    "did:web:shinogi.etzhayyim.com"
+  ],
+  "verificationMethod": [],
+  "service": [
+    {
+      "id": "did:web:etzhayyim.com:actor:shinogi#atproto_pds",
+      "type": "AtprotoPersonalDataServer",
+      "serviceEndpoint": "https://pds.etzhayyim.com"
+    }
+  ],
+  "_meta": {
+    "adr": [
+      "2606291200",
+      "2605290927",
+      "2605231525"
+    ],
+    "source": "kotoba",
+    "kind": "tier-b",
+    "status": "r0",
+    "glyph": "鎬",
+    "wasmCid": null,
+    "execModel": "mesh-component",
+    "primaryLexicon": "com.etzhayyim.shinogi",
+    "primarySchema": "20-actors/shinogi/kotoba/ontology.shinogi-exam.edn",
+    "note": "verificationMethod empty — no server-minted key (ADR-2605231525). did:web trust root = TLS. The actor's own signing identity is self-custodied in its kotoba-mesh WASM runtime on murakumo placement; the #xrpc-libp2p service (peer multiaddr) is assigned at `bb murakumo deploy` time when wasmCid is set. ANALYSIS-ONLY system-dynamics observer of high-stakes exam-competition involution (内卷) + the 受験失敗 failure cycle (gaokao-primary). Publishes DISCLOSED HYPOTHESES (G5), never proven causation; routes the failure cycle to RELIEF (kokoro/shiori), never amplifies (§1.13/§1.15). A relief/leverage MAP — NOT a student/school/country shame-ranking, NOT a test-prep service, NOT a forecaster, NOT a prescriber, NOT surveillance."
+  }
+}
