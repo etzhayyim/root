@@ -64,10 +64,20 @@ libp2p `/x/etzhayyim/xrpc/1.0` is the remaining transport wiring.
 ## Tests
 
 ```bash
+npm run test:cljs                          # bb: did-web router / CLJC ownership (incl. /organism)
 npm test                                   # did-web: car + erc725 (node:test)
 node 50-infra/e7m-wasm-runner/ ; npm test  # runner
 (cd 20-actors/ameno && npm test)           # ameno: loader + panel
 ```
+
+The CLJC-owned public surfaces currently include `/`, `/organism`,
+`/system-dynamics`, and `/actor/<handle>/system-dynamics`, all rendered without
+`sh` wrappers in the bb test path.
+
+`/organism` is rendered by cljs/Hiccup in `cljs/src/did_web/core.cljs`. The
+standalone `public/organism/index.html` entrypoint has been retired; keep the
+JSON snapshots under `public/organism/*.json` current instead of editing a
+separate HTML file.
 
 ## kotoba browser-publish (member-signed feed)
 

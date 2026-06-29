@@ -19,6 +19,8 @@
 ;; Build:  npx shadow-cljs release worker   (or `npm run build:cljs`)
 ;; Watch:  npx shadow-cljs watch   worker
 {:source-paths ["src"]
+ :dependencies [[hiccups/hiccups "0.3.0"]
+                [com.thheller/shadow-css "0.6.4"]]
 
  :builds
  {:worker

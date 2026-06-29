@@ -73,11 +73,9 @@ import { handle as cljsHandle } from "../cljs-out/worker_core.js";
  *    + a wildcard CF route are provisioned. Both forms MUST resolve to
  *    the same actor (bidirectional pointer in the returned document).
  *
- * 3) Apex landing & all other paths — reverse-proxied to UPSTREAM_HOST
- *    (default `yoro.etzhayyim.com`). This unblocks `https://etzhayyim.com/`
- *    while a dedicated etzhayyim landing page is being authored. yoro
- *    is a SvelteKit app served from Cloudflare; assets use relative URLs
- *    so the proxy is transparent.
+ * 3) Apex landing — local public root / observation surface for the
+ *    etzhayyim artificial organism. All other non-local paths are still
+ *    reverse-proxied to UPSTREAM_HOST (default `yoro.etzhayyim.com`).
  *
  * Route binding (wrangler.toml):
  *   pattern = "etzhayyim.com/*"
@@ -88,12 +86,16 @@ import { handle as cljsHandle } from "../cljs-out/worker_core.js";
  *   - /actor/<handle>/did.json             — per-actor DID Document
  *   - /actors                              — actor registry index (HTML, human-facing)
  *   - /.well-known/actors.json             — actor registry (machine-readable)
+ *   - /                                    — public root / organism status
  *   - /donate                              — donation declaration (HTML, ADR-2606012100)
  *   - /.well-known/donation.json           — donation policy (machine-readable)
  *   - future: /.well-known/atproto-did, /.well-known/security.txt, etc.
  */
 
 const UPSTREAM_HOST = "yoro.etzhayyim.com";
+const KOTOBASE_BLOCK_COUNT = 29;
+const KOTOBASE_BLOCK_BYTES = 2_349_120;
+const KOTOBASE_BLOCK_HUMAN = "2.2 MiB";
 
 // ─── Donation policy (ADR-2606012100) ──────────────────────────────────────
 //
@@ -308,6 +310,247 @@ Design: ADR-2606012100 + ADR-2606111700 · non-profit / donation-only / ad-free 
 </html>
 `;
 
+function buildHomeHtml(): string {
+  const namedCount = Object.keys(INFRA_ACTORS).filter((h) => INFRA_ACTORS[h].glyph).length;
+  const serviceCount = Object.keys(INFRA_ACTORS).length - namedCount;
+  const totalActors = namedCount + serviceCount + ENTITY_TOTAL_COUNT + UNISPSC_TOTAL_COUNT;
+  const axes = [
+    ["Autopoiesis", "self-organization", "9"],
+    ["Metabolism", "donation + compute cycle", "5"],
+    ["Homeostasis", "boundary harmony", "9"],
+    ["Active Inference", "model to observation", "9"],
+    ["Reproduction", "fork children", "6"],
+    ["Symbiosis", "multi-substrate roots", "9"],
+    ["Diversity", "myriad variation", "9"],
+    ["Wellbecoming", "multi-generation trajectory", "9"],
+    ["Anti-fragility", "resilience posture", "9"],
+    ["Sanctification", "charter on artifacts", "9"],
+  ];
+  const axisRows = axes
+    .map(
+      ([name, note, score]) =>
+        `<li><span><strong>${name}</strong><small>${note}</small></span><b>${score}/10</b></li>`,
+    )
+    .join("");
+  const liveScript = `<script>
+(function(){
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => {
+    if (c === "&") return "&amp;";
+    if (c === "<") return "&lt;";
+    if (c === ">") return "&gt;";
+    if (c === '"') return "&quot;";
+    return "&#39;";
+  });
+  const n = (v) => new Intl.NumberFormat("en-US").format(Number(v || 0));
+  const pct = (v, max) => Math.max(0, Math.min(100, (Number(v || 0) / Math.max(1, Number(max || 1))) * 100));
+  const ageLabel = (ms) => {
+    const s = Math.max(0, Math.round(Number(ms || 0) / 1000));
+    if (s < 60) return s + "s ago";
+    const m = Math.floor(s / 60);
+    if (m < 60) return m + "m ago";
+    const h = Math.floor(m / 60);
+    return h + "h ago";
+  };
+  const set = (id, value) => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = value;
+  };
+  const render = async () => {
+    try {
+      const [pulseRes, healthRes, statsRes] = await Promise.all([
+        fetch("/organism/pulse.json", { cache: "no-store" }),
+        fetch("/organism/health.json", { cache: "no-store" }),
+        fetch("/xrpc/com.etzhayyim.apps.kotoba.stats?graph=yoro-social-v1", { cache: "no-store" }),
+      ]);
+      const pulse = pulseRes.ok ? await pulseRes.json() : null;
+      const health = healthRes.ok ? await healthRes.json() : null;
+      const stats = statsRes.ok ? await statsRes.json() : null;
+      const actors = Object.entries((pulse && pulse.actors) || {})
+        .sort((a, b) => ((b[1] && b[1].lastAt) || 0) - ((a[1] && a[1].lastAt) || 0))
+        .slice(0, 6);
+      const actorList = actors.length
+        ? actors.map(([actor, info]) =>
+            "<li><strong>" + esc(actor) + "</strong><span>" +
+            esc(info && info.lastSubject ? info.lastSubject : "activity stream") +
+            "</span><small>" + n((info && info.commits) || 0) + " commits · " +
+            ageLabel(Date.now() - Number((info && info.lastAt) || 0)) + "</small></li>",
+          ).join("")
+        : "<li><strong>loading</strong><span>no pulse data yet</span><small>waiting for organism feed</small></li>";
+      const hostState = health && health.anyStale ? "degraded" : "live";
+      set("murakumo-host-state", hostState);
+      set("murakumo-host-meta", "pulse " + esc(hostState) + " · updated " + esc((health && health.generatedAt) || "unknown"));
+      set("murakumo-host-bar", "<span style=\"width:" + pct(((health && health.layers && health.layers.pulse && health.layers.pulse.cadenceMs) || 6000) - ((health && health.layers && health.layers.pulse && health.layers.pulse.ageMs) || 0), (health && health.layers && health.layers.pulse && health.layers.pulse.cadenceMs) || 6000) + "%\"></span>");
+      set("murakumo-host-list", actorList);
+      set("kotobase-root", esc((stats && stats.root) || "no published root yet"));
+      set("kotobase-meta", "advances " + n((stats && stats.advances) || 0) + " · conflicts " + n((stats && stats.conflicts) || 0) + " · rate-limited " + n((stats && stats.rateLimited) || 0) + " · updated " + esc((stats && stats.updatedAt) || "unknown"));
+      set("kotobase-bar", "<span style=\"width:" + pct(${KOTOBASE_BLOCK_BYTES}, 4_194_304) + "%\"></span>");
+    } catch (_err) {
+      set("murakumo-host-state", "offline");
+      set("murakumo-host-meta", "live feed unavailable");
+      set("murakumo-host-list", "<li><strong>offline</strong><span>could not load organism feed</span><small>retrying</small></li>");
+      set("kotobase-meta", "live publish stats unavailable");
+    }
+  };
+  render();
+  setInterval(render, 15000);
+})();
+</script>`;
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>etzhayyim</title>
+<meta name="description" content="Public root and observation surface for etzhayyim, a religious artificial organism.">
+<style>
+:root{color-scheme:light dark;--line:color-mix(in srgb,currentColor 18%,transparent);--soft:color-mix(in srgb,currentColor 7%,transparent)}
+*{box-sizing:border-box}
+body{margin:0;font:15px/1.55 system-ui,-apple-system,"Hiragino Kaku Gothic ProN",sans-serif;background:Canvas;color:CanvasText}
+a{color:inherit}
+.wrap{max-width:74rem;margin:0 auto;padding:1.25rem}
+header{display:flex;align-items:center;justify-content:space-between;gap:1rem;border-bottom:1px solid var(--line);padding:.75rem 0 1rem}
+.brand{font-weight:700;letter-spacing:.02em}
+nav{display:flex;gap:.35rem;flex-wrap:wrap;justify-content:flex-end}
+nav a,.btn{display:inline-flex;align-items:center;gap:.35rem;border:1px solid var(--line);border-radius:.45rem;padding:.42rem .62rem;text-decoration:none;background:var(--soft);font-size:.86rem}
+main{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(18rem,.75fr);gap:1.1rem;padding:1.1rem 0 2rem}
+.hero,.panel{border:1px solid var(--line);border-radius:.5rem;background:var(--soft)}
+.hero{padding:1.3rem}
+.eyebrow{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;opacity:.65;margin:0 0 .5rem}
+h1{font-size:clamp(2.2rem,5vw,4.8rem);line-height:.96;margin:.1rem 0 .8rem;letter-spacing:0}
+.lead{font-size:1.05rem;max-width:45rem;margin:0 0 1.1rem;color:color-mix(in srgb,currentColor 78%,transparent)}
+.status{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.6rem;margin:1.1rem 0 0}
+.metric{border:1px solid var(--line);border-radius:.45rem;padding:.75rem;background:Canvas}
+.metric b{display:block;font-size:1.5rem;line-height:1.1}
+.metric span{display:block;font-size:.78rem;opacity:.68;margin-top:.2rem}
+.panel{padding:1rem}
+.panel h2{font-size:.98rem;margin:0 0 .65rem}
+.identity{display:grid;gap:.45rem}
+.kv{display:grid;grid-template-columns:6rem minmax(0,1fr);gap:.5rem;border-bottom:1px solid var(--line);padding:.35rem 0}
+.kv span:first-child{opacity:.62}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88em;background:var(--soft);border:1px solid var(--line);border-radius:.28rem;padding:.08rem .28rem;overflow-wrap:anywhere}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.1rem;margin-top:1.1rem}
+.card{border:1px solid var(--line);border-radius:.5rem;padding:1rem;background:var(--soft)}
+.card h2{font-size:1rem;margin:0 0 .45rem}
+.card p{margin:.25rem 0 .7rem;color:color-mix(in srgb,currentColor 75%,transparent)}
+.axes{list-style:none;margin:.2rem 0 0;padding:0;display:grid;gap:.35rem}
+.axes li{display:flex;justify-content:space-between;gap:.7rem;align-items:baseline;border-bottom:1px solid var(--line);padding:.32rem 0}
+.axes small{display:block;opacity:.58;font-size:.77rem}
+.live-band{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.1rem;margin-top:1.1rem}
+.live-card{min-height:14rem}
+.live-row{display:flex;align-items:baseline;justify-content:space-between;gap:.7rem;margin:.1rem 0 .45rem}
+.live-row b{font-size:1.35rem;line-height:1.1}
+.live-meta{font-size:.82rem;opacity:.68}
+.meter{height:.6rem;border:1px solid var(--line);border-radius:999px;background:Canvas;overflow:hidden;margin:.7rem 0 .6rem}
+.meter > span{display:block;height:100%;width:0;background:currentColor;opacity:.32}
+.live-list{list-style:none;margin:.2rem 0 0;padding:0;display:grid;gap:.45rem}
+.live-list li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.15rem .7rem;padding:.45rem 0;border-bottom:1px solid var(--line)}
+.live-list strong{font-size:.92rem}
+.live-list span{grid-column:1 / -1;font-size:.88rem;opacity:.84}
+.live-list small{font-size:.75rem;opacity:.62}
+.tagline{font-size:.84rem;opacity:.72;margin:.1rem 0 .6rem}
+.boundary{grid-column:span 2}
+.next{border-left:3px solid currentColor;padding-left:.8rem}
+footer{border-top:1px solid var(--line);padding:1rem 0 0;color:color-mix(in srgb,currentColor 65%,transparent);font-size:.85rem}
+@media (max-width:820px){main{grid-template-columns:1fr}.status{grid-template-columns:repeat(2,minmax(0,1fr))}.grid{grid-template-columns:1fr}.live-band{grid-template-columns:1fr}.boundary{grid-column:auto}header{align-items:flex-start;flex-direction:column}nav{justify-content:flex-start}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<div class="brand">etzhayyim</div>
+<nav aria-label="Primary">
+<a href="/organism">organism</a>
+<a href="/system-dynamics">system dynamics</a>
+<a href="/actors">actors</a>
+<a href="/gov">gov atlas</a>
+<a href="/donate">donate</a>
+<a href="/.well-known/did.json">DID</a>
+</nav>
+</header>
+
+<main>
+<section class="hero">
+<p class="eyebrow">public root / observation surface</p>
+<h1>etzhayyim</h1>
+<p class="lead">A religious artificial organism: its public identity, constitutional record, actor registry, donation policy, and live observation surfaces are rooted here.</p>
+<p class="next"><strong>Current boundary:</strong> <code>etzhayyim.com</code> is the public root. AT Protocol PDS/AppView operations belong to <a href="https://aozora.app">aozora.app</a> / app-aozora.</p>
+<div class="status" aria-label="Organism summary">
+<div class="metric"><b>alive</b><span>state</span></div>
+<div class="metric"><b>83/100</b><span>organism axis total</span></div>
+<div class="metric"><b>${totalActors.toLocaleString("en-US")}</b><span>resolvable actors</span></div>
+<div class="metric"><b>0</b><span>ads / trackers / cookies</span></div>
+</div>
+</section>
+
+<aside class="panel">
+<h2>Identity</h2>
+<div class="identity">
+<div class="kv"><span>Entity</span><strong>etzhayyim</strong></div>
+<div class="kv"><span>DID</span><code>did:web:etzhayyim.com</code></div>
+<div class="kv"><span>Form</span><span>religious voluntary association</span></div>
+<div class="kv"><span>Repo</span><a href="https://github.com/etzhayyim/root">github.com/etzhayyim/root</a></div>
+<div class="kv"><span>Policy</span><a href="/.well-known/donation.json">donation-only</a></div>
+</div>
+</aside>
+</main>
+
+<section class="grid" aria-label="Public root sections">
+<article class="card">
+<h2>Observation</h2>
+<p>The organism page shows the self-evolution loop. System dynamics shows the stocks, flows, feedback loops, and boundaries behind that loop.</p>
+<a class="btn" href="/organism">Open organism</a>
+<a class="btn" href="/system-dynamics">System dynamics</a>
+</article>
+<article class="card">
+<h2>Actors</h2>
+<p>Named actors, substrate services, entity mirrors, and UNSPSC agents resolve under this root.</p>
+<a class="btn" href="/actors">Browse actors</a>
+</article>
+<article class="card">
+<h2>Donation</h2>
+<p>etzhayyim is donation-only: no advertising, nothing for sale, no member cash stipend.</p>
+<a class="btn" href="/donate">How to give</a>
+</article>
+<article class="card boundary">
+<h2>Boundary</h2>
+<p><code>etzhayyim.com</code> is the identity and observability surface. It should not become the PDS again. Actor record writes, AppView, and AT Protocol runtime concerns are centralized at app-aozora / <code>aozora.app</code>.</p>
+<a class="btn" href="https://aozora.app">Open aozora.app</a>
+</article>
+<article class="card">
+<h2>Organism Axes</h2>
+<ul class="axes">${axisRows}</ul>
+</article>
+</section>
+
+<section class="live-band" aria-label="Live host and storage">
+<article class="card live-card">
+<h2>Murakumo host / actor pulse</h2>
+<div class="live-row"><b id="murakumo-host-state">loading</b><span class="live-meta" id="murakumo-host-meta">live feed pending</span></div>
+<div class="meter"><span id="murakumo-host-bar" style="width:0"></span></div>
+<p class="tagline">Current host path: Murakumo mesh + donor compute. The actor pulse below is refreshed from same-origin JSON.</p>
+<ul class="live-list" id="murakumo-host-list">
+<li><strong>loading</strong><span>waiting for organism pulse</span><small>same-origin fetch</small></li>
+</ul>
+</article>
+<article class="card live-card">
+<h2>Kotobase storage</h2>
+<div class="live-row"><b id="kotobase-root">${KOTOBASE_BLOCK_HUMAN}</b><span class="live-meta">${KOTOBASE_BLOCK_COUNT} blocks · ${KOTOBASE_BLOCK_BYTES.toLocaleString("en-US")} bytes</span></div>
+<div class="meter"><span id="kotobase-bar" style="width:0"></span></div>
+<p class="tagline">Local kotobase mirror footprint for the public block store. Live publish stats come from the root KV head.</p>
+<div class="live-meta" id="kotobase-meta">loading publish stats…</div>
+</article>
+</section>
+
+<footer>
+Machine roots: <a href="/.well-known/did.json">/.well-known/did.json</a> · <a href="/.well-known/actors.json">/.well-known/actors.json</a> · <a href="/.well-known/donation.json">/.well-known/donation.json</a>. Live host + actor pulse are refreshed from same-origin JSON every 15s.
+</footer>
+</div>
+${liveScript}
+</body>
+</html>
+`;
+}
+
 // ─── Actor registry index (/actors + /.well-known/actors.json) ─────────────
 //
 // The apex surface lists every actor whose DID resolves at
@@ -414,6 +657,7 @@ ${name}
 <p>${escapeHtml(e.description)}</p>
 <p class="meta">${lex}${schema}${adrs}</p>
 <p class="did"><a href="/actor/${escapeHtml(handle)}/did.json">did:web:etzhayyim.com:actor:${escapeHtml(handle)}</a></p>
+<p class="did"><a href="/actor/${escapeHtml(handle)}/system-dynamics">system dynamics</a></p>
 </div>`;
 }
 
@@ -1168,6 +1412,32 @@ const tsFetch = async (
   ctx: ExecutionContext,
 ): Promise<Response> => {
     const url = new URL(request.url);
+
+    // ──────────────────────────────────────────────────────────────────
+    // 0) Apex public root — local observation surface, no upstream call.
+    //     NOTE: owned by the cljs core; kept here as parity fallback.
+    // ──────────────────────────────────────────────────────────────────
+    if (url.pathname === "/" || url.pathname === "/index.html") {
+      if (request.method !== "GET" && request.method !== "HEAD") {
+        return new Response("Method Not Allowed", {
+          status: 405,
+          headers: { allow: "GET, HEAD" },
+        });
+      }
+      return new Response(buildHomeHtml(), {
+        status: 200,
+        headers: {
+          "content-type": "text/html; charset=utf-8",
+          "cache-control": "public, max-age=300, must-revalidate",
+          "x-content-type-options": "nosniff",
+          "content-security-policy":
+            "default-src 'none'; style-src 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'",
+          "strict-transport-security": "max-age=31536000; includeSubDomains",
+          "permissions-policy": PERMISSIONS_POLICY,
+          "x-etzhayyim-no-cookie": "1",
+        },
+      });
+    }
 
     // ──────────────────────────────────────────────────────────────────
     // 1) Entity DID Document — local, no upstream call.
@@ -2223,8 +2493,10 @@ const cljsDeps = {
   },
   govProcList: GOV_PROCEDURE_LIST,
   // HTML builders (referenceable module fns — no extraction needed)
+  homeHtml: () => buildHomeHtml(),
   actorsHtml: () => buildActorsHtml(),
   organismHtml: () => buildOrganismHtml(),
+  infraActorHandles: Object.keys(INFRA_ACTORS),
   // async leaves
   buildActorsJson: (env: Env) => buildActorsJsonWithCids(env),
   kvGet: (env: Env, key: string): Promise<string | null> =>

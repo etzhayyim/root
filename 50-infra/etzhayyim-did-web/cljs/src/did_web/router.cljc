@@ -16,9 +16,10 @@
 
 ;; Routes that only accept GET/HEAD (a non-GET/HEAD request → 405 in the core).
 (def get-head-only
-  #{:did-json :donation-json :donate-html :actors-json :actors-html
-    :gov-units-json :gov-procedures-json :organism-html
-    :actor-did :actor-profile :actor-procedures :ipfs})
+  #{:home-html :did-json :donation-json :donate-html :actors-json :actors-html
+    :gov-units-json :gov-procedures-json :organism-html :system-dynamics-html
+    :actor-did :actor-profile :actor-procedures :actor-system-dynamics-html
+    :ipfs})
 
 (defn- strip-trailing-slash
   "Normalize a path so \"/donate/\" and \"/donate\" route alike (but keep \"/\")."
@@ -30,16 +31,19 @@
 (def ^:private actor-did-re      #"^/actor/([^/]+)/did\.json$")
 (def ^:private actor-profile-re  #"^/actor/([^/]+)/profile\.json$")
 (def ^:private actor-procs-re    #"^/actor/([^/]+)/procedures\.json$")
+(def ^:private actor-system-dynamics-re #"^/actor/([^/]+)/system-dynamics/?$")
 (def ^:private ipfs-re           #"^/ipfs/([A-Za-z0-9]+)$")
 
 (defn route
   "Resolve {:method :path} → a route map {:route <kw> & params}.
 
   Owned by the cljs core (local content/identity surface):
-    :did-json :donation-json :donate-html :actors-json :actors-html
+    :home-html :did-json :donation-json :donate-html :actors-json :actors-html
     :gov-units-json :gov-procedures-json :gov-html :organism-html
+    :system-dynamics-html
     :actor-did :actor-profile :actor-procedures  (each + :handle, the RAW path
       segment — the core decodes + lower-cases + validates it)
+    :actor-system-dynamics-html (per-actor HTML dynamics view + :handle)
 
   Everything else → {:route :fallback} (legacy TS handler: xrpc proxy / reverse
   proxy). As those migrate, add their branch here + a test."
@@ -62,6 +66,8 @@
        {:route :kotoba-block-get :cid c})
      ;; exact static paths
      (case p
+       "/"                                  {:route :home-html}
+       "/index.html"                        {:route :home-html}
        "/.well-known/did.json"            {:route :did-json}
        "/.well-known/donation.json"       {:route :donation-json}
        "/donate"                          {:route :donate-html}
@@ -72,12 +78,15 @@
        ;; it stays on the TS fallback until the next batch extracts it.
        "/actors"                          {:route :actors-html}
        "/organism"                        {:route :organism-html}
+       "/organism/index.html"             {:route :organism-html}
+       "/system-dynamics"                 {:route :system-dynamics-html}
        nil)
      ;; parameterized actor paths (matched on the ORIGINAL path, not stripped —
      ;; a trailing slash here is part of no valid actor route)
      (when-let [[_ h] (re-matches actor-did-re path)]     {:route :actor-did       :handle h})
      (when-let [[_ h] (re-matches actor-profile-re path)] {:route :actor-profile   :handle h})
      (when-let [[_ h] (re-matches actor-procs-re path)]   {:route :actor-procedures :handle h})
+     (when-let [[_ h] (re-matches actor-system-dynamics-re path)] {:route :actor-system-dynamics-html :handle h})
      (when-let [[_ c] (re-matches ipfs-re path)]          {:route :ipfs :cid c})
      ;; generic /xrpc/<nsid> → cljs xrpc dispatch (kotoba xrpc endpoints were
      ;; matched above; the cljs handler delegates ONLY the CACAO-crypto auth
