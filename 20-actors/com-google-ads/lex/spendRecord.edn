@@ -1,0 +1,20 @@
+;; com.etzhayyim.googleads.spendRecord — lexicon (EDN form)
+;; An append-only spend ledger entry. Monotonic :tx; :signedBy is a finance DID signature (G4 — never
+;; mutated, only appended). :rangeBucket is the only field disclosed to akashi (G7 — a RANGE, never
+;; exact-to-the-cent in public). Cumulative spend per campaign ≤ campaign/budgetCap (G4).
+;; ADR-2606292130
+{:lexicon 1
+ :id "com.etzhayyim.googleads.spendRecord"
+ :defs
+ {:main
+  {:type "record"
+   :key "tid"
+   :record
+   {:type "object"
+    :required ["tx" "campaign" "amount" "signedBy"]
+    :properties
+    {:tx         {:type "integer" :description "monotonic spend txn id; append-only"}
+     :campaign   {:type "string" :description "→ campaign/id"}
+     :amount     {:type "integer" :description "currency minor units; cumulative ≤ budgetCap (G4)"}
+     :signedBy   {:type "string" :description "finance DID signature (G4) — never mutated, only appended"}
+     :rangeBucket {:type "string" :description "disclosed to akashi as a RANGE only (G7)"}}}}}}

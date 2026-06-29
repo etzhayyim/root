@@ -1,0 +1,20 @@
+;; com.etzhayyim.googleads.performanceReport — lexicon (EDN form)
+;; Aggregate-first performance read. The finest grain is the COHORT (G2 — no per-individual
+;; impression/click/conversion exists). Values are read-time aggregates (:bond/is-transient — never
+;; durable verdicts; itonami-G3 lineage). Public-aggregate access.
+;; ADR-2606292130
+{:lexicon 1
+ :id "com.etzhayyim.googleads.performanceReport"
+ :defs
+ {:main
+  {:type "record"
+   :key "tid"
+   :record
+   {:type "object"
+    :required ["cohort" "impressions" "clicks" "conversions"]
+    :properties
+    {:cohort      {:type "string" :description "→ audience/cohort-id (G2 — no finer grain exists)"}
+     :campaign    {:type "string" :description "→ campaign/id (optional rollup axis)"}
+     :impressions {:type "integer" :description "aggregate; :bond/is-transient — computed on read"}
+     :clicks      {:type "integer" :description "aggregate; transient"}
+     :conversions {:type "integer" :description "aggregate; no individual journey is representable (G2)"}}}}}}

@@ -1,0 +1,20 @@
+;; com.etzhayyim.googleads.creative — lexicon (EDN form)
+;; A creative content record. G5 anti-manipulation review verdict is required before publish. On
+;; publish, :akashiRef is set — the creative is mirrored to akashi 証 as the org's own disclosure (G7).
+;; No deceptive/dark-pattern/protected-category microtargeting creatives pass review (G5).
+;; ADR-2606292130
+{:lexicon 1
+ :id "com.etzhayyim.googleads.creative"
+ :defs
+ {:main
+  {:type "record"
+   :key "tid"
+   :record
+   {:type "object"
+    :required ["id" "contentHash" "reviewVerdict"]
+    :properties
+    {:id            {:type "string" :description "creative id"}
+     :contentHash   {:type "string" :description "CID/hash of creative payload (text/image/video)"}
+     :reviewVerdict {:type "string" :description "passed|rejected|hold — G5 anti-manipulation gate"}
+     :reviewReason  {:type "string" :description "rejection/hold reason (protected-category|dark-pattern|deceptive|…)"}
+     :akashiRef     {:type "string" :description "akashi 証 disclosure record ref — set on publish (G7)"}}}}}}
