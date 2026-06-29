@@ -126,8 +126,8 @@ actors × 2 files (`public/actor/<handle>/{did.json,profile.json}`), CF-served
 
 2. **Use the apex Worker KV path instead of the PDS** — rejected: the Worker
    KV (`publish-actor-records.mjs --put-kv`) serves `did.json` + `getProfile`
-   for the apex domain, but the aozora PDS (`pds.etzhayyim.com`) is the
-   independent canonical record store per ADR-2606242330. Actor profiles
+   for the apex domain, but the aozora PDS/AppView boundary (`aozora.app`,
+   app-aozora) is the canonical record store per ADR-2606242330. Actor profiles
    should live on the PDS (where `createRecord` writes EAVT datoms), not just
    in Worker KV (which is a read-optimization cache).
 
@@ -143,7 +143,7 @@ actors × 2 files (`public/actor/<handle>/{did.json,profile.json}`), CF-served
 
 - ADR-2606013800 (Actor profile + dynamic did.json)
 - ADR-2606231200 (actor:publish pipeline)
-- ADR-2606242330 (aozora PDS — independent canonical PDS)
+- ADR-2606242330 (app-aozora / aozora.app canonical PDS/AppView boundary)
 - ADR-2606281500 (actor autonomous publication — 種をまく doctrine)
 - `50-infra/etzhayyim-atproto-pds-clj/src/etzhayyim/pds/client.clj` (PDS client)
 - `70-tools/src/etzhayyim/aozora_deploy.cljc` (deploy namespace)

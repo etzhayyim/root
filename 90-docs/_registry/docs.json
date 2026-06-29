@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-06-28",
+  "updated_at": "2026-06-29",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.md",
@@ -26444,14 +26444,15 @@
     {
       "path": "90-docs/adr/2606242330-pds-consolidation-kotoba-clj-aozora.md",
       "id": "adr-2606242330-pds-consolidation-kotoba-clj-aozora",
-      "title": "ADR-2606242330: PDS consolidation — pds.etzhayyim.com を kotoba + clj + aozora 単一実装に一本化",
+      "title": "ADR-2606242330: AT Protocol consolidation — app-aozora に PDS/AppView を集約し etzhayyim.com は PDS を持たない",
       "status": "proposed",
       "doc_type": "adr",
       "topic": "pds-consolidation-kotoba-clj-aozora",
       "authoritative": true,
       "authoritative_for": [
-        "pds.etzhayyim.com canonical implementation",
-        "PDS/AppView 実装の単一化方針"
+        "app-aozora canonical AT Protocol implementation",
+        "PDS/AppView 実装の app-aozora 集約方針",
+        "etzhayyim.com does not host PDS"
       ],
       "related": [
         "adr-2605111300",
@@ -26853,6 +26854,96 @@
         "2605312345"
       ],
       "last_verified": "2026-06-28",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606290830-cultural-auspicious-number-donation-and-root-design.md",
+      "id": "adr-2606290830-cultural-auspicious-number-donation-and-root-design",
+      "title": "ADR-2606290830: Cultural auspicious-number defaults for donation and root surfaces",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "cultural-auspicious-number-donation-and-root-design",
+      "authoritative": true,
+      "authoritative_for": [
+        "donation amount preset generation by locale/culture",
+        "root/apex public-surface numeric defaults and display ordering",
+        "culturally scoped auspicious-number registry shape",
+        "anti-coercion and anti-ranking rules for lucky-number UX"
+      ],
+      "related": [
+        "2605170900",
+        "2606231808",
+        "2606261114"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605192115",
+        "2605192130",
+        "2606012100",
+        "2606111700",
+        "2606111800",
+        "2606112200"
+      ],
+      "last_verified": "2026-06-29",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606291700-aozora-deploy-per-repo-actor-profile.md",
+      "id": "adr-2606291700-aozora-deploy-per-repo-actor-profile",
+      "title": "ADR-2606291700: aozora deploy — per-repo actor profile deployment to the PDS",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "aozora-deploy",
+      "authoritative": true,
+      "authoritative_for": [
+        "bb aozora:deploy task",
+        "etzhayyim.aozora-deploy namespace",
+        "actor-profile-seed.kotoba.edn generation"
+      ],
+      "related": [
+        "adr-2606281500"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606013800",
+        "adr-2606231200",
+        "adr-2606242330"
+      ],
+      "last_verified": "2026-06-29",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606292000-toritsugi-authority-actor-fanout.md",
+      "id": "adr-2606292000-toritsugi-authority-actor-fanout",
+      "title": "ADR-2606292000: toritsugi authority-actor fanout — per-regime keyless mirror actors on apex did:web + i18n",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "toritsugi-authority-actor-fanout",
+      "authoritative": true,
+      "authoritative_for": [
+        "toritsugi-authority-actor-fanout-pattern",
+        "per-regime-keyless-mirror-did-web",
+        "toritsugi-i18n-7lang"
+      ],
+      "related": [
+        "2605312400",
+        "2605302130",
+        "2606060900"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605312030",
+        "2606272355",
+        "2605231525",
+        "2606013800"
+      ],
+      "last_verified": "2026-06-29",
       "amends": [],
       "amended_by": []
     },
