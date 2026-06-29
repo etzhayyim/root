@@ -1,0 +1,32 @@
+{
+  "did": "did:web:etzhayyim.com:actor:igata",
+  "handle": "igata.etzhayyim.com",
+  "displayName": "鋳型 — Megacasting / HPDC",
+  "description": "High-pressure die-casting (HPDC) / megacasting actor. religious-corp first-party large-aluminum-structure manufacturing supplier for wadachi (vehicle body), tatekata (construction structural), watatsumi (submersible reinforcement), and silicon Wave 2 (fab equipment frame). HPDC clamping force ≤6000 ton R0..R3; giga press class (≥7500 ton) deferred to post-R3 + Council Lv6+ supermajority (N1).",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-05-26T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "鋳型",
+  "displayNameJa": "鋳型 — Megacasting / HPDC",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2605261200",
+      "2605261200",
+      "2605261215"
+    ],
+    "primaryLexicon": "com.etzhayyim.igata",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/igata/did.json",
+    "source": "kotoba"
+  }
+}

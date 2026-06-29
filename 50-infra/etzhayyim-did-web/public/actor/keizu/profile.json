@@ -1,27 +1,27 @@
 {
   "did": "did:web:etzhayyim.com:actor:keizu",
   "handle": "keizu.etzhayyim.com",
-  "displayName": "Keizu — Government Power-Relations Graph (observational mirror)",
-  "description": "系図 — a genealogy / relation chart of PUBLIC power. 公開情報から政府の 調達・お金・発言・人間関係・委員会/審議会の構成 を一つの kotoba Datom 関係グラフに編み、出典付きで NON-adjudicating(断定しない)な集計所見を emit する。誰がどの委員会に座り、誰が誰に資金を出し、誰が誰に発注し、誰が何を発言したか — 公的な役職の関係グラフであって、特定個人を名指す target-list ではない。構造的 discipline: G1 public-power-role-only(:private-person/:individual は unrepresentable; ノードは公的な席/組織であり私人ではない = no-doxxing)/ G2 非断定(verdict トークン corruption/bribe/collusion/不正/汚職 は enum 非加盟, nonAdjudicatingNotice=true)/ G3 出典必須(関係・資金フローごとに ≥2 の公開出典)/ G4 edge-primary(集中度は read 時に edge から計算; per-person score を持たない)/ G5 mirror-not-target(accountability map, 政府として発言しない)/ G7 no-server-key(投稿は member 署名; serverHeldKey const false; サーバは署名しない, ADR-2605231525)/ G8 outward-gated(R0 は offline analyzer + dry-run posts のみ; live ingest + live posting は Council Lv6+ + operator + member signature gated)。self-publication は no-server-key: 投稿は member/actor 自身の鍵で署名し、サーバは署名しない。live publication は Council Lv6+ + operator + member-signature gated(R0 は dry-run draft のみ)。5th accountability sibling(danjo/kanae/tsumugi/tadori/ooyake)。NOT a prosecutor, NOT surveillance, NOT a per-individual reputation/social-credit score, NOT a target-list, NOT a commercial gov-intelligence product。",
+  "displayName": "Keizu — Government Power-Relations Graph",
+  "description": "世界の政府の人脈・お金・発言・委員会構成を一つの kotoba Datom 関係グラフに編むグローバル knowledge graph。公開情報からお金の流れ(調達・補助金・政治献金・予算執行)をすべて追い、審議会・委員会の構成メンバー(=公的な席)を分析し、調達・お金・発言・人間関係を一つの関係グラフに編んで集計所見を dry-run social post として narrate する。兄弟(danjo/kanae/tsumugi/tadori/ooyake)が埋めない明確な空白=公的役職の関係グラフ(誰がどの委員会に座り、誰が誰に資金を出し、誰が誰に発注し、誰が何を発言したか)。accountability/wayfinding の地図であって target-list ではない(G5)。非裁定(G2): 観測された関係と開示 share を記録するのみ、犯罪・不正・有罪を断定しない(法的性格付けは chigiri 経由 external counsel)。edge-primary(G4): 集中度は read 時に edge から計算、個人スコア不在。public-role-only(G1): node は公的な席/組織で私人は表現不能(no-doxxing)。出典必須(G3): 関係・資金フローごと ≥2 公開出典。no-server-key(G7)+ outward-gated(G8): social post は本人署名、live ingest/posting は Council Lv6+ + operator + 本人署名 gated、R0 は offline + dry-run。invariant 改正ゼロ。Per ADR-2606066000。",
   "avatar": "",
   "banner": "",
   "followersCount": 0,
   "followsCount": 0,
   "postsCount": 0,
-  "indexedAt": "2026-06-27T00:00:00.000Z",
+  "indexedAt": "2026-06-06T00:00:00.000Z",
   "labels": [],
   "viewer": {},
   "performerType": "system",
   "uiType": "appview",
   "glyph": "系図",
-  "displayNameJa": "系図 — 政府の人脈・お金・発言・委員会構成の関係グラフ(観測ミラー, 非断定)",
+  "displayNameJa": "系図 — 政府 power-relations knowledge graph",
   "_etzhayyim": {
     "kind": "tier-b",
     "tier": "B",
     "status": "r0",
     "adr": [
       "2606066000",
-      "2605301600"
+      "2606272355"
     ],
     "primaryLexicon": "com.etzhayyim.keizu.relationEdge",
     "primarySchema": "00-contracts/schemas/government-relations-ontology.kotoba.edn",

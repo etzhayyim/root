@@ -20,7 +20,8 @@
     "tier": "B",
     "status": "r0",
     "adr": [
-      "2606062300"
+      "2606062300",
+      "2606272355"
     ],
     "primaryLexicon": "com.etzhayyim.matsurigoto",
     "primarySchema": "00-contracts/schemas/egov-execution-ontology.kotoba.edn",

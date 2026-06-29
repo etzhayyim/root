@@ -1,0 +1,31 @@
+{
+  "did": "did:web:etzhayyim.com:actor:tadori",
+  "handle": "tadori.etzhayyim.com",
+  "displayName": "辿 — Trace (authorized on-chain transaction tracing + actor attribution)",
+  "description": "Non-profit religious-corp authorized, case-anchored on-chain transaction-tracing + actor-attribution actor. kotoba-EAVT-native consolidation point for the malak pursuit Pregel output (ADR-2605152000), ipaddress 1次 IP/WHOIS/GeoIP collection, and yabai CTI/DNS/IP-history/access-audit. Owns the durable case graph + the cross-store attribution join (address → cluster → ip-obs → dns-obs → person) that no single store produces today, expressed as kotoba-kqe Datalog rules over the four arrangements ...",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-05-30T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "辿",
+  "displayNameJa": "辿 — Trace (authorized on-chain transaction tracing + actor attribution)",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2605301400",
+      "2605301400"
+    ],
+    "primaryLexicon": "com.etzhayyim.tadori",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/tadori/did.json",
+    "source": "kotoba"
+  }
+}

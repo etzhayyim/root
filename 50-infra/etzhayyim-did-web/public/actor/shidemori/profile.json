@@ -1,0 +1,32 @@
+{
+  "did": "did:web:etzhayyim.com:actor:shidemori",
+  "handle": "shidemori.etzhayyim.com",
+  "displayName": "死出守 — Memorial + Cemetery",
+  "description": "Non-profit religious-corp memorial + cemetery substrate. FINAL gap-closure actor (gap audit row 10; completes 10-actor 30min-loop wave). Memorial NFT mint + cemetery Land Registry waqf-equivalent + 鎮魂 annual remembrance + chigiri.inheritanceChain handoff + external mortuary engagement (UPL-equivalent). Etymology: 死出守 = guardian of the death-journey (死出 = 死出の旅 classical imagery; 守 = keeper). Cross-tradition (Reformed memorial + Shinto 鎮魂 + 仏 49日 + secular humanist). Charter §1.15 non-eschatolo...",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-05-26T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "死出守",
+  "displayNameJa": "死出守 — Memorial + Cemetery",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2605263800",
+      "2605263800",
+      "reserved"
+    ],
+    "primaryLexicon": "com.etzhayyim.shidemori",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/shidemori/did.json",
+    "source": "kotoba"
+  }
+}

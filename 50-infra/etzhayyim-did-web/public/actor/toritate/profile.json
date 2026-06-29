@@ -1,0 +1,32 @@
+{
+  "did": "did:web:etzhayyim.com:actor:toritate",
+  "handle": "toritate.etzhayyim.com",
+  "displayName": "執帳 — Accounting + Audit",
+  "description": "Non-profit religious-corp accounting + audit substrate. Aggregates on-chain TitheRouter + Public Fund Safe + Council Safe + Land Registry transactions into transparent reports. 100% on-chain transparency invariant (G3). No commercial accounting software (G8 PROHIBITED). No tax-advice rendering (G5; external opinion via Public Fund Council Lv6+). No payroll (volunteer ≠ employee). 6 cells / 5 Lexicons / 12 gates / 12 non-goals.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-05-26T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "執帳",
+  "displayNameJa": "執帳 — Accounting + Audit",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2605262900",
+      "2605262900",
+      "reserved"
+    ],
+    "primaryLexicon": "com.etzhayyim.toritate",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/toritate/did.json",
+    "source": "kotoba"
+  }
+}

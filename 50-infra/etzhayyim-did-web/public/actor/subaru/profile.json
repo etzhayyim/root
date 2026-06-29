@@ -1,0 +1,29 @@
+{
+  "did": "did:web:etzhayyim.com:actor:subaru",
+  "handle": "subaru.etzhayyim.com",
+  "displayName": "subaru",
+  "description": "Transparent connectivity-commons satellite constellation — the charter-clean inversion of Starlink/OneWeb. Connectivity delivered as §1.16 Social Security in-kind (covenantal-universal, to the unconnected + disaster zones); cash≡0, no ads, no subscription, no surveillance. Operates spacecraft (unlike hoshimori which only observes), but ONLY Transparently. The payload torifune launches; observed by hoshimori for stewardship.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-16T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "昴",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2606162355"
+    ],
+    "primaryLexicon": "com.etzhayyim.subaru",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/subaru/did.json",
+    "source": "kotoba"
+  }
+}

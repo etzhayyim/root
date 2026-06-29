@@ -1,0 +1,32 @@
+{
+  "did": "did:web:etzhayyim.com:actor:mizuho",
+  "handle": "mizuho.etzhayyim.com",
+  "displayName": "水穂 — Water + Sanitation",
+  "description": "Non-profit religious-corp water + sanitation substrate. Community-scale only (NOT large municipal utility, N1). Upstream of mitsuho (irrigation), hagukumi (daily-living water), iyashi (clinical-grade), yakushi (WFI feed). NO commercial water utility software (G4: Veolia/Suez/American Water/Aquarion/Évian/Nestlé Pure Life/Beck Water/Trojan UV PROHIBITED per Charter Rider §2(e)+§2(c)). NO bottled water vendor (G5: single-use plastic PROHIBITED per Charter §1.13). NO mandatory fluoridation (G6: ...",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-05-26T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "水穂",
+  "displayNameJa": "水穂 — Water + Sanitation",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2605263100",
+      "2605263100",
+      "reserved"
+    ],
+    "primaryLexicon": "com.etzhayyim.mizuho",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/mizuho/did.json",
+    "source": "kotoba"
+  }
+}

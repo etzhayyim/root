@@ -1,0 +1,32 @@
+{
+  "did": "did:web:etzhayyim.com:actor:kazaori",
+  "handle": "kazaori.etzhayyim.com",
+  "displayName": "風折 — Civilian Disaster Response",
+  "description": "Non-profit religious-corp civilian disaster response substrate. Earthquake / typhoon / flood / wildfire / pandemic / power outage / water shortage / food shortage / building damage / mass evacuation / medical surge coordination. NOT military (G5+N1; force authorization separate per ADR-2605192315). NOT war-zone humanitarian (N2). NO commercial disaster mgmt software (G4: Veoci/NC4/Crisis Track/Everbridge/OnSolve/SAP DR/Microsoft DR Hub/IBM Crisis Response PROHIBITED per Charter Rider §2(e)+§2...",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-05-26T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "風折",
+  "displayNameJa": "風折 — Civilian Disaster Response",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2605263200",
+      "2605263200",
+      "reserved"
+    ],
+    "primaryLexicon": "com.etzhayyim.kazaori",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/kazaori/did.json",
+    "source": "kotoba"
+  }
+}

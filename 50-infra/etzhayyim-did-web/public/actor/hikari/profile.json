@@ -1,0 +1,32 @@
+{
+  "did": "did:web:etzhayyim.com:actor:hikari",
+  "handle": "hikari.etzhayyim.com",
+  "displayName": "光 — Energy",
+  "description": "Distributed renewable energy Tier-B actor (solar PV + small wind ≤100 kW + geothermal micro ≤500 kW + battery storage + grid-edge microgrid). Anti-nuclear + anti-fossil + anti-rare-earth-permanent-magnet constitutional invariants. Powers L2 Sustenance Tier (≥3 kWh/day per adherent) + cross-actor infrastructure (Murakumo + mitate/yakushi/hagukumi/manabi facilities + mitsuho greenhouse + tatekata site + silicon Wave 2 fab partial load R3+).",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-05-26T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "光",
+  "displayNameJa": "光 — Energy",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2605261100",
+      "2605261100",
+      "reserved"
+    ],
+    "primaryLexicon": "com.etzhayyim.hikari",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/hikari/did.json",
+    "source": "kotoba"
+  }
+}

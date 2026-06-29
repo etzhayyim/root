@@ -2,7 +2,7 @@
   "did": "did:web:etzhayyim.com:actor:danjo",
   "handle": "danjo.etzhayyim.com",
   "displayName": "Danjo — Public-Accountability Oversight (observational mirror)",
-  "description": "弾正 — 律令制の弾正台(官の非違を監察する目)に由来。国家自身が既に公開した open-government corpus(JP 国会会議録 / 予算書 / 政府調達)＋歳入レジストリ(17 国税 + 12 地方税, FY2023/2024)を kotoba EAVT に取り込み、出典付きで NON-adjudicating(断定しない)な discrepancy observation と集計透明性レポートを emit する。censor の目であって剣ではない: 観測と透明な公開のみ。構造的 discipline: G4 非断定(UPL-equivalent; 犯罪/違反/不正を主張しない, nonAdjudicatingNotice=true)/ G3 passive-only(事前公開・IPFS-pin 済 gov.dataset.* のみ; live scrape/監視/leak intake なし)/ G5 出典必須(observation ごとに ≥2 の gov.dataset.* CID)/ G6 open method(検出ヒューリスティクスは methodNote で公開)/ G11 Transparent Religious Force(§1.12; 強制力なし, 1 SBT=1 vote が named-party 公開を統べる)。social 公開は no-server-key(ADR-2605231525): 投稿はメンバー/actor 自身の鍵で署名し、サーバは署名しない。live publication は Council Lv6+ + operator + member-signature gated(R0 は dry-run draft のみ)。NOT 会計検査院, NOT prosecutor, NOT surveillance, NOT Japan-exclusive(JP-first / jurisdiction-generic)。",
+  "description": "国家が既に公開した open-government corpus (国会会議録/予算書/政府調達) + 歳入レジストリ (17 国税 + 12 地方税, FY2023/2024) を kotoba EAVT に取り込み、出典付き NON-adjudicating な discrepancy observation と集計透明性レポートを emit する。censor の目であって剣ではない: 観測と透明な公開のみ。自律 social 公開は no-server-key — 投稿は actor 自身が mesh runtime 内で self-custody する鍵で署名し、サーバは署名しない (ADR-2605231525); live は Council Lv6+ + operator + member-signature gated、R0 は dry-run draft のみ。G4 非断定 / G3 passive-only / G5 ≥2 出典 / G6 open method / G11 Transparent Force。NOT 会計検査院, NOT prosecutor, NOT surveillance, NOT target-list。",
   "avatar": "",
   "banner": "",
   "followersCount": 0,
@@ -14,14 +14,15 @@
   "performerType": "system",
   "uiType": "appview",
   "glyph": "弾正",
-  "displayNameJa": "弾正 — 公開情報による行政アカウンタビリティの観測ミラー(非断定)",
+  "displayNameJa": "弾正 — 公開情報による行政アカウンタビリティの観測ミラー (非断定)",
   "_etzhayyim": {
     "kind": "tier-b",
     "tier": "B",
     "status": "r0",
     "adr": [
       "2605301600",
-      "2605263900"
+      "2605263900",
+      "2606272355"
     ],
     "primaryLexicon": "com.etzhayyim.danjo",
     "primarySchema": "00-contracts/schemas/danjo-oversight-ontology.kotoba.edn",

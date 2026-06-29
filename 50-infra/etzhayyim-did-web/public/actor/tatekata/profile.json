@@ -1,0 +1,32 @@
+{
+  "did": "did:web:etzhayyim.com:actor:tatekata",
+  "handle": "tatekata.etzhayyim.com",
+  "displayName": "建方 — Construction",
+  "description": "Infrastructure construction robotics orchestration. Tier-B actor coordinating multi-robot site workflows (Giemon, Otete, Mimi), material routing, permit compliance, and safety governance for civil + MEP projects (≤2 story, ≤5000m² R0 scope).",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-05-25T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "建方",
+  "displayNameJa": "建方 — Construction",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2605250715",
+      "2605250715",
+      "2605250730"
+    ],
+    "primaryLexicon": "com.etzhayyim.tatekata",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/tatekata/did.json",
+    "source": "kotoba"
+  }
+}

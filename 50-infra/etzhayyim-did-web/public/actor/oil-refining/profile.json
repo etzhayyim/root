@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:oil-refining",
+  "handle": "oil-refining.etzhayyim.com",
+  "displayName": "Oil Refining & Product Yield Intelligence",
+  "description": "Refinery registry, unit configuration, throughput and utilization monitoring, outage tracking, and crude-to-product yield intelligence.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Oil Refining & Product Yield Intelligence",
+  "displayNameJa": "Oil Refining & Product Yield Intelligence",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.oil-refining",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/oil-refining/did.json",
+    "source": "kotoba"
+  }
+}

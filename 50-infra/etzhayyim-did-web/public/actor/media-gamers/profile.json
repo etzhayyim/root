@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:media-gamers",
+  "handle": "media-gamers.etzhayyim.com",
+  "displayName": "Media Gamers — Game Intelligence",
+  "description": "Game information intelligence media. 1 Worker + N path-based DIDs (game titles, publishers, developers, platforms, franchises, sources). Pattern C multilingual (primary en + translation records). Joucho cadence-driven guide generation with 7-language auto-translation. Quality gate (COMET score >= 0.85).",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Media Gamers",
+  "displayNameJa": "Media Gamers — Game Intelligence",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.media-gamers",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/media-gamers/did.json",
+    "source": "kotoba"
+  }
+}

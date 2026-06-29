@@ -13,24 +13,30 @@
       "id": "did:web:etzhayyim.com:actor:keizu#atproto_pds",
       "type": "AtprotoPersonalDataServer",
       "serviceEndpoint": "https://pds.etzhayyim.com"
+    },
+    {
+      "id": "did:web:etzhayyim.com:actor:keizu#xrpc-libp2p",
+      "type": "AtprotoXrpc",
+      "serviceEndpoint": "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"
     }
   ],
   "_meta": {
     "adr": [
+      "2605212030",
+      "2605241800",
+      "2606013800",
+      "2606014500",
       "2606066000",
-      "2605301600",
-      "2606272355",
-      "2605231525",
-      "2606230001"
+      "2606272355"
     ],
     "source": "kotoba",
     "kind": "tier-b",
     "status": "r0",
     "glyph": "系図",
     "wasmCid": null,
-    "execModel": "mesh-component",
+    "execModel": "service",
     "primaryLexicon": "com.etzhayyim.keizu.relationEdge",
     "primarySchema": "00-contracts/schemas/government-relations-ontology.kotoba.edn",
-    "note": "verificationMethod empty — no server-minted key (ADR-2605231525). did:web trust root = TLS. The actor's own signing identity is self-custodied in its kotoba-mesh WASM runtime on murakumo placement; the #xrpc-libp2p service (peer multiaddr) is assigned at `bb murakumo deploy` time when wasmCid is set. Government power-relations graph (committee/advisory-council composition + procurement + money + statements + human-relationships woven into one kotoba Datom relation-graph) — an accountability MAP, NEVER a target-list; non-adjudicating (G2), edge-primary (G4), no-doxxing: nodes are public seats/organs, never named private individuals (G1)."
+    "note": "verificationMethod empty — on-chain ERC725 mirror pending; did:web trust root = TLS (no server-minted key, ADR-2605231525)"
   }
 }

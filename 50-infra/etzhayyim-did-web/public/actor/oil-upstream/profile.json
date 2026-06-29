@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:oil-upstream",
+  "handle": "oil-upstream.etzhayyim.com",
+  "displayName": "Oil Upstream Basin & Field Intelligence",
+  "description": "Basin, block, field and production system coverage across crude reserves, output pressure and operator ownership.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Oil Upstream Basin & Field Intelligence",
+  "displayNameJa": "Oil Upstream Basin & Field Intelligence",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.oil-upstream",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/oil-upstream/did.json",
+    "source": "kotoba"
+  }
+}

@@ -20,7 +20,8 @@
     "tier": "B",
     "status": "r0",
     "adr": [
-      "2606021600"
+      "2606021600",
+      "2606272355"
     ],
     "primaryLexicon": "com.etzhayyim.ooyake",
     "primarySchema": "00-contracts/schemas/gov-atlas-ontology.kotoba.edn",

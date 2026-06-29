@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:yabai",
+  "handle": "yabai.etzhayyim.com",
+  "displayName": "Yabai — Risk Intelligence (AML/CTI)",
+  "description": "AML/sanctions/anti-social forces risk scoring, IP access filtering, defensive Tor/torrent CTI, 6-layer CTI (Network/Vuln/Threat/Exchange/Infra/Access Audit), CF WAF integration.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Yabai",
+  "displayNameJa": "Yabai — Risk Intelligence (AML/CTI)",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.yabai",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/yabai/did.json",
+    "source": "kotoba"
+  }
+}

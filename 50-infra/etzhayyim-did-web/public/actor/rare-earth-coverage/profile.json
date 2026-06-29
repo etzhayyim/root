@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:rare-earth-coverage",
+  "handle": "rare-earth-coverage.etzhayyim.com",
+  "displayName": "Rare Earth Coverage Orchestrator",
+  "description": "Global rare earth supply chain coverage orchestration. Registers major mining, separation, magnet, policy, finance, and demand actors as mitama DIDs and maintains graph backbone coverage across upstream, midstream, regulation, and downstream demand.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Rare Earth Coverage Orchestrator",
+  "displayNameJa": "Rare Earth Coverage Orchestrator",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.rare-earth-coverage",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/rare-earth-coverage/did.json",
+    "source": "kotoba"
+  }
+}

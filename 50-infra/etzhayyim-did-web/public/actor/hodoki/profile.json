@@ -1,0 +1,32 @@
+{
+  "did": "did:web:etzhayyim.com:actor:hodoki",
+  "handle": "hodoki.etzhayyim.com",
+  "displayName": "解き — ELV Disassembly + Materials Recovery",
+  "description": "End-of-life vehicle (ELV) disassembly + materials recovery Tier-B actor. Adopts mature OEM-run ELV facility methodology (depollution → parts harvest → shred → sort); religious-corp-ised by mandatory ECU data wipe (G8, §2(c) anti-surveillance constitutional first), right-to-repair parts catalog (G12, §2(e) anti-gatekeeping constitutional first), ≥95% material recovery (G13), ≥95% F-gas capture (G6), ≥95% PGM yield (G14), Li-ion second-life classification (L2 hikari handoff), and cross-actor ci...",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-05-26T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "解き",
+  "displayNameJa": "解き — ELV Disassembly + Materials Recovery",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2605261215",
+      "2605261215",
+      "2605261230"
+    ],
+    "primaryLexicon": "com.etzhayyim.hodoki",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/hodoki/did.json",
+    "source": "kotoba"
+  }
+}

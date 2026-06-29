@@ -10,18 +10,14 @@
   "verificationMethod": [],
   "service": [
     {
-      "id": "did:web:etzhayyim.com:actor:maps#wasm",
-      "type": "EtzhayyimWasmComponent",
-      "serviceEndpoint": "ipfs://bafkreib7d3fzjkhsswr7flwkxejkjhauy67offbfd5o7pukqytdvifdbty",
-      "x-exec": "browser-local|donated-mesh",
-      "x-cid-codec": "raw",
-      "x-runtime": "kotoba-wasm",
-      "x-view": "onsen-osusume"
-    },
-    {
       "id": "did:web:etzhayyim.com:actor:maps#atproto_pds",
       "type": "AtprotoPersonalDataServer",
       "serviceEndpoint": "https://pds.etzhayyim.com"
+    },
+    {
+      "id": "did:web:etzhayyim.com:actor:maps#xrpc-libp2p",
+      "type": "AtprotoXrpc",
+      "serviceEndpoint": "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"
     }
   ],
   "_meta": {
@@ -29,17 +25,15 @@
       "2605212030",
       "2605241800",
       "2606013800",
-      "2606014500",
-      "2606015200",
-      "2606064500"
+      "2606014500"
     ],
     "source": "kotoba",
     "kind": "tier-b",
-    "status": "r1",
-    "glyph": "地図",
-    "wasmCid": "bafkreib7d3fzjkhsswr7flwkxejkjhauy67offbfd5o7pukqytdvifdbty",
-    "execModel": "wasm-local (browser/donated-mesh)",
-    "primarySchema": "00-contracts/schemas/maps-spatial-ontology.kotoba.edn",
-    "note": "T1 raw-CID onsen-osusume actor (20-actors/maps/wasm/maps-core). verificationMethod empty — on-chain ERC725 mirror pending; did:web trust root = TLS (no server-minted key, ADR-2605231525). Full map renderer remains the TS Worker until the kotoba-native migration (ADR-2606064500 R1→R3) lands."
+    "status": "r0",
+    "glyph": "Maps",
+    "wasmCid": null,
+    "execModel": "service",
+    "primaryLexicon": "com.etzhayyim.maps",
+    "note": "verificationMethod empty — on-chain ERC725 mirror pending; did:web trust root = TLS (no server-minted key, ADR-2605231525)"
   }
 }

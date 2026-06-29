@@ -1,0 +1,29 @@
+{
+  "did": "did:web:etzhayyim.com:actor:kadode",
+  "handle": "kadode.etzhayyim.com",
+  "displayName": "kadode",
+  "description": "Labour-resignation concierge + 使者 (messenger) — helps a worker resign with dignity (門出 = setting out on a new path), grounded in actual Japanese labour law, and RELAYS the worker's already-formed unilateral resignation (民法627 — a unilateral right; employer consent not required) as a 使者. It does NOT negotiate (弁護士法72条 非弁行為禁止); any matter needing negotiation (未払い賃金 / 退職条件 / 示談 / 損害賠償) is routed to a labour union (団体交渉) or a lawyer. Free, worker-authored, worker-submitted. The labour-liberation ...",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-11T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "門出",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2606112238"
+    ],
+    "primaryLexicon": "com.etzhayyim.kadode.resignationRelay",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/kadode/did.json",
+    "source": "kotoba"
+  }
+}

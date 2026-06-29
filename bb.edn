@@ -9,6 +9,7 @@
  :paths ["20-actors"
          "20-actors/kotodama/src"
          "50-infra/etzhayyim-moyai-credit/src"
+         "50-infra/etzhayyim-atproto-pds-clj/src"
          "70-tools/src"
          "70-tools"]
  :deps {com-junkawasaki/langchain-clj
@@ -62,6 +63,11 @@
   {:doc "ADR-2606231200 — publish a 20-actors/<name> actor as a sovereign unit: josh/subtree split → gh repo com-etzhayyim-<name> → did:web did.json → kotoba-rad RID/did:key (sovereign identity on the kotoba Datom log) → aozora(yoro) PDS profile-write plan. DRY-RUN by default; --apply executes side effects; --pubkey=<hex> pins the Ed25519 key. no-server-key (signing/PDS-write are member/operator legs). Args: <name> [<name>...] [--apply] [--pubkey=hex]"
    :task (do (require 'etzhayyim.actor-publish)
              (apply (resolve 'etzhayyim.actor-publish/-main) *command-line-args*))}
+
+  aozora:deploy
+  {:doc "Deploy an actor's profile record to app-aozora via com.atproto.repo.createRecord. Reads the actor's manifest + kotoba-rad genesis, builds the profile record body, and writes it with rkey=self (idempotent). Canonical PDS/AppView endpoint defaults to https://aozora.app; legacy pds/atproto/etzhayyim.com endpoints are treated as bridge-only and rewritten unless --pds/ AOZORA_PDS_URL points elsewhere. DRY-RUN by default; --apply executes the PDS write. no-server-key: optionally present a member CACAO leash via LEASH env. Args: <name> [<name>...] [--apply] [--pds=<url>]"
+   :task (do (require 'etzhayyim.aozora-deploy)
+             (apply (resolve 'etzhayyim.aozora-deploy/-main) *command-line-args*))}
 
   actor:rid
   {:doc "Print the kotoba-rad rad: URI (genesis-block CIDv1 RID) for an actor, derived from its actor-manifest.jsonld. Read-only. Args: <name>"

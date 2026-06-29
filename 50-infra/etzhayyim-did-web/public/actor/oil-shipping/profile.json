@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:oil-shipping",
+  "handle": "oil-shipping.etzhayyim.com",
+  "displayName": "Oil Shipping & Tanker Intelligence",
+  "description": "Crude and product tanker routing, STS transfer tracking, chokepoint exposure, cargo load/discharge intelligence, and dark-fleet risk monitoring.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Oil Shipping & Tanker Intelligence",
+  "displayNameJa": "Oil Shipping & Tanker Intelligence",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.oil-shipping",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/oil-shipping/did.json",
+    "source": "kotoba"
+  }
+}

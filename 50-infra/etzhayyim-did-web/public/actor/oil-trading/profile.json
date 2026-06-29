@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:oil-trading",
+  "handle": "oil-trading.etzhayyim.com",
+  "displayName": "Oil Trading & Benchmark Intelligence",
+  "description": "Physical crude and products trading, benchmark linkage, offtake contracts, arbitrage windows and counterparty concentration.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Oil Trading & Benchmark Intelligence",
+  "displayNameJa": "Oil Trading & Benchmark Intelligence",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.oil-trading",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/oil-trading/did.json",
+    "source": "kotoba"
+  }
+}

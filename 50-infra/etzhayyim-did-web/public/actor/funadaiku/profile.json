@@ -1,0 +1,32 @@
+{
+  "did": "did:web:etzhayyim.com:actor:funadaiku",
+  "handle": "funadaiku.etzhayyim.com",
+  "displayName": "船大工 — Zero-Emission Autonomous Cargo Shipbuilding",
+  "description": "Zero-emission autonomous cargo-ship building Tier-B actor. Surface counterpart of watatsumi (綿津見 submersible); reuses watatsumi's modular grand-block shipyard methodology and the kami-autodrive ShipHydro GNC. Defining subsystem: a wind-assist + solar + hydrogen fuel-cell + LFP-battery + electric-pod powertrain with NO fossil main or auxiliary engine (G13). Naval / armed / nuclear / fossil-propulsion vessels are constitutional non-goals per Charter Rider §2(a)+§2(d).",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "船大工",
+  "displayNameJa": "船大工 — Zero-Emission Autonomous Cargo Shipbuilding",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2606013400",
+      "2606013400",
+      "2606013415"
+    ],
+    "primaryLexicon": "com.etzhayyim.funadaiku",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/funadaiku/did.json",
+    "source": "kotoba"
+  }
+}

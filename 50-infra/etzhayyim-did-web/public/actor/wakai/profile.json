@@ -1,0 +1,32 @@
+{
+  "did": "did:web:etzhayyim.com:actor:wakai",
+  "handle": "wakai.etzhayyim.com",
+  "displayName": "和会 — Mutual Aid",
+  "description": "Non-profit religious-corp mutual aid substrate. NOT insurance (no premium-as-contract; no actuarial pricing; no claim adjudication; no policy denial). Member-to-member solidarity pooling per Charter §1.7 反個人主義 + 多世代. Pool in USDC on Base L2 stable-asset only. NO commercial insurance software (G4: Guidewire/Duck Creek/Insurity/Sapiens/Majesco/SAP Insurance/Oracle Insurance/Lemonade/Hippo PROHIBITED per Charter Rider §2(e)+§2(c)). NO commercial re-insurance (G5: Munich Re/Swiss Re/SCOR/Hannover...",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-05-26T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "和会",
+  "displayNameJa": "和会 — Mutual Aid",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2605263500",
+      "2605263500",
+      "reserved"
+    ],
+    "primaryLexicon": "com.etzhayyim.wakai",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/wakai/did.json",
+    "source": "kotoba"
+  }
+}

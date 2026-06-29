@@ -1,0 +1,32 @@
+{
+  "did": "did:web:etzhayyim.com:actor:utsushie",
+  "handle": "utsushie.etzhayyim.com",
+  "displayName": "写し絵 — News→Video Medium (kawaraban's projected-image sibling)",
+  "description": "A NEWS→VIDEO MEDIUM. Turns a kawaraban :article/面 into a short narrated, multilingual video that LINKS OUT — the 映像 (moving-image) sibling of 瓦版's printed sheet (写し絵 = Edo-period magic-lantern moving-picture show, Japan's pre-cinema projected image). Like kawaraban it is a MEDIUM, never a source (G11): it narrates a :mirror/:actor-event, never an :original. At R0 it is an OFFLINE render-PLAN builder (methods/render_plan.py): it does NOT render and does NOT call a model; live render is G8-gate...",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-16T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "写し絵",
+  "displayNameJa": "写し絵 — News→Video Medium (kawaraban's projected-image sibling)",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2606161536",
+      "2606161536",
+      "reserved"
+    ],
+    "primaryLexicon": "com.etzhayyim.utsushie",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/utsushie/did.json",
+    "source": "kotoba"
+  }
+}

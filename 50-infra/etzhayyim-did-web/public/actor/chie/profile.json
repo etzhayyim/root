@@ -1,0 +1,30 @@
+{
+  "did": "did:web:etzhayyim.com:actor:chie",
+  "handle": "chie.etzhayyim.com",
+  "displayName": "AI-ecosystem Knowledge Graph mirror",
+  "description": "AI-ecosystem Knowledge Graph mirror",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-17T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "智慧",
+  "displayNameJa": "AI-ecosystem Knowledge Graph mirror",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2606171200"
+    ],
+    "primaryLexicon": "com.etzhayyim.chie",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/chie/did.json",
+    "source": "kotoba"
+  }
+}

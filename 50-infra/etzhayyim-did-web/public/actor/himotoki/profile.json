@@ -2,7 +2,7 @@
   "did": "did:web:etzhayyim.com:actor:himotoki",
   "handle": "himotoki.etzhayyim.com",
   "displayName": "Himotoki — Active Disclosure-Request Filer (consent-bound, own-data-only)",
-  "description": "繙き — 巻物を繙(ひもと)く目に由来。passive な danjo/tadori の active-outbound の対(つい): 同意した member 本人のために、本人の OWN data の開示請求 (DSAR — 個人情報開示請求 APPI §33 / GDPR Art.15 / CCPA) を private controller へ、行政文書開示請求 (FOIA — 行政機関情報公開法 / FOIA) を公的機関へ、coded target registry (disclosureTarget; 窓口/住所/email/portal/手続き/fee/statutory deadline) 経由で procedurally に file・track・appeal し、開示された記録を custody する。構造的 discipline: G3 consent-bound own-data-only (本人の同意 + Adherent-SBT/DID binding; 第三者の PII は決して請求しない) / G4 transparent + non-pretextual (真の requester を常に明示、sockpuppet/pretext/impersonation なし, §2(c)) / G5 UPL-equivalent (files + tracks のみ; 法的助言は chigiri + external counsel へ) / G6 PII は com.etzhayyim.encrypted.* DID-bound envelope のみ (平文 PII を MST に置かない, ADR-2605181100) / G14 verified-target-only dispatch / G11 Transparent Religious Force (§1.12; 強制力なし, 1 SBT=1 vote が FOIA 公開集計の named-party 公開を統べる)。自律 social 公開は no-server-key (ADR-2605231525): 投稿は member/actor 自身の鍵で署名し、サーバは署名しない。公開するのは himotoki 自身の HISTORY (filed-request / disclosure-received の own-data-only 集計記録) と PROCEDURES (DSAR/FOIA 手続き: 根拠法 / target registry / member が自分で self-file する手順) のみ — 第三者の個人データは決して掲載しない。live publication は Council Lv6+ + operator + member-signature gated (R0 は dry-run draft のみ)。NOT a law firm, NOT a private-investigator/people-search, NOT a data-broker, NOT a surveillance/dossier system, NOT a re-disclosure/leak channel, NOT Japan-exclusive (JP-first / jurisdiction-generic)。",
+  "description": "passive な danjo/tadori の active-outbound の対(つい)。同意した member 本人のために、本人の OWN data の開示請求 (DSAR — 個人情報開示請求 APPI §33 / GDPR Art.15 / CCPA) を private controller へ、行政文書開示請求 (FOIA — 行政機関情報公開法 / FOIA) を公的機関へ、coded target registry 経由で file・track・appeal し、開示記録を custody する。自律 social 公開は no-server-key — 投稿は member/actor 自身が mesh runtime 内で self-custody する鍵で署名し、サーバは署名しない (ADR-2605231525); live は Council Lv6+ + operator + member-signature gated、R0 は dry-run draft のみ。公開するのは himotoki 自身の HISTORY (filed-request / disclosure-received の own-data-only 集計) と PROCEDURES (DSAR/FOIA 手続き) のみ — 第三者の個人データは決して掲載しない。G3 consent-bound own-data-only / G4 transparent + non-pretextual / G5 UPL-equivalent / G6 PII は encrypted DID-bound envelope のみ / G14 verified-target-only / G11 Transparent Force。NOT a law firm, NOT a private-investigator/people-search, NOT a data-broker, NOT a re-disclosure/leak channel, NOT target-list。",
   "avatar": "",
   "banner": "",
   "followersCount": 0,
@@ -21,7 +21,8 @@
     "status": "r0",
     "adr": [
       "2605302130",
-      "2605262700"
+      "2605262700",
+      "2606272355"
     ],
     "primaryLexicon": "com.etzhayyim.himotoki",
     "primarySchema": "00-contracts/lexicons/com/etzhayyim/himotoki/disclosureRequest.json",

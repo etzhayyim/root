@@ -1,0 +1,32 @@
+{
+  "did": "did:web:etzhayyim.com:actor:kizashi",
+  "handle": "kizashi.etzhayyim.com",
+  "displayName": "兆 — Non-invasive Multimodal Body-Scan / Sign-Sensing",
+  "description": "Non-profit religious-corp non-invasive multimodal body-scan / sign-sensing substrate — the 'futuristic scan pod' sensing/instrument layer of the L4 Care Tier. Senses physical-burden SIGNS (腰痛 posture/筋, 肩こり 筋硬度/血流, 鼻詰まり 構造/気流, アレルギー via consented microsampling, 炎症 thermal/biomarker) via multimodal capture → fusion → PROBABILISTIC NON-DIAGNOSTIC attribution + self-referenced Wellbecoming trajectory + triage referral. kizashi SENSES → mitate DIAGNOSES → iyashi TREATS. NON-DIAGNOSTIC (G3, 医師法 §1...",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-05-31T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "兆",
+  "displayNameJa": "兆 — Non-invasive Multimodal Body-Scan / Sign-Sensing",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2605312700",
+      "2605312700",
+      "reserved"
+    ],
+    "primaryLexicon": "com.etzhayyim.kizashi",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/kizashi/did.json",
+    "source": "kotoba"
+  }
+}

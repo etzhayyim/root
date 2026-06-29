@@ -1,0 +1,29 @@
+{
+  "did": "did:web:etzhayyim.com:actor:tsugite",
+  "handle": "tsugite.etzhayyim.com",
+  "displayName": "tsugite",
+  "description": "World peoples-continuity (民の存続) mirror — weaves human COLLECTIVES (migration/refugee/stateless populations, indigenous peoples, language communities) + the languages they carry + the displacement/erasure pressures they bear into the kotoba Datom log; surfaces pressure routed to CONTINUITY (継承: safe passage + protection + revitalization); aggregate-only, NEVER person-tracking.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-07T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "継ぎ手",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2606073800"
+    ],
+    "primaryLexicon": "com.etzhayyim.tsugite",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/tsugite/did.json",
+    "source": "kotoba"
+  }
+}

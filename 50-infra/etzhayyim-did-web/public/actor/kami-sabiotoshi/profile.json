@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:kami-sabiotoshi",
+  "handle": "kami-sabiotoshi.etzhayyim.com",
+  "displayName": "Sabi-Otoshi!! -- KAMI Game Item Catalog & Rust Zone Scoring",
+  "description": "KAMI game data actor for Sabi-Otoshi (high-pressure wash game). Item catalog (RustyItem) and rust zone scoring (RustZone). Blast rust off vintage items to restore them.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Sabi-Otoshi!! -- KAMI Game Item Catalog & Rust Zone Scoring",
+  "displayNameJa": "Sabi-Otoshi!! -- KAMI Game Item Catalog & Rust Zone Scoring",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.kami-sabiotoshi",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/kami-sabiotoshi/did.json",
+    "source": "kotoba"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "did": "did:web:etzhayyim.com:actor:iyashi",
+  "handle": "iyashi.etzhayyim.com",
+  "displayName": "癒 — Clinical Care Provider",
+  "description": "Non-profit religious-corp clinical care provider substrate. Community-clinic-model primary care + chronic followup + vaccination + acute first-line + maternity/pediatric clinical. Encrypted PHI envelope MANDATORY (G2 per ADR-2605181100). NO commercial EHR (G11; Epic/Cerner/Athena/Allscripts/NextGen/eClinicalWorks/Greenway/Practice Fusion PROHIBITED per Charter Rider §2(e)+§2(c)). NO insurance billing (G13; funded via Public Fund grant + sliding-scale donation). NO payroll for providers (G14; ...",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-05-26T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "癒",
+  "displayNameJa": "癒 — Clinical Care Provider",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2605263000",
+      "2605263000",
+      "reserved"
+    ],
+    "primaryLexicon": "com.etzhayyim.iyashi",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/iyashi/did.json",
+    "source": "kotoba"
+  }
+}
