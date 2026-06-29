@@ -6,6 +6,7 @@ cd "$(dirname "$0")/../.."   # → repo root (classpath base = 20-actors)
 NSES=(
   junkan.methods.test-junkan-edn
   junkan.methods.test-analyze
+  junkan.methods.test-demography
   junkan.methods.test-kotoba
   junkan.methods.test-autorun
   junkan.methods.test-query

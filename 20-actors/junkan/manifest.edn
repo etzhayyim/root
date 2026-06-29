@@ -7,7 +7,7 @@
  :actor/tier      :tier-b
  :actor/domain    "junkan.etzhayyim.com"
  :actor/kind      :societal-systems-dynamics-observer
- :actor/purpose   "ANALYSIS-ONLY system-dynamics observer of society. Reads which feedback loops are spinning 好循環/悪循環 + Meadows leverage candidates from passive, public, AGGREGATE data — and may ONLY look, never touch (G4, no outward channel; enforced by absence). The clj-native governance-asymmetry substrate applies this to one question: which concrete laws/institutions/doctrines/values worldwide widen or narrow the structural asymmetry between citizens (国民) and the state (政府), recording who established each (誰が), the circumstances (経緯), and the stakeholders (関係者). Everything is a disclosed HYPOTHESIS (G5), aggregate-only (G6), a resilience/leverage MAP and never a target-list (G7)."
+ :actor/purpose   "ANALYSIS-ONLY system-dynamics observer of society. Reads which feedback loops are spinning 好循環/悪循環 + Meadows leverage candidates from passive, public, AGGREGATE data — and may ONLY look, never touch (G4, no outward channel; enforced by absence). It carries MULTIPLE analysis lenses over one shared stock/flow + R/B-loop + Meadows frame. (1) governance-asymmetry: which concrete laws/institutions/doctrines/values worldwide widen or narrow the structural asymmetry between citizens (国民) and the state (政府), recording who established each (誰が), the circumstances (経緯), and the stakeholders (関係者). (2) demographic-dynamics: China's one-child policy (1979) and its reversal (単独二孩2013 → 全面二孩2015 → 三孩2021) read as a stock-flow + ~25y delay + cultural-hysteresis case of why reversing the policy did not reverse the fertility decline (small-family-norm R2 lock-in / 4-2-1 R3 squeeze / pronatal B2 overwhelmed), with a KR/JP/IT/SG cross-society contrast surfacing each society's distinct binding constraint; anti-coercion (junkan never prescribes who should reproduce; coerce-reproduction / eugenic-target unrepresentable). Everything is a disclosed HYPOTHESIS (G5), aggregate-only (G6), a resilience/leverage MAP and never a target-list or population target (G7)."
  :actor/status    :r0
  :actor/adr       "2605290927"
  :actor/related   ["2605192100" "2605262130" "2605312345" "2605262400" "2605240200" "2605264000" "2605241500"]
@@ -19,6 +19,17 @@
   :seed     "20-actors/junkan/kotoba/seed.governance-asymmetry.edn"
   :dataset  "80-data/junkan-governance/"
   :methods  ["junkan_edn" "analyze" "query" "validate" "scorecard" "history" "kotoba" "autorun"]}
+
+ :actor/analyses
+ [{:analysis/id "governance-asymmetry"
+   :ontology "20-actors/junkan/kotoba/ontology.junkan-gov.edn"
+   :seed     "20-actors/junkan/kotoba/seed.governance-asymmetry.edn"}
+  {:analysis/id "demographic-dynamics"
+   :ontology "20-actors/junkan/kotoba/ontology.junkan-demography.edn"
+   :seed     ["20-actors/junkan/kotoba/seed.china-one-child.edn"
+              "20-actors/junkan/kotoba/seed.low-fertility-societies.edn"]
+   :methods  ["demography"]
+   :note     "China one-child policy SD read-off + KR/JP/IT/SG cross-society contrast (ADR-2605290927, 2026-06-29)"}]
 
  :actor/gates
  [{:gate/id "G4" :gate/name "analysis-only-no-actuation" :gate/rule "No outward channel — output is append-only findings + a local ledger; no post/mention/email/tx. Enforced by ABSENCE of any dispatch path; :junkan/actuate + :junkan/dispatch unrepresentable (test-enforced)"}

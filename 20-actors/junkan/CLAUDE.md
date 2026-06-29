@@ -97,6 +97,59 @@ leverage MAP, never a target-list or ranking-to-shame), G11 (leverage points are
 candidates, never directives). Composes with danjo/keizu/kanae/ooyake/kosatsu
 (data) and ossekai (which may publish a finding on junkan's behalf, never junkan).
 
+## Demographic-dynamics substrate (clj-native, added 2026-06-29)
+
+The **second** concrete analysis junkan carries (sibling of the governance-asymmetry
+substrate; same stock-flow + R/B loop + Meadows spine, applied to a population
+question). Reference case: **中国の一人っ子政策** (1979 → 単独二孩 2013 → 全面二孩
+2015 → 三孩 + 出産奨励 2021) read as a system-dynamics **collapse-vs-replacement**
+question — *why reversing the policy did not reverse the fertility decline*
+(stock-flow + ~25y delay + cultural hysteresis).
+
+- `kotoba/ontology.junkan-demography.edn` — EAVT schema · 5 demographic stocks
+  (fertility-rate / reproductive-cohort / small-family-norm / elderly-dependency /
+  childrearing-cost) · 5 canonical loops (B1 birth-control · R1 population-momentum ·
+  R2 norm-lockin · R3 4-2-1-squeeze · B2 pronatal-incentive) · Meadows 12 · negative
+  space (adds `:junkan.demog/coerce-reproduction` + `:eugenic-target` unrepresentable).
+- `kotoba/seed.china-one-child.edn` — 13 dated policy levers (誰が/経緯/関係者),
+  sourcing `:representative`. polarity `:suppress` (lowers fertility / collapse-ward)
+  vs `:boost` (raises / replacement-ward).
+- `methods/demography.cljc` — analysis-only read-off: per-stock regime + loop drive +
+  Meadows leverage candidates + era trajectory + EAVT datoms + a sober report +
+  `validate` (substrate integrity; polarity here is `:suppress`/`:boost`, so it does
+  not reuse the governance `validate.cljc` which hardwires `:widen`/`:narrow`). Reuses
+  `analyze.cljc` generics (`round3`/`regime-of`/`amplify-score`/`flip-score`/`era-of`).
+  **No outward channel (G4 by absence).**
+- `kotoba/seed.low-fertility-societies.edn` — peer low-fertility societies for
+  **cross-society contrast**: 22 levers across **KR / JP / IT / SG** (same 5-stock
+  frame). Loaded alongside the China seed; `society-contrast` / `by-jurisdiction` /
+  `render-contrast-report` in `demography.cljc` give the per-society read-off, and
+  `bb … methods/demography.cljc` prints both the China report and the contrast.
+- `methods/test_demography.cljc` — 12 tests (contribution sign · clean validate ·
+  both polarities + all 5 stocks · analysis shape · R2/R3 vicious · top-flip = the
+  one-child mandate · G4/G5/G6 datom discipline · ontology negative-space absent ·
+  merged-seed validate · 5-society contrast · binding constraints differ · society
+  datom discipline). Wired into `run_tests.sh`. Full suite: **77 tests / 6443
+  assertions green**.
+
+**Cross-society contrast (HYPOTHESIS, G5):** every society reads vicious (collapse-ward)
+but the **binding constraint differs** — 中国 small-family-norm + 4-2-1 · 韓国
+education-cost + gender-penalty (reproductive-cohort) · 日本 non-marriage
+(reproductive-cohort) · イタリア youth-precarity + familism · シンガポール
+education-cost + crystallized small-family-norm. The shared lesson: the weakest Meadows
+lever (a pronatal subsidy or a permitted-child number) never reaches the binding stock;
+correction needs the deep L2–L5 levers (cost / housing / gender division / non-marriage /
+norm). A resilience MAP, never a country ranking (G7).
+
+Read-off (HYPOTHESIS, G5): the most-pressured stock is **small-family-norm** (the R2
+lock-in core, vicious); R2/R3 spin vicious while B2 pronatal-incentive is overwhelmed;
+the 2015/2021 reversals concentrate at **Meadows L12 (the child-count parameter)** while
+the binding constraints sit at **L2 (paradigm) / L3 (system goal) / L5 (cost/housing/
+gender)** — the textbook "weakest-leverage" case. Keeps junkan's analysis-only spine
+(G4/G5/G6/G7/G11) and the anti-coercion line: **junkan never prescribes who should
+reproduce** (`:junkan.demog/coerce-reproduction` is unrepresentable). A resilience MAP,
+never a population target or a country ranking.
+
 ## Self-publication seed (ADR-2606272355) — register → autonomize → publish, no-server-key
 
 junkan is wired with the **actor self-publication seed**: the uniform, charter-clean way
