@@ -30,6 +30,10 @@
     "execModel": "mesh-component",
     "primaryLexicon": "com.etzhayyim.junkan",
     "primarySchema": "20-actors/junkan/kotoba/ontology.junkan-gov.edn",
-    "note": "verificationMethod empty — no server-minted key (ADR-2605231525). did:web trust root = TLS. The actor's own signing identity is self-custodied in its kotoba-mesh WASM runtime on murakumo placement; the #xrpc-libp2p service (peer multiaddr) is assigned at `bb murakumo deploy` time when wasmCid is set. ANALYSIS-ONLY system-dynamics observer of the citizen↔state asymmetry — it publishes DISCLOSED HYPOTHESES (G5), never proven causation, in a non-eschatological / sober read-off (§1.13/§1.15). NOT a verdict, NOT a forecaster, NOT a prescriber, NOT surveillance."
+    "schemas": [
+      "20-actors/junkan/kotoba/ontology.junkan-gov.edn",
+      "20-actors/junkan/kotoba/ontology.junkan-demography.edn"
+    ],
+    "note": "verificationMethod empty — no server-minted key (ADR-2605231525). did:web trust root = TLS. The actor's own signing identity is self-custodied in its kotoba-mesh WASM runtime on murakumo placement; the #xrpc-libp2p service (peer multiaddr) is assigned at `bb murakumo deploy` time when wasmCid is set. ANALYSIS-ONLY societal system-dynamics observer carrying TWO analysis lenses over the same stock/flow + R/B-loop + Meadows frame: (1) governance-asymmetry (citizen↔state) and (2) demographic-dynamics — China's one-child policy + its reversal read as a stock-flow/delay/hysteresis case, with a KR/JP/IT/SG cross-society contrast of each society's binding constraint. It publishes DISCLOSED HYPOTHESES (G5), never proven causation, in a non-eschatological / sober read-off (§1.13/§1.15); anti-coercion (never prescribes who should reproduce). NOT a verdict, NOT a forecaster, NOT a prescriber, NOT surveillance, NOT a population target."
   }
 }
