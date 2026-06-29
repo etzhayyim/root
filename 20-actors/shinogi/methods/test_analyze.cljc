@@ -27,9 +27,10 @@
 (deftest analysis-has-all-parts
   (let [r (a)]
     (is (map? (get r "stocks")))
-    (is (= 6 (count (get r "stocks"))) "all six pressure stocks present")
-    (is (= 6 (count (get r "loops"))) "six canonical loops")
+    (is (= 9 (count (get r "stocks"))) "all nine pressure stocks present (exam + labor + withdrawal)")
+    (is (= 10 (count (get r "loops"))) "ten canonical loops")
     (is (map? (get r "failure_cycle")) "the failure-cycle read-off is present")
+    (is (map? (get r "youth_withdrawal")) "the youth-withdrawal read-off is present")
     (is (contains? (get r "leverage") :amplify))
     (is (contains? (get r "leverage") :flip))
     (is (map? (get r "coverage")))))
@@ -49,6 +50,22 @@
     (is (true? (:hypothesis? fc)) "failure cycle is a hypothesis (G5)")
     (is (= ["kokoro" "shiori"] (:route-to fc)) "routed to relief, never amplified (G7)")
     (is (number? (:relief-gap fc)))))
+
+;; ── the youth-withdrawal cycle (頑張れない + 躺平) is structural + relief-routed ──
+(deftest youth-withdrawal-structural-and-relief-routed
+  (let [yw (get (a) "youth_withdrawal")
+        stocks (get (a) "stocks")]
+    (is (= ["R-effort-futility" "R-lying-flat-spiral"] (:loops yw)))
+    (is (= ["kokoro" "shiori" "manabi"] (:route-to yw)) "routed to relief, never moralized (G7)")
+    (is (str/includes? (:note yw) "not laziness") "framed structurally, not as laziness (§1.4)")
+    (is (number? (:relief-gap yw)))
+    ;; the three downstream stocks exist and read intensifying on the seed
+    (is (= "vicious" (name (:regime (get stocks "labor-absorption-deficit"))))
+        "卒業即失業 (labor-absorption-deficit) reads vicious on the seed")
+    (is (= "vicious" (name (:regime (get stocks "effort-efficacy-collapse"))))
+        "頑張れない (effort-efficacy-collapse) reads vicious on the seed")
+    (is (= "vicious" (name (:regime (get stocks "withdrawal-prevalence"))))
+        "躺平 (withdrawal-prevalence) reads vicious on the seed")))
 
 ;; ── loops grounded in member-stock edges (not dominant alone) ────────────────
 (deftest loops-grounded-in-member-stocks
@@ -100,6 +117,7 @@
 (deftest report-is-sober-and-relief-routed
   (let [rep (az/render-report (a))]
     (is (str/includes? rep "受験失敗の system cycle") "the failure cycle is foregrounded")
+    (is (str/includes? rep "頑張れない & 寝そべり") "the youth-withdrawal cycle is foregrounded")
     (is (str/includes? rep "kokoro") "report routes failure to kokoro (relief)")
     (is (str/includes? rep "ranking ではない") "report disclaims being a ranking (G8)")
     (is (str/includes? rep "actuation_taken=false") "report advertises analysis-only (G4)")))

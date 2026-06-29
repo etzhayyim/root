@@ -17,6 +17,19 @@
 ;; SOBERLY, as a relief/leverage MAP — never a ranking-to-shame, never a roster of
 ;; "failing students" (G7 + G8).
 ;;
+;; The spiral does not END at the exam. shinogi models the whole INVOLUTION
+;; LIFECYCLE in three coupled phases:
+;;   Phase 1 — EXAM      (stocks A–F): the high-stakes selection scramble.
+;;   Phase 2 — LABOR     (stock G):    卒業即失業 — degree oversupply meets too few
+;;                                     absorbing jobs (graduate unemployment).
+;;   Phase 3 — WITHDRAWAL(stocks H–I): 頑張れない (the perceived return on effort
+;;                                     collapses) → 躺平/寝そべり (lying flat, the
+;;                                     withdrawal response). Framed STRUCTURALLY,
+;;                                     never as individual laziness (§1.4 anti-
+;;                                     individualism): the SYSTEM eroded effort's
+;;                                     efficacy; lying flat is a rational + self-
+;;                                     protective response, not a moral failing.
+;;
 ;; Discipline carried into the data model:
 ;;   G4  analysis-only — output is append-only findings + a local ledger; no actuation.
 ;;   G5  no causal overclaim — every loop/edge is :hypothesis (`:hypothesis? true`),
@@ -56,12 +69,15 @@
 
  :enums
  {;; which pressure STOCK a driver feeds (the A–F structural categories)
-  :stock        #{:positional-scarcity      ;; A 選抜の希少性 — zero-sum seats vs aspirants
-                  :effort-inflation         ;; B 努力の軍拡 — hours/spend treadmill (内卷 core)
-                  :credential-signaling     ;; C 学歴シグナル依存 — 文凭 inflation
-                  :wellbeing-erosion        ;; D 心身ウェルビーイングの侵食 — sleep/anxiety/burnout
-                  :family-capture           ;; E 家計資源の捕獲 — household spend/debt/expectation
-                  :failure-penalty}         ;; F 失敗ペナルティ — stigma / no 敗者復活 (the failure cycle)
+  :stock        #{:positional-scarcity       ;; A 選抜の希少性 — zero-sum seats vs aspirants
+                  :effort-inflation          ;; B 努力の軍拡 — hours/spend treadmill (内卷 core)
+                  :credential-signaling      ;; C 学歴シグナル依存 — 文凭 inflation
+                  :wellbeing-erosion         ;; D 心身ウェルビーイングの侵食 — sleep/anxiety/burnout
+                  :family-capture            ;; E 家計資源の捕獲 — household spend/debt/expectation
+                  :failure-penalty           ;; F 失敗ペナルティ — stigma / no 敗者復活 (the failure cycle)
+                  :labor-absorption-deficit  ;; G 労働吸収力の不足 — 卒業即失業 (graduate oversupply vs jobs)
+                  :effort-efficacy-collapse  ;; H 努力効力感の崩壊 — 頑張れない (effort no longer pays; structural, not laziness)
+                  :withdrawal-prevalence}    ;; I 離脱の広がり — 躺平/寝そべり (lying flat; rational + self-protective)
   ;; does the driver INTENSIFY the involution/pressure, RELIEVE it, or is it ambiguous
   :polarity     #{:intensify :relieve :ambiguous}
   ;; kind of driver
@@ -97,7 +113,23 @@
    :doc "敗者復活/代替経路: de-stigmatized vocational tracks, multiple attempts, holistic admission, and decoupling jobs from one exam push the scarcity stock back toward balance."}
   {:id "B-wellbeing-protection" :type :balancing :dominant-stock :wellbeing-erosion
    :edges [[:wellbeing-erosion :wellbeing-erosion :neg]]
-   :doc "ウェルビーイング保護: load-reduction (双減), exam-stakes lowering, study-hour limits, and mental-health support push the wellbeing stock back toward balance."}]
+   :doc "ウェルビーイング保護: load-reduction (双減), exam-stakes lowering, study-hour limits, and mental-health support push the wellbeing stock back toward balance."}
+  ;; ── Phase 2–3: labor + withdrawal (the spiral past graduation) ──
+  {:id "R-degree-devaluation" :type :reinforcing :dominant-stock :credential-signaling
+   :edges [[:credential-signaling :labor-absorption-deficit :pos]
+           [:labor-absorption-deficit :credential-signaling :pos]]
+   :doc "文凭インフレ→卒業即失業: degree massification → graduate oversupply → fewer absorbing jobs per degree → the degree signals less → chase still MORE credentials (考研/考公). The exam involution leaks straight into the labor market."}
+  {:id "R-effort-futility" :type :reinforcing :dominant-stock :effort-efficacy-collapse
+   :edges [[:labor-absorption-deficit :effort-efficacy-collapse :pos]
+           [:effort-efficacy-collapse :labor-absorption-deficit :pos]]
+   :doc "若者頑張れない: years of maximal effort yield no absorbing job → the perceived RETURN ON EFFORT collapses (努力无用感) → disengagement lowers participation/skill-building → reentry gets harder. STRUCTURAL, not laziness (§1.4): the system, not the youth, eroded effort's efficacy."}
+  {:id "R-lying-flat-spiral" :type :reinforcing :dominant-stock :withdrawal-prevalence
+   :edges [[:effort-efficacy-collapse :withdrawal-prevalence :pos]
+           [:withdrawal-prevalence :effort-efficacy-collapse :pos]]
+   :doc "躺平/寝そべり: collapsed efficacy → withdrawal (躺平/摆烂/全职儿女/润) → less participation → efficacy collapses further. Lying flat is BOTH a symptom of the spiral AND a self-protective relief valve on wellbeing — held ambiguous, never pathologized (G7)."}
+  {:id "B-labor-absorption" :type :balancing :dominant-stock :labor-absorption-deficit
+   :edges [[:labor-absorption-deficit :labor-absorption-deficit :neg]]
+   :doc "労働吸収: job creation, youth-employment programs (三支一扶/西部计划/特岗; JP 就職氷河期世代支援), and decoupling careers from a single credential push the graduate-unemployment stock back toward balance."}]
 
  ;; Meadows' 12 leverage levels (referenced, not vendored) — lower number = deeper leverage.
  :meadows-levels

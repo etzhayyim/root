@@ -151,4 +151,118 @@
   :stakeholders ["Federal Ministry of Education" "chambers (IHK/HWK)" "employers" "apprentices" "vocational schools"]
   :stock :failure-penalty :polarity :relieve :magnitude 0.5 :reversibility :institutional :meadows 4
   :basis "Berufsbildungsgesetz (BBiG, 1969); dual Ausbildung system" :sourcing :representative :confidence 0.5}
+
+ ;; ═════════════════════════════════════════════════════════════════════════════
+ ;; PHASE 2 — LABOR: 卒業即失業 (graduate unemployment / labor-absorption deficit)
+ ;; ═════════════════════════════════════════════════════════════════════════════
+ {:type :driver :id "cn-gaoxiao-kuozhao" :name "高校扩招 (university massification)" :jurisdiction "CN" :kind :policy :year 1999
+  :enactor "State Council / Ministry of Education (1999 enrolment-expansion decision)"
+  :origin "A rapid, deliberate expansion of university enrolment from 1999. It democratized access (a genuine good) but multiplied the annual graduate cohort far faster than the economy created graduate-grade jobs — the supply-side root of degree oversupply and 卒業即失業."
+  :stakeholders ["State Council" "Ministry of Education" "universities" "annual graduate cohort (~11–12M)" "employers"]
+  :stock :labor-absorption-deficit :polarity :intensify :magnitude 0.6 :reversibility :institutional :meadows 10
+  :basis "高校扩招 (1999–); annual graduate cohort growth" :sourcing :representative :confidence 0.55
+  :note "Access expansion was a real good; this row scores only its effect on the labor-absorption stock, not on access."}
+
+ {:type :driver :id "cn-biye-ji-shiye" :name "毕业即失业 (unemployed on graduation)" :jurisdiction "CN" :kind :norm :year 2023
+  :enactor "Emergent structural condition (no enactor); urban 16–24 youth unemployment reached ~21.3% (June 2023, NBS series later revised to exclude students)"
+  :origin "The lived condition in which a large share of graduates cannot find graduate-grade work on leaving university — degree oversupply meeting a slowing demand for graduate labor. The phrase names the experience of the qualification no longer guaranteeing absorption."
+  :stakeholders ["graduates" "National Bureau of Statistics (measures it)" "employers" "families"]
+  :stock :labor-absorption-deficit :polarity :intensify :magnitude 0.7 :reversibility :market :meadows 8
+  :basis "都市青年(16–24)失業率 ~21.3% (2023-06, NBS); 毕业即失业 as mass concept" :sourcing :representative :confidence 0.55}
+
+ {:type :driver :id "cn-xueli-bianzhi" :name "学历贬值 / 学历通胀 (degree devaluation)" :jurisdiction "CN" :kind :norm :year 2015
+  :enactor "Emergent labor-market condition (no enactor); accelerated through the 2010s"
+  :origin "As degrees proliferate, the same qualification buys less labor-market access, so jobs that once needed a bachelor's now ask for a master's — pushing competition downstream (考研/考公) and inflating the credential everyone must hold."
+  :stakeholders ["graduates" "employers raising requirements" "graduate schools" "civil-service exam"]
+  :stock :credential-signaling :polarity :intensify :magnitude 0.55 :reversibility :market :meadows 6
+  :basis "学历贬值 / 学历通胀 (degree inflation, 2010s–)" :sourcing :representative :confidence 0.5}
+
+ {:type :driver :id "cn-35-curse" :name "35岁现象 (the 35-year-old hiring curse)" :jurisdiction "CN" :kind :practice :year 2010
+  :enactor "Employer hiring norms (private + some public postings cap age ~35); widely reported practice"
+  :origin "A pervasive practice of screening out applicants over ~35, so even those who 'won' the exam-and-job race face an early expiry on their employability. It signals that effort buys a shrinking, time-boxed return — a direct driver of effort-efficacy collapse."
+  :stakeholders ["workers approaching 35" "employers" "recruitment platforms"]
+  :stock :effort-efficacy-collapse :polarity :intensify :magnitude 0.5 :reversibility :cultural :meadows 5
+  :basis "35岁现象 (age-35 employment ceiling, widely reported)" :sourcing :representative :confidence 0.45}
+
+ {:type :driver :id "cn-996" :name "996 工作制 (996 overwork culture)" :jurisdiction "CN" :kind :practice :year 2015
+  :enactor "Tech/firm overwork norms (9am–9pm, 6 days); ruled illegal by the Supreme People's Court + MOHRSS in 2021 yet persists"
+  :origin "Normalized extreme overwork for those who DO get jobs, so the prize of winning the involution is itself exhausting and insecure — coupling wellbeing erosion with the sense that effort yields burnout, not security."
+  :stakeholders ["employees" "tech firms" "Supreme People's Court / MOHRSS (ruled it illegal 2021)" "labor activists"]
+  :stock :wellbeing-erosion :polarity :intensify :magnitude 0.5 :reversibility :cultural :meadows 5
+  :basis "996 工作制; SPC+MOHRSS 2021 illegality ruling" :sourcing :representative :confidence 0.5}
+
+ ;; ═════════════════════════════════════════════════════════════════════════════
+ ;; PHASE 3 — WITHDRAWAL: 頑張れない (effort-efficacy collapse) + 躺平 (lying flat)
+ ;; ═════════════════════════════════════════════════════════════════════════════
+ {:type :driver :id "cn-985-feiwu" :name "985废物 / 小镇做题家 (disillusioned 'winners')" :jurisdiction "CN" :kind :norm :year 2020
+  :enactor "Emergent self-describing online norm (no enactor); spread c.2020"
+  :origin "Self-deprecating identities adopted by graduates of even top (985) universities who feel their hard-won credentials did not deliver — '985 trash', 'small-town test-taker'. They name the disillusionment of those who DID win the exam yet still hit the labor wall: a marker of collapsing effort efficacy."
+  :stakeholders ["top-university graduates" "online communities" "first-generation students"]
+  :stock :effort-efficacy-collapse :polarity :intensify :magnitude 0.45 :reversibility :cultural :meadows 2
+  :basis "985废物引进计划 / 小镇做题家 (self-deprecating concepts, 2020–)" :sourcing :representative :confidence 0.45}
+
+ {:type :driver :id "cn-manjiuye" :name "慢就业 / 缓就业 (slow employment)" :jurisdiction "CN" :kind :practice :year 2017
+  :enactor "Emergent graduate practice (no enactor); acknowledged in MOE/state-media discourse"
+  :origin "Graduates deliberately delaying entry into the job market — gap time, repeated exam attempts, or simply waiting — a measured withdrawal from a labor market that offers too little. A pressure-release that also signals reduced absorption."
+  :stakeholders ["graduates" "families supporting them" "Ministry of Education" "employers"]
+  :stock :withdrawal-prevalence :polarity :intensify :magnitude 0.4 :reversibility :market :meadows 8
+  :basis "慢就业 / 缓就业 (slow employment, 2017–)" :sourcing :representative :confidence 0.45}
+
+ {:type :driver :id "cn-quanzhi-ernu" :name "全职儿女 (full-time children)" :jurisdiction "CN" :kind :norm :year 2022
+  :enactor "Emergent household practice (no enactor); spread c.2022–2023"
+  :origin "Young adults living with and (sometimes) paid by their parents for household labor instead of holding outside jobs — a domestic withdrawal from the labor market. Both a coping arrangement and a marker of how few absorbing jobs exist."
+  :stakeholders ["young adults" "parents" "households"]
+  :stock :withdrawal-prevalence :polarity :intensify :magnitude 0.35 :reversibility :cultural :meadows 3
+  :basis "全职儿女 (full-time children, 2022–)" :sourcing :representative :confidence 0.4}
+
+ {:type :driver :id "cn-bailan" :name "摆烂 (bai lan / let it rot)" :jurisdiction "CN" :kind :norm :year 2022
+  :enactor "Emergent youth counter-norm (no enactor); spread 2022"
+  :origin "Active disengagement — letting a deteriorating situation worsen rather than fighting it — a sibling of 躺平 weighted toward giving up on improvement. A symptom of collapsed effort efficacy."
+  :stakeholders ["youth" "online communities" "employers"]
+  :stock :effort-efficacy-collapse :polarity :intensify :magnitude 0.35 :reversibility :cultural :meadows 2
+  :basis "摆烂 (let it rot, 2022–)" :sourcing :representative :confidence 0.4}
+
+ {:type :driver :id "cn-run" :name "润 (rùn / emigration as exit)" :jurisdiction "CN" :kind :norm :year 2022
+  :enactor "Emergent exit norm (no enactor); 润学 'run-ology' spread 2022"
+  :origin "Choosing to emigrate ('run') as the response to the involution — exit rather than voice. A withdrawal from the domestic spiral that relieves the individual while signaling the system's loss of confidence; ambiguous in net effect."
+  :stakeholders ["aspiring emigrants" "destination countries" "families"]
+  :stock :withdrawal-prevalence :polarity :intensify :magnitude 0.3 :reversibility :cultural :meadows 3
+  :basis "润 / 润学 (emigration-as-exit, 2022–)" :sourcing :representative :confidence 0.4
+  :note "Ambiguous — relieves the individual, drains the system; scored as low-magnitude withdrawal."}
+
+ {:type :driver :id "cn-youth-employment-policy" :name "稳就业 + 基层就业 grassroots programs" :jurisdiction "CN" :kind :policy :year 2023
+  :enactor "State Council + MOHRSS (youth-employment stabilization; 三支一扶 / 西部计划 / 特岗 grassroots placement schemes)"
+  :origin "State measures to absorb graduates — subsidized grassroots and rural placements, hiring incentives, and employment-first directives — an explicit attempt to refill the labor-absorption stock. Partial: scale is small against the cohort size."
+  :stakeholders ["State Council" "MOHRSS" "local governments" "graduates" "rural/grassroots posts"]
+  :stock :labor-absorption-deficit :polarity :relieve :magnitude 0.35 :reversibility :policy :meadows 5
+  :basis "稳就业; 三支一扶 / 西部计划 / 特岗教师 (grassroots employment, 2003–; intensified 2023)" :sourcing :representative :confidence 0.45}
+
+ ;; ── comparative siblings: the lost-generation precedents (JP / KR) ──
+ {:type :driver :id "jp-shushoku-hyogaki" :name "就職氷河期 (employment ice age) + ロスジェネ" :jurisdiction "JP" :kind :institution :year 1993
+  :enactor "Post-bubble labor market + corporate hiring freezes (c.1993–2005); a structural condition, not a single enactor"
+  :origin "Japan's post-bubble 'employment ice age': graduates of c.1993–2005 hit collapsed hiring, locking a 'lost generation' (ロスジェネ) into フリーター/non-regular work with lasting wage + security scars. The direct historical precedent for 卒業即失業 — degree no longer guarantees absorption."
+  :stakeholders ["the lost generation (ロスジェネ)" "employers (lifetime-employment retreat)" "MHLW" "non-regular workers"]
+  :stock :labor-absorption-deficit :polarity :intensify :magnitude 0.6 :reversibility :market :meadows 8
+  :basis "就職氷河期 (c.1993–2005); ロスジェネ / フリーター rise" :sourcing :representative :confidence 0.55}
+
+ {:type :driver :id "jp-satori-hikikomori" :name "さとり世代 / ひきこもり / 8050問題" :jurisdiction "JP" :kind :norm :year 2010
+  :enactor "Emergent generational condition (no enactor); さとり世代 named c.2010, ひきこもり/8050 long-running"
+  :origin "The 'enlightened/resigned generation' (さとり世代) lowered ambition after watching effort fail their elders; social withdrawal (ひきこもり) and the aging 8050問題 (50-year-old recluse cared for by an 80-year-old parent) are its severe tail. The JP precursor to 躺平 — withdrawal as a rational response to a futile race."
+  :stakeholders ["youth/young adults" "ひきこもり individuals + families" "MHLW" "8050 households"]
+  :stock :withdrawal-prevalence :polarity :intensify :magnitude 0.45 :reversibility :cultural :meadows 2
+  :basis "さとり世代 (c.2010); ひきこもり / 8050問題" :sourcing :representative :confidence 0.45}
+
+ {:type :driver :id "jp-iceage-support" :name "就職氷河期世代支援プログラム" :jurisdiction "JP" :kind :policy :year 2019
+  :enactor "Cabinet Office / MHLW (2019 three-year support programme for the ice-age generation)"
+  :origin "A belated state programme (2019–) to re-employ the lost generation through training, hiring quotas, and public-sector openings — relief that arrived ~20 years late, illustrating both that withdrawal is reversible and the cost of waiting."
+  :stakeholders ["ice-age generation" "Cabinet Office" "MHLW" "employers" "local governments"]
+  :stock :labor-absorption-deficit :polarity :relieve :magnitude 0.3 :reversibility :policy :meadows 5
+  :basis "就職氷河期世代支援プログラム (2019–)" :sourcing :representative :confidence 0.45}
+
+ {:type :driver :id "kr-npo-hell-joseon" :name "N포세대 / 헬조선 (giving-up generation)" :jurisdiction "KR" :kind :norm :year 2015
+  :enactor "Emergent youth condition (no enactor); N포세대 + 헬조선 spread c.2015"
+  :origin "The 'N-giving-up generation' (N포세대) — youth renouncing dating, marriage, children, jobs, housing, hope — and '헬조선' (Hell Joseon) naming a society where effort cannot overcome structural barriers. The Korean sibling of 頑張れない + 躺平: effort efficacy collapses under entrenched scarcity."
+  :stakeholders ["Korean youth" "the labor market" "housing market" "policymakers"]
+  :stock :effort-efficacy-collapse :polarity :intensify :magnitude 0.5 :reversibility :cultural :meadows 2
+  :basis "N포세대 / 헬조선 (giving-up generation, 2015–)" :sourcing :representative :confidence 0.45}
 ]

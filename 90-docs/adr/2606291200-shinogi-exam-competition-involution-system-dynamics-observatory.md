@@ -59,18 +59,35 @@ India JEE-NEET / Finland / Germany as comparative siblings. 名 鎬: 「鎬を�
 the ridge of one's blade against another's — fierce mutual competition that wears everyone
 down for no relative gain; the precise idiom for involution.
 
-**Model.** Each **driver** (a concrete policy / institution / practice / norm — the gaokao
-itself, 985/211/双一流 tiering, 户籍-linked quotas, 双减, 复读 culture, 衡水模式, the
-内卷/躺平 norms, 普职分流, the one-child legacy, 考研/考公 escalation, the 2023 student
-mental-health plan, plus the comparative siblings) feeds one of **six pressure stocks** with
-a polarity (`:intensify` / `:relieve` / `:ambiguous`): **A** positional-scarcity · **B**
-effort-inflation (the 内卷 core) · **C** credential-signaling · **D** wellbeing-erosion ·
-**E** family-capture · **F** failure-penalty. Six structural **loops** (HYPOTHESES) join the
-stocks; the **R-failure-despair** loop (failure-penalty ⇄ wellbeing-erosion) is the user's
-"exam-failure system cycle," foregrounded and **routed toward relief** (kokoro 心 / shiori 栞).
+**Model — the whole involution LIFECYCLE.** The spiral does not end at the exam, so `shinogi`
+models three coupled phases. Each **driver** (a concrete policy / institution / practice /
+norm) feeds one of **nine pressure stocks** with a polarity (`:intensify` / `:relieve` /
+`:ambiguous`):
+
+- **Phase 1 EXAM** — **A** positional-scarcity · **B** effort-inflation (the 内卷 core) ·
+  **C** credential-signaling · **D** wellbeing-erosion · **E** family-capture ·
+  **F** failure-penalty (drivers: gaokao, 985/211/双一流, 户籍 quotas, 双减, 复读, 衡水模式,
+  内卷/躺平 norms, 普职分流, one-child legacy, 考研/考公, the 2023 mental-health plan).
+- **Phase 2 LABOR** — **G** labor-absorption-deficit = **卒業即失業** (graduate unemployment),
+  the user's "no job after graduation" question (drivers: 高校扩招 massification, 毕业即失业,
+  学历贬值, 35岁现象, 996).
+- **Phase 3 WITHDRAWAL** — **H** effort-efficacy-collapse = **頑張れない** (the user's "youth
+  cannot strive," framed structurally per §1.4 — the system eroded effort's efficacy, NOT
+  laziness) · **I** withdrawal-prevalence = **躺平/寝そべり** (lying flat), held as a rational +
+  self-protective response, never pathologized (drivers: 985废物, 慢就业, 全职儿女, 摆烂, 润 +
+  稳就业/grassroots relief).
+
+Ten structural **loops** (HYPOTHESES) join the stocks. Two are foregrounded as sober,
+relief-routed read-offs answering the user directly: **R-failure-despair** (the 受験失敗 cycle,
+→ kokoro/shiori) and the pair **R-effort-futility + R-lying-flat-spiral** (the 卒業後
+頑張れない/躺平 cycle, → kokoro/shiori/manabi), with **R-degree-devaluation** as the through-line
+that leaks the exam involution into the labor market. The comparative siblings include the
+lost-generation precedents — Japan's 就職氷河期 / さとり世代 / ひきこもり / 8050問題 and Korea's
+N포세대 / 헬조선 — showing the withdrawal phenomenon is not China-specific and has documented
+precedents (and belated remedies, e.g. Japan's 2019 ice-age-generation support programme).
 Each driver records 誰が定めたか (`:enactor`), 経緯 (`:origin`), 関係者 (`:stakeholders`) as
 on-the-record public facts; `shinogi` reads off, as disclosed HYPOTHESES (G5), per-stock
-regimes (悪循環/好循環), per-loop drive, the failure-cycle relief gap, an era trajectory, and
+regimes (悪循環/好循環), per-loop drive, both cycle relief-gaps, an era trajectory, and
 **Meadows leverage candidates** (deepest-leverage relieving drivers to amplify + most
 tractable intensifying drivers where the spiral could ease).
 
@@ -95,20 +112,25 @@ tractable intensifying drivers where the spiral could ease).
   on shinogi's behalf, never by shinogi (preserves G4).
 
 **Implementation (R0, landed).** clj-native, kotoba-Datom-native (root CLAUDE.md §"Operational
-code = clj/bb"): `20-actors/shinogi/` with ontology + 18-driver/6-jurisdiction seed + 4 methods
-(`shinogi_edn` loader · `analyze` read-off · `kotoba` content-addressed append-only findings
-ledger · `autorun` deterministic idempotent-by-content heartbeat) + 5 test suites
-(`bb 20-actors/shinogi/run_tests.clj` → **26 tests / 256 assertions green**). Static
-did.json/profile under `50-infra/etzhayyim-did-web/public/actor/shinogi/` (verificationMethod
-`[]`, no server-minted key). The loop does no network I/O; live public-data ingest
-(MOE/KICE/MEXT/NTA aggregate statistics) is a G7/operator-gated R1 leg.
+code = clj/bb"): `20-actors/shinogi/` with ontology (9 stocks / 10 loops) + 33-driver/
+6-jurisdiction seed + 4 methods (`shinogi_edn` loader · `analyze` read-off · `kotoba`
+content-addressed append-only findings ledger · `autorun` deterministic idempotent-by-content
+heartbeat) + 5 test suites (`bb 20-actors/shinogi/run_tests.clj` → **27 tests / 408 assertions
+green**). Static did.json/profile under `50-infra/etzhayyim-did-web/public/actor/shinogi/`
+(verificationMethod `[]`, no server-minted key). The loop does no network I/O; live public-data
+ingest (MOE/KICE/MEXT/NTA aggregate statistics) is a G7/operator-gated R1 leg.
 
-**Seed read-off (iteration 1, HYPOTHESIS).** The involution core spins **vicious**:
-effort-inflation, positional-scarcity, and credential-signaling all read 悪循環; the strongest
-intensifying driver is the gaokao itself; the deepest relieving leverage candidates are the
-structural counter-examples (Finland's no-ranking comprehensive school L3, Germany's
-de-stigmatized dual vocational track L4, China's 双减 L5). The latest era (2020–) nets toward
-relief (双减 + mental-health plan + 躺平) — the spiral is contested, not monotone.
+**Seed read-off (iteration 1, HYPOTHESIS).** The involution spins **vicious** across the whole
+lifecycle: the exam core (effort-inflation, positional-scarcity, credential-signaling) and all
+three downstream stocks — labor-absorption-deficit (卒業即失業), effort-efficacy-collapse
+(頑張れない), withdrawal-prevalence (躺平) — read 悪循環. The 卒業後 withdrawal cycle carries a
+large **relief-gap** (pressure ≈2.48 vs relief ≈0.29): the relief drivers (稳就业, Japan's
+ice-age support) are small against the pressure, an honest read that the back half of the
+spiral is the least-cushioned. The deepest relieving leverage candidates remain the structural
+counter-examples (Finland's no-ranking comprehensive school L3, Germany's de-stigmatized dual
+vocational track L4, China's 双减 L5). The exam-phase latest era (2020–) nets toward relief
+(双减 + mental-health plan + 躺平) — the exam spiral is contested, but the labor/withdrawal
+spiral is not yet meaningfully balanced.
 
 # Consequences
 

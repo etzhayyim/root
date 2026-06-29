@@ -6,28 +6,30 @@ ADR-2606291200 · R0 scaffold · generated from the substrate (do not hand-drift
 
 - [x] ADR authored (`90-docs/adr/2606291200-…`)
 - [x] manifest.edn (id/glyph/tier/domain/kind/purpose/status/gates/non-goals/composes-with)
-- [x] ontology (`kotoba/ontology.shinogi-exam.edn`) — 6 stocks · 6 loops · Meadows 12 · negative space
-- [x] seed (`kotoba/seed.exam-involution.edn`) — 18 drivers / 6 jurisdictions (China-primary)
+- [x] ontology (`kotoba/ontology.shinogi-exam.edn`) — 9 stocks · 10 loops · Meadows 12 · negative space
+- [x] seed (`kotoba/seed.exam-involution.edn`) — 33 drivers / 6 jurisdictions (China-primary)
 - [x] loader (`methods/shinogi_edn.cljc`)
 - [x] analysis-only read-off (`methods/analyze.cljc`) — stocks/loops/failure-cycle/leverage/coverage/datoms/report
 - [x] content-addressed append-only ledger (`methods/kotoba.cljc`, verify-chain)
 - [x] idempotent-by-content heartbeat (`methods/autorun.cljc`)
-- [x] tests green — `bb 20-actors/shinogi/run_tests.clj` → 26 tests / 256 assertions
+- [x] tests green — `bb 20-actors/shinogi/run_tests.clj` → 27 tests / 408 assertions
 - [x] gates pinned (G4/G5/G6/G7/G8/G9/G11 — manifest + ontology negative space + analyze emission)
 - [x] static did.json/profile (`50-infra/etzhayyim-did-web/public/actor/shinogi/`, verificationMethod [])
 
 ## Coverage (seed iteration 1)
 
-- drivers: 18
+- drivers: 33
 - jurisdictions: 6 (CN primary · KR · JP · IN · FI · DE)
-- stocks covered: 6 / 6
-- China drivers: 11 (gaokao, 985/211/双一流, 户籍 quota, 双减, 复读, 衡水模式, 内卷 norm, 躺平 counter-norm, 普职分流, one-child legacy, 考研/考公, mental-health plan)
+- stocks covered: 9 / 9 (exam A–F + labor G + withdrawal H–I)
+- lifecycle phases: 1 EXAM (A–F) · 2 LABOR (G 卒業即失業) · 3 WITHDRAWAL (H 頑張れない, I 躺平)
+- China drivers: ~21 across all phases (exam: gaokao/985-211/户籍/双减/复读/衡水/内卷/躺平/普职分流/one-child/考研考公/mental-health; labor: 高校扩招/毕业即失业/学历贬值/35岁/996; withdrawal: 985废物/慢就业/全职儿女/摆烂/润/稳就业)
+- comparative siblings: JP 就職氷河期/さとり/ひきこもり + KR N포세대/헬조선 (lost-generation precedents)
 
 ## Next /loop worklist (from analyze coverage)
 
 - add relieving drivers for `effort-inflation` + `credential-signaling`
-- deepen the thinnest stock (`failure-penalty`)
-- broaden jurisdiction coverage (more Asian + Global-South exam systems)
+- deepen the thinnest stocks; balance the large withdrawal-cycle relief-gap with more relief drivers (G/H/I)
+- broaden jurisdiction coverage (more Asian + Global-South exam + youth-labor systems)
 
 ## R1+ (not yet)
 

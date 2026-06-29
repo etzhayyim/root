@@ -19,7 +19,7 @@
       (let [r1 (ar/beat {:drivers drivers :tx-id "b1" :as-of "a1" :log-path log})]
         (is (:appended r1) "first beat appends")
         (is (pos? (:count r1)) "datoms emitted")
-        (is (= 6 (count (:regimes r1))) "all six stock regimes reported")
+        (is (= 9 (count (:regimes r1))) "all nine stock regimes reported")
         (is (number? (:failure-gap r1)) "failure-cycle relief-gap reported")
         ;; idempotent-by-content: an identical second beat is a no-op
         (let [r2 (ar/beat {:drivers drivers :tx-id "b2" :as-of "a2" :log-path log})]

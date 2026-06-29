@@ -37,15 +37,19 @@
 ;; ── stock catalog (display order + labels) ───────────────────────────────────
 (def stock-order
   [:positional-scarcity :effort-inflation :credential-signaling
-   :wellbeing-erosion :family-capture :failure-penalty])
+   :wellbeing-erosion :family-capture :failure-penalty
+   :labor-absorption-deficit :effort-efficacy-collapse :withdrawal-prevalence])
 
 (def stock-label
-  {:positional-scarcity  "A 選抜の希少性 (positional scarcity)"
-   :effort-inflation     "B 努力の軍拡 (effort inflation = 内卷)"
-   :credential-signaling "C 学歴シグナル依存 (credential signaling)"
-   :wellbeing-erosion    "D 心身ウェルビーイングの侵食 (wellbeing erosion)"
-   :family-capture       "E 家計資源の捕獲 (family capture)"
-   :failure-penalty      "F 失敗ペナルティ (failure penalty)"})
+  {:positional-scarcity      "A 選抜の希少性 (positional scarcity)"
+   :effort-inflation         "B 努力の軍拡 (effort inflation = 内卷)"
+   :credential-signaling     "C 学歴シグナル依存 (credential signaling)"
+   :wellbeing-erosion        "D 心身ウェルビーイングの侵食 (wellbeing erosion)"
+   :family-capture           "E 家計資源の捕獲 (family capture)"
+   :failure-penalty          "F 失敗ペナルティ (failure penalty)"
+   :labor-absorption-deficit "G 労働吸収力の不足 (graduate unemployment 卒業即失業)"
+   :effort-efficacy-collapse "H 努力効力感の崩壊 (頑張れない — structural, not laziness)"
+   :withdrawal-prevalence    "I 離脱の広がり (躺平/寝そべり lying flat)"})
 
 ;; ── canonical structural loops (HYPOTHESES; mirror ontology :loops) ──────────
 ;; :stocks = the member stocks the loop's edges connect; a loop's regime is read
@@ -62,7 +66,16 @@
    {:id "B-alternative-pathways"  :type :balancing   :dominant :positional-scarcity
     :stocks [:positional-scarcity]}
    {:id "B-wellbeing-protection"  :type :balancing   :dominant :wellbeing-erosion
-    :stocks [:wellbeing-erosion]}])
+    :stocks [:wellbeing-erosion]}
+   ;; Phase 2–3: labor + withdrawal (the spiral past graduation)
+   {:id "R-degree-devaluation"    :type :reinforcing :dominant :credential-signaling
+    :stocks [:credential-signaling :labor-absorption-deficit]}
+   {:id "R-effort-futility"       :type :reinforcing :dominant :effort-efficacy-collapse
+    :stocks [:labor-absorption-deficit :effort-efficacy-collapse]}
+   {:id "R-lying-flat-spiral"     :type :reinforcing :dominant :withdrawal-prevalence
+    :stocks [:effort-efficacy-collapse :withdrawal-prevalence]}
+   {:id "B-labor-absorption"      :type :balancing   :dominant :labor-absorption-deficit
+    :stocks [:labor-absorption-deficit]}])
 
 ;; ── pure read-off ────────────────────────────────────────────────────────────
 (defn- round3 [x] (/ (Math/round (* (double x) 1000.0)) 1000.0))
@@ -164,6 +177,38 @@
      :relief-gap gap                         ;; >0 ⇒ more pressure than relief on the failure cycle
      :route-to ["kokoro" "shiori"]           ;; G7 — relief routing, never amplification
      :note "受験失敗 cycle: a sober relief MAP routed to kokoro/shiori; never a despair amplifier or a roster of failing students (G7+G8)."
+     :hypothesis? true}))
+
+;; ── the YOUTH-WITHDRAWAL cycle (頑張れない + 躺平; routed toward relief, G7) ──
+(defn youth-withdrawal
+  "A focused read of the post-graduation withdrawal spiral the user asked about:
+  卒業即失業 (labor-absorption-deficit) → 頑張れない (effort-efficacy-collapse) →
+  躺平/寝そべり (withdrawal-prevalence). Reports the R-effort-futility +
+  R-lying-flat-spiral loop drives, the three stocks, and the RELIEF GAP. Framed
+  STRUCTURALLY (§1.4 — the system eroded effort's efficacy, NOT the youth), stated
+  soberly, and routed toward RELIEF (kokoro 心 / shiori 栞 / manabi 学び alternative
+  pathways), never moralized as laziness, never pathologized (G7). HYPOTHESIS (G5)."
+  [stocks loops*]
+  (let [lad (get stocks :labor-absorption-deficit)
+        eec (get stocks :effort-efficacy-collapse)
+        wp  (get stocks :withdrawal-prevalence)
+        futility (first (filter #(= "R-effort-futility" (:id %)) loops*))
+        lying-flat (first (filter #(= "R-lying-flat-spiral" (:id %)) loops*))
+        relief (round3 (+ (:relieve-force lad) (:relieve-force eec) (:relieve-force wp)))
+        pressure (round3 (+ (:intensify-force lad) (:intensify-force eec) (:intensify-force wp)))
+        gap (round3 (- pressure relief))]
+    {:loops ["R-effort-futility" "R-lying-flat-spiral"]
+     :effort-futility-drive (:drive futility)
+     :lying-flat-drive (:drive lying-flat)
+     :regime (some-> (:regime futility) name)
+     :labor-absorption-deficit-net (:net lad)
+     :effort-efficacy-collapse-net (:net eec)
+     :withdrawal-prevalence-net (:net wp)
+     :pressure pressure
+     :relief relief
+     :relief-gap gap                          ;; >0 ⇒ more pressure than relief on the withdrawal spiral
+     :route-to ["kokoro" "shiori" "manabi"]   ;; G7 — relief routing, never moralization
+     :note "頑張れない/躺平 spiral: STRUCTURAL (the system eroded effort's efficacy, §1.4 — not laziness), a sober relief MAP routed to kokoro/shiori/manabi; lying flat is held as a rational + self-protective response, never pathologized (G7+G8)."
      :hypothesis? true}))
 
 ;; DISCLOSED leverage-scoring weights (public + auditable; G11 transparency).
@@ -364,6 +409,7 @@
      "extremes" (extreme-drivers drivers 5)
      "loops" loops*
      "failure_cycle" (failure-cycle stocks loops*)
+     "youth_withdrawal" (youth-withdrawal stocks loops*)
      "leverage" (leverage-candidates drivers)
      "trajectory" traj
      "kind_polarity" (into {} (map (fn [[k v]] [(name k) v]) kind-mat))
@@ -451,13 +497,27 @@
          (add ent ":shinogi/derived" true)]))
     (get analysis "trajectory"))))
 
+(defn youth-withdrawal-datoms [analysis]
+  (let [yw (get analysis "youth_withdrawal")
+        e "shinogi-youth-withdrawal:R-effort-futility+R-lying-flat-spiral"]
+    [(add e ":shinogi.exam.withdrawal/effort-futility-drive" (:effort-futility-drive yw))
+     (add e ":shinogi.exam.withdrawal/lying-flat-drive" (:lying-flat-drive yw))
+     (add e ":shinogi.exam.withdrawal/regime" (str (:regime yw)))
+     (add e ":shinogi.exam.withdrawal/pressure" (:pressure yw))
+     (add e ":shinogi.exam.withdrawal/relief" (:relief yw))
+     (add e ":shinogi.exam.withdrawal/relief-gap" (:relief-gap yw))
+     (add e ":shinogi/hypothesis" ":true")
+     (add e ":shinogi/derived" true)]))
+
 (defn datoms
-  "All findings datoms for one analysis (drivers + stocks + loops + failure-cycle + era)."
+  "All findings datoms for one analysis (drivers + stocks + loops + failure-cycle
+  + youth-withdrawal + era)."
   [drivers analysis]
   (vec (concat (driver-datoms drivers)
                (stock-datoms analysis)
                (loop-datoms analysis)
                (failure-cycle-datoms analysis)
+               (youth-withdrawal-datoms analysis)
                (era-datoms analysis))))
 
 (defn render-datoms [drivers analysis]
@@ -493,6 +553,22 @@
      "- pressure " (:pressure fc) " vs relief " (:relief fc)
      " → **relief-gap " (:relief-gap fc) "** (>0 = 緩和より圧力が勝る)\n"
      "- route-to: " (str/join " / " (:route-to fc)) "\n\n"
+     ;; ── the youth-withdrawal cycle (卒業即失業 → 頑張れない → 躺平) ──
+     (let [yw (get analysis "youth_withdrawal")]
+       (str
+        "## 卒業後の system cycle — 頑張れない & 寝そべり (躺平) (HYPOTHESIS, G5)\n\n"
+        "_渦は受験で終わらない: 卒業即失業 (labor-absorption-deficit) → 努力効力感の崩壊 "
+        "(頑張れない) → 躺平/寝そべり (withdrawal)。**構造的に記述する** — 努力の効力を壊したのは"
+        "システムであって若者ではない (§1.4)。淡々と、RELIEF (kokoro 心 / shiori 栞 / manabi 学び) "
+        "へ routing し、怠惰と断じず、躺平を病理化しない (G7+G8)。_\n\n"
+        "- R-effort-futility drive: **" (:effort-futility-drive yw) "** · "
+        "R-lying-flat-spiral drive: **" (:lying-flat-drive yw) "** (regime " (:regime yw) ")\n"
+        "- labor-absorption-deficit net " (:labor-absorption-deficit-net yw)
+        " · effort-efficacy-collapse net " (:effort-efficacy-collapse-net yw)
+        " · withdrawal-prevalence net " (:withdrawal-prevalence-net yw) "\n"
+        "- pressure " (:pressure yw) " vs relief " (:relief yw)
+        " → **relief-gap " (:relief-gap yw) "** (>0 = 緩和より圧力が勝る)\n"
+        "- route-to: " (str/join " / " (:route-to yw)) "\n\n"))
      "## Strongest concrete signals (HYPOTHESIS, G5)\n\n"
      "**最も involution を強める driver:**\n"
      (str/join "\n" (for [c (get-in analysis ["extremes" :most-intensifying])]

@@ -50,18 +50,22 @@ Full gate table G4..G13 + non-goals N1..N6 in the manifest + ADR-2606291200.
 
 ## Substrate (clj-native, kotoba-Datom-native)
 
-- `kotoba/ontology.shinogi-exam.edn` — EAVT schema · 6 pressure stocks (A positional-scarcity
-  / B effort-inflation=内卷核 / C credential-signaling / D wellbeing-erosion / E family-capture
-  / F failure-penalty) · 6 canonical loops · Meadows 12 levels · negative space.
-- `kotoba/seed.exam-involution.edn` — 18 drivers / 6 jurisdictions (China-primary, grows each /loop).
+- `kotoba/ontology.shinogi-exam.edn` — EAVT schema · **9 pressure stocks** across the
+  involution LIFECYCLE: Phase 1 EXAM (A positional-scarcity / B effort-inflation=内卷核 /
+  C credential-signaling / D wellbeing-erosion / E family-capture / F failure-penalty) ·
+  Phase 2 LABOR (G labor-absorption-deficit = 卒業即失業) · Phase 3 WITHDRAWAL
+  (H effort-efficacy-collapse = 頑張れない / I withdrawal-prevalence = 躺平/寝そべり) ·
+  **10 canonical loops** · Meadows 12 levels · negative space.
+- `kotoba/seed.exam-involution.edn` — 33 drivers / 6 jurisdictions (China-primary; JP/KR
+  lost-generation siblings 就職氷河期/さとり/N포세대; grows each /loop).
 - `methods/shinogi_edn.cljc` — loader/classify.
-- `methods/analyze.cljc` — analysis-only read-off (stock regimes + loops + **the failure-cycle
-  read-off** + leverage candidates + coverage worklist + EAVT datoms + sober report). **No
-  outward channel (G4 by absence).**
+- `methods/analyze.cljc` — analysis-only read-off (stock regimes + loops + **two relief
+  read-offs: the 受験失敗 cycle + the 卒業後 頑張れない/躺平 cycle** + leverage candidates +
+  coverage worklist + EAVT datoms + sober report). **No outward channel (G4 by absence).**
 - `methods/kotoba.cljc` — content-addressed append-only findings ledger (commit-DAG,
   verify-chain tamper-evident, no-server-key, local file only).
 - `methods/autorun.cljc` — deterministic idempotent-by-content heartbeat.
-- Tests: `bb 20-actors/shinogi/run_tests.clj` → 26 tests / 256 assertions green.
+- Tests: `bb 20-actors/shinogi/run_tests.clj` → 27 tests / 408 assertions green.
 
 ## Data model — datom / Datalog on kotoba-kqe (NOT proprietary Datomic)
 
