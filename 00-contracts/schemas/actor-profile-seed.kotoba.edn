@@ -3049,4 +3049,18 @@
    :actor/vm []
    :actor/service [{"id" "did:web:etzhayyim.com:actor:yotei#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
                    {"id" "did:web:etzhayyim.com:actor:yotei#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+  {:actor/handle "com-google-ads"
+   :actor/did "did:web:etzhayyim.com:actor:com-google-ads"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "広"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Charter-clean outreach & performance-marketing actor — the buy/create side of the akashi (証) disclose/verify loop. Proposes campaign/bid/budget/creative; publishes ONLY after human finance/Council sign-off (G1). Cohort-scale only (G2, no :person/*); consent-gated audience (G3, self-sovereign opt-in + Signal-E2E PII + GDPR Art 17); append-only finance-signed spend (G4); anti-manipulation (G5); Murakumo-only narration (G6); akashi transparency mirror (G7); no ad-SDK/tracking-pixel (G8); no commercial resale (G9)."
+   :actor/primary-lexicon "com.etzhayyim.googleads"
+   :actor/adr ["2606292130"]
+   :actor/created-at "2026-06-29"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:com-google-ads#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}]}
 ]}
