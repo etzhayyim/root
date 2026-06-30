@@ -14,9 +14,9 @@
   (testing "every page has the shared header + primary nav"
     (is (re-find #"<header class=\"site-hd\">" (page {})))
     (is (re-find #"<nav class=\"site-nav\" aria-label=\"Primary\">" (page {}))))
-  (testing "all six nav links are present on every page"
+  (testing "all seven nav links are present on every page"
     (let [html (page {})]
-      (doseq [href ["/organism" "/system-dynamics" "/actors" "/gov" "/donate"
+      (doseq [href ["/organism" "/system-dynamics" "/actors" "/murakumo" "/gov" "/donate"
                     "/.well-known/did.json"]]
         (is (re-find (re-pattern (str "href=\"" href "\"")) html)
             (str href " missing from nav")))))

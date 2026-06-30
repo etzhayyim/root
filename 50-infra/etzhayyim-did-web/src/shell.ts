@@ -9,6 +9,7 @@ const NAV: ReadonlyArray<readonly [string, string]> = [
   ["/organism", "organism"],
   ["/system-dynamics", "system dynamics"],
   ["/actors", "actors"],
+  ["/murakumo", "murakumo"],
   ["/gov", "gov atlas"],
   ["/donate", "donate"],
   ["/.well-known/did.json", "DID"],
