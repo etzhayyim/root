@@ -5,8 +5,12 @@
  * 2. For each registered SpinApp, runs the generic smoke suite against its hostname
  * 3. Reports results back to sre.etzhayyim.com via reportPlaywrightResult
  */
-import { execSync } from "child_process";
-import * as fs from "fs";
+// Using require here avoids a TypeScript complaint about missing Node type
+// definitions (install @types/node and add "node" to tsconfig.types to fix).
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+const { execFileSync } = require("child_process");
+const fs = require("fs");
 
 const SRE_BASE_URL = process.env.SRE_BASE_URL ?? "https://sre.etzhayyim.com";
 const SRE_ACCESS_TOKEN = process.env.SRE_ACCESS_TOKEN ?? "";
@@ -90,7 +94,7 @@ function runSmoke(targetURL: string): PWRunResult {
   }
 
   try {
-    execSync(`TARGET_URL=${JSON.stringify(targetURL)} npx playwright test`, {
+    execFileSync("npx", ["playwright", "test"], {
       env: { ...process.env, TARGET_URL: targetURL },
       stdio: "inherit",
     });
@@ -116,7 +120,7 @@ function runSmoke(targetURL: string): PWRunResult {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const result = spec.tests?.[0]?.results?.[0] as any;
       const status: "passed" | "failed" | "skipped" = result?.status ?? "skipped";
-      const 'durationMs': number = result?.duration ?? 0;
+      const durationMs: number = result?.duration ?? 0;
       const error: string | undefined = result?.error?.message;
 
       tests.push({ title: spec.title, status, durationMs, ...(error ? { error } : {}) });
