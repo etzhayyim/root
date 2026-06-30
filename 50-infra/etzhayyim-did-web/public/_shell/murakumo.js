@@ -37,7 +37,7 @@
     return k === "substrate-service" ? "svc" : k === "pulse-only" ? "pulse" : "";
   };
 
-  function build(reg, pulse) {
+  function build(reg, pulse, rad) {
     var pa = (pulse && pulse.actors) || {};
     var regActors = (reg && reg.actors) || [];
     var actors = regActors.map(function (a) {
@@ -73,8 +73,30 @@
       stream: (pulse.stream || []).map(function (s) { return { at: s.at, actor: s.actor, subj: s.subj || "" }; })
     };
     all = actors.concat(extra);
+    D.rad = (rad && rad.actors) || {};
     NOW = D.meta.now || Date.parse(D.meta.generatedAt);
     WIN = D.meta.sinceHours * 3600 * 1000;
+  }
+
+  // Per-actor identity links, joined by handle to the kotoba-rad ledger
+  // (/_shell/actor-rad.json, generated from 80-data/kotoba-rad/*.identity.journal.edn).
+  // Only links backed by real data are shown; GitHub falls back to the monorepo
+  // 20-actors dir for registered actors with no child-repo identity yet.
+  var GH = "https://github.com/etzhayyim/";
+  function actorLinks(a) {
+    var h = a.handle, r = D.rad[h], out = [];
+    if (r && r.repo) out.push(["gh", "https://" + r.repo, "GitHub: " + r.repo]);
+    else if (a.kind !== "pulse-only") out.push(["gh", GH + "root/tree/main/20-actors/" + h, "GitHub (monorepo): 20-actors/" + h]);
+    if (r && r.didWeb) out.push(["rad", "https://etzhayyim.github.io/com-etzhayyim-" + h + "/.well-known/did.json", "RAD identity (did:web): " + r.didWeb]);
+    if (r) out.push(["k-rad", GH + "root/blob/main/80-data/kotoba-rad/" + h + ".identity.journal.edn", "kotoba-rad ledger" + (r.rid ? " · RID " + r.rid.slice(0, 14) + "…" : "")]);
+    return out;
+  }
+  function linksHtml(a) {
+    var lk = actorLinks(a);
+    if (!lk.length) return "";
+    return '<div class="mk-links">' + lk.map(function (l) {
+      return '<a href="' + l[1] + '" target="_blank" rel="noopener noreferrer" title="' + esc(l[2]) + '">' + l[0] + '</a>';
+    }).join("") + '</div>';
   }
 
   function filtered() {
@@ -107,7 +129,7 @@
         (a.live ? '<span class="mk-commits">● ' + a.commits + ' commit' + (a.commits === 1 ? '' : 's') + '</span>' : '<span>idle</span>') +
         (a.lastAt ? '<span>last ' + fmtAgo(a.lastAt) + ' ago</span>' : '') +
         (a.adr && a.adr.length ? '<span>ADR ' + a.adr.join(", ") + '</span>' : '') +
-        '</div></div>';
+        '</div>' + linksHtml(a) + '</div>';
     }).join("") + '</div>';
   }
 
@@ -234,10 +256,16 @@
       return '<div class="mk-ns"><div class="g">' + esc(n.glyph) + '</div><div class="cnt">' + nf(n.count) + '</div>' +
         '<div class="lbl">' + esc(n.ns) + ' · ' + esc(n.kindLabel) + (n.owners.length ? ' · owners: ' + esc(n.owners.join(", ")) : "") + '</div></div>';
     }).join("");
+    var ageH = (Date.now() - NOW) / 3600000;
+    var stale = ageH > m.sinceHours;
+    var ageLbl = ageH < 48 ? Math.max(0, ageH).toFixed(0) + "h" : (ageH / 24).toFixed(1) + "d";
     root.innerHTML =
+      (stale ? '<div class="mk-stale">⚠ pulse スナップショットは約' + ageLbl + '前（generated ' + esc(m.generatedAt) +
+        '）。pulse.json を再生成する常駐 heartbeat（organism daemon）が更新を停止している可能性があります。下の「稼働」はこのスナップショット時点（その直近' + m.sinceHours +
+        'h）の commit 活動であり、現在のプロセス死活ではありません。</div>' : '') +
       '<div class="mk-bound"><span class="dot"></span>Murakumo メッシュ上で <b>kotoba-wasm</b> として常駐稼働 — <code>' + esc(m.store) +
       '</code> store · snapshot <code>' + esc(m.snapshot || "pulse") + '</code> · generated ' + esc(m.generatedAt) +
-      ' (window ' + m.sinceHours + 'h) · <b class="live">緑＝直近' + m.sinceHours + 'hで稼働</b></div>' +
+      ' (window ' + m.sinceHours + 'h) · <b class="live">緑＝直近' + m.sinceHours + 'hに commit したアクター</b>（＝開発 pulse。DID/プロセスの死活ではない）</div>' +
       '<div class="mk-stats">' + statHtml + '</div>' +
       '<div class="mk-bar">' +
       '<input id="mk-q" placeholder="検索: handle / 説明 / kind / glyph …" autocomplete="off">' +
@@ -278,9 +306,10 @@
 
   Promise.all([
     fetch("/.well-known/actors.json", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); }),
-    fetch("/organism/pulse.json", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+    fetch("/organism/pulse.json", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); }),
+    fetch("/_shell/actor-rad.json", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })
   ]).then(function (res) {
-    build(res[0], res[1]);
+    build(res[0], res[1], res[2]);
     shell();
   }).catch(function (err) {
     root.innerHTML = '<p class="mk-loading">live pulse を読み込めませんでした（' + esc(String(err)) +
