@@ -1,10 +1,8 @@
 (ns kuni-umi.robotics.test-kinematics
   "kuni-umi 国産み planar-arm kinematics — cljc port conformance + the FK∘IK
-  round-trip invariant + LIVE py↔clj parity (ADR-2606160842 port wave). Oracle
-  values captured from the REAL `robotics/kinematics.py` and verified identical."
+  round-trip invariant. Oracle values are committed fixtures preserved from the
+  port wave."
   (:require [clojure.test :refer [deftest is testing]]
-            [clojure.java.shell :refer [sh]]
-            [cheshire.core :as json]
             [kuni-umi.robotics.kinematics :as k]))
 
 (def ^:private arm (k/planar-arm [1.0 0.8]))
@@ -53,37 +51,3 @@
   (is (= 6 (count (k/joint-trajectory [0.0] [1.0] 5))))   ;; steps+1 configs
   (is (thrown? clojure.lang.ExceptionInfo (k/joint-trajectory [0.0] [1.0 2.0] 4)))  ;; unequal
   (is (thrown? clojure.lang.ExceptionInfo (k/joint-trajectory [0.0] [1.0] 0))))      ;; steps<1
-
-;; ── LIVE py↔clj parity (the actual robotics/kinematics.py) ────────
-
-(def ^:private py-dir "20-actors/kuni-umi/robotics")
-
-(deftest live-parity
-  (testing "cljc fk/ik2 == python kinematics across a grid"
-    (let [py (sh "python3" "-c"
-                 (str "import kinematics as k, json\n"
-                      "arm=k.PlanarArm((1.0,0.8))\n"
-                      "g=[(0.5,0.3),(0.2,-0.4),(1.0,0.0),(-0.5,0.8)]\n"
-                      "fk=[list(arm.fk(j)) if False else [arm.fk(j).x,arm.fk(j).y,arm.fk(j).theta] for j in g]\n"
-                      "tg=[(1.2,0.4),(0.5,0.9),(-0.6,0.7),(0.3,0.5)]\n"
-                      "ik=[arm.ik2(x,y,e) for (x,y) in tg for e in (True,False)]\n"
-                      "print(json.dumps({'fk':fk,'ik':ik}))")
-                 :dir py-dir)]
-      (if (not (zero? (:exit py)))
-        (println "  [skip] python3 unavailable — parity not re-checked this run:" (:err py))
-        (let [data (json/parse-string (clojure.string/trim (:out py)))
-              py-fk (get data "fk")
-              py-ik (get data "ik")
-              g   [[0.5 0.3] [0.2 -0.4] [1.0 0.0] [-0.5 0.8]]
-              tg  [[1.2 0.4] [0.5 0.9] [-0.6 0.7] [0.3 0.5]]
-              clj-fk (map (fn [j] (let [p (k/fk arm j)] [(:x p) (:y p) (:theta p)])) g)
-              clj-ik (for [[x y] tg e [true false]] (k/ik2 arm x y e))]
-          (doseq [[pr cr] (map vector py-fk clj-fk)]
-            (is (< (Math/abs (- (double (nth pr 0)) (nth cr 0))) 1e-9))
-            (is (< (Math/abs (- (double (nth pr 1)) (nth cr 1))) 1e-9))
-            (is (< (Math/abs (- (double (nth pr 2)) (nth cr 2))) 1e-9)))
-          (doseq [[pr cr] (map vector py-ik clj-ik)]
-            (if (nil? pr)
-              (is (nil? cr))
-              (do (is (< (Math/abs (- (double (nth pr 0)) (nth cr 0))) 1e-9))
-                  (is (< (Math/abs (- (double (nth pr 1)) (nth cr 1))) 1e-9))))))))))
