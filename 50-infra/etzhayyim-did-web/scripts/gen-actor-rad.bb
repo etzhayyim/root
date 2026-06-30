@@ -12,9 +12,21 @@
             [babashka.fs :as fs]
             [cheshire.core :as json]))
 
-(def ^:private script-dir (fs/parent (fs/absolutize *file*)))
-(def ^:private ledger-dir (fs/path script-dir ".." ".." ".." "80-data" "kotoba-rad"))
-(def ^:private out-file   (fs/path script-dir ".." "public" "_shell" "actor-rad.json"))
+(def ^:private script-dir  (fs/parent (fs/absolutize *file*)))
+(def ^:private ledger-dir  (fs/path script-dir ".." ".." ".." "80-data" "kotoba-rad"))
+(def ^:private actors-dir  (fs/path script-dir ".." ".." ".." "20-actors"))
+(def ^:private out-file    (fs/path script-dir ".." "public" "_shell" "actor-rad.json"))
+
+(defn- monorepo-dirs []
+  ;; handles that have a public source dir at etzhayyim/root/20-actors/<handle>
+  ;; (so /murakumo can point `gh` at the always-public monorepo, not a private
+  ;; child repo). The root repo is public; the per-actor child repos may not be.
+  (when (fs/exists? actors-dir)
+    (->> (fs/list-dir actors-dir)
+         (filter fs/directory?)
+         (map (comp str fs/file-name))
+         (remove #(str/starts-with? % "."))
+         sort vec)))
 
 (defn- parse-ledger [f]
   (let [rows (->> (str/split-lines (slurp (str f)))
@@ -36,10 +48,13 @@
 (let [result (into (sorted-map)
                    (keep parse-ledger (fs/glob ledger-dir "*.identity.journal.edn")))]
   (fs/create-dirs (fs/parent out-file))
-  (spit (str out-file)
-        (json/generate-string {:generatedFrom "80-data/kotoba-rad/*.identity.journal.edn"
-                               :note "Per-actor kotoba-rad identity (ADR-2606231200). Keyed by handle. repo = :rad/repo, didWeb = github.io :rad/did-web, rid = :rad/rid."
-                               :count (count result)
-                               :actors result}
-                              {:pretty true}))
-  (println "wrote" (str (fs/canonicalize out-file)) "—" (count result) "actors"))
+  (let [monorepo (monorepo-dirs)]
+    (spit (str out-file)
+          (json/generate-string {:generatedFrom "80-data/kotoba-rad/*.identity.journal.edn + 20-actors/"
+                                 :note "Per-actor kotoba-rad identity (ADR-2606231200). Keyed by handle. repo = :rad/repo, didWeb = github.io :rad/did-web, rid = :rad/rid. monorepoDirs = handles with a public 20-actors/<handle> source dir."
+                                 :count (count result)
+                                 :monorepoDirs monorepo
+                                 :actors result}
+                                {:pretty true}))
+    (println "wrote" (str (fs/canonicalize out-file)) "—" (count result) "rad actors,"
+             (count monorepo) "monorepo dirs")))
