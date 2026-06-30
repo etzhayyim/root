@@ -9,12 +9,12 @@ const esc=(s)=>String(s??"").replace(/[&<>"']/g,(c)=>({"&":"&amp;","<":"&lt;",">
 const n=(v)=>new Intl.NumberFormat("en-US").format(Number(v||0));
 const app=document.getElementById("app");
 Promise.all([
-  fetch("./organism.json",{cache:"no-store"}).then((r)=>(r.ok?r.json():null)).catch(()=>null),
-  fetch("./pulse.json",{cache:"no-store"}).then((r)=>(r.ok?r.json():null)).catch(()=>null),
-  fetch("./health.json",{cache:"no-store"}).then((r)=>(r.ok?r.json():null)).catch(()=>null),
-  fetch("./joucho.json",{cache:"no-store"}).then((r)=>(r.ok?r.json():null)).catch(()=>null),
-  fetch("./trajectory.json",{cache:"no-store"}).then((r)=>(r.ok?r.json():null)).catch(()=>null),
-  fetch("./sos.json",{cache:"no-store"}).then((r)=>(r.ok?r.json():null)).catch(()=>null)
+  fetch("/organism/organism.json",{cache:"no-store"}).then((r)=>(r.ok?r.json():null)).catch(()=>null),
+  fetch("/organism/pulse.json",{cache:"no-store"}).then((r)=>(r.ok?r.json():null)).catch(()=>null),
+  fetch("/organism/health.json",{cache:"no-store"}).then((r)=>(r.ok?r.json():null)).catch(()=>null),
+  fetch("/organism/joucho.json",{cache:"no-store"}).then((r)=>(r.ok?r.json():null)).catch(()=>null),
+  fetch("/organism/trajectory.json",{cache:"no-store"}).then((r)=>(r.ok?r.json():null)).catch(()=>null),
+  fetch("/organism/sos.json",{cache:"no-store"}).then((r)=>(r.ok?r.json():null)).catch(()=>null)
 ]).then(([org,pulse,health,joucho,traj,sos])=>{
   const summary=org?.summary??{};
   const topPulse=Object.entries(pulse?.actors??{}).sort((a,b)=>(b[1]?.lastAt??0)-(a[1]?.lastAt??0)).slice(0,8).map(([actor,info])=>`<li class="org-tick"><span class="org-tactor">${esc(actor)}</span><span class="org-tsubj">${esc(info?.lastSubject??"")}</span><span class="org-tago">${n(info?.commits??0)} commits</span></li>`).join("");
