@@ -86,7 +86,8 @@
     (is (= "member" (get (first res) "signedBy")))))
 
 (deftest module-holds-no-credentials
-  (let [src (slurp (io/resource "ibuki/methods/drainer.cljc"))]
+  (let [src (slurp (or (io/resource "ibuki/methods/drainer.cljc")
+                       (io/file "methods/drainer.cljc")))]
     (doseq [needle ["token" "secret" "PRIVATE_KEY" "urllib" "requests" "http.client"]]
       (is (not (str/includes? src needle))
           (str "drainer must stay credential-free + offline: " needle)))))

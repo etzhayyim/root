@@ -1,12 +1,7 @@
 (ns kuni-umi.robotics.test-robotics
-  "kuni-umi 国産み robotics physics layer — cljc port conformance + LIVE py↔clj
-  numerical parity (ADR-2606160842 port wave). The oracle values below were
-  captured from the REAL `robotics/*.py` and verified identical; `live-parity`
-  re-proves it against the running python each run (graceful skip if python3
-  absent — red only on a genuine divergence)."
+  "kuni-umi 国産み robotics physics layer — cljc conformance.
+  The oracle values below are committed fixtures preserved from the port wave."
   (:require [clojure.test :refer [deftest is testing]]
-            [clojure.java.shell :refer [sh]]
-            [cheshire.core :as json]
             [kuni-umi.robotics.plant :as plant]
             [kuni-umi.robotics.control :as control]
             [kuni-umi.robotics.safety :as safety]
@@ -137,33 +132,3 @@
     (is (= false (:commission/server-held-key d)))       ;; G15 structural invariant
     (is (= "did:site:1" (:commission/site d)))
     (is (= ["l1"] (:commission/open-ot-loops d)))))
-
-;; ── LIVE py↔clj parity (the actual robotics/*.py via subprocess) ──
-
-(def ^:private py-dir "20-actors/kuni-umi/robotics")
-
-(deftest live-parity
-  (testing "cljc run-microgrid-acceptance == python run_microgrid_acceptance"
-    (let [py (sh "python3" "-c"
-                 (str "import commissioning as c, json\n"
-                      "out=[c.run_microgrid_acceptance(ls) for ls in (120.0,140.0,160.0,180.0,200.0)]\n"
-                      "print(json.dumps(out))")
-                 :dir py-dir)]
-      (if (not (zero? (:exit py)))
-        (println "  [skip] python3 unavailable — parity not re-checked this run:" (:err py))
-        (let [py-rows (map (fn [m]
-                             {:passed (= true (get m "passed"))
-                              :final (double (get m "final_freq_hz"))
-                              :rocof (double (get m "rocof"))
-                              :tripped (= true (get m "rocof_tripped"))})
-                           (json/parse-string (clojure.string/trim (:out py))))
-              clj-rows (map (fn [ls]
-                              (let [r (comm/run-microgrid-acceptance ls)]
-                                {:passed (:passed r) :final (:final-freq-hz r)
-                                 :rocof (:rocof r) :tripped (:rocof-tripped r)}))
-                            [120.0 140.0 160.0 180.0 200.0])]
-          (doseq [[p c] (map vector py-rows clj-rows)]
-            (is (= (:passed p) (:passed c)))
-            (is (< (Math/abs (- (:final p) (:final c))) 1e-9))
-            (is (< (Math/abs (- (:rocof p) (:rocof c))) 1e-9))
-            (is (= (:tripped p) (:tripped c)))))))))

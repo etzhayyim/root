@@ -31,7 +31,11 @@
             [ibuki.methods.quorum :as quorum]
             #?(:clj [clojure.java.io :as io])))
 
-(def root "20-actors/ibuki")
+(def root
+  #?(:clj (if (.exists (io/file "20-actors/ibuki/data/seed-organisms.kotoba.edn"))
+            "20-actors/ibuki"
+            ".")
+     :cljs "20-actors/ibuki"))
 (def seed-resource "ibuki/data/seed-organisms.kotoba.edn")
 (def default-log-path (str root "/data/ibuki.datoms.kotoba.edn"))
 (def default-queue-path (str root "/data/organism-posts.queue.ndjson"))

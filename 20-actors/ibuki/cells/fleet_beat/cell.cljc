@@ -5,7 +5,7 @@
   Per the founder direction of 2026-06-10, the Council gate for code-level completion is
   exercised as PR review+merge — so .solve() RUNS the fleet beat instead of raising. One
   solve = `cycles` durable beats over this node's shard (env-resolved, exactly like the
-  kotodama fleet cell: UNISPSC_ORGANISM_SHARD_ALL / UNISPSC_ORGANISM_SHARD_INDEX /
+  kotodama fleet cell: UNSPSC_ORGANISM_SHARD_ALL / UNSPSC_ORGANISM_SHARD_INDEX /
   ETZHAYYIM_NODE), each appended as one content-addressed tx to the local kotoba Datom log.
 
   What stays structural regardless of merge (Tier-1, not gate-flippable here):
