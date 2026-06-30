@@ -458,6 +458,31 @@ pre-commit:
       stage_fixed: false
 
 
+    adr-index-freshness:
+      # When any ADR .md/.md.edn changes, verify 90-docs/adr/adr-index.edn is in
+      # sync (bb adr:index-check → etzhayyim.tools.adr-mdedn, the SSoT generator
+      # per ADR-2606162200 + ADR-2606121143). adr-index.edn is GENERATED from front
+      # matter and must NEVER be hand-edited — this gate catches the prose-written-
+      # as-map-literal corruption class that silently made the file un-parseable
+      # (`Map literal must contain an even number of forms`) on a clean checkout.
+      glob:
+        - "90-docs/adr/*.md"
+        - "90-docs/adr/*.md.edn"
+        - "90-docs/adr/adr-index.edn"
+      run: |
+        if ! bb adr:index-check > /tmp/adr-index-check.$$.txt 2>&1; then
+          echo "✘ adr-index.edn drift/corruption detected:"
+          cat /tmp/adr-index-check.$$.txt
+          rm -f /tmp/adr-index-check.$$.txt
+          echo ""
+          echo "  adr-index.edn is GENERATED — never hand-edit it. Regenerate + stage:"
+          echo "    bb adr:index && git add 90-docs/adr/adr-index.edn"
+          exit 1
+        fi
+        rm -f /tmp/adr-index-check.$$.txt
+      stage_fixed: false
+
+
     relation-integrity:
       # Validate doc-relation integrity (ADR-2605271200 cycle 60; axis-6
       # defense-in-depth wired cycle 69). Tracker mode — info-only.

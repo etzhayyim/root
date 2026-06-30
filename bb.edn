@@ -59,6 +59,16 @@
    :task (do (require 'etzhayyim.gen-tier-b-actors)
              (apply (resolve 'etzhayyim.gen-tier-b-actors/-main) *command-line-args*))}
 
+  adr:index
+  {:doc "Regenerate 90-docs/adr/adr-index.edn from each ADR .md/.md.edn front matter (the SSoT — GENERATED, never hand-edited; ADR-2606162200 + ADR-2606121143 single-line-EDN failure class). One-entry-per-line, clojure.edn-parseable. Args: [dir] [out]."
+   :task (do (require 'etzhayyim.tools.adr-mdedn)
+             (apply (resolve 'etzhayyim.tools.adr-mdedn/-main) "index" *command-line-args*))}
+
+  adr:index-check
+  {:doc "Drift gate: regenerate the ADR index in-memory and FAIL if 90-docs/adr/adr-index.edn is stale or hand-edited (then run `bb adr:index` and commit). Catches the prose-as-map-literal corruption class. Wired into lefthook pre-commit (adr-index-freshness)."
+   :task (do (require 'etzhayyim.tools.adr-mdedn)
+             (apply (resolve 'etzhayyim.tools.adr-mdedn/-main) "index-check" *command-line-args*))}
+
   actor:publish
   {:doc "ADR-2606231200 — publish a 20-actors/<name> actor as a sovereign unit: josh/subtree split → gh repo com-etzhayyim-<name> → did:web did.json → kotoba-rad RID/did:key (sovereign identity on the kotoba Datom log) → aozora(yoro) PDS profile-write plan. DRY-RUN by default; --apply executes side effects; --pubkey=<hex> pins the Ed25519 key. no-server-key (signing/PDS-write are member/operator legs). Args: <name> [<name>...] [--apply] [--pubkey=hex]"
    :task (do (require 'etzhayyim.actor-publish)
@@ -210,6 +220,11 @@
   {:doc "EXTERNAL supervisor (immune kaizen): one supervision pass — reads health.json freshness from OUTSIDE the loop and force-restarts the organism (launchctl kickstart -k) if the loop has wedged (process alive but silent >120s, which launchd KeepAlive cannot see), and probes the substrate (kotoba :8077 / IPFS / served page) into watchdog.json. Run every 60s by the launchd agent com.etzhayyim.organism.watchdog."
    :task (do (require 'etzhayyim.watchdog)
              (apply (resolve 'etzhayyim.watchdog/-check) *command-line-args*))}
+
+  organism:publish
+  {:doc "PUBLISH the /organism live feeds to etzhayyim.com — regenerate pulse (and with --full also joucho+trajectory) from the kotoba Datom log via etzhayyim.vitals (in-process), then `npm run deploy` the did-web worker so the statically-served public/organism/*.json refresh. The heartbeat loop only writes LOCALLY; this is the missing deploy step (the CF Worker serves public/ statically). clj/bb replacement for organism-pulse-deploy.sh; run every 2 min by the launchd agent com.etzhayyim.organism.publish. Flags: --full"
+   :task (do (require 'etzhayyim.organism-publish)
+             (apply (resolve 'etzhayyim.organism-publish/-publish) *command-line-args*))}
 
   fleet:probe
   {:doc "RESIDENCE PROBE (ADR-2606271400) — does the murakumo heartbeat fleet ACTUALLY run, or is it only DEFINED in cells.edn? Reads cells.edn/fleet.edn, maps tailscale online state, and (over `ssh <node>`) checks each node's launchctl + pgrep + loopback healthz (the healthz server binds 127.0.0.1 only, so residence is observable only ON the node). Classifies every cron/lan-api heartbeat :alive / :defined-only-silent / :node-unreachable, probes the evo-x2 inference backend + issachar kotoba :8077, writes out/fleet-probe.edn + a human summary. Shells out to ssh/tailscale/curl (system binaries); logic is clj. Flags: --nodes a,b | --no-ssh"
