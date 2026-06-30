@@ -112,7 +112,7 @@
 (defrecord AtProtoChannel [pds]
   Channel
   (channel-id [_] :at-proto)
-  (accepts? [_ lexicon] (boolean (prefixes? lexicon ["app.bsky." "com.etzhayyim.apps." "com.etzhayyim.convo."])))
+  (accepts? [_ lexicon] (boolean (prefixes? lexicon ["app.bsky." "com.etzhayyim.apps." "com.etzhayyim.convo." "com.etzhayyim.observatory."])))
   (-emit! [_ {:keys [actor lexicon content voice-of is-observatory]}]
     {:driver :at-proto :dry-run true :endpoint pds
      :op :com.atproto.repo.createRecord
