@@ -3,6 +3,7 @@
     "@bytecodealliance/preview2-shim": "^0.18.1"
   },
   "devDependencies": {
+    "@types/node": "^26.0.1",
     "@vitest/coverage-v8": "^4.1.8"
   }
 }
