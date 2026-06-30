@@ -18,6 +18,7 @@
 (def get-head-only
   #{:home-html :did-json :donation-json :donate-html :actors-json :actors-html
     :gov-units-json :gov-procedures-json :gov-html :organism-html :system-dynamics-html
+    :murakumo-html
     :actor-did :actor-profile :actor-procedures :actor-system-dynamics-html
     :ipfs})
 
@@ -80,6 +81,9 @@
        "/organism"                        {:route :organism-html}
        "/organism/index.html"             {:route :organism-html}
        "/system-dynamics"                 {:route :system-dynamics-html}
+       ;; /murakumo — Murakumo host / kotoba-wasm resident-actor visualizer
+       ;; (CLJS-owned shell + /_shell/murakumo.js over same-origin pulse JSON).
+       "/murakumo"                        {:route :murakumo-html}
        nil)
      ;; parameterized actor paths (matched on the ORIGINAL path, not stripped —
      ;; a trailing slash here is part of no valid actor route)

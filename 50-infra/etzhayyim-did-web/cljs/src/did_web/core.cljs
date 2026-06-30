@@ -270,6 +270,22 @@
        :footer-html "Data: <a href=\"/.well-known/gov-units.json\">/.well-known/gov-units.json</a> · <a href=\"/actors\">/actors</a> · ADR-2606021600."})
      "default-src 'none'; script-src 'self'; connect-src 'self'; style-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'")))
 
+(defn- murakumo-route []
+  (let [main (str "<h1 class=\"mk-h1\">雲 Murakumo — kotoba-wasm 常駐アクター</h1>"
+                  "<p class=\"sub\">etzhayyim / <a href=\"https://aozora.app\">aozora.app</a> — Murakumo メッシュ上で kotoba-wasm として常駐稼働するアクターのライブ可視化。グリッド / 時系列 (commit pulse) / 同字 家系 の3ビューを <a href=\"/.well-known/actors.json\">actors.json</a> + <a href=\"/organism/pulse.json\">pulse.json</a> の same-origin JSON から描画。</p>"
+                  "<div id=\"mk-app\" class=\"mk\"><p class=\"mk-loading\">loading live pulse…</p></div>")]
+    (html-resp
+     (shell/page-html
+      {:title "雲 Murakumo — kotoba-wasm 常駐アクター · etzhayyim"
+       :lang "ja"
+       :description "Murakumo メッシュ上で kotoba-wasm として常駐稼働するアクターのライブ可視化。グリッド / commit 時系列 / 同字 家系の3ビュー。"
+       :active "/murakumo"
+       :main main
+       :extra-css ["/_shell/murakumo.css"]
+       :script-src "/_shell/murakumo.js"
+       :footer-html "Live sources: <a href=\"/.well-known/actors.json\">/.well-known/actors.json</a> · <a href=\"/organism/pulse.json\">/organism/pulse.json</a> · <a href=\"/actors\">/actors</a>."})
+     "default-src 'none'; script-src 'self'; connect-src 'self'; style-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'")))
+
 (defn- round1 [x]
   (/ (Math/round (* 10.0 (double x))) 10.0))
 
@@ -473,6 +489,7 @@
         :gov-procedures-json (gov-procedures-route deps)
         :gov-html            (gov-route)
         :organism-html       (organism-route)
+        :murakumo-html       (murakumo-route)
         :system-dynamics-html (system-dynamics-route deps env ctx)
         :actor-system-dynamics-html (actor-system-dynamics-route deps env ctx handle)
         :actor-did           (actor-did-route deps env ctx handle)

@@ -23,7 +23,8 @@
     (is (= :organism-html       (r "GET" "/organism/index.html")))
     (is (= {:route :actor-system-dynamics-html :handle "tsumugi"}
            (router/route {:method "GET" :path "/actor/tsumugi/system-dynamics"})))
-    (is (= :system-dynamics-html (r "GET" "/system-dynamics")))))
+    (is (= :system-dynamics-html (r "GET" "/system-dynamics")))
+    (is (= :murakumo-html       (r "GET" "/murakumo")))))
 
 (deftest actor-routes-extract-handle
   (testing "per-actor routes resolve + extract the raw handle segment"
@@ -99,4 +100,5 @@
     (is (= {:route :actor-system-dynamics-html :handle "tsumugi"}
            (router/route {:method "GET" :path "/actor/tsumugi/system-dynamics/"})))
     (is (= :system-dynamics-html (r "GET" "/system-dynamics/")))
+    (is (= :murakumo-html (r "GET" "/murakumo/")))
     (is (= :home-html (r "GET" "/")))))
