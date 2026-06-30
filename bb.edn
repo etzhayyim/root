@@ -236,11 +236,11 @@
   test:genome-all
   {:doc "Run all kotoba-genome library suites (ADR-2606302205): W1 channel + W2 genome + W3 actor runtime + W4 observatory (first-party disclosure-honest actors)."
    :extra-paths ["70-tools/src"]
-   :task (do (require 'etzhayyim.channel-test 'etzhayyim.genome-test 'etzhayyim.actor-test 'etzhayyim.observatory-test 'etzhayyim.observatory-registry-test)
+   :task (do (require 'etzhayyim.channel-test 'etzhayyim.genome-test 'etzhayyim.actor-test 'etzhayyim.observatory-test 'etzhayyim.observatory-registry-test 'etzhayyim.observatory-submit-test)
              (let [rs (map (resolve 'clojure.test/run-tests)
                            '[etzhayyim.channel-test etzhayyim.genome-test
                              etzhayyim.actor-test etzhayyim.observatory-test
-                             etzhayyim.observatory-registry-test])
+                             etzhayyim.observatory-registry-test etzhayyim.observatory-submit-test])
                    bad (reduce + (map (fn [r] (+ (:fail r 0) (:error r 0))) rs))]
                (System/exit (if (pos? bad) 1 0))))}
 
@@ -256,6 +256,12 @@
    :extra-paths ["70-tools/src"]
    :task (do (require 'etzhayyim.observatory-registry)
              (apply (resolve 'etzhayyim.observatory-registry/-regen) *command-line-args*))}
+
+  observatory:submit
+  {:doc "kotoba-genome W4-live — MEMBER-PRINCIPAL publish of prepared observatory posts (no-server-key, ibuki G7/G8). Gates: non-cron + --yes + member signer present (ETZHAYYIM_MEMBER_DID/_SIGN_CMD) + status :prepared + charter scan. Holds NO key; the member's runtime creds sign+publish (ETZHAYYIM_MEMBER_PUBLISH_CMD). See 90-docs/runbooks/observatory-member-publish.md. Args: [--in PATH] [--yes] [--out PATH]."
+   :extra-paths ["70-tools/src"]
+   :task (do (require 'etzhayyim.observatory-submit)
+             (apply (resolve 'etzhayyim.observatory-submit/-submit) *command-line-args*))}
 
   fleet:probe
   {:doc "RESIDENCE PROBE (ADR-2606271400) — does the murakumo heartbeat fleet ACTUALLY run, or is it only DEFINED in cells.edn? Reads cells.edn/fleet.edn, maps tailscale online state, and (over `ssh <node>`) checks each node's launchctl + pgrep + loopback healthz (the healthz server binds 127.0.0.1 only, so residence is observable only ON the node). Classifies every cron/lan-api heartbeat :alive / :defined-only-silent / :node-unreachable, probes the evo-x2 inference backend + issachar kotoba :8077, writes out/fleet-probe.edn + a human summary. Shells out to ssh/tailscale/curl (system binaries); logic is clj. Flags: --nodes a,b | --no-ssh"
