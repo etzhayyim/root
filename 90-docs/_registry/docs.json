@@ -571,7 +571,7 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2605142355-okaimono-unispsc-contract-boundary.md",
+      "path": "90-docs/adr/2605142355-okaimono-unspsc-contract-boundary.md",
       "id": "2605142355-okaimono-unispsc-contract-boundary",
       "title": "Okaimono UNSPSC contract boundary uses proto, manifest, docs, and verifier tests",
       "status": "active",
@@ -640,7 +640,7 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2605171300-open-unispsc-generative-agent-fleet.md",
+      "path": "90-docs/adr/2605171300-open-unspsc-generative-agent-fleet.md",
       "id": "2605171300",
       "title": "Open-UNSPSC Generative Agent Fleet using OpenRouter and Local Fallback",
       "status": "superseded",
@@ -1341,7 +1341,7 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2605232200-unispsc-actor-learning-loop-closure.md",
+      "path": "90-docs/adr/2605232200-unspsc-actor-learning-loop-closure.md",
       "id": "2605232200-unispsc-actor-learning-loop-closure",
       "title": "ADR-2605232200: UNSPSC actor learning loop closure — wrapper prior_consensus + opt-in cell shortcut (Stage D Phase A)",
       "status": "proposed",
@@ -7175,7 +7175,7 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp.md",
+      "path": "90-docs/adr/2605180900-unspsc-isic-langserver-actor-lexicon-xrpc-mcp.md",
       "id": "adr-2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp",
       "title": "ADR-2605180900: UNSPSC + ISIC LangGraph Pregel fleet — langserver-resident, exposed as Actor / Lexicon / XRPC / MCP, Haiku-routed bulk",
       "status": "in-progress",
@@ -10765,7 +10765,7 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2605232345-unispsc-actor-as-organism.md",
+      "path": "90-docs/adr/2605232345-unspsc-actor-as-organism.md",
       "id": "adr-2605232345-unispsc-actor-as-organism",
       "title": "ADR-2605232345: UNSPSC actor as ecosystem organism — Python heartbeat-cadence port + reference wrapper",
       "status": "proposed",
@@ -10888,7 +10888,7 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2605240000-unispsc-organism-fleet-mass-deploy.md",
+      "path": "90-docs/adr/2605240000-unspsc-organism-fleet-mass-deploy.md",
       "id": "adr-2605240000-unispsc-organism-fleet-mass-deploy",
       "title": "ADR-2605240000: UNSPSC organism fleet — 18,342 mass-deploy via sharded fleet cell on Murakumo",
       "status": "proposed",
@@ -10917,7 +10917,7 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2605240015-unispsc-organism-joucho-personality.md",
+      "path": "90-docs/adr/2605240015-unspsc-organism-joucho-personality.md",
       "id": "adr-2605240015-unispsc-organism-joucho-personality",
       "title": "ADR-2605240015: UNSPSC organism joucho — deterministic per-code personality + MST writer hook",
       "status": "proposed",
@@ -10941,7 +10941,7 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2605240030-unispsc-organism-followers.md",
+      "path": "90-docs/adr/2605240030-unspsc-organism-followers.md",
       "id": "adr-2605240030-unispsc-organism-followers",
       "title": "ADR-2605240030: UNSPSC organism followers — Python follower-score provider interface + AT Protocol stub",
       "status": "proposed",
@@ -10967,7 +10967,7 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2605240100-unispsc-organism-post-sink-substrate-bridge.md",
+      "path": "90-docs/adr/2605240100-unspsc-organism-post-sink-substrate-bridge.md",
       "id": "adr-2605240100-unispsc-organism-post-sink-substrate-bridge",
       "title": "ADR-2605240100: UNSPSC organism post sink — NDJSON queue + TS-side drainer (substrate-boundary-honoring)",
       "status": "proposed",
@@ -10996,7 +10996,7 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2605240200-unispsc-organism-kaizen-self-reflection.md",
+      "path": "90-docs/adr/2605240200-unspsc-organism-kaizen-self-reflection.md",
       "id": "adr-2605240200-unispsc-organism-kaizen-self-reflection",
       "title": "ADR-2605240200: UNSPSC organism ecosystem self-reflection — KaizenObserverCell + PR-agent contract",
       "status": "proposed",
@@ -24270,7 +24270,7 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2606131645-kotodama-extraction-functional-unispsc-clj.md",
+      "path": "90-docs/adr/2606131645-kotodama-extraction-functional-unspsc-clj.md",
       "id": "adr-2606131645-kotodama-extraction-functional-unispsc-clj",
       "title": "ADR-2606131645: kotodama 抽出 + 18,343 UNSPSC actor の機能化 Clojure 移行 + kotoba submodule 撤去",
       "status": "proposed",
@@ -25453,7 +25453,7 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2606172100-retire-unispsc-python-per-code-fleet.md",
+      "path": "90-docs/adr/2606172100-retire-unspsc-python-per-code-fleet.md",
       "id": "adr-2606172100-retire-unispsc-python-per-code-fleet",
       "title": "ADR-2606172100: Retire the open-UNSPSC per-code Python agent fleet — superseded by the clj unspsc actor",
       "status": "accepted",

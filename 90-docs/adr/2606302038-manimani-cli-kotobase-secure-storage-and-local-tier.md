@@ -167,6 +167,32 @@ gitignored** journal `80-data/manimani/intake.journal.edn`. Because `etzhayyim/r
 - `ingest-fs` is an exfiltration-risk surface; it ships **only** with allowlist + secret-skip
   + read-only + (at Vault stage) E2E-at-rest + the Charter Rider content scanner, or not at all.
 
+# Implementation status (2026-06-30, landed this session)
+
+Phase-0 scaffold is **landed** (commit `4ea83ba`), design-first per the ADR-2605291100
+precedent — real where it can be, honest stubs where external integration is pending:
+
+- **`70-tools/src/etzhayyim/manimani.cljc`** — the CLI ns (clj/bb over the kotoba Datom
+  log), registered as `"manimani" → etzhayyim.manimani` in the `e7m` dispatch map
+  (`70-tools/src/etzhayyim/cli.cljc`). Invoked `bb e7m manimani <cmd>`.
+- **Working over the local journal**: `ingest` (heuristic classify → intake/project/
+  belongs-to datoms, `confidence<0.5 → unsorted` honest fallback), `classify`, `projects`,
+  `coverage`. Verified: `bb e7m manimani projects` → the 2 seeded projects
+  (`lingling-litigation`, `jk-tax`); `coverage` → `projects:2 intakes:2 unrouted:0`.
+- **Honest stubs (no fake behavior)** for the external-integration seams: `ingest-gmail`
+  (read-only OAuth2, Phase-3), `ingest-fs` (allowlist + secret-skip, Phase-4), `pin`
+  (kotobase.net ciphertext, Phase-5), `vault` (Keychain read-cap, Phase-2),
+  `murakumo-classify` (LiteLLM `:4000` seam, Phase-2). Each prints its plan and exits.
+- **Not yet wired** (next phases): Murakumo structured-output classify, Gmail OAuth backfill,
+  fs-walker, E2E `SecureVault` blobs, kotobase.net pin fan-out. The Phase-0 classifier is a
+  deterministic keyword heuristic; the `intake-id` is a sha-256 stand-in for the blake3 CID.
+
+Adjacent repair (same session): the committed **`adr-index.edn`** was the stale, un-parseable
+hand-edited index (prose written as map literals — broken before this session). It was
+regenerated from ADR `.md` front matter via the canonical SSoT generator
+(`etzhayyim.tools.adr-mdedn` `index`, per ADR-2606162200): **923 entries, one-per-line,
+clojure.edn-parseable**. Recommend wiring `index-check` into lefthook to prevent re-drift.
+
 # Alternatives Considered
 
 1. **iCloud / Google Drive as the manimani store.** Rejected: centralized off-chain stores
