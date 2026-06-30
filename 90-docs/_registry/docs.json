@@ -29569,6 +29569,28 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/runbooks/observatory-member-publish.md",
+      "id": "runbook-observatory-member-publish",
+      "title": "Runbook: member-signed publish for first-party observatory actors (W4-live)",
+      "status": "active",
+      "doc_type": "how-to",
+      "topic": "observatory-member-publish",
+      "authoritative": true,
+      "related": [
+        "2606302205",
+        "2606281500",
+        "2606111400",
+        "2605231525",
+        "2606042330"
+      ],
+      "last_verified": "2026-07-01",
+      "authoritative_for": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/baien/runpod-5090-access-status-260526.md",
       "id": "runpod-5090-access-status-260526",
       "title": "RunPod RTX 5090 access status (2026-05-26) — credentials in 1Password vault but key path not on mac-260317",
