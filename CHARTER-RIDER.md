@@ -9,9 +9,26 @@ proper (Lv7+ lock). Until ADR-2606064700 is ratified, every clause here keeps it
 current binding force and gate. See ADR-2606064700 for the derivation map.
 -->
 ```
-etzhayyim Charter Compliance Rider v3.5
-Last revised: 2026-06-18
-Supersedes: v3.4 (2026-06-17) per ADR-2606182359 — wave3: the categorical hard-floor
+etzhayyim Charter Compliance Rider v3.6
+Last revised: 2026-06-30
+Supersedes: v3.5 (2026-06-18) per ADR-2606302205 — kotoba-genome pivot: the keyless
+            OBSERVATIONAL-MIRROR model (ADR-2606042330) is RETIRED. Every actor —
+            including the former namespace/entity mirrors (corp/gov/cable/station/
+            craft) — is now a FIRST-PARTY, self-keyed (present-only + member-CACAO-
+            leashed did:key, ADR-2606111400/2605231525), self-evolving, autonomously-
+            POSTING actor under the seed-and-grow doctrine (ADR-2606281500). Non-
+            impersonation is preserved as a DISCLOSURE DUTY, not as keyless
+            impossibility: an actor posts/speaks AS "etzhayyim's <domain> observatory
+            actor" (voiceOf=etzhayyim, isObservatory=true on handle/profile/every post)
+            and must NEVER claim to BE a real government, company, or person. Private
+            persons stay excluded/consent-gated, anchored to §2(g) 反個人主義 + the
+            CATASTROPHE term (not to keylessness). The un-amendable catastrophe term is
+            UNCHANGED and is exactly what makes "everything posts" safe: impersonation
+            of a real entity (fraud/defamation) and posting as/about a private person
+            without consent (privacy/harm) reach :non-aligned via that term. Self-
+            modification stays proposal-only + human/Council-gated (ADR-2605240200).
+            v3.6 supersedes v3.5 below.
+Supersedes (v3.5): v3.4 (2026-06-17) per ADR-2606182359 — wave3: the categorical hard-floor
             is ELIMINATED. All remaining prohibited categories — including the former
             hard-floor cores (§2(a) aggression/lethal/covert, §2(c) asymmetric-unwatched
             surveillance, §2(j) forced labor, §2(k) CSAM) AND §2(g) strict-individualist

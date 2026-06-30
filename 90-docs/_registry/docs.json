@@ -20363,6 +20363,9 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "amended_by": [
+        "2606302205"
+      ],
       "depends_on": [
         "2606013800",
         "2605241800",
@@ -20375,8 +20378,7 @@
         "2605171300"
       ],
       "last_verified": "2026-06-06",
-      "amends": [],
-      "amended_by": []
+      "amends": []
     },
     {
       "path": "90-docs/adr/2606051200-hotaru-inp-iii-v-substrate-commons-r0.md",
@@ -27039,6 +27041,50 @@
       ],
       "last_verified": "2026-06-30",
       "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606302205-kotoba-genome-unified-self-evolving-all-actor-organism.md",
+      "id": "adr-2606302205-kotoba-genome-unified-self-evolving-all-actor-organism",
+      "title": "ADR-2606302205: kotoba-genome — unified self-evolving, multi-channel, all-actor-posting organism; retire the keyless observational mirror",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "kotoba-genome-unified-self-evolving-all-actor-organism",
+      "authoritative": true,
+      "authoritative_for": [
+        "every actor (named Tier-B AND former namespace/entity mirrors) is a first-party self-keyed, self-evolving, autonomously-posting actor under the seed-and-grow doctrine (ADR-2606281500)",
+        "the resident organism loop is unified with the co-scientist / active-inference learning loop — the running thing is the learning thing",
+        "the kotoba-lang Channel egress protocol: one driver registry maps lexicon-prefix -> channel (AT Proto / email / X / Telegram / LINE / SMS-phone), behind one channel-neutral emit",
+        "the kotoba-lang shared behavior library: social / evolution / identity / dialog implemented once and inherited, not re-declared per actor",
+        "domain (com-x) actors as first-class self-evolving dialogic APIs",
+        "retirement of the keyless observational-mirror model (ADR-2606042330 D3/D4/G1/G5) in favour of first-party disclosure-honest active actors"
+      ],
+      "related": [
+        "2605232345",
+        "2605240015",
+        "2606171500",
+        "2606022800"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [
+        "2606042330"
+      ],
+      "depends_on": [
+        "2606042330",
+        "2606281500",
+        "2606201200",
+        "2605232200",
+        "2605240100",
+        "2605240200",
+        "2605211200",
+        "2605262130",
+        "2605312345",
+        "2605231525",
+        "2606111400",
+        "2605172200"
+      ],
+      "last_verified": "2026-06-30",
       "amended_by": []
     },
     {

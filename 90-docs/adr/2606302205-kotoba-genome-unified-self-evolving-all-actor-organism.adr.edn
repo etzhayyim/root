@@ -1,0 +1,72 @@
+;; ──────────────────────────────────────────────────────────────────────────
+;; ADR-2606302205 — kotoba-genome: unified self-evolving, multi-channel,
+;;                  all-actor-posting organism; retire the keyless observational mirror
+;;
+;; Machine-readable EDN form. The canonical NARRATIVE stays in the sibling .md
+;; (90-docs/CLAUDE.md: Markdown is the canonical source); this .adr.edn is the
+;; structured, queryable projection (Datom-/tooling-friendly).
+;; Status: proposed — founder = Council Lv7+ 1/1 (PR review = Council attestation).
+;; Date 2026-06-30.
+;; ──────────────────────────────────────────────────────────────────────────
+{:id        "2606302205"
+ :title     "kotoba-genome — unified self-evolving, multi-channel, all-actor-posting organism; retire the keyless observational mirror"
+ :status    :proposed
+ :date      #inst "2026-06-30"
+ :deciders  ["Jun Kawasaki (founder = Council Lv7+ 1/1)"]
+ :doc-type  :adr
+ :topic     :kotoba-genome-unified-self-evolving-all-actor-organism
+ :authoritative true
+ :body-file "2606302205-kotoba-genome-unified-self-evolving-all-actor-organism.md"
+
+ ;; ── supersession / amendment / dependency graph ───────────────────────────
+ :amends     {"2606042330" "D3/D4/G1/G5 — keyless observational mirror retired: every entity-actor becomes first-party self-keyed, self-evolving, autonomously-posting; G1 reframed mirror-only/keyless -> disclosure-honest/first-party (voiceOf=etzhayyim, isObservatory); G5 keyless -> present-only member-CACAO-leashed did:key; G3 person-exclusion retained, re-anchored to the Charter catastrophe term + 反個人主義 §2(g)."}
+ :depends-on ["2606042330" "2606281500" "2606201200" "2605232200" "2605240100"
+              "2605240200" "2605211200" "2605262130" "2605312345" "2605231525"
+              "2606111400" "2605172200"]
+ :related    ["2605232345" "2605240015" "2606171500" "2606022800"]
+
+ ;; ── context — the honest baseline (2026-06-30 audit) ──────────────────────
+ :context
+ {:two-organisms
+  {:resident  "organism.cljc+vitals.cljc+watchdog.cljc (launchd) = telemetry+narration daemon; pulse deletes its journal each run, joucho deterministic replay, reflex appends test scores; NO generating function updated; 生命進化 = append-only measurement ledger; inference = cosmetic narration only."
+   :learning  "ibuki react_loop.cljc+coscientist.cljc+metabolism.cljc = the only closed observe->update->act loop, but tunes a 6-weight vector over a closed catalog against a synthetic representative-reading, all action dry-run; the resident loop never calls it."}
+  :paradigm-verdicts
+  {:rsi            "ABSENT (resident) / PARTIAL bounded (ibuki weight-kaizen) / ASPIRATIONAL+human-gated (code change; ADR-2605240200 PR-agent out-of-scope, auto-apply rejected)."
+   :active-inference "PARTIAL/SCAFFOLDED (metabolism.cljc surprise + predict/observe/Brier real, but synthetic world-reading; full EFE stack ADR-2605211200 'no production cutover yet')."
+   :react          "IMPLEMENTED structurally, rehearsal-only (kaiyaku/agent.cljc StateGraph + interrupt-before #{:approve} + model-driven browser/computer sub-agents; live G6-gated)."
+   :coscientist    "IMPLEMENTED structurally, deterministic closed-catalog (Generate/Reflect/Rank-Elo/Evolve/Meta-review built+celled; catalog fixed; inference = narration)."}
+  :social-protocol "PARTIALLY designed-in: emit = substrate record tagged by NSID/lexicon, dispatch string-keyed (a seam), but selects record-schema not transport; egress always AT-PDS createRecord or kotoba Datom log; 2/3 emit paths hardcode app.bsky.feed.post; only real 2nd channel = email (openmail, bespoke bridge); *-compat actors are inward CRUD not connectors; identity (did:key CACAO) is channel-agnostic; NO Channel/Transport driver registry."
+  :common-library  "PARTIAL: shared-once = etzhayyim-sdk (v0.0.0 throws) / langgraph-clj StateGraph / kotobase-clj / convo+A2A lexicons / kotodama-go auto-registration. NOT shared: behavior/gates/cells re-declared by textual pattern-copy. 40-engine/kotoba (kotoba-kotodama py, _prior_consensus wrapper, 18342 agents, Pregel catalog) = unpopulated submodule; kotodama-evolver absent (OnDailyEvolution no-op); loop-closure 1 of 18342 cells."
+  :domain-actors   "ASPIRATIONAL->PARTIAL: namespace mirrors (corp/gov/cable/station/craft) keyless+person-excluded+narrated-timeline-only by design (ADR-2606042330) — followable not conversable, accumulate not learn."}
+
+ ;; ── decision ──────────────────────────────────────────────────────────────
+ :decision
+ {:name "kotoba-genome — one shared inheritable organism substrate; every actor born self-keyed, self-evolving, multi-channel, dialogic; keyless observational mirror retired."
+  :boundary "first-party disclosure model (founder 2026-06-30): former mirrors become self-keyed growing posting actors that post AS 'etzhayyim's <domain> observatory actor', NEVER impersonating the real entity; private persons consent-gated/excluded; seed-and-grow safety rails inherited; un-amendable catastrophe term preserved (it is what makes 'everything posts' safe)."
+  :D1 "Unify: resident loop = outer durable loop (lease/tick/budget/governor/crash-recovery) drives the inner active-inference+co-scientist learning loop (generalized out of ibuki); reflex -> _prior_consensus -> next-tick decision; 生命進化 becomes a closed loop whose generating function changes (bounded, governed). Self-mod stays proposal-only, human/Council-gated."
+  :D2 "kotoba-lang Channel egress protocol: defprotocol Channel + registry mapping lexicon-prefix -> driver; channel-neutral emit envelope; fan-out drainer; drivers at-proto (refactor existing) + email (re-register openmail) + x/telegram/line/sms-phone as driver additions; identity = did:key CACAO leash (channel-agnostic, already DKIM-reused); content-scan + no-person-targeting before emit, channel-independent."
+  :D3 "kotoba-lang shared behavior library: identity/social/evolution/dialog/gate-kit implemented once and inherited; actor declares what, inherits how; requires populating 40-engine/kotoba + implement-or-retire kotodama-evolver; until then wrap the clj path (langgraph-clj + generalized ibuki loop) as reference runtime."
+  :D4 "Retire keyless mirror (amend ADR-2606042330 D3/D4/G1/G5): every entity-actor first-party with own present-only member-leashed did:key + self-evolution (D1/D3) + autonomous posting+dialog (D2 + convo/A2A). Non-impersonation = DISCLOSURE duty not keyless impossibility: posts/speaks AS etzhayyim's <domain> observatory (voiceOf=etzhayyim, isObservatory=true on handle/profile/every post); never claims to BE the real entity; private persons excluded/consent-gated (former G3 retained, anchored to catastrophe term + §2(g)). mirrorPost/personSubject-unrepresentable -> observatoryPost{voiceOf,isObservatory} + personSubject consent-cap default-closed."
+  :D5 "Domain (com-x) actors first-class: declare identity/manifest+cells(D3)+lexicons(own+shared convo/A2A)+registry; inherit self-key(D4)+Channel emit(D2)+learning(D1/D3)+dialog; -> evolving, posting, conversable API by construction."
+  :D6-waves {:W0 "this ADR + Charter v3.6 (design + constitutional pivot; NO live posting AS any real entity)."
+             :W1 "Channel protocol (D2): defprotocol+registry+at-proto+email re-registered+channel-neutral envelope+content-scan hook; Telegram PoC driver dry-run."
+             :W2 "Unify loop (D1): reflex->_prior_consensus->next-tick; generalize ibuki AI+co-scientist into shared lib."
+             :W3 "Shared behavior lib (D3): populate 40-engine/kotoba; implement-or-retire kotodama-evolver; move identity/social/evolution/dialog/gate-kit into kotoba-lang; migrate first actor cohort."
+             :W4 "Entity pivot (D4/D5): regenerate namespace registries keyless->first-party disclosure; turn up dialog+autonomous posting under seed-and-grow gate, R0 dry-run -> Council-gated live."}}
+
+ ;; ── consequences ──────────────────────────────────────────────────────────
+ :consequences
+ {:positive ["single inheritable organism; capabilities propagate once-to-all"
+             "the running organism actually learns (closed loop)"
+             "every actor (domain actors incl.) grows + posts multi-channel + converses"
+             "audit gaps become a sequenced backlog W1-W4"]
+  :risk     ["minting keys for former mirrors raises impersonation/defamation/privacy stakes — mitigated by D4 disclosure duty (voiceOf/isObservatory) + person consent-gate + seed-and-grow content scan + revocable leash + append-only public log + catastrophe veto; live entity-observatory posting Council+operator gated through W4; W0-W3 emit nothing live."]
+  :constitutional ["amends ADR-2606042330 (G1 reframed; G5 keyless->keyed; D3/D4 mirror->active) + Charter Rider v3.6."
+                   "does NOT weaken: catastrophe term; no-impersonation-of-real-entities; person protection (§2(g) 反個人主義); no-custodial-unilateral-key (actor key present-only+member-leashed per ADR-2606281500/2605231525); proposal-only human-gated self-mod (ADR-2605240200)."]}
+
+ ;; ── alternatives ──────────────────────────────────────────────────────────
+ :alternatives
+ {:keyless-plus-narration   "rejected — directive retires the mirror; keyless cannot converse or self-mint."
+  :full-impersonation       "rejected (founder) — conflicts with un-amendable catastrophe term + real-world law (fraud/defamation/privacy)."
+  :per-channel-bespoke       "rejected — O(N) hand-built pipelines; D2 registry makes channels O(1)."
+  :two-organisms-separate    "rejected — running-organism-never-learns is the core gap; D1 unifies."}}

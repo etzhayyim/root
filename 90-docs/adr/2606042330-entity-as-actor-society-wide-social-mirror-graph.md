@@ -34,13 +34,32 @@ related:
   - "2606041827"
 supersedes: []
 superseded_by: []
+amended_by:
+  - "2606302205"
 ---
 
 # ADR-2606042330: entity-as-actor — society-wide entity socialization via keyless mirror-actors
 
-**Status**: proposed
+**Status**: accepted (AMENDED by ADR-2606302205 — D3/D4/G1/G5)
 **Date**: 2026-06-04
 **Deciders**: Jun Kawasaki
+
+> **AMENDMENT (ADR-2606302205, 2026-06-30 — kotoba-genome pivot).** The **keyless
+> observational-mirror** model decided here is **retired**. Every entity-actor —
+> including the namespace mirrors (corp/gov/cable/station/craft) — is now a
+> **first-party, self-keyed (present-only + member-CACAO-leashed `did:key`),
+> self-evolving, autonomously-posting** actor under the seed-and-grow doctrine
+> (ADR-2606281500). Specifically: **G5 keyless → keyed**; **D3/D4 mirror-timeline →
+> active self-evolving posting + dialog**; **G1 "mirror-only / no-impersonation" →
+> "disclosure-honest / first-party"** (the actor posts/speaks AS *etzhayyim's
+> &lt;domain&gt; observatory actor* — `voiceOf=etzhayyim`, `isObservatory=true` — and must
+> NEVER claim to BE the real government/company/person). **G2/G3 person-exclusion is
+> RETAINED**, now anchored to the Charter catastrophe term + §2(g) 反個人主義 (not to
+> keylessness): private persons stay excluded/consent-gated. `mirrorPost` /
+> `personSubject`-unrepresentable → `observatoryPost{voiceOf,isObservatory}` +
+> a default-closed `personSubject` consent capability. The non-impersonation and
+> person-protection floors below remain in force as **disclosure + consent**, not as
+> keylessness. See ADR-2606302205 (D4) + Charter Rider v3.6.
 
 # Context
 
