@@ -1,0 +1,35 @@
+;; kanmon 関門 — kotoba mesh application manifest (self-publication seed wiring).
+;; ADR-2606291500 + ADR-2606272355 (self-publication seed) + ADR-2606281500 (seed-and-grow).
+;;
+;; The planter authors this seed IN-REPO (no keys). The operator `bb murakumo deploy`s it to
+;; the mesh, where the actor self-signs with its OWN did:key under a revocable member CACAO
+;; leash (no server-held key). R0 = dry-run membrane; live broadcast is the GROWTH step.
+{:app/id "kanmon"
+ :app/glyph "関"
+ :app/adr ["2606291500" "2606272355" "2606281500"]
+
+ :components
+ [{:name     "kanmon-observe"
+   :src      "methods/autorun.cljc"
+   :scale    1
+   :triggers [{:type :tick :cron "29 * * * *"}]          ;; hourly barrier-load → OPENING ledger beat
+   :requires #{:cap/kqe}}
+
+  {:name     "kanmon-energy-flow"
+   :src      "methods/ie_flow.cljc"
+   :scale    1
+   :triggers [{:type :tick :cron "39 */6 * * *"}]        ;; every 6h: rectify → energy-flow viz/metrics
+   :requires #{:cap/kqe}}
+
+  {:name     "kanmon-social"
+   :src      "methods/social.cljc"
+   :membrane "cells/social_post/state_machine.cljc"
+   :scale    1
+   :triggers [{:type :tick :cron "0 */6 * * *"}          ;; every 6h: self-publish OPENING map + leverage digest
+              {:type :kse  :topic "etzhayyim/actor/kanmon/publish"}]
+   :requires #{:cap/kqe :cap/atproto}
+   :seed     {:server-held-key false              ;; no-server-key — actor self-signs in mesh runtime
+              :leash :member-cacao                 ;; revocable member CACAO leash (the off-switch)
+              :default-status :dry-run             ;; R0 — live broadcast is the GROWTH step
+              :content-scan :rider-s2              ;; Rider §2 catastrophe-veto scan before emit
+              :no-person-targeting true}}]}

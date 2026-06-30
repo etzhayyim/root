@@ -12,7 +12,8 @@
  :actor/purpose   "入試 observatory. Mirrors the public structure of the CN/KR/JP high-stakes entrance-exam systems (高考/中考/考研 · 수능/내신 · 大学入学共通テスト/二次/中学・高校受験) into the kotoba Datom log, and runs edge-primary BARRIER-LOAD — how exclusively a single exam gates life-opportunity = selectivity × (single-shot intensity) × (stakes breadth), computed ON READ — routed to OPENING: surface alternative admission pathways (:open-pathway), demand disclosure of opaque criteria (:transparency-gap), reduce one-shot/one-day life-gating (:destake), or flag access disparity (:equity-watch). A 関門 (barrier gate) is mapped in order to be OPENED, never to be optimized-into. OBSERVATION ONLY — kanmon mirrors structure, it does NOT prep students, NOT score/rank/predict any individual, NOT a target-list. Composes with 指南 shinan (learning support): kanmon maps the gate, shinan hands the learner an open scaffold; kanmon's :open-pathway/:destake routes inform shinan's coverage priorities."
  :actor/status    :r0
  :actor/adr       "2606291500"
- :actor/related   ["2605261045" "2606291501" "2606073000" "2605262130" "2605312345" "2606042330"]
+ :actor/related   ["2605261045" "2606291501" "2606073000" "2605262130" "2605312345" "2606042330"
+                   "2606211200" "2606212030" "2606272355" "2606281500"]
 
  :actor/charter-rider
  {:rider/version "3.5"
@@ -37,8 +38,31 @@
  :actor/methods
  [{:method/id "kanmon_edn" :method/file "methods/kanmon_edn.cljc" :method/role "seed loader + classify"}
   {:method/id "analyze"    :method/file "methods/analyze.cljc"    :method/role "barrier-load → route → assess → render-datoms (EAVT) → coverage + report (+ bb CLI)"}
+  {:method/id "dynamics"   :method/file "methods/dynamics.cljc"   :method/role "SYSTEM-DYNAMICS read (junkan pattern): exam factors → 5 stocks → 6 causal loops (reinforcing/balancing) → Meadows leverage CANDIDATES (analysis-only, :prescription? false, no :kanmon/actuate); EAVT datoms + report"}
+  {:method/id "ie_flow"    :method/file "methods/ie_flow.cljc"    :method/role "ENERGY-FLOW (整流): embeds shared etzhayyim.ie-flow.metrics — rectify scattered barrier-load disorder → high-leverage OPENING (order) serving 子孫 wellbecoming, exported to shiori/shinan/danjo/kaname (SoS); order-index/η/net-gain + self-contained energy-flow.html viz"}
+  {:method/id "social"     :method/file "methods/social.cljc"     :method/role "DRY-RUN self-publication projection (ADR-2606272355/2606281500): draft-opening-post + draft-leverage-post → app.bsky.feed.post; ≥2 sources + content-scan + no-server-key + is-mirror + dry-run; build-live raises (GROWTH = mesh self-sign)"}
   {:method/id "kotoba"     :method/file "methods/kotoba.cljc"     :method/role "持続永続化: content-addressed append-only OBSERVATION LEDGER (tx-cid/make-tx/append-tx/read-log/head-cid/verify-chain)"}
   {:method/id "autorun"    :method/file "methods/autorun.cljc"    :method/role "持続永続化: deterministic, idempotent-by-content heartbeat — assess → append route datoms to the ledger (+ bb CLI)"}]
+
+ :actor/membrane
+ {:cell/file "cells/social_post/state_machine.cljc"
+  :cell/role "publication membrane (danjo/keizu pattern): a record → :drafted dry-run post ONLY if ≥2 sources + server-held-key false + status dry-run + content-scan clean (no 偏差値/序列/合否予測/person); else :refused. Pure state machine."}
+
+ :actor/ie-flow
+ {:flow/adopted true
+  :flow/adr ["2606211200" "2606212030"]
+  :flow/registry "80-data/ie-flow/registry.edn"
+  :flow/viz "viz/energy-flow.html"
+  :flow/descendant 0.85
+  :flow/note "kanmon RECTIFIES (整流) scattered exam-gate barrier-load (disorder = diffuse harm to students' wellbecoming) into high-leverage OPENING interventions (order) serving 子孫 wellbecoming; embeds the SHARED ie-flow metrics (not a fork). Synthetic-seed result: order-index 0.092, η 16.23×, net-gain +3.7, non-parasitic. OPENING sinks feed shiori/shinan/danjo/kaname = the system of systems. kanmon moves INFORMATION-energy (an OPENING map), never students or money — the actual openings are enacted by ossekai/Council."}
+
+ :actor/social
+ {:social/adr ["2606272355" "2606281500"]
+  :social/app "kotoba.app.edn"
+  :social/doctrine :seed-and-grow
+  :social/rails {:server-held-key false :leash :member-cacao :default-status :dry-run
+                 :content-scan :rider-s2 :no-person-targeting true :narration :murakumo-default}
+  :social/note "Seed-and-grow (ADR-2606281500): kanmon PUBLISHES autonomously by default — the seed (rails) is NOT lifted: self-did:key present-only + revocable member CACAO leash (off-switch) + append-only public log (相互監視) + Rider §2 catastrophe-veto content scan before emit + no person-targeting + Murakumo-default narration. R0 = dry-run membrane; live broadcast self-signs in the mesh runtime (build-live raises here). PUBLICATION ≠ ACTUATION: kanmon never grants a permit / launches anything — it publishes an OPENING map."}
 
  :actor/ledger
  {:ledger/file "data/persisted/kanmon.observations.kotoba.edn"
@@ -55,5 +79,8 @@
  :actor/tests
  {:runner "babashka"
   :cmd "bb 20-actors/kanmon/run_tests.clj"
+  :classpath "20-actors:70-tools/src"
   :suites ["methods/test_kanmon_edn.cljc" "methods/test_analyze.cljc"
+           "methods/test_dynamics.cljc" "methods/test_ie_flow.cljc"
+           "methods/test_social.cljc"
            "methods/test_kotoba.cljc" "methods/test_autorun.cljc"]}}

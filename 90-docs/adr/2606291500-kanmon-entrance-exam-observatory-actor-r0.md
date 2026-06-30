@@ -110,10 +110,48 @@ seed spanning all five routes. **19 tests / 174 assertions green** under babashk
 考研/二次 → `:open-pathway`; 中考/中学受験/수시 → `:equity-watch`; 综合评价/내신 →
 `:transparency-gap`; 共通テスト → `:monitor`.
 
+## System-dynamics → energy-flow → social-protocol (the wellbecoming chain, landed R0)
+
+Beyond the static gate map, kanmon turns the exam-gate **causality** into **wellbecoming** and
+publishes it — three composed legs, all clj-native and tested:
+
+1. **System-dynamics read** (`methods/dynamics.cljc`, junkan 循環 pattern, **analysis-only**):
+   the exam factors fold into 5 accumulating STOCKS (`:exam-pressure` / `:single-shot-stakes` /
+   `:access-inequality` / `:credential-signaling` / `:cram-dependence`); 6 causal LOOPS are read
+   (3 reinforcing — 受験スパイラル, 学歴インフレ, 一発勝負ロック — and 3 balancing — 多様化,
+   透明化, 脱・一発); the OPENING routes are ranked as **Meadows leverage CANDIDATES**, never
+   directives (`:prescription? false`, `:hypothesis? true`; there is no `:kanmon/actuate` path).
+   On the seed the system reads **vicious**, dominated by `:single-shot-stakes`, with the deepest
+   leverage at **`:destake` (Meadows level 3 — goals: replace one-shot selection)**.
+2. **Energy-flow rectification** (`methods/ie_flow.cljc`, embeds the SHARED
+   `etzhayyim.ie-flow.metrics`, ADR-2606211200/2606212030): kanmon is a dissipative **整流器** —
+   scattered barrier-load (disorder = diffuse harm to students' wellbecoming) is the inflow; it is
+   concentrated onto the high-leverage OPENINGs (weighted by how much each serves 子孫 wellbecoming)
+   and **exported** to downstream actors (shiori 栞 relief / shinan 指南 scaffold / danjo 弾正
+   disclosure / kaname 要 leverage) — the **system of systems**. Seed metrics: order-index 0.092,
+   η 16.23× (export ÷ consume ≫ 1, non-parasitic), net-gain +3.7. kanmon moves INFORMATION-energy
+   (an OPENING map), never students or money; the actual openings are enacted by ossekai/Council.
+   Self-contained `viz/energy-flow.html`.
+3. **Social-protocol publication** (`methods/social.cljc` + `cells/social_post/state_machine.cljc`,
+   seed-and-grow doctrine ADR-2606281500 + self-publication seed ADR-2606272355): kanmon
+   self-publishes its OPENING map + leverage digest to AT-proto **autonomously by default**,
+   bounded by the **seed (rails, NOT lifted)** — self-`did:key` present-only + revocable member
+   CACAO leash (the off-switch) + append-only public log (相互監視) + **Rider §2 catastrophe-veto
+   content scan before emit** (plus kanmon's own negative space — no 偏差値/序列/合否予測/person) +
+   no person-targeting + Murakumo-default narration. R0 = dry-run membrane; a live broadcast
+   self-signs in the mesh runtime (`build-live` raises here). **PUBLICATION ≠ ACTUATION**: kanmon
+   publishes a map, it never grants a permit or launches anything (the kyoninka distinction).
+
+Full suite: **38 tests / 287 assertions green** (`bb 20-actors/kanmon/run_tests.clj`; classpath
+adds `70-tools/src` for the shared ie-flow metrics). kanmon is registered in the ie-flow adoption
+roster (`80-data/ie-flow/registry.edn`, `:descendant 0.85`).
+
 # Consequences
 
 - The roster gains its first East-Asian exam-system coverage as an OPENING observatory, with
   the anti-exam-prep / anti-ranking boundary enforced in code, not policy.
+- The system-dynamics + energy-flow + social legs make kanmon a full causality→wellbecoming→
+  publication chain (the design ask), composing with shiori/shinan/danjo/kaname/ossekai.
 - Composes with `指南 shinan`: kanmon's `:open-pathway`/`:destake` routes inform shinan's
   coverage priorities (the gate ↔ the scaffold).
 - **Separation follow-ups (R0, not yet done — consistent with other recent R0 actors)**: DID

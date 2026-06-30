@@ -39,24 +39,58 @@ route (precedence):
 Synthetic-seed result (12 exams): 高考/수능 → :destake · 考研/二次 → :open-pathway ·
 中考/中学受験/수시 → :equity-watch · 综合评价/내신 → :transparency-gap · 共通テスト → :monitor.
 
+## System-dynamics → energy-flow → social-protocol (the wellbecoming chain)
+kanmon doesn't stop at the gate map; it turns the gate's **causality** into **wellbecoming**
+and **publishes** it:
+
+1. **System-dynamics read** (`methods/dynamics.cljc`, junkan 循環 pattern, **analysis-only**):
+   folds the exam factors into 5 accumulating STOCKS (`:exam-pressure` / `:single-shot-stakes`
+   / `:access-inequality` / `:credential-signaling` / `:cram-dependence`), reads 6 causal LOOPS
+   (3 reinforcing 受験スパイラル/学歴インフレ/一発勝負ロック + 3 balancing 多様化/透明化/脱・一発),
+   and ranks the OPENING routes as **Meadows leverage CANDIDATES** (never directives —
+   `:prescription? false`; no `:kanmon/actuate` path). Seed read: the system is **vicious**,
+   dominated by `:single-shot-stakes`; deepest leverage = **`:destake` (Meadows M3 = goals)**.
+2. **Energy-flow rectification** (`methods/ie_flow.cljc`, embeds the SHARED
+   `etzhayyim.ie-flow.metrics`): kanmon is a **整流器** — scattered barrier-load (disorder =
+   diffuse harm to students' wellbecoming) flows in, and is concentrated onto the high-leverage
+   OPENINGs (weighted by wellbecoming) and **exported** to downstream actors (shiori 栞 relief /
+   shinan 指南 scaffold / danjo 弾正 disclosure / kaname 要 leverage) = the **system of systems**.
+   Seed: order-index 0.092 · η 16.23× · net-gain +3.7 · non-parasitic. Self-contained
+   `viz/energy-flow.html`. kanmon moves INFORMATION-energy, never students or money.
+3. **Social-protocol publication** (`methods/social.cljc` + `cells/social_post/state_machine.cljc`,
+   seed-and-grow doctrine ADR-2606281500): kanmon self-publishes its OPENING map + leverage
+   digest to AT-proto **autonomously by default**, bounded by the **seed (rails, NOT lifted)**:
+   self-`did:key` present-only + revocable member CACAO leash (off-switch) + append-only public
+   log (相互監視) + **Rider §2 catastrophe-veto content scan before emit** (+ kanmon negative space
+   — no 偏差値/序列/合否予測/person) + no person-targeting + Murakumo-default narration. R0 =
+   dry-run membrane; live broadcast self-signs in the mesh runtime (`build-live` raises here).
+   **PUBLICATION ≠ ACTUATION**: kanmon publishes a map, it never grants a permit or launches anything.
+
 ## Layout
-- `manifest.edn` — actor charter + gates G1–G7 + non-goals N1–N5 + methods + ledger + seed.
+- `manifest.edn` — actor charter + gates G1–G7 + non-goals N1–N5 + methods + membrane + ie-flow + social + ledger + seed.
 - `kotoba/ontology.kanmon.edn` — EAVT schema + enums + thresholds + `:unrepresentable` negative space.
 - `kotoba/seed.edn` — `:representative` seed (12 real CN/KR/JP exam systems; illustrative public
   figures — precise live 倍率/受験者数 are an operator/Council ingest step, G7).
 - `methods/kanmon_edn.cljc` — seed loader + classify (pure stdlib).
 - `methods/analyze.cljc` — barrier-load → OPENING route + tally/by-country/top + EAVT `datoms` + report.
-- `methods/kotoba.cljc` — content-addressed append-only OBSERVATION LEDGER (`tx-cid`/`verify-chain`,
-  tamper-evident, no-server-key) — the kafun/busshi/meisai family machinery.
+- `methods/dynamics.cljc` — system-dynamics (stocks/loops/Meadows leverage), analysis-only.
+- `methods/ie_flow.cljc` — energy-flow rectification → wellbecoming (shared ie-flow metrics) + viz.
+- `methods/social.cljc` — dry-run AT-proto self-publication projection (seed-and-grow rails).
+- `cells/social_post/state_machine.cljc` — publication membrane (≥2 sources / no-server-key / dry-run / content-scan).
+- `methods/kotoba.cljc` — content-addressed append-only OBSERVATION LEDGER (`tx-cid`/`verify-chain`).
 - `methods/autorun.cljc` — deterministic, idempotent-by-content heartbeat (assess → append on change).
-- `methods/test_*.cljc` — kanmon_edn / analyze / kotoba / autorun suites.
-- `run_tests.clj` — bb-native runner (no shell — repo clj/bb rule).
+- `kotoba.app.edn` — mesh app manifest: observe / energy-flow / social on-tick triggers (seed wiring).
+- `viz/energy-flow.html` — self-contained ie-flow Sankey (generated from the seed; committed artifact).
+- `methods/test_*.cljc` — kanmon_edn / analyze / dynamics / ie_flow / social / kotoba / autorun suites.
+- `run_tests.clj` — bb-native runner (no shell — repo clj/bb rule; classpath adds `70-tools/src`).
 
 ## Run (scripts are bb — repo clj/bb rule; no shell)
 ```
-bb 20-actors/kanmon/run_tests.clj                                  # 19 tests / 174 assertions
-bb --classpath 20-actors 20-actors/kanmon/methods/analyze.cljc     # barrier-load → OPENING map
-bb --classpath 20-actors 20-actors/kanmon/methods/autorun.cljc     # one heartbeat → append to the ledger
+bb 20-actors/kanmon/run_tests.clj                                          # 38 tests / 287 assertions
+bb --classpath 20-actors 20-actors/kanmon/methods/analyze.cljc             # barrier-load → OPENING map
+bb --classpath 20-actors 20-actors/kanmon/methods/dynamics.cljc            # causal loops + Meadows leverage
+bb -cp "20-actors:70-tools/src" 20-actors/kanmon/methods/ie_flow.cljc      # rectify → wellbecoming + viz
+bb --classpath 20-actors 20-actors/kanmon/methods/autorun.cljc             # one heartbeat → append to the ledger
 ```
 
 ## Gating
