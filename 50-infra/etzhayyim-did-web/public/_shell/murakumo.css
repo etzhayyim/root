@@ -40,6 +40,10 @@
 .mk-desc{font-size:.78rem;color:var(--mute);margin-top:.45rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .mk-meta{margin-top:.55rem;font-size:.74rem;opacity:.72;display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
 .mk-commits{color:var(--mk-live);font-weight:600;opacity:1}
+.mk-links{margin-top:.55rem;display:flex;gap:.35rem;flex-wrap:wrap}
+.mk-links a{font-size:.68rem;text-decoration:none;border:1px solid var(--line);border-radius:.35rem;padding:.08rem .4rem;color:var(--mk-accent);background:Canvas;white-space:nowrap}
+.mk-links a:hover{border-color:var(--mk-accent);background:color-mix(in srgb,var(--mk-accent) 12%,transparent)}
+.mk-stale{font-size:.82rem;line-height:1.5;color:var(--mk-warn);border:1px solid color-mix(in srgb,var(--mk-warn) 45%,var(--line));background:color-mix(in srgb,var(--mk-warn) 9%,transparent);border-radius:.5rem;padding:.6rem .8rem;margin:0 0 .9rem}
 
 /* timeline */
 .mk-tlwrap{border:1px solid var(--line);border-radius:.5rem;background:var(--soft);padding:.4rem .2rem .2rem}

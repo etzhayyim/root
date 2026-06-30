@@ -1,0 +1,1419 @@
+{
+  "generatedFrom" : "80-data/kotoba-rad/*.identity.journal.edn",
+  "note" : "Per-actor kotoba-rad identity (ADR-2606231200). Keyed by handle. repo = :rad/repo, didWeb = github.io :rad/did-web, rid = :rad/rid.",
+  "count" : 312,
+  "actors" : {
+    "aburi" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-aburi",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-aburi",
+      "rid" : "bafkreib3rqvruvnjnope3qdcn34kbvotibwm3wb7uwavuvkwvbl4iwm4gy"
+    },
+    "abuse" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-abuse",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-abuse",
+      "rid" : "bafkreieyiqhgpdquv5q5pt5dxs62h656u4aacdnf2lcxomgsd6zpbmhiba"
+    },
+    "akashi" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-akashi",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-akashi",
+      "rid" : "bafkreicllp7ffxeiw7ml5eyuqidrck7qegoarznxjggkznegbtj4a6mefi"
+    },
+    "ake" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-ake",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-ake",
+      "rid" : "bafkreic7fw44rxzt2tndc3gazxftltrrw5wjkcgwhzle5jmcublx2aq354"
+    },
+    "akuma" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-akuma",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-akuma",
+      "rid" : "bafkreihlnpzkoz5sxib6k5fke5ihmvlwyynbef3xte6qtwlxxiedjqmfju"
+    },
+    "apqc" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-apqc",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-apqc",
+      "rid" : "bafkreiaq4snsdmafdwwiuj7ykum5lfbbjdt4dwx6b4kl5y7hiphkcknsem"
+    },
+    "asobi" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-asobi",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-asobi",
+      "rid" : "bafkreiegk2ixjpa5axx7masmdhid4anpzn6y5iswonqrb3zxkwdxakeuty"
+    },
+    "bunken" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-bunken",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-bunken",
+      "rid" : "bafkreia4cfp5jl6wnsk2axyalxlalnivhrfeavcfhw5dcyhpbzxwcmhgbe"
+    },
+    "bunker" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-bunker",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-bunker",
+      "rid" : "bafkreigrfbla5mwp3gjcmyqbgav3tklo7ntzv74zq27oucinhiznjvue34"
+    },
+    "business-manager" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-business-manager",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-business-manager",
+      "rid" : "bafkreic3kl6grprv4e2egk4pjqst4jozkb4ndyd3lbg3gtb3oepmsbh3wi"
+    },
+    "business-person" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-business-person",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-business-person",
+      "rid" : "bafkreibstj7kdakadmi2pg6ombyirr4vjctw5pegjkjrihh7vy4q2m4ste"
+    },
+    "business_manager" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-business_manager",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-business_manager",
+      "rid" : "bafkreib2ywi2frykthbr47vh5bfgsctokpddorkqsu2jjvhjjuwgegrndq"
+    },
+    "chie" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-chie",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-chie",
+      "rid" : "bafkreie7zl6hjiwyktw3fuhp3m76rdo5ryjhgdmmnecvho3vrw6b53zqhi"
+    },
+    "chigiri" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-chigiri",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-chigiri",
+      "rid" : "bafkreiefwjpl4y35ayvwdk75xeng6d55offezopxzgdw4rwj6nzlw7pmkq"
+    },
+    "credits" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-credits",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-credits",
+      "rid" : "bafkreibjkyq2rkke6j5fn5mss46ebeguelvooypg4zztqgakcojyq3xlam"
+    },
+    "crew" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-crew",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-crew",
+      "rid" : "bafkreieakx3nygwwrdx2le4hkmlll6fkzmpimb2de2qw65ktmgyybz755q"
+    },
+    "danjo" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-danjo",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-danjo",
+      "rid" : "bafkreibe67enep3avxbu2exrwntpnl6n3l6wbdvms6mjusf3q47ixjuooa"
+    },
+    "data-center-ops" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-data-center-ops",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-data-center-ops",
+      "rid" : "bafkreicacw3phcmsnh5g2tiult47u52s3f3rukl6uu3qbmi2bdkedebyii"
+    },
+    "datacenter" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-datacenter",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-datacenter",
+      "rid" : "bafkreiddzr4th7oqp6fudz2dfm3vedis3frjq7g5phcgo534vkoxhcynkq"
+    },
+    "demining" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-demining",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-demining",
+      "rid" : "bafkreiafulxjd72lwylo64xbkazydwmyuhecu2uciog3x7vilogqq2k3km"
+    },
+    "fuchi" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-fuchi",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-fuchi",
+      "rid" : "bafkreicwhc77qqf4brnvrr5kzaonxapapbpbnmsse7dg3tuyiei27m3xdy"
+    },
+    "funadaiku" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-funadaiku",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-funadaiku",
+      "rid" : "bafkreih2d5hnctsf4vzoy3zenpdwijghg3p35dvhuv3e3prc5ojgvqod3a"
+    },
+    "futawa" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-futawa",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-futawa",
+      "rid" : "bafkreib4n7o3imfdv5vsblis55rm75mkedoircznoyaddvavrzsgjslj4q"
+    },
+    "gov-municipality" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-gov-municipality",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-gov-municipality",
+      "rid" : "bafkreibxzdi7latyrsimpekuatcbpcnx4enn5gapufwnngqgok5rmicqva"
+    },
+    "gov_municipality" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-gov_municipality",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-gov_municipality",
+      "rid" : "bafkreihpz3ej2hxzv3jv7e4lqg26hjyo3jimddmf7povywykfr6ssdqysa"
+    },
+    "graph-sos-intel" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-graph-sos-intel",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-graph-sos-intel",
+      "rid" : "bafkreigjnfweuwy2d2bjmzzmhc6q4edhjdi2re7plyhmpbm35r3rwxhfym"
+    },
+    "gtin" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-gtin",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-gtin",
+      "rid" : "bafkreifyhmyvnzrlayqywqmu437ovg7rfdnm47ebhgmpryyz3aq3qxpmm4"
+    },
+    "hagukumi" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-hagukumi",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-hagukumi",
+      "rid" : "bafkreiaqqeo76lgptiqvgfehbnuonv2uffgud7fkkhylcdc4ei7hk4qnai"
+    },
+    "hakoniwa" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-hakoniwa",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-hakoniwa",
+      "rid" : "bafkreidwailh5vrkkudngkk2ikurwp7ht4fgy6klunm2bzpoy4yz5i6554"
+    },
+    "handotai" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-handotai",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-handotai",
+      "rid" : "bafkreifrn6t33caelsjfn7sb4yjkec4onell3ricdducjqd2ndmsuld62u"
+    },
+    "hanrei" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-hanrei",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-hanrei",
+      "rid" : "bafkreicr7zkwbxkxy2uebah5clzlxkbmtoxv36blk4vgar2fchokigsoiu"
+    },
+    "hc" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-hc",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-hc",
+      "rid" : "bafkreihvtbhjjgl24ttnpiyvmls2npuybdtpppsfzjaqmtfgbtyxyfk3su"
+    },
+    "hikari" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-hikari",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-hikari",
+      "rid" : "bafkreifb35kp2ponbkabw3x47qa3bvbisnzcpery3we4uao2vda4lj3a3q"
+    },
+    "himawari" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-himawari",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-himawari",
+      "rid" : "bafkreicgs5i4koeubxfbfteimm3ixelo5dajbo4aiyjqnzxxlzkojdgh2i"
+    },
+    "himotoki" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-himotoki",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-himotoki",
+      "rid" : "bafkreigx4eo7mmskpzl7xrexrt2y2dqrewvsxxwedr64mebllv2tpjv2em"
+    },
+    "hinagata" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-hinagata",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-hinagata",
+      "rid" : "bafkreibvhu3hu4tdq4t7fxjfgcksotoqnlzygrs752xwykup525kqudr74"
+    },
+    "hodoki" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-hodoki",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-hodoki",
+      "rid" : "bafkreib6vl3ykmasfcnk3ekunnbesrllu5co4ui44j5rrk5j7om7oel6zy"
+    },
+    "hokorobi" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-hokorobi",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-hokorobi",
+      "rid" : "bafkreigxd4kjzh7t6ldhmvxjecwzvebalm43ui3ubvbgfys722kobx2hj4"
+    },
+    "hoshimori" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-hoshimori",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-hoshimori",
+      "rid" : "bafkreieuntljvhuv2agxq64stpojb36gpfhuofp3lulntduj222usfl47y"
+    },
+    "hotaru" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-hotaru",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-hotaru",
+      "rid" : "bafkreihc2m43jcgf2zfmgjnurok56xtc5jida4r3mijw3bpax3se4s5gpe"
+    },
+    "hs" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-hs",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-hs",
+      "rid" : "bafkreiarhyrno3yefnzogvkwejqnwpecfg576jhui4ykuxprmbkfrzazde"
+    },
+    "i18n" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-i18n",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-i18n",
+      "rid" : "bafkreidk7fkkgq6bxnoen32udmpmxcmk6dd4qpfa4vj24n5setqs6bkeeu"
+    },
+    "ibuki" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-ibuki",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-ibuki",
+      "rid" : "bafkreich55hqpaniwz3nx4emml6bclmzyt5kronopv2du5jqcyhfvdotmm"
+    },
+    "igata" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-igata",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-igata",
+      "rid" : "bafkreiag7ruwosiu6qqjl7bqjensjwgnj2ju7u2v7fdtjusfytnu3pygia"
+    },
+    "infra-utility-connect" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-infra-utility-connect",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-infra-utility-connect",
+      "rid" : "bafkreiauroeccyhyvq4ss7jtq3ootstygb5rvyg7iqnkrqt2vtsh3mfwoi"
+    },
+    "infra_utility_connect" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-infra_utility_connect",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-infra_utility_connect",
+      "rid" : "bafkreic6dblgcjpvq2pltkhocdcqrzi7vkvvkeda7ls5brl57c6wn33fxm"
+    },
+    "inochi" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-inochi",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-inochi",
+      "rid" : "bafkreiagjm5ie75f4srkwta7ushe5vmavusxj6gmgoiuh5u3dlvzkr5zeu"
+    },
+    "insatsu" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-insatsu",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-insatsu",
+      "rid" : "bafkreifbsqvcx7ugvexkwcj5nk6zwgsajfqu3pk3laxnslmytj65a4uwdi"
+    },
+    "intel" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-intel",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-intel",
+      "rid" : "bafkreic3oghuhqxzkpke53v4ipa7f5tssztqrgcdmqdbtbfa5xv626iqaq"
+    },
+    "ipaddress" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-ipaddress",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-ipaddress",
+      "rid" : "bafkreiaotwbeylqsakdiuogo6pn63b5jlgtdelzss3o76mrf3tgroiqgky"
+    },
+    "isco" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-isco",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-isco",
+      "rid" : "bafkreigdpgkgjablfsdhnepevmne2awwrlbrhwk3e432cope35ejakbk4y"
+    },
+    "isekai" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-isekai",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-isekai",
+      "rid" : "bafkreifkj3wo7uwtwmt33brmlukzyrn7lhnme7eo2ssxgzmaskq7dctqjq"
+    },
+    "itonami" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-itonami",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-itonami",
+      "rid" : "bafkreidzjjjlebrwt7ohyixhafvfzjjzvrbqhzm6tbfgygb7lim3rx2gvu"
+    },
+    "iyashi" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-iyashi",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-iyashi",
+      "rid" : "bafkreietcyrfdv6fkz7wac4vfiue2fks6bdu5kg25h7ilfbswigwqtah7e"
+    },
+    "joucho" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-joucho",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-joucho",
+      "rid" : "bafkreiczf2ea4yvs53uqyxl6lqt3iibo3g3ujslmkshwo6befrlp6oaoqa"
+    },
+    "jp-ashiba" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-jp-ashiba",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-jp-ashiba",
+      "rid" : "bafkreictmic2jexkj44jqbucpxg6qebwvvf6vk7fy2vena46cssxg7ud5a"
+    },
+    "junkan" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-junkan",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-junkan",
+      "rid" : "bafkreic2rwhxp6i3dii243o34kogjv7brkbf5nurrvghdsx67fxia5bq44"
+    },
+    "kabuto" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-kabuto",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-kabuto",
+      "rid" : "bafkreiafkofutbvdyhfy6x7eaxkp2c3d63v56jls36pwz24y5z63l52die"
+    },
+    "kadode" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-kadode",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-kadode",
+      "rid" : "bafkreiav672ova3qomej4my5jm7pdzkuvaqs3fvnsxmihuq7yl2bmzpzhu"
+    },
+    "kakaku" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-kakaku",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-kakaku",
+      "rid" : "bafkreib5keoguuln3bstarkcytk4bvrevd35jtpkiysypltrp5w2kpx7xm"
+    },
+    "kamado" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-kamado",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-kamado",
+      "rid" : "bafkreicmxmgmzuoxc5p7wj7khfog36m2hylri6ernxfunck25vfm4t42dm"
+    },
+    "kami-sabiotoshi" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-kami-sabiotoshi",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-kami-sabiotoshi",
+      "rid" : "bafkreifchv4hcuuy7fi4s34rb2e7fnaq2c72vzk47izmuhg6uturtmyk7u"
+    },
+    "kanae" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-kanae",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-kanae",
+      "rid" : "bafkreibn4naukxmhnjm76vazudbbhoq46jkr6zsxqqtbbu3iof3cnus7xa"
+    },
+    "kanayama" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-kanayama",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-kanayama",
+      "rid" : "bafkreidn4r7ecfh4r6jnohj3uz4vrjvgj5dlitrj6gazvb2f4swhay7yqm"
+    },
+    "kanjo" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-kanjo",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-kanjo",
+      "rid" : "bafkreihu4shisfudbmaikhrvib6p2rj5g43a2sacj3hj32hwt6qifihdgq"
+    },
+    "karute" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-karute",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-karute",
+      "rid" : "bafkreidatqm4zj3hapbik2cdkx237vy5gxdhlbuhkwixiu2qp3slmjkg2a"
+    },
+    "kasa" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-kasa",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-kasa",
+      "rid" : "bafkreihxriijl74pucvuymaxbcy4bjavr7h2nen367p2puptb4nctmqqai"
+    },
+    "kataribe" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-kataribe",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-kataribe",
+      "rid" : "bafkreihecedazrbs2zsnbjel6ek5tvacyupr5vu7lbgaiwsokkc2tlva4a"
+    },
+    "kawaraban" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-kawaraban",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-kawaraban",
+      "rid" : "bafkreihitwdikche7h4xvsqqvjemwo6f4mfrzkafbxuqnhyhdnf76wqbxa"
+    },
+    "kawase-yui" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-kawase-yui",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-kawase-yui",
+      "rid" : "bafkreibn5kn7p6vxy5tvpbnm73j25h2y7mt6eppsfo4q6kf36sho4kztfm"
+    },
+    "kazaori" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-kazaori",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-kazaori",
+      "rid" : "bafkreian5wdtbioeawmu24iwp4oj5nwi4clwjb2oyhwlfuvtovj6hpmote"
+    },
+    "keizu" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-keizu",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-keizu",
+      "rid" : "bafkreid5l3idvfdpneoyuvwqhkyo4rknavtz5k7n3xhbcsjbpl6si6s3ta"
+    },
+    "kenkyusha" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-kenkyusha",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-kenkyusha",
+      "rid" : "bafkreig567x76j34t4llekz26l737b4xcvrm6mhth6tdy2oqvkdma63rim"
+    },
+    "kizashi" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-kizashi",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-kizashi",
+      "rid" : "bafkreiffxgvr3ubxpvjniykckbwilayohffrbs37ak4cthvhjvtqrvqn7u"
+    },
+    "kizuna" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-kizuna",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-kizuna",
+      "rid" : "bafkreigfw7b62czdwzhtbmk5joyhwznens44lcqz3ee255445bumjvvfzi"
+    },
+    "kokoro" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-kokoro",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-kokoro",
+      "rid" : "bafkreifefwwfucwu63hr2s6byh7k3dwm4g2u7xvibpdfftxiwgsvkjgiwq"
+    },
+    "kosatsu" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-kosatsu",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-kosatsu",
+      "rid" : "bafkreigqntil6rktvrogzqwmoodcaypv34v46o2g266cequqkqppujqvca"
+    },
+    "kuni-umi" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-kuni-umi",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-kuni-umi",
+      "rid" : "bafkreibybrhjzzb6w5awkymavkd3mscsfr6wzpenuoc7otrnufo7b5q7e4"
+    },
+    "kuni_umi" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-kuni_umi",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-kuni_umi",
+      "rid" : "bafkreigu72x27t2u6qmbioc25y2ew6sbywxumtf4oxb46xgn2c23ndu4tu"
+    },
+    "kurashimori" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-kurashimori",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-kurashimori",
+      "rid" : "bafkreiauaaje5vsraofb6huus7h4shbh3fcelbrwfn67rkdgptip477ddi"
+    },
+    "m365-ingest" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-m365-ingest",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-m365-ingest",
+      "rid" : "bafkreiat5w6stfnwq3p3xya256vsugcbqgnxjeahsts3j2ry4wr4oqzdhq"
+    },
+    "makura" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-makura",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-makura",
+      "rid" : "bafkreigjhpukgts5owsyexqxho4jnhuicldt2ieyxaxck4qntcy6z33fyi"
+    },
+    "manabi" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-manabi",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-manabi",
+      "rid" : "bafkreigbskb7mxdvdur2nxxjsqw7ouf3svwi6ow2j4vmxcrgwxhb2bmdrm"
+    },
+    "maps" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-maps",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-maps",
+      "rid" : "bafkreihpcokxatcmj2k3jxxidu6m23ljowescex3gz7nwzaj5lqqn4cee4"
+    },
+    "marine-insurance" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-marine-insurance",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-marine-insurance",
+      "rid" : "bafkreihqpvqbti73hxhsxgkhoj46vits7uqhljwv7vxzphyrpnpuennrsq"
+    },
+    "media-gamers" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-media-gamers",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-media-gamers",
+      "rid" : "bafkreid235673k6g3wosjzxmodycsu2bzmmvlqn4xkguzwiqpnxfkrliya"
+    },
+    "meisai" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-meisai",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-meisai",
+      "rid" : "bafkreidr4phougtv7hqozo6xsnze4mrbcxppt2cx76vm47ahbsdunf45bu"
+    },
+    "mimamori" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-mimamori",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-mimamori",
+      "rid" : "bafkreic4him7i4jgqcu3n5lxnz4xsa2lc6hqeqkkgqwsr5au43xkdq2dva"
+    },
+    "mitate" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-mitate",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-mitate",
+      "rid" : "bafkreic23flpcovig4pwhrmbchpjvblmq4esi5cxwq4ci7hmtwbldjsciq"
+    },
+    "mitooshi" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-mitooshi",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-mitooshi",
+      "rid" : "bafkreibqhmzykrhucrmbhqkfob4shbr52n4k7u4bu2aqnm2zlvjqbwuifa"
+    },
+    "mitsuho" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-mitsuho",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-mitsuho",
+      "rid" : "bafkreickaj7z6eraj56tygfms2n5vukcrnws656ksxap6ffa4e4r3vkknm"
+    },
+    "mizuho" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-mizuho",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-mizuho",
+      "rid" : "bafkreic7bcbgv6cet7imeav3h3pglh53lrwvl5o2a7yuwes4fzsjdgwlai"
+    },
+    "moushibumi" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-moushibumi",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-moushibumi",
+      "rid" : "bafkreiexx4unmlqvz6aixg76kbrsqmefbttyfrwkkgzemfhkpqkofnvomu"
+    },
+    "musubi" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-musubi",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-musubi",
+      "rid" : "bafkreif5hjnr7afkeeozheqfpcwrmu6ovz2zykxybujboophvbaiuurqhq"
+    },
+    "nist" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-nist",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-nist",
+      "rid" : "bafkreibhl7rhahkbam7f7n4ehxjn4ofsbyddenlmqjnq2ch73p7a7trexy"
+    },
+    "noroshi" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-noroshi",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-noroshi",
+      "rid" : "bafkreibaevsdxmfezgxefikzjbbwvrznxdug2de3graoouqgidcgarbddu"
+    },
+    "nusa" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-nusa",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-nusa",
+      "rid" : "bafkreiatx3ziqrdvifresd4d5acdb7mf5kuc6bhdzrynygq6wdjnmiqt4m"
+    },
+    "nyusatsu" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-nyusatsu",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-nyusatsu",
+      "rid" : "bafkreibigtw2ksvahhabdgtnsiwilp7symlkdddzvyubg5ok6vc5ndxjm4"
+    },
+    "oil-coverage" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-oil-coverage",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-oil-coverage",
+      "rid" : "bafkreigrryop5ludu7n4a5xwqfgtfwvvrnqz7mxbnkkgp772e2lmyx76my"
+    },
+    "oil-distribution" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-oil-distribution",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-oil-distribution",
+      "rid" : "bafkreierv3uivdlz2hemryj7hukzqks6e4xgivqsuj5mk5eqyipycsxyi4"
+    },
+    "oil-midstream" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-oil-midstream",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-oil-midstream",
+      "rid" : "bafkreihdvsvct5megy2fr5tarnfo5mslnnyawis2wbxmxyauix2kdnkmre"
+    },
+    "oil-refining" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-oil-refining",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-oil-refining",
+      "rid" : "bafkreifp2cp3lmpqk2rcdiw32uft7eyyeyvybbf2xy6hbipw72rlbqbfje"
+    },
+    "oil-shipping" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-oil-shipping",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-oil-shipping",
+      "rid" : "bafkreialpqvby6y7butydmas4dejlunlqhcarayefzlobnfplfc66wdksi"
+    },
+    "oil-trading" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-oil-trading",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-oil-trading",
+      "rid" : "bafkreiass7n24zschzgprqrp2rq4jig62ezetlkxhejtsn4v6rxo4fxzou"
+    },
+    "oil-upstream" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-oil-upstream",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-oil-upstream",
+      "rid" : "bafkreicmqkdtr55t43e6l3nknf3yjos2tavy7uvgaxllkvvyif6xuvmgru"
+    },
+    "omise" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-omise",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-omise",
+      "rid" : "bafkreibv5gnz47djuxykrfn5trbp3nu5egdeg7rxb2caduvtjsycipmt6u"
+    },
+    "ooyake" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-ooyake",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-ooyake",
+      "rid" : "bafkreibnztcrpye3gick5go3pljhrswglgnwggeixmnqptjopxsnntkt24"
+    },
+    "organizer" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-organizer",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-organizer",
+      "rid" : "bafkreico2ig4gksu3tbfeqsulij3xisskrrcreuqweyhp23yo7kmx2vgbq"
+    },
+    "os" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-os",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-os",
+      "rid" : "bafkreihmrqovq2bprdkfsxpxpdequmbhthj5rf7nogvh7sddxm3z7huyo4"
+    },
+    "ossekai" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-ossekai",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-ossekai",
+      "rid" : "bafkreiaj5nf665g2wl5hqpo4rntwthyysszpvsipjg2qnvmcd76cn4djku"
+    },
+    "port" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-port",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-port",
+      "rid" : "bafkreiczdjklmeryobyjzrbtbxhafrrtyvevm4jp2dk5b6nmtdglquqgr4"
+    },
+    "rare-earth-coverage" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-rare-earth-coverage",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-rare-earth-coverage",
+      "rid" : "bafkreicr66dstcwedrgxbsn7v73ntfchcxh64sknj6w4jnfc7jfabo2xxu"
+    },
+    "rasen" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-rasen",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-rasen",
+      "rid" : "bafkreic3wlibpsbmtjoppsvfj4r53h734pugegd2762i4fgtfq56d7wkny"
+    },
+    "recruit" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-recruit",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-recruit",
+      "rid" : "bafkreihxjbm7gwm46cdtuzecs55oybm4bdocbwjuczwp4dpnvcjy33oipe"
+    },
+    "sanae" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-sanae",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-sanae",
+      "rid" : "bafkreih3xi3j4bepsnazxst2tizhgbbsaj7alo3qhucc47hxse2yxomfim"
+    },
+    "sarutahiko" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-sarutahiko",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-sarutahiko",
+      "rid" : "bafkreigaormd6ikymrmkr5vzeq3l6ldon2wdndq7lokn2f7jobiwtnln3u"
+    },
+    "seigyo" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-seigyo",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-seigyo",
+      "rid" : "bafkreiedghjus4uuhvisshtwlkfanby4gvkldiiu6tdvt7726di7qizgym"
+    },
+    "sentei" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-sentei",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-sentei",
+      "rid" : "bafkreib3dnmwsr6g4hotp2yx435m3y3pwyadwleam3gx5smfjonpihg72u"
+    },
+    "shidemori" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-shidemori",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-shidemori",
+      "rid" : "bafkreiazugbqmdolcu7hziqdeq32wgjphn2fmowp73nsi6rz5rwwjkeufe"
+    },
+    "shinka" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-shinka",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-shinka",
+      "rid" : "bafkreicm5u2vzk2kav5xxtlogcy26qicc4jlnl4xemhr52bv6i2eyoy5pa"
+    },
+    "shionome" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-shionome",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-shionome",
+      "rid" : "bafkreihi5bnrh3ctidyjle2lzwjxzannto3dk4tw4dfopmbyilzkmwchxq"
+    },
+    "shiori" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-shiori",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-shiori",
+      "rid" : "bafkreidxfgvh54dllo2dncwjtmhcsfj7n2wn7ab7hjsg5fs6hizlo7cxt4"
+    },
+    "shirabe" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-shirabe",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-shirabe",
+      "rid" : "bafkreifvis6umb7pkv3dbt23wxl4fgxbpptclpsg3qbziqwerkkis3f3pu"
+    },
+    "shomei" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-shomei",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-shomei",
+      "rid" : "bafkreigxfnyqmhcuovsloivxlzi6xzjfwygmbq7fevxtqnhpk5ewlbbirq"
+    },
+    "society6" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-society6",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-society6",
+      "rid" : "bafkreidularlfdo435gho3e4x4ls7y7dmkylcctxcinkn2qgw5ce7rt4s4"
+    },
+    "sonae" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-sonae",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-sonae",
+      "rid" : "bafkreicdw2u5cylgrwo6ra67hcg6sdmjqlb3py7s4fweq3icbohf7fy76e"
+    },
+    "subaru" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-subaru",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-subaru",
+      "rid" : "bafkreickojqhzgi3pbrbcxl3wezuikdm3h36iutniqcb74qd37dftza2v4"
+    },
+    "suimin" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-suimin",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-suimin",
+      "rid" : "bafkreib652yhgyxsisftd63msrfhidilbz53s6szsdcthtcflsqoaye2hi"
+    },
+    "suji" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-suji",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-suji",
+      "rid" : "bafkreic4hcfyrly5x5bwngp74nsbdvml4rk4cjfbx4fv2nbbghe7s5xeai"
+    },
+    "sukashi" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-sukashi",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-sukashi",
+      "rid" : "bafkreih4xl6kt6p6yt2oirv4whknibyic6xcjjduoh634itaydrfz6c23u"
+    },
+    "suki" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-suki",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-suki",
+      "rid" : "bafkreigercf65b36t2e2t27k2xv6taniexdsnamw2fd5skiwjcffchuejy"
+    },
+    "tadori" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-tadori",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-tadori",
+      "rid" : "bafkreib6oselxxz4i5r5ll4buvt67m4mupzlng6etmpgznpvogkpk2l74a"
+    },
+    "talent" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-talent",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-talent",
+      "rid" : "bafkreihtkktpqgv43px3grhgcbhpaag633bp4kbxvg7jmqyioy6ps2ruxu"
+    },
+    "tanemaki" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-tanemaki",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-tanemaki",
+      "rid" : "bafkreiepq4l42kdbvgvei4of5nz552ueqfupbmxaeqpk64r6sxyzodjxni"
+    },
+    "tasuke" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-tasuke",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-tasuke",
+      "rid" : "bafkreigiihmkop4xucvbao4ztb4a2qjh5qihxb3sfr4or4gzdimvni5hs4"
+    },
+    "tatara" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-tatara",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-tatara",
+      "rid" : "bafkreiehbxgawrx2ntjivlxgfz7l7qthjh4hybwadw3arwyzexbu7ftbqm"
+    },
+    "tatekata" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-tatekata",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-tatekata",
+      "rid" : "bafkreieyabgcgwpd3b43qz74hgqdrye5xxwrbvyk3vy4i3itypbqpcse2a"
+    },
+    "tazuna" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-tazuna",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-tazuna",
+      "rid" : "bafkreifkbcfnf3lgabjb3ccuepzyypxi42qdcyrf2dklplpkibb5hyinzm"
+    },
+    "tenso" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-tenso",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-tenso",
+      "rid" : "bafkreiavzdi5jne5b6tagx2vqa5oncqar7ck3u2xoam3w2cza26d57l4va"
+    },
+    "todoke" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-todoke",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-todoke",
+      "rid" : "bafkreiazioepx4edt4hwca6q6vvaabp5ighjkrvsxfr5gnsghnkpltowqe"
+    },
+    "tokigusuri" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-tokigusuri",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-tokigusuri",
+      "rid" : "bafkreif4xovzdn5pia4f6e3qb4dhanhpwklfbgsolboeuxoxrznsvpdkjy"
+    },
+    "torifune" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-torifune",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-torifune",
+      "rid" : "bafkreifoa44tzzjhckrjrtvrcdcpbufkze2xm7xym4ckqnxkjg25nyvrdy"
+    },
+    "toritate" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritate",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-toritate",
+      "rid" : "bafkreiavnxlyuywrbrfak45w5a5w3endy4nfqmzwahgburzunqsfh6426m"
+    },
+    "toritsugi" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-toritsugi",
+      "rid" : "bafkreifphnbjup6o3i3qbekx4f6jx5nsdhrc2bykabjkjnt6cuhbzejboi"
+    },
+    "toritsugi-ae-federal" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-ae-federal",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-ar-national" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-ar-national",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-are-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-are-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-au-federal-tax" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-au-federal-tax",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-aus-business-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-aus-business-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-aus-civil-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-aus-civil-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-aus-driving-licence" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-aus-driving-licence",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-aus-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-aus-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-aut-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-aut-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-bel-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-bel-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-bgd-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-bgd-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-br-electoral" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-br-electoral",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-br-federal-tax" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-br-federal-tax",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-bra-business-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-bra-business-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-bra-civil-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-bra-civil-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-bra-driving-licence" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-bra-driving-licence",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-ca-federal" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-ca-federal",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-can-business-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-can-business-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-can-civil-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-can-civil-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-can-driving-licence" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-can-driving-licence",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-can-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-can-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-ch-cantonal" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-ch-cantonal",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-che-business-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-che-business-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-che-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-che-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-chn-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-chn-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-cl-national" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-cl-national",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-cn-national" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-cn-national",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-co-national" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-co-national",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-coe-instrument" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-coe-instrument",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-de-municipal" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-de-municipal",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-deu-business-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-deu-business-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-deu-civil-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-deu-civil-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-deu-driving-licence" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-deu-driving-licence",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-dk-municipal" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-dk-municipal",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-dnk-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-dnk-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-eg-national" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-eg-national",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-egy-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-egy-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-es-municipal" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-es-municipal",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-esp-business-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-esp-business-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-esp-civil-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-esp-civil-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-esp-driving-licence" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-esp-driving-licence",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-esp-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-esp-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-eu-instrument" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-eu-instrument",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-fin-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-fin-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-fr-national" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-fr-national",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-fr-national-tax" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-fr-national-tax",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-fra-business-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-fra-business-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-fra-civil-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-fra-civil-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-fra-driving-licence" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-fra-driving-licence",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-gbr-business-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-gbr-business-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-gbr-civil-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-gbr-civil-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-gbr-driving-licence" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-gbr-driving-licence",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-grc-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-grc-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-hk-national" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-hk-national",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-hkg-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-hkg-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-id-regional" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-id-regional",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-idn-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-idn-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-ie-national" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-ie-national",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-il-national" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-il-national",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-in-national" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-in-national",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-ind-business-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-ind-business-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-ind-civil-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-ind-civil-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-ind-driving-licence" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-ind-driving-licence",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-ind-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-ind-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-irl-business-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-irl-business-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-irl-civil-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-irl-civil-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-irl-driving-licence" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-irl-driving-licence",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-irl-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-irl-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-isr-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-isr-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-it-municipal" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-it-municipal",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-ita-business-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-ita-business-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-ita-civil-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-ita-civil-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-ita-driving-licence" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-ita-driving-licence",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-ita-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-ita-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-jp-jichitai" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-jp-jichitai",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-jp-national" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-jp-national",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-jp-national-tax" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-jp-national-tax",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-jpn-business-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-jpn-business-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-jpn-civil-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-jpn-civil-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-jpn-driving-licence" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-jpn-driving-licence",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-ke-national" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-ke-national",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-ken-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-ken-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-kor-business-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-kor-business-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-kor-civil-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-kor-civil-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-kor-driving-licence" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-kor-driving-licence",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-kr-national" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-kr-national",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-kr-national-tax" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-kr-national-tax",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-mex-business-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-mex-business-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-mex-civil-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-mex-civil-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-mx-electoral" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-mx-electoral",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-mx-national" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-mx-national",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-my-national" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-my-national",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-mys-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-mys-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-ng-national" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-ng-national",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-nga-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-nga-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-nl-municipal" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-nl-municipal",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-nld-business-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-nld-business-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-nld-civil-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-nld-civil-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-nld-driving-licence" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-nld-driving-licence",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-nld-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-nld-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-nor-business-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-nor-business-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-nor-driving-licence" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-nor-driving-licence",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-nor-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-nor-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-nz-national" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-nz-national",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-nzl-business-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-nzl-business-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-nzl-civil-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-nzl-civil-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-nzl-driving-licence" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-nzl-driving-licence",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-pak-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-pak-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-pe-national" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-pe-national",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-ph-national" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-ph-national",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-phl-civil-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-phl-civil-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-phl-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-phl-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-pl-municipal" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-pl-municipal",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-pol-business-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-pol-business-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-pol-driving-licence" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-pol-driving-licence",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-pol-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-pol-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-prt-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-prt-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-rus-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-rus-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-sa-national" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-sa-national",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-sau-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-sau-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-se-national" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-se-national",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-sg-national" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-sg-national",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-sgp-business-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-sgp-business-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-sgp-civil-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-sgp-civil-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-sgp-driving-licence" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-sgp-driving-licence",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-swe-business-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-swe-business-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-swe-civil-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-swe-civil-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-swe-driving-licence" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-swe-driving-licence",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-swe-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-swe-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-th-national" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-th-national",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-tha-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-tha-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-tur-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-tur-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-tw-national" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-tw-national",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-twn-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-twn-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-uk-national" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-uk-national",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-ukr-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-ukr-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-us-federal" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-us-federal",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-us-federal-tax" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-us-federal-tax",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-us-state" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-us-state",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-usa-business-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-usa-business-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-usa-civil-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-usa-civil-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-vn-national" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-vn-national",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-vnm-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-vnm-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-za-national" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-za-national",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-zaf-business-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-zaf-business-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-zaf-civil-registry" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-zaf-civil-registry",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-zaf-driving-licence" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-zaf-driving-licence",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "toritsugi-zaf-passport" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-toritsugi-zaf-passport",
+      "rid" : "bafyreiplaceholder0000000000000000000000000000000000000000000000"
+    },
+    "tsugite" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-tsugite",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-tsugite",
+      "rid" : "bafkreidjrceeb72orbti6t4cnpkcffzjyobxx4piw4uainwpiyfnm37z2e"
+    },
+    "tsukuroi" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-tsukuroi",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-tsukuroi",
+      "rid" : "bafkreiaq4x6rle2cxtvog5oktk5h2bd5yqfg4ljnovib436zj6jucquhru"
+    },
+    "tsukuru" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-tsukuru",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-tsukuru",
+      "rid" : "bafkreicdcprrkzksimxpmvzrvzwtiiokd2h52r46abfgxxdvnfh4htv6im"
+    },
+    "tsumugi" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-tsumugi",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-tsumugi",
+      "rid" : "bafkreidqelzw4i27b276tv4wjvuxddoli74abjsprdu63njefzeksevhpu"
+    },
+    "tsutae" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-tsutae",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-tsutae",
+      "rid" : "bafkreihfmhbabgmfkvtp6qvsceee5jac3ckrcrscujhou6jotljo454eea"
+    },
+    "uchiwake" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-uchiwake",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-uchiwake",
+      "rid" : "bafkreib3mgzsspeh6xogzky5boiayztbf6bjcq5xejgoaggbcrjaw2ofui"
+    },
+    "umisachi" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-umisachi",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-umisachi",
+      "rid" : "bafkreiacawvc2bu7vq2nruf7p22bupcjwu6naz3zfgw2wanhec4hxnijli"
+    },
+    "utsushie" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-utsushie",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-utsushie",
+      "rid" : "bafkreie4zsa7je27so2ds47tvtdw2w25fakc7cyph5a7y6poxrgoeiwgfa"
+    },
+    "vessel" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-vessel",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-vessel",
+      "rid" : "bafkreicffdwfczskau5exbthvflzp3a3e2vkhhsedv2gcup3ecidokytwm"
+    },
+    "vin" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-vin",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-vin",
+      "rid" : "bafkreidurfnxgl7acb5qagmryhwfd75eqwomfqynv5ws3hj6hsvgpqnixm"
+    },
+    "wadachi" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-wadachi",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-wadachi",
+      "rid" : "bafkreifansvjvnhzonxqs4eaj6ummdd7xxffonwa73azxyelthiocvv7ai"
+    },
+    "wakai" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-wakai",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-wakai",
+      "rid" : "bafkreicsoydmfipltyjgyluand56wspcpnsyybl22qshxuuyoxm7fzj6ku"
+    },
+    "watari" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-watari",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-watari",
+      "rid" : "bafkreigffqiy4i3cs2hwrzojayn7jlhzdiip5l4nc5esj7puwgh27bsa6i"
+    },
+    "watatsumi" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-watatsumi",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-watatsumi",
+      "rid" : "bafkreifollb2cxta43jugsiwvpjtaqh33crvzq6lvas56g3d4ukxfwknsa"
+    },
+    "watatsuna" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-watatsuna",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-watatsuna",
+      "rid" : "bafkreibn67eqgvwznam4e4l6sznryrdkjltdbapuppfsfmdrxzqhhaeuuu"
+    },
+    "yabai" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-yabai",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-yabai",
+      "rid" : "bafkreicteufrgkwwislnpa6aj6qvzxvblde2i5e7salg52ibuiludkpf5i"
+    },
+    "yadori" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-yadori",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-yadori",
+      "rid" : "bafkreieay7hndyxph3zp76y2dwa3h43v7egp2yjmf3hw4iyoafklndfrya"
+    },
+    "yakushi" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-yakushi",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-yakushi",
+      "rid" : "bafkreif5ocq5xa7rtuiarrz6x7hhafjfbiico633s3llpf3lixwecjrlgq"
+    },
+    "yamabiko" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-yamabiko",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-yamabiko",
+      "rid" : "bafkreif33qzb4w44qogixzq4zj735eiou33io3ftydiolgctq7x62fzpfa"
+    },
+    "yotei" : {
+      "repo" : "github.com/etzhayyim/com-etzhayyim-yotei",
+      "didWeb" : "did:web:etzhayyim.github.io:com-etzhayyim-yotei",
+      "rid" : "bafkreihdbbzpmvpr2yql7z3rq4tfa7gd6jzvt6npadj7p5aakwkk44hv2m"
+    }
+  }
+}
