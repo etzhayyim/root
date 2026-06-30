@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-06-30",
+  "updated_at": "2026-07-01",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.md",
@@ -27047,7 +27047,7 @@
       "path": "90-docs/adr/2606302205-kotoba-genome-unified-self-evolving-all-actor-organism.md",
       "id": "adr-2606302205-kotoba-genome-unified-self-evolving-all-actor-organism",
       "title": "ADR-2606302205: kotoba-genome — unified self-evolving, multi-channel, all-actor-posting organism; retire the keyless observational mirror",
-      "status": "proposed",
+      "status": "accepted",
       "doc_type": "adr",
       "topic": "kotoba-genome-unified-self-evolving-all-actor-organism",
       "authoritative": true,

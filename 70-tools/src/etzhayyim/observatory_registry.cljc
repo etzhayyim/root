@@ -38,24 +38,32 @@
       [])))
 
 (defn regen-ns
-  "Regenerate one namespace's keyless mirrors as FIRST-PARTY observatory actors
-  (dry-run growth). Returns {:ns :total :sampled :actors [...]}. Bounded by :limit."
-  [ns & {:keys [limit] :or {limit 25}}]
+  "Regenerate one namespace's keyless mirrors as FIRST-PARTY observatory actors.
+  Returns {:ns :total :sampled :mode :actors [...]}. Bounded by :limit.
+  :mode :dry-run (default) — the post is a dry-run.
+  :mode :prepared — Council-RATIFIED member-sign-ready live envelope: it is NOT
+  published; status :prepared / requiresMemberSignature true / serverHeldKey false
+  (no-server-key, ibuki G8) — a MEMBER signs the CACAO leash at runtime to publish."
+  [ns & {:keys [limit mode] :or {limit 25 mode :dry-run}}]
   (let [glyph   (ns-glyph ns)
         entries (entity-entries ns)
-        sample  (take limit entries)]
-    {:ns ns :total (count entries) :sampled (count sample)
+        sample  (take limit entries)
+        post-meta (if (= mode :prepared)
+                    {:status :prepared :requiresMemberSignature true
+                     :serverHeldKey false :published false}
+                    {:status :dry-run :published false})]
+    {:ns ns :total (count entries) :sampled (count sample) :mode mode
      :actors
      (mapv (fn [[handle subject]]
              (let [o (obs/make-observatory {:ns ns :handle handle :subject subject :glyph glyph})
-                   g (obs/grow! o 1 (str subject ": public-record observatory online (R0)"))]
+                   g (obs/grow! o 1 (str subject ": public-record observatory online"))]
                {:handle handle :subject subject
                 :did (:did (actor/identity-of o))
                 :voiceOf "etzhayyim" :isObservatory true :keyed :present-only-leashed
                 :was :keyless-mirror :now :first-party-observatory
                 :grew? (= 1 (get-in g [:actor :state :beat]))
-                :postEmitted (boolean (get-in g [:post :emitted]))
-                :postDryRun (boolean (get-in g [:post :dry-run]))
+                :scanPassed (boolean (get-in g [:post :emitted]))   ; charter scan passed (impersonation/person floors)
+                :post (merge post-meta {:scanEmitted (boolean (get-in g [:post :emitted]))})
                 :recommendation (get-in g [:recommendation :mechanism])}))
            sample)}))
 
@@ -63,36 +71,44 @@
 
 (defn -regen
   "bb entrypoint. Args: [--ns small|all|<ns>] [--limit N] [--out PATH] [--live]
-  --live is REFUSED at R0 (Council/operator-gated)."
+  Default = dry-run. --live (Council-RATIFIED per ADR-2606302205, founder=Council
+  Lv7+ 1/1) prepares MEMBER-SIGN-READY live envelopes — it does NOT publish; a
+  member signs the CACAO leash at runtime (no-server-key, ibuki G8). The agent
+  prepares; the member publishes."
   [& args]
-  (when (some #{"--live"} args)
-    (println "[observatory] --live REFUSED at R0 — live did.json regeneration + live posting AS an observatory of a real entity is Council/operator-gated (seed-and-grow, ADR-2606281500). R0 is dry-run only.")
-    (System/exit 2))
-  (channel/default-registry!)   ; register the W1 dry-run drivers so the dry-run posts route
-  (let [ns-arg (flag args "--ns" "small")
-        limit  (Integer/parseInt (str (flag args "--limit" "25")))
-        out    (flag args "--out" "80-data/observatory/registry.r0.edn")
-        nss    (case ns-arg
-                 "all"   ["cable" "station" "craft" "gov" "corp"]
-                 "small" ["cable" "station" "craft"]
-                 [ns-arg])
-        results (mapv #(regen-ns % :limit limit) nss)
-        summary {:generatedFrom "src/registry/entity-handles.<ns>.gen.ts (ADR-2606042330 keyless mirrors)"
-                 :adr "2606302205 D4 — retires the keyless observational mirror"
-                 :mode :R0-dry-run
-                 :note "FIRST-PARTY disclosure-honest observatory actors (voiceOf=etzhayyim, isObservatory, present-only leashed did:key). NO impersonation, NO live posting — live is Council/operator-gated."
-                 :namespaces (mapv (fn [r] {:ns (:ns r) :total (:total r) :sampled (:sampled r)
-                                            :allDryRun (every? :postDryRun (:actors r))
-                                            :allGrew (every? :grew? (:actors r))
-                                            :allDisclosed (every? #(= "etzhayyim" (:voiceOf %)) (:actors r))}) results)
-                 :registry results}]
-    (io/make-parents out)
-    (spit out (pr-str summary))
-    (println (format "[observatory] R0 regen — %d namespace(s), %d first-party observatory actors (DRY-RUN); wrote %s"
-                     (count nss) (reduce + (map :sampled results)) out))
-    (doseq [r results]
-      (println (format "  %-7s %5d keyless mirrors → %3d first-party observatory actors (dry-run · all grew=%s · all voiceOf=etzhayyim=%s)"
-                       (:ns r) (:total r) (:sampled r)
-                       (every? :grew? (:actors r))
-                       (every? #(= "etzhayyim" (:voiceOf %)) (:actors r)))))
-    summary))
+  (let [live? (boolean (some #{"--live"} args))
+        mode  (if live? :prepared :dry-run)]
+    (when live?
+      (println "[observatory] --live: Council-RATIFIED (ADR-2606302205 accepted; founder = Council Lv7+ 1/1). Preparing MEMBER-SIGN-READY live envelopes — status :prepared, requiresMemberSignature true, serverHeldKey false. NOT published by this agent: a member must sign the revocable CACAO leash at runtime (no-server-key; cron/agent contexts cannot publish, ADR-2606281500/2606111400). This prepares the outbox; the member publishes."))
+    (channel/default-registry!)   ; register the W1 drivers so the scan/route runs
+    (let [ns-arg (flag args "--ns" "small")
+          limit  (Integer/parseInt (str (flag args "--limit" "25")))
+          out    (flag args "--out" "80-data/observatory/registry.r0.edn")
+          nss    (case ns-arg
+                   "all"   ["cable" "station" "craft" "gov" "corp"]
+                   "small" ["cable" "station" "craft"]
+                   [ns-arg])
+          results (mapv #(regen-ns % :limit limit :mode mode) nss)
+          summary {:generatedFrom "src/registry/entity-handles.<ns>.gen.ts (ADR-2606042330 keyless mirrors)"
+                   :adr "2606302205 D4 — retires the keyless observational mirror"
+                   :mode mode
+                   :council-ratified (= mode :prepared)
+                   :note (if (= mode :prepared)
+                           "FIRST-PARTY disclosure-honest observatory actors, Council-RATIFIED. Posts are MEMBER-SIGN-READY (status :prepared, requiresMemberSignature true, serverHeldKey false) — NOT published by the agent; a member signs the CACAO leash at runtime (no-server-key, ADR-2606281500/2606111400)."
+                           "FIRST-PARTY disclosure-honest observatory actors (voiceOf=etzhayyim, isObservatory, present-only leashed did:key). DRY-RUN. NO impersonation; live is Council-gated.")
+                   :namespaces (mapv (fn [r] {:ns (:ns r) :total (:total r) :sampled (:sampled r)
+                                              :postStatus (get-in (first (:actors r)) [:post :status])
+                                              :allGrew (every? :grew? (:actors r))
+                                              :allScanPassed (every? :scanPassed (:actors r))
+                                              :allDisclosed (every? #(= "etzhayyim" (:voiceOf %)) (:actors r))}) results)
+                   :registry results}]
+      (io/make-parents out)
+      (spit out (pr-str summary))
+      (println (format "[observatory] regen (%s) — %d namespace(s), %d first-party observatory actors; wrote %s"
+                       (name mode) (count nss) (reduce + (map :sampled results)) out))
+      (doseq [r results]
+        (println (format "  %-7s %5d keyless mirrors → %3d first-party observatory actors (%s · all grew=%s · all voiceOf=etzhayyim=%s)"
+                         (:ns r) (:total r) (:sampled r) (name mode)
+                         (every? :grew? (:actors r))
+                         (every? #(= "etzhayyim" (:voiceOf %)) (:actors r)))))
+      summary)))
