@@ -39,7 +39,8 @@
             [babashka.process :as p]
             [babashka.http-client :as http]
             [etzhayyim.kotoba.engine :as kt]
-            [etzhayyim.vitals :as vitals]))
+            [etzhayyim.vitals :as vitals]
+            [etzhayyim.genome :as genome]))
 
 ;; ── served projection dirs (mirror vitals/snapshot-dirs) ─────────────────────
 (def ^:private snapshot-dirs
@@ -306,6 +307,64 @@
                              (count posts) mood (count text))))
           (count posts))))))
 
+;; ── 学習 LEARN layer (kotoba-genome W2, ADR-2606302205 D1) ───────────────────
+;; This is what makes the RUNNING organism actually learn (not just measure): each
+;; reflex, fold the REAL aggregate-vitality reading through the closed genome loop
+;; (score the previous prediction → kaizen-update → decide+pre-register the next
+;; maintenance mechanism). The chosen mechanism is a DRY-RUN recommendation only —
+;; never auto-applied (self-modification stays proposal-only + human/Council-gated,
+;; ADR-2605240200). State is append-only + deterministic (crash-resume); projected
+;; to genome.json so the learning is observable on /organism.
+(def ^:private genome-state-file "80-data/organism/genome.state.edn")
+
+(def ^:private organism-catalog
+  ;; the organism's self-maintenance levers the loop ranks + learns over
+  [{:mechanism :deepen-tests     :base 1.0}   ; raise cells from 休眠 to 生 via reflex coverage
+   {:mechanism :widen-perception :base 1.0}   ; turn up the live SENSE membrane (G7)
+   {:mechanism :prune-stubs      :base 1.0}   ; retire R0 scaffold cells that never green
+   {:mechanism :narrate-richer   :base 1.0}   ; deepen 情緒 narration fidelity
+   {:mechanism :rebalance-niches :base 1.0}]) ; ecosystem evenness (ibuki niche health)
+
+(defn- organism-reading
+  "Real aggregate-vitality scalar off the latest organism.json summary: 生 weigh
+  most, 休眠 some — rises as cells reach 生. Nil-safe (missing snapshot → 0)."
+  []
+  (let [path (str (first snapshot-dirs) "/organism.json")
+        sum  (try (-> (slurp path) (json/parse-string true) :summary) (catch Exception _ nil))]
+    (+ (* 3 (long (:alive sum 0))) (long (:dormant sum 0)))))
+
+(defn- load-genome-state []
+  (try (let [s (clojure.edn/read-string (slurp genome-state-file))]
+         (if (map? s) s genome/empty-state))
+       (catch Exception _ genome/empty-state)))
+
+(defn- write-genome-snapshot! [state reading]
+  (let [{:keys [recommendation weights beat history]} state
+        last-scored (some :scored (reverse history))
+        payload {:beat beat :reading reading :generatedAt (str (java.time.Instant/now))
+                 :weights weights :recommendation recommendation :lastScored last-scored
+                 :note "kotoba-genome W2 — dry-run learning; recommendation never auto-applied (ADR-2606302205 D1 / 2605240200)."}
+        out (json/generate-string payload {:pretty true})]
+    (doseq [d snapshot-dirs]
+      (io/make-parents (str d "/genome.json"))
+      (spit (str d "/genome.json") out))))
+
+(defn learn!
+  "One closed learning beat on the real vitality reading; persists state +
+  genome.json projection. Pure-loop + bounded I/O; never acts outwardly."
+  []
+  (let [reading (organism-reading)
+        state'  (genome/beat (load-genome-state) organism-catalog reading)]
+    (io/make-parents genome-state-file)
+    (spit genome-state-file (pr-str state'))
+    (write-genome-snapshot! state' reading)
+    (binding [*out* *err*]
+      (println (format "[learn] beat %d · reading %d · → recommend %s (p=%.2f, dry-run)"
+                       (:beat state') reading
+                       (name (get-in state' [:recommendation :mechanism]))
+                       (double (get-in state' [:recommendation :predicted-up])))))
+    (:beat state')))
+
 ;; The reflex (run_tests.sh per cell) is the only way a cell reaches 生 — classify
 ;; demands :green reflex ∧ peer-integration ∧ outward bsky metabolism. It is also the
 ;; only EXPENSIVE layer (every cell's suite, serial), so it cannot tick at the 6s
@@ -348,9 +407,11 @@
                           (when (safe "social" #(prepare-social! now)) (reset! social-last now))))
         (when do-vitals
           (if once?
-            (when (reflex!) (swap! health assoc :vitals (System/currentTimeMillis)))   ; smoke: inline
+            (do (when (reflex!) (swap! health assoc :vitals (System/currentTimeMillis)))   ; smoke: inline
+                (safe "learn" learn!))                                                       ; 学習: fold the fresh reading
             (when (compare-and-set! reflexing? false true)   ; never overlap sweeps
               (future (try (when (reflex!) (swap! health assoc :vitals (System/currentTimeMillis)))
+                           (safe "learn" learn!)                                             ; 学習 after the reflex sweep
                            (finally (reset! reflexing? false)))))))
         (safe "health" #(write-health! health now))         ; #4 watchdog projection, every tick
         (if once?
