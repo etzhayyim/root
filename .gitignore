@@ -160,3 +160,12 @@ foundry.lock
 !20-actors/*/secrets/*.enc.*
 !20-actors/*/secrets/.gitkeep
 20-actors/monosashi/data/*.datoms.kotoba.edn
+
+# manimani personal-knowledge-router intake (ADR-2606302038 + 2605291100 §D5):
+# PII tier-3 / confidential. This repo is PUBLIC, so the interim Phase-0 intake
+# journals that hold real Gmail/PC correspondence (subjects, parties, legal/tax
+# detail) are kept LOCAL and never committed — they are the plaintext hot tier
+# that the eventual kotoba QuadStore + E2E Vault (CID-over-ciphertext, pinned to
+# kotobase.net) replaces. Only the PII-free README pointer is tracked.
+/80-data/manimani/*
+!/80-data/manimani/README.md

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-06-29",
+  "updated_at": "2026-06-30",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.md",
@@ -27004,6 +27004,40 @@
         "2605301600"
       ],
       "last_verified": "2026-06-29",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606302038-manimani-cli-kotobase-secure-storage-and-local-tier.md",
+      "id": "adr-2606302038-manimani-cli-kotobase-secure-storage-and-local-tier",
+      "title": "ADR-2606302038: manimani CLI (bb/clj) + secure storage tiers — local hot tier, E2E Vault, kotobase.net ciphertext pin",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "manimani-cli-secure-storage",
+      "authoritative": true,
+      "authoritative_for": [
+        "manimani CLI のコマンド面（bb task `e7m manimani *` + clj namespace etzhayyim.manimani.*）",
+        "manimani storage tier モデル（local folder hot tier / E2E Vault / kotobase.net 暗号文 pin / B2 cold）",
+        "manimani が local folder を ingest source かつ hot 永続層として用いる設計の明文化",
+        "manimani PII の public-repo 隔離（80-data/manimani/ は gitignored, README pointer のみ tracked）"
+      ],
+      "related": [
+        "adr-2605080801-manimani-langgraph-user-intake-routing",
+        "ADR-2606091500 (kotobase.net canonical remote pin)",
+        "repo-root CLAUDE.md § Operational code = clj/bb over the kotoba Datom log"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605291100-manimani-kotoba-native-reconciliation-gmail-pc-ingest",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2606041130-kotoba-b2-blockstore-cold-pin",
+        "adr-2605241500-etzhayyim-dataset-cid-substrate",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "last_verified": "2026-06-30",
       "amends": [],
       "amended_by": []
     },
