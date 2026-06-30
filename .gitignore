@@ -175,3 +175,6 @@ foundry.lock
 80-data/organism/genome.state.edn
 50-infra/etzhayyim-did-web/public/organism/genome.json
 60-apps/etzhayyim-project-organism/public/genome.json
+
+# kotoba-genome W4-live R0 — generated first-party observatory registry (reproducible via bb observatory:regen)
+80-data/observatory/registry.r0.edn
