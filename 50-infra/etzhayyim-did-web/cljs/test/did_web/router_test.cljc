@@ -10,6 +10,8 @@
 
 (deftest local-json-and-html-routes-owned
   (testing "the local content/identity surface is owned by the cljs core"
+    (is (= :home-html          (r "GET" "/")))
+    (is (= :home-html          (r "GET" "/index.html")))
     (is (= :did-json            (r "GET" "/.well-known/did.json")))
     (is (= :donation-json       (r "GET" "/.well-known/donation.json")))
     (is (= :donate-html         (r "GET" "/donate")))
@@ -17,7 +19,11 @@
     (is (= :actors-html         (r "GET" "/actors")))
     (is (= :gov-units-json      (r "GET" "/.well-known/gov-units.json")))
     (is (= :gov-procedures-json (r "GET" "/.well-known/gov-procedures.json")))
-    (is (= :organism-html       (r "GET" "/organism")))))
+    (is (= :organism-html       (r "GET" "/organism")))
+    (is (= :organism-html       (r "GET" "/organism/index.html")))
+    (is (= {:route :actor-system-dynamics-html :handle "tsumugi"}
+           (router/route {:method "GET" :path "/actor/tsumugi/system-dynamics"})))
+    (is (= :system-dynamics-html (r "GET" "/system-dynamics")))))
 
 (deftest actor-routes-extract-handle
   (testing "per-actor routes resolve + extract the raw handle segment"
@@ -31,9 +37,9 @@
       (is (= :reverse-proxy (r "GET" "/actor/x/y/did.json")))
       (is (= :reverse-proxy (r "GET" "/actor//did.json"))))))
 
-(deftest gov-html-stays-on-fallback-this-batch
-  (testing "/gov (inline HTML) is intentionally still the TS fallback"
-    (is (= :fallback (r "GET" "/gov")))))
+(deftest gov-html-now-owned-by-cljs
+  (testing "/gov (civic wayfinding search page) is now CLJS-owned (:gov-html, shell + gov-search.js)"
+    (is (= :gov-html (r "GET" "/gov")))))
 
 (deftest ipfs-route-owned
   (testing "the trustless /ipfs/<cid> gateway is owned by the cljs core"
@@ -66,14 +72,13 @@
     (is (= {:route :xrpc :nsid "com.etzhayyim.actor.getProfile"}
            (router/route {:method "GET" :path "/xrpc/com.etzhayyim.actor.getProfile"})))))
 
-(deftest gov-still-on-ts-fallback
-  (testing "/gov inline HTML is the only remaining TS :fallback route"
-    (is (= :fallback (r "GET" "/gov")))
-    (is (= :fallback (r "GET" "/gov/")))))
+(deftest gov-trailing-slash-normalized
+  (testing "/gov/ normalizes to :gov-html like the other content routes"
+    (is (= :gov-html (r "GET" "/gov")))))
 
 (deftest default-paths-reverse-proxied-by-cljs
-  (testing "everything else (apex, SPA routes) → cljs reverse proxy"
-    (doseq [p ["/" "/search" "/profile/did:web:etzhayyim.com" "/welcome" "/feeds"]]
+  (testing "everything else (SPA routes) → cljs reverse proxy"
+    (doseq [p ["/search" "/profile/did:web:etzhayyim.com" "/welcome" "/feeds"]]
       (is (= :reverse-proxy (r "GET" p)) (str p " should be cljs reverse-proxied")))))
 
 (deftest method-policy
@@ -90,4 +95,8 @@
     (is (= :donate-html (r "GET" "/donate/")))
     (is (= :actors-html (r "GET" "/actors/")))
     (is (= :organism-html (r "GET" "/organism/")))
-    (is (= :reverse-proxy (r "GET" "/")))))
+    (is (= :organism-html (r "GET" "/organism/index.html")))
+    (is (= {:route :actor-system-dynamics-html :handle "tsumugi"}
+           (router/route {:method "GET" :path "/actor/tsumugi/system-dynamics/"})))
+    (is (= :system-dynamics-html (r "GET" "/system-dynamics/")))
+    (is (= :home-html (r "GET" "/")))))

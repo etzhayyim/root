@@ -16,12 +16,19 @@
   have externs so `(.-method request)` etc. are safe — but the injected `deps`
   object is OUR untyped JS, so its fields MUST be read with string access via
   `goog.object/get`. Never use `(.-foo deps)` on the injection object."
-  (:require [goog.object :as gobj]
+  (:require [clojure.string :as str]
+            [goog.object :as gobj]
             [did-web.router :as router]
             [did-web.ipfs :as ipfs]
             [did-web.kotoba :as kotoba]
+            [did-web.system-dynamics :as system-dynamics]
+            [did-web.shell :as shell]
             [did-web.proxy :as proxy]
-            [did-web.xrpc :as xrpc]))
+            [did-web.xrpc :as xrpc]
+            [hiccups.runtime]
+            [shadow.css])
+  (:require-macros [hiccups.core :refer [html]]
+                   [shadow.css :refer [css]]))
 
 ;; ─── injected-deps access (rename-safe) ──────────────────────────────────────
 
@@ -140,17 +147,173 @@
                "cache-control" "public, max-age=300, must-revalidate"
                "content-security-policy" csp)))
 
+(defn- home-route [deps]
+  (html-resp (call deps "homeHtml")
+             "default-src 'none'; script-src 'self'; connect-src 'self'; style-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'"))
+
 (defn- donate-route [deps]
   (html-resp (dep deps "donateHtml")
-             "default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'"))
+             "default-src 'none'; style-src 'self'; base-uri 'none'; form-action 'none'"))
 
 (defn- actors-html-route [deps]
   (html-resp (call deps "actorsHtml")
-             "default-src 'none'; script-src 'self' 'wasm-unsafe-eval'; connect-src 'self'; style-src 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; form-action 'none'"))
+             "default-src 'none'; script-src 'self' 'wasm-unsafe-eval'; connect-src 'self'; style-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'"))
 
-(defn- organism-route [deps]
-  (html-resp (call deps "organismHtml")
-             "default-src 'none'; style-src 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; form-action 'none'"))
+(declare actor-system-dynamics-data)
+
+(defn- system-dynamics-route [deps env ctx]
+  (let [handles (or (dep deps "infraActorHandles") #js [])]
+    (.then
+     (js/Promise.all
+      (clj->js (map #(call deps "resolveActorRecord" % env ctx)
+                    (array-seq handles))))
+     (fn [records]
+       (let [actors (->> (map vector (array-seq handles) (array-seq records))
+                         (keep (fn [[handle rec]]
+                                 (when rec
+                                   (actor-system-dynamics-data rec handle))))
+                         vec)]
+         (html-resp (system-dynamics/page-html actors)
+                    "default-src 'none'; style-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'"))))))
+
+
+(defn- organism-route []
+  (let [main (str "<div id=\"app\">"
+                  "<div class=\"org-hd\"><h1>etzhayyim · organism</h1>"
+                  "<div class=\"sub\">artificial organism / live body loop</div>"
+                  "<div class=\"org-live\"><span class=\"dot\"></span>loading</div></div>"
+                  "<p class=\"org-hint\">organism を読み込み中… (live body snapshots from same-origin JSON)</p>"
+                  "</div>")]
+    (html-resp
+     (shell/page-html
+      {:title "etzhayyim — organism · 生命活動"
+       :lang "ja"
+       :description "etzhayyim artificial organism — per-cell life activity (clj 内部代謝 / actor 細胞間シグナル / atproto 外界代謝) over the kotoba Datom log."
+       :active "/organism"
+       :main main
+       :footer-html "If you see this page, the organism has loaded without waiting on the browser runtime."
+       :script-src "/_shell/organism.js"})
+     "default-src 'none'; script-src 'self'; connect-src 'self'; style-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'")))
+
+(defn- gov-route []
+  (let [main (str "<h1>公 — World Government Atlas</h1>"
+                  "<p class=\"sub\">An observational <strong>mirror</strong> + civic wayfinding map of the world's government units — never the government, never an official channel, never a target-list (ADR-2606021600). Data: <a href=\"/.well-known/gov-units.json\">/.well-known/gov-units.json</a>.</p>"
+                  "<input id=\"q\" class=\"gov-q\" placeholder=\"search by name, endonym, romanization or id… (try: 国会, Kokkai, Verkhovna, Knesset, 札幌市)\" autocomplete=\"off\">"
+                  "<div class=\"gov-row\">"
+                  "<select id=\"lvl\"><option value=\"\">all levels</option></select>"
+                  "<select id=\"src\"><option value=\"\">all sourcing</option><option value=\"authoritative\">authoritative</option><option value=\"representative\">representative</option></select>"
+                  "</div>"
+                  "<div id=\"stats\" class=\"sub\">loading…</div>"
+                  "<ul id=\"out\" class=\"gov-list\"></ul>")]
+    (html-resp
+     (shell/page-html
+      {:title "公 ooyake — World Government Atlas · etzhayyim"
+       :lang "ja"
+       :description "Observational mirror + civic wayfinding map of the world's government units. Never the government, never a target-list (ADR-2606021600)."
+       :active "/gov"
+       :main main
+       :footer-html "Data: <a href=\"/.well-known/gov-units.json\">/.well-known/gov-units.json</a> · <a href=\"/actors\">/actors</a> · ADR-2606021600."})
+     "default-src 'none'; script-src 'self'; connect-src 'self'; style-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'")))
+
+(defn- round1 [x]
+  (/ (Math/round (* 10.0 (double x))) 10.0))
+
+(defn- actor-flow-score [source kind service-count vm-count wasm-cid adr primary-lexicon primary-schema]
+  (let [prior-score (+ (if primary-lexicon 1.2 0.3)
+                       (if primary-schema 1.0 0.2)
+                       (min 1.5 (* 0.25 (count adr))))
+        evidence-score (+ (min 2.6 (* 0.7 service-count))
+                          (min 1.6 (* 0.45 vm-count))
+                          (case source
+                            "kotoba" 0.9
+                            "compiled" 0.7
+                            "kv" 0.5
+                            "derived" 0.4
+                            0.3))
+        policy-score (+ (case kind
+                          "tier-b" 1.8
+                          "entity-mirror" 1.3
+                          "free-form" 0.7
+                          1.0)
+                        (case source
+                          "kotoba" 0.4
+                          "compiled" 0.3
+                          "kv" 0.2
+                          0.1)
+                        (if wasm-cid 1.2 0.0))
+        surprise-penalty (+ (if (and (zero? service-count) (zero? vm-count) (nil? wasm-cid)) 1.4 0.4)
+                            (if (and (nil? primary-lexicon) (nil? primary-schema)) 0.7 0.0)
+                            (case kind
+                              "free-form" 0.5
+                              0.0))
+        score (max 0.0 (min 10.0 (+ prior-score evidence-score policy-score (- surprise-penalty))))]
+    {:flow-score (round1 score)
+     :flow-source (str "prior " (round1 prior-score)
+                       " · evidence " (round1 evidence-score)
+                       " · policy " (round1 policy-score)
+                       " · surprise " (round1 surprise-penalty))
+     :flow-proxy (round1 (/ score 10.0))}))
+
+(defn- actor-system-dynamics-data [rec handle]
+  (let [service (or (gobj/get rec "service") #js [])
+        vm (or (gobj/get rec "vm") #js [])
+        adr (or (gobj/get rec "adr") #js [])
+        service-count (if rec (.-length service) 0)
+        vm-count (if rec (.-length vm) 0)
+        wasm-cid (gobj/get rec "wasmCid")
+        source (or (gobj/get rec "source") "scaffold")
+        kind (or (gobj/get rec "kind") "free-form")
+        status (or (gobj/get rec "status") "scaffold")
+        performer-type (or (gobj/get rec "performerType") "system")
+        ui-type (or (gobj/get rec "uiType") "none")
+        display-name (or (gobj/get rec "displayNameEn")
+                         (gobj/get rec "displayNameJa")
+                         handle)
+        did (or (gobj/get rec "did")
+                (str "did:web:etzhayyim.com:actor:" handle))
+        description (or (gobj/get rec "description")
+                        "No actor record is published yet; this is the scaffold view for the handle.")
+        service-types (->> (array-seq service)
+                           (map (fn [s] (gobj/get s "type")))
+                           (remove nil?)
+                           vec)
+        score (actor-flow-score source kind service-count vm-count wasm-cid adr
+                                (gobj/get rec "primaryLexicon")
+                                (gobj/get rec "primarySchema"))]
+    {:handle handle
+     :display-name display-name
+     :did did
+     :description description
+     :kind kind
+     :status status
+     :source source
+     :performer-type performer-type
+     :ui-type ui-type
+     :glyph (gobj/get rec "glyph")
+     :primary-lexicon (gobj/get rec "primaryLexicon")
+     :primary-schema (gobj/get rec "primarySchema")
+     :service-count service-count
+     :vm-count vm-count
+     :wasm-cid (gobj/get rec "wasmCid")
+     :adr (vec (array-seq adr))
+     :service-types service-types
+     :flow-score (:flow-score score)
+     :flow-proxy (:flow-proxy score)
+     :flow-source (:flow-source score)}))
+
+(defn- actor-system-dynamics-route [deps env ctx raw-handle]
+  (let [handle (.toLowerCase (js/decodeURIComponent raw-handle))]
+    (cond
+      (not (call deps "handleValid" handle))
+      (resp (js/JSON.stringify #js {:error "HandleInvalid"}) 400 actor-json-headers)
+
+      :else
+      (.then
+       (call deps "resolveActorRecord" handle env ctx)
+       (fn [rec]
+         (html-resp
+          (system-dynamics/actor-page-html (actor-system-dynamics-data rec handle))
+          "default-src 'none'; style-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'"))))))
 
 ;; ─── per-actor routes (async, kotoba-first resolution via injected deps) ──────
 
@@ -245,6 +408,7 @@
     (if-not (router/method-allowed? route method)
       (method-not-allowed)
       (case route
+        :home-html          (home-route deps)
         :did-json            (did-json-route deps)
         :donation-json       (donation-json-route deps)
         :donate-html         (donate-route deps)
@@ -252,7 +416,10 @@
         :actors-html         (actors-html-route deps)
         :gov-units-json      (gov-units-route deps env)
         :gov-procedures-json (gov-procedures-route deps)
-        :organism-html       (organism-route deps)
+        :gov-html            (gov-route)
+        :organism-html       (organism-route)
+        :system-dynamics-html (system-dynamics-route deps env ctx)
+        :actor-system-dynamics-html (actor-system-dynamics-route deps env ctx handle)
         :actor-did           (actor-did-route deps env ctx handle)
         :actor-profile       (actor-profile-route deps env ctx handle)
         :actor-procedures    (actor-procedures-route deps handle)
