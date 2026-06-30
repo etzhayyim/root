@@ -68,7 +68,9 @@
 .mk-fam.has-live .mk-fam-root{color:var(--mk-live)}
 .mk-fam-meta{font-size:.78rem;opacity:.65}
 .mk-members{display:flex;flex-wrap:wrap;gap:.45rem}
-.mk-chip{display:flex;align-items:center;gap:.45rem;border:1px solid var(--line);border-radius:.5rem;padding:.35rem .55rem;font-size:.8rem;background:Canvas}
+.mk-chip{display:flex;flex-direction:column;align-items:flex-start;gap:.3rem;border:1px solid var(--line);border-radius:.5rem;padding:.35rem .55rem;font-size:.8rem;background:Canvas}
+.mk-chip-top{display:flex;align-items:center;gap:.45rem}
+.mk-chip .mk-links{margin-top:0}
 .mk-chip.live{border-color:color-mix(in srgb,var(--mk-live) 50%,var(--line));background:color-mix(in srgb,var(--mk-live) 8%,transparent)}
 .mk-chip .cg{font-size:.95rem;font-weight:700}
 .mk-chip.live .cg{color:var(--mk-live)}

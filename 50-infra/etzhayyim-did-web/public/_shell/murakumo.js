@@ -74,6 +74,8 @@
     };
     all = actors.concat(extra);
     D.rad = (rad && rad.actors) || {};
+    D.mono = {};
+    ((rad && rad.monorepoDirs) || []).forEach(function (h) { D.mono[h] = 1; });
     NOW = D.meta.now || Date.parse(D.meta.generatedAt);
     WIN = D.meta.sinceHours * 3600 * 1000;
   }
@@ -85,8 +87,10 @@
   var GH = "https://github.com/etzhayyim/";
   function actorLinks(a) {
     var h = a.handle, r = D.rad[h], out = [];
-    if (r && r.repo) out.push(["gh", "https://" + r.repo, "GitHub: " + r.repo]);
-    else if (a.kind !== "pulse-only") out.push(["gh", GH + "root/tree/main/20-actors/" + h, "GitHub (monorepo): 20-actors/" + h]);
+    // gh: prefer the always-public monorepo source dir; fall back to the child
+    // repo (:rad/repo) only when there is no monorepo dir.
+    if (D.mono[h]) out.push(["gh", GH + "root/tree/main/20-actors/" + h, "GitHub (public monorepo): 20-actors/" + h]);
+    else if (r && r.repo) out.push(["gh", "https://" + r.repo, "GitHub: " + r.repo]);
     if (r && r.didWeb) out.push(["rad", "https://etzhayyim.github.io/com-etzhayyim-" + h + "/.well-known/did.json", "RAD identity (did:web): " + r.didWeb]);
     if (r) out.push(["k-rad", GH + "root/blob/main/80-data/kotoba-rad/" + h + ".identity.journal.edn", "kotoba-rad ledger" + (r.rid ? " · RID " + r.rid.slice(0, 14) + "…" : "")]);
     return out;
@@ -202,8 +206,9 @@
     var solo = arr.filter(function (f) { return f.v.length === 1; });
     var chip = function (a) {
       return '<div class="mk-chip ' + (a.live ? "live" : "") + '" title="' + esc(a.name + " — " + (a.desc || a.kind)) + '">' +
-        '<span class="cg">' + esc(a.glyph || "·") + '</span><span class="ch">' + esc(a.handle) + '</span>' +
-        (a.live ? '<span class="cc">●' + a.commits + '</span>' : '<span class="ck">' + esc(a.kind) + '</span>') + '</div>';
+        '<div class="mk-chip-top"><span class="cg">' + esc(a.glyph || "·") + '</span><span class="ch">' + esc(a.handle) + '</span>' +
+        (a.live ? '<span class="cc">●' + a.commits + '</span>' : '<span class="ck">' + esc(a.kind) + '</span>') + '</div>' +
+        linksHtml(a) + '</div>';
     };
     var famHtml = function (f) {
       return '<div class="mk-fam ' + (f.live ? "has-live" : "") + '"><div class="mk-fam-h">' +
