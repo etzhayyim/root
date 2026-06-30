@@ -5,7 +5,7 @@ import {
   UNISPSC_HANDLES,
   UNISPSC_GENERATED_AT,
   UNISPSC_TOTAL_COUNT,
-} from "./registry/unispsc-handles.gen";
+} from "./registry/unspsc-handles.gen";
 import {
   INFRA_ACTORS,
   INFRA_ACTOR_HANDLES,
