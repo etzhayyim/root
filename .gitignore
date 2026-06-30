@@ -169,3 +169,9 @@ foundry.lock
 # kotobase.net) replaces. Only the PII-free README pointer is tracked.
 /80-data/manimani/*
 !/80-data/manimani/README.md
+
+# kotoba-genome W2 — organism learning runtime artifacts (local memory + projection;
+# deployed from the working tree by the publish agent, not tracked). ADR-2606302205 D1.
+80-data/organism/genome.state.edn
+50-infra/etzhayyim-did-web/public/organism/genome.json
+60-apps/etzhayyim-project-organism/public/genome.json

@@ -233,6 +233,13 @@
              (let [r ((resolve 'clojure.test/run-tests) 'etzhayyim.channel-test)]
                (System/exit (if (pos? (+ (:fail r) (:error r))) 1 0))))}
 
+  test:genome
+  {:doc "Run the kotoba-genome W2 closed-learning-loop tests (ADR-2606302205 D1): Brier proper-scoring, kaizen weight update, prior-consensus loop-closure, beat closure, deterministic replay, calibrated-mechanism favouring."
+   :extra-paths ["70-tools/src"]
+   :task (do (require 'etzhayyim.genome-test)
+             (let [r ((resolve 'clojure.test/run-tests) 'etzhayyim.genome-test)]
+               (System/exit (if (pos? (+ (:fail r) (:error r))) 1 0))))}
+
   fleet:probe
   {:doc "RESIDENCE PROBE (ADR-2606271400) — does the murakumo heartbeat fleet ACTUALLY run, or is it only DEFINED in cells.edn? Reads cells.edn/fleet.edn, maps tailscale online state, and (over `ssh <node>`) checks each node's launchctl + pgrep + loopback healthz (the healthz server binds 127.0.0.1 only, so residence is observable only ON the node). Classifies every cron/lan-api heartbeat :alive / :defined-only-silent / :node-unreachable, probes the evo-x2 inference backend + issachar kotoba :8077, writes out/fleet-probe.edn + a human summary. Shells out to ssh/tailscale/curl (system binaries); logic is clj. Flags: --nodes a,b | --no-ssh"
    :task (do (require 'etzhayyim.fleet-probe)
