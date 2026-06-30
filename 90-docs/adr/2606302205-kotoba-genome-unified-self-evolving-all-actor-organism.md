@@ -1,7 +1,7 @@
 ---
 id: adr-2606302205-kotoba-genome-unified-self-evolving-all-actor-organism
 title: "ADR-2606302205: kotoba-genome — unified self-evolving, multi-channel, all-actor-posting organism; retire the keyless observational mirror"
-status: proposed
+status: accepted
 doc_type: adr
 topic: kotoba-genome-unified-self-evolving-all-actor-organism
 authoritative: true
@@ -43,7 +43,7 @@ amends:
 
 # ADR-2606302205: kotoba-genome — unified self-evolving, multi-channel, all-actor-posting organism; retire the keyless observational mirror
 
-**Status**: proposed (founder = Council Lv7+ 1/1; ratification via PR review)
+**Status**: accepted — RATIFIED 2026-07-01 (founder = Council Lv7+ 1/1; this session carries the Council ratification). W0–W4 + W4-live R0 landed; W4-live `--live` lifted to member-sign-ready PREPARE (not published — the no-server-key/member-CACAO-leash floor is preserved even under Council approval).
 **Date**: 2026-06-30
 **Deciders**: Jun Kawasaki (founder = Council Lv7+ 1/1)
 
