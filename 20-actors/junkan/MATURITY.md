@@ -2,6 +2,9 @@
 
 ADR-2605290927 · clj-native, kotoba-Datom-native · updated 2026-06-21
 
+Execution rule: **bb-only**. `.sh` / bash / shell runners are prohibited for
+this actor; tests run via `bb 20-actors/junkan/run_tests.bb`.
+
 ## What this substrate answers
 
 全世界の政府で **国民と政府を構造的に不均衡にしている具体的な法律・制度・思想・
@@ -44,6 +47,8 @@ ADR-2605290927 · clj-native, kotoba-Datom-native · updated 2026-06-21
 | 16i | as-of / regime-trajectory reader (history) | ✅ `methods/history.cljc` (iter 13) |
 | 19 | kotoba-kqe live-engine binding | ⏳ R1 |
 | 20 | Murakumo-only LLM-assisted loop-naming | ⏳ R1 |
+| 21 | India packaged-goods / loose-refill retail culture system-dynamics addendum | ✅ `methods/consumer_culture.cljc` + `kotoba/seed.india-packaged-goods.edn` |
+| 22 | Country/region loop-actor design registry + validation | ✅ `methods/country_region_actors.cljc` + `kotoba/seed.country-region-loop-actors.edn` |
 
 ## Current read-off (HYPOTHESIS — see report.md)
 

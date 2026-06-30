@@ -1,0 +1,193 @@
+;; junkan 循環 — designed country/region loop actors.
+;;
+;; This is a design registry, not a claim that each actor has live data yet.
+;; Actors start :designed, become :seeded when representative public aggregate
+;; signals exist, and become :active only after Council-approved public-source
+;; ingestion. Every actor inherits the G4/G5/G6/G7/G11 posture from junkan.
+[
+ {:type :loop-domain
+  :id :packaged-goods-culture
+  :label "Packaged goods vs loose/refill/local-channel retail culture"
+  :sign-convention "positive=toward loose/refill/local-small-quantity; negative=toward packaged/modern-retail"
+  :stocks [:cashflow-unit-size
+           :trust-proximity
+           :freshness-local-provenance
+           :price-transparency-by-weight
+           :language-label-fit
+           :distribution-friction
+           :waste-refill-norm
+           :modern-retail-standardization]
+  :loops [:R-kirana-cashflow-trust
+          :R-language-local-trust
+          :R-freshness-refill
+          :B-sachet-conversion
+          :B-modern-retail-standardization]
+  :source-classes [:household-consumption :census-language :retail-channel :price-index :geospatial]}
+
+ {:type :loop-actor
+  :id "junkan.loop.packaged-goods-culture.world"
+  :parent nil
+  :scope :world
+  :jurisdiction "WORLD"
+  :region nil
+  :languages []
+  :domains [:packaged-goods-culture]
+  :stocks :inherit-domain
+  :loops :inherit-domain
+  :sources [:household-consumption :census-language :retail-channel]
+  :fission-rules [:language-fragmentation :settlement-split :regional-sign-reversal :category-split]
+  :gates [:analysis-only :hypothesis-only :aggregate-only :non-essentialist :map-not-ranking :candidate-not-directive]
+  :status :designed}
+
+ {:type :loop-actor
+  :id "junkan.loop.packaged-goods-culture.IN"
+  :parent "junkan.loop.packaged-goods-culture.world"
+  :scope :country
+  :jurisdiction "IN"
+  :region nil
+  :languages [:hi :bn :te :mr :ta :ur :gu :kn :ml :or :pa :as :en]
+  :domains [:packaged-goods-culture]
+  :stocks :inherit-domain
+  :loops :inherit-domain
+  :sources [:household-consumption :census-language :retail-channel]
+  :fission-rules [:language-fragmentation :settlement-split :regional-sign-reversal :category-split]
+  :gates [:analysis-only :hypothesis-only :aggregate-only :non-essentialist :map-not-ranking :candidate-not-directive]
+  :status :seeded}
+
+ {:type :loop-actor
+  :id "junkan.loop.packaged-goods-culture.IN-NORTH"
+  :parent "junkan.loop.packaged-goods-culture.IN"
+  :scope :region
+  :jurisdiction "IN"
+  :region :north
+  :languages [:hi :ur :pa :en]
+  :domains [:packaged-goods-culture]
+  :stocks :inherit-domain
+  :loops :inherit-domain
+  :sources [:household-consumption :census-language :retail-channel :price-index]
+  :fission-rules [:settlement-split :category-split]
+  :gates [:analysis-only :hypothesis-only :aggregate-only :non-essentialist :map-not-ranking :candidate-not-directive]
+  :status :seeded}
+
+ {:type :loop-actor
+  :id "junkan.loop.packaged-goods-culture.IN-SOUTH"
+  :parent "junkan.loop.packaged-goods-culture.IN"
+  :scope :region
+  :jurisdiction "IN"
+  :region :south
+  :languages [:ta :te :kn :ml :en]
+  :domains [:packaged-goods-culture]
+  :stocks :inherit-domain
+  :loops :inherit-domain
+  :sources [:household-consumption :census-language :retail-channel :price-index]
+  :fission-rules [:language-fragmentation :category-split]
+  :gates [:analysis-only :hypothesis-only :aggregate-only :non-essentialist :map-not-ranking :candidate-not-directive]
+  :status :seeded}
+
+ {:type :loop-actor
+  :id "junkan.loop.packaged-goods-culture.IN-WEST"
+  :parent "junkan.loop.packaged-goods-culture.IN"
+  :scope :region
+  :jurisdiction "IN"
+  :region :west
+  :languages [:mr :gu :hi :en]
+  :domains [:packaged-goods-culture]
+  :stocks :inherit-domain
+  :loops :inherit-domain
+  :sources [:household-consumption :census-language :retail-channel :price-index]
+  :fission-rules [:settlement-split :category-split]
+  :gates [:analysis-only :hypothesis-only :aggregate-only :non-essentialist :map-not-ranking :candidate-not-directive]
+  :status :seeded}
+
+ {:type :loop-actor
+  :id "junkan.loop.packaged-goods-culture.IN-EAST"
+  :parent "junkan.loop.packaged-goods-culture.IN"
+  :scope :region
+  :jurisdiction "IN"
+  :region :east
+  :languages [:bn :or :hi :en]
+  :domains [:packaged-goods-culture]
+  :stocks :inherit-domain
+  :loops :inherit-domain
+  :sources [:household-consumption :census-language :retail-channel :price-index]
+  :fission-rules [:settlement-split :category-split]
+  :gates [:analysis-only :hypothesis-only :aggregate-only :non-essentialist :map-not-ranking :candidate-not-directive]
+  :status :seeded}
+
+ {:type :loop-actor
+  :id "junkan.loop.packaged-goods-culture.IN-NORTHEAST"
+  :parent "junkan.loop.packaged-goods-culture.IN"
+  :scope :region
+  :jurisdiction "IN"
+  :region :northeast
+  :languages [:as :mni :lus :kha :en]
+  :domains [:packaged-goods-culture]
+  :stocks :inherit-domain
+  :loops :inherit-domain
+  :sources [:household-consumption :census-language :retail-channel :price-index]
+  :fission-rules [:language-fragmentation :regional-sign-reversal :category-split]
+  :gates [:analysis-only :hypothesis-only :aggregate-only :non-essentialist :map-not-ranking :candidate-not-directive]
+  :status :seeded}
+
+ {:type :loop-actor
+  :id "junkan.loop.packaged-goods-culture.IN-CENTRAL"
+  :parent "junkan.loop.packaged-goods-culture.IN"
+  :scope :region
+  :jurisdiction "IN"
+  :region :central
+  :languages [:hi :mr :gon]
+  :domains [:packaged-goods-culture]
+  :stocks :inherit-domain
+  :loops :inherit-domain
+  :sources [:household-consumption :census-language :retail-channel :price-index :geospatial]
+  :fission-rules [:settlement-split :regional-sign-reversal :category-split]
+  :gates [:analysis-only :hypothesis-only :aggregate-only :non-essentialist :map-not-ranking :candidate-not-directive]
+  :status :seeded}
+
+ ;; Additional country actors are designed, not seeded. They reuse the same pattern
+ ;; but require local public aggregate sources before activation.
+ {:type :loop-actor
+  :id "junkan.loop.packaged-goods-culture.JP"
+  :parent "junkan.loop.packaged-goods-culture.world"
+  :scope :country
+  :jurisdiction "JP"
+  :region nil
+  :languages [:ja]
+  :domains [:packaged-goods-culture]
+  :stocks :inherit-domain
+  :loops :inherit-domain
+  :sources [:household-consumption :retail-channel :price-index]
+  :fission-rules [:regional-sign-reversal :category-split]
+  :gates [:analysis-only :hypothesis-only :aggregate-only :non-essentialist :map-not-ranking :candidate-not-directive]
+  :status :designed}
+
+ {:type :loop-actor
+  :id "junkan.loop.packaged-goods-culture.US"
+  :parent "junkan.loop.packaged-goods-culture.world"
+  :scope :country
+  :jurisdiction "US"
+  :region nil
+  :languages [:en :es]
+  :domains [:packaged-goods-culture]
+  :stocks :inherit-domain
+  :loops :inherit-domain
+  :sources [:household-consumption :census-language :retail-channel :price-index]
+  :fission-rules [:language-fragmentation :regional-sign-reversal :category-split]
+  :gates [:analysis-only :hypothesis-only :aggregate-only :non-essentialist :map-not-ranking :candidate-not-directive]
+  :status :designed}
+
+ {:type :loop-actor
+  :id "junkan.loop.packaged-goods-culture.BR"
+  :parent "junkan.loop.packaged-goods-culture.world"
+  :scope :country
+  :jurisdiction "BR"
+  :region nil
+  :languages [:pt]
+  :domains [:packaged-goods-culture]
+  :stocks :inherit-domain
+  :loops :inherit-domain
+  :sources [:household-consumption :retail-channel :price-index :geospatial]
+  :fission-rules [:settlement-split :regional-sign-reversal :category-split]
+  :gates [:analysis-only :hypothesis-only :aggregate-only :non-essentialist :map-not-ranking :candidate-not-directive]
+  :status :designed}
+]

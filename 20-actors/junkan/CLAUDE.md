@@ -88,7 +88,7 @@ facts; junkan reads off, as disclosed hypotheses (G5), which feedback loops spin
   `regimeShiftEvent`) across txs — realizes the ADR's temporal data-model.
 - `80-data/junkan-governance/` — DataLad dataset (datoms snapshot + ledger +
   report + provenance).
-- Tests: `bash 20-actors/junkan/run_tests.sh` → 33 tests / 564 assertions green.
+- Tests: `bb 20-actors/junkan/run_tests.bb` (bb-only; sh/bash runners are prohibited).
 
 This substrate keeps junkan's analysis-only spine: G4 (no actuation, no dispatch
 path), G5 (hypothesis-only, `:junkan/hypothesis :true` on every derived datom),
@@ -190,7 +190,7 @@ the **actor's mesh runtime** self-generates/self-custodies its `did:key`, presen
 leash (ADR-2606111400), and signs its own posts. The server never signs. R0 = dry-run drafts
 only; live broadcast is Council Lv6+ + operator + member/actor-signature gated (§1.12 / G11 / G13).
 
-```bash
+```text
 bb -e '(load-file "methods/social.cljc")'                 # projection loads green
 bb -e '(load-file "cells/social_post/state_machine.cljc")' # membrane loads green
 # operator step (zero-knowledge — needs MURAKUMO_OPERATOR_SEED + Tailscale):

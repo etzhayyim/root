@@ -1,5 +1,9 @@
 <script lang="ts">
-  import App from '../App.svelte';
+  import { onMount } from "svelte";
+
+  onMount(() => {
+    void import("../cljs-out/main.js");
+  });
 </script>
 
-<App />
+<div id="app"></div>

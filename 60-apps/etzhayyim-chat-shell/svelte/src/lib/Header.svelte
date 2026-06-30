@@ -19,6 +19,9 @@
 </script>
 
 <header class="topbar">
+  <div class="traffic" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
   <div class="left">
     <AppLauncher />
     <div class="brand">etzhayyim.com</div>
@@ -45,21 +48,41 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 16px;
-    height: 44px;
-    background: #161922;
-    border-bottom: 1px solid #232735;
+    gap: 14px;
+    padding: 0 max(16px, calc((100vw - var(--mani-size-content-max)) / 2));
+    height: var(--mani-size-titlebar);
+    background: rgba(28, 29, 33, 0.82);
+    border-bottom: 1px solid var(--mani-color-hairline);
+    backdrop-filter: var(--mani-blur-bar);
     flex: 0 0 auto;
   }
+  .traffic {
+    display: flex;
+    gap: 8px;
+    flex: 0 0 auto;
+  }
+  .traffic span {
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.18);
+  }
+  .traffic span:nth-child(1) { background: #ff5f57; }
+  .traffic span:nth-child(2) { background: #ffbd2e; }
+  .traffic span:nth-child(3) { background: #28c840; }
   .left {
     display: flex;
     align-items: center;
     gap: 8px;
+    min-width: 0;
   }
   .brand {
     font-weight: 600;
-    letter-spacing: 0.02em;
-    color: #e6e7e9;
+    letter-spacing: 0;
+    color: var(--mani-color-text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .auth {
     display: flex;
@@ -69,38 +92,50 @@
   .handle {
     font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     font-size: 12px;
-    color: #b6b9c2;
+    color: #c8c8ce;
     max-width: 240px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
   .muted {
-    color: #8a8e99;
+    color: var(--mani-color-text-muted);
     font-size: 12px;
   }
   button {
-    background: #232735;
-    color: #e6e7e9;
-    border: 1px solid #2e3343;
-    border-radius: 6px;
-    padding: 4px 12px;
+    min-height: 36px;
+    background: rgba(255, 255, 255, 0.09);
+    color: var(--mani-color-text);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--mani-radius-pill);
+    padding: 6px 14px;
     font-size: 13px;
+    font-weight: 600;
     cursor: pointer;
   }
   button:hover:not(:disabled) {
-    background: #2a3044;
+    background: rgba(255, 255, 255, 0.14);
   }
   button.primary {
-    background: #3b6cf6;
-    border-color: #3b6cf6;
+    background: var(--mani-color-accent);
+    border-color: var(--mani-color-accent);
     color: #fff;
   }
   button.primary:hover:not(:disabled) {
-    background: #4978ff;
+    background: var(--mani-color-accent-hover);
   }
   button:disabled {
     opacity: 0.5;
     cursor: default;
+  }
+  @media (max-width: 620px) {
+    .topbar {
+      height: 50px;
+      padding: 0 12px;
+    }
+    .traffic { display: none; }
+    .brand { max-width: 42vw; }
+    .handle { max-width: 32vw; }
+    button { min-height: 40px; }
   }
 </style>
