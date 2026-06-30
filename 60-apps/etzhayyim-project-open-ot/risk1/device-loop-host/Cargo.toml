@@ -12,5 +12,5 @@ name = "device-loop-host"
 path = "src/main.rs"
 
 [dependencies]
-wasmtime = { version = "36", default-features = false, features = ["cranelift", "runtime"] }
+wasmtime = { version = "46", default-features = false, features = ["cranelift", "runtime"] }
 anyhow = "1"
