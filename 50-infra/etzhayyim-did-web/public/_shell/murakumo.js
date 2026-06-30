@@ -37,7 +37,7 @@
     return k === "substrate-service" ? "svc" : k === "pulse-only" ? "pulse" : "";
   };
 
-  function build(reg, pulse, rad) {
+  function build(reg, pulse, rad, health) {
     var pa = (pulse && pulse.actors) || {};
     var regActors = (reg && reg.actors) || [];
     var actors = regActors.map(function (a) {
@@ -76,6 +76,7 @@
     D.rad = (rad && rad.actors) || {};
     D.mono = {};
     ((rad && rad.monorepoDirs) || []).forEach(function (h) { D.mono[h] = 1; });
+    D.health = health || null;
     NOW = D.meta.now || Date.parse(D.meta.generatedAt);
     WIN = D.meta.sinceHours * 3600 * 1000;
   }
@@ -263,8 +264,22 @@
     }).join("");
     var ageH = (Date.now() - NOW) / 3600000;
     var stale = ageH > m.sinceHours;
-    var ageLbl = ageH < 48 ? Math.max(0, ageH).toFixed(0) + "h" : (ageH / 24).toFixed(1) + "d";
+    var ageLbl = ageH < 1 ? Math.max(0, ageH * 60).toFixed(0) + "m"
+      : ageH < 48 ? ageH.toFixed(1) + "h" : (ageH / 24).toFixed(1) + "d";
+    // Always-on heartbeat liveness: derived from the snapshot's own age (the
+    // static health.json can read "fresh" even when the whole daemon stopped,
+    // so wall-clock age vs the pulse window is the honest signal).
+    var hb = ageH <= 1 ? { k: "live", t: "稼働中 live" }
+      : ageH <= m.sinceHours ? { k: "lag", t: "遅延 lagging" }
+        : { k: "down", t: "停止 down" };
+    var cadMs = D.health && D.health.layers && D.health.layers.pulse && D.health.layers.pulse.cadenceMs;
+    var hbMeta = "snapshot " + ageLbl + " old · updated " + esc(m.generatedAt) +
+      (cadMs ? " · cadence " + (cadMs >= 1000 ? (cadMs / 1000) + "s" : cadMs + "ms") : "");
     root.innerHTML =
+      '<div class="mk-hb mk-hb-' + hb.k + '"><span class="hb-dot"></span>' +
+      '<span class="hb-label">heartbeat: ' + hb.t + '</span>' +
+      '<span class="hb-meta">' + hbMeta + '</span>' +
+      '<a class="hb-src" href="/organism" title="organism heartbeat ページ">organism ↗</a></div>' +
       (stale ? '<div class="mk-stale">⚠ pulse スナップショットは約' + ageLbl + '前（generated ' + esc(m.generatedAt) +
         '）。pulse.json を再生成する常駐 heartbeat（organism daemon）が更新を停止している可能性があります。下の「稼働」はこのスナップショット時点（その直近' + m.sinceHours +
         'h）の commit 活動であり、現在のプロセス死活ではありません。</div>' : '') +
@@ -312,9 +327,10 @@
   Promise.all([
     fetch("/.well-known/actors.json", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); }),
     fetch("/organism/pulse.json", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); }),
-    fetch("/_shell/actor-rad.json", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })
+    fetch("/_shell/actor-rad.json", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }),
+    fetch("/organism/health.json", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })
   ]).then(function (res) {
-    build(res[0], res[1], res[2]);
+    build(res[0], res[1], res[2], res[3]);
     shell();
   }).catch(function (err) {
     root.innerHTML = '<p class="mk-loading">live pulse を読み込めませんでした（' + esc(String(err)) +
