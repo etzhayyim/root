@@ -15,10 +15,11 @@
 # Usage:  ./scripts/organism-pulse-deploy.sh           # pulse only (fast feeds)
 #         ./scripts/organism-pulse-deploy.sh --full      # also refresh vitals + joucho + trajectory
 #
-# Cron (every 2 min):  */2 * * * * cd <repo> && bb vitals:pulse && \
-#   wrangler -c 50-infra/etzhayyim-did-web/wrangler.toml deploy >/dev/null 2>&1
+# Cron (every 2 min):  */2 * * * * <repo>/50-infra/etzhayyim-did-web/scripts/organism-pulse-deploy.sh >/dev/null 2>&1
 set -euo pipefail
-cd "$(dirname "$0")/../../.."        # repo root (etzhayyim/root)
+ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"   # repo root (etzhayyim/root)
+WORKER="$ROOT/50-infra/etzhayyim-did-web"
+cd "$ROOT"
 
 echo "[organism] regenerating live feeds…"
 bb vitals:pulse
@@ -28,5 +29,8 @@ if [[ "${1:-}" == "--full" ]]; then
 fi
 
 echo "[organism] publishing to etzhayyim.com (wrangler deploy)…"
-wrangler -c 50-infra/etzhayyim-did-web/wrangler.toml deploy
+# Deploy from the worker dir so wrangler's `npm run build:cljs` build hook and the
+# relative [assets]/main paths resolve (running it from the repo root fails:
+# root package.json has no build:cljs script).
+( cd "$WORKER" && npm run deploy )
 echo "[organism] live → https://etzhayyim.com/organism/"
