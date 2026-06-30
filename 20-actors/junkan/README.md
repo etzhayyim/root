@@ -53,6 +53,36 @@ Council-internal, publication-by-others (G13). Full table in ADR-2605290927.
 R0 scaffold — 8 cells path-reserved + 5 Lexicon skeletons. No runtime code
 until R1 (post Bootstrap-Council ratify).
 
+## Execution Rule
+
+`junkan` is **bb-only**. Do not add or invoke `.sh` / bash / shell runners for
+this actor. Run tests with `bb 20-actors/junkan/run_tests.bb` from the repo root.
+
+## India Packaged-Goods Culture Addendum
+
+`methods/consumer_culture.cljc` adds a separate aggregate-only read-off for the
+question of Indian packaged goods vs loose/refill/kirana purchase. It models
+regional, language, channel, and rural/urban pressures rather than treating
+"Indians" as one culture. Positive net pressure means loose/refill/local-small-
+quantity purchase persists; negative pressure means packaged/modern-retail pull.
+
+Seed data lives in `kotoba/seed.india-packaged-goods.edn`. It is explicitly
+representative and hypothesis-only, with counter-forces for sachets, modern
+trade, ecommerce, and language-local packaged brands.
+
+## Country/Region Loop Actors
+
+`kotoba/ontology.country-region-loop-actors.edn` and
+`kotoba/seed.country-region-loop-actors.edn` define the repeatable actor pattern:
+a world domain actor, country actors, and region actors that inherit shared
+stocks/loops while carrying local language, settlement, channel, and source
+coverage. `methods/country_region_actors.cljc` validates parent chains, required
+gates, domain inheritance, and fission rules.
+
+The initial packaged-goods registry seeds `IN` plus `IN-NORTH`, `IN-SOUTH`,
+`IN-WEST`, `IN-EAST`, `IN-NORTHEAST`, and `IN-CENTRAL`, with `JP`, `US`, and
+`BR` left as designed country actors awaiting local aggregate public sources.
+
 ## License
 
 Apache-2.0 WITH etzhayyim Charter Compliance Rider v2.0 (`/CHARTER-RIDER.md`).

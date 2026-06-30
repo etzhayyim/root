@@ -179,17 +179,18 @@
     flex: 1;
     overflow-y: auto;
     padding: 24px 16px 16px;
+    scroll-behavior: smooth;
   }
   .empty {
     max-width: 720px;
     margin: 12% auto 0;
     text-align: center;
-    color: #b9bcc4;
+    color: var(--mani-color-text-muted);
   }
   .empty h1 {
     font-size: 28px;
     margin-bottom: 12px;
-    color: #f1f2f5;
+    color: var(--mani-color-text);
     font-weight: 600;
   }
   .empty p { font-size: 14px; line-height: 1.6; }
@@ -201,11 +202,16 @@
     justify-content: center;
   }
   .capsules span {
-    background: #1d2230;
-    border: 1px solid #2f3445;
-    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--mani-color-hairline);
+    border-radius: var(--mani-radius-pill);
     padding: 4px 12px;
     font-size: 12px;
-    color: #b9bcc4;
+    color: var(--mani-color-text-muted);
+  }
+  @media (max-width: 560px) {
+    .panel { padding: 16px 10px 12px; }
+    .empty { margin-top: 18%; }
+    .empty h1 { font-size: 24px; }
   }
 </style>

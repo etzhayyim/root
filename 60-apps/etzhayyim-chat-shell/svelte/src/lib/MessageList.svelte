@@ -68,9 +68,9 @@
   .row.assistant, .row.system { justify-content: flex-start; }
   .bubble {
     max-width: 85%;
-    background: #1d2230;
-    border: 1px solid #2f3445;
-    border-radius: 12px;
+    background: var(--mani-color-assistant);
+    border: 1px solid rgba(10, 132, 255, 0.22);
+    border-radius: var(--mani-radius-bubble);
     padding: 12px 14px;
     font-size: 14px;
     line-height: 1.6;
@@ -78,42 +78,42 @@
     word-wrap: break-word;
   }
   .row.user .bubble {
-    background: #283045;
-    border-color: #354060;
+    background: var(--mani-color-user);
+    border-color: rgba(52, 199, 89, 0.24);
   }
   .row.system .bubble {
-    background: #1a1d28;
-    color: #a8acb8;
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--mani-color-text-muted);
     font-family: ui-monospace, "SF Mono", Menlo, monospace;
     font-size: 12.5px;
   }
   .badge {
     font-size: 11px;
-    color: #8a8e9a;
+    color: var(--mani-color-text-muted);
     margin-bottom: 4px;
   }
-  .etzhayyim-badge { color: #7aa2f7; }
-  .user-badge { color: #b9bcc4; }
-  .sys-badge { color: #f7768e; }
-  .content { color: #e6e7e9; }
+  .etzhayyim-badge { color: var(--mani-color-accent); }
+  .user-badge { color: #b9f6c9; }
+  .sys-badge { color: var(--mani-color-danger); }
+  .content { color: var(--mani-color-text); }
   .thinking {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    color: #b9bcc4;
+    color: var(--mani-color-text-muted);
   }
   .dot {
     width: 7px;
     height: 7px;
     border-radius: 999px;
-    background: #7aa2f7;
+    background: var(--mani-color-accent);
     animation: pulse 1.2s ease-in-out infinite;
   }
-  .meta { font-size: 11px; color: #6b6f7c; margin-top: 6px; }
+  .meta { font-size: 11px; color: var(--mani-color-text-muted); margin-top: 6px; }
   .cursor {
     display: inline-block;
     margin-left: 2px;
-    color: #7aa2f7;
+    color: var(--mani-color-accent);
     animation: blink 1s steps(2) infinite;
   }
   @keyframes blink { 50% { opacity: 0; } }
@@ -128,16 +128,24 @@
     gap: 4px;
   }
   .tool {
-    background: #161922;
-    border: 1px solid #2f3445;
-    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--mani-color-hairline);
+    border-radius: 8px;
     padding: 2px 8px;
     font-size: 11px;
     display: inline-flex;
     gap: 6px;
     align-items: center;
   }
-  .tool.fail { border-color: #4a2a30; }
+  .tool.fail { border-color: rgba(255, 69, 58, 0.35); }
   .tool .ok { color: #9ece6a; }
-  .tool .err { color: #f7768e; }
+  .tool .err { color: var(--mani-color-danger); }
+  @media (max-width: 560px) {
+    .thread { gap: 12px; }
+    .bubble {
+      max-width: 92%;
+      padding: 11px 12px;
+      font-size: 14px;
+    }
+  }
 </style>

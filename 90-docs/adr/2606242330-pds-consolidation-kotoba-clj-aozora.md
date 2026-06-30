@@ -68,6 +68,18 @@ Canonical endpoint policy:
 読む。今後の実装・deploy helper・DID serviceEndpoint・docs は `app-aozora` / `aozora.app`
 を正準にする。
 
+## Addendum 2026-06-29 — `etzhayyim.com/organism` は cljs/Hiccup で表示する
+
+`https://etzhayyim.com/organism/` は、`50-infra/etzhayyim-did-web` の cljs core
+(`did-web.core`) が Hiccup から HTML を生成して返す public observation surface になった。
+`public/organism/index.html` の standalone entrypoint は退役し、`organism.json` /
+`pulse.json` / `health.json` / `joucho.json` / `trajectory.json` / `sos.json` の JSON
+snapshots だけを asset として残す。
+
+この表現は atproto/PDS の runtime boundary ではない。`app-aozora` は AT Protocol
+product boundary、`etzhayyim.com` は no-PDS public root、`/organism` は cljs-owned
+Hiccup renderer という 3 層を分離したまま保つ。
+
 ## Addendum 2026-06-24 — repo 層の kotoba-canonical 不変条件 + `app-aozora-repo`
 
 PDS の repo 層（dag-cbor block → MST → 署名 commit → `com.atproto.sync.*`）を巡る

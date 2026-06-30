@@ -13,22 +13,22 @@
          "70-tools/src"
          "70-tools"]
  :deps {com-junkawasaki/langchain-clj
-        {:git/url "https://github.com/com-junkawasaki/langchain-clj"
+        {:git/url "https://github.com/kotoba-lang/langchain"
          :git/sha "2b03859c3ee722b64f3eddd0b615a54019b17c81"}
         com-junkawasaki/langgraph-clj
-        {:git/url "https://github.com/com-junkawasaki/langgraph-clj"
+        {:git/url "https://github.com/kotoba-lang/langgraph"
          :git/sha "c7daa07d4e50f55d7e2a02e4b89dbeb2b200961d"}
         com-junkawasaki/ed25519-clj
-        {:git/url "https://github.com/com-junkawasaki/ed25519-clj"
+        {:git/url "https://github.com/kotoba-lang/ed25519"
          :git/sha "ec077bca1f90027bc718557f1e8bb6fbc004fe5a"}
         com-junkawasaki/multiformats-clj
-        {:git/url "https://github.com/com-junkawasaki/multiformats-clj"
+        {:git/url "https://github.com/kotoba-lang/multiformats"
          :git/sha "e3a75a6376441cbf7aaefefce463b404b4254404"}
         com-junkawasaki/dag-cbor-clj
-        {:git/url "https://github.com/com-junkawasaki/dag-cbor-clj"
+        {:git/url "https://github.com/kotoba-lang/dag-cbor"
          :git/sha "52b008d96820660196ee8dd15e7d213c9022a6b5"}
         com-junkawasaki/cacao-clj
-        {:git/url "https://github.com/com-junkawasaki/cacao-clj"
+        {:git/url "https://github.com/kotoba-lang/cacao"
          :git/sha "32fe0b63a815afc0827729394435deee627ea582"}
         ;; eth-crypto-clj — dependency-free Ethereum crypto (Keccak-256 / secp256k1
         ;; ecrecover + RFC-6979 ECDSA signing / EIP-712 / EIP-55 / RLP / EIP-155
@@ -36,7 +36,7 @@
         ;; first-breath's signer (replaces eth_account); verified vs the EIP-712 +
         ;; EIP-155 spec vectors.
         com-junkawasaki/eth-crypto-clj
-        {:git/url "https://github.com/com-junkawasaki/eth-crypto-clj"
+        {:git/url "https://github.com/kotoba-lang/eth-crypto"
          :git/sha "9208ecc09a32cf51627ed32eb417e4834f208324"}}
  :tasks
  {e7m

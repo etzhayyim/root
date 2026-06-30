@@ -17,8 +17,11 @@
  :actor/substrate
  {:ontology "20-actors/junkan/kotoba/ontology.junkan-gov.edn"
   :seed     "20-actors/junkan/kotoba/seed.governance-asymmetry.edn"
+  :country-region-actor-ontology "20-actors/junkan/kotoba/ontology.country-region-loop-actors.edn"
+  :country-region-actor-seed "20-actors/junkan/kotoba/seed.country-region-loop-actors.edn"
   :dataset  "80-data/junkan-governance/"
-  :methods  ["junkan_edn" "analyze" "query" "validate" "scorecard" "history" "kotoba" "autorun"]}
+  :methods  ["junkan_edn" "analyze" "query" "validate" "scorecard" "history" "kotoba" "autorun"
+             "consumer_culture" "country_region_actors"]}
 
  :actor/analyses
  [{:analysis/id "governance-asymmetry"
