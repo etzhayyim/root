@@ -73,11 +73,11 @@ import { handle as cljsHandle } from "../cljs-out/worker_core.js";
  *    + a wildcard CF route are provisioned. Both forms MUST resolve to
  *    the same actor (bidirectional pointer in the returned document).
  *
- * 3) Apex landing & all other paths — reverse-proxied to UPSTREAM_HOST
- *    (default `yoro.etzhayyim.com`). This unblocks `https://etzhayyim.com/`
- *    while a dedicated etzhayyim landing page is being authored. yoro
- *    is a SvelteKit app served from Cloudflare; assets use relative URLs
- *    so the proxy is transparent.
+ * 3) Apex landing (`/` and `/index.html`) — a static root page that presents
+ *    the mathematical / philosophical public surface of etzhayyim. All other
+ *    non-owned paths are reverse-proxied to UPSTREAM_HOST (default
+ *    `yoro.etzhayyim.com`). yoro is a SvelteKit app served from Cloudflare;
+ *    assets use relative URLs so the proxy is transparent.
  *
  * Route binding (wrangler.toml):
  *   pattern = "etzhayyim.com/*"
@@ -86,6 +86,8 @@ import { handle as cljsHandle } from "../cljs-out/worker_core.js";
  * Excluded from proxy (always served locally by this Worker):
  *   - /.well-known/did.json                — entity DID Document
  *   - /actor/<handle>/did.json             — per-actor DID Document
+ *   - /                                   — root landing page (HTML)
+ *   - /index.html                          — root landing page (HTML)
  *   - /actors                              — actor registry index (HTML, human-facing)
  *   - /.well-known/actors.json             — actor registry (machine-readable)
  *   - /donate                              — donation declaration (HTML, ADR-2606012100)
@@ -225,6 +227,141 @@ const DONATION_POLICY = {
 // Static, dependency-free, cookie-free. No external resource, no inline script
 // (Charter Rider §2(c) — the page itself must not track). Information about
 // etzhayyim's own religious activity = not advertising (ADR-2605192115 §1.2).
+const HOME_HTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>etzhayyim root</title>
+<meta name="description" content="The mathematical root surface of etzhayyim — identity, donation, actors, and dynamics arranged as a closed system.">
+<style>
+:root{color-scheme:light dark}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.6 system-ui,-apple-system,"Hiragino Kaku Gothic ProN",sans-serif;color:color-mix(in srgb,currentColor 92%,black);background:Canvas;max-width:74rem;padding:2.2rem 1.25rem 2.8rem;margin-inline:auto}
+h1{font-size:clamp(2rem,1.7rem + .7vw,2.7rem);line-height:1.05;margin:0 0 .55rem;letter-spacing:0}
+.sub{max-width:60rem;margin:0 0 1.35rem;opacity:.78}
+.hero{display:grid;grid-template-columns:minmax(18rem,1.1fr) minmax(16rem,.9fr);gap:1rem;align-items:stretch;margin:1rem 0 1.2rem}
+.panel{border:1px solid color-mix(in srgb,currentColor 18%,transparent);border-radius:.5rem;padding:1rem 1.05rem;background:color-mix(in srgb,Canvas 94%,currentColor 6%)}
+.panel h2,.section h2{font-size:1rem;margin:0 0 .55rem;line-height:1.2}
+.metrics{display:flex;flex-wrap:wrap;gap:.45rem;margin:.8rem 0 0}
+.chip{display:inline-flex;align-items:center;justify-content:center;border:1px solid currentColor;border-radius:999px;padding:.1rem .55rem;font-size:.82rem;line-height:1.2;opacity:.84}
+.kicker{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;opacity:.55;margin:0 0 .5rem}
+.flow{display:grid;gap:.6rem}
+.flow p{margin:0;opacity:.9}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem;margin:1rem 0 0}
+.card{border:1px solid color-mix(in srgb,currentColor 18%,transparent);border-radius:.5rem;padding:.82rem .9rem;background:color-mix(in srgb,Canvas 96%,currentColor 4%)}
+.card h3{font-size:.96rem;margin:0 0 .25rem;line-height:1.2}
+.card p{margin:.1rem 0 0;font-size:.94rem;opacity:.86}
+.section{margin-top:1.4rem}
+.table-wrap{overflow:auto;border:1px solid color-mix(in srgb,currentColor 18%,transparent);border-radius:.5rem}
+table{border-collapse:collapse;width:100%;min-width:42rem;background:color-mix(in srgb,Canvas 97%,currentColor 3%)}
+th,td{padding:.58rem .7rem;text-align:left;border-bottom:1px solid color-mix(in srgb,currentColor 12%,transparent);vertical-align:top}
+th{font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;opacity:.68}
+tr:last-child td{border-bottom:0}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;background:color-mix(in srgb,currentColor 9%,transparent);padding:.08rem .3rem;border-radius:.25rem}
+a{color:inherit}
+svg{display:block;width:100%;height:auto}
+.axis{stroke:currentColor;stroke-width:1.4;opacity:.35}
+.ring{fill:none;stroke:currentColor;stroke-width:1.2;opacity:.34}
+.node{fill:Canvas;stroke:currentColor;stroke-width:1.4}
+.label{font-size:10px;letter-spacing:.06em;text-anchor:middle;fill:currentColor;opacity:.72}
+.center{font-size:15px;font-weight:700;text-anchor:middle;fill:currentColor}
+.legend{font-size:12px;fill:currentColor;opacity:.78}
+footer{margin-top:2rem;font-size:.86rem;opacity:.72;line-height:1.55}
+@media (max-width: 760px){
+  .hero{grid-template-columns:1fr}
+  .grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<p class="kicker">etzhayyim.com / root</p>
+<h1>root as a bounded system</h1>
+<p class="sub">This apex is designed as a mathematical public surface: a root, not a slogan. Identity, donation, actors, and system dynamics are arranged as a closed loop with clear boundaries, readable scales, and culture-aware defaults. The shape is intentionally calm, exact, and local.</p>
+
+<div class="hero">
+  <div class="panel">
+    <h2>Root Geometry</h2>
+    <svg viewBox="0 0 640 420" role="img" aria-label="root geometry diagram">
+      <defs>
+        <marker id="arrow" markerWidth="8" markerHeight="8" refX="5" refY="4" orient="auto">
+          <path d="M0,0 L6,4 L0,8 Z" fill="currentColor" opacity="0.55"/>
+        </marker>
+      </defs>
+      <circle class="ring" cx="320" cy="210" r="150"/>
+      <circle class="ring" cx="320" cy="210" r="104"/>
+      <circle class="ring" cx="320" cy="210" r="58"/>
+      <line class="axis" x1="320" y1="44" x2="320" y2="376" marker-end="url(#arrow)"/>
+      <line class="axis" x1="136" y1="210" x2="504" y2="210" marker-end="url(#arrow)"/>
+      <line class="axis" x1="196" y1="86" x2="444" y2="334" marker-end="url(#arrow)"/>
+      <line class="axis" x1="196" y1="334" x2="444" y2="86" marker-end="url(#arrow)"/>
+      <circle class="node" cx="320" cy="210" r="24"/>
+      <text class="center" x="320" y="215">root</text>
+      <circle class="node" cx="320" cy="60" r="13"/><text class="label" x="320" y="62">12</text>
+      <circle class="node" cx="442" cy="122" r="13"/><text class="label" x="442" y="124">18</text>
+      <circle class="node" cx="480" cy="210" r="13"/><text class="label" x="480" y="212">36</text>
+      <circle class="node" cx="442" cy="298" r="13"/><text class="label" x="442" y="300">72</text>
+      <circle class="node" cx="320" cy="360" r="13"/><text class="label" x="320" y="362">108</text>
+      <text class="legend" x="320" y="392">center = invariants · rings = surfaces · arrows = flow</text>
+    </svg>
+    <div class="metrics">
+      <span class="chip">12</span>
+      <span class="chip">18</span>
+      <span class="chip">36</span>
+      <span class="chip">72</span>
+      <span class="chip">108</span>
+    </div>
+  </div>
+  <div class="panel">
+    <h2>Design Commitments</h2>
+    <div class="flow">
+      <p><strong>Boundary.</strong> Root is a public edge with explicit ownership: DID, donation, actors, and dynamics are separated, not blended.</p>
+      <p><strong>Conservation.</strong> The page avoids ornamental pressure. Presets are defaults, custom input stays visible, and nothing depends on lucky numbers.</p>
+      <p><strong>Locality.</strong> Cultural number choices are presentation-layer only. Unknown locale uses neutral counts; known locale can bias the visible defaults.</p>
+      <p><strong>Feedback.</strong> The loop is readable: root explains the mission, mission points to actors, actors point back to dynamics, dynamics point back to the root.</p>
+    </div>
+    <div class="metrics">
+      <span class="chip"><a href="/donate">donate</a></span>
+      <span class="chip"><a href="/actors">actors</a></span>
+      <span class="chip"><a href="/organism">organism</a></span>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Locale-aware defaults</h2>
+  <p class="sub">West defaults lean on complete-count units. Japanese and Chinese presentations can bias toward their own auspicious sets. These are defaults only; any amount or count remains valid.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Context</th><th>Prefer</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Neutral fallback</td><td>12, 18, 36, 72, 108</td><td>complete-count / cycle / life defaults when locale is unknown</td></tr>
+        <tr><td>West / United States</td><td>12, 24, 36, 72, 144</td><td>dozen, two-dozen, three-dozen, six-dozen, gross</td></tr>
+        <tr><td>Japan</td><td>5, 8, 88, 108, 888</td><td>go-en, outward opening, wholeness</td></tr>
+        <tr><td>Chinese-language contexts</td><td>8, 88, 168, 888</td><td>prosperity / smooth-going association</td></tr>
+        <tr><td>Jewish / Israel contexts</td><td>18, 36, 72, 108</td><td>chai / double-chai / cycle counts</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Public surfaces</h2>
+  <div class="grid">
+    <div class="card"><h3>DID and identity</h3><p><a href="/.well-known/did.json">/.well-known/did.json</a> and actor DID routes define the edge's trust surface.</p></div>
+    <div class="card"><h3>Donation and in-kind support</h3><p><a href="/donate">/donate</a> presents cash, fiat on-ramp, and compute donation without a leaderboard.</p></div>
+    <div class="card"><h3>Actors and registry</h3><p><a href="/actors">/actors</a> is the registry of resolvable actors and mirror-actors.</p></div>
+    <div class="card"><h3>System dynamics</h3><p><a href="/organism">/organism</a> shows the living loop; the page keeps the model legible before it gets large.</p></div>
+  </div>
+</div>
+
+<footer>
+Built as a zero-script, cookie-free root surface. Numeric defaults follow ADR-2606290830 as presentation only; architecture follows the same separation discipline as the kami-engine stack. Entity DID: <a href="/.well-known/did.json">did:web:etzhayyim.com</a>.
+</footer>
+</body>
+</html>
+`;
+
 const DONATE_HTML = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -2213,6 +2350,7 @@ const cljsDeps = {
   // static data
   didDoc,
   donationPolicy: DONATION_POLICY,
+  homeHtml: HOME_HTML,
   donateHtml: DONATE_HTML,
   unispscTotal: UNISPSC_TOTAL_COUNT,
   govProcMeta: {

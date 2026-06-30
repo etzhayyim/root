@@ -1,7 +1,7 @@
 ---
 id: adr-2606290830-cultural-auspicious-number-donation-and-root-design
 title: "ADR-2606290830: Cultural auspicious-number defaults for donation and root surfaces"
-status: proposed
+status: accepted
 doc_type: adr
 topic: cultural-auspicious-number-donation-and-root-design
 authoritative: true
@@ -34,7 +34,7 @@ companion_profiles:
 
 # ADR-2606290830: Cultural auspicious-number defaults for donation and root surfaces
 
-**Status**: proposed
+**Status**: accepted
 **Date**: 2026-06-29
 **Deciders**: Jun Kawasaki; Council Lv6+ for production rollout
 

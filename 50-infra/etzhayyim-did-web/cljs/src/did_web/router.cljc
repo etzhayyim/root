@@ -16,7 +16,7 @@
 
 ;; Routes that only accept GET/HEAD (a non-GET/HEAD request → 405 in the core).
 (def get-head-only
-  #{:did-json :donation-json :donate-html :actors-json :actors-html
+  #{:home-html :did-json :donation-json :donate-html :actors-json :actors-html
     :gov-units-json :gov-procedures-json :organism-html
     :actor-did :actor-profile :actor-procedures :ipfs})
 
@@ -36,7 +36,7 @@
   "Resolve {:method :path} → a route map {:route <kw> & params}.
 
   Owned by the cljs core (local content/identity surface):
-    :did-json :donation-json :donate-html :actors-json :actors-html
+    :home-html :did-json :donation-json :donate-html :actors-json :actors-html
     :gov-units-json :gov-procedures-json :gov-html :organism-html
     :actor-did :actor-profile :actor-procedures  (each + :handle, the RAW path
       segment — the core decodes + lower-cases + validates it)
@@ -62,6 +62,8 @@
        {:route :kotoba-block-get :cid c})
      ;; exact static paths
      (case p
+       "/"                                {:route :home-html}
+       "/index.html"                      {:route :home-html}
        "/.well-known/did.json"            {:route :did-json}
        "/.well-known/donation.json"       {:route :donation-json}
        "/donate"                          {:route :donate-html}
@@ -85,7 +87,7 @@
      (when-let [[_ n] (re-matches #"^/xrpc/([A-Za-z0-9._-]+)$" path)] {:route :xrpc :nsid n})
      ;; /gov (inline HTML) still on the TS fallback (next: extract the template).
      (when (= p "/gov")                                  {:route :fallback})
-     ;; everything else (SPA routes, apex landing, …) → cljs reverse proxy
+     ;; everything else (SPA routes, legacy upstream surface, …) → cljs reverse proxy
      {:route :reverse-proxy})))
 
 (defn owned?

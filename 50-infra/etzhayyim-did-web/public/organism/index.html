@@ -95,10 +95,84 @@
     .dish .cell.working{filter:drop-shadow(0 0 4px var(--alive))}
   }
 </style>
-<script src="scittle.js"></script>
 </head>
 <body>
   <div id="app"><div class="wrap"><p class="hint">organism を読み込み中…</p></div></div>
-  <script type="application/x-scittle" src="organism.cljs"></script>
+  <script>
+    const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[c]));
+    const n = (v) => new Intl.NumberFormat("en-US").format(Number(v || 0));
+    const app = document.getElementById("app");
+
+    Promise.all([
+      fetch("./organism.json", { cache: "no-store" }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
+      fetch("./pulse.json", { cache: "no-store" }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
+      fetch("./health.json", { cache: "no-store" }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
+      fetch("./joucho.json", { cache: "no-store" }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
+      fetch("./trajectory.json", { cache: "no-store" }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
+      fetch("./sos.json", { cache: "no-store" }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
+    ]).then(([org, pulse, health, joucho, traj, sos]) => {
+      const summary = org?.summary ?? {};
+      const topPulse = Object.entries(pulse?.actors ?? {})
+        .sort((a, b) => (b[1]?.lastAt ?? 0) - (a[1]?.lastAt ?? 0))
+        .slice(0, 8)
+        .map(([actor, info]) => `<li><span class="tactor">${esc(actor)}</span><span class="tsubj">${esc(info?.lastSubject ?? "")}</span><span class="tago">${n(info?.commits ?? 0)} commits</span></li>`)
+        .join("");
+      const trajCount = Array.isArray(traj?.points) ? traj.points.length : (Array.isArray(traj) ? traj.length : 0);
+      const jouchoLine = joucho?.narration ?? joucho?.text ?? joucho?.mood ?? "live mood snapshot";
+      app.innerHTML = `
+        <div class="wrap">
+          <header class="hd">
+            <h1>etzhayyim · organism</h1>
+            <div class="sub">artificial organism / live body loop</div>
+            <div class="live${health?.anyStale ? " stale" : ""}"><span class="dot"></span>${health?.anyStale ? "stale" : "live"}</div>
+          </header>
+          <div class="pills">
+            <div class="pill a"><b>${n(summary.alive ?? 0)}</b> alive</div>
+            <div class="pill d"><b>${n(summary.dormant ?? 0)}</b> dormant</div>
+            <div class="pill s"><b>${n(summary.stub ?? 0)}</b> stub</div>
+            <div class="pill"><b>${n(summary.cells ?? 0)}</b> cells</div>
+          </div>
+          <div class="cols">
+            <div>
+              <div class="card">
+                <h2>Present state</h2>
+                <div class="muted">last update: ${esc(org?.generatedAt ?? "unknown")}</div>
+                <div class="narr"><div class="narrtext">${esc(String(jouchoLine))}</div><div class="muted">trajectory points: ${n(trajCount)}</div></div>
+                <div class="legend">
+                  <span><i style="background:var(--alive)"></i>alive</span>
+                  <span><i style="background:var(--dormant)"></i>dormant</span>
+                  <span><i style="background:var(--stub)"></i>stub</span>
+                </div>
+              </div>
+              <div class="card">
+                <h2>Live activity</h2>
+                <h3>recent actors</h3>
+                <ul class="ticks">${topPulse || "<li class='tick'><span class='tsubj'>no pulse data</span></li>"}</ul>
+              </div>
+            </div>
+            <div>
+              <div class="card">
+                <h2>What this shows</h2>
+                <div class="wbline">body summary from <code>organism.json</code></div>
+                <ul class="facts">
+                  <li>heartbeat and mood from <code>pulse.json</code> / <code>joucho.json</code></li>
+                  <li>health watchdog: ${esc(health?.anyStale ? "stale layer present" : "all layers current")}</li>
+                  <li>system dynamics path: <a href="/sos">/sos</a></li>
+                  <li>live loop: <a href="/organism/">this page</a></li>
+                </ul>
+              </div>
+              <div class="card">
+                <h2>System of systems</h2>
+                <div class="muted">${esc(sos?.title ?? sos?.name ?? "system graph")}</div>
+                <p class="hint">${esc(sos?.note ?? "The organism is being rendered from local JSON snapshots. No external script is required.")}</p>
+              </div>
+            </div>
+          </div>
+          <div class="foot">If you see this page, the organism has loaded without waiting on scittle. The static snapshot stays readable even when the live browser-runtime layer is absent.</div>
+        </div>`;
+    }).catch(() => {
+      app.innerHTML = '<div class="wrap"><p class="hint">organism の読み込みに失敗しました。<a href="/sos">/sos</a> を開いてください。</p></div>';
+    });
+  </script>
 </body>
 </html>

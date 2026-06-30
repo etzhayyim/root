@@ -140,6 +140,10 @@
                "cache-control" "public, max-age=300, must-revalidate"
                "content-security-policy" csp)))
 
+(defn- home-route [deps]
+  (html-resp (dep deps "homeHtml")
+             "default-src 'none'; style-src 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; form-action 'none'"))
+
 (defn- donate-route [deps]
   (html-resp (dep deps "donateHtml")
              "default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'"))
@@ -245,6 +249,7 @@
     (if-not (router/method-allowed? route method)
       (method-not-allowed)
       (case route
+        :home-html           (home-route deps)
         :did-json            (did-json-route deps)
         :donation-json       (donation-json-route deps)
         :donate-html         (donate-route deps)

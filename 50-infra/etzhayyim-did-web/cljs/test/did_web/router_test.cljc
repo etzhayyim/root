@@ -10,6 +10,8 @@
 
 (deftest local-json-and-html-routes-owned
   (testing "the local content/identity surface is owned by the cljs core"
+    (is (= :home-html         (r "GET" "/")))
+    (is (= :home-html         (r "GET" "/index.html")))
     (is (= :did-json            (r "GET" "/.well-known/did.json")))
     (is (= :donation-json       (r "GET" "/.well-known/donation.json")))
     (is (= :donate-html         (r "GET" "/donate")))
@@ -73,11 +75,14 @@
 
 (deftest default-paths-reverse-proxied-by-cljs
   (testing "everything else (apex, SPA routes) → cljs reverse proxy"
-    (doseq [p ["/" "/search" "/profile/did:web:etzhayyim.com" "/welcome" "/feeds"]]
+    (doseq [p ["/search" "/profile/did:web:etzhayyim.com" "/welcome" "/feeds"]]
       (is (= :reverse-proxy (r "GET" p)) (str p " should be cljs reverse-proxied")))))
 
 (deftest method-policy
   (testing "owned content routes are GET/HEAD-only; others unconstrained here"
+    (is (router/method-allowed? :home-html "GET"))
+    (is (router/method-allowed? :home-html "HEAD"))
+    (is (not (router/method-allowed? :home-html "POST")))
     (is (router/method-allowed? :did-json "GET"))
     (is (router/method-allowed? :did-json "HEAD"))
     (is (not (router/method-allowed? :did-json "POST")))
@@ -87,7 +92,7 @@
 
 (deftest trailing-slash-normalized
   (testing "a trailing slash on a static content route does not change ownership"
+    (is (= :home-html (r "GET" "/index.html/")))
     (is (= :donate-html (r "GET" "/donate/")))
     (is (= :actors-html (r "GET" "/actors/")))
-    (is (= :organism-html (r "GET" "/organism/")))
-    (is (= :reverse-proxy (r "GET" "/")))))
+    (is (= :organism-html (r "GET" "/organism/")))))
