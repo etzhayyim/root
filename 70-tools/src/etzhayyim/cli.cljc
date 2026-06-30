@@ -54,6 +54,8 @@
    "bunseki"        'etzhayyim.bunseki
    "code-quality"   'etzhayyim.code-quality
    "cohort"         'etzhayyim.cohort
+   ;; manimani personal-knowledge-router CLI (ADR-2606302038, kotoba-native intake)
+   "manimani"       'etzhayyim.manimani
    ;; batch H
    "training"       'etzhayyim.training
    "vertex"         'etzhayyim.vertex
