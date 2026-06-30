@@ -117,6 +117,25 @@ checklist, zsh `$pipestatus` gotcha, merge-then-delete cleanup) live in
 - **`worktree cleanup`** — sweep every worktree: PR-merged → delete worktree+branch; no-PR-with-commits → open PR; open-PR → leave. Then reintegrate+drop every stash.
 - **`closing`** — take the current worktree to landed without further confirmation: commit → `gh pr create --base main` → `gh pr merge --squash --delete-branch` → cleanup. `closing` is the single keyword that authorizes the otherwise-confirmation-gated merge step; absent it, stop at PR-open.
 
+**PR-only to `main` — the permanent default (owner directive 2026-06-30, LOCKED).** Never
+`git push` straight to `main` and never bypass the branch-protection ruleset ("Changes must be
+made through a pull request"). Every change — even a one-file doc/ADR edit — lands via:
+
+```bash
+git fetch origin && git switch -c <topic> origin/main   # branch off origin/main; never edit main directly
+git add <my-paths> && git commit -- <my-paths>          # scope with an EXPLICIT pathspec — never `git add -A`
+git push -u origin <topic>                               # push the BRANCH, not main
+gh pr create --base main --title "…" --body "…"
+gh pr merge --squash --delete-branch                     # the normal merge route; do NOT admin-bypass
+```
+
+Rationale: the shared `main` checkout is raced by concurrent agents, and a bare `git commit`
+(no pathspec) sweeps in whatever another agent left staged in the shared index (happened
+2026-06-30: an organism-publish change rode in under an unrelated CI commit). The explicit
+pathspec + branch + PR isolates each agent's work and routes it through the protection ruleset
+instead of bypassing it. Regenerated registries (`docs.edn` / `graph.edn` / `adr-index.edn`)
+absorb the whole tree's state, so only regenerate from a clean tree and stage them deliberately.
+
 Exit with `ExitWorktree` (`keep` to preserve). The session's `/loop` iterations continue inside
 whatever worktree the session is in.
 
