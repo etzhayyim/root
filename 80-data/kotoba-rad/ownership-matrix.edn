@@ -136,7 +136,15 @@
    :declared? false},
   "hinagata"
   {:rid "bafkreibvhu3hu4tdq4t7fxjfgcksotoqnlzygrs752xwykup525kqudr74",
-   :datasets (),
+   :datasets
+   ({:dataset-id "legal-templates",
+     :layer :repo,
+     :source "legal document templates (jurisdictional bodies)",
+     :cidv1
+     "bafkreihlnprpvoigv65sr6kw43tm4tctawjtgc76gbibkdr2rje2suukhy",
+     :freshness-days 0,
+     :retrieved "2026-06-30",
+     :counts-toward-world-coverage false}),
    :declared? false},
   "toritsugi-dnk-passport"
   {:rid
@@ -1087,7 +1095,15 @@
    :declared? false},
   "rasen"
   {:rid "bafkreic3wlibpsbmtjoppsvfj4r53h734pugegd2762i4fgtfq56d7wkny",
-   :datasets (),
+   :datasets
+   ({:dataset-id "genome",
+     :layer :repo,
+     :source "genome graph (mygene/myvariant/reactome)",
+     :cidv1
+     "bafkreiamcn6vz4iuqtri6cbjtrse2koz7dfxxyde5rknfypx3ukj5elfvm",
+     :freshness-days 0,
+     :retrieved "2026-06-30",
+     :counts-toward-world-coverage false}),
    :declared? false},
   "toritsugi-pl-municipal"
   {:rid
@@ -1454,8 +1470,10 @@
    :datasets (),
    :declared? false}},
  :datasets
- {"junkan-governance" {:holders ["junkan"], :layers [:repo]},
+ {"legal-templates" {:holders ["hinagata"], :layers [:repo]},
+  "junkan-governance" {:holders ["junkan"], :layers [:repo]},
   "kanjo-coverage" {:holders ["kanjo"], :layers [:repo]},
+  "genome" {:holders ["rasen"], :layers [:repo]},
   "toritsugi-procedures" {:holders ["toritsugi"], :layers [:repo]},
   "tsumugi-power" {:holders ["tsumugi"], :layers [:repo]},
   "uchiwake-coverage" {:holders ["uchiwake"], :layers [:repo]}}}
