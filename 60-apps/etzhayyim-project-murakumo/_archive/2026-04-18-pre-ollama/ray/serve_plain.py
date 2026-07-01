@@ -105,6 +105,39 @@ def _r2_model_base_candidates() -> list[str]:
     return unique
 
 
+def _safe_tar_filter(member, path):
+    """tarfile extraction filter that blocks Zip Slip (Bandit B202).
+
+    Rejects any member whose resolved destination escapes the target dir
+    (via ``..`` or absolute paths) and drops unsafe file types (symlinks,
+    hardlinks, device/pipe files). Equivalent in spirit to Python 3.12's
+    ``filter='data'`` but works on older runtimes too.
+    """
+    import os
+    import tarfile
+
+    # Reject link members outright — model archives are plain files only.
+    if member.issym() or member.islnk():
+        return None
+    if member.isdev() or member.ischr() or member.isblk() or member.isfifo():
+        return None
+
+    # Resolve the member path against the extraction base and ensure the
+    # final destination stays inside it.
+    base = os.path.abspath(path)
+    target = os.path.abspath(os.path.join(base, member.name))
+    if os.path.commonpath([base, target]) != base:
+        raise tarfile.TarError(
+            f"unsafe tar member path escapes extraction dir: {member.name!r}"
+        )
+    # Cap extracted size to a sane bound (512 MiB) to blunt zip-bomb attempts.
+    if member.isreg() and member.size > 512 * 1024 * 1024:
+        raise tarfile.TarError(
+            f"oversized tar member rejected: {member.name!r} ({member.size} bytes)"
+        )
+    return member
+
+
 def _r2_download_model(model_id: str) -> str:
     import tarfile
     import time
@@ -132,7 +165,10 @@ def _r2_download_model(model_id: str) -> str:
                 resp.raise_for_status()
                 snapshot_dir.mkdir(parents=True, exist_ok=True)
                 with tarfile.open(fileobj=BytesIO(resp.content), mode="r:gz") as tar:
-                    tar.extractall(path=str(snapshot_dir))
+                    # Zip Slip hardening (Bandit B202): sanitize every member so
+                    # a malicious archive cannot escape snapshot_dir via "../"
+                    # or absolute paths, and drop unsafe file types (links/devs).
+                    tar.extractall(path=str(snapshot_dir), filter=_safe_tar_filter)
                 return str(snapshot_dir)
             except Exception as e:
                 last_err = e
