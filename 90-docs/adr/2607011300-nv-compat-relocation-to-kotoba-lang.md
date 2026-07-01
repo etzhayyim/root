@@ -98,45 +98,46 @@ git history not preserved — see Alternatives Considered).
   needed updating; ADR-2605261800's own body is left as the historical record
   of what was decided and where it was first built.
 
-## Amendment (2026-07-01): first kami-engine backend slice lands (`kami-isaac-sim-wasm`)
+## Amendment (2026-07-01): `kami-isaac-sim-wasm` attempted, then superseded same day
 
-Per Consequences' forward pointer below, the eventual Rust `kami-engine`
-backend swap (A2) got its first concrete slice the same day as the
-relocation, ahead of the original "later" framing:
+Per Consequences' forward pointer below, a first concrete slice of the
+eventual Rust `kami-engine` backend swap (A2) was attempted the same day as
+the relocation — and then overtaken by a bigger, independent decision before
+it could land. Recorded here for the honest trail, not as a completed step.
 
-- New crate **`kotoba-lang/kami-engine/kami-isaac-sim-wasm`**: a
-  wasm-bindgen bridge generalizing the existing `kami-cartpole-wasm`
-  precedent (fixed Cartpole topology only) to load **any** URDF, exposing
-  `kami-genesis::IsaacWorld` / `ArticulationView(Mut)` /
-  `ArticulationController` (RNEA/CRBA Featherstone dynamics + PD control —
-  208 tests in `kami-genesis` alone, cross-validated against cartpole /
-  double-pendulum / arm fixtures) directly to JS. Confirms the survey
-  finding behind A2: `kami-genesis` already implements the exact ground
-  `kami-nv-compat`'s `dynamics/`/`controllers/`/`actions/`/`assets/`
-  (~3,150 lines) reimplements from scratch in TypeScript.
-- Verified end-to-end: 4 native `cargo test` cases (cartpole lifecycle, PD
-  position-target-tracking — mirrors `kami-genesis`'s own
-  `isaac_controller_pd_drives_cart_to_target` test — arm pose/Jacobian,
-  reset), `wasm-pack build --target nodejs` succeeds, and a vendored copy of
-  that build drives 4 passing Node/vitest tests in `kami-nv-compat`
-  (`test/isaac-sim-wasm-bridge.smoke.test.ts`, see
-  `kami-nv-compat/vendor/kami-isaac-sim-wasm/README.md` for provenance).
-- **Not yet wired into `kami-nv-compat`'s public API**: `isaac-sim.ts` /
-  `e7m-sim/index.ts` still run the from-scratch TS engine unchanged. WASM
-  instantiation is inherently async (`WebAssembly.instantiate` /
-  `wasm-bindgen` init) while `new World(...)` / `new Articulation(...)` are
-  synchronous today across 486 existing tests — swapping the engine
-  requires deciding how to reconcile that (top-level async init before
-  first use is the likely shape) before `dynamics/`/`controllers/`/
-  `actions/` can actually be deleted. Tracked as follow-up, not done here.
-- Workspace hygiene note: `kotoba-lang/kami-engine`'s `main` has a
-  pre-existing, unrelated broken path dependency (`kami-script-runtime` →
-  `kototama`, expected at `orgs/kotoba-lang/kototama` but the repo is still
-  at `orgs/com-junkawasaki/kototama`, not yet migrated per ADR-2606302300),
-  which blocks whole-workspace `cargo` commands. Worked around by testing
-  `kami-isaac-sim-wasm` as a temporarily-standalone crate
-  (`[workspace] members = []` override, reverted before commit); not fixed
-  as part of this amendment (a different crate's problem).
+- Built **`kami-isaac-sim-wasm`**: a wasm-bindgen bridge generalizing the
+  existing `kami-cartpole-wasm` precedent (fixed Cartpole topology only) to
+  load **any** URDF, exposing `kami-genesis::IsaacWorld` /
+  `ArticulationView(Mut)` / `ArticulationController` (RNEA/CRBA Featherstone
+  dynamics + PD control — 208 tests in `kami-genesis` alone, cross-validated
+  against cartpole / double-pendulum / arm fixtures) directly to JS.
+  Verified end-to-end at the time: 4 native `cargo test` cases, a
+  `wasm-pack build --target nodejs` success, and a vendored copy of that
+  build driving 4 passing Node/vitest tests in `kami-nv-compat`
+  (`test/isaac-sim-wasm-bridge.smoke.test.ts` — kept as a record of the
+  approach; `vendor/kami-isaac-sim-wasm/README.md` documents it as
+  proof-of-bridge only, never wired into the public API).
+- **Never pushed to `kotoba-lang/kami-engine`.** Before pushing, a fresh
+  fetch surfaced commit `34f43af` ("Remove Rust workspace from kami-engine
+  (#82)", Jun Kawasaki, 2026-07-01 11:33 JST) — predating this crate's local
+  build but not yet picked up by the local `west`-pinned checkout (pinned
+  behind, so `cargo test` still ran against the old, now-removed Rust tree).
+  `kami-engine`'s `main` now carries **zero `.rs`/`Cargo.toml` files**; its
+  README states the Rust workspace is gone and native runtimes should live
+  in adapter repositories consuming the CLJ/EDN/WIT/fixture assets kept
+  there instead. Per owner direction: kami-engine (and the broader
+  `kotoba-lang` org) is moving off Rust entirely toward Kotoba/Clojure —
+  `kami-webgpu` ("no Rust/wasm", pure EDN render-IR) and `kototama`
+  (Clojure/EDN → WebAssembly compiler) are the emerging replacement pattern
+  for what `kami-genesis` used to do in Rust. No CLJ port of the
+  Featherstone articulated-dynamics solver exists yet as of this writing.
+- **This invalidates the A2/Consequences framing below** ("same-org Rust
+  refactor" is no longer the direction) and the earlier survey this ADR's
+  Decision section leaned on (`kami-genesis`'s 208 Rust tests no longer
+  exist in the repo). The `kami-isaac-sim-wasm` source is kept locally
+  (uncommitted to any shared branch beyond a personal `kami-engine` clone)
+  as a reference for whatever eventually reimplements this surface in CLJ —
+  it is not on a path to being merged as Rust.
 
 # Consequences
 
@@ -152,13 +153,14 @@ relocation, ahead of the original "later" framing:
   amendment's "iter 71–109" trail) already sits past the shallow boundary.
   The ADR trail (2605261800 + this ADR) is the durable record of *why* and
   *when*; per-line blame is not preserved.
-- The eventual Rust `kami-engine` backend swap (ADR-2605261800 §D6/§D7,
-  `kami-genesis`/`kami-articulated`/`kami-rt`/`kami-usd` — a mix of
-  substantial (`kami-genesis`, `kami-shugyo`, `kami-sensor-sim`) and
-  still-stub (`kami-pbrt`, `kami-replicator`, `kami-app-amenominaka`) crates)
-  is now a same-org (`kotoba-lang`) refactor instead of a cross-org one. The
-  Isaac Sim slice of it has a working proof-of-bridge as of the same-day
-  amendment below (`kami-isaac-sim-wasm`); not yet wired into the TS facade.
+- **Superseded same day, see amendment below**: ADR-2605261800 §D6/§D7's
+  planned Rust `kami-engine` backend (`kami-genesis`/`kami-articulated`/
+  `kami-rt`/`kami-usd`) no longer exists — `kami-engine` dropped its entire
+  Rust workspace on 2026-07-01 in favor of a Kotoba/Clojure direction. The
+  Isaac Sim slice got a working Rust proof-of-bridge the same day
+  (`kami-isaac-sim-wasm`) that was never merged as a result. Whatever
+  eventually backs `kami-nv-compat`'s facade beyond its own TypeScript will
+  most likely be CLJ/CLJC (via `kototama`'s Clojure→WASM path), not Rust.
 
 # Alternatives Considered
 
