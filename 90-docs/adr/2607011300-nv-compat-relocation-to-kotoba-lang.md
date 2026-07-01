@@ -139,6 +139,51 @@ it could land. Recorded here for the honest trail, not as a completed step.
   as a reference for whatever eventually reimplements this surface in CLJ —
   it is not on a path to being merged as Rust.
 
+## Amendment (2026-07-01, later same day): the named replacement pattern has no execution layer either
+
+A follow-up survey of `kotoba-lang`'s WASM/UI/HTML/CSS/browser repos (12
+repos checked directly, org-wide sweep of 157) found that the first
+amendment's own proposed replacement path — "`kototama` (Clojure/EDN →
+WebAssembly compiler) are the emerging replacement pattern for what
+`kami-genesis` used to do in Rust" — is itself hollowed out, same day:
+
+- `kotoba-lang/kototama`'s most recent commit (2026-07-01) is **"Remove
+  Rust wrapper (#14)"** — the Cargo/wasm-bindgen compiler that actually did
+  Clojure→WASM compilation is gone. What remains is a pure CLJC
+  "authority/contract" layer (`kototama.contract` host-capability grants +
+  an organism/cell runtime), not an executor. Real WASM execution is
+  explicitly deferred in its own README to unspecified future "host adapter
+  repos."
+- `kotoba-lang/aiueos` ("Capability-secure Wasm component OS —
+  Kotoba-defined, Kototama-executed") had the identical pivot the same day:
+  **"Remove Rust runtime from aiueos authority (#14)"** — its Cargo/QEMU
+  smoke scripts are gone too, leaving EDN-only component-manifest/policy
+  contracts and an explicit README statement that "runtime implementations,
+  Wasm engines, VM boot flows, browser adapters ... live in host adapter
+  repositories" that do not yet exist in the org.
+- So as of this writing, **no repo in `kotoba-lang` executes Clojure (or
+  anything else) as WASM.** `kototama`'s and `aiueos`'s own contract layers
+  are real and tested, but the "Kototama-executed" half of that sentence is
+  currently aspirational, not a name for a working thing this ADR (or any
+  future `kami-nv-compat` backend swap) could depend on today.
+- Adjacent, non-substituting data points from the same survey, for whoever
+  picks this up next: `kotoba-lang/wasm-ui` ("kotoba DOM-compatible WASM UI
+  substrate") is real, tested CLJC code with its own WIT-shaped ABI
+  contract — but its shipped renderers are plain ClojureScript (shadow-cljs
+  → JS), not `.wasm` binaries; "WASM" there names a *future guest ABI*, not
+  the current execution model. `kotoba-lang/kami-webgpu` (declarative
+  WebGPU from EDN, "no Rust/wasm") is the most mature/active repo in that
+  survey and the closest thing to a working CLJS-drives-GPU precedent, but
+  it targets 3D scenes/games, not a general compute/dynamics backend, and
+  has no cross-reference to `wasm-ui`, `kototama`, or this ADR's concerns.
+- **Net effect on this ADR's own forward pointer**: the amendment above
+  said "whatever eventually backs `kami-nv-compat`'s facade beyond its own
+  TypeScript will most likely be CLJ/CLJC (via `kototama`'s Clojure→WASM
+  path)." That target now has no executor to route through. This ADR
+  records that gap rather than picking a new target — there is no CLJ/CLJC
+  Featherstone-dynamics or WASM-execution substrate anywhere in `kotoba-lang`
+  today for a future amendment to point `kami-nv-compat`'s backend at.
+
 # Consequences
 
 - `kami-nv-compat` becomes independently versioned and installable by any
@@ -203,3 +248,6 @@ adjacent code.
 - `kotoba-lang/kami-nv-compat` (new repo, `README.md` for provenance)
 - `kotoba-lang/kami-engine/kami-isaac-sim-wasm` (new crate, first backend slice)
 - `kotoba-lang/kami-nv-compat/vendor/kami-isaac-sim-wasm/README.md` (proof-of-bridge smoke test provenance)
+- `kotoba-lang/kototama` (Clojure/EDN→WASM compiler — Rust wrapper removed 2026-07-01, contract-only as of this writing)
+- `kotoba-lang/aiueos` (capability-secure Wasm component OS — Rust runtime removed 2026-07-01, contract-only as of this writing)
+- `kotoba-lang/wasm-ui`, `kotoba-lang/kami-webgpu` (adjacent CLJS/EDN-driven browser-rendering precedents surveyed the same day; neither substitutes for a WASM-execution or Rust-dynamics backend)
