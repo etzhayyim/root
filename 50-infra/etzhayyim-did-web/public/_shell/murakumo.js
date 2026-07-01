@@ -37,7 +37,7 @@
     return k === "substrate-service" ? "svc" : k === "pulse-only" ? "pulse" : "";
   };
 
-  function build(reg, pulse, rad, health) {
+  function build(reg, pulse, rad, health, obs) {
     var pa = (pulse && pulse.actors) || {};
     var regActors = (reg && reg.actors) || [];
     var actors = regActors.map(function (a) {
@@ -74,6 +74,7 @@
     };
     all = actors.concat(extra);
     D.rad = (rad && rad.actors) || {};
+    D.observatory = obs || null;
     D.mono = {};
     ((rad && rad.monorepoDirs) || []).forEach(function (h) { D.mono[h] = 1; });
     D.health = health || null;
@@ -228,6 +229,25 @@
     return html;
   }
 
+  function renderObservatory() {
+    var o = D.observatory;
+    if (!o) return '<p class="mk-loading">observatory.json がありません（<code>bb observatory:regen --live</code> で生成）。</p>';
+    var t = o.totals || {};
+    var head = '<div class="mk-bound">観測ミラー廃止 → <b class="live">first-party 観測アクター</b>（' + esc(o.mode || "") + '）。<b>' +
+      Number(t.entities || 0).toLocaleString() + '</b> エンティティが keyless mirror から自己鍵・自己進化・投稿する first-party actor へ。voiceOf=etzhayyim / isObservatory（実体になりすまさない）· ' +
+      (o.councilRatified ? 'Council-ratified · member-sign-ready' : 'dry-run') + '</div>';
+    var cards = (o.namespaces || []).map(function (n) {
+      return '<div class="mk-card live"><div class="top"><span class="mk-glyph">' + esc(n.glyph || "·") + '</span>' +
+        '<span class="mk-handle">' + esc(n.ns) + '</span><span class="mk-kind pulse">' + esc(n.postStatus) + '</span></div>' +
+        '<div class="mk-meta"><span class="mk-commits">' + Number(n.total || 0).toLocaleString() + ' actors</span>' +
+        '<span>' + (n.allDisclosed ? '✓ voiceOf=etzhayyim' : '⚠ disclosure') + '</span>' +
+        (n.allGrew ? '<span>✓ grew</span>' : '') + '</div>' +
+        '<div class="mk-desc" title="' + esc((n.sampleSubjects || []).join(", ")) + '">' + esc((n.sampleSubjects || []).slice(0, 6).join(" · ")) + '</div></div>';
+    }).join("");
+    return head + '<div class="mk-grid">' + cards + '</div>' +
+      '<p class="mk-foot">was: ' + esc(o.was || "") + ' → now: ' + esc(o.now || "") + ' · source <a href="/observatory.json">/observatory.json</a> · ADR ' + esc(o.adr || "") + ' · generated ' + esc(o.generatedAt || "") + '</p>';
+  }
+
   function renderViews() {
     var rows = filtered();
     var cnt = document.getElementById("mk-count");
@@ -236,7 +256,9 @@
     if (sortSeg) sortSeg.style.display = view === "grid" ? "" : "none";
     var host = document.getElementById("mk-views");
     host.innerHTML = view === "grid" ? renderGrid(rows)
-      : view === "timeline" ? renderTimeline(rows) : renderLineage(rows);
+      : view === "timeline" ? renderTimeline(rows)
+      : view === "observatory" ? renderObservatory()
+      : renderLineage(rows);
   }
 
   function seg(id, items, current, onpick) {
@@ -289,7 +311,7 @@
       '<div class="mk-stats">' + statHtml + '</div>' +
       '<div class="mk-bar">' +
       '<input id="mk-q" placeholder="検索: handle / 説明 / kind / glyph …" autocomplete="off">' +
-      seg("mk-view", [["grid", "グリッド"], ["timeline", "時系列"], ["lineage", "家系"]], view) +
+      seg("mk-view", [["grid", "グリッド"], ["timeline", "時系列"], ["lineage", "家系"], ["observatory", "観測"]], view) +
       seg("mk-filter", [["live", "稼働中"], ["all", "全件"], ["svc", "substrate"]], filter) +
       seg("mk-sort", [["commits", "活動量順"], ["recent", "最終稼働順"], ["name", "名前順"]], sort) +
       '<span class="mk-count" id="mk-count"></span>' +
@@ -328,9 +350,10 @@
     fetch("/.well-known/actors.json", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); }),
     fetch("/organism/pulse.json", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); }),
     fetch("/_shell/actor-rad.json", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }),
-    fetch("/organism/health.json", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })
+    fetch("/organism/health.json", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }),
+    fetch("/observatory.json", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })
   ]).then(function (res) {
-    build(res[0], res[1], res[2], res[3]);
+    build(res[0], res[1], res[2], res[3], res[4]);
     shell();
   }).catch(function (err) {
     root.innerHTML = '<p class="mk-loading">live pulse を読み込めませんでした（' + esc(String(err)) +

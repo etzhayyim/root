@@ -67,6 +67,41 @@ Do **one** actor / one small namespace (cable=14) end-to-end, verify the public
 record reads `voiceOf=etzhayyim` / `isObservatory` and never claims to *be* the
 entity, then widen. Do **not** flip all 8,888 at once.
 
+## The concrete signer (kagi + kotoba-lang)
+
+`etzhayyim.observatory-sign` (bb task `observatory:member-publish`) is the real
+backend for steps 2+4, composing the actual libraries:
+
+- **member key** — `etzhayyim.kotoba-rad-sign/keychain-read` reads your PKCS8 key
+  b64 from macOS Keychain (`security find-generic-password -s etzhayyim.kotoba-rad
+  -a <actor> -w`). The agent never holds it; absent → nothing publishes.
+- **leash** — `kagi.cacao/mint` (kagi-clj) mints a depth-1 `datom:transact` CACAO
+  with **your** key: `aud` = the kotoba node operator DID, `scope` = your
+  key-derived graph (`k51…`), short `expiry` = the off-switch.
+- **publish** — `langchain.kotoba-db/kotoba-api :transact!` (kotoba-lang) posts the
+  `com.etzhayyim.observatory.post` record to `https://kotobase.net`
+  (`ai.gftd.apps.kotobase.datomic.transact`) present-only (`cacao_b64` +
+  `x-kotoba-did`); the node verifies your CACAO (`kotoba-auth DelegationChain`) and
+  attributes the write to **you** (`iss` = your did:key).
+
+Deps (member's classpath — west-fetched `:local/root`, NOT on the agent/CI path):
+`kagi-clj` (`../../com-junkawasaki/kagi-clj`, needs BouncyCastle), `langchain`
+(`../../kotoba-lang/langchain`), `ed25519-clj` (`../../com-junkawasaki/ed25519-clj`).
+Add them to a `bb.edn` `:deps` (or a `-Sdeps`) before running; without them the task
+throws a clear *"member-publish dependency unavailable"* hint and publishes nothing.
+
+```bash
+# member runtime only — sealed Keychain key present, non-cron, explicit
+ETZHAYYIM_MEMBER_DID="did:web:etzhayyim.com:<you>" \
+  bb observatory:member-publish --actor cable-marea \
+     --aud "<kotoba-node-operator-did>" --ttl 900 \
+     --subject "MAREA" --text "public-record observatory online"
+```
+
+Wire it into `observatory:submit` by setting `ETZHAYYIM_MEMBER_SIGN_CMD` /
+`ETZHAYYIM_MEMBER_PUBLISH_CMD` to invoke this task per post, so the batch gate
+(non-cron / `--yes` / charter scan) still fronts every publish.
+
 ## Invariants (do not weaken)
 
 - **no-server-key**: the agent / Worker / cron holds no signing key; the member's
