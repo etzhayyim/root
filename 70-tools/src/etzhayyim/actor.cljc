@@ -99,10 +99,13 @@
                 :claims-to-be-entity false :targets-person? false})]
      (if (= :veto (:verdict scan))
        {:from (:handle d) :blocked? true :scan scan}
-       (let [inferred (when infer-fn
-                        (try (let [t (infer-fn (converse-prompt d message))]
-                               (when (and t (seq (str t))) (str t)))
-                             (catch #?(:clj Throwable :cljs :default) _ nil)))
+       (let [raw (when infer-fn
+                   (try (let [t (infer-fn (converse-prompt d message))]
+                          (when (and t (seq (str t))) (str t)))
+                        (catch #?(:clj Throwable :cljs :default) _ nil)))
+             ;; content catastrophe floor on the fleet output — a Murakumo reply
+             ;; that trips it is discarded (fall open to the template).
+             inferred (when (and raw (= :pass (:verdict (channel/content-scan raw)))) raw)
              tmpl (str (when (:glyph d) (str (:glyph d) " ")) (:handle d)
                        " (etzhayyim の " (:domain d) " 観測アクター): "
                        "「" (str/trim (str message)) "」 — 公開記録に基づき観測を返します"

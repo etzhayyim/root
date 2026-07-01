@@ -23,7 +23,7 @@
 {:paths ["70-tools/src"]
  :deps  {com-junkawasaki/kagi-clj       {:local/root "../../com-junkawasaki/kagi-clj"}
          kotoba-lang/langchain          {:local/root "../../kotoba-lang/langchain"}
-         com-junkawasaki/ed25519-clj    {:local/root "../../com-junkawasaki/ed25519-clj"}
+         kotoba-lang/ed25519            {:local/root "../../kotoba-lang/ed25519"}
          org.bouncycastle/bcprov-jdk18on {:mvn/version "1.78.1"}}
  :tasks
  {observatory:member-publish

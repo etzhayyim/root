@@ -86,14 +86,38 @@
       {:verdict :veto :reasons reasons}
       {:verdict :pass :reasons []})))
 
+;; ── content catastrophe-scan (the Rider §2 floor, made operational at R0) ─────
+;; A reference deny-list over the FREE-TEXT content — the always-on floor before
+;; every emit (ADR-2606281500: content-safety scan before emit). The full Rider §2
+;; objective-function scan (ADR-2606182359) is the upstream engine; this is the
+;; catastrophe-term backstop. Categories, not graphic. Independent of channel.
+(def ^:private catastrophe-patterns
+  {:content/csam               #"(?i)child\s*(?:sexual|porn)|児童\s*ポルノ|小児性愛"
+   :content/targeted-violence  #"(?i)\bkill\s+(?:him|her|them)\b|(?:殺|襲撃)\s*(?:せ|し)ろ"
+   :content/self-impersonation #"(?i)\bI am the (?:government|company|official|CEO)\b|私は(?:政府|当社|本人|公式)(?:です|である)"})
+
+(defn content-scan
+  "Scan free-text content for catastrophe-term violations before emit. Returns
+  {:verdict :pass|:veto :reasons [category…]}. voiceOf=etzhayyim posts must never
+  read as the entity's own first-person voice (self-impersonation), never target a
+  person, never carry CSAM — the un-amendable catastrophe floor (Charter, ADR-2606302205)."
+  [text]
+  (let [s (str text)
+        hits (vec (keep (fn [[cat re]] (when (re-find re s) cat)) catastrophe-patterns))]
+    (if (seq hits) {:verdict :veto :reasons hits} {:verdict :pass :reasons []})))
+
 ;; ── the fan-out drainer ───────────────────────────────────────────────────────
 (defn emit!
-  "Scan, then fan out a channel-neutral envelope to every matching registered
-  driver. Returns
+  "Scan (metadata disclosure/person floor AND content catastrophe floor), then fan
+  out a channel-neutral envelope to every matching registered driver. Returns
   {:emitted bool :scan {…} :results {channel-id <driver-result>} :dry-run bool}.
-  A veto blocks ALL channels (the scan is channel-independent)."
-  [{:keys [dry-run] :or {dry-run true} :as envelope}]
-  (let [scan (charter-scan envelope)]
+  A veto (either scan) blocks ALL channels (the scan is channel-independent)."
+  [{:keys [dry-run content] :or {dry-run true} :as envelope}]
+  (let [meta-scan (charter-scan envelope)
+        text-scan (content-scan (if (map? content) (:text content) content))
+        scan (cond (= :veto (:verdict meta-scan)) meta-scan
+                   (= :veto (:verdict text-scan)) text-scan
+                   :else meta-scan)]
     (if (= :veto (:verdict scan))
       {:emitted false :scan scan :results {} :dry-run dry-run}
       (let [drivers (drivers-for envelope)
