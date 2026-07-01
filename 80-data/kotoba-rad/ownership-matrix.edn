@@ -1154,7 +1154,16 @@
    :declared? false},
   "junkan"
   {:rid "bafkreic2rwhxp6i3dii243o34kogjv7brkbf5nurrvghdsx67fxia5bq44",
-   :datasets (),
+   :datasets
+   ({:dataset-id "junkan-governance",
+     :layer :repo,
+     :source
+     "citizen↔state structural-asymmetry instruments (laws/institutions/doctrines, ADR-2605290927)",
+     :cidv1
+     "bafkreialu7a7rpzlrihghv6cm4mxqnx3zdp5iaitmra4kuhsibtfg4zlhu",
+     :freshness-days 0,
+     :retrieved "2026-06-22",
+     :counts-toward-world-coverage false}),
    :declared? false},
   "toritsugi-ng-national"
   {:rid
@@ -1438,5 +1447,6 @@
  :datasets
  {"kanjo-coverage" {:holders ["kanjo"], :layers [:repo]},
   "toritsugi-procedures" {:holders ["toritsugi"], :layers [:repo]},
-  "uchiwake-coverage" {:holders ["uchiwake"], :layers [:repo]}}}
+  "uchiwake-coverage" {:holders ["uchiwake"], :layers [:repo]},
+  "junkan-governance" {:holders ["junkan"], :layers [:repo]}}}
 

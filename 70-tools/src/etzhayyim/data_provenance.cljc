@@ -80,6 +80,19 @@
                           (catch Exception _ nil))))
         (file-seq (io/file actors-dir))))
 
+(defn data-dataset-cids
+  "Content-CIDs of 80-data dataset projection files (*.kotoba.edn), computed via
+   cid-of-file so :rad/cidv1 can point at a dataset projection file directly
+   (complements known-cids-in, which only collects CID strings mentioned INSIDE
+   provenance/pin/manifest files). ADR-2607010001."
+  [data-dir]
+  (into #{}
+        (comp (filter #(.isFile %))
+              (filter #(str/ends-with? (.getName %) ".kotoba.edn"))
+              (keep #(try (cid/cid-of-file (.getPath %))
+                          (catch Exception _ nil))))
+        (file-seq (io/file data-dir))))
+
 (defn validate-holding
   "Required fields present? cidv1 resolves to a CID recorded in 80-data?
    Returns {:dataset-id :ok? :missing-required :cid-resolves?}."
@@ -96,8 +109,9 @@
   "Sweep RAD journals, cross-check holdings against 80-data CIDs.
    Returns {:actors :holdings :ok :problems}."
   [{:keys [rad-dir data-dir actors-dir]}]
-  (let [known   (into (known-cids-in data-dir)
-                      (when actors-dir (actor-dataset-cids actors-dir)))
+  (let [known   (-> (known-cids-in data-dir)
+                    (into (when actors-dir (actor-dataset-cids actors-dir)))
+                    (into (data-dataset-cids data-dir)))
         hs      (all-holdings rad-dir)
         results (for [{:keys [actor datasets]} hs
                       h datasets
