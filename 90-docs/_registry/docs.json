@@ -13264,14 +13264,16 @@
         "40-engine/kami-engine/kami-sensor-sim",
         "40-engine/kami-engine/kami-replicator",
         "40-engine/kami-engine/kami-app-amenominaka",
-        "20-actors/etzhayyim-sdk/nv-compat",
+        "kotoba-lang/kami-nv-compat",
+        "kotoba-lang/kami-engine/kami-isaac-sim-wasm",
         "40-engine/kotoba/crates/kotoba-kotodama/py/kotodama/nv_compat"
       ],
       "related": [
         "adr-2605242000-roso-pattern-frontier-distill",
         "adr-2605252500-sarutahiko-heavy-truck-manufacturing-r0",
         "adr-2605261500-suki-farm-tractor-tier-b-actor-r0",
-        "adr-2605231400-kotoba-datomic-holochain-iso-substrate"
+        "adr-2605231400-kotoba-datomic-holochain-iso-substrate",
+        "adr-2607011300-nv-compat-relocation-to-kotoba-lang"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -27170,6 +27172,30 @@
       "depends_on": [
         "adr-2606061900",
         "adr-2607010900"
+      ],
+      "last_verified": "2026-07-01",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2607011300-nv-compat-relocation-to-kotoba-lang.md",
+      "id": "adr-2607011300-nv-compat-relocation-to-kotoba-lang",
+      "title": "ADR-2607011300: nv-compat relocation from etzhayyim-sdk to kotoba-lang/kami-nv-compat",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "nv-compat-relocation",
+      "authoritative": true,
+      "authoritative_for": [
+        "kami-nv-compat repo location",
+        "kami-isaac-sim-wasm (kotoba-lang/kami-engine)"
+      ],
+      "related": [
+        "adr-2606011500-kami-engine-reusable-vs-repo-specific-separation-plan"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605261800-nvidia-omniverse-stack-api-compat"
       ],
       "last_verified": "2026-07-01",
       "amends": [],
