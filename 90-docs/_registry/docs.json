@@ -27088,6 +27088,65 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2607010900-yomi-news-intelligence-actor-r0.md",
+      "id": "adr-2607010900-yomi-news-intelligence-actor-r0",
+      "title": "yomi 読み — news-intelligence actor (Tier-B R0; intel-LLM ⊣ IntelGovernor over the kawaraban mirror; a SOURCE/voice, autonomous publication)",
+      "status": "proposed-pending-council-ratification",
+      "doc_type": "adr",
+      "topic": "yomi-news-intelligence-actor",
+      "authoritative": true,
+      "authoritative_for": [
+        "yomi actor scope (news-INTEL SOURCE over the kawaraban mirror; intel-LLM sealed + independent IntelGovernor; langgraph-clj StateGraph sibling of sng)",
+        "the IntelGovernor invariants (HOLD: unsourced-claim, missing-provenance, non-open-fulltext, libel-risk, non-fleet-model, no-actuation; PUBLISH gate: credibility≥0.7 / priority≥0.45)",
+        "the autonomous-publication doctrine for intel assessments (no interrupt-before / no council signoff; ADR-2606281500; bounded by Governor + catastrophe-veto)",
+        "the PUBLIC/PRIVATE store split (subscribed kawaraban mirror edges = public observe; fulltext cache + intel assessments + ledger = PRIVATE, never written to a public Datom log)"
+      ],
+      "related": [
+        "com-etzhayyim-yomi (sovereign repo, github.com/etzhayyim/com-etzhayyim-yomi)",
+        "60-apps/etzhayyim-project-news/docs/260424-news-intel-actor-process-design.md (legacy intel pipeline design, reused charter-clean)"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606281500",
+        "adr-2606061900",
+        "adr-2606131600",
+        "adr-2607010930",
+        "adr-2605312345",
+        "adr-2605262130",
+        "adr-2605215000"
+      ],
+      "last_verified": "2026-07-01",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2607010930-kawaraban-g4-internal-fulltext-buffer.md",
+      "id": "adr-2607010930-kawaraban-g4-internal-fulltext-buffer",
+      "title": "kawaraban G4 internal fulltext buffer — PRIVATE analysis cache for the yomi intel consumer (実装, NOT a G4 / Charter-Rider weakening)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "kawaraban-g4-internal-fulltext-buffer",
+      "authoritative": true,
+      "authoritative_for": [
+        "the fulltext_cache cell (cells/fulltext_cache/) — a PRIVATE buffer that caches a fetched article body for an analysis consumer, off the public Datom log",
+        "the G4 public/private split: PUBLIC (:news.article/full-text :db/allowed [false], article_mirror refuses full_text=true) is absolute; PRIVATE (data/ingest/fulltext-buffer/, gitignored) may hold the body for analysis only",
+        "the access membrane carried verbatim from article_mirror (outlet :access ∈ {:open :registration-wall} only; paywall/terminal bodies uncacheable)"
+      ],
+      "related": [
+        "com-etzhayyim-kawaraban/cells/fulltext_cache/state_machine.cljc"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606061900",
+        "adr-2607010900"
+      ],
+      "last_verified": "2026-07-01",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
