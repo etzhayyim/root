@@ -56,4 +56,12 @@
   :kanae "renders fund-flow visualization of economic-capture instruments"
   :ooyake "government structural atlas grounds institution instruments"
   :kosatsu "competing crime/sanction designations ground coercion instruments"
-  :ossekai "may publish a junkan finding ON junkan's behalf (G13), never junkan"}}
+  :ossekai "may publish a junkan finding ON junkan's behalf (G13), never junkan"}
+  :substrate {:datasets [{:dataset-id "junkan-governance"
+                          :layer :repo
+                          :source "citizen↔state structural-asymmetry instruments (laws/institutions/doctrines, ADR-2605290927)"
+                          :cidv1 "bafkreialu7a7rpzlrihghv6cm4mxqnx3zdp5iaitmra4kuhsibtfg4zlhu"
+                          :freshness-days 0
+                          :retrieved "2026-06-22"
+                          :counts-toward-world-coverage false
+                          :provenance "80-data/junkan-governance/ingest-provenance.json"}]}}
