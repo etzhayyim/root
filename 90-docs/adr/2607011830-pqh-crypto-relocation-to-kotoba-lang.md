@@ -89,8 +89,18 @@ so every existing `@etzhayyim/sdk/*` import path — `encrypted.ts`'s relative
 imports, the karute app's package-subpath import, and the lint rule's
 guidance — keeps resolving unchanged. `@etzhayyim/pqh` is added to
 `etzhayyim-sdk/package.json`'s `dependencies` as a git dependency
-(`git+ssh://git@github.com/kotoba-lang/pqh.git#main`); no other file in
+(`git+https://github.com/kotoba-lang/pqh.git#main`); no other file in
 `etzhayyim-sdk` needed changes.
+
+`kotoba-lang/pqh` is **public**, not private like this session's other new
+repos — confirmed necessary, not just convenient: `etzhayyim/root`'s own
+`sdk-test` CI job failed on the first push of this PR with `git+ssh://`
+(`Permission denied (publickey)` — GitHub Actions runners carry no SSH key)
+and would fail identically on `git+https://` against a *private* repo
+(`GITHUB_TOKEN` is scoped to the workflow's own repo, not a cross-org
+private clone). Public + `git+https://` needs no credential at all in any
+environment. The package has no secrets or confidential logic — it is a
+crypto-primitives wrapper — so this cost nothing beyond the default.
 
 `kotoba-lang/pqh` **commits its `dist/` build output**, unlike
 `kami-nv-compat` — a git-dependency install in an `allow-scripts`-gated
@@ -110,7 +120,7 @@ committed output.
   quorum) — a future non-etzhayyim actor needing the same AEAD/KDF/PQ-hybrid
   primitives can depend on it directly.
 - `etzhayyim-sdk`'s public API is unchanged for every existing consumer;
-  the cost is one extra `git+ssh://` dependency hop and a `dist/`-drift CI
+  the cost is one extra `git+https://` dependency hop and a `dist/`-drift CI
   check that didn't previously need to exist for this code.
 - As with ADR-2607011300, git history was not preserved (shallow monorepo
   clone) — this ADR plus ADR-2605181100/ADR-2606111300 are the durable
