@@ -104,6 +104,70 @@
         (is (string? (d/d-v (first sigs)))))
       (finally (io/delete-file path true)))))
 
+(deftest holding-datoms-shape-and-empty-default
+  (let [rid* (rad/rid (g))]
+    (testing "no holdings → [] (existing 312 journals untouched, RID-stable)"
+      (is (= [] (rad/holding-datoms rid* nil 3)))
+      (is (= [] (rad/holding-datoms rid* [] 3))))
+    (testing "a holding emits a RID-side :rad/holds-dataset + dataset:<id> sub-entity"
+      (let [dms (rad/holding-datoms
+                 rid*
+                 [{:dataset-id "gleif-lei" :layer :repo :source "gleif"
+                   :cidv1 "bafkreiTEST" :freshness-days 0 :retrieved "2026-07-01"
+                   :counts-toward-world-coverage true}]
+                 3)
+            by-e (group-by d/d-e dms)]
+        (is (some #(and (= :rad/holds-dataset (d/d-a %)) (= "gleif-lei" (d/d-v %)))
+                  (get by-e rid*)))
+        (let [sub (get by-e "dataset:gleif-lei")]
+          (is (some #(and (= :rad/type (d/d-a %)) (= :dataset-holding (d/d-v %))) sub))
+          (is (some #(and (= :rad/holder (d/d-a %)) (= rid* (d/d-v %))) sub))
+          (is (some #(and (= :rad/layer (d/d-a %)) (= :repo (d/d-v %))) sub))
+          (is (some #(and (= :rad/cidv1 (d/d-a %)) (= "bafkreiTEST" (d/d-v %))) sub)))))
+    (testing "nil-valued fields are dropped"
+      (let [dms (rad/holding-datoms rid* [{:dataset-id "x" :cidv1 nil}] 1)]
+        (is (not (some #(and (= :rad/cidv1 (d/d-a %)) (nil? (d/d-v %))) dms)))))))
+
+(deftest add-holding-is-append-only-idempotent-rid-stable
+  (let [a "__test_kr_hold__"
+        path (rad/journal-path a)
+        h {:dataset-id "jinushi-land-wdqs-r2" :layer :repo :source "wikidata:WDQS"
+           :cidv1 "bafybeiTEST" :freshness-days 0 :retrieved "2026-07-01"}
+        rid0 (rad/rid (g))]
+    (io/delete-file path true)
+    (try
+      (rad/publish-identity! a (g) {:sign-fn nil})
+      (let [n0 (count (log/read-log path))
+            r1 (rad/add-holding! a h {:sign-fn nil})
+            n1 (count (log/read-log path))
+            r2 (rad/add-holding! a h {:sign-fn nil})
+            n2 (count (log/read-log path))]
+        (is (= rid0 (:rid r1)) "RID stable across add-holding!")
+        (is (:added? r1) "first add appends holding + sigref")
+        (is (> n1 n0) "append-only: log grows")
+        (is (false? (:added? r2)) "idempotent by dataset-id: second add adds no holding datom")
+        (is (> n2 n1) "but a fresh sigref still attests the head")
+        (let [logv (log/read-log path)
+              sub (filter #(= "dataset:jinushi-land-wdqs-r2" (d/d-e %)) logv)]
+          (is (some #(and (= :rad/type (d/d-a %)) (= :dataset-holding (d/d-v %))) sub)
+              "the dataset sub-entity is queryable from the log")))
+      (finally (io/delete-file path true)))))
+
+(deftest publish-with-holds-attaches-on-genesis-tx-rid-stable
+  (let [a "__test_kr_wh__"
+        path (rad/journal-path a)
+        h {:dataset-id "d1" :layer :repo :cidv1 "bafkreiX"}]
+    (io/delete-file path true)
+    (try
+      (let [r (rad/publish-identity! a (g) {:sign-fn nil :holds [h]})
+            logv (log/read-log path)]
+        (is (= (rad/rid (g)) (:rid r)) "RID is the genesis RID (holds don't touch genesis)")
+        (is (some #(and (= :rad/holds-dataset (d/d-a %)) (= "d1" (d/d-v %))) logv)
+            "holding datom present when :holds passed on publish")
+        (is (some #(and (= (d/d-e %) "dataset:d1") (= :rad/cidv1 (d/d-a %))) logv)
+            "dataset sub-entity present"))
+      (finally (io/delete-file path true)))))
+
 (defn -main [& _]
   (let [{:keys [fail error]} (run-tests 'etzhayyim.test-kotoba-rad)]
     (System/exit (if (pos? (+ fail error)) 1 0))))
