@@ -1454,9 +1454,9 @@
    :datasets (),
    :declared? false}},
  :datasets
- {"kanjo-coverage" {:holders ["kanjo"], :layers [:repo]},
+ {"junkan-governance" {:holders ["junkan"], :layers [:repo]},
+  "kanjo-coverage" {:holders ["kanjo"], :layers [:repo]},
   "toritsugi-procedures" {:holders ["toritsugi"], :layers [:repo]},
-  "uchiwake-coverage" {:holders ["uchiwake"], :layers [:repo]},
   "tsumugi-power" {:holders ["tsumugi"], :layers [:repo]},
-  "junkan-governance" {:holders ["junkan"], :layers [:repo]}}}
+  "uchiwake-coverage" {:holders ["uchiwake"], :layers [:repo]}}}
 
