@@ -19,6 +19,7 @@
   (external submodule); this clj path is the runnable reference per ADR D3. .cljc
   (JVM/bb/cljs/WASM)."
   (:require [etzhayyim.channel :as channel]
+            [etzhayyim.channel-genome :as cgenome]
             [etzhayyim.genome :as genome]
             [clojure.string :as str]))
 
@@ -29,9 +30,12 @@
 (defrecord Actor [decl state])
 
 (defn make-actor
-  "Born self-keyed, self-evolving, multi-channel, dialogic from a declaration."
+  "Born self-keyed, self-evolving, multi-channel, dialogic from a declaration. The
+  actor carries TWO learners: :state = the mechanism genome (WHAT predicts growth),
+  and :channel-learning = the per-channel genome (WHERE to grow). :channel-learning is
+  an extra record key so genome/beat (which rebuilds :state) never clobbers it."
   [decl]
-  (->Actor decl genome/empty-state))
+  (assoc (->Actor decl genome/empty-state) :channel-learning cgenome/empty-state))
 
 (defn identity-of
   "did:key present-only + member-CACAO leash (the revocable off-switch). NOT a
@@ -51,7 +55,29 @@
 
 (defn recommendation [actor] (get-in actor [:state :recommendation]))
 
+(defn learn-channel!
+  "One channel-choice beat: fold a round of per-channel growth readings
+  (map {channel scalar} — a scalar that rises when that channel grew the actor)
+  through the channel-genome (etzhayyim.channel-genome). Dry-run recommendation, never
+  auto-applied (ADR-2605240200). Returns the new actor."
+  [actor readings]
+  (update actor :channel-learning cgenome/beat-channels readings))
+
+(defn channel-recommendation
+  "The channel the actor has LEARNED to grow on next (by realised growth-rate), or nil
+  until it has folded at least one growth round. Dry-run."
+  [actor]
+  (let [cl (:channel-learning actor)]
+    (when (seq (:channels cl)) (cgenome/preferred-channel cl))))
+
+(defn preferred-target [actor] (:channel (channel-recommendation actor)))
+
 ;; ── social ───────────────────────────────────────────────────────────────────
+;; Default posting lexicon per channel (the app.<channel>.* family the W1 driver
+;; accepts) — used when an actor routes a post to its LEARNED best channel.
+(def channel-lexicon
+  {:at-proto "app.bsky.feed.post" :email "app.openmail.message"
+   :telegram "app.telegram.message" :x "app.x.tweet" :line "app.line.push"})
 (defn envelope
   "Channel-neutral emit envelope carrying the actor's DISCLOSURE (voiceOf /
   isObservatory) + the person-protection flags. claims-to-be-entity is always
@@ -67,9 +93,18 @@
 
 (defn post!
   "Social egress via the channel registry — the scan-before-emit floors
-  (impersonation / disclosure / person-consent) are enforced by channel/emit!."
+  (impersonation / disclosure / person-consent) are enforced by channel/emit!. With
+  `:route :learned`, the actor posts to the channel it has LEARNED to grow on
+  (preferred-target) and swaps in that channel's lexicon (channel-lexicon), so the
+  running actor routes its own growth; without it (default), the registry routes by
+  lexicon as before. The learned route falls back to the given lexicon/registry
+  routing when the actor has not folded a growth round yet."
   [actor lexicon content & opts]
-  (channel/emit! (apply envelope actor lexicon content opts)))
+  (let [o       (apply hash-map opts)
+        learned (when (= :learned (:route o)) (preferred-target actor))
+        lexicon (if learned (get channel-lexicon learned lexicon) lexicon)
+        o       (-> o (dissoc :route) (cond-> learned (assoc :targets #{learned})))]
+    (channel/emit! (apply envelope actor lexicon content (mapcat identity o)))))
 
 ;; ── dialog ───────────────────────────────────────────────────────────────────
 (defn converse-prompt
@@ -122,4 +157,5 @@
   {:identity (identity-of actor)
    :domain (get-in actor [:decl :domain])
    :beat (get-in actor [:state :beat])
-   :recommendation (recommendation actor)})
+   :recommendation (recommendation actor)
+   :preferred-channel (preferred-target actor)})
