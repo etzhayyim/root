@@ -1,6 +1,6 @@
 {:id "2607010001"
  :title "Actor data-ownership model — each actor holds its required real-world data (RAD data-holding vocabulary + domain-hybrid layering)"
- :status :proposed
+ :status :accepted
  :date #inst "2026-07-01T00:01:00+09:00"
  :deciders ["founder"]
  :doc-type :adr
@@ -22,12 +22,19 @@
  :consequences {:positive ["Actor identity journal attests data holdings, queryable by dataset-id across the matrix"
                            "Bulk data stays in 80-data/DataLad/IPFS; only pointer + attestation added"
                            "Graph<->git layering becomes a normative rule with a binding record type"]
-                :negative ["RAD schema extended (optional attrs only; :rad/ namespace clean)"
-                           "Follow-up PRs required: bb rad:add-holding wiring, data_provenance.cljc validator, ownership_matrix.cljc generator"]}
- :follow-on ["Phase 1: normalize jinushi to substrate.datasets + add-holding!"
-             "Phase 2: kanjo XBRL/EDGAR/TDnet expansion"
-             "Phase 3: toritsugi holder-migration (gen_authority_actors.clj emits :rad/holds-dataset per regime)"
-             "Phase 4: fill gyosei/matsurigoto empty domains"
-             "Phase 5: backfill all 312 actors (generator, append-only)"
-             "actor_publish.cljc manifest->genesis :holds seam + bb rad:add-holding task"
-             "data_provenance.cljc validator + ownership_matrix.cljc generator + bb lint:provenance / rad:ownership-matrix"]}
+                :negative ["RAD schema extended (optional attrs only; :rad/ namespace clean)"]}
+ :follow-on ["DONE: Phase 0 — foundation (#2792 #2806 #2809 #2810 #2812)"
+             "DONE: Phase 1 — kanjo/uchiwake/tsumugi/rasen/hinagata holdings (#2807 #2811 #2815 #2819)"
+             "DONE: Phase 2 — toritsugi apex + junkan holdings (#2813 #2814)"
+             "DONE: Phase 3 — 148 toritsugi per-regime children (#2831)"
+             "DONE: hirameki + jinushi RAD publish + holdings (#2820 #2821)"
+             "DONE: 9/9 manifest substrate.datasets declared (#2822 #2824 #2827 #2828)"
+             "DONE: bb rad:add-holding CLI (#2806)"
+             "DONE: data_provenance.cljc validator + ownership_matrix.cljc generator + bb lint:provenance / rad:ownership-matrix (#2809 #2812)"
+             "DONE: datalad.cljc pipeline bridge git->datalad->kotoba (#2833)"
+             "DONE: GLEIF 500 live data collection (#2832)"
+             "DONE: CI gate data-ownership-provenance (#2810)"
+             "TODO: Phase 4 — fill gyosei/matsurigoto empty domains"
+             "TODO: Phase 5 — backfill remaining actors (generator, append-only)"
+             "TODO: gen_authority_actors.clj update in com-etzhayyim-toritsugi (child repo)"
+             "TODO: large-scale data collection (5M+ GLEIF, EDGAR universe) — DataLad + B2"]}

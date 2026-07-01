@@ -1,16 +1,24 @@
 ---
 id: adr-2607010001-actor-data-ownership-model
 title: "Actor data-ownership model — each actor holds its required real-world data (RAD data-holding vocabulary + domain-hybrid layering)"
-status: proposed
+status: accepted
 doc_type: adr
 topic: actor-data-ownership-model
 authoritative: true
 last_verified: 2026-07-01
+# Implementation status: ACCEPTED — all phases landed (21 PRs, #2792–#2833)
+#   317 RAD actors / 11 holdings / 10 dataset types / 9 declared / 148 toritsugi children
+#   Pipeline: git → datalad → kotoba(CID) → kotobase.net → ipfs → B2
 authoritative_for:
   - "70-tools/src/etzhayyim/kotoba_rad.cljc (holding-datoms / publish-identity! :holds / add-holding!)"
+  - "70-tools/src/etzhayyim/data_provenance.cljc (validator)"
+  - "70-tools/src/etzhayyim/ownership_matrix.cljc (generator)"
+  - "70-tools/src/etzhayyim/datalad.cljc (DataLad pipeline bridge)"
+  - "70-tools/src/etzhayyim/actor_publish.cljc (manifest->holds / -add-holding CLI)"
   - "RAD data-holding vocabulary (:rad/holds-dataset RID-side datom + dataset:<id> sub-entity)"
   - "00-contracts/lexicons/com/etzhayyim/kotoba/datasetPointer.json (graph-layer binding record)"
   - "90-docs/data-layering-rule.md (normative two-layer rule)"
+  - ".github/workflows/data-ownership-provenance.yml (CI gate)"
 depends_on:
   - adr-2606162000-jinushi-land-ownership-acquisition-mirror
   - adr-2605241500-etzhayyim-dataset-cid-substrate
