@@ -157,6 +157,16 @@
    :task (do (require 'etzhayyim.actor-publish)
              (apply (resolve 'etzhayyim.actor-publish/-add-holding) *command-line-args*))}
 
+  lint:provenance
+  {:doc "ADR-2607010001 — validate every RAD :rad/holds-dataset has required fields (:dataset-id :layer :cidv1) and its :rad/cidv1 is recorded in 80-data (ingest-provenance.json / *-manifest.json / ipfs-pins.kotoba.edn). Offline (no IPFS daemon); exits non-zero on any problem. Args: (none)"
+   :task (do (require 'etzhayyim.data-provenance)
+             (apply (resolve 'etzhayyim.data-provenance/-main) *command-line-args*))}
+
+  rad:ownership-matrix
+  {:doc "ADR-2607010001 §D2 — regenerate 80-data/kotoba-rad/ownership-matrix.edn (GENERATED; join of actor manifests :substrate :datasets + RAD identity journals :rad/holds-dataset). --check is the freshness gate (exits non-zero if stale). Args: [--check]"
+   :task (do (require 'etzhayyim.ownership-matrix)
+             (apply (resolve 'etzhayyim.ownership-matrix/-main) *command-line-args*))}
+
   test:kotoba-rad
   {:doc "kotoba-rad sovereign-identity invariants (ADR-2606231200): did:key convention, RID content-addressing, did.json 3-identity cross-link, append-only/idempotent publish, Ed25519 sign/verify + CID base32 parity."
    :task (do (require 'etzhayyim.test-kotoba-rad)
