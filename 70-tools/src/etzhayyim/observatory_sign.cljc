@@ -109,3 +109,10 @@
           (publish-post! ctx
                          {:http-fn (resolve! 'babashka.http-client/request) :json-write pr-str :json-read identity}
                          post))))))
+
+(defn -main
+  "clojure CLI entrypoint (the REAL kagi path — kagi.identity loads under `clojure`,
+  not bb's Argon2 import). Run: clojure -Sdeps \"$(cat member-publish.deps.edn)\"
+  -M -m etzhayyim.observatory-sign --actor … --aud … --subject … --text … [--dry]."
+  [& args]
+  (apply -sign-and-publish args))

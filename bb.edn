@@ -236,13 +236,13 @@
   test:genome-all
   {:doc "Run all kotoba-genome library suites (ADR-2606302205): W1 channel + W2 genome + W3 actor runtime + W4 observatory (first-party disclosure-honest actors)."
    :extra-paths ["70-tools/src"]
-   :task (do (require 'etzhayyim.channel-test 'etzhayyim.genome-test 'etzhayyim.actor-test 'etzhayyim.observatory-test 'etzhayyim.observatory-registry-test 'etzhayyim.observatory-submit-test 'etzhayyim.observatory-sign-test 'etzhayyim.murakumo-test 'etzhayyim.observatory-diddoc-test)
+   :task (do (require 'etzhayyim.channel-test 'etzhayyim.genome-test 'etzhayyim.actor-test 'etzhayyim.observatory-test 'etzhayyim.observatory-registry-test 'etzhayyim.observatory-submit-test 'etzhayyim.observatory-sign-test 'etzhayyim.murakumo-test 'etzhayyim.observatory-diddoc-test 'etzhayyim.ecl-test)
              (let [rs (map (resolve 'clojure.test/run-tests)
                            '[etzhayyim.channel-test etzhayyim.genome-test
                              etzhayyim.actor-test etzhayyim.observatory-test
                              etzhayyim.observatory-registry-test etzhayyim.observatory-submit-test
                              etzhayyim.observatory-sign-test etzhayyim.murakumo-test
-                             etzhayyim.observatory-diddoc-test])
+                             etzhayyim.observatory-diddoc-test etzhayyim.ecl-test])
                    bad (reduce + (map (fn [r] (+ (:fail r 0) (:error r 0))) rs))]
                (System/exit (if (pos? bad) 1 0))))}
 

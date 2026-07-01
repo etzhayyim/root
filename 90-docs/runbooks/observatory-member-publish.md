@@ -122,6 +122,35 @@ Wire it into `observatory:submit` by setting `ETZHAYYIM_MEMBER_SIGN_CMD` /
 `ETZHAYYIM_MEMBER_PUBLISH_CMD` to invoke this task per post, so the batch gate
 (non-cron / `--yes` / charter scan) still fronts every publish.
 
+## bb vs clojure — where each step runs
+
+`kagi.identity` pulls in BouncyCastle Argon2, which loads under the **`clojure` CLI**
+but NOT under `bb`. So:
+
+- **`--dry` pilot** (pure — no kagi): `bb --config member-publish.bb.edn …` is fine.
+- **Real mint + publish** (kagi.identity): use the clojure CLI —
+  ```bash
+  clojure -Sdeps "$(cat member-publish.deps.edn)" -M -m etzhayyim.observatory-sign \
+    --actor cable-marea --aud "<node-operator-did>" --subject "MAREA" \
+    --text "public-record observatory online"
+  ```
+  (Dress-rehearsed with a throwaway key: `kagi.cacao/mint` produced a real
+  `datom:transact` CACAO and `kagi.cacao/verify` returned `true` — aud + resources +
+  expiry all check. The only missing input is YOUR sealed Keychain key.)
+
+## did.json first-party swap (keyed)
+
+1. Seal the actor's did:key public part, then build a `{handle did:key}` EDN, e.g.
+   `{"cable-marea" "did:key:z6Mk…"}`.
+2. Generate KEYED first-party did docs and write them in the LIVE layout:
+   ```bash
+   bb observatory:diddoc --ns cable --keys keys.edn \
+      --swap-to 50-infra/etzhayyim-did-web/public/actor
+   ```
+   Only **keyed** handles are swapped to `public/actor/<handle>/did.json`
+   (verificationMethod populated, `isMirror=false`, `voiceOf=etzhayyim`); a keyless
+   handle is never regressed. Deploy the worker to publish the first-party did docs.
+
 ## Invariants (do not weaken)
 
 - **no-server-key**: the agent / Worker / cron holds no signing key; the member's
