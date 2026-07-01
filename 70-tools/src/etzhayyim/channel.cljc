@@ -181,11 +181,40 @@
     {:driver :telegram :dry-run true :bot bot
      :api-call {:method "sendMessage" :chat_id (:chat-id content) :text (:text content)}}))
 
+(defrecord XChannel [account]
+  Channel
+  (channel-id [_] :x)
+  (accepts? [_ lexicon] (boolean (prefixes? lexicon ["app.x." "com.twitter."])))
+  (-emit! [_ {:keys [content voice-of is-observatory]}]
+    ;; PoC driver — the v2 POST /tweets it WOULD make (dry-run; live = W4, leash-signed).
+    ;; Disclosure travels in-band: the observatory voice is stated, never impersonating.
+    {:driver :x :dry-run true :account account
+     :api-call {:method "POST" :path "/2/tweets"
+                :body {:text (:text content)}}
+     :disclosure {:voiceOf voice-of :isObservatory (boolean is-observatory)}}))
+
+(defrecord LineChannel [channel-token]
+  Channel
+  (channel-id [_] :line)
+  (accepts? [_ lexicon] (boolean (prefixes? lexicon ["app.line."])))
+  (-emit! [_ {:keys [content voice-of is-observatory]}]
+    ;; PoC driver — the LINE Messaging API push it WOULD make (dry-run; live = W4).
+    {:driver :line :dry-run true :channel-token channel-token
+     :api-call {:method "POST" :path "/v2/bot/message/push"
+                :body {:to (:to content)
+                       :messages [{:type "text" :text (:text content)}]}}
+     :disclosure {:voiceOf voice-of :isObservatory (boolean is-observatory)}}))
+
 (defn default-registry!
-  "Register the W1 reference drivers. Returns the set of registered channel ids."
+  "Register the W1 reference drivers (AT Protocol / email / Telegram / X / LINE).
+  A new channel = one Channel defrecord + one `app.<channel>.*` lexicon family;
+  identity + the content/disclosure scan are already channel-agnostic. Returns the
+  set of registered channel ids."
   []
   (clear-registry!)
   (register! (->AtProtoChannel "https://aozora.app"))
   (register! (->EmailChannel "https://kotoba-server.etzhayyim.com"))
   (register! (->TelegramChannel "did:web:bridge.telegram.etzhayyim.com"))
+  (register! (->XChannel "did:web:bridge.x.etzhayyim.com"))
+  (register! (->LineChannel "did:web:bridge.line.etzhayyim.com"))
   (registered))

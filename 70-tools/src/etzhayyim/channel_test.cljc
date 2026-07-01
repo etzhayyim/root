@@ -13,17 +13,41 @@
    :dry-run true})
 
 (deftest registry-and-routing
-  (testing "default registry registers the three W1 drivers"
-    (is (= #{:at-proto :email :telegram} (ch/default-registry!))))
+  (testing "default registry registers the five W1 drivers"
+    (is (= #{:at-proto :email :telegram :x :line} (ch/default-registry!))))
   (testing "drivers-for routes by lexicon prefix"
     (ch/default-registry!)
     (is (= [:at-proto] (mapv ch/channel-id (ch/drivers-for {:lexicon "app.bsky.feed.post"}))))
     (is (= [:email]    (mapv ch/channel-id (ch/drivers-for {:lexicon "app.openmail.message"}))))
-    (is (= [:telegram] (mapv ch/channel-id (ch/drivers-for {:lexicon "app.telegram.message"})))))
+    (is (= [:telegram] (mapv ch/channel-id (ch/drivers-for {:lexicon "app.telegram.message"}))))
+    (is (= [:x]        (mapv ch/channel-id (ch/drivers-for {:lexicon "app.x.tweet"}))))
+    (is (= [:line]     (mapv ch/channel-id (ch/drivers-for {:lexicon "app.line.push"})))))
   (testing ":targets intersects with lexicon acceptance"
     (ch/default-registry!)
     ;; lexicon only matches at-proto, so telegram target yields nothing
     (is (empty? (ch/drivers-for {:lexicon "app.bsky.feed.post" :targets #{:telegram}})))))
+
+(deftest x-and-line-drivers-carry-disclosure
+  (ch/default-registry!)
+  (testing "the X driver emits the v2 POST /tweets it would make, disclosure in-band"
+    (let [r (ch/emit! (assoc base :lexicon "app.x.tweet"))]
+      (is (true? (:emitted r)))
+      (is (= [:x] (:channels r)))
+      (is (= "/2/tweets" (get-in r [:results :x :api-call :path])))
+      (is (= "etzhayyim" (get-in r [:results :x :disclosure :voiceOf])))
+      (is (true? (get-in r [:results :x :disclosure :isObservatory])))))
+  (testing "the LINE driver emits the Messaging API push it would make, disclosure in-band"
+    (let [r (ch/emit! (assoc base :lexicon "app.line.push"
+                             :content {:text "公 observatory update." :to "U123" :subject "u"}))]
+      (is (true? (:emitted r)))
+      (is (= [:line] (:channels r)))
+      (is (= "/v2/bot/message/push" (get-in r [:results :line :api-call :path])))
+      (is (= "text" (get-in r [:results :line :api-call :body :messages 0 :type])))
+      (is (= "etzhayyim" (get-in r [:results :line :disclosure :voiceOf])))))
+  (testing "the disclosure floor vetoes X/LINE just like every channel (impersonation)"
+    (let [r (ch/emit! (assoc base :lexicon "app.x.tweet" :claims-to-be-entity true))]
+      (is (false? (:emitted r)))
+      (is (empty? (:results r))))))
 
 (deftest valid-observatory-emit
   (ch/default-registry!)
