@@ -40,7 +40,8 @@
             [babashka.http-client :as http]
             [etzhayyim.kotoba.engine :as kt]
             [etzhayyim.vitals :as vitals]
-            [etzhayyim.genome :as genome]))
+            [etzhayyim.genome :as genome]
+            [etzhayyim.channel-genome :as cgenome]))
 
 ;; ── served projection dirs (mirror vitals/snapshot-dirs) ─────────────────────
 (def ^:private snapshot-dirs
@@ -365,6 +366,60 @@
                        (double (get-in state' [:recommendation :predicted-up])))))
     (:beat state')))
 
+;; ── 経路学習 CHANNEL-LEARN layer (kotoba-genome W1×W2, ADR-2606302205) ─────────
+;; The organism also learns WHERE to grow: fold real per-channel growth readings
+;; through the channel-genome so the RESIDENT loop routes its own social metabolism.
+;; Today only :at-proto is a LIVE egress (email/telegram/x/line are W1 dry-run), so
+;; the live aggregate-vitality reading is attributed to :at-proto and the dry-run
+;; channels report a flat neutral baseline (NO fabricated growth); as their live legs
+;; land (W4), real per-channel readings replace this. Dry-run recommendation, never
+;; auto-applied; projected to channel-genome.json so it is observable on /organism.
+(def ^:private channel-genome-file "80-data/organism/channel-genome.state.edn")
+
+(defn- channel-readings
+  "Real per-channel growth readings {channel scalar}. Prefers organism.json's
+  :channels breakdown when present; else attributes the real vitality reading to the
+  one live channel (:at-proto) and a flat baseline to the dry-run channels (honest —
+  no fabricated growth for channels that cannot yet post)."
+  []
+  (let [path (str (first snapshot-dirs) "/organism.json")
+        chs  (try (-> (slurp path) (json/parse-string true) :channels) (catch Exception _ nil))]
+    (if (map? chs)
+      (into {} (map (fn [[k v]] [(keyword k) (double v)])) chs)
+      (let [r (double (organism-reading))]
+        {:at-proto r :email 0.0 :telegram 0.0 :x 0.0 :line 0.0}))))
+
+(defn- load-channel-state []
+  (try (let [s (clojure.edn/read-string (slurp channel-genome-file))]
+         (if (map? s) s cgenome/empty-state))
+       (catch Exception _ cgenome/empty-state)))
+
+(defn- write-channel-snapshot! [state readings]
+  (let [pref (cgenome/preferred-channel state)
+        payload {:round (:round state) :readings readings
+                 :generatedAt (str (java.time.Instant/now))
+                 :preferredChannel (:channel pref) :ranked (:ranked pref)
+                 :note "kotoba-genome W1×W2 — the organism learns WHICH channel to grow on by realised growth-rate; dry-run, never auto-applied (ADR-2606302205 / 2605240200)."}
+        out (json/generate-string payload {:pretty true})]
+    (doseq [d snapshot-dirs]
+      (io/make-parents (str d "/channel-genome.json"))
+      (spit (str d "/channel-genome.json") out))))
+
+(defn channel-learn!
+  "One channel-choice beat on real per-channel growth readings; persists state +
+  channel-genome.json projection. Pure-loop + bounded I/O; never acts outwardly."
+  []
+  (let [readings (channel-readings)
+        state'   (cgenome/beat-channels (load-channel-state) readings)
+        pref     (cgenome/preferred-channel state')]
+    (io/make-parents channel-genome-file)
+    (spit channel-genome-file (pr-str state'))
+    (write-channel-snapshot! state' readings)
+    (binding [*out* *err*]
+      (println (format "[channel-learn] round %d · → grow on %s (dry-run)"
+                       (:round state') (name (:channel pref)))))
+    (:channel pref)))
+
 ;; The reflex (run_tests.sh per cell) is the only way a cell reaches 生 — classify
 ;; demands :green reflex ∧ peer-integration ∧ outward bsky metabolism. It is also the
 ;; only EXPENSIVE layer (every cell's suite, serial), so it cannot tick at the 6s
@@ -408,10 +463,12 @@
         (when do-vitals
           (if once?
             (do (when (reflex!) (swap! health assoc :vitals (System/currentTimeMillis)))   ; smoke: inline
-                (safe "learn" learn!))                                                       ; 学習: fold the fresh reading
+                (safe "learn" learn!)                                                        ; 学習: WHAT predicts growth
+                (safe "channel-learn" channel-learn!))                                       ; 経路学習: WHERE to grow
             (when (compare-and-set! reflexing? false true)   ; never overlap sweeps
               (future (try (when (reflex!) (swap! health assoc :vitals (System/currentTimeMillis)))
                            (safe "learn" learn!)                                             ; 学習 after the reflex sweep
+                           (safe "channel-learn" channel-learn!)                             ; 経路学習: WHERE to grow
                            (finally (reset! reflexing? false)))))))
         (safe "health" #(write-health! health now))         ; #4 watchdog projection, every tick
         (if once?
