@@ -873,6 +873,18 @@
    "bafyreiplaceholder0000000000000000000000000000000000000000000000",
    :datasets (),
    :declared? false},
+  "hirameki"
+  {:rid "bafkreibroornsrwhmk34m6rfr3dji53pulqf6tmrdt642pyiopopc7ytpm",
+   :datasets
+   ({:dataset-id "hirameki-patents",
+     :layer :repo,
+     :source "patent corpus (public patent data)",
+     :cidv1
+     "bafkreieakuefgpxli7n4einc5zdnd5yxnrptwxlmazrpa7tplotufcjk7u",
+     :freshness-days 0,
+     :retrieved "2026-06-30",
+     :counts-toward-world-coverage false}),
+   :declared? false},
   "ipaddress"
   {:rid "bafkreiaotwbeylqsakdiuogo6pn63b5jlgtdelzss3o76mrf3tgroiqgky",
    :datasets (),
@@ -1471,6 +1483,7 @@
    :declared? false}},
  :datasets
  {"legal-templates" {:holders ["hinagata"], :layers [:repo]},
+  "hirameki-patents" {:holders ["hirameki"], :layers [:repo]},
   "junkan-governance" {:holders ["junkan"], :layers [:repo]},
   "kanjo-coverage" {:holders ["kanjo"], :layers [:repo]},
   "genome" {:holders ["rasen"], :layers [:repo]},
