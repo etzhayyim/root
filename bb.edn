@@ -152,6 +152,11 @@
    :task (do (require 'etzhayyim.kotoba-rad-sign)
              (apply (resolve 'etzhayyim.kotoba-rad-sign/-delegate-add) *command-line-args*))}
 
+  rad:add-holding
+  {:doc "ADR-2607010001 — append a :rad/holds-dataset attestation for each dataset in an actor's manifest :substrate :datasets to its EXISTING kotoba-rad identity journal (RID-stable, append-only, idempotent by dataset-id). Operationalizes the data-holder model. DRY-RUN by default; --apply writes the journal; if a member key is in Keychain the sigref is member-signed, else unsigned (no-server-key). Args: <name> [--apply]"
+   :task (do (require 'etzhayyim.actor-publish)
+             (apply (resolve 'etzhayyim.actor-publish/-add-holding) *command-line-args*))}
+
   test:kotoba-rad
   {:doc "kotoba-rad sovereign-identity invariants (ADR-2606231200): did:key convention, RID content-addressing, did.json 3-identity cross-link, append-only/idempotent publish, Ed25519 sign/verify + CID base32 parity."
    :task (do (require 'etzhayyim.test-kotoba-rad)
