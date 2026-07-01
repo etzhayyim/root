@@ -18,7 +18,8 @@
   W1 scope: drivers are DRY-RUN reference implementations (they return the wire
   shape they WOULD send); live legs are Council/operator-gated (W4). .cljc so the
   same protocol runs on JVM/bb, cljs and WASM."
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [etzhayyim.ecl :as ecl]))
 
 ;; ── emit envelope ───────────────────────────────────────────────────────────
 ;; {:actor          "ooyake"                      ; emitting actor handle
@@ -96,15 +97,34 @@
    :content/targeted-violence  #"(?i)\bkill\s+(?:him|her|them)\b|(?:殺|襲撃)\s*(?:せ|し)ろ"
    :content/self-impersonation #"(?i)\bI am the (?:government|company|official|CEO)\b|私は(?:政府|当社|本人|公式)(?:です|である)"})
 
+(defn- hit->scores
+  "Map a content deny-list hit to ECL 子孫-wellbecoming evidence scores (the
+  objective-function's catastrophe dims). CSAM / targeted-violence = maximal harm
+  to 子/孫 (≤ -1.9 → catastrophe term fires). Self-impersonation is a disclosure
+  violation, not a 子孫-catastrophe — still vetoed by the floor, but not via J."
+  [cat]
+  (case cat
+    :content/csam               {:ko-wellbecoming -2.0 :mago-wellbecoming -2.0}
+    :content/targeted-violence  {:ko-wellbecoming -2.0}
+    {}))
+
 (defn content-scan
-  "Scan free-text content for catastrophe-term violations before emit. Returns
-  {:verdict :pass|:veto :reasons [category…]}. voiceOf=etzhayyim posts must never
-  read as the entity's own first-person voice (self-impersonation), never target a
-  person, never carry CSAM — the un-amendable catastrophe floor (Charter, ADR-2606302205)."
+  "Scan free-text content before emit, CONNECTED to the Rider §2 objective function
+  (etzhayyim.ecl, ADR-2606182359): deny-list hits become catastrophic 子孫 scores and
+  the REAL ECL `route` confirms the verdict (:ecl {:route :J}); fail-open to the
+  deny-list floor when the spec is unavailable. Returns {:verdict :pass|:veto :reasons
+  [category…] :ecl {…}}. voiceOf=etzhayyim posts must never read as the entity's own
+  first-person voice, never target a person, never carry CSAM — the un-amendable
+  catastrophe floor (the priority is absolute)."
   [text]
   (let [s (str text)
         hits (vec (keep (fn [[cat re]] (when (re-find re s) cat)) catastrophe-patterns))]
-    (if (seq hits) {:verdict :veto :reasons hits} {:verdict :pass :reasons []})))
+    (if (empty? hits)
+      {:verdict :pass :reasons []}
+      (let [scores (reduce (fn [m c] (merge m (hit->scores c))) {} hits)
+            r (try (ecl/route scores) (catch #?(:clj Throwable :cljs :default) _ nil))]
+        {:verdict :veto :reasons hits
+         :ecl (if r (select-keys r [:route :J :reason]) :unavailable)}))))
 
 ;; ── the fan-out drainer ───────────────────────────────────────────────────────
 (defn emit!

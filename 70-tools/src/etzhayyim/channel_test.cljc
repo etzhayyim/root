@@ -69,9 +69,12 @@
   (testing "self-impersonation (first-person AS the entity) is vetoed"
     (is (= :veto (:verdict (ch/content-scan "私は政府です。"))))
     (is (some #{:content/self-impersonation} (:reasons (ch/content-scan "I am the government of X")))))
-  (testing "targeted violence + CSAM markers are vetoed"
+  (testing "targeted violence + CSAM are vetoed AND routed :non-aligned by the REAL ECL objective function (catastrophe term)"
     (is (= :veto (:verdict (ch/content-scan "kill them now"))))
-    (is (= :veto (:verdict (ch/content-scan "児童ポルノ")))))
+    (let [csam (ch/content-scan "児童ポルノ")]
+      (is (= :veto (:verdict csam)))
+      (is (= :non-aligned (get-in csam [:ecl :route])))
+      (is (= :catastrophe (get-in csam [:ecl :reason])))))
   (testing "emit! blocks catastrophe content on ALL channels (before egress)"
     (ch/default-registry!)
     (let [r (ch/emit! {:lexicon "app.bsky.feed.post" :content {:text "私は政府です"}
