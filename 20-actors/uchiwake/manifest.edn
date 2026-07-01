@@ -9,4 +9,12 @@
  :actor/lexicons ["com.etzhayyim.uchiwake.registerProduct" "com.etzhayyim.uchiwake.registerBomEdge" "com.etzhayyim.uchiwake.registerOwnership" "com.etzhayyim.uchiwake.publishResilienceReport"]
  :actor/status :r0-design-only
  :actor/related ["2606022000" "2606042330" "2605262130" "2605312345" "2606013600" "2606013800" "2605215000"]
- :actor/id "uchiwake"}
+ :actor/id "uchiwake"
+ :substrate {:datasets [{:dataset-id "uchiwake-coverage"
+                         :layer :repo
+                         :source "GS1 GTIN / Open Food Facts (Tier-A public trade-item data, ADR-2606081800)"
+                         :cidv1 "bafkreib7yagcmrxzley2eyho5b2miuncm2n6rjj3tmyvlnxvkpls5ptcfq"
+                         :freshness-days 0
+                         :retrieved "2026-06-16"
+                         :counts-toward-world-coverage false
+                         :provenance "80-data/coverage-manifests/uchiwake-coverage-manifest.json"}]}}
