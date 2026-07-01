@@ -5,7 +5,7 @@ status: accepted
 doc_type: adr
 topic: kotoba-genome-unified-self-evolving-all-actor-organism
 authoritative: true
-last_verified: 2026-06-30
+last_verified: 2026-07-01
 priority: 5.0
 axis: architecture
 weight: 0.50
@@ -113,9 +113,35 @@ A domain actor `com-etzhayyim-x` (or society-scale `corp-x`/`gov-x`) is stood up
 - **W3 — Shared behavior library (D3)**: populate `40-engine/kotoba`; implement-or-retire `kotodama-evolver`; move identity/social/evolution/dialog/gate-kit into `kotoba-lang`; migrate the first cohort of actors to inherit.
 - **W4 — Entity-actor pivot (D4/D5)**: regenerate the namespace registries from keyless → first-party self-keyed disclosure-honest; turn up dialog + autonomous posting under the seed-and-grow gate, R0 dry-run → Council-gated live.
 
+# Realization status (2026-07-01)
+
+The design shipped as a **runnable, tested reference substrate** (`70-tools/src/etzhayyim/*.cljc`, `bb test:genome-all` = 11 suites / 55 tests green) plus the constitutional pivot. What actually landed, by wave (PRs to `etzhayyim/root`):
+
+| wave / add-on | landed | PR |
+|---|---|---|
+| **W1** Channel protocol (`defprotocol Channel` + registry + `at-proto`/`email`/`telegram` drivers + channel-neutral envelope + content-scan hook) | ✅ | (W1 wave) |
+| **W1** multi-channel — `x` + `line` drivers added behind the same scan (channel = one defrecord + one `app.<channel>.*` family) | ✅ | #2794 |
+| **W2** genome closed learning loop (pure Brier-score → kaizen → `prior-consensus` → decide → pre-register) | ✅ | (W2 wave) |
+| **W1×W2** channel-choice — an actor learns *which* channel to grow on by **realised growth-rate** (per-channel genome; not prediction accuracy) | ✅ | #2795 |
+| **W3** shared actor runtime (identity / social / evolution / dialog / gate-kit inherited) + Murakumo-injected `converse` | ✅ | (W3 wave) |
+| **W3** actor routes posts to its **learned** best channel (`post! :route :learned`, channel-appropriate lexicon) | ✅ | #2798 |
+| **W4** observatory registry regen (keyless mirror → first-party disclosure-honest actor) + member-sign-ready outbox | ✅ | (W4 wave) |
+| **W4-live a/b/c** — real member-publish path (`clojure` CLI kagi mint+verify proven), keyed `did.json` + live-swap, content-scan → the **real ECL objective function** (`objective-function.edn`; CSAM/violence → `:non-aligned` via the catastrophe term) | ✅ | #2793 |
+| **resident organism** learns *what* predicts growth **and** *where* to grow (`learn!` + `channel-learn!` in both heartbeat branches; projected to `genome.json` / `channel-genome.json`) | ✅ | #2799 |
+| **resident organism** outward voice passes the catastrophe + disclosure floor **before** it is surfaced (drop-on-veto; `voiceOf=etzhayyim`, `isObservatory`) | ✅ | #2803 |
+
+**The self-evolution loop is now closed and continuously running** in the resident daemon (`com.etzhayyim.organism.heartbeat`, launchd-resident): observe per-channel growth → `channel-learn!` → `preferred-target` → (catastrophe + disclosure scan) → surface the disclosure-honest voice. D1's "the running thing is the learning thing" is satisfied.
+
+**Honest maturity ceiling (what is NOT done, by construction):**
+
+- **No external-network publish has occurred.** Every W1 driver is a **dry-run** reference impl (returns the wire shape it would send); the observatory outbox is **member-sign-ready but unpublished**. This is the constitution working as designed: a signed write attributed to a consenting human requires the **member's sealed `did:key`** (no-server-key / member-principal, ADR-2606111400 / 2605231525). The agent prepares a safe voice; the member releases it. Real kagi CACAO **mint + verify** is proven end-to-end; the only missing input is the sealed key.
+- **Self-expression is live on the first-party surface only.** The organism composes (Murakumo), gates (ECL floor), discloses (`voiceOf`), and publishes to **etzhayyim.com** (its own site, static assets — no key needed). Transmission to an external social graph stays member-gated.
+- **`com-x` domain actors (D5) not yet begun.** The runtime library is complete, but no domain actor has graduated to a child repo (`etzhayyim/com-etzhayyim-<name>`) + RAD identity ledger + west manifest entry. This is the next unit of work, now backed by the unified library rather than per-actor copy.
+- **D3 heavy runtime deferred.** `40-engine/kotoba` (kotoba-kotodama) stays an unpopulated submodule; the `.cljc` path (`langgraph-clj` + the generalized loop) is the runnable reference per D3, as designed.
+
 # Consequences
 
-- **Positive**: a single inheritable organism; capabilities (a channel, a gate, a learning improvement) implemented once propagate to all actors; the running organism actually learns; every actor — domain actors included — grows, posts (multi-channel), and converses; "生命進化" becomes a real closed loop. The honest gaps the audit found become a sequenced backlog (W1–W4) rather than latent debt.
+- **Positive**: a single inheritable organism; capabilities (a channel, a gate, a learning improvement) implemented once propagate to all actors; the running organism actually learns; every actor — domain actors included — grows, posts (multi-channel), and converses; "生命進化" becomes a real closed loop. The honest gaps the audit found become a sequenced backlog (W1–W4) rather than latent debt. **As of 2026-07-01 W1–W4 landed as a runnable tested substrate (see Realization status); the residual gates are constitutional (member key for external publish) and the not-yet-started D5 domain actors — not architectural debt.**
 - **Negative / risk**: minting a key for every former mirror raises real-world impersonation/defamation/privacy stakes — mitigated by the D4 disclosure duty (`voiceOf="etzhayyim"`, `isObservatory`), the person consent-gate, the seed-and-grow content scan + revocable leash + append-only public log, and the un-amendable catastrophe veto. Live posting AS the org's observatory of a real entity is **Council + operator gated** through W4; nothing in W0–W3 emits live.
 - **Constitutional**: amends ADR-2606042330 (G1 reframed; G5 keyless→keyed; D3/D4 mirror→active) and the Charter Rider (v3.6). It does **not** weaken the catastrophe term, the no-impersonation-of-real-entities floor, person protection (反個人主義 §2(g)), no-server-key-as-custodial-unilateral-key (the actor key is present-only + member-leashed, not platform-custodial — consistent with ADR-2606281500 / 2605231525), or the proposal-only/human-gated self-modification limit (ADR-2605240200).
 
