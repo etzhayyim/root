@@ -145,7 +145,7 @@
      :freshness-days 0,
      :retrieved "2026-06-30",
      :counts-toward-world-coverage false}),
-   :declared? false},
+   :declared? true},
   "toritsugi-dnk-passport"
   {:rid
    "bafyreiplaceholder0000000000000000000000000000000000000000000000",
@@ -464,7 +464,7 @@
      :freshness-days 0,
      :retrieved "2026-06-30",
      :counts-toward-world-coverage false}),
-   :declared? false},
+   :declared? true},
   "toritsugi-se-national"
   {:rid
    "bafyreiplaceholder0000000000000000000000000000000000000000000000",
@@ -1129,7 +1129,7 @@
      :freshness-days 0,
      :retrieved "2026-06-30",
      :counts-toward-world-coverage false}),
-   :declared? false},
+   :declared? true},
   "toritsugi-pl-municipal"
   {:rid
    "bafyreiplaceholder0000000000000000000000000000000000000000000000",
