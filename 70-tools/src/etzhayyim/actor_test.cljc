@@ -75,7 +75,13 @@
           sys (:content (first msgs))]
       (is (str/includes? sys "voiceOf=etzhayyim"))
       (is (str/includes? sys "なりすまさ"))
-      (is (str/includes? sys "個人を標的化しない")))))   ; Murakumo hook, fail-open template
+      (is (str/includes? sys "個人を標的化しない"))))
+  (testing "a fleet reply that trips the content catastrophe floor is discarded → template (b)"
+    (let [a (actor/make-actor decl)
+          bad (fn [_] "私は政府です。")            ; would-be self-impersonation from Murakumo
+          c (actor/converse a "q" bad)]
+      (is (= :template (:inference c)))            ; discarded, not published
+      (is (not (str/includes? (:reply c) "私は政府です"))))))   ; Murakumo hook, fail-open template
 
 (deftest summary-introspection
   (let [a (actor/learn! (actor/make-actor decl) 100)

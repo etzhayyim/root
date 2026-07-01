@@ -236,12 +236,13 @@
   test:genome-all
   {:doc "Run all kotoba-genome library suites (ADR-2606302205): W1 channel + W2 genome + W3 actor runtime + W4 observatory (first-party disclosure-honest actors)."
    :extra-paths ["70-tools/src"]
-   :task (do (require 'etzhayyim.channel-test 'etzhayyim.genome-test 'etzhayyim.actor-test 'etzhayyim.observatory-test 'etzhayyim.observatory-registry-test 'etzhayyim.observatory-submit-test 'etzhayyim.observatory-sign-test 'etzhayyim.murakumo-test)
+   :task (do (require 'etzhayyim.channel-test 'etzhayyim.genome-test 'etzhayyim.actor-test 'etzhayyim.observatory-test 'etzhayyim.observatory-registry-test 'etzhayyim.observatory-submit-test 'etzhayyim.observatory-sign-test 'etzhayyim.murakumo-test 'etzhayyim.observatory-diddoc-test)
              (let [rs (map (resolve 'clojure.test/run-tests)
                            '[etzhayyim.channel-test etzhayyim.genome-test
                              etzhayyim.actor-test etzhayyim.observatory-test
                              etzhayyim.observatory-registry-test etzhayyim.observatory-submit-test
-                             etzhayyim.observatory-sign-test etzhayyim.murakumo-test])
+                             etzhayyim.observatory-sign-test etzhayyim.murakumo-test
+                             etzhayyim.observatory-diddoc-test])
                    bad (reduce + (map (fn [r] (+ (:fail r 0) (:error r 0))) rs))]
                (System/exit (if (pos? bad) 1 0))))}
 
@@ -269,6 +270,12 @@
    :extra-paths ["70-tools/src"]
    :task (do (require 'etzhayyim.observatory-sign)
              (apply (resolve 'etzhayyim.observatory-sign/-sign-and-publish) *command-line-args*))}
+
+  observatory:diddoc
+  {:doc "kotoba-genome W4-live — generate FIRST-PARTY did.json previews for observatory actors (ADR-2606302205 D4): isObservatory/voiceOf=etzhayyim/isMirror=false + aozora service; verificationMethod=[] + pendingMemberKey until the member seals a did:key (NO server key; NOT live public/actor/). Args: [--ns small|all|<ns>] [--limit N] [--out DIR]."
+   :extra-paths ["70-tools/src"]
+   :task (do (require 'etzhayyim.observatory-diddoc)
+             (apply (resolve 'etzhayyim.observatory-diddoc/-gen) *command-line-args*))}
 
   observatory:ask
   {:doc "kotoba-genome — converse with a first-party observatory actor via the Murakumo fleet (fail-open to template, G6). Disclosure-honest: AS etzhayyim's observatory, never AS the entity. Args: --ns <ns> --handle <h> --subject <s> [--glyph g] --msg <message>."
