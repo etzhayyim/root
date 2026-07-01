@@ -9,7 +9,8 @@
   (:require [clojure.java.io :as io]
             [clojure.string :as str]
             [etzhayyim.kotoba.datom :as d]
-            [etzhayyim.kotoba.log :as log]))
+            [etzhayyim.kotoba.log :as log]
+            [etzhayyim.kotoba.cid :as cid]))
 
 ;; ── collect holdings from RAD journals ──────────────────────────────────────
 
@@ -63,6 +64,22 @@
               (mapcat #(re-seq #"baf[a-z0-9]{30,}" (slurp %))))
         (file-seq (io/file data-dir))))
 
+(defn actor-dataset-cids
+  "Content-CIDs of actor-level dataset files (registry/*.seed.json + data/*.kotoba.edn),
+   computed via cid-of-file so :rad/cidv1 can point at a dataset file directly — not just
+   at a CID recorded inside a provenance/pin manifest. ADR-2607010001."
+  [actors-dir]
+  (into #{}
+        (comp (filter #(.isFile %))
+              (filter #(let [n (.getName %) p (.getPath %)]
+                         (or (and (str/ends-with? n ".seed.json")
+                                  (str/includes? p "/registry/"))
+                             (and (str/ends-with? n ".kotoba.edn")
+                                  (str/includes? p "/data/")))))
+              (keep #(try (cid/cid-of-file (.getPath %))
+                          (catch Exception _ nil))))
+        (file-seq (io/file actors-dir))))
+
 (defn validate-holding
   "Required fields present? cidv1 resolves to a CID recorded in 80-data?
    Returns {:dataset-id :ok? :missing-required :cid-resolves?}."
@@ -78,8 +95,9 @@
 (defn validate
   "Sweep RAD journals, cross-check holdings against 80-data CIDs.
    Returns {:actors :holdings :ok :problems}."
-  [{:keys [rad-dir data-dir]}]
-  (let [known   (known-cids-in data-dir)
+  [{:keys [rad-dir data-dir actors-dir]}]
+  (let [known   (into (known-cids-in data-dir)
+                      (when actors-dir (actor-dataset-cids actors-dir)))
         hs      (all-holdings rad-dir)
         results (for [{:keys [actor datasets]} hs
                       h datasets
@@ -93,7 +111,7 @@
 (defn -main
   "bb lint:provenance — validate RAD holdings cross-reference 80-data."
   [& _]
-  (let [res     (validate {:rad-dir "80-data/kotoba-rad" :data-dir "80-data"})
+  (let [res     (validate {:rad-dir "80-data/kotoba-rad" :data-dir "80-data" :actors-dir "20-actors"})
         problems (:problems res)]
     (println (format "actors=%d holdings=%d ok=%d problems=%d"
                      (:actors res) (:holdings res) (:ok res) (count problems)))
