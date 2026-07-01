@@ -41,6 +41,7 @@
             [etzhayyim.kotoba.engine :as kt]
             [etzhayyim.vitals :as vitals]
             [etzhayyim.genome :as genome]
+            [etzhayyim.channel :as channel]
             [etzhayyim.channel-genome :as cgenome]))
 
 ;; ── served projection dirs (mirror vitals/snapshot-dirs) ─────────────────────
@@ -270,6 +271,7 @@
   [{:db/id (str "social/" now)
     :social/ts now :social/actor-did actor-did :social/mood (or mood "")
     :social/text text :social/lexicon "app.bsky.feed.post"
+    :social/voice-of "etzhayyim" :social/is-observatory true   ; disclosure-honest (voiceOf=etzhayyim)
     :social/created-at (str (java.time.Instant/ofEpochMilli now))
     :social/requires-member-signature true     ; only a member's key can sign it
     :social/server-held-key false              ; the organism holds NO key, signs nothing
@@ -277,13 +279,32 @@
 
 (defn- prepare-social!
   "Append the organism's latest narration to the social outbox as a member-sign-ready
-   app.bsky.feed.post envelope (prepared, unpublished). Returns the prepared count."
+   app.bsky.feed.post envelope (prepared, unpublished). The outward voice passes the
+   SAME catastrophe + disclosure floor as every actor post BEFORE it is surfaced
+   (channel/charter-scan + content-scan → the real ECL objective function) — a
+   narration that trips the floor is DROPPED, never staged (ADR-2606281500: scan-
+   before-emit is the seed that makes an autonomous voice safe). Returns the prepared
+   count, or nil when there is nothing (safe) to say."
   [now]
   (let [narr (try (json/parse-string (slurp (str (first snapshot-dirs) "/narration.json")))
                   (catch Throwable _ nil))
         text (some-> narr (get "text") str/trim)
-        mood (get narr "mood")]
-    (when (and text (seq text))
+        mood (get narr "mood")
+        ;; self-expression floor: disclosure (voiceOf=etzhayyim, never impersonating,
+        ;; no person-targeting) + the content catastrophe scan on the actual words.
+        meta-scan (channel/charter-scan {:voice-of "etzhayyim" :is-observatory true
+                                         :claims-to-be-entity false :targets-person? false})
+        text-scan (when (and text (seq text)) (channel/content-scan text))
+        blocked?  (or (= :veto (:verdict meta-scan))
+                      (and text-scan (= :veto (:verdict text-scan))))]
+    (cond
+      (not (and text (seq text))) nil
+      blocked?
+      (binding [*out* *err*]
+        (println (format "[social] DROPPED narration — tripped the self-expression floor: %s"
+                         (vec (concat (:reasons meta-scan) (:reasons text-scan)))))
+        nil)
+      :else
       (let [conn (kt/connect {:journal social-journal})]    ; APPEND-ONLY outbox (as-of voice)
         (kt/transact conn (->social-datoms now text mood))
         (let [posts (->> (kt/q conn '{:find [?ts ?text ?mood ?status]
@@ -295,8 +316,9 @@
                          (sort-by :ts >) vec)
               payload {:generatedAt (str (java.time.Instant/ofEpochMilli now))
                        :actorDid actor-did :lexicon "app.bsky.feed.post"
+                       :voiceOf "etzhayyim" :isObservatory true :scanned true
                        :requiresMemberSignature true :serverHeldKey false
-                       :note "PREPARED member-sign-ready posts. The organism never publishes; a member drains these with their OWN credentials (no-server-key)."
+                       :note "PREPARED member-sign-ready posts, each cleared by the catastrophe + disclosure floor (voiceOf=etzhayyim). The organism never publishes; a member drains these with their OWN credentials (no-server-key)."
                        :prepared (count posts) :latest (vec (take 20 posts))}
               out (json/generate-string payload {:pretty true})]
           (doseq [d snapshot-dirs]
@@ -304,7 +326,7 @@
             (kt/snapshot! conn (str d "/social.kotoba.edn"))
             (spit (str d "/social.json") out))
           (binding [*out* *err*]
-            (println (format "[social] prepared post #%d (mood=%s, %d chars) — outbox, UNPUBLISHED (member-sign-required)"
+            (println (format "[social] prepared post #%d (mood=%s, %d chars, scanned✓) — outbox, UNPUBLISHED (member-sign-required)"
                              (count posts) mood (count text))))
           (count posts))))))
 
