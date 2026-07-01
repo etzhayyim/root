@@ -53,7 +53,29 @@
       (is (= "etzhayyim" (:voice-of c)))
       (is (str/includes? (:reply c) "観測"))
       (is (str/includes? (:reply c) "なりすましではありません"))
-      (is (= :template (:inference c))))))   ; Murakumo hook, fail-open template
+      (is (= :template (:inference c))))))
+
+(deftest converse-uses-injected-murakumo-inference
+  (testing "an injected infer-fn (Murakumo) supplies the reply; :inference :murakumo"
+    (let [a (actor/make-actor decl)
+          mock (fn [_msgs] "公開記録では、当該議会は予算案を可決しました。")
+          c (actor/converse a "予算は？" mock)]
+      (is (= :murakumo (:inference c)))
+      (is (= "公開記録では、当該議会は予算案を可決しました。" (:reply c)))
+      (is (= "etzhayyim" (:voice-of c)))))
+  (testing "infer-fn failure / blank falls open to the template (G6)"
+    (let [a (actor/make-actor decl)
+          c1 (actor/converse a "x" (fn [_] (throw (ex-info "fleet down" {}))))
+          c2 (actor/converse a "x" (fn [_] ""))]
+      (is (= :template (:inference c1)))
+      (is (= :template (:inference c2)))))
+  (testing "the converse prompt is disclosure-honest (never AS the entity, no person-targeting)"
+    (let [d {:domain "world-government" :handle "ooyake" :subject "national legislatures"}
+          msgs (actor/converse-prompt d "q")
+          sys (:content (first msgs))]
+      (is (str/includes? sys "voiceOf=etzhayyim"))
+      (is (str/includes? sys "なりすまさ"))
+      (is (str/includes? sys "個人を標的化しない")))))   ; Murakumo hook, fail-open template
 
 (deftest summary-introspection
   (let [a (actor/learn! (actor/make-actor decl) 100)

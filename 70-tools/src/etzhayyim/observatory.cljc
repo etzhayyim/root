@@ -74,9 +74,11 @@
 
 (defn ask
   "Converse with an observatory actor — it RESPONDS (disclosure-honest), the
-  dialogic-API surface the keyless mirror could never have."
-  [obs message]
-  (actor/converse obs message))
+  dialogic-API surface the keyless mirror could never have. With an injected
+  `infer-fn` (etzhayyim.murakumo/infer-text) the reply is Murakumo-inferred
+  (fail-open to template); without it, the deterministic template."
+  ([obs message] (actor/converse obs message))
+  ([obs message infer-fn] (actor/converse obs message infer-fn)))
 
 ;; ── migration helper: keyless mirror handle → first-party observatory decl ─────
 (defn from-mirror-handle
