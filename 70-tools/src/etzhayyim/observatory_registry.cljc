@@ -20,7 +20,13 @@
             [etzhayyim.channel :as channel]
             [clojure.string :as str]
             [clojure.java.io :as io]
-            [babashka.fs :as fs]))
+            [babashka.fs :as fs]
+            [cheshire.core :as json]))
+
+(def ^:private projection-dirs
+  ;; served-static mirrors (the /murakumo page fetches /observatory.json)
+  ["50-infra/etzhayyim-did-web/public/observatory.json"
+   "60-apps/etzhayyim-project-organism/public/observatory.json"])
 
 (def ^:private ns-glyph
   {"cable" "綿津綱" "station" "綿津綱" "craft" "渡り" "gov" "公" "corp" "兜"})
@@ -104,8 +110,28 @@
                    :registry results}]
       (io/make-parents out)
       (spit out (pr-str summary))
-      (println (format "[observatory] regen (%s) — %d namespace(s), %d first-party observatory actors; wrote %s"
-                       (name mode) (count nss) (reduce + (map :sampled results)) out))
+      ;; compact projection for the /murakumo observatory view (counts + samples,
+      ;; NOT the full 24k records) — deployed statically by the publish agent.
+      (let [projection {:generatedAt (str (java.time.Instant/now))
+                        :adr "2606302205 D4" :mode (name mode)
+                        :councilRatified (= mode :prepared)
+                        :was "keyless observational mirror (ADR-2606042330)"
+                        :now "first-party disclosure-honest observatory actor (voiceOf=etzhayyim, isObservatory, present-only leashed did:key)"
+                        :totals {:namespaces (count results)
+                                 :entities (reduce + (map :total results))
+                                 :sampledPrepared (reduce + (map :sampled results))}
+                        :namespaces (mapv (fn [r]
+                                            {:ns (:ns r) :glyph (ns-glyph (:ns r))
+                                             :total (:total r) :sampled (:sampled r)
+                                             :postStatus (name (get-in (first (:actors r)) [:post :status] :dry-run))
+                                             :allDisclosed (every? #(= "etzhayyim" (:voiceOf %)) (:actors r))
+                                             :allGrew (every? :grew? (:actors r))
+                                             :sampleSubjects (mapv :subject (take 6 (:actors r)))})
+                                          results)}
+            pjson (json/generate-string projection {:pretty true})]
+        (doseq [d projection-dirs] (io/make-parents d) (spit d pjson)))
+      (println (format "[observatory] regen (%s) — %d namespace(s), %d entities, %d prepared samples; wrote %s + observatory.json projection"
+                       (name mode) (count nss) (reduce + (map :total results)) (reduce + (map :sampled results)) out))
       (doseq [r results]
         (println (format "  %-7s %5d keyless mirrors → %3d first-party observatory actors (%s · all grew=%s · all voiceOf=etzhayyim=%s)"
                          (:ns r) (:total r) (:sampled r) (name mode)
