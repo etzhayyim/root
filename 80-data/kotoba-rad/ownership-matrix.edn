@@ -446,7 +446,16 @@
    :declared? false},
   "tsumugi"
   {:rid "bafkreidqelzw4i27b276tv4wjvuxddoli74abjsprdu63njefzeksevhpu",
-   :datasets (),
+   :datasets
+   ({:dataset-id "tsumugi-power",
+     :layer :repo,
+     :source
+     "global corporate power-dynamics KG (refined, ADR-2605262130)",
+     :cidv1
+     "bafkreier4zyuw6dfma3t2kmawbzfupfdusdzabt44raki2m5dv7cuvfb4m",
+     :freshness-days 0,
+     :retrieved "2026-06-30",
+     :counts-toward-world-coverage false}),
    :declared? false},
   "toritsugi-se-national"
   {:rid
@@ -1448,5 +1457,6 @@
  {"kanjo-coverage" {:holders ["kanjo"], :layers [:repo]},
   "toritsugi-procedures" {:holders ["toritsugi"], :layers [:repo]},
   "uchiwake-coverage" {:holders ["uchiwake"], :layers [:repo]},
+  "tsumugi-power" {:holders ["tsumugi"], :layers [:repo]},
   "junkan-governance" {:holders ["junkan"], :layers [:repo]}}}
 
