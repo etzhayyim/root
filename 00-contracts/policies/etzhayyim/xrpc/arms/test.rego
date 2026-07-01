@@ -123,3 +123,47 @@ test_export_control_obligation if {
     "params": {"destinationJurisdiction": "IR"}
   }
 }
+
+# issue #1504: omitting destinationJurisdiction MUST NOT bypass export control
+# on transferCustody (previously evaluated as undefined → export_restricted=false)
+test_transfer_custody_omitted_jurisdiction_denied if {
+  not arms.allow with input as {
+    "auth": {"method": "did-session", "scopes": ["rpc?lxm=com.etzhayyim.apps.arms.transferCustody"], "holderAuthSessionPassed": true},
+    "route": {"nsid": "com.etzhayyim.apps.arms.transferCustody"},
+    "permission_sets": ["arms:authority"],
+    "params": {}
+  }
+}
+
+# issue #1504: omitted jurisdiction on transferCustody returns 451 obligation
+test_transfer_custody_omitted_jurisdiction_451 if {
+  "return_451" in arms.deny_obligations with input as {
+    "auth": {"method": "did-session", "scopes": ["rpc?lxm=com.etzhayyim.apps.arms.transferCustody"], "holderAuthSessionPassed": true},
+    "route": {"nsid": "com.etzhayyim.apps.arms.transferCustody"},
+    "permission_sets": ["arms:authority"],
+    "params": {}
+  }
+}
+
+# issue #1504: omitting destinationJurisdiction MUST NOT bypass export control
+# on reportIncident either
+test_report_incident_omitted_jurisdiction_denied if {
+  not arms.allow with input as {
+    "auth": {"method": "did-session", "scopes": ["rpc?lxm=com.etzhayyim.apps.arms.reportIncident"], "holderAuthSessionPassed": true},
+    "route": {"nsid": "com.etzhayyim.apps.arms.reportIncident"},
+    "permission_sets": ["arms:authority"],
+    "params": {}
+  }
+}
+
+# issue #1504: an empty params object (not just a missing key) is also denied,
+# even for an otherwise-scoped internal service (issue #1505 scope gate + #1504
+# jurisdiction gate compose: both must pass for allow)
+test_transfer_custody_empty_params_denied if {
+  not arms.allow with input as {
+    "auth": {"method": "service-jwt", "scopes": ["rpc?lxm=com.etzhayyim.apps.arms.transferCustody"], "holderAuthSessionPassed": true},
+    "route": {"nsid": "com.etzhayyim.apps.arms.transferCustody"},
+    "permission_sets": ["arms:authority"],
+    "params": {}
+  }
+}

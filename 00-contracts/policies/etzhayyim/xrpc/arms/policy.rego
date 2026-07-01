@@ -38,11 +38,19 @@ requires_holder_session if {
   method_policy_item.requiresHolderAuthSession == true
 }
 
-# Export control gate: block custody transfers to ATT/Wassenaar restricted jurisdictions
+# Export control gate: block custody transfers to ATT/Wassenaar restricted
+# jurisdictions. destinationJurisdiction is MANDATORY for transferCustody
+# and reportIncident — omitting it is treated as restricted (issue #1504:
+# otherwise OPA evaluates the missing param as undefined, export_restricted
+# stays false, and the transfer is authorised to a potentially restricted
+# destination).
 export_restricted if {
   nsid in {"com.etzhayyim.apps.arms.transferCustody", "com.etzhayyim.apps.arms.reportIncident"}
-  some jur in data.etzhayyim.xrpc.arms.export_restricted_jurisdictions
-  input.params.destinationJurisdiction == jur
+  not is_string(object.get(input.params, "destinationJurisdiction", null))
+}
+export_restricted if {
+  nsid in {"com.etzhayyim.apps.arms.transferCustody", "com.etzhayyim.apps.arms.reportIncident"}
+  object.get(input.params, "destinationJurisdiction", null) in data.etzhayyim.xrpc.arms.export_restricted_jurisdictions
 }
 
 # Internal services authenticate with a service-jwt. They are NOT exempt from
