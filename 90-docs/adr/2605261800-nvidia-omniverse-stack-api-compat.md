@@ -21,6 +21,7 @@ authoritative_for:
   - 40-engine/kami-engine/kami-replicator
   - 40-engine/kami-engine/kami-app-amenominaka
   - kotoba-lang/kami-nv-compat
+  - kotoba-lang/kami-engine/kami-isaac-sim-wasm
   - 40-engine/kotoba/crates/kotoba-kotodama/py/kotodama/nv_compat
 depends_on:
   - adr-2605261600-robotics-simulation-substrate-r0

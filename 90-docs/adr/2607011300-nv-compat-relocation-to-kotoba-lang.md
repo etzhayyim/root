@@ -12,6 +12,7 @@ weight: 0.30
 priority_note: "Housekeeping/placement ADR, not a design change to the facade itself."
 authoritative_for:
   - kami-nv-compat repo location
+  - kami-isaac-sim-wasm (kotoba-lang/kami-engine)
 depends_on:
   - adr-2605261800-nvidia-omniverse-stack-api-compat
 related:
@@ -97,6 +98,46 @@ git history not preserved — see Alternatives Considered).
   needed updating; ADR-2605261800's own body is left as the historical record
   of what was decided and where it was first built.
 
+## Amendment (2026-07-01): first kami-engine backend slice lands (`kami-isaac-sim-wasm`)
+
+Per Consequences' forward pointer below, the eventual Rust `kami-engine`
+backend swap (A2) got its first concrete slice the same day as the
+relocation, ahead of the original "later" framing:
+
+- New crate **`kotoba-lang/kami-engine/kami-isaac-sim-wasm`**: a
+  wasm-bindgen bridge generalizing the existing `kami-cartpole-wasm`
+  precedent (fixed Cartpole topology only) to load **any** URDF, exposing
+  `kami-genesis::IsaacWorld` / `ArticulationView(Mut)` /
+  `ArticulationController` (RNEA/CRBA Featherstone dynamics + PD control —
+  208 tests in `kami-genesis` alone, cross-validated against cartpole /
+  double-pendulum / arm fixtures) directly to JS. Confirms the survey
+  finding behind A2: `kami-genesis` already implements the exact ground
+  `kami-nv-compat`'s `dynamics/`/`controllers/`/`actions/`/`assets/`
+  (~3,150 lines) reimplements from scratch in TypeScript.
+- Verified end-to-end: 4 native `cargo test` cases (cartpole lifecycle, PD
+  position-target-tracking — mirrors `kami-genesis`'s own
+  `isaac_controller_pd_drives_cart_to_target` test — arm pose/Jacobian,
+  reset), `wasm-pack build --target nodejs` succeeds, and a vendored copy of
+  that build drives 4 passing Node/vitest tests in `kami-nv-compat`
+  (`test/isaac-sim-wasm-bridge.smoke.test.ts`, see
+  `kami-nv-compat/vendor/kami-isaac-sim-wasm/README.md` for provenance).
+- **Not yet wired into `kami-nv-compat`'s public API**: `isaac-sim.ts` /
+  `e7m-sim/index.ts` still run the from-scratch TS engine unchanged. WASM
+  instantiation is inherently async (`WebAssembly.instantiate` /
+  `wasm-bindgen` init) while `new World(...)` / `new Articulation(...)` are
+  synchronous today across 486 existing tests — swapping the engine
+  requires deciding how to reconcile that (top-level async init before
+  first use is the likely shape) before `dynamics/`/`controllers/`/
+  `actions/` can actually be deleted. Tracked as follow-up, not done here.
+- Workspace hygiene note: `kotoba-lang/kami-engine`'s `main` has a
+  pre-existing, unrelated broken path dependency (`kami-script-runtime` →
+  `kototama`, expected at `orgs/kotoba-lang/kototama` but the repo is still
+  at `orgs/com-junkawasaki/kototama`, not yet migrated per ADR-2606302300),
+  which blocks whole-workspace `cargo` commands. Worked around by testing
+  `kami-isaac-sim-wasm` as a temporarily-standalone crate
+  (`[workspace] members = []` override, reverted before commit); not fixed
+  as part of this amendment (a different crate's problem).
+
 # Consequences
 
 - `kami-nv-compat` becomes independently versioned and installable by any
@@ -112,9 +153,12 @@ git history not preserved — see Alternatives Considered).
   The ADR trail (2605261800 + this ADR) is the durable record of *why* and
   *when*; per-line blame is not preserved.
 - The eventual Rust `kami-engine` backend swap (ADR-2605261800 §D6/§D7,
-  `kami-genesis`/`kami-articulated`/`kami-rt`/`kami-usd` — currently mostly
-  path-reservation stubs vs. the TS facade's more complete implementation)
-  is now a same-org (`kotoba-lang`) refactor instead of a cross-org one.
+  `kami-genesis`/`kami-articulated`/`kami-rt`/`kami-usd` — a mix of
+  substantial (`kami-genesis`, `kami-shugyo`, `kami-sensor-sim`) and
+  still-stub (`kami-pbrt`, `kami-replicator`, `kami-app-amenominaka`) crates)
+  is now a same-org (`kotoba-lang`) refactor instead of a cross-org one. The
+  Isaac Sim slice of it has a working proof-of-bridge as of the same-day
+  amendment below (`kami-isaac-sim-wasm`); not yet wired into the TS facade.
 
 # Alternatives Considered
 
@@ -155,3 +199,5 @@ adjacent code.
 - ADR-2606302300 (org-taxonomy 4-orgs — the library-placement rule this ADR
   executes)
 - `kotoba-lang/kami-nv-compat` (new repo, `README.md` for provenance)
+- `kotoba-lang/kami-engine/kami-isaac-sim-wasm` (new crate, first backend slice)
+- `kotoba-lang/kami-nv-compat/vendor/kami-isaac-sim-wasm/README.md` (proof-of-bridge smoke test provenance)
