@@ -40,11 +40,16 @@
                     :counts-toward-world-coverage (:rad/counts-toward-world-coverage kv)})})))
 
 (defn all-holdings
-  "Sweep <rad-dir>/*.identity.journal.edn → seq of {:actor :rid :datasets}."
+  "Sweep <rad-dir>/*.identity.journal.edn → seq of {:actor :rid :datasets}.
+   Sorted by filename: file-seq order is filesystem-dependent (macOS vs Linux
+   CI runners return different directory-listing orders), and this seq feeds
+   ownership-matrix's insertion-ordered :datasets map — an unsorted walk made
+   `bb rad:ownership-matrix --check` pass locally but fail reproducibly in CI."
   [rad-dir]
   (->> (file-seq (io/file rad-dir))
        (filter #(and (.isFile %)
                      (str/ends-with? (.getName %) ".identity.journal.edn")))
+       (sort-by #(.getName %))
        (keep journal-holdings)))
 
 ;; ── cidv1 reference integrity ───────────────────────────────────────────────
