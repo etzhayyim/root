@@ -13,7 +13,7 @@
 ;;   00-contracts/lexicons/com/etzhayyim/apps/tsukuru/cnt/prepareRunPackage.json
 ;;   00-contracts/lexicons/com/etzhayyim/apps/tsukuru/cnt/validateRunPackage.json
 ;; validateRunPackage's output shape ("schema"/"runId"/"status"/"blockers"/"warnings"/
-;; "checks"/"dryRun") is exactly what py/agent.cljc's `validate-run-package` now computes for
+;; "checks"/"dryRun") is exactly what kotoba/agent.cljc's `validate-run-package` now computes for
 ;; real (minus "recordId", a host-persistence concern out of scope for a pure fn).
 [{:lexicon 1
   :id "com.etzhayyim.apps.tsukuru.cnt.designManufacturingFlow"
@@ -219,7 +219,7 @@
       :equipment_overrides {:type "unknown"}}}
     :output
     {:encoding "application/json"
-     ;; py/agent.cljc's `(validate-run-package "cnt" run-package)` computes exactly this
+     ;; kotoba/agent.cljc's `(validate-run-package "cnt" run-package)` computes exactly this
      ;; shape for real (business-rule checks, not structural key presence) — minus
      ;; "recordId", a host-persistence concern out of scope for a pure fn.
      :schema
