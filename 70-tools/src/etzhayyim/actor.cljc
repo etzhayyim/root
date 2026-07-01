@@ -72,27 +72,47 @@
   (channel/emit! (apply envelope actor lexicon content opts)))
 
 ;; ── dialog ───────────────────────────────────────────────────────────────────
+(defn converse-prompt
+  "The disclosure-honest system+user messages for the Murakumo fleet — the actor
+  speaks AS etzhayyim's <domain> observatory, grounded in public record, NEVER as
+  the real entity, NEVER targeting a person."
+  [d message]
+  [{:role "system"
+    :content (str "あなたは etzhayyim の " (:domain d) " 観測アクター（handle: " (:handle d)
+                  "）。voiceOf=etzhayyim として、公開記録に基づく観測を簡潔に一〜二文で述べる。"
+                  (when (:subject d) (str "観測対象は『" (:subject d) "』だが、決してその実体になりすまさず、その一人称で語らない。"))
+                  " 個人を標的化しない。前置き・ローマ字・記号装飾は禁止。")}
+   {:role "user" :content (str/trim (str message))}])
+
 (defn converse
   "Disclosure-honest reply to a message. The gate-kit runs first (an actor never
-  speaks AS the real entity, never targets a person). The reply is a deterministic
-  reference; :inference is a hook for the Murakumo fleet (G6/G7, fail-open to this
-  template — never a non-Murakumo endpoint). Returns {:reply … :blocked? … }."
-  [actor message]
-  (let [d (:decl actor)
-        scan (channel/charter-scan
-              {:voice-of (:voice-of d) :is-observatory (:is-observatory d)
-               :claims-to-be-entity false :targets-person? false})]
-    (if (= :veto (:verdict scan))
-      {:from (:handle d) :blocked? true :scan scan}
-      {:from (:handle d) :blocked? false
-       :voice-of (:voice-of d) :is-observatory (boolean (:is-observatory d))
-       :reply (str (when (:glyph d) (str (:glyph d) " ")) (:handle d)
-                   " (etzhayyim の " (:domain d) " 観測アクター): "
-                   "「" (str/trim (str message)) "」 — 公開記録に基づき観測を返します"
-                   (when (:subject d) (str "（subject: " (:subject d) "、なりすましではありません）"))
-                   "。")
-       :persona (:persona d)
-       :inference :template})))   ; :template until the Murakumo membrane is wired (G7)
+  speaks AS the real entity, never targets a person). With an injected `infer-fn`
+  (e.g. etzhayyim.murakumo/infer-text) the reply is Murakumo-inferred (G6, fail-open
+  to the template — never a non-Murakumo endpoint); without it (default/tests) the
+  deterministic template is used. actor.cljc stays network-free — the live wiring
+  injects the fleet. Returns {:reply … :inference :murakumo|:template :blocked? …}."
+  ([actor message] (converse actor message nil))
+  ([actor message infer-fn]
+   (let [d (:decl actor)
+         scan (channel/charter-scan
+               {:voice-of (:voice-of d) :is-observatory (:is-observatory d)
+                :claims-to-be-entity false :targets-person? false})]
+     (if (= :veto (:verdict scan))
+       {:from (:handle d) :blocked? true :scan scan}
+       (let [inferred (when infer-fn
+                        (try (let [t (infer-fn (converse-prompt d message))]
+                               (when (and t (seq (str t))) (str t)))
+                             (catch #?(:clj Throwable :cljs :default) _ nil)))
+             tmpl (str (when (:glyph d) (str (:glyph d) " ")) (:handle d)
+                       " (etzhayyim の " (:domain d) " 観測アクター): "
+                       "「" (str/trim (str message)) "」 — 公開記録に基づき観測を返します"
+                       (when (:subject d) (str "（subject: " (:subject d) "、なりすましではありません）"))
+                       "。")]
+         {:from (:handle d) :blocked? false
+          :voice-of (:voice-of d) :is-observatory (boolean (:is-observatory d))
+          :reply (or inferred tmpl)
+          :persona (:persona d)
+          :inference (if inferred :murakumo :template)})))))
 
 ;; ── introspection ────────────────────────────────────────────────────────────
 (defn summary [actor]

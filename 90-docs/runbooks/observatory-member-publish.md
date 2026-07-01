@@ -63,9 +63,29 @@ operational step. The agent **prepares** the outbox; **you publish** it.
 
 ## Pilot first, then scale
 
-Do **one** actor / one small namespace (cable=14) end-to-end, verify the public
+**Step 0 — dry pilot (no key, no network).** Preview the exact leash + record that
+*would* be signed/posted, before sealing any key:
+
+```bash
+bb --config member-publish.bb.edn observatory:member-publish \
+   --actor cable-marea --aud "<node-operator-did>" \
+   --subject "MAREA" --text "public-record observatory online" --dry
+# → prints the leash-request (cap :cap/transact, short TTL) + the member-attributed
+#   record (voiceOf=etzhayyim, isObservatory) · "member key in Keychain: absent" ·
+#   NOTHING published.
+```
+
+Then do **one** actor / one small namespace (cable=14) end-to-end, verify the public
 record reads `voiceOf=etzhayyim` / `isObservatory` and never claims to *be* the
 entity, then widen. Do **not** flip all 8,888 at once.
+
+You can also **talk to** an observatory actor before publishing (Murakumo-inferred,
+disclosure-honest, fail-open to a template — read-only, nothing published):
+
+```bash
+bb observatory:ask --ns corp --handle corp-7203 --subject "Toyota Motor Corp" \
+   --glyph 兜 --msg "What is publicly disclosed for Q3?"
+```
 
 ## The concrete signer (kagi + kotoba-lang)
 

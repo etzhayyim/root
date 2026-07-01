@@ -83,12 +83,29 @@
   (let [f (fn [k d] (or (second (drop-while #(not= % k) args)) d))
         actor (f "--actor" nil)
         aud   (f "--aud" nil)
-        priv  (member-key actor)]
-    (when (str/blank? priv)
-      (throw (ex-info "no member key in Keychain — the agent cannot publish; the member must seal their did:key first (runbook step 1)." {:actor actor})))
-    (let [ctx (mint-leash {:priv-b64 priv
-                           :pub-b64 ((resolve! 'etzhayyim.kotoba-rad-sign/pubkey-hex-from-priv-b64) priv)
-                           :aud aud :ttl-seconds (Long/parseLong (str (f "--ttl" "900")))})]
-      (publish-post! ctx
-                     {:http-fn (resolve! 'babashka.http-client/request) :json-write pr-str :json-read identity}
-                     {:text (f "--text" "") :subject (f "--subject" "")}))))
+        ttl   (Long/parseLong (str (f "--ttl" "900")))
+        post  {:text (f "--text" "") :subject (f "--subject" "")}
+        dry?  (boolean (some #{"--dry"} args))]
+    (if dry?
+      ;; --dry PILOT preview: the full signed path (leash + member-attributed
+      ;; record) with NO kagi / NO network / NO key — the walk-through the member
+      ;; reviews before the real one-actor pilot. Nothing is published.
+      (let [lr  (leash-request {:aud aud :graph (str "graph-of:" actor) :ttl-seconds ttl})
+            rec (post-record post)
+            has-key (boolean (try (member-key actor) (catch Throwable _ nil)))]
+        (println "[observatory-sign] PILOT (--dry) — nothing published.")
+        (println "  actor:" actor "· member key in Keychain:"
+                 (if has-key "present ✓" "absent — seal it first (runbook step 1)"))
+        (println "  would mint (kagi.cacao/mint, YOUR key):" (pr-str lr))
+        (println "  would post (kotoba-lang transact, member-attributed, AS etzhayyim):" (pr-str rec))
+        {:dry true :leash-request lr :record rec :member-key-present has-key})
+      ;; real path (member-only): kagi leash + kotoba-lang transact with the key
+      (let [priv (member-key actor)]
+        (when (str/blank? priv)
+          (throw (ex-info "no member key in Keychain — the agent cannot publish; the member must seal their did:key first (runbook step 1)." {:actor actor})))
+        (let [ctx (mint-leash {:priv-b64 priv
+                               :pub-b64 ((resolve! 'etzhayyim.kotoba-rad-sign/pubkey-hex-from-priv-b64) priv)
+                               :aud aud :ttl-seconds ttl})]
+          (publish-post! ctx
+                         {:http-fn (resolve! 'babashka.http-client/request) :json-write pr-str :json-read identity}
+                         post))))))
