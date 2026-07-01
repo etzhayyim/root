@@ -5,13 +5,15 @@
 ;; Machine-readable EDN form. The canonical NARRATIVE stays in the sibling .md
 ;; (90-docs/CLAUDE.md: Markdown is the canonical source); this .adr.edn is the
 ;; structured, queryable projection (Datom-/tooling-friendly).
-;; Status: proposed — founder = Council Lv7+ 1/1 (PR review = Council attestation).
-;; Date 2026-06-30.
+;; Status: accepted — founder = Council Lv7+ 1/1 (PR review = Council attestation);
+;;         ratified 2026-07-01; W1-W4 landed as a runnable tested substrate.
+;; Date 2026-06-30 (accepted 2026-07-01).
 ;; ──────────────────────────────────────────────────────────────────────────
 {:id        "2606302205"
  :title     "kotoba-genome — unified self-evolving, multi-channel, all-actor-posting organism; retire the keyless observational mirror"
  :status    :accepted
  :date      #inst "2026-06-30"
+ :accepted  #inst "2026-07-01"
  :deciders  ["Jun Kawasaki (founder = Council Lv7+ 1/1)"]
  :doc-type  :adr
  :topic     :kotoba-genome-unified-self-evolving-all-actor-organism
@@ -53,6 +55,25 @@
              :W2 "Unify loop (D1): reflex->_prior_consensus->next-tick; generalize ibuki AI+co-scientist into shared lib."
              :W3 "Shared behavior lib (D3): populate 40-engine/kotoba; implement-or-retire kotodama-evolver; move identity/social/evolution/dialog/gate-kit into kotoba-lang; migrate first actor cohort."
              :W4 "Entity pivot (D4/D5): regenerate namespace registries keyless->first-party disclosure; turn up dialog+autonomous posting under seed-and-grow gate, R0 dry-run -> Council-gated live."}}
+
+ ;; ── realization status (2026-07-01) ───────────────────────────────────────
+ :realization
+ {:substrate "runnable + tested reference substrate in 70-tools/src/etzhayyim/*.cljc; bb test:genome-all = 11 suites / 55 tests green."
+  :landed {:W1-channel        "defprotocol Channel + registry + at-proto/email/telegram drivers + channel-neutral envelope + content-scan hook."
+           :W1-x-line         "x + line drivers added behind the same scan (PR #2794); channel = one defrecord + one app.<channel>.* family."
+           :W2-genome         "pure closed learning loop: Brier-score -> kaizen -> prior-consensus -> decide -> pre-register."
+           :W1xW2-channel     "channel-choice: an actor learns WHICH channel to grow on by REALISED growth-rate, per-channel genome, not prediction accuracy (PR #2795)."
+           :W3-actor          "shared actor runtime (identity/social/evolution/dialog/gate-kit inherited) + Murakumo-injected converse."
+           :W3-routing        "actor routes posts to its LEARNED best channel: post! :route :learned + channel-appropriate lexicon (PR #2798)."
+           :W4-registry       "observatory registry regen keyless-mirror -> first-party disclosure-honest actor + member-sign-ready outbox."
+           :W4-live-abc       "real member-publish path (clojure CLI kagi mint+verify proven) + keyed did.json + live-swap + content-scan -> the REAL ECL objective function (CSAM/violence -> :non-aligned via catastrophe term) (PR #2793)."
+           :organism-learn    "resident daemon learns WHAT predicts growth (learn!) + WHERE to grow (channel-learn!) in both heartbeat branches; projected to genome.json / channel-genome.json (PR #2799)."
+           :organism-voice    "resident outward voice passes the catastrophe + disclosure floor BEFORE surfacing (drop-on-veto; voiceOf=etzhayyim, isObservatory) (PR #2803)."}
+  :closed-loop "self-evolution loop closed + continuously running in com.etzhayyim.organism.heartbeat (launchd): observe per-channel growth -> channel-learn! -> preferred-target -> catastrophe+disclosure scan -> surface disclosure-honest voice. D1 'the running thing is the learning thing' satisfied."
+  :ceiling {:no-external-publish "every W1 driver is DRY-RUN; observatory outbox is member-sign-ready but UNPUBLISHED — a signed external write requires the member's sealed did:key (no-server-key/member-principal, ADR-2606111400/2605231525). Real kagi mint+verify proven; only the sealed key is missing. The agent prepares a safe voice; the member releases it."
+            :self-expression    "LIVE on the first-party surface only (etzhayyim.com, static, no key); transmission to an external social graph stays member-gated."
+            :com-x-D5           "NOT begun — runtime library complete, but no domain actor graduated to a child repo (etzhayyim/com-etzhayyim-<name>) + RAD identity ledger + west entry. Next unit of work, backed by the unified library."
+            :D3-runtime         "40-engine/kotoba (kotoba-kotodama) stays an unpopulated submodule; the .cljc path (langgraph-clj + generalized loop) is the runnable reference per D3, as designed."}}
 
  ;; ── consequences ──────────────────────────────────────────────────────────
  :consequences
