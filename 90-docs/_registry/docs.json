@@ -27093,15 +27093,20 @@
       "path": "90-docs/adr/2607010001-actor-data-ownership-model.md",
       "id": "adr-2607010001-actor-data-ownership-model",
       "title": "Actor data-ownership model — each actor holds its required real-world data (RAD data-holding vocabulary + domain-hybrid layering)",
-      "status": "proposed",
+      "status": "accepted",
       "doc_type": "adr",
       "topic": "actor-data-ownership-model",
       "authoritative": true,
       "authoritative_for": [
         "70-tools/src/etzhayyim/kotoba_rad.cljc (holding-datoms / publish-identity! :holds / add-holding!)",
+        "70-tools/src/etzhayyim/data_provenance.cljc (validator)",
+        "70-tools/src/etzhayyim/ownership_matrix.cljc (generator)",
+        "70-tools/src/etzhayyim/datalad.cljc (DataLad pipeline bridge)",
+        "70-tools/src/etzhayyim/actor_publish.cljc (manifest->holds / -add-holding CLI)",
         "RAD data-holding vocabulary (:rad/holds-dataset RID-side datom + dataset:<id> sub-entity)",
         "00-contracts/lexicons/com/etzhayyim/kotoba/datasetPointer.json (graph-layer binding record)",
-        "90-docs/data-layering-rule.md (normative two-layer rule)"
+        "90-docs/data-layering-rule.md (normative two-layer rule)",
+        ".github/workflows/data-ownership-provenance.yml (CI gate)"
       ],
       "depends_on": [
         "adr-2606162000-jinushi-land-ownership-acquisition-mirror",
@@ -27249,6 +27254,37 @@
       "superseded_by": [],
       "depends_on": [
         "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline"
+      ],
+      "last_verified": "2026-07-01",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2607011940-l2-datomic-atproto-relocation-to-kotoba-lang.md",
+      "id": "adr-2607011940-l2-datomic-atproto-relocation-to-kotoba-lang",
+      "title": "ADR-2607011940: l2/paymaster, kotoba-datomic, atproto/pds relocation from etzhayyim-sdk to kotoba-lang",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "l2-datomic-atproto-relocation",
+      "authoritative": true,
+      "authoritative_for": [
+        "kotoba-lang/base-l2 repo location",
+        "kotoba-lang/witness-quorum repo location",
+        "kotoba-lang/atproto-client repo location",
+        "etzhayyim-sdk's remaining re-export shims (l2, paymaster, kotoba-datomic, atproto, pds)"
+      ],
+      "related": [
+        "adr-2607011300-nv-compat-relocation-to-kotoba-lang",
+        "adr-2607011830-pqh-crypto-relocation-to-kotoba-lang",
+        "adr-2607011930-ipfs-checkpointer-relocation-to-kotoba-lang",
+        "adr-2606302300"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
+        "adr-2605231400-kotoba-datomic-holochain-iso-substrate",
+        "adr-2605172000"
       ],
       "last_verified": "2026-07-01",
       "amends": [],
