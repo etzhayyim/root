@@ -897,7 +897,7 @@
      :freshness-days 0,
      :retrieved "2026-06-30",
      :counts-toward-world-coverage false}),
-   :declared? false},
+   :declared? true},
   "ipaddress"
   {:rid "bafkreiaotwbeylqsakdiuogo6pn63b5jlgtdelzss3o76mrf3tgroiqgky",
    :datasets (),

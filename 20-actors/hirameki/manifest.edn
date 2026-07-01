@@ -70,4 +70,12 @@
   :suites ["methods/test_hirameki_edn.cljc" "methods/test_analyze.cljc"
            "methods/test_cid.cljc" "methods/test_dataset.cljc"
            "methods/test_ingest.cljc" "methods/test_kotoba.cljc"
-           "methods/test_autorun.cljc"]}}
+           "methods/test_autorun.cljc"]}
+ :substrate {:datasets [{:dataset-id "hirameki-patents"
+                         :layer :repo
+                         :source "worldwide public-patent KG mirror (USPTO ODP, ADR-2606212200)"
+                         :cidv1 "bafkreieakuefgpxli7n4einc5zdnd5yxnrptwxlmazrpa7tplotufcjk7u"
+                         :freshness-days 0
+                         :retrieved "2026-06-30"
+                         :counts-toward-world-coverage false
+                         :provenance "80-data/hirameki-patents/ingest-provenance.json"}]}}
