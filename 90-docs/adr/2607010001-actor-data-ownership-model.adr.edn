@@ -1,0 +1,33 @@
+{:id "2607010001"
+ :title "Actor data-ownership model — each actor holds its required real-world data (RAD data-holding vocabulary + domain-hybrid layering)"
+ :status :proposed
+ :date #inst "2026-07-01T00:01:00+09:00"
+ :deciders ["founder"]
+ :doc-type :adr
+ :topic :actor-data-ownership-model
+ :authoritative true
+ :body-file "2607010001-actor-data-ownership-model.md"
+ :depends-on ["2606162000" "2605241500" "2606231200" "2606241500" "2606292000" "2605252330"]
+ :related ["2605312345"]
+ :context {:problem "RAD declares who an actor is, not what data it holds; bulk data in 80-data has no binding to actor identity; the kotoba-graph vs etzhayyim-git layering is undocumented"
+           :role "Foundation for the data-holder / ownership model: an actor attests the real-world datasets it holds, across a graph layer (pointers) and a repo+IPFS layer (projections + blobs)"}
+ :decision {:D1 "RAD data-holding vocabulary — optional :rad/holds-dataset + dataset:<id> sub-entity, RID-stable (post-genesis tx, 0 datoms when holds empty), mirrors :rad/age-recipient precedent"
+            :D2 "Ownership matrix — manifest.jsonld substrate.datasets = source, ownership-matrix.edn = generated projection, RAD = signed attestation (3 roles, like .md→docs.edn→graph.edn)"
+            :D3 "Unified provenance & header convention — standardize on jinushi ingest-provenance.json; ingest-id == :rad/dataset-id == .kotoba.edn :dataset-id; lint:provenance + pin==HEAD"
+            :D4 "Hybrid layering rule — graph = pointers/fingerprints (com.etzhayyim.kotoba.datasetPointer, holderRank canonical|mirror); repo+IPFS = canonical projections + raw blobs; one field set, two representations"
+            :D5 "Staged rollout — Phase 0 foundation; Phase 1 jinushi; Phase 2 kanjo; Phase 3 toritsugi holder-migration (holding != actuation); Phase 4 empty domains; Phase 5 backfill all 312 (append-only, RID-stable)"}
+ :invariants ["RID stability — holdings never touch the genesis block; :holds nil/empty => 0 holding datoms; existing 312 RIDs bit-identical"
+              "ONE canonical owner per dataset (holderRank); mirrors may present but only the canonical holder attests"
+              "pin==HEAD — a :layer :repo holding's :rad/cidv1 must equal the directory CID at the holding repo's HEAD"]
+ :consequences {:positive ["Actor identity journal attests data holdings, queryable by dataset-id across the matrix"
+                           "Bulk data stays in 80-data/DataLad/IPFS; only pointer + attestation added"
+                           "Graph<->git layering becomes a normative rule with a binding record type"]
+                :negative ["RAD schema extended (optional attrs only; :rad/ namespace clean)"
+                           "Follow-up PRs required: bb rad:add-holding wiring, data_provenance.cljc validator, ownership_matrix.cljc generator"]}
+ :follow-on ["Phase 1: normalize jinushi to substrate.datasets + add-holding!"
+             "Phase 2: kanjo XBRL/EDGAR/TDnet expansion"
+             "Phase 3: toritsugi holder-migration (gen_authority_actors.clj emits :rad/holds-dataset per regime)"
+             "Phase 4: fill gyosei/matsurigoto empty domains"
+             "Phase 5: backfill all 312 actors (generator, append-only)"
+             "actor_publish.cljc manifest->genesis :holds seam + bb rad:add-holding task"
+             "data_provenance.cljc validator + ownership_matrix.cljc generator + bb lint:provenance / rad:ownership-matrix"]}
