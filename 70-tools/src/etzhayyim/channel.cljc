@@ -18,7 +18,8 @@
   W1 scope: drivers are DRY-RUN reference implementations (they return the wire
   shape they WOULD send); live legs are Council/operator-gated (W4). .cljc so the
   same protocol runs on JVM/bb, cljs and WASM."
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [etzhayyim.ecl :as ecl]))
 
 ;; ── emit envelope ───────────────────────────────────────────────────────────
 ;; {:actor          "ooyake"                      ; emitting actor handle
@@ -86,14 +87,57 @@
       {:verdict :veto :reasons reasons}
       {:verdict :pass :reasons []})))
 
+;; ── content catastrophe-scan (the Rider §2 floor, made operational at R0) ─────
+;; A reference deny-list over the FREE-TEXT content — the always-on floor before
+;; every emit (ADR-2606281500: content-safety scan before emit). The full Rider §2
+;; objective-function scan (ADR-2606182359) is the upstream engine; this is the
+;; catastrophe-term backstop. Categories, not graphic. Independent of channel.
+(def ^:private catastrophe-patterns
+  {:content/csam               #"(?i)child\s*(?:sexual|porn)|児童\s*ポルノ|小児性愛"
+   :content/targeted-violence  #"(?i)\bkill\s+(?:him|her|them)\b|(?:殺|襲撃)\s*(?:せ|し)ろ"
+   :content/self-impersonation #"(?i)\bI am the (?:government|company|official|CEO)\b|私は(?:政府|当社|本人|公式)(?:です|である)"})
+
+(defn- hit->scores
+  "Map a content deny-list hit to ECL 子孫-wellbecoming evidence scores (the
+  objective-function's catastrophe dims). CSAM / targeted-violence = maximal harm
+  to 子/孫 (≤ -1.9 → catastrophe term fires). Self-impersonation is a disclosure
+  violation, not a 子孫-catastrophe — still vetoed by the floor, but not via J."
+  [cat]
+  (case cat
+    :content/csam               {:ko-wellbecoming -2.0 :mago-wellbecoming -2.0}
+    :content/targeted-violence  {:ko-wellbecoming -2.0}
+    {}))
+
+(defn content-scan
+  "Scan free-text content before emit, CONNECTED to the Rider §2 objective function
+  (etzhayyim.ecl, ADR-2606182359): deny-list hits become catastrophic 子孫 scores and
+  the REAL ECL `route` confirms the verdict (:ecl {:route :J}); fail-open to the
+  deny-list floor when the spec is unavailable. Returns {:verdict :pass|:veto :reasons
+  [category…] :ecl {…}}. voiceOf=etzhayyim posts must never read as the entity's own
+  first-person voice, never target a person, never carry CSAM — the un-amendable
+  catastrophe floor (the priority is absolute)."
+  [text]
+  (let [s (str text)
+        hits (vec (keep (fn [[cat re]] (when (re-find re s) cat)) catastrophe-patterns))]
+    (if (empty? hits)
+      {:verdict :pass :reasons []}
+      (let [scores (reduce (fn [m c] (merge m (hit->scores c))) {} hits)
+            r (try (ecl/route scores) (catch #?(:clj Throwable :cljs :default) _ nil))]
+        {:verdict :veto :reasons hits
+         :ecl (if r (select-keys r [:route :J :reason]) :unavailable)}))))
+
 ;; ── the fan-out drainer ───────────────────────────────────────────────────────
 (defn emit!
-  "Scan, then fan out a channel-neutral envelope to every matching registered
-  driver. Returns
+  "Scan (metadata disclosure/person floor AND content catastrophe floor), then fan
+  out a channel-neutral envelope to every matching registered driver. Returns
   {:emitted bool :scan {…} :results {channel-id <driver-result>} :dry-run bool}.
-  A veto blocks ALL channels (the scan is channel-independent)."
-  [{:keys [dry-run] :or {dry-run true} :as envelope}]
-  (let [scan (charter-scan envelope)]
+  A veto (either scan) blocks ALL channels (the scan is channel-independent)."
+  [{:keys [dry-run content] :or {dry-run true} :as envelope}]
+  (let [meta-scan (charter-scan envelope)
+        text-scan (content-scan (if (map? content) (:text content) content))
+        scan (cond (= :veto (:verdict meta-scan)) meta-scan
+                   (= :veto (:verdict text-scan)) text-scan
+                   :else meta-scan)]
     (if (= :veto (:verdict scan))
       {:emitted false :scan scan :results {} :dry-run dry-run}
       (let [drivers (drivers-for envelope)
@@ -137,11 +181,40 @@
     {:driver :telegram :dry-run true :bot bot
      :api-call {:method "sendMessage" :chat_id (:chat-id content) :text (:text content)}}))
 
+(defrecord XChannel [account]
+  Channel
+  (channel-id [_] :x)
+  (accepts? [_ lexicon] (boolean (prefixes? lexicon ["app.x." "com.twitter."])))
+  (-emit! [_ {:keys [content voice-of is-observatory]}]
+    ;; PoC driver — the v2 POST /tweets it WOULD make (dry-run; live = W4, leash-signed).
+    ;; Disclosure travels in-band: the observatory voice is stated, never impersonating.
+    {:driver :x :dry-run true :account account
+     :api-call {:method "POST" :path "/2/tweets"
+                :body {:text (:text content)}}
+     :disclosure {:voiceOf voice-of :isObservatory (boolean is-observatory)}}))
+
+(defrecord LineChannel [channel-token]
+  Channel
+  (channel-id [_] :line)
+  (accepts? [_ lexicon] (boolean (prefixes? lexicon ["app.line."])))
+  (-emit! [_ {:keys [content voice-of is-observatory]}]
+    ;; PoC driver — the LINE Messaging API push it WOULD make (dry-run; live = W4).
+    {:driver :line :dry-run true :channel-token channel-token
+     :api-call {:method "POST" :path "/v2/bot/message/push"
+                :body {:to (:to content)
+                       :messages [{:type "text" :text (:text content)}]}}
+     :disclosure {:voiceOf voice-of :isObservatory (boolean is-observatory)}}))
+
 (defn default-registry!
-  "Register the W1 reference drivers. Returns the set of registered channel ids."
+  "Register the W1 reference drivers (AT Protocol / email / Telegram / X / LINE).
+  A new channel = one Channel defrecord + one `app.<channel>.*` lexicon family;
+  identity + the content/disclosure scan are already channel-agnostic. Returns the
+  set of registered channel ids."
   []
   (clear-registry!)
   (register! (->AtProtoChannel "https://aozora.app"))
   (register! (->EmailChannel "https://kotoba-server.etzhayyim.com"))
   (register! (->TelegramChannel "did:web:bridge.telegram.etzhayyim.com"))
+  (register! (->XChannel "did:web:bridge.x.etzhayyim.com"))
+  (register! (->LineChannel "did:web:bridge.line.etzhayyim.com"))
   (registered))

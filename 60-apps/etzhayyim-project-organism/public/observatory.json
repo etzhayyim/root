@@ -1,0 +1,59 @@
+{
+  "generatedAt" : "2026-07-01T00:18:23.591487Z",
+  "adr" : "2606302205 D4",
+  "mode" : "prepared",
+  "councilRatified" : true,
+  "was" : "keyless observational mirror (ADR-2606042330)",
+  "now" : "first-party disclosure-honest observatory actor (voiceOf=etzhayyim, isObservatory, present-only leashed did:key)",
+  "totals" : {
+    "namespaces" : 5,
+    "entities" : 24213,
+    "sampledPrepared" : 24213
+  },
+  "namespaces" : [ {
+    "ns" : "cable",
+    "glyph" : "綿津綱",
+    "total" : 14,
+    "sampled" : 14,
+    "postStatus" : "prepared",
+    "allDisclosed" : true,
+    "allGrew" : true,
+    "sampleSubjects" : [ "2Africa", "Asia Direct Cable (ADC)", "APCN-2", "Bifrost", "Dunant", "Equiano" ]
+  }, {
+    "ns" : "station",
+    "glyph" : "綿津綱",
+    "total" : 22,
+    "sampled" : 22,
+    "postStatus" : "prepared",
+    "allDisclosed" : true,
+    "allGrew" : true,
+    "sampleSubjects" : [ "Port Said", "Ras Ghareb", "Bilbao / Sopelana", "Saint-Hilaire-de-Riez", "Tseung Kwan O 將軍澳", "Jakarta" ]
+  }, {
+    "ns" : "craft",
+    "glyph" : "渡り",
+    "total" : 13,
+    "sampled" : 13,
+    "postStatus" : "prepared",
+    "allDisclosed" : true,
+    "allGrew" : true,
+    "sampleSubjects" : [ "Aircraft 3c6700", "Aircraft 76cdb1", "Aircraft 86c2a0", "Aircraft 86d100", "Aircraft 896180", "Front Eagle" ]
+  }, {
+    "ns" : "gov",
+    "glyph" : "公",
+    "total" : 7089,
+    "sampled" : 7089,
+    "postStatus" : "prepared",
+    "allDisclosed" : true,
+    "allGrew" : true,
+    "sampleSubjects" : [ "Afghanistan", "Balkh Province", "Bamyan Province", "Badghis Province", "Badakhshan Province", "Baghlan Province" ]
+  }, {
+    "ns" : "corp",
+    "glyph" : "兜",
+    "total" : 17075,
+    "sampled" : 17075,
+    "postStatus" : "prepared",
+    "allDisclosed" : true,
+    "allGrew" : true,
+    "sampleSubjects" : [ "Abu Dhabi Commercial Bank", "ADNOC Drilling", "Aldar Properties", "Borouge", "Dubai Electricity and Water Authority (DEWA)", "Emirates Integrated Telecommunications (du)" ]
+  } ]
+}

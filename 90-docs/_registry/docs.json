@@ -27047,7 +27047,7 @@
       "path": "90-docs/adr/2606302205-kotoba-genome-unified-self-evolving-all-actor-organism.md",
       "id": "adr-2606302205-kotoba-genome-unified-self-evolving-all-actor-organism",
       "title": "ADR-2606302205: kotoba-genome — unified self-evolving, multi-channel, all-actor-posting organism; retire the keyless observational mirror",
-      "status": "proposed",
+      "status": "accepted",
       "doc_type": "adr",
       "topic": "kotoba-genome-unified-self-evolving-all-actor-organism",
       "authoritative": true,
@@ -29616,6 +29616,28 @@
         "70-tools/etzhayyim-cli/bench.go"
       ],
       "last_verified": "2026-05-24",
+      "authoritative_for": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/runbooks/observatory-member-publish.md",
+      "id": "runbook-observatory-member-publish",
+      "title": "Runbook: member-signed publish for first-party observatory actors (W4-live)",
+      "status": "active",
+      "doc_type": "how-to",
+      "topic": "observatory-member-publish",
+      "authoritative": true,
+      "related": [
+        "2606302205",
+        "2606281500",
+        "2606111400",
+        "2605231525",
+        "2606042330"
+      ],
+      "last_verified": "2026-07-01",
       "authoritative_for": [],
       "supersedes": [],
       "superseded_by": [],

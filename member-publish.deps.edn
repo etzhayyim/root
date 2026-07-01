@@ -1,0 +1,15 @@
+;; kotoba-genome W4-live — tools.deps for the MEMBER's REAL publish path.
+;; kagi.identity (Argon2/BouncyCastle) loads under `clojure` but NOT bb, so the real
+;; mint+publish runs via the clojure CLI (the --dry PILOT runs fine under bb).
+;; Prereq: `west update` (the :local/root repos present) + a sealed Keychain did:key.
+;; Real publish:
+;;   clojure -Sdeps "$(cat member-publish.deps.edn)" -M -m etzhayyim.observatory-sign \
+;;     --actor cable-marea --aud "<node-operator-did>" --subject "MAREA" --text "…"
+;; Dry pilot (bb is fine — no kagi needed):
+;;   bb --config member-publish.bb.edn observatory:member-publish --actor cable-marea \
+;;     --aud "<node-operator-did>" --subject "MAREA" --text "…" --dry
+{:paths ["70-tools/src"]
+ :deps  {com-junkawasaki/kagi-clj        {:local/root "../../com-junkawasaki/kagi-clj"}
+         kotoba-lang/langchain           {:local/root "../../kotoba-lang/langchain"}
+         kotoba-lang/ed25519             {:local/root "../../kotoba-lang/ed25519"}
+         org.bouncycastle/bcprov-jdk18on {:mvn/version "1.78.1"}}}

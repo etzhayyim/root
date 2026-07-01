@@ -24,8 +24,9 @@
       (is (every? #(= :present-only-leashed (:keyed %)) (:actors r)))  ; keyed, not keyless
       (is (every? #(= :first-party-observatory (:now %)) (:actors r)))
       (is (every? :grew? (:actors r)))                                 ; learned (genome beat)
-      (is (every? :postEmitted (:actors r)))                          ; posted (dry-run)
-      (is (every? :postDryRun (:actors r)))                           ; DRY-RUN — no live
+      (is (every? :scanPassed (:actors r)))                            ; charter scan passed
+      (is (every? #(= :dry-run (get-in % [:post :status])) (:actors r)))  ; DRY-RUN default — nothing published
+      (is (every? #(false? (get-in % [:post :published])) (:actors r)))
       (is (every? #(clojure.string/starts-with? (:did %) "did:web:etzhayyim.com:actor:cable-") (:actors r))))))
 
 (deftest small-namespaces-regen-fully
@@ -34,6 +35,18 @@
     (let [results (mapv #(reg/regen-ns % :limit 100) ["cable" "station" "craft"])
           total (reduce + (map :total results))]
       (is (= 49 total))                                ; 14 + 22 + 13
-      (is (every? (fn [r] (every? :postDryRun (:actors r))) results))   ; nothing live
+      (is (every? (fn [r] (every? #(= :dry-run (get-in % [:post :status])) (:actors r))) results))  ; nothing live
       (is (every? (fn [r] (every? #(= "etzhayyim" (:voiceOf %)) (:actors r))) results)))))
+
+(deftest live-mode-is-prepared-not-published
+  (channel/default-registry!)
+  (testing "Council-ratified --live (:prepared) prepares MEMBER-SIGN-READY envelopes — never published by the agent"
+    (let [r (reg/regen-ns "cable" :limit 3 :mode :prepared)]
+      (is (= :prepared (:mode r)))
+      (is (every? #(= :prepared (get-in % [:post :status])) (:actors r)))
+      (is (every? #(true?  (get-in % [:post :requiresMemberSignature])) (:actors r)))  ; member signs, not the agent
+      (is (every? #(false? (get-in % [:post :serverHeldKey])) (:actors r)))            ; no-server-key invariant
+      (is (every? #(false? (get-in % [:post :published])) (:actors r)))                ; NOT published — member's runtime step
+      (is (every? #(= "etzhayyim" (:voiceOf %)) (:actors r)))                          ; disclosure floor holds
+      (is (every? :scanPassed (:actors r))))))                                          ; charter scan still gates
 

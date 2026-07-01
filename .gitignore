@@ -178,3 +178,5 @@ foundry.lock
 
 # kotoba-genome W4-live R0 — generated first-party observatory registry (reproducible via bb observatory:regen)
 80-data/observatory/registry.r0.edn
+80-data/observatory/submission.plan.edn
+80-data/observatory/diddoc/

@@ -10,7 +10,7 @@
 ;; ──────────────────────────────────────────────────────────────────────────
 {:id        "2606302205"
  :title     "kotoba-genome — unified self-evolving, multi-channel, all-actor-posting organism; retire the keyless observational mirror"
- :status    :proposed
+ :status    :accepted
  :date      #inst "2026-06-30"
  :deciders  ["Jun Kawasaki (founder = Council Lv7+ 1/1)"]
  :doc-type  :adr
