@@ -20,7 +20,7 @@ authoritative_for:
   - 40-engine/kami-engine/kami-sensor-sim
   - 40-engine/kami-engine/kami-replicator
   - 40-engine/kami-engine/kami-app-amenominaka
-  - 20-actors/etzhayyim-sdk/nv-compat
+  - kotoba-lang/kami-nv-compat
   - 40-engine/kotoba/crates/kotoba-kotodama/py/kotodama/nv_compat
 depends_on:
   - adr-2605261600-robotics-simulation-substrate-r0
@@ -32,6 +32,7 @@ related:
   - adr-2605252500-sarutahiko-heavy-truck-manufacturing-r0
   - adr-2605261500-suki-farm-tractor-tier-b-actor-r0
   - adr-2605231400-kotoba-datomic-holochain-iso-substrate
+  - adr-2607011300-nv-compat-relocation-to-kotoba-lang
 supersedes: []
 superseded_by: []
 ---

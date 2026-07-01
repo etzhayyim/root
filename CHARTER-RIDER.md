@@ -400,7 +400,9 @@ is distributed. Acceptance of the License constitutes acceptance of this Rider.
        endorsed by NVIDIA Corporation. Where these names appear in this project they
        are used solely as API-compatibility identifiers (cf. Google LLC v. Oracle
        America, Inc., 593 U.S. ___ (2021)), confined to the delimited compatibility
-       facade namespaces (`20-actors/etzhayyim-sdk/src/nv-compat/` and
+       facade namespaces (`kotoba-lang/kami-nv-compat` — relocated 2026-07-01 from
+       `20-actors/etzhayyim-sdk/src/nv-compat/` per the org-taxonomy library-placement
+       rule, ADR-2606302300 — and
        `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/nv_compat/`). Canonical implementations
        carry distinct (Japanese) names.
 
