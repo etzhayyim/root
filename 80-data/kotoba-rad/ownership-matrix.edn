@@ -1009,7 +1009,16 @@
    :declared? false},
   "toritsugi"
   {:rid "bafkreifphnbjup6o3i3qbekx4f6jx5nsdhrc2bykabjkjnt6cuhbzejboi",
-   :datasets (),
+   :datasets
+   ({:dataset-id "toritsugi-procedures",
+     :layer :repo,
+     :source
+     "government procedure registry (coded, G14-verified, ADR-2605312030)",
+     :cidv1
+     "bafkreihnm3l7bdcmpzdosvlzqgzmnsgnn6sviafv4a3s7gwpocusoaagpu",
+     :freshness-days 0,
+     :retrieved "2026-06-30",
+     :counts-toward-world-coverage false}),
    :declared? false},
   "toritsugi-swe-business-registry"
   {:rid
@@ -1428,5 +1437,6 @@
    :declared? false}},
  :datasets
  {"kanjo-coverage" {:holders ["kanjo"], :layers [:repo]},
+  "toritsugi-procedures" {:holders ["toritsugi"], :layers [:repo]},
   "uchiwake-coverage" {:holders ["uchiwake"], :layers [:repo]}}}
 
