@@ -86,6 +86,36 @@
          (into (mapv #(d/datom e :rad/delegate % tx) (:rad/delegates genesis)))
          (filterv (fn [dm] (some? (d/d-v dm)))))))
 
+(defn holding-datoms
+  "Flatten a seq of dataset-holding maps into EAVT datoms at tx — one
+   RID-side `:rad/holds-dataset` datom per holding plus a `dataset:<id>`
+   sub-entity (mirrors the `sigref:<RID>` precedent at sigref-datom). The
+   genesis block is NOT touched (holdings are a post-genesis tx, like
+   add-delegate!), so the **RID stays stable** (ADR-2606231200). Returns []
+   when holds is nil/empty → existing journals untouched (backward-compatible,
+   same posture as the accepted :rad/age-recipient attribute, ADR-2606241500).
+   ADR-2607010001 (actor data-ownership model). Each holding map:
+     {:dataset-id :layer :source :cidv1 :freshness-days :retrieved
+      :counts-toward-world-coverage} — nil-valued fields are dropped."
+  [rid* holds tx]
+  (into []
+        (mapcat
+         (fn [h]
+           (let [e (str "dataset:" (:dataset-id h))]
+             (->> [(d/datom rid* :rad/holds-dataset (:dataset-id h) tx)
+                   (d/datom e :rad/type :dataset-holding tx)
+                   (d/datom e :rad/holder rid* tx)
+                   (d/datom e :rad/dataset-id (:dataset-id h) tx)
+                   (d/datom e :rad/layer (:layer h) tx)
+                   (d/datom e :rad/source (:source h) tx)
+                   (d/datom e :rad/cidv1 (:cidv1 h) tx)
+                   (d/datom e :rad/freshness-days (:freshness-days h) tx)
+                   (d/datom e :rad/retrieved (:retrieved h) tx)
+                   (d/datom e :rad/counts-toward-world-coverage
+                            (:counts-toward-world-coverage h) tx)]
+                  (filterv #(some? (d/d-v %))))))
+         (filter :dataset-id holds))))
+
 (defn sigref-datom
   "Signed-head datom (Radicle `rad/sigrefs`). `sig` is hex of the member's
    Ed25519 over the head-cid bytes; nil when published unsigned."
@@ -105,7 +135,7 @@
    fresh sigref is appended (head re-attest). `sign-fn` (optional) is
    (fn [head-cid-string] -> {:by did-key :sig hex}); absent => unsigned + warn.
    Returns {:rid :head :rad-uri :datoms-appended :signed?}."
-  [actor genesis {:keys [sign-fn]}]
+  [actor genesis {:keys [sign-fn holds]}]
   (let [path (journal-path actor)
         existing (log/read-log path)
         rid* (rid genesis)
@@ -115,15 +145,20 @@
                        existing)
         tx (inc (log/max-tx existing))
         id-dms (when-not already? (identity-datoms genesis tx))
-        ;; head AFTER the identity datoms land, so the sigref attests them
-        head (log/head-cid (into (vec existing) (vec id-dms)))
+        ;; holdings ride the SAME genesis tx on first publish (post-genesis, the
+        ;; genesis block is untouched → RID stable). Use add-holding! to attach
+        ;; holdings to an already-published identity (ADR-2607010001).
+        hold-dms (when-not already? (holding-datoms rid* holds tx))
+        all-id (into (vec id-dms) (vec hold-dms))
+        ;; head AFTER the identity + holding datoms land, so the sigref attests them
+        head (log/head-cid (into (vec existing) all-id))
         {:keys [by sig]} (when sign-fn (sign-fn head))
         _ (when-not sign-fn
             (binding [*out* *err*]
               (println "WARN kotoba-rad: no :sign-fn — publishing UNSIGNED identity"
                        "(ok for pilot/--no-network; NOT for aozora registration)")))
         sig-dms (sigref-datom rid* head (or by (:rad/did-web genesis)) sig tx)
-        all (into (vec id-dms) sig-dms)]
+        all (into all-id sig-dms)]
     (log/append! path all)
     {:rid rid* :rad-uri (str "rad:" rid*) :head head
      :datoms-appended (count all) :signed? (boolean sig)}))
@@ -178,6 +213,50 @@
     (log/append! path all)
     {:rid rid* :did-key dk :head head
      :added? (boolean (seq del-dms)) :signed? (boolean sig)}))
+
+(defn add-holding!
+  "Register a dataset holding on an EXISTING actor identity by APPENDING to the
+   journal — the genesis block is left untouched, so the **RID is stable** (the
+   same retrofit path as add-delegate!). Emits a RID-side :rad/holds-dataset
+   datom + a `dataset:<id>` sub-entity at a new tx, then re-attests the head via
+   a fresh sigref. This is the **backfill entry-point** for the existing pilot
+   journals (no history rewrite; ADR-2607010001 actor data-ownership model).
+
+   Idempotent by :dataset-id: a holding already present adds no datom (only a
+   fresh sigref re-attesting the head). `sign-fn` (optional) is the no-server-key
+   member signing seam (fn [head-cid] -> {:by did-key :sig hex}); absent =>
+   unsigned + warn. `holding` keys: :dataset-id (required) :layer :source :cidv1
+   :freshness-days :retrieved :counts-toward-world-coverage.
+   Returns {:rid :dataset-id :head :added? :signed?}."
+  [actor holding {:keys [sign-fn]}]
+  (let [path     (journal-path actor)
+        existing (log/read-log path)
+        rid*     (genesis-rid-in existing)
+        _        (when-not rid*
+                   (throw (ex-info (str "no genesis identity in journal for " actor
+                                        " — run actor:publish first")
+                                   {:actor actor :path path})))
+        _        (when-not (:dataset-id holding)
+                   (throw (ex-info (str "add-holding! requires :dataset-id for " actor)
+                                   {:actor actor :holding holding})))
+        present? (some (fn [dm] (and (= (d/d-e dm) rid*)
+                                     (= (d/d-a dm) :rad/holds-dataset)
+                                     (= (d/d-v dm) (:dataset-id holding))))
+                       existing)
+        tx       (inc (log/max-tx existing))
+        hold-dms (when-not present? (holding-datoms rid* [holding] tx))
+        ;; head AFTER the holding datoms land, so the sigref attests them
+        head     (log/head-cid (into (vec existing) (vec hold-dms)))
+        {:keys [by sig]} (when sign-fn (sign-fn head))
+        _        (when-not sign-fn
+                   (binding [*out* *err*]
+                     (println "WARN kotoba-rad add-holding!: no :sign-fn —"
+                              "sigref attesting the new holding is UNSIGNED")))
+        sig-dms  (sigref-datom rid* head (or by rid*) sig tx)
+        all      (into (vec hold-dms) sig-dms)]
+    (log/append! path all)
+    {:rid rid* :dataset-id (:dataset-id holding) :head head
+     :added? (boolean (seq hold-dms)) :signed? (boolean sig)}))
 
 ;; ── did:web did.json (github.io path form, static — cross-linked to rad+repo) ─
 ;; ADR-2606231200 addendum (2026-06-24): the actor did.json is a STATIC file at

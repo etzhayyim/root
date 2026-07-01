@@ -27088,6 +27088,35 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2607010001-actor-data-ownership-model.md",
+      "id": "adr-2607010001-actor-data-ownership-model",
+      "title": "Actor data-ownership model — each actor holds its required real-world data (RAD data-holding vocabulary + domain-hybrid layering)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "actor-data-ownership-model",
+      "authoritative": true,
+      "authoritative_for": [
+        "70-tools/src/etzhayyim/kotoba_rad.cljc (holding-datoms / publish-identity! :holds / add-holding!)",
+        "RAD data-holding vocabulary (:rad/holds-dataset RID-side datom + dataset:<id> sub-entity)",
+        "00-contracts/lexicons/com/etzhayyim/kotoba/datasetPointer.json (graph-layer binding record)",
+        "90-docs/data-layering-rule.md (normative two-layer rule)"
+      ],
+      "depends_on": [
+        "adr-2606162000-jinushi-land-ownership-acquisition-mirror",
+        "adr-2605241500-etzhayyim-dataset-cid-substrate",
+        "adr-2606231200-kotoba-rad-sovereign-actor-identity",
+        "adr-2606241500-sops-age-kotoba-rad-actor-git-evolution",
+        "adr-2606292000-toritsugi-authority-actor-fanout",
+        "adr-2605252330-etzhayyim-land-data-substrate-open-only-policy"
+      ],
+      "last_verified": "2026-07-01",
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2607010900-yomi-news-intelligence-actor-r0.md",
       "id": "adr-2607010900-yomi-news-intelligence-actor-r0",
       "title": "yomi 読み — news-intelligence actor (Tier-B R0; intel-LLM ⊣ IntelGovernor over the kawaraban mirror; a SOURCE/voice, autonomous publication)",
@@ -27679,6 +27708,31 @@
       "superseded_by": [],
       "last_verified": "2026-04-16",
       "authoritative_for": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/data-layering-rule.md",
+      "id": "data-layering-rule",
+      "title": "Data layering rule — kotoba graph vs etzhayyim repo + IPFS",
+      "status": "active",
+      "doc_type": "reference",
+      "topic": "data-layering-rule",
+      "authoritative": true,
+      "authoritative_for": [
+        "actor data-ownership :rad/layer assignment (ADR-2607010001 §D4)",
+        "com.etzhayyim.kotoba.datasetPointer lexicon (graph-layer pointer record)",
+        "80-data/* ingest (canonical projection + raw blob placement)"
+      ],
+      "depends_on": [
+        "adr-2607010001-actor-data-ownership-model",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605241500-etzhayyim-dataset-cid-substrate"
+      ],
+      "last_verified": "2026-07-01",
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
       "amends": [],
       "amended_by": []
     },
