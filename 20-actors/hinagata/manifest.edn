@@ -8,4 +8,12 @@
  :actor/lexicons ["com.etzhayyim.hinagata.template" "com.etzhayyim.hinagata.clause" "com.etzhayyim.hinagata.statuteCitation" "com.etzhayyim.esign.envelope" "com.etzhayyim.esign.signature" "com.etzhayyim.esign.completedEvent"]
  :actor/status :r1-template-commons-publishable
  :actor/related ["2605262700" "2605262800" "2605231230" "2605231525" "2605181100" "2605312345" "2605215000" "2606101000"]
- :actor/id "hinagata"}
+ :actor/id "hinagata"
+ :substrate {:datasets [{:dataset-id "legal-templates"
+                         :layer :repo
+                         :source "legal document templates (jurisdictional bodies, ADR-2606111954)"
+                         :cidv1 "bafkreihlnprpvoigv65sr6kw43tm4tctawjtgc76gbibkdr2rje2suukhy"
+                         :freshness-days 0
+                         :retrieved "2026-06-30"
+                         :counts-toward-world-coverage false
+                         :provenance "80-data/legal-templates/publish-manifest.json"}]}}

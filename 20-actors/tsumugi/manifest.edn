@@ -7,4 +7,12 @@
  :actor/purpose "Engi Knowledge Graph (産霊の網) intel weaver — Spirit-in-Physics over real public power-entities; surfaces 取-concentration routed to release."
  :actor/status :r0-design-only
  :actor/related ["2606011000" "2606011500" "2605081300" "2605170000" "2605301600" "2605301400" "2605302300" "2605241500" "2606042330"]
- :actor/id "tsumugi"}
+ :actor/id "tsumugi"
+ :substrate {:datasets [{:dataset-id "tsumugi-power"
+                         :layer :repo
+                         :source "global corporate power-dynamics KG (refined, ADR-2605262130)"
+                         :cidv1 "bafkreier4zyuw6dfma3t2kmawbzfupfdusdzabt44raki2m5dv7cuvfb4m"
+                         :freshness-days 0
+                         :retrieved "2026-06-30"
+                         :counts-toward-world-coverage false
+                         :provenance "80-data/tsumugi-power/publish-manifest.json"}]}}

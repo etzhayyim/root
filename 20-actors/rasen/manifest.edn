@@ -7,4 +7,12 @@
  :actor/purpose "Public-genetics (公開遺伝) Knowledge Graph mirror — weaves PUBLIC reference genetics (genes / variants / phenotypes / pathways + population-AGGREGATE allele frequencies) across humans, animals, plants and microbes into the kotoba Datom log; surfaces integrated clinical/functional evidence burden over a gene, routed to CARE & RESEARCH, never an individual-genotype registry or discrimination tool."
  :actor/status :r1-public-ingest-live
  :actor/related ["2606073000" "2606073800" "2606011000" "2606011500" "2605312345" "2605215000" "2605181100"]
- :actor/id "rasen"}
+ :actor/id "rasen"
+ :substrate {:datasets [{:dataset-id "genome"
+                         :layer :repo
+                         :source "genome graph (mygene/myvariant/reactome, ADR-2606101000)"
+                         :cidv1 "bafkreiamcn6vz4iuqtri6cbjtrse2koz7dfxxyde5rknfypx3ukj5elfvm"
+                         :freshness-days 0
+                         :retrieved "2026-06-30"
+                         :counts-toward-world-coverage false
+                         :provenance "80-data/genome/ingest-provenance.json"}]}}
