@@ -167,6 +167,11 @@
    :task (do (require 'etzhayyim.ownership-matrix)
              (apply (resolve 'etzhayyim.ownership-matrix/-main) *command-line-args*))}
 
+  kotoba:annex
+  {:doc "DataLad / git-annex integration for the kotoba storage pipeline (git→datalad→kotoba→kotobase.net→ipfs→B2). Subcommands: get <path> (retrieve annex content from B2) | drop <path> (free disk space) | status [dir] (show annex state of *.kotoba.edn) | create <dir> (datalad create -c text2git) | save <path> [msg] (annex-aware commit) | push <dir> <remote> (push to B2). Args: <subcommand> <args>"
+   :task (do (require 'etzhayyim.datalad)
+             (apply (resolve 'etzhayyim.datalad/-main) *command-line-args*))}
+
   test:kotoba-rad
   {:doc "kotoba-rad sovereign-identity invariants (ADR-2606231200): did:key convention, RID content-addressing, did.json 3-identity cross-link, append-only/idempotent publish, Ed25519 sign/verify + CID base32 parity."
    :task (do (require 'etzhayyim.test-kotoba-rad)
