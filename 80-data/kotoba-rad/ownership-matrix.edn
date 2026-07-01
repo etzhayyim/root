@@ -245,7 +245,16 @@
   "toritsugi-ae-federal"
   {:rid
    "bafyreiplaceholder0000000000000000000000000000000000000000000000",
-   :datasets (),
+   :datasets
+   ({:dataset-id "toritsugi-procedures",
+     :layer :repo,
+     :source
+     "government procedure registry (coded, G14-verified, ADR-2605312030)",
+     :cidv1
+     "bafkreihnm3l7bdcmpzdosvlzqgzmnsgnn6sviafv4a3s7gwpocusoaagpu",
+     :freshness-days 0,
+     :retrieved "2026-06-30",
+     :counts-toward-world-coverage false}),
    :declared? false},
   "toritsugi-cn-national"
   {:rid
@@ -1501,7 +1510,8 @@
   "jinushi-land-wdqs-r2" {:holders ["jinushi"], :layers [:repo]},
   "hirameki-patents" {:holders ["hirameki"], :layers [:repo]},
   "uchiwake-coverage" {:holders ["uchiwake"], :layers [:repo]},
-  "toritsugi-procedures" {:holders ["toritsugi"], :layers [:repo]},
+  "toritsugi-procedures"
+  {:holders ["toritsugi" "toritsugi-ae-federal"], :layers [:repo]},
   "tsumugi-power" {:holders ["tsumugi"], :layers [:repo]},
   "genome" {:holders ["rasen"], :layers [:repo]}}}
 
