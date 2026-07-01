@@ -1,0 +1,3625 @@
+{:dataset-id "gleif-companies-expanded",
+ :source "GLEIF (api.gleif.org) — expanded batch",
+ :retrieved "2026-07-01",
+ :note "Merged: 221 existing + 500 batch = 721 unique (dedup by LEI).",
+ :company-count 721,
+ :companies
+ {"72450077OXJ8WMRFXH24"
+  {:legal-name "Serbest Holding B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "89450085MNSUC8QPAH65"
+  {:legal-name "STAGELINE SCÈNE MOBILE INC.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "CA"},
+  "529900GCCWW9SRMPJR11"
+  {:legal-name "RYMAN HOSPITALITY PROPERTIES, INC.",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "39120080CH556U6QZ008"
+  {:legal-name "Berufsfachschulen Heimerer GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "8945008JHJ7XSKFU6H06"
+  {:legal-name "JMLS LIVING SL",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "ES"},
+  "549300ZJ87IUCDSX4306"
+  {:legal-name "SMITHSONIAN INSTITUTION",
+   :jurisdiction "US-DC",
+   :status "ACTIVE",
+   :country "US"},
+  "254900JKHSXJ5LFGPY49"
+  {:legal-name "K3EW HOLDINGS, LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "254900GDGBXMA0VU2913"
+  {:legal-name "Hivemind Capital Partners UK LLP",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GB"},
+  "54930060PFQJF6EJ2V72"
+  {:legal-name "Point Park University",
+   :jurisdiction "US-PA",
+   :status "ACTIVE",
+   :country "US"},
+  "254900UQPJY6VE4GS676"
+  {:legal-name "Legacy Capital Ventures, LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "984500D5B85BY2E1M264"
+  {:legal-name "MADRAS MILLET MILLS",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "529900HT87PX8XR9PW21"
+  {:legal-name "FREDONIA MINING INC.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "CA"},
+  "636700GCWV4X5ER1A248"
+  {:legal-name "KAPIL ENTERPRISES",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "52990097YFPX9J0H5D87"
+  {:legal-name "PERNOD RICARD",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "259400XAZHCG0XWR2130"
+  {:legal-name "CP STRATEGIC ASSETS SPÓŁKA AKCYJNA",
+   :jurisdiction "PL",
+   :status "ACTIVE",
+   :country "PL"},
+  "213800V8IAVKS37D6B88"
+  {:legal-name "LAND SECURITIES GROUP PLC",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "39120078BQ0Y2JVAGL16"
+  {:legal-name "CRYANTO Beteiligungs GmbH & Co. KG",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "724500GXRBG7PPGZKU59"
+  {:legal-name "ROEV B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "9845003A458EDDC1AD96"
+  {:legal-name "PIPWAYS GLOBAL SERVICES LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NG"},
+  "391200NP62A4T0I5IH97"
+  {:legal-name "Kompour GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "2549007UFQZ91IS1GZ06"
+  {:legal-name "CUISINE SOLUTIONS, INC.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "549300LX18ZNW1LEMU13"
+  {:legal-name "Dundee Corporation",
+   :jurisdiction "CA-ON",
+   :status "INACTIVE",
+   :country "CA"},
+  "636700G0FSU9BLHD7W80"
+  {:legal-name
+   "SPIR - PROFESJONSFORBUNDET FOR PRESTER, DIAKONER, KATEKETER OG PEDAGOGER",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NO"},
+  "529900VNP95IIHXPCY17"
+  {:legal-name "京成電鉄株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "391200OZYLG432DKJ446"
+  {:legal-name "G. + F. Immobilien GmbH & Co. KG",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "9845000CV2BD1C379D88"
+  {:legal-name
+   "ENER.G.KAL ENGINEERING Μονοπρόσωπη Ιδιωτική Κεφαλαιουχική Εταιρεία",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GR"},
+  "9845007B05A1C027NC15"
+  {:legal-name "1097 LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GB"},
+  "549300ZPCD2U4FHTDX64"
+  {:legal-name "Roosevelt University",
+   :jurisdiction "US-IL",
+   :status "ACTIVE",
+   :country "US"},
+  "98450006L015665B1308"
+  {:legal-name "Vision Group AG",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "CH"},
+  "5299004UXP8XTVR4KR35"
+  {:legal-name "Z Squared Inc.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "9845007CC5BD42E8F790"
+  {:legal-name "Izzet Holding ApS",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DK"},
+  "984500A2DD85BA99I887"
+  {:legal-name "ISOLA CAPITAL ASSET MANAGEMENT PTE. LTD.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "SG"},
+  "7245009OVRWN6Q94JV81"
+  {:legal-name "Vehof Holding B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "254900X2I2FJU4J59G93"
+  {:legal-name "MAGOCO",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "BE"},
+  "3358009T9YAPWTQZZD12"
+  {:legal-name "KROWN CARS PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "8945008IEQDKBP4OLL49"
+  {:legal-name "HEALPLUS LABS PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "254900HUAT6RW4Y7PZ90"
+  {:legal-name "Nashville Coaches Land, LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "549300YPQ6G4ZOG14V92"
+  {:legal-name "The Corporation of Saint Mary's College, Notre Dame",
+   :jurisdiction "US-IN",
+   :status "ACTIVE",
+   :country "US"},
+  "9845006C744F3B9F8664"
+  {:legal-name "LITHIUM LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GB"},
+  "213800YCEK6U45JCLH18"
+  {:legal-name "BRITISH GAS TRADING LIMITED",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "8945008O9D8QKZO3GP84"
+  {:legal-name "Fundacja Rodzinna Janusz Dziczek",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "PL"},
+  "54930069TEI1INHRHS55"
+  {:legal-name "City of Minneapolis, Minnesota",
+   :jurisdiction "US-MN",
+   :status "ACTIVE",
+   :country "US"},
+  "254900FCZGTFLWA7JK11"
+  {:legal-name
+   "DAGFINN H JØRGENSEN RÅDGIVENDE INGENIØRER MRIF AS KONKURSBO",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NO"},
+  "213800JEGHHEAXIJDX34"
+  {:legal-name "FRASERS GROUP PLC",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "2549006LVJYEPP1LIG16"
+  {:legal-name "CITADEL QSMF CHINA II LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "KY"},
+  "T27JQIMTYSH41TCD5186"
+  {:legal-name "HYATT HOTELS CORPORATION",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "335800Z0VXVQVD41SD86"
+  {:legal-name "PRIME RUBBERS",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "9845000AFA654O6YE798"
+  {:legal-name "BeGreen 2024-52 ApS",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DK"},
+  "254900766JQJ10912A61"
+  {:legal-name "BKSPL LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "YYQWUR1Z2BCX32HQS333"
+  {:legal-name "Zions Bancorporation",
+   :jurisdiction "US-UT",
+   :status "INACTIVE",
+   :country "US"},
+  "335800VP1PQKBY7VY610"
+  {:legal-name "L. B. DASS JEWELLERS PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "54930030NVF3Y2OL0A78"
+  {:legal-name "ROGERS COMMUNICATIONS INC.",
+   :jurisdiction "CA-BC",
+   :status "INACTIVE",
+   :country "CA"},
+  "984500B0A2BC93604098"
+  {:legal-name "DSOB FINANCIAL SERVICES LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IE"},
+  "9845007BB6DAC41EC152"
+  {:legal-name "M/S RAJASTHAN EDUCATION SANSTHAN",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "529900ZR4V1RUVE2PV86"
+  {:legal-name "PIONEXT 7 GmbH & Co. KG",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "984500AD904DA2JD0F63"
+  {:legal-name "RAMESHKUMAR MELAPCHAND SHAH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "549300C7SRCL4TVMZB13"
+  {:legal-name "The Trustees of the Smith College",
+   :jurisdiction "US-MA",
+   :status "ACTIVE",
+   :country "US"},
+  "549300B8P6MUJ1YWTS08"
+  {:legal-name "CARREFOUR",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "984500B3E117CP848E93"
+  {:legal-name "Global Maxwell Technology Corp.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "WS"},
+  "969500SHQITWXSIS7N89"
+  {:legal-name "UNIBAIL-RODAMCO-WESTFIELD SE",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "0WKKFB7N1TW1Q5WJ1V86"
+  {:legal-name "GENTING HONG KONG LIMITED",
+   :jurisdiction "BM",
+   :status "ACTIVE",
+   :country "BM"},
+  "549300PHILJ12MUKKU25"
+  {:legal-name "PRESIDENT & TRUSTEES OF WILLIAMS COLLEGE",
+   :jurisdiction "US-MA",
+   :status "ACTIVE",
+   :country "US"},
+  "549300WZVLSCS3L4L698"
+  {:legal-name "WORLD WRESTLING ENTERTAINMENT, LLC",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "984500B0Q9C8A7DB3E96"
+  {:legal-name "Ossington Asset Management Limited",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "HK"},
+  "353800P62OOYUY3I8T51"
+  {:legal-name "名古屋鉄道株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "984500N7DA63A40D6D10"
+  {:legal-name "YBM CONSTRUCTION PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "984500PDDAECD2CD3C88"
+  {:legal-name "MEMENTOS FOODS LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "8945008OEWSI7YZZ4933"
+  {:legal-name "XYNTAC RETAIL PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "9845003K9EECB15PAE36"
+  {:legal-name "CF MEDIA & CONSULTANCY LTD",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GB"},
+  "213800HOSBRZSGDKXZ21"
+  {:legal-name "Aarhus Kommune",
+   :jurisdiction "DK",
+   :status "ACTIVE",
+   :country "DK"},
+  "254900OOAMN2YXOACU05"
+  {:legal-name "Manassas Hospitality Group, Inc.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "724500FYXCLPVCKUD187"
+  {:legal-name "Beyond Legacy B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "9845006E5R42BA653A07"
+  {:legal-name "VREP III BROOKS OFFSHORE HOLDINGS LP",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "KY"},
+  "5299008020KL7ZZOAL62"
+  {:legal-name "Ninety One Securitisation 2 S.à r.l",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "LU"},
+  "5299008UZSTBFCR0RO47"
+  {:legal-name "Zazmic GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "AT"},
+  "9845009AB7G86WB1CS07"
+  {:legal-name "JADE Trading Oy",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "FI"},
+  "529900NOBLDRALD03Q68"
+  {:legal-name "MR. RUCABADO SOCIEDAD LIMITADA",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "ES"},
+  "984500EB482D475EZ018"
+  {:legal-name "HOSILINI GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "2549009I6K3RDXFFY773"
+  {:legal-name "מנורה מבטחים החזקות בע\"מ",
+   :jurisdiction "IL",
+   :status "ACTIVE",
+   :country "IL"},
+  "391200NK6YQGQ9GH1453"
+  {:legal-name "ROK Immobilien GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "529900Q3WGWV5K2H7E58"
+  {:legal-name "MAO Vermögensverwaltungs GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "529900G0NVFWRWSIEY17"
+  {:legal-name "Rewardy Media AB",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "SE"},
+  "8945009POBOAPGURGP72"
+  {:legal-name "SGR Windmill LP",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "549300YKTY8JX1DV2R67"
+  {:legal-name "NCR VOYIX CORPORATION",
+   :jurisdiction "US-MD",
+   :status "ACTIVE",
+   :country "US"},
+  "254900BQWF1EZ2QZ7R91"
+  {:legal-name "HGM (WF) Trust",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "549300JOC93SIW3E1N63"
+  {:legal-name "IVANHOÉ CAMBRIDGE INC.",
+   :jurisdiction "CA-QC",
+   :status "ACTIVE",
+   :country "CA"},
+  "5967007LIEEXZX7NA051"
+  {:legal-name "STOREBRAND ASA",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "984500D2FA58A94E3E56"
+  {:legal-name "PEOPLE SOLUTIONS LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IE"},
+  "984500B5UA4F364A4754"
+  {:legal-name "MEHTACOP REFINERY PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "3358007HKRPDN94FEX89"
+  {:legal-name "CELESTIAL SEASONS LLP",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "984500C38493E9BEF179"
+  {:legal-name "RECCE DIGITAL VENTURES PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "254900G4Z5UE9HMTBN26"
+  {:legal-name "CASTROL GROUP HOLDINGS LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GB"},
+  "8945008KVF5UJEER2H89"
+  {:legal-name "SYME PROPERTIES LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IE"},
+  "7245003ZRKG2GFEZAB83"
+  {:legal-name "Reestzicht B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "549300CXE3YQ1HXYCQ71"
+  {:legal-name "University of Kentucky",
+   :jurisdiction "US-KY",
+   :status "ACTIVE",
+   :country "US"},
+  "T8YS5W0N70BYCTHPA429"
+  {:legal-name "University of Washington",
+   :jurisdiction "US-WA",
+   :status "ACTIVE",
+   :country "US"},
+  "984500082D6T01AC5952"
+  {:legal-name "Swift X Consultancy FZE LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "AE"},
+  "254900STAY03HGZ4ME77"
+  {:legal-name "Rollins College",
+   :jurisdiction "US-FL",
+   :status "ACTIVE",
+   :country "US"},
+  "254900ZQXOBNE0X9BN14"
+  {:legal-name "Winter Fields, L.L.C.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "39120053EIRBG1IQHE37"
+  {:legal-name
+   "A3PS - Austrian Association for Advanced Propulsion Systems-Österreichische Plattform zur Förderung von alternativen Antriebssystemen und Treibstoffen",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "AT"},
+  "391200ZEKBQE47PZVI61"
+  {:legal-name "Camphill Alt-Schönow gGmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "549300QHIHSH68W22O38"
+  {:legal-name "City of San Jose, California",
+   :jurisdiction "US-CA",
+   :status "ACTIVE",
+   :country "US"},
+  "254900J1HEVZNTU48I76"
+  {:legal-name "DRE Fund 7 LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "254900FSUHOZWUBKYY06"
+  {:legal-name "星葉投資有限公司",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "HK"},
+  "9845003BACE8AFAFA628"
+  {:legal-name "The Corpcon Family Trust",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "MU"},
+  "R4PP93JZOLY261QX3811"
+  {:legal-name "AMERICAN EXPRESS COMPANY",
+   :jurisdiction "US-NY",
+   :status "ACTIVE",
+   :country "US"},
+  "5299008AL1NNXOJ6W013"
+  {:legal-name "Wasser- und Bodenverband Kalber Bach",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "254900VW7F1ANL4INA95"
+  {:legal-name "SRE ROCKDALE 20 OWNER LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "984500ADCE7A76053F57"
+  {:legal-name "AHP Silkeborg Holding ApS",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DK"},
+  "984500C80F1FC58M8375"
+  {:legal-name "SRI NR POULTRY FARM",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "353800PQ2C9A7DIM1B47"
+  {:legal-name "四国旅客鉄道株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "549300MGV0XJ2LK7HR51"
+  {:legal-name "The Brooklyn Academy of Music, Inc.",
+   :jurisdiction "US-NY",
+   :status "ACTIVE",
+   :country "US"},
+  "6994009XDMZD7PI65Y85"
+  {:legal-name "LITRON",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "BE"},
+  "98450060F6BC07AC3A86"
+  {:legal-name "TERRADYN CORPORATION",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "984500X3BBACD6E7DD29"
+  {:legal-name "BABA FRUITS",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "8945008T179JDEWCQX41"
+  {:legal-name "HELL'S KITCHEN",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "FR"},
+  "984500IA7936D5FP6866"
+  {:legal-name "H.C.M. Gasch Stiftung",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "3358003631ODTCQJCZ42"
+  {:legal-name "ASTORIA MEGASTORE PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "9845004EB874CC7C5C29"
+  {:legal-name "GRAMODAYA SHIKSHAN SANSTHA",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "254900YRZ6BAMSOGL494"
+  {:legal-name "EXITEL - FZCO",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "AE"},
+  "984500CSA05EC5E54E36"
+  {:legal-name "ASUMAN REAL ESTATE PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "254900BJFTFS9VVF9A62"
+  {:legal-name "218 CEDAR OWNER LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "98450055ZO9FCEF89670"
+  {:legal-name "UNTOLD STORY VIDEO LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GB"},
+  "254900ZNHGM9GELLAR57"
+  {:legal-name "極致金業有限公司",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "HK"},
+  "2549004BRV3GCLPAIM92"
+  {:legal-name "De Prins INV",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "BE"},
+  "549300ABYZD2SFD5JB29"
+  {:legal-name "City of New York",
+   :jurisdiction "US-NY",
+   :status "ACTIVE",
+   :country "US"},
+  "5299008VXN81KYDQ8283"
+  {:legal-name "INTERWASTE S.R.L.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IT"},
+  "3912002CUKX4G9BE1S11"
+  {:legal-name "provitus Pflegedienst GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "549300P5BAAMQQ7VL735"
+  {:legal-name "SOTHEBY'S",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "984500844B4276918432"
+  {:legal-name "Bilby INV Trust 2026-1",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "AU"},
+  "8945008LY80809PWND81"
+  {:legal-name "MOUNT ENLIGHTENMENT INTERNATIONAL PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "8945008JBZO65L3YIX59"
+  {:legal-name "LEELA SILKS",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "5967007LIEEXZXJMLS49"
+  {:legal-name "SUNNHORDLAND KRAFTLAG AS",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "6367006ZMPIGHZWVFO52"
+  {:legal-name "Arafart Aktiebolag",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "SE"},
+  "254900D4590OUUJ0LJ55"
+  {:legal-name "CM2, Inc.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "9845008E84C70A783880"
+  {:legal-name "AMARNANI MEDICAL LTD",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GB"},
+  "8945008I96TSOPSSY154"
+  {:legal-name "TEAMSCAT ESPAGNE SL",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "ES"},
+  "QLPCKOOKVX32FUELX240"
+  {:legal-name "POWSZECHNY ZAKŁAD UBEZPIECZEŃ SPÓŁKA AKCYJNA",
+   :jurisdiction "PL",
+   :status "ACTIVE",
+   :country "PL"},
+  "9695003E4MMA10IBTR26"
+  {:legal-name "GECINA",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "8945008SVNPRQFKH3D02"
+  {:legal-name "LAXSUS INFRA PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "335800454PWA4UN4OS24"
+  {:legal-name "POOJA AGENCIES",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "9845003E775E8BA92J36"
+  {:legal-name "The Trustee for STRADA Investments (2) Trust",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "AU"},
+  "8945008HY3Q9ER51MX59"
+  {:legal-name "MILLHILLIANS 2016 SL",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "ES"},
+  "5299003ICAPV07J0R180"
+  {:legal-name "CA Immobilien Anlagen Aktiengesellschaft",
+   :jurisdiction "AT",
+   :status "ACTIVE",
+   :country "AT"},
+  "635400VCLWEPXCNPSD93"
+  {:legal-name "Irish Rugby Football Union",
+   :jurisdiction "IE",
+   :status "ACTIVE",
+   :country "IE"},
+  "529900TXP16QJPCBIY59"
+  {:legal-name "DADDY COOL S.R.L.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IT"},
+  "VA8TZDWPEZYU430RZ444"
+  {:legal-name "Chevron U.S.A. Inc.",
+   :jurisdiction "US-PA",
+   :status "ACTIVE",
+   :country "US"},
+  "98450068C7D80ED79350"
+  {:legal-name "VEDGANGA MILK AND MILK PRODUCTS",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "98450096E6K67D39A676"
+  {:legal-name "ZINON LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GB"},
+  "HWUPKR0MPOU8FGXBT394"
+  {:legal-name "Apple Inc.",
+   :jurisdiction "US-CA",
+   :status "ACTIVE",
+   :country "US"},
+  "391200942T6NFLU5E845"
+  {:legal-name "PT Holding GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "98450031AFAA7DBF4179"
+  {:legal-name "GAYATRI COTTGIN CORPORATION",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "8945008IK9XBYOGK9564"
+  {:legal-name "ADMINISTRACION LOTERIA CIUDAD DEL SOL SL",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "ES"},
+  "724500MQS5R1I2IN0U70"
+  {:legal-name "PSJV Holding B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "529900A0746DMCYJN992"
+  {:legal-name "RENABLED TECHNOLOGIES S.L.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "ES"},
+  "254900ITX6ZB2WHAAJ64"
+  {:legal-name "LOTUS STAR LEASING COMPANY, LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "9845008EC5FY396A2B46"
+  {:legal-name "VREP III Brooks TE Holdings LP",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "KY"},
+  "8945008JN2RPFJRPU188"
+  {:legal-name "TAMADADDI JAGGERY INDUSTRY PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "549300GHLQ0J51NUBM84"
+  {:legal-name "City of Atlanta, Georgia",
+   :jurisdiction "US-GA",
+   :status "ACTIVE",
+   :country "US"},
+  "JBID0YMTOJOJ3ILDBS75"
+  {:legal-name "Bard College",
+   :jurisdiction "US-NY",
+   :status "ACTIVE",
+   :country "US"},
+  "9845008F4361EFE99847"
+  {:legal-name "VINTAGE RIDES",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "FR"},
+  "5299007PBBE83ZLJZG91"
+  {:legal-name "株式会社電通グループ",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "5299006LO74A8XKRK989"
+  {:legal-name "STATKRAFT ENERGI AS",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "529900U2AHDDPNQJ1R97"
+  {:legal-name "TRES AMIGOS HERITAGE SL",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "ES"},
+  "724500WIOQ3P6QJQDE91"
+  {:legal-name "QuJo B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "724500HKL5KR3LGZIN82"
+  {:legal-name "Rofeno Trading B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "353800KOFMRGOXSJ5Z65"
+  {:legal-name "三菱地所株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "743700TU2S3DXWGU7H32"
+  {:legal-name "Elisa Oyj",
+   :jurisdiction "FI",
+   :status "ACTIVE",
+   :country "FI"},
+  "8945008QEYXHIQAEMH65"
+  {:legal-name "SHREE DURGA JYOTI TRADERS",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "391200L2DVZV1CJ8ZF11"
+  {:legal-name "APKa Pflegedienst GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "529900GMNDOYQSAJAE76"
+  {:legal-name "積水ハウス株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "6CPEOKI6OYJ13Q6O7870"
+  {:legal-name "THE KROGER CO.",
+   :jurisdiction "US-OH",
+   :status "ACTIVE",
+   :country "US"},
+  "3538005PGNIBTZYXAE45"
+  {:legal-name "東急株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "5493002GMRPPKB6SK161"
+  {:legal-name "Tulalip Tribes of Washington",
+   :jurisdiction "US-WA",
+   :status "ACTIVE",
+   :country "US"},
+  "353800ITDYV3AD2X5M34"
+  {:legal-name "サッポロホールディングス株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "529900X0H1IO3RS1A464"
+  {:legal-name "PRYSMIAN S.P.A.",
+   :jurisdiction "IT",
+   :status "ACTIVE",
+   :country "IT"},
+  "984500C3E98040936025"
+  {:legal-name "DAVION HEALTHCARE FINANCE LTD",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GB"},
+  "5299000DUMZ99SBBX121"
+  {:legal-name "CPI Europe AG",
+   :jurisdiction "AT",
+   :status "ACTIVE",
+   :country "AT"},
+  "254900GK10P5V4SK0303"
+  {:legal-name "PAG BRS Fund IV L.P.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "KY"},
+  "529900KVRMSH93COHV89"
+  {:legal-name "BAUER medicalsystems GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "335800J643OXQEKTVA32"
+  {:legal-name "SHRI KALBHAIRAVNATH SHIKSHAN PRASARAK SANSTHA",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "8945008FSI1IH0IQH555"
+  {:legal-name "MANAS GREEN PROJECTS PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "724500EC9L2XG8HKO495"
+  {:legal-name "Donnie Holding B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "549300X3UK4GG3FNMO06"
+  {:legal-name "ELECTRICITE DE FRANCE",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "7245001S4CZQL2NRTV50"
+  {:legal-name "D.J. Kruithof Holding B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "5493007PLZSLIFWICM52"
+  {:legal-name "THE CAPITAL GROUP COMPANIES, INC.",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "335800ABGJ4UJS8ZJ444"
+  {:legal-name "ELITE ENTERPRISES",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "549300VA283TTQRDNF71"
+  {:legal-name "Maryland Stadium Authority",
+   :jurisdiction "US-MD",
+   :status "ACTIVE",
+   :country "US"},
+  "636700JY95RLXWFCBJ16"
+  {:legal-name "Svea Mining AB",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "SE"},
+  "529900FEEOV9RG5FJ995"
+  {:legal-name "BORDIGNON ATLANTIC HOLDING SRL",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IT"},
+  "529900WC0EVX2Q8R3529"
+  {:legal-name "Rainer Kolb GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "529900YYVFESZW5RRN48"
+  {:legal-name "Solucion Legal Abogados y Expertos Independientes SLP",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "ES"},
+  "254900AL8XVRQG8GZ542"
+  {:legal-name "SRE FL 4000 DIXIE OWNER LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "984500DD759F41BZ3D11"
+  {:legal-name "FINIBUSTERRAE GESTION, LDA",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "PT"},
+  "635400IUIZZIUJSAMF76"
+  {:legal-name "Fortum Oyj",
+   :jurisdiction "FI",
+   :status "ACTIVE",
+   :country "FI"},
+  "254900AZOY19H7IX6762"
+  {:legal-name "SRE FL PERIMETER OWNER LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "5493004D3AY6L1VGGU46"
+  {:legal-name "Indiana State University",
+   :jurisdiction "US-IN",
+   :status "ACTIVE",
+   :country "US"},
+  "254900U7HEAPM4LZ4I91"
+  {:legal-name "AW PARKVIEW RIDGE, LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "72450023OF4AADCD5E44"
+  {:legal-name "Praktijk Napier B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "529900FVJ8C1OTM8OL03"
+  {:legal-name "Shangri-la Asia Limited",
+   :jurisdiction "BM",
+   :status "ACTIVE",
+   :country "BM"},
+  "549300MQYQ9Y065XPR71"
+  {:legal-name "Fortis Inc.",
+   :jurisdiction "CA-NL",
+   :status "ACTIVE",
+   :country "CA"},
+  "H1NR5322TI1DR8WYVE10"
+  {:legal-name "Roman Catholic Archdiocese of Newark",
+   :jurisdiction "US-NJ",
+   :status "ACTIVE",
+   :country "US"},
+  "549300FHOP2K4GYRPY40"
+  {:legal-name "University of Oregon",
+   :jurisdiction "US-OR",
+   :status "ACTIVE",
+   :country "US"},
+  "7437008GT8031GL9BJ96"
+  {:legal-name "Metsähallitus",
+   :jurisdiction "FI",
+   :status "ACTIVE",
+   :country "FI"},
+  "7245007N5K1TPYBZZI84"
+  {:legal-name "Jann Products Holding B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "2549009L17G59QV2TF71"
+  {:legal-name "B-TREND EVENTS",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "BE"},
+  "254900HUT7HLHZSBKE11"
+  {:legal-name "90 MAPLE AVE. LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "5299002AGS6GG7XHNE26"
+  {:legal-name "MYSAP PATRIMONIAL SOCIEDAD LIMITADA",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "ES"},
+  "9SFB6DIM0FRWV0EV8S84"
+  {:legal-name "YALE UNIVERSITY",
+   :jurisdiction "US-CT",
+   :status "ACTIVE",
+   :country "US"},
+  "8945008PYCA6LSARNT09"
+  {:legal-name "SENSARE CAPITAL ADVISORY SERVICES LLP",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "254900R2LA7QI7HNXG97"
+  {:legal-name "144 ST. PETE, LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "J3WHBG0MTS7O8ZVMDC91"
+  {:legal-name "EXXON MOBIL CORPORATION",
+   :jurisdiction "US-NJ",
+   :status "ACTIVE",
+   :country "US"},
+  "254900ERI7PLO06L6F49"
+  {:legal-name "144 CORAL SPRINGS, LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "549300GWQMQVAS66E613"
+  {:legal-name "Wayne State University",
+   :jurisdiction "US-MI",
+   :status "ACTIVE",
+   :country "US"},
+  "3912008QX9LW1F4SWL77"
+  {:legal-name "ChainOp Systems UG (haftungsbeschränkt)",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "254900TLDD1QDY82ER32"
+  {:legal-name "LINKS BIDCO PROPCO 1 LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "JE"},
+  "391200NXAIF6CU0JJJ43"
+  {:legal-name "Enserio GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "5299003WPSYF459VK021"
+  {:legal-name "PAC (2) Asset GmbH & Co. KG",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "H7FNTJ4851HG0EXQ1Z70"
+  {:legal-name "LLOYDS BANK PLC",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "5967007LIEEXZXIVLK08"
+  {:legal-name "HORDALAND FYLKESKOMMUNE",
+   :jurisdiction "NO",
+   :status "INACTIVE",
+   :country "NO"},
+  "549300ZFG0YO58NZON90"
+  {:legal-name "شركة المملكة القابضة",
+   :jurisdiction "SA",
+   :status "ACTIVE",
+   :country "SA"},
+  "254900MYP9939C7SW132"
+  {:legal-name "ZMH FUNDING TRUST",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "335800O3VATCTN4Y0V83"
+  {:legal-name "STELLAR HEAVY STEEL INDUSTRIES PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "724500NXEZAUP8Z6BC75"
+  {:legal-name "Panc Legal B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "335800CMIMTC3G7Y8B56"
+  {:legal-name "VIMARO VILLAS PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "213800G1C9KKVVDN1A60"
+  {:legal-name "HAMMERSON PLC",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "3912006BRXI26E0HR622"
+  {:legal-name "DEUTSCHE GESELLSCHAFT FÜR CHIRURGIE e.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "213800QRATKDOA21GF10"
+  {:legal-name "DANSK ERHVERV",
+   :jurisdiction "DK",
+   :status "ACTIVE",
+   :country "DK"},
+  "984500483DFCA0DABA83"
+  {:legal-name "HARLEM CHILDREN'S ZONE, INC.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "98450088B00FE0688C15"
+  {:legal-name "The Trustee for Bluestone Warehouse Trust 18",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "AU"},
+  "335800DZ7UB7E78ZKP17"
+  {:legal-name "MORVINANDAN SEWA SAMITII",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "529900VUZR8OJZ2QXT04"
+  {:legal-name "Ｔｅｒｒａ　Ｄｒｏｎｅ株式会社",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "JP"},
+  "969500YG7U0UQDEHBD60"
+  {:legal-name "EAGLE FOOTBALL GROUP",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "OBWWNZE695DUK77DTI34"
+  {:legal-name "Northwestern University",
+   :jurisdiction "US-IL",
+   :status "ACTIVE",
+   :country "US"},
+  "335800XMK8PWNJJ2IX74"
+  {:legal-name "RADHEY KNIT LLP",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "335800HMD9C58H8UAR54"
+  {:legal-name "AARAVI ARETE LLP",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "254900LL9IIVOVCIW804"
+  {:legal-name "BLUFFS SQUARE SHOPPES LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "254900AT36GIZ7XFYQ55"
+  {:legal-name "DARKROOM FINANCE CO., LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "724500G2SMDLXUTI0U05"
+  {:legal-name "Beheermaatschappij M. Matthijssen B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "8945008JSMBH2J3LHL40"
+  {:legal-name "COSMO BAZAAR REALTY PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "549300HWFOZXPKGOX654"
+  {:legal-name "Government of the District of Columbia",
+   :jurisdiction "US-DC",
+   :status "ACTIVE",
+   :country "US"},
+  "2549005KNRJNODR7QP89"
+  {:legal-name "VERITAS GLOBAL PARTNERS LTD",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GB"},
+  "TAE73CY392TBWJ3O3305"
+  {:legal-name "NEW YORK LIFE INSURANCE COMPANY",
+   :jurisdiction "US",
+   :status "ACTIVE",
+   :country "US"},
+  "2549007IBTUG3M7DKX41"
+  {:legal-name "BTG Technology Holdings Limited",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "SC"},
+  "95980020140005395317"
+  {:legal-name "OBRASCON HUARTE LAIN, S.A.",
+   :jurisdiction "ES",
+   :status "ACTIVE",
+   :country "ES"},
+  "2138002RV6AUUX19F397"
+  {:legal-name "הבנק הבינלאומי הראשון לישראל בעמ",
+   :jurisdiction "IL",
+   :status "ACTIVE",
+   :country "IL"},
+  "549300TK0QTLW5HQGC62"
+  {:legal-name "State of Rhode Island and Providence Plantations",
+   :jurisdiction "US-RI",
+   :status "ACTIVE",
+   :country "US"},
+  "5967007LIEEXZXHHG029"
+  {:legal-name "LILLEHAMMER KOMMUNE",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "549300M1CR2B2GU2ZU17"
+  {:legal-name "TRUSTEES OF BOSTON UNIVERSITY",
+   :jurisdiction "US-MA",
+   :status "ACTIVE",
+   :country "US"},
+  "9845003A06E88CC1D424"
+  {:legal-name "STUDIO MOMENTUM PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "98450041112F51500187"
+  {:legal-name "ALVENICE SERVICES SRL",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IT"},
+  "335800C8RR6M52QZA358"
+  {:legal-name "SRI JAYALAKSHMI NARAYANA RICE INDUSTRY",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "549300EKVCKSAOOWU002"
+  {:legal-name "CHILDREN'S HOSPITAL MEDICAL CENTER",
+   :jurisdiction "US-OH",
+   :status "ACTIVE",
+   :country "US"},
+  "984500601BD15CBBD607"
+  {:legal-name "LINE MAN CORPORATION PTE. LTD.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "SG"},
+  "549300506SI9CRFV9Z86"
+  {:legal-name "CREDIT SUISSE GROUP AG",
+   :jurisdiction "CH",
+   :status "INACTIVE",
+   :country "CH"},
+  "984500B5B46EB1FO6456"
+  {:legal-name "Pedersen Capital ApS",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DK"},
+  "5493004311JJWYT8UN18"
+  {:legal-name "Maryville College",
+   :jurisdiction "US-TN",
+   :status "ACTIVE",
+   :country "US"},
+  "213800LBQA1Y9L22JB70"
+  {:legal-name "BARCLAYS PLC",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "5493008S3YTQJP20YS91"
+  {:legal-name "HB Reavis Holding S.A.",
+   :jurisdiction "LU",
+   :status "ACTIVE",
+   :country "LU"},
+  "5299007N209X9ZZATX31"
+  {:legal-name "ENVASES ALIMENTARIOS DANYLOR SOCIEDAD LIMITADA",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "ES"},
+  "8945008QQ210SOY5XL31"
+  {:legal-name "DASHMESH TRAVELS",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "529900TZURS5Q4OOJI43"
+  {:legal-name "Windpark Esbeck GmbH & Co. Betriebs-KG",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "54930039Y2EMGXN6LM88"
+  {:legal-name "EMPIRE STATE DEVELOPMENT CORPORATION",
+   :jurisdiction "US-NY",
+   :status "ACTIVE",
+   :country "US"},
+  "335800G6KWA326AJYJ23"
+  {:legal-name "SREE VEERAHANUMAN RICE MILL",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "984500A6786B4B55F418"
+  {:legal-name "ABP LEARNING TECHNOLOGIES PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "335800JT4KZFPBJUYI72"
+  {:legal-name "MARRIOTT HOTELS INDIA PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "3358008R2IUML14C0E75"
+  {:legal-name "MEERUT ROAD CARRIERS PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "213800FKA5MF17RJKT63"
+  {:legal-name "BRITISH AMERICAN TOBACCO P.L.C.",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "375X9PSJLLOV7F21O626"
+  {:legal-name "BRITISH AIRWAYS PLC",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "969500IY667JOE7ERR52"
+  {:legal-name "ADP",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "8945008L6I9DTD2IDL10"
+  {:legal-name "KARTON FABRIK",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "529900L1RWS3TJGMWS79"
+  {:legal-name "NEXT GENERATION COLLECTION S.P.A.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IT"},
+  "8945008UF37G48V9MX25"
+  {:legal-name "IDEAL JEWELS",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "529900F8W6V321BYEJ10"
+  {:legal-name "Finance Partners Ulm GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "25490084GEGYYDGUQW81"
+  {:legal-name "SENNER CORPORATION",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "VG"},
+  "984500694C0E9870CD16"
+  {:legal-name "SISU Tours Ltd.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "MT"},
+  "254900A20PHODUEDAW73"
+  {:legal-name "MAIN LINE SUPPLY CO. INC.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "391200ZBA75BLJ3NH715"
+  {:legal-name "LipoZentrum Dr. Heck GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "AT"},
+  "213800ZVIELEA55JMJ32"
+  {:legal-name "DIAGEO PLC",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "529900IYHHYWU4O3H185"
+  {:legal-name "東宝株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "926900A28ED8DE7AD722"
+  {:legal-name "PT PRIMA MAJU MAPAN",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "ID"},
+  "984500C568C1B9BAC042"
+  {:legal-name "TMVO LTD",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GB"},
+  "98450099FDC9C81F5D98"
+  {:legal-name "VAAM holding ApS",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DK"},
+  "529900Q9CSP4ZHBRH489"
+  {:legal-name "SG Laserzentrum Verwaltungs-GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "254900Q22IX4X3SPH448"
+  {:legal-name "451 INDUSTRIAL OWNER, LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "54930036474DURYNB481"
+  {:legal-name "CANADIAN PACIFIC RAILWAY COMPANY",
+   :jurisdiction "CA",
+   :status "ACTIVE",
+   :country "CA"},
+  "7245009D90GFNPV68H65"
+  {:legal-name "Energy Solutions B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "72450055XVEQGSATRZ57"
+  {:legal-name "DG Pharma Management B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "20S05OYHG0MQM4VUIC57"
+  {:legal-name "FORD MOTOR COMPANY",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "254900UVO7V73VQE4F88"
+  {:legal-name "Brantford Air Centre Limited",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "CA"},
+  "549300SLU4LP6YMRLK07"
+  {:legal-name "明治安田生命保険相互会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "5493000IBP32UQZ0KL24"
+  {:legal-name "BRITISH BROADCASTING CORPORATION",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "54930066VBP7DZEGGJ87"
+  {:legal-name "MGM RESORTS INTERNATIONAL",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "984500AA01F5FD8F7A67"
+  {:legal-name "M/S AASTHA BUILDERS & DEVELOPERS",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "98450001DYFE542CA014"
+  {:legal-name "NEW EQUITY LTD",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GB"},
+  "254900U2GYIIS9QNE495"
+  {:legal-name "SANTANDER MORTGAGE ASSET RECEIVABLE TRUST 2026-NQMS1",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "6367003UFPGV5SR95791"
+  {:legal-name "Amazing Hair i Sundsvall AB",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "SE"},
+  "984500FDAA84CCC7FE16"
+  {:legal-name "Kingshouse Immobilien AG",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "CH"},
+  "213800Z7833KR44LCC93"
+  {:legal-name "הכשרת הישוב מקבוצת נמרודי בע\"מ",
+   :jurisdiction "IL",
+   :status "ACTIVE",
+   :country "IL"},
+  "GBQKSY6W7G0OHCQ8OQ72"
+  {:legal-name "ASSOCIATED BRITISH FOODS PLC",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "5967007LIEEXZX8ZW078"
+  {:legal-name "AVINOR AS",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "549300C64URYS0WQQY42"
+  {:legal-name "City of Houston, Texas",
+   :jurisdiction "US-TX",
+   :status "ACTIVE",
+   :country "US"},
+  "8945008OKGC9UYBURT22"
+  {:legal-name "T27 ANDELER AS",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NO"},
+  "254900AV4DD8VYN2F144"
+  {:legal-name "OMNIS PLEASANTS, LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "5493005LGDPOFHUC6Z36"
+  {:legal-name "THE CLEVELAND CLINIC FOUNDATION",
+   :jurisdiction "US-OH",
+   :status "ACTIVE",
+   :country "US"},
+  "984500A715A6A9E3FJ13"
+  {:legal-name "GRUETZI SL",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "ES"},
+  "391200SJE0ZPNJWJFE79"
+  {:legal-name
+   "CDIB Capital International (Hong Kong) Corporation Limited",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "HK"},
+  "75AS6R3JFRC26LN8GD86"
+  {:legal-name "Fairfield University",
+   :jurisdiction "US-CT",
+   :status "ACTIVE",
+   :country "US"},
+  "335800HTU3O5HPNUTQ60"
+  {:legal-name "SAMARTH MITTAL (HUF)",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "9845000A03B137CQUC98"
+  {:legal-name "Bilby RR Trust 2026-1",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "AU"},
+  "529900JJL5PF3UJXR650"
+  {:legal-name "H&G Haus & Grund Verwaltungs GmbH Karlsruhe",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "984500E68FD53C8E4E56"
+  {:legal-name "Markush GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "98450004L1113TE8B551"
+  {:legal-name "Dialogic Minds Oy",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "FI"},
+  "648843M9WG42KD9QE517"
+  {:legal-name "HOLDING RM-1",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "FR"},
+  "391200LRJITT5562XO12"
+  {:legal-name "SID Holding GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "391200CSUCFGQ8N2SF39"
+  {:legal-name "Marine & Leisure GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "636700G5OGC3ING5F960"
+  {:legal-name "Strategi och Företagsutveckling i Norden AB",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "SE"},
+  "3912001BIL6JTCTQBI76"
+  {:legal-name "Dr. Schlemann unabhängige Finanzberatung GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "2534008K3DZ1HMLDSQ27"
+  {:legal-name
+   "Расчетная небанковская кредитная организация \"Простые платежные решения\" (Общество с ограниченной ответственностью)",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "RU"},
+  "529900TF7XJKIOWMLQ79"
+  {:legal-name "大成建設株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "549300FFADBQ3NEI2D96"
+  {:legal-name "The Board of Trustees of the University of Arkansas",
+   :jurisdiction "US-AR",
+   :status "ACTIVE",
+   :country "US"},
+  "8945008HBXJ6UTTJ0P44"
+  {:legal-name "Microinnova Engineering GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "AT"},
+  "8945008R6OOBPMXSW993"
+  {:legal-name "PATIL INFRABUILD PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "969500A4MXJ3ESPHK698"
+  {:legal-name "SOCIETE NATIONALE SNCF",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "984500CAM9ED799E8B27"
+  {:legal-name "M/S RAJESHWAR POULTRY & HATCHERIES",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "254900HSQF6XK3KIWN64"
+  {:legal-name "GFL VIII LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "KY"},
+  "724500WCTQFZC693BN64"
+  {:legal-name "Otilia Joint HoldCo B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "2549009OIWGSAWZN4R41"
+  {:legal-name "JUPITER RH INVESTORS, LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "5299006GVABBAVMPL211"
+  {:legal-name "Pegasus Messebau A.S. GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "8755000DUG7D6X1XLX81"
+  {:legal-name "HIF Securities S.à r.l.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "LU"},
+  "21380043I15S3UDE7Y82"
+  {:legal-name "UNIVERSITY OF BRIGHTON",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "2549006C35L9B8G2ZK83"
+  {:legal-name "DG NORTH DADE PROPERTY OWNER, L.P.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "5299004NFGSL9LMGY047"
+  {:legal-name "juwi Wind Germany 236 GmbH & Co. KG",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "529900EGRWL4UOS96S68"
+  {:legal-name "SOLTRAVIA SOLUTIONS SL",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "ES"},
+  "9269004364A406F20361"
+  {:legal-name "PT CAHAYA BUKIT MAS",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "ID"},
+  "984500FD36EA4FD8EA37"
+  {:legal-name
+   "The Presbytery of the North East and the Northern Isles Church of Scotland",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GB"},
+  "529900I1JQL0SQEXFI68"
+  {:legal-name "HLEND SOCIETAS JV, LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "254900CMKXHHUYPQ3A50"
+  {:legal-name "887 MONTAUK HWY LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "8156000FE0A2DC5B7852"
+  {:legal-name "PRADA S.P.A.",
+   :jurisdiction "IT",
+   :status "ACTIVE",
+   :country "IT"},
+  "549300Y7HMDKHDFTZ042"
+  {:legal-name "City of Pensacola, Florida",
+   :jurisdiction "US-FL",
+   :status "ACTIVE",
+   :country "US"},
+  "549300QBKY9KHHMP4239"
+  {:legal-name "Minnesota Public Radio",
+   :jurisdiction "US-MN",
+   :status "ACTIVE",
+   :country "US"},
+  "5493008H3828EMEXB082"
+  {:legal-name "ANHEUSER-BUSCH INBEV",
+   :jurisdiction "BE",
+   :status "ACTIVE",
+   :country "BE"},
+  "225YDZ14ZO8E1TXUSU86"
+  {:legal-name "MARRIOTT INTERNATIONAL, INC.",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "984500A49DD1EG2DT656"
+  {:legal-name "JACOBS RIVER PTY LTD",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "AU"},
+  "549300FE3MQ4RVXXC673"
+  {:legal-name "WYNDHAM HOTELS & RESORTS, INC.",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "254900V05UH1I4FN6A50"
+  {:legal-name "SYSTEMATIC CREDIT INVESTMENTS, LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "529900S2NQ7TY2YFKP70"
+  {:legal-name "Windpark Kroppenstedt West GmbH & Co. Betriebs-KG",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "984500F2ED8N1D1AL237"
+  {:legal-name "Stavre Allservice AB",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "SE"},
+  "39120078CJYAV6AUSL13"
+  {:legal-name "JP Holding GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "254900I1NA1DZ15NRK76"
+  {:legal-name "Dania Beach Management, Inc.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "984500DC7CE57050D875"
+  {:legal-name "PAVOT LTD",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GB"},
+  "549300URO8B2DLPRPF61"
+  {:legal-name "VIA RAIL CANADA INC.",
+   :jurisdiction "CA",
+   :status "ACTIVE",
+   :country "CA"},
+  "636700KAN0D3CQLF9B49"
+  {:legal-name "Innovativus AB",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "SE"},
+  "9845002JEB6ECCKAI378"
+  {:legal-name "PARAS FINCAP PVT LTD",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "984500AAE3F4E1ACEF94"
+  {:legal-name "ENSOVA ENERTECH SOLUTIONS PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "549300ECKE48RIS0CZ30"
+  {:legal-name "Parish of Jefferson, Louisiana",
+   :jurisdiction "US-LA",
+   :status "ACTIVE",
+   :country "US"},
+  "254900YXXKSX9A9B6X60"
+  {:legal-name "9125 Rehco Road Holdings, LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "8945008PC6341UZ91L02"
+  {:legal-name "MR Capital OÜ",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "EE"},
+  "549300HVGPK36ICB0B89"
+  {:legal-name "HILTON WORLDWIDE HOLDINGS INC.",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "5967007LIEEXZXJHZ471"
+  {:legal-name "SPORVEIEN AS",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "984500E7A94C5F10B742"
+  {:legal-name "SILVER ANALYTICS LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GB"},
+  "254900BRODDXJ2DH0I94"
+  {:legal-name "75 RIDER AVE. LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "213800L6WZJ6FSGIEJ60"
+  {:legal-name "THE UNIVERSITY OF MANCHESTER",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "529900T6JQ3Z6TB5DL43"
+  {:legal-name "AUKING MINING LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "AU"},
+  "984500036581A6C2C636"
+  {:legal-name "PS HOWARD LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GB"},
+  "254900V5B3JYX94LKB57"
+  {:legal-name "Rush System for Health",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "92690098BA52E8AA8594"
+  {:legal-name "PT CENTRALITE ANUGERAHINDAH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "ID"},
+  "549300JEENALUDLM0B07"
+  {:legal-name "Central Ohio Transit Authority",
+   :jurisdiction "US-OH",
+   :status "ACTIVE",
+   :country "US"},
+  "254900YXGJ7NJ3CGWP43"
+  {:legal-name "KEY BROOKHAVEN, LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "335800V3SJ89QZ9OY566"
+  {:legal-name "NAGRE SQUARE LLP",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "G8GZFWRIKS3AFD6AWU52"
+  {:legal-name "City of Orlando",
+   :jurisdiction "US-FL",
+   :status "ACTIVE",
+   :country "US"},
+  "984500F7C0556EAEFB90"
+  {:legal-name "Tööekspert OÜ",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "EE"},
+  "5493000QYMPFRTEY4K28"
+  {:legal-name "日本電気株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "39120090SZWNDC7JRI17"
+  {:legal-name
+   "Bürohaus Merseburg, Frank-Uwe Jung und Carmen Peters GbR",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "549300LRIF3NWCU26A80"
+  {:legal-name "BlackRock Finance, Inc.",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "636700TS1OIXLSG3AN69"
+  {:legal-name "Rekal Aktiebolag",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "SE"},
+  "391200XC7K22R0MD3P31"
+  {:legal-name "F. & H. Friess GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "724500DNZ628FWO6LL75"
+  {:legal-name "Houben Beheer B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "254900QMXEZ9AMRXVJ25"
+  {:legal-name "PSP N GRAHAM OWNER, LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "529900NVJMVFWDQ0G862"
+  {:legal-name "AIELLO HOLDING S.R.L.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IT"},
+  "5299001O0WJQYB5GYZ19"
+  {:legal-name "CARLSBERG A/S",
+   :jurisdiction "DK",
+   :status "ACTIVE",
+   :country "DK"},
+  "984500DE00613BACFA59"
+  {:legal-name "ORNN AI INC.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "391200FZB6AHGA76XI96"
+  {:legal-name "zweibaum GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "AT"},
+  "984500B76BF49A4B0D37"
+  {:legal-name "PAPERPACK AND PACKAGING PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "636700U5CK9OCLILZ875"
+  {:legal-name "AN IR Consulting AB",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "SE"},
+  "984500F896B864701527"
+  {:legal-name "Erik Vestervall Consulting AB",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "SE"},
+  "254900Y1ZXRKJ4KONV91"
+  {:legal-name "RAYMOND EDWARD MUNRO FAMILY TRUST",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "AU"},
+  "2138001V85JLYR7AUB61"
+  {:legal-name "THE BERKELEY GROUP PLC",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "984500E2EB96D086E991"
+  {:legal-name "DANIEL ADCOCK CONSULTING LTD",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GB"},
+  "724500Y1D7P160PD9U89"
+  {:legal-name "Spenco Holding B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "8945008SKKM8GGWPS946"
+  {:legal-name "Financière saint paul",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "FR"},
+  "724500CCMLQ4HNJUCT69"
+  {:legal-name "C. Hermsen Beheer B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "984500ADB0DD371B3A59"
+  {:legal-name "NTL HOLDING CO PTY LTD",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "AU"},
+  "984500146F9H679E7893"
+  {:legal-name "PARAGON RICE MILL",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "54930015ESJHNM93SQ38"
+  {:legal-name "ANDØYA SPACE AS",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "213800CHWARFAAN7UB85"
+  {:legal-name "J D WETHERSPOON PLC",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "529900W81YY1W2KXXL70"
+  {:legal-name "Automatizacion Empresarial SL",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "ES"},
+  "254900PGTKIC6G8JC219"
+  {:legal-name "LUXOR 250 OFFICES, LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "254900E4N3AMAWNNA521"
+  {:legal-name "WP TOP FLIGHT AGGREGATOR, L.P.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "254900IBIA6N8DVV5H02"
+  {:legal-name "Custom Seal Property Investments LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "549300QG0NBD9HULR263"
+  {:legal-name "Miami-Dade County, Florida",
+   :jurisdiction "US-FL",
+   :status "ACTIVE",
+   :country "US"},
+  "724500B6398NEQV2JW26"
+  {:legal-name "M. Heesters Holding B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "335800XD9N4008OACA26"
+  {:legal-name "MAHALAXMI TRADING COMPANY",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "5493007IHEDRYUD1VH20"
+  {:legal-name "The University of Oklahoma Foundation, Inc.",
+   :jurisdiction "US-OK",
+   :status "ACTIVE",
+   :country "US"},
+  "9845003EC71BE5UCB310"
+  {:legal-name "Horsens Badminton Klub",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DK"},
+  "9845000L5SB6CH1F0072"
+  {:legal-name "BURKERT INDIA PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "9845006FA2BH1Z2D3607"
+  {:legal-name "JENS LUNDGAARD HANDEL ApS",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DK"},
+  "5493002S4P5IVD462L47"
+  {:legal-name "The George Washington University",
+   :jurisdiction "US-DC",
+   :status "ACTIVE",
+   :country "US"},
+  "529900606KR783YP5418"
+  {:legal-name "V.T.B. S.R.L.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IT"},
+  "8945008OPZW1HXNQFD88"
+  {:legal-name "HARTVEIT EIENDOM AS",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NO"},
+  "549300BRTTFKDQCGL048"
+  {:legal-name "City of Oakland",
+   :jurisdiction "US-CA",
+   :status "ACTIVE",
+   :country "US"},
+  "254900H90DD8WZNIWC30"
+  {:legal-name "Blue Owl Real Estate Fund VI CS Hedgeco LP",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "KY"},
+  "5299004KQ2QX2X49HB04"
+  {:legal-name "PATRIMOINE CAPITAL CONSEIL",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "FR"},
+  "259400Y6LEPCYTOP9P91"
+  {:legal-name "POLSKI HOLDING NIERUCHOMOŚCI SPÓŁKA AKCYJNA",
+   :jurisdiction "PL",
+   :status "ACTIVE",
+   :country "PL"},
+  "8945008GEO8L0XU93D84"
+  {:legal-name "LIVINT SOLAR SERIES 5 PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "8945008P12ZKRWBHQH50"
+  {:legal-name "CUMINCO KITCHENWARE PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "529900EFRU8QFQIK4U09"
+  {:legal-name "AEW Investment AG",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "CH"},
+  "254900Y5OBE11S4BKT45"
+  {:legal-name "1998 Zalud Family Trust",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "549300DUOO1KXOHPM605"
+  {:legal-name "LAS VEGAS SANDS CORP.",
+   :jurisdiction "US-NV",
+   :status "ACTIVE",
+   :country "US"},
+  "92690010BDEF3EE2D371"
+  {:legal-name "PT ALIANSI LINTAS TEKNOLOGI",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "ID"},
+  "549300VP92Z696FCLZ96"
+  {:legal-name "みずほ信託銀行株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "969500QZC2Q0TK11NV07"
+  {:legal-name "ACCOR",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "984500BCD697PAZTFB09"
+  {:legal-name "CREED DEVELOPMENTS LTD",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GB"},
+  "3912005ENZ29CILVL758"
+  {:legal-name "BS Verwaltungs- und Vermittlungs-GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "9845009J0DA42DC2D686"
+  {:legal-name "FLOWCAST LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "RV5B68J2GV3QGMRPW209"
+  {:legal-name "BRITISH LAND COMPANY PUBLIC LIMITED COMPANY(THE)",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "636700XMXNLWD4VDQR31"
+  {:legal-name "Wilhelm Invest AB",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "SE"},
+  "3358000NQVJ8D4VGU929"
+  {:legal-name "VENKATAPATHI AROMATICS PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "9845005FB464F9B29F66"
+  {:legal-name "GOVIND CONCRETE PRODUCTS",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "33580053CFNQCAUASC42"
+  {:legal-name "SEJIMA TEXYARN PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "549300K4N74HFAM35B08"
+  {:legal-name "Emerson College",
+   :jurisdiction "US-MA",
+   :status "ACTIVE",
+   :country "US"},
+  "5299002CCI6HLWAN3K50"
+  {:legal-name "九州旅客鉄道株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "2549002SOQNR48E7H820"
+  {:legal-name "Wolff Court Development LP",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "9845005579S6ABDE3Q80"
+  {:legal-name "MARFESA REALTY CORP.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "PA"},
+  "391200IVFIWQMTQXX486"
+  {:legal-name "CALMROCK Establishment",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "LI"},
+  "UWJKFUJFZ02DKWI3RY53"
+  {:legal-name "THE COCA-COLA COMPANY",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "5299009IVKVNC92PDR57"
+  {:legal-name "RIK INGENIEURE GMBH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "G0G4PRB87K0V5MXIV248"
+  {:legal-name "The Curators of the University of Missouri",
+   :jurisdiction "US-MO",
+   :status "ACTIVE",
+   :country "US"},
+  "391200FMSEYBRZHT3Y42"
+  {:legal-name "Vermögensverwaltung LAZ eGBR",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "391200AKFCWPIPEGYI26"
+  {:legal-name
+   "Jacob & Jacob Beteiligungsgesellschaft UG (haftungsbeschränkt)",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "2549007DYOAXFTO3WN14"
+  {:legal-name "38 RIDER AVE. LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "2549000C8KQP767CWV91"
+  {:legal-name "CRNF Holding ApS",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DK"},
+  "9845008142C47A40F664"
+  {:legal-name "EUROMAX TRADING SRL",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "RO"},
+  "9845006F66EB8C0B2A58"
+  {:legal-name "CHARLES SHOUP ΑΣΤΙΚΗ ΜΗ ΚΕΡΔΟΣΚΟΠΙΚΗ ΕΤΑΙΡΕΙΑ",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GR"},
+  "353800TVPXCGWDZIIU09"
+  {:legal-name "株式会社NTTドコモ",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "254900C8YRZPXW2KT870"
+  {:legal-name "1827 OCEAN, LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "391200F3GXCHV3J74812"
+  {:legal-name "BZ Vermögensverwaltung GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "9269007E7922885F7D21"
+  {:legal-name "PT TRI KARYA TESLATAMA",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "ID"},
+  "254900R7TT6EP0V3G690"
+  {:legal-name "JACKROSE INVESTMENTS LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GB"},
+  "254900HZ148INCPMUZ93"
+  {:legal-name "IGWT INTERNATIONAL CAPITAL LTD.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "VG"},
+  "254900Z0HKGAODNAUN25"
+  {:legal-name "LEO 8250 ORLANDO HOTEL LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "254900SFYPF3ZCW54772"
+  {:legal-name "Zahavi Holdings Limited",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GI"},
+  "25490077W21LK5UY1K03"
+  {:legal-name "ORO BOWER VILLAGE OWNER LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "98450087C0O90971D015"
+  {:legal-name "Tomas Ohrlander Läkarkonsult AB",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "SE"},
+  "353800QGUXHZ7EBCR121"
+  {:legal-name "西日本旅客鉄道株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "5299002X8N8S1PZFSZ68"
+  {:legal-name "BATZ GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "5299004LW4QWGZUB8Y96"
+  {:legal-name "BLACKSTONE INC.",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "529900UNBJ3L26O5KE59"
+  {:legal-name "R.D.P. S.R.L.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IT"},
+  "25490036HW89KUC67089"
+  {:legal-name "DULLES VIEW DRIVE, L.L.C.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "391200OR4YSLWVQGHH67"
+  {:legal-name "Maja GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "2138001YYBULX5SZ2H24"
+  {:legal-name "SCHRODERS PLC",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "52990029JJIJA90YFT83"
+  {:legal-name "PRO.LINES - SYSTEMS S.R.L.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IT"},
+  "9845006E747871C6D131"
+  {:legal-name "SNOPAKE BRANDS LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GB"},
+  "5967007LIEEXZXGVU850"
+  {:legal-name "OSLO KOMMUNE",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "724500CRIX2CRKN16632"
+  {:legal-name "CCR Beheer B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "98450069O724F96AC862"
+  {:legal-name "DGI",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "FR"},
+  "391200IL9ZRR65UWJP79"
+  {:legal-name "HELLMATO Holding GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "353800SENYJ2DSM6PS44"
+  {:legal-name "東日本旅客鉄道株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "335800JFZAO0D5JS2S17"
+  {:legal-name "SPAKY ENGINEERING PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "254900SE2T9XQ98DAF07"
+  {:legal-name "Sabiedrība Ar Ierobežotu Atbildību E&J Bay Estate",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "LV"},
+  "549300Y2Q94GGNQC7X56"
+  {:legal-name "Northern Michigan University",
+   :jurisdiction "US-MI",
+   :status "ACTIVE",
+   :country "US"},
+  "254900FZFN5P0TB70F27"
+  {:legal-name "9870 CRESCENT PARK LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "529900U5025M2C93WO35"
+  {:legal-name "Windpark Plötzkau II GmbH & Co. Betriebs-KG",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "984500IC6EN05BP45E80"
+  {:legal-name "Bilby OO Trust 2026-1",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "AU"},
+  "98450082E4F5FBD00H77"
+  {:legal-name "WILLOW TREE SUPPORT LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GB"},
+  "254900CEKKWIHTEAB172"
+  {:legal-name "WYNN RESORTS, LIMITED",
+   :jurisdiction "US-NV",
+   :status "ACTIVE",
+   :country "US"},
+  "636700BDM6ZJ5O6QE088"
+  {:legal-name "Strawbay AB",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "SE"},
+  "529900JSFZ4TS59HKD79"
+  {:legal-name "EnBW Energie Baden-Württemberg AG",
+   :jurisdiction "DE",
+   :status "ACTIVE",
+   :country "DE"},
+  "HR0I3LSP7EH9UR2SSH34"
+  {:legal-name "CASCADE INVESTMENT, L.L.C.",
+   :jurisdiction "US-WA",
+   :status "ACTIVE",
+   :country "US"},
+  "984500DC0H4RF2D55F88"
+  {:legal-name "JINDAL CONCRETE UDYOG",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "254900XHLPAHM4XB4W65"
+  {:legal-name "NOSTRAND HOUSES PRESERVATION LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "8945008MKE7AK71F9L59"
+  {:legal-name "PARIS SUD BRETAGNE EXPERTISES",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "FR"},
+  "984500E365C3O8DC4432"
+  {:legal-name "FUNCTION12 INC.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "CA"},
+  "254900HYGKT7S0TKTG59"
+  {:legal-name "Genesis Health Clubs Chenal Pkwy LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "213800RPBXRETY4A4C59"
+  {:legal-name "SEVERN TRENT PLC",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "254900U6KTZGCBSE0V54"
+  {:legal-name "MS EDLF II Leveraged Lendco S.à r.l.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "LU"},
+  "724500Q11W2NBN5QX646"
+  {:legal-name "Serhat Activa B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "02S2RPPVO9RP4NEU2740"
+  {:legal-name "Reynolds American Inc.",
+   :jurisdiction "US-NC",
+   :status "ACTIVE",
+   :country "US"},
+  "9845001A858A9BFA5F30"
+  {:legal-name "RICHMOND DAIRIES PTY LTD",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "AU"},
+  "335800I03P18KIJJAC63"
+  {:legal-name "A1 RMC BUILDCON",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "549300TKZX0YNENZC895"
+  {:legal-name "State of Alabama",
+   :jurisdiction "US-AL",
+   :status "ACTIVE",
+   :country "US"},
+  "8945008J0WKMVMG77T96"
+  {:legal-name "PLAY BLUE SPORTS PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "724500XX0M9UBGCBKY73"
+  {:legal-name "Digiscope B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "353800ND4ZKNZDYKMF33"
+  {:legal-name "三井不動産株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "984500984610BEFCF242"
+  {:legal-name "ADANSONIA MANAGEMENT SERVICES LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "MU"},
+  "254900ZBI9QRZ01ERW08"
+  {:legal-name "Cuadra College Plaza, LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "52990016II9MJ2OSWA10"
+  {:legal-name "CBRE Group, Inc.",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "984500605B7CFJE0AD32"
+  {:legal-name "ASTUTE CAPITAL MANAGEMENT LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NG"},
+  "8945008UVPUR16UWLL61"
+  {:legal-name
+   "LATTERIA SOCIALE COOPERATIVA DI POZZOMAGGIORE - SOCIETA COOPERATIVA",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IT"},
+  "391200SE8JLBJU6GN628"
+  {:legal-name "Hambach Vermögens-Verwaltungs GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "984500F0C61DAB7DIC70"
+  {:legal-name "Wiggo Eriksson Consulting AB",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "SE"},
+  "724500UU46FJ6T0AYP51"
+  {:legal-name "B.H. Schumer Beheer B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "5493007B9BM9ZXJINO78"
+  {:legal-name "LIVE NATION ENTERTAINMENT, INC.",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "8945008MPXR276DAX518"
+  {:legal-name
+   "IDEAL SERVICES SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ SPÓŁKA KOMANDYTOWA",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "PL"},
+  "984500E7AF0A846F0A94"
+  {:legal-name "M/S AC EDUCATION",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "8945008LN4WOQB25C991"
+  {:legal-name "AUM DEVELOPERS REALTY",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "254900FTNCK38E8HY895"
+  {:legal-name "CELTEL CHILE, SL",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "ES"},
+  "WFYTXMC3IFIZLSCKDP24"
+  {:legal-name "St. John's University, New York",
+   :jurisdiction "US-NY",
+   :status "ACTIVE",
+   :country "US"},
+  "8I5DZWZKVSZI1NUHU748"
+  {:legal-name "JPMORGAN CHASE & CO.",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "213800JHYNDNB1NS2W10"
+  {:legal-name "MITCHELLS & BUTLERS PLC",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "254900ICUAQCTPQXFN59"
+  {:legal-name "HYADES SECURITIES LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GB"},
+  "549300MR1BYTPTMF0I60"
+  {:legal-name "POMONA COLLEGE",
+   :jurisdiction "US-CA",
+   :status "ACTIVE",
+   :country "US"},
+  "8945008KPVM2WF2VEX89"
+  {:legal-name "NANAK FOODS",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "529900VRM1N1I5KESB35"
+  {:legal-name "RADIOFAM HOLDING S.R.L.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IT"},
+  "529900CJT4VQO26ONP04"
+  {:legal-name "Caesars Entertainment Corporation",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "549300KSCPQ7L2RG4L66"
+  {:legal-name "Syracuse University",
+   :jurisdiction "US-NY",
+   :status "ACTIVE",
+   :country "US"},
+  "984500SEB6BF7R8B6E14"
+  {:legal-name "INCENTIVE ENERGY PTE. LTD.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "SG"},
+  "984500CC7058765DC012"
+  {:legal-name "DROLLINGER HOLDING GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "FY5ICUIRRDCHN4HHL592"
+  {:legal-name "DUKE UNIVERSITY",
+   :jurisdiction "US-NC",
+   :status "ACTIVE",
+   :country "US"},
+  "391200KAB144NIKTLA34"
+  {:legal-name "Elfriede und Willy Körber-Stiftung",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "984500DA10B649F75465"
+  {:legal-name "GÁVEA E MASTRO UNIPESSOAL LDA",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "PT"},
+  "391200XYAXJ3MGLA8D93"
+  {:legal-name "FENAform GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "AT"},
+  "391200PHHZ91CPNG9O65"
+  {:legal-name "FinancialPhiPeters UG (haftungsbeschränkt)",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "8945008NYA57B10C5L96"
+  {:legal-name "FF CONSULTING",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "FR"},
+  "335800ADRGLGC1TZ9Z22"
+  {:legal-name "TEJAS METALLURGY WORK",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "529900R5WX9N2OI2N910"
+  {:legal-name "ソニーグループ株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "5967007LIEEXZXE4AW33"
+  {:legal-name "EVINY FORNYBAR AS",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "549300K1JD1LDRNBET48"
+  {:legal-name "Brookfield Properties Retail Holding LLC",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "984500D12K1E8J7F9448"
+  {:legal-name "KEDEL MASKIN OG MOTORPASSERNES ORGANISATION",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DK"},
+  "8945008JY5V8PIFH5534"
+  {:legal-name "MOLNIR PROYECT VI SL",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "ES"},
+  "9845008FE5B61D7C7A21"
+  {:legal-name "NICHOLAS CORKHILL LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GB"},
+  "9DJT3UXIJIZJI4WXO774"
+  {:legal-name "BANK OF AMERICA CORPORATION",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "787200XFBWN95R96FV81"
+  {:legal-name "SMART DISTRIB SLB S.R.L.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "RO"},
+  "984500FDCD85CF6FE054"
+  {:legal-name "SESO Food & Partihandel AB",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "SE"},
+  "743700CXEJT6NFCEFH10"
+  {:legal-name "Helen Oy",
+   :jurisdiction "FI",
+   :status "ACTIVE",
+   :country "FI"},
+  "549300Q2G2ZLXN1EX541"
+  {:legal-name "TRUSTEES OF BOSTON COLLEGE",
+   :jurisdiction "US-MA",
+   :status "ACTIVE",
+   :country "US"},
+  "52990083GOW6I94PRP95"
+  {:legal-name "EUROCOSTRUZIONI S.A.S. DI MASSEI PLINIO PIERO & C.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IT"},
+  "549300F07QRX46LXVI35"
+  {:legal-name "BANE NOR EIENDOM AS",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "5299004EMJ3R4RVR5Y75"
+  {:legal-name "東京電力ホールディングス株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "7245008OOLNOCZY43910"
+  {:legal-name "Hundred Countries B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "984500995C177FB8BD57"
+  {:legal-name "DELUXY S.R.L.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IT"},
+  "529900IK78HLJJ3MNV33"
+  {:legal-name "TURATI E ASSOCIATI",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IT"},
+  "549300CPS7EW1W5BTS02"
+  {:legal-name "Rochester Institute of Technology",
+   :jurisdiction "US-NY",
+   :status "ACTIVE",
+   :country "US"},
+  "XEIEFTLYDQ1MZ6TZV015"
+  {:legal-name "CHS Inc.",
+   :jurisdiction "US-MN",
+   :status "ACTIVE",
+   :country "US"},
+  "8945008PHPMVOUB4P534"
+  {:legal-name "KC Treasury OÜ",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "EE"},
+  "25490084M0WL1KDKZR50"
+  {:legal-name "RACE HOLDINGS L.L.C.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "PR"},
+  "8945008LHLCX3BQ9OP29"
+  {:legal-name "ASHNA REALTY LLP",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "549300U4OHEAZ124LQ06"
+  {:legal-name "City of New Haven",
+   :jurisdiction "US-CT",
+   :status "ACTIVE",
+   :country "US"},
+  "353800DF2MUZWFL4IL56"
+  {:legal-name "星野リゾート・リート投資法人",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "984500GNA2F494237E20"
+  {:legal-name "UCHHAL FOUNDATION",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "549300K3C21R17LKDU63"
+  {:legal-name "Board of Regents of Eastern Michigan University",
+   :jurisdiction "US-MI",
+   :status "ACTIVE",
+   :country "US"},
+  "5299009RXTX9DN9AKJ98"
+  {:legal-name "Restaurant Brands International Inc.",
+   :jurisdiction "CA-ON",
+   :status "ACTIVE",
+   :country "CA"},
+  "8945008F6BUFX377UX90"
+  {:legal-name "S AND V LOGA HOSPITAL PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "254900HGSG8OTEQMFB49"
+  {:legal-name "Fattal Bristol Harbour Limited",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GB"},
+  "969500KHDYUK2NW8TJ54"
+  {:legal-name "CHAMBERY METROPOLE COMMUNAUTE AGGLO.",
+   :jurisdiction "FR",
+   :status "INACTIVE",
+   :country "FR"},
+  "254900Q3JWWVN01E5O16"
+  {:legal-name "TB Peloton TopCo Inc.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "CA"},
+  "699400VK0HILDA6ZWL94"
+  {:legal-name "Sunny Side Up",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "BE"},
+  "969500K59E47ULNCAQ69"
+  {:legal-name "REGIE AUTONOME DES TRANSPORTS PARISIENS",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "5493006W3QUS5LMH6R84"
+  {:legal-name "トヨタ自動車株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "9845003A9453FE1C6808"
+  {:legal-name "SHRIMATI NARASAMMA GOTYAL SHIKSHNA SAMSTHE VIJAYAPUR",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "7245007BW9ILFJ7PTH92"
+  {:legal-name "J. Popma Beheer B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "391200JYH0XR15LR6C70"
+  {:legal-name "Label Kitchen GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "984500B6BG00FT55A923"
+  {:legal-name "PAINGANGA EDUCATION SOCIETY PATAN TA ZARI JAMNI",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "636700WXXTRVF5M4YR87"
+  {:legal-name "Skånelyckan Trading/Consulting AB",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "SE"},
+  "254900M52JL2L5Z4LA92"
+  {:legal-name "Ribbit Bullfrog III Cayman IN Holdings, Ltd.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "KY"},
+  "529900FHN040TTJMT790"
+  {:legal-name "Vinva Global Alpha Extension (Master) Fund",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "KY"},
+  "391200YLHXKOF2114O65"
+  {:legal-name "Katholische Kirchengemeinde St. Remigius Borken",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "254900JHA5Q9DWU0JF92"
+  {:legal-name "LCMW PROPCO LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GB"},
+  "984500EECFB3ED55A835"
+  {:legal-name "Katholische Kirchenstiftung Unsere Liebe Frau",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "254900CI5XNYLYYVY397"
+  {:legal-name "KIMBER LABS INC.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "7245004X5GKYE0QL1P25"
+  {:legal-name "Dobi B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "391200M9MWOSQ8BPNG36"
+  {:legal-name "HanseAquaFarm AG",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "8945008M3RJZN91SAX90"
+  {:legal-name "GREEN DRIVE MOBILITY",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "8945008T6QTB0E88EH76"
+  {:legal-name "SOCIETA AGRARIA BURANCO S.R.L.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IT"},
+  "391200FWFSCJXI97BP32"
+  {:legal-name "PH Invest GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "213800LRO7NS5CYQMN21"
+  {:legal-name "BT GROUP PLC",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "8945008FMYHQU16UTL46"
+  {:legal-name "SKYNET EXPRESS INDIA PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "335800OC655LV3AZTX50"
+  {:legal-name "GILL DEVELOPERS AND INFRATECH PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "984500A5EC07106AE740"
+  {:legal-name "MITIGATE GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "3912001O9BLWN8JFWT54"
+  {:legal-name "Affoo Limited",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "HK"},
+  "254900FKU65Y5O0Y4W74"
+  {:legal-name "BESTPROVISIONS HOLDCO LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "335800DL3Y3TRH5ABI32"
+  {:legal-name "SUPER INFRA PROJECTS PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "549300RFZE56R3KB5271"
+  {:legal-name "New York Institute of Technology",
+   :jurisdiction "US",
+   :status "ACTIVE",
+   :country "US"},
+  "8945008GK7SCNX64QX53"
+  {:legal-name "PALWE SANCHETI WAREHOUSE LLP",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "984500DA77C99D699377"
+  {:legal-name "ACTIF S.à.r.l.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "LU"},
+  "2549006DSF0ODIBAGQ13"
+  {:legal-name "Lightgrid Holdings Limited",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "VG"},
+  "353800YPW4XM0ZN5I149"
+  {:legal-name "日本郵船株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "98450089D4FB4CPCCD88"
+  {:legal-name "Hamad Holding GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "AT"},
+  "529900Q8DC0QTN9ZSB29"
+  {:legal-name "ELCOVA INSTALACIONES, SL",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "ES"},
+  "9845000513677A4A5564"
+  {:legal-name "Fonden Skovhaven",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DK"},
+  "335800GY6PB127FG3S80"
+  {:legal-name "CREDHIVE FINTECH PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "984500EA00C38U683F36"
+  {:legal-name "BINFIELD INVESTMENTS LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GB"},
+  "549300QJC8FZFLYPJ694"
+  {:legal-name "TEXAS CHRISTIAN UNIVERSITY",
+   :jurisdiction "US-TX",
+   :status "ACTIVE",
+   :country "US"},
+  "254900TABABBNIOHAX93"
+  {:legal-name "PERTH A MEZZ 1 LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "984500A8T8769F95AB93"
+  {:legal-name "ORNN DATA LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "529900J0G1693IQCRG40"
+  {:legal-name "MarcundPfennig GmbH & Co. KG",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "9845002VDEE40F41CM23"
+  {:legal-name "VANTROCK VENTURES LLP",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "254900KGHMNSELEJLF33"
+  {:legal-name "MM SUBS HOLDINGS, INC.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "335800TVJP3UH0NQ1G92"
+  {:legal-name "RENTINGIO (OPC) PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "2549006392TNRV6WWP40"
+  {:legal-name "OCEAN BIDCO",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "BE"},
+  "984500839408C2AD7496"
+  {:legal-name "DENTECH APPS LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GB"},
+  "724500XO3WZ81YRFZV22"
+  {:legal-name "GEOP B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "NQQ6HPCNCCU6TUTQYE16"
+  {:legal-name "Bank of Montréal",
+   :jurisdiction "CA-QC",
+   :status "ACTIVE",
+   :country "CA"},
+  "O2RNE8IBXP4R0TD8PU41"
+  {:legal-name "SOCIETE GENERALE",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "54930070NSV60J38I987"
+  {:legal-name "GENERAL MOTORS COMPANY",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "984500CA045G6D7U3F49"
+  {:legal-name "LBLT Holding ApS",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DK"},
+  "724500DZSRU9VVCUKZ69"
+  {:legal-name "Exploitatie Rotterdam Zuid B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "31570010000000090208"
+  {:legal-name "Energetický a průmyslový holding, a.s.",
+   :jurisdiction "CZ",
+   :status "ACTIVE",
+   :country "CZ"},
+  "5299005KDININGAXCV64"
+  {:legal-name "ALDI INC.",
+   :jurisdiction "US-IL",
+   :status "ACTIVE",
+   :country "US"},
+  "549300R2AMOORDIO5N77"
+  {:legal-name "Suffolk University",
+   :jurisdiction "US-MA",
+   :status "ACTIVE",
+   :country "US"},
+  "529900QS7WRL35QEGC18"
+  {:legal-name "BAVAMONT LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IE"},
+  "724500EY6IMUHRNMMP87"
+  {:legal-name "Field Fashion B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "5299000LFHSDF1I5E905"
+  {:legal-name "MARMOLES MARTIN RUBIÑO SOCIEDAD LIMITADA",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "ES"},
+  "3SU7BEP7TH9YEQOZCS77"
+  {:legal-name "Canadian National Railway Company",
+   :jurisdiction "CA-QC",
+   :status "ACTIVE",
+   :country "CA"},
+  "335800LVYCTAAO1EPT29"
+  {:legal-name "SRI MURUGAN METAL",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "254900R4D1GDI6P5YA29"
+  {:legal-name "VILLA RADIEUSE",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "FR"},
+  "2549002E5XGDIUNECS95"
+  {:legal-name "ELCANO LPG TANKERS 1 LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "MT"},
+  "549300Z3FGLXMWMOXN32"
+  {:legal-name "COMPAGNIE NATIONALE DU RHONE",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "636700VM7K9DE2OJPF23"
+  {:legal-name "Z.M.J Invest AB",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "SE"},
+  "549300S8HVUSEU3JBY60"
+  {:legal-name "RIOCAN REAL ESTATE INVESTMENT TRUST",
+   :jurisdiction "CA",
+   :status "ACTIVE",
+   :country "CA"},
+  "98450007607FAD668E65"
+  {:legal-name "KRISHNA INOX LLP",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "8945008IVD0V8N4BK976"
+  {:legal-name "JDS INFRA BUILD INDIA PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "391200KDGS232404KQ48"
+  {:legal-name "Linan Enterprises Inc.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "VG"},
+  "724500P8FSRMRST02A45"
+  {:legal-name "NextBekx Beheer B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "549300IVFOPB4AG7UL47"
+  {:legal-name "City of Philadelphia",
+   :jurisdiction "US-PA",
+   :status "ACTIVE",
+   :country "US"},
+  "72450048KEEJFKK9EX03"
+  {:legal-name "Horneman Holding B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "9845005DGFEAD90C0669"
+  {:legal-name "THE LUXURY COPYWRITER LTD",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GB"},
+  "549300X5UKJVE386ZB61"
+  {:legal-name "ASSICURAZIONI GENERALI SOCIETA' PER AZIONI",
+   :jurisdiction "IT",
+   :status "ACTIVE",
+   :country "IT"},
+  "21X2CX66SU2BR6QTAD08"
+  {:legal-name "THE HERSHEY COMPANY",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "33580015RWHJLSW7PV89"
+  {:legal-name "RAZA BUILDERS AND DEVELOPERS",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "529900ZGQ9VHNQCWJB49"
+  {:legal-name "PSHC Establishment",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "LI"},
+  "3358004C0QZN9T2QNI57"
+  {:legal-name "WEASLEY 06 2026",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "254900R1CHRAKQWBV490"
+  {:legal-name "Product Madness (U.K.) Limited",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GB"},
+  "254900J5N9GTTX8VZS46"
+  {:legal-name "MOUSSEALLIGATOR, LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "96950038RPL7KKR2OW97"
+  {:legal-name "METROPOLE EUROPEENNE DE LILLE",
+   :jurisdiction "FR",
+   :status "INACTIVE",
+   :country "FR"},
+  "5493006VYRFL1AI6GT29"
+  {:legal-name "Salt Lake County, Utah",
+   :jurisdiction "US-UT",
+   :status "ACTIVE",
+   :country "US"},
+  "984500E7CF40FP98F261"
+  {:legal-name "SSV Foundation",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "KY"},
+  "5299003TGUN99P4D7Q89"
+  {:legal-name
+   "ORKAN PHARMA SOCIETA' A RESPONSABILITA' LIMITATA SEMPLIFICATA",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IT"},
+  "8945008J6G4EILS2VD41"
+  {:legal-name "INSTALACIONES TECNICAS INSTASOL SL",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "ES"},
+  "743700G4WJYPBNKQFR63"
+  {:legal-name "Osuuskauppa Arina",
+   :jurisdiction "FI",
+   :status "ACTIVE",
+   :country "FI"},
+  "549300T12EZ1F6PWWU29"
+  {:legal-name "ALCOA CORPORATION",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "254900STWGRFHGMGVC84"
+  {:legal-name "PT Grahatama Kreasibaru",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "ID"},
+  "984500D61E2D11BC1577"
+  {:legal-name "NEXTWAVE CAPITAL FUND",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "984500E9C3ECFAED9535"
+  {:legal-name "EXEMPLUS INTERNATIONAL, LDA",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "PT"},
+  "4ZLCYJQROKYIYCGT1K86"
+  {:legal-name "WEINBRENNER SHOE COMPANY, INC.",
+   :jurisdiction "US-WI",
+   :status "ACTIVE",
+   :country "US"},
+  "5967007LIEEXZXGFMW72"
+  {:legal-name "TRONDHEIM KOMMUNE",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "254900MKIGRAYVDUZ926"
+  {:legal-name "County of San Diego",
+   :jurisdiction "US-CA",
+   :status "ACTIVE",
+   :country "US"},
+  "35380016EMHNBOVYE123"
+  {:legal-name "オリックス株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "254900QCW938FSG6BP45"
+  {:legal-name "YOUNG ISRAEL OF CENTURY CITY",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "984500A907X9D2FDME09"
+  {:legal-name "GAZAN HOLDING PTE. LTD.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "SG"},
+  "635400UFHDIQCDZ6JK11"
+  {:legal-name "Electricity Supply Board",
+   :jurisdiction "IE",
+   :status "ACTIVE",
+   :country "IE"},
+  "254900AFWBL6GL7G2110"
+  {:legal-name "AAA HOLDINGS (DC-F 2026), LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "529900GOY8P7OPK2OQ30"
+  {:legal-name "JEAN ALTERNATIVE INVESTMENTS FUND JERSEY LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "JE"},
+  "NMH2KF074RKAGTH4CM63"
+  {:legal-name "BNP PARIBAS BANK POLSKA SPÓŁKA AKCYJNA",
+   :jurisdiction "PL",
+   :status "ACTIVE",
+   :country "PL"},
+  "549300TJPY1TN6ETZE45"
+  {:legal-name "BANE NOR SF",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "254900WDJE1LF4135Y37"
+  {:legal-name "S&P Global Energy ESG Ratings Europe Limited",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IE"},
+  "984500B8A0DAA7K58E37"
+  {:legal-name "ST MARY S WELFARE SOCIETY",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "2138007ZFQYRUSLU3J98"
+  {:legal-name "INTERCONTINENTAL HOTELS GROUP PLC",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "724500ASZPR5KTQDBW88"
+  {:legal-name "S.Z. Holding B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "335800THP0PGNP5I9V25"
+  {:legal-name "STUDIO 16",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "254900ZGMD9DMMFI6251"
+  {:legal-name "VA7 EVERGREEN SOUTH, LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "984500A9XAF92IE87782"
+  {:legal-name "Stichting Driven AM",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "391200M09M9Y3GVIY993"
+  {:legal-name "Verkehrstechnik & Fahrbahnmarkierung Seifert GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "724500BK3QS2MTQIBQ37"
+  {:legal-name "Sijbe Holding B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "549300APU14LQKTYCH34"
+  {:legal-name "ENTRA ASA",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "9845009DD7F76AB99E93"
+  {:legal-name "ΡΑΧΙΩΤΗΣ - ΡΑΧΙΩΤΗ Ε.Ε.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GR"},
+  "259400HB4PFX2PA4BT83"
+  {:legal-name "J.W. Construction Holding S.A.",
+   :jurisdiction "PL",
+   :status "ACTIVE",
+   :country "PL"},
+  "353800YAR3OVUITHTG64"
+  {:legal-name "東海旅客鉄道株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "9845007CAF115YPAF881"
+  {:legal-name "HCL AUSTRALIA SERVICES PTY. LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "AU"},
+  "549300ANVM1COXBSWS09"
+  {:legal-name "City of Little Rock, Arkansas",
+   :jurisdiction "US-AR",
+   :status "ACTIVE",
+   :country "US"},
+  "5493009OEHU6YS545T65"
+  {:legal-name
+   "THE CHANCELLOR MASTERS AND SCHOLARS OF THE UNIVERSITY OF OXFORD",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "9845003B77DC93811B36"
+  {:legal-name "KUZO OÜ",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "EE"},
+  "39120090AP0PY145HN27"
+  {:legal-name "Moviva 2. Beteiligungs GmbH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "549300HES5V0C74V4L64"
+  {:legal-name "DUCHY OF CORNWALL",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "63670069DGXSE266OJ29"
+  {:legal-name "Klint Fastigheter Kalven AB",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "SE"},
+  "529900KZV4OCCC4EYI24"
+  {:legal-name "LA BLONDA CATERING SL",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "ES"},
+  "984500EDE806FD42F411"
+  {:legal-name "SRIANNADATHA SUKIBHAVA",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "254900IN3DJJJ4NYU356"
+  {:legal-name "EDGE PRO, LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "724500Y44OEIGBZL3S94"
+  {:legal-name "ZAEB B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "391200MIT1RG7PC0UV58"
+  {:legal-name "GB Verwaltungs UG (haftungsbeschränkt)",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "7245003G9X8T00H5UO19"
+  {:legal-name "dotNext B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "549300J2762HBWE6MQ22"
+  {:legal-name "City of Memphis, Tennessee",
+   :jurisdiction "US-TN",
+   :status "NULL",
+   :country "US"},
+  "335800LI89TZGPHAZZ36"
+  {:legal-name "PATHMAKERS",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "254900JP90JPEUPJ3517"
+  {:legal-name "The Lilly Trust",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "CY"},
+  "984500084FBC12G2FF29"
+  {:legal-name "LES GRANDS VINS DE FRANCE SBH",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "BL"},
+  "254900SCSAMSXBFI2B34"
+  {:legal-name "HK YUEHAI TECHNOLOGY LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "HK"},
+  "R2G7YMC4K0KXSX0BGX71"
+  {:legal-name "New York University",
+   :jurisdiction "US-NY",
+   :status "ACTIVE",
+   :country "US"},
+  "724500MVY9OFYSF7LR36"
+  {:legal-name "Aagje B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "54930058W39DHS3GTG15"
+  {:legal-name
+   "The Trustees of Columbia University in the City of New York",
+   :jurisdiction "US-NY",
+   :status "ACTIVE",
+   :country "US"},
+  "391200TLNJ1VAQETOH10"
+  {:legal-name "Berg & Husemann Grundstücks eGbR",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "984500DA6G5C10F6DC61"
+  {:legal-name "SoftServe Investments Limited",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "MT"},
+  "254900VUJGTA24WFS850"
+  {:legal-name "LWR HOSPITALITY LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "549300RA28ZEFOB6M782"
+  {:legal-name "City and County of San Francisco",
+   :jurisdiction "US-CA",
+   :status "ACTIVE",
+   :country "US"},
+  "254900TKGOV70H19EJ88"
+  {:legal-name "CA 114 PRINCE LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "529900K50CP03EABCZ35"
+  {:legal-name "REGENER8 RESOURCES NL",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "AU"},
+  "9845000B04XA8E3CBB91"
+  {:legal-name "DAHEJ HOTELS AND HOSPITALITY PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "724500EJ4ZB30IXIRL92"
+  {:legal-name "HOP JR Holding B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "254900NMJAZFMKY67328"
+  {:legal-name "GEMS FUND 7, L.P.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "254900BN8VJUZ2RZ2527"
+  {:legal-name "RCM US CLO 1 LTD.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "KY"},
+  "2549001QMZ9ADA7JE947"
+  {:legal-name "Blue Owl Real Estate Fund V CS Hedgeco LP",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "KY"},
+  "529900SU1K6CP8WFFB08"
+  {:legal-name "PIONEXT Asset GmbH & Co. KG",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "DE"},
+  "254900IJPEA5670HGY35"
+  {:legal-name "MCP GIG HARBOR PROPCO, LLC",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "8945008N6KED44CXVT67"
+  {:legal-name "Cityboard Media Sp. z o.o.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "PL"},
+  "984500RDECD0B0DB9695"
+  {:legal-name "Astracell Oy",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "FI"},
+  "254900FY7SWXLDNWQR96"
+  {:legal-name "ARISTOCRAT TECHNOLOGIES EUROPE (HOLDINGS) LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GB"},
+  "3358008SSUIOG8BAY930"
+  {:legal-name "R. K. AHUJA HOSIERY",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "9845005061F61D6C5320"
+  {:legal-name "PLUM HAT LTD",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "GB"},
+  "254900IU5RCOIF8WW803"
+  {:legal-name "Branzan Investment Advisors, Inc.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "US"},
+  "787200M569GGQ9AP4F64"
+  {:legal-name "AMIS VENTURES S.R.L.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "RO"},
+  "984500DB3D87FLFDF560"
+  {:legal-name "DAYTIME - SERVIÇOS E GESTÃO IMOBILIÁRIA, S.A.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "PT"},
+  "2549000OW2JT7MJEYH56"
+  {:legal-name "Somers Holding",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "BE"},
+  "724500ADRDE5Y5PI5T49"
+  {:legal-name "Heutsholding B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "724500IRGL3QJKWBIS90"
+  {:legal-name "AlexIT B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "9845006CF9BB68E53B82"
+  {:legal-name "EVERGREEN ASSET MANAGEMENT LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "AE"},
+  "8945008LSOGGDAE0ZT14"
+  {:legal-name "Bite Brands Ltd.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "CA"},
+  "335800QFHT8VDKAYJL91"
+  {:legal-name "BVR GAS PETROLEUM PRIVATE LIMITED",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "529900GDPMMRRVPOSQ44"
+  {:legal-name "BLANCA S.R.L.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IT"},
+  "549300OJ7WHJ5FFDOQ11"
+  {:legal-name "PARAMOUNT PICTURES CORPORATION",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "984500B672E4015A5289"
+  {:legal-name "M/S S.M.J. ICE & COLD STORAGE",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "IN"},
+  "72450037NZHUWF46OO65"
+  {:legal-name "FWD B.V.",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "NL"},
+  "984500B093EU4SE9R552"
+  {:legal-name "Shangcheng Oriental Group Limited",
+   :jurisdiction "",
+   :status "ACTIVE",
+   :country "HK"}}}
