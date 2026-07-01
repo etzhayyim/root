@@ -880,7 +880,16 @@
   "jinushi"
   {:rid "bafkreietkwx4cwopwmelyrsiuakiswrq5c3ngl7erhauwiozo72mdkso3a",
    :datasets
-   ({:dataset-id "jinushi-land-wdqs-r2",
+   ({:dataset-id "gleif-companies-expanded",
+     :layer :repo,
+     :source
+     "GLEIF api.gleif.org expanded batch (500 GENERAL ACTIVE, merged with existing 221)",
+     :cidv1
+     "bafkreidum45q3pxt5otskc3wlsv2zdowuftwbhwn2762gw6rox3q5fnlwu",
+     :freshness-days 0,
+     :retrieved "2026-07-01",
+     :counts-toward-world-coverage false}
+    {:dataset-id "jinushi-land-wdqs-r2",
      :layer :repo,
      :source
      "world land/building ownership (Wikidata/PLUTO/DVF/GLEIF/OSM, ADR-2606162000)",
@@ -1504,7 +1513,8 @@
    :datasets (),
    :declared? false}},
  :datasets
- {"legal-templates" {:holders ["hinagata"], :layers [:repo]},
+ {"gleif-companies-expanded" {:holders ["jinushi"], :layers [:repo]},
+  "legal-templates" {:holders ["hinagata"], :layers [:repo]},
   "kanjo-coverage" {:holders ["kanjo"], :layers [:repo]},
   "junkan-governance" {:holders ["junkan"], :layers [:repo]},
   "jinushi-land-wdqs-r2" {:holders ["jinushi"], :layers [:repo]},
