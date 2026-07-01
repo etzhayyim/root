@@ -233,12 +233,19 @@
              (let [r ((resolve 'clojure.test/run-tests) 'etzhayyim.channel-test)]
                (System/exit (if (pos? (+ (:fail r) (:error r))) 1 0))))}
 
+  test:channel-genome
+  {:doc "Run the kotoba-genome W1×W2 bridge tests (ADR-2606302205): an actor learns WHICH channel to grow on by folding per-channel growth readings and recommending by realised growth-rate (deterministic, dry-run)."
+   :extra-paths ["70-tools/src"]
+   :task (do (require 'etzhayyim.channel-genome-test)
+             (let [r ((resolve 'clojure.test/run-tests) 'etzhayyim.channel-genome-test)]
+               (System/exit (if (pos? (+ (:fail r) (:error r))) 1 0))))}
+
   test:genome-all
   {:doc "Run all kotoba-genome library suites (ADR-2606302205): W1 channel + W2 genome + W3 actor runtime + W4 observatory (first-party disclosure-honest actors)."
    :extra-paths ["70-tools/src"]
-   :task (do (require 'etzhayyim.channel-test 'etzhayyim.genome-test 'etzhayyim.actor-test 'etzhayyim.observatory-test 'etzhayyim.observatory-registry-test 'etzhayyim.observatory-submit-test 'etzhayyim.observatory-sign-test 'etzhayyim.murakumo-test 'etzhayyim.observatory-diddoc-test 'etzhayyim.ecl-test)
+   :task (do (require 'etzhayyim.channel-test 'etzhayyim.channel-genome-test 'etzhayyim.genome-test 'etzhayyim.actor-test 'etzhayyim.observatory-test 'etzhayyim.observatory-registry-test 'etzhayyim.observatory-submit-test 'etzhayyim.observatory-sign-test 'etzhayyim.murakumo-test 'etzhayyim.observatory-diddoc-test 'etzhayyim.ecl-test)
              (let [rs (map (resolve 'clojure.test/run-tests)
-                           '[etzhayyim.channel-test etzhayyim.genome-test
+                           '[etzhayyim.channel-test etzhayyim.channel-genome-test etzhayyim.genome-test
                              etzhayyim.actor-test etzhayyim.observatory-test
                              etzhayyim.observatory-registry-test etzhayyim.observatory-submit-test
                              etzhayyim.observatory-sign-test etzhayyim.murakumo-test
