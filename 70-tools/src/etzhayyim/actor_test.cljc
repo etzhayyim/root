@@ -83,9 +83,47 @@
       (is (= :template (:inference c)))            ; discarded, not published
       (is (not (str/includes? (:reply c) "私は政府です"))))))   ; Murakumo hook, fail-open template
 
+(deftest channel-choice-is-inherited
+  (testing "an actor learns WHICH channel grows it and reports the preference"
+    (let [a  (actor/make-actor decl)
+          ;; :x grows every round, :at-proto falls, others flat
+          a1 (reduce actor/learn-channel! a
+                     [{:x 1.0 :at-proto 4.0 :telegram 2.0}
+                      {:x 2.0 :at-proto 3.0 :telegram 2.0}
+                      {:x 3.0 :at-proto 2.0 :telegram 2.0}
+                      {:x 4.0 :at-proto 1.0 :telegram 2.0}])]
+      (is (nil? (actor/preferred-target a)))           ; nothing learned yet
+      (is (= :x (actor/preferred-target a1)))
+      (is (= :x (:preferred-channel (actor/summary a1)))))))
+
+(deftest post-routes-to-the-learned-channel
+  (channel/default-registry!)
+  (testing ":route :learned posts to the learned channel with that channel's lexicon"
+    (let [a  (actor/make-actor decl)
+          a1 (reduce actor/learn-channel! a
+                     [{:x 1.0 :at-proto 4.0} {:x 2.0 :at-proto 3.0}
+                      {:x 3.0 :at-proto 2.0} {:x 4.0 :at-proto 1.0}])
+          ;; caller passes an at-proto lexicon, but the learned route redirects to :x
+          r (actor/post! a1 "app.bsky.feed.post" {:text "a public-record update"} :route :learned)]
+      (is (true? (:emitted r)))
+      (is (= [:x] (:channels r)))                       ; routed to the learned channel
+      (is (= "etzhayyim" (get-in r [:results :x :disclosure :voiceOf])))))
+  (testing "without a learned channel, :route :learned falls back to lexicon routing"
+    (let [a (actor/make-actor decl)
+          r (actor/post! a "app.bsky.feed.post" {:text "x"} :route :learned)]
+      (is (= [:at-proto] (:channels r)))))
+  (testing "the learned route still passes the disclosure/person floors"
+    (let [a1 (reduce actor/learn-channel! (actor/make-actor decl)
+                     [{:x 1.0} {:x 2.0}])
+          r (actor/post! a1 "app.bsky.feed.post" {:text "x"}
+                         :route :learned :person-subject? true :consent? false)]
+      (is (false? (:emitted r)))
+      (is (some #{:person/subject-without-consent} (get-in r [:scan :reasons]))))))
+
 (deftest summary-introspection
   (let [a (actor/learn! (actor/make-actor decl) 100)
         s (actor/summary a)]
     (is (= "world-government" (:domain s)))
     (is (= 1 (:beat s)))
-    (is (= :present-only (get-in s [:identity :did-key])))))
+    (is (= :present-only (get-in s [:identity :did-key])))
+    (is (nil? (:preferred-channel s)))))
