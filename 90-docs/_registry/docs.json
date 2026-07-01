@@ -27228,6 +27228,33 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2607011930-ipfs-checkpointer-relocation-to-kotoba-lang.md",
+      "id": "adr-2607011930-ipfs-checkpointer-relocation-to-kotoba-lang",
+      "title": "ADR-2607011930: ipfs + checkpointer relocation from etzhayyim-sdk to kotoba-lang/{ipfs,checkpointer}",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "ipfs-checkpointer-relocation",
+      "authoritative": true,
+      "authoritative_for": [
+        "kotoba-lang/ipfs repo location",
+        "kotoba-lang/checkpointer repo location",
+        "etzhayyim-sdk's ipfs/checkpointer/checkpointer-bin re-export shims"
+      ],
+      "related": [
+        "adr-2607011300-nv-compat-relocation-to-kotoba-lang",
+        "adr-2607011830-pqh-crypto-relocation-to-kotoba-lang",
+        "adr-2606302300"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline"
+      ],
+      "last_verified": "2026-07-01",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
