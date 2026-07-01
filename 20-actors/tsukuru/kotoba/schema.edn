@@ -170,4 +170,48 @@
  {:db/ident :sbt/active
   :db/valueType :db.type/boolean
   :db/cardinality :db.cardinality/one
-  :db/doc "active Adherent SBT? required for internal SBT↔SBT settlement (§3 / G2)"}]
+  :db/doc "active Adherent SBT? required for internal SBT↔SBT settlement (§3 / G2)"}
+
+ ;; ───────────────────────────── :process-run/* — CNT/EUV run-package + run-validation (kotoba-native) ─────────────────────────────
+ ;; Unified namespace (not :cnt-run/* + :euv-run/*) with a :process-run/vertical
+ ;; discriminator — both verticals share the same run-validation shape produced by
+ ;; py/agent.cljc's `validate-run-package` (see kotoba/{cnt,euv}-process-catalog.edn +
+ ;; kotoba/{cnt,euv}-run-package-seed.edn for the backing catalog/seed data).
+ {:db/ident :process-run/id
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/unique :db.unique/identity
+  :db/doc "run-package runId, e.g. cnt-run-example-001 / euv-run-example-001"}
+ {:db/ident :process-run/vertical
+  :db/valueType :db.type/keyword
+  :db/cardinality :db.cardinality/one
+  :db/doc ":cnt | :euv — discriminates the validate-run-package business-rule dispatch"}
+ {:db/ident :process-run/production-order
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db/doc "ref → :production-order"}
+ {:db/ident :process-run/process-id
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "tsukuru_cnt_fiber_manufacturing_flow | tsukuru_euv_lithography_manufacturing_flow"}
+ {:db/ident :process-run/recipe-revision
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+ {:db/ident :process-run/product-family
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+ {:db/ident :process-run/status
+  :db/valueType :db.type/keyword
+  :db/cardinality :db.cardinality/one
+  :db/doc ":ready | :blocked — validate-run-package result (mirrors run-validation.status)"}
+ {:db/ident :process-run/blockers
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/many
+  :db/doc "failed check ids blocking :ready (empty when :process-run/status is :ready)"}
+ {:db/ident :process-run/warnings
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/many}
+ {:db/ident :process-run/validated-at
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "ISO-8601 datetime of the last validate-run-package call (passed in; no wall-clock in cell)"}]

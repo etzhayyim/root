@@ -1,0 +1,117 @@
+;; com.etzhayyim.apps.tsukuru.euv.* — EUV (lithography) lexicons, EDN form. Same rationale
+;; as lex/cnt.edn: 3 `query`-type XRPC lexicons, so this file is a vector of lexicon maps —
+;; one entry per source file, same {:lexicon 1 :id .. :defs {:main {...}}} shape as the
+;; record lexicons (lex/factory.edn / lex/quality.edn / etc.), structural keys as EDN
+;; keywords. Source of truth (read-only reference, do not edit from here):
+;;   00-contracts/lexicons/com/etzhayyim/apps/tsukuru/euv/designManufacturingFlow.json
+;;   00-contracts/lexicons/com/etzhayyim/apps/tsukuru/euv/prepareOrderPackage.json
+;;   00-contracts/lexicons/com/etzhayyim/apps/tsukuru/euv/getImplementationCoverage.json
+;; Unlike CNT, EUV has no run-package/run-validation lexicon yet — py/agent.cljc's
+;; `(validate-run-package "euv" run-package)` is this vertical's first concrete
+;; run-validation shape (kotoba-native only, informal "tsukuru.euvRunValidation.v1" schema
+;; id — not yet registered as an AT-proto lexicon/JSON-schema pair).
+[{:lexicon 1
+  :id "com.etzhayyim.apps.tsukuru.euv.designManufacturingFlow"
+  :defs
+  {:main
+   {:type "query"
+    :description "Design an EUV lithography manufacturing flow with CAD/CAM handoff gates and supplier exchange envelope."
+    :parameters
+    {:type "params"
+     :properties
+     {:flow_id {:type "string"}
+      :production_order_id {:type "string"}
+      :technology_node_nm {:type "integer"}
+      :wafer_diameter_mm {:type "integer"}
+      :numerical_aperture {:type "float"}
+      :source_power_w {:type "integer"}
+      :design_formats {:type "array" :items {:type "string"}}
+      :supplier_exchange_format {:type "string"}
+      :supplier_did {:type "string"}
+      :artifacts {:type "array" :items {:type "unknown"}}
+      :requirements {:type "unknown"}}}
+    :output
+    {:encoding "application/json"
+     :schema
+     {:type "object"
+      :properties
+      {:status {:type "string"}
+       :flowId {:type "string"}
+       :industryCode {:type "string"}
+       :process {:type "string"}
+       :bpmnProcessId {:type "string"}
+       :technologyNodeNm {:type "integer"}
+       :waferDiameterMm {:type "integer"}
+       :numericalAperture {:type "float"}
+       :sourcePowerW {:type "integer"}
+       :designFormats {:type "array" :items {:type "string"}}
+       :supplierExchangeFormat {:type "string"}
+       :supplierDid {:type "string"}
+       :artifacts {:type "array" :items {:type "unknown"}}
+       :requirements {:type "unknown"}
+       :phases {:type "array" :items {:type "unknown"}}
+       :riskControls {:type "array" :items {:type "string"}}
+       :exchangeEnvelope {:type "unknown"}}}}}}}
+
+ {:lexicon 1
+  :id "com.etzhayyim.apps.tsukuru.euv.prepareOrderPackage"
+  :defs
+  {:main
+   {:type "query"
+    :description "Prepare an EUV manufacturing flow and supplier exchange package in one direct API call."
+    :parameters
+    {:type "params"
+     :properties
+     {:flow_id {:type "string"}
+      :package_id {:type "string"}
+      :production_order_id {:type "string"}
+      :technology_node_nm {:type "integer"}
+      :wafer_diameter_mm {:type "integer"}
+      :numerical_aperture {:type "float"}
+      :source_power_w {:type "integer"}
+      :design_formats {:type "array" :items {:type "string"}}
+      :supplier_exchange_format {:type "string"}
+      :exchange_format {:type "string"}
+      :supplier_did {:type "string"}
+      :artifacts {:type "array" :items {:type "unknown"}}
+      :requirements {:type "unknown"}
+      :channels {:type "array" :items {:type "string"}}}}
+    :output
+    {:encoding "application/json"
+     :schema
+     {:type "object"
+      :properties
+      {:status {:type "string"}
+       :flowId {:type "string"}
+       :packageId {:type "string"}
+       :bpmnProcessIds {:type "array" :items {:type "string"}}
+       :flow {:type "unknown"}
+       :supplierPackage {:type "unknown"}}}}}}}
+
+ {:lexicon 1
+  :id "com.etzhayyim.apps.tsukuru.euv.getImplementationCoverage"
+  :defs
+  {:main
+   {:type "query"
+    :description "Report EUV design/manufacturing implementation coverage across XRPC, BPMN, worker tasks, lexicons, and supplier exchange formats."
+    :parameters {:type "params" :properties {}}
+    :output
+    {:encoding "application/json"
+     :schema
+     {:type "object"
+      :properties
+      {:status {:type "string"}
+       :scope {:type "string"}
+       :bpmnActorCount {:type "integer"}
+       :commandCount {:type "integer"}
+       :bpmnActors {:type "array" :items {:type "unknown"}}
+       :manifestStatus {:type "string"}
+       :manifestChecks {:type "array" :items {:type "unknown"}}
+       :missingManifestItems {:type "array" :items {:type "unknown"}}
+       :coverageScore {:type "float"}
+       :coverageManifest {:type "array" :items {:type "unknown"}}
+       :supplierFormats {:type "array" :items {:type "string"}}
+       :requiredCapabilities {:type "array" :items {:type "string"}}
+       :collections {:type "array" :items {:type "string"}}
+       :coverageGates {:type "array" :items {:type "string"}}
+       :implementationSurfaces {:type "unknown"}}}}}}}]

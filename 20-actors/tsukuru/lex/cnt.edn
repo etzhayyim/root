@@ -1,0 +1,235 @@
+;; com.etzhayyim.apps.tsukuru.cnt.* — CNT (carbon-nanotube fiber manufacturing) lexicons,
+;; EDN form. Unlike lex/factory.edn / lex/quality.edn / etc. (single `record`-type lexicon
+;; per file), the CNT vertical is a set of 7 `query`-type XRPC lexicons, so this file is a
+;; vector of lexicon maps — one entry per source file, each keeping the same {:lexicon 1 :id
+;; .. :defs {:main {...}}} shape as the record lexicons (structural keys as EDN keywords,
+;; :type/:description/:knownValues values kept as plain strings/vectors to match the JSON
+;; 1:1). Source of truth (read-only reference, do not edit from here):
+;;   00-contracts/lexicons/com/etzhayyim/apps/tsukuru/cnt/designManufacturingFlow.json
+;;   00-contracts/lexicons/com/etzhayyim/apps/tsukuru/cnt/planAutomation.json
+;;   00-contracts/lexicons/com/etzhayyim/apps/tsukuru/cnt/prepareOrderPackage.json
+;;   00-contracts/lexicons/com/etzhayyim/apps/tsukuru/cnt/getAutomationCoverage.json
+;;   00-contracts/lexicons/com/etzhayyim/apps/tsukuru/cnt/getProcessCatalog.json
+;;   00-contracts/lexicons/com/etzhayyim/apps/tsukuru/cnt/prepareRunPackage.json
+;;   00-contracts/lexicons/com/etzhayyim/apps/tsukuru/cnt/validateRunPackage.json
+;; validateRunPackage's output shape ("schema"/"runId"/"status"/"blockers"/"warnings"/
+;; "checks"/"dryRun") is exactly what py/agent.cljc's `validate-run-package` now computes for
+;; real (minus "recordId", a host-persistence concern out of scope for a pure fn).
+[{:lexicon 1
+  :id "com.etzhayyim.apps.tsukuru.cnt.designManufacturingFlow"
+  :defs
+  {:main
+   {:type "query"
+    :description "Design a CNT/CNT fiber manufacturing flow with integrated synthesis, spinning, post-treatment, QA, and open-* signal bindings."
+    :parameters
+    {:type "params"
+     :properties
+     {:flow_id {:type "string"}
+      :production_order_id {:type "string"}
+      :product_kind {:type "string"}
+      :cnt_type {:type "string"}
+      :synthesis_method {:type "string"}
+      :spinning_method {:type "string"}
+      :target_strength_gpa {:type "float"}
+      :target_conductivity_s_m {:type "integer"}
+      :target_thermal_conductivity_w_mk {:type "integer"}
+      :line_rate_m_per_min {:type "float"}
+      :design_formats {:type "array" :items {:type "string"}}
+      :supplier_exchange_format {:type "string"}
+      :supplier_did {:type "string"}
+      :artifacts {:type "array" :items {:type "unknown"}}
+      :requirements {:type "unknown"}
+      :open_actor_dids {:type "array" :items {:type "string"}}}}
+    :output
+    {:encoding "application/json"
+     :schema
+     {:type "object"
+      :properties
+      {:status {:type "string"}
+       :flowId {:type "string"}
+       :bpmnProcessId {:type "string"}
+       :processIntegration {:type "array" :items {:type "unknown"}}
+       :automationRequirements {:type "array" :items {:type "string"}}
+       :openSignals {:type "unknown"}
+       :riskControls {:type "array" :items {:type "string"}}}}}}}}
+
+ {:lexicon 1
+  :id "com.etzhayyim.apps.tsukuru.cnt.planAutomation"
+  :defs
+  {:main
+   {:type "query"
+    :description "Plan guarded automation for a CNT/CNT fiber process cell."
+    :parameters
+    {:type "params"
+     :properties
+     {:automation_id {:type "string"}
+      :flow_id {:type "string"}
+      :cell_id {:type "string"}
+      :production_order_id {:type "string"}
+      :control_level {:type "string"}
+      :requirements {:type "unknown"}}}
+    :output
+    {:encoding "application/json"
+     :schema
+     {:type "object"
+      :properties
+      {:status {:type "string"}
+       :automationId {:type "string"}
+       :bpmnProcessId {:type "string"}
+       :sensors {:type "array" :items {:type "string"}}
+       :actuators {:type "array" :items {:type "string"}}
+       :loops {:type "array" :items {:type "unknown"}}
+       :requiresHumanApproval {:type "boolean"}}}}}}}
+
+ {:lexicon 1
+  :id "com.etzhayyim.apps.tsukuru.cnt.prepareOrderPackage"
+  :defs
+  {:main
+   {:type "query"
+    :description "Prepare a CNT/CNT fiber manufacturing flow, automation plan, and supplier exchange package."
+    :parameters
+    {:type "params"
+     :properties
+     {:flow_id {:type "string"}
+      :automation_id {:type "string"}
+      :package_id {:type "string"}
+      :production_order_id {:type "string"}
+      :supplier_exchange_format {:type "string"}
+      :supplier_did {:type "string"}
+      :artifacts {:type "array" :items {:type "unknown"}}
+      :requirements {:type "unknown"}
+      :open_actor_dids {:type "array" :items {:type "string"}}}}
+    :output
+    {:encoding "application/json"
+     :schema
+     {:type "object"
+      :properties
+      {:status {:type "string"}
+       :flowId {:type "string"}
+       :automationId {:type "string"}
+       :packageId {:type "string"}
+       :bpmnProcessIds {:type "array" :items {:type "string"}}
+       :flow {:type "unknown"}
+       :automation {:type "unknown"}
+       :supplierPackage {:type "unknown"}}}}}}}
+
+ {:lexicon 1
+  :id "com.etzhayyim.apps.tsukuru.cnt.getAutomationCoverage"
+  :defs
+  {:main
+   {:type "query"
+    :description "Report CNT/CNT fiber process and automation BPMN coverage."
+    :parameters {:type "params" :properties {}}
+    :output
+    {:encoding "application/json"
+     :schema
+     {:type "object"
+      :properties
+      {:status {:type "string"}
+       :scope {:type "string"}
+       :bpmnActorCount {:type "integer"}
+       :commandCount {:type "integer"}
+       :bpmnActors {:type "array" :items {:type "unknown"}}
+       :openActorDids {:type "array" :items {:type "string"}}
+       :automationSurfaces {:type "unknown"}}}}}}}
+
+ {:lexicon 1
+  :id "com.etzhayyim.apps.tsukuru.cnt.getProcessCatalog"
+  :defs
+  {:main
+   {:type "query"
+    :description "Return the concrete CNT/CNT fiber manufacturing process, equipment, device, sensor, actuator, MES, SCADA, and QMS catalog."
+    :parameters
+    {:type "params"
+     :properties
+     {:stage {:type "string" :knownValues ["intake" "synthesis" "fiber-formation" "post-treatment" "quality-release"]}
+      :equipment_id {:type "string"}}}
+    :output
+    {:encoding "application/json"
+     :schema
+     {:type "object"
+      :properties
+      {:status {:type "string"}
+       :schema {:type "string"}
+       :processId {:type "string"}
+       :productFamilies {:type "array" :items {:type "string"}}
+       :equipment {:type "array" :items {:type "unknown"}}
+       :steps {:type "array" :items {:type "unknown"}}
+       :dataRecords {:type "array" :items {:type "string"}}
+       :plcTags {:type "array" :items {:type "string"}}
+       :mesEntities {:type "array" :items {:type "string"}}
+       :qmsArtifacts {:type "array" :items {:type "string"}}
+       :sourcePaths {:type "unknown"}}}}}}}
+
+ {:lexicon 1
+  :id "com.etzhayyim.apps.tsukuru.cnt.prepareRunPackage"
+  :defs
+  {:main
+   {:type "query"
+    :description "Prepare a machine-readable CNT/CNT fiber run package for MES, SCADA, PLC, QMS, and EHS execution gates."
+    :parameters
+    {:type "params"
+     :properties
+     {:run_id {:type "string"}
+      :production_order_id {:type "string"}
+      :recipe_revision {:type "string"}
+      :product_family {:type "string"}
+      :target_spool_length_m {:type "integer"}
+      :target_strength_gpa {:type "float"}
+      :target_conductivity_s_m {:type "integer"}
+      :target_thermal_conductivity_w_mk {:type "integer"}
+      :operator_did {:type "string"}
+      :equipment_overrides {:type "unknown"}}}
+    :output
+    {:encoding "application/json"
+     :schema
+     {:type "object"
+      :properties
+      {:status {:type "string"}
+       :runId {:type "string"}
+       :schema {:type "string"}
+       :processId {:type "string"}
+       :recipeRevision {:type "string"}
+       :recipe {:type "array" :items {:type "unknown"}}
+       :equipmentBinding {:type "array" :items {:type "unknown"}}
+       :telemetryBinding {:type "array" :items {:type "unknown"}}
+       :releasePlan {:type "unknown"}
+       :ehsInterlocks {:type "array" :items {:type "string"}}
+       :approvals {:type "array" :items {:type "unknown"}}}}}}}}
+
+ {:lexicon 1
+  :id "com.etzhayyim.apps.tsukuru.cnt.validateRunPackage"
+  :defs
+  {:main
+   {:type "query"
+    :description "Validate a CNT/CNT fiber run package before execution, including equipment bindings, telemetry, EHS interlocks, approvals, and dry-run metrics."
+    :parameters
+    {:type "params"
+     :properties
+     {:run_package {:type "unknown"}
+      :run_id {:type "string"}
+      :production_order_id {:type "string"}
+      :recipe_revision {:type "string"}
+      :product_family {:type "string"}
+      :target_spool_length_m {:type "integer"}
+      :target_strength_gpa {:type "float"}
+      :target_conductivity_s_m {:type "integer"}
+      :target_thermal_conductivity_w_mk {:type "integer"}
+      :operator_did {:type "string"}
+      :equipment_overrides {:type "unknown"}}}
+    :output
+    {:encoding "application/json"
+     ;; py/agent.cljc's `(validate-run-package "cnt" run-package)` computes exactly this
+     ;; shape for real (business-rule checks, not structural key presence) — minus
+     ;; "recordId", a host-persistence concern out of scope for a pure fn.
+     :schema
+     {:type "object"
+      :properties
+      {:schema {:type "string"}
+       :runId {:type "string"}
+       :status {:type "string"}
+       :blockers {:type "array" :items {:type "string"}}
+       :warnings {:type "array" :items {:type "string"}}
+       :checks {:type "array" :items {:type "unknown"}}
+       :dryRun {:type "unknown"}
+       :recordId {:type "string"}}}}}}}]
