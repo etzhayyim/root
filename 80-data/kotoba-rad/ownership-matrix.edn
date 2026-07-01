@@ -868,6 +868,19 @@
    "bafyreiplaceholder0000000000000000000000000000000000000000000000",
    :datasets (),
    :declared? false},
+  "jinushi"
+  {:rid "bafkreietkwx4cwopwmelyrsiuakiswrq5c3ngl7erhauwiozo72mdkso3a",
+   :datasets
+   ({:dataset-id "jinushi-land-wdqs-r2",
+     :layer :repo,
+     :source
+     "world land/building ownership (Wikidata/PLUTO/DVF/GLEIF/OSM, ADR-2606162000)",
+     :cidv1
+     "bafybeihrzixhxseapey37hjlmkhvzgdfg5b3iiw5miqto2dje6kpl5dvai",
+     :freshness-days 0,
+     :retrieved "2026-06-16",
+     :counts-toward-world-coverage true}),
+   :declared? false},
   "toritsugi-pol-passport"
   {:rid
    "bafyreiplaceholder0000000000000000000000000000000000000000000000",
@@ -1483,11 +1496,12 @@
    :declared? false}},
  :datasets
  {"legal-templates" {:holders ["hinagata"], :layers [:repo]},
-  "hirameki-patents" {:holders ["hirameki"], :layers [:repo]},
-  "junkan-governance" {:holders ["junkan"], :layers [:repo]},
   "kanjo-coverage" {:holders ["kanjo"], :layers [:repo]},
-  "genome" {:holders ["rasen"], :layers [:repo]},
+  "junkan-governance" {:holders ["junkan"], :layers [:repo]},
+  "jinushi-land-wdqs-r2" {:holders ["jinushi"], :layers [:repo]},
+  "hirameki-patents" {:holders ["hirameki"], :layers [:repo]},
+  "uchiwake-coverage" {:holders ["uchiwake"], :layers [:repo]},
   "toritsugi-procedures" {:holders ["toritsugi"], :layers [:repo]},
   "tsumugi-power" {:holders ["tsumugi"], :layers [:repo]},
-  "uchiwake-coverage" {:holders ["uchiwake"], :layers [:repo]}}}
+  "genome" {:holders ["rasen"], :layers [:repo]}}}
 
