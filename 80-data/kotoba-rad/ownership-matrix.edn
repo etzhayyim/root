@@ -362,8 +362,17 @@
    :declared? false},
   "uchiwake"
   {:rid "bafkreib3mgzsspeh6xogzky5boiayztbf6bjcq5xejgoaggbcrjaw2ofui",
-   :datasets (),
-   :declared? false},
+   :datasets
+   ({:dataset-id "uchiwake-coverage",
+     :layer :repo,
+     :source
+     "GS1 GTIN / Open Food Facts (Tier-A public trade-item data, ADR-2606081800)",
+     :cidv1
+     "bafkreib7yagcmrxzley2eyho5b2miuncm2n6rjj3tmyvlnxvkpls5ptcfq",
+     :freshness-days 0,
+     :retrieved "2026-06-16",
+     :counts-toward-world-coverage false}),
+   :declared? true},
   "os"
   {:rid "bafkreihmrqovq2bprdkfsxpxpdequmbhthj5rf7nogvh7sddxm3z7huyo4",
    :datasets (),
@@ -1417,5 +1426,7 @@
   {:rid "bafkreiegk2ixjpa5axx7masmdhid4anpzn6y5iswonqrb3zxkwdxakeuty",
    :datasets (),
    :declared? false}},
- :datasets {"kanjo-coverage" {:holders ["kanjo"], :layers [:repo]}}}
+ :datasets
+ {"kanjo-coverage" {:holders ["kanjo"], :layers [:repo]},
+  "uchiwake-coverage" {:holders ["uchiwake"], :layers [:repo]}}}
 
