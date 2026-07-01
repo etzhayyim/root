@@ -84,6 +84,31 @@ and embedded-carbon context into the CNT flow.
 - run validation schema: `00-contracts/schemas/tsukuru-cnt-run-validation.schema.json`
 - run validation example: `00-contracts/examples/com/etzhayyim/tsukuru/cnt/run-validation.example.v1.json`
 
+## CNT / EUV run-package validation — executable parity in the living actor (`py/agent.cljc`)
+
+`00-contracts` only ever carried **static JSON Schema** for CNT (structural validation — "does
+the shape match") and bare lexicons for EUV (no run-package/run-validation schema at all).
+Neither vertical had any **executable business-rule** validation until `validate-run-package`
+(`[vertical run-package]`, `vertical` = `"cnt"` | `"euv"`) was added to
+`20-actors/tsukuru/py/agent.cljc`, following the same honest-stub / curated-table idiom as
+`classify-product`/`screen-export-control`. It returns a run-validation-shaped result
+(`"schema"`/`"runId"`/`"status"`/`"blockers"`/`"warnings"`/`"checks"`/`"dryRun"`, matching
+`com.etzhayyim.apps.tsukuru.cnt.validateRunPackage`'s output shape) and checks real rules —
+catalog step coverage, required-approval DID signatures, closed-loop telemetry/EHS-interlock
+binding, releasePlan numeric targets (CNT); numeric technology-node/wafer-diameter/
+numerical-aperture + CAD/CAM handoff completeness (EUV) — never just key presence, and never
+a silent pass (`estimatedDurationMin` is an honest `0`, not modeled at R0).
+
+- kotoba-native backing data: `kotoba/cnt-process-catalog.edn` (ported from the JSON catalog
+  above), `kotoba/euv-process-catalog.edn` (new — modeled from the EUV lexicons' technology-
+  node/NA/source-power/wafer-diameter parameters; EUV has no process-catalog JSON yet),
+  `kotoba/cnt-run-package-seed.edn` / `kotoba/euv-run-package-seed.edn` (worked "ready"
+  examples, R0, not live commercial offers).
+- EDN lexicon mirrors: `lex/cnt.edn` (7 query lexicons), `lex/euv.edn` (3 query lexicons).
+- kotoba schema: `kotoba/schema.edn`'s `:process-run/*` namespace (`:process-run/vertical`
+  discriminates `:cnt` | `:euv`).
+- tests: `py/test_agent.cljc` — green + blocked coverage for both verticals.
+
 ## Cross-Project Dependencies
 
 | Project | Integration | Purpose |

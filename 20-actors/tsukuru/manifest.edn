@@ -43,7 +43,9 @@
   {:lex/id "production-order"}
   {:lex/id "progress"}
   {:lex/id "quality"}
-  {:lex/id "settlement"}]
+  {:lex/id "settlement"}
+  {:lex/id "cnt"}
+  {:lex/id "euv"}]
 
  ;; legacy (gen-1) artifacts pending decommission per migration plan Phase 3/5
  :actor/legacy

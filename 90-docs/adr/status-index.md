@@ -67,7 +67,7 @@
 |---|---|---|---|---|
 | Baien federated R0 | training via ameno WebGPU (11 gates) | ✅ | 2605242600 | 05-24 |
 | Baien federated R1 | WebGPU LoRA backward-pass PoC | ✅ | 2605242630 | 05-24 |
-| Ternary silicon W1 | iwakura (inference) + fuigo (train) + tsukuru (fab) | ✅ | 2605242500 | 05-24 |
+| Ternary silicon W1 | iwakura (inference) + fuigo (train) + silicon (fab, moved out of tsukuru per ADR-2606021139) | ✅ | 2605242500 | 05-24 |
 | Silicon W2 supply | 8 upstream categories + Funamori marine cargo | ✅ | 2605242700 | 05-24 |
 | ameno WebNN | inference fast path R0 (CoreML/DirectML/NNAPI/QNN) | ✅ | 2605252100 | 05-25 |
 | gemma-coder-distill | LangGraph coding LoRA on EVO-X2 ROCm | 🟡 | 2605250400 | 05-25 |
@@ -209,3 +209,4 @@
 | subaru 昴 | Transparent connectivity-commons satellite constellation (Starlink/OneWeb inversion) … | 🟡 R0+R1+R2 | 2606162355 | 06-16 |
 | jinushi 地主 | world land/building ownership ACQUISITION mirror (clj-native … | 🟢 R1 | 2606162000 | 06-16 |
 | kaname 要 | cross-domain system-of-systems leverage-point (律速) synthesizer + おせっかい … | 🟢 R0+R1 deployed | 2606172100 | 06-17 |
+| tsukuru 作 | B2B factory-direct ordering (BTO/MTO/CTO), 460+ manufacturer DID routing + trade-compliance gate (fab-equipment scope split out to `silicon`, ADR-2606021139) | 🟡 R0 | 2605202800 / 2606021139 | 05-20 |

@@ -61,4 +61,4 @@ Phase 2–4 (manifest.edn / cells / lex / kotoba / py) は既に landed（非ゲ
 - [ ] `grep -r "etzhayyim:" 20-actors/tsukuru` が 0
 - [ ] `60-apps/etzhayyim-project-tsukuru` が存在しない
 - [ ] `actor-manifest.jsonld` 削除 + `manifest.edn` のみ
-- [ ] root CLAUDE.md Tier-B roster に tsukuru 行を正式追加
+- [x] root CLAUDE.md Tier-B roster に tsukuru 行を正式追加（`90-docs/adr/status-index.md` の Tier-B actors 表、Phase 5 cutover 待ちとは独立に landed）
