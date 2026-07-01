@@ -9,7 +9,7 @@
 ;; quality-gates/ehs-controls/automation-mode kept; full inputs/outputs/sensors/actuators/
 ;; controlParameters detail lives only in the JSON source — read that if you need it).
 ;;
-;; py/agent.cljc's `validate-run-package` embeds just the 6 step ids below as
+;; kotoba/agent.cljc's `validate-run-package` embeds just the 6 step ids below as
 ;; CNT-CATALOG-STEP-IDS (a Clojure literal, IO-free/portable, same rationale as
 ;; HS-CLASSIFICATION-TABLE) for its "recipe-covers-catalog-steps" check — keep the two in
 ;; sync by hand if this catalog's step ids ever change.

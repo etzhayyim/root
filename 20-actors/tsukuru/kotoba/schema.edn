@@ -175,7 +175,7 @@
  ;; ───────────────────────────── :process-run/* — CNT/EUV run-package + run-validation (kotoba-native) ─────────────────────────────
  ;; Unified namespace (not :cnt-run/* + :euv-run/*) with a :process-run/vertical
  ;; discriminator — both verticals share the same run-validation shape produced by
- ;; py/agent.cljc's `validate-run-package` (see kotoba/{cnt,euv}-process-catalog.edn +
+ ;; kotoba/agent.cljc's `validate-run-package` (see kotoba/{cnt,euv}-process-catalog.edn +
  ;; kotoba/{cnt,euv}-run-package-seed.edn for the backing catalog/seed data).
  {:db/ident :process-run/id
   :db/valueType :db.type/string

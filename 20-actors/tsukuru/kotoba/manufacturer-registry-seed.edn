@@ -10,7 +10,7 @@
 ;; a DIFFERENT, read-only, out-of-scope JSON data file for a different consumer (~90% synthetic
 ;; placeholder entries) — this file does not read from or write to it, and is not a copy of it.
 ;;
-;; ── ID scheme (IMPORTANT — reader honesty, same spirit as py/agent.cljc's screen-entity "not
+;; ── ID scheme (IMPORTANT — reader honesty, same spirit as kotoba/agent.cljc's screen-entity "not
 ;;    wired" pattern) ──
 ;; :factory/did values below use the placeholder pattern "factory/registry-seed/<slug>" — this is
 ;; DELIBERATELY NOT a did:web URI, and is DISTINCT from the live path-based factory DID scheme
@@ -25,11 +25,11 @@
 ;;     stated only where they reflect well-documented public knowledge: a company's identity, its
 ;;     commonly-cited primary home/operational country, and a PLAUSIBLE illustrative ISIC rev.4
 ;;     section/class (NOT an authoritative customs/statistical classification — same "curated,
-;;     not authoritative" caveat as py/agent.cljc's HS-CLASSIFICATION-TABLE). A few dual-listed /
+;;     not authoritative" caveat as kotoba/agent.cljc's HS-CLASSIFICATION-TABLE). A few dual-listed /
 ;;     recently-restructured / dual-domiciled multinationals carry an inline comment noting the
 ;;     country attribution is the commonly-cited one, not a verified legal fact.
 ;;   - :factory/capabilities are coarse keyword tags for capability-match token-overlap scoring
-;;     (py/agent.cljc handle-discover) — illustrative process/vertical tags, not a verified
+;;     (kotoba/agent.cljc handle-discover) — illustrative process/vertical tags, not a verified
 ;;     capability audit, certification, or capacity claim.
 ;;   - :factory/labor-provenance is :unknown for every entry (G8) — tsukuru holds no labor-dignity
 ;;     disclosure for any of these real companies; :unknown is the honest default, never guessed.
@@ -41,10 +41,10 @@
 ;;     contact details are DELIBERATELY OMITTED for every entry — inventing them for a real,
 ;;     named company would fabricate specifics tsukuru has no way to verify.
 ;;
-;; Bridged into py/agent.cljc's handle-discover/capability-match via the new pure
+;; Bridged into kotoba/agent.cljc's handle-discover/capability-match via the new pure
 ;; `factory-datom->state` fn (kotoba :factory/* EDN entity → the plain string-keyed shape
 ;; handle-discover already expects, same shape as lex/factory.edn's lexicon record) — see
-;; py/test_agent.cljc's test-discover-ranks-real-manufacturer-registry-slice, which replays a
+;; kotoba/test_agent.cljc's test-discover-ranks-real-manufacturer-registry-slice, which replays a
 ;; slice of the entries below verbatim.
 ;;
 ;; ~99 entries across: general contract electronics manufacturing (EMS), semiconductor

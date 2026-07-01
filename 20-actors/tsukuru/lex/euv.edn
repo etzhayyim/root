@@ -6,7 +6,7 @@
 ;;   00-contracts/lexicons/com/etzhayyim/apps/tsukuru/euv/designManufacturingFlow.json
 ;;   00-contracts/lexicons/com/etzhayyim/apps/tsukuru/euv/prepareOrderPackage.json
 ;;   00-contracts/lexicons/com/etzhayyim/apps/tsukuru/euv/getImplementationCoverage.json
-;; Unlike CNT, EUV has no run-package/run-validation lexicon yet — py/agent.cljc's
+;; Unlike CNT, EUV has no run-package/run-validation lexicon yet — kotoba/agent.cljc's
 ;; `(validate-run-package "euv" run-package)` is this vertical's first concrete
 ;; run-validation shape (kotoba-native only, informal "tsukuru.euvRunValidation.v1" schema
 ;; id — not yet registered as an AT-proto lexicon/JSON-schema pair).
