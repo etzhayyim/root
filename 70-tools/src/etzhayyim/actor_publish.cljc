@@ -79,6 +79,16 @@
       :pds canonical-aozora-pds
       :collection (or ns* (str "com.etzhayyim.apps." actor))})))
 
+(defn manifest->holds
+  "Read the actor's declared datasets from the manifest's :substrate :datasets
+   block (ADR-2607010001 §D2) into the holding-map shape `rad/add-holding!` and
+   `rad/publish-identity!`'s :holds consume. `:layer` is coerced to a keyword
+   (manifests are JSON-LD where it lands as a string; EDN manifests already use
+   a keyword). Returns [] when no datasets are declared."
+  [manifest]
+  (mapv (fn [d] (update d :layer #(if (string? %) (keyword %) %)))
+        (or (-> manifest :substrate :datasets) [])))
+
 ;; ── step helpers (dry-run aware) ────────────────────────────────────────────
 
 (defn- sh [apply? & args]
@@ -138,12 +148,15 @@
                                            "+" nojekyll]})
     {:genesis genesis :did-doc-path out :nojekyll-path nojekyll}))
 
-(defn step-kotoba-rad [actor genesis apply? pubkey-hex]
+(defn step-kotoba-rad [actor genesis apply? pubkey-hex holds]
   ;; no-server-key: a signer is built ONLY if the member's key is in Keychain
   ;; (and the pubkey is known); otherwise publish unsigned (pilot/--no-network).
+  ;; `holds` (from manifest->holds) rides the genesis tx on first publish — the
+  ;; genesis block is untouched, so the RID stays stable (ADR-2607010001).
   (let [sign-fn (when (and pubkey-hex apply?)
                   (rad-sign/sign-fn-for-actor actor pubkey-hex))
-        res (when apply? (rad/publish-identity! actor genesis {:sign-fn sign-fn}))]
+        res (when apply? (rad/publish-identity! actor genesis
+                                                {:sign-fn sign-fn :holds holds}))]
     (log-step 4 (str "kotoba-rad RID " (rad/rid genesis)
                      (cond apply? "" pubkey-hex " (will sign if key in Keychain)"
                            :else " (unsigned: no --pubkey)"))
@@ -197,13 +210,50 @@
     (step-gh-repo actor apply?)
     (let [{:keys [genesis]} (step-did-web actor manifest apply? pubkey-hex)
           did (:rad/did-web genesis)
-          rad-res (step-kotoba-rad actor genesis apply? pubkey-hex)
+          holds (manifest->holds manifest)
+          rad-res (step-kotoba-rad actor genesis apply? pubkey-hex holds)
           aoz (step-aozora actor genesis apply?)]
       (println (format "✔ %s  rad=%s  repo=%s  did=%s\n"
                        actor (:rad-uri rad-res) (repo-name actor) did))
       {:actor actor :rid (:rid rad-res) :rad-uri (:rad-uri rad-res)
        :repo (repo-name actor) :did did
        :aozora-collection (:collection aoz)})))
+
+(defn -add-holding
+  "Append a :rad/holds-dataset attestation for each dataset in the actor's
+   manifest :substrate :datasets to its EXISTING kotoba-rad identity journal
+   (ADR-2607010001). RID-stable, append-only, idempotent by dataset-id
+   (rad/add-holding!). DRY-RUN by default; --apply writes the journal. If a
+   member key for the actor is in Keychain the new sigref is member-signed;
+   otherwise unsigned (no-server-key). Args: <name> [--apply]"
+  [& args]
+  (let [flags (set (filter #(str/starts-with? % "--") args))
+        apply? (contains? flags "--apply")
+        actor (first (remove #(str/starts-with? % "--") args))]
+    (when-not actor
+      (println "usage: bb rad:add-holding <name> [--apply]")
+      (System/exit 2))
+    (let [manifest (read-manifest actor)]
+      (when-not manifest
+        (println "error: no manifest for" actor)
+        (System/exit 2))
+      (let [holds (manifest->holds manifest)
+            sign-fn (when apply? (rad-sign/sign-fn-for-actor actor))]
+        (println (format "▶ rad:add-holding %s  (%s; %d dataset/s)"
+                         actor (if apply? "APPLY" "DRY-RUN") (count holds)))
+        (when (and apply? (not sign-fn))
+          (println "WARN  no member key in Keychain for" actor
+                   "— holding sigrefs will be UNSIGNED"))
+        (if (empty? holds)
+          (println "  (no :substrate :datasets declared — nothing to hold)")
+          (doseq [h holds]
+            (if apply?
+              (let [res (rad/add-holding! actor h {:sign-fn sign-fn})]
+                (println (format "  ✓ %s  added? %s  signed? %s  head %s"
+                                 (:dataset-id res) (:added? res)
+                                 (:signed? res) (:head res))))
+              (println (format "  PLAN add-holding %s  (layer %s, cid %s) — pass --apply to write"
+                               (:dataset-id h) (:layer h) (:cidv1 h))))))))))
 
 (defn -main [& args]
   (let [flags (set (filter #(str/starts-with? % "--") args))

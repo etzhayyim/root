@@ -43,6 +43,21 @@
       (is (= 1 (count (:rad/delegates g))))
       (is (str/starts-with? (first (:rad/delegates g)) "did:key:")))))
 
+(deftest manifest->holds-extracts-and-coerces-layer
+  (testing "reads :substrate :datasets and coerces a JSON-LD string :layer → keyword"
+    (let [m {:substrate {:datasets [{:dataset-id "jinushi-land-wdqs-r2" :layer "repo"
+                                     :source "wikidata:WDQS" :cidv1 "bafy1"
+                                     :freshness-days 0 :retrieved "2026-07-01"}
+                                    {:dataset-id "kanjo-graph" :layer :graph :cidv1 "bafy2"}]}}]
+      (is (= [{:dataset-id "jinushi-land-wdqs-r2" :layer :repo
+               :source "wikidata:WDQS" :cidv1 "bafy1"
+               :freshness-days 0 :retrieved "2026-07-01"}
+              {:dataset-id "kanjo-graph" :layer :graph :cidv1 "bafy2"}]
+             (ap/manifest->holds m)))))
+  (testing "absent :substrate :datasets → [] (no holdings declared)"
+    (is (= [] (ap/manifest->holds {})))
+    (is (= [] (ap/manifest->holds {:substrate {}})))))
+
 (defn -main [& _]
   (let [{:keys [fail error]} (run-tests 'etzhayyim.test-actor-publish)]
     (System/exit (if (pos? (+ fail error)) 1 0))))
