@@ -1,23 +1,11 @@
 #!/usr/bin/env node
 /**
- * etzhayyim-checkpointer — sidecar launcher.
- * Per ADR-2605171800 (revise) Stage 2.
+ * etzhayyim-checkpointer — sidecar launcher, re-export shim.
+ *
+ * The implementation relocated to `kotoba-lang/checkpointer` (physical
+ * move, TS unchanged) per ADR-2607011830 / ADR-2606302300. This is a
+ * side-effect import (not `export *`) because the relocated module runs
+ * its `main()` at top level rather than exporting anything — that's what
+ * this repo's own `bin` entry point needs to keep working.
  */
-import {runFromEnv} from "./checkpointer.js";
-
-async function main(): Promise<void> {
-  const sidecar = await runFromEnv();
-  const shutdown = async (sig: NodeJS.Signals): Promise<void> => {
-    console.error(`[checkpointer] received ${sig}, stopping…`);
-    await sidecar.stop();
-    process.exit(0);
-  };
-  process.on("SIGTERM", shutdown);
-  process.on("SIGINT", shutdown);
-  console.error("[checkpointer] sidecar listening");
-}
-
-main().catch((err: unknown) => {
-  console.error("[checkpointer] fatal:", err);
-  process.exit(1);
-});
+import "@etzhayyim/checkpointer/checkpointer-bin";
