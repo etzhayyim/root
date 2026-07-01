@@ -10,4 +10,12 @@
  :actor/lexicons ["com.etzhayyim.kanjo.registerFiling" "com.etzhayyim.kanjo.registerFinancialFact" "com.etzhayyim.kanjo.publishConceptDictionary" "com.etzhayyim.kanjo.publishIntelReport"]
  :actor/status :r0-design-only
  :actor/related ["2605263800" "2606022000" "2604291500" "2605262900" "2605301600" "2605262130" "2605312345" "2605215000" "2606013600" "2606013800"]
- :actor/id "kanjo"}
+ :actor/id "kanjo"
+ :substrate {:datasets [{:dataset-id "kanjo-coverage"
+                         :layer :repo
+                         :source "SEC EDGAR / EDINET (Tier-A primary disclosure, ADR-2605263800)"
+                         :cidv1 "bafybeiae7xbotq4m2m55mycpsh3qrn4g67xz52dporyf4sfxoj6hcj7quq"
+                         :freshness-days 0
+                         :retrieved "2026-06-16"
+                         :counts-toward-world-coverage false
+                         :provenance "80-data/coverage-manifests/kanjo-coverage-manifest.json"}]}}
