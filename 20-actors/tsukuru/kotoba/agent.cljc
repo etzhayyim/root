@@ -1,5 +1,6 @@
-(ns tsukuru.py.agent
-  "tsukuru 作 — B2B factory-direct ordering cell. 1:1 port of py/agent.py. Four handlers over the
+(ns tsukuru.kotoba.agent
+  "tsukuru 作 — B2B factory-direct ordering cell (moved from py/ — legacy Python-era dir name;
+  the actor is pure .cljc now, living alongside its kotoba data). Four handlers over the
   production lifecycle: handle-discover (spec → capability-match factory candidates), handle-
   compliance (G16 treaty + yabai screening + HS classification + export-control pre-screen, never
   auto-pass), handle-production (BTO/MTO/CTO order state machine, G14 member-principal, G2

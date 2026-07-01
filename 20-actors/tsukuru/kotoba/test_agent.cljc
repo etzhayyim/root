@@ -1,5 +1,5 @@
-(ns tsukuru.py.test-agent
-  "tsukuru 作 — agent cell tests. 1:1 port of py/test_agent.py (custom harness → clojure.test).
+(ns tsukuru.kotoba.test-agent
+  "tsukuru 作 — agent cell tests (moved from py/ — legacy Python-era dir name; pure .cljc now).
   Offline: discover capability ranking, SBT gate (§3/G2), unknown-mode refusal, compliance no-auto-
   pass + denied-party reject (G16), HS classification (classify-product) + export-control
   pre-screen (screen-export-control) honest-stub coverage, order advance gating, QC
@@ -8,7 +8,7 @@
   manufacturer registry coverage (factory-datom->state + handle-discover over a
   kotoba/manufacturer-registry-seed.edn slice)."
   (:require [clojure.test :refer [deftest is]]
-            [tsukuru.py.agent :as agent]))
+            [tsukuru.kotoba.agent :as agent]))
 
 (deftest test-discover-ranks-by-capability
   (let [out (agent/handle-discover {"spec" "5-axis CNC aluminum bracket, anodized black"

@@ -10,7 +10,7 @@
 ;; cnt-process-catalog.edn, so the EUV vertical reaches genuine structural parity with CNT
 ;; in the living actor.
 ;;
-;; py/agent.cljc's `validate-run-package` embeds just the 5 step ids below as
+;; kotoba/agent.cljc's `validate-run-package` embeds just the 5 step ids below as
 ;; EUV-CATALOG-STEP-IDS (a Clojure literal, IO-free/portable, same rationale as
 ;; HS-CLASSIFICATION-TABLE) for its "recipe-covers-catalog-steps" check — keep the two in
 ;; sync by hand if this catalog's step ids ever change.
