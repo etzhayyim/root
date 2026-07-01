@@ -36,6 +36,18 @@ a sibling agent's `checkout` / `reset` / `clean` can wipe it without warning (ob
    PR branch (you'd graft onto their in-flight work + risk conflicts). To land such a commit,
    spin a fresh worktree off `origin/main`, `cherry-pick` it, and open its OWN PR (done
    2026-06-06: local `9a8600db59` → PR #1188, leaving the sibling's PR #1174 untouched).
+   **Before pushing MORE commits to an existing branch, check whether ITS OWN PR already
+   merged** — not just a sibling's: automation or the user can merge your own PR mid-session
+   while you keep working on the same local branch. `gh pr view --head <branch> --json
+   state,mergedAt` (or `gh pr list --head <branch> --state all`) first. If `state: MERGED`,
+   do not push — the branch's ancestry is now orphaned from `origin/main`'s new (often
+   squash-merged) history, and a later `git fetch`/`git merge` will surface as a genuine
+   `diverged` state or a shallow-clone-flavored `refusing to merge unrelated histories`
+   (see root `CLAUDE.md`'s ancestry-verification section to tell the two apart). Treat it
+   exactly like the sibling case above: fresh worktree off `origin/main`, `cherry-pick` the
+   new commit(s), open a new PR. Observed 2026-07-01: PR #2818 squash-merged (by the owner)
+   while follow-up commits kept landing on `tsukuru-coverage-maturity`; recovered via
+   fresh-worktree + cherry-pick → PR #2826, after closing the resulting dirty-diff PR #2825.
 8. **cherry-picks from the shared checkout drag in yoro build artifacts.** Conflicts in
    `60-apps/etzhayyim-project-yoro/**/static/_app/immutable/*` (hashed SvelteKit chunks) are
    generated noise — resolve by restoring yoro to `origin/main` (`git checkout origin/main --
