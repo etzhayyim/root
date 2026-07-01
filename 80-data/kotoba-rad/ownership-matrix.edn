@@ -880,7 +880,7 @@
      :freshness-days 0,
      :retrieved "2026-06-16",
      :counts-toward-world-coverage true}),
-   :declared? false},
+   :declared? true},
   "toritsugi-pol-passport"
   {:rid
    "bafyreiplaceholder0000000000000000000000000000000000000000000000",
@@ -1061,7 +1061,7 @@
      :freshness-days 0,
      :retrieved "2026-06-30",
      :counts-toward-world-coverage false}),
-   :declared? false},
+   :declared? true},
   "toritsugi-swe-business-registry"
   {:rid
    "bafyreiplaceholder0000000000000000000000000000000000000000000000",
@@ -1214,7 +1214,7 @@
      :freshness-days 0,
      :retrieved "2026-06-22",
      :counts-toward-world-coverage false}),
-   :declared? false},
+   :declared? true},
   "toritsugi-ng-national"
   {:rid
    "bafyreiplaceholder0000000000000000000000000000000000000000000000",
