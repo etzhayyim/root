@@ -45,8 +45,15 @@ export_restricted if {
   input.params.destinationJurisdiction == jur
 }
 
+# Internal services authenticate with a service-jwt. They are NOT exempt from
+# authorization: the token MUST carry a scope matching the method's
+# allowedScopes (issue #1505 — a leaked service-jwt must not grant unrestricted
+# access to registerFirearm / issuePermit / transferCustody / getAuditLog / …).
+# Services act on their own authority (not as a holder), so the holder-auth-
+# session gate (requiresHolderAuthSession) does not apply to them.
 allow if {
   internal_service
+  scope_allowed
   not export_restricted
 }
 
@@ -94,7 +101,10 @@ allow if {
   not export_restricted
 }
 
-reason := "internal-service" if internal_service
+reason := "internal-service" if {
+  internal_service
+  allow
+}
 reason := "public-read" if {
   not internal_service
   public_read

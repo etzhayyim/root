@@ -2,12 +2,34 @@ package etzhayyim.xrpc.arms_test
 
 import data.etzhayyim.xrpc.arms
 
-# internal service can always register firearms
+# internal service can register firearms when its service-jwt carries the
+# registerFirearm scope (issue #1505 — service-jwt is no longer unrestricted)
 test_internal_service_register_firearm if {
   arms.allow with input as {
-    "auth": {"method": "service-jwt", "scopes": [], "holderAuthSessionPassed": false},
+    "auth": {"method": "service-jwt", "scopes": ["rpc?lxm=com.etzhayyim.apps.arms.registerFirearm"], "holderAuthSessionPassed": false},
     "route": {"nsid": "com.etzhayyim.apps.arms.registerFirearm"},
     "permission_sets": ["arms:system"],
+    "params": {}
+  }
+}
+
+# issue #1505: a leaked service-jwt WITHOUT the matching scope MUST be denied
+# (this is the regression the fix is meant to prevent)
+test_internal_service_wrong_scope_denied if {
+  not arms.allow with input as {
+    "auth": {"method": "service-jwt", "scopes": ["rpc?lxm=com.etzhayyim.apps.arms.getAuditLog"], "holderAuthSessionPassed": false},
+    "route": {"nsid": "com.etzhayyim.apps.arms.registerFirearm"},
+    "permission_sets": ["arms:system"],
+    "params": {}
+  }
+}
+
+# issue #1505: a service-jwt with no scopes at all MUST be denied
+test_internal_service_no_scope_denied if {
+  not arms.allow with input as {
+    "auth": {"method": "service-jwt", "scopes": [], "holderAuthSessionPassed": false},
+    "route": {"nsid": "com.etzhayyim.apps.arms.getAuditLog"},
+    "permission_sets": ["arms:authority"],
     "params": {}
   }
 }
