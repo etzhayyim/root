@@ -118,8 +118,10 @@
   [actor manifest genesis]
   (let [display-name (or (:displayName manifest) (:label manifest)
                          (:actor/display-name manifest)
-                         (-> manifest :description (str/split #" — ") first)
-                         (-> manifest :actor/purpose (str/split #" — ") first)
+                         ;; some-> : a manifest without :description/:actor/purpose
+                         ;; must fall through to `actor`, not NPE in str/split
+                         (some-> (:description manifest) (str/split #" — ") first)
+                         (some-> (:actor/purpose manifest) (str/split #" — ") first)
                          actor)
         description (or (:description manifest) (:purpose manifest)
                         (:actor/purpose manifest) (:label manifest) "")
