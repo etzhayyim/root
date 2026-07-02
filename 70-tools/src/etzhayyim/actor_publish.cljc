@@ -59,6 +59,17 @@
         (edn/read-string (slurp f))
         (json/parse-string (slurp f) true)))))
 
+(defn- lexicon-nsid
+  "Normalize a declared lexicon entry to its bare NSID string. Most manifests
+   list bare strings; some Gen-3 EDN manifests (ake/fuchi/himawari/kawaraban/
+   tasuke) list rich maps {\"id\" nsid \"status\" … \"emittedBy\" […]} — pull
+   the id/:id out of those instead of crashing str/split on a map."
+  [entry]
+  (cond
+    (string? entry) entry
+    (map? entry) (or (get entry "id") (:id entry))
+    :else nil))
+
 (defn default-did-web
   "The did:web an actor is minted with when it has NO existing published
    identity yet (did:web:etzhayyim.com:actor:<name>; ADR-2606231200 addendum
@@ -83,9 +94,9 @@
    :triggers/:subscribeRepos/:collections, `manifest.jsonld` under :lexicons."
   [actor manifest & {:keys [pubkey-hex did-web]}]
   (let [coll (or (-> manifest :triggers :subscribeRepos :collections first)
-                 (-> manifest :lexicons first)
-                 (-> manifest :actor/lexicons first)
-                 (:actor/primary-lexicon manifest))
+                 (lexicon-nsid (-> manifest :lexicons first))
+                 (lexicon-nsid (-> manifest :actor/lexicons first))
+                 (lexicon-nsid (:actor/primary-lexicon manifest)))
         ns* (when coll (str/join "." (butlast (str/split coll #"\."))))]
     (rad/genesis-block
      {:name actor
