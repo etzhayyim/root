@@ -37,7 +37,12 @@ function navHtml(active?: string): string {
 
 export function renderShell(o: ShellOpts): string {
   const lang = o.lang ?? "en";
-  const css = ["/_shell/shell.css", ...(o.extraCss ?? [])]
+  const css = [
+    "/_shell/shell.css",
+    "/_shell/liquid-glass.css",
+    "/_shell/liquid-glass-adapter.css",
+    ...(o.extraCss ?? []),
+  ]
     .map((h) => `<link rel="stylesheet" href="${h}">`)
     .join("");
   const script = o.scriptSrc

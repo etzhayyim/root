@@ -11,6 +11,12 @@
 (deftest shell-emits-canonical-envelope
   (testing "every page links the same-origin shared stylesheet"
     (is (re-find #"<link rel=\"stylesheet\" href=\"/_shell/shell\.css\">" (page {}))))
+  (testing "every page links the liquid-glass material + adapter skins (same-origin)"
+    (let [html (page {})]
+      (is (re-find #"<link rel=\"stylesheet\" href=\"/_shell/liquid-glass\.css\">" html))
+      (is (re-find #"<link rel=\"stylesheet\" href=\"/_shell/liquid-glass-adapter\.css\">" html))
+      (is (re-find #"/_shell/shell\.css\"[>].*liquid-glass\.css\"[>].*liquid-glass-adapter\.css\"[>]" html)
+          "skin order must be: shell.css → liquid-glass.css → adapter")))
   (testing "every page has the shared header + primary nav"
     (is (re-find #"<header class=\"site-hd\">" (page {})))
     (is (re-find #"<nav class=\"site-nav\" aria-label=\"Primary\">" (page {}))))
