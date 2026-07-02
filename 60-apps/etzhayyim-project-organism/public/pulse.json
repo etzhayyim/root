@@ -1,26 +1,138 @@
 {
   "sinceHours" : 48,
   "stream" : [ {
+    "at" : 1782973839000,
+    "actor" : "itonami",
+    "subj" : "feat(bmc): RAD attestation + funding-channel emitter for etzhayyim gate"
+  }, {
+    "at" : 1782902953000,
+    "actor" : "etzhayyim-sdk",
+    "subj" : "refactor: relocate l2/paymaster, kotoba-datomic, atproto/pds to kotoba-lang (#2830)"
+  }, {
+    "at" : 1782902089000,
+    "actor" : "jinushi",
+    "subj" : "feat(jinushi): create manifest.edn with :substrate.datasets (ADR-2607010001) (#2828)"
+  }, {
+    "at" : 1782901766000,
+    "actor" : "toritsugi",
+    "subj" : "feat(rad): declare :substrate.datasets in toritsugi/junkan manifests (ADR-2607010001) (#2827)"
+  }, {
+    "at" : 1782901599000,
+    "actor" : "etzhayyim-sdk",
+    "subj" : "refactor: relocate ipfs/checkpointer to kotoba-lang/{ipfs,checkpointer} (#2823)"
+  }, {
+    "at" : 1782901403000,
+    "actor" : "tsukuru",
+    "subj" : "refactor(tsukuru): rename py/ to kotoba/ (legacy Python-era dir name only) (#2826)"
+  }, {
+    "at" : 1782901212000,
+    "actor" : "hirameki",
+    "subj" : "feat(rad): declare :substrate.datasets in hirameki manifest (ADR-2607010001) (#2824)"
+  }, {
+    "at" : 1782901012000,
+    "actor" : "hinagata",
+    "subj" : "feat(rad): declare :substrate.datasets in tsumugi/rasen/hinagata manifests (ADR-2607010001) (#2822)"
+  }, {
+    "at" : 1782900552000,
+    "actor" : "tsukuru",
+    "subj" : "tsukuru: compliance screening, EUV/CNT run-package parity, real-manufacturer coverage (#2818)"
+  }, {
+    "at" : 1782899478000,
+    "actor" : "etzhayyim-sdk",
+    "subj" : "refactor: relocate crypto-agility seam (crypto/kdf/pq/did-signal/signal) to kotoba-lang/pqh (#2817)"
+  }, {
+    "at" : 1782896401000,
+    "actor" : "etzhayyim-sdk",
+    "subj" : "refactor: relocate nv-compat to kotoba-lang/kami-nv-compat (#2802)"
+  }, {
+    "at" : 1782886720000,
+    "actor" : "uchiwake",
+    "subj" : "feat(uchiwake): declare uchiwake-coverage holding in RAD (ADR-2607010001) (#2811)"
+  }, {
+    "at" : 1782882805000,
+    "actor" : "kanjo",
+    "subj" : "feat(kanjo): declare kanjo-coverage holding in RAD (Phase 1, ADR-2607010001) (#2807)"
+  }, {
     "at" : 1782823654000,
     "actor" : "kuni-umi",
     "subj" : "chore(actors): prune py sh for bb cljc runtime"
   } ],
-  "generatedAt" : "2026-07-02T06:55:01.332Z",
+  "generatedAt" : "2026-07-02T10:19:35.048Z",
   "snapshot" : "pulse.kotoba.edn",
   "actors" : {
+    "hinagata" : {
+      "commits" : 1,
+      "lastAt" : 1782901012000,
+      "lastSubject" : "feat(rad): declare :substrate.datasets in tsumugi/rasen/hinagata manifests (ADR-2607010001) (#2822)"
+    },
     "kuni-umi" : {
       "commits" : 1,
       "lastAt" : 1782823654000,
       "lastSubject" : "chore(actors): prune py sh for bb cljc runtime"
     },
+    "uchiwake" : {
+      "commits" : 1,
+      "lastAt" : 1782886720000,
+      "lastSubject" : "feat(uchiwake): declare uchiwake-coverage holding in RAD (ADR-2607010001) (#2811)"
+    },
+    "tsumugi" : {
+      "commits" : 1,
+      "lastAt" : 1782901012000,
+      "lastSubject" : "feat(rad): declare :substrate.datasets in tsumugi/rasen/hinagata manifests (ADR-2607010001) (#2822)"
+    },
+    "etzhayyim-sdk" : {
+      "commits" : 4,
+      "lastAt" : 1782902953000,
+      "lastSubject" : "refactor: relocate l2/paymaster, kotoba-datomic, atproto/pds to kotoba-lang (#2830)"
+    },
+    "itonami" : {
+      "commits" : 1,
+      "lastAt" : 1782973839000,
+      "lastSubject" : "feat(bmc): RAD attestation + funding-channel emitter for etzhayyim gate"
+    },
+    "tsukuru" : {
+      "commits" : 2,
+      "lastAt" : 1782901403000,
+      "lastSubject" : "refactor(tsukuru): rename py/ to kotoba/ (legacy Python-era dir name only) (#2826)"
+    },
+    "jinushi" : {
+      "commits" : 1,
+      "lastAt" : 1782902089000,
+      "lastSubject" : "feat(jinushi): create manifest.edn with :substrate.datasets (ADR-2607010001) (#2828)"
+    },
+    "hirameki" : {
+      "commits" : 1,
+      "lastAt" : 1782901212000,
+      "lastSubject" : "feat(rad): declare :substrate.datasets in hirameki manifest (ADR-2607010001) (#2824)"
+    },
     "ibuki" : {
       "commits" : 1,
       "lastAt" : 1782823654000,
       "lastSubject" : "chore(actors): prune py sh for bb cljc runtime"
+    },
+    "toritsugi" : {
+      "commits" : 1,
+      "lastAt" : 1782901766000,
+      "lastSubject" : "feat(rad): declare :substrate.datasets in toritsugi/junkan manifests (ADR-2607010001) (#2827)"
+    },
+    "rasen" : {
+      "commits" : 1,
+      "lastAt" : 1782901012000,
+      "lastSubject" : "feat(rad): declare :substrate.datasets in tsumugi/rasen/hinagata manifests (ADR-2607010001) (#2822)"
+    },
+    "junkan" : {
+      "commits" : 1,
+      "lastAt" : 1782901766000,
+      "lastSubject" : "feat(rad): declare :substrate.datasets in toritsugi/junkan manifests (ADR-2607010001) (#2827)"
+    },
+    "kanjo" : {
+      "commits" : 1,
+      "lastAt" : 1782882805000,
+      "lastSubject" : "feat(kanjo): declare kanjo-coverage holding in RAD (Phase 1, ADR-2607010001) (#2807)"
     }
   },
-  "head" : "bafkreihr7i4am7xzgw465l3ryokeerne6nvdizvjnla6ra4wwivfiw53f4",
+  "head" : "bafkreiccqkofd5wvni4sfw7rwa3xh3olqei75rsodwxbz6zf6ljt5d4pke",
   "working" : [ ],
-  "now" : 1782975301332,
+  "now" : 1782987575048,
   "store" : "kotoba-datom-log"
 }

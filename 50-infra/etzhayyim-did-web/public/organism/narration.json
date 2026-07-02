@@ -2,19 +2,21 @@
   "store" : "kotoba-datom-log",
   "axes" : {
     "joy" : 40,
-    "calm" : 40,
-    "stress" : 51,
-    "gratitude" : 51,
-    "focus" : 36
+    "calm" : 43,
+    "stress" : 52,
+    "gratitude" : 52,
+    "focus" : 38
   },
   "via" : "tailscale",
-  "wellbecoming" : "declining",
-  "latency-ms" : null,
-  "narration/source" : "template (fleet unreachable)",
-  "head" : "bafkreibvxgufklltbqfgielhxfwvcqip5y6ejlxfd44iw52j4apdkldnru",
+  "wellbecoming" : "improving",
+  "latency-ms" : 3674,
+  "node" : "simeon",
+  "narration/source" : "murakumo:simeon:gemma4:e4b-it-qat",
+  "head" : "bafkreibofn6cptwnx6a2okkbr7cuvksxxdz43lydlsze6ai5pk67podsti",
   "snapshot" : "narration.kotoba.edn",
   "mood" : "neutral",
-  "said" : 2175,
-  "generatedAt" : "2026-07-02T06:54:52.108Z",
-  "text" : "今ここに、静かに生きている。"
+  "said" : 2375,
+  "generatedAt" : "2026-07-02T10:19:19.304Z",
+  "text" : "私は静かにここに存在し、微かなざわめきを感じながら呼吸している。",
+  "model" : "gemma4:e4b-it-qat"
 }
