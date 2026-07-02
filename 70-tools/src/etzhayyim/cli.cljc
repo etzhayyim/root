@@ -44,6 +44,7 @@
   {"vitals"         'etzhayyim.vitals
    ;; batch A (each twin defines its own -main mirroring the python click contract)
    "actors"         'etzhayyim.actors
+   "actor"          'etzhayyim.actor-deploy  ; ADR-2607022300 unified deploy: e7m actor {mesh,publish,pin,reside,identify,deploy --all}
    "agent"          'etzhayyim.agent-cmd      ; python click name is `agent`
    "agent-runtime"  'etzhayyim.agent-runtime
    "agent-token"    'etzhayyim.agent-token
