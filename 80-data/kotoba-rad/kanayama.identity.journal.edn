@@ -15,3 +15,5 @@
 ["sigref:bafkreidn4r7ecfh4r6jnohj3uz4vrjvgj5dlitrj6gazvb2f4swhay7yqm" :rad/rid "bafkreidn4r7ecfh4r6jnohj3uz4vrjvgj5dlitrj6gazvb2f4swhay7yqm" 3 :add]
 ["sigref:bafkreidn4r7ecfh4r6jnohj3uz4vrjvgj5dlitrj6gazvb2f4swhay7yqm" :rad/head "bafkreidxyyy7yx4nc42k6qnwjxqjmx2dcyylej6qurbr4kmccvolqhxjbm" 3 :add]
 ["sigref:bafkreidn4r7ecfh4r6jnohj3uz4vrjvgj5dlitrj6gazvb2f4swhay7yqm" :rad/by "did:web:etzhayyim.com:actor:kanayama" 3 :add]
+["bafkreidn4r7ecfh4r6jnohj3uz4vrjvgj5dlitrj6gazvb2f4swhay7yqm" :rad/aozora-pds "https://pds.aozora.app" 4 :add]
+["bafkreidn4r7ecfh4r6jnohj3uz4vrjvgj5dlitrj6gazvb2f4swhay7yqm" :rad/did-key "did:key:z6MkqJCBaizWEXsUk5LqShspmHzFsr6NF89bwWHT8UwYA7T8" 4 :add]

@@ -15,3 +15,5 @@
 ["sigref:bafkreictmic2jexkj44jqbucpxg6qebwvvf6vk7fy2vena46cssxg7ud5a" :rad/rid "bafkreictmic2jexkj44jqbucpxg6qebwvvf6vk7fy2vena46cssxg7ud5a" 3 :add]
 ["sigref:bafkreictmic2jexkj44jqbucpxg6qebwvvf6vk7fy2vena46cssxg7ud5a" :rad/head "bafkreihdbfdfbe6piqcy3ywvo7lk3jlk6smydh6zd5fcnc5fum2p5vm3pe" 3 :add]
 ["sigref:bafkreictmic2jexkj44jqbucpxg6qebwvvf6vk7fy2vena46cssxg7ud5a" :rad/by "did:web:etzhayyim.com:actor:jp-ashiba" 3 :add]
+["bafkreictmic2jexkj44jqbucpxg6qebwvvf6vk7fy2vena46cssxg7ud5a" :rad/aozora-pds "https://pds.aozora.app" 4 :add]
+["bafkreictmic2jexkj44jqbucpxg6qebwvvf6vk7fy2vena46cssxg7ud5a" :rad/did-key "did:key:z6Mkfn3DijipmwPQnPzCnXpp94tLKUvdBjjAadKafiduUc1N" 4 :add]

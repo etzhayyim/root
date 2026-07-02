@@ -15,3 +15,5 @@
 ["sigref:bafkreibigtw2ksvahhabdgtnsiwilp7symlkdddzvyubg5ok6vc5ndxjm4" :rad/rid "bafkreibigtw2ksvahhabdgtnsiwilp7symlkdddzvyubg5ok6vc5ndxjm4" 3 :add]
 ["sigref:bafkreibigtw2ksvahhabdgtnsiwilp7symlkdddzvyubg5ok6vc5ndxjm4" :rad/head "bafkreiet5t2a4zw64cgtq2likv64ed3taaf2zdm6kkueheir3t4p2bf3sm" 3 :add]
 ["sigref:bafkreibigtw2ksvahhabdgtnsiwilp7symlkdddzvyubg5ok6vc5ndxjm4" :rad/by "did:web:etzhayyim.com:actor:nyusatsu" 3 :add]
+["bafkreibigtw2ksvahhabdgtnsiwilp7symlkdddzvyubg5ok6vc5ndxjm4" :rad/aozora-pds "https://pds.aozora.app" 4 :add]
+["bafkreibigtw2ksvahhabdgtnsiwilp7symlkdddzvyubg5ok6vc5ndxjm4" :rad/did-key "did:key:z6MkkwdQat56VUF5Xo6zuo3sytsUqH3ibC65x6ChggPHLz38" 4 :add]

@@ -15,3 +15,5 @@
 ["sigref:bafkreihpz3ej2hxzv3jv7e4lqg26hjyo3jimddmf7povywykfr6ssdqysa" :rad/rid "bafkreihpz3ej2hxzv3jv7e4lqg26hjyo3jimddmf7povywykfr6ssdqysa" 3 :add]
 ["sigref:bafkreihpz3ej2hxzv3jv7e4lqg26hjyo3jimddmf7povywykfr6ssdqysa" :rad/head "bafkreidmsbqprbaeelzne2zhm6g5h5nde5ctjhukvesepc5357ugvfhqt4" 3 :add]
 ["sigref:bafkreihpz3ej2hxzv3jv7e4lqg26hjyo3jimddmf7povywykfr6ssdqysa" :rad/by "did:web:etzhayyim.com:actor:gov_municipality" 3 :add]
+["bafkreihpz3ej2hxzv3jv7e4lqg26hjyo3jimddmf7povywykfr6ssdqysa" :rad/aozora-pds "https://pds.aozora.app" 4 :add]
+["bafkreihpz3ej2hxzv3jv7e4lqg26hjyo3jimddmf7povywykfr6ssdqysa" :rad/did-key "did:key:z6Mki5VMg1dw3RNKoJ77hneDjUoZ897CsDxvx8yAB1RffXnT" 4 :add]

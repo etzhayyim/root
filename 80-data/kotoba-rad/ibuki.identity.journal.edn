@@ -15,3 +15,5 @@
 ["sigref:bafkreich55hqpaniwz3nx4emml6bclmzyt5kronopv2du5jqcyhfvdotmm" :rad/rid "bafkreich55hqpaniwz3nx4emml6bclmzyt5kronopv2du5jqcyhfvdotmm" 3 :add]
 ["sigref:bafkreich55hqpaniwz3nx4emml6bclmzyt5kronopv2du5jqcyhfvdotmm" :rad/head "bafkreihtxrin4idmbbetq5gruwvxkz3ffdhqqonwaro6wsznbpp627tn6m" 3 :add]
 ["sigref:bafkreich55hqpaniwz3nx4emml6bclmzyt5kronopv2du5jqcyhfvdotmm" :rad/by "did:web:etzhayyim.com:actor:ibuki" 3 :add]
+["bafkreich55hqpaniwz3nx4emml6bclmzyt5kronopv2du5jqcyhfvdotmm" :rad/aozora-pds "https://pds.aozora.app" 4 :add]
+["bafkreich55hqpaniwz3nx4emml6bclmzyt5kronopv2du5jqcyhfvdotmm" :rad/did-key "did:key:z6Mkpuf8x4KMXohe2mftABrCjvj2X8YUckQNgs3KXHA2TVz9" 4 :add]

@@ -15,3 +15,5 @@
 ["sigref:bafkreicmqkdtr55t43e6l3nknf3yjos2tavy7uvgaxllkvvyif6xuvmgru" :rad/rid "bafkreicmqkdtr55t43e6l3nknf3yjos2tavy7uvgaxllkvvyif6xuvmgru" 3 :add]
 ["sigref:bafkreicmqkdtr55t43e6l3nknf3yjos2tavy7uvgaxllkvvyif6xuvmgru" :rad/head "bafkreieebbmeofklgjvpq3gl554tx5btflf2bbmropd2dgzhd6tgdhmdxu" 3 :add]
 ["sigref:bafkreicmqkdtr55t43e6l3nknf3yjos2tavy7uvgaxllkvvyif6xuvmgru" :rad/by "did:web:etzhayyim.com:actor:oil-upstream" 3 :add]
+["bafkreicmqkdtr55t43e6l3nknf3yjos2tavy7uvgaxllkvvyif6xuvmgru" :rad/aozora-pds "https://pds.aozora.app" 4 :add]
+["bafkreicmqkdtr55t43e6l3nknf3yjos2tavy7uvgaxllkvvyif6xuvmgru" :rad/did-key "did:key:z6MkowJZUGuEmkhbRFJ8rW6SMEqDWEzF1Dg5vCFYnYPhgCyz" 4 :add]

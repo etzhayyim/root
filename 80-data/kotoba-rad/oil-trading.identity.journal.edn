@@ -15,3 +15,5 @@
 ["sigref:bafkreiass7n24zschzgprqrp2rq4jig62ezetlkxhejtsn4v6rxo4fxzou" :rad/rid "bafkreiass7n24zschzgprqrp2rq4jig62ezetlkxhejtsn4v6rxo4fxzou" 3 :add]
 ["sigref:bafkreiass7n24zschzgprqrp2rq4jig62ezetlkxhejtsn4v6rxo4fxzou" :rad/head "bafkreihyvqhskbbirsamrscfmrmksp2kri6rz54bpduo3xqcc3k2unznwm" 3 :add]
 ["sigref:bafkreiass7n24zschzgprqrp2rq4jig62ezetlkxhejtsn4v6rxo4fxzou" :rad/by "did:web:etzhayyim.com:actor:oil-trading" 3 :add]
+["bafkreiass7n24zschzgprqrp2rq4jig62ezetlkxhejtsn4v6rxo4fxzou" :rad/aozora-pds "https://pds.aozora.app" 4 :add]
+["bafkreiass7n24zschzgprqrp2rq4jig62ezetlkxhejtsn4v6rxo4fxzou" :rad/did-key "did:key:z6MkqMRextVvo2GXCYwoT32FXiixxR7Q7bhLcAK476taxvta" 4 :add]

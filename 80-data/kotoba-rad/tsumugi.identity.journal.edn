@@ -29,3 +29,5 @@
 ["sigref:bafkreidqelzw4i27b276tv4wjvuxddoli74abjsprdu63njefzeksevhpu" :rad/rid "bafkreidqelzw4i27b276tv4wjvuxddoli74abjsprdu63njefzeksevhpu" 4 :add]
 ["sigref:bafkreidqelzw4i27b276tv4wjvuxddoli74abjsprdu63njefzeksevhpu" :rad/head "bafkreihfsoyqmd3btrbvkpjctjeojodyxs7mrcnfgvrv6gqy3xb4ron26y" 4 :add]
 ["sigref:bafkreidqelzw4i27b276tv4wjvuxddoli74abjsprdu63njefzeksevhpu" :rad/by "did:web:etzhayyim.com:actor:tsumugi" 4 :add]
+["bafkreidqelzw4i27b276tv4wjvuxddoli74abjsprdu63njefzeksevhpu" :rad/aozora-pds "https://pds.aozora.app" 5 :add]
+["bafkreidqelzw4i27b276tv4wjvuxddoli74abjsprdu63njefzeksevhpu" :rad/did-key "did:key:z6MktrPzge2GzgNZ7T2w1PorWQ41hguxCHc5c9N7dqPhgRmT" 5 :add]

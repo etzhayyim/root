@@ -15,3 +15,5 @@
 ["sigref:bafkreigjhpukgts5owsyexqxho4jnhuicldt2ieyxaxck4qntcy6z33fyi" :rad/rid "bafkreigjhpukgts5owsyexqxho4jnhuicldt2ieyxaxck4qntcy6z33fyi" 3 :add]
 ["sigref:bafkreigjhpukgts5owsyexqxho4jnhuicldt2ieyxaxck4qntcy6z33fyi" :rad/head "bafkreie4ynfvb6ktm4mct7mehvclo4pvmlw32sib5rtwi7h76nzzvnkzpm" 3 :add]
 ["sigref:bafkreigjhpukgts5owsyexqxho4jnhuicldt2ieyxaxck4qntcy6z33fyi" :rad/by "did:web:etzhayyim.com:actor:makura" 3 :add]
+["bafkreigjhpukgts5owsyexqxho4jnhuicldt2ieyxaxck4qntcy6z33fyi" :rad/aozora-pds "https://pds.aozora.app" 4 :add]
+["bafkreigjhpukgts5owsyexqxho4jnhuicldt2ieyxaxck4qntcy6z33fyi" :rad/did-key "did:key:z6MkrLtH2sGVk38zMDc7BfvaHv2nFi4BFXRwVgSAwb9mYzkx" 4 :add]

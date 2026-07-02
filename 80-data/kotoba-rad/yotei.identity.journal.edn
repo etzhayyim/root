@@ -23,3 +23,5 @@
 ["sigref:bafkreihdbbzpmvpr2yql7z3rq4tfa7gd6jzvt6npadj7p5aakwkk44hv2m" :rad/rid "bafkreihdbbzpmvpr2yql7z3rq4tfa7gd6jzvt6npadj7p5aakwkk44hv2m" 4 :add]
 ["sigref:bafkreihdbbzpmvpr2yql7z3rq4tfa7gd6jzvt6npadj7p5aakwkk44hv2m" :rad/head "bafkreihe3sfb7ndlhkaqlsodcocxs6ni7j4azqk543mmeajsnniiepqs5i" 4 :add]
 ["sigref:bafkreihdbbzpmvpr2yql7z3rq4tfa7gd6jzvt6npadj7p5aakwkk44hv2m" :rad/by "did:web:etzhayyim.com:actor:yotei" 4 :add]
+["bafkreihdbbzpmvpr2yql7z3rq4tfa7gd6jzvt6npadj7p5aakwkk44hv2m" :rad/aozora-pds "https://pds.aozora.app" 5 :add]
+["bafkreihdbbzpmvpr2yql7z3rq4tfa7gd6jzvt6npadj7p5aakwkk44hv2m" :rad/did-key "did:key:z6Mkk6ekv8hcbZAddqNgGLhpk2ssYMM4J74qHqSB7EaGZkFP" 5 :add]

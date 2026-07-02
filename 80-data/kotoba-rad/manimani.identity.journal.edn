@@ -10,3 +10,4 @@
 ["sigref:bafyreimanimaniidentityplaceholder000000000000000000000000" :rad/type :sigref 1 :add]
 ["sigref:bafyreimanimaniidentityplaceholder000000000000000000000000" :rad/rid "bafyreimanimaniidentityplaceholder000000000000000000000000" 1 :add]
 ["sigref:bafyreimanimaniidentityplaceholder000000000000000000000000" :rad/by "did:web:manimani.etzhayyim.com:actor:manimani" 1 :add]
+["bafyreimanimaniidentityplaceholder000000000000000000000000" :rad/aozora-pds "https://pds.aozora.app" 2 :add]

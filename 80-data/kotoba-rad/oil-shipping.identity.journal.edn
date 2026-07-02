@@ -15,3 +15,5 @@
 ["sigref:bafkreialpqvby6y7butydmas4dejlunlqhcarayefzlobnfplfc66wdksi" :rad/rid "bafkreialpqvby6y7butydmas4dejlunlqhcarayefzlobnfplfc66wdksi" 3 :add]
 ["sigref:bafkreialpqvby6y7butydmas4dejlunlqhcarayefzlobnfplfc66wdksi" :rad/head "bafkreicexkaievwpar5jvk4xqwruj3jcq7p23hoiws5i2yh3bdg5bjqjpe" 3 :add]
 ["sigref:bafkreialpqvby6y7butydmas4dejlunlqhcarayefzlobnfplfc66wdksi" :rad/by "did:web:etzhayyim.com:actor:oil-shipping" 3 :add]
+["bafkreialpqvby6y7butydmas4dejlunlqhcarayefzlobnfplfc66wdksi" :rad/aozora-pds "https://pds.aozora.app" 4 :add]
+["bafkreialpqvby6y7butydmas4dejlunlqhcarayefzlobnfplfc66wdksi" :rad/did-key "did:key:z6Mksy1iaBtMJvNu3hvbu1g2djEh7BWYm5t6rJ6Fhy7WGtRN" 4 :add]
