@@ -25,6 +25,7 @@
             [clojure.java.io :as io]
             [clojure.edn :as edn]
             [cheshire.core :as json]
+            [did.core :as did]
             [etzhayyim.actor-publish :as pub]
             [etzhayyim.aozora-identity :as aid]
             [etzhayyim.kotoba-rad :as rad]))
@@ -66,6 +67,51 @@
   [actor manifest]
   (pub/manifest->genesis actor manifest))
 
+(defn read-rad-journal
+  "Parse the actor's RAD identity journal (80-data/kotoba-rad/<name>.identity.
+   journal.edn — append-only [eid attr value seq op] tuples) into a genesis-
+   shaped map. This is the deploy source for actors WITHOUT a manifest —
+   notably fan-out sub-actors (ADR-2606292000 toritsugi children, ADR-
+   2607022300 sub-actor identity), whose :rad/parent names the parent actor.
+   Latest :add per attr wins (journal order)."
+  [actor]
+  (let [f (io/file (str "80-data/kotoba-rad/" actor ".identity.journal.edn"))]
+    (when (.exists f)
+      (let [tuples (edn/read-string (str "[" (slurp f) "]"))
+            id-eid (some (fn [[e a v _ op]]
+                           (when (and (= a :rad/type) (= v :identity) (= op :add)) e))
+                         tuples)
+            fact (fn [attr]
+                   (->> tuples
+                        (filter (fn [[e a _ _ op]]
+                                  (and (= e id-eid) (= a attr) (= op :add))))
+                        last
+                        (#(nth % 2 nil))))]
+        (when id-eid
+          (cond-> {:rad/name (fact :rad/name)
+                   :rad/did-web (fact :rad/did-web)
+                   :rad/aozora {:pds (fact :rad/aozora-pds)
+                                :collection (fact :rad/aozora-collection)}}
+            (fact :rad/parent) (assoc :rad/parent (fact :rad/parent))
+            (fact :rad/regime) (assoc :rad/regime (fact :rad/regime))))))))
+
+(defn rad-profile-record
+  "Profile record body for a RAD-journal-driven (manifest-less) actor. Sub-
+   actors carry :parent/:regime so consumers can walk the fan-out topology."
+  [actor genesis]
+  (let [coll (-> genesis :rad/aozora :collection)]
+    (cond-> {"$type" (str coll ".profile")
+             "displayName" (or (:rad/name genesis) actor)
+             "description" (str "etzhayyim actor"
+                                (when-let [p (:rad/parent genesis)]
+                                  (str " — sub-actor of " p))
+                                (when-let [r (:rad/regime genesis)]
+                                  (str " (regime: " r ")")))
+             "createdAt" (.format (java.time.OffsetDateTime/now)
+                                  (java.time.format.DateTimeFormatter/ISO_OFFSET_DATE_TIME))}
+      (:rad/parent genesis) (assoc "parent" (:rad/parent genesis))
+      (:rad/regime genesis) (assoc "regime" (:rad/regime genesis)))))
+
 (defn profile-record-body
   "Build the atproto profile record body from the actor manifest + genesis.
    Mirrors the fields publish-actor-records.mjs materializes into profile.json."
@@ -90,13 +136,17 @@
       (seq (:actor/adr manifest)) (assoc "adr" (:actor/adr manifest)))))
 
 (defn deploy-one
-  "Deploy a single actor's profile to app-aozora.
+  "Deploy a single actor's profile to app-aozora. Source of truth: the actor
+   manifest when one exists, else the RAD identity journal (sub-actors and
+   not-yet-manifested actors, ADR-2607022300).
    Opts: :apply? (false=plan-only), :leash (member CACAO), :pds-override."
   [actor {:keys [apply? leash pds-override] :as opts}]
-  (let [manifest (read-manifest actor)]
-    (when-not manifest
-      (throw (ex-info (str "no manifest for " actor) {:actor actor})))
-    (let [genesis (read-genesis actor manifest)
+  (let [manifest (read-manifest actor)
+        rad-genesis (when-not manifest (read-rad-journal actor))]
+    (when-not (or manifest rad-genesis)
+      (throw (ex-info (str "no manifest and no RAD identity journal for " actor)
+                      {:actor actor})))
+    (let [genesis (if manifest (read-genesis actor manifest) rad-genesis)
           raw-pds (or pds-override
                       (System/getenv "AOZORA_PDS_URL")
                       (-> genesis :rad/aozora :pds)
@@ -105,12 +155,22 @@
           coll (-> genesis :rad/aozora :collection)
           profile-coll (str coll ".profile")
           did-web (:rad/did-web genesis)
-          record (profile-record-body actor manifest genesis)]
-      (println (format "▶ aozora:deploy %s  (%s)" actor (if apply? "APPLY" "DRY-RUN")))
+          record (if manifest
+                   (profile-record-body actor manifest genesis)
+                   (rad-profile-record actor genesis))]
+      ;; W3C DID alignment (kotoba-lang/did): the public handle must parse as
+      ;; a DID; PATH did:web (did:web:etzhayyim.com:actor:<name>) is allowed
+      ;; and resolves per the did:web method (host/path/did.json).
+      (when (and did-web (not (did/did? did-web)))
+        (throw (ex-info (str "invalid did:web for " actor) {:did did-web})))
+      (println (format "▶ aozora:deploy %s  (%s%s)" actor
+                       (if apply? "APPLY" "DRY-RUN")
+                       (if manifest "" " · RAD-journal")))
       (println (format "  PDS:     %s" pds))
       (when (not= raw-pds pds)
         (println (format "  note:    %s is not the XRPC write endpoint; using %s" raw-pds pds)))
-      (println (format "  did:web: %s (public handle)" did-web))
+      (println (format "  did:web: %s (public handle → %s)" did-web
+                       (try (did/did-web-url did-web) (catch Exception _ "n/a"))))
       (println (format "  record:  %s rkey=self" profile-coll))
       (println (format "  body:    %s" (json/generate-string record)))
       (if-not apply?

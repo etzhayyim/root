@@ -42,21 +42,23 @@
 
 (defn identity-paths
   "Candidate identity files for `actor`, published repo first (that is where
-   the already-live per-actor identities sit). Relative to etzhayyim/root."
+   the already-live per-actor identities sit), then the monorepo actor dir,
+   then the central custody dir. Relative to etzhayyim/root."
   [actor]
   [(str "../../etzhayyim/com-etzhayyim-" actor "/." actor "/identity.edn")
-   (str "20-actors/" actor "/." actor "/identity.edn")])
+   (str "20-actors/" actor "/." actor "/identity.edn")
+   (str ".e7m/identity/" actor ".edn")])
 
 (defn resolve-identity-path
-  "AOZORA_IDENTITY env → existing identity file → first-run creation target
-   (whichever actor home dir exists). nil when the actor has no home at all."
+  "AOZORA_IDENTITY env → existing identity file (per-repo custody honored) →
+   the CENTRAL custody file `.e7m/identity/<actor>.edn` for first-run creation
+   (ADR-2607022300: one gitignored dir instead of 170+ per-repo dot-dirs whose
+   .gitignore coverage is unverified; also the only custody home for
+   sub-actors, whose :rad/repo repos do not exist)."
   [actor]
   (or (some-> (System/getenv "AOZORA_IDENTITY") not-empty)
-      (let [paths (identity-paths actor)]
-        (or (first (filter #(.exists (io/file %)) paths))
-            (first (filter #(-> (io/file %) .getAbsoluteFile
-                                .getParentFile .getParentFile .exists)
-                           paths))))))
+      (first (filter #(.exists (io/file %)) (identity-paths actor)))
+      (str ".e7m/identity/" actor ".edn")))
 
 (defn- identity-from-pkcs8
   "{:private-b64 :public-b64} → {:did :seed}. The raw Ed25519 seed is the last
