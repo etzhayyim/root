@@ -56,7 +56,10 @@
     :or {lang "en" script-type "text/javascript"}}]
   (let [css (str/join
              (map (fn [h] (str "<link rel=\"stylesheet\" href=\"" (esc h) "\">"))
-                  (cons "/_shell/shell.css" (or extra-css []))))
+                  (concat ["/_shell/shell.css"
+                           "/_shell/liquid-glass.css"
+                           "/_shell/liquid-glass-adapter.css"]
+                          (or extra-css []))))
         script (when script-src
                  (str "<script type=\"" (esc script-type) "\" src=\""
                       (esc script-src) "\"></script>"))
