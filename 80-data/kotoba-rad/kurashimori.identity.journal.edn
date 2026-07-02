@@ -15,3 +15,5 @@
 ["sigref:bafkreiauaaje5vsraofb6huus7h4shbh3fcelbrwfn67rkdgptip477ddi" :rad/rid "bafkreiauaaje5vsraofb6huus7h4shbh3fcelbrwfn67rkdgptip477ddi" 3 :add]
 ["sigref:bafkreiauaaje5vsraofb6huus7h4shbh3fcelbrwfn67rkdgptip477ddi" :rad/head "bafkreia5zqnvczwry6y3djuxm55sj5tfyr77vu7jgpal2o4q5milcsud5a" 3 :add]
 ["sigref:bafkreiauaaje5vsraofb6huus7h4shbh3fcelbrwfn67rkdgptip477ddi" :rad/by "did:web:etzhayyim.com:actor:kurashimori" 3 :add]
+["bafkreiauaaje5vsraofb6huus7h4shbh3fcelbrwfn67rkdgptip477ddi" :rad/aozora-pds "https://pds.aozora.app" 4 :add]
+["bafkreiauaaje5vsraofb6huus7h4shbh3fcelbrwfn67rkdgptip477ddi" :rad/did-key "did:key:z6MkvtdwGs8c96LM3MP2Vf54UsyJwfhrxoE5ZnN4vJ3H2gZn" 4 :add]

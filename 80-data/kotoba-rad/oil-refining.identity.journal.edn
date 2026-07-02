@@ -15,3 +15,5 @@
 ["sigref:bafkreifp2cp3lmpqk2rcdiw32uft7eyyeyvybbf2xy6hbipw72rlbqbfje" :rad/rid "bafkreifp2cp3lmpqk2rcdiw32uft7eyyeyvybbf2xy6hbipw72rlbqbfje" 3 :add]
 ["sigref:bafkreifp2cp3lmpqk2rcdiw32uft7eyyeyvybbf2xy6hbipw72rlbqbfje" :rad/head "bafkreiblqyrxvxakfoqzv2ar43uag73efpg4fc2typzlo3y7fy75nnvhii" 3 :add]
 ["sigref:bafkreifp2cp3lmpqk2rcdiw32uft7eyyeyvybbf2xy6hbipw72rlbqbfje" :rad/by "did:web:etzhayyim.com:actor:oil-refining" 3 :add]
+["bafkreifp2cp3lmpqk2rcdiw32uft7eyyeyvybbf2xy6hbipw72rlbqbfje" :rad/aozora-pds "https://pds.aozora.app" 4 :add]
+["bafkreifp2cp3lmpqk2rcdiw32uft7eyyeyvybbf2xy6hbipw72rlbqbfje" :rad/did-key "did:key:z6Mkp3aB1TGvNQB49bidY3mF54WNA3TMQa4QPgmRuE2ANFwn" 4 :add]

@@ -15,3 +15,5 @@
 ["sigref:bafkreifchv4hcuuy7fi4s34rb2e7fnaq2c72vzk47izmuhg6uturtmyk7u" :rad/rid "bafkreifchv4hcuuy7fi4s34rb2e7fnaq2c72vzk47izmuhg6uturtmyk7u" 3 :add]
 ["sigref:bafkreifchv4hcuuy7fi4s34rb2e7fnaq2c72vzk47izmuhg6uturtmyk7u" :rad/head "bafkreidym7pwe3g4yqntq45zi7yixnrim5t3iepp2d2lztos4ltob6rire" 3 :add]
 ["sigref:bafkreifchv4hcuuy7fi4s34rb2e7fnaq2c72vzk47izmuhg6uturtmyk7u" :rad/by "did:web:etzhayyim.com:actor:kami-sabiotoshi" 3 :add]
+["bafkreifchv4hcuuy7fi4s34rb2e7fnaq2c72vzk47izmuhg6uturtmyk7u" :rad/aozora-pds "https://pds.aozora.app" 4 :add]
+["bafkreifchv4hcuuy7fi4s34rb2e7fnaq2c72vzk47izmuhg6uturtmyk7u" :rad/did-key "did:key:z6MkhPg7SnEi8rbUSSQixtx2tPvT3QMzbFcp3Uhx23jKf74R" 4 :add]

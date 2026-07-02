@@ -15,3 +15,5 @@
 ["sigref:bafkreierv3uivdlz2hemryj7hukzqks6e4xgivqsuj5mk5eqyipycsxyi4" :rad/rid "bafkreierv3uivdlz2hemryj7hukzqks6e4xgivqsuj5mk5eqyipycsxyi4" 3 :add]
 ["sigref:bafkreierv3uivdlz2hemryj7hukzqks6e4xgivqsuj5mk5eqyipycsxyi4" :rad/head "bafkreigpgenlghrae6iyjo6ypkmjniogg7mcy5k5kewut7jfeoma3nc6hq" 3 :add]
 ["sigref:bafkreierv3uivdlz2hemryj7hukzqks6e4xgivqsuj5mk5eqyipycsxyi4" :rad/by "did:web:etzhayyim.com:actor:oil-distribution" 3 :add]
+["bafkreierv3uivdlz2hemryj7hukzqks6e4xgivqsuj5mk5eqyipycsxyi4" :rad/aozora-pds "https://pds.aozora.app" 4 :add]
+["bafkreierv3uivdlz2hemryj7hukzqks6e4xgivqsuj5mk5eqyipycsxyi4" :rad/did-key "did:key:z6Mkj7fh8y3Xway1bE5QjCbSZDBcNfqh65axUoG7S2cqsyfE" 4 :add]

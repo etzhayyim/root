@@ -15,3 +15,5 @@
 ["sigref:bafkreid235673k6g3wosjzxmodycsu2bzmmvlqn4xkguzwiqpnxfkrliya" :rad/rid "bafkreid235673k6g3wosjzxmodycsu2bzmmvlqn4xkguzwiqpnxfkrliya" 3 :add]
 ["sigref:bafkreid235673k6g3wosjzxmodycsu2bzmmvlqn4xkguzwiqpnxfkrliya" :rad/head "bafkreigugbaihqj672hl7p3qg4f7lxaxfpy3zxom7wfeixgytroqnr4zv4" 3 :add]
 ["sigref:bafkreid235673k6g3wosjzxmodycsu2bzmmvlqn4xkguzwiqpnxfkrliya" :rad/by "did:web:etzhayyim.com:actor:media-gamers" 3 :add]
+["bafkreid235673k6g3wosjzxmodycsu2bzmmvlqn4xkguzwiqpnxfkrliya" :rad/aozora-pds "https://pds.aozora.app" 4 :add]
+["bafkreid235673k6g3wosjzxmodycsu2bzmmvlqn4xkguzwiqpnxfkrliya" :rad/did-key "did:key:z6MkmAHJsZwP73uEhYrHBSo2jMAQqCPbe9CULDqYqn7qu2fC" 4 :add]

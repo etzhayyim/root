@@ -23,3 +23,5 @@
 ["sigref:bafkreif5ocq5xa7rtuiarrz6x7hhafjfbiico633s3llpf3lixwecjrlgq" :rad/rid "bafkreif5ocq5xa7rtuiarrz6x7hhafjfbiico633s3llpf3lixwecjrlgq" 4 :add]
 ["sigref:bafkreif5ocq5xa7rtuiarrz6x7hhafjfbiico633s3llpf3lixwecjrlgq" :rad/head "bafkreifo6batyoevdl2ajgannqogsiu2yywh6phyed7myy5bpycj3yyl4i" 4 :add]
 ["sigref:bafkreif5ocq5xa7rtuiarrz6x7hhafjfbiico633s3llpf3lixwecjrlgq" :rad/by "did:web:etzhayyim.com:actor:yakushi" 4 :add]
+["bafkreif5ocq5xa7rtuiarrz6x7hhafjfbiico633s3llpf3lixwecjrlgq" :rad/aozora-pds "https://pds.aozora.app" 5 :add]
+["bafkreif5ocq5xa7rtuiarrz6x7hhafjfbiico633s3llpf3lixwecjrlgq" :rad/did-key "did:key:z6MkjoufAMGpbBBnMzk9ujVbb263HGM8VetuKURMqcV1f6jv" 5 :add]

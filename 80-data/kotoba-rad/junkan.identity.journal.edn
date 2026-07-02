@@ -29,3 +29,5 @@
 ["sigref:bafkreic2rwhxp6i3dii243o34kogjv7brkbf5nurrvghdsx67fxia5bq44" :rad/rid "bafkreic2rwhxp6i3dii243o34kogjv7brkbf5nurrvghdsx67fxia5bq44" 4 :add]
 ["sigref:bafkreic2rwhxp6i3dii243o34kogjv7brkbf5nurrvghdsx67fxia5bq44" :rad/head "bafkreiazlfqfvw5qkujolsxdpubefeqckfnmh5p2sn2obt7yyqog4tym4m" 4 :add]
 ["sigref:bafkreic2rwhxp6i3dii243o34kogjv7brkbf5nurrvghdsx67fxia5bq44" :rad/by "did:web:etzhayyim.com:actor:junkan" 4 :add]
+["bafkreic2rwhxp6i3dii243o34kogjv7brkbf5nurrvghdsx67fxia5bq44" :rad/aozora-pds "https://pds.aozora.app" 5 :add]
+["bafkreic2rwhxp6i3dii243o34kogjv7brkbf5nurrvghdsx67fxia5bq44" :rad/did-key "did:key:z6MkhTFisHLwbTz5EUhs7SsMqhnXLQJs1s13S2YVDVBRQmUe" 5 :add]

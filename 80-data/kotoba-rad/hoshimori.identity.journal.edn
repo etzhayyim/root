@@ -15,3 +15,5 @@
 ["sigref:bafkreieuntljvhuv2agxq64stpojb36gpfhuofp3lulntduj222usfl47y" :rad/rid "bafkreieuntljvhuv2agxq64stpojb36gpfhuofp3lulntduj222usfl47y" 3 :add]
 ["sigref:bafkreieuntljvhuv2agxq64stpojb36gpfhuofp3lulntduj222usfl47y" :rad/head "bafkreih7trvaq7xogqdcuz2e6tilsokib3yldmudlvgsdwm3b3amhktsmu" 3 :add]
 ["sigref:bafkreieuntljvhuv2agxq64stpojb36gpfhuofp3lulntduj222usfl47y" :rad/by "did:web:etzhayyim.com:actor:hoshimori" 3 :add]
+["bafkreieuntljvhuv2agxq64stpojb36gpfhuofp3lulntduj222usfl47y" :rad/aozora-pds "https://pds.aozora.app" 4 :add]
+["bafkreieuntljvhuv2agxq64stpojb36gpfhuofp3lulntduj222usfl47y" :rad/did-key "did:key:z6Mkw3Fxm79kuZ7TMEw9vToiBvQpemHtBT8Rteo1vqe115cv" 4 :add]

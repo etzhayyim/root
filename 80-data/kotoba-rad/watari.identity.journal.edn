@@ -23,3 +23,5 @@
 ["sigref:bafkreigffqiy4i3cs2hwrzojayn7jlhzdiip5l4nc5esj7puwgh27bsa6i" :rad/rid "bafkreigffqiy4i3cs2hwrzojayn7jlhzdiip5l4nc5esj7puwgh27bsa6i" 4 :add]
 ["sigref:bafkreigffqiy4i3cs2hwrzojayn7jlhzdiip5l4nc5esj7puwgh27bsa6i" :rad/head "bafkreif2zi5pheenqhc3hpxygcm26op4cidguzsqswvaxmw77u4txww5hi" 4 :add]
 ["sigref:bafkreigffqiy4i3cs2hwrzojayn7jlhzdiip5l4nc5esj7puwgh27bsa6i" :rad/by "did:web:etzhayyim.com:actor:watari" 4 :add]
+["bafkreigffqiy4i3cs2hwrzojayn7jlhzdiip5l4nc5esj7puwgh27bsa6i" :rad/aozora-pds "https://pds.aozora.app" 5 :add]
+["bafkreigffqiy4i3cs2hwrzojayn7jlhzdiip5l4nc5esj7puwgh27bsa6i" :rad/did-key "did:key:z6MkvVYFvAcbSmH1N53P8QSpphPFSAQ4uu1dEAVkQQcMb99h" 5 :add]

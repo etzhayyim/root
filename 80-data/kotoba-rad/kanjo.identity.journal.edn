@@ -29,3 +29,5 @@
 ["sigref:bafkreihu4shisfudbmaikhrvib6p2rj5g43a2sacj3hj32hwt6qifihdgq" :rad/rid "bafkreihu4shisfudbmaikhrvib6p2rj5g43a2sacj3hj32hwt6qifihdgq" 4 :add]
 ["sigref:bafkreihu4shisfudbmaikhrvib6p2rj5g43a2sacj3hj32hwt6qifihdgq" :rad/head "bafkreifwpd4kr4aqlktw5wtnly62y5ohqhewln22n4woy2qeedvkxbhtsa" 4 :add]
 ["sigref:bafkreihu4shisfudbmaikhrvib6p2rj5g43a2sacj3hj32hwt6qifihdgq" :rad/by "did:web:etzhayyim.com:actor:kanjo" 4 :add]
+["bafkreihu4shisfudbmaikhrvib6p2rj5g43a2sacj3hj32hwt6qifihdgq" :rad/aozora-pds "https://pds.aozora.app" 5 :add]
+["bafkreihu4shisfudbmaikhrvib6p2rj5g43a2sacj3hj32hwt6qifihdgq" :rad/did-key "did:key:z6MkjLYghUDoVDFyaBibb1yhrfoYBzoLu9vR1QmdcBhtTJeF" 5 :add]

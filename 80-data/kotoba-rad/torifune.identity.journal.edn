@@ -15,3 +15,5 @@
 ["sigref:bafkreifoa44tzzjhckrjrtvrcdcpbufkze2xm7xym4ckqnxkjg25nyvrdy" :rad/rid "bafkreifoa44tzzjhckrjrtvrcdcpbufkze2xm7xym4ckqnxkjg25nyvrdy" 3 :add]
 ["sigref:bafkreifoa44tzzjhckrjrtvrcdcpbufkze2xm7xym4ckqnxkjg25nyvrdy" :rad/head "bafkreialscokijsq3tc3l6t6ihev72xkiyahis2fcvhedwxadoei2qp6im" 3 :add]
 ["sigref:bafkreifoa44tzzjhckrjrtvrcdcpbufkze2xm7xym4ckqnxkjg25nyvrdy" :rad/by "did:web:etzhayyim.com:actor:torifune" 3 :add]
+["bafkreifoa44tzzjhckrjrtvrcdcpbufkze2xm7xym4ckqnxkjg25nyvrdy" :rad/aozora-pds "https://pds.aozora.app" 4 :add]
+["bafkreifoa44tzzjhckrjrtvrcdcpbufkze2xm7xym4ckqnxkjg25nyvrdy" :rad/did-key "did:key:z6MkjqNETEG8SKCQhCkdYbJLLXYLNaUfJa9SCN5RGapwbB3g" 4 :add]

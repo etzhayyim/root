@@ -15,3 +15,5 @@
 ["sigref:bafkreigrryop5ludu7n4a5xwqfgtfwvvrnqz7mxbnkkgp772e2lmyx76my" :rad/rid "bafkreigrryop5ludu7n4a5xwqfgtfwvvrnqz7mxbnkkgp772e2lmyx76my" 3 :add]
 ["sigref:bafkreigrryop5ludu7n4a5xwqfgtfwvvrnqz7mxbnkkgp772e2lmyx76my" :rad/head "bafkreidxym2o7ox72xqrjrr2it2huhgfueyp7tq6xvgf7kouubmjvziraq" 3 :add]
 ["sigref:bafkreigrryop5ludu7n4a5xwqfgtfwvvrnqz7mxbnkkgp772e2lmyx76my" :rad/by "did:web:etzhayyim.com:actor:oil-coverage" 3 :add]
+["bafkreigrryop5ludu7n4a5xwqfgtfwvvrnqz7mxbnkkgp772e2lmyx76my" :rad/aozora-pds "https://pds.aozora.app" 4 :add]
+["bafkreigrryop5ludu7n4a5xwqfgtfwvvrnqz7mxbnkkgp772e2lmyx76my" :rad/did-key "did:key:z6MkmgjFd5zU3ZqEhAmEhKP17Uk4NiMFrmBhKw6zqBJ9v63q" 4 :add]

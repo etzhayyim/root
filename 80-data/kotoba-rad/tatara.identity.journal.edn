@@ -15,3 +15,5 @@
 ["sigref:bafkreiehbxgawrx2ntjivlxgfz7l7qthjh4hybwadw3arwyzexbu7ftbqm" :rad/rid "bafkreiehbxgawrx2ntjivlxgfz7l7qthjh4hybwadw3arwyzexbu7ftbqm" 3 :add]
 ["sigref:bafkreiehbxgawrx2ntjivlxgfz7l7qthjh4hybwadw3arwyzexbu7ftbqm" :rad/head "bafkreibggxvsstbbfu7s2hu4ovtalqoejpk5hxq7xa6ufpilo5ppqppgde" 3 :add]
 ["sigref:bafkreiehbxgawrx2ntjivlxgfz7l7qthjh4hybwadw3arwyzexbu7ftbqm" :rad/by "did:web:etzhayyim.com:actor:tatara" 3 :add]
+["bafkreiehbxgawrx2ntjivlxgfz7l7qthjh4hybwadw3arwyzexbu7ftbqm" :rad/aozora-pds "https://pds.aozora.app" 4 :add]
+["bafkreiehbxgawrx2ntjivlxgfz7l7qthjh4hybwadw3arwyzexbu7ftbqm" :rad/did-key "did:key:z6Mkjo7n62ejEtcerXFLX2manzB8iewbrsd8fXQf9Z84XYVY" 4 :add]

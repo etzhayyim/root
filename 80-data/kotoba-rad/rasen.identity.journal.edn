@@ -29,3 +29,5 @@
 ["sigref:bafkreic3wlibpsbmtjoppsvfj4r53h734pugegd2762i4fgtfq56d7wkny" :rad/rid "bafkreic3wlibpsbmtjoppsvfj4r53h734pugegd2762i4fgtfq56d7wkny" 4 :add]
 ["sigref:bafkreic3wlibpsbmtjoppsvfj4r53h734pugegd2762i4fgtfq56d7wkny" :rad/head "bafkreih4qdm5as3lks5sjv5vqxi42xk2r7d2v7tqy7g256axcnwsjonuk4" 4 :add]
 ["sigref:bafkreic3wlibpsbmtjoppsvfj4r53h734pugegd2762i4fgtfq56d7wkny" :rad/by "did:web:etzhayyim.com:actor:rasen" 4 :add]
+["bafkreic3wlibpsbmtjoppsvfj4r53h734pugegd2762i4fgtfq56d7wkny" :rad/aozora-pds "https://pds.aozora.app" 5 :add]
+["bafkreic3wlibpsbmtjoppsvfj4r53h734pugegd2762i4fgtfq56d7wkny" :rad/did-key "did:key:z6Mkfjsz7cbzfRmqvXe8WC8NgRj2KneUrbFuEdmnmu2P5Fty" 5 :add]
