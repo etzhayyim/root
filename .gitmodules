@@ -34,3 +34,6 @@
 	path = 90-docs/baien/datasets
 	url = ./90-docs/baien/datasets
 	ignore = dirty
+	# `update = none`: west/git submodule update --init がこの local-only dataset を
+	# clone しようとして失敗するのを防ぐ(URL は自己参照で clone 不能。取得は datalad clone)。
+	update = none
