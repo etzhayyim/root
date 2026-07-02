@@ -1,10 +1,10 @@
 {
-  "run" : 1782974388298,
-  "generatedAt" : "2026-07-02T06:39:48.298Z",
+  "run" : 1782985250900,
+  "generatedAt" : "2026-07-02T09:40:50.900Z",
   "summary" : {
-    "cells" : 158,
+    "cells" : 159,
     "alive" : 1,
-    "dormant" : 141,
+    "dormant" : 142,
     "stub" : 16
   },
   "nodes" : [ {
@@ -613,7 +613,7 @@
     "inDeg" : 0,
     "atproto" : 25,
     "port" : 1.0,
-    "heartbeatDays" : 1,
+    "heartbeatDays" : 2,
     "status" : "r0",
     "id" : "iriai",
     "class" : "dormant",
@@ -643,7 +643,7 @@
     "inDeg" : 0,
     "atproto" : 0,
     "port" : 1.0,
-    "heartbeatDays" : 8,
+    "heartbeatDays" : 0,
     "status" : "r0-design-only",
     "id" : "itonami",
     "class" : "dormant",
@@ -668,12 +668,27 @@
     "clj" : 25,
     "actor" : 2
   }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 1.0,
+    "heartbeatDays" : 4,
+    "status" : "r0-design-only",
+    "id" : "jinushi",
+    "class" : "dormant",
+    "score" : 20,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 20,
+    "actor" : 0
+  }, {
     "bsky" : true,
     "reflex" : "absent",
     "inDeg" : 0,
     "atproto" : 25,
     "port" : 1.0,
-    "heartbeatDays" : 1,
+    "heartbeatDays" : 2,
     "status" : "r0",
     "id" : "junkan",
     "class" : "dormant",
@@ -1093,7 +1108,7 @@
     "inDeg" : 0,
     "atproto" : 0,
     "port" : 1.0,
-    "heartbeatDays" : 1,
+    "heartbeatDays" : 2,
     "status" : "r0",
     "id" : "kyoninka",
     "class" : "dormant",
@@ -1288,7 +1303,7 @@
     "inDeg" : 0,
     "atproto" : 25,
     "port" : 1.0,
-    "heartbeatDays" : 1,
+    "heartbeatDays" : 2,
     "status" : "unknown",
     "id" : "monosashi",
     "class" : "alive",
@@ -1869,7 +1884,7 @@
     "actor" : 0
   }, {
     "bsky" : false,
-    "reflex" : "green",
+    "reflex" : "timeout",
     "inDeg" : 0,
     "atproto" : 0,
     "port" : 1.0,
@@ -1877,10 +1892,10 @@
     "status" : "r2",
     "id" : "tate",
     "class" : "dormant",
-    "score" : 40,
+    "score" : 25,
     "outDeg" : 0,
     "cells" : 0,
-    "clj" : 40,
+    "clj" : 25,
     "actor" : 0
   }, {
     "bsky" : false,
@@ -2109,7 +2124,7 @@
     "actor" : 0
   }, {
     "bsky" : true,
-    "reflex" : "green",
+    "reflex" : "timeout",
     "inDeg" : 0,
     "atproto" : 30,
     "port" : 1.0,
@@ -2117,10 +2132,10 @@
     "status" : "r0-design-only",
     "id" : "tsumugi",
     "class" : "dormant",
-    "score" : 72,
+    "score" : 57,
     "outDeg" : 0,
     "cells" : 1,
-    "clj" : 40,
+    "clj" : 25,
     "actor" : 2
   }, {
     "bsky" : false,
