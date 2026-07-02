@@ -8,48 +8,48 @@
   },
   "store" : "kotoba-datom-log",
   "axes" : {
-    "joy" : 46,
-    "calm" : 44,
-    "stress" : 52,
-    "gratitude" : 60,
-    "focus" : 37
-  },
-  "wellbecoming" : {
-    "direction" : "improving",
-    "net" : 19,
-    "trajectory" : {
-      "joy" : 6,
-      "calm" : 4,
-      "stress" : 1,
-      "gratitude" : 9,
-      "focus" : 1
-    }
-  },
-  "head" : "bafkreicuicwtspaqh4cgiq2t6z2wd7efeup5d3adqv3aszwaivfulduyju",
-  "snapshot" : "joucho.kotoba.edn",
-  "mood" : "grateful",
-  "generatedAt" : "2026-06-23T13:21:19.768811Z",
-  "of" : "ibuki",
-  "beats" : [ {
     "joy" : 40,
     "calm" : 40,
     "stress" : 51,
     "gratitude" : 51,
+    "focus" : 36
+  },
+  "wellbecoming" : {
+    "direction" : "declining",
+    "net" : -7,
+    "trajectory" : {
+      "joy" : 0,
+      "calm" : -3,
+      "stress" : 3,
+      "gratitude" : -1,
+      "focus" : 0
+    }
+  },
+  "head" : "bafkreifdcax5hbkr63n74v7hllmdwqxkq6pomedxsap25bqycsdsm2jww4",
+  "snapshot" : "joucho.kotoba.edn",
+  "mood" : "neutral",
+  "generatedAt" : "2026-07-02T06:54:19.973079Z",
+  "of" : "ibuki",
+  "beats" : [ {
+    "joy" : 40,
+    "calm" : 43,
+    "stress" : 48,
+    "gratitude" : 52,
     "focus" : 36,
     "beat" : 1,
     "mood" : "neutral"
   }, {
     "joy" : 40,
-    "calm" : 40,
-    "stress" : 51,
+    "calm" : 42,
+    "stress" : 49,
     "gratitude" : 51,
     "focus" : 36,
     "beat" : 2,
     "mood" : "neutral"
   }, {
     "joy" : 40,
-    "calm" : 40,
-    "stress" : 51,
+    "calm" : 41,
+    "stress" : 50,
     "gratitude" : 51,
     "focus" : 36,
     "beat" : 3,
@@ -79,20 +79,148 @@
     "beat" : 6,
     "mood" : "neutral"
   }, {
-    "joy" : 46,
-    "calm" : 45,
-    "stress" : 46,
-    "gratitude" : 60,
+    "joy" : 40,
+    "calm" : 40,
+    "stress" : 51,
+    "gratitude" : 51,
     "focus" : 36,
     "beat" : 7,
-    "mood" : "grateful"
+    "mood" : "neutral"
   }, {
-    "joy" : 46,
-    "calm" : 44,
-    "stress" : 52,
-    "gratitude" : 60,
-    "focus" : 37,
+    "joy" : 40,
+    "calm" : 40,
+    "stress" : 51,
+    "gratitude" : 51,
+    "focus" : 36,
     "beat" : 8,
-    "mood" : "grateful"
+    "mood" : "neutral"
+  }, {
+    "joy" : 40,
+    "calm" : 40,
+    "stress" : 51,
+    "gratitude" : 51,
+    "focus" : 36,
+    "beat" : 9,
+    "mood" : "neutral"
+  }, {
+    "joy" : 40,
+    "calm" : 40,
+    "stress" : 51,
+    "gratitude" : 51,
+    "focus" : 36,
+    "beat" : 10,
+    "mood" : "neutral"
+  }, {
+    "joy" : 40,
+    "calm" : 40,
+    "stress" : 51,
+    "gratitude" : 51,
+    "focus" : 36,
+    "beat" : 11,
+    "mood" : "neutral"
+  }, {
+    "joy" : 40,
+    "calm" : 40,
+    "stress" : 51,
+    "gratitude" : 51,
+    "focus" : 36,
+    "beat" : 12,
+    "mood" : "neutral"
+  }, {
+    "joy" : 40,
+    "calm" : 40,
+    "stress" : 53,
+    "gratitude" : 51,
+    "focus" : 37,
+    "beat" : 13,
+    "mood" : "neutral"
+  }, {
+    "joy" : 40,
+    "calm" : 40,
+    "stress" : 52,
+    "gratitude" : 51,
+    "focus" : 36,
+    "beat" : 14,
+    "mood" : "neutral"
+  }, {
+    "joy" : 40,
+    "calm" : 43,
+    "stress" : 49,
+    "gratitude" : 52,
+    "focus" : 36,
+    "beat" : 15,
+    "mood" : "neutral"
+  }, {
+    "joy" : 40,
+    "calm" : 42,
+    "stress" : 50,
+    "gratitude" : 51,
+    "focus" : 36,
+    "beat" : 16,
+    "mood" : "neutral"
+  }, {
+    "joy" : 40,
+    "calm" : 41,
+    "stress" : 51,
+    "gratitude" : 51,
+    "focus" : 36,
+    "beat" : 17,
+    "mood" : "neutral"
+  }, {
+    "joy" : 40,
+    "calm" : 40,
+    "stress" : 51,
+    "gratitude" : 51,
+    "focus" : 36,
+    "beat" : 18,
+    "mood" : "neutral"
+  }, {
+    "joy" : 40,
+    "calm" : 40,
+    "stress" : 53,
+    "gratitude" : 51,
+    "focus" : 37,
+    "beat" : 19,
+    "mood" : "neutral"
+  }, {
+    "joy" : 40,
+    "calm" : 43,
+    "stress" : 50,
+    "gratitude" : 52,
+    "focus" : 37,
+    "beat" : 20,
+    "mood" : "neutral"
+  }, {
+    "joy" : 40,
+    "calm" : 42,
+    "stress" : 51,
+    "gratitude" : 51,
+    "focus" : 36,
+    "beat" : 21,
+    "mood" : "neutral"
+  }, {
+    "joy" : 40,
+    "calm" : 41,
+    "stress" : 51,
+    "gratitude" : 51,
+    "focus" : 36,
+    "beat" : 22,
+    "mood" : "neutral"
+  }, {
+    "joy" : 40,
+    "calm" : 40,
+    "stress" : 51,
+    "gratitude" : 51,
+    "focus" : 36,
+    "beat" : 23,
+    "mood" : "neutral"
+  }, {
+    "joy" : 40,
+    "calm" : 40,
+    "stress" : 51,
+    "gratitude" : 51,
+    "focus" : 36,
+    "beat" : 24,
+    "mood" : "neutral"
   } ]
 }
