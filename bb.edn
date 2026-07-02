@@ -164,6 +164,11 @@
    :task (do (require 'etzhayyim.actor-publish)
              (apply (resolve 'etzhayyim.actor-publish/-add-holding) *command-line-args*))}
 
+  rad:update-did-web
+  {:doc "ADR-2606231200 addendum 2026-07-02 — migrate an EXISTING actor's did:web to did:web:etzhayyim.com:actor:<name> (or an explicit --did-web= override) by appending to its kotoba-rad identity journal (RID-stable, append-only; genesis untouched). Regenerates the staging .well-known/did.json at 20-actors/<name>/. Does NOT run josh-split/gh-repo/aozora. DRY-RUN by default; --apply writes the journal + file; if a member key is in Keychain the sigref is member-signed, else unsigned (no-server-key). Args: <name> [--apply] [--did-web=<value>]"
+   :task (do (require 'etzhayyim.actor-publish)
+             (apply (resolve 'etzhayyim.actor-publish/-update-did-web) *command-line-args*))}
+
   lint:provenance
   {:doc "ADR-2607010001 — validate every RAD :rad/holds-dataset has required fields (:dataset-id :layer :cidv1) and its :rad/cidv1 is recorded in 80-data (ingest-provenance.json / *-manifest.json / ipfs-pins.kotoba.edn). Offline (no IPFS daemon); exits non-zero on any problem. Args: (none)"
    :task (do (require 'etzhayyim.data-provenance)

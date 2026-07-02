@@ -18,3 +18,8 @@
 ["sigref:bafkreifollb2cxta43jugsiwvpjtaqh33crvzq6lvas56g3d4ukxfwknsa" :rad/head "bafkreih7nu6ofgukyv5cz34jugfomgaunqdzd5tacgj33x3qtwkrbim7yi" 3 :add]
 ["sigref:bafkreifollb2cxta43jugsiwvpjtaqh33crvzq6lvas56g3d4ukxfwknsa" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-watatsumi" 3 :add]
 ["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:watatsumi" 2 :add]
+["bafkreifollb2cxta43jugsiwvpjtaqh33crvzq6lvas56g3d4ukxfwknsa" :rad/did-web "did:web:etzhayyim.com:actor:watatsumi" 4 :add]
+["sigref:bafkreifollb2cxta43jugsiwvpjtaqh33crvzq6lvas56g3d4ukxfwknsa" :rad/type :sigref 4 :add]
+["sigref:bafkreifollb2cxta43jugsiwvpjtaqh33crvzq6lvas56g3d4ukxfwknsa" :rad/rid "bafkreifollb2cxta43jugsiwvpjtaqh33crvzq6lvas56g3d4ukxfwknsa" 4 :add]
+["sigref:bafkreifollb2cxta43jugsiwvpjtaqh33crvzq6lvas56g3d4ukxfwknsa" :rad/head "bafkreif2xzurjy4ownr4bjr4v5tz5qb3a5y2vfrszww7gb3wq3fjeufixu" 4 :add]
+["sigref:bafkreifollb2cxta43jugsiwvpjtaqh33crvzq6lvas56g3d4ukxfwknsa" :rad/by "did:web:etzhayyim.com:actor:watatsumi" 4 :add]

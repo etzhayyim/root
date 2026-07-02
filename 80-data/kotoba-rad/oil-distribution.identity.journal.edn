@@ -10,3 +10,8 @@
 ["sigref:bafkreierv3uivdlz2hemryj7hukzqks6e4xgivqsuj5mk5eqyipycsxyi4" :rad/head "bafkreicayvfaupdhugyjtqk5a7dpvjmbu76zafqvcy3nblhnwj7blgwvim" 1 :add]
 ["sigref:bafkreierv3uivdlz2hemryj7hukzqks6e4xgivqsuj5mk5eqyipycsxyi4" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-oil-distribution" 1 :add]
 ["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:oil-distribution" 2 :add]
+["bafkreierv3uivdlz2hemryj7hukzqks6e4xgivqsuj5mk5eqyipycsxyi4" :rad/did-web "did:web:etzhayyim.com:actor:oil-distribution" 3 :add]
+["sigref:bafkreierv3uivdlz2hemryj7hukzqks6e4xgivqsuj5mk5eqyipycsxyi4" :rad/type :sigref 3 :add]
+["sigref:bafkreierv3uivdlz2hemryj7hukzqks6e4xgivqsuj5mk5eqyipycsxyi4" :rad/rid "bafkreierv3uivdlz2hemryj7hukzqks6e4xgivqsuj5mk5eqyipycsxyi4" 3 :add]
+["sigref:bafkreierv3uivdlz2hemryj7hukzqks6e4xgivqsuj5mk5eqyipycsxyi4" :rad/head "bafkreigpgenlghrae6iyjo6ypkmjniogg7mcy5k5kewut7jfeoma3nc6hq" 3 :add]
+["sigref:bafkreierv3uivdlz2hemryj7hukzqks6e4xgivqsuj5mk5eqyipycsxyi4" :rad/by "did:web:etzhayyim.com:actor:oil-distribution" 3 :add]

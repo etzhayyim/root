@@ -9,6 +9,10 @@
    "bafyreiplaceholder0000000000000000000000000000000000000000000000",
    :datasets (),
    :declared? false},
+  "tashikame"
+  {:rid "bafkreigddy2murdg3nt4kl3yqmopvongymq5zub47wcwdvvxudngwwlsou",
+   :datasets (),
+   :declared? false},
   "tenso"
   {:rid "bafkreiavzdi5jne5b6tagx2vqa5oncqar7ck3u2xoam3w2cza26d57l4va",
    :datasets (),
@@ -646,6 +650,10 @@
   {:rid "bafkreicdw2u5cylgrwo6ra67hcg6sdmjqlb3py7s4fweq3icbohf7fy76e",
    :datasets (),
    :declared? false},
+  "kouhou"
+  {:rid "bafkreiam5fx4bctavqq7r23eqhqunh55yt4udf5mw2nayzt3fgluhzzlyi",
+   :datasets (),
+   :declared? false},
   "toritsugi-nzl-driving-licence"
   {:rid
    "bafyreiplaceholder0000000000000000000000000000000000000000000000",
@@ -844,6 +852,10 @@
   "toritsugi-mx-electoral"
   {:rid
    "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "junbi"
+  {:rid "bafkreigxdoen2f3iibo6mvjtbv3draqqpqhuhid57zebt3vlkjdcx4436q",
    :datasets (),
    :declared? false},
   "futawa"

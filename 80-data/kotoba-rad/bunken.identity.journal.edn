@@ -10,3 +10,8 @@
 ["sigref:bafkreia4cfp5jl6wnsk2axyalxlalnivhrfeavcfhw5dcyhpbzxwcmhgbe" :rad/head "bafkreieijbkmadvguuxrxg5fkoelns5aaalsf6llgg6xgv5pterbmtwj5q" 1 :add]
 ["sigref:bafkreia4cfp5jl6wnsk2axyalxlalnivhrfeavcfhw5dcyhpbzxwcmhgbe" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-bunken" 1 :add]
 ["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:bunken" 2 :add]
+["bafkreia4cfp5jl6wnsk2axyalxlalnivhrfeavcfhw5dcyhpbzxwcmhgbe" :rad/did-web "did:web:etzhayyim.com:actor:bunken" 3 :add]
+["sigref:bafkreia4cfp5jl6wnsk2axyalxlalnivhrfeavcfhw5dcyhpbzxwcmhgbe" :rad/type :sigref 3 :add]
+["sigref:bafkreia4cfp5jl6wnsk2axyalxlalnivhrfeavcfhw5dcyhpbzxwcmhgbe" :rad/rid "bafkreia4cfp5jl6wnsk2axyalxlalnivhrfeavcfhw5dcyhpbzxwcmhgbe" 3 :add]
+["sigref:bafkreia4cfp5jl6wnsk2axyalxlalnivhrfeavcfhw5dcyhpbzxwcmhgbe" :rad/head "bafkreih7ipq5sw2sepxzj4gal6nqrhcifr5eqt25b5kqg5stxmshhg5b6i" 3 :add]
+["sigref:bafkreia4cfp5jl6wnsk2axyalxlalnivhrfeavcfhw5dcyhpbzxwcmhgbe" :rad/by "did:web:etzhayyim.com:actor:bunken" 3 :add]

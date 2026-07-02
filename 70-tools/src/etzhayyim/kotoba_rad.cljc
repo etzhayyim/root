@@ -5,10 +5,15 @@
 ;; `etzhayyim.kotoba.{cid,datom,log}` — rather than running a separate
 ;; radicle-node. The actor's three identities are cross-linked:
 ;;
-;;   B-web    did:web:etzhayyim.github.io:com-etzhayyim-<name>  (static did.json,
-;;            GitHub Pages — no custom domain, no dynamic generation; ADR addendum
-;;            2026-06-24. The AT handle <name>.etzhayyim.com is a SEPARATE id
-;;            resolved by a DNS TXT _atproto record, needing no web host.)
+;;   B-web    did:web:etzhayyim.com:actor:<name>  (served by the etzhayyim.com
+;;            CF Worker; ADR-2606231200 addendum 2026-07-02 supersedes the
+;;            2026-06-24 github.io-only addendum — GitHub Pages was never
+;;            enabled for 171/175 actors in practice. Already-published actors
+;;            keep their original did:web:etzhayyim.github.io:... value in
+;;            genesis and migrate via update-did-web!/latest-did-web below, an
+;;            RID-preserving append, not a genesis rewrite. The AT handle
+;;            <name>.etzhayyim.com is a SEPARATE id resolved by a DNS TXT
+;;            _atproto record, needing no web host.)
 ;;   B-rad    rad:<RID>  +  did:key:z<hex>          (sovereign, this file)
 ;;   A-repo   github.com/etzhayyim/com-etzhayyim-<name>
 ;;
@@ -163,7 +168,7 @@
     {:rid rid* :rad-uri (str "rad:" rid*) :head head
      :datoms-appended (count all) :signed? (boolean sig)}))
 
-(defn- genesis-rid-in
+(defn genesis-rid-in
   "The RID (genesis identity entity) recorded in an existing journal log, or nil."
   [existing]
   (some (fn [dm] (when (and (= (d/d-a dm) :rad/type) (= (d/d-v dm) :identity))
@@ -258,22 +263,110 @@
     {:rid rid* :dataset-id (:dataset-id holding) :head head
      :added? (boolean (seq hold-dms)) :signed? (boolean sig)}))
 
+(defn- did-web-datoms-for [existing rid*]
+  (filter (fn [dm] (and (= (d/d-e dm) rid*) (= (d/d-a dm) :rad/did-web))) existing))
+
+(defn first-did-web
+  "The ORIGINAL (genesis-tx, immutable) `:rad/did-web` value on `rid*` within
+   `existing` — the value genesis was minted with, forever, regardless of any
+   later `update-did-web!` appends. This is what genesis's RID was computed
+   over, so it never changes for a given RID."
+  [existing rid*]
+  (->> (did-web-datoms-for existing rid*) (sort-by d/d-tx) first d/d-v))
+
+(defn latest-did-web
+  "The most-recently-appended `:rad/did-web` datom value on `rid*` within
+   `existing` (the tx-ordered journal), i.e. the CURRENT did:web for that
+   identity — genesis's original value if `update-did-web!` was never called,
+   else the latest update. Genesis itself is never touched (see
+   `update-did-web!`), so this is the only place \"current DID\" is computed."
+  [existing rid*]
+  (->> (did-web-datoms-for existing rid*) (sort-by d/d-tx) last d/d-v))
+
+(defn identity-status
+  "One-read summary of an actor's published identity, or nil if the actor has
+   no journal / no genesis yet. `:genesis-did-web` is the ORIGINAL, immutable,
+   RID-determining value; `:current-did-web` is the latest (possibly
+   `update-did-web!`-migrated) value — identical to `:genesis-did-web` if no
+   update has ever been appended. Callers (e.g. actor_publish.cljc's
+   step-did-web) use this to decide new-actor vs. existing-actor handling
+   WITHOUT ever recomputing genesis for an already-published actor (that
+   would mint a new RID)."
+  [actor]
+  (let [existing (log/read-log (journal-path actor))
+        rid* (genesis-rid-in existing)]
+    (when rid*
+      {:rid rid*
+       :genesis-did-web (first-did-web existing rid*)
+       :current-did-web (latest-did-web existing rid*)})))
+
+(defn update-did-web!
+  "Record a NEW did:web value for an EXISTING actor identity by APPENDING to
+   the journal — the genesis block is left untouched, so the **RID is stable**
+   (same retrofit path as add-delegate!/add-holding!). This is the RID-safe
+   way to migrate an already-published actor to a new DID hosting scheme
+   (ADR-2606231200 addendum 2026-07-02): genesis's original
+   `:rad/did-web` stays as a historical record; `latest-did-web` resolves the
+   CURRENT value from the append log.
+
+   Idempotent by value: if `did-web` already equals the latest recorded value,
+   adds no datom (only a fresh sigref re-attesting the head). `sign-fn`
+   (optional) is the no-server-key member signing seam (fn [head-cid] ->
+   {:by did-key :sig hex}); absent => unsigned + warn.
+   Returns {:rid :did-web :head :added? :signed?}."
+  [actor did-web {:keys [sign-fn]}]
+  (let [path     (journal-path actor)
+        existing (log/read-log path)
+        rid*     (genesis-rid-in existing)
+        _        (when-not rid*
+                   (throw (ex-info (str "no genesis identity in journal for " actor
+                                        " — run actor:publish first")
+                                   {:actor actor :path path})))
+        current  (latest-did-web existing rid*)
+        tx       (inc (log/max-tx existing))
+        dw-dms   (when (not= current did-web)
+                   [(d/datom rid* :rad/did-web did-web tx)])
+        ;; head AFTER the did-web datom lands, so the sigref attests it
+        head     (log/head-cid (into (vec existing) (vec dw-dms)))
+        {:keys [by sig]} (when sign-fn (sign-fn head))
+        _        (when-not sign-fn
+                   (binding [*out* *err*]
+                     (println "WARN kotoba-rad update-did-web!: no :sign-fn —"
+                              "sigref attesting the new did-web is UNSIGNED")))
+        sig-dms  (sigref-datom rid* head (or by did-web) sig tx)
+        all      (into (vec dw-dms) sig-dms)]
+    (log/append! path all)
+    {:rid rid* :did-web did-web :head head
+     :added? (boolean (seq dw-dms)) :signed? (boolean sig)}))
+
 ;; ── did:web did.json (github.io path form, static — cross-linked to rad+repo) ─
 ;; ADR-2606231200 addendum (2026-06-24): the actor did.json is a STATIC file at
 ;; the repo's Pages root (/.well-known/did.json), served by GitHub Pages over
 ;; github.io's own TLS. No custom domain, no CF Worker, no dynamic generation —
 ;; key rotation is a commit/PR, which is the no-server-key + self-evolution path.
+;; SUPERSEDED for the `id`/service default by the later addendum migrating to
+;; did:web:etzhayyim.com:actor:<name> (RID-preserving; see update-did-web!
+;; above) — existing actors are migrated via update-did-web!/latest-did-web,
+;; not by rewriting genesis.
 
 (defn did-web-doc
-  "W3C DID Document for did:web:etzhayyim.github.io:com-etzhayyim-<name>,
-   cross-linking the sovereign rad: identity, the AT handle, and the GitHub
-   mirror in alsoKnownAs. `pubkey-hex` (optional) adds an Ed25519
-   verificationMethod. `data-graph` (optional, {:root :car :head}) adds a
-   KotobaDataGraph service so resolving the DID locates the CID-queryable Pages
-   data tier (ADR-2606242400). Served STATICALLY from the repo's Pages root."
-  [{:keys [name did-web genesis pubkey-hex data-graph]}]
-  (let [did (or did-web (str "did:web:etzhayyim.github.io:com-etzhayyim-" name))
+  "W3C DID Document for did:web:etzhayyim.com:actor:<name> (or whatever
+   `did-web` the caller passes — see update-did-web!/latest-did-web for the
+   RID-preserving migration path), cross-linking the sovereign rad: identity,
+   the AT handle, and the GitHub mirror in alsoKnownAs. Pass either `genesis`
+   (a full genesis map, for a brand-new actor) or `rid-str` (a raw RID
+   string, for an already-published actor whose genesis is never
+   recomputed) to add the `rad:<RID>` alsoKnownAs entry. `legacy-did-web`
+   (optional) adds a prior did:web value (e.g. the original
+   did:web:etzhayyim.github.io:... form) into alsoKnownAs, so resolvers still
+   recognize an actor's earlier identity after a scheme migration.
+   `pubkey-hex` (optional) adds an Ed25519 verificationMethod. `data-graph`
+   (optional, {:root :car :head}) adds a KotobaDataGraph service so resolving
+   the DID locates the CID-queryable Pages data tier (ADR-2606242400)."
+  [{:keys [name did-web genesis rid-str legacy-did-web pubkey-hex data-graph]}]
+  (let [did (or did-web (str "did:web:etzhayyim.com:actor:" name))
         dk  (some-> pubkey-hex did-key)
+        rad-str (cond genesis (rad-uri genesis) rid-str (str "rad:" rid-str) :else nil)
         services (cond-> [{"id" (str did "#atproto_pds")
                            "type" "AtprotoPersonalDataServer"
                            "serviceEndpoint" "https://pds.etzhayyim.com"}
@@ -291,7 +384,9 @@
              "id" did
              "alsoKnownAs" (cond-> [(str "at://" name ".etzhayyim.com")
                                     (str "https://github.com/etzhayyim/com-etzhayyim-" name)]
-                             genesis (conj (rad-uri genesis)))
+                             rad-str (conj rad-str)
+                             (and legacy-did-web (not= legacy-did-web did))
+                             (conj legacy-did-web))
              "service" services}
       dk (assoc "verificationMethod"
                 [{"id" (str did "#key-0")

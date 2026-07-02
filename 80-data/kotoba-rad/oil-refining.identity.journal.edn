@@ -10,3 +10,8 @@
 ["sigref:bafkreifp2cp3lmpqk2rcdiw32uft7eyyeyvybbf2xy6hbipw72rlbqbfje" :rad/head "bafkreifa53rr5pa4i7fjdnh4reuoxdjemuzhiyjaaqyfzqijy2hvt72po4" 1 :add]
 ["sigref:bafkreifp2cp3lmpqk2rcdiw32uft7eyyeyvybbf2xy6hbipw72rlbqbfje" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-oil-refining" 1 :add]
 ["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:oil-refining" 2 :add]
+["bafkreifp2cp3lmpqk2rcdiw32uft7eyyeyvybbf2xy6hbipw72rlbqbfje" :rad/did-web "did:web:etzhayyim.com:actor:oil-refining" 3 :add]
+["sigref:bafkreifp2cp3lmpqk2rcdiw32uft7eyyeyvybbf2xy6hbipw72rlbqbfje" :rad/type :sigref 3 :add]
+["sigref:bafkreifp2cp3lmpqk2rcdiw32uft7eyyeyvybbf2xy6hbipw72rlbqbfje" :rad/rid "bafkreifp2cp3lmpqk2rcdiw32uft7eyyeyvybbf2xy6hbipw72rlbqbfje" 3 :add]
+["sigref:bafkreifp2cp3lmpqk2rcdiw32uft7eyyeyvybbf2xy6hbipw72rlbqbfje" :rad/head "bafkreiblqyrxvxakfoqzv2ar43uag73efpg4fc2typzlo3y7fy75nnvhii" 3 :add]
+["sigref:bafkreifp2cp3lmpqk2rcdiw32uft7eyyeyvybbf2xy6hbipw72rlbqbfje" :rad/by "did:web:etzhayyim.com:actor:oil-refining" 3 :add]

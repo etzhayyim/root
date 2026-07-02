@@ -10,3 +10,8 @@
 ["sigref:bafkreialpqvby6y7butydmas4dejlunlqhcarayefzlobnfplfc66wdksi" :rad/head "bafkreidoxnp3jbby4nnw6hb6d63wgv46dhco6sv7z53whz637ruwsr63ve" 1 :add]
 ["sigref:bafkreialpqvby6y7butydmas4dejlunlqhcarayefzlobnfplfc66wdksi" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-oil-shipping" 1 :add]
 ["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:oil-shipping" 2 :add]
+["bafkreialpqvby6y7butydmas4dejlunlqhcarayefzlobnfplfc66wdksi" :rad/did-web "did:web:etzhayyim.com:actor:oil-shipping" 3 :add]
+["sigref:bafkreialpqvby6y7butydmas4dejlunlqhcarayefzlobnfplfc66wdksi" :rad/type :sigref 3 :add]
+["sigref:bafkreialpqvby6y7butydmas4dejlunlqhcarayefzlobnfplfc66wdksi" :rad/rid "bafkreialpqvby6y7butydmas4dejlunlqhcarayefzlobnfplfc66wdksi" 3 :add]
+["sigref:bafkreialpqvby6y7butydmas4dejlunlqhcarayefzlobnfplfc66wdksi" :rad/head "bafkreicexkaievwpar5jvk4xqwruj3jcq7p23hoiws5i2yh3bdg5bjqjpe" 3 :add]
+["sigref:bafkreialpqvby6y7butydmas4dejlunlqhcarayefzlobnfplfc66wdksi" :rad/by "did:web:etzhayyim.com:actor:oil-shipping" 3 :add]

@@ -1,7 +1,8 @@
 ;; etzhayyim.test-actor-publish — actor-publish profile→genesis pure invariants.
 ;; Run via the aggregate: bb test:helpers
 ;; Covers the pure derivation (gh/git/fs steps deferred): repo-name · prefix ·
-;; manifest->genesis (did:web github.io path form + collection-NSID derivation).
+;; manifest->genesis (did:web etzhayyim.com actor PATH form, ADR-2606231200
+;; addendum 2026-07-02 + collection-NSID derivation).
 (ns etzhayyim.test-actor-publish
   (:require [clojure.test :refer [deftest is testing run-tests]]
             [clojure.string :as str]
@@ -11,10 +12,18 @@
   (is (= "com-etzhayyim-cargo" (ap/repo-name "cargo")))
   (is (= "20-actors/kaname" (ap/prefix "kaname"))))
 
+(deftest default-did-web-scheme
+  (testing "brand-new actors default to the etzhayyim.com actor PATH form (ADR-2606231200 addendum 2026-07-02)"
+    (is (= "did:web:etzhayyim.com:actor:cargo" (ap/default-did-web "cargo")))))
+
 (deftest genesis-did-web-and-repo
   (let [g (ap/manifest->genesis "cargo" {})]
-    (testing "did:web is normalised to the github.io PATH form (ADR-2606231200)"
-      (is (= "did:web:etzhayyim.github.io:com-etzhayyim-cargo" (:rad/did-web g))))
+    (testing "a brand-new actor's genesis did:web defaults to default-did-web"
+      (is (= (ap/default-did-web "cargo") (:rad/did-web g))))
+    (testing "an explicit :did-web override is honored (RID-preserving migration path)"
+      (is (= "did:web:etzhayyim.github.io:com-etzhayyim-cargo"
+             (:rad/did-web (ap/manifest->genesis "cargo" {}
+                            :did-web "did:web:etzhayyim.github.io:com-etzhayyim-cargo")))))
     (is (= "cargo" (:rad/name g)))
     (is (= "github.com/etzhayyim/com-etzhayyim-cargo" (:rad/repo g)))
     (is (= "https://pds.etzhayyim.com" (get-in g [:rad/aozora :pds])))

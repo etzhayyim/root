@@ -10,3 +10,8 @@
 ["sigref:bafkreigrryop5ludu7n4a5xwqfgtfwvvrnqz7mxbnkkgp772e2lmyx76my" :rad/head "bafkreicqncpoab7nmn2iv5ah4kuegqum2vorsy44lnkdgdvyyhw5cruzba" 1 :add]
 ["sigref:bafkreigrryop5ludu7n4a5xwqfgtfwvvrnqz7mxbnkkgp772e2lmyx76my" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-oil-coverage" 1 :add]
 ["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:oil-coverage" 2 :add]
+["bafkreigrryop5ludu7n4a5xwqfgtfwvvrnqz7mxbnkkgp772e2lmyx76my" :rad/did-web "did:web:etzhayyim.com:actor:oil-coverage" 3 :add]
+["sigref:bafkreigrryop5ludu7n4a5xwqfgtfwvvrnqz7mxbnkkgp772e2lmyx76my" :rad/type :sigref 3 :add]
+["sigref:bafkreigrryop5ludu7n4a5xwqfgtfwvvrnqz7mxbnkkgp772e2lmyx76my" :rad/rid "bafkreigrryop5ludu7n4a5xwqfgtfwvvrnqz7mxbnkkgp772e2lmyx76my" 3 :add]
+["sigref:bafkreigrryop5ludu7n4a5xwqfgtfwvvrnqz7mxbnkkgp772e2lmyx76my" :rad/head "bafkreidxym2o7ox72xqrjrr2it2huhgfueyp7tq6xvgf7kouubmjvziraq" 3 :add]
+["sigref:bafkreigrryop5ludu7n4a5xwqfgtfwvvrnqz7mxbnkkgp772e2lmyx76my" :rad/by "did:web:etzhayyim.com:actor:oil-coverage" 3 :add]

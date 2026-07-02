@@ -10,3 +10,8 @@
 ["sigref:bafkreihqpvqbti73hxhsxgkhoj46vits7uqhljwv7vxzphyrpnpuennrsq" :rad/head "bafkreidcq5rezlbqd6qrbserocr5img45cqzaoeucyijdqkwoq3oba3uhm" 1 :add]
 ["sigref:bafkreihqpvqbti73hxhsxgkhoj46vits7uqhljwv7vxzphyrpnpuennrsq" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-marine-insurance" 1 :add]
 ["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:marine-insurance" 2 :add]
+["bafkreihqpvqbti73hxhsxgkhoj46vits7uqhljwv7vxzphyrpnpuennrsq" :rad/did-web "did:web:etzhayyim.com:actor:marine-insurance" 3 :add]
+["sigref:bafkreihqpvqbti73hxhsxgkhoj46vits7uqhljwv7vxzphyrpnpuennrsq" :rad/type :sigref 3 :add]
+["sigref:bafkreihqpvqbti73hxhsxgkhoj46vits7uqhljwv7vxzphyrpnpuennrsq" :rad/rid "bafkreihqpvqbti73hxhsxgkhoj46vits7uqhljwv7vxzphyrpnpuennrsq" 3 :add]
+["sigref:bafkreihqpvqbti73hxhsxgkhoj46vits7uqhljwv7vxzphyrpnpuennrsq" :rad/head "bafkreib5zjf62xyq2swqgtrq7sc3vkfcoujm5f4sh7eaaxus7yv4obc5ii" 3 :add]
+["sigref:bafkreihqpvqbti73hxhsxgkhoj46vits7uqhljwv7vxzphyrpnpuennrsq" :rad/by "did:web:etzhayyim.com:actor:marine-insurance" 3 :add]

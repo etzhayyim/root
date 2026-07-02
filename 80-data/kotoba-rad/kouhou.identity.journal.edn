@@ -9,3 +9,8 @@
 ["sigref:bafkreiam5fx4bctavqq7r23eqhqunh55yt4udf5mw2nayzt3fgluhzzlyi" :rad/rid "bafkreiam5fx4bctavqq7r23eqhqunh55yt4udf5mw2nayzt3fgluhzzlyi" 1 :add]
 ["sigref:bafkreiam5fx4bctavqq7r23eqhqunh55yt4udf5mw2nayzt3fgluhzzlyi" :rad/head "bafkreienssyo7wx4264nbpfqs6oe7etxcswev2kqsnugy6gariiepa2rca" 1 :add]
 ["sigref:bafkreiam5fx4bctavqq7r23eqhqunh55yt4udf5mw2nayzt3fgluhzzlyi" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-kouhou" 1 :add]
+["bafkreiam5fx4bctavqq7r23eqhqunh55yt4udf5mw2nayzt3fgluhzzlyi" :rad/did-web "did:web:etzhayyim.com:actor:kouhou" 2 :add]
+["sigref:bafkreiam5fx4bctavqq7r23eqhqunh55yt4udf5mw2nayzt3fgluhzzlyi" :rad/type :sigref 2 :add]
+["sigref:bafkreiam5fx4bctavqq7r23eqhqunh55yt4udf5mw2nayzt3fgluhzzlyi" :rad/rid "bafkreiam5fx4bctavqq7r23eqhqunh55yt4udf5mw2nayzt3fgluhzzlyi" 2 :add]
+["sigref:bafkreiam5fx4bctavqq7r23eqhqunh55yt4udf5mw2nayzt3fgluhzzlyi" :rad/head "bafkreiggbtxkvt7at7i4vc5vegz7eq36hjmm3oq4nmm5dfaelvzvqrq3ra" 2 :add]
+["sigref:bafkreiam5fx4bctavqq7r23eqhqunh55yt4udf5mw2nayzt3fgluhzzlyi" :rad/by "did:web:etzhayyim.com:actor:kouhou" 2 :add]

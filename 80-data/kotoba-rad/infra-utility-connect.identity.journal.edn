@@ -10,3 +10,8 @@
 ["sigref:bafkreiauroeccyhyvq4ss7jtq3ootstygb5rvyg7iqnkrqt2vtsh3mfwoi" :rad/head "bafkreibhpkapbphpmnplpk3tpvbiqzctol4xoji5tcwky7isyvz7mzz6mm" 1 :add]
 ["sigref:bafkreiauroeccyhyvq4ss7jtq3ootstygb5rvyg7iqnkrqt2vtsh3mfwoi" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-infra-utility-connect" 1 :add]
 ["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:infra-utility-connect" 2 :add]
+["bafkreiauroeccyhyvq4ss7jtq3ootstygb5rvyg7iqnkrqt2vtsh3mfwoi" :rad/did-web "did:web:etzhayyim.com:actor:infra-utility-connect" 3 :add]
+["sigref:bafkreiauroeccyhyvq4ss7jtq3ootstygb5rvyg7iqnkrqt2vtsh3mfwoi" :rad/type :sigref 3 :add]
+["sigref:bafkreiauroeccyhyvq4ss7jtq3ootstygb5rvyg7iqnkrqt2vtsh3mfwoi" :rad/rid "bafkreiauroeccyhyvq4ss7jtq3ootstygb5rvyg7iqnkrqt2vtsh3mfwoi" 3 :add]
+["sigref:bafkreiauroeccyhyvq4ss7jtq3ootstygb5rvyg7iqnkrqt2vtsh3mfwoi" :rad/head "bafkreie2l4w77anskv4kdxxsi2yed4ojy6bexkcul3renl5kbnv7o5owg4" 3 :add]
+["sigref:bafkreiauroeccyhyvq4ss7jtq3ootstygb5rvyg7iqnkrqt2vtsh3mfwoi" :rad/by "did:web:etzhayyim.com:actor:infra-utility-connect" 3 :add]

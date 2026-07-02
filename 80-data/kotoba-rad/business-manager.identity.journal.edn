@@ -10,3 +10,8 @@
 ["sigref:bafkreic3kl6grprv4e2egk4pjqst4jozkb4ndyd3lbg3gtb3oepmsbh3wi" :rad/head "bafkreibxrzeoogaalksobfkx4dksxeo6k4wzwnmg5elsaskxohaqzyvktq" 1 :add]
 ["sigref:bafkreic3kl6grprv4e2egk4pjqst4jozkb4ndyd3lbg3gtb3oepmsbh3wi" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-business-manager" 1 :add]
 ["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:business-manager" 2 :add]
+["bafkreic3kl6grprv4e2egk4pjqst4jozkb4ndyd3lbg3gtb3oepmsbh3wi" :rad/did-web "did:web:etzhayyim.com:actor:business-manager" 3 :add]
+["sigref:bafkreic3kl6grprv4e2egk4pjqst4jozkb4ndyd3lbg3gtb3oepmsbh3wi" :rad/type :sigref 3 :add]
+["sigref:bafkreic3kl6grprv4e2egk4pjqst4jozkb4ndyd3lbg3gtb3oepmsbh3wi" :rad/rid "bafkreic3kl6grprv4e2egk4pjqst4jozkb4ndyd3lbg3gtb3oepmsbh3wi" 3 :add]
+["sigref:bafkreic3kl6grprv4e2egk4pjqst4jozkb4ndyd3lbg3gtb3oepmsbh3wi" :rad/head "bafkreifwj3cdjvaffwc52mloarkbt42imvxnojfskgfswpuqcqqv55l6bi" 3 :add]
+["sigref:bafkreic3kl6grprv4e2egk4pjqst4jozkb4ndyd3lbg3gtb3oepmsbh3wi" :rad/by "did:web:etzhayyim.com:actor:business-manager" 3 :add]

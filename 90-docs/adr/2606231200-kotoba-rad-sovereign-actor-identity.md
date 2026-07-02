@@ -5,7 +5,7 @@ status: proposed
 doc_type: adr
 topic: kotoba-rad-sovereign-actor-identity
 authoritative: true
-last_verified: 2026-06-23
+last_verified: 2026-07-02
 priority: 5.0
 axis: architecture
 weight: 0.50
@@ -64,6 +64,79 @@ per-actor repo + per-actor DID にした時点で、**actor の did.json に動�
 **実装差分（本追補と同 PR）**: `manifest->genesis` の `:did-web` を path 型に変更・
 `did-web-doc` の既定 DID を path 型に・`step-did-web` に `.nojekyll` 同梱を追加
 （`70-tools/src/etzhayyim/{actor_publish,kotoba_rad}.cljc`）。
+
+## Addendum 2026-07-02 — did:web を etzhayyim.com actor 型へ移行（RID-preserving、上記 2026-06-24 追補を supersede）
+
+**上記 2026-06-24 追補（github.io path 型固定）を覆す。** 理由は理念ではなく運用実態:
+**GitHub Pages は 175 actor 中 4 しか有効化されていない**（`has_pages` API 実測、
+2026-07-02）。つまり「静的・github.io 配信」は決定として存在するだけで、実際には
+171/175 の actor で **機能していない**。一方 `did:web:etzhayyim.com:actor:<name>` を
+配信する apex CF Worker（`50-infra/etzhayyim-did-web/`）は**既に稼働中**で、かつ
+ADR-2607022300（unified-actor-deploy-identify-subactor-identity, 2026-07-02 accepted）が
+同じ機構をサブアクター向けに正式採用済み ── 「apex Worker は org-DID 専用」という
+2026-06-24 追補の前提が、9日後の別 ADR で既に破られている。
+
+- **新 DID** = `did:web:etzhayyim.com:actor:<name>`（apex Worker 配信）
+- **解決先** = `https://etzhayyim.com/actor/<name>/did.json`
+- **旧 DID の扱い** = `alsoKnownAs` に保持（解決者が旧 identity も認識できる）
+
+**RID 保存が唯一の設計制約。** `kotoba-rad` の RID は genesis identity block 全体
+（`:rad/did-web` を含む）の `cid/cid-of-edn` ハッシュ（`kotoba_rad.cljc` L65-68）。
+既に publish 済みの actor の genesis を DID だけ変えて再計算すると、**別の RID が
+発行され**、delegate/holding など RID を鍵にした既存の追記がすべて宙に浮く
+（journal に2つ目の `:rad/type :identity` エンティティが生まれる形の破損）。
+2026-06-29 に一度、この移行が試みられ**途中で放棄された痕跡**が残っている
+（175 actor 中 163 の `.well-known/did.json` に、`id` だけ書き換え・nested
+`service[].id` は旧スキームのまま、という構造的に壊れた未コミット diff。加えて
+312 の journal に、実在しない sentinel entity（`bafyreimigrated00...`）をキーにした
+inert な `:rad/did-web` 追記が1件ずつ残っている ── おそらく「genesis を再計算すると
+RID が変わる」ことに途中で気づき、正しい RID へのキー付けができないまま放棄した跡）。
+両方とも本追補が正しく supersede する（コミットされていない diff は再生成で置換、
+sentinel-keyed の inert datom は append-only 原則によりそのまま残すが、実質無害
+= 誰も読まないダミー entity として履歴に留める）。
+
+**実装（RID-preserving、`add-delegate!`/`add-holding!` と同じ retrofit パターン）**:
+
+- `kotoba_rad.cljc`: `update-did-web!`（genesis を一切触らず、既存 RID へ新しい
+  `:rad/did-web` datom + 再署名 sigref を追記。冪等・append-only・RID 不変）、
+  `latest-did-web`/`first-did-web`（journal から「現在値」「genesis 元値」をそれぞれ
+  読む）、`identity-status`（両方＋RID を1回の journal 読みでまとめて返す）。
+  `did-web-doc` は `:rid-str`（生の RID 文字列。genesis map を要求しない）と
+  `:legacy-did-web`（alsoKnownAs に旧 DID を足す）を受けるよう拡張。
+- `actor_publish.cljc`: `manifest->genesis` の既定テンプレートを新スキームに変更
+  （**新規 actor の genesis にのみ影響** — 既に publish 済みの actor の genesis は
+  `step-did-web` が `identity-status` の `:genesis-did-web`（journal の元値）で
+  上書きし、絶対に新スキームで再計算しない）。`step-kotoba-rad` も同様に、
+  `existing-rid` が渡された場合は `rad/publish-identity!` を呼ばず（= genesis の
+  再ハッシュを一切しない）、journal に既に記録された RID をそのまま使う。
+  新規 CLI `bb rad:update-did-web <name> [--apply]`（`-add-holding` と同じ形の
+  narrow entry point）が実際の移行操作 ── josh-split/gh-repo/aozora には触れず、
+  journal 追記 + staging `.well-known/did.json` 再生成のみ。
+
+**検証で判明した設計上の注意点（実装差分と同 PR で発見・修正）**: genesis map を
+**同じフィールド値で再構築しても**、`rad/rid`（`pr-str` over a nested map の
+ハッシュ）は元の RID と一致しない場合があることを実測で確認した（hikari の実
+journal に対し、記録済みの全フィールド値で手で組んだ genesis map をハッシュしても
+記録済み RID と不一致）。`cid-of-edn`docstring 自身が「`[e a v tx op]` の flat な
+vector に対してのみ決定的」と明記しており、ネストした map への適用は元々保証範囲外
+だった。よって **既存 actor の genesis は如何なる理由でも再計算・再ハッシュしない**
+（値が同じでも、RID の一致は保証されない）── `identity-status`/`genesis-rid-in` で
+journal から直接読んだ RID 文字列だけを使う。
+
+**明示的にスコープ外（別途フォローアップ）**:
+- apex Worker の `public/actor/<handle>/did.json`（`manifest.edn →
+  actor-profile-seed.kotoba.edn → publish-actor-records.cljs` 経由で生成・
+  Worker が static asset として直接配信）は、各 repo 自身の `.well-known/did.json`
+  と**既に内容が食い違っている**（AozoraAppView service や alsoKnownAs のエイリアスが
+  欠落）── 本追補が対処するのは DID スキームのみで、この2系統の配信パイプライン統合は
+  別 issue として報告する。
+- `step-aozora` の PDS profile record（`did` フィールド）は genesis の元 DID を
+  使い続ける（no-server-key の member 署名を要する live write のため、本追補では
+  再デプロイしない）。移行済み actor の PDS profile は一時的に旧 DID を指したままになる
+  ── 別途 member 鍵での再デプロイが必要。
+
+**適用対象**: 175 actor（`orgs/etzhayyim/com-etzhayyim-<name>`）の journal +
+`.well-known/did.json`。新規 actor は初回 publish から新スキーム。
 
 # Context
 

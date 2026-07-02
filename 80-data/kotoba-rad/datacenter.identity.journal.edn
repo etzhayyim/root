@@ -10,3 +10,8 @@
 ["sigref:bafkreiddzr4th7oqp6fudz2dfm3vedis3frjq7g5phcgo534vkoxhcynkq" :rad/head "bafkreidjqzjw7obyp3up2ew7hlepqup62pgsixs7exahyngiylema3e32u" 1 :add]
 ["sigref:bafkreiddzr4th7oqp6fudz2dfm3vedis3frjq7g5phcgo534vkoxhcynkq" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-datacenter" 1 :add]
 ["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:datacenter" 2 :add]
+["bafkreiddzr4th7oqp6fudz2dfm3vedis3frjq7g5phcgo534vkoxhcynkq" :rad/did-web "did:web:etzhayyim.com:actor:datacenter" 3 :add]
+["sigref:bafkreiddzr4th7oqp6fudz2dfm3vedis3frjq7g5phcgo534vkoxhcynkq" :rad/type :sigref 3 :add]
+["sigref:bafkreiddzr4th7oqp6fudz2dfm3vedis3frjq7g5phcgo534vkoxhcynkq" :rad/rid "bafkreiddzr4th7oqp6fudz2dfm3vedis3frjq7g5phcgo534vkoxhcynkq" 3 :add]
+["sigref:bafkreiddzr4th7oqp6fudz2dfm3vedis3frjq7g5phcgo534vkoxhcynkq" :rad/head "bafkreienygkfn7kobakmy4rta6bbtwoifokcslf4llxor5mxuapwcyjxeq" 3 :add]
+["sigref:bafkreiddzr4th7oqp6fudz2dfm3vedis3frjq7g5phcgo534vkoxhcynkq" :rad/by "did:web:etzhayyim.com:actor:datacenter" 3 :add]

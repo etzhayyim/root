@@ -18,3 +18,8 @@
 ["sigref:bafkreieay7hndyxph3zp76y2dwa3h43v7egp2yjmf3hw4iyoafklndfrya" :rad/head "bafkreihzdsimkhgucsgb7ii4iyfxvs34um73xptltd4mhllktx7s6erjde" 3 :add]
 ["sigref:bafkreieay7hndyxph3zp76y2dwa3h43v7egp2yjmf3hw4iyoafklndfrya" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-yadori" 3 :add]
 ["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:yadori" 2 :add]
+["bafkreieay7hndyxph3zp76y2dwa3h43v7egp2yjmf3hw4iyoafklndfrya" :rad/did-web "did:web:etzhayyim.com:actor:yadori" 4 :add]
+["sigref:bafkreieay7hndyxph3zp76y2dwa3h43v7egp2yjmf3hw4iyoafklndfrya" :rad/type :sigref 4 :add]
+["sigref:bafkreieay7hndyxph3zp76y2dwa3h43v7egp2yjmf3hw4iyoafklndfrya" :rad/rid "bafkreieay7hndyxph3zp76y2dwa3h43v7egp2yjmf3hw4iyoafklndfrya" 4 :add]
+["sigref:bafkreieay7hndyxph3zp76y2dwa3h43v7egp2yjmf3hw4iyoafklndfrya" :rad/head "bafkreihknsvqxxeklxerxxq3mcvq2nqrhqf2bctnvsurtn5nx67pfxfymu" 4 :add]
+["sigref:bafkreieay7hndyxph3zp76y2dwa3h43v7egp2yjmf3hw4iyoafklndfrya" :rad/by "did:web:etzhayyim.com:actor:yadori" 4 :add]

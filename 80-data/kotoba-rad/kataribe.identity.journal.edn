@@ -10,3 +10,8 @@
 ["sigref:bafkreihecedazrbs2zsnbjel6ek5tvacyupr5vu7lbgaiwsokkc2tlva4a" :rad/head "bafkreiak6hzj6hvlqauhehu76ltmdh7r6kkpahkapjzye2wtnrfbyfcaqy" 1 :add]
 ["sigref:bafkreihecedazrbs2zsnbjel6ek5tvacyupr5vu7lbgaiwsokkc2tlva4a" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-kataribe" 1 :add]
 ["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:kataribe" 2 :add]
+["bafkreihecedazrbs2zsnbjel6ek5tvacyupr5vu7lbgaiwsokkc2tlva4a" :rad/did-web "did:web:etzhayyim.com:actor:kataribe" 3 :add]
+["sigref:bafkreihecedazrbs2zsnbjel6ek5tvacyupr5vu7lbgaiwsokkc2tlva4a" :rad/type :sigref 3 :add]
+["sigref:bafkreihecedazrbs2zsnbjel6ek5tvacyupr5vu7lbgaiwsokkc2tlva4a" :rad/rid "bafkreihecedazrbs2zsnbjel6ek5tvacyupr5vu7lbgaiwsokkc2tlva4a" 3 :add]
+["sigref:bafkreihecedazrbs2zsnbjel6ek5tvacyupr5vu7lbgaiwsokkc2tlva4a" :rad/head "bafkreiapitvr2nggdrihw44e7eoet4qo4wnl5nmoh3hbbzy4etweksriky" 3 :add]
+["sigref:bafkreihecedazrbs2zsnbjel6ek5tvacyupr5vu7lbgaiwsokkc2tlva4a" :rad/by "did:web:etzhayyim.com:actor:kataribe" 3 :add]

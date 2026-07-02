@@ -10,3 +10,8 @@
 ["sigref:bafkreihpcokxatcmj2k3jxxidu6m23ljowescex3gz7nwzaj5lqqn4cee4" :rad/head "bafkreiaajgvfet4ejfx5kyclncfiqeivkmivl6szpxspeyljk62w42i55y" 1 :add]
 ["sigref:bafkreihpcokxatcmj2k3jxxidu6m23ljowescex3gz7nwzaj5lqqn4cee4" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-maps" 1 :add]
 ["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:maps" 2 :add]
+["bafkreihpcokxatcmj2k3jxxidu6m23ljowescex3gz7nwzaj5lqqn4cee4" :rad/did-web "did:web:etzhayyim.com:actor:maps" 3 :add]
+["sigref:bafkreihpcokxatcmj2k3jxxidu6m23ljowescex3gz7nwzaj5lqqn4cee4" :rad/type :sigref 3 :add]
+["sigref:bafkreihpcokxatcmj2k3jxxidu6m23ljowescex3gz7nwzaj5lqqn4cee4" :rad/rid "bafkreihpcokxatcmj2k3jxxidu6m23ljowescex3gz7nwzaj5lqqn4cee4" 3 :add]
+["sigref:bafkreihpcokxatcmj2k3jxxidu6m23ljowescex3gz7nwzaj5lqqn4cee4" :rad/head "bafkreie665ec33pdl2osb3udfz74sycdcdsal6ubuaubheufu45ssxcl6a" 3 :add]
+["sigref:bafkreihpcokxatcmj2k3jxxidu6m23ljowescex3gz7nwzaj5lqqn4cee4" :rad/by "did:web:etzhayyim.com:actor:maps" 3 :add]

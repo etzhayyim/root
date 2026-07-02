@@ -10,3 +10,8 @@
 ["sigref:bafkreiehbxgawrx2ntjivlxgfz7l7qthjh4hybwadw3arwyzexbu7ftbqm" :rad/head "bafkreiac6k5w2equ6ztdfusu4n57garn2qji2q443ibpuycassq6xt7eai" 1 :add]
 ["sigref:bafkreiehbxgawrx2ntjivlxgfz7l7qthjh4hybwadw3arwyzexbu7ftbqm" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-tatara" 1 :add]
 ["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:tatara" 2 :add]
+["bafkreiehbxgawrx2ntjivlxgfz7l7qthjh4hybwadw3arwyzexbu7ftbqm" :rad/did-web "did:web:etzhayyim.com:actor:tatara" 3 :add]
+["sigref:bafkreiehbxgawrx2ntjivlxgfz7l7qthjh4hybwadw3arwyzexbu7ftbqm" :rad/type :sigref 3 :add]
+["sigref:bafkreiehbxgawrx2ntjivlxgfz7l7qthjh4hybwadw3arwyzexbu7ftbqm" :rad/rid "bafkreiehbxgawrx2ntjivlxgfz7l7qthjh4hybwadw3arwyzexbu7ftbqm" 3 :add]
+["sigref:bafkreiehbxgawrx2ntjivlxgfz7l7qthjh4hybwadw3arwyzexbu7ftbqm" :rad/head "bafkreibggxvsstbbfu7s2hu4ovtalqoejpk5hxq7xa6ufpilo5ppqppgde" 3 :add]
+["sigref:bafkreiehbxgawrx2ntjivlxgfz7l7qthjh4hybwadw3arwyzexbu7ftbqm" :rad/by "did:web:etzhayyim.com:actor:tatara" 3 :add]

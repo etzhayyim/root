@@ -24,3 +24,8 @@
 ["sigref:bafkreic2rwhxp6i3dii243o34kogjv7brkbf5nurrvghdsx67fxia5bq44" :rad/rid "bafkreic2rwhxp6i3dii243o34kogjv7brkbf5nurrvghdsx67fxia5bq44" 3 :add]
 ["sigref:bafkreic2rwhxp6i3dii243o34kogjv7brkbf5nurrvghdsx67fxia5bq44" :rad/head "bafkreifed6nnjao2lc6kv7pczini555c7bxda3nesobe5iifpqecyblvcu" 3 :add]
 ["sigref:bafkreic2rwhxp6i3dii243o34kogjv7brkbf5nurrvghdsx67fxia5bq44" :rad/by "bafkreic2rwhxp6i3dii243o34kogjv7brkbf5nurrvghdsx67fxia5bq44" 3 :add]
+["bafkreic2rwhxp6i3dii243o34kogjv7brkbf5nurrvghdsx67fxia5bq44" :rad/did-web "did:web:etzhayyim.com:actor:junkan" 4 :add]
+["sigref:bafkreic2rwhxp6i3dii243o34kogjv7brkbf5nurrvghdsx67fxia5bq44" :rad/type :sigref 4 :add]
+["sigref:bafkreic2rwhxp6i3dii243o34kogjv7brkbf5nurrvghdsx67fxia5bq44" :rad/rid "bafkreic2rwhxp6i3dii243o34kogjv7brkbf5nurrvghdsx67fxia5bq44" 4 :add]
+["sigref:bafkreic2rwhxp6i3dii243o34kogjv7brkbf5nurrvghdsx67fxia5bq44" :rad/head "bafkreiazlfqfvw5qkujolsxdpubefeqckfnmh5p2sn2obt7yyqog4tym4m" 4 :add]
+["sigref:bafkreic2rwhxp6i3dii243o34kogjv7brkbf5nurrvghdsx67fxia5bq44" :rad/by "did:web:etzhayyim.com:actor:junkan" 4 :add]

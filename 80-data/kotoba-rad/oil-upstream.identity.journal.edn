@@ -10,3 +10,8 @@
 ["sigref:bafkreicmqkdtr55t43e6l3nknf3yjos2tavy7uvgaxllkvvyif6xuvmgru" :rad/head "bafkreigatgaebueylovt3ttoiy3gncmcbf63unlcel4ccayhrc6kkbswta" 1 :add]
 ["sigref:bafkreicmqkdtr55t43e6l3nknf3yjos2tavy7uvgaxllkvvyif6xuvmgru" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-oil-upstream" 1 :add]
 ["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:oil-upstream" 2 :add]
+["bafkreicmqkdtr55t43e6l3nknf3yjos2tavy7uvgaxllkvvyif6xuvmgru" :rad/did-web "did:web:etzhayyim.com:actor:oil-upstream" 3 :add]
+["sigref:bafkreicmqkdtr55t43e6l3nknf3yjos2tavy7uvgaxllkvvyif6xuvmgru" :rad/type :sigref 3 :add]
+["sigref:bafkreicmqkdtr55t43e6l3nknf3yjos2tavy7uvgaxllkvvyif6xuvmgru" :rad/rid "bafkreicmqkdtr55t43e6l3nknf3yjos2tavy7uvgaxllkvvyif6xuvmgru" 3 :add]
+["sigref:bafkreicmqkdtr55t43e6l3nknf3yjos2tavy7uvgaxllkvvyif6xuvmgru" :rad/head "bafkreieebbmeofklgjvpq3gl554tx5btflf2bbmropd2dgzhd6tgdhmdxu" 3 :add]
+["sigref:bafkreicmqkdtr55t43e6l3nknf3yjos2tavy7uvgaxllkvvyif6xuvmgru" :rad/by "did:web:etzhayyim.com:actor:oil-upstream" 3 :add]
