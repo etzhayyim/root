@@ -187,3 +187,6 @@ foundry.lock
 
 # actor self-sovereign aozora identity (etzhayyim.aozora-identity — private key, NEVER commit)
 20-actors/*/.*/identity.edn
+
+# central actor identity custody (ADR-2607022300 — private keys, NEVER commit)
+.e7m/identity/
