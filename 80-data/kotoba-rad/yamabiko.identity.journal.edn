@@ -18,3 +18,8 @@
 ["sigref:bafkreif33qzb4w44qogixzq4zj735eiou33io3ftydiolgctq7x62fzpfa" :rad/head "bafkreife4ltavja42fonhmgzlkfzqugi2tjf6k22w4q63h5g7qfvpwxniu" 3 :add]
 ["sigref:bafkreif33qzb4w44qogixzq4zj735eiou33io3ftydiolgctq7x62fzpfa" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-yamabiko" 3 :add]
 ["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:yamabiko" 2 :add]
+["bafkreif33qzb4w44qogixzq4zj735eiou33io3ftydiolgctq7x62fzpfa" :rad/did-web "did:web:etzhayyim.com:actor:yamabiko" 4 :add]
+["sigref:bafkreif33qzb4w44qogixzq4zj735eiou33io3ftydiolgctq7x62fzpfa" :rad/type :sigref 4 :add]
+["sigref:bafkreif33qzb4w44qogixzq4zj735eiou33io3ftydiolgctq7x62fzpfa" :rad/rid "bafkreif33qzb4w44qogixzq4zj735eiou33io3ftydiolgctq7x62fzpfa" 4 :add]
+["sigref:bafkreif33qzb4w44qogixzq4zj735eiou33io3ftydiolgctq7x62fzpfa" :rad/head "bafkreibjmukombvt52qtynz2c77btn75sq4uvb4cfzct3uvdfs7lbayqqu" 4 :add]
+["sigref:bafkreif33qzb4w44qogixzq4zj735eiou33io3ftydiolgctq7x62fzpfa" :rad/by "did:web:etzhayyim.com:actor:yamabiko" 4 :add]

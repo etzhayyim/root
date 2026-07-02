@@ -32,11 +32,27 @@
 (deftest did-doc-cross-links-three-identities
   (let [doc (rad/did-web-doc {:name "cargo" :genesis (g) :pubkey-hex pk})
         aka (set (get doc "alsoKnownAs"))]
-    (is (= "did:web:etzhayyim.github.io:com-etzhayyim-cargo" (get doc "id")))
+    (testing "default did:web falls back to the etzhayyim.com actor PATH form (ADR-2606231200 addendum 2026-07-02)"
+      (is (= "did:web:etzhayyim.com:actor:cargo" (get doc "id"))))
     (is (contains? aka "at://cargo.etzhayyim.com"))
     (is (contains? aka "https://github.com/etzhayyim/com-etzhayyim-cargo"))
     (is (contains? aka (rad/rad-uri (g))) "sovereign rad: URI present")
     (is (= pk (get-in doc ["verificationMethod" 0 "publicKeyHex"])))))
+
+(deftest did-doc-rid-str-and-legacy-did-web
+  (testing "rid-str (a raw RID, not a full genesis map) also produces the rad: alsoKnownAs entry"
+    (let [rid* (rad/rid (g))
+          doc (rad/did-web-doc {:name "cargo" :did-web "did:web:etzhayyim.com:actor:cargo"
+                                :rid-str rid*})]
+      (is (contains? (set (get doc "alsoKnownAs")) (str "rad:" rid*)))))
+  (testing "legacy-did-web is added to alsoKnownAs when it differs from the current did"
+    (let [doc (rad/did-web-doc {:name "cargo" :did-web "did:web:etzhayyim.com:actor:cargo"
+                                :legacy-did-web "did:web:etzhayyim.github.io:com-etzhayyim-cargo"})]
+      (is (contains? (set (get doc "alsoKnownAs")) "did:web:etzhayyim.github.io:com-etzhayyim-cargo"))))
+  (testing "legacy-did-web is NOT added to alsoKnownAs when it equals the current did (it's already the id)"
+    (let [doc (rad/did-web-doc {:name "cargo" :did-web "did:web:etzhayyim.com:actor:cargo"
+                                :legacy-did-web "did:web:etzhayyim.com:actor:cargo"})]
+      (is (= 0 (count (filter #(= "did:web:etzhayyim.com:actor:cargo" %) (get doc "alsoKnownAs"))))))))
 
 (deftest did-doc-data-graph-service
   (testing "a KotobaDataGraph service points the DID at its CID-queryable Pages tier (ADR-2606242400)"
@@ -166,6 +182,60 @@
             "holding datom present when :holds passed on publish")
         (is (some #(and (= (d/d-e %) "dataset:d1") (= :rad/cidv1 (d/d-a %))) logv)
             "dataset sub-entity present"))
+      (finally (io/delete-file path true)))))
+
+(deftest update-did-web-preserves-rid-and-is-idempotent
+  (let [a "__test_kr_didweb__"
+        path (rad/journal-path a)
+        rid0 (rad/rid (g))]
+    (io/delete-file path true)
+    (try
+      (rad/publish-identity! a (g) {:sign-fn nil})
+      (let [n0 (count (log/read-log path))
+            r1 (rad/update-did-web! a "did:web:etzhayyim.com:actor:cargo" {:sign-fn nil})
+            n1 (count (log/read-log path))
+            r2 (rad/update-did-web! a "did:web:etzhayyim.com:actor:cargo" {:sign-fn nil})
+            n2 (count (log/read-log path))]
+        (testing "the core regression guard for this whole migration: RID never changes"
+          (is (= rid0 (:rid r1) (:rid r2))))
+        (is (:added? r1) "first update appends a did-web datom + sigref")
+        (is (> n1 n0) "append-only: log grows")
+        (is (false? (:added? r2)) "idempotent by value: same target adds no datom")
+        (is (> n2 n1) "but a fresh sigref still attests the head")
+        (testing "genesis's original :rad/did-web is untouched"
+          (let [logv (log/read-log path)]
+            (is (= "did:web:etzhayyim.github.io:com-etzhayyim-cargo"
+                   (rad/first-did-web logv rid0)))
+            (is (= "did:web:etzhayyim.com:actor:cargo"
+                   (rad/latest-did-web logv rid0))))))
+      (finally (io/delete-file path true)))))
+
+(deftest update-did-web-throws-without-existing-genesis
+  (let [a "__test_kr_didweb_nogenesis__"
+        path (rad/journal-path a)]
+    (io/delete-file path true)
+    (try
+      (is (thrown? #?(:clj clojure.lang.ExceptionInfo :cljs js/Error)
+                   (rad/update-did-web! a "did:web:etzhayyim.com:actor:x" {:sign-fn nil})))
+      (finally (io/delete-file path true)))))
+
+(deftest identity-status-reports-genesis-and-current-separately
+  (let [a "__test_kr_status__"
+        path (rad/journal-path a)]
+    (io/delete-file path true)
+    (try
+      (is (nil? (rad/identity-status a)) "no journal yet -> nil")
+      (rad/publish-identity! a (g) {:sign-fn nil})
+      (testing "before any update: genesis == current"
+        (let [s (rad/identity-status a)]
+          (is (= (rad/rid (g)) (:rid s)))
+          (is (= "did:web:etzhayyim.github.io:com-etzhayyim-cargo"
+                 (:genesis-did-web s) (:current-did-web s)))))
+      (rad/update-did-web! a "did:web:etzhayyim.com:actor:cargo" {:sign-fn nil})
+      (testing "after an update: genesis stays original, current reflects the migration"
+        (let [s (rad/identity-status a)]
+          (is (= "did:web:etzhayyim.github.io:com-etzhayyim-cargo" (:genesis-did-web s)))
+          (is (= "did:web:etzhayyim.com:actor:cargo" (:current-did-web s)))))
       (finally (io/delete-file path true)))))
 
 (defn -main [& _]

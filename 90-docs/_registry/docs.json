@@ -26283,7 +26283,7 @@
         "adr-2605312345",
         "adr-2605203000"
       ],
-      "last_verified": "2026-06-23",
+      "last_verified": "2026-07-02",
       "amends": [],
       "amended_by": []
     },
@@ -27312,6 +27312,41 @@
       "superseded_by": [],
       "depends_on": [
         "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline"
+      ],
+      "last_verified": "2026-07-02",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2607022300-unified-actor-deploy-identify-subactor-identity.md",
+      "id": "adr-2607022300-unified-actor-deploy-identify-subactor-identity",
+      "title": "ADR-2607022300: unified actor deploy — identify facet (per-actor self-sovereign did:key), sub-actor identity (path did:web + own did:key), central custody",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "unified-actor-deploy-identify",
+      "authoritative": true,
+      "authoritative_for": [
+        "e7m-actor-unified-deploy",
+        "aozora-identify-facet",
+        "per-actor-self-sovereign-did-key",
+        "sub-actor-identity-model",
+        "path-did-web-allowance",
+        "central-identity-custody"
+      ],
+      "related": [
+        "2607010001",
+        "2606111400",
+        "2606251700"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606231200",
+        "2606232100",
+        "2606291700",
+        "2606292000",
+        "2606281500",
+        "2605231525"
       ],
       "last_verified": "2026-07-02",
       "amends": [],

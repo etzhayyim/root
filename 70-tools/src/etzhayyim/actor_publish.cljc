@@ -5,11 +5,15 @@
 ;;
 ;;   1. josh-split   monorepo prefix 20-actors/<name> -> com-etzhayyim-<name>
 ;;   2. gh-repo      ensure public github.com/etzhayyim/com-etzhayyim-<name>
-;;   3. did-web      generate a STATIC /.well-known/did.json (+ .nojekyll) at the
-;;                   repo's GitHub Pages root, served as
-;;                   etzhayyim.github.io/com-etzhayyim-<name>/.well-known/did.json
-;;                   (ADR addendum 2026-06-24: no custom domain, no CF Worker, no
-;;                   dynamic generation — the apex Worker is org-DID only)
+;;   3. did-web      generate a STATIC /.well-known/did.json (+ .nojekyll),
+;;                   served via the etzhayyim.com Worker as
+;;                   did:web:etzhayyim.com:actor:<name> (ADR addendum
+;;                   2026-07-02, superseding the 2026-06-24 github.io-only
+;;                   addendum — GitHub Pages was never enabled for 171/175
+;;                   actors in practice). An already-published actor's did-web
+;;                   migrates via the RID-preserving `rad:update-did-web` task
+;;                   (etzhayyim.kotoba-rad/update-did-web!), never by
+;;                   recomputing genesis.
 ;;   4. kotoba-rad   mint RID + did:key, append sovereign identity to the log
 ;;   5. aozora       write the actor profile to the PDS (Option B e.write)
 ;;
@@ -55,16 +59,29 @@
         (edn/read-string (slurp f))
         (json/parse-string (slurp f) true)))))
 
+(defn default-did-web
+  "The did:web an actor is minted with when it has NO existing published
+   identity yet (did:web:etzhayyim.com:actor:<name>; ADR-2606231200 addendum
+   2026-07-02, superseding the 2026-06-24 github.io-only addendum — GitHub
+   Pages was never enabled for 171/175 actors in practice). Single source of
+   truth for this template — `manifest->genesis` (new actors) and
+   `step-did-web`'s migration path (existing actors) both call this, never
+   duplicate the literal string."
+  [actor]
+  (str "did:web:etzhayyim.com:actor:" actor))
+
 (defn manifest->genesis
-  "Derive the kotoba-rad genesis block from the actor manifest.
-   did:web is normalized to the github.io PATH form
-   (did:web:etzhayyim.github.io:com-etzhayyim-<name>; ADR-2606231200 addendum
-   2026-06-24), so the DID resolves to the actor repo's STATIC GitHub Pages
-   did.json — no custom domain, no dynamic generation.
+  "Derive the kotoba-rad genesis block from the actor manifest. `did-web`
+   defaults to `default-did-web` (a brand-new actor's genesis DID) but MUST be
+   overridden to the actor's ORIGINAL recorded value when the actor already
+   has a published identity (see `step-did-web`) — genesis is never
+   recomputed with a different did:web for an already-published actor, since
+   the RID is a content hash over the whole genesis block and that would mint
+   a new RID.
    The collection NSID is the first declared collection/lexicon minus its final
    record-type segment: `actor-manifest.jsonld` lists it under
    :triggers/:subscribeRepos/:collections, `manifest.jsonld` under :lexicons."
-  [actor manifest & {:keys [pubkey-hex]}]
+  [actor manifest & {:keys [pubkey-hex did-web]}]
   (let [coll (or (-> manifest :triggers :subscribeRepos :collections first)
                  (-> manifest :lexicons first)
                  (-> manifest :actor/lexicons first)
@@ -72,7 +89,7 @@
         ns* (when coll (str/join "." (butlast (str/split coll #"\."))))]
     (rad/genesis-block
      {:name actor
-      :did-web (str "did:web:etzhayyim.github.io:" (repo-name actor))
+      :did-web (or did-web (default-did-web actor))
       :delegates (when pubkey-hex [(rad/did-key pubkey-hex)])
       :threshold 1
       :repo (str "github.com/" org "/" (repo-name actor))
@@ -129,11 +146,28 @@
                     (str "etzhayyim actor: " actor " (aozora.app)"))))))
 
 (defn step-did-web [actor manifest apply? pubkey-hex]
-  (let [genesis (manifest->genesis actor manifest :pubkey-hex pubkey-hex)
-        ;; pass the genesis did:web through so the doc `id` == the genesis DID
-        ;; (single source of truth — never re-derive a divergent string).
-        doc (rad/did-web-doc {:name actor :did-web (:rad/did-web genesis)
-                              :genesis genesis :pubkey-hex pubkey-hex})
+  (let [status (rad/identity-status actor)
+        ;; EXISTING actor: genesis MUST be reconstructed with its ORIGINAL
+        ;; recorded did-web (never the fresh default) — the RID is a content
+        ;; hash over the whole genesis block, so any other value here would
+        ;; mint a new RID and corrupt the journal (two :rad/type :identity
+        ;; entities). The served doc still uses the CURRENT did-web (which
+        ;; may differ, post update-did-web!) via `:did-web`/`:rid-str` below,
+        ;; decoupled from genesis entirely.
+        genesis (manifest->genesis actor manifest :pubkey-hex pubkey-hex
+                                    :did-web (:genesis-did-web status))
+        current-did (or (:current-did-web status) (:rad/did-web genesis))
+        legacy-did (when (and status (not= current-did (:genesis-did-web status)))
+                     (:genesis-did-web status))
+        doc (if status
+              (rad/did-web-doc {:name actor :did-web current-did
+                                :rid-str (:rid status) :legacy-did-web legacy-did
+                                :pubkey-hex pubkey-hex})
+              ;; NEW actor: pass the genesis did:web through so the doc `id`
+              ;; == the genesis DID (single source of truth — never re-derive
+              ;; a divergent string).
+              (rad/did-web-doc {:name actor :did-web (:rad/did-web genesis)
+                                :genesis genesis :pubkey-hex pubkey-hex}))
         out (str (prefix actor) "/.well-known/did.json")
         ;; .nojekyll: GitHub Pages' Jekyll ignores dot-prefixed paths, so without
         ;; this the static /.well-known/did.json (and the actor's *.wasm) are not
@@ -146,27 +180,44 @@
     (log-step 3 (str "static did:web doc -> " out " (+ .nojekyll)")
               {:planned (not apply?) :cmd ["write" out (str (count (str doc)) "B")
                                            "+" nojekyll]})
-    {:genesis genesis :did-doc-path out :nojekyll-path nojekyll}))
+    {:genesis genesis :did-doc-path out :nojekyll-path nojekyll :did current-did
+     :existing-rid (:rid status)}))
 
-(defn step-kotoba-rad [actor genesis apply? pubkey-hex holds]
+(defn step-kotoba-rad [actor genesis apply? pubkey-hex holds existing-rid]
   ;; no-server-key: a signer is built ONLY if the member's key is in Keychain
   ;; (and the pubkey is known); otherwise publish unsigned (pilot/--no-network).
   ;; `holds` (from manifest->holds) rides the genesis tx on first publish — the
   ;; genesis block is untouched, so the RID stays stable (ADR-2607010001).
-  (let [sign-fn (when (and pubkey-hex apply?)
-                  (rad-sign/sign-fn-for-actor actor pubkey-hex))
-        res (when apply? (rad/publish-identity! actor genesis
-                                                {:sign-fn sign-fn :holds holds}))]
-    (log-step 4 (str "kotoba-rad RID " (rad/rid genesis)
-                     (cond apply? "" pubkey-hex " (will sign if key in Keychain)"
-                           :else " (unsigned: no --pubkey)"))
-              (if res
-                {:exit 0 :out (str (:rad-uri res) " head=" (:head res)
-                                   " signed=" (:signed? res))}
-                {:planned true :cmd ["kotoba-rad/publish-identity!" actor
-                                     (rad/rad-uri genesis)
-                                     (if pubkey-hex "sign-if-keychain" "unsigned")]}))
-    (assoc (or res {}) :rid (rad/rid genesis) :rad-uri (rad/rad-uri genesis))))
+  (if existing-rid
+    ;; EXISTING actor: identity already published — do NOT recompute/rehash
+    ;; genesis. `rad/rid` hashes pr-str of a NESTED map (docstring only
+    ;; promises determinism for flat [e a v tx op] datom vectors); a
+    ;; reconstructed genesis with byte-identical field VALUES can still hash
+    ;; to a DIFFERENT RID than the one originally recorded (confirmed
+    ;; empirically 2026-07-02 against a real journal). Recomputing here and
+    ;; feeding it to publish-identity! would make its `already?` check miss
+    ;; and append a corrupting SECOND :rad/type :identity entity. The
+    ;; already-recorded RID (from rad/identity-status, read straight off the
+    ;; journal's own entity id — no hashing) is used as-is; re-publishing
+    ;; identity for an existing actor is not this step's job (see
+    ;; rad:update-did-web for the RID-preserving did-web migration path).
+    (do (log-step 4 (str "kotoba-rad RID " existing-rid " (already published — not re-minted)")
+                  {:exit 0 :out "skipped: existing identity, publish-identity! not called"})
+        {:rid existing-rid :rad-uri (str "rad:" existing-rid)})
+    (let [sign-fn (when (and pubkey-hex apply?)
+                    (rad-sign/sign-fn-for-actor actor pubkey-hex))
+          res (when apply? (rad/publish-identity! actor genesis
+                                                  {:sign-fn sign-fn :holds holds}))]
+      (log-step 4 (str "kotoba-rad RID " (rad/rid genesis)
+                       (cond apply? "" pubkey-hex " (will sign if key in Keychain)"
+                             :else " (unsigned: no --pubkey)"))
+                (if res
+                  {:exit 0 :out (str (:rad-uri res) " head=" (:head res)
+                                     " signed=" (:signed? res))}
+                  {:planned true :cmd ["kotoba-rad/publish-identity!" actor
+                                       (rad/rad-uri genesis)
+                                       (if pubkey-hex "sign-if-keychain" "unsigned")]}))
+      (assoc (or res {}) :rid (rad/rid genesis) :rad-uri (rad/rad-uri genesis)))))
 
 (defn step-aozora
   "Deploy the actor profile to the aozora PDS via createRecord.
@@ -208,10 +259,9 @@
                      actor (if apply? "APPLY" "DRY-RUN")))
     (step-josh-split actor apply?)
     (step-gh-repo actor apply?)
-    (let [{:keys [genesis]} (step-did-web actor manifest apply? pubkey-hex)
-          did (:rad/did-web genesis)
+    (let [{:keys [genesis did existing-rid]} (step-did-web actor manifest apply? pubkey-hex)
           holds (manifest->holds manifest)
-          rad-res (step-kotoba-rad actor genesis apply? pubkey-hex holds)
+          rad-res (step-kotoba-rad actor genesis apply? pubkey-hex holds existing-rid)
           aoz (step-aozora actor genesis apply?)]
       (println (format "✔ %s  rad=%s  repo=%s  did=%s\n"
                        actor (:rad-uri rad-res) (repo-name actor) did))
@@ -254,6 +304,53 @@
                                  (:signed? res) (:head res))))
               (println (format "  PLAN add-holding %s  (layer %s, cid %s) — pass --apply to write"
                                (:dataset-id h) (:layer h) (:cidv1 h))))))))))
+
+(defn -update-did-web
+  "Migrate an EXISTING actor's did:web to `default-did-web` (or an explicit
+   `--did-web=` override) by APPENDING to its kotoba-rad journal
+   (rad/update-did-web!, ADR-2606231200 addendum 2026-07-02) — the genesis
+   block is left untouched, so the **RID is stable**. Regenerates the STAGING
+   `.well-known/did.json` at `20-actors/<name>/` (the source josh-split later
+   mirrors into the actor's own com-etzhayyim-<name> repo — this task does
+   NOT itself touch that repo's checkout). Unlike `actor:publish`, this does
+   NOT run josh-split/gh-repo/aozora — narrowly scoped to the identity update.
+   DRY-RUN by default; --apply writes the journal + file. If a member key for
+   the actor is in Keychain the new sigref is member-signed; otherwise
+   unsigned (no-server-key). Args: <name> [--apply] [--did-web=<value>]"
+  [& args]
+  (let [flags (set (filter #(str/starts-with? % "--") args))
+        apply? (contains? flags "--apply")
+        did-web-override (some->> args (filter #(str/starts-with? % "--did-web=")) first
+                                   (drop 10) (apply str) not-empty)
+        actor (first (remove #(str/starts-with? % "--") args))]
+    (when-not actor
+      (println "usage: bb rad:update-did-web <name> [--apply] [--did-web=<value>]")
+      (System/exit 2))
+    (let [status (rad/identity-status actor)]
+      (when-not status
+        (println "error: no published kotoba-rad identity for" actor
+                 "— run actor:publish first")
+        (System/exit 2))
+      (let [target (or did-web-override (default-did-web actor))
+            sign-fn (when apply? (rad-sign/sign-fn-for-actor actor))]
+        (println (format "▶ rad:update-did-web %s  (%s)  %s -> %s"
+                         actor (if apply? "APPLY" "DRY-RUN")
+                         (:current-did-web status) target))
+        (when (and apply? (not sign-fn))
+          (println "WARN  no member key in Keychain for" actor
+                   "— did-web sigref will be UNSIGNED"))
+        (if apply?
+          (let [res (rad/update-did-web! actor target {:sign-fn sign-fn})
+                doc (rad/did-web-doc {:name actor :did-web target
+                                      :rid-str (:rid status)
+                                      :legacy-did-web (:genesis-did-web status)})
+                out (str (prefix actor) "/.well-known/did.json")]
+            (io/make-parents (io/file out))
+            (spit out (str (json/generate-string doc {:pretty true}) "\n"))
+            (println (format "  ✓ added? %s  signed? %s  head %s  -> %s"
+                             (:added? res) (:signed? res) (:head res) out)))
+          (println (format "  PLAN update-did-web %s -> %s — pass --apply to write"
+                           actor target)))))))
 
 (defn -main [& args]
   (let [flags (set (filter #(str/starts-with? % "--") args))

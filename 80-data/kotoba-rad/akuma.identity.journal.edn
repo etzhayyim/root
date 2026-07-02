@@ -10,3 +10,8 @@
 ["sigref:bafkreihlnpzkoz5sxib6k5fke5ihmvlwyynbef3xte6qtwlxxiedjqmfju" :rad/head "bafkreibflsqqzaoobhjzod4vzreuk7z4mbu7ztwyzuuce575trsn4sfzt4" 1 :add]
 ["sigref:bafkreihlnpzkoz5sxib6k5fke5ihmvlwyynbef3xte6qtwlxxiedjqmfju" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-akuma" 1 :add]
 ["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:akuma" 2 :add]
+["bafkreihlnpzkoz5sxib6k5fke5ihmvlwyynbef3xte6qtwlxxiedjqmfju" :rad/did-web "did:web:etzhayyim.com:actor:akuma" 3 :add]
+["sigref:bafkreihlnpzkoz5sxib6k5fke5ihmvlwyynbef3xte6qtwlxxiedjqmfju" :rad/type :sigref 3 :add]
+["sigref:bafkreihlnpzkoz5sxib6k5fke5ihmvlwyynbef3xte6qtwlxxiedjqmfju" :rad/rid "bafkreihlnpzkoz5sxib6k5fke5ihmvlwyynbef3xte6qtwlxxiedjqmfju" 3 :add]
+["sigref:bafkreihlnpzkoz5sxib6k5fke5ihmvlwyynbef3xte6qtwlxxiedjqmfju" :rad/head "bafkreieoubtfy6ykuqvl3nqxmgro6b6pz6asikbkxb3flpznrxrobxu2iu" 3 :add]
+["sigref:bafkreihlnpzkoz5sxib6k5fke5ihmvlwyynbef3xte6qtwlxxiedjqmfju" :rad/by "did:web:etzhayyim.com:actor:akuma" 3 :add]

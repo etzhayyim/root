@@ -10,3 +10,8 @@
 ["sigref:bafkreiczf2ea4yvs53uqyxl6lqt3iibo3g3ujslmkshwo6befrlp6oaoqa" :rad/head "bafkreidvydolkokb4eheticj7fady2cxsbpy2xqsa2uyuon4ca5lda7im4" 1 :add]
 ["sigref:bafkreiczf2ea4yvs53uqyxl6lqt3iibo3g3ujslmkshwo6befrlp6oaoqa" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-joucho" 1 :add]
 ["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:joucho" 2 :add]
+["bafkreiczf2ea4yvs53uqyxl6lqt3iibo3g3ujslmkshwo6befrlp6oaoqa" :rad/did-web "did:web:etzhayyim.com:actor:joucho" 3 :add]
+["sigref:bafkreiczf2ea4yvs53uqyxl6lqt3iibo3g3ujslmkshwo6befrlp6oaoqa" :rad/type :sigref 3 :add]
+["sigref:bafkreiczf2ea4yvs53uqyxl6lqt3iibo3g3ujslmkshwo6befrlp6oaoqa" :rad/rid "bafkreiczf2ea4yvs53uqyxl6lqt3iibo3g3ujslmkshwo6befrlp6oaoqa" 3 :add]
+["sigref:bafkreiczf2ea4yvs53uqyxl6lqt3iibo3g3ujslmkshwo6befrlp6oaoqa" :rad/head "bafkreifvp7ecu2jserdn43sboxowm6dwsmdeqommkztqu2woda6vso6md4" 3 :add]
+["sigref:bafkreiczf2ea4yvs53uqyxl6lqt3iibo3g3ujslmkshwo6befrlp6oaoqa" :rad/by "did:web:etzhayyim.com:actor:joucho" 3 :add]

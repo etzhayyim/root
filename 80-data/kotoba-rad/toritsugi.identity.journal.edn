@@ -24,3 +24,8 @@
 ["sigref:bafkreifphnbjup6o3i3qbekx4f6jx5nsdhrc2bykabjkjnt6cuhbzejboi" :rad/rid "bafkreifphnbjup6o3i3qbekx4f6jx5nsdhrc2bykabjkjnt6cuhbzejboi" 3 :add]
 ["sigref:bafkreifphnbjup6o3i3qbekx4f6jx5nsdhrc2bykabjkjnt6cuhbzejboi" :rad/head "bafkreidjrb7oolqql6decyenwgspikeystttlczruj2pmcdafzmls2d724" 3 :add]
 ["sigref:bafkreifphnbjup6o3i3qbekx4f6jx5nsdhrc2bykabjkjnt6cuhbzejboi" :rad/by "bafkreifphnbjup6o3i3qbekx4f6jx5nsdhrc2bykabjkjnt6cuhbzejboi" 3 :add]
+["bafkreifphnbjup6o3i3qbekx4f6jx5nsdhrc2bykabjkjnt6cuhbzejboi" :rad/did-web "did:web:etzhayyim.com:actor:toritsugi" 4 :add]
+["sigref:bafkreifphnbjup6o3i3qbekx4f6jx5nsdhrc2bykabjkjnt6cuhbzejboi" :rad/type :sigref 4 :add]
+["sigref:bafkreifphnbjup6o3i3qbekx4f6jx5nsdhrc2bykabjkjnt6cuhbzejboi" :rad/rid "bafkreifphnbjup6o3i3qbekx4f6jx5nsdhrc2bykabjkjnt6cuhbzejboi" 4 :add]
+["sigref:bafkreifphnbjup6o3i3qbekx4f6jx5nsdhrc2bykabjkjnt6cuhbzejboi" :rad/head "bafkreigtnewpdgbvguakarx5spphqcgc5mikkhthrywhrxlez3kyjvntfa" 4 :add]
+["sigref:bafkreifphnbjup6o3i3qbekx4f6jx5nsdhrc2bykabjkjnt6cuhbzejboi" :rad/by "did:web:etzhayyim.com:actor:toritsugi" 4 :add]

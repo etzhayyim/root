@@ -10,3 +10,8 @@
 ["sigref:bafkreigjnfweuwy2d2bjmzzmhc6q4edhjdi2re7plyhmpbm35r3rwxhfym" :rad/head "bafkreidh7tvzrtjrw7qf6x7hamsladz7joquwgd7tq3hldj23r2trv6nza" 1 :add]
 ["sigref:bafkreigjnfweuwy2d2bjmzzmhc6q4edhjdi2re7plyhmpbm35r3rwxhfym" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-graph-sos-intel" 1 :add]
 ["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:graph-sos-intel" 2 :add]
+["bafkreigjnfweuwy2d2bjmzzmhc6q4edhjdi2re7plyhmpbm35r3rwxhfym" :rad/did-web "did:web:etzhayyim.com:actor:graph-sos-intel" 3 :add]
+["sigref:bafkreigjnfweuwy2d2bjmzzmhc6q4edhjdi2re7plyhmpbm35r3rwxhfym" :rad/type :sigref 3 :add]
+["sigref:bafkreigjnfweuwy2d2bjmzzmhc6q4edhjdi2re7plyhmpbm35r3rwxhfym" :rad/rid "bafkreigjnfweuwy2d2bjmzzmhc6q4edhjdi2re7plyhmpbm35r3rwxhfym" 3 :add]
+["sigref:bafkreigjnfweuwy2d2bjmzzmhc6q4edhjdi2re7plyhmpbm35r3rwxhfym" :rad/head "bafkreiejtkjxooijunj65d4kcfltav5yuwc6mktyae6nq5bo4f77h7wzhm" 3 :add]
+["sigref:bafkreigjnfweuwy2d2bjmzzmhc6q4edhjdi2re7plyhmpbm35r3rwxhfym" :rad/by "did:web:etzhayyim.com:actor:graph-sos-intel" 3 :add]

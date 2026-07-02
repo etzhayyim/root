@@ -10,3 +10,8 @@
 ["sigref:bafkreifefwwfucwu63hr2s6byh7k3dwm4g2u7xvibpdfftxiwgsvkjgiwq" :rad/head "bafkreigxr2sakqpoxq5ez4xbn6r373hbbitq3ok3an6nn4najetflhj4qu" 1 :add]
 ["sigref:bafkreifefwwfucwu63hr2s6byh7k3dwm4g2u7xvibpdfftxiwgsvkjgiwq" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-kokoro" 1 :add]
 ["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:kokoro" 2 :add]
+["bafkreifefwwfucwu63hr2s6byh7k3dwm4g2u7xvibpdfftxiwgsvkjgiwq" :rad/did-web "did:web:etzhayyim.com:actor:kokoro" 3 :add]
+["sigref:bafkreifefwwfucwu63hr2s6byh7k3dwm4g2u7xvibpdfftxiwgsvkjgiwq" :rad/type :sigref 3 :add]
+["sigref:bafkreifefwwfucwu63hr2s6byh7k3dwm4g2u7xvibpdfftxiwgsvkjgiwq" :rad/rid "bafkreifefwwfucwu63hr2s6byh7k3dwm4g2u7xvibpdfftxiwgsvkjgiwq" 3 :add]
+["sigref:bafkreifefwwfucwu63hr2s6byh7k3dwm4g2u7xvibpdfftxiwgsvkjgiwq" :rad/head "bafkreib5y66frfaivmcfdpinmrco5hlzneby423b4e3eejhxu6nbau5s5a" 3 :add]
+["sigref:bafkreifefwwfucwu63hr2s6byh7k3dwm4g2u7xvibpdfftxiwgsvkjgiwq" :rad/by "did:web:etzhayyim.com:actor:kokoro" 3 :add]

@@ -18,3 +18,8 @@
 ["sigref:bafkreifansvjvnhzonxqs4eaj6ummdd7xxffonwa73azxyelthiocvv7ai" :rad/head "bafkreighpg63tt4rfq737ci2a4lotenp4td53lizooxbhtwyubw7w7g7he" 3 :add]
 ["sigref:bafkreifansvjvnhzonxqs4eaj6ummdd7xxffonwa73azxyelthiocvv7ai" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-wadachi" 3 :add]
 ["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:wadachi" 2 :add]
+["bafkreifansvjvnhzonxqs4eaj6ummdd7xxffonwa73azxyelthiocvv7ai" :rad/did-web "did:web:etzhayyim.com:actor:wadachi" 4 :add]
+["sigref:bafkreifansvjvnhzonxqs4eaj6ummdd7xxffonwa73azxyelthiocvv7ai" :rad/type :sigref 4 :add]
+["sigref:bafkreifansvjvnhzonxqs4eaj6ummdd7xxffonwa73azxyelthiocvv7ai" :rad/rid "bafkreifansvjvnhzonxqs4eaj6ummdd7xxffonwa73azxyelthiocvv7ai" 4 :add]
+["sigref:bafkreifansvjvnhzonxqs4eaj6ummdd7xxffonwa73azxyelthiocvv7ai" :rad/head "bafkreig4oesha2teanjdns6pasnq5sfs4m6vamyqz7lzitslkpexbhusrm" 4 :add]
+["sigref:bafkreifansvjvnhzonxqs4eaj6ummdd7xxffonwa73azxyelthiocvv7ai" :rad/by "did:web:etzhayyim.com:actor:wadachi" 4 :add]

@@ -9,3 +9,8 @@
 ["sigref:bafkreigxdoen2f3iibo6mvjtbv3draqqpqhuhid57zebt3vlkjdcx4436q" :rad/rid "bafkreigxdoen2f3iibo6mvjtbv3draqqpqhuhid57zebt3vlkjdcx4436q" 1 :add]
 ["sigref:bafkreigxdoen2f3iibo6mvjtbv3draqqpqhuhid57zebt3vlkjdcx4436q" :rad/head "bafkreiaezriwdv6imm3budvthvmusbzdwu2jbqvujghvi76hnkdxdh2rwq" 1 :add]
 ["sigref:bafkreigxdoen2f3iibo6mvjtbv3draqqpqhuhid57zebt3vlkjdcx4436q" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-junbi" 1 :add]
+["bafkreigxdoen2f3iibo6mvjtbv3draqqpqhuhid57zebt3vlkjdcx4436q" :rad/did-web "did:web:etzhayyim.com:actor:junbi" 2 :add]
+["sigref:bafkreigxdoen2f3iibo6mvjtbv3draqqpqhuhid57zebt3vlkjdcx4436q" :rad/type :sigref 2 :add]
+["sigref:bafkreigxdoen2f3iibo6mvjtbv3draqqpqhuhid57zebt3vlkjdcx4436q" :rad/rid "bafkreigxdoen2f3iibo6mvjtbv3draqqpqhuhid57zebt3vlkjdcx4436q" 2 :add]
+["sigref:bafkreigxdoen2f3iibo6mvjtbv3draqqpqhuhid57zebt3vlkjdcx4436q" :rad/head "bafkreigbcjorlkrz7ogof54r3qsmljhf5cexeuadwqonrhzpulqv5n5rzy" 2 :add]
+["sigref:bafkreigxdoen2f3iibo6mvjtbv3draqqpqhuhid57zebt3vlkjdcx4436q" :rad/by "did:web:etzhayyim.com:actor:junbi" 2 :add]

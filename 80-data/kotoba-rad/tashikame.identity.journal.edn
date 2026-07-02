@@ -9,3 +9,8 @@
 ["sigref:bafkreigddy2murdg3nt4kl3yqmopvongymq5zub47wcwdvvxudngwwlsou" :rad/rid "bafkreigddy2murdg3nt4kl3yqmopvongymq5zub47wcwdvvxudngwwlsou" 1 :add]
 ["sigref:bafkreigddy2murdg3nt4kl3yqmopvongymq5zub47wcwdvvxudngwwlsou" :rad/head "bafkreig6wsiaz2c2ni7hq5zcwdk6opvkrcd7dm4zuctyppxm7v6kx4t6ti" 1 :add]
 ["sigref:bafkreigddy2murdg3nt4kl3yqmopvongymq5zub47wcwdvvxudngwwlsou" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-tashikame" 1 :add]
+["bafkreigddy2murdg3nt4kl3yqmopvongymq5zub47wcwdvvxudngwwlsou" :rad/did-web "did:web:etzhayyim.com:actor:tashikame" 2 :add]
+["sigref:bafkreigddy2murdg3nt4kl3yqmopvongymq5zub47wcwdvvxudngwwlsou" :rad/type :sigref 2 :add]
+["sigref:bafkreigddy2murdg3nt4kl3yqmopvongymq5zub47wcwdvvxudngwwlsou" :rad/rid "bafkreigddy2murdg3nt4kl3yqmopvongymq5zub47wcwdvvxudngwwlsou" 2 :add]
+["sigref:bafkreigddy2murdg3nt4kl3yqmopvongymq5zub47wcwdvvxudngwwlsou" :rad/head "bafkreihukmzjqceimdllupqk7rvkljnvohsrumwihj7zmzsdg7wanucg3e" 2 :add]
+["sigref:bafkreigddy2murdg3nt4kl3yqmopvongymq5zub47wcwdvvxudngwwlsou" :rad/by "did:web:etzhayyim.com:actor:tashikame" 2 :add]

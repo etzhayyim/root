@@ -10,3 +10,8 @@
 ["sigref:bafkreib3dnmwsr6g4hotp2yx435m3y3pwyadwleam3gx5smfjonpihg72u" :rad/head "bafkreigqwezrbphflwbcnchxfapnechhpymq5g4eiwfcujql76i5ozxfpy" 1 :add]
 ["sigref:bafkreib3dnmwsr6g4hotp2yx435m3y3pwyadwleam3gx5smfjonpihg72u" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-sentei" 1 :add]
 ["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:sentei" 2 :add]
+["bafkreib3dnmwsr6g4hotp2yx435m3y3pwyadwleam3gx5smfjonpihg72u" :rad/did-web "did:web:etzhayyim.com:actor:sentei" 3 :add]
+["sigref:bafkreib3dnmwsr6g4hotp2yx435m3y3pwyadwleam3gx5smfjonpihg72u" :rad/type :sigref 3 :add]
+["sigref:bafkreib3dnmwsr6g4hotp2yx435m3y3pwyadwleam3gx5smfjonpihg72u" :rad/rid "bafkreib3dnmwsr6g4hotp2yx435m3y3pwyadwleam3gx5smfjonpihg72u" 3 :add]
+["sigref:bafkreib3dnmwsr6g4hotp2yx435m3y3pwyadwleam3gx5smfjonpihg72u" :rad/head "bafkreidnkp5gsbsr5ccb553z3lkhtivopazlbujzvzcrli6x5z3xesbgrq" 3 :add]
+["sigref:bafkreib3dnmwsr6g4hotp2yx435m3y3pwyadwleam3gx5smfjonpihg72u" :rad/by "did:web:etzhayyim.com:actor:sentei" 3 :add]

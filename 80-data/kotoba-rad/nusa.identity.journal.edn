@@ -10,3 +10,8 @@
 ["sigref:bafkreiatx3ziqrdvifresd4d5acdb7mf5kuc6bhdzrynygq6wdjnmiqt4m" :rad/head "bafkreifsol3afvgphgk3oq4osctpoohlqpqbm6vu4dt6idru4k2tryo33u" 1 :add]
 ["sigref:bafkreiatx3ziqrdvifresd4d5acdb7mf5kuc6bhdzrynygq6wdjnmiqt4m" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-nusa" 1 :add]
 ["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:nusa" 2 :add]
+["bafkreiatx3ziqrdvifresd4d5acdb7mf5kuc6bhdzrynygq6wdjnmiqt4m" :rad/did-web "did:web:etzhayyim.com:actor:nusa" 3 :add]
+["sigref:bafkreiatx3ziqrdvifresd4d5acdb7mf5kuc6bhdzrynygq6wdjnmiqt4m" :rad/type :sigref 3 :add]
+["sigref:bafkreiatx3ziqrdvifresd4d5acdb7mf5kuc6bhdzrynygq6wdjnmiqt4m" :rad/rid "bafkreiatx3ziqrdvifresd4d5acdb7mf5kuc6bhdzrynygq6wdjnmiqt4m" 3 :add]
+["sigref:bafkreiatx3ziqrdvifresd4d5acdb7mf5kuc6bhdzrynygq6wdjnmiqt4m" :rad/head "bafkreid3zre5wisuksstffhnd6q3boa3bwqivtv4hsj7pxotnf3glvgojm" 3 :add]
+["sigref:bafkreiatx3ziqrdvifresd4d5acdb7mf5kuc6bhdzrynygq6wdjnmiqt4m" :rad/by "did:web:etzhayyim.com:actor:nusa" 3 :add]

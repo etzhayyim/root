@@ -10,3 +10,8 @@
 ["sigref:bafkreibxzdi7latyrsimpekuatcbpcnx4enn5gapufwnngqgok5rmicqva" :rad/head "bafkreiaxejwu4rnb6bj3pbuern6m4ozp7lqeevob4kg23hyonspotc2use" 1 :add]
 ["sigref:bafkreibxzdi7latyrsimpekuatcbpcnx4enn5gapufwnngqgok5rmicqva" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-gov-municipality" 1 :add]
 ["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:gov-municipality" 2 :add]
+["bafkreibxzdi7latyrsimpekuatcbpcnx4enn5gapufwnngqgok5rmicqva" :rad/did-web "did:web:etzhayyim.com:actor:gov-municipality" 3 :add]
+["sigref:bafkreibxzdi7latyrsimpekuatcbpcnx4enn5gapufwnngqgok5rmicqva" :rad/type :sigref 3 :add]
+["sigref:bafkreibxzdi7latyrsimpekuatcbpcnx4enn5gapufwnngqgok5rmicqva" :rad/rid "bafkreibxzdi7latyrsimpekuatcbpcnx4enn5gapufwnngqgok5rmicqva" 3 :add]
+["sigref:bafkreibxzdi7latyrsimpekuatcbpcnx4enn5gapufwnngqgok5rmicqva" :rad/head "bafkreiefv2l6xxjy2bx2z4vzlbu665aja4vsqft4bebclicz6dmcpssuvq" 3 :add]
+["sigref:bafkreibxzdi7latyrsimpekuatcbpcnx4enn5gapufwnngqgok5rmicqva" :rad/by "did:web:etzhayyim.com:actor:gov-municipality" 3 :add]

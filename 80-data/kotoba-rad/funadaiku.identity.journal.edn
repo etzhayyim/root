@@ -10,3 +10,8 @@
 ["sigref:bafkreih2d5hnctsf4vzoy3zenpdwijghg3p35dvhuv3e3prc5ojgvqod3a" :rad/head "bafkreihz2soaqrdgr6fvtc4xwbxl6z3j4gczwxitxqr7hh5j7px5kzmzay" 1 :add]
 ["sigref:bafkreih2d5hnctsf4vzoy3zenpdwijghg3p35dvhuv3e3prc5ojgvqod3a" :rad/by "did:web:etzhayyim.github.io:com-etzhayyim-funadaiku" 1 :add]
 ["bafyreimigrated00000000000000000000000000000000000000000000" :rad/did-web "did:web:etzhayyim.com:actor:funadaiku" 2 :add]
+["bafkreih2d5hnctsf4vzoy3zenpdwijghg3p35dvhuv3e3prc5ojgvqod3a" :rad/did-web "did:web:etzhayyim.com:actor:funadaiku" 3 :add]
+["sigref:bafkreih2d5hnctsf4vzoy3zenpdwijghg3p35dvhuv3e3prc5ojgvqod3a" :rad/type :sigref 3 :add]
+["sigref:bafkreih2d5hnctsf4vzoy3zenpdwijghg3p35dvhuv3e3prc5ojgvqod3a" :rad/rid "bafkreih2d5hnctsf4vzoy3zenpdwijghg3p35dvhuv3e3prc5ojgvqod3a" 3 :add]
+["sigref:bafkreih2d5hnctsf4vzoy3zenpdwijghg3p35dvhuv3e3prc5ojgvqod3a" :rad/head "bafkreiafutsu4p36pzfkdmjtukfwuw5ucpbe6axub4w4eo66nbx67p4t7m" 3 :add]
+["sigref:bafkreih2d5hnctsf4vzoy3zenpdwijghg3p35dvhuv3e3prc5ojgvqod3a" :rad/by "did:web:etzhayyim.com:actor:funadaiku" 3 :add]
