@@ -184,3 +184,6 @@ foundry.lock
 # spirit-in-physics は submodule でなく west 管理 (superproject: orgs/com-junkawasaki/spirit-in-physics ほか)。ローカル残骸は不追跡 (2026-07-02)
 /60-apps/spirit-in-physics/
 /80-data/spirit-in-physics/
+
+# actor self-sovereign aozora identity (etzhayyim.aozora-identity — private key, NEVER commit)
+20-actors/*/.*/identity.edn

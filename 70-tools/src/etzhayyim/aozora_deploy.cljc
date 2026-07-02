@@ -4,12 +4,18 @@
 ;; Per-repo deploy: each com-etzhayyim-* repo has its own artificial-organism
 ;; identity (kotoba-rad genesis with :rad/aozora {:pds :collection}). This task
 ;; reads that genesis + the actor's manifest, builds the profile record body,
-;; and calls etzhayyim.pds.client/create-record! against app-aozora.
+;; and writes it under the actor's OWN did:key session.
 ;;
-;; no-server-key: app-aozora holds no custodial key. The deploy presents a
-;; member CACAO leash (LEASH env) so the write is attributed to a consenting
-;; member; absent → unattributed (fail-open, back-compat). The actor's own
-;; sealed key (PDS-side actorkeys registry) signs the commit — never this tool.
+;; Auth (proven live 2026-07-02, tashikame/kouhou PR #3 each; ADR-2607022300
+;; identify facet): the CLI loads (or first-run generates) the actor's
+;; self-sovereign Ed25519 did:key (etzhayyim.aozora-identity), mints a CACAO,
+;; exchanges it at com.atproto.server.createSession for an HS256 session JWT,
+;; then createRecord(Bearer JWT, repo = did:key) — the PDS enforces session
+;; DID == repo DID. The aozora repo is keyed by the did:key; :rad/did-web is
+;; the public handle. no-server-key: the key is the actor's own, held
+;; off-platform (gitignored identity.edn), never a custodial platform key.
+;; An optional member CACAO leash (LEASH env) is still forwarded for
+;; attribution (the revocable off-switch, ADR-2606111400).
 ;;
 ;; clj/bb per the repo "Operational code = clj/bb" rule.
 ;; Idempotent: rkey=self → re-deploy overwrites the same profile record.
@@ -20,12 +26,16 @@
             [clojure.edn :as edn]
             [cheshire.core :as json]
             [etzhayyim.actor-publish :as pub]
+            [etzhayyim.aozora-identity :as aid]
             [etzhayyim.kotoba-rad :as rad]))
 
-(def canonical-pds "https://aozora.app")
+(def canonical-pds "https://pds.aozora.app")
 
 (def legacy-pds-endpoints
-  #{"https://pds.etzhayyim.com"
+  ;; https://aozora.app is the AppView/canonical handle domain — XRPC writes
+  ;; live on pds.aozora.app (aozora.app serves the app HTML, no /xrpc).
+  #{"https://aozora.app"
+    "https://pds.etzhayyim.com"
     "https://atproto.etzhayyim.com"
     "https://etzhayyim.com"})
 
@@ -94,38 +104,45 @@
           pds (canonicalize-pds raw-pds)
           coll (-> genesis :rad/aozora :collection)
           profile-coll (str coll ".profile")
-          did (:rad/did-web genesis)
+          did-web (:rad/did-web genesis)
           record (profile-record-body actor manifest genesis)]
       (println (format "▶ aozora:deploy %s  (%s)" actor (if apply? "APPLY" "DRY-RUN")))
       (println (format "  PDS:     %s" pds))
       (when (not= raw-pds pds)
-        (println (format "  note:    legacy PDS %s is deprecated; using app-aozora canonical endpoint" raw-pds)))
-      (println (format "  DID:     %s" did))
+        (println (format "  note:    %s is not the XRPC write endpoint; using %s" raw-pds pds)))
+      (println (format "  did:web: %s (public handle)" did-web))
       (println (format "  record:  %s rkey=self" profile-coll))
       (println (format "  body:    %s" (json/generate-string record)))
       (if-not apply?
-        (do
-          (println "  PLAN: createRecord (dry-run — pass --apply to execute)")
-          {:actor actor :planned true :pds pds :did did
-           :collection profile-coll :record record})
-        (do
-          (require '[etzhayyim.pds.client :as client])
-          (let [client-ns (find-ns 'etzhayyim.pds.client)
-                create-fn (ns-resolve client-ns 'create-record!)
-                res (create-fn
-                     pds {:repo did :collection profile-coll :record record
-                          :rkey "self" :leash leash})]
-            (println (format "  result:  status=%s uri=%s cid=%s signedBy=%s author=%s"
-                             (:status res) (:uri res) (:cid res)
-                             (:signedBy res) (:author res)))
-            (if (= 200 (:status res))
-              (do (println (format "✔ %s deployed" actor))
-                  {:actor actor :deployed true :pds pds :did did
-                   :collection profile-coll :uri (:uri res) :cid (:cid res)
-                   :signedBy (:signedBy res) :author (:author res)})
-              (do (println (format "✖ %s FAILED (status=%s)" actor (:status res)))
-                  {:actor actor :failed true :status (:status res)
-                   :collection profile-coll}))))))))
+        (let [id (aid/existing-identity actor)]
+          (println (format "  did:key: %s"
+                           (if id
+                             (format "%s (identity: %s)" (:did id) (:path id))
+                             "(none yet — --apply will generate + persist one)")))
+          (println "  PLAN: createSession → createRecord (dry-run — pass --apply to execute)")
+          {:actor actor :planned true :pds pds :did-web did-web
+           :did-key (:did id) :collection profile-coll :record record})
+        (let [id (aid/load-or-create-identity! actor)
+              _ (println (format "  did:key: %s%s (identity: %s)"
+                                 (:did id)
+                                 (if (:created? id) " [NEW — first run]" "")
+                                 (:path id)))
+              sess (aid/create-session! pds id)
+              res (aid/create-record!
+                   pds (:jwt sess)
+                   {:repo (:did id) :collection profile-coll :rkey "self"
+                    :record (assoc record "actor" (:did id)) :leash leash})]
+          (println (format "  result:  status=%s uri=%s cid=%s"
+                           (:status res) (:uri res) (:cid res)))
+          (if (= 200 (:status res))
+            (do (println (format "✔ %s deployed" actor))
+                {:actor actor :deployed true :pds pds :did-web did-web
+                 :did-key (:did id) :collection profile-coll
+                 :uri (:uri res) :cid (:cid res)})
+            (do (println (format "✖ %s FAILED (status=%s body=%s)"
+                                 actor (:status res) (:body res)))
+                {:actor actor :failed true :status (:status res)
+                 :collection profile-coll})))))))
 
 (defn -main [& args]
   (let [flags (set (filter #(str/starts-with? % "--") args))
@@ -137,7 +154,8 @@
         actors (remove #(str/starts-with? % "--") args)]
     (when (empty? actors)
       (println "usage: bb aozora:deploy <name> [<name>...] [--apply] [--pds=<url>]")
-      (println "  env: AOZORA_PDS_URL=<url> (default https://aozora.app)")
+      (println "  env: AOZORA_PDS_URL=<url> (default https://pds.aozora.app)")
+      (println "       AOZORA_IDENTITY=<path> (override the actor identity.edn location)")
       (println "       LEASH=<member CACAO leash> (optional, attributes write to member)")
       (System/exit 2))
     (doseq [a actors]

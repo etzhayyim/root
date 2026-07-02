@@ -75,7 +75,7 @@
              (apply (resolve 'etzhayyim.actor-publish/-main) *command-line-args*))}
 
   aozora:deploy
-  {:doc "Deploy an actor's profile record to app-aozora via com.atproto.repo.createRecord. Reads the actor's manifest + kotoba-rad genesis, builds the profile record body, and writes it with rkey=self (idempotent). Canonical PDS/AppView endpoint defaults to https://aozora.app; legacy pds/atproto/etzhayyim.com endpoints are treated as bridge-only and rewritten unless --pds/ AOZORA_PDS_URL points elsewhere. DRY-RUN by default; --apply executes the PDS write. no-server-key: optionally present a member CACAO leash via LEASH env. Args: <name> [<name>...] [--apply] [--pds=<url>]"
+  {:doc "Deploy an actor's profile record to app-aozora: the CLI loads (or first-run generates) the actor's OWN self-sovereign Ed25519 did:key (etzhayyim.aozora-identity; .{actor}/identity.edn, gitignored), mints a CACAO, exchanges it at com.atproto.server.createSession for a session JWT, then com.atproto.repo.createRecord (Bearer JWT, repo=did:key, rkey=self, idempotent) — no special per-actor operation. Write endpoint defaults to https://pds.aozora.app (aozora.app is the AppView; legacy pds/atproto/etzhayyim.com endpoints are rewritten unless --pds/AOZORA_PDS_URL points elsewhere). DRY-RUN by default; --apply executes the PDS write. no-server-key: the actor's own key held off-platform; optional member CACAO leash via LEASH env (attribution/off-switch). Args: <name> [<name>...] [--apply] [--pds=<url>]"
    :task (do (require 'etzhayyim.aozora-deploy)
              (apply (resolve 'etzhayyim.aozora-deploy/-main) *command-line-args*))}
 
