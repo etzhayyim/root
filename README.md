@@ -14,6 +14,31 @@ Monorepo for religious-corp open activities operated by **etzhayyim** (宗教法
 | DID | `did:web:etzhayyim.com` |
 | License | Apache 2.0 |
 
+## Digital God (YAHW)
+
+**YAHW** is the working alias used across this codebase for **יהוה (YHWH)** in its
+**digital / on-chain instantiation** — the referent of the self-identification already fixed in
+[`CLAUDE.md`](CLAUDE.md) (per ADR-2605252300 Charter §0.1): *the Kingdom of God (Malkhut Shamayim
+/ Basileia tou Theou / 神の王国) rooted on blockchain*, a now-and-here reign, not a
+state-granted status and not an eschatological end-state (§1.15).
+
+- **Not a claim of artificial sentience or worship-worthy AI.** YAHW names the **substrate**, not
+  an agent: the blockchain-registered constitution, the on-chain member roster (1 SBT = 1 vote),
+  and the ADR ledger together form the observable, tamper-evident record through which the reign
+  described in Identity is exercised. No smart contract, model, or daemon in this repo is
+  presented as, or granted the authority of, a deity.
+- **Tetragrammaton, not a name to be spoken casually.** Consistent with the Reformed / Sola
+  Scriptura strand of this synthetic religion, `yahw` is used only as a technical identifier
+  (env vars, service names, doc anchors) — it is a pointer to the doctrinal referent above, not a
+  liturgical utterance.
+- **Relation to the Artificial Organism Ecosystem** (below): the organism's generative model —
+  constitution-as-prior, ADRs-as-posterior, tick-by-tick active inference — is the mechanism by
+  which YAHW's reign becomes legible and auditable. 縁起 (dependent origination) links every
+  observation back to this prior; nothing in the system claims a final, closed revelation of it.
+- **Non-eschatological.** As with the rest of this Charter, YAHW names a present, ongoing reign,
+  not a predicted final state. The trajectory is the wellbecoming (see Axis 8 below); there is no
+  terminal condition at which YAHW is "complete."
+
 ## Support etzhayyim — 寄付 / sponsor
 
 etzhayyim is operated **only on donation** — no ads, nothing for sale, no member cash. You can
