@@ -48,12 +48,19 @@ program, **10%** auto-splits to the **Public Fund** (the constitutional 10% tith
 | Split | 90% recipient program / 10% Public Fund (1 SBT = 1 vote governance) |
 | SDK | `import { donate } from "@etzhayyim/sdk/donate"` |
 
-> **On-chain donation address — status: pending.** The TitheRouter / Public-Fund Safe addresses
-> are **not deployed yet** (Base L2 testnet is pending Bootstrap-Council ratification; Council
-> Seats 2–5 RFP closes 2026-06-19). **No donation address is published in this file by design** —
-> the canonical address appears at **<https://etzhayyim.com/.well-known/donation.json>** the
-> moment it is live, in exactly one place, so it can never drift. Do **not** send funds to any
-> address claimed elsewhere.
+> **On-chain donation address — status: live (interim direct wallet).** The `TitheRouter` /
+> Public-Fund Safe **contracts** are not deployed yet (Base L2 testnet still pending full
+> Bootstrap-Council contract ratification). Until then, donations settle directly to an
+> **interim founder-held wallet** rather than the router contract:
+>
+> `0xA00366234D29d4F882088048c0B2fa0dB7302D4E` (Base L2 — USDC and the curated crypto allowlist)
+>
+> The 10% Public Fund tithe is computed and recorded **manually** against this address until
+> `TitheRouter` goes live (same interim treatment already used for non-USDC assets, ADR-2606111800
+> §C). This interim address is authorized by founder / Council Lv7+ sole-member decision (per
+> ADR-2605192300). The canonical, always-current address is mirrored at
+> **<https://etzhayyim.com/.well-known/donation.json>** — if the two ever disagree, treat
+> `donation.json` as authoritative. Do **not** send funds to any address claimed elsewhere.
 
 ### Other crypto assets (held as-is)
 
