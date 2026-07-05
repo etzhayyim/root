@@ -130,9 +130,10 @@ const DONATION_POLICY = {
       medium: "cash",
       asset: "USDC",
       rail: "TitheRouter.donate() on Base L2",
+      address: "0xA00366234D29d4F882088048c0B2fa0dB7302D4E",
       split: "90% recipient program / 10% Public Fund (ADR-2605192130)",
       purposes: ["donation", "kisha", "grant"],
-      status: "Base L2 testnet pending Council (CLAUDE.md §Live governance)",
+      status: "interim founder-held wallet live (address above); TitheRouter contract itself still pending Council ratification + Base L2 testnet (CLAUDE.md §Live governance); tithe tracked manually until then",
     },
     {
       // ADR-2606111800 §C — curated crypto-asset allowlist, held as-is (per-asset tithe).
@@ -140,10 +141,11 @@ const DONATION_POLICY = {
       assets: ["ETH", "WETH", "USDC", "USDT", "DAI"],
       heldAsIs: true,
       rail: "on-chain donation to the same address (Base L2; or L1 where un-bridgeable)",
+      address: "0xA00366234D29d4F882088048c0B2fa0dB7302D4E",
       split: "90/10 tithe computed per-asset at receipt",
       purposes: ["donation", "kisha", "grant"],
       note: "Curated liquid-majors allowlist (Council Tier-2). No memecoins / no algorithmic stablecoins. TitheRouter per-asset support is a follow-up (until then: recorded + manually tithed).",
-      status: "pending the same Council ratification + testnet as cash",
+      status: "interim wallet live for receipt (same address as cash); per-asset TitheRouter split pending same Council ratification + testnet as cash",
     },
     {
       // ADR-2606111800 §B — non-custodial fiat on-ramp settling immediately to USDC on-chain.
@@ -213,7 +215,7 @@ const DONATION_POLICY = {
     sponsorButton:
       "GitHub repo Sponsor button (.github/FUNDING.yml) points here — NOT to GitHub Sponsors / Patreon / Stripe (fiat processors prohibited, ADR-2605172100).",
     addressStatus:
-      "On-chain donate address is published in THIS document (field media[0]) once live — single source of truth, no second place to drift. Currently pending Council ratification + Base L2 testnet.",
+      "On-chain donate address is published in THIS document (field media[0].address / media[1].address) — single source of truth, no second place to drift. Interim direct wallet is live; the TitheRouter contract itself is still pending Council ratification + Base L2 testnet.",
   },
   adr: ["2606012100", "2606111700", "2606111800", "2605192115", "2605192130", "2605172100", "2605215000", "2605301020", "2605241900"],
   references: {
@@ -243,7 +245,7 @@ const DONATE_HTML = renderShell({
 <div class="card">
 <span class="tag">USDC</span><span class="tag">Base L2</span>
 <p>Donations settle on-chain through <strong>TitheRouter</strong>: 90% to the recipient program, 10% auto-split to the Public Fund. No fiat processor, no fees skimmed by middlemen.</p>
-<p style="opacity:.7;margin:.25rem 0 0">Status: Base L2 testnet pending Council ratification — on-chain donate address published here when live.</p>
+<p style="opacity:.7;margin:.25rem 0 0">Interim direct wallet (live now — the <code>TitheRouter</code> contract itself is still pending Council ratification + Base L2 testnet, so the 90/10 split is tracked manually until then): <code>0xA00366234D29d4F882088048c0B2fa0dB7302D4E</code></p>
 </div>
 <div class="card">
 <span class="tag">ETH · stablecoins</span><span class="tag">held as-is</span>
