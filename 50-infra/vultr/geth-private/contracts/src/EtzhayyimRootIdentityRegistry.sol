@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.23;
 
-import {etzhayyimRootIdentity} from "./etzhayyimRootIdentity.sol";
+import {etzhayyimRootIdentity} from "./EtzhayyimRootIdentity.sol";
 
 /// @title etzhayyimRootIdentityRegistry
 /// @notice Registry mapping ERC725 root DID hashes and facade DID hashes to
