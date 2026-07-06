@@ -40,15 +40,14 @@
    (deftest test-manifest-cells-have-dirs-and-state-machines
      (doseq [cell (get (manifest) "cells")]
        (let [d (io/file cells-dir (get cell "name"))]
-         (is (.isFile (io/file d "cell.py")) (str "missing " (get cell "name") "/cell.py"))
-         (is (.isFile (io/file d "state_machine.py"))
-             (str "missing " (get cell "name") "/state_machine.py"))))))
+         (is (.isFile (io/file d "state_machine.cljc"))
+             (str "missing " (get cell "name") "/state_machine.cljc"))))))
 
 #?(:clj
    (deftest test-every-cell-dir-is-in-the-manifest
      (let [declared (set (map #(get % "name") (get (manifest) "cells")))
            on-disk (set (for [p (.listFiles (io/file cells-dir))
-                              :when (and (.isDirectory p) (.isFile (io/file p "cell.py")))]
+                              :when (and (.isDirectory p) (.isFile (io/file p "state_machine.cljc")))]
                           (.getName p)))]
        (is (= on-disk declared) (str "cell tree " on-disk " != manifest " declared)))))
 
