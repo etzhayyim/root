@@ -772,6 +772,12 @@
              (let [r (clojure.test/run-tests 'toritate.methods.test-imputed-income 'toritate.methods.test-charter-gates)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
+  test:kazaori
+  {:doc "風折 kazaori — civilian disaster-response engine + constitutional-gate conformance (ADR-2605263200)"
+   :task (do (require 'clojure.test 'kazaori.methods.test-emergency 'kazaori.methods.test-charter-gates)
+             (let [r (clojure.test/run-tests 'kazaori.methods.test-emergency 'kazaori.methods.test-charter-gates)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
   test:aburi
   {:doc "炙り aburi — personal-tracking-exposure: all cljc tests (analyze/coverage/kotoba/ingest/bridge) + python ingest/bridge legacy (ADR-2606161630)"
    :task (do (require 'clojure.test 'aburi.tests.test-analyze 'aburi.tests.test-coverage
@@ -861,7 +867,7 @@
              (apply (resolve 'tadori.methods.transact/-main) *command-line-args*))}
   test:clj
   {:doc "all Clojure actor tests (fast suites; run test:ibuki:integration separately)"
-   :depends [test:mimamori test:yobel test:tools test:ibuki test:actors test:matsurigoto test:fuchi test:wakai test:toritate test:aburi test:docs-registry]}
+   :depends [test:mimamori test:yobel test:tools test:ibuki test:actors test:matsurigoto test:fuchi test:wakai test:toritate test:kazaori test:aburi test:docs-registry]}
   test:docs-registry
   {:doc "docs registry generator (70-tools/scripts/docs/regen-registry.clj) — parse-frontmatter / JSON+EDN encoders / byte-parity round-trip + live freshness guard (port of test_regen_registry.py)"
    :task (shell "bb" "70-tools/scripts/docs/test_regen_registry.clj")}
