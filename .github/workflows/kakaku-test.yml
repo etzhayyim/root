@@ -21,16 +21,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Install pytest
-        run: pip install pytest
+      # kakaku's suite is pure Clojure/babashka now (ADR-2606160842 py->cljc port
+      # wave); test_ingest_mcp.cljc pins the same seed-parses-to-10-entities/~72-
+      # datoms assertion the old `ingest_mcp.py --dry-run` step checked, so that
+      # step is redundant and has been removed rather than re-pointed at a deleted
+      # file.
+      - name: Set up Babashka
+        run: |
+          curl -sL https://raw.githubusercontent.com/babashka/babashka/master/install -o /tmp/bb-install
+          chmod +x /tmp/bb-install
+          sudo /tmp/bb-install --version 1.12.218
+          bb --version
 
       - name: Run kakaku agent suite
         run: bash 20-actors/kakaku/run_tests.sh
-
-      - name: Validate deploy seed parses (dry-run)
-        run: python3 20-actors/kakaku/kotoba/ingest_mcp.py --dry-run

@@ -12,17 +12,17 @@
 
 (deftest reader-smoke
   (is (= [":a" 1 true nil "x"]
-         (k/read-edn-str "[:a 1 true nil \"x\"]"))))
+         (k/read-all "[:a 1 true nil \"x\"]"))))
 
 (deftest classify-returns-oracle
-  (let [parsed (k/read-edn-str seed)
+  (let [parsed (k/read-all seed)
         result (k/classify parsed)]
-    (is (= {"p1" {:productId "p1" :name "Widget" :brand "Acme" :jan "4900000000001" :category "tools"}}
+    (is (= {"p1" {"productId" "p1" "name" "Widget" "brand" "Acme" "jan" "4900000000001" "category" "tools"}}
            (:products result)))
-    (is (= {"m1" {:merchantId "m1" :name "ShopA" :region "jp" :reputationScore 87 :status "active"}}
+    (is (= {"m1" {"merchantId" "m1" "name" "ShopA" "region" "jp" "reputationScore" 87 "status" "active"}}
            (:merchants result)))
-    (is (= [{:offerId "m1:o1" :merchantId "m1" :price 1000 :shippingFee 200 :totalPrice 1200 :availability "in-stock" :deliveryEtaDays 3 :productUrl "http://a/o1"}
-            {:offerId "m2:o2" :merchantId "m2" :price 950 :shippingFee 0 :totalPrice 950 :availability "backorder" :deliveryEtaDays 14 :productUrl nil}]
+    (is (= [{"offerId" "m1:o1" "merchantId" "m1" "price" 1000 "shippingFee" 200 "totalPrice" 1200 "availability" "in-stock" "deliveryEtaDays" 3 "productUrl" "http://a/o1"}
+            {"offerId" "m2:o2" "merchantId" "m2" "price" 950 "shippingFee" 0 "totalPrice" 950 "availability" "backorder" "deliveryEtaDays" 14 "productUrl" nil}]
            (:offers result)))
-    (is (= [{:totalPrice 1180 :availability "in-stock" :observedAt "2026-06-01"}]
-           (:ph result)))))
+    (is (= [{"totalPrice" 1180 "availability" "in-stock" "observedAt" "2026-06-01"}]
+           (:price-history result)))))
