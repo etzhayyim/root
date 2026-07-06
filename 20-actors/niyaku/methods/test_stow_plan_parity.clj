@@ -50,7 +50,7 @@
     (catch Exception _ nil)))
 
 (defn- clj-result [[boxes rot ba ro ti q]]
-  (let [cs (map-indexed (fn [i [w p]] (sp/container (str "B" i) w p)) boxes)
+  (let [cs (map-indexed (fn [i [w p]] (sp/make-container (str "B" i) w p)) boxes)
         plan (sp/build-stow-plan cs rot ba ro ti)
         asg (into {} (map (fn [[b s]] [b [(:bay s) (:row s) (:tier s)]]) (:assignments plan)))
         seq* (vec (sp/discharge-sequence plan q))]
