@@ -8,9 +8,9 @@ denial / underwriting / investment-return / commercial (re)insurance / DeFi spec
 |---|---|
 | Lexicons | ✅ 5 under `com.etzhayyim.wakai.*` (contribution / distribution / poolStateReport / publicFundBackstopRequest / silenWakaiReview) — const fields fully populated (README's "R0 skeleton" note is now outdated) |
 | Manifest | ✅ `manifest.jsonld` |
-| Tests | ✅ `methods/test_charter_gates.py` — **7 tests, green** (added 2026-06-16; previously NO dedicated test — only sibling cross-refs in mimamori/kawase-yui) — pins the anti-insurance / anti-speculation const ledger; `./run_tests.sh` |
-| Cells | ⛔ none yet (R1 — contribution / distribution / pool-state / backstop cells) |
-| Methods | ⛔ no engine yet (R1) |
+| Tests | ✅ `methods/test_charter_gates.cljc` + `methods/test_pool.cljc` — **15 tests / 42 assertions, green** (`bb test:wakai` / `./run_tests.sh`) — pins the anti-insurance / anti-speculation const ledger + the pool engine's own invariants |
+| Cells | ⛔ none yet (R1 — wiring `methods/pool.cljc` into a live kotoba-kotodama Pregel cell is separate from the reference-impl existing) |
+| Methods | ✅ `methods/pool.cljc` — R0 reference implementation (pure functions matching the Lexicon record shapes 1:1): `validate-contribution` (G6+G8), `validate-distribution` (G3+G7+G9, rejects <3 community or <3 Council attestations), `aggregate-pool-state` (G6 pinned; no individual amounts). `solve()` raises — validation + aggregation only, NOT a live pool |
 
 ## Charter gates pinned by the test
 

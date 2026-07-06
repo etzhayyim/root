@@ -165,7 +165,12 @@ R3 adds emergency_pool_activation (kazaori cross-actor).
 
 ## Build & Deploy
 
-**R0 status**: Scaffold only. R0 cells RuntimeError on import.
+**R0 status**: `methods/pool.cljc` is a reference-impl engine (pure `validate-contribution` /
+`validate-distribution` / `aggregate-pool-state` functions, `bb test:wakai` — 15 tests / 42
+assertions green) — this is validation + aggregation ONLY, not a live pool. The Pregel CELLS
+themselves (contribution / distribution / pool-state / backstop) are still unwired scaffold
+and RuntimeError on import; wiring one to `methods/pool.cljc` + live kotoba-kotodama execution
+is separate R1 work, Council+operator gated same as every other actor's R0→live boundary.
 
 R1 smoke test (when cells created):
 ```bash
