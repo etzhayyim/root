@@ -12,4 +12,7 @@ fail=0
 # cljc agent suite (methods/agent.cljc port: safety-envelope + cost-share + match-pool + settlement)
 ( cd "$here/../.." && bb -e '(require (quote clojure.test) (quote ainori.methods.test-agent))(let [r (apply clojure.test/run-tests (quote [ainori.methods.test-agent]))](System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))' ) || fail=1
 
+# py.agent LIVE parity suite (py/test_agent_parity.clj — python3 subprocess vs the clj port)
+( cd "$here/../.." && bb -e '(require (quote clojure.test) (quote ainori.py.test-agent-parity))(let [r (apply clojure.test/run-tests (quote [ainori.py.test-agent-parity]))](System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))' ) || fail=1
+
 [ "$fail" -eq 0 ] && echo "── ainori: ALL suites green ──" || { echo "── ainori: FAILURES above ──"; exit 1; }
