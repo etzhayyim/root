@@ -27383,6 +27383,34 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2607061800-etzhayyim-stock-donation-mandatory-liquidation.md",
+      "id": "adr-2607061800-etzhayyim-stock-donation-mandatory-liquidation",
+      "title": "ADR-2607061800: Donated Securities (Stock/Equity) — Attestation + Mandatory Prompt Liquidation, No Speculative Holding",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "stock-donation-mandatory-liquidation",
+      "authoritative": true,
+      "authoritative_for": [
+        "com.etzhayyim.give.stock.donation Lexicon",
+        "toritate ledgerEntry category securities-donation-liquidation-proceeds",
+        "the heldAsEquityPosition=false structural invariant for donated securities"
+      ],
+      "related": [
+        "adr-2605192245-etzhayyim-global-land-sovereignty",
+        "adr-2605301020-basic-high-income-imputed-and-commons-asset-doctrine"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "adr-2605192130-etzhayyim-tithe-redistribution",
+        "adr-2605262900-toritate-accounting-audit-tier-b-actor-r0"
+      ],
+      "last_verified": "2026-07-06",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2607061800-saisei-self-filing-debt-relief-actor.md",
       "id": "adr-2607061800-saisei-self-filing-debt-relief-actor",
       "title": "ADR-2607061800: saisei (再生) — self-filing debt-relief concierge actor, and relocating bankruptcy intelligence off the vendor",
