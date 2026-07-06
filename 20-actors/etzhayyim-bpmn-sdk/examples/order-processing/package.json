@@ -25,7 +25,7 @@
     "@etzhayyim/bpmn-sdk-validation": "workspace:*"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.5.1",
+    "@biomejs/biome": "2.5.2",
     "@types/jest": "^30.0.0",
     "@types/node": "^26.0.1",
     "jest": "^30.4.2",
