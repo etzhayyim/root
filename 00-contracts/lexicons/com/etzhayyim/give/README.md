@@ -10,6 +10,7 @@ ADR-2605192130); these Lexicons are the AT Protocol counterparts.
 | `usdc.donation` | A USDC donation (donor DID, amount micros, purpose, tx hash) |
 | `land.donation` | In-kind land donation → LandRegistry NFT (inalienable, ADR-2605192245) |
 | `land.stewardSuccession` | Rotate stewardship voice on donated land (NFT never transferred) |
+| `stock.donation` | Donated publicly-traded securities (DTC/brokerage transfer) — never held as an equity position, liquidated promptly, proceeds cross-link to a `usdc.donation` record |
 | `vendorMissionDonationAttestation` | Vendor (etzhayyim.com) mission-surplus donation → Public Fund (ADR-2605301036) |
 | `vendorSurplusPolicy` | Council-attested vendor payout-ratio + reserve policy (ADR-2605301036 §6) |
 | `computeDonationAttestation` | **In-kind COMPUTE donation** — compute/storage given to the Murakumo mesh + kotoba substrate by a donated node (ameno browser inference / e7m CLI / kotoba pod). Non-titheable, uncompensated, imputed-value (ADR-2606012100) |
@@ -52,6 +53,23 @@ fields): `titheable=false` (no USDC to split — kisha precedent, ADR-2605192130
 rental, Charter Rider §2(i)), `grantsBenefit=false` (never a path to benefits —
 anti-class G4), `bestEffort=true` (donated capacity is never an SLA). Public
 declaration lives on `https://etzhayyim.com/donate` + `/.well-known/donation.json`.
+
+## Donated securities (stock/equity) — mandatory prompt liquidation
+
+`stock.donation` records the standard non-profit appreciated-securities gift: a donor
+transfers publicly-traded shares via DTC/brokerage to etzhayyim's receiving account. Per
+Charter Rider §2(b) (no speculative finance) — the same doctrine already enforced on
+wakai's mutual-aid pool and toritate's ledger — donated securities are **never** retained
+as an equity position: `heldAsEquityPosition` is a structural `const false`. The
+receiving brokerage liquidates promptly; the USDC-equivalent proceeds enter the ordinary
+`usdc.donation` / TitheRouter flow (cross-linked via `liquidationDonationRef`), and
+toritate accounts the proceeds as a `ledgerEntry` (`securities-donation-liquidation-proceeds`
+category, ADR-2605262900). The donation record itself is durable content-addressed
+attestation of the original gift — for donor fair-market-value substantiation — not an
+on-chain-custodied or transferable asset. No new token is minted; unlike land (a
+constitutionally inalienable commons asset, hence a soulbound NFT), a donated security is
+mission-fungible working capital, so it converts to the same USDC rail every other
+donation uses rather than acquiring a bespoke on-chain representation.
 
 ## Privacy / constitutional invariants
 

@@ -31,6 +31,7 @@
            "external-counsel-engagement" "external-auditor-engagement"
            "subsistence-flow" "vocation-flow" "liberation-flow" "care-flow" "reimbursement"
            "land-trust-acquisition" "asset-acquisition" "asset-depreciation"
+           "securities-donation-liquidation-proceeds"
            "internal-promo-expense" "uncategorized"})
       "G12: ledger-categories set drifted from the ledgerEntry Lexicon"))
 

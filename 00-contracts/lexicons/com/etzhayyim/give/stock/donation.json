@@ -1,0 +1,92 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.give.stock.donation",
+  "description": "A donation of publicly-traded securities (stock / ETF shares) to etzhayyim, via DTC/brokerage transfer (the standard non-profit appreciated-securities-gift mechanism). Per Charter Rider §2(b) (no speculative finance) + ADR-2605192115 (donation-only), donated securities are NEVER held as a speculative equity position — `heldAsEquityPosition` is a structural const false. The security is liquidated by the receiving brokerage promptly after transfer, and the USDC-equivalent proceeds enter the normal TitheRouter donation flow (`com.etzhayyim.give.usdc.donation`, cross-linked via `liquidationDonationRef`). This record is the durable, content-addressed attestation of the ORIGINAL gift-in-kind (for donor fair-market-value substantiation, e.g. IRS Form 8283-equivalent) — it is not itself a transferable or on-chain-custodied asset. See `90-docs/adr/2605192245-etzhayyim-global-land-sovereignty.md` for the structurally analogous land-donation attestation pattern this Lexicon mirrors.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "donorDid",
+          "securityIdentifier",
+          "securityIdentifierScheme",
+          "shareQuantity",
+          "fairMarketValueUsdMicros",
+          "valuationDateUtc",
+          "brokerageTransferConfirmationCid",
+          "heldAsEquityPosition",
+          "createdAt"
+        ],
+        "properties": {
+          "donorDid": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the donor at the moment of donation. Per `FORK-BOOTSTRAP.md` constitutional invariant #2, donor must operate a religious DID (did:web / did:plc / did:key)."
+          },
+          "securityIdentifier": {
+            "type": "string",
+            "description": "The security's identifier under `securityIdentifierScheme` (e.g. ticker \"AAPL\", or a CUSIP/ISIN string).",
+            "maxLength": 64
+          },
+          "securityIdentifierScheme": {
+            "type": "string",
+            "knownValues": ["ticker", "cusip", "isin"],
+            "description": "Which identifier scheme `securityIdentifier` uses."
+          },
+          "shareQuantity": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Whole shares transferred. Fractional-share gifts are recorded as the nearest whole-share brokerage confirmation; the fractional remainder (if any) is noted in `brokerageTransferConfirmationCid`."
+          },
+          "fairMarketValueUsdMicros": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Fair market value of the gift at `valuationDateUtc`, in USD micros (×1e6), per ADR-2605190900 integer-with-implied-units. Standard non-profit FMV substantiation is the average of the high and low trading price on the date of transfer."
+          },
+          "valuationDateUtc": {
+            "type": "string",
+            "format": "datetime",
+            "description": "The date used for `fairMarketValueUsdMicros` — normally the date the shares are transferred into the receiving brokerage account, not the date the donor initiated the transfer."
+          },
+          "brokerageTransferConfirmationCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "IPFS CID of the brokerage's DTC transfer confirmation (or equivalent transfer-agent confirmation for non-DTC-eligible securities), encrypted per ADR-2605181100 if it carries donor account details."
+          },
+          "heldAsEquityPosition": {
+            "type": "boolean",
+            "const": false,
+            "description": "STRUCTURAL (Charter Rider §2(b) no speculative finance): always false. Donated securities are never retained as an equity position; they are liquidated promptly and the proceeds route through the ordinary USDC donation flow."
+          },
+          "liquidatedAtUtc": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When the brokerage completed the sale. Absent until liquidation completes (a donation record may exist briefly before its liquidation is confirmed — the gift itself, not its cash conversion, is what this record attests)."
+          },
+          "liquidationProceedsUsdMicros": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Actual USDC-equivalent proceeds after brokerage fees (may differ from `fairMarketValueUsdMicros`, which is the donor's tax-substantiation value, not the net proceeds)."
+          },
+          "liquidationDonationRef": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "AT URI of the `com.etzhayyim.give.usdc.donation` record created once the brokerage wires/transfers the liquidation proceeds and they enter TitheRouter as USDC. Absent until liquidation completes."
+          },
+          "donorNoteRef": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "Optional AT URI of an `com.etzhayyim.encrypted.donation-note` record carrying a private message from the donor to the Council. Encrypted per ADR-2605181100."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "ISO 8601 timestamp at the moment of donation-record submission (the brokerage transfer may complete slightly before or after this record is authored)."
+          }
+        }
+      }
+    }
+  }
+}

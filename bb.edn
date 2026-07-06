@@ -767,9 +767,9 @@
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:toritate
-  {:doc "執帳 toritate — Basic High Income accounting engine + constitutional-gate conformance (ADR-2605262900 + 2605301020)"
-   :task (do (require 'clojure.test 'toritate.methods.test-imputed-income 'toritate.methods.test-charter-gates)
-             (let [r (clojure.test/run-tests 'toritate.methods.test-imputed-income 'toritate.methods.test-charter-gates)]
+  {:doc "執帳 toritate — Basic High Income accounting + securities-donation intake + constitutional-gate conformance (ADR-2605262900 + 2605301020 + 2607061800)"
+   :task (do (require 'clojure.test 'toritate.methods.test-imputed-income 'toritate.methods.test-securities-donation 'toritate.methods.test-charter-gates)
+             (let [r (clojure.test/run-tests 'toritate.methods.test-imputed-income 'toritate.methods.test-securities-donation 'toritate.methods.test-charter-gates)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:kazaori

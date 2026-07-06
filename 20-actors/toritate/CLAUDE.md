@@ -163,8 +163,11 @@ R3 adds external auditor engagement workflow battle-tested.
 
 **R0 status**: `methods/imputed_income.cljc` is a reference-impl engine (pure
 `compute-imputed-income` / `compute-commons-asset-value` / `basic-high-income-report` /
-`ledger-entry` functions reading `valuation/v1-retail-equiv.json`, `bb test:toritate` — 18
-tests / 45 assertions green) — this is accounting computation ONLY, not a live ledger write.
+`ledger-entry` functions reading `valuation/v1-retail-equiv.json`) and
+`methods/securities_donation.cljc` (ADR-2607061800: `validate-securities-donation` /
+`record-liquidation` for donated publicly-traded stock, `heldAsEquityPosition` structurally
+always false) — `bb test:toritate` — 26 tests / 59 assertions green. Both are accounting
+computation ONLY, not a live ledger write or real brokerage integration.
 The Pregel CELLS themselves (transaction_ledger / tithe_accounting / public_fund_accounting /
 council_compensation / steward_subsistence_accounting / annual_audit_report) are still
 unwired scaffold; wiring one to `methods/imputed_income.cljc` + live on-chain reads is
@@ -192,5 +195,6 @@ python -c "from kotodama.cells.toritate_transaction_ledger import _r0_marker" 2>
 - `/90-docs/adr/2605172100-etzhayyim-payments-on-chain-only.md` — Payments
 - `/90-docs/adr/2605261000-labor-liberation-transition-mechanism.md` — Liberation Ladder
 - `/90-docs/adr/2605262700-chigiri-legal-procedure-tier-b-actor-r0.md` — chigiri (cross-actor)
+- `/90-docs/adr/2607061800-etzhayyim-stock-donation-mandatory-liquidation.md` — donated-securities intake + mandatory liquidation
 - `/CHARTER-RIDER.md` — License + Rider canonical text
 - `/CLAUDE.md` — Religious-corp status table
