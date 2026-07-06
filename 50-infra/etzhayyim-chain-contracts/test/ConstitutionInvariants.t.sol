@@ -149,7 +149,7 @@ contract ConstitutionInvariantsTest is Test {
         assertEq(c.getConstant(K.LICENSE_BASE), bytes32("Apache-2.0"), "license base Apache-2.0");
         assertFalse(c.isConstant(K.LICENSE_CHARTER_RIDER_VERSION), "rider version is mutable");
         assertFalse(c.isConstant(K.LICENSE_CHARTER_RIDER_TEXT_HASH), "rider text-hash is mutable");
-        assertEq(c.getMutable(K.LICENSE_CHARTER_RIDER_VERSION), bytes32("v3.0"), "rider v3.0");
+        assertEq(c.getMutable(K.LICENSE_CHARTER_RIDER_VERSION), bytes32("v3.6"), "rider v3.6");
     }
 
     // ── Rider-integrity anchor: the on-chain text-hash == keccak256 of the
