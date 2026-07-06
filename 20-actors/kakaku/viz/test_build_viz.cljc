@@ -2,7 +2,7 @@
   "kakaku 価格 — viz builder tests. 1:1 port of viz/test_build_viz.py: the viz payload mirrors the
   agent handlers (single source of truth), carries the G2 buyer-transparency intent, and the
   rendered HTML inlines the payload (self-contained, file:// — no external fetch). Seed is read +
-  classified via kakaku.methods.kakaku-edn (load-edn/classify)."
+  classified via kakaku.methods.kakaku-edn (read-all/classify)."
   (:require [clojure.test :refer [deftest is]]
             [clojure.string :as str]
             [clojure.java.io :as io]
@@ -13,8 +13,8 @@
 (def template (io/file "20-actors/kakaku/viz/_template.htm"))
 
 (defn- payload []
-  (let [{:keys [products merchants offers ph]} (edn/classify (edn/load-edn seed))]
-    (b/build-payload products merchants offers ph)))
+  (let [{:keys [products merchants offers price-history]} (edn/classify (edn/read-all (slurp seed)))]
+    (b/build-payload products merchants offers price-history)))
 
 (deftest test-one-card-per-product-with-offers
   (let [p (payload)
