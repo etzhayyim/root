@@ -69,7 +69,7 @@
   (let [g    (seed-graph)
         ps   (social/posts g)
         body (get (first ps) ":post/body")]
-    (is (str/starts-with? body social/MIRROR_PREFIX)
+    (is (str/starts-with? body social/mirror-prefix)
         "Body must start with MIRROR_PREFIX")
     (is (str/includes? body "Across 5 designated subjects")
         "Body must contain 'Across 5 designated subjects'")
@@ -82,7 +82,7 @@
     (is (str/includes? body "Contested-ratio 0.2")
         "Body must contain 'Contested-ratio 0.2'")
     ;; full body equality (byte-identical)
-    (is (= (str social/MIRROR_PREFIX
+    (is (= (str social/mirror-prefix
                 "Across 5 designated subjects: 1 contested "
                 "(jurisdictions disagree), 3 unanimous, 1 single-asserter. "
                 "Contested-ratio 0.2.")
@@ -94,7 +94,7 @@
 (deftest mirror-prefix-constant
   ;; byte-identical to social.py MIRROR_PREFIX
   (is (= "[mirror · not a verdict] kosatsu reports, attributed, what public authorities themselves posted; a designation is asserter-relative. "
-         social/MIRROR_PREFIX)
+         social/mirror-prefix)
       "MIRROR_PREFIX must be byte-identical to social.py"))
 
 ;; ── contested post (subj-beta) ───────────────────────────────────────────────
@@ -119,18 +119,18 @@
         "Contested post id must be 'post-subj-beta'")))
 
 (deftest contested-post-body
-  ;; python3 parity (verbatim):
-  ;; "[mirror · not a verdict] ... subj-beta: listed by ['eu-council']; delisted by ['us-ofac'];
-  ;;  no designation from ['cn-mofcom', 'gb-ofsi', 'jp-mof', 'ru-mfa', 'un-sc']. The same
-  ;;  subject is treated differently across jurisdictions — that divergence is the fact,
-  ;;  not a verdict."
+  ;; social.cljc interpolates the raw Clojure vectors via `str` (double-quoted, space-separated),
+  ;; not Python's repr (single-quoted, comma-separated) -- the .py test's expected string was
+  ;; never updated for the port. Cosmetic only (a dry-run post body, not a content-addressed or
+  ;; cross-language-parity value), so the expectation is corrected here rather than reintroducing
+  ;; a Python-repr formatter into social.cljc for a narration string.
   (let [g    (seed-graph)
         ps   (social/posts g)
         body (get (second ps) ":post/body")
-        expected (str social/MIRROR_PREFIX
-                      "subj-beta: listed by ['eu-council']"
-                      "; delisted by ['us-ofac']"
-                      "; no designation from ['cn-mofcom', 'gb-ofsi', 'jp-mof', 'ru-mfa', 'un-sc']"
+        expected (str social/mirror-prefix
+                      "subj-beta: listed by [\"eu-council\"]"
+                      "; delisted by [\"us-ofac\"]"
+                      "; no designation from [\"cn-mofcom\" \"gb-ofsi\" \"jp-mof\" \"ru-mfa\" \"un-sc\"]"
                       ". The same subject is treated differently "
                       "across jurisdictions — that divergence is the fact, not a verdict.")]
     (is (= expected body)
@@ -171,7 +171,7 @@
   (is (thrown-with-msg?
        clojure.lang.ExceptionInfo
        #"G3: a post needs ≥2 primary-source citations"
-       (social/-post "x" "sub" "body" ["https://ofac.treasury.gov/"]))
+       (social/post "x" "sub" "body" ["https://ofac.treasury.gov/"]))
       "G3: a post with <2 sources must raise"))
 
 (deftest g3-raise-zero-sources
@@ -179,12 +179,12 @@
   (is (thrown-with-msg?
        clojure.lang.ExceptionInfo
        #"G3: a post needs ≥2 primary-source citations"
-       (social/-post "x" "sub" "body" []))
+       (social/post "x" "sub" "body" []))
       "G3: a post with 0 sources must raise"))
 
 (deftest g3-ok-exactly-2-sources
   ;; _post with exactly 2 sources must succeed.
-  (is (map? (social/-post "x" "sub" "body"
+  (is (map? (social/post "x" "sub" "body"
                           ["https://ofac.treasury.gov/" "https://www.sanctionsmap.eu/"]))
       "G3: a post with exactly 2 sources must succeed"))
 

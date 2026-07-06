@@ -14,9 +14,14 @@
 
 ;; ── shared seed fixtures ────────────────────────────────────────────────────
 
+;; *file* must be captured in a top-level def, evaluated once when this ns loads: inside a
+;; function body it reads back "NO_SOURCE_PATH" once a different top-level form (e.g. the
+;; test-runner's own -e string) is what's currently being evaluated when a test later CALLS
+;; that function. Matches the working sibling pattern in test_consistency.cljc.
+(def ^:private here (-> *file* io/file .getParentFile .getParentFile))
+
 (defn- seed-path []
-  (let [here (-> *file* io/file .getAbsoluteFile .getParentFile .getParentFile)]
-    (io/file here "data" "seed-designation-graph.kotoba.edn")))
+  (io/file here "data" "seed-designation-graph.kotoba.edn"))
 
 (defn- seed-graph []
   (w/weave (e/load-edn (seed-path))))
@@ -159,9 +164,9 @@
           tx2  (kotoba/make-tx dats :tx-id 2 :as-of 20260610 :prev-cid cid1)
           _    (kotoba/append-tx tx2 log)
           res  (kotoba/verify-chain log)]
-      (is (true?  (:ok res)))
-      (is (= 2    (:length res)))
-      (is (= -1   (:broken-at res))))))
+      (is (true?  (get res "ok")))
+      (is (= 2    (get res "length")))
+      (is (= -1   (get res "broken_at"))))))
 
 (deftest test-verify-chain-detects-tampering
   (testing "verify-chain returns :ok false when a log line is tampered"
@@ -177,8 +182,8 @@
           tampered (str/replace content cid "bdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef")
           _    (spit log tampered :encoding "UTF-8")
           res  (kotoba/verify-chain log)]
-      (is (false? (:ok res)))
-      (is (= 0    (:broken-at res))))))
+      (is (false? (get res "ok")))
+      (is (= 0    (get res "broken_at"))))))
 
 ;; ── read-log on empty / non-existent log ──────────────────────────────────────
 
