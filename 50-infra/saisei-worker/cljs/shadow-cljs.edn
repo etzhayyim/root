@@ -1,0 +1,29 @@
+;; ClojureScript build for the saisei-worker Cloudflare Worker core.
+;;
+;; :source-paths includes the sibling 20-actors/ tree so this Worker requires
+;; `saisei.methods.filing-plan` / `saisei.methods.coverage-report` /
+;; `saisei.methods.edn` VERBATIM from 20-actors/saisei/methods/*.cljc — single
+;; source of truth, no duplicated logic between the babashka test suite and the
+;; deployed Worker. Those namespaces' #?(:clj ...) file-loading branches simply
+;; don't compile here; this Worker's own `saisei-worker.core` supplies the
+;; :cljs-side data loading (build-time embedded EDN, see data_gen.cljs) and
+;; calls straight into the portable pure functions (classify/build-plan/
+;; track-plan/make-option/coverage/report).
+;;
+;; Output: ../cljs-out/worker_core.js (an ESM module exporting `handle`)
+;; Build:  npx shadow-cljs release worker   (or `npm run build`)
+{:source-paths ["../../../20-actors" "src"]
+
+ :builds
+ {:worker
+  {:target     :esm
+   :output-dir "../cljs-out"
+   ;; Cloudflare Workers is neither Node nor a browser — :custom keeps shadow
+   ;; from injecting node builtins (process/require) or DOM assumptions.
+   :runtime    :custom
+   :modules    {:worker_core
+                {:exports {handle saisei-worker.core/handle}}}
+   :compiler-options
+   {:infer-externs        :auto
+    :optimizations        :simple
+    :output-feature-set   :es2020}}}}

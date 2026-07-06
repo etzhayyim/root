@@ -120,6 +120,7 @@ N6 刑事 out of scope → immediate 弁護士 referral. **N2 補足 (wave 8)**:
 | 架空請求 / 詐欺被害の回復 | **tasuke** (G6 fake-guard routes there) |
 | proactive 政府手続き concierge | **toritsugi** |
 | legal-procedure substrate (registry 基盤) | **chigiri** |
+| debtor-initiated formal insolvency self-petition (自己破産・個人再生 own-filing) | **saisei** (tate's `:insolvency` track stays creditor-side only, N2) |
 
 ## Layout
 

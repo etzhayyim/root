@@ -27383,6 +27383,63 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2607061800-saisei-self-filing-debt-relief-actor.md",
+      "id": "adr-2607061800-saisei-self-filing-debt-relief-actor",
+      "title": "ADR-2607061800: saisei (再生) — self-filing debt-relief concierge actor, and relocating bankruptcy intelligence off the vendor",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "saisei-actor",
+      "authoritative": true,
+      "authoritative_for": [
+        "saisei actor design (self-filing debt-relief concierge)",
+        "non-profit ownership of debtor-initiated formal insolvency procedure information",
+        "relocation of bankruptcy.gftd.ai's stated scope off gftdcojp"
+      ],
+      "related": [
+        "adr-2606302300-org-taxonomy-4-orgs"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606112301-tate-legal-defense-concierge-r0",
+        "adr-2606112400-tate-worldwide",
+        "adr-2605262700-chigiri-upl-prior-art",
+        "adr-2605312030-toritsugi-government-procedure-concierge-tier-b-actor-r0",
+        "adr-2605201800-etzhayyim-yobel-debt-release-actor",
+        "adr-2605202000-etzhayyim-amnesty-legal-person-debt-actor",
+        "adr-2605231525-no-server-key",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state"
+      ],
+      "last_verified": "2026-07-06",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2607062200-meibo-legal-directory-registry-actor.md",
+      "id": "adr-2607062200-meibo-legal-directory-registry-actor",
+      "title": "ADR-2607062200: meibo (名簿) — verified legal-institution directory registry, honestly fulfilling ADR-0016's judge/bengoshi/adr/legal-aid vision",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "meibo-actor",
+      "authoritative": true,
+      "authoritative_for": [
+        "meibo actor design (legal-institution directory registry)",
+        "the honest scope of \"implementing ADR-0016's judge/bengoshi/adr/legal-aid actors"
+      ],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2607061800-saisei-self-filing-debt-relief-actor",
+        "adr-2606112301-tate-legal-defense-concierge-r0",
+        "adr-2606112400-tate-worldwide"
+      ],
+      "last_verified": "2026-07-06",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

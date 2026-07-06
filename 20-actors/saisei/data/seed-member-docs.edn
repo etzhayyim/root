@@ -1,0 +1,21 @@
+;; saisei 再生 — SYNTHETIC member situations (ADR-2607061800, G1: R0 seeds are :synthetic;
+;; live member data is consent-gated + encrypted, com.etzhayyim.encrypted.*, ADR-2605181100).
+;; A "situation" is the member's OWN self-reported debt shape — never a third party's.
+;; saisei does not adjudicate which procedure applies (G2); build-plan discloses ALL
+;; procedures registered for the declared jurisdiction, each with its own eligibility
+;; SIGNALS, so the member self-selects with the referral directory always present (G7).
+
+[{:sit/id "sit:jp-1" :sit/label "JP — 給与所得者、無担保債務のみ (synthetic)"
+  :sit/jurisdiction :jp :sit/sourcing :synthetic}
+
+ {:sit/id "sit:us-1" :sit/label "US — regular W-2 income, unsecured debt (synthetic)"
+  :sit/jurisdiction :us :sit/sourcing :synthetic}
+
+ {:sit/id "sit:uk-1" :sit/label "UK — low income, no assets of note (synthetic)"
+  :sit/jurisdiction :uk :sit/sourcing :synthetic}
+
+ {:sit/id "sit:de-1" :sit/label "DE — Arbeitnehmer, noch keinen außergerichtlichen Einigungsversuch unternommen (synthetic)"
+  :sit/jurisdiction :de :sit/sourcing :synthetic}
+
+ {:sit/id "sit:br-1" :sit/label "BR — uncovered jurisdiction probe (synthetic, G10 adversarial)"
+  :sit/jurisdiction :br :sit/sourcing :synthetic}]

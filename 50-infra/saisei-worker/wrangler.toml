@@ -1,0 +1,28 @@
+name = "saisei-worker"
+main = "src/worker.ts"
+compatibility_date = "2026-07-06"
+
+# Build the ClojureScript Worker core (shadow-cljs :esm → cljs-out/worker_core.js)
+# before wrangler bundles src/worker.ts, which statically imports it. Mirrors the
+# etzhayyim-did-web pattern (50-infra/etzhayyim-did-web/wrangler.toml).
+[build]
+command = "npm run build:cljs"
+
+# Anonymous, aggregate-only access analytics (no cookies, no per-visitor identity,
+# no client-side tracking script — Cloudflare Workers Analytics Engine writes
+# server-side, aggregate time-series data points only). Chosen specifically because
+# it satisfies the same no-tracking-script constraint tate's own test suite
+# enforces on its static site (test_site.cljc asserts zero gtag/analytics/pixel).
+# Query via the Analytics Engine SQL API (README.md "Analytics" section).
+[[analytics_engine_datasets]]
+binding = "SAISEI_ANALYTICS"
+dataset = "saisei_access"
+
+[observability]
+enabled = true
+head_sampling_rate = 1.0
+
+# No custom domain route yet — the deploying token has zone:read only (not
+# zone:write), so this ships to the default workers.dev subdomain. Binding
+# saisei.etzhayyim.com is a follow-up for whoever holds zone:write (add a
+# proxied DNS record + a `[[routes]]` entry here, then redeploy).
