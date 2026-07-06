@@ -55,6 +55,8 @@ contract EtzhayyimPaymaster {
 
     /// @dev target contract address → allowed?
     mapping(address => bool) public allowedTarget;
+    /// @dev sender contract factory address → allowed?
+    mapping(address => bool) public allowedFactory;
     /// @dev sender → daily gas spend cap in wei
     mapping(address => uint256) public senderDailyCapWei;
     /// @dev sender → epoch day → wei spent
@@ -63,6 +65,7 @@ contract EtzhayyimPaymaster {
     uint256 public defaultDailyCapWei = 0.02 ether;
 
     event AllowedTargetSet(address indexed target, bool allowed);
+    event AllowedFactorySet(address indexed factory, bool allowed);
     event DailyLimitSet(address indexed sender, uint256 capWei);
     event DefaultDailyLimitSet(uint256 capWei);
     event Withdrew(address indexed to, uint256 amount);
@@ -71,6 +74,7 @@ contract EtzhayyimPaymaster {
     error NotOwner();
     error NotEntryPoint();
     error TargetNotAllowed(address target);
+    error FactoryNotAllowed(address factory);
     error DailyCapExceeded(address sender, uint256 spent, uint256 cap);
     error PolicyRejected(bytes reason);
 
@@ -83,9 +87,13 @@ contract EtzhayyimPaymaster {
         _;
     }
 
-    constructor(IEntryPoint _entryPoint, address _owner) {
+    constructor(IEntryPoint _entryPoint, address _owner, address[] memory initialFactories) {
         entryPoint = _entryPoint;
         owner = _owner;
+        for (uint256 i = 0; i < initialFactories.length; ++i) {
+            allowedFactory[initialFactories[i]] = true;
+            emit AllowedFactorySet(initialFactories[i], true);
+        }
     }
 
     // ─── EntryPoint hooks ────────────────────────────────────────────
@@ -97,6 +105,11 @@ contract EtzhayyimPaymaster {
         bytes32 /*userOpHash*/,
         uint256 maxCost
     ) external onlyEntryPoint returns (bytes memory context, uint256 validationData) {
+        if (userOp.initCode.length > 0) {
+            address factory = _decodeFactory(userOp.initCode);
+            if (!allowedFactory[factory]) revert FactoryNotAllowed(factory);
+        }
+
         address target = _decodeTarget(userOp.callData);
         if (!allowedTarget[target]) revert TargetNotAllowed(target);
 
@@ -109,6 +122,14 @@ contract EtzhayyimPaymaster {
         // pack {sender, today, maxCost} for postOp
         context = abi.encode(userOp.sender, today, maxCost);
         validationData = 0; // 0 = always valid, no time bounds
+    }
+
+    /// @dev Returns the factory address encoded at initCode[0:20], or zero for an already-deployed account.
+    function _decodeFactory(bytes calldata initCode) internal pure returns (address factory) {
+        if (initCode.length < 20) return address(0);
+        assembly {
+            factory := shr(96, calldataload(add(initCode.offset, 0)))
+        }
     }
 
     /// @notice Called by EntryPoint after the userOp executes. Reconcile gas spent.
@@ -142,6 +163,11 @@ contract EtzhayyimPaymaster {
     function setAllowedTarget(address target, bool allowed) external onlyOwner {
         allowedTarget[target] = allowed;
         emit AllowedTargetSet(target, allowed);
+    }
+
+    function setAllowedFactory(address factory, bool allowed) external onlyOwner {
+        allowedFactory[factory] = allowed;
+        emit AllowedFactorySet(factory, allowed);
     }
 
     function setDailyLimit(address sender, uint256 capWei) external onlyOwner {
