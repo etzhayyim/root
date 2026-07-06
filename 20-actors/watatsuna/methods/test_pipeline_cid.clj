@@ -23,7 +23,7 @@
 
 (defn- in-process-head [cycles]
   (let [log (tmp-log)]
-    (try (:head-cid (autorun/run-autonomous :cycles cycles :log-path log))
+    (try (get (autorun/run-autonomous cycles nil log) "head_cid")
          (finally (.delete log)))))
 
 (def ^:private cid-re #"b[0-9a-f]{64}")
@@ -31,11 +31,11 @@
 (deftest heartbeat-emits-nonempty-graph
   (let [log (tmp-log)]
     (try
-      (let [r (autorun/run-autonomous :cycles 2 :log-path log)]
-        (is (:ok (:chain r)))
-        (is (= 2 (:log-length r)))
+      (let [r (autorun/run-autonomous 2 nil log)]
+        (is (get (get r "chain") "ok"))
+        (is (= 2 (get r "log_length")))
         ;; the real seed yields a substantial cable graph, not a degenerate pin
-        (is (every? #(> (:datoms %) 100) (:beats r))))
+        (is (every? #(> (get % "datoms") 100) (get r "beats"))))
       (finally (.delete log)))))
 
 (deftest pipeline-is-cross-run-deterministic-in-process
@@ -49,7 +49,7 @@
                 (sh "bb" "--classpath" "20-actors" "-e"
                     (str "(require (quote [watatsuna.methods.autorun :as a]))"
                          "(let [f (java.io.File/createTempFile \"wsub-\" \".edn\")] (.delete f)"
-                         "(print (:head-cid (a/run-autonomous :cycles 2 :log-path f))) (.delete f))"))
+                         "(print (get (a/run-autonomous 2 nil f) \"head_cid\")) (.delete f))"))
                 (catch Exception e {:exit -1 :err (.getMessage e)}))]
     (is (re-matches cid-re in-proc) "in-process head-cid is a b+64hex CID")
     (if (and (= 0 (:exit child)) (re-find cid-re (:out child)))
