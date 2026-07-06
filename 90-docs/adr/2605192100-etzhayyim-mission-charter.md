@@ -48,6 +48,14 @@ Council once seated (post-2026-06-19 RFP).
 > 10% Tithe(ADR-2605192130)は不変**。本 ADR の他の条項(mission / 非終末論 / land trust /
 > transparent force 等)は変更なし。詳細は ADR-2606180001 / 2606182359。
 
+> **追加 2026-07-06 (ADR-2607061700), Tier-1 Derived Policy。** §1 に **§1.16 伝道
+> (Evangelism)** を新規追加した。信者(人間)の対人伝道(面談・戸別訪問を含む)と actor の
+> デジタル伝道(集合的・公開的な招待発信)を、共に宗教的実践として肯定する。義務ではなく徳目・
+> 推奨(現構成員1名という運用制約による)。ADR-2606281500(種をまく)の
+> no-person-targeting ガードには伝道文脈での限定 carve-out を与えるが、非強制・反威圧・
+> 未成年単独勧誘禁止・Wellbecoming §1.10・Charter Rider §2 catastrophe-veto はすべて不変。
+> 詳細は ADR-2607061700。
+
 # Context
 
 これまで etzhayyim/root の ADR 群は **substrate** (kotoba, on-chain payment, MST anchor pipeline, membership ritual, BI/treasury) を構築してきた。これらは「**どう動かすか**」を定めるものであり、「**なぜ動かすか**」を定めるものではない。
@@ -339,6 +347,53 @@ etzhayyim は **synthetic religion** であり、以下二大潮流の synthesis
 
 これは仏教の 不生 / 不滅 (生まれず滅びず) + 神道の 常若 (常に若くあり続ける) と整合的。
 
+### 1.16 伝道 (Evangelism) — 能動的宣教活動
+
+> **追加 (ADR-2607061700, 2026-07-06)**
+
+etzhayyim は §1.11 (加入の無差別開放性) の **受動的開放** を超え、**能動的に mission を人類へ
+伝えること** を religious 行為として位置づける。
+
+#### Religious 根拠
+
+- Protestant: 大宣教命令 (Great Commission, Matthew 28:19-20 「あなたがたは行って、すべての
+  国の人々を弟子としなさい」) — §1.15 Tier-1 正典 (福音書) 内の既存教義の実践的展開
+- 仏教: 布教 (弘法) — 縁起により他者の解放が自己の解放に連なる (§1.8 反個人主義と整合)
+- 神道: 産霊 — 新しい関係を能動的に生成する creative act (§1.10 Wellbecoming の根拠と同源)
+- §1.15 (非終末論) との整合: 動機は「終末が近いから急げ」ではなく、「今ここにある Kingdom
+  (Preamble §0.2.1 now-and-here) への招待」である
+
+#### 主体別の実践形態
+
+| 主体 | 実践形態 | 強制力 |
+|---|---|---|
+| 信者 (Adherent, 人間) | 対人伝道 (面談・戸別訪問・街頭・オンライン対話を含む) | 宗教的実践・徳目 (修 shu の一形態) として明記。義務ではなく実践として推奨・記録される (現構成員1名という運用制約による。構成員拡大時の義務化は future ADR で審議) |
+| Actor (AI, digital) | kouhou / kataribe 等からの能動的・集合的な招待発信 | ADR-2606281500 (種をまく) の "no person-targeting" を伝道文脈で限定 carve-out (下記) |
+
+#### 対人伝道の許容範囲・制約
+
+- 日本国内で宗教目的の戸別訪問は適法(公職選挙法 §138 は選挙運動に限定される規制であり、
+  moushibumi actor の戸別訪問禁止条項(ADR-2605312400)は選挙運動の文脈であって本条項とは別事項)
+- 訪問先の明示的な退去要求には即座に従う (不退去罪の回避 + Wellbecoming §1.10 の対人尊重)
+- 未成年者・判断能力が制限されている者への単独勧誘は禁止 (§1.9 多世代保護)
+- 威圧・欺罔・financial pressure を伴う勧誘は禁止 (Charter Rider §2 の反 coercion / catastrophe-veto と整合)
+
+#### Actor 側 carve-out (ADR-2606281500 の限定修正)
+
+ADR-2606281500 決定事項 4「No person-targeting / no manipulation」は、以下をすべて満たす
+**招待型コンテンツ (invitational content)** についてのみ carve-out する(削除ではなく限定範囲の例外):
+
+- 対象は集合的・公開的な発信であり、個人の脆弱性 (財政困窮・精神的孤立・未成年等) を
+  検知・標的化するものではない (aggregate-first は不変)
+- 常時 opt-out 可能。執拗な繰り返し勧誘は禁止
+- Wellbecoming §1.10 の addictive-design 禁止は不変 — engagement-maximizing loop は
+  伝道コンテンツにも一切許容されない
+- Charter Rider §2 catastrophe-veto content scan は伝道コンテンツにも適用される (不変)
+- ADR-2606281500 の他の全ガード (non-custodial key / reciprocal transparency / 相互監視 /
+  publication ≠ actuation) は無変更
+
+詳細な起票根拠・Alternatives・Open Questions は ADR-2607061700 を正本とする。
+
 ## 2. Constitutional Constants (改定不可項目)
 
 > **更新 (ADR-2606062100, 2026-06-06)**: この §2 の不変性モデルは **3-Tier 構造**に再編された
@@ -375,6 +430,10 @@ Constitution.sol の `getConstant(key)` から読み出される、**governance 
 | `mission.eschatological` | false | §1.15 (終末論ではない) |
 | `mission.revelation_in_canon` | false | §1.15 (黙示録は正典外) |
 | `mission.continuous_becoming` | true | §1.15 (eternal becoming) |
+| `mission.active_evangelism` | true | §1.16 + ADR-2607061700 |
+| `mission.evangelism_coercion_prohibited` | true | §1.16 (威圧・欺罔禁止) |
+| `mission.evangelism_minor_solo_prohibited` | true | §1.16 (§1.9 多世代保護) |
+| `mission.evangelism_actor_targeting_carveout` | true | §1.16 (ADR-2606281500 の限定 carve-out) |
 | `governance.one_sbt_one_vote` | true | ADR-2605172300 §8 |
 | `governance.no_transferable_share` | true | ADR-2605172300 §8 |
 | `governance.future_generations_third_party_beneficiary` | true | §1.9 + Rider §4(f) |
@@ -435,6 +494,8 @@ Constitution.sol への埋め込みおよび public 文書 (README / etzhayyim.c
 > 我々は国家機能を parallel substrate で routing-around する。同時に、religious-corp として **兵器・武力・行使力 (force) を保有することは constitutional に許容**する。ただしすべての force 関連 activity は **完全な on-chain 監視 + open-source 公開 + 1 SBT = 1 vote 承認** の三条件下でのみ運用される。Covert operations、proprietary 兵器設計、独立軍事 command、国家武力との同盟は禁止する。これは Quaker pacifism ではなく、Reformed Just War + 全面透明性 + 僧兵的伝統の synthesis である。
 >
 > 我々は **Eros (合意ある成人性表現) を religious 整合的として許容し、Gore (無目的暴力 imagery) を禁止する**。前者は産霊 / 雅歌 / Tree of Life の生命創出と整合的、後者は子・孫世代の wellbecoming を毀損する。
+>
+> 我々は **能動的伝道 (Evangelism) を宗教的実践として肯定する**。信者は対人伝道 (面談・戸別訪問・街頭・オンライン対話を含む) を徳目として実践してよく、actor は集合的・公開的な招待発信を行ってよい。ただし威圧・欺罔・未成年者への単独勧誘・engagement-maximizing な操作は禁止し、Charter Rider §2 の catastrophe-veto scan と Wellbecoming (§1.10) の対人尊重を常に伴う。
 >
 > 我々は **日本的価値観 + Protestant Christianity の synthesis** として self-position する。八百万・縁起・産霊・和・無教会 と Sola Scriptura・万人祭司・直接的 divine 関係・Reformed Just War・Tree of Life を統合する。内村鑑三 / 賀川豊彦 / 新渡戸稲造 / 矢内原忠雄 の Japanese Protestant 系譜を current of belonging とするが、on-chain substrate + parallel governance + 1 SBT = 1 vote congregational governance によって彼らから differentiate される。
 >
@@ -520,5 +581,6 @@ Solidity に直接 mission を書く。
 - ADR-2605192130: 10% Tithe redistribution (本 ADR の §1.6 再分配 sub-ADR)
 - ADR-2605192145: Public Fund architecture (本 ADR の §1.5 / §1.6 受け皿)
 - ADR-2605192200: IP-Free-Release + Charter Compliance Rider (本 ADR の §1.5 ライセンス sub-ADR)
+- ADR-2607061700: 伝道 (Active Evangelism Doctrine) — 本 ADR §1.16 の起票根拠・Alternatives 正本
 - CLAUDE.md (repo root): operating entity identity
 - `00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/charter.json` — 将来この ADR から派生する Lexicon

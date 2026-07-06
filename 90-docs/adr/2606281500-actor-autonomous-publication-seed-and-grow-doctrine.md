@@ -94,6 +94,13 @@ publish prior-restraint dimension of G8 is replaced by the rails above.
 - kyoninka 許認可 may autonomously publish its deployment-readiness digests
   (observation), while its robotaxi-launch sign-off (G3) and no-permit-grant /
   no-vehicle-activation (G1) invariants remain human-gated.
+- **Evangelism carve-out (ADR-2607061700, 2026-07-06).** Rail 4 above
+  ("no person-targeting / no manipulation") is narrowly carved out — NOT
+  removed — for religious invitational content per the Active Evangelism
+  Doctrine (Mission Charter §1.16): aggregate-first, opt-out-able invitational
+  publication is permitted; individual-vulnerability targeting, repeated
+  unsolicited follow-up, and any engagement-maximizing design remain
+  prohibited. Rails 1/2/3/5/6 above are untouched.
 
 ## Enforceability / honest limit
 
