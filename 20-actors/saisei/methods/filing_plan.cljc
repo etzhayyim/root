@@ -75,6 +75,11 @@
     {"proc" (get proc ":proc/id")
      "label" (get proc ":proc/label")
      "forum" (get proc ":proc/forum")
+     ;; LINK ONLY to the official government/court form portal (verified live,
+     ;; not guessed — same provenance discipline as :tl/source-url). saisei
+     ;; never drafts, pre-fills, or characterizes the form itself (G3/N2) — the
+     ;; member downloads the official form and completes it themselves.
+     "official_forms_url" (get proc ":proc/official-forms-url")
      "eligibility_signals" (vec (get proc ":proc/eligibility-signals" []))
      "mandatory_preconditions" preconditions
      "required_docs" (vec (get proc ":proc/required-docs" []))

@@ -44,11 +44,17 @@
 ;; route, and a DISCLOSED timeline/discharge rule (never a computed calendar date, G4).
 ;; :proc/verify-current-law true everywhere — statutes amend; :tl/source-url records the
 ;; primary legal source actually checked (never guessed — G10 provenance discipline, tate precedent).
+;;
+;; :proc/official-forms-url (added 2607062xxx) — the OFFICIAL government/court portal where the
+;; actual form is published, verified live (WebSearch/WebFetch, not memory) before being recorded
+;; here, same provenance discipline as :tl/source-url. This is a LINK ONLY — saisei never drafts
+;; or pre-fills the form itself (G3/N2); the member downloads and completes it themselves.
 
 [;; ── :jp ──────────────────────────────────────────────────────────────────────
  {:proc/id \"proc:jp-jiko-hasan\" :proc/label \"自己破産 (self-bankruptcy petition)\"
   :proc/jurisdiction :jp :proc/track :self-filing
   :proc/forum \"地方裁判所 (破産部)\"
+  :proc/official-forms-url \"https://www.courts.go.jp/saiban/syosiki/syosiki_hasan/hasan/index.html\"
   :proc/eligibility-signals
   [\"支払不能 (支払能力を欠くため弁済期にある債務を一般的継続的に弁済できない状態、破産法2条11項) — 債務超過とは別概念\"
    \"免責不許可事由 (破産法252条1項各号: 浪費・賭博等による著しい財産減少、財産の隠匿・損壊、詐術による信用取引 等) に該当しないか要確認 — 該当しても裁量免責の余地あり(同条2項)\"]
@@ -68,6 +74,7 @@
  {:proc/id \"proc:jp-kojin-saisei\" :proc/label \"個人再生 (individual civil rehabilitation)\"
   :proc/jurisdiction :jp :proc/track :self-filing
   :proc/forum \"地方裁判所 (民事再生部)\"
+  :proc/official-forms-url \"https://www.courts.go.jp/saiban/syosiki/syosiki_hasan/kojinsaisei/index.html\"
   :proc/eligibility-signals
   [\"住宅ローン等を除く再生債権総額が原則5,000万円以下 (民事再生法221条1項)\"
    \"将来の継続的・反復的な収入の見込みがあること\"
@@ -89,6 +96,7 @@
  {:proc/id \"proc:us-chapter7\" :proc/label \"Chapter 7 (liquidation)\"
   :proc/jurisdiction :us :proc/track :self-filing
   :proc/forum \"United States Bankruptcy Court (federal, per judicial district)\"
+  :proc/official-forms-url \"https://www.uscourts.gov/forms-rules/forms/bankruptcy-forms\"
   :proc/eligibility-signals
   [\"means test: current monthly income vs. state median — above-median filers face a further disposable-income test before Chapter 7 eligibility (11 U.S.C. §707(b))\"
    \"no minimum debt/asset threshold, but exempt-property schedules (state or federal exemptions) determine what stays with the debtor\"]
@@ -111,6 +119,7 @@
  {:proc/id \"proc:us-chapter13\" :proc/label \"Chapter 13 (wage-earner plan)\"
   :proc/jurisdiction :us :proc/track :self-filing
   :proc/forum \"United States Bankruptcy Court (federal, per judicial district)\"
+  :proc/official-forms-url \"https://www.uscourts.gov/forms-rules/forms/bankruptcy-forms\"
   :proc/eligibility-signals
   [\"individual with regular income; unsecured and secured debt below the statutory caps in 11 U.S.C. §109(e) (periodically adjusted)\"
    \"proposes a 3-to-5-year repayment plan rather than liquidation\"]
@@ -134,6 +143,7 @@
  {:proc/id \"proc:uk-bankruptcy\" :proc/label \"Bankruptcy (England & Wales, own petition)\"
   :proc/jurisdiction :uk :proc/track :self-filing
   :proc/forum \"Adjudicator (online application via gov.uk) — no court hearing needed since the 2016 reform\"
+  :proc/official-forms-url \"https://www.gov.uk/apply-for-bankruptcy\"
   :proc/eligibility-signals
   [\"debtor is unable to pay their debts as they fall due — no minimum debt threshold for a debtor's own application (unlike creditor petitions, which have a statutory minimum)\"
    \"must be domiciled/present/have a place of residence or business in England & Wales\"]
@@ -153,6 +163,7 @@
  {:proc/id \"proc:uk-dro\" :proc/label \"Debt Relief Order (DRO)\"
   :proc/jurisdiction :uk :proc/track :self-filing
   :proc/forum \"Insolvency Service (application MUST go through an approved intermediary — not a direct self-file portal)\"
+  :proc/official-forms-url \"https://www.moneyhelper.org.uk/en/money-troubles/dealing-with-debt/debt-advice-locator\"
   :proc/eligibility-signals
   [\"total debts below the statutory DRO ceiling, disposable income below the statutory monthly threshold, assets (excl. certain exempt items and one vehicle below a value cap) below the statutory threshold — all figures periodically adjusted, verify current Insolvency Service figures\"]
   :proc/mandatory-preconditions
@@ -174,6 +185,7 @@
  {:proc/id \"proc:de-verbraucherinsolvenz\" :proc/label \"Verbraucherinsolvenzverfahren + Restschuldbefreiung\"
   :proc/jurisdiction :de :proc/track :self-filing
   :proc/forum \"Insolvenzgericht (Amtsgericht am Wohnsitz)\"
+  :proc/official-forms-url \"https://www.bmjv.de/DE/service/formulare/form_verbraucherinsolvenzverfahren/form_verbraucherinsolvenzverfahren_node.html\"
   :proc/eligibility-signals
   [\"natürliche Person ohne (oder mit nur unwesentlicher) selbständiger wirtschaftlicher Tätigkeit (§304 InsO)\"
    \"Zahlungsunfähigkeit (§17 InsO) oder drohende Zahlungsunfähigkeit als Antragsgrund\"]

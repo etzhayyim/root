@@ -84,3 +84,16 @@
         out (p/report ps)]
     (is (string? out))
     (is (str/includes? out "saisei"))))
+
+(deftest test-official-forms-url-present-every-track-link-only
+  ;; Every registered procedure carries a verified official-forms-url (a LINK
+  ;; only — saisei never drafts/pre-fills the form itself, G3/N2).
+  (let [procs (p/load-procs)]
+    (doseq [proc procs]
+      (let [url (get proc ":proc/official-forms-url")]
+        (is (string? url))
+        (is (str/starts-with? url "https://"))))
+    (let [ps (by-id)
+          pl (get ps "sit:jp-1")]
+      (doseq [t (get pl "tracks")]
+        (is (str/starts-with? (get t "official_forms_url") "https://"))))))
