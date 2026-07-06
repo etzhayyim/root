@@ -161,9 +161,15 @@ R3 adds external auditor engagement workflow battle-tested.
 
 ## Build & Deploy
 
-**R0 status**: Scaffold only. No cells, no smoke test (cells don't yet
-exist). Lexicon schema validation (R1) will run via lefthook
-`validate-lexicons` on the 5 toritate Lexicons.
+**R0 status**: `methods/imputed_income.cljc` is a reference-impl engine (pure
+`compute-imputed-income` / `compute-commons-asset-value` / `basic-high-income-report` /
+`ledger-entry` functions reading `valuation/v1-retail-equiv.json`, `bb test:toritate` — 18
+tests / 45 assertions green) — this is accounting computation ONLY, not a live ledger write.
+The Pregel CELLS themselves (transaction_ledger / tithe_accounting / public_fund_accounting /
+council_compensation / steward_subsistence_accounting / annual_audit_report) are still
+unwired scaffold; wiring one to `methods/imputed_income.cljc` + live on-chain reads is
+separate R1 work. Lexicon schema validation (R1) will run via lefthook `validate-lexicons` on
+the 5 toritate Lexicons.
 
 R1 smoke test (when cells are created):
 
