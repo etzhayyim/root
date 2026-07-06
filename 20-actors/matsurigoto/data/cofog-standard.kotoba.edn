@@ -70,7 +70,7 @@
   {:egov.module/id "corp-registry"   :egov.module/label-ja "法人登記"     :egov.module/cofog ["01.1" "04.1"]    :egov.module/maturity ":reference-impl" :egov.module/reference "methods/modules/corp_registry.py" :egov.module/conformance "ISO 17442 LEI / ISO 7064 MOD 97-10 (11/11 tests)"}
   {:egov.module/id "credential-issue":egov.module/label-ja "証書・旅券発行" :egov.module/cofog ["01.1" "03.1"]   :egov.module/maturity ":reference-impl" :egov.module/reference "methods/modules/credential_issue.py" :egov.module/conformance "ICAO Doc 9303 MRZ specimen reproduced (13/13 tests)"}
   {:egov.module/id "eid-wallet"      :egov.module/label-ja "電子ID財布"   :egov.module/cofog ["01.1"]            :egov.module/maturity ":planned"}
-  {:egov.module/id "benefit-disburse":egov.module/label-ja "給付支給"     :egov.module/cofog ["10.1" "10.2" "10.4" "10.5"] :egov.module/maturity ":planned"}
+  {:egov.module/id "benefit-disburse":egov.module/label-ja "給付支給"     :egov.module/cofog ["10.1" "10.2" "10.3" "10.4" "10.5" "10.6" "10.7"] :egov.module/maturity ":reference-impl" :egov.module/reference "methods/modules/benefit_disburse.cljc" :egov.module/conformance "OpenG2P entitlement-assessment pattern + ADR-2605301020 structural non-cash invariant under :sovereign-governance (9/9 tests)"}
   {:egov.module/id "interop-bus"     :egov.module/label-ja "連携基盤"     :egov.module/cofog ["01.1"]            :egov.module/maturity ":planned"}]
 
  ;; ── COFOG backbone: 10 divisions + 69 groups (the universal function space) ──

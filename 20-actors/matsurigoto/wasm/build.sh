@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build all 4 matsurigoto egov service modules as WASI Component-Model components with
+# Build all 5 matsurigoto egov service modules as WASI Component-Model components with
 # componentize-py, transpile with jco, and report each one's IPFS CID (ADR-2606062300 R1.A;
 # same componentize-py path as the watatsuna precedent, ADR-2606014600).
 # Requires: python3 (for componentize-py via venv), node/npx (jco), ipfs, wasm-tools.
@@ -21,6 +21,7 @@ declare -A MODULES=(
   [civil-registry]=civil_registry_app
   [corp-registry]=corp_registry_app
   [credential-issue]=credential_issue_app
+  [benefit-disburse]=benefit_disburse_app
 )
 
 for world in "${!MODULES[@]}"; do
@@ -35,5 +36,5 @@ for world in "${!MODULES[@]}"; do
   printf '%s.wasm  %s bytes  CID=%s\n' "$world" "$SIZE" "$CID"
 done
 
-echo "Run 'node verify.mjs' to check all 4 against their reference specs."
+echo "Run 'node verify.mjs' to check all 5 against their reference specs."
 echo "If a CID changed, update the matching <world>.meta.json + :egov.module/cid in the standard EDN."

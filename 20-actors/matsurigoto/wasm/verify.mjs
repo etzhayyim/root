@@ -1,9 +1,10 @@
-// Headless verification of all 4 matsurigoto egov WASM components against their public
+// Headless verification of all 5 matsurigoto egov WASM components against their public
 // spec anchors (ADR-2606062300 R1.A). Run after ./build.sh (needs transpiled-<world>/).
 import { tax } from "./transpiled-tax-assess/taxAssess.js";
 import { civil } from "./transpiled-civil-registry/civilRegistry.js";
 import { corp } from "./transpiled-corp-registry/corpRegistry.js";
 import { credential } from "./transpiled-credential-issue/credentialIssue.js";
+import { benefit } from "./transpiled-benefit-disburse/benefitDisburse.js";
 
 let failures = 0;
 function check(name, fn) {
@@ -68,5 +69,26 @@ check("credential-issue: ICAO 9303 UTOPIA/ERIKSSON specimen exact match", () => 
   if (!credential.validateMrz(expected)) throw new Error("validate_mrz rejected the known-good specimen");
 });
 
-console.log(failures === 0 ? "\nAll 4 matsurigoto egov WASM components verified." : `\n${failures} check(s) FAILED.`);
+// ── benefit-disburse: COFOG div. 10 assessment + structural non-cash invariant ──
+check("benefit-disburse: sovereign-governance rejects cash-transfer (ADR-2605301020)", () => {
+  let rejected = false;
+  try { benefit.assessEntitlement("did:web:c.test", "unemployment", "cash-transfer", "basis", "sovereign-governance"); }
+  catch { rejected = true; }
+  if (!rejected) throw new Error("expected sovereign-governance to reject cash-transfer");
+});
+check("benefit-disburse: supplied-to-state may use cash-transfer", () => {
+  const e = benefit.assessEntitlement("did:web:c.test", "unemployment", "cash-transfer",
+    "national unemployment insurance statute", "supplied-to-state");
+  if (e.medium !== "cash-transfer") throw new Error(`medium ${e.medium} != cash-transfer`);
+});
+check("benefit-disburse: assessment is unsigned (G1) + imputed value is accounting-only", () => {
+  const e = benefit.assessEntitlement("did:web:claimant.test", "housing", "commons-asset-access",
+    "Land Trust residency (ADR-2605192245)", "sovereign-governance");
+  if (e.certificate.proof != null) throw new Error("G1: certificate.proof must be unsigned");
+  const v = benefit.computeImputedValue(30.0, 66667n);
+  if (!v.accountingOnly) throw new Error("expected accounting_only = true");
+  if (v.totalValueUsdMicros !== 2000010n) throw new Error(`total_value_usd_micros ${v.totalValueUsdMicros} != 2000010`);
+});
+
+console.log(failures === 0 ? "\nAll 5 matsurigoto egov WASM components verified." : `\n${failures} check(s) FAILED.`);
 process.exit(failures === 0 ? 0 : 1);

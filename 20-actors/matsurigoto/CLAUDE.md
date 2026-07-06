@@ -128,17 +128,29 @@ cd methods/modules && python3 tax_assess.py  # demo an executable slice
   reproduces the official UTOPIA/ERIKSSON specimen line 2 exactly (13/13). Document UNSIGNED — the
   issuing state signs the SOD with its ICAO-PKD key (G1). Backs `passport.*` / `id.national.issue`
   (パスポート発行).
+- **`benefit-disburse`** (Clojure, `methods/modules/benefit_disburse.cljc`) — COFOG division 10
+  (社会保護) entitlement ASSESSMENT across all 7 individually-claimable groups (10.1 疾病・障害
+  … 10.7 社会的排除), spec-basis **OpenG2P** government-to-person registry pattern generalized
+  so the SAME shape also expresses etzhayyim's own non-cash **Basic High Income** doctrine
+  (ADR-2605301020): under `:sovereign-governance` (principal A) the `medium` type excludes cash
+  entirely (only `:in-kind-service` / `:commons-asset-access` are representable — a structural,
+  not merely runtime-checked, cash≡0 proof); `:supplied-to-state` (principal B) may additionally
+  use `:cash-transfer` for its own ordinary G2P programme. Never disburses anything itself —
+  assessment only (9/9 tests). Backs `benefit.*` (COFOG 10.1–10.7 給付).
 
-The four named functions 納税/徴税 · 住所管理 · 法人登記 · パスポート発行 now ALL have a
-spec-anchored reference implementation (JP 速算表 / UN CRVS / ISO 17442 LEI / ICAO 9303 MRZ).
+The five named functions 納税/徴税 · 住所管理 · 法人登記 · パスポート発行 · 給付支給 now ALL
+have a spec-anchored reference implementation (JP 速算表 / UN CRVS / ISO 17442 LEI / ICAO 9303
+MRZ / OpenG2P).
 
 ## R1 productionization (see ROADMAP-R1.md)
 
 Path from R0 reference → deployable substrate, in 4 dimensions. Landed so far (offline, gated):
 
-- **R1.A WIT contract** — `00-contracts/wit/matsurigoto/egov.wit` (validated by `wasm-tools`, 4
+- **R1.A WIT contract** — `00-contracts/wit/matsurigoto/egov.wit` (validated by `wasm-tools`, 5
   worlds). Each module world exports ONLY its service interface; **none exports `sign`** — that is
-  the structural G1 (no-operator-master-key) guarantee. componentize-py build → CID/IPFS = next.
+  the structural G1 (no-operator-master-key) guarantee. **componentize-py build → CID/IPFS: DONE
+  for all 5 modules** (`20-actors/matsurigoto/wasm/`, `./build.sh` + `node verify.mjs`; CIDs
+  recorded per-module in `wasm/*.meta.json`) — SBOM emission (ADR-2606036000) is still ahead.
 - **R1.B kotoba Datom persistence** — `00-contracts/schemas/egov-execution-ontology.kotoba.edn`
   (`:egov.tx/* :egov.record/* :egov.assessment/* :egov.cert/*`, append-only, as-of) +
   `methods/datoms.py` (`*_datoms()` converters + `kg_ingest_batch()`). Enforces G1 (unsigned, no
@@ -148,15 +160,16 @@ Path from R0 reference → deployable substrate, in 4 dimensions. Landed so far 
 - **R1.C sign/authority layer** — `methods/sign_capability.py` (10). Attaches an EXTERNAL
   signature (Council organ for principal A / the adopting state's own key for B) + verifies;
   `sign_server_side()` always RAISES (`SIGNER_HELD_PRIVATE_KEY = False`) — the structural
-  no-server-key guarantee (ADR-2605231525). All 4 modules' artifacts unified on a `proof` slot.
+  no-server-key guarantee (ADR-2605231525). All 5 modules' artifacts unified on a `proof` slot.
 - **R1.D per-jurisdiction rate tables** — `data/rates/{jpn,usa,deu,gbr,kor,ind}.edn` +
   `tax_assess.load_rate_tables()`. The universal algorithm; the bracket table is the localized
   (G2) parameter. 6 jurisdictions assess correctly (USA 10% / GBR allowance / etc.).
 - **Actor registration** — in BOTH `infra-actors.ts` INFRA_ACTORS + `actor-profile-seed.kotoba.edn`
   (parity audit 7/7). `did:web:etzhayyim.com:actor:matsurigoto` resolvable + searchable.
 
-Still ahead: R1.A componentize-py build + SBOM (ADR-2606036000); lexicons `com.etzhayyim.matsurigoto.*`
-(3-place invariants); remaining `benefit-disburse`/`interop-bus` slices. R2/R3 are Council-gated, not code.
+Still ahead: R1.A SBOM emission (ADR-2606036000, the componentize-py build itself is done for all
+5 modules); lexicons `com.etzhayyim.matsurigoto.*` (3-place invariants); the remaining
+`interop-bus` slice. R2/R3 are Council-gated, not code.
 
 Every module: signs nothing (`SERVER_HELD_AUTHORITY = False`, G1), `solve()` raises (live
 record-write is Council+operator gated). Add a module → drop `<id>.py` + tests there, then bump
