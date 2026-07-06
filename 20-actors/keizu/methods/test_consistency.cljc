@@ -52,8 +52,7 @@
         names (set (map #(get % "name") (get m "cells")))]
     (is (= (set cells) names))
     (doseq [c cells]
-      (is (.exists #?(:clj (io/file actors-dir "keizu" "cells" c "cell.py"))))
-      (is (.exists #?(:clj (io/file actors-dir "keizu" "cells" c "state_machine.py")))))))
+      (is (.exists #?(:clj (io/file actors-dir "keizu" "cells" c "state_machine.cljc")))))))
 
 (deftest test-lex-ids-match-namespaces
   (let [m (manifest)
