@@ -126,7 +126,7 @@
 
 (deftest test-g3-operated-by-enum-matches-code-and-schema
   (let [lex-enum (set (get-in (props "serviceExecution") ["operatedBy" "enum"]))
-        code (set (map lstrip-colon D/ALLOWED-OPERATED-BY))]
+        code (set (map lstrip-colon D/allowed-operated-by))]
     (is (= lex-enum code) [lex-enum code])
     ;; (1) schema EDN
     (let [inv (get-in (onto) [":invariants" ":g3-operated-by" ":allowed"])
@@ -135,7 +135,7 @@
 
 (deftest test-g3-authority-mode-enum-matches-code
   (let [lex-enum (set (get-in (props "serviceExecution") ["authorityMode" "enum"]))
-        code (set (map lstrip-colon D/ALLOWED-AUTHORITY-MODE))]
+        code (set (map lstrip-colon D/allowed-authority-mode))]
     (is (= lex-enum code) [lex-enum code])))
 
 (deftest test-g5-immutable-const-true-in-lexicon-and-schema
