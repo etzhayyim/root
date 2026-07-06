@@ -33,7 +33,10 @@
                            vec)
                :juris (->> (edn/read-edn data/jurisdictions-edn-str)
                            (filter #(contains? % ":juris/id"))
-                           (reduce (fn [m j] (assoc m (get j ":juris/id") j)) {}))})))
+                           (reduce (fn [m j] (assoc m (get j ":juris/id") j)) {}))
+               :legal-directory (->> (edn/read-edn data/legal-directory-edn-str)
+                                     (filter #(contains? % ":dir/id"))
+                                     vec)})))
 
 (def ^:private cors-headers
   #js {"access-control-allow-origin" "*"
@@ -84,14 +87,14 @@
     (json-response cov 200)))
 
 (defn- handle-filing-plan [env body-str]
-  (let [{:keys [procs juris]} (ensure-loaded!)
+  (let [{:keys [procs juris legal-directory]} (ensure-loaded!)
         parsed (try (js->clj (js/JSON.parse (if (str/blank? body-str) "{}" body-str)))
                     (catch :default _ nil))]
     (if (nil? parsed)
       (do (log-access! env "/api/filing-plan" nil "bad-request")
           (json-response {"error" "expected JSON body, e.g. {\"jurisdiction\":\"jp\"}"} 400))
       (let [situation {":sit/id" "sit:http" ":sit/jurisdiction" (juris-str (get parsed "jurisdiction"))}
-            plan-out (plan/build-plan situation procs juris)]
+            plan-out (plan/build-plan situation procs juris legal-directory)]
         (log-access! env "/api/filing-plan" (get plan-out "jurisdiction") (get plan-out "status"))
         (json-response plan-out 200)))))
 

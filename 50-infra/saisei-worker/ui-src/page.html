@@ -122,6 +122,15 @@ document.getElementById('go').addEventListener('click', function () {
     if (plan.referrals && plan.referrals.length) {
       html += '<p class="ref"><strong>Free/public referral directory:</strong> ' + plan.referrals.map(esc).join(', ') + '</p>';
     }
+    if (plan.legal_directory && plan.legal_directory.length) {
+      html += '<div class="track"><h3>実在の免許者・裁判所を探す / Find a REAL licensed professional or court</h3><ul>';
+      plan.legal_directory.forEach(function (d) {
+        html += '<li><a href="' + esc(d.url) + '" target="_blank" rel="noopener">' + esc(d.label) + '</a>';
+        if (d.note) { html += ' — <span class="anchor">' + esc(d.note) + '</span>'; }
+        html += '</li>';
+      });
+      html += '</ul></div>';
+    }
     out.innerHTML = html;
   }).catch(function (e) { out.innerHTML = '<p class="warn">error: ' + esc(String(e)) + '</p>'; });
 });

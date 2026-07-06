@@ -44,6 +44,13 @@
      ([] (load-situations (clojure.java.io/file (edn/here) "data" "seed-member-docs.edn")))
      ([path] (->> (edn/load-edn path) (filter #(contains? % ":sit/id")) vec))))
 
+#?(:clj
+   (defn load-legal-directory
+     "Real licensed-professional/court directories (LINK ONLY — saisei does not
+     perform or supervise legal work; it connects the member to who can)."
+     ([] (load-legal-directory (clojure.java.io/file (edn/here) "data" "legal-directory.edn")))
+     ([path] (->> (edn/load-edn path) (filter #(contains? % ":dir/id")) vec))))
+
 (defn make-option
   "The only option constructor. Representation is unrepresentable (G3) — globally."
   [opt]
@@ -95,12 +102,27 @@
      "blocked_on_precondition" blocked?
      "refer_when" (vec (get proc ":proc/refer-when" []))}))
 
+(defn- directory-entry [d]
+  {"id" (get d ":dir/id") "kind" (get d ":dir/kind") "label" (get d ":dir/label")
+   "url" (get d ":dir/url") "note" (get d ":dir/note")})
+
 (defn build-plan
-  ([situation procs] (build-plan situation procs (load-jurisdictions)))
+  ([situation procs]
+   (build-plan situation procs (load-jurisdictions) (load-legal-directory)))
   ([situation procs jurisdictions]
+   (build-plan situation procs jurisdictions (load-legal-directory)))
+  ([situation procs jurisdictions legal-directory]
    (let [juris-id (get situation ":sit/jurisdiction" ":jp")
          juris (get jurisdictions juris-id {})
          [tracks status] (classify situation procs jurisdictions)
+         ;; real licensed-professional/court directories for this jurisdiction —
+         ;; LINK ONLY (saisei performs/supervises no legal work itself); present
+         ;; regardless of :covered/:unknown-jurisdiction, since a bar/court
+         ;; registry is useful even when saisei's own procedure registry isn't
+         ;; there yet (naturally empty if legal-directory.edn has no entries for
+         ;; the declared jurisdiction id either).
+         directory (vec (map directory-entry
+                              (filterv #(= (get % ":dir/jurisdiction") juris-id) legal-directory)))
          base {"situation" (get situation ":sit/id")
                "situation_label" (get situation ":sit/label" (get situation ":sit/id"))
                "jurisdiction" juris-id
@@ -110,6 +132,7 @@
                "tracks" []
                ;; G7: referral directory is ALWAYS present, unconditional on status
                "referrals" (vec (get juris ":juris/referrals" ["local free/public legal aid directory"]))
+               "legal_directory" directory
                "mode" "dry-run"}]
      (if (= status ":unknown-jurisdiction")
        (assoc base

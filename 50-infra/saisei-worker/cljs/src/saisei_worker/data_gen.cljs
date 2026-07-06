@@ -206,3 +206,73 @@
   :proc/refer-when [\"selbständige Nebentätigkeit unklar (Regel- vs. Verbraucherinsolvenz-Abgrenzung)\" \"Versagungsgründe nach §290 InsO im Raum\" \"komplexe Gläubigerstruktur\"]
   :proc/verify-current-law true}]
 ")
+
+(def legal-directory-edn-str
+  ";; saisei 再生 — real licensed-professional / court directory registry (follow-up to
+;; ADR-2607061800). Jurisdiction-level (not procedure-specific — the same bar/court
+;; registry applies regardless of which track the member is looking at).
+;;
+;; LINK ONLY, same discipline as :proc/official-forms-url / :tl/source-url — every
+;; URL is verified live (WebSearch/WebFetch) before being recorded here, never
+;; guessed/remembered (G10). This does not change saisei's own UPL posture — it
+;; connects a member to REAL licensed professionals/courts/registries, it does not
+;; have saisei itself perform or supervise any legal work.
+;;
+;; :dir/kind — :bar-association (弁護士/attorney directory) | :licensed-scrivener
+;; (司法書士/行政書士 — Japan-specific licensed non-attorney professions) |
+;; :court-locator | :insolvency-practitioner-register (UK-specific licensing body
+;; for formal insolvency administration).
+
+[;; ── :jp ──────────────────────────────────────────────────────────────────────
+ {:dir/id \"dir:jp-bengoshi\" :dir/jurisdiction :jp :dir/kind :bar-association
+  :dir/label \"弁護士検索 (日本弁護士連合会)\"
+  :dir/url \"https://www.nichibenren.or.jp/search.html\"
+  :dir/note \"登録は任意・自己申告ベース — 掲載の有無は在籍の証明にならない。破産・個人再生の申立書類作成代理ができる (訴訟書類作成権)\"}
+
+ {:dir/id \"dir:jp-shihoshoshi\" :dir/jurisdiction :jp :dir/kind :licensed-scrivener
+  :dir/label \"司法書士検索 (日本司法書士会連合会)\"
+  :dir/url \"https://www.shiho-shoshi.or.jp/other/doui/\"
+  :dir/note \"簡裁代理権を持つ司法書士は簡易裁判所の一部手続で代理可能。破産・個人再生の申立書類作成代理も可能 (書面作成)\"}
+
+ {:dir/id \"dir:jp-gyoseishoshi\" :dir/jurisdiction :jp :dir/kind :licensed-scrivener
+  :dir/label \"行政書士検索 (日本行政書士会連合会)\"
+  :dir/url \"https://www.gyosei.or.jp/members-search\"
+  :dir/note \"重要: 行政書士は官公署提出書類の一部作成はできるが、裁判所提出書類(訴訟書類)の作成代理権は無い — 自己破産・個人再生の申立書類は対象外 (弁護士・司法書士の権限)\"}
+
+ ;; ── :us ──────────────────────────────────────────────────────────────────────
+ {:dir/id \"dir:us-bar-directory\" :dir/jurisdiction :us :dir/kind :bar-association
+  :dir/label \"State Bar Association Directory (American Bar Association)\"
+  :dir/url \"https://www.americanbar.org/groups/bar-leadership/resources/local-bar-resource-directory/\"
+  :dir/note \"No single national attorney registry — find your STATE bar here, then use that bar's own lawyer-referral service / disciplinary-record lookup\"}
+
+ {:dir/id \"dir:us-court-locator\" :dir/jurisdiction :us :dir/kind :court-locator
+  :dir/label \"Find a Federal Court (United States Courts)\"
+  :dir/url \"https://www.uscourts.gov/federal-court-finder/find\"
+  :dir/note \"Bankruptcy is federal — use this to find your district's U.S. Bankruptcy Court\"}
+
+ ;; ── :uk ──────────────────────────────────────────────────────────────────────
+ {:dir/id \"dir:uk-solicitors-register\" :dir/jurisdiction :uk :dir/kind :bar-association
+  :dir/label \"Solicitors Register (Solicitors Regulation Authority)\"
+  :dir/url \"https://www.sra.org.uk/consumers/register/\"
+  :dir/note \"Verify a solicitor's licence status and disciplinary record before engaging them\"}
+
+ {:dir/id \"dir:uk-court-locator\" :dir/jurisdiction :uk :dir/kind :court-locator
+  :dir/label \"Find a Court or Tribunal (HM Courts & Tribunals Service)\"
+  :dir/url \"https://www.find-court-tribunal.service.gov.uk/\"}
+
+ {:dir/id \"dir:uk-insolvency-practitioner\" :dir/jurisdiction :uk :dir/kind :insolvency-practitioner-register
+  :dir/label \"Find an Insolvency Practitioner (Insolvency Service)\"
+  :dir/url \"https://www.gov.uk/find-an-insolvency-practitioner\"
+  :dir/note \"Only a licensed Insolvency Practitioner can act as trustee in bankruptcy or DRO approved intermediary — verify licence status here\"}
+
+ ;; ── :de ──────────────────────────────────────────────────────────────────────
+ {:dir/id \"dir:de-anwaltsverzeichnis\" :dir/jurisdiction :de :dir/kind :bar-association
+  :dir/label \"Bundesweites Amtliches Anwaltsverzeichnis (Bundesrechtsanwaltskammer)\"
+  :dir/url \"https://www.brak.de/service/bundesweites-amtliches-anwaltsverzeichnis/\"
+  :dir/note \"Offizielles, kostenloses Verzeichnis aller in Deutschland zugelassenen Rechtsanwälte\"}
+
+ {:dir/id \"dir:de-gerichtsverzeichnis\" :dir/jurisdiction :de :dir/kind :court-locator
+  :dir/label \"Orts- und Gerichtsverzeichnis (Justizportal des Bundes und der Länder)\"
+  :dir/url \"https://justiz.de/index.php\"
+  :dir/note \"Zuständiges Amtsgericht (Insolvenzgericht) am Wohnsitz finden\"}]
+")

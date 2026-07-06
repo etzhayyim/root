@@ -85,6 +85,25 @@
     (is (string? out))
     (is (str/includes? out "saisei"))))
 
+(deftest test-legal-directory-present-per-covered-jurisdiction
+  ;; Every covered jurisdiction (jp/us/uk/de) surfaces at least one real
+  ;; bar-association/court/insolvency-practitioner directory entry — a LINK
+  ;; only (saisei performs/supervises no legal work itself).
+  (let [ps (by-id)]
+    (doseq [j-id ["sit:jp-1" "sit:us-1" "sit:uk-1" "sit:de-1"]]
+      (let [pl (get ps j-id)
+            dir (get pl "legal_directory")]
+        (is (seq dir))
+        (doseq [d dir]
+          (is (str/starts-with? (get d "url") "https://"))
+          (is (some? (get d "kind"))))
+        (is (some #(= (get % "kind") ":bar-association") dir))))))
+
+(deftest test-legal-directory-empty-for-uncovered-jurisdiction
+  (let [ps (by-id)
+        pl (get ps "sit:br-1")]
+    (is (= (get pl "legal_directory") []))))
+
 (deftest test-official-forms-url-present-every-track-link-only
   ;; Every registered procedure carries a verified official-forms-url (a LINK
   ;; only — saisei never drafts/pre-fills the form itself, G3/N2).
