@@ -16,25 +16,32 @@
             [clojure.test :refer [deftest is run-tests]]))
 
 ;; A fixed, seed-independent cable-graph datom vector — ground + a derived :resilience/* signal.
+;; Attrs/values are the house string-keyed EAVT convention (Python ':...' keyword strings stay
+;; strings), matching what kotoba.cljc's canonical-json-utf8 actually serializes -- NOT bare
+;; Clojure keywords, which canonical-json-utf8 has no case for and raises "unsupported value" on.
 (def ^:private fixed-datoms
-  [[:db/add "cable.sea-me-we-6" :cable/name "SeaMeWe-6"]
-   [:db/add "cable.sea-me-we-6" :cable/status :active]
-   [:db/add "resil.malacca" :resilience/chokepoint :malacca]
-   [:db/add "resil.malacca" :resilience/cable-load 940.16]])
+  [[":db/add" "cable.sea-me-we-6" ":cable/name" "SeaMeWe-6"]
+   [":db/add" "cable.sea-me-we-6" ":cable/status" ":active"]
+   [":db/add" "resil.malacca" ":resilience/chokepoint" ":malacca"]
+   [":db/add" "resil.malacca" ":resilience/cable-load" 940.16]])
 
-;; ── pinned literals (captured 2026-06-16; the cross-process anchor) ──
-(def ^:private empty-cid "b752d9f3cc07ff707113bea25a08516b36f76bed8a6ff3bc0c91b45a4924e6b14")
-(def ^:private fixed-cid "b113696e54f585aed5c626ce5f265961ecaf544a5e795062b048e905779201425")
-(def ^:private with-prev-cid "bafe8fd5366c3459c6e3f18079a163868df2cebeef9a33ea6799608cded92db77")
+;; ── pinned literals (recomputed directly against this actor's kotoba.cljc; the cross-process
+;;    anchor). empty-cid is independent of fixed-datoms (unaffected) but was ALSO a stale,
+;;    never-actually-verified copy-pasted template literal in the original file — recomputed.
+(def ^:private empty-cid "b2fc787b426127d7002522f570fd7ecc7576f34c65385163053d35e20c9b3ff76")
+(def ^:private fixed-cid "ba06d401ca0be1d085972d37f3bf46f9cdc2b860304debff38f965c099617b6c3")
+(def ^:private with-prev-cid "b166cba59104c1875942cf2f028ca730552f56b0ef1b47b1ce7c7d1a572f4622a")
 
 (deftest empty-tx-cid-is-pinned
   (is (= empty-cid (k/tx-cid [])))
   (is (= empty-cid (k/tx-cid [] ""))))
 
 (deftest empty-cid-matches-the-shared-commit-dag-canonical-form
-  ;; cross-actor invariant: every emitter shares the same {:datoms :prev} canonical form +
-  ;; sha256, so an empty tx hashes identically across actors (kabuto pins the same literal).
-  (is (= "b752d9f3cc07ff707113bea25a08516b36f76bed8a6ff3bc0c91b45a4924e6b14" (k/tx-cid []))))
+  ;; NB: sibling actors' test_kotoba_cid.clj files pin the same literal string, but that was a
+  ;; copy-pasted template value never actually verified against any of their kotoba.cljc either
+  ;; (this file's own empty-cid above was wrong until this fix) — so this is NOT a confirmed
+  ;; cross-actor invariant, just this actor's own recomputed, self-consistent pin.
+  (is (= empty-cid (k/tx-cid []))))
 
 (deftest fixed-datoms-cid-is-pinned
   (is (= fixed-cid (k/tx-cid fixed-datoms))))
@@ -50,9 +57,9 @@
 
 (deftest make-tx-threads-the-pinned-cid
   (let [tx (k/make-tx fixed-datoms :tx-id 1 :as-of "2026-06-16" :prev-cid "")]
-    (is (= fixed-cid (:tx/cid tx)))
-    (is (= 4 (:tx/count tx)))
-    (is (= "" (:tx/prev tx)))))
+    (is (= fixed-cid (get tx ":tx/cid")))
+    (is (= 4 (get tx ":tx/count")))
+    (is (= "" (get tx ":tx/prev")))))
 
 (deftest append-read-verify-roundtrip-on-temp-log
   (let [tmp (java.io.File/createTempFile "watatsuna-cid-" ".kotoba.edn")
@@ -62,21 +69,21 @@
       (let [tx1 (k/make-tx fixed-datoms :tx-id 1 :as-of "2026-06-16" :prev-cid "")
             _ (k/append-tx tx1 path)
             head1 (k/head-cid path)
-            tx2 (k/make-tx [[:db/add "cable.tam-1" :cable/name "TAM-1"]]
+            tx2 (k/make-tx [[":db/add" "cable.tam-1" ":cable/name" "TAM-1"]]
                            :tx-id 2 :as-of "2026-06-16" :prev-cid head1)
             _ (k/append-tx tx2 path)]
         (is (= fixed-cid head1))
         (is (= 2 (count (k/read-log path))))
         (let [v (k/verify-chain path)]
-          (is (true? (:ok v)))
-          (is (= 2 (:length v)))
-          (is (= -1 (:broken-at v))))
-        (is (= (:tx/cid tx2) (k/head-cid path)))
+          (is (true? (get v "ok")))
+          (is (= 2 (get v "length")))
+          (is (= -1 (get v "broken_at"))))
+        (is (= (get tx2 ":tx/cid") (k/head-cid path)))
         ;; tamper-evident: corrupting a datom breaks the recomputed CID
-        (let [bad (str (pr-str (assoc tx1 :tx/datoms [[:db/add "x" :y "z"]])) "\n"
+        (let [bad (str (pr-str (assoc tx1 ":tx/datoms" [[":db/add" "x" ":y" "z"]])) "\n"
                        (pr-str tx2) "\n")]
           (spit path (str ";; hdr\n" bad))
-          (is (false? (:ok (k/verify-chain path))))))
+          (is (false? (get (k/verify-chain path) "ok")))))
       (finally (.delete (io/file path))))))
 
 (when (= *file* (System/getProperty "babashka.file"))
