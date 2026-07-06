@@ -7,7 +7,7 @@
  :actor/status    :r2 ; R0 JP-only (2606112301) → R1 worldwide (2606112400) → R2 registry maturity (2606122000) + publication layer (2606122300: crawlable site 36p + 135 case-actors + 書面雛形 — deploy-ready)
  :actor/adr       "2606112301"
  :actor/adr-r1    "2606112400"
- :actor/jurisdictions [:jp :us :eu :uk :de :kr :fr :au :ca :it :es :nl :br :tw :sg :in :cn :pl :se :at :pt :ie :ch :dk :fi :no :mx :be :ar :nz] ; + us-states.edn 10/50 + :labor track (jp/de/uk) + :housing track (jp/de/uk/us) + :enforcement track (jp/us/de) + :insolvency track (jp/us/de 債権者側) + :family track (jp/us/de — kokoro 心 routing 必在) ; representative — coverage_report.py names the gap (G10)
+ :actor/jurisdictions [:jp :us :eu :uk :de :kr :fr :au :ca :it :es :nl :br :tw :sg :in :cn :pl :se :at :pt :ie :ch :dk :fi :no :mx :be :ar :nz] ; + us-states.edn 10/50 + :labor track (jp/de/uk) + :housing track (jp/de/uk/us) + :enforcement track (jp/us/de) + :insolvency track (jp/us/de 債権者側 — debtor-side self-petition is NOT this actor's scope, N2 defensive-only; sibling actor `saisei` (ADR-2607061800) covers debtor-initiated self-filing, jp/us/uk/de) + :family track (jp/us/de — kokoro 心 routing 必在) ; representative — coverage_report.py names the gap (G10)
  :actor/related   ["2606112201"   ; kaiyaku (severance executor — tate routes :kaiyaku)
                    "2605312500"   ; kurashimori (クーリングオフ/返金 rights — tate routes :kurashimori)
                    "2605262700"   ; chigiri (legal-procedure substrate, UPL prior art)
