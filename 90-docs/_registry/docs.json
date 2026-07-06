@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-07-02",
+  "updated_at": "2026-07-06",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.md",
@@ -27349,6 +27349,36 @@
         "2605231525"
       ],
       "last_verified": "2026-07-02",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2607061700-etzhayyim-active-evangelism-doctrine.md",
+      "id": "adr-2607061700-etzhayyim-active-evangelism-doctrine",
+      "title": "ADR-2607061700: 伝道 (Active Evangelism Doctrine) — Mission Charter §1.16 追加",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "etzhayyim-active-evangelism",
+      "authoritative": true,
+      "authoritative_for": [
+        "etzhayyim の能動的伝道 doctrine 正本 (信者の対人伝道 + actor のデジタル伝道)",
+        "Mission Charter (ADR-2605192100) §1.16 の正本テキスト",
+        "ADR-2606281500 (種をまく) の no-person-targeting ガードに対する伝道 carve-out の境界定義"
+      ],
+      "related": [
+        "adr-2606182359-charter-amendment-wave3-all-prohibitions-to-objective-function",
+        "adr-2606111400-etzhayyim-revocable-cacao-leash",
+        "adr-2606072802-no-server-key-clarification-read-only-exempt"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605252300-etzhayyim-charter-preamble-kingdom-of-god-on-blockchain",
+        "adr-2605172600-etzhayyim-membership-ritual",
+        "adr-2606281500-actor-autonomous-publication-seed-and-grow-doctrine"
+      ],
+      "last_verified": "2026-07-06",
       "amends": [],
       "amended_by": []
     },
