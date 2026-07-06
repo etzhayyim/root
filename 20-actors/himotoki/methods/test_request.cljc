@@ -6,10 +6,14 @@
   G6 PII-as-encrypted-envelope (never plaintext), G8 no mass-filing, G14 verify-before-
   dispatch, G10 outbound-gated."
   (:require [clojure.test :refer [deftest is run-tests]]
+            [clojure.java.io :as io]
             [clojure.string :as str]
             [himotoki.methods.request :as req]))
 
-(def ^:private reg (req/load-registry))
+;; Resolve registry/targets.seed.json relative to THIS file — *file* is bound during require here.
+(def ^:private this-file *file*)
+(defn- actor-root [] (-> this-file io/file .getAbsoluteFile .getParentFile .getParentFile))
+(def ^:private reg (req/load-registry (str (io/file (actor-root) "registry" "targets.seed.json"))))
 (def ^:private member
   {"requesterDid" "did:web:etzhayyim.com:member:alice" "ownDataOnly" true
    "subjectEnvelopeRef" "com.etzhayyim.encrypted:env:alice"})
