@@ -3,7 +3,10 @@
 
   1:1 Clojure port of the SUBSET of 20-actors/kuni-umi/robotics/{control,safety}.py
   that the mizuho method modules (chlorination, water_supply) actually import:
-  PID, ControlResult, simulate, SafetyError, assert_civilian.
+  PID, ControlResult, simulate, SafetyError, assert_civilian -- plus the structural
+  safety gates cells/water_supply/state_machine.cljc needs (require-member-signature /
+  witness-quorum-ok), ported from the same kuni-umi/robotics/safety.py source (mirrors
+  the noroshi/methods/_substrate.cljc precedent).
 
   The Python `_substrate.py` merely re-exports the kuni-umi/robotics engine over a
   sys.path insert; here we INLINE the needed primitives so the port is
@@ -52,6 +55,38 @@
           (pr-str (vec permitted)) "; closed-world refusal (only explicitly-"
           "permitted civilian uses run)"))
     :else nil))
+
+;; ── member-signature + witness-quorum gates (safety.py) ──────────────────────────
+;; Needed by cells/water_supply/state_machine.cljc's commissioning/dispatch phases;
+;; ported from the same kuni-umi/robotics/safety.py source as assert-civilian above.
+
+(def MIN-WITNESS-SIGS 2)
+
+(defn require-member-signature
+  "No-server-key gate (G15/G7). Raise unless a member/operator signs and the
+  platform holds no key."
+  ([member-sig] (require-member-signature member-sig ""))
+  ([member-sig server-sig]
+   (when (and server-sig (not= server-sig ""))
+     (safety-error
+      (str "G15/G7 violation: a server/platform signature was supplied; the platform "
+           "holds no key and never signs actuation (ADR-2605231525)")))
+   (when (or (nil? member-sig) (= member-sig ""))
+     (safety-error
+      (str "G15/G7 violation: a member/operator signature is required to authorise "
+           "any actuation (no-server-key)")))))
+
+(defn witness-quorum-ok
+  "Witness quorum >=2 independent robot DIDs (G8). Returns a map (does not raise)."
+  [witness-sigs]
+  (cond
+    (< (count witness-sigs) MIN-WITNESS-SIGS)
+    {"ok" false
+     "reason" (str "witness quorum " (count witness-sigs) " < " MIN-WITNESS-SIGS " (G8 constitutional)")
+     "escalate_council_lv6" true}
+    (< (count (set witness-sigs)) MIN-WITNESS-SIGS)
+    {"ok" false "reason" "duplicate witness DIDs detected (G8)" "escalate_council_lv6" true}
+    :else {"ok" true "reason" "witness quorum satisfied"}))
 
 ;; ── PID (control.py) — mutable controller as an atom of state + a fns map ────────
 ;; Mirrors the dataclass PID with anti-windup (conditional integration). The

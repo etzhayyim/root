@@ -67,9 +67,9 @@
                 :agent dosing-agent
                 :per-member-consent per-member-consent)
         cs (assoc cs
-                  "level_restored" (get supply "level_restored")
-                  "residual_held" (get dosing "residual_held")
-                  "ceiling_respected" (get dosing "ceiling_respected")
+                  "level_restored" (:level-restored supply)
+                  "residual_held" (:residual-held dosing)
+                  "ceiling_respected" (:ceiling-respected dosing)
                   "payload" (assoc (get cs "payload")
                                    "supply" (ws/to-datoms supply (get cs "source_id"))
                                    "dosing" (chl/to-datoms dosing (get cs "source_id")))
