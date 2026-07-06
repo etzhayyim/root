@@ -27,7 +27,7 @@
 (deftest test-heartbeat-persists
   (let [log (tmp-log)]
     (try
-      (let [res (autorun/run-autonomous 3 nil log)]
+      (let [res (autorun/run-autonomous 3 autorun/seed log)]
         (is (= 3 (get res "log_length")) "one tx per heartbeat")
         (is (every? #(> (get % "datoms") 0) (get res "beats")) "every heartbeat persisted datoms")
         (is (every? #(> (get % "metrics") 0) (get res "beats")) "derived ratios computed + persisted")
@@ -38,8 +38,8 @@
 (deftest test-deterministic-resume-safe
   (let [a (tmp-log) b (tmp-log)]
     (try
-      (let [ra (autorun/run-autonomous 3 nil a)
-            rb (autorun/run-autonomous 3 nil b)]
+      (let [ra (autorun/run-autonomous 3 autorun/seed a)
+            rb (autorun/run-autonomous 3 autorun/seed b)]
         (is (= (mapv #(get % "cid") (get ra "beats"))
                (mapv #(get % "cid") (get rb "beats")))
             "same cycles → same CIDs (deterministic / resume-safe)"))
@@ -48,9 +48,9 @@
 (deftest test-append-only-and-tamper
   (let [log (tmp-log)]
     (try
-      (autorun/run-cycle 1 nil log)
+      (autorun/run-cycle 1 autorun/seed log)
       (let [first-log (kotoba/read-log log)]
-        (autorun/run-cycle 2 nil log)
+        (autorun/run-cycle 2 autorun/seed log)
         (let [second-log (kotoba/read-log log)]
           (is (= (count second-log) (inc (count first-log)))
               "second heartbeat appends, does not rewrite")
@@ -75,7 +75,7 @@
   ;; G5: every derived metric/agg must declare :synthesized — never masquerade as a disclosed fact.
   (let [log (tmp-log)]
     (try
-      (autorun/run-cycle 1 nil log)
+      (autorun/run-cycle 1 autorun/seed log)
       (let [tx (nth (kotoba/read-log log) 0)
             datoms (get tx ":tx/datoms")
             ;; group by entity; {entity {attr value}}
@@ -97,7 +97,7 @@
 (deftest test-g2-g4-no-advice-no-forecast
   (let [log (tmp-log)]
     (try
-      (autorun/run-cycle 1 nil log)
+      (autorun/run-cycle 1 autorun/seed log)
       (let [tx (nth (kotoba/read-log log) 0)
             attrs (set (map #(str (nth % 2)) (get tx ":tx/datoms")))]
         (doseq [forbidden [":fin.metric/rating" ":fin.metric/recommendation" ":fin.metric/target-price"
