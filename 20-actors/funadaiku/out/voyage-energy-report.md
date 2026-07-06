@@ -1,6 +1,6 @@
 # funadaiku 船大工 — Nagi 凪 voyage energy budget
 
-> ADR-2606013400 · reduced-order analytic model (`methods/voyage_energy.clj`) · :representative
+> ADR-2606013400 · reduced-order analytic model (`methods/voyage_energy.py`) · :representative
 > **No fossil engine** (G13/N5). Hydrogen must be green (G14, well-to-wake).
 
 ## Inputs
@@ -34,4 +34,10 @@
 
 ## Honest reading
 
-Wind + solar together meet **17.9%** of this representative coastal leg; hydrogen carries the remaining **82.1%** as the prime mover — exactly the survey conclusion that **no single source is a complete prime mover** at cargo scale. Tank-to-wake CO₂ is **zero**; the well-to-wake figure depends entirely on the **green-H₂ chain-of-custody** (G14). This is a first-order model, not CFD.
+Wind + solar together meet **17.9%** of this representative
+coastal leg; hydrogen carries the remaining **82.1%** as the prime mover —
+exactly the survey conclusion that **no single source is a complete prime mover** at cargo
+scale. Wind-assist share rises on windier/longer routes and falls on calm ones; solar is
+capped to hotel + a little propulsion by construction (low areal power). Tank-to-wake CO₂ is
+**zero**; the well-to-wake figure depends entirely on the **green-H₂ chain-of-custody** (G14) —
+hydrogen made from fossil power would erase the benefit. This is a first-order model, not CFD.
