@@ -7,6 +7,10 @@ fees, and discharge-timeline rules for a member's OWN formal insolvency petition
 non-adjudicating legal *information*, never legal advice.
 
 - 📚 設計と不変条件: [`CLAUDE.md`](CLAUDE.md) · ADR-2607061800
+- 🌐 Live API + interactive page: https://saisei-worker.04-feasts-minded.workers.dev
+  (workers.dev subdomain — custom `saisei.etzhayyim.com` pending zone:write;
+  see [`../../50-infra/saisei-worker/README.md`](../../50-infra/saisei-worker/README.md)
+  for the API + anonymous-aggregate-analytics query)
 - 🔗 姉妹actor: [`../tate/`](../tate/) (creditor-side 応答 — 第三者の倒産通知への対応),
   [`../toritsugi/`](../toritsugi/) (proactive 行政窓口手続き),
   [`../yobel/`](../yobel/) (voluntary 教義的debt release)

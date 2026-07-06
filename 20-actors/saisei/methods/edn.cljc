@@ -12,14 +12,29 @@
 (def ^:private token-re
   #"[\s,]+|;[^\n]*|(\[|\]|\{|\}|\"(?:\\.|[^\"\\])*\"|[^\s,\[\]{}]+)")
 
-(defn- tokens
-  [s]
-  (let [m (re-matcher token-re s)]
-    ((fn step []
-       (lazy-seq
-        (when (.find m)
-          (let [t (.group m 1)]
-            (if (nil? t) (step) (cons t (step))))))))))
+;; Portable tokenizer: java.util.regex.Matcher (re-matcher/.find/.group) has no
+;; ClojureScript equivalent — JS RegExp's stateful-`g`-flag `.exec` loop is the
+;; cljs analog (advances `lastIndex` on the regex object itself).
+#?(:clj
+   (defn- tokens
+     [s]
+     (let [m (re-matcher token-re s)]
+       ((fn step []
+          (lazy-seq
+           (when (.find m)
+             (let [t (.group m 1)]
+               (if (nil? t) (step) (cons t (step)))))))))))
+
+#?(:cljs
+   (defn- tokens
+     [s]
+     (let [re (js/RegExp. (.-source token-re) "g")]
+       ((fn step []
+          (lazy-seq
+           (let [match (.exec re s)]
+             (when match
+               (let [t (aget match 1)]
+                 (if (nil? t) (step) (cons t (step))))))))))))
 
 (defn- unescape-string
   [t]
