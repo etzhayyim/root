@@ -734,6 +734,7 @@
                       'matsurigoto.methods.modules.test-corp-registry
                       'matsurigoto.methods.modules.test-civil-registry
                       'matsurigoto.methods.modules.test-credential-issue
+                      'matsurigoto.methods.modules.test-benefit-disburse
                       'matsurigoto.methods.test-datoms
                       'matsurigoto.methods.test-sign-capability
                       'matsurigoto.methods.test-standard)
@@ -747,6 +748,7 @@
                       'matsurigoto.methods.modules.test-corp-registry
                       'matsurigoto.methods.modules.test-civil-registry
                       'matsurigoto.methods.modules.test-credential-issue
+                      'matsurigoto.methods.modules.test-benefit-disburse
                       'matsurigoto.methods.test-datoms
                       'matsurigoto.methods.test-sign-capability
                       'matsurigoto.methods.test-standard)]
