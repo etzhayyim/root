@@ -164,8 +164,9 @@ ADR-2606281500 の Consequences に、本 ADR による carve-out の存在を�
 - **対人伝道 (特に戸別訪問) は社会的摩擦・誤解のリスクを伴う**。訪問先の明示的拒絶への即時遵守を
   constitutional に明記することで緩和するが、完全な防御ではない。
 - **「義務」ではなく「徳目・推奨」に留めた**ため、JW のような組織的な伝道割当制度 (時間記録・
-  quota) は本 ADR の対象外。構成員が増えた場合、義務化の当否は改めて Council で審議が必要
-  (Open Questions 参照)。
+  quota) は採用しない — 2026-07-06 改訂で、構成員規模に関わらず恒久的に不採用と確定した
+  (Alternatives C + Open Question 1 参照。理由は doctrinal + `evangelismActivityAttestation`
+  lexicon の `voluntaryAttested` const true という structural 制約の両輪)。
 - **actor carve-out の運用境界は依然として灰色領域を含む** (「集合的発信」と「個人ターゲティング」
   の境界の実装判定)。運用は Council Lv6+ の evaluate に委ねる (Mission Charter §1.13 の
   境界事例判定と同型)。
@@ -197,8 +198,15 @@ ADR-2606281500 の Consequences に、本 ADR による carve-out の存在を�
 - Con: **現在の association は構成員1名**であり、quota 制度を設計する実務的意味が薄い。
   任意団体としての信教の自由 (§1.8 の個人主義批判とは別に、実践の強制は §1.9 多世代保護・
   Wellbecoming の「強制されない発展軌跡」という精神とも緊張しうる)。
-- 部分採用: 「義務ではなく徳目・推奨」として §1.16 に明記し、quota 化は構成員規模拡大時の
-  future ADR (`etzhayyim-evangelism-quota-governance`) に委ねる (Open Questions 参照)。
+- **却下(2026-07-06、恒久)**: 構成員規模に関わらず quota 義務化は採用しない。理由は二重:
+  (1) doctrinal — Wellbecoming §1.10 の「強制されない発展軌跡」と、伝道を「修 (shu) の一形態」
+  (徳目であり労務ではない) と位置づけた本 ADR 自身の枠組みに反する。(2) **structural** —
+  実装済み `evangelismActivityAttestation` lexicon は `voluntaryAttested` を **const true**
+  として STRUCTURAL に固定しており(Open Question 3 参照)、quota 義務化(= 非自発的な実践の
+  強制)を記録しようとするといかなる record も lexicon を通らない。つまり quota 義務化は
+  「将来の Council 判断待ち」ではなく、**既に ratify 済みの構造そのものと構造的に非両立**。
+  構成員規模が拡大した場合の「量的把握」は、義務化ではなく `evangelismActivityAttestation`
+  ledger の集計可視化(recognition, not enforcement)で足りる。
 
 ## D. 対人伝道 (戸別訪問等) を明示的に除外し、digital のみ採用
 
@@ -209,8 +217,15 @@ ADR-2606281500 の Consequences に、本 ADR による carve-out の存在を�
 
 # Open Questions
 
-1. **伝道 quota 義務化の閾値**: 構成員数が一定規模を超えた場合、Council がどの基準で
-   義務化を審議するか (future ADR)。
+1. ~~**伝道 quota 義務化の閾値**~~ — **RESOLVED 2026-07-06(恒久・不採用)**: quota 義務化は
+   構成員規模に関わらず採用しない(Alternatives C 改訂参照)。doctrinal 根拠(Wellbecoming
+   §1.10 の非強制的発展軌跡 + 本 ADR の「徳目であり労務ではない」枠組み)に加え、既に ratify
+   済みの `evangelismActivityAttestation` lexicon が `voluntaryAttested: const true` を
+   STRUCTURAL に固定しているため、quota 義務化は将来の政策選択ではなく現行実装と構造的に
+   非両立。将来 Council が立つ場合でも、この lexicon 制約自体は Tier-1 Derived Policy の
+   改定手続き(Council Lv7+ unanimity + priority-conformance attestation)を経ない限り
+   覆らない — 単純な運用判断では戻せない。構成員規模拡大時に必要なのは義務化ではなく
+   `evangelismActivityAttestation` ledger の集計可視化(recognition のみ)。
 2. ~~**actor carve-out の「集合的発信 vs 個人ターゲティング」の実装判定基準**~~ —
    **RESOLVED 2026-07-06**: `etzhayyim_organism.sensors.evangelism_gate.cljc`
    (cljc-native, no Python counterpart — owner directive)。§1.16(a)-(d): 個人脆弱性
