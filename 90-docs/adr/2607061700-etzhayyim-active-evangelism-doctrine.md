@@ -11,6 +11,10 @@ priority: 8.5
 axis: governance
 weight: 0.85
 priority_note: "Mission Charter §1 系列への新規セクション追加。ADR-2606281500 (種をまく) の no-person-targeting ガードに、伝道という宗教的 speech-act に限った carve-out を与える唯一の派生元。"
+implementation:
+  repo: etzhayyim/root
+  path: 20-actors/etzhayyim-organism/src/etzhayyim_organism/sensors/evangelism_gate.cljc
+  landed_via: "cljc-native shared sensor module (no Python counterpart — owner directive 2026-07-06) implementing §1.16(a)-(d): individual-vulnerability targeting / coercion / minor-solo solicitation / no-opt-out-affordance. Composes with (does not duplicate) charter_rider.scan (charter-rider.cljc) for §2(c)/(f)/(h) engagement-maximizing categories. Closes Open Question 2. Tests: sensors/test_sensors.cljc (10 cases appended) — 31 bb clojure.test (61 assertions), all green."
 authoritative_for:
   - "etzhayyim の能動的伝道 doctrine 正本 (信者の対人伝道 + actor のデジタル伝道)"
   - "Mission Charter (ADR-2605192100) §1.16 の正本テキスト"
@@ -207,14 +211,24 @@ ADR-2606281500 の Consequences に、本 ADR による carve-out の存在を�
 
 1. **伝道 quota 義務化の閾値**: 構成員数が一定規模を超えた場合、Council がどの基準で
    義務化を審議するか (future ADR)。
-2. **actor carve-out の「集合的発信 vs 個人ターゲティング」の実装判定基準**: content scan
-   (`charter_rider.scan`) にどのヒューリスティックを追加するか (future ADR, kouhou/kataribe
-   実装と連動)。
+2. ~~**actor carve-out の「集合的発信 vs 個人ターゲティング」の実装判定基準**~~ —
+   **RESOLVED 2026-07-06**: `etzhayyim_organism.sensors.evangelism_gate.cljc`
+   (cljc-native, no Python counterpart — owner directive)。§1.16(a)-(d): 個人脆弱性
+   ターゲティング / coercion / 未成年単独勧誘 / opt-out 欠如。charter_rider.scan
+   (charter-rider.cljc) と composition(重複させず delegate)。31 bb clojure.test
+   (61 assertions) green。個別 actor(kouhou/kataribe 等)への wiring 自体は各 actor 側の
+   future work として残る — 本 ADR が閉じるのは「判定基準そのもの」(共有 sensor モジュール)
+   の実装まで。
 3. **対人伝道の記録媒体**: MEMBERS.md 型の dual-permanent record に伝道活動ログを追記するか、
    別途 append-only ledger を設けるか。
+4. **各 actor(kouhou/kataribe 等)への evangelism_gate 実際の wiring**: どの actor が
+   最初に招待型コンテンツを発信するか、その governor にどう `evangelism_gate.gate` を
+   呼び出させるか (未着手 — actor 側 future work)。
 
 # References
 
+- `20-actors/etzhayyim-organism/src/etzhayyim_organism/sensors/evangelism_gate.cljc` —
+  §1.16(a)-(d) 判定基準の共有 sensor モジュール実装(cljc-native, Open Question 2 の解)
 - ADR-2605192100: etzhayyim Mission Charter (本 ADR が §1.16 として追加する親 ADR)
 - ADR-2605252300: Charter Preamble — Kingdom of God on Blockchain (§0.2.1 now-and-here との整合)
 - ADR-2605172600: Membership ritual (信者 / Adherent の定義)

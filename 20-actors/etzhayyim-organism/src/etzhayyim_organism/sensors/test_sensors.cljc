@@ -1,5 +1,5 @@
 #!/usr/bin/env bb
-;; Parity + unit tests for all 12 cljc sensor ports.
+;; Parity + unit tests for all 12 cljc sensor ports + the evangelism gate.
 ;; Run:  bb --classpath 20-actors/etzhayyim-organism/src \
 ;;          20-actors/etzhayyim-organism/src/etzhayyim_organism/sensors/test_sensors.cljc
 (ns etzhayyim-organism.sensors.test-sensors
@@ -8,13 +8,15 @@
      1. All 12 sensors load and return AxisReading records.
      2. Scores are in range [0, 10] and leverage in [1, 3].
      3. Charter-rider scan correctness (clean / fossil / promo / surveillance).
-     4. count-glob optimisation — shallow patterns don't descend full tree."
+     4. count-glob optimisation — shallow patterns don't descend full tree.
+     5. Evangelism gate correctness (ADR-2607061700 §1.16 carve-out)."
   (:require [clojure.test :refer [deftest is testing run-tests]]
             [etzhayyim-organism.sensors.common :as c]
             [etzhayyim-organism.sensors.autopoiesis :as ap]
             [etzhayyim-organism.sensors.active-inference :as ai]
             [etzhayyim-organism.sensors.antifragility :as af]
             [etzhayyim-organism.sensors.charter-rider :as cr]
+            [etzhayyim-organism.sensors.evangelism-gate :as eg]
             [etzhayyim-organism.sensors.diversity :as div]
             [etzhayyim-organism.sensors.homeostasis :as hom]
             [etzhayyim-organism.sensors.metabolism :as met]
@@ -174,6 +176,74 @@
       (is (contains? res :ok))
       (is (contains? res :hits))
       (is (vector? (:hits res))))))
+
+;; ---------------------------------------------------------------------------
+;; Evangelism gate tests (ADR-2607061700 §1.16 carve-out)
+;; ---------------------------------------------------------------------------
+
+(deftest test-evangelism-gate-clean-with-opt-out-flag
+  (testing "gate passes clean invitational text when opt-out-present? is true"
+    (let [res (eg/gate "We're gathering this month to share what the Tree of Life community has been building. Everyone is welcome."
+                        {:opt-out-present? true})]
+      (is (:ok res) (str "expected clean pass, got: " res)))))
+
+(deftest test-evangelism-gate-clean-with-textual-opt-out
+  (testing "gate passes clean invitational text with textual opt-out language"
+    (let [res (eg/gate "We're gathering this month to share what the community has been building. Everyone is welcome — no pressure, and feel free to say no.")]
+      (is (:ok res) (str "expected clean pass, got: " res)))))
+
+(deftest test-evangelism-gate-missing-opt-out-caught
+  (testing "gate flags missing opt-out affordance §1.16(d)"
+    (let [res (eg/gate "Come join our community gathering this weekend, everyone welcome.")]
+      (is (false? (:ok res)))
+      (is (some #(= "§1.16(d)" (:section %)) (:hits res))))))
+
+(deftest test-evangelism-gate-individual-targeting-caught
+  (testing "gate flags individual vulnerability targeting §1.16(a)"
+    (let [res (eg/gate "Since you're going through a divorce, I picked you specifically to join us. No pressure though."
+                        {:opt-out-present? true})]
+      (is (false? (:ok res)))
+      (is (some #(= "§1.16(a)" (:section %)) (:hits res))))))
+
+(deftest test-evangelism-gate-casual-you-not-falsely-targeted
+  (testing "casual second-person address does not trigger §1.16(a)"
+    (let [res (eg/gate "You might enjoy learning about what our community has been building together. No pressure — feel free to say no."
+                        {:opt-out-present? true})]
+      (is (:ok res) (str "expected casual 'you' usage to pass, got: " res)))))
+
+(deftest test-evangelism-gate-coercion-caught
+  (testing "gate flags coercion §1.16(b)"
+    (let [res (eg/gate "You must join now or else you will regret it forever."
+                        {:opt-out-present? true})]
+      (is (false? (:ok res)))
+      (is (some #(= "§1.16(b)" (:section %)) (:hits res))))))
+
+(deftest test-evangelism-gate-minor-solo-caught
+  (testing "gate flags minor-solo solicitation §1.16(c)"
+    (let [res (eg/gate "Hey, are your parents home? You don't need your parents' permission to join us."
+                        {:opt-out-present? true})]
+      (is (false? (:ok res)))
+      (is (some #(= "§1.16(c)" (:section %)) (:hits res))))))
+
+(deftest test-evangelism-gate-delegates-to-charter-rider
+  (testing "gate delegates to charter-rider scan for §2 categories"
+    (let [res (eg/gate "Buy now to access our limited offer and join the community!"
+                        {:opt-out-present? true})]
+      (is (false? (:ok res)))
+      (is (some #(= "§2(c)" (:section %)) (:charter-hits res))))))
+
+(deftest test-evangelism-gate-reason
+  (testing "reason returns a non-empty string when there are hits"
+    (let [res (eg/gate "")]
+      (is (not (:ok res)))
+      (is (pos? (count (eg/reason res)))))))
+
+(deftest test-evangelism-gate-explain
+  (testing "explain returns multi-line string listing all carve-out sections"
+    (let [exp (eg/explain)]
+      (is (string? exp))
+      (doseq [section ["§1.16(a)" "§1.16(b)" "§1.16(c)" "§1.16(d)"]]
+        (is (clojure.string/includes? exp section))))))
 
 ;; ---------------------------------------------------------------------------
 ;; Runner
