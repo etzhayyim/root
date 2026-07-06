@@ -17,7 +17,12 @@
 (defn- entry [d]
   {"id" (get d ":dir/id") "jurisdiction" (get d ":dir/jurisdiction")
    "kind" (get d ":dir/kind") "label" (get d ":dir/label")
-   "url" (get d ":dir/url") "note" (get d ":dir/note")})
+   "url" (get d ":dir/url") "note" (get d ":dir/note")
+   ;; whether the law itself requires this registry to be publicly disclosed,
+   ;; vs mandatory-registration-but-voluntary-web-listing, vs unconfirmed —
+   ;; see data/legal-directory.edn header for the full value taxonomy + why
+   "disclosure_basis" (get d ":dir/disclosure-basis")
+   "disclosure_note" (get d ":dir/disclosure-note")})
 
 (defn by-jurisdiction
   "All directory entries for a declared jurisdiction (e.g. \":jp\") — empty

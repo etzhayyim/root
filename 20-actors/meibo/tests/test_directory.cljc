@@ -34,3 +34,40 @@
   (doseq [d (dir/load-directory)]
     (is (nil? (get d ":dir/attorney-name")))
     (is (nil? (get d ":dir/bar-number")))))
+
+(def valid-disclosure-bases
+  #{":statutory-mandatory" ":mandatory-registration-public-by-practice"
+    ":voluntary-opt-in" ":varies-by-subunit" ":unconfirmed"})
+
+(deftest test-disclosure-basis-present-for-professional-registries
+  ;; every :bar-association / :licensed-scrivener / :insolvency-practitioner-register
+  ;; entry must carry a researched (never-guessed, G10) disclosure-basis + a
+  ;; note citing the actual finding — :court-locator entries are exempt (a
+  ;; court locator isn't a professional-registry disclosure question)
+  (doseq [d (dir/load-directory)
+          :when (contains? #{":bar-association" ":licensed-scrivener" ":insolvency-practitioner-register"}
+                            (get d ":dir/kind"))]
+    (is (contains? valid-disclosure-bases (get d ":dir/disclosure-basis"))
+        (str (get d ":dir/id") " missing/invalid :dir/disclosure-basis"))
+    (is (string? (get d ":dir/disclosure-note"))
+        (str (get d ":dir/id") " missing :dir/disclosure-note")))
+  (doseq [d (dir/load-directory)
+          :when (= (get d ":dir/kind") ":court-locator")]
+    (is (nil? (get d ":dir/disclosure-basis")))))
+
+(deftest test-jp-bengoshi-is-voluntary-opt-in
+  ;; the specific finding that motivated this field: JFBA's own ひまわりサーチ
+  ;; disclaims responsibility for listing content — opt-in, not a statutory
+  ;; public-disclosure mandate, unlike DE/FR/UK-solicitors below.
+  (let [jp (dir/by-jurisdiction ":jp")
+        bengoshi (some #(when (= (get % "id") "dir:jp-bengoshi") %) jp)]
+    (is (= (get bengoshi "disclosure_basis") ":voluntary-opt-in"))))
+
+(deftest test-de-fr-uk-solicitors-are-statutory-mandatory
+  (doseq [[juris id] [[":de" "dir:de-anwaltsverzeichnis"]
+                      [":fr" "dir:fr-avocats"]
+                      [":uk" "dir:uk-solicitors-register"]]]
+    (let [entries (dir/by-jurisdiction juris)
+          e (some #(when (= (get % "id") id) %) entries)]
+      (is (= (get e "disclosure_basis") ":statutory-mandatory")
+          (str id " expected :statutory-mandatory")))))

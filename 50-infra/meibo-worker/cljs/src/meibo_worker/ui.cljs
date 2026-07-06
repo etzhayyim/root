@@ -14,8 +14,14 @@
   h1 { font-size: 1.4rem; }
   select, button { font-size: 1rem; padding: 0.4rem 0.6rem; }
   .entry { border: 1px solid #ccc; border-radius: 8px; padding: 0.8rem 1rem; margin: 0.8rem 0; }
-  .kind { display: inline-block; font-size: 0.75rem; background: #eef; padding: 0.1rem 0.5rem; border-radius: 4px; margin-bottom: 0.3rem; }
+  .kind { display: inline-block; font-size: 0.75rem; background: #eef; padding: 0.1rem 0.5rem; border-radius: 4px; margin-bottom: 0.3rem; margin-right: 0.3rem; }
+  .basis { display: inline-block; font-size: 0.75rem; padding: 0.1rem 0.5rem; border-radius: 4px; margin-bottom: 0.3rem; }
+  .basis-statutory { background: #dcf5dc; }
+  .basis-practice { background: #fff3d1; }
+  .basis-voluntary { background: #ffe1d1; }
+  .basis-varies, .basis-unconfirmed { background: #eee; }
   .note { color: #666; font-size: 0.88rem; }
+  .disclosure-note { color: #555; font-size: 0.82rem; margin-top: 0.4rem; }
   footer { margin-top: 2rem; font-size: 0.85rem; color: #666; }
   #out { min-height: 2rem; }
 </style>
@@ -51,6 +57,13 @@
 </footer>
 <script>
 function esc(s){return String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+var BASIS_LABEL = {
+  ':statutory-mandatory': ['basis-statutory', '法律が公開を明記 / statutory disclosure duty'],
+  ':mandatory-registration-public-by-practice': ['basis-practice', '登録義務・公開は実務慣行 / mandatory registration, public by practice'],
+  ':voluntary-opt-in': ['basis-voluntary', '検索掲載は任意 / voluntary opt-in listing'],
+  ':varies-by-subunit': ['basis-varies', '州・省により異なる / varies by subunit'],
+  ':unconfirmed': ['basis-unconfirmed', '根拠条文未確認 / basis not confirmed']
+};
 document.getElementById('go').addEventListener('click', function () {
   var j = document.getElementById('juris').value;
   var out = document.getElementById('out');
@@ -66,8 +79,13 @@ document.getElementById('go').addEventListener('click', function () {
       var html = '';
       entries.forEach(function (e) {
         html += '<div class=\"entry\"><span class=\"kind\">' + esc(e.kind) + '</span>';
+        if (e.disclosure_basis && BASIS_LABEL[e.disclosure_basis]) {
+          var b = BASIS_LABEL[e.disclosure_basis];
+          html += '<span class=\"basis ' + b[0] + '\">' + esc(b[1]) + '</span>';
+        }
         html += '<h3><a href=\"' + esc(e.url) + '\" target=\"_blank\" rel=\"noopener\">' + esc(e.label) + '</a></h3>';
         if (e.note) { html += '<p class=\"note\">' + esc(e.note) + '</p>'; }
+        if (e.disclosure_note) { html += '<p class=\"disclosure-note\">' + esc(e.disclosure_note) + '</p>'; }
         html += '</div>';
       });
       out.innerHTML = html;
