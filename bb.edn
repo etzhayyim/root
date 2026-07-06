@@ -760,6 +760,12 @@
              (let [r (clojure.test/run-tests 'fuchi.methods.test-allocate 'fuchi.methods.test-vote 'fuchi.methods.test-route 'fuchi.methods.test-book 'fuchi.methods.test-provision 'fuchi.methods.test-couple 'fuchi.methods.test-analyze)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
+  test:wakai
+  {:doc "和会 wakai — mutual-aid pool engine + constitutional-gate conformance (ADR-2605263500)"
+   :task (do (require 'clojure.test 'wakai.methods.test-pool 'wakai.methods.test-charter-gates)
+             (let [r (clojure.test/run-tests 'wakai.methods.test-pool 'wakai.methods.test-charter-gates)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
   test:aburi
   {:doc "炙り aburi — personal-tracking-exposure: all cljc tests (analyze/coverage/kotoba/ingest/bridge) + python ingest/bridge legacy (ADR-2606161630)"
    :task (do (require 'clojure.test 'aburi.tests.test-analyze 'aburi.tests.test-coverage
@@ -849,7 +855,7 @@
              (apply (resolve 'tadori.methods.transact/-main) *command-line-args*))}
   test:clj
   {:doc "all Clojure actor tests (fast suites; run test:ibuki:integration separately)"
-   :depends [test:mimamori test:yobel test:tools test:ibuki test:actors test:matsurigoto test:fuchi test:aburi test:docs-registry]}
+   :depends [test:mimamori test:yobel test:tools test:ibuki test:actors test:matsurigoto test:fuchi test:wakai test:aburi test:docs-registry]}
   test:docs-registry
   {:doc "docs registry generator (70-tools/scripts/docs/regen-registry.clj) — parse-frontmatter / JSON+EDN encoders / byte-parity round-trip + live freshness guard (port of test_regen_registry.py)"
    :task (shell "bb" "70-tools/scripts/docs/test_regen_registry.clj")}
