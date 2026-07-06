@@ -50,7 +50,7 @@
     (catch Exception _ nil)))
 
 (defn- clj-result [[n bp rot port ba ro ti]]
-  (let [cs (map #(st/container (str "B" %) (- 20.0 %) bp) (range n))
+  (let [cs (map #(st/make-container (str "B" %) (- 20.0 %) bp) (range n))
         r (tc/simulate-discharge cs rot port ba ro ti)]
     {:crane (:crane-timeline-s r) :agv (:agv-makespan-s r)
      :discharge (:discharge-time-s r) :maxsway (:max-residual-sway-m r) :moves (:moves r)}))

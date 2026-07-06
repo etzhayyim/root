@@ -39,7 +39,7 @@
     (catch Exception _ nil)))
 
 (defn- clj-result [dist]
-  (let [c (cd/make-crane) r (cd/simulate-traverse c dist)]
+  (let [c (cd/make-gantry-crane) r (cd/simulate-traverse c dist)]
     {:settle (:settle-time-s r) :residual (:residual-sway-m r) :peak (:peak-sway-m r)}))
 
 (deftest clj-physics-is-self-consistent

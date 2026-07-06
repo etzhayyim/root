@@ -53,7 +53,7 @@
 
 (defn- clj-dispatch [[mds ids]]
   (let [agv (t/make-agv)
-        mv (map-indexed (fn [i d] (t/move (str "M" i) d)) mds)
+        mv (map-indexed (fn [i d] (t/make-move (str "M" i) d)) mds)
         r (t/dispatch mv ids agv)]
     {:makespan (t/makespan r) :assignment (:assignment r) :finish (:finish-time r)}))
 
