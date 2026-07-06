@@ -19,7 +19,34 @@
 {:graph {:name "actors-v1" :visibility :public}
 
  :seed
- [;; ── substrate service DIDs (no glyph; performer-type :service) ──────────
+ [;; ── the organization root itself (distinct from every Tier-B actor below;
+  ;; this is etzhayyim (עץ חיים) as a followable/listed entity in its OWN
+  ;; registry, per the owner's question "etzhayyim.com 自体にも actor として
+  ;; 登録されている?"). NOTE: `toDidDoc` (src/registry/actor-profiles.ts)
+  ;; always derives the DID doc's `id` as `did:web:etzhayyim.com:actor:<handle>`
+  ;; regardless of :actor/did — so this is a DISTINCT DID from the org's own
+  ;; root identity document (did:web:etzhayyim.com, the live
+  ;; 50-infra/etzhayyim-did-web/did.json), not a re-registration of it. Making
+  ;; the bare root DID itself resolve a getProfile view would require changing
+  ;; worker.ts's DID-resolution routing — deliberately NOT done here (owner
+  ;; chose the low-risk path: a proper sub-actor representing the org, zero
+  ;; changes to the live root DID resolution logic). ─────────────────────────
+  {:actor/handle "etzhayyim"
+   :actor/did "did:web:etzhayyim.com:actor:etzhayyim"
+   :actor/kind :root-entity
+   :actor/status :landed
+   :actor/glyph "עץ חיים"
+   :actor/display-name-ja "עץ חיים(エツ・ハイム)— 天御柱 / Tree of Life"
+   :actor/display-name-en "etzhayyim (עץ חיים, Tree of Life) — the religious-corp root entity"
+   :actor/performer-type :organization
+   :actor/ui-type :appview
+   :actor/description "The religious-corp root entity every Tier-B actor here (tate/toritsugi/yobel/saisei/meibo/etc.) operates under. Self-identifies as the Kingdom of God (Malkhut Shamayim) rooted on blockchain, non-eschatological, on-chain-registered (NOT under Japan's 宗教法人法) per ADR-2605252300 Charter §0.1. Mission: humanity's structural labor liberation (ADR-2605192100). Root identity: did:web:etzhayyim.com (this profile is the org's OWN sub-actor entry, not the root DID document itself — see note above)."
+   :actor/adr ["2605192100" "2605252300"]
+   :actor/created-at "2026-05-15"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:etzhayyim#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}]}
+
+  ;; ── substrate service DIDs (no glyph; performer-type :service) ──────────
   {:actor/handle "pinner"
    :actor/did "did:web:etzhayyim.com:actor:pinner"
    :actor/kind :substrate-service
