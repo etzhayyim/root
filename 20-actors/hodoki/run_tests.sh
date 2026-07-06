@@ -1,25 +1,22 @@
 #!/usr/bin/env bash
 # hodoki 解き — run the whole test suite with one command.
-# Standalone-runnable tests (the repo pytest plugin env is broken); each exits non-zero on failure.
-set -uo pipefail
-cd "$(dirname "$0")"
+# Canonical Clojure (.cljc) suite, bb/clj (ADR-2606160842; py pruned).
+set -euo pipefail
+HERE="$(cd "$(dirname "$0")" && pwd)"    # 20-actors/hodoki
+REPO="$(dirname "$(dirname "$HERE")")"   # repo root (or worktree root)
+cd "$REPO"
 
-SUITES=(
-  "methods/test_charter_gates.py"
-  "py/test_agent.py"
-)
-
-fail=0
-for s in "${SUITES[@]}"; do
-  [ -f "$s" ] || continue
-  dir="$(dirname "$s")"; file="$(basename "$s")"
-  if ( cd "$dir" && python3 "$file" ); then :; else
-    echo "FAILED: $s"; fail=1
-  fi
-done
-
-if [ "$fail" -eq 0 ]; then
-  echo "── hodoki: ALL suites green ──"
-else
-  echo "── hodoki: FAILURES above ──"; exit 1
+if ! command -v bb >/dev/null 2>&1; then
+  echo "── hodoki: babashka (bb) not found — skipping ──"
+  exit 0
 fi
+
+bb --classpath 20-actors -e '
+(require (quote [clojure.test :as t]))
+(def nss (quote [hodoki.methods.test-charter-gates hodoki.py.test-agent]))
+(doseq [n nss] (require n))
+(let [r (apply t/run-tests nss)]
+  (println "── hodoki:" (:test r) "tests /" (:pass r) "assertions green,"
+           (:fail r) "fail," (:error r) "error ──")
+  (when (or (pos? (:fail r)) (pos? (:error r))) (System/exit 1)))
+'
