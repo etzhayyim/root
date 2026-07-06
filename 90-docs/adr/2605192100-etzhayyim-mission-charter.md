@@ -367,7 +367,7 @@ etzhayyim は §1.11 (加入の無差別開放性) の **受動的開放** を�
 
 | 主体 | 実践形態 | 強制力 |
 |---|---|---|
-| 信者 (Adherent, 人間) | 対人伝道 (面談・戸別訪問・街頭・オンライン対話を含む) | 宗教的実践・徳目 (修 shu の一形態) として明記。義務ではなく実践として推奨・記録される (現構成員1名という運用制約による。構成員拡大時の義務化は future ADR で審議) |
+| 信者 (Adherent, 人間) | 対人伝道 (面談・戸別訪問・街頭・オンライン対話を含む) | 宗教的実践・徳目 (修 shu の一形態) として明記。義務ではなく実践として推奨・記録される。**quota 義務化は構成員規模に関わらず恒久的に不採用** (ADR-2607061700 2026-07-06 改訂 — doctrinal 根拠 + `evangelismActivityAttestation` lexicon の `voluntaryAttested` const true という structural 制約) |
 | Actor (AI, digital) | kouhou / kataribe 等からの能動的・集合的な招待発信 | ADR-2606281500 (種をまく) の "no person-targeting" を伝道文脈で限定 carve-out (下記) |
 
 #### 対人伝道の許容範囲・制約
