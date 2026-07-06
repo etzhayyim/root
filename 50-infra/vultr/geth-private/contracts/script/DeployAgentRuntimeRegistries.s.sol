@@ -3,8 +3,8 @@ pragma solidity 0.8.23;
 
 import {Script, console} from "forge-std/Script.sol";
 
-import {etzhayyimAgentRegistry} from "../src/etzhayyimAgentRegistry.sol";
-import {etzhayyimRootIdentityRegistry} from "../src/etzhayyimRootIdentityRegistry.sol";
+import {etzhayyimAgentRegistry} from "../src/EtzhayyimAgentRegistry.sol";
+import {etzhayyimRootIdentityRegistry} from "../src/EtzhayyimRootIdentityRegistry.sol";
 
 /// @title Incremental deploy — ERC725/ERC-8004 agent runtime registries
 contract DeployAgentRuntimeRegistries is Script {

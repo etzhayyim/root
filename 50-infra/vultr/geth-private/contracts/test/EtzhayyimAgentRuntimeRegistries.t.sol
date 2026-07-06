@@ -3,9 +3,9 @@ pragma solidity 0.8.23;
 
 import {Test} from "forge-std/Test.sol";
 
-import {etzhayyimAgentRegistry} from "../src/etzhayyimAgentRegistry.sol";
-import {etzhayyimRootIdentity} from "../src/etzhayyimRootIdentity.sol";
-import {etzhayyimRootIdentityRegistry} from "../src/etzhayyimRootIdentityRegistry.sol";
+import {etzhayyimAgentRegistry} from "../src/EtzhayyimAgentRegistry.sol";
+import {etzhayyimRootIdentity} from "../src/EtzhayyimRootIdentity.sol";
+import {etzhayyimRootIdentityRegistry} from "../src/EtzhayyimRootIdentityRegistry.sol";
 
 contract etzhayyimAgentRuntimeRegistriesTest is Test {
     etzhayyimRootIdentityRegistry rootRegistry;
