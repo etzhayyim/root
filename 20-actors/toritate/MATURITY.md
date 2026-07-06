@@ -10,8 +10,8 @@ by 7+ sibling actors (wakai backstop / Public Fund / Tithe / Land Trust).
 | Lexicons | ✅ 5 under `com.etzhayyim.toritate.*` (ledgerEntry / financialAttestation / auditObservation / annualReport / externalAuditorEngagement) |
 | Cells | 🟡 path-reserved in `40-engine/.../cells/toritate_*` (R0) |
 | Manifest | ✅ present |
-| Tests | ✅ `methods/test_charter_gates.py` — **7 tests, green** (added 2026-06-16; previously NO dedicated test — only sibling cross-refs) — pins on-chain / no-fiat / no-payroll / tithe-split / donor-PII / Council gates; `./run_tests.sh` |
-| Methods | ⛔ no offline engine yet (R1) |
+| Tests | ✅ `methods/test_charter_gates.cljc` + `methods/test_imputed_income.cljc` — **18 tests / 45 assertions, green** (`bb test:toritate` / `./run_tests.sh`) — pins on-chain / no-fiat / no-payroll / tithe-split / donor-PII / Council gates, plus the imputed-income engine's own invariants (incl. a drift guard cross-checking its hardcoded enums against the Lexicons) |
+| Methods | ✅ `methods/imputed_income.cljc` — R0 reference implementation for ADR-2605301020 Basic High Income accounting: `compute-imputed-income` (FLOW) + `compute-commons-asset-value` (STOCK), both reading `valuation/v1-retail-equiv.json` rather than duplicating its figures; `basic-high-income-report` (the ADR-2605301020 §5 Liberation Metric `basicHighIncome` block, `cashStipendUsdMicros` structurally always 0); `ledger-entry` (G3/G4/G8/G12). `solve()` raises — accounting computation only, NOT a live ledger write |
 
 ## Charter gates pinned by the test
 
