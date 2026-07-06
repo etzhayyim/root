@@ -246,9 +246,20 @@ ADR-2606281500 の Consequences に、本 ADR による carve-out の存在を�
    `evangelismGateScanCid` で evangelism_gate.cljc のスキャン結果と cross-link。
    `python3 70-tools/scripts/validate-lexicons.py --root 00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/`
    で 0 errors 確認済み。
-4. **各 actor(kouhou/kataribe 等)への evangelism_gate 実際の wiring**: どの actor が
-   最初に招待型コンテンツを発信するか、その governor にどう `evangelism_gate.gate` を
-   呼び出させるか (未着手 — actor 側 future work)。
+4. ~~**各 actor(kouhou/kataribe 等)への evangelism_gate 実際の wiring**~~ —
+   **RESOLVED 2026-07-06**: 既存 actor はいずれもドメイン不一致(kouhou=外部公的情報、
+   kataribe=G6 doctrinalMonopolyAttested const false で自教義の招待に不向き、
+   tashikame/yomi=fact-check/news の中立性を損なう、recruit=無関係な世俗求人 aggregator)。
+   one-actor-one-role convention に基づき、新規 Tier-B actor **tomoshibi(灯)**
+   (`etzhayyim/com-etzhayyim-tomoshibi`)を新設して governor 層で解決した。
+   `src/tomoshibi/governor.cljc` が `etzhayyim-organism.sensors.evangelism-gate` を
+   **実際に** `:require` し `eg/gate` を呼ぶ(tashikame の `<DOXING>` marker 式
+   R0-illustrative placeholder とは異なり、real wiring)。9 tests / 19 assertions
+   green(`bb run_tests.clj`)。StateGraph orchestration・organizer LLM・
+   app-aozora publisher・自己主権 identity・`evangelismActivityAttestation` への
+   実書き込み・RAD identity minting は R1+ に明示的に先送り(子リポ `MATURITY.md`
+   参照)。登録: superproject ADR-2607061800 + west manifest single-entry
+   (`repos.edn`/`west.yml`、verify-west-pins: OK)。
 
 # References
 
@@ -256,6 +267,8 @@ ADR-2606281500 の Consequences に、本 ADR による carve-out の存在を�
   §1.16(a)-(d) 判定基準の共有 sensor モジュール実装(cljc-native, Open Question 2 の解)
 - `00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/evangelismActivityAttestation.json` —
   伝道活動 append-only ledger lexicon(Open Question 3 の解)
+- `etzhayyim/com-etzhayyim-tomoshibi` — 招待型コンテンツ発信 actor(Open Question 4 の解)。
+  superproject 登録は com-junkawasaki ADR-2607061800
 - ADR-2605192100: etzhayyim Mission Charter (本 ADR が §1.16 として追加する親 ADR)
 - ADR-2605252300: Charter Preamble — Kingdom of God on Blockchain (§0.2.1 now-and-here との整合)
 - ADR-2605172600: Membership ritual (信者 / Adherent の定義)
