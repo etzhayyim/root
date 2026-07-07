@@ -33,10 +33,13 @@
       (is (str/includes? out "dns-sync")))))
 
 (deftest dispatch-dispatchable-command
-  ;; a command backed by a -main resolves to a :dispatch action carrying the ns + remaining args
-  (let [r (cli/dispatch ["murakumo" "status" "--node" "issachar"])]
+  ;; a command backed by a -main resolves to a :dispatch action carrying the ns + remaining args.
+  ;; NOTE: murakumo-cmd is a PURE+injectable-IO library (no -main; deliberately dispatched via
+  ;; the guarded library-commands path since it's fleet ops) — this test uses vitals, which does
+  ;; expose a real -main and is wired into `dispatchable`.
+  (let [r (cli/dispatch ["vitals" "status" "--node" "issachar"])]
     (is (= :dispatch (:action r)))
-    (is (= 'etzhayyim.murakumo-cmd (:ns r)))
+    (is (= 'etzhayyim.vitals (:ns r)))
     (is (= ["status" "--node" "issachar"] (:args r)))))
 
 (deftest dispatch-wired-inline-handlers
@@ -52,10 +55,12 @@
             (str cmd " remaining args should be passed through"))))))
 
 (deftest dispatch-library-only-command-is-honest
-  ;; bunseki is ported as a LIBRARY (not wired) — must return the "remaining finish" note.
-  ;; NOTE: bonsai is now wired; this test uses bunseki (still unwired) to verify honest path.
-  (let [r (cli/dispatch ["bunseki"])]
-    (is (str/includes? (:print r) "etzhayyim.bunseki"))
+  ;; auth is ported as a LIBRARY (not wired, no -main, not in dispatchable/handlers/
+  ;; library-commands) — must return the "remaining finish" note.
+  ;; NOTE: bonsai and bunseki are now wired; this test uses auth (still unwired) to verify
+  ;; the honest path.
+  (let [r (cli/dispatch ["auth"])]
+    (is (str/includes? (:print r) "etzhayyim.auth"))
     (is (str/includes? (:print r) "remaining finish"))
     (is (= 0 (:exit r)))))
 
