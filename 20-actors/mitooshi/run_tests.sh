@@ -15,6 +15,7 @@ NSS=(
   mitooshi.methods.test-calibrate
   mitooshi.methods.test-clearpath
   mitooshi.methods.test-forecast
+  mitooshi.methods.test-forecast-parity
   mitooshi.methods.test-forecast-quantile
   mitooshi.methods.test-horizon
   mitooshi.methods.test-ingest
