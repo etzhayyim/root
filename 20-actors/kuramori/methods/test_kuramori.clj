@@ -465,5 +465,6 @@
       (is (> (count (clojure.edn/read-string out))
              (count (clojure.edn/read-string (de/emit seed day 1))))))))
 
-(let [{:keys [fail error]} (run-tests 'kuramori.methods.test-kuramori)]
-  (System/exit (if (pos? (+ fail error)) 1 0)))
+(when (= *file* (System/getProperty "babashka.file"))
+  (let [{:keys [fail error]} (run-tests 'kuramori.methods.test-kuramori)]
+    (System/exit (if (pos? (+ fail error)) 1 0))))

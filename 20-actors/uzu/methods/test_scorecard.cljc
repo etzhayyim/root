@@ -43,5 +43,6 @@
     (is (str/includes? r "self-audit"))
     (is (str/includes? r "audit: ✅"))))
 
-(let [{:keys [fail error]} (run-tests 'uzu.methods.test-scorecard)]
-  (when (pos? (+ fail error)) (System/exit 1)))
+(when (= *file* (System/getProperty "babashka.file"))
+  (let [{:keys [fail error]} (run-tests 'uzu.methods.test-scorecard)]
+    (when (pos? (+ fail error)) (System/exit 1))))

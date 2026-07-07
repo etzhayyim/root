@@ -415,5 +415,6 @@
       (is (> (count (clojure.edn/read-string full))
              (count (clojure.edn/read-string base)))))))
 
-(let [{:keys [fail error]} (run-tests 'soma.methods.test-soma)]
-  (System/exit (if (pos? (+ fail error)) 1 0)))
+(when (= *file* (System/getProperty "babashka.file"))
+  (let [{:keys [fail error]} (run-tests 'soma.methods.test-soma)]
+    (System/exit (if (pos? (+ fail error)) 1 0))))

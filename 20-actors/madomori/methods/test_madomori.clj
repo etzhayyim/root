@@ -431,5 +431,6 @@
         (is (nil? (re-find #"(?i)image|photo|imagery|interior|person|biometric|camera"
                            (str/replace data #":mado\.robot/imagery-on-device" ""))))))))
 
-(let [{:keys [fail error]} (run-tests 'madomori.methods.test-madomori)]
-  (System/exit (if (pos? (+ fail error)) 1 0)))
+(when (= *file* (System/getProperty "babashka.file"))
+  (let [{:keys [fail error]} (run-tests 'madomori.methods.test-madomori)]
+    (System/exit (if (pos? (+ fail error)) 1 0))))

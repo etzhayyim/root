@@ -42,5 +42,6 @@
     (is (not (contains? props "joules")) "no joule field on a (possibly experiential) flow")
     (is (not (contains? props "total")) "no cross-class total field")))
 
-(let [{:keys [fail error]} (run-tests 'uzu.methods.test-lexicons)]
-  (when (pos? (+ fail error)) (System/exit 1)))
+(when (= *file* (System/getProperty "babashka.file"))
+  (let [{:keys [fail error]} (run-tests 'uzu.methods.test-lexicons)]
+    (when (pos? (+ fail error)) (System/exit 1))))

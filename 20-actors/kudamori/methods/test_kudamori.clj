@@ -449,5 +449,6 @@
         (is (> (count v-day) (count v)))
         (is (every? (set v-day) v))))))
 
-(let [{:keys [fail error]} (run-tests 'kudamori.methods.test-kudamori)]
-  (System/exit (if (pos? (+ fail error)) 1 0)))
+(when (= *file* (System/getProperty "babashka.file"))
+  (let [{:keys [fail error]} (run-tests 'kudamori.methods.test-kudamori)]
+    (System/exit (if (pos? (+ fail error)) 1 0))))

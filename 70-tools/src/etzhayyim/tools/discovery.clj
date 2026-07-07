@@ -16,7 +16,8 @@
                                         keeps underscores; the dir hyphen breaks
                                         the round-trip — e.g. kuni-umi)."
   (:require [babashka.fs :as fs]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            [clojure.test :as t]))
 
 ;; longest-prefix-first so 70-tools/src strips before 70-tools, etc.
 (def ^:private classpath-roots
@@ -87,3 +88,44 @@
        distinct
        sort
        vec))
+
+(defn- safe-run-one
+  "require + run-tests a SINGLE namespace, catching Throwable at both steps. A namespace
+  that cannot even be required (e.g. a stale reference to a function the real .cljc port
+  never shipped — an SCI analysis-time error, not a graceful `is` failure) or that throws
+  during test execution counts as one :error, tagged with which phase broke and why."
+  [n]
+  (try
+    (require n)
+    (try
+      (select-keys (t/run-tests n) [:test :pass :fail :error])
+      (catch Throwable e
+        {:test 0 :pass 0 :fail 0 :error 1
+         :load-failure {:ns n :phase :run-tests :message (str e)}}))
+    (catch Throwable e
+      {:test 0 :pass 0 :fail 0 :error 1
+       :load-failure {:ns n :phase :require :message (str e)}})))
+
+(defn run-all
+  "require + run-tests every namespace in `nss`, isolating failures PER NAMESPACE so one
+  broken/throwing namespace never aborts the whole sweep — the general form of the fragility
+  fixed one namespace at a time as the ADR-2607071000 System/exit landmines: an unguarded
+  `(apply require nss)` / `(apply clojure.test/run-tests nss)` dies on the FIRST uncaught
+  Throwable, silently skipping every namespace discovery would otherwise have reached after it.
+
+  Returns {:test N :pass N :fail N :error N :load-failures [{:ns :phase :message} …]} — a
+  load-failure already counts toward :error, so callers can exit non-zero on
+  `(pos? (+ (:fail r) (:error r)))` exactly as before; :load-failures is for reporting WHICH
+  namespaces broke and why, since their own test bodies never got a chance to report anything."
+  [nss]
+  (reduce
+    (fn [acc n]
+      (let [r (safe-run-one n)]
+        (cond-> (-> acc
+                    (update :test + (:test r))
+                    (update :pass + (:pass r))
+                    (update :fail + (:fail r))
+                    (update :error + (:error r)))
+          (:load-failure r) (update :load-failures conj (:load-failure r)))))
+    {:test 0 :pass 0 :fail 0 :error 0 :load-failures []}
+    nss))
