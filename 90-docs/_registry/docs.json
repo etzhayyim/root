@@ -27513,6 +27513,27 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2607072000-session-close-actor-test-suite-maturity-sweep-continuation.md",
+      "id": "adr-2607072000-session-close-actor-test-suite-maturity-sweep-continuation",
+      "title": "ADR-2607072000: Session close (continuation) — actor test-suite maturity sweep, 19 PRs: the recurring string/keyword key-convention bug class, stale golden-value pins, and the no-new-shell enforce-forward gate",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "session-close-actor-test-suite-maturity-sweep-continuation",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2607071000-session-close-actor-test-suite-maturity-sweep",
+        "adr-2606131800-session-close-python-to-clojure-tier-b-refactor-arc",
+        "adr-2606160842-kotoba-code-actor-py-to-clj-port-wave"
+      ],
+      "last_verified": "2026-07-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
