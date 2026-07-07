@@ -11,13 +11,19 @@
 (def ^:private PROHIBITED-PATTERNS
   ["military" "weapon" "armored" "ballistic" "surveillance" "drone" "robot-swarm" "autonomous-targeting" "covert"])
 
+(defn- py-list-repr
+  "Python repr(list-of-str): ['a', 'b'] — single-quoted, comma-space-joined. Mirrors
+  the Python original's f-string message so the reason text is byte-parity-stable."
+  [items]
+  (str "[" (str/join ", " (map #(str "'" % "'") items)) "]"))
+
 (defn scan-charter-compliance
   "G5 Charter §2(a-h) scan: reject military/weapon-carrying vehicles."
   [_vin vehicle-desc]
   (let [low (str/lower-case vehicle-desc)
         hits (filterv #(str/includes? low %) PROHIBITED-PATTERNS)]
     (if (seq hits)
-      {"ok" false "reason" (str "Charter violation: " hits " (G5)") "status" "failed"}
+      {"ok" false "reason" (str "Charter violation: " (py-list-repr hits) " (G5)") "status" "failed"}
       {"ok" true "reason" "Charter scan passed" "status" "passed"})))
 
 (defn check-fgas-compliance

@@ -56,12 +56,12 @@
 (deftest clj-gates-fire
   ;; runs regardless of python: G5 charter REFUSE (with py-style list repr), G6/G8 gates, tithe.
   (let [scan (a/scan-charter-compliance "V1" "military weapon armored")]
-    (is (false? (:ok scan)) "military/weapon vehicle refused (G5)")
-    (is (re-find #"\['military', 'weapon', 'armored'\]" (:reason scan))
+    (is (false? (get scan "ok")) "military/weapon vehicle refused (G5)")
+    (is (re-find #"\['military', 'weapon', 'armored'\]" (get scan "reason"))
         "reason uses py-style single-quote, comma-space list repr"))
-  (is (false? (:ok (a/check-fgas-compliance 50.0 90.0))) "F-gas target <95% refused (G6)")
-  (is (false? (:ok (a/ecu-data-wipe-mandatory false 2))) "un-wiped ECU blocked (G8)")
-  (is (= 10000 (:titheMinor (a/build-settlement-intent 100000 nil))) "10% tithe"))
+  (is (false? (get (a/check-fgas-compliance 50.0 90.0) "ok")) "F-gas target <95% refused (G6)")
+  (is (false? (get (a/ecu-data-wipe-mandatory false 2) "ok")) "un-wiped ECU blocked (G8)")
+  (is (= 10000 (get (a/build-settlement-intent 100000 nil) "titheMinor")) "10% tithe"))
 
 (deftest agent-full-output-matches-python
   (let [py (py-results)]
