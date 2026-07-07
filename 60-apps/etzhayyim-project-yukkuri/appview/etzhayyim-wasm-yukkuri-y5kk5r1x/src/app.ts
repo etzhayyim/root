@@ -199,7 +199,12 @@ async function cmdCompose(sdk: HostSDK, env: Record<string, unknown>, body: Uint
     scriptSource: "bpmn:pending",
     estimatedSec: targetSec,
     autoRender: Boolean(input.autoRender),
-    pipeline: "zeebe:yukkuriCompose — scene.persist(create+LLM) → voice → image → assemble → critic → social.post",
+    // Descriptive only — dispatch itself is a plain HTTP POST to the
+    // dispatcher XRPC origin (see triggerBpmnPipeline below), not a Zeebe
+    // client call. Label kept BPMN-generic since Zeebe was decommissioned
+    // (50-infra/vultr/zeebe removed, ADR-2607071500): its VKE host cluster
+    // was permanently deleted 2026-06-24/25.
+    pipeline: "bpmn:yukkuriCompose — scene.persist(create+LLM) → voice → image → assemble → critic → social.post",
   });
 }
 
@@ -582,7 +587,10 @@ async function cmdHealth(): Promise<string> {
     ongakuka: "binding:ONGAKUKA_SERVICE",
     renderPool: "todo:mac-pool",
     pipeline: {
-      zeebe: "yukkuriCompose.bpmn",
+      // Zeebe decommissioned (50-infra/vultr/zeebe removed, ADR-2607071500) —
+      // the VKE cluster this broker ran on was permanently deleted 2026-06-24/25.
+      // Dispatch is a plain HTTP POST to the dispatcher XRPC origin.
+      bpmn: "yukkuriCompose.bpmn",
       tasks: ["yukkuri.scene.persist", "yukkuri.voice.synthesize",
               "yukkuri.image.generate", "yukkuri.video.assemble", "yukkuri.critic.review"],
       voice: "Phase0-stub (kokoro-ts todo)",

@@ -27488,6 +27488,31 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2607071500-vultr-zeebe-decommission-cluster-deleted.md",
+      "id": "adr-2607071500-vultr-zeebe-decommission-cluster-deleted",
+      "title": "ADR-2607071500: Zeebe decommission is moot — its VKE cluster was already deleted; prune 50-infra/vultr/zeebe/*",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "vultr-zeebe-decommission-cluster-deleted",
+      "authoritative": true,
+      "authoritative_for": [
+        "50-infra/vultr/zeebe/* disposition (closed/pruned)",
+        "confirmation that the VKE cluster hosting etzhayyim's Zeebe broker no longer exists"
+      ],
+      "related": [
+        "adr-2605081200-spiffworkflow-bpmn-engine-replacement"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605191659-vultr-stays-for-etzhayyim",
+        "adr-2606162041-bpmn-zeebe-to-datomic-clj-engine"
+      ],
+      "last_verified": "2026-07-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
