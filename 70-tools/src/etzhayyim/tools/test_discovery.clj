@@ -11,8 +11,8 @@
     (is (= 'danjo.methods.test-analyze
            (d/declared-ns "20-actors/danjo/methods/test_analyze.cljc")))
     ;; a run_tests_clj.sh-style suite declares a root.-prefixed ns (NOT the path-derived one)
-    (is (= 'root.danjo.methods.test-autorun
-           (d/declared-ns "20-actors/danjo/methods/test_autorun.clj")))
+    (is (= 'root.danjo.methods.test-ingest
+           (d/declared-ns "20-actors/danjo/methods/test_ingest.clj")))
     (is (nil? (d/declared-ns "20-actors/danjo/methods/does-not-exist.clj")))))
 
 (deftest discovery-only-classpath-safe-nss
@@ -21,7 +21,7 @@
       ;; the canonical .cljc test IS discovered (declares danjo.methods.test-analyze)
       (is (contains? nss 'danjo.methods.test-analyze))
       ;; the run_tests_clj.sh-owned suites are NOT (they'd crash a classpath require from root)
-      (is (not (contains? nss 'danjo.methods.test-autorun)))
+      (is (not (contains? nss 'danjo.methods.test-ingest)))
       (is (not (contains? nss 'danjo.methods.test-kotoba)))
       (is (not (contains? nss 'danjo.methods.test-revenue-ledger)))
       ;; mimamori/yobel/ibuki stay owned by their dedicated tasks (excluded? unchanged)

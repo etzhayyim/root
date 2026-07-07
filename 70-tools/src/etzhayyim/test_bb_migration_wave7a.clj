@@ -719,4 +719,5 @@
   (let [{:keys [fail error]} (run-tests 'etzhayyim.test-bb-migration-wave7a)]
     (System/exit (if (zero? (+ fail error)) 0 1))))
 
-(-main)
+(when (= *file* (System/getProperty "babashka.file"))
+  (-main))

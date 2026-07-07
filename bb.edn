@@ -779,11 +779,9 @@
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:aburi
-  {:doc "炙り aburi — personal-tracking-exposure: all cljc tests (analyze/coverage/kotoba/ingest/bridge) + python ingest/bridge legacy (ADR-2606161630)"
+  {:doc "炙り aburi — personal-tracking-exposure: all cljc tests (analyze/coverage/kotoba/ingest/bridge; ADR-2606161630). The py->cljc port completed and 20-actors/aburi/methods/*.py was fully pruned; the python ingest/bridge legacy shell-outs this task used to run are gone with it."
    :task (do (require 'clojure.test 'aburi.tests.test-analyze 'aburi.tests.test-coverage
                       'aburi.tests.test-kotoba 'aburi.tests.test-ingest 'aburi.tests.test-kotoba-bridge)
-             (shell {:dir "20-actors/aburi"} "python3" "tests/test_ingest.py")
-             (shell {:dir "20-actors/aburi"} "python3" "tests/test_bridge.py")
              (let [r (clojure.test/run-tests 'aburi.tests.test-analyze 'aburi.tests.test-coverage
                                              'aburi.tests.test-kotoba 'aburi.tests.test-ingest
                                              'aburi.tests.test-kotoba-bridge)]

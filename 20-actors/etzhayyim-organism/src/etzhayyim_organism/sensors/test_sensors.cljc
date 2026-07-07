@@ -253,4 +253,5 @@
   (let [{:keys [fail error]} (run-tests 'etzhayyim-organism.sensors.test-sensors)]
     (System/exit (if (= 0 (+ fail error)) 0 1))))
 
-(-main)
+(when (= *file* (System/getProperty "babashka.file"))
+  (-main))
