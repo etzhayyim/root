@@ -54,7 +54,7 @@
   ;; runs regardless of python: the chlorination ceiling holds; the reservoir restores setpoint.
   (doseq [t chlor-targets]
     (let [r (cl/commission-dosing {:target-residual-mgl t})]
-      (is (<= (:max-residual-mgl r) (+ cl/MAX-RESIDUAL-MGL 1e-9)) "≤4 mg/L MRDL clamp holds")
+      (is (<= (:max-residual-mgl r) (+ cl/max-residual-mgl 1e-9)) "≤4 mg/L MRDL clamp holds")
       (is (pos? (:settling-seconds r)))))
   (doseq [d supply-demands]
     (let [r (ws/commission-water-supply {:demand-step-lps d})]
