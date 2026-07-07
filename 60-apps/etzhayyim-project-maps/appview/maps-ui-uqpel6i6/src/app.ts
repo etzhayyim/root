@@ -4178,6 +4178,16 @@ async function cmdTrainGsplatFromMapillary(sdk: HostSDK, body: ArrayBuffer | Uin
   // a generous estimate so the UI can show ETA.
   const estimatedDurationSec = 1200;
 
+  // NOTE (confirmed while decommissioning 50-infra/vultr/zeebe, ADR-2607071500):
+  // `sdk.zeebe` is not part of @etzhayyim/kotodama-host-sdk's HostSDK contract
+  // (operations are create-host-sdk/dispatch/cancel/health only) — this cast
+  // resolves to `undefined` and the guard below has never fired. That was
+  // already true before Zeebe's VKE cluster was deleted 2026-06-24/25, so
+  // leaving the guarded call in place is harmless (the job row is still
+  // queued and polled by the dumper pod per the comment below) but it can
+  // never dispatch. Kept as-is rather than ripped out; a real replacement
+  // signal (if one is ever needed) should go through the kotoba Datomic BPMN
+  // engine (ADR-2606162041), not Zeebe.
   try {
     const zeebe: any = (sdk as any).zeebe;
     if (zeebe && typeof zeebe.publishMessage === "function") {
@@ -4332,6 +4342,10 @@ async function cmdBakeGsplatAsset(sdk: HostSDK, body: ArrayBuffer | Uint8Array |
   // to this message name and pulls the splat asset by `correlationKey`.
   // Failures here are non-fatal — the row in vertex_maps_gsplat_asset
   // can be retried by another bake invocation later.
+  // NOTE (confirmed while decommissioning 50-infra/vultr/zeebe, ADR-2607071500):
+  // `sdk.zeebe` was never part of the HostSDK contract, so this guarded call
+  // has never actually dispatched — see the identical note on
+  // cmdTrainGsplatFromMapillary above.
   try {
     const zeebe: any = (sdk as any).zeebe;
     if (zeebe && typeof zeebe.publishMessage === "function") {

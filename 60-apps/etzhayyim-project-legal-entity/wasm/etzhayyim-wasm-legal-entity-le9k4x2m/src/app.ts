@@ -40,7 +40,12 @@ export default {
         actor: ACTOR_DID,
         nanoid: env.APP_NANOID ?? "le9k4x2m",
         execution: "edge-proxy+agentgateway-mcp+langserver",
-        businessLogic: "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/zeebe_worker_main.py legalEntity.* task handlers",
+        // Zeebe *broker* path is decommissioned (50-infra/vultr/zeebe removed,
+        // ADR-2607071500 — the VKE cluster it ran on was permanently deleted
+        // 2026-06-24/25). The legalEntity.* task bodies in zeebe_worker_main.py
+        // are reused as plain handlers behind the dispatcher, not via a live
+        // Zeebe subscription.
+        businessLogic: "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/zeebe_worker_main.py legalEntity.* task handlers (Zeebe broker path deprecated)",
         bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/legal-entity",
       });
     }
