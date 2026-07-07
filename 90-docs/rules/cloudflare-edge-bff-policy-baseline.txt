@@ -1832,19 +1832,6 @@
 60-apps/etzhayyim-project-playwright/appview/etzhayyim-wasm-playwright-pl4y1t8r/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-po/appview/po-mcp-component/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-port/appview/port-infra-p0rt7890/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
-60-apps/etzhayyim-project-pptx/appview/etzhayyim-wasm-pptx-t53br1o0/src/app.ts:150:kysely-direct-db:await getDb().insertInto("vertex_pptx_slide" as any).values({
-60-apps/etzhayyim-project-pptx/appview/etzhayyim-wasm-pptx-t53br1o0/src/app.ts:207:kysely-direct-db:await getDb().insertInto("vertex_pptx_shape" as any).values({
-60-apps/etzhayyim-project-pptx/appview/etzhayyim-wasm-pptx-t53br1o0/src/app.ts:22:kysely-direct-db:const getDb = () => createKyselyDb();
-60-apps/etzhayyim-project-pptx/appview/etzhayyim-wasm-pptx-t53br1o0/src/app.ts:275:kysely-direct-db:await getDb().insertInto("vertex_pptx_run" as any).values({
-60-apps/etzhayyim-project-pptx/appview/etzhayyim-wasm-pptx-t53br1o0/src/app.ts:304:kysely-direct-db:await getDb().insertInto("vertex_pptx_image" as any).values({
-60-apps/etzhayyim-project-pptx/appview/etzhayyim-wasm-pptx-t53br1o0/src/app.ts:378:kysely-direct-db:await getDb().insertInto("vertex_pptx_slide" as any).values({
-60-apps/etzhayyim-project-pptx/appview/etzhayyim-wasm-pptx-t53br1o0/src/app.ts:391:kysely-direct-db:await getDb().insertInto("vertex_pptx_image" as any).values({
-60-apps/etzhayyim-project-pptx/appview/etzhayyim-wasm-pptx-t53br1o0/src/app.ts:418:kysely-direct-db:await getDb().insertInto("vertex_pptx_shape" as any).values({
-60-apps/etzhayyim-project-pptx/appview/etzhayyim-wasm-pptx-t53br1o0/src/app.ts:450:kysely-direct-db:await getDb().insertInto("vertex_pptx_presentation" as any).values({
-60-apps/etzhayyim-project-pptx/appview/etzhayyim-wasm-pptx-t53br1o0/src/app.ts:469:kysely-direct-db:await getDb().insertInto("vertex_pptx_slide" as any).values({
-60-apps/etzhayyim-project-pptx/appview/etzhayyim-wasm-pptx-t53br1o0/src/app.ts:482:kysely-direct-db:await getDb().insertInto("vertex_pptx_image" as any).values({
-60-apps/etzhayyim-project-pptx/appview/etzhayyim-wasm-pptx-t53br1o0/src/app.ts:49:kysely-direct-db:await getDb().insertInto("vertex_pptx_presentation" as any).values({
-60-apps/etzhayyim-project-pptx/appview/etzhayyim-wasm-pptx-t53br1o0/src/app.ts:79:kysely-direct-db:await getDb().insertInto("vertex_pptx_presentation" as any).values({
 60-apps/etzhayyim-project-provider-pod/appview/provider-pod-mcp-component/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-public-malak/appview/etzhayyim-wasm-public-malak-pb1ml4k0/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-recap/wrangler.jsonc:20:wrangler-hyperdrive-binding:"hyperdrive": [
