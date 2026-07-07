@@ -14,8 +14,7 @@
   (no-server-key). NO external I/O — the loop reads a LOCAL snapshot and writes the LOCAL log only;
   live kakaku/mitooshi ingest is the operator-gated leg. Deterministic / resume-safe (cycle drives
   tx-id + as-of; observed-at is a fixed snapshot stamp → same cycles produce the same commit-DAG)."
-  (:require [clojure.string :as str]
-            [cheshire.core :as json]
+  (:require [cheshire.core :as json]
             [clojure.java.io :as io]
             [meyasu.py.agent :as agent]
             [meyasu.py.kotoba :as k]))
@@ -26,20 +25,13 @@
 (def ^:private here (-> (io/file *file*) .getParentFile .getParentFile))
 (def seed-default (str (io/file here "kotoba" "seed.json")))
 
-(defn- normalize-item
-  "cheshire keywordizes KEYS; convert the forecast :use VALUE ':resilience' (a string in JSON)
-  back to a keyword so the G2 resilience-set check in fuse-one fires correctly."
-  [it]
-  (cond-> it
-    (string? (get-in it [:mitooshi :use]))
-    (update-in [:mitooshi :use]
-               (fn [u] (if (str/starts-with? u ":") (keyword (subs u 1)) (keyword u))))))
-
 (defn load-items
-  "Read the fused-input snapshot JSON → normalized items (keyword-keyed, :use a keyword)."
+  "Read the fused-input snapshot JSON → items. String-keyed throughout (agent.cljc's
+  fuse-one/RESILIENCE-USES convention — \"use\" is already the colon-prefixed string
+  \":resilience\" as authored in the seed; no keywordizing needed or wanted)."
   [seed-path]
-  (let [doc (json/parse-string (slurp (io/file seed-path)) true)]
-    (mapv normalize-item (get doc :items []))))
+  (let [doc (json/parse-string (slurp (io/file seed-path)))]
+    (vec (get doc "items" []))))
 
 (defn- canon-v [v] (if (keyword? v) (str v) v))   ; :balanced → ":balanced"
 
@@ -54,12 +46,12 @@
   "One heartbeat: observe snapshot → fuse → persist one content-addressed tx (all cards)."
   [cycle seed-path log-path]
   (let [items (load-items seed-path)
-        fused (agent/handle-fuse {:items items})
-        cards (:cards fused)
+        fused (agent/handle-fuse {"items" items})
+        cards (get fused "cards")
         datoms (vec (mapcat #(card-datoms % snapshot-stamp) cards))
         tx (k/make-tx datoms cycle (+ base-as-of cycle) (k/head-cid log-path))
         cid (k/append-tx tx log-path)]
-    {:cycle cycle :cards (count cards) :refused (count (:refused fused))
+    {:cycle cycle :cards (count cards) :refused (count (get fused "refused"))
      :datoms (count datoms) :cid cid}))
 
 (defn run-autonomous [cycles seed-path log-path]
