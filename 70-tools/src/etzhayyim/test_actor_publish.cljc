@@ -26,7 +26,7 @@
                             :did-web "did:web:etzhayyim.github.io:com-etzhayyim-cargo")))))
     (is (= "cargo" (:rad/name g)))
     (is (= "github.com/etzhayyim/com-etzhayyim-cargo" (:rad/repo g)))
-    (is (= "https://pds.etzhayyim.com" (get-in g [:rad/aozora :pds])))
+    (is (= ap/canonical-aozora-pds (get-in g [:rad/aozora :pds])))
     (is (= 1 (:rad/threshold g)))))
 
 (deftest genesis-collection-derivation
