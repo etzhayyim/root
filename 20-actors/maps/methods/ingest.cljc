@@ -18,6 +18,112 @@
 ;; H3 resolutions the client queries (zoom→LOD ladder, mirrors ontology §2).
 (def cell-resolutions [2 4 6 8 10 12])
 
+(def ^:dynamic *getenv*
+  "Injectable env-var lookup for the G4/G7 gates below (maps3d-bpmn, maps3d-persist,
+  and this ns's own push-batch call sites read MAPS_OPERATOR_GATE / KOTOBA_AUTH /
+  KOTOBA_ENDPOINT through here). Tests rebind it to simulate gate on/off without
+  touching real process env."
+  #?(:clj (fn [k] (System/getenv k))
+     :cljs (fn [_] nil)))
+
+;; ── inlined JSON codec (Python json.dumps-style ", "/": " separators — the
+;;    maps3d net/BPMN/persist layers round-trip through this, not cheshire,
+;;    to match the wire format the original ingest.py produced) ──────────────
+
+(defn- json-escape ^String [^String s]
+  (str/escape s {\" "\\\"" \\ "\\\\"
+                 \backspace "\\b" \tab "\\t" \newline "\\n" \formfeed "\\f" \return "\\r"}))
+
+(defn json-encode
+  "value → JSON text. Python json.dumps-compatible spacing (', ' / ': ')."
+  [v]
+  (cond
+    (nil? v)     "null"
+    (string? v)  (str "\"" (json-escape v) "\"")
+    (true? v)    "true"
+    (false? v)   "false"
+    (number? v)  (str v)
+    (map? v)     (str "{" (str/join ", " (map (fn [[k val]]
+                                                 (str "\"" (json-escape (str k)) "\": " (json-encode val)))
+                                               v))
+                       "}")
+    (sequential? v) (str "[" (str/join ", " (map json-encode v)) "]")
+    :else        (str "\"" (json-escape (str v)) "\"")))
+
+#?(:clj
+   (do
+     (declare ^:private json-value)
+
+     (defn- skip-ws [^String s i]
+       (loop [i i]
+         (if (and (< i (count s)) (contains? #{\space \tab \newline \return} (nth s i)))
+           (recur (inc i)) i)))
+
+     (defn- json-string* [^String s i]
+       (loop [i (inc i), sb (StringBuilder.)]
+         (let [c (nth s i)]
+           (cond
+             (= c \") [(.toString sb) (inc i)]
+             (= c \\)
+             (let [e (nth s (inc i))]
+               (case e
+                 \" (do (.append sb \") (recur (+ i 2) sb))
+                 \\ (do (.append sb \\) (recur (+ i 2) sb))
+                 \/ (do (.append sb \/) (recur (+ i 2) sb))
+                 \b (do (.append sb \backspace) (recur (+ i 2) sb))
+                 \f (do (.append sb \formfeed) (recur (+ i 2) sb))
+                 \n (do (.append sb \newline) (recur (+ i 2) sb))
+                 \r (do (.append sb \return) (recur (+ i 2) sb))
+                 \t (do (.append sb \tab) (recur (+ i 2) sb))
+                 \u (let [cp (Integer/parseInt (subs s (+ i 2) (+ i 6)) 16)]
+                      (.append sb (char cp)) (recur (+ i 6) sb))
+                 (do (.append sb e) (recur (+ i 2) sb))))
+             :else (do (.append sb c) (recur (inc i) sb))))))
+
+     (defn- json-number* [^String s i]
+       (let [end (loop [j i]
+                   (if (and (< j (count s))
+                            (contains? #{\0 \1 \2 \3 \4 \5 \6 \7 \8 \9 \+ \- \. \e \E} (nth s j)))
+                     (recur (inc j)) j))
+             tok (subs s i end)]
+         [(if (some #{\. \e \E} tok) (Double/parseDouble tok) (Long/parseLong tok)) end]))
+
+     (defn- json-array* [^String s i]
+       (loop [i (skip-ws s (inc i)), out []]
+         (if (= (nth s i) \])
+           [out (inc i)]
+           (let [[v i] (json-value s i) i (skip-ws s i)]
+             (if (= (nth s i) \,)
+               (recur (skip-ws s (inc i)) (conj out v))
+               [(conj out v) (inc i)])))))
+
+     (defn- json-object* [^String s i]
+       (loop [i (skip-ws s (inc i)), out {}]
+         (if (= (nth s i) \})
+           [out (inc i)]
+           (let [[k i] (json-string* s i) i (skip-ws s i)
+                 [v i] (json-value s (skip-ws s (inc i))) out (assoc out k v) i (skip-ws s i)]
+             (if (= (nth s i) \,)
+               (recur (skip-ws s (inc i)) out)
+               [out (inc i)])))))
+
+     (defn- json-value [^String s i]
+       (let [i (skip-ws s i) c (nth s i)]
+         (cond
+           (= c \{) (json-object* s i)
+           (= c \[) (json-array* s i)
+           (= c \") (json-string* s i)
+           (= c \t) [true (+ i 4)]
+           (= c \f) [false (+ i 5)]
+           (= c \n) [nil (+ i 4)]
+           :else (json-number* s i))))
+
+     (defn parse-json
+       "JSON text → Clojure value (maps get string keys; ints parse as Long, floats
+       as Double). Whitespace-tolerant, unicode-escape-aware."
+       [text]
+       (first (json-value (or text "{}") 0)))))
+
 (def label-map
   {"Place"          ":place"   "Road"          ":road"      "Railway"     ":railway"
    "Building"       ":building" "River"        ":river"     "Lake"        ":lake"
@@ -113,6 +219,25 @@
                    "relations" []}))
               feats)]
     {"entities" entities}))
+
+(defn render-features-edn
+  "feats {feature-id → ordered field-map} → a human-diffable .edn text: a
+  `;;`-commented, sorted-by-id vector of the feature maps. Field keys/values
+  that are colon-prefixed strings (this ns's string-keyed EAVT convention,
+  e.g. \":feature/label\" \":building\") render as bare EDN keywords; plain
+  strings render quoted/escaped."
+  [feats]
+  (let [edn-tok (fn [v]
+                  (cond
+                    (and (string? v) (str/starts-with? v ":")) v
+                    (string? v) (str "\"" (-> v (str/replace "\\" "\\\\") (str/replace "\"" "\\\"")) "\"")
+                    (nil? v)    "nil"
+                    :else       (str v)))
+        render-feat (fn [f]
+                      (str "{" (str/join " " (map (fn [[k v]] (str (edn-tok k) " " (edn-tok v))) f)) "}"))]
+    (str ";; generated by maps.methods.ingest/render-features-edn — do not hand-edit\n"
+         "[" (str/join "\n " (map (comp render-feat second) (sort-by first feats)))
+         "]")))
 
 #?(:clj
    (defn push-batch
