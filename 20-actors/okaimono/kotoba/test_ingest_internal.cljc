@@ -2,7 +2,8 @@
   "Tests for the okaimono Ring 1 internal-catalog ingester (ADR-2606012100 §R1 port). Unit-tests
   the pure parsers — split-top-maps (multi-map, comment-strip, nested-map depth) and kv* (quoted
   string unquote / keyword / number / nil) — and pins collect over the real maker products.edn to
-  the Python golden (11 internal products, 0 problems)."
+  the Python golden (14 internal products as of 2026-07-07, 0 problems; was 11 at the
+  original Python golden — yakushi's catalog grew from 2 to 5 OTC/disinfectant SKUs since)."
   (:require [clojure.test :refer [deftest is]]
             [okaimono.kotoba.ingest-internal :as g]))
 
@@ -23,7 +24,7 @@
 
 (deftest test-collect-golden
   (let [[products problems] (g/collect)]
-    (is (= 11 (count products)))                ; Python golden: 11 internal SKUs
+    (is (= 14 (count products)))                ; was 11 at the original Python golden
     (is (= [] problems))                         ; all entries pass the Ring 1 gates
     (let [pids (set (map second products))]
       (is (contains? pids "int.makura.foam-pillow"))

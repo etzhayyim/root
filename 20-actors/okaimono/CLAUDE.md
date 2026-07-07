@@ -110,7 +110,8 @@ rate budget; live fetch operator-gated G11), `landed_cost_external` (cross-borde
 
 **R1 (Ring 1 internal economy, landed 2026-06-01):** each producing actor owns its goods
 catalog in `20-actors/<actor>/products.edn` (SSoT; makura/mitsuho/yakushi/tsutae/futawa/
-hikari = 11 SKUs); `kotoba/ingest_internal.py` validates + merges → `internal-catalog.edn`.
+hikari = 14 SKUs as of 2026-07-07, grew from 11 at R1 landing); `kotoba/ingest_internal.py`
+validates + merges → `internal-catalog.edn`.
 `py/agent.py` adds: SBT↔SBT eligibility (§3/G2), USDC settlement-intent with **10%
 TitheRouter split** (exact `gross=tithe+payout`, intent-only until operator-gated, G7/G11),
 order state machine capped at `:in-use` (G13), and no-gig fulfillment routing
