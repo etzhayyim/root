@@ -91,6 +91,27 @@
     (str/join "\n" lines)))
 
 ;; ── file/network-bound bridge + CLI (#?(:clj) edge; __main__ omitted) ────────
+
+#?(:clj
+   (defn fetch-off
+     "LIVE single-GTIN Open Food Facts fetch — G7-gated, single public read-only request
+     (OFF's product API needs no auth). Refuses (throws) unless UCHIWAKE_OPERATOR_GATE=1,
+     mirroring ingest.py's sys.exit guard, before any network call."
+     [gtin]
+     (when (not= (System/getenv "UCHIWAKE_OPERATOR_GATE") "1")
+       (throw (ex-info (str "refused: live fetch requires UCHIWAKE_OPERATOR_GATE=1 "
+                            "(G7 Council+operator gate). Offline mode reads data/ingest/*.json.")
+                       {:uchiwake/gate "G7"})))
+     (let [url (str "https://world.openfoodfacts.org/api/v2/product/" gtin ".json")
+           parse-json (requiring-resolve 'cheshire.core/parse-string)
+           reader (requiring-resolve 'clojure.java.io/reader)
+           conn (doto (.openConnection (java.net.URL. url))
+                  (.setRequestProperty "User-Agent" "etzhayyim-uchiwake research jun@etzhayyim.group")
+                  (.setConnectTimeout 30000)
+                  (.setReadTimeout 30000))]
+       (with-open [r (reader (.getInputStream conn))]
+         (parse-json (slurp r))))))
+
 #?(:clj
    (defn -main
      "CLI entry (1:1 with main()): offline bridge of data/ingest/*.json (OFF adapter for
