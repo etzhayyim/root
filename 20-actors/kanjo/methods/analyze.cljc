@@ -114,11 +114,18 @@
    ":fin.metric/basis" basis
    ":fin.metric/sourcing" ":synthesized"})
 
+(def metric-inputs
+  "Alias of concept-map/metric-inputs — a single source of truth for which
+  canonical concepts each derived ratio depends on. Kept as a value here (not
+  just called inline) so a consistency test can guard against this ns and
+  concept-map ever carrying two independently-drifting copies."
+  (cmap/metric-inputs))
+
 (defn derive-metrics
   "→ vector of :fin.metric maps (all :synthesized). Ratios from metric-inputs +
   YoY vs the immediately prior fiscal year, if present."
   [cy]
-  (let [mi (cmap/metric-inputs)]
+  (let [mi metric-inputs]
     (vec
      (mapcat
       (fn [[co years]]

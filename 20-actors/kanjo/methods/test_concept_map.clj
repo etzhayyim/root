@@ -20,7 +20,9 @@
   (is (= (cm/canonical "jppfs_cor:OrdinaryIncome" "jgaap") "ordinary-income"))
   (is (nil? (cm/canonical "OrdinaryIncome" "usgaap")))
   (is (nil? (cm/canonical "OrdinaryIncome" "ifrs")))
-  (is (str/includes? (get-in cm/concepts ["ordinary-income" :note]) "JGAAP-only")))
+  ;; entry shape is [stmt label jgaap usgaap ifrs note] (positional, matches
+  ;; the Python tuple) — note is the last element, not a map key.
+  (is (str/includes? (nth (get cm/CONCEPTS "ordinary-income") 5) "JGAAP-only")))
 
 (deftest unmapped-element-returns-nil
   (is (nil? (cm/canonical "us-gaap:SomeUnknownTag" "usgaap"))))
