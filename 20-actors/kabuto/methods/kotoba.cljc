@@ -224,6 +224,14 @@
   [d]
   (canonical-json-utf8 d))
 
+(defn canonical-order
+  "Sort datoms by datom-key so the tx-cid hash is independent of set/seq iteration
+  order — any permutation of the same datoms yields the same canonical vector
+  (and therefore the same CID). Idempotent: sorting an already-sorted vector is
+  a no-op."
+  [datoms]
+  (vec (sort-by datom-key datoms)))
+
 (defn- canonical [datoms prev-cid]
   ;; sort_keys=True orders the top map's keys alphabetically: "datoms" < "prev".
   (canonical-json-utf8 {"prev" prev-cid "datoms" datoms}))
