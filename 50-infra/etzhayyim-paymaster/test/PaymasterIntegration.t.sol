@@ -64,9 +64,11 @@ contract PaymasterIntegrationTest is Test {
 
         entryPoint = new EntryPoint();
         factory = new SimpleAccountFactory(entryPoint);
+        address[] memory initialFactories = new address[](0);
         paymaster = new EtzhayyimPaymaster(
             PaymasterIEntryPoint(address(entryPoint)),
-            paymasterOwner
+            paymasterOwner,
+            initialFactories
         );
         target = new TargetMock();
 
@@ -77,7 +79,9 @@ contract PaymasterIntegrationTest is Test {
         assertTrue(ok);
         assertEq(entryPoint.balanceOf(address(paymaster)), 1 ether);
 
-        // Allowlist the target contract on the paymaster.
+        // Allowlist the factory and the target contract on the paymaster.
+        vm.prank(paymasterOwner);
+        paymaster.setAllowedFactory(address(factory), true);
         vm.prank(paymasterOwner);
         paymaster.setAllowedTarget(address(target), true);
     }

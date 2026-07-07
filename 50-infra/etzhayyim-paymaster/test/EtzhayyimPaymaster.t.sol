@@ -34,7 +34,8 @@ contract EtzhayyimPaymasterTest is Test {
 
     function setUp() public {
         ep = new MockEntryPoint();
-        paymaster = new EtzhayyimPaymaster(ep, owner);
+        address[] memory initialFactories = new address[](0);
+        paymaster = new EtzhayyimPaymaster(ep, owner, initialFactories);
         vm.deal(address(this), 10 ether);
     }
 
@@ -45,6 +46,82 @@ contract EtzhayyimPaymasterTest is Test {
         vm.prank(owner);
         paymaster.setAllowedTarget(allowedTarget, true);
         assertTrue(paymaster.allowedTarget(allowedTarget));
+    }
+
+    function test_constructor_allows_initial_factory() public {
+        address[] memory initialFactories = new address[](1);
+        initialFactories[0] = address(0x1234);
+
+        EtzhayyimPaymaster seeded = new EtzhayyimPaymaster(ep, owner, initialFactories);
+        assertTrue(seeded.allowedFactory(address(0x1234)));
+    }
+
+    function test_only_owner_can_set_allowed_factory() public {
+        vm.expectRevert(EtzhayyimPaymaster.NotOwner.selector);
+        paymaster.setAllowedFactory(address(0x1234), true);
+
+        vm.prank(owner);
+        paymaster.setAllowedFactory(address(0x1234), true);
+        assertTrue(paymaster.allowedFactory(address(0x1234)));
+    }
+
+    function test_validate_rejects_non_allowed_factory() public {
+        vm.prank(owner);
+        paymaster.setAllowedTarget(allowedTarget, true);
+
+        bytes memory callData = abi.encodePacked(
+            bytes4(0x12345678),
+            bytes32(uint256(uint160(allowedTarget)))
+        );
+        bytes memory initCode = abi.encodePacked(address(0x1234), bytes(""));
+        PackedUserOperation memory uop = PackedUserOperation({
+            sender: sender,
+            nonce: 0,
+            initCode: initCode,
+            callData: callData,
+            accountGasLimits: bytes32(0),
+            preVerificationGas: 0,
+            gasFees: bytes32(0),
+            paymasterAndData: "",
+            signature: ""
+        });
+
+        vm.prank(address(ep));
+        vm.expectRevert(abi.encodeWithSelector(EtzhayyimPaymaster.FactoryNotAllowed.selector, address(0x1234)));
+        paymaster.validatePaymasterUserOp(uop, bytes32(0), 0.001 ether);
+    }
+
+    function test_validate_accepts_allowed_factory_and_target() public {
+        address factory = address(0x1234);
+        vm.prank(owner);
+        paymaster.setAllowedFactory(factory, true);
+        vm.prank(owner);
+        paymaster.setAllowedTarget(allowedTarget, true);
+
+        bytes memory callData = abi.encodePacked(
+            bytes4(0x12345678),
+            bytes32(uint256(uint160(allowedTarget)))
+        );
+        bytes memory initCode = abi.encodePacked(factory, bytes(""));
+        PackedUserOperation memory uop = PackedUserOperation({
+            sender: sender,
+            nonce: 0,
+            initCode: initCode,
+            callData: callData,
+            accountGasLimits: bytes32(0),
+            preVerificationGas: 0,
+            gasFees: bytes32(0),
+            paymasterAndData: "",
+            signature: ""
+        });
+
+        vm.prank(address(ep));
+        (bytes memory context, uint256 validationData) = paymaster.validatePaymasterUserOp(uop, bytes32(0), 0.001 ether);
+        assertEq(validationData, 0);
+        (address senderOut, uint256 todayOut, uint256 maxCostOut) = abi.decode(context, (address, uint256, uint256));
+        assertEq(senderOut, sender);
+        assertEq(todayOut, block.timestamp / 1 days);
+        assertEq(maxCostOut, 0.001 ether);
     }
 
     function test_validate_rejects_non_allowed_target() public {
@@ -86,7 +163,7 @@ contract EtzhayyimPaymasterTest is Test {
         assertEq(paymaster.owner(), newOwner);
     }
 
-    function test_default_cap_is_0_02_eth() public view {
+    function test_default_cap_is_0_02_eth() public {
         assertEq(paymaster.defaultDailyCapWei(), 0.02 ether);
     }
 }

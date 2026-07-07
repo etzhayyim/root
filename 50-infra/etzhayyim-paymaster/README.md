@@ -81,6 +81,28 @@ cast send $PAYMASTER addStake(uint32) 86400 \
 
 After deploy, update [`deps.toml [platform.operating_entity].paymaster_contract`] with the address.
 
+## Initial factory allowlist (deploy-time)
+
+You can pre-seed the paymaster's allowed factory list at deployment time so that
+newly-created smart accounts (deployed via `initCode`) are accepted by the
+paymaster's factory allowlist check (Issue #1518 mitigation).
+
+Set the `ALLOWED_FACTORY` environment variable to a single factory address when
+running the deploy script. Example:
+
+```bash
+ALLOWED_FACTORY=0x1234567890abcdef1234567890abcdef12345678 \
+  forge script script/Deploy.s.sol:Deploy \
+  --rpc-url $BASE_SEPOLIA_RPC --broadcast --private-key $DEPLOYER_PRIVATE_KEY
+```
+
+If you do not provide `ALLOWED_FACTORY`, the paymaster is deployed with an
+empty factory allowlist and will reject `UserOperation`s that include
+`initCode` (i.e. operations that attempt to deploy a new smart account).
+
+Admin operators may also add factories after deploy via the `setAllowedFactory`
+owner call (intended for the 2-of-3 Safe owner).
+
 ## SDK integration
 
 The `@etzhayyim/sdk` `pay()` method passes `paymaster: "sponsored"` by default. Internally:
