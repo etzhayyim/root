@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-07-06",
+  "updated_at": "2026-07-07",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.md",
@@ -27464,6 +27464,26 @@
         "adr-2606112400-tate-worldwide"
       ],
       "last_verified": "2026-07-06",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2607071000-session-close-actor-test-suite-maturity-sweep.md",
+      "id": "adr-2607071000-session-close-actor-test-suite-maturity-sweep",
+      "title": "ADR-2607071000: Session close — actor test-suite maturity sweep (33 PRs): .clj/.cljc shadow-pair cleanup, Foundry CI wiring, and the bb test:actors System/exit landmine fix",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "session-close-actor-test-suite-maturity-sweep",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606131800-session-close-python-to-clojure-tier-b-refactor-arc",
+        "adr-2606160842-kotoba-code-actor-py-to-clj-port-wave"
+      ],
+      "last_verified": "2026-07-07",
       "amends": [],
       "amended_by": []
     },
