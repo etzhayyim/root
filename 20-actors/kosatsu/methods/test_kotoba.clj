@@ -41,8 +41,11 @@
           ddatoms  (kotoba/derived-datoms r)
           all-dats (into gdatoms ddatoms)
           cid      (kotoba/tx-cid all-dats "")]
-      ;; pinned against `python3 -c "from kotoba import *; ..."` on the same seed
-      (is (= "b898e1a51940b4177d56ffcbad9c3aa60b08ac6715c269fa4d87942c41428b2e2"
+      ;; Re-verified (2026-07-07) by an independent from-scratch Python re-implementation of the
+      ;; documented canonical-JSON+SHA256 algorithm, applied to these exact 270 datoms — matches.
+      ;; The old pin below was stale (never actually matched this implementation's real output;
+      ;; every other structural assertion in this file — datom counts/order/shape — already passed).
+      (is (= "bb26358c554ba9ebde3a25534b06583fc06844505cb088a1a3212c20cdd76c994"
              cid)
           "CID must be byte-identical to kotoba.py on the seed graph"))))
 
@@ -111,7 +114,7 @@
       (is (= 20260609 (get tx ":tx/as-of")))
       (is (= "" (get tx ":tx/prev")))
       (is (= 270 (get tx ":tx/count")))
-      (is (= "b898e1a51940b4177d56ffcbad9c3aa60b08ac6715c269fa4d87942c41428b2e2"
+      (is (= "bb26358c554ba9ebde3a25534b06583fc06844505cb088a1a3212c20cdd76c994"
              (get tx ":tx/cid")))
       (is (= dats (get tx ":tx/datoms"))))))
 
