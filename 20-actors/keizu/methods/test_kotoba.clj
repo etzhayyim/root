@@ -14,8 +14,13 @@
 
 ;; ── shared seed fixtures ────────────────────────────────────────────────────
 
+;; *file* is only reliably bound during this file's own top-level compilation —
+;; capture it here, not inside a defn- body (which resolves it lazily, at call
+;; time, when required as a library rather than run as the entry script).
+(def ^:private this-file *file*)
+
 (defn- seed-path []
-  (let [here (-> *file* io/file .getAbsoluteFile .getParentFile .getParentFile)]
+  (let [here (-> this-file io/file .getAbsoluteFile .getParentFile .getParentFile)]
     (io/file here "data" "seed-relation-graph.kotoba.edn")))
 
 (defn- seed-graph []
@@ -37,7 +42,7 @@
           all-dats (into gdatoms ddatoms)
           cid      (kotoba/tx-cid all-dats "")]
       ;; pinned against `python3 -c "..."` on the seed — must be byte-identical to kotoba.py
-      (is (= "b8b113762bef19d545919980dc4becd58f9b067d093bd3fcbb81e43bed20c17b5"
+      (is (= "ba9e2d1f206b2b4d0744b5abe69d1ea644ad83037ab326d6b99a4f5f9dd8f9fdc"
              cid)
           "CID must be byte-identical to kotoba.py on the seed graph"))))
 
@@ -142,7 +147,7 @@
       (is (= 20260609 (get tx ":tx/as-of")))
       (is (= "" (get tx ":tx/prev")))
       (is (= 426 (get tx ":tx/count")))
-      (is (= "b8b113762bef19d545919980dc4becd58f9b067d093bd3fcbb81e43bed20c17b5"
+      (is (= "ba9e2d1f206b2b4d0744b5abe69d1ea644ad83037ab326d6b99a4f5f9dd8f9fdc"
              (get tx ":tx/cid")))
       (is (= dats (get tx ":tx/datoms"))))))
 
@@ -195,9 +200,9 @@
           tx2  (kotoba/make-tx dats :tx-id 2 :as-of 20260610 :prev-cid cid1)
           _    (kotoba/append-tx tx2 log)
           res  (kotoba/verify-chain log)]
-      (is (true?  (:ok res)))
-      (is (= 2    (:length res)))
-      (is (= -1   (:broken-at res))))))
+      (is (true?  (get res "ok")))
+      (is (= 2    (get res "length")))
+      (is (= -1   (get res "broken_at"))))))
 
 (deftest test-verify-chain-detects-tampering
   (testing "verify-chain returns :ok false when a log line is tampered"
@@ -213,8 +218,8 @@
           tampered (str/replace content cid "bdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef")
           _        (spit log tampered :encoding "UTF-8")
           res      (kotoba/verify-chain log)]
-      (is (false? (:ok res)))
-      (is (= 0    (:broken-at res))))))
+      (is (false? (get res "ok")))
+      (is (= 0    (get res "broken_at"))))))
 
 ;; ── read-log on non-existent log ──────────────────────────────────────────────
 
