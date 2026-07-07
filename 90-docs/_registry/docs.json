@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-07-07",
+  "updated_at": "2026-07-08",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.md",
@@ -27041,7 +27041,7 @@
         "adr-2605181100-mst-encrypted-records-signal-keywrap",
         "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
       ],
-      "last_verified": "2026-06-30",
+      "last_verified": "2026-07-08",
       "amends": [],
       "amended_by": []
     },

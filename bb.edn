@@ -190,7 +190,7 @@
              (apply (resolve 'etzhayyim.test-kotoba-rad/-main) *command-line-args*))}
 
   test:helpers
-  {:doc "Aggregate of all 70-tools pure-helper test namespaces (/loop coverage 成熟度向上 — 40 modules): authz · agent-token · bonsai · code-quality · deps · bunseki · cohort · apps · authn · auth · database · agent-runtime · complex-stubs · actor-mesh · agent-cmd · actors-helpers · dodaf · coverage · identifier-audit · haisen · hinshitsu · dns-sync · deploy · metrics · shannon · shannon-scores · systemofsystem · vertex · source-graph · xrpc · mokuteki · projector · actor-publish · yoroshiku · mitama · training · murakumo-cmd · monitor · nono · workspace."
+  {:doc "Aggregate of all 70-tools pure-helper test namespaces (/loop coverage 成熟度向上 — 41 modules): authz · agent-token · bonsai · code-quality · deps · bunseki · cohort · apps · authn · auth · database · agent-runtime · complex-stubs · actor-mesh · agent-cmd · actors-helpers · dodaf · coverage · identifier-audit · haisen · hinshitsu · dns-sync · deploy · metrics · shannon · shannon-scores · systemofsystem · vertex · source-graph · xrpc · mokuteki · projector · actor-publish · yoroshiku · mitama · training · murakumo-cmd · monitor · nono · workspace · manimani."
    :requires ([clojure.test :as t]
               [etzhayyim.test-authz] [etzhayyim.test-agent-token] [etzhayyim.test-bonsai]
               [etzhayyim.test-code-quality] [etzhayyim.test-deps] [etzhayyim.test-bunseki]
@@ -202,7 +202,7 @@
               [etzhayyim.test-dns-sync] [etzhayyim.test-deploy] [etzhayyim.test-metrics]
               [etzhayyim.test-shannon] [etzhayyim.test-shannon-scores]
               [etzhayyim.test-systemofsystem] [etzhayyim.test-vertex]
-              [etzhayyim.test-source-graph] [etzhayyim.test-xrpc] [etzhayyim.test-mokuteki] [etzhayyim.test-projector] [etzhayyim.test-actor-publish] [etzhayyim.test-yoroshiku] [etzhayyim.test-mitama] [etzhayyim.test-training] [etzhayyim.test-murakumo-cmd] [etzhayyim.test-monitor] [etzhayyim.test-nono] [etzhayyim.test-workspace] [etzhayyim.test-tithe] [etzhayyim.lint.test-no-new-ts] [etzhayyim.app-sdk.test-record] [etzhayyim.app-sdk.test-xrpc] [etzhayyim.app-sdk.test-ids])
+              [etzhayyim.test-source-graph] [etzhayyim.test-xrpc] [etzhayyim.test-mokuteki] [etzhayyim.test-projector] [etzhayyim.test-actor-publish] [etzhayyim.test-yoroshiku] [etzhayyim.test-mitama] [etzhayyim.test-training] [etzhayyim.test-murakumo-cmd] [etzhayyim.test-monitor] [etzhayyim.test-nono] [etzhayyim.test-workspace] [etzhayyim.test-tithe] [etzhayyim.lint.test-no-new-ts] [etzhayyim.app-sdk.test-record] [etzhayyim.app-sdk.test-xrpc] [etzhayyim.app-sdk.test-ids] [etzhayyim.test-manimani])
    :task (let [{:keys [fail error]}
                (apply t/run-tests
                       '[etzhayyim.test-authz etzhayyim.test-agent-token etzhayyim.test-bonsai
@@ -215,7 +215,7 @@
                         etzhayyim.test-dns-sync etzhayyim.test-deploy etzhayyim.test-metrics
                         etzhayyim.test-shannon etzhayyim.test-shannon-scores
                         etzhayyim.test-systemofsystem etzhayyim.test-vertex
-                        etzhayyim.test-source-graph etzhayyim.test-xrpc etzhayyim.test-mokuteki etzhayyim.test-projector etzhayyim.test-actor-publish etzhayyim.test-yoroshiku etzhayyim.test-mitama etzhayyim.test-training etzhayyim.test-murakumo-cmd etzhayyim.test-monitor etzhayyim.test-nono etzhayyim.test-workspace etzhayyim.test-tithe etzhayyim.lint.test-no-new-ts etzhayyim.app-sdk.test-record etzhayyim.app-sdk.test-xrpc etzhayyim.app-sdk.test-ids])]
+                        etzhayyim.test-source-graph etzhayyim.test-xrpc etzhayyim.test-mokuteki etzhayyim.test-projector etzhayyim.test-actor-publish etzhayyim.test-yoroshiku etzhayyim.test-mitama etzhayyim.test-training etzhayyim.test-murakumo-cmd etzhayyim.test-monitor etzhayyim.test-nono etzhayyim.test-workspace etzhayyim.test-tithe etzhayyim.lint.test-no-new-ts etzhayyim.app-sdk.test-record etzhayyim.app-sdk.test-xrpc etzhayyim.app-sdk.test-ids etzhayyim.test-manimani])]
            (System/exit (if (pos? (+ fail error)) 1 0)))}
 
   vitals:report
