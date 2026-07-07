@@ -22,11 +22,11 @@
 
 ;; ── shared battery (identical inputs in py-src and the clj recompute) ──
 (def ^:private powertrains
-  [{:type "diesel-main"}
-   {:type "lng-gas-turbine"}
-   {:type "wind-rotor-only"}
-   {:type "hydrogen-solar-hybrid"}
-   {:type "hydrogen-solar-hybrid" :hydrogen_source_certification "green-electrolysis"}])
+  [{"type" "diesel-main"}
+   {"type" "lng-gas-turbine"}
+   {"type" "wind-rotor-only"}
+   {"type" "hydrogen-solar-hybrid"}
+   {"type" "hydrogen-solar-hybrid" "hydrogen_source_certification" "green-electrolysis"}])
 (def ^:private steel {:vessel_id "nagi-1" :block_id "b1" :steel_grade "AH36" :cbam_scrap_pct 85})
 (def ^:private weld-pass {:vessel_id "nagi-1" :joint_id "j1" :ndt_method "UT" :defect_found false})
 (def ^:private weld-fail {:vessel_id "nagi-1" :joint_id "j2" :ndt_method "RT" :defect_found true})
@@ -65,14 +65,14 @@
 
 (deftest clj-defining-gate-fires-correctly
   ;; runs regardless of python: the G8 fossil prohibition + G9 green-H₂ chain.
-  (is (false? (:ok (a/gate-zero-emission-propulsion {:type "diesel-main"}))) "fossil refused")
+  (is (false? (get (a/gate-zero-emission-propulsion {"type" "diesel-main"}) "ok")) "fossil refused")
   (is (= "fossil propulsion prohibited per G8 (defining gate)"
-         (:reason (a/gate-zero-emission-propulsion {:type "fossil-x"}))))
-  (is (false? (:ok (a/gate-zero-emission-propulsion {:type "hydrogen-solar-hybrid"}))) "non-green H₂ refused (G9)")
-  (is (true? (:ok (a/gate-zero-emission-propulsion
-                   {:type "hydrogen-solar-hybrid" :hydrogen_source_certification "green-electrolysis"}))))
-  (is (= 50000000 (:titheMinor (a/build-settlement-intent 500000000 nil))) "10% tithe")
-  (is (= "executed" (:state (a/build-settlement-intent 500000000 "sig:op")))))
+         (get (a/gate-zero-emission-propulsion {"type" "fossil-x"}) "reason")))
+  (is (false? (get (a/gate-zero-emission-propulsion {"type" "hydrogen-solar-hybrid"}) "ok")) "non-green H₂ refused (G9)")
+  (is (true? (get (a/gate-zero-emission-propulsion
+                   {"type" "hydrogen-solar-hybrid" "hydrogen_source_certification" "green-electrolysis"}) "ok")))
+  (is (= 50000000 (get (a/build-settlement-intent 500000000 nil) "titheMinor")) "10% tithe")
+  (is (= "executed" (get (a/build-settlement-intent 500000000 "sig:op") "state"))))
 
 (deftest agent-full-output-matches-python
   (let [py (py-results)]

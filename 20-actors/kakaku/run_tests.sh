@@ -10,6 +10,7 @@ cd "$ROOT"
 bb -e "(def nss '(kakaku.methods.test-kakaku-edn
                   kakaku.kotoba.test-ingest-mcp
                   kakaku.py.test-agent
+                  kakaku.py.test-agent-parity
                   kakaku.py.test-ingest
                   kakaku.viz.test-build-viz))
        (apply require nss)
