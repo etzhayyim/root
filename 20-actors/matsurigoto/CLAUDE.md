@@ -149,7 +149,7 @@ Path from R0 reference → deployable substrate, in 4 dimensions. Landed so far 
 - **R1.A WIT contract** — `00-contracts/wit/matsurigoto/egov.wit` (validated by `wasm-tools`, 5
   worlds). Each module world exports ONLY its service interface; **none exports `sign`** — that is
   the structural G1 (no-operator-master-key) guarantee. **componentize-py build → CID/IPFS: DONE
-  for all 5 modules** (`20-actors/matsurigoto/wasm/`, `./build.sh` + `node verify.mjs`; CIDs
+  for all 5 modules** (`20-actors/matsurigoto/wasm/`, `bb build.clj` + `node verify.mjs`; CIDs
   recorded per-module in `wasm/*.meta.json`) — SBOM emission (ADR-2606036000) is still ahead.
 - **R1.B kotoba Datom persistence** — `00-contracts/schemas/egov-execution-ontology.kotoba.edn`
   (`:egov.tx/* :egov.record/* :egov.assessment/* :egov.cert/*`, append-only, as-of) +
