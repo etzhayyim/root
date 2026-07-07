@@ -32,35 +32,35 @@
     ;; only the FY 10-K revenue point survives (Q3 dropped, UnknownTag unmapped → G1)
     (is (= (count facts) 1))
     (let [f (first facts)]
-      (is (= (:fin.fact/concept f) :revenue))
-      (is (= (:fin.fact/value f) 391035.0))    ; base → millions
-      (is (= (:fin.fact/unit f) :usd))
-      (is (= (:fin.fact/sourcing f) :authoritative)))))
+      (is (= (get f ":fin.fact/concept") ":revenue"))
+      (is (= (get f ":fin.fact/value") 391035.0))    ; base → millions
+      (is (= (get f ":fin.fact/unit") ":usd"))
+      (is (= (get f ":fin.fact/sourcing") ":authoritative")))))
 
 (deftest edinet-maps-jgaap-and-drops-unmapped
   (let [[filings facts] (ing/parse-edinet-elements edinet-obj "org.corp.jp.toyota")]
     (is (= (count filings) 1))
-    (is (= (:fin.filing/accounting (first filings)) :jgaap))
+    (is (= (get (first filings) ":fin.filing/accounting") ":jgaap"))
     ;; NetSales→:revenue, OrdinaryIncome→:ordinary-income (JGAAP-only); NoSuchTag dropped (G1)
     (is (= (count facts) 2))
-    (is (= (set (map :fin.fact/concept facts)) #{:revenue :ordinary-income}))))
+    (is (= (set (map #(get % ":fin.fact/concept") facts)) #{":revenue" ":ordinary-income"}))))
 
 (deftest merge-authoritative-wins-over-representative
-  (let [seed [{:fin.fact/id "fact.x" :fin.fact/sourcing :representative :fin.fact/value 1.0}
-              {:fin.fact/id "fact.y" :fin.fact/sourcing :representative}]
-        ingested-facts [{:fin.fact/id "fact.x" :fin.fact/sourcing :authoritative :fin.fact/value 2.0}]
+  (let [seed [{":fin.fact/id" "fact.x" ":fin.fact/sourcing" ":representative" ":fin.fact/value" 1.0}
+              {":fin.fact/id" "fact.y" ":fin.fact/sourcing" ":representative"}]
+        ingested-facts [{":fin.fact/id" "fact.x" ":fin.fact/sourcing" ":authoritative" ":fin.fact/value" 2.0}]
         merged (ing/merge-with-seed seed [] ingested-facts)
-        by-id (into {} (map (juxt :fin.fact/id identity) merged))]
+        by-id (into {} (map (juxt #(get % ":fin.fact/id") identity) merged))]
     (is (= (count merged) 2))
-    (is (= (:fin.fact/value (by-id "fact.x")) 2.0))   ; authoritative replaced representative
-    (is (= (:fin.fact/sourcing (by-id "fact.x")) :authoritative))
-    (is (= (:fin.fact/sourcing (by-id "fact.y")) :representative))))  ; untouched
+    (is (= (get (by-id "fact.x") ":fin.fact/value") 2.0))   ; authoritative replaced representative
+    (is (= (get (by-id "fact.x") ":fin.fact/sourcing") ":authoritative"))
+    (is (= (get (by-id "fact.y") ":fin.fact/sourcing") ":representative"))))  ; untouched
 
 (deftest representative-never-overrides-authoritative
-  (let [seed [{:fin.fact/id "fact.z" :fin.fact/sourcing :authoritative :fin.fact/value 9.0}]
-        rep [{:fin.fact/id "fact.z" :fin.fact/sourcing :representative :fin.fact/value 0.0}]
+  (let [seed [{":fin.fact/id" "fact.z" ":fin.fact/sourcing" ":authoritative" ":fin.fact/value" 9.0}]
+        rep [{":fin.fact/id" "fact.z" ":fin.fact/sourcing" ":representative" ":fin.fact/value" 0.0}]
         merged (ing/merge-with-seed seed [] rep)]
-    (is (= (:fin.fact/value (first merged)) 9.0))))   ; authoritative seed kept
+    (is (= (get (first merged) ":fin.fact/value") 9.0))))   ; authoritative seed kept
 
 (when (= *file* (System/getProperty "babashka.file"))
   (let [{:keys [fail error]} (run-tests 'kanjo.methods.test-ingest)]

@@ -139,6 +139,29 @@
                [] (get* obj "elements" []))]
     [[filing] facts]))
 
+;; ── seed-merge (authoritative wins) ──────────────────────────────────────────
+
+(def ^:private sourcing-rank {":authoritative" 2 ":representative" 1 ":synthesized" 0})
+
+(defn merge-with-seed
+  "Merge `seed` facts with newly-ingested facts from any number of sources (e.g.
+  EDGAR + EDINET) keyed on :fin.fact/id — the more-authoritative :fin.fact/sourcing
+  wins a collision (never the reverse); ids unique to either side pass through
+  unchanged. Mirrors merge_with_seed(seed, *sources)."
+  [seed & ingested-fact-lists]
+  (let [rank #(get sourcing-rank (get % ":fin.fact/sourcing") -1)
+        by-id (reduce (fn [m f] (assoc m (get f ":fin.fact/id") f)) (array-map) seed)
+        by-id (reduce
+               (fn [m f]
+                 (let [id (get f ":fin.fact/id")
+                       cur (get m id)]
+                   (if (or (nil? cur) (> (rank f) (rank cur)))
+                     (assoc m id f)
+                     m)))
+               by-id
+               (apply concat ingested-fact-lists))]
+    (vec (vals by-id))))
+
 ;; ── G7-gated live fetch (JVM edge) ──────────────────────────────────────────
 
 #?(:clj
