@@ -48,23 +48,23 @@
 
 (deftest test-sorted-earliest-first
   #?(:clj
-     (is (= (mapv #(get % "departure") (transit/next-departures-at-stop @base "S1"))
+     (is (= (mapv :departure (transit/next-departures-at-stop @base "S1"))
             ["07:30:00" "08:01:00" "08:05:00" "25:10:00"]))))
 
 (deftest test-after-cutoff-filters
   #?(:clj
-     (is (= (mapv #(get % "departure") (transit/next-departures-at-stop @base "S1" "08:00:00"))
+     (is (= (mapv :departure (transit/next-departures-at-stop @base "S1" :after "08:00:00"))
             ["08:01:00" "08:05:00" "25:10:00"]))))
 
 (deftest test-limit
   #?(:clj
-     (let [rows (transit/next-departures-at-stop @base "S1" "00:00:00" 2)]
+     (let [rows (transit/next-departures-at-stop @base "S1" :after "00:00:00" :limit 2)]
        (is (= (count rows) 2))
-       (is (= (get (first rows) "departure") "07:30:00")))))
+       (is (= (:departure (first rows)) "07:30:00")))))
 
 (deftest test-stop-isolation
   #?(:clj
-     (is (= (mapv #(get % "departure") (transit/next-departures-at-stop @base "S2"))
+     (is (= (mapv :departure (transit/next-departures-at-stop @base "S2"))
             ["08:09:00"]))))
 
 (deftest test-unknown-stop-empty
@@ -72,13 +72,13 @@
 
 (deftest test-fields-present
   #?(:clj
-     (let [r (first (transit/next-departures-at-stop @base "S1" "08:00:00"))]
-       (is (= (get r "trip") "trip.f.T2"))
-       (is (= (get r "headsign") "to T2")))))
+     (let [r (first (transit/next-departures-at-stop @base "S1" :after "08:00:00"))]
+       (is (= (:trip r) "trip.f.T2"))
+       (is (= (:headsign r) "to T2")))))
 
 (deftest test-trips-on-route
   #?(:clj
-     (is (= (set (map #(get % "trip") (transit/trips-on-route @base "ROUTE-M")))
+     (is (= (set (map :trip (transit/trips-on-route @base "ROUTE-M")))
             #{"trip.f.T1" "trip.f.T2" "trip.f.T3" "trip.f.T4"}))))
 
 (deftest test-endpoint-down-fails-soft

@@ -241,20 +241,17 @@
 
 #?(:clj
    (defn push-batch
-     "POST kg.ingest_batch JSON to the kotoba endpoint. Returns [status body]."
+     "POST kg.ingest_batch JSON to the kotoba endpoint. Returns [status body].
+     Uses babashka.http-client, not raw HttpURLConnection — babashka's SCI sandbox
+     disallows HttpURLConnection/setRequestMethod, which broke every real-server
+     integration test that exercised this path."
      [batch auth endpoint]
-     (let [nsid   "com.etzhayyim.apps.kotobase.kg.ingest_batch"
-           url    (str (str/replace endpoint #"/$" "") "/xrpc/" nsid)
-           body   (.getBytes ((requiring-resolve 'cheshire.core/generate-string) batch) "UTF-8")
-           conn   (doto (.openConnection (java.net.URL. url))
-                    (.setRequestMethod "POST")
-                    (.setDoOutput true)
-                    (.setConnectTimeout 30000)
-                    (.setReadTimeout 30000)
-                    (.setRequestProperty "content-type" "application/json")
-                    (.setRequestProperty "authorization" (str "Bearer " auth)))]
-       (.connect conn)
-       (with-open [os (.getOutputStream conn)]
-         (.write os body))
-       [(.getResponseCode conn)
-        (slurp (.getInputStream conn))])))
+     (let [nsid "com.etzhayyim.apps.kotobase.kg.ingest_batch"
+           url  (str (str/replace endpoint #"/$" "") "/xrpc/" nsid)
+           post (requiring-resolve 'babashka.http-client/post)
+           resp (post url {:headers {"content-type" "application/json"
+                                      "authorization" (str "Bearer " auth)}
+                            :body ((requiring-resolve 'cheshire.core/generate-string) batch)
+                            :timeout 30000
+                            :throw false})]
+       [(:status resp) (:body resp)])))

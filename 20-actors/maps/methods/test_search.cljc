@@ -52,35 +52,35 @@
 
 (deftest test-ascii-prefix-search
   #?(:clj
-     (is (= (set (map #(get % "name") (search/search-places @base "tok")))
+     (is (= (set (map :name (search/search-places @base "tok")))
             #{"Tokyo Station" "Tokyo Tower"}))))
 
 (deftest test-ranking-more-tokens-first
   #?(:clj
      (let [rows (search/search-places @base "tokyo tower")]
-       (is (= (get (first rows) "name") "Tokyo Tower"))
-       (is (> (get (first rows) "score") (get (last rows) "score"))))))
+       (is (= (:name (first rows)) "Tokyo Tower"))
+       (is (> (:score (first rows)) (:score (last rows)))))))
 
 (deftest test-label-filter
   #?(:clj
-     (is (= (set (map #(get % "name") (search/search-places @base "tokyo" ["station"])))
+     (is (= (set (map :name (search/search-places @base "tokyo" :labels ["station"])))
             #{"Tokyo Station"}))))
 
 (deftest test-cjk-search
   #?(:clj
-     (is (= (set (map #(get % "name") (search/search-places @base "東京")))
+     (is (= (set (map :name (search/search-places @base "東京")))
             #{"東京駅"}))))
 
 (deftest test-other-word-matches-marunouchi
   #?(:clj
-     (is (= (set (map #(get % "name") (search/search-places @base "marun")))
+     (is (= (set (map :name (search/search-places @base "marun")))
             #{"Marunouchi Building"}))))
 
 (deftest test-unknown-query-empty
   #?(:clj (is (= (search/search-places @base "zzqq") []))))
 
 (deftest test-limit
-  #?(:clj (is (= (count (search/search-places @base "tok" nil 1)) 1))))
+  #?(:clj (is (= (count (search/search-places @base "tok" :limit 1)) 1))))
 
 (deftest test-endpoint-down-fails-soft
   (is (= (search/search-places "http://127.0.0.1:1" "tok") [])))
