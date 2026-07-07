@@ -7,6 +7,7 @@
   The Python __main__ CLI (load-edn + argv dispatch) is the omitted I/O leg; the importlib load of
   the online_update cell becomes a direct require."
   (:require [clojure.string :as str]
+            [mitooshi.methods.analyze :as analyze]
             [mitooshi.methods.score :as score]
             [mitooshi.cells.online-update.state-machine :as ou]))
 
@@ -14,6 +15,13 @@
 
 (defn- round4 [x] (/ (Math/round (* (double x) 10000.0)) 10000.0))
 (defn- round6 [x] (/ (Math/round (* (double x) 1000000.0)) 1000000.0))
+
+#?(:clj
+   (defn load-trail-edn
+     "Read + parse a persisted trail EDN file (data/persisted/*.kotoba.edn) → rows.
+     Thin host-I/O wrapper around analyze/load-edn-file — file I/O only at this edge."
+     [path]
+     (analyze/load-edn-file path)))
 
 (defn series-histories
   "{series-id [[observed-at value] …] sorted by observed-at} from a trail."
