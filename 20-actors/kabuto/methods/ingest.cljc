@@ -43,6 +43,22 @@
        d))
    records))
 
+(defn gated-source?
+  "True when `source` names a full-universe live registry (gleif/edgar/exchange — see
+  `sources`) AND `operator-gate?` is false — i.e. the G7 live fetch is refused. The
+  `file` source (local bridge) and any source once the operator gate is open are
+  never gated."
+  [source operator-gate?]
+  (and (contains? sources source) (not operator-gate?)))
+
+(defn merge-bridged
+  "Dedup-merge bridged :company/* records against `seed` (a map keyed by company id, e.g.
+  kabuto-edn/classify's :companies) — seed wins. Returns the bridged records whose
+  :company/id is not already a seed key."
+  [seed bridged]
+  (let [seed-ids (set (keys seed))]
+    (filterv #(not (contains? seed-ids (get % ":company/id"))) bridged)))
+
 (defn emit-company
   "Render one :company/* dict as an EDN map literal (string values quoted, keyword strings raw).
   Mirrors emit_company(d). Leading space matches the Python join contract."
@@ -69,7 +85,7 @@
            infile (let [i (.indexOf argv "--in")] (when (>= i 0) (nth argv (inc i))))
            bridged
            (cond
-             (and source (contains? sources source) (not operator-gate))
+             (gated-source? source operator-gate)
              (do (println (str "kabuto.ingest: source '" source "' = " (get sources source)))
                  (println (str "  → G7 GATED: live full-universe fetch requires KABUTO_OPERATOR_GATE=1 "
                                "(Council). Skipping live fetch; emitting seed only (offline default)."))
@@ -88,8 +104,7 @@
            ;; dedup-merge: seed wins on :company/id collision
            seed-rows (kedn/load-edn seed)
            {:keys [companies]} (kedn/classify seed-rows)
-           merged-ids (set (kedn/co-keys companies))
-           extra (filterv #(not (contains? merged-ids (get % ":company/id"))) bridged)
+           extra (merge-bridged companies bridged)
            seed-text (str/trimr (slurp seed))]
        (when-let [parent (.getParentFile outp)] (.mkdirs parent))
        (if (seq extra)
