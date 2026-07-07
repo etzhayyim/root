@@ -11,6 +11,13 @@
 # methods/test_{kotoba_cid,pipeline_cid}.clj are NOT run here: same
 # CID-determinism / byte-parity pin class as kabuto's, currently failing
 # against the .cljc sources (a real, separate gap -- not this entrypoint's bug).
+#
+# methods/test_analyze.clj was DELETED (a genuine orphan duplicate): its own
+# docstring predates concept_map.cljc/analyze.cljc landing, and its 4 deftest
+# names + asserted values were byte-identical to tests/test_kanjo.cljc's
+# already-working analyze section -- just with the wrong keyword-vs-string
+# key-access convention (never fixed, never wired anywhere, never run until
+# bb test:actors's auto-discovery found it).
 set -euo pipefail
 cd "$(dirname "$0")/../.."
 exec bb -e '(require (quote clojure.test) (quote kanjo.methods.test-autorun) (quote kanjo.tests.test-invariants) (quote kanjo.tests.test-kanjo) (quote kanjo.methods.test-concept-map) (quote kanjo.methods.test-ingest))(let [r (apply clojure.test/run-tests (quote [kanjo.methods.test-autorun kanjo.tests.test-invariants kanjo.tests.test-kanjo kanjo.methods.test-concept-map kanjo.methods.test-ingest]))](System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))'
