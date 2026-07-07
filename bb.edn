@@ -708,7 +708,7 @@
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:maps
-  {:doc "maps — kotoba-native Clojure method tests (analyze/ingest/chunk/search/reverse/transit/verify/datom-emit/onsen; ADR-2606064500)"
+  {:doc "maps — kotoba-native Clojure method tests (analyze/ingest/chunk/search/reverse/transit/verify/datom-emit/onsen + maps3d BPMN/net/persist pipeline; ADR-2606064500)"
    :task (do (require 'clojure.test
                       'maps.tests.test-analyze
                       'maps.tests.test-ingest
@@ -717,7 +717,13 @@
                       'maps.tests.test-reverse
                       'maps.tests.test-transit
                       'maps.tests.test-verify
-                      'maps.tests.test-onsen)
+                      'maps.tests.test-onsen
+                      'maps.methods.test-ingest-json
+                      'maps.methods.test-maps3d-bpmn
+                      'maps.methods.test-maps3d-bpmn-fidelity
+                      'maps.methods.test-maps3d-net-tasks
+                      'maps.methods.test-maps3d-persist
+                      'maps.methods.test-maps3d-tasks)
              (let [r (clojure.test/run-tests 'maps.tests.test-analyze
                                              'maps.tests.test-ingest
                                              'maps.tests.test-chunk
@@ -725,7 +731,13 @@
                                              'maps.tests.test-reverse
                                              'maps.tests.test-transit
                                              'maps.tests.test-verify
-                                             'maps.tests.test-onsen)]
+                                             'maps.tests.test-onsen
+                                             'maps.methods.test-ingest-json
+                                             'maps.methods.test-maps3d-bpmn
+                                             'maps.methods.test-maps3d-bpmn-fidelity
+                                             'maps.methods.test-maps3d-net-tasks
+                                             'maps.methods.test-maps3d-persist
+                                             'maps.methods.test-maps3d-tasks)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:matsurigoto
