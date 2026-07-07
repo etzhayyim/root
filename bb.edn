@@ -486,13 +486,19 @@
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:actors
-  {:doc "all ported actor tests (20-actors + 70-tools) auto-discovered via etzhayyim.tools.discovery — supersedes the hand-maintained test:stubs + test:pywasm lists (ADR-2606131500-bb-test-discovery); drop a test_*.cljc and it is picked up, zero bb.edn churn"
+  {:doc "all ported actor tests (20-actors + 70-tools) auto-discovered via etzhayyim.tools.discovery — supersedes the hand-maintained test:stubs + test:pywasm lists (ADR-2606131500-bb-test-discovery); drop a test_*.cljc and it is picked up, zero bb.edn churn. Per-namespace failure isolation (ADR-2607071000): one broken/throwing namespace is reported, not a silent whole-run abort."
    :task (do (require 'clojure.test)
-             (let [nss ((requiring-resolve 'etzhayyim.tools.discovery/actor-test-nss))]
-               (apply require nss)
-               (let [r (apply clojure.test/run-tests nss)]
-                 (when (pos? (+ (:fail r) (:error r)))
-                   (System/exit 1)))))}
+             (let [nss ((requiring-resolve 'etzhayyim.tools.discovery/actor-test-nss))
+                   r ((requiring-resolve 'etzhayyim.tools.discovery/run-all) nss)]
+               (println (str "Ran " (:test r) " tests containing " (:pass r) " assertions across "
+                             (count nss) " namespaces."))
+               (println (str (:fail r) " failures, " (:error r) " errors."))
+               (when (seq (:load-failures r))
+                 (println (str "\n" (count (:load-failures r)) " namespace(s) never ran:"))
+                 (doseq [{:keys [ns phase message]} (:load-failures r)]
+                   (println (str "  " ns " [" (name phase) "]: " message))))
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
   ;; merged-from-pywasm-branch (kept for targeted runs; test:actors auto-discovers these too)
   test:stubs
   {:doc "stage-0 stub→real ports (analyzers/cells replacing port-failed .clj)"
