@@ -37,6 +37,12 @@
   [msg]
   (ex-info msg {:envelope-violation true}))
 
+(defn stop
+  "Convenience constructor for a Stop map {:id :x :y :zone} — a plain map is
+  equally valid; this just names the shape (mirrors Python's Stop(id, x, y, zone))."
+  [id x y zone]
+  {:id id :x x :y y :zone zone})
+
 (defn- stop-dist
   "Euclidean distance between two stops."
   [a b]
@@ -50,7 +56,7 @@
   (doseq [s stops]
     (let [cap (get zone-speed-cap-mps (:zone s))]
       (when (nil? cap)
-        (throw (envelope-violation (str "G7: stop " (:id s) " zone " (pr-str (:zone s)) " outside todoke ODD (N2)"))))
+        (throw (envelope-violation (str "G7: stop " (:id s) " zone '" (:zone s) "' outside todoke ODD (N2)"))))
       (when (> commanded-mps cap)
         (throw (envelope-violation (str "G7: commanded " commanded-mps " m/s exceeds " (:zone s) " cap " cap " m/s at stop " (:id s))))))))
 
