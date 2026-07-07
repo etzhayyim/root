@@ -78,40 +78,39 @@
 ;; ── HTTP AVET helper ─────────────────────────────────────────────────────────
 #?(:clj
    (defn http-avet-fn
-     "Build a production query-fn that POSTs to the kotoba graph.sparql endpoint."
+     "Build a production query-fn that POSTs to the kotoba graph.sparql endpoint.
+     Uses babashka.http-client, not raw HttpURLConnection — babashka's SCI sandbox
+     disallows HttpURLConnection/setRequestMethod."
      [endpoint]
      (fn [pred objects limit]
        (try
-         (let [body  (.getBytes
-                      (str "{\"index\":\"avet\",\"predicate\":\""
-                           pred "\",\"objects\":"
-                           (str "[" (str/join "," (map (fn [o] (str "\"" o "\"")) objects)) "]")
-                           ",\"limit\":" limit "}")
-                      "UTF-8")
-               conn  (doto (.openConnection
-                            (java.net.URL.
-                             (str (str/replace endpoint #"/$" "")
-                                  "/xrpc/" query-nsid)))
-                       (.setRequestMethod "POST")
-                       (.setDoOutput true)
-                       (.setConnectTimeout 5000)
-                       (.setReadTimeout 5000)
-                       (.setRequestProperty "content-type" "application/json"))]
-           (.connect conn)
-           (with-open [os (.getOutputStream conn)]
-             (.write os body))
-           (let [resp (slurp (.getInputStream conn))
-                 parse (requiring-resolve 'cheshire.core/parse-string)]
-             (get (parse resp) "entities" [])))
+         (let [body (str "{\"index\":\"avet\",\"predicate\":\""
+                         pred "\",\"objects\":"
+                         (str "[" (str/join "," (map (fn [o] (str "\"" o "\"")) objects)) "]")
+                         ",\"limit\":" limit "}")
+               post (requiring-resolve 'babashka.http-client/post)
+               resp (post (str (str/replace endpoint #"/$" "") "/xrpc/" query-nsid)
+                          {:headers {"content-type" "application/json"}
+                           :body body
+                           :timeout 5000
+                           :throw false})
+               parse (requiring-resolve 'cheshire.core/parse-string)]
+           (get (parse (:body resp)) "entities" []))
          (catch Exception _ [])))))
 
 (defn search-places
   "Name search ranked by query-token overlap.
-  query-fn: (fn [pred objects limit] → [{\"id\" id \"claims\" [{\"pred\" p \"value\" v}]}])
+  query-fn-or-endpoint: an injectable (fn [pred objects limit] → [{\"id\" id \"claims\" [...]}])
+  for direct/test use, OR a kotoba endpoint URL string — wrapped via http-avet-fn (the
+  production HTTP AVET path).
   labels: optional collection of kebab keyword strings to restrict results.
   Returns [{:id :name :label :score}], best first."
-  [query-fn query & {:keys [labels limit] :or {limit 20}}]
-  (let [qt (query-tokens query)]
+  [query-fn-or-endpoint query & {:keys [labels limit] :or {limit 20}}]
+  (let [query-fn #?(:clj (if (string? query-fn-or-endpoint)
+                           (http-avet-fn query-fn-or-endpoint)
+                           query-fn-or-endpoint)
+                     :cljs query-fn-or-endpoint)
+        qt (query-tokens query)]
     (when (seq qt)
       (let [want (when labels
                    (set (map #(if (str/starts-with? (str %) ":") (str %) (str ":" %)) labels)))
