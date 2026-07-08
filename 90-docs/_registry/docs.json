@@ -27534,6 +27534,31 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2607082156-iryo-karute-pds-resolution-decision.md",
+      "id": "adr-2607082156-iryo-karute-pds-resolution-decision",
+      "title": "ADR-2607082156: iryo hand-off boundary — resolve consentCapabilityUri/patientDid keys in-process, or keep verify-given-already-resolved-input? (OPEN, Council/owner decision requested)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "iryo-karute-pds-resolution-decision",
+      "authoritative": true,
+      "authoritative_for": [
+        "the resolution question (open, not a design decision yet): should iryo.methods.handoff perform real network resolution of consentCapabilityUri / granterDid keys, or keep the verify-given-already-resolved-input boundary"
+      ],
+      "related": [
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605172000-etzhayyim-kotoba-substrate"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605231401-karute-consent-capability-iryo-bridge",
+        "adr-2606074000-iryo-rezept-claims-engine-charter"
+      ],
+      "last_verified": "2026-07-08",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
