@@ -80,11 +80,31 @@ master) does not flip the already-accepted intake to a gate failure — it surfa
 the response is byte-for-byte unchanged (a bare hand-off gate check) — this is additive, not a
 new gate, and `handoff.cljc` itself is unmodified.
 
-**Explicitly out of scope** (tracked separately, do not conflate): Ed25519 signature
-verification of the capability (karute/MATURITY.md #8) and PDS resolution of
-`consentCapabilityUri` / the AT-URIs themselves (`@etzhayyim/sdk`, cross-repo) — the caller
-is expected to have already resolved the capability record (and, for the rezept-preview
-wiring above, the encounter payload) before invoking this cell.
+**Ed25519 signature verification (`signature-gate`, karute/MATURITY.md #8).** `handoff.cljc`
+now verifies the capability's Ed25519 signature — JDK `java.security` only, no third-party
+crypto dep (the same approach already proven green in
+`20-actors/kaiyaku/tools/issue_capability.cljc`). Verification is OPT-IN via an additional
+already-resolved input, `"granterPublicKey"` (base64 raw 32-byte Ed25519 public key) —
+the SAME already-resolved-input contract as `capability` itself. When supplied, a
+missing/malformed signature or one that fails to verify (wrong key or a payload tampered
+after signing) is rejected (`iryoStatus:"needs-info"`). When NOT supplied, this gate no-ops
+and behavior is byte-for-byte unchanged (backward compatible with every pre-existing caller).
+**Still out of scope**: obtaining `granterPublicKey` by resolving granterDid's DID document.
+In this bridge `patientDid` is a rotating pseudonym did:web
+(`iryo.methods.karte/rotating-pseudonym-did`, `did:web:patient.iryo.etzhayyim.com:<hash>`),
+not a self-describing did:key, so obtaining its verification material means an HTTPS did:web
+document fetch — network I/O, cross-repo, the same class of problem as PDS resolution below.
+Also still open: byte-parity between `handoff/canonicalize-capability-payload` (this
+namespace's own canonicalization) and the eventual real granter-side signer
+(`@etzhayyim/sdk.signConsentCapability`, ADR-2605231401 Phase 2 — still a stub upstream, so
+no reference bytes exist yet to check against).
+
+**Explicitly out of scope** (tracked separately, do not conflate): resolving a capability's
+granter public key FROM granterDid (did:web document fetch, cross-repo network I/O) and PDS
+resolution of `consentCapabilityUri` / the AT-URIs themselves (`@etzhayyim/sdk`, cross-repo)
+— the caller is expected to have already resolved the capability record (and, for the
+rezept-preview wiring above, the encounter payload, and now optionally the granter public
+key for signature verification) before invoking this cell.
 
 ## 全件対応 (すべての診療行為・薬剤・特定器材・病名)
 

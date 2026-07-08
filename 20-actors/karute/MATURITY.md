@@ -24,12 +24,66 @@ honest framing: できていないことは「未」と明記する。
 | 5 | **charter-gate テスト** (`methods/test_charter_gates.cljc` — 4 tests / 35 assertions) | ✅ | **iter (this)** |
 | 6 | run_tests.sh が charter-gate suite を実行(actor reflex に wired) | ✅ | **iter (this)** |
 | 7 | encrypted-envelope 規律をスキーマ層で機械強制(`additionalProperties:false` + 平文 PHI フィールド拒否、R1) | 未 | — |
-| 8 | consent.capability の Ed25519 検証テスト(member-signed / server-refused) | 未 | — |
+| 8 | consent.capability の Ed25519 検証テスト(member-signed / server-refused) | 🟡 部分(iryo 受理境界に検証ゲート実装 + 実鍵ペア sign→verify roundtrip テスト green。鍵の DID 解決は未) | **iter 2026-07-08(3)** |
 | 9 | 患者 DID = 30日 rotating pseudonym(ADR-2605181200)の構造検証 | 未 | — |
 | 10 | kotoba EAVT への FHIR inner-type 投影(public graph = meta only)の検証 | 未 | — |
-| 11 | iryo(レセプト)への hand-off boundary テスト(karute → iryo consent-capability) | 🟡 部分(受理境界+rezeptプレビュー自動配線。署名検証・PDS解決は未) | iter 2026-07-08 → **iter 2026-07-08(2)** |
+| 11 | iryo(レセプト)への hand-off boundary テスト(karute → iryo consent-capability) | 🟡 部分(受理境界+rezeptプレビュー自動配線+署名検証ゲート[鍵解決済みの場合]。鍵のDID解決・PDS解決は未) | iter 2026-07-08 → iter 2026-07-08(2) → **iter 2026-07-08(3)** |
 
 ## イテレーション記録
+
+### iter 2026-07-08(3)
+**上げた項目: #8 — consent.capability の Ed25519 署名検証を iryo 受理境界(`handoff.cljc`)に実装。
+(a) を部分的に解消:検証ロジック自体は完成 + 実鍵での sign→verify テスト green。ただし
+granterDid(rotating pseudonym did:web)の DID 文書から鍵そのものを取得する経路(network
+resolution)は依然 cross-repo で未 — honest framing: 部分達成。**
+
+前々イテレーション (iter 2026-07-08) の honest framing で残した (a) Ed25519 署名検証・(b) PDS
+解決のうち、(a) の「検証ロジック」部分だけを実装(鍵の**取得**である (b) 相当の DID 解決は
+今回もスコープ外のまま、無理に着手しない)。事前調査で判明した事実:
+
+- `patientDid` はこの bridge では **rotating pseudonym did:web**
+  (`iryo.methods.karte/rotating-pseudonym-did` → `did:web:patient.iryo.etzhayyim.com:<hash>`)
+  であり、did:key のような自己記述型 DID ではない。したがって granterDid の公開鍵を得るには
+  実際の HTTPS did:web 文書解決が必要で、これは PDS 解決 (b) と同種の cross-repo network I/O
+  — iryo 内で完結できない。
+- 一方、**鍵が既に解決済みで手元にある場合の Ed25519 署名検証そのもの**は iryo 内で完全に
+  完結でき、かつ **追加の依存ライブラリが一切不要**(JDK 標準 `java.security`
+  KeyFactory/Signature の Ed25519 サポート、JDK 15+)。同じ手法は既に
+  `20-actors/kaiyaku/tools/issue_capability.cljc` で実装・green 確認済み(`bb` = babashka
+  v1.12.218 環境で実測検証: sign→verify roundtrip が正しく動作)。
+
+実装(`20-actors/iryo/methods/handoff.cljc`):
+
+- `canonicalize-capability-payload` — capability record から `signature` を除いた全フィールド
+  を sorted-keys の決定的な canonical 文字列にする(署名対象バイト列)。**honest framing**:
+  これは本 namespace 独自の canonicalization であり、実際の granter 側 signer
+  (`@etzhayyim/sdk.signConsentCapability`, ADR-2605231401 Phase 2)は依然 stub のため、
+  そちらとの byte-parity は未検証(`kaiyaku/tools/issue_capability.cljc` の G6 と同種の
+  オープンな注記)。
+- `verify-ed25519-signature` — 生 32byte Ed25519 公開鍵を X.509 SubjectPublicKeyInfo DER
+  (RFC 8410 §4、固定12バイトprefix)でラップして `KeyFactory`/`Signature` で検証。追加
+  依存ゼロ。babashka 上での SPKI ラップ往復を事前にスクリプトで実測検証してから組み込んだ。
+- `signature-gate` — 新しいゲート関数。呼び出し元が **`granterPublicKey`**(base64 の生
+  32byte 公開鍵、`capability` 自体と同じ「既に解決済みの入力」契約)を供給した場合のみ
+  暗号学的検証を実行;供給しない場合は no-op で **既存呼び出し元の挙動は byte-for-byte 不変**
+  (後方互換、新しい必須ゲートではない)。鍵が供給された場合、署名欠落・alg不一致・検証失敗
+  (誤った鍵 or 署名後の改ざん)はすべて fail-closed で `iryoStatus:"needs-info"` を返す。
+- `handoff/handle-ingest` に配線: 構造ゲート(capability-gate)通過後にのみ signature-gate
+  を実行する順序(構造ゲート失敗時は署名検証をスキップ)。`granterPublicKey` は
+  `cell-only-keys` に追加し PHI allow-list から除外。
+- テスト(`methods/test_handoff.cljc`、16→23 tests / 37→53 assertions、green):
+  実際に JDK で Ed25519 鍵ペアを生成し、実際に署名し、実際に検証させるフルパス
+  (モック無し)。正当な署名の accept、署名後の改ざん(issuedAt 変更)の reject、誤った
+  公開鍵での reject、署名欠落 + 鍵供給時の reject、alg 不一致の reject、**鍵未供給時は
+  既存の非署名 capability も従来どおり通る**(後方互換)回帰テスト、canonicalization が
+  signature フィールドを除外し決定的であることの直接テストを追加。
+- `20-actors/iryo/run_tests.sh` 12 suites 全 green(test-handoff は 16→23 tests)。karute 側
+  `run_tests.sh`(charter-gate suite、4 tests / 35 assertions)は無変更のまま green を確認。
+- **honest framing — 依然未達のまま残るもの**: granterDid の DID 文書から実際に公開鍵を
+  取得する経路(did:web HTTPS 解決、cross-repo network I/O)、`consentCapabilityUri`/AT-URI
+  の実 PDS 解決(b)、canonicalization の実 granter-side signer との byte-parity。したがって
+  「karute → iryo」の署名検証は **検証ロジック完成 + 鍵が既にあれば機能**するが、鍵取得を
+  含む end-to-end ではない。
 
 ### iter 2026-07-08(2)
 **上げた項目: #11 続き — honest framing の (c) を解消:受理後の実レセプト計算
