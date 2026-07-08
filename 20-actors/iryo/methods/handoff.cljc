@@ -154,8 +154,27 @@
 
 (defn- blank-or-nil? [v] (or (nil? v) (and (string? v) (str/blank? v))))
 
+(defn parse-instant
+  "Pure, never-throwing ISO-8601 instant parse — same never-throws contract as
+  `parse-at-uri` above (returns nil on anything that is not a valid instant
+  string instead of letting `java.time.format.DateTimeParseException`
+  propagate). This closes a KNOWN GAP found + pinned during a 2026-07-08
+  health-check pass: `capability-gate` used to call `java.time.Instant/parse`
+  directly on `now`/`capability[\"expiresAt\"]` with no guard, and
+  `handle-ingest`'s `try/catch` only catches `ExceptionInfo`
+  (`karte/phi-leak!`'s type), so a malformed instant string threw UNCAUGHT out
+  of `handle-ingest` — the one place in this namespace that broke the
+  otherwise-uniform graceful-degradation discipline every other malformed
+  input follows (G5 non-adjudicating: fail closed to `needs-info`, never a
+  crash). `capability-gate` now gates on this BEFORE calling `instant-before?`
+  (see methods/test_handoff.cljc for the before/after pinned tests)."
+  [s]
+  (try
+    (Instant/parse s)
+    (catch #?(:clj Exception :cljs js/Error) _ nil)))
+
 (defn- instant-before? [a b]
-  (.isBefore (Instant/parse a) (Instant/parse b)))
+  (.isBefore (parse-instant a) (parse-instant b)))
 
 (def consent-capability-collection
   "The canonical NSID a consentCapabilityUri MUST resolve under, per the
@@ -213,6 +232,12 @@
 
       (blank-or-nil? (get capability "expiresAt"))
       {:ok? false :reason "consent capability has no expiresAt"}
+
+      (nil? (parse-instant (get capability "expiresAt")))
+      {:ok? false :reason (str "consent capability expiresAt is not a valid ISO-8601 instant: " (get capability "expiresAt"))}
+
+      (nil? (parse-instant now))
+      {:ok? false :reason (str "current time is not a valid ISO-8601 instant: " now)}
 
       (not (instant-before? now (get capability "expiresAt")))
       {:ok? false :reason (str "consent capability expired at " (get capability "expiresAt"))}

@@ -441,38 +441,58 @@
     (is (= "needs-info" (get out "iryoStatus")))
     (is (.contains (str (get out "error")) "could not be verified"))))
 
-;; ── KNOWN GAP, discovered and pinned (not fixed) during this health-check
-;; pass (2026-07-08) — malformed date strings are NOT gracefully handled ─────
-;; `capability-gate`'s `instant-before?` calls `(Instant/parse ...)` directly
-;; on both `now` and `capability["expiresAt"]` with no try/catch, and
-;; `handle-ingest`'s own try/catch only catches
-;; `#?(:clj clojure.lang.ExceptionInfo :cljs ExceptionInfo)` (the type
-;; `karte/phi-leak!` throws) — a malformed ISO-8601 instant string throws
-;; `java.time.format.DateTimeParseException` instead, which is NOT an
-;; ExceptionInfo, so it propagates UNCAUGHT out of `handle-ingest` rather than
-;; degrading to `{"ack" false "iryoStatus" "needs-info" ...}` like every other
-;; malformed-input case in this namespace. This is a real asymmetry: contrast
-;; with `signature-gate` above, whose own try/catch DOES turn a malformed
-;; base64 string into a graceful fail-closed result.
+;; ── FIXED (this iteration) — malformed date strings now degrade gracefully ──
+;; Previously (health-check pass, 2026-07-08) `capability-gate`'s
+;; `instant-before?` called `(Instant/parse ...)` directly on both `now` and
+;; `capability["expiresAt"]` with no guard, and `handle-ingest`'s own
+;; try/catch only caught `#?(:clj clojure.lang.ExceptionInfo :cljs
+;; ExceptionInfo)` (the type `karte/phi-leak!` throws) — a malformed ISO-8601
+;; instant string threw `java.time.format.DateTimeParseException` instead,
+;; which is NOT an ExceptionInfo, so it propagated UNCAUGHT out of
+;; `handle-ingest` rather than degrading to `{"ack" false "iryoStatus"
+;; "needs-info" ...}` like every other malformed-input case in this
+;; namespace. This was a real asymmetry: contrast with `signature-gate`
+;; above, whose own try/catch already turned a malformed base64 string into a
+;; graceful fail-closed result.
 ;;
-;; Scope decision (this pass, per the "no new features, tests only" mandate
-;; for this health-check cycle): PIN the current behavior with `thrown?`
-;; rather than silently reaching into handoff.cljc to broaden the catch
-;; clause or validate the date strings up front — that would be a production
-;; code change and is left as a follow-up (candidate fix: either validate
-;; `expiresAt`/`now` structurally before calling instant-before?, or widen
-;; `handle-ingest`'s catch to something like `#?(:clj Exception :cljs js/Error)`
-;; so ANY gate-evaluation failure degrades to needs-info instead of crashing).
-;; Do NOT treat this test passing as endorsement of the crash — it exists so a
-;; future fix has a clear failing test to flip green, and so nobody
-;; re-discovers this the hard way (e.g. via a caller-supplied malformed
-;; `expiresAt` value taking down a whole request pipeline).
+;; Fix: `handoff/parse-instant` is a new never-throwing parse (same contract
+;; as `parse-at-uri`), and `capability-gate` now gates on
+;; `(nil? (parse-instant ...))` for BOTH `expiresAt` and `now` BEFORE calling
+;; `instant-before?`, so a malformed date now fails closed via the same
+;; `{:ok? false :reason ...}` path as every other structural gate failure —
+;; G5 non-adjudicating discipline is restored for dates too. The two tests
+;; below replace the prior `thrown?`-pinning KNOWN-GAP tests with the
+;; corrected graceful-degradation expectation; a third pins that well-formed
+;; dates (both the happy path and the pre-existing expired-capability
+;; rejection) are unaffected by the fix.
 
-(deftest test-malformed-expires-at-currently-throws-uncaught-KNOWN-GAP
-  (let [cap (assoc (valid-capability) "expiresAt" "not-a-valid-instant")]
-    (is (thrown? #?(:clj java.time.format.DateTimeParseException :cljs js/Error)
-                 (handoff/handle-ingest (assoc (valid-request) "capability" cap "now" NOW))))))
+(deftest test-malformed-expires-at-degrades-to-needs-info-not-a-crash
+  (let [cap (assoc (valid-capability) "expiresAt" "not-a-valid-instant")
+        out (handoff/handle-ingest (assoc (valid-request) "capability" cap "now" NOW))]
+    (is (= false (get out "ack")))
+    (is (= "needs-info" (get out "iryoStatus")))
+    (is (.contains (str (get out "error")) "not a valid ISO-8601 instant"))))
 
-(deftest test-malformed-now-currently-throws-uncaught-KNOWN-GAP
-  (is (thrown? #?(:clj java.time.format.DateTimeParseException :cljs js/Error)
-               (handoff/handle-ingest (assoc (valid-request) "capability" (valid-capability) "now" "also-not-a-valid-instant")))))
+(deftest test-malformed-now-degrades-to-needs-info-not-a-crash
+  (let [out (handoff/handle-ingest (assoc (valid-request) "capability" (valid-capability) "now" "also-not-a-valid-instant"))]
+    (is (= false (get out "ack")))
+    (is (= "needs-info" (get out "iryoStatus")))
+    (is (.contains (str (get out "error")) "not a valid ISO-8601 instant"))))
+
+(deftest test-well-formed-dates-are-unaffected-by-the-malformed-date-fix
+  ;; Regression guard for the fix above: well-formed ISO-8601 dates must still
+  ;; compare correctly — both the happy (not-yet-expired) path and the
+  ;; pre-existing expired-capability rejection (test-expired-capability-is-rejected)
+  ;; must keep returning their OWN reason, not the new
+  ;; "not a valid ISO-8601 instant" message.
+  (testing "not yet expired -> accepted"
+    (let [out (handoff/handle-ingest (assoc (valid-request) "capability" (valid-capability) "now" NOW))]
+      (is (= true (get out "ack")))
+      (is (= "pending" (get out "iryoStatus")))))
+  (testing "already expired -> needs-info with the expired reason, not a malformed-instant reason"
+    (let [cap (assoc (valid-capability) "expiresAt" "2020-01-01T00:00:00Z")
+          out (handoff/handle-ingest (assoc (valid-request) "capability" cap "now" NOW))]
+      (is (= false (get out "ack")))
+      (is (= "needs-info" (get out "iryoStatus")))
+      (is (.contains (str (get out "error")) "expired at"))
+      (is (not (.contains (str (get out "error")) "not a valid ISO-8601 instant"))))))
