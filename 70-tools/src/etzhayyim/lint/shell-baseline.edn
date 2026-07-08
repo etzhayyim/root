@@ -77,7 +77,6 @@
  "20-actors/kafun/run_tests.sh"
  "20-actors/kaiyaku/run_tests.sh"
  "20-actors/kakaku/kotoba/deploy.sh"
- "20-actors/kakaku/run_tests.sh"
  "20-actors/kamado/run_tests.sh"
  "20-actors/kanae/run_tests.sh"
  "20-actors/kanae/wasm/build.sh"

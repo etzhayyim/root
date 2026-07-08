@@ -34,4 +34,4 @@ jobs:
           bb --version
 
       - name: Run kakaku agent suite
-        run: bash 20-actors/kakaku/run_tests.sh
+        run: bb 20-actors/kakaku/run_tests.clj
