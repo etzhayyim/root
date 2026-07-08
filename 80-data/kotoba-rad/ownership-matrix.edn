@@ -25,6 +25,10 @@
   {:rid "bafkreiczf2ea4yvs53uqyxl6lqt3iibo3g3ujslmkshwo6befrlp6oaoqa",
    :datasets (),
    :declared? false},
+  "minidrama"
+  {:rid "bafkreiahidonufojwncmszfctuvbfp6ybpchmk7wkqtdd4mcmplgtwe2ay",
+   :datasets (),
+   :declared? false},
   "kazaori"
   {:rid "bafkreian5wdtbioeawmu24iwp4oj5nwi4clwjb2oyhwlfuvtovj6hpmote",
    :datasets (),
