@@ -5,7 +5,7 @@ status: proposed
 doc_type: adr
 topic: manimani-cli-secure-storage
 authoritative: true
-last_verified: 2026-06-30
+last_verified: 2026-07-08
 priority: 6.5
 axis: architecture
 weight: 0.5
@@ -179,13 +179,44 @@ precedent — real where it can be, honest stubs where external integration is p
   belongs-to datoms, `confidence<0.5 → unsorted` honest fallback), `classify`, `projects`,
   `coverage`. Verified: `bb e7m manimani projects` → the 2 seeded projects
   (`lingling-litigation`, `jk-tax`); `coverage` → `projects:2 intakes:2 unrouted:0`.
-- **Honest stubs (no fake behavior)** for the external-integration seams: `ingest-gmail`
-  (read-only OAuth2, Phase-3), `ingest-fs` (allowlist + secret-skip, Phase-4), `pin`
-  (kotobase.net ciphertext, Phase-5), `vault` (Keychain read-cap, Phase-2),
-  `murakumo-classify` (LiteLLM `:4000` seam, Phase-2). Each prints its plan and exits.
-- **Not yet wired** (next phases): Murakumo structured-output classify, Gmail OAuth backfill,
-  fs-walker, E2E `SecureVault` blobs, kotobase.net pin fan-out. The Phase-0 classifier is a
-  deterministic keyword heuristic; the `intake-id` is a sha-256 stand-in for the blake3 CID.
+- **Honest stubs (no fake behavior)** for the remaining external-integration seams:
+  `ingest-fs` (allowlist + secret-skip, Phase-4), `pin` (kotobase.net ciphertext, Phase-5),
+  `vault` (Keychain read-cap, Phase-2), `murakumo-classify` (LiteLLM `:4000` seam, Phase-2).
+  Each prints its plan and exits.
+- **Not yet wired** (next phases): Murakumo structured-output classify, fs-walker, E2E
+  `SecureVault` blobs, kotobase.net pin fan-out. The Phase-0 classifier is a deterministic
+  keyword heuristic; the `intake-id` is a sha-256 stand-in for the blake3 CID.
+
+## Phase-3 landed (2026-07-08): `ingest-gmail` is LIVE, read-only OAuth2
+
+`ingest-gmail` is no longer a stub — it does a real, read-only `gmail.readonly` poll:
+
+- **`bb e7m manimani auth-gmail`** — ONE-TIME interactive setup. Prompts for a Google
+  OAuth2 Client ID/Secret (Desktop app type, from Google Cloud Console — the owner must
+  create this once; it cannot be provisioned by an agent), stores them in macOS Keychain
+  (`service=etzhayyim-manimani-gmail`), then runs the PKCE (S256) authorization-code flow:
+  builds the consent URL, opens it in the browser, catches the `http://127.0.0.1:8721/`
+  redirect with a minimal `java.net.ServerSocket` listener (no server framework dep),
+  exchanges the code for tokens, and stores the refresh token in Keychain. Client id/secret/
+  refresh-token are resolved `env → Keychain`, in that order — NEVER a datom, NEVER committed,
+  matching D2's confidentiality posture even though this leg predates the Vault.
+- **`bb e7m manimani ingest-gmail [--since Nd|--backfill]`** — refreshes a short-lived access
+  token from the stored refresh token (no browser needed again), lists candidate inbox
+  messages via Gmail's search operators (`in:inbox is:unread -category:promotions
+  -category:social -category:forums -category:updates`, or all inbox mail in the window under
+  `--backfill`), fetches **metadata only** (From/Subject/Date headers + snippet — body is
+  never fetched at this phase), classifies + writes one `intake`/`belongs-to` datom pair per
+  NEW message (`source-kind :email`, `source-uri` = the Gmail message id, deduped against
+  already-ingested ids for idempotent re-runs), and prints a one-line report per message.
+- Covered by `etzhayyim.test-manimani` (18 assertions): PKCE verifier/challenge shape +
+  determinism, the CLI flag parser (incl. a real bug fixed in the same change — a bare
+  `--flag` with no following value parsed as `nil` instead of `true`, which would have made
+  `--backfill` silently inert), Gmail header extraction, and the existing heuristic
+  classifier (previously untested). The OAuth/network legs themselves need a real Google
+  account + browser consent and are exercised manually, not in CI.
+- Body content, `SecureVault` encryption, and kotobase.net pin fan-out are still ahead (D2/D3
+  are unchanged by this — Phase-3 only proves the read-only ingest leg; the local journal
+  remains the Phase-0 plaintext-at-rest hot tier per D4).
 
 Adjacent repair (same session): the committed **`adr-index.edn`** was the stale, un-parseable
 hand-edited index (prose written as map literals — broken before this session). It was
