@@ -29,7 +29,10 @@ charter-clean:
 ## Architecture
 
 ```
-診療録(encounter, codes only)
+karute (encrypted PHI, codes-only hand-off: DID/AT-URI + consentCapabilityUri)
+        │
+        ▼
+  ingest-billing 受理境界 (PHI-free allow-list gate + consent.capability structural gate)
         │
         ▼
   rezept   点数計算 — 区分集計 / 一部負担金 / 高額療養費
@@ -43,7 +46,33 @@ charter-clean:
   審査支払機関 (社会保険診療報酬支払基金 / 国保連)
 ```
 
-3 Pregel cells (`rezept` / `receden` / `validate`), all pure-stdlib + pywasm-ready.
+4 Pregel cells (`ingest-billing` / `rezept` / `receden` / `validate`), all pure-stdlib + pywasm-ready.
+
+### karute -> iryo hand-off boundary (`methods/handoff.cljc`, ADR-2605231401 Pattern 2)
+
+karute's `requestIryoBilling` forwards to iryo's `ingestKaruteEncounterForBilling` via
+`agent.invoke` (karute/actor-manifest.jsonld forwardToIryo step) — until this landed, iryo
+had no receiving implementation at all (karute/MATURITY.md #11). `handoff/handle-ingest`:
+
+1. **PHI-free intake gate (G2)** — the wire request may only carry the exact fields karute
+   sends (`patientDid`/`encounterDid`/`facilityDid`/`serviceRequestUris`/
+   `medicationRequestUris`/`consentCapabilityUri`); any other key fails closed. DIDs must be
+   `did:`-prefixed, URIs `at://`-prefixed, and every string leaf must be ASCII-only (a
+   smuggled Japanese name/free-text field is non-ASCII and gets rejected even if it happens
+   to pass a prefix check).
+2. **Consent-capability structural gate (G1/G7)** — given the already-resolved
+   `com.etzhayyim.consent.capability` record, checks `purpose == "insurance-billing"`,
+   `granteeDid == iryo's own DID`, `granterDid == request patientDid`, not revoked, not
+   expired, and `scope`/`resourceUris` cover the requested resources.
+3. **Result discipline (G3/G5)** — success only ever yields `iryoStatus:"pending"` (drafted
+   into iryo's own intake queue, no online submission). Any gate failure yields
+   `iryoStatus:"needs-info"` — never `"accepted"`/`"rejected"`, which are the
+   審査支払機関's adjudication vocabulary, not iryo's.
+
+**Explicitly out of scope** (tracked separately, do not conflate): Ed25519 signature
+verification of the capability (karute/MATURITY.md #8) and PDS resolution of
+`consentCapabilityUri` / the AT-URIs themselves (`@etzhayyim/sdk`, cross-repo) — the caller
+is expected to have already resolved the capability record before invoking this cell.
 
 ## 全件対応 (すべての診療行為・薬剤・特定器材・病名)
 
@@ -111,7 +140,7 @@ engine never hard-codes a tariff (G4). The bundled `data/seed_masters.json` is a
 
 ```bash
 cd 20-actors/iryo
-./run_tests.sh           # 11 cljc suites green (masters/master-loader/insurance/kogaku/rezept/karte/receden/coverage/e2e/datoms/kotoba)
+./run_tests.sh           # 12 cljc suites green (masters/master-loader/insurance/kogaku/rezept/karte/handoff/receden/coverage/e2e/datoms/kotoba)
 ```
 
 The engine is fully ported to clojure-on-babashka (`methods/*.cljc`) over the kotoba
@@ -120,7 +149,7 @@ representative master seed lives at `data/seed_masters.json` (loaded by `methods
 
 ## Cross-actor
 
-- **karute** (電子カルテ EMR) — hands off the codes-only billable encounter projection; PHI stays in karute's envelope
+- **karute** (電子カルテ EMR) — hands off the codes-only billable encounter projection via the `ingest-billing` boundary (`methods/handoff.cljc`); PHI stays in karute's envelope
 - **iyashi** (clinical care provider) — L4 sibling; iryo is the billing tool iyashi's G13 deliberately excludes from the corp
 - **yakushi** (pharma) — 医薬品マスタ / 薬価 alignment for 投薬 算定
 - **toritate** (accounting + audit) — donation/grant accounting (NOT insurance inflow); reads claim totals for audit

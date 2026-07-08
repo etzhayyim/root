@@ -4,6 +4,7 @@
             [iryo.methods.karte :as karte]
             [iryo.methods.receden :as receden]
             [iryo.methods.fhir :as fhir]
+            [iryo.methods.handoff :as handoff]
             [clojure.string :as str]))
 
 (def intent "member-principal-claim-substrate; non-adjudicating")
@@ -118,3 +119,6 @@
         kt (karte-from (get state "karte"))
         rez (rezept/compute enc m)]
     {"bundle" (fhir/to-fhir-bundle kt rez) "intent" intent}))
+
+(defn handle-ingest-billing [state]
+  (handoff/handle-ingest state))

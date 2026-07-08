@@ -7,7 +7,8 @@ FHIR Claim を出力する。プロプライエタリな レセコン / EHR-bill
 (ORCA-proprietary / Epic / Cerner) の charter-clean な反転。
 
 ```
-karute 電子カルテ (暗号化 PHI)  ──encounter(codes only)──▶  iryo 医療
+karute 電子カルテ (暗号化 PHI)  ──billing hand-off (DID/AT-URI + consentCapabilityUri)──▶  iryo 医療
+                                                              ├─ ingest-billing 受理境界 (PHI-free gate + capability検証)
                                                               ├─ rezept   点数計算
                                                               ├─ receden  レセ電(IR/RE/HO/SY/SI/IY/TO)
                                                               └─ validate 算定整合性チェック
@@ -19,10 +20,33 @@ karute 電子カルテ (暗号化 PHI)  ──encounter(codes only)──▶  ir
 
 | 段階 | ハンドラ | 内容 |
 |---|---|---|
+| hand-off 受理 | `handle_ingest` (`methods/handoff.cljc`) | karute の `requestIryoBilling` が転送する intake (patientDid/encounterDid/facilityDid/serviceRequestUris/medicationRequestUris/consentCapabilityUri) を受理。PHI-free allow-list gate (G2) + consent.capability 構造ゲート (purpose/granteeDid/granterDid/失効/期限/scope, G1/G7) を通れば draft キューへ `iryoStatus:"pending"` (G3); 不合格は `"needs-info"` のみ (G5 — `"accepted"/"rejected"` は審査支払機関の査定語彙で iryo は使わない) |
 | 点数計算 | `handle_rezept` | 診療行為 / 薬剤料(五捨五超四入) / 特定器材料 を診療識別で区分集計 → 総点数 → 総医療費(1点=10円) → 一部負担金(10円未満四捨五入) → 高額療養費 自己負担限度額調整 |
 | レセ電生成 | `handle_receden` | IR/RE/HO/KO/SY/SI/IY/TO レコードストリーム + 件数照合。和暦(GYYMMDD)変換。PHI-free (氏名/生年月日は submission callback 経由でのみ注入) |
 | 整合性チェック | `handle_validate` | 病名なし投薬 / 主傷病なし / 空レセプト / 高額療養費上限 を **observe** (非査定) |
 | FHIR export | `export_fhir` | Coverage / Condition(ICD-10-JP) / Claim の R4 Bundle (codes-only) |
+
+## karute → iryo hand-off boundary (2026-07-08, ADR-2605231401 Pattern 2)
+
+karute の `com.etzhayyim.apps.karute.requestIryoBilling` は `agent.invoke` で
+iryo の `ingestKaruteEncounterForBilling` を呼ぶが、iryo 側には**受け皿が一切無かった**
+(karute/MATURITY.md #11 の gap)。`methods/handoff.cljc` がその受理境界を実装する:
+
+- **範囲内**: 受信フィールドの PHI-free allow-list 検証 (G2) — patientDid/facilityDid は
+  `did:` prefix, encounterDid は `did:`/`at://`, consentCapabilityUri と
+  serviceRequestUris/medicationRequestUris の各要素は `at://` prefix, 全 string leaf が
+  ASCII-only (非ASCIIは smuggled PHI とみなし fail-closed)。既に解決済みの
+  consent.capability record に対する構造ゲート (G1/G7) — purpose=`insurance-billing` /
+  granteeDid=iryo自身 / granterDid=patientDid と一致 / 未失効 / 未期限切れ /
+  scope が要求 NSID を充足 / resourceUris allowlist があれば要求 URI がその中。
+- **範囲外 (別トラックで維持)**: capability の Ed25519 署名検証 (karute/MATURITY.md #8) と
+  consentCapabilityUri の実際の PDS 解決 (`@etzhayyim/sdk` 依存, cross-repo) は行わない —
+  呼び出し側が解決済み capability record を渡す前提。実際の点数計算 (`handle_rezept`) は
+  この境界の先で変わらず動く。
+- テスト: `methods/test_handoff.cljc` (16 tests / 37 assertions) — happy path, PHI-free
+  gate の各違反, consent-capability gate の各違反 (purpose/grantee/granter/revoked/
+  expired/scope/resourceUris), そして `iryoStatus` が `"pending"`/`"needs-info"` 以外
+  (=`"accepted"`/`"rejected"`) を絶対に返さないことの回帰テスト (G5 non-adjudicating)。
 
 ## 計算ルール (検証可能)
 
@@ -93,7 +117,8 @@ iryo/
 │   └── test_*.py         pytest suite (51 tests)
 ├── kotoba/schema.edn     :iryo.rezept/* + :iryo.line/* + :iryo.shobyo/* EAVT schema
 ├── lex/                  encounter / rezept lexicons (EDN)
-├── cells/                rezept / receden / validate cell defs (langgraph, wasm)
+├── cells/                rezept / receden / validate / ingest-billing cell defs (langgraph, wasm)
+├── methods/handoff.cljc  karute -> iryo hand-off boundary (PHI-free gate + consent.capability gate)
 └── manifest.edn          actor manifest + 7 gates
 ```
 

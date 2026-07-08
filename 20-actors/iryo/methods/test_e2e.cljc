@@ -70,3 +70,20 @@
       (is (= "点" (get-in claim ["resource" "total" "unit"]))))
     (let [bundle-str (json/generate-string bundle)]
       (is (not (.contains bundle-str "1975"))))))
+
+;; ── karute -> iryo hand-off boundary (agent.cljc wiring; karute/MATURITY.md #11) ──
+
+(deftest test-handle-ingest-billing-is-wired-through-agent
+  (let [request {"patientDid" "did:web:patient.iryo.etzhayyim.com:e2e1"
+                 "encounterDid" "at://did:web:karute.etzhayyim.com/com.etzhayyim.karute.encounter/enc1"
+                 "facilityDid" "did:web:clinic-example.etzhayyim.com"
+                 "consentCapabilityUri" "at://did:web:patient.iryo.etzhayyim.com:e2e1/com.etzhayyim.consent.capability/cap1"}
+        capability {"granterDid" "did:web:patient.iryo.etzhayyim.com:e2e1"
+                    "granteeDid" "did:web:iryo.etzhayyim.com"
+                    "purpose" "insurance-billing"
+                    "scope" ["com.etzhayyim.karute.encounter"]
+                    "expiresAt" "2026-08-01T00:00:00Z"}
+        out (agent/handle-ingest-billing (assoc request "capability" capability "now" "2026-07-08T00:00:00Z"))]
+    (is (= true (get out "ack")))
+    (is (= "pending" (get out "iryoStatus")))
+    (is (.startsWith (str (get out "iryoClaimRef")) "iryo-req-"))))
