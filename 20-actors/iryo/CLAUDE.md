@@ -69,10 +69,22 @@ had no receiving implementation at all (karute/MATURITY.md #11). `handoff/handle
    `iryoStatus:"needs-info"` — never `"accepted"`/`"rejected"`, which are the
    審査支払機関's adjudication vocabulary, not iryo's.
 
+**ingest-billing -> rezept auto-wiring (`methods/agent.cljc` `handle-ingest-billing`,
+karute/MATURITY.md #11(c)).** When the intake gates pass AND the caller ALSO supplies an
+already-resolved `"encounter"` (the same shape `handle-rezept` expects — codes/counts only,
+no PHI), `handle-ingest-billing` automatically calls `handle-rezept` and attaches the result
+under `"rezeptPreview"`; `iryoStatus` stays `"pending"` regardless (a draft preview, not an
+adjudication). A malformed/unresolvable encounter (e.g. a code missing from the loaded
+master) does not flip the already-accepted intake to a gate failure — it surfaces as
+`"rezeptPreviewError"` instead, leaving `ack`/`iryoStatus` untouched. Without an `"encounter"`
+the response is byte-for-byte unchanged (a bare hand-off gate check) — this is additive, not a
+new gate, and `handoff.cljc` itself is unmodified.
+
 **Explicitly out of scope** (tracked separately, do not conflate): Ed25519 signature
 verification of the capability (karute/MATURITY.md #8) and PDS resolution of
 `consentCapabilityUri` / the AT-URIs themselves (`@etzhayyim/sdk`, cross-repo) — the caller
-is expected to have already resolved the capability record before invoking this cell.
+is expected to have already resolved the capability record (and, for the rezept-preview
+wiring above, the encounter payload) before invoking this cell.
 
 ## 全件対応 (すべての診療行為・薬剤・特定器材・病名)
 

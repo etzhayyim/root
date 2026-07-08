@@ -27,9 +27,40 @@ honest framing: できていないことは「未」と明記する。
 | 8 | consent.capability の Ed25519 検証テスト(member-signed / server-refused) | 未 | — |
 | 9 | 患者 DID = 30日 rotating pseudonym(ADR-2605181200)の構造検証 | 未 | — |
 | 10 | kotoba EAVT への FHIR inner-type 投影(public graph = meta only)の検証 | 未 | — |
-| 11 | iryo(レセプト)への hand-off boundary テスト(karute → iryo consent-capability) | 🟡 部分(受理境界のみ) | **iter 2026-07-08** |
+| 11 | iryo(レセプト)への hand-off boundary テスト(karute → iryo consent-capability) | 🟡 部分(受理境界+rezeptプレビュー自動配線。署名検証・PDS解決は未) | iter 2026-07-08 → **iter 2026-07-08(2)** |
 
 ## イテレーション記録
+
+### iter 2026-07-08(2)
+**上げた項目: #11 続き — honest framing の (c) を解消:受理後の実レセプト計算
+(`iryo.methods.agent/handle-rezept`) への自動接続を実装。(a) Ed25519 署名検証と
+(b) PDS 解決は依然未(次点候補として明記済み、cross-repo `@etzhayyim/sdk` 依存)。**
+
+前イテレーション (iter 2026-07-08) の honest framing で残した3点のうち、iryo 内部で
+完結できる (c) だけを選んで実装(cross-repo 依存のある (a)/(b) は今回もスコープ外の
+まま、無理に着手しない)。`20-actors/iryo/methods/agent.cljc` の `handle-ingest-billing`
+を拡張:
+
+- **`handoff/handle-ingest` は無変更** — 受理境界(PHI-free gate + consent.capability
+  構造ゲート)は前イテレーションのまま。ゲートを弱めていない。
+- ゲート通過後、呼び出し元が**解決済みの `\"encounter\"`**(`handle-rezept` と同じ形——
+  すでに解決済みの `capability` を渡す既存の契約と同一パターン)を**追加で**渡していた
+  場合のみ、`handle-rezept` を自動呼び出しし、結果を `\"rezeptPreview\"` として応答に
+  添付する。`\"encounter\"` を渡さない場合の応答は従来と完全に同一(後方互換、新しい
+  ゲートではない)。
+- `iryoStatus` は rezept 計算の成否に関わらず `\"pending\"` のまま(G3/G5 non-adjudicating
+  規律を維持)。マスター未登録コード等で計算が失敗しても受理自体は取り消さず、
+  `\"rezeptPreviewError\"` として個別に報告する(受理境界の合否とプレビュー計算の合否を
+  混同しない)。
+- **honest framing — 依然未達のまま残るもの**: (a) capability の Ed25519 署名検証、
+  (b) `consentCapabilityUri`/AT-URI の実 PDS 解決(`@etzhayyim/sdk`、cross-repo)。
+  したがって「karute → iryo」の hand-off は依然 **署名検証なし・実データ解決なし**の
+  受理境界+プレビュー計算に留まり、end-to-end ではない。
+- テスト: `20-actors/iryo/methods/test_e2e.cljc` に3本追加(rezeptPreview が計算される
+  happy path、ゲート不合格時は計算をスキップすること、計算失敗時に受理自体は取り消さ
+  れず `rezeptPreviewError` のみ返ること)。`20-actors/iryo/run_tests.sh` 12 suites 全
+  green(test-e2e は6→9 tests)。karute 側 `run_tests.sh`(charter-gate suite、4 tests /
+  35 assertions)は無変更のまま green を確認。
 
 ### iter 2026-07-08
 **上げた項目: #11 — iryo 側の受理境界(intake boundary)を実装 + テスト。honest framing: 部分達成。**
