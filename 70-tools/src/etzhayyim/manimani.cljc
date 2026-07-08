@@ -64,8 +64,6 @@
 (def ^:private gmail-auth-endpoint "https://accounts.google.com/o/oauth2/v2/auth")
 (def ^:private gmail-token-endpoint "https://oauth2.googleapis.com/token")
 (def ^:private gmail-api-base "https://gmail.googleapis.com/gmail/v1/users/me")
-(def ^:private oauth-redirect-port 8721)
-(def ^:private oauth-redirect-uri (str "http://127.0.0.1:" oauth-redirect-port "/"))
 (def ^:private keychain-service "etzhayyim-manimani-gmail")
 
 ;; ── Keychain (macOS `security` CLI — never an env var, never committed) ───────
@@ -95,33 +93,35 @@
   (b64url (.digest (MessageDigest/getInstance "SHA-256") (.getBytes verifier "UTF-8"))))
 
 ;; ── local redirect catcher: one raw HTTP GET, extract `code`, reply, close ────
+;; The socket is bound by the CALLER on port 0 (OS-assigned ephemeral) BEFORE the auth
+;; URL is built, so the redirect_uri Google is given always matches a free port — a
+;; fixed port (e.g. 8721) can silently lose the redirect to an unrelated process already
+;; listening on that exact 127.0.0.1:port (observed in practice: another local dev
+;; server won the connection over this listener's wildcard bind).
 (defn- await-oauth-redirect
-  "Blocks on 127.0.0.1:oauth-redirect-port for the browser's redirect after consent;
-   returns the `code` query param (or throws on `error=` / timeout)."
-  [timeout-ms]
-  (let [srv (ServerSocket. oauth-redirect-port)]
-    (.setSoTimeout srv timeout-ms)
-    (try
-      (with-open [sock (.accept srv)
-                  rdr (BufferedReader. (InputStreamReader. (.getInputStream sock)))]
-        (let [request-line (.readLine rdr)          ; "GET /?code=...&scope=... HTTP/1.1"
-              path (second (str/split (or request-line "") #"\s+"))
-              query (second (str/split (or path "") #"\?" 2))
-              params (into {} (map (fn [kv] (let [[k v] (str/split kv #"=" 2)]
-                                               [k (some-> v (java.net.URLDecoder/decode "UTF-8"))]))
-                                    (str/split (or query "") #"&")))
-              out (.getOutputStream sock)
-              body (if (get params "code")
-                     "<html><body>manimani: Gmail authorized — you can close this tab.</body></html>"
-                     "<html><body>manimani: authorization failed — see the terminal.</body></html>")]
-          (.write out (.getBytes (str "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: "
-                                      (count body) "\r\n\r\n" body) "UTF-8"))
-          (.flush out)
-          (cond
-            (get params "error") (throw (ex-info (str "oauth consent denied: " (get params "error")) params))
-            (get params "code")  (get params "code")
-            :else (throw (ex-info "oauth redirect carried no code" params)))))
-      (finally (.close srv)))))
+  "Blocks on the given already-bound ServerSocket for the browser's redirect after
+   consent; returns the `code` query param (or throws on `error=` / timeout)."
+  [^ServerSocket srv timeout-ms]
+  (.setSoTimeout srv timeout-ms)
+  (with-open [sock (.accept srv)
+              rdr (BufferedReader. (InputStreamReader. (.getInputStream sock)))]
+    (let [request-line (.readLine rdr)          ; "GET /?code=...&scope=... HTTP/1.1"
+          path (second (str/split (or request-line "") #"\s+"))
+          query (second (str/split (or path "") #"\?" 2))
+          params (into {} (map (fn [kv] (let [[k v] (str/split kv #"=" 2)]
+                                           [k (some-> v (java.net.URLDecoder/decode "UTF-8"))]))
+                                (str/split (or query "") #"&")))
+          out (.getOutputStream sock)
+          body (if (get params "code")
+                 "<html><body>manimani: Gmail authorized — you can close this tab.</body></html>"
+                 "<html><body>manimani: authorization failed — see the terminal.</body></html>")]
+      (.write out (.getBytes (str "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: "
+                                  (count body) "\r\n\r\n" body) "UTF-8"))
+      (.flush out)
+      (cond
+        (get params "error") (throw (ex-info (str "oauth consent denied: " (get params "error")) params))
+        (get params "code")  (get params "code")
+        :else (throw (ex-info "oauth redirect carried no code" params))))))
 
 ;; ── token exchange / refresh ───────────────────────────────────────────────
 (defn- form-post [url form]
@@ -132,10 +132,10 @@
                           :throw false}))
    true))
 
-(defn- exchange-code! [client-id client-secret code verifier]
+(defn- exchange-code! [client-id client-secret code verifier redirect-uri]
   (form-post gmail-token-endpoint
              {"code" code "client_id" client-id "client_secret" client-secret
-              "redirect_uri" oauth-redirect-uri "grant_type" "authorization_code"
+              "redirect_uri" redirect-uri "grant_type" "authorization_code"
               "code_verifier" verifier}))
 
 (defn- refresh-access-token [client-id client-secret refresh-token]
@@ -167,18 +167,24 @@
                             (keychain-set! "oauth-client-secret" v) v))
         verifier (pkce-verifier)
         challenge (pkce-challenge verifier)
+        ;; Bind an OS-assigned ephemeral port on loopback ONLY, before building the auth
+        ;; URL, so redirect_uri always names a port this process actually owns (a fixed
+        ;; port can lose the redirect to an unrelated process already bound there).
+        srv (ServerSocket. 0 50 (java.net.InetAddress/getByName "127.0.0.1"))
+        port (.getLocalPort srv)
+        redirect-uri (str "http://127.0.0.1:" port "/")
         auth-url (str gmail-auth-endpoint
                       "?client_id=" (java.net.URLEncoder/encode client-id "UTF-8")
-                      "&redirect_uri=" (java.net.URLEncoder/encode oauth-redirect-uri "UTF-8")
+                      "&redirect_uri=" (java.net.URLEncoder/encode redirect-uri "UTF-8")
                       "&response_type=code&access_type=offline&prompt=consent"
                       "&scope=" (java.net.URLEncoder/encode gmail-scope "UTF-8")
                       "&code_challenge=" challenge "&code_challenge_method=S256")]
     (println "\nOpen this URL, sign in as the Gmail account to authorize (read-only), and allow access:\n")
     (println (str "  " auth-url "\n"))
     (proc/shell {:continue true} "open" auth-url)   ; best-effort; the URL above always works manually
-    (println (format "waiting up to 5 min on 127.0.0.1:%d for the consent redirect…" oauth-redirect-port))
-    (let [code (await-oauth-redirect 300000)
-          resp (exchange-code! client-id client-secret code verifier)]
+    (println (format "waiting up to 5 min on 127.0.0.1:%d for the consent redirect…" port))
+    (let [code (try (await-oauth-redirect srv 300000) (finally (.close srv)))
+          resp (exchange-code! client-id client-secret code verifier redirect-uri)]
       (if-let [rt (:refresh_token resp)]
         (do (keychain-set! "refresh-token" rt)
             (println "✓ Gmail authorized — refresh token stored in Keychain (service="
