@@ -85,7 +85,6 @@
  "20-actors/kaname/deploy/run-heartbeat.sh"
  "20-actors/kanayama/kotoba/deploy.sh"
  "20-actors/kanayama/run_tests.sh"
- "20-actors/kanjo/run_tests.sh"
  "20-actors/karakuri/run_tests.sh"
  "20-actors/karute/run_tests.sh"
  "20-actors/kasa/run_tests.sh"

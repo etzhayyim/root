@@ -14,16 +14,20 @@
             [clojure.java.io :as io]
             [clojure.test :refer [deftest is run-tests]]))
 
+;; String-keyed EAVT (this actor's house convention — [":db/add" e ":attr" v],
+;; mirroring what `add`/graph-datoms actually emit; NOT Clojure keywords).
 (def ^:private fixed-datoms
-  [[:db/add "fin.filing.aapl.2024" :fin.filing/company "AAPL"]
-   [:db/add "fin.filing.aapl.2024" :fin.filing/fy 2024]
-   [:db/add "fin.metric.aapl.2024.op-margin" :fin.metric/value 0.315]
-   [:db/add "fin.metric.aapl.2024.op-margin" :fin.metric/synthesized true]])
+  [[":db/add" "fin.filing.aapl.2024" ":fin.filing/company" "AAPL"]
+   [":db/add" "fin.filing.aapl.2024" ":fin.filing/fy" 2024]
+   [":db/add" "fin.metric.aapl.2024.op-margin" ":fin.metric/value" 0.315]
+   [":db/add" "fin.metric.aapl.2024.op-margin" ":fin.metric/synthesized" true]])
 
-;; ── pinned literals (captured 2026-06-16) ──
-(def ^:private empty-cid "b752d9f3cc07ff707113bea25a08516b36f76bed8a6ff3bc0c91b45a4924e6b14")
-(def ^:private fixed-cid "b35fc869e70850089bd753cd2054d68bb37a750e6dcc38a080dae566fb0dd5b6a")
-(def ^:private with-prev-cid "bd561d04cb282ca6690652978d67c486a948b3b29899d94c31a83f6842ce15829")
+;; ── pinned literals (re-verified 2026-07-08 against kabuto's independently-pinned
+;;    empty-cid — see kabuto/methods/test_kotoba_cid.clj; fixed-cid/with-prev-cid
+;;    recomputed for this actor's own fixed-datoms after the string-keyed EAVT fix) ──
+(def ^:private empty-cid "b2fc787b426127d7002522f570fd7ecc7576f34c65385163053d35e20c9b3ff76")
+(def ^:private fixed-cid "b3186a7e91529afbe34655402575c17d594d48a7f0b4b1e125ade0862bb25c5a9")
+(def ^:private with-prev-cid "bfb7a0d4f3347b510783ca8f92e3ffb39df90a1af03d36ccf8009a0c2e016ee2f")
 
 (deftest empty-tx-cid-is-pinned
   (is (= empty-cid (k/tx-cid [])))
@@ -31,7 +35,7 @@
 
 (deftest empty-cid-matches-the-shared-commit-dag-canonical-form
   ;; cross-actor invariant: kabuto / watatsuna / watari pin the SAME empty-tx literal.
-  (is (= "b752d9f3cc07ff707113bea25a08516b36f76bed8a6ff3bc0c91b45a4924e6b14" (k/tx-cid []))))
+  (is (= "b2fc787b426127d7002522f570fd7ecc7576f34c65385163053d35e20c9b3ff76" (k/tx-cid []))))
 
 (deftest fixed-datoms-cid-is-pinned
   (is (= fixed-cid (k/tx-cid fixed-datoms))))
@@ -46,9 +50,9 @@
 
 (deftest make-tx-threads-the-pinned-cid
   (let [tx (k/make-tx fixed-datoms :tx-id 1 :as-of "2026-06-16" :prev-cid "")]
-    (is (= fixed-cid (:tx/cid tx)))
-    (is (= 4 (:tx/count tx)))
-    (is (= "" (:tx/prev tx)))))
+    (is (= fixed-cid (get tx ":tx/cid")))
+    (is (= 4 (get tx ":tx/count")))
+    (is (= "" (get tx ":tx/prev")))))
 
 (deftest append-read-verify-roundtrip-on-temp-log
   (let [tmp (java.io.File/createTempFile "kanjo-cid-" ".kotoba.edn")
@@ -58,20 +62,20 @@
       (let [tx1 (k/make-tx fixed-datoms :tx-id 1 :as-of "2026-06-16" :prev-cid "")
             _ (k/append-tx tx1 path)
             head1 (k/head-cid path)
-            tx2 (k/make-tx [[:db/add "fin.filing.toyota.2024" :fin.filing/company "7203.T"]]
+            tx2 (k/make-tx [[":db/add" "fin.filing.toyota.2024" ":fin.filing/company" "7203.T"]]
                            :tx-id 2 :as-of "2026-06-16" :prev-cid head1)
             _ (k/append-tx tx2 path)]
         (is (= fixed-cid head1))
         (is (= 2 (count (k/read-log path))))
         (let [v (k/verify-chain path)]
-          (is (true? (:ok v)))
-          (is (= 2 (:length v)))
-          (is (= -1 (:broken-at v))))
-        (is (= (:tx/cid tx2) (k/head-cid path)))
-        (let [bad (str (pr-str (assoc tx1 :tx/datoms [[:db/add "x" :y "z"]])) "\n"
+          (is (true? (get v "ok")))
+          (is (= 2 (get v "length")))
+          (is (= -1 (get v "broken_at"))))
+        (is (= (get tx2 ":tx/cid") (k/head-cid path)))
+        (let [bad (str (pr-str (assoc tx1 ":tx/datoms" [[":db/add" "x" ":y" "z"]])) "\n"
                        (pr-str tx2) "\n")]
           (spit path (str ";; hdr\n" bad))
-          (is (false? (:ok (k/verify-chain path))))))
+          (is (false? (get (k/verify-chain path) "ok")))))
       (finally (.delete (io/file path))))))
 
 (when (= *file* (System/getProperty "babashka.file"))
