@@ -27,9 +27,63 @@ honest framing: できていないことは「未」と明記する。
 | 8 | consent.capability の Ed25519 検証テスト(member-signed / server-refused) | 🟡 部分(iryo 受理境界に検証ゲート実装 + 実鍵ペア sign→verify roundtrip テスト green。鍵の DID 解決は未) | **iter 2026-07-08(3)** |
 | 9 | 患者 DID = 30日 rotating pseudonym(ADR-2605181200)の構造検証 | 未 | — |
 | 10 | kotoba EAVT への FHIR inner-type 投影(public graph = meta only)の検証 | 未 | — |
-| 11 | iryo(レセプト)への hand-off boundary テスト(karute → iryo consent-capability) | 🟡 部分(受理境界+rezeptプレビュー自動配線+署名検証ゲート[鍵解決済みの場合]。鍵のDID解決・PDS解決は未) | iter 2026-07-08 → iter 2026-07-08(2) → **iter 2026-07-08(3)** |
+| 11 | iryo(レセプト)への hand-off boundary テスト(karute → iryo consent-capability) | 🟡 部分(受理境界+rezeptプレビュー自動配線+署名検証ゲート[鍵解決済みの場合]+consentCapabilityUri構造的自己整合性検証。鍵のDID解決・実PDS fetchは未) | iter 2026-07-08 → iter 2026-07-08(2) → iter 2026-07-08(3) → **iter 2026-07-08(4)** |
 
 ## イテレーション記録
+
+### iter 2026-07-08(4)
+**上げた項目: #11 続き — (b) PDS/AT-URI解決の**構造的な半分**だけを実装:
+`consentCapabilityUri` が (a) 正しく `at://<did>/<collection>/<rkey>` に分解できる、
+(b) collection が正規 NSID `com.etzhayyim.consent.capability` である、(c) did セグメントが
+解決済み `capability["granterDid"]` と一致する、の3点を `handoff.cljc` の `capability-gate`
+に追加した。ネットワークI/O・新規依存ゼロ(純粋な文字列 parse)。実際のバイト取得(実PDSへの
+HTTPS fetch)は依然スコープ外のまま — honest framing: (b) は「構造」と「取得」の2層に分解でき、
+今回解消したのは前者のみ。**
+
+前回セッションの申し送り「(b) 実PDS解決の実現可能性を再調査する」を受けて着手前に事前調査:
+
+- `@etzhayyim/sdk/pds`(TS)は実装 stub ではなく、`@etzhayyim/atproto-client`
+  (= 別リポジトリ `kotoba-lang/atproto-client`)への re-export shim だった(README の
+  「Status: scaffold v0.0.0 / 全メソッド未実装」という記載は package.json
+  `0.1.0-alpha` の実態に対して古い)。`kotoba-lang/atproto-client` 側には `.cljc` 実装
+  (`src/kotoba/lang/atproto_client/pds.cljc`)があり、`resolve-pds`/`get-record` は
+  transport を `IHttp` として host-injected にしているため、テストは fake transport で
+  実ネットワークなしに検証可能 — 「テスト内で安全に扱えない」という理由での対象外化は
+  成り立たないと判明。
+- しかし実際に iryo へ配線するには (1) iryo に現状 deps.edn/git-dep 機構が一切無く、
+  `kotoba-lang` という別 org の package への**新規 cross-repo 依存**を今回新設する必要が
+  あること、(2) 本番コードが**実際に HTTPS did:web fetch を行う**ことになり、これまでの
+  3イテレーションが一貫して守ってきた「既に解決済みの入力を検証する(fetchはしない)」
+  パターン(`signature-gate` と同型)を逸脱する、大きめでリスクのある変更になること — の
+  2点から、今回はネットワーク fetch そのものの配線は見送り、fetch なしで前進できる
+  **構造的自己整合性チェックだけ**を実装した(honest framing: 「今回も cross-repo だから
+  何もしない」ではなく、実際に調べた上で「構造の半分は前進できる」と判断)。
+
+実装(`20-actors/iryo/methods/handoff.cljc`):
+
+- `parse-at-uri` — 純粋関数。`at://<did>/<collection>/<rkey>` を `{:did :collection :rkey}`
+  に分解。did セグメント自体がコロンを含む(`did:web:foo.example:bar`)ため `:` ではなく `/`
+  で split(AT-URI 構文上安全)。不正な形(セグメント数不一致・空セグメント・`at://`
+  非prefix)では例外を投げず nil を返す。
+- `consent-capability-collection` — 正規 NSID 定数(`com.etzhayyim.consent.capability`)。
+  lexicon の記述「granter の PDS に `com.etzhayyim.consent.capability` として保存される」
+  (ADR-2605231401)を根拠にした固定値。
+- `capability-gate` に3つの cond 節を追加(既存の purpose/granteeDid/granterDid/失効/期限/
+  scope/resourceUris チェックのあと、最後尾に配置 — 既存テストの意味論を変えないため):
+  consentCapabilityUri の欠落 → 不正な AT-URI 形式 → collection 不一致 → did セグメントが
+  `capability["granterDid"]` と不一致(なりすまし/差し替え capability の検出)。
+- これらは「解決済み capability の**自己整合性**」を検証するだけで、`consentCapabilityUri`
+  の実バイトを実際にネットワークから取得するわけではない — 依然 out of scope。
+- テスト(`methods/test_handoff.cljc`、23→29 tests / 53→71 assertions、green): `parse-at-uri`
+  の直接テスト(整形 URI / 不正 URI 各種)+ capability-gate レベルで4本(uri欠落・不正形式・
+  collection不一致・did不一致=なりすまし検出)。既存テスト(granterDid/patientDid不一致等)は
+  無変更で green のまま(新チェックは既存チェック群の**後**に配置したため意味論が競合しない)。
+- `20-actors/iryo/run_tests.sh` 12 suites 全 green。karute 側 `run_tests.sh`
+  (charter-gate suite、4 tests / 35 assertions)は無変更のまま green を確認。
+- **honest framing — 依然未達のまま残るもの**: granterDid の DID 文書から実際に公開鍵を
+  取得する経路、`consentCapabilityUri` の実バイトを実PDSから fetch する経路 — どちらも
+  cross-repo の実 HTTPS I/O で、iryo には現状その配線(deps.edn含む)が一切無い。したがって
+  「karute → iryo」の hand-off は依然「構造検証は完備、実データ取得は無し」の状態。
 
 ### iter 2026-07-08(3)
 **上げた項目: #8 — consent.capability の Ed25519 署名検証を iryo 受理境界(`handoff.cljc`)に実装。

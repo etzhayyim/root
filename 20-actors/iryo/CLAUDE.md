@@ -99,10 +99,35 @@ namespace's own canonicalization) and the eventual real granter-side signer
 (`@etzhayyim/sdk.signConsentCapability`, ADR-2605231401 Phase 2 — still a stub upstream, so
 no reference bytes exist yet to check against).
 
+**consentCapabilityUri structural self-consistency (`parse-at-uri`, this iteration).**
+`capability-gate` now also verifies that `consentCapabilityUri` itself (a) parses as a
+well-formed `at://<did>/<collection>/<rkey>` AT-URI, (b) its collection segment is exactly
+`com.etzhayyim.consent.capability` (the canonical NSID — the lexicon states the record "is
+stored at com.etzhayyim.consent.capability in the granter's PDS", ADR-2605231401), and (c)
+its did segment equals the already-resolved `capability["granterDid"]`. This is a pure
+string-parse — **no network I/O, no new dependency** — investigated and confirmed safe this
+iteration (see below): it closes the STRUCTURAL half of PDS/AT-URI resolution (catching a
+caller-supplied capability record that is inconsistent with the very URI the wire request
+names), while the actual byte-fetch from a real PDS remains out of scope.
+
+**Investigated this iteration: is `@etzhayyim/sdk` PDS resolution reachable?** Yes and no.
+`@etzhayyim/sdk/pds` is a real (non-stub) re-export shim onto `@etzhayyim/atproto-client`
+(= `kotoba-lang/atproto-client`, a separate GitHub repo), and that repo's `.cljc`
+`resolve-pds`/`get-record` are genuinely testable (transport is host-injected `IHttp`, so a
+fake transport can exercise them without real network in tests). But wiring it into iryo
+would mean (1) a NEW cross-repo runtime dependency from an etzhayyim/root bb actor onto a
+`kotoba-lang` package — iryo currently has no deps.edn / git-dep mechanism at all — and (2)
+production code that performs a REAL HTTPS did:web fetch, which is a materially bigger and
+riskier change than this repo's established "verify GIVEN an already-resolved input" pattern
+(the same pattern `signature-gate` already uses for the public key). Given that, only the
+network-free structural half was implemented this cycle; the actual fetch stays explicitly
+out of scope below.
+
 **Explicitly out of scope** (tracked separately, do not conflate): resolving a capability's
-granter public key FROM granterDid (did:web document fetch, cross-repo network I/O) and PDS
-resolution of `consentCapabilityUri` / the AT-URIs themselves (`@etzhayyim/sdk`, cross-repo)
-— the caller is expected to have already resolved the capability record (and, for the
+granter public key FROM granterDid (did:web document fetch, cross-repo network I/O) and
+actually FETCHING `consentCapabilityUri`'s bytes from a real PDS (`@etzhayyim/sdk` /
+`kotoba-lang/atproto-client`, cross-repo, real HTTPS I/O, no wiring exists in iryo today) —
+the caller is expected to have already resolved the capability record (and, for the
 rezept-preview wiring above, the encounter payload, and now optionally the granter public
 key for signature verification) before invoking this cell.
 

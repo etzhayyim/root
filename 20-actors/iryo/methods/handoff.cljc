@@ -37,11 +37,37 @@
   stays out of scope here. When `granterPublicKey` is NOT supplied, this gate
   no-ops and behavior is byte-for-byte unchanged from before.
 
+  consentCapabilityUri structural self-consistency (NEW, this iteration) —
+  `parse-at-uri` + `capability-gate`'s new checks close the STRUCTURAL half of
+  'PDS/AT-URI resolution' without doing the network fetch: given the
+  already-resolved `capability` record, this boundary now also verifies that
+  `consentCapabilityUri` itself (a) parses as a well-formed
+  `at://<did>/<collection>/<rkey>` AT-URI, (b) its collection segment is
+  exactly `com.etzhayyim.consent.capability` (the canonical NSID — the lexicon
+  says the capability record 'is stored at com.etzhayyim.consent.capability in
+  the granter's PDS', ADR-2605231401), and (c) its did segment equals
+  `capability[\"granterDid\"]`. This is a pure string-parse, no network I/O —
+  it catches a caller supplying a capability record that is structurally
+  inconsistent with the very URI the wire request references (a
+  substitution/confusion bug or attack), which nothing previously checked.
+  It does NOT fetch consentCapabilityUri's bytes from a real PDS — an actor
+  could still forge a self-consistent (uri, capability) pair; only a real
+  network resolve + Ed25519 signature check closes that fully, and the
+  signature half is exactly what `signature-gate` above already does GIVEN a
+  key. The two together narrow the remaining out-of-scope surface to key
+  ACQUISITION (both the granter public key AND the capability bytes
+  themselves) via network resolution — still cross-repo, still not attempted
+  here.
+
   Explicitly NOT in scope (tracked separately, do not conflate):
     - resolving a capability's granter public key FROM granterDid (did:web
       document fetch, cross-repo network I/O) — `signature-gate` verifies GIVEN
       a key, it does not obtain one;
-    - PDS/AT-URI resolution of records (needs `@etzhayyim/sdk`, cross-repo);
+    - actually FETCHING consentCapabilityUri's bytes from a real PDS (needs
+      `@etzhayyim/sdk` / `kotoba-lang/atproto-client`, cross-repo, real HTTPS
+      I/O) — `capability-gate`'s new checks verify GIVEN an already-resolved
+      capability that it is at least self-consistent with the URI, they do not
+      obtain the record;
     - actual レセプト計算 from the referenced encounter (that is
       `iryo.methods.agent/handle-rezept`, unchanged — this boundary only governs
       whether the intake is even accepted into iryo's queue)."
@@ -131,50 +157,90 @@
 (defn- instant-before? [a b]
   (.isBefore (Instant/parse a) (Instant/parse b)))
 
+(def consent-capability-collection
+  "The canonical NSID a consentCapabilityUri MUST resolve under, per the
+  com.etzhayyim.consent.capability lexicon description: the record 'is stored
+  at com.etzhayyim.consent.capability in the granter's PDS' (ADR-2605231401)."
+  "com.etzhayyim.consent.capability")
+
+(defn parse-at-uri
+  "Pure structural parse of an AT-URI (`at://<did>/<collection>/<rkey>`) into
+  `{:did ... :collection ... :rkey ...}` — no network I/O, this does NOT
+  resolve/fetch anything, it only decomposes the string. Returns nil (never
+  throws) on anything that isn't `at://` followed by exactly 3 non-blank
+  `/`-delimited segments. Splitting on `/` (not `:`) is safe even though the
+  did segment itself contains colons (e.g. `did:web:foo.example:bar`), since
+  AT-URI syntax reserves `/` as the segment separator after the authority."
+  [uri]
+  (when (and (string? uri) (str/starts-with? uri "at://"))
+    (let [parts (str/split (subs uri (count "at://")) #"/" -1)]
+      (when (= 3 (count parts))
+        (let [[did collection rkey] parts]
+          (when (and (seq did) (seq collection) (seq rkey))
+            {:did did :collection collection :rkey rkey}))))))
+
 (defn capability-gate
   "Structural consent-capability check (G1/G7 — the licensed clinic's patient
   consented, iryo does not originate a claim on its own key). Deliberately does
   NOT verify the Ed25519 signature (that is the separate `signature-gate`
   below, karute/MATURITY.md #8) — this is the purpose/grantee/granter/
-  revocation/expiry/scope gate only. `capability` is the ALREADY-RESOLVED
-  com.etzhayyim.consent.capability record (string-keyed, camelCase —
-  resolution of consentCapabilityUri itself is karute/PDS-side and out of
-  scope here). Returns {:ok? true} or {:ok? false :reason \"...\"}."
+  revocation/expiry/scope gate, PLUS (this iteration) a structural
+  self-consistency check between `consentCapabilityUri` and the
+  ALREADY-RESOLVED `capability` record it is supposed to name (see
+  `parse-at-uri` + the ns docstring's 'consentCapabilityUri structural
+  self-consistency' section) — it does NOT fetch consentCapabilityUri's bytes
+  from a real PDS (that remains cross-repo/out of scope). `capability` is the
+  ALREADY-RESOLVED com.etzhayyim.consent.capability record (string-keyed,
+  camelCase). Returns {:ok? true} or {:ok? false :reason \"...\"}."
   [capability request now]
-  (cond
-    (nil? capability)
-    {:ok? false :reason "no consent capability resolved for consentCapabilityUri"}
+  (let [uri (get request "consentCapabilityUri")
+        parsed-uri (parse-at-uri uri)]
+    (cond
+      (nil? capability)
+      {:ok? false :reason "no consent capability resolved for consentCapabilityUri"}
 
-    (not= billing-purpose (get capability "purpose"))
-    {:ok? false :reason (str "consent capability purpose is not '" billing-purpose "': " (get capability "purpose"))}
+      (not= billing-purpose (get capability "purpose"))
+      {:ok? false :reason (str "consent capability purpose is not '" billing-purpose "': " (get capability "purpose"))}
 
-    (not= iryo-did (get capability "granteeDid"))
-    {:ok? false :reason (str "consent capability granteeDid is not iryo: " (get capability "granteeDid"))}
+      (not= iryo-did (get capability "granteeDid"))
+      {:ok? false :reason (str "consent capability granteeDid is not iryo: " (get capability "granteeDid"))}
 
-    (not= (get request "patientDid") (get capability "granterDid"))
-    {:ok? false :reason "consent capability granterDid does not match the billed patientDid"}
+      (not= (get request "patientDid") (get capability "granterDid"))
+      {:ok? false :reason "consent capability granterDid does not match the billed patientDid"}
 
-    (not (blank-or-nil? (get capability "revokedAt")))
-    {:ok? false :reason (str "consent capability was revoked at " (get capability "revokedAt"))}
+      (not (blank-or-nil? (get capability "revokedAt")))
+      {:ok? false :reason (str "consent capability was revoked at " (get capability "revokedAt"))}
 
-    (blank-or-nil? (get capability "expiresAt"))
-    {:ok? false :reason "consent capability has no expiresAt"}
+      (blank-or-nil? (get capability "expiresAt"))
+      {:ok? false :reason "consent capability has no expiresAt"}
 
-    (not (instant-before? now (get capability "expiresAt")))
-    {:ok? false :reason (str "consent capability expired at " (get capability "expiresAt"))}
+      (not (instant-before? now (get capability "expiresAt")))
+      {:ok? false :reason (str "consent capability expired at " (get capability "expiresAt"))}
 
-    (not (set/subset? (required-scope request) (set (get capability "scope" []))))
-    {:ok? false :reason (str "consent capability scope " (get capability "scope") " does not cover required scope " (required-scope request))}
+      (not (set/subset? (required-scope request) (set (get capability "scope" []))))
+      {:ok? false :reason (str "consent capability scope " (get capability "scope") " does not cover required scope " (required-scope request))}
 
-    (let [allowlist (set (get capability "resourceUris" []))]
-      (and (seq allowlist)
-           (not (set/subset? (set (concat (get request "serviceRequestUris" [])
-                                           (get request "medicationRequestUris" [])))
-                              allowlist))))
-    {:ok? false :reason "requested resource URIs are outside the consent capability's resourceUris allowlist"}
+      (let [allowlist (set (get capability "resourceUris" []))]
+        (and (seq allowlist)
+             (not (set/subset? (set (concat (get request "serviceRequestUris" [])
+                                             (get request "medicationRequestUris" [])))
+                                allowlist))))
+      {:ok? false :reason "requested resource URIs are outside the consent capability's resourceUris allowlist"}
 
-    :else
-    {:ok? true}))
+      (blank-or-nil? uri)
+      {:ok? false :reason "request is missing consentCapabilityUri (required per com.etzhayyim.apps.karute.requestIryoBilling)"}
+
+      (nil? parsed-uri)
+      {:ok? false :reason (str "consentCapabilityUri does not parse as a well-formed AT-URI (at://<did>/<collection>/<rkey>): " uri)}
+
+      (not= consent-capability-collection (:collection parsed-uri))
+      {:ok? false :reason (str "consentCapabilityUri collection is not " consent-capability-collection ": " (:collection parsed-uri))}
+
+      (not= (:did parsed-uri) (get capability "granterDid"))
+      {:ok? false :reason "consentCapabilityUri's repo DID does not match the resolved capability's granterDid (mismatched/substituted capability record)"}
+
+      :else
+      {:ok? true})))
 
 ;; ── Ed25519 signature verification (karute/MATURITY.md #8) ──────────────────
 ;; JDK-only (java.security), no third-party crypto dep — the same approach

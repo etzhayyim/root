@@ -129,6 +129,63 @@
     (is (= true (get out "ack")))
     (is (= "pending" (get out "iryoStatus")))))
 
+;; ── consentCapabilityUri structural self-consistency (NEW, this iteration) ──
+;; Pure string-parse checks — no network I/O, no PDS fetch. These close the
+;; STRUCTURAL half of "PDS/AT-URI resolution" (karute/MATURITY.md #11(b)):
+;; given an already-resolved capability, verify it is even self-consistent
+;; with the URI the wire request names it by.
+
+(deftest test-parse-at-uri-parses-well-formed-uris
+  (is (= {:did "did:web:patient.iryo.etzhayyim.com:e2e1"
+          :collection "com.etzhayyim.consent.capability"
+          :rkey "cap1"}
+         (handoff/parse-at-uri "at://did:web:patient.iryo.etzhayyim.com:e2e1/com.etzhayyim.consent.capability/cap1")))
+  (testing "did segment colons don't confuse the '/'-delimited split"
+    (is (= "did:web:patient.iryo.etzhayyim.com:e2e1"
+           (:did (handoff/parse-at-uri "at://did:web:patient.iryo.etzhayyim.com:e2e1/com.etzhayyim.consent.capability/cap1"))))))
+
+(deftest test-parse-at-uri-rejects-malformed-uris
+  (is (nil? (handoff/parse-at-uri "not-an-at-uri")))
+  (is (nil? (handoff/parse-at-uri "at://did:web:x/only-collection")) "missing rkey segment")
+  (is (nil? (handoff/parse-at-uri "at://did:web:x/collection/rkey/extra")) "too many segments")
+  (is (nil? (handoff/parse-at-uri "at:///collection/rkey")) "blank did segment")
+  (is (nil? (handoff/parse-at-uri nil))))
+
+(deftest test-consent-capability-uri-missing-is-rejected
+  (let [bad (dissoc (valid-request) "consentCapabilityUri")
+        out (handoff/handle-ingest (assoc bad "capability" (valid-capability) "now" NOW))]
+    (is (= false (get out "ack")))
+    (is (= "needs-info" (get out "iryoStatus")))
+    (is (.contains (str (get out "error")) "missing consentCapabilityUri"))))
+
+(deftest test-consent-capability-uri-malformed-at-uri-is-rejected
+  ;; starts with "at://" (passes the PHI-gate's prefix check) but doesn't
+  ;; structurally decompose into exactly 3 segments.
+  (let [bad (assoc (valid-request) "consentCapabilityUri" "at://did:web:patient.iryo.etzhayyim.com:e2e1/onlyonepart")
+        out (handoff/handle-ingest (assoc bad "capability" (valid-capability) "now" NOW))]
+    (is (= false (get out "ack")))
+    (is (= "needs-info" (get out "iryoStatus")))
+    (is (.contains (str (get out "error")) "does not parse as a well-formed AT-URI"))))
+
+(deftest test-consent-capability-uri-wrong-collection-is-rejected
+  (let [bad (assoc (valid-request) "consentCapabilityUri" "at://did:web:patient.iryo.etzhayyim.com:e2e1/com.etzhayyim.karute.encounter/cap1")
+        out (handoff/handle-ingest (assoc bad "capability" (valid-capability) "now" NOW))]
+    (is (= false (get out "ack")))
+    (is (.contains (str (get out "error")) "collection is not com.etzhayyim.consent.capability"))))
+
+(deftest test-consent-capability-uri-did-mismatch-is-rejected
+  ;; The core value of this check: patientDid still matches capability's
+  ;; granterDid (so the EARLIER granterDid/patientDid check passes cleanly),
+  ;; but consentCapabilityUri itself names a DIFFERENT repo DID than the
+  ;; capability it is supposed to resolve to — a substituted/mismatched
+  ;; capability record that the pre-existing checks alone would not catch.
+  (let [bad (assoc (valid-request) "consentCapabilityUri"
+                    "at://did:web:someone-else.etzhayyim.com/com.etzhayyim.consent.capability/cap1")
+        out (handoff/handle-ingest (assoc bad "capability" (valid-capability) "now" NOW))]
+    (is (= false (get out "ack")))
+    (is (= "needs-info" (get out "iryoStatus")))
+    (is (.contains (str (get out "error")) "does not match the resolved capability's granterDid"))))
+
 ;; ── G5 non-adjudicating: iryo's own intake gate never adjudicates ──────────
 
 (deftest test-iryo-status-is-never-an-adjudication-verdict
