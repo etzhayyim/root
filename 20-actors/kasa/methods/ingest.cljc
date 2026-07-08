@@ -169,6 +169,16 @@
 
 ;; ── live fetch (G7-gated, single polite request) ───────────────────────────────
 
+(defn fetch-epoch-gate
+  "Pure G7 gate check: given the KASA_OPERATOR_GATE env value, nil (gate open) when it's
+  exactly \"1\", else a refusal string naming the required env var. Kept pure/host-neutral
+  and separate from fetch-epoch's actual System/getenv read + throw so the gate logic is
+  testable without env-var mocking."
+  [gate-value]
+  (when (not= gate-value "1")
+    (str "refused: live fetch requires KASA_OPERATOR_GATE=1 (G7 Council+operator). "
+         "Offline mode reads data/ingest/*.json.")))
+
 #?(:clj
    (defn fetch-epoch
      "LIVE Epoch AI notable-models CSV fetch — G7-gated, single polite request, CC-BY source.
@@ -176,10 +186,8 @@
      Refuses (throws) unless KASA_OPERATOR_GATE=1. Persists raw CSV to data/ingest/; the
      column-schema parse into rows-JSON is R1. Returns [series obs] = [[] []]."
      [here]
-     (when (not= (System/getenv "KASA_OPERATOR_GATE") "1")
-       (throw (ex-info (str "refused: live fetch requires KASA_OPERATOR_GATE=1 (G7 Council+operator). "
-                            "Offline mode reads data/ingest/*.json.")
-                       {})))
+     (when-let [refusal (fetch-epoch-gate (System/getenv "KASA_OPERATOR_GATE"))]
+       (throw (ex-info refusal {})))
      (let [url "https://epoch.ai/data/notable_ai_models.csv"
            text (let [conn (.openConnection (java.net.URL. url))]
                   (.setRequestProperty conn "User-Agent"

@@ -11,6 +11,15 @@
   Scope = all `test_*.clj(c)` under 20-actors + 70-tools, MINUS:
     - mimamori. / yobel. / ibuki.   — owned by their dedicated bb tasks
     - etzhayyim.tools.*             — owned by test:tools (incl. this ns's siblings)
+    - kyoninka.methods.test-organism — requires kototama.organism, which lives in the
+                                        SIBLING repo com-junkawasaki/kototama-clj (a
+                                        west-managed project alongside etzhayyim/root,
+                                        not a git dependency of this repo's own bb.edn/
+                                        deps.edn) — genuinely needs a non-standard
+                                        classpath entry (../../com-junkawasaki/kototama-
+                                        clj/src, per the test file's own docstring) this
+                                        blanket 20-actors+70-tools sweep cannot provide.
+                                        Run standalone per that docstring instead.
     - any path under a hyphen-dir   — SCI ns→path munge cannot load them
                                        (ns symbol normalises hyphens, file path
                                         keeps underscores; the dir hyphen breaks
@@ -56,7 +65,8 @@
 (defn- excluded? [ns-sym]
   (let [n (str ns-sym)]
     (or (re-find #"^(mimamori|yobel|ibuki)\." n)
-        (str/starts-with? n "etzhayyim.tools."))))
+        (str/starts-with? n "etzhayyim.tools.")
+        (= n "kyoninka.methods.test-organism"))))
 
 (defn declared-ns
   "The ns symbol a file actually declares (first top-level form), or nil if it is unreadable or

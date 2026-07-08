@@ -13,7 +13,7 @@
 import type { InfraActorEntry } from "./infra-actors";
 
 export const TIER_B_GENERATED_AT = "2026-06-04T00:00:00+00:00";
-export const TIER_B_TOTAL_COUNT = 122;
+export const TIER_B_TOTAL_COUNT = 127;
 
 export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
   "ainori": {
@@ -141,6 +141,19 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     service: [
       {
         id: "did:web:etzhayyim.com:actor:chigiri#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+    ],
+  },
+  "com-google-ads": {
+    description: "kotoba-native charter-clean outreach & performance-marketing actor. Plans and PROPOSES the org's own outreach campaigns (mission amplification: events, publications, mutual-aid drives, land-sovereignty appeals, donation drives); publishes only after human finance/Council sign-off. Cohort-scale only — no individual targeting/profiling/retargeting, no tracking pixel, no purchased/scraped audiences. The buy/create side of the akashi 証 disclose/verify loop: every published creative + spend range is mirrored to akashi as the org's own disclosure. Murakumo-only narration. Mission-bound (no audience/lead resale, no competitor-intel SaaS).",
+    glyph: "広",
+    displayName: "広 — Charter-Clean Outreach & Performance Marketing",
+    adrs: ["2606292130"],
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:com-google-ads#atproto_pds",
         type: "AtprotoPersonalDataServer",
         serviceEndpoint: "https://pds.etzhayyim.com",
       },
@@ -472,8 +485,21 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       },
     ],
   },
+  "jinushi": {
+    description: "地主 — World Land-Ownership Acquisition Mirror",
+    glyph: "地主",
+    displayName: "地主 — World Land-Ownership Acquisition Mirror",
+    adrs: ["2606162000"],
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:jinushi#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+    ],
+  },
   "junkan": {
-    description: "ANALYSIS-ONLY system-dynamics observer of society. Reads which feedback loops are spinning 好循環/悪循環 + Meadows leverage candidates from passive, public, AGGREGATE data — and may ONLY look, never touch (G4, no outward channel; enforced by absence). The clj-native governance-asymmetry substrate applies this to one question: which concrete laws/institutions/doctrines/values worldwide widen or narrow the structural asymmetry between citizens (国民) and the state (政府), recording who established each (誰が), the circumstances (経緯), and the stakeholders (関係者). Everything is a disclosed HYPOTHESIS (G5), aggregate-only (G6), a resilience/leverage MAP and never a target-list (G7).",
+    description: "ANALYSIS-ONLY system-dynamics observer of society. Reads which feedback loops are spinning 好循環/悪循環 + Meadows leverage candidates from passive, public, AGGREGATE data — and may ONLY look, never touch (G4, no outward channel; enforced by absence). It carries MULTIPLE analysis lenses over one shared stock/flow + R/B-loop + Meadows frame. (1) governance-asymmetry: which concrete laws/institutions/doctrines/values worldwide widen or narrow the structural asymmetry between citizens (国民) and the state (政府), recording who established each (誰が), the circumstances (経緯), and the stakeholders (関係者). (2) demographic-dynamics: China's one-child policy (1979) and its reversal (単独二孩2013 → 全面二孩2015 → 三孩2021) read as a stock-flow + ~25y delay + cultural-hysteresis case of why reversing the policy did not reverse the fertility decline (small-family-norm R2 lock-in / 4-2-1 R3 squeeze / pronatal B2 overwhelmed), with a KR/JP/IT/SG cross-society contrast surfacing each society's distinct binding constraint; anti-coercion (junkan never prescribes who should reproduce; coerce-reproduction / eugenic-target unrepresentable). Everything is a disclosed HYPOTHESIS (G5), aggregate-only (G6), a resilience/leverage MAP and never a target-list or population target (G7).",
     glyph: "循",
     displayName: "junkan",
     adrs: ["2605290927", "2605192100", "2605262130", "2605312345", "2605262400", "2605240200", "2605264000", "2605241500"],
@@ -811,6 +837,19 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       },
     ],
   },
+  "meibo": {
+    description: "Verified legal-institution directory registry — the honest, lawful implementation of gftdcojp ADR-0016's never-built judge/bengoshi/adr/legal-aid vision. Institution-level LINKS ONLY (bar-association registers, court locators, Japan-specific licensed-scrivener registries, UK insolvency-practitioner register) — never individual professional records. Every URL verified live (WebSearch/WebFetch) before being recorded, never guessed. Serves as the standalone, growing reference the wider ecosystem (saisei, tate, toritsugi) can point visitors to when they need a REAL licensed professional or court, rather than replicating personal-data registries that stay opt-in/self-reported/ToS-protected at their source of truth.",
+    glyph: "名",
+    displayName: "meibo",
+    adrs: ["2607062200", "2607061800", "2606112301", "2606112400", "2607022300"],
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:meibo#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+    ],
+  },
   "meisai": {
     description: "Member-own card-statement (利用明細) ingestion into the local kotoba Datom log. The member runs a READ-ONLY computer-use fetch leg on their OWN machine against their OWN card account (com-junkawasaki/computer-use-clj sumitclub_meisai — karakuri T2 posture, vault-injected credentials, Murakumo-conformant local inference per ADR-2605215000); meisai ingests the resulting local statement EDN into append-only :meisai.stmt/* + :meisai.row/* EAVT datoms. NO network I/O, NO credential held, credential/PAN shapes UNREPRESENTABLE (raise at ingest), personal financial data stays under the gitignored data/ (never committed, pinned, or published).",
     glyph: "明細",
@@ -942,6 +981,19 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       },
     ],
   },
+  "nyusatsu": {
+    description: "Mirrors PUBLIC government procurement notices/awards worldwide (tenders, 入札公告/開札) into the kotoba Datom log as append-only, ATTRIBUTED, primary-sourced events, OCDS-normalized and keyed by ocid. Each tender is published BY a named issuer agency (attributed); etzhayyim authors no tender, predicts no winner, ranks no bidder. JP (the legacy nyusatsu/NJSS-replacement scope) is one jurisdiction adapter among many.",
+    glyph: "入札",
+    displayName: "入札 — Worldwide Public-Procurement Mirror",
+    adrs: ["2606271700", "2606072000"],
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:nyusatsu#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+    ],
+  },
   "okaimono": {
     description: "Amazon-inverse provisioning commons — Ring 0 commons-first (borrow/repair/secondhand/surplus) → Ring 1 internal SBT↔SBT economy over etzhayyim's own producing actors (full list/compare/basket/checkout, USDC+TitheRouter) → Ring 2 external world catalog (discovery+compare now; self-checkout handoff R0; 代理-purchase R3-gated). No ads, no affiliate, no dark-patterns, Murakumo-only, kotoba-EAVT-native.",
     glyph: "御買物",
@@ -1015,6 +1067,19 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     service: [
       {
         id: "did:web:etzhayyim.com:actor:rasen#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+    ],
+  },
+  "saisei": {
+    description: "Citizen self-filing debt-relief CONCIERGE — the debtor-initiated counterpart to tate's creditor-side :insolvency track. A member who wants to petition for their OWN formal insolvency relief (自己破産・個人再生・US Chapter 7/13・UK bankruptcy/DRO・DE Verbraucherinsolvenz) gets a coded, jurisdiction-keyed registry disclosing: eligibility SIGNALS (never a verdict), the filing forum, required forms/documents checklist, statutorily MANDATORY pre-filing steps modeled as blocking (never skippable), fee + fee-waiver route, DISCLOSED discharge-timeline rule (never a computed date), and always-present referral to the jurisdiction's free/public insolvency-counseling directory. UPL: the member assembles, signs and files THEMSELVES; saisei never drafts the petition or represents; high-stakes (asset/means-test complexity, contested filings) always referral-forward.",
+    glyph: "生",
+    displayName: "saisei",
+    adrs: ["2607061800", "2606112301", "2606112400", "2605262700", "2605201800", "2605202000", "2605312030", "2606112201", "2606060900", "2605231525", "2605215000", "2605181100", "2605312345"],
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:saisei#atproto_pds",
         type: "AtprotoPersonalDataServer",
         serviceEndpoint: "https://pds.etzhayyim.com",
       },
