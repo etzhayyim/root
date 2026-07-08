@@ -34,4 +34,10 @@
   :probot/dividend-cohort-ref "dividend:photonic-assembly-001" :probot/representative true}
  {:pkg/id "pkg-001" :pkg/robot "noroshi-aligner-01" :pkg/op :active-align :pkg/use :alignment
   :pkg/laser-class "1" :pkg/interlock false :pkg/attestation-ref "" :pkg/coupling-loss-db 0.9692
-  :pkg/member-sig "m:ed25519:demo" :pkg/server-held-key false :pkg/dry-run true}]
+  :pkg/member-sig "m:ed25519:demo" :pkg/server-held-key false :pkg/dry-run true}
+
+ ;; reliability qualification (methods/reliability_qual.cljc, GR-468 SHAPE only) — the
+ ;; cpo-2km-100g device qualified against all four representative test types, PASS.
+ {:qual/id "qual-cpo-2km-100g-001" :qual/device "cpo-2km-100g"
+  :qual/suite [:thermal-cycling :damp-heat :mechanical-shock :fibre-pull]
+  :qual/acceptance :pass :qual/dry-run true :qual/representative true}]

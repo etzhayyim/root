@@ -14,7 +14,9 @@
             [noroshi.methods.active-alignment :as active-alignment]
             [noroshi.methods.cable-endpoint :as cable-endpoint]
             [noroshi.methods.kami-isac-bridge :as kami-isac-bridge]
-            [noroshi.methods.pic-layout :as pic-layout]))
+            [noroshi.methods.pic-layout :as pic-layout]
+            [noroshi.methods.device-design :as device-design]
+            [noroshi.methods.reliability-qual :as reliability-qual]))
 
 #?(:clj (def ^:private actor-root (-> (java.io.File. *file*) .getParentFile .getParentFile)))
 #?(:clj (defn- manifest [] (edn/load-edn (java.io.File. actor-root "manifest.edn"))))
@@ -63,7 +65,9 @@
                             ["active_alignment" active-alignment/report]
                             ["cable_endpoint" cable-endpoint/report]
                             ["kami_isac_bridge" kami-isac-bridge/report]
-                            ["pic_layout" pic-layout/report]]]
+                            ["pic_layout" pic-layout/report]
+                            ["device_design" device-design/report]
+                            ["reliability_qual" reliability-qual/report]]]
     (let [text (str/lower-case (report-fn))]
       (is (some #(str/includes? text %) honest-markers)
           (str name ".report() lost its honesty disclaimer")))))

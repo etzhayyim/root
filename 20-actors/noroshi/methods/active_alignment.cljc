@@ -19,6 +19,12 @@
     2. align         — Hooke-Jeeves pattern search over fibre (dx,dy) maximising coupling
                        efficiency (a Gaussian of misalignment), converging to the unknown
                        peak within tolerance.
+    3. classify-laser-class — (NEW, this maturity pass) ground-truth IEC 60825 class
+                       recompute from power-mw + wavelength-nm, independent of any
+                       caller-claimed class string. `cells/active_alignment/state_machine`
+                       calls this to refuse a laser whose claimed class understates its
+                       recomputed hazard — see this ns's `representative-ael-mw` docstring
+                       for the G10 sourcing-honesty scope of this simplified model.
 
   No hardware, no live laser, no live actuation (G7 outward-gated).
 
@@ -86,6 +92,46 @@
 (def hazardous-classes
   "HAZARDOUS_CLASSES — classes above Class 1 requiring an enclosure interlock."
   ["2" "3R" "3B" "4"])
+
+;; ── IEC 60825 class independent recompute (ground truth, not a self-report) ──
+(def visible-range-nm
+  "The visible band [400, 700] nm — Class 2 exists only for a visible wavelength
+  (protected by the human blink reflex)."
+  [400.0 700.0])
+
+(defn- visible-wavelength? [wavelength-nm]
+  (let [[lo hi] visible-range-nm] (<= lo wavelength-nm hi)))
+
+(def representative-ael-mw
+  "Representative accessible-emission-limit (AEL) power boundaries (mW, CW),
+  used to classify a laser by IEC 60825-1 class. These are ROUGH, PUBLICLY-CITED
+  order-of-magnitude figures — NOT verified citations to the standard's actual
+  wavelength- and exposure-time-dependent AEL tables (G10 sourcing-honesty). A
+  real safety classification MUST use the licensed IEC 60825-1 tables for the
+  laser's actual wavelength and exposure duration; this is a simplified,
+  representative model that also ignores the 1M/2M divergent-beam sub-classes."
+  {:class-1 0.39 :class-2 1.0 :class-3r 5.0 :class-3b 500.0})
+
+(defn classify-laser-class
+  "Classify a CW laser's IEC 60825 class from `power-mw` and `wavelength-nm`
+  against `representative-ael-mw` (G10 — see its docstring). Class 2 requires a
+  visible wavelength; a non-visible laser at Class-2-range power classifies as
+  Class 3R instead (no blink-reflex protection outside the visible band).
+
+  This is a GROUND-TRUTH RECOMPUTE from physical parameters, independent of any
+  caller-claimed class — the laser-safety analogue of `netops.registry/route-
+  endpoints-missing?`'s independent structural check elsewhere in this
+  workspace: never trust a self-reported safety class when the underlying
+  physical quantities are available to recompute it."
+  [power-mw wavelength-nm]
+  (let [{:keys [class-1 class-2 class-3r class-3b]} representative-ael-mw
+        visible? (visible-wavelength? wavelength-nm)]
+    (cond
+      (<= power-mw class-1) "1"
+      (and visible? (<= power-mw class-2)) "2"
+      (<= power-mw class-3r) "3R"
+      (<= power-mw class-3b) "3B"
+      :else "4")))
 
 ;; ── LaserSpec (mirror the frozen dataclass field defaults) ───────────────────
 (defn laser-spec

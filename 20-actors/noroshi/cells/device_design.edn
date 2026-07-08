@@ -4,9 +4,10 @@
  :cell/kind :langgraph
  :cell/runtime :wasm
  :cell/node "naphtali"
- :cell/doc "Generative photonic-device design: NL intent → Murakumo (G6) → an open-EPDA ModelOp plan (GDSFactory/Meep/KLayout SHAPE only, G1) for a silicon-photonic comms component (modulator / grating-coupler / CPO module). Force class is :civilian-comms by construction (G3/N1). Emits a photonicDevice Datom. R0 scaffold (.solve() raises); live tapeout is G8-gated."
- :cell/entry "cells/device_design/cell.py"
- :cell/handler "DeviceDesignCell"
+ :cell/coded true
+ :cell/doc "Generative photonic-device design: NL intent → Murakumo (G6) → an open-EPDA ModelOp plan (GDSFactory/Meep/KLayout SHAPE only, G1) for a silicon-photonic comms component (modulator / grating-coupler / CPO module). Force class is :civilian-comms by construction (G3/N1). Emits a photonicDevice Datom. R0 scaffold (.solve() raises); live tapeout is G8-gated. Coded (this maturity pass): the civilian-gate + open-EDA plan-generation transitions are real, tested Clojure (cells/device_design/{cell,state_machine}.cljc calling methods/device-design), not a stub — only .solve() itself stays Council-gated."
+ :cell/entry "cells/device_design/cell.cljc"
+ :cell/handler "noroshi.cells.device-design.cell/solve"
  :cell/state-graph
  {:nodes [:intent :civilian-gate :epda-plan :emit] :entry :intent
   :edges [[:intent :civilian-gate] [:civilian-gate :epda-plan] [:epda-plan :emit] [:emit :end]]}
