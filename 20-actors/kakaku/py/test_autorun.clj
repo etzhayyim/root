@@ -39,13 +39,17 @@
 (deftest append-only-and-tamper
   (let [log (tmp)]
     (try
-      (autorun/run-cycle 1 seed-path log)
-      (autorun/run-cycle 2 seed-path log)
-      (is (= 2 (count (k/read-log log))) "two beats append")
-      (is (= (get (second (k/read-log log)) ":tx/prev") (get (first (k/read-log log)) ":tx/cid"))
-          "tx 2 links tx 1 (commit-DAG)")
-      (spit log (str/replace (slurp log) ":kakaku.obs/spread 700" ":kakaku.obs/spread 1"))
-      (is (false? (:ok (k/verify-chain log))) "tamper detected")
+      (let [tx1 (autorun/run-cycle 1 seed-path log)]
+        (autorun/run-cycle 2 seed-path log)
+        (is (= 2 (count (k/read-log log))) "two beats append")
+        (is (= (get (second (k/read-log log)) ":tx/prev") (get (first (k/read-log log)) ":tx/cid"))
+            "tx 2 links tx 1 (commit-DAG)")
+        ;; corrupt tx 1's stored CID directly (robust to whatever the seed's actual
+        ;; observation values are — a hardcoded magic price like "spread 700" silently
+        ;; no-ops and stops proving anything once the seed's offers/spread drift, which
+        ;; is exactly what happened here: the current seed's spread is 0, not 700)
+        (spit log (str/replace (slurp log) (:cid tx1) "bdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef"))
+        (is (false? (:ok (k/verify-chain log))) "tamper detected"))
       (finally (.delete (io/file log))))))
 
 (deftest g2-non-speculative
@@ -87,7 +91,12 @@
   (let [log (tmp)]
     (try
       (autorun/run-autonomous 3 seed-path log)
-      (is (= "be5e5aa20d120199328ddde2dd8a404267e91d250b3c12ed9c9b5162409e68b40"
+      ;; re-captured 2026-07-08: the seed's offers for jan_4901777300443 changed since the
+      ;; old pin was captured (spread is now 0, was 700 — see append-only-and-tamper's
+      ;; former magic-number tamper check, same root cause), so the head-cid legitimately
+      ;; moved with it; re-verified stable via deterministic-resume-safe (2 independent
+      ;; runs over the same current seed agree).
+      (is (= "b826321f48ced928ed835931758ba7342bad9e5922805761afdab91d65ec2c145"
              (k/head-cid log)) "head CID stays byte-stable (frozen golden value)")
       (finally (.delete (io/file log))))))
 
