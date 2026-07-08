@@ -42,7 +42,7 @@
   ;; Instead of monkeypatching, call offline-ingest via a temp dir approach.
   ;; We can test the boundary indirectly: the real data/ingest/ has 0 JSON files,
   ;; so offline-ingest should return [[] []].
-  (let [[series obs] (ing/offline-ingest)]
+  (let [[series obs] (ing/offline-ingest (actor-root))]
     (is (= (count series) 0) "no ingest JSON files → 0 series")
     (is (= (count obs) 0)    "no ingest JSON files → 0 obs")))
 
@@ -98,7 +98,7 @@
 (deftest merge-with-seed-71-rows-from-seed-alone
   ;; The real seed has 71 rows. With 0 ingested rows, merged must have 71.
   ;; This is the core parity invariant: must match python3 ingest.py's "71 rows".
-  (let [merged (vec (ing/merge-with-seed [] []))]
+  (let [merged (vec (ing/merge-with-seed (ke/read-file (seed-path)) [] []))]
     (is (= (count merged) 71)
         (str "Expected 71 merged rows (py parity), got " (count merged)))))
 
@@ -118,7 +118,7 @@
                   ":compute.obs/source"  "src.test"
                   ":compute.obs/method"  "test override"
                   ":compute.obs/sourcing" ":authoritative"}
-        merged   (vec (ing/merge-with-seed [] [auth-row]))
+        merged   (vec (ing/merge-with-seed seed [] [auth-row]))
         by-id    (into {} (map (juxt #(get % ":compute.obs/id") identity) merged))]
     ;; The authoritative ingested row replaces the representative seed row
     (is (= (get (get by-id obs-id) ":compute.obs/value") 9999999.0)
@@ -140,7 +140,7 @@
                   ":compute.obs/source"   "src.test"
                   ":compute.obs/method"   "should not win"
                   ":compute.obs/sourcing" ":representative"}
-        merged   (vec (ing/merge-with-seed [] [rep-row]))
+        merged   (vec (ing/merge-with-seed seed [] [rep-row]))
         by-id    (into {} (map (juxt #(get % ":compute.obs/id") identity) merged))]
     ;; Estimated seed row must be kept (representative does NOT override estimated).
     (is (= (get (get by-id est-id) ":compute.obs/value")
@@ -160,21 +160,22 @@
                   ":compute.obs/source"   "src.test"
                   ":compute.obs/method"   "must win"
                   ":compute.obs/sourcing" ":authoritative"}
-        merged   (vec (ing/merge-with-seed [] [auth-row]))
+        merged   (vec (ing/merge-with-seed seed [] [auth-row]))
         by-id    (into {} (map (juxt #(get % ":compute.obs/id") identity) merged))]
     (is (= (get (get by-id est-id) ":compute.obs/value") 1.23e27)
         "authoritative must override estimated")))
 
 (deftest merge-new-obs-adds-to-seed
   ;; A fresh obs id (not in seed) must be added to the merged set.
-  (let [new-obs {":compute.obs/id"      "obs.cap.test.brand-new.9999"
+  (let [seed (ke/read-file (seed-path))
+        new-obs {":compute.obs/id"      "obs.cap.test.brand-new.9999"
                  ":compute.obs/series"  "cap.test.brand-new"
                  ":compute.obs/year"    9999
                  ":compute.obs/value"   42.0
                  ":compute.obs/source"  "src.test"
                  ":compute.obs/method"  ""
                  ":compute.obs/sourcing" ":authoritative"}
-        merged  (vec (ing/merge-with-seed [] [new-obs]))]
+        merged  (vec (ing/merge-with-seed seed [] [new-obs]))]
     (is (= (count merged) 72)        ; 71 seed + 1 new
         "new obs id must be appended to the merged set")
     (let [by-id (into {} (map (juxt #(get % ":compute.obs/id") identity) merged))]
