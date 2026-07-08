@@ -117,7 +117,6 @@
  "20-actors/mizuho/run_tests.sh"
  "20-actors/moushibumi/run_tests.sh"
  "20-actors/musubi/run_tests.sh"
- "20-actors/niyaku/run_tests.sh"
  "20-actors/noroshi/run_tests.sh"
  "20-actors/npu_accelerator-compat/run_tests.sh"
  "20-actors/nusa/run_tests.sh"

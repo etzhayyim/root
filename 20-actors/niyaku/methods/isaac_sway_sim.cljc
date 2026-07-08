@@ -23,6 +23,12 @@
 
 (def HANG Math/PI) ;; cartpole theta of a load hanging straight down (stable)
 
+;; *file* is only reliably bound during THIS file's own top-level compilation; capturing
+;; it lazily inside a function body (below, resolve-py-src) breaks under bb test:actors's
+;; auto-discovery execution model ((apply require nss) then a separate run-tests pass) —
+;; the same bug class fixed for himotoki/keizu this session. Captured once, here, at load time.
+(def ^:private this-file *file*)
+
 ;; ── HALF_EVEN round to n places (Python round() parity) ──────────────────────
 
 (defn- round-half-even
@@ -59,7 +65,7 @@
            env (System/getenv "NIYAKU_KOTODAMA_SRC")]
        (if (and env (dir? (apply join env "kotodama" "nv_compat" [])))
          (.getCanonicalPath (io/file env))
-         (let [here (-> *file* io/file .getCanonicalFile .getParent)]
+         (let [here (-> this-file io/file .getCanonicalFile .getParent)]
            (loop [here here, n 0]
              (let [cand (apply io/file here kotodama-rel)]
                (cond
@@ -68,7 +74,7 @@
                  (>= n 8)
                  ;; default (monorepo root is 3 levels up from methods/)
                  (.getCanonicalPath
-                   (apply io/file (-> *file* io/file .getParent) ".." ".." ".." kotodama-rel))
+                   (apply io/file (-> this-file io/file .getParent) ".." ".." ".." kotodama-rel))
                  :else
                  (recur (.getParent (io/file here)) (inc n))))))))
      :default (str/join "/" kotodama-rel)))
