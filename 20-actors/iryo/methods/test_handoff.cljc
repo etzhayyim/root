@@ -71,6 +71,83 @@
     (is (= "needs-info" (get out "iryoStatus")))
     (is (.contains (str (get out "error")) "non-ASCII"))))
 
+;; ── PHI-free intake gate: additional boundary/edge cases (health-check pass,
+;; 2026-07-08) — ascii-only? / check-ascii! is called on EVERY field this
+;; boundary structurally checks, not just facilityDid; these tests spread the
+;; same non-ASCII coverage to the other fields to pin that the defense-in-depth
+;; check is genuinely uniform, plus lock in blank-string handling that was
+;; previously only exercised incidentally (never directly asserted on).
+
+(deftest test-blank-encounter-did-is-rejected-with-its-own-message
+  ;; encounterDid has a DEDICATED blank check (distinct from the generic
+  ;; "not a DID/AT-URI" prefix check below it) — an empty string is ASCII-only
+  ;; and would otherwise slip past check-ascii!, so this pins that the blank
+  ;; check still fires with its own specific message.
+  (let [bad (assoc (valid-request) "encounterDid" "")
+        out (handoff/handle-ingest (assoc bad "capability" (valid-capability) "now" NOW))]
+    (is (= false (get out "ack")))
+    (is (= "needs-info" (get out "iryoStatus")))
+    (is (.contains (str (get out "error")) "encounterDid is blank"))))
+
+(deftest test-blank-consent-capability-uri-value-is-a-format-failure-not-a-missing-key-failure
+  ;; A PRESENT-BUT-EMPTY consentCapabilityUri is a structurally different case
+  ;; from an ABSENT key (test-consent-capability-uri-missing-is-rejected below,
+  ;; which dissoc's the key entirely so it is nil and assert-request-phi-free!
+  ;; never inspects it via when-let). An empty string IS truthy for when-let,
+  ;; so it reaches assert-request-phi-free!'s "at://" prefix check FIRST and
+  ;; fails there with a format error — capability-gate's dedicated
+  ;; "missing consentCapabilityUri" business message is never reached. This
+  ;; pins that distinction (both fail closed, but via different gates/messages).
+  (let [bad (assoc (valid-request) "consentCapabilityUri" "")
+        out (handoff/handle-ingest (assoc bad "capability" (valid-capability) "now" NOW))]
+    (is (= false (get out "ack")))
+    (is (= "needs-info" (get out "iryoStatus")))
+    (is (.contains (str (get out "error")) "is not an AT-URI"))
+    (is (not (.contains (str (get out "error")) "missing consentCapabilityUri")))))
+
+(deftest test-non-ascii-in-encounter-did-is-rejected
+  (let [bad (assoc (valid-request) "encounterDid" "at://did:web:karute.etzhayyim.com/com.etzhayyim.karute.encounter/患者1")
+        out (handoff/handle-ingest (assoc bad "capability" (valid-capability) "now" NOW))]
+    (is (= false (get out "ack")))
+    (is (.contains (str (get out "error")) "non-ASCII"))))
+
+(deftest test-non-ascii-in-consent-capability-uri-is-rejected
+  (let [bad (assoc (valid-request) "consentCapabilityUri" "at://did:web:patient.iryo.etzhayyim.com:e2e1/com.etzhayyim.consent.capability/患者1")
+        out (handoff/handle-ingest (assoc bad "capability" (valid-capability) "now" NOW))]
+    (is (= false (get out "ack")))
+    (is (.contains (str (get out "error")) "non-ASCII"))))
+
+(deftest test-non-ascii-in-resource-uri-arrays-is-rejected
+  (testing "serviceRequestUris"
+    (let [bad (assoc (valid-request) "serviceRequestUris" ["at://did:web:karute.etzhayyim.com/com.etzhayyim.karute.serviceRequest/患者1"])
+          out (handoff/handle-ingest (assoc bad "capability" (valid-capability) "now" NOW))]
+      (is (= false (get out "ack")))
+      (is (.contains (str (get out "error")) "non-ASCII"))))
+  (testing "medicationRequestUris"
+    (let [bad (assoc (valid-request) "medicationRequestUris" ["at://did:web:karute.etzhayyim.com/com.etzhayyim.karute.medicationRequest/患者1"])
+          out (handoff/handle-ingest (assoc bad "capability" (valid-capability) "now" NOW))]
+      (is (= false (get out "ack")))
+      (is (.contains (str (get out "error")) "non-ASCII")))))
+
+(deftest test-extremely-long-but-well-formed-identifiers-are-not-falsely-rejected
+  ;; Defense-in-depth (ascii-only? / allow-list) must not degrade or false-positive
+  ;; at scale — a long-but-legitimate DID-shaped identifier (e.g. a long content
+  ;; hash suffix) should still be accepted, and a long identifier with ONE
+  ;; smuggled non-ASCII character buried near the end should still be caught.
+  (let [long-suffix (apply str (repeat 5000 \a))
+        req (-> (valid-request)
+                (assoc "patientDid" (str "did:web:patient.iryo.etzhayyim.com:" long-suffix))
+                (assoc "consentCapabilityUri" (str "at://did:web:patient.iryo.etzhayyim.com:" long-suffix "/com.etzhayyim.consent.capability/cap1")))
+        cap (assoc (valid-capability) "granterDid" (str "did:web:patient.iryo.etzhayyim.com:" long-suffix))
+        out (handoff/handle-ingest (assoc req "capability" cap "now" NOW))]
+    (is (= true (get out "ack")))
+    (is (= "pending" (get out "iryoStatus"))))
+  (let [long-suffix (str (apply str (repeat 5000 \a)) "患")
+        bad (assoc (valid-request) "patientDid" (str "did:web:patient.iryo.etzhayyim.com:" long-suffix))
+        out (handoff/handle-ingest (assoc bad "capability" (valid-capability) "now" NOW))]
+    (is (= false (get out "ack")))
+    (is (.contains (str (get out "error")) "non-ASCII"))))
+
 ;; ── Consent-capability structural gate (G1/G7) ──────────────────────────────
 
 (deftest test-missing-capability-is-rejected
@@ -149,6 +226,9 @@
   (is (nil? (handoff/parse-at-uri "at://did:web:x/only-collection")) "missing rkey segment")
   (is (nil? (handoff/parse-at-uri "at://did:web:x/collection/rkey/extra")) "too many segments")
   (is (nil? (handoff/parse-at-uri "at:///collection/rkey")) "blank did segment")
+  (is (nil? (handoff/parse-at-uri "at://did:web:x//rkey")) "blank collection segment")
+  (is (nil? (handoff/parse-at-uri "at://did:web:x/collection/")) "blank rkey segment (trailing slash)")
+  (is (nil? (handoff/parse-at-uri "")) "empty string")
   (is (nil? (handoff/parse-at-uri nil))))
 
 (deftest test-consent-capability-uri-missing-is-rejected
@@ -185,6 +265,47 @@
     (is (= false (get out "ack")))
     (is (= "needs-info" (get out "iryoStatus")))
     (is (.contains (str (get out "error")) "does not match the resolved capability's granterDid"))))
+
+;; ── Gate priority / ordering when multiple gates fail at once (health-check
+;; pass, 2026-07-08) ──────────────────────────────────────────────────────────
+;; `handle-ingest` runs assert-request-phi-free! (G2) BEFORE capability-gate
+;; (G1/G7), and capability-gate's own internal `cond` short-circuits on its
+;; first failing clause. Neither ordering was previously pinned by a test —
+;; doing so documents, for operators/debuggers reading `"error"`, WHICH
+;; failure reason they should expect to see first when a request is broken in
+;; more than one way at once (this is a description of existing `cond`/`try`
+;; structure, not a new behavior).
+
+(deftest test-phi-gate-failure-is-reported-before-any-capability-gate-failure
+  ;; Construct a request that fails BOTH G2 (smuggled plaintext field) AND
+  ;; G1/G7 (capability purpose wrong + revoked + expired, all at once) — the
+  ;; PHI-free structural gate runs first in `handle-ingest`, so its message
+  ;; must win regardless of how broken the capability also is.
+  (let [bad-request (assoc (valid-request) "patientName" "山田太郎")
+        broken-cap (assoc (valid-capability)
+                           "purpose" "second-opinion"
+                           "revokedAt" "2026-07-01T00:00:00Z"
+                           "expiresAt" "2020-01-01T00:00:00Z")
+        out (handoff/handle-ingest (assoc bad-request "capability" broken-cap "now" NOW))]
+    (is (= false (get out "ack")))
+    (is (= "needs-info" (get out "iryoStatus")))
+    (is (.contains (str (get out "error")) "unexpected field"))
+    (is (not (.contains (str (get out "error")) "purpose")))
+    (is (not (.contains (str (get out "error")) "revoked")))))
+
+(deftest test-capability-gate-reports-purpose-failure-before-revocation-or-expiry
+  ;; Within capability-gate's own cond, purpose is checked before
+  ;; revokedAt/expiresAt — when a capability is wrong in all three ways at
+  ;; once, the purpose reason is what `handle-ingest` returns.
+  (let [broken-cap (assoc (valid-capability)
+                          "purpose" "second-opinion"
+                          "revokedAt" "2026-07-01T00:00:00Z"
+                          "expiresAt" "2020-01-01T00:00:00Z")
+        out (handoff/handle-ingest (assoc (valid-request) "capability" broken-cap "now" NOW))]
+    (is (= false (get out "ack")))
+    (is (.contains (str (get out "error")) "purpose"))
+    (is (not (.contains (str (get out "error")) "revoked")))
+    (is (not (.contains (str (get out "error")) "expired")))))
 
 ;; ── G5 non-adjudicating: iryo's own intake gate never adjudicates ──────────
 
@@ -291,3 +412,67 @@
         b (handoff/canonicalize-capability-payload (dissoc cap "signature"))]
     (is (= a b))
     (is (not (.contains a "irrelevant")))))
+
+;; ── signature-gate malformed-input robustness (health-check pass, 2026-07-08)
+;; ────────────────────────────────────────────────────────────────────────────
+;; `signature-gate`'s `else` branch wraps the Base64 decode + verify in its own
+;; try/catch and turns ANY exception (not just a verification mismatch) into a
+;; normal fail-closed {:ok? false :reason ...} result. Previously only "wrong
+;; key" / "tampered payload" (both well-formed base64 that fails cryptographic
+;; verification) were exercised — this adds the DECODE-failure path itself
+;; (malformed, non-base64 bytes), which is a materially different branch of
+;; the same try/catch and was not hit by any existing test.
+
+(deftest test-signature-value-non-base64-fails-closed-not-a-crash
+  (let [{:keys [pub32]} (gen-keypair)
+        cap (assoc (valid-capability) "signature" {"alg" "ed25519" "value" "not-valid-base64!!!" "keyId" "k1"})
+        out (handoff/handle-ingest (assoc (valid-request) "capability" cap
+                                          "granterPublicKey" (b64 pub32) "now" NOW))]
+    (is (= false (get out "ack")))
+    (is (= "needs-info" (get out "iryoStatus")))
+    (is (.contains (str (get out "error")) "could not be verified"))))
+
+(deftest test-granter-public-key-non-base64-fails-closed-not-a-crash
+  (let [{:keys [private]} (gen-keypair)
+        signed-cap (sign-capability (valid-capability) private "did:web:patient.iryo.etzhayyim.com:e2e1#key-1")
+        out (handoff/handle-ingest (assoc (valid-request) "capability" signed-cap
+                                          "granterPublicKey" "not-valid-base64!!!" "now" NOW))]
+    (is (= false (get out "ack")))
+    (is (= "needs-info" (get out "iryoStatus")))
+    (is (.contains (str (get out "error")) "could not be verified"))))
+
+;; ── KNOWN GAP, discovered and pinned (not fixed) during this health-check
+;; pass (2026-07-08) — malformed date strings are NOT gracefully handled ─────
+;; `capability-gate`'s `instant-before?` calls `(Instant/parse ...)` directly
+;; on both `now` and `capability["expiresAt"]` with no try/catch, and
+;; `handle-ingest`'s own try/catch only catches
+;; `#?(:clj clojure.lang.ExceptionInfo :cljs ExceptionInfo)` (the type
+;; `karte/phi-leak!` throws) — a malformed ISO-8601 instant string throws
+;; `java.time.format.DateTimeParseException` instead, which is NOT an
+;; ExceptionInfo, so it propagates UNCAUGHT out of `handle-ingest` rather than
+;; degrading to `{"ack" false "iryoStatus" "needs-info" ...}` like every other
+;; malformed-input case in this namespace. This is a real asymmetry: contrast
+;; with `signature-gate` above, whose own try/catch DOES turn a malformed
+;; base64 string into a graceful fail-closed result.
+;;
+;; Scope decision (this pass, per the "no new features, tests only" mandate
+;; for this health-check cycle): PIN the current behavior with `thrown?`
+;; rather than silently reaching into handoff.cljc to broaden the catch
+;; clause or validate the date strings up front — that would be a production
+;; code change and is left as a follow-up (candidate fix: either validate
+;; `expiresAt`/`now` structurally before calling instant-before?, or widen
+;; `handle-ingest`'s catch to something like `#?(:clj Exception :cljs js/Error)`
+;; so ANY gate-evaluation failure degrades to needs-info instead of crashing).
+;; Do NOT treat this test passing as endorsement of the crash — it exists so a
+;; future fix has a clear failing test to flip green, and so nobody
+;; re-discovers this the hard way (e.g. via a caller-supplied malformed
+;; `expiresAt` value taking down a whole request pipeline).
+
+(deftest test-malformed-expires-at-currently-throws-uncaught-KNOWN-GAP
+  (let [cap (assoc (valid-capability) "expiresAt" "not-a-valid-instant")]
+    (is (thrown? #?(:clj java.time.format.DateTimeParseException :cljs js/Error)
+                 (handoff/handle-ingest (assoc (valid-request) "capability" cap "now" NOW))))))
+
+(deftest test-malformed-now-currently-throws-uncaught-KNOWN-GAP
+  (is (thrown? #?(:clj java.time.format.DateTimeParseException :cljs js/Error)
+               (handoff/handle-ingest (assoc (valid-request) "capability" (valid-capability) "now" "also-not-a-valid-instant")))))
