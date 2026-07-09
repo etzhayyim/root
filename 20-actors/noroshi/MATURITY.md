@@ -27,6 +27,10 @@ honest framing: できていないことは「未」と明記する。
 | 9 | R1 live legs (実 PIC レイアウト→fab handoff / 実 fibre 整列 actuation) — G8 Council Lv6+ + operator gated | 未(R1+) | — |
 | 10 | Murakumo-fleet autorun heartbeat(他 observatory actor の shionome パターン parity) | 未 | — |
 | 11 | 実 link-budget/ISAC データの kotoba Datom log 投影 + commit-DAG | 未 | — |
+| 12 | **`device_design` + `reliability_qual` を pure `.edn` scaffold から coded cell へ成熟** — `methods/device-design.cljc`(civilian-gate G1/G3/N1 + open-EDA plan生成、`methods/pic-layout` 呼び出し)+ `methods/reliability-qual.cljc`(Telcordia GR-468 SHAPE-only PASS/FAIL エンジン、4試験種 thermal-cycling/damp-heat/mechanical-shock/fibre-pull、`:representative` 閾値、G10)+ 両セルの `cells/{device_design,reliability_qual}/{cell,state_machine}.cljc`。coded cell が 1→3 に増加(`active_alignment` + 新2件)。`methods/active-alignment.cljc` に IEC 60825 `classify-laser-class`(power-mw/wavelength-nm からの ground-truth 再計算、G10 representative AEL)を追加し、`cells/active_alignment/state_machine.cljc` が任意で claimed class を独立検証(既存呼び出しには後方互換、新規オプトイン引数のみ) | ✅ | **iter (this)** |
+| 13 | `reliability_qual` 用に `kotoba/schema.edn` + `00-contracts/schemas/photonic-convergence-ontology.kotoba.edn` に `:qual/*` 属性追加、`kotoba/seed.edn` に representative qual-plan 1件 | ✅ | **iter (this)** |
+| 14 | 17 cljc テストスイート green — `run_tests.sh` で **233 tests / 751 assertions / 0 fail**(#4 の 11 に加え test-device-design / test-reliability-qual / cells.device-design.test-state-machine / cells.reliability-qual.test-state-machine の 4 件、既存 test-consistency / test-governance / test-lexicons / test-active-alignment も 3-coded-cell 前提へ更新の上 green) | ✅ | **iter (this)** |
+| 15 | live GR-468 環境チャンバー試験・live IEC 60825 実測分類・photonic EDA ツール実連携(GDSFactory 実インストール) — 全て G8 Council Lv6+ + operator gated | 未(R1+) | — |
 
 ## イテレーション記録
 
@@ -38,3 +42,30 @@ Lexicons + 11 テストスイート **163 tests / 552 assertions green**、ISAC 
 明記)。ゲートは一切触れず — charter-invariants テストが civilian/object-not-person/laser-safety/
 open-EDA を assert 済みであることを台帳に記録しただけ。`.solve()` は R0 で RuntimeError のまま
 (live actuation は G8-gated、未)。
+
+### iter (this) — 2026-07-08
+**上げた項目: #12-14 — `device_design` + `reliability_qual` を coded cell へ成熟、`:qual/*` schema
+追加、IEC 60825 ground-truth 分類の追加。** 6セット中2セットが「`.edn` scaffold のみ、実装ゼロ」
+だったのを実質コード化。設計判断(honest に記録):
+
+- **GR-468 は SHAPE only(G10)。** `methods/reliability-qual.cljc` の `default-suite` にある温度
+  範囲・サイクル数・湿度・時間・衝撃g・引張力は全て「一般公開されているエンジニアリング文献で
+  よく引用される代表値」であり、有償の Telcordia GR-468-CORE 本文の検証済み引用ではない。各値に
+  `:representative true` を付し、実運用では operator が実際のライセンス済み閾値に差し替える前提
+  を docstring に明記。
+- **IEC 60825 レーザークラス判定も同様に representative。** `classify-laser-class` の AEL 閾値
+  (`representative-ael-mw`)は公開文献のオーダー感であり、波長・曝露時間依存の正式な AEL 表の
+  検証済み引用ではない(1M/2M 発散ビームサブクラスも省略)。`cells/active_alignment/state_machine`
+  は `laser_power_mw`/`wavelength_nm` が供給された場合のみ独立再計算し、claimed class がそれを
+  過小申告していれば拒否する — 供給されない既存呼び出し(全既存テスト含む)は完全後方互換。
+- **アーキテクチャ上の意図的な逸脱。** `active_alignment`/`fibre_loop` の既存 state machine は
+  `methods/` 側の計算関数を一切呼ばない(pre-computed な数値を state dict 経由で受け取るだけ)。
+  今回の2セルは意図的にこの前例から外れ、state machine が `methods/device-design`・
+  `methods/reliability-qual` を直接呼ぶ — 「本物の PASS/FAIL 判定エンジン」が今回のゴールその
+  ものであるため。
+- **`.solve()` は今回も一切変更していない。** 2セルとも R0 scaffold のまま `RuntimeError` を
+  投げる — Council ADR 承認まで live activation はしない(G8)。live 環境チャンバー・live
+  レーザー測定は今回のスコープ外(項目#15)。
+- Python 版セル(`cell.py`/`state_machine.py`)はあえて追加しなかった — root CLAUDE.md の
+  「新規オペレーショナルコードは clj/bb、Python/shell は禁止」規約(2606072802)に従い、
+  `active_alignment`/`fibre_loop` の py+cljc 二重実装パターンより新規則を優先。

@@ -61,4 +61,12 @@
  {:db/ident :pkg/coupling-loss-db :db/valueType :db.type/double  :db/cardinality :db.cardinality/one}
  {:db/ident :pkg/member-sig       :db/valueType :db.type/string  :db/cardinality :db.cardinality/one}   ;; G7 member/operator signs
  {:db/ident :pkg/server-held-key  :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one}   ;; G7 false
- {:db/ident :pkg/dry-run          :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one}]  ;; G8 R0 always true
+ {:db/ident :pkg/dry-run          :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one}   ;; G8 R0 always true
+
+ ;; ── reliability qualification (packaging face — Telcordia GR-468 SHAPE only) ──
+ {:db/ident :qual/id              :db/valueType :db.type/string  :db/cardinality :db.cardinality/one :db/unique :db.unique/identity}
+ {:db/ident :qual/device          :db/valueType :db.type/ref     :db/cardinality :db.cardinality/one}
+ {:db/ident :qual/suite           :db/valueType :db.type/keyword :db/cardinality :db.cardinality/many}  ;; :thermal-cycling :damp-heat :mechanical-shock :fibre-pull
+ {:db/ident :qual/acceptance      :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one}   ;; :pass :fail
+ {:db/ident :qual/dry-run         :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one}   ;; G8 R0 always true — no live chamber
+ {:db/ident :qual/representative  :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one}]  ;; G10 — representative GR-468-SHAPE thresholds, not verified citations

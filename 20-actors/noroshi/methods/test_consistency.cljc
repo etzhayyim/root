@@ -41,14 +41,20 @@
   (doseq [cell (get (manifest) ":actor/cells")]
     (let [cid (get cell ":cell/id")
           flat (f "cells" (str cid ".edn"))
-          coded (f "cells" cid "cell.py")]
-      (is (or (.exists flat) (.exists coded)) (str "no cell descriptor/dir for " cid))
+          coded-py (f "cells" cid "cell.py")
+          coded-cljc (f "cells" cid "cell.cljc")]
+      (is (or (.exists flat) (.exists coded-py) (.exists coded-cljc))
+          (str "no cell descriptor/dir for " cid))
       (when (get cell ":cell/coded")
-        (is (.exists coded) (str "cell " cid " marked coded but has no cell.py"))))))
+        (is (or (.exists coded-py) (.exists coded-cljc))
+            (str "cell " cid " marked coded but has no cell.py/cell.cljc"))))))
 
-(deftest test-exactly-one-coded-cell-and-it-is-active-alignment
-  (let [coded (mapv #(get % ":cell/id") (filter #(get % ":cell/coded") (get (manifest) ":actor/cells")))]
-    (is (= coded ["active_alignment"]))))
+(deftest test-coded-cells-are-exactly-active-alignment-device-design-reliability-qual
+  ;; device_design + reliability_qual joined active_alignment as "coded" cells in the
+  ;; maturity pass that added methods/device-design + methods/reliability-qual (real
+  ;; PASS/FAIL GR-468-SHAPE engine) — see this actor's follow-up ADR.
+  (let [coded (set (mapv #(get % ":cell/id") (filter #(get % ":cell/coded") (get (manifest) ":actor/cells"))))]
+    (is (= coded #{"active_alignment" "device_design" "reliability_qual"}))))
 
 ;; ── ontology ↔ deployable schema ─────────────────────────────────────────────
 (deftest test-ontology-attributes-equal-schema-idents
@@ -97,6 +103,9 @@
     (when (contains? r ":pkg/server-held-key") (is (= (get r ":pkg/server-held-key") false)))
     (when (contains? r ":pkg/dry-run")       (is (= (get r ":pkg/dry-run") true)))
     (when (contains? r ":pdev/process")      (is (= (get r ":pdev/process") ":open-pdk")))
-    (when (contains? r ":pdev/eda")          (is (contains? #{":gdsfactory" ":meep" ":klayout" ":openlane"} (get r ":pdev/eda"))))))
+    (when (contains? r ":pdev/eda")          (is (contains? #{":gdsfactory" ":meep" ":klayout" ":openlane"} (get r ":pdev/eda"))))
+    (when (contains? r ":qual/dry-run")      (is (= (get r ":qual/dry-run") true)))
+    (when (contains? r ":qual/representative") (is (= (get r ":qual/representative") true)))
+    (when (contains? r ":qual/acceptance")   (is (contains? #{":pass" ":fail"} (get r ":qual/acceptance"))))))
 
 #?(:clj (defn -main [& _] (run-tests 'noroshi.methods.test-consistency)))

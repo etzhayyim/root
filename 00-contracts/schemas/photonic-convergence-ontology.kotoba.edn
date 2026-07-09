@@ -81,4 +81,12 @@
   :pkg/coupling-loss-db {:type :double}
   :pkg/member-sig     {:type :string :note "G7 member/operator signs"}
   :pkg/server-held-key {:type :boolean :const false :note "G7 — platform never holds the key"}
-  :pkg/dry-run        {:type :boolean :const true :note "G8 — R0 plan/replay only"}}}
+  :pkg/dry-run        {:type :boolean :const true :note "G8 — R0 plan/replay only"}
+
+  ;; packaging face — reliability qualification (Telcordia GR-468 SHAPE only)
+  :qual/id            {:type :string :unique :identity}
+  :qual/device        {:type :ref}
+  :qual/suite         {:type :keyword :cardinality :many :note "GR-468-SHAPE test types; representative thresholds only (G10)"}
+  :qual/acceptance    {:type :keyword :enum [:pass :fail]}
+  :qual/dry-run       {:type :boolean :const true :note "G8 — R0 plan/replay only; no live chamber"}
+  :qual/representative {:type :boolean :note "G10"}}}

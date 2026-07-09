@@ -24,9 +24,14 @@ Three faces, each with a verifiable `methods/` core:
 
 ## Cells (langgraph→WASM; Murakumo-only; `.solve()` raises at R0)
 
-chip: `device_design` (naphtali) · `link_budget` (gad). isac: `isac_waveform` (asher) ·
-`sense_estimate` (benjamin). packaging: **`active_alignment`** (joseph — coded reference cell, the
-laser-safety/no-server-key one) · `reliability_qual` (manasseh).
+chip: **`device_design`** (naphtali — coded: civilian-gate G1/G3/N1 + open-EDA plan generation via
+`methods/device-design.cljc`, calling `methods/pic-layout`) · `link_budget` (gad). isac:
+`isac_waveform` (asher) · `sense_estimate` (benjamin). packaging: **`active_alignment`** (joseph —
+coded, the laser-safety/no-server-key one) · **`reliability_qual`** (manasseh — coded: a real
+Telcordia GR-468-SHAPE PASS/FAIL engine, `methods/reliability-qual.cljc`, representative thresholds
+G10). Three of six cells are coded (`:cell/coded true`); `.solve()` itself stays an R0 stub on all
+six regardless of coded status — coded means the phase-transition logic (and, for these two, the
+underlying compliance-judgment engine) is real and tested, not that live activation is unlocked.
 
 ## Gates (immutable R0→R5)
 
