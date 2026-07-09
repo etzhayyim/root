@@ -49,6 +49,21 @@
                                             :enclosure-interlock true
                                             :safety-attestation-ref "attest:noroshi-lsm-001"))))) ; no raise
 
+;; ── IEC 60825 class independent recompute (ground truth, not a self-report) ──
+(deftest test-classify-laser-class-boundaries
+  (is (= "1" (aa/classify-laser-class 0.1 650.0)))
+  (is (= "2" (aa/classify-laser-class 0.8 650.0)))            ; visible, Class-2 range
+  (is (= "3R" (aa/classify-laser-class 0.8 1550.0)))          ; SAME power, non-visible → no Class 2
+  (is (= "3R" (aa/classify-laser-class 3.0 650.0)))
+  (is (= "3B" (aa/classify-laser-class 100.0 650.0)))
+  (is (= "4" (aa/classify-laser-class 1000.0 650.0))))
+
+(deftest test-classify-laser-class-visibility-boundary
+  (is (= "2" (aa/classify-laser-class 0.9 400.0)))
+  (is (= "2" (aa/classify-laser-class 0.9 700.0)))
+  (is (= "3R" (aa/classify-laser-class 0.9 399.0)))
+  (is (= "3R" (aa/classify-laser-class 0.9 701.0))))
+
 ;; ── active alignment converges to the unknown peak ───────────────────────────
 (deftest test-align-finds-true-peak
   (let [model (aa/coupler-model :opt-x-um 2.3 :opt-y-um -1.7)

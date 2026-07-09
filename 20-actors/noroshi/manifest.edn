@@ -50,12 +50,12 @@
   {:ng/id "N8" :ng/req "no cash payment for packaging labour or demonstrations (no-payroll, cash=0; contribution → vocation → donation only)"}]
 
  :actor/cells
- [{:cell/id "device_design"    :cell/kind :langgraph :cell/runtime :wasm :cell/node "naphtali" :cell/face :chip}
+ [{:cell/id "device_design"    :cell/kind :langgraph :cell/runtime :wasm :cell/node "naphtali" :cell/face :chip :cell/coded true}
   {:cell/id "link_budget"      :cell/kind :langgraph :cell/runtime :wasm :cell/node "gad"      :cell/face :chip}
   {:cell/id "isac_waveform"    :cell/kind :langgraph :cell/runtime :wasm :cell/node "asher"    :cell/face :isac}
   {:cell/id "sense_estimate"   :cell/kind :langgraph :cell/runtime :wasm :cell/node "benjamin" :cell/face :isac}
   {:cell/id "active_alignment" :cell/kind :langgraph :cell/runtime :wasm :cell/node "joseph"   :cell/face :packaging :cell/coded true}
-  {:cell/id "reliability_qual" :cell/kind :langgraph :cell/runtime :wasm :cell/node "manasseh" :cell/face :packaging}]
+  {:cell/id "reliability_qual" :cell/kind :langgraph :cell/runtime :wasm :cell/node "manasseh" :cell/face :packaging :cell/coded true}]
 
  :actor/lex
  [{:lex/id "photonicDevice"}

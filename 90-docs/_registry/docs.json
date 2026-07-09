@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-07-08",
+  "updated_at": "2026-07-09",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.md",
@@ -27530,6 +27530,34 @@
         "adr-2606160842-kotoba-code-actor-py-to-clj-port-wave"
       ],
       "last_verified": "2026-07-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2607081100-noroshi-device-design-reliability-qual-compliance-engine.md",
+      "id": "adr-2607081100-noroshi-device-design-reliability-qual-compliance-engine",
+      "title": "ADR-2607081100: noroshi — device_design + reliability_qual mature to coded cells; IEC 60825 ground-truth classification",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "noroshi-photonic-convergence-wave2",
+      "authoritative": true,
+      "authoritative_for": [
+        "noroshi-device-design-cell",
+        "noroshi-reliability-qual-cell",
+        "noroshi-iec60825-classification"
+      ],
+      "related": [
+        "2606032130",
+        "2605231525",
+        "2605215000",
+        "2606072802"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606051600"
+      ],
+      "last_verified": "2026-07-08",
       "amends": [],
       "amended_by": []
     },
