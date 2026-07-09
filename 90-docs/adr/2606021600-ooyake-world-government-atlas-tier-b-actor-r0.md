@@ -182,6 +182,48 @@ deployed). These supersede the legacy `gov*` country stubs as the canonical mode
 | **R2** | post-R1 | `address_ingest` + `procedure_link`; per-unit civic-atlas did.json served dynamically (kotoba → KV, ADR-2606013800 pattern); findService end-to-end for JP | Council Lv6+ ≥4 |
 | **R3** | post-R2 | multi-jurisdiction ingest at scale; GeoJSON footprints; toritsugi/danjo/kanae/tsumugi consume the live atlas | Council Lv6+ ≥4 + 30-day public comment |
 
+# R2 Technical Build — `:gov.procedure/bpmn` realized (2026-07-09, ratify-pending)
+
+This section records the **technical** realization of the R2 `:gov.procedure/bpmn`
+flow: the prior STUB `bpmn.ooyake.find-service` placeholder on the matching
+`:gov.procedure/bpmn` field (in `registry/gov-units.seed.edn` ×3 +
+`registry/gov-units.toritsugi-procedures.seed.edn` ×3) is replaced by **real
+citizen-procedure BPMN process models** for the 6 R0 procedures. **ratify-pending**:
+this is a technical/modeling completion, not a Council advancement; the sourcing
+is still `unverified-seed` / `:representative` and NO live ingest / served DID is
+enabled.
+
+**What landed:**
+
+- **`registry/gov-procedures.bpmn.edn`** — 6 BPMN-as-edn process models, one per
+  R0 procedure: 住民票の写し交付請求 / 転入届 / 出生届 / マイナンバーカード交付申請 /
+  児童手当認定請求 / 確定申告 e-Tax. Each process is DERIVED (G5 non-fabrication)
+  from the corresponding `:gov.procedure`'s `{legal-basis, required-docs, fee,
+  statutory-days, provenance}` in the seed — the identity-verification step comes
+  from required-docs "本人確認書類", the fee-payment step from `:gov.procedure/fee`,
+  the statutory waiting window from `:gov.procedure/statutory-days`.
+  `:bpmn/legal-basis` and `:bpmn/provenance` are COPIED verbatim from the seed,
+  never invented. FORMAT: BPMN-as-edn per **ADR-2607090900**
+  (kotoba-lang/org-omg-bpmn / bpmn-clj R1 working `.cljc`).
+- **`deploy/resolve_for_toritsugi.py`** — extended to resolve the coded procedure
+  record (G14 verified + G8 根拠法令/provenance) AND surface its BPMN process id
+  to toritsugi's `resolve` step. toritsugi consumes ooyake's BPMN; it never
+  re-authors the government's process (cross-actor boundary, ADR-2605312030).
+  Self-test PASS.
+- **Seed wiring** — `registry/gov-units.seed.edn` + `registry/gov-units.toritsugi-procedures.seed.edn`
+  carry the real `bpmn.ooyake.proc.jpn.*` ids on `:gov.procedure/bpmn` (the STUB
+  `bpmn.ooyake.find-service` retired on all 6).
+
+**Consumed by:** toritsugi `registry/toritsugi.procedure-flow.bpmn.edn` — the
+`resolve` service-task REFERENCES these ooyake process ids by `:bpmn/gov-procedure-bpmn`
+(ADR-2605312030 R1). toritsugi walks the MEMBER through the coded procedure; it
+does not re-author it.
+
+**What did NOT change:** the `:authoritative` vs `:representative` sourcing split
+(G5) holds; coverage is not silently overstated; no live ingest, no served DID,
+no cell runs. R2 Council ratification (Lv6+ ≥4) is still required to serve these
+models dynamically.
+
 # Consequences
 
 **Positive**

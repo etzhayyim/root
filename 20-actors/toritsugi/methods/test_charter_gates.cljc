@@ -103,6 +103,60 @@
     (is (contains? (required-of (lex n)) "memberDid")
         (str "G4: " n " must require memberDid (member = the named 申請者本人)"))))
 
+;; ── ProcedureGovernor HARD surface = G3/G4/G5/G6/G8/G10/G14/G15 (machine-verify) ──
+;; The governor's HARD set is the unoverridable charter surface (ADR-2605312030 §4).
+;; We read src/toritsugi/governor.cljc, locate the explicit `(def hard-gates #{...})`
+;; literal, and parse it with edn/read-string so the pin survives source reformatting
+;; but BREAKS the moment a gate is dropped from the HARD surface. This is the toritsugi
+;; analog of kyoninka's safety-contract test / robotaxi's MRC test: it pins exactly
+;; which gates the independent Governor can veto the concierge intelligence on.
+(defn- governor-hard-gates
+  "Returns the parsed #{...} literal of `(def hard-gates ...)` from governor.cljc,
+  or nil when the declaration is absent."
+  []
+  (let [src (slurp (java.io.File. actor-dir "src/toritsugi/governor.cljc"))
+        idx (.indexOf ^String src "(def hard-gates")]
+    (when (>= idx 0)
+      (let [rest   (subs src idx)
+            start  (.indexOf ^String rest "#{")
+            end    (.indexOf ^String rest "}" start)]
+        (when (and (>= start 0) (> end start))
+          (clojure.edn/read-string (subs rest start (inc end))))))))
+
+(deftest governor-hard-gates-cover-charter
+  (let [hg (governor-hard-gates)]
+    (is (some? hg) "governor declares an explicit `(def hard-gates #{...})` surface")
+    (is (= #{:G3 :G4 :G5 :G6 :G8 :G10 :G14 :G15} hg)
+        "Governor HARD invariants are exactly G3/G4/G5/G6/G8/G10/G14/G15 (ADR-2605312030 §4)")))
+
+;; ── BPMN gateway mode_gw reflects G15 (member-self default | 代行 gated) ──
+;; registry/toritsugi.procedure-flow.bpmn.edn is the executable BPMN-as-edn spine of
+;; the StateGraph. The exclusive-gateway `mode_gw` must encode G15: member-self-submit
+;; is the DEFAULT flow; 代行 (agent-on-behalf) is the single GATED exception routed
+;; through a human/Council user-task (approval), never a silent third path.
+(defn- bpmn []
+  (clojure.edn/read-string (slurp (java.io.File. actor-dir "registry/toritsugi.procedure-flow.bpmn.edn"))))
+
+(deftest bpmn-mode-gateway-reflects-g15
+  (let [b    (bpmn)
+        nodes (:bpmn/nodes b)
+        flows (:bpmn/flows b)
+        gw    (get nodes "mode_gw")]
+    (is (= :exclusive-gateway (:bpmn/type gw))
+        "mode_gw is an exclusive-gateway (G15: exactly two paths)")
+    (is (= "F_self" (:bpmn/default gw))
+        "member-self-submit (F_self) is the default gateway branch (G15 default)")
+    (let [f-self  (get flows "F_self")
+          f-agent (get flows "F_agent")]
+      (is (and f-self (re-find #"member-self-submit" (:bpmn/condition f-self)))
+          "F_self carries the member-self-submit condition (the G15 default)")
+      (is (and f-agent (re-find #"agent-on-behalf" (:bpmn/condition f-agent)))
+          "F_agent carries the agent-on-behalf condition (the single G15 gated exception)"))
+    (is (= :user-task (:bpmn/type (get nodes "approval")))
+        "the 代行 path routes through a human/Council user-task (G15 interrupt-before sign-off)")
+    (is (= :user-task (:bpmn/type (get nodes "intake")))
+        "intake is a user-task (G3/G4 — consent + DID binding are member-interactive)")))
+
 #?(:clj
    (defn -main [& _]
      (let [r (run-tests 'toritsugi.methods.test-charter-gates)]

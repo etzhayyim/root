@@ -276,6 +276,70 @@ ratification.
   the member's own procedure; encrypted result custody; appeal routing;
   multi-jurisdiction.
 
+# R1 Technical Build (2026-07-09, ratify-pending)
+
+This section records the **technical** completion of the R1 scope (and, honestly,
+the R2 scope too — the build went through draft + self-submit + status_track). It
+is **ratify-pending**: the Council gate (Lv6+ ≥3) to advance R0→R1 has NOT been
+cleared, no live deployment has happened, and no charter invariant has been
+amended. The code is the charter made executable; ratification is what earns it
+the right to run on a member's behalf. R3 (代行) remains structurally gated and
+is NOT part of this build.
+
+**What landed (substrate-native Clojure, `.cljc`):**
+
+- **`src/toritsugi/governor.cljc`** — the independent **ProcedureGovernor**. Its
+  HARD surface is exposed as data: `(def hard-gates #{:G3 :G4 :G5 :G6 :G8 :G10
+  :G14 :G15})` — the 8 unoverridable charter gates (§4). A HARD violation forces
+  HOLD (no human can approve past it); a 代行 submit is ALWAYS high-stakes →
+  escalate. The contained concierge advisor is deterministic (G7 Murakumo-only —
+  no vendor LLM callout); the Governor censors its proposal before anything is
+  recorded. Backend swap: `MemStore` ‖ `DatomicStore` (via `langchain.db :db-api`,
+  itself swappable to real Datomic / kotoba-server XRPC).
+- **`src/toritsugi/flow.cljc`** — the citizen-concierge flow as one langgraph-clj
+  **StateGraph** (one run = one op). `interrupt-before #{:request-approval}`
+  turns the 代行 path into a human/Council sign-off (G15). Each cell node ALSO
+  runs that cell's pure state-machine membrane; a cell refusal is folded into the
+  governor verdict as a HARD violation, so either layer can force a HOLD.
+- **`src/toritsugi/cells/{procedure_registry,eligibility_match,intake,guide,draft,submit,status_track}/state_machine.cljc`**
+  — the **7 cell membranes** (the same G-gates, structurally, at each step). Pure
+  `(state) -> {"cell_state" {…}}`; stdlib only; self-contained.
+- **`registry/toritsugi.procedure-flow.bpmn.edn`** — the executable **BPMN-as-edn**
+  spine of the StateGraph (14 nodes / 14 flows). The `mode_gw`
+  exclusive-gateway encodes G15: `member-self-submit` is the default branch;
+  `agent-on-behalf` (代行) is the single gated exception routed through the
+  `approval` user-task. FORMAT: BPMN-as-edn per **ADR-2607090900**
+  (kotoba-lang/org-omg-bpmn / bpmn-clj).
+- **`src/toritsugi/{store,phase}.cljc`** — Store protocol (EAVT ground datoms +
+  append-only audit ledger = the concierge genealogy) and the lifecycle/rollout
+  phase gate (R0→R3 rollout only adds caution; 代行 is never `:auto`).
+
+**Tests (machine-verified, no silent drift):**
+
+- `clojure -M:test` → **25 tests / 64 assertions, green** (governor-contract:
+  pins G3/G4/G5/G6/G8/G10/G14/G15 + MemStore ≡ DatomicStore contract; flow:
+  happy-path init→…→tracked, refused/hold, 代行 interrupt + sign-off).
+- `bb run_tests.clj` → **12 tests / 52 assertions, green**
+  (`methods/test_charter_gates.cljc`: G1–G15 declared in manifest, lexicon
+  const verification, **Governor HARD surface == G3/G4/G5/G6/G8/G10/G14/G15
+  (parses the `hard-gates` literal from governor.cljc)**, **BPMN `mode_gw`
+  reflects G15**; `methods/test_manifest_invariants.cljc`: 15 gates / 6
+  lexiconNamespaces / 7 cells ↔ `src/toritsugi/cells/` disk parity).
+- `clojure -M:lint` (clj-kondo) → **errors 0, warnings 0**.
+
+**Cross-actor wiring (ooyake):** the `resolve` step references ooyake's
+official-process BPMN models by id (`:gov.procedure/bpmn`), per
+**ADR-2606021600 R2** — toritsugi consumes, never re-authors, the government's
+procedure. The 6 R0 procedures are modeled at
+`20-actors/ooyake/registry/gov-procedures.bpmn.edn`.
+
+**What did NOT change (charter honesty):** no invariant in §4 is amended; the
+actor is still 案内 + 伴走 + 本人提出支援 by default (代行 is the gated R3
+ceiling, off); PII stays in `com.etzhayyim.encrypted.*` only (G6); Murakumo-only
+(G7); non-profit (G9). The advancement R0→R1 needs Council Lv6+ ≥3 — see
+`90-docs/toritsugi-r3-ratification-request.md` for the R3 (代行) gate which adds
+Lv7+ unanimity + 行政書士法 clearance.
+
 # Consequences
 
 - **Positive**: closes the citizen-facing government-procedure gap with a
