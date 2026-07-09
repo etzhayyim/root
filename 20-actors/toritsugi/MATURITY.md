@@ -3,7 +3,7 @@
 `/loop` (30分毎) の進捗台帳。各イテレーションで **1項目** だけ成熟度を上げ、ここに
 記録する。honest framing: できていないことは「未」と明記する。
 
-- Actor: `did:web:toritsugi.etzhayyim.com` · ADR-2605312030 · **R0 scaffold**
+- Actor: `did:web:toritsugi.etzhayyim.com` · ADR-2605312030 · **R0 scaffold → R1 技術ビルド完了 (ratify-pending, 2026-07-09)**
 - 不変条件(全イテレーション厳守): R0 では cell 非実行(import時 RuntimeError) ·
   提出/dispatch なし · PII平文禁止(G6) · Murakumo-only(G7) · 行政書士法/UPL境界(G5) ·
   G8 非捏造 · G14 verified-procedure-only · G15 self-submit-default · コミットはユーザー明示時のみ

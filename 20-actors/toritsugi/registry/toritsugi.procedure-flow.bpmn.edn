@@ -1,0 +1,96 @@
+;; toritsugi 取次 — toritsugi.procedure-flow.bpmn.edn
+;;
+;; Phase 3 BPMN process model for toritsugi's end-to-end citizen-伴走 flow, per
+;; ADR-2605312030 (+ the Phase-3 ProcedureGovernor / StateGraph / 7-cell build).
+;; One BPMN process = one citizen concierge run (案内 + 伴走 + 本人提出支援, default;
+;; 代行 is the gated R3 exception).
+;;
+;; FORMAT: BPMN-as-edn (org-omg-bpmn / kotoba-lang/bpmn .cljc). Node-type
+;; keywords are restricted to the valid set: :start-event / :end-event /
+;; :service-task / :user-task / :send-task / :exclusive-gateway.
+;;
+;; SOURCE (no fabrication, G5/G8): each step is the citizen-side mirror of the
+;; corresponding coded procedure. The `resolve` service-task REFERENCES the
+;; official-process BPMN models authored by ooyake (公) on :gov.procedure/bpmn —
+;; toritsugi does NOT re-author the government's process; it resolves the coded
+;; procedure record (G14 verified + G8 根拠法令/provenance) and walks the MEMBER
+;; through it. Those ooyake process ids live at
+;; 20-actors/ooyake/registry/gov-procedures.bpmn.edn (6 R0 procedures).
+;;
+;; GATES structural here (and enforced in code by the ProcedureGovernor + 7 cell
+;; membranes): G3 (consent + own-procedure at intake/submit), G4 (member =
+;; 申請者本人), G5 (UPL — guide/draft 案内+入力補助 only, 作成代理→chigiri),
+;; G6 (encrypted.* PII at draft/submit/track), G8 (根拠+provenance at resolve),
+;; G10 (lawful channel at submit), G14 (verified-procedure at resolve/submit),
+;; G15 (member-self-submit default; 代行 is the gated exception → interrupt).
+
+{:bpmn/id "bpmn.toritsugi.procedure-flow"
+ :bpmn/type :process
+ :bpmn/name "取次 公的 手続き 伴走フロー (Citizen government-procedure concierge flow)"
+ :bpmn/executable true
+ :bpmn/legal-basis "toritsugi ADR-2605312030 §2-§4 (citizen concierge; G3/G4/G5/G6/G8/G10/G14/G15)"
+ :bpmn/provenance "20-actors/toritsugi/registry/toritsugi.procedure-flow.bpmn.edn"
+ ;; The resolve step references ooyake's official-process BPMN models by id
+ ;; (公 — toritsugi consumes, never re-authors, the government's procedure).
+ :bpmn/gov-procedure-bpmn
+ ["bpmn.ooyake.proc.jpn.juminhyo-utsushi"
+  "bpmn.ooyake.proc.jpn.tennyu-todoke"
+  "bpmn.ooyake.proc.jpn.shussei-todoke"
+  "bpmn.ooyake.proc.jpn.mynumber-card"
+  "bpmn.ooyake.proc.jpn.jido-teate"
+  "bpmn.ooyake.proc.jpn.kakutei-shinkoku-etax"]
+
+ :bpmn/nodes
+ {"start"          {:bpmn/id "start"          :bpmn/type :start-event
+                    :bpmn/name "申請受付 — 同意 + 本人手続き開始 (Member-initiated, G3/G4)"}
+  "resolve"        {:bpmn/id "resolve"        :bpmn/type :service-task
+                    :bpmn/name "procedure_registry — coded 手続き 解決 (G14 verified + G8 根拠/provenance; refs :gov.procedure/bpmn)"}
+  "eligibility"    {:bpmn/id "eligibility"    :bpmn/type :service-task
+                    :bpmn/name "eligibility_match — 制度/給付 案内 (G3 consent, G4 member-bound; 非裁定)"}
+  "intake"         {:bpmn/id "intake"         :bpmn/type :user-task
+                    :bpmn/name "intake — consent + DID/SBT 結合 → procedureGuide (G3/G4)"}
+  "guide"          {:bpmn/id "guide"          :bpmn/type :service-task
+                    :bpmn/name "guide — chigiri template + 必要書類チェックリスト (G5 UPL: 案内のみ)"}
+  "draft"          {:bpmn/id "draft"          :bpmn/type :user-task
+                    :bpmn/name "draft — 様式入力補助 → applicationDraft (G5 入力補助のみ / G6 encrypted)"}
+  "mode_gw"        {:bpmn/id "mode_gw"        :bpmn/type :exclusive-gateway
+                    :bpmn/name "提出経路選択 (member-self-submit default | 代行 gated)"
+                    :bpmn/default "F_self"}
+  "approval"       {:bpmn/id "approval"       :bpmn/type :user-task
+                    :bpmn/name "代行提出 承認 — Council Lv7+ sign-off (G15 gated R3; interrupt-before)"}
+  "submit"         {:bpmn/id "submit"         :bpmn/type :service-task
+                    :bpmn/name "submit — 提出記録 (member-self は本人提出支援/代行 は公式channel, G6/G10/G14/G15)"}
+  "track"          {:bpmn/id "track"          :bpmn/type :service-task
+                    :bpmn/name "status_track — 処理状況/法定処理期間 clock + encrypted 結果 (G6)"}
+  "appeal_gw"      {:bpmn/id "appeal_gw"      :bpmn/type :exclusive-gateway
+                    :bpmn/name "結果ルーティング (accepted/completed | refused→appeal)"
+                    :bpmn/default "F_accept"}
+  "appeal"         {:bpmn/id "appeal"         :bpmn/type :send-task
+                    :bpmn/name "appeal → chigiri 不服申立 (審査請求) (G11; toritsugi は観測のみ・執行は chigiri)"}
+  "end_done"       {:bpmn/id "end_done"       :bpmn/type :end-event
+                    :bpmn/name "伴走完了 (Concierge run complete — 本人提出/代行 結果まで)"}
+  "end_appeal"     {:bpmn/id "end_appeal"     :bpmn/type :end-event
+                    :bpmn/name "appeal 連携完了 (refused → chigiri lawful appeal route)"}}
+
+ :bpmn/flows
+ {"F1"        {:bpmn/id "F1"        :bpmn/type :sequence-flow :bpmn/source "start"       :bpmn/target "resolve"}
+  "F2"        {:bpmn/id "F2"        :bpmn/type :sequence-flow :bpmn/source "resolve"      :bpmn/target "eligibility"}
+  "F3"        {:bpmn/id "F3"        :bpmn/type :sequence-flow :bpmn/source "eligibility"  :bpmn/target "intake"}
+  "F4"        {:bpmn/id "F4"        :bpmn/type :sequence-flow :bpmn/source "intake"       :bpmn/target "guide"}
+  "F5"        {:bpmn/id "F5"        :bpmn/type :sequence-flow :bpmn/source "guide"        :bpmn/target "draft"}
+  "F6"        {:bpmn/id "F6"        :bpmn/type :sequence-flow :bpmn/source "draft"        :bpmn/target "mode_gw"}
+  ;; exclusive gateway — self-submit (default) vs 代行 (gated)
+  "F_self"    {:bpmn/id "F_self"    :bpmn/type :sequence-flow :bpmn/source "mode_gw"      :bpmn/target "submit"
+               :bpmn/condition "${mode == member-self-submit}"}
+  "F_agent"   {:bpmn/id "F_agent"   :bpmn/type :sequence-flow :bpmn/source "mode_gw"      :bpmn/target "approval"
+               :bpmn/condition "${mode == agent-on-behalf}"}
+  "F_appr_ok" {:bpmn/id "F_appr_ok" :bpmn/type :sequence-flow :bpmn/source "approval"     :bpmn/target "submit"
+               :bpmn/condition "${approved == true}"}
+  "F7"        {:bpmn/id "F7"        :bpmn/type :sequence-flow :bpmn/source "submit"       :bpmn/target "track"}
+  "F8"        {:bpmn/id "F8"        :bpmn/type :sequence-flow :bpmn/source "track"        :bpmn/target "appeal_gw"}
+  ;; result routing — accepted (default) vs refused (→ appeal)
+  "F_accept"  {:bpmn/id "F_accept"  :bpmn/type :sequence-flow :bpmn/source "appeal_gw"    :bpmn/target "end_done"
+               :bpmn/condition "${status == accepted || status == completed}"}
+  "F_refused" {:bpmn/id "F_refused" :bpmn/type :sequence-flow :bpmn/source "appeal_gw"    :bpmn/target "appeal"
+               :bpmn/condition "${status == refused}"}
+  "F9"        {:bpmn/id "F9"        :bpmn/type :sequence-flow :bpmn/source "appeal"       :bpmn/target "end_appeal"}}}
