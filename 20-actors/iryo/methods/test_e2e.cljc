@@ -70,3 +70,80 @@
       (is (= "点" (get-in claim ["resource" "total" "unit"]))))
     (let [bundle-str (json/generate-string bundle)]
       (is (not (.contains bundle-str "1975"))))))
+
+;; ── karute -> iryo hand-off boundary (agent.cljc wiring; karute/MATURITY.md #11) ──
+
+(deftest test-handle-ingest-billing-is-wired-through-agent
+  (let [request {"patientDid" "did:web:patient.iryo.etzhayyim.com:e2e1"
+                 "encounterDid" "at://did:web:karute.etzhayyim.com/com.etzhayyim.karute.encounter/enc1"
+                 "facilityDid" "did:web:clinic-example.etzhayyim.com"
+                 "consentCapabilityUri" "at://did:web:patient.iryo.etzhayyim.com:e2e1/com.etzhayyim.consent.capability/cap1"}
+        capability {"granterDid" "did:web:patient.iryo.etzhayyim.com:e2e1"
+                    "granteeDid" "did:web:iryo.etzhayyim.com"
+                    "purpose" "insurance-billing"
+                    "scope" ["com.etzhayyim.karute.encounter"]
+                    "expiresAt" "2026-08-01T00:00:00Z"}
+        out (agent/handle-ingest-billing (assoc request "capability" capability "now" "2026-07-08T00:00:00Z"))]
+    (is (= true (get out "ack")))
+    (is (= "pending" (get out "iryoStatus")))
+    (is (.startsWith (str (get out "iryoClaimRef")) "iryo-req-"))
+    (is (nil? (get out "rezeptPreview")))))
+
+;; ── ingest-billing -> rezept auto-wiring (karute/MATURITY.md #11(c)) ────────
+;; Ed25519 signature verification (#11(a)) and PDS resolution of the AT-URIs
+;; (#11(b)) remain out of scope (cross-repo @etzhayyim/sdk) — these tests only
+;; cover (c): once the caller supplies an ALREADY-RESOLVED `encounter` (same
+;; contract as the already-resolved `capability`), the accepted intake is
+;; automatically wired through to the real handle-rezept computation.
+
+(defn- valid-ingest-request []
+  {"patientDid" "did:web:patient.iryo.etzhayyim.com:e2e1"
+   "encounterDid" "at://did:web:karute.etzhayyim.com/com.etzhayyim.karute.encounter/enc1"
+   "facilityDid" "did:web:clinic-example.etzhayyim.com"
+   "consentCapabilityUri" "at://did:web:patient.iryo.etzhayyim.com:e2e1/com.etzhayyim.consent.capability/cap1"})
+
+(defn- valid-ingest-capability []
+  {"granterDid" "did:web:patient.iryo.etzhayyim.com:e2e1"
+   "granteeDid" "did:web:iryo.etzhayyim.com"
+   "purpose" "insurance-billing"
+   "scope" ["com.etzhayyim.karute.encounter"]
+   "expiresAt" "2026-08-01T00:00:00Z"})
+
+(deftest test-handle-ingest-billing-computes-rezept-preview-when-encounter-supplied
+  (let [out (agent/handle-ingest-billing
+             (assoc (valid-ingest-request)
+                    "capability" (valid-ingest-capability)
+                    "now" "2026-07-08T00:00:00Z"
+                    "encounter" ENCOUNTER))
+        preview (get out "rezeptPreview")]
+    (is (= true (get out "ack")))
+    (is (= "pending" (get out "iryoStatus")))
+    (is (nil? (get out "rezeptPreviewError")))
+    (is (some? preview))
+    (is (= 291 (get-in preview ["kubunTotals" "初診"])))
+    ;; matches the direct handle-rezept call on the same encounter
+    (is (= (get-in (agent/handle-rezept {"encounter" ENCOUNTER}) ["result" "totalTen"])
+           (get preview "totalTen")))))
+
+(deftest test-handle-ingest-billing-gate-failure-skips-rezept-preview
+  (let [out (agent/handle-ingest-billing
+             (assoc (valid-ingest-request)
+                    ;; no "capability" supplied -> intake gate fails closed
+                    "now" "2026-07-08T00:00:00Z"
+                    "encounter" ENCOUNTER))]
+    (is (= false (get out "ack")))
+    (is (= "needs-info" (get out "iryoStatus")))
+    (is (nil? (get out "rezeptPreview")))
+    (is (nil? (get out "rezeptPreviewError")))))
+
+(deftest test-handle-ingest-billing-reports-rezept-preview-error-without-failing-intake
+  (let [bad-encounter (assoc ENCOUNTER "acts" [{"code" "000000000-not-in-master" "count" 1}])
+        out (agent/handle-ingest-billing
+             (assoc (valid-ingest-request)
+                    "capability" (valid-ingest-capability)
+                    "now" "2026-07-08T00:00:00Z"
+                    "encounter" bad-encounter))]
+    (is (= true (get out "ack")))
+    (is (= "pending" (get out "iryoStatus")))
+    (is (nil? (get out "rezeptPreview")))
+    (is (.contains (str (get out "rezeptPreviewError")) "not in master"))))

@@ -29,7 +29,10 @@ charter-clean:
 ## Architecture
 
 ```
-診療録(encounter, codes only)
+karute (encrypted PHI, codes-only hand-off: DID/AT-URI + consentCapabilityUri)
+        │
+        ▼
+  ingest-billing 受理境界 (PHI-free allow-list gate + consent.capability structural gate)
         │
         ▼
   rezept   点数計算 — 区分集計 / 一部負担金 / 高額療養費
@@ -43,7 +46,90 @@ charter-clean:
   審査支払機関 (社会保険診療報酬支払基金 / 国保連)
 ```
 
-3 Pregel cells (`rezept` / `receden` / `validate`), all pure-stdlib + pywasm-ready.
+4 Pregel cells (`ingest-billing` / `rezept` / `receden` / `validate`), all pure-stdlib + pywasm-ready.
+
+### karute -> iryo hand-off boundary (`methods/handoff.cljc`, ADR-2605231401 Pattern 2)
+
+karute's `requestIryoBilling` forwards to iryo's `ingestKaruteEncounterForBilling` via
+`agent.invoke` (karute/actor-manifest.jsonld forwardToIryo step) — until this landed, iryo
+had no receiving implementation at all (karute/MATURITY.md #11). `handoff/handle-ingest`:
+
+1. **PHI-free intake gate (G2)** — the wire request may only carry the exact fields karute
+   sends (`patientDid`/`encounterDid`/`facilityDid`/`serviceRequestUris`/
+   `medicationRequestUris`/`consentCapabilityUri`); any other key fails closed. DIDs must be
+   `did:`-prefixed, URIs `at://`-prefixed, and every string leaf must be ASCII-only (a
+   smuggled Japanese name/free-text field is non-ASCII and gets rejected even if it happens
+   to pass a prefix check).
+2. **Consent-capability structural gate (G1/G7)** — given the already-resolved
+   `com.etzhayyim.consent.capability` record, checks `purpose == "insurance-billing"`,
+   `granteeDid == iryo's own DID`, `granterDid == request patientDid`, not revoked, not
+   expired, and `scope`/`resourceUris` cover the requested resources.
+3. **Result discipline (G3/G5)** — success only ever yields `iryoStatus:"pending"` (drafted
+   into iryo's own intake queue, no online submission). Any gate failure yields
+   `iryoStatus:"needs-info"` — never `"accepted"`/`"rejected"`, which are the
+   審査支払機関's adjudication vocabulary, not iryo's.
+
+**ingest-billing -> rezept auto-wiring (`methods/agent.cljc` `handle-ingest-billing`,
+karute/MATURITY.md #11(c)).** When the intake gates pass AND the caller ALSO supplies an
+already-resolved `"encounter"` (the same shape `handle-rezept` expects — codes/counts only,
+no PHI), `handle-ingest-billing` automatically calls `handle-rezept` and attaches the result
+under `"rezeptPreview"`; `iryoStatus` stays `"pending"` regardless (a draft preview, not an
+adjudication). A malformed/unresolvable encounter (e.g. a code missing from the loaded
+master) does not flip the already-accepted intake to a gate failure — it surfaces as
+`"rezeptPreviewError"` instead, leaving `ack`/`iryoStatus` untouched. Without an `"encounter"`
+the response is byte-for-byte unchanged (a bare hand-off gate check) — this is additive, not a
+new gate, and `handoff.cljc` itself is unmodified.
+
+**Ed25519 signature verification (`signature-gate`, karute/MATURITY.md #8).** `handoff.cljc`
+now verifies the capability's Ed25519 signature — JDK `java.security` only, no third-party
+crypto dep (the same approach already proven green in
+`20-actors/kaiyaku/tools/issue_capability.cljc`). Verification is OPT-IN via an additional
+already-resolved input, `"granterPublicKey"` (base64 raw 32-byte Ed25519 public key) —
+the SAME already-resolved-input contract as `capability` itself. When supplied, a
+missing/malformed signature or one that fails to verify (wrong key or a payload tampered
+after signing) is rejected (`iryoStatus:"needs-info"`). When NOT supplied, this gate no-ops
+and behavior is byte-for-byte unchanged (backward compatible with every pre-existing caller).
+**Still out of scope**: obtaining `granterPublicKey` by resolving granterDid's DID document.
+In this bridge `patientDid` is a rotating pseudonym did:web
+(`iryo.methods.karte/rotating-pseudonym-did`, `did:web:patient.iryo.etzhayyim.com:<hash>`),
+not a self-describing did:key, so obtaining its verification material means an HTTPS did:web
+document fetch — network I/O, cross-repo, the same class of problem as PDS resolution below.
+Also still open: byte-parity between `handoff/canonicalize-capability-payload` (this
+namespace's own canonicalization) and the eventual real granter-side signer
+(`@etzhayyim/sdk.signConsentCapability`, ADR-2605231401 Phase 2 — still a stub upstream, so
+no reference bytes exist yet to check against).
+
+**consentCapabilityUri structural self-consistency (`parse-at-uri`, this iteration).**
+`capability-gate` now also verifies that `consentCapabilityUri` itself (a) parses as a
+well-formed `at://<did>/<collection>/<rkey>` AT-URI, (b) its collection segment is exactly
+`com.etzhayyim.consent.capability` (the canonical NSID — the lexicon states the record "is
+stored at com.etzhayyim.consent.capability in the granter's PDS", ADR-2605231401), and (c)
+its did segment equals the already-resolved `capability["granterDid"]`. This is a pure
+string-parse — **no network I/O, no new dependency** — investigated and confirmed safe this
+iteration (see below): it closes the STRUCTURAL half of PDS/AT-URI resolution (catching a
+caller-supplied capability record that is inconsistent with the very URI the wire request
+names), while the actual byte-fetch from a real PDS remains out of scope.
+
+**Investigated this iteration: is `@etzhayyim/sdk` PDS resolution reachable?** Yes and no.
+`@etzhayyim/sdk/pds` is a real (non-stub) re-export shim onto `@etzhayyim/atproto-client`
+(= `kotoba-lang/atproto-client`, a separate GitHub repo), and that repo's `.cljc`
+`resolve-pds`/`get-record` are genuinely testable (transport is host-injected `IHttp`, so a
+fake transport can exercise them without real network in tests). But wiring it into iryo
+would mean (1) a NEW cross-repo runtime dependency from an etzhayyim/root bb actor onto a
+`kotoba-lang` package — iryo currently has no deps.edn / git-dep mechanism at all — and (2)
+production code that performs a REAL HTTPS did:web fetch, which is a materially bigger and
+riskier change than this repo's established "verify GIVEN an already-resolved input" pattern
+(the same pattern `signature-gate` already uses for the public key). Given that, only the
+network-free structural half was implemented this cycle; the actual fetch stays explicitly
+out of scope below.
+
+**Explicitly out of scope** (tracked separately, do not conflate): resolving a capability's
+granter public key FROM granterDid (did:web document fetch, cross-repo network I/O) and
+actually FETCHING `consentCapabilityUri`'s bytes from a real PDS (`@etzhayyim/sdk` /
+`kotoba-lang/atproto-client`, cross-repo, real HTTPS I/O, no wiring exists in iryo today) —
+the caller is expected to have already resolved the capability record (and, for the
+rezept-preview wiring above, the encounter payload, and now optionally the granter public
+key for signature verification) before invoking this cell.
 
 ## 全件対応 (すべての診療行為・薬剤・特定器材・病名)
 
@@ -111,7 +197,7 @@ engine never hard-codes a tariff (G4). The bundled `data/seed_masters.json` is a
 
 ```bash
 cd 20-actors/iryo
-./run_tests.sh           # 11 cljc suites green (masters/master-loader/insurance/kogaku/rezept/karte/receden/coverage/e2e/datoms/kotoba)
+./run_tests.sh           # 12 cljc suites green (masters/master-loader/insurance/kogaku/rezept/karte/handoff/receden/coverage/e2e/datoms/kotoba)
 ```
 
 The engine is fully ported to clojure-on-babashka (`methods/*.cljc`) over the kotoba
@@ -120,7 +206,7 @@ representative master seed lives at `data/seed_masters.json` (loaded by `methods
 
 ## Cross-actor
 
-- **karute** (電子カルテ EMR) — hands off the codes-only billable encounter projection; PHI stays in karute's envelope
+- **karute** (電子カルテ EMR) — hands off the codes-only billable encounter projection via the `ingest-billing` boundary (`methods/handoff.cljc`); PHI stays in karute's envelope
 - **iyashi** (clinical care provider) — L4 sibling; iryo is the billing tool iyashi's G13 deliberately excludes from the corp
 - **yakushi** (pharma) — 医薬品マスタ / 薬価 alignment for 投薬 算定
 - **toritate** (accounting + audit) — donation/grant accounting (NOT insurance inflow); reads claim totals for audit

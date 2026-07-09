@@ -4,6 +4,7 @@
             [iryo.methods.karte :as karte]
             [iryo.methods.receden :as receden]
             [iryo.methods.fhir :as fhir]
+            [iryo.methods.handoff :as handoff]
             [clojure.string :as str]))
 
 (def intent "member-principal-claim-substrate; non-adjudicating")
@@ -118,3 +119,52 @@
         kt (karte-from (get state "karte"))
         rez (rezept/compute enc m)]
     {"bundle" (fhir/to-fhir-bundle kt rez) "intent" intent}))
+
+(def ^:private rezept-preview-keys
+  "Keys `handle-ingest-billing` consumes for the OPTIONAL post-acceptance
+  rezept-preview wiring, on top of the karute wire fields `handoff/handle-ingest`
+  itself understands (patientDid/encounterDid/facilityDid/serviceRequestUris/
+  medicationRequestUris/consentCapabilityUri) plus its own cell-only keys
+  (capability/now). NOT part of the karute wire shape — the caller supplies an
+  ALREADY-RESOLVED `encounter` (the same shape `handle-rezept` expects, and
+  optionally a `masters` override) the same way it already supplies an
+  already-resolved consent `capability`. These keys are stripped before the
+  request reaches `handoff/handle-ingest` so the PHI-free allow-list gate (G2)
+  never sees them."
+  #{"encounter" "masters"})
+
+(defn handle-ingest-billing
+  "Wraps `handoff/handle-ingest` (the karute -> iryo intake boundary) and,
+  ONLY when the intake gates pass AND the caller has ALSO supplied an
+  already-resolved `\"encounter\"`, automatically wires the accepted intake
+  through to the real `handle-rezept` computation — closing the previously
+  missing 'ingest-billing cell -> rezept cell' connection the architecture
+  diagram (20-actors/iryo/CLAUDE.md) describes. The rezept result is attached
+  under `\"rezeptPreview\"`; `iryoStatus` stays `\"pending\"` regardless (this
+  is a draft preview, not an adjudication — G3/G5 unchanged).
+
+  This does NOT perform PDS resolution of encounterDid/serviceRequestUris/
+  medicationRequestUris (karute/MATURITY.md #11(b), cross-repo `@etzhayyim/sdk`,
+  still out of scope) — the caller must resolve + shape the encounter payload
+  first, exactly as it must already resolve the consent capability before
+  calling this. Without an `\"encounter\"`, behavior is byte-for-byte
+  unchanged (a bare hand-off gate check).
+
+  A malformed/unresolvable encounter (e.g. a 診療行為コード missing from the
+  loaded master) does NOT flip the already-accepted intake to a gate failure —
+  the intake boundary's own job (identity + consent) is done and stays
+  \"pending\"; the preview failure is reported separately under
+  `\"rezeptPreviewError\"` so the caller can see the computation could not run."
+  [state]
+  (let [encounter (get state "encounter")
+        masters (get state "masters")
+        intake-state (apply dissoc state rezept-preview-keys)
+        result (handoff/handle-ingest intake-state)]
+    (if (and (get result "ack") encounter)
+      (try
+        (let [rez-state (cond-> {"encounter" encounter} masters (assoc "masters" masters))
+              rez (handle-rezept rez-state)]
+          (assoc result "rezeptPreview" (get rez "result")))
+        (catch #?(:clj clojure.lang.ExceptionInfo :cljs ExceptionInfo) e
+          (assoc result "rezeptPreviewError" (ex-message e))))
+      result)))

@@ -11,9 +11,10 @@
  :actor/parent-adr "2605263000"   ;; iyashi L4 Care tier
  :actor/integrates ["karute" "iyashi" "yakushi" "toritate" "chigiri"]
  :actor/cells
- [{:cell/id "rezept"   :cell/kind :langgraph :cell/runtime :wasm}
-  {:cell/id "receden"  :cell/kind :langgraph :cell/runtime :wasm}
-  {:cell/id "validate" :cell/kind :langgraph :cell/runtime :wasm}]
+ [{:cell/id "rezept"         :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "receden"        :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "validate"       :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "ingest-billing" :cell/kind :langgraph :cell/runtime :wasm}]
  :actor/gates
  {"G1" "member-principal — the licensed 保険医療機関 is the billing PRINCIPAL; iryo is open substrate only, never originates a claim on its own key (no-server-key)"
   "G2" "PHI-encrypted — 氏名/生年月日/SOAP free-text are PHI; they enter the レセ電 stream only via the operator decrypt callback at submission, never the public substrate (ADR-2605181100)"
