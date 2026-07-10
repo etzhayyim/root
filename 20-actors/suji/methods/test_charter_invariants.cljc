@@ -35,7 +35,21 @@
   (sort (filter #(str/ends-with? (.getName %) ".edn")
                 (seq (.listFiles lex-dir)))))
 
-(defn- load-lex [f] (edn/read-string (slurp f)))
+;; lex/*.edn is now Datomic/Datascript tx-data (a 1-entity vector, namespace-prefixed
+;; keys, non-scalar values pr-str blobbed — Phase 4 fan-out, see 20-actors/suji/schema.edn).
+;; Reconstitute the original bare-keyword lexicon-doc shape here so every downstream
+;; :id / :defs / get-in lookup below keeps working unchanged.
+(defn- unblob [v]
+  (if (string? v)
+    (try (let [parsed (edn/read-string v)] (if (coll? parsed) parsed v))
+         (catch Exception _ v))
+    v))
+
+(defn- reconstitute-entity [tx-data]
+  (into {} (map (fn [[k v]] [(keyword (name k)) (unblob v)]))
+        (dissoc (first tx-data) :db/id)))
+
+(defn- load-lex [f] (reconstitute-entity (edn/read-string (slurp f))))
 
 (deftest test-lexicons-parse-and-have-ids
   (let [files (lex-files)]
