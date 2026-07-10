@@ -29,6 +29,26 @@
    :digest           "20-actors/minori/data/last-digest.md"
    :ledger           "20-actors/minori/data/ledger.edn"})
 
+(defn- unblob
+  "system.edn's non-scalar attrs (:system/boundary :system/reward :score/model) are
+   pr-str'd string blobs in the datomic/datascript tx-data shape; parse them back."
+  [v]
+  (if (string? v)
+    (try (let [parsed (edn/read-string v)] (if (coll? parsed) parsed v))
+         (catch #?(:clj Exception :cljs :default) _ v))
+    v))
+
+(defn- reconstitute-system
+  "system.edn is stored as datomic/datascript tx-data: [{:db/id -1 :actor/actor \"minori\" ...}].
+   Bare top-level keys (:actor :adr :kind :doctrine) were promoted under the :actor/* namespace
+   at datomize-time — un-promote those back to bare keys here so downstream lookups (:score/model
+   etc, which were ALREADY namespaced and are left untouched by datomize) keep working unchanged."
+  [tx-data]
+  (into {}
+        (map (fn [[k v]]
+               [(if (= (namespace k) "actor") (keyword (name k)) k) (unblob v)]))
+        (dissoc (first tx-data) :db/id)))
+
 (defn next-worklist
   "The :intervention-worklist export (system.edn) — the prioritized REAL (mostly G7-gated) next
    step to MOVE the truth, ranked by lowest component first (highest leverage). minori sees the
@@ -55,7 +75,7 @@
 (defn run
   ([] (run defaults))
   ([{:keys [system valuation sos scoreboard capture-snapshot digest ledger] :as paths}]
-   (let [sys      (edn/read-string (slurp system))
+   (let [sys      (reconstitute-system (edn/read-string (slurp system)))
          model    (:score/model sys)
          _val     (score/read-edn valuation)            ; the MAP being tracked (presence = observed)
          adoption (score/roster-adoption sos (:adoption (:targets model)))
