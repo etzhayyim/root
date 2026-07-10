@@ -35,6 +35,23 @@
 
 (defn- first-val [m] (val (first m)))
 
+;; lex/*.edn is now Datomic/Datascript tx-data (`[{":db/id" -1 ":lex.<name>/lexicon"
+;; ... ":lex.<name>/defs" "<blob text>"}]` once parsed by A/load-edn's minimal
+;; string-keyed reader, per ADR datomize fanout). `lex-doc` reverses that so the
+;; three-places-agree assertions below keep reading the original bare
+;; {":lexicon" ... ":id" ... ":defs" {...}} shape unchanged: strip the
+;; ":lex.<name>/" namespace back to the bare key, and re-parse the ":defs" blob
+;; string with A/read-edn (the same minimal reader, recursively).
+(defn- lex-doc [fname]
+  (let [entity (first (A/load-edn (io/file lex-dir fname)))]
+    (into {}
+          (keep (fn [[k v]]
+                  (when (not= k ":db/id")
+                    (let [slash (str/last-index-of k "/")
+                          orig-key (str ":" (subs k (inc slash)))]
+                      [orig-key (if (= orig-key ":defs") (A/read-edn v) v)]))))
+          entity)))
+
 (deftest test-seed-parses-and-classifies
   (let [[materials procs crystals wafers precursors] (load*)]
     (is (contains? materials "inp"))
@@ -219,7 +236,7 @@
   (let [onto (A/load-edn onto-file)
         schema-set (set (map lstrip-colon*
                              (get-in onto [":attributes" ":iiiv.proc/source-license" ":db/allowed"])))
-        lex (A/load-edn (io/file lex-dir "processKnowledge.edn"))
+        lex (lex-doc "processKnowledge.edn")
         lex-set (set (map lstrip-colon*
                           (get-in lex [":defs" ":main" ":record" ":properties" ":sourceLicense" ":enum"])))
         code-set (set (map lstrip-colon* A/ALLOWED-LICENSES))]
@@ -229,9 +246,9 @@
   (let [onto (A/load-edn onto-file)]
     (is (= [false] (get-in onto [":attributes" ":iiiv.crystal/fabricated" ":db/allowed"])))
     (is (= [false] (get-in onto [":attributes" ":iiiv.wafer/fabricated" ":db/allowed"])))
-    (let [lex (A/load-edn (io/file lex-dir "crystalGrowthDesign.edn"))]
+    (let [lex (lex-doc "crystalGrowthDesign.edn")]
       (is (false? (get-in lex [":defs" ":main" ":record" ":properties" ":fabricated" ":const"]))))
-    (let [wlex (A/load-edn (io/file lex-dir "waferSpec.edn"))]
+    (let [wlex (lex-doc "waferSpec.edn")]
       (is (false? (get-in wlex [":defs" ":main" ":record" ":properties" ":fabricated" ":const"]))))
     ;; code: screen-fabrication raises on true (the 3rd place)
     (is (thrown? clojure.lang.ExceptionInfo
@@ -242,7 +259,7 @@
   (let [onto (A/load-edn onto-file)
         schema-set (set (map lstrip-colon*
                              (get-in onto [":attributes" ":iiiv.crystal/in-sourcing" ":db/allowed"])))
-        lex (A/load-edn (io/file lex-dir "crystalGrowthDesign.edn"))
+        lex (lex-doc "crystalGrowthDesign.edn")
         lex-set (set (map lstrip-colon*
                           (get-in lex [":defs" ":main" ":record" ":properties" ":inSourcing" ":enum"])))
         code-set (set (map lstrip-colon* A/CLEAN-SOURCING))]

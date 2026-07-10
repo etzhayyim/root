@@ -18,6 +18,7 @@
 
   Assessment-only: the digest reports a RESTORATION map, never a cut-list (G1/G2)."
   (:require [kafun.methods.remediate :as rem]
+            [kafun.methods.kafun-edn :as ke]
             [clojure.string :as str]
             #?(:clj [babashka.http-client :as http])
             #?(:clj [clojure.edn :as edn])))
@@ -135,7 +136,10 @@
      (let [flags (set (filter #(str/starts-with? % "--") args))
            pos (vec (remove #(str/starts-with? % "--") args))
            seed (or (first pos) "20-actors/kafun/kotoba/seed.edn")
-           stands (vec (filter #(= (:type %) :stand) (edn/read-string (slurp seed))))
+           ;; kafun-edn/stands, not a raw read+filter: seed.edn is Datomic/
+           ;; Datascript tx-data (Phase 4 EDN datomize) — kafun-edn/classify is
+           ;; where the tx-data -> bare-row reconstitution lives.
+           stands (ke/stands seed)
            d (digest-data (rem/assess stands))
            narration (narrate d (when (contains? flags "--live") {:infer murakumo-infer}))]
        (println narration)

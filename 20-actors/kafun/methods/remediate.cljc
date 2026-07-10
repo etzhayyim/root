@@ -26,7 +26,8 @@
   The gate REFUSES non-restorative cuts STRUCTURALLY (proven by tests): there is
   no path by which a clearcut-without-reforest or net-carbon-positive stand returns
   a remediation permit. There is NO actuation method — kafun cannot cut or plant."
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [kafun.methods.kafun-edn :as ke]))
 
 ;; ── pure scoring ──────────────────────────────────────────────────────────────
 
@@ -207,8 +208,10 @@
 #?(:clj
    (defn -main [& args]
      (let [seed (or (first args) "20-actors/kafun/kotoba/seed.edn")
-           rows (clojure.edn/read-string (slurp seed))
-           ss (vec (filter #(= (:type %) :stand) rows))
+           ;; kafun-edn/stands, not a raw read+filter: seed.edn is Datomic/
+           ;; Datascript tx-data (Phase 4 EDN datomize) — kafun-edn/classify is
+           ;; where the tx-data -> bare-row reconstitution lives.
+           ss (ke/stands seed)
            a (assess ss)]
        (println (render-report a))
        (println (str "-- " (count ss) " stands assessed --")))))

@@ -23,13 +23,29 @@
             [clojure.edn :as edn]
             [cheshire.core :as json]))
 
+;; lex/*.edn is now Datomic/Datascript tx-data (`[{:db/id -1 :lex.<name>/lexicon ...
+;; :lex.<name>/defs "<pr-str blob>"}]`, per ADR datomize fanout). `unblob`/
+;; `reconstitute-entity` reverse that so downstream key lookups (`record-node`
+;; etc.) keep reading the original bare `{:lexicon ... :id ... :defs {...}}` shape
+;; unchanged. manifest.edn is NOT transformed (fleet-wide shared-consumer blocker,
+;; see CLAUDE.md) so `manifest` stays a direct read.
+(defn- unblob [v]
+  (if (string? v)
+    (try (let [parsed (edn/read-string v)] (if (coll? parsed) parsed v))
+         (catch Exception _ v))
+    v))
+
+(defn- reconstitute-entity [tx-data]
+  (into {} (map (fn [[k v]] [(keyword (name k)) (unblob v)]))
+        (dissoc (first tx-data) :db/id)))
+
 #?(:clj
    (do
      (def ^:private here (.getParentFile (java.io.File. ^String *file*)))      ;; methods/
      (def ^:private actor-dir (.getParentFile here))                          ;; hotaru/
      (def ^:private lexdir (java.io.File. actor-dir "lex"))
      (defn- lex [name]
-       (edn/read-string (slurp (java.io.File. lexdir (str name ".edn")))))
+       (reconstitute-entity (edn/read-string (slurp (java.io.File. lexdir (str name ".edn"))))))
      (defn- manifest []
        (edn/read-string (slurp (java.io.File. actor-dir "manifest.edn"))))))
 
