@@ -20,6 +20,13 @@
 
 (def id-keys [":domain/id" ":pdns/id" ":iphist/id" ":tlscert/id" ":indicator/id" ":access/id"])
 
+;; keys that MUST NOT become a graph-datoms attribute-value pair: the id-keys themselves
+;; (already consumed as the entity id via first-id) plus the local Datomic/Datascript tempid
+;; wrapper ":db/id" that manifest/edn-datomize.cljs may add to source seed EDN files so those
+;; files are directly (d/transact conn …)-able outside this pipeline — it is NOT part of the
+;; yabai CTI vocabulary and must never be persisted as a graph attribute (2607102300).
+(def ^:private non-attr-keys (conj (set id-keys) ":db/id"))
+
 ;; PlaintextAccessError — Python subclasses ValueError. We carry the marker in ex-data.
 (defn- plaintext-access-error [msg]
   (ex-info msg {::plaintext-access-error true}))
@@ -64,7 +71,7 @@
            out
            (reduce
             (fn [out [k v]]
-              (if (contains? (set id-keys) k)
+              (if (contains? non-attr-keys k)
                 out
                 (reduce (fn [out item] (conj out (add e k item)))
                         out
