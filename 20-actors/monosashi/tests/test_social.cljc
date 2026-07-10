@@ -9,10 +9,13 @@
             [monosashi.methods.kotoba :as kotoba]
             [monosashi.methods.autorun :as autorun]))
 
+;; data/seed-scores.kotoba.edn is stored datomized (tx-data shape); go through
+;; autorun/load-residuals, which reconstitutes the original {:residuals [...]}
+;; map so this test keeps working unchanged.
 (def seed
   (-> (io/file *file*) .getParentFile .getParentFile
       (io/file "data" "seed-scores.kotoba.edn") str
-      slurp clojure.edn/read-string))
+      autorun/load-residuals))
 
 (def member "did:web:etzhayyim.com:member:abc")
 (def band (first (score/evaluate (:residuals seed) {:as-of "2026-06-27T00:00:00Z"})))

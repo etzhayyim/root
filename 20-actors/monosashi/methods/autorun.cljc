@@ -18,11 +18,36 @@
             [monosashi.methods.social :as social]
             [monosashi.methods.kotoba :as kotoba]))
 
+;; data/seed-scores.kotoba.edn is now stored datomized (tx-data: a single-entity
+;; vector [{:db/id -1 :seed-scores/residuals "<pr-str'd residuals vector>"}], per
+;; the repo-wide edn-datomize convention). `unblob`/`reconstitute-entity` restore
+;; the original `{:residuals [...]}` shape so this loader (and every downstream
+;; caller, incl. the test suite) keeps working unchanged. Also tolerates the
+;; pre-datomize raw-map shape for any other seed edn passed in.
+#?(:clj
+   (defn- unblob [v]
+     (if (string? v)
+       (try (let [parsed (edn/read-string v)] (if (coll? parsed) parsed v))
+            (catch Exception _ v))
+       v)))
+
+#?(:clj
+   (defn- tx-data? [content]
+     (and (vector? content) (seq content) (map? (first content))
+          (contains? (first content) :db/id))))
+
+#?(:clj
+   (defn- reconstitute-entity [tx-data]
+     (into {} (map (fn [[k v]] [(keyword (name k)) (unblob v)]))
+           (dissoc (first tx-data) :db/id))))
+
 #?(:clj
    (defn load-residuals
-     "Read a seed EDN of {:residuals [...] :sysdyn {actor {:series :band-width}}}."
+     "Read a seed EDN of {:residuals [...] :sysdyn {actor {:series :band-width}}}.
+     Accepts both the datomized tx-data shape and the legacy raw-map shape."
      [path]
-     (with-open [r (io/reader path)] (edn/read-string (slurp r)))))
+     (let [parsed (with-open [r (io/reader path)] (edn/read-string (slurp r)))]
+       (if (tx-data? parsed) (reconstitute-entity parsed) parsed))))
 
 (defn run-cycle
   "Run one heartbeat cycle. opts:

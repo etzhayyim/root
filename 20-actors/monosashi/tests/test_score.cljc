@@ -3,12 +3,16 @@
   Asserts STATISTICS and ADVERSARIAL inputs, not just shapes."
   (:require [clojure.test :refer [deftest is run-tests]]
             [clojure.java.io :as io]
-            [monosashi.methods.score :as score]))
+            [monosashi.methods.score :as score]
+            [monosashi.methods.autorun :as autorun]))
 
+;; data/seed-scores.kotoba.edn is stored datomized (tx-data shape); go through
+;; autorun/load-residuals, which reconstitutes the original {:residuals [...]}
+;; map so this test keeps working unchanged.
 (def seed
   (-> (io/file *file*) .getParentFile .getParentFile
       (io/file "data" "seed-scores.kotoba.edn") str
-      slurp clojure.edn/read-string))
+      autorun/load-residuals))
 
 (def as-of "2026-06-27T00:00:00Z")
 (defn- bands [] (score/evaluate (:residuals seed) {:as-of as-of}))
