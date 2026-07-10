@@ -1,0 +1,77 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.narashi.metricObservation",
+  "description": "One typed FACTUAL global-inequality indicator value, ingested by narashi_metric_ingest from a pre-published World Bank WDI / UN SDG / Our World in Data snapshot. R0 skeleton per ADR-2607101800 §3/§6. CONSTITUTIONAL: describes a disclosed statistic only — it MUST NOT rank jurisdictions as good/bad or assign merit (G4 non-adjudicating). `indicator` is a closed, DESCRIPTIVE enum with no merit/ranking value. `sourceRecordCids` MUST contain >=2 upstream WDI/SDG/OWID record CIDs unless `singleSourced=true` (G5). Persisted in kotoba EAVT (G2; NO RisingWave/Postgres/Lance).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "sourceCellDid",
+          "indicator",
+          "jurisdiction",
+          "period",
+          "value",
+          "unit",
+          "sourceRecordCids",
+          "methodNoteCid",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "sourceCellDid": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the narashi cell that ingested this observation (narashi_metric_ingest)"
+          },
+          "indicator": {
+            "type": "string",
+            "description": "DESCRIPTIVE indicator identifier ONLY. No merit/ranking value exists (G4).",
+            "knownValues": [
+              "gini",
+              "poverty-headcount-ratio-international",
+              "poverty-headcount-ratio-national",
+              "income-share-bottom40",
+              "income-share-top10",
+              "sdg10-shared-prosperity-premium"
+            ]
+          },
+          "jurisdiction": {
+            "type": "string",
+            "maxLength": 8,
+            "description": "ISO-3 country code, or a WDI/UN region/income-group aggregate code (e.g. WLD, LMY)"
+          },
+          "period": {"type": "string", "description": "Reporting year, e.g. 2022"},
+          "value": {"type": "string", "description": "Decimal string (avoids float drift). The reported figure as published by the source."},
+          "unit": {
+            "type": "string",
+            "knownValues": ["gini-index", "percent-population", "percent-income-share"]
+          },
+          "sourceDataset": {
+            "type": "string",
+            "knownValues": ["worldbank-wdi", "un-sdg", "our-world-in-data"]
+          },
+          "sourceRecordCids": {
+            "type": "array",
+            "minLength": 1,
+            "items": {"type": "string"},
+            "description": ">=2 upstream record CIDs (G5); exactly 1 permitted only when singleSourced=true"
+          },
+          "singleSourced": {
+            "type": "boolean",
+            "default": false,
+            "description": "true when only one Tier-A source publishes this indicator-jurisdiction-period triple (explicit, not silent, per G5)"
+          },
+          "methodNoteCid": {
+            "type": "string",
+            "description": "narashi.methodNote record CID defining the open, versioned normalization heuristic (G6)"
+          },
+          "attestingDid": {"type": "string", "format": "did"}
+        }
+      }
+    }
+  }
+}
