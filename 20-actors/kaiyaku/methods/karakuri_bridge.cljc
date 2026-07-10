@@ -37,10 +37,32 @@
 ;; ── read karakuri's serviceOp lexicon enums (the drift guard's source) ──────
 
 #?(:clj
+   (defn- unblob
+     "lex/serviceOp.edn is now Datomic/Datascript tx-data (edn-datomize wrap-map,
+     per-file :serviceOp/* namespace on the bare :lexicon/:id/:defs keys);
+     non-scalar values (here: :defs) are pr-str blob strings. Parse back to the
+     original nested value where possible."
+     [v]
+     (if (string? v)
+       (try (let [parsed (edn/read-string v)] (if (coll? parsed) parsed v))
+            (catch Exception _ v))
+       v)))
+
+#?(:clj
+   (defn- reconstitute-entity
+     "tx-data [{:db/id -1 :serviceOp/lexicon 1 :serviceOp/id \"...\" :serviceOp/defs
+     \"...blob...\"}] -> the original bare {:lexicon 1 :id \"...\" :defs {...}} map
+     so get-in-based readers below are unchanged."
+     [tx-data]
+     (into {} (map (fn [[k v]] [(keyword (name k)) (unblob v)]))
+           (dissoc (first tx-data) :db/id))))
+
+#?(:clj
    (defn lexicon
-     "Read karakuri's serviceOp lexicon EDN → the parsed map. File I/O edge."
+     "Read karakuri's serviceOp lexicon EDN (now tx-data shape) → the reconstituted
+     bare map, unchanged for callers. File I/O edge."
      [path]
-     (edn/read-string (slurp (str path)))))
+     (reconstitute-entity (edn/read-string (slurp (str path))))))
 
 (defn enum-of
   "Extract a property's :enum set from a parsed serviceOp lexicon."
