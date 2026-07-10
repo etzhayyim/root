@@ -107,6 +107,13 @@
       (is (true? (sign/verify-bytes pub-hex msg (sign/unhex sig))))
       (is (false? (sign/verify-bytes pub-hex (.getBytes "tampered") (sign/unhex sig)))))))
 
+(deftest unhex-rejects-odd-length-hex-strings
+  ;; (partition 2 s) used to silently drop the trailing nibble instead of
+  ;; erroring -- must fail loudly, not quietly decode a shorter-than-
+  ;; intended byte array (e.g. from a truncated --member-pub-hex CLI arg).
+  (is (thrown? #?(:clj clojure.lang.ExceptionInfo :cljs js/Error) (sign/unhex "1")))
+  (is (thrown? #?(:clj clojure.lang.ExceptionInfo :cljs js/Error) (sign/unhex "abc"))))
+
 (deftest publish-signed-attaches-sig
   (let [a "__test_kr_signed__"
         path (rad/journal-path a)

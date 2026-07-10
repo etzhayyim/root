@@ -31,6 +31,13 @@
   (apply str (map #(format "%02x" (bit-and % 0xff)) b)))
 
 (defn unhex ^bytes [^String s]
+  ;; (partition 2 s) silently DROPS a trailing odd nibble instead of
+  ;; erroring -- a truncated/mistyped hex string (e.g. --member-pub-hex)
+  ;; would silently build wrong-but-plausible key bytes one nibble short
+  ;; instead of failing loudly. Same bug class already fixed in
+  ;; kotoba-lang/io-multiformats and kotoba-lang/org-ietf-ed25519's unhex.
+  (when (odd? (count s))
+    (throw (ex-info "unhex: odd-length hex string" {:s s})))
   (byte-array (map (fn [[a b]] (unchecked-byte (Integer/parseInt (str a b) 16)))
                    (partition 2 s))))
 
