@@ -17,6 +17,7 @@
   (:require [ugachi.methods.gate :as gate]
             [ugachi.methods.bridge :as bridge]
             [ugachi.methods.kotoba :as k]
+            [ugachi.methods.ugachi-edn :as ue]
             #?(:clj [clojure.edn :as edn])))
 
 (defn beat
@@ -55,10 +56,10 @@
            log-path (or (nth args 2 nil)
                         (-> (clojure.java.io/file *file*) .getParentFile .getParentFile
                             (clojure.java.io/file "data" "persisted" "ugachi.stewardship.kotoba.edn") str))
-           projects (vec (filter #(= (:type %) :project)
-                                 (edn/read-string (slurp ug-seed))))
+           projects (ue/projects ug-seed)
            commodities (when bu-seed
-                         (vec (filter #(= (:type %) :commodity) (edn/read-string (slurp bu-seed)))))
+                         (vec (filter #(= (:type %) :commodity)
+                                      (ue/normalize-rows (edn/read-string (slurp bu-seed))))))
            ;; deterministic stamps for a manual run (override via real scheduler in R2+)
            r (beat {:projects projects :commodities commodities
                     :tx-id "ugachi-beat-manual" :as-of "manual" :log-path log-path})]

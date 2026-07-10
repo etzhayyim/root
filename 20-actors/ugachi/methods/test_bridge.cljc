@@ -11,7 +11,7 @@
 (def bu-seed "20-actors/busshi/kotoba/seed.edn")
 (defn- projects [] (ue/projects ug-seed))
 (defn- commodities []
-  (vec (filter #(= (:type %) :commodity) (clojure.edn/read-string (slurp bu-seed)))))
+  (vec (filter #(= (:type %) :commodity) (ue/normalize-rows (clojure.edn/read-string (slurp bu-seed))))))
 (defn- bindex [] (br/busshi-index (commodities)))
 (defn- by-id [id] (first (filter #(= id (:id %)) (projects))))
 (defn- grounded [id] (br/ground-project (by-id id) (bindex)))
