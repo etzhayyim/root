@@ -7,7 +7,7 @@
             [clojure.edn :as edn]
             [clojure.test :refer [deftest is run-tests]]))
 
-(def ont (edn/read-string (slurp "20-actors/uzu/kotoba/ontology.uzu.edn")))
+(def ont (ue/ontology-map (edn/read-string (slurp "20-actors/uzu/kotoba/ontology.uzu.edn"))))
 (def seed (ue/classify (ue/load-edn "20-actors/uzu/kotoba/seed.edn")))
 
 (deftest shipped-seed-is-valid
