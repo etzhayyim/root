@@ -19,10 +19,39 @@
             [kuramori.methods.cyclecount :as cc]
             [kuramori.methods.handoff :as ho]))
 
+(defn- already-tx-data?
+  "True if `content` is already the datomic/datascript tx-data shape ([{...:db/id ...}]),
+   e.g. after the edn-datomize wave transforms data/warehouse.edn (Phase 4)."
+  [content]
+  (and (vector? content) (seq content) (map? (first content)) (contains? (first content) :db/id)))
+
+(defn- unblob
+  "Non-scalar attrs (nested maps / vectors-of-maps) are stored pr-str'd; parse them back."
+  [v]
+  (if (string? v)
+    (try (let [parsed (edn/read-string v)] (if (coll? parsed) parsed v))
+         (catch Exception _ v))
+    v))
+
+(defn- reconstitute-entity
+  "Undo the tx-data wrap: strip :db/id, strip the namespace off every attr key, unblob
+   pr-str'd values — recovers the original bare warehouse-seed map byte-for-value-equal
+   to the pre-transform data/warehouse.edn, so every downstream `(:skus seed)` /
+   `(:zones seed)` / etc. lookup below (and in datom_emit.clj / test_kuramori.clj) is
+   unchanged regardless of which shape is on disk."
+  [tx-data]
+  (into {} (map (fn [[k v]] [(keyword (name k)) (unblob v)]))
+        (dissoc (first tx-data) :db/id)))
+
 (defn load-seed
-  "Read the warehouse EDN seed into a Clojure map."
+  "Read the warehouse EDN seed into a Clojure map. Tolerates both the original bare-map
+   shape and the datomic/datascript tx-data shape (see `already-tx-data?` /
+   `reconstitute-entity`) — always returns the bare map."
   [path]
-  (edn/read-string (slurp path)))
+  (let [content (edn/read-string (slurp path))]
+    (if (already-tx-data? content)
+      (reconstitute-entity content)
+      content)))
 
 (defn run
   "Run the full R0 analysis over a loaded seed map. Returns a report map."
