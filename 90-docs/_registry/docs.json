@@ -27645,6 +27645,29 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2607101730-global-legislation-datoms-catalog-layer.md",
+      "id": "adr-2607101730-global-legislation-datoms-catalog-layer",
+      "title": "ADR-2607101730: global-legislation-datoms ships the R1 catalog layer for ADR-2605262800 (world legal-source registry, not full text)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "global-legislation-datoms-catalog-layer",
+      "authoritative": true,
+      "authoritative_for": [
+        "etzhayyim/global-legislation-datoms repo scope and non-scope (catalog layer, not text corpus)",
+        "the R1 maturity marker for ADR-2605262800's legal-source registry (as distinct from R0 sensor scaffold and the not-yet-shipped W1 raw-bytes ingestion)"
+      ],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605262800-public-data-legal-corpus-ipfs-ingestion",
+        "adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0"
+      ],
+      "last_verified": "2026-07-10",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
