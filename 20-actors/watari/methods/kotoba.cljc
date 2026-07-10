@@ -42,6 +42,15 @@
   "ID keys, in priority order (mirrors ingest ID_KEYS). E = the first present id key."
   [":craft/id" ":craft.fix/id" ":craft.leg/id" ":lane/id"])
 
+(def ^:private non-domain-keys
+  "Keys that are NOT domain facts and must never be flattened into a graph datom, even though
+  they are not entity-id candidates. `:db/id` is the Datomic/Datascript tx-data framing key the
+  repo-wide edn-datomize pass adds to each seed record so the file is directly usable as
+  (d/transact conn …) tx-data; it is scaffolding around the record, not a fact ABOUT the
+  craft/lane/fix/leg, so it must not appear in the persisted EAVT log or the content-addressed
+  CID (keeps `test-cid-matches-python`'s pinned literals byte-identical)."
+  #{":db/id"})
+
 (defn add
   "One append-only EAVT assertion: [:db/add <entity> <attr> <value>]."
   [entity attr value]
@@ -68,7 +77,7 @@
          (if (nil? e)
            out
            (reduce (fn [out k]
-                     (if (some #{k} id-keys)
+                     (if (or (some #{k} id-keys) (contains? non-domain-keys k))
                        out
                        (let [v (get r k)
                              items (if (sequential? v) v [v])]

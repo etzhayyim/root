@@ -24,7 +24,8 @@
   The gate REFUSES failing projects structurally (proven by tests): there is no
   path by which a no-consent / carbon-positive / monopoly-entrenching / irreversible
   project returns a permit. And there is NO actuation method — ugachi cannot extract."
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [ugachi.methods.ugachi-edn :as ue]))
 
 ;; ── pure gate ────────────────────────────────────────────────────────────────
 
@@ -185,8 +186,7 @@
 #?(:clj
    (defn -main [& args]
      (let [seed (or (first args) "20-actors/ugachi/kotoba/seed.edn")
-           rows (clojure.edn/read-string (slurp seed))
-           ps (vec (filter #(= (:type %) :project) rows))
+           ps (ue/projects seed)
            a (assess ps)]
        (println (render-report a))
        (println (str "-- " (count ps) " projects assessed --")))))

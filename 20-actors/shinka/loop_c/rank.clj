@@ -7,7 +7,35 @@
 (ns rank (:require [clojure.edn :as edn] [clojure.string :as str] [clojure.java.io :as io]))
 
 (def here (-> *file* io/file .getParent))
-(def G (edn/read-string (slurp (io/file here "genotypes.edn"))))
+
+(defn- already-tx-data?
+  "True if `content` is already the datomic/datascript tx-data shape ([{...:db/id ...}]),
+   e.g. after the edn-datomize wave transforms genotypes.edn (Phase 4)."
+  [content]
+  (and (vector? content) (seq content) (map? (first content)) (contains? (first content) :db/id)))
+
+(defn- unblob
+  "Non-scalar attrs (nested maps / vectors-of-maps) are stored pr-str'd; parse them back."
+  [v]
+  (if (string? v)
+    (try (let [parsed (edn/read-string v)] (if (coll? parsed) parsed v))
+         (catch Exception _ v))
+    v))
+
+(defn- reconstitute-entity
+  "Undo the tx-data wrap: strip :db/id, strip the :shinka.genotypes/ namespace off every
+   attr key, unblob pr-str'd values — recovers the original bare genotypes map byte-for-
+   value-equal to the pre-transform genotypes.edn, so every downstream `(:weights G)` /
+   `(:candidates G)` lookup below is unchanged."
+  [tx-data]
+  (into {} (map (fn [[k v]] [(keyword (name k)) (unblob v)]))
+        (dissoc (first tx-data) :db/id)))
+
+(defn- load-genotypes []
+  (let [content (edn/read-string (slurp (io/file here "genotypes.edn")))]
+    (if (already-tx-data? content) (reconstitute-entity content) content)))
+
+(def G (load-genotypes))
 (def W (:weights G))
 
 (defn flatness

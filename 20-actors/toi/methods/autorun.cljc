@@ -13,7 +13,7 @@
   a forced dispatch."
   (:require [toi.methods.analyze :as a]
             [toi.methods.kotoba :as k]
-            #?(:clj [clojure.edn :as edn])))
+            #?(:clj [toi.methods.toi-edn :as te])))
 
 (defn beat
   "Run one heartbeat. opts: :jobs :sites :tx-id :as-of :log-path (all required)."
@@ -39,9 +39,11 @@
            log-path (or (second args)
                         (-> (clojure.java.io/file *file*) .getParentFile .getParentFile
                             (clojure.java.io/file "data" "persisted" "toi.routings.kotoba.edn") str))
-           rows (edn/read-string (slurp seed))
-           jobs (vec (filter #(= (:type %) :job) rows))
-           sites (vec (filter #(= (:type %) :site) rows))
+           ;; te/jobs+te/sites tolerate both the legacy bare-map seed.edn
+           ;; shape and the datomized tx-data shape (single reconstitution
+           ;; point — see toi.methods.toi-edn/classify).
+           jobs (te/jobs seed)
+           sites (te/sites seed)
            r (beat {:jobs jobs :sites sites :tx-id "toi-beat-manual" :as-of "manual" :log-path log-path})]
        (println (str "routing ledger head=" (:head r)
                      " datoms=" (:count r)

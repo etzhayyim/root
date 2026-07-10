@@ -19,7 +19,8 @@
         actuate). A non-movable job is never coerced; it stays in-place.
     G2  Murakumo is default-preferred — a clean Murakumo site outscores a commercial-GPU
         site, which is only ever a fallback (and unused while clean capacity exists)."
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            #?(:clj [toi.methods.toi-edn :as te])))
 
 ;; ── route params ─────────────────────────────────────────────────────────────
 
@@ -250,9 +251,11 @@
 #?(:clj
    (defn -main [& args]
      (let [seed (or (first args) "20-actors/toi/kotoba/seed.edn")
-           rows (clojure.edn/read-string (slurp seed))
-           jobs (vec (filter #(= (:type %) :job) rows))
-           sites (vec (filter #(= (:type %) :site) rows))
+           ;; te/jobs+te/sites tolerate both the legacy bare-map seed.edn
+           ;; shape and the datomized tx-data shape (single reconstitution
+           ;; point — see toi.methods.toi-edn/classify).
+           jobs (te/jobs seed)
+           sites (te/sites seed)
            a (analyze jobs sites)
            cov (coverage sites)]
        (println (render-report a cov))

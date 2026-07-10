@@ -30,11 +30,11 @@
             [yudane.methods.analyze :as yudane-a]))
 
 (defn- tx-data?
-  "20-actors/mio/kotoba/ontology.mio.edn is now Datomic/Datascript tx-data on
-  disk (ADR-2606230001 fan-out, 2026-07); the other suite ontologies
-  (tawami/okibi/toi/yudane) are not yet migrated and stay plain top-level
-  maps. Tolerate both so this shared reader keeps working for every actor
-  regardless of migration state."
+  "20-actors/mio/kotoba/ontology.mio.edn and 20-actors/yudane/kotoba/ontology.yudane.edn
+  are now Datomic/Datascript tx-data on disk (ADR-2606230001 fan-out, 2026-07); the other
+  suite ontologies (tawami/okibi/toi) are not yet migrated and stay plain top-level maps.
+  Tolerate both so this shared reader keeps working for every actor regardless of
+  migration state."
   [content]
   (and (vector? content) (seq content) (map? (first content)) (contains? (first content) :db/id)))
 
