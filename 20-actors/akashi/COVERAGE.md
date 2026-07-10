@@ -40,6 +40,10 @@ and `malakEvidenceCandidate`; all remain fixture-only and non-adjudicating.
 Meta/Instagram and X fixture parser coverage exists for source-disclosed
 platform ad-library records and projects them into the same advertiser,
 creative, landing, delivery, and snapshot lexicons as regulator bulk fixtures.
+`adapters/ingest_platform_ad_library.py` accepts reviewed local
+Meta/Instagram/X-style JSON snapshots from an operator and emits records,
+DataScript/kotoba tx EDN, or a Datomic schema/scalar-tx import bundle without
+network access.
 `adapters/dry_run_fixtures.py` exercises the local fixture set and validates
 every emitted record without network access or writes.
 `fixtures/dry_run/summary.golden.json` pins the dry-run record counts. A second
@@ -67,7 +71,8 @@ A platform source can move from `candidate` to `covered-r1` only when:
 
 ## R0 Gaps
 
-- No live adapter code exists; current parsers are fixture-only.
+- No live adapter code exists; current parsers and reviewed-export ingest are
+  local-file only.
 - Regulator bulk and platform ad-library fixture parsers validate output against
   akashi lexicons; no live platform adapter exists.
 - Closure fixtures validate link/report/malak candidate records without live

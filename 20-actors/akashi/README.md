@@ -68,6 +68,10 @@ fixtures, or collection jobs yet. See:
 - `adapters/platform_ad_library_fixture_parser.py` and
   `fixtures/platform_ad_library/` — local Meta/Instagram and X ad-library
   fixture parser coverage; no live collection
+- `adapters/ingest_platform_ad_library.py` — reviewed local export ingest CLI
+  for Meta/Instagram/X-style public ad-library JSON snapshots; emits records,
+  DataScript/kotoba tx EDN, or Datomic schema+scalar tx EDN without network
+  access or writes unless `--out` is explicitly passed
 - `adapters/edn_export.py` — deterministic DataScript/kotoba EDN tx-data plus
   a Datomic schema/scalar-tx import bundle for validated akashi records;
   callers choose git, DataLad, or kotoba-git/kotoba-rad storage

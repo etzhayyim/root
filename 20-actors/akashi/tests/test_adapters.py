@@ -20,6 +20,10 @@ from edn_export import (  # noqa: E402
     records_to_edn,
     records_to_tx_data,
 )
+from ingest_platform_ad_library import (  # noqa: E402
+    ingest_files,
+    summarize as summarize_platform_ingest,
+)
 from platform_ad_library_fixture_parser import (  # noqa: E402
     PARSER_VERSION as PLATFORM_PARSER_VERSION,
     parse_platform_ad_library_fixture,
@@ -243,6 +247,26 @@ def test_platform_parser_maps_meta_x_style_ad_library_records():
     assert out["creativeDisclosure"][0]["mediaCid"] == "cid:akashi:media:meta-1"
     assert "targetingSummaryCid" in out["deliveryDisclosure"][0]
     assert out["deliveryDisclosure"][0]["spendRange"]["currency"] == "USD"
+
+
+def test_reviewed_platform_export_ingest_merges_files_and_emits_no_network_summary():
+    paths = [
+        ACTOR_DIR / "fixtures" / "platform_ad_library" / "meta_instagram_sample.json",
+        ACTOR_DIR / "fixtures" / "platform_ad_library" / "x_ads_sample.json",
+    ]
+    records = ingest_files(paths)
+    summary = summarize_platform_ingest(records, paths)
+    assert summary["mode"] == "reviewed-platform-export-ingest"
+    assert summary["networkAccess"] is False
+    assert summary["writes"] is False
+    assert summary["platforms"] == ["meta", "x"]
+    assert summary["recordCounts"]["adDisclosureSnapshot"] == 2
+    assert summary["totalRecords"] == 12
+    tx = records_to_tx_data(records)
+    assert len(tx) == 12
+    datomic = records_to_datomic_bundle(records)
+    assert datomic["akashi.datomic/schema"]
+    assert all(op[0] == "db/add" for op in datomic["akashi.datomic/tx-data"])
 
 
 # ── dry-run pipeline (fixtures → parse → lexicon-validate, end-to-end) ──────

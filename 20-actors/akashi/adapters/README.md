@@ -11,6 +11,10 @@ Current parser:
 - `platform_ad_library_fixture_parser.py` maps reviewed local platform
   ad-library fixtures (Meta/Instagram and X samples) into the same akashi
   lexicon-shaped records. It has no network mode.
+- `ingest_platform_ad_library.py` is the operator-facing reviewed-export
+  ingest CLI for local Meta/Instagram/X-style JSON snapshots. It has no
+  network mode; it can emit records, DataScript/kotoba tx EDN, or a Datomic
+  schema+scalar tx bundle.
 - `edn_export.py` projects validated records into deterministic
   DataScript/kotoba EDN tx-data and a Datomic import bundle with schema plus
   scalar `:db/add` ops. The caller chooses whether to store that EDN in git,
