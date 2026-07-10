@@ -31,16 +31,42 @@
   derive-bom         a variant's bill of materials (parts ∪ from selected features, qty summed)"
   (:require [clojure.set :as set]
             [clojure.string :as str]
+            [clojure.edn :as edn]
             #?(:clj [clojure.java.io :as io])))
 
 ;; ── load ─────────────────────────────────────────────────────────────────────
 
+(defn- unblob
+  "seed.edn rows may carry pr-str'd (blob) values for non-scalar attrs (datomize
+  transform, e.g. :atsurae.binding/parts). Read them back to live EDN; pass through
+  unchanged otherwise."
+  [v]
+  (if (string? v)
+    (try (let [parsed (edn/read-string v)] (if (coll? parsed) parsed v))
+         (catch #?(:clj Exception :default :default) _ v))
+    v))
+
+(defn- reconstitute-row
+  "Tolerates seed.edn rows in EITHER shape:
+    legacy bare map    — {:type :feature :id :robot-base ...}
+    datomized tx-data  — {:db/id -1 :atsurae.feature/type :feature :atsurae.feature/id :robot-base ...}
+  Un-namespaces + un-blobs a tx-data row back to the original bare-key shape so
+  downstream :type/:id/:parent/:kind/:group/:from/:to/:feature/:parts lookups keep
+  working unchanged either way."
+  [row]
+  (if (contains? row :db/id)
+    (into {} (map (fn [[k v]] [(keyword (name k)) (unblob v)])) (dissoc row :db/id))
+    row))
+
 (defn classify
-  "Split the flat seed vector by :type → {:features :constraints :bindings}."
+  "Split the flat seed vector by :type → {:features :constraints :bindings}. Tolerates
+  both the legacy bare-map seed.edn shape and the datomized tx-data shape (each row a
+  {:db/id ... :atsurae.feature/* | :atsurae.constraint/* | :atsurae.binding/* ...} entity)."
   [rows]
-  {:features    (vec (filter #(= (:type %) :feature) rows))
-   :constraints (vec (filter #(= (:type %) :constraint) rows))
-   :bindings    (vec (filter #(= (:type %) :binding) rows))})
+  (let [rows (map reconstitute-row rows)]
+    {:features    (vec (filter #(= (:type %) :feature) rows))
+     :constraints (vec (filter #(= (:type %) :constraint) rows))
+     :bindings    (vec (filter #(= (:type %) :binding) rows))}))
 
 #?(:clj (defn load-edn [path] (clojure.edn/read-string (slurp path))))
 
