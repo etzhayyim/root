@@ -30,8 +30,7 @@
   here ships the pure record/validate/summarize logic + an in-process
   MemStore; wiring an actual encrypted, net-kotobase/kotoba-Datom-log-backed
   `Store` is R1+ future work (same honest-maturity split as tomoshibi's own
-  MemStore-only R0 — see its MATURITY.md)."
-  (:require [clojure.string :as str]))
+  MemStore-only R0 — see its MATURITY.md).")
 
 (def known-methods
   "The lexicon's `interpersonalMethod` knownValues, mirrored here so tests
