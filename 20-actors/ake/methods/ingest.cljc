@@ -103,7 +103,9 @@
      ([] (genesis-revisions (profile-seed-path) genesis-as-of-base))
      ([profile-seed-path] (genesis-revisions profile-seed-path genesis-as-of-base))
      ([profile-seed-path as-of-base]
-      (genesis-revisions-from-seed (edn/load-edn profile-seed-path) as-of-base))))
+      (genesis-revisions-from-seed
+       (edn/reconstitute (edn/load-edn profile-seed-path) "data.sample-profile-seed")
+       as-of-base))))
 
 ;; ── report (mirror `_report`) ─────────────────────────────────────────────
 
