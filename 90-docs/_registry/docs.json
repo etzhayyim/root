@@ -27702,6 +27702,32 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2607101830-kumi-community-entity-graph-actor.md",
+      "id": "adr-2607101830-kumi-community-entity-graph-actor",
+      "title": "ADR-2607101830: kumi 組 — community/organization-unit dependency-influence-follow-graph + system-dynamics observatory",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "kumi-community-entity-graph-actor",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/kumi"
+      ],
+      "related": [
+        "adr-2605264000",
+        "adr-2606272100"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606232200",
+        "adr-2606172100",
+        "adr-2605290927"
+      ],
+      "last_verified": "2026-07-10",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
