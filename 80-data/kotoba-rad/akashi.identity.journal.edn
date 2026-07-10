@@ -31,3 +31,7 @@
 ["sigref:bafkreicllp7ffxeiw7ml5eyuqidrck7qegoarznxjggkznegbtj4a6mefi" :rad/rid "bafkreicllp7ffxeiw7ml5eyuqidrck7qegoarznxjggkznegbtj4a6mefi" 5 :add]
 ["sigref:bafkreicllp7ffxeiw7ml5eyuqidrck7qegoarznxjggkznegbtj4a6mefi" :rad/head "bafkreif3wan6yhuiq5a2anr3ld5whx7u4ahjixrkvwm7icz5magemovnei" 5 :add]
 ["sigref:bafkreicllp7ffxeiw7ml5eyuqidrck7qegoarznxjggkznegbtj4a6mefi" :rad/by "bafkreicllp7ffxeiw7ml5eyuqidrck7qegoarznxjggkznegbtj4a6mefi" 5 :add]
+["sigref:bafkreicllp7ffxeiw7ml5eyuqidrck7qegoarznxjggkznegbtj4a6mefi" :rad/type :sigref 6 :add]
+["sigref:bafkreicllp7ffxeiw7ml5eyuqidrck7qegoarznxjggkznegbtj4a6mefi" :rad/rid "bafkreicllp7ffxeiw7ml5eyuqidrck7qegoarznxjggkznegbtj4a6mefi" 6 :add]
+["sigref:bafkreicllp7ffxeiw7ml5eyuqidrck7qegoarznxjggkznegbtj4a6mefi" :rad/head "bafkreib7ptgpd72u67urzvikrnga44uxrqyh527eomc5wiegbucknooxgi" 6 :add]
+["sigref:bafkreicllp7ffxeiw7ml5eyuqidrck7qegoarznxjggkznegbtj4a6mefi" :rad/by "bafkreicllp7ffxeiw7ml5eyuqidrck7qegoarznxjggkznegbtj4a6mefi" 6 :add]
