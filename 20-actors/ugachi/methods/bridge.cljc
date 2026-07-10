@@ -23,6 +23,7 @@
   concentration, not a free claim. Conservative by design — grounding never
   fabricates an :entrench (no false refusals); it only corroborates or downgrades."
   (:require [ugachi.methods.gate :as gate]
+            [ugachi.methods.ugachi-edn :as ue]
             [busshi.methods.analyze :as ba]))
 
 ;; project :resource  →  busshi commodity :id
@@ -98,10 +99,9 @@
    (defn -main [& args]
      (let [ug-seed (or (first args) "20-actors/ugachi/kotoba/seed.edn")
            bu-seed (or (second args) "20-actors/busshi/kotoba/seed.edn")
-           projects (vec (filter #(= (:type %) :project)
-                                 (clojure.edn/read-string (slurp ug-seed))))
+           projects (ue/projects ug-seed)
            commodities (vec (filter #(= (:type %) :commodity)
-                                    (clojure.edn/read-string (slurp bu-seed))))
+                                    (ue/normalize-rows (clojure.edn/read-string (slurp bu-seed)))))
            a (ground-and-assess projects commodities)]
        (println "# ugachi × busshi — grounded §2(l) gate\n")
        (println (str "Grounded against busshi concentration. "
