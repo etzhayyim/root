@@ -40,11 +40,11 @@ and `malakEvidenceCandidate`; all remain fixture-only and non-adjudicating.
 Meta/Instagram and X fixture parser coverage exists for source-disclosed
 platform ad-library records and projects them into the same advertiser,
 creative, landing, delivery, and snapshot lexicons as regulator bulk fixtures.
-`adapters/ingest_platform_ad_library.py` accepts reviewed local
+`adapters/ingest_platform_ad_library.cljc` accepts reviewed local
 Meta/Instagram/X-style JSON snapshots from an operator and emits records,
 DataScript/kotoba tx EDN, or a Datomic schema/scalar-tx import bundle without
 network access.
-`adapters/dry_run_fixtures.py` exercises the local fixture set and validates
+`adapters/dry_run_fixtures.cljc` exercises the local fixture set and validates
 every emitted record without network access or writes.
 `fixtures/dry_run/summary.golden.json` pins the dry-run record counts. A second
 regulator fixture covers missing optional source-disclosed fields, and negative
@@ -90,6 +90,6 @@ A platform source can move from `candidate` to `covered-r1` only when:
 - Cell scaffold exists under `40-engine/kotoba/crates/kotoba-kotodama/cells/akashi_*`, but every
   cell raises at import until ADR-2606022300 R1 activation gates are attested.
 - Lexicon-specific invariant and fixture parser tests exist in
-  `test_akashi_invariants.py`.
+  `adapters/test_*.cljc` and `methods/test_manifest_invariants.cljc`.
 - `source-catalog.seed.json` is planning metadata only; it does not authorize
   collection.

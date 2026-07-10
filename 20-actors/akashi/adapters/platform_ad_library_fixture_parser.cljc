@@ -1,7 +1,6 @@
 (ns akashi.adapters.platform-ad-library-fixture-parser
-  "Fixture-only parser for public platform ad-library snapshots. Mirrors
-  adapters/platform_ad_library_fixture_parser.py for local reviewed fixtures;
-  performs no live fetching."
+  "Fixture-only parser for local reviewed public platform ad-library snapshots.
+  Performs no live fetching."
   (:require [clojure.string :as str]))
 
 (def PARSER-VERSION "platform-ad-library-fixture-r1.0")

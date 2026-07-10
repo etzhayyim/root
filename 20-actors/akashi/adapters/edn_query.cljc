@@ -2,7 +2,7 @@
   "Small Datomic/DataScript-shaped query helper for akashi EDN tx-data.
 
   This intentionally operates over plain tx-data maps as emitted by
-  adapters/edn_export.py. Production can transact the same maps into Datomic,
+  akashi.adapters.edn-export. Production can transact the same maps into Datomic,
   DataScript, or kotoba; these helpers make the fixture artifact queryable
   without requiring a live DB."
   (:require [clojure.edn :as edn]))

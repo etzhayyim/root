@@ -52,8 +52,9 @@ ADR-2606022300 R1 activation and source-policy review gates are attested.
 
 ## R0 Coverage
 
-R0 coverage is schema and planning coverage only. There are no live adapters,
-fixtures, or collection jobs yet. See:
+R0 coverage is schema, fixture, and reviewed-local-export coverage only. There
+are no live platform collectors or collection jobs yet. All executable adapter
+code is `.cljc`; Python is not an akashi adapter surface. See:
 
 - `COVERAGE.md` — source / field coverage matrix
 - `MATURITY.md` — maturity scorecard and R1 work list
@@ -63,22 +64,22 @@ fixtures, or collection jobs yet. See:
   live collection remains disabled in R0
 - `registry/source-policy-approval.schema.json` — future approval transaction
   shape with rollback-to-disabled requirement
-- `adapters/regulator_bulk_fixture_parser.py` and `fixtures/regulator_bulk/`
+- `adapters/regulator_bulk_fixture_parser.cljc` and `fixtures/regulator_bulk/`
   — local fixture parser only; no live collection
-- `adapters/platform_ad_library_fixture_parser.py` and
+- `adapters/platform_ad_library_fixture_parser.cljc` and
   `fixtures/platform_ad_library/` — local Meta/Instagram and X ad-library
   fixture parser coverage; no live collection
-- `adapters/ingest_platform_ad_library.py` — reviewed local export ingest CLI
+- `adapters/ingest_platform_ad_library.cljc` — reviewed local export ingest CLI
   for Meta/Instagram/X-style public ad-library JSON snapshots; emits records,
   DataScript/kotoba tx EDN, or Datomic schema+scalar tx EDN without network
   access or writes unless `--out` is explicitly passed
-- `adapters/edn_export.py` — deterministic DataScript/kotoba EDN tx-data plus
+- `adapters/edn_export.cljc` — deterministic DataScript/kotoba EDN tx-data plus
   a Datomic schema/scalar-tx import bundle for validated akashi records;
   callers choose git, DataLad, or kotoba-git/kotoba-rad storage
 - `adapters/edn_query.cljc` — fixture tx-data query helper for platform,
   advertiser, landing-domain, and count queries without a live DB; it also
   materializes the Datomic scalar tx bundle for the same queries
-- `adapters/persist_fixture_edn.py` — materializes the deterministic tx-data
+- `adapters/persist_fixture_edn.cljc` — materializes the deterministic tx-data
   plus a storage manifest under `data/` for git/DataLad/kotoba-rad handoff
 - `data/akashi-platform-ad-library.fixture.tx.kotoba.edn` — materialized fixture
   tx-data artifact, readable as DataScript/kotoba EDN
@@ -89,7 +90,7 @@ fixtures, or collection jobs yet. See:
   kotoba-rad identity journal
 - `fixtures/closure/` — non-adjudicating link/report/malak-candidate closure
   fixtures
-- `adapters/dry_run_fixtures.py` — local fixture dry-run CLI; no network access
+- `adapters/dry_run_fixtures.cljc` — local fixture dry-run CLI; no network access
   and no writes; `--emit-edn` prints validated EDN tx-data
 - `fixtures/dry_run/summary.golden.json` — dry-run summary regression fixture
 - `/00-contracts/lexicons/com/etzhayyim/akashi/` — 10 lexicon skeletons
@@ -113,5 +114,6 @@ fixtures, or collection jobs yet. See:
 ## Related
 
 - `/90-docs/adr/2606022300-akashi-public-ad-disclosure-kotoba-actor-r0.md`
+- `/90-docs/adr/2607100000-akashi-platform-ad-library-cljc-edn-ingest.md`
 - `/20-actors/danjo/README.md`
 - `/60-apps/etzhayyim-project-malak/CLAUDE.md`

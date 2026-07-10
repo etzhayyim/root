@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-07-09",
+  "updated_at": "2026-07-10",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.md",
@@ -27583,6 +27583,62 @@
         "adr-2606074000-iryo-rezept-claims-engine-charter"
       ],
       "last_verified": "2026-07-08",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2607090900-kotoba-lang-bpmn-canonical-engine-omg-202.md",
+      "id": "adr-2607090900-kotoba-lang-bpmn-canonical-engine-omg-202",
+      "title": "ADR-2607090900: kotoba-lang/bpmn (BPMN-as-edn) is the canonical BPMN engine for actor flows; SpiffWorkflow host decoupled; OMG BPMN 2.0.2 conformance scope",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "kotoba-lang-bpmn-canonical-engine",
+      "authoritative": true,
+      "authoritative_for": [
+        "kotoba-lang/bpmn as the canonical BPMN-as-edn engine for first-party actor procedure flows",
+        "decoupling of toritsugi/ooyake BPMN models from the SpiffWorkflow (Python) host",
+        "OMG BPMN 2.0.2 as the conformance vocabulary for BPMN-as-edn node/flow types"
+      ],
+      "related": [
+        "adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0",
+        "adr-2605302130-himotoki-disclosure-request-tier-b-actor-r0"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605312030-toritsugi-government-procedure-concierge-tier-b-actor-r0",
+        "adr-2606021600-ooyake-world-government-atlas-tier-b-actor-r0",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605192100-etzhayyim-mission-charter"
+      ],
+      "last_verified": "2026-07-09",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2607100000-akashi-platform-ad-library-cljc-edn-ingest.md",
+      "id": "adr-2607100000-akashi-platform-ad-library-cljc-edn-ingest",
+      "title": "ADR-2607100000: akashi platform ad-library ingest is CLJC/.kotoba-only and stores EDN for git, DataLad, kotoba-rad, Datomic, and DataScript",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "akashi-platform-ad-library-cljc-edn-ingest",
+      "authoritative": true,
+      "authoritative_for": [
+        "akashi reviewed local Meta/Instagram/X ad-library export ingest",
+        "akashi EDN tx-data projection for DataScript/kotoba and Datomic import",
+        "akashi storage handoff through git, DataLad/git-annex, and kotoba-rad"
+      ],
+      "related": [
+        "adr-2607090900-kotoba-lang-bpmn-canonical-engine-omg-202"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606022300-akashi-public-ad-disclosure-kotoba-actor-r0",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2607010001-actor-data-ownership-model"
+      ],
+      "last_verified": "2026-07-10",
       "amends": [],
       "amended_by": []
     },

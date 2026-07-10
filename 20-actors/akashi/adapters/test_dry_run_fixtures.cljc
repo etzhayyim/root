@@ -1,8 +1,8 @@
 (ns akashi.adapters.test-dry-run-fixtures
-  "Tests for the akashi dry-run fixtures orchestrator (ADR-2606071600 port of dry_run_fixtures).
+  "Tests for the akashi dry-run fixtures orchestrator.
   Unit-tests the pure merge-outputs (list-extend + scalar first-wins) and summarize (sorted counts),
   then runs the full load → parse → merge → validate-against-real-lexicons pipeline and pins the
-  deterministic summary to the Python golden (totalRecords 25 across 10 lexicon namespaces)."
+  deterministic summary (totalRecords 25 across 10 lexicon namespaces)."
   (:require [clojure.test :refer [deftest is]]
             [akashi.adapters.dry-run-fixtures :as d]))
 
@@ -28,7 +28,7 @@
 
 (deftest test-load-dry-run-records-golden
   ;; full pipeline: load fixtures → parse regulator/platform ones → merge w/ closure → validate vs real
-  ;; lexicons (throws on any mismatch) → summarize. Pinned to the Python golden.
+  ;; lexicons (throws on any mismatch) → summarize. Pinned to the fixture contract.
   (let [s (d/summarize (d/load-dry-run-records))]
     (is (= 25 (get s "totalRecords")))
     (is (= ["adDisclosureLink" "adDisclosureSnapshot" "adTransparencyReport" "advertiserIdentity"
