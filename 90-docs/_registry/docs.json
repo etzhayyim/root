@@ -27728,6 +27728,29 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2607102100-session-close-design-implementation-loop-9-iterations.md",
+      "id": "adr-2607102100-session-close-design-implementation-loop-9-iterations",
+      "title": "ADR-2607102100: Session close — etzhayyim design+implementation /loop (9 iterations): credits G1-G10, narashi R0, sonae py→cljc port, musubi + chigiri real logic, hagukumi registry spot-check, and a shared-checkout heartbeat/stash cleanup",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "session-close-design-implementation-loop-9-iterations",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2604271400-credits-mcp-invoke-spend",
+        "adr-2607101800-narashi-global-inequality-observation-tier-b-actor-r0",
+        "adr-2606091200-sonae",
+        "adr-2605263400-musubi",
+        "adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0"
+      ],
+      "last_verified": "2026-07-10",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
