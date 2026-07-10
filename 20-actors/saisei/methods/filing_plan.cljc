@@ -73,9 +73,16 @@
 
 (defn- track-plan
   "One disclosed track (procedure) — eligibility signals, blocking preconditions,
-  required docs, fee, timeline, and the self-file option. Never adjudicates (G2)."
+  required docs, fee, timeline, and the self-file option. Never adjudicates (G2).
+
+  :proc/mandatory-preconditions / :proc/fee / :proc/timeline-rules /
+  :proc/options are non-scalar (nested map / vector-of-maps) so the
+  datomize-transform tx-data shape (manifest/edn-datomize.cljs convention)
+  pr-str's them into blob-string attribute values on disk — `edn/unblob`
+  reconstitutes the structured shape before this fn iterates/destructures
+  them (a no-op on pre-transform data, since it only touches string values)."
   [proc]
-  (let [preconditions (vec (for [p (get proc ":proc/mandatory-preconditions" [])]
+  (let [preconditions (vec (for [p (edn/unblob (get proc ":proc/mandatory-preconditions" []))]
                               {"label" (get p ":pre/label") "detail" (get p ":pre/detail")
                                "anchor" (get p ":pre/anchor") "blocking" true}))
         blocked? (boolean (seq preconditions))]
@@ -90,15 +97,15 @@
      "eligibility_signals" (vec (get proc ":proc/eligibility-signals" []))
      "mandatory_preconditions" preconditions
      "required_docs" (vec (get proc ":proc/required-docs" []))
-     "fee" (get proc ":proc/fee")
+     "fee" (edn/unblob (get proc ":proc/fee"))
      "fee_waiver" (get proc ":proc/fee-waiver")
-     "timelines" (vec (for [tl (get proc ":proc/timeline-rules" [])]
+     "timelines" (vec (for [tl (edn/unblob (get proc ":proc/timeline-rules" []))]
                          {"label" (get tl ":tl/label") "rule" (get tl ":tl/rule")
                           "anchor" (get tl ":tl/anchor") "source_url" (get tl ":tl/source-url")}))
      ;; G5: options are visible for member reading regardless, but every option is
      ;; :self-submit already (G3 — representation is unrepresentable); the blocking
      ;; flag on preconditions is what tells the member self-file isn't reachable yet.
-     "options" (vec (map make-option (get proc ":proc/options" [])))
+     "options" (vec (map make-option (edn/unblob (get proc ":proc/options" []))))
      "blocked_on_precondition" blocked?
      "refer_when" (vec (get proc ":proc/refer-when" []))}))
 
