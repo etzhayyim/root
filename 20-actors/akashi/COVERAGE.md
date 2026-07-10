@@ -14,7 +14,8 @@ it has:
 
 | Source family | Platforms | R0 status | Counts as covered? |
 |---|---|---|---|
-| social ad libraries | Meta/Facebook/Instagram, X/Twitter, TikTok | registry seed only; no adapter | no |
+| social ad libraries | Meta/Facebook/Instagram, X/Twitter | fixture-only parser with lexicon validation; no live adapter | fixture only |
+| social ad libraries | TikTok | registry seed only; no adapter | no |
 | messaging / portal ad disclosures | LINE | registry seed only; access-mode requires manual review | no |
 | search/video ad libraries | Google / YouTube | registry seed only; no adapter | no |
 | regulator repositories | EU / DSA-style repositories, election-ad archives | fixture-only bulk parser with lexicon validation; no live adapter | no |
@@ -36,6 +37,9 @@ it has:
 
 Closure fixture coverage exists for `adDisclosureLink`, `adTransparencyReport`,
 and `malakEvidenceCandidate`; all remain fixture-only and non-adjudicating.
+Meta/Instagram and X fixture parser coverage exists for source-disclosed
+platform ad-library records and projects them into the same advertiser,
+creative, landing, delivery, and snapshot lexicons as regulator bulk fixtures.
 `adapters/dry_run_fixtures.py` exercises the local fixture set and validates
 every emitted record without network access or writes.
 `fixtures/dry_run/summary.golden.json` pins the dry-run record counts. A second
@@ -63,19 +67,20 @@ A platform source can move from `candidate` to `covered-r1` only when:
 
 ## R0 Gaps
 
-- No live adapter code exists; current parser is fixture-only.
-- One fixture-only regulator bulk parser exists and validates output against
-  akashi lexicons; no platform adapter exists.
+- No live adapter code exists; current parsers are fixture-only.
+- Regulator bulk and platform ad-library fixture parsers validate output against
+  akashi lexicons; no live platform adapter exists.
 - Closure fixtures validate link/report/malak candidate records without live
   collection.
 - Dry-run CLI exists for local fixture validation only; it has no network mode
-  and does not write kotoba records.
+  and does not write kotoba records. `--emit-edn` emits deterministic
+  Datomic/DataScript tx-data for external storage/import by a caller.
 - Dry-run summary has a golden regression fixture.
 - Optional-field and negative fixtures exist for parser regression coverage.
 - No live fetch runs.
 - Source-policy review workflow exists and keeps every live source disabled.
-- Source-policy approval format exists; the only example is fixture-only, not
-  live collection.
+- Source-policy approval format exists; current parser examples are
+  fixture-only, not live collection.
 - Cell scaffold exists under `40-engine/kotoba/crates/kotoba-kotodama/cells/akashi_*`, but every
   cell raises at import until ADR-2606022300 R1 activation gates are attested.
 - Lexicon-specific invariant and fixture parser tests exist in

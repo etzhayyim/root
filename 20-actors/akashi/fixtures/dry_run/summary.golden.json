@@ -16,16 +16,16 @@
   "networkAccess": false,
   "recordCounts": {
     "adDisclosureLink": 1,
-    "adDisclosureSnapshot": 2,
+    "adDisclosureSnapshot": 4,
     "adTransparencyReport": 1,
-    "advertiserIdentity": 2,
-    "creativeDisclosure": 2,
-    "deliveryDisclosure": 2,
-    "landingEvidence": 2,
+    "advertiserIdentity": 4,
+    "creativeDisclosure": 4,
+    "deliveryDisclosure": 4,
+    "landingEvidence": 4,
     "malakEvidenceCandidate": 1,
     "methodNote": 1,
     "sourcePolicySnapshot": 1
   },
-  "totalRecords": 15,
+  "totalRecords": 25,
   "writes": false
 }

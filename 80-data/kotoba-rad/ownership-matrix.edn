@@ -1444,8 +1444,17 @@
    :declared? false},
   "akashi"
   {:rid "bafkreicllp7ffxeiw7ml5eyuqidrck7qegoarznxjggkznegbtj4a6mefi",
-   :datasets (),
-   :declared? false},
+   :datasets
+   ({:dataset-id "akashi-platform-ad-library-fixture",
+     :layer :repo,
+     :source
+     "Reviewed local public ad-library fixtures for Meta/Instagram/X disclosure parsing (fixture-only; no live platform collection)",
+     :cidv1
+     "bafkreihcflz5xuinkb7ixurqccmlwl3gknc74uwthamg6vbwzhbsnmtqb4",
+     :freshness-days 0,
+     :retrieved "2026-07-10",
+     :counts-toward-world-coverage false}),
+   :declared? true},
   "toritsugi-sg-national"
   {:rid
    "bafyreiplaceholder0000000000000000000000000000000000000000000000",
@@ -1529,7 +1538,9 @@
    :datasets (),
    :declared? false}},
  :datasets
- {"gleif-companies-expanded" {:holders ["jinushi"], :layers [:repo]},
+ {"akashi-platform-ad-library-fixture"
+  {:holders ["akashi"], :layers [:repo]},
+  "gleif-companies-expanded" {:holders ["jinushi"], :layers [:repo]},
   "legal-templates" {:holders ["hinagata"], :layers [:repo]},
   "kanjo-coverage" {:holders ["kanjo"], :layers [:repo]},
   "junkan-governance" {:holders ["junkan"], :layers [:repo]},

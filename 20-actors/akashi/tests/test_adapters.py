@@ -15,6 +15,12 @@ ACTOR_DIR = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ACTOR_DIR / "adapters"))
 
 from lexicon_shape_validator import validate_record, validate_records  # noqa: E402
+from edn_export import records_to_edn, records_to_tx_data  # noqa: E402
+from platform_ad_library_fixture_parser import (  # noqa: E402
+    PARSER_VERSION as PLATFORM_PARSER_VERSION,
+    parse_platform_ad_library_fixture,
+)
+from persist_fixture_edn import materialize  # noqa: E402
 from regulator_bulk_fixture_parser import (  # noqa: E402
     PARSER_VERSION,
     parse_regulator_bulk_fixture,
@@ -181,6 +187,60 @@ def test_parser_normalizes_domain_and_range_aliases():
     assert spend["currency"] == "JPY"
 
 
+# ── platform_ad_library_fixture_parser ───────────────────────────────────────
+
+PLATFORM_PAYLOAD = {
+    "source": {
+        "platform": "meta",
+        "sourceFamily": "social-ad-library",
+        "sourceUrl": "https://www.facebook.com/ads/library/",
+        "jurisdiction": "US",
+        "accessMode": "manual-review-only",
+    },
+    "capturedAt": "2026-07-10T00:00:00Z",
+    "records": [
+        {
+            "sourceRecordId": "meta-1",
+            "sourceUrl": "https://www.facebook.com/ads/library/?id=meta-1",
+            "advertiser": {
+                "displayName": "Meta Fixture Advertiser",
+                "platformAdvertiserId": "page-1",
+                "pageUrl": "https://www.facebook.com/page-1",
+                "websiteDomain": "example.org",
+                "verifiedStatus": "source-verified",
+            },
+            "creativeText": "public source creative",
+            "media": {
+                "cid": "cid:akashi:media:meta-1",
+                "sha256": "a" * 64,
+            },
+            "language": "en",
+            "disclosedCategory": "public-interest",
+            "sourceIssuePoliticalFlag": "source-not-disclosed",
+            "landingUrl": "https://Example.Org/landing",
+            "startedAt": "2026-07-01T00:00:00Z",
+            "status": "inactive",
+            "spendRange": {"lower": 10, "upper": 20, "currency": "USD"},
+            "targetingSummary": {"sourceLimited": True, "regions": ["US"]},
+        }
+    ],
+}
+
+
+def test_platform_parser_maps_meta_x_style_ad_library_records():
+    out = parse_platform_ad_library_fixture(copy.deepcopy(PLATFORM_PAYLOAD), **KW)
+    assert out["methodNote"]["version"] == PLATFORM_PARSER_VERSION
+    assert out["sourcePolicySnapshot"]["sourceFamily"] == "social-ad-library"
+    assert out["sourcePolicySnapshot"]["accessMode"] == "manual-review-only"
+    assert len(out["adDisclosureSnapshot"]) == 1
+    assert out["advertiserIdentity"][0]["pageUrl"] == "https://www.facebook.com/page-1"
+    assert out["advertiserIdentity"][0]["nonInferred"] is True
+    assert out["landingEvidence"][0]["domain"] == "example.org"
+    assert out["creativeDisclosure"][0]["mediaCid"] == "cid:akashi:media:meta-1"
+    assert "targetingSummaryCid" in out["deliveryDisclosure"][0]
+    assert out["deliveryDisclosure"][0]["spendRange"]["currency"] == "USD"
+
+
 # ── dry-run pipeline (fixtures → parse → lexicon-validate, end-to-end) ──────
 
 def test_dry_run_fixtures_validate_against_real_lexicons():
@@ -189,4 +249,38 @@ def test_dry_run_fixtures_validate_against_real_lexicons():
     output = load_dry_run_records()
     assert output, "dry-run pipeline returned no record families"
     total = sum(len(v) if isinstance(v, list) else 1 for v in output.values())
-    assert total >= 5, f"expected a non-trivial fixture set, got {total} records"
+    assert total >= 25, f"expected a non-trivial fixture set, got {total} records"
+    platforms = {r["platform"] for r in output["adDisclosureSnapshot"]}
+    assert {"meta", "x"}.issubset(platforms)
+
+
+def test_edn_export_emits_datomic_datascript_tx_data():
+    from dry_run_fixtures import load_dry_run_records  # noqa: E402
+
+    records = load_dry_run_records()
+    tx = records_to_tx_data(records)
+    assert len(tx) == sum(len(v) if isinstance(v, list) else 1 for v in records.values())
+    first = tx[0]
+    assert "db/id" in first
+    assert "akashi.record/family" in first
+    assert "akashi.record/cid" in first
+    edn = records_to_edn({"adDisclosureSnapshot": records["adDisclosureSnapshot"][:1]})
+    assert edn.startswith("[{")
+    assert ":akashi.record/family" in edn
+    assert ":akashi.adDisclosureSnapshot/platform" in edn
+
+
+def test_persist_fixture_edn_materializes_storage_manifest(tmp_path):
+    out = tmp_path / "akashi.fixture.tx.kotoba.edn"
+    manifest = tmp_path / "manifest.edn"
+    payload = materialize(out, manifest)
+    assert out.exists()
+    assert manifest.exists()
+    assert payload["akashi.storage/records"] == 25
+    assert payload["akashi.storage/format"] == "datomic-datascript-tx-edn"
+    assert payload["akashi.storage/artifact"].endswith(".tx.kotoba.edn")
+    assert payload["akashi.storage/cidv1"].startswith("bafkrei")
+    assert payload["akashi.storage/kotoba-rad"][
+        "akashi.storage/identity-journal"
+    ] == "80-data/kotoba-rad/akashi.identity.journal.edn"
+    assert payload["akashi.storage/kotoba-rad"]["cidv1"] == payload["akashi.storage/cidv1"]

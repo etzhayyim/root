@@ -33,7 +33,7 @@ but collection and cell execution remain gated.
 |---|---:|---|
 | Actor identity | 4/5 | DID, manifest, ADR, root index present |
 | Schema surface | 5/5 | 10 lexicons present; fixture parser output has lexicon validation |
-| Source coverage | 2/5 | seed catalog plus one regulator bulk fixture parser; no live adapters |
+| Source coverage | 3/5 | seed catalog plus regulator bulk and Meta/Instagram/X platform fixture parsers; no live adapters |
 | Constitutional gates | 5/5 | gates documented, schema anchors present, review workflow and invariants lock R0 |
 | Malak boundary | 5/5 | explicit candidate-only handoff in ADR, manifest, lexicon, and closure fixture |
 | Operational readiness | 3/5 | gated cell scaffolds and dry-run CLI exist; no live jobs |
@@ -43,7 +43,7 @@ the score remains capped because live collection is intentionally absent.
 
 ## Next R1 Work
 
-1. Add additional real-world regulator/bulk fixtures before any platform page/API adapter.
+1. Add source-policy-reviewed public samples for each platform before any page/API adapter.
 2. Add R1 source-policy transaction execution that still defaults rollback to disabled.
 3. Promote from R0 design maturity only after Council attestation and source review.
 
@@ -52,3 +52,13 @@ the score remains capped because live collection is intentionally absent.
 | Item | Status | Evidence |
 |---|---|---|
 | Adapter unit + e2e tests | ✅ 21 green | `tests/test_adapters.py` — lexicon validator (every violation class), regulator fixture parser (determinism, content-addressing, source-limited gap preservation, domain/range normalization), dry-run pipeline against the real lexicons. Run: `PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytest tests/ -q` |
+
+## 2026-07-10 — platform ad-library fixture + EDN tx-data
+
+| Item | Status | Evidence |
+|---|---|---|
+| Meta/Instagram and X fixture parser | ✅ fixture-only | `adapters/platform_ad_library_fixture_parser.py`, `fixtures/platform_ad_library/*.json` |
+| EDN tx-data projection | ✅ fixture-only | `adapters/edn_export.py`, `adapters/dry_run_fixtures.py --emit-edn` |
+| EDN query helper | ✅ fixture-only | `adapters/edn_query.cljc`, `adapters/test_edn_query.cljc` |
+| Storage artifact materializer | ✅ local handoff | `adapters/persist_fixture_edn.py` writes `data/*.tx.kotoba.edn` + CIDv1 manifest; DataLad/git save remains an outer tool action |
+| Adapter tests | ✅ green | `PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytest tests/ -q`; `./20-actors/akashi/run_tests.sh` |

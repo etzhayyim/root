@@ -6,13 +6,16 @@
   main()/argparse + the JSON print. Paths are repo-relative (bb runs from the repo root)."
   (:require [cheshire.core :as json]
             [akashi.adapters.lexicon-shape-validator :as validator]
-            [akashi.adapters.regulator-bulk-fixture-parser :as parser]))
+            [akashi.adapters.regulator-bulk-fixture-parser :as parser]
+            [akashi.adapters.platform-ad-library-fixture-parser :as platform-parser]))
 
 (def ^:private ROOT "20-actors/akashi")
 (def ^:private LEX "00-contracts/lexicons/com/etzhayyim/akashi")
 (def ^:private REGULATOR-FIXTURE (str ROOT "/fixtures/regulator_bulk/sample.json"))
 (def ^:private REGULATOR-MISSING-OPTIONAL-FIXTURE (str ROOT "/fixtures/regulator_bulk/missing_optional_fields.json"))
 (def ^:private CLOSURE-FIXTURE (str ROOT "/fixtures/closure/sample.json"))
+(def ^:private META-INSTAGRAM-FIXTURE (str ROOT "/fixtures/platform_ad_library/meta_instagram_sample.json"))
+(def ^:private X-ADS-FIXTURE (str ROOT "/fixtures/platform_ad_library/x_ads_sample.json"))
 
 (def ^:private ATTESTING-DID "did:web:akashi.etzhayyim.com")
 (def ^:private SOURCE-POLICY-CID "cid:akashi:source-policy:dry-run")
@@ -62,7 +65,9 @@
   []
   (let [parsed (parser/parse-regulator-bulk-fixture (load* REGULATOR-FIXTURE) PARSE-OPTS)
         missing-optional (parser/parse-regulator-bulk-fixture (load* REGULATOR-MISSING-OPTIONAL-FIXTURE) PARSE-OPTS)
+        meta-instagram (platform-parser/parse-platform-ad-library-fixture (load* META-INSTAGRAM-FIXTURE) PARSE-OPTS)
+        x-ads (platform-parser/parse-platform-ad-library-fixture (load* X-ADS-FIXTURE) PARSE-OPTS)
         closure (get (load* CLOSURE-FIXTURE) "records")
-        output (merge-outputs parsed missing-optional closure)]
+        output (merge-outputs parsed missing-optional meta-instagram x-ads closure)]
     (validate-output output)
     output))

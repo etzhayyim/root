@@ -11,7 +11,9 @@ import json
 from pathlib import Path
 from typing import Any
 
+from edn_export import records_to_edn
 from lexicon_shape_validator import validate_record, validate_records
+from platform_ad_library_fixture_parser import parse_platform_ad_library_fixture
 from regulator_bulk_fixture_parser import parse_regulator_bulk_fixture
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -22,6 +24,10 @@ REGULATOR_MISSING_OPTIONAL_FIXTURE = (
     ROOT / "fixtures" / "regulator_bulk" / "missing_optional_fields.json"
 )
 CLOSURE_FIXTURE = ROOT / "fixtures" / "closure" / "sample.json"
+META_INSTAGRAM_FIXTURE = (
+    ROOT / "fixtures" / "platform_ad_library" / "meta_instagram_sample.json"
+)
+X_ADS_FIXTURE = ROOT / "fixtures" / "platform_ad_library" / "x_ads_sample.json"
 
 ATTESTING_DID = "did:web:akashi.etzhayyim.com"
 SOURCE_POLICY_CID = "cid:akashi:source-policy:dry-run"
@@ -44,9 +50,21 @@ def load_dry_run_records() -> dict[str, Any]:
         source_policy_cid=SOURCE_POLICY_CID,
         method_note_cid=METHOD_NOTE_CID,
     )
+    meta_instagram = parse_platform_ad_library_fixture(
+        _load(META_INSTAGRAM_FIXTURE),
+        attesting_did=ATTESTING_DID,
+        source_policy_cid=SOURCE_POLICY_CID,
+        method_note_cid=METHOD_NOTE_CID,
+    )
+    x_ads = parse_platform_ad_library_fixture(
+        _load(X_ADS_FIXTURE),
+        attesting_did=ATTESTING_DID,
+        source_policy_cid=SOURCE_POLICY_CID,
+        method_note_cid=METHOD_NOTE_CID,
+    )
 
     closure = _load(CLOSURE_FIXTURE)["records"]
-    output = _merge_outputs(parsed, missing_optional, closure)
+    output = _merge_outputs(parsed, missing_optional, meta_instagram, x_ads, closure)
     _validate_output(output)
     return output
 
@@ -78,9 +96,17 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="print validated fixture records instead of summary counts",
     )
+    parser.add_argument(
+        "--emit-edn",
+        action="store_true",
+        help="print validated fixture records as Datomic/DataScript EDN tx-data",
+    )
     args = parser.parse_args(argv)
 
     records = load_dry_run_records()
+    if args.emit_edn:
+        print(records_to_edn(records), end="")
+        return 0
     payload = records if args.emit_records else summarize(records)
     print(json.dumps(payload, ensure_ascii=False, sort_keys=True, indent=2))
     return 0

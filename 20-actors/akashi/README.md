@@ -65,10 +65,25 @@ fixtures, or collection jobs yet. See:
   shape with rollback-to-disabled requirement
 - `adapters/regulator_bulk_fixture_parser.py` and `fixtures/regulator_bulk/`
   — local fixture parser only; no live collection
+- `adapters/platform_ad_library_fixture_parser.py` and
+  `fixtures/platform_ad_library/` — local Meta/Instagram and X ad-library
+  fixture parser coverage; no live collection
+- `adapters/edn_export.py` — deterministic Datomic/DataScript EDN tx-data
+  projection for validated akashi records; callers choose git, DataLad, or
+  kotoba-git/kotoba-rad storage
+- `adapters/edn_query.cljc` — fixture tx-data query helper for platform,
+  advertiser, landing-domain, and count queries without a live DB
+- `adapters/persist_fixture_edn.py` — materializes the deterministic tx-data
+  plus a storage manifest under `data/` for git/DataLad/kotoba-rad handoff
+- `data/akashi-platform-ad-library.fixture.tx.kotoba.edn` — materialized fixture
+  tx-data artifact, readable as Datomic/DataScript EDN
+- `data/akashi-platform-ad-library.storage-manifest.edn` — storage handoff
+  manifest naming the git path, CIDv1, DataLad save command, and akashi
+  kotoba-rad identity journal
 - `fixtures/closure/` — non-adjudicating link/report/malak-candidate closure
   fixtures
 - `adapters/dry_run_fixtures.py` — local fixture dry-run CLI; no network access
-  and no writes
+  and no writes; `--emit-edn` prints validated EDN tx-data
 - `fixtures/dry_run/summary.golden.json` — dry-run summary regression fixture
 - `/00-contracts/lexicons/com/etzhayyim/akashi/` — 10 lexicon skeletons
 
