@@ -21,8 +21,39 @@
 | 3 | Lexicon skeletons (`com.etzhayyim.danjo.*`) | ✅ | init |
 | 4 | worldwide fiscal-source registry seed (`registry/sources.seed.json`, 全件 unverified-seed) | ✅ | seed |
 | 5 | fail-closed registry invariants test + G14 VERIFICATION.md | ✅ | この iter |
+| 6 | `run_tests_clj.sh` の3 suite (`test_budget_ledger.clj`/`test_kotoba.clj`/`test_autorun.clj`) が dormant (実行不能) | 🔴 未 (診断のみ) | 2026-07-10 |
 
 ## イテレーション記録
+
+### 2026-07-10 (loop) — dormant test-suite drift の正確な診断(修正は未実施、honest framing)
+`run_tests_clj.sh` の3 suiteが `FileNotFoundException` で全滅していた件(前 iteration で発見)を実際に
+調査。**単純なファイル名ズレではなく、複数の独立した根深い問題と判明**したため、今回は診断のみに留め、
+誤った"fix"を主張しない:
+
+1. **`test_budget_ledger.clj`**: `(load-file "budget_ledger.clj")` は存在しない(実体は
+   `budget_ledger.cljc`)。ロードパスを `.cljc` に直しても、テストが呼ぶ `bl/canonical-json` は
+   現行の `budget_ledger.cljc` に存在しない — 実際の関数名は `canonical-json-utf8`(かつ `defn-`
+   private)。`record-cid`/`normalize-record`/`build-ledger`/`load-seed` 等、他の呼び出しも
+   現行APIと1件ずつ突き合わせが必要(未実施)。
+2. **`test_kotoba.clj`**: 同様に `(load-file "kotoba.clj")` → `kotoba.cljc` へのロードパス修正で
+   起動はするが、末尾の "tamper located at the corrupted tx index" チェックで
+   `(ko/verify-chain path)` の `:broken-at` が `nil` を返し `(>= nil 0)` が例外になる —
+   ロードパスを直して初めて実行された結果、`kotoba.cljc` の tamper-detection ロジック自体に
+   **未検証の潜在バグがある可能性**が判明(このテストは .cljc 移行後、一度も実行されていなかった)。
+3. **`test_autorun.clj`**: 実体は存在せず `test_autorun.cljc` のみ。こちらは単純な rename では済まず、
+   `(:require [danjo.methods.autorun :as autorun] [danjo.methods.kotoba :as kotoba])` という
+   namespace-qualified require を使っており(他の sibling test は load-file 方式)、bb 実行時に
+   classpath 上で `danjo/methods/autorun.cljc` を解決できず失敗する — `bb.edn`/`deps.edn` の
+   `:paths` 整備か、他ファイルと同じ load-file 方式への変更が必要(未実施)。
+
+**honest (G8)**: この3 suiteは now も dormant のまま — 今回のiterationでは "1項目" の範囲を
+「壊れたテストを直す」から「壊れ方を正確に診断し、誤ったgreen主張をしない」に絞った。次のiteration
+候補: (a) `budget_ledger.cljc` の現行public APIに合わせて `test_budget_ledger.clj` を書き直す、
+(b) `kotoba.cljc` の `verify-chain`/`:broken-at` ロジックを個別に検証する、(c) `test_autorun.cljc`
+の require を load-file 方式に統一するか `bb.edn` を追加する。いずれも本iterationの「1項目」原則を
+超える(複数ファイル・複数根本原因)ため、意図的に見送った。
+
+## イテレーション記録 (承前)
 
 ### worldwide fiscal-source catalog hardening (2026-06-02)
 **WORLDWIDE fiscal-source 台帳の fail-closed 固定 + G14 検証ワークフロー文書化。**

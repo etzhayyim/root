@@ -432,6 +432,10 @@
   {:rid "bafkreibv5gnz47djuxykrfn5trbp3nu5egdeg7rxb2caduvtjsycipmt6u",
    :datasets (),
    :declared? false},
+  "narashi"
+  {:rid "bafkreiesq7hilvsa2nlth7snkzrnwqkrrjgv6dx4dmnr77prxfmlacojs4",
+   :datasets (),
+   :declared? false},
   "toritsugi-nl-municipal"
   {:rid
    "bafyreiplaceholder0000000000000000000000000000000000000000000000",
