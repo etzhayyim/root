@@ -42,10 +42,40 @@
 (def proc-referral-always #{"proc:sojou" "proc:us-summons"})  ;; 本訴/civil suit — G7
 
 ;; ── default-path loaders (#?(:clj) edge) ──────────────────────────────────
+(defn- unblob
+  "data/procedure-registry.edn is stored Datomic/Datascript-queryable (ADR-2607100030
+  fan-out, Phase 4): each proc entity carries :db/id and its two vector-of-map fields
+  (:proc/deadline-rules, :proc/options) are pr-str'd into a blob string (Datomic has no
+  nested-map valueType). Unblob at load time via tate's OWN edn/read-edn (not
+  clojure.edn) so the reconstituted value keeps the SAME string-keyword-as-string
+  shape the rest of this namespace already expects -- every call site below
+  (classify/build-plan/coverage_report/site_gen/case_actors_gen, all of which load
+  procs exclusively through this fn) is unchanged."
+  [v]
+  (if (string? v) (edn/read-edn v) v))
+
+#?(:clj
+   ;; Unblobbing 181 procs with tate's regex-tokenizing reader costs ~1s/call; load-procs
+   ;; is called from ~70 deftests across 4 test namespaces (+ every method that needs
+   ;; procs), so an unmemoized reload-per-call would blow up run_tests.sh from seconds
+   ;; to 1-2 minutes+. Cache by path (process-local; each bb invocation is a fresh
+   ;; process, so this cannot serve stale data across runs).
+   (def ^:private procs-cache (atom {})))
+
 #?(:clj
    (defn load-procs
      ([] (load-procs (clojure.java.io/file (terms/here) "data" "procedure-registry.edn")))
-     ([path] (->> (edn/load-edn path) (filter #(contains? % ":proc/id")) vec))))
+     ([path]
+      (let [k (str path)]
+        (or (get @procs-cache k)
+            (let [procs (->> (edn/load-edn path)
+                              (filter #(contains? % ":proc/id"))
+                              (map (fn [p] (cond-> p
+                                             (contains? p ":proc/deadline-rules") (update ":proc/deadline-rules" unblob)
+                                             (contains? p ":proc/options") (update ":proc/options" unblob))))
+                              vec)]
+              (swap! procs-cache assoc k procs)
+              procs))))))
 
 #?(:clj
    (defn load-jurisdictions
