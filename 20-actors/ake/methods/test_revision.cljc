@@ -15,7 +15,7 @@
 #?(:clj
    (defn- e [eid]
      (get (into {} (map (fn [ed] [(get ed ":edit/id") ed])
-                        (get (edn/load-edn seed-path) ":edit/batch")))
+                        (get (edn/reconstitute (edn/load-edn seed-path) "data.seed-edit-graph") ":edit/batch")))
           eid)))
 
 (deftest test-append-returns-new-list-and-never-shrinks

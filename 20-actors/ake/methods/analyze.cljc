@@ -171,7 +171,7 @@
                        (clojure.java.io/file (first argv))
                        (clojure.java.io/file root "data" "seed-edit-graph.kotoba.edn"))
            outdir (clojure.java.io/file root "methods" "out")
-           res (run (edn/load-edn seed-path))
+           res (run (edn/reconstitute (edn/load-edn seed-path) "data.seed-edit-graph"))
            rpt (report res)]
        (.mkdirs outdir)
        (spit (clojure.java.io/file outdir "membrane-dryrun.md") rpt)
