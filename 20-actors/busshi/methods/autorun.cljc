@@ -16,8 +16,8 @@
   appends to a local file only, no network I/O. OBSERVATION ONLY — busshi never
   trades, never extracts."
   (:require [busshi.methods.analyze :as a]
-            [busshi.methods.kotoba :as k]
-            #?(:clj [clojure.edn :as edn])))
+            [busshi.methods.busshi-edn :as be]
+            [busshi.methods.kotoba :as k]))
 
 (defn beat
   "Run one heartbeat. opts:
@@ -48,7 +48,7 @@
            log-path (or (second args)
                         (-> (clojure.java.io/file *file*) .getParentFile .getParentFile
                             (clojure.java.io/file "data" "persisted" "busshi.observations.kotoba.edn") str))
-           commodities (vec (filter #(= (:type %) :commodity) (edn/read-string (slurp seed))))
+           commodities (be/commodities seed)
            r (beat {:commodities commodities :tx-id "busshi-beat-manual" :as-of "manual" :log-path log-path})]
        (println (str "observation ledger head=" (:head r)
                      " datoms=" (:count r)
