@@ -396,8 +396,10 @@
                  (rl/plan-reline {:pipe-diameter-mm 300 :defect-severity 4 :host-condition 5})))))
 
 ;; ── run-day full-pipeline integration (R1: all 8 domain methods compose) ──────
+;; via az/load-seed (not a raw edn/read-string+slurp) so this tolerates the
+;; datomic/datascript tx-data shape the same way `seed` above does (Phase 4 edn-datomize).
 (def day-seed
-  (edn/read-string (slurp "20-actors/kudamori/data/network.edn")))
+  (az/load-seed "20-actors/kudamori/data/network.edn"))
 
 (deftest run-day-exercises-all-domain-methods
   (testing "run-day threads the day through ALL 8 domain methods end-to-end"
