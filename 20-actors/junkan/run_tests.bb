@@ -15,6 +15,7 @@
     junkan.methods.test-scorecard
     junkan.methods.test-history
     junkan.methods.test-consumer-culture
+    junkan.methods.test-waste-sanitation
     junkan.methods.test-country-region-actors
     junkan.methods.test-charter-gates])
 
