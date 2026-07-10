@@ -1,17 +1,1 @@
-;; com.etzhayyim.okaimono.need — lexicon (EDN form)
-;; ADR-2606012100  ·  PII envelope: text held encrypted at rest (G9)
-{:lexicon 1
- :id "com.etzhayyim.okaimono.need"
- :defs
- {:main
-  {:type "record"
-   :key "tid"
-   :record
-   {:type "object"
-    :required ["needId" "memberDid" "householdScope"]
-    :properties
-    {:needId          {:type "string"}
-     :memberDid       {:type "string" :description "consenting member DID (G1)"}
-     :textRef         {:type "string" :description "ref into com.etzhayyim.encrypted.* (G9); plaintext never stored here"}
-     :householdScope  {:type "string" :description "individual|household|multi-generational (G12)"}
-     :resolvedRing    {:type "string" :description "commons|internal|external|unresolved"}}}}}}
+[{:db/id -1, :lex/lexicon 1, :lex/id "com.etzhayyim.okaimono.need", :lex/defs "{:main {:type \"record\", :key \"tid\", :record {:type \"object\", :required [\"needId\" \"memberDid\" \"householdScope\"], :properties {:needId {:type \"string\"}, :memberDid {:type \"string\", :description \"consenting member DID (G1)\"}, :textRef {:type \"string\", :description \"ref into com.etzhayyim.encrypted.* (G9); plaintext never stored here\"}, :householdScope {:type \"string\", :description \"individual|household|multi-generational (G12)\"}, :resolvedRing {:type \"string\", :description \"commons|internal|external|unresolved\"}}}}}"}]
