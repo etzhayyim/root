@@ -29,8 +29,19 @@
             [yudane.methods.yudane-edn :as yudane-edn]
             [yudane.methods.analyze :as yudane-a]))
 
-(defn- unrepresentable [ontology-path]
-  (:unrepresentable (edn/read-string (slurp ontology-path))))
+(defn- unrepresentable
+  "Read the ontology's declared :unrepresentable attrs. Tolerates both the
+  original bare-map shape AND the datomic/datascript tx-data shape produced
+  by the EDN-datomize transform (manifest/edn-datomize.cljs pattern —
+  [{:db/id -1 :<ns>/unrepresentable [...] ...}]), since ontology files across
+  the suite (mio/tawami/okibi/toi/yudane) migrate to tx-data independently."
+  [ontology-path]
+  (let [content (edn/read-string (slurp ontology-path))]
+    (if (and (vector? content) (seq content) (map? (first content)) (contains? (first content) :db/id))
+      (let [entity (first content)
+            k (some #(when (= "unrepresentable" (name %)) %) (keys entity))]
+        (get entity k))
+      (:unrepresentable content))))
 
 ;; per-actor spec: how to read its ontology, render its full datoms, and list its seed ids
 (def specs
