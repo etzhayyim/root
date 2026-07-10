@@ -12,6 +12,18 @@
                 (byte-array [(unchecked-byte 255)])]]
       (is (= (seq bs) (seq (ag/base58-decode (ag/base58-encode bs))))))))
 
+(deftest base58-decode-rejects-invalid-characters
+  ;; String.indexOf returns -1 (not an exception) for a character outside
+  ;; the base58btc alphabet, and BigInteger/valueOf happily accepted -1 as
+  ;; a valid digit -- an invalid character in an untrusted did:key string
+  ;; used to silently decode to wrong-but-plausible key bytes instead of
+  ;; raising. "0", "O", "I", "l" are excluded from base58btc specifically
+  ;; to avoid visual ambiguity with "o"/"0"/"1"/"I".
+  (testing "an invalid character throws instead of silently misdecoding"
+    (doseq [bad ["0" "O" "I" "l"]]
+      (is (thrown? Exception (ag/base58-decode bad))
+          (str "must reject invalid base58btc character: " bad)))))
+
 (deftest dht-replicas-deterministic-and-closest
   (let [vs (mapv (fn [_] (let [kp (ag/gen-keypair)]
                            {:validator-kp kp :validator-did (ag/did-key kp)}))

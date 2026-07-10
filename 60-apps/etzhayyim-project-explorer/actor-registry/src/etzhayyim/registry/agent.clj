@@ -29,9 +29,18 @@
 
 (defn base58-decode ^bytes [^String s]
   (let [fifty8 (java.math.BigInteger/valueOf 58)
+        ;; String.indexOf returns -1 (not an exception) for a character
+        ;; outside B58, and BigInteger/valueOf happily accepts -1 as a
+        ;; valid digit -- an invalid character in an untrusted did:key
+        ;; string used to silently decode to wrong-but-plausible key
+        ;; bytes instead of raising. The cljs sibling
+        ;; (etzhayyim.explorer.chain.agent/base58-decode) already guards
+        ;; this; this JVM copy had drifted out of sync.
         n (reduce (fn [acc c]
-                    (.add (.multiply acc fifty8)
-                          (java.math.BigInteger/valueOf (.indexOf B58 (int c)))))
+                    (let [d (.indexOf B58 (int c))]
+                      (when (neg? d)
+                        (throw (ex-info "bad base58 character" {:char c})))
+                      (.add (.multiply acc fifty8) (java.math.BigInteger/valueOf d))))
                   java.math.BigInteger/ZERO (seq s))
         bs (.toByteArray n)
         ;; strip a possible sign byte
