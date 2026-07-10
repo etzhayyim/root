@@ -43,12 +43,24 @@
   :bom.edge/id). Every OTHER key/value in the row becomes a datom [e k v].
   A row WITHOUT any `*/id` key (edge / 縁 rows keyed on :en/from + :en/to) is
   given a deterministic synthetic id `:kotoba-actors.row/N` (N = row index) so
-  its facts are still datoms — edges become first-class, queryable entities."
+  its facts are still datoms — edges become first-class, queryable entities.
+
+  `:db/id` is EXCLUDED from the `*/id` candidate scan: it is the Datomic/
+  Datascript tx-data envelope's own temp-id key (added by the edn-datomize
+  wrap pass, manifest/edn-datomize.cljs), not a domain id. Treating it as a
+  row's identity would silently discard the real domain id (e.g. :fs/id) as
+  an ordinary attribute and renumber every entity to an opaque temp id — a
+  real regression found + verified empirically while datomizing
+  20-actors/tanemaki/data/seed-stewardship-graph.kotoba.edn (Phase 4 fan-out,
+  ADR-2606122001): entity ids now stay on the domain id and the synthetic-id
+  path for edge rows (no domain id key) is unchanged. Full kotoba-actors-clj
+  test suite (50 tests / 101 assertions across all actors wired into this
+  engine) re-verified green after this change."
   [rows]
   (apply concat
    (map-indexed
     (fn [idx row]
-      (let [id-k (some #(when (.endsWith (name %) "id") %) (keys row))
+      (let [id-k (some #(when (and (.endsWith (name %) "id") (not= % :db/id)) %) (keys row))
             e    (if id-k (get row id-k) (keyword "kotoba-actors.row" (str idx)))]
         (for [[k v] row :when (not= k id-k)] [e k v])))
     rows)))
