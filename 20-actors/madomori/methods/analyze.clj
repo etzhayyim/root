@@ -20,10 +20,40 @@
             [madomori.methods.water-recovery :as wr]
             [madomori.methods.handoff :as ho]))
 
+(defn- tx-data?
+  "True if content is a datomic/datascript tx-data vector (one entity map with
+   :db/id), i.e. data/facade.edn's post-datomize shape."
+  [content]
+  (and (vector? content) (seq content) (map? (first content)) (contains? (first content) :db/id)))
+
+(defn- unblob
+  "pr-str'd non-scalar attribute values (nested maps / vectors-of-maps) come back
+   as strings from the tx-data shape; parse them back to data. Leaves live scalars
+   (and anything that fails to parse as a collection) untouched."
+  [v]
+  (if (string? v)
+    (try (let [parsed (edn/read-string v)] (if (coll? parsed) parsed v))
+         (catch Exception _ v))
+    v))
+
+(defn- reconstitute-entity
+  "Un-namespace + un-blob a tx-data entity back into the original bare seed map
+   (:facade/face -> :face etc.) so every downstream `(:keys [...])` destructure
+   in this ns and in facade-path/wind-envelope/adhesion/multi-face/anchor/
+   water-recovery/handoff keeps working unchanged."
+  [tx-data]
+  (into {} (map (fn [[k v]] [(keyword (name k)) (unblob v)]))
+        (dissoc (first tx-data) :db/id)))
+
 (defn load-seed
-  "Read the building façade EDN seed into a Clojure map."
+  "Read the building façade EDN seed into a Clojure map. Accepts either the
+   legacy bare map or the datomic/datascript tx-data vector (post-datomize)
+   shape."
   [path]
-  (edn/read-string (slurp path)))
+  (let [content (edn/read-string (slurp path))]
+    (if (tx-data? content)
+      (reconstitute-entity content)
+      content)))
 
 (defn run
   "Run the full R0 analysis over a loaded seed map. Returns a report map."
