@@ -45,24 +45,23 @@
   given a deterministic synthetic id `:kotoba-actors.row/N` (N = row index) so
   its facts are still datoms — edges become first-class, queryable entities.
 
-  `:db/id` is EXCLUDED from the `*/id` candidate scan: it is the Datomic/
-  Datascript tx-data envelope's own temp-id key (added by the edn-datomize
-  wrap pass, manifest/edn-datomize.cljs), not a domain id. Treating it as a
-  row's identity would silently discard the real domain id (e.g. :fs/id) as
-  an ordinary attribute and renumber every entity to an opaque temp id — a
-  real regression found + verified empirically while datomizing
-  20-actors/tanemaki/data/seed-stewardship-graph.kotoba.edn (Phase 4 fan-out,
-  ADR-2606122001): entity ids now stay on the domain id and the synthetic-id
-  path for edge rows (no domain id key) is unchanged. Full kotoba-actors-clj
-  test suite (50 tests / 101 assertions across all actors wired into this
-  engine) re-verified green after this change."
+  Rows may additionally carry a Datomic/Datascript tx-data bookkeeping
+  `:db/id` (a tempid, e.g. added by the repo-wide EDN->tx-data 'datomize' pass,
+  manifest/edn-datomize.cljs) alongside their domain `*/id`. `:db/id` is
+  intentionally EXCLUDED from `*/id`-key candidacy — `(name :db/id)` is \"id\"
+  and would otherwise match `.endsWith … \"id\"` and get picked as the row's
+  identity, replacing the real domain id (e.g. :organism/id's string value)
+  with a numeric tempid and silently breaking id-based joins (e.g.
+  kotoba-actors.tsugite/dangling-edges comparing node ids against 縁
+  endpoint strings). It is also excluded from becoming a datom itself
+  (bookkeeping only, not domain data)."
   [rows]
   (apply concat
    (map-indexed
     (fn [idx row]
-      (let [id-k (some #(when (and (.endsWith (name %) "id") (not= % :db/id)) %) (keys row))
+      (let [id-k (some #(when (and (not= % :db/id) (.endsWith (name %) "id")) %) (keys row))
             e    (if id-k (get row id-k) (keyword "kotoba-actors.row" (str idx)))]
-        (for [[k v] row :when (not= k id-k)] [e k v])))
+        (for [[k v] row :when (not (#{id-k :db/id} k))] [e k v])))
     rows)))
 
 (defn build-db
