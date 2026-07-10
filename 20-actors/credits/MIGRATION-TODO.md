@@ -13,7 +13,13 @@ Following must be remediated:
 - [ ] Strip RisingWave / Postgres / Kysely → AT MST + IPFS + Base L2 anchor.
 - [ ] Strip Stripe / PayPal / fiat → USDC + ERC-4337 + `etzhayyim-tithe-router`.
 - [ ] Remove 3rd-party ad / GA4 / Meta Pixel.
-- [ ] DID-bind authentication (did:web:etzhayyim.com + did:plc + WebAuthn + Adherent SBT).
+- [~] DID-bind authentication (did:web:etzhayyim.com + did:plc + WebAuthn + Adherent SBT).
+      Pure-function gate landed 2026-07-10 (iter #5):
+      `methods/identity_gate.cljc` requires a shomei-verified DID (Identity
+      Assurance Level >=1) before purchase/spend proceed, adapting shomei's
+      real `shomei.methods.aggregate/aggregate` fn (G10, never reimplemented).
+      STILL OPEN: live wiring to an actual shomei cell/substrate read (today
+      the verified-factor set is caller-supplied) — that is R1 work.
 - [ ] Verify against Charter Rider v2.0 §2(a)-(h).
 
 ## Reference
