@@ -51,7 +51,7 @@ the score remains capped because live collection is intentionally absent.
 
 | Item | Status | Evidence |
 |---|---|---|
-| Adapter unit + e2e tests | ✅ CLJC green | `adapters/test_*.cljc` — lexicon validator, regulator fixture parser, dry-run pipeline, EDN query/export/import shape. Run: `./20-actors/akashi/run_tests.sh` |
+| Adapter unit + e2e tests | ✅ CLJC green | `adapters/test_*.cljc` — lexicon validator, regulator fixture parser, dry-run pipeline, EDN query/export/import shape. Run: `nbb 20-actors/akashi/run_tests.cljs` |
 
 ## 2026-07-10 — platform ad-library fixture + EDN tx-data
 
@@ -62,4 +62,4 @@ the score remains capped because live collection is intentionally absent.
 | EDN tx-data projection | ✅ fixture-only | `adapters/edn_export.cljc`, `bb -m akashi.adapters.dry-run-fixtures --emit-edn`, `--emit-datomic` |
 | EDN query helper | ✅ fixture-only | `adapters/edn_query.cljc`, `adapters/test_edn_query.cljc` query both DataScript/kotoba tx maps and Datomic scalar bundle |
 | Storage artifact materializer | ✅ saved locally | `adapters/persist_fixture_edn.cljc` writes `data/*.tx.kotoba.edn`, `data/*.datomic.edn`, and CIDv1 manifest; `bb kotoba:annex save 20-actors/akashi/data` saved the data artifacts in git/DataLad |
-| Adapter tests | ✅ green | `./20-actors/akashi/run_tests.sh` |
+| Adapter tests | ✅ green | `nbb 20-actors/akashi/run_tests.cljs` |

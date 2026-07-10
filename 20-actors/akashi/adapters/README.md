@@ -30,5 +30,5 @@ Current adapter surface:
 - `dry_run_fixtures.cljc` parses and validates local fixtures, then prints counts
   or records. `--emit-edn` prints EDN tx-data. It has no network mode.
 
-Run CLJC adapter tests with `./20-actors/akashi/run_tests.sh`. Python adapter
+Run CLJC adapter tests with `nbb 20-actors/akashi/run_tests.cljs`. Python adapter
 files are intentionally absent.
