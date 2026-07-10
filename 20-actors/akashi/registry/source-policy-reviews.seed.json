@@ -16,26 +16,26 @@
   "reviews": [
     {
       "sourceId": "meta-ad-library",
-      "reviewStatus": "manual-review",
-      "liveCollectionStatus": "disabled",
-      "adapterRuntime": "disabled",
-      "approvedAccessModes": [],
-      "reviewTx": "reserved",
+      "reviewStatus": "allowed",
+      "liveCollectionStatus": "allowed",
+      "adapterRuntime": "live-adapter",
+      "approvedAccessModes": ["official-api"],
+      "reviewTx": "akashi-source-policy-meta-official-api-r1",
       "notes": [
-        "Facebook and Instagram ad library access requires source-specific terms and public-access review before any live adapter can run.",
-        "A local fixture-only parser exists for reviewed samples; live collection remains disabled."
+        "Official Meta Ad Library API only; no scraping, login automation, or anti-bot bypass.",
+        "Runtime requires META_AD_LIBRARY_ACCESS_TOKEN and only emits source-disclosed fields."
       ]
     },
     {
       "sourceId": "x-ads-transparency",
-      "reviewStatus": "manual-review",
-      "liveCollectionStatus": "disabled",
-      "adapterRuntime": "disabled",
-      "approvedAccessModes": [],
-      "reviewTx": "reserved",
+      "reviewStatus": "allowed",
+      "liveCollectionStatus": "allowed",
+      "adapterRuntime": "live-adapter",
+      "approvedAccessModes": ["official-api"],
+      "reviewTx": "akashi-source-policy-x-dsa-repository-api-r1",
       "notes": [
-        "X/Twitter transparency access remains disabled until public access and rate-limit evidence is reviewed.",
-        "A local fixture-only parser exists for reviewed samples; live collection remains disabled."
+        "Official X DSA Ads Repository API and generated CSV only; no scraping or UI automation.",
+        "Runtime requires X_ADS_REPOSITORY_BEARER_TOKEN for export request/status calls."
       ]
     },
     {

@@ -14,7 +14,7 @@ it has:
 
 | Source family | Platforms | R0 status | Counts as covered? |
 |---|---|---|---|
-| social ad libraries | Meta/Facebook/Instagram, X/Twitter | fixture-only parser with lexicon validation; no live adapter | fixture only |
+| social ad libraries | Meta/Facebook/Instagram, X/Twitter | official-API adapter ready; token-gated; fixture parser still covered | official API only |
 | social ad libraries | TikTok | registry seed only; no adapter | no |
 | messaging / portal ad disclosures | LINE | registry seed only; access-mode requires manual review | no |
 | search/video ad libraries | Google / YouTube | registry seed only; no adapter | no |
@@ -44,6 +44,10 @@ creative, landing, delivery, and snapshot lexicons as regulator bulk fixtures.
 Meta/Instagram/X-style JSON snapshots from an operator and emits records,
 DataScript/kotoba tx EDN, or a Datomic schema/scalar-tx import bundle without
 network access.
+`adapters/official_api_ingest.cljc` is the production path for official APIs:
+Meta Ad Library API (`META_AD_LIBRARY_ACCESS_TOKEN`) and X DSA Ads Repository
+API/CSV (`X_ADS_REPOSITORY_BEARER_TOKEN` for export request/status). It has no
+scraping mode and materializes live EDN only under explicit `--materialize`.
 `adapters/dry_run_fixtures.cljc` exercises the local fixture set and validates
 every emitted record without network access or writes.
 `fixtures/dry_run/summary.golden.json` pins the dry-run record counts. A second
@@ -71,8 +75,9 @@ A platform source can move from `candidate` to `covered-r1` only when:
 
 ## R0 Gaps
 
-- No live adapter code exists; current parsers and reviewed-export ingest are
-  local-file only.
+- Live adapter code exists only for official APIs: Meta Ad Library API and X DSA
+  Ads Repository API/CSV. This repo environment has no operator token, so no
+  live pull has been materialized here.
 - Regulator bulk and platform ad-library fixture parsers validate output against
   akashi lexicons; no live platform adapter exists.
 - Closure fixtures validate link/report/malak candidate records without live
@@ -83,8 +88,9 @@ A platform source can move from `candidate` to `covered-r1` only when:
   external storage/import by a caller.
 - Dry-run summary has a golden regression fixture.
 - Optional-field and negative fixtures exist for parser regression coverage.
-- No live fetch runs.
-- Source-policy review workflow exists and keeps every live source disabled.
+- No live fetch has run in this workspace because no operator token is present.
+- Source-policy review workflow enables only the official API paths for Meta/X;
+  other live sources remain disabled.
 - Source-policy approval format exists; current parser examples are
   fixture-only, not live collection.
 - Cell scaffold exists under `40-engine/kotoba/crates/kotoba-kotodama/cells/akashi_*`, but every

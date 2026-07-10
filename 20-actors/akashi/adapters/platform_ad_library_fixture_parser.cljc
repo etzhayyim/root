@@ -76,7 +76,7 @@
                         "sourceUrl" (get source "sourceUrl")
                         "jurisdiction" (get source "jurisdiction")
                         "accessMode" (get source "accessMode" "manual-review-only")
-                        "collectionStatus" "manual-review"
+                        "collectionStatus" (get source "collectionStatus" "manual-review")
                         "methodNoteCid" method-note-cid
                         "attestingDid" attesting-did})
         acc (reduce

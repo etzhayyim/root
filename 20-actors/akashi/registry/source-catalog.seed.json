@@ -8,19 +8,19 @@
       "id": "meta-ad-library",
       "platforms": ["facebook", "instagram"],
       "sourceFamily": "social-ad-library",
-      "accessMode": "manual-review-only",
-      "collectionStatus": "manual-review",
-      "r0Coverage": "registry-only",
-      "requiredBeforeCollection": ["terms-review", "robots-review", "fixture-parser", "no-login-proof"]
+      "accessMode": "official-api",
+      "collectionStatus": "allowed",
+      "r0Coverage": "official-api-ready",
+      "requiredBeforeCollection": ["terms-review", "api-policy-review", "fixture-parser", "operator-access-token"]
     },
     {
       "id": "x-ads-transparency",
       "platforms": ["x", "twitter"],
       "sourceFamily": "social-ad-library",
-      "accessMode": "manual-review-only",
-      "collectionStatus": "manual-review",
-      "r0Coverage": "registry-only",
-      "requiredBeforeCollection": ["terms-review", "public-access-proof", "fixture-parser"]
+      "accessMode": "official-api",
+      "collectionStatus": "allowed",
+      "r0Coverage": "official-api-ready",
+      "requiredBeforeCollection": ["terms-review", "public-access-proof", "fixture-parser", "operator-bearer-token"]
     },
     {
       "id": "line-ad-disclosure",

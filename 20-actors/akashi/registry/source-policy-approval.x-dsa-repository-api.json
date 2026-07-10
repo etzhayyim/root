@@ -1,0 +1,24 @@
+{
+  "txId": "akashi-source-policy-x-dsa-repository-api-r1",
+  "createdAt": "2026-07-10T00:00:00Z",
+  "adr": "etzhayyim:adr:2606022300",
+  "sourceId": "x-ads-transparency",
+  "decision": "allowed",
+  "runtime": "live-adapter",
+  "approvedAccessModes": ["official-api"],
+  "evidence": {
+    "termsReviewCid": "cid:akashi:review:x-business-ads-transparency-20260710",
+    "robotsOrApiPolicyCid": "cid:akashi:review:x-dsa-ads-repository-api-20260710",
+    "publicAccessProofCid": "cid:akashi:review:x-dsa-eu-repository-scope-20260710",
+    "fixtureParserCid": "cid:akashi:platform-ad-library-fixture-parser:r1",
+    "methodNoteCid": "cid:akashi:method-note:x-dsa-repository-api-r1",
+    "rateLimitReviewCid": "cid:akashi:review:x-export-request-operator-token-20260710",
+    "licenseReviewCid": "cid:akashi:review:x-generated-csv-storage-20260710"
+  },
+  "reviewerDid": "did:web:akashi.etzhayyim.com",
+  "attestingDid": "did:web:akashi.etzhayyim.com",
+  "rollback": {
+    "disableTxRequired": true,
+    "defaultRuntimeAfterRollback": "disabled"
+  }
+}
