@@ -11,7 +11,7 @@
  :actor/purpose   "花粉撲滅 remediation gate. Edge-primary pollen-source concentration (stand-area × emission-density × exposed-population-weight, on read) routed to REMEDIATION. A forest STAND is routed for remediation ONLY by passing the gate: refuse a 主伐 without 再造林 (撲滅 is RESTORATION, not deforestation) / net-positive carbon; await landowner consent (land sovereignty); selective-only on protected (watershed/steep/habitat) stands; await 無花粉苗木 supply (the L1-1 bottleneck); else reforest-priority (主伐再造林, the L3-1 bottleneck). ASSESSMENT + R0 DESIGN ONLY — kafun never cuts and never plants; live forestry is the landowner's + operator/Council step. The clj-native Tier-B actor-ization of the legacy kafun-bokumetsu pipeline (scout→cadastral→envoy). Routes to sanae (planting robotics) / inochi (biosphere restoration) / mitate + iyashi (allergic-rhinitis care)."
  :actor/status    :r0
  :actor/adr       "2606211712"
- :actor/related   ["2605100100" "2605210928" "2606073000" "2606032100" "2605260115" "2605262130" "2605192245"]
+ :actor/related   ["2605100100" "2605210928" "2606073000" "2606032100" "2605260115" "2605262130" "2605192245" "2606201200" "2607102230"]
 
  :actor/charter-rider
  {:rider/version "3.5"
@@ -41,6 +41,8 @@
   {:method/id "autorun"   :method/file "methods/autorun.cljc"   :method/role "持続永続化: deterministic, idempotent-by-content heartbeat — assess → append verdict datoms to the ledger (+ bb CLI)"}
   {:method/id "ie_flow"   :method/file "methods/ie_flow.cljc"   :method/role "SoS: embeds shared etzhayyim.ie-flow.metrics (order calculus) + renders energy-flow viz — assessment → measured flow events → order-index/η + viz/energy-flow.html (ADR-2606212030)"}
   {:method/id "digest"    :method/file "methods/digest.cljc"    :method/role "Murakumo-narrated remediation digest (ibuki/colony-digest pattern): digest-data → narrate (injected infer, FAIL-OPEN template G6; loopback-only murakumo-infer) → :digest/* datoms (:digest/status :dry-run ONLY, G8)"}
+  {:method/id "dynamics"    :method/file "methods/dynamics.cljc"    :method/role "kafun's OWN remediation-readiness stock-flow (system dynamics): step-system/simulate/counterfactual, re-scored through the UNCHANGED remediate/verdict (ADR-2607102230)"}
+  {:method/id "react_loop"  :method/file "methods/react_loop.cljc"  :method/role "SD ReAct beat: SENSE→ORIENT→HYPOTHESIZE→REVIEW→RANK→EVOLVE→ACT→OBSERVE→LEARN→PERSIST over the readiness stock-flow; ACT is a pre-registered forecast + propose-only route (never actuation, G5) (+ bb CLI; ADR-2607102230)"}
   {:method/id "cell"      :method/file "cell.cljc"             :method/role "fleet heartbeat cell — `fire` runs one deterministic, idempotent-by-content remediation beat (autorun/beat); no-server-key, no external I/O"}]
 
  :actor/fleet
@@ -83,4 +85,6 @@
   :cmd "./20-actors/kafun/run_tests.sh"
   :suites ["methods/test_kafun_edn.cljc" "methods/test_remediate.cljc"
            "methods/test_kotoba.cljc" "methods/test_autorun.cljc"
-           "methods/test_ie_flow.cljc"]}}
+           "methods/test_ie_flow.cljc" "methods/test_digest.cljc"
+           "methods/test_bottleneck.cljc" "methods/test_dynamics.cljc"
+           "methods/test_react_loop.cljc"]}}

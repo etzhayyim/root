@@ -27702,6 +27702,31 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2607102230-kafun-system-dynamics-react-loop.md",
+      "id": "adr-2607102230-kafun-system-dynamics-react-loop",
+      "title": "ADR-2607102230: kafun 花粉 — a system-dynamics ReAct loop over remediation readiness",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "kafun-system-dynamics-react-loop",
+      "authoritative": true,
+      "authoritative_for": [
+        "kafun's forecasting/reasoning layer over `remediate/remediation-bottlenecks` is `methods/dynamics.cljc` (kafun's OWN readiness stock-flow) + `methods/react_loop.cljc` (the ReAct beat) — not a reuse of `etzhayyim.ie-flow.dynamics` (a differently-shaped SaaS stock) nor of tsuchifumi's `sysdyn.cljc` (a separate risk-domain E/A/I/B model)",
+        "the readiness stock-flow NEVER duplicates or relaxes the verdict gate — every forecasted stand is re-scored through the UNCHANGED `remediate/verdict`, so G1 (撲滅=restoration) / G4 (carbon) hold through a forecast exactly as they hold live",
+        "ACT is a PRE-REGISTERED forecast + a proposal ROUTED to the relevant downstream actor (sanae for sapling-supply / musubi for consent) — G5 (never-acts) is unchanged: kafun still supplies no sapling and grants no consent itself, forecast or not"
+      ],
+      "related": [
+        "90-docs/adr/2606211712-kafun-pollen-remediation-actor.md",
+        "90-docs/adr/2606201200-ibuki-coscientist-entropy-react-loop.md",
+        "90-docs/adr/2606212030-kafun-ie-flow-energy-visualization.md",
+        "90-docs/adr/2607072630-etzhayyim-com-etzhayyim-yosoku-system-dynamics-actor.md"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "last_verified": "2026-07-10",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
