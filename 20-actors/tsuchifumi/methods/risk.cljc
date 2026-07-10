@@ -21,7 +21,8 @@
   Severity band (raw): ≥0.5 :critical · ≥0.3 :high · ≥0.15 :medium · else :low.
 
   This is OBSERVATION + leverage analysis, never a directive to act on any person (G1)."
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [tsuchifumi.methods.tsuchifumi-edn :as te]))
 
 (def tier-weights {:established 1.0 :emerging 0.6 :contested 0.35 :anecdotal 0.15})
 
@@ -134,7 +135,7 @@
 #?(:clj
    (defn -main [& args]
      (let [seed (or (first args) "20-actors/tsuchifumi/kotoba/seed.edn")
-           drivers (vec (filter #(= (:type %) :driver) (clojure.edn/read-string (slurp seed))))
+           drivers (vec (filter #(= (:type %) :driver) (te/reconstitute-rows (clojure.edn/read-string (slurp seed)))))
            a (assess drivers)]
        (println (render-report a))
        (println (str "-- " (count drivers) " drivers assessed --")))))

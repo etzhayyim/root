@@ -27,8 +27,25 @@
      (def ^:private here (.getParentFile (java.io.File. ^String *file*)))      ;; methods/
      (def ^:private actor-dir (.getParentFile here))                          ;; kamado/
      (def ^:private lexdir (java.io.File. actor-dir "lex"))
+     (defn- unblob
+       "lex/*.edn files are now Datomic/Datascript tx-data (Phase 4 edn-datomize):
+        non-scalar values (here, :defs) are pr-str'd into a blob string. Parse it
+        back into a real map for callers that expect the original wire shape."
+       [v]
+       (if (string? v)
+         (try (let [parsed (edn/read-string v)] (if (coll? parsed) parsed v))
+              (catch Exception _ v))
+         v))
+     (defn- reconstitute-entity
+       "Reconstitute the original bare {:lexicon :id :defs} map from a
+        [{:db/id -1 <ns>/<key> <value> ...}] tx-data vector, so downstream
+        get-in/:lexicon/:id/:defs lookups keep working unchanged."
+       [tx-data]
+       (into {} (map (fn [[k v]] [(keyword (name k)) (unblob v)]))
+             (dissoc (first tx-data) :db/id)))
      (defn- lex [name]
-       (edn/read-string (slurp (java.io.File. lexdir (str name ".edn")))))))
+       (reconstitute-entity
+        (edn/read-string (slurp (java.io.File. lexdir (str name ".edn"))))))))
 
 (defn- record-node [doc] (get-in doc [:defs :main :record]))
 (defn- required-of [doc] (set (:required (record-node doc))))

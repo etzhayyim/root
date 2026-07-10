@@ -22,7 +22,8 @@
   The DISCLAIMER NAMES the prohibited concepts in order to disclaim them, so it is
   STRIPPED before every token scan (shionome pattern). Stdlib only. Deterministic."
   (:require [clojure.string :as str]
-            [tsuchifumi.methods.analyze :as an]))
+            [tsuchifumi.methods.analyze :as an]
+            [tsuchifumi.methods.tsuchifumi-edn :as te]))
 
 (def DISCLAIMER
   (str "【おせっかい / Wellbecoming nudge — 医療助言ではありません・診断も治療もしません】 "
@@ -229,7 +230,7 @@
 #?(:clj
    (defn -main [& args]
      (let [seed (or (first args) "20-actors/tsuchifumi/kotoba/seed.edn")
-           rows (clojure.edn/read-string (slurp seed))
+           rows (te/reconstitute-rows (clojure.edn/read-string (slurp seed)))
            regions (vec (filter #(= (:type %) :region) rows))
            evidence (vec (filter #(= (:type %) :evidence) rows))
            drivers (vec (filter #(= (:type %) :driver) rows))

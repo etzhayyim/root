@@ -1,15 +1,1 @@
-;; kotoba.app.edn — actor:moyoshi KOTOBA Mesh application manifest (ADR-2606272100, R2).
-;; Deploy: kotoba app deploy kotoba.app.edn  (compiles methods/mesh.clj → CID → control datoms)
-;; The component points at the on-kse mesh wrapper (methods/mesh.clj, kizuna's pattern);
-;; the design/govern/settle/mint logic lives in methods (moyoshi/ingest/settle/kotoba).
-{:kotoba.app/name    "moyoshi"
- :kotoba.app/version "0.2.0"
- :kotoba.app/components
- [{:name     "moyoshi"
-   :src      "methods/mesh.clj"                   ; Clojure default → run + on-kse
-   :scale    1
-   :triggers [{:type :kse :topic "etzhayyim/actor/moyoshi"}]
-   :requires #{:cap/kqe}}]
-
- :kotoba.app/placement {:spread  :zone
-                        :require {:tier "edge"}}}
+[{:db/id -1, :kotoba.app/name "moyoshi", :kotoba.app/version "0.2.0", :kotoba.app/components "[{:name \"moyoshi\", :src \"methods/mesh.clj\", :scale 1, :triggers [{:type :kse, :topic \"etzhayyim/actor/moyoshi\"}], :requires #{:cap/kqe}}]", :kotoba.app/placement "{:spread :zone, :require {:tier \"edge\"}}"}]

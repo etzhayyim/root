@@ -99,3 +99,20 @@
      "Directory of this actor's methods/ dir, for default data/ paths."
      []
      (clojure.java.io/file "20-actors" "saisei")))
+
+(defn unblob
+  "Reconstitute a datomize-transform blob-string attribute value (a pr-str'd
+  non-scalar EDN form — nested map / vector-of-maps, which tx-data cannot
+  keep as a live attribute value) back into its structured shape, by
+  re-parsing it through THIS SAME reader (`read-edn`) — not a real
+  clojure.edn reader — so the round-tripped result keeps the identical
+  string-keyed convention (\":ns/key\" as a literal string key, per the
+  fidelity invariant above) the rest of this actor's code already expects.
+  Passes any non-string value through unchanged, so it is safe/idempotent to
+  call on an attribute that was never blobbed (e.g. an empty `[]`, or
+  pre-transform data)."
+  [v]
+  (if (string? v)
+    (try (let [parsed (read-edn v)] (if (coll? parsed) parsed v))
+         (catch #?(:clj Exception :cljs :default) _ v))
+    v))

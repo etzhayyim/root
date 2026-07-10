@@ -5,6 +5,7 @@
   UN member states, and a NAMED gap list that doubles as the next-wave ingest
   worklist (tate precedent, ADR-2606112400)."
   (:require [clojure.string :as str]
+            [saisei.methods.edn :as edn]
             [saisei.methods.filing-plan :as plan]))
 
 (def un-member-states 193)
@@ -42,9 +43,13 @@
    (let [proc-by-j (counter (map #(get % ":proc/jurisdiction" ":jp") procs))
          covered (sort (keys juris))
          remaining (filterv #(not (contains? juris %)) juris-worklist)
-         mandatory-precondition-count (count (filter #(seq (get % ":proc/mandatory-preconditions")) procs))
+         ;; :proc/mandatory-preconditions / :proc/timeline-rules may be
+         ;; datomize-transform blob-string attribute values (see
+         ;; filing-plan/track-plan docstring) — edn/unblob reconstitutes the
+         ;; structured shape before iterating (no-op on pre-transform data).
+         mandatory-precondition-count (count (filter #(seq (edn/unblob (get % ":proc/mandatory-preconditions"))) procs))
          source-count (count (filter (fn [p] (some #(get % ":tl/source-url")
-                                                    (get p ":proc/timeline-rules" [])))
+                                                    (edn/unblob (get p ":proc/timeline-rules" []))))
                                      procs))
          source-total (count procs)
          source-gap (if (>= source-count source-total)

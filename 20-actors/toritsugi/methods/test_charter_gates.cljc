@@ -134,8 +134,25 @@
 ;; the StateGraph. The exclusive-gateway `mode_gw` must encode G15: member-self-submit
 ;; is the DEFAULT flow; 代行 (agent-on-behalf) is the single GATED exception routed
 ;; through a human/Council user-task (approval), never a silent third path.
+;;
+;; As of the Phase 4 datomize pass (2026-07-10), the file on disk is Datomic/
+;; Datascript tx-data (`[{:db/id -1 :bpmn/id ... :bpmn/nodes "<pr-str blob>" ...}]`)
+;; instead of a bare map — nested collections (:bpmn/nodes / :bpmn/flows) are
+;; pr-str'd blob strings. `bpmn` below is tolerant of BOTH the legacy bare-map
+;; shape and the new tx-data shape, and un-blobs :bpmn/nodes / :bpmn/flows back
+;; into live maps so the assertions below (keyword/string lookups) are unchanged.
+(defn- unblob [v]
+  (if (string? v)
+    (try (let [parsed (clojure.edn/read-string v)] (if (coll? parsed) parsed v))
+         (catch Exception _ v))
+    v))
+
 (defn- bpmn []
-  (clojure.edn/read-string (slurp (java.io.File. actor-dir "registry/toritsugi.procedure-flow.bpmn.edn"))))
+  (let [raw (clojure.edn/read-string (slurp (java.io.File. actor-dir "registry/toritsugi.procedure-flow.bpmn.edn")))
+        entity (if (and (vector? raw) (map? (first raw)) (contains? (first raw) :db/id))
+                 (dissoc (first raw) :db/id)
+                 raw)]
+    (into {} (map (fn [[k v]] [k (unblob v)])) entity)))
 
 (deftest bpmn-mode-gateway-reflects-g15
   (let [b    (bpmn)

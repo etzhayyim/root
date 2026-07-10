@@ -35,3 +35,46 @@
 (defn flows [path]
   #?(:clj (:flows (classify (load-edn path)))
      :default (throw (ex-info "flows: file load is :clj-only" {}))))
+
+;; ── ontology loading (tolerant of both the bare-map and the tx-data shape) ──
+;;
+;; kotoba/ontology.uzu.edn was converted to a Datomic/Datascript tx-data vector
+;; (edn-datomize pass, ADR-2607100000-series): `[{:db/id -1 :ontology/* ...}]`
+;; with non-scalar values pr-str'd into blob strings. `load-ontology` always
+;; hands callers back the original bare-keyed map shape
+;; ({:node-kinds [...] :enums {...} ...}) so `get-in ontology [:enums :regime]`
+;; style lookups (validate.cljc et al) are unaffected by the on-disk shape.
+
+(defn- unblob [v]
+  (if (string? v)
+    (try (let [parsed (parse-edn v)] (if (coll? parsed) parsed v))
+         (catch #?(:clj Exception :cljs :default) _ v))
+    v))
+
+(defn reconstitute-ontology
+  "tx-data [{:db/id -1 :ontology/* ...}] -> the original bare-keyed ontology map.
+  Keys that were already namespaced on disk (:ontology/id :ontology/version
+  :ontology/adr) keep that namespace; the rest (:node-kinds :enums
+  :unit-classes :invariants :attributes) are un-blobbed and returned bare,
+  matching kotoba/ontology.uzu.edn's pre-datomize shape."
+  [tx-data]
+  (let [e (first tx-data)
+        top #{:ontology/id :ontology/version :ontology/adr}]
+    (into {}
+          (map (fn [[k v]]
+                 [(if (contains? top k) k (keyword (name k)))
+                  (unblob v)]))
+          (dissoc e :db/id))))
+
+(defn already-tx-data? [content]
+  (and (vector? content) (seq content) (map? (first content)) (contains? (first content) :db/id)))
+
+(defn ontology-map
+  "Load an ontology EDN value already read into memory (via parse-edn/load-edn),
+  tolerant of both the bare-map (pre-datomize) and tx-data (post-datomize) shape."
+  [content]
+  (if (already-tx-data? content) (reconstitute-ontology content) content))
+
+#?(:clj
+   (defn load-ontology [path]
+     (ontology-map (load-edn path))))

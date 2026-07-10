@@ -66,13 +66,23 @@
 #?(:clj
    (defn- load-seed
      "The committed :representative seed (3 organisms spanning all 3 niches). EDN keyword
-     keys; the niche keyword is stringified at the use sites (\":…\" stays a string)."
+     keys; the niche keyword is stringified at the use sites (\":…\" stays a string).
+     Reads either the legacy bare-map shape ({:seed/kind … :seed/organisms […]}) or the
+     datomic/datascript tx-data shape (edn-datomize Phase 4: a 1-entity vector with :db/id,
+     :seed/organisms pr-str'd as a blob string) — reconstitutes the organisms vector either
+     way so this reader stays agnostic to which shape is on disk."
      []
-     (-> (or (io/resource seed-resource)
-             (io/file (str root "/data/seed-organisms.kotoba.edn")))
-         slurp
-         edn/read-string
-         (get :seed/organisms))))
+     (let [content (-> (or (io/resource seed-resource)
+                            (io/file (str root "/data/seed-organisms.kotoba.edn")))
+                        slurp
+                        edn/read-string)
+           m (if (and (vector? content) (map? (first content)) (contains? (first content) :db/id))
+               (first content)
+               content)
+           organisms (get m :seed/organisms)]
+       (if (string? organisms)
+         (edn/read-string organisms)
+         organisms))))
 
 #?(:clj
    (defn- queue-line!
