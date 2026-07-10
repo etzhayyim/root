@@ -7,7 +7,7 @@ cd "$(dirname "$0")/methods"
 RUNNER="${CLJ_RUNNER:-bb}"   # CLJ_RUNNER=clojure ./run_tests_clj.sh  to use the JVM
 command -v "$RUNNER" >/dev/null 2>&1 || { echo "runner '$RUNNER' not found"; exit 127; }
 
-SUITES=( "test_revenue_ledger.clj" "test_ingest.clj" "test_discrepancy.clj" "test_taxes.clj" "test_org_actor.clj" "test_coverage.clj" "test_kotoba_bridge.clj" "test_budget_ledger.clj" "test_kotoba.clj" "test_autorun.clj" )
+SUITES=( "test_revenue_ledger.clj" "test_ingest.clj" "test_discrepancy.clj" "test_taxes.clj" "test_org_actor.clj" "test_coverage.clj" "test_registry_coverage.clj" "test_kotoba_bridge.clj" "test_budget_ledger.clj" "test_kotoba.clj" "test_autorun.clj" )
 
 fail=0
 for s in "${SUITES[@]}"; do
