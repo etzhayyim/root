@@ -78,6 +78,13 @@
       ;; tamper → reject
       (is (not (ic/verify-bytes (:pub-hex kp) (.getBytes "tampered" "UTF-8") sig))))))
 
+(deftest unhex-rejects-odd-length-hex-strings
+  ;; (partition 2 s) used to silently drop the trailing nibble instead of
+  ;; erroring -- must fail loudly, not quietly decode a shorter-than-
+  ;; intended byte array (e.g. from a truncated --member-pub-hex CLI arg).
+  (is (thrown? Exception (ic/unhex "1")))
+  (is (thrown? Exception (ic/unhex "abc"))))
+
 (deftest iso-epoch-conversion
   (is (= 1783728000 (ic/iso->epoch "2026-07-11T00:00:00Z")))
   (is (= 1781136000 (ic/iso->epoch "2026-06-11T00:00:00Z"))))
