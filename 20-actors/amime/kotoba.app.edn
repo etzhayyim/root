@@ -1,17 +1,1 @@
-;; kotoba.app.edn — actor:amime KOTOBA Mesh application manifest (observatory on-kse, ADR-2606230001 §4).
-;; Deploy: kotoba app deploy kotoba.app.edn  (compiles mesh.clj → CID → control datoms)
-;;
-;; mesh.clj lives at the actor ROOT (not methods/) on purpose: its (ns amime) does not match
-;; methods/*'s amime.methods.* namespace prefix, and a classpath require of amime.methods.mesh
-;; (methods/mesh.cljc, the real flow-solver) must never risk resolving to this file instead.
-{:kotoba.app/name    "amime"
- :kotoba.app/version "0.1.0"
- :kotoba.app/components
- [{:name     "amime"
-   :src      "mesh.clj"                          ; Clojure default → run + on-kse
-   :scale    1
-   :triggers [{:type :kse :topic "etzhayyim/actor/amime"}]
-   :requires #{:cap/kqe}}]
-
- :kotoba.app/placement {:spread  :zone
-                        :require {:tier "edge"}}}
+[{:db/id -1, :kotoba.app/name "amime", :kotoba.app/version "0.1.0", :kotoba.app/components "[{:name \"amime\", :src \"mesh.clj\", :scale 1, :triggers [{:type :kse, :topic \"etzhayyim/actor/amime\"}], :requires #{:cap/kqe}}]", :kotoba.app/placement "{:spread :zone, :require {:tier \"edge\"}}"}]
