@@ -1,0 +1,56 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.narashi.crossReferenceNote",
+  "description": "A narashi-side pairing of a metricObservation trend with a kanae fundFlowEdge (aid-disbursement / loan / intergovernmental-transfer) in the same jurisdiction and an overlapping period. R0 skeleton per ADR-2607101800 SS3/SS8/SS6. CONSTITUTIONAL (G8, narashi-specific): this record is NON-CAUSAL BY CONSTRUCTION. `causalClaim` is a required const `false` field -- narashi MUST NOT and structurally CANNOT assert that a fund flow caused (or failed to cause) any change in an inequality metric. This is a juxtaposition of two independently-sourced facts, not an inference.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "sourceCellDid",
+          "metricObservationCids",
+          "kanaeFundFlowEdgeCids",
+          "jurisdiction",
+          "causalClaim",
+          "methodNoteCid",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "sourceCellDid": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the narashi cell that assembled this note (narashi_cross_reference)"
+          },
+          "metricObservationCids": {
+            "type": "array",
+            "minLength": 2,
+            "items": {"type": "string"},
+            "description": ">=2 narashi.metricObservation CIDs spanning the compared periods (e.g. before/after a flow window)"
+          },
+          "kanaeFundFlowEdgeCids": {
+            "type": "array",
+            "minLength": 1,
+            "items": {"type": "string"},
+            "description": "Read-only reference(s) to com.etzhayyim.kanae.fundFlowEdge records for the same jurisdiction (never written to by narashi; kanae is the sole writer)"
+          },
+          "jurisdiction": {"type": "string", "maxLength": 8},
+          "causalClaim": {
+            "const": false,
+            "description": "Structural invariant (G8) -- MUST always be false. A causal-claim=true value is unrepresentable; any pipeline that would set it is a bug, not a policy choice."
+          },
+          "observationSummary": {
+            "type": "string",
+            "maxLength": 2048,
+            "description": "Factual description of the two juxtaposed series only (e.g. 'aid-disbursement flows of $X occurred in periods P1-P2; gini moved from A to B over the same window'). MUST NOT use causal language (caused/due to/resulted in/because of)."
+          },
+          "methodNoteCid": {"type": "string"},
+          "attestingDid": {"type": "string", "format": "did"}
+        }
+      }
+    }
+  }
+}
