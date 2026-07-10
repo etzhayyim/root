@@ -1352,6 +1352,10 @@
    "bafyreiplaceholder0000000000000000000000000000000000000000000000",
    :datasets (),
    :declared? false},
+  "kumi"
+  {:rid "bafkreicdcsz3das3hp2vu2aueyloszc73chv7ataeuvmmdj2uvypo2rdbi",
+   :datasets (),
+   :declared? false},
   "business_manager"
   {:rid "bafkreib2ywi2frykthbr47vh5bfgsctokpddorkqsu2jjvhjjuwgegrndq",
    :datasets (),
