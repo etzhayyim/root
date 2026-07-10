@@ -59,9 +59,9 @@ The live design is:
   manifest for git, DataLad/git-annex, and kotoba-rad handoff.
 - `adapters/edn_query.cljc` queries the fixture tx-data without requiring a
   live Datomic/DataScript database.
-- `adapters/official_api_ingest.cljc` is the production path. It supports only
-  official Meta Ad Library API and X DSA Ads Repository API/CSV flows, requires
-  operator-provided tokens, and has no scraping or UI-automation mode.
+- `adapters/public_page_scribe.cljc` is the production path. It supports public
+  pages and operator-saved public files, preserves raw scribe EDN, and has no
+  platform-token, login, or UI-automation mode.
 
 ## Consequences
 
@@ -73,5 +73,6 @@ metadata in the storage manifest, and keeps query code CLJC-native.
 Any future live source adapter requires a separate source-policy approval,
 R1/R2 activation gate, and continued `.cljc`/`.kotoba` implementation.
 
-As of 2026-07-10, Meta/X official API source-policy approvals exist, but this
-workspace has no operator token, so no live EDN pull has been materialized here.
+As of 2026-07-10, the Meta/X source-policy approval is for public-page/file
+scribe only. No production public-page fetch has been materialized in this
+workspace yet.

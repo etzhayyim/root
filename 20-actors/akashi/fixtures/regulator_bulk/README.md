@@ -8,7 +8,7 @@ public bulk export and is intentionally not fetched by any cell.
 - Output Lexicons: `adDisclosureSnapshot`, `advertiserIdentity`,
   `creativeDisclosure`, `deliveryDisclosure`, `landingEvidence`,
   `methodNote`, `sourcePolicySnapshot`
-- Boundary: fixture-only; no platform API or page collection
+- Boundary: fixture-only; no platform endpoint or page collection
 
 Files:
 

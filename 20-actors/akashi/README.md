@@ -61,7 +61,7 @@ code is `.cljc`; Python is not an akashi adapter surface. See:
 - `registry/source-catalog.seed.json` — planning seed for Meta, X, LINE,
   Google/YouTube, TikTok, and regulator repositories
 - `registry/source-policy-reviews.seed.json` — data-driven review state; Meta/X
-  official API paths are token-gated, other live collection remains disabled
+  public-page scribe path is enabled, other live collection remains disabled
 - `registry/source-policy-approval.schema.json` — future approval transaction
   shape with rollback-to-disabled requirement
 - `adapters/regulator_bulk_fixture_parser.cljc` and `fixtures/regulator_bulk/`
@@ -73,9 +73,9 @@ code is `.cljc`; Python is not an akashi adapter surface. See:
   for Meta/Instagram/X-style public ad-library JSON snapshots; emits records,
   DataScript/kotoba tx EDN, or Datomic schema+scalar tx EDN without network
   access or writes unless `--out` is explicitly passed
-- `adapters/official_api_ingest.cljc` — production official-API ingest for Meta
-  Ad Library API and X DSA Ads Repository API/CSV; token-gated, no scraping mode,
-  materializes live EDN under `data/live/` only when `--materialize` is passed
+- `adapters/public_page_scribe.cljc` — production public-information scribe for
+  public pages and operator-saved public files; preserves raw scribe EDN and
+  materializes parsed EDN under `data/scribe/` only when `--materialize` is passed
 - `adapters/edn_export.cljc` — deterministic DataScript/kotoba EDN tx-data plus
   a Datomic schema/scalar-tx import bundle for validated akashi records;
   callers choose git, DataLad, or kotoba-git/kotoba-rad storage
@@ -106,7 +106,7 @@ code is `.cljc`; Python is not an akashi adapter surface. See:
 - no political profiling
 - no target lists
 - open method notes
-- ToS / robots / API policy snapshot required
+- ToS / robots / source-policy snapshot required
 - no ad SDK or tracking pixels
 - no commercial ad-intel product
 - no private-person inference

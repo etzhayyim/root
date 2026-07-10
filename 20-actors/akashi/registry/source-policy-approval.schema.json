@@ -47,7 +47,6 @@
         "type": "string",
         "enum": [
           "public-page",
-          "official-api",
           "public-bulk-export",
           "manual-review-only",
           "disabled"

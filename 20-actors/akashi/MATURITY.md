@@ -25,7 +25,7 @@ but collection and cell execution remain gated.
 | 16 | Source approval tx format | ✅ | fixture-only example + rollback-to-disabled schema |
 | 17 | Dry-run golden output | ✅ | `fixtures/dry_run/summary.golden.json` |
 | 18 | Optional-field and negative fixtures | ✅ | missing optional source fields plus malformed rejection tests |
-| 19 | Live collection | ⚠ token-gated | Official API adapter ready for Meta/X; no operator token present in this workspace |
+| 19 | Live collection | ⚠ scribe-gated | Public-page/file scribe ready for Meta/X; no live public-page fetch materialized in this workspace |
 
 ## Maturity Score
 
@@ -33,18 +33,18 @@ but collection and cell execution remain gated.
 |---|---:|---|
 | Actor identity | 4/5 | DID, manifest, ADR, root index present |
 | Schema surface | 5/5 | 10 lexicons present; fixture parser output has lexicon validation |
-| Source coverage | 4/5 | seed catalog plus regulator bulk and Meta/Instagram/X fixture parsers; official Meta/X API adapter is token-gated |
+| Source coverage | 4/5 | seed catalog plus regulator bulk and Meta/Instagram/X fixture parsers; public-page/file scribe is ready |
 | Constitutional gates | 5/5 | gates documented, schema anchors present, review workflow and invariants lock R0 |
 | Malak boundary | 5/5 | explicit candidate-only handoff in ADR, manifest, lexicon, and closure fixture |
-| Operational readiness | 4/5 | official API adapter and EDN materializer exist; actual live jobs require operator tokens |
+| Operational readiness | 4/5 | public-page/file scribe and EDN materializer exist; actual live jobs require source URLs/files |
 
 Overall R0 maturity: **30/30** R0 design maturity cap. Axis evidence is stronger, but
 the score remains capped because live collection is intentionally absent.
 
 ## Next R1 Work
 
-1. Run first token-gated Meta/X official API pull and materialize `data/live/*.edn`.
-2. Save live EDN via `bb kotoba:annex save 20-actors/akashi/data/live`.
+1. Run first public-page/file scribe and materialize `data/scribe/*.edn`.
+2. Save scribed EDN via `bb kotoba:annex save 20-actors/akashi/data/scribe`.
 3. Append kotoba-rad holding for the live dataset once the first CID is known.
 
 ## 2026-06-11 — adapter test coverage (loop iteration 2)
@@ -64,12 +64,12 @@ the score remains capped because live collection is intentionally absent.
 | Storage artifact materializer | ✅ saved locally | `adapters/persist_fixture_edn.cljc` writes `data/*.tx.kotoba.edn`, `data/*.datomic.edn`, and CIDv1 manifest; `bb kotoba:annex save 20-actors/akashi/data` saved the data artifacts in git/DataLad |
 | Adapter tests | ✅ green | `nbb 20-actors/akashi/run_tests.cljs` |
 
-## 2026-07-10 — official API production path
+## 2026-07-10 — public information scribe production path
 
 | Item | Status | Evidence |
 |---|---|---|
-| Meta official API adapter | ✅ token-gated | `adapters/official_api_ingest.cljc`, `META_AD_LIBRARY_ACCESS_TOKEN`, no scraping mode |
-| X DSA repository adapter | ✅ token-gated | `adapters/official_api_ingest.cljc`, `X_ADS_REPOSITORY_BEARER_TOKEN`, export request/status + CSV ingest |
-| Source-policy approvals | ✅ official API only | `registry/source-policy-approval.meta-official-api.json`, `registry/source-policy-approval.x-dsa-repository-api.json` |
-| Live EDN materializer | ✅ ready | `bb -m akashi.adapters.official-api-ingest meta ... --materialize`; default output under `data/live/` |
-| First live pull in this workspace | 未 | no operator API token present in environment |
+| Public page/file scribe | ✅ ready | `adapters/public_page_scribe.cljc`, no platform token/login/UI automation mode |
+| Raw scribe EDN | ✅ ready | preserves URL/file, fetchedAt, HTTP status, title/description, body CID/SHA256, raw body |
+| Source-policy approval | ✅ public-page only | `registry/source-policy-approval.public-page-scribe.json` |
+| Scribed EDN materializer | ✅ ready | `bb -m akashi.adapters.public-page-scribe --url ... --materialize`; default output under `data/scribe/` |
+| First live public-page fetch in this workspace | 未 | no production source URL has been materialized |

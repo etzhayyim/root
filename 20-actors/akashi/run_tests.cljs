@@ -9,13 +9,13 @@
             (quote akashi.adapters.test-regulator-bulk-fixture-parser)
             (quote akashi.adapters.test-lexicon-shape-validator)
             (quote akashi.adapters.test-edn-query)
-            (quote akashi.adapters.test-official-api-ingest))
+            (quote akashi.adapters.test-public-page-scribe))
    (let [r (clojure.test/run-tests
             (quote akashi.adapters.test-dry-run-fixtures)
             (quote akashi.adapters.test-regulator-bulk-fixture-parser)
             (quote akashi.adapters.test-lexicon-shape-validator)
             (quote akashi.adapters.test-edn-query)
-            (quote akashi.adapters.test-official-api-ingest))]
+            (quote akashi.adapters.test-public-page-scribe))]
      (System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))")
 
 (def script-arg

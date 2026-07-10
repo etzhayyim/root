@@ -6,7 +6,7 @@
   "disableWithoutCodeChange": true,
   "requiredEvidenceBeforeAllowed": [
     "terms-review",
-    "robots-or-api-policy-review",
+    "robots-or-source-policy-review",
     "public-access-proof",
     "fixture-parser",
     "method-note",
@@ -19,11 +19,11 @@
       "reviewStatus": "allowed",
       "liveCollectionStatus": "allowed",
       "adapterRuntime": "live-adapter",
-      "approvedAccessModes": ["official-api"],
-      "reviewTx": "akashi-source-policy-meta-official-api-r1",
+      "approvedAccessModes": ["public-page"],
+      "reviewTx": "akashi-source-policy-public-page-scribe-r1",
       "notes": [
-        "Official Meta Ad Library API only; no scraping, login automation, or anti-bot bypass.",
-        "Runtime requires META_AD_LIBRARY_ACCESS_TOKEN and only emits source-disclosed fields."
+        "Public information scribe only: public pages or operator-saved public files.",
+        "No platform token, logged-in collection, UI automation, anti-bot bypass, or private data request."
       ]
     },
     {
@@ -31,11 +31,11 @@
       "reviewStatus": "allowed",
       "liveCollectionStatus": "allowed",
       "adapterRuntime": "live-adapter",
-      "approvedAccessModes": ["official-api"],
-      "reviewTx": "akashi-source-policy-x-dsa-repository-api-r1",
+      "approvedAccessModes": ["public-page"],
+      "reviewTx": "akashi-source-policy-public-page-scribe-r1",
       "notes": [
-        "Official X DSA Ads Repository API and generated CSV only; no scraping or UI automation.",
-        "Runtime requires X_ADS_REPOSITORY_BEARER_TOKEN for export request/status calls."
+        "Public information scribe only: public pages or operator-saved public files.",
+        "No platform token, logged-in collection, UI automation, anti-bot bypass, or private data request."
       ]
     },
     {
@@ -57,7 +57,7 @@
       "approvedAccessModes": [],
       "reviewTx": "reserved",
       "notes": [
-        "Google and YouTube ad transparency sources prefer public API or bulk export review before adapter work."
+        "Google and YouTube ad transparency sources require public-page/public-file review before adapter work."
       ]
     },
     {

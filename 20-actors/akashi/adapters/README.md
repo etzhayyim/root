@@ -15,9 +15,10 @@ Current adapter surface:
   ingest CLI for local Meta/Instagram/X-style JSON snapshots. It has no
   network mode; it can emit records, DataScript/kotoba tx EDN, or a Datomic
   schema+scalar tx bundle.
-- `official_api_ingest.cljc` is the production official-API boundary. It is
-  limited to Meta Ad Library API and X DSA Ads Repository API/CSV exports. It
-  requires operator-provided tokens and has no scraping or UI automation mode.
+- `public_page_scribe.cljc` is the production public-information scribe. It
+  captures public pages or operator-saved public files as raw EDN, then parses
+  source-disclosed/operator-supplied fields into akashi records. It has no API
+  token, login, or UI automation mode.
 - `edn_export.cljc` projects validated records into deterministic
   DataScript/kotoba EDN tx-data and a Datomic import bundle with schema plus
   scalar `:db/add` ops. The caller chooses whether to store that EDN in git,
@@ -39,12 +40,16 @@ files are intentionally absent.
 Production examples:
 
 ```bash
-META_AD_LIBRARY_ACCESS_TOKEN=... bb -m akashi.adapters.official-api-ingest meta \
-  --search-terms "public interest" --countries EU --limit 25 --materialize
+bb -m akashi.adapters.public-page-scribe \
+  --url "https://public.example/ad-disclosure/1" \
+  --platform meta \
+  --advertiser "Example Advertiser" \
+  --creative-text "source-disclosed public ad text" \
+  --country DE \
+  --materialize
 
-X_ADS_REPOSITORY_BEARER_TOKEN=... bb -m akashi.adapters.official-api-ingest x-create-export \
-  --user-id 123456 --geo-location DE --start-date 2026-07-01 --end-date 2026-07-10
-
-bb -m akashi.adapters.official-api-ingest x-csv \
-  --csv /path/to/x-dsa-export.csv --materialize
+bb -m akashi.adapters.public-page-scribe \
+  --file /path/to/operator-saved-public-page.html \
+  --platform x \
+  --materialize
 ```
