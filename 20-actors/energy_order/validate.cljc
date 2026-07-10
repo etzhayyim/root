@@ -29,8 +29,27 @@
             [yudane.methods.yudane-edn :as yudane-edn]
             [yudane.methods.analyze :as yudane-a]))
 
+(defn- unblob [v]
+  (if (string? v)
+    (try (let [parsed (edn/read-string v)] (if (coll? parsed) parsed v))
+         (catch Exception _ v))
+    v))
+
+(defn- ontology-map
+  "Reads ontology-path, tolerating BOTH shapes across the suite's 5 actors as
+  they get datomized independently:
+    legacy bare map — {:unrepresentable [...] ...}
+    datomized tx-data — [{:db/id -1 :ontology/unrepresentable [...] ...}]
+  Returns a plain bare-keyed map either way, so `(:unrepresentable ...)` below
+  keeps working unchanged regardless of which shape a given actor is in."
+  [ontology-path]
+  (let [content (edn/read-string (slurp ontology-path))]
+    (if (and (vector? content) (seq content) (map? (first content)) (contains? (first content) :db/id))
+      (into {} (map (fn [[k v]] [(keyword (name k)) (unblob v)])) (dissoc (first content) :db/id))
+      content)))
+
 (defn- unrepresentable [ontology-path]
-  (:unrepresentable (edn/read-string (slurp ontology-path))))
+  (:unrepresentable (ontology-map ontology-path)))
 
 ;; per-actor spec: how to read its ontology, render its full datoms, and list its seed ids
 (def specs
