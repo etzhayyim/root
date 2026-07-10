@@ -39,6 +39,27 @@
       (is (= #{:resolved :matched :intaked :submitted :tracked}
              (set (map :t (store/ledger st)))) "ledger walks resolve→match→intake→submit→track"))))
 
+(deftest missing-phase-context-does-not-grant-max-autonomy
+  ;; default-phase is the fallback both when :phase is entirely absent
+  ;; from context (toritsugi.flow) and when an unrecognized phase
+  ;; number is passed (phase/gate). It used to be 2 -- where a clean
+  ;; :member-self-submit :submit/transmit auto-commits (R2 and R3 share
+  ;; an identical :assess/:auto set) -- so a caller that simply forgot
+  ;; to set :phase silently got a REAL government-procedure submission
+  ;; auto-committed with no toritsugi-side human checkpoint.
+  (testing "omitting :phase from context holds a clean member-self submit instead of filing it"
+    (let [st (store/seed-db)
+          cg (flow/build st)
+          sid "s-mp"
+          res (g/run* cg {:request (submit-req "jp-juminhyo-utsushi"
+                                                "did:web:member.alice" "consent-alice-juminhyo"
+                                                {:session sid})
+                          :context {:today today}}
+                      {:thread-id "t-mp"})]
+      (is (not= :commit (get-in res [:state :disposition]))
+          "a clean self-submit must not auto-file when :phase is unset")
+      (is (nil? (store/submission-of st sid)) "no government submission recorded without explicit phase"))))
+
 (deftest clean-guide-run-commits
   (testing "a guide op commits without filing; lifecycle reaches :guided"
     (let [st (store/seed-db)

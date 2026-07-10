@@ -1,7 +1,7 @@
 {:paths ["src" "cells" "methods" "registry"]
- ;; langgraph-clj (kotoba-lang/langgraph) + bpmn-clj (kotoba-lang/bpmn) — both
- ;; zero-/low-dep .cljc → portable to JVM / SCI / ClojureScript / GraalVM (ADR-aligned
- ;; with the sibling kyoninka / robotaxi / itonami actors).
+ ;; langgraph-clj (kotoba-lang/langgraph) — zero-/low-dep .cljc → portable to
+ ;; JVM / SCI / ClojureScript / GraalVM (ADR-aligned with the sibling
+ ;; kyoninka / robotaxi / itonami actors).
  ;; NOTE: langgraph's own deps.edn pulls langchain via a :git/sha. We pin
  ;; io.github.kotoba-lang/langchain to a LOCAL checkout here in the root :deps —
  ;; tools.deps gives the root project's declaration highest priority, so this
@@ -9,9 +9,7 @@
  :deps {io.github.kotoba-lang/langgraph
         {:local/root "../../../../kotoba-lang/langgraph"}
         io.github.kotoba-lang/langchain
-        {:local/root "../../../../kotoba-lang/langchain"}
-        io.github.kotoba-lang/bpmn
-        {:local/root "../../../../kotoba-lang/bpmn"}}
+        {:local/root "../../../../kotoba-lang/langchain"}}
  :aliases
  {;; offline workspace dev — langchain override is already in :deps (root-authority),
   ;; kept as an empty alias for parity with the kyoninka/robotaxi/itonami shape.

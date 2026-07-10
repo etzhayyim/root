@@ -68,7 +68,31 @@
    3 {:label "R3-agent"      :assess #{:guide/build :draft/assist :submit/transmit}
       :auto #{:guide/build :draft/assist :submit/transmit}}})
 
-(def default-phase 2)
+(def default-phase
+  "The phase used when `context` carries no :phase at all
+  (toritsugi.flow: (or (get-in context [:phase]) phase/default-phase)),
+  AND the fallback `gate` itself uses for an unrecognized phase NUMBER
+  (`(get phases phase (get phases default-phase))`). This is directly
+  reachable by any ordinary caller that simply omits :phase -- not just
+  malformed/malicious input -- so it must be the MOST CONSERVATIVE
+  phase that still functions, never one that silently unlocks
+  government-procedure submission. This was 2 (R2-self-submit) until a
+  live check found phase 2 and phase 3 share an IDENTICAL :assess/:auto
+  set -- both auto-commit :submit/transmit for :member-self-submit mode
+  (the governor's :high-stakes? only fires for :agent-on-behalf, so a
+  clean self-submit auto-commits at either tier) -- so a caller who
+  forgot :phase got a REAL government-procedure filing auto-committed
+  with no toritsugi-side human checkpoint, contradicting G8 ('the
+  member always confirms before any submission'). This is the same
+  accidental-fail-open shape already found and fixed this session in
+  the shared talent.phase template (gftd-talent-actor) and its many
+  siblings across kotoba-lang. Unlike that family, toritsugi's own R1
+  tier already auto-commits :guide/build by design (pure 案内/wayfinding,
+  non-actuating -- not a bug, see phases above), so 1 (R1-guide) is the
+  right floor here: it keeps non-actuating guidance live while making
+  :draft/assist and :submit/transmit entirely unreachable
+  (:phase-disabled hold) until a caller explicitly opts into R2+."
+  1)
 
 (defn record-op? [op] (contains? record-ops op))
 
