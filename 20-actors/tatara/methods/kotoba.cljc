@@ -33,6 +33,16 @@
 ;; ── EAVT assertion ────────────────────────────────────────────────────────────
 (def id-keys [:plant/id :hub/id :flow/id :chokepoint/id])
 
+(def ^:private non-domain-keys
+  "Keys that are NOT domain facts and must never be flattened into a graph datom, even though
+  they are not entity-id candidates. `:db/id` is the Datomic/Datascript tx-data framing key the
+  repo-wide edn-datomize pass adds to each seed record so the file is directly usable as
+  (d/transact conn …) tx-data; it is scaffolding around the record, not a fact ABOUT the
+  plant/hub/flow/chokepoint, so it must not appear in the persisted EAVT log or feed the
+  content-addressed CID (mirrors the same exclusion added to watari/methods/kotoba.cljc in this
+  same Phase 4 fan-out)."
+  #{:db/id})
+
 (defn add [entity attr value] [:db/add entity attr value])
 
 (defn graph-datoms
@@ -47,7 +57,7 @@
          (if (nil? e)
            out
            (reduce (fn [out k]
-                     (if (some #{k} id-keys)
+                     (if (or (some #{k} id-keys) (contains? non-domain-keys k))
                        out
                        (let [v (get r k)
                              items (if (sequential? v) v [v])]
