@@ -18,7 +18,7 @@
 ;;
 ;; Build:  npx shadow-cljs release worker   (or `npm run build:cljs`)
 ;; Watch:  npx shadow-cljs watch   worker
-{:source-paths ["src"]
+{:source-paths ["src" "test"]
  :dependencies [[hiccups/hiccups "0.3.0"]
                 [com.thheller/shadow-css "0.6.4"]]
 
@@ -34,4 +34,12 @@
    :compiler-options
    {:infer-externs        :auto
     ;; Worker bundles must be self-contained ESM; no dynamic require.
-    :output-feature-set   :es2020}}}}
+    :output-feature-set   :es2020}}
+
+  ;; Pure-cljs unit tests for namespaces that use js/ interop and so can't
+  ;; run under the bb harness (run_tests.sh) the way did-web.router /
+  ;; did-web.shell (both .cljc) do. node-test needs no -main entry point.
+  :test
+  {:target    :node-test
+   :output-to "test-out/test.js"
+   :ns-regexp "-test$"}}}
