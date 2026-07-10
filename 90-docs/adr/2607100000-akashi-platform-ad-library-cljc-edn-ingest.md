@@ -20,6 +20,7 @@ depends_on:
   - adr-2607010001-actor-data-ownership-model
 related:
   - adr-2607090900-kotoba-lang-bpmn-canonical-engine-omg-202
+  - adr-2606251200-kotoba-rad-git-transport-binding
 supersedes: []
 superseded_by: []
 ---
@@ -69,12 +70,13 @@ The fixture EDN artifacts are actually saved in the repository and have been
 pushed to both GitHub and Radicle:
 
 - GitHub remote: `https://github.com/etzhayyim/root`
-- Git commit: `e48f35c55107982cfb4d6dc7675f7b79841443c9`
+- Fixture persistence checkpoint: `e48f35c55107982cfb4d6dc7675f7b79841443c9`
+- ADR/doc persistence checkpoint: `cb4006355675c0023c9fb3776820e4f7a9fd3e2c`
 - Radicle RID: `rad:z2kYxHLH4E6pJHksgzAkRm9ztFgjC`
 - Radicle alias/DID: `com-junkawasaki` /
   `did:key:z6Mkud1DguEntg5EBhsfiHNJJBs8Qiw39x5iRgSCfH3cAuin`
-- Radicle seed status observed: `root` policy `allow/all`, in sync with
-  `rosa.radicle.network`
+- Radicle seed status observed after ADR/doc push: `root` policy `allow/all`,
+  in sync with `iris.radicle.network` and `rosa.radicle.network`
 
 The saved akashi dataset is the reviewed fixture dataset, not a production
 public-page capture:
@@ -104,3 +106,15 @@ workspace yet.
 GitHub/Radicle persistence does not change that collection status: it proves the
 fixture EDN and manifests are durably published, not that live Meta/X/Instagram
 public pages have already been collected.
+
+## Operational invariant
+
+When akashi persistence is reported, operators must distinguish three states:
+
+1. **Designed** — CLJC/.kotoba parser, EDN projection, and query surface exist.
+2. **Persisted** — deterministic EDN is committed and pushed to GitHub/Radicle.
+3. **Collected** — a live public page/file has been materialized under
+   `20-actors/akashi/data/scribe/`.
+
+As of this ADR update, akashi is in states 1 and 2 for the fixture dataset, but
+not state 3 for any production Meta/X/Instagram public-page capture.

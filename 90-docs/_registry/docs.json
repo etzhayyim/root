@@ -27630,7 +27630,8 @@
         "akashi storage handoff through git, DataLad/git-annex, kotoba-rad, GitHub, and Radicle"
       ],
       "related": [
-        "adr-2607090900-kotoba-lang-bpmn-canonical-engine-omg-202"
+        "adr-2607090900-kotoba-lang-bpmn-canonical-engine-omg-202",
+        "adr-2606251200-kotoba-rad-git-transport-binding"
       ],
       "supersedes": [],
       "superseded_by": [],

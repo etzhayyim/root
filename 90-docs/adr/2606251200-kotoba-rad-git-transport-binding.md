@@ -45,12 +45,14 @@ Radicle mirror for durable publication:
 - Radicle alias: `com-junkawasaki`
 - Radicle DID: `did:key:z6Mkud1DguEntg5EBhsfiHNJJBs8Qiw39x5iRgSCfH3cAuin`
 - Radicle repository: `rad:z2kYxHLH4E6pJHksgzAkRm9ztFgjC`
+- Publish checkpoint: `cb4006355675c0023c9fb3776820e4f7a9fd3e2c`
 - Git remote:
   - fetch: `rad://z2kYxHLH4E6pJHksgzAkRm9ztFgjC`
   - push:
     `rad://z2kYxHLH4E6pJHksgzAkRm9ztFgjC/z6Mkud1DguEntg5EBhsfiHNJJBs8Qiw39x5iRgSCfH3cAuin`
 - Seed policy observed: `root` = `allow/all`
-- Sync observed: `rosa.radicle.network` in sync with local sigrefs
+- Sync observed after publish: `iris.radicle.network` and
+  `rosa.radicle.network` in sync with local sigrefs
 
 The Radicle passphrase is not committed. It is stored locally in Apple Keychain
 as `service=radicle`, `account=com-junkawasaki`, and mirrored to 1Password item
@@ -59,6 +61,12 @@ as `service=radicle`, `account=com-junkawasaki`, and mirrored to 1Password item
 This live Radicle mirror is a repository publication channel. It does not
 replace kotoba-rad's per-actor identity journals or the kotoba-git RID/CACAO
 binding described below.
+
+Operationally, repository-level Radicle publication is now allowed as an
+external durability channel for `etzhayyim/root` artifacts. It must not be
+described as kotoba-rad per-actor gossip, and it must not imply that the
+underlying actor dataset is live-collected unless the actor's own ADR records a
+materialized live source artifact.
 
 # Context
 
