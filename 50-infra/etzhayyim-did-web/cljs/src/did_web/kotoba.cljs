@@ -38,14 +38,26 @@
       (if (empty? chs)
         (js/Uint8Array.from out)
         (let [idx (.indexOf b32 (first chs))]
-          (if (neg? idx)
-            (recur (rest chs) bits value)
-            (let [value (bit-or (bit-shift-left value 5) idx)
-                  bits (+ bits 5)]
-              (if (>= bits 8)
-                (do (.push out (bit-and (unsigned-bit-shift-right value (- bits 8)) 0xff))
-                    (recur (rest chs) (- bits 8) value))
-                (recur (rest chs) bits value)))))))))
+          (when (neg? idx)
+            ;; A character outside the b32 alphabet used to be silently
+            ;; SKIPPED instead of rejected -- unlike the sibling, already-
+            ;; fixed decoder in kotoba-lang/io-multiformats. root-multibase
+            ;; (the caller in verify-root-sig) is untrusted, attacker-
+            ;; controlled HTTP request body: since a corrupted string with
+            ;; extraneous junk characters spliced in could decode to the
+            ;; SAME bytes as the original, an attacker could pair a
+            ;; corrupted root string with a signature that's still valid
+            ;; for the (unchanged) decoded bytes, while store-check-advance
+            ;; stores the corrupted STRING (not the original) as the new
+            ;; manifest root -- silently accepted instead of rejected as
+            ;; malformed input.
+            (throw (js/Error. (str "did-web: invalid base32 character: " (first chs)))))
+          (let [value (bit-or (bit-shift-left value 5) idx)
+                bits (+ bits 5)]
+            (if (>= bits 8)
+              (do (.push out (bit-and (unsigned-bit-shift-right value (- bits 8)) 0xff))
+                  (recur (rest chs) (- bits 8) value))
+              (recur (rest chs) bits value))))))))
 
 (defn- hex->bytes [h]
   (let [clean (.trim h)
