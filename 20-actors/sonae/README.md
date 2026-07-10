@@ -122,10 +122,23 @@ issuing authoritative public alerts (relay-only).
 | **R2** | post-R1 + 30-day public + 3 site attestations | +3 cells (early_warning_relay + preparedness_plan + drill_attestation) |
 | **R3** | post-R2 + Council Lv7+ + ≥1 live hazard-to-handoff cycle | +1 cell (handoff_trigger) + sonaeReadinessReview cycle |
 
+## Run (charter-gate conformance tests)
+
+```bash
+bb run_tests.clj
+```
+
+Native Clojure port (`methods/test_charter_gates.cljc`, chigiri/narashi idiom) of the
+R0-era Python invariant suites — 22 tests / 249 assertions, test-only / network-free /
+no cell execution. The Python originals (`70-tools/scripts/audit/
+test_sonae_lexicon_invariants.py` + `test_sonae_warning_sources_seed.py`) remain in
+place for one cycle per MATURITY.md.
+
 ## Related Files
 
 - `/20-actors/sonae/manifest.jsonld`
 - `/20-actors/sonae/CLAUDE.md`
+- `/20-actors/sonae/methods/test_charter_gates.cljc` — charter-gate conformance tests (native)
 - `/00-contracts/lexicons/com/etzhayyim/sonae/` (6 Lexicons + README)
 - `/90-docs/adr/2606091200-sonae-pre-disaster-foresight-tier-b-actor-r0.md` — Master ADR
 - `/90-docs/adr/2605263200-kazaori-disaster-response-tier-b-actor-r0.md` — downstream response actor (handoff target)
