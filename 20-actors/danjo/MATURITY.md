@@ -21,11 +21,53 @@
 | 3 | Lexicon skeletons (`com.etzhayyim.danjo.*`) | ✅ | init |
 | 4 | worldwide fiscal-source registry seed (`registry/sources.seed.json`, 全件 unverified-seed) | ✅ | seed |
 | 5 | fail-closed registry invariants test + G14 VERIFICATION.md | ✅ | この iter |
-| 6 | `run_tests_clj.sh` の3 suite (`test_budget_ledger.clj`/`test_kotoba.clj`/`test_autorun.clj`) が dormant (実行不能) | 🟡 一部解消 (`test_budget_ledger.clj` は green、他2件は未) | 2026-07-10 |
+| 6 | `run_tests_clj.sh` の3 suite (`test_budget_ledger.clj`/`test_kotoba.clj`/`test_autorun.clj`) が dormant (実行不能) | ✅ 3/3解消 (`test_budget_ledger.clj`+`test_kotoba.clj`+`test_autorun.cljc` すべて green、`run_tests_clj.sh` 全11 suite green) | 2026-07-10 |
 
 ## イテレーション記録
 
-### 2026-07-10 (loop) — `test_budget_ledger.clj` 復旧 + `budget_ledger.cljc` の実バグ修正
+### 2026-07-10 (loop) — `test_autorun.cljc` 復旧(classpath設定のみ、コード側は無傷)
+#6 の3件目(前々回・前回で1,2件目が別PRで対応済み)。今回は**単純なclasspath未設定が原因**、
+budget_ledger/kotobaで見つかったようなAPIドリフトやランタイムバグは無かった:
+
+- `test_autorun.cljc` は sibling test群(load-file方式)と違い
+  `(:require [danjo.methods.autorun :as autorun] [danjo.methods.kotoba :as kotoba])` という
+  namespace-qualified require を使う(このファイルだけ `clojure.test`/`deftest`/`is` の正規フレームワークを
+  使っており、その方が自然な形)。`methods/` から `bb test_autorun.cljc` すると
+  `danjo/methods/autorun.cljc` を classpath 上で解決できず即失敗していた——ns `danjo.methods.autorun`
+  が指す実ファイルパスは `20-actors/danjo/methods/autorun.cljc` なので、classpath root は
+  `20-actors/`(= `methods/` から2階層上、`../..`)である必要があった。
+- `run_tests_clj.sh` を修正: `test_autorun.cljc` の実行時だけ bb に `-cp ../..` を渡す(他 suite は
+  load-file方式のため無変更・無影響)。JVM(`CLJ_RUNNER=clojure`)側は `-Sdeps '{:paths ["." "../.."]}'`
+  を渡すよう対応したが、**honest な既知の限界**: `test_autorun.cljc` の `-main` ガードは
+  `(= *file* (System/getProperty "babashka.file"))` という **bb 固有**のプロパティを見ているため、
+  JVM clojure 経由では `-main` が呼ばれず 0 テストのまま exit 0 で静かに終わる(このPRとは無関係の
+  既存挙動、bb がこの suite の default/実質唯一の実行経路であることに変わりはない — 未修正のまま残す)。
+- suite 名も `run_tests_clj.sh` 側で `test_autorun.clj`(存在しない)→ `test_autorun.cljc`(実体)に修正。
+
+**結果**: `bb -cp ../.. test_autorun.cljc` → **7 tests, 27 assertions, 0 failures, 0 errors**。
+`./run_tests_clj.sh` フル実行で **全11 suite green**(#3022 の `test_kotoba.clj` 修正とあわせ、#6 の
+3 suiteすべて解消)。
+
+### 2026-07-10 (loop) — `test_kotoba.clj` 復旧(訂正: `kotoba.cljc` に実バグは無かった)
+#6 の2件目を修正。**今回はテスト側のアクセスパターンのみが原因で、`kotoba.cljc` 自体にバグは無かった**
+— 前回の診断ノートで「`kotoba.cljc` の tamper-detection ロジック自体に未検証の潜在バグがある可能性」
+と書いたが、これは誤りだったので訂正する(honest, G8):
+
+- `kotoba.cljc` の house style(ns docstring に明記)は EAVT の op タグ・全マップキーが **verbatim
+  string**(Python port の `':ns/name'` 文字列をそのまま保持、keyword ではない) — 例:
+  `[":db/add" e a v]`(4要素ベクタの先頭が文字列 `":db/add"`)、`make-tx` が返す `{":tx/cid" ... ":tx/count" ...}`
+  も string キー、`verify-chain` が返す `{"ok" .. "length" .. "broken_at" ..}` は **アンダースコア**
+  (`broken_at`、ハイフンではない)の string キー。
+- 旧テストは `(:ok v)`/`(:broken-at v)`/`(:tx/cid tx)`/`(= :db/add (first %))` 等、全箇所で keyword
+  アクセスしていた — `broken-at`(ハイフン)は `broken_at`(アンダースコア)とも綴りが違うため、
+  keyword化しても一致しない。`(>= nil 0)` の例外は「フィールド名の綴り違い」が原因で、
+  tamper-detection ロジックの欠陥ではなかった。
+- 全 keyword アクセスを文字列リテラル比較 / `(get ... "field")` に書き換えるだけで解決。
+  `kotoba.cljc` 側は**無修正**。
+
+**結果**: `bb test_kotoba.clj` 16/16 green。`test_autorun.clj` の解消は別PR(上記エントリ参照)で対応。
+
+### 2026-07-10 (loop, 前回) — `test_budget_ledger.clj` 復旧 + `budget_ledger.cljc` の実バグ修正
 前 iteration の診断(#6 の1件目)を実際に修正。**単純なロードパス修正だけでは済まなかった** — 2つの
 独立した問題があった:
 

@@ -31,8 +31,24 @@
      (def ^:private here (.getParentFile (java.io.File. ^String *file*)))      ;; methods/
      (def ^:private actor-dir (.getParentFile here))                          ;; futawa/
      (def ^:private lexdir (java.io.File. actor-dir "lex"))
+     (defn- unblob
+       "lex/*.edn are now Datomic/Datascript tx-data (edn-datomize wrap-map, per-file namespace on
+       the bare :lexicon/:id/:defs keys); non-scalar values (here: :defs) are pr-str blob strings.
+       Parse back to the original nested value where possible."
+       [v]
+       (if (string? v)
+         (try (let [parsed (edn/read-string v)] (if (coll? parsed) parsed v))
+              (catch Exception _ v))
+         v))
+     (defn- reconstitute-entity
+       "tx-data [{:db/id -1 :<ns>/lexicon 1 :<ns>/id \"...\" :<ns>/defs \"...blob...\"}] -> the
+       original bare {:lexicon 1 :id \"...\" :defs {...}} map so get-in-based readers below are
+       unchanged."
+       [tx-data]
+       (into {} (map (fn [[k v]] [(keyword (name k)) (unblob v)]))
+             (dissoc (first tx-data) :db/id)))
      (defn- lex [name]
-       (edn/read-string (slurp (java.io.File. lexdir (str name ".edn")))))
+       (reconstitute-entity (edn/read-string (slurp (java.io.File. lexdir (str name ".edn"))))))
      (defn- manifest []
        (:actor/manifest (clojure.edn/read-string (slurp (java.io.File. actor-dir "manifest.edn")))))))
 

@@ -33,11 +33,26 @@
 
 ;; ── load ─────────────────────────────────────────────────────────────────────
 
+(defn- reconstitute-entity
+  "kotoba/seed.edn is now Datomic/Datascript tx-data (edn-datomize, Phase 4): each row is
+  `{:db/id … :site/type :site :site/id … …}` / `{:db/id … :link/type :link …}` instead of the
+  original bare `{:type :site :id … …}` / `{:type :link …}` map. Every row's attrs are 100%
+  scalar (keyword/long/double) — none were pr-str'd into blob strings — so reconstitution is
+  just: drop :db/id, strip the (uniform, per-row) namespace back off every key. Keeps every
+  bare-keyword lookup below (:type/:id/:gen/:load/:from/:to/:capacity/:loss) working unchanged
+  whether `rows` is the new tx-data shape or (for callers not yet migrated) the legacy bare-map
+  shape — `classify` tolerates both."
+  [row]
+  (into {} (map (fn [[k v]] [(keyword (name k)) v])) (dissoc row :db/id)))
+
 (defn classify
-  "Split the flat seed vector by :type → {:sites [...] :links [...]}."
+  "Split the flat seed vector by :type → {:sites [...] :links [...]}. Accepts both the current
+  tx-data row shape (:db/id + :site/*|:link/* namespaced keys) and the legacy bare-map shape
+  (:type/:id/… unnamespaced) — tx-data rows are reconstituted to the bare shape first."
   [rows]
-  {:sites (vec (filter #(= (:type %) :site) rows))
-   :links (vec (filter #(= (:type %) :link) rows))})
+  (let [rows (map (fn [r] (if (contains? r :db/id) (reconstitute-entity r) r)) rows)]
+    {:sites (vec (filter #(= (:type %) :site) rows))
+     :links (vec (filter #(= (:type %) :link) rows))}))
 
 #?(:clj
    (defn load-edn [path] (clojure.edn/read-string (slurp path))))

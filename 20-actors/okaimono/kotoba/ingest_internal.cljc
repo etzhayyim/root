@@ -41,19 +41,13 @@
 (defn kv*
   "Extract the value token for `key` from an entity map literal, or nil. Quoted strings are
   unquoted; keywords (\":…\") and numbers are returned as their raw token. Port of _kv.
-
-  Keyword-token char class excludes `,` (not just whitespace/`]`/`}`) so this also parses
-  entities emitted by `pr-str` (the datomize tx-data shape uses `, ` as its default map-entry
-  separator, e.g. `:product/ring :internal, :db/id -1`) without swallowing the trailing comma
-  into the captured keyword — found + fixed via mitsuho's Phase 4 EDN-datomize fanout
-  (2026-07-10): un-comma'd hand-authored products.edn parsed fine, but the golden
-  `test-collect-golden` failed against a comma-separated tx-data products.edn (:ring came back
-  \":internal,\", dropping 3 real entries as Ring-1 violations). Backward-compatible: original
-  space-separated (no-comma) files never had a token-adjacent comma, so this narrowing only
-  ever helps, never regresses, existing not-yet-datomized products.edn files."
+  The keyword/number token class excludes `,` as well as whitespace/]/} so that a
+  Datomic/Datascript tx-data entity (`pr-str`'d maps use `, ` between k/v pairs, e.g.
+  `:product/ring :internal, :db/id -1`) doesn't bleed a trailing comma into the
+  extracted value (2026-07-10, makura datomize pass)."
   [entity key]
   (let [pat (re-pattern (str (java.util.regex.Pattern/quote key)
-                             "\\s+(\"[^\"]*\"|:[^\\s,\\]}]+|[-\\d.]+)"))
+                             "\\s+(\"[^\"]*\"|:[^\\s\\]},]+|[-\\d.]+)"))
         m (re-find pat entity)]
     (when m
       (let [v (second m)]

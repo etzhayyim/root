@@ -29,8 +29,29 @@
             [yudane.methods.yudane-edn :as yudane-edn]
             [yudane.methods.analyze :as yudane-a]))
 
+(defn- tx-data?
+  "20-actors/mio/kotoba/ontology.mio.edn is now Datomic/Datascript tx-data on
+  disk (ADR-2606230001 fan-out, 2026-07); the other suite ontologies
+  (tawami/okibi/toi/yudane) are not yet migrated and stay plain top-level
+  maps. Tolerate both so this shared reader keeps working for every actor
+  regardless of migration state."
+  [content]
+  (and (vector? content) (seq content) (map? (first content)) (contains? (first content) :db/id)))
+
+(defn- reconstitute-entity
+  "Strip :db/id + the promoted :mio.ontology namespace back to the original
+  bare key (:mio.ontology/id was already namespaced pre-transform under
+  :ontology/* and is left untouched — irrelevant here since only
+  :unrepresentable is read)."
+  [entity]
+  (into {}
+        (map (fn [[k v]] [(keyword (name k)) v]))
+        (dissoc entity :db/id)))
+
 (defn- unrepresentable [ontology-path]
-  (:unrepresentable (edn/read-string (slurp ontology-path))))
+  (let [content (edn/read-string (slurp ontology-path))
+        m (if (tx-data? content) (reconstitute-entity (first content)) content)]
+    (:unrepresentable m)))
 
 ;; per-actor spec: how to read its ontology, render its full datoms, and list its seed ids
 (def specs

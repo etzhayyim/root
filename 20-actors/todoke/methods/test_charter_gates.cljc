@@ -5,7 +5,14 @@
   delivery, curb-to-door ≤25kg on a SAE-L4 sidewalk envelope. It reads the first-tier `lex/*.edn`
   via clojure.edn and the manifest via cheshire. Its 15 gates are declared in the manifest and
   encoded as enum/const across the 5 lexicons. This suite pins them so a future R-phase cell wave
-  cannot silently drift them:
+  cannot silently drift them.
+
+  NOTE (Phase 4 edn-datomize, 2026-07-10): `lex/*.edn` files are now Datomic/Datascript
+  tx-data (`[{:db/id -1 :<ns>/lexicon 1 :<ns>/id \"...\" :<ns>/defs \"<pr-str blob>\"}]`)
+  so they stay directly queryable. `lex` below reconstitutes the original bare
+  `{:lexicon .. :id .. :defs ..}` map shape (unblobbing the pr-str'd nested `:defs`) so every
+  downstream helper (`record-node` / `required-of` / `enum-of` / `const-of`) is unchanged.
+  Still tolerates the pre-transform bare-map shape for safety/idempotency.
 
     G14 no armed platform / no contraband — deliveryJob.armed const false; payloadClass is a
         bounded benign set (the headline Charter-Rider §2(a) gate)
@@ -29,8 +36,19 @@
      (def ^:private here (.getParentFile (java.io.File. ^String *file*)))      ;; methods/
      (def ^:private actor-dir (.getParentFile here))                          ;; todoke/
      (def ^:private lexdir (java.io.File. actor-dir "lex"))
+     (defn- unblob [v]
+       (if (string? v)
+         (try (let [parsed (edn/read-string v)] (if (coll? parsed) parsed v))
+              (catch Exception _ v))
+         v))
+     (defn- reconstitute-entity [tx-data]
+       (into {} (map (fn [[k v]] [(keyword (name k)) (unblob v)]))
+             (dissoc (first tx-data) :db/id)))
      (defn- lex [name]
-       (edn/read-string (slurp (java.io.File. lexdir (str name ".edn")))))
+       (let [content (edn/read-string (slurp (java.io.File. lexdir (str name ".edn"))))]
+         (if (and (vector? content) (map? (first content)) (contains? (first content) :db/id))
+           (reconstitute-entity content)
+           content)))
      (defn- manifest []
   (let [e (clojure.edn/read-string (slurp (java.io.File. actor-dir "manifest.edn")))
         gm (into {} (map (fn [g] [(:gate/id g) g]) (:actor/gates e)))]
