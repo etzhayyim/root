@@ -1,14 +1,16 @@
 (ns credits.methods.test-charter-gates
-  "credits -- constitutional-gate conformance tests (G1-G9), first real slice
-  (2026-07-10). Structural shape follows the mizuho/toritate house style
-  (methods/test_charter_gates.cljc pinning fixed policy constants + manifest.edn
-  gate declarations) but pins against credits' own pure functions/constants
-  directly rather than external Lexicon JSON (credits has no Lexicons yet --
-  building those is out of scope for this first slice, see README.md)."
+  "credits -- constitutional-gate conformance tests (G1-G10; G10 added iteration
+  #5, 2026-07-10, the identity-gate slice). Structural shape follows the
+  mizuho/toritate house style (methods/test_charter_gates.cljc pinning fixed
+  policy constants + manifest.edn gate declarations) but pins against credits'
+  own pure functions/constants directly rather than external Lexicon JSON
+  (credits has no Lexicons yet -- building those is out of scope for this
+  first slice, see README.md)."
   (:require [clojure.edn :as edn]
             [clojure.test :refer [deftest is]]
             [credits.methods._t :refer [expect-raises]]
             [credits.methods.anti-fraud :as af]
+            [credits.methods.identity-gate :as ig]
             [credits.methods.ledger-rails :as rails]
             [credits.methods.purchase :as purchase]
             [credits.methods.spend-allocation :as spend]))
@@ -22,9 +24,9 @@
        (edn/read-string (slurp (java.io.File. actor-dir "manifest.edn"))))))
 
 #?(:clj
-   (deftest test-all-9-gates-declared
+   (deftest test-all-10-gates-declared
      (let [gates (set (map :gate/id (:actor/gates (manifest))))]
-       (is (= gates (set (map #(str "G" %) (range 1 10))))))))
+       (is (= gates (set (map #(str "G" %) (range 1 11))))))))
 
 ;; ── G1 -- purchase platform fee is a fixed 30% ──
 (deftest test-g1-purchase-fee-is-fixed-30pct
@@ -80,3 +82,13 @@
 (deftest test-g9-no-banned-vendor-rail
   (doseq [v rails/banned-payment-vendors]
     (is (not (rails/valid-payment-rail? v)))))
+
+;; ── G10 -- shomei-verified DID (IAL>=1) required before purchase/spend proceed ──
+(deftest test-g10-did-bind-identity-gate
+  (is (= 1 ig/min-assurance-level))
+  (is (false? (:allowed (ig/identity-check "did:key:zTest" #{} 1720000000000))))
+  (is (true? (:allowed (ig/identity-check "did:key:zTest" #{"webauthn"} 1720000000000))))
+  (expect-raises "identity-gate"
+    (ig/gated-preview-purchase "did:key:zTest" #{} 1720000000000 100))
+  (expect-raises "identity-gate"
+    (ig/gated-compute-spend-allocation "did:key:zTest" #{} 1720000000000 100 nil)))
