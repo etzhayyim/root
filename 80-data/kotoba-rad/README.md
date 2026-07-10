@@ -47,3 +47,24 @@ bb -e "(require '[etzhayyim.kotoba-rad :as rad] '[etzhayyim.kotoba-rad-sign :as 
 - 未署名 journal の署名化: 各 actor の member 鍵を `actor:keygen --apply` で
   発行 → `publish-identity!` を再実行（冪等、fresh signed sigref が付く）。
   鍵の発行主体は member/operator の判断（no-server-key — 一括自動発行はしない）。
+
+## Repository-level Radicle mirror (2026-07-10)
+
+`kotoba-rad` の per-actor journal とは別に、`etzhayyim/root` repository
+全体は Radicle にも publish 済み。
+
+- RID: `rad:z2kYxHLH4E6pJHksgzAkRm9ztFgjC`
+- alias: `com-junkawasaki`
+- DID: `did:key:z6Mkud1DguEntg5EBhsfiHNJJBs8Qiw39x5iRgSCfH3cAuin`
+- git remote fetch: `rad://z2kYxHLH4E6pJHksgzAkRm9ztFgjC`
+- git remote push:
+  `rad://z2kYxHLH4E6pJHksgzAkRm9ztFgjC/z6Mkud1DguEntg5EBhsfiHNJJBs8Qiw39x5iRgSCfH3cAuin`
+- observed seed policy: `root` = `allow/all`
+- observed sync: `rosa.radicle.network` in sync
+
+Secret は repo に保存しない。local unlock passphrase は Apple Keychain
+`service=radicle/account=com-junkawasaki` と 1Password
+`gftdcojp/radicle/com-junkawasaki` に保存。
+
+This repository mirror is a publication/durability channel. It does not replace
+the actor journal RID model above.

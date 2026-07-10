@@ -26,6 +26,7 @@ but collection and cell execution remain gated.
 | 17 | Dry-run golden output | ✅ | `fixtures/dry_run/summary.golden.json` |
 | 18 | Optional-field and negative fixtures | ✅ | missing optional source fields plus malformed rejection tests |
 | 19 | Live collection | ⚠ scribe-gated | Public-page/file scribe ready for Meta/X; no live public-page fetch materialized in this workspace |
+| 20 | GitHub/Radicle persistence | ✅ fixture dataset | Fixture EDN committed to GitHub and Radicle RID `rad:z2kYxHLH4E6pJHksgzAkRm9ztFgjC`; no live scribe dataset yet |
 
 ## Maturity Score
 
@@ -37,9 +38,10 @@ but collection and cell execution remain gated.
 | Constitutional gates | 5/5 | gates documented, schema anchors present, review workflow and invariants lock R0 |
 | Malak boundary | 5/5 | explicit candidate-only handoff in ADR, manifest, lexicon, and closure fixture |
 | Operational readiness | 4/5 | public-page/file scribe and EDN materializer exist; actual live jobs require source URLs/files |
+| Publication durability | 4/5 | fixture EDN is persisted to GitHub and Radicle; DataLad/git-annex handoff is documented; live scribe EDN still pending |
 
-Overall R0 maturity: **30/30** R0 design maturity cap. Axis evidence is stronger, but
-the score remains capped because live collection is intentionally absent.
+Overall observed score: **34/35**, still capped at **R0** because live collection
+is intentionally absent.
 
 ## Next R1 Work
 
@@ -63,6 +65,17 @@ the score remains capped because live collection is intentionally absent.
 | EDN query helper | ✅ fixture-only | `adapters/edn_query.cljc`, `adapters/test_edn_query.cljc` query both DataScript/kotoba tx maps and Datomic scalar bundle |
 | Storage artifact materializer | ✅ saved locally | `adapters/persist_fixture_edn.cljc` writes `data/*.tx.kotoba.edn`, `data/*.datomic.edn`, and CIDv1 manifest; `bb kotoba:annex save 20-actors/akashi/data` saved the data artifacts in git/DataLad |
 | Adapter tests | ✅ green | `nbb 20-actors/akashi/run_tests.cljs` |
+
+## 2026-07-10 — repository persistence to GitHub and Radicle
+
+| Item | Status | Evidence |
+|---|---|---|
+| GitHub persistence | ✅ pushed | `https://github.com/etzhayyim/root`, HEAD `e48f35c55107982cfb4d6dc7675f7b79841443c9` |
+| Radicle persistence | ✅ synced | RID `rad:z2kYxHLH4E6pJHksgzAkRm9ztFgjC`, remote `rad://z2kYxHLH4E6pJHksgzAkRm9ztFgjC` |
+| Radicle identity | ✅ local profile | alias `com-junkawasaki`, DID `did:key:z6Mkud1DguEntg5EBhsfiHNJJBs8Qiw39x5iRgSCfH3cAuin` |
+| Secret storage | ✅ local only | Apple Keychain `service=radicle/account=com-junkawasaki`; 1Password `gftdcojp/radicle/com-junkawasaki` |
+| Persisted akashi data | ✅ fixture EDN | `data/akashi-platform-ad-library.fixture.*.edn` and storage manifest |
+| Production scribe data | 未 | no `data/scribe/*.edn` materialized from a live public URL/file yet |
 
 ## 2026-07-10 — public information scribe production path
 

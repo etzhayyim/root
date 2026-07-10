@@ -89,6 +89,9 @@ A platform source can move from `candidate` to `covered-r1` only when:
 - Dry-run summary has a golden regression fixture.
 - Optional-field and negative fixtures exist for parser regression coverage.
 - No live public-page fetch has been materialized in this workspace.
+- Fixture EDN and its storage manifest are durably published through GitHub and
+  Radicle RID `rad:z2kYxHLH4E6pJHksgzAkRm9ztFgjC`; this is publication
+  coverage for the reviewed fixture dataset, not live source coverage.
 - Source-policy review workflow enables only the public-page scribe path for Meta/X;
   other live sources remain disabled.
 - Source-policy approval format exists; current parser examples are

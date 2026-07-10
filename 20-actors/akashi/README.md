@@ -98,6 +98,27 @@ code is `.cljc`; Python is not an akashi adapter surface. See:
 - `fixtures/dry_run/summary.golden.json` — dry-run summary regression fixture
 - `/00-contracts/lexicons/com/etzhayyim/akashi/` — 10 lexicon skeletons
 
+## Persistence Status
+
+As of 2026-07-10, the materialized fixture EDN is committed and pushed to:
+
+- GitHub: `https://github.com/etzhayyim/root`
+- Radicle: `rad:z2kYxHLH4E6pJHksgzAkRm9ztFgjC`
+
+The persisted akashi dataset is the fixture dataset only:
+
+- `data/akashi-platform-ad-library.fixture.tx.kotoba.edn`
+- `data/akashi-platform-ad-library.fixture.datomic.edn`
+- `data/akashi-platform-ad-library.storage-manifest.edn`
+- CIDv1:
+  `bafkreihcflz5xuinkb7ixurqccmlwl3gknc74uwthamg6vbwzhbsnmtqb4`
+- kotoba-rad journal:
+  `/80-data/kotoba-rad/akashi.identity.journal.edn`
+
+No production `data/scribe/*.edn` public-page capture has been materialized in
+this workspace yet. The public-page scribe is the production path, but it still
+requires an operator-provided public URL or saved public page file.
+
 ## Immutable Gates
 
 - passive public-source only

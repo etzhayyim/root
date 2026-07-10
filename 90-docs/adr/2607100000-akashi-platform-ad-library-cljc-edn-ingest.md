@@ -1,6 +1,6 @@
 ---
 id: adr-2607100000-akashi-platform-ad-library-cljc-edn-ingest
-title: "ADR-2607100000: akashi platform ad-library ingest is CLJC/.kotoba-only and stores EDN for git, DataLad, kotoba-rad, Datomic, and DataScript"
+title: "ADR-2607100000: akashi platform ad-library ingest is CLJC/.kotoba-only and stores EDN for git, DataLad, kotoba-rad, GitHub, Radicle, Datomic, and DataScript"
 status: accepted
 doc_type: adr
 topic: akashi-platform-ad-library-cljc-edn-ingest
@@ -13,7 +13,7 @@ priority_note: "Locks akashi Meta/Instagram/X reviewed-export ingest to .cljc/.k
 authoritative_for:
   - akashi reviewed local Meta/Instagram/X ad-library export ingest
   - akashi EDN tx-data projection for DataScript/kotoba and Datomic import
-  - akashi storage handoff through git, DataLad/git-annex, and kotoba-rad
+  - akashi storage handoff through git, DataLad/git-annex, kotoba-rad, GitHub, and Radicle
 depends_on:
   - adr-2606022300-akashi-public-ad-disclosure-kotoba-actor-r0
   - adr-2605262130-kotoba-storage-substrate-unification
@@ -39,8 +39,8 @@ SDK, no targeting-list reconstruction, and no adjudication.
 
 The storage/query question is also part of the boundary. The reviewed snapshots
 must become deterministic EDN so they can be saved in git, DataLad/git-annex,
-and kotoba-rad, then queried either directly as DataScript/kotoba tx-data or via
-a Datomic schema/scalar transaction bundle.
+kotoba-rad, GitHub, and Radicle, then queried either directly as
+DataScript/kotoba tx-data or via a Datomic schema/scalar transaction bundle.
 
 ## Decision
 
@@ -63,6 +63,30 @@ The live design is:
   pages and operator-saved public files, preserves raw scribe EDN, and has no
   platform-token, login, or UI-automation mode.
 
+## Operational persistence status, 2026-07-10
+
+The fixture EDN artifacts are actually saved in the repository and have been
+pushed to both GitHub and Radicle:
+
+- GitHub remote: `https://github.com/etzhayyim/root`
+- Git commit: `e48f35c55107982cfb4d6dc7675f7b79841443c9`
+- Radicle RID: `rad:z2kYxHLH4E6pJHksgzAkRm9ztFgjC`
+- Radicle alias/DID: `com-junkawasaki` /
+  `did:key:z6Mkud1DguEntg5EBhsfiHNJJBs8Qiw39x5iRgSCfH3cAuin`
+- Radicle seed status observed: `root` policy `allow/all`, in sync with
+  `rosa.radicle.network`
+
+The saved akashi dataset is the reviewed fixture dataset, not a production
+public-page capture:
+
+- `20-actors/akashi/data/akashi-platform-ad-library.fixture.tx.kotoba.edn`
+- `20-actors/akashi/data/akashi-platform-ad-library.fixture.datomic.edn`
+- `20-actors/akashi/data/akashi-platform-ad-library.storage-manifest.edn`
+- CIDv1 for the kotoba tx EDN:
+  `bafkreihcflz5xuinkb7ixurqccmlwl3gknc74uwthamg6vbwzhbsnmtqb4`
+- kotoba-rad holding:
+  `80-data/kotoba-rad/akashi.identity.journal.edn`
+
 ## Consequences
 
 The actor can answer: "is this designed?" with yes, within the fixture/reviewed
@@ -76,3 +100,7 @@ R1/R2 activation gate, and continued `.cljc`/`.kotoba` implementation.
 As of 2026-07-10, the Meta/X source-policy approval is for public-page/file
 scribe only. No production public-page fetch has been materialized in this
 workspace yet.
+
+GitHub/Radicle persistence does not change that collection status: it proves the
+fixture EDN and manifests are durably published, not that live Meta/X/Instagram
+public pages have already been collected.

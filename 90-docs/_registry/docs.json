@@ -26539,7 +26539,8 @@
         "rad-sigref-git-ref-attestation"
       ],
       "related": [
-        "adr-2605231525"
+        "adr-2605231525",
+        "adr-2607100000"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -26549,7 +26550,7 @@
         "adr-2606015000",
         "adr-2606036400"
       ],
-      "last_verified": "2026-06-25",
+      "last_verified": "2026-07-10",
       "amends": [],
       "amended_by": []
     },
@@ -27618,7 +27619,7 @@
     {
       "path": "90-docs/adr/2607100000-akashi-platform-ad-library-cljc-edn-ingest.md",
       "id": "adr-2607100000-akashi-platform-ad-library-cljc-edn-ingest",
-      "title": "ADR-2607100000: akashi platform ad-library ingest is CLJC/.kotoba-only and stores EDN for git, DataLad, kotoba-rad, Datomic, and DataScript",
+      "title": "ADR-2607100000: akashi platform ad-library ingest is CLJC/.kotoba-only and stores EDN for git, DataLad, kotoba-rad, GitHub, Radicle, Datomic, and DataScript",
       "status": "accepted",
       "doc_type": "adr",
       "topic": "akashi-platform-ad-library-cljc-edn-ingest",
@@ -27626,7 +27627,7 @@
       "authoritative_for": [
         "akashi reviewed local Meta/Instagram/X ad-library export ingest",
         "akashi EDN tx-data projection for DataScript/kotoba and Datomic import",
-        "akashi storage handoff through git, DataLad/git-annex, and kotoba-rad"
+        "akashi storage handoff through git, DataLad/git-annex, kotoba-rad, GitHub, and Radicle"
       ],
       "related": [
         "adr-2607090900-kotoba-lang-bpmn-canonical-engine-omg-202"
