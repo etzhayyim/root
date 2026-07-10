@@ -20,7 +20,8 @@
   (:require [clojure.string :as str]
             [tsuchifumi.methods.sysdyn :as sd]
             [tsuchifumi.methods.analyze :as an]
-            [tsuchifumi.methods.risk :as risk]))
+            [tsuchifumi.methods.risk :as risk]
+            [tsuchifumi.methods.tsuchifumi-edn :as te]))
 
 ;; ── tiny JSON encoder (maps with string keys, numbers, strings, vectors, kw) ──
 (defn ->json [v]
@@ -150,7 +151,7 @@
    (defn -main [& args]
      (let [seed (or (first args) "20-actors/tsuchifumi/kotoba/seed.edn")
            out  (or (second args) "20-actors/tsuchifumi/viz/sysdyn-risk.html")
-           rows (clojure.edn/read-string (slurp seed))
+           rows (te/reconstitute-rows (clojure.edn/read-string (slurp seed)))
            regions (vec (filter #(= (:type %) :region) rows))
            evidence (vec (filter #(= (:type %) :evidence) rows))
            drivers (vec (filter #(= (:type %) :driver) rows))
