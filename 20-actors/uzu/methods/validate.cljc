@@ -17,6 +17,7 @@
       from/to class difference                                             (the coupling graph)
     • circulation is a closed loop (every flow has an out-edge)            (open system circulates)"
   (:require [clojure.string :as str]
+            [uzu.methods.uzu-edn :as ue]
             #?(:clj [clojure.edn :as edn])
             #?(:clj [clojure.java.io :as io])))
 
@@ -89,7 +90,7 @@
      "Load the seed + ontology from disk and validate."
      [seed-path ontology-path]
      (let [rows (edn/read-string (slurp seed-path))
-           ont (edn/read-string (slurp ontology-path))
+           ont (ue/ontology-map (edn/read-string (slurp ontology-path)))
            classified {:tape (->> rows (filter #(= (:type %) :world-step)) (sort-by :step) vec)
                        :organisms (vec (filter #(= (:type %) :organism) rows))
                        :flows (vec (filter #(= (:type %) :flow) rows))

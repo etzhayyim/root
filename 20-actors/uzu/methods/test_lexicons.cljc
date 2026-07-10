@@ -4,10 +4,11 @@
 (ns uzu.methods.test-lexicons
   (:require [clojure.edn :as edn]
             [clojure.test :refer [deftest is run-tests]]
-            [cheshire.core :as j]))
+            [cheshire.core :as j]
+            [uzu.methods.uzu-edn :as ue]))
 
 (def manifest (edn/read-string (slurp "20-actors/uzu/manifest.edn")))
-(def ont (edn/read-string (slurp "20-actors/uzu/kotoba/ontology.uzu.edn")))
+(def ont (ue/ontology-map (edn/read-string (slurp "20-actors/uzu/kotoba/ontology.uzu.edn"))))
 (defn lex [n] (j/parse-string (slurp (str "00-contracts/lexicons/com/etzhayyim/uzu/" n ".json"))))
 
 (deftest every-manifest-lex-has-a-matching-file
