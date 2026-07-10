@@ -20,8 +20,8 @@ depends_on:
   - adr-2605181100-mst-encrypted-records-signal-keywrap
   - adr-2605231603-per-record-rekey-tombstone-protocol
 related:
-  - adr-2606111400-etzhayyim-revocable-cacao-leash
-  - adr-2606062100-charter-tier-classification
+  - adr-2606111400-session-close-ibuki-delegation-revocable-leash
+  - adr-2606062100-charter-priority-over-specifics-reconciliation
 supersedes: []
 superseded_by: []
 ---
