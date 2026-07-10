@@ -28,6 +28,23 @@
       ;; a tampered message does NOT verify
       (is (false? (repo/verify pub (.getBytes "tampered" "UTF-8") sig))))))
 
+(deftest base58btc-decode-rejects-invalid-characters
+  ;; base58btc-decode's inner reduce used to feed String.indexOf's -1
+  ;; ("not found") result straight into BigInteger arithmetic instead of
+  ;; checking for it -- an invalid character silently produced a wrong
+  ;; BigInteger instead of raising, so a corrupted publicKeyMultibase from a
+  ;; malicious/malformed did.json would silently reconstruct the WRONG
+  ;; public key rather than the relay's verification failing loudly at
+  ;; parse time. "0", "O", "I", "l" are excluded from base58btc specifically
+  ;; to avoid visual ambiguity with "o"/"0"/"1"/"I". base58btc-decode is
+  ;; private; `#'` resolves the var directly to reach it -- going through
+  ;; the public `multibase->pubkey` instead would confound this specific
+  ;; regression with an unrelated downstream X509-key-length exception.
+  (let [decode #'repo/base58btc-decode]
+    (doseq [bad ["0" "O" "I" "l"]]
+      (is (thrown? Exception (decode (str "6Mk" bad)))
+          (str "must reject invalid base58btc character: " bad)))))
+
 (deftest commit-sig-verifies-against-the-published-key
   (testing "make-commit signs the unsigned commit; a relay verifies it from the multibase alone"
     (let [kp   (repo/gen-keypair)

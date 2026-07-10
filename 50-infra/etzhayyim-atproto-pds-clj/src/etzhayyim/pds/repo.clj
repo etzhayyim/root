@@ -171,9 +171,17 @@
 (defn- base58btc-decode ^bytes [^String s]
   (let [zeros (count (take-while #(= % \1) s))
         fifty8 (BigInteger/valueOf 58)
+        ;; String.indexOf returns -1 (not an exception) for a character
+        ;; outside the alphabet, which BigInteger/valueOf happily accepts as
+        ;; a valid (negative) digit -- an invalid character used to silently
+        ;; decode into a wrong BigInteger instead of raising anything. The
+        ;; sibling copy of this function in keys.clj already guards this;
+        ;; this copy had drifted out of sync.
         bi (reduce (fn [acc c]
-                     (.add (.multiply acc fifty8)
-                           (BigInteger/valueOf (.indexOf b58-alphabet (int c)))))
+                     (let [d (.indexOf b58-alphabet (int c))]
+                       (when (neg? d)
+                         (throw (ex-info "bad base58 character" {:char c})))
+                       (.add (.multiply acc fifty8) (BigInteger/valueOf d))))
                    BigInteger/ZERO (seq s))
         ba (.toByteArray bi)
         ba (if (and (> (alength ba) 1) (zero? (aget ba 0))) (Arrays/copyOfRange ba 1 (alength ba)) ba)]
