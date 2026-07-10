@@ -11,7 +11,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from edn_export import records_to_edn
+from edn_export import records_to_datomic_edn, records_to_edn
 from lexicon_shape_validator import validate_record, validate_records
 from platform_ad_library_fixture_parser import parse_platform_ad_library_fixture
 from regulator_bulk_fixture_parser import parse_regulator_bulk_fixture
@@ -101,9 +101,17 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="print validated fixture records as Datomic/DataScript EDN tx-data",
     )
+    parser.add_argument(
+        "--emit-datomic",
+        action="store_true",
+        help="print Datomic schema + scalar tx-data import bundle",
+    )
     args = parser.parse_args(argv)
 
     records = load_dry_run_records()
+    if args.emit_datomic:
+        print(records_to_datomic_edn(records), end="")
+        return 0
     if args.emit_edn:
         print(records_to_edn(records), end="")
         return 0

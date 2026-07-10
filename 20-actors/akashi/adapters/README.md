@@ -12,10 +12,12 @@ Current parser:
   ad-library fixtures (Meta/Instagram and X samples) into the same akashi
   lexicon-shaped records. It has no network mode.
 - `edn_export.py` projects validated records into deterministic
-  Datomic/DataScript EDN tx-data. The caller chooses whether to store that EDN
-  in git, DataLad/git-annex, or a future kotoba-git/kotoba-rad repository.
+  DataScript/kotoba EDN tx-data and a Datomic import bundle with schema plus
+  scalar `:db/add` ops. The caller chooses whether to store that EDN in git,
+  DataLad/git-annex, or a future kotoba-git/kotoba-rad repository.
 - `edn_query.cljc` loads the same tx-data and offers Datomic/DataScript-shaped
-  query helpers for platform, advertiser, landing-domain, and count queries.
+  query helpers for platform, advertiser, landing-domain, and count queries;
+  it can also materialize the Datomic scalar tx bundle for the same reads.
 - `persist_fixture_edn.py` materializes the fixture tx-data and a storage
   manifest under `20-actors/akashi/data/`; outer git/DataLad/kotoba-rad tools
   perform the actual save/push.

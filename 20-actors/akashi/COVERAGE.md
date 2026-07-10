@@ -74,7 +74,8 @@ A platform source can move from `candidate` to `covered-r1` only when:
   collection.
 - Dry-run CLI exists for local fixture validation only; it has no network mode
   and does not write kotoba records. `--emit-edn` emits deterministic
-  Datomic/DataScript tx-data for external storage/import by a caller.
+  DataScript/kotoba tx-data plus a Datomic schema/scalar-tx import bundle for
+  external storage/import by a caller.
 - Dry-run summary has a golden regression fixture.
 - Optional-field and negative fixtures exist for parser regression coverage.
 - No live fetch runs.

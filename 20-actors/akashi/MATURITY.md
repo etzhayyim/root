@@ -58,7 +58,7 @@ the score remains capped because live collection is intentionally absent.
 | Item | Status | Evidence |
 |---|---|---|
 | Meta/Instagram and X fixture parser | ✅ fixture-only | `adapters/platform_ad_library_fixture_parser.py`, `fixtures/platform_ad_library/*.json` |
-| EDN tx-data projection | ✅ fixture-only | `adapters/edn_export.py`, `adapters/dry_run_fixtures.py --emit-edn` |
-| EDN query helper | ✅ fixture-only | `adapters/edn_query.cljc`, `adapters/test_edn_query.cljc` |
-| Storage artifact materializer | ✅ local handoff | `adapters/persist_fixture_edn.py` writes `data/*.tx.kotoba.edn` + CIDv1 manifest; DataLad/git save remains an outer tool action |
+| EDN tx-data projection | ✅ fixture-only | `adapters/edn_export.py`, `adapters/dry_run_fixtures.py --emit-edn`, `--emit-datomic` |
+| EDN query helper | ✅ fixture-only | `adapters/edn_query.cljc`, `adapters/test_edn_query.cljc` query both DataScript/kotoba tx maps and Datomic scalar bundle |
+| Storage artifact materializer | ✅ saved locally | `adapters/persist_fixture_edn.py` writes `data/*.tx.kotoba.edn`, `data/*.datomic.edn`, and CIDv1 manifest; `bb kotoba:annex save 20-actors/akashi/data` saved the data artifacts in git/DataLad |
 | Adapter tests | ✅ green | `PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytest tests/ -q`; `./20-actors/akashi/run_tests.sh` |

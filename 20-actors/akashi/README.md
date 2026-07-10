@@ -68,15 +68,18 @@ fixtures, or collection jobs yet. See:
 - `adapters/platform_ad_library_fixture_parser.py` and
   `fixtures/platform_ad_library/` — local Meta/Instagram and X ad-library
   fixture parser coverage; no live collection
-- `adapters/edn_export.py` — deterministic Datomic/DataScript EDN tx-data
-  projection for validated akashi records; callers choose git, DataLad, or
-  kotoba-git/kotoba-rad storage
+- `adapters/edn_export.py` — deterministic DataScript/kotoba EDN tx-data plus
+  a Datomic schema/scalar-tx import bundle for validated akashi records;
+  callers choose git, DataLad, or kotoba-git/kotoba-rad storage
 - `adapters/edn_query.cljc` — fixture tx-data query helper for platform,
-  advertiser, landing-domain, and count queries without a live DB
+  advertiser, landing-domain, and count queries without a live DB; it also
+  materializes the Datomic scalar tx bundle for the same queries
 - `adapters/persist_fixture_edn.py` — materializes the deterministic tx-data
   plus a storage manifest under `data/` for git/DataLad/kotoba-rad handoff
 - `data/akashi-platform-ad-library.fixture.tx.kotoba.edn` — materialized fixture
-  tx-data artifact, readable as Datomic/DataScript EDN
+  tx-data artifact, readable as DataScript/kotoba EDN
+- `data/akashi-platform-ad-library.fixture.datomic.edn` — materialized Datomic
+  import bundle with schema and scalar `:db/add` tx-data
 - `data/akashi-platform-ad-library.storage-manifest.edn` — storage handoff
   manifest naming the git path, CIDv1, DataLad save command, and akashi
   kotoba-rad identity journal

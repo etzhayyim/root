@@ -15,7 +15,11 @@ ACTOR_DIR = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ACTOR_DIR / "adapters"))
 
 from lexicon_shape_validator import validate_record, validate_records  # noqa: E402
-from edn_export import records_to_edn, records_to_tx_data  # noqa: E402
+from edn_export import (  # noqa: E402
+    records_to_datomic_bundle,
+    records_to_edn,
+    records_to_tx_data,
+)
 from platform_ad_library_fixture_parser import (  # noqa: E402
     PARSER_VERSION as PLATFORM_PARSER_VERSION,
     parse_platform_ad_library_fixture,
@@ -270,11 +274,32 @@ def test_edn_export_emits_datomic_datascript_tx_data():
     assert ":akashi.adDisclosureSnapshot/platform" in edn
 
 
+def test_datomic_bundle_emits_schema_and_scalar_tx_ops():
+    from dry_run_fixtures import load_dry_run_records  # noqa: E402
+
+    bundle = records_to_datomic_bundle(load_dry_run_records())
+    schema = bundle["akashi.datomic/schema"]
+    tx = bundle["akashi.datomic/tx-data"]
+    assert schema
+    assert tx
+    assert all(op[0] == "db/add" for op in tx)
+    assert all(not isinstance(op[3], (dict, list)) for op in tx)
+    idents = {s["db/ident"]: s for s in schema}
+    assert idents["akashi.record/cid"]["db/unique"] == "db.unique/identity"
+    assert idents["akashi.deliveryDisclosure/region-summary"][
+        "db/cardinality"
+    ] == "db.cardinality/many"
+    assert "akashi.deliveryDisclosure/spend-range-min" in idents
+    assert "akashi.deliveryDisclosure/impression-range-max" in idents
+
+
 def test_persist_fixture_edn_materializes_storage_manifest(tmp_path):
     out = tmp_path / "akashi.fixture.tx.kotoba.edn"
+    datomic = tmp_path / "akashi.fixture.datomic.edn"
     manifest = tmp_path / "manifest.edn"
-    payload = materialize(out, manifest)
+    payload = materialize(out, manifest, datomic)
     assert out.exists()
+    assert datomic.exists()
     assert manifest.exists()
     assert payload["akashi.storage/records"] == 25
     assert payload["akashi.storage/format"] == "datomic-datascript-tx-edn"
@@ -284,3 +309,5 @@ def test_persist_fixture_edn_materializes_storage_manifest(tmp_path):
         "akashi.storage/identity-journal"
     ] == "80-data/kotoba-rad/akashi.identity.journal.edn"
     assert payload["akashi.storage/kotoba-rad"]["cidv1"] == payload["akashi.storage/cidv1"]
+    assert payload["akashi.storage/datomic"]["path"].endswith(".datomic.edn")
+    assert payload["akashi.storage/datomic"]["cidv1"].startswith("bafkrei")
