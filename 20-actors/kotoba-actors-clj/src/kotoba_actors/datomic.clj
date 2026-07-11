@@ -43,14 +43,25 @@
   :bom.edge/id). Every OTHER key/value in the row becomes a datom [e k v].
   A row WITHOUT any `*/id` key (edge / 縁 rows keyed on :en/from + :en/to) is
   given a deterministic synthetic id `:kotoba-actors.row/N` (N = row index) so
-  its facts are still datoms — edges become first-class, queryable entities."
+  its facts are still datoms — edges become first-class, queryable entities.
+
+  Rows may additionally carry a Datomic/Datascript tx-data bookkeeping
+  `:db/id` (a tempid, e.g. added by the repo-wide EDN->tx-data 'datomize' pass,
+  manifest/edn-datomize.cljs) alongside their domain `*/id`. `:db/id` is
+  intentionally EXCLUDED from `*/id`-key candidacy — `(name :db/id)` is \"id\"
+  and would otherwise match `.endsWith … \"id\"` and get picked as the row's
+  identity, replacing the real domain id (e.g. :organism/id's string value)
+  with a numeric tempid and silently breaking id-based joins (e.g.
+  kotoba-actors.tsugite/dangling-edges comparing node ids against 縁
+  endpoint strings). It is also excluded from becoming a datom itself
+  (bookkeeping only, not domain data)."
   [rows]
   (apply concat
    (map-indexed
     (fn [idx row]
-      (let [id-k (some #(when (.endsWith (name %) "id") %) (keys row))
+      (let [id-k (some #(when (and (not= % :db/id) (.endsWith (name %) "id")) %) (keys row))
             e    (if id-k (get row id-k) (keyword "kotoba-actors.row" (str idx)))]
-        (for [[k v] row :when (not= k id-k)] [e k v])))
+        (for [[k v] row :when (not (#{id-k :db/id} k))] [e k v])))
     rows)))
 
 (defn build-db

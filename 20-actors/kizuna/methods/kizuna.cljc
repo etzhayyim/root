@@ -226,11 +226,37 @@
 
 ;; ── seed I/O (clj only) ───────────────────────────────────────────────────────
 
+;; seed-interactions.kotoba.edn is now stored datomized (tx-data: a single-entity
+;; vector [{:db/id -1 :seed-interactions/events "<pr-str'd events vector>"}], per
+;; the repo-wide edn-datomize convention). `unblob`/`reconstitute-entity` restore
+;; the original `{:events [...]}` shape so this loader (and every downstream
+;; caller: -main + the test suite) keeps working unchanged. Also tolerates the
+;; pre-datomize raw-map shape for any other seed edn passed in.
+#?(:clj
+   (defn- unblob [v]
+     (if (string? v)
+       (try (let [parsed (edn/read-string v)] (if (coll? parsed) parsed v))
+            (catch Exception _ v))
+       v)))
+
+#?(:clj
+   (defn- tx-data? [content]
+     (and (vector? content) (seq content) (map? (first content))
+          (contains? (first content) :db/id))))
+
+#?(:clj
+   (defn- reconstitute-entity [tx-data]
+     (into {} (map (fn [[k v]] [(keyword (name k)) (unblob v)]))
+           (dissoc (first tx-data) :db/id))))
+
 #?(:clj
    (defn load-events
-     "Read the seed (or any kizuna interaction edn) → vector of events."
+     "Read the seed (or any kizuna interaction edn) → vector of events. Accepts
+     both the datomized tx-data shape and the legacy raw-map shape."
      [path]
-     (-> (slurp path) (edn/read-string) :events vec)))
+     (let [parsed (-> (slurp path) (edn/read-string))
+           m (if (tx-data? parsed) (reconstitute-entity parsed) parsed)]
+       (-> m :events vec))))
 
 #?(:clj
    (defn -main [& args]

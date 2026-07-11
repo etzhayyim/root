@@ -1,18 +1,20 @@
 (ns akashi.adapters.dry-run-fixtures
-  "1:1 port of adapters/dry_run_fixtures.py (ADR-2606071600). Loads local akashi fixtures, parses +
-  validates emitted records against the akashi lexicons, and summarizes deterministic dry-run counts.
-  NO network access. Ported: merge-outputs + summarize (pure), and load-dry-run-records +
-  validate-output (local file reads via slurp — not network). OMITTED (CLI leg, not ported):
-  main()/argparse + the JSON print. Paths are repo-relative (bb runs from the repo root)."
+  "Loads local akashi fixtures, parses and validates emitted records against the
+  akashi lexicons, and summarizes deterministic dry-run counts. NO network
+  access. Paths are repo-relative (bb runs from the repo root)."
   (:require [cheshire.core :as json]
             [akashi.adapters.lexicon-shape-validator :as validator]
-            [akashi.adapters.regulator-bulk-fixture-parser :as parser]))
+            [akashi.adapters.regulator-bulk-fixture-parser :as parser]
+            [akashi.adapters.platform-ad-library-fixture-parser :as platform-parser]
+            [akashi.adapters.edn-export :as export]))
 
 (def ^:private ROOT "20-actors/akashi")
 (def ^:private LEX "00-contracts/lexicons/com/etzhayyim/akashi")
 (def ^:private REGULATOR-FIXTURE (str ROOT "/fixtures/regulator_bulk/sample.json"))
 (def ^:private REGULATOR-MISSING-OPTIONAL-FIXTURE (str ROOT "/fixtures/regulator_bulk/missing_optional_fields.json"))
 (def ^:private CLOSURE-FIXTURE (str ROOT "/fixtures/closure/sample.json"))
+(def ^:private META-INSTAGRAM-FIXTURE (str ROOT "/fixtures/platform_ad_library/meta_instagram_sample.json"))
+(def ^:private X-ADS-FIXTURE (str ROOT "/fixtures/platform_ad_library/x_ads_sample.json"))
 
 (def ^:private ATTESTING-DID "did:web:akashi.etzhayyim.com")
 (def ^:private SOURCE-POLICY-CID "cid:akashi:source-policy:dry-run")
@@ -58,11 +60,28 @@
         (validator/validate-record value lexicon)))))
 
 (defn load-dry-run-records
-  "Port of load_dry_run_records(): load, parse, merge, and validate all local akashi fixtures."
+  "Load, parse, merge, and validate all local akashi fixtures."
   []
   (let [parsed (parser/parse-regulator-bulk-fixture (load* REGULATOR-FIXTURE) PARSE-OPTS)
         missing-optional (parser/parse-regulator-bulk-fixture (load* REGULATOR-MISSING-OPTIONAL-FIXTURE) PARSE-OPTS)
+        meta-instagram (platform-parser/parse-platform-ad-library-fixture (load* META-INSTAGRAM-FIXTURE) PARSE-OPTS)
+        x-ads (platform-parser/parse-platform-ad-library-fixture (load* X-ADS-FIXTURE) PARSE-OPTS)
         closure (get (load* CLOSURE-FIXTURE) "records")
-        output (merge-outputs parsed missing-optional closure)]
+        output (merge-outputs parsed missing-optional meta-instagram x-ads closure)]
     (validate-output output)
     output))
+
+(defn -main [& args]
+  (let [records (load-dry-run-records)
+        payload (cond
+                  (some #{"--emit-datomic"} args) (export/records-to-datomic-edn records)
+                  (some #{"--emit-edn"} args) (export/records-to-edn records)
+                  (some #{"--emit-records"} args) (str (pr-str records) "\n")
+                  :else (str (pr-str (summarize records)) "\n"))
+        out (second (drop-while #(not= "--out" %) args))]
+    (if out
+      (do
+        (when-let [parent (.getParentFile (java.io.File. ^String out))]
+          (.mkdirs parent))
+        (spit out payload))
+      (print payload))))

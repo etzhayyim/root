@@ -3,6 +3,7 @@
   1:1 Clojure port of tests/test_ingest.py (ADR-2606111500). Network-free (offline fixture)."
   (:require [clojure.test :refer [deftest is run-tests]]
             [clojure.string :as str]
+            [clojure.edn :as edn]
             #?(:clj [clojure.java.io :as io])
             [hakoniwa.methods.world :as w]
             [hakoniwa.methods.simulate :as s]
@@ -12,7 +13,37 @@
             [hakoniwa.methods.murakumo :as m]))
 
 (def ^:private actor-dir (-> *file* io/file .getParentFile .getParentFile))
-(def ^:private sources (w/read-edn (slurp (io/file actor-dir "data" "ingest-sources.edn"))))
+
+;; data/ingest-sources.edn is now Datomic/Datascript tx-data — `[{:db/id -1 :ingest/... }]`
+;; (edn-datomize pass). Reconstitute hakoniwa's house-style string-keyed map (mirrors
+;; hakoniwa.methods.world/read-edn's `atom-of`, which keeps ":ns/name" tokens as literal
+;; STRINGS rather than clojure keywords, for byte-parity with the Python port) so
+;; ing/build-box's `(get sources ":ingest/...")` lookups below keep working unchanged.
+(defn- edn->hakoniwa-strkeys
+  "Recursively turn every keyword (map key or bare value) into its ':ns/name' string form."
+  [v]
+  (cond
+    (map? v) (into {} (map (fn [[k vv]] [(if (keyword? k) (str k) k) (edn->hakoniwa-strkeys vv)])) v)
+    (vector? v) (mapv edn->hakoniwa-strkeys v)
+    (seq? v) (mapv edn->hakoniwa-strkeys v)
+    (keyword? v) (str v)
+    :else v))
+
+(defn- unblob [v]
+  (if (string? v)
+    (try (let [parsed (edn/read-string v)]
+           (if (coll? parsed) (edn->hakoniwa-strkeys parsed) v))
+         (catch #?(:clj Exception :cljs :default) _ v))
+    v))
+
+(defn- reconstitute-sources
+  "tx-data -> hakoniwa's original bare, string-keyed :ingest/* map."
+  [tx-data]
+  (into {} (map (fn [[k v]] [(str k) (unblob v)]))
+        (dissoc (first tx-data) :db/id)))
+
+(def ^:private sources
+  (reconstitute-sources (edn/read-string (slurp (io/file actor-dir "data" "ingest-sources.edn")))))
 (def ^:private fixture (ing/parse-json (slurp (io/file actor-dir "tests" "fixtures" "wikidata_entities.json"))))
 
 (deftest test-ingest-keeps-real-entities

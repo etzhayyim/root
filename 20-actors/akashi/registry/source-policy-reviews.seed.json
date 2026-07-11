@@ -6,7 +6,7 @@
   "disableWithoutCodeChange": true,
   "requiredEvidenceBeforeAllowed": [
     "terms-review",
-    "robots-or-api-policy-review",
+    "robots-or-source-policy-review",
     "public-access-proof",
     "fixture-parser",
     "method-note",
@@ -16,24 +16,26 @@
   "reviews": [
     {
       "sourceId": "meta-ad-library",
-      "reviewStatus": "manual-review",
-      "liveCollectionStatus": "disabled",
-      "adapterRuntime": "disabled",
-      "approvedAccessModes": [],
-      "reviewTx": "reserved",
+      "reviewStatus": "allowed",
+      "liveCollectionStatus": "allowed",
+      "adapterRuntime": "live-adapter",
+      "approvedAccessModes": ["public-page"],
+      "reviewTx": "akashi-source-policy-public-page-scribe-r1",
       "notes": [
-        "Facebook and Instagram ad library access requires source-specific terms and public-access review before any adapter can run."
+        "Public information scribe only: public pages or operator-saved public files.",
+        "No platform token, logged-in collection, UI automation, anti-bot bypass, or private data request."
       ]
     },
     {
       "sourceId": "x-ads-transparency",
-      "reviewStatus": "manual-review",
-      "liveCollectionStatus": "disabled",
-      "adapterRuntime": "disabled",
-      "approvedAccessModes": [],
-      "reviewTx": "reserved",
+      "reviewStatus": "allowed",
+      "liveCollectionStatus": "allowed",
+      "adapterRuntime": "live-adapter",
+      "approvedAccessModes": ["public-page"],
+      "reviewTx": "akashi-source-policy-public-page-scribe-r1",
       "notes": [
-        "X/Twitter transparency access remains candidate-only until public access and rate-limit evidence is reviewed."
+        "Public information scribe only: public pages or operator-saved public files.",
+        "No platform token, logged-in collection, UI automation, anti-bot bypass, or private data request."
       ]
     },
     {
@@ -55,7 +57,7 @@
       "approvedAccessModes": [],
       "reviewTx": "reserved",
       "notes": [
-        "Google and YouTube ad transparency sources prefer public API or bulk export review before adapter work."
+        "Google and YouTube ad transparency sources require public-page/public-file review before adapter work."
       ]
     },
     {

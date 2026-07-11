@@ -20,7 +20,26 @@
     (when-not p (throw (ex-info (str "cannot locate " rel " from cwd") {})))
     (edn/read-string (slurp p))))
 
-(def cells (into {} (map (fn [id] [id (read-edn (str "cells/" id ".edn"))]) cell-ids)))
+(defn- unblob
+  "cells/*.edn are now Datomic/Datascript tx-data (edn-datomize wrap, :cell/* namespace
+  kept as-is since it was already meaningfully namespaced); non-scalar values
+  (:cell/state-graph, :cell/llm, :cell/kotoba) are pr-str blob strings. Parse back to the
+  original nested value where possible."
+  [v]
+  (if (string? v)
+    (try (let [parsed (edn/read-string v)] (if (coll? parsed) parsed v))
+         (catch Exception _ v))
+    v))
+
+(defn- reconstitute-entity
+  "tx-data [{:db/id -1 :cell/id \"...\" :cell/state-graph \"...blob...\" ...}] -> the original
+  bare {:cell/id \"...\" :cell/state-graph {...} ...} map (keys keep their :cell/* namespace
+  unchanged -- it was never re-prefixed) so the (:cell/* c) lookups below are unchanged."
+  [tx-data]
+  (into {} (map (fn [[k v]] [k (unblob v)]))
+        (dissoc (first tx-data) :db/id)))
+
+(def cells (into {} (map (fn [id] [id (reconstitute-entity (read-edn (str "cells/" id ".edn")))]) cell-ids)))
 (def manifest (read-edn "manifest.edn"))
 (def schema (read-edn "kotoba/schema.edn"))
 (def schema-idents (set (map :db/ident schema)))

@@ -6,8 +6,23 @@
             [clojure.edn :as edn]
             [matsurigoto.tax-collect.withholding :as w]))
 
+;; jpn-rates.edn is now Datomic/Datascript tx-data (ADR-2607100030 fan-out): a single
+;; [{:db/id -1 :withholding.jpn-rates/<key> <value-or-blob>}] entity. `unblob`/
+;; `reconstitute-entity` un-namespace + pr-str-parse it back into the original bare
+;; map so `(:salary-monthly-kou RATES)` below keeps working unchanged.
+(defn- unblob [v]
+  (if (string? v)
+    (try (let [parsed (edn/read-string v)] (if (coll? parsed) parsed v))
+         (catch Exception _ v))
+    v))
+
+(defn- reconstitute-entity [tx-data]
+  (into {} (map (fn [[k v]] [(keyword (name k)) (unblob v)]))
+        (dissoc (first tx-data) :db/id)))
+
 (def ^:private RATES
-  (edn/read-string (slurp "20-actors/matsurigoto/data/withholding/jpn-rates.edn")))
+  (reconstitute-entity
+   (edn/read-string (slurp "20-actors/matsurigoto/data/withholding/jpn-rates.edn"))))
 
 ;; ── 復興特別所得税 合計税率 (官報表と一致) ──
 (deftest combined-rates-match-official-table

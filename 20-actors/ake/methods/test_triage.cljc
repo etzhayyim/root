@@ -14,7 +14,7 @@
 #?(:clj
    (defn- seed []
      (into {} (map (fn [e] [(get e ":edit/id") e])
-                   (get (edn/load-edn seed-path) ":edit/batch")))))
+                   (get (edn/reconstitute (edn/load-edn seed-path) "data.seed-edit-graph") ":edit/batch")))))
 
 ;; ── route-for is a PURE FUNCTION of (risk, quality, rider) — G2 ─────────────────
 (deftest test-route-invariant-goes-to-council

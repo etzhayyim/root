@@ -30,7 +30,7 @@ The full one-line index (191 rows across the 3 subsections below) lives in [`90-
 
 - **Substrate / infra / dataset / enforcement** — 52 rows
 - **baien / silicon / ML** — 29 rows
-- **Tier-B actors (each: ADR + manifest + cells + lex)** — 110 rows
+- **Tier-B actors (each: ADR + manifest + cells + lex)** — 113 rows
 
 ## Repo Layout (Shannon-Optimal 8-Layer, ADR-2604251830)
 

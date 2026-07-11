@@ -2,7 +2,34 @@
 ;; Loop C R0 invariants (no-fabrication + weight-sum + routing). Run: bb rank_test.clj
 (ns rank-test (:require [clojure.edn :as edn] [clojure.java.io :as io]))
 (def here (-> *file* io/file .getParent))
-(def G (edn/read-string (slurp (io/file here "genotypes.edn"))))
+
+(defn- already-tx-data?
+  "True if `content` is already the datomic/datascript tx-data shape ([{...:db/id ...}]),
+   e.g. after the edn-datomize wave transforms genotypes.edn (Phase 4)."
+  [content]
+  (and (vector? content) (seq content) (map? (first content)) (contains? (first content) :db/id)))
+
+(defn- unblob
+  "Non-scalar attrs (nested maps / vectors-of-maps) are stored pr-str'd; parse them back."
+  [v]
+  (if (string? v)
+    (try (let [parsed (edn/read-string v)] (if (coll? parsed) parsed v))
+         (catch Exception _ v))
+    v))
+
+(defn- reconstitute-entity
+  "Undo the tx-data wrap: strip :db/id, strip the :shinka.genotypes/ namespace off every
+   attr key, unblob pr-str'd values — mirrors rank.clj's own reconstitution so the
+   invariants checked here see the same bare-map shape as the ranker under test."
+  [tx-data]
+  (into {} (map (fn [[k v]] [(keyword (name k)) (unblob v)]))
+        (dissoc (first tx-data) :db/id)))
+
+(defn- load-genotypes []
+  (let [content (edn/read-string (slurp (io/file here "genotypes.edn")))]
+    (if (already-tx-data? content) (reconstitute-entity content) content)))
+
+(def G (load-genotypes))
 (def errs (atom 0))
 (defn check [name ok] (if ok (println "  ok " name) (do (println "  FAIL" name) (swap! errs inc))))
 

@@ -67,7 +67,7 @@
 |---|---|---|---|---|
 | Baien federated R0 | training via ameno WebGPU (11 gates) | ✅ | 2605242600 | 05-24 |
 | Baien federated R1 | WebGPU LoRA backward-pass PoC | ✅ | 2605242630 | 05-24 |
-| Ternary silicon W1 | iwakura (inference) + fuigo (train) + silicon (fab, moved out of tsukuru per ADR-2606021139) | ✅ | 2605242500 | 05-24 |
+| Ternary silicon W1 | iwakura (inference) + fuigo (train) + tsukuru (fab) | ✅ | 2605242500 | 05-24 |
 | Silicon W2 supply | 8 upstream categories + Funamori marine cargo | ✅ | 2605242700 | 05-24 |
 | ameno WebNN | inference fast path R0 (CoreML/DirectML/NNAPI/QNN) | ✅ | 2605252100 | 05-25 |
 | gemma-coder-distill | LangGraph coding LoRA on EVO-X2 ROCm | 🟡 | 2605250400 | 05-25 |
@@ -120,12 +120,12 @@
 | tsutae 伝え | handheld comms device (≤200g, open SoC) | 🟡 R0 | 2605261300 | 05-26 |
 | futawa 二輪 | small-displacement motorcycle (≤250cc/≤15kW) | 🟡 R0 | 2605261330 | 05-26 |
 | suki 鋤 | farm tractor mfg (mitsuho mfg-side sibling) | 🟡 R0 | 2605261500 | 05-26 |
-| chigiri 契 | legal-procedure substrate (UPL prohibited, NOT law firm) | 🟡 R0 | 2605262700 | 05-26 |
+| chigiri 契 | legal-procedure substrate (UPL prohibited, NOT law firm) … | 🟢 R0 | 2605262700 | 05-26 |
 | toritate 執帳 | accounting + audit (100% on-chain) | 🟡 R0 | 2605262900 | 05-26 |
 | iyashi 癒 | clinical care provider (L4 Care triad) | 🟡 R0 | 2605263000 | 05-26 |
 | mizuho 水穂 | water + sanitation (community-scale; ≠ mitsuho 瑞穂) | 🟡 R0 | 2605263100 | 05-26 |
 | kazaori 風折 | civilian disaster response (force-separation sibling) | 🟡 R0 | 2605263200 | 05-26 |
-| musubi 結 | covenant ceremony (TIGHT pair w/ chigiri) | 🟡 R0 | 2605263400 | 05-26 |
+| musubi 結 | covenant ceremony (TIGHT pair w/ chigiri) … | 🟢 R0 | 2605263400 | 05-26 |
 | wakai 和会 | mutual aid (NOT insurance) | 🟡 R0 | 2605263500 | 05-26 |
 | kataribe 語部 | press + publishing + translation | 🟡 R0 | 2605263600 | 05-26 |
 | kokoro 心 | mental health support (NOT clinical psych) | 🟡 R0 | 2605263700 | 05-26 |
@@ -198,7 +198,9 @@
 | mimamori 見守り | covenant keeping membrane (mishmeret ha-adam 相互保持者会, ADR-2606112200 D6 の実装) … | 🟢 R1 | 2606112300 | 06-11 |
 | hinagata 雛形 | legal-document-template commons (法律文書雛形) … | 🟢 R1 | 2606111954 | 06-11 |
 | kadode 門出 | labour-resignation concierge + 使者 (退職代行) … | 🟡 R0 | 2606112238 | 06-11 |
-| sonae 備え | civilian pre-disaster foresight + preparedness + early-warning substrate … | 🟡 R0 | 2606091200 | 06-09 |
+| sonae 備え | civilian pre-disaster foresight + preparedness + early-warning substrate … | 🟢 R0 | 2606091200 | 06-09 |
+| credits | yoro.etzhayyim.com human-participation credit ledger … | 🟢 R0 | 2604271400 | 07-10 |
+| narashi 均 | global inequality observation … | 🟢 R0 | 2607101800 | 07-10 |
 | abaki 暴 | anti-monopoly & chokepoint intelligence membrane … | 🟡 R0 | 2606073100 | 06-07 |
 | kaiyaku 解約 | 縁切り (tie-severance) executor … | 🟡 R0 | 2606112201 | 06-11 |
 | tate 盾 | citizen legal-defense concierge (defensive only) … | 🟢 R2 | 2606112301 / 2606112400 / 2606122000 / 2606122300 | 06-11 |
@@ -209,4 +211,4 @@
 | subaru 昴 | Transparent connectivity-commons satellite constellation (Starlink/OneWeb inversion) … | 🟡 R0+R1+R2 | 2606162355 | 06-16 |
 | jinushi 地主 | world land/building ownership ACQUISITION mirror (clj-native … | 🟢 R1 | 2606162000 | 06-16 |
 | kaname 要 | cross-domain system-of-systems leverage-point (律速) synthesizer + おせっかい … | 🟢 R0+R1 deployed | 2606172100 | 06-17 |
-| tsukuru 作 | B2B factory-direct ordering (BTO/MTO/CTO), 460+ manufacturer DID routing + trade-compliance gate (fab-equipment scope split out to `silicon`, ADR-2606021139) | 🟡 R0 | 2605202800 / 2606021139 | 05-20 |
+| kumi 組 | community/organization-unit dependency-influence-follow-graph + … | 🟡 R0 | 2607101830 | 07-10 |

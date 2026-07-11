@@ -20,7 +20,7 @@
 
 #?(:clj
    (defn- lex [name]
-     (edn/load-edn (str lex-dir "/" name ".edn"))))
+     (edn/reconstitute (edn/load-edn (str lex-dir "/" name ".edn")) (str "lex." name))))
 
 #?(:clj
    (defn- record* [d]

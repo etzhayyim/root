@@ -35,7 +35,8 @@
 
   OBSERVATORY + MODEL + NUDGE only — NON-DIAGNOSTIC, NON-THERAPEUTIC, sells NOTHING.
   No :tsuchifumi/diagnose / :treat / :product / :person.* datom is ever emitted."
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [tsuchifumi.methods.tsuchifumi-edn :as te]))
 
 ;; ── thresholds + weights ─────────────────────────────────────────────────────
 (def ^:private exp-thr 0.55)
@@ -232,7 +233,7 @@
 #?(:clj
    (defn -main [& args]
      (let [seed (or (first args) "20-actors/tsuchifumi/kotoba/seed.edn")
-           rows (clojure.edn/read-string (slurp seed))
+           rows (te/reconstitute-rows (clojure.edn/read-string (slurp seed)))
            regions (vec (filter #(= (:type %) :region) rows))
            evidence (vec (filter #(= (:type %) :evidence) rows))
            a (assess regions evidence)]

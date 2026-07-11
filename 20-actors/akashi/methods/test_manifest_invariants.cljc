@@ -1,8 +1,6 @@
 (ns akashi.methods.test-manifest-invariants
-  "akashi — manifest invariants (ported from the manifest-reading half of
-  70-tools/scripts/audit/test_akashi_invariants.py). Reads manifest.edn (:actor/manifest
-  blob); the jsonld is retired. The lexicon-shape + Python cell-scaffold (import-raises)
-  invariants stay in the Python audit suite."
+  "akashi — manifest invariants. Reads manifest.edn (:actor/manifest blob);
+  the jsonld is retired. Lexicon-shape coverage lives in the CLJC adapter tests."
   (:require [clojure.test :refer [deftest is run-tests]]
             [clojure.string :as str] [clojure.edn :as edn]))
 

@@ -1,12 +1,11 @@
 (ns akashi.adapters.regulator-bulk-fixture-parser
-  "1:1 port of adapters/regulator_bulk_fixture_parser.py (ADR-2606071600). Fixture-only parser for
+  "Fixture-only parser for
   regulator-style public ad-disclosure bulk exports: maps an already-loaded fixture payload into
   akashi lexicon-shaped records, preserving source-limited gaps. NO live fetching (the `main`/IO
   legs and file-read are not part of this module — it takes an in-memory payload).
 
-  CID fidelity: _sha256_json mirrors json.dumps(sort_keys=True, separators=(',',':')) — a canonical
-  JSON encoder (sorted keys, compact, ensure_ascii \\uXXXX escaping, ints as-is) then sha256. For
-  the all-ASCII int-only akashi fixtures this is byte-identical to the Python encoding (verified)."
+  CID fidelity: sha256-json uses canonical JSON (sorted keys, compact,
+  ensure_ascii-style \\uXXXX escaping, ints as-is) then sha256."
   (:require [clojure.string :as str]))
 
 (def PARSER-VERSION "regulator-bulk-fixture-r1.0")
@@ -65,7 +64,7 @@
 
 (defn parse-regulator-bulk-fixture
   "Map a local fixture payload into akashi lexicon-shaped records. Opts: :attesting-did
-  :source-policy-cid :method-note-cid (Python keyword-only args)."
+  :source-policy-cid :method-note-cid."
   [payload {:keys [attesting-did source-policy-cid method-note-cid]}]
   (let [source (get payload "source")
         records (get payload "records")

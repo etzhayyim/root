@@ -5,7 +5,7 @@ its output can be treated as canonical akashi evidence.
 
 R0 reserves method note families:
 
-- `source-policy` — source URL/API, access mode, robots/ToS posture, cadence.
+- `source-policy` — source URL/page, access mode, robots/ToS posture, cadence.
 - `snapshot-parser` — raw source payload to `adDisclosureSnapshot`.
 - `creative-normalizer` — text/media/category extraction.
 - `landing-evidence` — URL normalization, redirect summary, content hash.

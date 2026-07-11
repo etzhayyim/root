@@ -5,7 +5,7 @@ status: proposed
 doc_type: adr
 topic: kotoba-rad-git-transport-binding
 authoritative: true
-last_verified: 2026-06-25
+last_verified: 2026-07-10
 priority: 5.0
 axis: architecture
 weight: 0.50
@@ -21,6 +21,7 @@ depends_on:
   - adr-2606036400  # libp2p webrtc-direct transport phases (browser ↔ node, no signaling)
 related:
   - adr-2605231525  # did:web multi-controller / no-server-key
+  - adr-2607100000  # akashi CLJC EDN ingest + GitHub/Radicle persistence status
 supersedes: []
 superseded_by: []
 ---
@@ -30,6 +31,42 @@ superseded_by: []
 **Status**: proposed
 **Date**: 2026-06-25
 **Deciders**: Jun Kawasaki
+
+## Addendum, 2026-07-10: external Radicle repository mirror is live
+
+This ADR governs the kotoba-rad data model and the planned kotoba-git transport
+binding. It originally rejected making `radicle-node` part of kotoba-rad's core
+transport. That remains true for kotoba-rad itself.
+
+Separately, the etzhayyim/root Git repository now also has an operational
+Radicle mirror for durable publication:
+
+- Radicle CLI installed as `/opt/homebrew/bin/rad`, version `1.9.1`
+- Radicle alias: `com-junkawasaki`
+- Radicle DID: `did:key:z6Mkud1DguEntg5EBhsfiHNJJBs8Qiw39x5iRgSCfH3cAuin`
+- Radicle repository: `rad:z2kYxHLH4E6pJHksgzAkRm9ztFgjC`
+- Publish checkpoint: `cb4006355675c0023c9fb3776820e4f7a9fd3e2c`
+- Git remote:
+  - fetch: `rad://z2kYxHLH4E6pJHksgzAkRm9ztFgjC`
+  - push:
+    `rad://z2kYxHLH4E6pJHksgzAkRm9ztFgjC/z6Mkud1DguEntg5EBhsfiHNJJBs8Qiw39x5iRgSCfH3cAuin`
+- Seed policy observed: `root` = `allow/all`
+- Sync observed after publish: `iris.radicle.network` and
+  `rosa.radicle.network` in sync with local sigrefs
+
+The Radicle passphrase is not committed. It is stored locally in Apple Keychain
+as `service=radicle`, `account=com-junkawasaki`, and mirrored to 1Password item
+`radicle/com-junkawasaki` in vault `gftdcojp`.
+
+This live Radicle mirror is a repository publication channel. It does not
+replace kotoba-rad's per-actor identity journals or the kotoba-git RID/CACAO
+binding described below.
+
+Operationally, repository-level Radicle publication is now allowed as an
+external durability channel for `etzhayyim/root` artifacts. It must not be
+described as kotoba-rad per-actor gossip, and it must not imply that the
+underlying actor dataset is live-collected unless the actor's own ADR records a
+materialized live source artifact.
 
 # Context
 

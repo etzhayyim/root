@@ -6,13 +6,20 @@
     registry  00-contracts/actor-registry/unispsc.json  (18,342 agents: code/did/title/hierarchy) — SSoT
     enrichment 80-data/unspsc_v26_ucalypt.jsonl          (2,836: spec_json/risk_tags/descriptions)
 
-  Output: {\"10101500\" {:code :title :segment :family :class :commodity :did
-                          :spec-fields [..] :risk-tags [..] :desc-en :desc-ja}, ...}
+  Output (on disk, since the 'datomic/datascript queryable' pass): tx-data —
+  a vector of one entity per code, `:unspsc/*`-namespaced (:unspsc/code
+  :unspsc/title :unspsc/segment :unspsc/family :unspsc/class :unspsc/commodity
+  :unspsc/did :unspsc/spec-fields :unspsc/risk-tags :unspsc/desc-en
+  :unspsc/desc-ja). `build` below still returns the plain code-keyed map
+  (unchanged — every fn in this ns keeps working against that shape);
+  `unspsc.taxonomy/table->tx-data` converts to tx-data only at the `spit`
+  boundary in `-main`.
 
   Run:  clojure -M:build-taxonomy [registry.json] [enrichment.jsonl] [out.edn]"
   (:require [clojure.data.json :as json]
             [clojure.java.io :as io]
-            [clojure.string :as str])
+            [clojure.string :as str]
+            [unspsc.taxonomy :as taxonomy])
   (:gen-class))
 
 (def ^:private root
@@ -77,6 +84,6 @@
         tax (build reg enr)
         enriched (count (filter (comp seq :spec-fields val) tax))]
     (io/make-parents out)
-    (spit out (with-out-str (binding [*print-length* nil] (prn tax))))
+    (spit out (with-out-str (binding [*print-length* nil] (pr (taxonomy/table->tx-data tax)))))
     (println (format "wrote %s — %d codes (%d enriched, %d generic)"
                      out (count tax) enriched (- (count tax) enriched)))))

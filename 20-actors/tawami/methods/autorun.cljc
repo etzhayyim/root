@@ -14,7 +14,7 @@
   No-server-key: appends to a local file only. A flexibility map, never a dispatch."
   (:require [tawami.methods.analyze :as a]
             [tawami.methods.kotoba :as k]
-            #?(:clj [clojure.edn :as edn])))
+            [tawami.methods.tawami-edn :as te]))
 
 (defn beat
   "Run one heartbeat. opts: :assets :tx-id :as-of :log-path (all required).
@@ -41,7 +41,7 @@
            log-path (or (second args)
                         (-> (clojure.java.io/file *file*) .getParentFile .getParentFile
                             (clojure.java.io/file "data" "persisted" "tawami.flexibility.kotoba.edn") str))
-           assets (vec (filter #(= (:type %) :asset) (edn/read-string (slurp seed))))
+           assets (vec (filter #(= (:type %) :asset) (te/parse-edn (slurp seed))))
            r (beat {:assets assets :tx-id "tawami-beat-manual" :as-of "manual" :log-path log-path})]
        (println (str "flexibility ledger head=" (:head r)
                      " datoms=" (:count r)

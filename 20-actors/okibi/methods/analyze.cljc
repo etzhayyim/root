@@ -18,7 +18,8 @@
     G2  a match must pass the cascade + distance gates — an infeasible pair can NEVER
         become a match (no fabrication). A cooling LOAD is not a heat sink (the §1
         anti-pattern is unrepresentable — sinks are heat demands by construction)."
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            #?(:clj [okibi.methods.okibi-edn :as oe])))
 
 ;; ── match params + physics ───────────────────────────────────────────────────
 
@@ -238,9 +239,11 @@
 #?(:clj
    (defn -main [& args]
      (let [seed (or (first args) "20-actors/okibi/kotoba/seed.edn")
-           rows (clojure.edn/read-string (slurp seed))
-           sources (vec (filter #(= (:type %) :source) rows))
-           sinks (vec (filter #(= (:type %) :sink) rows))
+           ;; oe/sources+oe/sinks tolerate both the legacy bare-map seed.edn
+           ;; shape and the datomized tx-data shape (single reconstitution
+           ;; point — see okibi.methods.okibi-edn/classify).
+           sources (oe/sources seed)
+           sinks (oe/sinks seed)
            a (analyze sources sinks)
            cov (coverage sources)]
        (println (render-report a cov))

@@ -29,7 +29,7 @@
           "jurisdiction": {"type": "string", "maxLength": 16},
           "accessMode": {
             "type": "string",
-            "knownValues": ["public-page", "official-api", "public-bulk-export", "manual-review-only", "disabled"]
+            "knownValues": ["public-page", "public-bulk-export", "manual-review-only", "disabled"]
           },
           "collectionStatus": {
             "type": "string",

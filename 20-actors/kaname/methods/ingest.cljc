@@ -182,14 +182,26 @@
     (str header "[\n" (str/join "\n" (map emit-map forms)) "\n]\n")))
 
 #?(:clj
+   (defn- reconstitute-source
+     "data/ingest-sources.edn is now datomic/datascript tx-data (edn-datomize, 2026-07-10):
+     [{:db/id -1 :ingest-source/url .. :ingest-source/domain .. :ingest-source/source ..} …].
+     Reconstitute the original bare {:url :domain :source} shape so the rest of this fn is
+     unchanged — mirrors the repo-wide unblob/reconstitute-entity pattern (no blobbed values
+     here since url/domain/source are all scalars)."
+     [entity]
+     (into {} (map (fn [[k v]] [(keyword (name k)) v])) (dissoc entity :db/id))))
+
+#?(:clj
    (defn ingest-live!
      "G7 LIVE web-fetch leg — runs ENTIRELY in clj (the actor runtime, not an operator tool):
-     read a source manifest EDN [{:url :domain :source}], fetch each PUBLIC page via fetch-text
-     (babashka.http-client, anonymous GET, no-server-key), extract DISCLOSED org relations via
-     Murakumo gemma (ollama-extract), build basis'd mirror forms. Optionally write `out-path`
-     (kotoba-EDN). Returns the forms. (Founder/Council-gated; the committed artifact is the default.)"
+     read a source manifest EDN (datomic tx-data: [{:db/id .. :ingest-source/url ..
+     :ingest-source/domain .. :ingest-source/source ..} …]), fetch each PUBLIC page via
+     fetch-text (babashka.http-client, anonymous GET, no-server-key), extract DISCLOSED org
+     relations via Murakumo gemma (ollama-extract), build basis'd mirror forms. Optionally
+     write `out-path` (kotoba-EDN). Returns the forms. (Founder/Council-gated; the committed
+     artifact is the default.)"
      [sources-path & [out-path]]
-     (let [sources (edn/read-string (slurp (str sources-path)))
+     (let [sources (map reconstitute-source (edn/read-string (slurp (str sources-path))))
            forms (vec (mapcat (fn [{:keys [url domain source]}]
                                 (->forms (ollama-extract (fetch-text url))
                                          (str domain) (str source) url))

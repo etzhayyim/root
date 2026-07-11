@@ -30,11 +30,16 @@
 (defn- g [] (az/classify (az/load-edn seed)))
 
 (deftest test-every-plant-attr-is-ontology-declared
+  ;; :db/id is the Datomic/Datascript tx-data framing key the repo-wide edn-datomize pass adds
+  ;; to every seed record (ADR-agnostic scaffolding, not a domain fact ABOUT the plant) — it is
+  ;; deliberately NOT part of the manufacturing-plant ontology, so it is excluded here the same
+  ;; way it is excluded from persisted EAVT datoms in kotoba.cljc's non-domain-keys.
   (let [declared (idents-for "plant")]
     (is (pos? (count declared)))
     (doseq [p (:plants (g))]
       (doseq [k (keys p)]
-        (is (contains? declared k) (str (:plant/id p) ": undeclared attr " k))))))
+        (when (not= :db/id k)
+          (is (contains? declared k) (str (:plant/id p) ": undeclared attr " k)))))))
 
 (deftest test-required-plant-attrs-present
   (doseq [p (:plants (g))]

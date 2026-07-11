@@ -82,6 +82,43 @@ gates, domain inheritance, and fission rules.
 The initial packaged-goods registry seeds `IN` plus `IN-NORTH`, `IN-SOUTH`,
 `IN-WEST`, `IN-EAST`, `IN-NORTHEAST`, and `IN-CENTRAL`, with `JP`, `US`, and
 `BR` left as designed country actors awaiting local aggregate public sources.
+The `waste-sanitation-cycle` domain (below) reuses the same registry with its
+own `world` + `IN` + 6-region actor set.
+
+## India Waste & Sanitation Cycle Addendum
+
+`methods/waste_sanitation.cljc` adds a separate aggregate-only read-off for
+India's municipal solid-waste **collection, source-segregation, processing,
+and recycling-market-linkage** cycle — the "system dynamics react loop" behind
+uncollected street waste, open dumping/burning, and informal waste-picker
+exclusion versus reliable collection, segregation compliance, processing
+capacity, and recycler-market linkage. It models region, language, channel,
+and rural/urban pressures, not "Indian sanitation" as one uniform condition:
+India also has ODF++/5-star SBM-U certified cities, scientific-processing
+capacity build-out, and waste-picker cooperative integration pilots, and those
+counter-forces are represented explicitly. Positive net pressure means the
+cycle is moving toward circularity (collection/segregation/processing/
+recycling); negative pressure means it is moving toward accumulation
+(uncollected/unsegregated/landfill/open-dumping).
+
+Seed data lives in `kotoba/seed.india-waste-sanitation.edn`. It is explicitly
+representative and hypothesis-only, with counter-forces for door-to-door
+collection scale-up, segregation-at-source pilots, waste-picker cooperative
+integration, legacy-dumpsite bioremediation, and civic behaviour-change
+campaigns. The `waste-sanitation-cycle` domain is registered in
+`kotoba/ontology.country-region-loop-actors.edn` /
+`kotoba/seed.country-region-loop-actors.edn` alongside `packaged-goods-culture`,
+seeding `world` + `IN` + `IN-NORTH`/`IN-SOUTH`/`IN-WEST`/`IN-EAST`/
+`IN-NORTHEAST`/`IN-CENTRAL`.
+
+**Scope boundary (G4, analysis-only):** this addendum reads which loops are
+spinning toward circularity or accumulation and surfaces Meadows leverage
+candidates. It has no dispatch, route-optimization, or recycler-payment
+function — junkan never schedules a collection vehicle or pays a recycler.
+On-the-ground collection/sorting/recycling-business *execution*, if built, is
+a separate, Governor-gated actor's concern (robotaxi-actor pattern: proposal
++ independent Governor + append-only audit ledger), which MAY read junkan's
+findings but which junkan does not compose with or actuate (G4/G13).
 
 ## License
 

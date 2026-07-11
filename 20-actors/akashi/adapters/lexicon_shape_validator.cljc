@@ -1,8 +1,8 @@
 (ns akashi.adapters.lexicon-shape-validator
-  "1:1 port of adapters/lexicon_shape_validator.py — a small dependency-free validator for akashi
-  fixture-parser outputs. Covers the lexicon-shape subset akashi R0/R1 fixtures use: required
-  fields, primitive types, arrays, object refs, const values, knownValues, numeric/string bounds.
-  Python ValueError → (throw (ex-info ...)). Records/lexicons are JSON-shaped string-keyed maps."
+  "Small dependency-free validator for akashi fixture-parser outputs. Covers
+  the lexicon-shape subset akashi R0/R1 fixtures use: required fields,
+  primitive types, arrays, object refs, const values, knownValues, and
+  numeric/string bounds. Records/lexicons are JSON-shaped string-keyed maps."
   (:require [clojure.string :as str]))
 
 (declare validate-value validate-object)

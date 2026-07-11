@@ -1,9 +1,8 @@
 (ns akashi.adapters.test-regulator-bulk-fixture-parser
-  "Tests for the akashi regulator-bulk fixture parser (ADR-2606071600 port). Verifies the canonical-
+  "Tests for the akashi regulator-bulk fixture parser. Verifies the canonical-
   JSON encoder (sorted keys / compact / escaping) that backs the CIDs, the spend/impression range
   mapping with nil-drop, and a full parse of the real sample fixture with golden CIDs pinned to the
-  Python output (byte-for-byte verified: payloadCid / payloadSha256 / snapshotCid / creativeText*
-  / domain) so the port is provably 1:1."
+  fixture output (payloadCid / payloadSha256 / snapshotCid / creativeText* / domain)."
   (:require [clojure.test :refer [deftest is]]
             [clojure.string :as str]
             [cheshire.core :as json]
@@ -37,7 +36,7 @@
         adv (first (get out "advertiserIdentity"))
         cre (first (get out "creativeDisclosure"))
         dl (first (get out "deliveryDisclosure"))]
-    ;; golden CIDs/hashes pinned to the Python parser output (byte-for-byte verified)
+    ;; golden CIDs/hashes pinned to the fixture parser output.
     (is (= "cid:akashi:payload:98480ae55ad0b0df05d167ecdfbe5e19" (get snap "payloadCid")))
     (is (= "98480ae55ad0b0df05d167ecdfbe5e1913328aabe7217d2e14005e6895a655f5" (get snap "payloadSha256")))
     (is (= "cid:akashi:snapshot:80ad8264f5c71a85d04c4fac328fcc5a" (get adv "sourceSnapshotCid")))
@@ -63,8 +62,7 @@
     (is (= "cid:akashi:method-note:fixed" (get sp "methodNoteCid")))))
 
 (deftest test-domain-normalization-and-range-aliases
-  ;; mixed-case landing host lowercased; lower/upper aliases map onto min/max (subsumes the
-  ;; Python test_adapters parser cases).
+  ;; mixed-case landing host lowercased; lower/upper aliases map onto min/max.
   (let [payload {"capturedAt" "2026-06-11T00:00:00Z"
                  "source" {"platform" "p" "sourceUrl" "https://r.test/b" "jurisdiction" "JP"}
                  "records" [{"sourceRecordId" "r1" "sourceUrl" "https://r.test/r1"

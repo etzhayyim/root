@@ -18,7 +18,8 @@
         attribute is computed or emitted (hikari actuates under Council gate).
     G2  aggregate-first — no :tawami.person/* load profile exists.
     G3  no :trade / :signal — flexibility is observed, never traded."
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [tawami.methods.tawami-edn :as te]))
 
 ;; ── pure analytics ───────────────────────────────────────────────────────────
 
@@ -209,7 +210,7 @@
 #?(:clj
    (defn -main [& args]
      (let [seed (or (first args) "20-actors/tawami/kotoba/seed.edn")
-           rows (clojure.edn/read-string (slurp seed))
+           rows (te/parse-edn (slurp seed))
            as (vec (filter #(= (:type %) :asset) rows))
            a (analyze as)
            cov (coverage as)]

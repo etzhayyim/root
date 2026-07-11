@@ -13,7 +13,7 @@
   never a dispatch order."
   (:require [okibi.methods.analyze :as a]
             [okibi.methods.kotoba :as k]
-            #?(:clj [clojure.edn :as edn])))
+            #?(:clj [okibi.methods.okibi-edn :as oe])))
 
 (defn beat
   "Run one heartbeat. opts: :sources :sinks :tx-id :as-of :log-path (all required)."
@@ -39,9 +39,11 @@
            log-path (or (second args)
                         (-> (clojure.java.io/file *file*) .getParentFile .getParentFile
                             (clojure.java.io/file "data" "persisted" "okibi.matches.kotoba.edn") str))
-           rows (edn/read-string (slurp seed))
-           sources (vec (filter #(= (:type %) :source) rows))
-           sinks (vec (filter #(= (:type %) :sink) rows))
+           ;; oe/sources+oe/sinks tolerate both the legacy bare-map seed.edn
+           ;; shape and the datomized tx-data shape (single reconstitution
+           ;; point — see okibi.methods.okibi-edn/classify).
+           sources (oe/sources seed)
+           sinks (oe/sinks seed)
            r (beat {:sources sources :sinks sinks :tx-id "okibi-beat-manual" :as-of "manual" :log-path log-path})]
        (println (str "thermal ledger head=" (:head r)
                      " datoms=" (:count r)

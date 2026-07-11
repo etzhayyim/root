@@ -59,14 +59,15 @@
              last* (last (str/split lid #"\."))
              f (io/file lex-dir (str last* ".edn"))]
          (is (.isFile f) (str "missing lexicon file for " lid))
-         (is (= lid (get (load-edn f) ":id")))))))
+         (is (= lid (get (edn/reconstitute (load-edn f) (str "lex." last*)) ":id")))))))
 
 #?(:clj
    (deftest test-every-lex-file-is-declared-in-manifest
      (let [declared (set (map #(get % "id") (get (manifest) "lexiconNamespaces")))
            on-disk (set (for [f (.listFiles (io/file lex-dir))
                               :when (str/ends-with? (.getName f) ".edn")]
-                          (get (load-edn f) ":id")))]
+                          (let [name (str/replace (.getName f) #"\.edn$" "")]
+                            (get (edn/reconstitute (load-edn f) (str "lex." name)) ":id"))))]
        (is (= on-disk declared)))))
 
 ;; ── manifest gate/non-goal counts (the stated 9 + 7) ────────────────────────
@@ -89,7 +90,9 @@
      (let [onto (load-edn ontology)
            kinds (set (get onto ":ontology/target-kinds"))
            ops (set (get onto ":ontology/edit-ops"))]
-       (doseq [e (get (load-edn (str root "/data/seed-edit-graph.kotoba.edn")) ":edit/batch")]
+       (doseq [e (get (edn/reconstitute (load-edn (str root "/data/seed-edit-graph.kotoba.edn"))
+                                        "data.seed-edit-graph")
+                      ":edit/batch")]
          (is (contains? kinds (get e ":edit/target-kind")) (get e ":edit/target-kind"))
          (is (contains? ops (get e ":edit/op")) (get e ":edit/op"))))))
 

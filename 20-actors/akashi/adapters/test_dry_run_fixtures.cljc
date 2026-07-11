@@ -1,8 +1,8 @@
 (ns akashi.adapters.test-dry-run-fixtures
-  "Tests for the akashi dry-run fixtures orchestrator (ADR-2606071600 port of dry_run_fixtures).
+  "Tests for the akashi dry-run fixtures orchestrator.
   Unit-tests the pure merge-outputs (list-extend + scalar first-wins) and summarize (sorted counts),
   then runs the full load → parse → merge → validate-against-real-lexicons pipeline and pins the
-  deterministic summary to the Python golden (totalRecords 15 across 10 lexicon namespaces)."
+  deterministic summary (totalRecords 25 across 10 lexicon namespaces)."
   (:require [clojure.test :refer [deftest is]]
             [akashi.adapters.dry-run-fixtures :as d]))
 
@@ -27,16 +27,16 @@
     (is (= 6 (get s "totalRecords")))))
 
 (deftest test-load-dry-run-records-golden
-  ;; full pipeline: load 3 fixtures → parse regulator ones → merge w/ closure → validate vs real
-  ;; lexicons (throws on any mismatch) → summarize. Pinned to the Python golden.
+  ;; full pipeline: load fixtures → parse regulator/platform ones → merge w/ closure → validate vs real
+  ;; lexicons (throws on any mismatch) → summarize. Pinned to the fixture contract.
   (let [s (d/summarize (d/load-dry-run-records))]
-    (is (= 15 (get s "totalRecords")))
+    (is (= 25 (get s "totalRecords")))
     (is (= ["adDisclosureLink" "adDisclosureSnapshot" "adTransparencyReport" "advertiserIdentity"
             "creativeDisclosure" "deliveryDisclosure" "landingEvidence" "malakEvidenceCandidate"
             "methodNote" "sourcePolicySnapshot"]
            (get s "lexiconNamespaces")))
-    (is (= {"adDisclosureLink" 1 "adDisclosureSnapshot" 2 "adTransparencyReport" 1
-            "advertiserIdentity" 2 "creativeDisclosure" 2 "deliveryDisclosure" 2
-            "landingEvidence" 2 "malakEvidenceCandidate" 1 "methodNote" 1 "sourcePolicySnapshot" 1}
+    (is (= {"adDisclosureLink" 1 "adDisclosureSnapshot" 4 "adTransparencyReport" 1
+            "advertiserIdentity" 4 "creativeDisclosure" 4 "deliveryDisclosure" 4
+            "landingEvidence" 4 "malakEvidenceCandidate" 1 "methodNote" 1 "sourcePolicySnapshot" 1}
            (into {} (get s "recordCounts"))))
     (is (= false (get s "networkAccess")))))

@@ -14,7 +14,7 @@
 (defn- tmp [] (str (System/getProperty "java.io.tmpdir") "/ugachi-autorun-test-" (gensym) ".edn"))
 (defn- projects [] (ue/projects ug-seed))
 (defn- commodities []
-  (vec (filter #(= (:type %) :commodity) (clojure.edn/read-string (slurp bu-seed)))))
+  (vec (filter #(= (:type %) :commodity) (ue/normalize-rows (clojure.edn/read-string (slurp bu-seed))))))
 
 (deftest gate-datoms-vector-matches-render
   ;; gate/datoms returns the vectors render-datoms stringifies

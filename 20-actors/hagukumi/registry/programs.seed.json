@@ -1029,12 +1029,12 @@
       "jurisdiction": "deu",
       "careKind": "child-allowance",
       "authority": "Familienkasse, Bundesagentur für Arbeit (Family Benefits Office of the Federal Employment Agency)",
-      "accessUrl": "https://www.arbeitsagentur.de/familie-und-kinder/kindergeld-verstehen",
+      "accessUrl": "https://www.arbeitsagentur.de/familie-und-kinder/infos-rund-um-kindergeld",
       "summary": "Kindergeld is Germany's universal monthly child benefit, paid to parents/guardians regardless of household income to help cover children's basic needs. Generally paid for each child up to age 18, with extension to age 25 for children in vocational training or higher education, and to 21 for those registered as job-seeking (conditions vary). Administered by the Familienkasse of the Federal Employment Agency; applications are submitted in writing or online.",
       "eligibilityNote": "Eligibility depends on residence, the child's age and status (e.g. education/training), and other case factors; not determined here — confirm with the Familienkasse / Bundesagentur für Arbeit.",
       "legalBasis": "Einkommensteuergesetz (EStG) §§31, 62-78; Bundeskindergeldgesetz (BKGG)",
       "language": "de",
-      "provenance": "https://www.arbeitsagentur.de/familie-und-kinder/kindergeld-verstehen ; https://familienportal.de/familienportal/meta/languages/family-benefits/child-benefit-141946 ; https://handbookgermany.de/en/child-benefit",
+      "provenance": "https://www.arbeitsagentur.de/familie-und-kinder/infos-rund-um-kindergeld ; https://familienportal.de/familienportal/meta/languages/family-benefits/child-benefit-141946 ; https://handbookgermany.de/en/child-benefit",
       "lastVerified": "2026-06-02T00:00:00Z",
       "verificationStatus": "unverified-seed",
       "confidence": "high",
@@ -2882,7 +2882,7 @@
       "jurisdiction": "intl-unicef",
       "careKind": "child-allowance",
       "authority": "United Nations Children's Fund (UNICEF), Social Policy and Social Protection",
-      "accessUrl": "https://www.unicef.org/social-policy/child-benefits",
+      "accessUrl": "https://www.unicef.org/reports/universal-child-benefits-2020",
       "summary": "UNICEF's social-policy reference body on child and family benefits, including the 'Universal Child Benefits' work (with ODI) and guidance on child grants as a foundation of child-sensitive social protection. Describes how child benefits — cash or tax transfers to families with children — reduce child poverty and improve schooling, health and nutrition, and documents global coverage gaps. hagukumi uses it as an international evidence/reference layer to contextualise national child-allowance programs and direct families toward their country's official child-benefit authority.",
       "eligibilityNote": "Global reference/advocacy body, not a benefit payer; no individual eligibility here. Any actual child benefit is administered nationally — confirm current rules and amounts with the relevant national authority.",
       "legalBasis": "Convention on the Rights of the Child (referenced framework; not a benefit statute)",
@@ -2891,7 +2891,7 @@
       "lastVerified": "2026-06-02T00:00:00Z",
       "verificationStatus": "unverified-seed",
       "confidence": "high",
-      "notes": "hagukumi is a community CARE substrate (Liberation Ladder L4 Care, ADR-2605261030) — NOT a licensed care provider, NOT a benefits-determination service. This is an INFORMATIONAL directory of OFFICIAL public care-support programs (child + elder) for routing families to official support; it makes NO eligibility or benefit determination (eligibility + amounts vary by case and drift — confirm with the authority) and provides no care service here. UNVERIFIED SEED scaffold. accessUrl is the UNICEF social-policy child-benefits landing; the 2020 Universal Child Benefits report is the primary cited artifact."
+      "notes": "hagukumi is a community CARE substrate (Liberation Ladder L4 Care, ADR-2605261030) — NOT a licensed care provider, NOT a benefits-determination service. This is an INFORMATIONAL directory of OFFICIAL public care-support programs (child + elder) for routing families to official support; it makes NO eligibility or benefit determination (eligibility + amounts vary by case and drift — confirm with the authority) and provides no care service here. UNVERIFIED SEED scaffold. accessUrl updated 2026-07-10: the original www.unicef.org/social-policy/child-benefits landing now 404s (confirmed via real-browser check, UNICEF's own branded \"Page not found\" page, not a WAF/bot block) — swapped to the already-cited provenance URL (the 2020 Universal Child Benefits report), confirmed live with title \"Universal child benefits | UNICEF\"."
     },
     {
       "programId": "intl-eu-family-benefits-coordination",
