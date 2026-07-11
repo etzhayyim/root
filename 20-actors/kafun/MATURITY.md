@@ -10,7 +10,10 @@
 | **Murakumo digest** (R1) | `digest.cljc`: kafun narrates its remediation MAP (L1-1/L3-1 bottlenecks + refusals + downstream actors) via the Murakumo fleet — injected `infer`, FAIL-OPEN to a deterministic template (G6, verified offline), loopback-only `murakumo-infer` (non-loopback host refused); emitted `:digest/status :dry-run` ONLY (G8, `:published` unrepresentable) | ✅ landed |
 | **lexicons** (R1) | AT-proto lexicon JSON under `00-contracts/lexicons/com/etzhayyim/kafun/` — `remediationVerdict` + `pollenRemediationMap` (tatara/kaname convention); G1/G2/G5 guards as `const` (`isCutList:false`, `neverActuates:true`), all 11 verdict/reason/route enums in parity with `remediate.cljc` | ✅ landed |
 | **fleet** (R1) | `cell.cljc` `fire` (KafunRemediationHeartbeatCell) registered in `50-infra/cluster/murakumo/cell-runner/cells.edn` — node simeon, cron `31 * * * *`, healthz 13091 (the kaname/mimamori maturity track); one deterministic, idempotent-by-content remediation beat (verified: fire#0 appends, fire#1 no-op, chain ok); no-server-key, no external I/O | ✅ landed |
+| **system-dynamics ReAct loop** (ADR-2607102230) | `dynamics.cljc`: kafun's OWN readiness stock-flow (`:supply-level`/`:consent-level` accumulating toward a ready-threshold, re-scored through the UNCHANGED `remediate/verdict` — G1/G4 hold through a forecast exactly as live). `react_loop.cljc`: SENSE→ORIENT→HYPOTHESIZE→REVIEW→RANK→EVOLVE→ACT→OBSERVE→LEARN→PERSIST (mirrors ibuki's shape, ADR-2606201200); ACT is a pre-registered forecast + a propose-only route to sanae/musubi (never actuation kafun itself carries out, G5 unchanged); own ledger, idempotent-by-content, verify-chain | ✅ landed |
 | R1 — real stands (G7) | real cadastral + Sentinel-2/ALOS canopy → kotoba (the legacy ADR-2605100100 scout→cadastral→envoy pipeline, behind an operator flip) | ⏳ (operator/Council step) |
+| R1 — real readiness feed (G7) | replace `react_loop.cljc`'s `representative-progress` R0 stand-in with a real sapling-nursery/consent-registry feed (same operator-flip discipline as the canopy-detection roadmap) | ⏳ (operator/Council step) |
+| R1 — react-loop fleet cell | register `react_loop/beat` as its own Murakumo cell (cron cadence + healthz port), separate from `KafunRemediationHeartbeatCell` | ⏳ |
 | R2+ | live forestry — a SEPARATE landowner + operator/Council step, NEVER kafun (G5/G7) | ⏳ (out of kafun scope by G5) |
 
 ## Tests
@@ -24,11 +27,14 @@ bb --classpath 20-actors 20-actors/kafun/methods/test_autorun.cljc      # 4 test
 bb -cp "20-actors:70-tools/src:20-actors/kotodama/src" \
    20-actors/kafun/methods/test_ie_flow.cljc                            # 8 tests / 28 assertions (ie-flow + viz + record!)
 bb --classpath 20-actors 20-actors/kafun/methods/test_digest.cljc       # 8 tests / 21 assertions (Murakumo digest + fail-open)
-# or all six at once:
+bb --classpath 20-actors 20-actors/kafun/methods/test_bottleneck.cljc   # 4 tests / 8 assertions (pipeline bottleneck lens)
+bb --classpath 20-actors 20-actors/kafun/methods/test_dynamics.cljc     # 8 tests / 15 assertions (readiness stock-flow)
+bb --classpath 20-actors 20-actors/kafun/methods/test_react_loop.cljc   # 13 tests / 30 assertions (SD ReAct loop)
+# or all nine at once:
 ./20-actors/kafun/run_tests.sh
 ```
 
-38 tests / 111 assertions green.
+63 tests / 164 assertions green.
 
 ## Invariants held
 
@@ -43,3 +49,4 @@ bb --classpath 20-actors 20-actors/kafun/methods/test_digest.cljc       # 8 test
 - ie-flow: embeds the SHARED metrics (not a fork); kafun moves INFORMATION-energy only (a prioritized map), never physical forestry
 - score: a parasitic / 子孫-harming kafun would be vetoed to 0 — it cannot feed the organism reward by predation (G-parasitism / G-subordinate as a scalar)
 - R0 seed `:synthetic` (real cadastral/satellite ingest + live actuation = operator/Council steps)
+- SD react-loop: every forecasted stand is re-scored through the UNCHANGED `remediate/verdict` — no duplicated or relaxed gate, so a `replant=false`/carbon-positive stand can never advance in a forecast either (G1/G4 test-enforced); ACT persists a forecast + a propose-only route, never an experiment kafun itself carries out (G5); the realized readiness rate is a function of the beat index only, never of kafun's own chosen scenario (a proposal is never conflated with the outside world's actual pace)

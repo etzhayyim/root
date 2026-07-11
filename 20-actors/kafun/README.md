@@ -60,7 +60,9 @@ methods/remediate.cljc    pollen-burden → verdict → assess → render-datoms
 methods/kotoba.cljc       持続永続化: content-addressed append-only REMEDIATION LEDGER
 methods/autorun.cljc      持続永続化: deterministic, idempotent-by-content heartbeat (+ bb CLI)
 methods/ie_flow.cljc      SoS: embeds shared etzhayyim.ie-flow.metrics + energy-flow viz generator (+ bb CLI)
-methods/test_*.cljc       loader + gate + ledger + heartbeat + ie-flow invariants
+methods/dynamics.cljc     kafun's OWN readiness stock-flow (system dynamics; ADR-2607102230)
+methods/react_loop.cljc   SD ReAct beat over the readiness stock-flow (+ bb CLI; ADR-2607102230)
+methods/test_*.cljc       loader + gate + ledger + heartbeat + ie-flow + bottleneck + SD-react-loop invariants
 kotoba/ontology.kafun.edn EAVT schema + enums + refuse-reasons + negative space
 kotoba/seed.edn           12 synthetic stands spanning all verdicts
 viz/energy-flow.html      generated, self-contained energy-flow visualization (ie · SoS)
@@ -83,12 +85,33 @@ bb -cp "20-actors:70-tools/src:20-actors/kotodama/src" 20-actors/kafun/methods/i
 open 20-actors/kafun/viz/energy-flow.html
 ```
 
+## System-dynamics ReAct loop (ADR-2607102230)
+
+`methods/dynamics.cljc` is kafun's OWN readiness stock-flow (`:supply-level`/`:consent-level`
+∈ [0,1] accumulating toward a ready-threshold, exactly like a bathtub filling before it
+overflows) — a DIFFERENT stock from the shared `etzhayyim.ie-flow.dynamics` (SaaS-shaped) or
+tsuchifumi's `sysdyn.cljc` (a separate risk-domain model). Every forecasted stand is re-scored
+through the UNCHANGED `remediate/verdict` — a forecast can never make a `replant=false` or
+carbon-positive stand advance (G1/G4 hold through the forecast, not just live assessment).
+
+`methods/react_loop.cljc` wraps it in a ReAct beat (mirrors ibuki's shape, ADR-2606201200):
+SENSE (fold its own ledger) → ORIENT (leak-free surprise) → HYPOTHESIZE (a fixed catalog of
+readiness-rate scenarios targeting the CURRENT binding bottleneck) → REVIEW → RANK (kaizen-
+weighted efficiency) → EVOLVE (recombine) → **ACT** (a PRE-REGISTERED forecast + a PROPOSAL
+routed to sanae/musubi — never an experiment kafun itself carries out; G5 unchanged) → OBSERVE
+→ LEARN → PERSIST (its own ledger, idempotent-by-content).
+
+```bash
+bb --classpath 20-actors 20-actors/kafun/methods/react_loop.cljc   # one SD react-loop beat
+```
+
 ## Run
 
 ```bash
-./20-actors/kafun/run_tests.sh                                  # 4 suites (22 tests / 62 assert)
+./20-actors/kafun/run_tests.sh                                  # 9 suites (63 tests / 164 assert)
 bb --classpath 20-actors 20-actors/kafun/methods/remediate.cljc # print the remediation map
 bb --classpath 20-actors 20-actors/kafun/methods/autorun.cljc   # heartbeat → append to ledger
+bb --classpath 20-actors 20-actors/kafun/methods/react_loop.cljc # SD react-loop beat → forecast + propose
 ```
 
 R0 synthetic seed → 3 `:reforest-priority`, 1 `:await-sapling-supply`,
