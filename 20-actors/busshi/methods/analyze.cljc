@@ -18,7 +18,8 @@
         forecast point (no point-forecast attribute exists; mitooshi does dists).
     G5  aggregate-first — no precise mine coordinates; a RESILIENCE map, NEVER a
         target-list (the report says so, in those words)."
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [busshi.methods.busshi-edn :as be]))
 
 ;; ── pure analytics ───────────────────────────────────────────────────────────
 
@@ -244,8 +245,7 @@
 #?(:clj
    (defn -main [& args]
      (let [seed (or (first args) "20-actors/busshi/kotoba/seed.edn")
-           rows (clojure.edn/read-string (slurp seed))
-           cs (vec (filter #(= (:type %) :commodity) rows))
+           cs (be/commodities seed)
            a (analyze cs)
            cov (coverage cs)]
        (println (render-report a cov))

@@ -16,9 +16,12 @@ honest framing (G8): できていないことは「未」と明記する。
 
 - 整合: `manifest-lexicon-drift` audit で **sonae はドリフト 0**(manifest の 6
   lexiconNamespaces が 6 ファイルへ解決)。
-- coverage: fail-closed invariants test **計20件緑** — 憲法ゲート 10件
-  (`test_sonae_lexicon_invariants.py`)+ warning-source registry 10件
-  (`test_sonae_warning_sources_seed.py`)。
+- coverage: fail-closed invariants test **計20件緑**(Python 版、併存)— 憲法ゲート
+  10件(`test_sonae_lexicon_invariants.py`)+ warning-source registry 10件
+  (`test_sonae_warning_sources_seed.py`)。**2026-07-10 に native cljc 版
+  `methods/test_charter_gates.cljc`(bb `run_tests.clj`)へ移植 — 22 test /
+  249 assertion 緑**(runtime-priority debt 解消。repo-root CLAUDE.md の
+  kotoba wasm > clojurewasm > cljs > nbb > 降格 JVM/bb ラダーに Python は無い)。
 - data asset: `registry/warning-sources.seed.json` — 権威ある警報発信元の
   allowlist **20件 / 16 jurisdictions**(G8 relay 元)。
 - 未: cell solver(R1 で実装、現状 path-reserved のみ) · 実 feed 連携(R1) ·
@@ -67,3 +70,28 @@ honest framing (G8): できていないことは「未」と明記する。
   **20件緑** / drift 0 / deps.toml + 全 sonae JSON parse OK。R0 ceiling 不変。
   → R0 scaffold は **登録・整合・検証まで closing**。次の成熟は R1 ゲート
   (Council 承認 / 実 feed / Sendai 自己評価 / 訓練)か registry VERIFICATION.md。
+
+- 2026-07-10 runtime-priority debt closed (native cljc port): repo runtime 優先順位
+  (kotoba wasm > clojurewasm > cljs > nbb > 降格 JVM/bb; Python はこの梯子に無い)
+  に沿って、既存 20 件の Python fail-closed invariants(`test_sonae_lexicon_invariants.py`
+  10件 + `test_sonae_warning_sources_seed.py` 10件)を chigiri/narashi と同形の
+  substrate-native `20-actors/sonae/methods/test_charter_gates.cljc` +
+  `run_tests.clj`(bb)へ移植。ゲート内容は sonae 自身の manifest.jsonld/CLAUDE.md/
+  ADR-2606091200 から再導出(Python の盲目転写ではない)— **22 test / 249
+  assertion、全緑**: manifest identity + 構造カウント(6 cells 全 naphtali / 6
+  lexiconNamespaces / **G1..G12** 12 gates / **N1..N12** 12 non-goals、cell 名集合
+  drift guard 追加)/ 全 namespace が id 一致でファイル解決 / **G8** relayOnly
+  const true + authoritativeSource 必須 / **G6+G4** hazardSignalRecord
+  openDataOnlyAttested const true + sourceFeed ⊆ open-feed allowlist / **G3+G6**
+  siteRiskProfile communityScaleAttested const true + 個人レベルフィールド不在 /
+  **G6** drillAttestation participantsOptIn const true / **G4 negative** 禁止
+  ベンダ不在 / manifest が falseAuthorityInvariant + phaseBoundaryInvariant +
+  civilianOnlyInvariant + N3(not response)を宣言 / **G10 新規**: 6 lexicon 全件
+  emergencyDeclared 等の宣言フィールド構造的不在 / **新規**: drillAttestation が
+  kazaori R1 drill gate 用 satisfiesKazaoriR1DrillGate を露出 / registry
+  (warning-sources.seed.json)10 invariants(unique sourceId / 全件
+  unverified-seed / URL+ISO8601 timestamp / 16 jurisdictions ≥12 / sourceKind
+  taxonomy / G8 authoritative+relay notes / freshnessWindowDays / lexicon
+  vocabulary の双方向カバレッジ)。Python 版は本イテレーションでは削除せず併存
+  (退役は native 版の CI 実証後のフォローアップ)。test-only・network-free・
+  cell 非実行で **R0 ceiling 不変**。

@@ -160,9 +160,38 @@
      (def registry-default (str (io/file sources-dir "world-card-issuers.edn")))
      (def kotoba-log-default (str (io/file sources-dir "world-card-issuers.kotoba.edn")))
 
+     (defn- unblob
+       "A tx-data attribute value that is a pr-str'd non-scalar (nested map / vector-of-maps)
+       comes back as a string; parse it back to the live collection. Scalars pass through
+       unchanged. (edn-datomize.cljs wrap-map! blob convention.)"
+       [v]
+       (if (string? v)
+         (try (let [parsed (edn/read-string v)] (if (coll? parsed) parsed v))
+              (catch Exception _ v))
+         v))
+
+     (defn- reconstitute-registry
+       "world-card-issuers.edn is wrapped as Datomic/Datascript tx-data
+       (`[{:db/id -1 :world-card-issuers/meta \"...\" :world-card-issuers/sources \"...\"}]`,
+       manifest/edn-datomize.cljs wrap-map!) so it stays queryable as a Datom log. Every
+       in-repo reader of this registry (registry-datoms/coverage/resolve-source/normalize)
+       expects the ORIGINAL bare map `{:meta {...} :sources [{...} ...]}`, so rebuild that
+       shape here — strip the :world-card-issuers/ namespace back to bare keys and unblob
+       the pr-str'd :meta / :sources values back into live EDN. No downstream caller changes."
+       [tx-data]
+       (into {} (map (fn [[k v]] [(keyword (name k)) (unblob v)]))
+             (dissoc (first tx-data) :db/id)))
+
+     (defn- already-tx-data? [content]
+       (and (vector? content) (seq content) (map? (first content)) (contains? (first content) :db/id)))
+
      (defn load-registry
        ([] (load-registry registry-default))
-       ([path] (edn/read-string (slurp (io/file path)))))
+       ([path]
+        (let [content (edn/read-string (slurp (io/file path)))]
+          (if (already-tx-data? content)
+            (reconstitute-registry content)
+            content))))
 
      (defn emit-log!
        "Persist the registry datoms as a ONE-tx public kotoba Datom log (committable — public

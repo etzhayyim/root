@@ -15,9 +15,23 @@
 (def ^:private DEFAULT-REGISTRY-PATH
   "20-actors/matsurigoto/data/procedures/jpn-gensen.edn")
 
+;; jpn-gensen.edn is now Datomic/Datascript tx-data (ADR-2607100030 fan-out): a single
+;; [{:db/id -1 :procedures.jpn-gensen/<key> <value-or-blob>}] entity. `unblob`/
+;; `reconstitute-entity` un-namespace + pr-str-parse it back into the original bare
+;; map so `(:procedures registry)` etc. below keep working unchanged.
+(defn- unblob [v]
+  (if (string? v)
+    (try (let [parsed (edn/read-string v)] (if (coll? parsed) parsed v))
+         (catch Exception _ v))
+    v))
+
+(defn- reconstitute-entity [tx-data]
+  (into {} (map (fn [[k v]] [(keyword (name k)) (unblob v)]))
+        (dissoc (first tx-data) :db/id)))
+
 (defn load-registry
   ([] (load-registry DEFAULT-REGISTRY-PATH))
-  ([path] (edn/read-string (slurp path))))
+  ([path] (reconstitute-entity (edn/read-string (slurp path)))))
 
 (defn procedures
   "registry の全手続き (シーケンス)。"

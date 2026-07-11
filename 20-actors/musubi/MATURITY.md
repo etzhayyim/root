@@ -17,6 +17,7 @@
 | 2 | manifest.jsonld + README + CLAUDE.md | ✅ | init |
 | 3 | 5 Lexicons (`com.etzhayyim.musubi.*`) | ✅ | init |
 | 4 | **ceremony-recognition registry seed (worldwide, 全件 unverified-seed)** | ✅ | **iter-1** |
+| 5 | **real computed-logic method beyond charter-gate schema conformance (`methods/ceremony_recognition_resolver.cljc`)** | ✅ | **loop iter #8 (2026-07-10)** |
 
 ## イテレーション記録
 
@@ -78,3 +79,56 @@ deps.toml の registry 反映。いずれも R1 ゲート(Council Lv6+ ≥3 rati
 既存 registry-seed テストが被覆していなかった **manifest G1–G13 + 5 lexicon の儀礼ゲート**を新設 `methods/test_charter_gates.cljc`(**7 tests green**, standalone・network-free)で固定: (1) manifest 厳密に G1–G13。(2) **G7 no-bride-price** ceremonyPerformance const bridePriceOrDowryAttested=false + silen const bridePriceOrDowryEventsCount=0。(3) **G3/G12 no-clergy-class** officiant const officiantClass="community-witnessed-competent" + lLevel="L5" + employmentRelation="vocation-flow" + silen const clergyClassOfficiantPenetrationPct=0(万人祭司・無給)。(4) **G5 consent** ceremony が partyConsentCids + primaryPartyDids + officiantAttestationCid 必須。(5) **G10 multi-gen** under18Count + adultCount + over65Count + cohortRatio + witnessAttestationCids 必須。(6) **G6/G12** silen const commercialWeddingFuneralSoftware=0 + officiantVocationFlow=10000。(7) seasonalCeremonyCalendar const openToCommunity=true(cross-doctrinal、no monopoly)。`run_tests.sh` 新設。working-tree edits only。
 
 > **2026-06-17 substrate-native migration (ADR-2606160842):** the charter-gate test above was ported Python→Clojure (`methods/test_charter_gates.py` → `methods/test_charter_gates.cljc`, ns `musubi.methods.test-charter-gates`, reads the lexicons via cheshire/edn) and the Python was pruned. Run via `./run_tests.sh` (now `exec bb`) or `bb run test:charter` (all 34 charter suites; 244 tests / 924 assertions green). Assertions unchanged (1:1 port).
+
+### 2026-07-10 (loop iter #8) — musubi's first COMMITTED real computed-logic method: ceremony-recognition resolver
+
+Prior state (confirmed before writing anything): `20-actors/musubi/methods/` contained
+**only** `test_charter_gates.cljc` (schema-conformance tests — required-field / const /
+knownValues assertions against the 5 lexicons + manifest, zero computed business logic).
+The 2026-06-02 entry above (line "R1 recognition resolver (gate closed)") describes a
+`kotodama.cells.musubi_recognition_resolver` cell + `recognition_resolver.py` core + 37
+Python tests — **none of that is present anywhere in the current tree** (`grep -r
+recognition_resolver .` across the whole repo: zero hits). Per that same entry's own
+"working-tree のみ(コミットなし)" note (also on the VERIFICATION.md line above it), the
+Python work described was apparently never git-committed and has since been lost. This
+iteration builds the **first version of this logic that is actually landed in git**,
+skipping the abandoned Python detour and going straight to substrate-native `.cljc`
+(runtime-priority rules: cljs/nbb-family over JVM-only Python).
+
+**New `methods/ceremony_recognition_resolver.cljc`** (`musubi.methods.ceremony-recognition-resolver`):
+`resolve-recognition` — pure fn, `registry` (vector of raw JSON recognition maps) +
+`jurisdiction` (+ optional `ceremony-type`) → matching entries, confidence-desc
+(high→medium→low, unrecognized confidence sorts last) then title-asc, **unknown
+jurisdiction → `[]`** (never an error), every returned entry gets `isLegalOpinion=false` +
+`confersCivilStatus=false` **coded into the output map itself** (not merely documented in
+prose, mirroring the 2026-06-02 spec's "record builder で assert" intent) — G14-adjacent
+UPL/no-civil-status boundary already stated in each seed entry's own `notes` field.
+`has-recognition-mapping?` convenience predicate. `load-registry`/`default-seed-path`
+(`:clj`-only) read the actual committed `registry/ceremony-recognition.seed.json` (54
+entries / 36 jurisdictions — public jurisdiction civil-procedure facts, e.g. "Japan's
+Civil Code requires 婚姻届 for marriage to take legal effect" — not personal data of any
+real person), mirroring `chigiri.methods.registry`'s own loader idiom exactly.
+
+**New `methods/test_ceremony_recognition_resolver.cljc`**: 9 tests, entirely SYNTHETIC
+fixture registry (fake jurisdictions `zz1`/`zz2`/`zz9`, fake titles) for the core edge
+cases — unknown jurisdiction, ceremony-type filter, nil-ceremony-type = all types,
+confidence+title sort order (incl. tie-break and unrecognized-confidence degrade-last),
+G14-style coded-invariant assertion, blank/nil jurisdiction rejection, `has-recognition-mapping?`
+— plus **one** composition-proof test against the REAL shipped seed (jpn/marriage → the 3
+known entries in the known confidence/title order) proving the resolver genuinely queries
+the actual committed data, not only a mock (same proof-of-composition idiom as credits'
+`test-parity-with-shomei-aggregate`).
+
+`run_tests.sh` updated to the self-contained multi-namespace `bb -e` require list (credits
+G10 precedent). Full musubi suite: **16 tests / 45 assertions, green**
+(`./20-actors/musubi/run_tests.sh` and `bb run test:actors`, auto-discovered).
+
+**No manifest/gate-count change** — G1–G13 unchanged; this closes an *implementation* gap
+under the existing informational-only boundary, it does not add a new numbered gate.
+**Explicitly left out of scope this iteration (honest, G8)**: the `com.etzhayyim.musubi.ceremonyRecognition`
+lexicon the seed's `$schema` field points at still does not exist (same as before this
+iteration — not created here, matching credits' own "Lexicons out of scope this slice"
+precedent); no Pregel cell wiring (`musubi_marriage_ceremony` etc. remain R0
+`RuntimeError` scaffolds); no live I/O; no real member/ceremony/relationship data anywhere
+in this change — only the pre-existing public jurisdiction seed plus synthetic test
+fixtures.

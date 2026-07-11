@@ -11,19 +11,25 @@
     dump-needs  — write the codes lacking spec-fields to data/needs-enrichment.jsonl
                   (batched lines {code,title,segment,family} for the sub-agents)
     merge       — overlay generated enrichment (data/enrichment/*.json) onto the
-                  taxonomy EDN and rewrite resources/unspsc-taxonomy.edn"
+                  taxonomy EDN and rewrite resources/unspsc-taxonomy.edn
+
+  On disk, resources/unspsc-taxonomy.edn is tx-data (per the 'datomic/
+  datascript queryable' pass); load-taxonomy/spit-taxonomy are the only
+  place this ns converts to/from the plain code->record map that the rest
+  of this file operates on (see unspsc.taxonomy/tx-data->table + table->tx-data)."
   (:require [clojure.data.json :as json]
             [clojure.edn :as edn]
             [clojure.java.io :as io]
-            [clojure.string :as str])
+            [clojure.string :as str]
+            [unspsc.taxonomy :as taxonomy])
   (:gen-class))
 
 (def ^:private taxonomy-path "resources/unspsc-taxonomy.edn")
 
-(defn- load-taxonomy [] (edn/read-string (slurp taxonomy-path)))
+(defn- load-taxonomy [] (taxonomy/normalize-loaded (edn/read-string (slurp taxonomy-path))))
 
 (defn- spit-taxonomy [tax]
-  (spit taxonomy-path (with-out-str (binding [*print-length* nil] (prn tax)))))
+  (spit taxonomy-path (with-out-str (binding [*print-length* nil] (pr (taxonomy/table->tx-data tax))))))
 
 ;; ── dump codes needing enrichment ───────────────────────────────────────────
 

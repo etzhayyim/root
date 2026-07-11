@@ -98,9 +98,31 @@
 ;; ── load ─────────────────────────────────────────────────────────────────────
 (defn parse [edn-text] (edn/read-string edn-text))
 
+;; data/seed-parcels.kotoba.edn is stored as Datomic/Datascript tx-data
+;; (`[{:db/id -1 :data.seed-parcels/owners "…blob…" :data.seed-parcels/parcels "…blob…"}]`,
+;; Phase 4 edn-datomize) rather than the original bare `{:owners […] :parcels […]}` map.
+;; tx-data?/unblob/reconstitute detect that shape and rebuild the original bare map so
+;; every downstream consumer (analyze/coverage/datom-emit + all test namespaces, which all
+;; funnel through this single load-file* chokepoint) keeps working unchanged.
+(defn tx-data? [content]
+  (and (vector? content) (seq content) (map? (first content)) (contains? (first content) :db/id)))
+
+(defn- unblob [v]
+  (if (string? v)
+    (try (let [parsed (edn/read-string v)] (if (coll? parsed) parsed v))
+         (catch #?(:clj Exception :cljs :default) _ v))
+    v))
+
+(defn- reconstitute-entity [tx-data]
+  (into {} (map (fn [[k v]] [(keyword (name k)) (unblob v)]))
+        (dissoc (first tx-data) :db/id)))
+
 #?(:clj
    (defn load-file* [f]
-     (parse (slurp (io/file f)))))
+     (let [content (parse (slurp (io/file f)))]
+       (if (tx-data? content)
+         (reconstitute-entity content)
+         content))))
 
 ;; ── analyze ──────────────────────────────────────────────────────────────────
 (defn- safe-div [n d] (if (zero? d) 0.0 (/ (double n) (double d))))

@@ -40,10 +40,14 @@
 
 (defn kv*
   "Extract the value token for `key` from an entity map literal, or nil. Quoted strings are
-  unquoted; keywords (\":…\") and numbers are returned as their raw token. Port of _kv."
+  unquoted; keywords (\":…\") and numbers are returned as their raw token. Port of _kv.
+  The keyword/number token class excludes `,` as well as whitespace/]/} so that a
+  Datomic/Datascript tx-data entity (`pr-str`'d maps use `, ` between k/v pairs, e.g.
+  `:product/ring :internal, :db/id -1`) doesn't bleed a trailing comma into the
+  extracted value (2026-07-10, makura datomize pass)."
   [entity key]
   (let [pat (re-pattern (str (java.util.regex.Pattern/quote key)
-                             "\\s+(\"[^\"]*\"|:[^\\s\\]}]+|[-\\d.]+)"))
+                             "\\s+(\"[^\"]*\"|:[^\\s\\]},]+|[-\\d.]+)"))
         m (re-find pat entity)]
     (when m
       (let [v (second m)]

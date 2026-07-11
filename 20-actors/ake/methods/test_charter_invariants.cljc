@@ -27,12 +27,12 @@
 
 #?(:clj
    (defn- props [lex-name]
-     (-> (edn/load-edn (str lex-dir "/" lex-name ".edn"))
+     (-> (edn/reconstitute (edn/load-edn (str lex-dir "/" lex-name ".edn")) (str "lex." lex-name))
          (get-in [":defs" ":main" ":record" ":properties"]))))
 
 #?(:clj
    (defn- required [lex-name]
-     (-> (edn/load-edn (str lex-dir "/" lex-name ".edn"))
+     (-> (edn/reconstitute (edn/load-edn (str lex-dir "/" lex-name ".edn")) (str "lex." lex-name))
          (get-in [":defs" ":main" ":record" ":required"]))))
 
 ;; ── G3 mirror-preserving: only facts/profiles, never speech-as-entity ───────

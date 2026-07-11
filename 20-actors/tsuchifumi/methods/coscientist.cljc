@@ -32,7 +32,8 @@
     G-leash        the identified action is a DRY-RUN proposal carried by ossekai; the
                    identified research is a STUDY request — coscientist never acts."
   (:require [clojure.string :as str]
-            [tsuchifumi.methods.analyze :as an]))
+            [tsuchifumi.methods.analyze :as an]
+            [tsuchifumi.methods.tsuchifumi-edn :as te]))
 
 ;; ── mechanism vocabulary (closed) ───────────────────────────────────────────
 (def aligned-mechanisms
@@ -287,7 +288,7 @@
 #?(:clj
    (defn -main [& args]
      (let [seed (or (first args) "20-actors/tsuchifumi/kotoba/seed.edn")
-           rows (clojure.edn/read-string (slurp seed))
+           rows (te/reconstitute-rows (clojure.edn/read-string (slurp seed)))
            regions (vec (filter #(= (:type %) :region) rows))
            evidence (vec (filter #(= (:type %) :evidence) rows))
            assessment (an/assess regions evidence)

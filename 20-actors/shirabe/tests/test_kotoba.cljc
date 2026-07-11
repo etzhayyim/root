@@ -7,7 +7,24 @@
             [shirabe.methods.session :as session]
             [shirabe.methods.kotoba :as kotoba]))
 
-(def fx (edn/read-string (slurp (io/resource "shirabe/data/fixtures/shimada-aoyama.kotoba.edn"))))
+(defn- unblob
+  "The fixture is stored as Datomic/Datascript tx-data (see ../schema.edn); non-scalar
+  attrs are pr-str'd blobs. Parse back to the original nested value."
+  [v]
+  (if (string? v)
+    (try (let [parsed (edn/read-string v)] (if (coll? parsed) parsed v))
+         (catch Exception _ v))
+    v))
+
+(defn- reconstitute-entity
+  "Reconstitute the fixture's original bare map ({:question .. :asof .. :search ..
+  :answer .. :live-reverify ..}) from its tx-data entity, so downstream key lookups
+  (:question fx / :asof fx / (get-in fx [:search \"*\"])) keep working unchanged."
+  [tx-data]
+  (into {} (map (fn [[k v]] [(keyword (name k)) (unblob v)]))
+        (dissoc (first tx-data) :db/id)))
+
+(def fx (reconstitute-entity (edn/read-string (slurp (io/resource "shirabe/data/fixtures/shimada-aoyama.kotoba.edn")))))
 (defn fetcher [_] (get-in fx [:search "*"]))
 (def infer (with-meta (fn [_] (:answer fx)) {:model-id "fixture:gemma4@127.0.0.1:11434"}))
 (def s (session/research (:question fx) fetcher infer (:asof fx)))

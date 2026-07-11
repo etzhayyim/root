@@ -21,10 +21,38 @@
             [soma.methods.road :as rd]
             [soma.methods.handoff :as ho]))
 
+(defn- tx-data?
+  "True if content is a datomic/datascript tx-data vector (one entity map with
+   :db/id), i.e. data/stand.edn's post-datomize shape."
+  [content]
+  (and (vector? content) (seq content) (map? (first content)) (contains? (first content) :db/id)))
+
+(defn- unblob
+  "pr-str'd non-scalar attribute values (nested maps / vectors-of-maps) come back
+   as strings from the tx-data shape; parse them back to data. Leaves live scalars
+   (and anything that fails to parse as a collection) untouched."
+  [v]
+  (if (string? v)
+    (try (let [parsed (edn/read-string v)] (if (coll? parsed) parsed v))
+         (catch Exception _ v))
+    v))
+
+(defn- reconstitute-entity
+  "Un-namespace + un-blob a tx-data entity back into the original bare seed map
+   (:stand/trees -> :trees etc.) so every downstream `(:keys [...])` destructure
+   in this ns and in delimb/loadout/siteprep/road/handoff keeps working unchanged."
+  [tx-data]
+  (into {} (map (fn [[k v]] [(keyword (name k)) (unblob v)]))
+        (dissoc (first tx-data) :db/id)))
+
 (defn load-seed
-  "Read the forest-stand EDN seed into a Clojure map."
+  "Read the forest-stand EDN seed into a Clojure map. Accepts either the legacy
+   bare map or the datomic/datascript tx-data vector (post-datomize) shape."
   [path]
-  (edn/read-string (slurp path)))
+  (let [content (edn/read-string (slurp path))]
+    (if (tx-data? content)
+      (reconstitute-entity content)
+      content)))
 
 (defn- aim-away-from-exclusions
   "Choose a fell aim azimuth (deg) for a tree: bias toward its natural lean, but

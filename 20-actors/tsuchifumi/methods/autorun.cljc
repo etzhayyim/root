@@ -18,6 +18,7 @@
             [tsuchifumi.methods.risk :as risk]
             [tsuchifumi.methods.coscientist :as cs]
             [tsuchifumi.methods.kotoba :as k]
+            [tsuchifumi.methods.tsuchifumi-edn :as te]
             #?(:clj [clojure.edn :as edn])))
 
 (defn beat
@@ -53,7 +54,7 @@
            log-path (or (second args)
                         (-> (clojure.java.io/file *file*) .getParentFile .getParentFile
                             (clojure.java.io/file "data" "persisted" "tsuchifumi.observation.kotoba.edn") str))
-           rows (edn/read-string (slurp seed))
+           rows (te/reconstitute-rows (edn/read-string (slurp seed)))
            regions (vec (filter #(= (:type %) :region) rows))
            evidence (vec (filter #(= (:type %) :evidence) rows))
            drivers (vec (filter #(= (:type %) :driver) rows))

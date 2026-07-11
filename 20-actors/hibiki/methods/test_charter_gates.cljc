@@ -16,7 +16,13 @@
     H7        aggregate-first     — audience ∈ {aggregate, targeted}; aggregate is the default
     H8 (§1.15) non-eschatological — musicBed ∈ {calm, neutral, hopeful-sober}; no fear/euphoria
 
-  It weakens no gate; it asserts them. The render() live leg stays R0-gated (H5/G8) elsewhere."
+  It weakens no gate; it asserts them. The render() live leg stays R0-gated (H5/G8) elsewhere.
+
+  `lex/presentation.edn` is now Datomic/Datascript tx-data (edn-datomize, Phase 4): a
+  single-entity vector `[{:db/id -1 :presentation/lexicon 1 :presentation/id \"...\"
+  :presentation/defs \"<pr-str blob>\"}]`. `lex` reconstitutes the original bare-keyed
+  lexicon map (`:defs` un-pr-str'd back to a live map) so record-node/const-of/enum-of/
+  maxlen-of below need no change."
   (:require [clojure.test :refer [deftest is run-tests]]
             [clojure.edn :as edn]))
 
@@ -25,8 +31,17 @@
      (def ^:private here (.getParentFile (java.io.File. ^String *file*)))   ;; methods/
      (def ^:private actor-dir (.getParentFile here))                       ;; hibiki/
      (def ^:private lexdir (java.io.File. actor-dir "lex"))
+     (defn- unblob [v]
+       (if (string? v)
+         (try (let [parsed (edn/read-string v)] (if (coll? parsed) parsed v))
+              (catch Exception _ v))
+         v))
+     (defn- reconstitute-entity [tx-data]
+       (into {} (map (fn [[k v]] [(keyword (name k)) (unblob v)]))
+             (dissoc (first tx-data) :db/id)))
      (defn- lex [name]
-       (edn/read-string (slurp (java.io.File. lexdir (str name ".edn")))))))
+       (reconstitute-entity
+        (edn/read-string (slurp (java.io.File. lexdir (str name ".edn"))))))))
 
 (defn- record-node [doc] (get-in doc [:defs :main :record]))
 (defn- const-of [doc field] (get-in (record-node doc) [:properties field :const]))

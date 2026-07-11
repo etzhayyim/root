@@ -41,7 +41,8 @@
             :education-access
             :food-system
             :labor-market
-            :health-access}
+            :health-access
+            :waste-sanitation-cycle}
   :source-class #{:household-consumption
                   :census-language
                   :retail-channel
@@ -50,7 +51,8 @@
                   :education
                   :labor
                   :governance
-                  :geospatial}
+                  :geospatial
+                  :solid-waste-management}
   :gate #{:analysis-only
           :hypothesis-only
           :aggregate-only

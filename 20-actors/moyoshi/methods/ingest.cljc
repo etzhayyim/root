@@ -51,10 +51,34 @@
              :colluding     (vec colluding)}]
     (fn [_gathering-id] obs)))
 
+(defn- unblob
+  "A Phase-4 edn-datomize blob attr pr-str's a non-scalar value into a string; undo
+  that (parse it back to the coll) so downstream un-namespaced key lookups keep
+  working unchanged. Non-string / non-parseable values pass through untouched."
+  [v]
+  (if (string? v)
+    (try (let [parsed (edn/read-string v)] (if (coll? parsed) parsed v))
+         (catch #?(:clj Exception :cljs :default) _ v))
+    v))
+
+(defn- reconstitute-entity
+  "Undo the Phase-4 edn-datomize wrap: a 1-entity tx-data vector `[{:db/id -1 ns/k v ...}]`
+  back into the original bare-keyed map `{:k v ...}` (namespace stripped, blobs unblobbed)."
+  [tx-data]
+  (into {} (map (fn [[k v]] [(keyword (name k)) (unblob v)]))
+        (dissoc (first tx-data) :db/id)))
+
+(defn- tx-data-vec?
+  [content]
+  (and (vector? content) (seq content) (map? (first content)) (contains? (first content) :db/id)))
+
 #?(:clj
    (defn load-kizuna
      "Read a committed kizuna readout edn (the file kizuna's heartbeat persists, or any
-     beat output dumped as edn). Returns the readout map. R3 live leg: point this at
-     kizuna's OWN committed log/readout (read-only, no key — the kaname join pattern)."
+     beat output dumped as edn — either its original bare-map shape, or the Phase-4
+     edn-datomize tx-data-wrapped shape). Returns the readout map. R3 live leg: point
+     this at kizuna's OWN committed log/readout (read-only, no key — the kaname join
+     pattern)."
      [path]
-     (-> (slurp path) (edn/read-string))))
+     (let [content (-> (slurp path) (edn/read-string))]
+       (if (tx-data-vec? content) (reconstitute-entity content) content))))

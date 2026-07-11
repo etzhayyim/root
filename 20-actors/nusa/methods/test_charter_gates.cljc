@@ -27,8 +27,23 @@
      (def ^:private here (.getParentFile (java.io.File. ^String *file*)))      ;; methods/
      (def ^:private actor-dir (.getParentFile here))                          ;; nusa/
      (def ^:private lexdir (java.io.File. actor-dir "lex"))
-     (defn- lex [name]
-       (edn/read-string (slurp (java.io.File. lexdir (str name ".edn")))))
+     (defn- unblob [v]
+       (if (string? v)
+         (try (let [parsed (edn/read-string v)] (if (coll? parsed) parsed v))
+              (catch Exception _ v))
+         v))
+     (defn- lex
+       "Read lex/<name>.edn. Tolerant of both the original bare-map shape and the
+       datomized tx-data shape ([{:db/id -1 :<name>/lexicon 1 :<name>/id .. :<name>/defs
+       <pr-str blob>}]) that edn-datomize produces — reconstitutes the original bare
+       map (namespace stripped, :defs un-pr-str'd) so record-node/enum-of/const-of below
+       keep working unchanged."
+       [name]
+       (let [raw (edn/read-string (slurp (java.io.File. lexdir (str name ".edn"))))]
+         (if (and (vector? raw) (map? (first raw)) (contains? (first raw) :db/id))
+           (into {} (map (fn [[k v]] [(keyword (clojure.core/name k)) (unblob v)]))
+                 (dissoc (first raw) :db/id))
+           raw)))
      (defn- manifest []
   (let [e (clojure.edn/read-string (slurp (java.io.File. actor-dir "manifest.edn")))
         gm (into {} (map (fn [g] [(:gate/id g) g]) (:actor/gates e)))]

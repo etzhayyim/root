@@ -1,18 +1,1 @@
-;; com.etzhayyim.sarutahiko.settlement — lexicon (EDN form) — USDC on-chain settlement
-;; ADR-2605252500 · Gen-3 deepen — fiat 非前提; USDC Base L2 + ERC-4337 + TitheRouter only (G18)
-{:lexicon 1
- :id "com.etzhayyim.sarutahiko.settlement"
- :defs
- {:main
-  {:type "record"
-   :key "tid"
-   :record
-   {:type "object"
-    :required ["settlementId" "orderId" "grossMinor" "state"]
-    :properties
-    {:settlementId {:type "string"}
-     :orderId      {:type "string" :description "→ vehicleOrder"}
-     :grossMinor   {:type "integer" :description "USDC minor (6-dp)"}
-     :titheMinor   {:type "integer" :description "10% TitheRouter auto-split → Public Fund"}
-     :buyerSigRef  {:type "string" :description "member passkey/smart-account signature; platform holds no key (G15)"}
-     :state        {:type "string" :description "intent|executed|refunded (escrow-refund only)"}}}}}}
+[{:db/id -1, :lex.settlement/lexicon 1, :lex.settlement/id "com.etzhayyim.sarutahiko.settlement", :lex.settlement/defs "{:main {:type \"record\", :key \"tid\", :record {:type \"object\", :required [\"settlementId\" \"orderId\" \"grossMinor\" \"state\"], :properties {:settlementId {:type \"string\"}, :orderId {:type \"string\", :description \"→ vehicleOrder\"}, :grossMinor {:type \"integer\", :description \"USDC minor (6-dp)\"}, :titheMinor {:type \"integer\", :description \"10% TitheRouter auto-split → Public Fund\"}, :buyerSigRef {:type \"string\", :description \"member passkey/smart-account signature; platform holds no key (G15)\"}, :state {:type \"string\", :description \"intent|executed|refunded (escrow-refund only)\"}}}}}"}]

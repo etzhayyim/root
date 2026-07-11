@@ -349,7 +349,10 @@ function roundRect(rx,ry,rw,rh,r){x.beginPath();x.moveTo(rx+r,ry);
            pos  (vec (remove #(str/starts-with? % "--") args))
            seed (or (first pos) "20-actors/kafun/kotoba/seed.edn")
            out  (or (second pos) "20-actors/kafun/viz/energy-flow.html")
-           stands (vec (filter #(= (:type %) :stand) (edn/read-string (slurp seed))))
+           ;; kafun-edn/stands, not a raw read+filter: seed.edn is Datomic/
+           ;; Datascript tx-data (Phase 4 EDN datomize) — kafun-edn/classify is
+           ;; where the tx-data -> bare-row reconstitution lives.
+           stands (ke/stands seed)
            st (flow-state stands)
            model (viz-model stands)]
        (clojure.java.io/make-parents out)

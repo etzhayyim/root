@@ -150,6 +150,51 @@ gender)** — the textbook "weakest-leverage" case. Keeps junkan's analysis-only
 reproduce** (`:junkan.demog/coerce-reproduction` is unrepresentable). A resilience MAP,
 never a population target or a country ranking.
 
+## Waste & sanitation-cycle substrate (clj-native, added 2026-07-10)
+
+The **third** concrete analysis junkan carries (sibling of consumer-culture; reuses the
+country/region loop-actor registry). Question: which structural factors keep parts of
+India's municipal solid-waste system in an **uncollected / unsegregated / open-dumping /
+informal-exclusion (accumulation)** regime, and which are moving it toward **reliable
+collection / source segregation / processing capacity / recycler-market linkage
+(circularity)** — the "system dynamics react loop" behind street-waste accumulation and
+public-hygiene outcomes.
+
+- `methods/waste_sanitation.cljc` — analysis-only read-off (8 stocks: collection-
+  reliability / source-segregation / informal-worker-integration / municipal-processing-
+  capacity / landfill-dependency / recycler-market-linkage / public-compliance-norm /
+  regulatory-enforcement; 5 loops: R-segregation-recycler-linkage / R-collection-
+  compliance-trust / R-informal-integration-recycler-linkage / B-processing-capacity-
+  landfill / B-enforcement-informal-displacement). Same architecture as
+  `consumer_culture.cljc` (signal → contribution → stock pressure → regime → loop drive).
+  **No outward channel (G4 by absence).**
+- `kotoba/seed.india-waste-sanitation.edn` — 12 representative signals across all 7
+  regions/pan-India and both polarities (`:toward-circular` / `:toward-accumulation`),
+  citing CPCB SWM Rules implementation reporting, SBM-U (Gramin+Urban), and MoHUA as
+  public source classes. Hypothesis-only, non-essentialist (explicit counter-forces:
+  door-to-door scale-up, segregation-at-source pilots, waste-picker cooperative
+  integration, legacy-dumpsite bioremediation, civic behaviour-change campaigns).
+- Registered as the `:waste-sanitation-cycle` domain in
+  `kotoba/ontology.country-region-loop-actors.edn` (`:domain` enum) and
+  `kotoba/seed.country-region-loop-actors.edn` (`world` + `IN` + `IN-NORTH`/`IN-SOUTH`/
+  `IN-WEST`/`IN-EAST`/`IN-NORTHEAST`/`IN-CENTRAL` loop-actors), alongside
+  `packaged-goods-culture` — same registry, same `methods/country_region_actors.cljc`
+  validation (parent chains, required gates, domain inheritance, fission rules).
+- `methods/test_waste_sanitation.cljc` — mirrors `test_consumer_culture.cljc` (contribution
+  sign · analysis shape/invariants · region+language coverage · counterforces explicit ·
+  loop grounding · report rendering). `methods/test_country_region_actors.cljc` extended
+  with waste-sanitation-cycle fission + domain-inheritance tests.
+
+**Scope boundary — this is deliberately analysis-only, not the collection/recycling
+business itself.** junkan reads the loop; it does not dispatch a collection vehicle,
+route a truck, or pay a recycler — that would be an outward channel and is barred by G4.
+On-the-ground collection/sorting/recycling-business *execution* (the "robo/giemon collect
+and sort waste" side of the question) is out of scope for junkan by design and belongs to
+a separate, Governor-gated actor (robotaxi-actor pattern: intelligence-node proposal +
+independent PolicyGovernor/SafetyGovernor + append-only audit ledger) which MAY read
+junkan's findings as input but which junkan does not compose with or actuate (G4/G13) —
+the same analysis/intervention split junkan already keeps with ossekai.
+
 ## Self-publication seed (ADR-2606272355) — register → autonomize → publish, no-server-key
 
 junkan is wired with the **actor self-publication seed**: the uniform, charter-clean way

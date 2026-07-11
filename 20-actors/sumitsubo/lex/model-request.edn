@@ -1,18 +1,1 @@
-;; com.etzhayyim.sumitsubo.modelRequest — lexicon (EDN form)
-;; ADR-2606033600 — the generative request (NL → ModelOp plan → Datoms)
-{:lexicon 1
- :id "com.etzhayyim.sumitsubo.modelRequest"
- :defs
- {:main
-  {:type "record"
-   :key "tid"
-   :record
-   {:type "object"
-    :required ["requestId" "prompt"]
-    :properties
-    {:requestId {:type "string"}
-     :prompt    {:type "string" :description "NL modeling prompt"}
-     :memberDid {:type "string" :description "requesting member DID (PII envelope if retained)"}
-     :producedDrawingId {:type "string" :description "ref to produced drawing"}
-     :opCount   {:type "integer" :description "validated ModelOps emitted"}
-     :sourcing  {:type "string" :description "representative unless dimensioned (G7)"}}}}}}
+[{:db/id -1, :modelRequest/lexicon 1, :modelRequest/id "com.etzhayyim.sumitsubo.modelRequest", :modelRequest/defs "{:main {:type \"record\", :key \"tid\", :record {:type \"object\", :required [\"requestId\" \"prompt\"], :properties {:requestId {:type \"string\"}, :prompt {:type \"string\", :description \"NL modeling prompt\"}, :memberDid {:type \"string\", :description \"requesting member DID (PII envelope if retained)\"}, :producedDrawingId {:type \"string\", :description \"ref to produced drawing\"}, :opCount {:type \"integer\", :description \"validated ModelOps emitted\"}, :sourcing {:type \"string\", :description \"representative unless dimensioned (G7)\"}}}}}"}]
