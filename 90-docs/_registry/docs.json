@@ -27776,6 +27776,34 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2607111500-etzhayyim-evangelism-household-visit-record-target-list-carveout.md",
+      "id": "adr-2607111500-etzhayyim-evangelism-household-visit-record-target-list-carveout",
+      "title": "ADR-2607111500: 戸別伝道 世帯/個人 訪問記録 — target-list 限定 carve-out + crypto-shred 消去",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "etzhayyim-evangelism-household-visit-record",
+      "authoritative": true,
+      "authoritative_for": [
+        "etzhayyim における戸別伝道の世帯/個人単位データ保持の唯一の正本 carve-out 境界",
+        "founder 個人の private ministry record における crypto-shred 消去の正本設計"
+      ],
+      "related": [
+        "adr-2606111400-session-close-ibuki-delegation-revocable-leash",
+        "adr-2606062100-charter-priority-over-specifics-reconciliation"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2607061700-etzhayyim-active-evangelism-doctrine",
+        "adr-2606281500-actor-autonomous-publication-seed-and-grow-doctrine",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605231603-per-record-rekey-tombstone-protocol"
+      ],
+      "last_verified": "2026-07-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
