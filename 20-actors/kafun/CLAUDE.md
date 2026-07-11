@@ -47,8 +47,10 @@ methods/kotoba.cljc       content-addressed append-only REMEDIATION LEDGER (tx-c
 methods/autorun.cljc      deterministic, idempotent-by-content heartbeat — assess → append ONLY on change (+ bb CLI)
 methods/ie_flow.cljc      SoS: shared ie-flow metrics + energy-flow viz + --record (ADR-2606212030)
 methods/digest.cljc       Murakumo-narrated remediation digest (fail-open template, G6; :dry-run only G8)
+methods/dynamics.cljc     kafun's OWN readiness stock-flow (system dynamics; ADR-2607102230)
+methods/react_loop.cljc   SD ReAct beat: SENSE..PERSIST over readiness, propose-only ACT (+ bb CLI; ADR-2607102230)
 cell.cljc                 fleet heartbeat cell — `fire` (KafunRemediationHeartbeatCell, cells.edn)
-methods/test_*.cljc       loader + gate + ledger + heartbeat + ie-flow + digest invariants
+methods/test_*.cljc       loader + gate + ledger + heartbeat + ie-flow + digest + bottleneck + SD-react-loop invariants
 kotoba/ontology.kafun.edn EAVT schema + enums + refuse-reasons + negative space
 kotoba/seed.edn           12 synthetic stands spanning all verdicts
 data/ (gitignored)        generated remediation ledger — never committed/hand-edited
@@ -81,12 +83,28 @@ net-gain **+133.9**, non-parasitic. kafun moves INFORMATION-energy (a prioritize
 physical forestry (assessment-only; G5). Live `record!`/`beat!` to
 `80-data/ie-flow/kafun/flow.kotoba.edn` (gitignored) is the heartbeat/operator step.
 
+## System-dynamics ReAct loop — `methods/dynamics.cljc` + `methods/react_loop.cljc` (ADR-2607102230)
+
+kafun's OWN readiness stock-flow (`:supply-level`/`:consent-level` accumulating toward a
+ready-threshold — NOT a reuse of the shared `etzhayyim.ie-flow.dynamics` SaaS-shaped stock or
+tsuchifumi's `sysdyn.cljc`) wrapped in a ReAct beat mirroring ibuki's shape (ADR-2606201200):
+SENSE (this loop's own ledger) → ORIENT (leak-free surprise) → HYPOTHESIZE (a fixed
+readiness-rate catalog targeting the CURRENT binding bottleneck from
+`remediation-bottlenecks`) → REVIEW → RANK (kaizen-weighted) → EVOLVE → **ACT** (a
+PRE-REGISTERED forecast + a PROPOSAL routed to sanae/musubi — G5 unchanged: this is never an
+experiment kafun itself carries out) → OBSERVE → LEARN → PERSIST (its own ledger,
+`data/persisted/kafun.react-loop.kotoba.edn`, idempotent-by-content). Every forecasted stand is
+re-scored through the UNCHANGED `remediate/verdict` — G1/G4 hold through a forecast exactly as
+they hold live (no duplicated or relaxed gate). Fleet registration is a follow-up (out of scope
+for R0 of this leg) — only `autorun/beat` runs on the fleet cron today.
+
 ## Run
 
 ```bash
-./20-actors/kafun/run_tests.sh                                  # 6 suites (38 tests / 111 assert)
+./20-actors/kafun/run_tests.sh                                  # 9 suites (63 tests / 164 assert)
 bb --classpath 20-actors 20-actors/kafun/methods/remediate.cljc # print the remediation map
 bb --classpath 20-actors 20-actors/kafun/methods/autorun.cljc   # heartbeat → append to ledger
+bb --classpath 20-actors 20-actors/kafun/methods/react_loop.cljc # SD react-loop beat → forecast + propose
 # Murakumo-narrated remediation digest (fail-open to template; --live narrates via the fleet):
 bb --classpath 20-actors 20-actors/kafun/methods/digest.cljc          # template (offline-safe)
 bb --classpath 20-actors 20-actors/kafun/methods/digest.cljc --live   # Murakumo loopback (G6, fail-open)
@@ -118,5 +136,8 @@ Murakumo digest `--live` narration + any live-engine bridge stay operator/Counci
   (the legacy scout→cadastral→envoy pipeline, behind a G7 operator flip);
   Murakumo-narrated remediation digest; fleet registration (cell-runner + healthz);
   live kotoba-engine bridge (ibuki-R3 pattern); lexicon JSON under
-  `00-contracts/lexicons/com/etzhayyim/kafun/`. Live actuation stays landowner +
+  `00-contracts/lexicons/com/etzhayyim/kafun/`; a real sapling-nursery/consent-registry
+  feed to replace `react_loop.cljc`'s `representative-progress` R0 stand-in (G7-gated,
+  same discipline as the canopy-detection roadmap); fleet cell registration for the SD
+  react-loop's own cron cadence (ADR-2607102230). Live actuation stays landowner +
   operator/Council, never kafun.

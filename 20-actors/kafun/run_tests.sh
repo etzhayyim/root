@@ -12,6 +12,9 @@ SUITES=(
   "20-actors/kafun/methods/test_autorun.cljc"
   "20-actors/kafun/methods/test_ie_flow.cljc"
   "20-actors/kafun/methods/test_digest.cljc"
+  "20-actors/kafun/methods/test_bottleneck.cljc"
+  "20-actors/kafun/methods/test_dynamics.cljc"
+  "20-actors/kafun/methods/test_react_loop.cljc"
 )
 fail=0
 for s in "${SUITES[@]}"; do
