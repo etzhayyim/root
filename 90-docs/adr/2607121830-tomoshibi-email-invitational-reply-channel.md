@@ -14,7 +14,7 @@ priority_note: "§1.16 actor carve-out (集合的・公開的発信) に対し�
 implementation:
   repo: etzhayyim/com-etzhayyim-tomoshibi
   path: src/tomoshibi/{mail,suppress,organizer,leash,journal,agent}.cljc + src/tomoshibi/daemon.clj + infra/mail-worker/
-  landed_via: "R1 implementation (child ADR 0002): CF Email Routing rule a5f16891… (tomoshibi@etzhayyim.com → tomoshibi-mail Worker → KV 98a1f3a8…), Resend domain 4f4d2bc2… (etzhayyim.com, ap-northeast-1), resident LaunchDaemon com.etzhayyim.tomoshibi.agent on zebulun (healthz 127.0.0.1:13094). 43 tests / 164 assertions green."
+  landed_via: "R1 implementation (child ADR 0002): CF Email Routing rule a5f16891… (tomoshibi@etzhayyim.com → tomoshibi-mail Worker → KV 98a1f3a8…), Resend domain 4f4d2bc2… (etzhayyim.com, ap-northeast-1), resident LaunchDaemon com.etzhayyim.tomoshibi.agent on zebulun (healthz 127.0.0.1:13094). 44 tests / 173 assertions green (final child pin 8112244 — includes the reply-address and Resend string-address fixes surfaced by the live E2E)."
 authoritative_for:
   - "email channel における §1.16 carve-out の適用境界 (reply-only 原則) の正本"
   - "tomoshibi@etzhayyim.com mailbox の存在と運用形態"
