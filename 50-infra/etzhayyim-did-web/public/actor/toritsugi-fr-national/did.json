@@ -6,7 +6,7 @@
   "service" : [ {
     "id" : "did:web:etzhayyim.com:actor:toritsugi-fr-national#atproto_pds",
     "type" : "AtprotoPersonalDataServer",
-    "serviceEndpoint" : "https://pds.etzhayyim.com"
+    "serviceEndpoint" : "https://pds.aozora.app"
   } ],
   "_meta" : {
     "authority" : [ "Agence Nationale des Titres Sécurisés (ANTS / France Titres) for online pre-application; finalisation at a mairie equipped with a biometric station" ],

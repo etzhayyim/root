@@ -6,7 +6,7 @@
   "service" : [ {
     "id" : "did:web:etzhayyim.com:actor:toritsugi-fr-national-tax#atproto_pds",
     "type" : "AtprotoPersonalDataServer",
-    "serviceEndpoint" : "https://pds.etzhayyim.com"
+    "serviceEndpoint" : "https://pds.aozora.app"
   } ],
   "_meta" : {
     "authority" : [ "Direction générale des Finances publiques (DGFiP), Ministère de l'Économie et des Finances" ],

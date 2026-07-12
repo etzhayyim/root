@@ -6,7 +6,7 @@
   "service" : [ {
     "id" : "did:web:etzhayyim.com:actor:toritsugi-eg-national#atproto_pds",
     "type" : "AtprotoPersonalDataServer",
-    "serviceEndpoint" : "https://pds.etzhayyim.com"
+    "serviceEndpoint" : "https://pds.aozora.app"
   } ],
   "_meta" : {
     "authority" : [ "Civil Status Sector (قطاع الأحوال المدنية), Ministry of Interior, Arab Republic of Egypt" ],

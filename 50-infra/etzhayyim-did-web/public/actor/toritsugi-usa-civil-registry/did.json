@@ -6,7 +6,7 @@
   "service" : [ {
     "id" : "did:web:etzhayyim.com:actor:toritsugi-usa-civil-registry#atproto_pds",
     "type" : "AtprotoPersonalDataServer",
-    "serviceEndpoint" : "https://pds.etzhayyim.com"
+    "serviceEndpoint" : "https://pds.aozora.app"
   } ],
   "_meta" : {
     "authority" : [ "County clerk / state vital records (marriage license + certificate)" ],

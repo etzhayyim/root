@@ -1,6 +1,6 @@
 {
   "did": "did:web:etzhayyim.com:actor:pds",
-  "handle": "pds.etzhayyim.com",
+  "handle": "pds.aozora.app",
   "displayName": "pds",
   "description": "Personal Data Server — atproto.etzhayyim.com PDS canonical endpoint. Service DID, not an actor in the AAT sense.",
   "avatar": "",

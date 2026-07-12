@@ -6,7 +6,7 @@
   "service" : [ {
     "id" : "did:web:etzhayyim.com:gov:jpn:adm1:jp-19#atproto_pds",
     "type" : "AtprotoPersonalDataServer",
-    "serviceEndpoint" : "https://pds.etzhayyim.com"
+    "serviceEndpoint" : "https://pds.aozora.app"
   } ],
   "_meta" : {
     "mirror" : true,

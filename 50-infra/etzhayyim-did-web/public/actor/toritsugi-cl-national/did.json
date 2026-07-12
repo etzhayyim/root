@@ -6,7 +6,7 @@
   "service" : [ {
     "id" : "did:web:etzhayyim.com:actor:toritsugi-cl-national#atproto_pds",
     "type" : "AtprotoPersonalDataServer",
-    "serviceEndpoint" : "https://pds.etzhayyim.com"
+    "serviceEndpoint" : "https://pds.aozora.app"
   } ],
   "_meta" : {
     "authority" : [ "Servicio de Registro Civil e Identificación (SRCeI)", "Servicio de Registro Civil e Identificación (SRCeI); platform operated by División de Gobierno Digital, SEGPRES" ],

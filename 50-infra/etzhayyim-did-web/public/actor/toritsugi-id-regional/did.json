@@ -6,7 +6,7 @@
   "service" : [ {
     "id" : "did:web:etzhayyim.com:actor:toritsugi-id-regional#atproto_pds",
     "type" : "AtprotoPersonalDataServer",
-    "serviceEndpoint" : "https://pds.etzhayyim.com"
+    "serviceEndpoint" : "https://pds.aozora.app"
   } ],
   "_meta" : {
     "authority" : [ "Dinas Kependudukan dan Pencatatan Sipil (Disdukcapil) at regency/city level; central authority: Ditjen Dukcapil, Ministry of Home Affairs (Kementerian Dalam Negeri)" ],

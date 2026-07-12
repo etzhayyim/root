@@ -9,7 +9,7 @@
     {
       "id": "did:web:etzhayyim.com:actor:Kizuna 絆#atproto_pds",
       "type": "AtprotoPersonalDataServer",
-      "serviceEndpoint": "https://pds.etzhayyim.com"
+      "serviceEndpoint": "https://pds.aozora.app"
     },
     {
       "id": "did:web:etzhayyim.com:actor:Kizuna 絆#xrpc-libp2p",

@@ -65,6 +65,22 @@ import { handle as cljsHandle } from "../cljs-out/worker_core.js";
 // the dead PDS. (owner directive: pds.etzhayyim.com deprecated → prune → aozora.)
 const PDS_ENDPOINT = "https://pds.aozora.app";
 
+// Normalize a resolved ActorRecord's AtprotoPersonalDataServer endpoint to the
+// single source of truth. Infra/Tier-B + kotoba-resolved records bake their own
+// service[] (many still carry the deprecated pds.etzhayyim.com from a
+// `service-json` claim); forcing it here — at the resolveActorRecord chokepoint
+// every did.json path flows through — means all ~42k actors resolve aozora with
+// no KV/graph re-materialize. `service` is readonly, so we rebuild it.
+function withPdsEndpoint(rec: ActorRecord | null): ActorRecord | null {
+  if (!rec) return rec;
+  const service = rec.service.map((s) =>
+    s.type === "AtprotoPersonalDataServer"
+      ? { ...s, serviceEndpoint: PDS_ENDPOINT }
+      : s,
+  );
+  return { ...rec, service };
+}
+
 /**
  * etzhayyim did:web Worker + apex reverse proxy
  *
@@ -1100,7 +1116,7 @@ async function resolveActorRecord(
   // resolves a keyless mirror record directly from the generated registries.
   // No KV/kotoba round-trip needed at R0 (live kotoba enrichment is G8-gated);
   // returned before the on-chain vm enrichment since mirrors are key-less (G5).
-  if (isEntityHandle(handle)) return entityActorRecord(handle);
+  if (isEntityHandle(handle)) return withPdsEndpoint(entityActorRecord(handle));
   const rec = await resolveActorRecordTiered(handle, env, ctx);
   if (!rec) return null;
   // verificationMethod is a MIRROR of the on-chain ERC725 active key, never
@@ -1108,9 +1124,10 @@ async function resolveActorRecord(
   // chain env vars are set and the record has no vm yet (ADR-2606015200).
   if (env.AUTHZ_CONTRACT_ADDRESS && env.BASE_RPC_URL && rec.vm.length === 0) {
     const vm = await fetchOnChainVm(env, handle, rec.did);
-    if (vm.length) return { ...rec, vm: vm as unknown as ActorRecord["vm"] };
+    if (vm.length)
+      return withPdsEndpoint({ ...rec, vm: vm as unknown as ActorRecord["vm"] });
   }
-  return rec;
+  return withPdsEndpoint(rec);
 }
 
 async function resolveActorRecordTiered(

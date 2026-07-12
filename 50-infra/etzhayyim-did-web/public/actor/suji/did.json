@@ -12,7 +12,7 @@
     {
       "id": "did:web:etzhayyim.com:actor:suji#atproto_pds",
       "type": "AtprotoPersonalDataServer",
-      "serviceEndpoint": "https://pds.etzhayyim.com"
+      "serviceEndpoint": "https://pds.aozora.app"
     },
     {
       "id": "did:web:etzhayyim.com:actor:suji#xrpc-libp2p",

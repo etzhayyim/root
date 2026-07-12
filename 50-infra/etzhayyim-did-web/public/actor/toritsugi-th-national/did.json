@@ -6,7 +6,7 @@
   "service" : [ {
     "id" : "did:web:etzhayyim.com:actor:toritsugi-th-national#atproto_pds",
     "type" : "AtprotoPersonalDataServer",
-    "serviceEndpoint" : "https://pds.etzhayyim.com"
+    "serviceEndpoint" : "https://pds.aozora.app"
   } ],
   "_meta" : {
     "authority" : [ "Bureau of Registration Administration, Department of Provincial Administration (DOPA / กรมการปกครอง), Ministry of Interior — District Office (ที่ว่าการอำเภอ / สำนักงานเขต)" ],

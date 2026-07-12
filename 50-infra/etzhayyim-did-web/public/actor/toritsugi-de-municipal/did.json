@@ -6,7 +6,7 @@
   "service" : [ {
     "id" : "did:web:etzhayyim.com:actor:toritsugi-de-municipal#atproto_pds",
     "type" : "AtprotoPersonalDataServer",
-    "serviceEndpoint" : "https://pds.etzhayyim.com"
+    "serviceEndpoint" : "https://pds.aozora.app"
   } ],
   "_meta" : {
     "authority" : [ "Local ID-issuing authority (Personalausweisbehörde) — typically the municipal Bürgeramt; policy via Federal Ministry of the Interior (BMI)", "Local residents' registration office — Einwohnermeldeamt / Bürgeramt / Bürgerbüro of the municipality of residence" ],
