@@ -5,7 +5,7 @@ status: proposed
 doc_type: adr
 topic: remote-robotics-teleop-and-imitation-learning
 authoritative: true
-last_verified: 2026-06-04
+last_verified: 2026-07-12
 priority: 5.0
 axis: architecture
 weight: 0.80
@@ -198,4 +198,49 @@ Three cells (`demonstration_record`, `policy_train`, `autonomy_handoff`):
 - ADR-2605231525 (no-server-key — member-signed actuation)
 - ADR-2605215000 (Murakumo-only inference)
 - ADR-2606031600 (kotoba-os — soft-RT / not-a-safety-system + liveActuation=false precedent)
+
+## Addendum (2026-07-12): satellite/high-jitter-link recovery hysteresis (G10 extension)
+
+**Still R0.** No hardware, no live link, no live actuation, no gate change — this hardens the
+existing `teleop_safety` reasoner + `teleop_session` state-machine (both already tested at R0)
+without touching G3/G4/G7/G9/N5/N6.
+
+**Motivation.** tazuna is the charter-clean substrate for remotely operating the labor-liberation
+robot bodies; a plausible relay for a genuinely remote fleet is a LEO satellite link
+(Starlink-class), which is jitter-prone (periodic beam-handoff spikes) rather than uniformly
+degraded. The R0 `safe-state` verdict was a single-sample threshold: any one command with
+`observed_latency_ms > latency_budget_ms` dropped the session to `autonomy-fallback`, and any one
+subsequent in-budget sample let it resume `nominal` actuation on the very next tick. Over a
+jitter-prone link this flaps — a single lucky sample mid-handoff would re-arm actuation while the
+link is still effectively degraded, which is the opposite of what G10 soft-RT supervision is for.
+
+**Change.** Latency-budget recovery is now link-quality-hysteresis-gated: a breach still trips
+`autonomy-fallback` **instantly** (fail-fast, unchanged), but resuming `nominal` actuation requires
+`recovery_samples` (default 3) **consecutive** in-budget samples (fail-safe against flapping). A
+single blip during the recovery window resets the counter. Deadman lapse and e-stop remain
+**instant and unaffected** by this window — a lapsed presence heartbeat is a different concern
+(operator absence, not link jitter) and is left requiring an explicit operator re-arm, not a lucky
+sample. This makes the existing safety gate strictly more conservative (slower to re-arm actuation
+after a breach); it never actuates in a case the R0 design would have refused, and it can only
+refuse actuation in cases the R0 design would have (over-eagerly) allowed.
+
+**Where.** `methods/teleop_safety.cljc` gains `evaluate-session` (folds the unchanged `evaluate`
+priority — e-stop > deadman > latency > nominal — over a sequence of relayed commands) and
+`satellite-leo-grant-defaults` (an explicitly-labeled, explicitly-uncalibrated illustrative preset —
+G12 sourcing-honesty: no real Starlink RTT/jitter figures are asserted). `evaluate` itself, and
+every existing test against it, is untouched. `cells/teleop_session/state_machine.cljc`'s
+`safe-state` now returns `[verdict cs']`, threading the hysteresis bookkeeping
+(`link_fallback_active`, `latency_recovery_count`) across ticks via the state machine's existing
+cell_state-forwarding convention (the outer loop already threads `cell_state` tick-to-tick; no new
+persistence mechanism was introduced). 14 new tests (23+14+6 = 43 total, up from 29), all green.
+
+**Honest (still true, unchanged from the R0 "Honest" section above):** this is a pure, offline,
+advisory reasoner — no real satellite link has ever been contacted, no real latency/jitter
+distribution has been measured, and `satellite-leo-grant-defaults` is not a calibrated operating
+point for any real relay. Reaching a live link (even in sim) is still gated at R1+ per the Roadmap
+table; this addendum only makes the R0 reasoner's behavior correct in the presence of jitter,
+before there is anything real to plug it into.
+
+References: `orgs/etzhayyim/com-etzhayyim-tazuna` PR #3 (`satellite-link-hysteresis`, merged
+2026-07-12).
 - ADR-2605312345 (kotoba Datom = first-class canonical state — the on-chain command log)
