@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-07-11",
+  "updated_at": "2026-07-12",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.md",
@@ -20302,7 +20302,7 @@
         "ADR-2605215000 (Murakumo-only inference)",
         "ADR-2605241900 (Baien edge-target invariant — the policy envelope)"
       ],
-      "last_verified": "2026-06-04",
+      "last_verified": "2026-07-12",
       "amends": [],
       "amended_by": []
     },
@@ -27800,6 +27800,34 @@
         "adr-2605231603-per-record-rekey-tombstone-protocol"
       ],
       "last_verified": "2026-07-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2607121830-tomoshibi-email-invitational-reply-channel.md",
+      "id": "adr-2607121830-tomoshibi-email-invitational-reply-channel",
+      "title": "ADR-2607121830: tomoshibi email channel — inbound-initiated reply-only evangelism + murakumo residency",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "etzhayyim-evangelism-email-channel",
+      "authoritative": true,
+      "authoritative_for": [
+        "email channel における §1.16 carve-out の適用境界 (reply-only 原則) の正本",
+        "tomoshibi@etzhayyim.com mailbox の存在と運用形態",
+        "actor の resident daemon が外部 I/O を行う場合の fleet 慣例からの逸脱根拠 (lite_runner fire 契約は no-external-I/O — 専用 LaunchDaemon 経路を採る)"
+      ],
+      "related": [
+        "adr-2605172200-openmail-atproto-mst-smtp-bridge",
+        "adr-2606301200-kotoba-mail-mailer"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2607061700-etzhayyim-active-evangelism-doctrine",
+        "adr-2606281500-actor-autonomous-publication-seed-and-grow-doctrine",
+        "adr-2606111400-etzhayyim-revocable-cacao-leash"
+      ],
+      "last_verified": "2026-07-12",
       "amends": [],
       "amended_by": []
     },
