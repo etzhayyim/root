@@ -57,6 +57,14 @@ import { handleVerifyCacao, handleAccountWrite } from "./session";
 // @ts-expect-error — generated ESM bundle, no .d.ts (string-keyed interop).
 import { handle as cljsHandle } from "../cljs-out/worker_core.js";
 
+// Canonical PDS endpoint — single source of truth. pds.etzhayyim.com is
+// deprecated + pruned (dead, HTTP 530); every etzhayyim actor's repo lives on
+// pds.aozora.app. buildActorDidDocument normalizes EVERY
+// AtprotoPersonalDataServer service entry to this, so stale baked-in records
+// (e.g. kotoba `service-json` claims that still carry the old host) never serve
+// the dead PDS. (owner directive: pds.etzhayyim.com deprecated → prune → aozora.)
+const PDS_ENDPOINT = "https://pds.aozora.app";
+
 /**
  * etzhayyim did:web Worker + apex reverse proxy
  *
@@ -1014,7 +1022,7 @@ export function buildPerActorDidDoc(handle: string, env: Env): Record<string, un
           {
             id: `${pathBasedDid}#atproto_pds`,
             type: "AtprotoPersonalDataServer",
-            serviceEndpoint: "https://pds.aozora.app",
+            serviceEndpoint: PDS_ENDPOINT,
           },
         ]
       : []),
@@ -1026,9 +1034,19 @@ export function buildPerActorDidDoc(handle: string, env: Env): Record<string, un
         : null,
     },
   ];
-  const service = infraActor
+  const rawService = infraActor
     ? (infraActor.service as Record<string, unknown>[])
     : defaultService;
+  // Normalize the PDS endpoint to the single source of truth: infra/Tier-B and
+  // kotoba-resolved records bake their own service[] (some still carry the
+  // deprecated pds.etzhayyim.com from the `service-json` claim). Force every
+  // AtprotoPersonalDataServer entry to PDS_ENDPOINT so no actor ever resolves
+  // the dead PDS, without needing to re-materialize ~42k kotoba records.
+  const service = (rawService ?? []).map((s) =>
+    s && (s as { type?: string }).type === "AtprotoPersonalDataServer"
+      ? { ...s, serviceEndpoint: PDS_ENDPOINT }
+      : s,
+  );
 
   const adrs = infraActor
     ? ["2605212030", "2605241800", ...infraActor.adrs]
