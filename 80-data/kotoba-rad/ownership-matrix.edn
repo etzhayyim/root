@@ -1008,6 +1008,10 @@
   {:rid "bafkreiavnxlyuywrbrfak45w5a5w3endy4nfqmzwahgburzunqsfh6426m",
    :datasets (),
    :declared? false},
+  "cloud-itonami"
+  {:rid "bafyreiclouditonamiidentityplaceholder00000000000000000000",
+   :datasets (),
+   :declared? false},
   "business-manager"
   {:rid "bafkreic3kl6grprv4e2egk4pjqst4jozkb4ndyd3lbg3gtb3oepmsbh3wi",
    :datasets (),
