@@ -5,14 +5,14 @@
   ],
   "id": "did:web:etzhayyim.com:actor:pds",
   "alsoKnownAs": [
-    "did:web:pds.etzhayyim.com"
+    "did:web:pds.aozora.app"
   ],
   "verificationMethod": [],
   "service": [
     {
       "id": "did:web:etzhayyim.com:actor:pds#atproto_pds",
       "type": "AtprotoPersonalDataServer",
-      "serviceEndpoint": "https://pds.etzhayyim.com"
+      "serviceEndpoint": "https://pds.aozora.app"
     }
   ],
   "_meta": {

@@ -6,7 +6,7 @@
   "service" : [ {
     "id" : "did:web:etzhayyim.com:actor:toritsugi-jp-jichitai#atproto_pds",
     "type" : "AtprotoPersonalDataServer",
-    "serviceEndpoint" : "https://pds.etzhayyim.com"
+    "serviceEndpoint" : "https://pds.aozora.app"
   } ],
   "_meta" : {
     "authority" : [ "市区町村 (住民の属する自治体)", "市区町村 (出生地 / 本籍地 / 届出人の所在地)", "市区町村 (受給者の住所地; 公務員は勤務先)", "転入先の市区町村" ],

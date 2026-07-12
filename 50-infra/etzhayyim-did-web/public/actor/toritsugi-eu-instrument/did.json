@@ -6,7 +6,7 @@
   "service" : [ {
     "id" : "did:web:etzhayyim.com:actor:toritsugi-eu-instrument#atproto_pds",
     "type" : "AtprotoPersonalDataServer",
-    "serviceEndpoint" : "https://pds.etzhayyim.com"
+    "serviceEndpoint" : "https://pds.aozora.app"
   } ],
   "_meta" : {
     "authority" : [ "European Commission (DG GROW / DG DIGIT), integrated into the Your Europe portal", "Issued by the member's own national/statutory health insurance institution (e.g. DE: gesetzliche Krankenkasse; FR: CPAM / Assurance Maladie via ameli.fr); coordinated by the European Commission", "The data controller directly; supervisory authorities for complaints — DE: BfDI + Länder DPAs; FR: CNIL; coordinated by the European Data Protection Board (EDPB)" ],
