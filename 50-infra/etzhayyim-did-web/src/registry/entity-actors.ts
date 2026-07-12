@@ -185,7 +185,7 @@ export function entityActorRecord(handle: string): ActorRecord | null {
     {
       id: `${did}#atproto_pds`,
       type: "AtprotoPersonalDataServer",
-      serviceEndpoint: "https://pds.etzhayyim.com",
+      serviceEndpoint: "https://pds.aozora.app",
     },
     ...ns.owners.map((owner) => ({
       id: `${did}#mirror-source-${owner}`,

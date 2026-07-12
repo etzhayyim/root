@@ -321,28 +321,28 @@
 (deftest test-actors-build-actor-list-request
   (testing "actor-list-request: POST to PDS /xrpc/com.etzhayyim.actor.list"
     ;; Python: client.post(f"{pds_url}/xrpc/com.etzhayyim.actor.list", json=payload)
-    (let [req (act/build-actor-list-request "https://pds.etzhayyim.com" {:token "tok123"})]
+    (let [req (act/build-actor-list-request "https://pds.aozora.app" {:token "tok123"})]
       (is (= :post (:method req)))
-      (is (= "https://pds.etzhayyim.com/xrpc/com.etzhayyim.actor.list" (:url req)))
+      (is (= "https://pds.aozora.app/xrpc/com.etzhayyim.actor.list" (:url req)))
       (is (= "Bearer tok123" (get-in req [:headers "Authorization"])))
       (is (= "active" (get (:body req) "status")))))
 
   (testing "actor-list-request: cursor included when non-empty"
-    (let [req (act/build-actor-list-request "https://pds.etzhayyim.com"
+    (let [req (act/build-actor-list-request "https://pds.aozora.app"
                                             {:token "tok" :cursor "cursor-abc"})]
       (is (= "cursor-abc" (get (:body req) "cursor")))))
 
   (testing "actor-list-request: no auth header when token empty"
-    (let [req (act/build-actor-list-request "https://pds.etzhayyim.com" {})]
+    (let [req (act/build-actor-list-request "https://pds.aozora.app" {})]
       (is (not (contains? (:headers req) "Authorization"))))))
 
 (deftest test-actors-build-apply-writes-request
   (testing "apply-writes-request: POST to applyWrites with auth"
     ;; Python: client.post(f"{pds_url}/xrpc/com.atproto.repo.applyWrites", json={..})
     (let [body {:repo "did:web:alice.etzhayyim.com" :writes []}
-          req  (act/build-apply-writes-request "https://pds.etzhayyim.com" "tok123" body)]
+          req  (act/build-apply-writes-request "https://pds.aozora.app" "tok123" body)]
       (is (= :post (:method req)))
-      (is (= "https://pds.etzhayyim.com/xrpc/com.atproto.repo.applyWrites" (:url req)))
+      (is (= "https://pds.aozora.app/xrpc/com.atproto.repo.applyWrites" (:url req)))
       (is (= "Bearer tok123" (get-in req [:headers "Authorization"])))
       (is (= body (:body req))))))
 
@@ -400,10 +400,10 @@
 (deftest test-actors-build-migrate-request
   (testing "migrate-request: POST to plc.migrateActor with dryRun"
     ;; Python: httpx.post(f"{pds_url}/xrpc/com.etzhayyim.plc.migrateActor", json=payload, ...)
-    (let [req (act/build-migrate-request "https://pds.etzhayyim.com"
+    (let [req (act/build-migrate-request "https://pds.aozora.app"
                                          "alice" "alice.etzhayyim.com" "tok" true)]
       (is (= :post (:method req)))
-      (is (= "https://pds.etzhayyim.com/xrpc/com.etzhayyim.plc.migrateActor" (:url req)))
+      (is (= "https://pds.aozora.app/xrpc/com.etzhayyim.plc.migrateActor" (:url req)))
       (is (= "Bearer tok" (get-in req [:headers "Authorization"])))
       (is (= "alice" (get (:body req) "actor")))
       (is (= true (get (:body req) "dryRun"))))))
@@ -418,7 +418,7 @@
                                 :handle "a.etzhayyim.com" :displayName "A" :description "" :projectId ""}]
                       :cursor ""})
           {:keys [log http-fn]} (make-fake-http [resp-body])
-          actors (act/fetch-actors "https://pds.etzhayyim.com" 10
+          actors (act/fetch-actors "https://pds.aozora.app" 10
                                    {:token "tok" :http-fn http-fn})]
       (is (= 1 (count actors)))
       (is (= "aaa111" (:nanoid (first actors))))
@@ -434,7 +434,7 @@
                       :cursor "c1"})
           ;; Only serve first response; 3 < 50 so should stop
           {:keys [log http-fn]} (make-fake-http [resp-body])
-          actors (act/fetch-actors "https://pds.etzhayyim.com" 100
+          actors (act/fetch-actors "https://pds.aozora.app" 100
                                    {:token "tok" :http-fn http-fn})]
       (is (= 3 (count actors)))
       (is (= 1 (count @log)) "should stop after batch < page size"))))
@@ -445,7 +445,7 @@
   (testing "migrate-to-plc: offline mode returns mock without HTTP call"
     ;; Python: if offline: return mock {...}
     (let [{:keys [log http-fn]} (make-fake-http)
-          result (act/migrate-to-plc "https://pds.etzhayyim.com" "alice"
+          result (act/migrate-to-plc "https://pds.aozora.app" "alice"
                                      "alice.etzhayyim.com"
                                      {:offline? true :http-fn http-fn})]
       (is (str/starts-with? (:did result) "did:plc:"))
@@ -619,20 +619,20 @@
 (deftest test-apps-build-list-apps-request
   (testing "build-list-apps-request: GET to listApps with auth"
     ;; Python: httpx.get(f"{pds_url}/xrpc/com.etzhayyim.apps.listApps", headers=...)
-    (let [req (app/build-list-apps-request "https://pds.etzhayyim.com" "tok123")]
+    (let [req (app/build-list-apps-request "https://pds.aozora.app" "tok123")]
       (is (= :get (:method req)))
-      (is (= "https://pds.etzhayyim.com/xrpc/com.etzhayyim.apps.listApps" (:url req)))
+      (is (= "https://pds.aozora.app/xrpc/com.etzhayyim.apps.listApps" (:url req)))
       (is (= "Bearer tok123" (get-in req [:headers "Authorization"])))))
 
   (testing "build-list-apps-request: no auth when token empty"
-    (let [req (app/build-list-apps-request "https://pds.etzhayyim.com" "")]
+    (let [req (app/build-list-apps-request "https://pds.aozora.app" "")]
       (is (not (contains? (:headers req) "Authorization"))))))
 
 (deftest test-apps-build-list-records-request
   (testing "build-list-records-request: GET to listRecords with params"
     ;; Python: httpx.get(f"{pds_url}/xrpc/com.atproto.repo.listRecords", params=...)
     (let [req (app/build-list-records-request
-               "https://pds.etzhayyim.com" "did:web:alice.etzhayyim.com"
+               "https://pds.aozora.app" "did:web:alice.etzhayyim.com"
                "com.etzhayyim.apps.legal.clause" 100 "tok")]
       (is (= :get (:method req)))
       (is (str/includes? (:url req) "/xrpc/com.atproto.repo.listRecords"))
@@ -711,7 +711,7 @@
     (let [resp-body (json/generate-string
                      {:records [{:uri "at://a/b/c" :value {:status "ok"}}]})
           {:keys [log http-fn]} (make-fake-http [resp-body])
-          recs (app/list-pds-records "https://pds.etzhayyim.com"
+          recs (app/list-pds-records "https://pds.aozora.app"
                                      "did:web:a.etzhayyim.com"
                                      "com.etzhayyim.apps.x.status"
                                      100
@@ -723,14 +723,14 @@
   (testing "list-pds-records: 404 response → empty list"
     ;; Python: if resp.status_code >= 400: return []
     (let [{:keys [http-fn]} (make-fake-http [{:status 404 :body "not found"}])
-          recs (app/list-pds-records "https://pds.etzhayyim.com" "did" "col" 10
+          recs (app/list-pds-records "https://pds.aozora.app" "did" "col" 10
                                      {:http-fn http-fn})]
       (is (empty? recs))))
 
   (testing "list-pds-records: zero network calls in dry mode (verify no side effects)"
     (let [{:keys [log http-fn]} (make-fake-http)]
       ;; Just verifying list-pds-records makes exactly 1 call (not more)
-      (app/list-pds-records "https://pds.etzhayyim.com" "did" "col" 10
+      (app/list-pds-records "https://pds.aozora.app" "did" "col" 10
                              {:http-fn http-fn})
       (is (= 1 (count @log))))))
 

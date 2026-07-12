@@ -109,7 +109,7 @@ XRPC_ATPROTO_UPSTREAM = "https://atproto.etzhayyim.com"
 # com.atproto.repo.*/sync.* route to the independent etzhayyim PDS instead of the
 # AppView host. EMPTY = INERT (those families fall back to XRPC_ATPROTO_UPSTREAM,
 # so prod is byte-identical). Set to the deployed PDS origin (e.g.
-# https://pds.etzhayyim.com) at the actual operator cutover.
+# https://pds.aozora.app) at the actual operator cutover.
 XRPC_PDS_UPSTREAM = ""
 XRPC_CHAT_UPSTREAM = "https://atproto.etzhayyim.com"
 XRPC_etzhayyim_UPSTREAM = "https://atproto.etzhayyim.com"

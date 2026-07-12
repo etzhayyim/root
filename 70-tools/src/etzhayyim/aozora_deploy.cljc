@@ -36,7 +36,7 @@
   ;; https://aozora.app is the AppView/canonical handle domain — XRPC writes
   ;; live on pds.aozora.app (aozora.app serves the app HTML, no /xrpc).
   #{"https://aozora.app"
-    "https://pds.etzhayyim.com"
+    "https://pds.aozora.app"
     "https://atproto.etzhayyim.com"
     "https://etzhayyim.com"})
 

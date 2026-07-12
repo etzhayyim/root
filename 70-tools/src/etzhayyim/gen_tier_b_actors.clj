@@ -139,7 +139,7 @@
                                   "      {"
                                   (str "        id: \"did:web:etzhayyim.com:actor:" (:handle e) "#atproto_pds\",")
                                   "        type: \"AtprotoPersonalDataServer\","
-                                  "        serviceEndpoint: \"https://pds.etzhayyim.com\","
+                                  "        serviceEndpoint: \"https://pds.aozora.app\","
                                   "      },"
                                   "    ],"
                                   "  },"]))]

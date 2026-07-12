@@ -15,7 +15,7 @@
             {:name "cargo" :did-web "did:web:etzhayyim.github.io:com-etzhayyim-cargo"
              :delegates [(rad/did-key pk)] :threshold 1
              :repo "github.com/etzhayyim/com-etzhayyim-cargo"
-             :pds "https://pds.etzhayyim.com" :collection "com.etzhayyim.apps.cargo"}))
+             :pds "https://pds.aozora.app" :collection "com.etzhayyim.apps.cargo"}))
 
 (deftest did-key-convention
   (testing "did:key:z<hex> matches kotoba.cljs verifier form"

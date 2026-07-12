@@ -1014,7 +1014,7 @@ export function buildPerActorDidDoc(handle: string, env: Env): Record<string, un
           {
             id: `${pathBasedDid}#atproto_pds`,
             type: "AtprotoPersonalDataServer",
-            serviceEndpoint: "https://pds.etzhayyim.com",
+            serviceEndpoint: "https://pds.aozora.app",
           },
         ]
       : []),

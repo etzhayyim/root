@@ -369,7 +369,7 @@
         rad-str (cond genesis (rad-uri genesis) rid-str (str "rad:" rid-str) :else nil)
         services (cond-> [{"id" (str did "#atproto_pds")
                            "type" "AtprotoPersonalDataServer"
-                           "serviceEndpoint" "https://pds.etzhayyim.com"}
+                           "serviceEndpoint" "https://pds.aozora.app"}
                           {"id" (str did "#aozora")
                            "type" "AozoraAppView"
                            "serviceEndpoint" "https://aozora.app"}]

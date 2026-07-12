@@ -69,7 +69,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:pinner#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
     adrs: ["2605171800"],
@@ -82,7 +82,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:esign#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
     adrs: ["2605231230"],
@@ -95,7 +95,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:audit#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
     adrs: ["2605231700", "2605231900"],
@@ -108,7 +108,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:dataset-pinner#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       // ── Phase B: libp2p Multiaddr primary (per ADR-2605241800 §D1) ──
       {
@@ -136,7 +136,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:pds#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
     adrs: ["2605171800"],
@@ -148,7 +148,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:anchorer#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
     adrs: ["2605171800"],
@@ -160,7 +160,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:projector#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
     adrs: ["2605171800"],
@@ -173,7 +173,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:karute#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
     adrs: ["2605231100", "2605231900"],
@@ -189,7 +189,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:yadori#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:yadori#xrpc-libp2p",
@@ -209,7 +209,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:nusa#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:nusa#xrpc-libp2p",
@@ -232,7 +232,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:watatsuna#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:watatsuna#xrpc-libp2p",
@@ -253,7 +253,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:watari#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:watari#xrpc-libp2p",
@@ -274,7 +274,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:tsubasa#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:tsubasa#xrpc-libp2p",
@@ -296,7 +296,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:kamado#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:kamado#xrpc-libp2p",
@@ -321,7 +321,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:tsumugi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:tsumugi#xrpc-libp2p",
@@ -345,7 +345,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:tate#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:tate#xrpc-libp2p",
@@ -378,7 +378,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:kanae#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:kanae#xrpc-libp2p",
@@ -404,7 +404,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:shionome#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:shionome#xrpc-libp2p",
@@ -430,7 +430,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:kyber#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:kyber#xrpc-libp2p",
@@ -451,7 +451,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:kabuto#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:kabuto#xrpc-libp2p",
@@ -472,7 +472,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:sukashi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:sukashi#xrpc-libp2p",
@@ -493,7 +493,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:kanjo#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:kanjo#xrpc-libp2p",
@@ -514,7 +514,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:kasa#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:kasa#xrpc-libp2p",
@@ -535,7 +535,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:mimamori#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:mimamori#xrpc-libp2p",
@@ -556,7 +556,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:ooyake#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:ooyake#xrpc-libp2p",
@@ -591,7 +591,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:todoke#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:todoke#xrpc-libp2p",
@@ -612,7 +612,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:hotaru#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:hotaru#xrpc-libp2p",
@@ -633,7 +633,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:noroshi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:noroshi#xrpc-libp2p",
@@ -654,7 +654,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:mitooshi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:mitooshi#xrpc-libp2p",
@@ -675,7 +675,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:ake#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:ake#xrpc-libp2p",
@@ -696,7 +696,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:sentei#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:sentei#xrpc-libp2p",
@@ -716,7 +716,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:himawari#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:himawari#xrpc-libp2p",
@@ -737,7 +737,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:fuchi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:fuchi#xrpc-libp2p",
@@ -758,7 +758,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:tasuke#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:tasuke#xrpc-libp2p",
@@ -779,7 +779,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:matsurigoto#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:matsurigoto#xrpc-libp2p",
@@ -800,7 +800,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:kawaraban#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:kawaraban#xrpc-libp2p",
@@ -840,7 +840,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:aburi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:aburi#xrpc-libp2p",
@@ -862,7 +862,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:tatara#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:tatara#xrpc-libp2p",
@@ -884,7 +884,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:kizuna#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:kizuna#xrpc-libp2p",
@@ -920,7 +920,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:maps#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:maps#xrpc-libp2p",
@@ -941,7 +941,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:iriai#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:iriai#xrpc-libp2p",

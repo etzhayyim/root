@@ -415,12 +415,12 @@
 
 (deftest test-metrics-url
   (testing "builds full XRPC URL"
-    (is (= "https://pds.etzhayyim.com/xrpc/com.etzhayyim.metrics.getLatency"
-           (m/metrics-url "https://pds.etzhayyim.com/" :latency)))))
+    (is (= "https://pds.aozora.app/xrpc/com.etzhayyim.metrics.getLatency"
+           (m/metrics-url "https://pds.aozora.app/" :latency)))))
 
 (deftest test-metrics-url-strips-trailing-slash
   (testing "strips double trailing slash from pds-base"
-    (is (str/includes? (m/metrics-url "https://pds.etzhayyim.com" :latency) "/xrpc/"))))
+    (is (str/includes? (m/metrics-url "https://pds.aozora.app" :latency) "/xrpc/"))))
 
 (deftest test-metrics-parse-latency
   (testing "extracts p50/p95/p99 from response"

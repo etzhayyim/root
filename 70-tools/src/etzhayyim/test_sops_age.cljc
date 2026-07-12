@@ -35,7 +35,7 @@
    {:name test-actor :did-web (str "did:web:etzhayyim.github.io:com-etzhayyim-" test-actor)
     :delegates [] :threshold 1
     :repo (str "github.com/etzhayyim/com-etzhayyim-" test-actor)
-    :pds "https://pds.etzhayyim.com" :collection "com.etzhayyim.apps.test"}))
+    :pds "https://pds.aozora.app" :collection "com.etzhayyim.apps.test"}))
 
 (deftest record-recipient-binds-to-rid-and-is-idempotent
   (let [path (rad/journal-path test-actor)]

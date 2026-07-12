@@ -23,13 +23,13 @@
 
 (deftest xrpc-url-building
   (testing "the getServiceAuth path is appended"
-    (is (= "https://pds.etzhayyim.com/xrpc/com.atproto.server.getServiceAuth"
-           (at/agent-token-xrpc-url "https://pds.etzhayyim.com"))))
+    (is (= "https://pds.aozora.app/xrpc/com.atproto.server.getServiceAuth"
+           (at/agent-token-xrpc-url "https://pds.aozora.app"))))
   (testing "trailing slashes are stripped (single and multiple)"
-    (is (= "https://pds.etzhayyim.com/xrpc/com.atproto.server.getServiceAuth"
-           (at/agent-token-xrpc-url "https://pds.etzhayyim.com/")))
-    (is (= "https://pds.etzhayyim.com/xrpc/com.atproto.server.getServiceAuth"
-           (at/agent-token-xrpc-url "https://pds.etzhayyim.com///"))))
+    (is (= "https://pds.aozora.app/xrpc/com.atproto.server.getServiceAuth"
+           (at/agent-token-xrpc-url "https://pds.aozora.app/")))
+    (is (= "https://pds.aozora.app/xrpc/com.atproto.server.getServiceAuth"
+           (at/agent-token-xrpc-url "https://pds.aozora.app///"))))
   (testing "nil base yields just the path"
     (is (= "/xrpc/com.atproto.server.getServiceAuth"
            (at/agent-token-xrpc-url nil)))))

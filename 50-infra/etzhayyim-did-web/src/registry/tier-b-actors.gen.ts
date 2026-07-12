@@ -25,7 +25,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:ainori#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -38,7 +38,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:akashi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -51,7 +51,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:amime#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -64,7 +64,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:asobi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -77,7 +77,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:atsurae#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -90,7 +90,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:business-manager#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -103,7 +103,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:business-manager#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -116,7 +116,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:busshi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -129,7 +129,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:chie#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -142,7 +142,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:chigiri#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -155,7 +155,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:com-google-ads#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -168,7 +168,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:danjo#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -181,7 +181,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:denwaban#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -194,7 +194,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:funadaiku#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -207,7 +207,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:funamori#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -220,7 +220,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:futawa#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -233,7 +233,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:gov-municipality#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -246,7 +246,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:gov-municipality#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -259,7 +259,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:hagukumi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -272,7 +272,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:hakoniwa#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -285,7 +285,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:haraedo#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -298,7 +298,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:hataori#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -312,7 +312,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:hibiki#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -325,7 +325,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:hikari#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -338,7 +338,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:himotoki#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -351,7 +351,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:hinagata#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -364,7 +364,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:hirameki#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -377,7 +377,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:hodoki#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -390,7 +390,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:hokorobi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -403,7 +403,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:hoshimori#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -416,7 +416,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:igata#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -429,7 +429,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:infra-utility-connect#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -442,7 +442,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:infra-utility-connect#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -455,7 +455,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:inochi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -468,7 +468,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:itonami#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -481,7 +481,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:iyashi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -494,7 +494,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:jinushi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -507,7 +507,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:junkan#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -520,7 +520,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:kadode#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -533,7 +533,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:kafun#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -546,7 +546,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:kaiyaku#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -559,7 +559,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:kaname#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -572,7 +572,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:kanayama#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -585,7 +585,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:karakuri#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -598,7 +598,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:kataribe#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -611,7 +611,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:kawase-yui#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -624,7 +624,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:kazaori#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -637,7 +637,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:keizu#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -650,7 +650,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:kenchi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -663,7 +663,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:kiyome#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -676,7 +676,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:kizashi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -689,7 +689,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:kokoro#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -702,7 +702,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:kosatsu#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -715,7 +715,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:kudamori#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -728,7 +728,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:kuni-umi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -741,7 +741,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:kuni-umi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -754,7 +754,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:kuramori#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -767,7 +767,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:kurashimori#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -781,7 +781,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:kyoninka#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -794,7 +794,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:madomori#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -807,7 +807,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:makura#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -820,7 +820,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:manabi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -833,7 +833,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:masago#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -846,7 +846,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:meibo#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -859,7 +859,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:meisai#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -872,7 +872,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:mio#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -885,7 +885,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:mitate#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -898,7 +898,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:mitsuho#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -911,7 +911,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:mizuho#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -925,7 +925,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:monosashi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -938,7 +938,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:moushibumi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -951,7 +951,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:moyoshi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -964,7 +964,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:musubi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -977,7 +977,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:niyaku#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -990,7 +990,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:nyusatsu#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1003,7 +1003,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:okaimono#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1016,7 +1016,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:okibi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1029,7 +1029,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:omise#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1042,7 +1042,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:organizer#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1055,7 +1055,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:ossekai#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1068,7 +1068,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:rasen#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1081,7 +1081,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:saisei#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1094,7 +1094,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:sanae#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1107,7 +1107,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:sarutahiko#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1120,7 +1120,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:seigyo#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1133,7 +1133,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:shidemori#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1146,7 +1146,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:shiori#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1159,7 +1159,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:shirabe#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1172,7 +1172,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:shomei#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1185,7 +1185,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:shukubo#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1198,7 +1198,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:silicon#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1211,7 +1211,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:soma#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1224,7 +1224,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:sonae#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1237,7 +1237,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:subaru#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1250,7 +1250,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:suimin#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1263,7 +1263,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:suji#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1276,7 +1276,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:suki#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1289,7 +1289,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:sumitsubo#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1302,7 +1302,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:tadori#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1315,7 +1315,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:talent#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1328,7 +1328,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:tanemaki#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1341,7 +1341,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:tatekata#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1354,7 +1354,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:tawami#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1367,7 +1367,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:tazuna#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1380,7 +1380,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:tedai#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1393,7 +1393,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:toi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1406,7 +1406,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:tokigusuri#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1419,7 +1419,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:torifune#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1432,7 +1432,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:toritate#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1445,7 +1445,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:toritsugi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1458,7 +1458,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:tsuchifumi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1471,7 +1471,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:tsugite#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1484,7 +1484,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:tsukuroi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1497,7 +1497,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:tsukuru#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1510,7 +1510,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:tsutae#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1523,7 +1523,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:uchiwake#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1536,7 +1536,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:ugachi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1549,7 +1549,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:umisachi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1562,7 +1562,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:utsushie#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1575,7 +1575,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:uzu#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1588,7 +1588,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:wadachi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1601,7 +1601,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:wakai#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1614,7 +1614,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:watatsumi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1627,7 +1627,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:yakushi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1640,7 +1640,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:yamabiko#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1653,7 +1653,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:yotei#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
@@ -1666,7 +1666,7 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:yudane#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
   },
