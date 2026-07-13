@@ -27906,6 +27906,30 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2607142100-ake-g9-contributor-throttle-wiring.md",
+      "id": "adr-2607142100-ake-g9-contributor-throttle-wiring",
+      "title": "ADR-2607142100: ake propose — G9 anti-vandalism / contributor-trajectory throttle を intake membrane に配線",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "ake-g9-contributor-throttle-wiring",
+      "authoritative": true,
+      "authoritative_for": [
+        "ake propose cell の G9(anti-vandalism/contributor-trajectory throttle)配線の正本"
+      ],
+      "related": [
+        "adr-2607141600-yadori-watari-documented-gate-implementation-gaps",
+        "adr-2607141900-sanae-g2-displacement-dividend-coupling-gap"
+      ],
+      "supersedes": [],
+      "depends_on": [
+        "adr-2606052100-ake-community-edit-membrane-wikipedia-stance-r0"
+      ],
+      "last_verified": "2026-07-14",
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
