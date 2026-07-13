@@ -1,15 +1,22 @@
 (ns ake.cells.propose.state-machine
-  "Phase state machine for the 朱 (ake) propose cell — the G1/G3/G4 intake membrane.
+  "Phase state machine for the 朱 (ake) propose cell — the G1/G3/G4/G9 intake membrane.
   Clojure 1:1 port of cells/propose/state_machine.py (ADR-2606052100).
 
   A member-signed correction enters here. It is SCREENED (rejected outright) unless:
     G1 — author-kind is 'member' and server-held-key is false (no-server-key + 信者-gated);
     G3 — target-kind ∈ {kg-fact, actor-profile} (impersonation unrepresentable);
-    G4 — provenance (URL/CID) is present (an unsourced proposal never enters the log).
+    G4 — provenance (URL/CID) is present (an unsourced proposal never enters the log);
+    G9 — the author is not currently throttled (an unbroken recent run of refused proposals,
+         methods/contributor.cljc). Caller-supplied via the OPTIONAL \"contributor_trajectory\"
+         input key ({did -> [event, ...]}); absent/empty means no history for this author, which
+         throttled? treats as not-throttled by construction — so existing callers that don't yet
+         have a trajectory store keep their prior behaviour unchanged. Recoverable, not punitive
+         (a single accepted edit un-throttles) — never a permanent ban or a stored reputation score.
   A SCREENED proposal is then RECORDED as an append-only :edit/* datom. REFUSAL gate, not a clamp.
 
   State dicts use STRING keys (\"cell_state\", \"edit_id\", …) mirroring the Python dict threading."
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [ake.methods.contributor :as contributor]))
 
 (def TARGET-KINDS #{"kg-fact" "actor-profile"})
 
@@ -63,6 +70,10 @@
 
       (get cs "server_held_key")
       (refuse "G1/no-server-key: server-held-key must be false (ADR-2605231525)")
+
+      (contributor/throttled? (get state "contributor_trajectory" {}) (get cs "author"))
+      (refuse (str "G9: author is currently throttled (an unbroken recent run of refused "
+                   "proposals) — a single accepted edit un-throttles (recoverable, not punitive)"))
 
       (str/blank? (str/trim (str (get cs "provenance"))))
       (refuse "G4: an unsourced proposal is refused — provenance is mandatory")

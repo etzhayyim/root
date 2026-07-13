@@ -53,6 +53,28 @@
     (is (= propose/phase-refused (get cs "phase")))
     (is (clojure.string/includes? (get cs "refusal") "G3"))))
 
+(deftest test-propose-refuses-throttled-author
+  ;; documented in CLAUDE.md ("G9 anti-vandalism / contributor-trajectory... Repeated
+  ;; charter-violating proposals throttle") but previously never wired into propose — a
+  ;; throttled DID could keep proposing unimpeded. An unbroken run of 5 recent refusals
+  ;; (methods/contributor.cljc's default THROTTLE-RECENT/THROTTLE-REFUSED-RUN) throttles.
+  (let [author "did:web:etzhayyim.com:member:abel"
+        refused-run (mapv (fn [i] {"outcome" "refused" "as_of" i}) (range 1 6))
+        traj {author refused-run}
+        cs (get (screen {"contributor_trajectory" traj}) "cell_state")]
+    (is (= propose/phase-refused (get cs "phase")))
+    (is (clojure.string/includes? (get cs "refusal") "G9"))))
+
+(deftest test-propose-allows-author-recovered-by-one-accepted-edit
+  ;; throttling is recoverable by construction — a single accepted edit anywhere in the
+  ;; recent window breaks the unbroken-refusal run and un-throttles the author.
+  (let [author "did:web:etzhayyim.com:member:abel"
+        mixed-run (conj (mapv (fn [i] {"outcome" "refused" "as_of" i}) (range 1 5))
+                        {"outcome" "accepted" "as_of" 5})
+        traj {author mixed-run}
+        cs (get (screen {"contributor_trajectory" traj}) "cell_state")]
+    (is (= propose/phase-screened (get cs "phase")))))
+
 (deftest test-propose-cannot-record-without-screening
   (let [cs (get (propose/transition-to-recorded {"cell_state" {}}) "cell_state")]
     (is (= propose/phase-refused (get cs "phase")))))
