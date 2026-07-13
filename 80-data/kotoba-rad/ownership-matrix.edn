@@ -411,6 +411,10 @@
   {:rid "bafkreihpcokxatcmj2k3jxxidu6m23ljowescex3gz7nwzaj5lqqn4cee4",
    :datasets (),
    :declared? false},
+  "tomoshibi"
+  {:rid "bafkreice23tmjwuymn4ronuilzrdedupdf2qlcek2xk37t2myd2krvuasi",
+   :datasets (),
+   :declared? false},
   "umisachi"
   {:rid "bafkreiacawvc2bu7vq2nruf7p22bupcjwu6naz3zfgw2wanhec4hxnijli",
    :datasets (),
