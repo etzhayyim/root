@@ -37,6 +37,8 @@
    "herbicide_free"    true
    "robot_sigs"        []
    "human_attestation" ""
+   "displaced_cohort_id" ""
+   "dividend_attested" false
    "payload"           {}})
 
 (defn- cell-state [state]
@@ -73,21 +75,34 @@
   (let [cs (cell-state state)
         robot-sigs (vec (get state "robot_sigs" []))
         human (get state "human_attestation" "")
+        displaced-cohort-id (get state "displaced_cohort_id" (get cs "displaced_cohort_id"))
+        dividend-attested (boolean (get state "dividend_attested" (get cs "dividend_attested")))
         ;; G3 witness quorum: >=2 robot sigs + >=1 human attestation to finalize a pass record
-        quorum-ok (and (>= (count robot-sigs) 2) (boolean (seq human)))
-        cs (assoc cs
-                  "phase" phase-pass-logged
-                  "robot_sigs" robot-sigs
-                  "human_attestation" human
-                  "payload" {"weeding_pass_record"
-                             {"parcelId" (get cs "parcel_id")
-                              "rowsScanned" (get cs "rows_scanned")
-                              "weedsDetected" (get cs "weeds_detected")
-                              "weedsCleared" (get cs "weeds_cleared")
-                              "method" (get cs "method")
-                              "herbicideFree" (get cs "herbicide_free")
-                              "witnessQuorumMet" quorum-ok}})]
-    {"cell_state" cs "next_node" "end"}))
+        quorum-ok (and (>= (count robot-sigs) 2) (boolean (seq human)))]
+    ;; G2 displacement-dividend coupling (ADR-2606032130): no live displacement without the
+    ;; displaced cohort registered for the tenure-weighted dividend. Mirrors hataori's
+    ;; finishing_packing/state_machine.cljc transition-to-lot-attested, which enforces the
+    ;; same G2 wording from the same ADR pair as a hard refusal on its terminal cell.
+    (when (or (not dividend-attested) (empty? displaced-cohort-id))
+      (throw (ex-info "G2 violation: displaced cohort not registered for the Displacement Dividend (ADR-2606032130)"
+                      {:gate "G2"})))
+    (let [cs (assoc cs
+                    "phase" phase-pass-logged
+                    "robot_sigs" robot-sigs
+                    "human_attestation" human
+                    "displaced_cohort_id" displaced-cohort-id
+                    "dividend_attested" dividend-attested
+                    "payload" {"weeding_pass_record"
+                               {"parcelId" (get cs "parcel_id")
+                                "rowsScanned" (get cs "rows_scanned")
+                                "weedsDetected" (get cs "weeds_detected")
+                                "weedsCleared" (get cs "weeds_cleared")
+                                "method" (get cs "method")
+                                "herbicideFree" (get cs "herbicide_free")
+                                "witnessQuorumMet" quorum-ok
+                                "displacedCohortId" displaced-cohort-id
+                                "dividendAttested" dividend-attested}})]
+      {"cell_state" cs "next_node" "end"})))
 
 (defn solve
   "R0 scaffold: .solve() raises until Council activation (ADR-2606032100 §Decision)."
