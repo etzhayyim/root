@@ -1,0 +1,82 @@
+name: deps-edn-paths
+
+# CI-level replacement for the dead `deps-toml-paths` workflow (removed
+# 2026-07-14). `deps.toml` no longer exists — the toml→edn migration
+# (ADR-2606121143) replaced it with `deps.edn` + `verify_deps_edn_paths.py`
+# (70-tools/scripts/lint/), already enforced locally via the
+# `deps-edn-canonical` lefthook on every commit that stages `deps.edn`. That
+# local hook does NOT run for commits made outside a git-hooks-aware client
+# (e.g. GitHub API `contents.update`/merge commits), so this workflow closes
+# the real CI-level gap: every push/PR to `deps.edn` (and nightly, to catch
+# path drift from unrelated file moves/deletes) gets the same two checks the
+# lefthook runs.
+#
+# The old `deps-toml-paths.yml` additionally ran a targeted
+# `git submodule update --init --recursive 40-engine/kami-engine` step before
+# its checks — that step started failing 2026-07-09 ("pathspec did not
+# match": kami-engine is no longer a root git-submodule, same finding
+# audit-health.yml already applied 2026-06-17) and is dropped here; neither
+# `format-deps-edn.py --check` nor `verify_deps_edn_paths.py` reads anything
+# under 40-engine/, so it was never actually needed by this workflow's own
+# checks — the old step was carried over unchanged from the toml verifier's
+# original setup, not something the edn verifier requires.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'deps.edn'
+      - '70-tools/scripts/lint/format-deps-edn.py'
+      - '70-tools/scripts/lint/verify_deps_edn_paths.py'
+      - '70-tools/scripts/lint/test_format_deps_edn.py'
+      - '70-tools/scripts/lint/test_verify_deps_edn_paths.py'
+      - '.github/workflows/deps-edn-paths.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'deps.edn'
+      - '70-tools/scripts/lint/format-deps-edn.py'
+      - '70-tools/scripts/lint/verify_deps_edn_paths.py'
+      - '70-tools/scripts/lint/test_format_deps_edn.py'
+      - '70-tools/scripts/lint/test_verify_deps_edn_paths.py'
+      - '.github/workflows/deps-edn-paths.yml'
+  schedule:
+    # Nightly at 03:17 UTC = ~12:17 JST (off-peak both regions; same slot the
+    # old deps-toml-paths workflow used).
+    - cron: '17 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: deps-edn-paths
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install pytest
+        run: pip install pytest
+
+      - name: Run verifier unit tests
+        env:
+          PYTEST_DISABLE_PLUGIN_AUTOLOAD: '1'
+        run: |
+          python3 -m pytest \
+            70-tools/scripts/lint/test_format_deps_edn.py \
+            70-tools/scripts/lint/test_verify_deps_edn_paths.py \
+            -v
+
+      - name: deps.edn canonical format + path audit (same checks the deps-edn-canonical lefthook runs on commit)
+        run: |
+          python3 70-tools/scripts/lint/format-deps-edn.py --check deps.edn
+          python3 70-tools/scripts/lint/verify_deps_edn_paths.py
