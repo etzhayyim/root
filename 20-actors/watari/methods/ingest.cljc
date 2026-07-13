@@ -105,6 +105,42 @@
      [path]
      (parse-json (slurp (str path)))))
 
+;; ── G1 military/blocked-from-display screen (:representative, bounded — G8) ──────
+;;
+;; watari's own CLAUDE.md G1 names "military / blocked-from-display aircraft (FAA LADD,
+;; PIA); naval vessels not openly broadcasting" as FORBIDDEN INPUTS, but until now no
+;; normalizer here actually filtered anything on that basis (the same class of gap as
+;; kuni-umi's jurisdiction-eligibility fix: a documented rule with no enforcing code).
+;; True LADD/PIA-opted aircraft are already withheld server-side by OpenSky, and a
+;; non-broadcasting naval vessel structurally never reaches this pipeline (no AIS message
+;; = no fix) — so this screen targets the REMAINING real gap: craft that DO broadcast
+;; publicly but self-identify as military via the fields this pipeline actually receives
+;; (callsign for ADS-B; ship name for AIS — AISStream's PositionReport message carries no
+;; ShipType field, so a ShipType-based vessel screen is not implementable against the
+;; data this actor ingests today). Bounded/representative (G8), not claimed exhaustive —
+;; the same posture as yadori's `blocked-names` held-trademark list.
+
+(def military-callsign-prefixes
+  "A small, well-known, :representative set of military/government flight callsign
+  prefixes (e.g. \"RCH\" = USAF Air Mobility Command \"Reach\"). Not exhaustive."
+  #{"RCH" "NAVY" "ARMY" "CNV" "SAM" "PAT" "COBRA" "VIPER" "TANKER"})
+
+(defn- military-callsign?
+  [callsign]
+  (let [cs (str/upper-case (str/trim (or callsign "")))]
+    (boolean (some #(str/starts-with? cs %) military-callsign-prefixes))))
+
+(def military-ship-name-prefixes
+  "A small, well-known, :representative set of naval-vessel name prefixes (pennant-style
+  hull designators used by several navies for openly-broadcasting warships/auxiliaries).
+  Not exhaustive — see the module docstring above."
+  #{"USS " "USNS " "HMS " "HMCS " "HMAS " "FGS " "FS " "ITS " "INS " "JS " "ROKS "})
+
+(defn- military-ship-name?
+  [ship-name]
+  (let [n (str/upper-case (str/trim (or ship-name "")))]
+    (boolean (some #(str/starts-with? n %) military-ship-name-prefixes))))
+
 ;; ── normalizers (1:1 with _vessel_fix / _aircraft_fix / normalize) ───────────────
 
 (defn- nonempty-or-nil
@@ -114,30 +150,37 @@
     (if (str/blank? t) nil t)))
 
 (defn vessel-fix
-  "AISStream-shaped PositionReport → [craft fix] maps (:representative)."
+  "AISStream-shaped PositionReport → [craft fix] maps (:representative). Drops a vessel
+  whose ShipName matches the G1 military-name screen → [nil nil]."
   [msg ts]
-  (let [mmsi (or (get msg "MMSI") (get msg "UserID"))
-        cid (str "craft.vessel.mmsi" mmsi)
-        craft {":craft/id" cid ":craft/kind" ":vessel"
-               ":craft/name" (nonempty-or-nil (get msg "ShipName" ""))
-               ":craft/mmsi" mmsi ":craft/sourcing" ":representative"}
-        fix {":craft.fix/id" (str "fix." cid "." ts) ":craft.fix/craft" cid
-             ":craft.fix/lat" (get msg "Latitude") ":craft.fix/lon" (get msg "Longitude")
-             ":craft.fix/speed-kn" (get msg "Sog") ":craft.fix/course" (get msg "Cog")
-             ":craft.fix/observed-at" ts ":craft.fix/source" ":ais"
-             ":craft.fix/sourcing" ":representative"}]
-    [craft fix]))
+  (let [ship-name (get msg "ShipName" "")]
+    (if (military-ship-name? ship-name)
+      [nil nil]
+      (let [mmsi (or (get msg "MMSI") (get msg "UserID"))
+            cid (str "craft.vessel.mmsi" mmsi)
+            craft {":craft/id" cid ":craft/kind" ":vessel"
+                   ":craft/name" (nonempty-or-nil ship-name)
+                   ":craft/mmsi" mmsi ":craft/sourcing" ":representative"}
+            fix {":craft.fix/id" (str "fix." cid "." ts) ":craft.fix/craft" cid
+                 ":craft.fix/lat" (get msg "Latitude") ":craft.fix/lon" (get msg "Longitude")
+                 ":craft.fix/speed-kn" (get msg "Sog") ":craft.fix/course" (get msg "Cog")
+                 ":craft.fix/observed-at" ts ":craft.fix/source" ":ais"
+                 ":craft.fix/sourcing" ":representative"}]
+        [craft fix]))))
 
 (defn aircraft-fix
-  "OpenSky /states/all vector → [craft fix] maps (:representative). Drops on-ground/null-position
-  and any state lacking a public icao24 → [nil nil]."
+  "OpenSky /states/all vector → [craft fix] maps (:representative). Drops on-ground/null-position,
+  any state lacking a public icao24, or a callsign matching the G1 military-callsign screen →
+  [nil nil]."
   [state ts]
-  (let [icao24 (str/lower-case (str/trim (or (nth state 0) "")))]
-    (if (or (str/blank? icao24) (nil? (nth state 5)) (nil? (nth state 6)))
+  (let [icao24 (str/lower-case (str/trim (or (nth state 0) "")))
+        callsign (nth state 1)]
+    (if (or (str/blank? icao24) (nil? (nth state 5)) (nil? (nth state 6))
+            (military-callsign? callsign))
       [nil nil]
       (let [cid (str "craft.aircraft." icao24)
             craft {":craft/id" cid ":craft/kind" ":aircraft"
-                   ":craft/callsign" (nonempty-or-nil (nth state 1))
+                   ":craft/callsign" (nonempty-or-nil callsign)
                    ":craft/icao24" icao24 ":craft/sourcing" ":representative"}
             fix {":craft.fix/id" (str "fix." cid "." ts) ":craft.fix/craft" cid
                  ":craft.fix/lat" (nth state 6) ":craft.fix/lon" (nth state 5)

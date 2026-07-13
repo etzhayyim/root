@@ -36,6 +36,18 @@
 (deftest test-g6-blocks-trademark-name
   (is (thrown-with-msg? clojure.lang.ExceptionInfo #"G6 violation" (run :sld "google"))))
 
+(deftest test-g6-blocks-idn-homograph-sld
+  ;; Cyrillic а + Latin "pple" — same known-homograph fixture as
+  ;; methods/test_confusable_fqdn.cljc's flags-a-homograph-in-the-second-level-name.
+  (is (thrown-with-msg? clojure.lang.ExceptionInfo #"G6 violation" (run :sld "аpple"))
+      "a homograph SLD (Cyrillic а + Latin pple, mimicking 'apple') fails G6 even though it is not
+      literally in the held-trademark list"))
+
+(deftest test-g6-allows-single-script-idn-sld
+  (is (= sm/phase-screened
+         (get-in (sm/transition-to-screened {"cell_state" {} "sld" "café"}) ["cell_state" "phase"]))
+      "an accented-but-single-script SLD (café) is not a homograph and is not trademark-blocked"))
+
 (deftest test-g6-blocks-speculation
   (is (thrown-with-msg? clojure.lang.ExceptionInfo #"G6 violation" (run :speculative true))))
 

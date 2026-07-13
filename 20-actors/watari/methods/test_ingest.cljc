@@ -38,6 +38,29 @@
       (doseq [k (keys rec)]
         (is (not (.contains ^String k ":person")))))))   ;; craft, never a person (G4)
 
+(deftest test-g1-drops-military-callsign-aircraft
+  ;; "RCH" = USAF Air Mobility Command "Reach" — a well-known military callsign prefix.
+  (let [[craft fix] (ingest/aircraft-fix
+                      ["ae1234" "RCH123  " "United States" 0 0 -77.0 38.9 3000.0 false
+                       400.0 90.0 0.0 nil 3100.0 nil false 0]
+                      "2026-06-04T12:00:00Z")]
+    (is (nil? craft))
+    (is (nil? fix))))
+
+(deftest test-g1-drops-military-ship-name
+  (let [[craft fix] (ingest/vessel-fix
+                     {"MMSI" 111222333 "ShipName" "USS Constitution"
+                      "Latitude" 42.37 "Longitude" -71.05 "Sog" 0.0 "Cog" 0.0}
+                     "2026-06-04T12:00:00Z")]
+    (is (nil? craft))
+    (is (nil? fix))))
+
+(deftest test-g1-allows-civilian-callsign-and-shipname
+  ;; the existing sample fixtures (ANA12/DLH715 aircraft, EVER GIVEN/MSC GULSUN vessels)
+  ;; must still normalize -- the G1 screen must not over-block civilian traffic.
+  (let [[craft _fixes] (ingest/normalize (batch))]
+    (is (>= (count craft) 4) "all 4 sample civilian craft still pass through the G1 screen")))
+
 (deftest test-g7-live-fetch-refused-without-operator-gate
   ;; default mode (no WATARI_OPERATOR_GATE) must REFUSE --live
   (is (thrown? #?(:clj Exception :cljs js/Error) (ingest/main ["ingest.py" "--live"]))
