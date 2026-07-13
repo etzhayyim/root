@@ -27882,6 +27882,30 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2607141900-sanae-g2-displacement-dividend-coupling-gap.md",
+      "id": "adr-2607141900-sanae-g2-displacement-dividend-coupling-gap",
+      "title": "ADR-2607141900: sanae autonomous_weeding — G2 displacement-dividend coupling を pass_logged 終端に配線",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "sanae-g2-displacement-dividend-coupling-gap",
+      "authoritative": true,
+      "authoritative_for": [
+        "sanae autonomous_weeding cell の G2(displacement-dividend coupling)配線の正本"
+      ],
+      "related": [
+        "adr-2607141600-yadori-watari-documented-gate-implementation-gaps"
+      ],
+      "supersedes": [],
+      "depends_on": [
+        "adr-2606032100-labor-liberation-robotics-actor-wave-isic-isco-unspsc-ranking",
+        "adr-2606032130-displacement-dividend-tenure-weighted-basic-high-income"
+      ],
+      "last_verified": "2026-07-14",
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
