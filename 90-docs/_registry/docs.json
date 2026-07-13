@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-07-12",
+  "updated_at": "2026-07-13",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.md",
@@ -27828,6 +27828,31 @@
         "adr-2606111400-etzhayyim-revocable-cacao-leash"
       ],
       "last_verified": "2026-07-12",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2607141200-kuni-umi-site-survey-jurisdiction-governor.md",
+      "id": "adr-2607141200-kuni-umi-site-survey-jurisdiction-governor",
+      "title": "ADR-2607141200: kuni-umi site_survey — jurisdiction-eligibility を governed advisor(mock + real Murakumo LLM)に置き換え",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "kuni-umi-site-survey-jurisdiction-governor",
+      "authoritative": true,
+      "authoritative_for": [
+        "kuni-umi site_survey cell の jurisdiction-eligibility 判定ロジックの正本",
+        "com-etzhayyim-kuni-umi における Murakumo-fleet allowed-infer-hosts allowlist(tailnet経由含む)"
+      ],
+      "related": [
+        "adr-2605192100-etzhayyim-mission-charter"
+      ],
+      "supersedes": [],
+      "depends_on": [
+        "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet",
+        "adr-2605201500-etzhayyim-kuni-umi-s1-solo-survey"
+      ],
+      "last_verified": "2026-07-14",
+      "superseded_by": [],
       "amends": [],
       "amended_by": []
     },
