@@ -5,7 +5,7 @@
   flat py/agent.py module, not the cells — same as tatekata). These assertions
   pin the ported cell's pure surface + its R0 hardware/SDK gates + the
   constitutional N≥2 witness invariant (ADR-2605201400 §9)."
-  (:require [clojure.test :refer [deftest is]]
+  (:require [clojure.test :refer [deftest is testing]]
             [kuni-umi.cells.site-survey.cell :as cell]))
 
 (deftest closed-enums-preserve-python-value-identities
@@ -20,11 +20,70 @@
   (is (= 2 cell/witness-invariant-min))
   (is (= 2 (get (cell/healthz-extra (cell/make-cell-deps)) "witness_invariant_min"))))
 
-(deftest jurisdiction-eligibility-is-the-only-pure-node
-  ;; R0 scaffold returns accepted=true for syntax validation
-  (let [out (cell/jurisdiction-eligibility cell/site-survey-state (cell/make-cell-deps))]
+(def eligible-site-state
+  "A realistic, constitutionally-eligible site state — used by tests that
+  need jurisdiction-eligibility to actually accept."
+  (merge cell/site-survey-state
+         {:intendedUse "community" :jurisdictionDid "did:web:example.gov"
+          :localLawAttestationCid "bafyattestation"}))
+
+(deftest jurisdiction-eligibility-accepts-a-realistic-eligible-site
+  (let [out (cell/jurisdiction-eligibility eligible-site-state (cell/make-cell-deps))]
     (is (true? (:accepted out)))
     (is (nil? (:rejectionReason out)))))
+
+(deftest jurisdiction-eligibility-rejects-the-empty-fresh-state
+  ;; Was previously accepted=true unconditionally (R0 placeholder); now the
+  ;; constitutional intendedUse floor + required-field checks correctly
+  ;; reject a state with no intendedUse/jurisdictionDid/attestation at all.
+  (let [out (cell/jurisdiction-eligibility cell/site-survey-state (cell/make-cell-deps))]
+    (is (false? (:accepted out)))
+    (is (some? (:rejectionReason out)))))
+
+(deftest jurisdiction-eligibility-hard-rejects-military-intended-use
+  (testing "the constitutional intendedUse boundary cannot be overridden by
+            an advisor that says :accepted true — governor wins"
+    (let [state (merge eligible-site-state {:intendedUse "military"})
+          out (cell/jurisdiction-eligibility
+               state (cell/make-cell-deps
+                      :llm-primary (fn [_] {:accepted true :rationale "advisor says fine"
+                                            :confidence 1.0})))]
+      (is (false? (:accepted out)))
+      (is (re-find #"military" (:rejectionReason out))))))
+
+(deftest jurisdiction-eligibility-rejects-missing-jurisdiction-did
+  (let [state (dissoc eligible-site-state :jurisdictionDid)
+        out (cell/jurisdiction-eligibility state (cell/make-cell-deps))]
+    (is (false? (:accepted out)))
+    (is (re-find #"jurisdictionDid" (:rejectionReason out)))))
+
+(deftest jurisdiction-eligibility-rejects-missing-local-law-attestation
+  (let [state (dissoc eligible-site-state :localLawAttestationCid)
+        out (cell/jurisdiction-eligibility state (cell/make-cell-deps))]
+    (is (false? (:accepted out)))
+    (is (re-find #"localLawAttestationCid" (:rejectionReason out)))))
+
+(deftest jurisdiction-eligibility-respects-an-injected-advisor-rejection
+  (let [out (cell/jurisdiction-eligibility
+             eligible-site-state
+             (cell/make-cell-deps
+              :llm-primary (fn [_] {:accepted false :rationale "looks off"
+                                    :confidence 0.9})))]
+    (is (false? (:accepted out)))
+    (is (= "looks off" (:rejectionReason out)))))
+
+(deftest jurisdiction-eligibility-rejects-low-confidence-advisor
+  (let [out (cell/jurisdiction-eligibility
+             eligible-site-state
+             (cell/make-cell-deps
+              :llm-primary (fn [_] {:accepted true :rationale "unsure"
+                                    :confidence 0.2})))]
+    (is (false? (:accepted out)))
+    (is (re-find #"confidence" (:rejectionReason out)))))
+
+(deftest mock-advise-defers-entirely-to-governor
+  (is (= {:accepted true :rationale "mock advisor: deferring to governor rules" :confidence 1.0}
+         (cell/mock-advise eligible-site-state))))
 
 (deftest router-branches-on-accepted
   (is (= "witness_attest" (cell/router {:accepted true})))
@@ -47,7 +106,7 @@
     (is (some #{["emit_survey" "END"]} (:edges g)))
     ;; the pure node is callable through the graph; the gated ones raise
     (is (true? (:accepted ((get-in g [:steps "jurisdiction_eligibility"])
-                           cell/site-survey-state))))
+                           eligible-site-state))))
     (is (thrown? clojure.lang.ExceptionInfo
                  ((get-in g [:steps "allocate_scout_fleet"]) cell/site-survey-state)))))
 
