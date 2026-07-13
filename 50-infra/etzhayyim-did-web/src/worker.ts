@@ -254,6 +254,55 @@ const DONATION_POLICY = {
 // Static, dependency-free, cookie-free. No external resource, no inline script
 // (Charter Rider §2(c) — the page itself must not track). Information about
 // etzhayyim's own religious activity = not advertising (ADR-2605192115 §1.2).
+const TOMOSHIBI_HTML = renderShell({
+  title: "灯 tomoshibi — write to us · etzhayyim",
+  lang: "en",
+  description:
+    "tomoshibi (灯) is etzhayyim's invitational agent. Write to tomoshibi@etzhayyim.com with any question about the association; it replies. No pressure, opt out anytime.",
+  active: "/tomoshibi",
+  main: `
+<h1>灯 — a light left on.</h1>
+<p class="sub">The door to etzhayyim is open to everyone, but an open door has never invited anyone in. <strong>tomoshibi (灯, "a lamp")</strong> is the small light in the window: an agent that answers when you knock. Write to it with any question about the association — what we believe, how we work, whether to join — and it will write back.</p>
+
+<div class="card">
+<span class="tag">write to</span>
+<p style="font-size:1.35rem;margin:.15rem 0"><a href="mailto:tomoshibi@etzhayyim.com?subject=Hello%20tomoshibi"><strong>tomoshibi@etzhayyim.com</strong></a></p>
+<p style="opacity:.7;margin:.25rem 0 0">Ask in Japanese or English. You'll get one honest, unhurried reply.</p>
+</div>
+
+<h2>What tomoshibi is</h2>
+<div class="card">
+<span class="tag">AI agent</span><span class="tag">not a person</span>
+<p>tomoshibi is an <strong>AI agent</strong> of the association — never a human pretending otherwise. It runs on etzhayyim's own <a href="/murakumo">Murakumo mesh</a> (self-hosted, no rented GPUs), reads your message, and drafts a reply in your language. It holds its own signing key; it speaks only for itself.</p>
+</div>
+<div class="card">
+<span class="tag">reply-only</span><span class="tag">you write first</span>
+<p>tomoshibi can <em>only</em> answer people who write to it first — by design. It sends no cold mail, keeps no target list, and cannot start a conversation. There is nothing to unsubscribe from until you choose to write; if you do write and later change your mind, reply <strong>"unsubscribe"</strong> (or 「配信停止」) and it stops immediately, forever.</p>
+</div>
+<div class="card">
+<span class="tag">no pressure</span><span class="tag">governed</span>
+<p>Every reply passes an independent <strong>EvangelismGovernor</strong> before it is ever sent: no coercion, no urgency or fear, no exploiting anyone's hardship, no soliciting a minor alone, no asking for money or personal data. An invitation is open, or it is nothing. (This is a constitutional rule — Mission Charter §1.16.)</p>
+</div>
+<div class="card">
+<span class="tag">now-and-here</span><span class="tag">non-eschatological</span>
+<p>etzhayyim is a 宗教法人 (a religious association) whose aim is the structural liberation of people from compelled labor, with children and grandchildren first. It synthesizes Japanese values — 八百万・縁起・産霊・和 — with Protestant Christianity, and it is <strong>non-eschatological</strong>: no end-times, no rapture, no fear of damnation. The Kingdom it points to is here and now.</p>
+</div>
+
+<h2>Verify who you're writing to</h2>
+<p>tomoshibi has its own on-chain-style identity, so you can check it is really etzhayyim's agent:</p>
+<div class="card">
+<p style="margin:.1rem 0"><span class="tag">DID</span> <a href="/actor/tomoshibi/did.json"><code>did:web:etzhayyim.com:actor:tomoshibi</code></a></p>
+<p style="margin:.1rem 0"><span class="tag">key</span> <code>did:key:z6MkvqXdDba3CZ96nRzYBYiDrnoHP8DtCSgW7duzwFPGnf9Z</code></p>
+<p style="margin:.1rem 0"><span class="tag">sovereign id</span> <code>rad:bafkreice23tmjwuymn4ronuilzrdedupdf2qlcek2xk37t2myd2krvuasi</code></p>
+<p style="opacity:.7;margin:.35rem 0 0">Every reply tomoshibi commits is recorded in an append-only, key-signed ledger — a public record that it answered, kept deliberately free of who it answered.</p>
+</div>
+
+<p class="sub" style="margin-top:1.5rem">So: if anything here makes you curious, or unsure, or you just want to ask a real question and get a real answer — <a href="mailto:tomoshibi@etzhayyim.com?subject=Hello%20tomoshibi">write to tomoshibi</a>. The light is on.</p>
+`,
+  footerHtml:
+    'tomoshibi (灯) reply-only invitational agent · ADR-2607061700 (§1.16 Active Evangelism) + 2607121830 (reply-only email channel) · Actor DID: <a href="/actor/tomoshibi/did.json">did:web:etzhayyim.com:actor:tomoshibi</a> · Entity DID: <a href="/.well-known/did.json">did:web:etzhayyim.com</a> · <a href="/actors">All actors</a>',
+});
+
 const DONATE_HTML = renderShell({
   title: "Donate · etzhayyim",
   lang: "en",
@@ -2355,6 +2404,7 @@ const cljsDeps = {
   didDoc,
   donationPolicy: DONATION_POLICY,
   donateHtml: DONATE_HTML,
+  tomoshibiHtml: TOMOSHIBI_HTML,
   unispscTotal: UNISPSC_TOTAL_COUNT,
   govProcMeta: {
     generatedAt: GOV_PROCEDURES_GENERATED_AT,

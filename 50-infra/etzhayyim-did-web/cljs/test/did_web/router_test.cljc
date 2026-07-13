@@ -15,6 +15,7 @@
     (is (= :did-json            (r "GET" "/.well-known/did.json")))
     (is (= :donation-json       (r "GET" "/.well-known/donation.json")))
     (is (= :donate-html         (r "GET" "/donate")))
+    (is (= :tomoshibi-html      (r "GET" "/tomoshibi")))
     (is (= :actors-json         (r "GET" "/.well-known/actors.json")))
     (is (= :actors-html         (r "GET" "/actors")))
     (is (= :gov-units-json      (r "GET" "/.well-known/gov-units.json")))
@@ -94,6 +95,7 @@
 (deftest trailing-slash-normalized
   (testing "a trailing slash on a static content route does not change ownership"
     (is (= :donate-html (r "GET" "/donate/")))
+    (is (= :tomoshibi-html (r "GET" "/tomoshibi/")))
     (is (= :actors-html (r "GET" "/actors/")))
     (is (= :organism-html (r "GET" "/organism/")))
     (is (= :organism-html (r "GET" "/organism/index.html")))
