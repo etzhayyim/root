@@ -15,7 +15,8 @@
 
   Conventions: dataclass ReservationState → a plain map with the SAME string field keys the Python
   `cs.__dict__` round-trips; phase enum value identities stay strings; ValueError → ex-info."
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [yadori.methods.availability :as availability]))
 
 ;; G3: registrars yadori may select without a Council approval flag.
 (def default-registrar "cloudflare")
@@ -62,7 +63,12 @@
   (merge state-defaults (get state "cell_state" {})))
 
 (defn transition-to-screened
-  "G6: no-squatting eligibility screen."
+  "G6: no-squatting eligibility screen — held-trademark list AND IDN-homograph
+  confusable screen (the confusable half was previously undocumented-missing:
+  `methods/availability.cljc` already shipped a fully-implemented, fully-
+  tested `confusable-fqdn?` primitive, but no cell ever called it, so a
+  homograph SLD like Cyrillic 'аpple' sailed through this gate — the same
+  class of gap as kuni-umi's jurisdiction-eligibility fix)."
   [state]
   (let [cs (cell-state state)
         cs (assoc cs
@@ -71,6 +77,10 @@
                   "charter_clean" (boolean (get state "charter_clean" true)))]
     (when (contains? blocked-names (str/lower-case (get cs "sld")))
       (throw (ex-info (str "G6 violation: '" (get cs "sld") "' fails held-trademark/confusable screen") {:gate "G6"})))
+    (when (availability/confusable-fqdn? (get cs "sld"))
+      (throw (ex-info (str "G6 violation: '" (get cs "sld")
+                           "' is an IDN homograph (mixes Unicode scripts) — fails the confusable screen")
+                      {:gate "G6" :confusable-labels (availability/confusable-labels (get cs "sld"))})))
     (when (get cs "speculative")
       (throw (ex-info "G6 violation: speculation / resale / parking intent is prohibited (N1/N2)" {:gate "G6"})))
     (when-not (get cs "charter_clean")

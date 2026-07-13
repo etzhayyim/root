@@ -27857,6 +27857,31 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2607141600-yadori-watari-documented-gate-implementation-gaps.md",
+      "id": "adr-2607141600-yadori-watari-documented-gate-implementation-gaps",
+      "title": "ADR-2607141600: yadori G6(IDN homograph)・watari G1(military craft) — 文書化済みゲートの実装ギャップを解消",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "yadori-watari-documented-gate-implementation-gaps",
+      "authoritative": true,
+      "authoritative_for": [
+        "yadori reservation cell の G6(no-squatting)IDN-homograph screen 配線の正本",
+        "watari methods/ingest.cljc の G1(public-broadcast-only)military-craft screen の正本"
+      ],
+      "related": [
+        "adr-2607141200-kuni-umi-site-survey-jurisdiction-governor"
+      ],
+      "supersedes": [],
+      "depends_on": [
+        "adr-2606038400-yadori-dns-availability-and-domain-acquisition-tier-b-actor-r0",
+        "adr-2606041827-watari-live-ship-aircraft-position-kotoba-native"
+      ],
+      "last_verified": "2026-07-14",
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
