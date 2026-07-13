@@ -159,13 +159,83 @@
                    (str "Requires deps.sdk for IPFS pin via @etzhayyim/sdk "
                         "and live Giemon fleet.")))
 
+(def constitutional-intended-uses
+  "Hard invariant per this actor's own CLAUDE.md boundary table (`intendedUse`
+  row): civilian/community/commons only. military/proprietary-closed-design
+  is NEVER eligible, independent of any advisor's judgment — this constant
+  is the governor's protected floor, the yosoku/tashikame/kouhou/fleet
+  `ComplianceFloor` analog for this actor."
+  #{"civilian" "community" "commons"})
+
+(defn jurisdiction-governor
+  "Independently re-derives :accepted from the RAW state — never trusts
+  `advisor-proposal`'s self-reported :accepted (same invariant as
+  yosoku.governor/tashikame.governor/kouhou's *Governor: the advisor
+  proposes, an independent check decides). Priority order: (1) HARD
+  constitutional intendedUse boundary — cannot be overridden by any advisor
+  or confidence level; (2) required-field presence (jurisdictionDid,
+  localLawAttestationCid) — soft-scaffold checks pending the real
+  ADR-2605201400 §5 Rego policy; (3) the advisor's own judgment + confidence
+  floor. `advisor-proposal` may be nil (no advisor injected)."
+  [state advisor-proposal]
+  (let [intended-use (get state :intendedUse)
+        confidence   (get advisor-proposal :confidence 1.0)]
+    (cond
+      (not (contains? constitutional-intended-uses intended-use))
+      {:accepted false
+       :rejectionReason (str "intendedUse " (pr-str intended-use)
+                             " is not in " constitutional-intended-uses
+                             " (constitutional boundary, this actor's CLAUDE.md)")}
+
+      (nil? (get state :jurisdictionDid))
+      {:accepted false :rejectionReason "jurisdictionDid missing"}
+
+      (nil? (get state :localLawAttestationCid))
+      {:accepted false :rejectionReason "localLawAttestationCid missing"}
+
+      (and advisor-proposal (false? (:accepted advisor-proposal)))
+      {:accepted false
+       :rejectionReason (or (:rationale advisor-proposal) "advisor flagged ineligible")}
+
+      (and advisor-proposal (< confidence 0.5))
+      {:accepted false
+       :rejectionReason (str "advisor confidence " confidence " below floor 0.5")}
+
+      :else
+      {:accepted true :rejectionReason nil})))
+
+(defn mock-advise
+  "Deterministic default advisor: defers entirely to the governor's hard/soft
+  rules above (no independent judgment of its own) — safe offline default,
+  same role as yosoku/tashikame/kouhou's `mock-advisor`."
+  [_state]
+  {:accepted true :rationale "mock advisor: deferring to governor rules" :confidence 1.0})
+
 (defn jurisdiction-eligibility
   "Run DMN: 20-actors/kuni-umi/dmn/jurisdiction-eligibility.md.
-  Port of `jurisdiction_eligibility` — the ONLY pure node. The R0 scaffold
-  returns accepted=true for syntax validation; real DMN integration requires
-  the ADR-2605201400 §5 Rego policy. Returns the next state map."
-  [state _deps]
-  (assoc state :accepted true :rejectionReason nil))
+  Port of `jurisdiction_eligibility` — the ONLY pure node. `deps`'s
+  `:llm-primary` (already an anticipated `make-cell-deps` DI field), if
+  present, must be a plain fn of `state -> {:accepted bool :rationale str
+  :confidence 0..1}` (see `cells/site_survey/advisor.cljc` for a real
+  Murakumo-backed implementation — deliberately NOT required by this ns, to
+  keep this cell layer dependency-free per its own `no langgraph dependency
+  at this layer` convention). Falls back to `mock-advise` when absent. The
+  advisor's output is a PROPOSAL only — `jurisdiction-governor` independently
+  re-derives the actual decision and can override it in either direction of
+  strictness (a permissive advisor never buys past the constitutional
+  intendedUse floor; governor's soft checks add scrutiny the mock advisor
+  alone would not).
+
+  Previously (R0 scaffold) this always returned accepted=true unconditionally
+  — real DMN integration was pending the ADR-2605201400 §5 Rego policy. This
+  is a first real cut of that policy (constitutional hard rule + governed
+  advisor), not the full Rego engine; superseding it with the real DMN
+  remains a follow-up, not regressed by this change."
+  [state deps]
+  (let [advise (or (:llm-primary deps) mock-advise)
+        proposal (advise state)
+        {:keys [accepted rejectionReason]} (jurisdiction-governor state proposal)]
+    (assoc state :accepted accepted :rejectionReason rejectionReason)))
 
 (defn witness-attest
   "Collect Ed25519 signatures from N ≥ 2 robot DIDs over the survey blob hash.
