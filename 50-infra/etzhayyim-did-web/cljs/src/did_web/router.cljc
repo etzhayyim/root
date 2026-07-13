@@ -16,7 +16,7 @@
 
 ;; Routes that only accept GET/HEAD (a non-GET/HEAD request → 405 in the core).
 (def get-head-only
-  #{:home-html :did-json :donation-json :donate-html :actors-json :actors-html
+  #{:home-html :did-json :donation-json :donate-html :tomoshibi-html :actors-json :actors-html
     :gov-units-json :gov-procedures-json :gov-html :organism-html :system-dynamics-html
     :murakumo-html
     :actor-did :actor-profile :actor-procedures :actor-system-dynamics-html
@@ -72,6 +72,7 @@
        "/.well-known/did.json"            {:route :did-json}
        "/.well-known/donation.json"       {:route :donation-json}
        "/donate"                          {:route :donate-html}
+       "/tomoshibi"                       {:route :tomoshibi-html}
        "/.well-known/actors.json"         {:route :actors-json}
        "/.well-known/gov-units.json"      {:route :gov-units-json}
        "/.well-known/gov-procedures.json" {:route :gov-procedures-json}

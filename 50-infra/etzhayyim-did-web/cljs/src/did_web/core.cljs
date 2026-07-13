@@ -151,6 +151,10 @@
   (html-resp (dep deps "donateHtml")
              "default-src 'none'; style-src 'self'; base-uri 'none'; form-action 'none'"))
 
+(defn- tomoshibi-route [deps]
+  (html-resp (dep deps "tomoshibiHtml")
+             "default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'"))
+
 (defn- actors-html-route [deps]
   (html-resp (call deps "actorsHtml")
              "default-src 'none'; script-src 'self' 'wasm-unsafe-eval'; connect-src 'self'; style-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'"))
@@ -455,6 +459,7 @@
         :did-json            (did-json-route deps)
         :donation-json       (donation-json-route deps)
         :donate-html         (donate-route deps)
+        :tomoshibi-html      (tomoshibi-route deps)
         :actors-json         (actors-json-route deps env)
         :actors-html         (actors-html-route deps)
         :gov-units-json      (gov-units-route deps env)

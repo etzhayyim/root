@@ -12,6 +12,7 @@
   [["/organism" "organism"]
    ["/system-dynamics" "system dynamics"]
    ["/actors" "actors"]
+   ["/tomoshibi" "灯 tomoshibi"]
    ["/murakumo" "murakumo"]
    ["/gov" "gov atlas"]
    ["/donate" "donate"]
