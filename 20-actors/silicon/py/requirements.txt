@@ -1,5 +1,0 @@
-# silicon 珪 — py cell deps (ADR-2605242500 / 2605242545)
-# The kotoba-facing agent (agent.py) is pure-stdlib. The per-process langgraph cells
-# under ../cells use langgraph. Murakumo-only inference (ADR-2605215000): no
-# openai/anthropic/litellm client here.
-langgraph>=0.2

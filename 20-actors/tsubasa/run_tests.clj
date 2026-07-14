@@ -7,7 +7,7 @@
 ;;   bb 20-actors/tsubasa/run_tests.clj      ; run from anywhere
 ;;
 ;; Classpath root (the absolute 20-actors/ dir) is derived from THIS file's location, so
-;; both `tsubasa.methods.*` and the py->clj `tsubasa.py.test-agent` resolve, and the
+;; both `tsubasa.methods.*` and the py->clj `tsubasa.methods.test-agent` resolve, and the
 ;; *file*-relative seed lookups in the suites work without a wrapper or --classpath flag.
 (require '[babashka.classpath :as cp]
          '[babashka.fs :as fs]
@@ -27,7 +27,7 @@
     tsubasa.methods.test-identity
     tsubasa.methods.test-kotoba-bridge
     tsubasa.methods.test-openflights
-    tsubasa.py.test-agent])
+    tsubasa.methods.test-agent])
 
 (apply require suites)
 

@@ -25,7 +25,7 @@
   Every accepted fare is :fare/sourcing :authoritative + :fare/source (cited provenance)
   + :fare/ingested-at (caller-supplied as-of). Per-row fail-open: a bad row is dropped
   and reported, never aborts the batch."
-  (:require [tsubasa.py.agent :as agent]
+  (:require [tsubasa.methods.agent :as agent]
             [clojure.string :as str]
             #?(:clj [clojure.edn :as edn])))
 

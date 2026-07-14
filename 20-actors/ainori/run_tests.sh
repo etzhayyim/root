@@ -1,7 +1,15 @@
 #!/usr/bin/env bash
 # ainori — test suite (ADR-2606160842 py->clj port wave). Auto-wired into the fleet green-check.
-# Runs BOTH the cljc route suite AND the py agent suite (matching + cost-share + settlement
+# Runs the cljc route suite AND the cljc agent suite (matching + cost-share + settlement
 # gates G5/G10 — the no-auto-execute / member-signed-capability guards, FINDING 260617).
+#
+# The former third suite (py/test_agent_parity.clj, a python3-subprocess-vs-clj LIVE parity
+# check) is gone: it always compared against `agent.py` via `import agent as a`, but no .py
+# source exists anywhere in this repo (fully ported) — every run silently no-op'd via the
+# suite's own "gracefully skip if python3 unavailable/import fails" fallback. py/agent.clj +
+# py/test_agent.clj (a snapshot the suite's own docstring called "stale") were the
+# now-superseded first-generation port kept only for that vacuous comparison; methods/agent.cljc
+# + methods/test_agent.cljc are the canonical, actively-tested implementation.
 set -uo pipefail
 here="$(dirname "$0")"
 fail=0
@@ -11,8 +19,5 @@ fail=0
 
 # cljc agent suite (methods/agent.cljc port: safety-envelope + cost-share + match-pool + settlement)
 ( cd "$here/../.." && bb -e '(require (quote clojure.test) (quote ainori.methods.test-agent))(let [r (apply clojure.test/run-tests (quote [ainori.methods.test-agent]))](System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))' ) || fail=1
-
-# py.agent LIVE parity suite (py/test_agent_parity.clj — python3 subprocess vs the clj port)
-( cd "$here/../.." && bb -e '(require (quote clojure.test) (quote ainori.py.test-agent-parity))(let [r (apply clojure.test/run-tests (quote [ainori.py.test-agent-parity]))](System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))' ) || fail=1
 
 [ "$fail" -eq 0 ] && echo "── ainori: ALL suites green ──" || { echo "── ainori: FAILURES above ──"; exit 1; }

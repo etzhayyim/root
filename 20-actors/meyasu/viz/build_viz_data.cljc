@@ -5,7 +5,7 @@
   JSON into the self-contained template). The __main__ file-reading/writing CLI is the omitted I/O
   leg. A BUYER-transparency + supply-resilience surface, never a trading board (meyasu G1)."
   (:require [clojure.string :as str]
-            [meyasu.py.agent :as agent]
+            [meyasu.methods.agent :as agent]
             #?(:clj [cheshire.core :as json])))
 
 (defn build-payload [seed-items]

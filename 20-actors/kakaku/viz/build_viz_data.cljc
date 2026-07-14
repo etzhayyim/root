@@ -1,17 +1,17 @@
 (ns kakaku.viz.build-viz-data
   "kakaku 価格 — price-difference / supply-demand visualization payload + viewer. 1:1 port of the
   PURE functions of viz/build_viz_data.py: build-payload (classified seed → viz cards via
-  kakaku.py.agent handlers, the single source of truth — the viz re-implements no math) and
+  kakaku.methods.agent handlers, the single source of truth — the viz re-implements no math) and
   render-html (inline the payload JSON into the self-contained template). The __main__
   load-edn/classify/write CLI is the omitted I/O leg.
 
   Note: kakaku.methods.kakaku-edn/classify emits STRING-keyed maps (the agent-facing field names,
-  same shape kakaku.py.agent — a 1:1 port of the string-keyed Python dicts — expects), so
+  same shape kakaku.methods.agent — a 1:1 port of the string-keyed Python dicts — expects), so
   build-payload reads them directly; the only join it adds is merchant -> region.
 
   A BUYER price-transparency + supply-resilience surface, never a trading signal (kakaku G2)."
   (:require [clojure.string :as str]
-            [kakaku.py.agent :as agent]
+            [kakaku.methods.agent :as agent]
             #?(:clj [cheshire.core :as json])))
 
 (defn- str-offer [o]

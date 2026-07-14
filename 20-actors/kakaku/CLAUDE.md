@@ -142,7 +142,7 @@ entity は path-based DID で解決する。controller は `did:web:kakaku.etzha
   G5 :synthesized, append-only, frozen golden head-CID).
 
   ```bash
-  bb -cp 20-actors -e "(require 'kakaku.py.autorun)(apply kakaku.py.autorun/-main [\"--cycles\" \"3\" \"--fresh\"])"
+  bb -cp 20-actors -e "(require 'kakaku.methods.autorun)(apply kakaku.methods.autorun/-main [\"--cycles\" \"3\" \"--fresh\"])"
   ```
 
 ## Notes

@@ -23,12 +23,16 @@
 ;; this file is 20-actors/kakaku/run_tests.clj → classpath root is its grandparent (20-actors/)
 (cp/add-classpath (str (fs/parent (fs/parent (fs/absolutize *file*)))))
 
+;; kakaku.py.test-agent-parity (python3-subprocess-vs-clj LIVE parity) is gone: it always
+;; compared against a py/agent.py that no longer exists anywhere in this repo, so every run
+;; silently no-op'd via its own graceful-skip fallback. py/{agent,autorun,ingest,kotoba}.clj*
+;; were each actor's real implementation, just misnamed -- moved to methods/ (agent/autorun/
+;; ingest/kotoba), namespaces renamed X.py.* -> X.methods.*.
 (def suites '[kakaku.methods.test-kakaku-edn
               kakaku.kotoba.test-ingest-mcp
-              kakaku.py.test-agent
-              kakaku.py.test-agent-parity
-              kakaku.py.test-autorun
-              kakaku.py.test-ingest
+              kakaku.methods.test-agent
+              kakaku.methods.test-autorun
+              kakaku.methods.test-ingest
               kakaku.viz.test-build-viz])
 
 (apply require suites)
