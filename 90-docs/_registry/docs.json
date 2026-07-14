@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-07-13",
+  "updated_at": "2026-07-14",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.md",
@@ -27853,6 +27853,36 @@
       ],
       "last_verified": "2026-07-14",
       "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2607141520-etzhayyim-agpl-v3-migration-re-rejection.md",
+      "id": "adr-2607141520-etzhayyim-agpl-v3-migration-re-rejection",
+      "title": "ADR-2607141520: etzhayyim AGPL v3 移行提案の再却下 — Rider×AGPL§7 非両立の明文化と cloud-itonami 結合面の整理",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "etzhayyim-agpl-v3-migration-re-rejection",
+      "authoritative": true,
+      "authoritative_for": [
+        "agpl-v3-migration-re-rejection-2026-07",
+        "rider-agpl-section7-incompatibility",
+        "etzhayyim-cloud-itonami-license-boundary"
+      ],
+      "related": [
+        "2606172300",
+        "2607011000",
+        "2607012100"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605192200",
+        "2605192100",
+        "2606062100",
+        "2606182359"
+      ],
+      "last_verified": "2026-07-14",
       "amends": [],
       "amended_by": []
     },
