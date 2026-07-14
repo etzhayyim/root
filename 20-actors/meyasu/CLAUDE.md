@@ -39,7 +39,7 @@ ossekai 御節介 → the aggregate-first publication discipline                
   commit-DAG verify, determinism, tamper-detect, G2 refusal, G1 no-trade, frozen golden head-CID).
 
   ```bash
-  bb -cp 20-actors -e "(require 'meyasu.py.autorun)(apply meyasu.py.autorun/-main [\"--cycles\" \"3\" \"--fresh\"])"
+  bb -cp 20-actors -e "(require 'meyasu.methods.autorun)(apply meyasu.methods.autorun/-main [\"--cycles\" \"3\" \"--fresh\"])"
   ```
 
 ## Gates (the union of its siblings' invariants — do NOT weaken)

@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 # ossekai — clj/bb test suite (ADR-2606160842).
 # charter-gates (lexicon conformance) + the ported agent suite (cljc) are
-# the AUTHORITATIVE gate; the legacy py/test_agent.py is superseded by
-# ossekai.methods.test-agent (methods/ canonical) and ossekai.py.test-agent (py/ twin).
+# the AUTHORITATIVE gate. The former py/test_agent.py-derived "twin"
+# (ossekai.py.test-agent, a duplicate of the already-canonical
+# ossekai.methods.test-agent, kept as belt-and-suspenders confirmation) is
+# gone — py/ was a byte-for-byte-structure clone of methods/agent.cljc under
+# the old X.py.agent namespace, not a distinct implementation.
 set -uo pipefail
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="$(cd "$ROOT/../.." && pwd)"
@@ -18,7 +21,6 @@ run_cljc() {
 
 run_cljc "ossekai.methods.test-charter-gates"
 run_cljc "ossekai.methods.test-agent"
-run_cljc "ossekai.py.test-agent"
 
 if [[ $rc -eq 0 ]]; then
   echo "==> ossekai: ALL GREEN"
