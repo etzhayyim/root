@@ -40,43 +40,12 @@ else
   kotoba --url "${KOTOBA_URL}" --token "${KOTOBA_SESSION_POP}" commit
 fi
 
-# 2. langgraph actor build (componentize-py → 7-cell manufacturing chain WASM).
-#
-# componentize-py is invoked directly here (not via scripts/build-pywasm.sh) because
-# himawari needs THREE extra import roots on the build path simultaneously:
-#   - ${ACTORS_ROOT}      → himawari.cells.* (the seven manufacturing cells)
-#   - ${KOTOBA_DIR}/py    → kotoba_langgraph (StateGraph / KotobaLLM / handle_invoke)
-#   - real site-packages  → langgraph / typing_extensions
-# build-pywasm.sh's single KOTOBA_SITE_PKG override can carry only one of these.
-# -d MUST point at the wit DIRECTORY (not world.wit) so componentize-py loads the
-# vendored deps/ packages (wasi:http@0.2.0 etc. that the kotoba-node world imports);
-# pointing it at the file alone fails with "package 'wasi:http@0.2.0' not found".
-WIT_DIR="${KOTOBA_DIR}/crates/kotoba-runtime/wit"
-BINDINGS_DIR="${KOTOBA_DIR}/target/himawari-pywasm-bindings"
-SITE_PKG="$(python3 -c 'import site; print(site.getsitepackages()[0])' 2>/dev/null || true)"
-
-echo "--> langgraph actor build (componentize-py)"
-if command -v componentize-py >/dev/null 2>&1; then
-  # WIT bindings (cached): regenerate if absent.
-  if [[ ! -d "${BINDINGS_DIR}" ]]; then
-    echo "    generating WIT bindings → ${BINDINGS_DIR}"
-    mkdir -p "${BINDINGS_DIR}"
-    componentize-py -d "${WIT_DIR}" -w kotoba-node bindings "${BINDINGS_DIR}"
-  fi
-  componentize-py \
-    -d "${WIT_DIR}" \
-    -w kotoba-node \
-    componentize agent \
-    -p "${DEPLOY_DIR}" \
-    -p "${BINDINGS_DIR}" \
-    -p "${KOTOBA_DIR}/py" \
-    -p "${ACTORS_ROOT}" \
-    ${SITE_PKG:+-p "${SITE_PKG}"} \
-    -o "${DEPLOY_DIR}/agent.wasm"
-  echo "    built deploy/agent.wasm ($(du -sh "${DEPLOY_DIR}/agent.wasm" | cut -f1)) —"
-  echo "    deploy via the node's invoke.run / kotoba_wasm_run with an operator session PoP"
-else
-  echo "    (componentize-py absent — skipping wasm build; see deploy/README.md for the venv recipe)"
-fi
+# 2. WASM Component build: deploy/agent.cljc → deploy/agent.wasm via kotoba-clj
+#    (ADR-2606222100, 2026-06-23). Supersedes the old componentize-py Python build
+#    (himawari.cells.* was 1:1-ported to cljc per cell; agent.cljc's own docstring
+#    calls itself "the cljc replacement for deploy/agent.py"). Run:
+#      bb 20-actors/himawari/deploy/build_wasm.clj
+#    or the bb.edn task `bb himawari:build-wasm`.
+echo "--> WASM build: bb 20-actors/himawari/deploy/build_wasm.clj (kotoba-clj; see that file for prerequisites)"
 
 echo "==> done"
