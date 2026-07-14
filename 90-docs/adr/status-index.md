@@ -113,6 +113,7 @@
 | hagukumi 育み | care — childcare + eldercare (L4 Care) | 🟡 R0 | 2605261030 | 05-26 |
 | manabi 学び | education (open-curriculum + cert_prep sub-cell) | 🟡 R0 | 2605261045 | 05-26 |
 | hikari 光 | energy gen/storage/grid-edge (L2 Sustenance) | 🟡 R0 | 2605261100 | 05-26 |
+| himawari 向日葵 | solar-grade c-Si PV module manufacturing Tier-B actor … | 🟢 R0.2 | 2606021200 | 06-02 |
 | amime 網目 | multi-site energy MESH flow-network … | 🟢 R0 | 2606212020 | 06-21 |
 | atsurae 誂え | Product Line Engineering (PLE) feature-model engine … | 🟢 R0 | 2606212010 | 06-21 |
 | igata 鋳型 | HPDC megacasting (R0 + R1 benchtop) | 🟡 R0/R1 | 2605261200 | 05-26 |

@@ -26239,7 +26239,7 @@
       "path": "90-docs/adr/2606222100-himawari-wasm-build-cljc-source-migration.md",
       "id": "adr-2606222100-himawari-wasm-build-cljc-source-migration",
       "title": "ADR-2606222100: himawari WASM build — cljc source migration design",
-      "status": "proposed",
+      "status": "superseded",
       "doc_type": "adr",
       "topic": "himawari-wasm-build-cljc-source-migration",
       "authoritative": true,
@@ -26259,7 +26259,7 @@
         "adr-2606014500-one-worker-many-wasm-actors",
         "adr-2606014600-wasm-actor-runtime"
       ],
-      "last_verified": "2026-06-23",
+      "last_verified": "2026-07-14",
       "amends": [],
       "amended_by": []
     },

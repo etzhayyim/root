@@ -26,11 +26,11 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 
 **Legend**: ✅ shipped · 🟢 landed (substrate, tests green) · 🟡 R0 / proposed scaffold · ⏳ blocked/pending.
 
-The full one-line index (191 rows across the 3 subsections below) lives in [`90-docs/adr/status-index.md`](90-docs/adr/status-index.md); lossless verbatim prose per row lives in [`90-docs/adr/status-registry.edn`](90-docs/adr/status-registry.edn); each row's ADR holds the detail — see [`90-docs/adr/README.md`](90-docs/adr/README.md). This section is a pointer, not a duplicate of the table.
+The full one-line index (195 rows across the 3 subsections below) lives in [`90-docs/adr/status-index.md`](90-docs/adr/status-index.md); lossless verbatim prose per row lives in [`90-docs/adr/status-registry.edn`](90-docs/adr/status-registry.edn); each row's ADR holds the detail — see [`90-docs/adr/README.md`](90-docs/adr/README.md). This section is a pointer, not a duplicate of the table.
 
 - **Substrate / infra / dataset / enforcement** — 52 rows
 - **baien / silicon / ML** — 29 rows
-- **Tier-B actors (each: ADR + manifest + cells + lex)** — 113 rows
+- **Tier-B actors (each: ADR + manifest + cells + lex)** — 114 rows
 
 ## Repo Layout (Shannon-Optimal 8-Layer, ADR-2604251830)
 
