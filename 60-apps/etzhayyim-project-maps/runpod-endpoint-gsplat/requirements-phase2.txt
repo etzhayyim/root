@@ -7,7 +7,7 @@
 #
 # `colmap` itself is installed via apt in the Dockerfile; pycolmap is
 # the Python binding that talks to it.
-torch==2.8.0
+torch==2.12.1
 torchvision==0.19.0
 pycolmap==3.10.0
 gsplat==1.4.0
@@ -16,4 +16,4 @@ imageio-ffmpeg>=0.5
 pillow>=10.4
 numpy>=2.0,<2.2
 tqdm>=4.66
-requests>=2.32
+requests>=2.34.2
