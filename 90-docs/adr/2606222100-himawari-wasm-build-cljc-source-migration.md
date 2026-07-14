@@ -1,15 +1,15 @@
 ---
 id: adr-2606222100-himawari-wasm-build-cljc-source-migration
 title: "ADR-2606222100: himawari WASM build — cljc source migration design"
-status: proposed
+status: superseded
 doc_type: adr
 topic: himawari-wasm-build-cljc-source-migration
 authoritative: true
-last_verified: 2026-06-23
+last_verified: 2026-07-14
 priority: 4.5
 axis: architecture
 weight: 0.40
-priority_note: "Unblocks himawari py→cljc cell prune; no implementation change, design only."
+priority_note: "himawari py→cljc cell prune COMPLETE (2026-07-14) — see closing addendum. Retained as the full decision record of how the Option F gap was closed."
 authoritative_for:
   - himawari-wasm-build-strategy
   - himawari-python-cell-prune-gate
@@ -27,7 +27,10 @@ superseded_by: []
 
 # ADR-2606222100: himawari WASM build — cljc source migration design
 
-**Status**: proposed (design only; no implementation change in this ADR)
+**Status**: superseded — the prune gate this ADR held is CLOSED (2026-07-14, see
+closing addendum at the end). Kept as the complete decision record.
+
+**Original status (as written)**: proposed (design only; no implementation change in this ADR)
 **Date**: 2026-06-22
 **Deciders**: Jun Kawasaki (founder)
 
@@ -854,8 +857,71 @@ re-authoring — is the remaining gated work item.
 
 ---
 
+## Closing addendum — prune gate CLOSED (2026-07-14)
+
+**This ADR's "himawari Python cell prune gate | STILL HELD" verdict (2026-06-23) is
+superseded by work that landed after this ADR's last edit and was never written
+back here.** Found and reconciled during an unrelated repo-wide py/bpmn cleanup
+session (2026-07-14), not a dedicated follow-up spike — this addendum is the
+write-back that R0.2 (`20-actors/himawari/manifest.edn`'s own roadmap entry,
+already dated 2026-06-23) had already recorded, but this ADR had not.
+
+### What actually happened (per `manifest.edn`'s R0.2 roadmap entry + git state, corroborated independently)
+
+- `deploy/agent.cljc` was authored — "the cljc replacement for `deploy/agent.py`"
+  per its own docstring, citing this ADR by number. It assembles all 7 cells into
+  one WASM Component via `kotoba_clj::compile_component_str_with_prelude` (PR
+  #189 — the exact closing move this ADR's last section predicted: "A new
+  `compile_component_str_with_prelude()` ... estimated 1–2 day addition").
+- `deploy/build_wasm.clj` (bb, ADR-2606222100 cited in its own header) replaced
+  `deploy.sh`'s componentize-py invocation as the build driver: cargo-builds
+  `kotoba-clj`, compiles `agent.cljc` → `agent.wasm`, validates with
+  `wasm-tools`, smoke-runs under `wasmtime`.
+- `deploy/agent.py` and all 7 `cells/*/cell.py` were deleted (confirmed: zero
+  `.py` files remain anywhere under `20-actors/himawari/cells/` as of
+  2026-07-14).
+
+### What this session found and closed (2026-07-14)
+
+The above completion left orphaned residue that nobody had come back to clean
+up, because the write-back to this ADR never happened and nothing forced it:
+
+- 4 of 7 cells still carried a `BLOCKER.md` claiming "Status: NOT PORTED" —
+  written before the prune landed, never deleted after.
+- Broken orphaned Python test files (`test_cell.py`, `test_kotoba_write.py`,
+  `test_refusal_branches.py`, `test_edge_branches.py`, `test_graph_build.py`,
+  `test_outbound_logistics.py`, `test_cell_process.py`) across all 7 cells,
+  each failing with `FileNotFoundError` looking for a `cell.py` that no longer
+  existed — confirmed by direct execution, not inferred from any doc.
+- `deploy.sh` still shelled out to the dead `componentize-py` build path
+  (silently no-op'ing since `componentize-py` isn't installed in this repo).
+- The actor's own top-level `CLAUDE.md` still claimed "88 pure-logic tests
+  green" / `python3` test invocation instructions.
+- `20-actors/himawari` was absent from the repo-wide Tier-B actor registry
+  (`90-docs/adr/status-index.md` / `status-registry.edn`) entirely — a
+  pre-existing gap unrelated to this ADR, closed in the same session.
+
+All of the above pruned/fixed; verified `run_tests.sh` unchanged at 75 tests /
+155 assertions green throughout (these files were never exercised by it — the
+cljc `state_machine.cljc` × 7 has been the sole tested implementation since the
+manifest.edn-recorded R0.2 landing). PR: `fix(himawari): prune superseded py
+leftovers, fix stale docs (all 7 cells)`.
+
+### Lesson for future ADR-gated prune work in this repo
+
+A prune gate closing in practice (via `manifest.edn`/git state) does not
+automatically close the gate *in the gating ADR* — nothing here regenerates an
+ADR's "Consequences"/status table from downstream reality. When a tracked gate
+is resolved, the resolving change should include an ADR write-back in the same
+commit/PR, not rely on a later archaeology pass to notice the drift (as
+happened here, `manifest.edn`'s own R0.2 entry silently carried the accurate
+answer for three weeks while this ADR, `deploy.sh`, `deploy/README.md`, and the
+actor's `CLAUDE.md` all disagreed with it and with each other in different,
+stale ways).
+
 ## References
 
+- `20-actors/himawari/deploy/agent.cljc` — current WASM build entrypoint (supersedes `deploy/agent.py`, deleted 2026-07-14; see closing addendum)
 - `20-actors/himawari/deploy/agent.py` — WASM build entrypoint; imports 7 Python cell classes
 - `20-actors/himawari/deploy/README.md` — build instructions; verified 2026-06-02
 - `20-actors/himawari/deploy/deploy.sh` — build orchestration
