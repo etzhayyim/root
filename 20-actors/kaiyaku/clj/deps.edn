@@ -19,8 +19,8 @@
   ;; inside a .claude/worktrees/* checkout use the git deps (default aliases).
   :dev {:override-deps
         {io.github.com-junkawasaki/langgraph-clj
-         {:local/root "../../../../../com-junkawasaki/langgraph-clj"}
+         {:local/root "../../../../../kotoba-lang/langgraph"}
          io.github.com-junkawasaki/browser-use-clj
-         {:local/root "../../../../../com-junkawasaki/browser-use-clj"}
+         {:local/root "../../../../../kotoba-lang/browser-use"}
          io.github.com-junkawasaki/computer-use-clj
-         {:local/root "../../../../../com-junkawasaki/computer-use-clj"}}}}}
+         {:local/root "../../../../../kotoba-lang/computer-use"}}}}}

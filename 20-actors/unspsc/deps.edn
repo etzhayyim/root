@@ -23,5 +23,5 @@
   ;; inside a .claude/worktrees/* checkout use the default git deps.
   :dev {:override-deps
         {io.github.com-junkawasaki/kotodama     {:local/root "../../../../com-junkawasaki/kotodama"}
-         io.github.com-junkawasaki/langgraph-clj {:local/root "../../../../com-junkawasaki/langgraph-clj"}
-         io.github.com-junkawasaki/langchain-clj {:local/root "../../../../com-junkawasaki/langchain-clj"}}}}}
+         io.github.com-junkawasaki/langgraph-clj {:local/root "../../../../kotoba-lang/langgraph"}
+         io.github.com-junkawasaki/langchain-clj {:local/root "../../../../kotoba-lang/langchain"}}}}}
