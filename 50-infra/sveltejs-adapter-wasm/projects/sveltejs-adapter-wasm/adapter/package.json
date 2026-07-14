@@ -37,7 +37,7 @@
     "@sveltejs/kit": "^2.0.0"
   },
   "devDependencies": {
-    "@sveltejs/kit": "^2.67.0",
+    "@sveltejs/kit": "^2.69.3",
     "@types/node": "^26.1.1",
     "esbuild": "^0.28.1",
     "typescript": "^7.0.2",
