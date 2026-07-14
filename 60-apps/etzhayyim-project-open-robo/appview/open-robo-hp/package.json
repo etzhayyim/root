@@ -9,6 +9,6 @@
     "preview": "cd svelte && npm run preview"
   },
   "devDependencies": {
-    "typescript": "^6.0.3"
+    "typescript": "^7.0.2"
   }
 }
