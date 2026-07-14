@@ -7,7 +7,7 @@
 - **ADR**: ADR-2606021200 (R0 scaffold, 2026-06-02)
 - **Parent ADR**: ADR-2605261000 (Liberation Ladder — feeds L2 Sustenance via hikari)
 - **Tightest sibling**: hikari (ADR-2605261100 — generation/install)
-- **Status**: R0.1 — all 7 cell solvers + 7 lexicons **implemented** (88 pure-logic tests green; import smoke clean). NOT operationally activated (no Pregel/Murakumo runtime wiring, no sim, no live kotoba entity materialization; deterministic-digest CIDs). Gated upstream by the R1 activation triggers below.
+- **Status**: R0.1 — all 7 cell solvers + 7 lexicons **implemented**, now as `.cljc` state machines (75 tests / 155 assertions green via `run_tests.sh`; the original Python `cell.py`/`state_machine.py` per cell have been pruned — cljc is canonical, 2026-07-14). NOT operationally activated (no Pregel/Murakumo runtime wiring, no sim, no live kotoba entity materialization; deterministic-digest CIDs). Gated upstream by the R1 activation triggers below.
 
 ## What himawari is (and is not)
 
@@ -84,17 +84,20 @@ Each cell = 1 Pregel graph. R0.1: every cell's `.solve()` is implemented (no Run
 
 ## Pregel Cells (R0.1 — solvers implemented)
 
-All 7 cells have real `.solve()` logic (R0 RuntimeError stubs removed) + a pure-logic standalone test file (88 tests total, all green). Cell→lexicon + cell→composed-actor wiring:
+All 7 cells' logic is a `state_machine.cljc` `solve` fn (ported off the original
+`cell.py`/`state_machine.py`, since pruned) + a `test_state_machine.cljc` suite
+(75 tests / 155 assertions total, all green via `run_tests.sh`). Cell→lexicon +
+cell→composed-actor wiring:
 
 | Cell | Emits | Routes to | Composes (not re-implemented) | Tests |
 |---|---|---|---|---|
-| `polysilicon_refine` | polysiliconProvenanceAttestation | ingot_wafer | — | 12 |
-| `ingot_wafer` | waferBatchRecord | cell_process (+ kerf → polysilicon_refine) | — | 13 |
-| `cell_process` | cellBatchRecord | module_assembly | kuni-umi Otete + Mimi | 14 |
-| `module_assembly` | moduleAttestation | panel_loading | kuni-umi Otete + Mimi | 14 |
-| `panel_loading` | loadingRecord | outbound_logistics | sarutahiko F10 LoaderRobot (LoadPhase mirror) | 10 |
-| `outbound_logistics` | outboundManifest | hikari site (G13) | kami-autodrive GNC + open-customs-clearance BPMN + funadaiku ship class (R3+) | 9 |
-| `supply_procurement` | polysiliconProvenanceAttestation (per-lot) + CycloneDX SBOM | poly/cell feedstock | okaimono (ring + SBT settlement + TitheRouter) + giemon CycloneDX→kotoba bridge | 16 |
+| `polysilicon_refine` | polysiliconProvenanceAttestation | ingot_wafer | — | 15 |
+| `ingot_wafer` | waferBatchRecord | cell_process (+ kerf → polysilicon_refine) | — | 5 |
+| `cell_process` | cellBatchRecord | module_assembly | kuni-umi Otete + Mimi | 5 |
+| `module_assembly` | moduleAttestation | panel_loading | kuni-umi Otete + Mimi | 17 |
+| `panel_loading` | loadingRecord | outbound_logistics | sarutahiko F10 LoaderRobot (LoadPhase mirror) | 5 |
+| `outbound_logistics` | outboundManifest | hikari site (G13) | kami-autodrive GNC + open-customs-clearance BPMN + funadaiku ship class (R3+) | 13 |
+| `supply_procurement` | polysiliconProvenanceAttestation (per-lot) + CycloneDX SBOM | poly/cell feedstock | okaimono (ring + SBT settlement + TitheRouter) + giemon CycloneDX→kotoba bridge | 15 |
 
 **Honest R0.1 caveats** (not overclaiming): solvers are logic-complete and tested, but NOT yet wired into the himawari Pregel/Murakumo runtime topology; no sim physics integration; CIDs are deterministic tamper-evident digests (real IPFS CIDv1 / Base-L2 anchoring is operator-gated substrate work); kotoba entity materialization is compute-only / no-op without a host `datalog` binding. Module signature is a deterministic content-binding HMAC standing in for the off-cell Ed25519 device key (substrate-boundary). The okaimono/giemon LangGraph stack is broken in this env, so cell_process/outbound use an in-process sequential super-step driver fallback shaped like the StateGraph DAG (swaps to canonical StateGraph automatically when LangGraph is fixed).
 
@@ -108,24 +111,16 @@ All 7 cells have real `.solve()` logic (R0 RuntimeError stubs removed) + a pure-
 
 ## Build & Deploy
 
-**R0.1 status**: All 7 cell solvers implemented (logic-only, no runtime/sim/live-kotoba). No RuntimeError stubs remain.
+**R0.1 status**: All 7 cell solvers implemented (logic-only, no runtime/sim/live-kotoba) as `.cljc` state machines. No stubs remain.
 
-**Import smoke**:
+**Tests** (bb/clj, wired into the fleet green-check; 75 tests / 155 assertions green):
 ```bash
-cd 20-actors/himawari
-for c in polysilicon_refine ingot_wafer cell_process module_assembly panel_loading outbound_logistics supply_procurement; do
-  python -c "from himawari.cells.$c.cell import *" && echo "import ok: $c"
-done
+20-actors/himawari/run_tests.sh
 ```
 
-**Pure-logic tests** (no pytest/langgraph dependency; standalone runnable; 88 total green):
+**WASM build** (`deploy/agent.cljc` → `deploy/agent.wasm` via kotoba-clj, ADR-2606222100 — see `deploy/README.md` for the superseded prior componentize-py build this replaced):
 ```bash
-cd 20-actors/himawari/cells
-for t in polysilicon_refine/test_cell.py ingot_wafer/test_cell.py cell_process/test_cell_process.py \
-         module_assembly/test_cell.py panel_loading/test_cell.py \
-         outbound_logistics/test_outbound_logistics.py supply_procurement/test_cell.py; do
-  python3 "$t"
-done
+bb 20-actors/himawari/deploy/build_wasm.clj
 ```
 
 ## Related Files

@@ -1,5 +1,15 @@
 # himawari 向日葵 — kotoba-WASM atproto deploy
 
+> **⚠ Historical record, WASM-build section superseded (2026-07-14).** This doc's
+> "Build (verified working — 2026-06-02)" section describes the old
+> `componentize-py` Python build path (`agent.py`, since deleted — all 7
+> `himawari/cells/*` are now `.cljc`, per-cell `cell.py`/`state_machine.py`
+> pruned). The **current** WASM build is `deploy/agent.cljc` →
+> `bb 20-actors/himawari/deploy/build_wasm.clj` (kotoba-clj, ADR-2606222100).
+> Kept below as an accurate record of the prior verified build, not as current
+> instructions. The record-ingest section (`ingest_records.py`) is unaffected —
+> that's a separate PDS write-path script, still current.
+
 Deploy scaffold for the **himawari solar-PV manufacturing actor** (ADR-2606021200)
 as a **kotoba-node WASM LangGraph component** that runs in-WASM on a live kotoba
 node (`:8077`) and writes its lexicon records into the canonical kotoba Datom log
