@@ -14,7 +14,7 @@
     "format": "biome format --write ."
   },
   "dependencies": {
-    "fast-check": "^4.8.0"
+    "fast-check": "^4.9.0"
   },
   "devDependencies": {
     "@types/node": "^26.1.1",
