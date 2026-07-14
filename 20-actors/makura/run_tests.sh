@@ -13,7 +13,7 @@ fi
 
 bb --classpath 20-actors -e '
 (require (quote [clojure.test :as t]))
-(def nss (quote [makura.methods.test-charter-gates makura.py.test-agent]))
+(def nss (quote [makura.methods.test-charter-gates makura.methods.test-agent]))
 (doseq [n nss] (require n))
 (let [r (apply t/run-tests nss)]
   (println "── makura:" (:test r) "tests /" (:pass r) "assertions green,"

@@ -14,7 +14,7 @@ fi
 
 bb --classpath 20-actors -e '
 (require (quote [clojure.test :as t]))
-(def nss (quote [kanayama.methods.test-charter-gates kanayama.py.test-agent
+(def nss (quote [kanayama.methods.test-charter-gates kanayama.methods.test-agent
                  kanayama.cells.air-emissions-audit.test-state-machine
                  kanayama.cells.cold-rolling-finishing.test-state-machine
                  kanayama.cells.dc-casting.test-state-machine

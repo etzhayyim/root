@@ -13,7 +13,7 @@ fi
 
 bb --classpath 20-actors -e '
 (require (quote [clojure.test :as t]))
-(def nss (quote [hodoki.methods.test-charter-gates hodoki.py.test-agent hodoki.py.test-agent-parity]))
+(def nss (quote [hodoki.methods.test-charter-gates hodoki.methods.test-agent hodoki.methods.test-agent-parity]))
 (doseq [n nss] (require n))
 (let [r (apply t/run-tests nss)]
   (println "── hodoki:" (:test r) "tests /" (:pass r) "assertions green,"

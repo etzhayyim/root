@@ -14,7 +14,7 @@ exec bb -e '(def nss (quote [tsutae.cells.tsutae-pcb-smt.test-state-machine
                              tsutae.cells.tsutae-device-attestation.test-state-machine
                              tsutae.cells.tsutae-recycling-intake.test-state-machine
                              tsutae.methods.test-charter-gates
-                             tsutae.py.test-agent]))
+                             tsutae.methods.test-agent]))
               (apply require (quote clojure.test) nss)
               (let [r (apply clojure.test/run-tests nss)]
                 (System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))'
