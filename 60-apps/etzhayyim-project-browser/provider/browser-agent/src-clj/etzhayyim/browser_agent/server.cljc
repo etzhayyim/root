@@ -24,6 +24,38 @@
    :synthesize    "synthesizing"
    :quality-check "done"})
 
+(def ^:private default-cors-origins
+  "First-party origins permitted cross-origin access (project CLAUDE.md app
+   domains). Override via BROWSER_AGENT_CORS_ORIGINS (comma/space separated)."
+  #{"https://browser.etzhayyim.com"
+    "https://cr4wl3r0.etzhayyim.com"
+    "https://etzhayyim.com"
+    "https://www.etzhayyim.com"})
+
+(defn- cors-origin-allowlist
+  "Set of allowed origins. BROWSER_AGENT_CORS_ORIGINS (comma/space separated)
+   overrides the first-party default."
+  []
+  (let [env (System/getenv "BROWSER_AGENT_CORS_ORIGINS")]
+    (if (and env (not (str/blank? env)))
+      (set (remove str/blank? (str/split env #"[,\s]+")))
+      default-cors-origins)))
+
+(defn- origin-allowed? [origin allowlist] (contains? allowlist origin))
+
+(defn- cors-headers-for
+  "CORS response headers for an allowed origin; empty map if disallowed/nil."
+  [origin allowlist]
+  (if (origin-allowed? origin allowlist)
+    {"Access-Control-Allow-Origin" origin
+     "Vary" "Origin"}
+    {}))
+
+(defn- cors-headers
+  "CORS headers derived from the request Origin + current allowlist."
+  [req]
+  (cors-headers-for (get-in req [:headers "origin"]) (cors-origin-allowlist)))
+
 (defn- sse [ch data]
   (hk/send! ch {:body (str "data: " (json/generate-string data) "\n\n")} false))
 
@@ -48,10 +80,10 @@
                     true)
           (do
             (hk/send! ch {:status 200
-                          :headers {"Content-Type" "text/event-stream"
-                                    "Cache-Control" "no-cache"
-                                    "X-Accel-Buffering" "no"
-                                    "Access-Control-Allow-Origin" "*"}
+                          :headers (merge {"Content-Type" "text/event-stream"
+                                           "Cache-Control" "no-cache"
+                                           "X-Accel-Buffering" "no"}
+                                          (cors-headers req))
                           :body ""}
                       false)
             (try
@@ -82,6 +114,19 @@
 
     [:post "/search"]
     (search-handler req)
+
+    [:options "/search"]
+    (if-let [origin (get-in req [:headers "origin"])]
+      (if (origin-allowed? origin (cors-origin-allowlist))
+        {:status 204
+         :headers (merge {"Access-Control-Allow-Methods" "POST"
+                          "Access-Control-Allow-Headers" "Content-Type"}
+                         {"Access-Control-Allow-Origin" origin
+                          "Vary" "Origin"})}
+        {:status 403
+         :headers {"Content-Type" "application/json"}
+         :body (json/generate-string {:error "origin not allowed"})})
+      {:status 204 :headers {}})
 
     {:status 404
      :headers {"Content-Type" "application/json"}

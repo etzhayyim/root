@@ -29,6 +29,13 @@ PORT=8000 bb serve
 `GET /health` · `POST /search {"query": "...", "page_url": "..."}` → SSE of
 `phase` / `source` / `section` / `error` events, terminated by `data: [DONE]`.
 
+Cross-origin (`Access-Control-Allow-Origin`) is restricted to a first-party
+allowlist (issue #1553). Override with a comma/space-separated env var:
+
+```bash
+BROWSER_AGENT_CORS_ORIGINS="https://browser.etzhayyim.com,https://app.example.com" bb serve
+```
+
 ## Substrate boundary
 
 RisingWave/psycopg state is not ported here; per ADR-2605312345 any persisted

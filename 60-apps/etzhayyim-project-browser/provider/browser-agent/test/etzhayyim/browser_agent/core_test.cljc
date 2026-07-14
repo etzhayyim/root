@@ -157,3 +157,51 @@
 
 (deftest server-404
   (is (= 404 (:status (server/app {:request-method :get :uri "/nope"})))))
+
+;; ---- cors allowlist (issue #1553) ------------------------------------------
+
+(deftest cors-origin-membership
+  (testing "allowed origin in allowlist"
+    (is (#'server/origin-allowed? "https://browser.etzhayyim.com"
+                                  #{"https://browser.etzhayyim.com"})))
+  (testing "disallowed origin rejected"
+    (is (not (#'server/origin-allowed? "https://evil.example"
+                                      #{"https://browser.etzhayyim.com"}))))
+  (testing "nil origin rejected"
+    (is (not (#'server/origin-allowed? nil #{"https://browser.etzhayyim.com"})))))
+
+(deftest cors-headers-for-known-origin
+  (is (= {"Access-Control-Allow-Origin" "https://x.com" "Vary" "Origin"}
+         (#'server/cors-headers-for "https://x.com" #{"https://x.com"})))
+  (is (= {} (#'server/cors-headers-for nil #{"https://x.com"})))
+  (is (= {} (#'server/cors-headers-for "https://evil.example" #{"https://x.com"}))))
+
+(deftest cors-default-allowlist-has-first-party-domains
+  (testing "default allowlist permits project app domains (no env set)"
+    (is (#'server/origin-allowed? "https://browser.etzhayyim.com"
+                                  (#'server/cors-origin-allowlist)))
+    (is (#'server/origin-allowed? "https://cr4wl3r0.etzhayyim.com"
+                                  (#'server/cors-origin-allowlist))))
+  (testing "default allowlist rejects unknown origin"
+    (is (not (#'server/origin-allowed? "https://evil.example"
+                                      (#'server/cors-origin-allowlist))))))
+
+(deftest cors-options-preflight
+  (testing "allowed origin -> 204 with echo + methods"
+    (let [resp (server/app {:request-method :options
+                             :uri "/search"
+                             :headers {"origin" "https://browser.etzhayyim.com"}})]
+      (is (= 204 (:status resp)))
+      (is (= "https://browser.etzhayyim.com"
+             (get-in resp [:headers "Access-Control-Allow-Origin"])))
+      (is (= "POST" (get-in resp [:headers "Access-Control-Allow-Methods"])))))
+  (testing "disallowed origin -> 403, no ACAO"
+    (let [resp (server/app {:request-method :options
+                             :uri "/search"
+                             :headers {"origin" "https://evil.example"}})]
+      (is (= 403 (:status resp)))
+      (is (nil? (get-in resp [:headers "Access-Control-Allow-Origin"])))))
+  (testing "no origin (server-to-server) -> 204, no ACAO"
+    (let [resp (server/app {:request-method :options :uri "/search"})]
+      (is (= 204 (:status resp)))
+      (is (nil? (get-in resp [:headers "Access-Control-Allow-Origin"]))))))
