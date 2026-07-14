@@ -1,4 +1,0 @@
-# tsutae 伝え — py cell deps (ADR-2605261300 R0 scaffold)
-# Runtime LLM + datalog bindings are kotoba host imports (WASM Component Model),
-# not pip packages. Only the test/dev harness needs anything here.
-# Murakumo-only inference (G16): no openai/anthropic/litellm client here.
