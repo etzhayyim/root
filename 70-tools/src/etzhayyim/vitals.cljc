@@ -88,15 +88,21 @@
 ;; ── axis signals ────────────────────────────────────────────────────────────
 
 (defn- clj-signs
-  "内部代謝: cljc-vs-Python port ratio in methods/, and the cells substrate."
+  "内部代謝: cljc-vs-Python port ratio in methods/, and the cells substrate.
+   Counts BOTH `.cljc` and plain `.clj` as ported (a `.clj` file is fully
+   Clojure, not Python — the port-ratio denominator only cares about
+   language, not cross-platform reader-conditional shape). Before this fix
+   an actor whose methods/ held only `.clj` files scored port-ratio=0.0,
+   the same as an actor with zero Clojure code at all (confirmed on
+   madomori/soma/kudamori/kuramori, 2026-07-14 vitals audit)."
   [actor-dir]
   (let [methods (io/file actor-dir "methods")
         prod    (fn [re] (remove #(str/starts-with? (.getName ^java.io.File %) "test_")
                                  (files-in methods re)))
-        cljc    (count (prod #"\.cljc$"))
+        cljc    (count (prod #"\.cljc?$"))
         py      (count (prod #"\.py$"))
         cells   (subdirs (io/file actor-dir "cells"))
-        cell-cljc (count (filter #(seq (files-in % #"\.cljc$")) cells))]
+        cell-cljc (count (filter #(seq (files-in % #"\.cljc?$")) cells))]
     {:clj/methods-cljc cljc
      :clj/methods-py   py
      :clj/port-ratio   (if (pos? (+ cljc py)) (double (/ cljc (+ cljc py))) 0.0)
@@ -161,20 +167,35 @@
 
 ;; ── vital reflex: actually run the suite ─────────────────────────────────────
 
+(defn- nbb-cmd
+  "Bare `nbb` is not on PATH in every environment (repo-local npm install
+   only) — resolve node_modules/.bin/nbb relative to the repo root first,
+   falling back to `npx nbb` (which works off the npx cache even without a
+   PATH entry; confirmed 2026-07-14: `nbb` bare fails, `npx --no-install
+   nbb --version` succeeds)."
+  []
+  (let [local (io/file "node_modules" ".bin" "nbb")]
+    (if (.exists local) [(.getPath local)] ["npx" "nbb"])))
+
 (defn- run-suite
   "Execute the actor's reflex test with a wall-clock budget. PREFERS the bb-native
-   run_tests.clj (repo clj/bb rule, ADR-2606072802 enforce-forward) and falls back to the
-   legacy run_tests.sh when no .clj runner exists. :green | :red | :absent | :timeout | :error."
+   run_tests.clj (repo clj/bb rule, ADR-2606072802 enforce-forward), falls back to the
+   legacy run_tests.sh, and also recognizes run_tests.cljs (nbb-run, e.g. akashi) — before
+   this fix a `.cljs`-only runner was invisible to the scanner and scored :absent even
+   though a real suite existed (2026-07-14 vitals audit). :green | :red | :absent | :timeout | :error."
   [actor-dir timeout-ms]
-  (let [clj-runner (io/file actor-dir "run_tests.clj")
-        sh-runner  (io/file actor-dir "run_tests.sh")
-        [cmd path] (cond
-                     (.exists clj-runner) ["bb"   (.getPath clj-runner)]
-                     (.exists sh-runner)  ["bash" (.getPath sh-runner)]
-                     :else nil)]
+  (let [clj-runner  (io/file actor-dir "run_tests.clj")
+        sh-runner   (io/file actor-dir "run_tests.sh")
+        cljs-runner (io/file actor-dir "run_tests.cljs")
+        [cmd-vec path] (cond
+                         (.exists clj-runner)  [["bb"] (.getPath clj-runner)]
+                         (.exists sh-runner)   [["bash"] (.getPath sh-runner)]
+                         (.exists cljs-runner) [(nbb-cmd) (.getPath cljs-runner)]
+                         :else nil)
+        cmd (when cmd-vec (into cmd-vec [path]))]
     (if-not path
       {:reflex :absent}
-      (let [proc (p/process {:dir "." :out :string :err :string} cmd path)
+      (let [proc (apply p/process {:dir "." :out :string :err :string} cmd)
             res  (deref (future @proc) timeout-ms ::timeout)]
         (if (= res ::timeout)
           (do (try (p/destroy-tree proc) (catch Exception _ nil)) {:reflex :timeout})
