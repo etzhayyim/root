@@ -37,8 +37,9 @@ contract TargetMock {
  *           2. The SimpleAccount calls the target.
  *           3. EtzhayyimPaymaster sponsors gas — no ETH leaves the
  *              SimpleAccount.
- *           4. Paymaster's allowlist + daily-cap policy gates the call;
- *              non-allowlisted targets revert.
+ *           4. Paymaster requires a valid off-chain operator signature
+ *              (fix #1519) AND the allowlist + daily-cap policy;
+ *              non-allowlisted targets / missing-or-bad signatures revert.
  *
  *         This replaces the MockEntryPoint test pattern with a real
  *         EntryPoint so the paymaster's behavior under handleOps is
@@ -51,6 +52,13 @@ contract PaymasterIntegrationTest is Test {
     TargetMock target;
 
     address paymasterOwner = address(0xAA);
+
+    // Off-chain paymaster operator key (fix #1519). Address is the
+    // `verifyingSigner` the contract trusts.
+    uint256 signerKey = uint256(keccak256("paymaster-operator"));
+    address signerAddr = vm.addr(signerKey);
+    // An attacker that never holds the operator key.
+    uint256 attackerKey = uint256(keccak256("attacker"));
 
     // SimpleAccount owner EOA — its private key signs UserOperations.
     uint256 ownerKey = uint256(keccak256("simple-account-owner"));
@@ -68,6 +76,7 @@ contract PaymasterIntegrationTest is Test {
         paymaster = new EtzhayyimPaymaster(
             PaymasterIEntryPoint(address(entryPoint)),
             paymasterOwner,
+            signerAddr,
             initialFactories
         );
         target = new TargetMock();
@@ -79,7 +88,7 @@ contract PaymasterIntegrationTest is Test {
         assertTrue(ok);
         assertEq(entryPoint.balanceOf(address(paymaster)), 1 ether);
 
-        // Allowlist the factory and the target contract on the paymaster.
+        // Allowlist the factory (for initCode-based deploys) and the target contract.
         vm.prank(paymasterOwner);
         paymaster.setAllowedFactory(address(factory), true);
         vm.prank(paymasterOwner);
@@ -108,25 +117,81 @@ contract PaymasterIntegrationTest is Test {
         return bytes32((uint256(maxPriorityFeePerGas) << 128) | uint256(maxFeePerGas));
     }
 
-    /// @dev paymasterAndData = paymaster (20) || paymasterVerificationGasLimit (16) ||
-    ///                         paymasterPostOpGasLimit (16) || paymasterData (rest)
-    function _packPaymasterAndData(
-        address paymasterAddr,
-        uint128 verificationGasLimit,
-        uint128 postOpGasLimit
-    ) internal pure returns (bytes memory) {
-        return abi.encodePacked(
-            paymasterAddr,
-            verificationGasLimit,
-            postOpGasLimit
+    /// @dev Operator hash over a UserOp, mirroring EtzhayyimPaymaster.getHash.
+    ///      MUST stay in sync with the contract. Re-implemented here because
+    ///      the integration test uses the canonical account-abstraction
+    ///      `PackedUserOperation` type (structurally identical, but a distinct type).
+    ///      The paymasterAndData gas-limit bytes are reconstructed from the
+    ///      constants below (memory bytes can't be range-sliced in Solidity).
+    function _operatorHash(RealPackedUserOperation memory userOp, uint48 validUntil, uint48 validAfter)
+        internal
+        view
+        returns (bytes32)
+    {
+        return keccak256(
+            abi.encode(
+                userOp.sender,
+                userOp.nonce,
+                keccak256(userOp.initCode),
+                keccak256(userOp.callData),
+                userOp.accountGasLimits,
+                uint256(bytes32(abi.encodePacked(uint128(200_000), uint128(100_000)))),
+                userOp.preVerificationGas,
+                userOp.gasFees,
+                block.chainid,
+                address(paymaster),
+                validUntil,
+                validAfter
+            )
         );
+    }
+
+    /// @dev Build a valid, operator-signed paymasterAndData for a given UserOp.
+    function _signedPaymasterAndData(RealPackedUserOperation memory userOp, uint48 validUntil, uint48 validAfter)
+        internal
+        view
+        returns (bytes memory)
+    {
+        bytes memory prefix = abi.encodePacked(
+            address(paymaster), uint128(200_000), uint128(100_000), abi.encode(validUntil, validAfter)
+        );
+        userOp.paymasterAndData = prefix; // so _operatorHash's [20:52] slice is valid
+        bytes32 hash = _operatorHash(userOp, validUntil, validAfter);
+        bytes32 ethHash = MessageHashUtils.toEthSignedMessageHash(hash);
+        (uint8 v, bytes32 r, bytes32 s) = vm.sign(signerKey, ethHash);
+        return abi.encodePacked(prefix, r, s, v);
+    }
+
+    /// @dev Build an operator-signed paymasterAndData using a (malicious) key.
+    function _signedPaymasterAndDataBy(
+        RealPackedUserOperation memory userOp,
+        uint48 validUntil,
+        uint48 validAfter,
+        uint256 key
+    ) internal view returns (bytes memory) {
+        bytes memory prefix = abi.encodePacked(
+            address(paymaster), uint128(200_000), uint128(100_000), abi.encode(validUntil, validAfter)
+        );
+        userOp.paymasterAndData = prefix;
+        bytes32 hash = _operatorHash(userOp, validUntil, validAfter);
+        bytes32 ethHash = MessageHashUtils.toEthSignedMessageHash(hash);
+        (uint8 v, bytes32 r, bytes32 s) = vm.sign(key, ethHash);
+        return abi.encodePacked(prefix, r, s, v);
+    }
+
+    /// @dev Sign the (account) UserOp with the SimpleAccount owner EOA.
+    function _signAccount(RealPackedUserOperation memory userOp) internal view {
+        bytes32 userOpHash = entryPoint.getUserOpHash(userOp);
+        bytes32 ethHash = MessageHashUtils.toEthSignedMessageHash(userOpHash);
+        (uint8 v, bytes32 r, bytes32 s) = vm.sign(ownerKey, ethHash);
+        userOp.signature = abi.encodePacked(r, s, v);
     }
 
     function _buildSignedUserOp(
         address smartAccount,
         bytes memory initCode,
         bytes memory accountCallData
-    ) internal view returns (RealPackedUserOperation memory userOp) {
+    ) internal returns (RealPackedUserOperation memory userOp) {
         userOp = RealPackedUserOperation({
             sender: smartAccount,
             nonce: entryPoint.getNonce(smartAccount, 0),
@@ -138,14 +203,14 @@ contract PaymasterIntegrationTest is Test {
             accountGasLimits: _packGasLimits(500_000, 800_000),
             preVerificationGas: 100_000,
             gasFees: _packGasFees(1 gwei, 10 gwei),
-            paymasterAndData: _packPaymasterAndData(address(paymaster), 200_000, 100_000),
+            paymasterAndData: "",
             signature: ""
         });
 
-        bytes32 userOpHash = entryPoint.getUserOpHash(userOp);
-        bytes32 ethHash = MessageHashUtils.toEthSignedMessageHash(userOpHash);
-        (uint8 v, bytes32 r, bytes32 s) = vm.sign(ownerKey, ethHash);
-        userOp.signature = abi.encodePacked(r, s, v);
+        // Attach the operator signature, then the account signature over the
+        // whole op (incl. the operator-signed paymasterAndData).
+        userOp.paymasterAndData = _signedPaymasterAndData(userOp, type(uint48).max, 0);
+        _signAccount(userOp);
     }
 
     function _initCodeFor(address owner_, uint256 salt) internal view returns (bytes memory) {
@@ -204,14 +269,73 @@ contract PaymasterIntegrationTest is Test {
         assertLt(entryPoint.balanceOf(address(paymaster)), 1 ether);
     }
 
+    function test_sponsored_userop_rejected_when_operator_signature_missing() public {
+        // paymasterAndData carries no operator signature → contract reverts
+        // with InvalidPaymasterDataLength before sponsoring.
+        address smartAccount = factory.getAddress(ownerAddr, 1);
+
+        bytes memory innerCallData = abi.encodeCall(TargetMock.poke, (keccak256("nosig"), "no-sig"));
+        bytes memory accountCallData = _accountCallDataFor(address(target), innerCallData);
+        bytes memory initCode = _initCodeFor(ownerAddr, 1);
+
+        RealPackedUserOperation memory userOp = RealPackedUserOperation({
+            sender: smartAccount,
+            nonce: entryPoint.getNonce(smartAccount, 0),
+            initCode: initCode,
+            callData: accountCallData,
+            accountGasLimits: _packGasLimits(500_000, 800_000),
+            preVerificationGas: 100_000,
+            gasFees: _packGasFees(1 gwei, 10 gwei),
+            paymasterAndData: abi.encodePacked(address(paymaster), uint128(200_000), uint128(100_000)),
+            signature: ""
+        });
+        // Re-sign the account over the (unsigned) paymasterAndData so the
+        // account check passes and the revert originates from the paymaster.
+        _signAccount(userOp);
+
+        RealPackedUserOperation[] memory ops = new RealPackedUserOperation[](1);
+        ops[0] = userOp;
+        vm.expectRevert();
+        entryPoint.handleOps(ops, beneficiary);
+    }
+
+    function test_sponsored_userop_rejected_when_operator_signature_bad() public {
+        // paymasterAndData carries a signature from the attacker (not the
+        // operator) → sigFailed bit set → handleOps reverts.
+        address smartAccount = factory.getAddress(ownerAddr, 2);
+
+        bytes memory innerCallData = abi.encodeCall(TargetMock.poke, (keccak256("badsig"), "bad-sig"));
+        bytes memory accountCallData = _accountCallDataFor(address(target), innerCallData);
+        bytes memory initCode = _initCodeFor(ownerAddr, 2);
+
+        RealPackedUserOperation memory userOp = RealPackedUserOperation({
+            sender: smartAccount,
+            nonce: entryPoint.getNonce(smartAccount, 0),
+            initCode: initCode,
+            callData: accountCallData,
+            accountGasLimits: _packGasLimits(500_000, 800_000),
+            preVerificationGas: 100_000,
+            gasFees: _packGasFees(1 gwei, 10 gwei),
+            paymasterAndData: "",
+            signature: ""
+        });
+        userOp.paymasterAndData = _signedPaymasterAndDataBy(userOp, type(uint48).max, 0, attackerKey);
+        _signAccount(userOp);
+
+        RealPackedUserOperation[] memory ops = new RealPackedUserOperation[](1);
+        ops[0] = userOp;
+        vm.expectRevert();
+        entryPoint.handleOps(ops, beneficiary);
+    }
+
     function test_sponsored_userop_rejected_when_target_not_allowlisted() public {
         // Deploy a second target that is NOT on the allowlist.
         TargetMock evilTarget = new TargetMock();
-        address smartAccount = factory.getAddress(ownerAddr, 1);
+        address smartAccount = factory.getAddress(ownerAddr, 3);
 
         bytes memory innerCallData = abi.encodeCall(TargetMock.poke, (keccak256("evil"), "no-touch"));
         bytes memory accountCallData = _accountCallDataFor(address(evilTarget), innerCallData);
-        bytes memory initCode = _initCodeFor(ownerAddr, 1);
+        bytes memory initCode = _initCodeFor(ownerAddr, 3);
 
         RealPackedUserOperation memory userOp = _buildSignedUserOp(smartAccount, initCode, accountCallData);
 
@@ -220,8 +344,7 @@ contract PaymasterIntegrationTest is Test {
 
         // EntryPoint surfaces paymaster reverts as FailedOpWithRevert; we
         // assert only that the handleOps call reverts. The on-chain
-        // unit test (EtzhayyimPaymasterTest.test_validate_rejects_non_allowed_target)
-        // already pins the specific TargetNotAllowed selector.
+        // unit test already pins the specific TargetNotAllowed selector.
         vm.expectRevert();
         entryPoint.handleOps(ops, beneficiary);
     }
@@ -229,13 +352,13 @@ contract PaymasterIntegrationTest is Test {
     function test_sponsored_userop_respects_default_daily_cap() public {
         // defaultDailyCapWei = 0.02 ether. The first sponsored UserOp's
         // cost is well under that, so it succeeds.
-        address smartAccount = factory.getAddress(ownerAddr, 2);
+        address smartAccount = factory.getAddress(ownerAddr, 4);
         bytes memory innerCallData = abi.encodeCall(TargetMock.poke, (keccak256("cap"), "under-cap"));
         bytes memory accountCallData = _accountCallDataFor(address(target), innerCallData);
 
         RealPackedUserOperation memory userOp = _buildSignedUserOp(
             smartAccount,
-            _initCodeFor(ownerAddr, 2),
+            _initCodeFor(ownerAddr, 4),
             accountCallData
         );
 
