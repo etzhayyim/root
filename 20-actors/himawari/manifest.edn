@@ -3,6 +3,7 @@
  :actor/glyph "向日葵"
  :actor/display-name "向日葵 — Solar PV Manufacturing"
  :actor/tier :tier-b
+ :actor/integrates ["funadaiku" "funamori" "hikari" "hodoki" "kuni-umi" "okaimono" "sarutahiko"]
  :actor/purpose "Solar-grade crystalline-silicon PV module manufacturing Tier-B actor (polysilicon feedstock QA → ingot/wafer → cell process → module assembly → flash/EL test) + finished-module loading robotics + outbound logistics handoff + feedstock/consumable procurement. Modules produced for INTERNAL hikari install only (SBT↔SBT carve-out); no external commercial PV sale. Structurally closes hikari §G2 (no XUAR forced-labor polysilicon) via first-party on-chain feedstock provenance. Completes the energy supply chain: 製造 (himawari) → 積込 (sarutahiko F10 LoaderRobot) → 輸送 (kami-autodrive) → 設置 (hikari)."
  :actor/adr ["2606021200" "2605261000" "2605261100"]
  :actor/manifest

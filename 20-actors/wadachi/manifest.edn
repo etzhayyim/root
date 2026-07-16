@@ -4,6 +4,7 @@
 {:actor/id        "wadachi"
  :actor/glyph     "轍"
  :actor/tier      :tier-b
+ :actor/integrates ["kuni-umi"]
  :actor/domain    "wadachi.etzhayyim.com"
  :actor/purpose   "Autonomous-mobility R&D (SAE L4 ceiling) — ground autonomous vehicle orchestration for on-site + inter-site ground transport."
  :actor/status    :r0

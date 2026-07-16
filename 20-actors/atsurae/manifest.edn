@@ -5,6 +5,7 @@
 {:actor/id        "atsurae"
  :actor/glyph     "誂"
  :actor/tier      :tier-b
+ :actor/integrates ["funadaiku" "hataori" "kiyome" "sanae" "sarutahiko" "sumitsubo" "uchiwake"]
  :actor/domain    "atsurae.etzhayyim.com"
  :actor/kind      :product-line-engineering-feature-model
  :actor/purpose   "The Product Line Engineering (PLE) feature-model engine the roster lacked. open-kyber 開 (ADR-2606037200) covers ERP and uchiwake 内訳 (ADR-2606081800) covers per-product BOM, but neither manages a FAMILY of products derived from one model with shared commonality and bounded variability. atsurae is that layer: a feature model (mandatory / optional / xor-alternative / or groups + requires/excludes cross-tree constraints), from which valid VARIANTS are derived (誂え = bespoke, configured-to-order), each variant's BOM composed from the parts its selected features bind — handed off to uchiwake (BOM KG) + open-kyber (ERP) + the manufacturing actors. It computes commonality (the common platform vs. variation points), the bounded variant space, and constraint-valid configurations. A feature model is a COMMONS spec, never a vendor license key (G1: no license-lock / drm). SPEC + DERIVATION only — atsurae never manufactures (G2: sanae 早苗 / giemon / sarutahiko 猿田彦 / funadaiku 船大工 build, under Council gate). Validity is STRUCTURAL constraint satisfaction, not a good/bad product verdict (G3, non-adjudicating)."

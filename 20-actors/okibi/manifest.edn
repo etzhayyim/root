@@ -4,6 +4,7 @@
 {:actor/id        "okibi"
  :actor/glyph     "燠"
  :actor/tier      :tier-b
+ :actor/integrates ["kamado" "mio" "mitsuho" "mizuho" "tawami" "toi" "yudane"]
  :actor/domain    "okibi.etzhayyim.com"
  :actor/kind      :observation-watcher
  :actor/purpose   "Thermal Matching Market — the waste-heat leg of the Energy Order Protocol suite. Heat is local (distance-weak), so okibi matches waste-heat SOURCES (datacenter/food-plant/geothermal/sewage/refrigeration/industrial) to heat-demand SINKS (district-heat/greenhouse/hot-water/drying/absorption-cooling/space-heat) under two hard physical gates: the temperature cascade (a source may only serve a sink it is hot enough for, + approach temp) and distance (≤ 5 km). A greedy allocation by match-quality fills demand, surfacing unmatched source SURPLUS and unmatched DEMAND. A realized match becomes a 澪 mio flow-improvement claim (R1, signed BTU meter). OBSERVATION ONLY — a matching map, NEVER a dispatch order (hikari actuates under Council gate); a cooling LOAD is not a heat sink (the §1 anti-pattern is unrepresentable). Waste-heat sibling of mio (verification backbone); couples kamado (refinery heat) / mizuho / mitsuho (heat demand)."

@@ -4,6 +4,7 @@
 {:actor/id        "denwaban"
  :actor/glyph     "電話番"
  :actor/tier      :tier-b
+ :actor/integrates ["toritsugi" "yadori" "yotei"]
  :actor/domain    "denwaban.etzhayyim.com"
  :actor/purpose   "Voice receptionist — answers an inbound call (PSTN/SIP via twilio-compat, or a WebRTC soft-phone over kotoba-net), converses by voice (STT=whisper-compat, dialog=KotobaLLM, TTS=elevenlabs-compat), and BOOKS by delegating to yotei (no-double-book + member-signed). The telephone/voice counterpart of toritsugi (text/LINE window). Holds no booking state, no buyer-of-record role, no call recording without consent. Murakumo-only."
  :actor/status    :r0

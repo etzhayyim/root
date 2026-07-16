@@ -4,6 +4,7 @@
 {:actor/id        "soma"
  :actor/glyph     "杣"
  :actor/tier      :tier-b
+ :actor/integrates ["kuramori" "tazuna"]
  :actor/domain    "soma.etzhayyim.com"
  :actor/purpose   "Forestry / logging robotics — the logging body the robotics remote-work survey (ADR-2606073001 §4) reserved (伐採, one of the deadliest jobs). Selective + regenerative harvest only: directional tree-felling mechanics (notch + hinge + back cut; predicts fall direction from lean/diameter/wind, computes hinge holding-wood; an unsafe fall zone overlapping a human/road/watercourse RAISES — the headline G5 fall-fatality gate), cut-to-length bucking value optimization (sawlog>pulp DP) + grapple-reach feasibility, and slope-limited low-ground-impact forwarder/skidder extraction (refuses over-grade / over-pressure / protected soil, regenerative G2). Protected-species / no-cut trees refuse felling (G7). Displacement-Dividend-coupled (林業作業員, ADR-2606032130); tazuna-teleoperable (ADR-2606042100). Clojure-first GAP-actor wave (sibling of kuramori 倉守, ADR-2606142000)."
  :actor/status    :r0

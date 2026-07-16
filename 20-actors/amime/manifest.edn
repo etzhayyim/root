@@ -5,6 +5,7 @@
 {:actor/id        "amime"
  :actor/glyph     "網"
  :actor/tier      :tier-b
+ :actor/integrates ["hikari" "kaname" "mio" "okibi" "tawami" "toi"]
  :actor/domain    "amime.etzhayyim.com"
  :actor/kind      :energy-mesh-flow-network
  :actor/purpose   "The multi-site energy-FLOW NETWORK the Energy Order suite (mio/tawami/okibi/toi/yudane/hikari, ADR-2606211200) lacked. hikari 光 designs ONE site; mio 澪 verifies the org's aggregate Flowrate; amime models how ORDERED energy flows BETWEEN sites across a mesh of capacity-bounded, lossy links — solving site-to-site transportation, transmission loss, curtailment, N-1 contingency (the critical chokepoint), and per-site import-dependence (SPOF). A COMMONS mesh, never a market (no price / no trade; rewards ORDERED FLOW, never consumed energy — the mio PoUF stance). A resilience MAP, never a target-list. ASSESSMENT + SIM ONLY — amime never dispatches; hikari actuates under Council gate. Emits a kaname-facing :energy domain mirror (ADR-2606212000): the energy-flow 取 lifted into the cross-domain system-of-systems multiplex. Feeds mio (Flowrate) + kaname (:energy leverage); chokepoints route to hikari multi-site mesh redundancy (ADR-2606091800)."

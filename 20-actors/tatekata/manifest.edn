@@ -3,6 +3,7 @@
  :actor/glyph "建方"
  :actor/display-name "建方 — Construction"
  :actor/tier :tier-b
+ :actor/integrates ["kuni-umi"]
  :actor/purpose "Infrastructure construction robotics orchestration. Tier-B actor coordinating multi-robot site workflows (Giemon, Otete, Mimi), material routing, permit compliance, and safety governance for civil + MEP projects (≤2 story, ≤5000m² R0 scope)."
  :actor/adr ["2605250715" "2605250730" "2605250745" "2605250760"]
  :actor/manifest

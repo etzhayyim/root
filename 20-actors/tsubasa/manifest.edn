@@ -4,6 +4,7 @@
 {:actor/id        "tsubasa"
  :actor/glyph     "翼"
  :actor/tier      :tier-b
+ :actor/integrates ["okaimono" "shukubo" "watari"]
  :actor/domain    "tsubasa.etzhayyim.com"
  :actor/purpose   "Skyscanner-inverse flight discovery commons — honest fare/route meta-search whose every onward link is AFFILIATE-STRIPPED and where the member SELF-BOOKS on the airline's own site (no commission inflow). Ranks by true total cost (fare + baggage) with CO₂ emissions surfaced, never hidden; no ads, no urgency ('price will rise'), no person fare-tracking. The R2 maturity layer additionally derives per-O–D-route carrier CONCENTRATION (named-HHI + competition reading) and flags concentrated/monopoly routes :opening — a COMPETITION + FARE map routed to OPENING, never a paid ranking and never a target-list — persisted to a content-addressed append-only kotoba Datom commit-DAG via an idempotent-by-content heartbeat. Live GDS/airline ingest is Council Lv7+ gated; R0/R1 ship :representative data. Sibling of watari (live position). kotoba-EAVT-native, Murakumo-only."
  :actor/status    :r3

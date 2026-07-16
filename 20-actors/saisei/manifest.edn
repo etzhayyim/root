@@ -1,6 +1,7 @@
 {:actor/id        "saisei"
  :actor/glyph     "生" ; 再生 (saisei) — rehabilitation/rebirth
  :actor/tier      :tier-b
+ :actor/integrates ["tate" "yobel"]
  :actor/domain    "saisei.etzhayyim.com"
  :actor/did       "did:web:etzhayyim.com:actor:saisei"
  :actor/purpose   "Citizen self-filing debt-relief CONCIERGE — the debtor-initiated counterpart to tate's creditor-side :insolvency track. A member who wants to petition for their OWN formal insolvency relief (自己破産・個人再生・US Chapter 7/13・UK bankruptcy/DRO・DE Verbraucherinsolvenz) gets a coded, jurisdiction-keyed registry disclosing: eligibility SIGNALS (never a verdict), the filing forum, required forms/documents checklist, statutorily MANDATORY pre-filing steps modeled as blocking (never skippable), fee + fee-waiver route, DISCLOSED discharge-timeline rule (never a computed date), and always-present referral to the jurisdiction's free/public insolvency-counseling directory. UPL: the member assembles, signs and files THEMSELVES; saisei never drafts the petition or represents; high-stakes (asset/means-test complexity, contested filings) always referral-forward."

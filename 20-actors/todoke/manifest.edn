@@ -4,6 +4,7 @@
 {:actor/id        "todoke"
  :actor/glyph     "届け"
  :actor/tier      :tier-b
+ :actor/integrates ["haraedo" "okaimono" "tazuna" "wadachi"]
  :actor/domain    "todoke.etzhayyim.com"
  :actor/did       "did:web:etzhayyim.com:actor:todoke"
  :actor/purpose   "Last-mile ('one-mile') autonomous delivery — curb-to-door small-payload transport that closes the gap between wadachi inter-site ground autonomy and the recipient's door. Consumes the kami-autodrive GNC crate; the no-gig delivery limb of okaimono's provisioning commons; couples to the courier Displacement Dividend."

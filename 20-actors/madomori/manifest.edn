@@ -4,6 +4,7 @@
 {:actor/id        "madomori"
  :actor/glyph     "窓守"
  :actor/tier      :tier-b
+ :actor/integrates ["hataori" "kiyome" "kuramori" "sanae" "tatekata" "tazuna"]
  :actor/domain    "madomori.etzhayyim.com"
  :actor/purpose   "High-rise / façade window-cleaning robotics — the body for the HIGHEST unmet remote-work GAP named in ADR-2606073001 §4 ('高所・façade window cleaning — fall fatality; current GAP, highest unmet remote value'). Removes a human from the rope/cradle. R0 design+sim: boustrophedon façade coverage-path planning over a pane grid (with a minimized water + cleaning-agent budget, G2), a rope/BMU pendulum sway + wind work-stop safety envelope (★ G5 — the fall-equivalent gate; wind threshold + ≥2 independent fall-arrest anchors both RAISE on violation), and a suction/adhesion factor-of-safety gate (★ G7 — RAISES below the required margin). Privacy-by-construction (★ G3 — cameras point AT glass, imagery on-device only, no person/interior recognition; mirrors kiyome/manako). Displacement-Dividend-coupled (高所清掃員, ADR-2606032130); tazuna-teleoperable (ADR-2606042100)."
  :actor/status    :r0

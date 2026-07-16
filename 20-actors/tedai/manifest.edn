@@ -1,6 +1,7 @@
 {:actor/id        "tedai"
  :actor/glyph     "代"
  :actor/tier      :tier-b
+ :actor/integrates ["karakuri" "tazuna"]
  :actor/domain    "tedai.etzhayyim.com"
  :actor/did       "did:web:etzhayyim.com:actor:tedai"
  :actor/purpose   "Member-computer operation (手代 = the Edo merchant-house clerk who operates the house's affairs on the master's instruction and under the master's seal — member-principal by etymology). Gives a member a uniform command vocabulary (DesktopOp) over their OWN computer — desktop apps, files, OS surfaces — driving the safest adapter (T1 scripting/accessibility-API > T2 stance-permitted vision-pointer w/ ON-DEVICE vision > T3 file-level), logging every op to the kotoba Datom log. karakuri's OS-layer sibling (web-service : karakuri = computer : tedai = robot body : tazuna). The charter-clean inverse of commercial computer-use: own-device-only, T1-first, stance-honest (no anti-cheat/DRM/detection evasion), no-server-key, member-signed mutate, on-device vision (a screenshot never leaves the device), no-surveillance (never bossware), hash-only evidence."

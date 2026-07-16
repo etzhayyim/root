@@ -3,6 +3,7 @@
  :actor/glyph "心"
  :actor/display-name "心 — Mental Health Support"
  :actor/tier :tier-b
+ :actor/integrates ["chigiri" "hagukumi" "iyashi" "kataribe" "kazaori" "mitate" "musubi" "toritate" "yakushi"]
  :actor/purpose "Non-profit religious-corp mental health support substrate. Community + spiritual + relational framing (NOT clinical psychiatry). Peer support circles + post-funeral grief support + chronic mental health continuity + postnatal mood screening (opt-in) + acute crisis escalation (mitate G5) + counseling referral. **CRITICAL boundary**: NOT clinical psychiatric entity; NOT state-licensed psych; counselors are L5 vocation-flow community-witnessed-competent (musubi G3 pattern). Does NOT diagnose (mitate). Does NOT prescribe (yakushi). Encrypted envelope MANDATORY (G4). NO conversion therapy (G5). Human-in-loop ALWAYS (G6). NO commercial mental health software (G7: BetterHelp/Talkspace/Cerebral/Modern Health/Lyra/Calm-business/Headspace-Enterprise/Spring Health/Brightline/Octave/Two Chairs/Charlie Health PROHIBITED). NO commercial AI therapy chatbot (G8: Woebot/Wysa/Replika-as-therapy/character.ai-as-therapy/GPT-as-therapy/Anthropic-direct-therapy/Claude-as-therapy PROHIBITED). NO mandatory screening (G9: opt-in only). NO surveillance-based mood monitoring (G10: Charter §2(c)). Multi-gen peer support (G11). Cross-doctrinal Wellbecoming (G12). Acute crisis → mitate G5 emergency keyword (G13). 6 cells / 5 Lexicons / 14 gates / 12 non-goals."
  :actor/adr ["2605263700" "2605192100"]
  :actor/manifest

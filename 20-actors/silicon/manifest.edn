@@ -5,6 +5,7 @@
 {:actor/id        "silicon"
  :actor/glyph     "珪"
  :actor/tier      :tier-b
+ :actor/integrates ["tsukuru"]
  :actor/domain    "silicon.etzhayyim.com"
  :actor/purpose   "First-party ternary silicon-fab orchestration — 8 fab 工程 (litho/deposition/etch/implant/CMP/metrology/test/packaging) の自社装置 RTL/CAD/robotics 設計 + Pregel cell orchestration. baien ternary ASIC (iwakura 推論 / fuigo 訓練) の fab-side owner. Split out of the tsukuru namespace per ADR-2606021139 so tsukuru = B2B ordering only. silicon-as-asset は inalienable (land-trust 類比, ADR-2605242500). Apache 2.0 + Charter Rider §2(a)(c) 兵器/監視転用ガード適用. Murakumo-only, kotoba-EAVT-native."
  :actor/status    :r0

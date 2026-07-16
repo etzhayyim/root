@@ -6,6 +6,7 @@
 {:actor/id        "kafun"
  :actor/glyph     "花"
  :actor/tier      :tier-b
+ :actor/integrates ["inochi" "iyashi" "kamado" "mitate" "musubi" "sanae"]
  :actor/domain    "kafun.etzhayyim.com"
  :actor/kind      :pollen-remediation-gate
  :actor/purpose   "花粉撲滅 remediation gate. Edge-primary pollen-source concentration (stand-area × emission-density × exposed-population-weight, on read) routed to REMEDIATION. A forest STAND is routed for remediation ONLY by passing the gate: refuse a 主伐 without 再造林 (撲滅 is RESTORATION, not deforestation) / net-positive carbon; await landowner consent (land sovereignty); selective-only on protected (watershed/steep/habitat) stands; await 無花粉苗木 supply (the L1-1 bottleneck); else reforest-priority (主伐再造林, the L3-1 bottleneck). ASSESSMENT + R0 DESIGN ONLY — kafun never cuts and never plants; live forestry is the landowner's + operator/Council step. The clj-native Tier-B actor-ization of the legacy kafun-bokumetsu pipeline (scout→cadastral→envoy). Routes to sanae (planting robotics) / inochi (biosphere restoration) / mitate + iyashi (allergic-rhinitis care)."

@@ -1,6 +1,7 @@
 {:actor/id        "kiyome"
  :actor/glyph     "清め"
  :actor/tier      :tier-b
+ :actor/integrates ["haraedo"]
  :actor/domain    "kiyome.etzhayyim.com"
  :actor/did       "did:web:etzhayyim.com:actor:kiyome"
  :actor/purpose   "Domestic / janitorial cleaning robotics — frees the invisible, gendered, dignity-poor cleaning labour (ISIC T,N81 / ISCO 9111,9112 / UNSPSC 76). Privacy-by-construction. LPS #3 in ADR-2606032100."

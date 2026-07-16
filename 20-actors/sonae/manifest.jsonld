@@ -6,6 +6,7 @@
   "@type": "ActorManifest",
   "id": "did:web:sonae.etzhayyim.com",
   "name": "sonae",
+  "integrates": ["chigiri", "hagukumi", "hikari", "kawaraban", "kazaori", "mitsuho", "mizuho", "tatekata", "toritate", "watatsuna"],
   "displayName": "備え — Civilian Pre-Disaster Foresight + Preparedness + Early-Warning",
   "displayNameJa": "備え",
   "displayNameEn": "Sonae",

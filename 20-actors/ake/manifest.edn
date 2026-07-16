@@ -3,6 +3,7 @@
  :actor/glyph "朱"
  :actor/display-name "朱 — Community-Edit Membrane (Wikipedia-stance)"
  :actor/tier :tier-b
+ :actor/integrates ["chigiri" "danjo" "kabuto" "kanjo" "ooyake" "tsukuroi" "tsumugi" "watari" "watatsuna"]
  :actor/purpose "Community-edit membrane — the Wikipedia collaborative-correction STANCE fitted to the charter. 朱 (vermillion editorial ink; 朱を入れる = to make corrections) is how a 信者 (SBT holder) proposes a correction to a KG fact or an actor profile. Every edit is a member-signed proposal appended to the kotoba Datom log (never an overwrite — 非終末論, full revision history). A Murakumo-only LLM scores risk + quality and ROUTES (the Wikipedia ORES analogue) but NEVER decides accept/reject (G2); low-risk well-sourced edits auto-accept (optimistic fast-path), risky/contested edits escalate to 1 SBT = 1 vote, and invariant-adjacent edits escalate to Council Lv7+. Mirror entity-actors are CORRECTED as observations, never spoken-as (ADR-2606042330 preserved). This is NOT anonymous open-edit: it is 信者-gated + member-signed (no-server-key) by construction (N1). ZERO invariant amendments — it STRENGTHENS no-server-key, kotoba-canonical-state, 1 SBT = 1 vote, and the mirror invariant. Per ADR-2606052100."
  :actor/adr ["2606052100" "2606042330" "2605231525" "2605312345" "2605192200"]
  :actor/manifest

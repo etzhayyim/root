@@ -1,6 +1,7 @@
 {:actor/id        "meibo"
  :actor/glyph     "名"
  :actor/tier      :tier-b
+ :actor/integrates ["saisei" "tate" "toritsugi"]
  :actor/domain    "meibo.etzhayyim.com"
  :actor/did       "did:web:etzhayyim.com:actor:meibo"
  :actor/purpose   "Verified legal-institution directory registry — the honest, lawful implementation of gftdcojp ADR-0016's never-built judge/bengoshi/adr/legal-aid vision. Institution-level LINKS ONLY (bar-association registers, court locators, Japan-specific licensed-scrivener registries, UK insolvency-practitioner register) — never individual professional records. Every URL verified live (WebSearch/WebFetch) before being recorded, never guessed. Serves as the standalone, growing reference the wider ecosystem (saisei, tate, toritsugi) can point visitors to when they need a REAL licensed professional or court, rather than replicating personal-data registries that stay opt-in/self-reported/ToS-protected at their source of truth."

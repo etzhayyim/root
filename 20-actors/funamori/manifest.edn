@@ -4,6 +4,7 @@
 {:actor/id        "funamori"
  :actor/glyph     "舫"
  :actor/tier      :tier-b
+ :actor/integrates ["chigiri" "hikari" "mizuho"]
  :actor/domain    "funamori.etzhayyim.com"
  :actor/purpose   "Marine-renewable salinity-gradient power (淡水化発電) — generating electricity from the Gibbs free energy released when fresh river water mixes with seawater, via two open-membrane methods: PRO (pressure-retarded osmosis, fresh-water osmotic pull lifts brine pressure → turbine) and RED (reverse electrodialysis, salinity-driven ion flux across alternating cation/anion-exchange membranes → current). The `salinity_gradient` method models van't Hoff osmotic pressure, PRO water-flux/power-density (W=A·Δπ²/4 at ΔP=Δπ/2), RED Nernst stack EMF/power-density, and ENFORCES the ADR-2605265600 constitutional gates AS CODE: open-publication/in-house membrane mandatory, commercial proprietary membranes (Toray/Hydranautics/GE-Power/Statkraft) absolutely prohibited, PFAS (Nafion-class) prohibited, Δsalinity ≥30 g/L, power-density ≥1 W/m² R3 floor, ≤50 kW & ≤1 site through R3. Cross-actor: mizuho (river-mouth site + estuary attestation), hikari (microgrid integration), chigiri (estuarine regulatory)."
  :actor/status    :r0

@@ -3,6 +3,7 @@
  :actor/glyph "光"
  :actor/display-name "光 — Energy"
  :actor/tier :tier-b
+ :actor/integrates ["hagukumi" "kuni-umi" "manabi" "mitate" "mitsuho" "silicon" "tatekata" "yakushi"]
  :actor/purpose "Distributed renewable energy Tier-B actor (solar PV + small wind ≤100 kW + geothermal micro ≤500 kW + battery storage + grid-edge microgrid). Anti-nuclear + anti-fossil + anti-rare-earth-permanent-magnet constitutional invariants. Powers L2 Sustenance Tier (≥3 kWh/day per adherent) + cross-actor infrastructure (Murakumo + mitate/yakushi/hagukumi/manabi facilities + mitsuho greenhouse + tatekata site + silicon Wave 2 fab partial load R3+)."
  :actor/adr ["2605261100" "2605261000"]
  :actor/manifest

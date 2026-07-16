@@ -4,6 +4,7 @@
  :actor/gates [#:gate{:id "G1", :rule "power-only scope; powerless absent by construction (§D8/§D9)"} #:gate{:id "G2", :rule "edge-primary karma (N1) — no per-soul score"} #:gate{:id "G3", :rule "aggregate-first + claimed-first"} #:gate{:id "G4", :rule "public venue (open + on-chain + 1 SBT = 1 vote)"} #:gate{:id "G5", :rule "sourcing honesty (:authoritative | :representative)"} #:gate{:id "G6", :rule "Murakumo-only narration"} #:gate{:id "G7", :rule "outward-gated (live ingest = Council + operator)"} #:gate{:id "G8", :rule "no git-lfs; DataLad → IPFS"} #:gate{:id "G9", :rule "要配慮 PII → XChaCha20-Poly1305 envelope"}]
  :actor/adr "2606011800"
  :actor/tier :tier-b
+ :actor/integrates ["danjo" "himotoki" "kanae" "tadori"]
  :actor/purpose "Engi Knowledge Graph (産霊の網) intel weaver — Spirit-in-Physics over real public power-entities; surfaces 取-concentration routed to release."
  :actor/status :r0-design-only
  :actor/related ["2606011000" "2606011500" "2605081300" "2605170000" "2605301600" "2605301400" "2605302300" "2605241500" "2606042330"]

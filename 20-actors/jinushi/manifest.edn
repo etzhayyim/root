@@ -5,6 +5,7 @@
  :actor/display-name "地主 — World Land-Ownership Acquisition Mirror"
  :actor/adr "2606162000"
  :actor/tier :tier-b
+ :actor/integrates ["inochi" "kabuto" "kanae" "kanjo" "keizu" "tsumugi" "uchiwake"]
  :actor/status :r0-design-only
  :actor/id "jinushi"
  :substrate {:datasets [{:dataset-id "jinushi-land-wdqs-r2"

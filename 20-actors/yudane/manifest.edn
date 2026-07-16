@@ -4,6 +4,7 @@
 {:actor/id        "yudane"
  :actor/glyph     "委"
  :actor/tier      :tier-b
+ :actor/integrates ["hikari" "ibuki" "mio" "okibi" "tawami" "toi"]
  :actor/domain    "yudane.etzhayyim.com"
  :actor/kind      :consent-bound-translator
  :actor/purpose   "Human Intention Energy Engine — the 意味変換 (meaning-translation) leg of the Energy Order Protocol suite, and the most charter-sensitive actor. Consented, AGGREGATE member intention ('today WFH', 'this load can wait', 'heatwave tomorrow') is translated into controllable energy variables (an aggregate flex offer) → 撓 tawami / 澪 mio. Privacy is STRUCTURAL: an offer crosses the membrane only if CONSENTED — a member-signed, scoped, expiring, REVOCABLE capability (ibuki revocable-leash, ADR-2606111400) that is present, unexpired, reciprocal, and over a cohort ≥ the k-anonymity floor — and the engine is CONTENT-FREE (only an intention CLASS + an aggregate cohort signal are ever read; there is no per-person field, by construction). The surveillance degeneration series (五人組→隣組→Stasi→social-credit) is structurally unrepresentable: no denunciation, no per-person score, k-anonymity floor, symmetric/reciprocal visibility (Rider §2(c), ADR-2606082400; mimamori pattern, ADR-2606112300). OBSERVATION + TRANSLATION ONLY — yudane never controls; hikari actuates under Council gate. Intention leg of mio (verification backbone); feeds tawami (flexibility)."

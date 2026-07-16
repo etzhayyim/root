@@ -1,7 +1,8 @@
 (ns kawaraban.methods.social
   "social.cljc — 瓦版 — News Medium (real-media mirror + actor-to-actor wire) DRY-RUN self-publication seed (ADR-2606272355, auto-seeded R0).
 
-  This is a GENERIC self-publication projection, mechanically derived from kawaraban's own
+  This is a GENERIC self-publication projection (draft-observation-post below builds an
+  app.bsky.feed.post-shaped record), mechanically derived from kawaraban's own
   manifest (:actor/purpose). It is an R0 SEED, not a bespoke domain projection (contrast
   danjo/keizu/monosashi, which hand-author their own draft-*-post shapes) — a future actor
   evolution pass MAY replace draft-observation-post with domain-specific post types, same as

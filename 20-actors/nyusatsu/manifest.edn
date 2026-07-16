@@ -5,6 +5,7 @@
  :actor/id "nyusatsu"
  :actor/did "did:web:etzhayyim.com:actor:nyusatsu"
  :actor/tier :tier-b
+ :actor/integrates ["danjo"]
  :actor/status :r1-offline    ;; R0 design + R1 offline clj green; G8 UNLOCKED (founder Lv7+ 2026-06-27), R2 residence pending
  :actor/adr ["2606271700" "2606072000"]
 

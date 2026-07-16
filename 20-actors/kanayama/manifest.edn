@@ -3,6 +3,7 @@
  :actor/glyph "金山"
  :actor/display-name "金山 — Circular Metallurgy"
  :actor/tier :tier-b
+ :actor/integrates ["kuni-umi" "silicon" "tatekata" "wadachi" "watatsumi" "yakushi"]
  :actor/purpose "Closed-loop material recovery / circular metallurgy Tier-B actor. Wave 1 reference = closed-loop aluminum used beverage container (UBC) recycling adopted from European integrated recycling-rolling mill practice. Constitutional posture strongly favorable (§2(g) habitat + §2(h) circular economy + §2(e) anti-gatekeeping). Primary mining (bauxite / iron / copper / etc.) is out of kanayama scope (N1, recovery-first by preference); NOT constitutionally forbidden — extraction is gated by a multi-generational (子・孫) × wellbecoming risk assessment per ADR-2606161700 (Rider §2(l) v3.2), not a blanket ban. Wave 2-4 (steel / copper / rare-earth) deferred to separate ADRs."
  :actor/adr ["2605252400" "2605252415" "2605252430" "2605252445"]
  :actor/manifest

@@ -3,6 +3,7 @@
  :actor/glyph "綿津見"
  :actor/display-name "綿津見 — Civilian Submersible Manufacturing"
  :actor/tier :tier-b
+ :actor/integrates ["kuni-umi" "silicon" "tatekata" "wadachi" "watatsuna" "yakushi"]
  :actor/purpose "Civilian deep-sea submersible manufacturing Tier-B actor. Adopts modular ring-section construction methodology from mature European shipyard practice; civilianised by metallurgical, propulsion, and acoustic-emission constraints. Naval weapons, nuclear propulsion, and military stealth are constitutional non-goals per Charter Rider §2(a)."
  :actor/adr ["2605252200" "2605252215" "2605252230" "2605252245"]
  :actor/manifest

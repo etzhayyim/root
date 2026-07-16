@@ -4,6 +4,7 @@
 {:actor/id        "kuramori"
  :actor/glyph     "倉守"
  :actor/tier      :tier-b
+ :actor/integrates ["niyaku" "tazuna" "todoke"]
  :actor/domain    "kuramori.etzhayyim.com"
  :actor/purpose   "Warehouse intralogistics robotics — the standalone warehouse-handling body the roster GAP-mapped to `kuramori 倉守` (ADR-2606073001 §3, 積み下ろし partial). Closes the warehouse leg between niyaku 荷役 (port quay↔yard) and todoke 届け (last-mile): AGV (fixed guidepath) + AMR (free-roaming) horizontal transport, ABC velocity-based slotting (golden-zone packing), putaway feasibility (weight/temp/hazmat-segregated), and pick-route + fleet dispatch (LPT makespan). Reuses niyaku's PROVEN trapezoidal-profile + segment-conflict + LPT-dispatch core (ADR-2606082000). Displacement-Dividend-coupled (倉庫作業員, ADR-2606032130); tazuna-teleoperable (ADR-2606042100)."
  :actor/status    :r0

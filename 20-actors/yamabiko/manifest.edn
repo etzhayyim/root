@@ -3,6 +3,7 @@
  :actor/glyph "山彦"
  :actor/display-name "山彦 — High-Speed Rail Manufacturing"
  :actor/tier :tier-b
+ :actor/integrates ["hikari" "kanayama" "kuni-umi" "sarutahiko" "silicon" "tatekata" "wadachi" "watatsumi" "yakushi"]
  :actor/purpose "High-speed rail trainset manufacturing Tier-B actor. Wave 1 reference = civilian Shinkansen-class trainset (~250-320 km/h, 8-16 cars). Methodology adopted from Hitachi A-Train / Kawasaki efSET / Talgo Avril / Siemens Velaro / Alstom Avelia class. Military rail / NBC transport / mass-surveillance / advertising wraps / luxury-only trains rejected per Charter Rider §2(a) + §2(d) + §2(c) + §2(e). Land-mobility sibling of sarutahiko (road manufacturer) + wadachi (road operator)."
  :actor/adr ["2605252600" "2605252615" "2605252630" "2605252645"]
  :actor/manifest

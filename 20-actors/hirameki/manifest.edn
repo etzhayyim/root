@@ -1,6 +1,7 @@
 {:actor/id        "hirameki"
  :actor/glyph     "閃"
  :actor/tier      :tier-b
+ :actor/integrates ["abaki" "busshi" "chigiri" "kabuto" "mitooshi" "rasen" "tokigusuri" "tsumugi"]
  :actor/domain    "hirameki.etzhayyim.com"
  :actor/kind      :observation-watcher
  :actor/purpose   "World PUBLIC-PATENT KG-mirror observatory — the all-technology generalization of tokigusuri 時薬 (the pharma patent-cliff subset). Ingests public patent bibliographic data (USPTO PatentsView CC0 / EPO OPS free / WIPO PATENTSCOPE) into the kotoba Datom log AND persists the corpus to the DataLad dataset substrate (80-data/hirameki-patents/, ADR-2605241500), content-addressed to CIDv1. Per technology FIELD it runs edge-primary exclusivity-CONCENTRATION (top-assignee share + named-HHI) vs a RELEASE-READINESS buffer (expired + expiring-soon + open-licensed) routed to RELEASE (解放) / open-license / de-monopolization / monitor; per PATENT it reads the RELEASE CLOCK (years-to-expiry). OBSERVATION ONLY — never files, never litigates, never trades; a release map, NEVER a patent-busting / FTO / infringement / patent-equity tool. Supersedes the legacy RisingWave/B2/BPMN patent pipeline (ADR-2604251024). Sibling of tokigusuri (pharma), tsumugi (power-KG), kabuto (supply-chain), busshi (commodities)."

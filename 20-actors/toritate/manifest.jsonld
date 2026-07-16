@@ -6,6 +6,7 @@
   "@type": "ActorManifest",
   "id": "did:web:toritate.etzhayyim.com",
   "name": "toritate",
+  "integrates": ["chigiri", "kawase-yui", "toritsugi", "wakai"],
   "displayName": "執帳 — Accounting + Audit",
   "displayNameJa": "執帳",
   "displayNameEn": "Toritate",

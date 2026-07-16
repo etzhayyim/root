@@ -4,6 +4,7 @@
 {:actor/id        "kuni-umi"
  :actor/glyph     "国"
  :actor/tier      :tier-b
+ :actor/integrates ["makura"]
  :actor/domain    "kuni-umi.etzhayyim.com"
  :actor/purpose   "Tier-B planetary infrastructure producer — Giemon robotics fleet deployment planning, site survey, construction orchestration, commissioning, audit witness, and decommission. Manages Otete (manipulator), Mimi (metrology), Watari (textile), Awa (foam), Hitogata (humanoid), and Quad (logistics) across 30+ projects. Deployment state is kotoba Datom-native (G6). All field operations gated by Council Lv6+ 3-sign off (ADR-2605201400 §7). Murakumo-only LLM for site coordination (G5). Settlement is USDC + ERC-4337 + TitheRouter (G7). No server key — operators/robots sign own tx (G15). Compute-only R0 — no live robot dispatch (consent-gated, G1). All witness records carry ≥2 independent robot DIDs (constitutional invariant)."
  :actor/status    :r0

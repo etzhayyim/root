@@ -1,6 +1,7 @@
 {:actor/id        "noroshi"
  :actor/glyph     "烽"
  :actor/tier      :tier-b
+ :actor/integrates ["silicon" "tsukuru" "tsutae" "watatsuna"]
  :actor/domain    "noroshi.etzhayyim.com"
  :actor/did       "did:web:etzhayyim.com:actor:noroshi"
  :actor/purpose   "Photonics-electronics convergence (光電融合) communication-chip actor — the silicon-photonic / co-packaged-optics (CPO) sibling of the electronic silicon/iwakura/fuigo line and the RF tsutae comms device. 烽 (狼煙, beacon-fire) is the original optical telecom: a watchtower SENSES a distant fire and RELAYS a coded message — one emission, two functions, which is exactly ISAC (Integrated Sensing And Communication). Three faces: (chip) design + link-budget of photonic-IC / CPO communication chips on open photonic-EDA; (isac) an OFDM-JCAS simulator that does communication capacity AND range-Doppler sensing from one waveform; (packaging) photonic assembly robotics (fibre↔grating active alignment, photonic wire-bonding) with a laser-safety interlock. CIVILIAN-only by construction: weaponisation (directed-energy / laser-dazzle / fire-control radar) is structurally unrepresentable (N1), ISAC senses objects never persons (N2), and EPDA is clean-room open-source only (no Cadence/Synopsys/Lumerical/Ansys; the iwakura yosys/OpenLane/sky130 precedent extended to photonics)."

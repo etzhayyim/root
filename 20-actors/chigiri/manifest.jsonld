@@ -6,6 +6,7 @@
   "@type": "ActorManifest",
   "id": "did:web:chigiri.etzhayyim.com",
   "name": "chigiri",
+  "integrates": ["bunken", "hanrei", "musubi", "shidemori"],
   "displayName": "契 — Covenant (legal procedure substrate)",
   "displayNameJa": "契",
   "displayNameEn": "Chigiri",

@@ -3,6 +3,7 @@
  :actor/glyph "猿田彦"
  :actor/display-name "猿田彦 — Heavy Truck Manufacturing"
  :actor/tier :tier-b
+ :actor/integrates ["kanayama" "kuni-umi" "mitsuho" "silicon" "tatekata" "wadachi" "watatsumi" "yakushi"]
  :actor/purpose "Heavy-truck manufacturing Tier-B actor. Manufacturing-side counterpart of wadachi (operator-side autonomous mobility, ADR-2605242000). Wave 1 reference = civilian Class-8 cargo truck (~26-40 t GVWR). Methodology adopted from Turkey OEM-class large-scale heavy-truck plant practice; military / weapons / mining / fossil-tanker / surveillance / MaaS-rental applications rejected per Charter Rider §2(a) + §2(d) + §2(g) + §2(b) + §2(c)."
  :actor/adr ["2605252500" "2605252515" "2605252530" "2605252545"]
  :actor/manifest

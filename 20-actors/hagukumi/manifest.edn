@@ -3,6 +3,7 @@
  :actor/glyph "育み"
  :actor/display-name "育み — Care"
  :actor/tier :tier-b
+ :actor/integrates ["mitate" "mitsuho" "yakushi"]
  :actor/purpose "Daily-living care actor (childcare ages 2+ / eldercare / chronic-care continuity / meal delivery / respite support). Delivers L4 Care Tier of the Liberation Ladder. Privacy-first: ADR-2605181100 XChaCha20 envelope mandatory; no video recording; structural anti-surveillance enforcement."
  :actor/adr ["2605261030" "2605261000"]
  :actor/manifest

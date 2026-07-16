@@ -3,6 +3,7 @@
  :actor/glyph "繕い"
  :actor/display-name "繕い — Mend (authorized vulnerability remediation + patch proposal)"
  :actor/tier :tier-b
+ :actor/integrates ["akuma" "chigiri" "kataribe" "toritate"]
  :actor/purpose "Non-profit religious-corp authorized vulnerability-remediation + patch-proposal actor; the constructive sibling of akuma (悪魔, ADR-2605151400). Closes the akuma diagnosis loop (akuma states automated patch generation/submission is out of scope): consumes an owner-attested vulnerability finding → synthesizes a defensive fix patch (Murakumo-only LLM) → validates in an egress-restricted sandbox → PROPOSES it to the authorized target (fork-and-PR / signed patch bundle). PROPOSE-ONLY: a human owner merges; tsukuroi performs NO probing and holds NO merge/deploy authority and NO platform master key. 7 cells / 5 Lexicons under com.etzhayyim.tsukuroi.* / 13 immutable gates / 12 non-goals. kotoba-native (datom/EAVT + MST; NOT akuma's older RisingWave plane)."
  :actor/adr ["2605291500" "2605151400" "2605192100"]
  :actor/manifest

@@ -4,6 +4,7 @@
 {:actor/id        "haraedo"
  :actor/glyph     "祓戸"
  :actor/tier      :tier-b
+ :actor/integrates ["chigiri" "danjo" "hodoki" "kanae" "kanayama" "toritsugi"]
  :actor/purpose   "Global bulky-waste (粗大ゴミ) disposal — citizen intake (classify/quote/schedule/sticker) + operator logistics (受付/配車/ルート/担当者) + worldwide processing-facility registry"
  :actor/status    :r0
  :actor/adr       "2606010200"

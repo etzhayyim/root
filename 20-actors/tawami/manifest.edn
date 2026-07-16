@@ -4,6 +4,7 @@
 {:actor/id        "tawami"
  :actor/glyph     "撓"
  :actor/tier      :tier-b
+ :actor/integrates ["hikari" "mio" "okibi" "toi" "yudane"]
  :actor/domain    "tawami.etzhayyim.com"
  :actor/kind      :observation-watcher
  :actor/purpose   "Proof-of-Flexibility asset KG — the flexibility leg of the Energy Order Protocol suite. The value here is not generation but the ABILITY TO BEND a future energy flow in time (shiftability): batteries / EV fleets / cold stores / datacenters / heat pumps / industrial processes that can move WHEN they draw energy. Computes flex-value (energy-capacity × availability × responsiveness × time-shift weight), tiers each asset (:fast-flex / :mid-flex / :slow-flex), and assigns its best-use 澪 mio flow-class. A used flexibility becomes a mio flow-improvement claim (R1). OBSERVATION ONLY — a flexibility map, NEVER a dispatch order (hikari actuates under Council gate) and NEVER a per-person load profile. Flexibility sibling of mio (verification backbone); reciprocity-rewarded via moyai (ADR-2606062101)."
