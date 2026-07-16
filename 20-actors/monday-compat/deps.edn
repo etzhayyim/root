@@ -1,1 +1,0 @@
-{:project {:name "monday-compat" :version "0.1.0" :description "Clean room Monday compatible actor"} :dependencies {:kotoba "workspace" :kotodama-wasm "workspace" :datomic-client "workspace"}}
