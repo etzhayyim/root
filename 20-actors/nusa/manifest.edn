@@ -1,6 +1,7 @@
 {:actor/id        "nusa"
  :actor/glyph     "幣"
  :actor/tier      :tier-b
+ :actor/integrates ["chigiri" "danjo" "iyashi" "mitate" "moushibumi" "yakushi"]
  :actor/domain    "nusa.etzhayyim.com"
  :actor/did       "did:web:etzhayyim.com:actor:nusa"
  :actor/purpose   "Ritual + industrial HEMP (麻) heritage knowledge graph + low-THC cultivation-revival design (幣 = ōnusa, the hemp purification wand). Datafies Japan's ritual-hemp heritage — Shinto purification (注連縄/祓串/大幣), the imperial-accession 麁服 (aratae, Daijōsai hemp cloth) + the 阿波忌部 lineage that 調進 it, and the LOW-THC fibre cultivars whose licensed cultivation the 2023 reform (大麻草の栽培の規制に関する法律) reopened — into the kotoba Datom log with as-of history. Charter-clean by construction: fibre + ritual + heritage ONLY; recreational THC excluded by the :thc-class invariant (G1); cannabis-derived medicine out of scope (G10, → yakushi); no 解禁-推進/反対 stance (G3, → danjo/moushibumi)."

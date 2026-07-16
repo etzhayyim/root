@@ -3,6 +3,7 @@
  :actor/glyph "証"
  :actor/display-name "証 — Public Ad Disclosure Transparency"
  :actor/tier :tier-b
+ :actor/integrates ["danjo" "himotoki" "moushibumi"]
  :actor/purpose "kotoba-native public ad-disclosure transparency actor. Passively ingests already-public platform ad-library disclosures into kotoba EAVT and emits source-cited, non-adjudicating transparency links and aggregate reports. Sibling to danjo; bounded away from malak except for reviewed fraud/malware-ad evidence candidates."
  :actor/adr "2606022300"
  :substrate {:datasets [{:dataset-id "akashi-platform-ad-library-fixture"

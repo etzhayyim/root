@@ -2,6 +2,7 @@
 {:actor/id "kumi"
  :actor/glyph "組"
  :actor/tier :tier-b
+ :actor/integrates ["junkan" "kaname" "keizu" "kizuna" "moyoshi"]
  :actor/status :r0
  :actor/did-web "did:web:etzhayyim.com:actor:kumi"
  :actor/adr ["2607101830"]

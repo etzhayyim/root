@@ -3,6 +3,7 @@
  :actor/glyph "見立て"
  :actor/display-name "見立て (mitate)"
  :actor/tier :tier-b
+ :actor/integrates ["kuni-umi" "tsukuru" "yakushi"]
  :actor/purpose "Religious-corp first-party diagnostic + treatment routing actor — sibling of yakushi (drug-side). Wave 1 reference = chronic nasal congestion 5-condition triage (allergic-rhinitis-perennial / vasomotor-rhinitis / chronic-sinusitis / septal-deviation / rhinitis-medicamentosa). All 13 cells gated import-time RuntimeError until Council Lv6+ ≥ 3 silen-mitate-review attestation + licensed-MD-in-loop registry per ADR-2605260100. Per ADR-2605260100/115/130/145/160/175."
  :actor/adr ["2605260100" "2605260115" "2605260130" "2605260145" "2605260160" "2605260175" "2605192100" "2605192115" "2605192200" "2605192230" "2605192315" "2605192400" "2605192415" "2605201400" "2605181100" "2605172000" "2605231500" "2605231525" "2605215000" "2605250500"]
  :actor/manifest

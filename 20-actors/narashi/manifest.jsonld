@@ -6,6 +6,7 @@
   "@type": "ActorManifest",
   "id": "did:web:narashi.etzhayyim.com",
   "name": "narashi",
+  "integrates": ["kanae"],
   "displayName": "均 — Global Inequality Observation",
   "displayNameJa": "均",
   "displayNameEn": "Narashi",

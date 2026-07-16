@@ -4,6 +4,7 @@
 {:actor/id        "busshi"
  :actor/glyph     "物"
  :actor/tier      :tier-b
+ :actor/integrates ["abaki" "inochi" "kabuto" "kamado" "kanayama" "kanjo" "kasa" "mitooshi" "rare-earth-coverage" "shionome" "tsumugi"]
  :actor/domain    "busshi.etzhayyim.com"
  :actor/kind      :observation-watcher
  :actor/purpose   "World commodity & raw-materials KG-mirror observatory. Mirrors commodities/materials (precious metals 金銀PGM / base metals / rare-critical metals / energy 石油ガス石炭 / agricultural softs) into the kotoba Datom log and runs the §2(l) multi-generational (子・孫) × wellbecoming RISK axis (ADR-2606161700): producer concentration + multi-gen footprint routed to RESILIENCE / de-monopolization / restoration. OBSERVATION ONLY — never trades (取引しない), never extracts (採掘しない), never forecasts; a resilience map, NEVER a target-list or market signal. Umbrella sibling of rare-earth-coverage (rare-metals specialist), kabuto (supply-chain), kanjō (financials), kasa (compute), shionome (capital flows)."

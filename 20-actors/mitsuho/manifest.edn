@@ -3,6 +3,7 @@
  :actor/glyph "瑞穂"
  :actor/display-name "瑞穂 — Food / Agriculture"
  :actor/tier :tier-b
+ :actor/integrates ["hagukumi" "hikari" "manabi" "mitate" "silicon" "tatekata" "wadachi" "yakushi"]
  :actor/purpose "Food production Tier-B actor (plant agriculture + freshwater aquaculture + alternative protein). Delivers L2 Sustenance Tier (≥4,500 kJ/day staple per adherent) of the Liberation Ladder. R0 scope excludes animal slaughter, industrial monoculture, patented seeds, GMO without Council attestation, contract farming, commodities trading, ocean factory-fishing."
  :actor/adr ["2605261015" "2605261000"]
  :actor/manifest

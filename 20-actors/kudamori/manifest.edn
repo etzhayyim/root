@@ -4,6 +4,7 @@
 {:actor/id        "kudamori"
  :actor/glyph     "管守"
  :actor/tier      :tier-b
+ :actor/integrates ["kuramori" "mizuho" "tazuna"]
  :actor/domain    "kudamori.etzhayyim.com"
  :actor/purpose   "Sewer / confined-space in-pipe cleaning robotics — removes the human from the confined space that ADR-2606073001 §4 named as a high-remote-value GAP (toxic-gas/confined-space death). It is the in-pipe cleaning counterpart that mizuho 水穂 (wastewater TREATMENT, ADR-2605263100) left open. An electric, tazuna-teleoperable in-pipe crawler: a confined-space atmosphere ENTRY GATE (O2/H2S/CH4/CO with purge-to-entry, ★ G5), diameter-fit-checked in-pipe navigation over a sewer-network graph (route-around blockages), and pressure-safe hydro-jetting (nozzle vs pipe-material rating, ★ G7) with debris-removal estimate + water-reuse balance (effluent → mizuho, G2). Displacement-Dividend-coupled (管路清掃作業員, ADR-2606032130); tazuna-teleoperable (ADR-2606042100). Clojure-first GAP-actor wave (sibling of kuramori, ADR-2606142000)."
  :actor/status    :r0

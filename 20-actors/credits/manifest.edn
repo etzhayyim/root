@@ -9,6 +9,7 @@
  :actor/display-name "Credits — Credit Ledger & Public Fund Routing"
  :actor/purpose "yoro.etzhayyim.com human-participation credit ledger. Earn (HC tasks / Murakumo compute) -> Purchase (fixed 30% platform fee) -> Spend (fixed 10% public-fund allocation). Anti-fraud rate limiting + reputation gate. NOT a bank, NOT a payment processor, NOT a credit-scoring / credit-history bureau (see non-goals)."
  :actor/tier :tier-b
+ :actor/integrates ["hc" "shomei"]
  :actor/adr ["2605192100" "2605192115" "2605192200"]
  :actor/status :r0-first-slice
  :actor/gates

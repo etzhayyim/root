@@ -5,6 +5,7 @@
 {:actor/id        "omise"
  :actor/glyph     "御店"
  :actor/tier      :tier-b
+ :actor/integrates ["credits" "i18n" "okaimono" "todoke" "toritate" "warifu"]
  :actor/domain    "omise.etzhayyim.com"
  :actor/purpose   "Shopify-inverse storefront commons — lets an etzhayyim producing-actor (yakushi/makura/mitsuho/sanae/…) or an SBT member stand up a storefront (catalog/inventory/order/fulfilment-handoff) with ZERO platform commission and ZERO subscription. Settlement USDC+TitheRouter via warifu, member/actor-signed. Listings are okaimono Ring-1 products by construction (no integration glue). Seller-side complement to okaimono's buyer-side commons. kotoba-EAVT-native, Murakumo-only, no ads, no dark-patterns."
  :actor/status    :r0

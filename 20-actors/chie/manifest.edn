@@ -1,6 +1,7 @@
 {:actor/id        "chie"
  :actor/glyph     "智慧"
  :actor/tier      :tier-b
+ :actor/integrates ["abaki" "handotai" "kabuto" "kanjo" "kasa" "keizu" "kenkyusha" "kosatsu" "tsumugi"]
  :actor/domain    "chie.etzhayyim.com"
  :actor/did       "did:web:etzhayyim.com:actor:chie"
  :actor/purpose   "AI-ecosystem knowledge-graph mirror — the AI sibling of the power-mirror lineage (tsumugi/keizu/kabuto/kanjō/kosatsu). Weaves AI labs / companies / research / standards bodies / funders / states / public-role persons / investment rounds / policy instruments / models and the 縁 between them (invests-in / compute-deal / talent-flow / governs / sets-standard / partners / holds-role / depends-on) into the kotoba Datom log, and runs an edge-primary 取-concentration pass over four axes (compute / capital / talent / policy) routed to OPENING (open-weights / open-compute / anti-monopoly). map-not-target, non-adjudicating, edge-primary, never-trades. clj-native (.cljc), kotoba/Datom-native."

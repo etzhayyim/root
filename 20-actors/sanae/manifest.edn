@@ -1,6 +1,7 @@
 {:actor/id        "sanae"
  :actor/glyph     "早苗"
  :actor/tier      :tier-b
+ :actor/integrates ["mitsuho"]
  :actor/domain    "sanae.etzhayyim.com"
  :actor/did       "did:web:etzhayyim.com:actor:sanae"
  :actor/purpose   "Field-agriculture robotics — sow/weed/harvest automation for the single largest pool of human toil on Earth (ISIC A01 / ISCO 6,92 / UNSPSC 70). The robotics body of mitsuho's L2-Sustenance mandate. LPS #1 in ADR-2606032100."

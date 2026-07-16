@@ -6,6 +6,7 @@
   "@type": "ActorManifest",
   "id": "did:web:wakai.etzhayyim.com",
   "name": "wakai",
+  "integrates": ["hagukumi", "iyashi", "kawase-yui", "kazaori", "toritate", "yakushi"],
   "displayName": "和会 — Mutual Aid",
   "displayNameJa": "和会",
   "displayNameEn": "Wakai",

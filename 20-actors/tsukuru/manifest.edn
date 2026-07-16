@@ -5,6 +5,7 @@
 {:actor/id        "tsukuru"
  :actor/glyph     "作"
  :actor/tier      :tier-b
+ :actor/integrates ["maps" "okaimono" "yabai"]
  :actor/domain    "tsukuru.etzhayyim.com"
  :actor/nanoid    "tsukr8u0"
  :actor/purpose   "B2B factory-direct ordering — member/internal 発注を 460+ manufacturer DID (30+ countries) へ仲介。production-order (BTO/MTO/CTO) + 進捗 + 品質検査 + 取引コンプライアンス (treaty/yabai screening). fab 装置は ISIC C26 発注カテゴリの 1 つ (所有は silicon actor, ADR-2606021139). 外部 B2B 売上の inflow は禁止 (§3 SBT↔SBT carve-out + member-principal). fiat 非前提 — USDC Base L2 + ERC-4337 + TitheRouter のみ. Murakumo-only, kotoba-EAVT-native."

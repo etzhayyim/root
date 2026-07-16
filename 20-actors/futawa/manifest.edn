@@ -3,6 +3,7 @@
  :actor/glyph "二輪"
  :actor/display-name "二輪 — Small-Displacement Motorcycle Manufacturing"
  :actor/tier :tier-b
+ :actor/integrates ["hagukumi" "hodoki" "kanayama" "kuni-umi" "makura" "mitsuho" "silicon" "tatekata" "wadachi" "watatsumi" "yakushi"]
  :actor/purpose "Small-displacement motorcycle manufacturing Tier-B actor for adherent personal mobility. Adopts mature global motorcycle OEM methodology (frame → drivetrain → harness/suspension/paint → final → dyno); religious-corp-ised by 4 constitutional firsts: G7 ABS-mandatory ≥125cc / ≥6kW electric (safety constitutional), G8 build-time anti-surveillance (NO GPS / connected-app / telematics / V2X built-in; companion to hodoki G8 EOL data destroy), G12 right-to-repair forward-publishing (IPFS-pinned parts catalog + CAD + firmware source at manufacture; companion to hodoki G12 EOL catalog), G14 30-year design service life (anti-planned-obsolescence). R0 scope = ≤250cc 4-stroke single OR ≤15kW electric / curb ≤200kg / commuter+utility. ≥500cc, racing, luxury, connected-app surveillance, trikes/sidecars, pure bicycles, H2 FCV are constitutional non-goals."
  :actor/adr ["2605261330" "2605261345" "2605261400" "2605261415"]
  :actor/manifest

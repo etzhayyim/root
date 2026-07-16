@@ -7,6 +7,7 @@
  :actor/glyph       "広"
  :actor/display-name "広 — Charter-Clean Outreach & Performance Marketing"
  :actor/tier        :tier-b
+ :actor/integrates ["akashi" "danjo" "isco" "moushibumi" "talent" "toritate"]
  :actor/domain      "com-google-ads.etzhayyim.com"
  :actor/purpose     "kotoba-native charter-clean outreach & performance-marketing actor. Plans and PROPOSES the org's own outreach campaigns (mission amplification: events, publications, mutual-aid drives, land-sovereignty appeals, donation drives); publishes only after human finance/Council sign-off. Cohort-scale only — no individual targeting/profiling/retargeting, no tracking pixel, no purchased/scraped audiences. The buy/create side of the akashi 証 disclose/verify loop: every published creative + spend range is mirrored to akashi as the org's own disclosure. Murakumo-only narration. Mission-bound (no audience/lead resale, no competitor-intel SaaS)."
  :actor/status      :r0

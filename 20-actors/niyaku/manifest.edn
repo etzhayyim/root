@@ -4,6 +4,7 @@
 {:actor/id        "niyaku"
  :actor/glyph     "荷役"
  :actor/tier      :tier-b
+ :actor/integrates ["funadaiku" "port" "watari"]
  :actor/domain    "niyaku.etzhayyim.com"
  :actor/purpose   "Automated port cargo handling — 9 Pregel cells implementing berth allocation, stowage planning, spreader engagement, ship-to-shore (STS) hoist, anti-sway trolley traverse, yard transfer, lashing/twistlock, per-move manifest attestation, and electric-crane emissions audit. The defining problem — anti-sway control of a 20-40 t container suspended on cables while the trolley traverses ship↔shore — is the cart+hanging-load topology, verified end-to-end through the clean-room isaacsim.core.api (kotodama.nv_compat) Cartpole. Operator-side counterpart of funadaiku (船大工, builds the ships); consumer of port (registry) + watari (live position)."
  :actor/status    :r0

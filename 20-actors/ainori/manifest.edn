@@ -5,6 +5,7 @@
 {:actor/id        "ainori"
  :actor/glyph     "相乗"
  :actor/tier      :tier-b
+ :actor/integrates ["tazuna" "todoke" "wadachi" "warifu"]
  :actor/domain    "ainori.etzhayyim.com"
  :actor/purpose   "Uber-inverse pooled passenger-mobility commons — members already travelling offer seats; riders cost-share (fuel/wear only, no margin); the platform is paid cash≡0. Two non-gig supply modes: human-pooled (member contribution + displacement dividend) and autonomous-pooled (wadachi/tazuna SAE-L4 shuttle). No gig piece-rate, no surge, no person-tracking. kotoba-EAVT-native, Murakumo-only."
  :actor/status    :r1

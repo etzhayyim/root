@@ -1,6 +1,7 @@
 {:actor/id        "kaiyaku"
  :actor/glyph     "解"
  :actor/tier      :tier-b
+ :actor/integrates ["karakuri" "kokoro" "kurashimori" "meisai" "organizer" "tate"]
  :actor/domain    "kaiyaku.etzhayyim.com"
  :actor/did       "did:web:etzhayyim.com:actor:kaiyaku"
  :actor/aka       ["did:web:kaiyaku.etzhayyim.com"] ; legacy ref in organizer CLAUDE.md pipeline

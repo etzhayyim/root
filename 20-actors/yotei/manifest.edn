@@ -4,6 +4,7 @@
 {:actor/id        "yotei"
  :actor/glyph     "予定"
  :actor/tier      :tier-b
+ :actor/integrates ["musubi" "shinka" "society6"]
  :actor/domain    "yotei.etzhayyim.com"
  :actor/purpose   "Calendly-inverse scheduling commons — calendar owners (member or actor) publish availability and accept bookings, FREE with no seat tiers and NO booker-data harvesting. Bookings are append-only kotoba Datoms; a proposal overlapping a confirmed booking is structurally refused (no-double-book); confirmations are member-signed. kotoba-EAVT-native, Murakumo-only, no urgency/scarcity dark-patterns."
  :actor/status    :r1

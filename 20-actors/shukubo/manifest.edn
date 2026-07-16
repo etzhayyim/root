@@ -4,6 +4,7 @@
 {:actor/id        "shukubo"
  :actor/glyph     "宿坊"
  :actor/tier      :tier-b
+ :actor/integrates ["musubi" "okaimono" "todoke" "wakai" "warifu"]
  :actor/domain    "shukubo.etzhayyim.com"
  :actor/purpose   "Airbnb/Hotels-inverse lodging commons — Ring 0 hospitality-first (covenantal/pilgrim/mutual-aid stays, cash≡0 or cost-share) → Ring 1 internal SBT↔SBT stays (member/actor-hosted, USDC+TitheRouter, ZERO platform commission, warifu, member-signed) → Ring 2 external lodging mirror (data-only discovery; member self-books on operator's own site; no inflow). No commission, no surge, no discriminatory scoring, Murakumo-only, kotoba-EAVT-native."
  :actor/status    :r1

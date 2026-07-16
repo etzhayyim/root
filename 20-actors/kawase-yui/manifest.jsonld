@@ -6,6 +6,7 @@
   "@type": "ActorManifest",
   "id": "did:web:kawase-yui.etzhayyim.com",
   "name": "kawase-yui",
+  "integrates": ["chigiri", "toritate", "wakai"],
   "displayName": "為替結 — Remittance Bond (multi-stable adherent mutual-aid substrate)",
   "displayNameJa": "為替結",
   "displayNameEn": "Kawase-Yui",

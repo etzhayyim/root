@@ -11,6 +11,7 @@
 {:actor/id     "moyoshi"
  :actor/glyph  "催"
  :actor/tier   :tier-b
+ :actor/integrates ["asobi" "kizuna" "musubi" "ossekai"]
  :actor/status :r3
  :actor/adr    ["2606272100"]
  :actor/telos  "raise social capital by designing/convening gatherings that form ties"

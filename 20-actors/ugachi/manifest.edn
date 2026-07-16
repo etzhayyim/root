@@ -4,6 +4,7 @@
 {:actor/id        "ugachi"
  :actor/glyph     "穿"
  :actor/tier      :tier-b
+ :actor/integrates ["abaki" "busshi" "inochi" "kamado" "kanayama"]
  :actor/domain    "ugachi.etzhayyim.com"
  :actor/kind      :extraction-risk-gate
  :actor/purpose   "The §2(l) multi-generational (子・孫) × wellbecoming extraction RISK-GATE. A proposed extraction project (mine/well/quarry/brine) is authorized ONLY by passing the risk gate (ADR-2606161700): refuse on no-consent / fossil net-positive carbon / monopoly entrenchment / irreversible multi-gen harm; route to recovery (kanayama) when a viable lower-risk path exists; else propose-r0 (design-only, Transparent-Force + consent). ASSESSMENT + R0 DESIGN ONLY — ugachi never digs (採掘しない); live actuation is Council Lv7+ gated. Counterpart of kanayama (recovery); consumes busshi/rare-earth-coverage concentration; routes to kamado (carbon transition) / abaki (de-monopolization) / inochi (restoration)."

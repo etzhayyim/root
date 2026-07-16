@@ -1,7 +1,8 @@
 (ns kenchi.methods.social
   "social.cljc — 検地 — Worldwide Real-Estate Valuation (External-Market Transparency) DRY-RUN self-publication seed (ADR-2606272355, auto-seeded R0).
 
-  This is a GENERIC self-publication projection, mechanically derived from kenchi's own
+  This is a GENERIC self-publication projection (draft-observation-post below builds an
+  app.bsky.feed.post-shaped record), mechanically derived from kenchi's own
   manifest (:actor/purpose). It is an R0 SEED, not a bespoke domain projection (contrast
   danjo/keizu/monosashi, which hand-author their own draft-*-post shapes) — a future actor
   evolution pass MAY replace draft-observation-post with domain-specific post types, same as

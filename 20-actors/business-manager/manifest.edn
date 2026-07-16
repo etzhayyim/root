@@ -5,6 +5,7 @@
 {:actor/id        "business-manager"
  :actor/glyph     "勘"
  :actor/tier      :tier-b
+ :actor/integrates ["okaimono" "toritate" "warifu"]
  :actor/domain    "business-manager.etzhayyim.com"
  :actor/purpose   "Internal operational ERP (general ledger / AP / AR / procurement / budget / HR) for etzhayyim's own producing actors. Double-entry bookkeeping appended to the kotoba Datom log (every entry balances Σdebit=Σcredit by construction), member-signed, audited by toritate. Japanese fiscal year (Apr 1 - Mar 31). Approval: journal >1M JPY, PO >5M JPY. Internal-only (no external tenant/subscription), kotoba-EAVT-native, Murakumo-only."
  :actor/status    :r1

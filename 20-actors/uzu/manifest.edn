@@ -4,6 +4,7 @@
 {:actor/id        "uzu"
  :actor/glyph     "渦"
  :actor/tier      :tier-b
+ :actor/integrates ["busshi" "hikari" "ibuki" "kanjo" "kasa" "shionome"]
  :actor/domain    "uzu.etzhayyim.com"
  :actor/kind      :thermodynamic-organism
  :actor/purpose   "An artificial organism built on the information-energy coupled view: a Markov-blanketed active-inference agent that draws finite free energy, forms a generative model (the 'vortex') as a fold over the append-only kotoba Datom log, and chooses actions by minimizing expected free energy — paying a metabolic cost for each, and dying when the conserved energy balance hits zero (self-maintenance is EARNED, not assumed). Two ledgers are kept deliberately distinct: ENERGY (conserved, depleting) and INFORMATION (copyable, append-only). The same organism engine GROUNDS the 'energy' idea in MEASURED real-world flows — physical power (W), the economy (USD/yr), information (bit/s), and human attention/meaning (index) — treated as one open, coupled, dissipative system and VISUALIZED on one canvas, with the four incommensurable units NEVER summed across classes (the honest do-not-equate-info-and-energy boundary), and meaning explicitly subject-dependent (no joules-per-meaning). Sibling of ibuki (organism autonomy) + the observatory lineage (kasa compute/energy, kanjō financials, shionome flows, hikari grid, busshi commodities, spirit-in-physics 霊性)."

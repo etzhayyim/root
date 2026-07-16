@@ -4,6 +4,7 @@
 {:actor/id        "organizer"
  :actor/glyph     "整"
  :actor/tier      :tier-b
+ :actor/integrates ["kaiyaku" "tenso"]
  :actor/domain    "organizer.etzhayyim.com"
  :actor/purpose   "Google-Drive-inverse auto-organize file commons — upload → AI auto-classifies + groups into collections, FREE with no storage tiers and NO content mining. Items are content-addressed (Blake3) so identical content dedups to one item; each item is isolated to its owner's vault DID; blobs are encrypted at rest; mutations are member-signed. Classification emits category/labels for the OWNER only — never a profile, ad signal, or cross-vault aggregate. kotoba-EAVT-native, Murakumo-only."
  :actor/status    :r1

@@ -1,6 +1,7 @@
 {:actor/id        "yadori"
  :actor/glyph     "宿"
  :actor/tier      :tier-b
+ :actor/integrates ["okaimono"]
  :actor/domain    "yadori.etzhayyim.com"
  :actor/did       "did:web:etzhayyim.com:actor:yadori"
  :actor/purpose   "DNS-availability check + domain acquisition (宿り = taking up dwelling). RDAP/EPP availability lookup + Murakumo-only name suggestion + member-principal acquisition via the Cloudflare-Registrar at-cost path (okaimono assisted-checkout, ADR-2606012100). The charter-clean inverse of a retail registrar: no fiat inflow, no markup/affiliate, no speculation. Closes the gap between minting an actor DID and the name actually existing."

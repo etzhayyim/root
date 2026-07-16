@@ -3,6 +3,7 @@
  :actor/glyph "解き"
  :actor/display-name "解き — ELV Disassembly + Materials Recovery"
  :actor/tier :tier-b
+ :actor/integrates ["hagukumi" "hikari" "kanayama" "kuni-umi" "makura" "mitsuho" "silicon" "tatekata" "wadachi" "watatsumi" "yakushi"]
  :actor/purpose "End-of-life vehicle (ELV) disassembly + materials recovery Tier-B actor. Adopts mature OEM-run ELV facility methodology (depollution → parts harvest → shred → sort); religious-corp-ised by mandatory ECU data wipe (G8, §2(c) anti-surveillance constitutional first), right-to-repair parts catalog (G12, §2(e) anti-gatekeeping constitutional first), ≥95% material recovery (G13), ≥95% F-gas capture (G6), ≥95% PGM yield (G14), Li-ion second-life classification (L2 hikari handoff), and cross-actor circular feed mandatory (kanayama metals + makura seat foam G13 closure + silicon Wave 2 ECU + hikari R2+ second-life). Military vehicles + aerospace + marine + rail + buses + trucks ≥3.5t + Tesla-class proprietary cell harvest + H2 FCV are constitutional non-goals."
  :actor/adr ["2605261215" "2605261230" "2605261245" "2605261300"]
  :actor/manifest

@@ -6,6 +6,7 @@
   "@type": "ActorManifest",
   "id": "did:web:kenchi.etzhayyim.com",
   "name": "kenchi",
+  "integrates": ["toritate"],
   "displayName": "検地 — Worldwide Real-Estate Valuation (External-Market Transparency)",
   "displayNameJa": "検地",
   "displayNameEn": "Kenchi",

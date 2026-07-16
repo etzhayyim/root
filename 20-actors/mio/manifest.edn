@@ -5,6 +5,7 @@
 {:actor/id        "mio"
  :actor/glyph     "澪"
  :actor/tier      :tier-b
+ :actor/integrates ["hikari" "mitooshi" "okibi" "shionome" "tawami" "toi" "yudane"]
  :actor/domain    "mio.etzhayyim.com"
  :actor/kind      :verification-ledger
  :actor/purpose   "Proof-of-Useful-Flow verification ledger — the backbone of the Energy Order Protocol suite. Ingests flow-improvement CLAIMS submitted by the suite actors (撓 tawami flexibility / 燠 okibi waste-heat / 樋 toi compute-routing / 委 yudane intention) and hikari, applies the §9 verification gates (baseline / additionality / measurement / double-count / leakage), and accounts the org-wide verified useful-flow total — the 'Flowrate', the Proof-of-Useful-Flow analogue of Bitcoin's hashrate. The pivot is PoW → PoUF: the basis of scarcity/reward is ORDERED energy-flow, NOT CONSUMED energy. OBSERVATION + VERIFICATION ONLY — mio never trades (取引しない), never actuates; a resilience/reward map, NEVER a market/price signal. Physical-flow sibling of shionome (capital flow); realized-effect counterpart of mitooshi (forecasts); accounting backbone for hikari (the energy body)."

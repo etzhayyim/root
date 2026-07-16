@@ -1,6 +1,7 @@
 {:actor/id        "tate"
  :actor/glyph     "盾"
  :actor/tier      :tier-b
+ :actor/integrates ["chigiri" "kaiyaku" "kokoro" "kurashimori" "saisei" "tasuke" "toritsugi"]
  :actor/domain    "tate.etzhayyim.com"
  :actor/did       "did:web:etzhayyim.com:actor:tate"
  :actor/purpose   "Citizen legal-defense CONCIERGE (盾 = shield; defensive only) — two legs over the member's OWN paper: (1) 不利条項スキャン: the member's consumer ToS / credit-card member agreements / B2B 法人契約 matched against a coded clause-pattern registry (自動更新トラップ・過大違約金・全部免責・年14.6%超遅延損害金・リボ自動設定・抗弁放棄・無限賠償・競業避止・長期支払サイト・知財包括譲渡), each flag = pattern + DISCLOSED statutory anchor (消費者契約法8-10条 / 民法548条の2 / 割賦販売法 / 下請法 / 独禁法) + route (kurashimori rights / kaiyaku severance / professional referral) — never a validity verdict; (2) 法的手続き応答支援: coded procedure registry for notices an individual RECEIVES (支払督促・少額訴訟呼出・訴状・行政処分・内容証明) → DISCLOSED deadline rules (民訴391/393, 373, 378, 159; 行審法18条; 行訴法14条) + response options (督促異議/答弁書/通常移行申述/審査請求/書面回答) + self-submit checklist + 架空請求 guard (genuine court papers arrive by 特別送達 ONLY — court vocabulary on SMS/email/普通郵便 is :suspected-fake: never contact the sender, preserve evidence, route tasuke/#9110/188). UPL: the member decides + submits THEMSELVES; representation structurally unrepresentable; high-stakes always referral-forward (法テラス/弁護士会/認定司法書士)."

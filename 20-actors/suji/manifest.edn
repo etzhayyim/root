@@ -1,6 +1,7 @@
 {:actor/id        "suji"
  :actor/glyph     "筋"
  :actor/tier      :tier-b
+ :actor/integrates ["iyashi" "kizashi" "kokoro" "mitate"]
  :actor/domain    "suji.etzhayyim.com"
  :actor/did       "did:web:etzhayyim.com:actor:suji"
  :actor/purpose   "Musculoskeletal posture-load biomechanics simulator — the PHYSICS-SIMULATION sibling of kizashi 兆 (which SENSES the body) and upstream of mitate (which DIAGNOSES). 筋 = muscle/sinew AND line-of-force/reasoning, the double meaning of a force-balance engine. Answers 'what does a laptop posture do to the body?' with runnable, validated physics: a sagittal articulated segment chain (head→cervical→thorax→lumbar + arm) built from de Leva/Winter anthropometry — the same PlanarChain kami-genesis solves — driven through STATIC inverse dynamics (Featherstone RNEA gravity term) → per-joint moment + cervical compressive load (VALIDATED against Hansraj 2014's forward-head-posture table) → Hill-type muscle %MVC (緊張/tension) → Rohmert sustained-isometric dose (強張り/stiffness) over a work session. Compares laptop-on-lap vs laptop-on-desk vs external-monitor-at-eye-level. NON-DIAGNOSTIC by construction (G1, 医師法 §17): every output is a mechanical quantity (moment/force/%MVC/kgf), and no diagnosis/disease/prescription/treatment field is representable anywhere (schema + lexicon + cell-gate, the nusa/tazuna/kamado pattern). A licensed clinician (mitate/iyashi) owns any health interpretation. Wires to kami-genesis / nv-compat Isaac-Sim via a WIT articulation contract (gated backend; the submodule is unpopulated — the noroshi pattern)."
