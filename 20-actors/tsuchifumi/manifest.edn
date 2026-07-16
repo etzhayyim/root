@@ -5,6 +5,7 @@
 {:actor/id        "tsuchifumi"
  :actor/glyph     "土"
  :actor/tier      :tier-b
+ :actor/integrates ["mitate" "iyashi" "kokoro" "ossekai" "mitooshi" "suimin"]
  :actor/domain    "tsuchifumi.etzhayyim.com"
  :actor/kind      :earthing-emf-wellbecoming-observatory
  :actor/purpose   "Earthing (アーシング) under-institutionalization × ambient-EMF exposure as a Wellbecoming observatory. Edge-primary exposure-load (ambient-EMF + device-hours + indoor-fraction) × earthing-deficit (1 − weighted earthing access/policy), scored ON READ, routed to RELIEF (拡充): the actionable target is the INSTITUTIONAL GAP — barefoot-friendly public greenspace, grounded building design, screen-free outdoor-time policy. EPISTEMIC HONESTY is the defining invariant (G2, anti-pseudoscience): exposure-load + earthing-deficit are MEASURED facts (:established/:emerging), but the bioelectric HEALTH burden is a HYPOTHESIS reported only with its resting evidence tier; a :contested/:anecdotal claim (non-thermal EMF harm, earthing-therapy benefit) is NEVER asserted as established harm. Includes a Forrester/Meadows SYSTEM-DYNAMICS model (stocks/flows, distribution-only ensemble, G6 no point-forecast), a RISK register + Meadows leverage points (evidence-discounted), and DRY-RUN atproto おせっかい posts routed to ossekai (御節介) which CARRIES them consent-bound + on-chain-logged. OBSERVATORY + MODEL + NUDGE — NON-DIAGNOSTIC, NON-THERAPEUTIC, sells NOTHING (no earthing mat/device/affiliate). Routes care to mitate/iyashi/kokoro, evening-light to suimin, forecasting to mitooshi."

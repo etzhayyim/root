@@ -7,7 +7,12 @@
 - **ADR**: ADR-2605301600 (R0 scaffold, 2026-05-30); **ADR-2606272355** (self-publication seed on the kotoba mesh, 2026-06-27)
 - **Parent ADRs**: ADR-2605263900 (open-gov corpus — primary input), ADR-2605262130 (kotoba EAVT), ADR-2605192100 (Mission Charter §1.12 + §2(c)), ADR-2605192200 (Charter Rider), ADR-2605192300 (Council 5-of-7), ADR-2605215000 (Murakumo-only inference)
 - **Cross-actor siblings**: toritate (ADR-2605262900; boundary), chigiri (ADR-2605262700; UPL routing), ossekai (ADR-2605264000; publication), tadori (ADR-2605301400; kotoba-native investigation sibling)
-- **Status**: R0 scaffold — 6 cells path-reserved + 4 Lexicon skeletons
+- **Status**: 🟢 R1 — live operation + social emission AUTHORIZED (founder, Council Lv7+ 1/1,
+  2026-07-16): autonomous heartbeat → content-addressed append-only kotoba Datom log; Murakumo
+  narration (graceful template fallback); founder-signed `:published` posts. External AT-Proto
+  firehose relay still needs an operator transport credential (G7 no-server-key). 6 cells
+  path-reserved + 4 Lexicon skeletons (ingest/analysis cells remain R0 pending Council Lv6+ ≥3
+  per-cell ratify, ADR-2605301600 §roadmap; this authorization covers social_post only).
 - **Form**: 任意団体 internal civic-transparency oversight substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格 — Preamble §0.4 Lv7+ unanimity lock; NOT 会計検査院, NOT a state-recognized audit organ)
 
 ## Constitutional Discipline (CRITICAL — IMMUTABLE)

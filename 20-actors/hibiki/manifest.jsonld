@@ -6,6 +6,7 @@
   "@type": "ActorManifest",
   "id": "did:web:etzhayyim.com:actor:hibiki",
   "name": "hibiki",
+  "integrates": ["ossekai", "utsushie"],
   "glyph": "響",
   "displayName": "響 — ossekai-proposal → persuasive presentation (dougaka; utsushie's proposal-side sibling)",
   "displayNameJa": "響き",

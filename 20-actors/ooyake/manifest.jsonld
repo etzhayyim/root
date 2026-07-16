@@ -6,6 +6,7 @@
   "@type": "ActorManifest",
   "id": "did:web:ooyake.etzhayyim.com",
   "name": "ooyake",
+  "integrates": ["danjo", "kanae", "tsumugi", "toritsugi", "himotoki", "chigiri"],
   "displayName": "公 — World Government Atlas (civic wayfinding map)",
   "displayNameJa": "公",
   "displayNameEn": "Ooyake",

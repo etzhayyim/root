@@ -6,7 +6,12 @@ did:web:toritsugi.etzhayyim.com`) — **REGISTERED** in did-web
 (`50-infra/etzhayyim-did-web/public/actor/toritsugi/{did,profile}.json`) +
 the actor-profile-seed SSoT (`00-contracts/schemas/actor-profile-seed.kotoba.edn`),
 per ADR-2606013800 + ADR-2606272355 · ADR-2605312030 ·
-**R0 scaffold (no cells run, no submission)**.
+**🟢 R1 — live operation + social emission AUTHORIZED (founder, Council Lv7+ 1/1, 2026-07-16)**:
+autonomous heartbeat → content-addressed append-only kotoba Datom log; Murakumo narration
+(graceful template fallback); founder-signed `:published` posts. External AT-Proto firehose
+relay still needs an operator transport credential (G7 no-server-key). This authorization
+covers social_post only — the procedure-concierge cells (ingest/submission) remain R0, no
+cells run, no submission, pending their own Council Lv6+ ≥3 per-cell ratify.
 
 ## What this actor IS
 
