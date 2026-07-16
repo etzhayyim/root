@@ -1,3 +1,0 @@
-# Can_bus Clean Room Actor
-
-Clean-room API-compatible implementation of the can_bus physical substrate/core protocol, backed by Datomic and Py Kotodama WASM.
