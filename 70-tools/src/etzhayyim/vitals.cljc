@@ -67,15 +67,23 @@
 
 (defn- edn->manifest-view
   "Translate a Gen-3 kotoba-native manifest.edn into the string-keyed view this tool reads from the
-   legacy jsonld manifest (`integrates` / `tier` / `status` / `name` / `glyph` / `displayName`)."
+   legacy jsonld manifest (`integrates` / `tier` / `status` / `name` / `glyph` / `displayName`).
+
+   Some jsonld-retirement-wave manifests (e.g. keizu, shionome, toritsugi — the
+   :actor/manifest-nested set) keep the VERBATIM legacy jsonld map nested under
+   :actor/manifest instead of promoting its fields to the top level. Reading only the
+   top-level :actor/integrates silently read these actors' real, already-authored
+   `integrates`/`status`/etc as absent (0 out-degree, status \"unknown\") even though the
+   data exists one level down — fall back to the nested legacy map for each field."
   [e]
-  (let [tier (:actor/tier e)]
-    {"integrates"  (vec (:actor/integrates e))
+  (let [tier   (:actor/tier e)
+        legacy (:actor/manifest e)]
+    {"integrates"  (vec (or (:actor/integrates e) (get legacy "integrates")))
      "tier"        (cond (= tier :tier-b) "Tier-B" (keyword? tier) (name tier) :else (or tier "unknown"))
-     "status"      (or (:actor/status e) "unknown")
-     "name"        (:actor/id e)
-     "glyph"       (:actor/glyph e)
-     "displayName" (:actor/display-name e)}))
+     "status"      (or (:actor/status e) (get legacy "status") "unknown")
+     "name"        (or (:actor/id e) (get legacy "name"))
+     "glyph"       (or (:actor/glyph e) (get legacy "glyph"))
+     "displayName" (or (:actor/display-name e) (get legacy "displayName"))}))
 
 (defn- read-manifest [actor-dir]
   (let [jf (io/file actor-dir "manifest.jsonld")

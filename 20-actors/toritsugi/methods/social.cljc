@@ -14,8 +14,10 @@
          the member where the 窓口 is and that THEY submit — never a verdict, never a 代理提出.
     no-server-key — serverHeldKey=false; the actor self-custodies its key in its
          kotoba-mesh WASM runtime and signs THERE; the server never does (ADR-2605231525).
-    R0-gate — status is 'dry-run' only; `published` is unrepresentable. A live post
-         needs Council Lv6+ + operator + a member/actor signature (build-live raises).
+    R1-gate (social_post only, founder Council Lv7+ 1/1 ratify 2026-07-16) — a `published`
+         post still requires a non-blank member/actor-signed author (emit raises without one);
+         `:dry-run` never needs one. External relay stays :pending-operator-transport absent
+         a real `transport`.
     G5 — the post carries the same ≥2 public 根拠法令/official-source/provenance citations
          as the underlying record.
 
@@ -107,11 +109,24 @@
                    "出典 " (count srcs) " 件。")]
      (post (str "eligibility:" (get m "id")) body srcs author))))
 
-(defn build-live
-  "live posting is outward-gated. Refuses by construction at R0; the live signature is
-  the actor's own mesh-runtime key, presented (never server-held) under Council Lv6+ +
-  operator gate (§1.12 / G11). Mirror of toritsugi_submit's G15: 代行 is the gated exception."
-  [& _args]
-  (throw (ex-info (str "toritsugi R0: live social posting is Council Lv6+ + operator + member/actor-signature "
-                       "gated (§1.12/G11). Only dry-run posts are producible offline; the live signature "
-                       "happens actor-side in the kotoba-mesh runtime, never with a server key.") {})))
+(defn emit
+  "Emit an authorized post (R1, ADR-2606272355 + founder Council Lv7+ 1/1 ratify 2026-07-16 —
+  social_post ONLY; the procedure-concierge cells (submit/代行 esp.) remain R0/R3-gated per
+  their own manifest roadmap — this authorization does NOT touch toritsugi_submit/G15).
+  Persisted to the canonical kotoba Datom log by the autorun caller; the EXTERNAL relay
+  (aozora PDS / AT-Proto firehose) is delivered by `transport` only when an operator
+  credential is present — absent one, the post stays :pending-operator-transport. Re-applies
+  G4/G5 at the emission boundary. A :published status still requires a non-blank
+  member/actor-signed author (G11); :dry-run never does."
+  ([post] (emit post nil))
+  ([post transport]
+   (enough-sources (get post ":post/sources"))
+   (when (and (= (get post ":post/status") ":published")
+              (empty? (str (get post ":post/author"))))
+     (throw (ex-info "G11: refuse to emit a :published post without a member/actor-signed author." {})))
+   (let [relay (when transport (transport post))]
+     {"subject" (get post ":post/subject")
+      "status" (get post ":post/status")
+      "substrate" "kotoba-datom-log"
+      "external_relay" (or relay ":pending-operator-transport")
+      "guards" ["G4:non-adjudicating-mirror" "G5:source-provenance" "G11:member-or-actor-signed"]})))
