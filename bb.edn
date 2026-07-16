@@ -910,10 +910,4 @@
   maturation-agent
   {:doc "LangGraph autonomous maturation agent — upgrade 20-actors *-compat L1→L3 (batch 5)"
    :task (do (require 'etzhayyim.tools.maturation-agent)
-             ((requiring-resolve 'etzhayyim.tools.maturation-agent/-main)))}
-  verify:wave11
-  {:doc "Wave 11 compute & photonics clj/Datomic actors — cross-artifact consistency + bb contract tests (26 actors; their actor_test.cljc live under *-compat/ so they are out of test:actors auto-discovery; this drives them with the correct per-actor classpath)"
-   :task (shell "python3" "70-tools/verify_wave11.py" "--test")}
-  report:wave11
-  {:doc "Regenerate 70-tools/WAVE11-MATURITY.md scorecard (runs the bb suites)"
-   :task (shell "python3" "70-tools/verify_wave11.py" "--report")}}}
+             ((requiring-resolve 'etzhayyim.tools.maturation-agent/-main)))}}}
