@@ -1,10 +1,10 @@
 {
-  "run" : 1784199449720,
-  "generatedAt" : "2026-07-16T10:57:29.720Z",
+  "run" : 1784201814655,
+  "generatedAt" : "2026-07-16T11:36:54.655Z",
   "summary" : {
     "cells" : 164,
-    "alive" : 125,
-    "dormant" : 37,
+    "alive" : 141,
+    "dormant" : 21,
     "stub" : 2
   },
   "nodes" : [ {
@@ -158,20 +158,20 @@
     "clj" : 40,
     "actor" : 18
   }, {
-    "bsky" : false,
+    "bsky" : true,
     "reflex" : "green",
     "inDeg" : 1,
-    "atproto" : 0,
+    "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
     "status" : "r1",
     "id" : "chie",
-    "class" : "dormant",
-    "score" : 52,
+    "class" : "alive",
+    "score" : 79,
     "outDeg" : 9,
-    "cells" : 0,
+    "cells" : 1,
     "clj" : 40,
-    "actor" : 12
+    "actor" : 14
   }, {
     "bsky" : true,
     "reflex" : "green",
@@ -233,20 +233,20 @@
     "clj" : 40,
     "actor" : 20
   }, {
-    "bsky" : false,
+    "bsky" : true,
     "reflex" : "green",
     "inDeg" : 0,
-    "atproto" : 0,
-    "port" : 0.0,
-    "heartbeatDays" : 9999,
+    "atproto" : 25,
+    "port" : 1.0,
+    "heartbeatDays" : 0,
     "status" : "r0",
     "id" : "denwaban",
-    "class" : "dormant",
-    "score" : 28,
+    "class" : "alive",
+    "score" : 75,
     "outDeg" : 3,
-    "cells" : 1,
-    "clj" : 20,
-    "actor" : 8
+    "cells" : 2,
+    "clj" : 40,
+    "actor" : 10
   }, {
     "bsky" : true,
     "reflex" : "red",
@@ -683,20 +683,20 @@
     "clj" : 40,
     "actor" : 22
   }, {
-    "bsky" : false,
+    "bsky" : true,
     "reflex" : "green",
     "inDeg" : 0,
-    "atproto" : 0,
+    "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
     "status" : "r0-design-only",
     "id" : "jinushi",
-    "class" : "dormant",
-    "score" : 50,
+    "class" : "alive",
+    "score" : 77,
     "outDeg" : 7,
-    "cells" : 0,
+    "cells" : 1,
     "clj" : 40,
-    "actor" : 10
+    "actor" : 12
   }, {
     "bsky" : true,
     "reflex" : "green",
@@ -803,20 +803,20 @@
     "clj" : 40,
     "actor" : 22
   }, {
-    "bsky" : false,
+    "bsky" : true,
     "reflex" : "green",
     "inDeg" : 3,
-    "atproto" : 0,
+    "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
     "status" : "r0-r1-deployed",
     "id" : "kaname",
-    "class" : "dormant",
-    "score" : 56,
+    "class" : "alive",
+    "score" : 83,
     "outDeg" : 8,
-    "cells" : 0,
+    "cells" : 1,
     "clj" : 40,
-    "actor" : 16
+    "actor" : 18
   }, {
     "bsky" : true,
     "reflex" : "green",
@@ -998,20 +998,20 @@
     "clj" : 40,
     "actor" : 14
   }, {
-    "bsky" : false,
+    "bsky" : true,
     "reflex" : "green",
     "inDeg" : 2,
-    "atproto" : 0,
+    "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
     "status" : "r0",
     "id" : "kizuna",
-    "class" : "dormant",
-    "score" : 48,
+    "class" : "alive",
+    "score" : 75,
     "outDeg" : 2,
-    "cells" : 0,
+    "cells" : 1,
     "clj" : 40,
-    "actor" : 8
+    "actor" : 10
   }, {
     "bsky" : true,
     "reflex" : "green",
@@ -1043,20 +1043,20 @@
     "clj" : 40,
     "actor" : 20
   }, {
-    "bsky" : false,
+    "bsky" : true,
     "reflex" : "green",
     "inDeg" : 0,
-    "atproto" : 0,
+    "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
     "status" : "r0",
     "id" : "kudamori",
-    "class" : "dormant",
-    "score" : 46,
+    "class" : "alive",
+    "score" : 73,
     "outDeg" : 3,
-    "cells" : 0,
+    "cells" : 1,
     "clj" : 40,
-    "actor" : 6
+    "actor" : 8
   }, {
     "bsky" : true,
     "reflex" : "green",
@@ -1073,50 +1073,50 @@
     "clj" : 40,
     "actor" : 12
   }, {
-    "bsky" : false,
+    "bsky" : true,
     "reflex" : "green",
     "inDeg" : 15,
-    "atproto" : 0,
-    "port" : 0.0,
-    "heartbeatDays" : 9999,
+    "atproto" : 25,
+    "port" : 1.0,
+    "heartbeatDays" : 0,
     "status" : "r0",
     "id" : "kuni-umi",
-    "class" : "dormant",
-    "score" : 42,
+    "class" : "alive",
+    "score" : 87,
     "outDeg" : 1,
-    "cells" : 6,
-    "clj" : 20,
+    "cells" : 7,
+    "clj" : 40,
     "actor" : 22
   }, {
-    "bsky" : false,
+    "bsky" : true,
     "reflex" : "green",
     "inDeg" : 0,
-    "atproto" : 0,
-    "port" : 0.0,
-    "heartbeatDays" : 9999,
+    "atproto" : 25,
+    "port" : 1.0,
+    "heartbeatDays" : 0,
     "status" : "r0",
     "id" : "kuni_umi",
-    "class" : "dormant",
-    "score" : 32,
+    "class" : "alive",
+    "score" : 77,
     "outDeg" : 1,
-    "cells" : 6,
-    "clj" : 20,
+    "cells" : 7,
+    "clj" : 40,
     "actor" : 12
   }, {
-    "bsky" : false,
+    "bsky" : true,
     "reflex" : "green",
     "inDeg" : 3,
-    "atproto" : 0,
+    "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
     "status" : "r0",
     "id" : "kuramori",
-    "class" : "dormant",
-    "score" : 52,
+    "class" : "alive",
+    "score" : 79,
     "outDeg" : 3,
-    "cells" : 0,
+    "cells" : 1,
     "clj" : 40,
-    "actor" : 12
+    "actor" : 14
   }, {
     "bsky" : true,
     "reflex" : "green",
@@ -1133,35 +1133,35 @@
     "clj" : 40,
     "actor" : 22
   }, {
-    "bsky" : false,
+    "bsky" : true,
     "reflex" : "green",
     "inDeg" : 0,
-    "atproto" : 0,
+    "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
     "status" : "r0",
     "id" : "kyoninka",
-    "class" : "dormant",
-    "score" : 50,
+    "class" : "alive",
+    "score" : 77,
     "outDeg" : 6,
-    "cells" : 0,
+    "cells" : 1,
     "clj" : 40,
-    "actor" : 10
+    "actor" : 12
   }, {
-    "bsky" : false,
+    "bsky" : true,
     "reflex" : "green",
     "inDeg" : 0,
-    "atproto" : 0,
+    "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
     "status" : "r0",
     "id" : "madomori",
-    "class" : "dormant",
-    "score" : 50,
+    "class" : "alive",
+    "score" : 77,
     "outDeg" : 6,
-    "cells" : 0,
+    "cells" : 1,
     "clj" : 40,
-    "actor" : 10
+    "actor" : 12
   }, {
     "bsky" : true,
     "reflex" : "green",
@@ -1193,20 +1193,20 @@
     "clj" : 40,
     "actor" : 20
   }, {
-    "bsky" : false,
+    "bsky" : true,
     "reflex" : "green",
     "inDeg" : 0,
-    "atproto" : 0,
+    "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
     "status" : "r0",
     "id" : "masago",
-    "class" : "dormant",
-    "score" : 50,
+    "class" : "alive",
+    "score" : 77,
     "outDeg" : 9,
-    "cells" : 0,
+    "cells" : 1,
     "clj" : 40,
-    "actor" : 10
+    "actor" : 12
   }, {
     "bsky" : true,
     "reflex" : "green",
@@ -1703,20 +1703,20 @@
     "clj" : 40,
     "actor" : 18
   }, {
-    "bsky" : false,
+    "bsky" : true,
     "reflex" : "green",
     "inDeg" : 0,
-    "atproto" : 0,
+    "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
     "status" : "r1-live-verified",
     "id" : "shirabe",
-    "class" : "dormant",
-    "score" : 46,
+    "class" : "alive",
+    "score" : 73,
     "outDeg" : 3,
-    "cells" : 0,
+    "cells" : 1,
     "clj" : 40,
-    "actor" : 6
+    "actor" : 8
   }, {
     "bsky" : true,
     "reflex" : "green",
@@ -1763,20 +1763,20 @@
     "clj" : 40,
     "actor" : 22
   }, {
-    "bsky" : false,
+    "bsky" : true,
     "reflex" : "green",
     "inDeg" : 0,
-    "atproto" : 0,
+    "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
     "status" : "r0",
     "id" : "soma",
-    "class" : "dormant",
-    "score" : 44,
+    "class" : "alive",
+    "score" : 71,
     "outDeg" : 2,
-    "cells" : 0,
+    "cells" : 1,
     "clj" : 40,
-    "actor" : 4
+    "actor" : 6
   }, {
     "bsky" : true,
     "reflex" : "green",
@@ -1838,20 +1838,20 @@
     "clj" : 39,
     "actor" : 14
   }, {
-    "bsky" : false,
+    "bsky" : true,
     "reflex" : "green",
     "inDeg" : 1,
-    "atproto" : 0,
+    "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
     "status" : "R0-design-only",
     "id" : "sukashi",
-    "class" : "dormant",
-    "score" : 52,
+    "class" : "alive",
+    "score" : 79,
     "outDeg" : 8,
-    "cells" : 0,
+    "cells" : 1,
     "clj" : 40,
-    "actor" : 12
+    "actor" : 14
   }, {
     "bsky" : true,
     "reflex" : "green",
@@ -2183,20 +2183,20 @@
     "clj" : 40,
     "actor" : 12
   }, {
-    "bsky" : false,
+    "bsky" : true,
     "reflex" : "green",
     "inDeg" : 4,
-    "atproto" : 0,
-    "port" : 0.0,
-    "heartbeatDays" : 9999,
+    "atproto" : 25,
+    "port" : 1.0,
+    "heartbeatDays" : 0,
     "status" : "r0",
     "id" : "tsukuru",
-    "class" : "dormant",
-    "score" : 34,
+    "class" : "alive",
+    "score" : 81,
     "outDeg" : 3,
-    "cells" : 0,
-    "clj" : 20,
-    "actor" : 14
+    "cells" : 1,
+    "clj" : 40,
+    "actor" : 16
   }, {
     "bsky" : true,
     "reflex" : "timeout",
