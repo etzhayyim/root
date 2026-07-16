@@ -1025,3 +1025,42 @@ vendored コピーは stale な重複だったため除去しました。
 | `20-actors/workato-compat` | `kotoba-lang/com-workato` |
 | `20-actors/workday-compat` | `kotoba-lang/com-workday` |
 | `20-actors/worldbank-compat` | `kotoba-lang/com-worldbank` |
+
+## Phase 1 tail — 最終 32 件（2026-07-16、ADR-2607171000）
+
+GitHub repo-create rate-limit のクールダウン後に残り 32 件を publish + 登録 + 除去し、Phase 1 tail 完了。
+
+| vendored (removed) | independent repo |
+|---|---|
+| `20-actors/worldpay_api-compat` | `kotoba-lang/com-worldpay-api` |
+| `20-actors/worldspan-compat` | `kotoba-lang/com-worldspan` |
+| `20-actors/wto-compat` | `kotoba-lang/com-wto` |
+| `20-actors/x86_64_isa-compat` | `kotoba-lang/com-x86-64-isa` |
+| `20-actors/x86_cpu-compat` | `kotoba-lang/com-x86-cpu` |
+| `20-actors/xero-compat` | `kotoba-lang/com-xero` |
+| `20-actors/xroad-compat` | `kotoba-lang/com-xroad` |
+| `20-actors/yandex-compat` | `kotoba-lang/com-yandex` |
+| `20-actors/yang_ming_api-compat` | `kotoba-lang/com-yang-ming-api` |
+| `20-actors/yango-compat` | `kotoba-lang/com-yango` |
+| `20-actors/yardi_voyager-compat` | `kotoba-lang/com-yardi-voyager` |
+| `20-actors/yaskawa-compat` | `kotoba-lang/com-yaskawa` |
+| `20-actors/yokogawa_cx-compat` | `kotoba-lang/com-yokogawa-cx` |
+| `20-actors/yonyou-compat` | `kotoba-lang/com-yonyou` |
+| `20-actors/yoti-compat` | `kotoba-lang/com-yoti` |
+| `20-actors/yotpo-compat` | `kotoba-lang/com-yotpo` |
+| `20-actors/zalo-compat` | `kotoba-lang/com-zalo` |
+| `20-actors/zap_energy-compat` | `kotoba-lang/com-zap-energy` |
+| `20-actors/zapier-compat` | `kotoba-lang/com-zapier` |
+| `20-actors/zendesk-compat` | `kotoba-lang/com-zendesk` |
+| `20-actors/zendesksell-compat` | `kotoba-lang/com-zendesksell` |
+| `20-actors/zengin_system-compat` | `kotoba-lang/com-zengin-system` |
+| `20-actors/zillow_group-compat` | `kotoba-lang/com-zillow-group` |
+| `20-actors/zim_api-compat` | `kotoba-lang/com-zim-api` |
+| `20-actors/zipline-compat` | `kotoba-lang/com-zipline` |
+| `20-actors/zoho-compat` | `kotoba-lang/com-zoho` |
+| `20-actors/zoho_crm-compat` | `kotoba-lang/com-zoho-crm` |
+| `20-actors/zomato-compat` | `kotoba-lang/com-zomato` |
+| `20-actors/zoom-compat` | `kotoba-lang/com-zoom` |
+| `20-actors/zoox-compat` | `kotoba-lang/com-zoox` |
+| `20-actors/zozo-compat` | `kotoba-lang/com-zozo` |
+| `20-actors/zscaler-compat` | `kotoba-lang/com-zscaler` |
