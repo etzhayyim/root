@@ -22,7 +22,10 @@
     "no actor DID, product policy, deployment target, or dataset ownership"
     "versionable and testable without the old root classpath"]
    :known-prerequisites
-   ["kotoba.datom" "etzhayyim.ie-flow.*" "moyai.ledger"]}
+   ["kotoba.datom"
+    "etzhayyim.ie-flow.*"
+    "moyai.ledger"
+    "etzhayyim.social.publication"]}
   :migration/removal-gates
   [:canonical-west-repo
    :all-load-bearing-content-contained
@@ -73,6 +76,15 @@
     "tsubasa" "tsuchifumi" "ugachi" "unspsc" "uzu" "warifu" "yobel"
     "yudane"]
    :consolidated ["os" "umisachi" "fleet" "ipaddress" "kouhou" "tashikame"]
+   :extracted-shared-libraries
+   {"etzhayyim.social.publication"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-social-publication"
+     :revision "e8127d0661284b1c12ce1b216c84b5ed2db619ab"
+     :west-path "orgs/etzhayyim/com-etzhayyim-social-publication"
+     :canonical-metadata "library.edn"
+     :root-generic-consumers 140
+     :verification {:tests 3 :assertions 11 :failures 0 :errors 0}
+     :initial-rewired-consumers ["fuchi" "kenchi"]}}
    :content-contained-but-blocked
    {"karute" :root-relative-actor-manifest-consumer}
    :pending-independent-repo-merges
@@ -84,7 +96,7 @@
      :next :delete-root-copy-after-merge-and-west-pin}
     "fuchi"
     {:pull-request "https://github.com/etzhayyim/com-etzhayyim-fuchi/pull/3"
-     :commit "33658b9"
+     :commit "ebc18c7"
      :moves
      ["manifest.edn"
       "schema.edn"
@@ -94,8 +106,9 @@
      ["cells and methods into namespace-correct src/fuchi paths"
       "tests into namespace-correct test/fuchi paths"
       "manifest schema and seed references to repository-local EDN resources"
-      "run_tests.sh away from the old monorepo classpath"]
-    :canonical-format :edn
+      "run_tests.sh away from the old monorepo classpath"
+      "generic social invariant logic to SHA-pinned etzhayyim.social.publication"]
+     :canonical-format :edn
      :verification {:tests 184 :assertions 488 :failures 0 :errors 0}
      :next :delete-root-copy-after-merge-and-west-pin}
     "gtin"
@@ -122,7 +135,7 @@
      :next :delete-root-copy-after-merge-and-west-pin}
     "kenchi"
     {:pull-request "https://github.com/etzhayyim/com-etzhayyim-kenchi/pull/2"
-     :commit "da8c232"
+     :commit "c2b6fe8"
      :moves
      ["manifest.edn"
       "src/kenchi/cells/social_post/state_machine.cljc"
@@ -130,7 +143,8 @@
      :rewires
      ["charter conformance from JSON compatibility data to canonical EDN"
       "social implementation to namespace-correct src/kenchi paths"
-      "test runner to repository-local src classpath"]
+      "test runner to repository-local src classpath"
+      "generic social invariant logic to SHA-pinned etzhayyim.social.publication"]
      :canonical-format :edn
      :verification
      {:charter {:tests 6 :assertions 21 :failures 0 :errors 0}
@@ -145,7 +159,9 @@
     :count 74
     :state :classify-library-or-publish-repo}
    {:class :shared-libraries
-    :count 3
+    :count 4
+    :extracted 1
+    :remaining 3
     :state :extract-and-pin-before-dependent-actor-removal}
    {:class :fleet-actors
     :state :repoint-runner-classpath-and-verify-remote-fire}
