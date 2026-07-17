@@ -37,6 +37,71 @@
 (def ^:private journal "80-data/vitals/journal.edn")
 (def ^:private bsky-re #"app\.bsky\.feed\.post|feed-post|feed_post")
 
+(def ^:private bb-config-edn
+  "The :paths + :deps that used to live at repo-root bb.edn, embedded here
+   verbatim (git show <pre-removal-sha>:bb.edn) so run-suite's per-actor
+   subprocesses can still resolve git-pinned libs (multiformats.core,
+   cacao.core, did.core, ...) that a bare -cp of :paths alone can't provide —
+   :deps resolution needs bb's own dep machinery. bb.edn was removed repo-wide
+   by the bb->nbb tooling migration (ADR-2607173000); this is a scoped,
+   read-only snapshot for vitals' own test-running purposes ONLY — it does not
+   touch/restore bb.edn or scripts/tasks.edn. If the upstream dep shas advance,
+   this copy goes stale silently (no drift check); worth revisiting once the
+   nbb migration settles on where this classpath's source of truth lives."
+  (pr-str
+   '{:paths ["20-actors"
+             "20-actors/kotodama/src"
+             "50-infra/etzhayyim-moyai-credit/src"
+             "50-infra/etzhayyim-atproto-pds-clj/src"
+             "70-tools/src"
+             "70-tools"]
+     :deps {com-junkawasaki/langchain-clj
+            {:git/url "https://github.com/kotoba-lang/langchain"
+             :git/sha "2b03859c3ee722b64f3eddd0b615a54019b17c81"}
+            com-junkawasaki/langgraph-clj
+            {:git/url "https://github.com/kotoba-lang/langgraph"
+             :git/sha "c7daa07d4e50f55d7e2a02e4b89dbeb2b200961d"}
+            com-junkawasaki/ed25519-clj
+            {:git/url "https://github.com/kotoba-lang/ed25519"
+             :git/sha "ec077bca1f90027bc718557f1e8bb6fbc004fe5a"}
+            com-junkawasaki/multiformats-clj
+            {:git/url "https://github.com/kotoba-lang/multiformats"
+             :git/sha "e3a75a6376441cbf7aaefefce463b404b4254404"}
+            com-junkawasaki/dag-cbor-clj
+            {:git/url "https://github.com/kotoba-lang/dag-cbor"
+             :git/sha "52b008d96820660196ee8dd15e7d213c9022a6b5"}
+            com-junkawasaki/cacao-clj
+            {:git/url "https://github.com/kotoba-lang/cacao"
+             :git/sha "32fe0b63a815afc0827729394435deee627ea582"}
+            com-junkawasaki/did-clj
+            {:git/url "https://github.com/kotoba-lang/did"
+             :git/sha "f286e0a40739c6326a5af831efc224992d9ec159"}
+            com-junkawasaki/eth-crypto-clj
+            {:git/url "https://github.com/kotoba-lang/eth-crypto"
+             :git/sha "9208ecc09a32cf51627ed32eb417e4834f208324"}}}))
+
+(def ^:private bb-classpath
+  "Resolved ONCE per vitals run (delay, so a --limit/--actors smoke run doesn't
+   pay for it if run-suite is never called) by shelling out to `bb --config
+   <tmp file of bb-config-edn> print-deps --format classpath` — this runs bb's
+   normal :deps resolution (git-sha-pinned libs, cached under ~/.gitlibs same
+   as bb.edn always used; network fetch on a cold cache, same as before)
+   and returns the FULL classpath, not just :paths. Exported as
+   BABASHKA_CLASSPATH for every per-actor subprocess run-suite spawns — both
+   `bb run_tests.clj` directly and `bash run_tests.sh` (the latter itself
+   shells out to a bare `bb -e '...'` with no -cp of its own, but inherits the
+   env var from its parent process)."
+  (delay
+    (let [tmp (doto (java.io.File/createTempFile "etz-bb-config" ".edn")
+                (.deleteOnExit))]
+      (spit tmp bb-config-edn)
+      (let [res @(p/process {:out :string :err :string}
+                             "bb" "--config" (.getPath tmp)
+                             "print-deps" "--format" "classpath")]
+        (if (zero? (:exit res))
+          (str/trim (:out res))
+          (throw (ex-info "bb-classpath resolution failed" {:err (:err res)})))))))
+
 ;; ── discovery ───────────────────────────────────────────────────────────────
 
 (defn actor-dirs
@@ -203,7 +268,8 @@
         cmd (when cmd-vec (into cmd-vec [path]))]
     (if-not path
       {:reflex :absent}
-      (let [proc (apply p/process {:dir "." :out :string :err :string} cmd)
+      (let [proc (apply p/process {:dir "." :out :string :err :string
+                                    :extra-env {"BABASHKA_CLASSPATH" @bb-classpath}} cmd)
             res  (deref (future @proc) timeout-ms ::timeout)]
         (if (= res ::timeout)
           (do (try (p/destroy-tree proc) (catch Exception _ nil)) {:reflex :timeout})
