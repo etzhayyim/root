@@ -55,3 +55,6 @@
 	path = 80-data/spirit-in-physics
 	url = ./80-data/spirit-in-physics
 	ignore = dirty
+[submodule "50-infra/etzhayyim-paymaster/lib/forge-std"]
+	path = 50-infra/etzhayyim-paymaster/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
