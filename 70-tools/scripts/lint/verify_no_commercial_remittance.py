@@ -33,6 +33,7 @@ Usage::
 from __future__ import annotations
 
 import argparse
+import os
 import re
 import sys
 from pathlib import Path
@@ -42,6 +43,8 @@ from pathlib import Path
 # do not exist yet. We still register them so the hook is wired before R1
 # code lands. Once R1 scaffolds the trees, the hook starts guarding them.
 _GUARDED_ROOTS = [
+    # Retained for synthetic-test roots and the MOVED tombstone. Live actor
+    # source is scanned through ETZHAYYIM_KAWASE_YUI_ROOT below.
     Path("20-actors/kawase-yui"),
     Path("40-engine/kotoba/crates/kotoba-kotodama/cells/kawase_pool_match"),
     Path("40-engine/kotoba/crates/kotoba-kotodama/cells/kawase_fx_oracle_watcher"),
@@ -135,6 +138,14 @@ _ALLOW_LIST = {
 
 def find_violations(root: Path) -> list[tuple[Path, int, str]]:
     findings: list[tuple[Path, int, str]] = []
+    actor_root = Path(os.environ.get(
+        "ETZHAYYIM_KAWASE_YUI_ROOT",
+        root.parent / "com-etzhayyim-kawase-yui",
+    ))
+    if actor_root.exists():
+        for path in sorted(actor_root.rglob("*")):
+            if path.is_file() and path.suffix in _EXTS:
+                _scan_file(root, path, findings)
     for guarded in _GUARDED_ROOTS:
         pkg = root / guarded
         if not pkg.exists():

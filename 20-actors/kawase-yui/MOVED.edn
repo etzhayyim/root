@@ -1,0 +1,11 @@
+{:migration/status :moved
+ :migration/date "2026-07-17"
+ :migration/repository "https://github.com/etzhayyim/com-etzhayyim-kawase-yui"
+ :migration/revision "16877fce7b32030248b2088265ebd1c0a266e47c"
+ :migration/west-path "orgs/etzhayyim/com-etzhayyim-kawase-yui"
+ :migration/canonical-metadata "manifest.edn"
+ :migration/canonical-identity "identity.edn"
+ :migration/canonical-dependencies "dependencies.edn"
+ :migration/canonical-lexicons "lex"
+ :migration/external-wire-lexicons "wire"
+ :migration/canonical-format :edn}

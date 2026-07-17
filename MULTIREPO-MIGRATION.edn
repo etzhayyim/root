@@ -462,6 +462,40 @@
                          :atproto-json-retained-as-wire}
      :verification {:tests 9 :assertions 41 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
+    "kawase-yui"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kawase-yui"
+     :revision "16877fce7b32030248b2088265ebd1c0a266e47c"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kawase-yui"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root {:revision "9fdcf95cf6e69e3fcea355392c02a2c2b86916bf"
+                      :paths ["40-engine/kotoba/crates/kotoba-kotodama/cells"
+                              "50-infra/etzhayyim-chain-contracts"
+                              "50-infra/etzhayyim-kawase-pool"
+                              "70-tools/scripts/lint/verify_no_commercial_remittance.py"
+                              "90-docs/adr"]}
+      com.etzhayyim/chigiri "e08560129675106e0bb4b70e23769ff07a711ce7"
+      com.etzhayyim/toritate "3354850aa05408e840426f91fe067ddad8535e5b"
+      com.etzhayyim/wakai "2a2260dc4f331348016391501d0141baf2662052"}
+     :root-consumers ["70-tools/scripts/lint/verify_no_commercial_remittance.py"
+                      "deps.edn"]
+     :consumer-rewiring #{:flat-west-path :environment-override}
+     :actor-owned-contracts ["lex/depositAttestation.edn"
+                             "lex/fxRateAttestation.edn"
+                             "lex/jurisdictionAttestation.edn"
+                             "lex/matchExecution.edn"
+                             "lex/poolStateReport.edn"
+                             "lex/rebalanceAttestation.edn"
+                             "lex/silenKawaseReview.edn"
+                             "lex/withdrawIntent.edn"]
+     :canonicalization #{:root-newer-assets-merged :python-package-preserved
+                         :actor-lexicons-edn-canonical
+                         :cross-actor-dependencies-pinned
+                         :atproto-json-retained-as-wire}
+     :verification {:tests 34 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "hydrogen_electrolysis"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hydrogen-electrolysis"
      :revision "da4fab805b6aa8606dab36882de3186482f55f34"
