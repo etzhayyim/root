@@ -81,6 +81,22 @@
      :commit "1ef0c36"
      :moves ["kotoba.app.edn" "methods/mesh.clj"]
      :verification {:tests 10 :assertions 153 :failures 0 :errors 0}
+     :next :delete-root-copy-after-merge-and-west-pin}
+    "fuchi"
+    {:pull-request "https://github.com/etzhayyim/com-etzhayyim-fuchi/pull/3"
+     :commit "33658b9"
+     :moves
+     ["manifest.edn"
+      "schema.edn"
+      "src/fuchi/methods/social.cljc"
+      "test/fuchi/methods/consistency_test.clj"]
+     :rewires
+     ["cells and methods into namespace-correct src/fuchi paths"
+      "tests into namespace-correct test/fuchi paths"
+      "manifest schema and seed references to repository-local EDN resources"
+      "run_tests.sh away from the old monorepo classpath"]
+     :canonical-format :edn
+     :verification {:tests 184 :assertions 488 :failures 0 :errors 0}
      :next :delete-root-copy-after-merge-and-west-pin}}}
   :migration/remaining-work
   [{:class :existing-repo-overlap
