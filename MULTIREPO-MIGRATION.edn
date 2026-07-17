@@ -667,6 +667,39 @@
                          :did-registry-schema-path-rewired}
      :verification {:tests 20 :assertions 148 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
+    "kokoro"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kokoro"
+     :revision "e88ebbb23fd1f87c7af3b722d02538a55af005ad"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kokoro"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root {:revision "55b8179a3c4dc2d799588bbc8cad9cb1d68ee70b"
+                      :paths ["90-docs/adr"]}
+      com.etzhayyim/chigiri "e08560129675106e0bb4b70e23769ff07a711ce7"
+      com.etzhayyim/hagukumi "7d34cb0660057005643f95fd9c298aeb1ff0ac82"
+      com.etzhayyim/iyashi "eceea556237590f861a475b64bf41048c90f6213"
+      com.etzhayyim/kataribe "ca5251124154e909f76514c4bcf872f59374ca2d"
+      com.etzhayyim/kazaori "08750097c50f1b37380d7ceaf9f63b94baeb6c54"
+      com.etzhayyim/mitate "5900536cdda2becb947fda4c67dea84365d2239d"
+      com.etzhayyim/musubi "41e29f7b37273ded88b5ab18230077c38ac5419b"
+      com.etzhayyim/toritate "3354850aa05408e840426f91fe067ddad8535e5b"
+      com.etzhayyim/yakushi "5b2389671defc00ef8c7cfa522b9bc96b3ac192f"}
+     :actor-owned-contracts ["lex/acuteCrisisEscalationLog.edn"
+                             "lex/counselorAttestation.edn"
+                             "lex/griefSupportAttestation.edn"
+                             "lex/peerSupportCircleAttestation.edn"
+                             "lex/silenKokoroReview.edn"
+                             "registry/support-lines.seed.edn"]
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :shell-runner-retired :actor-lexicons-edn-canonical
+                         :registry-seed-edn-canonical
+                         :python-audits-retired-to-clojure-edn
+                         :cross-actor-dependencies-pinned
+                         :external-json-retained-as-wire}
+     :verification {:tests 31 :assertions 936 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "hydrogen_electrolysis"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hydrogen-electrolysis"
      :revision "da4fab805b6aa8606dab36882de3186482f55f34"
