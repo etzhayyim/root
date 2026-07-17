@@ -71,7 +71,7 @@
                (cond
                  (dir? (io/file cand "kotodama" "nv_compat"))
                  (.getCanonicalPath cand)
-                 (>= n 8)
+                 (or (nil? here) (>= n 8))
                  ;; default (monorepo root is 3 levels up from methods/)
                  (.getCanonicalPath
                    (apply io/file (-> this-file io/file .getParent) ".." ".." ".." kotodama-rel))
