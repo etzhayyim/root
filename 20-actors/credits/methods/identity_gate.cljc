@@ -7,9 +7,9 @@
   aggregation API (`shomei.methods.aggregate/aggregate`, ADR-2606072100)
   directly -- shomei is a sibling actor under the same `20-actors/` bb.edn
   `:paths` root, so a direct `:require` of its namespace is structural, not a
-  new coupling mechanism. Precedent for this exact pattern already exists in
-  this monorepo: `ainori.methods.pooled-route` directly requires
-  `todoke.methods.last-mile` for a reused pure-computation core (ADR-2606071500)
+  new coupling mechanism. The multirepo form of this pattern is documented by
+  ainori's pinned dependency on todoke's public envelope-neutral route API
+  (ADR-2606071500, ADR-2607172420)
   -- 封じ込め (containment) governs an actor's I/O/authority boundary (each
   actor's own state/credentials/side-effects stay behind its own governor); it
   does not forbid one actor's PURE function calling another's PURE function.

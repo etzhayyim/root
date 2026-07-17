@@ -1,0 +1,8 @@
+{:migration/type :repository-extraction
+ :migration/category :actor
+ :migration/source "20-actors/ainori"
+ :migration/repository "https://github.com/etzhayyim/com-etzhayyim-ainori"
+ :migration/west-path "orgs/etzhayyim/com-etzhayyim-ainori"
+ :migration/revision "9898db31619d7970e42733d907e61b4e6caf25ea"
+ :migration/canonical-metadata "manifest.edn"
+ :migration/date "2026-07-17"}

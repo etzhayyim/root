@@ -59,9 +59,9 @@
     :docs 1561}
    :actor-directories 199
    :actor-existing-independent-repo 126
-   :actor-not-yet-independent 67
+   :actor-not-yet-independent 66
    :actor-not-yet-independent-names
-   ["_conformance" "ainori" "busshi"
+   ["_conformance" "busshi"
     "com-google-ads" "energy_order" "etzhayyim-bpmn-sdk"
     "etzhayyim-esign" "etzhayyim-organism" "etzhayyim-pregel" "etzhayyim-sdk"
     "etzhayyim-sdk-auth" "etzhayyim-sdk-mock" "etzhayyim-sdk-py" "first-breath"
@@ -117,7 +117,25 @@
      :repository "https://github.com/etzhayyim/com-etzhayyim-ameno"
      :reason :github-repository-existed-at-verification}}
    :newly-independent-repositories
-   {"abaki"
+   {"ainori"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-ainori"
+     :revision "9898db31619d7970e42733d907e61b4e6caf25ea"
+     :west-path "orgs/etzhayyim/com-etzhayyim-ainori"
+     :canonical-format :edn
+     :depends-on
+     {com.etzhayyim/todoke "6b028d3700b1cee6d838284fa6c8914031cde38c"
+      com.etzhayyim/social-publication "e8127d0661284b1c12ce1b216c84b5ed2db619ab"}
+     :repository-contracts
+     {etzhayyim/com-etzhayyim-tazuna "efb4688fd8abf8e058c3c082b8d1ba482cd10bc3"
+      etzhayyim/com-etzhayyim-wadachi "44fb5f545c17ba09ad02da501fac42a63c1124bc"
+      etzhayyim/com-etzhayyim-warifu :unresolved-intent-only}
+     :canonicalization #{:encoded-edn-retired :structured-lexicon-edn}
+     :verification {:tests 24 :assertions 42 :failures 0 :errors 0
+                    :todoke-tests 27 :todoke-assertions 48}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0
+     :next :merge-west-registration-before-root-retirement}
+    "abaki"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-abaki"
      :revision "2081d3634328083755ad85ee4f957ac343b08e96"
      :west-path "orgs/etzhayyim/com-etzhayyim-abaki"
