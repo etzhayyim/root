@@ -588,6 +588,35 @@
                          :external-json-retained-as-wire}
      :verification {:tests 9 :assertions 134 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
+    "shidemori"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-shidemori"
+     :revision "e0ca1b15054efb34fdfa90646690c116697d865c"
+     :west-path "orgs/etzhayyim/com-etzhayyim-shidemori"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root {:revision "d52e09281bce7a79baa0b8abdee9cfc00dfe4ec0"
+                      :paths ["90-docs/adr"]}
+      com.etzhayyim/chigiri "e08560129675106e0bb4b70e23769ff07a711ce7"
+      com.etzhayyim/kataribe "ca5251124154e909f76514c4bcf872f59374ca2d"
+      com.etzhayyim/kazaori "08750097c50f1b37380d7ceaf9f63b94baeb6c54"
+      com.etzhayyim/kokoro "69ad92e2ec336d46ff97214861b215f2f0f58720"
+      com.etzhayyim/mizuho "3e4ba475ab1fab5af7edee5025e2ae17c0cab98c"
+      com.etzhayyim/musubi "41e29f7b37273ded88b5ab18230077c38ac5419b"}
+     :actor-owned-contracts ["lex/cemeteryLandAttestation.edn"
+                             "lex/chinkonRemembranceAttestation.edn"
+                             "lex/externalMortuaryEngagement.edn"
+                             "lex/memorialNftAttestation.edn"
+                             "lex/silenShidemoriReview.edn"
+                             "registry/registries.seed.edn"]
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :shell-runner-retired :actor-lexicons-edn-canonical
+                         :registry-seed-edn-canonical
+                         :cross-actor-dependencies-pinned
+                         :external-json-retained-as-wire}
+     :verification {:tests 25 :assertions 782 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "hydrogen_electrolysis"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hydrogen-electrolysis"
      :revision "da4fab805b6aa8606dab36882de3186482f55f34"
