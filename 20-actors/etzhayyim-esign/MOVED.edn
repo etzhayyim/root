@@ -1,0 +1,10 @@
+[{:db/id -1
+  :migration/kind :moved-tombstone
+  :migration/source "20-actors/etzhayyim-esign"
+  :migration/canonical-repo "https://github.com/etzhayyim/com-etzhayyim-esign"
+  :migration/west-path "orgs/etzhayyim/com-etzhayyim-esign"
+  :migration/revision "5f9bc9d0fdba9f09410f05e6d8d63ae0e574f9d2"
+  :migration/date "2026-07-17"
+  :migration/actor-owned-contracts-moved-from
+  "00-contracts/lexicons/com/etzhayyim/esign"
+  :migration/authoritative true}]

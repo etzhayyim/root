@@ -59,9 +59,9 @@
     :docs 1561}
    :actor-directories 199
    :actor-existing-independent-repo 126
-   :actor-not-yet-independent 36
+   :actor-not-yet-independent 35
    :actor-not-yet-independent-names
-   ["etzhayyim-esign" "etzhayyim-organism"
+   ["etzhayyim-organism"
     "funamori"
     "iriai" "iryo" "jinushi" "kafun" "kaiyaku"
     "karakuri" "kiyome" "kotoba-actors-clj" "kotodama" "kotodama-go"
@@ -147,6 +147,24 @@
      :category :actor
      :canonical-format :edn
      :verification {:tests 17 :assertions 72 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "etzhayyim-esign"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-esign"
+     :revision "5f9bc9d0fdba9f09410f05e6d8d63ae0e574f9d2"
+     :west-path "orgs/etzhayyim/com-etzhayyim-esign"
+     :category :actor
+     :canonical-format :edn
+     :external-wire-formats #{:xrpc-json :http-json}
+     :actor-owned-contracts ["lex/envelope.edn"
+                             "lex/signature.edn"
+                             "lex/completedEvent.edn"
+                             "lex/anchoredEvent.edn"
+                             "lex/requestEnvelope.edn"
+                             "lex/signEnvelope.edn"
+                             "lex/declineEnvelope.edn"]
+     :depends-on
+     {"com-etzhayyim-sdk" "12314a0cc5ac2feb49dd9789d5c002398acb6988"}
+     :verification {:tests 3 :typecheck :passed :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
     "hydrogen_electrolysis"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hydrogen-electrolysis"
