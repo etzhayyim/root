@@ -59,10 +59,9 @@
     :docs 1561}
    :actor-directories 199
    :actor-existing-independent-repo 126
-   :actor-not-yet-independent 48
+   :actor-not-yet-independent 46
    :actor-not-yet-independent-names
-   ["etzhayyim-bpmn-sdk"
-    "etzhayyim-esign" "etzhayyim-organism" "etzhayyim-sdk-py"
+   ["etzhayyim-esign" "etzhayyim-organism"
     "funamori" "haraedo" "hataori"
     "hydrogen_electrolysis" "iriai" "iryo" "jinushi" "kafun" "kaiyaku"
     "karakuri" "kiyome" "kotoba-actors-clj" "kotodama" "kotodama-go"
@@ -126,7 +125,26 @@
      :repository "https://github.com/etzhayyim/com-etzhayyim-ameno"
      :reason :github-repository-existed-at-verification}}
   :newly-independent-repositories
-   {"post_quantum_compat"
+   {"etzhayyim-bpmn-sdk"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-bpmn-sdk"
+     :revision "384afb0896af49faa7cd74209b40c33ad1254559"
+     :west-path "orgs/etzhayyim/com-etzhayyim-bpmn-sdk"
+     :category :shared-library
+     :canonical-format :edn
+     :workspace-projects 18
+     :verification {:build-tasks 15 :test-files-passed 13 :tests-passed 132 :tests-skipped 29 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "etzhayyim-sdk-py"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-sdk-py"
+     :revision "6cd818b03fbc56ff5f624870ec9b9c2e0a208e9b"
+     :west-path "orgs/etzhayyim/com-etzhayyim-sdk-py"
+     :category :shared-library
+     :canonical-format :edn
+     :runtime-state {:firehose-checkpoint :edn}
+     :verification {:cljc-tests 17 :assertions 47 :python-tests 10 :consumer-tests 33 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only
+     :root-consumer "50-infra/mst-projector/py"}
+    "post_quantum_compat"
     {:repository "https://github.com/kotoba-lang/com-post-quantum"
      :revision "cfb65453fb8be733ef8000f3ce3b2b387226e19a"
      :west-path "orgs/kotoba-lang/com-post-quantum"

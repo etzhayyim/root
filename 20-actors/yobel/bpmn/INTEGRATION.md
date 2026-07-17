@@ -115,5 +115,5 @@ For audit / Council review, the BPMN XML is the source of truth that documents w
 
 - `bpmn/yobel-rite-lifecycle.bpmn` — the BPMN XML
 - `orchestrator.cljc` — the clj/bb runtime
-- `20-actors/etzhayyim-bpmn-sdk/packages/runtime/` — the BPMN runtime API surface
-- `20-actors/etzhayyim-bpmn-sdk/examples/e2e-minimal/` — reference for `deployAndStart` flow
+- `orgs/etzhayyim/com-etzhayyim-bpmn-sdk/packages/runtime/` — the BPMN runtime API surface
+- `orgs/etzhayyim/com-etzhayyim-bpmn-sdk/examples/e2e-minimal/` — reference for `deployAndStart` flow
