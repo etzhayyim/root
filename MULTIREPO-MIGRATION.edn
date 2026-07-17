@@ -59,7 +59,7 @@
     :docs 1561}
    :actor-directories 199
    :actor-existing-independent-repo 126
-   :actor-not-yet-independent 29
+   :actor-not-yet-independent 28
    :actor-not-yet-independent-names
    ["etzhayyim-organism"
     "funamori"
@@ -69,7 +69,7 @@
     "matsurigoto" "meyasu" "moyoshi"
     "mst-projector" "niyaku" "okaimono"
     "silicon"
-    "sumitsubo" "tate" "tedai"
+    "tate" "tedai"
     "tsubasa" "tsuchifumi" "ugachi" "unspsc" "uzu" "warifu" "yobel"]
    :consolidated ["_conformance" "os" "umisachi" "fleet" "ipaddress" "kouhou" "tashikame"]
    :consolidation-details
@@ -232,6 +232,29 @@
      :actor-owned-contracts ["lex/fellAttestation.edn"]
      :canonicalization #{:standalone-classpath :test-namespace-no-exit-side-effect}
      :verification {:tests 40 :assertions 150 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "sumitsubo-cad"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-sumitsubo-cad"
+     :revision "225cbf26faa1964e39366ecd69de5ba0ca7a6c7e"
+     :west-path "orgs/etzhayyim/com-etzhayyim-sumitsubo-cad"
+     :category :shared-library
+     :canonical-format :edn
+     :canonical-metadata "library.edn"
+     :runtime-dependencies []
+     :verification {:tests 15 :typecheck :passed :failures 0 :errors 0}}
+    "sumitsubo"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-sumitsubo"
+     :revision "cc9426527a2270f5b86965821dc66522010fc8a8"
+     :west-path "orgs/etzhayyim/com-etzhayyim-sumitsubo"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {"com-etzhayyim-sumitsubo-cad" "225cbf26faa1964e39366ecd69de5ba0ca7a6c7e"}
+     :canonicalization #{:shared-sdk-extracted :shell-runner-retired
+                         :shell-deployer-retired :operator-deploy-edn}
+     :verification {:tests 7 :assertions 20 :failures 0 :errors 0
+                    :deploy-plan :operator-gated-dry-run}
      :root-copy :edn-tombstone-only}
     "hydrogen_electrolysis"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hydrogen-electrolysis"
