@@ -1,0 +1,9 @@
+[{:db/id -1
+  :migration/kind :moved-tombstone
+  :migration/source "20-actors/kotodama-go"
+  :migration/canonical-repo "https://github.com/etzhayyim/com-etzhayyim-kotodama-go"
+  :migration/west-path "orgs/etzhayyim/com-etzhayyim-kotodama-go"
+  :migration/revision "b4b65f2abe504172e5c437a482ea1cad679578f2"
+  :migration/category :shared-library
+  :migration/date "2026-07-17"
+  :migration/authoritative true}]

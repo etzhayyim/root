@@ -59,12 +59,12 @@
     :docs 1561}
    :actor-directories 199
    :actor-existing-independent-repo 126
-   :actor-not-yet-independent 35
+   :actor-not-yet-independent 34
    :actor-not-yet-independent-names
    ["etzhayyim-organism"
     "funamori"
     "iriai" "iryo" "jinushi" "kafun" "kaiyaku"
-    "karakuri" "kiyome" "kotoba-actors-clj" "kotodama" "kotodama-go"
+    "karakuri" "kiyome" "kotoba-actors-clj" "kotodama"
     "kudamori" "kuramori" "madomori" "magatama"
     "matsurigoto" "meyasu" "moyoshi"
     "mst-projector" "niyaku" "okaimono"
@@ -165,6 +165,18 @@
      :depends-on
      {"com-etzhayyim-sdk" "12314a0cc5ac2feb49dd9789d5c002398acb6988"}
      :verification {:tests 3 :typecheck :passed :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "kotodama-go"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kotodama-go"
+     :revision "b4b65f2abe504172e5c437a482ea1cad679578f2"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kotodama-go"
+     :category :shared-library
+     :canonical-format :edn
+     :go-module "github.com/etzhayyim/com-etzhayyim-kotodama-go"
+     :external-wire-formats #{:http-json :xrpc-json :did-json}
+     :canonicalization #{:legacy-local-replace-retired
+                         :unused-performer-dependency-retired}
+     :verification {:tests 3 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
     "hydrogen_electrolysis"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hydrogen-electrolysis"

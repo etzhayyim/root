@@ -77,12 +77,13 @@ etzhayyim/root/
 │                        # wproto, at-client, signal-client,
 │                        # kotoba-datomic (Holochain-iso composition spec, ADR-2605231400)
 ├── 20-actors/           # kotodama (Pregel framework + host SDK + unispsc_agents/ 18,345 LangGraph agents per ADR-2605171300),
-│                        #   kotodama-go, kami-engine-sdk, etzhayyim-bpmn-sdk,
+│                        #   kami-engine-sdk, etzhayyim-bpmn-sdk,
 │                        #   etzhayyim-sdk (kotoba substrate, ADR-2605172000+2605172100)
 │                        #   kuni-umi      planetary-infra producer    (ADR-2605201400)
 │                        # Tier-B religious-corp actors (30): each has ADR + manifest + cells + lex.
 │                        #   See Status § "Tier-B actors" for the full roster (name · purpose · ADR).
 │                        #   Per-actor gates/prohibitions live in each actor's ADR + 20-actors/<name>/CLAUDE.md.
+│                        # Shared Kotodama Go SDK: orgs/etzhayyim/com-etzhayyim-kotodama-go
 ├── 30-graph/            # graph-schema, kagami, risingwave-udf, vectorization
 ├── 40-engine/           # Rust workspaces: kami-engine (reusable engine — git submodule
 │                        #     of github.com/etzhayyim/kami-engine per ADR-2606011500 §4;
