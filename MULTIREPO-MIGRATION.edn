@@ -278,12 +278,13 @@
      :root-copy :edn-tombstone-only}
     "joucho"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-joucho"
-     :revision "7ed266e9a3f91ff5cf7637c35d1e4db20395c5f6"
+     :revision "92e53d4466ef2577d798756c41cf3180e80a7655"
      :west-path "orgs/etzhayyim/com-etzhayyim-joucho"
      :category :actor
      :canonical-format :edn
      :canonical-metadata "manifest.edn"
      :canonicalization #{:overlap-content-verified :legacy-jsonld-retired
+                         :canonical-identity-edn :did-json-wire-preserved
                          :nbb-test-runner-wired}
      :verification {:tests 5 :assertions 15 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
