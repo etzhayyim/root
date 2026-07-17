@@ -103,7 +103,6 @@ if [ "$TEST" -eq 1 ]; then
          70-tools/scripts/audit/test_tadori_invariants.py \
          70-tools/scripts/audit/test_tsukuroi_invariants.py \
          70-tools/scripts/audit/test_karute_invariants.py \
-         70-tools/scripts/audit/test_kokoro_invariants.py \
          70-tools/scripts/audit/test_iyashi_invariants.py \
          70-tools/scripts/audit/test_mitate_invariants.py \
          70-tools/scripts/audit/test_futawa_invariants.py \
@@ -117,15 +116,12 @@ if [ "$TEST" -eq 1 ]; then
          70-tools/scripts/audit/test_danjo_registry_seed.py \
          70-tools/scripts/audit/test_hagukumi_registry_seed.py \
          70-tools/scripts/audit/test_himotoki_registry_seed.py \
-         70-tools/scripts/audit/test_kataribe_registry_seed.py \
          70-tools/scripts/audit/test_kazaori_registry_seed.py \
          70-tools/scripts/audit/test_kizashi_registry_seed.py \
-         70-tools/scripts/audit/test_kokoro_registry_seed.py \
          70-tools/scripts/audit/test_kurashimori_registry_seed.py \
          70-tools/scripts/audit/test_manabi_registry_seed.py \
          70-tools/scripts/audit/test_moushibumi_registry_seed.py \
          70-tools/scripts/audit/test_musubi_registry_seed.py \
-         70-tools/scripts/audit/test_shidemori_registry_seed.py \
          70-tools/scripts/audit/test_toritsugi_registry_seed.py \
          70-tools/scripts/audit/test_gov_legal_coverage_parity.py \
          70-tools/scripts/audit/test_ooyake_procedure_integrity.py \

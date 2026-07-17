@@ -722,6 +722,34 @@
                          :external-json-retained-as-wire}
      :verification {:tests 25 :assertions 73 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
+    "kataribe"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kataribe"
+     :revision "93c0784791697e1a3b33d24c2d5e00e701db62e9"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kataribe"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root {:revision "606f7a56fb8c9d5809f009e9815131a2fc3ef667"
+                      :paths ["90-docs/adr"]}
+      com.etzhayyim/chigiri "e08560129675106e0bb4b70e23769ff07a711ce7"
+      com.etzhayyim/kazaori "08750097c50f1b37380d7ceaf9f63b94baeb6c54"
+      com.etzhayyim/musubi "41e29f7b37273ded88b5ab18230077c38ac5419b"
+      com.etzhayyim/toritate "3354850aa05408e840426f91fe067ddad8535e5b"}
+     :actor-owned-contracts ["lex/communityChronicleAttestation.edn"
+                             "lex/doctrineCommentaryPublishing.edn"
+                             "lex/silenKataribeReview.edn"
+                             "lex/translationAttestation.edn"
+                             "lex/whistleblowerReport.edn"
+                             "registry/channels.seed.edn"]
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :shell-runner-retired :actor-lexicons-edn-canonical
+                         :registry-seed-edn-canonical
+                         :python-audit-retired-to-clojure-edn
+                         :cross-actor-dependencies-pinned
+                         :external-json-retained-as-wire}
+     :verification {:tests 23 :assertions 891 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "hydrogen_electrolysis"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hydrogen-electrolysis"
      :revision "da4fab805b6aa8606dab36882de3186482f55f34"

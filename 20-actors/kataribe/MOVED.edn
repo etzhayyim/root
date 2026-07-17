@@ -1,0 +1,12 @@
+{:migration/status :moved
+ :migration/date "2026-07-18"
+ :migration/repository "https://github.com/etzhayyim/com-etzhayyim-kataribe"
+ :migration/revision "93c0784791697e1a3b33d24c2d5e00e701db62e9"
+ :migration/west-path "orgs/etzhayyim/com-etzhayyim-kataribe"
+ :migration/canonical-metadata "manifest.edn"
+ :migration/canonical-identity "identity.edn"
+ :migration/canonical-dependencies "dependencies.edn"
+ :migration/canonical-data ["kotoba.app.edn" "registry/channels.seed.edn"]
+ :migration/canonical-lexicons "lex"
+ :migration/external-wire-lexicons "wire"
+ :migration/canonical-format :edn}
