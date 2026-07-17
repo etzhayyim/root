@@ -95,8 +95,30 @@
       "tests into namespace-correct test/fuchi paths"
       "manifest schema and seed references to repository-local EDN resources"
       "run_tests.sh away from the old monorepo classpath"]
-     :canonical-format :edn
+    :canonical-format :edn
      :verification {:tests 184 :assertions 488 :failures 0 :errors 0}
+     :next :delete-root-copy-after-merge-and-west-pin}
+    "gtin"
+    {:pull-request "https://github.com/etzhayyim/com-etzhayyim-gtin/pull/2"
+     :commit "3b9536a"
+     :moves ["kotoba.app.edn" "methods/mesh.clj" "schema.edn"]
+     :rewires
+     ["nested deployment values from encoded strings to structured EDN"
+      "KQE host dependency to explicit :cap/kqe manifest requirement"
+      "standalone repository test entry point"]
+     :canonical-format :edn
+     :verification {:tests 11 :assertions 172 :failures 0 :errors 0}
+     :next :delete-root-copy-after-merge-and-west-pin}
+    "hanrei"
+    {:pull-request "https://github.com/etzhayyim/com-etzhayyim-hanrei/pull/2"
+     :commit "8edccc7"
+     :moves ["kotoba.app.edn" "methods/mesh.clj" "schema.edn"]
+     :rewires
+     ["nested deployment values from encoded strings to structured EDN"
+      "KQE host dependency to explicit :cap/kqe manifest requirement"
+      "standalone repository test entry point"]
+     :canonical-format :edn
+     :verification {:tests 11 :assertions 211 :failures 0 :errors 0}
      :next :delete-root-copy-after-merge-and-west-pin}}}
   :migration/remaining-work
   [{:class :existing-repo-overlap
