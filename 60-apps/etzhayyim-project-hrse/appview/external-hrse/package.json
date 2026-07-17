@@ -64,7 +64,7 @@
     "@clerk/themes": "^2.4.57",
     "@connectrpc/connect": "^2.1.1",
     "@connectrpc/connect-web": "^2.1.1",
-    "@etzhayyim/sdk": "workspace:*",
+    "@etzhayyim/sdk": "git+https://github.com/etzhayyim/com-etzhayyim-sdk.git#12314a0cc5ac2feb49dd9789d5c002398acb6988",
     "lucide-react": "^0.563.0",
     "openai": "^6.34.0",
     "postgres": "^3.4.9",

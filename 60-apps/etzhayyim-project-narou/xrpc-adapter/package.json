@@ -8,8 +8,8 @@
     "deploy": "wrangler deploy"
   },
   "dependencies": {
-    "@etzhayyim/sdk": "workspace:*",
-    "@etzhayyim/sdk-auth": "workspace:*",
+    "@etzhayyim/sdk": "git+https://github.com/etzhayyim/com-etzhayyim-sdk.git#12314a0cc5ac2feb49dd9789d5c002398acb6988",
+    "@etzhayyim/sdk-auth": "git+https://github.com/etzhayyim/com-etzhayyim-sdk-auth.git#1b2d068c9089e4b318be24d7b4c229df65055c80",
     "@etzhayyim/narou-kotoba": "workspace:*"
   },
   "devDependencies": {

@@ -59,11 +59,10 @@
     :docs 1561}
    :actor-directories 199
    :actor-existing-independent-repo 126
-   :actor-not-yet-independent 55
+   :actor-not-yet-independent 51
    :actor-not-yet-independent-names
    ["etzhayyim-bpmn-sdk"
-    "etzhayyim-esign" "etzhayyim-organism" "etzhayyim-pregel" "etzhayyim-sdk"
-    "etzhayyim-sdk-auth" "etzhayyim-sdk-mock" "etzhayyim-sdk-py"
+    "etzhayyim-esign" "etzhayyim-organism" "etzhayyim-sdk-py"
     "funamori" "haraedo" "hataori"
     "hydrogen_electrolysis" "iriai" "iryo" "jinushi" "kafun" "kaiyaku"
     "karakuri" "kiyome" "kotoba-actors-clj" "kotodama" "kotodama-go"
@@ -122,7 +121,46 @@
      :repository "https://github.com/etzhayyim/com-etzhayyim-ameno"
      :reason :github-repository-existed-at-verification}}
   :newly-independent-repositories
-   {"organisms"
+   {"etzhayyim-sdk"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-sdk"
+     :revision "12314a0cc5ac2feb49dd9789d5c002398acb6988"
+     :west-path "orgs/etzhayyim/com-etzhayyim-sdk"
+     :category :shared-library
+     :canonical-format :edn
+     :git-dependencies :immutable-sha
+     :verification {:tests 53 :failures 0 :errors 0 :typescript-build :passed}
+     :root-copy :edn-tombstone-only
+     :root-package-consumers 186}
+    "etzhayyim-sdk-auth"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-sdk-auth"
+     :revision "1b2d068c9089e4b318be24d7b4c229df65055c80"
+     :west-path "orgs/etzhayyim/com-etzhayyim-sdk-auth"
+     :category :shared-library
+     :canonical-format :edn
+     :depends-on {etzhayyim/com-etzhayyim-sdk "12314a0cc5ac2feb49dd9789d5c002398acb6988"}
+     :verification {:typescript-typecheck :passed}
+     :root-copy :edn-tombstone-only
+     :root-package-consumers 24}
+    "etzhayyim-sdk-mock"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-sdk-mock"
+     :revision "c857ff9be5310bf433bfe1e8d3c0f677e213d667"
+     :west-path "orgs/etzhayyim/com-etzhayyim-sdk-mock"
+     :category :shared-library
+     :canonical-format :edn
+     :depends-on {etzhayyim/com-etzhayyim-sdk "12314a0cc5ac2feb49dd9789d5c002398acb6988"}
+     :verification {:typescript-typecheck :passed}
+     :root-copy :edn-tombstone-only
+     :root-package-consumers 148}
+    "etzhayyim-pregel"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-pregel"
+     :revision "165a5c1fea9b0978aedb2cd7a946e9fbb03c29d1"
+     :west-path "orgs/etzhayyim/com-etzhayyim-pregel"
+     :category :shared-library
+     :canonical-format :edn
+     :verification {:typescript-build :passed :tests :scaffold-only}
+     :root-copy :edn-tombstone-only
+     :root-package-consumers 0}
+    "organisms"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-organisms"
      :revision "11441105dbdc1f0304fa267f0b16a52f60c3456a"
      :west-path "orgs/etzhayyim/com-etzhayyim-organisms"

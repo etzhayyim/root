@@ -1,0 +1,8 @@
+[{:db/id -1
+  :migration/kind :moved-tombstone
+  :migration/source "20-actors/etzhayyim-pregel"
+  :migration/canonical-repo "https://github.com/etzhayyim/com-etzhayyim-pregel"
+  :migration/west-path "orgs/etzhayyim/com-etzhayyim-pregel"
+  :migration/revision "165a5c1fea9b0978aedb2cd7a946e9fbb03c29d1"
+  :migration/date "2026-07-17"
+  :migration/authoritative true}]

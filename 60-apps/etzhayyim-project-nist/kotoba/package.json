@@ -12,7 +12,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@etzhayyim/sdk": "workspace:*"
+    "@etzhayyim/sdk": "git+https://github.com/etzhayyim/com-etzhayyim-sdk.git#12314a0cc5ac2feb49dd9789d5c002398acb6988"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
