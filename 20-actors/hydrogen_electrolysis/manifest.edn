@@ -1,9 +1,0 @@
-;; hydrogen_electrolysis — actor manifest (authored; had methods/kotoba/tests/README but no
-;; manifest of any kind, so it was invisible to vitals — tracking-gap fix)
-{:actor/id "hydrogen-electrolysis"
- :actor/glyph "水"
- :actor/display-name "水電解 hydrogen-electrolysis — CFE Efficiency Comparison Actor"
- :actor/tier :tier-b
- :actor/status "active"
- :actor/adr ["2606082301"]
- :actor/purpose "Deterministic design-comparison actor for next-generation water-electrolysis efficiency: ranks low-temperature electrolysis candidates (commercial alkaline baseline, Hysata-like Capillary-fed Electrolysis focused on bubble-loss removal, CFE + zero-gap geometry + AEM + high-pressure operation, SOEC as a useful-heat comparison case) by calling the physics simulation package at 40-engine/kami-engine/kami-hydrogen-electrolysis-sim, then emits report text and kotoba datom-style records over the Murakumo fleet session. Does not control a physical electrolyzer."}

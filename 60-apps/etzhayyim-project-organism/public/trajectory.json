@@ -631,8 +631,16 @@
     "dormant" : 11,
     "stub" : 3,
     "sum" : 13304
+  }, {
+    "run" : 1784262102358,
+    "at" : "2026-07-17T04:21:42.358Z",
+    "cells" : 163,
+    "alive" : 153,
+    "dormant" : 8,
+    "stub" : 2,
+    "sum" : 13054
   } ],
-  "head" : "bafkreih54vuoc2x5g4idip4kfazp73mjxozcvgt7pvkghzj4p432nslgje",
+  "head" : "bafkreibpcqsyrbdyxrrq6r2omgnakhju4modmcw4eckvrztvksbq2k5kqi",
   "store" : "kotoba-datom-log",
   "snapshot" : "trajectory.kotoba.edn"
 }

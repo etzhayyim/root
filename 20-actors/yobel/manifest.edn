@@ -1,9 +1,0 @@
-;; yobel — actor manifest (authored; had cells/bpmn/dmn/ports/tests but no manifest of any
-;; kind, so it was invisible to vitals — tracking-gap fix)
-{:actor/id "yobel"
- :actor/glyph "יובל"
- :actor/display-name "יובל yobel — Collective Debt Release Rite Actor"
- :actor/tier :tier-b
- :actor/status "S0"
- :actor/adr ["2605201800" "2605201700"]
- :actor/purpose "Tier-B per-domain leader actor for collective/doctrinal/political debt-release rites — שמיטה (shmita, 7yr) / יובל (yobel, 49yr) / 徳政令 / Catholic Jubilee / modern political amnesty — under one unified data model + 5 phase cells (rite_declaration → creditor_enrollment/debtor_enrollment → release_settlement → audit_witness, Council Lv6+ gated declareRite). The structural antithesis of Charter Rider v2 §2(b)'s ban on speculative finance/predatory lending: one-way debt forgiveness only, never a financial product offering forgiveness as a service."}

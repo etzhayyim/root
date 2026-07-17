@@ -1,28 +1,13 @@
 {
-  "run" : 1784260913061,
-  "generatedAt" : "2026-07-17T04:01:53.061Z",
+  "run" : 1784262102358,
+  "generatedAt" : "2026-07-17T04:21:42.358Z",
   "summary" : {
-    "cells" : 168,
-    "alive" : 154,
-    "dormant" : 11,
-    "stub" : 3
+    "cells" : 163,
+    "alive" : 153,
+    "dormant" : 8,
+    "stub" : 2
   },
   "nodes" : [ {
-    "bsky" : false,
-    "reflex" : "green",
-    "inDeg" : 4,
-    "atproto" : 0,
-    "port" : 1.0,
-    "heartbeatDays" : 0,
-    "status" : "R0",
-    "id" : "abaki",
-    "class" : "dormant",
-    "score" : 50,
-    "outDeg" : 1,
-    "cells" : 0,
-    "clj" : 40,
-    "actor" : 10
-  }, {
     "bsky" : true,
     "reflex" : "green",
     "inDeg" : 0,
@@ -40,18 +25,18 @@
   }, {
     "bsky" : true,
     "reflex" : "green",
-    "inDeg" : 2,
+    "inDeg" : 1,
     "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
     "status" : "r1",
     "id" : "ainori",
     "class" : "alive",
-    "score" : 79,
+    "score" : 77,
     "outDeg" : 4,
     "cells" : 1,
     "clj" : 40,
-    "actor" : 14
+    "actor" : 12
   }, {
     "bsky" : true,
     "reflex" : "green",
@@ -100,7 +85,7 @@
   }, {
     "bsky" : true,
     "reflex" : "green",
-    "inDeg" : 6,
+    "inDeg" : 5,
     "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
@@ -280,7 +265,7 @@
   }, {
     "bsky" : true,
     "reflex" : "green",
-    "inDeg" : 6,
+    "inDeg" : 5,
     "atproto" : 30,
     "port" : 1.0,
     "heartbeatDays" : 0,
@@ -563,21 +548,6 @@
     "clj" : 40,
     "actor" : 18
   }, {
-    "bsky" : false,
-    "reflex" : "green",
-    "inDeg" : 1,
-    "atproto" : 0,
-    "port" : 1.0,
-    "heartbeatDays" : 0,
-    "status" : "active",
-    "id" : "hydrogen_electrolysis",
-    "class" : "dormant",
-    "score" : 42,
-    "outDeg" : 0,
-    "cells" : 0,
-    "clj" : 40,
-    "actor" : 2
-  }, {
     "bsky" : true,
     "reflex" : "green",
     "inDeg" : 2,
@@ -640,7 +610,7 @@
   }, {
     "bsky" : true,
     "reflex" : "green",
-    "inDeg" : 14,
+    "inDeg" : 13,
     "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
@@ -745,7 +715,7 @@
   }, {
     "bsky" : true,
     "reflex" : "green",
-    "inDeg" : 16,
+    "inDeg" : 15,
     "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
@@ -1244,21 +1214,6 @@
     "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
-    "status" : "R0",
-    "id" : "matsurigoto",
-    "class" : "dormant",
-    "score" : 67,
-    "outDeg" : 0,
-    "cells" : 1,
-    "clj" : 40,
-    "actor" : 2
-  }, {
-    "bsky" : true,
-    "reflex" : "green",
-    "inDeg" : 0,
-    "atproto" : 25,
-    "port" : 1.0,
-    "heartbeatDays" : 0,
     "status" : "r0",
     "id" : "meibo",
     "class" : "alive",
@@ -1360,7 +1315,7 @@
   }, {
     "bsky" : true,
     "reflex" : "green",
-    "inDeg" : 16,
+    "inDeg" : 15,
     "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
@@ -1525,7 +1480,7 @@
   }, {
     "bsky" : true,
     "reflex" : "green",
-    "inDeg" : 13,
+    "inDeg" : 12,
     "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
@@ -1900,18 +1855,18 @@
   }, {
     "bsky" : true,
     "reflex" : "green",
-    "inDeg" : 2,
+    "inDeg" : 1,
     "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
     "status" : "unknown",
     "id" : "suki",
     "class" : "alive",
-    "score" : 81,
+    "score" : 79,
     "outDeg" : 12,
     "cells" : 1,
     "clj" : 40,
-    "actor" : 16
+    "actor" : 14
   }, {
     "bsky" : true,
     "reflex" : "green",
@@ -2245,7 +2200,7 @@
   }, {
     "bsky" : true,
     "reflex" : "green",
-    "inDeg" : 21,
+    "inDeg" : 20,
     "atproto" : 30,
     "port" : 1.0,
     "heartbeatDays" : 0,
@@ -2302,21 +2257,6 @@
     "cells" : 1,
     "clj" : 40,
     "actor" : 12
-  }, {
-    "bsky" : true,
-    "reflex" : "green",
-    "inDeg" : 0,
-    "atproto" : 20,
-    "port" : 1.0,
-    "heartbeatDays" : 0,
-    "status" : "r0-design-only",
-    "id" : "umisachi",
-    "class" : "alive",
-    "score" : 70,
-    "outDeg" : 10,
-    "cells" : 0,
-    "clj" : 40,
-    "actor" : 10
   }, {
     "bsky" : true,
     "reflex" : "green",
@@ -2395,7 +2335,7 @@
   }, {
     "bsky" : true,
     "reflex" : "green",
-    "inDeg" : 8,
+    "inDeg" : 7,
     "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
@@ -2425,7 +2365,7 @@
   }, {
     "bsky" : true,
     "reflex" : "green",
-    "inDeg" : 11,
+    "inDeg" : 10,
     "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
@@ -2483,21 +2423,6 @@
     "clj" : 40,
     "actor" : 20
   }, {
-    "bsky" : false,
-    "reflex" : "red",
-    "inDeg" : 1,
-    "atproto" : 0,
-    "port" : 0.0,
-    "heartbeatDays" : 9999,
-    "status" : "S0",
-    "id" : "yobel",
-    "class" : "stub",
-    "score" : 17,
-    "outDeg" : 0,
-    "cells" : 5,
-    "clj" : 5,
-    "actor" : 12
-  }, {
     "bsky" : true,
     "reflex" : "green",
     "inDeg" : 1,
@@ -2529,9 +2454,6 @@
     "actor" : 20
   } ],
   "edges" : [ {
-    "from" : "abaki",
-    "to" : "suki"
-  }, {
     "from" : "aburi",
     "to" : "himotoki"
   }, {
@@ -2686,9 +2608,6 @@
     "to" : "warifu"
   }, {
     "from" : "busshi",
-    "to" : "abaki"
-  }, {
-    "from" : "busshi",
     "to" : "inochi"
   }, {
     "from" : "busshi",
@@ -2714,9 +2633,6 @@
   }, {
     "from" : "busshi",
     "to" : "tsumugi"
-  }, {
-    "from" : "chie",
-    "to" : "abaki"
   }, {
     "from" : "chie",
     "to" : "kabuto"
@@ -2966,9 +2882,6 @@
   }, {
     "from" : "hinagata",
     "to" : "warifu"
-  }, {
-    "from" : "hirameki",
-    "to" : "abaki"
   }, {
     "from" : "hirameki",
     "to" : "busshi"
@@ -3972,9 +3885,6 @@
     "from" : "saisei",
     "to" : "tate"
   }, {
-    "from" : "saisei",
-    "to" : "yobel"
-  }, {
     "from" : "sanae",
     "to" : "mitsuho"
   }, {
@@ -4435,9 +4345,6 @@
     "to" : "hoshimori"
   }, {
     "from" : "torifune",
-    "to" : "hydrogen_electrolysis"
-  }, {
-    "from" : "torifune",
     "to" : "kamado"
   }, {
     "from" : "torifune",
@@ -4576,9 +4483,6 @@
     "to" : "kabuto"
   }, {
     "from" : "ugachi",
-    "to" : "abaki"
-  }, {
-    "from" : "ugachi",
     "to" : "busshi"
   }, {
     "from" : "ugachi",
@@ -4589,36 +4493,6 @@
   }, {
     "from" : "ugachi",
     "to" : "kanayama"
-  }, {
-    "from" : "umisachi",
-    "to" : "ainori"
-  }, {
-    "from" : "umisachi",
-    "to" : "asobi"
-  }, {
-    "from" : "umisachi",
-    "to" : "funadaiku"
-  }, {
-    "from" : "umisachi",
-    "to" : "inochi"
-  }, {
-    "from" : "umisachi",
-    "to" : "kabuto"
-  }, {
-    "from" : "umisachi",
-    "to" : "mitsuho"
-  }, {
-    "from" : "umisachi",
-    "to" : "okaimono"
-  }, {
-    "from" : "umisachi",
-    "to" : "tsumugi"
-  }, {
-    "from" : "umisachi",
-    "to" : "watari"
-  }, {
-    "from" : "umisachi",
-    "to" : "watatsuna"
   }, {
     "from" : "utsushie",
     "to" : "kawaraban"

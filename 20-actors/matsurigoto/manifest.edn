@@ -1,9 +1,0 @@
-;; matsurigoto — actor manifest (authored; had cells/methods/tax_collect/wasm/deploy/tests but
-;; no manifest of any kind, so it was invisible to vitals — tracking-gap fix)
-{:actor/id "matsurigoto"
- :actor/glyph "政"
- :actor/display-name "政 matsurigoto — e-Government Execution Commons (COFOG-based service standard)"
- :actor/tier :tier-b
- :actor/status "R0"
- :actor/adr ["2606062300" "2606141200"]
- :actor/purpose "The statecraft execution stack of the Kingdom (Charter §0.1, ADR-2605252300), built on the UN COFOG function backbone, and a portable spec-derived kotoba-wasm standard an existing nation-state can also adopt (OSS-GovTech pattern: X-Road/MOSIP/OpenCRVS/OpenG2P/DIGIT). R0 ships 4 spec-anchored reference modules — tax-assess (JP 速算表 progressive brackets), civil-registry (UN CRVS append-only), corp-registry (ISO 17442 LEI / ISO 7064 MOD 97-10), credential-issue (ICAO 9303 MRZ) — plus JP withholding/remittance tax-collect (ADR-2606141200)."}
