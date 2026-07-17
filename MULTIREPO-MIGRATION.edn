@@ -276,6 +276,17 @@
                          :repository-local-edn-data}
      :verification {:tests 40 :assertions 114 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
+    "joucho"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-joucho"
+     :revision "7ed266e9a3f91ff5cf7637c35d1e4db20395c5f6"
+     :west-path "orgs/etzhayyim/com-etzhayyim-joucho"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :canonicalization #{:overlap-content-verified :legacy-jsonld-retired
+                         :nbb-test-runner-wired}
+     :verification {:tests 5 :assertions 15 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "hydrogen_electrolysis"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hydrogen-electrolysis"
      :revision "da4fab805b6aa8606dab36882de3186482f55f34"

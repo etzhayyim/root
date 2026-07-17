@@ -1,0 +1,8 @@
+{:migration/status :moved
+ :migration/date "2026-07-17"
+ :migration/repository "https://github.com/etzhayyim/com-etzhayyim-joucho"
+ :migration/revision "7ed266e9a3f91ff5cf7637c35d1e4db20395c5f6"
+ :migration/west-path "orgs/etzhayyim/com-etzhayyim-joucho"
+ :migration/canonical-metadata "manifest.edn"
+ :migration/canonical-format :edn
+ :migration/legacy-jsonld :retired}
