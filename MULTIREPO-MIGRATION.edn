@@ -74,7 +74,14 @@
     "yudane"]
    :consolidated ["os" "umisachi" "fleet" "ipaddress" "kouhou" "tashikame"]
    :content-contained-but-blocked
-   {"karute" :root-relative-actor-manifest-consumer}}
+   {"karute" :root-relative-actor-manifest-consumer}
+   :pending-independent-repo-merges
+   {"isco"
+    {:pull-request "https://github.com/etzhayyim/com-etzhayyim-isco/pull/2"
+     :commit "1ef0c36"
+     :moves ["kotoba.app.edn" "methods/mesh.clj"]
+     :verification {:tests 10 :assertions 153 :failures 0 :errors 0}
+     :next :delete-root-copy-after-merge-and-west-pin}}}
   :migration/remaining-work
   [{:class :existing-repo-overlap
     :count 125
