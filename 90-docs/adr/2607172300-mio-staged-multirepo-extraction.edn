@@ -7,20 +7,24 @@
   :adr/authoritative true
   :adr/decision
   {:repository "https://github.com/etzhayyim/com-etzhayyim-mio"
-   :revision "2c1e5fdb98ea55117f69039724d030db2806817b"
+   :revision "a0b6697f3708d67e0bda2a23fe4ab853555aed0d"
    :west-path "orgs/etzhayyim/com-etzhayyim-mio"
    :canonical-metadata-format :edn
    :fleet-source-registry "50-infra/cluster/murakumo/cell-runner/actor-sources.edn"
    :dependency-order ["mio" #{"tawami" "okibi" "toi" "yudane"} "energy_order"]}
   :adr/root-copy
-  {:state :temporarily-retained
-   :consumers #{:energy-order :fleet-cell-runner}
-   :removal-gate :all-five-actors-and-energy-order-rewired}
+  {:state :removed
+   :consumers #{}
+   :removal-gate :passed}
   :adr/rationale
   ["mio is independently testable and now has a pinned repository"
    "energy_order still directly loads mio and four sibling actor namespaces"
    "fleet deployment formerly archived every actor only from 20-actors/<name>"
    "the EDN actor source registry permits each fleet actor to move independently"]
+  :adr/outcome
+  {:energy-order-repository "https://github.com/etzhayyim/com-etzhayyim-energy-order"
+   :energy-order-revision "9bf57b40ba41e9461ef912b0345fae28cdb0a651"
+   :root-copies :edn-tombstone-only}
   :adr/verification
   {:mio {:tests 36 :assertions 271 :failures 0 :errors 0}
    :fleet-runner {:tests 12 :failures 0}

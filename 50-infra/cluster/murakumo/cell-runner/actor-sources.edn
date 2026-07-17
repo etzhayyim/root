@@ -2,23 +2,23 @@
  {"mio"
   {:kind :west-repository
    :path "orgs/etzhayyim/com-etzhayyim-mio"
-   :revision "2c1e5fdb98ea55117f69039724d030db2806817b"}
+   :revision "a0b6697f3708d67e0bda2a23fe4ab853555aed0d"}
   "tawami"
   {:kind :west-repository
    :path "orgs/etzhayyim/com-etzhayyim-tawami"
-   :revision "682f1fee1b817411828294c7f09a03880fef4397"}
+   :revision "f8c8011124319953c5775beb3879d299e433c48f"}
   "okibi"
   {:kind :west-repository
    :path "orgs/etzhayyim/com-etzhayyim-okibi"
-   :revision "e6fec82df9af8abb020a22162b0fbbd9eeef79b5"}
+   :revision "2cffb76d15da8c37ceb212bed817c8c5700e0eb6"}
   "toi"
   {:kind :west-repository
    :path "orgs/etzhayyim/com-etzhayyim-toi"
-   :revision "a9b55da7344e0046ba34ffe95d649cccc86cc01d"}
+   :revision "973cb4deacff97b9b5259053fdf36d9c940f3552"}
   "yudane"
   {:kind :west-repository
    :path "orgs/etzhayyim/com-etzhayyim-yudane"
-   :revision "95381c740609b1247a2b64f97a7160fbe4cec31b"}}
+   :revision "6e80373d226add518a9eb841ced288b626c18a5a"}}
  :default
  {:kind :legacy-root
   :path-template "20-actors/{actor}"}}

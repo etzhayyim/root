@@ -1,0 +1,5 @@
+[{:db/id -1 :migration/kind :moved-tombstone :migration/source "20-actors/okibi"
+  :migration/canonical-repo "https://github.com/etzhayyim/com-etzhayyim-okibi"
+  :migration/west-path "orgs/etzhayyim/com-etzhayyim-okibi"
+  :migration/revision "2cffb76d15da8c37ceb212bed817c8c5700e0eb6"
+  :migration/date "2026-07-17" :migration/authoritative true}]
