@@ -22,8 +22,6 @@
  "20-actors/dram_design-compat/run_tests.sh"
  "20-actors/dwdm_system-compat/run_tests.sh"
  "20-actors/fab_lithography-compat/run_tests.sh"
- "20-actors/first-breath/deploy.sh"
- "20-actors/first-breath/monitor.sh"
  "20-actors/fuchi/run_tests.sh"
  "20-actors/funadaiku/kotoba/deploy.sh"
  "20-actors/funadaiku/run_tests.sh"

@@ -86,7 +86,7 @@ launchctl load   ~/Library/LaunchAgents/com.etzhayyim.kotodama-cell-runner.plist
 
 ## Fleet roll-out (10 Mac minis)
 
-The deploy script in [`20-actors/first-breath/deploy.sh`](../../../../20-actors/first-breath/deploy.sh) (used for the cell-fleet heartbeat anchor per ADR-2605171800) is the closest existing pattern, but it deploys a different daemon. For kotodama-cell-runner, the per-node sequence is:
+The deploy script in [`orgs/etzhayyim/com-etzhayyim-first-breath/deploy.sh`](https://github.com/etzhayyim/com-etzhayyim-first-breath/blob/main/deploy.sh) (used for the cell-fleet heartbeat anchor per ADR-2605171800) is the closest existing pattern, but it deploys a different daemon. For kotodama-cell-runner, the per-node sequence is:
 
 ```bash
 # From a control machine with ssh access to the tribe Mac mini:
@@ -129,7 +129,7 @@ Per [ADR-2605172000](../../../../90-docs/adr/2605172000-etzhayyim-kotoba-substra
 - [ADR-2605191346](../../../../90-docs/adr/2605191346-etzhayyim-vultr-free-murakumo-control-plane.md) — Murakumo is the only Tier-1 substrate (no commercial K8s)
 - [ADR-2605191559](../../../../90-docs/adr/2605191559-ameno-mst-checkpointer-stage-2-activation.md) — MST checkpoint pipeline
 - [`50-infra/cluster/murakumo/litellm/`](../litellm/) — sibling launchd service (LiteLLM gateway)
-- [`20-actors/first-breath/deploy.sh`](../../../../20-actors/first-breath/deploy.sh) — existing per-tribe deploy script (for the heartbeat anchor daemon, ADR-2605171800)
+- [`orgs/etzhayyim/com-etzhayyim-first-breath/deploy.sh`](https://github.com/etzhayyim/com-etzhayyim-first-breath/blob/main/deploy.sh) — existing per-tribe deploy script (for the heartbeat anchor daemon, ADR-2605171800)
 
 ## lite_runner — pure-stdlib node cell-runner (ADR-2606161645)
 

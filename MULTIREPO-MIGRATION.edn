@@ -59,11 +59,11 @@
     :docs 1561}
    :actor-directories 199
    :actor-existing-independent-repo 126
-   :actor-not-yet-independent 57
+   :actor-not-yet-independent 56
    :actor-not-yet-independent-names
    ["etzhayyim-bpmn-sdk"
     "etzhayyim-esign" "etzhayyim-organism" "etzhayyim-pregel" "etzhayyim-sdk"
-    "etzhayyim-sdk-auth" "etzhayyim-sdk-mock" "etzhayyim-sdk-py" "first-breath"
+    "etzhayyim-sdk-auth" "etzhayyim-sdk-mock" "etzhayyim-sdk-py"
     "funamori" "haraedo" "hataori"
     "hydrogen_electrolysis" "iriai" "iryo" "jinushi" "kafun" "kaiyaku"
     "karakuri" "kiyome" "kotoba-actors-clj" "kotodama" "kotodama-go"
@@ -122,7 +122,18 @@
      :repository "https://github.com/etzhayyim/com-etzhayyim-ameno"
      :reason :github-repository-existed-at-verification}}
   :newly-independent-repositories
-   {"energy_order"
+   {"first-breath"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-first-breath"
+     :revision "b17a45e28ae84cd955260a999529ef045b67ca84"
+     :west-path "orgs/etzhayyim/com-etzhayyim-first-breath"
+     :category :actor
+     :canonical-format :edn
+     :runtime-state "state.edn"
+     :depends-on {com-junkawasaki/eth-crypto-clj "9208ecc09a32cf51627ed32eb417e4834f208324"}
+     :verification {:eip-155-selftest :passed :state-edn-roundtrip :passed}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0}
+    "energy_order"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-energy-order"
      :revision "9bf57b40ba41e9461ef912b0345fae28cdb0a651"
      :west-path "orgs/etzhayyim/com-etzhayyim-energy-order"
