@@ -59,7 +59,7 @@
     :docs 1561}
    :actor-directories 199
    :actor-existing-independent-repo 126
-   :actor-not-yet-independent 30
+   :actor-not-yet-independent 29
    :actor-not-yet-independent-names
    ["etzhayyim-organism"
     "funamori"
@@ -69,7 +69,7 @@
     "matsurigoto" "meyasu" "moyoshi"
     "mst-projector" "niyaku" "okaimono"
     "silicon"
-    "soma" "sumitsubo" "tate" "tedai"
+    "sumitsubo" "tate" "tedai"
     "tsubasa" "tsuchifumi" "ugachi" "unspsc" "uzu" "warifu" "yobel"]
    :consolidated ["_conformance" "os" "umisachi" "fleet" "ipaddress" "kouhou" "tashikame"]
    :consolidation-details
@@ -221,6 +221,17 @@
      :canonical-metadata "manifest.edn"
      :actor-owned-contracts ["lex/moveAttestation.edn"]
      :verification {:tests 45 :assertions 169 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "soma"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-soma"
+     :revision "12dc77b3927aa0370aeeaad016f5d5245ecc3d7d"
+     :west-path "orgs/etzhayyim/com-etzhayyim-soma"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :actor-owned-contracts ["lex/fellAttestation.edn"]
+     :canonicalization #{:standalone-classpath :test-namespace-no-exit-side-effect}
+     :verification {:tests 40 :assertions 150 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
     "hydrogen_electrolysis"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hydrogen-electrolysis"
