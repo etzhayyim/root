@@ -1,4 +1,4 @@
-{:id "2607010001"
+[{:db/id -1, :id "2607010001"
  :title "Actor data-ownership model — each actor holds its required real-world data (RAD data-holding vocabulary + domain-hybrid layering)"
  :status :accepted
  :date #inst "2026-07-01T00:01:00+09:00"
@@ -37,4 +37,4 @@
              "TODO: Phase 4 — fill gyosei/matsurigoto empty domains"
              "TODO: Phase 5 — backfill remaining actors (generator, append-only)"
              "TODO: gen_authority_actors.clj update in com-etzhayyim-toritsugi (child repo)"
-             "TODO: large-scale data collection (5M+ GLEIF, EDGAR universe) — DataLad + B2"]}
+             "TODO: large-scale data collection (5M+ GLEIF, EDGAR universe) — DataLad + B2"]}]

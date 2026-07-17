@@ -1,10 +1,4 @@
-;; kotoba py-WASM Actor Migration Plan
-;; Generated 2026-05-31 — snapshot of LangGraph(StateGraph) -> kotoba_langgraph WASM port
-;; SoT ADRs: 2605262130 (kotoba substrate) · 2605301625 (actor deploy) ·
-;;           2605302355 (LLM verified + Murakumo durable routing) · 2605310200 (auto-pipeline)
-;; Census command: grep -rl "from langgraph.graph import StateGraph" 20-actors/
-
-{:meta
+[{:db/id -1, :meta
  {:date           "2026-05-31"
   :owner          "etzhayyim core"
   :total-stategraph-files 8180
@@ -203,4 +197,4 @@
   :by-effort       {:agentic-per-file 8074 :assisted 69 :hand-port 37}  ; codegen rejected; all per-file now
   :critical-path   "Wave -1 bake-off picks the model; Wave 0 hardens the agentic loop (ledger+equiv gate); Wave 4 (8074 files, 1-by-1) is the throughput wall — parallelize across Murakumo nodes"
   :decision-2026-05-31 "User chose maturity over throughput: every agent migrated individually & agentically, NOT bulk-regenerated. Bake-off (haiku vs gemini-flash vs gemma-26b) selects the model on quality+cost."
-  :next-action     "Unblock Wave -1: bring up LiteLLM :4000 w/ bakeoff-* routes + keys + componentize-py, then run bakeoff.py"}}
+  :next-action     "Unblock Wave -1: bring up LiteLLM :4000 w/ bakeoff-* routes + keys + componentize-py, then run bakeoff.py"}}]

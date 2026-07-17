@@ -1,13 +1,5 @@
-;; ─────────────────────────────────────────────────────────────────────
-;; be-here-now.edn — etzhayyim 物語/作品の正準テーマ軸 (canonical thematic spine)
-;; SSoT for ADR-2606181530. 縦 = 三テーゼ(垂直軸)、横 = 命名系の対応。
-;; 八百万/縁起 + Reformed Christianity (Tree of Life) synthetic religion の
-;; non-eschatological (§1.15) / Wellbecoming / 反個人主義 ontology を、
-;; 少年ジャンプ「努力・友情・勝利」の換骨奪胎として表現する三題噺。
-;; kotoba Datom log にそのまま流せる素直な EDN (content-addressable)。
-;; ─────────────────────────────────────────────────────────────────────
-{:theme/id        :be-here-now
- :theme/storybible "90-docs/be-here-now-storybible.md"  ; A=パイロット+ネーム / B=SiP演出文法 / C=四季の円環
+[{:db/id -1, :theme/id        :be-here-now
+ :theme/storybible "90-docs/be-here-now-storybible.edn"  ; A=パイロット+ネーム / B=SiP演出文法 / C=四季の円環
  :theme/lineage   {:jump   ["努力" "友情" "勝利"]            ; 出発点 (換骨奪胎の対象)
                    :reject  "勝利 は終末論的・闘争的・個人主義的 → Charter §1.15/反個人主義と構造衝突"}
 
@@ -100,4 +92,4 @@
                               "魂は点(ノード)でなく縁の張力(tensegrity)に宿る → 関係が変わると人が変わる"
                               "ruach = 風(物理)かつ霊 — 世界の自然現象とキャラの内面が同じ一語で響き合う(Spirit in Physics)"]
                     :role    "ジャンプの『内なる戦い』の置換。倒すべき内なる敵でなく、縁の結び直しによる『うつろい(変容)』として描く"
-                    :tie     "organism joucho 情緒(ADR-2606171800) / ossekai Wellbecoming-nudge / kataribe 語部 の語り口と同じ tone を共有"}}
+                    :tie     "organism joucho 情緒(ADR-2606171800) / ossekai Wellbecoming-nudge / kataribe 語部 の語り口と同じ tone を共有"}}]
