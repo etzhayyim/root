@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "generate:deps": "sh -c 'cd ../../../../../packages/go/cmd/etzhayyim && go run . deps export --project-dir \"$OLDPWD\" --out-dir src/lib/data' && node scripts/sync-deps-static.mjs",
+    "generate:deps": "node scripts/sync-deps-static.mjs",
     "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview",

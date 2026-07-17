@@ -83,7 +83,7 @@ etzhayyim/root/
 │                        # Tier-B religious-corp actors (30): each has ADR + manifest + cells + lex.
 │                        #   See Status § "Tier-B actors" for the full roster (name · purpose · ADR).
 │                        #   Per-actor gates/prohibitions live in each actor's ADR + 20-actors/<name>/CLAUDE.md.
-│                        # Shared Kotodama Go SDK: orgs/etzhayyim/com-etzhayyim-kotodama-go
+│                        # Go/TinyGo is deprecated and pruned; canonical policy: GO-DEPRECATION.edn
 ├── 30-graph/            # graph-schema, kagami, risingwave-udf, vectorization
 ├── 40-engine/           # Rust workspaces: kami-engine (reusable engine — git submodule
 │                        #     of github.com/etzhayyim/kami-engine per ADR-2606011500 §4;

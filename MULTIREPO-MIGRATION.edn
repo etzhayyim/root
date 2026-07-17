@@ -166,18 +166,6 @@
      {"com-etzhayyim-sdk" "12314a0cc5ac2feb49dd9789d5c002398acb6988"}
      :verification {:tests 3 :typecheck :passed :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
-    "kotodama-go"
-    {:repository "https://github.com/etzhayyim/com-etzhayyim-kotodama-go"
-     :revision "b4b65f2abe504172e5c437a482ea1cad679578f2"
-     :west-path "orgs/etzhayyim/com-etzhayyim-kotodama-go"
-     :category :shared-library
-     :canonical-format :edn
-     :go-module "github.com/etzhayyim/com-etzhayyim-kotodama-go"
-     :external-wire-formats #{:http-json :xrpc-json :did-json}
-     :canonicalization #{:legacy-local-replace-retired
-                         :unused-performer-dependency-retired}
-     :verification {:tests 3 :failures 0 :errors 0}
-     :root-copy :edn-tombstone-only}
     "saisei"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-saisei"
      :revision "d31b51d50cee48ead69c7cc3faa86b5a59b271af"
