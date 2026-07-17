@@ -58,10 +58,10 @@
     :data 574
     :docs 1561}
    :actor-directories 199
-   :actor-existing-independent-repo 125
-   :actor-not-yet-independent 73
+   :actor-existing-independent-repo 126
+   :actor-not-yet-independent 71
    :actor-not-yet-independent-names
-   ["_conformance" "abaki" "ainori" "ameno" "atsurae" "busshi"
+   ["_conformance" "abaki" "ainori" "busshi"
     "com-google-ads" "denwaban" "energy_order" "etzhayyim-bpmn-sdk"
     "etzhayyim-esign" "etzhayyim-organism" "etzhayyim-pregel" "etzhayyim-sdk"
     "etzhayyim-sdk-auth" "etzhayyim-sdk-mock" "etzhayyim-sdk-py" "first-breath"
@@ -110,6 +110,12 @@
      :initial-rewired-consumers ["mimamori"]}}
    :content-contained-but-blocked
    {"karute" :root-relative-actor-manifest-consumer}
+   :inventory-corrections
+   {"ameno"
+    {:previous-class :not-yet-independent-actor
+     :corrected-class :existing-repo-overlap
+     :repository "https://github.com/etzhayyim/com-etzhayyim-ameno"
+     :reason :github-repository-existed-at-verification}}
    :newly-independent-repositories
    {"amime"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-amime"
@@ -118,7 +124,20 @@
      :canonical-format :edn
      :verification {:tests 12 :assertions 55 :failures 0 :errors 0
                     :generated-mirror :byte-identical}
-     :next :delete-root-copy-after-west-pin-and-consumer-audit}}
+     :next :delete-root-copy-after-west-pin-and-consumer-audit}
+    "atsurae"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-atsurae"
+     :revision "3d9a9cecd6213c4522f670fb1526e52567a585fe"
+     :west-path "orgs/etzhayyim/com-etzhayyim-atsurae"
+     :canonical-format :edn
+     :depends-on
+     {com.etzhayyim/kotoba-datom "3c4b3b92234e59ba285119fd8b2ca4c2ee172ff8"
+      com.etzhayyim/social-publication "e8127d0661284b1c12ce1b216c84b5ed2db619ab"}
+     :verification {:tests 12 :assertions 44 :failures 0 :errors 0
+                    :variants 176 :ledger-datoms 65}
+     :root-copy :edn-tombstone-only
+     :root-consumers 0
+     :next :merge-west-registration-before-root-retirement}}
    :pending-independent-repo-merges
    {"isco"
     {:pull-request "https://github.com/etzhayyim/com-etzhayyim-isco/pull/2"
@@ -269,10 +288,10 @@
      :next :delete-root-copy-after-merge-and-west-pin}}}
   :migration/remaining-work
   [{:class :existing-repo-overlap
-    :count 125
+    :count 126
     :state :merge-root-only-content-before-delete}
    {:class :not-yet-independent-actor
-    :count 73
+    :count 71
     :state :classify-library-or-publish-repo}
    {:class :shared-libraries
     :count 4

@@ -1,0 +1,16 @@
+{:migration/id :atsurae-independent-repository
+ :migration/state :moved
+ :migration/source "20-actors/atsurae"
+ :migration/repository "https://github.com/etzhayyim/com-etzhayyim-atsurae"
+ :migration/revision "3d9a9cecd6213c4522f670fb1526e52567a585fe"
+ :migration/west-path "orgs/etzhayyim/com-etzhayyim-atsurae"
+ :migration/category :actor
+ :migration/canonical-metadata "manifest.edn"
+ :migration/dependencies
+ {com.etzhayyim/kotoba-datom "3c4b3b92234e59ba285119fd8b2ca4c2ee172ff8"
+  com.etzhayyim/social-publication "e8127d0661284b1c12ce1b216c84b5ed2db619ab"}
+ :migration/verification
+ {:tests 12 :assertions 44 :failures 0 :errors 0
+  :variants 176 :ledger-datoms 65
+  :root-consumers 0}
+ :migration/recovery :git-history}
