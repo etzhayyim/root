@@ -496,6 +496,38 @@
                          :atproto-json-retained-as-wire}
      :verification {:tests 34 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
+    "sonae"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-sonae"
+     :revision "8048df4675b8f504c3bd7b460280dfb270fb137b"
+     :west-path "orgs/etzhayyim/com-etzhayyim-sonae"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root {:revision "d8e79b2d2b95190b4c520e4640ffc293726ce222"
+                      :paths ["90-docs/adr"]}
+      com.etzhayyim/chigiri "e08560129675106e0bb4b70e23769ff07a711ce7"
+      com.etzhayyim/hagukumi "7d34cb0660057005643f95fd9c298aeb1ff0ac82"
+      com.etzhayyim/hikari "0a2a0ec962eb1cb72914a9f0aef9701e8948d556"
+      com.etzhayyim/kawaraban "85cd47ae00e5f30077f51282748db9aa6f6c53a1"
+      com.etzhayyim/kazaori "08750097c50f1b37380d7ceaf9f63b94baeb6c54"
+      com.etzhayyim/mitsuho "8ce9513470ef1df97568fd575a34c852baa755cd"
+      com.etzhayyim/mizuho "3e4ba475ab1fab5af7edee5025e2ae17c0cab98c"
+      com.etzhayyim/tatekata "fcfc6752d68b6feb5fe397203ae57ed623c35cbb"
+      com.etzhayyim/toritate "3354850aa05408e840426f91fe067ddad8535e5b"
+      com.etzhayyim/watatsuna "3c8c3713d85c4759929002ad1dae22c2c2e79659"}
+     :actor-owned-contracts ["lex/drillAttestation.edn"
+                             "lex/earlyWarningRelay.edn"
+                             "lex/hazardSignalRecord.edn"
+                             "lex/preparednessPlan.edn"
+                             "lex/siteRiskProfile.edn"
+                             "lex/sonaeReadinessReview.edn"]
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :actor-lexicons-edn-canonical :actor-data-edn-canonical
+                         :cross-actor-dependencies-pinned
+                         :atproto-json-retained-as-wire}
+     :verification {:tests 32 :assertions 352 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "hydrogen_electrolysis"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hydrogen-electrolysis"
      :revision "da4fab805b6aa8606dab36882de3186482f55f34"
