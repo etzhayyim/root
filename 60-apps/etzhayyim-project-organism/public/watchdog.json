@@ -1,12 +1,12 @@
 {
-  "checkedAt" : "2026-06-30T12:11:52.663Z",
+  "checkedAt" : "2026-07-17T01:45:01.301Z",
   "organismUp" : true,
-  "loopAgeMs" : 600614537,
-  "wedged" : true,
-  "action" : "kickstart",
+  "loopAgeMs" : 1423,
+  "wedged" : false,
+  "action" : "none",
   "substrate" : {
     "kotoba" : false,
     "ipfs" : true,
-    "servedPage" : true
+    "servedPage" : false
   }
 }

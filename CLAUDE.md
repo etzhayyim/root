@@ -305,3 +305,7 @@ Apps that need fiat / paid features call an external backend via XRPC consent-ca
 - This repo (public): https://github.com/etzhayyim/root
 - Domain landing: https://etzhayyim.com
 - DID resolver: https://etzhayyim.com/.well-known/did.json (LIVE; CF Worker at zone `etzhayyim.com`, DNS AAAA `@` `100::` proxied, deployed 2026-05-17T03:25Z)
+
+## Task runner (ADR-2607173000)
+bb.edn retired. Use: `nbb scripts/run-task.cljs <task> [args…]`
+Complex tasks (require/-main) listed in scripts/tasks-complex.edn — prefer nbb -m <ns> with classpath or clojure -M when JVM deps required.
