@@ -37,10 +37,8 @@
 ;;
 ;; Escape hatch: add a regex to 70-tools/scripts/lint/ignorable-allowlist.edn (:allow)
 ;; for an intentional exception, or `git commit --no-verify` to bypass entirely.
-(require ']
-         '[clojure.string :as str]
-         '[clojure.edn :as edn]
-         ')
+(require '[clojure.string :as str]
+         '[clojure.edn :as edn])
 
 ;; ── denylist: [pattern label]; pattern is a regex over the repo-relative path ──
 ;; A path segment is delimited by '/' or string ends; patterns anchor on segments
@@ -70,18 +68,21 @@
    [#"(^|/)Thumbs\.db$"                   "Thumbs.db (Windows junk)"]])
 
 (defn- repo-root []
-  (str/trim (:out (__shell {:out :string} "git rev-parse --show-toplevel"))))
+  (str/trim (.toString (.execFileSync __cp "git"
+                                      #js ["rev-parse" "--show-toplevel"]))))
 
 (defn- staged-added-paths []
-  (->> (__shell {:out :string} "git diff --cached --name-only --diff-filter=ACR")
-       :out str/split-lines
+  (->> (.toString (.execFileSync __cp "git"
+                                 #js ["diff" "--cached" "--name-only"
+                                      "--diff-filter=ACR"]))
+       str/split-lines
        (map str/trim)
        (remove str/blank?)))
 
 (defn- load-allow [root]
-  (let [f (fs/file root "70-tools/scripts/lint/ignorable-allowlist.edn")]
-    (if (fs/exists? f)
-      (->> (:allow (edn/read-string (slurp (fs/file f))))
+  (let [f (.join __path root "70-tools/scripts/lint/ignorable-allowlist.edn")]
+    (if (.existsSync __fs f)
+      (->> (:allow (edn/read-string (.readFileSync __fs f "utf8")))
            (map re-pattern) vec)
       [])))
 
@@ -104,7 +105,7 @@
       (println "  (these should be .gitignored, not tracked):")
       (println)
       (doseq [[p label] hits]
-        (println (format "   %-60s  %s" p label)))
+        (println "  " p " — " label))
       (println)
       (println "  Fix:")
       (println "    1. add a matching rule to the nearest .gitignore")

@@ -1,6 +1,14 @@
 # etzhayyim/root
 
-Monorepo for religious-corp open activities operated by **etzhayyim** (宗教法人; 任意団体).
+Governance and migration repository for religious-corp open activities operated by
+**etzhayyim** (宗教法人; 任意団体).
+
+This repository is no longer the home for new runtime components. Actors, engines,
+protocols, applications, infrastructure services, tools, and datasets are maintained as
+independent repositories in the superproject west manifest. The workspace intentionally
+keeps flat checkout paths such as `orgs/etzhayyim/com-etzhayyim-<actor>`; numbered
+directories in this repository are legacy monorepo staging areas being drained. See
+[`MULTIREPO-MIGRATION.md`](MULTIREPO-MIGRATION.md).
 
 ## Identity
 

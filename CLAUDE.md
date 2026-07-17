@@ -13,6 +13,25 @@
 - CI guard: `.github/workflows/layer-freeze-guard.yml` が新規追加を reject する
 - 移設の型: `40-engine/kami-apps-MOVED.md`（ADR-2607171000 engine split-now）
 
+### Final multirepo shape (owner decision 2026-07-17)
+
+- west checkout paths remain flat: `orgs/etzhayyim/<repo>` and
+  `orgs/gftdcojp/<repo>`. Do not introduce physical `actor/`, `engine/`, or similar
+  category directories under either org.
+- Category is metadata, not path: each repository is classified as `actor`, `engine`,
+  `protocol`, `app`, `infra`, `tool`, `data`, `docs`, or `governance` in the west source
+  of truth and in its own metadata.
+- `com-etzhayyim-*` actor repositories are canonical. A same-named `20-actors/<name>`
+  directory is a migration source only, never a second source of truth.
+- Remove a legacy copy only after the independent repository contains every load-bearing
+  file, root consumers have been repointed, fleet classpath resolution is verified where
+  applicable, and a `*-MOVED.md` tombstone is left behind.
+- Shared code used by multiple repositories becomes an independent library repository;
+  it must not be copied into each actor. Product policy, actor identity, deployment, and
+  data ownership remain in the individual repository.
+- `root` converges on cross-repository governance/ADR material plus temporary migration
+  plumbing. Numbered directories are not a permanent taxonomy.
+
 This monorepo is the **canonical home for religious-corp open ADRs** per ADR-2605170900 (this monorepo, `90-docs/adr/`).
 
 ## Identity (CRITICAL)

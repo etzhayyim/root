@@ -14,11 +14,11 @@ pre-commit:
       # incident (2026-06-25), where a whole Chrome profile + node_modules +
       # build output were stage-able because the app dir shipped no .gitignore.
       #
-      # No `glob:` on purpose — the bb script computes the staged set itself
+      # No `glob:` on purpose — the nbb script computes the staged set itself
       # (git diff --cached --diff-filter=ACR) so extension-less junk like Chrome's
       # `Cookies` / `Login Data` / leveldb `MANIFEST-*` is caught too.
       # Escape hatch: 70-tools/scripts/lint/ignorable-allowlist.edn (:allow).
-      run: bb 70-tools/scripts/lint/no-ignorable-staged.bb
+      run: nbb 70-tools/scripts/lint/no-ignorable-staged.cljs
     secret-scan:
       # Block obvious credentials before they hit git history.
       # Per the GitGuardian incident (2026-05-17): the RisingWave
