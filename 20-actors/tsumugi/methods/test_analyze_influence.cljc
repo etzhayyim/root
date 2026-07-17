@@ -18,9 +18,11 @@
 
 (def seed-path "20-actors/tsumugi/data/seed-influence-history.kotoba.edn")
 
-(defn- load-result []
-  (let [[nodes flows] (ai/load seed-path)]
-    [(ai/analyze nodes flows) nodes flows]))
+(def ^:private load-result*
+  (delay (let [[nodes flows] (ai/load seed-path)]
+           [(ai/analyze nodes flows) nodes flows])))
+
+(defn- load-result [] @load-result*)
 
 (defn- close?
   ([x y] (close? x y 1e-4))

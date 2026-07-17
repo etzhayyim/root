@@ -31,7 +31,7 @@
 (deftest test-heartbeat-persists
   (let [log (tmp-log)]
     (try
-      (let [res (autorun/run-autonomous 3 nil log)]
+      (let [res (autorun/run-autonomous 3 autorun/seed log)]
         (is (= 3 (get res "log_length")) "one tx per heartbeat")
         (is (every? #(> (get % "datoms") 0) (get res "beats")) "every heartbeat persisted datoms")
         (is (get (get res "chain") "ok") "commit-DAG verifies (chain OK)")
@@ -42,7 +42,7 @@
 (deftest test-canonical-order-is-deterministic
   (let [log (tmp-log)]
     (try
-      (autorun/run-cycle 1 nil log)
+      (autorun/run-cycle 1 autorun/seed log)
       (let [tx (nth (kotoba/read-log log) 0)
             datoms (get tx ":tx/datoms")
             keyed (mapv kotoba/datom-key datoms)]
@@ -58,9 +58,9 @@
 (deftest test-append-only-and-tamper
   (let [log (tmp-log)]
     (try
-      (autorun/run-cycle 1 nil log)
+      (autorun/run-cycle 1 autorun/seed log)
       (let [first-log (kotoba/read-log log)]
-        (autorun/run-cycle 2 nil log)
+        (autorun/run-cycle 2 autorun/seed log)
         (let [second-log (kotoba/read-log log)]
           (is (= (count second-log) (inc (count first-log)))
               "second heartbeat appends, does not rewrite")
@@ -84,7 +84,7 @@
 (deftest test-g2-resilience-not-target-list
   (let [log (tmp-log)]
     (try
-      (autorun/run-cycle 1 nil log)
+      (autorun/run-cycle 1 autorun/seed log)
       (let [tx (nth (kotoba/read-log log) 0)
             attrs (set (map #(str (nth % 2)) (get tx ":tx/datoms")))]
         (is (some #(str/starts-with? % ":supply/") attrs) "derived :supply/* signals persisted")
@@ -98,7 +98,7 @@
 (deftest test-derived-flagged-and-append-only-op
   (let [log (tmp-log)]
     (try
-      (autorun/run-cycle 1 nil log)
+      (autorun/run-cycle 1 autorun/seed log)
       (let [tx (nth (kotoba/read-log log) 0)
             datoms (get tx ":tx/datoms")
             derived (filter #(= (nth % 2) ":supply/derived") datoms)]

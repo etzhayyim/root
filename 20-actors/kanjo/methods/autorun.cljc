@@ -74,12 +74,17 @@
      ([cycles] (run-autonomous cycles nil log-default))
      ([cycles graph-path-arg log-path]
       (let [beats (mapv #(run-cycle % graph-path-arg log-path)
-                        (range 1 (inc cycles)))]
+                        (range 1 (inc cycles)))
+            ;; read the (potentially large, content-addressed) log ONCE and reuse it — head-cid/
+            ;; verify-chain used to each re-read+re-parse the whole file a SECOND/THIRD time
+            ;; (measured: 3x re-parse of a 13.8MB single-tx kanjo log cost ~79s of a ~130s cycle,
+            ;; the single largest cost in the heartbeat; see run_tests.clj's SLOW note).
+            txs (kotoba/read-log log-path)]
         {"cycles" cycles
          "beats" beats
-         "log_length" (count (kotoba/read-log log-path))
-         "head_cid" (kotoba/head-cid log-path)
-         "chain" (kotoba/verify-chain log-path)}))))
+         "log_length" (count txs)
+         "head_cid" (kotoba/head-cid-of-txs txs)
+         "chain" (kotoba/verify-chain-of-txs txs)}))))
 
 #?(:clj
    (defn -main

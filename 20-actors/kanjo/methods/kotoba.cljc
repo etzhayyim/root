@@ -182,22 +182,34 @@
               vec)))))
 
 #?(:clj
+   (defn head-cid-of-txs
+     "The CID of the last tx in an ALREADY-READ txs vector (\"\" if empty). Pure — no I/O.
+     Lets a caller holding one read-log result derive the head without a redundant re-read."
+     [txs]
+     (if (seq txs) (get (last txs) ":tx/cid") "")))
+
+#?(:clj
    (defn head-cid
      "The CID of the last tx in the log (\"\" if empty)."
      [log-path]
-     (let [txs (read-log log-path)]
-       (if (seq txs) (get (last txs) ":tx/cid") ""))))
+     (head-cid-of-txs (read-log log-path))))
+
+#?(:clj
+   (defn verify-chain-of-txs
+     "Recompute every CID from its datoms + prev over an ALREADY-READ txs vector; verify the
+     DAG is intact. {ok length broken-at}. Pure — no I/O (see verify-chain for the file-path form)."
+     [txs]
+     (loop [i 0, prev "", ts txs]
+       (if (empty? ts)
+         {"ok" true "length" (count txs) "broken_at" -1}
+         (let [tx (first ts)
+               expect (tx-cid (get tx ":tx/datoms" []) prev)]
+           (if (or (not= (get tx ":tx/cid") expect) (not= (get tx ":tx/prev") prev))
+             {"ok" false "length" (count txs) "broken_at" i}
+             (recur (inc i) (get tx ":tx/cid") (rest ts))))))))
 
 #?(:clj
    (defn verify-chain
      "Recompute every CID from its datoms + prev; verify the DAG is intact. {ok length broken-at}."
      [log-path]
-     (let [txs (read-log log-path)]
-       (loop [i 0, prev "", ts txs]
-         (if (empty? ts)
-           {"ok" true "length" (count txs) "broken_at" -1}
-           (let [tx (first ts)
-                 expect (tx-cid (get tx ":tx/datoms" []) prev)]
-             (if (or (not= (get tx ":tx/cid") expect) (not= (get tx ":tx/prev") prev))
-               {"ok" false "length" (count txs) "broken_at" i}
-               (recur (inc i) (get tx ":tx/cid") (rest ts)))))))))
+     (verify-chain-of-txs (read-log log-path))))

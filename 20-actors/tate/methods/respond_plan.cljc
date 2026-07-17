@@ -78,20 +78,41 @@
               procs))))))
 
 #?(:clj
+   ;; Same reload-per-call trap as procs-cache above, applied to jurisdictions.edn /
+   ;; us-states.edn: build-plan/classify's 2-arity default re-parses jurisdictions.edn on
+   ;; EVERY call when the caller doesn't thread it through. tate.tests.test-respond's
+   ;; `by-id` helper does exactly that once per notice (186 notices) across ~69 deftests —
+   ;; ~12.8k unmemoized re-reads of a 19KB file — which pushed test-respond's wall time to
+   ;; ~101s (reflex=:timeout at the fleet's budget). Cache by path, same invariant as
+   ;; procs-cache (process-local; safe because each bb invocation is a fresh process).
+   (def ^:private jurisdictions-cache (atom {})))
+
+#?(:clj
+   (def ^:private us-states-cache (atom {})))
+
+#?(:clj
    (defn load-jurisdictions
      ([] (load-jurisdictions (clojure.java.io/file (terms/here) "data" "jurisdictions.edn")))
      ([path]
-      (->> (edn/load-edn path)
-           (filter #(contains? % ":juris/id"))
-           (reduce (fn [m j] (assoc m (get j ":juris/id") j)) {})))))
+      (let [k (str path)]
+        (or (get @jurisdictions-cache k)
+            (let [m (->> (edn/load-edn path)
+                         (filter #(contains? % ":juris/id"))
+                         (reduce (fn [m j] (assoc m (get j ":juris/id") j)) {}))]
+              (swap! jurisdictions-cache assoc k m)
+              m))))))
 
 #?(:clj
    (defn load-us-states
      ([] (load-us-states (clojure.java.io/file (terms/here) "data" "us-states.edn")))
      ([path]
-      (->> (edn/load-edn path)
-           (filter #(contains? % ":state/id"))
-           (reduce (fn [m s] (assoc m (get s ":state/id") s)) {})))))
+      (let [k (str path)]
+        (or (get @us-states-cache k)
+            (let [m (->> (edn/load-edn path)
+                         (filter #(contains? % ":state/id"))
+                         (reduce (fn [m s] (assoc m (get s ":state/id") s)) {}))]
+              (swap! us-states-cache assoc k m)
+              m))))))
 
 (defn make-option
   "The only option constructor. Representation is unrepresentable (G3) — globally."

@@ -212,14 +212,32 @@
 
 (def ^:private reflex-timeout-overrides
   "Per-cell reflex budget overrides (ms) for suites that legitimately exceed the default 60s.
-   EMPIRICAL NOTE (#5): ibuki's run_tests.sh runs 18 LIVE-I/O suites (kotoba_bridge→:8077,
-   perception→AppView, infer→Murakumo, …). Measured 406s all-green when idle, but it exceeded
-   even a 480s budget under the daemon's concurrent sweep + live-network variance — so a fixed
-   bump is a losing battle that only burns sweep time for a still-:timeout result. ibuki is
-   left at the default and stays 休眠, but is no longer punished (the :timeout→:red scoring
-   floor below gives it 5 not 0). The REAL fix is a hermetic/offline reflex entrypoint (no
-   live I/O), tracked separately; a flaky liveness probe must not gate a cell's classification."
-  {})
+   EMPIRICAL NOTE (#5, UPDATED 2026-07-17): the run_tests.sh this note originally described
+   (18 LIVE-I/O suites, live-network flakiness) no longer exists — ibuki's sole runner is now
+   run_tests.clj. Its real bottleneck was algorithmic, not I/O: satiated-producers/heartbeat-
+   replay each re-scanned + re-folded the WHOLE log per entity per beat (O(entities*datoms)
+   per call inside a per-beat loop, compounding to O(n^3) across n beats) — fixed via
+   datoms/fold-entities (single O(datoms) pass). Measured solo: >480s (unfixed, exceeded even
+   that budget) -> ~53-55s (fixed, 278 tests/1129 assertions, 0 failures). That's inside the
+   60s default but with little margin under the resident daemon's concurrent sweep load — a
+   modest override, not a 'losing battle' bump against flaky I/O like the old note described.
+   noroshi's run_tests.sh is CPU-bound and deterministic (no I/O), unlike ibuki once was, so a fixed
+   bump reliably works here. Measured 248.5s wall-clock end-to-end (2026-07-16), dominated by
+   isac_sim.cljc's periodogram (O(n_sub^2*n_sym^2) DSP, byte-identical-to-Python by design,
+   ~2.7s/call at production 64x16 grid) invoked ~80x across test-isac-sim (85s),
+   test-kami-isac-bridge (154s), and test-governance (54s, calls isac-sim/report +
+   kami-isac-bridge/report). 400s gives ~1.6x headroom over measured.
+   kanjo's methods/test_pipeline_cid.clj runs the whole offline financial-disclosure pipeline
+   over the EDGAR-merged graph (146,949 datoms/cycle — deliberately 'the heaviest determinism
+   stress' per ADR-2606152000) 5 times per suite run. Fully deterministic/offline (no network)
+   — unlike ibuki this is a reliable win from a bump, not flaky variance. Measured STILL
+   :timeout at a 600s budget (523s of continuous ~87% CPU-busy work, not a hang) even after
+   fixing a 3x redundant log re-parse in kotoba.cljc's head-cid/verify-chain (see
+   head-cid-of-txs/verify-chain-of-txs); a single cycle alone took ~131s under concurrent
+   sweep load. 1500000 (25min) gives real margin; re-tune down once measured post-fix."
+  {"noroshi" 400000
+   "kanjo" 1500000
+   "ibuki" 120000})
 
 ;; ── scoring & classification ─────────────────────────────────────────────────
 
