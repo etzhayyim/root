@@ -100,7 +100,14 @@
      :depends-on {"kotoba.datom" "3c4b3b92234e59ba285119fd8b2ca4c2ee172ff8"}
      :excluded-root-owned-application "etzhayyim.ie-flow.scoreboard"
      :verification {:tests 67 :assertions 247 :failures 0 :errors 0}
-     :initial-rewired-consumers ["hokorobi" "hoshimori" "inochi"]}}
+     :initial-rewired-consumers ["hokorobi" "hoshimori" "inochi"]}
+    "moyai.ledger"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-moyai-ledger"
+     :revision "e379b5b84c29d219750828954610ae572702a28b"
+     :west-path "orgs/etzhayyim/com-etzhayyim-moyai-ledger"
+     :canonical-metadata "library.edn"
+     :verification {:tests 4 :assertions 16 :failures 0 :errors 0}
+     :initial-rewired-consumers ["mimamori"]}}
    :content-contained-but-blocked
    {"karute" :root-relative-actor-manifest-consumer}
    :pending-independent-repo-merges
@@ -199,6 +206,18 @@
       "IE-flow and Kotoba Datom to SHA-pinned shared libraries"]
      :canonical-format :edn
      :verification {:tests 36 :assertions 287 :failures 0 :errors 0}
+     :next :delete-root-copy-after-merge-and-west-pin}
+    "mimamori"
+    {:pull-request "https://github.com/etzhayyim/com-etzhayyim-mimamori/pull/2"
+     :commit "2d2e7e5"
+     :moves ["manifest.edn" "schema.edn" "cell.edn" "src/mimamori" "test/mimamori"]
+     :rewires
+     ["root-relative ontology and cell registry to repository-local EDN"
+      "Moyai Ledger and Kotoba Datom to SHA-pinned shared libraries"
+      "social membrane to SHA-pinned shared library"
+      "namespace paths and standalone runner"]
+     :canonical-format :edn
+     :verification {:tests 50 :assertions 239 :failures 0 :errors 0}
      :next :delete-root-copy-after-merge-and-west-pin}}}
   :migration/remaining-work
   [{:class :existing-repo-overlap
@@ -209,9 +228,9 @@
     :state :classify-library-or-publish-repo}
    {:class :shared-libraries
     :count 4
-    :extracted 3
-    :remaining 1
-    :state :extract-and-pin-before-dependent-actor-removal}
+    :extracted 4
+    :remaining 0
+    :state :all-known-prerequisites-extracted-rewire-consumers}
    {:class :fleet-actors
     :state :repoint-runner-classpath-and-verify-remote-fire}
    {:class :other-numbered-layers
