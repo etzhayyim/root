@@ -140,6 +140,12 @@ def test_deploy_mio_uses_pinned_west_repository():
     assert mio["revision"] == "2c1e5fdb98ea55117f69039724d030db2806817b"
 
 
+def test_tawami_source_is_pinned_west_repository():
+    source = dn.actor_source("tawami")
+    assert source[":path"] == "orgs/etzhayyim/com-etzhayyim-tawami"
+    assert source[":revision"] == "682f1fee1b817411828294c7f09a03880fef4397"
+
+
 def test_deploy_unreachable_node():
     res = dn.deploy("ghost", runner=lambda *a, **k: None, status_text=_STATUS)
     assert res["status"] == "unreachable"
