@@ -1,5 +1,18 @@
 # etzhayyim/root — CLAUDE Index
 
+## ⛔ Phase 0 FREEZE — 番号レイヤ dir への新規追加禁止 (ADR-2607171100)
+
+この repo の番号レイヤ dir（`00-contracts/` `10-protocol/` `20-actors/` `30-graph/`
+`40-engine/` `50-infra/` `60-apps/` `70-tools/` `80-data/` `90-docs/`）への
+**新規ファイル追加は禁止**。single-monorepo 時代の構造は解体中で、コンポーネントは
+個別 repo（superproject west manifest 登録、`orgs/etzhayyim/<repo>`）へ移設する。
+
+- 許可: 既存ファイルの修正、dir の削除、`*-MOVED.md` tombstone の追加
+- 新規コンポーネントは個別 repo として作成し west 登録する
+  （superproject ADR-2607171100 D5 の 6 手順）
+- CI guard: `.github/workflows/layer-freeze-guard.yml` が新規追加を reject する
+- 移設の型: `40-engine/kami-apps-MOVED.md`（ADR-2607171000 engine split-now）
+
 This monorepo is the **canonical home for religious-corp open ADRs** per ADR-2605170900 (this monorepo, `90-docs/adr/`).
 
 ## Identity (CRITICAL)
