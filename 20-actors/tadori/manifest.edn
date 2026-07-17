@@ -3,6 +3,7 @@
  :actor/glyph "辿"
  :actor/display-name "辿 — Trace (authorized on-chain transaction tracing + actor attribution)"
  :actor/tier :tier-b
+ :actor/integrates ["ipaddress" "danjo"]
  :actor/purpose "Non-profit religious-corp authorized, case-anchored on-chain transaction-tracing + actor-attribution actor. kotoba-EAVT-native consolidation point for the malak pursuit Pregel output (ADR-2605152000), ipaddress 1次 IP/WHOIS/GeoIP collection, and yabai CTI/DNS/IP-history/access-audit. Owns the durable case graph + the cross-store attribution join (address → cluster → ip-obs → dns-obs → person) that no single store produces today, expressed as kotoba-kqe Datalog rules over the four arrangements (EAVT/AEVT/AVET/VAET; VAET reverse-edge = yabai correlate-ip-activity, 2-hop). Authorized-investigation-only, open-source, on-chain-monitorable, PII-encrypted, evidence-producing (NOT enforcement). 6 cells / 4 Lexicons under com.etzhayyim.tadori.* / 12 immutable gates / 12 non-goals. kotoba-native (datom/EAVT + MST; NOT yata SQL / RisingWave)."
  :actor/adr ["2605192100" "2605262130" "2605301400" "2605152000"]
  :actor/manifest

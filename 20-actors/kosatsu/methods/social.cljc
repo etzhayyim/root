@@ -3,7 +3,8 @@
   1:1 Clojure port of `methods/social.py`.
 
   Projects the aggregate divergence/agreement findings into member-signable, NON-adjudicating
-  dry-run posts. G8: status is always 'dry-run' (never published; outward-gated). G9: every post
+  dry-run posts (the `post` fn below builds an app.bsky.feed.post-shaped networkPost record).
+  G8: status is always 'dry-run' (never published; outward-gated). G9: every post
   opens with the mirror/competing-claim disclaimer and never speaks AS an authority. G7: the server
   never signs — a real post requires a member signature (serverHeldKey false). G2: a post reports
   who-designated-whom + disagreement, never a verdict.

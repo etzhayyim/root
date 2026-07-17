@@ -2,7 +2,8 @@
   "social.cljc — 入札 (nyusatsu) DRY-RUN multilingual social posts. ADR-2606271700.
 
   Projects validated `:bid/*` datoms into member-signable, NON-adjudicating dry-run posts
-  (the kosatsu social.clj pattern). G8: status is always :dry-run (never published; outward-
+  (the kosatsu social.clj pattern; bid->post below builds an app.bsky.feed.post-shaped
+  networkPost record). G8: status is always :dry-run (never published; outward-
   gated). G2: a post reports THAT an issuer published a notice, attributed — never a winner
   prediction or bidder ranking. G7: the server never signs (server-held-key false; a real
   post needs a member signature). G3: a post carries the bid's ≥1 primary-source citations.
