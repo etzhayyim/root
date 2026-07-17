@@ -59,12 +59,12 @@
     :docs 1561}
    :actor-directories 199
    :actor-existing-independent-repo 126
-   :actor-not-yet-independent 28
+   :actor-not-yet-independent 27
    :actor-not-yet-independent-names
    ["etzhayyim-organism"
     "funamori"
     "iriai" "iryo" "jinushi" "kafun" "kaiyaku"
-    "karakuri" "kiyome" "kotoba-actors-clj" "kotodama"
+    "karakuri" "kotoba-actors-clj" "kotodama"
     "magatama"
     "matsurigoto" "meyasu" "moyoshi"
     "mst-projector" "niyaku" "okaimono"
@@ -255,6 +255,22 @@
                          :shell-deployer-retired :operator-deploy-edn}
      :verification {:tests 7 :assertions 20 :failures 0 :errors 0
                     :deploy-plan :operator-gated-dry-run}
+     :root-copy :edn-tombstone-only}
+    "kiyome"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kiyome"
+     :revision "aa6cce3ee80257a00eed0506b592fa4f9ea5df95"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kiyome"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :actor-owned-contracts ["kiyome/lex/cleaningPassAttestation.edn"
+                             "kiyome/lex/linenLotAttestation.edn"
+                             "kiyome/lex/sanitizationRecord.edn"
+                             "kiyome/lex/siteAssessmentRecord.edn"
+                             "kiyome/lex/wasteSegregationRecord.edn"]
+     :canonicalization #{:shell-runner-retired :standalone-classpath
+                         :stale-python-cell-entry-retired}
+     :verification {:tests 10 :assertions 35 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
     "hydrogen_electrolysis"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hydrogen-electrolysis"

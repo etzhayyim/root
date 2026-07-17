@@ -1,0 +1,8 @@
+[{:db/id -1
+  :migration/kind :moved-tombstone
+  :migration/source "20-actors/kiyome"
+  :migration/canonical-repo "https://github.com/etzhayyim/com-etzhayyim-kiyome"
+  :migration/west-path "orgs/etzhayyim/com-etzhayyim-kiyome"
+  :migration/revision "aa6cce3ee80257a00eed0506b592fa4f9ea5df95"
+  :migration/date "2026-07-17"
+  :migration/authoritative true}]
