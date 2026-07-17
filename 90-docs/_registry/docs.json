@@ -24614,6 +24614,29 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2607172500-conformance-tool-consolidation.edn",
+      "id": "adr-2607172500-conformance-tool-consolidation",
+      "title": "ADR-2607172500: _conformance is a shared Clojure lint, not an actor repository",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "conformance-tool-consolidation",
+      "authoritative": true,
+      "authoritative_for": [
+        "classification and canonical location of legacy 20-actors/_conformance",
+        "retirement of the Python lexicon const guard"
+      ],
+      "related": [
+        "adr-2606032100",
+        "adr-2606032130",
+        "adr-2607172000-etzhayyim-gftdcojp-flat-west-multirepo-root-retirement"
+      ],
+      "last_verified": "2026-07-17",
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.edn",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

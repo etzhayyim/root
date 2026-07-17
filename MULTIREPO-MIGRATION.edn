@@ -59,10 +59,9 @@
     :docs 1561}
    :actor-directories 199
    :actor-existing-independent-repo 126
-   :actor-not-yet-independent 65
+   :actor-not-yet-independent 64
    :actor-not-yet-independent-names
-   ["_conformance"
-    "com-google-ads" "energy_order" "etzhayyim-bpmn-sdk"
+   ["com-google-ads" "energy_order" "etzhayyim-bpmn-sdk"
     "etzhayyim-esign" "etzhayyim-organism" "etzhayyim-pregel" "etzhayyim-sdk"
     "etzhayyim-sdk-auth" "etzhayyim-sdk-mock" "etzhayyim-sdk-py" "first-breath"
     "funamori" "haraedo" "hataori"
@@ -75,7 +74,14 @@
     "soma" "stripe-compat" "sumitsubo" "tate" "tawami" "tedai" "toi"
     "tsubasa" "tsuchifumi" "ugachi" "unspsc" "uzu" "warifu" "yobel"
     "yudane"]
-   :consolidated ["os" "umisachi" "fleet" "ipaddress" "kouhou" "tashikame"]
+   :consolidated ["_conformance" "os" "umisachi" "fleet" "ipaddress" "kouhou" "tashikame"]
+   :consolidation-details
+   {"_conformance"
+    {:previous-location "20-actors/_conformance/test_lexicon_consts.py"
+     :canonical-location "70-tools/src/etzhayyim/lint/test_lexicon_consts.cljc"
+     :category :tool
+     :reason :cross-actor-lint-not-an-actor
+     :canonical-format :clojure}}
    :extracted-shared-libraries
    {"etzhayyim.social.publication"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-social-publication"
