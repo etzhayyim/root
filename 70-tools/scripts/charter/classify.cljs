@@ -1,9 +1,31 @@
-#!/usr/bin/env bb
-;; classify.bb — score substrate-boundary items as 憲法(Tier-0) / Tier-1 / 実装.
+#!/usr/bin/env nbb
+;; --- nbb shims (auto, ADR-2607173000) ---------------------------------
+(def ^:private __fs (js/require "node:fs"))
+(def ^:private __path (js/require "node:path"))
+(def ^:private __cp (js/require "node:child_process"))
+(def ^:private __os (js/require "node:os"))
+(def ^:private __crypto (js/require "node:crypto"))
+(defn- __sh [& args]
+  (let [opts (when (map? (last args)) (last args))
+        cmd (if opts (butlast args) args)
+        r (.spawnSync __cp (first cmd) (to-array (rest cmd))
+                      (clj->js (merge {:encoding "utf8"} (when opts {:cwd (:dir opts)}))))]
+    {:exit (or (.-status r) 1) :out (or (.-stdout r) "") :err (or (.-stderr r) "")}))
+(defn- __shell [& args]
+  (let [opts (when (map? (first args)) (first args))
+        cmd (if opts (rest args) args)
+        r (.spawnSync __cp (first cmd) (to-array (rest cmd))
+                      (clj->js (merge {:stdio "inherit" :encoding "utf8"}
+                                      (when opts {:cwd (:dir opts)}))))]
+    (when-not (zero? (or (.-status r) 1))
+      (throw (js/Error. (str "shell failed: " (pr-str cmd)))))
+    {:exit (or (.-status r) 0) :out "" :err ""}))
+;; -----------------------------------------------------------------------
+;; classify.nbb — score substrate-boundary items as 憲法(Tier-0) / Tier-1 / 実装.
 ;;
-;;   bb classify.bb            # ranked table + self-test (asserts :expect band)
-;;   bb classify.bb --md       # markdown table
-;;   bb classify.bb --edn      # machine-readable verdicts
+;;   nbb classify.nbb            # ranked table + self-test (asserts :expect band)
+;;   nbb classify.nbb --md       # markdown table
+;;   nbb classify.nbb --edn      # machine-readable verdicts
 ;;
 ;; J = Σ_axis (weight · score). Band by :bands thresholds. Σweight asserted = 1.0.
 
@@ -19,7 +41,7 @@
 (let [s (reduce + (map :weight criteria))]
   (when (> (abs (- s 1.0)) 1e-9)
     (binding [*out* *err*] (println (format "FATAL: Σweight = %.4f ≠ 1.0" s)))
-    (System/exit 1)))
+    (.exit js/process 1)))
 
 (defn total [item]
   (reduce (fn [a k] (+ a (* (weight k) (get-in item [:scores k] 0)))) 0.0 axes))
@@ -65,4 +87,4 @@
                       ok))
           fails (count (remove true? results))]
       (println (format "\n%d/%d passed" (- (count results) fails) (count results)))
-      (System/exit (if (pos? fails) 1 0)))))
+      (.exit js/process (if (pos? fails) 1 0)))))

@@ -1,9 +1,31 @@
-#!/usr/bin/env bb
-;; score.bb — weighted Charter-fit scoring over scorecard.edn
+#!/usr/bin/env nbb
+;; --- nbb shims (auto, ADR-2607173000) ---------------------------------
+(def ^:private __fs (js/require "node:fs"))
+(def ^:private __path (js/require "node:path"))
+(def ^:private __cp (js/require "node:child_process"))
+(def ^:private __os (js/require "node:os"))
+(def ^:private __crypto (js/require "node:crypto"))
+(defn- __sh [& args]
+  (let [opts (when (map? (last args)) (last args))
+        cmd (if opts (butlast args) args)
+        r (.spawnSync __cp (first cmd) (to-array (rest cmd))
+                      (clj->js (merge {:encoding "utf8"} (when opts {:cwd (:dir opts)}))))]
+    {:exit (or (.-status r) 1) :out (or (.-stdout r) "") :err (or (.-stderr r) "")}))
+(defn- __shell [& args]
+  (let [opts (when (map? (first args)) (first args))
+        cmd (if opts (rest args) args)
+        r (.spawnSync __cp (first cmd) (to-array (rest cmd))
+                      (clj->js (merge {:stdio "inherit" :encoding "utf8"}
+                                      (when opts {:cwd (:dir opts)}))))]
+    (when-not (zero? (or (.-status r) 1))
+      (throw (js/Error. (str "shell failed: " (pr-str cmd)))))
+    {:exit (or (.-status r) 0) :out "" :err ""}))
+;; -----------------------------------------------------------------------
+;; score.nbb — weighted Charter-fit scoring over scorecard.edn
 ;;
-;;   bb score.bb            # console ranking + per-criterion matrix
-;;   bb score.bb --md       # emit GitHub-flavoured markdown tables (paste into paper)
-;;   bb score.bb --edn      # emit computed results as EDN (machine-readable)
+;;   nbb score.nbb            # console ranking + per-criterion matrix
+;;   nbb score.nbb --md       # emit GitHub-flavoured markdown tables (paste into paper)
+;;   nbb score.nbb --edn      # emit computed results as EDN (machine-readable)
 ;;
 ;; Weighted total = Σ_axis (weight_axis · score_axis), scores 0..10, Σweight = 1.0,
 ;; so the total stays on the 0..10 scale. Weights are asserted to sum to 1.0.
@@ -23,7 +45,7 @@
   (when (> (abs (- s 1.0)) 1e-9)
     (binding [*out* *err*]
       (println (format "FATAL: criteria weights sum to %.4f, expected 1.0" s)))
-    (System/exit 1)))
+    (.exit js/process 1)))
 
 (defn weighted-total [lic]
   (reduce (fn [acc k] (+ acc (* (weight k) (get-in lic [:scores k] 0))))
