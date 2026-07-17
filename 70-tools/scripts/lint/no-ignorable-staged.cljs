@@ -1,4 +1,26 @@
-#!/usr/bin/env bb
+#!/usr/bin/env nbb
+;; --- nbb shims (auto, ADR-2607173000) ---------------------------------
+(def ^:private __fs (js/require "node:fs"))
+(def ^:private __path (js/require "node:path"))
+(def ^:private __cp (js/require "node:child_process"))
+(def ^:private __os (js/require "node:os"))
+(def ^:private __crypto (js/require "node:crypto"))
+(defn- __sh [& args]
+  (let [opts (when (map? (last args)) (last args))
+        cmd (if opts (butlast args) args)
+        r (.spawnSync __cp (first cmd) (to-array (rest cmd))
+                      (clj->js (merge {:encoding "utf8"} (when opts {:cwd (:dir opts)}))))]
+    {:exit (or (.-status r) 1) :out (or (.-stdout r) "") :err (or (.-stderr r) "")}))
+(defn- __shell [& args]
+  (let [opts (when (map? (first args)) (first args))
+        cmd (if opts (rest args) args)
+        r (.spawnSync __cp (first cmd) (to-array (rest cmd))
+                      (clj->js (merge {:stdio "inherit" :encoding "utf8"}
+                                      (when opts {:cwd (:dir opts)}))))]
+    (when-not (zero? (or (.-status r) 1))
+      (throw (js/Error. (str "shell failed: " (pr-str cmd)))))
+    {:exit (or (.-status r) 0) :out "" :err ""}))
+;; -----------------------------------------------------------------------
 ;; no-ignorable-staged — pre-commit guard (Clojure / babashka; root CLAUDE.md §clj/bb).
 ;;
 ;; Blocks build artifacts, caches, machine-local state, and *secret-bearing* dirs
@@ -15,10 +37,10 @@
 ;;
 ;; Escape hatch: add a regex to 70-tools/scripts/lint/ignorable-allowlist.edn (:allow)
 ;; for an intentional exception, or `git commit --no-verify` to bypass entirely.
-(require '[babashka.process :refer [shell]]
+(require ']
          '[clojure.string :as str]
          '[clojure.edn :as edn]
-         '[babashka.fs :as fs])
+         ')
 
 ;; ── denylist: [pattern label]; pattern is a regex over the repo-relative path ──
 ;; A path segment is delimited by '/' or string ends; patterns anchor on segments
@@ -48,10 +70,10 @@
    [#"(^|/)Thumbs\.db$"                   "Thumbs.db (Windows junk)"]])
 
 (defn- repo-root []
-  (str/trim (:out (shell {:out :string} "git rev-parse --show-toplevel"))))
+  (str/trim (:out (__shell {:out :string} "git rev-parse --show-toplevel"))))
 
 (defn- staged-added-paths []
-  (->> (shell {:out :string} "git diff --cached --name-only --diff-filter=ACR")
+  (->> (__shell {:out :string} "git diff --cached --name-only --diff-filter=ACR")
        :out str/split-lines
        (map str/trim)
        (remove str/blank?)))
@@ -90,5 +112,5 @@
       (println)
       (println "  Intentional? add a regex to 70-tools/scripts/lint/ignorable-allowlist.edn")
       (println "  (:allow [\"…\"]) — or bypass once with `git commit --no-verify`.")
-      (System/exit 1))
-    (System/exit 0)))
+      (.exit js/process 1))
+    (.exit js/process 0)))

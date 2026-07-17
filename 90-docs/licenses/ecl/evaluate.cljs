@@ -1,9 +1,31 @@
-#!/usr/bin/env bb
-;; evaluate.bb — the ECL objective function J, evaluated dynamically.
+#!/usr/bin/env nbb
+;; --- nbb shims (auto, ADR-2607173000) ---------------------------------
+(def ^:private __fs (js/require "node:fs"))
+(def ^:private __path (js/require "node:path"))
+(def ^:private __cp (js/require "node:child_process"))
+(def ^:private __os (js/require "node:os"))
+(def ^:private __crypto (js/require "node:crypto"))
+(defn- __sh [& args]
+  (let [opts (when (map? (last args)) (last args))
+        cmd (if opts (butlast args) args)
+        r (.spawnSync __cp (first cmd) (to-array (rest cmd))
+                      (clj->js (merge {:encoding "utf8"} (when opts {:cwd (:dir opts)}))))]
+    {:exit (or (.-status r) 1) :out (or (.-stdout r) "") :err (or (.-stderr r) "")}))
+(defn- __shell [& args]
+  (let [opts (when (map? (first args)) (first args))
+        cmd (if opts (rest args) args)
+        r (.spawnSync __cp (first cmd) (to-array (rest cmd))
+                      (clj->js (merge {:stdio "inherit" :encoding "utf8"}
+                                      (when opts {:cwd (:dir opts)}))))]
+    (when-not (zero? (or (.-status r) 1))
+      (throw (js/Error. (str "shell failed: " (pr-str cmd)))))
+    {:exit (or (.-status r) 0) :out "" :err ""}))
+;; -----------------------------------------------------------------------
+;; evaluate.nbb — the ECL objective function J, evaluated dynamically.
 ;;
-;;   bb evaluate.bb                 # run all fixtures as a self-test (asserts :expect)
-;;   bb evaluate.bb <fixture-key>   # evaluate one fixture, show the breakdown
-;;   bb evaluate.bb --edn           # emit per-fixture verdicts as EDN
+;;   nbb evaluate.nbb                 # run all fixtures as a self-test (asserts :expect)
+;;   nbb evaluate.nbb <fixture-key>   # evaluate one fixture, show the breakdown
+;;   nbb evaluate.nbb --edn           # emit per-fixture verdicts as EDN
 ;;
 ;; ECL は固定ルールでなく目的関数で動的評価する。screens(確定フロア)が発火すれば
 ;; scoring せず :non-aligned。さもなくば J = Σ(weight·score) を子孫-wellbecoming 基準で
@@ -22,7 +44,7 @@
 (let [s (reduce + (map :weight dims))]
   (when (> (abs (- s 1.0)) 1e-9)
     (binding [*out* *err*] (println (format "FATAL: Σweight = %.4f ≠ 1.0" s)))
-    (System/exit 1)))
+    (.exit js/process 1)))
 
 (defn objective [scores]
   "J = Σ_dim (weight · score). Missing dim score = 0 (neutral)."
@@ -63,7 +85,7 @@
   (let [k (keyword (first (remove #(str/starts-with? % "--") *command-line-args*)))
         f (first (filter #(= (:key %) k) (:fixtures spec)))]
     (if-not f
-      (do (println "unknown fixture:" k) (System/exit 2))
+      (do (println "unknown fixture:" k) (.exit js/process 2))
       (let [v (route f)]
         (println (format "候補: %s — %s\n" (name (:key f)) (:label f)))
         (println "目的関数 J の内訳 (基準 = 子孫 wellbecoming):")
@@ -95,4 +117,4 @@
                       ok))
           fails (count (remove true? results))]
       (println (format "\n%d/%d passed" (- (count results) fails) (count results)))
-      (System/exit (if (pos? fails) 1 0)))))
+      (.exit js/process (if (pos? fails) 1 0)))))

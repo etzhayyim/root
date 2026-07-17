@@ -1,26 +1,26 @@
 {
-  "generatedAt" : "2026-07-03T07:23:10.304Z",
-  "now" : 1783063390304,
+  "generatedAt" : "2026-07-17T02:22:21.270Z",
+  "now" : 1784254941270,
   "store" : "heartbeat-watchdog",
   "anyStale" : false,
   "layers" : {
     "pulse" : {
-      "lastOk" : 1783063385670,
-      "ageMs" : 4634,
+      "lastOk" : 1784254941270,
+      "ageMs" : 0,
       "cadenceMs" : 6000,
       "everOk" : true,
       "stale" : false
     },
     "joucho" : {
-      "lastOk" : 1783063372657,
-      "ageMs" : 17647,
+      "lastOk" : 1784254915998,
+      "ageMs" : 25272,
       "cadenceMs" : 60000,
       "everOk" : true,
       "stale" : false
     },
     "vitals" : {
-      "lastOk" : 1783060836021,
-      "ageMs" : 2554283,
+      "lastOk" : 1784252683678,
+      "ageMs" : 2257592,
       "cadenceMs" : 3600000,
       "everOk" : true,
       "stale" : false
