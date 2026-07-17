@@ -1,0 +1,10 @@
+;; abaki — actor manifest (authored; abaki had methods/schema/tests/README/CLAUDE.md but no
+;; manifest of any kind, so it was invisible to vitals — ADR-2607171100-adjacent tracking-gap fix)
+{:actor/id "abaki"
+ :actor/glyph "暴"
+ :actor/display-name "暴 abaki — Anti-Monopoly & Chokepoint Intelligence Membrane"
+ :actor/tier :tier-b
+ :actor/status "R0"
+ :actor/adr ["2606073100"]
+ :actor/integrates ["suki"]
+ :actor/purpose "Identifies, records, and monitors organizations and individuals attempting to establish or maintain monopolies across any domain (natural resources, compute/silicon, digital platforms, biological assets, infrastructure, specialist knowledge), per Charter Rider v3.0 (ADR-2605192100/2606073100)'s prohibition on reliance on monopolistic resource extraction or specialist gatekeeping. OSINT-ingests public data (M&A, patents, SEC filings, pricing, antitrust suits), graphs beneficial ownership piercing the corporate veil (tracks individuals, not just LLCs), and computes a Chokepoint Index (CI) that, past threshold, structurally routes other etzhayyim actors around the Non-Aligned Entity (bypass, never attack — no offensive action, only withdrawal of money/data/labor flows)."}

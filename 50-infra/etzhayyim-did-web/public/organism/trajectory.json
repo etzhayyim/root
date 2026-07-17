@@ -607,8 +607,32 @@
     "dormant" : 12,
     "stub" : 2,
     "sum" : 13066
+  }, {
+    "run" : 1784259163449,
+    "at" : "2026-07-17T03:32:43.449Z",
+    "cells" : 1,
+    "alive" : 0,
+    "dormant" : 1,
+    "stub" : 0,
+    "sum" : 76
+  }, {
+    "run" : 1784259895111,
+    "at" : "2026-07-17T03:44:55.111Z",
+    "cells" : 2,
+    "alive" : 1,
+    "dormant" : 0,
+    "stub" : 1,
+    "sum" : 108
+  }, {
+    "run" : 1784260913061,
+    "at" : "2026-07-17T04:01:53.061Z",
+    "cells" : 168,
+    "alive" : 154,
+    "dormant" : 11,
+    "stub" : 3,
+    "sum" : 13304
   } ],
-  "head" : "bafkreiblxh44s3i5xmuumevrzl2n6sitz233sq3h5kusygyjyphehusw6i",
+  "head" : "bafkreih54vuoc2x5g4idip4kfazp73mjxozcvgt7pvkghzj4p432nslgje",
   "store" : "kotoba-datom-log",
   "snapshot" : "trajectory.kotoba.edn"
 }

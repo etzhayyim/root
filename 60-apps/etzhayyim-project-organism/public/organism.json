@@ -1,13 +1,28 @@
 {
-  "run" : 1784257333153,
-  "generatedAt" : "2026-07-17T03:02:13.153Z",
+  "run" : 1784260913061,
+  "generatedAt" : "2026-07-17T04:01:53.061Z",
   "summary" : {
-    "cells" : 164,
-    "alive" : 150,
-    "dormant" : 12,
-    "stub" : 2
+    "cells" : 168,
+    "alive" : 154,
+    "dormant" : 11,
+    "stub" : 3
   },
   "nodes" : [ {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 4,
+    "atproto" : 0,
+    "port" : 1.0,
+    "heartbeatDays" : 0,
+    "status" : "R0",
+    "id" : "abaki",
+    "class" : "dormant",
+    "score" : 50,
+    "outDeg" : 1,
+    "cells" : 0,
+    "clj" : 40,
+    "actor" : 10
+  }, {
     "bsky" : true,
     "reflex" : "green",
     "inDeg" : 0,
@@ -54,18 +69,18 @@
     "actor" : 12
   }, {
     "bsky" : true,
-    "reflex" : "red",
+    "reflex" : "green",
     "inDeg" : 1,
     "atproto" : 25,
     "port" : 0.875,
     "heartbeatDays" : 0,
     "status" : "unknown",
     "id" : "ake",
-    "class" : "dormant",
-    "score" : 70,
+    "class" : "alive",
+    "score" : 85,
     "outDeg" : 9,
     "cells" : 5,
-    "clj" : 23,
+    "clj" : 38,
     "actor" : 22
   }, {
     "bsky" : true,
@@ -459,18 +474,18 @@
     "actor" : 18
   }, {
     "bsky" : true,
-    "reflex" : "red",
+    "reflex" : "green",
     "inDeg" : 1,
     "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
     "status" : "r1-template-commons-publishable",
     "id" : "hinagata",
-    "class" : "dormant",
-    "score" : 62,
+    "class" : "alive",
+    "score" : 77,
     "outDeg" : 4,
     "cells" : 1,
-    "clj" : 25,
+    "clj" : 40,
     "actor" : 12
   }, {
     "bsky" : true,
@@ -547,6 +562,21 @@
     "cells" : 6,
     "clj" : 40,
     "actor" : 18
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 1,
+    "atproto" : 0,
+    "port" : 1.0,
+    "heartbeatDays" : 0,
+    "status" : "active",
+    "id" : "hydrogen_electrolysis",
+    "class" : "dormant",
+    "score" : 42,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 40,
+    "actor" : 2
   }, {
     "bsky" : true,
     "reflex" : "green",
@@ -1214,6 +1244,21 @@
     "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
+    "status" : "R0",
+    "id" : "matsurigoto",
+    "class" : "dormant",
+    "score" : 67,
+    "outDeg" : 0,
+    "cells" : 1,
+    "clj" : 40,
+    "actor" : 2
+  }, {
+    "bsky" : true,
+    "reflex" : "green",
+    "inDeg" : 0,
+    "atproto" : 25,
+    "port" : 1.0,
+    "heartbeatDays" : 0,
     "status" : "r0",
     "id" : "meibo",
     "class" : "alive",
@@ -1434,18 +1479,18 @@
     "actor" : 18
   }, {
     "bsky" : true,
-    "reflex" : "red",
+    "reflex" : "green",
     "inDeg" : 2,
     "atproto" : 25,
     "port" : 0.9411764705882353,
     "heartbeatDays" : 0,
     "status" : "r0",
     "id" : "noroshi",
-    "class" : "dormant",
-    "score" : 71,
+    "class" : "alive",
+    "score" : 86,
     "outDeg" : 4,
     "cells" : 5,
-    "clj" : 24,
+    "clj" : 39,
     "actor" : 22
   }, {
     "bsky" : true,
@@ -1855,18 +1900,18 @@
   }, {
     "bsky" : true,
     "reflex" : "green",
-    "inDeg" : 1,
+    "inDeg" : 2,
     "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
     "status" : "unknown",
     "id" : "suki",
     "class" : "alive",
-    "score" : 79,
+    "score" : 81,
     "outDeg" : 12,
     "cells" : 1,
     "clj" : 40,
-    "actor" : 14
+    "actor" : 16
   }, {
     "bsky" : true,
     "reflex" : "green",
@@ -1929,18 +1974,18 @@
     "actor" : 12
   }, {
     "bsky" : true,
-    "reflex" : "red",
+    "reflex" : "green",
     "inDeg" : 3,
     "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
     "status" : "unknown",
     "id" : "tasuke",
-    "class" : "dormant",
-    "score" : 76,
+    "class" : "alive",
+    "score" : 91,
     "outDeg" : 7,
     "cells" : 5,
-    "clj" : 25,
+    "clj" : 40,
     "actor" : 26
   }, {
     "bsky" : true,
@@ -2438,6 +2483,21 @@
     "clj" : 40,
     "actor" : 20
   }, {
+    "bsky" : false,
+    "reflex" : "red",
+    "inDeg" : 1,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 9999,
+    "status" : "S0",
+    "id" : "yobel",
+    "class" : "stub",
+    "score" : 17,
+    "outDeg" : 0,
+    "cells" : 5,
+    "clj" : 5,
+    "actor" : 12
+  }, {
     "bsky" : true,
     "reflex" : "green",
     "inDeg" : 1,
@@ -2469,6 +2529,9 @@
     "actor" : 20
   } ],
   "edges" : [ {
+    "from" : "abaki",
+    "to" : "suki"
+  }, {
     "from" : "aburi",
     "to" : "himotoki"
   }, {
@@ -2623,6 +2686,9 @@
     "to" : "warifu"
   }, {
     "from" : "busshi",
+    "to" : "abaki"
+  }, {
+    "from" : "busshi",
     "to" : "inochi"
   }, {
     "from" : "busshi",
@@ -2648,6 +2714,9 @@
   }, {
     "from" : "busshi",
     "to" : "tsumugi"
+  }, {
+    "from" : "chie",
+    "to" : "abaki"
   }, {
     "from" : "chie",
     "to" : "kabuto"
@@ -2897,6 +2966,9 @@
   }, {
     "from" : "hinagata",
     "to" : "warifu"
+  }, {
+    "from" : "hirameki",
+    "to" : "abaki"
   }, {
     "from" : "hirameki",
     "to" : "busshi"
@@ -3900,6 +3972,9 @@
     "from" : "saisei",
     "to" : "tate"
   }, {
+    "from" : "saisei",
+    "to" : "yobel"
+  }, {
     "from" : "sanae",
     "to" : "mitsuho"
   }, {
@@ -4360,6 +4435,9 @@
     "to" : "hoshimori"
   }, {
     "from" : "torifune",
+    "to" : "hydrogen_electrolysis"
+  }, {
+    "from" : "torifune",
     "to" : "kamado"
   }, {
     "from" : "torifune",
@@ -4496,6 +4574,9 @@
   }, {
     "from" : "uchiwake",
     "to" : "kabuto"
+  }, {
+    "from" : "ugachi",
+    "to" : "abaki"
   }, {
     "from" : "ugachi",
     "to" : "busshi"
