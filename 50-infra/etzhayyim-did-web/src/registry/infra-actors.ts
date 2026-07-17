@@ -691,7 +691,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     glyph: "剪定",
     displayName: "Sentei — Council as Pruner (post-hoc pruning governance)",
     primaryLexicon: "com.etzhayyim.sentei.prune",
-    primarySchema: "20-actors/sentei/data/pruning-ontology.kotoba.edn",
+    primarySchema: "orgs/etzhayyim/com-etzhayyim-sentei/data/pruning-ontology.kotoba.edn",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:sentei#atproto_pds",

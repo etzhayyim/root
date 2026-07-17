@@ -23,7 +23,7 @@
       "2606072000"
     ],
     "primaryLexicon": "com.etzhayyim.sentei.prune",
-    "primarySchema": "20-actors/sentei/data/pruning-ontology.kotoba.edn",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-sentei/data/pruning-ontology.kotoba.edn",
     "didDocument": "https://etzhayyim.com/actor/sentei/did.json",
     "source": "kotoba"
   }

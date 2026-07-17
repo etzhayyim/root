@@ -123,7 +123,6 @@
  "20-actors/sarutahiko/kotoba/deploy.sh"
  "20-actors/sarutahiko/run_tests.sh"
  "20-actors/semicon_robotics-compat/run_tests.sh"
- "20-actors/sentei/run_tests.sh"
  "20-actors/serdes_phy-compat/run_tests.sh"
  "20-actors/shionome/run_tests.sh"
  "20-actors/shionome/wasm/build-t1.sh"

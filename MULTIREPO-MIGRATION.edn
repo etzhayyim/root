@@ -700,6 +700,28 @@
                          :external-json-retained-as-wire}
      :verification {:tests 31 :assertions 936 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
+    "sentei"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-sentei"
+     :revision "b0210d2652f1d9b36d555029c5b3b16cade4859f"
+     :west-path "orgs/etzhayyim/com-etzhayyim-sentei"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root {:revision "c1398abc9d53b4032a44f46ccc136ca134819f7e"
+                      :paths ["90-docs/adr"]}
+      org.kotoba-lang/kototama "65899deed4fb9cfa3cdfed9d21130c91982d8cd3"}
+     :actor-owned-contracts ["actor.edn" "schema.edn"
+                             "data/pruning-ontology.kotoba.edn"
+                             "lex/com.etzhayyim.sentei.prune.edn"]
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :shell-runner-retired :actor-lexicon-edn-canonical
+                         :manifest-jsonld-retired
+                         :kototama-flat-west-path-rewired
+                         :did-registry-schema-path-rewired
+                         :external-json-retained-as-wire}
+     :verification {:tests 25 :assertions 73 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "hydrogen_electrolysis"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hydrogen-electrolysis"
      :revision "da4fab805b6aa8606dab36882de3186482f55f34"
