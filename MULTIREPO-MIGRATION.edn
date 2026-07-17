@@ -617,6 +617,34 @@
                          :external-json-retained-as-wire}
      :verification {:tests 25 :assertions 782 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
+    "wakai"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-wakai"
+     :revision "fa69bb164ab24a1fdf34d8a4cd576a9c5d0c359d"
+     :west-path "orgs/etzhayyim/com-etzhayyim-wakai"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root {:revision "cd6a372ce44c2652e61b15d95689f5ed0003b298"
+                      :paths ["90-docs/adr"]}
+      com.etzhayyim/hagukumi "7d34cb0660057005643f95fd9c298aeb1ff0ac82"
+      com.etzhayyim/iyashi "eceea556237590f861a475b64bf41048c90f6213"
+      com.etzhayyim/kawase-yui "16877fce7b32030248b2088265ebd1c0a266e47c"
+      com.etzhayyim/kazaori "08750097c50f1b37380d7ceaf9f63b94baeb6c54"
+      com.etzhayyim/toritate "3354850aa05408e840426f91fe067ddad8535e5b"
+      com.etzhayyim/yakushi "5b2389671defc00ef8c7cfa522b9bc96b3ac192f"}
+     :actor-owned-contracts ["lex/mutualAidContributionAttestation.edn"
+                             "lex/mutualAidDistributionAttestation.edn"
+                             "lex/mutualAidPoolStateReport.edn"
+                             "lex/publicFundBackstopRequest.edn"
+                             "lex/silenWakaiReview.edn"]
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :shell-runner-retired :actor-lexicons-edn-canonical
+                         :manifest-jsonld-retired-to-wire
+                         :cross-actor-dependencies-pinned
+                         :external-json-retained-as-wire}
+     :verification {:tests 25 :assertions 80 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "hydrogen_electrolysis"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hydrogen-electrolysis"
      :revision "da4fab805b6aa8606dab36882de3186482f55f34"
