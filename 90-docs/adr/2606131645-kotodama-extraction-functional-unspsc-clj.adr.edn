@@ -1,14 +1,4 @@
-;; ──────────────────────────────────────────────────────────────────────────
-;; ADR-2606131645 — kotodama extraction + functional UNSPSC Clojure migration
-;;                  + kotoba submodule removal
-;;
-;; Machine-readable EDN form of the ADR. The canonical NARRATIVE stays in the
-;; sibling .md (90-docs/CLAUDE.md: Markdown is the canonical source); this .adr.edn
-;; is the structured, queryable projection (Datom-/tooling-friendly).
-;; Status: accepted — founder = Council Lv7+ 1/1 (PR review = Council attestation),
-;; ratified via PR #1732; registry-indexed via PR #1733. Date 2026-06-13.
-;; ──────────────────────────────────────────────────────────────────────────
-{:id        "2606131645"
+[{:db/id -1, :id        "2606131645"
  :title     "kotodama extraction + functional UNSPSC Clojure migration + kotoba submodule removal"
  :status    :accepted
  :date      #inst "2026-06-13"
@@ -95,7 +85,7 @@
 
  ;; ── gated operator steps (NOT executed; require production infra) ──────────
  :gated
- {:submodule-removal "ONE atomic operator PR per 90-docs/runbooks/2606131645-kotoba-submodule-removal-cutover.md (934 refs; gated on production fleet live)"
+ {:submodule-removal "ONE atomic operator PR per 90-docs/runbooks/2606131645-kotoba-submodule-removal-cutover.edn (934 refs; gated on production fleet live)"
   :py-deletion "delete the 18,343 c<code>.py in the etzhayyim/kotoba repo (separate PR, after fleet live)"
   :production-rollout "Murakumo cluster, IPFS-on, per-shard nodes (cluster currently unreachable)"
   :etzhayyim-com-surface "CF Worker: add each actor's Datom graph_cid to its profile (wrangler login required)"}
@@ -107,5 +97,5 @@
   "ADR-2605214000 §3 (Step-8 atomic cutover) / ADR-2605215000 §4 (Murakumo-only)"
   "ADR-2605262130 (kotoba storage substrate unification) / ADR-2605312345 (Datom = canonical state)"
   "ADR-2606011500 §4 (kami-engine submodule pattern) / ADR-2606101200 (ibuki organism reference)"
-  "runbook 90-docs/runbooks/2606131645-kotoba-submodule-removal-cutover.md"
-  "langgraph-clj / langchain-clj (migration target stack)"]}
+  "runbook 90-docs/runbooks/2606131645-kotoba-submodule-removal-cutover.edn"
+  "langgraph-clj / langchain-clj (migration target stack)"]}]

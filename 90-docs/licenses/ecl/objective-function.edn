@@ -1,24 +1,4 @@
-;; ECL objective function — SSoT data for evaluate.bb
-;;
-;; ECL は「固定ルール(掟)で制御」せず「目的関数で動的に評価」する (ADR-2606062100:
-;; 固定するのは掟ではなく priority)。本ファイルがその目的関数 J の機械可読定義。
-;;
-;; 基準 (この目的関数の telos):
-;;   ★ 子 (this-generation children) と 孫 (≥25y hence descendants) の
-;;     **Wellbecoming = 静的 wellbeing ではなく動的軌跡** を最大化する。
-;;   他の次元 (commons / 相互監視 / 労働解放) は、子孫の wellbecoming を支える
-;;     enabling condition として、その telos に従属して重みづけられる。
-;;
-;; 3-Tier (ADR-2606062100):
-;;   Tier-0 (fork-only)      : どの次元が存在し、その符号方向 (何が wellbecoming に資する/反する)
-;;   Tier-1 (Council Lv7+)   : :weight / :thresholds / :screens のリスト
-;;   Tier-2 (governance att.) : 個別ケースの :scores (evidence から算出)
-;;
-;; J = Σ_dim (weight · score), score ∈ [-2,+2], Σweight = 1.0  → J ∈ [-2,+2]
-;; route: screens が1つでも発火 → :non-aligned (確定フロア, scoring 不要)
-;;        else J ≥ +0.5 → :aligned / -0.5<J<+0.5 → :hold / J ≤ -0.5 → :non-aligned
-
-{:meta
+[{:db/id -1, :meta
  {:id    "ecl-objective-function"
   :title "ECL 子孫-Wellbecoming 目的関数"
   :version "0.4-draft"
@@ -226,4 +206,4 @@
    :label "個人主義的私的捕獲(PE 蓄積) — collective-commons が私的捕獲を負へ"
    :scores {:ko-wellbecoming 0 :mago-wellbecoming -1 :collective-commons -2
             :reciprocal-transparency 0 :labor-liberation -1}
-   :expect :non-aligned}]}   ;; ← J 経由 (-0.80)
+   :expect :non-aligned}]}   ;; ← J 経由 (-0.80)]

@@ -406,12 +406,15 @@ pre-commit:
 
 
     docs-registry-freshness:
-      # When any 90-docs/**/*.md changes, verify 90-docs/_registry/{docs.json,docs.edn}
+      # When any 90-docs/**/*.{md,edn} changes, verify 90-docs/_registry/{docs.json,docs.edn}
       # are in sync (70-tools/scripts/docs/regen-registry.clj --check; babashka port
       # of the former regen-registry.py, ADR-2605271100 cycle 48). Parallel pattern
       # to deps-toml-paths. Catches operators adding/editing docs without regenerating
       # the machine-readable sidecar index. ~0.3s overhead.
-      glob: "90-docs/**/*.md"
+      # EDN-only SSoT (2026-07-17): .edn is canonical; .md may be absent.
+      glob:
+        - "90-docs/**/*.md"
+        - "90-docs/**/*.edn"
       run: |
         bb 70-tools/scripts/docs/regen-registry.clj --check \
           > /tmp/docs-registry-check.$$.txt 2>&1
@@ -439,6 +442,7 @@ pre-commit:
       # graph.jsonld (JSON-LD) hook, per "use EDN, not JSON-LD". ~0.3s.
       glob:
         - "90-docs/**/*.md"
+        - "90-docs/**/*.edn"
         - "90-docs/_registry/docs.edn"
       run: |
         bb 70-tools/scripts/docs/regen-graph-edn.clj --check \
@@ -468,15 +472,21 @@ pre-commit:
       glob:
         - "90-docs/adr/*.md"
         - "90-docs/adr/*.md.edn"
+        - "90-docs/adr/*.edn"
         - "90-docs/adr/adr-index.edn"
       run: |
-        if ! bb adr:index-check > /tmp/adr-index-check.$$.txt 2>&1; then
+        # bb.edn tasks may be absent on sparse/shallow checkouts; invoke the
+        # generator on classpath directly (EDN-only SSoT, 2026-07-17).
+        if ! bb --classpath "70-tools/src" \
+            -e '(require (quote [etzhayyim.tools.adr-mdedn :as a])) (let [r (a/check-index "90-docs/adr")] (when-not (:ok r) (println r) (System/exit 1)))' \
+            > /tmp/adr-index-check.$$.txt 2>&1; then
           echo "✘ adr-index.edn drift/corruption detected:"
           cat /tmp/adr-index-check.$$.txt
           rm -f /tmp/adr-index-check.$$.txt
           echo ""
           echo "  adr-index.edn is GENERATED — never hand-edit it. Regenerate + stage:"
-          echo "    bb adr:index && git add 90-docs/adr/adr-index.edn"
+          echo "    bb --classpath 70-tools/src -e '(require (quote [etzhayyim.tools.adr-mdedn :as a])) (println (a/write-index! \"90-docs/adr\"))'"
+          echo "    git add 90-docs/adr/adr-index.edn"
           exit 1
         fi
         rm -f /tmp/adr-index-check.$$.txt

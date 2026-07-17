@@ -1,15 +1,4 @@
-;; ──────────────────────────────────────────────────────────────────────────
-;; ADR-2606302205 — kotoba-genome: unified self-evolving, multi-channel,
-;;                  all-actor-posting organism; retire the keyless observational mirror
-;;
-;; Machine-readable EDN form. The canonical NARRATIVE stays in the sibling .md
-;; (90-docs/CLAUDE.md: Markdown is the canonical source); this .adr.edn is the
-;; structured, queryable projection (Datom-/tooling-friendly).
-;; Status: accepted — founder = Council Lv7+ 1/1 (PR review = Council attestation);
-;;         ratified 2026-07-01; W1-W4 landed as a runnable tested substrate.
-;; Date 2026-06-30 (accepted 2026-07-01).
-;; ──────────────────────────────────────────────────────────────────────────
-{:id        "2606302205"
+[{:db/id -1, :id        "2606302205"
  :title     "kotoba-genome — unified self-evolving, multi-channel, all-actor-posting organism; retire the keyless observational mirror"
  :status    :accepted
  :date      #inst "2026-06-30"
@@ -90,4 +79,4 @@
  {:keyless-plus-narration   "rejected — directive retires the mirror; keyless cannot converse or self-mint."
   :full-impersonation       "rejected (founder) — conflicts with un-amendable catastrophe term + real-world law (fraud/defamation/privacy)."
   :per-channel-bespoke       "rejected — O(N) hand-built pipelines; D2 registry makes channels O(1)."
-  :two-organisms-separate    "rejected — running-organism-never-learns is the core gap; D1 unifies."}}
+  :two-organisms-separate    "rejected — running-organism-never-learns is the core gap; D1 unifies."}}]

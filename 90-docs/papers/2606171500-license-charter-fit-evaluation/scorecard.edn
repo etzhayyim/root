@@ -1,15 +1,4 @@
-;; License × Charter-fit scorecard — SSoT data for score.bb
-;;
-;; Evaluation of candidate licenses against the etzhayyim constitution
-;; (Mission Charter ADR-2605192100 + Charter Rider v3.1 + CLAUDE.md substrate
-;; boundary). Scores are reasoned judgement (0..10), NOT empirical measurement.
-;; Weights derive from the Charter and MUST sum to 1.0 (asserted by score.bb).
-;;
-;; Axis = the thing the constitution actually demands of a license; the decisive
-;; axis is :c1 (conduct-based exclusion of Non-Aligned Entities, Rider §2) — the
-;; one capability CC/GPL families structurally lack.
-
-{:meta
+[{:db/id -1, :meta
  {:id        "paper-2606171500-license-charter-fit-evaluation"
   :title     "etzhayyim 憲法適合ライセンス評価 — CC/GPL/RAIL/独自の数値比較"
   :date      "2026-06-17"
@@ -119,4 +108,4 @@
   {:key :cc-by-nc
    :label "CC-BY-NC 4.0 (= ImageBind 上流)"
    :family :cc
-   :scores {:c1 2 :c2 0 :c3 4 :c4 7 :c5 1 :c6 6 :c7 2 :c8 8}}]}
+   :scores {:c1 2 :c2 0 :c3 4 :c4 7 :c5 1 :c6 6 :c7 2 :c8 8}}]}]
