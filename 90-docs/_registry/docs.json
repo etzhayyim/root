@@ -23236,12 +23236,12 @@
         "Proposal→presentation pipeline composition (ossekai source+carrier · utsushie render leg · kataribe i18n · kotoba persist)"
       ],
       "related": [
-        "20-actors/hibiki/",
-        "20-actors/utsushie/",
-        "20-actors/ossekai/",
-        "20-actors/kataribe/"
+        "https://github.com/etzhayyim/com-etzhayyim-hibiki",
+        "https://github.com/etzhayyim/com-etzhayyim-utsushie",
+        "https://github.com/etzhayyim/com-etzhayyim-ossekai",
+        "https://github.com/etzhayyim/com-etzhayyim-kataribe"
       ],
-      "last_verified": "2026-06-24",
+      "last_verified": "2026-07-17",
       "supersedes": [],
       "superseded_by": [],
       "amends": [],

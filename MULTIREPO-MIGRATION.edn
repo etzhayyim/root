@@ -59,13 +59,13 @@
     :docs 1561}
    :actor-directories 199
    :actor-existing-independent-repo 126
-   :actor-not-yet-independent 70
+   :actor-not-yet-independent 69
    :actor-not-yet-independent-names
    ["_conformance" "abaki" "ainori" "busshi"
     "com-google-ads" "energy_order" "etzhayyim-bpmn-sdk"
     "etzhayyim-esign" "etzhayyim-organism" "etzhayyim-pregel" "etzhayyim-sdk"
     "etzhayyim-sdk-auth" "etzhayyim-sdk-mock" "etzhayyim-sdk-py" "first-breath"
-    "funamori" "haraedo" "hataori" "hibiki" "hirameki"
+    "funamori" "haraedo" "hataori" "hirameki"
     "hydrogen_electrolysis" "iriai" "iryo" "jinushi" "kafun" "kaiyaku"
     "karakuri" "kiyome" "kotoba-actors-clj" "kotodama" "kotodama-go"
     "kudamori" "kumi" "kuramori" "madomori" "magatama" "masago"
@@ -154,6 +154,20 @@
      :verification {:tests 6 :assertions 16 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only
      :root-consumers 0
+     :next :merge-west-registration-before-root-retirement}
+    "hibiki"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-hibiki"
+     :revision "9e7ec9fa7a8e442926ee329a6b393b98a903fa52"
+     :west-path "orgs/etzhayyim/com-etzhayyim-hibiki"
+     :canonical-format :edn
+     :repository-contracts
+     {etzhayyim/com-etzhayyim-ossekai "728a13cf4a1c4698347ab647fdd7a7238407f9ad"
+      etzhayyim/com-etzhayyim-utsushie "eb1ae5c531df0e2f2aa561260a6c4cd69e67fb6d"
+      etzhayyim/com-etzhayyim-kataribe "02cef52f032bc1333334111dc69accdc1d9a81aa"}
+     :canonicalization #{:jsonld-retired :structured-edn-lexicon}
+     :verification {:tests 15 :assertions 35 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0
      :next :merge-west-registration-before-root-retirement}}
    :pending-independent-repo-merges
    {"isco"
@@ -308,7 +322,7 @@
     :count 126
     :state :merge-root-only-content-before-delete}
    {:class :not-yet-independent-actor
-    :count 70
+    :count 69
     :state :classify-library-or-publish-repo}
    {:class :shared-libraries
     :count 4
