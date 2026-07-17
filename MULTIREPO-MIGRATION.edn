@@ -59,7 +59,7 @@
     :docs 1561}
    :actor-directories 199
    :actor-existing-independent-repo 126
-   :actor-not-yet-independent 34
+   :actor-not-yet-independent 33
    :actor-not-yet-independent-names
    ["etzhayyim-organism"
     "funamori"
@@ -68,7 +68,7 @@
     "kudamori" "kuramori" "madomori" "magatama"
     "matsurigoto" "meyasu" "moyoshi"
     "mst-projector" "niyaku" "okaimono"
-    "saisei" "silicon"
+    "silicon"
     "soma" "sumitsubo" "tate" "tedai"
     "tsubasa" "tsuchifumi" "ugachi" "unspsc" "uzu" "warifu" "yobel"]
    :consolidated ["_conformance" "os" "umisachi" "fleet" "ipaddress" "kouhou" "tashikame"]
@@ -177,6 +177,20 @@
      :canonicalization #{:legacy-local-replace-retired
                          :unused-performer-dependency-retired}
      :verification {:tests 3 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "saisei"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-saisei"
+     :revision "d31b51d50cee48ead69c7cc3faa86b5a59b271af"
+     :west-path "orgs/etzhayyim/com-etzhayyim-saisei"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :root-consumers ["50-infra/saisei-worker"
+                      "70-tools/scripts/saisei-worker/gen-data.cljs"]
+     :consumer-rewiring #{:cljs-classpath :embedded-edn-data :source-links}
+     :verification {:tests 17 :assertions 98 :failures 0 :errors 0
+                    :data-generation :passed
+                    :worker-build :deferred-resource-lock}
      :root-copy :edn-tombstone-only}
     "hydrogen_electrolysis"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hydrogen-electrolysis"

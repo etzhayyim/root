@@ -1,9 +1,9 @@
 # saisei-worker — public API + minimal interactive UI
 
-Cloudflare Worker exposing `20-actors/saisei/methods/{filing_plan,coverage_report}.cljc`
+Cloudflare Worker exposing `orgs/etzhayyim/com-etzhayyim-saisei/saisei/methods/{filing_plan,coverage_report}.cljc`
 (required **verbatim**, unmodified logic — this Worker only adds HTTP routing, a
 JSON wire adapter, and anonymous access logging) as a public HTTP API + a
-one-page interactive UI. See `20-actors/saisei/CLAUDE.md` for the actor's own
+one-page interactive UI. See `orgs/etzhayyim/com-etzhayyim-saisei/manifest.edn` for the actor's canonical
 gates/non-goals — this Worker enforces none of them itself; it's a thin
 transport over code that already enforces G2/G3/G4/G5/G7/G10.
 
@@ -68,13 +68,13 @@ npm run deploy    # wrangler deploy — runs the cljs build first (predeploy hoo
 
 The CLJS core (`cljs/src/saisei_worker/core.cljs`) requires
 `saisei.methods.{edn,filing-plan,coverage-report}` **directly from
-`20-actors/saisei/methods/`** via a `:source-paths` entry in
+`orgs/etzhayyim/com-etzhayyim-saisei/saisei/methods/`** via a `:source-paths` entry in
 `cljs/shadow-cljs.edn` — no duplicated logic. `ui.cljs` and `data_gen.cljs`
 are generated (do not hand-edit):
 
 ```bash
 bb 70-tools/scripts/saisei-worker/gen-ui.bb    # from 50-infra/saisei-worker/ui-src/page.html
-bb 70-tools/scripts/saisei-worker/gen-data.bb  # from 20-actors/saisei/data/*.edn
+nbb 70-tools/scripts/saisei-worker/gen-data.cljs  # from orgs/etzhayyim/com-etzhayyim-saisei/data/*.edn
 ```
 
 Re-run both after editing `ui-src/page.html` or saisei's own `data/*.edn`,

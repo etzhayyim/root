@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npx shadow-cljs release worker",
     "watch": "npx shadow-cljs watch worker",
-    "gen-data": "bb ../../../70-tools/scripts/saisei-worker/gen-data.bb"
+    "gen-data": "nbb ../../../70-tools/scripts/saisei-worker/gen-data.cljs"
   },
   "devDependencies": {
     "shadow-cljs": "^2.28.3"

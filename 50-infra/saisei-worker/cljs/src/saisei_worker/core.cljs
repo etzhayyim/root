@@ -7,7 +7,7 @@
   read-only-public-compute exemption (ADR-2605231525 / clarified by
   ADR-2606072802) without any new governance carve-out. G2/G3/G4/G5/G7/G10 are
   enforced by `saisei.methods.filing-plan` / `saisei.methods.coverage-report`
-  themselves (20-actors/saisei/methods/*.cljc, required verbatim below) — this
+  themselves (orgs/etzhayyim/com-etzhayyim-saisei/saisei/methods/*.cljc) — this
   namespace only adds HTTP routing, a JSON wire adapter, and anonymous
   aggregate access logging (day/route/jurisdiction counts — no per-visitor
   identity, no cookies, no client-side tracking script; Workers Analytics

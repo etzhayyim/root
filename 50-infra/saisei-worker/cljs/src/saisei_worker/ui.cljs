@@ -65,7 +65,7 @@ disclosed 情報を表示します。<strong>これは法律相談ではあり�
 
 <footer>
   Apache 2.0 + etzhayyim Charter Compliance Rider. Source:
-  <a href=\"https://github.com/etzhayyim/root/tree/main/20-actors/saisei\">etzhayyim/root 20-actors/saisei</a>.
+  <a href=\"https://github.com/etzhayyim/com-etzhayyim-saisei\">com-etzhayyim-saisei</a>.
   R0 seed — jp/us/uk/de only; other jurisdictions honestly degrade to
   :unknown-jurisdiction (G10). No cookies, no tracking script — access is
   logged only as anonymous aggregate counts (route/day), never per-visitor.
