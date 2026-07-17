@@ -1,0 +1,11 @@
+{:migration/status :moved
+ :migration/date "2026-07-17"
+ :migration/repository "https://github.com/etzhayyim/com-etzhayyim-tsukuroi"
+ :migration/revision "eb461f9075d4aceaa895e254dc2c53dc283a9de8"
+ :migration/west-path "orgs/etzhayyim/com-etzhayyim-tsukuroi"
+ :migration/canonical-metadata "manifest.edn"
+ :migration/canonical-identity "identity.edn"
+ :migration/canonical-dependencies "dependencies.edn"
+ :migration/canonical-lexicons "lex"
+ :migration/external-wire-lexicons "wire"
+ :migration/canonical-format :edn}

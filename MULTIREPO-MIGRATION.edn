@@ -345,6 +345,30 @@
                          :atproto-json-retained-as-wire}
      :verification {:tests 9 :assertions 50 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
+    "tsukuroi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-tsukuroi"
+     :revision "eb461f9075d4aceaa895e254dc2c53dc283a9de8"
+     :west-path "orgs/etzhayyim/com-etzhayyim-tsukuroi"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root "4c7bf05f104a09d81a13bed8b7d488726497eb10"
+      com.etzhayyim/akuma "b9daf7cbe828689f13bfaaa66d54a56c288189a5"
+      com.etzhayyim/chigiri "e08560129675106e0bb4b70e23769ff07a711ce7"}
+     :root-consumers ["70-tools/scripts/audit/test_tsukuroi_invariants.py"]
+     :consumer-rewiring #{:flat-west-path :environment-override :wire-validation-only}
+     :actor-owned-contracts ["lex/closureAttestation.edn"
+                             "lex/patchProposal.edn"
+                             "lex/patchValidationResult.edn"
+                             "lex/remediationMandate.edn"
+                             "lex/silenTsukuroiReview.edn"]
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :shell-runner-retired :actor-lexicons-edn-canonical
+                         :cross-actor-dependencies-pinned
+                         :atproto-json-retained-as-wire}
+     :verification {:tests 12 :assertions 32 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "hydrogen_electrolysis"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hydrogen-electrolysis"
      :revision "da4fab805b6aa8606dab36882de3186482f55f34"

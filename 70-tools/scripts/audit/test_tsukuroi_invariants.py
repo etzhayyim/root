@@ -27,18 +27,23 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import os
 from pathlib import Path
 
 import pytest
 
 _REPO = Path(__file__).resolve().parents[3]
-_LEX = _REPO / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "tsukuroi"
+_TSUKUROI = Path(os.environ.get(
+    "ETZHAYYIM_TSUKUROI_ROOT",
+    _REPO.parent / "com-etzhayyim-tsukuroi",
+))
+_LEX = _TSUKUROI / "wire"
 _MANDATE = _LEX / "remediationMandate.json"
 _PROPOSAL = _LEX / "patchProposal.json"
 _VALIDATION = _LEX / "patchValidationResult.json"
 _CLOSURE = _LEX / "closureAttestation.json"
 _SILEN = _LEX / "silenTsukuroiReview.json"
-# manifest invariants -> 20-actors/tsukuroi/methods/test_manifest_invariants.cljc (jsonld retired)
+# Canonical manifest and lexicon invariants live in the standalone actor's EDN tests.
 _CELLS = _REPO / "20-actors" / "kotodama" / "cells"
 
 _CELL_NAMES = [
@@ -191,4 +196,3 @@ class TestManifestConsistency:
     def test_each_lexicon_id_matches_namespace(self):
         for p in _LEX.glob("*.json"):
             assert _load(p)["id"] == f"com.etzhayyim.tsukuroi.{p.stem}"
-
