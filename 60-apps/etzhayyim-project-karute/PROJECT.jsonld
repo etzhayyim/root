@@ -6,7 +6,7 @@
   "actorDid": "did:web:karute.etzhayyim.com",
   "nanoid": "karu7t3e",
   "tier": "T1",
-  "actorManifest": "20-actors/karute/actor-manifest.jsonld",
+  "actorManifest": "orgs/etzhayyim/com-etzhayyim-karute/manifest.edn",
   "lexicons": [
     "00-contracts/lexicons/com/etzhayyim/apps/karute/",
     "00-contracts/lexicons/com/etzhayyim/karute/"

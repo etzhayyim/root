@@ -134,7 +134,7 @@ iryo/
 
 ## 関連
 
-- `20-actors/karute/` — 電子カルテ EMR (請求の handoff 元)
+- `orgs/etzhayyim/com-etzhayyim-karute/` — 電子カルテ EMR (請求の handoff 元)
 - `90-docs/adr/2606074000-iryo-rezept-claims-engine-charter.md` — Master ADR
 - `90-docs/adr/2605231100-karute-emr-phase1.md` — karute EMR Phase 1
 - `90-docs/adr/2605181100-mst-encrypted-records-signal-keywrap.md` — PHI envelope

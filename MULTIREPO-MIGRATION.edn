@@ -307,6 +307,27 @@
                          :atproto-json-retained-as-wire}
      :verification {:tests 19 :assertions 116 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
+    "karute"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-karute"
+     :revision "aaae559821c144720302efa6c244a95fd7b2885e"
+     :west-path "orgs/etzhayyim/com-etzhayyim-karute"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root "b888f46142d7c13c1d0cf8e686f493e8e83de4f9"}
+     :actor-owned-contracts ["lex/carePlan.edn" "lex/condition.edn"
+                             "lex/dispenseRecord.edn" "lex/encounter.edn"
+                             "lex/homeVisit.edn" "lex/homecareEpisode.edn"
+                             "lex/medicationRequest.edn" "lex/observation.edn"
+                             "lex/patient.edn" "lex/serviceRequest.edn"
+                             "lex/soapNote.edn"]
+     :canonicalization #{:root-schema-merged :namespace-root-corrected
+                         :shell-runner-retired :deployment-paths-rewired
+                         :actor-lexicons-edn-canonical
+                         :atproto-json-retained-as-wire}
+     :verification {:tests 13 :assertions 391 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "hydrogen_electrolysis"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hydrogen-electrolysis"
      :revision "da4fab805b6aa8606dab36882de3186482f55f34"
