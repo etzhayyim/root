@@ -1,0 +1,10 @@
+{:migration/status :moved
+ :migration/date "2026-07-17"
+ :migration/repository "https://github.com/etzhayyim/com-etzhayyim-gtin"
+ :migration/revision "4c75ca22363ffbab192fac3a9aa576a6deccd215"
+ :migration/west-path "orgs/etzhayyim/com-etzhayyim-gtin"
+ :migration/canonical-metadata "manifest.edn"
+ :migration/canonical-identity "identity.edn"
+ :migration/canonical-deployment "kotoba.app.edn"
+ :migration/external-wire-artifact ".well-known/did.json"
+ :migration/canonical-format :edn}
