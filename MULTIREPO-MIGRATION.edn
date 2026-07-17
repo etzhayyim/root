@@ -645,6 +645,28 @@
                          :external-json-retained-as-wire}
      :verification {:tests 25 :assertions 80 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
+    "kizuna"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kizuna"
+     :revision "3eabf7732beedfd3ce0cf1b11e11b409734a63ab"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kizuna"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root {:revision "8e10be3dcdbf7d3ee8c63dc5539c18fb2546ba13"
+                      :paths ["90-docs/adr"]}
+      com.etzhayyim/kaname "5e390fb341c4e5f27777f010cba55c463d3e152b"
+      com.etzhayyim/ossekai "d21a056aba4c4d535ab9f556ac5beb34c4ad548d"
+      org.kotoba-lang/kototama "65899deed4fb9cfa3cdfed9d21130c91982d8cd3"}
+     :actor-owned-contracts ["actor.edn" "schema.edn" "kotoba.app.edn"
+                             "data/seed-interactions.kotoba.edn"]
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :manifest-jsonld-retired :seed-datoms-preserved
+                         :kototama-flat-west-path-rewired
+                         :cross-actor-dependencies-pinned
+                         :did-registry-schema-path-rewired}
+     :verification {:tests 20 :assertions 148 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "hydrogen_electrolysis"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hydrogen-electrolysis"
      :revision "da4fab805b6aa8606dab36882de3186482f55f34"

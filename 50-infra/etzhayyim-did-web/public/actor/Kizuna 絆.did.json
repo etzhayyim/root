@@ -34,7 +34,7 @@
     "wasmCid": null,
     "execModel": "service",
     "primaryLexicon": "com.etzhayyim.kizuna",
-    "primarySchema": "20-actors/kizuna/data/seed-interactions.kotoba.edn",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-kizuna/data/seed-interactions.kotoba.edn",
     "note": "verificationMethod empty — on-chain ERC725 mirror pending; did:web trust root = TLS (no server-minted key, ADR-2605231525)"
   }
 }

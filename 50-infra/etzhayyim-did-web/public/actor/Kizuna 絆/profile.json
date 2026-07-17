@@ -20,7 +20,7 @@
     "status": "r0",
     "adr": [],
     "primaryLexicon": "com.etzhayyim.kizuna",
-    "primarySchema": "20-actors/kizuna/data/seed-interactions.kotoba.edn",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-kizuna/data/seed-interactions.kotoba.edn",
     "didDocument": "https://etzhayyim.com/actor/Kizuna 絆/did.json",
     "source": "kotoba"
   }

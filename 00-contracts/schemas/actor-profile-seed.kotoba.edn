@@ -1810,7 +1810,7 @@
    :actor/ui-type :appview
    :actor/description ""
    :actor/primary-lexicon "com.etzhayyim.kizuna"
-   :actor/primary-schema "20-actors/kizuna/data/seed-interactions.kotoba.edn"
+   :actor/primary-schema "orgs/etzhayyim/com-etzhayyim-kizuna/data/seed-interactions.kotoba.edn"
    :actor/created-at "2026-06-01"
    :actor/vm []
    :actor/service [{"id" "did:web:etzhayyim.com:actor:Kizuna 絆#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}

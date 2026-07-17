@@ -879,7 +879,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     displayName:
       "Kizuna — Actor-Social Self-Evolution + System-of-Systems Optimization",
     primaryLexicon: "com.etzhayyim.kizuna",
-    primarySchema: "20-actors/kizuna/data/seed-interactions.kotoba.edn",
+    primarySchema: "orgs/etzhayyim/com-etzhayyim-kizuna/data/seed-interactions.kotoba.edn",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:kizuna#atproto_pds",

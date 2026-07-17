@@ -23,7 +23,7 @@
   "performerType": "system",
   "uiType": "appview",
   "primaryLexicon": "com.etzhayyim.kizuna",
-  "primarySchema": "20-actors/kizuna/data/seed-interactions.kotoba.edn",
+  "primarySchema": "orgs/etzhayyim/com-etzhayyim-kizuna/data/seed-interactions.kotoba.edn",
   "createdAt": "2026-06-01",
   "source": "kotoba"
 }
