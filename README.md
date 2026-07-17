@@ -8,7 +8,8 @@ protocols, applications, infrastructure services, tools, and datasets are mainta
 independent repositories in the superproject west manifest. The workspace intentionally
 keeps flat checkout paths such as `orgs/etzhayyim/com-etzhayyim-<actor>`; numbered
 directories in this repository are legacy monorepo staging areas being drained. See
-[`MULTIREPO-MIGRATION.md`](MULTIREPO-MIGRATION.md).
+[`MULTIREPO-MIGRATION.edn`](MULTIREPO-MIGRATION.edn). The EDN document is
+canonical; this README is only a human-facing pointer.
 
 ## Identity
 

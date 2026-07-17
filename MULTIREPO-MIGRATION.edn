@@ -1,0 +1,94 @@
+[{:doc/id "etzhayyim-flat-west-multirepo-migration"
+  :doc/title "etzhayyim flat west multirepo migration"
+  :doc/doc_type "migration-plan"
+  :doc/source-format "edn"
+  :doc/status "active"
+  :doc/date "2026-07-17"
+  :doc/last_verified "2026-07-17"
+  :doc/authoritative true
+  :doc/authoritative_for
+  ["flat west path policy"
+   "legacy numbered-layer removal gates"
+   "remaining root migration inventory"]
+  :migration/target
+  {:path-policy :flat-org-root
+   :paths ["orgs/etzhayyim/<repo>" "orgs/gftdcojp/<repo>"]
+   :categories #{:actor :engine :protocol :app :infra :tool :data :docs :governance}
+   :category-location :metadata
+   :numbered-directories :legacy-drain-only}
+  :migration/shared-library-test
+  {:all-of
+   ["two or more independent repositories consume the same API"
+    "no actor DID, product policy, deployment target, or dataset ownership"
+    "versionable and testable without the old root classpath"]
+   :known-prerequisites
+   ["kotoba.datom" "etzhayyim.ie-flow.*" "moyai.ledger"]}
+  :migration/removal-gates
+  [:canonical-west-repo
+   :all-load-bearing-content-contained
+   :root-consumers-repointed
+   :cross-repo-dependencies-explicit-and-pinned
+   :fleet-namespace-resolves-when-applicable
+   :standalone-tests-green
+   :edn-moved-tombstone]
+  :migration/order
+  [:freeze-numbered-layers
+   :extract-common-libraries
+   :consolidate-non-fleet-duplicates
+   :repoint-fleet-classpath-to-west-checkouts
+   :consolidate-fleet-actors
+   :publish-remaining-components
+   :move-cross-repo-governance
+   :retire-empty-numbered-layers]
+  :migration/inventory
+  {:snapshot-date "2026-07-17"
+   :tracked-files-by-legacy-layer
+   {:contracts 14343
+    :protocol 85
+    :actors 5852
+    :graph 32
+    :engine 357
+    :clients 1
+    :infra 9936
+    :apps 40766
+    :tools 2071
+    :data 574
+    :docs 1561}
+   :actor-directories 203
+   :actor-existing-independent-repo 129
+   :actor-not-yet-independent 74
+   :actor-not-yet-independent-names
+   ["_conformance" "abaki" "ainori" "ameno" "amime" "atsurae" "busshi"
+    "com-google-ads" "denwaban" "energy_order" "etzhayyim-bpmn-sdk"
+    "etzhayyim-esign" "etzhayyim-organism" "etzhayyim-pregel" "etzhayyim-sdk"
+    "etzhayyim-sdk-auth" "etzhayyim-sdk-mock" "etzhayyim-sdk-py" "first-breath"
+    "funamori" "haraedo" "hataori" "hibiki" "hirameki"
+    "hydrogen_electrolysis" "iriai" "iryo" "jinushi" "kafun" "kaiyaku"
+    "karakuri" "kiyome" "kotoba-actors-clj" "kotodama" "kotodama-go"
+    "kudamori" "kumi" "kuramori" "madomori" "magatama" "masago"
+    "matsurigoto" "meibo" "meyasu" "minori" "mio" "monosashi" "moyoshi"
+    "mst-projector" "narashi" "niyaku" "okaimono" "okibi" "organisms"
+    "post_quantum_compat" "saisei" "salesforce-compat" "shukubo" "silicon"
+    "soma" "stripe-compat" "sumitsubo" "tate" "tawami" "tedai" "toi"
+    "tsubasa" "tsuchifumi" "ugachi" "unspsc" "uzu" "warifu" "yobel"
+    "yudane"]
+   :first-consolidated ["os" "umisachi"]
+   :content-contained-but-blocked
+   {"karute" :root-relative-actor-manifest-consumer}}
+  :migration/remaining-work
+  [{:class :existing-repo-overlap
+    :count 129
+    :state :merge-root-only-content-before-delete}
+   {:class :not-yet-independent-actor
+    :count 74
+    :state :classify-library-or-publish-repo}
+   {:class :shared-libraries
+    :count 3
+    :state :extract-and-pin-before-dependent-actor-removal}
+   {:class :fleet-actors
+    :state :repoint-runner-classpath-and-verify-remote-fire}
+   {:class :other-numbered-layers
+    :state :per-component-classification-required}]
+  :doc/body
+  "The EDN fields in this document are canonical. README and CLAUDE files only point to or enforce this record. Content containment is checked by hash, not by filename. A root-only implementation or dataset blocks deletion until deliberately merged into its owning repository."
+  :db/id -1}]
