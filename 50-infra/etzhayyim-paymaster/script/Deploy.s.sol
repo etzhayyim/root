@@ -11,6 +11,8 @@ contract Deploy is Script {
     function run() external returns (EtzhayyimPaymaster) {
         uint256 pk = vm.envUint("DEPLOYER_PRIVATE_KEY");
         address owner = vm.envAddress("PAYMASTER_OWNER"); // 2-of-3 Safe address
+        // Off-chain paymaster operator key that pre-approves sponsored UserOps (fix #1519).
+        address verifyingSigner = vm.envAddress("PAYMASTER_VERIFYING_SIGNER");
         address initialFactory = vm.envOr("ALLOWED_FACTORY", address(0));
 
         address[] memory initialFactories = new address[](initialFactory == address(0) ? 0 : 1);
@@ -19,10 +21,12 @@ contract Deploy is Script {
         }
 
         vm.startBroadcast(pk);
-        EtzhayyimPaymaster pm = new EtzhayyimPaymaster(IEntryPoint(ENTRY_POINT_V07), owner, initialFactories);
+        EtzhayyimPaymaster pm =
+            new EtzhayyimPaymaster(IEntryPoint(ENTRY_POINT_V07), owner, verifyingSigner, initialFactories);
         vm.stopBroadcast();
         console2.log("EtzhayyimPaymaster deployed at:", address(pm));
         console2.log("Owner (Safe):", owner);
+        console2.log("Verifying signer (operator key):", verifyingSigner);
         if (initialFactory != address(0)) {
             console2.log("Initial allowed factory:", initialFactory);
         }
