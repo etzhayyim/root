@@ -84,7 +84,23 @@
      :canonical-metadata "library.edn"
      :root-generic-consumers 140
      :verification {:tests 3 :assertions 11 :failures 0 :errors 0}
-     :initial-rewired-consumers ["fuchi" "kenchi"]}}
+     :initial-rewired-consumers
+     ["fuchi" "kenchi" "hokorobi" "hoshimori" "inochi"]}
+    "kotoba.datom"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kotoba-datom"
+     :revision "3c4b3b92234e59ba285119fd8b2ca4c2ee172ff8"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kotoba-datom"
+     :canonical-metadata "library.edn"
+     :verification {:tests 5 :assertions 25 :failures 0 :errors 0}}
+    "etzhayyim.ie-flow.*"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-ie-flow"
+     :revision "35d36d912c9596dbc5094947b60202d9abdf61e6"
+     :west-path "orgs/etzhayyim/com-etzhayyim-ie-flow"
+     :canonical-metadata "library.edn"
+     :depends-on {"kotoba.datom" "3c4b3b92234e59ba285119fd8b2ca4c2ee172ff8"}
+     :excluded-root-owned-application "etzhayyim.ie-flow.scoreboard"
+     :verification {:tests 67 :assertions 247 :failures 0 :errors 0}
+     :initial-rewired-consumers ["hokorobi" "hoshimori" "inochi"]}}
    :content-contained-but-blocked
    {"karute" :root-relative-actor-manifest-consumer}
    :pending-independent-repo-merges
@@ -130,7 +146,7 @@
      ["nested deployment values from encoded strings to structured EDN"
       "KQE host dependency to explicit :cap/kqe manifest requirement"
       "standalone repository test entry point"]
-    :canonical-format :edn
+     :canonical-format :edn
      :verification {:tests 11 :assertions 211 :failures 0 :errors 0}
      :next :delete-root-copy-after-merge-and-west-pin}
     "kenchi"
@@ -150,6 +166,39 @@
      {:charter {:tests 6 :assertions 21 :failures 0 :errors 0}
       :social {:tests 2 :assertions 8 :failures 0 :errors 0}
       :murakumo {:tests 9 :assertions 96 :failures 0 :errors 0}}
+     :next :delete-root-copy-after-merge-and-west-pin}
+    "hokorobi"
+    {:pull-request "https://github.com/etzhayyim/com-etzhayyim-hokorobi/pull/3"
+     :commit "2975c9a"
+     :moves ["manifest.edn" "src/hokorobi" "test/hokorobi"]
+     :rewires
+     ["root-relative resources to repository-local paths"
+      "social membrane to SHA-pinned shared library"
+      "IE-flow and Kotoba Datom to SHA-pinned shared libraries"]
+     :canonical-format :edn
+     :verification {:tests 36 :assertions 257 :failures 0 :errors 0}
+     :next :delete-root-copy-after-merge-and-west-pin}
+    "hoshimori"
+    {:pull-request "https://github.com/etzhayyim/com-etzhayyim-hoshimori/pull/3"
+     :commit "d291acc"
+     :moves ["manifest.edn" "src/hoshimori" "test/hoshimori"]
+     :rewires
+     ["root-relative resources to repository-local paths"
+      "social membrane to SHA-pinned shared library"
+      "IE-flow and Kotoba Datom to SHA-pinned shared libraries"]
+     :canonical-format :edn
+     :verification {:tests 41 :assertions 461 :failures 0 :errors 0}
+     :next :delete-root-copy-after-merge-and-west-pin}
+    "inochi"
+    {:pull-request "https://github.com/etzhayyim/com-etzhayyim-inochi/pull/3"
+     :commit "2c98c38"
+     :moves ["manifest.edn" "src/inochi" "test/inochi"]
+     :rewires
+     ["root-relative resources to repository-local paths"
+      "social membrane to SHA-pinned shared library"
+      "IE-flow and Kotoba Datom to SHA-pinned shared libraries"]
+     :canonical-format :edn
+     :verification {:tests 36 :assertions 287 :failures 0 :errors 0}
      :next :delete-root-copy-after-merge-and-west-pin}}}
   :migration/remaining-work
   [{:class :existing-repo-overlap
@@ -160,8 +209,8 @@
     :state :classify-library-or-publish-repo}
    {:class :shared-libraries
     :count 4
-    :extracted 1
-    :remaining 3
+    :extracted 3
+    :remaining 1
     :state :extract-and-pin-before-dependent-actor-removal}
    {:class :fleet-actors
     :state :repoint-runner-classpath-and-verify-remote-fire}
