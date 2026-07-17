@@ -1,0 +1,9 @@
+[{:db/id -1
+  :migration/kind :moved-tombstone
+  :migration/source "20-actors/minori"
+  :migration/canonical-repo "https://github.com/etzhayyim/com-etzhayyim-minori"
+  :migration/west-path "orgs/etzhayyim/com-etzhayyim-minori"
+  :migration/revision "c22694fafb1ccc27a6c8ad6f0c748adac7cb3bc5"
+  :migration/date "2026-07-17"
+  :migration/runtime-inputs :explicitly-injected
+  :migration/authoritative true}]

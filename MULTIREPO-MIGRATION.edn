@@ -59,14 +59,14 @@
     :docs 1561}
    :actor-directories 199
    :actor-existing-independent-repo 126
-   :actor-not-yet-independent 38
+   :actor-not-yet-independent 37
    :actor-not-yet-independent-names
    ["etzhayyim-esign" "etzhayyim-organism"
     "funamori"
     "hydrogen_electrolysis" "iriai" "iryo" "jinushi" "kafun" "kaiyaku"
     "karakuri" "kiyome" "kotoba-actors-clj" "kotodama" "kotodama-go"
     "kudamori" "kuramori" "madomori" "magatama"
-    "matsurigoto" "meyasu" "minori" "moyoshi"
+    "matsurigoto" "meyasu" "moyoshi"
     "mst-projector" "niyaku" "okaimono"
     "saisei" "silicon"
     "soma" "sumitsubo" "tate" "tedai"
@@ -147,6 +147,18 @@
      :category :actor
      :canonical-format :edn
      :verification {:tests 17 :assertions 72 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "minori"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-minori"
+     :revision "c22694fafb1ccc27a6c8ad6f0c748adac7cb3bc5"
+     :west-path "orgs/etzhayyim/com-etzhayyim-minori"
+     :category :actor
+     :canonical-format :edn
+     :canonicalization #{:structured-system-edn :encoded-edn-retired}
+     :runtime-inputs #{:valuation :system-of-systems :scoreboard :capture-snapshot}
+     :runtime-input-mode :environment-or-explicit-argument
+     :verification {:checks 47 :failures 0 :errors 0
+                    :heartbeat :passed :ledger-chain :verified}
      :root-copy :edn-tombstone-only}
     "masago"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-masago"
