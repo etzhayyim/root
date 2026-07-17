@@ -1,0 +1,8 @@
+[{:db/id -1
+  :migration/kind :moved-tombstone
+  :migration/source "20-actors/stripe-compat"
+  :migration/canonical-repo "https://github.com/kotoba-lang/com-stripe"
+  :migration/west-path "orgs/kotoba-lang/com-stripe"
+  :migration/revision "100b21c857a8142c6e339adbab33f76d1fd74688"
+  :migration/date "2026-07-17"
+  :migration/authoritative true}]

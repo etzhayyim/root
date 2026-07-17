@@ -59,7 +59,7 @@
     :docs 1561}
    :actor-directories 199
    :actor-existing-independent-repo 126
-   :actor-not-yet-independent 51
+   :actor-not-yet-independent 48
    :actor-not-yet-independent-names
    ["etzhayyim-bpmn-sdk"
     "etzhayyim-esign" "etzhayyim-organism" "etzhayyim-sdk-py"
@@ -69,8 +69,8 @@
     "kudamori" "kumi" "kuramori" "madomori" "magatama" "masago"
     "matsurigoto" "meibo" "meyasu" "minori" "monosashi" "moyoshi"
     "mst-projector" "narashi" "niyaku" "okaimono"
-    "post_quantum_compat" "saisei" "salesforce-compat" "shukubo" "silicon"
-    "soma" "stripe-compat" "sumitsubo" "tate" "tedai"
+    "saisei" "shukubo" "silicon"
+    "soma" "sumitsubo" "tate" "tedai"
     "tsubasa" "tsuchifumi" "ugachi" "unspsc" "uzu" "warifu" "yobel"]
    :consolidated ["_conformance" "os" "umisachi" "fleet" "ipaddress" "kouhou" "tashikame"]
    :consolidation-details
@@ -115,13 +115,43 @@
    :content-contained-but-blocked
    {"karute" :root-relative-actor-manifest-consumer}
    :inventory-corrections
-   {"ameno"
+   {"compat-batch-count"
+    {:previous-count 844
+     :verified-count 1025
+     :canonical-inventory "20-actors/COMPAT-MOVED.edn"
+     :reason :markdown-heading-count-did-not-match-table-rows}
+    "ameno"
     {:previous-class :not-yet-independent-actor
      :corrected-class :existing-repo-overlap
      :repository "https://github.com/etzhayyim/com-etzhayyim-ameno"
      :reason :github-repository-existed-at-verification}}
   :newly-independent-repositories
-   {"etzhayyim-sdk"
+   {"post_quantum_compat"
+    {:repository "https://github.com/kotoba-lang/com-post-quantum"
+     :revision "cfb65453fb8be733ef8000f3ce3b2b387226e19a"
+     :west-path "orgs/kotoba-lang/com-post-quantum"
+     :category :compat-library
+     :canonical-format :edn
+     :external-wire-formats #{:openapi-json :actor-manifest-json}
+     :verification {:clojure-tests 16 :assertions 105 :python-tests 8 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "salesforce-compat"
+    {:repository "https://github.com/kotoba-lang/com-salesforce"
+     :revision "627c5707acc4e37baba99c5a247c3d5d2e7fe461"
+     :west-path "orgs/kotoba-lang/com-salesforce"
+     :category :compat-library
+     :canonical-format :edn
+     :verification {:tests 5 :assertions 98 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "stripe-compat"
+    {:repository "https://github.com/kotoba-lang/com-stripe"
+     :revision "100b21c857a8142c6e339adbab33f76d1fd74688"
+     :west-path "orgs/kotoba-lang/com-stripe"
+     :category :compat-library
+     :canonical-format :edn
+     :verification {:tests 5 :assertions 115 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "etzhayyim-sdk"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-sdk"
      :revision "12314a0cc5ac2feb49dd9789d5c002398acb6988"
      :west-path "orgs/etzhayyim/com-etzhayyim-sdk"
