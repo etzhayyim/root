@@ -1,0 +1,19 @@
+{:migration/id :denwaban-independent-repository
+ :migration/state :moved
+ :migration/source "20-actors/denwaban"
+ :migration/repository "https://github.com/etzhayyim/com-etzhayyim-denwaban"
+ :migration/revision "9b953a15e261b0852bdc6396d773e6f43eb6e851"
+ :migration/west-path "orgs/etzhayyim/com-etzhayyim-denwaban"
+ :migration/category :actor
+ :migration/canonical-metadata "manifest.edn"
+ :migration/dependencies
+ {com.junkawasaki/koe-clj "ceca39b877f3285f4bacbca9270190670b0d5c90"
+  com.etzhayyim/social-publication "e8127d0661284b1c12ce1b216c84b5ed2db619ab"}
+ :migration/repository-contracts
+ {etzhayyim/com-etzhayyim-yotei "bf3dac0213197a45a64ea8f566fb61700432672e"
+  kotoba-lang/net "86475deaa761f91435262b7d60861d07c68abdb8"}
+ :migration/unimplemented-port-bindings
+ #{:twilio-compat :whisper-compat :elevenlabs-compat}
+ :migration/verification
+ {:tests 6 :assertions 16 :failures 0 :errors 0 :root-consumers 0}
+ :migration/recovery :git-history}

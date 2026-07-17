@@ -59,10 +59,10 @@
     :docs 1561}
    :actor-directories 199
    :actor-existing-independent-repo 126
-   :actor-not-yet-independent 71
+   :actor-not-yet-independent 70
    :actor-not-yet-independent-names
    ["_conformance" "abaki" "ainori" "busshi"
-    "com-google-ads" "denwaban" "energy_order" "etzhayyim-bpmn-sdk"
+    "com-google-ads" "energy_order" "etzhayyim-bpmn-sdk"
     "etzhayyim-esign" "etzhayyim-organism" "etzhayyim-pregel" "etzhayyim-sdk"
     "etzhayyim-sdk-auth" "etzhayyim-sdk-mock" "etzhayyim-sdk-py" "first-breath"
     "funamori" "haraedo" "hataori" "hibiki" "hirameki"
@@ -135,6 +135,23 @@
       com.etzhayyim/social-publication "e8127d0661284b1c12ce1b216c84b5ed2db619ab"}
      :verification {:tests 12 :assertions 44 :failures 0 :errors 0
                     :variants 176 :ledger-datoms 65}
+     :root-copy :edn-tombstone-only
+     :root-consumers 0
+     :next :merge-west-registration-before-root-retirement}
+    "denwaban"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-denwaban"
+     :revision "9b953a15e261b0852bdc6396d773e6f43eb6e851"
+     :west-path "orgs/etzhayyim/com-etzhayyim-denwaban"
+     :canonical-format :edn
+     :depends-on
+     {com.junkawasaki/koe-clj "ceca39b877f3285f4bacbca9270190670b0d5c90"
+      com.etzhayyim/social-publication "e8127d0661284b1c12ce1b216c84b5ed2db619ab"}
+     :repository-contracts
+     {etzhayyim/com-etzhayyim-yotei "bf3dac0213197a45a64ea8f566fb61700432672e"
+      kotoba-lang/net "86475deaa761f91435262b7d60861d07c68abdb8"}
+     :unimplemented-port-bindings
+     #{:twilio-compat :whisper-compat :elevenlabs-compat}
+     :verification {:tests 6 :assertions 16 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only
      :root-consumers 0
      :next :merge-west-registration-before-root-retirement}}
@@ -291,7 +308,7 @@
     :count 126
     :state :merge-root-only-content-before-delete}
    {:class :not-yet-independent-actor
-    :count 71
+    :count 70
     :state :classify-library-or-publish-repo}
    {:class :shared-libraries
     :count 4
