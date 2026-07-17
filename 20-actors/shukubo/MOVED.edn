@@ -1,0 +1,8 @@
+[{:db/id -1
+  :migration/kind :moved-tombstone
+  :migration/source "20-actors/shukubo"
+  :migration/canonical-repo "https://github.com/etzhayyim/com-etzhayyim-shukubo"
+  :migration/west-path "orgs/etzhayyim/com-etzhayyim-shukubo"
+  :migration/revision "5d9617a4b2db8a608c164618345b5b00fe1f00ab"
+  :migration/date "2026-07-17"
+  :migration/authoritative true}]

@@ -59,16 +59,16 @@
     :docs 1561}
    :actor-directories 199
    :actor-existing-independent-repo 126
-   :actor-not-yet-independent 44
+   :actor-not-yet-independent 42
    :actor-not-yet-independent-names
    ["etzhayyim-esign" "etzhayyim-organism"
     "funamori"
     "hydrogen_electrolysis" "iriai" "iryo" "jinushi" "kafun" "kaiyaku"
     "karakuri" "kiyome" "kotoba-actors-clj" "kotodama" "kotodama-go"
-    "kudamori" "kumi" "kuramori" "madomori" "magatama" "masago"
+    "kudamori" "kuramori" "madomori" "magatama" "masago"
     "matsurigoto" "meibo" "meyasu" "minori" "monosashi" "moyoshi"
     "mst-projector" "narashi" "niyaku" "okaimono"
-    "saisei" "shukubo" "silicon"
+    "saisei" "silicon"
     "soma" "sumitsubo" "tate" "tedai"
     "tsubasa" "tsuchifumi" "ugachi" "unspsc" "uzu" "warifu" "yobel"]
    :consolidated ["_conformance" "os" "umisachi" "fleet" "ipaddress" "kouhou" "tashikame"]
@@ -123,9 +123,32 @@
     {:previous-class :not-yet-independent-actor
      :corrected-class :existing-repo-overlap
      :repository "https://github.com/etzhayyim/com-etzhayyim-ameno"
-     :reason :github-repository-existed-at-verification}}
+     :reason :github-repository-existed-at-verification}
+    "kumi"
+    {:previous-class :not-yet-independent-actor
+     :corrected-class :existing-repo-incomplete-overlap
+     :repository "https://github.com/etzhayyim/com-etzhayyim-kumi"
+     :previous-repository-content ["src/kumi/murakumo.cljc"]
+     :resolution :merged-complete-legacy-actor-history}}
   :newly-independent-repositories
-   {"haraedo"
+   {"kumi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kumi"
+     :revision "75c53c6f1807a60d9ab7f2b0a35ad17725f99a67"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kumi"
+     :category :actor
+     :canonical-format :edn
+     :migration-mode :merge-legacy-history-into-existing-repository
+     :verification {:tests 11 :assertions 76 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "shukubo"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-shukubo"
+     :revision "5d9617a4b2db8a608c164618345b5b00fe1f00ab"
+     :west-path "orgs/etzhayyim/com-etzhayyim-shukubo"
+     :category :actor
+     :canonical-format :edn
+     :verification {:tests 20 :assertions 47 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "haraedo"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-haraedo"
      :revision "6a8213df41d85a72918ecedd42faaea526601cbe"
      :west-path "orgs/etzhayyim/com-etzhayyim-haraedo"

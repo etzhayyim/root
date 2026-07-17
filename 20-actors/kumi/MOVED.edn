@@ -1,0 +1,8 @@
+[{:db/id -1
+  :migration/kind :moved-tombstone
+  :migration/source "20-actors/kumi"
+  :migration/canonical-repo "https://github.com/etzhayyim/com-etzhayyim-kumi"
+  :migration/west-path "orgs/etzhayyim/com-etzhayyim-kumi"
+  :migration/revision "75c53c6f1807a60d9ab7f2b0a35ad17725f99a67"
+  :migration/date "2026-07-17"
+  :migration/authoritative true}]

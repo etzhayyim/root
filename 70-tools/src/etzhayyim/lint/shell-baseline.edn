@@ -140,7 +140,7 @@
  "20-actors/shionome/wasm/build.sh"
  "20-actors/shiori/run_tests.sh"
  "20-actors/shomei/run_tests.sh"
- "20-actors/shukubo/run_tests.sh"
+ "orgs/etzhayyim/com-etzhayyim-shukubo/run_tests.sh"
  "20-actors/silicon/kotoba/deploy.sh"
  "20-actors/silicon/run_tests.sh"
  "20-actors/silicon_photonics-compat/run_tests.sh"
