@@ -1,0 +1,11 @@
+{:migration/status :moved
+ :migration/date "2026-07-17"
+ :migration/repository "https://github.com/etzhayyim/com-etzhayyim-suimin"
+ :migration/revision "5b8cfef3de2a5b7027a14f8a8acf033151334b5f"
+ :migration/west-path "orgs/etzhayyim/com-etzhayyim-suimin"
+ :migration/canonical-metadata "manifest.edn"
+ :migration/canonical-identity "identity.edn"
+ :migration/canonical-dependencies "dependencies.edn"
+ :migration/canonical-lexicons "lex"
+ :migration/external-wire-lexicons "wire"
+ :migration/canonical-format :edn}

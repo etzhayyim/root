@@ -401,6 +401,31 @@
                          :atproto-json-retained-as-wire}
      :verification {:tests 12 :assertions 42 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
+    "suimin"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-suimin"
+     :revision "5b8cfef3de2a5b7027a14f8a8acf033151334b5f"
+     :west-path "orgs/etzhayyim/com-etzhayyim-suimin"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root {:revision "a213f6ef3c341bf499bb66942ab44019459b5b99"
+                      :paths ["20-actors/magatama/cells" "90-docs/adr"]}
+      com.etzhayyim/mitate "5900536cdda2becb947fda4c67dea84365d2239d"
+      com.etzhayyim/yakushi "5b2389671defc00ef8c7cfa522b9bc96b3ac192f"}
+     :actor-owned-contracts ["lex/conditionProfile.edn"
+                             "lex/disclaimerText.edn"
+                             "lex/evidenceRecord.edn"
+                             "lex/referralPathway.edn"
+                             "lex/silenSuiminReview.edn"
+                             "lex/sourceWhitelist.edn"
+                             "lex/treatmentSynthesis.edn"]
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :shell-runner-retired :actor-lexicons-edn-canonical
+                         :cross-actor-dependencies-pinned
+                         :atproto-json-retained-as-wire}
+     :verification {:tests 19 :assertions 101 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "hydrogen_electrolysis"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hydrogen-electrolysis"
      :revision "da4fab805b6aa8606dab36882de3186482f55f34"
