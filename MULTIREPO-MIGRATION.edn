@@ -975,23 +975,27 @@
      :verification {:tests 13 :assertions 217 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
     "kenchi"
-    {:pull-request "https://github.com/etzhayyim/com-etzhayyim-kenchi/pull/2"
-     :commit "c2b6fe8"
-     :moves
-     ["manifest.edn"
-      "src/kenchi/cells/social_post/state_machine.cljc"
-      "src/kenchi/methods/social.cljc"]
-     :rewires
-     ["charter conformance from JSON compatibility data to canonical EDN"
-      "social implementation to namespace-correct src/kenchi paths"
-      "test runner to repository-local src classpath"
-      "generic social invariant logic to SHA-pinned etzhayyim.social.publication"]
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kenchi"
+     :revision "ca4bb3286dd9f85ff996cd68b2dce44d72c8b42d"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kenchi"
+     :category :actor
      :canonical-format :edn
-     :verification
-     {:charter {:tests 6 :assertions 21 :failures 0 :errors 0}
-      :social {:tests 2 :assertions 8 :failures 0 :errors 0}
-      :murakumo {:tests 9 :assertions 96 :failures 0 :errors 0}}
-     :next :delete-root-copy-after-merge-and-west-pin}
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root {:revision "33532811bc4f544d82de673362c8745887502667"
+                      :paths ["90-docs/adr"]}
+      com.etzhayyim/toritate "3354850aa05408e840426f91fe067ddad8535e5b"
+      com.etzhayyim/social-publication "e8127d0661284b1c12ce1b216c84b5ed2db619ab"}
+     :actor-owned-contracts ["lex/provenanceAttestation.edn"
+                             "lex/regionReport.edn"
+                             "lex/sourceLicense.edn"
+                             "lex/valuation.edn"]
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :actor-lexicons-edn-canonical :actor-data-edn-canonical
+                         :cross-actor-dependencies-pinned
+                         :atproto-json-retained-as-wire}
+     :verification {:tests 18 :assertions 132 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "hokorobi"
     {:pull-request "https://github.com/etzhayyim/com-etzhayyim-hokorobi/pull/3"
      :commit "2975c9a"

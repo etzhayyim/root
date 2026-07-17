@@ -1,0 +1,12 @@
+{:migration/status :moved
+ :migration/date "2026-07-17"
+ :migration/repository "https://github.com/etzhayyim/com-etzhayyim-kenchi"
+ :migration/revision "ca4bb3286dd9f85ff996cd68b2dce44d72c8b42d"
+ :migration/west-path "orgs/etzhayyim/com-etzhayyim-kenchi"
+ :migration/canonical-metadata "manifest.edn"
+ :migration/canonical-identity "identity.edn"
+ :migration/canonical-dependencies "dependencies.edn"
+ :migration/canonical-data ["valuation/v1-sources.edn"]
+ :migration/canonical-lexicons "lex"
+ :migration/external-wire-lexicons "wire"
+ :migration/canonical-format :edn}
