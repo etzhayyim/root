@@ -430,7 +430,7 @@
    :actor/ui-type :appview
    :actor/description "AI 材料探索の公開コモンズ(Meta FAIR Chemistry Open Materials 2024 / OMat24 CC-BY-4.0 + Materials Project / OQMD / NOMAD / AFLOW / JARVIS)を kotoba Datom log にミラーする materials-science actor。rasen 螺旋(遺伝)・inochi 命(生命圏)の公開科学データ mirror 系譜の materials 版。materials(組成+結晶構造)・元素・計算 PROPERTY(DFT/MLIP)・下流 APPLICATION を weave し、edge-primary な discovery-evidence(material の discovery-priority = 入射する計算プロパティ+候補性 縁 × 開示 confidence の積分)を RESEARCH へルーティング。構造的に charter-clean: open-license source のみ(G4、非 open は拒否)、計算 PROPERTY+結晶構造のみで合成ルート/前駆体/濃縮フィールドは表現不能・兵器化 application class も表現不能(G1, §1.12)、MLIP モデル実行は R2+ 自前/寄付計算のみ(G6、商用GPUレンタル禁止)。Clojure/kotoba-datomic ネイティブ(.cljc, babashka)。AI 駆動 材料探索のカバレッジ空白(ゼロ)を閉じ、iwakura/fuigo・hikari・tatekata・sanae/hataori/kiyome に供給。"
    :actor/primary-lexicon "com.etzhayyim.masago"
-   :actor/primary-schema "00-contracts/schemas/open-materials-ontology.kotoba.edn"
+   :actor/primary-schema "orgs/etzhayyim/com-etzhayyim-masago/schema/open-materials-ontology.kotoba.edn"
    :actor/adr ["2606151027"]
    :actor/created-at "2026-06-15"
    :actor/vm []

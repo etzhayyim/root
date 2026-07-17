@@ -23,7 +23,7 @@
       "2606151027"
     ],
     "primaryLexicon": "com.etzhayyim.masago",
-    "primarySchema": "00-contracts/schemas/open-materials-ontology.kotoba.edn",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-masago/schema/open-materials-ontology.kotoba.edn",
     "didDocument": "https://etzhayyim.com/actor/masago/did.json",
     "source": "kotoba"
   }

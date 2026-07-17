@@ -1,0 +1,11 @@
+[{:db/id -1
+  :migration/kind :moved-tombstone
+  :migration/source "20-actors/masago"
+  :migration/canonical-repo "https://github.com/etzhayyim/com-etzhayyim-masago"
+  :migration/west-path "orgs/etzhayyim/com-etzhayyim-masago"
+  :migration/revision "c479bec84d3a0686542a0a3143ea8976712973a4"
+  :migration/date "2026-07-17"
+  :migration/actor-owned-contracts-moved-from
+  ["00-contracts/lexicons/com/etzhayyim/masago"
+   "00-contracts/schemas/open-materials-ontology.kotoba.edn"]
+  :migration/authoritative true}]

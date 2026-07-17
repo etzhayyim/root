@@ -59,13 +59,13 @@
     :docs 1561}
    :actor-directories 199
    :actor-existing-independent-repo 126
-   :actor-not-yet-independent 39
+   :actor-not-yet-independent 38
    :actor-not-yet-independent-names
    ["etzhayyim-esign" "etzhayyim-organism"
     "funamori"
     "hydrogen_electrolysis" "iriai" "iryo" "jinushi" "kafun" "kaiyaku"
     "karakuri" "kiyome" "kotoba-actors-clj" "kotodama" "kotodama-go"
-    "kudamori" "kuramori" "madomori" "magatama" "masago"
+    "kudamori" "kuramori" "madomori" "magatama"
     "matsurigoto" "meyasu" "minori" "moyoshi"
     "mst-projector" "niyaku" "okaimono"
     "saisei" "silicon"
@@ -147,6 +147,19 @@
      :category :actor
      :canonical-format :edn
      :verification {:tests 17 :assertions 72 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "masago"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-masago"
+     :revision "c479bec84d3a0686542a0a3143ea8976712973a4"
+     :west-path "orgs/etzhayyim/com-etzhayyim-masago"
+     :category :actor
+     :canonical-format :edn
+     :actor-owned-contracts ["schema/open-materials-ontology.kotoba.edn"
+                             "lex/datasetSourceAttestation.edn"
+                             "lex/discoveryCandidateReport.edn"
+                             "lex/materialRecord.edn"]
+     :verification {:tests 13 :assertions 433 :failures 0 :errors 0
+                    :cli-nodes 60 :cli-edges 75 :generated-datoms :edn-valid}
      :root-copy :edn-tombstone-only}
     "narashi"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-narashi"
