@@ -556,6 +556,38 @@
                          :cross-actor-dependencies-pinned}
      :verification {:tests 20 :assertions 61 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
+    "seigyo"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-seigyo"
+     :revision "2b9765ba381e570cc0554753310ee8772a5621ca"
+     :west-path "orgs/etzhayyim/com-etzhayyim-seigyo"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root {:revision "6712e6312abd1e3d95d93aee61c69d4dd629c60b"
+                      :paths ["20-actors/silicon" "90-docs/adr"]}
+      com.etzhayyim/futawa "b93c8449c9bde6fd6e3e4bf4a26fac86f91958bb"
+      com.etzhayyim/igata "eb9744b65f2ae9e32b1ba5e6a4b7c4addc120772"
+      com.etzhayyim/mizuho "3e4ba475ab1fab5af7edee5025e2ae17c0cab98c"
+      com.etzhayyim/suki "96684e02328a5a4b444cf544247ec4fff58752fe"
+      com.etzhayyim/tsutae "94b97b85dadb0e77a059366ff5c5cf17f280a8c7"
+      com.etzhayyim/yakushi "5b2389671defc00ef8c7cfa522b9bc96b3ac192f"}
+     :actor-owned-contracts ["lex/alarmEventRecord.edn"
+                             "lex/interlockVerificationRecord.edn"
+                             "lex/ioPointRegistry.edn"
+                             "lex/plcProgramAttestation.edn"
+                             "lex/runtimeAttestation.edn"
+                             "lex/scadaProjectAttestation.edn"
+                             "lex/setpointEnvelope.edn"
+                             "lex/silenSeigyoReview.edn"
+                             "lex/telemetryAggregateRecord.edn"]
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :shell-runner-retired :actor-lexicons-edn-canonical
+                         :reference-envelope-edn-canonical
+                         :cross-actor-dependencies-pinned
+                         :external-json-retained-as-wire}
+     :verification {:tests 9 :assertions 134 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "hydrogen_electrolysis"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hydrogen-electrolysis"
      :revision "da4fab805b6aa8606dab36882de3186482f55f34"
