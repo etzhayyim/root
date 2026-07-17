@@ -1,0 +1,8 @@
+[{:db/id -1
+  :migration/kind :moved-tombstone
+  :migration/source "20-actors/salesforce-compat"
+  :migration/canonical-repo "https://github.com/kotoba-lang/com-salesforce"
+  :migration/west-path "orgs/kotoba-lang/com-salesforce"
+  :migration/revision "627c5707acc4e37baba99c5a247c3d5d2e7fe461"
+  :migration/date "2026-07-17"
+  :migration/authoritative true}]

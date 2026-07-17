@@ -7,7 +7,7 @@
   anti-monopoly policy is read from disk only if present (graceful skip)."
   (:require [clojure.string :as str]
             [clojure.java.io :as io]
-            #?(:clj [cheshire.core :as json])))
+            [clojure.edn :as edn]))
 
 (def RING-ORDER ["commons" "internal" "external"])
 (def TITHE-BPS 1000)
@@ -47,9 +47,10 @@
 
 (defn- abaki-blocked-reason [supplier-did supplier-name]
   (try
-    (let [f (io/file "20-actors/abaki/out/routing-policy.json")]
+    (let [f (io/file (or (System/getenv "ABAKI_POLICY_PATH")
+                         "orgs/etzhayyim/com-etzhayyim-abaki/out/routing-policy.edn"))]
       (when (.exists f)
-        (let [policy (json/parse-string (slurp f))
+        (let [policy (edn/read-string (slurp f))
               blocked (map #(get % "id") (get policy "blocked_entities" []))]
           (some (fn [bid] (when (or (str/includes? (str supplier-did) bid) (str/includes? (str supplier-name) bid))
                             (str "Provider blocked by abaki Anti-Monopoly policy (React mechanism). Route Around " bid " activated.")))

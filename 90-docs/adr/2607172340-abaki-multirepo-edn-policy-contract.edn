@@ -1,0 +1,40 @@
+[{:db/id -1
+  :adr/id "adr-2607172340-abaki-multirepo-edn-policy-contract"
+  :adr/title "ADR-2607172340: abaki multirepo extraction and EDN route-around policy contract"
+  :adr/topic "abaki-multirepo-edn-contract"
+  :adr/status "accepted"
+  :adr/doc_type "adr"
+  :adr/source-format "edn"
+  :adr/date "2026-07-17"
+  :adr/last_verified "2026-07-17"
+  :adr/authoritative true
+  :adr/authoritative_for
+  ["abaki canonical actor repository and revision"
+   "abaki routing-policy EDN consumer contract for okaimono and fuchi"
+   "retirement of root/20-actors/abaki implementation"]
+  :adr/related
+  ["adr-2606073100-abaki-anti-monopoly-intelligence-membrane-r0"
+   "adr-2607172000-etzhayyim-gftdcojp-flat-west-multirepo-root-retirement"]
+  :amends ["2606073100"]
+  :adr/supersedes []
+  :adr/superseded_by []
+  :adr/decision
+  {:repository "https://github.com/etzhayyim/com-etzhayyim-abaki"
+   :revision "2081d3634328083755ad85ee4f957ac343b08e96"
+   :west-path "orgs/etzhayyim/com-etzhayyim-abaki"
+   :canonical-metadata "manifest.edn"
+   :canonical-artifacts {:seed "data/seed.edn"
+                         :policy "out/routing-policy.edn"
+                         :analysis "out/analysis.edn"}
+   :retired-artifacts ["data/seed.json" "out/routing-policy.json" "out/abaki-report.md"]
+   :consumers
+   [{:id :okaimono :contract-location "20-actors/okaimono/manifest.edn"
+     :override-env "ABAKI_POLICY_PATH" :absence-policy :fail-open-no-block}
+    {:id :fuchi :repository "https://github.com/etzhayyim/com-etzhayyim-fuchi"
+     :pull-request 3 :revision "58e5267b0a846b8d15e0c6c303058bfc3ca5d9c2"
+     :override-env "ABAKI_POLICY_PATH" :absence-policy :fail-open-no-block}]
+   :verification {:abaki {:tests 16 :assertions 47 :failures 0 :errors 0}
+                  :okaimono {:tests 45 :assertions 96 :failures 0 :errors 0}
+                  :fuchi {:tests 184 :assertions 488 :failures 0 :errors 0}}}
+  :adr/body
+  "# Decision\n\n`abaki` is canonical in its independent flat-path repository. Seed, generated route-around policy, and analysis are single-form EDN. JSON metadata/output and the standalone Markdown report are retired.\n\nThe two runtime consumers discovered during extraction are explicitly rewired. `okaimono` and `fuchi` read `routing-policy.edn` through `ABAKI_POLICY_PATH` or their documented flat-west sibling path. Missing policy remains fail-open as before; malformed data does not create a secret blocklist. `fuchi` PR #3 carries the independent-repository wiring. Root aggregate tests no longer load abaki namespaces; standalone repository CI owns those tests."}]

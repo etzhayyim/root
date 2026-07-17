@@ -76,7 +76,7 @@
     (is (= synthetic-did (:subject-did r)))))
 
 ;; ── genuine composition proof: identity-gate's numbers ARE shomei's numbers, not a
-;;    reimplementation (parity test in the ainori/todoke house style) ──
+;;    reimplementation (parity test against the provider's public API) ──
 (deftest test-parity-with-shomei-aggregate
   (doseq [factors [#{} #{"webauthn"} #{"wallet-evm" "sns-x"}
                    #{"etz-adherent-sbt" "gov-passport"}]]

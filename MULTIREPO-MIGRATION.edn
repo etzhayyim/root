@@ -1,0 +1,614 @@
+[{:doc/id "etzhayyim-flat-west-multirepo-migration"
+  :doc/title "etzhayyim flat west multirepo migration"
+  :doc/doc_type "migration-plan"
+  :doc/source-format "edn"
+  :doc/status "active"
+  :doc/date "2026-07-17"
+  :doc/last_verified "2026-07-17"
+  :doc/authoritative true
+  :doc/authoritative_for
+  ["flat west path policy"
+   "legacy numbered-layer removal gates"
+   "remaining root migration inventory"]
+  :migration/target
+  {:path-policy :flat-org-root
+   :paths ["orgs/etzhayyim/<repo>" "orgs/gftdcojp/<repo>"]
+   :categories #{:actor :engine :protocol :app :infra :tool :data :docs :governance}
+   :category-location :metadata
+   :numbered-directories :legacy-drain-only}
+  :migration/shared-library-test
+  {:all-of
+   ["two or more independent repositories consume the same API"
+    "no actor DID, product policy, deployment target, or dataset ownership"
+    "versionable and testable without the old root classpath"]
+   :known-prerequisites
+   ["kotoba.datom"
+    "etzhayyim.ie-flow.*"
+    "moyai.ledger"
+    "etzhayyim.social.publication"]}
+  :migration/removal-gates
+  [:canonical-west-repo
+   :all-load-bearing-content-contained
+   :root-consumers-repointed
+   :cross-repo-dependencies-explicit-and-pinned
+   :fleet-namespace-resolves-when-applicable
+   :standalone-tests-green
+   :edn-moved-tombstone]
+  :migration/order
+  [:freeze-numbered-layers
+   :extract-common-libraries
+   :consolidate-non-fleet-duplicates
+   :repoint-fleet-classpath-to-west-checkouts
+   :consolidate-fleet-actors
+   :publish-remaining-components
+   :move-cross-repo-governance
+   :retire-empty-numbered-layers]
+  :migration/inventory
+  {:snapshot-date "2026-07-17"
+   :tracked-files-by-legacy-layer
+   {:contracts 14343
+    :protocol 85
+    :actors 5852
+    :graph 32
+    :engine 357
+    :clients 1
+    :infra 9936
+    :apps 40766
+    :tools 2071
+    :data 574
+    :docs 1561}
+   :actor-directories 199
+   :actor-existing-independent-repo 126
+   :actor-not-yet-independent 48
+   :actor-not-yet-independent-names
+   ["etzhayyim-bpmn-sdk"
+    "etzhayyim-esign" "etzhayyim-organism" "etzhayyim-sdk-py"
+    "funamori" "haraedo" "hataori"
+    "hydrogen_electrolysis" "iriai" "iryo" "jinushi" "kafun" "kaiyaku"
+    "karakuri" "kiyome" "kotoba-actors-clj" "kotodama" "kotodama-go"
+    "kudamori" "kumi" "kuramori" "madomori" "magatama" "masago"
+    "matsurigoto" "meibo" "meyasu" "minori" "monosashi" "moyoshi"
+    "mst-projector" "narashi" "niyaku" "okaimono"
+    "saisei" "shukubo" "silicon"
+    "soma" "sumitsubo" "tate" "tedai"
+    "tsubasa" "tsuchifumi" "ugachi" "unspsc" "uzu" "warifu" "yobel"]
+   :consolidated ["_conformance" "os" "umisachi" "fleet" "ipaddress" "kouhou" "tashikame"]
+   :consolidation-details
+   {"_conformance"
+    {:previous-location "20-actors/_conformance/test_lexicon_consts.py"
+     :canonical-location "70-tools/src/etzhayyim/lint/test_lexicon_consts.cljc"
+     :category :tool
+     :reason :cross-actor-lint-not-an-actor
+     :canonical-format :clojure}}
+   :extracted-shared-libraries
+   {"etzhayyim.social.publication"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-social-publication"
+     :revision "e8127d0661284b1c12ce1b216c84b5ed2db619ab"
+     :west-path "orgs/etzhayyim/com-etzhayyim-social-publication"
+     :canonical-metadata "library.edn"
+     :root-generic-consumers 140
+     :verification {:tests 3 :assertions 11 :failures 0 :errors 0}
+     :initial-rewired-consumers
+     ["fuchi" "kenchi" "hokorobi" "hoshimori" "inochi"]}
+    "kotoba.datom"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kotoba-datom"
+     :revision "3c4b3b92234e59ba285119fd8b2ca4c2ee172ff8"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kotoba-datom"
+     :canonical-metadata "library.edn"
+     :verification {:tests 5 :assertions 25 :failures 0 :errors 0}}
+    "etzhayyim.ie-flow.*"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-ie-flow"
+     :revision "35d36d912c9596dbc5094947b60202d9abdf61e6"
+     :west-path "orgs/etzhayyim/com-etzhayyim-ie-flow"
+     :canonical-metadata "library.edn"
+     :depends-on {"kotoba.datom" "3c4b3b92234e59ba285119fd8b2ca4c2ee172ff8"}
+     :excluded-root-owned-application "etzhayyim.ie-flow.scoreboard"
+     :verification {:tests 67 :assertions 247 :failures 0 :errors 0}
+     :initial-rewired-consumers ["hokorobi" "hoshimori" "inochi"]}
+    "moyai.ledger"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-moyai-ledger"
+     :revision "e379b5b84c29d219750828954610ae572702a28b"
+     :west-path "orgs/etzhayyim/com-etzhayyim-moyai-ledger"
+     :canonical-metadata "library.edn"
+     :verification {:tests 4 :assertions 16 :failures 0 :errors 0}
+     :initial-rewired-consumers ["mimamori"]}}
+   :content-contained-but-blocked
+   {"karute" :root-relative-actor-manifest-consumer}
+   :inventory-corrections
+   {"compat-batch-count"
+    {:previous-count 844
+     :verified-count 1025
+     :canonical-inventory "20-actors/COMPAT-MOVED.edn"
+     :reason :markdown-heading-count-did-not-match-table-rows}
+    "ameno"
+    {:previous-class :not-yet-independent-actor
+     :corrected-class :existing-repo-overlap
+     :repository "https://github.com/etzhayyim/com-etzhayyim-ameno"
+     :reason :github-repository-existed-at-verification}}
+  :newly-independent-repositories
+   {"post_quantum_compat"
+    {:repository "https://github.com/kotoba-lang/com-post-quantum"
+     :revision "cfb65453fb8be733ef8000f3ce3b2b387226e19a"
+     :west-path "orgs/kotoba-lang/com-post-quantum"
+     :category :compat-library
+     :canonical-format :edn
+     :external-wire-formats #{:openapi-json :actor-manifest-json}
+     :verification {:clojure-tests 16 :assertions 105 :python-tests 8 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "salesforce-compat"
+    {:repository "https://github.com/kotoba-lang/com-salesforce"
+     :revision "627c5707acc4e37baba99c5a247c3d5d2e7fe461"
+     :west-path "orgs/kotoba-lang/com-salesforce"
+     :category :compat-library
+     :canonical-format :edn
+     :verification {:tests 5 :assertions 98 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "stripe-compat"
+    {:repository "https://github.com/kotoba-lang/com-stripe"
+     :revision "100b21c857a8142c6e339adbab33f76d1fd74688"
+     :west-path "orgs/kotoba-lang/com-stripe"
+     :category :compat-library
+     :canonical-format :edn
+     :verification {:tests 5 :assertions 115 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "etzhayyim-sdk"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-sdk"
+     :revision "12314a0cc5ac2feb49dd9789d5c002398acb6988"
+     :west-path "orgs/etzhayyim/com-etzhayyim-sdk"
+     :category :shared-library
+     :canonical-format :edn
+     :git-dependencies :immutable-sha
+     :verification {:tests 53 :failures 0 :errors 0 :typescript-build :passed}
+     :root-copy :edn-tombstone-only
+     :root-package-consumers 186}
+    "etzhayyim-sdk-auth"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-sdk-auth"
+     :revision "1b2d068c9089e4b318be24d7b4c229df65055c80"
+     :west-path "orgs/etzhayyim/com-etzhayyim-sdk-auth"
+     :category :shared-library
+     :canonical-format :edn
+     :depends-on {etzhayyim/com-etzhayyim-sdk "12314a0cc5ac2feb49dd9789d5c002398acb6988"}
+     :verification {:typescript-typecheck :passed}
+     :root-copy :edn-tombstone-only
+     :root-package-consumers 24}
+    "etzhayyim-sdk-mock"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-sdk-mock"
+     :revision "c857ff9be5310bf433bfe1e8d3c0f677e213d667"
+     :west-path "orgs/etzhayyim/com-etzhayyim-sdk-mock"
+     :category :shared-library
+     :canonical-format :edn
+     :depends-on {etzhayyim/com-etzhayyim-sdk "12314a0cc5ac2feb49dd9789d5c002398acb6988"}
+     :verification {:typescript-typecheck :passed}
+     :root-copy :edn-tombstone-only
+     :root-package-consumers 148}
+    "etzhayyim-pregel"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-pregel"
+     :revision "165a5c1fea9b0978aedb2cd7a946e9fbb03c29d1"
+     :west-path "orgs/etzhayyim/com-etzhayyim-pregel"
+     :category :shared-library
+     :canonical-format :edn
+     :verification {:typescript-build :passed :tests :scaffold-only}
+     :root-copy :edn-tombstone-only
+     :root-package-consumers 0}
+    "organisms"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-organisms"
+     :revision "11441105dbdc1f0304fa267f0b16a52f60c3456a"
+     :west-path "orgs/etzhayyim/com-etzhayyim-organisms"
+     :category :actor-runtime
+     :canonical-format :edn
+     :external-wire-formats #{:atproto-json}
+     :verification {:tests 10 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0}
+    "first-breath"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-first-breath"
+     :revision "b17a45e28ae84cd955260a999529ef045b67ca84"
+     :west-path "orgs/etzhayyim/com-etzhayyim-first-breath"
+     :category :actor
+     :canonical-format :edn
+     :runtime-state "state.edn"
+     :depends-on {com-junkawasaki/eth-crypto-clj "9208ecc09a32cf51627ed32eb417e4834f208324"}
+     :verification {:eip-155-selftest :passed :state-edn-roundtrip :passed}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0}
+    "energy_order"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-energy-order"
+     :revision "9bf57b40ba41e9461ef912b0345fae28cdb0a651"
+     :west-path "orgs/etzhayyim/com-etzhayyim-energy-order"
+     :category :protocol-suite
+     :canonical-format :edn
+     :depends-on
+     {etzhayyim/com-etzhayyim-mio "a0b6697f3708d67e0bda2a23fe4ab853555aed0d"
+      etzhayyim/com-etzhayyim-tawami "f8c8011124319953c5775beb3879d299e433c48f"
+      etzhayyim/com-etzhayyim-okibi "2cffb76d15da8c37ceb212bed817c8c5700e0eb6"
+      etzhayyim/com-etzhayyim-toi "973cb4deacff97b9b5259053fdf36d9c940f3552"
+      etzhayyim/com-etzhayyim-yudane "6e80373d226add518a9eb841ced288b626c18a5a"}
+     :verification {:tests 17 :assertions 99 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0}
+    "okibi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-okibi"
+     :revision "2cffb76d15da8c37ceb212bed817c8c5700e0eb6"
+     :west-path "orgs/etzhayyim/com-etzhayyim-okibi"
+     :canonical-format :edn
+     :emits :mio/flow-improvement-claim
+     :depends-on {etzhayyim/com-etzhayyim-mio "a0b6697f3708d67e0bda2a23fe4ab853555aed0d"}
+     :verification {:tests 23 :assertions 130 :failures 0 :errors 0 :cell-namespace :resolved}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0
+     :fleet-source :pinned-west-repository}
+    "toi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-toi"
+     :revision "973cb4deacff97b9b5259053fdf36d9c940f3552"
+     :west-path "orgs/etzhayyim/com-etzhayyim-toi"
+     :canonical-format :edn
+     :emits :mio/flow-improvement-claim
+     :depends-on {etzhayyim/com-etzhayyim-mio "a0b6697f3708d67e0bda2a23fe4ab853555aed0d"}
+     :verification {:tests 23 :assertions 145 :failures 0 :errors 0 :cell-namespace :resolved}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0
+     :fleet-source :pinned-west-repository}
+    "yudane"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-yudane"
+     :revision "6e80373d226add518a9eb841ced288b626c18a5a"
+     :west-path "orgs/etzhayyim/com-etzhayyim-yudane"
+     :canonical-format :edn
+     :emits :mio/flow-improvement-claim
+     :depends-on {etzhayyim/com-etzhayyim-mio "a0b6697f3708d67e0bda2a23fe4ab853555aed0d"}
+     :verification {:tests 23 :assertions 142 :failures 0 :errors 0 :cell-namespace :resolved}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0
+     :fleet-source :pinned-west-repository}
+    "tawami"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-tawami"
+     :revision "f8c8011124319953c5775beb3879d299e433c48f"
+     :west-path "orgs/etzhayyim/com-etzhayyim-tawami"
+     :canonical-format :edn
+     :emits :mio/flow-improvement-claim
+     :depends-on {etzhayyim/com-etzhayyim-mio "a0b6697f3708d67e0bda2a23fe4ab853555aed0d"}
+     :verification {:tests 22 :assertions 244 :failures 0 :errors 0 :cell-namespace :resolved}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0
+     :fleet-source :pinned-west-repository}
+    "mio"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-mio"
+     :revision "a0b6697f3708d67e0bda2a23fe4ab853555aed0d"
+     :west-path "orgs/etzhayyim/com-etzhayyim-mio"
+     :canonical-format :edn
+     :depends-on
+     {com.etzhayyim/kotoba-datom "3c4b3b92234e59ba285119fd8b2ca4c2ee172ff8"
+      com.etzhayyim/social-publication "e8127d0661284b1c12ce1b216c84b5ed2db619ab"}
+     :verification {:tests 36 :assertions 271 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0
+     :fleet-source :pinned-west-repository}
+    "com-google-ads"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-com-google-ads"
+     :revision "71a515db2d5b664f0dcb43be92ade868083a6bd2"
+     :west-path "orgs/etzhayyim/com-etzhayyim-com-google-ads"
+     :canonical-format :edn
+     :repository-contracts
+     {etzhayyim/com-etzhayyim-akashi "9894d97bf8207646c33db12c6bf3dda481d3c7c6"
+      etzhayyim/com-etzhayyim-danjo "9ceba0f09c9fb26a102d88389652f92ceb0cc014"
+      etzhayyim/com-etzhayyim-isco "d9700d59f91d873201f670274405265c4cf8a93b"
+      etzhayyim/com-etzhayyim-moushibumi "0b9bf69691125d0a2576d5613783c9e6d48ff7e7"
+      etzhayyim/com-etzhayyim-talent "6063b9ba79c7980e9d2574821eb2edfc78f72c9e"
+      etzhayyim/com-etzhayyim-toritate "67508bf5ec18eec4b7bcd1b4c3b03ade1829135e"}
+     :canonicalization #{:encoded-edn-retired :structured-lexicon-edn :derived-string-schema-retired}
+     :verification {:tests 5 :assertions 34 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0
+     :next :merge-west-registration-before-root-retirement}
+    "busshi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-busshi"
+     :revision "fed52df3ecad3419db37958eac77a41c3f5106c8"
+     :west-path "orgs/etzhayyim/com-etzhayyim-busshi"
+     :canonical-format :edn
+     :depends-on
+     {com.etzhayyim/kotoba-datom "3c4b3b92234e59ba285119fd8b2ca4c2ee172ff8"
+      com.etzhayyim/ie-flow "35d36d912c9596dbc5094947b60202d9abdf61e6"
+      com.etzhayyim/social-publication "e8127d0661284b1c12ce1b216c84b5ed2db619ab"}
+     :consumer-rewiring
+     {etzhayyim.ie-flow.scoreboard
+      {:artifact "out/ie-flow-state.edn"
+       :override-env "BUSSHI_FLOW_STATE_PATH"
+       :absence-policy :pending-not-scored}
+      ugachi.methods.bridge
+      {:artifact "out/analysis.edn"
+       :override-env "BUSSHI_ANALYSIS_PATH"
+       :absence-policy :ungrounded-assessment}}
+     :verification {:tests 37 :assertions 140 :failures 0 :errors 0
+                    :scoreboard-tests 4 :scoreboard-assertions 20
+                    :ugachi-tests 36 :ugachi-assertions 106}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0
+     :next :merge-west-registration-before-root-retirement}
+    "ainori"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-ainori"
+     :revision "9898db31619d7970e42733d907e61b4e6caf25ea"
+     :west-path "orgs/etzhayyim/com-etzhayyim-ainori"
+     :canonical-format :edn
+     :depends-on
+     {com.etzhayyim/todoke "6b028d3700b1cee6d838284fa6c8914031cde38c"
+      com.etzhayyim/social-publication "e8127d0661284b1c12ce1b216c84b5ed2db619ab"}
+     :repository-contracts
+     {etzhayyim/com-etzhayyim-tazuna "efb4688fd8abf8e058c3c082b8d1ba482cd10bc3"
+      etzhayyim/com-etzhayyim-wadachi "44fb5f545c17ba09ad02da501fac42a63c1124bc"
+      etzhayyim/com-etzhayyim-warifu :unresolved-intent-only}
+     :canonicalization #{:encoded-edn-retired :structured-lexicon-edn}
+     :verification {:tests 24 :assertions 42 :failures 0 :errors 0
+                    :todoke-tests 27 :todoke-assertions 48}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0
+     :next :merge-west-registration-before-root-retirement}
+    "abaki"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-abaki"
+     :revision "2081d3634328083755ad85ee4f957ac343b08e96"
+     :west-path "orgs/etzhayyim/com-etzhayyim-abaki"
+     :canonical-format :edn
+     :repository-contracts
+     {etzhayyim/com-etzhayyim-intel "1032169f79b99e164b91c2ec4b924f7c6261467b"
+      etzhayyim/com-etzhayyim-suki "f01615cb1ffac027403a2fd8e921787a45d7a131"
+      etzhayyim/com-etzhayyim-wadachi "44fb5f545c17ba09ad02da501fac42a63c1124bc"
+      etzhayyim/com-etzhayyim-ameno "2ca2288013fe8c62b370fef736f60085baec860f"}
+     :canonicalization #{:json-retired :markdown-output-retired :single-form-edn}
+     :consumer-rewiring
+     {"okaimono" {:artifact "out/routing-policy.edn"
+                   :override-env "ABAKI_POLICY_PATH"
+                   :absence-policy :fail-open-no-block}}
+     :verification {:tests 16 :assertions 47 :failures 0 :errors 0
+                    :okaimono-tests 45 :okaimono-assertions 96}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0
+     :next :merge-west-registration-before-root-retirement}
+    "amime"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-amime"
+     :revision "5fc4c7ef627b3b84c0245fa11a6e674c0b22068e"
+     :west-path "orgs/etzhayyim/com-etzhayyim-amime"
+     :canonical-format :edn
+     :verification {:tests 12 :assertions 55 :failures 0 :errors 0
+                    :generated-mirror :byte-identical}
+     :next :delete-root-copy-after-west-pin-and-consumer-audit}
+    "atsurae"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-atsurae"
+     :revision "3d9a9cecd6213c4522f670fb1526e52567a585fe"
+     :west-path "orgs/etzhayyim/com-etzhayyim-atsurae"
+     :canonical-format :edn
+     :depends-on
+     {com.etzhayyim/kotoba-datom "3c4b3b92234e59ba285119fd8b2ca4c2ee172ff8"
+      com.etzhayyim/social-publication "e8127d0661284b1c12ce1b216c84b5ed2db619ab"}
+     :verification {:tests 12 :assertions 44 :failures 0 :errors 0
+                    :variants 176 :ledger-datoms 65}
+     :root-copy :edn-tombstone-only
+     :root-consumers 0
+     :next :merge-west-registration-before-root-retirement}
+    "denwaban"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-denwaban"
+     :revision "9b953a15e261b0852bdc6396d773e6f43eb6e851"
+     :west-path "orgs/etzhayyim/com-etzhayyim-denwaban"
+     :canonical-format :edn
+     :depends-on
+     {com.junkawasaki/koe-clj "ceca39b877f3285f4bacbca9270190670b0d5c90"
+      com.etzhayyim/social-publication "e8127d0661284b1c12ce1b216c84b5ed2db619ab"}
+     :repository-contracts
+     {etzhayyim/com-etzhayyim-yotei "bf3dac0213197a45a64ea8f566fb61700432672e"
+      kotoba-lang/net "86475deaa761f91435262b7d60861d07c68abdb8"}
+     :unimplemented-port-bindings
+     #{:twilio-compat :whisper-compat :elevenlabs-compat}
+     :verification {:tests 6 :assertions 16 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only
+     :root-consumers 0
+     :next :merge-west-registration-before-root-retirement}
+    "hibiki"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-hibiki"
+     :revision "9e7ec9fa7a8e442926ee329a6b393b98a903fa52"
+     :west-path "orgs/etzhayyim/com-etzhayyim-hibiki"
+     :canonical-format :edn
+     :repository-contracts
+     {etzhayyim/com-etzhayyim-ossekai "728a13cf4a1c4698347ab647fdd7a7238407f9ad"
+      etzhayyim/com-etzhayyim-utsushie "eb1ae5c531df0e2f2aa561260a6c4cd69e67fb6d"
+      etzhayyim/com-etzhayyim-kataribe "02cef52f032bc1333334111dc69accdc1d9a81aa"}
+     :canonicalization #{:jsonld-retired :structured-edn-lexicon}
+     :verification {:tests 15 :assertions 35 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0
+     :next :merge-west-registration-before-root-retirement}
+    "hirameki"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-hirameki"
+     :revision "58756468b6e47b6bce7e11caec0d0360d389efad"
+     :west-path "orgs/etzhayyim/com-etzhayyim-hirameki"
+     :canonical-format :edn
+     :depends-on
+     {com.junkawasaki/multiformats-clj "0f4ed68ff9e3cbf069569d897c9304713a14036c"
+      com.etzhayyim/kotoba-datom "3c4b3b92234e59ba285119fd8b2ca4c2ee172ff8"
+      com.etzhayyim/social-publication "e8127d0661284b1c12ce1b216c84b5ed2db619ab"}
+     :dataset-contract
+     {:repository "https://github.com/etzhayyim/com-etzhayyim-hirameki-patents"
+      :revision "936d7832ad1fbd1873570a58af14b17acc196a0d"}
+     :canonicalization #{:json-retired :single-form-edn :repository-native-paths}
+     :verification {:tests 40 :assertions 148 :failures 0 :errors 0
+                    :dataset-cids :byte-identical}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0
+     :next :merge-west-registration-before-root-retirement}}
+   :newly-independent-data-repositories
+   {"hirameki-patents"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-hirameki-patents"
+     :revision "936d7832ad1fbd1873570a58af14b17acc196a0d"
+     :west-path "orgs/etzhayyim/com-etzhayyim-hirameki-patents"
+     :canonical-format :edn
+     :artifacts
+     [{:file "hirameki-patents.corpus.kotoba.edn" :bytes 2055
+       :cid "bafkreiacmpjkhjncxlfjtfhfia7ikjyfjq42u7yi3x56ajppu374t3j4gi"}
+      {:file "hirameki-patents.datoms.kotoba.edn" :bytes 6255
+       :cid "bafkreif7ricl4x24y5pnquryjf4gakmwm36uqijtsao3rw2cuxuwflw4be"}]
+     :verification {:command "bb verify" :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0}}
+   :pending-independent-repo-merges
+   {"isco"
+    {:pull-request "https://github.com/etzhayyim/com-etzhayyim-isco/pull/2"
+     :commit "1ef0c36"
+     :moves ["kotoba.app.edn" "methods/mesh.clj"]
+     :verification {:tests 10 :assertions 153 :failures 0 :errors 0}
+     :next :delete-root-copy-after-merge-and-west-pin}
+    "fuchi"
+    {:pull-request "https://github.com/etzhayyim/com-etzhayyim-fuchi/pull/3"
+     :commit "ebc18c7"
+     :moves
+     ["manifest.edn"
+      "schema.edn"
+      "src/fuchi/methods/social.cljc"
+      "test/fuchi/methods/consistency_test.clj"]
+     :rewires
+     ["cells and methods into namespace-correct src/fuchi paths"
+      "tests into namespace-correct test/fuchi paths"
+      "manifest schema and seed references to repository-local EDN resources"
+      "run_tests.sh away from the old monorepo classpath"
+      "generic social invariant logic to SHA-pinned etzhayyim.social.publication"]
+     :canonical-format :edn
+     :verification {:tests 184 :assertions 488 :failures 0 :errors 0}
+     :next :delete-root-copy-after-merge-and-west-pin}
+    "gtin"
+    {:pull-request "https://github.com/etzhayyim/com-etzhayyim-gtin/pull/2"
+     :commit "3b9536a"
+     :moves ["kotoba.app.edn" "methods/mesh.clj" "schema.edn"]
+     :rewires
+     ["nested deployment values from encoded strings to structured EDN"
+      "KQE host dependency to explicit :cap/kqe manifest requirement"
+      "standalone repository test entry point"]
+     :canonical-format :edn
+     :verification {:tests 11 :assertions 172 :failures 0 :errors 0}
+     :next :delete-root-copy-after-merge-and-west-pin}
+    "hanrei"
+    {:pull-request "https://github.com/etzhayyim/com-etzhayyim-hanrei/pull/2"
+     :commit "8edccc7"
+     :moves ["kotoba.app.edn" "methods/mesh.clj" "schema.edn"]
+     :rewires
+     ["nested deployment values from encoded strings to structured EDN"
+      "KQE host dependency to explicit :cap/kqe manifest requirement"
+      "standalone repository test entry point"]
+     :canonical-format :edn
+     :verification {:tests 11 :assertions 211 :failures 0 :errors 0}
+     :next :delete-root-copy-after-merge-and-west-pin}
+    "kenchi"
+    {:pull-request "https://github.com/etzhayyim/com-etzhayyim-kenchi/pull/2"
+     :commit "c2b6fe8"
+     :moves
+     ["manifest.edn"
+      "src/kenchi/cells/social_post/state_machine.cljc"
+      "src/kenchi/methods/social.cljc"]
+     :rewires
+     ["charter conformance from JSON compatibility data to canonical EDN"
+      "social implementation to namespace-correct src/kenchi paths"
+      "test runner to repository-local src classpath"
+      "generic social invariant logic to SHA-pinned etzhayyim.social.publication"]
+     :canonical-format :edn
+     :verification
+     {:charter {:tests 6 :assertions 21 :failures 0 :errors 0}
+      :social {:tests 2 :assertions 8 :failures 0 :errors 0}
+      :murakumo {:tests 9 :assertions 96 :failures 0 :errors 0}}
+     :next :delete-root-copy-after-merge-and-west-pin}
+    "hokorobi"
+    {:pull-request "https://github.com/etzhayyim/com-etzhayyim-hokorobi/pull/3"
+     :commit "2975c9a"
+     :moves ["manifest.edn" "src/hokorobi" "test/hokorobi"]
+     :rewires
+     ["root-relative resources to repository-local paths"
+      "social membrane to SHA-pinned shared library"
+      "IE-flow and Kotoba Datom to SHA-pinned shared libraries"]
+     :canonical-format :edn
+     :verification {:tests 36 :assertions 257 :failures 0 :errors 0}
+     :next :delete-root-copy-after-merge-and-west-pin}
+    "hoshimori"
+    {:pull-request "https://github.com/etzhayyim/com-etzhayyim-hoshimori/pull/3"
+     :commit "d291acc"
+     :moves ["manifest.edn" "src/hoshimori" "test/hoshimori"]
+     :rewires
+     ["root-relative resources to repository-local paths"
+      "social membrane to SHA-pinned shared library"
+      "IE-flow and Kotoba Datom to SHA-pinned shared libraries"]
+     :canonical-format :edn
+     :verification {:tests 41 :assertions 461 :failures 0 :errors 0}
+     :next :delete-root-copy-after-merge-and-west-pin}
+    "inochi"
+    {:pull-request "https://github.com/etzhayyim/com-etzhayyim-inochi/pull/3"
+     :commit "2c98c38"
+     :moves ["manifest.edn" "src/inochi" "test/inochi"]
+     :rewires
+     ["root-relative resources to repository-local paths"
+      "social membrane to SHA-pinned shared library"
+      "IE-flow and Kotoba Datom to SHA-pinned shared libraries"]
+     :canonical-format :edn
+     :verification {:tests 36 :assertions 287 :failures 0 :errors 0}
+     :next :delete-root-copy-after-merge-and-west-pin}
+    "mimamori"
+    {:pull-request "https://github.com/etzhayyim/com-etzhayyim-mimamori/pull/2"
+     :commit "2d2e7e5"
+     :moves ["manifest.edn" "schema.edn" "cell.edn" "src/mimamori" "test/mimamori"]
+     :rewires
+     ["root-relative ontology and cell registry to repository-local EDN"
+      "Moyai Ledger and Kotoba Datom to SHA-pinned shared libraries"
+      "social membrane to SHA-pinned shared library"
+      "namespace paths and standalone runner"]
+     :canonical-format :edn
+     :verification {:tests 50 :assertions 239 :failures 0 :errors 0}
+     :next :delete-root-copy-after-merge-and-west-pin}
+    "kaname"
+    {:pull-request "https://github.com/etzhayyim/com-etzhayyim-kaname/pull/2"
+     :commit "09d5ce8"
+     :moves ["manifest.edn" "schema.edn" "src/kaname" "test/kaname" "run_tests.clj"]
+     :rewires
+     ["numbered-root and sibling checkout assumptions to explicit repository-root maps"
+      "amime energy mirror to repository URL plus pinned revision"
+      "Kotoba Datom, IE Flow, social publication, and LangGraph to SHA-pinned dependencies"
+      "deployment runner and tests to repository-native paths"
+      "JSON-LD compatibility manifest retired in favor of canonical EDN"]
+     :canonical-format :edn
+     :verification {:tests 63 :assertions 248 :failures 0 :errors 0
+                    :amime-join {:nodes 6 :edges 12}}
+     :next :delete-root-copy-after-merge-and-west-pin}
+    "kuni-umi"
+    {:pull-request "https://github.com/etzhayyim/com-etzhayyim-kuni-umi/pull/2"
+     :commit "3eb7566"
+     :moves
+     ["manifest.edn"
+      "cells/schema.edn"
+      "src/kuni_umi"
+      "test/kuni_umi"
+      "run_tests.clj"]
+     :rewires
+     ["monorepo classpath to repository-native src and test paths"
+      "langchain-clj local root to a SHA-pinned Git dependency"
+      "generic social membrane to SHA-pinned etzhayyim.social.publication"
+      "cell entry paths and Kotoba seed ingestion to repository-local EDN"
+      "kami golden parity from deleted Python twins to the CLJC source of truth"]
+     :retired-stale-artifacts
+     ["run_tests.sh"
+      "kotoba/deploy.sh"
+      "Python robotics tests whose twins were previously retired by ADR-2606160842"]
+     :canonical-format :edn
+     :verification
+     {:clojure {:tests 69 :assertions 480 :failures 0 :errors 0}
+      :python {:tests 17 :failures 0 :errors 0}
+      :seed-dry-run {:entities 4 :approx-datoms 32 :external-writes 0}}
+     :next :delete-root-copy-after-merge-and-west-pin}}}
+  :migration/remaining-work
+  [{:class :existing-repo-overlap
+    :count 126
+    :state :merge-root-only-content-before-delete}
+   {:class :not-yet-independent-actor
+    :count 69
+    :state :classify-library-or-publish-repo}
+   {:class :shared-libraries
+    :count 4
+    :extracted 4
+    :remaining 0
+    :state :all-known-prerequisites-extracted-rewire-consumers}
+   {:class :fleet-actors
+    :state :repoint-runner-classpath-and-verify-remote-fire}
+   {:class :other-numbered-layers
+    :state :per-component-classification-required}]
+  :doc/body
+  "The EDN fields in this document are canonical. README and CLAUDE files only point to or enforce this record. Content containment is checked by hash, not by filename. A root-only implementation or dataset blocks deletion until deliberately merged into its owning repository."
+  :db/id -1}]

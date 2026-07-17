@@ -102,7 +102,7 @@ def test_run_once_not_due_minute_fires_nothing():
 
 import deploy_node as dn  # noqa: E402
 
-_STATUS = "100.89.204.30 issachar com-junkawasaki@ macOS -\n100.98.142.59 dan com-junkawasaki@ macOS -\n"
+_STATUS = "100.89.204.30 issachar com-junkawasaki@ macOS -\n100.89.204.31 judah com-junkawasaki@ macOS -\n100.98.142.59 dan com-junkawasaki@ macOS -\n"
 
 
 def test_deploy_actors_for_node_from_real_registry():
@@ -127,6 +127,35 @@ def test_deploy_executes_injected_runner_steps():
     # the codified deploy: mkdirs → put lite_runner → cells.edn → stage each actor → install daemon
     assert calls[0] == "mkdirs" and "put-file" in calls and "git-show" in calls
     assert "git-archive" in calls and calls[-1] == "install-daemon"
+
+
+def test_deploy_mio_uses_pinned_west_repository():
+    calls = []
+    def runner(kind, **kw):
+        calls.append((kind, kw))
+    res = dn.deploy("judah", runner=runner, status_text=_STATUS)
+    mio = next(kw for kind, kw in calls if kind == "git-archive-repo")
+    assert res["status"] == "deployed"
+    assert mio["repository"] == "orgs/etzhayyim/com-etzhayyim-mio"
+    assert mio["revision"] == "a0b6697f3708d67e0bda2a23fe4ab853555aed0d"
+
+
+def test_tawami_source_is_pinned_west_repository():
+    source = dn.actor_source("tawami")
+    assert source[":path"] == "orgs/etzhayyim/com-etzhayyim-tawami"
+    assert source[":revision"] == "f8c8011124319953c5775beb3879d299e433c48f"
+
+
+def test_energy_order_sibling_sources_are_pinned_west_repositories():
+    expected = {
+        "okibi": "2cffb76d15da8c37ceb212bed817c8c5700e0eb6",
+        "toi": "973cb4deacff97b9b5259053fdf36d9c940f3552",
+        "yudane": "6e80373d226add518a9eb841ced288b626c18a5a",
+    }
+    for actor, revision in expected.items():
+        source = dn.actor_source(actor)
+        assert source[":kind"] == ":west-repository"
+        assert source[":revision"] == revision
 
 
 def test_deploy_unreachable_node():

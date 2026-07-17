@@ -1,0 +1,8 @@
+{:migration/type :repository-extraction
+ :migration/category :actor
+ :migration/source "20-actors/com-google-ads"
+ :migration/repository "https://github.com/etzhayyim/com-etzhayyim-com-google-ads"
+ :migration/west-path "orgs/etzhayyim/com-etzhayyim-com-google-ads"
+ :migration/revision "71a515db2d5b664f0dcb43be92ade868083a6bd2"
+ :migration/canonical-metadata "manifest.edn"
+ :migration/date "2026-07-17"}

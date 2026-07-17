@@ -1,0 +1,7 @@
+[{:db/id -1 :migration/kind :moved-tombstone :migration/source "20-actors/energy_order"
+  :migration/component-kind :protocol-suite
+  :migration/canonical-repo "https://github.com/etzhayyim/com-etzhayyim-energy-order"
+  :migration/west-path "orgs/etzhayyim/com-etzhayyim-energy-order"
+  :migration/revision "9bf57b40ba41e9461ef912b0345fae28cdb0a651"
+  :migration/dependencies :git-sha-pinned
+  :migration/date "2026-07-17" :migration/authoritative true}]

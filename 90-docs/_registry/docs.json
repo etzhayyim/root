@@ -23236,12 +23236,12 @@
         "Proposal→presentation pipeline composition (ossekai source+carrier · utsushie render leg · kataribe i18n · kotoba persist)"
       ],
       "related": [
-        "20-actors/hibiki/",
-        "20-actors/utsushie/",
-        "20-actors/ossekai/",
-        "20-actors/kataribe/"
+        "https://github.com/etzhayyim/com-etzhayyim-hibiki",
+        "https://github.com/etzhayyim/com-etzhayyim-utsushie",
+        "https://github.com/etzhayyim/com-etzhayyim-ossekai",
+        "https://github.com/etzhayyim/com-etzhayyim-kataribe"
       ],
-      "last_verified": "2026-06-24",
+      "last_verified": "2026-07-17",
       "supersedes": [],
       "superseded_by": [],
       "amends": [],
@@ -24511,6 +24511,164 @@
         "adr-2607141900-sanae-g2-displacement-dividend-coupling-gap"
       ],
       "last_verified": "2026-07-14",
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2607172300-hirameki-actor-dataset-multirepo-extraction.edn",
+      "id": "adr-2607172300-hirameki-actor-dataset-multirepo-extraction",
+      "title": "ADR-2607172300: hirameki actor and patent dataset repository extraction",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "hirameki-multirepo-extraction",
+      "authoritative": true,
+      "authoritative_for": [
+        "hirameki actor canonical repository and pinned dependencies",
+        "hirameki-patents canonical data repository, revision, artifact bytes, and CIDs",
+        "retirement of root/20-actors/hirameki and root/80-data/hirameki-patents implementations"
+      ],
+      "related": [
+        "adr-2606212200-hirameki-worldwide-patent-kg-mirror",
+        "adr-2607172000-etzhayyim-gftdcojp-flat-west-multirepo-root-retirement"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [
+        "2606212200"
+      ],
+      "last_verified": "2026-07-17",
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2607172300-mio-staged-multirepo-extraction.edn",
+      "id": "adr-2607172300-mio-staged-multirepo-extraction",
+      "title": "mio staged multirepo extraction and fleet source resolution",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "",
+      "authoritative": true,
+      "authoritative_for": [],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2607172340-abaki-multirepo-edn-policy-contract.edn",
+      "id": "adr-2607172340-abaki-multirepo-edn-policy-contract",
+      "title": "ADR-2607172340: abaki multirepo extraction and EDN route-around policy contract",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "abaki-multirepo-edn-contract",
+      "authoritative": true,
+      "authoritative_for": [
+        "abaki canonical actor repository and revision",
+        "abaki routing-policy EDN consumer contract for okaimono and fuchi",
+        "retirement of root/20-actors/abaki implementation"
+      ],
+      "related": [
+        "adr-2606073100-abaki-anti-monopoly-intelligence-membrane-r0",
+        "adr-2607172000-etzhayyim-gftdcojp-flat-west-multirepo-root-retirement"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [
+        "2606073100"
+      ],
+      "last_verified": "2026-07-17",
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2607172420-ainori-pinned-route-contract.edn",
+      "id": "adr-2607172420-ainori-pinned-route-contract",
+      "title": "ADR-2607172420: ainori extraction and pinned envelope-neutral route contract",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "ainori-multirepo-route-contract",
+      "authoritative": true,
+      "authoritative_for": [
+        "ainori canonical actor repository and revision",
+        "ainori to todoke route sequencing repository boundary",
+        "retirement of root/20-actors/ainori implementation"
+      ],
+      "related": [
+        "adr-2606071500",
+        "adr-2607172000-etzhayyim-gftdcojp-flat-west-multirepo-root-retirement"
+      ],
+      "last_verified": "2026-07-17",
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2607172450-busshi-edn-flow-contract.edn",
+      "id": "adr-2607172450-busshi-edn-flow-contract",
+      "title": "ADR-2607172450: busshi extraction and EDN ie-flow state contract",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "busshi-multirepo-ie-flow-contract",
+      "authoritative": true,
+      "authoritative_for": [
+        "busshi canonical actor repository and revision",
+        "busshi scoreboard EDN artifact contract",
+        "retirement of root/20-actors/busshi implementation"
+      ],
+      "related": [
+        "adr-2606161730-busshi-commodity-materials-observatory-r0",
+        "adr-2606171000-busshi-observation-ledger-persistence-and-heartbeat",
+        "adr-2607172000-etzhayyim-gftdcojp-flat-west-multirepo-root-retirement"
+      ],
+      "last_verified": "2026-07-17",
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2607172500-conformance-tool-consolidation.edn",
+      "id": "adr-2607172500-conformance-tool-consolidation",
+      "title": "ADR-2607172500: _conformance is a shared Clojure lint, not an actor repository",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "conformance-tool-consolidation",
+      "authoritative": true,
+      "authoritative_for": [
+        "classification and canonical location of legacy 20-actors/_conformance",
+        "retirement of the Python lexicon const guard"
+      ],
+      "related": [
+        "adr-2606032100",
+        "adr-2606032130",
+        "adr-2607172000-etzhayyim-gftdcojp-flat-west-multirepo-root-retirement"
+      ],
+      "last_verified": "2026-07-17",
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2607172530-com-google-ads-structured-edn-contracts.edn",
+      "id": "adr-2607172530-com-google-ads-structured-edn-contracts",
+      "title": "ADR-2607172530: com-google-ads extraction and structured EDN lexicon contracts",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "com-google-ads-multirepo-edn-contracts",
+      "authoritative": true,
+      "authoritative_for": [
+        "com-google-ads canonical actor repository and revision",
+        "structured EDN lexicon representation",
+        "retirement of root/20-actors/com-google-ads implementation"
+      ],
+      "related": [
+        "adr-2606292130-google-ads-charter-clean-outreach-performance-marketing-actor-r0",
+        "adr-2607172000-etzhayyim-gftdcojp-flat-west-multirepo-root-retirement"
+      ],
+      "last_verified": "2026-07-17",
       "supersedes": [],
       "superseded_by": [],
       "amends": [],

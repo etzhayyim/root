@@ -53,6 +53,14 @@
   "actor:warifu" "actor:wadachi" "actor:sarutahiko"
   "actor:hodoki" "actor:kanayama" "actor:haraedo" "actor:kurashimori" "actor:wakai" "actor:toritsugi"]
 
+ :actor/repository-contracts
+ [{:id :abaki-routing-policy
+   :repository "https://github.com/etzhayyim/com-etzhayyim-abaki"
+   :revision "2081d3634328083755ad85ee4f957ac343b08e96"
+   :artifact "out/routing-policy.edn"
+   :override-env "ABAKI_POLICY_PATH"
+   :absence-policy :fail-open-no-block}]
+
  :actor/kotoba
  {:kotoba/schema  "kotoba/schema.edn"
   :kotoba/seed    "kotoba/seed.edn"

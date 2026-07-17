@@ -1,12 +1,18 @@
 {
   "dependencies": {
-    "preview2-shim": "^0.18.1"
+    "@bytecodealliance/preview2-shim": "^0.18.1"
   },
   "devDependencies": {
     "node": "^26.0.1",
-    "coverage-v8": "^4.1.8"
+    "@vitest/coverage-v8": "^4.1.8"
   },
   "private": true,
+  "pnpm": {
+    "overrides": {
+      "@etzhayyim/ipfs": "git+https://github.com/kotoba-lang/ipfs.git#671888e08cc42b297c668b6124cf7c5b9d1676f0",
+      "@etzhayyim/pqh": "git+https://github.com/kotoba-lang/pqh.git#ab728717804ec18dafee7262fa83352ffbc1aaf1"
+    }
+  },
   "scripts": {
     "task": "nbb scripts/run-task.cljs",
     "tasks": "nbb scripts/run-task.cljs"

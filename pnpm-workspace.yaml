@@ -41,14 +41,9 @@ packages:
   - "40-engine/svelte/auth"
   - "40-engine/svelte/design-system"
 
-  # etzhayyim substrate SDKs
-  - "20-actors/etzhayyim-sdk"
-  - "20-actors/etzhayyim-sdk-auth"
-  - "20-actors/etzhayyim-sdk-mock"
-  - "20-actors/mst-projector"
+  # etzhayyim substrate SDKs are immutable git dependencies managed by west.
 
   # 70-tools workspaces referenced by CI tsc matrix
-  - "70-tools/integration-tests"
   - "70-tools/lexicon-to-openapi"
   - "70-tools/lexicon-to-zod"
 

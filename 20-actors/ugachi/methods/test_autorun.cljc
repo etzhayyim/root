@@ -10,11 +10,15 @@
             [clojure.java.io :as io]))
 
 (def ug-seed "20-actors/ugachi/kotoba/seed.edn")
-(def bu-seed "20-actors/busshi/kotoba/seed.edn")
 (defn- tmp [] (str (System/getProperty "java.io.tmpdir") "/ugachi-autorun-test-" (gensym) ".edn"))
 (defn- projects [] (ue/projects ug-seed))
-(defn- commodities []
-  (vec (filter #(= (:type %) :commodity) (ue/normalize-rows (clojure.edn/read-string (slurp bu-seed))))))
+(def analysis
+  {:contract/id :busshi/commodity-analysis
+   :contract/version 1
+   :analysis {"commodities"
+              [{"id" "w" "chokepoint_risk" :critical "top_producer_share" 80}
+               {"id" "cu" "chokepoint_risk" :low "top_producer_share" 24}
+               {"id" "ree" "chokepoint_risk" :critical "top_producer_share" 69}]}})
 
 (deftest gate-datoms-vector-matches-render
   ;; gate/datoms returns the vectors render-datoms stringifies
@@ -68,9 +72,9 @@
 (deftest grounded-beat-uses-bridge
   (let [p (tmp)]
     (try
-      (let [r (ar/beat {:projects (projects) :commodities (commodities)
+      (let [r (ar/beat {:projects (projects) :busshi-analysis analysis
                         :tx-id "t1" :as-of "a1" :log-path p})]
-        (is (true? (:grounded r)) "commodities supplied → grounded via bridge")
+        (is (true? (:grounded r)) "analysis contract supplied → grounded via bridge")
         (is (:ok (k/verify-chain p))))
       (finally (io/delete-file p true)))))
 

@@ -1,0 +1,13 @@
+[{:migration/id "etzhayyim-root-actor-umisachi-moved"
+  :migration/kind :moved-tombstone
+  :migration/component-kind :actor
+  :migration/source "20-actors/umisachi"
+  :migration/canonical-repo "https://github.com/etzhayyim/com-etzhayyim-umisachi"
+  :migration/west-path "orgs/etzhayyim/com-etzhayyim-umisachi"
+  :migration/date "2026-07-17"
+  :migration/root-commit "4ff53bf1d7191f5bc80b12b399ac4515e71d4b48"
+  :migration/gates #{:west-repo :sha256-content-contained :non-fleet
+                     :no-live-root-relative-consumer :standalone-tests-green}
+  :migration/verification {:tests 9 :assertions 31 :failures 0 :errors 0}
+  :migration/authoritative true
+  :db/id -1}]

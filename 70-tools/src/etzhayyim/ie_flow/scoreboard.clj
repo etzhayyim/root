@@ -6,6 +6,7 @@
 ;; ADR-2606212200. Pure read of real flow-states; --write commits the snapshot.
 (ns etzhayyim.ie-flow.scoreboard
   (:require [clojure.edn :as edn]
+            [clojure.java.io :as io]
             [clojure.string :as str]
             [etzhayyim.ie-flow.score :as score]
             [etzhayyim.ie-flow.embed :as embed]
@@ -15,8 +16,6 @@
             [kafun.methods.ie-flow :as kafun-ief]
             [ugachi.methods.ugachi-edn :as ue]
             [ugachi.methods.ie-flow :as ugachi-ief]
-            [busshi.methods.busshi-edn :as bse]
-            [busshi.methods.ie-flow :as busshi-ief]
             [kaname.methods.ie-flow :as kaname-ief]
             [tsumugi.methods.ie-flow :as tsumugi-ief]
             [shionome.methods.ie-flow :as shionome-ief]
@@ -32,6 +31,20 @@
 
 (defn- safe [f] (try (f) (catch Exception _ nil)))
 
+(def busshi-flow-state-paths
+  "Flat-west artifact locations, with an explicit override for detached/root-only runs."
+  (remove nil?
+          [(System/getenv "BUSSHI_FLOW_STATE_PATH")
+           "../com-etzhayyim-busshi/out/ie-flow-state.edn"
+           "orgs/etzhayyim/com-etzhayyim-busshi/out/ie-flow-state.edn"]))
+
+(defn external-busshi-flow-state []
+  (when-let [path (first (filter #(.isFile (io/file %)) busshi-flow-state-paths))]
+    (let [contract (edn/read-string (slurp path))]
+      (when-not (= :busshi/ie-flow-state (:contract/id contract))
+        (throw (ex-info "invalid busshi ie-flow contract" {:path path :contract contract})))
+      (:state contract))))
+
 (defn real-flow-states
   "Build {actor flow-state} for every embedded actor that has a REAL measured flow available:
    - kafun: its live adapter over the seed (information-energy rectification)
@@ -40,7 +53,7 @@
   []
   (let [kafun-state (safe #(kafun-ief/flow-state (ke/stands "20-actors/kafun/kotoba/seed.edn")))
         ugachi-state (safe #(ugachi-ief/flow-state (ue/projects "20-actors/ugachi/kotoba/seed.edn")))
-        busshi-state (safe #(busshi-ief/flow-state (bse/commodities "20-actors/busshi/kotoba/seed.edn")))
+        busshi-state (external-busshi-flow-state)
         kaname-state (safe #(kaname-ief/flow-state))
         tsumugi-state (safe #(tsumugi-ief/flow-state))
         shionome-state (safe #(shionome-ief/flow-state))

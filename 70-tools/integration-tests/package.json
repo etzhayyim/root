@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "vitest": "^4.1.0",
-    "@etzhayyim/sdk-mock": "workspace:*",
+    "@etzhayyim/sdk-mock": "git+https://github.com/etzhayyim/com-etzhayyim-sdk-mock.git#c857ff9be5310bf433bfe1e8d3c0f677e213d667",
     "@etzhayyim/hanrei-kotoba": "workspace:*",
     "@etzhayyim/houbun-kotoba": "workspace:*",
     "@etzhayyim/houki-kotoba": "workspace:*",

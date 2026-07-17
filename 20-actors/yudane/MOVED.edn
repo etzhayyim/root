@@ -1,0 +1,5 @@
+[{:db/id -1 :migration/kind :moved-tombstone :migration/source "20-actors/yudane"
+  :migration/canonical-repo "https://github.com/etzhayyim/com-etzhayyim-yudane"
+  :migration/west-path "orgs/etzhayyim/com-etzhayyim-yudane"
+  :migration/revision "6e80373d226add518a9eb841ced288b626c18a5a"
+  :migration/date "2026-07-17" :migration/authoritative true}]

@@ -7,11 +7,12 @@
 **新規ファイル追加は禁止**。single-monorepo 時代の構造は解体中で、コンポーネントは
 個別 repo（superproject west manifest 登録、`orgs/etzhayyim/<repo>`）へ移設する。
 
-- 許可: 既存ファイルの修正、dir の削除、`*-MOVED.md` tombstone の追加
+- 許可: 既存ファイルの修正、dir の削除、`*-MOVED.edn` tombstone の追加
 - 新規コンポーネントは個別 repo として作成し west 登録する
   （superproject ADR-2607171100 D5 の 6 手順）
 - CI guard: `.github/workflows/layer-freeze-guard.yml` が新規追加を reject する
-- 移設の型: `40-engine/kami-apps-MOVED.md`（ADR-2607171000 engine split-now）
+- 移設の正規形式: `20-actors/umisachi-MOVED.edn`。過去の `*-MOVED.md` は
+  historical pointer であり、新規 tombstone の正本にはしない。
 
 ### Final multirepo shape (owner decision 2026-07-17)
 
@@ -25,12 +26,15 @@
   directory is a migration source only, never a second source of truth.
 - Remove a legacy copy only after the independent repository contains every load-bearing
   file, root consumers have been repointed, fleet classpath resolution is verified where
-  applicable, and a `*-MOVED.md` tombstone is left behind.
+  applicable, and a `*-MOVED.edn` tombstone is left behind.
 - Shared code used by multiple repositories becomes an independent library repository;
   it must not be copied into each actor. Product policy, actor identity, deployment, and
   data ownership remain in the individual repository.
 - `root` converges on cross-repository governance/ADR material plus temporary migration
   plumbing. Numbered directories are not a permanent taxonomy.
+- Migration policy, inventory, decisions, and tombstones are EDN-first. Markdown fields
+  may appear only as prose inside `:doc/body` / `:adr/body`; a standalone `.md` file is
+  never the authoritative migration record.
 
 This monorepo is the **canonical home for religious-corp open ADRs** per ADR-2605170900 (this monorepo, `90-docs/adr/`).
 

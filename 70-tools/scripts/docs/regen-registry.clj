@@ -161,7 +161,11 @@
           (sequential? (getv :supersedes :adr/supersedes))
           (assoc "supersedes" (mapv str (getv :supersedes :adr/supersedes)))
           (sequential? (getv :superseded_by :superseded-by :adr/superseded_by :adr/superseded-by))
-          (assoc "superseded_by" (mapv str (getv :superseded_by :superseded-by :adr/superseded_by :adr/superseded-by))))))))
+          (assoc "superseded_by" (mapv str (getv :superseded_by :superseded-by :adr/superseded_by :adr/superseded-by)))
+          (sequential? (getv :amends :adr/amends))
+          (assoc "amends" (mapv str (getv :amends :adr/amends)))
+          (sequential? (getv :amended_by :amended-by :adr/amended_by :adr/amended-by))
+          (assoc "amended_by" (mapv str (getv :amended_by :amended-by :adr/amended_by :adr/amended-by))))))))
 
 (defn- parse-edn-doc
   "Parse EDN doc file → front-matter map or nil."
