@@ -59,7 +59,7 @@
     :docs 1561}
    :actor-directories 199
    :actor-existing-independent-repo 126
-   :actor-not-yet-independent 63
+   :actor-not-yet-independent 62
    :actor-not-yet-independent-names
    ["energy_order" "etzhayyim-bpmn-sdk"
     "etzhayyim-esign" "etzhayyim-organism" "etzhayyim-pregel" "etzhayyim-sdk"
@@ -68,7 +68,7 @@
     "hydrogen_electrolysis" "iriai" "iryo" "jinushi" "kafun" "kaiyaku"
     "karakuri" "kiyome" "kotoba-actors-clj" "kotodama" "kotodama-go"
     "kudamori" "kumi" "kuramori" "madomori" "magatama" "masago"
-    "matsurigoto" "meibo" "meyasu" "minori" "mio" "monosashi" "moyoshi"
+    "matsurigoto" "meibo" "meyasu" "minori" "monosashi" "moyoshi"
     "mst-projector" "narashi" "niyaku" "okaimono" "okibi" "organisms"
     "post_quantum_compat" "saisei" "salesforce-compat" "shukubo" "silicon"
     "soma" "stripe-compat" "sumitsubo" "tate" "tawami" "tedai" "toi"
@@ -122,8 +122,20 @@
      :corrected-class :existing-repo-overlap
      :repository "https://github.com/etzhayyim/com-etzhayyim-ameno"
      :reason :github-repository-existed-at-verification}}
-   :newly-independent-repositories
-   {"com-google-ads"
+  :newly-independent-repositories
+   {"mio"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-mio"
+     :revision "2c1e5fdb98ea55117f69039724d030db2806817b"
+     :west-path "orgs/etzhayyim/com-etzhayyim-mio"
+     :canonical-format :edn
+     :depends-on
+     {com.etzhayyim/kotoba-datom "3c4b3b92234e59ba285119fd8b2ca4c2ee172ff8"
+      com.etzhayyim/social-publication "e8127d0661284b1c12ce1b216c84b5ed2db619ab"}
+     :verification {:tests 36 :assertions 271 :failures 0 :errors 0}
+     :root-copy :retained-until-energy-order-and-fleet-rewire
+     :root-runtime-consumers #{energy-order fleet-cell-runner}
+     :next :extract-tawami-okibi-toi-yudane-then-energy-order}
+    "com-google-ads"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-com-google-ads"
      :revision "71a515db2d5b664f0dcb43be92ade868083a6bd2"
      :west-path "orgs/etzhayyim/com-etzhayyim-com-google-ads"

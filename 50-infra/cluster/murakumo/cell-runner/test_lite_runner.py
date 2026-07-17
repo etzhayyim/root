@@ -102,7 +102,7 @@ def test_run_once_not_due_minute_fires_nothing():
 
 import deploy_node as dn  # noqa: E402
 
-_STATUS = "100.89.204.30 issachar com-junkawasaki@ macOS -\n100.98.142.59 dan com-junkawasaki@ macOS -\n"
+_STATUS = "100.89.204.30 issachar com-junkawasaki@ macOS -\n100.89.204.31 judah com-junkawasaki@ macOS -\n100.98.142.59 dan com-junkawasaki@ macOS -\n"
 
 
 def test_deploy_actors_for_node_from_real_registry():
@@ -127,6 +127,17 @@ def test_deploy_executes_injected_runner_steps():
     # the codified deploy: mkdirs → put lite_runner → cells.edn → stage each actor → install daemon
     assert calls[0] == "mkdirs" and "put-file" in calls and "git-show" in calls
     assert "git-archive" in calls and calls[-1] == "install-daemon"
+
+
+def test_deploy_mio_uses_pinned_west_repository():
+    calls = []
+    def runner(kind, **kw):
+        calls.append((kind, kw))
+    res = dn.deploy("judah", runner=runner, status_text=_STATUS)
+    mio = next(kw for kind, kw in calls if kind == "git-archive-repo")
+    assert res["status"] == "deployed"
+    assert mio["repository"] == "orgs/etzhayyim/com-etzhayyim-mio"
+    assert mio["revision"] == "2c1e5fdb98ea55117f69039724d030db2806817b"
 
 
 def test_deploy_unreachable_node():

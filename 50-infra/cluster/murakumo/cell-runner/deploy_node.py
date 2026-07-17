@@ -22,6 +22,7 @@ sys.path.insert(0, str(HERE))
 import lite_runner as lr  # reuse the EDN reader + load_cells  # noqa: E402
 
 REGISTRY = HERE / "cells.edn"
+ACTOR_SOURCES = HERE / "actor-sources.edn"
 DAEMON_TPL = HERE / "com.etzhayyim.cell-runner.daemon.plist"
 
 
@@ -36,6 +37,17 @@ def actors_for_node(registry, node):
     return actors
 
 
+def actor_source(actor, sources=ACTOR_SOURCES):
+    """Resolve an actor to its canonical flat-west checkout, with a migration fallback."""
+    doc = lr.parse_edn(pathlib.Path(sources).read_text(encoding="utf-8"))
+    source = doc.get(":actor-sources", {}).get(actor)
+    if source:
+        return source
+    fallback = dict(doc[":default"])
+    fallback[":path"] = fallback[":path-template"].replace("{actor}", actor)
+    return fallback
+
+
 def plan(node, registry=REGISTRY):
     """Pure: the ordered deploy actions for a node (what deploy() will execute)."""
     actors = actors_for_node(registry, node)
@@ -44,7 +56,7 @@ def plan(node, registry=REGISTRY):
              ("stage", "lite_runner.py → ~/.etzhayyim/lite_runner.py (rollback runner)"),
              ("stage", "cells.edn → ~/.etzhayyim/cells.edn")]
     for a in actors:
-        steps.append(("stage-actor", f"20-actors/{a} → ~/.etzhayyim/cells/{a}"))
+        steps.append(("stage-actor", f"{actor_source(a)[':path']} → ~/.etzhayyim/cells/{a}"))
     steps.append(("install-daemon", "com.etzhayyim.cell-runner (system LaunchDaemon, sudo, KeepAlive)"))
     return {"node": node, "actors": actors, "steps": steps}
 
@@ -85,11 +97,18 @@ def deploy(node, *, registry=REGISTRY, daemon_tpl=DAEMON_TPL, ref="origin/main",
       remote=f"{home}/.etzhayyim/lite_runner.cljc")
     r("put-file", node=node, ip=ip, local=str(HERE / "lite_runner.py"),
       remote=f"{home}/.etzhayyim/lite_runner.py")
+    r("put-file", node=node, ip=ip, local=str(ACTOR_SOURCES),
+      remote=f"{home}/.etzhayyim/actor-sources.edn")
     r("git-show", node=node, ip=ip, ref=ref,
       path="50-infra/cluster/murakumo/cell-runner/cells.edn", remote=f"{home}/.etzhayyim/cells.edn")
     for a in pl["actors"]:
-        r("git-archive", node=node, ip=ip, ref=ref, path=f"20-actors/{a}",
-          remote=f"{home}/.etzhayyim/cells/{a}", strip=2)
+        source = actor_source(a)
+        if source[":kind"] == ":west-repository":
+            r("git-archive-repo", node=node, ip=ip, repository=source[":path"],
+              revision=source[":revision"], remote=f"{home}/.etzhayyim/cells/{a}")
+        else:
+            r("git-archive", node=node, ip=ip, ref=ref, path=source[":path"],
+              remote=f"{home}/.etzhayyim/cells/{a}", strip=2)
     plist = daemon_tpl.read_text(encoding="utf-8").replace("@@USER@@", node) \
         .replace("@@HOME@@", home).replace("@@NODE@@", node).replace("@@BB_PATH@@", bb_path)
     r("install-daemon", node=node, ip=ip, plist=plist, label="com.etzhayyim.cell-runner")
@@ -117,6 +136,11 @@ def _default_runner(kind, **kw):
                               capture_output=True, timeout=60).stdout
         _ssh(ip, node, f'rm -rf {kw["remote"]} && mkdir -p {kw["remote"]} && '
                        f'tar -C {kw["remote"]} --strip-components={kw["strip"]} -xf -', stdin=data)
+    elif kind == "git-archive-repo":
+        data = subprocess.run(["git", "-C", kw["repository"], "archive", kw["revision"]],
+                              capture_output=True, timeout=60, check=True).stdout
+        _ssh(ip, node, f'rm -rf {kw["remote"]} && mkdir -p {kw["remote"]} && '
+                       f'tar -C {kw["remote"]} -xf -', stdin=data)
     elif kind == "install-daemon":
         lbl = kw["label"]
         _ssh(ip, node, f'cat > /tmp/{lbl}.plist && '

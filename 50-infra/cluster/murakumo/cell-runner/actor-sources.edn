@@ -1,0 +1,8 @@
+{:actor-sources
+ {"mio"
+  {:kind :west-repository
+   :path "orgs/etzhayyim/com-etzhayyim-mio"
+   :revision "2c1e5fdb98ea55117f69039724d030db2806817b"}}
+ :default
+ {:kind :legacy-root
+  :path-template "20-actors/{actor}"}}

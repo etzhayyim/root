@@ -24542,6 +24542,21 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2607172300-mio-staged-multirepo-extraction.edn",
+      "id": "adr-2607172300-mio-staged-multirepo-extraction",
+      "title": "mio staged multirepo extraction and fleet source resolution",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "",
+      "authoritative": true,
+      "authoritative_for": [],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2607172340-abaki-multirepo-edn-policy-contract.edn",
       "id": "adr-2607172340-abaki-multirepo-edn-policy-contract",
       "title": "ADR-2607172340: abaki multirepo extraction and EDN route-around policy contract",
