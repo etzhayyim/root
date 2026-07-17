@@ -59,11 +59,11 @@
     :docs 1561}
    :actor-directories 199
    :actor-existing-independent-repo 126
-   :actor-not-yet-independent 37
+   :actor-not-yet-independent 36
    :actor-not-yet-independent-names
    ["etzhayyim-esign" "etzhayyim-organism"
     "funamori"
-    "hydrogen_electrolysis" "iriai" "iryo" "jinushi" "kafun" "kaiyaku"
+    "iriai" "iryo" "jinushi" "kafun" "kaiyaku"
     "karakuri" "kiyome" "kotoba-actors-clj" "kotodama" "kotodama-go"
     "kudamori" "kuramori" "madomori" "magatama"
     "matsurigoto" "meyasu" "moyoshi"
@@ -147,6 +147,20 @@
      :category :actor
      :canonical-format :edn
      :verification {:tests 17 :assertions 72 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "hydrogen_electrolysis"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-hydrogen-electrolysis"
+     :revision "da4fab805b6aa8606dab36882de3186482f55f34"
+     :west-path "orgs/etzhayyim/com-etzhayyim-hydrogen-electrolysis"
+     :category :actor
+     :canonical-format :edn
+     :canonicalization #{:json-output-retired :shell-runner-retired}
+     :depends-on
+     {"kami-engine" "c4502cc69c5cb756e96f6bc6c865c7ec57bc3961"}
+     :verification {:tests 19 :assertions 60 :failures 0 :errors 0
+                    :comparison-output :edn-valid
+                    :datom-output :edn-valid
+                    :deploy-plan :operator-gated-dry-run}
      :root-copy :edn-tombstone-only}
     "minori"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-minori"
