@@ -146,6 +146,18 @@ def test_tawami_source_is_pinned_west_repository():
     assert source[":revision"] == "682f1fee1b817411828294c7f09a03880fef4397"
 
 
+def test_energy_order_sibling_sources_are_pinned_west_repositories():
+    expected = {
+        "okibi": "e6fec82df9af8abb020a22162b0fbbd9eeef79b5",
+        "toi": "a9b55da7344e0046ba34ffe95d649cccc86cc01d",
+        "yudane": "95381c740609b1247a2b64f97a7160fbe4cec31b",
+    }
+    for actor, revision in expected.items():
+        source = dn.actor_source(actor)
+        assert source[":kind"] == ":west-repository"
+        assert source[":revision"] == revision
+
+
 def test_deploy_unreachable_node():
     res = dn.deploy("ghost", runner=lambda *a, **k: None, status_text=_STATUS)
     assert res["status"] == "unreachable"
