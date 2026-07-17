@@ -23,7 +23,7 @@
       "2606272337"
     ],
     "primaryLexicon": "com.etzhayyim.kyoninka.deploymentReadiness",
-    "primarySchema": "20-actors/kyoninka/methods/procedure.cljc",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-kyoninka/src/kyoninka/methods/procedure.cljc",
     "didDocument": "https://etzhayyim.com/actor/kyoninka/did.json",
     "site": "https://etzhayyim.com/kyoninka",
     "source": "kotoba"

@@ -40,7 +40,7 @@
     "wasmCid": null,
     "execModel": "service",
     "primaryLexicon": "com.etzhayyim.kyoninka.deploymentReadiness",
-    "primarySchema": "20-actors/kyoninka/methods/procedure.cljc",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-kyoninka/src/kyoninka/methods/procedure.cljc",
     "note": "verificationMethod empty — actor self-key (did:key) present-only, no server-minted key (ADR-2605231525); did:web trust root = TLS. observe→recommend only: grants no permit, activates no vehicle."
   }
 }

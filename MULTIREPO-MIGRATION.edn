@@ -528,6 +528,34 @@
                          :atproto-json-retained-as-wire}
      :verification {:tests 32 :assertions 352 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
+    "kyoninka"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kyoninka"
+     :revision "866d4982947cc4ed30f32d87a2606875c92bf2e7"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kyoninka"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root {:revision "74314a1fdf6ac3412bd854d86908cea1289ec7ef"
+                      :paths ["90-docs/adr"]}
+      kotoba-lang/langgraph "a75fe35038dc9218e26b7da4940989cd13754769"
+      kotoba-lang/langchain "cda206ea2cbe709e134cb7198f85f0eae1993c96"
+      kotoba-lang/kototama "65899deed4fb9cfa3cdfed9d21130c91982d8cd3"
+      com.etzhayyim/ainori "9898db31619d7970e42733d907e61b4e6caf25ea"
+      com.etzhayyim/chigiri "e08560129675106e0bb4b70e23769ff07a711ce7"
+      com.etzhayyim/itonami "2e2d9f98386589ae370f94ad08d95196c90b6953"
+      com.etzhayyim/ooyake "c35c46aabd258d66f7544c03d1a6a8c0a6ffb91a"
+      com.etzhayyim/toritsugi "8f6dad2d9dd282253ebedb5a0721b6ad5afbb636"
+      com.etzhayyim/wadachi "6a35ad4487bdb5ab9fbe635d757182f41eb32d0e"}
+     :root-consumers ["50-infra/etzhayyim-did-web/public/actor/kyoninka/did.json"
+                      "50-infra/etzhayyim-did-web/public/actor/kyoninka/profile.json"]
+     :consumer-rewiring #{:flat-west-path}
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :local-root-dependencies-retired
+                         :previously-excluded-organism-tests-enabled
+                         :cross-actor-dependencies-pinned}
+     :verification {:tests 20 :assertions 61 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "hydrogen_electrolysis"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hydrogen-electrolysis"
      :revision "da4fab805b6aa8606dab36882de3186482f55f34"

@@ -1,0 +1,9 @@
+{:migration/status :moved
+ :migration/date "2026-07-17"
+ :migration/repository "https://github.com/etzhayyim/com-etzhayyim-kyoninka"
+ :migration/revision "866d4982947cc4ed30f32d87a2606875c92bf2e7"
+ :migration/west-path "orgs/etzhayyim/com-etzhayyim-kyoninka"
+ :migration/canonical-metadata "manifest.edn"
+ :migration/canonical-identity "identity.edn"
+ :migration/canonical-dependencies "dependencies.edn"
+ :migration/canonical-format :edn}
