@@ -171,7 +171,6 @@
  "20-actors/tsutae/run_tests.sh"
  "20-actors/uchiwake/run_tests.sh"
  "20-actors/ucie_chiplet-compat/run_tests.sh"
- "20-actors/ugachi/run_tests.sh"
  "20-actors/utsushie/run_tests.sh"
  "20-actors/uzu/run_tests.sh"
  "20-actors/wadachi/kotoba/deploy.sh"

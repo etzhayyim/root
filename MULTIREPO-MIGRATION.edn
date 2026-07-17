@@ -260,6 +260,22 @@
                          :stale-python-cell-entry-retired}
      :verification {:tests 10 :assertions 35 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
+    "ugachi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-ugachi"
+     :revision "fb8794f39af480cf3e55502d26c5d3b310cba2f3"
+     :west-path "orgs/etzhayyim/com-etzhayyim-ugachi"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {com.etzhayyim/ie-flow "35d36d912c9596dbc5094947b60202d9abdf61e6"
+      com.etzhayyim/kotoba-datom "3c4b3b92234e59ba285119fd8b2ca4c2ee172ff8"}
+     :root-consumers ["70-tools/src/etzhayyim/ie_flow/scoreboard.clj"]
+     :consumer-rewiring #{:flat-west-classpath :external-seed-path :environment-override}
+     :canonicalization #{:standalone-namespace-root :shell-runner-retired
+                         :repository-local-edn-data}
+     :verification {:tests 40 :assertions 114 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "hydrogen_electrolysis"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hydrogen-electrolysis"
      :revision "da4fab805b6aa8606dab36882de3186482f55f34"
@@ -558,7 +574,7 @@
        :absence-policy :ungrounded-assessment}}
      :verification {:tests 37 :assertions 140 :failures 0 :errors 0
                     :scoreboard-tests 4 :scoreboard-assertions 20
-                    :ugachi-tests 36 :ugachi-assertions 106}
+                    :ugachi-tests 40 :ugachi-assertions 114}
      :root-copy :edn-tombstone-only
      :root-runtime-consumers 0
      :next :merge-west-registration-before-root-retirement}

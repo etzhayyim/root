@@ -1,0 +1,7 @@
+{:migration/status :moved
+ :migration/date "2026-07-17"
+ :migration/repository "https://github.com/etzhayyim/com-etzhayyim-ugachi"
+ :migration/revision "fb8794f39af480cf3e55502d26c5d3b310cba2f3"
+ :migration/west-path "orgs/etzhayyim/com-etzhayyim-ugachi"
+ :migration/canonical-metadata "manifest.edn"
+ :migration/canonical-format :edn}

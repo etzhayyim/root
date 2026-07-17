@@ -1,7 +1,7 @@
 #!/usr/bin/env bb
 ;; ie-flow SoS scoreboard — score every embedded actor + fold into the organism reward.
 ;; Run from repo root:
-;;   bb -cp "20-actors:70-tools/src:20-actors/kotodama/src" \
+;;   bb -cp "20-actors:70-tools/src:20-actors/kotodama/src:../com-etzhayyim-ugachi" \
 ;;      70-tools/src/etzhayyim/ie_flow/scoreboard.clj [--write]
 ;; ADR-2606212200. Pure read of real flow-states; --write commits the snapshot.
 (ns etzhayyim.ie-flow.scoreboard
@@ -29,6 +29,16 @@
 (def registry-path "80-data/ie-flow/registry.edn")
 (def snapshot-path "80-data/ie-flow/scoreboard.edn")
 
+(def ugachi-seed-paths
+  "Flat-west and sibling-checkout locations, with an explicit detached-run override."
+  (remove nil?
+          [(System/getenv "UGACHI_SEED_PATH")
+           "../com-etzhayyim-ugachi/kotoba/seed.edn"
+           "orgs/etzhayyim/com-etzhayyim-ugachi/kotoba/seed.edn"]))
+
+(defn external-ugachi-seed-path []
+  (first (filter #(.isFile (io/file %)) ugachi-seed-paths)))
+
 (defn- safe [f] (try (f) (catch Exception _ nil)))
 
 (def busshi-flow-state-paths
@@ -52,7 +62,8 @@
    Actors with no measured flow yet are returned in :pending (listed, not scored)."
   []
   (let [kafun-state (safe #(kafun-ief/flow-state (ke/stands "20-actors/kafun/kotoba/seed.edn")))
-        ugachi-state (safe #(ugachi-ief/flow-state (ue/projects "20-actors/ugachi/kotoba/seed.edn")))
+        ugachi-state (safe #(when-let [path (external-ugachi-seed-path)]
+                              (ugachi-ief/flow-state (ue/projects path))))
         busshi-state (external-busshi-flow-state)
         kaname-state (safe #(kaname-ief/flow-state))
         tsumugi-state (safe #(tsumugi-ief/flow-state))
