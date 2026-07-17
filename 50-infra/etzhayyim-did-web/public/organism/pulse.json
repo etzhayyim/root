@@ -1,11 +1,116 @@
 {
   "sinceHours" : 48,
-  "stream" : [ ],
-  "generatedAt" : "2026-07-17T01:45:59.750Z",
+  "stream" : [ {
+    "at" : 1784252766000,
+    "actor" : "noroshi",
+    "subj" : "chore(tooling): edn-datomize.bb → nbb (ADR-2607173000 Wave 1)"
+  } ],
+  "generatedAt" : "2026-07-17T01:48:42.175Z",
   "snapshot" : "pulse.kotoba.edn",
-  "actors" : { },
-  "head" : "bafkreicpkpg2ddblvigagvf3l6nd5s7f5ujkwtmocg5iopbpcelbeavziu",
+  "actors" : {
+    "noroshi" : {
+      "commits" : 1,
+      "lastAt" : 1784252766000,
+      "lastSubject" : "chore(tooling): edn-datomize.bb → nbb (ADR-2607173000 Wave 1)"
+    },
+    "makura" : {
+      "commits" : 1,
+      "lastAt" : 1784252766000,
+      "lastSubject" : "chore(tooling): edn-datomize.bb → nbb (ADR-2607173000 Wave 1)"
+    },
+    "kiyome" : {
+      "commits" : 1,
+      "lastAt" : 1784252766000,
+      "lastSubject" : "chore(tooling): edn-datomize.bb → nbb (ADR-2607173000 Wave 1)"
+    },
+    "gtin" : {
+      "commits" : 1,
+      "lastAt" : 1784252766000,
+      "lastSubject" : "chore(tooling): edn-datomize.bb → nbb (ADR-2607173000 Wave 1)"
+    },
+    "tatekata" : {
+      "commits" : 1,
+      "lastAt" : 1784252766000,
+      "lastSubject" : "chore(tooling): edn-datomize.bb → nbb (ADR-2607173000 Wave 1)"
+    },
+    "okaimono" : {
+      "commits" : 1,
+      "lastAt" : 1784252766000,
+      "lastSubject" : "chore(tooling): edn-datomize.bb → nbb (ADR-2607173000 Wave 1)"
+    },
+    "hataori" : {
+      "commits" : 1,
+      "lastAt" : 1784252766000,
+      "lastSubject" : "chore(tooling): edn-datomize.bb → nbb (ADR-2607173000 Wave 1)"
+    },
+    "wadachi" : {
+      "commits" : 1,
+      "lastAt" : 1784252766000,
+      "lastSubject" : "chore(tooling): edn-datomize.bb → nbb (ADR-2607173000 Wave 1)"
+    },
+    "mitsuho" : {
+      "commits" : 1,
+      "lastAt" : 1784252766000,
+      "lastSubject" : "chore(tooling): edn-datomize.bb → nbb (ADR-2607173000 Wave 1)"
+    },
+    "organizer" : {
+      "commits" : 1,
+      "lastAt" : 1784252766000,
+      "lastSubject" : "chore(tooling): edn-datomize.bb → nbb (ADR-2607173000 Wave 1)"
+    },
+    "watatsumi" : {
+      "commits" : 1,
+      "lastAt" : 1784252766000,
+      "lastSubject" : "chore(tooling): edn-datomize.bb → nbb (ADR-2607173000 Wave 1)"
+    },
+    "manabi" : {
+      "commits" : 1,
+      "lastAt" : 1784252766000,
+      "lastSubject" : "chore(tooling): edn-datomize.bb → nbb (ADR-2607173000 Wave 1)"
+    },
+    "tsukuru" : {
+      "commits" : 1,
+      "lastAt" : 1784252766000,
+      "lastSubject" : "chore(tooling): edn-datomize.bb → nbb (ADR-2607173000 Wave 1)"
+    },
+    "hotaru" : {
+      "commits" : 1,
+      "lastAt" : 1784252766000,
+      "lastSubject" : "chore(tooling): edn-datomize.bb → nbb (ADR-2607173000 Wave 1)"
+    },
+    "moushibumi" : {
+      "commits" : 1,
+      "lastAt" : 1784252766000,
+      "lastSubject" : "chore(tooling): edn-datomize.bb → nbb (ADR-2607173000 Wave 1)"
+    },
+    "suji" : {
+      "commits" : 1,
+      "lastAt" : 1784252766000,
+      "lastSubject" : "chore(tooling): edn-datomize.bb → nbb (ADR-2607173000 Wave 1)"
+    },
+    "hikari" : {
+      "commits" : 1,
+      "lastAt" : 1784252766000,
+      "lastSubject" : "chore(tooling): edn-datomize.bb → nbb (ADR-2607173000 Wave 1)"
+    },
+    "yakushi" : {
+      "commits" : 1,
+      "lastAt" : 1784252766000,
+      "lastSubject" : "chore(tooling): edn-datomize.bb → nbb (ADR-2607173000 Wave 1)"
+    },
+    "ake" : {
+      "commits" : 1,
+      "lastAt" : 1784252766000,
+      "lastSubject" : "chore(tooling): edn-datomize.bb → nbb (ADR-2607173000 Wave 1)"
+    },
+    "sanae" : {
+      "commits" : 1,
+      "lastAt" : 1784252766000,
+      "lastSubject" : "chore(tooling): edn-datomize.bb → nbb (ADR-2607173000 Wave 1)"
+    }
+  },
+  "head" : "bafkreibujydqxqzyrgwv6kl5a4ltrv4vvlc54yhadkdb6l2zttzgpomxs4",
   "working" : [ ],
-  "now" : 1784252759750,
+  "now" : 1784252922175,
   "store" : "kotoba-datom-log"
 }
