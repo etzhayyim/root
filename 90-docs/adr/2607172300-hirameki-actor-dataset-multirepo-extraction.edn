@@ -1,0 +1,50 @@
+[{:db/id -1
+  :adr/id "adr-2607172300-hirameki-actor-dataset-multirepo-extraction"
+  :adr/title "ADR-2607172300: hirameki actor and patent dataset repository extraction"
+  :adr/topic "hirameki-multirepo-extraction"
+  :adr/status "accepted"
+  :adr/doc_type "adr"
+  :adr/source-format "edn"
+  :adr/date "2026-07-17"
+  :adr/last_verified "2026-07-17"
+  :adr/deciders ["Jun Kawasaki"]
+  :adr/authoritative true
+  :adr/authoritative_for
+  ["hirameki actor canonical repository and pinned dependencies"
+   "hirameki-patents canonical data repository, revision, artifact bytes, and CIDs"
+   "retirement of root/20-actors/hirameki and root/80-data/hirameki-patents implementations"]
+  :adr/related
+  ["adr-2606212200-hirameki-worldwide-patent-kg-mirror"
+   "adr-2607172000-etzhayyim-gftdcojp-flat-west-multirepo-root-retirement"]
+  :amends ["2606212200"]
+  :adr/supersedes []
+  :adr/superseded_by []
+  :adr/decision
+  {:actor
+   {:repository "https://github.com/etzhayyim/com-etzhayyim-hirameki"
+    :revision "58756468b6e47b6bce7e11caec0d0360d389efad"
+    :west-path "orgs/etzhayyim/com-etzhayyim-hirameki"
+    :canonical-metadata "manifest.edn"
+    :verification {:tests 40 :assertions 148 :failures 0 :errors 0}}
+   :dataset
+   {:repository "https://github.com/etzhayyim/com-etzhayyim-hirameki-patents"
+    :revision "936d7832ad1fbd1873570a58af14b17acc196a0d"
+    :west-path "orgs/etzhayyim/com-etzhayyim-hirameki-patents"
+    :canonical-metadata "dataset.edn"
+    :artifacts
+    [{:file "hirameki-patents.corpus.kotoba.edn" :bytes 2055
+      :cid "bafkreiacmpjkhjncxlfjtfhfia7ikjyfjq42u7yi3x56ajppu374t3j4gi"}
+     {:file "hirameki-patents.datoms.kotoba.edn" :bytes 6255
+      :cid "bafkreif7ricl4x24y5pnquryjf4gakmwm36uqijtsao3rw2cuxuwflw4be"}]
+    :verification {:command "bb verify" :result :pass}}
+   :root-retirement
+   {:actor-path "20-actors/hirameki/MOVED.edn"
+    :dataset-path "80-data/hirameki-patents/MOVED.edn"
+    :runtime-consumers 0}}
+  :adr/consequences
+  {:edn-canonical true
+   :json-metadata-retired true
+   :flat-west-paths-preserved true
+   :dataset-lifecycle-independent true}
+  :adr/body
+  "# Decision\n\nThe hirameki implementation is canonical at `etzhayyim/com-etzhayyim-hirameki`; its public-patent corpus is canonical at the independently versioned `etzhayyim/com-etzhayyim-hirameki-patents`. Both retain flat west paths. Actor code consumes pinned multiformats-clj, kotoba-datom, and social-publication libraries and names the dataset by repository plus immutable revision.\n\nCanonical metadata is EDN. The corpus, datoms, publication manifest, and ingest provenance are each a single EDN form; the former JSON publication/provenance metadata is retired. The actor deterministically regenerates byte-identical corpus and datom artifacts matching the pinned data repository CIDs.\n\nThe numbered-root implementations had no remaining runtime path consumers and are replaced by `MOVED.edn` tombstones. ADR-2606212200 remains the domain and safety decision; this ADR amends its physical placement and persistence references."}]

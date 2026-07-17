@@ -59,13 +59,13 @@
     :docs 1561}
    :actor-directories 199
    :actor-existing-independent-repo 126
-   :actor-not-yet-independent 69
+   :actor-not-yet-independent 68
    :actor-not-yet-independent-names
    ["_conformance" "abaki" "ainori" "busshi"
     "com-google-ads" "energy_order" "etzhayyim-bpmn-sdk"
     "etzhayyim-esign" "etzhayyim-organism" "etzhayyim-pregel" "etzhayyim-sdk"
     "etzhayyim-sdk-auth" "etzhayyim-sdk-mock" "etzhayyim-sdk-py" "first-breath"
-    "funamori" "haraedo" "hataori" "hirameki"
+    "funamori" "haraedo" "hataori"
     "hydrogen_electrolysis" "iriai" "iryo" "jinushi" "kafun" "kaiyaku"
     "karakuri" "kiyome" "kotoba-actors-clj" "kotodama" "kotodama-go"
     "kudamori" "kumi" "kuramori" "madomori" "magatama" "masago"
@@ -168,7 +168,39 @@
      :verification {:tests 15 :assertions 35 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only
      :root-runtime-consumers 0
+     :next :merge-west-registration-before-root-retirement}
+    "hirameki"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-hirameki"
+     :revision "58756468b6e47b6bce7e11caec0d0360d389efad"
+     :west-path "orgs/etzhayyim/com-etzhayyim-hirameki"
+     :canonical-format :edn
+     :depends-on
+     {com.junkawasaki/multiformats-clj "0f4ed68ff9e3cbf069569d897c9304713a14036c"
+      com.etzhayyim/kotoba-datom "3c4b3b92234e59ba285119fd8b2ca4c2ee172ff8"
+      com.etzhayyim/social-publication "e8127d0661284b1c12ce1b216c84b5ed2db619ab"}
+     :dataset-contract
+     {:repository "https://github.com/etzhayyim/com-etzhayyim-hirameki-patents"
+      :revision "936d7832ad1fbd1873570a58af14b17acc196a0d"}
+     :canonicalization #{:json-retired :single-form-edn :repository-native-paths}
+     :verification {:tests 40 :assertions 148 :failures 0 :errors 0
+                    :dataset-cids :byte-identical}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0
      :next :merge-west-registration-before-root-retirement}}
+   :newly-independent-data-repositories
+   {"hirameki-patents"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-hirameki-patents"
+     :revision "936d7832ad1fbd1873570a58af14b17acc196a0d"
+     :west-path "orgs/etzhayyim/com-etzhayyim-hirameki-patents"
+     :canonical-format :edn
+     :artifacts
+     [{:file "hirameki-patents.corpus.kotoba.edn" :bytes 2055
+       :cid "bafkreiacmpjkhjncxlfjtfhfia7ikjyfjq42u7yi3x56ajppu374t3j4gi"}
+      {:file "hirameki-patents.datoms.kotoba.edn" :bytes 6255
+       :cid "bafkreif7ricl4x24y5pnquryjf4gakmwm36uqijtsao3rw2cuxuwflw4be"}]
+     :verification {:command "bb verify" :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0}}
    :pending-independent-repo-merges
    {"isco"
     {:pull-request "https://github.com/etzhayyim/com-etzhayyim-isco/pull/2"
