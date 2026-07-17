@@ -1,8 +1,7 @@
 ;; etzhayyim.lint.no-new-shell — grandfathered first-party .sh baseline.
 ;; Shrinks-only: porting a .sh to bb + deleting it drops it here. NEVER add by hand.
 ;; Regenerate: bb lint:no-new-shell --update
-["20-actors/abaki/run_tests.sh"
- "20-actors/aburi/run_tests.sh"
+["20-actors/aburi/run_tests.sh"
  "20-actors/ainori/run_tests.sh"
  "20-actors/akashi/run_tests.sh"
  "20-actors/ake/run_tests.sh"

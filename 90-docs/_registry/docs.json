@@ -24542,6 +24542,31 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2607172340-abaki-multirepo-edn-policy-contract.edn",
+      "id": "adr-2607172340-abaki-multirepo-edn-policy-contract",
+      "title": "ADR-2607172340: abaki multirepo extraction and EDN route-around policy contract",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "abaki-multirepo-edn-contract",
+      "authoritative": true,
+      "authoritative_for": [
+        "abaki canonical actor repository and revision",
+        "abaki routing-policy EDN consumer contract for okaimono and fuchi",
+        "retirement of root/20-actors/abaki implementation"
+      ],
+      "related": [
+        "adr-2606073100-abaki-anti-monopoly-intelligence-membrane-r0",
+        "adr-2607172000-etzhayyim-gftdcojp-flat-west-multirepo-root-retirement"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [
+        "2606073100"
+      ],
+      "last_verified": "2026-07-17",
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.edn",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

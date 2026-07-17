@@ -1,0 +1,8 @@
+{:migration/type :repository-extraction
+ :migration/category :actor
+ :migration/source "20-actors/abaki"
+ :migration/repository "https://github.com/etzhayyim/com-etzhayyim-abaki"
+ :migration/west-path "orgs/etzhayyim/com-etzhayyim-abaki"
+ :migration/revision "2081d3634328083755ad85ee4f957ac343b08e96"
+ :migration/canonical-metadata "manifest.edn"
+ :migration/date "2026-07-17"}
