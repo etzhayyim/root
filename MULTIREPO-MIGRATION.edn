@@ -59,9 +59,9 @@
     :docs 1561}
    :actor-directories 199
    :actor-existing-independent-repo 125
-   :actor-not-yet-independent 74
+   :actor-not-yet-independent 73
    :actor-not-yet-independent-names
-   ["_conformance" "abaki" "ainori" "ameno" "amime" "atsurae" "busshi"
+   ["_conformance" "abaki" "ainori" "ameno" "atsurae" "busshi"
     "com-google-ads" "denwaban" "energy_order" "etzhayyim-bpmn-sdk"
     "etzhayyim-esign" "etzhayyim-organism" "etzhayyim-pregel" "etzhayyim-sdk"
     "etzhayyim-sdk-auth" "etzhayyim-sdk-mock" "etzhayyim-sdk-py" "first-breath"
@@ -110,6 +110,15 @@
      :initial-rewired-consumers ["mimamori"]}}
    :content-contained-but-blocked
    {"karute" :root-relative-actor-manifest-consumer}
+   :newly-independent-repositories
+   {"amime"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-amime"
+     :revision "5fc4c7ef627b3b84c0245fa11a6e674c0b22068e"
+     :west-path "orgs/etzhayyim/com-etzhayyim-amime"
+     :canonical-format :edn
+     :verification {:tests 12 :assertions 55 :failures 0 :errors 0
+                    :generated-mirror :byte-identical}
+     :next :delete-root-copy-after-west-pin-and-consumer-audit}}
    :pending-independent-repo-merges
    {"isco"
     {:pull-request "https://github.com/etzhayyim/com-etzhayyim-isco/pull/2"
@@ -219,6 +228,20 @@
      :canonical-format :edn
      :verification {:tests 50 :assertions 239 :failures 0 :errors 0}
      :next :delete-root-copy-after-merge-and-west-pin}
+    "kaname"
+    {:pull-request "https://github.com/etzhayyim/com-etzhayyim-kaname/pull/2"
+     :commit "09d5ce8"
+     :moves ["manifest.edn" "schema.edn" "src/kaname" "test/kaname" "run_tests.clj"]
+     :rewires
+     ["numbered-root and sibling checkout assumptions to explicit repository-root maps"
+      "amime energy mirror to repository URL plus pinned revision"
+      "Kotoba Datom, IE Flow, social publication, and LangGraph to SHA-pinned dependencies"
+      "deployment runner and tests to repository-native paths"
+      "JSON-LD compatibility manifest retired in favor of canonical EDN"]
+     :canonical-format :edn
+     :verification {:tests 63 :assertions 248 :failures 0 :errors 0
+                    :amime-join {:nodes 6 :edges 12}}
+     :next :delete-root-copy-after-merge-and-west-pin}
     "kuni-umi"
     {:pull-request "https://github.com/etzhayyim/com-etzhayyim-kuni-umi/pull/2"
      :commit "3eb7566"
@@ -249,7 +272,7 @@
     :count 125
     :state :merge-root-only-content-before-delete}
    {:class :not-yet-independent-actor
-    :count 74
+    :count 73
     :state :classify-library-or-publish-repo}
    {:class :shared-libraries
     :count 4
