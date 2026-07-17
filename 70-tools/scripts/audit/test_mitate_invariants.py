@@ -18,13 +18,18 @@ the schema-enforceable invariants. Mirrors the karute/kokoro/iyashi lock-in suit
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 
 import pytest
 
 _REPO = Path(__file__).resolve().parents[3]
-_LEX = _REPO / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "mitate"
-# manifest invariants → 20-actors/mitate/methods/test_manifest_invariants.cljc (jsonld retired)
+_MITATE = Path(os.environ.get(
+    "ETZHAYYIM_MITATE_ROOT",
+    _REPO.parent / "com-etzhayyim-mitate",
+))
+_LEX = _MITATE / "wire"
+# Canonical manifest and lexicon invariants live in the standalone actor's EDN tests.
 
 # Lexicon stem → its required encrypted-envelope field (PHI content carriers).
 _ENC_FIELD = {
@@ -80,4 +85,3 @@ class TestLexiconHygiene:
 
 
 # ─── 3. manifest ↔ disk consistency (the orphan this suite closed) ──────
-

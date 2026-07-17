@@ -369,6 +369,38 @@
                          :atproto-json-retained-as-wire}
      :verification {:tests 12 :assertions 32 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
+    "mitate"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-mitate"
+     :revision "5900536cdda2becb947fda4c67dea84365d2239d"
+     :west-path "orgs/etzhayyim/com-etzhayyim-mitate"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root "abdc4ba0a7ba19969b5628f0f867f96f259ca011"
+      com.etzhayyim/yakushi "5b2389671defc00ef8c7cfa522b9bc96b3ac192f"
+      com.etzhayyim/kuni-umi "7c0b03e0a649eb8a31e51325bfd0a9219351fc37"
+      com.etzhayyim/tsukuru "e0d8ad057a1e5a62423614d45d70c708edf30d6e"
+      com.etzhayyim/sdk "12314a0cc5ac2feb49dd9789d5c002398acb6988"}
+     :root-consumers ["70-tools/scripts/audit/test_mitate_invariants.py"
+                      "50-infra/hanami-robot/README.md"
+                      "60-apps/mitate-pwa/public/index.html"]
+     :consumer-rewiring #{:flat-west-path :environment-override :wire-validation-only}
+     :actor-owned-contracts ["lex/diagnosticConsentReceipt.edn"
+                             "lex/diagnosticOrder.edn"
+                             "lex/diagnosticResult.edn"
+                             "lex/emergencyEscalation.edn"
+                             "lex/outcomeFollowup.edn"
+                             "lex/rhinitisIntake.edn"
+                             "lex/silenMitateReview.edn"
+                             "lex/treatmentPlan.edn"
+                             "lex/triageVerdict.edn"]
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :shell-runner-retired :actor-lexicons-edn-canonical
+                         :cross-actor-dependencies-pinned
+                         :atproto-json-retained-as-wire}
+     :verification {:tests 12 :assertions 42 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "hydrogen_electrolysis"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hydrogen-electrolysis"
      :revision "da4fab805b6aa8606dab36882de3186482f55f34"

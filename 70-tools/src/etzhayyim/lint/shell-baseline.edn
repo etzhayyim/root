@@ -95,7 +95,6 @@
  "20-actors/meyasu/run_tests.sh"
  "20-actors/mimamori/run_tests.sh"
  "20-actors/mimamori/wasm/build.sh"
- "20-actors/mitate/run_tests.sh"
  "20-actors/mitooshi/run_tests.sh"
  "20-actors/mitsuho/kotoba/deploy.sh"
  "20-actors/mitsuho/run_tests.sh"

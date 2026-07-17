@@ -104,5 +104,5 @@ Do NOT skip phases. Each R transition is its own ADR.
 - [ADR-2605181100](../../90-docs/adr/2605181100-mst-encrypted-records-signal-keywrap.md) (XChaCha20 envelope — G7)
 - [ADR-2605231525](../../90-docs/adr/2605231525-no-server-key-religious-corp-architecture.md) (no-server-key — G13)
 - [ADR-2605215000](../../90-docs/adr/2605215000-etzhayyim-inference-murakumo-only-no-runpod.md) (Murakumo-only — G10)
-- [`20-actors/mitate/CLAUDE.md`](../mitate/CLAUDE.md) (mitate sibling rules)
+- [`orgs/etzhayyim/com-etzhayyim-mitate/CLAUDE.md`](https://github.com/etzhayyim/com-etzhayyim-mitate/blob/main/CLAUDE.md) (mitate sibling rules)
 - [`20-actors/magatama/cells/README.md`](../magatama/cells/README.md) (sibling cell catalog)
