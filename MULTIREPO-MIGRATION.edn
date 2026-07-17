@@ -59,7 +59,7 @@
     :docs 1561}
    :actor-directories 199
    :actor-existing-independent-repo 126
-   :actor-not-yet-independent 40
+   :actor-not-yet-independent 39
    :actor-not-yet-independent-names
    ["etzhayyim-esign" "etzhayyim-organism"
     "funamori"
@@ -67,7 +67,7 @@
     "karakuri" "kiyome" "kotoba-actors-clj" "kotodama" "kotodama-go"
     "kudamori" "kuramori" "madomori" "magatama" "masago"
     "matsurigoto" "meyasu" "minori" "moyoshi"
-    "mst-projector" "narashi" "niyaku" "okaimono"
+    "mst-projector" "niyaku" "okaimono"
     "saisei" "silicon"
     "soma" "sumitsubo" "tate" "tedai"
     "tsubasa" "tsuchifumi" "ugachi" "unspsc" "uzu" "warifu" "yobel"]
@@ -147,6 +147,20 @@
      :category :actor
      :canonical-format :edn
      :verification {:tests 17 :assertions 72 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "narashi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-narashi"
+     :revision "368ba8c8531419c080af5691a7caf414406e49fb"
+     :west-path "orgs/etzhayyim/com-etzhayyim-narashi"
+     :category :actor
+     :canonical-format :edn
+     :external-wire-formats #{:did-json}
+     :migration-mode :merge-root-only-content-into-existing-repository
+     :actor-owned-contracts ["lex/crossReferenceNote.edn"
+                             "lex/methodNote.edn"
+                             "lex/metricNarrative.edn"
+                             "lex/metricObservation.edn"]
+     :verification {:tests 16 :assertions 121 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
     "kumi"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-kumi"
