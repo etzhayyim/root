@@ -1,0 +1,8 @@
+[{:db/id -1
+  :migration/kind :moved-tombstone
+  :migration/source "20-actors/meibo"
+  :migration/canonical-repo "https://github.com/etzhayyim/com-etzhayyim-meibo"
+  :migration/west-path "orgs/etzhayyim/com-etzhayyim-meibo"
+  :migration/revision "1155c8687fc77d395445863ab38535e8dffd2bf3"
+  :migration/date "2026-07-17"
+  :migration/authoritative true}]

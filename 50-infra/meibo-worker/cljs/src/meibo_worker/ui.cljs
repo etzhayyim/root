@@ -50,7 +50,7 @@
 <div id=\"out\"></div>
 <footer>
   Apache 2.0 + etzhayyim Charter Compliance Rider. Source:
-  <a href=\"https://github.com/etzhayyim/root/tree/main/20-actors/meibo\">etzhayyim/root 20-actors/meibo</a>.
+  <a href=\"https://github.com/etzhayyim/com-etzhayyim-meibo\">com-etzhayyim-meibo</a>.
   R0 seed — 10 jurisdictions; the rest honestly degrade to an empty result
   (G10). No cookies, no tracking script — access is logged only as anonymous
   aggregate counts (route/day), never per-visitor.

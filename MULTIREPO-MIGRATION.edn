@@ -59,14 +59,14 @@
     :docs 1561}
    :actor-directories 199
    :actor-existing-independent-repo 126
-   :actor-not-yet-independent 42
+   :actor-not-yet-independent 40
    :actor-not-yet-independent-names
    ["etzhayyim-esign" "etzhayyim-organism"
     "funamori"
     "hydrogen_electrolysis" "iriai" "iryo" "jinushi" "kafun" "kaiyaku"
     "karakuri" "kiyome" "kotoba-actors-clj" "kotodama" "kotodama-go"
     "kudamori" "kuramori" "madomori" "magatama" "masago"
-    "matsurigoto" "meibo" "meyasu" "minori" "monosashi" "moyoshi"
+    "matsurigoto" "meyasu" "minori" "moyoshi"
     "mst-projector" "narashi" "niyaku" "okaimono"
     "saisei" "silicon"
     "soma" "sumitsubo" "tate" "tedai"
@@ -131,7 +131,24 @@
      :previous-repository-content ["src/kumi/murakumo.cljc"]
      :resolution :merged-complete-legacy-actor-history}}
   :newly-independent-repositories
-   {"kumi"
+   {"meibo"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-meibo"
+     :revision "1155c8687fc77d395445863ab38535e8dffd2bf3"
+     :west-path "orgs/etzhayyim/com-etzhayyim-meibo"
+     :category :actor
+     :canonical-format :edn
+     :verification {:tests 12 :assertions 178 :failures 0 :errors 0}
+     :root-consumer "70-tools/scripts/meibo-worker/gen-data.cljs"
+     :root-copy :edn-tombstone-only}
+    "monosashi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-monosashi"
+     :revision "f72978502211aee7f0a72dea3ce4e451f4612c67"
+     :west-path "orgs/etzhayyim/com-etzhayyim-monosashi"
+     :category :actor
+     :canonical-format :edn
+     :verification {:tests 17 :assertions 72 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "kumi"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-kumi"
      :revision "75c53c6f1807a60d9ab7f2b0a35ad17725f99a67"
      :west-path "orgs/etzhayyim/com-etzhayyim-kumi"

@@ -7,7 +7,7 @@
   read-only-public-compute exemption (ADR-2605231525 / ADR-2606072802)
   cleanly, same as saisei-worker. G1/G2/G10 are enforced by
   `meibo.methods.directory` / `meibo.methods.coverage-report` themselves
-  (20-actors/meibo/methods/*.cljc, required verbatim below) — this namespace
+  (orgs/etzhayyim/com-etzhayyim-meibo/src/meibo/methods/*.cljc, required verbatim below) — this namespace
   only adds HTTP routing and anonymous aggregate access logging."
   (:require [clojure.string :as str]
             [meibo.methods.edn :as edn]
