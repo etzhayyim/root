@@ -218,6 +218,31 @@
       "namespace paths and standalone runner"]
      :canonical-format :edn
      :verification {:tests 50 :assertions 239 :failures 0 :errors 0}
+     :next :delete-root-copy-after-merge-and-west-pin}
+    "kuni-umi"
+    {:pull-request "https://github.com/etzhayyim/com-etzhayyim-kuni-umi/pull/2"
+     :commit "3eb7566"
+     :moves
+     ["manifest.edn"
+      "cells/schema.edn"
+      "src/kuni_umi"
+      "test/kuni_umi"
+      "run_tests.clj"]
+     :rewires
+     ["monorepo classpath to repository-native src and test paths"
+      "langchain-clj local root to a SHA-pinned Git dependency"
+      "generic social membrane to SHA-pinned etzhayyim.social.publication"
+      "cell entry paths and Kotoba seed ingestion to repository-local EDN"
+      "kami golden parity from deleted Python twins to the CLJC source of truth"]
+     :retired-stale-artifacts
+     ["run_tests.sh"
+      "kotoba/deploy.sh"
+      "Python robotics tests whose twins were previously retired by ADR-2606160842"]
+     :canonical-format :edn
+     :verification
+     {:clojure {:tests 69 :assertions 480 :failures 0 :errors 0}
+      :python {:tests 17 :failures 0 :errors 0}
+      :seed-dry-run {:entities 4 :approx-datoms 32 :external-writes 0}}
      :next :delete-root-copy-after-merge-and-west-pin}}}
   :migration/remaining-work
   [{:class :existing-repo-overlap
