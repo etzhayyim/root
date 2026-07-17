@@ -141,7 +141,7 @@ R0 = declaration only. Actual lexicon record flow activates at consumer's R-phas
 - `/20-actors/tsutae/manifest.jsonld` — DID + cell registry + constitutional gates
 - `/90-docs/adr/2605261300-tsutae-handheld-communication-tier-b-actor-r0.md` — Full R0 master ADR
 - `/20-actors/silicon/README.md` — Sibling (iwakura SoC R2+ upstream)
-- `/20-actors/igata/README.md` — Sibling (HPDC Al chassis R3 upstream)
+- `/orgs/etzhayyim/com-etzhayyim-igata/README.md` — Sibling (HPDC Al chassis R3 upstream)
 - `/20-actors/kanayama/README.md` — Sibling (EOL Al recovery downstream)
 - `/20-actors/makura/README.md` — Sibling (§2(c) consumer good translation precedent)
 - `/CLAUDE.md` — Status table row 55

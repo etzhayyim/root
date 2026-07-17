@@ -217,6 +217,6 @@ R0 = declaration only.
 - `/20-actors/wadachi/README.md` — Sibling (mobility operator; SAE Level ≤3 invariant precedent)
 - `/20-actors/tsutae/README.md` — Sibling (R2R dual-layer: tsutae G3 hardware + suki G10 firmware)
 - `/20-actors/kanayama/README.md` — Sibling (Al + steel + Cu supplier + EoL)
-- `/20-actors/igata/README.md` — Sibling (HPDC engine block / transmission housing R3)
+- `/orgs/etzhayyim/com-etzhayyim-igata/README.md` — Sibling (HPDC engine block / transmission housing R3)
 - `/CLAUDE.md` — Status table row 57
 - `/CHARTER-RIDER.md` — §2(b) IP + §2(c) surveillance + §2(e) repair + §2(g) sustainability

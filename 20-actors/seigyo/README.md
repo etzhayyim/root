@@ -72,5 +72,5 @@ seigyo は供給者ではなく**層**: 各製造アクターの commissioning �
 - `/90-docs/adr/2606111100-seigyo-r1-benchtop-loop-commissioning.md` — R1
 - `/90-docs/adr/2605265000-district-heating-cooling-d-gate-evaluation-r0.md` §1.9 — vendor 禁止の出自
 - `/90-docs/adr/2605215000-etzhayyim-inference-murakumo-only-no-runpod.md` — Murakumo-only inference
-- `/20-actors/igata/README.md` — R1 pairing target
+- `/orgs/etzhayyim/com-etzhayyim-igata/README.md` — R1 pairing target
 - `/CHARTER-RIDER.md` — §2 audit basis

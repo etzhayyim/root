@@ -328,6 +328,23 @@
                          :atproto-json-retained-as-wire}
      :verification {:tests 13 :assertions 391 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
+    "igata"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-igata"
+     :revision "eb9744b65f2ae9e32b1ba5e6a4b7c4addc120772"
+     :west-path "orgs/etzhayyim/com-etzhayyim-igata"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :actor-owned-contracts ["lex/alloyAttestation.edn"
+                             "lex/castShotRecord.edn"
+                             "lex/dieAttestation.edn"
+                             "lex/partAttestation.edn"
+                             "lex/silenIgataReview.edn"]
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :shell-runner-retired :actor-lexicons-edn-canonical
+                         :atproto-json-retained-as-wire}
+     :verification {:tests 9 :assertions 50 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "hydrogen_electrolysis"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hydrogen-electrolysis"
      :revision "da4fab805b6aa8606dab36882de3186482f55f34"

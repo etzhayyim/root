@@ -52,7 +52,6 @@
  "20-actors/hokorobi/run_tests.sh"
  "20-actors/hoshimori/run_tests.sh"
  "20-actors/hotaru/run_tests.sh"
- "20-actors/igata/run_tests.sh"
  "20-actors/infra-utility-connect/kotoba/deploy.sh"
  "20-actors/infra-utility-connect/run_tests.sh"
  "20-actors/inochi/run_tests.sh"

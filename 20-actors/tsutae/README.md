@@ -122,7 +122,7 @@ com.etzhayyim.tsutae.{
 
 - `/90-docs/adr/2605261300-tsutae-handheld-communication-tier-b-actor-r0.md` — Full ADR
 - `/20-actors/silicon/README.md` — Sibling (iwakura SoC R2+ upstream supplier)
-- `/20-actors/igata/README.md` — Sibling (HPDC Al chassis R3 upstream supplier)
+- `/orgs/etzhayyim/com-etzhayyim-igata/README.md` — Sibling (HPDC Al chassis R3 upstream supplier)
 - `/20-actors/kanayama/README.md` — Sibling (EOL Al recovery downstream consumer)
 - `/20-actors/watatsumi/README.md` — Sibling (YouTube methodology + structural exclusion pattern)
 - `/20-actors/makura/README.md` — Sibling (§2(c) consumer good translation precedent — no-electronics → with-electronics)
