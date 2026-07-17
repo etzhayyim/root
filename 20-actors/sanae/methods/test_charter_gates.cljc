@@ -27,7 +27,7 @@
      (def ^:private lexdir (java.io.File. actor-dir "lex"))
 
      (defn- unblob
-       "edn-datomize.bb pr-str's non-scalar values into a blob string; read it back."
+       "edn-datomize.cljs pr-str's non-scalar values into a blob string; read it back."
        [v]
        (if (string? v)
          (try (let [parsed (edn/read-string v)] (if (coll? parsed) parsed v))

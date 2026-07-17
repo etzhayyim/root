@@ -1,6 +1,6 @@
 ;; 20-actors/noroshi/schema.edn — Datomic/Datascript compatible schema
 ;; for this actor's cell-descriptor tx-data (cells/*.edn), auto-generated
-;; by the Phase 4 edn-datomize pass (ADR: manifest/edn-datomize.bb lineage).
+;; by the Phase 4 edn-datomize pass (ADR: manifest/edn-datomize.cljs lineage).
 ;; Do not hand-edit — regenerate. Keys already namespaced in the source
 ;; (:cell/*) were kept as-is; no bare keys existed in these files.
 ;; NOTE: this is separate from kotoba/schema.edn, which is the actor's own

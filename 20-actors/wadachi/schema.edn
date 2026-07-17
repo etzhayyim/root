@@ -1,6 +1,6 @@
 ;; wadachi 轍 — Datomic/Datascript schema for the tx-data attributes
 ;; introduced by the edn-datomize pass (Phase 4 fan-out; ported from
-;; manifest/edn-datomize.bb convention). Covers cells/*.edn and
+;; manifest/edn-datomize.cljs convention). Covers cells/*.edn and
 ;; lex/*.edn attributes; kotoba/schema.edn + kotoba/seed.edn were
 ;; ALREADY tx-data shaped (vectors of entity maps ready to transact)
 ;; and were left untouched. manifest.edn is excluded from this pass

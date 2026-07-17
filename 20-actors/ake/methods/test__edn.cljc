@@ -55,7 +55,7 @@
            (edn/reconstitute tx "lex.editProposal")))))
 
 (deftest test-reconstitute-unblobs-a-pr-str-nested-value-back-to-string-keyed-structure
-  ;; mirrors what edn-datomize.bb actually writes for a nested :defs value: standard Clojure
+  ;; mirrors what edn-datomize.cljs actually writes for a nested :defs value: standard Clojure
   ;; pr-str syntax (real keywords, #:ns{} shorthand disabled at write time).
   (let [blob "{:main {:type \"record\", :properties {:id {:type \"string\"}}}}"
         tx [{":db/id" -1 ":lex.editProposal/defs" blob}]]

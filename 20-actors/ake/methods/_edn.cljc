@@ -94,7 +94,7 @@
      (parse-edn (slurp path))))
 
 ;; ── tx-data reconstitution (edn-datomize, Phase 4 fan-out) ────────────────
-;; `edn-datomize.bb wrap-map-preserve` rewrites a file's top-level bare map into a
+;; `edn-datomize.cljs wrap-map-preserve` rewrites a file's top-level bare map into a
 ;; single-entity Datomic/Datascript tx-data vector `[{:db/id -1 <ns>/<key> <blob-or-live> ...}]`
 ;; so the FILE ON DISK is directly queryable tx-data. This actor's own methods/tests read that
 ;; same file with THIS namespace's string-keyword parser and expect the ORIGINAL bare-map shape
@@ -112,7 +112,7 @@
 
 (defn- unblob
   "A wrap-map-preserve! non-scalar attribute value is a pr-str'd blob string (standard Clojure
-  syntax, real keywords, #:ns{} shorthand disabled at write time — see edn-datomize.bb). Re-
+  syntax, real keywords, #:ns{} shorthand disabled at write time — see edn-datomize.cljs). Re-
   parsing it through THIS reader (not clojure.edn/read-string) yields the same \":ns/name\"-as-
   string convention every ake.methods.* call site expects. A live (non-blob) scalar value that
   happens to be a plain string is returned unchanged (parse-edn on it fails or yields a
