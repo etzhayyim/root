@@ -1,0 +1,10 @@
+{:migration/status :moved
+ :migration/date "2026-07-17"
+ :migration/repository "https://github.com/etzhayyim/com-etzhayyim-iyashi"
+ :migration/revision "eceea556237590f861a475b64bf41048c90f6213"
+ :migration/west-path "orgs/etzhayyim/com-etzhayyim-iyashi"
+ :migration/canonical-metadata "manifest.edn"
+ :migration/canonical-identity "identity.edn"
+ :migration/canonical-lexicons "lex"
+ :migration/external-wire-lexicons "wire"
+ :migration/canonical-format :edn}

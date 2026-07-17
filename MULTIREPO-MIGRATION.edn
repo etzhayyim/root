@@ -288,6 +288,25 @@
                          :nbb-test-runner-wired}
      :verification {:tests 5 :assertions 15 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
+    "iyashi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-iyashi"
+     :revision "eceea556237590f861a475b64bf41048c90f6213"
+     :west-path "orgs/etzhayyim/com-etzhayyim-iyashi"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :actor-owned-contracts ["lex/chronicCareContinuityRecord.edn"
+                             "lex/clinicFacilityAttestation.edn"
+                             "lex/clinicalEncounterAttestation.edn"
+                             "lex/phlebotomyAttestation.edn"
+                             "lex/providerAttestation.edn"
+                             "lex/silenIyashiReview.edn"
+                             "lex/vaccinationAttestation.edn"]
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :shell-runner-retired :actor-lexicons-edn-canonical
+                         :atproto-json-retained-as-wire}
+     :verification {:tests 19 :assertions 116 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "hydrogen_electrolysis"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hydrogen-electrolysis"
      :revision "da4fab805b6aa8606dab36882de3186482f55f34"

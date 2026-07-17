@@ -26,7 +26,7 @@ import pytest
 
 _REPO = Path(__file__).resolve().parents[3]
 _LEX = _REPO / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "iyashi"
-# manifest invariants → 20-actors/iyashi/methods/test_manifest_invariants.cljc (jsonld retired)
+# manifest invariants → orgs/etzhayyim/com-etzhayyim-iyashi/test/iyashi/methods/test_manifest_invariants.cljc
 
 # Lexicons whose payload is clinical content and MUST stay in the encrypted envelope.
 _PHI_CONTENT = ["clinicalEncounterAttestation", "chronicCareContinuityRecord"]
@@ -112,4 +112,3 @@ class TestHygieneAndManifest:
     def test_each_id_matches_namespace(self):
         for p in _LEX.glob("*.json"):
             assert _load(p)["id"] == f"com.etzhayyim.iyashi.{p.stem}"
-
