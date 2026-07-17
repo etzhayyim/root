@@ -59,9 +59,9 @@
     :docs 1561}
    :actor-directories 199
    :actor-existing-independent-repo 126
-   :actor-not-yet-independent 64
+   :actor-not-yet-independent 63
    :actor-not-yet-independent-names
-   ["com-google-ads" "energy_order" "etzhayyim-bpmn-sdk"
+   ["energy_order" "etzhayyim-bpmn-sdk"
     "etzhayyim-esign" "etzhayyim-organism" "etzhayyim-pregel" "etzhayyim-sdk"
     "etzhayyim-sdk-auth" "etzhayyim-sdk-mock" "etzhayyim-sdk-py" "first-breath"
     "funamori" "haraedo" "hataori"
@@ -123,7 +123,24 @@
      :repository "https://github.com/etzhayyim/com-etzhayyim-ameno"
      :reason :github-repository-existed-at-verification}}
    :newly-independent-repositories
-   {"busshi"
+   {"com-google-ads"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-com-google-ads"
+     :revision "71a515db2d5b664f0dcb43be92ade868083a6bd2"
+     :west-path "orgs/etzhayyim/com-etzhayyim-com-google-ads"
+     :canonical-format :edn
+     :repository-contracts
+     {etzhayyim/com-etzhayyim-akashi "9894d97bf8207646c33db12c6bf3dda481d3c7c6"
+      etzhayyim/com-etzhayyim-danjo "9ceba0f09c9fb26a102d88389652f92ceb0cc014"
+      etzhayyim/com-etzhayyim-isco "d9700d59f91d873201f670274405265c4cf8a93b"
+      etzhayyim/com-etzhayyim-moushibumi "0b9bf69691125d0a2576d5613783c9e6d48ff7e7"
+      etzhayyim/com-etzhayyim-talent "6063b9ba79c7980e9d2574821eb2edfc78f72c9e"
+      etzhayyim/com-etzhayyim-toritate "67508bf5ec18eec4b7bcd1b4c3b03ade1829135e"}
+     :canonicalization #{:encoded-edn-retired :structured-lexicon-edn :derived-string-schema-retired}
+     :verification {:tests 5 :assertions 34 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0
+     :next :merge-west-registration-before-root-retirement}
+    "busshi"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-busshi"
      :revision "fed52df3ecad3419db37958eac77a41c3f5106c8"
      :west-path "orgs/etzhayyim/com-etzhayyim-busshi"
