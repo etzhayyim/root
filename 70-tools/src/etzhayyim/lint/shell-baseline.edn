@@ -139,7 +139,6 @@
  "20-actors/silicon_photonics-compat/run_tests.sh"
  "20-actors/subaru/run_tests.sh"
  "20-actors/suji/run_tests.sh"
- "20-actors/suki/run_tests.sh"
  "20-actors/tadori/kotoba/deploy.sh"
  "20-actors/tadori/run_tests.sh"
  "20-actors/talent/run_tests.sh"

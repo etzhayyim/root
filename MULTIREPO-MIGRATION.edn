@@ -426,6 +426,42 @@
                          :atproto-json-retained-as-wire}
      :verification {:tests 19 :assertions 101 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
+    "suki"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-suki"
+     :revision "96684e02328a5a4b444cf544247ec4fff58752fe"
+     :west-path "orgs/etzhayyim/com-etzhayyim-suki"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root {:revision "b622df7928524b0363fd0e3b161ebed719ef206f"
+                      :paths ["20-actors/silicon" "90-docs/adr"]}
+      com.etzhayyim/igata "eb9744b65f2ae9e32b1ba5e6a4b7c4addc120772"
+      com.etzhayyim/kanayama "0a076e08c546194b91d3ca0c153c94e3a6680a8d"
+      com.etzhayyim/kuni-umi "7c0b03e0a649eb8a31e51325bfd0a9219351fc37"
+      com.etzhayyim/makura "2b241bc67c6d66da23db5e152ac1f50857e7b10f"
+      com.etzhayyim/mitsuho "8ce9513470ef1df97568fd575a34c852baa755cd"
+      com.etzhayyim/sarutahiko "853900528c357b7b4b4bc141ae1f23f3bba29fd4"
+      com.etzhayyim/tatekata "fcfc6752d68b6feb5fe397203ae57ed623c35cbb"
+      com.etzhayyim/tsutae "94b97b85dadb0e77a059366ff5c5cf17f280a8c7"
+      com.etzhayyim/wadachi "6a35ad4487bdb5ab9fbe635d757182f41eb32d0e"
+      com.etzhayyim/watatsumi "203ab989e986488883d885114bc76b8fb4ef20e1"
+      com.etzhayyim/yakushi "5b2389671defc00ef8c7cfa522b9bc96b3ac192f"}
+     :actor-owned-contracts ["lex/cabAttestation.edn"
+                             "lex/chassisAttestation.edn"
+                             "lex/electricalEcuAttestation.edn"
+                             "lex/emissionsAuditRecord.edn"
+                             "lex/fieldTestRecord.edn"
+                             "lex/hitchPtoAttestation.edn"
+                             "lex/paintAttestation.edn"
+                             "lex/powertrainAttestation.edn"
+                             "lex/silenSukiReview.edn"]
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :shell-runner-retired :actor-lexicons-edn-canonical
+                         :cross-actor-dependencies-pinned
+                         :atproto-json-retained-as-wire}
+     :verification {:tests 9 :assertions 41 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "hydrogen_electrolysis"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hydrogen-electrolysis"
      :revision "da4fab805b6aa8606dab36882de3186482f55f34"

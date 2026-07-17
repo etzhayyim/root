@@ -1,0 +1,11 @@
+{:migration/status :moved
+ :migration/date "2026-07-17"
+ :migration/repository "https://github.com/etzhayyim/com-etzhayyim-suki"
+ :migration/revision "96684e02328a5a4b444cf544247ec4fff58752fe"
+ :migration/west-path "orgs/etzhayyim/com-etzhayyim-suki"
+ :migration/canonical-metadata "manifest.edn"
+ :migration/canonical-identity "identity.edn"
+ :migration/canonical-dependencies "dependencies.edn"
+ :migration/canonical-lexicons "lex"
+ :migration/external-wire-lexicons "wire"
+ :migration/canonical-format :edn}
