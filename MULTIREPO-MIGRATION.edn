@@ -54,8 +54,8 @@
     :tools 2071
     :data 574
     :docs 1561}
-   :actor-directories 203
-   :actor-existing-independent-repo 129
+   :actor-directories 199
+   :actor-existing-independent-repo 125
    :actor-not-yet-independent 74
    :actor-not-yet-independent-names
    ["_conformance" "abaki" "ainori" "ameno" "amime" "atsurae" "busshi"
@@ -72,12 +72,12 @@
     "soma" "stripe-compat" "sumitsubo" "tate" "tawami" "tedai" "toi"
     "tsubasa" "tsuchifumi" "ugachi" "unspsc" "uzu" "warifu" "yobel"
     "yudane"]
-   :first-consolidated ["os" "umisachi"]
+   :consolidated ["os" "umisachi" "fleet" "ipaddress" "kouhou" "tashikame"]
    :content-contained-but-blocked
    {"karute" :root-relative-actor-manifest-consumer}}
   :migration/remaining-work
   [{:class :existing-repo-overlap
-    :count 129
+    :count 125
     :state :merge-root-only-content-before-delete}
    {:class :not-yet-independent-actor
     :count 74
