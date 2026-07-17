@@ -8,11 +8,15 @@
             [clojure.test :refer [deftest is run-tests]]))
 
 (def ug-seed "20-actors/ugachi/kotoba/seed.edn")
-(def bu-seed "20-actors/busshi/kotoba/seed.edn")
 (defn- projects [] (ue/projects ug-seed))
-(defn- commodities []
-  (vec (filter #(= (:type %) :commodity) (ue/normalize-rows (clojure.edn/read-string (slurp bu-seed))))))
-(defn- bindex [] (br/busshi-index (commodities)))
+(def analysis
+  {:contract/id :busshi/commodity-analysis
+   :contract/version 1
+   :analysis {"commodities"
+              [{"id" "w" "chokepoint_risk" :critical "top_producer_share" 80}
+               {"id" "cu" "chokepoint_risk" :low "top_producer_share" 24}
+               {"id" "ree" "chokepoint_risk" :critical "top_producer_share" 69}]}})
+(defn- bindex [] (br/busshi-index analysis))
 (defn- by-id [id] (first (filter #(= id (:id %)) (projects))))
 (defn- grounded [id] (br/ground-project (by-id id) (bindex)))
 
@@ -62,7 +66,7 @@
 
 (deftest grounded-verdict-still-refuses-entrenchment
   ;; end-to-end: grounded assessment keeps the monopoly-entrenchment refusal
-  (let [a (br/ground-and-assess (projects) (commodities))]
+  (let [a (br/ground-and-assess (projects) analysis)]
     (is (get a "grounded"))
     (is (>= (count (get a "adjustments")) 1) "at least the copper overclaim is adjusted")
     ;; ree-entrench-f still refused after grounding

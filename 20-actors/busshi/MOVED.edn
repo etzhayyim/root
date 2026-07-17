@@ -1,0 +1,8 @@
+{:migration/type :repository-extraction
+ :migration/category :actor
+ :migration/source "20-actors/busshi"
+ :migration/repository "https://github.com/etzhayyim/com-etzhayyim-busshi"
+ :migration/west-path "orgs/etzhayyim/com-etzhayyim-busshi"
+ :migration/revision "fed52df3ecad3419db37958eac77a41c3f5106c8"
+ :migration/canonical-metadata "manifest.edn"
+ :migration/date "2026-07-17"}

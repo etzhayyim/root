@@ -11,7 +11,6 @@
  "20-actors/arm_cpu-compat/run_tests.sh"
  "20-actors/asobi/run_tests.sh"
  "20-actors/business-manager/run_tests.sh"
- "20-actors/busshi/run_tests.sh"
  "20-actors/cerebras_wafer-compat/run_tests.sh"
  "20-actors/chigiri/run_tests.sh"
  "20-actors/cobot_assembly-compat/run_tests.sh"

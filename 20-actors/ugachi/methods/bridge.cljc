@@ -24,7 +24,23 @@
   fabricates an :entrench (no false refusals); it only corroborates or downgrades."
   (:require [ugachi.methods.gate :as gate]
             [ugachi.methods.ugachi-edn :as ue]
-            [busshi.methods.analyze :as ba]))
+            [clojure.edn :as edn]
+            [clojure.java.io :as io]))
+
+(def busshi-analysis-paths
+  (remove nil?
+          [(System/getenv "BUSSHI_ANALYSIS_PATH")
+           "../com-etzhayyim-busshi/out/analysis.edn"
+           "orgs/etzhayyim/com-etzhayyim-busshi/out/analysis.edn"]))
+
+(defn load-busshi-analysis
+  ([] (when-let [path (first (filter #(.isFile (io/file %)) busshi-analysis-paths))]
+        (load-busshi-analysis path)))
+  ([path]
+   (let [contract (edn/read-string (slurp path))]
+     (when-not (= :busshi/commodity-analysis (:contract/id contract))
+       (throw (ex-info "invalid busshi commodity-analysis contract" {:path path})))
+     contract)))
 
 ;; project :resource  →  busshi commodity :id
 (def resource->commodity
@@ -37,10 +53,12 @@
 (def ^:private concentrated #{:high :critical})
 
 (defn busshi-index
-  "Build {commodity-id → busshi analyze row} from busshi's own seed analysis."
-  [busshi-commodities]
-  (into {} (map (fn [r] [(get r "id") r])
-                (get (ba/analyze busshi-commodities) "commodities"))))
+  "Build {commodity-id → analyzed row} from busshi's versioned EDN contract."
+  [contract]
+  (let [rows (get-in contract [:analysis "commodities"])]
+    (when-not (vector? rows)
+      (throw (ex-info "busshi analysis contract has no commodity rows" {})))
+    (into {} (map (fn [r] [(get r "id") r]) rows))))
 
 (defn ground-monopoly-effect
   "Given a project + the busshi index, return {:effect :context :flags}."
@@ -78,8 +96,8 @@
 (defn ground-and-assess
   "Ground every project against busshi, then run the §2(l) gate. Returns the
   gate assessment plus a :grounding summary."
-  [projects busshi-commodities]
-  (let [bindex (busshi-index busshi-commodities)
+  [projects busshi-analysis]
+  (let [bindex (busshi-index busshi-analysis)
         grounded (mapv #(ground-project % bindex) projects)
         a (gate/assess grounded)
         adjusted (filter #(seq (get-in % [:grounding :flags])) grounded)]
@@ -98,11 +116,11 @@
 #?(:clj
    (defn -main [& args]
      (let [ug-seed (or (first args) "20-actors/ugachi/kotoba/seed.edn")
-           bu-seed (or (second args) "20-actors/busshi/kotoba/seed.edn")
+           bu-analysis (or (some-> (second args) load-busshi-analysis)
+                           (load-busshi-analysis)
+                           (throw (ex-info "busshi analysis artifact not found; set BUSSHI_ANALYSIS_PATH" {})))
            projects (ue/projects ug-seed)
-           commodities (vec (filter #(= (:type %) :commodity)
-                                    (ue/normalize-rows (clojure.edn/read-string (slurp bu-seed)))))
-           a (ground-and-assess projects commodities)]
+           a (ground-and-assess projects bu-analysis)]
        (println "# ugachi × busshi — grounded §2(l) gate\n")
        (println (str "Grounded against busshi concentration. "
                      (count (get a "adjustments")) " monopoly-effect adjustment(s):\n"))

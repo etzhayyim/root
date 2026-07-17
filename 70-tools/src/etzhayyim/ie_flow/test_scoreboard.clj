@@ -29,7 +29,7 @@
 
 (deftest build-produces-a-real-scoreboard
   (let [snap (sb/build)]
-    (is (>= (count (:scored snap)) 4) "kafun + ugachi + busshi + repo-git all score")
+    (is (>= (count (:scored snap)) 3) "available local and external flow contracts score")
     (is (every? #(contains? % :score) (:scored snap)))
     (is (pos? (get-in snap [:colony :colony-reward])) "the colony returns positive order")
     (is (pos? (get-in snap [:organism :delta])) "the colony feeds the organism (intake rises)")

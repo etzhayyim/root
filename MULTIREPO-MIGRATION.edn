@@ -59,9 +59,9 @@
     :docs 1561}
    :actor-directories 199
    :actor-existing-independent-repo 126
-   :actor-not-yet-independent 66
+   :actor-not-yet-independent 65
    :actor-not-yet-independent-names
-   ["_conformance" "busshi"
+   ["_conformance"
     "com-google-ads" "energy_order" "etzhayyim-bpmn-sdk"
     "etzhayyim-esign" "etzhayyim-organism" "etzhayyim-pregel" "etzhayyim-sdk"
     "etzhayyim-sdk-auth" "etzhayyim-sdk-mock" "etzhayyim-sdk-py" "first-breath"
@@ -117,7 +117,31 @@
      :repository "https://github.com/etzhayyim/com-etzhayyim-ameno"
      :reason :github-repository-existed-at-verification}}
    :newly-independent-repositories
-   {"ainori"
+   {"busshi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-busshi"
+     :revision "fed52df3ecad3419db37958eac77a41c3f5106c8"
+     :west-path "orgs/etzhayyim/com-etzhayyim-busshi"
+     :canonical-format :edn
+     :depends-on
+     {com.etzhayyim/kotoba-datom "3c4b3b92234e59ba285119fd8b2ca4c2ee172ff8"
+      com.etzhayyim/ie-flow "35d36d912c9596dbc5094947b60202d9abdf61e6"
+      com.etzhayyim/social-publication "e8127d0661284b1c12ce1b216c84b5ed2db619ab"}
+     :consumer-rewiring
+     {etzhayyim.ie-flow.scoreboard
+      {:artifact "out/ie-flow-state.edn"
+       :override-env "BUSSHI_FLOW_STATE_PATH"
+       :absence-policy :pending-not-scored}
+      ugachi.methods.bridge
+      {:artifact "out/analysis.edn"
+       :override-env "BUSSHI_ANALYSIS_PATH"
+       :absence-policy :ungrounded-assessment}}
+     :verification {:tests 37 :assertions 140 :failures 0 :errors 0
+                    :scoreboard-tests 4 :scoreboard-assertions 20
+                    :ugachi-tests 36 :ugachi-assertions 106}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0
+     :next :merge-west-registration-before-root-retirement}
+    "ainori"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-ainori"
      :revision "9898db31619d7970e42733d907e61b4e6caf25ea"
      :west-path "orgs/etzhayyim/com-etzhayyim-ainori"

@@ -23,7 +23,7 @@
 (defn beat
   "Run one heartbeat. opts:
      :projects     vector of project maps (required)
-     :commodities  busshi commodity maps (optional; enables grounding)
+     :busshi-analysis busshi EDN analysis contract (optional; enables grounding)
      :tx-id        deterministic tx id (required)
      :as-of        deterministic as-of stamp (required)
      :log-path     ledger path (required)
@@ -32,10 +32,10 @@
    liveness tick, so it never bloats with identical snapshots).
    Returns {:head <cid> :count <n> :verdicts <tally> :grounded <bool>
             :appended <bool> :reason <kw|nil>}."
-  [{:keys [projects commodities tx-id as-of log-path]}]
-  (let [grounded? (boolean (seq commodities))
+  [{:keys [projects busshi-analysis tx-id as-of log-path]}]
+  (let [grounded? (boolean (seq busshi-analysis))
         assessment (if grounded?
-                     (bridge/ground-and-assess projects commodities)
+                     (bridge/ground-and-assess projects busshi-analysis)
                      (gate/assess projects))
         ds (gate/datoms assessment)
         prev (k/head-cid log-path)
@@ -52,16 +52,15 @@
 #?(:clj
    (defn -main [& args]
      (let [ug-seed (or (first args) "20-actors/ugachi/kotoba/seed.edn")
-           bu-seed (second args) ; optional → enables grounding
+           bu-analysis-path (second args) ; optional → enables grounding
            log-path (or (nth args 2 nil)
                         (-> (clojure.java.io/file *file*) .getParentFile .getParentFile
                             (clojure.java.io/file "data" "persisted" "ugachi.stewardship.kotoba.edn") str))
            projects (ue/projects ug-seed)
-           commodities (when bu-seed
-                         (vec (filter #(= (:type %) :commodity)
-                                      (ue/normalize-rows (edn/read-string (slurp bu-seed))))))
+           busshi-analysis (when bu-analysis-path
+                             (bridge/load-busshi-analysis bu-analysis-path))
            ;; deterministic stamps for a manual run (override via real scheduler in R2+)
-           r (beat {:projects projects :commodities commodities
+           r (beat {:projects projects :busshi-analysis busshi-analysis
                     :tx-id "ugachi-beat-manual" :as-of "manual" :log-path log-path})]
        (println (str "stewardship ledger head=" (:head r)
                      " datoms=" (:count r) " grounded=" (:grounded r)

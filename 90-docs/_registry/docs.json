@@ -24590,6 +24590,30 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2607172450-busshi-edn-flow-contract.edn",
+      "id": "adr-2607172450-busshi-edn-flow-contract",
+      "title": "ADR-2607172450: busshi extraction and EDN ie-flow state contract",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "busshi-multirepo-ie-flow-contract",
+      "authoritative": true,
+      "authoritative_for": [
+        "busshi canonical actor repository and revision",
+        "busshi scoreboard EDN artifact contract",
+        "retirement of root/20-actors/busshi implementation"
+      ],
+      "related": [
+        "adr-2606161730-busshi-commodity-materials-observatory-r0",
+        "adr-2606171000-busshi-observation-ledger-persistence-and-heartbeat",
+        "adr-2607172000-etzhayyim-gftdcojp-flat-west-multirepo-root-retirement"
+      ],
+      "last_verified": "2026-07-17",
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.edn",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
