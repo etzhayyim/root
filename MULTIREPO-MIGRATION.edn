@@ -59,13 +59,13 @@
     :docs 1561}
    :actor-directories 199
    :actor-existing-independent-repo 126
-   :actor-not-yet-independent 32
+   :actor-not-yet-independent 31
    :actor-not-yet-independent-names
    ["etzhayyim-organism"
     "funamori"
     "iriai" "iryo" "jinushi" "kafun" "kaiyaku"
     "karakuri" "kiyome" "kotoba-actors-clj" "kotodama"
-    "kudamori" "kuramori" "magatama"
+    "kuramori" "magatama"
     "matsurigoto" "meyasu" "moyoshi"
     "mst-projector" "niyaku" "okaimono"
     "silicon"
@@ -201,6 +201,16 @@
      :canonical-metadata "manifest.edn"
      :actor-owned-contracts ["lex/cleanAttestation.edn"]
      :verification {:tests 39 :assertions 147 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "kudamori"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kudamori"
+     :revision "364c19edfb1b9669ccc88fe3b6e7a6b62457419f"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kudamori"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :actor-owned-contracts ["lex/cleanAttestation.edn"]
+     :verification {:tests 41 :assertions 158 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
     "hydrogen_electrolysis"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hydrogen-electrolysis"
