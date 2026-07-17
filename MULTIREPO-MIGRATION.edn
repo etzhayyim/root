@@ -752,16 +752,20 @@
      :verification {:tests 13 :assertions 178 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
     "hanrei"
-    {:pull-request "https://github.com/etzhayyim/com-etzhayyim-hanrei/pull/2"
-     :commit "8edccc7"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-hanrei"
+     :revision "b2d3ab0a011ea17e48cf566bf9bcaad02a6a989a"
+     :west-path "orgs/etzhayyim/com-etzhayyim-hanrei"
+     :pull-request "https://github.com/etzhayyim/com-etzhayyim-hanrei/pull/2"
      :moves ["kotoba.app.edn" "methods/mesh.clj" "schema.edn"]
      :rewires
      ["nested deployment values from encoded strings to structured EDN"
       "KQE host dependency to explicit :cap/kqe manifest requirement"
-      "standalone repository test entry point"]
+      "standalone repository test entry point"
+      "actor and DID metadata to canonical EDN with DID JSON retained as wire output"]
      :canonical-format :edn
-     :verification {:tests 11 :assertions 211 :failures 0 :errors 0}
-     :next :delete-root-copy-after-merge-and-west-pin}
+     :canonical-metadata "manifest.edn"
+     :verification {:tests 13 :assertions 217 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "kenchi"
     {:pull-request "https://github.com/etzhayyim/com-etzhayyim-kenchi/pull/2"
      :commit "c2b6fe8"

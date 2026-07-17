@@ -42,7 +42,7 @@
     "did:web:kawase-yui.etzhayyim.com (kawase_jurisdiction_compliance cell reads chigiri.ipLicenseClaim + chigiri.taxReceipt for G14 per-jurisdiction Council Lv7+ unanimity attestation; chigiri.disputeMediation handles every kawase-yui G11 dispute cooperative-first since kawase has no chargeback / no settlement reversal — ADR-2605282200)",
     "did:web:toritsugi.etzhayyim.com (toritsugi citizen-facing government-procedure concierge PULLS chigiri procedure templates to guide a consenting member through a 自治体/政府 procedure; chigiri owns the form + legal characterization + 作成代理 + appeal procedure (UPL), toritsugi owns citizen intake + interactive guide + draft-assist + (gated) submit + status-track and renders NO advice — toritsugi G5 行政書士法/UPL boundary; ADR-2605312030)"
   ],
-  "replaces": "Legacy lawfirm.etzhayyim.com reference in 20-actors/hanrei/CLAUDE.md (religious-corp native, Murakumo-only, SBT-gated, Charter Rider §2-compliant; no etzhayyim lineage)",
+  "replaces": "Legacy lawfirm.etzhayyim.com reference in orgs/etzhayyim/com-etzhayyim-hanrei/CLAUDE.md (religious-corp native, Murakumo-only, SBT-gated, Charter Rider §2-compliant; no etzhayyim lineage)",
   "form": "任意団体 internal procedure substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格 — Preamble §0.4 Lv7+ unanimity lock)",
   "uplProhibition": {
     "constitutional": true,
@@ -272,7 +272,7 @@
       "publicData": "/90-docs/adr/2605262400-public-data-organism-ipfs-ingestion.md"
     },
     "crossActor": {
-      "hanrei": "/20-actors/hanrei/CLAUDE.md (case-law data source — read-only)",
+      "hanrei": "/orgs/etzhayyim/com-etzhayyim-hanrei/CLAUDE.md (case-law data source — read-only)",
       "bunken": "/20-actors/bunken/CLAUDE.md (literature data source — read-only)",
       "hagukumi": "/20-actors/hagukumi/ (R0 scaffold pattern reference)"
     }

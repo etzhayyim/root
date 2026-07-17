@@ -1,4 +1,4 @@
-> **DEPRECATED**: Actor migrated to `20-actors/hanrei/actor-manifest.jsonld` (T1 MCP-Compose). This project wasm/*/src/app.ts is retained as T3 fallback only.
+> **DEPRECATED**: Actor migrated to `orgs/etzhayyim/com-etzhayyim-hanrei/manifest.edn` (T1 MCP-Compose). This project wasm/*/src/app.ts is retained as T3 fallback only.
 
 # etzhayyim-project-hanrei — Global Case Law, Legislation & Judicial Intelligence
 
