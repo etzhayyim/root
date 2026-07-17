@@ -117,8 +117,25 @@
      ["nested deployment values from encoded strings to structured EDN"
       "KQE host dependency to explicit :cap/kqe manifest requirement"
       "standalone repository test entry point"]
-     :canonical-format :edn
+    :canonical-format :edn
      :verification {:tests 11 :assertions 211 :failures 0 :errors 0}
+     :next :delete-root-copy-after-merge-and-west-pin}
+    "kenchi"
+    {:pull-request "https://github.com/etzhayyim/com-etzhayyim-kenchi/pull/2"
+     :commit "da8c232"
+     :moves
+     ["manifest.edn"
+      "src/kenchi/cells/social_post/state_machine.cljc"
+      "src/kenchi/methods/social.cljc"]
+     :rewires
+     ["charter conformance from JSON compatibility data to canonical EDN"
+      "social implementation to namespace-correct src/kenchi paths"
+      "test runner to repository-local src classpath"]
+     :canonical-format :edn
+     :verification
+     {:charter {:tests 6 :assertions 21 :failures 0 :errors 0}
+      :social {:tests 2 :assertions 8 :failures 0 :errors 0}
+      :murakumo {:tests 9 :assertions 96 :failures 0 :errors 0}}
      :next :delete-root-copy-after-merge-and-west-pin}}}
   :migration/remaining-work
   [{:class :existing-repo-overlap
