@@ -59,10 +59,10 @@
     :docs 1561}
    :actor-directories 199
    :actor-existing-independent-repo 126
-   :actor-not-yet-independent 46
+   :actor-not-yet-independent 44
    :actor-not-yet-independent-names
    ["etzhayyim-esign" "etzhayyim-organism"
-    "funamori" "haraedo" "hataori"
+    "funamori"
     "hydrogen_electrolysis" "iriai" "iryo" "jinushi" "kafun" "kaiyaku"
     "karakuri" "kiyome" "kotoba-actors-clj" "kotodama" "kotodama-go"
     "kudamori" "kumi" "kuramori" "madomori" "magatama" "masago"
@@ -125,7 +125,23 @@
      :repository "https://github.com/etzhayyim/com-etzhayyim-ameno"
      :reason :github-repository-existed-at-verification}}
   :newly-independent-repositories
-   {"etzhayyim-bpmn-sdk"
+   {"haraedo"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-haraedo"
+     :revision "6a8213df41d85a72918ecedd42faaea526601cbe"
+     :west-path "orgs/etzhayyim/com-etzhayyim-haraedo"
+     :category :actor
+     :canonical-format :edn
+     :verification {:tests 28 :assertions 96 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "hataori"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-hataori"
+     :revision "0798c7e7241e1ee1e12e855aafc60ba02eef461a"
+     :west-path "orgs/etzhayyim/com-etzhayyim-hataori"
+     :category :actor
+     :canonical-format :edn
+     :verification {:tests 9 :assertions 24 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "etzhayyim-bpmn-sdk"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-bpmn-sdk"
      :revision "384afb0896af49faa7cd74209b40c33ad1254559"
      :west-path "orgs/etzhayyim/com-etzhayyim-bpmn-sdk"
