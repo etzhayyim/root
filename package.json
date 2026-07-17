@@ -1,9 +1,14 @@
 {
   "dependencies": {
-    "@bytecodealliance/preview2-shim": "^0.18.1"
+    "preview2-shim": "^0.18.1"
   },
   "devDependencies": {
-    "@types/node": "^26.0.1",
-    "@vitest/coverage-v8": "^4.1.8"
+    "node": "^26.0.1",
+    "coverage-v8": "^4.1.8"
+  },
+  "private": true,
+  "scripts": {
+    "task": "nbb scripts/run-task.cljs",
+    "tasks": "nbb scripts/run-task.cljs"
   }
 }
