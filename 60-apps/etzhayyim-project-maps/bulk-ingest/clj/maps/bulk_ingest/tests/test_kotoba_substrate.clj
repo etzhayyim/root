@@ -7,7 +7,7 @@
   the posted body + Bearer auth; here the HTTP boundary is the injected `:post-fn`
   swap seam — the same body + auth header are captured, no socket needed (the
   repo's injection-boundary idiom). Cross-checks against the canonical
-  20-actors/maps python (_LABEL_MAP / name_tokens) are out of scope for the bb
+  orgs/etzhayyim/com-etzhayyim-maps python (_LABEL_MAP / name_tokens) are out of scope for the bb
   port and remain asserted by the python suite."
   (:require [clojure.test :refer [deftest is]]
             [clojure.string :as str]

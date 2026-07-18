@@ -19295,30 +19295,6 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2606072003-kosatsu-crime-sanctions-competing-claim-observatory-r0.edn",
-      "id": "adr-2606072003-kosatsu-crime-sanctions-competing-claim-observatory-r0",
-      "title": "kosatsu 高札 — crime/sanctions competing-claim observatory (Tier-B actor R0; designation-as-attributed-event over the kotoba Datom log; the politically-neutral, asserter-relative inverse of a sanctions-screening product)",
-      "status": "proposed-pending-council-ratification",
-      "doc_type": "adr",
-      "topic": "kosatsu-crime-sanctions-competing-claim",
-      "authoritative": true,
-      "authoritative_for": [
-        "kosatsu actor scope (crime/sanctions designations mirrored into the kotoba Datom log as append-only attributed events + a computed competing-claim/divergence view; design-only)",
-        "the mirror-not-adjudicator invariant (etzhayyim authors no designation; :authority/kind has no self token; :designation/asserted-notice const true)",
-        "the asserter-mandatory invariant (no asserter-less 'global truth' designation; :designation/asserter required)",
-        "the no-verdict invariant (:designation/measure is an authority instrument; criminal/guilty/terrorist/enemy unrepresentable)",
-        "the event-log/as-of invariant (:designation/status :listed|:delisted; a delisting is a new datom with :lifted-at, never an overwrite; 非終末論)",
-        "the edge-primary / no-score invariant (no :subject/risk-score/:guilt/:threat-level; divergence computed on read)",
-        "the political-stance-explicit divergence model (per-subject {contested|unanimous|single-asserter} + coverage-split; silence is reported, never inferred as dissent)"
-      ],
-      "last_verified": "2026-06-07",
-      "related": [],
-      "supersedes": [],
-      "superseded_by": [],
-      "amends": [],
-      "amended_by": []
-    },
-    {
       "path": "90-docs/adr/2606072100-shomei-believer-identity-binding-proof-of-personhood-r0.edn",
       "id": "adr-2606072100-shomei-believer-identity-binding-proof-of-personhood-r0",
       "title": "ADR-2606072100: 証明 (shomei) — believer self-sovereign identity binding + proof-of-personhood R0",
@@ -22037,8 +22013,8 @@
       "topic": "bpmn-zeebe-to-datomic-clj-engine",
       "authoritative": true,
       "authoritative_for": [
-        "maps3d BPMN execution on kotoba/Datomic (20-actors/maps/methods/maps3d_bpmn.cljc)",
-        "the generic BPMN→Datomic engine (20-actors/maps/methods/bpmn_xml.cljc + bpmn_run.cljc)"
+        "maps3d BPMN execution on kotoba/Datomic (orgs/etzhayyim/com-etzhayyim-maps/methods/maps3d_bpmn.cljc)",
+        "the generic BPMN→Datomic engine (orgs/etzhayyim/com-etzhayyim-maps/methods/bpmn_xml.cljc + bpmn_run.cljc)"
       ],
       "related": [
         "adr-2606162030-silicon-fab-flow-clj-port",
@@ -25881,7 +25857,7 @@
         "90-docs/adr/2605262130-kotoba-storage-substrate-unification.edn",
         "90-docs/adr/2605215000-etzhayyim-inference-murakumo-only-no-runpod.edn",
         "90-docs/260602-actor-stack-generation-inventory.edn",
-        "20-actors/okaimono/        # Gen-3 reference template",
+        "orgs/etzhayyim/com-etzhayyim-okaimono/        # Gen-3 reference template",
         "20-actors/tsukuru/"
       ],
       "last_verified": "2026-06-02",

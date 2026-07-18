@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Execute a pending MapsJob — fetch from the external source (Overpass / GLEIF / Wikidata / STAC), parse, write to vertex_spatial, advance the job. Source selection is dispatched via the SQL UDF maps_source_dispatch_kind(source_did, label). Called by 00-contracts/bpmn/com/etzhayyim/maps/runPendingCoverageJobs.bpmn multi-instance loop every 3 minutes.",
+      "description": "Execute a pending MapsJob — fetch from the external source (Overpass / GLEIF / Wikidata / STAC), parse, write to vertex_spatial, advance the job. Source selection is dispatched via the SQL UDF maps_source_dispatch_kind(source_did, label). Called by orgs/etzhayyim/com-etzhayyim-maps/wire/bpmn/maps/runPendingCoverageJobs.bpmn multi-instance loop every 3 minutes.",
       "input": {
         "encoding": "application/json",
         "schema": {

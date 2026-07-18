@@ -24,7 +24,7 @@ export const DEFAULT_FEATURE_MEMBRANE_RULE: MembraneRule = {
   v: 1,
   nsid: FEATURE_NSID,
   schemaRef: {
-    path: "00-contracts/lexicons/com/etzhayyim/maps/feature.json",
+    path: "orgs/etzhayyim/com-etzhayyim-maps/wire/lex/feature.json",
     contentHash: "0".repeat(64),
     version: "1.0.0",
   },

@@ -260,7 +260,7 @@ type Ctx = { sdk: HostSDK; db: any; appId: string; post: (text: string) => void 
 // advances the MapsJob. Dispatched by SQL UDF maps_source_dispatch_kind so
 // BPMN and handler share one routing table.
 //
-// Called by etzhayyim-root/00-contracts/bpmn/com/etzhayyim/maps/runPendingCoverageJobs.bpmn every
+// Called by etzhayyim-root/orgs/etzhayyim/com-etzhayyim-maps/wire/bpmn/maps/runPendingCoverageJobs.bpmn every
 // 3 min (multi-instance parallel, cap 5 jobs/tick).
 interface MapsJobRow {
   job_id: string;

@@ -899,8 +899,8 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       "地図 — graph-first spatial intelligence on the kotoba :feature/* Datom substrate (geocode / reverse / place search / H3-AVET chunking). Ships an おすすめ温泉 (onsen) discovery + transparent place-quality ranking: ingests hot-spring POIs from OpenStreetMap (Overpass, ODbL) and ranks them by public PLACE-facts (spring authenticity / notability / amenities) — a feature is a PLACED THING, never a person (G9); no per-person affect/profile/engagement metric, fully auditable via :why. Per ADR-2606064500.",
     glyph: "地図",
     displayName: "Maps — Spatial Substrate + Onsen Discovery",
-    primarySchema: "00-contracts/schemas/maps-spatial-ontology.kotoba.edn",
-    // Content-addressed T1 WASM actor (20-actors/maps/wasm/maps-core) — compact Rust
+    primarySchema: "orgs/etzhayyim/com-etzhayyim-maps/contracts/ontology/maps-spatial-ontology.kotoba.edn",
+    // Content-addressed T1 WASM actor (orgs/etzhayyim/com-etzhayyim-maps/wasm/maps-core) — compact Rust
     // core computing the onsen おすすめ ranking (place_not_person:true), raw CID →
     // browser-local (ameno) / donated mesh (ADR-2606015200). The full MapLibre+KAMI
     // renderer stays the TS Worker until the kotoba-native migration (ADR-2606064500

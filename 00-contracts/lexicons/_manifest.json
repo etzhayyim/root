@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-18T08:11:02.664Z",
+  "generated": "2026-07-18T08:36:24.672Z",
   "lexicons": [
     {
       "id": "ai.etzhayyim.yorishiro.argparse-demo.main",
@@ -36038,42 +36038,6 @@
       "description": ""
     },
     {
-      "id": "com.etzhayyim.kosatsu.assertingAuthority",
-      "path": "00-contracts/lexicons/com/etzhayyim/kosatsu/assertingAuthority.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kosatsu.competingClaimView",
-      "path": "00-contracts/lexicons/com/etzhayyim/kosatsu/competingClaimView.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kosatsu.delistingEvent",
-      "path": "00-contracts/lexicons/com/etzhayyim/kosatsu/delistingEvent.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kosatsu.designationNotice",
-      "path": "00-contracts/lexicons/com/etzhayyim/kosatsu/designationNotice.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kosatsu.networkPost",
-      "path": "00-contracts/lexicons/com/etzhayyim/kosatsu/networkPost.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kosatsu.subjectEntity",
-      "path": "00-contracts/lexicons/com/etzhayyim/kosatsu/subjectEntity.json",
-      "type": "record",
-      "description": ""
-    },
-    {
       "id": "com.etzhayyim.kotoba-datomic.attestation",
       "path": "00-contracts/lexicons/com/etzhayyim/kotoba-datomic/attestation.json",
       "type": "record",
@@ -36956,144 +36920,6 @@
       "description": "Manga work (= one episode). Persisted in vertex_mangaka_work (RisingWave via Hyperdrive, ADR-0036). Tier 2 Domain — non-federable."
     },
     {
-      "id": "com.etzhayyim.maps.collectionJob",
-      "path": "00-contracts/lexicons/com/etzhayyim/maps/collectionJob.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.maps.deviceBinding",
-      "path": "00-contracts/lexicons/com/etzhayyim/maps/deviceBinding.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.maps.displayLayer",
-      "path": "00-contracts/lexicons/com/etzhayyim/maps/displayLayer.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.maps.feature",
-      "path": "00-contracts/lexicons/com/etzhayyim/maps/feature.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.maps.geoAlias",
-      "path": "00-contracts/lexicons/com/etzhayyim/maps/geoAlias.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.maps.jobEvent",
-      "path": "00-contracts/lexicons/com/etzhayyim/maps/jobEvent.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.maps.kg.queryChunk",
-      "path": "00-contracts/lexicons/com/etzhayyim/maps/kg/queryChunk.json",
-      "type": "query",
-      "description": "Read placed features owning a set of H3 cells, label-filtered — the kotoba-native getChunk hot-path (ADR-2606064500 §2). Resolves per requested cell to an AVET probe AVET(:feature.cell/r{lod}, <cell>)"
-    },
-    {
-      "id": "com.etzhayyim.maps.kg.registerFeature",
-      "path": "00-contracts/lexicons/com/etzhayyim/maps/kg/registerFeature.json",
-      "type": "procedure",
-      "description": "Assert a placed geographic FEATURE into the kotoba Datom log (:feature/*). kotoba-native successor to the legacy maps vertex_spatial INSERT (RisingWave/Hyperdrive, ADR-2605262130 violation). The 51 le"
-    },
-    {
-      "id": "com.etzhayyim.maps.layerCoordinator",
-      "path": "00-contracts/lexicons/com/etzhayyim/maps/layerCoordinator.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.maps.legalEntity",
-      "path": "00-contracts/lexicons/com/etzhayyim/maps/legalEntity.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.maps.mapralyPoi",
-      "path": "00-contracts/lexicons/com/etzhayyim/maps/mapralyPoi.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.maps.naturalZone",
-      "path": "00-contracts/lexicons/com/etzhayyim/maps/naturalZone.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.maps.ownership",
-      "path": "00-contracts/lexicons/com/etzhayyim/maps/ownership.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.maps.region",
-      "path": "00-contracts/lexicons/com/etzhayyim/maps/region.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.maps.registry",
-      "path": "00-contracts/lexicons/com/etzhayyim/maps/registry.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.maps.satelliteScene",
-      "path": "00-contracts/lexicons/com/etzhayyim/maps/satelliteScene.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.maps.sensorAlert",
-      "path": "00-contracts/lexicons/com/etzhayyim/maps/sensorAlert.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.maps.source",
-      "path": "00-contracts/lexicons/com/etzhayyim/maps/source.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.maps.tileGeoJson",
-      "path": "00-contracts/lexicons/com/etzhayyim/maps/tileGeoJson.json",
-      "type": "query",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.maps.twinState",
-      "path": "00-contracts/lexicons/com/etzhayyim/maps/twinState.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.maps.verticalZone",
-      "path": "00-contracts/lexicons/com/etzhayyim/maps/verticalZone.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.maps.visionResult",
-      "path": "00-contracts/lexicons/com/etzhayyim/maps/visionResult.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.maps.webCrawlGeoEntity",
-      "path": "00-contracts/lexicons/com/etzhayyim/maps/webCrawlGeoEntity.json",
-      "type": "record",
-      "description": ""
-    },
-    {
       "id": "com.etzhayyim.market.chainDemandPoll",
       "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/market/chainDemandPoll.json",
       "type": "procedure",
@@ -37134,24 +36960,6 @@
       "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/market/settleInvoice.json",
       "type": "procedure",
       "description": "Enqueue an invoice for ERC-4337 UserOp bundling (ADR 2605011300). N invoices → 1 UserOp via generic.settlement.bundle BPMN. Returns settlementTxHash once the bundled UserOp is mined; before that, retu"
-    },
-    {
-      "id": "com.etzhayyim.matsurigoto.serviceExecution",
-      "path": "00-contracts/lexicons/com/etzhayyim/matsurigoto/serviceExecution.json",
-      "type": "record",
-      "description": "G1/G3 INVARIANT — one execution of a COFOG e-gov service module (tax-assess / civil-registry / corp-registry / credential-issue). serverHeldAuthority is const false: a module NEVER holds an operator m"
-    },
-    {
-      "id": "com.etzhayyim.matsurigoto.unsignedArtifact",
-      "path": "00-contracts/lexicons/com/etzhayyim/matsurigoto/unsignedArtifact.json",
-      "type": "record",
-      "description": "G1 INVARIANT — a receipt / certificate produced by a service module. A module ALWAYS emits it UNSIGNED: status is one of the *-unsigned values and serverHeldAuthority is const false. The governing org"
-    },
-    {
-      "id": "com.etzhayyim.matsurigoto.vitalRecord",
-      "path": "00-contracts/lexicons/com/etzhayyim/matsurigoto/vitalRecord.json",
-      "type": "record",
-      "description": "G5 INVARIANT — a civil/corp record produced by civil-registry or corp-registry (birth/death/marriage/residency/incorporation). immutable is const true: a record is APPENDED to the kotoba Datom log, ne"
     },
     {
       "id": "com.etzhayyim.member.adherent",
@@ -48072,14 +47880,6 @@
       "com.etzhayyim.kokoro.peerSupportCircleAttestation",
       "com.etzhayyim.kokoro.silenKokoroReview"
     ],
-    "com.etzhayyim.kosatsu": [
-      "com.etzhayyim.kosatsu.assertingAuthority",
-      "com.etzhayyim.kosatsu.competingClaimView",
-      "com.etzhayyim.kosatsu.delistingEvent",
-      "com.etzhayyim.kosatsu.designationNotice",
-      "com.etzhayyim.kosatsu.networkPost",
-      "com.etzhayyim.kosatsu.subjectEntity"
-    ],
     "com.etzhayyim.kotoba": [
       "com.etzhayyim.kotoba.datasetPointer"
     ],
@@ -48112,38 +47912,6 @@
       "com.etzhayyim.liberation.metricReport",
       "com.etzhayyim.liberation.stageAdvanceAttestation",
       "com.etzhayyim.liberation.wellbecomingAttestation"
-    ],
-    "com.etzhayyim.maps": [
-      "com.etzhayyim.maps.collectionJob",
-      "com.etzhayyim.maps.deviceBinding",
-      "com.etzhayyim.maps.displayLayer",
-      "com.etzhayyim.maps.feature",
-      "com.etzhayyim.maps.geoAlias",
-      "com.etzhayyim.maps.jobEvent",
-      "com.etzhayyim.maps.layerCoordinator",
-      "com.etzhayyim.maps.legalEntity",
-      "com.etzhayyim.maps.mapralyPoi",
-      "com.etzhayyim.maps.naturalZone",
-      "com.etzhayyim.maps.ownership",
-      "com.etzhayyim.maps.region",
-      "com.etzhayyim.maps.registry",
-      "com.etzhayyim.maps.satelliteScene",
-      "com.etzhayyim.maps.sensorAlert",
-      "com.etzhayyim.maps.source",
-      "com.etzhayyim.maps.tileGeoJson",
-      "com.etzhayyim.maps.twinState",
-      "com.etzhayyim.maps.verticalZone",
-      "com.etzhayyim.maps.visionResult",
-      "com.etzhayyim.maps.webCrawlGeoEntity"
-    ],
-    "com.etzhayyim.maps.kg": [
-      "com.etzhayyim.maps.kg.queryChunk",
-      "com.etzhayyim.maps.kg.registerFeature"
-    ],
-    "com.etzhayyim.matsurigoto": [
-      "com.etzhayyim.matsurigoto.serviceExecution",
-      "com.etzhayyim.matsurigoto.unsignedArtifact",
-      "com.etzhayyim.matsurigoto.vitalRecord"
     ],
     "com.etzhayyim.member": [
       "com.etzhayyim.member.adherent"
@@ -48441,6 +48209,6 @@
       "tools.ozone.verification.revokeVerifications"
     ]
   },
-  "total": 6595,
+  "total": 6563,
   "legacy_issues_count": 8
 }

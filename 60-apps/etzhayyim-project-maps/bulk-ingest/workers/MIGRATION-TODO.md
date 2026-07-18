@@ -13,9 +13,9 @@ index `:feature.cell/rN` is stamped from the centroid) → `kg.ingest_batch` on 
 kotoba Datom log. This is the bulk-feed half of the maps substrate migration; the maps Worker
 read/write adapter (`maps-ui/src/kotoba-spatial.ts`) is the interactive half. Both share the
 `:feature/*` ontology and the SAME label map (a test asserts `_kotoba_feature._LABEL_MAP` ==
-`20-actors/maps/methods/ingest.py _LABEL_MAP`). The dumper also stamps the **name-search
+`orgs/etzhayyim/com-etzhayyim-maps/methods/ingest.py _LABEL_MAP`). The dumper also stamps the **name-search
 index** `:feature/name-token` via `_kotoba_feature.name_tokens` (a test asserts it equals
-`20-actors/maps/methods/search.py name_tokens`), so dumper-ingested features are name-
+`orgs/etzhayyim/com-etzhayyim-maps/methods/search.py name_tokens`), so dumper-ingested features are name-
 searchable like adapter-ingested ones.
 
 **Gated (G4/G7, no-server-key):** kotoba mode REQUIRES `MAPS_OPERATOR_GATE=1` + `KOTOBA_ENDPOINT`
@@ -23,7 +23,7 @@ searchable like adapter-ingested ones.
 writer construction raises — a dumper flipped to kotoba mode without the gate fails loudly,
 never silently drops. `upsert_table` (aux RW tables: vertex_maps_trip, gsplat registries)
 maps the GTFS aux tables **`vertex_maps_trip` / `vertex_maps_stop_time`** →
-`:transit.trip/*` / `:transit.stop-time/*` (`00-contracts/schemas/maps-transit-ontology.kotoba.edn`);
+`:transit.trip/*` / `:transit.stop-time/*` (`orgs/etzhayyim/com-etzhayyim-maps/contracts/ontology/maps-transit-ontology.kotoba.edn`);
 still-unmapped aux tables (gsplat registries, GTFS-RT) raise `NotImplementedError` (per-table
 kotoba schemas = ongoing R2 follow-up). The "next departures at stop X" read =
 `AVET(:transit.stop-time/stop, <stop-id>)` sorted by `:transit.stop-time/departure-time`

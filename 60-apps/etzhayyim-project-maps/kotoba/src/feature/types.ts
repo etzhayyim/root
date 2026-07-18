@@ -1,6 +1,6 @@
 /**
  * Mirrors com.etzhayyim.maps.feature record shape.
- * Source lexicon: 00-contracts/lexicons/com/etzhayyim/maps/feature.json
+ * Source lexicon: orgs/etzhayyim/com-etzhayyim-maps/wire/lex/feature.json
  *
  * This is the Tier B target lexicon: one record per spatial feature, used
  * for Geography Intelligence (spot/river/lake/coastline/mountain/etc.) +

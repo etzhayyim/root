@@ -4,7 +4,7 @@
   Idiomatic clj/cljc port of `bulk-ingest/workers/_kotoba_feature.py`
   (ADR-2606064500 R2 / ADR-2606280030). Pure functions only: a legacy
   `vertex_spatial`/aux row map -> a `kg.ingest_batch` entity. Kept in lockstep
-  with `20-actors/maps/methods/ingest.py` (`_LABEL_MAP`) and the maps spatial
+  with `orgs/etzhayyim/com-etzhayyim-maps/methods/ingest.py` (`_LABEL_MAP`) and the maps spatial
   ontology `:feature/label` keywords; the substrate writer (`substrate.cljc`)
   POSTs the produced batch.
 
@@ -20,7 +20,7 @@
 (def cell-resolutions [2 4 6 8 10 12])
 
 ;; legacy vertex_spatial.label (PascalCase) -> kotoba :feature/label keyword.
-;; MUST equal 20-actors/maps/methods/ingest.py _LABEL_MAP.
+;; MUST equal orgs/etzhayyim/com-etzhayyim-maps/methods/ingest.py _LABEL_MAP.
 (def label-map
   {"Place" ":place" "Road" ":road" "Railway" ":railway" "Building" ":building"
    "River" ":river" "Lake" ":lake" "Coastline" ":coastline" "AdminArea" ":admin-area"
@@ -54,7 +54,7 @@
     {}))
 
 ;; ── name-search index tokens (ADR-2606064500 R2) ──
-;; MUST equal 20-actors/maps/methods/search.py `name_tokens`. ASCII name-prefixes
+;; MUST equal orgs/etzhayyim/com-etzhayyim-maps/methods/search.py `name_tokens`. ASCII name-prefixes
 ;; (len 2..12) + CJK bigrams.
 (def ^:private max-prefix 12)
 

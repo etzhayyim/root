@@ -4,7 +4,7 @@
  *   - com.etzhayyim.maps.registry
  *   - com.etzhayyim.maps.ownership
  *
- * Source lexicons: 00-contracts/lexicons/com/etzhayyim/maps/
+ * Source lexicons: orgs/etzhayyim/com-etzhayyim-maps/wire/lex/
  */
 
 // ─── LegalEntity ─────────────────────────────────────────────────────

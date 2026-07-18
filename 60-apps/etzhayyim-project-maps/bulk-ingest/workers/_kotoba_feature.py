@@ -1,7 +1,7 @@
 """_kotoba_feature — vertex_spatial row → kotoba :feature/* mapping for the bulk-ingest dumpers.
 
 ADR-2606064500 (R2). The canonical legacy-row → kotoba Datom shape used by the `kotoba`
-substrate-writer mode. Kept in lockstep with `20-actors/maps/methods/ingest.py` (_LABEL_MAP)
+substrate-writer mode. Kept in lockstep with `orgs/etzhayyim/com-etzhayyim-maps/methods/ingest.py` (_LABEL_MAP)
 and `maps-spatial-ontology.kotoba.edn` (`:feature/label` keywords); a test asserts the label
 map matches the canonical one so the two write paths (the maps Worker adapter + the bulk
 dumpers) never disagree on a stored keyword.
@@ -17,7 +17,7 @@ from typing import Any, Iterable
 CELL_RESOLUTIONS = (2, 4, 6, 8, 10, 12)
 
 # legacy vertex_spatial.label (PascalCase) → kotoba :feature/label keyword.
-# MUST equal 20-actors/maps/methods/ingest.py _LABEL_MAP (asserted by test_kotoba_substrate.py).
+# MUST equal orgs/etzhayyim/com-etzhayyim-maps/methods/ingest.py _LABEL_MAP (asserted by test_kotoba_substrate.py).
 _LABEL_MAP = {
     "Place": ":place", "Road": ":road", "Railway": ":railway", "Building": ":building",
     "River": ":river", "Lake": ":lake", "Coastline": ":coastline", "AdminArea": ":admin-area",
@@ -57,7 +57,7 @@ def stamp_cells(lat: Any, lon: Any) -> dict[str, str]:
 
 
 # ── name-search index tokens (ADR-2606064500 R2) ──
-# MUST equal 20-actors/maps/methods/search.py `name_tokens` (asserted by test_kotoba_substrate)
+# MUST equal orgs/etzhayyim/com-etzhayyim-maps/methods/search.py `name_tokens` (asserted by test_kotoba_substrate)
 # so a feature is name-searchable regardless of which write path (maps adapter / bulk dumper)
 # ingested it. ASCII name-prefixes (len 2..12) + CJK bigrams.
 _MAX_PREFIX = 12

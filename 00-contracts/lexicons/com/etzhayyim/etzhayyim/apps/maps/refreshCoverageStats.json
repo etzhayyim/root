@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Re-count vertex_spatial rows per (source_did, label) and write the result back into vertex_maps_coverage_target.collected_count. Closes the feedback loop so view_maps_coverage_gap_ranked reflects real graph state, not seed zeros. Called by 00-contracts/bpmn/com/etzhayyim/maps/refreshCoverageStats.bpmn every 15 minutes.",
+      "description": "Re-count vertex_spatial rows per (source_did, label) and write the result back into vertex_maps_coverage_target.collected_count. Closes the feedback loop so view_maps_coverage_gap_ranked reflects real graph state, not seed zeros. Called by orgs/etzhayyim/com-etzhayyim-maps/wire/bpmn/maps/refreshCoverageStats.bpmn every 15 minutes.",
       "input": {
         "encoding": "application/json",
         "schema": {
@@ -25,22 +25,23 @@
             "updated": { "type": "integer", "description": "Number of target rows whose collected_count actually changed" },
             "deltas": {
               "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "sourceDid": { "type": "string" },
-                  "label": { "type": "string" },
-                  "before": { "type": "integer" },
-                  "after": { "type": "integer" },
-                  "delta": { "type": "integer" }
-                }
-              },
+              "items": { "type": "ref", "ref": "#coverageDelta" },
               "description": "Top 20 non-zero-delta rows, sorted by |delta| desc"
             },
             "totalCollectedAcrossTargets": { "type": "integer" },
             "error": { "type": "string" }
           }
         }
+      }
+    },
+    "coverageDelta": {
+      "type": "object",
+      "properties": {
+        "sourceDid": { "type": "string" },
+        "label": { "type": "string" },
+        "before": { "type": "integer" },
+        "after": { "type": "integer" },
+        "delta": { "type": "integer" }
       }
     }
   }

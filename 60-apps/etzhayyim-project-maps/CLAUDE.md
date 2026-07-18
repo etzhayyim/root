@@ -1,4 +1,4 @@
-> **DEPRECATED**: Actor migrated to `20-actors/maps/actor-manifest.jsonld` (T1 MCP-Compose). This project wasm/*/src/app.ts is retained as T3 fallback only.
+> **DEPRECATED**: Actor migrated to `orgs/etzhayyim/com-etzhayyim-maps/actor-manifest.jsonld` (T1 MCP-Compose). This project wasm/*/src/app.ts is retained as T3 fallback only.
 
 # etzhayyim-project-maps
 
@@ -66,7 +66,7 @@ landmark / 局所再構成の preview / QC 用途のみ。
 | HTML toggle | `svelte/static/maps-3d.htm?gsplat=1` + 「📷 Train splat here」 button | shipped — 1-ring H3 res-12 prefetch, negative-cache on 404 |
 | Trainer endpoint (RunPod) | `runpod-endpoint-gsplat/{handler.py,Dockerfile,Dockerfile.phase2,requirements.txt,requirements-phase2.txt}` | **shipped Phase 1 stub + Phase 2 real trainer + bake mode**. Phase 2 train = Mapillary download + COLMAP SfM (`pycolmap.extract_features` + `match_exhaustive` + `incremental_mapping`) + gsplat training (`gsplat==1.4.0`, **`DefaultStrategy` densification (clone+split+prune)**, **`shDegree ∈ [0,3]`**, opacity-cull at half-step, 50k splat cap). PLY in our renderer's `f_dc/scale/rot` schema; optional `f_rest_*` (`exportRest=true`) for SuperSplat / Inria viewer compat. Phase 2 bake = TSDF fusion (Open3D `ScalableTSDFVolume.integrate` over 24 fibonacci-sphere `RGB+D` views from gsplat) → `simplify_quadric_decimation(5000)` → trimesh GLB. Toggle via `RUNPOD_PHASE=2` + GPU `Dockerfile.phase2`. Mode dispatch via payload `mode: "train" \| "bake"` (default train) |
 | Bake mesh registry | `vertex_maps_gsplat_mesh` + `edge_maps_gsplat_baked_to` (Alembic `r_20260510120000_vertex_maps_gsplat_mesh`) | shipped — append-only, lineage edge from splat asset → baked mesh |
-| Bake BPMN | `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/maps/bakeGsplatAsset.bpmn` | shipped — message-start, correlationKey=tileH3, dispatches to dumper `/trigger/bake` |
+| Bake BPMN | `etzhayyim-root/orgs/etzhayyim/com-etzhayyim-maps/wire/bpmn/maps/bakeGsplatAsset.bpmn` | shipped — message-start, correlationKey=tileH3, dispatches to dumper `/trigger/bake` |
 | Worker bake handler | `cmdGetGsplatAsset` JOIN `vertex_maps_gsplat_mesh` returns `bakedMesh` + `bakedMeshUrl`; `cmdBakeGsplatAsset` already publishes the BPMN message | shipped |
 | HTML bake consumer | `svelte/static/maps-3d.htm` calls `set_mesh_tile(tileH3, glb)` whenever `bakedMeshUrl` is present in the splat fetch response | shipped — same 1-ring H3 res-12 prefetch loop as splat preview |
 | Job state log | `vertex_maps_gsplat_job` + `mv_maps_gsplat_job_latest` (Alembic `r_20260510130000_*`) | shipped — append-only phase events (queued/running/completed/failed × per-phase string), 7-day window MV |
@@ -90,7 +90,7 @@ landmark / 局所再構成の preview / QC 用途のみ。
 | Failure webhook | Dumper POSTs `{text:"..."}` (Slack + Discord compatible) to `GSPLAT_FAILURE_WEBHOOK_URL` env on `_run_train` / `_run_bake` exceptions, after the `_emit_job_state(failed)` row. Best-effort — webhook timeout ≤ 4 s, never masks the underlying job failure. No-op when env not set | shipped |
 | Train idempotency | Dumper computes `sha256(",".join(sorted(imageIds)))` after Mapillary list, looks up `mv_maps_gsplat_job_latest` for a prior completed train with the same `(tile_h3, imageids_hash)`. Hit → emit `phase=skipped-duplicate` job-state row, skip RunPod (cost_usd=0), still auto-chain bake against the existing splat row. New `vertex_maps_gsplat_job.imageids_hash` column (Alembic `r_20260510150000_*`) | shipped |
 | Trainer dumper pod (k8s) | `bulk-ingest/workers/gsplat_train_dumper.py` + `bulk-ingest/k8s/deployment-gsplat-train.yaml` | **shipped, replicas=0** — gated until operator wires `MAPILLARY_ACCESS_TOKEN` + `RUNPOD_API_KEY` + `RUNPOD_ENDPOINT_ID_GSPLAT` |
-| BPMN process | `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/maps/trainGsplatFromMapillary.bpmn` | shipped — message-start, correlationKey=tileH3, dispatches to dumper `/trigger` |
+| BPMN process | `etzhayyim-root/orgs/etzhayyim/com-etzhayyim-maps/wire/bpmn/maps/trainGsplatFromMapillary.bpmn` | shipped — message-start, correlationKey=tileH3, dispatches to dumper `/trigger` |
 | Bake pod (splat → mesh, k8s L8) | not implemented — contract only (`bakeGsplatAsset` enqueues LangServer message) | follow-up |
 
 Runtime delivery は引き続き `mesh_tile` GLB (`maps3d.simplifyAndExport` BPMN)。
@@ -107,7 +107,7 @@ quadric_decimation → KTX2 texture → `vertex_spatial.Building` upsert) は
 2. RunPod template + Serverless endpoint を `runpod-endpoint-gsplat/README.md` 手順で作成、endpoint id を控える
 3. `kubectl -n maps-bulk-ingest patch secret maps-bulk-ingest-credentials --type merge -p '{"stringData":{"RUNPOD_API_KEY":"…","RUNPOD_ENDPOINT_ID_GSPLAT":"…","MAPILLARY_ACCESS_TOKEN":"…"}}'`
 4. `kubectl -n maps-bulk-ingest scale deploy/bulk-ingest-gsplat-train --replicas=1`
-5. (BPMN) `bpmn-engine` deployer pod で `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/maps/trainGsplatFromMapillary.bpmn` を再 deploy
+5. (BPMN) `bpmn-engine` deployer pod で `etzhayyim-root/orgs/etzhayyim/com-etzhayyim-maps/wire/bpmn/maps/trainGsplatFromMapillary.bpmn` を再 deploy
 
 Phase 2 (real COLMAP + gsplat) への昇格 (2026-05-09 shipped):
 
@@ -211,7 +211,7 @@ Client Request
 | 海路 (ferry routes) | `com.etzhayyim.apps.maps.bulkRefreshFerryRoutes` (R/P7D) | `bulk-ingest-ferry-routes` (`workers/ferry_routes_dumper.py`) | OSM Overpass `relation[route=ferry]` × 7 continent bbox + `node[amenity=ferry_terminal]` / `node[harbour=yes]` (ODbL) | SeaRoute / Port, props `{osm_relation_id, operator, ref, network, from, to, via, duration_min, frequency, distance_nmi, fee, wheelchair}` |
 
 Lexicon: `00-contracts/lexicons/com/etzhayyim/apps/maps/bulkRefresh{GtfsJp,Openflights,FerryRoutes}.json`。
-BPMN: `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/maps/bulkRefresh{GtfsJp,Openflights,FerryRoutes}.bpmn`。
+BPMN: `etzhayyim-root/orgs/etzhayyim/com-etzhayyim-maps/wire/bpmn/maps/bulkRefresh{GtfsJp,Openflights,FerryRoutes}.bpmn`。
 K8s manifest: `60-apps/etzhayyim-project-maps/bulk-ingest/k8s/deployment-{gtfs-jp,openflights,ferry-routes}.yaml`。
 Image: `ghcr.io/etzhayyim/maps-bulk-ingest:1.1.0` (1 image / N command, CMD で worker を切替)。
 

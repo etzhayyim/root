@@ -141723,7 +141723,7 @@
     },
     "/xrpc/com.etzhayyim.apps.maps.refreshCoverageStats": {
       "post": {
-        "summary": "Re-count vertex_spatial rows per (source_did, label) and write the result back into vertex_maps_coverage_target.collected_count. Closes the feedback loop so view_maps_coverage_gap_ranked reflects real graph state, not seed zeros. Called by 00-contracts/bpmn/com/etzhayyim/maps/refreshCoverageStats.bpmn every 15 minutes.",
+        "summary": "Re-count vertex_spatial rows per (source_did, label) and write the result back into vertex_maps_coverage_target.collected_count. Closes the feedback loop so view_maps_coverage_gap_ranked reflects real graph state, not seed zeros. Called by orgs/etzhayyim/com-etzhayyim-maps/wire/bpmn/maps/refreshCoverageStats.bpmn every 15 minutes.",
         "operationId": "com.etzhayyim.apps.maps.refreshCoverageStats",
         "requestBody": {
           "required": true,
@@ -144351,7 +144351,7 @@
     },
     "/xrpc/com.etzhayyim.apps.maps.runCoverageJob": {
       "post": {
-        "summary": "Execute a pending MapsJob — fetch from the external source (Overpass / GLEIF / Wikidata / STAC), parse, write to vertex_spatial, advance the job. Source selection is dispatched via the SQL UDF maps_source_dispatch_kind(source_did, label). Called by 00-contracts/bpmn/com/etzhayyim/maps/runPendingCoverageJobs.bpmn multi-instance loop every 3 minutes.",
+        "summary": "Execute a pending MapsJob — fetch from the external source (Overpass / GLEIF / Wikidata / STAC), parse, write to vertex_spatial, advance the job. Source selection is dispatched via the SQL UDF maps_source_dispatch_kind(source_did, label). Called by orgs/etzhayyim/com-etzhayyim-maps/wire/bpmn/maps/runPendingCoverageJobs.bpmn multi-instance loop every 3 minutes.",
         "operationId": "com.etzhayyim.apps.maps.runCoverageJob",
         "requestBody": {
           "required": true,

@@ -9784,7 +9784,7 @@
     },
     "uqpel6i6": {
       "tier": "T1",
-      "notes": "All 113 commands use only MCP primitives (graph.query/write, agent.chat/invoke, browser.fetch, derive:social). No WebGPU/FIDO2/custom compute. T1 actor-manifest.jsonld at 20-actors/maps/",
+      "notes": "All 113 commands use only MCP primitives (graph.query/write, agent.chat/invoke, browser.fetch, derive:social). No WebGPU/FIDO2/custom compute. T1 actor-manifest.jsonld at orgs/etzhayyim/com-etzhayyim-maps/",
       "assigned_at": "2026-04-09T05:47:34Z",
       "assigned_by": "manual"
     },

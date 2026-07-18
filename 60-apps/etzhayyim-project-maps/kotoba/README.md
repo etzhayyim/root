@@ -161,7 +161,7 @@ const src = await resolveSourceDid("did:web:maps.etzhayyim.com:geocode");
 
 ## Lexicon
 
-Record lexicon at [`00-contracts/lexicons/com/etzhayyim/maps/source.json`](../../../00-contracts/lexicons/com/etzhayyim/maps/source.json)
+Record lexicon at [`orgs/etzhayyim/com-etzhayyim-maps/wire/lex/source.json`](../../../orgs/etzhayyim/com-etzhayyim-maps/wire/lex/source.json)
 (NSID `com.etzhayyim.maps.source`).
 
 `rkey` policy: `literal:{slug}` — the kebab-case slug is the MST key
@@ -217,7 +217,7 @@ pnpm test
 
 | Surface | State |
 |---|---|
-| Record lexicon | ✅ `00-contracts/lexicons/com/etzhayyim/maps/source.json` |
+| Record lexicon | ✅ `orgs/etzhayyim/com-etzhayyim-maps/wire/lex/source.json` |
 | Seed data (24 entries) | ✅ `data/sources.json` |
 | Seeder + helpers | ✅ |
 | Pure-helper tests | ✅ |

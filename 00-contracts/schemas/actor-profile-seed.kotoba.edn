@@ -1846,7 +1846,7 @@
    :actor/ui-type :appview
    :actor/description "高札 (kosatsu) — the public notice-board, globalized and content-addressed. Every sanctions / export-control / wanted-notice DESIGNATION is an append-only EVENT posted by a NAMED asserting authority (OFAC / EU Council / UN SC / UK OFSI / JP-MOF / Interpol / counter-sanction bodies) against a subject, citing the authority's OWN program + primary publication. etzhayyim NEVER posts its own designation and NEVER asserts a subject is a criminal / guilty / a terrorist — those are UNREPRESENTABLE; kos..."
    :actor/primary-lexicon "com.etzhayyim.kosatsu.designationNotice"
-   :actor/primary-schema "00-contracts/schemas/crime-sanctions-ontology.kotoba.edn"
+   :actor/primary-schema "orgs/etzhayyim/com-etzhayyim-kosatsu/contracts/ontology/crime-sanctions-ontology.kotoba.edn"
    :actor/adr ["2606072000" "2606072000" "reserved"]
    :actor/created-at "2026-06-07"
    :actor/vm []

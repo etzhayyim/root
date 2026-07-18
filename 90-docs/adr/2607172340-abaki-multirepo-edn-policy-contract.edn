@@ -28,7 +28,7 @@
                          :analysis "out/analysis.edn"}
    :retired-artifacts ["data/seed.json" "out/routing-policy.json" "out/abaki-report.md"]
    :consumers
-   [{:id :okaimono :contract-location "20-actors/okaimono/manifest.edn"
+   [{:id :okaimono :contract-location "orgs/etzhayyim/com-etzhayyim-okaimono/manifest.edn"
      :override-env "ABAKI_POLICY_PATH" :absence-policy :fail-open-no-block}
     {:id :fuchi :repository "https://github.com/etzhayyim/com-etzhayyim-fuchi"
      :pull-request 3 :revision "58e5267b0a846b8d15e0c6c303058bfc3ca5d9c2"

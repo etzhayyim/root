@@ -1802,6 +1802,14 @@
     {:repository "https://github.com/etzhayyim/com-etzhayyim-kawaraban" :revision "d515cca0face45392bd2c7d5414201add1eb0386" :west-path "orgs/etzhayyim/com-etzhayyim-kawaraban" :canonical-format :edn :canonical-edn-files 20 :wire-artifacts {:total 9} :verification {:tests 89 :assertions 207 :failures 0 :errors 0} :retained-shared-contract "00-contracts/schemas/news-medium-ontology.kotoba.edn" :root-copy :edn-tombstone-only}
     "kizashi"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-kizashi" :revision "015a0b0b6918926b5018881bd1859d18169f88f2" :west-path "orgs/etzhayyim/com-etzhayyim-kizashi" :canonical-format :edn :canonical-edn-files 13 :wire-artifacts {:json-and-json-ld 10} :verification {:tests 9 :assertions 56 :failures 0 :errors 0} :excluded-user-wip :uncommitted-murakumo-scaffold :root-copy :edn-tombstone-only}
+    "kosatsu"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kosatsu" :revision "12daf143ce6039c01f1408ec6e27d9d96c0b7821" :west-path "orgs/etzhayyim/com-etzhayyim-kosatsu" :canonical-format :edn :canonical-edn-files 19 :wire-artifacts {:json 8} :verification {:tests 157 :assertions 689 :failures 0 :errors 0} :root-copy :edn-tombstone-only}
+    "matsurigoto"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-matsurigoto" :revision "2633e1326452f165bdc1b1de5c7420ffcf681125" :west-path "orgs/etzhayyim/com-etzhayyim-matsurigoto" :canonical-format :edn :canonical-edn-files 30 :wire-artifacts {:json 8} :verification {:tests 156 :assertions 1139 :failures 0 :errors 0} :retained-tooling {:mjs-wasm-verifier true} :root-copy :edn-tombstone-only}
+    "okaimono"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-okaimono" :revision "7f85dd0975fd0e8d962b4538edde90178e74c11b" :west-path "orgs/etzhayyim/com-etzhayyim-okaimono" :canonical-format :edn :canonical-edn-files 24 :wire-artifacts {} :verification {:tests 50 :assertions 113 :failures 0 :errors 0 :full-maker-golden :requires-six-west-siblings} :root-copy :edn-tombstone-only}
+    "maps"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-maps" :revision "7a859093991ec6ca5c1e904ecff14e7c53346f6c" :west-path "orgs/etzhayyim/com-etzhayyim-maps" :canonical-format :edn :canonical-edn-files 31 :wire-artifacts {:total 268 :bpmn-xml 242 :json 26} :verification {:tests 178 :assertions 784 :failures 0 :errors 0 :excluded-integration-guards 2} :retained-rust-wasm true :root-copy :edn-tombstone-only}
     "tate"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-tate"
      :revision "658b9f67aaa65d7aad5ffda280ec8feaae7a8bc2"
@@ -2006,8 +2014,8 @@
   [{:class :legacy-actor-root-directories
     :snapshot-date "2026-07-18"
     :baseline 198
-    :moved 157
-    :remaining 41
+    :moved 161
+    :remaining 37
     :inventory "90-docs/adr/2607181200-flat-west-actor-migration-progress-and-remaining.edn"}
    {:class :existing-repo-overlap
     :state :merge-root-only-content-before-delete}

@@ -1,6 +1,6 @@
 /**
  * Mirrors the com.etzhayyim.maps.source Lexicon record shape.
- * Source: 00-contracts/lexicons/com/etzhayyim/maps/source.json
+ * Source: orgs/etzhayyim/com-etzhayyim-maps/wire/lex/source.json
  *
  * One record per external API the maps app replaces with a path-based DID.
  * Append-only with `supersedesDid` for revision lineage.

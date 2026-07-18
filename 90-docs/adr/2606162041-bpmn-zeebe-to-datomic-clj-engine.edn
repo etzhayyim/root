@@ -9,7 +9,7 @@
  :axis              "architecture"
  :weight            0.3
  :priority-note     "Implementation record. Retires the external Zeebe BPMN engine for the maps3d photogrammetry pipeline and replaces it with a pure-cljc interpreter whose process-instance state lives on the kotoba Datom log (append-only, replayable). Generalizes to a corpus-wide BPMN→Datomic engine. No invariant amended; live network/LLM task I/O + live-node drive stay operator/Council-gated (maps G7, no-server-key). Python tasks kept in parallel (not deleted); Zeebe worker registration deprecated."
- :authoritative-for ["maps3d BPMN execution on kotoba/Datomic (20-actors/maps/methods/maps3d_bpmn.cljc)" "the generic BPMN→Datomic engine (20-actors/maps/methods/bpmn_xml.cljc + bpmn_run.cljc)"]
+ :authoritative-for ["maps3d BPMN execution on kotoba/Datomic (orgs/etzhayyim/com-etzhayyim-maps/methods/maps3d_bpmn.cljc)" "the generic BPMN→Datomic engine (orgs/etzhayyim/com-etzhayyim-maps/methods/bpmn_xml.cljc + bpmn_run.cljc)"]
  :depends-on        ["adr-2605262130-kotoba-storage-substrate-unification" "adr-2605312345-kotoba-datom-first-class-canonical-state" "adr-2606064500-maps-kotoba-native-substrate-migration" "adr-2606160842-kotoba-code-actor-py-to-clj-port-wave"]
  :related           ["adr-2606162030-silicon-fab-flow-clj-port" "adr-2606162200-md-edn-commented-edn-adr-format"]
  :supersedes        []
@@ -47,7 +47,7 @@ Two further gaps were found while migrating:
 
 Execute BPMN **on the kotoba Datom log, Zeebe-free**, in pure `.cljc`, and generalize it.
 
-1. **maps3d engine** (`20-actors/maps/methods/maps3d_bpmn.cljc`): the processTile flow as
+1. **maps3d engine** (`orgs/etzhayyim/com-etzhayyim-maps/methods/maps3d_bpmn.cljc`): the processTile flow as
    EDN data + a pure interpreter (`step`/`run`/`resolve-gateway`). Process-instance state
    is **append-only `:bpmn.event/*` datoms** via a sink-injected `drive*` — offline to the
    reference store `kotoba-local` (EAVT/AVET), or live to a running kotoba node via
@@ -109,8 +109,8 @@ Live network/LLM I/O and live-node drive remain **operator/Council-gated** (maps
 
 # References
 
-- 20-actors/maps/methods/{maps3d_bpmn,maps3d_tasks,maps3d_net_tasks,bpmn_xml,bpmn_run}.cljc
-- 20-actors/maps/methods/maps3d_persist.cljc + kotoba_local.cljc (Datom store)
+- orgs/etzhayyim/com-etzhayyim-maps/methods/{maps3d_bpmn,maps3d_tasks,maps3d_net_tasks,bpmn_xml,bpmn_run}.cljc
+- orgs/etzhayyim/com-etzhayyim-maps/methods/maps3d_persist.cljc + kotoba_local.cljc (Datom store)
 - 00-contracts/bpmn/com/etzhayyim/maps3d/processTile.bpmn (the migrated contract)
 - ADR-2605262130 (kotoba storage substrate), ADR-2605312345 (Datom = canonical state)
 - ADR-2606064500 (maps kotoba-native), ADR-2606160842 (py→clj port wave)"}]

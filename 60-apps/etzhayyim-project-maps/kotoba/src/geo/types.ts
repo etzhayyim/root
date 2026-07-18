@@ -6,7 +6,7 @@
  *   - com.etzhayyim.maps.naturalZone
  *   - com.etzhayyim.maps.layerCoordinator
  *
- * Source lexicons: 00-contracts/lexicons/com/etzhayyim/maps/
+ * Source lexicons: orgs/etzhayyim/com-etzhayyim-maps/wire/lex/
  */
 
 // ─── Region ──────────────────────────────────────────────────────────
