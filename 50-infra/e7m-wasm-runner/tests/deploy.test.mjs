@@ -15,7 +15,7 @@ import { buildCar } from "../wasmcar.mjs";
 import { fetchVerified, didToCid, defaultIpfsGateways } from "../runner.mjs";
 
 const DIR = dirname(fileURLToPath(import.meta.url));
-const KANAE = join(DIR, "../../../20-actors/kanae/wasm/loader/kanae-core.wasm");
+const KANAE = join(DIR, "../../../orgs/etzhayyim/com-etzhayyim-kanae/wasm/loader/kanae-core.wasm");
 
 test("deploy(pin=none) produces a gateway-independent manifest", async () => {
   const m = await deploy({ file: KANAE, actor: "kanae", pin: "none" });

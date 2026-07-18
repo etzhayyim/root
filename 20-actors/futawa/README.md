@@ -125,5 +125,5 @@ com.etzhayyim.futawa.{
 - `/90-docs/adr/2605261330-futawa-motorcycle-tier-b-actor-r0.md` — Master ADR
 - `/orgs/etzhayyim/com-etzhayyim-wadachi/README.md` — sibling (autonomous mobility R&D)
 - `/20-actors/hodoki/README.md` — EOL companion (G8 + G12 + G13 cross-lifecycle)
-- `/20-actors/kanayama/README.md` — recycled metals supplier
+- `/orgs/etzhayyim/com-etzhayyim-kanayama/README.md` — recycled metals supplier
 - `/CLAUDE.md` — Religious-corp status table row 54

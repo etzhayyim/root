@@ -147,6 +147,6 @@ All should pass import; `.solve()` calls should raise `RuntimeError("futawa R0 s
 - `/20-actors/futawa/manifest.jsonld` — DID + cell registry + gates + non-goals
 - `/90-docs/adr/2605261330-futawa-motorcycle-tier-b-actor-r0.md` — Master ADR
 - `/20-actors/hodoki/README.md` — EOL companion (G8 + G12 + G13 cross-lifecycle)
-- `/20-actors/kanayama/README.md` — recycled metals supplier
+- `/orgs/etzhayyim/com-etzhayyim-kanayama/README.md` — recycled metals supplier
 - `/orgs/etzhayyim/com-etzhayyim-wadachi/README.md` — sibling (4-wheel autonomous R&D)
 - `/CLAUDE.md` — Religious-corp status table row 54

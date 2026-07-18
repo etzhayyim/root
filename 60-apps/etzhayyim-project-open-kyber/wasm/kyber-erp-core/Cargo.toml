@@ -13,7 +13,7 @@
 # CID:    ipfs add -Q --only-hash --cid-version=1 <wasm>
 #
 # Standalone project (empty [workspace]) so the wasm32 target does not contaminate any native
-# host workspace — mirrors 20-actors/kanae/verify/kanae-fiscal-ingest.
+# host workspace — mirrors orgs/etzhayyim/com-etzhayyim-kanae/verify/kanae-fiscal-ingest.
 [package]
 name    = "kyber-erp-core"
 version = "0.1.0"

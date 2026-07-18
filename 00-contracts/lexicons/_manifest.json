@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-18T07:17:20.642Z",
+  "generated": "2026-07-18T07:30:39.682Z",
   "lexicons": [
     {
       "id": "ai.etzhayyim.yorishiro.argparse-demo.main",
@@ -35774,102 +35774,6 @@
       "description": ""
     },
     {
-      "id": "com.etzhayyim.kanae.flowNarrative",
-      "path": "00-contracts/lexicons/com/etzhayyim/kanae/flowNarrative.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kanae.fundFlowEdge",
-      "path": "00-contracts/lexicons/com/etzhayyim/kanae/fundFlowEdge.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kanae.methodNote",
-      "path": "00-contracts/lexicons/com/etzhayyim/kanae/methodNote.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kanae.visualizationManifest",
-      "path": "00-contracts/lexicons/com/etzhayyim/kanae/visualizationManifest.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kanayama.airEmissionsAuditRecord",
-      "path": "00-contracts/lexicons/com/etzhayyim/kanayama/airEmissionsAuditRecord.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kanayama.coilQualificationRecord",
-      "path": "00-contracts/lexicons/com/etzhayyim/kanayama/coilQualificationRecord.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kanayama.dcCastingAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/kanayama/dcCastingAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kanayama.decoatingAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/kanayama/decoatingAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kanayama.intakeRecord",
-      "path": "00-contracts/lexicons/com/etzhayyim/kanayama/intakeRecord.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kanayama.meltingAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/kanayama/meltingAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kanayama.rollingAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/kanayama/rollingAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kanayama.silenRecyclingReview",
-      "path": "00-contracts/lexicons/com/etzhayyim/kanayama/silenRecyclingReview.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kanjo.publishConceptDictionary",
-      "path": "00-contracts/lexicons/com/etzhayyim/kanjo/publishConceptDictionary.json",
-      "type": "procedure",
-      "description": "Publish the canonical concept DICTIONARY (:fin.concept/*) — the GAAP-normalization map that lands JP-GAAP (jppfs_cor / jpcrp_cor), US-GAAP (us-gaap:*) and IFRS (ifrs-full:*) taxonomy elements onto one"
-    },
-    {
-      "id": "com.etzhayyim.kanjo.publishIntelReport",
-      "path": "00-contracts/lexicons/com/etzhayyim/kanjo/publishIntelReport.json",
-      "type": "procedure",
-      "description": "Publish an AGGREGATE-FIRST 決算 intel report + the derived metrics / aggregates (:fin.metric/* + :fin.agg/*, all :synthesized) into the kotoba Datom log. NON-ADJUDICATING (G2) + NO investment advice (G4"
-    },
-    {
-      "id": "com.etzhayyim.kanjo.registerFiling",
-      "path": "00-contracts/lexicons/com/etzhayyim/kanjo/registerFiling.json",
-      "type": "procedure",
-      "description": "Assert a PRIMARY public-disclosure filing into the kotoba Datom log (:fin.filing/*). Tier-A primary disclosure ONLY — JP EDINET 有価証券報告書 / US SEC EDGAR 10-K/20-F / UK Companies House / EU OAM (kanjō G1"
-    },
-    {
-      "id": "com.etzhayyim.kanjo.registerFinancialFact",
-      "path": "00-contracts/lexicons/com/etzhayyim/kanjo/registerFinancialFact.json",
-      "type": "procedure",
-      "description": "Assert ONE disclosed financial line item (:fin.fact/*) into the kotoba Datom log, linked to its :fin.filing and a CANONICAL concept (normalized across JP-GAAP / US-GAAP / IFRS). Records what the compa"
-    },
-    {
       "id": "com.etzhayyim.karute.carePlan",
       "path": "00-contracts/lexicons/com/etzhayyim/karute/carePlan.json",
       "type": "record",
@@ -48360,28 +48264,6 @@
       "com.etzhayyim.kamado.refineryUnit",
       "com.etzhayyim.kamado.synthesisRun"
     ],
-    "com.etzhayyim.kanae": [
-      "com.etzhayyim.kanae.flowNarrative",
-      "com.etzhayyim.kanae.fundFlowEdge",
-      "com.etzhayyim.kanae.methodNote",
-      "com.etzhayyim.kanae.visualizationManifest"
-    ],
-    "com.etzhayyim.kanayama": [
-      "com.etzhayyim.kanayama.airEmissionsAuditRecord",
-      "com.etzhayyim.kanayama.coilQualificationRecord",
-      "com.etzhayyim.kanayama.dcCastingAttestation",
-      "com.etzhayyim.kanayama.decoatingAttestation",
-      "com.etzhayyim.kanayama.intakeRecord",
-      "com.etzhayyim.kanayama.meltingAttestation",
-      "com.etzhayyim.kanayama.rollingAttestation",
-      "com.etzhayyim.kanayama.silenRecyclingReview"
-    ],
-    "com.etzhayyim.kanjo": [
-      "com.etzhayyim.kanjo.publishConceptDictionary",
-      "com.etzhayyim.kanjo.publishIntelReport",
-      "com.etzhayyim.kanjo.registerFiling",
-      "com.etzhayyim.kanjo.registerFinancialFact"
-    ],
     "com.etzhayyim.karute": [
       "com.etzhayyim.karute.carePlan",
       "com.etzhayyim.karute.condition",
@@ -48835,6 +48717,6 @@
       "tools.ozone.verification.revokeVerifications"
     ]
   },
-  "total": 6649,
+  "total": 6633,
   "legacy_issues_count": 8
 }

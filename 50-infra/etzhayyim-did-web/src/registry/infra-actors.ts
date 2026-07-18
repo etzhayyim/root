@@ -371,7 +371,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     glyph: "鼎",
     displayName: "Kanae — Government Fiscal-Flow Visualization",
     primaryLexicon: "com.etzhayyim.kanae",
-    // Content-addressed T1 WASM actor (20-actors/kanae/wasm/kanae-core) — compact
+    // Content-addressed T1 WASM actor (orgs/etzhayyim/com-etzhayyim-kanae/wasm/kanae-core) — compact
     // Rust core, raw CID → browser-local (ameno) / donated mesh (ADR-2606015200).
     wasmCid: "bafkreielhr6l5jy7ml5l62ncyva34lhjw52q2onwxwy6ubep4wqxjyjnie",
     service: [

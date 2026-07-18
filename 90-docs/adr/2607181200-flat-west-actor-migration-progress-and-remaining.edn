@@ -33,9 +33,9 @@
 
   :migration/progress
   {:baseline-actor-directories 198
-   :moved-tombstones 148
-   :remaining-root-directories 50
-   :completion-percent 74.75
+   :moved-tombstones 151
+   :remaining-root-directories 47
+   :completion-percent 76.26
    :canonical-ledger "MULTIREPO-MIGRATION.edn"
    :integration-base-root-revision "1ce8a65a8fe5b68aa5fda43004bf2bc14a5e13e7"
    :integration-base-west-revision "5d33ded7fdd"
@@ -283,19 +283,22 @@
     {:actor "meisai" :repository "https://github.com/etzhayyim/com-etzhayyim-meisai" :revision "a5d0a5f9659316ff1064588212bad42b5e33a2c8" :canonical-edn-files 9 :wire-artifacts {:json-and-json-ld 4} :verification {:tests 43 :assertions 151}}
     {:actor "manabi" :repository "https://github.com/etzhayyim/com-etzhayyim-manabi" :revision "9e143794201c3cc457cbbe5e9725bf9353c76f02" :canonical-edn-files 23 :wire-artifacts {:json 10} :verification {:tests 40 :assertions 152}}
     {:actor "makura" :repository "https://github.com/etzhayyim/com-etzhayyim-makura" :revision "2c780d092d5110b51386b2297415d6a40d3670da" :canonical-edn-files 32 :wire-artifacts {:json-and-json-ld 9} :verification {:tests 27 :assertions 55}}
-    {:actor "magatama" :repository "https://github.com/etzhayyim/com-etzhayyim-magatama" :revision "b52eac64eefb2ba6668a44a2bdf232fdb01a9feb" :canonical-edn-files 7 :wire-artifacts {:toml 5} :verification {:tests 29 :assertions 51}}]}
+    {:actor "magatama" :repository "https://github.com/etzhayyim/com-etzhayyim-magatama" :revision "b52eac64eefb2ba6668a44a2bdf232fdb01a9feb" :canonical-edn-files 7 :wire-artifacts {:toml 5} :verification {:tests 29 :assertions 51}}
+    {:actor "kanae" :repository "https://github.com/etzhayyim/com-etzhayyim-kanae" :revision "7db5d2c2a12c5f9357af50f43099147369836375" :canonical-edn-files 15 :wire-artifacts {:json 7} :verification {:tests 57 :assertions 256 :cross-repo-pipeline :fixture-covered}}
+    {:actor "kanayama" :repository "https://github.com/etzhayyim/com-etzhayyim-kanayama" :revision "0d6a89236cf5f7fe78d914a04ffda19041e86903" :canonical-edn-files 27 :wire-artifacts {:json-and-json-ld 9} :verification {:tests 55 :assertions 176}}
+    {:actor "kanjo" :repository "https://github.com/etzhayyim/com-etzhayyim-kanjo" :revision "e0f5b760193e61d84410b6beece9468d29ba0d69" :canonical-edn-files 22 :wire-artifacts {:json-and-json-ld 9} :verification {:tests 55 :assertions 248 :full-data-stress :resource-terminated}}]}
 
   :migration/integration-state
-  {:snapshot-kind :integrated
+  {:snapshot-kind :root-prepared-west-pin-pending
    :standalone-repositories
    {:status :pushed
-    :actors ["manabi" "makura" "magatama"]}
+    :actors ["kanae" "kanayama" "kanjo"]}
    :legacy-root-drain
-   {:status :committed
+   {:status :prepared
     :tracked-invariant :moved-edn-only}
    :west-manifest
-   {:status :exact-revisions-pinned :superproject-revision "a71fade42084762d2db9827106fbf1c7b14c5437" :actors ["manabi" "makura" "magatama"]}
-   :note "The 148 completed entries satisfy the standalone repository, root tombstone, canonical ledger, and exact west revision gates represented by this snapshot."}
+   {:status :pending-pin-update :actors ["kanae" "kanayama" "kanjo"]}
+   :note "The 151-entry inventory includes the prepared latest root drain; west exact revision pinning is pending for the latest three actors."}
 
   :migration/completed-actors
   ["abaki" "ainori" "apqc" "atsurae" "busshi" "com-google-ads" "denwaban"
@@ -310,7 +313,7 @@
    "shidemori" "shukubo" "soma" "sonae" "stripe-compat" "suimin" "suki"
    "sumitsubo" "tawami" "toi" "tsukuroi" "ugachi" "unspsc" "utsushie"
    "wakai" "yudane" "isco" "moushibumi" "talent" "chigiri" "himotoki"
-   "toritsugi" "hoshimori" "inochi" "kuni-umi" "kuni_umi" "fuchi" "hokorobi" "kaname" "asobi" "mimamori" "shiori" "tsugite" "watatsuna" "kabuto" "watari" "keizu" "hakoniwa" "kafun" "shirabe" "tanemaki" "tasuke" "rasen" "tatara" "tazuna" "tate" "tokigusuri" "torifune" "tedai" "tatekata" "tsubasa" "tsuchifumi" "tsukuru" "tsumugi" "tsutae" "uchiwake" "uzu" "wadachi" "warifu" "watatsumi" "yadori" "yakushi" "yamabiko" "todoke" "yotei" "yobel" "toritate" "tadori" "sukashi" "subaru" "suji" "shomei" "shinka" "shionome" "sarutahiko" "sanae" "ossekai" "ooyake" "omise" "organizer" "nyusatsu" "nusa" "noroshi" "niyaku" "moyoshi" "mizuho" "mitsuho" "mitooshi" "meyasu" "meisai" "manabi" "makura" "magatama"]
+   "toritsugi" "hoshimori" "inochi" "kuni-umi" "kuni_umi" "fuchi" "hokorobi" "kaname" "asobi" "mimamori" "shiori" "tsugite" "watatsuna" "kabuto" "watari" "keizu" "hakoniwa" "kafun" "shirabe" "tanemaki" "tasuke" "rasen" "tatara" "tazuna" "tate" "tokigusuri" "torifune" "tedai" "tatekata" "tsubasa" "tsuchifumi" "tsukuru" "tsumugi" "tsutae" "uchiwake" "uzu" "wadachi" "warifu" "watatsumi" "yadori" "yakushi" "yamabiko" "todoke" "yotei" "yobel" "toritate" "tadori" "sukashi" "subaru" "suji" "shomei" "shinka" "shionome" "sarutahiko" "sanae" "ossekai" "ooyake" "omise" "organizer" "nyusatsu" "nusa" "noroshi" "niyaku" "moyoshi" "mizuho" "mitsuho" "mitooshi" "meyasu" "meisai" "manabi" "makura" "magatama" "kanae" "kanayama" "kanjo"]
 
   :migration/remaining-actors
   ["_conformance" "aburi" "akashi" "ake" "ameno" "amime"
@@ -320,7 +323,7 @@
    "himawari" "hinagata" "hodoki" "hotaru"
    "ibuki" "infra-utility-connect" "infra_utility_connect" "iriai" "iryo"
    "itonami" "jinushi" "junkan" "kadode" "kaiyaku"
-   "kakaku" "kamado" "kanae" "kanayama" "kanjo" "karakuri" "kasa"
+   "kakaku" "kamado" "karakuri" "kasa"
    "kawaraban" "kizashi" "kosatsu" "kotoba-actors-clj" "kotodama"
    "maps" "matsurigoto"
    "mst-projector" "okaimono"

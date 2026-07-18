@@ -23,7 +23,7 @@ python3 publish.py --name uchiwake-coverage --actor uchiwake \
 
 KANJO_OPERATOR_GATE=1 python3 edgar_batch.py
 python3 publish.py --name kanjo-coverage --actor kanjo \
-  --artifacts 20-actors/kanjo/data/facts.merged.kotoba.edn --ipns --kotobase
+  --artifacts orgs/etzhayyim/com-etzhayyim-kanjo/data/facts.merged.kotoba.edn --ipns --kotobase
 ```
 
 ## Storage layout

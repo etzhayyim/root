@@ -193,7 +193,7 @@ All should pass import; `.solve()` calls should raise `RuntimeError("hodoki R0 s
 
 - `/20-actors/hodoki/manifest.jsonld` — DID + cell registry + gates + non-goals
 - `/90-docs/adr/2605261215-hodoki-elv-disassembly-tier-b-actor-r0.md` — Master ADR
-- `/20-actors/kanayama/README.md` — downstream metals consumer + G2 pattern inheritance
+- `/orgs/etzhayyim/com-etzhayyim-kanayama/README.md` — downstream metals consumer + G2 pattern inheritance
 - `/orgs/etzhayyim/com-etzhayyim-makura/README.md` — downstream seat-foam consumer + G13 invariant closure
 - `/orgs/etzhayyim/com-etzhayyim-wadachi/README.md` — vehicle build-side sibling
 - `/CLAUDE.md` — Religious-corp status table row 53

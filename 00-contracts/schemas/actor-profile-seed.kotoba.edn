@@ -209,7 +209,7 @@
    :actor/primary-lexicon "com.etzhayyim.kanae"
    :actor/adr ["2605302300" "2606272355"]
    :actor/created-at "2026-06-01"
-   ;; content-addressed T1 WASM actor (20-actors/kanae/wasm/kanae-core) — compact
+   ;; content-addressed T1 WASM actor (orgs/etzhayyim/com-etzhayyim-kanae/wasm/kanae-core) — compact
    ;; Rust core, raw CID → browser-local (ameno) / donated mesh (ADR-2606015200)
    :actor/wasm-cid "bafkreielhr6l5jy7ml5l62ncyva34lhjw52q2onwxwy6ubep4wqxjyjnie"
    :actor/vm []

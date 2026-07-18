@@ -1784,6 +1784,12 @@
     {:repository "https://github.com/etzhayyim/com-etzhayyim-makura" :revision "2c780d092d5110b51386b2297415d6a40d3670da" :west-path "orgs/etzhayyim/com-etzhayyim-makura" :canonical-format :edn :canonical-edn-files 32 :wire-artifacts {:json-and-json-ld 9} :verification {:tests 27 :assertions 55 :failures 0 :errors 0} :root-copy :edn-tombstone-only}
     "magatama"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-magatama" :revision "b52eac64eefb2ba6668a44a2bdf232fdb01a9feb" :west-path "orgs/etzhayyim/com-etzhayyim-magatama" :canonical-format :edn :canonical-edn-files 7 :wire-artifacts {:toml 5} :verification {:tests 29 :assertions 51 :failures 0 :errors 0} :root-copy :edn-tombstone-only}
+    "kanae"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kanae" :revision "7db5d2c2a12c5f9357af50f43099147369836375" :west-path "orgs/etzhayyim/com-etzhayyim-kanae" :canonical-format :edn :canonical-edn-files 15 :wire-artifacts {:json 7} :verification {:tests 57 :assertions 256 :failures 0 :errors 0 :cross-repo-pipeline :fixture-covered} :root-copy :edn-tombstone-only}
+    "kanayama"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kanayama" :revision "0d6a89236cf5f7fe78d914a04ffda19041e86903" :west-path "orgs/etzhayyim/com-etzhayyim-kanayama" :canonical-format :edn :canonical-edn-files 27 :wire-artifacts {:json-and-json-ld 9} :verification {:tests 55 :assertions 176 :failures 0 :errors 0} :root-copy :edn-tombstone-only}
+    "kanjo"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kanjo" :revision "e0f5b760193e61d84410b6beece9468d29ba0d69" :west-path "orgs/etzhayyim/com-etzhayyim-kanjo" :canonical-format :edn :canonical-edn-files 22 :wire-artifacts {:json-and-json-ld 9} :verification {:tests 55 :assertions 248 :failures 0 :errors 0 :full-data-stress :resource-terminated} :root-copy :edn-tombstone-only}
     "tate"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-tate"
      :revision "658b9f67aaa65d7aad5ffda280ec8feaae7a8bc2"
@@ -1988,8 +1994,8 @@
   [{:class :legacy-actor-root-directories
     :snapshot-date "2026-07-18"
     :baseline 198
-    :moved 148
-    :remaining 50
+    :moved 151
+    :remaining 47
     :inventory "90-docs/adr/2607181200-flat-west-actor-migration-progress-and-remaining.edn"}
    {:class :existing-repo-overlap
     :state :merge-root-only-content-before-delete}

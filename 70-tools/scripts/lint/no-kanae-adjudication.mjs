@@ -94,7 +94,7 @@ const IMPORT_RE =
   /(?:^\s*(?:import|from)\s+|require\(\s*["'`]|import\(\s*["'`])([\w.\-/@]+)/gm;
 
 // ── Lexicon paths (Checks A + B) ─────────────────────────────────────
-const LEX_DIR = "00-contracts/lexicons/com/etzhayyim/kanae";
+const LEX_DIR = "orgs/etzhayyim/com-etzhayyim-kanae/wire/lexicons";
 const EDGE_LEX = `${LEX_DIR}/fundFlowEdge.json`;
 const NARRATIVE_LEX = `${LEX_DIR}/flowNarrative.json`;
 

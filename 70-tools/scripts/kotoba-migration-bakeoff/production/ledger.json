@@ -351,7 +351,7 @@
   },
   {
     "cell": "kanayama-air_emissions_audit",
-    "src": "20-actors/kanayama/cells/air_emissions_audit/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-kanayama/cells/air_emissions_audit/cell.py",
     "build": true,
     "structural": true,
     "judge": 2,
@@ -362,7 +362,7 @@
   },
   {
     "cell": "kanayama-cold_rolling_finishing",
-    "src": "20-actors/kanayama/cells/cold_rolling_finishing/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-kanayama/cells/cold_rolling_finishing/cell.py",
     "build": true,
     "structural": true,
     "judge": 4,
@@ -373,7 +373,7 @@
   },
   {
     "cell": "kanayama-dc_casting",
-    "src": "20-actors/kanayama/cells/dc_casting/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-kanayama/cells/dc_casting/cell.py",
     "build": true,
     "structural": true,
     "judge": 2,
@@ -384,7 +384,7 @@
   },
   {
     "cell": "kanayama-decoating_separation",
-    "src": "20-actors/kanayama/cells/decoating_separation/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-kanayama/cells/decoating_separation/cell.py",
     "build": true,
     "structural": true,
     "judge": 3,
@@ -395,7 +395,7 @@
   },
   {
     "cell": "kanayama-dross_recovery",
-    "src": "20-actors/kanayama/cells/dross_recovery/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-kanayama/cells/dross_recovery/cell.py",
     "build": true,
     "structural": true,
     "judge": 4,
@@ -406,7 +406,7 @@
   },
   {
     "cell": "kanayama-hot_rolling",
-    "src": "20-actors/kanayama/cells/hot_rolling/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-kanayama/cells/hot_rolling/cell.py",
     "build": true,
     "structural": true,
     "judge": 2,
@@ -417,7 +417,7 @@
   },
   {
     "cell": "kanayama-intake_qa",
-    "src": "20-actors/kanayama/cells/intake_qa/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-kanayama/cells/intake_qa/cell.py",
     "build": true,
     "structural": true,
     "judge": 3,
@@ -428,7 +428,7 @@
   },
   {
     "cell": "kanayama-mass_balance_binder",
-    "src": "20-actors/kanayama/cells/mass_balance_binder/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-kanayama/cells/mass_balance_binder/cell.py",
     "build": true,
     "structural": true,
     "judge": 3,
@@ -439,7 +439,7 @@
   },
   {
     "cell": "kanayama-melting_furnace",
-    "src": "20-actors/kanayama/cells/melting_furnace/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-kanayama/cells/melting_furnace/cell.py",
     "build": true,
     "structural": true,
     "judge": 4,
