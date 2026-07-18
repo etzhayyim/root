@@ -283,16 +283,16 @@
     {:actor "meisai" :repository "https://github.com/etzhayyim/com-etzhayyim-meisai" :revision "a5d0a5f9659316ff1064588212bad42b5e33a2c8" :canonical-edn-files 9 :wire-artifacts {:json-and-json-ld 4} :verification {:tests 43 :assertions 151}}]}
 
   :migration/integration-state
-  {:snapshot-kind :root-prepared-west-pin-pending
+  {:snapshot-kind :integrated
    :standalone-repositories
    {:status :pushed
     :actors ["mitooshi" "meyasu" "meisai"]}
    :legacy-root-drain
-   {:status :prepared
+   {:status :committed
     :tracked-invariant :moved-edn-only}
    :west-manifest
-   {:status :pending-pin-update :actors ["mitooshi" "meyasu" "meisai"]}
-   :note "The 145-entry inventory includes the prepared latest root drain; west exact revision pinning is pending for the latest three actors."}
+   {:status :exact-revisions-pinned :superproject-revision "5199f958f8ea2e8584cac7fc6695f2b4cc15139d" :actors ["mitooshi" "meyasu" "meisai"]}
+   :note "The 145 completed entries satisfy the standalone repository, root tombstone, canonical ledger, and exact west revision gates represented by this snapshot."}
 
   :migration/completed-actors
   ["abaki" "ainori" "apqc" "atsurae" "busshi" "com-google-ads" "denwaban"
