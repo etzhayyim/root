@@ -62,6 +62,6 @@ projection layer.
 
 - `/90-docs/adr/2605264000-ossekai-information-arbitrage-tier-b-actor-r0.md` — Master ADR
 - `/20-actors/ossekai/` — Actor scaffold
-- `/00-contracts/lexicons/com/etzhayyim/chigiri/` — UPL boundary cross-actor
+- `/orgs/etzhayyim/com-etzhayyim-chigiri/wire/` — UPL boundary cross-actor
 - `/00-contracts/lexicons/com/etzhayyim/iyashi/` — medical-advice boundary cross-actor
 - `/CHARTER-RIDER.md` §2(c) + §2(e) — G3 + G5 sources

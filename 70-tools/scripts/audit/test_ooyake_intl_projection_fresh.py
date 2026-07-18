@@ -21,7 +21,7 @@ pure helpers; never calls main() (so it never writes to disk).
 
 from __future__ import annotations
 
-import json
+import os
 import sys
 from pathlib import Path
 
@@ -29,7 +29,8 @@ _REPO = Path(__file__).resolve().parents[3]
 _OOYAKE_SCRIPTS = _REPO / "20-actors" / "ooyake" / "scripts"
 _RECONCILE = _REPO / "20-actors" / "ooyake" / "cells" / "reconcile"
 _INTL = _REPO / "20-actors" / "ooyake" / "registry" / "gov-units.intl-procedures.seed.edn"
-_TORITSUGI = _REPO / "20-actors" / "toritsugi" / "registry" / "procedures.seed.json"
+_TORITSUGI_ROOT = Path(os.environ.get("ETZHAYYIM_TORITSUGI_ROOT", _REPO.parent / "com-etzhayyim-toritsugi"))
+_TORITSUGI = _TORITSUGI_ROOT / "registry" / "procedures.seed.edn"
 
 sys.path.insert(0, str(_RECONCILE))
 sys.path.insert(0, str(_OOYAKE_SCRIPTS))
@@ -44,7 +45,7 @@ def _committed_rows() -> list[dict]:
 def _expected_projection() -> dict[str, str]:
     """toritsugi procedureId -> expected owner-unit, per the generator's rules."""
     units = gen._atlas_units()
-    tor = json.loads(_TORITSUGI.read_text())["procedures"]
+    tor = parse_edn(_TORITSUGI.read_text())["procedures"]
     out = {}
     for p in tor:
         iso = p["jurisdiction"]

@@ -18598,8 +18598,8 @@
       "topic": "gov-legal-procedure-coverage-maturity-expansion",
       "authoritative": true,
       "authoritative_for": [
-        "20-actors/toritsugi/registry/procedures.seed.json",
-        "20-actors/chigiri/registry/legal-aid.seed.json",
+        "orgs/etzhayyim/com-etzhayyim-toritsugi/registry/procedures.seed.edn",
+        "orgs/etzhayyim/com-etzhayyim-chigiri/registry/legal-aid.seed.edn",
         "20-actors/ooyake/registry/gov-units.intl-procedures.seed.edn",
         "20-actors/ooyake/scripts/gen_intl_procedures.py",
         "70-tools/scripts/coverage/gen_gov_legal_coverage.py"

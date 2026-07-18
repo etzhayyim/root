@@ -112,13 +112,10 @@ if [ "$TEST" -eq 1 ]; then
          70-tools/scripts/audit/test_hotaru_invariants.py \
          70-tools/scripts/audit/test_mitooshi_invariants.py \
          70-tools/scripts/audit/test_noroshi_invariants.py \
-         70-tools/scripts/audit/test_chigiri_registry_seed.py \
          70-tools/scripts/audit/test_danjo_registry_seed.py \
          70-tools/scripts/audit/test_hagukumi_registry_seed.py \
-         70-tools/scripts/audit/test_himotoki_registry_seed.py \
          70-tools/scripts/audit/test_kizashi_registry_seed.py \
          70-tools/scripts/audit/test_manabi_registry_seed.py \
-         70-tools/scripts/audit/test_toritsugi_registry_seed.py \
          70-tools/scripts/audit/test_gov_legal_coverage_parity.py \
          70-tools/scripts/audit/test_ooyake_procedure_integrity.py \
          2>&1; then

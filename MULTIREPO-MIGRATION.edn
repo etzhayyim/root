@@ -879,6 +879,38 @@
                          :external-json-retained-as-wire}
      :verification {:tests 34 :assertions 260 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
+    "chigiri"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-chigiri"
+     :revision "755dcea6a865de34f30fc18f8b8405e3129517f4"
+     :west-path "orgs/etzhayyim/com-etzhayyim-chigiri"
+     :category :actor :canonical-format :edn :canonical-metadata "manifest.edn"
+     :canonicalization #{:root-only-assets-merged :actor-lexicons-edn-canonical
+                         :registry-seed-edn-canonical :python-audit-retired-to-clojure-edn
+                         :shell-runner-retired :external-json-retained-as-wire}
+     :verification {:tests 47 :assertions 657 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "himotoki"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-himotoki"
+     :revision "7b7798f933f1a7d5883c2b8bfb42d125605b5bd4"
+     :west-path "orgs/etzhayyim/com-etzhayyim-himotoki"
+     :category :actor :canonical-format :edn :canonical-metadata "manifest.edn"
+     :canonicalization #{:root-only-assets-merged :actor-lexicons-edn-canonical
+                         :registry-seed-edn-canonical :persisted-data-edn-canonical
+                         :python-audit-retired-to-clojure-edn :shell-runner-retired}
+     :verification {:tests 45 :assertions 383 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "toritsugi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-toritsugi"
+     :revision "dbb96e5a96418313352446f062e37277263b8802"
+     :west-path "orgs/etzhayyim/com-etzhayyim-toritsugi"
+     :category :actor :canonical-format :edn :canonical-metadata "manifest.edn"
+     :canonicalization #{:root-only-assets-merged :actor-lexicons-edn-canonical
+                         :registry-seed-edn-canonical :python-audit-retired-to-clojure-edn
+                         :raw-bpmn-retired :shell-runner-retired
+                         :external-json-retained-as-wire}
+     :verification {:tests 45 :assertions 155 :failures 0 :errors 0
+                    :procedures 164 :regimes 148 :jurisdictions 52}
+     :root-copy :edn-tombstone-only}
     "hydrogen_electrolysis"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hydrogen-electrolysis"
      :revision "da4fab805b6aa8606dab36882de3186482f55f34"
@@ -1467,8 +1499,8 @@
   [{:class :legacy-actor-root-directories
     :snapshot-date "2026-07-18"
     :baseline 198
-    :moved 74
-    :remaining 124
+    :moved 77
+    :remaining 121
     :inventory "90-docs/adr/2607181200-flat-west-actor-migration-progress-and-remaining.edn"}
    {:class :existing-repo-overlap
     :state :merge-root-only-content-before-delete}

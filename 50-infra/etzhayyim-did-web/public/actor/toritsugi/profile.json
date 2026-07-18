@@ -25,7 +25,7 @@
       "2606272355"
     ],
     "primaryLexicon": "com.etzhayyim.toritsugi.procedure",
-    "primarySchema": "00-contracts/lexicons/com/etzhayyim/toritsugi/procedure.json",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-toritsugi/wire/lex/procedure.json",
     "didDocument": "https://etzhayyim.com/actor/toritsugi/did.json",
     "source": "kotoba"
   }

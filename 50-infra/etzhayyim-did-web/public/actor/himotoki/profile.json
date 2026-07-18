@@ -25,7 +25,7 @@
       "2606272355"
     ],
     "primaryLexicon": "com.etzhayyim.himotoki",
-    "primarySchema": "00-contracts/lexicons/com/etzhayyim/himotoki/disclosureRequest.json",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-himotoki/wire/lex/disclosureRequest.json",
     "didDocument": "https://etzhayyim.com/actor/himotoki/did.json",
     "source": "kotoba"
   }

@@ -33,25 +33,25 @@
 
   :migration/progress
   {:baseline-actor-directories 198
-   :moved-tombstones 74
-   :remaining-root-directories 124
-   :completion-percent 37.37
+   :moved-tombstones 77
+   :remaining-root-directories 121
+   :completion-percent 38.89
    :canonical-ledger "MULTIREPO-MIGRATION.edn"
    :integration-base-root-revision "1ce8a65a8fe5b68aa5fda43004bf2bc14a5e13e7"
    :integration-base-west-revision "5d33ded7fdd"
    :latest-batch
-   [{:actor "isco"
-     :repository "https://github.com/etzhayyim/com-etzhayyim-isco"
-     :revision "27c6f88e4b8c9bd01bdbc2c8a854068f84ee076a"
-     :verification {:tests 16 :assertions 186 :taxonomy-nodes 619}}
-    {:actor "moushibumi"
-     :repository "https://github.com/etzhayyim/com-etzhayyim-moushibumi"
-     :revision "e4a06dae4a6fbeb2ffabae1d5ecd2fefe68eba44"
-     :verification {:tests 17 :assertions 232}}
-    {:actor "talent"
-     :repository "https://github.com/etzhayyim/com-etzhayyim-talent"
-     :revision "e57bc7b5cde666c63e469b04e1564a1196b182a0"
-     :verification {:tests 34 :assertions 260}}]}
+   [{:actor "chigiri"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-chigiri"
+     :revision "755dcea6a865de34f30fc18f8b8405e3129517f4"
+     :verification {:tests 47 :assertions 657}}
+    {:actor "himotoki"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-himotoki"
+     :revision "7b7798f933f1a7d5883c2b8bfb42d125605b5bd4"
+     :verification {:tests 45 :assertions 383}}
+    {:actor "toritsugi"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-toritsugi"
+     :revision "dbb96e5a96418313352446f062e37277263b8802"
+     :verification {:tests 45 :assertions 155 :procedures 164}}]}
 
   :migration/completed-actors
   ["abaki" "ainori" "apqc" "atsurae" "busshi" "com-google-ads" "denwaban"
@@ -65,14 +65,15 @@
    "post_quantum_compat" "saisei" "salesforce-compat" "seigyo" "sentei"
    "shidemori" "shukubo" "soma" "sonae" "stripe-compat" "suimin" "suki"
    "sumitsubo" "tawami" "toi" "tsukuroi" "ugachi" "unspsc" "utsushie"
-   "wakai" "yudane" "isco" "moushibumi" "talent"]
+   "wakai" "yudane" "isco" "moushibumi" "talent" "chigiri" "himotoki"
+   "toritsugi"]
 
   :migration/remaining-actors
   ["_conformance" "aburi" "akashi" "ake" "ameno" "amime" "asobi"
-   "business-manager" "business_manager" "chie" "chigiri" "credits" "danjo"
+   "business-manager" "business_manager" "chie" "credits" "danjo"
    "etzhayyim-organism" "fuchi" "funadaiku" "funamori" "futawa"
    "gov-municipality" "gov_municipality" "hagukumi" "hakoniwa" "hikari"
-   "himawari" "himotoki" "hinagata" "hodoki" "hokorobi" "hoshimori" "hotaru"
+   "himawari" "hinagata" "hodoki" "hokorobi" "hoshimori" "hotaru"
    "ibuki" "infra-utility-connect" "infra_utility_connect" "inochi" "iriai" "iryo"
    "itonami" "jinushi" "junkan" "kabuto" "kadode" "kafun" "kaiyaku"
    "kakaku" "kamado" "kanae" "kaname" "kanayama" "kanjo" "karakuri" "kasa"
@@ -83,7 +84,7 @@
    "omise" "ooyake" "organizer" "ossekai" "rasen" "sanae" "sarutahiko"
    "shinka" "shionome" "shiori" "shirabe" "shomei" "silicon" "subaru" "suji"
    "sukashi" "tadori" "tanemaki" "tasuke" "tatara" "tate" "tatekata"
-   "tazuna" "tedai" "todoke" "tokigusuri" "torifune" "toritate" "toritsugi"
+   "tazuna" "tedai" "todoke" "tokigusuri" "torifune" "toritate"
    "tsubasa" "tsuchifumi" "tsugite" "tsukuru" "tsumugi" "tsutae" "uchiwake"
    "uzu" "wadachi" "warifu" "watari" "watatsumi" "watatsuna" "yadori"
    "yakushi" "yamabiko" "yobel" "yotei"]

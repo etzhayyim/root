@@ -1,0 +1,9 @@
+{:migration/status :moved
+ :migration/date "2026-07-18"
+ :migration/repository "https://github.com/etzhayyim/com-etzhayyim-chigiri"
+ :migration/revision "755dcea6a865de34f30fc18f8b8405e3129517f4"
+ :migration/west-path "orgs/etzhayyim/com-etzhayyim-chigiri"
+ :migration/canonical-data ["registry/legal-aid.seed.edn"]
+ :migration/canonical-lexicons "lex"
+ :migration/external-wire "wire"
+ :migration/canonical-format :edn}
