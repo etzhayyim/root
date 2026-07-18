@@ -1,0 +1,164 @@
+[{:db/id -1
+  :adr/id "adr-2607181700-flat-west-legacy-root-drain-and-consumer-rewire"
+  :adr/title "Flat west migration: legacy root drain complete and consumer rewire remaining"
+  :adr/status "accepted"
+  :adr/doc_type "adr"
+  :adr/source-format "edn"
+  :adr/date "2026-07-18"
+  :adr/last_verified "2026-07-18"
+  :adr/authoritative true
+  :adr/topic "flat-west-legacy-root-drain"
+  :adr/supersedes
+  ["adr-2607181600-flat-west-migration-integrated-state-and-final-drain"]
+  :adr/authoritative-for
+  ["completed extraction and retirement state beneath 20-actors"
+   "standalone repository ownership selected during the final drain"
+   "remaining consumer-rewire, west-pin, and completion-audit work"]
+
+  :context
+  {:original-layout "numbered monorepo roots such as 20-actors/*"
+   :target-layout "west-manifest multirepo"
+   :path-constraint "preserve flat orgs/etzhayyim/com-etzhayyim-* paths"
+   :canonical-record-format :edn
+   :deprecated-languages #{:go :tinygo}
+   :baseline-legacy-directories 198}
+
+  :decision
+  {:west-paths {:preserve-flat-paths true
+                :pattern "orgs/etzhayyim/com-etzhayyim-*"
+                :category-subdirectories-prohibited true}
+   :legacy-root {:path "20-actors"
+                 :directory-terminal-state ["MOVED.edn"]
+                 :implementation-beneath-legacy-root-prohibited true}
+   :formats {:canonical #{:edn}
+             :markdown :descriptive-only
+             :external-wire-only #{:json :jsonl :json-ld :bpmn-xml :wit :toml}}
+   :languages {:deprecated #{:go :tinygo}
+               :action :prune
+               :new-port-prohibited true}
+   :ownership
+   {:actor-specific "flat com-etzhayyim-* repository"
+    :shared-actor-library "kotoba-lang/kotoba-actors"
+    :shared-projector-engine "kotoba-lang/mst-projector"
+    :cross-repository-governance "root EDN registry or contract"}}
+
+  :completed
+  {:legacy-root
+   {:directories 198
+    :moved-edn-only 198
+    :remaining-implementation-directories 0
+    :tracked-go-or-tinygo-files 0
+    :root-drain-revision "4c5b9c209491766d4bf84b2b6cf779ca2dbea0d4"
+    :published true}
+   :ignored-residue
+   {:removed
+    ["20-actors/ooyake/cells/reconcile/__pycache__"
+     "20-actors/ooyake/scripts/__pycache__"
+     "20-actors/sumitsubo/sdk/node_modules"]
+    :classification :generated-and-recoverable
+    :source-or-wip-removed false}
+   :duplicate-spelling-pairs
+   [{:canonical "business-manager"
+     :canonical-revision "49e3225a4c7d36cdbc77ceca56ad07995a5021e0"
+     :compatibility "business_manager"
+     :compatibility-revision "88ed239671a84d3dfdb4960720bab8114316b152"}
+    {:canonical "gov-municipality"
+     :canonical-revision "cec47838b7ba193a86ffd82227c30e7dd072f50c"
+     :compatibility "gov_municipality"
+     :compatibility-revision "225114114375100a40af5ca257704f1e13de2e66"}
+    {:canonical "infra-utility-connect"
+     :canonical-revision "1ea53870784fae349af344d1dfa7bbe515e4352e"
+     :compatibility "infra_utility_connect"
+     :compatibility-revision "7c8db82293dc369ff8cda0da06b3a8318e56fafd"}]
+   :duplicate-identity-policy
+   {:implementation-owner :hyphenated-repository
+    :compatibility-owner :underscore-repository
+    :distinct-dids-preserved true
+    :compatibility-contract :explicit-tombstone}
+   :shared-repositories
+   [{:source "20-actors/kotoba-actors-clj"
+     :destination "https://github.com/kotoba-lang/kotoba-actors"
+     :revision "0d63399a16f30e68e0f32683cb4a43fb36f15fef"
+     :history-preserved-by :git-subtree-split
+     :verification {:core-tests 3 :core-assertions 6}}
+    {:source "20-actors/mst-projector"
+     :destination "https://github.com/kotoba-lang/mst-projector"
+     :revision "5be6c839142ab260938dfc00bb9541b3a45be445"
+     :language :clojure
+     :typescript-copy-pruned true
+     :verification {:tests 25 :assertions 91}}]
+   :west-integration
+   {:superproject-revision "e927e59e3798c02ab5c2d37dad82e2feb41b92cc"
+    :integration-branch "codex/pin-etzhayyim-multirepo"
+    :exact-pins-verified 9
+    :includes #{:duplicate-pairs :kotoba-actors :mst-projector :root}
+    :published true}
+   :generated-baseline
+   {:legacy-shell-inventory []
+    :obsolete-python-migrator-removed true
+    :migration-ledger {:migrated 198 :remaining 0}}}
+
+  :preserved-work
+  {:repository "infra-utility-connect"
+   :scope "pre-existing untracked murakumo work"
+   :rescue-revision "1972c15"
+   :policy "preserve and reconcile independently; never delete as migration cleanup"}
+
+  :in-progress
+  {:consumer-rewire
+   {:state :uncommitted
+    :base-root-revision "4c5b9c209491766d4bf84b2b6cf779ca2dbea0d4"
+    :areas
+    ["cell-runner actor source discovery"
+     "organism visualization and cleanroom fixtures"
+     "actor mesh, publishing, identity, deployment, audit, and coverage tools"
+     "root classpaths, task definitions, hooks, and operator documentation"]
+    :target "active filesystem reads resolve through flat west checkouts or selected shared repositories"}
+   :verified-subsets
+   [{:scope :cell-runner :tests 16 :result :pass}
+    {:scope :organism-visualization :tests 19 :assertions 50 :result :pass}
+    {:scope :actor-mesh :tests 4 :assertions 17 :result :pass}
+    {:scope :cleanroom-javascript :result :syntax-pass}]}
+
+  :remaining
+  {:required
+   [:finish-active-consumer-rewire
+    :classify-each-residual-20-actors-string-as-history-fixture-or-defect
+    :regenerate-affected-derived-artifacts
+    :run-edn-and-language-specific-verification
+    :commit-and-publish-consumer-rewire
+    :repin-root-exact-revision-in-superproject
+    :regenerate-adr-registry-and-graph
+    :run-final-completion-audit]
+   :known-active-candidates
+   ["etzhayyim-did-web actor-rad generator and shell repository links"
+    "commercial-remittance boundary verifier"
+    "manifest/lexicon drift and function-coverage scanners"
+    "substrate boundary scanner"
+    "retired extraction and mesh-migration utilities"]
+   :allowed-residuals
+   {:git-history-query "may retain 20-actors as historical path provenance"
+    :log-category "may retain a stable historical category name"
+    :test-fixture "may retain an old path only when testing legacy input"
+    :adr-and-migration-record "may retain old paths as factual history"}
+   :completion-rule
+   "The root drain is complete, but the whole migration is complete only after no active operational lookup depends on 20-actors and the superproject pins the published final root revision."}
+
+  :completion-gates
+  {:already-satisfied
+   [:destination-revisions-pushed
+    :canonical-edn-readable-for-moved-records
+    :go-and-tinygo-absent-under-legacy-root
+    :legacy-directories-moved-edn-only-198-of-198
+    :did-identities-preserved
+    :initial-exact-west-pins-published]
+   :pending
+   [:active-consumers-rewired
+    :generated-registries-fresh
+    :consumer-rewire-tests-green
+    :final-root-revision-published
+    :final-superproject-root-pin-published
+    :residual-path-audit-classified]}
+
+  :adr/body
+  "All 198 former actor directories beneath 20-actors have reached the terminal MOVED.edn-only state, and no tracked Go or TinyGo implementation remains there. Actor-specific code now belongs in flat com-etzhayyim-* west repositories; reusable actor and projector code belongs in kotoba-actors and mst-projector. Duplicate underscore identities remain explicit DID-preserving compatibility repositories rather than silent aliases. The physical legacy-root drain is therefore complete. The overall migration remains open while active consumers are being rewired, generated artifacts and ADR indexes are refreshed, the resulting root revision is published and exactly repinned in the superproject, and every remaining 20-actors string is proven historical or removed from operational lookup paths."}]
