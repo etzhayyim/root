@@ -286,16 +286,16 @@
     {:actor "magatama" :repository "https://github.com/etzhayyim/com-etzhayyim-magatama" :revision "b52eac64eefb2ba6668a44a2bdf232fdb01a9feb" :canonical-edn-files 7 :wire-artifacts {:toml 5} :verification {:tests 29 :assertions 51}}]}
 
   :migration/integration-state
-  {:snapshot-kind :root-prepared-west-pin-pending
+  {:snapshot-kind :integrated
    :standalone-repositories
    {:status :pushed
     :actors ["manabi" "makura" "magatama"]}
    :legacy-root-drain
-   {:status :prepared
+   {:status :committed
     :tracked-invariant :moved-edn-only}
    :west-manifest
-   {:status :pending-pin-update :actors ["manabi" "makura" "magatama"]}
-   :note "The 148-entry inventory includes the prepared latest root drain; west exact revision pinning is pending for the latest three actors."}
+   {:status :exact-revisions-pinned :superproject-revision "a71fade42084762d2db9827106fbf1c7b14c5437" :actors ["manabi" "makura" "magatama"]}
+   :note "The 148 completed entries satisfy the standalone repository, root tombstone, canonical ledger, and exact west revision gates represented by this snapshot."}
 
   :migration/completed-actors
   ["abaki" "ainori" "apqc" "atsurae" "busshi" "com-google-ads" "denwaban"
