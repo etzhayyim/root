@@ -732,7 +732,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     glyph: "扶持",
     displayName: "Fuchi — Maintainer Sustenance Allocator (investment-fund inverse)",
     primaryLexicon: "com.etzhayyim.fuchi.allocationIntent",
-    primarySchema: "00-contracts/schemas/maintainer-sustenance-ontology.kotoba.edn",
+    primarySchema: "orgs/etzhayyim/com-etzhayyim-fuchi/schema/maintainer-sustenance-ontology.edn",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:fuchi#atproto_pds",

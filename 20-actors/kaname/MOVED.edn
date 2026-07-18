@@ -1,0 +1,5 @@
+{:migration/status :moved
+ :migration/repository "https://github.com/etzhayyim/com-etzhayyim-kaname"
+ :migration/west-path "orgs/etzhayyim/com-etzhayyim-kaname"
+ :migration/revision "cf1fb83e02bc9693a61086bfc83516f602c91a56"
+ :migration/canonical-format :edn}

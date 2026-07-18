@@ -1343,8 +1343,9 @@
      :verification {:tests 10 :assertions 153 :failures 0 :errors 0}
      :next :delete-root-copy-after-merge-and-west-pin}
     "fuchi"
-    {:pull-request "https://github.com/etzhayyim/com-etzhayyim-fuchi/pull/3"
-     :commit "ebc18c7"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-fuchi"
+     :revision "bb449eddf1c525d259457389ee59edecb668fdf2"
+     :west-path "orgs/etzhayyim/com-etzhayyim-fuchi"
      :moves
      ["manifest.edn"
       "schema.edn"
@@ -1357,8 +1358,8 @@
       "run_tests.sh away from the old monorepo classpath"
       "generic social invariant logic to SHA-pinned etzhayyim.social.publication"]
      :canonical-format :edn
-     :verification {:tests 184 :assertions 488 :failures 0 :errors 0}
-     :next :delete-root-copy-after-merge-and-west-pin}
+     :verification {:tests 349 :assertions 2221 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "gtin"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-gtin"
      :revision "4c75ca22363ffbab192fac3a9aa576a6deccd215"
@@ -1412,16 +1413,18 @@
      :verification {:tests 18 :assertions 132 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
     "hokorobi"
-    {:pull-request "https://github.com/etzhayyim/com-etzhayyim-hokorobi/pull/3"
-     :commit "2975c9a"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-hokorobi"
+     :revision "7f71e2795d99804a9e14b88984f672d4b7aba028"
+     :west-path "orgs/etzhayyim/com-etzhayyim-hokorobi"
      :moves ["manifest.edn" "src/hokorobi" "test/hokorobi"]
      :rewires
      ["root-relative resources to repository-local paths"
       "social membrane to SHA-pinned shared library"
       "IE-flow and Kotoba Datom to SHA-pinned shared libraries"]
      :canonical-format :edn
-     :verification {:tests 36 :assertions 257 :failures 0 :errors 0}
-     :next :delete-root-copy-after-merge-and-west-pin}
+     :verification {:tests 37 :assertions 270 :failures 0 :errors 0
+                    :jvm {:tests 11 :assertions 49}}
+     :root-copy :edn-tombstone-only}
     "hoshimori"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hoshimori"
      :revision "ced1bf8613793f1e91fd6da2774085fe6b36575b"
@@ -1458,8 +1461,9 @@
      :verification {:tests 50 :assertions 239 :failures 0 :errors 0}
      :next :delete-root-copy-after-merge-and-west-pin}
     "kaname"
-    {:pull-request "https://github.com/etzhayyim/com-etzhayyim-kaname/pull/2"
-     :commit "09d5ce8"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kaname"
+     :revision "cf1fb83e02bc9693a61086bfc83516f602c91a56"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kaname"
      :moves ["manifest.edn" "schema.edn" "src/kaname" "test/kaname" "run_tests.clj"]
      :rewires
      ["numbered-root and sibling checkout assumptions to explicit repository-root maps"
@@ -1468,9 +1472,8 @@
       "deployment runner and tests to repository-native paths"
       "JSON-LD compatibility manifest retired in favor of canonical EDN"]
      :canonical-format :edn
-     :verification {:tests 63 :assertions 248 :failures 0 :errors 0
-                    :amime-join {:nodes 6 :edges 12}}
-     :next :delete-root-copy-after-merge-and-west-pin}
+     :verification {:tests 65 :assertions 275 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "kuni-umi"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-kuni-umi"
      :revision "93d8ac38fbc53ac996634de61565e3b1aafc064e"
@@ -1500,8 +1503,8 @@
   [{:class :legacy-actor-root-directories
     :snapshot-date "2026-07-18"
     :baseline 198
-    :moved 81
-    :remaining 117
+    :moved 84
+    :remaining 114
     :inventory "90-docs/adr/2607181200-flat-west-actor-migration-progress-and-remaining.edn"}
    {:class :existing-repo-overlap
     :state :merge-root-only-content-before-delete}

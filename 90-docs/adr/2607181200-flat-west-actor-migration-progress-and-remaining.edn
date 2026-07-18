@@ -33,26 +33,25 @@
 
   :migration/progress
   {:baseline-actor-directories 198
-   :moved-tombstones 81
-   :remaining-root-directories 117
-   :completion-percent 40.91
+   :moved-tombstones 84
+   :remaining-root-directories 114
+   :completion-percent 42.42
    :canonical-ledger "MULTIREPO-MIGRATION.edn"
    :integration-base-root-revision "1ce8a65a8fe5b68aa5fda43004bf2bc14a5e13e7"
    :integration-base-west-revision "5d33ded7fdd"
    :latest-batch
-   [{:actor "hoshimori"
-     :repository "https://github.com/etzhayyim/com-etzhayyim-hoshimori"
-     :revision "ced1bf8613793f1e91fd6da2774085fe6b36575b"
-     :verification {:tests 41 :assertions 461}}
-    {:actor "inochi"
-     :repository "https://github.com/etzhayyim/com-etzhayyim-inochi"
-     :revision "80c16d364c53a12f3713d1e29133e80e54621106"
-     :verification {:tests 37 :assertions 298}}
-    {:actor "kuni-umi"
-     :repository "https://github.com/etzhayyim/com-etzhayyim-kuni-umi"
-     :revision "93d8ac38fbc53ac996634de61565e3b1aafc064e"
-     :aliases ["kuni_umi"]
-     :verification {:tests 74 :assertions 532}}]}
+   [{:actor "fuchi"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-fuchi"
+     :revision "bb449eddf1c525d259457389ee59edecb668fdf2"
+     :verification {:tests 349 :assertions 2221}}
+    {:actor "hokorobi"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-hokorobi"
+     :revision "7f71e2795d99804a9e14b88984f672d4b7aba028"
+     :verification {:tests 37 :assertions 270}}
+    {:actor "kaname"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-kaname"
+     :revision "cf1fb83e02bc9693a61086bfc83516f602c91a56"
+     :verification {:tests 65 :assertions 275}}]}
 
   :migration/completed-actors
   ["abaki" "ainori" "apqc" "atsurae" "busshi" "com-google-ads" "denwaban"
@@ -67,17 +66,17 @@
    "shidemori" "shukubo" "soma" "sonae" "stripe-compat" "suimin" "suki"
    "sumitsubo" "tawami" "toi" "tsukuroi" "ugachi" "unspsc" "utsushie"
    "wakai" "yudane" "isco" "moushibumi" "talent" "chigiri" "himotoki"
-   "toritsugi" "hoshimori" "inochi" "kuni-umi" "kuni_umi"]
+   "toritsugi" "hoshimori" "inochi" "kuni-umi" "kuni_umi" "fuchi" "hokorobi" "kaname"]
 
   :migration/remaining-actors
   ["_conformance" "aburi" "akashi" "ake" "ameno" "amime" "asobi"
    "business-manager" "business_manager" "chie" "credits" "danjo"
-   "etzhayyim-organism" "fuchi" "funadaiku" "funamori" "futawa"
+   "etzhayyim-organism" "funadaiku" "funamori" "futawa"
    "gov-municipality" "gov_municipality" "hagukumi" "hakoniwa" "hikari"
-   "himawari" "hinagata" "hodoki" "hokorobi" "hotaru"
+   "himawari" "hinagata" "hodoki" "hotaru"
    "ibuki" "infra-utility-connect" "infra_utility_connect" "iriai" "iryo"
    "itonami" "jinushi" "junkan" "kabuto" "kadode" "kafun" "kaiyaku"
-   "kakaku" "kamado" "kanae" "kaname" "kanayama" "kanjo" "karakuri" "kasa"
+   "kakaku" "kamado" "kanae" "kanayama" "kanjo" "karakuri" "kasa"
    "kawaraban" "keizu" "kizashi" "kosatsu" "kotoba-actors-clj" "kotodama"
    "magatama" "makura" "manabi" "maps" "matsurigoto"
    "meisai" "meyasu" "mimamori" "mitooshi" "mitsuho" "mizuho"

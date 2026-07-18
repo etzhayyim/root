@@ -50,8 +50,8 @@
     :seed "20-actors/asobi/data/seed-asobi-graph.kotoba.edn" :id-key :organism/id}
    {:actor "inochi"    :schema "00-contracts/schemas/biosphere-ontology.kotoba.edn"
     :seed (actor-path "ETZHAYYIM_INOCHI_ROOT" "com-etzhayyim-inochi" "data/seed-biosphere-graph.kotoba.edn") :id-key :organism/id}
-   {:actor "hokorobi"  :schema "00-contracts/schemas/finrisk-ontology.kotoba.edn"
-    :seed "20-actors/hokorobi/data/seed-finrisk-graph.kotoba.edn" :id-key :organism/id}
+   {:actor "hokorobi"  :schema (actor-path "ETZHAYYIM_HOKOROBI_ROOT" "com-etzhayyim-hokorobi" "schema/finrisk-ontology.kotoba.edn")
+    :seed (actor-path "ETZHAYYIM_HOKOROBI_ROOT" "com-etzhayyim-hokorobi" "data/seed-finrisk-graph.kotoba.edn") :id-key :organism/id}
    {:actor "hoshimori" :schema (actor-path "ETZHAYYIM_HOSHIMORI_ROOT" "com-etzhayyim-hoshimori" "schema/orbit-ontology.edn")
     :seed (actor-path "ETZHAYYIM_HOSHIMORI_ROOT" "com-etzhayyim-hoshimori" "data/seed-orbit-graph.kotoba.edn") :id-key :organism/id}
    {:actor "tsugite"   :schema "00-contracts/schemas/peoples-ontology.kotoba.edn"

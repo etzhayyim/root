@@ -601,7 +601,7 @@
    :actor/ui-type :appview
    :actor/description "ビジネス投資ファンドの charter-clean な反転。VC が創業者に資本を出資しエクイティ+ROI+exit を期待するのに対し、扶持(封建期の扶持米=現物の在俸)は etzhayyim の actor(ビジネス/ロボティクス/遠隔操作)を実世界で支えるメンテナー(信者)へ現物の sustenance + commons 資産アクセス + 工具/compute を配分する。出資者ではなく扶持者: エクイティ・ROI・負債・利益請求・exit いずれもなし、cash≡0。fund の語彙(NAV/carry/IRR/cap-table/exit/配当)は表現不能(:alloc/instrument は sustenance set のみ :db/allowed)。扶持は既存の現物レール(commons 住居/mitsuho 食/hikari エネルギー/Murakumo compute/okaimono 工具/iyashi ケア)を流れ、どうしても残る外部 fiat 需要は warifu の MEMBER-PRINCIPAL 0% 流動性としてのみ経路化 — 扶持は決して保有・貸付・支払をしない。tenure-weighted(Displacement-Dividend の ln 曲線を再利用)。非裁定(G7): 扶持は計算+routing(auto / 1 SBT=1 vote / Council Lv7 / refused)、決定は vote/Council。invariant 改正ゼロ — cash≡0/no-server-key/payoff帰属=etzhayyim/非営利・donation-only を強化。"
    :actor/primary-lexicon "com.etzhayyim.fuchi.allocationIntent"
-   :actor/primary-schema "00-contracts/schemas/maintainer-sustenance-ontology.kotoba.edn"
+   :actor/primary-schema "orgs/etzhayyim/com-etzhayyim-fuchi/schema/maintainer-sustenance-ontology.edn"
    :actor/adr ["2606052300"]
    :actor/created-at "2026-06-05"
    :actor/vm []
