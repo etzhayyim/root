@@ -1816,6 +1816,14 @@
     {:repository "https://github.com/etzhayyim/com-etzhayyim-akashi" :revision "c985daa45df36a2e641d976d54e4dbc9d5b0cc48" :west-path "orgs/etzhayyim/com-etzhayyim-akashi" :canonical-format :edn :canonical-edn-files 30 :wire-artifacts {:total 29 :json 24 :json-ld 1 :docs 4} :verification {:tests 39 :assertions 166 :failures 0 :errors 0} :excluded-user-wip :inconsistent-murakumo-source-test :root-copy :edn-tombstone-only}
     "ake"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-ake" :revision "dd3e34b091483251392da6f8d2cc061e7879d648" :west-path "orgs/etzhayyim/com-etzhayyim-ake" :canonical-format :edn :canonical-edn-files 20 :wire-artifacts {:json-and-json-ld 7} :verification {:tests 155 :assertions 559 :failures 0 :errors 0} :root-copy :edn-tombstone-only}
+    "amime"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-amime" :revision "ef2bab003159a9014ab57ffad072376824ed8b3f" :west-path "orgs/etzhayyim/com-etzhayyim-amime" :canonical-format :edn :canonical-edn-files 9 :wire-artifacts {} :verification {:tests 12 :assertions 55 :failures 0 :errors 0} :root-copy :edn-tombstone-only}
+    "chie"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-chie" :revision "72bc5c1a39a0043795f2e83de901847fea060cdc" :west-path "orgs/etzhayyim/com-etzhayyim-chie" :canonical-format :edn :canonical-edn-files 11 :wire-artifacts {:json-ld 1} :verification {:tests 69 :assertions 227 :failures 0 :errors 0} :temporary-vendored-shared-kotoba-engine true :root-copy :edn-tombstone-only}
+    "credits"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-credits" :revision "32b06687a95a1bf412539c6071b5ad82a204ba38" :west-path "orgs/etzhayyim/com-etzhayyim-credits" :canonical-format :edn :canonical-edn-files 1 :wire-artifacts {:json-ld 1} :verification {:tests 59 :assertions 286 :failures 0 :errors 0 :runner :babashka :jvm-gap :upstream-shomei-primitive-arity} :retained-central-bpmn-contracts true :root-copy :edn-tombstone-only}
+    "danjo"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-danjo" :revision "5dcb2fe451b889bb7212ce4bbfbd36145a67b5c4" :west-path "orgs/etzhayyim/com-etzhayyim-danjo" :canonical-format :edn :canonical-edn-files 10 :wire-artifacts {:json 17} :verification {:tests 31 :assertions 114 :script-checks 195 :failures 0 :errors 0} :retained-central-lexicons-and-lint true :root-copy :edn-tombstone-only}
     "tate"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-tate"
      :revision "658b9f67aaa65d7aad5ffda280ec8feaae7a8bc2"
@@ -2020,8 +2028,8 @@
   [{:class :legacy-actor-root-directories
     :snapshot-date "2026-07-18"
     :baseline 198
-    :moved 164
-    :remaining 34
+    :moved 168
+    :remaining 30
     :inventory "90-docs/adr/2607181200-flat-west-actor-migration-progress-and-remaining.edn"}
    {:class :existing-repo-overlap
     :state :merge-root-only-content-before-delete}

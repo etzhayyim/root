@@ -7,23 +7,13 @@
 
 (deftest declared-ns-reads-the-ns-form
   (testing "declared-ns returns the ns a file actually declares (clj + cljc)"
-    ;; the canonical danjo analyze test (.cljc) declares the path-matching ns
-    (is (= 'danjo.methods.test-analyze
-           (d/declared-ns "20-actors/danjo/methods/test_analyze.cljc")))
-    ;; a run_tests_clj.sh-style suite declares a root.-prefixed ns (NOT the path-derived one)
-    (is (= 'root.danjo.methods.test-ingest
-           (d/declared-ns "20-actors/danjo/methods/test_ingest.clj")))
-    (is (nil? (d/declared-ns "20-actors/danjo/methods/does-not-exist.clj")))))
+    (is (= 'etzhayyim.tools.test-discovery
+           (d/declared-ns "70-tools/src/etzhayyim/tools/test_discovery.clj")))
+    (is (nil? (d/declared-ns "70-tools/src/etzhayyim/tools/does-not-exist.clj")))))
 
 (deftest discovery-only-classpath-safe-nss
   (testing "actor-test-nss includes path-matching tests, excludes path-mismatched (root.*) ones"
     (let [nss (set (d/actor-test-nss))]
-      ;; the canonical .cljc test IS discovered (declares danjo.methods.test-analyze)
-      (is (contains? nss 'danjo.methods.test-analyze))
-      ;; the run_tests_clj.sh-owned suites are NOT (they'd crash a classpath require from root)
-      (is (not (contains? nss 'danjo.methods.test-ingest)))
-      (is (not (contains? nss 'danjo.methods.test-kotoba)))
-      (is (not (contains? nss 'danjo.methods.test-revenue-ledger)))
       ;; mimamori/yobel/ibuki stay owned by their dedicated tasks (excluded? unchanged)
       (is (not-any? #(re-find #"^(mimamori|yobel|ibuki)\." (str %)) nss))
       ;; sanity: discovery still finds a healthy population of real tests
@@ -33,9 +23,9 @@
   (testing "a namespace that doesn't exist counts as one :error + one :load-failure, without
             aborting the namespaces around it (the ADR-2607071000 System/exit landmine class,
             generalized: one broken namespace must never silently truncate the whole sweep)"
-    (let [r (d/run-all ['danjo.methods.test-analyze
+    (let [r (d/run-all ['etzhayyim.test-manimani
                         'etzhayyim.tools.this-namespace-does-not-exist
-                        'danjo.methods.test-charter-gates])]
+                        'etzhayyim.test-bb-migration-cli])]
       (is (= 1 (count (:load-failures r))))
       (is (= 'etzhayyim.tools.this-namespace-does-not-exist (:ns (first (:load-failures r)))))
       (is (= :require (:phase (first (:load-failures r)))))

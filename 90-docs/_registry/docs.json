@@ -22175,7 +22175,7 @@
       "topic": "chie-ai-ecosystem-kg-mirror",
       "authoritative": true,
       "authoritative_for": [
-        "20-actors/chie"
+        "orgs/etzhayyim/com-etzhayyim-chie"
       ],
       "related": [
         "adr-2606066001-keizu-government-power-relations-kg",

@@ -3,15 +3,12 @@
 ;; Regenerate: bb lint:no-new-shell --update
 [
  "orgs/etzhayyim/com-etzhayyim-akashi/run_tests.sh"
- "20-actors/amime/run_tests.sh"
  "20-actors/arm_cpu-compat/run_tests.sh"
  "20-actors/business-manager/run_tests.sh"
  "20-actors/cerebras_wafer-compat/run_tests.sh"
  "20-actors/cobot_assembly-compat/run_tests.sh"
  "20-actors/copackaged_optics-compat/run_tests.sh"
  "20-actors/cxl_memory-compat/run_tests.sh"
- "20-actors/danjo/run_tests.sh"
- "20-actors/danjo/run_tests_clj.sh"
  "20-actors/dpu_smartnic-compat/run_tests.sh"
  "20-actors/dram_design-compat/run_tests.sh"
  "20-actors/dwdm_system-compat/run_tests.sh"
