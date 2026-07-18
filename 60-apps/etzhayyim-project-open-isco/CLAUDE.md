@@ -4,7 +4,7 @@ ISCO-08 occupation classification runtime.
 
 ## Active Runtime
 
-- Orchestration: BPMN / LangServer under `00-contracts/bpmn/com/etzhayyim/open-isco`
+- Orchestration: BPMN / LangServer under `orgs/etzhayyim/com-etzhayyim-isco/wire/open-isco/bpmn`
 - Worker implementation: `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/open_isco.py`
 - SQL helpers: `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/handlers/open_isco.py`
 - Runtime pattern: LangServer + LangGraph + UDF

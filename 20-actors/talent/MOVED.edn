@@ -1,0 +1,8 @@
+{:migration/status :moved
+ :migration/date "2026-07-18"
+ :migration/repository "https://github.com/etzhayyim/com-etzhayyim-talent"
+ :migration/revision "e57bc7b5cde666c63e469b04e1564a1196b182a0"
+ :migration/west-path "orgs/etzhayyim/com-etzhayyim-talent"
+ :migration/canonical-lexicons "lex"
+ :migration/external-wire "wire"
+ :migration/canonical-format :edn}

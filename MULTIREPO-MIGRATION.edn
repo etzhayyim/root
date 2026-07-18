@@ -848,6 +848,37 @@
      :verification {:tests 15 :assertions 72 :failures 0 :errors 0
                     :pcf-seed-entries 713}
      :root-copy :edn-tombstone-only}
+    "isco"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-isco"
+     :revision "27c6f88e4b8c9bd01bdbc2c8a854068f84ee076a"
+     :west-path "orgs/etzhayyim/com-etzhayyim-isco"
+     :category :actor :canonical-format :edn :canonical-metadata "manifest.edn"
+     :canonicalization #{:root-only-assets-merged :taxonomy-edn-canonical
+                         :actor-lexicons-edn-canonical :bpmn-retained-as-wire
+                         :generated-wasm-retired :shell-runner-retired}
+     :verification {:tests 16 :assertions 186 :failures 0 :errors 0
+                    :taxonomy-nodes 619}
+     :root-copy :edn-tombstone-only}
+    "moushibumi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-moushibumi"
+     :revision "e4a06dae4a6fbeb2ffabae1d5ecd2fefe68eba44"
+     :west-path "orgs/etzhayyim/com-etzhayyim-moushibumi"
+     :category :actor :canonical-format :edn :canonical-metadata "manifest.edn"
+     :canonicalization #{:root-only-assets-merged :actor-lexicons-edn-canonical
+                         :registry-seed-edn-canonical :python-audit-retired-to-clojure-edn
+                         :shell-runner-retired :external-json-retained-as-wire}
+     :verification {:tests 17 :assertions 232 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "talent"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-talent"
+     :revision "e57bc7b5cde666c63e469b04e1564a1196b182a0"
+     :west-path "orgs/etzhayyim/com-etzhayyim-talent"
+     :category :actor :canonical-format :edn :canonical-metadata "manifest.edn"
+     :canonicalization #{:root-only-assets-merged :actor-lexicons-edn-canonical
+                         :legacy-python-layout-retired :shell-runner-retired
+                         :external-json-retained-as-wire}
+     :verification {:tests 34 :assertions 260 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "hydrogen_electrolysis"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hydrogen-electrolysis"
      :revision "da4fab805b6aa8606dab36882de3186482f55f34"
@@ -1436,8 +1467,8 @@
   [{:class :legacy-actor-root-directories
     :snapshot-date "2026-07-18"
     :baseline 198
-    :moved 71
-    :remaining 127
+    :moved 74
+    :remaining 124
     :inventory "90-docs/adr/2607181200-flat-west-actor-migration-progress-and-remaining.edn"}
    {:class :existing-repo-overlap
     :state :merge-root-only-content-before-delete}
