@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-18T03:47:19.012Z",
+  "generated": "2026-07-18T03:50:14.431Z",
   "lexicons": [
     {
       "id": "ai.etzhayyim.yorishiro.argparse-demo.main",
@@ -36464,18 +36464,6 @@
       "description": ""
     },
     {
-      "id": "com.etzhayyim.kafun.pollenRemediationMap",
-      "path": "00-contracts/lexicons/com/etzhayyim/kafun/pollenRemediationMap.json",
-      "type": "record",
-      "description": "A 花粉撲滅 remediation MAP — the aggregate readout over a set of forest stands (ADR-2606211712 + ADR-2606212030). Edge-primary pollen-source concentration is RECTIFIED (整流) into a prioritized restoration "
-    },
-    {
-      "id": "com.etzhayyim.kafun.remediationVerdict",
-      "path": "00-contracts/lexicons/com/etzhayyim/kafun/remediationVerdict.json",
-      "type": "record",
-      "description": "A 花粉撲滅 remediation verdict for a forest STAND, computed on read from its disclosed facts (ADR-2606211712). 撲滅 = ecological RESTORATION (主伐再造林), NEVER deforestation-for-profit. ASSESSMENT + R0 DESIGN O"
-    },
-    {
       "id": "com.etzhayyim.kagami.authGraph",
       "path": "00-contracts/lexicons/archive/com/etzhayyim/kagami/authGraph.json",
       "type": "permission-set",
@@ -39940,12 +39928,6 @@
     {
       "id": "com.etzhayyim.shionome.rotationFinding",
       "path": "00-contracts/lexicons/com/etzhayyim/shionome/rotationFinding.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.shirabe.researchSession",
-      "path": "00-contracts/lexicons/com/etzhayyim/shirabe/researchSession.json",
       "type": "record",
       "description": ""
     },
@@ -50116,10 +50098,6 @@
       "com.etzhayyim.kadode.escalation",
       "com.etzhayyim.kadode.resignationRelay"
     ],
-    "com.etzhayyim.kafun": [
-      "com.etzhayyim.kafun.pollenRemediationMap",
-      "com.etzhayyim.kafun.remediationVerdict"
-    ],
     "com.etzhayyim.kamado": [
       "com.etzhayyim.kamado.carbonBalance",
       "com.etzhayyim.kamado.decommissionPlan",
@@ -50490,9 +50468,6 @@
       "com.etzhayyim.shionome.networkPost",
       "com.etzhayyim.shionome.rotationFinding"
     ],
-    "com.etzhayyim.shirabe": [
-      "com.etzhayyim.shirabe.researchSession"
-    ],
     "com.etzhayyim.shomei": [
       "com.etzhayyim.shomei.bindingRevocation",
       "com.etzhayyim.shomei.identityClaim",
@@ -50781,6 +50756,6 @@
       "tools.ozone.verification.revokeVerifications"
     ]
   },
-  "total": 6913,
+  "total": 6910,
   "legacy_issues_count": 8
 }

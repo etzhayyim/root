@@ -33,29 +33,21 @@
 
   :migration/progress
   {:baseline-actor-directories 198
-   :moved-tombstones 93
-   :remaining-root-directories 105
-   :completion-percent 46.97
+   :moved-tombstones 95
+   :remaining-root-directories 103
+   :completion-percent 47.98
    :canonical-ledger "MULTIREPO-MIGRATION.edn"
    :integration-base-root-revision "1ce8a65a8fe5b68aa5fda43004bf2bc14a5e13e7"
    :integration-base-west-revision "5d33ded7fdd"
    :latest-batch
-   [{:actor "hakoniwa"
-     :repository "https://github.com/etzhayyim/com-etzhayyim-hakoniwa"
-     :revision "e77f26859fd1a43ecd06ac0582a6b1f5211583f1"
-     :verification {:tests 45 :assertions 313}}
-    {:actor "kabuto"
-     :repository "https://github.com/etzhayyim/com-etzhayyim-kabuto"
-     :revision "e925a2bd03ab0fb2f344c40fba01373a7dad96b7"
-     :verification {:tests 63 :assertions 300}}
-    {:actor "keizu"
-     :repository "https://github.com/etzhayyim/com-etzhayyim-keizu"
-     :revision "da2dc491f00117f6b9ee2dd6c78392d440996a33"
-     :verification {:tests 221 :assertions 1071}}
-    {:actor "watari"
-     :repository "https://github.com/etzhayyim/com-etzhayyim-watari"
-     :revision "33e927c5fe47d93a75d5cd189b17a87e25d6031e"
-     :verification {:tests 44 :assertions 1179}}]}
+   [{:actor "kafun"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-kafun"
+     :revision "ab87dd5fd1147e870d04f2c85946daf82abb9567"
+     :verification {:tests 67 :assertions 235}}
+    {:actor "shirabe"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-shirabe"
+     :revision "d54f401e0e9a325a6aed4e41ff9c63429e712236"
+     :verification {:tests 31 :assertions 156}}]}
 
   :migration/completed-actors
   ["abaki" "ainori" "apqc" "atsurae" "busshi" "com-google-ads" "denwaban"
@@ -70,7 +62,7 @@
    "shidemori" "shukubo" "soma" "sonae" "stripe-compat" "suimin" "suki"
    "sumitsubo" "tawami" "toi" "tsukuroi" "ugachi" "unspsc" "utsushie"
    "wakai" "yudane" "isco" "moushibumi" "talent" "chigiri" "himotoki"
-   "toritsugi" "hoshimori" "inochi" "kuni-umi" "kuni_umi" "fuchi" "hokorobi" "kaname" "asobi" "mimamori" "shiori" "tsugite" "watatsuna" "kabuto" "watari" "keizu" "hakoniwa"]
+   "toritsugi" "hoshimori" "inochi" "kuni-umi" "kuni_umi" "fuchi" "hokorobi" "kaname" "asobi" "mimamori" "shiori" "tsugite" "watatsuna" "kabuto" "watari" "keizu" "hakoniwa" "kafun" "shirabe"]
 
   :migration/remaining-actors
   ["_conformance" "aburi" "akashi" "ake" "ameno" "amime"
@@ -79,14 +71,14 @@
    "gov-municipality" "gov_municipality" "hagukumi" "hikari"
    "himawari" "hinagata" "hodoki" "hotaru"
    "ibuki" "infra-utility-connect" "infra_utility_connect" "iriai" "iryo"
-   "itonami" "jinushi" "junkan" "kadode" "kafun" "kaiyaku"
+   "itonami" "jinushi" "junkan" "kadode" "kaiyaku"
    "kakaku" "kamado" "kanae" "kanayama" "kanjo" "karakuri" "kasa"
    "kawaraban" "kizashi" "kosatsu" "kotoba-actors-clj" "kotodama"
    "magatama" "makura" "manabi" "maps" "matsurigoto"
    "meisai" "meyasu" "mitooshi" "mitsuho" "mizuho"
    "moyoshi" "mst-projector" "niyaku" "noroshi" "nusa" "nyusatsu" "okaimono"
    "omise" "ooyake" "organizer" "ossekai" "rasen" "sanae" "sarutahiko"
-   "shinka" "shionome" "shirabe" "shomei" "silicon" "subaru" "suji"
+   "shinka" "shionome" "shomei" "silicon" "subaru" "suji"
    "sukashi" "tadori" "tanemaki" "tasuke" "tatara" "tate" "tatekata"
    "tazuna" "tedai" "todoke" "tokigusuri" "torifune" "toritate"
    "tsubasa" "tsuchifumi" "tsukuru" "tsumugi" "tsutae" "uchiwake"

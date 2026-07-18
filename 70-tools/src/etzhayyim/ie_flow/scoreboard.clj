@@ -61,7 +61,7 @@
    - repo-git + any actor with a committed/recorded flow.kotoba.edn ledger: embed/measure
    Actors with no measured flow yet are returned in :pending (listed, not scored)."
   []
-  (let [kafun-state (safe #(kafun-ief/flow-state (ke/stands "20-actors/kafun/kotoba/seed.edn")))
+  (let [kafun-state (safe #(kafun-ief/flow-state (ke/stands "orgs/etzhayyim/com-etzhayyim-kafun/kotoba/seed.edn")))
         ugachi-state (safe #(when-let [path (external-ugachi-seed-path)]
                               (ugachi-ief/flow-state (ue/projects path))))
         busshi-state (external-busshi-flow-state)

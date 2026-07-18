@@ -51,7 +51,6 @@
  "20-actors/jinushi/methods/fetch_wdqs.sh"
  "20-actors/kadode/run_tests.sh"
  "20-actors/kadode/wasm/build.sh"
- "20-actors/kafun/run_tests.sh"
  "20-actors/kaiyaku/run_tests.sh"
  "20-actors/kakaku/kotoba/deploy.sh"
  "20-actors/kamado/run_tests.sh"
