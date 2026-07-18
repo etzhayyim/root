@@ -33,8 +33,8 @@
 
   :migration/progress
   {:baseline-actor-directories 198
-   :fully-integrated-actors 164
-   :fully-integrated-percent 82.83
+   :fully-integrated-actors 168
+   :fully-integrated-percent 84.85
    :moved-tombstones 168
    :remaining-root-directories 30
    :completion-percent 84.85
@@ -315,14 +315,14 @@
    :remaining
    "Root still owns implementation content or the repository boundary has not been resolved."
    :snapshot
-   {:fully-integrated 164
-    :prepared-root-drain 4
-    :prepared-actors ["amime" "chie" "credits" "danjo"]
+   {:fully-integrated 168
+    :prepared-root-drain 0
+    :prepared-actors []
     :root-directories-after-prepared-drain 30}}
 
   :migration/summary
   {:outcome
-   "The former monorepo actor layer is being drained without changing west's flat checkout convention. 164 of the 198 baseline directories are fully integrated and four more are extracted with root drain prepared; the current batch is awaiting root and west integration."
+   "The former monorepo actor layer is being drained without changing west's flat checkout convention. 168 of the 198 baseline directories are fully integrated into independently versioned com-etzhayyim-* repositories with exact west pins."
    :repository-boundary
    {:superproject "com-junkawasaki/root owns west.yml and exact repository pins."
     :root "com-etzhayyim/root owns cross-repository policy, migration ledger, ADRs, generators, and legacy tombstones."
@@ -361,38 +361,39 @@
    "A completed count means repository extraction and west integration are finished, not that every historical test or generator defect has been repaired. Known gaps are recorded explicitly and must not be hidden by the migration count."}
 
   :migration/current-work
-  {:status :root-and-west-integration
+  {:status :integrated
    :actors ["amime" "chie" "credits" "danjo"]
    :completed-standalone
    [{:actor "amime" :revision "ef2bab003159a9014ab57ffad072376824ed8b3f" :verification {:tests 12 :assertions 55 :edn-files 9}}
     {:actor "chie" :revision "72bc5c1a39a0043795f2e83de901847fea060cdc" :verification {:tests 69 :assertions 227 :edn-files 11}}
     {:actor "credits" :revision "32b06687a95a1bf412539c6071b5ad82a204ba38" :verification {:tests 59 :assertions 286 :edn-files 1}}
     {:actor "danjo" :revision "5dcb2fe451b889bb7212ce4bbfbd36145a67b5c4" :verification {:tests 31 :assertions 114 :script-checks 195 :edn-files 10}}]
-   :counting-rule "These actors remain in remaining-actors until standalone revisions, root tombstones, ledger update, and exact west pins are all integrated."
+   :counting-rule "These actors entered completed-actors only after standalone revisions, root tombstones, ledger update, and exact west pins were all integrated."
    :batch-result
    {:moved-tombstones 168
     :remaining-root-directories 30
     :completion-percent 84.85}}
 
   :migration/integration-state
-  {:snapshot-kind :integration-pending
-   :root-base-revision "b0eb3573964a3e5151826646e28b19a2b68e1b76"
+  {:snapshot-kind :integrated
+   :root-migration-revision "a4883515723e0bab095ec3c2abf5ea18ff90536d"
    :standalone-repositories
    {:status :pushed
     :actors ["amime" "chie" "credits" "danjo"]}
    :legacy-root-drain
-   {:status :prepared
+   {:status :committed
     :tracked-invariant :moved-edn-only}
    :west-manifest
-   {:status :pending
-    :root-pin "b0eb3573964a3e5151826646e28b19a2b68e1b76"
+   {:status :exact-revisions-pinned
+    :superproject-revision "79c3fbf650733f29873874b0713087553418c196"
+    :root-pin "a4883515723e0bab095ec3c2abf5ea18ff90536d"
     :actor-pins
-    {"amime" {:target "ef2bab003159a9014ab57ffad072376824ed8b3f"}
-     "chie" {:target "72bc5c1a39a0043795f2e83de901847fea060cdc"}
-     "credits" {:target "32b06687a95a1bf412539c6071b5ad82a204ba38"}
-     "danjo" {:target "5dcb2fe451b889bb7212ce4bbfbd36145a67b5c4"}}}
-   :pending-actions [:commit-and-push-root-drain :pin-four-actor-revisions-and-root-in-west :record-superproject-integration-revision :repin-final-adr-root-revision]
-   :note "Standalone extraction and root drain are prepared for 168 entries; exact west integration is pending for the current batch."}
+    {"amime" "ef2bab003159a9014ab57ffad072376824ed8b3f"
+     "chie" "72bc5c1a39a0043795f2e83de901847fea060cdc"
+     "credits" "32b06687a95a1bf412539c6071b5ad82a204ba38"
+     "danjo" "5dcb2fe451b889bb7212ce4bbfbd36145a67b5c4"}}
+   :pending-actions [:repin-final-adr-root-revision]
+   :note "All 168 completed entries satisfy standalone push, root tombstone, canonical ledger, and exact west revision gates. The final ADR-only root repin closes the integration transaction."}
 
   :migration/completed-actors
   ["abaki" "ainori" "apqc" "atsurae" "busshi" "com-google-ads" "denwaban"
@@ -407,11 +408,11 @@
    "shidemori" "shukubo" "soma" "sonae" "stripe-compat" "suimin" "suki"
    "sumitsubo" "tawami" "toi" "tsukuroi" "ugachi" "unspsc" "utsushie"
    "wakai" "yudane" "isco" "moushibumi" "talent" "chigiri" "himotoki"
-   "toritsugi" "hoshimori" "inochi" "kuni-umi" "kuni_umi" "fuchi" "hokorobi" "kaname" "asobi" "mimamori" "shiori" "tsugite" "watatsuna" "kabuto" "watari" "keizu" "hakoniwa" "kafun" "shirabe" "tanemaki" "tasuke" "rasen" "tatara" "tazuna" "tate" "tokigusuri" "torifune" "tedai" "tatekata" "tsubasa" "tsuchifumi" "tsukuru" "tsumugi" "tsutae" "uchiwake" "uzu" "wadachi" "warifu" "watatsumi" "yadori" "yakushi" "yamabiko" "todoke" "yotei" "yobel" "toritate" "tadori" "sukashi" "subaru" "suji" "shomei" "shinka" "shionome" "sarutahiko" "sanae" "ossekai" "ooyake" "omise" "organizer" "nyusatsu" "nusa" "noroshi" "niyaku" "moyoshi" "mizuho" "mitsuho" "mitooshi" "meyasu" "meisai" "manabi" "makura" "magatama" "kanae" "kanayama" "kanjo" "kakaku" "kamado" "karakuri" "kasa" "kawaraban" "kizashi" "kosatsu" "maps" "matsurigoto" "okaimono" "aburi" "akashi" "ake"]
+   "toritsugi" "hoshimori" "inochi" "kuni-umi" "kuni_umi" "fuchi" "hokorobi" "kaname" "asobi" "mimamori" "shiori" "tsugite" "watatsuna" "kabuto" "watari" "keizu" "hakoniwa" "kafun" "shirabe" "tanemaki" "tasuke" "rasen" "tatara" "tazuna" "tate" "tokigusuri" "torifune" "tedai" "tatekata" "tsubasa" "tsuchifumi" "tsukuru" "tsumugi" "tsutae" "uchiwake" "uzu" "wadachi" "warifu" "watatsumi" "yadori" "yakushi" "yamabiko" "todoke" "yotei" "yobel" "toritate" "tadori" "sukashi" "subaru" "suji" "shomei" "shinka" "shionome" "sarutahiko" "sanae" "ossekai" "ooyake" "omise" "organizer" "nyusatsu" "nusa" "noroshi" "niyaku" "moyoshi" "mizuho" "mitsuho" "mitooshi" "meyasu" "meisai" "manabi" "makura" "magatama" "kanae" "kanayama" "kanjo" "kakaku" "kamado" "karakuri" "kasa" "kawaraban" "kizashi" "kosatsu" "maps" "matsurigoto" "okaimono" "aburi" "akashi" "ake" "amime" "chie" "credits" "danjo"]
 
   :migration/remaining-actors
-  ["_conformance" "ameno" "amime"
-   "business-manager" "business_manager" "chie" "credits" "danjo"
+  ["_conformance" "ameno"
+   "business-manager" "business_manager"
    "etzhayyim-organism" "funadaiku" "funamori" "futawa"
    "gov-municipality" "gov_municipality" "hagukumi" "hikari"
    "himawari" "hinagata" "hodoki" "hotaru"
@@ -438,13 +439,11 @@
              "silicon"]
     :action :choose-actor-engine-tool-or-shared-library-owner-before-extraction
     :language-policy "Any Go or TinyGo implementation is removed; it is not a migration source. Retained behavior must have a non-Go canonical implementation or an explicit retirement decision."}
-   {:class :prepared-root-drain
-    :actors ["amime" "chie" "credits" "danjo"]
-    :action :publish-root-and-west-integration-transaction}]
+   ]
 
   :migration/remaining-accounting
-  {:not-fully-integrated-total 34
-   :prepared-root-drain 4
+  {:not-fully-integrated-total 30
+   :prepared-root-drain 0
    :root-content-or-boundary-work-total 30
    :empty-consolidated-tooling-root 1
    :existing-repository-overlap 19
@@ -455,7 +454,7 @@
                               ["infra-utility-connect" "infra_utility_connect"]]
    :deprecated-language-audit {:go-files 0 :go-module-files 0 :tinygo-files 0}
    :follow-up-language-inventory {:python-files 21 :shell-wrapper-files 34}
-   :note "The three root-work classes total 30 legacy directories. Adding four prepared-but-not-integrated actors yields the 34 entries in remaining-actors. The three byte-identical spelling pairs reduce 30 directories to 27 logical components before further boundary decisions."}
+   :note "The three root-work classes total 30 legacy directories. The three byte-identical spelling pairs reduce 30 directories to 27 logical components before further boundary decisions."}
 
   :migration/decisions
   [{:decision :preserve-flat-west-checkouts
