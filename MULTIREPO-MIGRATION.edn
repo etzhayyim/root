@@ -1446,6 +1446,14 @@
      :verification {:tests 51 :assertions 216 :failures 0 :errors 0
                     :kotoba-dry-run {:entities 6 :approx-datoms 50}}
      :root-copy :edn-tombstone-only}
+    "tsubasa"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-tsubasa"
+     :revision "b54466782e45d901e8204540b928f8d843a8f3a6"
+     :west-path "orgs/etzhayyim/com-etzhayyim-tsubasa"
+     :canonical-format :edn
+     :verification {:tests 76 :assertions 641 :failures 0 :errors 0
+                    :jvm {:tests 2 :assertions 7}}
+     :root-copy :edn-tombstone-only}
     "tate"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-tate"
      :revision "658b9f67aaa65d7aad5ffda280ec8feaae7a8bc2"
@@ -1650,8 +1658,8 @@
   [{:class :legacy-actor-root-directories
     :snapshot-date "2026-07-18"
     :baseline 198
-    :moved 105
-    :remaining 93
+    :moved 106
+    :remaining 92
     :inventory "90-docs/adr/2607181200-flat-west-actor-migration-progress-and-remaining.edn"}
    {:class :existing-repo-overlap
     :state :merge-root-only-content-before-delete}

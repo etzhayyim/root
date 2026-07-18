@@ -33,7 +33,7 @@
     "wasmCid": null,
     "execModel": "service",
     "primaryLexicon": "com.etzhayyim.tsubasa.fare",
-    "primarySchema": "00-contracts/schemas/flight-fare-ontology.kotoba.edn",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-tsubasa/schema/flight-fare-ontology.edn",
     "note": "verificationMethod empty — on-chain ERC725 mirror pending; did:web trust root = TLS (no server-minted key, ADR-2605231525)"
   }
 }

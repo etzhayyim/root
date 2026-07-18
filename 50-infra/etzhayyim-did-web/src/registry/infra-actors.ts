@@ -269,7 +269,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     glyph: "翼",
     displayName: "Tsubasa — Flight-Route / Fare Discovery Commons",
     primaryLexicon: "com.etzhayyim.tsubasa.fare",
-    primarySchema: "00-contracts/schemas/flight-fare-ontology.kotoba.edn",
+    primarySchema: "orgs/etzhayyim/com-etzhayyim-tsubasa/schema/flight-fare-ontology.edn",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:tsubasa#atproto_pds",

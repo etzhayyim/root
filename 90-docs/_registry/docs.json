@@ -19550,7 +19550,7 @@
       "topic": "tsubasa-flight-commons",
       "authoritative": true,
       "authoritative_for": [
-        "20-actors/tsubasa"
+        "orgs/etzhayyim/com-etzhayyim-tsubasa"
       ],
       "related": [
         "2606041827   # watari (live aircraft POSITION — sibling, different concern)"

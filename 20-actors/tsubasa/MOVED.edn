@@ -1,0 +1,5 @@
+{:migration/status :moved
+ :migration/repository "https://github.com/etzhayyim/com-etzhayyim-tsubasa"
+ :migration/west-path "orgs/etzhayyim/com-etzhayyim-tsubasa"
+ :migration/revision "b54466782e45d901e8204540b928f8d843a8f3a6"
+ :migration/canonical-format :edn}

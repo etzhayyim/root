@@ -33,9 +33,9 @@
 
   :migration/progress
   {:baseline-actor-directories 198
-   :moved-tombstones 105
-   :remaining-root-directories 93
-   :completion-percent 53.03
+   :moved-tombstones 106
+   :remaining-root-directories 92
+   :completion-percent 53.54
    :canonical-ledger "MULTIREPO-MIGRATION.edn"
    :integration-base-root-revision "1ce8a65a8fe5b68aa5fda43004bf2bc14a5e13e7"
    :integration-base-west-revision "5d33ded7fdd"
@@ -67,7 +67,11 @@
     {:actor "tatekata"
      :repository "https://github.com/etzhayyim/com-etzhayyim-tatekata"
      :revision "56c8550c7640f299c415f1c27b913404d95e7233"
-     :verification {:tests 51 :assertions 216}}]}
+     :verification {:tests 51 :assertions 216}}
+    {:actor "tsubasa"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-tsubasa"
+     :revision "b54466782e45d901e8204540b928f8d843a8f3a6"
+     :verification {:tests 76 :assertions 641}}]}
 
   :migration/completed-actors
   ["abaki" "ainori" "apqc" "atsurae" "busshi" "com-google-ads" "denwaban"
@@ -82,7 +86,7 @@
    "shidemori" "shukubo" "soma" "sonae" "stripe-compat" "suimin" "suki"
    "sumitsubo" "tawami" "toi" "tsukuroi" "ugachi" "unspsc" "utsushie"
    "wakai" "yudane" "isco" "moushibumi" "talent" "chigiri" "himotoki"
-   "toritsugi" "hoshimori" "inochi" "kuni-umi" "kuni_umi" "fuchi" "hokorobi" "kaname" "asobi" "mimamori" "shiori" "tsugite" "watatsuna" "kabuto" "watari" "keizu" "hakoniwa" "kafun" "shirabe" "tanemaki" "tasuke" "rasen" "tatara" "tazuna" "tate" "tokigusuri" "torifune" "tedai" "tatekata"]
+   "toritsugi" "hoshimori" "inochi" "kuni-umi" "kuni_umi" "fuchi" "hokorobi" "kaname" "asobi" "mimamori" "shiori" "tsugite" "watatsuna" "kabuto" "watari" "keizu" "hakoniwa" "kafun" "shirabe" "tanemaki" "tasuke" "rasen" "tatara" "tazuna" "tate" "tokigusuri" "torifune" "tedai" "tatekata" "tsubasa"]
 
   :migration/remaining-actors
   ["_conformance" "aburi" "akashi" "ake" "ameno" "amime"
@@ -101,7 +105,7 @@
    "shinka" "shionome" "shomei" "silicon" "subaru" "suji"
    "sukashi" "tadori"
    "tazuna" "todoke" "toritate"
-   "tsubasa" "tsuchifumi" "tsukuru" "tsumugi" "tsutae" "uchiwake"
+   "tsuchifumi" "tsukuru" "tsumugi" "tsutae" "uchiwake"
    "uzu" "wadachi" "warifu" "watatsumi" "yadori"
    "yakushi" "yamabiko" "yobel" "yotei"]
 

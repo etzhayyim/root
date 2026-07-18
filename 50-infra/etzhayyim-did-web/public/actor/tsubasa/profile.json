@@ -23,7 +23,7 @@
       "2606072800"
     ],
     "primaryLexicon": "com.etzhayyim.tsubasa.fare",
-    "primarySchema": "00-contracts/schemas/flight-fare-ontology.kotoba.edn",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-tsubasa/schema/flight-fare-ontology.edn",
     "didDocument": "https://etzhayyim.com/actor/tsubasa/did.json",
     "source": "kotoba"
   }
