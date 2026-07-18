@@ -39,7 +39,7 @@ _CASE = _TADORI_LEX / "caseMandate.json"
 _ATTR = _TADORI_LEX / "attributionFinding.json"
 _TRACE = _TADORI_LEX / "traceReport.json"
 _SILEN = _TADORI_LEX / "silenTadoriReview.json"
-# manifest invariants moved to 20-actors/tadori/methods/test_manifest_invariants.cljc
+# manifest invariants moved to orgs/etzhayyim/com-etzhayyim-tadori/methods/test_manifest_invariants.cljc
 # (reads manifest.edn; the jsonld is retired). This suite keeps the lexicon + Python
 # cell-scaffold invariants, which do not read the manifest.
 _CELLS = _REPO / "20-actors" / "kotodama" / "cells"
@@ -189,7 +189,7 @@ class TestCellsRaiseAtImport:
 
 
 # ─── 6. manifest gates + manifest↔disk consistency ──────────────────────
-# Moved to 20-actors/tadori/methods/test_manifest_invariants.cljc (reads
+# Moved to orgs/etzhayyim/com-etzhayyim-tadori/methods/test_manifest_invariants.cljc (reads
 # manifest.edn; the jsonld is retired). The lexicon-id ↔ filename check below
 # reads only the lexicon JSONs (no manifest), so it stays here.
 

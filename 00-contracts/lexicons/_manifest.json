@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-18T05:32:54.654Z",
+  "generated": "2026-07-18T05:46:52.369Z",
   "lexicons": [
     {
       "id": "ai.etzhayyim.yorishiro.argparse-demo.main",
@@ -27848,12 +27848,6 @@
       "description": ""
     },
     {
-      "id": "com.etzhayyim.give.stock.donation",
-      "path": "00-contracts/lexicons/com/etzhayyim/give/stock/donation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
       "id": "com.etzhayyim.give.usdc.donation",
       "path": "00-contracts/lexicons/com/etzhayyim/give/usdc/donation.json",
       "type": "record",
@@ -39848,42 +39842,6 @@
       "description": ""
     },
     {
-      "id": "com.etzhayyim.sukashi.publishIntelReport",
-      "path": "00-contracts/lexicons/com/etzhayyim/sukashi/publishIntelReport.json",
-      "type": "procedure",
-      "description": "Publish the aggregate-first ad-tech-supply-chain + fraud-network intel report (CID + period + aggregate statistics) into the kotoba Datom log. AGGREGATE-FIRST (sukashi G3): the report carries only agg"
-    },
-    {
-      "id": "com.etzhayyim.sukashi.registerAdtech",
-      "path": "00-contracts/lexicons/com/etzhayyim/sukashi/registerAdtech.json",
-      "type": "procedure",
-      "description": "Assert an entity in the programmatic advertising ecosystem into the kotoba Datom log (:adtech/*). PUBLIC ad-tech transparency data ONLY — name, role, primary domain, sellers.json seller_type / seller_"
-    },
-    {
-      "id": "com.etzhayyim.sukashi.registerAuthEdge",
-      "path": "00-contracts/lexicons/com/etzhayyim/sukashi/registerAuthEdge.json",
-      "type": "procedure",
-      "description": "Assert a first-class AUTHORIZATION edge into the kotoba Datom log (:adauth.edge/*), parsed from the PUBLIC IAB web-standard files ads.txt / app-ads.txt / sellers.json. A publisher declares which selle"
-    },
-    {
-      "id": "com.etzhayyim.sukashi.registerCreative",
-      "path": "00-contracts/lexicons/com/etzhayyim/sukashi/registerCreative.json",
-      "type": "procedure",
-      "description": "Assert an ad creative / placement observed in the wild into the kotoba Datom log (:adcreative/*) — the substrate for \"which org is broadcasting which message\", linked to the disclosed advertiser and t"
-    },
-    {
-      "id": "com.etzhayyim.sukashi.registerFraudSignal",
-      "path": "00-contracts/lexicons/com/etzhayyim/sukashi/registerFraudSignal.json",
-      "type": "procedure",
-      "description": "Assert an evidence-bearing, NON-ADJUDICATING fraud/scam signal into the kotoba Datom log (:adfraud.signal/*). CRITICAL (sukashi G4): this is a SIGNAL routed to an actor that ACTS, NEVER a verdict, fin"
-    },
-    {
-      "id": "com.etzhayyim.sukashi.socialPost",
-      "path": "00-contracts/lexicons/com/etzhayyim/sukashi/socialPost.json",
-      "type": "procedure",
-      "description": "Compose an app.bsky.feed.post of an aggregate ad-tech-transparency finding. OUTWARD-GATED (sukashi G11): live atproto posting requires SUKASHI_LIVE_POST + operator auth, and every post body passes a C"
-    },
-    {
       "id": "com.etzhayyim.suki.cabAttestation",
       "path": "00-contracts/lexicons/com/etzhayyim/suki/cabAttestation.json",
       "type": "record",
@@ -39964,30 +39922,6 @@
     {
       "id": "com.etzhayyim.supply.supplierSelection",
       "path": "00-contracts/lexicons/com/etzhayyim/supply/supplierSelection.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.tadori.attributionFinding",
-      "path": "00-contracts/lexicons/com/etzhayyim/tadori/attributionFinding.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.tadori.caseMandate",
-      "path": "00-contracts/lexicons/com/etzhayyim/tadori/caseMandate.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.tadori.silenTadoriReview",
-      "path": "00-contracts/lexicons/com/etzhayyim/tadori/silenTadoriReview.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.tadori.traceReport",
-      "path": "00-contracts/lexicons/com/etzhayyim/tadori/traceReport.json",
       "type": "record",
       "description": ""
     },
@@ -40098,36 +40032,6 @@
       "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/tools/transform/map.json",
       "type": "procedure",
       "description": "Generic per-row transform — applies a declarative mapping to each input row. Bridges fetched arrays (e.g. http.fetch + json.extract output) and downstream sql.exec INSERT rows that need restructured f"
-    },
-    {
-      "id": "com.etzhayyim.toritate.annualReport",
-      "path": "00-contracts/lexicons/com/etzhayyim/toritate/annualReport.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.toritate.auditObservation",
-      "path": "00-contracts/lexicons/com/etzhayyim/toritate/auditObservation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.toritate.externalAuditorEngagement",
-      "path": "00-contracts/lexicons/com/etzhayyim/toritate/externalAuditorEngagement.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.toritate.financialAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/toritate/financialAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.toritate.ledgerEntry",
-      "path": "00-contracts/lexicons/com/etzhayyim/toritate/ledgerEntry.json",
-      "type": "record",
-      "description": ""
     },
     {
       "id": "com.etzhayyim.train.rentalAttestation",
@@ -49244,9 +49148,6 @@
       "com.etzhayyim.give.land.donation",
       "com.etzhayyim.give.land.stewardSuccession"
     ],
-    "com.etzhayyim.give.stock": [
-      "com.etzhayyim.give.stock.donation"
-    ],
     "com.etzhayyim.give.usdc": [
       "com.etzhayyim.give.usdc.donation"
     ],
@@ -49787,14 +49688,6 @@
       "com.etzhayyim.suimin.sourceWhitelist",
       "com.etzhayyim.suimin.treatmentSynthesis"
     ],
-    "com.etzhayyim.sukashi": [
-      "com.etzhayyim.sukashi.publishIntelReport",
-      "com.etzhayyim.sukashi.registerAdtech",
-      "com.etzhayyim.sukashi.registerAuthEdge",
-      "com.etzhayyim.sukashi.registerCreative",
-      "com.etzhayyim.sukashi.registerFraudSignal",
-      "com.etzhayyim.sukashi.socialPost"
-    ],
     "com.etzhayyim.suki": [
       "com.etzhayyim.suki.cabAttestation",
       "com.etzhayyim.suki.chassisAttestation",
@@ -49813,12 +49706,6 @@
       "com.etzhayyim.supply.shipmentTracking",
       "com.etzhayyim.supply.supplierSelection"
     ],
-    "com.etzhayyim.tadori": [
-      "com.etzhayyim.tadori.attributionFinding",
-      "com.etzhayyim.tadori.caseMandate",
-      "com.etzhayyim.tadori.silenTadoriReview",
-      "com.etzhayyim.tadori.traceReport"
-    ],
     "com.etzhayyim.tasuke": [
       "com.etzhayyim.tasuke.evidenceItem",
       "com.etzhayyim.tasuke.platformRequest",
@@ -49832,13 +49719,6 @@
       "com.etzhayyim.tatara.registerChokepoint",
       "com.etzhayyim.tatara.registerHub",
       "com.etzhayyim.tatara.registerPlant"
-    ],
-    "com.etzhayyim.toritate": [
-      "com.etzhayyim.toritate.annualReport",
-      "com.etzhayyim.toritate.auditObservation",
-      "com.etzhayyim.toritate.externalAuditorEngagement",
-      "com.etzhayyim.toritate.financialAttestation",
-      "com.etzhayyim.toritate.ledgerEntry"
     ],
     "com.etzhayyim.train": [
       "com.etzhayyim.train.rentalAttestation",
@@ -49979,6 +49859,6 @@
       "tools.ozone.verification.revokeVerifications"
     ]
   },
-  "total": 6807,
+  "total": 6791,
   "legacy_issues_count": 8
 }

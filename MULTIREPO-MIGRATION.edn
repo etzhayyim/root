@@ -1576,6 +1576,31 @@
                     :integration {:status :known-failure
                                   :reason :cumulative-over-cap-release-not-reverted}}
      :root-copy :edn-tombstone-only}
+    "toritate"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-toritate"
+     :revision "1e42499a623f2e12c63a001b577b85788db64c9c"
+     :west-path "orgs/etzhayyim/com-etzhayyim-toritate"
+     :canonical-format :edn
+     :wire-artifacts {:json 9}
+     :verification {:tests 26 :assertions 59 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "tadori"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-tadori"
+     :revision "2cdbab4a2564395915be45135f25fc0c021a2c9c"
+     :west-path "orgs/etzhayyim/com-etzhayyim-tadori"
+     :canonical-format :edn
+     :wire-artifacts {:json 4 :json-ld 1 :jsonl 1}
+     :verification {:tests 78 :assertions 219 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "sukashi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-sukashi"
+     :revision "db20a3b6c2b52c98a502b235bec03b45815eea0e"
+     :west-path "orgs/etzhayyim/com-etzhayyim-sukashi"
+     :canonical-format :edn
+     :canonical-edn-files 20
+     :wire-artifacts {:json-and-json-ld 8 :bpmn-xml 0}
+     :verification {:tests 73 :assertions 733 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "tate"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-tate"
      :revision "658b9f67aaa65d7aad5ffda280ec8feaae7a8bc2"
@@ -1780,8 +1805,8 @@
   [{:class :legacy-actor-root-directories
     :snapshot-date "2026-07-18"
     :baseline 198
-    :moved 121
-    :remaining 77
+    :moved 124
+    :remaining 74
     :inventory "90-docs/adr/2607181200-flat-west-actor-migration-progress-and-remaining.edn"}
    {:class :existing-repo-overlap
     :state :merge-root-only-content-before-delete}
