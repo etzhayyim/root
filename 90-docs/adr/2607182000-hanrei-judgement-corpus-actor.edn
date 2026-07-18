@@ -1,0 +1,203 @@
+[{:db/id -1
+  :adr/id "2607182000-hanrei-judgement-corpus-actor"
+  :adr/title "hanrei.etzhayyim.com — Judgement/Case-Law Corpus Actor"
+  :adr/status "proposed"
+  :adr/doc_type "adr"
+  :adr/topic "actor-topology"
+  :adr/date "2026-07-18"
+  :adr/last_verified "2026-07-18"
+  :adr/authoritative true
+  :adr/source-format "edn"
+  :adr/source-repo "etzhayyim/root"
+  :adr/authoritative_for [
+    "hanrei.etzhayyim.com actor scope (judgement/case-law corpus)"
+    "3-layer DID topology for hanrei (primary / jurisdiction:source / blake3 hash)"
+    "com.etzhayyim.apps.hanrei.datomic.* lexicon surface"
+    "Activity tracking for judges and courts (descriptive, no ranking/audit)"
+  ]
+  :adr/related [
+    "90-docs/adr/0090-ooyake-public"
+    "90-docs/adr/0091-houbun-actor-topology"
+    "90-docs/adr/2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion"
+  ]
+  :adr/body "# hanrei.etzhayyim.com — Judgement/Case-Law Corpus Actor
+
+## Context
+
+Etzhayyim's legal topology so far comprises **houbun** (statute/legislation corpus, ADR-0091) and **ooyake** (public court registry, ADR-0090). Both are descriptive archives for law structure and judicial proceedings. The missing component is **precedent**: the actual judgement texts, case law, opinions, and their relationships to statutes, judges, and courts. This gap prevents cross-referencing a statute to its settled interpretation via prior judgements, and prevents tracing judicial trends.
+
+Precedent is especially critical for:
+- **Common law jurisdictions** (UK, USA, Canada, Australia, etc.) where judge-made law (case law) is formal source of law
+- **Civil law jurisdictions** (France, Germany, Japan, etc.) where prior judgements are persuasive authority (not binding like common law) but heavily cited
+- **International courts** (ICJ, ICC, ECJ) where published opinions establish doctrine
+- **Comparative law research**: tracing how a single legal principle diverges across jurisdictions
+
+The actor must **expose raw judgement corpus and analytics, not ranking or audit**. Constraints from ooyake (ADR-0090) G11 (\"no government ranking\") and danjo (audit) apply: activity tracking of judges and courts is descriptive (e.g., \"Judge X issued N decisions with Y% reversal rate\"), not normative (e.g., \"Judge X is problematic\").
+
+## Scope
+
+| In scope | Out of scope |
+|---|---|
+| Judgement text, headnotes, opinion, ruling, date | Rankings, ratings, \"problem judge\" tags |
+| Case metadata: docket number, court, judges, parties | Sanctioning, disciplinary action |
+| Citations between cases (cites/overrules/distinguishes) | Audit recommendations, court scorecards |
+| Judge & court activity tracking (count, trends over time) | Normative judgement (\"good/bad decision\") |
+| Statute references in judgements (links to houbun) | Court/judge performance targets, targets for reform |
+| Topic/keyword tags, doctrine labels (eg \"tort\", \"contract\") | Public shaming, political ranking |
+| Full-text search, boolean query, temporal analysis | Predictions about future judge behavior |
+| DID topology (primary / jurisdiction:source / blake3 hash) | — |
+
+## Decision
+
+### A. Actor Identity & Persistence
+
+- **Actor name**: `hanrei.etzhayyim.com` (judgement/precedent)
+- **Persistence**: Kotoba Datomic (`com.etzhayyim.apps.hanrei.datomic.*`)
+- **Deployment**: Etzhayyim hypercore + CF Worker (standard kotodama actor pattern)
+- **Scope**: Global public judgements (no private/sealed case law initially)
+
+### B. Entity Schema
+
+**Core entities**:
+
+- `:hanrei/case` — Judicial case metadata
+  - `:case/docket-id` — Official case/docket number(s)
+  - `:case/title` — Case name/style (parties & short description)
+  - `:case/decision-date` — Publication date
+  - `:case/decision-body` — Rendered HTML opinion text (full text)
+  - `:case/headnote` — Brief summary (court-supplied or OCR)
+  - `:case/court` — Reference edge to court (ooyake entity)
+  - `:case/judges` — List of judge refs; order indicates role (presiding, concurring)
+  - `:case/parties` — Plaintiff / defendant / appellant / respondent (string labels for now; may link to `ooyake/person` later)
+  - `:case/keywords` — Topic tags (e.g., \"contract\", \"tort\", \"damages\", \"procedure\")
+  - `:case/statute-refs` — Links to houbun entities cited
+  - `:case/jurisdiction` — ISO 3166 country/state code
+  - `:case/source` — Data source (court website, LexisNexis, Google Scholar, etc.)
+  - `:case/source-url` — Canonical external link
+  - `:case/blake3` — Content hash (for deduplication, DID component)
+
+- `:hanrei/judge` — Judicial officer
+  - `:judge/name` — Official name (from court registry, ooyake)
+  - `:judge/court` — Primary court assignment (reference to ooyake entity)
+  - `:judge/cases` — Reverse: all decisions authored
+  - `:judge/activity` — `:judge/activity-entry` list (see below)
+
+- `:hanrei/opinion` — Individual judge opinion/concurrence within a case
+  - `:opinion/case` — Parent case
+  - `:opinion/author` — Judge
+  - `:opinion/type` — enum: \"majority\" | \"concurring\" | \"dissenting\"
+  - `:opinion/text` — Full opinion text
+  - `:opinion/headnote` — Synopsis
+
+- `:hanrei/precedent-link` — Relationship between cases (citation)
+  - `:link/from` — Citing case
+  - `:link/to` — Cited case
+  - `:link/type` — enum: \"cites\" | \"distinguishes\" | \"overrules\" | \"affirms\" | \"reverses\"
+  - `:link/context` — Quote/passage from citing opinion that references cited case
+
+- `:hanrei/judge-activity-entry` — Timestamped activity record
+  - `:activity/date` — Month/year (discretization to prevent real-time tracking)
+  - `:activity/judge` — Judge reference
+  - `:activity/decisions-issued` — Count
+  - `:activity/decisions-appealed` — Count
+  - `:activity/appeals-reversed` — Count (of reversals by higher court)
+  - `:activity/appeals-affirmed` — Count
+  - Note: **descriptive only**. No \"problem count\" threshold or ranking. Analytics client decides interpretation.
+
+### C. Reference Edges (Cross-Actor)
+
+- `case → court` → ooyake (`com.etzhayyim.apps.ooyake.datomic.court`)
+- `judge → court` → ooyake
+- `judge → person` → ooyake (`com.etzhayyim.apps.ooyake.datomic.person`, once ooyake supports judge linking)
+- `case → statute` → houbun (`com.etzhayyim.apps.houbun.datomic.statute`)
+
+### D. DID Topology
+
+3-layer identifier for portable case references:
+
+```
+hanrei://primary:blake3-<content-hash>
+         /jurisdiction:source:JPN:Tokyo-District:2025-001234
+         /jurisdiction:source:USA:CA-9th-Circuit:123-45678
+```
+
+- **Layer 1 (primary)**: `blake3-<hash>` — Content-addressable identity (survives re-source from different vendor)
+- **Layer 2 (jurisdiction:source)**: `<jurisdiction>:<source-system>` — Canonical reference (court's own docket system)
+- Layer 3 (vendor): URL/vendor-specific identifier (fallback, may disappear)
+
+DID resolution:
+- Try Layer 2 first (native court registry query). If unavailable, fall back to Layer 1 (blake3 content match across sources).
+- URLs are ephemeral; do not rely on them as canonical identity.
+
+### E. Content Sources (Phase 1)
+
+Planned ingestion tiers:
+
+1. **Japan**: 最高裁判例情報システム (Supreme Court Precedent Information System, public API), Tokyo District, Osaka High Court, IP courts
+2. **USA**: Google Scholar (free, full-text, 1900+), RECAP (Federal), state court sites
+3. **EU**: CURIA (ECJ, GCEU; European Court of Justice), EUR-Lex CELEX (legislation references)
+4. **International**: ICJ, ICC, ICtHY, WTO Appellate Body
+
+**Not included initially**: Trial court opinions (most jurisdictions, not archived publicly), sealed/confidential cases, legal memoranda (not published precedent).
+
+### F. Eguards: What We Do NOT Do
+
+**Cite (ADR-0090 ooyake G11 compliance)**: No public ranking, scoring, or aggregation that implies judicial quality:
+- ❌ \"Judge reversal rate scorecard\" (implies criticism)
+- ❌ \"Top 10 most-cited judges\"
+- ❌ \"Court efficiency rating\"
+- ✅ \"Judge X issued 150 decisions, of which 12 were appealed and 4 reversed (2.7% reversal rate)\" — raw data, no value judgment
+
+**Cite (danjo audit scope separation)**: Audit findings belong to independent danjo (弾正) actor, not hanrei:
+- ❌ \"Judge X violated procedural rules in Case Y\" (audit conclusion)
+- ✅ \"Reversal rate time series\" (descriptive trend)
+
+**Scope boundary with houbun**:
+- hanrei = precedent (cases, opinions, citations)
+- houbun = legislation (statutes, codes, regulations, gazette)
+- houbun may reference cases; hanrei may reference statutes. No content duplication.
+
+## Consequences
+
+**Positive**:
+- Legal researchers can now query case law via standard tools (datomic queries, full-text, DID lookup).
+- Comparative law analysis across jurisdictions (query API: \"cases in Japan citing Article 320, and US cases with similar holdings\").
+- Basis for future tools (appellate trends, doctrine evolution, precedent divergence across regions) without ranking bias.
+- Integration with houbun (statute) and ooyake (court) completes the trias politica architecture (legislature / executive / judiciary data models).
+
+**Neutral**:
+- Corpus maintenance is ongoing (court sites evolve, OCR quality varies, metadata incomplete for older cases).
+- DID resolution Layer 1↔2 mapping requires periodic sync with source courts.
+- Full-text indexing for large corpus (100K+ cases) requires document store (ElasticSearch, Whoosh, or Datomic full-text plugins).
+
+**Risks / Guardrails**:
+- **Reversal rate / activity metrics can be misused for ranking**. Documentation and API design must make clear that raw metrics are value-neutral. Policy enforcement: (1) code comments in activity schema, (2) API docs example disclaimers, (3) optional `etzhayyim.policy.non-ranking` constraint for clients.
+- **OCR errors in historical case law** may introduce false citations. Versioning strategy: keep source URL + OCR version, allow client-side correction without modifying canonical hanrei entity.
+- **Uneven coverage across jurisdictions** (common law rich, civil law sparse, developing economies minimal). Phase 1 focuses on 3 regions; expansion requires resource. Version/source metadata must be transparent.
+
+## Alternatives Considered
+
+| Option | Why not |
+|---|---|
+| **Replicate houbun/ooyake models (just copy the actor pattern)** | Would work, but misses opportunity for precedent-specific features (DID 3-layer, citation links, opinion separation, activity tracking) |
+| **Merge hanrei into houbun** | No. Legislation and precedent are distinct data models; mixing obscures the boundary and makes querying hard |
+| **Merge hanrei into ooyake** | No. Courts are institutions; judgements are artifacts. A court actor should expose registry (parties, addresses, judges), not all cases the court published |
+| **Use a separate triple-store (RDF/SPARQL) instead of Datomic** | Datomic is SSoT for etzhayyim actor data (ADR-0036 worker-direct). RDF would require dual maintenance and breaks actor persistence pattern. Keep as single Datomic instance per actor |
+| **Include audit findings (appeal reversal interpreted as \"bad decision\")** | Violates ooyake G11 and danjo scope boundary. Keep hanrei descriptive. Let policy actor (danjo) make normative calls. |
+| **Public judge \"problem scores\" based on reversal rate** | Same violation. Public shaming is not etzhayyim's role |
+| **Include sealed/confidential cases** | Some jurisdictions prohibit publication. Violate local law. Start with public cases only; if sealed corpus access needed, route through separate secure actor with special auth. |
+
+## References
+
+- **ooyake (ADR-0090)**: Public court registry, G11 no-ranking principle
+- **houbun (ADR-0091)**: Legislation corpus actor
+- **danjo (弾正)**: Audit actor (separate from judicial reporting)
+- **kotodama actor pattern (ADR-0036)**: Worker-direct persistence, Datomic, XRPC / MCP exposure
+- **DID spec (W3C)**: https://www.w3.org/TR/did-core/
+- **Content addressing (Blake3)**: https://blake3.io/
+- **Japan Supreme Court API**: https://www.courts.go.jp/
+- **USA Google Scholar**: https://scholar.google.com/
+- **CURIA (ECJ)**: https://curia.europa.eu/
+- **ICJ Cases**: https://www.icj-cij.org/en
+"
+  :adr/path "90-docs/adr/2607182000-hanrei-judgement-corpus-actor.edn"}]
