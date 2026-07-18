@@ -19,7 +19,7 @@
     },
     {
       "id": ":safety-monitoring",
-      "src": "20-actors/wadachi/cells/safety_monitoring/cell.py",
+      "src": "orgs/etzhayyim/com-etzhayyim-wadachi/cells/safety_monitoring/cell.py",
       "loc": 67, "nodes": 5, "rel_imports": 1, "tier": "medium",
       "class": "SafetyMonitoringCell", "entry": "solve", "ref_input": {},
       "ref_strategy": ":host-python"

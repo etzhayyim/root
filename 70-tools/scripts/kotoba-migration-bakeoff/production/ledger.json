@@ -153,7 +153,7 @@
   },
   {
     "cell": "watatsumi-class_certification_binder",
-    "src": "20-actors/watatsumi/cells/class_certification_binder/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-watatsumi/cells/class_certification_binder/cell.py",
     "build": true,
     "structural": true,
     "judge": 2,
@@ -164,7 +164,7 @@
   },
   {
     "cell": "watatsumi-hull_ring_fabrication",
-    "src": "20-actors/watatsumi/cells/hull_ring_fabrication/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-watatsumi/cells/hull_ring_fabrication/cell.py",
     "build": true,
     "structural": true,
     "judge": 2,
@@ -175,7 +175,7 @@
   },
   {
     "cell": "watatsumi-marine_emissions_audit",
-    "src": "20-actors/watatsumi/cells/marine_emissions_audit/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-watatsumi/cells/marine_emissions_audit/cell.py",
     "build": true,
     "structural": true,
     "judge": 3,
@@ -186,7 +186,7 @@
   },
   {
     "cell": "watatsumi-pressure_test",
-    "src": "20-actors/watatsumi/cells/pressure_test/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-watatsumi/cells/pressure_test/cell.py",
     "build": true,
     "structural": true,
     "judge": 3,
@@ -197,7 +197,7 @@
   },
   {
     "cell": "watatsumi-sea_trial",
-    "src": "20-actors/watatsumi/cells/sea_trial/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-watatsumi/cells/sea_trial/cell.py",
     "build": true,
     "structural": true,
     "judge": 2,
@@ -208,7 +208,7 @@
   },
   {
     "cell": "watatsumi-section_assembly",
-    "src": "20-actors/watatsumi/cells/section_assembly/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-watatsumi/cells/section_assembly/cell.py",
     "build": true,
     "structural": true,
     "judge": 2,
@@ -219,7 +219,7 @@
   },
   {
     "cell": "watatsumi-section_joining",
-    "src": "20-actors/watatsumi/cells/section_joining/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-watatsumi/cells/section_joining/cell.py",
     "build": true,
     "structural": true,
     "judge": 2,
@@ -230,7 +230,7 @@
   },
   {
     "cell": "watatsumi-system_integration",
-    "src": "20-actors/watatsumi/cells/system_integration/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-watatsumi/cells/system_integration/cell.py",
     "build": true,
     "structural": true,
     "judge": 2,
@@ -241,7 +241,7 @@
   },
   {
     "cell": "watatsumi-weld_inspection",
-    "src": "20-actors/watatsumi/cells/weld_inspection/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-watatsumi/cells/weld_inspection/cell.py",
     "build": true,
     "structural": true,
     "judge": 2,
@@ -560,7 +560,7 @@
   },
   {
     "cell": "wadachi-motion_control",
-    "src": "20-actors/wadachi/cells/motion_control/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-wadachi/cells/motion_control/cell.py",
     "build": true,
     "structural": true,
     "judge": 4,
@@ -571,7 +571,7 @@
   },
   {
     "cell": "wadachi-obstacle_avoidance",
-    "src": "20-actors/wadachi/cells/obstacle_avoidance/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-wadachi/cells/obstacle_avoidance/cell.py",
     "build": true,
     "structural": true,
     "judge": 3,
@@ -582,7 +582,7 @@
   },
   {
     "cell": "wadachi-route_planning",
-    "src": "20-actors/wadachi/cells/route_planning/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-wadachi/cells/route_planning/cell.py",
     "build": true,
     "structural": true,
     "judge": 4,
@@ -593,7 +593,7 @@
   },
   {
     "cell": "wadachi-safety_monitoring",
-    "src": "20-actors/wadachi/cells/safety_monitoring/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-wadachi/cells/safety_monitoring/cell.py",
     "build": true,
     "structural": true,
     "judge": 3,
@@ -604,7 +604,7 @@
   },
   {
     "cell": "wadachi-telemetry_log",
-    "src": "20-actors/wadachi/cells/telemetry_log/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-wadachi/cells/telemetry_log/cell.py",
     "build": true,
     "structural": true,
     "judge": 3,

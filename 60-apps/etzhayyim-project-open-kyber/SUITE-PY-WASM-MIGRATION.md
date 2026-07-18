@@ -47,7 +47,7 @@ The repo already ships this exact pipeline for the watatsuna actor. We reuse it 
 ### 2.1 Cell module (LangGraph, pure — no inference)
 
 The four cores are **pure functions**, so each is a trivial single-node StateGraph. Mirror
-`20-actors/watatsumi/cells/section_assembly/cell.py`:
+`orgs/etzhayyim/com-etzhayyim-watatsumi/cells/section_assembly/cell.py`:
 
 ```python
 # suite-cells/drive_tree/cell.py

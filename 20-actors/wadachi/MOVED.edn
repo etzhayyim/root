@@ -1,0 +1,5 @@
+{:migration/status :moved
+ :migration/repository "https://github.com/etzhayyim/com-etzhayyim-wadachi"
+ :migration/west-path "orgs/etzhayyim/com-etzhayyim-wadachi"
+ :migration/revision "2961efbcad5a91a6569c73bdeb4666eebf25b554"
+ :migration/canonical-format :edn}

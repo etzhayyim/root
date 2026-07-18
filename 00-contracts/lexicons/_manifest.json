@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-18T04:45:09.871Z",
+  "generated": "2026-07-18T04:57:35.022Z",
   "lexicons": [
     {
       "id": "ai.etzhayyim.yorishiro.argparse-demo.main",
@@ -40514,54 +40514,6 @@
       "description": ""
     },
     {
-      "id": "com.etzhayyim.watatsumi.pressureHullAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/watatsumi/pressureHullAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.watatsumi.pressureTestRecord",
-      "path": "00-contracts/lexicons/com/etzhayyim/watatsumi/pressureTestRecord.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.watatsumi.seaTrialRecord",
-      "path": "00-contracts/lexicons/com/etzhayyim/watatsumi/seaTrialRecord.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.watatsumi.sectionAssemblyAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/watatsumi/sectionAssemblyAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.watatsumi.sectionJoiningAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/watatsumi/sectionJoiningAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.watatsumi.silenSubmersibleReview",
-      "path": "00-contracts/lexicons/com/etzhayyim/watatsumi/silenSubmersibleReview.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.watatsumi.systemIntegrationAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/watatsumi/systemIntegrationAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.watatsumi.weldInspectionRecord",
-      "path": "00-contracts/lexicons/com/etzhayyim/watatsumi/weldInspectionRecord.json",
-      "type": "record",
-      "description": ""
-    },
-    {
       "id": "com.etzhayyim.wellBecoming.skillClaim",
       "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/wellBecoming/skillClaim.json",
       "type": "record",
@@ -50179,16 +50131,6 @@
       "com.etzhayyim.wakai.publicFundBackstopRequest",
       "com.etzhayyim.wakai.silenWakaiReview"
     ],
-    "com.etzhayyim.watatsumi": [
-      "com.etzhayyim.watatsumi.pressureHullAttestation",
-      "com.etzhayyim.watatsumi.pressureTestRecord",
-      "com.etzhayyim.watatsumi.seaTrialRecord",
-      "com.etzhayyim.watatsumi.sectionAssemblyAttestation",
-      "com.etzhayyim.watatsumi.sectionJoiningAttestation",
-      "com.etzhayyim.watatsumi.silenSubmersibleReview",
-      "com.etzhayyim.watatsumi.systemIntegrationAttestation",
-      "com.etzhayyim.watatsumi.weldInspectionRecord"
-    ],
     "com.etzhayyim.yadori": [
       "com.etzhayyim.yadori.availabilityRecord",
       "com.etzhayyim.yadori.nameCandidate",
@@ -50302,6 +50244,6 @@
       "tools.ozone.verification.revokeVerifications"
     ]
   },
-  "total": 6852,
+  "total": 6844,
   "legacy_issues_count": 8
 }

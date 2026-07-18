@@ -167,5 +167,5 @@ Covers `methods.test-charter-gates`, `py.test-agent`, and all 9 cell
 
 - `/20-actors/kanayama/manifest.jsonld` — DID + cell registry + gates + non-goals
 - `/90-docs/adr/2605252400-kanayama-circular-metallurgy-r0.md` — Master ADR
-- `/20-actors/watatsumi/README.md` — Elemental sibling (水)
+- `/orgs/etzhayyim/com-etzhayyim-watatsumi/README.md` — Elemental sibling (水)
 - `/CLAUDE.md` — Religious-corp status table row 46

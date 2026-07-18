@@ -61,7 +61,7 @@ end-to-end self-controlled and ship first.
 
 **Purpose allow-list is a 3-point invariant** — `src/common/purpose.js` MUST stay in lockstep with:
 - Solidity `SettlementRouter._checkPurpose` (`50-infra/warifu-contracts/src/SettlementRouter.sol`)
-- Python `AuthorizeCell._purpose_ok` (`20-actors/warifu/cells/authorize.py`)
+- Python `AuthorizeCell._purpose_ok` (`orgs/etzhayyim/com-etzhayyim-warifu/cells/authorize.py`)
 
 Run: `npm test` (purpose-gate, no deps) · `npm run typecheck` (tsc, needs `npm i`).
 Fail-closed: every surface refuses a non-Phase-1 purpose *before* touching the substrate;

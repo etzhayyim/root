@@ -26,7 +26,7 @@ import pytest
 
 _REPO = Path(__file__).resolve().parents[3]
 _LEX = _REPO / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "watatsumi"
-# manifest invariants -> 20-actors/watatsumi/methods/test_manifest_invariants.cljc (jsonld retired)
+# manifest invariants -> orgs/etzhayyim/com-etzhayyim-watatsumi/methods/test_manifest_invariants.cljc (jsonld retired)
 
 
 def _load(p: Path) -> dict:

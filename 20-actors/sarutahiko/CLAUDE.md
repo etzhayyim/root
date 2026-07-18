@@ -194,6 +194,6 @@ mismatch); they are R1-activated via ADR-2605252515.
 
 - `/20-actors/sarutahiko/manifest.jsonld`
 - `/90-docs/adr/2605252500-sarutahiko-heavy-truck-manufacturing-r0.md`
-- `/20-actors/wadachi/README.md` — Operator-side counterpart
+- `/orgs/etzhayyim/com-etzhayyim-wadachi/README.md` — Operator-side counterpart
 - `/20-actors/kanayama/README.md` — Upstream Al/steel/Cu supply + EoL loop
 - `/CLAUDE.md` — Religious-corp status table row 52

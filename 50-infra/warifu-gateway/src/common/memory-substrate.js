@@ -3,7 +3,7 @@
 //
 // Gateway-layer in-memory WarifuSubstrate fake (ADR-2605302000). Implements the same surface as
 // sdk.ts `WarifuSubstrate` so handlers can be tested end-to-end without a real @etzhayyim/sdk
-// client. Mirrors the cells-layer InMemorySubstrate (20-actors/warifu/cells/substrate.py); both
+// client. Mirrors the cells-layer InMemorySubstrate (orgs/etzhayyim/com-etzhayyim-warifu/cells/substrate.py); both
 // stand in for kotoba EAVT + ERC-4337 in production. Fee is always 0; no key held.
 
 export class MemorySubstrate {

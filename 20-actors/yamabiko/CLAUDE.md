@@ -98,5 +98,5 @@ cd 20-actors/yamabiko
 - `/20-actors/yamabiko/manifest.jsonld`
 - `/90-docs/adr/2605252600-yamabiko-high-speed-rail-manufacturing-r0.md`
 - `/20-actors/sarutahiko/README.md` — Road sibling
-- `/20-actors/wadachi/README.md` — Road operator
+- `/orgs/etzhayyim/com-etzhayyim-wadachi/README.md` — Road operator
 - `/CLAUDE.md` — Religious-corp status table row 56

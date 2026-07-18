@@ -10,8 +10,8 @@ on:
   push:
     branches: [main]
     paths:
-      - "10-protocol/warifu/**"
-      - "20-actors/warifu/**"
+      - "orgs/etzhayyim/com-etzhayyim-warifu/wire/lex/**"
+      - "orgs/etzhayyim/com-etzhayyim-warifu/**"
       - "50-infra/warifu-contracts/**"
       - "50-infra/warifu-gateway/**"
       - "70-tools/scripts/warifu-test.sh"
@@ -19,8 +19,8 @@ on:
   pull_request:
     branches: [main]
     paths:
-      - "10-protocol/warifu/**"
-      - "20-actors/warifu/**"
+      - "orgs/etzhayyim/com-etzhayyim-warifu/wire/lex/**"
+      - "orgs/etzhayyim/com-etzhayyim-warifu/**"
       - "50-infra/warifu-contracts/**"
       - "50-infra/warifu-gateway/**"
       - "70-tools/scripts/warifu-test.sh"

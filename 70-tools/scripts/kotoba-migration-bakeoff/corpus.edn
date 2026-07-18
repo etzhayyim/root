@@ -22,7 +22,7 @@
    :gold-wasm "40-engine/kotoba/examples/kotoba-langgraph-final-sign-off"}
 
   {:id        :safety-monitoring
-   :src       "20-actors/wadachi/cells/safety_monitoring/cell.py"
+   :src       "orgs/etzhayyim/com-etzhayyim-wadachi/cells/safety_monitoring/cell.py"
    :loc 67 :nodes 5 :rel-imports 1
    :tier      :medium                    ; relative `from .state_machine import ...` must be mocked
    :class     "SafetyMonitoringCell" :entry "solve" :ref-input {}

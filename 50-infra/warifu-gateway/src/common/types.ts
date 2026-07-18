@@ -2,7 +2,7 @@
 // etzhayyim Charter Compliance Rider v2.0 applies (see /CHARTER-RIDER.md).
 //
 // Shared types for the warifu compat gateway. The substrate-native shapes mirror the
-// `com.etzhayyim.card.*` lexicons (10-protocol/warifu/). Fee is always 0 (決済手数料ゼロ).
+// `com.etzhayyim.card.*` lexicons (orgs/etzhayyim/com-etzhayyim-warifu/wire/lex/). Fee is always 0 (決済手数料ゼロ).
 
 export type Funding = 'debit' | 'credit';
 export type Surface = 'rest' | 'iso8583' | 'nfc';
