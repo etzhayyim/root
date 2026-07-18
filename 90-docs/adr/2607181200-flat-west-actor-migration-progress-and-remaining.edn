@@ -224,17 +224,18 @@
      :retained-tooling {:python-files 31 :shell-files 2}}]}
 
   :migration/integration-state
-  {:snapshot-kind :root-prepared-west-pin-pending
+  {:snapshot-kind :integrated
    :standalone-repositories
    {:status :pushed
     :actors ["sanae" "ossekai" "ooyake"]}
    :legacy-root-drain
-   {:status :prepared
+   {:status :committed
     :tracked-invariant :moved-edn-only}
    :west-manifest
-   {:status :pending-pin-update
+   {:status :exact-revisions-pinned
+    :superproject-revision "118425f69c8d36785704531423dd8f3e6811fd2f"
     :actors ["sanae" "ossekai" "ooyake"]}
-   :note "The 133-entry inventory includes the prepared latest root drain. The latest three actors satisfy the west-manifest gate only after this root revision and their standalone revisions are pinned in the superproject."}
+   :note "The 133 completed entries satisfy the standalone repository, root tombstone, canonical ledger, and exact west revision gates represented by this snapshot."}
 
   :migration/completed-actors
   ["abaki" "ainori" "apqc" "atsurae" "busshi" "com-google-ads" "denwaban"
