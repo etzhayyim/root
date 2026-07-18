@@ -33,11 +33,11 @@
 
   :migration/progress
   {:baseline-actor-directories 198
-   :fully-integrated-actors 168
-   :fully-integrated-percent 84.85
-   :moved-tombstones 168
-   :remaining-root-directories 30
-   :completion-percent 84.85
+   :fully-integrated-actors 174
+   :fully-integrated-percent 87.88
+   :moved-tombstones 174
+   :remaining-root-directories 24
+   :completion-percent 87.88
    :canonical-ledger "MULTIREPO-MIGRATION.edn"
    :integration-base-root-revision "1ce8a65a8fe5b68aa5fda43004bf2bc14a5e13e7"
    :integration-base-west-revision "5d33ded7fdd"
@@ -315,14 +315,14 @@
    :remaining
    "Root still owns implementation content or the repository boundary has not been resolved."
   :snapshot
-  {:fully-integrated 168
-    :prepared-root-drain 6
-    :prepared-actors ["funadaiku" "futawa" "hagukumi" "hikari" "himawari" "hinagata"]
+  {:fully-integrated 174
+    :prepared-root-drain 0
+    :prepared-actors []
     :root-directories-after-prepared-drain 24}}
 
   :migration/summary
   {:outcome
-   "The former monorepo actor layer is being drained without changing west's flat checkout convention. 168 of the 198 baseline directories are fully integrated into independently versioned com-etzhayyim-* repositories with exact west pins."
+   "The former monorepo actor layer is being drained without changing west's flat checkout convention. 174 of the 198 baseline directories are fully integrated into independently versioned com-etzhayyim-* repositories with exact west pins."
    :repository-boundary
    {:superproject "com-junkawasaki/root owns west.yml and exact repository pins."
     :root "com-etzhayyim/root owns cross-repository policy, migration ledger, ADRs, generators, and legacy tombstones."
@@ -361,7 +361,7 @@
    "A completed count means repository extraction and west integration are finished, not that every historical test or generator defect has been repaired. Known gaps are recorded explicitly and must not be hidden by the migration count."}
 
   :migration/current-work
-  {:status :prepared-root-drain
+  {:status :integrated
    :actors ["funadaiku" "futawa" "hagukumi" "hikari" "himawari" "hinagata"]
    :completed-standalone
    [{:actor "funadaiku" :revision "0549b2e8db67b8015286e55b5796dec1641590a7" :verification {:tests 43 :assertions 396 :edn-files 26 :wire-json 9}}
@@ -370,35 +370,35 @@
     {:actor "hikari" :revision "8403b94f09fb7ab14d6004634798353e4ab55f27" :verification {:tests 68 :assertions 1316 :edn-files 16 :wire-json 6} :known-gap {:lint :existing-cljc-issues :count 10}}
     {:actor "himawari" :revision "e932ea0504ef028d3072b579237b6abe859426b3" :verification {:tests 82 :assertions 175 :edn-files 7 :wire-json 7} :known-gap {:python-files 1 :reason :external-ingest-adapter}}
     {:actor "hinagata" :revision "c4dbec97b491adbac5df78549fbd562ae2065412" :verification {:tests 66 :assertions 3623 :edn-files 8 :wire-wit 1}}]
-   :counting-rule "These six actors remain in remaining-actors until the root migration commit and exact actor/root west pins are published. Their current worktree directories are intended to contain MOVED.edn only after commit."
+   :counting-rule "These six actors entered completed-actors only after their standalone revisions, root tombstones, canonical ledger update, and exact actor/root west pins were published."
    :batch-result
-   {:fully-integrated-tombstones 168
-    :prepared-tombstones 6
-    :remaining-root-directories-after-prepared-drain 24
-    :fully-integrated-percent 84.85}}
+   {:fully-integrated-tombstones 174
+    :prepared-tombstones 0
+    :remaining-root-directories 24
+    :fully-integrated-percent 87.88}}
 
   :migration/integration-state
   {:snapshot-kind :integrated
-   :root-migration-revision "a4883515723e0bab095ec3c2abf5ea18ff90536d"
+   :root-migration-revision "1c5f8d96d26133fdf4d92a6b37158b46cabff1d5"
    :standalone-repositories
    {:status :pushed
-    :actors ["amime" "chie" "credits" "danjo"]}
+    :actors ["funadaiku" "futawa" "hagukumi" "hikari" "himawari" "hinagata"]}
    :legacy-root-drain
    {:status :committed
     :tracked-invariant :moved-edn-only}
    :west-manifest
    {:status :exact-revisions-pinned
-    :superproject-revision "79c3fbf650733f29873874b0713087553418c196"
-    :root-pin "a4883515723e0bab095ec3c2abf5ea18ff90536d"
+    :superproject-revision "cbb7bf35137c662c26171019d1a90afae5135932"
+    :root-pin "1c5f8d96d26133fdf4d92a6b37158b46cabff1d5"
     :actor-pins
-    {"amime" "ef2bab003159a9014ab57ffad072376824ed8b3f"
-     "chie" "72bc5c1a39a0043795f2e83de901847fea060cdc"
-     "credits" "32b06687a95a1bf412539c6071b5ad82a204ba38"
-     "danjo" "5dcb2fe451b889bb7212ce4bbfbd36145a67b5c4"}}
-   :final-root-revision "86efa16a239445fb0955e2268291daeb2de9ee6a"
-   :final-superproject-revision "f1a2c8a27b5"
-   :pending-actions []
-   :note "All 168 completed entries satisfy standalone push, root tombstone, canonical ledger, and exact west revision gates. The subsequent six prepared actors are deliberately excluded from this completed count until their root and west commits are published."}
+    {"funadaiku" "0549b2e8db67b8015286e55b5796dec1641590a7"
+     "futawa" "13c2aca45f9e506f6b8526fb86b3870ecd9a7f0d"
+     "hagukumi" "939d6ed985ab5214cf9d104fe8a5973ca3b8b371"
+     "hikari" "8403b94f09fb7ab14d6004634798353e4ab55f27"
+     "himawari" "e932ea0504ef028d3072b579237b6abe859426b3"
+     "hinagata" "c4dbec97b491adbac5df78549fbd562ae2065412"}}
+   :pending-actions [:repin-final-adr-root-revision]
+   :note "All 174 completed entries satisfy standalone push, root tombstone, canonical ledger, and exact west revision gates. The final ADR-only root repin closes this integration transaction."}
 
   :migration/completed-actors
   ["abaki" "ainori" "apqc" "atsurae" "busshi" "com-google-ads" "denwaban"
@@ -413,14 +413,14 @@
    "shidemori" "shukubo" "soma" "sonae" "stripe-compat" "suimin" "suki"
    "sumitsubo" "tawami" "toi" "tsukuroi" "ugachi" "unspsc" "utsushie"
    "wakai" "yudane" "isco" "moushibumi" "talent" "chigiri" "himotoki"
-   "toritsugi" "hoshimori" "inochi" "kuni-umi" "kuni_umi" "fuchi" "hokorobi" "kaname" "asobi" "mimamori" "shiori" "tsugite" "watatsuna" "kabuto" "watari" "keizu" "hakoniwa" "kafun" "shirabe" "tanemaki" "tasuke" "rasen" "tatara" "tazuna" "tate" "tokigusuri" "torifune" "tedai" "tatekata" "tsubasa" "tsuchifumi" "tsukuru" "tsumugi" "tsutae" "uchiwake" "uzu" "wadachi" "warifu" "watatsumi" "yadori" "yakushi" "yamabiko" "todoke" "yotei" "yobel" "toritate" "tadori" "sukashi" "subaru" "suji" "shomei" "shinka" "shionome" "sarutahiko" "sanae" "ossekai" "ooyake" "omise" "organizer" "nyusatsu" "nusa" "noroshi" "niyaku" "moyoshi" "mizuho" "mitsuho" "mitooshi" "meyasu" "meisai" "manabi" "makura" "magatama" "kanae" "kanayama" "kanjo" "kakaku" "kamado" "karakuri" "kasa" "kawaraban" "kizashi" "kosatsu" "maps" "matsurigoto" "okaimono" "aburi" "akashi" "ake" "amime" "chie" "credits" "danjo"]
+   "toritsugi" "hoshimori" "inochi" "kuni-umi" "kuni_umi" "fuchi" "hokorobi" "kaname" "asobi" "mimamori" "shiori" "tsugite" "watatsuna" "kabuto" "watari" "keizu" "hakoniwa" "kafun" "shirabe" "tanemaki" "tasuke" "rasen" "tatara" "tazuna" "tate" "tokigusuri" "torifune" "tedai" "tatekata" "tsubasa" "tsuchifumi" "tsukuru" "tsumugi" "tsutae" "uchiwake" "uzu" "wadachi" "warifu" "watatsumi" "yadori" "yakushi" "yamabiko" "todoke" "yotei" "yobel" "toritate" "tadori" "sukashi" "subaru" "suji" "shomei" "shinka" "shionome" "sarutahiko" "sanae" "ossekai" "ooyake" "omise" "organizer" "nyusatsu" "nusa" "noroshi" "niyaku" "moyoshi" "mizuho" "mitsuho" "mitooshi" "meyasu" "meisai" "manabi" "makura" "magatama" "kanae" "kanayama" "kanjo" "kakaku" "kamado" "karakuri" "kasa" "kawaraban" "kizashi" "kosatsu" "maps" "matsurigoto" "okaimono" "aburi" "akashi" "ake" "amime" "chie" "credits" "danjo" "funadaiku" "futawa" "hagukumi" "hikari" "himawari" "hinagata"]
 
   :migration/remaining-actors
   ["_conformance" "ameno"
    "business-manager" "business_manager"
-   "etzhayyim-organism" "funadaiku" "funamori" "futawa"
-   "gov-municipality" "gov_municipality" "hagukumi" "hikari"
-   "himawari" "hinagata" "hodoki" "hotaru"
+   "etzhayyim-organism" "funamori"
+   "gov-municipality" "gov_municipality"
+   "hodoki" "hotaru"
    "ibuki" "infra-utility-connect" "infra_utility_connect" "iriai" "iryo"
    "itonami" "jinushi" "junkan" "kadode" "kaiyaku"
    "kotoba-actors-clj" "kotodama"
@@ -428,10 +428,7 @@
    "silicon"]
 
   :migration/remaining-classification
-  [{:class :prepared-root-drain
-    :actors ["funadaiku" "futawa" "hagukumi" "hikari" "himawari" "hinagata"]
-    :action :publish-root-commit-pin-actor-and-root-in-west-then-record-integration}
-   {:class :empty-consolidated-tooling-root
+  [{:class :empty-consolidated-tooling-root
     :actors ["_conformance"]
     :action :remove-after-confirming-70-tools-is-canonical-owner}
    {:class :existing-repository-overlap
@@ -450,8 +447,8 @@
    ]
 
   :migration/remaining-accounting
-  {:not-fully-integrated-total 30
-   :prepared-root-drain 6
+  {:not-fully-integrated-total 24
+   :prepared-root-drain 0
    :root-content-or-boundary-work-total 24
    :empty-consolidated-tooling-root 1
    :existing-repository-overlap 13
@@ -462,7 +459,7 @@
                               ["infra-utility-connect" "infra_utility_connect"]]
    :deprecated-language-audit {:go-files 0 :go-module-files 0 :tinygo-files 0}
    :follow-up-language-inventory {:python-files 21 :shell-wrapper-files 34}
-   :note "The three root-work classes total 30 legacy directories. The three byte-identical spelling pairs reduce 30 directories to 27 logical components before further boundary decisions."}
+   :note "The three root-work classes total 24 legacy directories. The three byte-identical spelling pairs reduce 24 directories to 21 logical components before further boundary decisions."}
 
   :migration/decisions
   [{:decision :preserve-flat-west-checkouts
