@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-18T03:39:44.763Z",
+  "generated": "2026-07-18T03:47:19.012Z",
   "lexicons": [
     {
       "id": "ai.etzhayyim.yorishiro.argparse-demo.main",
@@ -36452,36 +36452,6 @@
       "description": ""
     },
     {
-      "id": "com.etzhayyim.kabuto.publishIntelReport",
-      "path": "00-contracts/lexicons/com/etzhayyim/kabuto/publishIntelReport.json",
-      "type": "procedure",
-      "description": "Publish an AGGREGATE-FIRST supply-chain intel report derived by kabuto/methods/analyze.py. The report ranks supply concentration (single-source suppliers, sector/jurisdiction concentration) routed to "
-    },
-    {
-      "id": "com.etzhayyim.kabuto.publishSupplyChainViz",
-      "path": "00-contracts/lexicons/com/etzhayyim/kabuto/publishSupplyChainViz.json",
-      "type": "procedure",
-      "description": "Register a self-contained supply-chain VISUALIZATION artifact (browser-native: the in-browser kotoba-wasm node queries the Datom log and renders client-side, no server round-trip — ADR-2606013600). Th"
-    },
-    {
-      "id": "com.etzhayyim.kabuto.registerCompany",
-      "path": "00-contracts/lexicons/com/etzhayyim/kabuto/registerCompany.json",
-      "type": "procedure",
-      "description": "Assert a PUBLIC (exchange-listed) company into the kotoba Datom log (:company/* + optional :company.address/* + :company.contact/*). Public-record data only — name, ticker, exchange, LEI/ISIN, registe"
-    },
-    {
-      "id": "com.etzhayyim.kabuto.registerSupplyEdge",
-      "path": "00-contracts/lexicons/com/etzhayyim/kabuto/registerSupplyEdge.json",
-      "type": "procedure",
-      "description": "Assert a first-class SUPPLY edge (supplier → customer) into the kotoba Datom log (:supply.edge/*). Records a DISCLOSED public supplier relationship only (company filing / IR disclosure / press), with "
-    },
-    {
-      "id": "com.etzhayyim.kabuto.socialPost",
-      "path": "00-contracts/lexicons/com/etzhayyim/kabuto/socialPost.json",
-      "type": "procedure",
-      "description": "Compose and publish an atproto-compatible social post (app.bsky.feed.post shape) about a kabuto company or supply-chain intel finding, written into the kotoba Datom log via kotoba-server com.etzhayyim"
-    },
-    {
       "id": "com.etzhayyim.kadode.escalation",
       "path": "00-contracts/lexicons/com/etzhayyim/kadode/escalation.json",
       "type": "record",
@@ -40908,30 +40878,6 @@
       "path": "00-contracts/lexicons/com/etzhayyim/wakai/silenWakaiReview.json",
       "type": "record",
       "description": ""
-    },
-    {
-      "id": "com.etzhayyim.watari.recordFix",
-      "path": "00-contracts/lexicons/com/etzhayyim/watari/recordFix.json",
-      "type": "procedure",
-      "description": "Append a single POSITION FIX to a craft's append-only trail in the kotoba Datom log (:craft.fix/*). The latest fix per craft (max observedAt) IS its current position; the fix stream IS the trajectory "
-    },
-    {
-      "id": "com.etzhayyim.watari.recordLeg",
-      "path": "00-contracts/lexicons/com/etzhayyim/watari/recordLeg.json",
-      "type": "procedure",
-      "description": "Assert an observed/declared VOYAGE (ship) or FLIGHT (aircraft) leg into the kotoba Datom log (:craft.leg/*). Origin → destination mirror the public AIS-declared destination or scheduled flight plan on"
-    },
-    {
-      "id": "com.etzhayyim.watari.registerCraft",
-      "path": "00-contracts/lexicons/com/etzhayyim/watari/registerCraft.json",
-      "type": "procedure",
-      "description": "Assert a MOVING craft's stable identity into the kotoba Datom log (:craft/*). Public, commercial, transponder-broadcasting craft only — ships (AIS/MMSI/IMO) and scheduled aircraft (ADS-B/ICAO24). koto"
-    },
-    {
-      "id": "com.etzhayyim.watari.registerLane",
-      "path": "00-contracts/lexicons/com/etzhayyim/watari/registerLane.json",
-      "type": "procedure",
-      "description": "Assert a named sea-lane / air-corridor / chokepoint / approach (the density-aggregation unit) into the kotoba Datom log (:lane/*). The chokepoint keyword is shared with watatsuna :station/chokepoint ("
     },
     {
       "id": "com.etzhayyim.watatsumi.pressureHullAttestation",
@@ -50166,13 +50112,6 @@
       "com.etzhayyim.junkan.silenJunkanReview",
       "com.etzhayyim.junkan.societalStockObservation"
     ],
-    "com.etzhayyim.kabuto": [
-      "com.etzhayyim.kabuto.publishIntelReport",
-      "com.etzhayyim.kabuto.publishSupplyChainViz",
-      "com.etzhayyim.kabuto.registerCompany",
-      "com.etzhayyim.kabuto.registerSupplyEdge",
-      "com.etzhayyim.kabuto.socialPost"
-    ],
     "com.etzhayyim.kadode": [
       "com.etzhayyim.kadode.escalation",
       "com.etzhayyim.kadode.resignationRelay"
@@ -50719,12 +50658,6 @@
       "com.etzhayyim.wakai.publicFundBackstopRequest",
       "com.etzhayyim.wakai.silenWakaiReview"
     ],
-    "com.etzhayyim.watari": [
-      "com.etzhayyim.watari.recordFix",
-      "com.etzhayyim.watari.recordLeg",
-      "com.etzhayyim.watari.registerCraft",
-      "com.etzhayyim.watari.registerLane"
-    ],
     "com.etzhayyim.watatsumi": [
       "com.etzhayyim.watatsumi.pressureHullAttestation",
       "com.etzhayyim.watatsumi.pressureTestRecord",
@@ -50848,6 +50781,6 @@
       "tools.ozone.verification.revokeVerifications"
     ]
   },
-  "total": 6922,
+  "total": 6913,
   "legacy_issues_count": 8
 }

@@ -24,7 +24,7 @@
       "2606272355"
     ],
     "primaryLexicon": "com.etzhayyim.keizu.relationEdge",
-    "primarySchema": "00-contracts/schemas/government-relations-ontology.kotoba.edn",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-keizu/schema/government-relations-ontology.kotoba.edn",
     "didDocument": "https://etzhayyim.com/actor/keizu/did.json",
     "source": "kotoba"
   }

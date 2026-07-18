@@ -248,7 +248,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     glyph: "渡り",
     displayName: "Watari — World Live Moving-Craft (Ship + Aircraft) Knowledge Graph",
     primaryLexicon: "com.etzhayyim.watari",
-    primarySchema: "00-contracts/schemas/moving-craft-ontology.kotoba.edn",
+    primarySchema: "orgs/etzhayyim/com-etzhayyim-watari/schema.edn",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:watari#atproto_pds",

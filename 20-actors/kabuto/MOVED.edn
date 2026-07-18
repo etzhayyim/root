@@ -1,0 +1,5 @@
+{:migration/status :moved
+ :migration/repository "https://github.com/etzhayyim/com-etzhayyim-kabuto"
+ :migration/west-path "orgs/etzhayyim/com-etzhayyim-kabuto"
+ :migration/revision "e925a2bd03ab0fb2f344c40fba01373a7dad96b7"
+ :migration/canonical-format :edn}

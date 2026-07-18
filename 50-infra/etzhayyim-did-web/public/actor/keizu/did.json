@@ -36,7 +36,7 @@
     "wasmCid": null,
     "execModel": "service",
     "primaryLexicon": "com.etzhayyim.keizu.relationEdge",
-    "primarySchema": "00-contracts/schemas/government-relations-ontology.kotoba.edn",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-keizu/schema/government-relations-ontology.kotoba.edn",
     "note": "verificationMethod empty — on-chain ERC725 mirror pending; did:web trust root = TLS (no server-minted key, ADR-2605231525)"
   }
 }

@@ -37,7 +37,7 @@ const NAMESPACES = [
   {
     ns: "corp",
     sources: [
-      { file: "20-actors/kabuto/data/companies.merged.kotoba.edn" },
+      { file: "orgs/etzhayyim/com-etzhayyim-kabuto/data/companies.merged.kotoba.edn" },
       { file: "20-actors/tsumugi/data/seed-power-graph.kotoba.edn" },
     ],
     // corp unifies kabuto :company/* + tsumugi :organism/* (both org.corp.*)
@@ -61,7 +61,7 @@ const NAMESPACES = [
   },
   {
     ns: "craft",
-    sources: [{ file: "20-actors/watari/data/seed-craft-graph.kotoba.edn" }],
+    sources: [{ file: "orgs/etzhayyim/com-etzhayyim-watari/data/seed-craft-graph.kotoba.edn" }],
     idKey: ":craft/id",
     nameKey: ":craft/name",
     idStrip: "",

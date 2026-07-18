@@ -33,33 +33,29 @@
 
   :migration/progress
   {:baseline-actor-directories 198
-   :moved-tombstones 89
-   :remaining-root-directories 109
-   :completion-percent 44.95
+   :moved-tombstones 93
+   :remaining-root-directories 105
+   :completion-percent 46.97
    :canonical-ledger "MULTIREPO-MIGRATION.edn"
    :integration-base-root-revision "1ce8a65a8fe5b68aa5fda43004bf2bc14a5e13e7"
    :integration-base-west-revision "5d33ded7fdd"
    :latest-batch
-   [{:actor "asobi"
-     :repository "https://github.com/etzhayyim/com-etzhayyim-asobi"
-     :revision "102d45fab2e4eefeea9603e58fe78b10624b59ec"
-     :verification {:tests 39 :assertions 256}}
-    {:actor "mimamori"
-     :repository "https://github.com/etzhayyim/com-etzhayyim-mimamori"
-     :revision "b13639f2922ede3022c7c975ecbf9645b1796a74"
-     :verification {:tests 50 :assertions 239}}
-    {:actor "shiori"
-     :repository "https://github.com/etzhayyim/com-etzhayyim-shiori"
-     :revision "3a748d4e915e411993e57bf51dfd48f06336a2ac"
-     :verification {:tests 34 :assertions 761}}
-    {:actor "tsugite"
-     :repository "https://github.com/etzhayyim/com-etzhayyim-tsugite"
-     :revision "1eacf06717cda49dbd7cc3f0af96ca878aebdc52"
-     :verification {:tests 38 :assertions 578}}
-    {:actor "watatsuna"
-     :repository "https://github.com/etzhayyim/com-etzhayyim-watatsuna"
-     :revision "c0a34866551b998d9e143bb59e9e902ea0630f77"
-     :verification {:tests 58 :assertions 217}}]}
+   [{:actor "hakoniwa"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-hakoniwa"
+     :revision "e77f26859fd1a43ecd06ac0582a6b1f5211583f1"
+     :verification {:tests 45 :assertions 313}}
+    {:actor "kabuto"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-kabuto"
+     :revision "e925a2bd03ab0fb2f344c40fba01373a7dad96b7"
+     :verification {:tests 63 :assertions 300}}
+    {:actor "keizu"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-keizu"
+     :revision "da2dc491f00117f6b9ee2dd6c78392d440996a33"
+     :verification {:tests 221 :assertions 1071}}
+    {:actor "watari"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-watari"
+     :revision "33e927c5fe47d93a75d5cd189b17a87e25d6031e"
+     :verification {:tests 44 :assertions 1179}}]}
 
   :migration/completed-actors
   ["abaki" "ainori" "apqc" "atsurae" "busshi" "com-google-ads" "denwaban"
@@ -74,18 +70,18 @@
    "shidemori" "shukubo" "soma" "sonae" "stripe-compat" "suimin" "suki"
    "sumitsubo" "tawami" "toi" "tsukuroi" "ugachi" "unspsc" "utsushie"
    "wakai" "yudane" "isco" "moushibumi" "talent" "chigiri" "himotoki"
-   "toritsugi" "hoshimori" "inochi" "kuni-umi" "kuni_umi" "fuchi" "hokorobi" "kaname" "asobi" "mimamori" "shiori" "tsugite" "watatsuna"]
+   "toritsugi" "hoshimori" "inochi" "kuni-umi" "kuni_umi" "fuchi" "hokorobi" "kaname" "asobi" "mimamori" "shiori" "tsugite" "watatsuna" "kabuto" "watari" "keizu" "hakoniwa"]
 
   :migration/remaining-actors
   ["_conformance" "aburi" "akashi" "ake" "ameno" "amime"
    "business-manager" "business_manager" "chie" "credits" "danjo"
    "etzhayyim-organism" "funadaiku" "funamori" "futawa"
-   "gov-municipality" "gov_municipality" "hagukumi" "hakoniwa" "hikari"
+   "gov-municipality" "gov_municipality" "hagukumi" "hikari"
    "himawari" "hinagata" "hodoki" "hotaru"
    "ibuki" "infra-utility-connect" "infra_utility_connect" "iriai" "iryo"
-   "itonami" "jinushi" "junkan" "kabuto" "kadode" "kafun" "kaiyaku"
+   "itonami" "jinushi" "junkan" "kadode" "kafun" "kaiyaku"
    "kakaku" "kamado" "kanae" "kanayama" "kanjo" "karakuri" "kasa"
-   "kawaraban" "keizu" "kizashi" "kosatsu" "kotoba-actors-clj" "kotodama"
+   "kawaraban" "kizashi" "kosatsu" "kotoba-actors-clj" "kotodama"
    "magatama" "makura" "manabi" "maps" "matsurigoto"
    "meisai" "meyasu" "mitooshi" "mitsuho" "mizuho"
    "moyoshi" "mst-projector" "niyaku" "noroshi" "nusa" "nyusatsu" "okaimono"
@@ -94,7 +90,7 @@
    "sukashi" "tadori" "tanemaki" "tasuke" "tatara" "tate" "tatekata"
    "tazuna" "tedai" "todoke" "tokigusuri" "torifune" "toritate"
    "tsubasa" "tsuchifumi" "tsukuru" "tsumugi" "tsutae" "uchiwake"
-   "uzu" "wadachi" "warifu" "watari" "watatsumi" "yadori"
+   "uzu" "wadachi" "warifu" "watatsumi" "yadori"
    "yakushi" "yamabiko" "yobel" "yotei"]
 
   :migration/remaining-classification

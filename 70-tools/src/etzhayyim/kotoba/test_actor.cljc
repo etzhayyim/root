@@ -58,14 +58,14 @@
     :seed (actor-path "ETZHAYYIM_TSUGITE_ROOT" "com-etzhayyim-tsugite" "data/seed-peoples-graph.kotoba.edn") :id-key :organism/id}
    {:actor "shiori"    :schema (actor-path "ETZHAYYIM_SHIORI_ROOT" "com-etzhayyim-shiori" "schema/wellbecoming-ontology.edn")
     :seed (actor-path "ETZHAYYIM_SHIORI_ROOT" "com-etzhayyim-shiori" "data/seed-wellbecoming-graph.kotoba.edn") :id-key :organism/id}
-   {:actor "keizu"     :schema "00-contracts/schemas/government-relations-ontology.kotoba.edn"
-    :seed "20-actors/keizu/data/seed-relation-graph.kotoba.edn" :id-key :node/id
+   {:actor "keizu"     :schema (actor-path "ETZHAYYIM_KEIZU_ROOT" "com-etzhayyim-keizu" "schema/government-relations-ontology.kotoba.edn")
+    :seed (actor-path "ETZHAYYIM_KEIZU_ROOT" "com-etzhayyim-keizu" "data/seed-relation-graph.kotoba.edn") :id-key :node/id
     :sections [:nodes :committees :rels :money :statements]}
    ;; typed (Datomic-style) schemas — value/enum checks run for real here:
    {:actor "watatsuna" :schema "00-contracts/schemas/submarine-cable-ontology.kotoba.edn"
     :seed (actor-path "ETZHAYYIM_WATATSUNA_ROOT" "com-etzhayyim-watatsuna" "data/seed-cable-graph.kotoba.edn") :id-key :cable/id}
    {:actor "kabuto"    :schema "00-contracts/schemas/public-company-ontology.kotoba.edn"
-    :seed "20-actors/kabuto/data/seed-public-companies.kotoba.edn" :id-key :company/id}])
+    :seed (actor-path "ETZHAYYIM_KABUTO_ROOT" "com-etzhayyim-kabuto" "data/seed-public-companies.kotoba.edn") :id-key :company/id}])
 
 (defn- entity-maps [seed sections]
   (if sections (mapcat seed sections) (filter map? seed)))
@@ -200,8 +200,8 @@
       (is (= 1 (count (schema/value-violations registry [{:x/scope :z}])))))))
 
 ;; ── capstone: real typed-actor data through the FULL validation engine ──
-(def ^:private keizu-schema "00-contracts/schemas/government-relations-ontology.kotoba.edn")
-(def ^:private keizu-seed "20-actors/keizu/data/seed-relation-graph.kotoba.edn")
+(def ^:private keizu-schema "orgs/etzhayyim/com-etzhayyim-keizu/schema/government-relations-ontology.kotoba.edn")
+(def ^:private keizu-seed "orgs/etzhayyim/com-etzhayyim-keizu/data/seed-relation-graph.kotoba.edn")
 
 (defn- with-db-id [m]
   (if-let [idk (some #(when (= "id" (name %)) %) (keys m))]
@@ -331,7 +331,8 @@
             (is (< 1 (graph/component-count edges)))))
         (finally (io/delete-file tmp true))))))
 
-(def ^:private kabuto-seed "20-actors/kabuto/data/seed-public-companies.kotoba.edn")
+(def ^:private kabuto-seed
+  (actor-path "ETZHAYYIM_KABUTO_ROOT" "com-etzhayyim-kabuto" "data/seed-public-companies.kotoba.edn"))
 
 (deftest kabuto-supply-concentration-at-scale
   ;; kabuto 兜 (ADR-2606022000, 🟡 R0) public-company supply-chain KG — the

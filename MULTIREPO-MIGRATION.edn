@@ -1350,6 +1350,28 @@
      :verification {:tests 39 :assertions 256 :failures 0 :errors 0
                     :jvm {:tests 13 :assertions 44}}
      :root-copy :edn-tombstone-only}
+    "kabuto"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kabuto"
+     :revision "e925a2bd03ab0fb2f344c40fba01373a7dad96b7"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kabuto"
+     :canonical-format :edn
+     :verification {:tests 63 :assertions 300 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "hakoniwa"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-hakoniwa"
+     :revision "e77f26859fd1a43ecd06ac0582a6b1f5211583f1"
+     :west-path "orgs/etzhayyim/com-etzhayyim-hakoniwa"
+     :canonical-format :edn
+     :verification {:tests 45 :assertions 313 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "keizu"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-keizu"
+     :revision "da2dc491f00117f6b9ee2dd6c78392d440996a33"
+     :west-path "orgs/etzhayyim/com-etzhayyim-keizu"
+     :canonical-format :edn
+     :verification {:tests 221 :assertions 1071 :failures 0 :errors 0
+                    :jvm {:tests 13 :assertions 137}}
+     :root-copy :edn-tombstone-only}
     "shiori"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-shiori"
      :revision "3a748d4e915e411993e57bf51dfd48f06336a2ac"
@@ -1370,6 +1392,13 @@
      :west-path "orgs/etzhayyim/com-etzhayyim-watatsuna"
      :canonical-format :edn
      :verification {:tests 58 :assertions 217 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "watari"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-watari"
+     :revision "33e927c5fe47d93a75d5cd189b17a87e25d6031e"
+     :west-path "orgs/etzhayyim/com-etzhayyim-watari"
+     :canonical-format :edn
+     :verification {:tests 44 :assertions 1179 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
     "fuchi"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-fuchi"
@@ -1533,8 +1562,8 @@
   [{:class :legacy-actor-root-directories
     :snapshot-date "2026-07-18"
     :baseline 198
-    :moved 89
-    :remaining 109
+    :moved 93
+    :remaining 105
     :inventory "90-docs/adr/2607181200-flat-west-actor-migration-progress-and-remaining.edn"}
    {:class :existing-repo-overlap
     :state :merge-root-only-content-before-delete}

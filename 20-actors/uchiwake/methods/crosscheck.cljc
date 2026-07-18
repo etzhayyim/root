@@ -175,7 +175,7 @@
               "> Measured (not claimed) integration of the uchiwake product graph into kabuto's"
               "> ingested company universe. Unresolved = \"not yet ingested in kabuto\", not \"nonexistent\" (G5).\n"])]
     (if-not (get s "kabuto_available")
-      (do (conj! out "kabuto seed not found — cannot crosscheck. (expected at 20-actors/kabuto/data/)")
+      (do (conj! out "kabuto seed not found — cannot crosscheck. (expected at orgs/etzhayyim/com-etzhayyim-kabuto/data/)")
           (str (str/join "\n" (persistent! out)) "\n"))
       (do
         (conj! out (str "- kabuto ingested companies: **" (get s "kabuto_company_count") "**"))
