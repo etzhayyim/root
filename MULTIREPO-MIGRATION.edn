@@ -1744,6 +1744,34 @@
      :wire-artifacts {}
      :verification {:tests 53 :assertions 331 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
+    "moyoshi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-moyoshi"
+     :revision "a0c3c79f1d2b0b1830f0e25d3b89e31427c2a03e"
+     :west-path "orgs/etzhayyim/com-etzhayyim-moyoshi"
+     :canonical-format :edn
+     :canonical-edn-files 11
+     :wire-artifacts {}
+     :verification {:tests 23 :assertions 76 :failures 0 :errors 0
+                    :runners [:babashka :jvm]}
+     :root-copy :edn-tombstone-only}
+    "mizuho"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-mizuho"
+     :revision "f3828a9bf1580994ebf3f50f991ef89816109ea6"
+     :west-path "orgs/etzhayyim/com-etzhayyim-mizuho"
+     :canonical-format :edn
+     :canonical-edn-files 8
+     :wire-artifacts {:json-and-json-ld 6}
+     :verification {:tests 39 :assertions 181 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "mitsuho"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-mitsuho"
+     :revision "dc3ddeb7ffd6f1d321c3ed58d83dcf3b8f42fde3"
+     :west-path "orgs/etzhayyim/com-etzhayyim-mitsuho"
+     :canonical-format :edn
+     :canonical-edn-files 22
+     :wire-artifacts {:json-and-json-ld 6}
+     :verification {:tests 31 :assertions 161 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "tate"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-tate"
      :revision "658b9f67aaa65d7aad5ffda280ec8feaae7a8bc2"
@@ -1948,8 +1976,8 @@
   [{:class :legacy-actor-root-directories
     :snapshot-date "2026-07-18"
     :baseline 198
-    :moved 139
-    :remaining 59
+    :moved 142
+    :remaining 56
     :inventory "90-docs/adr/2607181200-flat-west-actor-migration-progress-and-remaining.edn"}
    {:class :existing-repo-overlap
     :state :merge-root-only-content-before-delete}

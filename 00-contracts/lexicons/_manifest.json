@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-18T06:39:34.552Z",
+  "generated": "2026-07-18T06:49:48.301Z",
   "lexicons": [
     {
       "id": "ai.etzhayyim.yorishiro.argparse-demo.main",
@@ -37730,66 +37730,6 @@
       "description": ""
     },
     {
-      "id": "com.etzhayyim.mitsuho.cropPlanAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/mitsuho/cropPlanAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.mitsuho.foodLotAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/mitsuho/foodLotAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.mitsuho.harvestAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/mitsuho/harvestAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.mitsuho.parcelAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/mitsuho/parcelAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.mitsuho.silenAgricultureReview",
-      "path": "00-contracts/lexicons/com/etzhayyim/mitsuho/silenAgricultureReview.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.mizuho.silenMizuhoReview",
-      "path": "00-contracts/lexicons/com/etzhayyim/mizuho/silenMizuhoReview.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.mizuho.wastewaterDischargeAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/mizuho/wastewaterDischargeAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.mizuho.waterContaminationIncident",
-      "path": "00-contracts/lexicons/com/etzhayyim/mizuho/waterContaminationIncident.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.mizuho.waterQualityAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/mizuho/waterQualityAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.mizuho.waterSupplySourceRegistry",
-      "path": "00-contracts/lexicons/com/etzhayyim/mizuho/waterSupplySourceRegistry.json",
-      "type": "record",
-      "description": ""
-    },
-    {
       "id": "com.etzhayyim.moyai.contributionAttestation",
       "path": "00-contracts/lexicons/com/etzhayyim/moyai/contributionAttestation.json",
       "type": "record",
@@ -48787,20 +48727,6 @@
       "com.etzhayyim.mitooshi.seriesObservation",
       "com.etzhayyim.mitooshi.silenMitooshiReview"
     ],
-    "com.etzhayyim.mitsuho": [
-      "com.etzhayyim.mitsuho.cropPlanAttestation",
-      "com.etzhayyim.mitsuho.foodLotAttestation",
-      "com.etzhayyim.mitsuho.harvestAttestation",
-      "com.etzhayyim.mitsuho.parcelAttestation",
-      "com.etzhayyim.mitsuho.silenAgricultureReview"
-    ],
-    "com.etzhayyim.mizuho": [
-      "com.etzhayyim.mizuho.silenMizuhoReview",
-      "com.etzhayyim.mizuho.wastewaterDischargeAttestation",
-      "com.etzhayyim.mizuho.waterContaminationIncident",
-      "com.etzhayyim.mizuho.waterQualityAttestation",
-      "com.etzhayyim.mizuho.waterSupplySourceRegistry"
-    ],
     "com.etzhayyim.moyai": [
       "com.etzhayyim.moyai.contributionAttestation",
       "com.etzhayyim.moyai.drawReceipt"
@@ -49062,6 +48988,6 @@
       "tools.ozone.verification.revokeVerifications"
     ]
   },
-  "total": 6680,
+  "total": 6670,
   "legacy_issues_count": 8
 }

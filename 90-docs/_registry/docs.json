@@ -12035,7 +12035,7 @@
         "R0..R3 phased roadmap (R0 charter / R1 single-unit field PoC / R2 fleet ≤5 unit / R3 community-scale ≤30 unit)"
       ],
       "related": [
-        "20-actors/mitsuho/manifest.jsonld",
+        "orgs/etzhayyim/com-etzhayyim-mitsuho/manifest.jsonld",
         "20-actors/suki/manifest.jsonld",
         "70-tools/e7m-sim/scenes/kusawake/"
       ],
@@ -23454,7 +23454,7 @@
       "topic": "moyoshi-actor-convening-social-capital",
       "authoritative": true,
       "authoritative_for": [
-        "20-actors/moyoshi"
+        "orgs/etzhayyim/com-etzhayyim-moyoshi"
       ],
       "related": [
         "SOCIAL-CAPITAL-LEDGER (kotoba/docs)",
