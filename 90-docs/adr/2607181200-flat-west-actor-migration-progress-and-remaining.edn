@@ -280,17 +280,18 @@
      :verification {:tests 31 :assertions 161}}]}
 
   :migration/integration-state
-  {:snapshot-kind :root-prepared-west-pin-pending
+  {:snapshot-kind :integrated
    :standalone-repositories
    {:status :pushed
     :actors ["moyoshi" "mizuho" "mitsuho"]}
    :legacy-root-drain
-   {:status :prepared
+   {:status :committed
     :tracked-invariant :moved-edn-only}
    :west-manifest
-   {:status :pending-pin-update
+   {:status :exact-revisions-pinned
+    :superproject-revision "12b1c3197d740a21ebaece7ca9b9c729cf4749e2"
     :actors ["moyoshi" "mizuho" "mitsuho"]}
-   :note "The 142-entry inventory includes the prepared latest root drain; west exact revision pinning is pending for the latest three actors."}
+   :note "The 142 completed entries satisfy the standalone repository, root tombstone, canonical ledger, and exact west revision gates represented by this snapshot."}
 
   :migration/completed-actors
   ["abaki" "ainori" "apqc" "atsurae" "busshi" "com-google-ads" "denwaban"
