@@ -19295,30 +19295,6 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2606072002-kasa-world-computing-capacity-growth-statistics-observatory-r0.edn",
-      "id": "adr-2606072002-kasa-world-computing-capacity-growth-statistics-observatory-r0",
-      "title": "ADR-2606072002: kasa 嵩 — Worldwide Computing-Capacity Growth Statistics Observatory (Tier-B Actor R0)",
-      "status": "proposed",
-      "doc_type": "adr",
-      "topic": "kasa-computing-capacity-growth-observatory",
-      "authoritative": true,
-      "authoritative_for": [
-        "computing-capacity-growth-observatory-actor",
-        "compute-capacity-eavt-vocabulary",
-        "public-compute-source-admissibility-map"
-      ],
-      "related": [
-        "2606013800",
-        "2606013600",
-        "2605242500"
-      ],
-      "last_verified": "2026-06-07",
-      "supersedes": [],
-      "superseded_by": [],
-      "amends": [],
-      "amended_by": []
-    },
-    {
       "path": "90-docs/adr/2606072003-kosatsu-crime-sanctions-competing-claim-observatory-r0.edn",
       "id": "adr-2606072003-kosatsu-crime-sanctions-competing-claim-observatory-r0",
       "title": "kosatsu 高札 — crime/sanctions competing-claim observatory (Tier-B actor R0; designation-as-attributed-event over the kotoba Datom log; the politically-neutral, asserter-relative inverse of a sanctions-screening product)",
@@ -21853,7 +21829,7 @@
         "90-docs/adr/2605140740-yoro-gemma-e4b-social-translation-mcp.edn",
         "90-docs/adr/2605220000-shinshi-tiktok-video-pipeline.edn",
         "90-docs/adr/2604231328-animeka-bpmn-l40s-pipeline.edn",
-        "20-actors/kawaraban/",
+        "orgs/etzhayyim/com-etzhayyim-kawaraban/",
         "20-actors/i18n/",
         "20-actors/kataribe/",
         "40-engine/kotoba/crates/kotoba-kotodama/cells/feed_post/",

@@ -33,9 +33,9 @@
 
   :migration/progress
   {:baseline-actor-directories 198
-   :moved-tombstones 154
-   :remaining-root-directories 44
-   :completion-percent 77.78
+   :moved-tombstones 157
+   :remaining-root-directories 41
+   :completion-percent 79.29
    :canonical-ledger "MULTIREPO-MIGRATION.edn"
    :integration-base-root-revision "1ce8a65a8fe5b68aa5fda43004bf2bc14a5e13e7"
    :integration-base-west-revision "5d33ded7fdd"
@@ -289,11 +289,14 @@
     {:actor "kanjo" :repository "https://github.com/etzhayyim/com-etzhayyim-kanjo" :revision "e0f5b760193e61d84410b6beece9468d29ba0d69" :canonical-edn-files 22 :wire-artifacts {:json-and-json-ld 9} :verification {:tests 55 :assertions 248 :full-data-stress :resource-terminated}}
     {:actor "kakaku" :repository "https://github.com/etzhayyim/com-etzhayyim-kakaku" :revision "90ce45afc5be766339579a21cc6d9e80886d46a4" :canonical-edn-files 41 :wire-artifacts {:json 19 :bpmn-xml 3 :html 2} :verification {:tests 63 :assertions 309 :jvm {:tests 9 :assertions 174}}}
     {:actor "kamado" :repository "https://github.com/etzhayyim/com-etzhayyim-kamado" :revision "b4476a2c512843fb470c084572ac819542bc556b" :canonical-edn-files 19 :wire-artifacts {:json-and-json-ld 8} :verification {:tests 78 :assertions 244}}
-    {:actor "karakuri" :repository "https://github.com/etzhayyim/com-etzhayyim-karakuri" :revision "f878f8b7ecd0340503436010d0b718fe5306caf0" :canonical-edn-files 20 :wire-artifacts {} :verification {:tests 106 :assertions 251}}]}
+    {:actor "karakuri" :repository "https://github.com/etzhayyim/com-etzhayyim-karakuri" :revision "f878f8b7ecd0340503436010d0b718fe5306caf0" :canonical-edn-files 20 :wire-artifacts {} :verification {:tests 106 :assertions 251}}
+    {:actor "kasa" :repository "https://github.com/etzhayyim/com-etzhayyim-kasa" :revision "c7c791351d1590aece8f9bccaf97d60f180ce6a7" :canonical-edn-files 17 :wire-artifacts {:json 6} :verification {:tests 48 :assertions 511 :jvm {:tests 9 :assertions 57}}}
+    {:actor "kawaraban" :repository "https://github.com/etzhayyim/com-etzhayyim-kawaraban" :revision "d515cca0face45392bd2c7d5414201add1eb0386" :canonical-edn-files 20 :wire-artifacts {:total 9} :verification {:tests 89 :assertions 207}}
+    {:actor "kizashi" :repository "https://github.com/etzhayyim/com-etzhayyim-kizashi" :revision "015a0b0b6918926b5018881bd1859d18169f88f2" :canonical-edn-files 13 :wire-artifacts {:json-and-json-ld 10} :verification {:tests 9 :assertions 56} :excluded-user-wip :uncommitted-murakumo-scaffold}]}
 
   :migration/summary
   {:outcome
-   "The former monorepo actor layer is being drained without changing west's flat checkout convention. 154 of the 198 baseline directories are fully integrated: their implementation and actor-owned contracts live in independently versioned com-etzhayyim-* repositories, west pins exact revisions, and the corresponding 20-actors directory is a MOVED.edn tombstone only."
+   "The former monorepo actor layer is being drained without changing west's flat checkout convention. 157 of the 198 baseline directories are extracted into independently versioned com-etzhayyim-* repositories; the current batch is awaiting root and west integration."
    :repository-boundary
    {:superproject "com-junkawasaki/root owns west.yml and exact repository pins."
     :root "com-etzhayyim/root owns cross-repository policy, migration ledger, ADRs, generators, and legacy tombstones."
@@ -332,29 +335,29 @@
    "A completed count means repository extraction and west integration are finished, not that every historical test or generator defect has been repaired. Known gaps are recorded explicitly and must not be hidden by the migration count."}
 
   :migration/current-work
-  {:status :integrated
-   :actors ["kakaku" "kamado" "karakuri"]
+  {:status :root-and-west-integration
+   :actors ["kasa" "kawaraban" "kizashi"]
    :completed-standalone
-   [{:actor "kakaku" :revision "90ce45afc5be766339579a21cc6d9e80886d46a4" :verification {:tests 63 :assertions 309 :edn-files 41}}
-    {:actor "kamado" :revision "b4476a2c512843fb470c084572ac819542bc556b" :verification {:tests 78 :assertions 244 :edn-files 19}}
-    {:actor "karakuri" :revision "f878f8b7ecd0340503436010d0b718fe5306caf0" :verification {:tests 106 :assertions 251 :edn-files 20}}]
+   [{:actor "kasa" :revision "c7c791351d1590aece8f9bccaf97d60f180ce6a7" :verification {:tests 48 :assertions 511 :edn-files 17}}
+    {:actor "kawaraban" :revision "d515cca0face45392bd2c7d5414201add1eb0386" :verification {:tests 89 :assertions 207 :edn-files 20}}
+    {:actor "kizashi" :revision "015a0b0b6918926b5018881bd1859d18169f88f2" :verification {:tests 9 :assertions 56 :edn-files 13}}]
    :counting-rule "These actors remain in remaining-actors until their standalone revisions, root tombstones, ledger update, and west pins are all integrated."
    :batch-result
-   {:moved-tombstones 154
-    :remaining-root-directories 44
-    :completion-percent 77.78}}
+   {:moved-tombstones 157
+    :remaining-root-directories 41
+    :completion-percent 79.29}}
 
   :migration/integration-state
-  {:snapshot-kind :integrated
+  {:snapshot-kind :integration-pending
    :standalone-repositories
    {:status :pushed
-    :actors ["kakaku" "kamado" "karakuri"]}
+    :actors ["kasa" "kawaraban" "kizashi"]}
    :legacy-root-drain
-   {:status :committed
+   {:status :prepared
     :tracked-invariant :moved-edn-only}
    :west-manifest
-   {:status :exact-revisions-pinned :superproject-revision "394dc4a4faaa492cfe64beb45e350fe0e629604f" :actors ["kakaku" "kamado" "karakuri"]}
-   :note "The 154 completed entries satisfy the standalone repository, root tombstone, canonical ledger, and exact west revision gates represented by this snapshot."}
+   {:status :pending :actors ["kasa" "kawaraban" "kizashi"]}
+   :note "Standalone extraction and root drain are prepared for 157 entries; west exact-revision integration is pending for the current batch."}
 
   :migration/completed-actors
   ["abaki" "ainori" "apqc" "atsurae" "busshi" "com-google-ads" "denwaban"
@@ -369,7 +372,7 @@
    "shidemori" "shukubo" "soma" "sonae" "stripe-compat" "suimin" "suki"
    "sumitsubo" "tawami" "toi" "tsukuroi" "ugachi" "unspsc" "utsushie"
    "wakai" "yudane" "isco" "moushibumi" "talent" "chigiri" "himotoki"
-   "toritsugi" "hoshimori" "inochi" "kuni-umi" "kuni_umi" "fuchi" "hokorobi" "kaname" "asobi" "mimamori" "shiori" "tsugite" "watatsuna" "kabuto" "watari" "keizu" "hakoniwa" "kafun" "shirabe" "tanemaki" "tasuke" "rasen" "tatara" "tazuna" "tate" "tokigusuri" "torifune" "tedai" "tatekata" "tsubasa" "tsuchifumi" "tsukuru" "tsumugi" "tsutae" "uchiwake" "uzu" "wadachi" "warifu" "watatsumi" "yadori" "yakushi" "yamabiko" "todoke" "yotei" "yobel" "toritate" "tadori" "sukashi" "subaru" "suji" "shomei" "shinka" "shionome" "sarutahiko" "sanae" "ossekai" "ooyake" "omise" "organizer" "nyusatsu" "nusa" "noroshi" "niyaku" "moyoshi" "mizuho" "mitsuho" "mitooshi" "meyasu" "meisai" "manabi" "makura" "magatama" "kanae" "kanayama" "kanjo" "kakaku" "kamado" "karakuri"]
+   "toritsugi" "hoshimori" "inochi" "kuni-umi" "kuni_umi" "fuchi" "hokorobi" "kaname" "asobi" "mimamori" "shiori" "tsugite" "watatsuna" "kabuto" "watari" "keizu" "hakoniwa" "kafun" "shirabe" "tanemaki" "tasuke" "rasen" "tatara" "tazuna" "tate" "tokigusuri" "torifune" "tedai" "tatekata" "tsubasa" "tsuchifumi" "tsukuru" "tsumugi" "tsutae" "uchiwake" "uzu" "wadachi" "warifu" "watatsumi" "yadori" "yakushi" "yamabiko" "todoke" "yotei" "yobel" "toritate" "tadori" "sukashi" "subaru" "suji" "shomei" "shinka" "shionome" "sarutahiko" "sanae" "ossekai" "ooyake" "omise" "organizer" "nyusatsu" "nusa" "noroshi" "niyaku" "moyoshi" "mizuho" "mitsuho" "mitooshi" "meyasu" "meisai" "manabi" "makura" "magatama" "kanae" "kanayama" "kanjo" "kakaku" "kamado" "karakuri" "kasa" "kawaraban" "kizashi"]
 
   :migration/remaining-actors
   ["_conformance" "aburi" "akashi" "ake" "ameno" "amime"
@@ -379,8 +382,7 @@
    "himawari" "hinagata" "hodoki" "hotaru"
    "ibuki" "infra-utility-connect" "infra_utility_connect" "iriai" "iryo"
    "itonami" "jinushi" "junkan" "kadode" "kaiyaku"
-   "kasa"
-   "kawaraban" "kizashi" "kosatsu" "kotoba-actors-clj" "kotodama"
+   "kosatsu" "kotoba-actors-clj" "kotodama"
    "maps" "matsurigoto"
    "mst-projector" "okaimono"
    "silicon"]

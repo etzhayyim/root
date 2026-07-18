@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-18T07:51:24.696Z",
+  "generated": "2026-07-18T08:11:02.664Z",
   "lexicons": [
     {
       "id": "ai.etzhayyim.yorishiro.argparse-demo.main",
@@ -35708,30 +35708,6 @@
       "description": "SOAP progress note (FHIR R5 Composition with section type=SOAP). Inner type of com.etzhayyim.encrypted.record envelope."
     },
     {
-      "id": "com.etzhayyim.kasa.publishGrowthReport",
-      "path": "00-contracts/lexicons/com/etzhayyim/kasa/publishGrowthReport.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kasa.registerObservation",
-      "path": "00-contracts/lexicons/com/etzhayyim/kasa/registerObservation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kasa.registerSeries",
-      "path": "00-contracts/lexicons/com/etzhayyim/kasa/registerSeries.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kasa.registerSource",
-      "path": "00-contracts/lexicons/com/etzhayyim/kasa/registerSource.json",
-      "type": "record",
-      "description": ""
-    },
-    {
       "id": "com.etzhayyim.kataribe.communityChronicleAttestation",
       "path": "00-contracts/lexicons/com/etzhayyim/kataribe/communityChronicleAttestation.json",
       "type": "record",
@@ -35758,42 +35734,6 @@
     {
       "id": "com.etzhayyim.kataribe.whistleblowerReport",
       "path": "00-contracts/lexicons/com/etzhayyim/kataribe/whistleblowerReport.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kawaraban.article",
-      "path": "00-contracts/lexicons/com/etzhayyim/kawaraban/article.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kawaraban.issue",
-      "path": "00-contracts/lexicons/com/etzhayyim/kawaraban/issue.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kawaraban.kawarabanReview",
-      "path": "00-contracts/lexicons/com/etzhayyim/kawaraban/kawarabanReview.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kawaraban.mentionEdge",
-      "path": "00-contracts/lexicons/com/etzhayyim/kawaraban/mentionEdge.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kawaraban.outlet",
-      "path": "00-contracts/lexicons/com/etzhayyim/kawaraban/outlet.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kawaraban.section",
-      "path": "00-contracts/lexicons/com/etzhayyim/kawaraban/section.json",
       "type": "record",
       "description": ""
     },
@@ -36042,42 +35982,6 @@
       "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/kiyo/withdrawPaper.json",
       "type": "procedure",
       "description": "Withdraw a paper (sets status=withdrawn). Content remains on IPFS (content-addressed — immutable). Caller must be owner_did."
-    },
-    {
-      "id": "com.etzhayyim.kizashi.attributionReport",
-      "path": "00-contracts/lexicons/com/etzhayyim/kizashi/attributionReport.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kizashi.modalityCapability",
-      "path": "00-contracts/lexicons/com/etzhayyim/kizashi/modalityCapability.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kizashi.modalityObservation",
-      "path": "00-contracts/lexicons/com/etzhayyim/kizashi/modalityObservation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kizashi.scanSessionAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/kizashi/scanSessionAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kizashi.triageReferral",
-      "path": "00-contracts/lexicons/com/etzhayyim/kizashi/triageReferral.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kizashi.wellbecomingTrajectory",
-      "path": "00-contracts/lexicons/com/etzhayyim/kizashi/wellbecomingTrajectory.json",
-      "type": "record",
-      "description": ""
     },
     {
       "id": "com.etzhayyim.koke.fixSignal",
@@ -48119,26 +48023,12 @@
       "com.etzhayyim.karute.serviceRequest",
       "com.etzhayyim.karute.soapNote"
     ],
-    "com.etzhayyim.kasa": [
-      "com.etzhayyim.kasa.publishGrowthReport",
-      "com.etzhayyim.kasa.registerObservation",
-      "com.etzhayyim.kasa.registerSeries",
-      "com.etzhayyim.kasa.registerSource"
-    ],
     "com.etzhayyim.kataribe": [
       "com.etzhayyim.kataribe.communityChronicleAttestation",
       "com.etzhayyim.kataribe.doctrineCommentaryPublishing",
       "com.etzhayyim.kataribe.silenKataribeReview",
       "com.etzhayyim.kataribe.translationAttestation",
       "com.etzhayyim.kataribe.whistleblowerReport"
-    ],
-    "com.etzhayyim.kawaraban": [
-      "com.etzhayyim.kawaraban.article",
-      "com.etzhayyim.kawaraban.issue",
-      "com.etzhayyim.kawaraban.kawarabanReview",
-      "com.etzhayyim.kawaraban.mentionEdge",
-      "com.etzhayyim.kawaraban.outlet",
-      "com.etzhayyim.kawaraban.section"
     ],
     "com.etzhayyim.kawase": [
       "com.etzhayyim.kawase.depositAttestation",
@@ -48174,14 +48064,6 @@
       "com.etzhayyim.kg.edge",
       "com.etzhayyim.kg.node",
       "com.etzhayyim.kg.query"
-    ],
-    "com.etzhayyim.kizashi": [
-      "com.etzhayyim.kizashi.attributionReport",
-      "com.etzhayyim.kizashi.modalityCapability",
-      "com.etzhayyim.kizashi.modalityObservation",
-      "com.etzhayyim.kizashi.scanSessionAttestation",
-      "com.etzhayyim.kizashi.triageReferral",
-      "com.etzhayyim.kizashi.wellbecomingTrajectory"
     ],
     "com.etzhayyim.kokoro": [
       "com.etzhayyim.kokoro.acuteCrisisEscalationLog",
@@ -48559,6 +48441,6 @@
       "tools.ozone.verification.revokeVerifications"
     ]
   },
-  "total": 6611,
+  "total": 6595,
   "legacy_issues_count": 8
 }

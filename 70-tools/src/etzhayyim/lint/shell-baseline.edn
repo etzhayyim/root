@@ -56,8 +56,6 @@
  "orgs/etzhayyim/com-etzhayyim-kanae/wasm/build.sh"
  "orgs/etzhayyim/com-etzhayyim-kanayama/kotoba/deploy.sh"
  "orgs/etzhayyim/com-etzhayyim-kanayama/run_tests.sh"
- "20-actors/kawaraban/run_tests.sh"
- "20-actors/kizashi/run_tests.sh"
  "20-actors/kosatsu/run_tests.sh"
  "20-actors/kotoba-actors-clj/run_tests.sh"
  "20-actors/lpddr_mobile-compat/run_tests.sh"

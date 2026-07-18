@@ -1796,6 +1796,12 @@
     {:repository "https://github.com/etzhayyim/com-etzhayyim-kamado" :revision "b4476a2c512843fb470c084572ac819542bc556b" :west-path "orgs/etzhayyim/com-etzhayyim-kamado" :canonical-format :edn :canonical-edn-files 19 :wire-artifacts {:json-and-json-ld 8} :verification {:tests 78 :assertions 244 :failures 0 :errors 0} :retained-shared-contract "00-contracts/schemas/refining-ontology.kotoba.edn" :root-copy :edn-tombstone-only}
     "karakuri"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-karakuri" :revision "f878f8b7ecd0340503436010d0b718fe5306caf0" :west-path "orgs/etzhayyim/com-etzhayyim-karakuri" :canonical-format :edn :canonical-edn-files 20 :wire-artifacts {} :verification {:tests 106 :assertions 251 :failures 0 :errors 0} :root-copy :edn-tombstone-only}
+    "kasa"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kasa" :revision "c7c791351d1590aece8f9bccaf97d60f180ce6a7" :west-path "orgs/etzhayyim/com-etzhayyim-kasa" :canonical-format :edn :canonical-edn-files 17 :wire-artifacts {:json 6} :verification {:tests 48 :assertions 511 :failures 0 :errors 0 :jvm {:tests 9 :assertions 57}} :root-copy :edn-tombstone-only}
+    "kawaraban"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kawaraban" :revision "d515cca0face45392bd2c7d5414201add1eb0386" :west-path "orgs/etzhayyim/com-etzhayyim-kawaraban" :canonical-format :edn :canonical-edn-files 20 :wire-artifacts {:total 9} :verification {:tests 89 :assertions 207 :failures 0 :errors 0} :retained-shared-contract "00-contracts/schemas/news-medium-ontology.kotoba.edn" :root-copy :edn-tombstone-only}
+    "kizashi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kizashi" :revision "015a0b0b6918926b5018881bd1859d18169f88f2" :west-path "orgs/etzhayyim/com-etzhayyim-kizashi" :canonical-format :edn :canonical-edn-files 13 :wire-artifacts {:json-and-json-ld 10} :verification {:tests 9 :assertions 56 :failures 0 :errors 0} :excluded-user-wip :uncommitted-murakumo-scaffold :root-copy :edn-tombstone-only}
     "tate"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-tate"
      :revision "658b9f67aaa65d7aad5ffda280ec8feaae7a8bc2"
@@ -2000,8 +2006,8 @@
   [{:class :legacy-actor-root-directories
     :snapshot-date "2026-07-18"
     :baseline 198
-    :moved 154
-    :remaining 44
+    :moved 157
+    :remaining 41
     :inventory "90-docs/adr/2607181200-flat-west-actor-migration-progress-and-remaining.edn"}
    {:class :existing-repo-overlap
     :state :merge-root-only-content-before-delete}
