@@ -117,5 +117,5 @@ Schema details deferred to R1 ADR.
 
 - `/90-docs/adr/2605261115-makura-foam-pillow-tier-b-actor-r0.md` — Master ADR
 - `/20-actors/tatekata/README.md` — yard-sharing partner
-- `/20-actors/kuni-umi/README.md` — robotics class inheritance (Otete / Mimi / Hitogata / Quad)
+- `/orgs/etzhayyim/com-etzhayyim-kuni-umi/README.md` — robotics class inheritance (Otete / Mimi / Hitogata / Quad)
 - `/CLAUDE.md` — Religious-corp status table

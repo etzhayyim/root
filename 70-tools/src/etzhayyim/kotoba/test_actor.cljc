@@ -24,6 +24,9 @@
 
 (defn- approx= [a b] (< (Math/abs (double (- a b))) 1e-6))
 
+(defn- actor-path [env-var repository relative]
+  (str (or (System/getenv env-var) (str "../" repository)) "/" relative))
+
 (deftest hhi-metric-unit
   (testing "monopoly = 10000"
     (is (approx= 10000.0 (metrics/hhi [100]))))
@@ -46,11 +49,11 @@
   [{:actor "asobi"     :schema "00-contracts/schemas/asobi-ontology.kotoba.edn"
     :seed "20-actors/asobi/data/seed-asobi-graph.kotoba.edn" :id-key :organism/id}
    {:actor "inochi"    :schema "00-contracts/schemas/biosphere-ontology.kotoba.edn"
-    :seed "20-actors/inochi/data/seed-biosphere-graph.kotoba.edn" :id-key :organism/id}
+    :seed (actor-path "ETZHAYYIM_INOCHI_ROOT" "com-etzhayyim-inochi" "data/seed-biosphere-graph.kotoba.edn") :id-key :organism/id}
    {:actor "hokorobi"  :schema "00-contracts/schemas/finrisk-ontology.kotoba.edn"
     :seed "20-actors/hokorobi/data/seed-finrisk-graph.kotoba.edn" :id-key :organism/id}
-   {:actor "hoshimori" :schema "00-contracts/schemas/orbit-ontology.kotoba.edn"
-    :seed "20-actors/hoshimori/data/seed-orbit-graph.kotoba.edn" :id-key :organism/id}
+   {:actor "hoshimori" :schema (actor-path "ETZHAYYIM_HOSHIMORI_ROOT" "com-etzhayyim-hoshimori" "schema/orbit-ontology.edn")
+    :seed (actor-path "ETZHAYYIM_HOSHIMORI_ROOT" "com-etzhayyim-hoshimori" "data/seed-orbit-graph.kotoba.edn") :id-key :organism/id}
    {:actor "tsugite"   :schema "00-contracts/schemas/peoples-ontology.kotoba.edn"
     :seed "20-actors/tsugite/data/seed-peoples-graph.kotoba.edn" :id-key :organism/id}
    {:actor "shiori"    :schema "00-contracts/schemas/wellbecoming-ontology.kotoba.edn"

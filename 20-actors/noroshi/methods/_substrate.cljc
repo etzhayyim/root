@@ -1,6 +1,6 @@
 (ns noroshi.methods._substrate
   "_substrate — the slice of the shared infra-robotics substrate noroshi's fibre_loop needs.
-  Faithful Clojure port of the relevant parts of 20-actors/kuni-umi/robotics/{control,plant,safety}.py
+  Faithful Clojure port of the relevant parts of orgs/etzhayyim/com-etzhayyim-kuni-umi/robotics/{control,plant,safety}.py
   (re-exported by methods/_substrate.py). Self-contained; no external requires.
 
   Provides: PID (limited PID w/ anti-windup), simulate (closed-loop runner), and the

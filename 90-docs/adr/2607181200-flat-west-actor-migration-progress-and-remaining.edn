@@ -33,25 +33,26 @@
 
   :migration/progress
   {:baseline-actor-directories 198
-   :moved-tombstones 77
-   :remaining-root-directories 121
-   :completion-percent 38.89
+   :moved-tombstones 81
+   :remaining-root-directories 117
+   :completion-percent 40.91
    :canonical-ledger "MULTIREPO-MIGRATION.edn"
    :integration-base-root-revision "1ce8a65a8fe5b68aa5fda43004bf2bc14a5e13e7"
    :integration-base-west-revision "5d33ded7fdd"
    :latest-batch
-   [{:actor "chigiri"
-     :repository "https://github.com/etzhayyim/com-etzhayyim-chigiri"
-     :revision "755dcea6a865de34f30fc18f8b8405e3129517f4"
-     :verification {:tests 47 :assertions 657}}
-    {:actor "himotoki"
-     :repository "https://github.com/etzhayyim/com-etzhayyim-himotoki"
-     :revision "7b7798f933f1a7d5883c2b8bfb42d125605b5bd4"
-     :verification {:tests 45 :assertions 383}}
-    {:actor "toritsugi"
-     :repository "https://github.com/etzhayyim/com-etzhayyim-toritsugi"
-     :revision "dbb96e5a96418313352446f062e37277263b8802"
-     :verification {:tests 45 :assertions 155 :procedures 164}}]}
+   [{:actor "hoshimori"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-hoshimori"
+     :revision "ced1bf8613793f1e91fd6da2774085fe6b36575b"
+     :verification {:tests 41 :assertions 461}}
+    {:actor "inochi"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-inochi"
+     :revision "80c16d364c53a12f3713d1e29133e80e54621106"
+     :verification {:tests 37 :assertions 298}}
+    {:actor "kuni-umi"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-kuni-umi"
+     :revision "93d8ac38fbc53ac996634de61565e3b1aafc064e"
+     :aliases ["kuni_umi"]
+     :verification {:tests 74 :assertions 532}}]}
 
   :migration/completed-actors
   ["abaki" "ainori" "apqc" "atsurae" "busshi" "com-google-ads" "denwaban"
@@ -66,19 +67,19 @@
    "shidemori" "shukubo" "soma" "sonae" "stripe-compat" "suimin" "suki"
    "sumitsubo" "tawami" "toi" "tsukuroi" "ugachi" "unspsc" "utsushie"
    "wakai" "yudane" "isco" "moushibumi" "talent" "chigiri" "himotoki"
-   "toritsugi"]
+   "toritsugi" "hoshimori" "inochi" "kuni-umi" "kuni_umi"]
 
   :migration/remaining-actors
   ["_conformance" "aburi" "akashi" "ake" "ameno" "amime" "asobi"
    "business-manager" "business_manager" "chie" "credits" "danjo"
    "etzhayyim-organism" "fuchi" "funadaiku" "funamori" "futawa"
    "gov-municipality" "gov_municipality" "hagukumi" "hakoniwa" "hikari"
-   "himawari" "hinagata" "hodoki" "hokorobi" "hoshimori" "hotaru"
-   "ibuki" "infra-utility-connect" "infra_utility_connect" "inochi" "iriai" "iryo"
+   "himawari" "hinagata" "hodoki" "hokorobi" "hotaru"
+   "ibuki" "infra-utility-connect" "infra_utility_connect" "iriai" "iryo"
    "itonami" "jinushi" "junkan" "kabuto" "kadode" "kafun" "kaiyaku"
    "kakaku" "kamado" "kanae" "kaname" "kanayama" "kanjo" "karakuri" "kasa"
    "kawaraban" "keizu" "kizashi" "kosatsu" "kotoba-actors-clj" "kotodama"
-   "kuni-umi" "kuni_umi" "magatama" "makura" "manabi" "maps" "matsurigoto"
+   "magatama" "makura" "manabi" "maps" "matsurigoto"
    "meisai" "meyasu" "mimamori" "mitooshi" "mitsuho" "mizuho"
    "moyoshi" "mst-projector" "niyaku" "noroshi" "nusa" "nyusatsu" "okaimono"
    "omise" "ooyake" "organizer" "ossekai" "rasen" "sanae" "sarutahiko"
@@ -93,8 +94,7 @@
   [{:class :duplicate-spelling-or-path
     :actors [["business-manager" "business_manager"]
              ["gov-municipality" "gov_municipality"]
-             ["infra-utility-connect" "infra_utility_connect"]
-             ["kuni-umi" "kuni_umi"]]
+             ["infra-utility-connect" "infra_utility_connect"]]
     :action :consolidate-before-extraction}
    {:class :cross-actor-tooling
     :actors ["_conformance" "kotoba-actors-clj"]

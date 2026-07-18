@@ -1423,27 +1423,28 @@
      :verification {:tests 36 :assertions 257 :failures 0 :errors 0}
      :next :delete-root-copy-after-merge-and-west-pin}
     "hoshimori"
-    {:pull-request "https://github.com/etzhayyim/com-etzhayyim-hoshimori/pull/3"
-     :commit "d291acc"
-     :moves ["manifest.edn" "src/hoshimori" "test/hoshimori"]
-     :rewires
-     ["root-relative resources to repository-local paths"
-      "social membrane to SHA-pinned shared library"
-      "IE-flow and Kotoba Datom to SHA-pinned shared libraries"]
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-hoshimori"
+     :revision "ced1bf8613793f1e91fd6da2774085fe6b36575b"
+     :west-path "orgs/etzhayyim/com-etzhayyim-hoshimori"
+     :moves ["manifest.edn" "src/hoshimori" "test/hoshimori"
+             "schema/orbit-ontology.edn" "data/seed-orbit-graph.kotoba.edn"]
+     :rewires ["root-only mesh merged" "orbit ontology ownership moved to actor repository"
+               "JSON retained only as DID wire output" "Go, TinyGo, and shell wrappers pruned"]
      :canonical-format :edn
      :verification {:tests 41 :assertions 461 :failures 0 :errors 0}
-     :next :delete-root-copy-after-merge-and-west-pin}
+     :root-copy :edn-tombstone-only}
     "inochi"
-    {:pull-request "https://github.com/etzhayyim/com-etzhayyim-inochi/pull/3"
-     :commit "2c98c38"
-     :moves ["manifest.edn" "src/inochi" "test/inochi"]
-     :rewires
-     ["root-relative resources to repository-local paths"
-      "social membrane to SHA-pinned shared library"
-      "IE-flow and Kotoba Datom to SHA-pinned shared libraries"]
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-inochi"
+     :revision "80c16d364c53a12f3713d1e29133e80e54621106"
+     :west-path "orgs/etzhayyim/com-etzhayyim-inochi"
+     :moves ["manifest.edn" "src/inochi" "test/inochi"
+             "data/seed-biosphere-graph.kotoba.edn"]
+     :rewires ["root-only mesh merged" "manifest JSON retained only as wire output"
+               "Go, TinyGo, publish, and shell wrappers pruned"]
      :canonical-format :edn
-     :verification {:tests 36 :assertions 287 :failures 0 :errors 0}
-     :next :delete-root-copy-after-merge-and-west-pin}
+     :verification {:tests 37 :assertions 298 :failures 0 :errors 0
+                    :jvm {:tests 11 :assertions 47}}
+     :root-copy :edn-tombstone-only}
     "mimamori"
     {:pull-request "https://github.com/etzhayyim/com-etzhayyim-mimamori/pull/2"
      :commit "2d2e7e5"
@@ -1471,8 +1472,9 @@
                     :amime-join {:nodes 6 :edges 12}}
      :next :delete-root-copy-after-merge-and-west-pin}
     "kuni-umi"
-    {:pull-request "https://github.com/etzhayyim/com-etzhayyim-kuni-umi/pull/2"
-     :commit "3eb7566"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kuni-umi"
+     :revision "93d8ac38fbc53ac996634de61565e3b1aafc064e"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kuni-umi"
      :moves
      ["manifest.edn"
       "cells/schema.edn"
@@ -1490,17 +1492,16 @@
       "kotoba/deploy.sh"
       "Python robotics tests whose twins were previously retired by ADR-2606160842"]
      :canonical-format :edn
-     :verification
-     {:clojure {:tests 69 :assertions 480 :failures 0 :errors 0}
-      :python {:tests 17 :failures 0 :errors 0}
-      :seed-dry-run {:entities 4 :approx-datoms 32 :external-writes 0}}
-     :next :delete-root-copy-after-merge-and-west-pin}}}
+     :wire-compatibility ["wire/lexicons/kuniUmi"
+                          "wire/lexicons/apps-etzhayyim-kuniUmi"]
+     :verification {:tests 74 :assertions 532 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}}}
   :migration/remaining-work
   [{:class :legacy-actor-root-directories
     :snapshot-date "2026-07-18"
     :baseline 198
-    :moved 77
-    :remaining 121
+    :moved 81
+    :remaining 117
     :inventory "90-docs/adr/2607181200-flat-west-actor-migration-progress-and-remaining.edn"}
    {:class :existing-repo-overlap
     :state :merge-root-only-content-before-delete}

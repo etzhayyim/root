@@ -1,7 +1,7 @@
 (ns mizuho.methods.substrate
   "substrate — the shared infra-robotics control substrate for mizuho/methods.
   1:1 Clojure port of the PID / Droop / simulate primitives that the Python
-  `_substrate.py` re-exports from 20-actors/kuni-umi/robotics/control.py +
+  `_substrate.py` re-exports from orgs/etzhayyim/com-etzhayyim-kuni-umi/robotics/control.py +
   safety.py (ADR-2606091800). The leading-underscore Python module name munges
   badly in SCI, so the ns is the clean `mizuho.methods.substrate`.
 

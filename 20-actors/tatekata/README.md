@@ -88,5 +88,5 @@ com.etzhayyim.tatekata.{
 ## References
 
 - `/90-docs/adr/2605250700-tatekata-construction-tier-b-actor-r0.md` — Full ADR
-- `/20-actors/kuni-umi/README.md` — Parent Tier-B actor
+- `/orgs/etzhayyim/com-etzhayyim-kuni-umi/README.md` — Parent Tier-B actor
 - `/CLAUDE.md` — Religious-corp status table

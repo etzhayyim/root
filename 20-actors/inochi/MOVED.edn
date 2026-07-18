@@ -1,0 +1,5 @@
+{:migration/status :moved
+ :migration/repository "https://github.com/etzhayyim/com-etzhayyim-inochi"
+ :migration/west-path "orgs/etzhayyim/com-etzhayyim-inochi"
+ :migration/revision "80c16d364c53a12f3713d1e29133e80e54621106"
+ :migration/canonical-format :edn}

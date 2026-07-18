@@ -98,5 +98,5 @@ cd 20-actors/mitsuho
 - `/20-actors/mitsuho/manifest.jsonld` — DID + cell registry
 - `/90-docs/adr/2605261015-mitsuho-food-agriculture-tier-b-actor-r0.md` — Master ADR
 - `/90-docs/adr/2605261000-labor-liberation-transition-mechanism.md` — Liberation Ladder (L2 gate)
-- `/20-actors/kuni-umi/README.md` — Robotics class lineage
+- `/orgs/etzhayyim/com-etzhayyim-kuni-umi/README.md` — Robotics class lineage
 - `/CLAUDE.md` — Religious-corp status table

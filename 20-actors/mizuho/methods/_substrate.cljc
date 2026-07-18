@@ -1,7 +1,7 @@
 (ns mizuho.methods.-substrate
   "_substrate — the shared infra-robotics substrate primitives mizuho/methods needs.
 
-  1:1 Clojure port of the SUBSET of 20-actors/kuni-umi/robotics/{control,safety}.py
+  1:1 Clojure port of the SUBSET of orgs/etzhayyim/com-etzhayyim-kuni-umi/robotics/{control,safety}.py
   that the mizuho method modules (chlorination, water_supply) actually import:
   PID, ControlResult, simulate, SafetyError, assert_civilian -- plus the structural
   safety gates cells/water_supply/state_machine.cljc needs (require-member-signature /

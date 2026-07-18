@@ -167,5 +167,5 @@ All should pass import; `.solve()` calls should raise `RuntimeError("tatekata R0
 
 - `/20-actors/tatekata/manifest.jsonld` — DID + cell registry
 - `/90-docs/adr/2605250715-tatekata-construction-tier-b-actor-r0.md` — ADR (parent)
-- `/20-actors/kuni-umi/README.md` — Parent actor (Tier-B infrastructure)
+- `/orgs/etzhayyim/com-etzhayyim-kuni-umi/README.md` — Parent actor (Tier-B infrastructure)
 - `/CLAUDE.md` — Status table row 43 (tatekata)

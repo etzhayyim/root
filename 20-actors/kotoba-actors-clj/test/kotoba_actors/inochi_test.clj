@@ -33,8 +33,8 @@
 
 (deftest q-join-sanity
   (testing "direct engine 2-clause join over the real seed: CR + animalia species"
-    (let [db (d/db-from-seed
-              "/Users/junkawasaki/github/com-junkawasaki/orgs/etzhayyim/root/20-actors/inochi/data/seed-biosphere-graph.kotoba.edn")
+    (let [root (or (System/getenv "ETZHAYYIM_INOCHI_ROOT") "../com-etzhayyim-inochi")
+          db (d/db-from-seed (str root "/data/seed-biosphere-graph.kotoba.edn"))
           ;; join: same ?e must be both kingdom=animalia AND iucn=CR, project label
           res (d/q '{:find  [?label]
                      :where [[?e :taxon/kingdom :animalia]

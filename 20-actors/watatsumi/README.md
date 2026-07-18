@@ -128,5 +128,5 @@ Schema details deferred to R1 ADR.
 ## References
 
 - `/90-docs/adr/2605252200-watatsumi-civilian-submersible-r0.md` — Master ADR
-- `/20-actors/kuni-umi/README.md` — Funamori surface sibling
+- `/orgs/etzhayyim/com-etzhayyim-kuni-umi/README.md` — Funamori surface sibling
 - `/CLAUDE.md` — Religious-corp status table row 45

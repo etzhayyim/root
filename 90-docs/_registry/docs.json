@@ -8527,7 +8527,7 @@
       "topic": "kuni-umi-planetary-infra-fleet",
       "authoritative": true,
       "authoritative_for": [
-        "20-actors/kuni-umi/ Pregel actor topology",
+        "orgs/etzhayyim/com-etzhayyim-kuni-umi/ Pregel actor topology",
         "com.etzhayyim.kuniUmi.* Lexicon namespace",
         "Deployment phase BPMN (survey → procure → construct → commission)",
         "open-* utility lexicons と open-robo / open-ot 間の orchestration seam",
@@ -10709,7 +10709,7 @@
       "authoritative": true,
       "authoritative_for": [
         "UNSPSC agent corpus health invariant (100% import + invoke clean)",
-        "6 kuni-umi phase cell.py implementations (canonical at 40-engine/kotoba/crates/kotoba-kotodama/cells/*; 20-actors/kuni-umi/cells/* are symlinks)",
+        "6 kuni-umi phase cell.py implementations (canonical at 40-engine/kotoba/crates/kotoba-kotodama/cells/*; orgs/etzhayyim/com-etzhayyim-kuni-umi/cells/* are symlinks)",
         "KuniUmiApiCell HTTP gateway (naphtali:13030, lan-api, 6 lexicon endpoints + /xrpc/{nsid} + /api/invoke + /api/{short})",
         "mst-listener entry contract for kuni-umi cells (handle_mst_event + cron_fire wrappers)",
         "kotodama.transport.libp2p Python wrapper around etzhayyim-libp2p shell scripts",
@@ -12356,7 +12356,7 @@
       ],
       "related": [
         "20-actors/mitate/                                              # owning actor",
-        "20-actors/kuni-umi/                                            # robotics class ontology source",
+        "orgs/etzhayyim/com-etzhayyim-kuni-umi/                                            # robotics class ontology source",
         "40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_nasal_endoscopy_acquire/       # the cell that uses Hanami"
       ],
       "last_verified": "2026-05-25",

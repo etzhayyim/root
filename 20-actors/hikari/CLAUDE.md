@@ -109,5 +109,5 @@ python -c "import hikari.cells.consumption_audit" 2>&1 | grep "R0 scaffold"
 - `/90-docs/adr/2605261100-hikari-energy-tier-b-actor-r0.md` — Master ADR
 - `/90-docs/adr/2605261000-labor-liberation-transition-mechanism.md` — L2 gate
 - `/90-docs/adr/2605192245-etzhayyim-global-land-sovereignty.md` — Land Trust
-- `/20-actors/kuni-umi/README.md` — Robotics class lineage
+- `/orgs/etzhayyim/com-etzhayyim-kuni-umi/README.md` — Robotics class lineage
 - `/CLAUDE.md` — Religious-corp status table

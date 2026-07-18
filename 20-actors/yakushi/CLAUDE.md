@@ -96,5 +96,5 @@ Do NOT skip phases. Each R transition is its own ADR.
 - [ADR-2605192415](../../90-docs/adr/2605192415-etzhayyim-religious-corp-daemon-architecture.md) (3-tier actor + Murakumo placement)
 - [ADR-2605181100](../../90-docs/adr/2605181100-etzhayyim-encrypted-confidentiality-substrate.md) (XChaCha20 envelope for patient AE)
 - [ADR-2605231525](../../90-docs/adr/2605231525-no-server-key-invariant.md) (G13 enforcement)
-- [`20-actors/kuni-umi/CLAUDE.md`](../kuni-umi/CLAUDE.md) (sibling actor — robotics class ontology source)
+- [`orgs/etzhayyim/com-etzhayyim-kuni-umi/CLAUDE.md`](../kuni-umi/CLAUDE.md) (sibling actor — robotics class ontology source)
 - [`40-engine/kotoba/crates/kotoba-kotodama/cells/README.md`](../kotodama/cells/README.md) (sibling cell catalog)

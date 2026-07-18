@@ -47,10 +47,10 @@ commercial K8s (Karmada / VKE); fiat payment processors (Stripe / PayPal).
 
 | Path | Contents |
 |---|---|
-| `20-actors/kuni-umi/` | 6 Pregel cells + 1 BPMN + 3 DMN + CLAUDE.md + README.md |
+| `orgs/etzhayyim/com-etzhayyim-kuni-umi/` | 6 Pregel cells + 1 BPMN + 3 DMN + CLAUDE.md + README.md |
 | `40-engine/kotoba/crates/kotoba-kotodama/cells/` | 5 kotodama-level Pregel cells (religious-corp only — charter/tithe/etc.); no kuni-umi cells here |
 
-kuni-umi cells are entirely self-contained under `20-actors/kuni-umi/cells/`:
+kuni-umi cells are entirely self-contained under `orgs/etzhayyim/com-etzhayyim-kuni-umi/cells/`:
 `audit_witness`, `commissioning`, `construction_orchestration`, `decommission`, `deployment_planning`, `site_survey`.
 
 ### Violation grep results
@@ -69,8 +69,8 @@ Grep patterns executed: `runpod|RunPod|_RUNPOD_|api\.runpod\.ai|proxy\.runpod\.n
 
 | File:Line | Finding | Verdict | Reason |
 |---|---|---|---|
-| `20-actors/kuni-umi/CLAUDE.md:10` | `RisingWave / Postgres / Kysely / centralized DB` (in "Prohibited" column) | PORT-direct | This is the boundary rules table. The text names the prohibited substrate — it is NOT a usage; it is a constraint declaration. No code or config couples to RisingWave. |
-| `20-actors/kuni-umi/CLAUDE.md:11` | `Stripe / PayPal / fiat` (in "Prohibited" column) | PORT-direct | Same: prohibition declaration, not a usage. |
+| `orgs/etzhayyim/com-etzhayyim-kuni-umi/CLAUDE.md:10` | `RisingWave / Postgres / Kysely / centralized DB` (in "Prohibited" column) | PORT-direct | This is the boundary rules table. The text names the prohibited substrate — it is NOT a usage; it is a constraint declaration. No code or config couples to RisingWave. |
+| `orgs/etzhayyim/com-etzhayyim-kuni-umi/CLAUDE.md:11` | `Stripe / PayPal / fiat` (in "Prohibited" column) | PORT-direct | Same: prohibition declaration, not a usage. |
 
 ### §1 Summary
 

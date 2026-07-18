@@ -131,5 +131,5 @@ bb 20-actors/himawari/deploy/build_wasm.clj
 - `/90-docs/adr/2606013100-sarutahiko-truck-factory-full-robotics-and-loader.md` — F10 LoaderRobot
 - `/90-docs/adr/2606010600-kami-autodrive-gnc-autonomy-layer.md` — outbound transport
 - `/90-docs/adr/2605312330-giemon-part-graph-sbom-kotoba-fleet-cve-svelte.md` — SBOM procurement
-- `/20-actors/kuni-umi/README.md` — Otete/Mimi class lineage
+- `/orgs/etzhayyim/com-etzhayyim-kuni-umi/README.md` — Otete/Mimi class lineage
 - `/CLAUDE.md` — Religious-corp status table

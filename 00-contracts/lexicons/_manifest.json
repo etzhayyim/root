@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-18T03:10:31.411Z",
+  "generated": "2026-07-18T03:24:57.667Z",
   "lexicons": [
     {
       "id": "ai.etzhayyim.yorishiro.argparse-demo.main",
@@ -7386,42 +7386,6 @@
       "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/etzhayyim/force-rd-publication.json",
       "type": "record",
       "description": "Publication of completed R&D work to 60-apps/etzhayyim-transparent-force-rd/. Apache 2.0 + Charter Rider v2.0 mandatory. Proprietary designs PROHIBITED (constitutional invariant). Per ADR-2605192315."
-    },
-    {
-      "id": "com.etzhayyim.apps.etzhayyim.kuniUmi.commissionDeployment",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/etzhayyim/kuniUmi/commissionDeployment.json",
-      "type": "procedure",
-      "description": "Commission a completed deployment: register commissioned assets with the relevant open-* utility lexicons + open-ot defineLoop, run the acceptance test, and transition site state to 'operational'. Aft"
-    },
-    {
-      "id": "com.etzhayyim.apps.etzhayyim.kuniUmi.defineDeploymentSite",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/etzhayyim/kuniUmi/defineDeploymentSite.json",
-      "type": "procedure",
-      "description": "Declare a planetary-infrastructure deployment site. Returns siteDid. Synchronously runs the jurisdiction-eligibility DMN (ADR-2605201400 §5) — sites without a stewardship claim (LandRegistry / OceanSt"
-    },
-    {
-      "id": "com.etzhayyim.apps.etzhayyim.kuniUmi.proposeDeploymentPlan",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/etzhayyim/kuniUmi/proposeDeploymentPlan.json",
-      "type": "procedure",
-      "description": "Propose a deployment plan: BoM (UNSPSC code list + qty + estimated USDC cost), target topology (FK ↔ open-* CIM record DIDs), timeline, and fleet allocation. BoM / cost / supplier identities are XChaC"
-    },
-    {
-      "id": "com.etzhayyim.apps.etzhayyim.kuniUmi.recordConstructionProgress",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/etzhayyim/kuniUmi/recordConstructionProgress.json",
-      "type": "procedure",
-      "description": "Stream construction-phase super-step progress at 1–10 Hz checkpointer cadence. N >= 2 robot DID signatures REQUIRED (witness invariant). Sensor / photo blob CIDs are IPFS-pinned. Hard-RT motion data i"
-    },
-    {
-      "id": "com.etzhayyim.apps.etzhayyim.kuniUmi.recordPhysicalAuditEvent",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/etzhayyim/kuniUmi/recordPhysicalAuditEvent.json",
-      "type": "procedure",
-      "description": "Permanent robot-witnessed audit event for a deployment site. N >= 2 independent robot DID signatures REQUIRED. Class=anomaly/injury subtypes are XChaCha20-Poly1305-enveloped per ADR-2605181100; class="
-    },
-    {
-      "id": "com.etzhayyim.apps.etzhayyim.kuniUmi.submitSiteSurvey",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/etzhayyim/kuniUmi/submitSiteSurvey.json",
-      "type": "procedure",
-      "description": "Submit the result of a Giemon scout fleet survey of a deployment site. N >= 2 independent robot DID signatures REQUIRED (witness invariant per ADR-2605201400 §9). Sensor blob CIDs are IPFS-pinned; the"
     },
     {
       "id": "com.etzhayyim.apps.etzhayyim.land-attestation",
@@ -37316,42 +37280,6 @@
       "description": ""
     },
     {
-      "id": "com.etzhayyim.kuniUmi.commissionDeployment",
-      "path": "00-contracts/lexicons/com/etzhayyim/kuniUmi/commissionDeployment.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kuniUmi.defineDeploymentSite",
-      "path": "00-contracts/lexicons/com/etzhayyim/kuniUmi/defineDeploymentSite.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kuniUmi.proposeDeploymentPlan",
-      "path": "00-contracts/lexicons/com/etzhayyim/kuniUmi/proposeDeploymentPlan.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kuniUmi.recordConstructionProgress",
-      "path": "00-contracts/lexicons/com/etzhayyim/kuniUmi/recordConstructionProgress.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kuniUmi.recordPhysicalAuditEvent",
-      "path": "00-contracts/lexicons/com/etzhayyim/kuniUmi/recordPhysicalAuditEvent.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kuniUmi.submitSiteSurvey",
-      "path": "00-contracts/lexicons/com/etzhayyim/kuniUmi/submitSiteSurvey.json",
-      "type": "record",
-      "description": ""
-    },
-    {
       "id": "com.etzhayyim.kurashimori.complaintSession",
       "path": "00-contracts/lexicons/com/etzhayyim/kurashimori/complaintSession.json",
       "type": "record",
@@ -43603,14 +43531,6 @@
       "com.etzhayyim.apps.etzhayyim.amnesty.recordSettlement",
       "com.etzhayyim.apps.etzhayyim.amnesty.verifyEligibility",
       "com.etzhayyim.apps.etzhayyim.amnesty.voteOnPlan"
-    ],
-    "com.etzhayyim.apps.etzhayyim.kuniUmi": [
-      "com.etzhayyim.apps.etzhayyim.kuniUmi.commissionDeployment",
-      "com.etzhayyim.apps.etzhayyim.kuniUmi.defineDeploymentSite",
-      "com.etzhayyim.apps.etzhayyim.kuniUmi.proposeDeploymentPlan",
-      "com.etzhayyim.apps.etzhayyim.kuniUmi.recordConstructionProgress",
-      "com.etzhayyim.apps.etzhayyim.kuniUmi.recordPhysicalAuditEvent",
-      "com.etzhayyim.apps.etzhayyim.kuniUmi.submitSiteSurvey"
     ],
     "com.etzhayyim.apps.etzhayyim.yobel": [
       "com.etzhayyim.apps.etzhayyim.yobel.declareRite",
@@ -50411,14 +50331,6 @@
       "com.etzhayyim.kotoba-datomic.attestation",
       "com.etzhayyim.kotoba-datomic.membraneRule"
     ],
-    "com.etzhayyim.kuniUmi": [
-      "com.etzhayyim.kuniUmi.commissionDeployment",
-      "com.etzhayyim.kuniUmi.defineDeploymentSite",
-      "com.etzhayyim.kuniUmi.proposeDeploymentPlan",
-      "com.etzhayyim.kuniUmi.recordConstructionProgress",
-      "com.etzhayyim.kuniUmi.recordPhysicalAuditEvent",
-      "com.etzhayyim.kuniUmi.submitSiteSurvey"
-    ],
     "com.etzhayyim.kurashimori": [
       "com.etzhayyim.kurashimori.complaintSession",
       "com.etzhayyim.kurashimori.coolingOffAssessment",
@@ -50952,6 +50864,6 @@
       "tools.ozone.verification.revokeVerifications"
     ]
   },
-  "total": 6936,
+  "total": 6924,
   "legacy_issues_count": 8
 }
