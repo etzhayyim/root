@@ -289,16 +289,16 @@
     {:actor "kanjo" :repository "https://github.com/etzhayyim/com-etzhayyim-kanjo" :revision "e0f5b760193e61d84410b6beece9468d29ba0d69" :canonical-edn-files 22 :wire-artifacts {:json-and-json-ld 9} :verification {:tests 55 :assertions 248 :full-data-stress :resource-terminated}}]}
 
   :migration/integration-state
-  {:snapshot-kind :root-prepared-west-pin-pending
+  {:snapshot-kind :integrated
    :standalone-repositories
    {:status :pushed
     :actors ["kanae" "kanayama" "kanjo"]}
    :legacy-root-drain
-   {:status :prepared
+   {:status :committed
     :tracked-invariant :moved-edn-only}
    :west-manifest
-   {:status :pending-pin-update :actors ["kanae" "kanayama" "kanjo"]}
-   :note "The 151-entry inventory includes the prepared latest root drain; west exact revision pinning is pending for the latest three actors."}
+   {:status :exact-revisions-pinned :superproject-revision "1e285b2daab4963ab46e5a1a5eb7260d151cd131" :actors ["kanae" "kanayama" "kanjo"]}
+   :note "The 151 completed entries satisfy the standalone repository, root tombstone, canonical ledger, and exact west revision gates represented by this snapshot."}
 
   :migration/completed-actors
   ["abaki" "ainori" "apqc" "atsurae" "busshi" "com-google-ads" "denwaban"
