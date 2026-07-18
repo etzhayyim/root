@@ -1,0 +1,128 @@
+[{:db/id -1
+  :adr/id "adr-2607181200-flat-west-actor-migration-progress-and-remaining"
+  :adr/title "Flat west actor migration: completed extraction ledger and remaining root drain"
+  :adr/status "accepted"
+  :adr/doc_type "adr"
+  :adr/source-format "edn"
+  :adr/date "2026-07-18"
+  :adr/last_verified "2026-07-18"
+  :adr/authoritative true
+  :adr/topic "flat-west-actor-migration-progress"
+  :adr/depends-on
+  ["adr-2607172000-etzhayyim-gftdcojp-flat-west-multirepo-root-retirement"]
+  :adr/authoritative-for
+  ["2026-07-18 actor migration progress snapshot"
+   "remaining 20-actors root-drain inventory"
+   "completion gates for subsequent actor extraction batches"]
+
+  :migration/path-policy
+  {:canonical "orgs/etzhayyim/com-etzhayyim-*"
+   :legacy-root "20-actors/*"
+   :legacy-root-after-move "MOVED.edn only"
+   :category-location :repository-metadata
+   :numbered-folders :legacy-drain-only}
+
+  :migration/format-policy
+  {:canonical-data :edn
+   :canonical-metadata :edn
+   :canonical-adr :edn
+   :allowed-wire-formats #{:json :json-ld :bpmn-xml}
+   :wire-rule "JSON, JSON-LD, and BPMN XML may remain only for external protocol/tool interchange under wire/."
+   :deprecated-languages #{:go :tinygo}
+   :deprecated-language-action :prune-not-port}
+
+  :migration/progress
+  {:baseline-actor-directories 198
+   :moved-tombstones 71
+   :remaining-root-directories 127
+   :completion-percent 35.86
+   :canonical-ledger "MULTIREPO-MIGRATION.edn"
+   :root-revision "d96604faeef007eb314669d3a6d20d85a3eea438"
+   :west-revision "072791abca4f1e086c34b459673b07a35fccafda"
+   :latest-batch
+   [{:actor "kurashimori"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-kurashimori"
+     :revision "b878a332911b05583882ad29b7c786d9b2467caf"
+     :verification {:tests 16 :assertions 248}}
+    {:actor "unspsc"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-unspsc"
+     :revision "23b33394da5576f89c4690bfab0b9b425dedd596"
+     :verification {:tests 40 :assertions 223 :taxonomy-entries 18342}}
+    {:actor "apqc"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-apqc"
+     :revision "8c804b6e72363be50e94687769fcc4b2041e1a30"
+     :verification {:tests 15 :assertions 72 :pcf-seed-entries 713}}]}
+
+  :migration/completed-actors
+  ["abaki" "ainori" "apqc" "atsurae" "busshi" "com-google-ads" "denwaban"
+   "energy_order" "etzhayyim-bpmn-sdk" "etzhayyim-esign" "etzhayyim-pregel"
+   "etzhayyim-sdk" "etzhayyim-sdk-auth" "etzhayyim-sdk-mock" "etzhayyim-sdk-py"
+   "first-breath" "gtin" "hanrei" "haraedo" "hataori" "hibiki" "hirameki"
+   "hydrogen_electrolysis" "igata" "iyashi" "joucho" "karute" "kataribe"
+   "kawase-yui" "kazaori" "kenchi" "kiyome" "kizuna" "kokoro" "kudamori"
+   "kumi" "kuramori" "kurashimori" "kyoninka" "madomori" "masago" "meibo"
+   "minori" "mio" "mitate" "monosashi" "musubi" "narashi" "okibi" "organisms"
+   "post_quantum_compat" "saisei" "salesforce-compat" "seigyo" "sentei"
+   "shidemori" "shukubo" "soma" "sonae" "stripe-compat" "suimin" "suki"
+   "sumitsubo" "tawami" "toi" "tsukuroi" "ugachi" "unspsc" "utsushie"
+   "wakai" "yudane"]
+
+  :migration/remaining-actors
+  ["_conformance" "aburi" "akashi" "ake" "ameno" "amime" "asobi"
+   "business-manager" "business_manager" "chie" "chigiri" "credits" "danjo"
+   "etzhayyim-organism" "fuchi" "funadaiku" "funamori" "futawa"
+   "gov-municipality" "gov_municipality" "hagukumi" "hakoniwa" "hikari"
+   "himawari" "himotoki" "hinagata" "hodoki" "hokorobi" "hoshimori" "hotaru"
+   "ibuki" "infra-utility-connect" "infra_utility_connect" "inochi" "iriai" "iryo"
+   "isco" "itonami" "jinushi" "junkan" "kabuto" "kadode" "kafun" "kaiyaku"
+   "kakaku" "kamado" "kanae" "kaname" "kanayama" "kanjo" "karakuri" "kasa"
+   "kawaraban" "keizu" "kizashi" "kosatsu" "kotoba-actors-clj" "kotodama"
+   "kuni-umi" "kuni_umi" "magatama" "makura" "manabi" "maps" "matsurigoto"
+   "meisai" "meyasu" "mimamori" "mitooshi" "mitsuho" "mizuho" "moushibumi"
+   "moyoshi" "mst-projector" "niyaku" "noroshi" "nusa" "nyusatsu" "okaimono"
+   "omise" "ooyake" "organizer" "ossekai" "rasen" "sanae" "sarutahiko"
+   "shinka" "shionome" "shiori" "shirabe" "shomei" "silicon" "subaru" "suji"
+   "sukashi" "tadori" "talent" "tanemaki" "tasuke" "tatara" "tate" "tatekata"
+   "tazuna" "tedai" "todoke" "tokigusuri" "torifune" "toritate" "toritsugi"
+   "tsubasa" "tsuchifumi" "tsugite" "tsukuru" "tsumugi" "tsutae" "uchiwake"
+   "uzu" "wadachi" "warifu" "watari" "watatsumi" "watatsuna" "yadori"
+   "yakushi" "yamabiko" "yobel" "yotei"]
+
+  :migration/remaining-classification
+  [{:class :duplicate-spelling-or-path
+    :actors [["business-manager" "business_manager"]
+             ["gov-municipality" "gov_municipality"]
+             ["infra-utility-connect" "infra_utility_connect"]
+             ["kuni-umi" "kuni_umi"]]
+    :action :consolidate-before-extraction}
+   {:class :cross-actor-tooling
+    :actors ["_conformance" "kotoba-actors-clj"]
+    :action :move-to-tool-or-shared-library-owner}
+   {:class :engine-or-runtime-boundary
+    :actors ["ameno" "etzhayyim-organism" "kotodama" "mst-projector"]
+    :action :classify-before-repository-extraction}
+   {:class :ordinary-actor-overlap
+    :action :merge-root-only-content-into-existing-flat-repository-then-tombstone}]
+
+  :migration/completion-gates
+  [:standalone-repository-exists
+   :root-only-content-merged
+   :canonical-edn-contracts-present
+   :external-wire-artifacts-isolated
+   :go-and-tinygo-pruned
+   :cross-repository-dependencies-explicit-and-sha-pinned
+   :root-consumers-rewired-to-flat-west-path
+   :standalone-tests-green
+   :old-root-moved-edn-only
+   :west-manifest-pinned-to-exact-revision]
+
+  :migration/next-order
+  [:consolidate-duplicate-spellings
+   :extract-small-existing-repo-overlaps-in-parallel
+   :separate-tooling-and-runtime-boundaries
+   :migrate-data-heavy-and-fleet-coupled-actors
+   :audit-all-active-paths-and-dependency-pins
+   :retire-empty-20-actors-layer]
+
+  :adr/body
+  "The migration keeps flat west checkout paths and drains only the legacy numbered root. EDN is authoritative for metadata, contracts, data, migration records, and ADRs. A directory is counted as completed only when its old root contains MOVED.edn and no implementation. The remaining list is a filesystem snapshot, not a promise that every entry becomes an actor repository: duplicate spellings, shared tooling, and runtime-bound components must first be consolidated or assigned to their proper owner."}]

@@ -4,7 +4,7 @@
   :doc/source-format "edn"
   :doc/status "active"
   :doc/date "2026-07-17"
-  :doc/last_verified "2026-07-17"
+  :doc/last_verified "2026-07-18"
   :doc/authoritative true
   :doc/authoritative_for
   ["flat west path policy"
@@ -1433,11 +1433,15 @@
       :seed-dry-run {:entities 4 :approx-datoms 32 :external-writes 0}}
      :next :delete-root-copy-after-merge-and-west-pin}}}
   :migration/remaining-work
-  [{:class :existing-repo-overlap
-    :count 126
+  [{:class :legacy-actor-root-directories
+    :snapshot-date "2026-07-18"
+    :baseline 198
+    :moved 71
+    :remaining 127
+    :inventory "90-docs/adr/2607181200-flat-west-actor-migration-progress-and-remaining.edn"}
+   {:class :existing-repo-overlap
     :state :merge-root-only-content-before-delete}
    {:class :not-yet-independent-actor
-    :count 69
     :state :classify-library-or-publish-repo}
    {:class :shared-libraries
     :count 4

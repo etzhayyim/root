@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-07-17",
+  "updated_at": "2026-07-18",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.edn",
@@ -24669,6 +24669,26 @@
         "adr-2607172000-etzhayyim-gftdcojp-flat-west-multirepo-root-retirement"
       ],
       "last_verified": "2026-07-17",
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2607181200-flat-west-actor-migration-progress-and-remaining.edn",
+      "id": "adr-2607181200-flat-west-actor-migration-progress-and-remaining",
+      "title": "Flat west actor migration: completed extraction ledger and remaining root drain",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "flat-west-actor-migration-progress",
+      "authoritative": true,
+      "authoritative_for": [
+        "2026-07-18 actor migration progress snapshot",
+        "remaining 20-actors root-drain inventory",
+        "completion gates for subsequent actor extraction batches"
+      ],
+      "last_verified": "2026-07-18",
+      "related": [],
       "supersedes": [],
       "superseded_by": [],
       "amends": [],
