@@ -124,6 +124,22 @@ pre-commit:
       run: node 70-tools/scripts/lint/no-cookie.mjs {staged_files}
       stage_fixed: false
 
+    no-danjo-adjudication:
+      # Enforce the danjo (弾正) G4 non-adjudication + G8 no-commercial-gov-intel
+      # gates (ADR-2605301600; danjo R1 Activation Trigger #5, ADR-2607180900).
+      # Check A (G8): blocks commercial gov-intelligence terminal hostnames + SDK
+      # imports (GovWin / Bloomberg Government / Politico Pro / E&E / FiscalNote /
+      # CQ Roll Call). Check B (G4): asserts the danjo Lexicon JSON carries
+      # nonAdjudicatingNotice const:true on discrepancyObservation + oversightReport
+      # and that the discrepancyObservation category enum has NO verdict token
+      # (crime/violation/guilt/illegal/unlawful/fraud/犯罪/違法/有罪/不正). A legal
+      # verdict is thus unrepresentable at the schema layer. Runs against the
+      # canonical lexicon paths even with no staged files; staged danjo code files
+      # are scanned for G8 deny-list hits. Regression: 8-test suite green at R0.
+      glob: "*.{clj,cljc,edn,py,ts,tsx,js,jsx,mjs,cjs,json,jsonc,md}"
+      run: node 70-tools/scripts/lint/no-danjo-adjudication.mjs {staged_files}
+      stage_fixed: false
+
     no-purchase-purpose:
       # Enforce ADR-2605192115 §1.3 + §3.3 + ADR-2605192130.
       # Blocks the v0 payment.sent.purpose enum values that were
