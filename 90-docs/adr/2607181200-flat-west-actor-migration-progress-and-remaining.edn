@@ -314,11 +314,11 @@
    "The standalone revision is pushed and the root drain is present in the current worktree, but root and west integration commits are not both published yet. These actors remain in remaining-actors."
    :remaining
    "Root still owns implementation content or the repository boundary has not been resolved."
-   :snapshot
-   {:fully-integrated 168
-    :prepared-root-drain 0
-    :prepared-actors []
-    :root-directories-after-prepared-drain 30}}
+  :snapshot
+  {:fully-integrated 168
+    :prepared-root-drain 6
+    :prepared-actors ["funadaiku" "futawa" "hagukumi" "hikari" "himawari" "hinagata"]
+    :root-directories-after-prepared-drain 24}}
 
   :migration/summary
   {:outcome
@@ -361,18 +361,21 @@
    "A completed count means repository extraction and west integration are finished, not that every historical test or generator defect has been repaired. Known gaps are recorded explicitly and must not be hidden by the migration count."}
 
   :migration/current-work
-  {:status :integrated
-   :actors ["amime" "chie" "credits" "danjo"]
+  {:status :prepared-root-drain
+   :actors ["funadaiku" "futawa" "hagukumi" "hikari" "himawari" "hinagata"]
    :completed-standalone
-   [{:actor "amime" :revision "ef2bab003159a9014ab57ffad072376824ed8b3f" :verification {:tests 12 :assertions 55 :edn-files 9}}
-    {:actor "chie" :revision "72bc5c1a39a0043795f2e83de901847fea060cdc" :verification {:tests 69 :assertions 227 :edn-files 11}}
-    {:actor "credits" :revision "32b06687a95a1bf412539c6071b5ad82a204ba38" :verification {:tests 59 :assertions 286 :edn-files 1}}
-    {:actor "danjo" :revision "5dcb2fe451b889bb7212ce4bbfbd36145a67b5c4" :verification {:tests 31 :assertions 114 :script-checks 195 :edn-files 10}}]
-   :counting-rule "These actors entered completed-actors only after standalone revisions, root tombstones, ledger update, and exact west pins were all integrated."
+   [{:actor "funadaiku" :revision "0549b2e8db67b8015286e55b5796dec1641590a7" :verification {:tests 43 :assertions 396 :edn-files 26 :wire-json 9}}
+    {:actor "futawa" :revision "13c2aca45f9e506f6b8526fb86b3870ecd9a7f0d" :verification {:tests 38 :assertions 178 :edn-files 32 :wire-artifacts 9}}
+    {:actor "hagukumi" :revision "939d6ed985ab5214cf9d104fe8a5973ca3b8b371" :verification {:tests 34 :assertions 55 :edn-files 15 :wire-json 5} :known-gap {:registry-entries 172 :status :unverified-seed}}
+    {:actor "hikari" :revision "8403b94f09fb7ab14d6004634798353e4ab55f27" :verification {:tests 68 :assertions 1316 :edn-files 16 :wire-json 6} :known-gap {:lint :existing-cljc-issues :count 10}}
+    {:actor "himawari" :revision "e932ea0504ef028d3072b579237b6abe859426b3" :verification {:tests 82 :assertions 175 :edn-files 7 :wire-json 7} :known-gap {:python-files 1 :reason :external-ingest-adapter}}
+    {:actor "hinagata" :revision "c4dbec97b491adbac5df78549fbd562ae2065412" :verification {:tests 66 :assertions 3623 :edn-files 8 :wire-wit 1}}]
+   :counting-rule "These six actors remain in remaining-actors until the root migration commit and exact actor/root west pins are published. Their current worktree directories are intended to contain MOVED.edn only after commit."
    :batch-result
-   {:moved-tombstones 168
-    :remaining-root-directories 30
-    :completion-percent 84.85}}
+   {:fully-integrated-tombstones 168
+    :prepared-tombstones 6
+    :remaining-root-directories-after-prepared-drain 24
+    :fully-integrated-percent 84.85}}
 
   :migration/integration-state
   {:snapshot-kind :integrated
@@ -392,8 +395,10 @@
      "chie" "72bc5c1a39a0043795f2e83de901847fea060cdc"
      "credits" "32b06687a95a1bf412539c6071b5ad82a204ba38"
      "danjo" "5dcb2fe451b889bb7212ce4bbfbd36145a67b5c4"}}
-   :pending-actions [:repin-final-adr-root-revision]
-   :note "All 168 completed entries satisfy standalone push, root tombstone, canonical ledger, and exact west revision gates. The final ADR-only root repin closes the integration transaction."}
+   :final-root-revision "86efa16a239445fb0955e2268291daeb2de9ee6a"
+   :final-superproject-revision "f1a2c8a27b5"
+   :pending-actions []
+   :note "All 168 completed entries satisfy standalone push, root tombstone, canonical ledger, and exact west revision gates. The subsequent six prepared actors are deliberately excluded from this completed count until their root and west commits are published."}
 
   :migration/completed-actors
   ["abaki" "ainori" "apqc" "atsurae" "busshi" "com-google-ads" "denwaban"
@@ -423,13 +428,16 @@
    "silicon"]
 
   :migration/remaining-classification
-  [{:class :empty-consolidated-tooling-root
+  [{:class :prepared-root-drain
+    :actors ["funadaiku" "futawa" "hagukumi" "hikari" "himawari" "hinagata"]
+    :action :publish-root-commit-pin-actor-and-root-in-west-then-record-integration}
+   {:class :empty-consolidated-tooling-root
     :actors ["_conformance"]
     :action :remove-after-confirming-70-tools-is-canonical-owner}
    {:class :existing-repository-overlap
     :actors ["ameno" "business-manager" "business_manager"
-             "funadaiku" "futawa" "gov-municipality"
-             "gov_municipality" "hagukumi" "hikari" "himawari" "hinagata"
+             "gov-municipality"
+             "gov_municipality"
              "hodoki" "hotaru" "ibuki" "infra-utility-connect"
              "infra_utility_connect" "itonami" "junkan" "kadode"]
     :action :merge-root-only-content-into-existing-flat-repository-then-tombstone}
@@ -443,10 +451,10 @@
 
   :migration/remaining-accounting
   {:not-fully-integrated-total 30
-   :prepared-root-drain 0
-   :root-content-or-boundary-work-total 30
+   :prepared-root-drain 6
+   :root-content-or-boundary-work-total 24
    :empty-consolidated-tooling-root 1
-   :existing-repository-overlap 19
+   :existing-repository-overlap 13
    :not-yet-independent-or-boundary-review 10
    :logical-components-after-known-duplicate-consolidation 27
    :duplicate-spelling-pairs [["business-manager" "business_manager"]

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-18T09:35:16.335Z",
+  "generated": "2026-07-18T10:07:38.595Z",
   "lexicons": [
     {
       "id": "ai.etzhayyim.yorishiro.argparse-demo.main",
@@ -34598,36 +34598,6 @@
       "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app."
     },
     {
-      "id": "com.etzhayyim.hikari.consumptionAuditRecord",
-      "path": "00-contracts/lexicons/com/etzhayyim/hikari/consumptionAuditRecord.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.hikari.generationRecord",
-      "path": "00-contracts/lexicons/com/etzhayyim/hikari/generationRecord.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.hikari.installAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/hikari/installAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.hikari.parcelEnergyAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/hikari/parcelEnergyAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.hikari.silenEnergyReview",
-      "path": "00-contracts/lexicons/com/etzhayyim/hikari/silenEnergyReview.json",
-      "type": "record",
-      "description": ""
-    },
-    {
       "id": "com.etzhayyim.himawari.cellBatchRecord",
       "path": "00-contracts/lexicons/com/etzhayyim/himawari/cellBatchRecord.json",
       "type": "record",
@@ -47655,13 +47625,6 @@
       "com.etzhayyim.hagukumi.consentRecord",
       "com.etzhayyim.hagukumi.silenCareReview"
     ],
-    "com.etzhayyim.hikari": [
-      "com.etzhayyim.hikari.consumptionAuditRecord",
-      "com.etzhayyim.hikari.generationRecord",
-      "com.etzhayyim.hikari.installAttestation",
-      "com.etzhayyim.hikari.parcelEnergyAttestation",
-      "com.etzhayyim.hikari.silenEnergyReview"
-    ],
     "com.etzhayyim.himawari": [
       "com.etzhayyim.himawari.cellBatchRecord",
       "com.etzhayyim.himawari.loadingRecord",
@@ -48137,6 +48100,6 @@
       "tools.ozone.verification.revokeVerifications"
     ]
   },
-  "total": 6553,
+  "total": 6548,
   "legacy_issues_count": 8
 }

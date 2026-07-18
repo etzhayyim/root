@@ -1824,6 +1824,18 @@
     {:repository "https://github.com/etzhayyim/com-etzhayyim-credits" :revision "32b06687a95a1bf412539c6071b5ad82a204ba38" :west-path "orgs/etzhayyim/com-etzhayyim-credits" :canonical-format :edn :canonical-edn-files 1 :wire-artifacts {:json-ld 1} :verification {:tests 59 :assertions 286 :failures 0 :errors 0 :runner :babashka :jvm-gap :upstream-shomei-primitive-arity} :retained-central-bpmn-contracts true :root-copy :edn-tombstone-only}
     "danjo"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-danjo" :revision "5dcb2fe451b889bb7212ce4bbfbd36145a67b5c4" :west-path "orgs/etzhayyim/com-etzhayyim-danjo" :canonical-format :edn :canonical-edn-files 10 :wire-artifacts {:json 17} :verification {:tests 31 :assertions 114 :script-checks 195 :failures 0 :errors 0} :retained-central-lexicons-and-lint true :root-copy :edn-tombstone-only}
+    "funadaiku"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-funadaiku" :revision "0549b2e8db67b8015286e55b5796dec1641590a7" :west-path "orgs/etzhayyim/com-etzhayyim-funadaiku" :canonical-format :edn :canonical-edn-files 26 :wire-artifacts {:json 9} :verification {:tests 43 :assertions 396 :failures 0 :errors 0} :retained-central-lexicons-and-adr true :root-copy :edn-tombstone-only}
+    "futawa"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-futawa" :revision "13c2aca45f9e506f6b8526fb86b3870ecd9a7f0d" :west-path "orgs/etzhayyim/com-etzhayyim-futawa" :canonical-format :edn :canonical-edn-files 32 :wire-artifacts {:total 9} :verification {:tests 38 :assertions 178 :failures 0 :errors 0} :retained-central-lexicons true :root-copy :edn-tombstone-only}
+    "hagukumi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-hagukumi" :revision "939d6ed985ab5214cf9d104fe8a5973ca3b8b371" :west-path "orgs/etzhayyim/com-etzhayyim-hagukumi" :canonical-format :edn :canonical-edn-files 15 :wire-artifacts {:json 5} :verification {:tests 34 :assertions 55 :failures 0 :errors 0} :known-gap {:registry-entries 172 :status :unverified-seed} :retained-central-lexicons-and-adr true :root-copy :edn-tombstone-only}
+    "hikari"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-hikari" :revision "8403b94f09fb7ab14d6004634798353e4ab55f27" :west-path "orgs/etzhayyim/com-etzhayyim-hikari" :canonical-format :edn :canonical-edn-files 16 :wire-artifacts {:json 6} :verification {:tests 68 :assertions 1316 :failures 0 :errors 0 :lint-existing-cljc-issues 10} :root-copy :edn-tombstone-only}
+    "himawari"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-himawari" :revision "e932ea0504ef028d3072b579237b6abe859426b3" :west-path "orgs/etzhayyim/com-etzhayyim-himawari" :canonical-format :edn :canonical-edn-files 7 :wire-artifacts {:json 7} :verification {:tests 82 :assertions 175 :failures 0 :errors 0} :retained-external-python-ingest-adapter true :root-copy :edn-tombstone-only}
+    "hinagata"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-hinagata" :revision "c4dbec97b491adbac5df78549fbd562ae2065412" :west-path "orgs/etzhayyim/com-etzhayyim-hinagata" :canonical-format :edn :canonical-edn-files 8 :wire-artifacts {:wit 1} :verification {:tests 66 :assertions 3623 :failures 0 :errors 0} :retained-central-lexicons true :root-copy :edn-tombstone-only}
     "tate"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-tate"
      :revision "658b9f67aaa65d7aad5ffda280ec8feaae7a8bc2"
@@ -2028,8 +2040,8 @@
   [{:class :legacy-actor-root-directories
     :snapshot-date "2026-07-18"
     :baseline 198
-    :moved 168
-    :remaining 30
+    :moved 174
+    :remaining 24
     :inventory "90-docs/adr/2607181200-flat-west-actor-migration-progress-and-remaining.edn"}
    {:class :existing-repo-overlap
     :state :merge-root-only-content-before-delete}

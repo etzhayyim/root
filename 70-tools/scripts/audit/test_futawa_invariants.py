@@ -25,7 +25,7 @@ import pytest
 
 _REPO = Path(__file__).resolve().parents[3]
 _LEX = _REPO / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "futawa"
-# manifest invariants -> 20-actors/futawa/methods/test_manifest_invariants.cljc (jsonld retired)
+# manifest invariants -> orgs/etzhayyim/com-etzhayyim-futawa/methods/test_manifest_invariants.cljc (jsonld retired)
 
 # (lexicon stem, field) → expected const true. The structural compliance gates.
 _TRUE_GATES = [
