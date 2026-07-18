@@ -33,9 +33,9 @@
 
   :migration/progress
   {:baseline-actor-directories 198
-   :moved-tombstones 133
-   :remaining-root-directories 65
-   :completion-percent 67.17
+   :moved-tombstones 136
+   :remaining-root-directories 62
+   :completion-percent 68.69
    :canonical-ledger "MULTIREPO-MIGRATION.edn"
    :integration-base-root-revision "1ce8a65a8fe5b68aa5fda43004bf2bc14a5e13e7"
    :integration-base-west-revision "5d33ded7fdd"
@@ -221,21 +221,40 @@
      :canonical-edn-files 75
      :wire-artifacts {:json-json-ld-and-geojson 11}
      :verification {:tests 32 :assertions 105}
-     :retained-tooling {:python-files 31 :shell-files 2}}]}
+     :retained-tooling {:python-files 31 :shell-files 2}}
+    {:actor "omise"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-omise"
+     :revision "8619be47d581252f76ca5fb2b4b63ba217dc17d8"
+     :canonical-edn-files 12
+     :wire-artifacts {:json 45 :bpmn-xml 43}
+     :verification {:tests 38 :assertions 231
+                    :jvm {:tests 9 :assertions 174}}}
+    {:actor "organizer"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-organizer"
+     :revision "0cc5d1bd01fefa2aa0b3788f83dbd8c4175e1dd6"
+     :canonical-edn-files 8
+     :wire-artifacts {:bpmn-xml 19 :json-and-json-ld 20}
+     :verification {:tests 30 :assertions 191 :runners [:babashka :jvm]}}
+    {:actor "nyusatsu"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-nyusatsu"
+     :revision "326d0e833fddb1a56a55f84e2330d9479b5cd9d7"
+     :canonical-edn-files 10
+     :wire-artifacts {:json-ld 1}
+     :verification {:tests 26 :assertions 75}
+     :known-gap :substrate-sdk-payment-auth-codemod}]}
 
   :migration/integration-state
-  {:snapshot-kind :integrated
+  {:snapshot-kind :root-prepared-west-pin-pending
    :standalone-repositories
    {:status :pushed
-    :actors ["sanae" "ossekai" "ooyake"]}
+    :actors ["omise" "organizer" "nyusatsu"]}
    :legacy-root-drain
-   {:status :committed
+   {:status :prepared
     :tracked-invariant :moved-edn-only}
    :west-manifest
-   {:status :exact-revisions-pinned
-    :superproject-revision "118425f69c8d36785704531423dd8f3e6811fd2f"
-    :actors ["sanae" "ossekai" "ooyake"]}
-   :note "The 133 completed entries satisfy the standalone repository, root tombstone, canonical ledger, and exact west revision gates represented by this snapshot."}
+   {:status :pending-pin-update
+    :actors ["omise" "organizer" "nyusatsu"]}
+   :note "The 136-entry inventory includes the prepared latest root drain. The latest three actors satisfy the west-manifest gate only after this root revision and their standalone revisions are pinned in the superproject."}
 
   :migration/completed-actors
   ["abaki" "ainori" "apqc" "atsurae" "busshi" "com-google-ads" "denwaban"
@@ -250,7 +269,7 @@
    "shidemori" "shukubo" "soma" "sonae" "stripe-compat" "suimin" "suki"
    "sumitsubo" "tawami" "toi" "tsukuroi" "ugachi" "unspsc" "utsushie"
    "wakai" "yudane" "isco" "moushibumi" "talent" "chigiri" "himotoki"
-   "toritsugi" "hoshimori" "inochi" "kuni-umi" "kuni_umi" "fuchi" "hokorobi" "kaname" "asobi" "mimamori" "shiori" "tsugite" "watatsuna" "kabuto" "watari" "keizu" "hakoniwa" "kafun" "shirabe" "tanemaki" "tasuke" "rasen" "tatara" "tazuna" "tate" "tokigusuri" "torifune" "tedai" "tatekata" "tsubasa" "tsuchifumi" "tsukuru" "tsumugi" "tsutae" "uchiwake" "uzu" "wadachi" "warifu" "watatsumi" "yadori" "yakushi" "yamabiko" "todoke" "yotei" "yobel" "toritate" "tadori" "sukashi" "subaru" "suji" "shomei" "shinka" "shionome" "sarutahiko" "sanae" "ossekai" "ooyake"]
+   "toritsugi" "hoshimori" "inochi" "kuni-umi" "kuni_umi" "fuchi" "hokorobi" "kaname" "asobi" "mimamori" "shiori" "tsugite" "watatsuna" "kabuto" "watari" "keizu" "hakoniwa" "kafun" "shirabe" "tanemaki" "tasuke" "rasen" "tatara" "tazuna" "tate" "tokigusuri" "torifune" "tedai" "tatekata" "tsubasa" "tsuchifumi" "tsukuru" "tsumugi" "tsutae" "uchiwake" "uzu" "wadachi" "warifu" "watatsumi" "yadori" "yakushi" "yamabiko" "todoke" "yotei" "yobel" "toritate" "tadori" "sukashi" "subaru" "suji" "shomei" "shinka" "shionome" "sarutahiko" "sanae" "ossekai" "ooyake" "omise" "organizer" "nyusatsu"]
 
   :migration/remaining-actors
   ["_conformance" "aburi" "akashi" "ake" "ameno" "amime"
@@ -264,8 +283,8 @@
    "kawaraban" "kizashi" "kosatsu" "kotoba-actors-clj" "kotodama"
    "magatama" "makura" "manabi" "maps" "matsurigoto"
    "meisai" "meyasu" "mitooshi" "mitsuho" "mizuho"
-   "moyoshi" "mst-projector" "niyaku" "noroshi" "nusa" "nyusatsu" "okaimono"
-   "omise" "organizer" "silicon"]
+   "moyoshi" "mst-projector" "niyaku" "noroshi" "nusa" "okaimono"
+   "silicon"]
 
   :migration/remaining-classification
   [{:class :duplicate-spelling-or-path

@@ -1686,6 +1686,36 @@
      :verification {:tests 32 :assertions 105 :failures 0 :errors 0}
      :retained-tooling {:python-files 31 :shell-files 2}
      :root-copy :edn-tombstone-only}
+    "omise"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-omise"
+     :revision "8619be47d581252f76ca5fb2b4b63ba217dc17d8"
+     :west-path "orgs/etzhayyim/com-etzhayyim-omise"
+     :canonical-format :edn
+     :canonical-edn-files 12
+     :wire-artifacts {:json 45 :bpmn-xml 43}
+     :verification {:tests 38 :assertions 231 :failures 0 :errors 0
+                    :jvm {:tests 9 :assertions 174 :failures 0 :errors 0}}
+     :root-copy :edn-tombstone-only}
+    "organizer"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-organizer"
+     :revision "0cc5d1bd01fefa2aa0b3788f83dbd8c4175e1dd6"
+     :west-path "orgs/etzhayyim/com-etzhayyim-organizer"
+     :canonical-format :edn
+     :canonical-edn-files 8
+     :wire-artifacts {:bpmn-xml 19 :json-and-json-ld 20}
+     :verification {:tests 30 :assertions 191 :failures 0 :errors 0
+                    :runners [:babashka :jvm]}
+     :root-copy :edn-tombstone-only}
+    "nyusatsu"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-nyusatsu"
+     :revision "326d0e833fddb1a56a55f84e2330d9479b5cd9d7"
+     :west-path "orgs/etzhayyim/com-etzhayyim-nyusatsu"
+     :canonical-format :edn
+     :canonical-edn-files 10
+     :wire-artifacts {:json-ld 1}
+     :verification {:tests 26 :assertions 75 :failures 0 :errors 0}
+     :known-gap :substrate-sdk-payment-auth-codemod
+     :root-copy :edn-tombstone-only}
     "tate"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-tate"
      :revision "658b9f67aaa65d7aad5ffda280ec8feaae7a8bc2"
@@ -1890,8 +1920,8 @@
   [{:class :legacy-actor-root-directories
     :snapshot-date "2026-07-18"
     :baseline 198
-    :moved 133
-    :remaining 65
+    :moved 136
+    :remaining 62
     :inventory "90-docs/adr/2607181200-flat-west-actor-migration-progress-and-remaining.edn"}
    {:class :existing-repo-overlap
     :state :merge-root-only-content-before-delete}

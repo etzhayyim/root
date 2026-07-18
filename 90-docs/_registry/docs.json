@@ -19155,7 +19155,7 @@
       "topic": "omise-storefront-commons",
       "authoritative": true,
       "authoritative_for": [
-        "20-actors/omise"
+        "orgs/etzhayyim/com-etzhayyim-omise"
       ],
       "related": [
         "2605231525   # no-server-key"
@@ -19460,7 +19460,7 @@
       "topic": "organizer-kotoba-native",
       "authoritative": true,
       "authoritative_for": [
-        "20-actors/organizer"
+        "orgs/etzhayyim/com-etzhayyim-organizer"
       ],
       "related": [
         "2606072200   # yotei (sibling Phase-A conversion)"

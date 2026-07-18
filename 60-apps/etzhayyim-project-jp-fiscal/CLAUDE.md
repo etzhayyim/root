@@ -65,4 +65,4 @@ etzhayyim deploy --smoke-url https://jpf15c4l.etzhayyim.com/health
 - 14 lexicon `00-contracts/lexicons/com/etzhayyim/apps/jpFiscal/`
 - 3 graph tables `30-graph/graph-schema/migrations/20260419112804_jp_fiscal_flow_tables.ts`
 - gov actor `20-actors/gov/actor-manifest.jsonld` (derive rules + L0..L7 path DIDs)
-- nyusatsu actor `20-actors/nyusatsu/actor-manifest.jsonld` (procurement bid aggregator)
+- nyusatsu actor `orgs/etzhayyim/com-etzhayyim-nyusatsu/actor-manifest.jsonld` (procurement bid aggregator)
