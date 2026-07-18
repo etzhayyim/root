@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-18T07:30:39.682Z",
+  "generated": "2026-07-18T07:51:24.696Z",
   "lexicons": [
     {
       "id": "ai.etzhayyim.yorishiro.argparse-demo.main",
@@ -12390,102 +12390,6 @@
       "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/kafun/agent/tick.json",
       "type": "procedure",
       "description": "Run kafun-bokumetsu executor LangGraph (kafun.tick.v1). Cron-driven autonomous loop: selects the highest-priority affordable proposal and emits a vertex_kafun_action row authored under did:web:n97ik10"
-    },
-    {
-      "id": "com.etzhayyim.apps.kakaku.activateSelectorRevision",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/kakaku/activateSelectorRevision.json",
-      "type": "procedure",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.apps.kakaku.compareOffers",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/kakaku/compareOffers.json",
-      "type": "procedure",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.apps.kakaku.getMerchant",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/kakaku/getMerchant.json",
-      "type": "procedure",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.apps.kakaku.getPriceHistory",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/kakaku/getPriceHistory.json",
-      "type": "query",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.apps.kakaku.ingestOfferFromUrl",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/kakaku/ingestOfferFromUrl.json",
-      "type": "procedure",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.apps.kakaku.listMerchants",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/kakaku/listMerchants.json",
-      "type": "procedure",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.apps.kakaku.listSelectorRevisions",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/kakaku/listSelectorRevisions.json",
-      "type": "procedure",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.apps.kakaku.matchCandidate",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/kakaku/matchCandidate.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.apps.kakaku.merchant",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/kakaku/merchant.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.apps.kakaku.offer",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/kakaku/offer.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.apps.kakaku.priceHistory",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/kakaku/priceHistory.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.apps.kakaku.product",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/kakaku/product.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.apps.kakaku.registerMerchant",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/kakaku/registerMerchant.json",
-      "type": "procedure",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.apps.kakaku.registerProduct",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/kakaku/registerProduct.json",
-      "type": "procedure",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.apps.kakaku.selectorRevision",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/kakaku/selectorRevision.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.apps.kakaku.upsertOffer",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/kakaku/upsertOffer.json",
-      "type": "procedure",
-      "description": ""
     },
     {
       "id": "com.etzhayyim.apps.kami.auditSabiotoshi",
@@ -35738,42 +35642,6 @@
       "description": ""
     },
     {
-      "id": "com.etzhayyim.kamado.carbonBalance",
-      "path": "00-contracts/lexicons/com/etzhayyim/kamado/carbonBalance.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kamado.decommissionPlan",
-      "path": "00-contracts/lexicons/com/etzhayyim/kamado/decommissionPlan.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kamado.feedstockProvenance",
-      "path": "00-contracts/lexicons/com/etzhayyim/kamado/feedstockProvenance.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kamado.refineryAsset",
-      "path": "00-contracts/lexicons/com/etzhayyim/kamado/refineryAsset.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kamado.refineryUnit",
-      "path": "00-contracts/lexicons/com/etzhayyim/kamado/refineryUnit.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kamado.synthesisRun",
-      "path": "00-contracts/lexicons/com/etzhayyim/kamado/synthesisRun.json",
-      "type": "record",
-      "description": ""
-    },
-    {
       "id": "com.etzhayyim.karute.carePlan",
       "path": "00-contracts/lexicons/com/etzhayyim/karute/carePlan.json",
       "type": "record",
@@ -42797,24 +42665,6 @@
       "com.etzhayyim.apps.kafun.agent.think",
       "com.etzhayyim.apps.kafun.agent.tick"
     ],
-    "com.etzhayyim.apps.kakaku": [
-      "com.etzhayyim.apps.kakaku.activateSelectorRevision",
-      "com.etzhayyim.apps.kakaku.compareOffers",
-      "com.etzhayyim.apps.kakaku.getMerchant",
-      "com.etzhayyim.apps.kakaku.getPriceHistory",
-      "com.etzhayyim.apps.kakaku.ingestOfferFromUrl",
-      "com.etzhayyim.apps.kakaku.listMerchants",
-      "com.etzhayyim.apps.kakaku.listSelectorRevisions",
-      "com.etzhayyim.apps.kakaku.matchCandidate",
-      "com.etzhayyim.apps.kakaku.merchant",
-      "com.etzhayyim.apps.kakaku.offer",
-      "com.etzhayyim.apps.kakaku.priceHistory",
-      "com.etzhayyim.apps.kakaku.product",
-      "com.etzhayyim.apps.kakaku.registerMerchant",
-      "com.etzhayyim.apps.kakaku.registerProduct",
-      "com.etzhayyim.apps.kakaku.selectorRevision",
-      "com.etzhayyim.apps.kakaku.upsertOffer"
-    ],
     "com.etzhayyim.apps.kami": [
       "com.etzhayyim.apps.kami.auditSabiotoshi",
       "com.etzhayyim.apps.kami.classifyItem",
@@ -48256,14 +48106,6 @@
       "com.etzhayyim.kadode.escalation",
       "com.etzhayyim.kadode.resignationRelay"
     ],
-    "com.etzhayyim.kamado": [
-      "com.etzhayyim.kamado.carbonBalance",
-      "com.etzhayyim.kamado.decommissionPlan",
-      "com.etzhayyim.kamado.feedstockProvenance",
-      "com.etzhayyim.kamado.refineryAsset",
-      "com.etzhayyim.kamado.refineryUnit",
-      "com.etzhayyim.kamado.synthesisRun"
-    ],
     "com.etzhayyim.karute": [
       "com.etzhayyim.karute.carePlan",
       "com.etzhayyim.karute.condition",
@@ -48717,6 +48559,6 @@
       "tools.ozone.verification.revokeVerifications"
     ]
   },
-  "total": 6633,
+  "total": 6611,
   "legacy_issues_count": 8
 }

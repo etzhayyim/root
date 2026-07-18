@@ -13,7 +13,7 @@
 
 ;; repo-root-relative path works under run_tests.sh (cwd = repo root); fall back via actor-dir.
 (def lex-file
-  (let [root (io/file "20-actors/karakuri/lex/serviceOp.edn")]
+  (let [root (io/file "orgs/etzhayyim/com-etzhayyim-karakuri/lex/serviceOp.edn")]
     (if (.exists root) root
         (io/file (-> *file* io/file .getParentFile .getParentFile .getParentFile)
                  "karakuri" "lex" "serviceOp.edn"))))

@@ -1890,21 +1890,6 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/260411-kakaku-smoke-runbook.edn",
-      "id": "adr-260411-kakaku-smoke-runbook",
-      "title": "Kakaku Smoke Runbook",
-      "status": "active",
-      "doc_type": "adr",
-      "topic": "",
-      "authoritative": false,
-      "authoritative_for": [],
-      "related": [],
-      "supersedes": [],
-      "superseded_by": [],
-      "amends": [],
-      "amended_by": []
-    },
-    {
       "path": "90-docs/260411-risingwave-iceberg-hybrid-path-management-design.edn",
       "id": "adr-260411-risingwave-iceberg-hybrid-path-management-design",
       "title": "Kotoba/Datomic Iceberg Hybrid Path Management Design",
@@ -18033,7 +18018,7 @@
       "topic": "karakuri-webservice-to-cli",
       "authoritative": true,
       "authoritative_for": [
-        "20-actors/karakuri",
+        "orgs/etzhayyim/com-etzhayyim-karakuri",
         "com.etzhayyim.karakuri.*"
       ],
       "related": [

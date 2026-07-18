@@ -9,8 +9,8 @@
 ;; MUST be closed-loop carbon; `:fossil-virgin-crude` is structurally UNREPRESENTABLE.
 ;; kamado declares the invariant THREE times and this suite proves all three agree:
 ;;   #1 ontology  (00-contracts/schemas/refining-ontology.kotoba.edn) :feedstock/class :db/allowed
-;;   #2 lexicons  (00-contracts/lexicons/com/etzhayyim/kamado/*.json)  feedstockClass enum + consts
-;;   #3 guard     (20-actors/kamado/methods/feedstock_guard.cljc)      screen-feedstock raises on fossil
+;;   #2 lexicons  (orgs/etzhayyim/com-etzhayyim-kamado/wire/lex/*.json)  feedstockClass enum + consts
+;;   #3 guard     (orgs/etzhayyim/com-etzhayyim-kamado/methods/feedstock_guard.cljc)      screen-feedstock raises on fossil
 ;;
 ;; Run: bb 70-tools/scripts/audit/test_kamado_invariants.clj   (exit 1 on any drift)
 (ns test-kamado-invariants

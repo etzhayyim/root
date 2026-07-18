@@ -10,7 +10,7 @@
 # (CF Registrar) and the DID doc is content-addressed + TLS-anchored + keyless (vm:[]), and
 # the Worker serves a compiled INFRA_ACTORS fallback — so this is an EDGE CACHE promotion,
 # reversible via KV delete, NOT a canonical-state write. Canonical Datom state is a separate,
-# etzhayyim-sovereign path (see 20-actors/kamado/methods/ingest.py --push + oil-refining
+# etzhayyim-sovereign path (see orgs/etzhayyim/com-etzhayyim-kamado/methods/ingest.py --push + oil-refining
 # MIGRATION-NOTES). Dedicated-etzhayyim-CF-account separation is a tracked follow-up.
 #
 # Usage (the operator supplies the CF token, e.g. from 1Password):

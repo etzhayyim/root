@@ -1790,6 +1790,12 @@
     {:repository "https://github.com/etzhayyim/com-etzhayyim-kanayama" :revision "0d6a89236cf5f7fe78d914a04ffda19041e86903" :west-path "orgs/etzhayyim/com-etzhayyim-kanayama" :canonical-format :edn :canonical-edn-files 27 :wire-artifacts {:json-and-json-ld 9} :verification {:tests 55 :assertions 176 :failures 0 :errors 0} :root-copy :edn-tombstone-only}
     "kanjo"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-kanjo" :revision "e0f5b760193e61d84410b6beece9468d29ba0d69" :west-path "orgs/etzhayyim/com-etzhayyim-kanjo" :canonical-format :edn :canonical-edn-files 22 :wire-artifacts {:json-and-json-ld 9} :verification {:tests 55 :assertions 248 :failures 0 :errors 0 :full-data-stress :resource-terminated} :root-copy :edn-tombstone-only}
+    "kakaku"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kakaku" :revision "90ce45afc5be766339579a21cc6d9e80886d46a4" :west-path "orgs/etzhayyim/com-etzhayyim-kakaku" :canonical-format :edn :canonical-edn-files 41 :wire-artifacts {:json 19 :bpmn-xml 3 :html 2} :verification {:tests 63 :assertions 309 :failures 0 :errors 0 :jvm {:tests 9 :assertions 174}} :root-copy :edn-tombstone-only}
+    "kamado"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kamado" :revision "b4476a2c512843fb470c084572ac819542bc556b" :west-path "orgs/etzhayyim/com-etzhayyim-kamado" :canonical-format :edn :canonical-edn-files 19 :wire-artifacts {:json-and-json-ld 8} :verification {:tests 78 :assertions 244 :failures 0 :errors 0} :retained-shared-contract "00-contracts/schemas/refining-ontology.kotoba.edn" :root-copy :edn-tombstone-only}
+    "karakuri"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-karakuri" :revision "f878f8b7ecd0340503436010d0b718fe5306caf0" :west-path "orgs/etzhayyim/com-etzhayyim-karakuri" :canonical-format :edn :canonical-edn-files 20 :wire-artifacts {} :verification {:tests 106 :assertions 251 :failures 0 :errors 0} :root-copy :edn-tombstone-only}
     "tate"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-tate"
      :revision "658b9f67aaa65d7aad5ffda280ec8feaae7a8bc2"
@@ -1994,8 +2000,8 @@
   [{:class :legacy-actor-root-directories
     :snapshot-date "2026-07-18"
     :baseline 198
-    :moved 151
-    :remaining 47
+    :moved 154
+    :remaining 44
     :inventory "90-docs/adr/2607181200-flat-west-actor-migration-progress-and-remaining.edn"}
    {:class :existing-repo-overlap
     :state :merge-root-only-content-before-delete}
