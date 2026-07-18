@@ -296,7 +296,7 @@
 
   :migration/summary
   {:outcome
-   "The former monorepo actor layer is being drained without changing west's flat checkout convention. 157 of the 198 baseline directories are extracted into independently versioned com-etzhayyim-* repositories; the current batch is awaiting root and west integration."
+   "The former monorepo actor layer is being drained without changing west's flat checkout convention. 157 of the 198 baseline directories are fully integrated: their implementation and actor-owned contracts live in independently versioned com-etzhayyim-* repositories, west pins exact revisions, and the corresponding 20-actors directory is a MOVED.edn tombstone only."
    :repository-boundary
    {:superproject "com-junkawasaki/root owns west.yml and exact repository pins."
     :root "com-etzhayyim/root owns cross-repository policy, migration ledger, ADRs, generators, and legacy tombstones."
@@ -335,7 +335,7 @@
    "A completed count means repository extraction and west integration are finished, not that every historical test or generator defect has been repaired. Known gaps are recorded explicitly and must not be hidden by the migration count."}
 
   :migration/current-work
-  {:status :root-and-west-integration
+  {:status :integrated
    :actors ["kasa" "kawaraban" "kizashi"]
    :completed-standalone
    [{:actor "kasa" :revision "c7c791351d1590aece8f9bccaf97d60f180ce6a7" :verification {:tests 48 :assertions 511 :edn-files 17}}
@@ -348,16 +348,16 @@
     :completion-percent 79.29}}
 
   :migration/integration-state
-  {:snapshot-kind :integration-pending
+  {:snapshot-kind :integrated
    :standalone-repositories
    {:status :pushed
     :actors ["kasa" "kawaraban" "kizashi"]}
    :legacy-root-drain
-   {:status :prepared
+   {:status :committed
     :tracked-invariant :moved-edn-only}
    :west-manifest
-   {:status :pending :actors ["kasa" "kawaraban" "kizashi"]}
-   :note "Standalone extraction and root drain are prepared for 157 entries; west exact-revision integration is pending for the current batch."}
+   {:status :exact-revisions-pinned :superproject-revision "668ccf571e85cd1b1d879581e5af8068a846d3a9" :actors ["kasa" "kawaraban" "kizashi"]}
+   :note "The 157 completed entries satisfy the standalone repository, root tombstone, canonical ledger, and exact west revision gates represented by this snapshot."}
 
   :migration/completed-actors
   ["abaki" "ainori" "apqc" "atsurae" "busshi" "com-google-ads" "denwaban"
