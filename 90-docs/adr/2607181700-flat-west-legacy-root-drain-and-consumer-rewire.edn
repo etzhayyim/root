@@ -109,6 +109,7 @@
    {:state :published
     :base-root-revision "4c5b9c209491766d4bf84b2b6cf779ca2dbea0d4"
     :revision "3437ecf30e"
+    :operational-closure-revision "dad2ed5d16"
     :areas
     ["cell-runner actor source discovery"
      "organism visualization and cleanroom fixtures"
@@ -128,20 +129,14 @@
    #{:changed-edn-readable :python-syntax :node-syntax :diff-check
      :pre-commit-hooks :pre-push-tree-guard}
    :superproject-pin
-   {:revision "6c7a39005be"
+   {:revision "c94825c9bd5"
     :branch "codex/pin-etzhayyim-multirepo"
-    :root-revision "3437ecf30ea0a7a780d1736a422cea4353a97eef"
+    :root-revision "d45589dfe9d7"
     :remote-verification :fast-forward-and-reachable}}
 
   :remaining
   {:required
-   [:redesign-vitals-multi-repository-git-observation
-    :redesign-log-layer-classification-for-flat-west-paths
-    :retire-or-rewrite-josh-subtree-workspace
-    :retire-or-rewrite-maxwell-pruned-python-corpus-input
-    :repin-final-adr-root-revision-in-superproject
-    :regenerate-adr-registry-and-graph
-    :rerun-completion-audit-after-the-four-operational-debts-close]
+   [:repin-final-adr-root-revision-in-superproject]
    :closed-active-candidates
    ["etzhayyim-did-web actor-rad generator and shell repository links"
     "commercial-remittance boundary verifier"
@@ -150,12 +145,14 @@
     "extraction and mesh-migration utility help paths"]
    :completion-audit
    {:executed true
-    :result :open
-    :active-operational-debt
-    ["50-infra/josh/workspace.josh"
-     "70-tools/scripts/maxwell/{collect_corpus.py,gate_candidates.py,harvest.clj}"
-     "70-tools/src/etzhayyim/vitals.cljc"
-     "70-tools/{src/etzhayyim/logs.cljc,etzhayyim-py/src/etzhayyim/logs.py}"]
+    :result :pass
+    :active-operational-debt []
+    :closed-operational-designs
+    {:josh :retired-fail-closed
+     :maxwell :flat-west-discovery
+     :vitals {:flat-west-actors-discovered 113 :git-observation :per-repository}
+     :logs {:current-prefix "orgs/etzhayyim/com-etzhayyim-"
+            :legacy-prefix :historical-event-compatibility-only}}
     :manifest-lexicon-data-debt
     {:manifests-scanned 113
      :declared-central-json-missing 229
@@ -181,12 +178,12 @@
     :consumer-rewire-published
     :generated-actor-rad-and-tier-b-fresh
     :consumer-rewire-tests-green
-    :residual-path-audit-executed]
-   :pending
-   [:four-operational-debts-closed
+    :residual-path-audit-executed
+    :four-operational-debts-closed
     :generated-adr-registries-fresh
-    :final-superproject-root-pin-published
-    :completion-audit-pass]}
+    :completion-audit-pass]
+   :pending
+   [:final-superproject-root-pin-published]}
 
   :adr/body
-  "All 198 former actor directories beneath 20-actors have reached the terminal MOVED.edn-only state, and no tracked Go or TinyGo implementation remains there. Actor-specific code now belongs in flat com-etzhayyim-* west repositories; reusable actor and projector code belongs in kotoba-actors and mst-projector. Duplicate underscore identities remain explicit DID-preserving compatibility repositories rather than silent aliases. The main consumer-rewire wave is published at 3437ecf30e and its actor-rad, Tier-B, cell-runner, organism, actor-mesh, shell-policy, and cleanroom checks pass. The completion audit remains open for four explicitly named operational designs: Josh subtree retirement, Maxwell corpus input retirement, multi-repository vitals, and flat-west log classification. The final superproject pin follows after those designs close and the root revision becomes final."}]
+  "All 198 former actor directories beneath 20-actors have reached the terminal MOVED.edn-only state, and no tracked Go or TinyGo implementation remains there. Actor-specific code now belongs in flat com-etzhayyim-* west repositories; reusable actor and projector code belongs in kotoba-actors and mst-projector. Duplicate underscore identities remain explicit DID-preserving compatibility repositories rather than silent aliases. The main consumer-rewire wave is published at 3437ecf30e and its actor-rad, Tier-B, cell-runner, organism, actor-mesh, shell-policy, and cleanroom checks pass. The four operational designs found by the first audit are closed at dad2ed5d16: Josh fails closed, Maxwell discovers flat repositories, vitals observes each repository independently, and logs classify flat paths while retaining old paths only for historical events. The migration completion audit passes; only publication of this final ADR revision as the exact superproject root pin remains transactional work."}]
