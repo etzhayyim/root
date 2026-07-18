@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-18T04:57:35.022Z",
+  "generated": "2026-07-18T05:14:46.377Z",
   "lexicons": [
     {
       "id": "ai.etzhayyim.yorishiro.argparse-demo.main",
@@ -40568,60 +40568,6 @@
       "description": ""
     },
     {
-      "id": "com.etzhayyim.yamabiko.acousticEmissionsAuditRecord",
-      "path": "00-contracts/lexicons/com/etzhayyim/yamabiko/acousticEmissionsAuditRecord.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.yamabiko.bogieAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/yamabiko/bogieAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.yamabiko.carbodyAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/yamabiko/carbodyAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.yamabiko.dynamicTestRecord",
-      "path": "00-contracts/lexicons/com/etzhayyim/yamabiko/dynamicTestRecord.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.yamabiko.finalAssemblyAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/yamabiko/finalAssemblyAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.yamabiko.homologationRecord",
-      "path": "00-contracts/lexicons/com/etzhayyim/yamabiko/homologationRecord.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.yamabiko.interiorAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/yamabiko/interiorAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.yamabiko.silenRailReview",
-      "path": "00-contracts/lexicons/com/etzhayyim/yamabiko/silenRailReview.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.yamabiko.tractionElectricalAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/yamabiko/tractionElectricalAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
       "id": "com.etzhayyim.yobel.declareRite",
       "path": "00-contracts/lexicons/com/etzhayyim/yobel/declareRite.json",
       "type": "record",
@@ -50138,17 +50084,6 @@
       "com.etzhayyim.yadori.reservationIntent",
       "com.etzhayyim.yadori.zoneProvisionPlan"
     ],
-    "com.etzhayyim.yamabiko": [
-      "com.etzhayyim.yamabiko.acousticEmissionsAuditRecord",
-      "com.etzhayyim.yamabiko.bogieAttestation",
-      "com.etzhayyim.yamabiko.carbodyAttestation",
-      "com.etzhayyim.yamabiko.dynamicTestRecord",
-      "com.etzhayyim.yamabiko.finalAssemblyAttestation",
-      "com.etzhayyim.yamabiko.homologationRecord",
-      "com.etzhayyim.yamabiko.interiorAttestation",
-      "com.etzhayyim.yamabiko.silenRailReview",
-      "com.etzhayyim.yamabiko.tractionElectricalAttestation"
-    ],
     "com.etzhayyim.yobel": [
       "com.etzhayyim.yobel.declareRite",
       "com.etzhayyim.yobel.enrollCreditor",
@@ -50244,6 +50179,6 @@
       "tools.ozone.verification.revokeVerifications"
     ]
   },
-  "total": 6844,
+  "total": 6835,
   "legacy_issues_count": 8
 }

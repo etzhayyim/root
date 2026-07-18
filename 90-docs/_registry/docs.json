@@ -11534,7 +11534,7 @@
         "Sub-ADR registry (ADR-2605250515 / 2605250530 / 2605250545)"
       ],
       "related": [
-        "20-actors/yakushi/                              # this ADR creates this tree",
+        "orgs/etzhayyim/com-etzhayyim-yakushi/                              # this ADR creates this tree",
         "40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_*/              # this ADR creates the 8 pharma Pregel cells",
         "00-contracts/lexicons/com/etzhayyim/pharma/     # this ADR creates the 8 pharma Lexicons",
         "50-infra/murakumo/fleet.toml                    # cell placement (Phase R1+ post-Council)"
@@ -11562,7 +11562,7 @@
         "化合物別 silen-pharma-review trigger"
       ],
       "related": [
-        "20-actors/yakushi/",
+        "orgs/etzhayyim/com-etzhayyim-yakushi/",
         "40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_api_synthesis/",
         "40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_purification/",
         "40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_qc/",
@@ -11594,7 +11594,7 @@
         "QC bridging (API → 製剤 → 充填) の attestation chain"
       ],
       "related": [
-        "20-actors/yakushi/",
+        "orgs/etzhayyim/com-etzhayyim-yakushi/",
         "40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_sterile_fill_finish/",
         "40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_container/",
         "00-contracts/lexicons/com/etzhayyim/pharma/fillFinishAttestation.json",
@@ -11623,7 +11623,7 @@
         "Charter Rider §2 per-category 評価 (毒物・劇物 / 高圧ガス保安法 / CWC / 化審法 / 麻向法 / 廃棄物処理法)"
       ],
       "related": [
-        "20-actors/yakushi/",
+        "orgs/etzhayyim/com-etzhayyim-yakushi/",
         "40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_raw_material/",
         "40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_packaging/",
         "40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_cold_chain/",
@@ -11656,7 +11656,7 @@
         "Per-API perpetually-off-patent date verification (oldest 1893 acetaminophen / newest 1988 loratadine; all ≥ 18 yr off-patent in 3 jurisdictions)"
       ],
       "related": [
-        "20-actors/yakushi/",
+        "orgs/etzhayyim/com-etzhayyim-yakushi/",
         "40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_tablet_manufacture/",
         "40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_topical_formulation/",
         "00-contracts/lexicons/com/etzhayyim/pharma/"
@@ -11684,7 +11684,7 @@
         "Baseline synthesis routing for omeprazole (Prilosec 1988 racemate literature route → enantiomeric separation)"
       ],
       "related": [
-        "20-actors/yakushi/",
+        "orgs/etzhayyim/com-etzhayyim-yakushi/",
         "40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_chiral_resolution/",
         "00-contracts/lexicons/com/etzhayyim/pharma/"
       ],
@@ -12322,7 +12322,7 @@
         "Cross-actor cell pair: mitate_outcome_qol_followup ↔ yakushi.pharma_post_market_surveillance + yakushi.pharma_packaging"
       ],
       "related": [
-        "20-actors/yakushi/                                         # yakushi sibling actor",
+        "orgs/etzhayyim/com-etzhayyim-yakushi/                                         # yakushi sibling actor",
         "20-actors/mitate/                                          # mitate sibling actor",
         "40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_adverse_event/             # yakushi-side individual handoff receiver",
         "40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_post_market_surveillance/  # yakushi-side aggregated signal receiver",
@@ -17986,7 +17986,7 @@
       "topic": "yadori-domain-acquisition",
       "authoritative": true,
       "authoritative_for": [
-        "20-actors/yadori",
+        "orgs/etzhayyim/com-etzhayyim-yadori",
         "com.etzhayyim.yadori.*"
       ],
       "related": [
@@ -22310,13 +22310,13 @@
         "1 new Pregel cell (formulation) + 1 new lexicon (com.etzhayyim.yakushi.formulationAttestation)",
         "1 new kotoba EAVT entity (:formulationAttestation/*)",
         "4 new constitutional gates G21..G24 (efficacy-window / no-toxic-gas / flammable-label / use-class)",
-        "clj-native (SSoT) implementation in 20-actors/yakushi/py/agent.clj + test_agent.clj (no Python counterpart — clj-as-SSoT direction)"
+        "clj-native (SSoT) implementation in orgs/etzhayyim/com-etzhayyim-yakushi/py/agent.clj + test_agent.clj (no Python counterpart — clj-as-SSoT direction)"
       ],
       "related": [
-        "20-actors/yakushi/",
-        "20-actors/yakushi/py/agent.clj",
-        "20-actors/yakushi/cells/formulation_attestation.edn",
-        "20-actors/yakushi/lex/formulationAttestation.edn"
+        "orgs/etzhayyim/com-etzhayyim-yakushi/",
+        "orgs/etzhayyim/com-etzhayyim-yakushi/py/agent.clj",
+        "orgs/etzhayyim/com-etzhayyim-yakushi/cells/formulation_attestation.edn",
+        "orgs/etzhayyim/com-etzhayyim-yakushi/lex/formulationAttestation.edn"
       ],
       "last_verified": "2026-06-17",
       "supersedes": [],

@@ -33,9 +33,9 @@
 
   :migration/progress
   {:baseline-actor-directories 198
-   :moved-tombstones 115
-   :remaining-root-directories 83
-   :completion-percent 58.08
+   :moved-tombstones 118
+   :remaining-root-directories 80
+   :completion-percent 59.60
    :canonical-ledger "MULTIREPO-MIGRATION.edn"
    :integration-base-root-revision "1ce8a65a8fe5b68aa5fda43004bf2bc14a5e13e7"
    :integration-base-west-revision "5d33ded7fdd"
@@ -115,7 +115,21 @@
      :revision "c7f1b30c4ca987e9510c51393e8c55ecc3af1cd6"
      :canonical-edn-files 38
      :wire-artifacts {:json-and-json-ld 9 :bpmn-xml 0}
-     :verification {:tests 65 :assertions 397}}]}
+     :verification {:tests 65 :assertions 397}}
+    {:actor "yadori"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-yadori"
+     :revision "88e893737dea6bf3d932688d41432937b912ce81"
+     :verification {:tests 50 :assertions 110}}
+    {:actor "yakushi"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-yakushi"
+     :revision "cbc01e5e132100bcf38cbe5e26f3d1048bb4c346"
+     :verification {:tests 36 :assertions 114}}
+    {:actor "yamabiko"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-yamabiko"
+     :revision "df4533ddff1c17e46aeadba3584b0b154793ea4b"
+     :canonical-edn-files 40
+     :wire-artifacts {:json-and-json-ld 10 :bpmn-xml 0}
+     :verification {:tests 108 :assertions 668}}]}
 
   :migration/completed-actors
   ["abaki" "ainori" "apqc" "atsurae" "busshi" "com-google-ads" "denwaban"
@@ -130,7 +144,7 @@
    "shidemori" "shukubo" "soma" "sonae" "stripe-compat" "suimin" "suki"
    "sumitsubo" "tawami" "toi" "tsukuroi" "ugachi" "unspsc" "utsushie"
    "wakai" "yudane" "isco" "moushibumi" "talent" "chigiri" "himotoki"
-   "toritsugi" "hoshimori" "inochi" "kuni-umi" "kuni_umi" "fuchi" "hokorobi" "kaname" "asobi" "mimamori" "shiori" "tsugite" "watatsuna" "kabuto" "watari" "keizu" "hakoniwa" "kafun" "shirabe" "tanemaki" "tasuke" "rasen" "tatara" "tazuna" "tate" "tokigusuri" "torifune" "tedai" "tatekata" "tsubasa" "tsuchifumi" "tsukuru" "tsumugi" "tsutae" "uchiwake" "uzu" "wadachi" "warifu" "watatsumi"]
+   "toritsugi" "hoshimori" "inochi" "kuni-umi" "kuni_umi" "fuchi" "hokorobi" "kaname" "asobi" "mimamori" "shiori" "tsugite" "watatsuna" "kabuto" "watari" "keizu" "hakoniwa" "kafun" "shirabe" "tanemaki" "tasuke" "rasen" "tatara" "tazuna" "tate" "tokigusuri" "torifune" "tedai" "tatekata" "tsubasa" "tsuchifumi" "tsukuru" "tsumugi" "tsutae" "uchiwake" "uzu" "wadachi" "warifu" "watatsumi" "yadori" "yakushi" "yamabiko"]
 
   :migration/remaining-actors
   ["_conformance" "aburi" "akashi" "ake" "ameno" "amime"
@@ -149,8 +163,7 @@
    "shinka" "shionome" "shomei" "silicon" "subaru" "suji"
    "sukashi" "tadori"
    "todoke" "toritate"
-   "yadori"
-   "yakushi" "yamabiko" "yobel" "yotei"]
+   "yobel" "yotei"]
 
   :migration/remaining-classification
   [{:class :duplicate-spelling-or-path

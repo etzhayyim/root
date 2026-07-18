@@ -121,11 +121,6 @@
  "20-actors/ucie_chiplet-compat/run_tests.sh"
  "20-actors/x86_cpu-compat/run_tests.sh"
  "20-actors/yabai/run_tests.sh"
- "20-actors/yadori/run_tests.sh"
- "20-actors/yakushi/kotoba/deploy.sh"
- "20-actors/yakushi/run_tests.sh"
- "20-actors/yamabiko/kotoba/deploy.sh"
- "20-actors/yamabiko/run_tests.sh"
  "20-actors/yobel/run_tests.sh"
  "20-actors/yotei/run_tests.sh"
 ]

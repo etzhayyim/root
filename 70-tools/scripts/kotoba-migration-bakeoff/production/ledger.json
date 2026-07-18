@@ -54,7 +54,7 @@
   },
   {
     "cell": "yamabiko-bogie_assembly",
-    "src": "20-actors/yamabiko/cells/bogie_assembly/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-yamabiko/cells/bogie_assembly/cell.py",
     "build": true,
     "structural": true,
     "judge": 4,
@@ -65,7 +65,7 @@
   },
   {
     "cell": "yamabiko-carbody_fabrication",
-    "src": "20-actors/yamabiko/cells/carbody_fabrication/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-yamabiko/cells/carbody_fabrication/cell.py",
     "build": true,
     "structural": true,
     "judge": 3,
@@ -76,7 +76,7 @@
   },
   {
     "cell": "yamabiko-dynamic_test",
-    "src": "20-actors/yamabiko/cells/dynamic_test/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-yamabiko/cells/dynamic_test/cell.py",
     "build": true,
     "structural": true,
     "judge": 3,
@@ -87,7 +87,7 @@
   },
   {
     "cell": "yamabiko-emissions_acoustic_audit",
-    "src": "20-actors/yamabiko/cells/emissions_acoustic_audit/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-yamabiko/cells/emissions_acoustic_audit/cell.py",
     "build": true,
     "structural": true,
     "judge": 2,
@@ -98,7 +98,7 @@
   },
   {
     "cell": "yamabiko-final_assembly",
-    "src": "20-actors/yamabiko/cells/final_assembly/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-yamabiko/cells/final_assembly/cell.py",
     "build": true,
     "structural": true,
     "judge": 3,
@@ -109,7 +109,7 @@
   },
   {
     "cell": "yamabiko-homologation_binder",
-    "src": "20-actors/yamabiko/cells/homologation_binder/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-yamabiko/cells/homologation_binder/cell.py",
     "build": true,
     "structural": true,
     "judge": 2,
@@ -120,7 +120,7 @@
   },
   {
     "cell": "yamabiko-interior_hvac",
-    "src": "20-actors/yamabiko/cells/interior_hvac/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-yamabiko/cells/interior_hvac/cell.py",
     "build": true,
     "structural": true,
     "judge": 2,
@@ -131,7 +131,7 @@
   },
   {
     "cell": "yamabiko-silen_rail_review",
-    "src": "20-actors/yamabiko/cells/silen_rail_review/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-yamabiko/cells/silen_rail_review/cell.py",
     "build": true,
     "structural": true,
     "judge": 3,
@@ -142,7 +142,7 @@
   },
   {
     "cell": "yamabiko-traction_electrical",
-    "src": "20-actors/yamabiko/cells/traction_electrical/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-yamabiko/cells/traction_electrical/cell.py",
     "build": true,
     "structural": true,
     "judge": 3,

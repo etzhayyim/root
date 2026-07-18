@@ -1525,6 +1525,29 @@
      :wire-artifacts {:json-and-json-ld 9 :bpmn-xml 0}
      :verification {:tests 65 :assertions 397 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
+    "yadori"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-yadori"
+     :revision "88e893737dea6bf3d932688d41432937b912ce81"
+     :west-path "orgs/etzhayyim/com-etzhayyim-yadori"
+     :canonical-format :edn
+     :verification {:tests 50 :assertions 110 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "yakushi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-yakushi"
+     :revision "cbc01e5e132100bcf38cbe5e26f3d1048bb4c346"
+     :west-path "orgs/etzhayyim/com-etzhayyim-yakushi"
+     :canonical-format :edn
+     :verification {:tests 36 :assertions 114 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "yamabiko"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-yamabiko"
+     :revision "df4533ddff1c17e46aeadba3584b0b154793ea4b"
+     :west-path "orgs/etzhayyim/com-etzhayyim-yamabiko"
+     :canonical-format :edn
+     :canonical-edn-files 40
+     :wire-artifacts {:json-and-json-ld 10 :bpmn-xml 0}
+     :verification {:tests 108 :assertions 668 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "tate"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-tate"
      :revision "658b9f67aaa65d7aad5ffda280ec8feaae7a8bc2"
@@ -1729,8 +1752,8 @@
   [{:class :legacy-actor-root-directories
     :snapshot-date "2026-07-18"
     :baseline 198
-    :moved 115
-    :remaining 83
+    :moved 118
+    :remaining 80
     :inventory "90-docs/adr/2607181200-flat-west-actor-migration-progress-and-remaining.edn"}
    {:class :existing-repo-overlap
     :state :merge-root-only-content-before-delete}

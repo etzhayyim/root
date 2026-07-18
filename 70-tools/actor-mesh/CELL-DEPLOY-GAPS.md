@@ -63,7 +63,7 @@ Secondary (mechanical, in `bb actor:mesh`):
 
 ```bash
 BIN=…/kotoba/target/…/kotoba ; WIT=…/kotoba/crates/kotoba-runtime/wit
-cell=20-actors/yamabiko/cells/bogie_assembly/state_machine.cljc
+cell=orgs/etzhayyim/com-etzhayyim-yamabiko/cells/bogie_assembly/state_machine.cljc
 cat "$cell" > /tmp/c.clj; printf '\n(defn run [ctx] ctx)\n' >> /tmp/c.clj
 "$BIN" component build /tmp/c.clj --wit-dir "$WIT"   # → Codegen("call to unknown function `assoc` with arity 7")
 ```

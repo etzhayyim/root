@@ -2,7 +2,7 @@
 ;;
 ;; Canonical kotoba EAVT vocabulary for the yadori (宿り) actor — DNS-availability + domain
 ;; acquisition (ADR-2606038400). SSoT for the per-actor schema mirrored at
-;; 20-actors/yadori/kotoba/schema.edn. Availability is read-only via RDAP (G1); acquisition is
+;; orgs/etzhayyim/com-etzhayyim-yadori/kotoba/schema.edn. Availability is read-only via RDAP (G1); acquisition is
 ;; member-principal (G2, okaimono ADR-2606012100) and server-keyless (G5, ADR-2605231525);
 ;; Cloudflare Registrar is the default (G3). as-of availability history is non-eschatological
 ;; (no final domain state).
