@@ -750,6 +750,36 @@
                          :external-json-retained-as-wire}
      :verification {:tests 23 :assertions 891 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
+    "musubi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-musubi"
+     :revision "36ddfde47d094d43db23edce166f688363f97332"
+     :west-path "orgs/etzhayyim/com-etzhayyim-musubi"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root {:revision "1962fafef7d66189e36914a40ed86f07d760aa94"
+                      :paths ["90-docs/adr"]}
+      com.etzhayyim/chigiri "e08560129675106e0bb4b70e23769ff07a711ce7"
+      com.etzhayyim/hagukumi "7d34cb0660057005643f95fd9c298aeb1ff0ac82"
+      com.etzhayyim/iyashi "eceea556237590f861a475b64bf41048c90f6213"
+      com.etzhayyim/kokoro "e88ebbb23fd1f87c7af3b722d02538a55af005ad"
+      com.etzhayyim/shidemori "e0ca1b15054efb34fdfa90646690c116697d865c"
+      com.etzhayyim/toritate "3354850aa05408e840426f91fe067ddad8535e5b"}
+     :actor-owned-contracts ["lex/ceremonyPerformanceAttestation.edn"
+                             "lex/communityWitnessAttestation.edn"
+                             "lex/officiantAttestation.edn"
+                             "lex/seasonalCeremonyCalendar.edn"
+                             "lex/silenMusubiReview.edn"
+                             "registry/ceremony-recognition.seed.edn"]
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :shell-runner-retired :actor-lexicons-edn-canonical
+                         :registry-seed-edn-canonical
+                         :python-audit-retired-to-clojure-edn
+                         :cross-actor-dependencies-pinned
+                         :external-json-retained-as-wire}
+     :verification {:tests 28 :assertions 155 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "hydrogen_electrolysis"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hydrogen-electrolysis"
      :revision "da4fab805b6aa8606dab36882de3186482f55f34"

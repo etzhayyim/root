@@ -1,0 +1,12 @@
+{:migration/status :moved
+ :migration/date "2026-07-18"
+ :migration/repository "https://github.com/etzhayyim/com-etzhayyim-musubi"
+ :migration/revision "36ddfde47d094d43db23edce166f688363f97332"
+ :migration/west-path "orgs/etzhayyim/com-etzhayyim-musubi"
+ :migration/canonical-metadata "manifest.edn"
+ :migration/canonical-identity "identity.edn"
+ :migration/canonical-dependencies "dependencies.edn"
+ :migration/canonical-data ["registry/ceremony-recognition.seed.edn"]
+ :migration/canonical-lexicons "lex"
+ :migration/external-wire-lexicons "wire"
+ :migration/canonical-format :edn}

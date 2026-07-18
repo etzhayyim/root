@@ -1,6 +1,6 @@
 # com.etzhayyim.musubi.* — musubi (結) Lexicons
 
-**Owner actor**: `did:web:musubi.etzhayyim.com` (`20-actors/musubi/`)
+**Owner actor**: `did:web:musubi.etzhayyim.com` ([`com-etzhayyim-musubi`](https://github.com/etzhayyim/com-etzhayyim-musubi))
 **ADR**: ADR-2605263400 (R0 scaffold)
 **Status**: R0 schema skeletons. Full schemas at R1+.
 
@@ -31,7 +31,7 @@ Schemas at R0 are skeleton-level; full structural enforcement at R1.
 
 ## Related Files
 
-- `/20-actors/musubi/manifest.jsonld`
-- `/20-actors/musubi/README.md`
-- `/20-actors/musubi/CLAUDE.md`
+- `orgs/etzhayyim/com-etzhayyim-musubi/manifest.edn` (canonical)
+- `orgs/etzhayyim/com-etzhayyim-musubi/README.md`
+- `orgs/etzhayyim/com-etzhayyim-musubi/CLAUDE.md`
 - `/90-docs/adr/2605263400-musubi-covenant-ceremony-tier-b-actor-r0.md`

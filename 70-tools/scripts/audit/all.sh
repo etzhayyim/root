@@ -121,7 +121,6 @@ if [ "$TEST" -eq 1 ]; then
          70-tools/scripts/audit/test_kurashimori_registry_seed.py \
          70-tools/scripts/audit/test_manabi_registry_seed.py \
          70-tools/scripts/audit/test_moushibumi_registry_seed.py \
-         70-tools/scripts/audit/test_musubi_registry_seed.py \
          70-tools/scripts/audit/test_toritsugi_registry_seed.py \
          70-tools/scripts/audit/test_gov_legal_coverage_parity.py \
          70-tools/scripts/audit/test_ooyake_procedure_integrity.py \
