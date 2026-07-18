@@ -1,0 +1,4 @@
+{:moved/to "orgs/etzhayyim/com-etzhayyim-infra-utility-connect"
+ :moved/repository "https://github.com/etzhayyim/com-etzhayyim-infra-utility-connect"
+ :moved/revision "1ea53870784fae349af344d1dfa7bbe515e4352e"
+ :moved/role :canonical-implementation}

@@ -1,0 +1,5 @@
+{:moved/to "orgs/etzhayyim/com-etzhayyim-infra_utility_connect"
+ :moved/repository "https://github.com/etzhayyim/com-etzhayyim-infra_utility_connect"
+ :moved/revision "7c8db82293dc369ff8cda0da06b3a8318e56fafd"
+ :moved/role :did-compatibility-identity
+ :moved/implementation-owner "orgs/etzhayyim/com-etzhayyim-infra-utility-connect"}

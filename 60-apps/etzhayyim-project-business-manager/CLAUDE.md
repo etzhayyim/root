@@ -1,4 +1,6 @@
-> **DEPRECATED**: Actor migrated to `20-actors/business-manager/actor-manifest.jsonld` (T1 MCP-Compose). This project wasm/*/src/app.ts is retained as T3 fallback only.
+> **DEPRECATED**: Actor implementation is owned by
+> `orgs/etzhayyim/com-etzhayyim-business-manager` with EDN canonical metadata.
+> This project wasm/*/src/app.ts is retained as T3 fallback only.
 
 # CLAUDE.md (60-apps/etzhayyim-project-business-manager)
 

@@ -1,5 +1,5 @@
 (ns etzhayyim.lint.test-lexicon-consts
-  "Cross-actor constitutional const guard consolidated from 20-actors/_conformance."
+  "Cross-actor constitutional const guard owned by shared root tooling."
   (:require [cheshire.core :as json]
             [clojure.java.io :as io]
             [clojure.test :refer [deftest is run-tests]]))

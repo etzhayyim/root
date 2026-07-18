@@ -1,0 +1,5 @@
+{:moved/to "orgs/etzhayyim/com-etzhayyim-business_manager"
+ :moved/repository "https://github.com/etzhayyim/com-etzhayyim-business_manager"
+ :moved/revision "88ed239671a84d3dfdb4960720bab8114316b152"
+ :moved/role :did-compatibility-identity
+ :moved/implementation-owner "orgs/etzhayyim/com-etzhayyim-business-manager"}

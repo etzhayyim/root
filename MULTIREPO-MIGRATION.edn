@@ -2117,13 +2117,38 @@
   [{:class :legacy-actor-root-directories
     :snapshot-date "2026-07-18"
     :baseline 198
-    :moved 189
-    :remaining 9
-    :inventory "90-docs/adr/2607181500-flat-west-migration-checkpoint-and-remaining.edn"}
+    :moved 198
+    :remaining 0
+    :tracked-moved-edn-only 198
+    :inventory "90-docs/adr/2607181700-flat-west-actor-root-drain-complete.edn"
+    :final-destinations
+    {"business-manager" {:owner "orgs/etzhayyim/com-etzhayyim-business-manager"
+                          :revision "49e3225a4c7d36cdbc77ceca56ad07995a5021e0"}
+     "business_manager" {:owner "orgs/etzhayyim/com-etzhayyim-business_manager"
+                          :revision "88ed239671a84d3dfdb4960720bab8114316b152"
+                          :role :did-compatibility-identity}
+     "gov-municipality" {:owner "orgs/etzhayyim/com-etzhayyim-gov-municipality"
+                          :revision "cec47838b7ba193a86ffd82227c30e7dd072f50c"}
+     "gov_municipality" {:owner "orgs/etzhayyim/com-etzhayyim-gov_municipality"
+                          :revision "225114114375100a40af5ca257704f1e13de2e66"
+                          :role :did-compatibility-identity}
+     "infra-utility-connect" {:owner "orgs/etzhayyim/com-etzhayyim-infra-utility-connect"
+                               :revision "1ea53870784fae349af344d1dfa7bbe515e4352e"}
+     "infra_utility_connect" {:owner "orgs/etzhayyim/com-etzhayyim-infra_utility_connect"
+                               :revision "7c8db82293dc369ff8cda0da06b3a8318e56fafd"
+                               :role :did-compatibility-identity}
+     "kotoba-actors-clj" {:owner "orgs/kotoba-lang/kotoba-actors"
+                           :revision "0d63399a16f30e68e0f32683cb4a43fb36f15fef"
+                           :role :shared-library}
+     "mst-projector" {:owner "orgs/kotoba-lang/mst-projector"
+                       :revision "5be6c839142ab260938dfc00bb9541b3a45be445"
+                       :role :shared-engine-library}
+     "_conformance" {:owner "70-tools/conformance"
+                      :role :root-shared-tooling}}}
    {:class :existing-repo-overlap
     :state :merge-root-only-content-before-delete}
    {:class :not-yet-independent-actor
-    :state :classify-library-or-publish-repo}
+    :state :complete}
    {:class :shared-libraries
     :count 4
     :extracted 4

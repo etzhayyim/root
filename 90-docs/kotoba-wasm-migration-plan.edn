@@ -27,7 +27,9 @@
  ;; TOOLING
  ;; ----------------------------------------------------------------------------
  :tooling
- {:auto-pipeline "70-tools/scripts/migrate_to_kotoba_wasm.py"   ; OLD single-shot LLM-rewrite -> build -> deploy
+ {:retired-auto-pipeline {:path "70-tools/scripts/migrate_to_kotoba_wasm.py"
+                          :status :removed
+                          :reason :numbered-root-python-sources-retired}
   :rewrite-model "gemma4:26b-a4b via LiteLLM 127.0.0.1:4000"
   :build-script  "40-engine/kotoba/scripts/build-pywasm.sh"
   :wit           "40-engine/kotoba/crates/kotoba-runtime/wit/world.wit"
@@ -35,7 +37,7 @@
                   :does  "1-by-1 agentic migration (build-error feedback loop) x 3 models; scores quality+cost"
                   :models ["bakeoff-claude-haiku" "bakeoff-gemini-flash" "bakeoff-gemma-26b"]
                   :routes-via "Murakumo LiteLLM :4000 (ADR-2605215000 SSoT)"
-                  :corpus "5 cells, complexity-stratified (corpus.edn)"
+                  :corpus "active Python cells only (corpus.edn); migrated CLJC sources are excluded"
                   :metrics {:quality [:build-pass :iters-to-build :deploy-pass :invoke-equiv :judge-1-5]
                             :cost    [:tokens-in :tokens-out :usd :wall-s]}
                   :status :round1-done       ; pivoted to agentic-CLI orchestration (bakeoff_cli.py)
@@ -46,10 +48,9 @@
                   :toolchain {:venv ".venv (componentize-py 0.23, python3.12 via uv)"
                               :note "claude needs --permission-mode bypassPermissions (not --allow-dangerously-skip-permissions); gemini needs GEMINI_CLI_TRUST_WORKSPACE=true + --approval-mode yolo; gemini model = gemini-2.5-flash (3.1-flash 404)"}
                   :deferred {:codex "gpt-5.5, usage-limit until ~23:16; rerun --clis codex"}}
-  :gaps          #{:pipeline-hardcodes-gov-municipality-namespace  ; must parameterize target glob
-                   :no-pass-fail-gate-on-build-error                ; skips silently, only logs
-                   :no-output-equivalence-check                     ; compiles != correct
-                   :no-batch-progress-ledger}}                      ; need per-file done/pending state
+  :gaps          #{:no-pass-fail-gate-on-build-error
+                   :no-output-equivalence-check
+                   :no-batch-progress-ledger}}
 
  ;; ----------------------------------------------------------------------------
  ;; INVENTORY — grouped by migration character, NOT by directory
@@ -94,24 +95,24 @@
  [{:wave -1
    :name  "Model bake-off (quality x cost)"
    :goal  "Pick the migration model empirically before scaling 1-by-1 agentic ports"
-   :corpus "5 complexity-stratified cells (corpus.edn)"
+   :corpus "active Python cells only (corpus.edn)"
    :compares ["claude-haiku-4-5" "gemini-3.1-flash" "gemma4:26b-a4b"]
    :harness "70-tools/scripts/kotoba-migration-bakeoff/bakeoff.py"
-   :gate  :winner-selected-by {:primary :invoke-equiv-rate
-                               :tiebreak [:avg-iters :judge :usd-per-success]}
+   :gate  {:winner-selected-by {:primary :invoke-equiv-rate
+                                :tiebreak [:avg-iters :judge :usd-per-success]}}
    :blocked-on #{:litellm-4000-up :keys-in-env :componentize-py}
    :status :built-blocked}
 
   {:wave 0
    :name  "Harden the pipeline"
-   :goal  "Make migrate_to_kotoba_wasm.py production-grade before mass use"
+   :goal  "Retired: the single-shot numbered-root Python pipeline must not be revived"
    :tasks ["Parameterize target namespace/glob (drop gov-municipality hardcode)"
            "Add build-failure HARD gate + retry-with-error-feedback loop"
            "Add output-equivalence check vs host-Python reference invoke"
            "Emit JSON ledger: {path -> :done|:build-fail|:deploy-fail|:pending}"
            "Capture deploy receipt (program_cid + gas_used) per module"]
    :gate  :ledger-and-equivalence-check-green
-   :status :pending}
+   :status :retired}
 
   {:wave 1
    :name  "Finish in-flight namespaces"
@@ -119,7 +120,7 @@
    :targets [:gov-municipality :infra-utility-connect]
    :count 7
    :note  "3 gov cells already hand-ported (permit_submission/inspection_scheduling/final_sign_off as examples)"
-   :status :in-progress}
+   :status :complete-by-cljc-migration}
 
   {:wave 2
    :name  "Tier-B actor cells (assisted)"
