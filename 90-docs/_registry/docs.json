@@ -18600,8 +18600,8 @@
       "authoritative_for": [
         "orgs/etzhayyim/com-etzhayyim-toritsugi/registry/procedures.seed.edn",
         "orgs/etzhayyim/com-etzhayyim-chigiri/registry/legal-aid.seed.edn",
-        "20-actors/ooyake/registry/gov-units.intl-procedures.seed.edn",
-        "20-actors/ooyake/scripts/gen_intl_procedures.py",
+        "orgs/etzhayyim/com-etzhayyim-ooyake/registry/gov-units.intl-procedures.seed.edn",
+        "orgs/etzhayyim/com-etzhayyim-ooyake/scripts/gen_intl_procedures.py",
         "70-tools/scripts/coverage/gen_gov_legal_coverage.py"
       ],
       "related": [
@@ -22567,7 +22567,7 @@
       ],
       "related": [
         "90-docs/260617-r2-autonomous-live-gate-removal-charter-audit.edn",
-        "20-actors/ossekai/FINDING-G7-autonomy-conflict.md",
+        "orgs/etzhayyim/com-etzhayyim-ossekai/FINDING-G7-autonomy-conflict.md",
         "2606052300  # fuchi R2",
         "2606073100  # abaki R2",
         "2605264000  # ossekai R2",
@@ -26754,7 +26754,7 @@
       "topic": "r2-autonomous-live-gate-removal",
       "authoritative": false,
       "related": [
-        "20-actors/ossekai/FINDING-G7-autonomy-conflict.md",
+        "orgs/etzhayyim/com-etzhayyim-ossekai/FINDING-G7-autonomy-conflict.md",
         "90-docs/adr/2605231525-no-server-key-religious-corp-architecture.edn",
         "90-docs/adr/2606111400  # ibuki/mimamori member-signed CACAO capability (the charter-clean autonomy path)",
         "90-docs/adr/2606052300  # fuchi R2 (cited by live_gate as the \"R2 directive\")"

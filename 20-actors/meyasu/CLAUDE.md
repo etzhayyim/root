@@ -74,5 +74,5 @@ bash 20-actors/meyasu/kotoba/deploy.sh      # test-gated self-driving deploy (dr
 
 - `20-actors/kakaku/` — price spread + supply/demand source
 - `20-actors/mitooshi/` — forecast distribution source (`methods/social.py` resilience layer)
-- `20-actors/ossekai/` — aggregate-first publication discipline
+- `orgs/etzhayyim/com-etzhayyim-ossekai/` — aggregate-first publication discipline
 - `/CLAUDE.md` — Charter + substrate rules (read first)

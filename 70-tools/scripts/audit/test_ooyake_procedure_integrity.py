@@ -2,7 +2,7 @@
 government-atlas procedure seed and its links into toritsugi (取次).
 
 ooyake is the structural atlas of government units; each `:gov.procedure/*` record
-(`20-actors/ooyake/registry/gov-units*.edn`) is OWNED by a government unit and may
+(`orgs/etzhayyim/com-etzhayyim-ooyake/registry/gov-units*.edn`) is OWNED by a government unit and may
 LINK to the matching citizen-facing toritsugi procedure via
 `:gov.procedure/toritsugi-ref`. Those two cross-references are exactly what a
 single-actor suite cannot validate — a unit-id typo orphans the procedure from the

@@ -29,7 +29,7 @@ const GENERATED_AT = "2026-06-14T00:00:00+00:00";
 const NAMESPACES = [
   {
     ns: "gov",
-    sources: [{ dir: "20-actors/ooyake/registry", glob: /^gov-units\..*\.edn$/ }],
+    sources: [{ dir: "orgs/etzhayyim/com-etzhayyim-ooyake/registry", glob: /^gov-units\..*\.edn$/ }],
     idKey: ":gov.unit/id",
     nameKey: ":gov.unit/name-en",
     idStrip: "", // ids already start with "gov."

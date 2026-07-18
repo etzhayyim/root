@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-18T06:07:05.054Z",
+  "generated": "2026-07-18T06:17:16.723Z",
   "lexicons": [
     {
       "id": "ai.etzhayyim.yorishiro.argparse-demo.main",
@@ -38468,54 +38468,6 @@
       "description": ""
     },
     {
-      "id": "com.etzhayyim.ooyake.address",
-      "path": "00-contracts/lexicons/com/etzhayyim/ooyake/address.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.ooyake.findService",
-      "path": "00-contracts/lexicons/com/etzhayyim/ooyake/findService.json",
-      "type": "query",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.ooyake.getUnit",
-      "path": "00-contracts/lexicons/com/etzhayyim/ooyake/getUnit.json",
-      "type": "query",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.ooyake.govUnit",
-      "path": "00-contracts/lexicons/com/etzhayyim/ooyake/govUnit.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.ooyake.procedure",
-      "path": "00-contracts/lexicons/com/etzhayyim/ooyake/procedure.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.ooyake.resolvePath",
-      "path": "00-contracts/lexicons/com/etzhayyim/ooyake/resolvePath.json",
-      "type": "query",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.ooyake.searchUnits",
-      "path": "00-contracts/lexicons/com/etzhayyim/ooyake/searchUnits.json",
-      "type": "query",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.ooyake.window",
-      "path": "00-contracts/lexicons/com/etzhayyim/ooyake/window.json",
-      "type": "record",
-      "description": ""
-    },
-    {
       "id": "com.etzhayyim.organism.lifecycle",
       "path": "00-contracts/lexicons/com/etzhayyim/organism/lifecycle.json",
       "type": "record",
@@ -38538,60 +38490,6 @@
       "path": "00-contracts/lexicons/com/etzhayyim/organism/telemetry_wadachi.json",
       "type": "record",
       "description": "A telemetry observation for a wadachi, a Tier-B autonomous mobility organism."
-    },
-    {
-      "id": "com.etzhayyim.ossekai.arbitrageGapReport",
-      "path": "00-contracts/lexicons/com/etzhayyim/ossekai/arbitrageGapReport.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.ossekai.externalMentionConsent",
-      "path": "00-contracts/lexicons/com/etzhayyim/ossekai/externalMentionConsent.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.ossekai.feedPostAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/ossekai/feedPostAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.ossekai.memberDigestRecord",
-      "path": "00-contracts/lexicons/com/etzhayyim/ossekai/memberDigestRecord.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.ossekai.memberDigestSubscription",
-      "path": "00-contracts/lexicons/com/etzhayyim/ossekai/memberDigestSubscription.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.ossekai.mentionDispatchAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/ossekai/mentionDispatchAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.ossekai.silenOssekaiReview",
-      "path": "00-contracts/lexicons/com/etzhayyim/ossekai/silenOssekaiReview.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.ossekai.unsubscribeRecord",
-      "path": "00-contracts/lexicons/com/etzhayyim/ossekai/unsubscribeRecord.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.ossekai.wellbecomingAdvisory",
-      "path": "00-contracts/lexicons/com/etzhayyim/ossekai/wellbecomingAdvisory.json",
-      "type": "record",
-      "description": ""
     },
     {
       "id": "com.etzhayyim.otakiage.agentChat",
@@ -39275,36 +39173,6 @@
       "id": "com.etzhayyim.rtc.unsubscribePush",
       "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/rtc/unsubscribePush.json",
       "type": "procedure",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.sanae.fieldStateRecord",
-      "path": "00-contracts/lexicons/com/etzhayyim/sanae/fieldStateRecord.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.sanae.harvestAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/sanae/harvestAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.sanae.seedingAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/sanae/seedingAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.sanae.soilRegenerationReport",
-      "path": "00-contracts/lexicons/com/etzhayyim/sanae/soilRegenerationReport.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.sanae.weedingPassRecord",
-      "path": "00-contracts/lexicons/com/etzhayyim/sanae/weedingPassRecord.json",
-      "type": "record",
       "description": ""
     },
     {
@@ -49456,32 +49324,11 @@
       "com.etzhayyim.nusa.heritageRecord",
       "com.etzhayyim.nusa.ritualArtifact"
     ],
-    "com.etzhayyim.ooyake": [
-      "com.etzhayyim.ooyake.address",
-      "com.etzhayyim.ooyake.findService",
-      "com.etzhayyim.ooyake.getUnit",
-      "com.etzhayyim.ooyake.govUnit",
-      "com.etzhayyim.ooyake.procedure",
-      "com.etzhayyim.ooyake.resolvePath",
-      "com.etzhayyim.ooyake.searchUnits",
-      "com.etzhayyim.ooyake.window"
-    ],
     "com.etzhayyim.organism": [
       "com.etzhayyim.organism.lifecycle",
       "com.etzhayyim.organism.message",
       "com.etzhayyim.organism.observationArchive",
       "com.etzhayyim.organism.telemetryWadachi"
-    ],
-    "com.etzhayyim.ossekai": [
-      "com.etzhayyim.ossekai.arbitrageGapReport",
-      "com.etzhayyim.ossekai.externalMentionConsent",
-      "com.etzhayyim.ossekai.feedPostAttestation",
-      "com.etzhayyim.ossekai.memberDigestRecord",
-      "com.etzhayyim.ossekai.memberDigestSubscription",
-      "com.etzhayyim.ossekai.mentionDispatchAttestation",
-      "com.etzhayyim.ossekai.silenOssekaiReview",
-      "com.etzhayyim.ossekai.unsubscribeRecord",
-      "com.etzhayyim.ossekai.wellbecomingAdvisory"
     ],
     "com.etzhayyim.pharma": [
       "com.etzhayyim.pharma.adverseEventReport",
@@ -49495,13 +49342,6 @@
     ],
     "com.etzhayyim.projection": [
       "com.etzhayyim.projection.feedDiscover"
-    ],
-    "com.etzhayyim.sanae": [
-      "com.etzhayyim.sanae.fieldStateRecord",
-      "com.etzhayyim.sanae.harvestAttestation",
-      "com.etzhayyim.sanae.seedingAttestation",
-      "com.etzhayyim.sanae.soilRegenerationReport",
-      "com.etzhayyim.sanae.weedingPassRecord"
     ],
     "com.etzhayyim.seigyo": [
       "com.etzhayyim.seigyo.alarmEventRecord",
@@ -49734,6 +49574,6 @@
       "tools.ozone.verification.revokeVerifications"
     ]
   },
-  "total": 6774,
+  "total": 6752,
   "legacy_issues_count": 8
 }

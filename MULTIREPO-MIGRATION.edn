@@ -1656,6 +1656,36 @@
      :verification {:tests 45 :assertions 364 :failures 0 :errors 0
                     :legacy-python-parity-checks :skipped-after-python-prune}
      :root-copy :edn-tombstone-only}
+    "sanae"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-sanae"
+     :revision "a7331d6263ee62659e0de56452adfaf793282089"
+     :west-path "orgs/etzhayyim/com-etzhayyim-sanae"
+     :canonical-format :edn
+     :canonical-edn-files 23
+     :wire-artifacts {:json-and-json-ld 7}
+     :verification {:tests 28 :assertions 125 :failures 0 :errors 0
+                    :jvm {:tests 9 :assertions 83 :failures 0 :errors 0}}
+     :root-copy :edn-tombstone-only}
+    "ossekai"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-ossekai"
+     :revision "f73923a590de5e0834db4cef08660ca6104b70c6"
+     :west-path "orgs/etzhayyim/com-etzhayyim-ossekai"
+     :canonical-format :edn
+     :canonical-edn-files 12
+     :wire-artifacts {:json-and-json-ld 10}
+     :verification {:tests 49 :assertions 116 :failures 0 :errors 0
+                    :runners [:babashka :jvm]}
+     :root-copy :edn-tombstone-only}
+    "ooyake"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-ooyake"
+     :revision "29f48f9be56c52849788867ecf9e6aaf81c5abc4"
+     :west-path "orgs/etzhayyim/com-etzhayyim-ooyake"
+     :canonical-format :edn
+     :canonical-edn-files 75
+     :wire-artifacts {:json-json-ld-and-geojson 11}
+     :verification {:tests 32 :assertions 105 :failures 0 :errors 0}
+     :retained-tooling {:python-files 31 :shell-files 2}
+     :root-copy :edn-tombstone-only}
     "tate"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-tate"
      :revision "658b9f67aaa65d7aad5ffda280ec8feaae7a8bc2"
@@ -1860,8 +1890,8 @@
   [{:class :legacy-actor-root-directories
     :snapshot-date "2026-07-18"
     :baseline 198
-    :moved 130
-    :remaining 68
+    :moved 133
+    :remaining 65
     :inventory "90-docs/adr/2607181200-flat-west-actor-migration-progress-and-remaining.edn"}
    {:class :existing-repo-overlap
     :state :merge-root-only-content-before-delete}
