@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-07-17",
+  "updated_at": "2026-07-18",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.edn",
@@ -1413,6 +1413,31 @@
         "2605312345"
       ],
       "authoritative_for": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2607182000-hanrei-judgement-corpus-actor.edn",
+      "id": "2607182000-hanrei-judgement-corpus-actor",
+      "title": "hanrei.etzhayyim.com — Judgement/Case-Law Corpus Actor",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "actor-topology",
+      "authoritative": true,
+      "authoritative_for": [
+        "hanrei.etzhayyim.com actor scope (judgement/case-law corpus)",
+        "3-layer DID topology for hanrei (primary / jurisdiction:source / blake3 hash)",
+        "com.etzhayyim.apps.hanrei.datomic.* lexicon surface",
+        "Activity tracking for judges and courts (descriptive, no ranking/audit)"
+      ],
+      "related": [
+        "90-docs/adr/0090-ooyake-public",
+        "90-docs/adr/0091-houbun-actor-topology",
+        "90-docs/adr/2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion"
+      ],
+      "last_verified": "2026-07-18",
       "supersedes": [],
       "superseded_by": [],
       "amends": [],
@@ -24669,6 +24694,54 @@
         "adr-2607172000-etzhayyim-gftdcojp-flat-west-multirepo-root-retirement"
       ],
       "last_verified": "2026-07-17",
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2607177001-council-ratify-public-person-wellbecoming-ss.md",
+      "id": "adr-2607177001-council-ratify-public-person-wellbecoming-ss",
+      "title": "Council ratification — ADR-2607177000 public-person as-of + wellbecoming/mago/ko priority",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "council-ratification",
+      "authoritative": true,
+      "depends_on": [
+        "ADR-2607177000 (covenantal SS public-person + priority stack — superproject 90-docs)",
+        "ADR-2606052300 (fuchi)",
+        "ADR-2605302357 (§1.16)",
+        "ADR-2605192300 (Bootstrap Council)",
+        "ADR-2605192100 (§1.9 / §1.10)"
+      ],
+      "last_verified": "2026-07-17",
+      "authoritative_for": [],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2607180900-danjo-r1-ingest-cells-founder-ratification.edn",
+      "id": "adr-2607180900-danjo-r1-ingest-cells-founder-ratification",
+      "title": "ADR-2607180900: danjo (弾正) R1 ingest trio + revenue beat — bootstrap Founder 1/1 ratification (transitional; ADR-2606281500)",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "danjo-r1-ingest-cells-founder-ratification",
+      "authoritative": true,
+      "authoritative_for": [
+        "danjo R1 ingest trio activation (diet_statement_index live; procurement_graph + budget_ledger :awaiting-w3-fetcher stubs)",
+        "the bootstrap-period Founder 1/1 transitional ratification of ADR-2605301600 trigger #2 (expires on Seat 2 confirmation)",
+        "the DANJO_R1_COUNCIL_RATIFY_TX_HASH env-var live-activation gate"
+      ],
+      "related": [
+        "adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "adr-2606281500",
+        "adr-2606272355",
+        "adr-2605192300"
+      ],
+      "last_verified": "2026-07-18",
       "supersedes": [],
       "superseded_by": [],
       "amends": [],
