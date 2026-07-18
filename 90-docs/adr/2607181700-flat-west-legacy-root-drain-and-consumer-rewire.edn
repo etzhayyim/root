@@ -104,10 +104,11 @@
    :rescue-revision "1972c15"
    :policy "preserve and reconcile independently; never delete as migration cleanup"}
 
-  :in-progress
+  :consumer-rewire-publication
   {:consumer-rewire
-   {:state :uncommitted
+   {:state :published
     :base-root-revision "4c5b9c209491766d4bf84b2b6cf779ca2dbea0d4"
+    :revision "3437ecf30e"
     :areas
     ["cell-runner actor source discovery"
      "organism visualization and cleanroom fixtures"
@@ -116,26 +117,51 @@
     :target "active filesystem reads resolve through flat west checkouts or selected shared repositories"}
    :verified-subsets
    [{:scope :cell-runner :tests 16 :result :pass}
-    {:scope :organism-visualization :tests 19 :assertions 50 :result :pass}
+    {:scope :organism-visualization :tests 3 :assertions 9 :result :pass}
     {:scope :actor-mesh :tests 4 :assertions 17 :result :pass}
-    {:scope :cleanroom-javascript :result :syntax-pass}]}
+    {:scope :no-new-shell :tests 3 :assertions 4 :result :pass}
+    {:scope :cleanroom-javascript :assertions 19 :result :pass}]
+   :generated
+   {:actor-rad {:actors 321 :flat-west-directories 181}
+    :tier-b-registry {:unique-actors 61 :duplicate-business-manager 0}}
+   :verification
+   #{:changed-edn-readable :python-syntax :node-syntax :diff-check
+     :pre-commit-hooks :pre-push-tree-guard}
+   :superproject-pin
+   {:revision "6c7a39005be"
+    :branch "codex/pin-etzhayyim-multirepo"
+    :root-revision "3437ecf30ea0a7a780d1736a422cea4353a97eef"
+    :remote-verification :fast-forward-and-reachable}}
 
   :remaining
   {:required
-   [:finish-active-consumer-rewire
-    :classify-each-residual-20-actors-string-as-history-fixture-or-defect
-    :regenerate-affected-derived-artifacts
-    :run-edn-and-language-specific-verification
-    :commit-and-publish-consumer-rewire
-    :repin-root-exact-revision-in-superproject
+   [:redesign-vitals-multi-repository-git-observation
+    :redesign-log-layer-classification-for-flat-west-paths
+    :retire-or-rewrite-josh-subtree-workspace
+    :retire-or-rewrite-maxwell-pruned-python-corpus-input
+    :repin-final-adr-root-revision-in-superproject
     :regenerate-adr-registry-and-graph
-    :run-final-completion-audit]
-   :known-active-candidates
+    :rerun-completion-audit-after-the-four-operational-debts-close]
+   :closed-active-candidates
    ["etzhayyim-did-web actor-rad generator and shell repository links"
     "commercial-remittance boundary verifier"
     "manifest/lexicon drift and function-coverage scanners"
     "substrate boundary scanner"
-    "retired extraction and mesh-migration utilities"]
+    "extraction and mesh-migration utility help paths"]
+   :completion-audit
+   {:executed true
+    :result :open
+    :active-operational-debt
+    ["50-infra/josh/workspace.josh"
+     "70-tools/scripts/maxwell/{collect_corpus.py,gate_candidates.py,harvest.clj}"
+     "70-tools/src/etzhayyim/vitals.cljc"
+     "70-tools/{src/etzhayyim/logs.cljc,etzhayyim-py/src/etzhayyim/logs.py}"]
+    :manifest-lexicon-data-debt
+    {:manifests-scanned 113
+     :declared-central-json-missing 229
+     :invalid-nsids 3
+     :orphan-lexicons 1
+     :classification :post-migration-contract-data-debt}}
    :allowed-residuals
    {:git-history-query "may retain 20-actors as historical path provenance"
     :log-category "may retain a stable historical category name"
@@ -151,14 +177,16 @@
     :go-and-tinygo-absent-under-legacy-root
     :legacy-directories-moved-edn-only-198-of-198
     :did-identities-preserved
-    :initial-exact-west-pins-published]
-   :pending
-   [:active-consumers-rewired
-    :generated-registries-fresh
+    :initial-exact-west-pins-published
+    :consumer-rewire-published
+    :generated-actor-rad-and-tier-b-fresh
     :consumer-rewire-tests-green
-    :final-root-revision-published
+    :residual-path-audit-executed]
+   :pending
+   [:four-operational-debts-closed
+    :generated-adr-registries-fresh
     :final-superproject-root-pin-published
-    :residual-path-audit-classified]}
+    :completion-audit-pass]}
 
   :adr/body
-  "All 198 former actor directories beneath 20-actors have reached the terminal MOVED.edn-only state, and no tracked Go or TinyGo implementation remains there. Actor-specific code now belongs in flat com-etzhayyim-* west repositories; reusable actor and projector code belongs in kotoba-actors and mst-projector. Duplicate underscore identities remain explicit DID-preserving compatibility repositories rather than silent aliases. The physical legacy-root drain is therefore complete. The overall migration remains open while active consumers are being rewired, generated artifacts and ADR indexes are refreshed, the resulting root revision is published and exactly repinned in the superproject, and every remaining 20-actors string is proven historical or removed from operational lookup paths."}]
+  "All 198 former actor directories beneath 20-actors have reached the terminal MOVED.edn-only state, and no tracked Go or TinyGo implementation remains there. Actor-specific code now belongs in flat com-etzhayyim-* west repositories; reusable actor and projector code belongs in kotoba-actors and mst-projector. Duplicate underscore identities remain explicit DID-preserving compatibility repositories rather than silent aliases. The main consumer-rewire wave is published at 3437ecf30e and its actor-rad, Tier-B, cell-runner, organism, actor-mesh, shell-policy, and cleanroom checks pass. The completion audit remains open for four explicitly named operational designs: Josh subtree retirement, Maxwell corpus input retirement, multi-repository vitals, and flat-west log classification. The final superproject pin follows after those designs close and the root revision becomes final."}]
