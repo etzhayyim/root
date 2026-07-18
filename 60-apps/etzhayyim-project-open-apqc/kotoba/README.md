@@ -37,7 +37,7 @@ kotoba/
 
 ## Lexicon
 
-`com.etzhayyim.apqc.processCategory` (record), at [`00-contracts/lexicons/com/etzhayyim/apqc/processCategory.json`](../../../00-contracts/lexicons/com/etzhayyim/apqc/processCategory.json). Naming convention follows the existing `com.etzhayyim.apqc.*` namespace (where sibling `getProcess` / `materializeSubprocesses` / `coverageSnapshot` / `emitEvent` are procedures) — record-vs-procedure split.
+`com.etzhayyim.apqc.processCategory` (record), at [`orgs/etzhayyim/com-etzhayyim-apqc/lex/processCategory.json`](../../../orgs/etzhayyim/com-etzhayyim-apqc/lex/processCategory.json). Naming convention follows the existing `com.etzhayyim.apqc.*` namespace (where sibling `getProcess` / `materializeSubprocesses` / `coverageSnapshot` / `emitEvent` are procedures) — record-vs-procedure split.
 
 `rkey` policy: `literal:{code}` — the L1 identifier (e.g. "7.0", "13.0") is the MST key verbatim. Idempotent re-seeds produce no new records. AT-Protocol literal-rkey alphabet allows `.` so the dotted-code format is preserved on disk.
 

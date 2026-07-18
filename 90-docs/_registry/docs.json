@@ -21836,7 +21836,7 @@
       "authoritative": true,
       "authoritative_for": [
         "organism runtime location (com-junkawasaki/kotodama, generic, domain-injected)",
-        "UNSPSC concrete actor location (etzhayyim/root 20-actors/unspsc)",
+        "UNSPSC concrete actor location (etzhayyim/root orgs/etzhayyim/com-etzhayyim-unspsc)",
         "retirement of the standalone etzhayyim/kototama repo"
       ],
       "related": [

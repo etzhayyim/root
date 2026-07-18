@@ -1,6 +1,6 @@
 /**
  * Mirrors the com.etzhayyim.apqc.processCategory Lexicon record shape.
- * Source: 00-contracts/lexicons/com/etzhayyim/apqc/processCategory.json
+ * Source: orgs/etzhayyim/com-etzhayyim-apqc/lex/processCategory.json
  */
 export interface ProcessCategory {
   /** APQC PCF L1 identifier (e.g. "1.0", "7.0", "13.0"). */

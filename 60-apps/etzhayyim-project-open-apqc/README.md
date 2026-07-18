@@ -15,7 +15,7 @@ the catalog data + projector spec from vendor.
 - APQC PCF reference catalog (13 L1 + L2/L3/L4/L5 process taxonomy)
 - BPMN 2.0 task catalog mapping
 - PCF → BPMN projection spec
-- `com.etzhayyim.apqc.*` lexicons (see `../../00-contracts/lexicons/com/etzhayyim/apqc/`)
+- `com.etzhayyim.apqc.*` lexicons (see `../../orgs/etzhayyim/com-etzhayyim-apqc/lex/`)
 
 ## Out of scope (stays vendor)
 
@@ -26,6 +26,6 @@ the catalog data + projector spec from vendor.
 ## See also
 
 - [`60-apps/etzhayyim-project-open-kyber/`](../etzhayyim-project-open-kyber) — Tranche E open-source ERP that consumes this catalog
-- [`00-contracts/lexicons/com/etzhayyim/apqc/`](../../00-contracts/lexicons/com/etzhayyim/apqc) — Tranche F lexicons
+- [`orgs/etzhayyim/com-etzhayyim-apqc/lex/`](../../orgs/etzhayyim/com-etzhayyim-apqc/lex) — Tranche F lexicons
 - ADR-2605172400 (vendor: 3-axis split rule + Tranche F)
 - [ADR-0025 Kyber APQC/BPMN Projector Consolidation](https://github.com/etzhayyim/etzhayyim-root/blob/main/90-docs/adr/0025-kyber-apqc-bpmn-projector-consolidation.md) (foundational)

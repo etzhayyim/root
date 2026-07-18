@@ -8,7 +8,7 @@
  :priority          5.5
  :axis              "architecture"
  :weight            0.4
- :priority-note     "Implementation record. Retires the 18,343 generated per-code Python LangGraph agents (ADR-2605171300) and their loaders/organism-coupling/executor-mesh from the kotoba-kotodama crate, superseded by the clj unspsc actor (20-actors/unspsc): one framework + one 18,342-code data table. Landed as a 6-PR stack (#162/#168/#164/#165/#166/#167) on com-junkawasaki/kotoba. No invariant amended; degradation is graceful at every step. The deployed UNSPSC XRPC backend (lg-open-unispsc) + the dual UNSPSC/ISIC MCP are KEPT; the root-repo k8s fleet teardown is a deferred operator step, not a code change."
+ :priority-note     "Implementation record. Retires the 18,343 generated per-code Python LangGraph agents (ADR-2605171300) and their loaders/organism-coupling/executor-mesh from the kotoba-kotodama crate, superseded by the clj unspsc actor (orgs/etzhayyim/com-etzhayyim-unspsc): one framework + one 18,342-code data table. Landed as a 6-PR stack (#162/#168/#164/#165/#166/#167) on com-junkawasaki/kotoba. No invariant amended; degradation is graceful at every step. The deployed UNSPSC XRPC backend (lg-open-unispsc) + the dual UNSPSC/ISIC MCP are KEPT; the root-repo k8s fleet teardown is a deferred operator step, not a code change."
  :authoritative-for ["the retirement of the per-code unispsc_agents Python fleet (kotoba-kotodama/py)" "the kuni-umi planning cells' commodity-classification backend (openUnispsc XRPC, not per-code LAN/libp2p executor shards)"]
  :depends-on        ["adr-2606160842-kotoba-code-actor-py-to-clj-port-wave" "adr-2605262130-kotoba-storage-substrate-unification" "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"]
  :related           ["adr-2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp" "adr-2605232345-unispsc-organism-actor-heartbeat-cadence" "adr-2605201400-etzhayyim-kotodama-kuni-umi-cell-topology" "adr-2606162200-md-edn-commented-edn-adr-format"]
@@ -35,7 +35,7 @@ by `dynamic_runner.py` / `unispsc_organism.py` / `xrpc/unispsc.py` via
 `importlib.import_module(f\"...c{code}\")`.
 
 That whole surface is superseded by the **clj `unspsc` actor**
-(`20-actors/unspsc`, on `etzhayyim/root@main`): **one framework + one data table**
+(`orgs/etzhayyim/com-etzhayyim-unspsc`, on `etzhayyim/root@main`): **one framework + one data table**
 (`resources/unspsc-taxonomy.edn`, 18,342 codes) on the `com-junkawasaki/kotodama`
 runtime, per the substrate-native Python→Clojure port wave (ADR-2606160842) and the
 kotoba Datom substrate (ADR-2605262130). Inference is Murakumo-only (ADR-2605215000).
@@ -85,6 +85,6 @@ after Step 3b, 169 kuni-umi e2e + organism tests after Step 5.
 - ADR-2606160842 (py→clj actor port wave) · ADR-2605262130 (kotoba storage substrate)
 - ADR-2605215000 (Murakumo-only inference) · ADR-2605180900 (UNSPSC/ISIC langserver+MCP — kept)
 - ADR-2605201400 (kuni-umi cell topology) · ADR-2605232345 (UNSPSC organism heartbeat)
-- `20-actors/unspsc/` (the clj actor) · `40-engine/kotoba/docs/ADR-retire-unispsc-python-per-code-agents.md` (kotoba-internal record)
+- `orgs/etzhayyim/com-etzhayyim-unspsc/` (the clj actor) · `40-engine/kotoba/docs/ADR-retire-unispsc-python-per-code-agents.md` (kotoba-internal record)
 - PRs com-junkawasaki/kotoba#162 #168 #164 #165 #166 #167
 "}]

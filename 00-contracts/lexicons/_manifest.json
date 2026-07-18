@@ -24615,31 +24615,31 @@
     },
     {
       "id": "com.etzhayyim.apqc.coverageSnapshot",
-      "path": "00-contracts/lexicons/com/etzhayyim/apqc/coverageSnapshot.json",
+      "path": "orgs/etzhayyim/com-etzhayyim-apqc/lex/coverageSnapshot.json",
       "type": "query",
       "description": "Return APQC pyzeebe + LangGraph + UDF migration coverage."
     },
     {
       "id": "com.etzhayyim.apqc.emitEvent",
-      "path": "00-contracts/lexicons/com/etzhayyim/apqc/emitEvent.json",
+      "path": "orgs/etzhayyim/com-etzhayyim-apqc/lex/emitEvent.json",
       "type": "procedure",
       "description": "Write an APQC OCEL event through the pyzeebe runtime."
     },
     {
       "id": "com.etzhayyim.apqc.getProcess",
-      "path": "00-contracts/lexicons/com/etzhayyim/apqc/getProcess.json",
+      "path": "orgs/etzhayyim/com-etzhayyim-apqc/lex/getProcess.json",
       "type": "query",
       "description": "Tranche F stub — fetch one APQC PCF process by ID. Full schema pending Phase 3 content copy."
     },
     {
       "id": "com.etzhayyim.apqc.materializeSubprocessDid",
-      "path": "00-contracts/lexicons/com/etzhayyim/apqc/materializeSubprocessDid.json",
+      "path": "orgs/etzhayyim/com-etzhayyim-apqc/lex/materializeSubprocessDid.json",
       "type": "query",
       "description": "Return the deterministic APQC subprocess DID for SQL/UDF callers."
     },
     {
       "id": "com.etzhayyim.apqc.materializeSubprocesses",
-      "path": "00-contracts/lexicons/com/etzhayyim/apqc/materializeSubprocesses.json",
+      "path": "orgs/etzhayyim/com-etzhayyim-apqc/lex/materializeSubprocesses.json",
       "type": "procedure",
       "description": "Materialize APQC subprocess DIDs for an APQC L1 code using the pyzeebe + LangGraph runtime."
     },

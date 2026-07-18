@@ -9,7 +9,7 @@ Tranche F scaffolding (Phase 2). See README.md.
 
 ## NSIDs
 
-See `00-contracts/lexicons/com/etzhayyim/apqc/`.
+See `orgs/etzhayyim/com-etzhayyim-apqc/lex/`.
 
 ## Dependencies
 

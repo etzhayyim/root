@@ -63,7 +63,7 @@
       "area": "process-classification",
       "project": "apqc",
       "proc": "materializeSubprocesses",
-      "sourcePath": "00-contracts/bpmn/com/etzhayyim/apqc/materializeSubprocesses.bpmn",
+      "sourcePath": "orgs/etzhayyim/com-etzhayyim-apqc/wire/bpmn/materializeSubprocesses.bpmn",
       "bpmnProcessId": "apqc_materialize_subprocesses",
       "nsid": "com.etzhayyim.apps.apqc.materializeSubprocesses",
       "lexiconPath": "00-contracts/lexicons/com/etzhayyim/apps/apqc/materializeSubprocesses.json"
@@ -72,7 +72,7 @@
       "area": "process-classification",
       "project": "apqc",
       "proc": "emitEvent",
-      "sourcePath": "00-contracts/bpmn/com/etzhayyim/apqc/emitEvent.bpmn",
+      "sourcePath": "orgs/etzhayyim/com-etzhayyim-apqc/wire/bpmn/emitEvent.bpmn",
       "bpmnProcessId": "apqc_emit_event",
       "nsid": "com.etzhayyim.apps.apqc.emitEvent",
       "lexiconPath": "00-contracts/lexicons/com/etzhayyim/apps/apqc/emitEvent.json"
@@ -81,7 +81,7 @@
       "area": "process-classification",
       "project": "apqc",
       "proc": "coverageSnapshot",
-      "sourcePath": "00-contracts/bpmn/com/etzhayyim/apqc/coverageSnapshot.bpmn",
+      "sourcePath": "orgs/etzhayyim/com-etzhayyim-apqc/wire/bpmn/coverageSnapshot.bpmn",
       "bpmnProcessId": "apqc_coverage_snapshot",
       "nsid": "com.etzhayyim.apps.apqc.coverageSnapshot",
       "lexiconPath": "00-contracts/lexicons/com/etzhayyim/apps/apqc/coverageSnapshot.json"

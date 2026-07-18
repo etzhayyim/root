@@ -32,9 +32,9 @@
         "com.etzhayyim.apqc.coverageSnapshot"
       ],
       "bpmnProcesses": [
-        "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/apqc/materializeSubprocesses.bpmn",
-        "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/apqc/emitEvent.bpmn",
-        "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/apqc/coverageSnapshot.bpmn"
+        "etzhayyim-root/orgs/etzhayyim/com-etzhayyim-apqc/wire/bpmn/materializeSubprocesses.bpmn",
+        "etzhayyim-root/orgs/etzhayyim/com-etzhayyim-apqc/wire/bpmn/emitEvent.bpmn",
+        "etzhayyim-root/orgs/etzhayyim/com-etzhayyim-apqc/wire/bpmn/coverageSnapshot.bpmn"
       ],
       "seedMigration": "30-graph/graph-schema/migrations/20260430224000_seed_apqc_bpmn_actors.ts",
       "deploymentEvidence": {

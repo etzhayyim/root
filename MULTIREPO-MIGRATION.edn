@@ -816,6 +816,38 @@
                          :external-json-retained-as-wire}
      :verification {:tests 30 :assertions 83 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
+    "kurashimori"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kurashimori"
+     :revision "b878a332911b05583882ad29b7c786d9b2467caf"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kurashimori"
+     :category :actor :canonical-format :edn :canonical-metadata "manifest.edn"
+     :canonicalization #{:root-only-assets-merged :actor-lexicons-edn-canonical
+                         :registry-seed-edn-canonical :python-audit-retired-to-clojure-edn
+                         :cross-actor-dependencies-pinned :external-json-retained-as-wire}
+     :verification {:tests 16 :assertions 248 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "unspsc"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-unspsc"
+     :revision "23b33394da5576f89c4690bfab0b9b425dedd596"
+     :west-path "orgs/etzhayyim/com-etzhayyim-unspsc"
+     :category :actor :canonical-format :edn :canonical-metadata "manifest.edn"
+     :canonicalization #{:root-only-assets-merged :taxonomy-edn-canonical
+                         :actor-lexicon-edn-canonical :flat-west-dependencies-pinned
+                         :external-json-retained-as-wire}
+     :verification {:tests 40 :assertions 223 :failures 0 :errors 0
+                    :taxonomy-entries 18342}
+     :root-copy :edn-tombstone-only}
+    "apqc"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-apqc"
+     :revision "8c804b6e72363be50e94687769fcc4b2041e1a30"
+     :west-path "orgs/etzhayyim/com-etzhayyim-apqc"
+     :category :actor :canonical-format :edn :canonical-metadata "manifest.edn"
+     :canonicalization #{:root-only-assets-merged :actor-lexicons-edn-canonical
+                         :bpmn-retained-as-wire :generated-wasm-retired
+                         :shell-runner-retired :flat-west-dependencies-pinned}
+     :verification {:tests 15 :assertions 72 :failures 0 :errors 0
+                    :pcf-seed-entries 713}
+     :root-copy :edn-tombstone-only}
     "hydrogen_electrolysis"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hydrogen-electrolysis"
      :revision "da4fab805b6aa8606dab36882de3186482f55f34"
