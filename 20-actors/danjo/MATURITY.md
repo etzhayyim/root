@@ -26,12 +26,34 @@
 | 7 | R1 ingest trio Founder 1/1 ratification (ADR-2607180900; trigger #2 bootstrap 緩和) | ✅ | 2026-07-18 |
 | 8 | diet_statement_index beat live (`methods/diet_beat.cljc`, jp_kokkai fixture → EAVT) | ✅ | 2026-07-18 |
 | 9 | revenue beat 統合 (`methods/mesh.clj` orchestrator, per-yen trace 実稼働) | ✅ | 2026-07-18 |
-| 10 | procurement/budget cells = `:awaiting-w3-fetcher` stubs (G8 honest; jp_chotatsu/jp_yosan は W3) | ✅ stub | 2026-07-18 |
+| 10 | procurement axis: jp_chotatsu fetcher landed + procurement_beat (representative fixture → EAVT) | ✅ fetcher+beat | 2026-07-18 |
+| 10b | budget axis: jp_yosan fetcher 未構築（W3）→ budget_ledger は引き続き :awaiting-w3-fetcher | ⏳ W3 | — |
 | 11 | `no-danjo-adjudication.mjs` lefthook 配線 (R1 trigger #5) | ✅ | 2026-07-18 |
 | 12 | R2 crossref_engine + statement_consistency (named-party discrepancyObservation) | ⏳ blocked: Council Lv6+ ≥4 + 30-day public comment (Seats 2-5 未充填) | — |
 | 13 | R3 oversight_report + named-party publication (G10, 1 SBT=1 vote) | ⏳ blocked: Council Lv7+ unanimity | — |
 
 ## イテレーション記録
+
+### 2026-07-18 (2) — jp_chotatsu (政府調達) W3 fetcher + procurement_beat（procurement axis 実データ経路）
+**procurement axis を `:awaiting-w3-fetcher` stub から実データ経路へ。** 外部ソース確認:
+政府調達情報ポータルは `chotatsu.portal.go.jp`(GEPS) → `p-portal.go.jp`（調達ポータル）に統合。
+落札実績オープンデータ = JSON 一括直接 URL + CSV(ZIP)、政府標準利用規約 2.0 = Tier A、
+直接 URL bulk で **G3 準拠**（受動）。公式 REST API は無いが bulk 直 URL = passive。
+
+- **jp_chotatsu fetcher** (`70-tools/e7m-dataset/.../fetchers/jp_chotatsu.py`): jp_kokkai テンプレで
+  network mode（bulk URL、operator が `rakusatsuopendata.pdf` で最終確認）+ local-source mode（主・テスト対象）。
+  p-portal 落札実績 → procurementRecord 準拠 NDJSON。Tier A（acceptance gate 不要）。3 test green。
+- **procurement_beat** (`methods/procurement_beat.cljc`): jp_chotatsu NDJSON → kotoba EAVT
+  (contracting-authority ↔ procurement-award ↔ corp-entity ↔ cross-reference-link)。G4 非裁定 + G5 ≥2 source。
+  representative fixture（`data/gov-procurement-fixture.jp.edn`、single-bidder seed 含む）。
+- **ingest_status** procurement-status を `:fetcher-landed-awaiting-operator-pull` に更新。
+- **mesh.clj** observe に procurement_beat 統合（procurement-graph head を summary に追加）。
+- **テスト品質修正（silent false-green 解消）**: `test_diet_beat`/`test_ingest_status`/`test_procurement_beat`
+  に `run-tests` + exit-on-fail を追加（それまで deftest が未実行＝false-green だった）。diet_beat の
+  非裁定フラグを正準 `:danjo.obs/non-adjudicating` に統一。全 14 suite 実実行 green。
+
+**非 goals（変更なし）**: network URL の live 確定は operator（local-source 即利用可）/ awardeeLei は
+gleif 別件 / gov_procurement_sensor は W2/W3 / named-party 観測は R2 Council-gated。
 
 ### 2026-07-18 — R1 ingest trio + revenue beat 統合実装（Founder 1/1 bootstrap 承認）
 **danjo を R0 → R1 へ。** ADR-2607180900 が ADR-2605301600 trigger #2（Founder 以外の
