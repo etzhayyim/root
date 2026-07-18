@@ -21105,7 +21105,7 @@
       "authoritative": true,
       "authoritative_for": [
         "mimamori 見守り actor — covenant bond lifecycle (offer/consent/heartbeat/care-route/relay/exit)",
-        "00-contracts/schemas/mishmeret-ontology.kotoba.edn — the :mishmeret.* schema 正本 (validator-parity test-bound)",
+        "orgs/etzhayyim/com-etzhayyim-mimamori/schema.edn — the :mishmeret.* schema 正本 (validator-parity test-bound)",
         "mishmeret 5 NEVER 句の実装形 (no-denunciation / no-score / consent / symmetric-visibility / no-throne)",
         ":mishmeret.*\" Datom namespace (bond-edge-only; person-node attributes unrepresentable)",
         "shomer vow 典礼 seed (musubi ceremony type)"

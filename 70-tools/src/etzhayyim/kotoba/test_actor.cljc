@@ -46,8 +46,8 @@
 ;; entity identity attribute, and (for nested graph seeds) the section keys to
 ;; flatten. All 🟡 R0 KG-mirror actors sharing the organism/縁 (or node/rel) shape.
 (def actor-specs
-  [{:actor "asobi"     :schema "00-contracts/schemas/asobi-ontology.kotoba.edn"
-    :seed "20-actors/asobi/data/seed-asobi-graph.kotoba.edn" :id-key :organism/id}
+  [{:actor "asobi"     :schema (actor-path "ETZHAYYIM_ASOBI_ROOT" "com-etzhayyim-asobi" "schema/asobi-ontology.kotoba.edn")
+    :seed (actor-path "ETZHAYYIM_ASOBI_ROOT" "com-etzhayyim-asobi" "data/seed-asobi-graph.kotoba.edn") :id-key :organism/id}
    {:actor "inochi"    :schema "00-contracts/schemas/biosphere-ontology.kotoba.edn"
     :seed (actor-path "ETZHAYYIM_INOCHI_ROOT" "com-etzhayyim-inochi" "data/seed-biosphere-graph.kotoba.edn") :id-key :organism/id}
    {:actor "hokorobi"  :schema (actor-path "ETZHAYYIM_HOKOROBI_ROOT" "com-etzhayyim-hokorobi" "schema/finrisk-ontology.kotoba.edn")
@@ -55,15 +55,15 @@
    {:actor "hoshimori" :schema (actor-path "ETZHAYYIM_HOSHIMORI_ROOT" "com-etzhayyim-hoshimori" "schema/orbit-ontology.edn")
     :seed (actor-path "ETZHAYYIM_HOSHIMORI_ROOT" "com-etzhayyim-hoshimori" "data/seed-orbit-graph.kotoba.edn") :id-key :organism/id}
    {:actor "tsugite"   :schema "00-contracts/schemas/peoples-ontology.kotoba.edn"
-    :seed "20-actors/tsugite/data/seed-peoples-graph.kotoba.edn" :id-key :organism/id}
-   {:actor "shiori"    :schema "00-contracts/schemas/wellbecoming-ontology.kotoba.edn"
-    :seed "20-actors/shiori/data/seed-wellbecoming-graph.kotoba.edn" :id-key :organism/id}
+    :seed (actor-path "ETZHAYYIM_TSUGITE_ROOT" "com-etzhayyim-tsugite" "data/seed-peoples-graph.kotoba.edn") :id-key :organism/id}
+   {:actor "shiori"    :schema (actor-path "ETZHAYYIM_SHIORI_ROOT" "com-etzhayyim-shiori" "schema/wellbecoming-ontology.edn")
+    :seed (actor-path "ETZHAYYIM_SHIORI_ROOT" "com-etzhayyim-shiori" "data/seed-wellbecoming-graph.kotoba.edn") :id-key :organism/id}
    {:actor "keizu"     :schema "00-contracts/schemas/government-relations-ontology.kotoba.edn"
     :seed "20-actors/keizu/data/seed-relation-graph.kotoba.edn" :id-key :node/id
     :sections [:nodes :committees :rels :money :statements]}
    ;; typed (Datomic-style) schemas — value/enum checks run for real here:
    {:actor "watatsuna" :schema "00-contracts/schemas/submarine-cable-ontology.kotoba.edn"
-    :seed "20-actors/watatsuna/data/seed-cable-graph.kotoba.edn" :id-key :cable/id}
+    :seed (actor-path "ETZHAYYIM_WATATSUNA_ROOT" "com-etzhayyim-watatsuna" "data/seed-cable-graph.kotoba.edn") :id-key :cable/id}
    {:actor "kabuto"    :schema "00-contracts/schemas/public-company-ontology.kotoba.edn"
     :seed "20-actors/kabuto/data/seed-public-companies.kotoba.edn" :id-key :company/id}])
 
@@ -166,8 +166,8 @@
 (deftest ingest-actor-end-to-end
   ;; The datom_emit replacement: ingest a real actor seed → validated kotoba log
   ;; + canonical snapshot + maturity report, in one call.
-  (let [schema "00-contracts/schemas/asobi-ontology.kotoba.edn"
-        seed "20-actors/asobi/data/seed-asobi-graph.kotoba.edn"]
+  (let [schema "orgs/etzhayyim/com-etzhayyim-asobi/schema/asobi-ontology.kotoba.edn"
+        seed "orgs/etzhayyim/com-etzhayyim-asobi/data/seed-asobi-graph.kotoba.edn"]
     (when (and (.exists (io/file schema)) (.exists (io/file seed)))
       (let [j (str (System/getProperty "java.io.tmpdir") "/etz-ing-j-" (System/nanoTime) ".edn")
             out (str (System/getProperty "java.io.tmpdir") "/etz-ing-" (System/nanoTime) ".kotoba.edn")]
@@ -301,7 +301,7 @@
             (is (pos? (get bw "jp-vendor-x" 0.0)))))
         (finally (io/delete-file tmp true))))))
 
-(def ^:private watatsuna-seed "20-actors/watatsuna/data/seed-cable-graph.kotoba.edn")
+(def ^:private watatsuna-seed "orgs/etzhayyim/com-etzhayyim-watatsuna/data/seed-cable-graph.kotoba.edn")
 
 (deftest watatsuna-cable-chokepoints
   ;; watatsuna 綿津綱 (ADR-2606012600, 🟡 R0) — its purpose is "chokepoint SPOF
@@ -379,7 +379,7 @@
         (finally (io/delete-file tmp true))))))
 
 ;; ── engine query smoke (asobi): prove the engine runs real Datalog on a seed ──
-(def ^:private asobi-seed "20-actors/asobi/data/seed-asobi-graph.kotoba.edn")
+(def ^:private asobi-seed "orgs/etzhayyim/com-etzhayyim-asobi/data/seed-asobi-graph.kotoba.edn")
 
 (deftest asobi-loads-into-engine-and-queries
   (when (.exists (io/file asobi-seed))

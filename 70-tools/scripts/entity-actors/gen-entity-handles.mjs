@@ -47,14 +47,14 @@ const NAMESPACES = [
   },
   {
     ns: "cable",
-    sources: [{ file: "20-actors/watatsuna/data/seed-cable-graph.kotoba.edn" }],
+    sources: [{ file: "orgs/etzhayyim/com-etzhayyim-watatsuna/data/seed-cable-graph.kotoba.edn" }],
     idKey: ":cable/id",
     nameKey: ":cable/name",
     idStrip: "",
   },
   {
     ns: "station",
-    sources: [{ file: "20-actors/watatsuna/data/seed-cable-graph.kotoba.edn" }],
+    sources: [{ file: "orgs/etzhayyim/com-etzhayyim-watatsuna/data/seed-cable-graph.kotoba.edn" }],
     idKey: ":station/id",
     nameKey: ":station/name",
     idStrip: "",

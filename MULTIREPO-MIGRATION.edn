@@ -1342,6 +1342,35 @@
      :moves ["kotoba.app.edn" "methods/mesh.clj"]
      :verification {:tests 10 :assertions 153 :failures 0 :errors 0}
      :next :delete-root-copy-after-merge-and-west-pin}
+    "asobi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-asobi"
+     :revision "102d45fab2e4eefeea9603e58fe78b10624b59ec"
+     :west-path "orgs/etzhayyim/com-etzhayyim-asobi"
+     :canonical-format :edn
+     :verification {:tests 39 :assertions 256 :failures 0 :errors 0
+                    :jvm {:tests 13 :assertions 44}}
+     :root-copy :edn-tombstone-only}
+    "shiori"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-shiori"
+     :revision "3a748d4e915e411993e57bf51dfd48f06336a2ac"
+     :west-path "orgs/etzhayyim/com-etzhayyim-shiori"
+     :canonical-format :edn
+     :verification {:tests 34 :assertions 761 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "tsugite"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-tsugite"
+     :revision "1eacf06717cda49dbd7cc3f0af96ca878aebdc52"
+     :west-path "orgs/etzhayyim/com-etzhayyim-tsugite"
+     :canonical-format :edn
+     :verification {:tests 38 :assertions 578 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "watatsuna"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-watatsuna"
+     :revision "c0a34866551b998d9e143bb59e9e902ea0630f77"
+     :west-path "orgs/etzhayyim/com-etzhayyim-watatsuna"
+     :canonical-format :edn
+     :verification {:tests 58 :assertions 217 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "fuchi"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-fuchi"
      :revision "bb449eddf1c525d259457389ee59edecb668fdf2"
@@ -1449,8 +1478,9 @@
                     :jvm {:tests 11 :assertions 47}}
      :root-copy :edn-tombstone-only}
     "mimamori"
-    {:pull-request "https://github.com/etzhayyim/com-etzhayyim-mimamori/pull/2"
-     :commit "2d2e7e5"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-mimamori"
+     :revision "b13639f2922ede3022c7c975ecbf9645b1796a74"
+     :west-path "orgs/etzhayyim/com-etzhayyim-mimamori"
      :moves ["manifest.edn" "schema.edn" "cell.edn" "src/mimamori" "test/mimamori"]
      :rewires
      ["root-relative ontology and cell registry to repository-local EDN"
@@ -1459,7 +1489,7 @@
       "namespace paths and standalone runner"]
      :canonical-format :edn
      :verification {:tests 50 :assertions 239 :failures 0 :errors 0}
-     :next :delete-root-copy-after-merge-and-west-pin}
+     :root-copy :edn-tombstone-only}
     "kaname"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-kaname"
      :revision "cf1fb83e02bc9693a61086bfc83516f602c91a56"
@@ -1503,8 +1533,8 @@
   [{:class :legacy-actor-root-directories
     :snapshot-date "2026-07-18"
     :baseline 198
-    :moved 84
-    :remaining 114
+    :moved 89
+    :remaining 109
     :inventory "90-docs/adr/2607181200-flat-west-actor-migration-progress-and-remaining.edn"}
    {:class :existing-repo-overlap
     :state :merge-root-only-content-before-delete}

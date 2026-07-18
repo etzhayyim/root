@@ -17,7 +17,7 @@
 [{:fleet/id "watatsumi.cable-laying" :fleet/actor "actor:watatsumi" :fleet/adr "2606012600"
   :fleet/purpose "submarine cable lay / bury / splice / repair / monitor"
   :fleet/n8-bound true :fleet/planned-from "actor:watatsuna resilience output"
-  :fleet/plan-input "20-actors/watatsuna/out/resilience-plan.kotoba.edn"
+  :fleet/plan-input "orgs/etzhayyim/com-etzhayyim-watatsuna/out/resilience-plan.kotoba.edn"
   :fleet/plan-note "tasking comes from watatsuna methods/plan.py (:plan/* recommendations: :lay-diverse-route / :pre-stage-repair / :monitor). watatsuna knows; watatsumi acts."}
 
  ;; ── 綱鋤 Tsuna-suki — towed sea plough / burial trencher ──

@@ -124,7 +124,7 @@ class WitWorld(wit_world.WitWorld):
         return handle_invoke(ctx_cbor, _cell.graph)   # CBOR ctx in, CBOR result out
 ```
 
-Build (verbatim from `20-actors/watatsuna/wasm/build.sh`):
+Build (verbatim from `orgs/etzhayyim/com-etzhayyim-watatsuna/wasm/build.sh`):
 
 ```bash
 componentize-py -d wit -w kotoba-node componentize app -o sheets-eval.wasm

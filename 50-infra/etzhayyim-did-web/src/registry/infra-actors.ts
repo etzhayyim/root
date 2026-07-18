@@ -225,7 +225,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     glyph: "綿津綱",
     displayName: "Watatsuna — World Submarine-Cable Network Knowledge Graph",
     primaryLexicon: "com.etzhayyim.cable",
-    // componentize-py WASM component (20-actors/watatsuna/wasm) — dag-pb (17.6MB,
+    // componentize-py WASM component (orgs/etzhayyim/com-etzhayyim-watatsuna/wasm) — dag-pb (17.6MB,
     // bundles CPython) → T2 donated-mesh tier, not browser-local (ADR-2606014600).
     wasmCid: "bafybeihusqahaeirwqur64aeh5fvwuoh54cawbmo7smx3h2abvps6li7pa",
     service: [
@@ -530,7 +530,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     glyph: "見守り",
     displayName: "Mimamori — Covenant Keeping Membrane (mishmeret ha-adam)",
     primaryLexicon: "com.etzhayyim.mimamori",
-    primarySchema: "00-contracts/schemas/mishmeret-ontology.kotoba.edn",
+    primarySchema: "orgs/etzhayyim/com-etzhayyim-mimamori/schema.edn",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:mimamori#atproto_pds",

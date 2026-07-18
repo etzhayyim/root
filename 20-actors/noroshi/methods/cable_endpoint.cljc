@@ -83,7 +83,7 @@
           (throw (ex-info
                   (str "watatsuna cable seed not found at " seed
                        "; the noroshi×watatsuna join needs the sibling actor's seed "
-                       "(20-actors/watatsuna/data/seed-cable-graph.kotoba.edn)")
+                       "(orgs/etzhayyim/com-etzhayyim-watatsuna/data/seed-cable-graph.kotoba.edn)")
                   {:seed (str seed) :kind :file-not-found})))
         (let [rows (edn/load-edn seed)]
           (reduce

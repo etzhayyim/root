@@ -36,7 +36,7 @@
     "wasmCid": null,
     "execModel": "service",
     "primaryLexicon": "com.etzhayyim.mimamori",
-    "primarySchema": "00-contracts/schemas/mishmeret-ontology.kotoba.edn",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-mimamori/schema.edn",
     "note": "verificationMethod empty — on-chain ERC725 mirror pending; did:web trust root = TLS (no server-minted key, ADR-2605231525)"
   }
 }

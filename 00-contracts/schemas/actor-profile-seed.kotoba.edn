@@ -167,7 +167,7 @@
    :actor/primary-schema "00-contracts/schemas/submarine-cable-ontology.kotoba.edn"
    :actor/adr ["2606012600"]
    :actor/created-at "2026-06-01"
-   ;; componentize-py WASM component (20-actors/watatsuna/wasm) — dag-pb (17.6MB,
+   ;; componentize-py WASM component (orgs/etzhayyim/com-etzhayyim-watatsuna/wasm) — dag-pb (17.6MB,
    ;; bundles CPython) → T2 donated-mesh tier, not browser-local (ADR-2606014600)
    :actor/wasm-cid "bafybeihusqahaeirwqur64aeh5fvwuoh54cawbmo7smx3h2abvps6li7pa"
    :actor/vm []
@@ -777,7 +777,7 @@
    :actor/ui-type :none
    :actor/description "Covenant keeping membrane (相互保持者会) — bonds of keeping: offer → kept-signed consent → content-free heartbeat → per-act-consented care-routing ({kokoro,wakai,iyashi} ONLY — no denunciation rail) → relay 継ぎ → unilateral exit. 誰の保持者でもない人間を作らない. The degeneration path (五人組→隣組→Stasi→social credit) is structurally UNREPRESENTABLE: no-score (bond-edge-only), symmetric visibility (hidden keeping cannot exist), NEVER-a-throne (own-DID-only queries, aggregate-only coverage; the WASM component is stateless — the host owns the log). Keeper-side social-capital mint (moyai verbatim reuse). Human-scale sibling of the mishmar storage covenant. SYNTHETIC seed only; live legs Council+operator gated (G7). Per ADR-2606112300 (doctrine: 2606112200 D3/D6)."
    :actor/primary-lexicon "com.etzhayyim.mimamori"
-   :actor/primary-schema "00-contracts/schemas/mishmeret-ontology.kotoba.edn"
+   :actor/primary-schema "orgs/etzhayyim/com-etzhayyim-mimamori/schema.edn"
    :actor/adr ["2606112300" "2606112200"]
    :actor/created-at "2026-06-11"
    :actor/vm []

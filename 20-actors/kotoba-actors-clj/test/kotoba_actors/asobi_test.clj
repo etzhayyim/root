@@ -29,8 +29,8 @@
 ;; and the IMSLP scores (2 results). Shared ?e joins the two triple-patterns.
 (deftest engine-q-join
   (testing "d/q joins two clauses on a shared logic var"
-    (let [db (d/db-from-seed
-              "/Users/junkawasaki/github/com-junkawasaki/orgs/etzhayyim/root/20-actors/asobi/data/seed-asobi-graph.kotoba.edn")]
+    (let [root (or (System/getenv "ETZHAYYIM_ASOBI_ROOT") "../com-etzhayyim-asobi")
+          db (d/db-from-seed (str root "/data/seed-asobi-graph.kotoba.edn"))]
       (is (= #{["play.work.beethoven-9"] ["play.work.imslp-scores"]}
              (d/q '{:find [?e]
                     :where [[?e :work/access :public-domain]

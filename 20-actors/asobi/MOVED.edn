@@ -1,0 +1,5 @@
+{:migration/status :moved
+ :migration/repository "https://github.com/etzhayyim/com-etzhayyim-asobi"
+ :migration/west-path "orgs/etzhayyim/com-etzhayyim-asobi"
+ :migration/revision "102d45fab2e4eefeea9603e58fe78b10624b59ec"
+ :migration/canonical-format :edn}
