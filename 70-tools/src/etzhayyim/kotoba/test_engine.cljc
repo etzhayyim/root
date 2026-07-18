@@ -54,7 +54,7 @@
 
 (deftest cid-genome-parity
   ;; The CID framing is byte-identical to `ipfs add --cid-version=1 --raw-leaves`
-  ;; and to 20-actors/rasen/methods/cid.py. Lock that against the daemon-verified
+  ;; and to orgs/etzhayyim/com-etzhayyim-rasen/methods/cid.py. Lock that against the daemon-verified
   ;; CIDs recorded in 80-data/genome/publish-manifest.json. Skips if data absent.
   (let [graph "80-data/genome/genome-graph.kotoba.edn"
         datoms "80-data/genome/genome-datoms.kotoba.edn"]

@@ -25,7 +25,7 @@ This **supersedes** the stub `40-engine/datomic_emulator.py` (whose `q()` always
 
 | ns | role |
 |---|---|
-| `etzhayyim.kotoba.cid` | CIDv1 content-address (raw/sha2-256/base32) — **byte-identical to `ipfs add --cid-version=1 --raw-leaves`** and `20-actors/rasen/methods/cid.py` (proven against the daemon-verified genome CIDs) |
+| `etzhayyim.kotoba.cid` | CIDv1 content-address (raw/sha2-256/base32) — **byte-identical to `ipfs add --cid-version=1 --raw-leaves`** and `orgs/etzhayyim/com-etzhayyim-rasen/methods/cid.py` (proven against the daemon-verified genome CIDs) |
 | `etzhayyim.kotoba.datom` | `[e a v tx op]` model + EAVT/AEVT/AVET/VAET four-index arrangement |
 | `etzhayyim.kotoba.query` | Datalog subset (`:find`/`:in`/`:where`, pattern joins, allowlisted predicates) |
 | `etzhayyim.kotoba.schema` | load `00-contracts` schemas; value-type validation; cardinality-one auto-retraction |

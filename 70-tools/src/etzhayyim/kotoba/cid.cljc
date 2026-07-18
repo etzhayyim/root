@@ -14,7 +14,7 @@
 ;;   multihash  = <hash-code> <digest-len> <digest>
 ;;
 ;; DIGEST = SHA2-256 (multihash code 0x12). This is the REPO-CANONICAL data-layer
-;;   content address, NOT a placeholder: `20-actors/rasen/methods/cid.py` and the
+;;   content address, NOT a placeholder: `orgs/etzhayyim/com-etzhayyim-rasen/methods/cid.py` and the
 ;;   WASM loaders (ADR-2605231525 / 2606014500) use the same CIDv1/raw/sha2-256
 ;;   framing, byte-identical to `ipfs add --cid-version=1 --raw-leaves`. PROVEN
 ;;   here: this fn reproduces the daemon-verified published genome CIDs

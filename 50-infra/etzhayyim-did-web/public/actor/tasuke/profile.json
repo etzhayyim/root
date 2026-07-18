@@ -23,7 +23,7 @@
       "2606060900"
     ],
     "primaryLexicon": "com.etzhayyim.tasuke.victimIntake",
-    "primarySchema": "00-contracts/schemas/cybercrime-victim-support-ontology.kotoba.edn",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-tasuke/schema/cybercrime-victim-support-ontology.kotoba.edn",
     "didDocument": "https://etzhayyim.com/actor/tasuke/did.json",
     "source": "kotoba"
   }

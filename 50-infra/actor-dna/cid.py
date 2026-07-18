@@ -2,7 +2,7 @@
 """actor-dna — kotoba content-address helpers (CIDv1, sha2-256, base32-lower).
 
 Pure-stdlib, byte-identical to the repo-canonical content-address (mirrors
-`20-actors/rasen/methods/cid.py` + `kotoba-core::KotobaCid`):
+`orgs/etzhayyim/com-etzhayyim-rasen/methods/cid.py` + `kotoba-core::KotobaCid`):
 
   - `cidv1_raw`     CIDv1 / raw codec (0x55)  — `ipfs add --cid-version=1 --raw-leaves`;
                     the address of a byte blob (a WASM program, a rules/lexicon EDN).

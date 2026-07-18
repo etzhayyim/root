@@ -753,7 +753,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     glyph: "助",
     displayName: "Tasuke — Free Cybercrime-Victim-Support Membrane",
     primaryLexicon: "com.etzhayyim.tasuke.victimIntake",
-    primarySchema: "00-contracts/schemas/cybercrime-victim-support-ontology.kotoba.edn",
+    primarySchema: "orgs/etzhayyim/com-etzhayyim-tasuke/schema/cybercrime-victim-support-ontology.kotoba.edn",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:tasuke#atproto_pds",

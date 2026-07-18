@@ -659,7 +659,7 @@
    :actor/ui-type :appview
    :actor/description "無料のサイバー犯罪被害サポート membrane。オンライン犯罪(フィッシング/不正送金/アカウント乗っ取り/サポート詐欺/ロマンス詐欺/投資詐欺/ランサム/なりすまし/架空請求)の被害者を、相談トリアージ→証拠保全→そのまま使える書面生成→無料の公的窓口→アカウント復旧 まで無料で伴走する。生成書面は被害者本人が提出するもの(被害届/被害状況報告書/証拠目録/被害額算定書、銀行 組戻し・口座凍結依頼(振り込め詐欺救済法)、プラットフォーム凍結・復旧・開示依頼、アカウント復旧手順)。三つの構造不変条件: G1 全て無料(手数料は表現不能、cash≡0)/ G2 本人作成・本人提出(代理作成・代理提出は表現不能、行政書士法・弁護士法 独占業務不踏)/ G3 警察authored不可(警察官名義の公文書は表現不能、公文書偽造を構造的に排除)。弁護士へはつながない(G5、無料の公的窓口のみ #9110/188/国民生活センター/フィッシング対策協議会/JPCERT/セーフライン/銀行/振り込め詐欺救済法)。証拠は暗号化参照(G6)、提出は本人署名(G7 no-server-key)、推論 Murakumo-only(G8)、実提出は R0 では draft のみ(G9)。非裁定(G4): 詐欺の KIND は routing ラベルで犯罪認定ではない(danjo/chigiri 境界)。invariant 改正ゼロ。"
    :actor/primary-lexicon "com.etzhayyim.tasuke.victimIntake"
-   :actor/primary-schema "00-contracts/schemas/cybercrime-victim-support-ontology.kotoba.edn"
+   :actor/primary-schema "orgs/etzhayyim/com-etzhayyim-tasuke/schema/cybercrime-victim-support-ontology.kotoba.edn"
    :actor/adr ["2606060900"]
    :actor/created-at "2026-06-05"
    :actor/vm []

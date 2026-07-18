@@ -1394,6 +1394,21 @@
      :canonical-format :edn
      :verification {:tests 60 :assertions 361 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
+    "tasuke"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-tasuke"
+     :revision "0bafa3c8186c98b14c49a41feead7f90da94aeb8"
+     :west-path "orgs/etzhayyim/com-etzhayyim-tasuke"
+     :canonical-format :edn
+     :verification {:tests 103 :assertions 565 :failures 0 :errors 0
+                    :jvm {:tests 4 :assertions 90}}
+     :root-copy :edn-tombstone-only}
+    "rasen"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-rasen"
+     :revision "dbcb867eac0f4816cc2bddc74c6ca3953018d0c5"
+     :west-path "orgs/etzhayyim/com-etzhayyim-rasen"
+     :canonical-format :edn
+     :verification {:tests 60 :assertions 587 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "shiori"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-shiori"
      :revision "3a748d4e915e411993e57bf51dfd48f06336a2ac"
@@ -1584,8 +1599,8 @@
   [{:class :legacy-actor-root-directories
     :snapshot-date "2026-07-18"
     :baseline 198
-    :moved 96
-    :remaining 102
+    :moved 98
+    :remaining 100
     :inventory "90-docs/adr/2607181200-flat-west-actor-migration-progress-and-remaining.edn"}
    {:class :existing-repo-overlap
     :state :merge-root-only-content-before-delete}
