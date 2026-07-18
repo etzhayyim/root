@@ -38,7 +38,7 @@ const NAMESPACES = [
     ns: "corp",
     sources: [
       { file: "orgs/etzhayyim/com-etzhayyim-kabuto/data/companies.merged.kotoba.edn" },
-      { file: "20-actors/tsumugi/data/seed-power-graph.kotoba.edn" },
+      { file: "orgs/etzhayyim/com-etzhayyim-tsumugi/data/seed-power-graph.kotoba.edn" },
     ],
     // corp unifies kabuto :company/* + tsumugi :organism/* (both org.corp.*)
     idKeys: [":company/id", ":organism/id"],

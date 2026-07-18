@@ -13,7 +13,7 @@ import dna as dnalib
 from _t import run
 
 _ROOT = pathlib.Path(__file__).resolve().parents[2]   # repo root from 50-infra/actor-dna/
-TSUMUGI = _ROOT / "20-actors/tsumugi"
+TSUMUGI = _ROOT / "orgs/etzhayyim/com-etzhayyim-tsumugi"
 WASM = TSUMUGI / "wasm/loader/tsumugi-core.wasm"
 LEXICON = _ROOT / "00-contracts/schemas/engi-organism-ontology.kotoba.edn"
 DNA_EDN = TSUMUGI / "dna/tsumugi.dna.edn"

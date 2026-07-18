@@ -33,9 +33,9 @@
 
   :migration/progress
   {:baseline-actor-directories 198
-   :moved-tombstones 108
-   :remaining-root-directories 90
-   :completion-percent 54.55
+   :moved-tombstones 112
+   :remaining-root-directories 86
+   :completion-percent 56.57
    :canonical-ledger "MULTIREPO-MIGRATION.edn"
    :integration-base-root-revision "1ce8a65a8fe5b68aa5fda43004bf2bc14a5e13e7"
    :integration-base-west-revision "5d33ded7fdd"
@@ -81,7 +81,26 @@
      :revision "f6cdea1859da1a6a9cd1908e11578b21c533a98d"
      :canonical-edn-files 83
      :wire-artifacts {:json-and-json-ld 54 :bpmn-xml 32}
-     :verification {:tests 36 :assertions 645}}]}
+     :verification {:tests 36 :assertions 645}}
+    {:actor "tsumugi"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-tsumugi"
+     :revision "e5b5d64806500ab0f7be0201d40e0edd477177cd"
+     :verification {:tests 149 :assertions 635}}
+    {:actor "tsutae"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-tsutae"
+     :revision "8e13b7143e891b73e5e0d8bc802954d5f6e1fb0e"
+     :verification {:tests 43 :assertions 181}}
+    {:actor "uchiwake"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-uchiwake"
+     :revision "6b95c5082954541e1ac700465745bc977b5af5c6"
+     :canonical-edn-files 19
+     :wire-artifacts {:json-and-json-ld 6 :bpmn-xml 0}
+     :verification {:tests 56 :assertions 838}}
+    {:actor "uzu"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-uzu"
+     :revision "46ebb2b3fc5c2f16d0a4441f1b0a047b6435e236"
+     :verification {:tests 108 :assertions 245
+                    :jvm {:tests 2 :assertions 5}}}]}
 
   :migration/completed-actors
   ["abaki" "ainori" "apqc" "atsurae" "busshi" "com-google-ads" "denwaban"
@@ -96,7 +115,7 @@
    "shidemori" "shukubo" "soma" "sonae" "stripe-compat" "suimin" "suki"
    "sumitsubo" "tawami" "toi" "tsukuroi" "ugachi" "unspsc" "utsushie"
    "wakai" "yudane" "isco" "moushibumi" "talent" "chigiri" "himotoki"
-   "toritsugi" "hoshimori" "inochi" "kuni-umi" "kuni_umi" "fuchi" "hokorobi" "kaname" "asobi" "mimamori" "shiori" "tsugite" "watatsuna" "kabuto" "watari" "keizu" "hakoniwa" "kafun" "shirabe" "tanemaki" "tasuke" "rasen" "tatara" "tazuna" "tate" "tokigusuri" "torifune" "tedai" "tatekata" "tsubasa" "tsuchifumi" "tsukuru"]
+   "toritsugi" "hoshimori" "inochi" "kuni-umi" "kuni_umi" "fuchi" "hokorobi" "kaname" "asobi" "mimamori" "shiori" "tsugite" "watatsuna" "kabuto" "watari" "keizu" "hakoniwa" "kafun" "shirabe" "tanemaki" "tasuke" "rasen" "tatara" "tazuna" "tate" "tokigusuri" "torifune" "tedai" "tatekata" "tsubasa" "tsuchifumi" "tsukuru" "tsumugi" "tsutae" "uchiwake" "uzu"]
 
   :migration/remaining-actors
   ["_conformance" "aburi" "akashi" "ake" "ameno" "amime"
@@ -114,9 +133,8 @@
    "omise" "ooyake" "organizer" "ossekai" "sanae" "sarutahiko"
    "shinka" "shionome" "shomei" "silicon" "subaru" "suji"
    "sukashi" "tadori"
-   "tazuna" "todoke" "toritate"
-   "tsumugi" "tsutae" "uchiwake"
-   "uzu" "wadachi" "warifu" "watatsumi" "yadori"
+   "todoke" "toritate"
+   "wadachi" "warifu" "watatsumi" "yadori"
    "yakushi" "yamabiko" "yobel" "yotei"]
 
   :migration/remaining-classification

@@ -314,7 +314,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     // No atproto lexicon: tsumugi emits kotoba EDN directly into the Datom log.
     primarySchema:
       "00-contracts/schemas/engi-organism-ontology.kotoba.edn (+ spirit-ontology.kotoba.edn)",
-    // Content-addressed WASM actor (20-actors/tsumugi/wasm/tsumugi-core) — runs
+    // Content-addressed WASM actor (orgs/etzhayyim/com-etzhayyim-tsumugi/wasm/tsumugi-core) — runs
     // browser-local (ameno) / donated mesh, NO per-actor server (ADR-2606014500).
     wasmCid: "bafkreidfttpqimwnx4i5a3rswum3orcg3qfa3q7fwts6axgqtcpuokddfi",
     service: [

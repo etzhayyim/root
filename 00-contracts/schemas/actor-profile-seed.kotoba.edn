@@ -188,7 +188,7 @@
    :actor/primary-schema "00-contracts/schemas/engi-organism-ontology.kotoba.edn (+ spirit-ontology.kotoba.edn)"
    :actor/adr ["2606011800" "2606272355"]
    :actor/created-at "2026-06-01"
-   ;; content-addressed WASM actor (20-actors/tsumugi/wasm/tsumugi-core) — runs
+   ;; content-addressed WASM actor (orgs/etzhayyim/com-etzhayyim-tsumugi/wasm/tsumugi-core) — runs
    ;; browser-local (ameno) / donated mesh, NO per-actor server (ADR-2606014500)
    :actor/wasm-cid "bafkreidfttpqimwnx4i5a3rswum3orcg3qfa3q7fwts6axgqtcpuokddfi"
    :actor/vm []

@@ -71,9 +71,9 @@ off RisingWave to the kotoba Datom log. The RW implementation here is now
 | Legacy (RW, prohibited) | kotoba-native replacement (LANDED) |
 |---|---|
 | `30-graph/graph-schema/migrations/20260428360000_vertex_lda_inference.ts` (`vertex_latent_entity`, LDA θ/φ tables, 4 MV) | `00-contracts/schemas/latent-entity-ontology.kotoba.edn` (`:latent/* :en/evidence-* :topic/* :cohort/*`) |
-| `existence_probability` stored column | `:latent/existence` computed ON READ (noisy-OR) by `20-actors/tsumugi/methods/resolve.py` — G2/N1, no per-soul score |
-| `vertex_lda_topic` + `edge_topic_entity_binding` + θ/φ MVs | `20-actors/tsumugi/methods/topics.py` (`:topic/*` + `:en/kind :topic-binding`); full LDA = Pregel/Murakumo, deferred (P2-full) |
-| `coverage.inferFission` BPMN / LangGraph `create_actor` | `20-actors/tsumugi/methods/fission_gate.py` — observer-only proposals; real fission = §D5 covenant claim, Council Lv7+, no DID minted, no server key |
+| `existence_probability` stored column | `:latent/existence` computed ON READ (noisy-OR) by `orgs/etzhayyim/com-etzhayyim-tsumugi/methods/resolve.py` — G2/N1, no per-soul score |
+| `vertex_lda_topic` + `edge_topic_entity_binding` + θ/φ MVs | `orgs/etzhayyim/com-etzhayyim-tsumugi/methods/topics.py` (`:topic/*` + `:en/kind :topic-binding`); full LDA = Pregel/Murakumo, deferred (P2-full) |
+| `coverage.inferFission` BPMN / LangGraph `create_actor` | `orgs/etzhayyim/com-etzhayyim-tsumugi/methods/fission_gate.py` — observer-only proposals; real fission = §D5 covenant claim, Council Lv7+, no DID minted, no server key |
 | RW Python UDF (gmm_fit / cosine) | Murakumo-only embed (substrate boundary) — deferred to P2-full |
 | natural-person individual latent entities ("tens of billions") | NOT ported — natural persons only as `:cohort/*` aggregates (G1 power-only) |
 | RW `vertex_latent_entity` + `edge_entity_evidence` queries in app.ts | **REFACTORED** to `kotoba-client-wrapper.ts` (Phase 1-4 landed) |

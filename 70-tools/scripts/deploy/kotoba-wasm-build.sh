@@ -15,7 +15,7 @@
 #   70-tools/scripts/deploy/kotoba-wasm-build.sh <crate-dir> [artifact-name]
 #
 # Examples:
-#   70-tools/scripts/deploy/kotoba-wasm-build.sh 20-actors/tsumugi/wasm/tsumugi-core
+#   70-tools/scripts/deploy/kotoba-wasm-build.sh orgs/etzhayyim/com-etzhayyim-tsumugi/wasm/tsumugi-core
 #   70-tools/scripts/deploy/kotoba-wasm-build.sh 20-actors/kanae/wasm/kanae-core kanae-core
 set -euo pipefail
 

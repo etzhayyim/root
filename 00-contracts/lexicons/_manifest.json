@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-18T04:19:13.902Z",
+  "generated": "2026-07-18T04:45:09.871Z",
   "lexicons": [
     {
       "id": "ai.etzhayyim.yorishiro.argparse-demo.main",
@@ -40400,42 +40400,6 @@
       "description": ""
     },
     {
-      "id": "com.etzhayyim.uchiwake.publishResilienceReport",
-      "path": "00-contracts/lexicons/com/etzhayyim/uchiwake/publishResilienceReport.json",
-      "type": "procedure",
-      "description": "Publish an AGGREGATE-FIRST product bill-of-materials RESILIENCE report into the kotoba Datom log (derived :concentration/* datoms + a report blob CID). Surfaces material dependence, processing-jurisdi"
-    },
-    {
-      "id": "com.etzhayyim.uchiwake.registerBomEdge",
-      "path": "00-contracts/lexicons/com/etzhayyim/uchiwake/registerBomEdge.json",
-      "type": "procedure",
-      "description": "Assert a first-class BILL-OF-MATERIALS edge (parent CONTAINS child) into the kotoba Datom log (:bom.edge/*). parent → :product/id or :part/id; child → :part/id or :material/id. Records a PUBLIC decomp"
-    },
-    {
-      "id": "com.etzhayyim.uchiwake.registerOwnership",
-      "path": "00-contracts/lexicons/com/etzhayyim/uchiwake/registerOwnership.json",
-      "type": "procedure",
-      "description": "Assert a corporate OWNERSHIP edge (子会社 → parent) into the kotoba Datom log (:company.ownership/*), sourced from GLEIF Level-2 Relationship Records (RR). Lets a brand-owning subsidiary roll up to its u"
-    },
-    {
-      "id": "com.etzhayyim.uchiwake.registerProduct",
-      "path": "00-contracts/lexicons/com/etzhayyim/uchiwake/registerProduct.json",
-      "type": "procedure",
-      "description": "Assert a TRADE ITEM (product) into the kotoba Datom log (:product/*), keyed on the GS1 GTIN. Public-record data only — GTIN, brand, brand-owner (→ kabuto :company/id), GS1 prefix, GPC/UNSPSC/HS classi"
-    },
-    {
-      "id": "com.etzhayyim.uzu.energyFlow",
-      "path": "00-contracts/lexicons/com/etzhayyim/uzu/energyFlow.json",
-      "type": "procedure",
-      "description": "Register a MEASURED real-world energy-like flow into the kotoba Datom log (:uzu.flow/*), in its NATIVE unit and class. The four classes are incommensurable and are NEVER summed across classes (G2). Th"
-    },
-    {
-      "id": "com.etzhayyim.uzu.organismBeat",
-      "path": "00-contracts/lexicons/com/etzhayyim/uzu/organismBeat.json",
-      "type": "procedure",
-      "description": "Append one beat of a uzu 渦 organism's dissipative loop to the kotoba Datom log (:uzu.beat/*). The ENERGY ledger (:uzu.beat/energy — conserved, depleting) and the INFORMATION free energy (:uzu.beat/fre"
-    },
-    {
       "id": "com.etzhayyim.vault.addMember",
       "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/vault/addMember.json",
       "type": "procedure",
@@ -50203,16 +50167,6 @@
       "com.etzhayyim.tsutae.recyclingCertificate",
       "com.etzhayyim.tsutae.silenTsutaeReview"
     ],
-    "com.etzhayyim.uchiwake": [
-      "com.etzhayyim.uchiwake.publishResilienceReport",
-      "com.etzhayyim.uchiwake.registerBomEdge",
-      "com.etzhayyim.uchiwake.registerOwnership",
-      "com.etzhayyim.uchiwake.registerProduct"
-    ],
-    "com.etzhayyim.uzu": [
-      "com.etzhayyim.uzu.energyFlow",
-      "com.etzhayyim.uzu.organismBeat"
-    ],
     "com.etzhayyim.wadachi": [
       "com.etzhayyim.wadachi.deliveryRoute",
       "com.etzhayyim.wadachi.missionCompleteRecord",
@@ -50348,6 +50302,6 @@
       "tools.ozone.verification.revokeVerifications"
     ]
   },
-  "total": 6858,
+  "total": 6852,
   "legacy_issues_count": 8
 }

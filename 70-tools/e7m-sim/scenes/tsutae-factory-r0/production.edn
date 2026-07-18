@@ -4,7 +4,7 @@
 ;; to ship-out + EOL. PRODUCTION counterpart of `construction.edn` (which builds the
 ;; CLEANROOM); the two are distinct layers (ADR-2606013100 §1 pattern).
 ;;
-;; Each station maps to one of the 8 tsutae Pregel cells (20-actors/tsutae/cells):
+;; Each station maps to one of the 8 tsutae Pregel cells (orgs/etzhayyim/com-etzhayyim-tsutae/cells):
 ;;   print+place+reflow+aoi → pcb_smt · chassis → chassis_assembly ·
 ;;   display → display_attachment · firmware → firmware_load · qc → final_qc ·
 ;;   pack → packaging · attest → device_attestation · eol → recycling_intake.

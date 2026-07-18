@@ -76,7 +76,7 @@
     @units))
 
 (defn load-organisms [seed-file]
-  (let [seed-file (or seed-file "20-actors/tsumugi/data/seed-power-graph.kotoba.edn")
+  (let [seed-file (or seed-file "orgs/etzhayyim/com-etzhayyim-tsumugi/data/seed-power-graph.kotoba.edn")
         orgs (atom {})]
     (try
       (let [doc (edn/read-string (slurp seed-file))]
@@ -87,7 +87,7 @@
     @orgs))
 
 (defn load-edges [seed-file]
-  (let [seed-file (or seed-file "20-actors/tsumugi/data/seed-power-graph.kotoba.edn")]
+  (let [seed-file (or seed-file "orgs/etzhayyim/com-etzhayyim-tsumugi/data/seed-power-graph.kotoba.edn")]
     (try
       (let [doc (edn/read-string (slurp seed-file))]
         (mapv normalize-record (filter #(and (map? %) (get % :en/id)) doc)))

@@ -1470,6 +1470,37 @@
      :wire-artifacts {:json-and-json-ld 54 :bpmn-xml 32}
      :verification {:tests 36 :assertions 645 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
+    "tsumugi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-tsumugi"
+     :revision "e5b5d64806500ab0f7be0201d40e0edd477177cd"
+     :west-path "orgs/etzhayyim/com-etzhayyim-tsumugi"
+     :canonical-format :edn
+     :verification {:tests 149 :assertions 635 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "tsutae"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-tsutae"
+     :revision "8e13b7143e891b73e5e0d8bc802954d5f6e1fb0e"
+     :west-path "orgs/etzhayyim/com-etzhayyim-tsutae"
+     :canonical-format :edn
+     :verification {:tests 43 :assertions 181 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "uchiwake"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-uchiwake"
+     :revision "6b95c5082954541e1ac700465745bc977b5af5c6"
+     :west-path "orgs/etzhayyim/com-etzhayyim-uchiwake"
+     :canonical-format :edn
+     :canonical-edn-files 19
+     :wire-artifacts {:json-and-json-ld 6 :bpmn-xml 0}
+     :verification {:tests 56 :assertions 838 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "uzu"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-uzu"
+     :revision "46ebb2b3fc5c2f16d0a4441f1b0a047b6435e236"
+     :west-path "orgs/etzhayyim/com-etzhayyim-uzu"
+     :canonical-format :edn
+     :verification {:tests 108 :assertions 245 :failures 0 :errors 0
+                    :jvm {:tests 2 :assertions 5}}
+     :root-copy :edn-tombstone-only}
     "tate"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-tate"
      :revision "658b9f67aaa65d7aad5ffda280ec8feaae7a8bc2"
@@ -1674,8 +1705,8 @@
   [{:class :legacy-actor-root-directories
     :snapshot-date "2026-07-18"
     :baseline 198
-    :moved 108
-    :remaining 90
+    :moved 112
+    :remaining 86
     :inventory "90-docs/adr/2607181200-flat-west-actor-migration-progress-and-remaining.edn"}
    {:class :existing-repo-overlap
     :state :merge-root-only-content-before-delete}

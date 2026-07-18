@@ -26,7 +26,7 @@ from pathlib import Path
 
 # station op → ordered manufacturing primitives (+ Japanese label).
 # tsutae handheld line (ADR-2605261300): SMT → 筐体 → ディスプレイ → FW → QC → 梱包 → 認証 / EOL.
-# Each station maps to one of the 8 tsutae Pregel cells (20-actors/tsutae/cells).
+# Each station maps to one of the 8 tsutae Pregel cells (orgs/etzhayyim/com-etzhayyim-tsutae/cells).
 _OP_STEPS = {
     "receive":   [("supply", "部品受入 (SoC/PMIC/PCB/受動)"), ("convey", "搬送 (ESDコンベア)")],
     "smt-print": [("supply", "PCB供給 + ペースト"), ("print", "ソルダーペースト印刷 (ステンシル)"),

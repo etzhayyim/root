@@ -67,7 +67,7 @@ export async function queryLatentEntities(
   // Then aggregate :en/evidence edges to compute existence_probability on-read (G2 edge-primary, N1):
   // const entities = aevt.map(e => {
   //   const evidences = await kotobaClient.kqe_avet(`:en/evidence`, { a: e.entity });
-  //   const existence = noisy_or_aggregate(evidences); // noisy-OR from 20-actors/tsumugi/methods/resolve.py
+  //   const existence = noisy_or_aggregate(evidences); // noisy-OR from orgs/etzhayyim/com-etzhayyim-tsumugi/methods/resolve.py
   //   return { ...e, existence_probability: existence };
   // });
 
@@ -159,7 +159,7 @@ export async function getViewpointStats(
 }
 
 // Helper: Noisy-OR aggregation (G2 edge-primary)
-// Replicates deterministic logic from 20-actors/tsumugi/methods/resolve.py
+// Replicates deterministic logic from orgs/etzhayyim/com-etzhayyim-tsumugi/methods/resolve.py
 function noisy_or_aggregate(evidences: { confidence: number }[]): number {
   if (evidences.length === 0) return 0;
   // Noisy-OR: 1 - ∏(1 - p_i)
