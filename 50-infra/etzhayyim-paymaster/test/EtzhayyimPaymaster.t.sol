@@ -3,6 +3,7 @@ pragma solidity 0.8.27;
 
 import "forge-std/Test.sol";
 import {EtzhayyimPaymaster, IEntryPoint, PackedUserOperation} from "../src/EtzhayyimPaymaster.sol";
+import {MessageHashUtils} from "@openzeppelin/contracts/utils/cryptography/MessageHashUtils.sol";
 
 /// @dev Minimal mock that records deposits + balances + withdrawals.
 contract MockEntryPoint is IEntryPoint {
@@ -32,12 +33,102 @@ contract EtzhayyimPaymasterTest is Test {
     address sender = address(0xBEEF);
     address allowedTarget = address(0xCAFE);
 
+    // Off-chain paymaster operator key (fix #1519). Its address is the
+    // `verifyingSigner` the contract trusts.
+    uint256 signerKey = uint256(keccak256("paymaster-operator"));
+    address signerAddr;
+
+    // An attacker that never holds the operator key.
+    uint256 attackerKey = uint256(keccak256("attacker"));
+
     function setUp() public {
+        signerAddr = vm.addr(signerKey);
         ep = new MockEntryPoint();
         address[] memory initialFactories = new address[](0);
-        paymaster = new EtzhayyimPaymaster(ep, owner, initialFactories);
+        paymaster = new EtzhayyimPaymaster(ep, owner, signerAddr, initialFactories);
         vm.deal(address(this), 10 ether);
     }
+
+    // ─── paymasterAndData builder (verifying signature) ─────────────
+
+    /// @dev Build a fully-signed paymasterAndData for a given UserOp + time window.
+    function _signedPaymasterAndData(PackedUserOperation memory uop, uint48 validUntil, uint48 validAfter)
+        internal
+        view
+        returns (bytes memory)
+    {
+        bytes memory prefix = abi.encodePacked(
+            address(paymaster),
+            uint128(200_000), // PAYMASTER_VALIDATION_GAS_OFFSET..POSTOP
+            uint128(100_000), // PAYMASTER_POSTOP_GAS_OFFSET..DATA
+            abi.encode(validUntil, validAfter)
+        );
+        // getHash reads paymasterAndData[20:52]; the gas-limit fields are present above.
+        uop.paymasterAndData = prefix;
+        bytes32 hash = _operatorHash(uop, validUntil, validAfter);
+        bytes32 ethHash = MessageHashUtils.toEthSignedMessageHash(hash);
+        (uint8 v, bytes32 r, bytes32 s) = vm.sign(signerKey, ethHash);
+        return abi.encodePacked(prefix, r, s, v);
+    }
+
+    function _signedBy(PackedUserOperation memory uop, uint48 validUntil, uint48 validAfter, uint256 key)
+        internal
+        view
+        returns (bytes memory)
+    {
+        bytes memory prefix = abi.encodePacked(
+            address(paymaster), uint128(200_000), uint128(100_000), abi.encode(validUntil, validAfter)
+        );
+        uop.paymasterAndData = prefix;
+        bytes32 hash = _operatorHash(uop, validUntil, validAfter);
+        bytes32 ethHash = MessageHashUtils.toEthSignedMessageHash(hash);
+        (uint8 v, bytes32 r, bytes32 s) = vm.sign(key, ethHash);
+        return abi.encodePacked(prefix, r, s, v);
+    }
+
+    function _validOp(address target) internal view returns (PackedUserOperation memory uop) {
+        bytes memory callData = abi.encodePacked(bytes4(0x12345678), bytes32(uint256(uint160(target))));
+        uop = PackedUserOperation({
+            sender: sender,
+            nonce: 0,
+            initCode: "",
+            callData: callData,
+            accountGasLimits: bytes32(0),
+            preVerificationGas: 0,
+            gasFees: bytes32(0),
+            paymasterAndData: "",
+            signature: ""
+        });
+    }
+
+    /// @dev Operator hash over a UserOp, mirroring EtzhayyimPaymaster.getHash.
+    ///      The paymasterAndData gas-limit bytes are reconstructed from the
+    ///      constants used by _signedPaymasterAndData (memory bytes can't be
+    ///      range-sliced in Solidity, unlike calldata).
+    function _operatorHash(PackedUserOperation memory userOp, uint48 validUntil, uint48 validAfter)
+        internal
+        view
+        returns (bytes32)
+    {
+        return keccak256(
+            abi.encode(
+                userOp.sender,
+                userOp.nonce,
+                keccak256(userOp.initCode),
+                keccak256(userOp.callData),
+                userOp.accountGasLimits,
+                uint256(bytes32(abi.encodePacked(uint128(200_000), uint128(100_000)))),
+                userOp.preVerificationGas,
+                userOp.gasFees,
+                block.chainid,
+                address(paymaster),
+                validUntil,
+                validAfter
+            )
+        );
+    }
+
+    // ─── cases ──────────────────────────────────────────────────────
 
     function test_only_owner_can_set_allowlist() public {
         vm.expectRevert(EtzhayyimPaymaster.NotOwner.selector);
@@ -52,102 +143,121 @@ contract EtzhayyimPaymasterTest is Test {
         address[] memory initialFactories = new address[](1);
         initialFactories[0] = address(0x1234);
 
-        EtzhayyimPaymaster seeded = new EtzhayyimPaymaster(ep, owner, initialFactories);
+        EtzhayyimPaymaster seeded = new EtzhayyimPaymaster(ep, owner, signerAddr, initialFactories);
         assertTrue(seeded.allowedFactory(address(0x1234)));
     }
 
     function test_only_owner_can_set_allowed_factory() public {
+        address factory = address(0x5678);
         vm.expectRevert(EtzhayyimPaymaster.NotOwner.selector);
-        paymaster.setAllowedFactory(address(0x1234), true);
+        paymaster.setAllowedFactory(factory, true);
 
         vm.prank(owner);
-        paymaster.setAllowedFactory(address(0x1234), true);
-        assertTrue(paymaster.allowedFactory(address(0x1234)));
+        paymaster.setAllowedFactory(factory, true);
+        assertTrue(paymaster.allowedFactory(factory));
     }
 
-    function test_validate_rejects_non_allowed_factory() public {
+    function test_validate_accepts_valid_operator_signature() public {
         vm.prank(owner);
         paymaster.setAllowedTarget(allowedTarget, true);
 
-        bytes memory callData = abi.encodePacked(
-            bytes4(0x12345678),
-            bytes32(uint256(uint160(allowedTarget)))
-        );
-        bytes memory initCode = abi.encodePacked(address(0x1234), bytes(""));
-        PackedUserOperation memory uop = PackedUserOperation({
-            sender: sender,
-            nonce: 0,
-            initCode: initCode,
-            callData: callData,
-            accountGasLimits: bytes32(0),
-            preVerificationGas: 0,
-            gasFees: bytes32(0),
-            paymasterAndData: "",
-            signature: ""
-        });
+        PackedUserOperation memory uop = _validOp(allowedTarget);
+        uop.paymasterAndData = _signedPaymasterAndData(uop, type(uint48).max, 0);
 
         vm.prank(address(ep));
-        vm.expectRevert(abi.encodeWithSelector(EtzhayyimPaymaster.FactoryNotAllowed.selector, address(0x1234)));
+        (bytes memory context, uint256 validationData) =
+            paymaster.validatePaymasterUserOp(uop, bytes32(0), 0.001 ether);
+        // sigFailed bit must be clear for a valid operator signature.
+        assertEq(validationData & 1, 0, "sigFailed should be 0 for valid operator sig");
+        assertGt(context.length, 0);
+    }
+
+    function test_validate_rejects_bad_operator_signature() public {
+        vm.prank(owner);
+        paymaster.setAllowedTarget(allowedTarget, true);
+
+        PackedUserOperation memory uop = _validOp(allowedTarget);
+        // Signed by the attacker, not the operator → sigFailed bit set (no revert).
+        uop.paymasterAndData = _signedBy(uop, type(uint48).max, 0, attackerKey);
+
+        vm.prank(address(ep));
+        (, uint256 validationData) = paymaster.validatePaymasterUserOp(uop, bytes32(0), 0.001 ether);
+        assertEq(validationData & 1, 1, "sigFailed should be 1 for bad operator sig");
+    }
+
+    function test_validate_reverts_on_short_paymaster_data() public {
+        vm.prank(owner);
+        paymaster.setAllowedTarget(allowedTarget, true);
+
+        PackedUserOperation memory uop = _validOp(allowedTarget);
+        // No signature / too-short paymasterAndData → denied before any policy check.
+        uop.paymasterAndData = abi.encodePacked(address(paymaster), uint128(200_000), uint128(100_000));
+        assertLt(uop.paymasterAndData.length, 116);
+
+        vm.prank(address(ep));
+        vm.expectRevert(EtzhayyimPaymaster.InvalidPaymasterDataLength.selector);
         paymaster.validatePaymasterUserOp(uop, bytes32(0), 0.001 ether);
     }
 
-    function test_validate_accepts_allowed_factory_and_target() public {
-        address factory = address(0x1234);
-        vm.prank(owner);
-        paymaster.setAllowedFactory(factory, true);
+    function test_validate_respects_validUntil_validAfter() public {
         vm.prank(owner);
         paymaster.setAllowedTarget(allowedTarget, true);
 
-        bytes memory callData = abi.encodePacked(
-            bytes4(0x12345678),
-            bytes32(uint256(uint160(allowedTarget)))
-        );
-        bytes memory initCode = abi.encodePacked(factory, bytes(""));
-        PackedUserOperation memory uop = PackedUserOperation({
-            sender: sender,
-            nonce: 0,
-            initCode: initCode,
-            callData: callData,
-            accountGasLimits: bytes32(0),
-            preVerificationGas: 0,
-            gasFees: bytes32(0),
-            paymasterAndData: "",
-            signature: ""
-        });
+        uint48 validAfter = 1_000;
+        uint48 validUntil = 2_000;
+        PackedUserOperation memory uop = _validOp(allowedTarget);
+        uop.paymasterAndData = _signedPaymasterAndData(uop, validUntil, validAfter);
 
         vm.prank(address(ep));
-        (bytes memory context, uint256 validationData) = paymaster.validatePaymasterUserOp(uop, bytes32(0), 0.001 ether);
-        assertEq(validationData, 0);
-        (address senderOut, uint256 todayOut, uint256 maxCostOut) = abi.decode(context, (address, uint256, uint256));
-        assertEq(senderOut, sender);
-        assertEq(todayOut, block.timestamp / 1 days);
-        assertEq(maxCostOut, 0.001 ether);
+        (, uint256 validationData) = paymaster.validatePaymasterUserOp(uop, bytes32(0), 0.001 ether);
+        // Packing: sigFailed(b0) | validUntil(<<160) | validAfter(<<208)
+        assertEq(validationData & 1, 0);
+        assertEq(uint48(validationData >> 160), validUntil, "validUntil mismatch");
+        assertEq(uint48(validationData >> 208), validAfter, "validAfter mismatch");
     }
 
-    function test_validate_rejects_non_allowed_target() public {
+    function test_validate_rejects_non_allowed_target_even_with_valid_sig() public {
         vm.prank(owner);
         paymaster.setAllowedTarget(allowedTarget, true);
 
-        // callData decodes target as address(0xDEAD), not on allowlist
-        bytes memory callData = abi.encodePacked(
-            bytes4(0x12345678),  // selector
-            bytes32(uint256(uint160(address(0xDEAD))))
-        );
-        PackedUserOperation memory uop = PackedUserOperation({
-            sender: sender,
-            nonce: 0,
-            initCode: "",
-            callData: callData,
-            accountGasLimits: bytes32(0),
-            preVerificationGas: 0,
-            gasFees: bytes32(0),
-            paymasterAndData: "",
-            signature: ""
-        });
+        PackedUserOperation memory uop = _validOp(address(0xDEAD));
+        uop.paymasterAndData = _signedPaymasterAndData(uop, type(uint48).max, 0);
 
         vm.prank(address(ep));
         vm.expectRevert(abi.encodeWithSelector(EtzhayyimPaymaster.TargetNotAllowed.selector, address(0xDEAD)));
         paymaster.validatePaymasterUserOp(uop, bytes32(0), 0.001 ether);
+    }
+
+    function test_only_owner_can_rotate_verifying_signer() public {
+        address newSigner = vm.addr(attackerKey);
+        vm.expectRevert(EtzhayyimPaymaster.NotOwner.selector);
+        paymaster.setVerifyingSigner(newSigner);
+
+        vm.prank(owner);
+        paymaster.setVerifyingSigner(newSigner);
+        assertEq(paymaster.verifyingSigner(), newSigner);
+
+        // Old operator key now fails; new key passes.
+        vm.prank(owner);
+        paymaster.setAllowedTarget(allowedTarget, true);
+
+        PackedUserOperation memory uopOld = _validOp(allowedTarget);
+        uopOld.paymasterAndData = _signedPaymasterAndData(uopOld, type(uint48).max, 0);
+        vm.prank(address(ep));
+        (, uint256 vdOld) = paymaster.validatePaymasterUserOp(uopOld, bytes32(0), 0.001 ether);
+        assertEq(vdOld & 1, 1, "old key should now fail");
+
+        PackedUserOperation memory uopNew = _validOp(allowedTarget);
+        uopNew.paymasterAndData = _signedBy(uopNew, type(uint48).max, 0, attackerKey);
+        vm.prank(address(ep));
+        (, uint256 vdNew) = paymaster.validatePaymasterUserOp(uopNew, bytes32(0), 0.001 ether);
+        assertEq(vdNew & 1, 0, "rotated key should pass");
+    }
+
+    function test_reject_zero_verifying_signer() public {
+        address[] memory factories = new address[](0);
+        vm.expectRevert(EtzhayyimPaymaster.InvalidSigner.selector);
+        new EtzhayyimPaymaster(ep, owner, address(0), factories);
     }
 
     function test_receive_deposits_to_entrypoint() public {
@@ -163,7 +273,7 @@ contract EtzhayyimPaymasterTest is Test {
         assertEq(paymaster.owner(), newOwner);
     }
 
-    function test_default_cap_is_0_02_eth() public {
+    function test_default_cap_is_0_02_eth() public view {
         assertEq(paymaster.defaultDailyCapWei(), 0.02 ether);
     }
 }

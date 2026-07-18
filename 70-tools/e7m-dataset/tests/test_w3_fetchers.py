@@ -8,9 +8,10 @@ present, and a fail-closed path with no file.
 from __future__ import annotations
 
 import httpx
+import json
 import pytest
 
-from e7m_dataset.fetchers import caida, openintel, rapid7_sonar
+from e7m_dataset.fetchers import caida, jp_chotatsu, openintel, rapid7_sonar
 from e7m_dataset.fetchers._acceptance import (
     MissingAcceptanceFlag,
     require_acceptance,
@@ -237,3 +238,113 @@ def test_caida_rejects_empty_archive_path(tmp_path, monkeypatch):
             tmp_path / "stage",
             caida.CaidaFetchOpts(dataset="as-rank", archive_path=""),
         )
+
+
+# ── jp_chotatsu (JP 政府調達 / p-portal.go.jp) — Tier A, no acceptance gate ──
+
+
+_JP_CHOTATSU_SAMPLE = {
+    "results": [
+        {  # Japanese p-portal 落札実績 column aliases
+            "公告番号": "NOTICE-001",
+            "発注機関名": "財務省",
+            "件名": "庁用車両購入",
+            "落札者名": "〇〇自動車株式会社",
+            "落札金額": "12,345,000",
+            "結果公告日": "2025-04-01",
+        },
+        {  # normalized English keys also accepted
+            "noticeId": "AWARD-002",
+            "contractingAuthority": "経済産業省",
+            "title": "市場調査業務",
+            "awardeeName": "株式会社△△",
+            "awardAmountLocal": 5_000_000,
+            "awardDate": "2025/04/02",
+        },
+        {  # missing every identity field → skipped
+            "調達年度": "2025",
+            "件名": "identity-less row",
+        },
+    ]
+}
+
+
+def test_jp_chotatsu_local_source_writes_ndjson(tmp_path):
+    src = tmp_path / "sample.json"
+    src.write_text(json.dumps(_JP_CHOTATSU_SAMPLE), encoding="utf-8")
+
+    result = jp_chotatsu.fetch(
+        tmp_path / "stage",
+        jp_chotatsu.JpChotatsuFetchOpts(local_source=src),
+    )
+
+    assert result.name == "jp-chotatsu"
+    assert result.source["tier"] == "A"
+    assert result.source["license"] == "政府標準利用規約-2.0"
+    assert result.source["sourceSensor"] == "jp_chotatsu"
+    assert result.source["awardCount"] == 2  # malformed row skipped
+
+    rows = [
+        json.loads(line)
+        for line in (result.staging_path / "jp-chotatsu.ndjson").read_text().splitlines()
+        if line
+    ]
+    assert len(rows) == 2
+    for row in rows:
+        assert row["recordKind"] == "award"
+        assert row["jurisdiction"] == "JPN"
+        assert row["sourceSensor"] == "jp_chotatsu"
+        assert isinstance(row["awardAmountLocal"], int)
+        assert row["currencyIso4217"] == "JPY"
+    assert rows[0]["awardAmountLocal"] == 12_345_000  # comma-string coerced to int yen
+    assert rows[1]["awardDateUtc"] == "2025-04-02T00:00:00Z"  # slash date coerced
+
+
+def test_jp_chotatsu_network_mocked(tmp_path):
+    captured: dict = {}
+
+    def handler(req: httpx.Request) -> httpx.Response:
+        captured["url"] = str(req.url)
+        return httpx.Response(
+            200,
+            content=json.dumps(
+                {"results": _JP_CHOTATSU_SAMPLE["results"][:1], "numberOfRecords": 1}
+            ).encode("utf-8"),
+        )
+
+    transport = httpx.MockTransport(handler)
+    with httpx.Client(transport=transport) as client:
+        result = jp_chotatsu.fetch(
+            tmp_path / "stage",
+            jp_chotatsu.JpChotatsuFetchOpts(
+                from_date="2025-04-01",
+                until_date="2025-04-30",
+                bulk_url="https://mock/chotatsu",
+                client=client,
+            ),
+        )
+
+    assert result.source["type"] == "http"
+    assert "from=2025-04-01" in captured["url"]
+    assert "until=2025-04-30" in captured["url"]
+    rows = [
+        json.loads(line)
+        for line in (result.staging_path / "jp-chotatsu.ndjson").read_text().splitlines()
+        if line
+    ]
+    assert len(rows) == 1
+    assert rows[0]["noticeId"] == "NOTICE-001"
+
+
+def test_jp_chotatsu_skips_malformed(tmp_path):
+    src = tmp_path / "identityless.json"
+    src.write_text(
+        json.dumps({"results": [{"件名": "no identity"}, {"調達年度": "2025"}]}),
+        encoding="utf-8",
+    )
+    result = jp_chotatsu.fetch(
+        tmp_path / "stage",
+        jp_chotatsu.JpChotatsuFetchOpts(local_source=src),
+    )
+    assert result.source["awardCount"] == 0
+    assert (result.staging_path / "jp-chotatsu.ndjson").read_text() == ""

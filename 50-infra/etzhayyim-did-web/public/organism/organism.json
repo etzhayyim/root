@@ -1,10 +1,10 @@
 {
-  "run" : 1784257333153,
-  "generatedAt" : "2026-07-17T03:02:13.153Z",
+  "run" : 1784263145278,
+  "generatedAt" : "2026-07-17T04:39:05.278Z",
   "summary" : {
-    "cells" : 164,
-    "alive" : 150,
-    "dormant" : 12,
+    "cells" : 163,
+    "alive" : 153,
+    "dormant" : 8,
     "stub" : 2
   },
   "nodes" : [ {
@@ -25,18 +25,18 @@
   }, {
     "bsky" : true,
     "reflex" : "green",
-    "inDeg" : 2,
+    "inDeg" : 1,
     "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
     "status" : "r1",
     "id" : "ainori",
     "class" : "alive",
-    "score" : 79,
+    "score" : 77,
     "outDeg" : 4,
     "cells" : 1,
     "clj" : 40,
-    "actor" : 14
+    "actor" : 12
   }, {
     "bsky" : true,
     "reflex" : "green",
@@ -54,18 +54,18 @@
     "actor" : 12
   }, {
     "bsky" : true,
-    "reflex" : "red",
+    "reflex" : "green",
     "inDeg" : 1,
     "atproto" : 25,
     "port" : 0.875,
     "heartbeatDays" : 0,
     "status" : "unknown",
     "id" : "ake",
-    "class" : "dormant",
-    "score" : 70,
+    "class" : "alive",
+    "score" : 85,
     "outDeg" : 9,
     "cells" : 5,
-    "clj" : 23,
+    "clj" : 38,
     "actor" : 22
   }, {
     "bsky" : true,
@@ -85,7 +85,7 @@
   }, {
     "bsky" : true,
     "reflex" : "green",
-    "inDeg" : 6,
+    "inDeg" : 5,
     "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
@@ -265,7 +265,7 @@
   }, {
     "bsky" : true,
     "reflex" : "green",
-    "inDeg" : 6,
+    "inDeg" : 5,
     "atproto" : 30,
     "port" : 1.0,
     "heartbeatDays" : 0,
@@ -459,18 +459,18 @@
     "actor" : 18
   }, {
     "bsky" : true,
-    "reflex" : "red",
+    "reflex" : "green",
     "inDeg" : 1,
     "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
     "status" : "r1-template-commons-publishable",
     "id" : "hinagata",
-    "class" : "dormant",
-    "score" : 62,
+    "class" : "alive",
+    "score" : 77,
     "outDeg" : 4,
     "cells" : 1,
-    "clj" : 25,
+    "clj" : 40,
     "actor" : 12
   }, {
     "bsky" : true,
@@ -610,7 +610,7 @@
   }, {
     "bsky" : true,
     "reflex" : "green",
-    "inDeg" : 14,
+    "inDeg" : 13,
     "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
@@ -715,7 +715,7 @@
   }, {
     "bsky" : true,
     "reflex" : "green",
-    "inDeg" : 16,
+    "inDeg" : 15,
     "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
@@ -1315,7 +1315,7 @@
   }, {
     "bsky" : true,
     "reflex" : "green",
-    "inDeg" : 16,
+    "inDeg" : 15,
     "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
@@ -1434,18 +1434,18 @@
     "actor" : 18
   }, {
     "bsky" : true,
-    "reflex" : "red",
+    "reflex" : "green",
     "inDeg" : 2,
     "atproto" : 25,
     "port" : 0.9411764705882353,
     "heartbeatDays" : 0,
     "status" : "r0",
     "id" : "noroshi",
-    "class" : "dormant",
-    "score" : 71,
+    "class" : "alive",
+    "score" : 86,
     "outDeg" : 4,
     "cells" : 5,
-    "clj" : 24,
+    "clj" : 39,
     "actor" : 22
   }, {
     "bsky" : true,
@@ -1480,7 +1480,7 @@
   }, {
     "bsky" : true,
     "reflex" : "green",
-    "inDeg" : 13,
+    "inDeg" : 12,
     "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
@@ -1929,18 +1929,18 @@
     "actor" : 12
   }, {
     "bsky" : true,
-    "reflex" : "red",
+    "reflex" : "green",
     "inDeg" : 3,
     "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
     "status" : "unknown",
     "id" : "tasuke",
-    "class" : "dormant",
-    "score" : 76,
+    "class" : "alive",
+    "score" : 91,
     "outDeg" : 7,
     "cells" : 5,
-    "clj" : 25,
+    "clj" : 40,
     "actor" : 26
   }, {
     "bsky" : true,
@@ -2200,7 +2200,7 @@
   }, {
     "bsky" : true,
     "reflex" : "green",
-    "inDeg" : 21,
+    "inDeg" : 20,
     "atproto" : 30,
     "port" : 1.0,
     "heartbeatDays" : 0,
@@ -2257,21 +2257,6 @@
     "cells" : 1,
     "clj" : 40,
     "actor" : 12
-  }, {
-    "bsky" : true,
-    "reflex" : "green",
-    "inDeg" : 0,
-    "atproto" : 20,
-    "port" : 1.0,
-    "heartbeatDays" : 0,
-    "status" : "r0-design-only",
-    "id" : "umisachi",
-    "class" : "alive",
-    "score" : 70,
-    "outDeg" : 10,
-    "cells" : 0,
-    "clj" : 40,
-    "actor" : 10
   }, {
     "bsky" : true,
     "reflex" : "green",
@@ -2350,7 +2335,7 @@
   }, {
     "bsky" : true,
     "reflex" : "green",
-    "inDeg" : 8,
+    "inDeg" : 7,
     "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
@@ -2380,7 +2365,7 @@
   }, {
     "bsky" : true,
     "reflex" : "green",
-    "inDeg" : 11,
+    "inDeg" : 10,
     "atproto" : 25,
     "port" : 1.0,
     "heartbeatDays" : 0,
@@ -4508,36 +4493,6 @@
   }, {
     "from" : "ugachi",
     "to" : "kanayama"
-  }, {
-    "from" : "umisachi",
-    "to" : "ainori"
-  }, {
-    "from" : "umisachi",
-    "to" : "asobi"
-  }, {
-    "from" : "umisachi",
-    "to" : "funadaiku"
-  }, {
-    "from" : "umisachi",
-    "to" : "inochi"
-  }, {
-    "from" : "umisachi",
-    "to" : "kabuto"
-  }, {
-    "from" : "umisachi",
-    "to" : "mitsuho"
-  }, {
-    "from" : "umisachi",
-    "to" : "okaimono"
-  }, {
-    "from" : "umisachi",
-    "to" : "tsumugi"
-  }, {
-    "from" : "umisachi",
-    "to" : "watari"
-  }, {
-    "from" : "umisachi",
-    "to" : "watatsuna"
   }, {
     "from" : "utsushie",
     "to" : "kawaraban"

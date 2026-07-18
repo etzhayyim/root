@@ -27,7 +27,10 @@ metadata:
 spec:
   # PoC: single-shard active. Phase 3 may shard by hash(processInstanceKey).
   # standby replica is a separate Deployment so we can drain independently.
-  replicas: 1
+  # RETIRED 2026-07-17: RW_URL residue from the 2026-05-17 gftdcojp org split.
+  # RisingWave was org-wide retired 2026-06-11 (ADR-2606120900/2606120930).
+  # Scaled to 0 — see ADR-2605191648 addendum 2026-07-17.
+  replicas: 0
   strategy:
     type: Recreate
   selector:
