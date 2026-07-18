@@ -15,7 +15,7 @@
 90-docs
 00-contracts
 10-protocol
-20-actors/!(etzhayyim-sdk)
-20-actors/etzhayyim-sdk/.npmrc
-20-actors/etzhayyim-sdk/test
-20-actors/etzhayyim-sdk/smoke
+orgs/etzhayyim/!(com-etzhayyim-sdk)
+orgs/etzhayyim/com-etzhayyim-sdk/.npmrc
+orgs/etzhayyim/com-etzhayyim-sdk/test
+orgs/etzhayyim/com-etzhayyim-sdk/smoke

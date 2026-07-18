@@ -42,7 +42,7 @@ if (args.length === 0) {
 }
 
 /** Path prefixes that are allowed to import substrate clients directly.
- *  Anything else under `20-actors/` / `60-apps/` / `50-infra/` MUST go
+ *  Anything else under flat-west actor repos / `60-apps/` / `50-infra/` MUST go
  *  through `@etzhayyim/sdk`. */
 const allowedPrefixes = [
   "orgs/etzhayyim/com-etzhayyim-sdk/",                  // the canonical seam

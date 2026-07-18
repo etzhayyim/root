@@ -61,7 +61,7 @@ let actor = null;
 async function jget(url) { const r = await fetch(url); if (!r.ok) throw new Error(url + " " + r.status); return r.json(); }
 
 async function loadActor(handle) {
-  const m = await jget(`../../20-actors/${handle}/manifest.json`);
+  const m = await jget(`../../../com-etzhayyim-${handle}/manifest.json`);
   actor = new KotobaActor(m);
   $("meta").textContent = `${m.did}  ·  tier ${m.tier}  ·  wasm ${m.wasmCid.slice(0,14)}…`;
   const c = m.capabilities;

@@ -1,4 +1,8 @@
 #!/usr/bin/env nbb
+(ns gen-actor-rad
+  (:require [clojure.edn :as edn]
+            [clojure.string :as str]))
+
 ;; --- nbb shims (auto, ADR-2607173000) ---------------------------------
 (def ^:private __fs (js/require "node:fs"))
 (def ^:private __path (js/require "node:path"))
@@ -22,7 +26,8 @@
     {:exit (or (.-status r) 0) :out "" :err ""}))
 ;; -----------------------------------------------------------------------
 (defn- __json-parse [s & _] (js->clj (js/JSON.parse s) :keywordize-keys true))
-(defn- __json-gen [x & _] (js/JSON.stringify (clj->js x)))
+(defn- __json-gen [x & [opts]]
+  (js/JSON.stringify (clj->js x) nil (when (:pretty opts) 2)))
 ;; gen-actor-rad.nbb — distill the kotoba-rad identity ledger
 ;; (80-data/kotoba-rad/<handle>.identity.journal.edn, the per-actor sovereign
 ;; identity per ADR-2606231200) into a same-origin JSON the /murakumo page joins
@@ -30,31 +35,37 @@
 ;; kotoba-rad ledger file. Generated artifact: public/_shell/actor-rad.json
 ;; (committed; re-run after the ledger changes). Operational code = clj/nbb over
 ;; the kotoba Datom log (etzhayyim/root repo convention).
-(ns gen-actor-rad
-  (:require [clojure.edn :as edn]
-            [clojure.string :as str]
-                        ))
 
-(def ^:private script-dir  (fs/parent (fs/absolutize *file*)))
-(def ^:private ledger-dir  (fs/path script-dir ".." ".." ".." "80-data" "kotoba-rad"))
-(def ^:private actors-dir  (fs/path script-dir ".." ".." ".." "20-actors"))
-(def ^:private out-file    (fs/path script-dir ".." "public" "_shell" "actor-rad.json"))
+(defn- path [& xs] (.apply (.-resolve __path) __path (to-array xs)))
+(defn- exists? [p] (.existsSync __fs p))
+(defn- directory? [p] (and (exists? p) (.isDirectory (.statSync __fs p))))
+(defn- list-dir [p]
+  (map #(path p %) (js->clj (.readdirSync __fs p))))
+(defn- file-name [p] (.basename __path p))
+(defn- read-text [p] (.readFileSync __fs p "utf8"))
+(defn- write-text [p content] (.writeFileSync __fs p content "utf8"))
 
-(defn- monorepo-dirs []
-  ;; handles that have a public source dir at etzhayyim/root/20-actors/<handle>
-  ;; (so /murakumo can point `gh` at the always-public monorepo, not a private
-  ;; child repo). The root repo is public; the per-actor child repos may not be.
-  (when (fs/exists? actors-dir)
-    (->> (fs/list-dir actors-dir)
-         (filter fs/directory?)
-         (map (comp str fs/file-name))
-         (remove #(str/starts-with? % "."))
+(def ^:private script-dir  (.dirname __path (.resolve __path *file*)))
+(def ^:private ledger-dir  (path script-dir ".." ".." ".." "80-data" "kotoba-rad"))
+(def ^:private actors-dir
+  (path (or (aget (.-env js/process) "ETZHAYYIM_WEST_ACTORS_DIR")
+            (path script-dir ".." ".." ".." ".."))))
+(def ^:private out-file    (path script-dir ".." "public" "_shell" "actor-rad.json"))
+
+(defn- west-dirs []
+  ;; Handles with a flat west checkout under orgs/etzhayyim.
+  (when (exists? actors-dir)
+    (->> (list-dir actors-dir)
+         (filter directory?)
+         (map file-name)
+         (filter #(str/starts-with? % "com-etzhayyim-"))
+         (map #(subs % (count "com-etzhayyim-")))
          sort vec)))
 
 (defn- parse-ledger [f]
-  (let [rows (->> (str/split-lines (slurp (str f)))
+  (let [rows (->> (str/split-lines (read-text f))
                   (remove str/blank?)
-                  (keep #(try (edn/read-string %) (catch Exception _ nil))))
+                  (keep #(try (edn/read-string %) (catch :default _ nil))))
         find1 (fn [attr pred]
                 (some (fn [[_e a v]] (when (and (= a attr) (or (nil? pred) (pred v))) v)) rows))
         nm      (find1 :rad/name nil)
@@ -68,16 +79,18 @@
             did-web (assoc :didWeb did-web)
             rid     (assoc :rid rid))])))
 
-(let [result (into (sorted-map)
-                   (keep parse-ledger (fs/glob ledger-dir "*.identity.journal.edn")))]
-  (fs/create-dirs (fs/parent out-file))
-  (let [monorepo (monorepo-dirs)]
-    (spit (str out-file)
-          (__json-gen {:generatedFrom "80-data/kotoba-rad/*.identity.journal.edn + 20-actors/"
-                                 :note "Per-actor kotoba-rad identity (ADR-2606231200). Keyed by handle. repo = :rad/repo, didWeb = github.io :rad/did-web, rid = :rad/rid. monorepoDirs = handles with a public 20-actors/<handle> source dir."
-                                 :count (count result)
-                                 :monorepoDirs monorepo
-                                 :actors result}
-                                {:pretty true}))
-    (println "wrote" (str (fs/canonicalize out-file)) "—" (count result) "rad actors,"
-             (count monorepo) "monorepo dirs")))
+(let [ledgers (->> (list-dir ledger-dir)
+                   (filter #(str/ends-with? % ".identity.journal.edn")))
+      result (into (sorted-map) (keep parse-ledger ledgers))]
+  (.mkdirSync __fs (.dirname __path out-file) #js {:recursive true})
+  (let [west (west-dirs)]
+    (write-text out-file
+                (str (__json-gen {:generatedFrom "80-data/kotoba-rad/*.identity.journal.edn + flat west orgs/etzhayyim/"
+                                  :note "Per-actor kotoba-rad identity (ADR-2606231200). Keyed by handle. repo = :rad/repo, didWeb = github.io :rad/did-web, rid = :rad/rid. monorepoDirs is a wire-compatible field containing flat west checkout handles."
+                                  :count (count result)
+                                  :monorepoDirs west
+                                  :actors result}
+                                 {:pretty true})
+                     "\n"))
+    (println "wrote" out-file "—" (count result) "rad actors,"
+             (count west) "flat west dirs")))

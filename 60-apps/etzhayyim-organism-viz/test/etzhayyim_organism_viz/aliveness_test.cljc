@@ -37,7 +37,7 @@
      (defn- make-cell!
        "Mirror test_aliveness.make_cell — body=nil → no cell.py."
        [repo name body]
-       (let [d (mkdirs! (str repo "/20-actors/kotodama/cells/" name))]
+       (let [d (mkdirs! (str repo "/orgs/kotoba-lang/kotodama/cells/" name))]
          (when body (spit! (str d "/cell.py") body))
          d))
 

@@ -145,7 +145,7 @@ may decide on a cut, through the local CLI with their git credentials
 etzhayyim/root/
 ├── 00-contracts/        # open lexicons / bpmn / dmn / Rego policies
 ├── 10-protocol/         # atproto, xrpc, lexicons-bundle, signal, did-etzhayyim
-├── 20-actors/           # kotodama actor framework + Pregel-pattern SDK
+├── 20-actors/           # legacy actor tombstones; implementations live in flat west repos
 ├── 30-graph/            # open graph schemas + RisingWave migrations
 ├── 50-infra/            # geth, holochain, ipfs, blockscout, etzhayyim-pds
 ├── 60-apps/             # open-* (22), public-* (2), atproto, ameno, baien

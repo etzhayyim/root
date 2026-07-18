@@ -57,7 +57,7 @@
 
 (deftest sops-yaml-render
   (let [txt (sops/sops-yaml-text [["cargo" "age1cargoRECIP"]] "age1ORGrecip")]
-    (is (str/includes? txt "path_regex: ^20-actors/cargo/secrets/.*\\.enc\\."))
+    (is (str/includes? txt "path_regex: ^orgs/etzhayyim/com-etzhayyim-cargo/secrets/.*\\.enc\\."))
     (is (str/includes? txt "age1cargoRECIP"))
     (is (str/includes? txt "age1ORGrecip"))
     (testing "per-actor rule lists both the actor key and the org recovery key"

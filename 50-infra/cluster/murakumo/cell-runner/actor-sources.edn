@@ -1,5 +1,9 @@
 {:actor-sources
- {"mio"
+ {"kotodama"
+  {:kind :west-repository
+   :path "orgs/kotoba-lang/kotodama"
+   :revision "HEAD"}
+  "mio"
   {:kind :west-repository
    :path "orgs/etzhayyim/com-etzhayyim-mio"
    :revision "a0b6697f3708d67e0bda2a23fe4ab853555aed0d"}
@@ -20,5 +24,6 @@
    :path "orgs/etzhayyim/com-etzhayyim-yudane"
    :revision "6e80373d226add518a9eb841ced288b626c18a5a"}}
  :default
- {:kind :legacy-root
-  :path-template "20-actors/{actor}"}}
+ {:kind :west-repository
+  :path-template "orgs/etzhayyim/com-etzhayyim-{actor}"
+  :revision "HEAD"}}

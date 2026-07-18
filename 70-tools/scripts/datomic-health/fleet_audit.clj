@@ -1,7 +1,7 @@
 #!/usr/bin/env bb
 ;; fleet_audit.clj — etzhayyim datomic-ledger FLEET health audit.
 ;;
-;; Run (from repo root, default classpath has 20-actors):
+;; Run from the west superproject root:
 ;;   bb 70-tools/scripts/datomic-health/fleet_audit.clj
 ;;   bb 70-tools/scripts/datomic-health/fleet_audit.clj --actors tate,inochi   ;; subset
 ;;   bb 70-tools/scripts/datomic-health/fleet_audit.clj --quiet                ;; table only
@@ -28,17 +28,17 @@
   ;; this file = 70-tools/scripts/datomic-health/fleet_audit.clj → up 4 = repo root
   (-> *file* io/file .getCanonicalFile .getParentFile .getParentFile .getParentFile .getParentFile))
 
-(def actors-dir (io/file repo-root "20-actors"))
+(def actors-dir (io/file repo-root "orgs" "etzhayyim"))
 
 (defn ledger-actors
-  "Every actor dir under 20-actors/ that carries BOTH methods/kotoba.cljc and
+  "Every com-etzhayyim-* checkout that carries BOTH methods/kotoba.cljc and
   methods/autorun.cljc — the datomic-ledger family. Sorted, deterministic."
   []
   (->> (.listFiles actors-dir)
        (filter #(.isDirectory %))
        (filter (fn [d] (and (.exists (io/file d "methods" "kotoba.cljc"))
                             (.exists (io/file d "methods" "autorun.cljc")))))
-       (map #(.getName %))
+       (map #(subs (.getName %) (count "com-etzhayyim-")))
        sort
        vec))
 

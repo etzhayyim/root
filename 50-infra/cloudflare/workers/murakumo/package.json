@@ -13,7 +13,7 @@
     "lint:kotoba": "! grep -rEn \"from ['\\\"](\\.+/)*(kotoba|hyperdrive|kysely|@etzhayyim/kotodama-host-sdk|@atproto/api|viem)\" src/ || (echo 'substrate boundary violation' >&2 && false)"
   },
   "dependencies": {
-    "@etzhayyim/sdk": "file:../../../../20-actors/etzhayyim-sdk",
+    "@etzhayyim/sdk": "file:../../../../../com-etzhayyim-sdk",
     "hono": "^4.12.21"
   },
   "devDependencies": {

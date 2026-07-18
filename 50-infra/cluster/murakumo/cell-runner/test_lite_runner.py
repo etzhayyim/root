@@ -126,7 +126,23 @@ def test_deploy_executes_injected_runner_steps():
     assert res["status"] == "deployed" and res["ip"] == "100.89.204.30"
     # the codified deploy: mkdirs → put lite_runner → cells.edn → stage each actor → install daemon
     assert calls[0] == "mkdirs" and "put-file" in calls and "git-show" in calls
-    assert "git-archive" in calls and calls[-1] == "install-daemon"
+    assert "git-archive-repo" in calls and "git-archive" not in calls
+    assert calls[-1] == "install-daemon"
+
+
+def test_unlisted_actor_uses_flat_west_repository():
+    source = dn.actor_source("sukashi")
+    assert source == {
+        ":kind": ":west-repository",
+        ":path-template": "orgs/etzhayyim/com-etzhayyim-{actor}",
+        ":revision": "HEAD",
+        ":path": "orgs/etzhayyim/com-etzhayyim-sukashi",
+    }
+
+
+def test_kotodama_uses_language_owner():
+    source = dn.actor_source("kotodama")
+    assert source[":path"] == "orgs/kotoba-lang/kotodama"
 
 
 def test_deploy_mio_uses_pinned_west_repository():

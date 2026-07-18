@@ -2,7 +2,7 @@
 ;;
 ;; ADR-2606241500 (this PR). The C-axis (self-evolution) companion to
 ;; actor:publish (ADR-2606231200): an actor evolves BOTH its CODE
-;; (20-actors/<name>/**) and its DATA (80-data/<name>/** + its kotoba-rad
+;; (orgs/etzhayyim/com-etzhayyim-<name>/**) and its DATA (80-data/<name>/** + its kotoba-rad
 ;; identity journal) through ordinary git — branch → encrypt-secrets → commit →
 ;; push → PR create → merge — with its secrets carried as sops+age ciphertext
 ;; (etzhayyim.sops-age) so a credential is NEVER committed in the clear.
@@ -34,9 +34,9 @@
             [etzhayyim.kotoba.pages-store :as pages]
             [etzhayyim.actor-publish :as pub]))
 
-(defn code-prefix [actor] (str "20-actors/" actor))
+(defn code-prefix [actor] (str "orgs/etzhayyim/com-etzhayyim-" actor))
 (defn data-prefix [actor] (str "80-data/" actor))
-(defn secrets-dir  [actor] (str "20-actors/" actor "/secrets"))
+(defn secrets-dir  [actor] (str (code-prefix actor) "/secrets"))
 
 (defn slugify [s]
   (-> (or s "evolve") str/lower-case
@@ -115,7 +115,7 @@
 
 ;; ── driver ───────────────────────────────────────────────────────────────────
 
-(defn pages-dir [actor] (str "20-actors/" actor "/data"))
+(defn pages-dir [actor] (str (code-prefix actor) "/data"))
 
 (defn evolve-one
   [actor {:keys [apply? push? pr? merge? pages? message pubkey-hex]}]

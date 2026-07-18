@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Build kyber-erp-core → a kotoba `kotoba-node` WASM component + compute its IPFS CID.
-# Mirrors 20-actors/{tsumugi,kanae}/wasm build convention (ADR-2606014500 / 2606037200 R3).
+# Mirrors the com-etzhayyim-tsumugi and com-etzhayyim-kanae standalone-repo
+# WASM build convention (ADR-2606014500 / 2606037200 R3).
 set -euo pipefail
 cd "$(dirname "$0")"
 

@@ -48,4 +48,5 @@
 
 (defn -main [& _]
   (let [{:keys [fail error]} (run-tests 'etzhayyim.test-actor-mesh)]
-    (System/exit (if (pos? (+ fail error)) 1 0))))
+    (#?(:clj System/exit :cljs js/process.exit)
+     (if (pos? (+ fail error)) 1 0))))

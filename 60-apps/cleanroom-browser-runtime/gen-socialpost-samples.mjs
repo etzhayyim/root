@@ -19,7 +19,7 @@ const idx = JSON.parse(readFileSync(resolve(ROOT, "00-contracts/schemas/cleanroo
 const samples = [];
 let total = 0;
 for (const a of idx.actors.filter((x) => x.tier === "L4")) {
-  const m = JSON.parse(readFileSync(resolve(ROOT, `20-actors/${a.handle}/manifest.json`), "utf8"));
+  const m = JSON.parse(readFileSync(resolve(ROOT, `../com-etzhayyim-${a.handle}/manifest.json`), "utf8"));
   const actor = new KotobaActor(m);
   // one create per entity → one dry-run post each
   for (const e of actor.entities) actor.create(e, {});

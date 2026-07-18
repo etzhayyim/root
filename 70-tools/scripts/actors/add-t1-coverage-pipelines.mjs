@@ -91,7 +91,7 @@ function buildCoveragePipelines(manifest) {
   return [cronPipeline, xrpcPipeline, coverageNSID];
 }
 
-const manifestPaths = globSync('20-actors/*/actor-manifest.jsonld', { cwd: ROOT }).sort();
+const manifestPaths = globSync('orgs/etzhayyim/com-etzhayyim-*/actor-manifest.jsonld', { cwd: ROOT }).sort();
 let scanned = 0;
 let t1Count = 0;
 let changed = 0;

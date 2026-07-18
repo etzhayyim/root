@@ -6,7 +6,8 @@ files that don't have a corresponding JSON file under 00-contracts/lexicons/.
 
 Why this matters
 ================
-Each Tier-B actor under `20-actors/<actor>/` ships a `manifest.jsonld`
+Each flat-west actor checkout ships an authoritative `manifest.edn` or a
+legacy wire `manifest.jsonld`
 that declares which lexicons the actor implements:
 
     "lexicons": [
@@ -35,7 +36,7 @@ declaration gap.
 Output
 ======
 For each manifest with missing lexicons, prints:
-    20-actors/<actor>/manifest.jsonld declares N lexicons; M missing:
+    orgs/etzhayyim/com-etzhayyim-<actor>/manifest.edn declares N lexicons; M missing:
       MISSING: <nsid>  (expected at <expected-path>)
       ...
 
@@ -47,12 +48,14 @@ Discovery: iter-47 of /loop (2026-05-27).
 from __future__ import annotations
 
 import json
+import os
 import re
 import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
-ACTORS_DIR = REPO_ROOT / "20-actors"
+WEST_ROOT = Path(os.environ.get("ETZHAYYIM_WEST_ROOT", REPO_ROOT.parents[2]))
+ACTORS_DIR = WEST_ROOT / "orgs" / "etzhayyim"
 LEXICONS_ROOT = REPO_ROOT / "00-contracts" / "lexicons"
 
 # NSID convention check — at least 3 dot-segments (e.g. com.etzhayyim.X.Y).
@@ -71,8 +74,13 @@ def nsid_to_lexicon_path(nsid: str) -> Path:
     return LEXICONS_ROOT / Path(*parts[:-1]) / f"{parts[-1]}.json"
 
 
+def display_path(path: Path) -> Path:
+    """Stable display path for files that may live in sibling west checkouts."""
+    return Path(os.path.relpath(path, REPO_ROOT))
+
+
 def find_manifests() -> list[Path]:
-    """All actor manifests under 20-actors/ — both the legacy `manifest.jsonld`
+    """All flat-west actor manifests — both the legacy `manifest.jsonld`
     and the migrated `manifest.edn` (the jsonld→edn / py→cljc wave). One manifest
     per actor dir; when an actor (transiently) ships both, the `.jsonld` wins.
 
@@ -84,9 +92,9 @@ def find_manifests() -> list[Path]:
     if not ACTORS_DIR.is_dir():
         return []
     by_actor: dict[Path, Path] = {}
-    for mp in sorted(ACTORS_DIR.glob("*/manifest.edn")):
+    for mp in sorted(ACTORS_DIR.glob("com-etzhayyim-*/manifest.edn")):
         by_actor[mp.parent] = mp
-    for mp in sorted(ACTORS_DIR.glob("*/manifest.jsonld")):
+    for mp in sorted(ACTORS_DIR.glob("com-etzhayyim-*/manifest.jsonld")):
         by_actor[mp.parent] = mp  # prefer .jsonld when an actor has both
     return [by_actor[k] for k in sorted(by_actor)]
 
@@ -247,7 +255,7 @@ def main() -> int:
         try:
             declared = declared_nsids(mpath)
         except (OSError, json.JSONDecodeError) as e:
-            print(f"warning: could not parse {mpath.relative_to(REPO_ROOT)}: {e}", file=sys.stderr)
+            print(f"warning: could not parse {display_path(mpath)}: {e}", file=sys.stderr)
             continue
         if not declared:
             continue
@@ -298,10 +306,10 @@ def main() -> int:
     if actors_with_drift:
         print()
         for mpath, missing in actors_with_drift:
-            rel = mpath.relative_to(REPO_ROOT)
+            rel = display_path(mpath)
             print(f"{rel} — {len(missing)} missing:")
             for nsid, lex_path in missing[:10]:
-                lex_rel = lex_path.relative_to(REPO_ROOT)
+                lex_rel = display_path(lex_path)
                 print(f"  MISSING: {nsid}")
                 print(f"    expected at: {lex_rel}")
             if len(missing) > 10:
@@ -311,7 +319,7 @@ def main() -> int:
         print()
         print("Invalid NSIDs:")
         for mpath, nsid in invalid_nsids[:10]:
-            rel = mpath.relative_to(REPO_ROOT)
+            rel = display_path(mpath)
             print(f"  {rel}: {nsid!r}")
 
     if orphans:

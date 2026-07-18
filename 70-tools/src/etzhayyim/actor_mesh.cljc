@@ -3,7 +3,7 @@
 
   Given an actor name, gathers cljc cell entrypoints, runs static analysis for
   known compile blockers, generates a kotoba.app.edn mesh manifest, and writes it
-  to 20-actors/<name>/kotoba.app.edn.
+  to orgs/etzhayyim/com-etzhayyim-<name>/kotoba.app.edn.
 
   Usage (bb task):
     bb actor:mesh <name> [--trigger on-http|on-kse|on-tick] [--dry-run] [--survey]
@@ -17,7 +17,9 @@
     - No throw, ex-info, pr-str, hex literals"
   #?(:clj (:require [clojure.string :as str]
                     [babashka.fs :as fs]
-                    [clojure.pprint :refer [pprint]])))
+                    [clojure.pprint :refer [pprint]])
+     :cljs (:require [clojure.string :as str]
+                     [cljs.pprint :refer [pprint]])))
 
 ;; ── Compile blocker patterns ──────────────────────────────────────────────────
 
@@ -119,7 +121,7 @@
                       dry-run   false
                       repo-root "."}}]
   #?(:clj
-     (let [actor-dir   (str repo-root "/20-actors/" actor-name)
+     (let [actor-dir   (str repo-root "/orgs/etzhayyim/com-etzhayyim-" actor-name)
            cells       (find-cells actor-dir)
            assessments (mapv assess-cell cells)
            clean       (filterv #(= :clean   (:status %)) assessments)

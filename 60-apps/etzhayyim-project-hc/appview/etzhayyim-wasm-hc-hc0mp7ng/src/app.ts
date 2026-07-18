@@ -317,7 +317,7 @@ async function cmdRegisterToTsukuru(sdk: HostSDK, body: Uint8Array): Promise<unk
   // manufacturer. The spRegistration record below is the write-only derived
   // source; tsukuru can consume via onCommit on com.etzhayyim.apps.hc.spRegistration
   // once the derive rule is wired. hc CLAUDE.md notes this actor is deprecated
-  // (migrated to 20-actors/hc/actor-manifest.jsonld T1 MCP-Compose), so the
+  // (migrated to com-etzhayyim-hc/actor-manifest.jsonld T1 MCP-Compose), so the
   // outbound stub is acceptable.
   const result = "{}";
 
@@ -659,7 +659,7 @@ function validateRecord(record: Record<string, unknown>): { valid: boolean; erro
 
 // cross-actor invoke helper removed (ADR-0047 audit 2026-04-21).
 // Was: `invokeRemote(sdk, targetDid, method, params)` → `sdk.hostImports.invoke`.
-// hc actor is deprecated (migrated to 20-actors/hc/actor-manifest.jsonld T1
+// hc actor is deprecated (migrated to com-etzhayyim-hc/actor-manifest.jsonld T1
 // MCP-Compose per hc/CLAUDE.md header); remaining app.ts call (cmdRegisterToTsukuru)
 // now uses the write-only derived pattern (ADR-0004) — tsukuru consumes
 // com.etzhayyim.apps.hc.spRegistration commits instead of receiving a direct RPC.

@@ -6,15 +6,15 @@
             [clojure.test :refer [deftest is run-tests]]))
 
 (deftest new-scripts-are-present-minus-baseline
-  (is (= ["20-actors/new/run_tests.sh"]
-         (l/new-scripts ["20-actors/a/run_tests.sh" "20-actors/new/run_tests.sh"]
-                        ["20-actors/a/run_tests.sh"])))
-  (is (= [] (l/new-scripts ["20-actors/a/run_tests.sh"] ["20-actors/a/run_tests.sh"]))))
+  (is (= ["orgs/etzhayyim/com-etzhayyim-new/run_tests.sh"]
+         (l/new-scripts ["orgs/etzhayyim/com-etzhayyim-a/run_tests.sh" "orgs/etzhayyim/com-etzhayyim-new/run_tests.sh"]
+                        ["orgs/etzhayyim/com-etzhayyim-a/run_tests.sh"])))
+  (is (= [] (l/new-scripts ["orgs/etzhayyim/com-etzhayyim-a/run_tests.sh"] ["orgs/etzhayyim/com-etzhayyim-a/run_tests.sh"]))))
 
 (deftest removed-scripts-are-baseline-minus-present   ; baseline shrinks-only
-  (is (= ["20-actors/gone/run_tests.sh"]
-         (l/removed-scripts ["20-actors/a/run_tests.sh"]
-                            ["20-actors/a/run_tests.sh" "20-actors/gone/run_tests.sh"]))))
+  (is (= ["orgs/etzhayyim/com-etzhayyim-gone/run_tests.sh"]
+         (l/removed-scripts ["orgs/etzhayyim/com-etzhayyim-a/run_tests.sh"]
+                            ["orgs/etzhayyim/com-etzhayyim-a/run_tests.sh" "orgs/etzhayyim/com-etzhayyim-gone/run_tests.sh"]))))
 
 (deftest the-live-baseline-has-no-violations   ; the committed baseline matches the tree
   (let [present (l/present-scripts "20-actors")

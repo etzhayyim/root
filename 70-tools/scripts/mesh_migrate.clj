@@ -14,11 +14,11 @@
 ;; until kotoba-clj grows maps/sort/decimals.
 ;;
 ;; Usage (from repo root):
-;;   bb 70-tools/scripts/mesh_migrate.clj 20-actors/<actor> [...more]
+;;   bb 70-tools/scripts/mesh_migrate.clj orgs/etzhayyim/com-etzhayyim-<actor> [...more]
 ;;   bb 70-tools/scripts/mesh_migrate.clj --all     # every clj-native actor w/o a mesh.clj
 ;;
 ;; Idempotent: never overwrites an existing methods/mesh.clj or kotoba.app.edn.
-;; Verify each result with:  kotoba component build 20-actors/<actor>/methods/mesh.clj
+;; Verify each result with:  kotoba component build orgs/etzhayyim/com-etzhayyim-<actor>/src/<actor>/methods/mesh.clj
 
 (require '[clojure.edn :as edn]
          '[clojure.string :as str]
@@ -107,7 +107,7 @@
              (filter clj-native? (map str (fs/list-dir "20-actors")))
              args)]
   (when (empty? dirs)
-    (println "usage: bb 70-tools/scripts/mesh_migrate.clj <20-actors/actor>... | --all")
+    (println "usage: bb 70-tools/scripts/mesh_migrate.clj <orgs/etzhayyim/com-etzhayyim-actor>... | --all")
     (System/exit 1))
   (println (format "mesh-migrate: scaffolding %d actor(s)" (count dirs)))
   (doseq [d dirs] (emit! d))

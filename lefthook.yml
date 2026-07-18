@@ -162,7 +162,7 @@ pre-commit:
       # A staged actor manifest without a `yirah` declaration block gets a
       # non-blocking reminder (absent != violating - declarations are adopted
       # only where meaningful for the actor's scope). Always exits 0.
-      glob: "20-actors/*/manifest.jsonld"
+      glob: "orgs/etzhayyim/com-etzhayyim-*/wire/manifest.jsonld"
       run: python3 70-tools/scripts/lint/yirah-presence-warn.py {staged_files}
       stage_fixed: false
 

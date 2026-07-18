@@ -23,7 +23,7 @@
 
 (deftest actor-lexicon-const-invariants-hold
   (doseq [[[actor lexicon field] expected] expectations]
-    (let [path (str "20-actors/" (name actor) "/lex/" lexicon ".edn")
+    (let [path (str "orgs/etzhayyim/com-etzhayyim-" (name actor) "/lex/" lexicon ".edn")
           actual (get (edn-consts path) field)]
       (is (= expected actual) (str path " " field " const must remain " expected)))))
 
@@ -41,7 +41,7 @@
            :kiyome ["cleaningPassAttestation" "siteAssessmentRecord" "wasteSegregationRecord"]}
           lexicon lexicons]
     (is (.isFile (io/file
-                  (str "20-actors/" (name actor) "/lex/" lexicon ".edn"))))))
+                  (str "orgs/etzhayyim/com-etzhayyim-" (name actor) "/lex/" lexicon ".edn"))))))
 
 (deftest no-python-coded-cells-remain-in-wave
   (is (empty? [])))

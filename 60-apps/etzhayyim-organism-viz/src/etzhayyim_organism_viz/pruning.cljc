@@ -102,7 +102,7 @@
      (defn scan-cells
        "scan_cells(repo) — surface stale / docstring-less kotodama cells."
        [repo]
-       (let [cells (as-file (str repo "/20-actors/kotodama/cells"))]
+       (let [cells (as-file (str repo "/orgs/kotoba-lang/kotodama/cells"))]
          (if-not (.isDirectory cells)
            []
            (let [now (now-seconds)]

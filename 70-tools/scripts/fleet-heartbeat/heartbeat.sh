@@ -39,7 +39,7 @@ ACTORS="${ACTORS:-$DEFAULT_ACTORS}"
 # segment an actor's local Datom log when it exceeds the size threshold (see header)
 rotate_log() {  # $1 = actor
   local log
-  log=$(find "$ROOT/20-actors/$1" -name "*.datoms.kotoba.edn" -not -path "*/archives/*" 2>/dev/null | head -1)
+  log=$(find "$ROOT/orgs/etzhayyim/com-etzhayyim-$1" -name "*.datoms.kotoba.edn" -not -path "*/archives/*" 2>/dev/null | head -1)
   [ -n "$log" ] && [ -f "$log" ] || return 0
   local sz_mb=$(( $(stat -f%z "$log" 2>/dev/null || stat -c%s "$log") / 1048576 ))
   [ "$sz_mb" -lt "$LOG_ROTATE_MB" ] && return 0
@@ -58,8 +58,8 @@ ok_n=0; fail_n=0; failed=""
 start_ts=$(date +%s)
 
 for actor in $ACTORS; do
-  dir="$ROOT/20-actors/$actor/methods"
-  [ -f "$dir/autorun.py" ] || dir="$ROOT/20-actors/$actor/kotoba"
+  dir="$ROOT/orgs/etzhayyim/com-etzhayyim-$actor/methods"
+  [ -f "$dir/autorun.py" ] || dir="$ROOT/orgs/etzhayyim/com-etzhayyim-$actor/kotoba"
   if [ ! -f "$dir/autorun.py" ]; then
     echo "· $actor: no autorun.py — skipped"
     continue

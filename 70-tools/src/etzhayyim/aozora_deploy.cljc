@@ -47,15 +47,13 @@
       pds)))
 
 (defn read-manifest
-  "Read the actor manifest from either the monorepo (20-actors/<name>) or
-   the published repo (../../etzhayyim/com-etzhayyim-<name>)."
+  "Read the actor manifest from its flat west checkout."
   [actor]
-  (let [candidates [(io/file (str "20-actors/" actor "/actor-manifest.jsonld"))
-                    (io/file (str "20-actors/" actor "/manifest.jsonld"))
-                    (io/file (str "20-actors/" actor "/manifest.edn"))
-                    (io/file (str "../../etzhayyim/com-etzhayyim-" actor "/actor-manifest.jsonld"))
-                    (io/file (str "../../etzhayyim/com-etzhayyim-" actor "/manifest.jsonld"))
-                    (io/file (str "../../etzhayyim/com-etzhayyim-" actor "/manifest.edn"))]
+  (let [base (str "orgs/etzhayyim/com-etzhayyim-" actor)
+        candidates [(io/file base "manifest.edn")
+                    (io/file base "actor-manifest.edn")
+                    (io/file base "manifest.jsonld")
+                    (io/file base "actor-manifest.jsonld")]
         f (first (filter #(.exists ^java.io.File %) candidates))]
     (when f
       (if (str/ends-with? (.getName f) ".edn")

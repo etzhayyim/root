@@ -6,7 +6,7 @@ import path from 'node:path';
 const APPLY = process.argv.includes('--apply');
 const ROOT = process.cwd();
 
-const manifestPaths = globSync('20-actors/*/actor-manifest.jsonld', { cwd: ROOT }).sort();
+const manifestPaths = globSync('orgs/etzhayyim/com-etzhayyim-*/actor-manifest.jsonld', { cwd: ROOT }).sort();
 let scanned = 0;
 let touched = 0;
 

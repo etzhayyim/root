@@ -45,7 +45,7 @@ from pathlib import Path
 _GUARDED_ROOTS = [
     # Retained for synthetic-test roots and the MOVED tombstone. Live actor
     # source is scanned through ETZHAYYIM_KAWASE_YUI_ROOT below.
-    Path("20-actors/kawase-yui"),
+    Path("../com-etzhayyim-kawase-yui"),
     Path("40-engine/kotoba/crates/kotoba-kotodama/cells/kawase_pool_match"),
     Path("40-engine/kotoba/crates/kotoba-kotodama/cells/kawase_fx_oracle_watcher"),
     Path("40-engine/kotoba/crates/kotoba-kotodama/cells/kawase_rebalance_proposer"),

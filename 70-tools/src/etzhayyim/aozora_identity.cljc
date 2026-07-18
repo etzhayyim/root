@@ -10,7 +10,7 @@
 ;; CLI addresses the SAME did:key aozora repo the actor already published.
 ;; Resolution order: AOZORA_IDENTITY env → the published actor repo
 ;; (../../etzhayyim/com-etzhayyim-<name>/.<name>/identity.edn) → the monorepo
-;; actor (20-actors/<name>/.<name>/identity.edn). The file is gitignored —
+;; actor (orgs/etzhayyim/com-etzhayyim-<name>/.<name>/identity.edn). The file is gitignored —
 ;; NEVER commit a private key. no-server-key: this is the actor's own
 ;; self-generated did:key held off-platform (ADR-2605231525 clarification),
 ;; not a custodial platform key.
@@ -42,11 +42,9 @@
 
 (defn identity-paths
   "Candidate identity files for `actor`, published repo first (that is where
-   the already-live per-actor identities sit), then the monorepo actor dir,
-   then the central custody dir. Relative to etzhayyim/root."
+   the already-live per-actor identities sit), then central custody."
   [actor]
-  [(str "../../etzhayyim/com-etzhayyim-" actor "/." actor "/identity.edn")
-   (str "20-actors/" actor "/." actor "/identity.edn")
+  [(str "orgs/etzhayyim/com-etzhayyim-" actor "/." actor "/identity.edn")
    (str ".e7m/identity/" actor ".edn")])
 
 (defn resolve-identity-path
@@ -89,7 +87,7 @@
   (let [path (resolve-identity-path actor)]
     (when-not path
       (throw (ex-info (str "no identity home for " actor " (neither the "
-                           "published repo nor 20-actors/" actor " exists)")
+                           "flat west repository for " actor " exists)")
                       {:actor actor})))
     (or (existing-identity actor)
         (let [kp (.generateKeyPair (KeyPairGenerator/getInstance "Ed25519"))

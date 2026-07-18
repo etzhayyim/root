@@ -233,7 +233,7 @@
    recipients) then an org-wide fallback for any other `*.enc.*` path."
   [actor->recip org-r]
   (let [rule (fn [actor r]
-               (str "  - path_regex: ^20-actors/" actor "/secrets/.*\\.enc\\.[^/]+$\n"
+               (str "  - path_regex: ^orgs/etzhayyim/com-etzhayyim-" actor "/secrets/.*\\.enc\\.[^/]+$\n"
                     "    key_groups:\n"
                     "      - age:\n"
                     (str/join (for [a (->> [r org-r] (remove nil?) distinct)]

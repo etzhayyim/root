@@ -202,7 +202,7 @@
 
  ;; ── rollout: the rule applies to the WHOLE roster ──
  ;; The 6 specs above are exemplars. Every actor in the roster (Status § Tier-B actors) MUST grow a
- ;; spec here (or a per-actor 20-actors/<name>/system.edn) + embed the reward primitive. Coverage is
+ ;; spec here (or in orgs/etzhayyim/com-etzhayyim-<name>/system.edn) + embed the reward primitive. Coverage is
  ;; measured by `bb ieflow:coverage`; un-specced actors fall back to :default-weights + the invariants
  ;; (so the rule is never violated by omission — only under-tuned). Live per-actor measurement comes
  ;; from the actor's own `embed` verbs (record!/beat!), G7-gated; until then specs use the

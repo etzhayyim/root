@@ -37,7 +37,7 @@ export default {
         actor: "did:web:jukyu.etzhayyim.com",
         nanoid: env.APP_NANOID ?? "jukyu001",
         execution: "edge-proxy+agentgateway-mcp+langserver+pregel",
-        businessLogic: "20-actors/jukyu and kotodama resident loop",
+        businessLogic: "com-etzhayyim-jukyu and kotodama resident loop",
         graph: {
           domains: ["naphtha", "crude", "lng", "copper", "lithium", "wheat", "semiconductors"],
           vertex: ["company", "plant", "commodity", "region", "port", "signal"],

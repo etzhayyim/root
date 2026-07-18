@@ -1,9 +1,9 @@
 ;; etzhayyim.actor-publish — `bb actor:publish <name>` orchestrator.
 ;;
 ;; ADR-2606231200. Idempotent pipeline that takes one actor from
-;; 20-actors/<name>/ to a published, DID-bearing, aozora-registerable unit:
+;; a flat west actor repository to a DID-bearing, aozora-registerable unit:
 ;;
-;;   1. josh-split   monorepo prefix 20-actors/<name> -> com-etzhayyim-<name>
+;;   1. verify-repo  orgs/etzhayyim/com-etzhayyim-<name>
 ;;   2. gh-repo      ensure public github.com/etzhayyim/com-etzhayyim-<name>
 ;;   3. did-web      generate a STATIC /.well-known/did.json (+ .nojekyll),
 ;;                   served via the etzhayyim.com Worker as
@@ -37,7 +37,7 @@
 (def org "etzhayyim")
 (def canonical-aozora-pds "https://aozora.app")
 (defn repo-name [actor] (str "com-" org "-" actor))
-(defn prefix [actor] (str "20-actors/" actor))
+(defn prefix [actor] (str "orgs/etzhayyim/" (repo-name actor)))
 
 ;; ── manifest ────────────────────────────────────────────────────────────────
 
@@ -138,13 +138,14 @@
 ;; ── steps ───────────────────────────────────────────────────────────────────
 
 (defn step-josh-split
-  "Stage the per-actor view. Real bidirectional sync is josh-proxy serving the
-   workspace.josh filter (50-infra/josh/RUNBOOK.md); here we surface the
-   equivalent `git subtree split` that seeds/refreshes the mirror branch."
+  "Compatibility name for step 1: verify the independent flat west checkout.
+   Numbered-root subtree extraction is retired after the 198/198 drain."
   [actor apply?]
-  (log-step 1 (str "josh/subtree split " (prefix actor))
-            (sh apply? "git" "subtree" "split" "--prefix" (prefix actor)
-                "-b" (str "mirror/" (repo-name actor)))))
+  (let [dir (prefix actor)]
+    (if (.exists (io/file dir ".git"))
+      (log-step 1 (str "flat west repo present " dir) {:exit 0 :out dir})
+      (throw (ex-info (str "flat west actor repository is not checked out: " dir)
+                      {:actor actor :path dir :apply? apply?})))))
 
 (defn step-gh-repo [actor apply?]
   (let [r (repo-name actor)
@@ -321,10 +322,9 @@
    `--did-web=` override) by APPENDING to its kotoba-rad journal
    (rad/update-did-web!, ADR-2606231200 addendum 2026-07-02) — the genesis
    block is left untouched, so the **RID is stable**. Regenerates the STAGING
-   `.well-known/did.json` at `20-actors/<name>/` (the source josh-split later
-   mirrors into the actor's own com-etzhayyim-<name> repo — this task does
-   NOT itself touch that repo's checkout). Unlike `actor:publish`, this does
-   NOT run josh-split/gh-repo/aozora — narrowly scoped to the identity update.
+   `.well-known/did.json` in the flat actor repository. Unlike
+   `actor:publish`, this does not create a repository or run aozora deployment;
+   it is narrowly scoped to the identity update.
    DRY-RUN by default; --apply writes the journal + file. If a member key for
    the actor is in Keychain the new sigref is member-signed; otherwise
    unsigned (no-server-key). Args: <name> [--apply] [--did-web=<value>]"

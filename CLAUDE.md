@@ -76,13 +76,13 @@ etzhayyim/root/
 ├── 10-protocol/         # atproto, xrpc, lexicons-bundle, signal, did-etzhayyim,
 │                        # wproto, at-client, signal-client,
 │                        # kotoba-datomic (Holochain-iso composition spec, ADR-2605231400)
-├── 20-actors/           # kotodama (Pregel framework + host SDK + unispsc_agents/ 18,345 LangGraph agents per ADR-2605171300),
+├── 20-actors/           # legacy MOVED.edn tombstones only; actor implementations are flat west repositories,
 │                        #   kami-engine-sdk, etzhayyim-bpmn-sdk,
 │                        #   etzhayyim-sdk (kotoba substrate, ADR-2605172000+2605172100)
 │                        #   kuni-umi      planetary-infra producer    (ADR-2605201400)
 │                        # Tier-B religious-corp actors (30): each has ADR + manifest + cells + lex.
 │                        #   See Status § "Tier-B actors" for the full roster (name · purpose · ADR).
-│                        #   Per-actor gates/prohibitions live in each actor's ADR + 20-actors/<name>/CLAUDE.md.
+│                        #   Per-actor gates/prohibitions live in each actor's ADR + orgs/etzhayyim/com-etzhayyim-<name>/CLAUDE.md.
 │                        # Go/TinyGo is deprecated and pruned; canonical policy: GO-DEPRECATION.edn
 ├── 30-graph/            # graph-schema, kagami, risingwave-udf, vectorization
 ├── 40-engine/           # Rust workspaces: kami-engine (reusable engine — git submodule
@@ -217,7 +217,7 @@ Concretely:
   build artifacts, and an actor's still-unported legacy `py/` during an in-flight
   cljc port (the port itself is the fix).
 - **Enforced-forward (ADR-2606072802)**: `bb lint:no-new-shell` FAILS on a NEW first-party
-  `.sh` under `20-actors/` (existing ones are GRANDFATHERED in
+  `.sh` under `orgs/etzhayyim/com-etzhayyim-*/` (existing ones are GRANDFATHERED in
   `70-tools/src/etzhayyim/lint/shell-baseline.edn`; the baseline is shrinks-only — port a
   `.sh` to bb + delete it, then `bb lint:no-new-shell --update`). New actors ship
   `run_tests.clj`, not `run_tests.sh`; `etzhayyim.vitals` prefers the `.clj` runner. The 218
@@ -325,7 +325,7 @@ Apps that need fiat / paid features call an external backend via XRPC consent-ca
 - `/LANDS.md` — Land Trust roster
 - `/MEMBERS.md` — 信者 roster
 - `50-infra/murakumo/fleet.edn` — religious-corp cell placement (10 nodes × 15 cells). NB: cron/lan-api heartbeat RESIDENCY (defined here + in `50-infra/cluster/murakumo/cell-runner/cells.edn`) is verified live with `bb fleet:probe` — definition ≠ running daemon
-- `20-actors/etzhayyim-sdk/README.md` — SDK API surface + hard rules
+- `orgs/etzhayyim/com-etzhayyim-sdk/README.md` — SDK API surface + hard rules
 - `40-engine/kotoba/crates/kotoba-kotodama/cells/README.md` — religious-corp Pregel cell catalog
 - `90-docs/adr/2605262130-kotoba-storage-substrate-unification.md` — canonical storage substrate engine (kotoba); supersedes kotoba-datomic composition + projection layers; no RisingWave
 - `90-docs/adr/2605312345-kotoba-datom-first-class-canonical-state.md` — kotoba Datom log = first-class canonical state; IPFS = block backend, MST = ingress/interop wire, Base L2 = trust anchor (clarifies 2605262130 layering)

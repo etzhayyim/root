@@ -7,7 +7,7 @@
 #
 # Run from the project root (kotoba-code invokes it with :dir = project root):
 #   KC_TEST_GLOB="orgs/etzhayyim/com-etzhayyim-mitooshi/methods/test_*.clj" bash 70-tools/kotoba-bb-bridge/run-bb-tests.sh
-# Default glob = every actor test suite under 20-actors/**/{methods,tests}/test_*.clj.
+# Default glob = every flat actor test suite under orgs/etzhayyim/com-etzhayyim-*/.
 set -uo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
@@ -20,7 +20,7 @@ if [ -n "$GLOB" ]; then
 else
   FILES=()
   while IFS= read -r f; do FILES+=("$f"); done < <(
-    find 20-actors -name 'test_*.clj' \( -path '*/methods/*' -o -path '*/tests/*' -o -path '*/py/*' \) | sort)
+    find orgs/etzhayyim -name 'test_*.clj' \( -path '*/methods/*' -o -path '*/tests/*' \) | sort)
 fi
 
 n=0; failed=0; failed_names=()
@@ -28,7 +28,9 @@ tmp="$(mktemp)"
 for t in "${FILES[@]}"; do
   [ -f "$t" ] || continue
   n=$((n+1))
-  if ! bb --classpath 20-actors "$t" >"$tmp" 2>&1; then
+  actor_root="${t%%/methods/*}"
+  actor_root="${actor_root%%/tests/*}"
+  if ! bb --classpath "$actor_root" "$t" >"$tmp" 2>&1; then
     failed=$((failed+1)); failed_names+=("$t")
     echo "✗ FAILED: $t"
     # show failing detail, but strip any green sub-suite phrase so the gate regex can't match it

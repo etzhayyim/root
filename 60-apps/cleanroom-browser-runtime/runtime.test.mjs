@@ -8,7 +8,12 @@ import { KotobaActor } from "./kotoba-runtime.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "../..");
-const load = (h) => JSON.parse(readFileSync(resolve(ROOT, `20-actors/${h}/manifest.json`), "utf8"));
+const WEST_ROOT = process.env.ETZHAYYIM_WEST_ROOT || resolve(ROOT, "../../..");
+const FIXTURE_REPOS = {
+  "stripe-compat": ["orgs", "kotoba-lang", "com-stripe"],
+  "aadhaar-compat": ["orgs", "kotoba-lang", "com-aadhaar"],
+};
+const load = (h) => JSON.parse(readFileSync(resolve(WEST_ROOT, ...FIXTURE_REPOS[h], "manifest.json"), "utf8"));
 
 let passed = 0;
 const ok = (c, m) => { assert.ok(c, m); passed++; };

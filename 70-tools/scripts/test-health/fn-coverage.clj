@@ -1,5 +1,5 @@
 #!/usr/bin/env bb
-;; fn-coverage.clj — per-actor public-function test-coverage auditor for 20-actors/*/methods/.
+;; fn-coverage.clj — per-actor public-function test-coverage auditor for flat west actor repositories.
 ;;
 ;; For every PUBLIC (defn, not defn-) function in an actor's methods/*.cljc, classify it by how it
 ;; is reached from tests:
@@ -25,7 +25,8 @@
          '[babashka.fs :as fs]
          '[babashka.classpath :refer [add-classpath]])
 
-(def actors-root "20-actors")
+(def actors-root "orgs/etzhayyim")
+(def actor-prefix "com-etzhayyim-")
 
 ;; Ground-truth which actors the canonical `bb test:actors` discovery runner actually executes:
 ;; some actors (ibuki / mimamori / yobel, and hyphenated-dir actors) are EXCLUDED from it and run
@@ -52,10 +53,15 @@
 (defn- n-mentions [text nm] (count (re-seq (name-re nm) text)))
 
 (defn- actor-names []
-  (->> (fs/list-dir actors-root) (filter fs/directory?) (map fs/file-name) sort))
+  (->> (fs/list-dir actors-root)
+       (filter fs/directory?)
+       (map fs/file-name)
+       (filter #(str/starts-with? % actor-prefix))
+       (map #(subs % (count actor-prefix)))
+       sort))
 
 (defn- analyze [actor]
-  (let [files (->> (fs/glob (str actors-root "/" actor) "**.cljc") (map str))
+  (let [files (->> (fs/glob (str actors-root "/" actor-prefix actor) "**.cljc") (map str))
         test? #(str/starts-with? (fs/file-name %) "test_")
         method? #(and (str/includes? % "/methods/") (not (test? %)))
         method-files (filter method? files)

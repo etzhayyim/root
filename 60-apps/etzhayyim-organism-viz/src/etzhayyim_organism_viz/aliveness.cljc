@@ -250,7 +250,7 @@
      (defn diversity
        "diversity(repo) → [H notes]. Shannon entropy over distinct cell dirs (八百万)."
        [repo]
-       (let [cells (as-file (str repo "/20-actors/kotodama/cells"))]
+       (let [cells (as-file (str repo "/orgs/kotoba-lang/kotodama/cells"))]
          (if-not (.isDirectory cells)
            [0.0 ["diversity: cells dir missing"]]
            (let [n (count (list-dirs cells))]
@@ -274,7 +274,7 @@
        "pruning(repo) → [P notes]. Bonsai-tending ratio: cells with cell.py +
        docstring + >200 bytes / total. mtime-independent (content-based)."
        [repo]
-       (let [cells (as-file (str repo "/20-actors/kotodama/cells"))]
+       (let [cells (as-file (str repo "/orgs/kotoba-lang/kotodama/cells"))]
          (if-not (.isDirectory cells)
            [0.0 ["pruning: cells dir missing"]]
            (let [ds (list-dirs cells)

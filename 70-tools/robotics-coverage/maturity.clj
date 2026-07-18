@@ -28,7 +28,7 @@
 (defn scan-actor
   "Read one actor's manifest + test files; return a maturity row."
   [{:keys [id] :as a}]
-  (let [base (str "20-actors/" id)
+  (let [base (str "orgs/etzhayyim/com-etzhayyim-" id)
         manifest (some-> (slurp* (str base "/manifest.edn")) edn/read-string)
         ;; test files: methods/test_<id>.clj
         test-src (slurp* (str base "/methods/test_" id ".clj"))

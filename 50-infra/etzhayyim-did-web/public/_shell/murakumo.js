@@ -84,15 +84,15 @@
 
   // Per-actor identity links, joined by handle to the kotoba-rad ledger
   // (/_shell/actor-rad.json, generated from 80-data/kotoba-rad/*.identity.journal.edn).
-  // Only links backed by real data are shown; GitHub falls back to the monorepo
-  // 20-actors dir for registered actors with no child-repo identity yet.
+  // Only links backed by real data are shown; flat-west checkouts map to their
+  // independent com-etzhayyim-<handle> repositories.
   var GH = "https://github.com/etzhayyim/";
   function actorLinks(a) {
     var h = a.handle, r = D.rad[h], out = [];
-    // gh: prefer the always-public monorepo source dir; fall back to the child
-    // repo (:rad/repo) only when there is no monorepo dir.
-    if (D.mono[h]) out.push(["gh", GH + "root/tree/main/20-actors/" + h, "GitHub (public monorepo): 20-actors/" + h]);
-    else if (r && r.repo) out.push(["gh", "https://" + r.repo, "GitHub: " + r.repo]);
+    // gh: the RAD repository is authoritative; `mono` is retained as a
+    // wire-compatible name for the flat-west checkout roster.
+    if (r && r.repo) out.push(["gh", "https://" + r.repo, "GitHub: " + r.repo]);
+    else if (D.mono[h]) out.push(["gh", GH + "com-etzhayyim-" + h, "GitHub actor repository: com-etzhayyim-" + h]);
     if (r && r.didWeb) out.push(["rad", "https://etzhayyim.github.io/com-etzhayyim-" + h + "/.well-known/did.json", "RAD identity (did:web): " + r.didWeb]);
     if (r) out.push(["k-rad", GH + "root/blob/main/80-data/kotoba-rad/" + h + ".identity.journal.edn", "kotoba-rad ledger" + (r.rid ? " · RID " + r.rid.slice(0, 14) + "…" : "")]);
     return out;

@@ -2,8 +2,9 @@
   "Self-contained kotoba-Datom-log primitive for the PDS: an append-only log of
   EAVT datoms + a tiny conjunctive datalog `q` to read it back.
 
-  This mirrors the substrate contract of `kotoba-actors.datomic` (20-actors/
-  kotoba-actors-clj) — entities are [e a v] datoms, queries are triple-pattern
+  This mirrors the substrate contract of `kotoba-actors.datomic`
+  (`orgs/etzhayyim/com-etzhayyim-kotoba-actors-clj`) — entities are [e a v]
+  datoms, queries are triple-pattern
   joins — but is vendored here so the PDS deploys as one independent artifact.
   The canonical state is the ordered datom log; an EAVT index is derived for
   reads (ADR-2605312345: the Datom log is first-class, the index materializes
