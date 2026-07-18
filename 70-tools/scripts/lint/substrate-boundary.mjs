@@ -45,7 +45,7 @@ if (args.length === 0) {
  *  Anything else under `20-actors/` / `60-apps/` / `50-infra/` MUST go
  *  through `@etzhayyim/sdk`. */
 const allowedPrefixes = [
-  "20-actors/etzhayyim-sdk/",                  // the canonical seam
+  "orgs/etzhayyim/com-etzhayyim-sdk/",                  // the canonical seam
   "50-infra/etzhayyim-sdk-checkpointer/",      // sidecar wrapping the SDK
   "50-infra/mst-projector/",                   // substrate component
   "50-infra/anchor-cron/",                     // L2 anchor, uses viem

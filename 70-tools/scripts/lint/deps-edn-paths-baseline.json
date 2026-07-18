@@ -2,9 +2,9 @@
  "drift": [
   ".github/workflows/deps-toml-paths.yml",
   ".github/workflows/docs-graph-jsonld-freshness.yml",
-  "20-actors/etzhayyim-sdk/src/nv-compat",
-  "20-actors/etzhayyim-sdk/src/nv-compat/assets/ur10.ts",
-  "20-actors/etzhayyim-sdk/src/nv-compat/policies/mlp.ts",
+  "orgs/etzhayyim/com-etzhayyim-sdk/src/nv-compat",
+  "orgs/etzhayyim/com-etzhayyim-sdk/src/nv-compat/assets/ur10.ts",
+  "orgs/etzhayyim/com-etzhayyim-sdk/src/nv-compat/policies/mlp.ts",
   "40-engine/kotoba",
   "40-engine/kotoba/crates/kotoba-kotodama/cells",
   "40-engine/kotoba/crates/kotoba-kotodama/cells/elv_battery_handling",

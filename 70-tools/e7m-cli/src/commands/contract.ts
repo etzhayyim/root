@@ -23,7 +23,7 @@ contractCmd
   .command('gen')
   .argument('<kind>', 'lexicons | schemas')
   .description('Generate types from contracts. Currently: lexicons (via @atproto/lex-cli).')
-  .option('-o, --out <dir>', 'output directory (relative to repo root)', '20-actors/etzhayyim-sdk/src/generated')
+  .option('-o, --out <dir>', 'output directory (relative to repo root)', 'orgs/etzhayyim/com-etzhayyim-sdk/src/generated')
   .action(async (kind: string, opts: { out: string }) => {
     if (kind !== 'lexicons') {
       console.error(`Unsupported kind: ${kind}. Supported: lexicons`);
