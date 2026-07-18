@@ -1,6 +1,6 @@
 # etzhayyim-project-shinkansen — 新幹線 Reservation Intelligence
 
-> **T2 Logical Actor**: Manifest-driven (`20-actors/shinkansen/actor-manifest.jsonld`). **Reservation PII = Tier 3**.
+> **T2 Logical Actor**: Manifest-driven (`orgs/etzhayyim/com-etzhayyim-shinkansen/actor-manifest.jsonld`). **Reservation PII = Tier 3**.
 
 `shinkansen.etzhayyim.com` (nanoid: `sh1nk4n0`) — 新幹線予約 cross-source intelligence (スマートEX / EX予約 / えきねっと). 9 line, 13 train type, 4 seat class.
 

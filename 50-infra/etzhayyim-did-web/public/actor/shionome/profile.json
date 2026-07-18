@@ -24,7 +24,7 @@
       "2606101540"
     ],
     "primaryLexicon": "com.etzhayyim.shionome",
-    "primarySchema": "00-contracts/schemas/capital-flow-ontology.kotoba.edn",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-shionome/contracts/capital-flow-ontology.edn",
     "didDocument": "https://etzhayyim.com/actor/shionome/did.json",
     "source": "kotoba"
   }

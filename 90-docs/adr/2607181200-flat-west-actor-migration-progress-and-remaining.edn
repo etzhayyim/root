@@ -33,9 +33,9 @@
 
   :migration/progress
   {:baseline-actor-directories 198
-   :moved-tombstones 127
-   :remaining-root-directories 71
-   :completion-percent 64.14
+   :moved-tombstones 130
+   :remaining-root-directories 68
+   :completion-percent 65.66
    :canonical-ledger "MULTIREPO-MIGRATION.edn"
    :integration-base-root-revision "1ce8a65a8fe5b68aa5fda43004bf2bc14a5e13e7"
    :integration-base-west-revision "5d33ded7fdd"
@@ -180,21 +180,41 @@
      :revision "e9ed6035da56f9a53e2487c35f4b87b22a82877b"
      :canonical-edn-files 13
      :wire-artifacts {:json-and-json-ld 6 :bpmn-xml 0}
-     :verification {:tests 151 :assertions 522}}]}
+     :verification {:tests 151 :assertions 522}}
+    {:actor "shinka"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-shinka"
+     :revision "6c214d1e48624ee79434dd287e99a9d26d81145a"
+     :canonical-edn-files 23
+     :wire-artifacts {:json 12 :bpmn-xml 2}
+     :verification {:python-tests 123 :loop-c-assertions 7
+                    :clojure :not-run-unresolved-root-sibling-dependencies}}
+    {:actor "shionome"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-shionome"
+     :revision "8f695b3340eff5054a4fb3b6219ec1a3df7f9bf7"
+     :canonical-edn-files 11
+     :wire-artifacts {:json-and-json-ld 7 :wit 1}
+     :verification {:tests 195 :assertions 1154
+                    :ie-flow-suite :pending-shared-library-extraction}}
+    {:actor "sarutahiko"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-sarutahiko"
+     :revision "bdac84ad9550435785082a3fc227305442515686"
+     :canonical-edn-files 34
+     :wire-artifacts {:json-and-json-ld 10}
+     :verification {:tests 45 :assertions 364
+                    :legacy-python-parity-checks :skipped-after-python-prune}}]}
 
   :migration/integration-state
-  {:snapshot-kind :integrated
+  {:snapshot-kind :root-prepared-west-pin-pending
    :standalone-repositories
    {:status :pushed
-    :actors ["subaru" "suji" "shomei"]}
+    :actors ["shinka" "shionome" "sarutahiko"]}
    :legacy-root-drain
-   {:status :committed
+   {:status :prepared
     :tracked-invariant :moved-edn-only}
    :west-manifest
-   {:status :exact-revisions-pinned
-    :superproject-revision "30f539029c4dca8a36f8545d02a198ad26b9c47c"
-    :actors ["subaru" "suji" "shomei"]}
-   :note "The 127 completed entries satisfy the standalone repository, root tombstone, canonical ledger, and exact west revision gates represented by this snapshot."}
+   {:status :pending-pin-update
+    :actors ["shinka" "shionome" "sarutahiko"]}
+   :note "The 130-entry inventory includes the prepared latest root drain. The latest three actors satisfy the west-manifest gate only after this root revision and their standalone revisions are pinned in the superproject."}
 
   :migration/completed-actors
   ["abaki" "ainori" "apqc" "atsurae" "busshi" "com-google-ads" "denwaban"
@@ -209,7 +229,7 @@
    "shidemori" "shukubo" "soma" "sonae" "stripe-compat" "suimin" "suki"
    "sumitsubo" "tawami" "toi" "tsukuroi" "ugachi" "unspsc" "utsushie"
    "wakai" "yudane" "isco" "moushibumi" "talent" "chigiri" "himotoki"
-   "toritsugi" "hoshimori" "inochi" "kuni-umi" "kuni_umi" "fuchi" "hokorobi" "kaname" "asobi" "mimamori" "shiori" "tsugite" "watatsuna" "kabuto" "watari" "keizu" "hakoniwa" "kafun" "shirabe" "tanemaki" "tasuke" "rasen" "tatara" "tazuna" "tate" "tokigusuri" "torifune" "tedai" "tatekata" "tsubasa" "tsuchifumi" "tsukuru" "tsumugi" "tsutae" "uchiwake" "uzu" "wadachi" "warifu" "watatsumi" "yadori" "yakushi" "yamabiko" "todoke" "yotei" "yobel" "toritate" "tadori" "sukashi" "subaru" "suji" "shomei"]
+   "toritsugi" "hoshimori" "inochi" "kuni-umi" "kuni_umi" "fuchi" "hokorobi" "kaname" "asobi" "mimamori" "shiori" "tsugite" "watatsuna" "kabuto" "watari" "keizu" "hakoniwa" "kafun" "shirabe" "tanemaki" "tasuke" "rasen" "tatara" "tazuna" "tate" "tokigusuri" "torifune" "tedai" "tatekata" "tsubasa" "tsuchifumi" "tsukuru" "tsumugi" "tsutae" "uchiwake" "uzu" "wadachi" "warifu" "watatsumi" "yadori" "yakushi" "yamabiko" "todoke" "yotei" "yobel" "toritate" "tadori" "sukashi" "subaru" "suji" "shomei" "shinka" "shionome" "sarutahiko"]
 
   :migration/remaining-actors
   ["_conformance" "aburi" "akashi" "ake" "ameno" "amime"
@@ -224,8 +244,7 @@
    "magatama" "makura" "manabi" "maps" "matsurigoto"
    "meisai" "meyasu" "mitooshi" "mitsuho" "mizuho"
    "moyoshi" "mst-projector" "niyaku" "noroshi" "nusa" "nyusatsu" "okaimono"
-   "omise" "ooyake" "organizer" "ossekai" "sanae" "sarutahiko"
-   "shinka" "shionome" "silicon"]
+   "omise" "ooyake" "organizer" "ossekai" "sanae" "silicon"]
 
   :migration/remaining-classification
   [{:class :duplicate-spelling-or-path

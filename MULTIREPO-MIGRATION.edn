@@ -1626,6 +1626,36 @@
      :wire-artifacts {:json-and-json-ld 6 :bpmn-xml 0}
      :verification {:tests 151 :assertions 522 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
+    "shinka"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-shinka"
+     :revision "6c214d1e48624ee79434dd287e99a9d26d81145a"
+     :west-path "orgs/etzhayyim/com-etzhayyim-shinka"
+     :canonical-format :edn
+     :canonical-edn-files 23
+     :wire-artifacts {:json 12 :bpmn-xml 2}
+     :verification {:python-tests 123 :loop-c-assertions 7 :failures 0 :errors 0
+                    :clojure :not-run-unresolved-root-sibling-dependencies}
+     :root-copy :edn-tombstone-only}
+    "shionome"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-shionome"
+     :revision "8f695b3340eff5054a4fb3b6219ec1a3df7f9bf7"
+     :west-path "orgs/etzhayyim/com-etzhayyim-shionome"
+     :canonical-format :edn
+     :canonical-edn-files 11
+     :wire-artifacts {:json-and-json-ld 7 :wit 1}
+     :verification {:tests 195 :assertions 1154 :failures 0 :errors 0
+                    :ie-flow-suite :pending-shared-library-extraction}
+     :root-copy :edn-tombstone-only}
+    "sarutahiko"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-sarutahiko"
+     :revision "bdac84ad9550435785082a3fc227305442515686"
+     :west-path "orgs/etzhayyim/com-etzhayyim-sarutahiko"
+     :canonical-format :edn
+     :canonical-edn-files 34
+     :wire-artifacts {:json-and-json-ld 10}
+     :verification {:tests 45 :assertions 364 :failures 0 :errors 0
+                    :legacy-python-parity-checks :skipped-after-python-prune}
+     :root-copy :edn-tombstone-only}
     "tate"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-tate"
      :revision "658b9f67aaa65d7aad5ffda280ec8feaae7a8bc2"
@@ -1830,8 +1860,8 @@
   [{:class :legacy-actor-root-directories
     :snapshot-date "2026-07-18"
     :baseline 198
-    :moved 127
-    :remaining 71
+    :moved 130
+    :remaining 68
     :inventory "90-docs/adr/2607181200-flat-west-actor-migration-progress-and-remaining.edn"}
    {:class :existing-repo-overlap
     :state :merge-root-only-content-before-delete}

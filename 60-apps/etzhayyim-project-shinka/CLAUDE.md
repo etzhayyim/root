@@ -1,4 +1,4 @@
-> **DEPRECATED**: Actor migrated to `20-actors/shinka/actor-manifest.jsonld` (T1 MCP-Compose). This project wasm/*/src/app.ts is retained as T3 fallback only.
+> **DEPRECATED**: Actor migrated to `orgs/etzhayyim/com-etzhayyim-shinka/actor-manifest.jsonld` (T1 MCP-Compose). This project wasm/*/src/app.ts is retained as T3 fallback only.
 
 # etzhayyim-project-shinka — Actor Shinka Evolution Scheduler
 

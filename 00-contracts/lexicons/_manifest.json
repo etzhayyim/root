@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-18T05:55:31.756Z",
+  "generated": "2026-07-18T06:07:05.054Z",
   "lexicons": [
     {
       "id": "ai.etzhayyim.yorishiro.argparse-demo.main",
@@ -39326,60 +39326,6 @@
       "description": "Tranche F stub — fuzzy name search across all sanctions lists. Full schema pending Phase 3 content copy."
     },
     {
-      "id": "com.etzhayyim.sarutahiko.cabBodyAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/sarutahiko/cabBodyAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.sarutahiko.electricalAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/sarutahiko/electricalAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.sarutahiko.emissionsAuditRecord",
-      "path": "00-contracts/lexicons/com/etzhayyim/sarutahiko/emissionsAuditRecord.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.sarutahiko.frameAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/sarutahiko/frameAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.sarutahiko.marriageAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/sarutahiko/marriageAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.sarutahiko.paintAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/sarutahiko/paintAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.sarutahiko.powertrainAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/sarutahiko/powertrainAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.sarutahiko.roadTestRecord",
-      "path": "00-contracts/lexicons/com/etzhayyim/sarutahiko/roadTestRecord.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.sarutahiko.silenVehicleReview",
-      "path": "00-contracts/lexicons/com/etzhayyim/sarutahiko/silenVehicleReview.json",
-      "type": "record",
-      "description": ""
-    },
-    {
       "id": "com.etzhayyim.sbom.cveIngestOsv",
       "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/sbom/cveIngestOsv.json",
       "type": "procedure",
@@ -39484,30 +39430,6 @@
     {
       "id": "com.etzhayyim.shidemori.silenShidemoriReview",
       "path": "00-contracts/lexicons/com/etzhayyim/shidemori/silenShidemoriReview.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.shionome.bucketSnapshot",
-      "path": "00-contracts/lexicons/com/etzhayyim/shionome/bucketSnapshot.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.shionome.capitalFlowObservation",
-      "path": "00-contracts/lexicons/com/etzhayyim/shionome/capitalFlowObservation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.shionome.networkPost",
-      "path": "00-contracts/lexicons/com/etzhayyim/shionome/networkPost.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.shionome.rotationFinding",
-      "path": "00-contracts/lexicons/com/etzhayyim/shionome/rotationFinding.json",
       "type": "record",
       "description": ""
     },
@@ -49581,17 +49503,6 @@
       "com.etzhayyim.sanae.soilRegenerationReport",
       "com.etzhayyim.sanae.weedingPassRecord"
     ],
-    "com.etzhayyim.sarutahiko": [
-      "com.etzhayyim.sarutahiko.cabBodyAttestation",
-      "com.etzhayyim.sarutahiko.electricalAttestation",
-      "com.etzhayyim.sarutahiko.emissionsAuditRecord",
-      "com.etzhayyim.sarutahiko.frameAttestation",
-      "com.etzhayyim.sarutahiko.marriageAttestation",
-      "com.etzhayyim.sarutahiko.paintAttestation",
-      "com.etzhayyim.sarutahiko.powertrainAttestation",
-      "com.etzhayyim.sarutahiko.roadTestRecord",
-      "com.etzhayyim.sarutahiko.silenVehicleReview"
-    ],
     "com.etzhayyim.seigyo": [
       "com.etzhayyim.seigyo.alarmEventRecord",
       "com.etzhayyim.seigyo.interlockVerificationRecord",
@@ -49609,12 +49520,6 @@
       "com.etzhayyim.shidemori.externalMortuaryEngagement",
       "com.etzhayyim.shidemori.memorialNftAttestation",
       "com.etzhayyim.shidemori.silenShidemoriReview"
-    ],
-    "com.etzhayyim.shionome": [
-      "com.etzhayyim.shionome.bucketSnapshot",
-      "com.etzhayyim.shionome.capitalFlowObservation",
-      "com.etzhayyim.shionome.networkPost",
-      "com.etzhayyim.shionome.rotationFinding"
     ],
     "com.etzhayyim.silicon": [
       "com.etzhayyim.silicon.chipManufacturingAttestation",
@@ -49829,6 +49734,6 @@
       "tools.ozone.verification.revokeVerifications"
     ]
   },
-  "total": 6787,
+  "total": 6774,
   "legacy_issues_count": 8
 }

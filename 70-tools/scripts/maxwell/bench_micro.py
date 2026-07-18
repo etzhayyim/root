@@ -9,7 +9,7 @@ Murakumo-only (run on gad / EVO-X2). Usage on gad:
   ssh gad 'cd ~/maxwell && HSA_OVERRIDE_GFX_VERSION=11.5.1 HF_HUB_OFFLINE=1 \
     venv-train/bin/python bench_micro.py --base google/gemma-4-E4B-it \
       --adapter ~/maxwell/out/m1-r1 --label maxwell-1 --out maxwell1_micro.json'
-Then fold {score, tok_s} into 20-actors/shinka/loop_c/genotypes.edn and `bb rank.clj`.
+Then fold {score, tok_s} into orgs/etzhayyim/com-etzhayyim-shinka/loop_c/genotypes.edn and `bb rank.clj`.
 """
 import os, sys, time, json, argparse, pathlib
 os.environ.setdefault("TORCH_COMPILE_DISABLE","1"); os.environ.setdefault("TORCHINDUCTOR_DISABLE","1")

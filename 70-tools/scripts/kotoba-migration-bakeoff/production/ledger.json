@@ -252,7 +252,7 @@
   },
   {
     "cell": "sarutahiko-cab_body_forming",
-    "src": "20-actors/sarutahiko/cells/cab_body_forming/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-sarutahiko/cells/cab_body_forming/cell.py",
     "build": true,
     "structural": true,
     "judge": 3,
@@ -263,7 +263,7 @@
   },
   {
     "cell": "sarutahiko-electrical_integration",
-    "src": "20-actors/sarutahiko/cells/electrical_integration/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-sarutahiko/cells/electrical_integration/cell.py",
     "build": true,
     "structural": true,
     "judge": 2,
@@ -274,7 +274,7 @@
   },
   {
     "cell": "sarutahiko-emissions_audit",
-    "src": "20-actors/sarutahiko/cells/emissions_audit/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-sarutahiko/cells/emissions_audit/cell.py",
     "build": true,
     "structural": true,
     "judge": 2,
@@ -285,7 +285,7 @@
   },
   {
     "cell": "sarutahiko-final_marriage",
-    "src": "20-actors/sarutahiko/cells/final_marriage/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-sarutahiko/cells/final_marriage/cell.py",
     "build": true,
     "structural": true,
     "judge": 3,
@@ -296,7 +296,7 @@
   },
   {
     "cell": "sarutahiko-frame_fabrication",
-    "src": "20-actors/sarutahiko/cells/frame_fabrication/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-sarutahiko/cells/frame_fabrication/cell.py",
     "build": true,
     "structural": true,
     "judge": 2,
@@ -307,7 +307,7 @@
   },
   {
     "cell": "sarutahiko-paint_finishing",
-    "src": "20-actors/sarutahiko/cells/paint_finishing/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-sarutahiko/cells/paint_finishing/cell.py",
     "build": true,
     "structural": true,
     "judge": 3,
@@ -318,7 +318,7 @@
   },
   {
     "cell": "sarutahiko-powertrain_assembly",
-    "src": "20-actors/sarutahiko/cells/powertrain_assembly/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-sarutahiko/cells/powertrain_assembly/cell.py",
     "build": true,
     "structural": true,
     "judge": 3,
@@ -329,7 +329,7 @@
   },
   {
     "cell": "sarutahiko-quality_road_test",
-    "src": "20-actors/sarutahiko/cells/quality_road_test/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-sarutahiko/cells/quality_road_test/cell.py",
     "build": true,
     "structural": true,
     "judge": 3,
@@ -340,7 +340,7 @@
   },
   {
     "cell": "sarutahiko-vin_attestation_binder",
-    "src": "20-actors/sarutahiko/cells/vin_attestation_binder/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-sarutahiko/cells/vin_attestation_binder/cell.py",
     "build": true,
     "structural": true,
     "judge": 2,

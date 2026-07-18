@@ -394,8 +394,8 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     glyph: "潮目",
     displayName: "Shionome — Cross-Asset Capital-Flow Observatory",
     primaryLexicon: "com.etzhayyim.shionome",
-    primarySchema: "00-contracts/schemas/capital-flow-ontology.kotoba.edn",
-    // Content-addressed T1 WASM actor (20-actors/shionome/wasm/shionome-core) — compact
+    primarySchema: "orgs/etzhayyim/com-etzhayyim-shionome/contracts/capital-flow-ontology.edn",
+    // Content-addressed T1 WASM actor (orgs/etzhayyim/com-etzhayyim-shionome/wasm/shionome-core) — compact
     // Rust core (regime + stock pyramid, no_trade:true), raw CID → browser-local (ameno)
     // / donated mesh (ADR-2606015200). The componentize-py 18.5MB component remains the
     // separate T2 dag-pb artifact.
