@@ -1,0 +1,7 @@
+{:migration/schema :etzhayyim/moved-v1
+ :migration/source "30-graph/kg-projector"
+ :migration/destination "orgs/etzhayyim/com-etzhayyim-kg-projector"
+ :migration/repository "https://github.com/etzhayyim/com-etzhayyim-kg-projector"
+ :migration/revision "179671102524d427178c6363d801ff13c19e53cd"
+ :migration/history-preserved true
+ :migration/date "2026-07-18"}
