@@ -1,4 +1,4 @@
-# 20-actors/tatekata — CLAUDE.md
+# orgs/etzhayyim/com-etzhayyim-tatekata — CLAUDE.md
 
 ## Identity
 
@@ -143,7 +143,7 @@ See `ADR-2605250700` for full definitions. Key enforcement:
 
 **Deployment**:
 ```bash
-cd 20-actors/tatekata
+cd orgs/etzhayyim/com-etzhayyim-tatekata
 e7m actor deploy .
 ```
 
@@ -153,7 +153,7 @@ e7m actor deploy .
 
 **Smoke test**: Verify that all 5 cells import without exception:
 ```bash
-cd 20-actors/tatekata
+cd orgs/etzhayyim/com-etzhayyim-tatekata
 python -c "from kotodama.cells.foundation_excavation import FoundationExcavationCell; assert FoundationExcavationCell"
 python -c "from kotodama.cells.structural_assembly import StructuralAssemblyCell; assert StructuralAssemblyCell"
 python -c "from kotodama.cells.mep_installation import MepInstallationCell; assert MepInstallationCell"
@@ -165,7 +165,7 @@ All should pass import; `.solve()` calls should raise `RuntimeError("tatekata R0
 
 ## Related Files
 
-- `/20-actors/tatekata/manifest.jsonld` — DID + cell registry
+- `/orgs/etzhayyim/com-etzhayyim-tatekata/manifest.jsonld` — DID + cell registry
 - `/90-docs/adr/2605250715-tatekata-construction-tier-b-actor-r0.md` — ADR (parent)
 - `/orgs/etzhayyim/com-etzhayyim-kuni-umi/README.md` — Parent actor (Tier-B infrastructure)
 - `/CLAUDE.md` — Status table row 43 (tatekata)

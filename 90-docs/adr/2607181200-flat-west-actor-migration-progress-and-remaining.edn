@@ -33,21 +33,25 @@
 
   :migration/progress
   {:baseline-actor-directories 198
-   :moved-tombstones 98
-   :remaining-root-directories 100
-   :completion-percent 49.49
+   :moved-tombstones 101
+   :remaining-root-directories 97
+   :completion-percent 51.01
    :canonical-ledger "MULTIREPO-MIGRATION.edn"
    :integration-base-root-revision "1ce8a65a8fe5b68aa5fda43004bf2bc14a5e13e7"
    :integration-base-west-revision "5d33ded7fdd"
    :latest-batch
-   [{:actor "tasuke"
-     :repository "https://github.com/etzhayyim/com-etzhayyim-tasuke"
-     :revision "0bafa3c8186c98b14c49a41feead7f90da94aeb8"
-     :verification {:tests 103 :assertions 565}}
-    {:actor "rasen"
-     :repository "https://github.com/etzhayyim/com-etzhayyim-rasen"
-     :revision "dbcb867eac0f4816cc2bddc74c6ca3953018d0c5"
-     :verification {:tests 60 :assertions 587}}]}
+   [{:actor "tatara"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-tatara"
+     :revision "76f253ad01032bea1d3970cff2749d40108b8b45"
+     :verification {:tests 41 :assertions 3454}}
+    {:actor "tazuna"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-tazuna"
+     :revision "f180a777b466dd396ddf69373ac24ff7dac598d9"
+     :verification {:tests 45 :assertions 101}}
+    {:actor "tate"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-tate"
+     :revision "658b9f67aaa65d7aad5ffda280ec8feaae7a8bc2"
+     :verification {:tests 127 :assertions 7999}}]}
 
   :migration/completed-actors
   ["abaki" "ainori" "apqc" "atsurae" "busshi" "com-google-ads" "denwaban"
@@ -62,7 +66,7 @@
    "shidemori" "shukubo" "soma" "sonae" "stripe-compat" "suimin" "suki"
    "sumitsubo" "tawami" "toi" "tsukuroi" "ugachi" "unspsc" "utsushie"
    "wakai" "yudane" "isco" "moushibumi" "talent" "chigiri" "himotoki"
-   "toritsugi" "hoshimori" "inochi" "kuni-umi" "kuni_umi" "fuchi" "hokorobi" "kaname" "asobi" "mimamori" "shiori" "tsugite" "watatsuna" "kabuto" "watari" "keizu" "hakoniwa" "kafun" "shirabe" "tanemaki" "tasuke" "rasen"]
+   "toritsugi" "hoshimori" "inochi" "kuni-umi" "kuni_umi" "fuchi" "hokorobi" "kaname" "asobi" "mimamori" "shiori" "tsugite" "watatsuna" "kabuto" "watari" "keizu" "hakoniwa" "kafun" "shirabe" "tanemaki" "tasuke" "rasen" "tatara" "tazuna" "tate"]
 
   :migration/remaining-actors
   ["_conformance" "aburi" "akashi" "ake" "ameno" "amime"
@@ -79,7 +83,7 @@
    "moyoshi" "mst-projector" "niyaku" "noroshi" "nusa" "nyusatsu" "okaimono"
    "omise" "ooyake" "organizer" "ossekai" "sanae" "sarutahiko"
    "shinka" "shionome" "shomei" "silicon" "subaru" "suji"
-   "sukashi" "tadori" "tatara" "tate" "tatekata"
+   "sukashi" "tadori" "tatekata"
    "tazuna" "tedai" "todoke" "tokigusuri" "torifune" "toritate"
    "tsubasa" "tsuchifumi" "tsukuru" "tsumugi" "tsutae" "uchiwake"
    "uzu" "wadachi" "warifu" "watatsumi" "yadori"

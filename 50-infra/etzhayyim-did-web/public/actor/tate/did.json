@@ -53,7 +53,7 @@
     "wasmCid": null,
     "execModel": "service",
     "primaryLexicon": "com.etzhayyim.tate",
-    "primarySchema": "20-actors/tate/data/procedure-registry.edn",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-tate/data/procedure-registry.edn",
     "note": "verificationMethod empty — on-chain ERC725 mirror pending; did:web trust root = TLS (no server-minted key, ADR-2605231525)"
   }
 }

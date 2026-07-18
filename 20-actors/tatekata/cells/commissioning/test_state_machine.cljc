@@ -12,7 +12,7 @@
     (is (= "end" (get out "next_node")))
     (is (contains? out "project_closure_record"))))
 
-(def ^:private py-dir "20-actors/tatekata/cells/commissioning")
+(def ^:private py-dir "orgs/etzhayyim/com-etzhayyim-tatekata/cells/commissioning")
 
 (deftest live-parity
   (testing "cljc project_closure_record == python (deep)"

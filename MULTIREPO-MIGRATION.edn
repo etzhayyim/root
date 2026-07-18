@@ -1402,6 +1402,27 @@
      :verification {:tests 103 :assertions 565 :failures 0 :errors 0
                     :jvm {:tests 4 :assertions 90}}
      :root-copy :edn-tombstone-only}
+    "tatara"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-tatara"
+     :revision "76f253ad01032bea1d3970cff2749d40108b8b45"
+     :west-path "orgs/etzhayyim/com-etzhayyim-tatara"
+     :canonical-format :edn
+     :verification {:tests 41 :assertions 3454 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "tazuna"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-tazuna"
+     :revision "f180a777b466dd396ddf69373ac24ff7dac598d9"
+     :west-path "orgs/etzhayyim/com-etzhayyim-tazuna"
+     :canonical-format :edn
+     :verification {:tests 45 :assertions 101 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "tate"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-tate"
+     :revision "658b9f67aaa65d7aad5ffda280ec8feaae7a8bc2"
+     :west-path "orgs/etzhayyim/com-etzhayyim-tate"
+     :canonical-format :edn
+     :verification {:tests 127 :assertions 7999 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "rasen"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-rasen"
      :revision "dbcb867eac0f4816cc2bddc74c6ca3953018d0c5"
@@ -1599,8 +1620,8 @@
   [{:class :legacy-actor-root-directories
     :snapshot-date "2026-07-18"
     :baseline 198
-    :moved 98
-    :remaining 100
+    :moved 101
+    :remaining 97
     :inventory "90-docs/adr/2607181200-flat-west-actor-migration-progress-and-remaining.edn"}
    {:class :existing-repo-overlap
     :state :merge-root-only-content-before-delete}

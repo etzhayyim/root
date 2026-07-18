@@ -26,7 +26,7 @@
       "2606122300"
     ],
     "primaryLexicon": "com.etzhayyim.tate",
-    "primarySchema": "20-actors/tate/data/procedure-registry.edn",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-tate/data/procedure-registry.edn",
     "didDocument": "https://etzhayyim.com/actor/tate/did.json",
     "source": "kotoba"
   }

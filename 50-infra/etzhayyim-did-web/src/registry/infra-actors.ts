@@ -337,10 +337,10 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     glyph: "盾",
     displayName: "Tate — Citizen Legal-Defense Concierge (worldwide)",
     primaryLexicon: "com.etzhayyim.tate",
-    primarySchema: "20-actors/tate/data/procedure-registry.edn",
+    primarySchema: "orgs/etzhayyim/com-etzhayyim-tate/data/procedure-registry.edn",
     // No WASM actor: tate is a :no-cells observatory (clj/bb over the kotoba Datom log).
     // Its PUBLIC mesh artifact is the anonymized, content-addressed coverage digest
-    // (20-actors/tate/methods/coverage_publish.cljc; G1 member-data-free).
+    // (orgs/etzhayyim/com-etzhayyim-tate/methods/coverage_publish.cljc; G1 member-data-free).
     service: [
       {
         id: "did:web:etzhayyim.com:actor:tate#atproto_pds",

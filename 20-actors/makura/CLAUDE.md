@@ -188,6 +188,6 @@ All should pass import; `.solve()` calls should raise `RuntimeError("makura R0 s
 
 - `/20-actors/makura/manifest.jsonld` — DID + cell registry + gates + non-goals
 - `/90-docs/adr/2605261115-makura-foam-pillow-tier-b-actor-r0.md` — Master ADR
-- `/20-actors/tatekata/README.md` — R2 yard-sharing partner
+- `/orgs/etzhayyim/com-etzhayyim-tatekata/README.md` — R2 yard-sharing partner
 - `/orgs/etzhayyim/com-etzhayyim-kuni-umi/README.md` — robotics class inheritance
 - `/CLAUDE.md` — Religious-corp status table

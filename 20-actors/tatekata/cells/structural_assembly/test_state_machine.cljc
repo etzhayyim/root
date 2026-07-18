@@ -26,7 +26,7 @@
     ;; the seeded mock is in-spec, so this passes; verify the routing predicate directly
     (is (= "witness" (get tampered "next_node")))))
 
-(def ^:private py-dir "20-actors/tatekata/cells/structural_assembly")
+(def ^:private py-dir "orgs/etzhayyim/com-etzhayyim-tatekata/cells/structural_assembly")
 
 (deftest live-parity
   (testing "cljc structural_auth_record == python (deep, following the graph conditional)"

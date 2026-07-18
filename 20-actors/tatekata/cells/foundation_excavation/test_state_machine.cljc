@@ -26,7 +26,7 @@
     (is (= ["did:web:etzhayyim.com:giemon-unit-1" "did:web:etzhayyim.com:otete-unit-2"]
            (get-in clean ["constructed_record" "attestingRobots"])))))   ;; list of DIDs, not dicts
 
-(def ^:private py-dir "20-actors/tatekata/cells/foundation_excavation")
+(def ^:private py-dir "orgs/etzhayyim/com-etzhayyim-tatekata/cells/foundation_excavation")
 
 (deftest live-parity
   (testing "cljc alert_record == python (deep, following the graph conditional)"

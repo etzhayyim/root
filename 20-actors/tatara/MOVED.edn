@@ -1,0 +1,5 @@
+{:migration/status :moved
+ :migration/repository "https://github.com/etzhayyim/com-etzhayyim-tatara"
+ :migration/west-path "orgs/etzhayyim/com-etzhayyim-tatara"
+ :migration/revision "76f253ad01032bea1d3970cff2749d40108b8b45"
+ :migration/canonical-format :edn}

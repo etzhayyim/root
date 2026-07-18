@@ -615,7 +615,7 @@
   },
   {
     "cell": "tatekata-commissioning",
-    "src": "20-actors/tatekata/cells/commissioning/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-tatekata/cells/commissioning/cell.py",
     "build": true,
     "structural": true,
     "judge": 2,
@@ -626,7 +626,7 @@
   },
   {
     "cell": "tatekata-finishing_handoff",
-    "src": "20-actors/tatekata/cells/finishing_handoff/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-tatekata/cells/finishing_handoff/cell.py",
     "build": true,
     "structural": true,
     "judge": 3,
@@ -637,7 +637,7 @@
   },
   {
     "cell": "tatekata-foundation_excavation",
-    "src": "20-actors/tatekata/cells/foundation_excavation/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-tatekata/cells/foundation_excavation/cell.py",
     "build": true,
     "structural": true,
     "judge": 4,
@@ -648,7 +648,7 @@
   },
   {
     "cell": "tatekata-mep_installation",
-    "src": "20-actors/tatekata/cells/mep_installation/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-tatekata/cells/mep_installation/cell.py",
     "build": true,
     "structural": true,
     "judge": 4,
@@ -659,7 +659,7 @@
   },
   {
     "cell": "tatekata-structural_assembly",
-    "src": "20-actors/tatekata/cells/structural_assembly/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-tatekata/cells/structural_assembly/cell.py",
     "build": true,
     "structural": true,
     "judge": 3,
