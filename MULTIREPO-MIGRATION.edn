@@ -1416,6 +1416,36 @@
      :canonical-format :edn
      :verification {:tests 45 :assertions 101 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
+    "tokigusuri"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-tokigusuri"
+     :revision "efe58dcffd1bba2a5a36228c0c7d99c7f30513ac"
+     :west-path "orgs/etzhayyim/com-etzhayyim-tokigusuri"
+     :canonical-format :edn
+     :verification {:tests 28 :assertions 232 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "torifune"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-torifune"
+     :revision "80e81d8b748ba6e2b952b95a44a5d572ca903dce"
+     :west-path "orgs/etzhayyim/com-etzhayyim-torifune"
+     :canonical-format :edn
+     :verification {:tests 27 :assertions 269 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "tedai"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-tedai"
+     :revision "9c946eaed923dbba5342f66188b547ad282f0b4b"
+     :west-path "orgs/etzhayyim/com-etzhayyim-tedai"
+     :canonical-format :edn
+     :verification {:tests 83 :assertions 218 :failures 0 :errors 0
+                    :jvm {:tests 2 :assertions 4}}
+     :root-copy :edn-tombstone-only}
+    "tatekata"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-tatekata"
+     :revision "56c8550c7640f299c415f1c27b913404d95e7233"
+     :west-path "orgs/etzhayyim/com-etzhayyim-tatekata"
+     :canonical-format :edn
+     :verification {:tests 51 :assertions 216 :failures 0 :errors 0
+                    :kotoba-dry-run {:entities 6 :approx-datoms 50}}
+     :root-copy :edn-tombstone-only}
     "tate"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-tate"
      :revision "658b9f67aaa65d7aad5ffda280ec8feaae7a8bc2"
@@ -1620,8 +1650,8 @@
   [{:class :legacy-actor-root-directories
     :snapshot-date "2026-07-18"
     :baseline 198
-    :moved 101
-    :remaining 97
+    :moved 105
+    :remaining 93
     :inventory "90-docs/adr/2607181200-flat-west-actor-migration-progress-and-remaining.edn"}
    {:class :existing-repo-overlap
     :state :merge-root-only-content-before-delete}

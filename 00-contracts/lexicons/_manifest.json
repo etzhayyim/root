@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-18T04:03:11.834Z",
+  "generated": "2026-07-18T04:10:32.488Z",
   "lexicons": [
     {
       "id": "ai.etzhayyim.yorishiro.argparse-demo.main",
@@ -40466,30 +40466,6 @@
       "description": "Assert a manufacturing FACILITY into the kotoba Datom log (:plant/*). Disclosed public facilities only; coordinates rounded to ~0.01° (city/campus, G1). The operator is a COMPANY (joins kabuto org.cor"
     },
     {
-      "id": "com.etzhayyim.tatekata.constructionProgressRecord",
-      "path": "00-contracts/lexicons/com/etzhayyim/tatekata/constructionProgressRecord.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.tatekata.materialAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/tatekata/materialAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.tatekata.safetyIncidentReport",
-      "path": "00-contracts/lexicons/com/etzhayyim/tatekata/safetyIncidentReport.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.tatekata.siteAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/tatekata/siteAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
       "id": "com.etzhayyim.todoke.deliveryJob",
       "path": "00-contracts/lexicons/com/etzhayyim/todoke/deliveryJob.json",
       "type": "record",
@@ -50550,12 +50526,6 @@
       "com.etzhayyim.tatara.registerHub",
       "com.etzhayyim.tatara.registerPlant"
     ],
-    "com.etzhayyim.tatekata": [
-      "com.etzhayyim.tatekata.constructionProgressRecord",
-      "com.etzhayyim.tatekata.materialAttestation",
-      "com.etzhayyim.tatekata.safetyIncidentReport",
-      "com.etzhayyim.tatekata.siteAttestation"
-    ],
     "com.etzhayyim.todoke": [
       "com.etzhayyim.todoke.deliveryJob",
       "com.etzhayyim.todoke.handoffProof",
@@ -50740,6 +50710,6 @@
       "tools.ozone.verification.revokeVerifications"
     ]
   },
-  "total": 6908,
+  "total": 6904,
   "legacy_issues_count": 8
 }

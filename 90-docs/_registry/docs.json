@@ -20450,7 +20450,7 @@
       "topic": "tedai-member-computer-operation",
       "authoritative": true,
       "authoritative_for": [
-        "20-actors/tedai",
+        "orgs/etzhayyim/com-etzhayyim-tedai",
         "com.etzhayyim.tedai.*"
       ],
       "related": [
