@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-18T03:50:14.431Z",
+  "generated": "2026-07-18T03:52:37.233Z",
   "lexicons": [
     {
       "id": "ai.etzhayyim.yorishiro.argparse-demo.main",
@@ -40406,18 +40406,6 @@
       "description": ""
     },
     {
-      "id": "com.etzhayyim.tanemaki.ddScorecard",
-      "path": "00-contracts/lexicons/com/etzhayyim/tanemaki/ddScorecard.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.tanemaki.grantProposal",
-      "path": "00-contracts/lexicons/com/etzhayyim/tanemaki/grantProposal.json",
-      "type": "record",
-      "description": ""
-    },
-    {
       "id": "com.etzhayyim.tasuke.evidenceItem",
       "path": "00-contracts/lexicons/com/etzhayyim/tasuke/evidenceItem.json",
       "type": "record",
@@ -50548,10 +50536,6 @@
       "com.etzhayyim.tadori.silenTadoriReview",
       "com.etzhayyim.tadori.traceReport"
     ],
-    "com.etzhayyim.tanemaki": [
-      "com.etzhayyim.tanemaki.ddScorecard",
-      "com.etzhayyim.tanemaki.grantProposal"
-    ],
     "com.etzhayyim.tasuke": [
       "com.etzhayyim.tasuke.evidenceItem",
       "com.etzhayyim.tasuke.platformRequest",
@@ -50756,6 +50740,6 @@
       "tools.ozone.verification.revokeVerifications"
     ]
   },
-  "total": 6910,
+  "total": 6908,
   "legacy_issues_count": 8
 }

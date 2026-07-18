@@ -30,8 +30,8 @@
 
 (deftest engine-q-join-sanity
   (testing "engine-only 2-clause join: every :screen node also has a :screen/code"
-    (let [db (d/db-from-seed
-              "/Users/junkawasaki/github/com-junkawasaki/orgs/etzhayyim/root/20-actors/tanemaki/data/seed-stewardship-graph.kotoba.edn")
+    (let [root (or (System/getenv "ETZHAYYIM_TANEMAKI_ROOT") "../com-etzhayyim-tanemaki")
+          db (d/db-from-seed (str root "/data/seed-stewardship-graph.kotoba.edn"))
           screens (d/q '{:find [?e ?code]
                          :where [[?e :fs/kind :screen]
                                  [?e :screen/code ?code]]}

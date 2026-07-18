@@ -1387,6 +1387,13 @@
      :canonical-format :edn
      :verification {:tests 31 :assertions 156 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
+    "tanemaki"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-tanemaki"
+     :revision "e68a76c01bf6829ef7d9d0f82bb48d3aeb8d6bc3"
+     :west-path "orgs/etzhayyim/com-etzhayyim-tanemaki"
+     :canonical-format :edn
+     :verification {:tests 60 :assertions 361 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "shiori"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-shiori"
      :revision "3a748d4e915e411993e57bf51dfd48f06336a2ac"
@@ -1577,8 +1584,8 @@
   [{:class :legacy-actor-root-directories
     :snapshot-date "2026-07-18"
     :baseline 198
-    :moved 95
-    :remaining 103
+    :moved 96
+    :remaining 102
     :inventory "90-docs/adr/2607181200-flat-west-actor-migration-progress-and-remaining.edn"}
    {:class :existing-repo-overlap
     :state :merge-root-only-content-before-delete}
