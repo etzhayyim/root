@@ -316,9 +316,9 @@
    "Root still owns implementation content or the repository boundary has not been resolved."
   :snapshot
   {:fully-integrated 179
-    :prepared-root-drain 0
-    :prepared-actors []
-    :root-directories-after-prepared-drain 19}}
+    :prepared-root-drain 1
+    :prepared-actors ["jinushi"]
+    :root-directories-after-prepared-drain 18}}
 
   :migration/summary
   {:outcome
@@ -361,19 +361,15 @@
    "A completed count means repository extraction and west integration are finished, not that every historical test or generator defect has been repaired. Known gaps are recorded explicitly and must not be hidden by the migration count."}
 
   :migration/current-work
-  {:status :integrated
-   :actors ["hodoki" "hotaru" "itonami" "junkan" "kadode"]
+  {:status :prepared-root-drain
+   :actors ["jinushi"]
    :completed-standalone
-   [{:actor "hodoki" :revision "665f8a1dca27c62494361b69d151462fd69610e6" :verification {:tests 43 :assertions 90 :edn-files 31 :wire-artifacts 9}}
-    {:actor "hotaru" :revision "b28d7d31e108a3d9ce8c86f4e9e5e813568d3b8d" :verification {:tests 73 :assertions 229 :edn-files 12 :wire-artifacts 7}}
-    {:actor "itonami" :revision "e90f1bccf7a979708e1e10ddc80e81ffc37f2d93" :verification {:tests 127 :assertions 892 :edn-files 9 :wire-json-ld 1}}
-    {:actor "junkan" :revision "45d17c42f044131b6ece13e762fc07c2301c541f" :verification {:tests 105 :assertions 6670 :edn-files 18 :wire-artifacts 6}}
-    {:actor "kadode" :revision "5de19dc935b274bf59836296305fe2850575be6f" :verification {:tests 58 :assertions 381} :known-gap {:wasm-build :not-run :reason :legacy-componentize-py-script}}]
-   :counting-rule "These five actors entered completed-actors only after their standalone revisions, root tombstones, canonical ledger update, and exact actor/root west pins were published."
+   [{:actor "jinushi" :revision "88fdf592446fa9399ed691c584cb6ba242b37dd0" :verification {:pure-logic-tests 26 :assertions 127 :edn-files 7} :known-gap {:full-dataset-suite :requires-external-mount :dataset "80-data/jinushi-land"}}]
+   :counting-rule "jinushi remains in remaining-actors until the root migration commit, new west project entry, and exact actor/root pins are published."
    :batch-result
    {:fully-integrated-tombstones 179
-    :prepared-tombstones 0
-    :remaining-root-directories 19
+    :prepared-tombstones 1
+    :remaining-root-directories-after-prepared-drain 18
     :fully-integrated-percent 90.40}}
 
   :migration/integration-state
@@ -425,7 +421,10 @@
    "silicon"]
 
   :migration/remaining-classification
-  [{:class :empty-consolidated-tooling-root
+  [{:class :prepared-root-drain
+    :actors ["jinushi"]
+    :action :publish-root-commit-register-and-pin-new-west-project-then-record-integration}
+   {:class :empty-consolidated-tooling-root
     :actors ["_conformance"]
     :action :remove-after-confirming-70-tools-is-canonical-owner}
    {:class :existing-repository-overlap
@@ -436,7 +435,7 @@
              "infra_utility_connect"]
     :action :merge-root-only-content-into-existing-flat-repository-then-tombstone}
    {:class :not-yet-independent-or-boundary-review
-    :actors ["etzhayyim-organism" "funamori" "iriai" "iryo" "jinushi"
+    :actors ["etzhayyim-organism" "funamori" "iriai" "iryo"
              "kaiyaku" "kotoba-actors-clj" "kotodama" "mst-projector"
              "silicon"]
     :action :choose-actor-engine-tool-or-shared-library-owner-before-extraction
@@ -445,18 +444,18 @@
 
   :migration/remaining-accounting
   {:not-fully-integrated-total 19
-   :prepared-root-drain 0
-   :root-content-or-boundary-work-total 19
+   :prepared-root-drain 1
+   :root-content-or-boundary-work-total 18
    :empty-consolidated-tooling-root 1
    :existing-repository-overlap 8
-   :not-yet-independent-or-boundary-review 10
-   :logical-components-after-known-duplicate-consolidation 16
+   :not-yet-independent-or-boundary-review 9
+   :logical-components-after-known-duplicate-consolidation 15
    :duplicate-spelling-pairs [["business-manager" "business_manager"]
                               ["gov-municipality" "gov_municipality"]
                               ["infra-utility-connect" "infra_utility_connect"]]
    :deprecated-language-audit {:go-files 0 :go-module-files 0 :tinygo-files 0}
    :follow-up-language-inventory {:python-files 21 :shell-wrapper-files 34}
-   :note "The three remaining root-work classes total 19 directories. The three byte-identical spelling pairs reduce them to 16 logical components before further boundary decisions."}
+   :note "One directory is prepared for integration. The three remaining root-work classes total 18 directories; the three byte-identical spelling pairs reduce all 19 not-yet-integrated directories to 15 logical components."}
 
   :migration/decisions
   [{:decision :preserve-flat-west-checkouts

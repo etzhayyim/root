@@ -21945,7 +21945,7 @@
       "topic": "jinushi-land-ownership-acquisition-mirror",
       "authoritative": true,
       "authoritative_for": [
-        "20-actors/jinushi/ (actor: methods, ontology, seed, data layer 80-data/jinushi-land/)",
+        "orgs/etzhayyim/com-etzhayyim-jinushi/ (actor: methods, ontology, seed, data layer 80-data/jinushi-land/)",
         "jinushi public-record ingest gate (public-record + reciprocal-symmetric + map-not-target + non-monetized)",
         "jinushi multi-source ingest + per-source reliability (信頼度) + as-of diff (差分)"
       ],

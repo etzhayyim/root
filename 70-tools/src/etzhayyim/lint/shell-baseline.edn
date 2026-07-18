@@ -27,7 +27,6 @@
  "20-actors/infra-utility-connect/run_tests.sh"
  "20-actors/ipaddress/run_tests.sh"
  "20-actors/iryo/run_tests.sh"
- "20-actors/jinushi/methods/fetch_wdqs.sh"
  "20-actors/kaiyaku/run_tests.sh"
  "orgs/etzhayyim/com-etzhayyim-kanae/run_tests.sh"
  "orgs/etzhayyim/com-etzhayyim-kanae/wasm/build.sh"
