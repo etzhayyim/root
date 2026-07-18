@@ -72,6 +72,7 @@
      (kotoba/add e ":diet.statement/payload-cid" (get r :payloadCid ""))
      (kotoba/add e ":diet.statement/source-record-cids" [(get r :payloadCid) manifest-cid])
      (kotoba/add e ":diet.statement/non-adjudicating" true)
+     (kotoba/add e ":danjo.obs/non-adjudicating" true)
      (kotoba/add e ":diet.statement/sourcing" ":representative")]))
 
 (defn- xref-datoms

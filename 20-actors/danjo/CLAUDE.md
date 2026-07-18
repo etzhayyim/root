@@ -13,8 +13,10 @@
   firehose relay still needs an operator transport credential (G7 no-server-key). **R1 ingest
   trio + revenue beat LIVE (founder 1/1 bootstrap, ADR-2607180900, 2026-07-18)**: diet_statement_index
   cell runs (jp_kokkai fixture → EAVT); revenue beat produces the honest per-yen trace
-  (源泉所得税=non-traceable / 復興特別所得税=traceable); procurement_graph + budget_ledger are
-  `:awaiting-w3-fetcher` stubs (jp_chotatsu/jp_yosan = W3); mesh observe orchestrates the trio
+  (源泉所得税=non-traceable / 復興特別所得税=traceable); **procurement_graph axis: jp_chotatsu
+  fetcher LANDED (p-portal.go.jp 落札実績 → procurementRecord NDJSON) + procurement_beat projects
+  awards → EAVT (runs on a representative fixture until operator pull+pin)**; budget_ledger still
+  `:awaiting-w3-fetcher` (jp_yosan = W3); mesh observe orchestrates the trio
   on an hourly tick. Live-activation switch = `DANJO_R1_COUNCIL_RATIFY_TX_HASH` cell-runner env
   (unset ⇒ beats refuse ex-info ⇒ R0-inert by construction). The G-gates (G3/G4/G5/G6/G8/G11)
   are unchanged; `no-danjo-adjudication` lint is wired to lefthook (trigger #5). R2 crossref/

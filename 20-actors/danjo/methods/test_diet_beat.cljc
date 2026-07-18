@@ -4,7 +4,7 @@
   The pure projection (project-datoms) is unit-tested here; the beat I/O path + the
   DANJO_R1_COUNCIL_RATIFY_TX_HASH gate are exercised end-to-end by methods/mesh.clj
   observe (run: bb -cp 20-actors -e '... (load-file mesh.clj) (-main)')."
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [clojure.test :refer [deftest is testing run-tests]]
             [danjo.methods.diet-beat :as diet]
             [danjo.methods.kotoba :as kotoba]
             [clojure.string :as str]))
@@ -57,3 +57,11 @@
   (testing "project-datoms is safe on empty / malformed records (no crash, no datoms)"
     (is (empty? (diet/project-datoms {:records []})))
     (is (empty? (diet/project-datoms {:records [{:recordId "X"}]})) "missing speaker → skipped")))
+
+;; Run when invoked as the bb entry file; exit non-zero on failure so run_tests_clj.sh detects it.
+#?(:clj
+   (do
+     (defn -main [& _]
+       (let [{:keys [fail error]} (run-tests 'danjo.methods.test-diet-beat)]
+         (System/exit (if (pos? (+ fail error)) 1 0))))
+     (when (= *file* (System/getProperty "babashka.file")) (-main))))

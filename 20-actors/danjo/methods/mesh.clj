@@ -24,6 +24,7 @@
   "R1 KOTOBA Mesh observatory + ingest orchestrator. See file header."
   (:require [danjo.methods.autorun :as autorun]
             [danjo.methods.diet-beat :as diet]
+            [danjo.methods.procurement-beat :as proc]
             [danjo.methods.ingest-status :as ingest]
             [clojure.string :as str]
             [clojure.java.io :as io]))
@@ -62,10 +63,12 @@
         procurement (autorun/run-cycle 1)                 ; offline pre-published corpus → obs
         revenue     (run-rev-cycle! {:tx-id "r1-rev" :as-of 20260718}) ; real JP revenue → per-yen trace
         diet-res    (diet/beat {:tx-id "r1-diet" :as-of 20260718})
+        proc-res    (proc/beat {:tx-id "r1-proc" :as-of 20260718})   ; jp_chotatsu 落札実績 → procurement EAVT
         proc-status (ingest/procurement-status)
         bud-status  (ingest/budget-status)
         summary {:cell "danjo-R1-observe"
                  :procurement {:head (get procurement "cid") :observations (get procurement "observations")}
+                 :procurement-graph {:head (:head proc-res) :records (:records proc-res)}
                  :revenue     {:head (:head-cid revenue)
                                :traces (:traces revenue)
                                :per-yen-honesty "earmarked only traceable; 一般会計 fungible (G4-structural)"}
@@ -73,6 +76,7 @@
                  :ingest      {:procurement proc-status :budget bud-status}
                  :non-adjudicating true}]
     (best-effort-kqe! "r1-head" "procurement" (get-in summary [:procurement :head]))
+    (best-effort-kqe! "r1-head" "procurement-graph" (get-in summary [:procurement-graph :head]))
     (best-effort-kqe! "r1-head" "revenue"     (get-in summary [:revenue :head]))
     (best-effort-kqe! "r1-head" "diet"        (get-in summary [:diet :head]))
     summary))
@@ -100,8 +104,12 @@
     (println "  diet head:       " (subs (str (get-in s [:diet :head])) 0
                                          (min 18 (count (str (get-in s [:diet :head]))))) "…"
              "· records:" (get-in s [:diet :records]))
+    (println "  procurement-graph head (jp_chotatsu 落札実績):"
+             (subs (str (get-in s [:procurement-graph :head])) 0
+                   (min 18 (count (str (get-in s [:procurement-graph :head]))))) "…"
+             "· awards:" (get-in s [:procurement-graph :records]))
     (println "  procurement cell:" (:reason (get-in s [:ingest :procurement]))
-             "· w3" (:w3 (get-in s [:ingest :procurement])))
+             "· fetcher" (:fetcher (get-in s [:ingest :procurement])))
     (println "  budget cell:     " (:reason (get-in s [:ingest :budget]))
              "· w3" (:w3 (get-in s [:ingest :budget])))
     (println "  · the censor's EYE, never the SWORD — non-adjudicating (G4) · live broadcast stays G7-gated")))
