@@ -33,9 +33,9 @@
 
   :migration/progress
   {:baseline-actor-directories 198
-   :moved-tombstones 142
-   :remaining-root-directories 56
-   :completion-percent 71.72
+   :moved-tombstones 145
+   :remaining-root-directories 53
+   :completion-percent 73.23
    :canonical-ledger "MULTIREPO-MIGRATION.edn"
    :integration-base-root-revision "1ce8a65a8fe5b68aa5fda43004bf2bc14a5e13e7"
    :integration-base-west-revision "5d33ded7fdd"
@@ -277,21 +277,22 @@
      :revision "dc3ddeb7ffd6f1d321c3ed58d83dcf3b8f42fde3"
      :canonical-edn-files 22
      :wire-artifacts {:json-and-json-ld 6}
-     :verification {:tests 31 :assertions 161}}]}
+     :verification {:tests 31 :assertions 161}}
+    {:actor "mitooshi" :repository "https://github.com/etzhayyim/com-etzhayyim-mitooshi" :revision "ebdd498121ee224f994fbba3c18ae1168ebd60a7" :canonical-edn-files 28 :wire-artifacts {:json 10} :verification {:tests 178 :assertions 400}}
+    {:actor "meyasu" :repository "https://github.com/etzhayyim/com-etzhayyim-meyasu" :revision "6460de557ca1d3fd1247fe84751b0f421c675bb4" :canonical-edn-files 12 :wire-artifacts {:total 3} :verification {:tests 29 :assertions 70 :external-cohort-tests :separate}}
+    {:actor "meisai" :repository "https://github.com/etzhayyim/com-etzhayyim-meisai" :revision "a5d0a5f9659316ff1064588212bad42b5e33a2c8" :canonical-edn-files 9 :wire-artifacts {:json-and-json-ld 4} :verification {:tests 43 :assertions 151}}]}
 
   :migration/integration-state
-  {:snapshot-kind :integrated
+  {:snapshot-kind :root-prepared-west-pin-pending
    :standalone-repositories
    {:status :pushed
-    :actors ["moyoshi" "mizuho" "mitsuho"]}
+    :actors ["mitooshi" "meyasu" "meisai"]}
    :legacy-root-drain
-   {:status :committed
+   {:status :prepared
     :tracked-invariant :moved-edn-only}
    :west-manifest
-   {:status :exact-revisions-pinned
-    :superproject-revision "12b1c3197d740a21ebaece7ca9b9c729cf4749e2"
-    :actors ["moyoshi" "mizuho" "mitsuho"]}
-   :note "The 142 completed entries satisfy the standalone repository, root tombstone, canonical ledger, and exact west revision gates represented by this snapshot."}
+   {:status :pending-pin-update :actors ["mitooshi" "meyasu" "meisai"]}
+   :note "The 145-entry inventory includes the prepared latest root drain; west exact revision pinning is pending for the latest three actors."}
 
   :migration/completed-actors
   ["abaki" "ainori" "apqc" "atsurae" "busshi" "com-google-ads" "denwaban"
@@ -306,7 +307,7 @@
    "shidemori" "shukubo" "soma" "sonae" "stripe-compat" "suimin" "suki"
    "sumitsubo" "tawami" "toi" "tsukuroi" "ugachi" "unspsc" "utsushie"
    "wakai" "yudane" "isco" "moushibumi" "talent" "chigiri" "himotoki"
-   "toritsugi" "hoshimori" "inochi" "kuni-umi" "kuni_umi" "fuchi" "hokorobi" "kaname" "asobi" "mimamori" "shiori" "tsugite" "watatsuna" "kabuto" "watari" "keizu" "hakoniwa" "kafun" "shirabe" "tanemaki" "tasuke" "rasen" "tatara" "tazuna" "tate" "tokigusuri" "torifune" "tedai" "tatekata" "tsubasa" "tsuchifumi" "tsukuru" "tsumugi" "tsutae" "uchiwake" "uzu" "wadachi" "warifu" "watatsumi" "yadori" "yakushi" "yamabiko" "todoke" "yotei" "yobel" "toritate" "tadori" "sukashi" "subaru" "suji" "shomei" "shinka" "shionome" "sarutahiko" "sanae" "ossekai" "ooyake" "omise" "organizer" "nyusatsu" "nusa" "noroshi" "niyaku" "moyoshi" "mizuho" "mitsuho"]
+   "toritsugi" "hoshimori" "inochi" "kuni-umi" "kuni_umi" "fuchi" "hokorobi" "kaname" "asobi" "mimamori" "shiori" "tsugite" "watatsuna" "kabuto" "watari" "keizu" "hakoniwa" "kafun" "shirabe" "tanemaki" "tasuke" "rasen" "tatara" "tazuna" "tate" "tokigusuri" "torifune" "tedai" "tatekata" "tsubasa" "tsuchifumi" "tsukuru" "tsumugi" "tsutae" "uchiwake" "uzu" "wadachi" "warifu" "watatsumi" "yadori" "yakushi" "yamabiko" "todoke" "yotei" "yobel" "toritate" "tadori" "sukashi" "subaru" "suji" "shomei" "shinka" "shionome" "sarutahiko" "sanae" "ossekai" "ooyake" "omise" "organizer" "nyusatsu" "nusa" "noroshi" "niyaku" "moyoshi" "mizuho" "mitsuho" "mitooshi" "meyasu" "meisai"]
 
   :migration/remaining-actors
   ["_conformance" "aburi" "akashi" "ake" "ameno" "amime"
@@ -319,7 +320,7 @@
    "kakaku" "kamado" "kanae" "kanayama" "kanjo" "karakuri" "kasa"
    "kawaraban" "kizashi" "kosatsu" "kotoba-actors-clj" "kotodama"
    "magatama" "makura" "manabi" "maps" "matsurigoto"
-   "meisai" "meyasu" "mitooshi" "mst-projector" "okaimono"
+   "mst-projector" "okaimono"
    "silicon"]
 
   :migration/remaining-classification

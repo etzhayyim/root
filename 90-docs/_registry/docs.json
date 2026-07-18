@@ -19704,7 +19704,7 @@
       "topic": "meyasu-unified-arbitrage-intel-orchestrator",
       "authoritative": true,
       "authoritative_for": [
-        "20-actors/meyasu"
+        "orgs/etzhayyim/com-etzhayyim-meyasu"
       ],
       "related": [
         "2605091200",

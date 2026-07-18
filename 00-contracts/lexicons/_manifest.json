@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-18T06:49:48.301Z",
+  "generated": "2026-07-18T07:01:07.537Z",
   "lexicons": [
     {
       "id": "ai.etzhayyim.yorishiro.argparse-demo.main",
@@ -37694,42 +37694,6 @@
       "description": ""
     },
     {
-      "id": "com.etzhayyim.mitooshi.calibrationReport",
-      "path": "00-contracts/lexicons/com/etzhayyim/mitooshi/calibrationReport.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.mitooshi.forecastDistribution",
-      "path": "00-contracts/lexicons/com/etzhayyim/mitooshi/forecastDistribution.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.mitooshi.modelUpdateAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/mitooshi/modelUpdateAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.mitooshi.scoreResidual",
-      "path": "00-contracts/lexicons/com/etzhayyim/mitooshi/scoreResidual.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.mitooshi.seriesObservation",
-      "path": "00-contracts/lexicons/com/etzhayyim/mitooshi/seriesObservation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.mitooshi.silenMitooshiReview",
-      "path": "00-contracts/lexicons/com/etzhayyim/mitooshi/silenMitooshiReview.json",
-      "type": "record",
-      "description": ""
-    },
-    {
       "id": "com.etzhayyim.moyai.contributionAttestation",
       "path": "00-contracts/lexicons/com/etzhayyim/moyai/contributionAttestation.json",
       "type": "record",
@@ -48719,14 +48683,6 @@
       "com.etzhayyim.mitate.treatmentPlan",
       "com.etzhayyim.mitate.triageVerdict"
     ],
-    "com.etzhayyim.mitooshi": [
-      "com.etzhayyim.mitooshi.calibrationReport",
-      "com.etzhayyim.mitooshi.forecastDistribution",
-      "com.etzhayyim.mitooshi.modelUpdateAttestation",
-      "com.etzhayyim.mitooshi.scoreResidual",
-      "com.etzhayyim.mitooshi.seriesObservation",
-      "com.etzhayyim.mitooshi.silenMitooshiReview"
-    ],
     "com.etzhayyim.moyai": [
       "com.etzhayyim.moyai.contributionAttestation",
       "com.etzhayyim.moyai.drawReceipt"
@@ -48988,6 +48944,6 @@
       "tools.ozone.verification.revokeVerifications"
     ]
   },
-  "total": 6670,
+  "total": 6664,
   "legacy_issues_count": 8
 }

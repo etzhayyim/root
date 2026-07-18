@@ -1772,6 +1772,12 @@
      :wire-artifacts {:json-and-json-ld 6}
      :verification {:tests 31 :assertions 161 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
+    "mitooshi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-mitooshi" :revision "ebdd498121ee224f994fbba3c18ae1168ebd60a7" :west-path "orgs/etzhayyim/com-etzhayyim-mitooshi" :canonical-format :edn :canonical-edn-files 28 :wire-artifacts {:json 10} :verification {:tests 178 :assertions 400 :failures 0 :errors 0} :root-copy :edn-tombstone-only}
+    "meyasu"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-meyasu" :revision "6460de557ca1d3fd1247fe84751b0f421c675bb4" :west-path "orgs/etzhayyim/com-etzhayyim-meyasu" :canonical-format :edn :canonical-edn-files 12 :wire-artifacts {:total 3} :verification {:tests 29 :assertions 70 :failures 0 :errors 0 :external-cohort-tests :separate} :root-copy :edn-tombstone-only}
+    "meisai"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-meisai" :revision "a5d0a5f9659316ff1064588212bad42b5e33a2c8" :west-path "orgs/etzhayyim/com-etzhayyim-meisai" :canonical-format :edn :canonical-edn-files 9 :wire-artifacts {:json-and-json-ld 4} :verification {:tests 43 :assertions 151 :failures 0 :errors 0} :root-copy :edn-tombstone-only}
     "tate"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-tate"
      :revision "658b9f67aaa65d7aad5ffda280ec8feaae7a8bc2"
@@ -1976,8 +1982,8 @@
   [{:class :legacy-actor-root-directories
     :snapshot-date "2026-07-18"
     :baseline 198
-    :moved 142
-    :remaining 56
+    :moved 145
+    :remaining 53
     :inventory "90-docs/adr/2607181200-flat-west-actor-migration-progress-and-remaining.edn"}
    {:class :existing-repo-overlap
     :state :merge-root-only-content-before-delete}

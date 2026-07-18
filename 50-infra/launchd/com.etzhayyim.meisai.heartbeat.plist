@@ -62,8 +62,8 @@
   <!-- logs land under the gitignored data/ (the sweep prints only tx counts + head CID, but keep
        all meisai-side output off committed paths by construction). -->
   <key>StandardOutPath</key>
-  <string>/Users/junkawasaki/github/com-junkawasaki/orgs/etzhayyim/root/20-actors/meisai/data/heartbeat.out.log</string>
+  <string>/Users/junkawasaki/github/com-junkawasaki/orgs/etzhayyim/root/orgs/etzhayyim/com-etzhayyim-meisai/data/heartbeat.out.log</string>
   <key>StandardErrorPath</key>
-  <string>/Users/junkawasaki/github/com-junkawasaki/orgs/etzhayyim/root/20-actors/meisai/data/heartbeat.err.log</string>
+  <string>/Users/junkawasaki/github/com-junkawasaki/orgs/etzhayyim/root/orgs/etzhayyim/com-etzhayyim-meisai/data/heartbeat.err.log</string>
 </dict>
 </plist>

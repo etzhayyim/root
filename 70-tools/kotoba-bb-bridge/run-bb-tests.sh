@@ -6,7 +6,7 @@
 # suites WITHOUT that phrase (green sub-suite lines are suppressed) so the gate cannot false-green.
 #
 # Run from the project root (kotoba-code invokes it with :dir = project root):
-#   KC_TEST_GLOB="20-actors/mitooshi/methods/test_*.clj" bash 70-tools/kotoba-bb-bridge/run-bb-tests.sh
+#   KC_TEST_GLOB="orgs/etzhayyim/com-etzhayyim-mitooshi/methods/test_*.clj" bash 70-tools/kotoba-bb-bridge/run-bb-tests.sh
 # Default glob = every actor test suite under 20-actors/**/{methods,tests}/test_*.clj.
 set -uo pipefail
 
