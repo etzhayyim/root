@@ -21819,28 +21819,6 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2606161630-aburi-personal-tracking-exposure-observatory.edn",
-      "id": "adr-2606161630-aburi-personal-tracking-exposure-observatory",
-      "title": "ADR-2606161630: aburi 炙り — personal-tracking-exposure observatory (member-side, own-data)",
-      "status": "accepted",
-      "doc_type": "adr",
-      "topic": "aburi-tracking-exposure",
-      "authoritative": true,
-      "authoritative_for": [
-        "20-actors/aburi",
-        "00-contracts/schemas/tracker-exposure-ontology.kotoba.edn"
-      ],
-      "related": [
-        "2606122400",
-        "2606013800"
-      ],
-      "last_verified": "2026-06-16",
-      "supersedes": [],
-      "superseded_by": [],
-      "amends": [],
-      "amended_by": []
-    },
-    {
       "path": "90-docs/adr/2606161645-sukashi-fleet-continuous-operation-kotoba-native.edn",
       "id": "adr-2606161645-sukashi-fleet-continuous-operation-kotoba-native",
       "title": "ADR-2606161645: sukashi fleet continuous operation (kotoba-native) — LaunchDaemon (A) + /loop driver (B)",

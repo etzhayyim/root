@@ -17,7 +17,7 @@ import pytest
 
 _REPO = Path(__file__).resolve().parents[3]
 _LEX = _REPO / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "akashi"
-# manifest invariants -> 20-actors/akashi/methods/test_manifest_invariants.cljc (jsonld retired)
+# manifest invariants -> orgs/etzhayyim/com-etzhayyim-akashi/methods/test_manifest_invariants.cljc (jsonld retired)
 _SOURCE_CATALOG = _REPO / "20-actors" / "akashi" / "registry" / "source-catalog.seed.json"
 _SOURCE_POLICY_REVIEWS = (
     _REPO / "20-actors" / "akashi" / "registry" / "source-policy-reviews.seed.json"

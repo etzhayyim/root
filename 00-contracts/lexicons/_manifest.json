@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-18T08:36:24.672Z",
+  "generated": "2026-07-18T09:01:09.072Z",
   "lexicons": [
     {
       "id": "ai.etzhayyim.yorishiro.argparse-demo.main",
@@ -1992,66 +1992,6 @@
       "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/agent/startRuntimeLeaseLifecycle.json",
       "type": "procedure",
       "description": "ADR-2604301200 start request for quoting and reserving a persistent autonomous-agent runtime lease."
-    },
-    {
-      "id": "com.etzhayyim.akashi.adDisclosureLink",
-      "path": "00-contracts/lexicons/com/etzhayyim/akashi/adDisclosureLink.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.akashi.adDisclosureSnapshot",
-      "path": "00-contracts/lexicons/com/etzhayyim/akashi/adDisclosureSnapshot.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.akashi.adTransparencyReport",
-      "path": "00-contracts/lexicons/com/etzhayyim/akashi/adTransparencyReport.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.akashi.advertiserIdentity",
-      "path": "00-contracts/lexicons/com/etzhayyim/akashi/advertiserIdentity.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.akashi.creativeDisclosure",
-      "path": "00-contracts/lexicons/com/etzhayyim/akashi/creativeDisclosure.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.akashi.deliveryDisclosure",
-      "path": "00-contracts/lexicons/com/etzhayyim/akashi/deliveryDisclosure.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.akashi.landingEvidence",
-      "path": "00-contracts/lexicons/com/etzhayyim/akashi/landingEvidence.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.akashi.malakEvidenceCandidate",
-      "path": "00-contracts/lexicons/com/etzhayyim/akashi/malakEvidenceCandidate.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.akashi.methodNote",
-      "path": "00-contracts/lexicons/com/etzhayyim/akashi/methodNote.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.akashi.sourcePolicySnapshot",
-      "path": "00-contracts/lexicons/com/etzhayyim/akashi/sourcePolicySnapshot.json",
-      "type": "record",
-      "description": ""
     },
     {
       "id": "com.etzhayyim.ake.councilEditReview",
@@ -39845,18 +39785,6 @@
       "com.etzhayyim.agent.spawnChildOrg",
       "com.etzhayyim.agent.startRuntimeLeaseLifecycle"
     ],
-    "com.etzhayyim.akashi": [
-      "com.etzhayyim.akashi.adDisclosureLink",
-      "com.etzhayyim.akashi.adDisclosureSnapshot",
-      "com.etzhayyim.akashi.adTransparencyReport",
-      "com.etzhayyim.akashi.advertiserIdentity",
-      "com.etzhayyim.akashi.creativeDisclosure",
-      "com.etzhayyim.akashi.deliveryDisclosure",
-      "com.etzhayyim.akashi.landingEvidence",
-      "com.etzhayyim.akashi.malakEvidenceCandidate",
-      "com.etzhayyim.akashi.methodNote",
-      "com.etzhayyim.akashi.sourcePolicySnapshot"
-    ],
     "com.etzhayyim.ake": [
       "com.etzhayyim.ake.councilEditReview",
       "com.etzhayyim.ake.editPromotion",
@@ -48209,6 +48137,6 @@
       "tools.ozone.verification.revokeVerifications"
     ]
   },
-  "total": 6563,
+  "total": 6553,
   "legacy_issues_count": 8
 }

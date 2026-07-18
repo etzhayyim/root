@@ -33,9 +33,11 @@
 
   :migration/progress
   {:baseline-actor-directories 198
-   :moved-tombstones 161
-   :remaining-root-directories 37
-   :completion-percent 81.31
+   :fully-integrated-actors 161
+   :fully-integrated-percent 81.31
+   :moved-tombstones 164
+   :remaining-root-directories 34
+   :completion-percent 82.83
    :canonical-ledger "MULTIREPO-MIGRATION.edn"
    :integration-base-root-revision "1ce8a65a8fe5b68aa5fda43004bf2bc14a5e13e7"
    :integration-base-west-revision "5d33ded7fdd"
@@ -296,11 +298,27 @@
     {:actor "kosatsu" :repository "https://github.com/etzhayyim/com-etzhayyim-kosatsu" :revision "12daf143ce6039c01f1408ec6e27d9d96c0b7821" :canonical-edn-files 19 :wire-artifacts {:json 8} :verification {:tests 157 :assertions 689}}
     {:actor "matsurigoto" :repository "https://github.com/etzhayyim/com-etzhayyim-matsurigoto" :revision "2633e1326452f165bdc1b1de5c7420ffcf681125" :canonical-edn-files 30 :wire-artifacts {:json 8} :verification {:tests 156 :assertions 1139}}
     {:actor "okaimono" :repository "https://github.com/etzhayyim/com-etzhayyim-okaimono" :revision "7f85dd0975fd0e8d962b4538edde90178e74c11b" :canonical-edn-files 24 :wire-artifacts {} :verification {:tests 50 :assertions 113 :full-maker-golden :requires-six-west-siblings}}
-    {:actor "maps" :repository "https://github.com/etzhayyim/com-etzhayyim-maps" :revision "7a859093991ec6ca5c1e904ecff14e7c53346f6c" :canonical-edn-files 31 :wire-artifacts {:total 268 :bpmn-xml 242 :json 26} :verification {:tests 178 :assertions 784 :excluded-integration-guards 2} :retained-rust-wasm true}]}
+    {:actor "maps" :repository "https://github.com/etzhayyim/com-etzhayyim-maps" :revision "7a859093991ec6ca5c1e904ecff14e7c53346f6c" :canonical-edn-files 31 :wire-artifacts {:total 268 :bpmn-xml 242 :json 26} :verification {:tests 178 :assertions 784 :excluded-integration-guards 2} :retained-rust-wasm true}
+    {:actor "aburi" :repository "https://github.com/etzhayyim/com-etzhayyim-aburi" :revision "4cab6922fd47d9d57d3458fb1196be96f998a23c" :canonical-edn-files 12 :wire-artifacts {:json 2} :verification {:tests 62 :assertions 1652}}
+    {:actor "akashi" :repository "https://github.com/etzhayyim/com-etzhayyim-akashi" :revision "c985daa45df36a2e641d976d54e4dbc9d5b0cc48" :canonical-edn-files 30 :wire-artifacts {:total 29 :json 24 :json-ld 1 :docs 4} :verification {:tests 39 :assertions 166} :excluded-user-wip :inconsistent-murakumo-source-test}
+    {:actor "ake" :repository "https://github.com/etzhayyim/com-etzhayyim-ake" :revision "dd3e34b091483251392da6f8d2cc061e7879d648" :canonical-edn-files 20 :wire-artifacts {:json-and-json-ld 7} :verification {:tests 155 :assertions 559}}]}
+
+  :migration/status-model
+  {:fully-integrated
+   "The standalone revision is pushed, root contains only MOVED.edn, active consumers are rewired, and west pins both actor and root exact revisions. Only this state contributes to completed-actors."
+   :prepared-root-drain
+   "The standalone revision is pushed and the root drain is present in the current worktree, but root and west integration commits are not both published yet. These actors remain in remaining-actors."
+   :remaining
+   "Root still owns implementation content or the repository boundary has not been resolved."
+   :snapshot
+   {:fully-integrated 161
+    :prepared-root-drain 3
+    :prepared-actors ["aburi" "akashi" "ake"]
+    :root-directories-after-prepared-drain 34}}
 
   :migration/summary
   {:outcome
-   "The former monorepo actor layer is being drained without changing west's flat checkout convention. 161 of the 198 baseline directories are fully integrated: their implementation and actor-owned contracts live in independently versioned com-etzhayyim-* repositories, west pins exact revisions, and the corresponding 20-actors directory is a MOVED.edn tombstone only."
+   "The former monorepo actor layer is being drained without changing west's flat checkout convention. 164 of the 198 baseline directories are extracted into independently versioned com-etzhayyim-* repositories; the current batch is awaiting root and west integration."
    :repository-boundary
    {:superproject "com-junkawasaki/root owns west.yml and exact repository pins."
     :root "com-etzhayyim/root owns cross-repository policy, migration ledger, ADRs, generators, and legacy tombstones."
@@ -339,30 +357,41 @@
    "A completed count means repository extraction and west integration are finished, not that every historical test or generator defect has been repaired. Known gaps are recorded explicitly and must not be hidden by the migration count."}
 
   :migration/current-work
-  {:status :integrated
-   :actors ["kosatsu" "maps" "matsurigoto" "okaimono"]
+  {:status :root-and-west-integration
+   :actors ["aburi" "akashi" "ake"]
    :completed-standalone
-   [{:actor "kosatsu" :revision "12daf143ce6039c01f1408ec6e27d9d96c0b7821" :verification {:tests 157 :assertions 689 :edn-files 19}}
-    {:actor "matsurigoto" :revision "2633e1326452f165bdc1b1de5c7420ffcf681125" :verification {:tests 156 :assertions 1139 :edn-files 30}}
-    {:actor "okaimono" :revision "7f85dd0975fd0e8d962b4538edde90178e74c11b" :verification {:tests 50 :assertions 113 :edn-files 24}}
-    {:actor "maps" :revision "7a859093991ec6ca5c1e904ecff14e7c53346f6c" :verification {:tests 178 :assertions 784 :edn-files 31}}]
+   [{:actor "aburi" :revision "4cab6922fd47d9d57d3458fb1196be96f998a23c" :verification {:tests 62 :assertions 1652 :edn-files 12}}
+    {:actor "akashi" :revision "c985daa45df36a2e641d976d54e4dbc9d5b0cc48" :verification {:tests 39 :assertions 166 :edn-files 30}}
+    {:actor "ake" :revision "dd3e34b091483251392da6f8d2cc061e7879d648" :verification {:tests 155 :assertions 559 :edn-files 20}}]
    :counting-rule "These actors remain in remaining-actors until their standalone revisions, root tombstones, ledger update, and west pins are all integrated."
    :batch-result
-   {:moved-tombstones 161
-    :remaining-root-directories 37
-    :completion-percent 81.31}}
+   {:moved-tombstones 164
+    :remaining-root-directories 34
+    :completion-percent 82.83}}
 
   :migration/integration-state
-  {:snapshot-kind :integrated
+  {:snapshot-kind :integration-pending
+   :root-base-revision "d6cb193894441f993c6569db41767df46b74979a"
    :standalone-repositories
    {:status :pushed
-    :actors ["kosatsu" "maps" "matsurigoto" "okaimono"]}
+    :actors ["aburi" "akashi" "ake"]}
    :legacy-root-drain
-   {:status :committed
+   {:status :prepared
     :tracked-invariant :moved-edn-only}
    :west-manifest
-   {:status :exact-revisions-pinned :superproject-revision "e330bde78bfc15c0a0d27fccea142075689238a8" :actors ["kosatsu" "maps" "matsurigoto" "okaimono"]}
-   :note "The 161 completed entries satisfy the standalone repository, root tombstone, canonical ledger, and exact west revision gates represented by this snapshot."}
+   {:status :pending
+    :root-pin "d6cb193894441f993c6569db41767df46b74979a"
+    :actor-pins
+    {"aburi" {:current "c869dea" :target "4cab6922fd47d9d57d3458fb1196be96f998a23c"}
+     "akashi" {:current "7f8ef01" :target "c985daa45df36a2e641d976d54e4dbc9d5b0cc48"}
+     "ake" {:current "14be746" :target "dd3e34b091483251392da6f8d2cc061e7879d648"}}}
+   :pending-actions
+   [:track-moved-edn-tombstones
+    :commit-and-push-root-drain
+    :pin-three-actor-revisions-and-root-in-west
+    :record-superproject-integration-revision
+    :repin-final-adr-root-revision]
+   :note "Standalone extraction and root drain are prepared for 164 entries; west exact-revision integration is pending for the current batch."}
 
   :migration/completed-actors
   ["abaki" "ainori" "apqc" "atsurae" "busshi" "com-google-ads" "denwaban"
@@ -392,19 +421,57 @@
    "silicon"]
 
   :migration/remaining-classification
-  [{:class :duplicate-spelling-or-path
-    :actors [["business-manager" "business_manager"]
-             ["gov-municipality" "gov_municipality"]
-             ["infra-utility-connect" "infra_utility_connect"]]
-    :action :consolidate-before-extraction}
-   {:class :cross-actor-tooling
-    :actors ["_conformance" "kotoba-actors-clj"]
-    :action :move-to-tool-or-shared-library-owner}
-   {:class :engine-or-runtime-boundary
-    :actors ["ameno" "etzhayyim-organism" "kotodama" "mst-projector"]
-    :action :classify-before-repository-extraction}
-   {:class :ordinary-actor-overlap
-    :action :merge-root-only-content-into-existing-flat-repository-then-tombstone}]
+  [{:class :empty-consolidated-tooling-root
+    :actors ["_conformance"]
+    :action :remove-after-confirming-70-tools-is-canonical-owner}
+   {:class :existing-repository-overlap
+    :actors ["ameno" "amime" "business-manager" "business_manager" "chie"
+             "credits" "danjo" "funadaiku" "futawa" "gov-municipality"
+             "gov_municipality" "hagukumi" "hikari" "himawari" "hinagata"
+             "hodoki" "hotaru" "ibuki" "infra-utility-connect"
+             "infra_utility_connect" "itonami" "junkan" "kadode"]
+    :action :merge-root-only-content-into-existing-flat-repository-then-tombstone}
+   {:class :not-yet-independent-or-boundary-review
+    :actors ["etzhayyim-organism" "funamori" "iriai" "iryo" "jinushi"
+             "kaiyaku" "kotoba-actors-clj" "kotodama" "mst-projector"
+             "silicon"]
+    :action :choose-actor-engine-tool-or-shared-library-owner-before-extraction
+    :language-policy "Any Go or TinyGo implementation is removed; it is not a migration source. Retained behavior must have a non-Go canonical implementation or an explicit retirement decision."}
+   {:class :prepared-root-drain
+    :actors ["aburi" "akashi" "ake"]
+    :action :publish-root-and-west-integration-transaction}]
+
+  :migration/remaining-accounting
+  {:not-fully-integrated-total 37
+   :prepared-root-drain 3
+   :root-content-or-boundary-work-total 34
+   :empty-consolidated-tooling-root 1
+   :existing-repository-overlap 23
+   :not-yet-independent-or-boundary-review 10
+   :logical-components-after-known-duplicate-consolidation 31
+   :duplicate-spelling-pairs [["business-manager" "business_manager"]
+                              ["gov-municipality" "gov_municipality"]
+                              ["infra-utility-connect" "infra_utility_connect"]]
+   :deprecated-language-audit {:go-files 0 :go-module-files 0 :tinygo-files 0}
+   :follow-up-language-inventory {:python-files 21 :shell-wrapper-files 34}
+   :note "The three root-work classes total 34 legacy directories. Adding three prepared-but-not-west-integrated actors yields the 37 entries in remaining-actors. The three byte-identical spelling pairs reduce 34 directories to 31 logical components before further boundary decisions."}
+
+  :migration/decisions
+  [{:decision :preserve-flat-west-checkouts
+    :reason "Repository ownership changes without introducing actor/engine category directories into checkout paths."
+    :consequence "Every independently owned component remains at orgs/etzhayyim/com-etzhayyim-*."}
+   {:decision :drain-not-reshape-legacy-root
+    :reason "The numbered 20-actors layout is monorepo residue, not the target taxonomy."
+    :consequence "A migrated legacy directory contains exactly MOVED.edn until the whole layer can be retired."}
+   {:decision :edn-is-authoritative
+    :reason "Machine-readable policy, ADR, contract, fixture, registry, and migration state need one canonical representation."
+    :consequence "Markdown is explanatory only; JSON-family, BPMN XML, WIT, and TOML survive solely as isolated external wire artifacts."}
+   {:decision :prune-deprecated-go
+    :reason "Go and TinyGo, including kotodama-go-style implementations, are deprecated."
+    :consequence "Migration must not copy, port, pin, or revive them."}
+   {:decision :extract-shared-code-by-proven-boundary
+    :reason "Former sibling imports do not by themselves establish a reusable library contract."
+    :consequence "Actor-specific code moves with its actor; stable multi-consumer code receives an independent library owner and exact revision pins."}]
 
   :migration/completion-gates
   [:standalone-repository-exists
