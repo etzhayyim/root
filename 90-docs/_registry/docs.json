@@ -24680,6 +24680,29 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2607181600-flat-west-migration-integrated-state-and-final-drain.edn",
+      "id": "adr-2607181600-flat-west-migration-integrated-state-and-final-drain",
+      "title": "Flat west migration: west-integrated 189/198, strict root state, and final drain policy",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "flat-west-migration-integrated-state",
+      "authoritative": true,
+      "authoritative_for": [
+        "west-integrated and strict MOVED.edn-only migration counts",
+        "remaining 20-actors directory inventory",
+        "duplicate spelling and DID-preservation policy",
+        "final retirement gates for the 20-actors layer"
+      ],
+      "supersedes": [
+        "adr-2607181500-flat-west-migration-checkpoint-and-remaining"
+      ],
+      "last_verified": "2026-07-18",
+      "related": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.edn",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

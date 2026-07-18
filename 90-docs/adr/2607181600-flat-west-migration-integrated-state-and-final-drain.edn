@@ -1,0 +1,170 @@
+[{:db/id -1
+  :adr/id "adr-2607181600-flat-west-migration-integrated-state-and-final-drain"
+  :adr/title "Flat west migration: west-integrated 189/198, strict root state, and final drain policy"
+  :adr/status "accepted"
+  :adr/doc_type "adr"
+  :adr/source-format "edn"
+  :adr/date "2026-07-18"
+  :adr/last_verified "2026-07-18"
+  :adr/authoritative true
+  :adr/topic "flat-west-migration-integrated-state"
+  :adr/supersedes
+  ["adr-2607181500-flat-west-migration-checkpoint-and-remaining"]
+  :adr/authoritative-for
+  ["west-integrated and strict MOVED.edn-only migration counts"
+   "remaining 20-actors directory inventory"
+   "duplicate spelling and DID-preservation policy"
+   "final retirement gates for the 20-actors layer"]
+
+  :context
+  {:original-layout "numbered monorepo roots such as 20-actors/*"
+   :target-layout "west-manifest multirepo"
+   :path-constraint "preserve flat orgs/etzhayyim/com-etzhayyim-* paths"
+   :canonical-record-format :edn
+   :deprecated-languages #{:go :tinygo}}
+
+  :decision
+  {:west-paths {:preserve-flat-paths true
+                :pattern "orgs/etzhayyim/com-etzhayyim-*"
+                :do-not-introduce-category-nesting true}
+   :legacy-roots {:scope "20-actors/*"
+                  :migrated-directory-content ["MOVED.edn"]
+                  :retire-numbered-layer-when-empty true}
+   :repository-boundaries
+   {:shared-library "Place reusable runtime, data-model, and protocol code in its established shared repository."
+    :actor-repository "Keep actor-specific policy, identity, tests, and deployment material in its actor repository."
+    :central-authority "Keep registries and cross-repository governance contracts in root when root is their authority."}
+   :formats {:canonical #{:edn}
+             :applies-to #{:adr :metadata :data :contracts :fixtures :registries :migration-ledgers}
+             :external-wire-only #{:json :jsonl :json-ld :bpmn-xml :wit :toml}}
+   :languages {:deprecated #{:go :tinygo}
+               :migration-action :prune
+               :porting-prohibited true}}
+
+  :status-model
+  {:west-integrated "Destination ownership exists and exact component/root revisions are published in west."
+   :root-moved-only "The legacy directory contains exactly MOVED.edn."
+   :unresolved-boundary "The final owner or identity lifecycle is not yet accepted."
+   :rule "Merge-conflict preservation is required, but preserved implementation beneath a tombstone is reconciliation debt and must not inflate the strict count."}
+
+  :integrated-state
+  {:baseline-directories 198
+   :west-integrated 189
+   :west-integrated-percent 95.45
+   :west-unresolved 9
+   :tracked-moved-only 188
+   :tracked-moved-only-percent 94.95
+   :literal-worktree-moved-only 186
+   :literal-worktree-moved-only-percent 93.94
+   :tracked-non-tombstone-directories 10
+   :literal-non-tombstone-directories 12
+   :root-revision "285c1c62b852537c02fcb4636f7877d6462f7bbe"
+   :superproject-revision "d4caf8ce856fac736fc0fcb5dcff2a003b4c4e23"
+   :integration-branch "codex/pin-etzhayyim-multirepo"
+   :published true}
+
+  :root-invariant-regression
+  {:tracked-directories ["ibuki"]
+   :ignored-worktree-residue ["ooyake" "sumitsubo"]
+   :verified-clean ["kotodama"]
+   :cause :implementation-preserved-during-main-merge
+   :observed
+   {"ibuki" [".nojekyll" ".well-known/did.json" "data/.gitignore"]
+    "ooyake" ["ignored Python bytecode caches beneath cells and scripts"]
+    "sumitsubo" ["ignored sdk/node_modules dependency tree"]}
+   :required-actions
+   {:ibuki :reconcile-tracked-files-with-destination-and-restore-moved-edn-only
+    :ignored-residue :inventory-and-remove-only-with-explicit-authority}
+   :counting-policy "ibuki is excluded from tracked MOVED-only; ignored residue is separately excluded from literal worktree MOVED-only."
+   :evidence "git ls-tree and rg --files -uu at root revision 285c1c62b852537c02fcb4636f7877d6462f7bbe"}
+
+  :latest-integrated-components
+  [{:component "ameno" :revision "2933528b3e4fbbb654070c14b57dda8ceef023bc"}
+   {:component "iriai" :revision "4a02010be91e1f57755a58daa9ef5ace14d15ce3"}
+   {:component "iryo" :revision "bff63360df49fc19bce9c77d691021b4a01e5c96"}
+   {:component "kaiyaku" :revision "8543e3206a5d2fa4573a66c9e8bce4fe3df764f2"}
+   {:component "ibuki" :revision "2f71a51fee5818e1543d2a8dbccd30384a824e08"}
+   {:component "funamori" :revision "69e4c1b0b79920bb3ab3fc276c9f50f34664aefc"}
+   {:component "silicon" :revision "7d7a5fa1a49f38ed34d4b374d4c8187d5cf6d84c"}
+   {:components ["kotodama" "etzhayyim-organism"]
+    :destination "orgs/kotoba-lang/kotodama"
+    :revision "6e02abb11f95d5b7cea2379f513c25d0208b1b59"
+    :boundary :shared-runtime-library}]
+
+  :merge-preservation
+  [{:component "ake" :revision "f036122ab4673419c9d54001dff08cb860ab2ff9"}
+   {:component "tasuke" :revision "6c7ac6675d08a8cd3aae8ae61f8ed031a3ff4181"}
+   {:component "noroshi" :revision "4f042125e93f81f5d018e848fc4ad992b81b97cd"}
+   {:component "fuchi" :revision "54c0b9ecc4b6838571f9d338d2ac7708cf572d20"}
+   {:component "danjo" :revision "96e05921bc92670428ce50f3d3e85e0a1dcf004d"}
+   {:artifact "90-docs/migrations/260718-kotoba-datom-intermediate-relocation.edn"
+    :origin "stale main-side kotodama relocation note"
+    :preservation :semantic-edn}]
+
+  :remaining
+  {:directories
+   ["_conformance"
+    "business-manager" "business_manager"
+    "gov-municipality" "gov_municipality"
+    "infra-utility-connect" "infra_utility_connect"
+    "kotoba-actors-clj" "mst-projector"]
+   :classification
+   {:empty-tooling-root ["_conformance"]
+    :duplicate-spelling-pairs
+    [["business-manager" "business_manager"]
+     ["gov-municipality" "gov_municipality"]
+     ["infra-utility-connect" "infra_utility_connect"]]
+    :boundary-review ["kotoba-actors-clj" "mst-projector"]}
+   :logical-work-items 6}
+
+  :duplicate-identity-policy
+  {:canonical-code-owners
+   ["business-manager" "gov-municipality" "infra-utility-connect"]
+   :compatibility-identities
+   ["business_manager" "gov_municipality" "infra_utility_connect"]
+   :reason "Active tooling uses hyphenated names, while each spelling is registered in west with a distinct DID/repository identity."
+   :required-actions
+   [:merge-root-only-code-into-hyphen-repository
+    :preserve-underscore-did-identity
+    :publish-explicit-compatibility-or-redirect-contract
+    :update-did-registry-before-any-underscore-retirement]
+   :forbidden-actions
+   [:blind-delete-duplicate-root
+    :silently-alias-distinct-dids
+    :overwrite-did-document]}
+
+  :execution-order
+  [:reconcile-ibuki-tracked-regression
+   :inventory-ooyake-and-sumitsubo-ignored-residue
+   :consolidate-business-manager-pair
+   :consolidate-gov-municipality-pair
+   :consolidate-infra-utility-connect-pair
+   :assign-kotoba-actors-clj-boundary
+   :assign-mst-projector-boundary
+   :remove-empty-conformance-root
+   :verify-no-active-legacy-paths
+   :retire-20-actors-layer]
+
+  :completion-gates
+  [:destination-revisions-pushed
+   :canonical-edn-readable
+   :go-and-tinygo-absent
+   :external-wire-artifacts-isolated
+   :active-consumers-rewired
+   :legacy-directories-moved-edn-only
+   :did-identities-preserved-or-explicitly-retired
+   :west-exact-revisions-pinned
+   :generated-registries-fresh
+   :strict-moved-only-count-198-of-198
+   :no-non-tombstone-directory-under-20-actors]
+
+  :known-debt
+  [{:scope :aggregate-test-runner
+    :issue "Some aggregate classpaths still assume code beneath 20-actors."
+    :resolution :rewire-before-layer-retirement}
+   {:scope :west-generator-full-check
+    :issue "Full generation currently includes unrelated stale pin drift."
+    :verification-used :targeted-project-entry-and-pin-verification}]
+
+  :adr/body
+  "The flat west migration has published ownership and exact west pins for 189 of the original 198 legacy actor directories (95.45%). The tracked-tree MOVED.edn-only invariant is 188/198 because ibuki retains three tracked compatibility files. The literal worktree invariant is 186/198 because ignored cache/dependency residue also exists beneath ooyake and sumitsubo; it is inventoried but not deleted without authority. Kotodama is verified MOVED.edn-only. Final work comprises nine west-unresolved directories, the ibuki tracked reconciliation, and explicit handling of ignored residue. Flat west paths remain stable, EDN is canonical, Go/TinyGo is pruned, and duplicate spellings require DID-safe consolidation before 20-actors can retire."}]
