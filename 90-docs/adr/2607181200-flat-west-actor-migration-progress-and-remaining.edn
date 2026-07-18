@@ -204,17 +204,18 @@
                     :legacy-python-parity-checks :skipped-after-python-prune}}]}
 
   :migration/integration-state
-  {:snapshot-kind :root-prepared-west-pin-pending
+  {:snapshot-kind :integrated
    :standalone-repositories
    {:status :pushed
     :actors ["shinka" "shionome" "sarutahiko"]}
    :legacy-root-drain
-   {:status :prepared
+   {:status :committed
     :tracked-invariant :moved-edn-only}
    :west-manifest
-   {:status :pending-pin-update
+   {:status :exact-revisions-pinned
+    :superproject-revision "05dce8dcad6010478c608b80e350a82c3c0c2032"
     :actors ["shinka" "shionome" "sarutahiko"]}
-   :note "The 130-entry inventory includes the prepared latest root drain. The latest three actors satisfy the west-manifest gate only after this root revision and their standalone revisions are pinned in the superproject."}
+   :note "The 130 completed entries satisfy the standalone repository, root tombstone, canonical ledger, and exact west revision gates represented by this snapshot."}
 
   :migration/completed-actors
   ["abaki" "ainori" "apqc" "atsurae" "busshi" "com-google-ads" "denwaban"
