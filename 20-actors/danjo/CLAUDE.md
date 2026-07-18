@@ -10,9 +10,15 @@
 - **Status**: 🟢 R1 — live operation + social emission AUTHORIZED (founder, Council Lv7+ 1/1,
   2026-07-16): autonomous heartbeat → content-addressed append-only kotoba Datom log; Murakumo
   narration (graceful template fallback); founder-signed `:published` posts. External AT-Proto
-  firehose relay still needs an operator transport credential (G7 no-server-key). 6 cells
-  path-reserved + 4 Lexicon skeletons (ingest/analysis cells remain R0 pending Council Lv6+ ≥3
-  per-cell ratify, ADR-2605301600 §roadmap; this authorization covers social_post only).
+  firehose relay still needs an operator transport credential (G7 no-server-key). **R1 ingest
+  trio + revenue beat LIVE (founder 1/1 bootstrap, ADR-2607180900, 2026-07-18)**: diet_statement_index
+  cell runs (jp_kokkai fixture → EAVT); revenue beat produces the honest per-yen trace
+  (源泉所得税=non-traceable / 復興特別所得税=traceable); procurement_graph + budget_ledger are
+  `:awaiting-w3-fetcher` stubs (jp_chotatsu/jp_yosan = W3); mesh observe orchestrates the trio
+  on an hourly tick. Live-activation switch = `DANJO_R1_COUNCIL_RATIFY_TX_HASH` cell-runner env
+  (unset ⇒ beats refuse ex-info ⇒ R0-inert by construction). The G-gates (G3/G4/G5/G6/G8/G11)
+  are unchanged; `no-danjo-adjudication` lint is wired to lefthook (trigger #5). R2 crossref/
+  consistency + R3 oversight_report/named-party publication (G10) stay Council-gated (Seats 2-5).
 - **Form**: 任意団体 internal civic-transparency oversight substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格 — Preamble §0.4 Lv7+ unanimity lock; NOT 会計検査院, NOT a state-recognized audit organ)
 
 ## Constitutional Discipline (CRITICAL — IMMUTABLE)

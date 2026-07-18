@@ -4,7 +4,8 @@
 記録する。honest framing: できていないことは「未」と明記する。
 
 - Actor: `did:web:danjo.etzhayyim.com` · ADR-2605301600 (+ ADR-2605302245 global
-  fiscal-flow extension) · **R0 scaffold**
+  fiscal-flow extension) + ADR-2607180900 (R1 ingest trio Founder 1/1 ratification) ·
+  **R1 (ingest trio + revenue beat live; Founder 1/1 bootstrap, ADR-2607180900)**
 - 不変条件(全イテレーション厳守): R0 では cell 非実行 · live ingestion/dispatch なし ·
   **NON-adjudicating (G4)** — 犯罪/不正/法令違反 を断定しない、verdict なし ·
   **passive-only ingestion (G3)** — 既公開 IPFS-pinned `gov.dataset.*` のみ、portal 再 scrape 禁止 ·
@@ -22,8 +23,39 @@
 | 4 | worldwide fiscal-source registry seed (`registry/sources.seed.json`, 全件 unverified-seed) | ✅ | seed |
 | 5 | fail-closed registry invariants test + G14 VERIFICATION.md | ✅ | この iter |
 | 6 | `run_tests_clj.sh` の3 suite (`test_budget_ledger.clj`/`test_kotoba.clj`/`test_autorun.clj`) が dormant (実行不能) | ✅ 3/3解消 (`test_budget_ledger.clj`+`test_kotoba.clj`+`test_autorun.cljc` すべて green、`run_tests_clj.sh` 全11 suite green) | 2026-07-10 |
+| 7 | R1 ingest trio Founder 1/1 ratification (ADR-2607180900; trigger #2 bootstrap 緩和) | ✅ | 2026-07-18 |
+| 8 | diet_statement_index beat live (`methods/diet_beat.cljc`, jp_kokkai fixture → EAVT) | ✅ | 2026-07-18 |
+| 9 | revenue beat 統合 (`methods/mesh.clj` orchestrator, per-yen trace 実稼働) | ✅ | 2026-07-18 |
+| 10 | procurement/budget cells = `:awaiting-w3-fetcher` stubs (G8 honest; jp_chotatsu/jp_yosan は W3) | ✅ stub | 2026-07-18 |
+| 11 | `no-danjo-adjudication.mjs` lefthook 配線 (R1 trigger #5) | ✅ | 2026-07-18 |
+| 12 | R2 crossref_engine + statement_consistency (named-party discrepancyObservation) | ⏳ blocked: Council Lv6+ ≥4 + 30-day public comment (Seats 2-5 未充填) | — |
+| 13 | R3 oversight_report + named-party publication (G10, 1 SBT=1 vote) | ⏳ blocked: Council Lv7+ unanimity | — |
 
 ## イテレーション記録
+
+### 2026-07-18 — R1 ingest trio + revenue beat 統合実装（Founder 1/1 bootstrap 承認）
+**danjo を R0 → R1 へ。** ADR-2607180900 が ADR-2605301600 trigger #2（Founder 以外の
+議席）を bootstrap 期に限り緩和。これは 2026-07-16 の social_post 1/1 承認と同一の
+過渡パターン（ADR-2606281500 「founder seat until the Council is seated」+ ADR-2606272355）。
+Seat 2-5 は未充填だが、R1 は datom-only（named-party 観測=R2・公開=R3 は含まず）で
+actuation リスクゼロのため技術的根拠のある承認。
+
+- **diet beat** (`methods/diet_beat.cljc`): jp_kokkai_kaigiroku fixture → kotoba EAVT
+  (gov-official / diet-statement / cross-reference-link)。G4 non-adjudicating + G5 ≥2 source
+  CIDs 構造的強制。`DANJO_R1_COUNCIL_RATIFY_TX_HASH` env gate。
+- **revenue beat 統合** (`methods/mesh.clj` orchestrator): 既存の `revenue_ledger.clj`
+  (`run-cycle!` + per-yen `trace`) + `autorun.cljc` (procurement) + diet + ingest-status を
+  1 observe に統合。実データで「源泉所得税=一般会計で per-yen 非追跡 (fungible) /
+  復興特別所得税=復興特別会計で per-yen 追跡可 (residual 0)」を正直に出力。
+- **procurement/budget** (`methods/ingest_status.cljc`): `:awaiting-w3-fetcher` stub。
+  jp_chotatsu / jp_yosan fetcher は W3。データを出さない (G8)。
+- **lint** (`lefthook.yml`): `no-danjo-adjudication` を pre-commit に配線 (R1 trigger #5)。
+- **kotoba.app.edn**: `danjo` component に毎時 `:tick` trigger 追加 (R1 定期 heartbeat)。
+
+**不変条件は不変**: G3/G4/G5/G6/G8/G11 は一切緩和せず構造的強制のまま。
+`run_tests_clj.sh` 全11 suite + lint 8 test green。R1 live 化は operator が reuben node の
+cell-runner env に `DANJO_R1_COUNCIL_RATIFY_TX_HASH` を設定した時に発動（未設定なら各 beat は
+`ex-info` で拒否＝R0-inert を構造的に維持）。R2/R3 は引き続き Seats 2-5 充填後の正規 Council 承認待ち。
 
 ### 2026-07-10 (loop) — `test_autorun.cljc` 復旧(classpath設定のみ、コード側は無傷)
 #6 の3件目(前々回・前回で1,2件目が別PRで対応済み)。今回は**単純なclasspath未設定が原因**、
