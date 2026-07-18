@@ -288,6 +288,60 @@
     {:actor "kanayama" :repository "https://github.com/etzhayyim/com-etzhayyim-kanayama" :revision "0d6a89236cf5f7fe78d914a04ffda19041e86903" :canonical-edn-files 27 :wire-artifacts {:json-and-json-ld 9} :verification {:tests 55 :assertions 176}}
     {:actor "kanjo" :repository "https://github.com/etzhayyim/com-etzhayyim-kanjo" :revision "e0f5b760193e61d84410b6beece9468d29ba0d69" :canonical-edn-files 22 :wire-artifacts {:json-and-json-ld 9} :verification {:tests 55 :assertions 248 :full-data-stress :resource-terminated}}]}
 
+  :migration/summary
+  {:outcome
+   "The former monorepo actor layer is being drained without changing west's flat checkout convention. 151 of the 198 baseline directories are fully integrated: their implementation and actor-owned contracts live in independently versioned com-etzhayyim-* repositories, west pins exact revisions, and the corresponding 20-actors directory is a MOVED.edn tombstone only."
+   :repository-boundary
+   {:superproject "com-junkawasaki/root owns west.yml and exact repository pins."
+    :root "com-etzhayyim/root owns cross-repository policy, migration ledger, ADRs, generators, and legacy tombstones."
+    :standalone "Each com-etzhayyim-<actor> repository owns its implementation, tests, canonical EDN assets, and explicitly isolated wire artifacts."
+    :shared-code-rule "Code is shared only after a stable multi-consumer boundary is demonstrated; actor-specific code is not retained in root merely because it was formerly imported by sibling directories."}
+   :canonicalization
+   {:edn "EDN is authoritative for ADRs, metadata, contracts, fixtures, registries, and migration records."
+    :wire "JSON, JSONL, JSON-LD, BPMN XML, WIT, and TOML are retained only where an external protocol or tool requires their exact representation, under wire/."
+    :deprecated "Go and TinyGo implementations, including kotodama-go-style legacy code, are pruned rather than ported or made canonical."}
+   :integration-transaction
+   [:prepare-and-test-standalone-repository
+    :push-standalone-exact-revision
+    :replace-legacy-root-with-moved-edn
+    :rewrite-root-consumers-and-regenerate-derived-assets
+    :commit-and-push-root-migration
+    :pin-actor-and-root-revisions-in-west-manifest
+    :record-integrated-superproject-revision-in-this-adr
+    :repin-final-root-revision-in-west-manifest]
+   :verified-invariants
+   [:flat-west-path-preserved
+    :moved-directory-contains-exactly-moved-edn
+    :canonical-edn-readable
+    :no-active-reference-to-drained-20-actors-path
+    :standalone-revision-pushed
+    :west-revision-exact-not-floating]
+   :known-verification-debt
+   [{:actor "shinka" :gap :unresolved-root-sibling-dependencies}
+    {:actor "shionome" :gap :ie-flow-awaits-shared-library-extraction}
+    {:actor "nyusatsu" :gap :substrate-sdk-payment-auth-codemod}
+    {:actor "yobel" :gap :known-cumulative-over-cap-integration-failure}
+    {:actor "todoke" :gap :unchanged-rust-source-not-rebuilt-while-build-lock-busy}
+    {:actor "kanae" :gap :lint-run-hung :mitigation :cross-repository-pipeline-replaced-by-fixture-coverage}
+    {:actor "kanjo" :gap :full-data-stress-resource-terminated :mitigation :stress-namespaces-default-excluded}
+    {:scope :root-generators :gap :legacy-generator-debt :known-issues 8 :skipped 4}]
+   :interpretation
+   "A completed count means repository extraction and west integration are finished, not that every historical test or generator defect has been repaired. Known gaps are recorded explicitly and must not be hidden by the migration count."}
+
+  :migration/current-work
+  {:status :standalone-preparation
+   :actors ["kakaku" "kamado" "karakuri"]
+   :completed-standalone
+   [{:actor "karakuri"
+     :revision "f878f8b7ecd0340503436010d0b718fe5306caf0"
+     :verification {:tests 106 :assertions 251 :edn-files 20}
+     :root-and-west-integration :pending}]
+   :counting-rule "These actors remain in remaining-actors until their standalone revisions, root tombstones, ledger update, and west pins are all integrated."
+   :projected-after-integration
+   {:moved-tombstones 154
+    :remaining-root-directories 44
+    :completion-percent 77.78}}
+
   :migration/integration-state
   {:snapshot-kind :integrated
    :standalone-repositories
