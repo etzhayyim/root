@@ -1,27 +1,7 @@
-# josh-proxy filter spec — monorepo ⇄ per-actor public mirrors (ADR-2606231200).
+# RETIRED — flat west repositories are the actor source of truth.
 #
-# josh (https://github.com/josh-project/josh) serves *virtual* git views of this
-# monorepo over a thin proxy: a clone of a filtered view is a normal git repo,
-# and pushes back through the proxy land in the right monorepo subtree. This is
-# the bidirectional upgrade of `git subtree split` (one-way) and avoids the
-# submodule-pointer-sync blowup at 59→1245 actors.
-#
-# A per-actor public mirror = the subdirectory filter on its prefix:
-#
-#   :/20-actors/<name>
-#
-# Clone a single actor's view (read or PR-write) via the running proxy:
-#
-#   git clone http://localhost:8002/etzhayyim/root.git:/20-actors/cargo.git \
-#             com-etzhayyim-cargo
-#
-# Workspace form (a curated multi-actor view) — declare prefixes here and clone
-# the whole workspace as one repo with each actor at its own top-level dir:
-
-cargo  = :/20-actors/cargo
-vessel = :/20-actors/vessel
-port   = :/20-actors/port
-
-# Add one line per actor as it graduates from the pilot. The `actor:publish`
-# task seeds/refreshes each mirror branch; josh-proxy is what makes the view
-# writable (PRs on com-etzhayyim-<name> flow back to 20-actors/<name>).
+# Josh subtree projections applied only to the former monorepo layout. Actor
+# repositories are now cloned directly at orgs/etzhayyim/com-etzhayyim-* and
+# must not project or write through etzhayyim/root. This empty workspace is
+# retained so an installed josh service fails closed instead of recreating a
+# legacy subtree view.

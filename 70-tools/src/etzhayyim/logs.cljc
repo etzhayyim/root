@@ -25,9 +25,10 @@
 ;; ── Layer prefixes (matches Python _LAYER_PREFIXES order) ─────────────────────
 
 (def ^:private layer-prefixes
-  [["60-apps/"     "projects"]
+  [["orgs/etzhayyim/com-etzhayyim-" "actors"]
+   ["60-apps/"     "projects"]
    ["50-infra/"    "infra"]
-   ["20-actors/"   "actors"]
+   ["20-actors/"   "actors"] ; historical events emitted before flat-west migration
    ["90-docs/"     "docs"]
    ["40-engine/"   "engine"]
    ["30-graph/"    "graph"]

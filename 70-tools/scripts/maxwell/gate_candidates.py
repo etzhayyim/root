@@ -7,7 +7,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[3]
 CANDIDATES = ROOT / "90-docs/baien/maxwell-candidates.jsonl"
 CORPUS = ROOT / "90-docs/baien/maxwell-sft-corpus.jsonl"
 KONDO = pathlib.Path.home() / "bin/clj-kondo"
-CR_SRC = ROOT / "20-actors/etzhayyim-organism/src"
+CR_SRC = ROOT / "70-tools/scripts/maxwell/retired-charter-rider"
 sys.path.insert(0, str(CR_SRC))
 from etzhayyim_organism.sensors.charter_rider import scan
 

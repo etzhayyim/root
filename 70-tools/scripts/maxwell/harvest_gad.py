@@ -2,8 +2,8 @@
 
 Single-node harvester for when the fleet Ollama is down: uses gad's llama-server
 (Gemma 4 26B-a4b, OpenAI /v1 over Tailscale 100.82.98.110:11434 — Murakumo-only,
-ADR-2605215000) as the teacher. Discovers top-level Python functions under
-20-actors/ NOT already in the corpus, translates each to an idiomatic Clojure
+ADR-2605215000) as the teacher. Discovers top-level Python functions in flat
+com-etzhayyim-* west repositories that are NOT already in the corpus, translates each to an idiomatic Clojure
 `defn`, and — like fleet_refactor.py — FORCES clj-kondo cleanliness via a
 lint-feedback retry loop (+ deterministic closing-paren repair). Only error-free
 pairs are written to maxwell-candidates.jsonl for the gate_candidates.py gate.
@@ -17,6 +17,7 @@ from __future__ import annotations
 import argparse
 import ast
 import json
+import os
 import pathlib
 import re
 import subprocess
@@ -25,7 +26,7 @@ import tempfile
 import urllib.request
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
-ACTORS = ROOT / "20-actors"
+ACTORS = pathlib.Path(os.environ.get("ETZHAYYIM_WEST_ACTORS_DIR", ROOT.parent))
 CORPUS = ROOT / "90-docs/baien/maxwell-sft-corpus.jsonl"
 CANDIDATES = ROOT / "90-docs/baien/maxwell-candidates.jsonl"
 # units that failed to produce a clean-lint translation — skipped on later runs
@@ -69,8 +70,8 @@ def record_failed(eid: str) -> None:
 
 def label_for(py_path: pathlib.Path) -> str:
     parts = py_path.parts
-    i = parts.index("20-actors")
-    return "/".join(parts[i + 1:]).replace(".py", "")
+    i = next(i for i, part in enumerate(parts) if part.startswith("com-etzhayyim-"))
+    return "/".join(parts[i:]).replace(".py", "")
 
 
 def top_level_fns(py_path: pathlib.Path):

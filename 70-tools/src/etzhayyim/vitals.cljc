@@ -33,7 +33,8 @@
             [cheshire.core :as json]
             [etzhayyim.kotoba.engine :as kt]))
 
-(def ^:private actors-root "20-actors")
+(def ^:private actors-root
+  (or (System/getenv "ETZHAYYIM_WEST_ACTORS_DIR") ".."))
 (def ^:private journal "80-data/vitals/journal.edn")
 (def ^:private bsky-re #"app\.bsky\.feed\.post|feed-post|feed_post")
 
@@ -49,8 +50,7 @@
    this copy goes stale silently (no drift check); worth revisiting once the
    nbb migration settles on where this classpath's source of truth lives."
   (pr-str
-   '{:paths ["20-actors"
-             "orgs/kotoba-lang/kotodama/src"
+   '{:paths ["orgs/kotoba-lang/kotodama/src"
              "50-infra/etzhayyim-moyai-credit/src"
              "50-infra/etzhayyim-atproto-pds-clj/src"
              "70-tools/src"
@@ -105,13 +105,14 @@
 ;; ── discovery ───────────────────────────────────────────────────────────────
 
 (defn actor-dirs
-  "Every actor dir under 20-actors that carries a manifest — the named organism cells (Tier-B
-   religious-corp actors), not the mass-scaffold mirrors. Recognizes BOTH the legacy
+  "Every flat com-etzhayyim-* west checkout that carries a manifest — the named organism cells
+   (Tier-B religious-corp actors), not the mass-scaffold mirrors. Recognizes BOTH the legacy
    manifest.jsonld AND the Gen-3 kotoba-native manifest.edn (the jsonld→edn migration the
    tier-b-actors generator already follows); without this, edn-native actors read as 0 cells."
   []
   (->> (.listFiles (io/file actors-root))
        (filter #(.isDirectory ^java.io.File %))
+       (filter #(str/starts-with? (.getName ^java.io.File %) "com-etzhayyim-"))
        (filter #(or (.exists (io/file % "manifest.jsonld"))
                     (.exists (io/file % "manifest.edn"))))
        (sort-by #(.getName ^java.io.File %))
@@ -268,8 +269,10 @@
         cmd (when cmd-vec (into cmd-vec [path]))]
     (if-not path
       {:reflex :absent}
-      (let [proc (apply p/process {:dir "." :out :string :err :string
-                                    :extra-env {"BABASHKA_CLASSPATH" @bb-classpath}} cmd)
+      (let [actor-src (.getPath (io/file actor-dir "src"))
+            cp (str actor-src java.io.File/pathSeparator @bb-classpath)
+            proc (apply p/process {:dir "." :out :string :err :string
+                                    :extra-env {"BABASHKA_CLASSPATH" cp}} cmd)
             res  (deref (future @proc) timeout-ms ::timeout)]
         (if (= res ::timeout)
           (do (try (p/destroy-tree proc) (catch Exception _ nil)) {:reflex :timeout})
@@ -506,21 +509,20 @@
    in git log → first occurrence is latest), plus working-tree dirty counts."
   [hours]
   (let [now   (System/currentTimeMillis)
-        lines (str/split-lines
-               (git-out "git" "log" (str "--since=" hours " hours ago")
-                        "--name-only" "--pretty=format:C|%ct|%s" "--" actors-root))
-        commits (loop [ls lines, cur nil, acc []]
-                  (if-let [ln (first ls)]
-                    (cond
-                      (str/starts-with? ln "C|")
-                      (let [[_ ct subj] (str/split ln #"\|" 3)]
-                        (recur (rest ls) {:ct (Long/parseLong ct) :subj subj :actors #{}}
-                               (if cur (conj acc cur) acc)))
-                      (str/blank? ln) (recur (rest ls) cur acc)
-                      :else
-                      (let [m (re-find #"^20-actors/([^/]+)/" ln)]
-                        (recur (rest ls) (if (and cur m) (update cur :actors conj (second m)) cur) acc)))
-                    (if cur (conj acc cur) acc)))
+        repos (actor-dirs)
+        commits (->> repos
+                     (mapcat (fn [repo]
+                               (let [actor (str/replace-first (.getName ^java.io.File repo)
+                                                              "com-etzhayyim-" "")]
+                                 (for [ln (str/split-lines
+                                           (git-out "git" "-C" (.getPath ^java.io.File repo)
+                                                    "log" (str "--since=" hours " hours ago")
+                                                    "--pretty=format:C|%ct|%s"))
+                                       :when (str/starts-with? ln "C|")
+                                       :let [[_ ct subj] (str/split ln #"\|" 3)]]
+                                   {:ct (Long/parseLong ct) :subj subj :actors #{actor}}))))
+                     (sort-by :ct >)
+                     vec)
         per (reduce (fn [m c]
                       (reduce (fn [m a]
                                 (cond-> (update-in m [a "commits"] (fnil inc 0))
@@ -529,9 +531,16 @@
                                       (assoc-in [a "lastSubject"] (:subj c)))))
                               m (:actors c)))
                     {} commits)
-        dirty (->> (str/split-lines (git-out "git" "status" "--porcelain" "--" actors-root))
-                   (keep #(second (re-find #"20-actors/([^/]+)/" %)))
-                   frequencies)
+        dirty (into {}
+                    (keep (fn [repo]
+                            (let [actor (str/replace-first (.getName ^java.io.File repo)
+                                                           "com-etzhayyim-" "")
+                                  n (count (remove str/blank?
+                                                   (str/split-lines
+                                                    (git-out "git" "-C" (.getPath ^java.io.File repo)
+                                                             "status" "--porcelain"))))]
+                              (when (pos? n) [actor n]))))
+                    repos)
         per (reduce (fn [m [a n]] (assoc-in m [a "dirty"] n)) per dirty)
         stream (->> commits (take 20)
                     (map (fn [c] {"at" (* 1000 (:ct c)) "actor" (first (:actors c)) "subj" (:subj c)})))]
