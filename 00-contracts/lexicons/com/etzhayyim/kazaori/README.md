@@ -1,6 +1,6 @@
 # com.etzhayyim.kazaori.* — kazaori (風折) Lexicons
 
-**Owner actor**: `did:web:kazaori.etzhayyim.com` (`20-actors/kazaori/`)
+**Owner actor**: `did:web:kazaori.etzhayyim.com` (`orgs/etzhayyim/com-etzhayyim-kazaori/`)
 **ADR**: ADR-2605263200 (R0 scaffold)
 **Status**: R0 schema skeletons. Full schemas at R1+.
 
@@ -30,7 +30,7 @@ Schemas at R0 are skeleton-level; full structural enforcement at R1.
 
 ## Related Files
 
-- `/20-actors/kazaori/manifest.jsonld`
-- `/20-actors/kazaori/README.md`
-- `/20-actors/kazaori/CLAUDE.md`
+- `/orgs/etzhayyim/com-etzhayyim-kazaori/manifest.jsonld`
+- `/orgs/etzhayyim/com-etzhayyim-kazaori/README.md`
+- `/orgs/etzhayyim/com-etzhayyim-kazaori/CLAUDE.md`
 - `/90-docs/adr/2605263200-kazaori-disaster-response-tier-b-actor-r0.md`

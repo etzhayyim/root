@@ -780,6 +780,42 @@
                          :external-json-retained-as-wire}
      :verification {:tests 28 :assertions 155 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
+    "kazaori"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kazaori"
+     :revision "b562f6a58478ac81255a05b2e3f64e720128fd87"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kazaori"
+     :category :actor :canonical-format :edn :canonical-metadata "manifest.edn"
+     :depends-on #{etzhayyim/root com.etzhayyim/chigiri com.etzhayyim/hagukumi
+                   com.etzhayyim/hikari com.etzhayyim/iyashi com.etzhayyim/kokoro
+                   com.etzhayyim/mitate com.etzhayyim/mitsuho com.etzhayyim/mizuho
+                   com.etzhayyim/shidemori com.etzhayyim/tatekata
+                   com.etzhayyim/toritate com.etzhayyim/wakai com.etzhayyim/yakushi}
+     :actor-owned-contracts ["lex/damageAssessmentReport.edn"
+                             "lex/emergencyCarveOutLog.edn"
+                             "lex/emergencyDeclarationAttestation.edn"
+                             "lex/emergencySupplyDispatch.edn"
+                             "lex/evacuationCheckIn.edn"
+                             "lex/silenKazaoriReview.edn"
+                             "registry/agencies.seed.edn"]
+     :canonicalization #{:root-only-assets-merged :actor-lexicons-edn-canonical
+                         :registry-seed-edn-canonical :python-audit-retired-to-clojure-edn
+                         :cross-actor-dependencies-pinned :external-json-retained-as-wire}
+     :verification {:tests 38 :assertions 1152 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "utsushie"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-utsushie"
+     :revision "12895e9652253e5a663b606a0c65232897a97803"
+     :west-path "orgs/etzhayyim/com-etzhayyim-utsushie"
+     :category :actor :canonical-format :edn :canonical-metadata "manifest.edn"
+     :depends-on {etzhayyim/root "1962fafef7d66189e36914a40ed86f07d760aa94"
+                  com.etzhayyim/i18n "3df9c98f9b7941a6d80068c7daa16948569b38bf"
+                  com.etzhayyim/kawaraban "85cd47ae00e5f30077f51282748db9aa6f6c53a1"}
+     :actor-owned-contracts ["schema.edn" "lex/video.edn"]
+     :canonicalization #{:root-only-assets-merged :actor-lexicon-edn-canonical
+                         :manifest-jsonld-retired-to-wire :flat-west-dependencies-pinned
+                         :external-json-retained-as-wire}
+     :verification {:tests 30 :assertions 83 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "hydrogen_electrolysis"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hydrogen-electrolysis"
      :revision "da4fab805b6aa8606dab36882de3186482f55f34"
