@@ -24,7 +24,7 @@
       "2606272355"
     ],
     "primaryLexicon": "com.etzhayyim.junkan",
-    "primarySchema": "20-actors/junkan/kotoba/ontology.junkan-gov.edn",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-junkan/kotoba/ontology.junkan-gov.edn",
     "didDocument": "https://etzhayyim.com/actor/junkan/did.json",
     "source": "kotoba"
   }

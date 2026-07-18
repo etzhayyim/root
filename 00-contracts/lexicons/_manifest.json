@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-18T10:07:38.595Z",
+  "generated": "2026-07-18T10:25:42.975Z",
   "lexicons": [
     {
       "id": "ai.etzhayyim.yorishiro.argparse-demo.main",
@@ -34658,54 +34658,6 @@
       "description": ""
     },
     {
-      "id": "com.etzhayyim.hodoki.batteryHandlingRecord",
-      "path": "00-contracts/lexicons/com/etzhayyim/hodoki/batteryHandlingRecord.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.hodoki.catalystRecoveryRecord",
-      "path": "00-contracts/lexicons/com/etzhayyim/hodoki/catalystRecoveryRecord.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.hodoki.dataWipeAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/hodoki/dataWipeAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.hodoki.depollutionAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/hodoki/depollutionAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.hodoki.elvIntakeRecord",
-      "path": "00-contracts/lexicons/com/etzhayyim/hodoki/elvIntakeRecord.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.hodoki.partsHarvestCatalog",
-      "path": "00-contracts/lexicons/com/etzhayyim/hodoki/partsHarvestCatalog.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.hodoki.shredOutputAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/hodoki/shredOutputAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.hodoki.silenDeconstructionReview",
-      "path": "00-contracts/lexicons/com/etzhayyim/hodoki/silenDeconstructionReview.json",
-      "type": "record",
-      "description": ""
-    },
-    {
       "id": "com.etzhayyim.host.accessLog.record",
       "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/host/accessLog/record.json",
       "type": "procedure",
@@ -34956,42 +34908,6 @@
       "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/host/virtualActor/invoke.json",
       "type": "procedure",
       "description": "Invoke a method on a virtual actor (lifecycle-managed, reentrant)."
-    },
-    {
-      "id": "com.etzhayyim.hotaru.commonsReadinessReport",
-      "path": "00-contracts/lexicons/com/etzhayyim/hotaru/commonsReadinessReport.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.hotaru.crystalGrowthDesign",
-      "path": "00-contracts/lexicons/com/etzhayyim/hotaru/crystalGrowthDesign.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.hotaru.precursorSafetyAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/hotaru/precursorSafetyAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.hotaru.processKnowledge",
-      "path": "00-contracts/lexicons/com/etzhayyim/hotaru/processKnowledge.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.hotaru.silenHotaruReview",
-      "path": "00-contracts/lexicons/com/etzhayyim/hotaru/silenHotaruReview.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.hotaru.waferSpec",
-      "path": "00-contracts/lexicons/com/etzhayyim/hotaru/waferSpec.json",
-      "type": "record",
-      "description": ""
     },
     {
       "id": "com.etzhayyim.houbun.amendmentEvent",
@@ -35440,48 +35356,6 @@
     {
       "id": "com.etzhayyim.judiciary.judicialDecision",
       "path": "00-contracts/lexicons/com/etzhayyim/judiciary/judicialDecision.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.junkan.causalLoopFinding",
-      "path": "00-contracts/lexicons/com/etzhayyim/junkan/causalLoopFinding.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.junkan.leveragePointFinding",
-      "path": "00-contracts/lexicons/com/etzhayyim/junkan/leveragePointFinding.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.junkan.regimeShiftEvent",
-      "path": "00-contracts/lexicons/com/etzhayyim/junkan/regimeShiftEvent.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.junkan.silenJunkanReview",
-      "path": "00-contracts/lexicons/com/etzhayyim/junkan/silenJunkanReview.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.junkan.societalStockObservation",
-      "path": "00-contracts/lexicons/com/etzhayyim/junkan/societalStockObservation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kadode.escalation",
-      "path": "00-contracts/lexicons/com/etzhayyim/kadode/escalation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.kadode.resignationRelay",
-      "path": "00-contracts/lexicons/com/etzhayyim/kadode/resignationRelay.json",
       "type": "record",
       "description": ""
     },
@@ -47639,24 +47513,6 @@
       "com.etzhayyim.hinagata.statuteCitation",
       "com.etzhayyim.hinagata.template"
     ],
-    "com.etzhayyim.hodoki": [
-      "com.etzhayyim.hodoki.batteryHandlingRecord",
-      "com.etzhayyim.hodoki.catalystRecoveryRecord",
-      "com.etzhayyim.hodoki.dataWipeAttestation",
-      "com.etzhayyim.hodoki.depollutionAttestation",
-      "com.etzhayyim.hodoki.elvIntakeRecord",
-      "com.etzhayyim.hodoki.partsHarvestCatalog",
-      "com.etzhayyim.hodoki.shredOutputAttestation",
-      "com.etzhayyim.hodoki.silenDeconstructionReview"
-    ],
-    "com.etzhayyim.hotaru": [
-      "com.etzhayyim.hotaru.commonsReadinessReport",
-      "com.etzhayyim.hotaru.crystalGrowthDesign",
-      "com.etzhayyim.hotaru.precursorSafetyAttestation",
-      "com.etzhayyim.hotaru.processKnowledge",
-      "com.etzhayyim.hotaru.silenHotaruReview",
-      "com.etzhayyim.hotaru.waferSpec"
-    ],
     "com.etzhayyim.igata": [
       "com.etzhayyim.igata.alloyAttestation",
       "com.etzhayyim.igata.castShotRecord",
@@ -47697,17 +47553,6 @@
       "com.etzhayyim.judiciary.court",
       "com.etzhayyim.judiciary.judgeReference",
       "com.etzhayyim.judiciary.judicialDecision"
-    ],
-    "com.etzhayyim.junkan": [
-      "com.etzhayyim.junkan.causalLoopFinding",
-      "com.etzhayyim.junkan.leveragePointFinding",
-      "com.etzhayyim.junkan.regimeShiftEvent",
-      "com.etzhayyim.junkan.silenJunkanReview",
-      "com.etzhayyim.junkan.societalStockObservation"
-    ],
-    "com.etzhayyim.kadode": [
-      "com.etzhayyim.kadode.escalation",
-      "com.etzhayyim.kadode.resignationRelay"
     ],
     "com.etzhayyim.karute": [
       "com.etzhayyim.karute.carePlan",
@@ -48100,6 +47945,6 @@
       "tools.ozone.verification.revokeVerifications"
     ]
   },
-  "total": 6548,
+  "total": 6527,
   "legacy_issues_count": 8
 }

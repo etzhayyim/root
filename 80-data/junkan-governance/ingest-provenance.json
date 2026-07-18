@@ -4,16 +4,16 @@
   "adr": ["2605290927", "2605241500", "2605262130", "2605312345"],
   "purpose": "Global citizen↔state structural-asymmetry instruments (laws/institutions/doctrines/values) with enactor (誰が) / origin (経緯) / stakeholders (関係者), read off via system dynamics. Analysis-only (G4); hypotheses only (G5); aggregate-only (G6).",
   "source_of_truth": {
-    "ontology": "20-actors/junkan/kotoba/ontology.junkan-gov.edn",
-    "seed": "20-actors/junkan/kotoba/seed.governance-asymmetry.edn",
-    "analysis": "20-actors/junkan/methods/analyze.cljc"
+    "ontology": "orgs/etzhayyim/com-etzhayyim-junkan/data/ontology/ontology.junkan-gov.edn",
+    "seed": "orgs/etzhayyim/com-etzhayyim-junkan/data/seed/seed.governance-asymmetry.edn",
+    "analysis": "orgs/etzhayyim/com-etzhayyim-junkan/src/junkan/methods/analyze.cljc"
   },
   "generated_files": [
     "governance-asymmetry.datoms.kotoba.edn",
     "findings-ledger.kotoba.edn",
     "report.md"
   ],
-  "regenerate": "bb --classpath 20-actors -e \"(require '[junkan.methods.junkan-edn :as je] '[junkan.methods.analyze :as az] '[junkan.methods.kotoba :as k]) (let [is (je/instruments \\\"20-actors/junkan/kotoba/seed.governance-asymmetry.edn\\\") a (az/analyze is) ds (az/datoms is a) tx (k/make-tx ds \\\"junkan-gov-snapshot-0001\\\" \\\"snapshot\\\" \\\"\\\")] (spit \\\"80-data/junkan-governance/governance-asymmetry.datoms.kotoba.edn\\\" (az/render-datoms is a)) (spit \\\"80-data/junkan-governance/findings-ledger.kotoba.edn\\\" (k/tx->edn tx)) (spit \\\"80-data/junkan-governance/report.md\\\" (az/render-report a)))\"",
+  "regenerate": "bb --classpath orgs/etzhayyim/com-etzhayyim-junkan/src -e \"(require '[junkan.methods.junkan-edn :as je] '[junkan.methods.analyze :as az] '[junkan.methods.kotoba :as k]) (let [is (je/instruments \\\"orgs/etzhayyim/com-etzhayyim-junkan/data/seed/seed.governance-asymmetry.edn\\\") a (az/analyze is) ds (az/datoms is a) tx (k/make-tx ds \\\"junkan-gov-snapshot-0001\\\" \\\"snapshot\\\" \\\"\\\")] (spit \\\"80-data/junkan-governance/governance-asymmetry.datoms.kotoba.edn\\\" (az/render-datoms is a)) (spit \\\"80-data/junkan-governance/findings-ledger.kotoba.edn\\\" (k/tx->edn tx)) (spit \\\"80-data/junkan-governance/report.md\\\" (az/render-report a)))\"",
   "tx_cid": "b09e79be440d43b8de57d7ec5365a5d5a5c80e07ea93a9eff3e8cc79f7e667a7d",
   "datoms": 6755,
   "instruments": 465,

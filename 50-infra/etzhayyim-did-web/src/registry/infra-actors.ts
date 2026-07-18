@@ -607,7 +607,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     glyph: "蛍",
     displayName: "Hotaru — III-V / InP Substrate Open-Publication Commons",
     primaryLexicon: "com.etzhayyim.hotaru",
-    primarySchema: "00-contracts/schemas/iii-v-substrate-ontology.kotoba.edn",
+    primarySchema: "orgs/etzhayyim/com-etzhayyim-hotaru/contracts/schemas/iii-v-substrate-ontology.kotoba.edn",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:hotaru#atproto_pds",

@@ -1836,6 +1836,16 @@
     {:repository "https://github.com/etzhayyim/com-etzhayyim-himawari" :revision "e932ea0504ef028d3072b579237b6abe859426b3" :west-path "orgs/etzhayyim/com-etzhayyim-himawari" :canonical-format :edn :canonical-edn-files 7 :wire-artifacts {:json 7} :verification {:tests 82 :assertions 175 :failures 0 :errors 0} :retained-external-python-ingest-adapter true :root-copy :edn-tombstone-only}
     "hinagata"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hinagata" :revision "c4dbec97b491adbac5df78549fbd562ae2065412" :west-path "orgs/etzhayyim/com-etzhayyim-hinagata" :canonical-format :edn :canonical-edn-files 8 :wire-artifacts {:wit 1} :verification {:tests 66 :assertions 3623 :failures 0 :errors 0} :retained-central-lexicons true :root-copy :edn-tombstone-only}
+    "hodoki"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-hodoki" :revision "665f8a1dca27c62494361b69d151462fd69610e6" :west-path "orgs/etzhayyim/com-etzhayyim-hodoki" :canonical-format :edn :canonical-edn-files 31 :wire-artifacts {:total 9} :verification {:tests 43 :assertions 90 :failures 0 :errors 0} :central-lexicons-moved true :root-copy :edn-tombstone-only}
+    "hotaru"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-hotaru" :revision "b28d7d31e108a3d9ce8c86f4e9e5e813568d3b8d" :west-path "orgs/etzhayyim/com-etzhayyim-hotaru" :canonical-format :edn :canonical-edn-files 12 :wire-artifacts {:total 7} :verification {:tests 73 :assertions 229 :failures 0 :errors 0} :central-lexicons-and-ontology-moved true :root-copy :edn-tombstone-only}
+    "itonami"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-itonami" :revision "e90f1bccf7a979708e1e10ddc80e81ffc37f2d93" :west-path "orgs/etzhayyim/com-etzhayyim-itonami" :canonical-format :edn :canonical-edn-files 9 :wire-artifacts {:json-ld 1} :verification {:tests 127 :assertions 892 :failures 0 :errors 0} :root-copy :edn-tombstone-only}
+    "junkan"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-junkan" :revision "45d17c42f044131b6ece13e762fc07c2301c541f" :west-path "orgs/etzhayyim/com-etzhayyim-junkan" :canonical-format :edn :canonical-edn-files 18 :wire-artifacts {:total 6} :verification {:tests 105 :assertions 6670 :failures 0 :errors 0} :central-lexicons-moved true :root-copy :edn-tombstone-only}
+    "kadode"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kadode" :revision "5de19dc935b274bf59836296305fe2850575be6f" :west-path "orgs/etzhayyim/com-etzhayyim-kadode" :canonical-format :edn :wire-artifacts {:json 2 :json-ld 1} :verification {:tests 58 :assertions 381 :failures 0 :errors 0 :wasm-build :not-run} :known-gap :legacy-componentize-py-build-script :central-lexicons-moved true :root-copy :edn-tombstone-only}
     "tate"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-tate"
      :revision "658b9f67aaa65d7aad5ffda280ec8feaae7a8bc2"
@@ -2040,8 +2050,8 @@
   [{:class :legacy-actor-root-directories
     :snapshot-date "2026-07-18"
     :baseline 198
-    :moved 174
-    :remaining 24
+    :moved 179
+    :remaining 19
     :inventory "90-docs/adr/2607181200-flat-west-actor-migration-progress-and-remaining.edn"}
    {:class :existing-repo-overlap
     :state :merge-root-only-content-before-delete}

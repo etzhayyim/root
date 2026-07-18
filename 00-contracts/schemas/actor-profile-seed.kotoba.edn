@@ -356,7 +356,7 @@
    :actor/ui-type :appview
    :actor/description "国民↔国家の構造的非対称性を passive・public・aggregate データから読む ANALYSIS-ONLY のシステム・ダイナミクス観測者。法律・制度・思想・価値観を、誰が定めたか(:enactor)・経緯(:origin)・関係者(:stakeholders)という on-record の公開事実として編み、好循環/悪循環ループと Meadows leverage 候補を DISCLOSED HYPOTHESIS (G5) として read-off する(因果断定なし・指示なし)。自律 social 公開は no-server-key — 投稿はメンバー/actor 自身が mesh runtime 内で self-custody する鍵で署名し、サーバは署名しない (ADR-2605231525)。R0 は disclosed-hypothesis findings + on-record facts のみを dry-run mirror post として下書きする(verdict なし); live publication は Council Lv6+ + operator + member-signature gated で、ossekai/kataribe が junkan に代わって行う(G4/G13)。NOT a verdict-engine, NOT proven-causation, NOT an outward actuator (analysis-only, non-eschatological/sober read-off)。"
    :actor/primary-lexicon "com.etzhayyim.junkan"
-   :actor/primary-schema "20-actors/junkan/kotoba/ontology.junkan-gov.edn"
+   :actor/primary-schema "orgs/etzhayyim/com-etzhayyim-junkan/data/ontology/ontology.junkan-gov.edn"
    :actor/adr ["2605290927" "2606272355"]
    :actor/created-at "2026-06-27"
    :actor/vm []

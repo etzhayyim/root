@@ -27,7 +27,7 @@
 ;; Engine-only sanity: ONE direct 2-clause join via d/q (no actor stubs).
 (deftest engine-q-join-sanity
   (let [db (d/db-from-seed
-            "/Users/junkawasaki/github/com-junkawasaki/orgs/etzhayyim/root/20-actors/kadode/data/seed-resignation-graph.kotoba.edn")]
+            "/Users/junkawasaki/github/com-junkawasaki/orgs/etzhayyim/root/orgs/etzhayyim/com-etzhayyim-kadode/data/seed-resignation-graph.kotoba.edn")]
     (testing "2-clause join: scenario node with :fixed-term employment"
       (is (= #{["sc.fixed-within-1yr"]}
              (d/q {:find '[?e]

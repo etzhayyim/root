@@ -31,7 +31,7 @@
     "wasmCid": null,
     "execModel": "service",
     "primaryLexicon": "com.etzhayyim.junkan",
-    "primarySchema": "20-actors/junkan/kotoba/ontology.junkan-gov.edn",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-junkan/kotoba/ontology.junkan-gov.edn",
     "note": "verificationMethod empty — on-chain ERC725 mirror pending; did:web trust root = TLS (no server-minted key, ADR-2605231525)"
   }
 }

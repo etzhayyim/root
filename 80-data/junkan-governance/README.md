@@ -21,11 +21,11 @@ leverage candidates.
 
 The canonical substrate lives with the actor (clj-native, kotoba-Datom-native):
 
-- `20-actors/junkan/kotoba/ontology.junkan-gov.edn` — EAVT schema, enums, the 5
+- `orgs/etzhayyim/com-etzhayyim-junkan/data/ontology/ontology.junkan-gov.edn` — EAVT schema, enums, the 5
   asymmetry stocks, canonical structural loops, Meadows levels, negative space.
-- `20-actors/junkan/kotoba/seed.governance-asymmetry.edn` — the global instrument
+- `orgs/etzhayyim/com-etzhayyim-junkan/data/seed/seed.governance-asymmetry.edn` — the global instrument
   seed (grows each `/loop` iteration).
-- `20-actors/junkan/methods/analyze.cljc` — the analysis-only read-off.
+- `orgs/etzhayyim/com-etzhayyim-junkan/src/junkan/methods/analyze.cljc` — the analysis-only read-off.
 
 ## Files here (generated; do not hand-edit)
 
@@ -40,8 +40,8 @@ The canonical substrate lives with the actor (clj-native, kotoba-Datom-native):
 Regenerate everything deterministically from the actor substrate:
 
 ```bash
-bash 20-actors/junkan/run_tests.sh            # 33 tests green
-bb --classpath 20-actors 20-actors/junkan/methods/analyze.cljc   # report
+bb orgs/etzhayyim/com-etzhayyim-junkan/run_tests.bb            # 33 tests green
+bb --classpath orgs/etzhayyim/com-etzhayyim-junkan/src orgs/etzhayyim/com-etzhayyim-junkan/src/junkan/methods/analyze.cljc   # report
 # snapshot regeneration: see ingest-provenance.json
 ```
 
