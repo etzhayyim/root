@@ -35,7 +35,7 @@
     "wasmCid": null,
     "execModel": "service",
     "primaryLexicon": "com.etzhayyim.noroshi",
-    "primarySchema": "00-contracts/schemas/photonic-convergence-ontology.kotoba.edn",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-noroshi/contracts/photonic-convergence-ontology.edn",
     "note": "verificationMethod empty — on-chain ERC725 mirror pending; did:web trust root = TLS (no server-minted key, ADR-2605231525)"
   }
 }

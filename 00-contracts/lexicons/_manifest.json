@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-18T06:25:44.052Z",
+  "generated": "2026-07-18T06:39:34.552Z",
   "lexicons": [
     {
       "id": "ai.etzhayyim.yorishiro.argparse-demo.main",
@@ -38024,66 +38024,6 @@
       "description": "Lookup drug by NDC code or WHO ATC code. Auto-generated stub (coverage expansion 2026-04-17)."
     },
     {
-      "id": "com.etzhayyim.noroshi.isacWaveform",
-      "path": "00-contracts/lexicons/com/etzhayyim/noroshi/isacWaveform.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.noroshi.opticalLinkBudget",
-      "path": "00-contracts/lexicons/com/etzhayyim/noroshi/opticalLinkBudget.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.noroshi.packagingJob",
-      "path": "00-contracts/lexicons/com/etzhayyim/noroshi/packagingJob.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.noroshi.photonicDevice",
-      "path": "00-contracts/lexicons/com/etzhayyim/noroshi/photonicDevice.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.noroshi.senseEstimate",
-      "path": "00-contracts/lexicons/com/etzhayyim/noroshi/senseEstimate.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.nusa.cultivationLicensePlan",
-      "path": "00-contracts/lexicons/com/etzhayyim/nusa/cultivationLicensePlan.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.nusa.fiberProvenance",
-      "path": "00-contracts/lexicons/com/etzhayyim/nusa/fiberProvenance.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.nusa.hempCultivar",
-      "path": "00-contracts/lexicons/com/etzhayyim/nusa/hempCultivar.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.nusa.heritageRecord",
-      "path": "00-contracts/lexicons/com/etzhayyim/nusa/heritageRecord.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.nusa.ritualArtifact",
-      "path": "00-contracts/lexicons/com/etzhayyim/nusa/ritualArtifact.json",
-      "type": "record",
-      "description": ""
-    },
-    {
       "id": "com.etzhayyim.oauth.getAuthorizationServer",
       "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/oauth/getAuthorizationServer.json",
       "type": "query",
@@ -48872,20 +48812,6 @@
       "com.etzhayyim.musubi.seasonalCeremonyCalendar",
       "com.etzhayyim.musubi.silenMusubiReview"
     ],
-    "com.etzhayyim.noroshi": [
-      "com.etzhayyim.noroshi.isacWaveform",
-      "com.etzhayyim.noroshi.opticalLinkBudget",
-      "com.etzhayyim.noroshi.packagingJob",
-      "com.etzhayyim.noroshi.photonicDevice",
-      "com.etzhayyim.noroshi.senseEstimate"
-    ],
-    "com.etzhayyim.nusa": [
-      "com.etzhayyim.nusa.cultivationLicensePlan",
-      "com.etzhayyim.nusa.fiberProvenance",
-      "com.etzhayyim.nusa.hempCultivar",
-      "com.etzhayyim.nusa.heritageRecord",
-      "com.etzhayyim.nusa.ritualArtifact"
-    ],
     "com.etzhayyim.organism": [
       "com.etzhayyim.organism.lifecycle",
       "com.etzhayyim.organism.message",
@@ -49136,6 +49062,6 @@
       "tools.ozone.verification.revokeVerifications"
     ]
   },
-  "total": 6690,
+  "total": 6680,
   "legacy_issues_count": 8
 }

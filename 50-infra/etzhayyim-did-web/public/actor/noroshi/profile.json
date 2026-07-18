@@ -23,7 +23,7 @@
       "2606051600"
     ],
     "primaryLexicon": "com.etzhayyim.noroshi",
-    "primarySchema": "00-contracts/schemas/photonic-convergence-ontology.kotoba.edn",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-noroshi/contracts/photonic-convergence-ontology.edn",
     "didDocument": "https://etzhayyim.com/actor/noroshi/did.json",
     "source": "kotoba"
   }

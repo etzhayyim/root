@@ -525,7 +525,7 @@
    :actor/ui-type :appview
    :actor/description "光電融合(photonics-electronics convergence)通信チップ actor。電子系シリコン iwakura/fuigo 三進 ASIC ラインと RF tsutae の silicon-photonic / co-packaged-optics(CPO)兄弟、watatsuna 海底ケーブル媒体の transceiver-chip 端。烽(狼煙)= 最古の光通信: 望楼が遠方の火を『感知』し符号化された報を『中継』する一発二機能 = まさに ISAC(Integrated Sensing And Communication)。3つの顔: (chip) open photonic-EDA 上の CPO 通信チップ設計 + 光リンクバジェット · (isac) 1波形で通信容量と civilian range-Doppler センシングを行う OFDM-JCAS · (packaging) IEC 60825 レーザ安全インターロック下のファイバ↔グレーティング能動アライメント robotics。CIVILIAN by construction: 兵器化(directed-energy/laser-dazzle/fire-control radar)は表現不能(N1)、ISAC は物体を感知し人を感知しない(N2/G4)、EPDA は clean-room open-source のみ(N5)。Per ADR-2606051600。"
    :actor/primary-lexicon "com.etzhayyim.noroshi"
-   :actor/primary-schema "00-contracts/schemas/photonic-convergence-ontology.kotoba.edn"
+   :actor/primary-schema "orgs/etzhayyim/com-etzhayyim-noroshi/contracts/photonic-convergence-ontology.edn"
    :actor/adr ["2606051600"]
    :actor/created-at "2026-06-05"
    :actor/vm []

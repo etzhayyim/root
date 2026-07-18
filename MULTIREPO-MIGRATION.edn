@@ -1716,6 +1716,34 @@
      :verification {:tests 26 :assertions 75 :failures 0 :errors 0}
      :known-gap :substrate-sdk-payment-auth-codemod
      :root-copy :edn-tombstone-only}
+    "nusa"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-nusa"
+     :revision "f69e4c6b47de6d01737169a8d79296187ed6e03f"
+     :west-path "orgs/etzhayyim/com-etzhayyim-nusa"
+     :canonical-format :edn
+     :canonical-edn-files 24
+     :wire-artifacts {:json 7}
+     :verification {:tests 39 :assertions 107 :failures 0 :errors 0
+                    :jvm {:tests 9 :assertions 31 :failures 0 :errors 0}}
+     :root-copy :edn-tombstone-only}
+    "noroshi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-noroshi"
+     :revision "ac28b7dff16e0fbadba6ccebb0cdcacd7f02592a"
+     :west-path "orgs/etzhayyim/com-etzhayyim-noroshi"
+     :canonical-format :edn
+     :canonical-edn-files 20
+     :wire-artifacts {:json-and-json-ld 6 :wit 1}
+     :verification {:tests 259 :assertions 824 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "niyaku"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-niyaku"
+     :revision "f0bcf98f40f65dc30ebd11065b7f0f32dcdc142f"
+     :west-path "orgs/etzhayyim/com-etzhayyim-niyaku"
+     :canonical-format :edn
+     :canonical-edn-files 9
+     :wire-artifacts {}
+     :verification {:tests 53 :assertions 331 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "tate"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-tate"
      :revision "658b9f67aaa65d7aad5ffda280ec8feaae7a8bc2"
@@ -1920,8 +1948,8 @@
   [{:class :legacy-actor-root-directories
     :snapshot-date "2026-07-18"
     :baseline 198
-    :moved 136
-    :remaining 62
+    :moved 139
+    :remaining 59
     :inventory "90-docs/adr/2607181200-flat-west-actor-migration-progress-and-remaining.edn"}
    {:class :existing-repo-overlap
     :state :merge-root-only-content-before-delete}

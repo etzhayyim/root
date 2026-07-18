@@ -628,7 +628,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     glyph: "烽",
     displayName: "Noroshi — 光電融合 Communication Chip + ISAC + Photonic Packaging Robotics",
     primaryLexicon: "com.etzhayyim.noroshi",
-    primarySchema: "00-contracts/schemas/photonic-convergence-ontology.kotoba.edn",
+    primarySchema: "orgs/etzhayyim/com-etzhayyim-noroshi/contracts/photonic-convergence-ontology.edn",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:noroshi#atproto_pds",
