@@ -13,7 +13,7 @@ const REPO_ROOT = join(PWA_ROOT, "..", "..");
 const PUBLIC_DIR = join(PWA_ROOT, "public");
 const LEXICON_PATH = join(
   REPO_ROOT,
-  "00-contracts/lexicons/com/etzhayyim/manabi/certPrepSession.json",
+  "orgs/etzhayyim/com-etzhayyim-manabi/wire/lexicons/certPrepSession.json",
 );
 
 function listFiles(dir: string, exts: string[]): string[] {

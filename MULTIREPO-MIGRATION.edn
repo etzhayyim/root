@@ -410,7 +410,7 @@
      :canonical-metadata "manifest.edn"
      :depends-on
      {etzhayyim/root {:revision "a213f6ef3c341bf499bb66942ab44019459b5b99"
-                      :paths ["20-actors/magatama/cells" "90-docs/adr"]}
+                      :paths ["orgs/etzhayyim/com-etzhayyim-magatama/cells" "90-docs/adr"]}
       com.etzhayyim/mitate "5900536cdda2becb947fda4c67dea84365d2239d"
       com.etzhayyim/yakushi "5b2389671defc00ef8c7cfa522b9bc96b3ac192f"}
      :actor-owned-contracts ["lex/conditionProfile.edn"
@@ -1778,6 +1778,12 @@
     {:repository "https://github.com/etzhayyim/com-etzhayyim-meyasu" :revision "6460de557ca1d3fd1247fe84751b0f421c675bb4" :west-path "orgs/etzhayyim/com-etzhayyim-meyasu" :canonical-format :edn :canonical-edn-files 12 :wire-artifacts {:total 3} :verification {:tests 29 :assertions 70 :failures 0 :errors 0 :external-cohort-tests :separate} :root-copy :edn-tombstone-only}
     "meisai"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-meisai" :revision "a5d0a5f9659316ff1064588212bad42b5e33a2c8" :west-path "orgs/etzhayyim/com-etzhayyim-meisai" :canonical-format :edn :canonical-edn-files 9 :wire-artifacts {:json-and-json-ld 4} :verification {:tests 43 :assertions 151 :failures 0 :errors 0} :root-copy :edn-tombstone-only}
+    "manabi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-manabi" :revision "9e143794201c3cc457cbbe5e9725bf9353c76f02" :west-path "orgs/etzhayyim/com-etzhayyim-manabi" :canonical-format :edn :canonical-edn-files 23 :wire-artifacts {:json 10} :verification {:tests 40 :assertions 152 :failures 0 :errors 0} :root-copy :edn-tombstone-only}
+    "makura"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-makura" :revision "2c780d092d5110b51386b2297415d6a40d3670da" :west-path "orgs/etzhayyim/com-etzhayyim-makura" :canonical-format :edn :canonical-edn-files 32 :wire-artifacts {:json-and-json-ld 9} :verification {:tests 27 :assertions 55 :failures 0 :errors 0} :root-copy :edn-tombstone-only}
+    "magatama"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-magatama" :revision "b52eac64eefb2ba6668a44a2bdf232fdb01a9feb" :west-path "orgs/etzhayyim/com-etzhayyim-magatama" :canonical-format :edn :canonical-edn-files 7 :wire-artifacts {:toml 5} :verification {:tests 29 :assertions 51 :failures 0 :errors 0} :root-copy :edn-tombstone-only}
     "tate"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-tate"
      :revision "658b9f67aaa65d7aad5ffda280ec8feaae7a8bc2"
@@ -1982,8 +1988,8 @@
   [{:class :legacy-actor-root-directories
     :snapshot-date "2026-07-18"
     :baseline 198
-    :moved 145
-    :remaining 53
+    :moved 148
+    :remaining 50
     :inventory "90-docs/adr/2607181200-flat-west-actor-migration-progress-and-remaining.edn"}
    {:class :existing-repo-overlap
     :state :merge-root-only-content-before-delete}

@@ -19512,7 +19512,7 @@
       ],
       "related": [
         "20-actors/suimin/                                  # this ADR creates this tree",
-        "20-actors/magatama/cells/suimin_*/                 # this ADR creates the 5 suimin Pregel cells",
+        "orgs/etzhayyim/com-etzhayyim-magatama/cells/suimin_*/                 # this ADR creates the 5 suimin Pregel cells",
         "00-contracts/lexicons/com/etzhayyim/suimin/        # this ADR creates the 7 suimin Lexicons",
         "50-infra/murakumo/fleet.toml                       # cell placement (Phase R2+ post-Council)"
       ],

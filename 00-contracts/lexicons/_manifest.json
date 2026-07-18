@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-18T07:01:07.537Z",
+  "generated": "2026-07-18T07:17:20.642Z",
   "lexicons": [
     {
       "id": "ai.etzhayyim.yorishiro.argparse-demo.main",
@@ -36848,96 +36848,6 @@
       "description": ""
     },
     {
-      "id": "com.etzhayyim.makura.fabricAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/makura/fabricAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.makura.foamBatchAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/makura/foamBatchAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.makura.packagingRecord",
-      "path": "00-contracts/lexicons/com/etzhayyim/makura/packagingRecord.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.makura.pillowLotAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/makura/pillowLotAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.makura.qcRecord",
-      "path": "00-contracts/lexicons/com/etzhayyim/makura/qcRecord.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.makura.recyclingCertificate",
-      "path": "00-contracts/lexicons/com/etzhayyim/makura/recyclingCertificate.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.makura.silenComfortReview",
-      "path": "00-contracts/lexicons/com/etzhayyim/makura/silenComfortReview.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.makura.workerExposureRecord",
-      "path": "00-contracts/lexicons/com/etzhayyim/makura/workerExposureRecord.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.manabi.certPrepSession",
-      "path": "00-contracts/lexicons/com/etzhayyim/manabi/certPrepSession.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.manabi.charterUnderstandingAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/manabi/charterUnderstandingAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.manabi.curriculumAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/manabi/curriculumAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.manabi.domainMasteryAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/manabi/domainMasteryAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.manabi.learningSessionAttestation",
-      "path": "00-contracts/lexicons/com/etzhayyim/manabi/learningSessionAttestation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.manabi.personalMaterialImport",
-      "path": "00-contracts/lexicons/com/etzhayyim/manabi/personalMaterialImport.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.manabi.silenEducationReview",
-      "path": "00-contracts/lexicons/com/etzhayyim/manabi/silenEducationReview.json",
-      "type": "record",
-      "description": ""
-    },
-    {
       "id": "com.etzhayyim.manga.addTag",
       "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/manga/addTag.json",
       "type": "procedure",
@@ -48597,25 +48507,6 @@
       "com.etzhayyim.liberation.stageAdvanceAttestation",
       "com.etzhayyim.liberation.wellbecomingAttestation"
     ],
-    "com.etzhayyim.makura": [
-      "com.etzhayyim.makura.fabricAttestation",
-      "com.etzhayyim.makura.foamBatchAttestation",
-      "com.etzhayyim.makura.packagingRecord",
-      "com.etzhayyim.makura.pillowLotAttestation",
-      "com.etzhayyim.makura.qcRecord",
-      "com.etzhayyim.makura.recyclingCertificate",
-      "com.etzhayyim.makura.silenComfortReview",
-      "com.etzhayyim.makura.workerExposureRecord"
-    ],
-    "com.etzhayyim.manabi": [
-      "com.etzhayyim.manabi.certPrepSession",
-      "com.etzhayyim.manabi.charterUnderstandingAttestation",
-      "com.etzhayyim.manabi.curriculumAttestation",
-      "com.etzhayyim.manabi.domainMasteryAttestation",
-      "com.etzhayyim.manabi.learningSessionAttestation",
-      "com.etzhayyim.manabi.personalMaterialImport",
-      "com.etzhayyim.manabi.silenEducationReview"
-    ],
     "com.etzhayyim.maps": [
       "com.etzhayyim.maps.collectionJob",
       "com.etzhayyim.maps.deviceBinding",
@@ -48944,6 +48835,6 @@
       "tools.ozone.verification.revokeVerifications"
     ]
   },
-  "total": 6664,
+  "total": 6649,
   "legacy_issues_count": 8
 }

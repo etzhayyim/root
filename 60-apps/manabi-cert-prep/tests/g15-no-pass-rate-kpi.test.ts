@@ -12,7 +12,7 @@ const PWA_ROOT = join(import.meta.dirname ?? __dirname, "..");
 const REPO_ROOT = join(PWA_ROOT, "..", "..");
 const PUBLIC_DIR = join(PWA_ROOT, "public");
 const SRC_DIR = join(PWA_ROOT, "src");
-const LEXICON_DIR = join(REPO_ROOT, "00-contracts/lexicons/com/etzhayyim/manabi");
+const LEXICON_DIR = join(REPO_ROOT, "orgs/etzhayyim/com-etzhayyim-manabi/wire/lexicons");
 
 function listFiles(dir: string, exts: string[]): string[] {
   const out: string[] = [];
