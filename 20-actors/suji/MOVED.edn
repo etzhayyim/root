@@ -1,0 +1,5 @@
+{:migration/status :moved
+ :migration/repository "https://github.com/etzhayyim/com-etzhayyim-suji"
+ :migration/west-path "orgs/etzhayyim/com-etzhayyim-suji"
+ :migration/revision "0330034d5d7d4bc389a0f24b45cabd715abf71b6"
+ :migration/canonical-format :edn}

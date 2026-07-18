@@ -1,4 +1,4 @@
-;; ported from 20-actors/shomei/methods/revoke.py — gold reference (Fable)
+;; ported from orgs/etzhayyim/com-etzhayyim-shomei/methods/revoke.py — gold reference (Fable)
 ;; 証明 (shomei) append-only binding revocation。ADR-2606072100。
 ;; G5 consent-bound + revocable: subject だけが自分の factor を unlink できる。
 ;; G10 + Tier-0 永久記憶: revocation は APPEND-ONLY な retraction Datom で、削除ではない。

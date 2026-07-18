@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-18T05:46:52.369Z",
+  "generated": "2026-07-18T05:55:31.756Z",
   "lexicons": [
     {
       "id": "ai.etzhayyim.yorishiro.argparse-demo.main",
@@ -39512,30 +39512,6 @@
       "description": ""
     },
     {
-      "id": "com.etzhayyim.shomei.bindingRevocation",
-      "path": "00-contracts/lexicons/com/etzhayyim/shomei/bindingRevocation.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.shomei.identityClaim",
-      "path": "00-contracts/lexicons/com/etzhayyim/shomei/identityClaim.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.shomei.personhoodCredential",
-      "path": "00-contracts/lexicons/com/etzhayyim/shomei/personhoodCredential.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.shomei.verificationChallenge",
-      "path": "00-contracts/lexicons/com/etzhayyim/shomei/verificationChallenge.json",
-      "type": "record",
-      "description": ""
-    },
-    {
       "id": "com.etzhayyim.signal.authEncryption",
       "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/signal/authEncryption.json",
       "type": "permission-set",
@@ -49640,12 +49616,6 @@
       "com.etzhayyim.shionome.networkPost",
       "com.etzhayyim.shionome.rotationFinding"
     ],
-    "com.etzhayyim.shomei": [
-      "com.etzhayyim.shomei.bindingRevocation",
-      "com.etzhayyim.shomei.identityClaim",
-      "com.etzhayyim.shomei.personhoodCredential",
-      "com.etzhayyim.shomei.verificationChallenge"
-    ],
     "com.etzhayyim.silicon": [
       "com.etzhayyim.silicon.chipManufacturingAttestation",
       "com.etzhayyim.silicon.fabEquipmentTelemetry",
@@ -49859,6 +49829,6 @@
       "tools.ozone.verification.revokeVerifications"
     ]
   },
-  "total": 6791,
+  "total": 6787,
   "legacy_issues_count": 8
 }

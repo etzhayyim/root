@@ -1601,6 +1601,31 @@
      :wire-artifacts {:json-and-json-ld 8 :bpmn-xml 0}
      :verification {:tests 73 :assertions 733 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
+    "subaru"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-subaru"
+     :revision "65c49f0ac05b0a840a7fcc0a4126c78f9a772862"
+     :west-path "orgs/etzhayyim/com-etzhayyim-subaru"
+     :canonical-format :edn
+     :verification {:tests 27 :assertions 261 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "suji"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-suji"
+     :revision "0330034d5d7d4bc389a0f24b45cabd715abf71b6"
+     :west-path "orgs/etzhayyim/com-etzhayyim-suji"
+     :canonical-format :edn
+     :canonical-edn-files 17
+     :wire-artifacts {:json-ld 1 :wit 1}
+     :verification {:tests 64 :assertions 1078 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "shomei"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-shomei"
+     :revision "e9ed6035da56f9a53e2487c35f4b87b22a82877b"
+     :west-path "orgs/etzhayyim/com-etzhayyim-shomei"
+     :canonical-format :edn
+     :canonical-edn-files 13
+     :wire-artifacts {:json-and-json-ld 6 :bpmn-xml 0}
+     :verification {:tests 151 :assertions 522 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
     "tate"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-tate"
      :revision "658b9f67aaa65d7aad5ffda280ec8feaae7a8bc2"
@@ -1805,8 +1830,8 @@
   [{:class :legacy-actor-root-directories
     :snapshot-date "2026-07-18"
     :baseline 198
-    :moved 124
-    :remaining 74
+    :moved 127
+    :remaining 71
     :inventory "90-docs/adr/2607181200-flat-west-actor-migration-progress-and-remaining.edn"}
    {:class :existing-repo-overlap
     :state :merge-root-only-content-before-delete}

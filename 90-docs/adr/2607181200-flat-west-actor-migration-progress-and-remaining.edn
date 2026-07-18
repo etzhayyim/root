@@ -26,16 +26,16 @@
   {:canonical-data :edn
    :canonical-metadata :edn
    :canonical-adr :edn
-   :allowed-wire-formats #{:json :json-ld :bpmn-xml}
-   :wire-rule "JSON, JSON-LD, and BPMN XML may remain only for external protocol/tool interchange under wire/."
+   :allowed-wire-formats #{:json :jsonl :json-ld :bpmn-xml :wit}
+   :wire-rule "JSON, JSONL, JSON-LD, BPMN XML, and WIT may remain only as external protocol, tool, or component-interface artifacts under wire/."
    :deprecated-languages #{:go :tinygo}
    :deprecated-language-action :prune-not-port}
 
   :migration/progress
   {:baseline-actor-directories 198
-   :moved-tombstones 124
-   :remaining-root-directories 74
-   :completion-percent 62.63
+   :moved-tombstones 127
+   :remaining-root-directories 71
+   :completion-percent 64.14
    :canonical-ledger "MULTIREPO-MIGRATION.edn"
    :integration-base-root-revision "1ce8a65a8fe5b68aa5fda43004bf2bc14a5e13e7"
    :integration-base-west-revision "5d33ded7fdd"
@@ -164,7 +164,36 @@
      :revision "db20a3b6c2b52c98a502b235bec03b45815eea0e"
      :canonical-edn-files 20
      :wire-artifacts {:json-and-json-ld 8 :bpmn-xml 0}
-     :verification {:tests 73 :assertions 733}}]}
+     :verification {:tests 73 :assertions 733}}
+    {:actor "subaru"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-subaru"
+     :revision "65c49f0ac05b0a840a7fcc0a4126c78f9a772862"
+     :verification {:tests 27 :assertions 261}}
+    {:actor "suji"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-suji"
+     :revision "0330034d5d7d4bc389a0f24b45cabd715abf71b6"
+     :canonical-edn-files 17
+     :wire-artifacts {:json-ld 1 :wit 1}
+     :verification {:tests 64 :assertions 1078}}
+    {:actor "shomei"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-shomei"
+     :revision "e9ed6035da56f9a53e2487c35f4b87b22a82877b"
+     :canonical-edn-files 13
+     :wire-artifacts {:json-and-json-ld 6 :bpmn-xml 0}
+     :verification {:tests 151 :assertions 522}}]}
+
+  :migration/integration-state
+  {:snapshot-kind :working-tree-before-root-and-west-commit
+   :standalone-repositories
+   {:status :pushed
+    :actors ["subaru" "suji" "shomei"]}
+   :legacy-root-drain
+   {:status :prepared
+    :tracked-invariant :moved-edn-only}
+   :west-manifest
+   {:status :pending-pin-update
+    :actors ["subaru" "suji" "shomei"]}
+   :note "The progress inventory describes the prepared migration state. The latest three actors do not satisfy the west-manifest pin gate until the root batch is committed and manifest/west.yml is updated to the resulting exact revisions."}
 
   :migration/completed-actors
   ["abaki" "ainori" "apqc" "atsurae" "busshi" "com-google-ads" "denwaban"
@@ -179,7 +208,7 @@
    "shidemori" "shukubo" "soma" "sonae" "stripe-compat" "suimin" "suki"
    "sumitsubo" "tawami" "toi" "tsukuroi" "ugachi" "unspsc" "utsushie"
    "wakai" "yudane" "isco" "moushibumi" "talent" "chigiri" "himotoki"
-   "toritsugi" "hoshimori" "inochi" "kuni-umi" "kuni_umi" "fuchi" "hokorobi" "kaname" "asobi" "mimamori" "shiori" "tsugite" "watatsuna" "kabuto" "watari" "keizu" "hakoniwa" "kafun" "shirabe" "tanemaki" "tasuke" "rasen" "tatara" "tazuna" "tate" "tokigusuri" "torifune" "tedai" "tatekata" "tsubasa" "tsuchifumi" "tsukuru" "tsumugi" "tsutae" "uchiwake" "uzu" "wadachi" "warifu" "watatsumi" "yadori" "yakushi" "yamabiko" "todoke" "yotei" "yobel" "toritate" "tadori" "sukashi"]
+   "toritsugi" "hoshimori" "inochi" "kuni-umi" "kuni_umi" "fuchi" "hokorobi" "kaname" "asobi" "mimamori" "shiori" "tsugite" "watatsuna" "kabuto" "watari" "keizu" "hakoniwa" "kafun" "shirabe" "tanemaki" "tasuke" "rasen" "tatara" "tazuna" "tate" "tokigusuri" "torifune" "tedai" "tatekata" "tsubasa" "tsuchifumi" "tsukuru" "tsumugi" "tsutae" "uchiwake" "uzu" "wadachi" "warifu" "watatsumi" "yadori" "yakushi" "yamabiko" "todoke" "yotei" "yobel" "toritate" "tadori" "sukashi" "subaru" "suji" "shomei"]
 
   :migration/remaining-actors
   ["_conformance" "aburi" "akashi" "ake" "ameno" "amime"
@@ -195,7 +224,7 @@
    "meisai" "meyasu" "mitooshi" "mitsuho" "mizuho"
    "moyoshi" "mst-projector" "niyaku" "noroshi" "nusa" "nyusatsu" "okaimono"
    "omise" "ooyake" "organizer" "ossekai" "sanae" "sarutahiko"
-   "shinka" "shionome" "shomei" "silicon" "subaru" "suji"]
+   "shinka" "shionome" "silicon"]
 
   :migration/remaining-classification
   [{:class :duplicate-spelling-or-path

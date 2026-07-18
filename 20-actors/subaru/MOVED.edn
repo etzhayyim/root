@@ -1,0 +1,5 @@
+{:migration/status :moved
+ :migration/repository "https://github.com/etzhayyim/com-etzhayyim-subaru"
+ :migration/west-path "orgs/etzhayyim/com-etzhayyim-subaru"
+ :migration/revision "65c49f0ac05b0a840a7fcc0a4126c78f9a772862"
+ :migration/canonical-format :edn}
