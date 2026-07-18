@@ -1,0 +1,5 @@
+{:migration/status :moved
+ :migration/repository "https://github.com/etzhayyim/com-etzhayyim-todoke"
+ :migration/west-path "orgs/etzhayyim/com-etzhayyim-todoke"
+ :migration/revision "f525aa265f52d55634b38affb4891e41961a085c"
+ :migration/canonical-format :edn}

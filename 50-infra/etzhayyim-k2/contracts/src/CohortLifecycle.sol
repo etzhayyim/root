@@ -6,7 +6,7 @@ pragma solidity 0.8.27;
  * @title CohortLifecycle
  * @notice K2 cohort lifecycle state machine on Base L2 per ADR-2605212040 §D5.
  *
- *         K2 is the technical primitive; yobel (`20-actors/yobel/`) is one
+ *         K2 is the technical primitive; yobel (`orgs/etzhayyim/com-etzhayyim-yobel/`) is one
  *         scriptural consumer that binds the 50-year cohort to scriptural
  *         release semantics. This contract makes no assumptions about
  *         cohort cadence — yobel and other consumers manage their own

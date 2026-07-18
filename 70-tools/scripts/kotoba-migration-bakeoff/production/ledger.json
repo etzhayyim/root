@@ -505,7 +505,7 @@
   },
   {
     "cell": "yobel-audit_witness",
-    "src": "20-actors/yobel/cells/audit_witness/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-yobel/cells/audit_witness/cell.py",
     "build": true,
     "structural": true,
     "judge": 2,
@@ -516,7 +516,7 @@
   },
   {
     "cell": "yobel-creditor_enrollment",
-    "src": "20-actors/yobel/cells/creditor_enrollment/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-yobel/cells/creditor_enrollment/cell.py",
     "build": true,
     "structural": true,
     "judge": 2,
@@ -527,7 +527,7 @@
   },
   {
     "cell": "yobel-debtor_enrollment",
-    "src": "20-actors/yobel/cells/debtor_enrollment/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-yobel/cells/debtor_enrollment/cell.py",
     "build": true,
     "structural": true,
     "judge": 2,
@@ -538,7 +538,7 @@
   },
   {
     "cell": "yobel-release_settlement",
-    "src": "20-actors/yobel/cells/release_settlement/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-yobel/cells/release_settlement/cell.py",
     "build": true,
     "structural": true,
     "judge": 3,
@@ -549,7 +549,7 @@
   },
   {
     "cell": "yobel-rite_declaration",
-    "src": "20-actors/yobel/cells/rite_declaration/cell.py",
+    "src": "orgs/etzhayyim/com-etzhayyim-yobel/cells/rite_declaration/cell.py",
     "build": true,
     "structural": true,
     "judge": 2,

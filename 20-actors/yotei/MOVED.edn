@@ -1,0 +1,5 @@
+{:migration/status :moved
+ :migration/repository "https://github.com/etzhayyim/com-etzhayyim-yotei"
+ :migration/west-path "orgs/etzhayyim/com-etzhayyim-yotei"
+ :migration/revision "cc939a2e16d6f7f7f761bd07ec0e79bacce026c2"
+ :migration/canonical-format :edn}

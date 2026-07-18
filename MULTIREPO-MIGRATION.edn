@@ -1548,6 +1548,34 @@
      :wire-artifacts {:json-and-json-ld 10 :bpmn-xml 0}
      :verification {:tests 108 :assertions 668 :failures 0 :errors 0}
      :root-copy :edn-tombstone-only}
+    "todoke"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-todoke"
+     :revision "f525aa265f52d55634b38affb4891e41961a085c"
+     :west-path "orgs/etzhayyim/com-etzhayyim-todoke"
+     :canonical-format :edn
+     :canonical-edn-files 28
+     :wire-artifacts {:json-and-json-ld 6 :bpmn-xml 0}
+     :verification {:tests 40 :assertions 203 :failures 0 :errors 0
+                    :rust :not-run-unchanged-source-build-lock-busy}
+     :root-copy :edn-tombstone-only}
+    "yotei"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-yotei"
+     :revision "cc939a2e16d6f7f7f761bd07ec0e79bacce026c2"
+     :west-path "orgs/etzhayyim/com-etzhayyim-yotei"
+     :canonical-format :edn
+     :wire-artifacts {:bpmn-xml 23 :json 23 :json-ld 1}
+     :verification {:tests 26 :assertions 190 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "yobel"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-yobel"
+     :revision "9e86d60491e3ddae646e26c12cd4433f8ab0272f"
+     :west-path "orgs/etzhayyim/com-etzhayyim-yobel"
+     :canonical-format :edn
+     :wire-artifacts {:total 8}
+     :verification {:tests 77 :assertions 223 :failures 0 :errors 0
+                    :integration {:status :known-failure
+                                  :reason :cumulative-over-cap-release-not-reverted}}
+     :root-copy :edn-tombstone-only}
     "tate"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-tate"
      :revision "658b9f67aaa65d7aad5ffda280ec8feaae7a8bc2"
@@ -1752,8 +1780,8 @@
   [{:class :legacy-actor-root-directories
     :snapshot-date "2026-07-18"
     :baseline 198
-    :moved 118
-    :remaining 80
+    :moved 121
+    :remaining 77
     :inventory "90-docs/adr/2607181200-flat-west-actor-migration-progress-and-remaining.edn"}
    {:class :existing-repo-overlap
     :state :merge-root-only-content-before-delete}

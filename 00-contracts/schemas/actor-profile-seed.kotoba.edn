@@ -487,7 +487,7 @@
    :actor/ui-type :appview
    :actor/description "curb-to-door 小荷物(≤25kg, SAE-L4 歩道 ODD)自律配送。wadachi の最終メートル兄弟 + okaimono の no-gig 配送肢 + kami-autodrive GNC(ADR-2606010600)の消費者。route core が per-zone 歩道速度上限超・車道(N2)・SAE-L4超を REFUSE(クランプではなく拒否、構造的に charter 強制); py last_mile.py に parity-mirror。G5 no-gig/cash≡0・G8 privacy-by-construction(on-device proof-of-delivery のみ、クラウド画像/顔照合 表現不能 N5)・G2 displacement-dividend 連結。Per ADR-2606042300。"
    :actor/primary-lexicon "com.etzhayyim.todoke"
-   :actor/primary-schema "20-actors/todoke/ (Rust todoke-route core + methods/last_mile.py; no kotoba ontology yet)"
+   :actor/primary-schema "orgs/etzhayyim/com-etzhayyim-todoke/ (Rust todoke-route core + methods/last_mile.py; no kotoba ontology yet)"
    :actor/adr ["2606042300"]
    :actor/created-at "2026-06-04"
    :actor/vm []

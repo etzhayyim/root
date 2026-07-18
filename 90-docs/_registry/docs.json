@@ -19392,7 +19392,7 @@
       "topic": "yotei-kotoba-native",
       "authoritative": true,
       "authoritative_for": [
-        "20-actors/yotei"
+        "orgs/etzhayyim/com-etzhayyim-yotei"
       ],
       "related": [
         "2605181100   # encrypted envelope"

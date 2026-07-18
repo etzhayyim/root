@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-18T05:14:46.377Z",
+  "generated": "2026-07-18T05:32:54.654Z",
   "lexicons": [
     {
       "id": "ai.etzhayyim.yorishiro.argparse-demo.main",
@@ -26588,144 +26588,6 @@
       "description": "Provider → app callback. Persist enumerated offers as com.etzhayyim.apps.yorishiroNuro.offer records."
     },
     {
-      "id": "com.etzhayyim.apps.yotei.analyzeSchedule",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/yotei/analyzeSchedule.json",
-      "type": "procedure",
-      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app."
-    },
-    {
-      "id": "com.etzhayyim.apps.yotei.autoReschedule",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/yotei/autoReschedule.json",
-      "type": "procedure",
-      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app."
-    },
-    {
-      "id": "com.etzhayyim.apps.yotei.cancelBooking",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/yotei/cancelBooking.json",
-      "type": "procedure",
-      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app."
-    },
-    {
-      "id": "com.etzhayyim.apps.yotei.cancelEvent",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/yotei/cancelEvent.json",
-      "type": "procedure",
-      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app."
-    },
-    {
-      "id": "com.etzhayyim.apps.yotei.confirmBooking",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/yotei/confirmBooking.json",
-      "type": "procedure",
-      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app."
-    },
-    {
-      "id": "com.etzhayyim.apps.yotei.createCalendar",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/yotei/createCalendar.json",
-      "type": "procedure",
-      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app."
-    },
-    {
-      "id": "com.etzhayyim.apps.yotei.createEvent",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/yotei/createEvent.json",
-      "type": "procedure",
-      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app."
-    },
-    {
-      "id": "com.etzhayyim.apps.yotei.deleteCalendar",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/yotei/deleteCalendar.json",
-      "type": "procedure",
-      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app."
-    },
-    {
-      "id": "com.etzhayyim.apps.yotei.describe",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/yotei/describe.json",
-      "type": "query",
-      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app."
-    },
-    {
-      "id": "com.etzhayyim.apps.yotei.getAvailability",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/yotei/getAvailability.json",
-      "type": "query",
-      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app."
-    },
-    {
-      "id": "com.etzhayyim.apps.yotei.getBooking",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/yotei/getBooking.json",
-      "type": "query",
-      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app."
-    },
-    {
-      "id": "com.etzhayyim.apps.yotei.getCalendar",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/yotei/getCalendar.json",
-      "type": "query",
-      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app."
-    },
-    {
-      "id": "com.etzhayyim.apps.yotei.getEvent",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/yotei/getEvent.json",
-      "type": "query",
-      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app."
-    },
-    {
-      "id": "com.etzhayyim.apps.yotei.getOpenSlots",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/yotei/getOpenSlots.json",
-      "type": "query",
-      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app."
-    },
-    {
-      "id": "com.etzhayyim.apps.yotei.health",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/yotei/health.json",
-      "type": "procedure",
-      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app."
-    },
-    {
-      "id": "com.etzhayyim.apps.yotei.listBookings",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/yotei/listBookings.json",
-      "type": "query",
-      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app."
-    },
-    {
-      "id": "com.etzhayyim.apps.yotei.listCalendars",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/yotei/listCalendars.json",
-      "type": "query",
-      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app."
-    },
-    {
-      "id": "com.etzhayyim.apps.yotei.listEvents",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/yotei/listEvents.json",
-      "type": "query",
-      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app."
-    },
-    {
-      "id": "com.etzhayyim.apps.yotei.proposeBooking",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/yotei/proposeBooking.json",
-      "type": "procedure",
-      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app."
-    },
-    {
-      "id": "com.etzhayyim.apps.yotei.removeAvailability",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/yotei/removeAvailability.json",
-      "type": "procedure",
-      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app."
-    },
-    {
-      "id": "com.etzhayyim.apps.yotei.setAvailability",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/yotei/setAvailability.json",
-      "type": "procedure",
-      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app."
-    },
-    {
-      "id": "com.etzhayyim.apps.yotei.suggestSlots",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/yotei/suggestSlots.json",
-      "type": "procedure",
-      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app."
-    },
-    {
-      "id": "com.etzhayyim.apps.yotei.updateEvent",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/yotei/updateEvent.json",
-      "type": "procedure",
-      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app."
-    },
-    {
       "id": "com.etzhayyim.apps.yukkuri.compose",
       "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/yukkuri/compose.json",
       "type": "procedure",
@@ -40190,36 +40052,6 @@
       "description": "Assert a manufacturing FACILITY into the kotoba Datom log (:plant/*). Disclosed public facilities only; coordinates rounded to ~0.01° (city/campus, G1). The operator is a COMPANY (joins kabuto org.cor"
     },
     {
-      "id": "com.etzhayyim.todoke.deliveryJob",
-      "path": "00-contracts/lexicons/com/etzhayyim/todoke/deliveryJob.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.todoke.handoffProof",
-      "path": "00-contracts/lexicons/com/etzhayyim/todoke/handoffProof.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.todoke.lastMileRoute",
-      "path": "00-contracts/lexicons/com/etzhayyim/todoke/lastMileRoute.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.todoke.missionCompleteRecord",
-      "path": "00-contracts/lexicons/com/etzhayyim/todoke/missionCompleteRecord.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.todoke.safetyAlert",
-      "path": "00-contracts/lexicons/com/etzhayyim/todoke/safetyAlert.json",
-      "type": "record",
-      "description": ""
-    },
-    {
       "id": "com.etzhayyim.tools.audit.emit",
       "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/tools/audit/emit.json",
       "type": "procedure",
@@ -47120,31 +46952,6 @@
       "com.etzhayyim.apps.yorishiroNuro.recordClaim",
       "com.etzhayyim.apps.yorishiroNuro.recordOffers"
     ],
-    "com.etzhayyim.apps.yotei": [
-      "com.etzhayyim.apps.yotei.analyzeSchedule",
-      "com.etzhayyim.apps.yotei.autoReschedule",
-      "com.etzhayyim.apps.yotei.cancelBooking",
-      "com.etzhayyim.apps.yotei.cancelEvent",
-      "com.etzhayyim.apps.yotei.confirmBooking",
-      "com.etzhayyim.apps.yotei.createCalendar",
-      "com.etzhayyim.apps.yotei.createEvent",
-      "com.etzhayyim.apps.yotei.deleteCalendar",
-      "com.etzhayyim.apps.yotei.describe",
-      "com.etzhayyim.apps.yotei.getAvailability",
-      "com.etzhayyim.apps.yotei.getBooking",
-      "com.etzhayyim.apps.yotei.getCalendar",
-      "com.etzhayyim.apps.yotei.getEvent",
-      "com.etzhayyim.apps.yotei.getOpenSlots",
-      "com.etzhayyim.apps.yotei.health",
-      "com.etzhayyim.apps.yotei.listBookings",
-      "com.etzhayyim.apps.yotei.listCalendars",
-      "com.etzhayyim.apps.yotei.listEvents",
-      "com.etzhayyim.apps.yotei.proposeBooking",
-      "com.etzhayyim.apps.yotei.removeAvailability",
-      "com.etzhayyim.apps.yotei.setAvailability",
-      "com.etzhayyim.apps.yotei.suggestSlots",
-      "com.etzhayyim.apps.yotei.updateEvent"
-    ],
     "com.etzhayyim.apps.yukkuri": [
       "com.etzhayyim.apps.yukkuri.compose",
       "com.etzhayyim.apps.yukkuri.getVideo",
@@ -50026,13 +49833,6 @@
       "com.etzhayyim.tatara.registerHub",
       "com.etzhayyim.tatara.registerPlant"
     ],
-    "com.etzhayyim.todoke": [
-      "com.etzhayyim.todoke.deliveryJob",
-      "com.etzhayyim.todoke.handoffProof",
-      "com.etzhayyim.todoke.lastMileRoute",
-      "com.etzhayyim.todoke.missionCompleteRecord",
-      "com.etzhayyim.todoke.safetyAlert"
-    ],
     "com.etzhayyim.toritate": [
       "com.etzhayyim.toritate.annualReport",
       "com.etzhayyim.toritate.auditObservation",
@@ -50179,6 +49979,6 @@
       "tools.ozone.verification.revokeVerifications"
     ]
   },
-  "total": 6835,
+  "total": 6807,
   "legacy_issues_count": 8
 }

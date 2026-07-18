@@ -35,7 +35,7 @@
     "wasmCid": null,
     "execModel": "service",
     "primaryLexicon": "com.etzhayyim.todoke",
-    "primarySchema": "20-actors/todoke/ (Rust todoke-route core + methods/last_mile.py; no kotoba ontology yet)",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-todoke/ (Rust todoke-route core + methods/last_mile.py; no kotoba ontology yet)",
     "note": "verificationMethod empty — on-chain ERC725 mirror pending; did:web trust root = TLS (no server-minted key, ADR-2605231525)"
   }
 }
