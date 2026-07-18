@@ -1419,6 +1419,31 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2607182000-hanrei-judgement-corpus-actor.edn",
+      "id": "2607182000-hanrei-judgement-corpus-actor",
+      "title": "hanrei.etzhayyim.com — Judgement/Case-Law Corpus Actor",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "actor-topology",
+      "authoritative": true,
+      "authoritative_for": [
+        "hanrei.etzhayyim.com actor scope (judgement/case-law corpus)",
+        "3-layer DID topology for hanrei (primary / jurisdiction:source / blake3 hash)",
+        "com.etzhayyim.apps.hanrei.datomic.* lexicon surface",
+        "Activity tracking for judges and courts (descriptive, no ranking/audit)"
+      ],
+      "related": [
+        "90-docs/adr/0090-ooyake-public",
+        "90-docs/adr/0091-houbun-actor-topology",
+        "90-docs/adr/2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion"
+      ],
+      "last_verified": "2026-07-18",
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2605291700-moemoekyun-plateau-and-bestofn-path.edn",
       "id": "ADR-2605291700",
       "title": "baien-moemoekyun plateau analysis (cycles 17-114) + Best-of-N as the deployable score-lift path",
