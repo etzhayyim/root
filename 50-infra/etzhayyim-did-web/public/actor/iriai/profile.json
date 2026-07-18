@@ -24,7 +24,7 @@
       "2606280900"
     ],
     "primaryLexicon": "com.etzhayyim.iriai.lifelineCoverageMap",
-    "primarySchema": "20-actors/iriai/kotoba/ontology.iriai.edn",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-iriai/kotoba/ontology.iriai.edn",
     "didDocument": "https://etzhayyim.com/actor/iriai/did.json",
     "source": "kotoba"
   }

@@ -2,7 +2,7 @@
   "REAL kotoba Datom-log reader, in the browser (ADR-2606201610 + ADR-2605312345).
 
    This is NOT a stub: it requires the canonical portable codec
-   `kotoba.datom` (20-actors/kotodama/src/kotoba/datom.cljc) and uses it to
+   `kotoba.datom` (orgs/kotoba-lang/kotodama/src/kotoba/datom.cljc) and uses it to
    VERIFY a content-addressed append-only commit-DAG client-side — recomputing
    every `:tx/cid` from its datoms + the previous CID and checking the chain,
    exactly as the clj `verify-chain` does on the server. A tamper of any earlier

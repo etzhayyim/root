@@ -6,7 +6,7 @@ re-implementation of the **kernel-task layer** of [`microsoft/BitNet`](https://g
 
 **Authoritative ADR**: [`90-docs/adr/2605263300-baien-ameno-per-kernel-inference-r0.md`](../../90-docs/adr/2605263300-baien-ameno-per-kernel-inference-r0.md)
 
-**Consumed by**: [`@etzhayyim/ameno`](../../20-actors/ameno) browser
+**Consumed by**: [`@etzhayyim/ameno`](../../orgs/etzhayyim/com-etzhayyim-ameno) browser
 inference (`inference/bitnet-bridge.ts`).
 
 **License**: Apache 2.0 + Charter Compliance Rider v2.0 (see [`NOTICE`](NOTICE)).
@@ -65,7 +65,7 @@ bit  7 6 5 4 3 2 1 0
 
 See [`src/i2s.rs`](src/i2s.rs) constants. **The same layout is
 mirrored in the WGSL shader** at
-[`20-actors/ameno/src/inference/kernels/bitlinear-forward.ts`](../../20-actors/ameno/src/inference/kernels/bitlinear-forward.ts);
+[`orgs/etzhayyim/com-etzhayyim-ameno/src/inference/kernels/bitlinear-forward.ts`](../../orgs/etzhayyim/com-etzhayyim-ameno/src/inference/kernels/bitlinear-forward.ts);
 gate G3 (ADR-2605263300 §8) requires the two to never drift.
 
 ## R-roadmap (per ADR-2605263300 §10)
@@ -73,7 +73,7 @@ gate G3 (ADR-2605263300 §8) requires the two to never drift.
 | R | What |
 |---|---|
 | **R0** (this commit) | Scaffold + scalar reference matmul + scalar reference dequant + tests + wasm-bindgen exports for capability probes. **`ggml_bitnet_mul_mat_task_compute` is not yet reachable from the JS side** — the wasm-bindgen pointer marshalling lands in R1c. |
-| **R1a** | Standalone WGSL kernel numeric test against this crate's scalar matmul (±1 ULP fp16). Lives in [`20-actors/ameno/src/inference/kernels/`](../../20-actors/ameno/src/inference/kernels/). |
+| **R1a** | Standalone WGSL kernel numeric test against this crate's scalar matmul (±1 ULP fp16). Lives in [`orgs/etzhayyim/com-etzhayyim-ameno/src/inference/kernels/`](../../orgs/etzhayyim/com-etzhayyim-ameno/src/inference/kernels/). |
 | **R1b** | transformers.js layer-replacement bridge — intercept `MatMul` nodes in the BitNet ONNX graph and dispatch through ameno's bridge. |
 | **R1c** | v128 SIMD inner loop (`feature = "simd"`) + LUT-expanded matmul (`feature = "lut"`) + wasm-bindgen pointer marshalling for the matmul kernel-task. |
 | **R2** | Modality encoder kernels (SigLIP / Whisper-tiny / YAMNet) — own ADR. |

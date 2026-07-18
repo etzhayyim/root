@@ -19,7 +19,7 @@
 //! | `11` | `-1` (reserved/equivalent — upstream maps both `10` and `11` to `-1`) |
 //!
 //! Gate G3 (ADR-2605263300): these constants MUST match
-//! `20-actors/ameno/src/inference/kernels/bitlinear-forward.ts` and
+//! `orgs/etzhayyim/com-etzhayyim-ameno/src/inference/kernels/bitlinear-forward.ts` and
 //! `bitnet-packed-dequant.ts` byte-for-byte.
 
 /// Weights per byte. **Compile-time invariant.**

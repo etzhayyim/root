@@ -378,7 +378,7 @@
            (usage)
            (let [opts (cq-parse-opts (rest args))
                  ws   (or (get opts "--workspace-dir") (git-root) (System/getProperty "user.dir"))
-                 rust (or (get opts "--rust-dir") (str ws "/20-actors/kotodama"))
+                 rust (or (get opts "--rust-dir") (str ws "/40-engine/kotoba"))
                  go   (or (get opts "--go-dir")   (str ws "/70-tools/etzhayyim"))
                  ts   (or (get opts "--ts-dir")   (str ws "/20-actors"))
                  skip (set (remove str/blank? (str/split (get opts "--skip" "") #",")))

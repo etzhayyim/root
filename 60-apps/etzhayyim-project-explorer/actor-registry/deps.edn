@@ -6,7 +6,7 @@
 ;; Datom source-chain (content-addressed commit-DAG via kotoba.datom), gets a
 ;; witness MEMBRANE attestation, and self-publishes. The "registry" is an emergent
 ;; fold (materialized view) over those genesis entries — never a hand-kept constant.
-{:paths ["src" "../../../20-actors/kotodama/src"]
+{:paths ["src" "../../../orgs/kotoba-lang/kotodama/src"]
  :deps {org.clojure/clojure {:mvn/version "1.12.0"}
         org.clojure/data.json {:mvn/version "2.5.1"}
         ;; Transit (transit+json) — the Datomic-client wire standard; used to

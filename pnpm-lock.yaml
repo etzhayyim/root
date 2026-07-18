@@ -38,7 +38,7 @@ importers:
         specifier: ^0.7.2
         version: 0.7.2
 
-  20-actors/ameno:
+  orgs/etzhayyim/com-etzhayyim-ameno:
     dependencies:
       '@huggingface/transformers':
         specifier: ^3.8.1
@@ -359,7 +359,7 @@ importers:
     dependencies:
       '@etzhayyim/ameno':
         specifier: workspace:*
-        version: link:../../../../../20-actors/ameno
+        version: link:../../../../../orgs/etzhayyim/com-etzhayyim-ameno
       '@huggingface/transformers':
         specifier: ^3.8.1
         version: 3.8.1

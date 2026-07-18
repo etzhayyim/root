@@ -33,7 +33,7 @@ same build is IPFS-portable.
 Reagent 1.2 + re-frame 1.4 + shadow-cljs `:browser` (mirrors the yoro cljs
 harness). EDN is native — no JS parser shim. The explorer **actually requires**
 the canonical portable codec `kotoba.datom`
-(`20-actors/kotodama/src/kotoba/datom.cljc`) and binds its `*sha256-hex*` seam to
+(`orgs/kotoba-lang/kotodama/src/kotoba/datom.cljc`) and binds its `*sha256-hex*` seam to
 a synchronous SHA-256 (`js-sha256`), so chain verification is **byte-compatible**
 with the clj/Python writers — proven by `datom_test.cljs`, which verifies a real
 committed log (mimamori's golden fixture) and confirms tamper-detection fires.

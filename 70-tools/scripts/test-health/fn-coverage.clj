@@ -33,7 +33,7 @@
 ;; that task, not the discovery runner. We ask the real discovery rather than re-deriving its rules.
 (def ^:private discovery-run?
   (try
-    (add-classpath "70-tools/src:20-actors/kotodama/src")
+    (add-classpath "70-tools/src:orgs/kotoba-lang/kotodama/src")
     (let [nss (set (map str ((requiring-resolve 'etzhayyim.tools.discovery/actor-test-nss))))]
       (fn [actor]
         (let [prefix (str (str/replace actor "_" "-") ".")]

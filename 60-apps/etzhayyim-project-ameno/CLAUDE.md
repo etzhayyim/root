@@ -43,16 +43,16 @@ ameno は murakumo の **Tier 2 inference layer** として機能。murakumo Inf
 
 ## Package
 
-**`@etzhayyim/ameno`** (`40-engine/llm/inference/ameno/`) — inference engine, LoRA runtime, RAG-LoRA pipeline の Single Source。project の svelte lib は re-export のみ。
+**`@etzhayyim/ameno`** (`orgs/etzhayyim/com-etzhayyim-ameno/`) — inference engine, LoRA runtime, RAG-LoRA pipeline の Single Source。project の svelte lib は re-export のみ。
 
 ## Key Files
 
 | Purpose | Path |
 |---|---|
-| **Package (Single Source)** | `40-engine/llm/inference/ameno/src/` |
-| Inference engine | `40-engine/llm/inference/ameno/src/inference.ts` |
-| WebGPU LoRA merge | `40-engine/llm/inference/ameno/src/lora-runtime.ts` |
-| RAG-LoRA pipeline | `40-engine/llm/inference/ameno/src/rag-lora.ts` |
+| **Package (Single Source)** | `orgs/etzhayyim/com-etzhayyim-ameno/src/` |
+| Inference engine | `orgs/etzhayyim/com-etzhayyim-ameno/src/inference.ts` |
+| WebGPU LoRA merge | `orgs/etzhayyim/com-etzhayyim-ameno/src/lora-runtime.ts` |
+| RAG-LoRA pipeline | `orgs/etzhayyim/com-etzhayyim-ameno/src/rag-lora.ts` |
 | Backend (TS Native) | `wasm/etzhayyim-wasm-ameno-d94d27cb/src/app.ts` |
 | Frontend (re-export) | `wasm/etzhayyim-wasm-ameno-d94d27cb/svelte/src/lib/` |
 | Domain WIT | `wit/ameno/package.wit` |

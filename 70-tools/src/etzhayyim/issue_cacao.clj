@@ -1,6 +1,7 @@
 ;; etzhayyim.issue-cacao — MEMBER-side CACAO leash issuer (clj/bb).
 ;;
-;; The Clojure port of `20-actors/ibuki/tools/issue_delegation.py`, per the
+;; Replaces the retired ibuki Python issuer; the actor-side presentation boundary now lives in
+;; `orgs/etzhayyim/com-etzhayyim-ibuki/methods/delegation.cljc`, per the
 ;; repo-wide rule "operational tooling SHOULD be clj/bb, not py" (root CLAUDE.md).
 ;; A MEMBER runs this on their OWN machine, with their OWN key, to mint a scoped +
 ;; expiring + revocable CACAO capability the autonomous actor (ibuki / kaname /

@@ -15,7 +15,7 @@ Mac-mini fleet + custom Rust kubelet + launchd control plane. **No VKE, no Karma
 | Multicluster placement contract (mesh, no Karmada) | `50-infra/multicluster/murakumo-mesh/` |
 | Lexicons (XRPC contracts) | `00-contracts/lexicons/com/etzhayyim/{murakumo,apps/murakumo,apps/murakumoFleet}` + `00-contracts/lexicons/com/etzhayyim/murakumo` |
 | BPMN process contracts | `00-contracts/bpmn/com/etzhayyim/murakumo/` |
-| Browser-side inference (ameno) | `20-actors/ameno/` |
+| Browser-side inference (ameno) | `orgs/etzhayyim/com-etzhayyim-ameno/` |
 | This project shell (metadata + model roster) | `60-apps/etzhayyim-project-murakumo/` |
 
 ## Control plane

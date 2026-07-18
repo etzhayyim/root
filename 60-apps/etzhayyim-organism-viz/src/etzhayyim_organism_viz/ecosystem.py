@@ -52,6 +52,21 @@ _LABEL_TO_KEY = {
     "sanctification":   "sanctification",
 }
 
+# Presentation metadata owned by this visualization. Runtime health sensors now
+# live in kotoba-lang/kotodama; the app must not import the retired Python actor.
+_AXES = (
+    (1, "autopoiesis", "Autopoiesis", "自己創出", "無教会 / 万人祭司 (self-organizing community)", "§1.7 priesthood-of-all-believers"),
+    (2, "metabolism", "Metabolism", "代謝", "産霊 (musuhi — generative donation cycle)", "§1.5 donation and tithe cycle"),
+    (3, "homeostasis", "Homeostasis", "恒常性", "和 (substrate boundary harmony)", "§1.6 substrate boundary"),
+    (4, "active_inference", "Active Inference", "能動推論", "縁起 (dependent origination)", "§1.15 non-eschatological observation loop"),
+    (5, "reproduction", "Reproduction", "生殖", "八百万 propagation (myriad fork-children)", "§1.7 fork-friendly reproduction"),
+    (6, "symbiosis", "Symbiosis", "共生", "Tree of Life branches (multi-substrate roots)", "§1.8 multi-substrate symbiosis"),
+    (7, "diversity", "Diversity", "多様性", "八百万-kami (variation as worship)", "§1.4 variation as worship"),
+    (8, "wellbecoming", "Wellbecoming", "動的軌跡", "子・孫 priority (multi-generation trajectory)", "§1.1 and §1.2 multi-generation trajectory"),
+    (9, "antifragility", "Anti-fragility", "反脆弱", "Reformed resilience (Just War posture)", "§1.12 transparent force and resilience"),
+    (10, "sanctification", "Sanctification", "聖化", "Sola Scriptura → Charter Rider", "§1.10 Charter Rider coverage"),
+)
+
 
 @dataclass
 class Entity:
@@ -186,26 +201,24 @@ def _cells(repo: Path) -> list[Entity]:
 
 
 def _axes(repo: Path, axis_scores: dict[str, int]) -> list[Entity]:
-    # constitution AXES — import lazily to avoid cycle
-    from etzhayyim_organism.constitution import AXES  # type: ignore
     return [
         Entity(
-            id=f"axis/{a.key}",
+            id=f"axis/{key}",
             kind="axis",
-            title=f"{a.name_en} {a.name_jp}",
+            title=f"{name_en} {name_jp}",
             state={
-                "key": a.key,
-                "n": a.n,
-                "religious_correspondence": a.religious_correspondence,
-                "invariant": a.invariant,
-                "score": axis_scores.get(a.key, 0),
+                "key": key,
+                "n": n,
+                "religious_correspondence": correspondence,
+                "invariant": invariant,
+                "score": axis_scores.get(key, 0),
             },
             chat_invite=(
-                f"私は axis {a.n} **{a.name_en} {a.name_jp}** 。憲法対応: {a.religious_correspondence}。"
-                f"現在 {axis_scores.get(a.key, 0)}/10。"
+                f"私は axis {n} **{name_en} {name_jp}** 。憲法対応: {correspondence}。"
+                f"現在 {axis_scores.get(key, 0)}/10。"
             ),
         )
-        for a in AXES
+        for n, key, name_en, name_jp, correspondence, invariant in _AXES
     ]
 
 

@@ -50,7 +50,7 @@
    nbb migration settles on where this classpath's source of truth lives."
   (pr-str
    '{:paths ["20-actors"
-             "20-actors/kotodama/src"
+             "orgs/kotoba-lang/kotodama/src"
              "50-infra/etzhayyim-moyai-credit/src"
              "50-infra/etzhayyim-atproto-pds-clj/src"
              "70-tools/src"

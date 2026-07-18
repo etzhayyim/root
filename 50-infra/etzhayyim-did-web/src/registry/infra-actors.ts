@@ -936,7 +936,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     glyph: "入",
     displayName: "Iriai — Global Lifeline-Commons (電気/水道/ガス/通信)",
     primaryLexicon: "com.etzhayyim.iriai.lifelineCoverageMap",
-    primarySchema: "20-actors/iriai/kotoba/ontology.iriai.edn",
+    primarySchema: "orgs/etzhayyim/com-etzhayyim-iriai/kotoba/ontology.iriai.edn",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:iriai#atproto_pds",

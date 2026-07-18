@@ -11375,7 +11375,7 @@
         "settlement path (participationReceipt → MST + L2 anchor; tithe optional)"
       ],
       "related": [
-        "20-actors/ameno/src/train.ts",
+        "orgs/etzhayyim/com-etzhayyim-ameno/src/train.ts",
         "70-tools/baien-distill/src/baien_distill/nodes/federated_aggregate.py",
         "40-engine/kotoba/crates/kotoba-kotodama/cells/baien_federated_aggregator/",
         "00-contracts/lexicons/com/etzhayyim/baien/distributedTrainDelta.json"
@@ -11403,7 +11403,7 @@
         "R1 out-of-scope (no aggregator, no lexicon publish, no multi-device)"
       ],
       "related": [
-        "20-actors/ameno/src/train.ts",
+        "orgs/etzhayyim/com-etzhayyim-ameno/src/train.ts",
         "70-tools/baien-distill/src/baien_distill/nodes/federated_aggregate.py"
       ],
       "last_verified": "2026-05-24",
@@ -11785,10 +11785,10 @@
         "phased R0..R3 activation rule (each subsequent phase requires its own ADR)"
       ],
       "related": [
-        "20-actors/ameno/src/inference.ts",
-        "20-actors/ameno/src/inference/webnn.ts",
-        "20-actors/ameno/src/train/kernels.ts",
-        "20-actors/ameno/src/train/device.ts",
+        "orgs/etzhayyim/com-etzhayyim-ameno/src/inference.ts",
+        "orgs/etzhayyim/com-etzhayyim-ameno/src/inference/webnn.ts",
+        "orgs/etzhayyim/com-etzhayyim-ameno/src/train/kernels.ts",
+        "orgs/etzhayyim/com-etzhayyim-ameno/src/train/device.ts",
         "https://www.w3.org/TR/webnn/",
         "https://webmachinelearning.github.io/webnn-status/"
       ],
@@ -13176,9 +13176,9 @@
         "activation absmean quantizer numerical contract (q8 → i2_s matmul → fp16 accumulate)"
       ],
       "related": [
-        "20-actors/ameno/src/inference.ts",
-        "20-actors/ameno/src/inference/webnn.ts",
-        "20-actors/ameno/src/train/kernels.ts",
+        "orgs/etzhayyim/com-etzhayyim-ameno/src/inference.ts",
+        "orgs/etzhayyim/com-etzhayyim-ameno/src/inference/webnn.ts",
+        "orgs/etzhayyim/com-etzhayyim-ameno/src/train/kernels.ts",
         "40-engine/baien-wasm-ternary/",
         "https://github.com/microsoft/BitNet"
       ],
@@ -13229,7 +13229,7 @@
         "graceful skip when no GPU adapter available (CI-friendly)"
       ],
       "related": [
-        "20-actors/ameno/src/inference/kernels/bitlinear-forward.ts",
+        "orgs/etzhayyim/com-etzhayyim-ameno/src/inference/kernels/bitlinear-forward.ts",
         "40-engine/baien-wasm-ternary/src/matmul.rs",
         "40-engine/baien-wasm-ternary/shaders/bitlinear_forward.wgsl"
       ],
@@ -13391,9 +13391,9 @@
         "failure mode taxonomy + fallback ladder when BitLinear dispatch errors mid-token"
       ],
       "related": [
-        "20-actors/ameno/src/inference.ts",
-        "20-actors/ameno/src/inference/kernels/dispatch.ts",
-        "20-actors/ameno/src/inference/bitnet-bridge.ts",
+        "orgs/etzhayyim/com-etzhayyim-ameno/src/inference.ts",
+        "orgs/etzhayyim/com-etzhayyim-ameno/src/inference/kernels/dispatch.ts",
+        "orgs/etzhayyim/com-etzhayyim-ameno/src/inference/bitnet-bridge.ts",
         "40-engine/baien-wasm-ternary/shaders/bitlinear_forward.wgsl",
         "https://github.com/huggingface/transformers.js",
         "https://github.com/microsoft/onnxruntime/tree/main/js/web"
@@ -13497,21 +13497,21 @@
         "estimated cost adjustment for the full forward override (~3000 LoC, not ~1500)"
       ],
       "related": [
-        "20-actors/ameno/src/inference/onnx-proto-min.ts",
-        "20-actors/ameno/src/inference/bitnet-graph-patcher.ts",
-        "20-actors/ameno/src/inference/bitnet-weight-transformer.ts",
-        "20-actors/ameno/src/inference/bitnet-weight-pack.ts",
-        "20-actors/ameno/src/inference/bitnet-config.ts",
-        "20-actors/ameno/src/inference/bitnet-rope.ts",
-        "20-actors/ameno/src/inference/bitnet-kv-cache.ts",
-        "20-actors/ameno/src/inference/bitnet-rmsnorm.ts",
-        "20-actors/ameno/src/inference/bitnet-silu.ts",
-        "20-actors/ameno/src/inference/bitnet-math.ts",
-        "20-actors/ameno/src/inference/bitnet-bitlinear-dispatch.ts",
-        "20-actors/ameno/src/inference/bitnet-attention.ts",
-        "20-actors/ameno/src/inference/bitnet-ffn.ts",
-        "20-actors/ameno/src/inference/bitnet-transformer.ts",
-        "20-actors/ameno/src/inference/bitnet-runtime.ts"
+        "orgs/etzhayyim/com-etzhayyim-ameno/src/inference/onnx-proto-min.ts",
+        "orgs/etzhayyim/com-etzhayyim-ameno/src/inference/bitnet-graph-patcher.ts",
+        "orgs/etzhayyim/com-etzhayyim-ameno/src/inference/bitnet-weight-transformer.ts",
+        "orgs/etzhayyim/com-etzhayyim-ameno/src/inference/bitnet-weight-pack.ts",
+        "orgs/etzhayyim/com-etzhayyim-ameno/src/inference/bitnet-config.ts",
+        "orgs/etzhayyim/com-etzhayyim-ameno/src/inference/bitnet-rope.ts",
+        "orgs/etzhayyim/com-etzhayyim-ameno/src/inference/bitnet-kv-cache.ts",
+        "orgs/etzhayyim/com-etzhayyim-ameno/src/inference/bitnet-rmsnorm.ts",
+        "orgs/etzhayyim/com-etzhayyim-ameno/src/inference/bitnet-silu.ts",
+        "orgs/etzhayyim/com-etzhayyim-ameno/src/inference/bitnet-math.ts",
+        "orgs/etzhayyim/com-etzhayyim-ameno/src/inference/bitnet-bitlinear-dispatch.ts",
+        "orgs/etzhayyim/com-etzhayyim-ameno/src/inference/bitnet-attention.ts",
+        "orgs/etzhayyim/com-etzhayyim-ameno/src/inference/bitnet-ffn.ts",
+        "orgs/etzhayyim/com-etzhayyim-ameno/src/inference/bitnet-transformer.ts",
+        "orgs/etzhayyim/com-etzhayyim-ameno/src/inference/bitnet-runtime.ts"
       ],
       "last_verified": "2026-05-27",
       "supersedes": [],
@@ -18633,7 +18633,7 @@
         "50-infra/etzhayyim-did-web/src/registry/gov-procedures.gen.ts",
         "70-tools/scripts/entity-actors/gen-gov-procedures.py",
         "70-tools/scripts/audit/test_gov_procedures_gen_fresh.py",
-        "40-engine/llm/inference/ameno/src/kotoba-ground.ts"
+        "orgs/etzhayyim/com-etzhayyim-ameno/src/kotoba-ground.ts"
       ],
       "related": [
         "2606013800",
@@ -19732,7 +19732,7 @@
       "topic": "iryo-rezept-claims-engine",
       "authoritative": true,
       "authoritative_for": [
-        "20-actors/iryo"
+        "orgs/etzhayyim/com-etzhayyim-iryo"
       ],
       "related": [
         "adr-2605250500-yakushi-pharmaceutical-tier-b-actor-r0",
@@ -24605,6 +24605,28 @@
       "last_verified": "2026-07-18",
       "related": [],
       "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2607181500-flat-west-migration-checkpoint-and-remaining.edn",
+      "id": "adr-2607181500-flat-west-migration-checkpoint-and-remaining",
+      "title": "Flat west migration checkpoint: published, prepared, and remaining root drain",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "flat-west-migration-checkpoint",
+      "authoritative": true,
+      "authoritative_for": [
+        "published actor migration count at the 2026-07-18 checkpoint",
+        "distinction between integrated, root-drain-prepared, and standalone-prepared work",
+        "remaining 20-actors retirement order"
+      ],
+      "supersedes": [
+        "adr-2607181200-flat-west-actor-migration-progress-and-remaining"
+      ],
+      "last_verified": "2026-07-18",
+      "related": [],
       "superseded_by": [],
       "amends": [],
       "amended_by": []

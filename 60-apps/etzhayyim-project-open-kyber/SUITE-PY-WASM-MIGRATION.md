@@ -136,7 +136,7 @@ npx @bytecodealliance/jco@latest transpile sheets-eval.wasm -o transpiled --name
 
 The four cores differ wildly in how WASM-portable they are, because componentize-py bundles
 CPython (~17.6 MB → a **dag-pb multi-block** `bafybei…` CID). The ameno browser loader
-(`20-actors/ameno/src/inference/wasm-actor-loader.ts`) **refuses non-raw CIDs** (`isRawCidV1`
+(`orgs/etzhayyim/com-etzhayyim-ameno/src/inference/wasm-actor-loader.ts`) **refuses non-raw CIDs** (`isRawCidV1`
 check, line ~77) — browser-local T1 is raw single-block ≤500 KB only.
 
 | Path | CID type | Runtime | Verify |

@@ -1,6 +1,6 @@
 ;; ie-flow SoS scoreboard integration test. ADR-2606212200.
 ;; Run from repo root (needs the actor adapters on the classpath):
-;;   bb -cp "20-actors:70-tools/src:20-actors/kotodama/src" \
+;;   bb -cp "20-actors:70-tools/src:orgs/kotoba-lang/kotodama/src" \
 ;;      70-tools/src/etzhayyim/ie_flow/test_scoreboard.clj
 (require '[clojure.test :as t :refer [deftest is run-tests]]
          '[clojure.string :as str]

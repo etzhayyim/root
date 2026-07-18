@@ -23,7 +23,6 @@
 ;;
 ;;   IO (subprocess-shaping verified via injectable :proc-fn, no live subprocesses):
 ;;     find-git-root        — walk directories to find .git (reads filesystem)
-;;     find-host-sdk-path   — checks for kotodama-host-sdk index.ts (filesystem)
 ;;     find-pg-alias        — looks for pg in node_modules (filesystem)
 ;;     find-xrpc-alias      — looks for xrpc aliases in 10-protocol/ (filesystem)
 ;;     read-kotodama-jsonld — read + parse kotodama.jsonld
@@ -578,15 +577,6 @@
         (nil? (.getParentFile d)) nil
         (= d (.getParentFile d))  nil
         :else                     (recur (.getParentFile d))))))
-
-(defn find-host-sdk-path
-  "Check for kotodama-host-sdk index.ts under git-root.
-  Returns path string or \"\".
-  Mirrors Python _find_host_sdk_path()."
-  [git-root]
-  (when (seq git-root)
-    (let [p (str git-root "/20-actors/kotodama/sdk/kotodama-host-sdk/src/index.ts")]
-      (when (.exists (java.io.File. p)) p))))
 
 (defn find-pg-alias
   "Find pg/lib/index.js in node_modules under root-path.

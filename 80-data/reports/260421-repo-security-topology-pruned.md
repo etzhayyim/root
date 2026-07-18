@@ -113,7 +113,7 @@ Workspace root `pnpm audit --prod` result:
 Highest-signal branches after pruning:
 
 1. Clerk middleware auth bypass in `hrse` and `docs`
-2. `protobufjs < 7.5.5` via `40-engine/llm/inference/ameno -> @huggingface/transformers -> onnxruntime-web`
+2. `protobufjs < 7.5.5` via `orgs/etzhayyim/com-etzhayyim-ameno -> @huggingface/transformers -> onnxruntime-web`
 3. `undici < 7.24.0` in `60-apps/etzhayyim-project-scap` workflow chain
 4. `hono < 4.12.14` in `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk`
 

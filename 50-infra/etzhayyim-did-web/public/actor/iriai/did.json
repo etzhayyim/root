@@ -32,7 +32,7 @@
     "wasmCid": null,
     "execModel": "service",
     "primaryLexicon": "com.etzhayyim.iriai.lifelineCoverageMap",
-    "primarySchema": "20-actors/iriai/kotoba/ontology.iriai.edn",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-iriai/kotoba/ontology.iriai.edn",
     "note": "verificationMethod empty — did:web trust root = TLS (no server-minted key, ADR-2605231525)"
   }
 }

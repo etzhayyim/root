@@ -30,7 +30,7 @@
 
 ;; longest-prefix-first so 70-tools/src strips before 70-tools, etc.
 (def ^:private classpath-roots
-  ["20-actors/kotodama/src"
+  ["orgs/kotoba-lang/kotodama/src"
    "50-infra/etzhayyim-moyai-credit/src"
    "70-tools/src"
    "20-actors"

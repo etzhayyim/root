@@ -1,7 +1,7 @@
 #!/usr/bin/env bb
 ;; ie-flow SoS scoreboard — score every embedded actor + fold into the organism reward.
 ;; Run from repo root:
-;;   bb -cp "20-actors:70-tools/src:20-actors/kotodama/src:../com-etzhayyim-ugachi" \
+;;   bb -cp "20-actors:70-tools/src:orgs/kotoba-lang/kotodama/src:../com-etzhayyim-ugachi" \
 ;;      70-tools/src/etzhayyim/ie_flow/scoreboard.clj [--write]
 ;; ADR-2606212200. Pure read of real flow-states; --write commits the snapshot.
 (ns etzhayyim.ie-flow.scoreboard

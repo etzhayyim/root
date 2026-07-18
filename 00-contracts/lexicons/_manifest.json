@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-18T10:25:42.975Z",
+  "generated": "2026-07-18T10:58:59.170Z",
   "lexicons": [
     {
       "id": "ai.etzhayyim.yorishiro.argparse-demo.main",
@@ -10026,66 +10026,6 @@
       "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/irUvSpec/identifyFunctionalGroup.json",
       "type": "procedure",
       "description": "Identify functional groups from IR spectrum or electronic transitions from UV-Vis. Auto-generated stub (coverage expansion 2026-04-17)."
-    },
-    {
-      "id": "com.etzhayyim.apps.iryo.agentLoop",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/iryo/agentLoop.json",
-      "type": "procedure",
-      "description": "Path F unified agent loop entry (ADR 260413). Pulls bed occupancy + 30d admission counts + recent DRG P&L + WHO/OECD KPI context, runs LLM with iryo hospital-ops system prompt, returns response. No st"
-    },
-    {
-      "id": "com.etzhayyim.apps.iryo.coverage",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/iryo/coverage.json",
-      "type": "query",
-      "description": "Coverage snapshot — counts of hospital / dept / ward / bed / staff / encounter / drg_claim plus MV freshness for iryo Phase 1."
-    },
-    {
-      "id": "com.etzhayyim.apps.iryo.dischargeEncounter",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/iryo/dischargeEncounter.json",
-      "type": "procedure",
-      "description": "Discharge an encounter: transitions status open→closed, releases the bed, computes lengthOfStayDays, and drafts a DRG claim from the supplied diagnosis codes (claim status=draft, finalized via submitD"
-    },
-    {
-      "id": "com.etzhayyim.apps.iryo.getBedOccupancy",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/iryo/getBedOccupancy.json",
-      "type": "query",
-      "description": "Bed occupancy snapshot from mv_iryo_bed_occupancy_now. Per-ward occupied/total/utilization. Optional dept filter."
-    },
-    {
-      "id": "com.etzhayyim.apps.iryo.getDrgClaim",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/iryo/getDrgClaim.json",
-      "type": "query",
-      "description": "Fetch one DRG claim by claim_id (content-addressed PK)."
-    },
-    {
-      "id": "com.etzhayyim.apps.iryo.listEncounters",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/iryo/listEncounters.json",
-      "type": "query",
-      "description": "List encounters filtered by department / ward / status / admission window. Returns Tier-1 fields only (no PHI; patient_did is opaque hash)."
-    },
-    {
-      "id": "com.etzhayyim.apps.iryo.rezept",
-      "path": "00-contracts/lexicons/com/etzhayyim/iryo/rezept.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.apps.iryo.rezeptLine",
-      "path": "00-contracts/lexicons/com/etzhayyim/iryo/rezeptLine.json",
-      "type": "record",
-      "description": ""
-    },
-    {
-      "id": "com.etzhayyim.apps.iryo.submitDrgClaim",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/iryo/submitDrgClaim.json",
-      "type": "procedure",
-      "description": "Finalize a DRG claim: status draft→submitted. Coder/auditor records package_points + tariff_system. Phase 1 has no payer adapter, so submitted claims simply settle in the iryo graph. Phase 2 adds paye"
-    },
-    {
-      "id": "com.etzhayyim.apps.iryo.submitEncounter",
-      "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/iryo/submitEncounter.json",
-      "type": "procedure",
-      "description": "Admit a patient: creates vertex_iryo_encounter (status=open) and assigns an available bed in the requested ward. Returns the encounter id and bed slug. patientDid is opaque hash; no PHI is stored at T"
     },
     {
       "id": "com.etzhayyim.apps.isbn.book",
@@ -35078,36 +35018,6 @@
       "description": ""
     },
     {
-      "id": "com.etzhayyim.iriai.assetCondition",
-      "path": "00-contracts/lexicons/com/etzhayyim/iriai/assetCondition.json",
-      "type": "record",
-      "description": "A physical-simulation digital-twin condition snapshot for one DEPLOYED lifeline asset (ADR-2606280900). A REAL degradation model per lifeline (transformer IEEE C57.91 thermal aging / water-main Hazen-"
-    },
-    {
-      "id": "com.etzhayyim.iriai.commonsFundingProposal",
-      "path": "00-contracts/lexicons/com/etzhayyim/iriai/commonsFundingProposal.json",
-      "type": "record",
-      "description": "A §1.16 social-security IN-KIND funding proposal for a lifeline-commons cell (ADR-2606272200). Funded on the non-profit rails: donation → TitheRouter 10% → Public Fund → grant/milestone-escrow/in-kind"
-    },
-    {
-      "id": "com.etzhayyim.iriai.governanceDecision",
-      "path": "00-contracts/lexicons/com/etzhayyim/iriai/governanceDecision.json",
-      "type": "record",
-      "description": "The governance envelope for a lifeline-commons funding proposal (ADR-2606272200). iriai PROPOSES; the commons (1 SBT = 1 vote) DECIDES; the producer actor (under Council) ACTS. Compute-only R0: the de"
-    },
-    {
-      "id": "com.etzhayyim.iriai.lifelineCoverageMap",
-      "path": "00-contracts/lexicons/com/etzhayyim/iriai/lifelineCoverageMap.json",
-      "type": "record",
-      "description": "A lifeline-commons coverage + resilience verdict for one region × lifeline cell, computed on read (ADR-2606272200). 入会 (iriai) = the traditional COMMONS; the lifelines (電気/水道/ガス/通信) are held as a comm"
-    },
-    {
-      "id": "com.etzhayyim.iriai.maintenanceVerdict",
-      "path": "00-contracts/lexicons/com/etzhayyim/iriai/maintenanceVerdict.json",
-      "type": "record",
-      "description": "An operations/maintenance (運用メンテナンス) verdict for one DEPLOYED lifeline asset (ADR-2606280900), computed from its physical-simulation twin (condition/RUL/safety). The lifecycle gate routes the asset to"
-    },
-    {
       "id": "com.etzhayyim.isbn.book",
       "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/isbn/book.json",
       "type": "record",
@@ -41709,18 +41619,6 @@
       "com.etzhayyim.apps.iraTaxCredit.flagFeocDisqualification",
       "com.etzhayyim.apps.iraTaxCredit.recordCreditClaim"
     ],
-    "com.etzhayyim.apps.iryo": [
-      "com.etzhayyim.apps.iryo.agentLoop",
-      "com.etzhayyim.apps.iryo.coverage",
-      "com.etzhayyim.apps.iryo.dischargeEncounter",
-      "com.etzhayyim.apps.iryo.getBedOccupancy",
-      "com.etzhayyim.apps.iryo.getDrgClaim",
-      "com.etzhayyim.apps.iryo.listEncounters",
-      "com.etzhayyim.apps.iryo.rezept",
-      "com.etzhayyim.apps.iryo.rezeptLine",
-      "com.etzhayyim.apps.iryo.submitDrgClaim",
-      "com.etzhayyim.apps.iryo.submitEncounter"
-    ],
     "com.etzhayyim.apps.isbn": [
       "com.etzhayyim.apps.isbn.book",
       "com.etzhayyim.apps.isbn.coverage",
@@ -47530,13 +47428,6 @@
       "com.etzhayyim.infra.serviceRequest",
       "com.etzhayyim.infra.utilityActivation"
     ],
-    "com.etzhayyim.iriai": [
-      "com.etzhayyim.iriai.assetCondition",
-      "com.etzhayyim.iriai.commonsFundingProposal",
-      "com.etzhayyim.iriai.governanceDecision",
-      "com.etzhayyim.iriai.lifelineCoverageMap",
-      "com.etzhayyim.iriai.maintenanceVerdict"
-    ],
     "com.etzhayyim.iso20022": [
       "com.etzhayyim.iso20022.ingressAttestation"
     ],
@@ -47945,6 +47836,6 @@
       "tools.ozone.verification.revokeVerifications"
     ]
   },
-  "total": 6527,
+  "total": 6512,
   "legacy_issues_count": 8
 }

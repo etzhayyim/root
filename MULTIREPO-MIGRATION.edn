@@ -59,16 +59,13 @@
     :docs 1561}
    :actor-directories 199
    :actor-existing-independent-repo 126
-   :actor-not-yet-independent 27
+   :actor-not-yet-independent 23
    :actor-not-yet-independent-names
-   ["etzhayyim-organism"
-    "funamori"
-    "iriai" "iryo" "jinushi" "kafun" "kaiyaku"
-    "karakuri" "kotoba-actors-clj" "kotodama"
+   ["iriai" "iryo" "jinushi" "kafun" "kaiyaku"
+    "karakuri" "kotoba-actors-clj"
     "magatama"
     "matsurigoto" "meyasu" "moyoshi"
     "mst-projector" "niyaku" "okaimono"
-    "silicon"
     "tate" "tedai"
     "tsubasa" "tsuchifumi" "ugachi" "unspsc" "uzu" "warifu" "yobel"]
    :consolidated ["_conformance" "os" "umisachi" "fleet" "ipaddress" "kouhou" "tashikame"]
@@ -1836,6 +1833,29 @@
     {:repository "https://github.com/etzhayyim/com-etzhayyim-himawari" :revision "e932ea0504ef028d3072b579237b6abe859426b3" :west-path "orgs/etzhayyim/com-etzhayyim-himawari" :canonical-format :edn :canonical-edn-files 7 :wire-artifacts {:json 7} :verification {:tests 82 :assertions 175 :failures 0 :errors 0} :retained-external-python-ingest-adapter true :root-copy :edn-tombstone-only}
     "hinagata"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hinagata" :revision "c4dbec97b491adbac5df78549fbd562ae2065412" :west-path "orgs/etzhayyim/com-etzhayyim-hinagata" :canonical-format :edn :canonical-edn-files 8 :wire-artifacts {:wit 1} :verification {:tests 66 :assertions 3623 :failures 0 :errors 0} :retained-central-lexicons true :root-copy :edn-tombstone-only}
+    "funamori"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-funamori"
+     :revision "69e4c1b0b79920bb3ab3fc276c9f50f34664aefc"
+     :west-path "orgs/etzhayyim/com-etzhayyim-funamori"
+     :canonical-format :edn
+     :canonical-edn-files 11
+     :wire-artifacts {}
+     :depends-on {"com-etzhayyim-hikari" :flat-sibling-runtime-classpath}
+     :verification {:tests 53 :assertions 224 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "ibuki"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-ibuki"
+     :revision "2f71a51fee5818e1543d2a8dbccd30384a824e08"
+     :west-path "orgs/etzhayyim/com-etzhayyim-ibuki"
+     :canonical-format :edn
+     :canonical-edn-files 8
+     :wire-artifacts {:json 1 :unspsc-registry-snapshot true}
+     :verification {:tests 278 :assertions 1129 :failures 0 :errors 0
+                    :murakumo-tests 9 :murakumo-assertions 31}
+     :retired-stale-artifacts [:go :tinygo :python :pycache :json-ld-manifest]
+     :retained-central-assets ["00-contracts/actor-registry/unspsc.json"]
+     :known-gap :extract-and-publish-kotoba-datom-shared-library
+     :root-copy :edn-tombstone-only}
     "hodoki"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-hodoki" :revision "665f8a1dca27c62494361b69d151462fd69610e6" :west-path "orgs/etzhayyim/com-etzhayyim-hodoki" :canonical-format :edn :canonical-edn-files 31 :wire-artifacts {:total 9} :verification {:tests 43 :assertions 90 :failures 0 :errors 0} :central-lexicons-moved true :root-copy :edn-tombstone-only}
     "hotaru"
@@ -1848,6 +1868,51 @@
     {:repository "https://github.com/etzhayyim/com-etzhayyim-kadode" :revision "5de19dc935b274bf59836296305fe2850575be6f" :west-path "orgs/etzhayyim/com-etzhayyim-kadode" :canonical-format :edn :wire-artifacts {:json 2 :json-ld 1} :verification {:tests 58 :assertions 381 :failures 0 :errors 0 :wasm-build :not-run} :known-gap :legacy-componentize-py-build-script :central-lexicons-moved true :root-copy :edn-tombstone-only}
     "jinushi"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-jinushi" :revision "88fdf592446fa9399ed691c584cb6ba242b37dd0" :west-path "orgs/etzhayyim/com-etzhayyim-jinushi" :canonical-format :edn :canonical-edn-files 7 :wire-artifacts {} :verification {:pure-logic-tests 26 :assertions 127 :failures 0 :errors 0 :full-dataset-suite :requires-external-mount} :external-dataset {:path "80-data/jinushi-land" :files 35 :ownership :dataset-boundary} :root-copy :edn-tombstone-only}
+    "kaiyaku"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kaiyaku" :revision "8543e3206a5d2fa4573a66c9e8bce4fe3df764f2" :west-path "orgs/etzhayyim/com-etzhayyim-kaiyaku" :canonical-format :edn :canonical-edn-files 6 :wire-artifacts {} :verification {:tests 120 :assertions 1903 :failures 0 :errors 0 :cross-repository-suites :west-fixture-gated} :depends-on-fixtures ["com-etzhayyim-tate/data/seed-member-docs.edn" "com-etzhayyim-karakuri/lex/serviceOp.edn"] :root-copy :edn-tombstone-only}
+    "ameno"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-ameno" :revision "2933528b3e4fbbb654070c14b57dda8ceef023bc" :west-path "orgs/etzhayyim/com-etzhayyim-ameno" :canonical-format :edn :verification {:typecheck :pass :tests 157 :passed 154 :environment-performance-failures 2 :external-fixture-failures 1 :kotoba-ground-tests 9} :retained-root-assets ["00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/ameno"] :root-copy :edn-tombstone-only}
+    "iriai"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-iriai" :revision "4a02010be91e1f57755a58daa9ef5ace14d15ce3" :west-path "orgs/etzhayyim/com-etzhayyim-iriai" :canonical-format :edn :canonical-edn-files 11 :wire-artifacts {:json 5} :verification {:tests 79 :assertions 513 :failures 0 :errors 0} :central-lexicons-moved true :root-copy :edn-tombstone-only}
+    "iryo"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-iryo" :revision "bff63360df49fc19bce9c77d691021b4a01e5c96" :west-path "orgs/etzhayyim/com-etzhayyim-iryo" :canonical-format :edn :canonical-edn-files 22 :wire-artifacts {:total 20 :bpmn-xml 9 :json 11} :verification {:tests 138 :assertions 563 :failures 0 :errors 0} :central-bpmn-and-lexicons-moved true :root-copy :edn-tombstone-only}
+    "etzhayyim-organism"
+    {:repository "https://github.com/kotoba-lang/kotodama"
+     :revision "6e02abb11f95d5b7cea2379f513c25d0208b1b59"
+     :west-path "orgs/kotoba-lang/kotodama"
+     :category :shared-runtime-library
+     :canonical-format :edn
+     :moves ["src/kotodama/organism/sensors"]
+     :pruned ["Python sensor twins" "Python constitution" "Dockerfile" "pyproject.toml"]
+     :verification {:tests 31 :assertions 61 :failures 0 :errors 0}
+     :retained-root-assets ["00-contracts organism contracts" "80-data journals and public data"]
+     :root-consumer-rewire "etzhayyim-organism-viz no longer imports the retired Python actor"
+     :root-copy :edn-tombstone-only}
+    "kotodama"
+    {:repository "https://github.com/kotoba-lang/kotodama"
+     :revision "6e02abb11f95d5b7cea2379f513c25d0208b1b59"
+     :west-path "orgs/kotoba-lang/kotodama"
+     :category :shared-runtime-library
+     :canonical-format :edn
+     :moves ["src/kotoba/datom.cljc"]
+     :actor-owned-content
+     {"tadori" "orgs/etzhayyim/com-etzhayyim-tadori"
+      "tsukuroi" "orgs/etzhayyim/com-etzhayyim-tsukuroi"}
+     :pruned ["deprecated Go/TinyGo runtime" "obsolete Rust probe" "obsolete host SDK probe"]
+     :verification {:tests 12 :assertions 42 :failures 0 :errors 0}
+     :root-consumer-rewire "active classpaths use orgs/kotoba-lang/kotodama/src"
+     :root-copy :edn-tombstone-only}
+    "silicon"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-silicon"
+     :revision "7d7a5fa1a49f38ed34d4b374d4c8187d5cf6d84c"
+     :west-path "orgs/etzhayyim/com-etzhayyim-silicon"
+     :canonical-format :edn
+     :canonical-edn-files 6
+     :wire-artifacts {}
+     :verification {:tests 64 :assertions 136 :failures 0 :errors 0}
+     :retained-central-assets ["00-contracts/lexicons/com/etzhayyim/silicon"]
+     :retired-stale-artifacts [:shell-runner :shell-deploy :go :tinygo]
+     :root-copy :edn-tombstone-only}
     "tate"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-tate"
      :revision "658b9f67aaa65d7aad5ffda280ec8feaae7a8bc2"
@@ -2052,9 +2117,9 @@
   [{:class :legacy-actor-root-directories
     :snapshot-date "2026-07-18"
     :baseline 198
-    :moved 180
-    :remaining 18
-    :inventory "90-docs/adr/2607181200-flat-west-actor-migration-progress-and-remaining.edn"}
+    :moved 189
+    :remaining 9
+    :inventory "90-docs/adr/2607181500-flat-west-migration-checkpoint-and-remaining.edn"}
    {:class :existing-repo-overlap
     :state :merge-root-only-content-before-delete}
    {:class :not-yet-independent-actor

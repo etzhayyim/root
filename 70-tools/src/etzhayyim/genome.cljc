@@ -2,7 +2,7 @@
   "kotoba-genome W2 — the generalized closed learning loop (ADR-2606302205 D1).
 
   Generalizes the ibuki active-inference + co-scientist + kaizen loop OUT of
-  20-actors/ibuki/methods/{react_loop,coscientist,metabolism}.cljc into a PURE,
+  orgs/etzhayyim/com-etzhayyim-ibuki/methods/{react_loop,coscientist,metabolism}.cljc into a PURE,
   actor-agnostic library that any actor — and the RESIDENT organism heartbeat —
   folds its REAL observations through, so the running thing actually LEARNS
   (today the resident loop only measures; the learning loop is a separate cell it

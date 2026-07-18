@@ -67,7 +67,7 @@ libp2p `/x/etzhayyim/xrpc/1.0` is the remaining transport wiring.
 npm run test:cljs                          # bb: did-web router / CLJC ownership (incl. /organism)
 npm test                                   # did-web: car + erc725 (node:test)
 node 50-infra/e7m-wasm-runner/ ; npm test  # runner
-(cd 20-actors/ameno && npm test)           # ameno: loader + panel
+(cd orgs/etzhayyim/com-etzhayyim-ameno && npm test)           # ameno: loader + panel
 ```
 
 The CLJC-owned public surfaces currently include `/`, `/organism`,

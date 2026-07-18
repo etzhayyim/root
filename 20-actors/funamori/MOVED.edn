@@ -1,0 +1,8 @@
+[{:db/id -1
+  :migration/kind :moved-tombstone
+  :migration/source "20-actors/funamori"
+  :migration/canonical-repo "https://github.com/etzhayyim/com-etzhayyim-funamori"
+  :migration/west-path "orgs/etzhayyim/com-etzhayyim-funamori"
+  :migration/revision "69e4c1b0b79920bb3ab3fc276c9f50f34664aefc"
+  :migration/date "2026-07-18"
+  :migration/authoritative true}]

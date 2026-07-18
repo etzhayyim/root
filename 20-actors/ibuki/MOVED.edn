@@ -1,0 +1,8 @@
+[{:db/id -1
+  :migration/kind :moved-tombstone
+  :migration/source "20-actors/ibuki"
+  :migration/canonical-repo "https://github.com/etzhayyim/com-etzhayyim-ibuki"
+  :migration/west-path "orgs/etzhayyim/com-etzhayyim-ibuki"
+  :migration/revision "2f71a51fee5818e1543d2a8dbccd30384a824e08"
+  :migration/date "2026-07-18"
+  :migration/authoritative true}]

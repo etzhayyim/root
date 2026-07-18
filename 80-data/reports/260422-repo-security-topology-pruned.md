@@ -131,7 +131,7 @@ Workspace root `pnpm audit --prod --json` result on 2026-04-22:
 Highest-signal dependency leaves after pruning:
 
 1. `@clerk/nextjs` / `@clerk/shared` in `hrse`
-2. `protobufjs < 7.5.5` via `40-engine/llm/inference/ameno -> @huggingface/transformers -> onnxruntime-web`
+2. `protobufjs < 7.5.5` via `orgs/etzhayyim/com-etzhayyim-ameno -> @huggingface/transformers -> onnxruntime-web`
 3. `hono` advisory path via `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk`
 4. `undici` advisory path in `60-apps/etzhayyim-project-scap`
 

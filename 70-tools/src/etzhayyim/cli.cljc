@@ -261,8 +261,8 @@
     (if-not path-arg
       (do
         (println "coverage: provide a path to a kotodama.jsonld file or directory.")
-        (println "  e.g.  bb e7m coverage 20-actors/ibuki/kotodama.jsonld")
-        (println "  e.g.  bb e7m coverage 20-actors/ibuki"))
+        (println "  e.g.  bb e7m coverage <actor-repository>/kotodama.jsonld")
+        (println "  e.g.  bb e7m coverage <actor-repository>"))
       (let [target  (if (str/ends-with? path-arg ".jsonld")
                       path-arg
                       (str path-arg "/kotodama.jsonld"))

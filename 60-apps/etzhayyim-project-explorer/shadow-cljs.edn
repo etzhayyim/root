@@ -16,7 +16,7 @@
 {:source-paths
  ["src" "test"
   ;; portable kotoba datom codec (.cljc, ADR-2605312345) — CommitDag/tx shapes
-  "../../20-actors/kotodama/src"]
+  "../../orgs/kotoba-lang/kotodama/src"]
 
  :dev-http
  {8710 {:root "public"

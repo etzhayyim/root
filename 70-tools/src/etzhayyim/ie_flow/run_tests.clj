@@ -1,5 +1,5 @@
 ;; ie-flow test runner. Run from repo root:
-;;   bb -cp "70-tools/src:20-actors/kotodama/src" 70-tools/src/etzhayyim/ie_flow/run_tests.clj
+;;   bb -cp "70-tools/src:orgs/kotoba-lang/kotodama/src" 70-tools/src/etzhayyim/ie_flow/run_tests.clj
 ;; Exits non-zero on any failure. ADR-2606211200.
 (require '[clojure.test :as t]
          'etzhayyim.ie-flow.test-metrics

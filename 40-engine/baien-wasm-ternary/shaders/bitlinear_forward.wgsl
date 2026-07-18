@@ -3,7 +3,7 @@
 // ADR-2605263300 §5 (authoritative WGSL source).
 // ADR-2605263400 §1 (relocated from TS string literal to standalone
 // .wgsl file — single source of truth shared by:
-//   - 20-actors/ameno/src/inference/kernels/bitlinear-forward.ts
+//   - orgs/etzhayyim/com-etzhayyim-ameno/src/inference/kernels/bitlinear-forward.ts
 //     (via Vite `?raw` import)
 //   - 40-engine/baien-wasm-ternary/tests/wgpu_bitlinear_forward.rs
 //     (via include_str!)

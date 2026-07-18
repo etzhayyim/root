@@ -1,0 +1,10 @@
+{:migration/source "20-actors/kotodama"
+ :migration/canonical-repo "https://github.com/kotoba-lang/kotodama"
+ :migration/west-path "orgs/kotoba-lang/kotodama"
+ :migration/revision "6e02abb11f95d5b7cea2379f513c25d0208b1b59"
+ :migration/category :shared-runtime-library
+ :migration/canonical-format :edn
+ :migration/pruned ["Go/TinyGo runtime" "actor-owned tadori cells" "actor-owned tsukuroi cells"]
+ :migration/actor-destinations ["orgs/etzhayyim/com-etzhayyim-tadori"
+                                "orgs/etzhayyim/com-etzhayyim-tsukuroi"]
+ :migration/root-copy :edn-tombstone-only}

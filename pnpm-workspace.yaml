@@ -27,7 +27,7 @@ packages:
   - "50-infra/etzhayyim-authz"
 
   # ameno cohort
-  - "20-actors/ameno"
+  - "orgs/etzhayyim/com-etzhayyim-ameno"
   - "60-apps/etzhayyim-project-ameno/appview/etzhayyim-wasm-ameno-d94d27cb/svelte"
   - "60-apps/etzhayyim-project-ameno/daemon"
 
