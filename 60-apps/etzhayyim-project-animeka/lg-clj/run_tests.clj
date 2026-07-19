@@ -8,6 +8,8 @@
             [org.httpkit.server :as httpkit]
             [lg-animeka.audit :as audit]
             [lg-animeka.llm :as llm]
+            [lg-animeka.store :as store]
+            [lg-animeka.util :as util]
             [lg-animeka.server :as server]
             [lg-animeka.smoke-test]))
 
@@ -28,6 +30,11 @@
    :disabled? (= "1" (env "LG_AUDIT_DISABLED" "0"))})
 
 (def api-key (env "LG_API_KEY" ""))
+(def store-url (or (System/getenv "RW_URL")
+                   (System/getenv "LG_CHECKPOINTER_URL")
+                   ""))
+(def app-did (env "ANIMEKA_APP_DID" util/app-did))
+(def repo-did (env "ANIMEKA_REPO_DID" util/repo-did))
 
 (defn murakumo-chat [system user opts]
   (llm/chat-with http/post murakumo-config system user opts))
@@ -50,6 +57,9 @@
   (binding [llm/*chat* murakumo-chat
             audit/*emit* audit-emit
             audit/*disabled?* (:disabled? audit-config)
+            store/*rw-url* store-url
+            util/app-did app-did
+            util/repo-did repo-did
             server/*api-key* api-key]
     (server/handler request)))
 

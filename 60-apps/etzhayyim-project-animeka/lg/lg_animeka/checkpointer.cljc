@@ -18,17 +18,9 @@
 
 ;; ── env: LG_CHECKPOINTER_URL or RW_URL ───────────────────────────────
 (defn checkpointer-url
-  "Connection URL for the checkpointer; LG_CHECKPOINTER_URL takes
-  precedence over RW_URL. Empty string when neither is set (matches the
-  Python `... or os.environ.get(\"RW_URL\", \"\")` fallback)."
-  []
-  #?(:clj  (or (System/getenv "LG_CHECKPOINTER_URL")
-               (System/getenv "RW_URL")
-               "")
-     :cljs (or (some-> (.. js/process -env -LG_CHECKPOINTER_URL))
-               (some-> (.. js/process -env -RW_URL))
-               "")
-     :default ""))
+  "Normalize a checkpointer URL supplied by an explicit host adapter."
+  ([] "")
+  ([url] (or url "")))
 
 ;; ── RW-compat queries (override the stock LangGraph SQL strings) ──────
 ;;
@@ -82,8 +74,8 @@
   This depends on the external langgraph/psycopg runtime, which has no
   Clojure host. The precondition is preserved (CHECKPOINTER_URL must be
   set); the saver itself is unavailable on this host."
-  [& _]
-  (let [url (checkpointer-url)]
+  [& [supplied-url]]
+  (let [url (checkpointer-url supplied-url)]
     (when (clojure.string/blank? url)
       (throw (ex-info
                (str "LG_CHECKPOINTER_URL or RW_URL must be set "
