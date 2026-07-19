@@ -1,0 +1,7 @@
+{:schema "etzhayyim.adr/v1" :id "2607201230" :title "Extract fifty-eight through sixty-two-file active app artifacts" :status :accepted :date "2026-07-20"
+ :scope {:source-repository "etzhayyim/root" :source-revision "ed43d30ff23b276b9af95d460a5574446fc727f5" :directories 4 :tracked-files 244 :bytes 12056183 :file-bands {58 1 62 3}}
+ :decision {:classification :active-executable-ui-contract-or-runtime-artifact :destination-prefix "etzhayyim/com-etzhayyim-app-" :apps ["explorer" "docs" "watashi" "yukkuri"]}
+ :extraction-contract {:repository-visibility :private :canonical-files ["README.edn" "migration.edn"] :source-preservation "Every destination tree differs from its exact source tree only by the two canonical EDN files."}
+ :reference-classification {:removed-root-workspaces ["docs"] :stale-upstream-baseline {:before 3 :after 2 :removed ["watashi"] :remaining ["resources" "news"]} :regenerated-operational-allowlist ["watashi" "yukkuri"] :regenerated-policy-baselines true :preserved-historical-fixture-provenance true}
+ :invariants {:canonical-record-format :edn :go-files-created 0 :tinygo-files-created 0 :flat-west-path "orgs/etzhayyim/com-etzhayyim-app-*"}
+ :verification [:private-repository :exact-remote-sha :source-tree-identity :edn-readable :operational-reference-audit :registry-freshness :layer-freeze-guard :tree-guard]}
