@@ -5,82 +5,9 @@
 60-apps/ai-gftd-chat-shell/svelte/src/lib/api.ts:14:pg-direct-db:return new Client({ apiUrl: "/lg" });
 60-apps/etzhayyim-chat-shell/src/app.ts:25:hono-import:import { Hono } from "hono";
 60-apps/etzhayyim-chat-shell/svelte/src/lib/api.ts:14:pg-direct-db:return new Client({ apiUrl: "/lg" });
-60-apps/etzhayyim-project-browser/provider/darkweb-proxy/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "worker.ts"
 60-apps/etzhayyim-project-mangaka/appview-studio/etzhayyim-wasm-studio-stdk2024/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-mangaka/appview/etzhayyim-wasm-mangaka-mng4k4x1/wrangler.jsonc:33:wrangler-hyperdrive-binding:"hyperdrive": [
 60-apps/etzhayyim-project-mangaka/appview/etzhayyim-wasm-mangaka-mng4k4x1/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/app.ts"
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:1006:kysely-direct-db:.insertInto("vertex_spatial" as any)
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:1043:kysely-direct-db:.selectFrom("vertex_repo_record")
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:2258:kysely-direct-db:db.selectFrom("vertex_maps_social_profile" as any)
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:2264:kysely-direct-db:db.selectFrom("vertex_repo_record")
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:2270:kysely-direct-db:db.selectFrom("edge_follows")
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:256:kysely-direct-db:return createKyselyDb();
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:2632:kysely-direct-db:.selectFrom("vertex_spatial")
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:2761:kysely-direct-db:.selectFrom("edge_osm_way_node as e")
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:2808:kysely-direct-db:.selectFrom("vertex_osm_element")
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:3126:kysely-direct-db:.selectFrom("vertex_kami_model_instance as i")
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:3166:kysely-direct-db:.selectFrom("vertex_maps_building_3d")
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:3204:kysely-direct-db:.selectFrom("vertex_spatial")
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:3241:kysely-direct-db:.selectFrom("vertex_periodic_element")
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:3261:kysely-direct-db:.selectFrom("vertex_scientific_taxon")
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:360:hyperdrive-usage:console.log(`[hyperdrive-probe] SELECT 1 ok ms=${Date.now() - t0}`);
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:362:hyperdrive-usage:console.error(`[hyperdrive-probe] SELECT 1 FAILED ms=${Date.now() - t0} err=${(e as Error).message}`);
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:374:kysely-direct-db:let query: any = getDb().selectFrom("vertex_spatial").selectAll().where("label", "=", label).limit(500);
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:3883:kysely-direct-db:.selectFrom("vertex_maps_gsplat_asset" as any)
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:3915:kysely-direct-db:.selectFrom("vertex_maps_gsplat_mesh" as any)
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:3966:kysely-direct-db:.selectFrom("vertex_maps_gsplat_asset" as any)
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:403:kysely-direct-db:.selectFrom("mv_vertex_spatial_count" as any)
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:4044:kysely-direct-db:.selectFrom("vertex_maps_gsplat_job" as any)
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:4093:kysely-direct-db:.selectFrom("mv_maps_gsplat_job_latest" as any)
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:4116:kysely-direct-db:.selectFrom("mv_maps_gsplat_job_latest" as any)
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:415:kysely-direct-db:const rows = await getDb().selectFrom("vertex_profile").selectAll().limit(limit).execute();
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:4243:kysely-direct-db:.selectFrom("vertex_maps_gsplat_job" as any)
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:4281:kysely-direct-db:.selectFrom("mv_maps_gsplat_job_latest" as any)
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:446:kysely-direct-db:.selectFrom("vertex_terrain_source" as any)
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:452:kysely-direct-db:.selectFrom("vertex_raster_asset" as any)
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:532:kysely-direct-db:.selectFrom("vertex_vector_source" as any)
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:538:kysely-direct-db:.selectFrom("vertex_vector_asset" as any)
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:5835:kysely-direct-db:.selectFrom("vertex_aircraft_state" as any)
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:5875:kysely-direct-db:.selectFrom("vertex_satellite_pass" as any)
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:5911:kysely-direct-db:.selectFrom("vertex_satellite_pass" as any)
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:5959:kysely-direct-db:.selectFrom("vertex_aircraft_track" as any)
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:5982:kysely-direct-db:.selectFrom("vertex_celestial_object" as any)
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:615:kysely-direct-db:.selectFrom("vertex_orbital_system" as any)
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:641:kysely-direct-db:.selectFrom("vertex_orbital_body" as any)
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:6761:kysely-direct-db:const rows = await db.selectFrom("edge_ownership" as any)
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:6774:kysely-direct-db:const registries = await db.selectFrom("edge_registered_at" as any)
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:677:kysely-direct-db:.selectFrom("vertex_celestial_catalog" as any)
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:6780:kysely-direct-db:const ownerships = await db.selectFrom("edge_ownership" as any)
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:6786:kysely-direct-db:const operations = await db.selectFrom("edge_operates" as any)
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:6882:kysely-direct-db:let q = (db as any).selectFrom("mv_vessel_latest_position as p")
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:6936:kysely-direct-db:const [vessel] = await (db as any).selectFrom("vertex_vessel")
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:6944:kysely-direct-db:const trackDesc = await (db as any).selectFrom("vertex_vessel_position")
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:6961:kysely-direct-db:const [voyage] = await (db as any).selectFrom("vertex_vessel_voyage")
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:697:kysely-direct-db:.selectFrom("vertex_celestial_object" as any)
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:6980:kysely-direct-db:const owners = await (db as any).selectFrom("edge_vessel_owned_by")
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:6989:kysely-direct-db:const operators = await (db as any).selectFrom("edge_vessel_operated_by")
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:7043:kysely-direct-db:const baseQuery = (db as any).selectFrom("vertex_vessel as v")
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:7098:kysely-direct-db:let q = (db as any).selectFrom("mv_vessel_density_grid")
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:7203:kysely-direct-db:const rows = await (db as any).selectFrom("vertex_spatial")
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:7236:kysely-direct-db:(db as any).selectFrom("vertex_spatial")
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:7243:kysely-direct-db:(db as any).selectFrom("vertex_vessel")
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:7310:kysely-direct-db:(db as any).selectFrom("vertex_spatial")
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:7316:kysely-direct-db:(db as any).selectFrom("vertex_vessel as v")
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:7332:kysely-direct-db:(db as any).selectFrom("vertex_open_ports_port")
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:7486:kysely-direct-db:const centroidRows = await (db as any).selectFrom("vertex_ivf_centroid")
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:7505:kysely-direct-db:const candidateRows = await (db as any).selectFrom("vertex_vector_embedding_768 as e")
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:938:kysely-direct-db:await db.deleteFrom("vertex_repo_record").where("uri", "=", row.uri).execute();
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:939:kysely-direct-db:await db.insertInto("vertex_repo_record" as any).values(row as any).execute();
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:962:kysely-direct-db:.insertInto("vertex_maps_social_profile" as any)
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:978:kysely-direct-db:await getDb().insertInto("vertex_repo_record" as any).values(row as any).execute();
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:986:kysely-direct-db:.deleteFrom("edge_follows" as any)
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:990:kysely-direct-db:await db.insertInto("edge_follows" as any).values(row as any).execute();
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/collection-commands.ts:13:hyperdrive-usage:type Db = ReturnType<HostSDK["env"]["HYPERDRIVE" & keyof HostSDK["env"]] extends infer _ ? any : any>;
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/collection-commands.ts:214:kysely-direct-db:await db.insertInto("vertex_maps_job" as any).values({
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/collection-commands.ts:22:kysely-direct-db:await db.insertInto("vertex_spatial" as any).values(row as any).execute();
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/collection-commands.ts:42:kysely-direct-db:await db.insertInto("vertex_spatial" as any).values(rows).execute();
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/wrangler.jsonc:31:wrangler-hyperdrive-binding:"hyperdrive": [
-60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-news/appview/news-core-component/src/app.ts:1155:kysely-direct-db:const db = createKyselyDb();
 60-apps/etzhayyim-project-news/appview/news-core-component/src/app.ts:1157:kysely-direct-db:.selectFrom("vertex_article")
 60-apps/etzhayyim-project-news/appview/news-core-component/src/app.ts:1253:kysely-direct-db:const db = createKyselyDb();
