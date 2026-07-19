@@ -16,11 +16,13 @@
   loads offline under bb); tests rebind them to stubs. This is the substrate
   boundary — RisingWave is forbidden; the only persisted target is the kotoba
   Datom log."
-  (:require [clojure.string :as str]
+  (:require #?(:clj [cheshire.core :as json])
+            [clojure.string :as str]
             [lg-hakken.edn :as edn]))
 
-(def KOTOBA-XRPC (or (System/getenv "KOTOBA_XRPC_URL") "https://kotoba.etzhayyim.com"))
-(def KOTOBA-BEARER (or (System/getenv "KOTOBA_BEARER") ""))
+(def default-config {:url "https://kotoba.etzhayyim.com"
+                     :bearer ""
+                     :graph-label "kotobase-kg-v1"})
 
 ;; ── Graph CID derivation ────────────────────────────────────────────────────
 ;; kotoba's Datomic API requires `graph` to be a real CIDv1 multibase string,
@@ -72,8 +74,22 @@
     label
     (kotoba-cid (.getBytes ^String label "UTF-8"))))
 
-(def DEFAULT-GRAPH
-  (graph-cid-for-label (or (System/getenv "KOTOBA_GRAPH") "kotobase-kg-v1")))
+(def DEFAULT-GRAPH (graph-cid-for-label (:graph-label default-config)))
+
+(defn assert-kotoba-url [url]
+  (let [[_ scheme authority] (or (re-find #"^([A-Za-z][A-Za-z0-9+.\-]*)://([^/?#]+)" (str url))
+                                 [nil nil nil])
+        authority (some-> authority str/lower-case)
+        host (some-> authority (str/split #":" 2) first)
+        allowed? (or (and (= "https" (some-> scheme str/lower-case))
+                          (= "kotoba.etzhayyim.com" host)
+                          (not (str/includes? authority "@")))
+                     (and (= "http" (some-> scheme str/lower-case))
+                          (contains? #{"127.0.0.1" "localhost" "[::1]"} host)))]
+    (when-not allowed?
+      (throw (ex-info "off-fleet Kotoba endpoint refused"
+                      {:endpoint url :capability :hakken/kotoba-endpoint})))
+    nil))
 
 ;; ── EDN row value decode (server returns rows_edn as list[list[str]]) ────────
 
@@ -98,40 +114,45 @@
 
 ;; ── injectable network edges (defaults POST to kotoba XRPC) ──────────────────
 
-(defn- headers []
-  (if (seq KOTOBA-BEARER) {"Authorization" (str "Bearer " KOTOBA-BEARER)} {}))
-
-(defn- xrpc-post
-  "Lazy babashka.http-client POST → parsed JSON map. Throws on >=400."
-  [nsid body]
-  (let [post (requiring-resolve 'babashka.http-client/post)
-        gen  (requiring-resolve 'cheshire.core/generate-string)
-        parse (requiring-resolve 'cheshire.core/parse-string)
-        resp (post (str KOTOBA-XRPC "/xrpc/" nsid)
-                   {:headers (merge {"Content-Type" "application/json"} (headers))
+(defn xrpc-post-with
+  "POST through an explicit HTTP capability and host configuration."
+  [http-post {:keys [url bearer]} nsid body]
+  (when-not (fn? http-post)
+    (throw (ex-info "Hakken Kotoba requires an explicit HTTP POST capability"
+                    {:capability :hakken/kotoba-http-post})))
+  (assert-kotoba-url url)
+  (let [resp (http-post (str (str/replace (str url) #"/+$" "") "/xrpc/" nsid)
+                   {:headers (cond-> {"Content-Type" "application/json"}
+                               (seq bearer) (assoc "Authorization" (str "Bearer " bearer)))
                     :timeout 60000
                     :throw false
-                    :body (gen body)})]
+                    :body (json/generate-string body)})]
     (if (>= (:status resp) 400)
       (throw (ex-info (str nsid " " (:status resp)) {:status (:status resp)}))
-      (parse (:body resp) true))))
+      (json/parse-string (:body resp) true))))
 
-(defn default-dm-transact
+(defn dm-transact-with
   "POST datomic.transact. Returns the response map (carries :tx_cid :commit_cid)."
-  [tx-edn {:keys [graph expected-parent]}]
-  (xrpc-post "com.etzhayyim.apps.kotoba.datomic.transact"
-             (cond-> {:graph (or graph DEFAULT-GRAPH) :tx_edn tx-edn}
+  [http-post config tx-edn {:keys [graph expected-parent]}]
+  (xrpc-post-with http-post config "com.etzhayyim.apps.kotoba.datomic.transact"
+             (cond-> {:graph (or graph (graph-cid-for-label (:graph-label config))) :tx_edn tx-edn}
                expected-parent (assoc :expected_parent expected-parent))))
 
-(defn default-dm-q
+(defn dm-q-with
   "POST datomic.q (Datalog). Returns rows as decoded clj values."
-  [query-edn {:keys [graph]}]
-  (let [resp (xrpc-post "com.etzhayyim.apps.kotoba.datomic.q"
-                        {:graph (or graph DEFAULT-GRAPH) :query_edn query-edn})]
+  [http-post config query-edn {:keys [graph]}]
+  (let [resp (xrpc-post-with http-post config "com.etzhayyim.apps.kotoba.datomic.q"
+                        {:graph (or graph (graph-cid-for-label (:graph-label config))) :query_edn query-edn})]
     (mapv (fn [row] (mapv parse-edn-value row)) (or (:rows_edn resp) []))))
 
-(def ^:dynamic *dm-transact* default-dm-transact)
-(def ^:dynamic *dm-q* default-dm-q)
+(def ^:dynamic *dm-transact* nil)
+(def ^:dynamic *dm-q* nil)
+
+(defn- require-capability [capability f]
+  (when-not (fn? f)
+    (throw (ex-info "Hakken Kotoba operation requires an explicit host capability"
+                    {:capability capability})))
+  f)
 
 (defn dm-transact-entities
   "Batch ingest hakken-style entities, splitting into <1 MiB EDN chunks chained
@@ -143,13 +164,14 @@
      (loop [chunks chunks, parent nil, results []]
        (if (empty? chunks)
          results
-         (let [r (*dm-transact* (first chunks) {:graph graph :expected-parent parent})]
+         (let [r ((require-capability :hakken/dm-transact *dm-transact*)
+                  (first chunks) {:graph graph :expected-parent parent})]
            (recur (rest chunks) (or (:commit_cid r) parent) (conj results r))))))))
 
 (defn dm-q
   ([query-edn] (dm-q query-edn {}))
-  ([query-edn opts] (*dm-q* query-edn opts)))
+  ([query-edn opts] ((require-capability :hakken/dm-q *dm-q*) query-edn opts)))
 
 (defn dm-transact
   ([tx-edn] (dm-transact tx-edn {}))
-  ([tx-edn opts] (*dm-transact* tx-edn opts)))
+  ([tx-edn opts] ((require-capability :hakken/dm-transact *dm-transact*) tx-edn opts)))
