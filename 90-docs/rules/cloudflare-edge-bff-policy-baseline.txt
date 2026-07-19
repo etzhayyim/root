@@ -110,7 +110,6 @@
 60-apps/etzhayyim-project-kami/appview/etzhayyim-wasm-kami-sabiotoshi-s4b10t05/src/app.ts:481:kysely-direct-db:await createKyselyDb().insertInto("vertex_kami_sabiotoshi_classified_item" as any).values({
 60-apps/etzhayyim-project-ki/xrpc-adapter/wrangler.jsonc:1:wrangler-non-sveltekit-main:"main": "src/index.ts"
 60-apps/etzhayyim-project-kiyo/xrpc-adapter/wrangler.jsonc:1:wrangler-non-sveltekit-main:"main": "src/index.ts"
-60-apps/etzhayyim-project-koke/xrpc-adapter/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/index.ts"
 60-apps/etzhayyim-project-kyber-qzzg06nh/appview/etzhayyim-wasm-kyber-hr-mdtpqjc8/src/app.ts:57:kysely-direct-db:await createKyselyDb().insertInto(table as any).values({ vertex_id, sensitivity_ord: 2, owner_did: ownerDid, actor_id: appId, ...snakeRec }).execute();
 60-apps/etzhayyim-project-kyber-qzzg06nh/appview/etzhayyim-wasm-kyber-inbox-inb0x4k2/src/app.ts:109:kysely-direct-db:await db.insertInto('edge_kyber_routed').values({
 60-apps/etzhayyim-project-kyber-qzzg06nh/appview/etzhayyim-wasm-kyber-inbox-inb0x4k2/src/app.ts:127:kysely-direct-db:await db.insertInto('vertex_office_document').values({
@@ -122,13 +121,9 @@
 60-apps/etzhayyim-project-kyber-qzzg06nh/appview/etzhayyim-wasm-kyber-inbox-inb0x4k2/src/app.ts:84:kysely-direct-db:await db.insertInto('vertex_calendar_event').values({
 60-apps/etzhayyim-project-lawfirm/appview/etzhayyim-wasm-lawfirm-lf1rm8k0/wrangler.jsonc:23:wrangler-hyperdrive-binding:"hyperdrive": [
 60-apps/etzhayyim-project-lawfirm/appview/etzhayyim-wasm-lawfirm-lf1rm8k0/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/app.ts"
-60-apps/etzhayyim-project-lawyer/appview/etzhayyim-wasm-lawyer-334bbd5f/wrangler.jsonc:24:wrangler-hyperdrive-binding:"hyperdrive": [
-60-apps/etzhayyim-project-lawyer/appview/etzhayyim-wasm-lawyer-334bbd5f/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-mangaka/appview-studio/etzhayyim-wasm-studio-stdk2024/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-mangaka/appview/etzhayyim-wasm-mangaka-mng4k4x1/wrangler.jsonc:33:wrangler-hyperdrive-binding:"hyperdrive": [
 60-apps/etzhayyim-project-mangaka/appview/etzhayyim-wasm-mangaka-mng4k4x1/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/app.ts"
-60-apps/etzhayyim-project-manimani/src/app.ts:21:hono-import:import { Hono } from "hono";
-60-apps/etzhayyim-project-manimani/src/app.ts:34:hyperdrive-usage:HYPERDRIVE?: unknown;
 60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:1006:kysely-direct-db:.insertInto("vertex_spatial" as any)
 60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:1043:kysely-direct-db:.selectFrom("vertex_repo_record")
 60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts:2258:kysely-direct-db:db.selectFrom("vertex_maps_social_profile" as any)
@@ -203,29 +198,6 @@
 60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-media-gamers/appview/media-gamers-7m8oocsn/wrangler.jsonc:28:wrangler-hyperdrive-binding:"hyperdrive": [
 60-apps/etzhayyim-project-media-gamers/appview/media-gamers-7m8oocsn/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/app.ts"
-60-apps/etzhayyim-project-meeting-recorder/appview/etzhayyim-wasm-meeting-recorder-m33tr3c0/src/app.ts:408:hyperdrive-usage:const db = createKyselyDb(_cfEnv!.HYPERDRIVE as never);
-60-apps/etzhayyim-project-meeting-recorder/appview/etzhayyim-wasm-meeting-recorder-m33tr3c0/src/app.ts:408:kysely-direct-db:const db = createKyselyDb(_cfEnv!.HYPERDRIVE as never);
-60-apps/etzhayyim-project-meeting-recorder/appview/etzhayyim-wasm-meeting-recorder-m33tr3c0/src/app.ts:411:kysely-direct-db:await db.insertInto("vertex_meetingrecorder_session").values({
-60-apps/etzhayyim-project-meeting-recorder/appview/etzhayyim-wasm-meeting-recorder-m33tr3c0/src/app.ts:456:kysely-direct-db:await db.updateTable("vertex_meetingrecorder_session")
-60-apps/etzhayyim-project-meeting-recorder/appview/etzhayyim-wasm-meeting-recorder-m33tr3c0/src/app.ts:485:hyperdrive-usage:const db = createKyselyDb(_cfEnv!.HYPERDRIVE as never);
-60-apps/etzhayyim-project-meeting-recorder/appview/etzhayyim-wasm-meeting-recorder-m33tr3c0/src/app.ts:485:kysely-direct-db:const db = createKyselyDb(_cfEnv!.HYPERDRIVE as never);
-60-apps/etzhayyim-project-meeting-recorder/appview/etzhayyim-wasm-meeting-recorder-m33tr3c0/src/app.ts:487:kysely-direct-db:await db.updateTable("vertex_meetingrecorder_session")
-60-apps/etzhayyim-project-meeting-recorder/appview/etzhayyim-wasm-meeting-recorder-m33tr3c0/src/app.ts:507:hyperdrive-usage:const db = createKyselyDb(_cfEnv!.HYPERDRIVE as never);
-60-apps/etzhayyim-project-meeting-recorder/appview/etzhayyim-wasm-meeting-recorder-m33tr3c0/src/app.ts:507:kysely-direct-db:const db = createKyselyDb(_cfEnv!.HYPERDRIVE as never);
-60-apps/etzhayyim-project-meeting-recorder/appview/etzhayyim-wasm-meeting-recorder-m33tr3c0/src/app.ts:508:kysely-direct-db:const row = await db.selectFrom("vertex_meetingrecorder_session")
-60-apps/etzhayyim-project-meeting-recorder/appview/etzhayyim-wasm-meeting-recorder-m33tr3c0/src/app.ts:534:kysely-direct-db:out.chunks = await db.selectFrom("vertex_meetingrecorder_chunk")
-60-apps/etzhayyim-project-meeting-recorder/appview/etzhayyim-wasm-meeting-recorder-m33tr3c0/src/app.ts:541:kysely-direct-db:out.participants = await db.selectFrom("vertex_meetingrecorder_participant")
-60-apps/etzhayyim-project-meeting-recorder/appview/etzhayyim-wasm-meeting-recorder-m33tr3c0/src/app.ts:560:hyperdrive-usage:const db = createKyselyDb(_cfEnv!.HYPERDRIVE as never);
-60-apps/etzhayyim-project-meeting-recorder/appview/etzhayyim-wasm-meeting-recorder-m33tr3c0/src/app.ts:560:kysely-direct-db:const db = createKyselyDb(_cfEnv!.HYPERDRIVE as never);
-60-apps/etzhayyim-project-meeting-recorder/appview/etzhayyim-wasm-meeting-recorder-m33tr3c0/src/app.ts:561:kysely-direct-db:let q = db.selectFrom("vertex_meetingrecorder_session")
-60-apps/etzhayyim-project-meeting-recorder/appview/etzhayyim-wasm-meeting-recorder-m33tr3c0/src/app.ts:585:hyperdrive-usage:const db = createKyselyDb(_cfEnv!.HYPERDRIVE as never);
-60-apps/etzhayyim-project-meeting-recorder/appview/etzhayyim-wasm-meeting-recorder-m33tr3c0/src/app.ts:585:kysely-direct-db:const db = createKyselyDb(_cfEnv!.HYPERDRIVE as never);
-60-apps/etzhayyim-project-meeting-recorder/appview/etzhayyim-wasm-meeting-recorder-m33tr3c0/src/app.ts:586:kysely-direct-db:const sessionRow = await db.selectFrom("vertex_meetingrecorder_session")
-60-apps/etzhayyim-project-meeting-recorder/appview/etzhayyim-wasm-meeting-recorder-m33tr3c0/src/app.ts:592:kysely-direct-db:let q = db.selectFrom("vertex_meetingrecorder_transcript_seg")
-60-apps/etzhayyim-project-meeting-recorder/appview/etzhayyim-wasm-meeting-recorder-m33tr3c0/src/app.ts:611:hyperdrive-usage:const db = createKyselyDb(_cfEnv!.HYPERDRIVE as never);
-60-apps/etzhayyim-project-meeting-recorder/appview/etzhayyim-wasm-meeting-recorder-m33tr3c0/src/app.ts:611:kysely-direct-db:const db = createKyselyDb(_cfEnv!.HYPERDRIVE as never);
-60-apps/etzhayyim-project-meeting-recorder/appview/etzhayyim-wasm-meeting-recorder-m33tr3c0/src/app.ts:612:kysely-direct-db:const sessionRow = await db.selectFrom("vertex_meetingrecorder_session")
-60-apps/etzhayyim-project-meeting-recorder/appview/etzhayyim-wasm-meeting-recorder-m33tr3c0/src/app.ts:624:kysely-direct-db:const row = await db.selectFrom("vertex_meetingrecorder_minutes")
 60-apps/etzhayyim-project-narou/xrpc-adapter/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/index.ts"
 60-apps/etzhayyim-project-news/appview/news-core-component/src/app.ts:1155:kysely-direct-db:const db = createKyselyDb();
 60-apps/etzhayyim-project-news/appview/news-core-component/src/app.ts:1157:kysely-direct-db:.selectFrom("vertex_article")
@@ -292,8 +264,6 @@
 60-apps/etzhayyim-project-open-water/worker/src/defence-handlers.ts:35:kysely-direct-db:const db = createKyselyDb(env.HYPERDRIVE) as any;
 60-apps/etzhayyim-project-open-water/worker/src/defence-handlers.ts:37:kysely-direct-db:.insertInto("vertex_open_defence_event")
 60-apps/etzhayyim-project-sbom/xrpc-adapter/wrangler.jsonc:1:wrangler-non-sveltekit-main:"main": "src/index.ts"
-60-apps/etzhayyim-project-ses/src/app.ts:21:hono-import:import { Hono } from "hono";
-60-apps/etzhayyim-project-ses/src/app.ts:72:hyperdrive-usage:hyperdrive: false,
 60-apps/etzhayyim-project-shigotoba/appview/shigotoba-jobs-component/src/app.ts:101:kysely-direct-db:.selectFrom(SHIGOTOBA_COMPANY_TABLE as any)
 60-apps/etzhayyim-project-shigotoba/appview/shigotoba-jobs-component/src/app.ts:110:kysely-direct-db:.selectFrom(SHIGOTOBA_JOB_TABLE as any)
 60-apps/etzhayyim-project-shigotoba/appview/shigotoba-jobs-component/src/app.ts:168:kysely-direct-db:.selectFrom(SHIGOTOBA_JOB_TABLE as any)

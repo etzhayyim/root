@@ -1,0 +1,12 @@
+{:schema "etzhayyim.migration/moved-v1"
+ :source {:repo "etzhayyim/root"
+          :path "60-apps/etzhayyim-project-koke"
+          :revision "089210a043264dc53659c1187a67ea4a8ffe292f"
+          :git-tree "9d1f29b5ecf2602b6ae0d371da3d412b8e3ba684"
+          :tracked-files 23
+          :bytes 33183}
+ :destination {:repo "etzhayyim/com-etzhayyim-app-koke"
+               :revision "88bf63324e01d3b9c4d38b6abfad3e32c7848185"}
+ :status :moved
+ :owner-adr "2607200630"
+ :verification :source-tree-plus-canonical-edn-only}
