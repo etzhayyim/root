@@ -174,6 +174,34 @@ class TestNsidToPath:
             "com.etzhayyim.meisai.statement"
         )
 
+    def test_eavt_vector_identity_comes_from_unique_namespaced_id(
+        self, audit, tmp_path
+    ):
+        wire = tmp_path / "classification.json"
+        wire.write_text(
+            '[{"com.etzhayyim.apps.organizer.classification/id": '
+            '"com.etzhayyim.apps.organizer.classification", '
+            '"com.etzhayyim.apps.organizer.collection/id": '
+            '"not-an-nsid"}, {"nested": [{"classification/id": '
+            '"com.etzhayyim.apps.organizer.classification"}]}]'
+        )
+        assert audit.lexicon_file_nsid(wire, "com.etzhayyim.organizer") == (
+            "com.etzhayyim.apps.organizer.classification"
+        )
+
+    def test_ambiguous_eavt_vector_identity_remains_visible_as_fallback(
+        self, audit, tmp_path
+    ):
+        wire = tmp_path / "mixed.json"
+        wire.write_text(
+            '[{"classification/id": '
+            '"com.etzhayyim.apps.organizer.classification"}, '
+            '{"collection/id": "com.etzhayyim.apps.organizer.collection"}]'
+        )
+        assert audit.lexicon_file_nsid(wire, "com.etzhayyim.organizer") == (
+            "com.etzhayyim.organizer.mixed"
+        )
+
 
 # ─── End-to-end smoke tests against the live repo ──────────────────────
 
