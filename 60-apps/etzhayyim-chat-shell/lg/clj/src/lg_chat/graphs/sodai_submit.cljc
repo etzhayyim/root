@@ -23,11 +23,8 @@
   (:require [langgraph.graph :as g]
             [lg-chat.sodai-fields :as sf]))
 
-(defn- env [k d] (let [v (System/getenv k)] (if (or (nil? v) (= "" v)) d v)))
-
-(def ^:private default-ward-url (env "SODAI_WARD_URL" sf/reception-url))
-(def ^:private nav-timeout-ms (Long/parseLong (env "SODAI_NAV_TIMEOUT_MS" "30000")))
-(def ^:private allow-submit? (= "1" (env "SODAI_ALLOW_SUBMIT" "0")))
+(def default-config {:ward-url sf/reception-url :nav-timeout-ms 30000 :allow-submit? false})
+(defn- host-config [state] (merge default-config (or (:host-config state) {})))
 
 ;; ── nodes ──────────────────────────────────────────────────────────────────
 
@@ -49,13 +46,14 @@
     {}
     ;; No Playwright/CDP browser in the bb runtime — degrade exactly as the py
     ;; does when its browser lib is missing (status enum preserved).
-    {:status "playwright_missing"
+    (let [{:keys [ward-url nav-timeout-ms allow-submit?]} (host-config state)]
+     {:status "playwright_missing"
      :error (str "playwright (browser driver) がこの clj runtime に未導入です。"
                  "ブラウザ対応のローカルランナー (scripts/sodai_browser.py, patchright) "
                  "を使うか、ブラウザ対応の lg-chat イメージを deploy してください。"
-                 " ward-url=" (str (or (:ward_url state) default-ward-url))
+                 " ward-url=" (str (or (:ward_url state) ward-url))
                  " allow-submit=" allow-submit?
-                 " nav-timeout-ms=" nav-timeout-ms)}))
+                 " nav-timeout-ms=" nav-timeout-ms)})))
 
 ;; ── graph ────────────────────────────────────────────────────────────────────
 

@@ -30,9 +30,10 @@
    "画像認証" "ロボットではありません" "認証コードを入力"])
 
 (defn load-field-map
-  "default-field-map を env SODAI_FIELD_MAP(JSON) で上書きしたものを返す。"
-  []
-  (let [raw (some-> (System/getenv "SODAI_FIELD_MAP") (.trim))]
+  "default-field-mapをhost supplied JSONで上書きしたものを返す。"
+  ([] (load-field-map nil))
+  ([raw]
+  (let [raw (some-> raw (.trim))]
     (if (or (nil? raw) (= "" raw))
       default-field-map
       (try
@@ -42,4 +43,4 @@
                      default-field-map
                      override))
         (catch Exception _
-          default-field-map)))))
+          default-field-map))))))

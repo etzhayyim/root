@@ -19,14 +19,12 @@
             [clojure.string :as str]
             [lg-chat.tools :as tools]))
 
-(defn- env [k d] (let [v (System/getenv k)] (if (or (nil? v) (= "" v)) d v)))
+(def default-config
+  {:vllm-url "http://keiei-litellm.keiei-llm.svc.cluster.local:4000/v1"
+   :vllm-model "gemma-4-E4B-it" :vllm-api-key "dummy"
+   :vllm-timeout-ms 60000 :max-iterations 8 :max-history 20 :tools {}})
 
-(def ^:private vllm-url (str/replace (env "VLLM_URL" "http://keiei-litellm.keiei-llm.svc.cluster.local:4000/v1") #"/+$" ""))
-(def ^:private vllm-model (env "MURAKUMO_DEFAULT_MODEL" "gemma-4-E4B-it"))
-(def ^:private vllm-api-key (env "LLM_API_KEY" "dummy"))
-(def ^:private vllm-timeout-ms (long (* 1000 (Double/parseDouble (env "VLLM_TIMEOUT_SEC" "60")))))
-(def ^:private max-iterations (Long/parseLong (env "CHAT_MAX_ITERATIONS" "8")))
-(def ^:private max-history (Long/parseLong (env "CHAT_MAX_HISTORY" "20")))
+(defn- host-config [state] (merge default-config (or (:host-config state) {})))
 
 (def ^:private system-prompt
   (str "You are Etzhayyim Chat, a helpful AI assistant on etzhayyim.com. "
@@ -41,7 +39,8 @@
 ;; ── nodes ──────────────────────────────────────────────────────────────────
 
 (defn node-prepare [state]
-  (let [history (or (:history state) [])
+  (let [{:keys [max-history]} (host-config state)
+        history (or (:history state) [])
         msgs (into [{:role "system" :content system-prompt}]
                    (for [h (take-last max-history history)
                          :when (and (map? h)
@@ -58,7 +57,9 @@
 (defn node-llm [state]
   (if (:error state)
     {}
-    (let [msgs (or (:messages state) [])
+    (let [{:keys [vllm-url vllm-model vllm-api-key vllm-timeout-ms]} (host-config state)
+          vllm-url (str/replace vllm-url #"/+$" "")
+          msgs (or (:messages state) [])
           payload {:model vllm-model :messages msgs :tools tools/tool-schemas
                    :tool_choice "auto" :max_tokens 2048 :temperature 0.4}
           result (try
@@ -93,13 +94,15 @@
       {}
       (let [conv-id (or (:conv_id state) "")
             owner-did (or (:owner_did state) "")
+            tools-config (:tools (host-config state))
             msg-id (str "tc-" (System/currentTimeMillis))
             step (reduce
                   (fn [{:keys [results msgs*]} tc]
                     (let [fn* (or (:function tc) {})
                           name (str (or (:name fn*) ""))
                           args (try (json/parse-string (or (:arguments fn*) "{}")) (catch Exception _ {}))
-                          result (tools/dispatch-tool name args :conv-id conv-id :msg-id msg-id :owner-did owner-did)]
+                          result (tools/dispatch-tool name args :conv-id conv-id :msg-id msg-id
+                                                      :owner-did owner-did :host-config tools-config)]
                       {:results (conj results {:name name :args args :result result})
                        :msgs* (conj msgs* {:role "tool"
                                            :tool_call_id (or (:id tc) (str "tc-" name))
@@ -109,12 +112,13 @@
         {:messages (into msgs (:msgs* step)) :tool-results (:results step)}))))
 
 (defn route-after-llm [state]
-  (cond
+  (let [{:keys [max-iterations]} (host-config state)]
+   (cond
     (:error state) g/END
     (some? (:reply state)) g/END
     (>= (or (:iteration state) 0) max-iterations) g/END
     (:tool_calls (or (last (:messages state)) {})) :execute-tools
-    :else g/END))
+    :else g/END)))
 
 ;; ── graph ────────────────────────────────────────────────────────────────────
 

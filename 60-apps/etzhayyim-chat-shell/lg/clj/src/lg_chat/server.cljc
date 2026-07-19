@@ -19,8 +19,6 @@
             [lg-chat.graphs.agent-chat :as agent-chat]
             [lg-chat.graphs.sodai-submit :as sodai-submit]))
 
-(def ^:private api-key (str/trim (or (System/getenv "LG_API_KEY") "")))
-
 (def graphs {"agent_chat" agent-chat/graph
              "sodai_submit" sodai-submit/graph})
 
@@ -29,7 +27,7 @@
 (defn resolve-graph [assistant-id]
   (get graphs (if (str/blank? assistant-id) "agent_chat" assistant-id)))
 
-(defn- authed? [req]
+(defn- authed? [api-key req]
   (or (= "" api-key)
       (= api-key (get-in req [:headers "x-api-key"]))))
 
@@ -54,8 +52,9 @@
     (sequential? v) (mapv sanitize v)
     :else v))
 
-(defn handler [req]
-  (let [uri (:uri req)
+(defn handler-with-config [config req]
+  (let [api-key (str/trim (or (:api-key config) ""))
+        uri (:uri req)
         method (:request-method req)]
     (cond
       (and (= method :get) (= uri "/ok"))
@@ -69,7 +68,7 @@
                   :graph true :rw_ok false :rw_roundtrip_ms nil})
 
       (and (= method :post) (= uri "/runs"))
-      (if-not (authed? req)
+      (if-not (authed? api-key req)
         (json-resp 401 {:detail "invalid x-api-key"})
         (let [body (read-body req)
               graph (resolve-graph (str (:assistant_id body)))]
@@ -77,7 +76,9 @@
             (json-resp 404 {:detail (str "unknown graph: " (:assistant_id body))})
             (let [started (System/currentTimeMillis)]
               (try
-                (let [result (g/invoke graph (or (:input body) {}))]
+                (let [input (assoc (or (:input body) {}) :host-config
+                                   (get config (keyword (str (:assistant_id body))) {}))
+                      result (g/invoke graph input)]
                   (json-resp {:ok true :result (sanitize result)
                               :latencyMs (int (- (System/currentTimeMillis) started))}))
                 (catch Exception exc
@@ -86,7 +87,7 @@
                               :latencyMs (int (- (System/currentTimeMillis) started))})))))))
 
       (and (= method :post) (= uri "/runs/stream"))
-      (if-not (authed? req)
+      (if-not (authed? api-key req)
         (json-resp 401 {:detail "invalid x-api-key"})
         (let [body (read-body req)
               graph (resolve-graph (str (:assistant_id body)))]
@@ -97,11 +98,13 @@
              {:on-open
               (fn [ch]
                 (try
-                  (doseq [event (g/stream graph (or (:input body) {}))]
+                  (let [input (assoc (or (:input body) {}) :host-config
+                                     (get config (keyword (str (:assistant_id body))) {}))]
+                   (doseq [event (g/stream graph input)]
                     (hk/send! ch {:status 200 :headers {"Content-Type" "text/event-stream"}
                                   :body (str "data: " (json/generate-string
                                                        {:event "values" :data (sanitize (:state event))}) "\n\n")}
-                              false))
+                              false)))
                   (catch Exception exc
                     (hk/send! ch (str "data: " (json/generate-string
                                                 {:event "error" :data (str (.getMessage exc))}) "\n\n") false))
@@ -112,11 +115,20 @@
       :else
       (json-resp 404 {:detail "not found"}))))
 
-(defn start! [& [port]]
-  (let [port (or port (Long/parseLong (or (System/getenv "PORT") "8000")))]
-    (hk/run-server handler {:port port})
-    (println (str "lg-chat clj server up — graphs " (vec (keys graphs)) " on :" port " (ephemeral-only)"))))
+(defn handler [req] (handler-with-config {} req))
 
-(defn -main [& argv]
-  (start! (when (first argv) (Long/parseLong (first argv))))
-  @(promise))
+(defn start-with [run-server config port]
+  (when-not (fn? run-server)
+    (throw (ex-info "server capability not configured" {:capability :run-server})))
+  (when-not (and (integer? port) (<= 1 port 65535))
+    (throw (ex-info "invalid server port" {:port port})))
+  (let [stop (run-server (partial handler-with-config config) {:port port})]
+    (println (str "lg-chat clj server up — graphs " (vec (keys graphs)) " on :" port " (ephemeral-only)"))
+    stop))
+
+(defn start! [& _]
+  (throw (ex-info "host adapter must provide server, config and port"
+                  {:capability :run-server})))
+
+(defn -main [& _]
+  (throw (ex-info "host adapter required" {:capability :run-server})))

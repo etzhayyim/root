@@ -26,22 +26,16 @@
            [java.time.format DateTimeFormatter]
            [java.util Base64]))
 
-;; ── env ──────────────────────────────────────────────────────────────────
-(defn- env [k] (or (System/getenv k) ""))
 (defn- rstrip-slash [s] (str/replace (or s "") #"/+$" ""))
 
-(def ^:private comfyui-url (rstrip-slash (env "COMFYUI_URL")))
-(def ^:private rw-url (env "RW_URL"))
-(def ^:private web-search-provider (let [v (env "WEB_SEARCH_PROVIDER")] (if (= "" v) "brave" v)))
-(def ^:private web-search-key (env "WEB_SEARCH_KEY"))
-(def ^:private b2-s3-endpoint (let [v (env "B2_S3_ENDPOINT")]
-                                (if (= "" v) "https://s3.us-west-004.backblazeb2.com" v)))
-(def ^:private b2-access-key (let [a (env "B2_ACCESS_KEY_ID")] (if (= "" a) (env "B2_APPLICATION_KEY_ID") a)))
-(def ^:private b2-secret-key (let [a (env "B2_SECRET_ACCESS_KEY")] (if (= "" a) (env "B2_APPLICATION_KEY") a)))
-(def ^:private b2-bucket (let [v (env "CHAT_B2_BUCKET")] (if (= "" v) "etzhayyim-chat-artifacts" v)))
-(def ^:private b2-prefix (let [v (env "CHAT_B2_PREFIX")] (if (= "" v) "chat" v)))
-(def ^:private dispatcher-url (rstrip-slash (env "BPMN_DISPATCHER_INTERNAL_URL")))
-(def ^:private internal-secret (env "CHAT_INTERNAL_SECRET"))
+(def default-config
+  {:comfyui-url "" :rw-url "" :web-search-provider "brave" :web-search-key ""
+   :b2-s3-endpoint "https://s3.us-west-004.backblazeb2.com"
+   :b2-access-key "" :b2-secret-key "" :b2-bucket "etzhayyim-chat-artifacts"
+   :b2-prefix "chat" :dispatcher-url "" :internal-secret ""})
+
+(defn- config [host-config k]
+  (get (merge default-config (or host-config {})) k))
 
 ;; ── OpenAI-compatible tool schemas (verbatim from the py) ──────────────────
 (def tool-schemas
@@ -147,8 +141,9 @@
                 {:ok false :error (take-str (str "code_exec: " msg) 200)}))))))))
 
 ;; ── tool: image_gen (ComfyUI) ───────────────────────────────────────────────
-(defn tool-image-gen [args & {:keys [conv-id owner-did]}]
-  (if (= "" comfyui-url)
+(defn tool-image-gen [args & {:keys [conv-id owner-did host-config]}]
+  (let [comfyui-url (rstrip-slash (config host-config :comfyui-url))]
+   (if (= "" comfyui-url)
     {:ok false :error "image_gen is not available — no ComfyUI endpoint configured (COMFYUI_URL)"}
     (let [prompt (str/trim (as-str (arg args "prompt")))]
       (if (str/blank? prompt)
@@ -209,7 +204,7 @@
                                   "&type=" (enc (or (:type img) "output")))]
                       {:ok true :imageUrl (str comfyui-url "/view?" qs)
                        :width width :height height :seed seed :promptId prompt-id
-                       :durationMs (int (- (now-ms) started))})))))))))))
+                       :durationMs (int (- (now-ms) started))}))))))))))))
 
 ;; ── AWS SigV4 (boto3 replacement for B2 S3 PUT) ──────────────────────────────
 (defn- hmac-sha256 [^bytes key ^String data]
@@ -253,8 +248,10 @@
                    :body blob :timeout 30000 :throw false})))
 
 ;; ── tool: file_save (B2) ─────────────────────────────────────────────────────
-(defn tool-file-save [args & {:keys [conv-id owner-did]}]
-  (if (or (= "" b2-access-key) (= "" b2-secret-key))
+(defn tool-file-save [args & {:keys [conv-id owner-did host-config]}]
+  (let [{:keys [b2-s3-endpoint b2-access-key b2-secret-key b2-bucket b2-prefix]}
+        (merge default-config (or host-config {}))]
+   (if (or (= "" b2-access-key) (= "" b2-secret-key))
     {:ok false :error "file_save is not available — B2 credentials not configured"}
     (let [filename (str/trim (as-str (arg args "filename")))
           content (as-str (arg args "content"))]
@@ -282,11 +279,12 @@
                     {:ok true :filename filename :mimeType mime :byteSize (count blob)
                      :b2Key key :cdnUrl (str "https://cdn.etzhayyim.com/" key)}))
                 (catch Exception e
-                  {:ok false :error (take-str (str "B2 PUT failed: " (.getMessage e)) 200)})))))))))
+                  {:ok false :error (take-str (str "B2 PUT failed: " (.getMessage e)) 200)}))))))))))
 
 ;; ── tool: rag_search ─────────────────────────────────────────────────────────
-(defn tool-rag-search [args & {:keys [owner-did]}]
-  (let [query (as-str (arg args "query"))]
+(defn tool-rag-search [args & {:keys [owner-did host-config]}]
+  (let [query (as-str (arg args "query"))
+        rw-url (config host-config :rw-url)]
     (cond
       (str/blank? query) {:ok false :error "query is required"}
       (= "" rw-url) {:ok false :error "rag_search unavailable — RW_URL not configured" :hits []}
@@ -294,9 +292,11 @@
       :else {:ok false :error "rag_search: RisingWave backend not available in clj runtime" :hits []})))
 
 ;; ── tool: web_search (Brave) ─────────────────────────────────────────────────
-(defn tool-web-search [args]
+(defn tool-web-search [args & {:keys [host-config]}]
   (let [query (as-str (arg args "query"))
-        top-k (min (as-int (arg args "topK") 6) 20)]
+        top-k (min (as-int (arg args "topK") 6) 20)
+        web-search-key (config host-config :web-search-key)
+        web-search-provider (config host-config :web-search-provider)]
     (if (str/blank? query)
       {:ok false :error "query is required"}
       (let [brave (when (and (not= "" web-search-key) (= web-search-provider "brave"))
@@ -320,8 +320,10 @@
             {:ok false :error "web_search: no provider available" :hits []})))))
 
 ;; ── tool: schedule_report ────────────────────────────────────────────────────
-(defn tool-schedule-report [args & {:keys [conv-id msg-id owner-did]}]
-  (if (= "" dispatcher-url)
+(defn tool-schedule-report [args & {:keys [conv-id msg-id owner-did host-config]}]
+  (let [dispatcher-url (rstrip-slash (config host-config :dispatcher-url))
+        internal-secret (config host-config :internal-secret)]
+   (if (= "" dispatcher-url)
     {:ok false :error "schedule_report unavailable — BPMN_DISPATCHER_INTERNAL_URL not configured"}
     (let [title (str/trim (as-str (arg args "title")))
           prompt (str/trim (as-str (arg args "prompt")))]
@@ -341,16 +343,16 @@
                   resp (json/parse-string (:body r) true)]
               {:ok (boolean (:ok resp)) :runId (or (:runId resp) "") :scheduledAt (or (:scheduledAt resp) "")})
             (catch Exception e
-              {:ok false :error (take-str (str "schedule_report dispatcher: " (.getMessage e)) 200)})))))))
+              {:ok false :error (take-str (str "schedule_report dispatcher: " (.getMessage e)) 200)}))))))))
 
 ;; ── dispatcher ───────────────────────────────────────────────────────────────
-(defn dispatch-tool [name args & {:keys [conv-id msg-id owner-did]
-                                  :or {conv-id "" msg-id "" owner-did ""}}]
+(defn dispatch-tool [name args & {:keys [conv-id msg-id owner-did host-config]
+                                  :or {conv-id "" msg-id "" owner-did "" host-config {}}}]
   (case name
     "code_exec"       (tool-code-exec args)
-    "image_gen"       (tool-image-gen args :conv-id conv-id :owner-did owner-did)
-    "file_save"       (tool-file-save args :conv-id conv-id :owner-did owner-did)
-    "rag_search"      (tool-rag-search args :owner-did owner-did)
-    "web_search"      (tool-web-search args)
-    "schedule_report" (tool-schedule-report args :conv-id conv-id :msg-id msg-id :owner-did owner-did)
+    "image_gen"       (tool-image-gen args :conv-id conv-id :owner-did owner-did :host-config host-config)
+    "file_save"       (tool-file-save args :conv-id conv-id :owner-did owner-did :host-config host-config)
+    "rag_search"      (tool-rag-search args :owner-did owner-did :host-config host-config)
+    "web_search"      (tool-web-search args :host-config host-config)
+    "schedule_report" (tool-schedule-report args :conv-id conv-id :msg-id msg-id :owner-did owner-did :host-config host-config)
     {:ok false :error (str "unknown tool: " (pr-str name))}))
