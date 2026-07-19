@@ -5,6 +5,7 @@
   seam here, so the corpus→skill transform verifies under bb with stubs)."
   (:require [clojure.test :refer [deftest is testing]]
             [langgraph.graph :as g]
+            [lg-curpus2skill.audit :as audit]
             [lg-curpus2skill.server :as server]
             [lg-curpus2skill.store :as store]
             [lg-curpus2skill.graphs.health :as health]
@@ -126,4 +127,34 @@
 (deftest store-enabled-gate
   (testing "inert by default → no corpus rows"
     (store/reset-store!)
-    (is (= [] (store/query-corpus "legal-corpus" 10)))))
+    (is (= [] (store/query-corpus "legal-corpus" 10))))
+  (testing "host binding enables the in-process seam"
+    (store/reset-store!)
+    (store/seed-corpus! "legal-corpus" sample-docs)
+    (binding [store/*enabled?* true]
+      (is (= 2 (count (store/query-corpus "legal-corpus" 10)))))))
+
+(deftest audit-default-is-network-incapable
+  (is (true? (audit/audit-disabled?)))
+  (let [called (atom false)]
+    (binding [audit/*post!* (fn [& _] (reset! called true))]
+      (is (nil? (audit/emit-audit! {:activity "test"})))
+      (is (false? @called)))))
+
+(deftest audit-host-capability-is-purpose-bound
+  (let [request (atom nil)]
+    (binding [audit/*config* {:disabled? false
+                              :dispatcher-url "https://audit.test/"
+                              :internal-secret "secret"
+                              :timeout-ms 25}
+              audit/*post!* (fn [url opts] (reset! request [url opts]))]
+      (is (nil? (audit/emit-audit! {:actor "a" :activity "extract"})))
+      (is (= "https://audit.test/xrpc/com.etzhayyim.generic.audit.emit"
+             (first @request)))
+      (is (= "secret" (get-in @request [1 :headers "x-internal-trust"])))
+      (is (= 25 (get-in @request [1 :timeout]))))))
+
+(deftest server-start-requires-explicit-capability
+  (is (thrown-with-msg? clojure.lang.ExceptionInfo
+                        #"explicit HTTP server capability required"
+                        (server/start! nil {:port 0}))))
