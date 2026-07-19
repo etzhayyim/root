@@ -18,10 +18,10 @@
     "192.168.1.70:8077" "192.168.1.70:11434"
     "127.0.0.1:11434" "localhost:11434"})
 
-(def llm-url   (-> (or (System/getenv "VLLM_URL") "http://127.0.0.1:4000/v1")
-                   (str/replace #"/+$" "")))
-(def llm-model (or (System/getenv "VLLM_MODEL") "tier0-general"))
-(def llm-timeout-sec (Double/parseDouble (or (System/getenv "VLLM_TIMEOUT_SEC") "90")))
+(def default-config
+  {:llm-url "http://127.0.0.1:4000/v1"
+   :llm-model "tier0-general"
+   :llm-timeout-ms 90000})
 
 (defn assert-murakumo
   "Refuse any LLM endpoint outside the Murakumo fleet (http loopback only)."
@@ -38,29 +38,36 @@
   "Default `*chat-json*`: POST a chat-completions request (JSON response mode)
   to the Murakumo loopback gateway. Returns the raw assistant content string or
   {:error ...}. opts = {:max-tokens :temperature}."
-  [http-post system user {:keys [max-tokens temperature]}]
-  (when-not (fn? http-post)
-    (throw (ex-info "Yukkuri inference requires an explicit HTTP POST capability"
-                    {:capability :yukkuri/murakumo-http-post})))
-  (assert-murakumo llm-url)
-  (try
-    (let [resp     (http-post (str llm-url "/chat/completions")
-                         {:headers {"Content-Type" "application/json"}
-                          :timeout (long (* 1000 llm-timeout-sec))
-                          :throw   false
-                          :body (json/generate-string {:model llm-model
-                                           :messages [{:role "system" :content system}
-                                                      {:role "user" :content user}]
-                                           :max_tokens (or max-tokens 1000)
-                                           :temperature (or temperature 0.7)
-                                           :response_format {:type "json_object"}})})
-          status   (:status resp)]
-      (if (>= status 400)
-        {:error (str "vllm " status ": " (clip (:body resp) 200))}
-        (let [body (json/parse-string (:body resp) true)
-              txt  (some-> (get-in body [:choices 0 :message :content]) str)]
-          (or txt ""))))
-    (catch Exception e {:error (clip (.getMessage e) 200)})))
+  ([http-post system user opts]
+   (chat-json-with http-post default-config system user opts))
+  ([http-post host-config system user {:keys [max-tokens temperature]}]
+   (when-not (fn? http-post)
+     (throw (ex-info "Yukkuri inference requires an explicit HTTP POST capability"
+                     {:capability :yukkuri/murakumo-http-post})))
+   (let [{:keys [llm-url llm-model llm-timeout-ms]}
+         (merge default-config (or host-config {}))
+         llm-url (str/replace llm-url #"/+$" "")]
+     (assert-murakumo llm-url)
+     (try
+       (let [resp (http-post (str llm-url "/chat/completions")
+                             {:headers {"Content-Type" "application/json"}
+                              :timeout (long llm-timeout-ms)
+                              :throw false
+                              :body (json/generate-string
+                                     {:model llm-model
+                                      :messages [{:role "system" :content system}
+                                                 {:role "user" :content user}]
+                                      :max_tokens (or max-tokens 1000)
+                                      :temperature (or temperature 0.7)
+                                      :response_format {:type "json_object"}})})
+             status (:status resp)]
+         (if (>= status 400)
+           {:error (str "vllm " status ": " (clip (:body resp) 200))}
+           (let [body (json/parse-string (:body resp) true)
+                 txt (some-> (get-in body [:choices 0 :message :content]) str)]
+             (or txt ""))))
+       (catch Exception e
+         {:error (clip (.getMessage e) 200)})))))
 
 (def ^:dynamic *chat-json*
   "Injectable chat edge. (system user opts) → content string | {:error ...}."

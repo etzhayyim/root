@@ -17,28 +17,22 @@
             [lg-yukkuri.audit :as audit]
             [lg-yukkuri.store :as store]))
 
-(def app-did   (or (System/getenv "YUKKURI_APP_DID") "did:web:yukkuri.etzhayyim.com"))
-(def tts-url   (-> (or (System/getenv "MURAKUMO_TTS_URL")
-                       "http://127.0.0.1:4000/v1/audio/speech")
-                   (clojure.string/replace #"/+$" "")))
-(def pds-blob-url (or (System/getenv "PDS_BLOB_URL")
-                      "https://atproto.etzhayyim.com/xrpc/com.atproto.repo.uploadBlob"))
-(def voice-preset {"left"  (or (System/getenv "YUKKURI_VOICE_LEFT") "af_heart")
-                   "right" (or (System/getenv "YUKKURI_VOICE_RIGHT") "am_puck")})
-
 (defn- as-int [v d] (cond (integer? v) v (string? v) (try (Integer/parseInt v) (catch Exception _ d)) :else d))
 (defn- clip [s n] (let [s (str s)] (subs s 0 (min n (count s)))))
 
 (defn tts-one-with
   "Default `*tts-one*`: POST text to the murakumo TTS endpoint (wav), upload the
   wav to the PDS, return {:line_id :speaker :blob_key} | {:line_id :error}."
-  [http-post line]
+  ([http-post line] (tts-one-with http-post audit/graph-defaults line))
+  ([http-post host-config line]
   (when-not (fn? http-post)
     (throw (ex-info "voice synthesis requires an explicit HTTP POST capability"
                     {:capability :yukkuri/tts-http-post})))
   (try
-    (let [voice    (get voice-preset (:speaker line) "af_heart")
-          r        (http-post tts-url {:headers {"Content-Type" "application/json"} :throw false
+    (let [{:keys [tts-url pds-blob-url voice-preset]} (merge audit/graph-defaults host-config)
+          tts-url (clojure.string/replace tts-url #"/+$" "")
+          voice (get voice-preset (:speaker line) "af_heart")
+          r (http-post tts-url {:headers {"Content-Type" "application/json"} :throw false
                                   :body (json/generate-string {:model "kokoro" :input (:text line)
                                                    :voice voice :response_format "wav"})})]
       (if (>= (:status r) 400)
@@ -50,6 +44,7 @@
             {:line_id (:line_id line) :speaker (:speaker line)
              :blob_key (get-in (json/parse-string (:body ub) true) [:blob :ref :$link] "")}))))
     (catch Exception e {:line_id (:line_id line) :error (clip (.getMessage e) 200)})))
+  )
 
 (def ^:dynamic *tts-one* nil)
 
@@ -93,7 +88,7 @@
       (catch Exception e {:error (str "update: " (clip (.getMessage e) 280))}))))
 
 (defn node-audit [state]
-  (audit/emit-audit-bg {:actor app-did
+  (audit/emit-audit-bg {:actor (:app-did (audit/config-from-state state))
                         :activity "yukkuri.synthesizeVoice"
                         :object-id (str "voice:" (or (:video_id state) "") ":" (quot (System/currentTimeMillis) 1000))
                         :object-type "yukkuri.voice"

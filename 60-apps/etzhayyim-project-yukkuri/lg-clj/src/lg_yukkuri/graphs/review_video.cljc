@@ -9,8 +9,8 @@
             → audit → END.
 
   The LLM verdict routes through `llm/*chat-json*` (Murakumo loopback default,
-  fleet-allowlist guard). The reviewer FAILS OPEN to PASS on any LLM error/parse
-  failure (parity with the Python, to avoid blocking production). On PASS →
+  fleet-allowlist guard). The reviewer FAILS CLOSED on any LLM error/parse
+  failure so unavailable safety infrastructure cannot publish content. On PASS →
   status 'published' + a T1 social post via the INJECTABLE `*social-publish*`
   boundary fn; on REJECT → status 'rejected'. Content read + status write go
   through the store seam."
@@ -20,10 +20,6 @@
             [lg-yukkuri.audit :as audit]
             [lg-yukkuri.llm :as llm]
             [lg-yukkuri.store :as store]))
-
-(def app-did    (or (System/getenv "YUKKURI_APP_DID") "did:web:yukkuri.etzhayyim.com"))
-(def critic-did (or (System/getenv "YUKKURI_CRITIC_DID") "did:web:yukkuri.etzhayyim.com:actor:critic"))
-(def pds-xrpc-url (or (System/getenv "PDS_XRPC_URL") "https://atproto.etzhayyim.com/xrpc"))
 
 (def review-system
   (str "You are a content safety reviewer for a Japanese educational video platform.\n"
@@ -40,18 +36,20 @@
 
 (defn social-publish-with
   "Default `*social-publish*`: best-effort app.bsky.feed.post on publish."
-  [http-post {:keys [topic]}]
+  ([http-post request] (social-publish-with http-post audit/graph-defaults request))
+  ([http-post host-config {:keys [topic]}]
   (when-not (fn? http-post)
     (throw (ex-info "social publication requires an explicit HTTP POST capability"
                     {:capability :yukkuri/social-http-post})))
   (try
+    (let [{:keys [pds-xrpc-url app-did]} (merge audit/graph-defaults host-config)]
     (http-post (str pds-xrpc-url "/app.bsky.feed.post")
             {:headers {"Content-Type" "application/json"} :throw false
              :body (json/generate-string {:did app-did
                               :text (str "🎬 新作ゆっくり動画: " (clip topic 80) "\nyukkuri.etzhayyim.com")
                               :collection "app.bsky.feed.post"})})
-    nil
-    (catch Exception _ nil)))
+    nil)
+    (catch Exception _ nil))))
 
 (def ^:dynamic *social-publish* nil)
 
@@ -76,11 +74,10 @@
                     (clip (or (:script_excerpt state) "") 2000))
           res  (llm/chat-json review-system user {:max-tokens 200 :temperature 0.0})]
       (cond
-        ;; fail-open: any LLM error → PASS (parity with Python)
-        (map? res) {:review_passed true :review_reason "llm_unavailable"}
+        (map? res) {:review_passed false :review_reason "llm_unavailable"}
         :else (let [parsed (llm/parse-json-object res)]
                 (if (nil? parsed)
-                  {:review_passed true :review_reason "parse_error"}
+                  {:review_passed false :review_reason "parse_error"}
                   {:review_passed (= "PASS" (:verdict parsed "PASS"))
                    :review_reason (:reason parsed)}))))))
 
@@ -106,7 +103,7 @@
         {})))
 
 (defn node-audit [state]
-  (audit/emit-audit-bg {:actor critic-did
+  (audit/emit-audit-bg {:actor (:critic-did (audit/config-from-state state))
                         :activity "yukkuri.reviewVideo"
                         :object-id (str "review:" (or (:video_id state) "") ":" (quot (System/currentTimeMillis) 1000))
                         :object-type "yukkuri.review"

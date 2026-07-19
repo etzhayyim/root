@@ -20,13 +20,6 @@
             [lg-yukkuri.audit :as audit]
             [lg-yukkuri.store :as store]))
 
-(def app-did      (or (System/getenv "YUKKURI_APP_DID") "did:web:yukkuri.etzhayyim.com"))
-(def renderer-did (or (System/getenv "YUKKURI_RENDERER_DID")
-                      "did:web:yukkuri.etzhayyim.com:actor:renderer"))
-(def dougaka-url  (-> (or (System/getenv "DOUGAKA_XRPC_URL")
-                          "http://lg-dougaka.mitama-udf.svc.cluster.local:8000")
-                      (clojure.string/replace #"/+$" "")))
-
 (defn- as-int [v d] (cond (integer? v) v (string? v) (try (Integer/parseInt v) (catch Exception _ d)) :else d))
 (defn- clip [s n] (let [s (str s)] (subs s 0 (min n (count s)))))
 (defn- json-gen [m] #?(:clj (json/generate-string m) :default (str m)))
@@ -35,12 +28,14 @@
 (defn render-with
   "Default `*render*`: POST the timeline to the dougaka render XRPC, return
   {:render_blob_key :render_url} | {:error ...}."
-  [http-post video-id timeline]
+  ([http-post video-id timeline] (render-with http-post audit/graph-defaults video-id timeline))
+  ([http-post host-config video-id timeline]
   (when-not (fn? http-post)
     (throw (ex-info "video rendering requires an explicit HTTP POST capability"
                     {:capability :yukkuri/dougaka-http-post})))
   (try
-    (let [r (http-post (str dougaka-url "/xrpc/com.etzhayyim.apps.dougaka.render")
+    (let [dougaka-url (clojure.string/replace (:dougaka-url (merge audit/graph-defaults host-config)) #"/+$" "")
+          r (http-post (str dougaka-url "/xrpc/com.etzhayyim.apps.dougaka.render")
                   {:headers {"Content-Type" "application/json"} :throw false
                    :body (json-gen {:video_id video-id :timeline timeline})})]
       (if (>= (:status r) 400)
@@ -50,7 +45,7 @@
               url  (or (:blob_url data) (:blobUrl data) (:url data) "")]
           (if (empty? bk) {:error (str "dougaka render returned no blobKey")}
               {:render_blob_key bk :render_url url}))))
-    (catch Exception e {:error (str "dougaka render: " (clip (.getMessage e) 280))})))
+    (catch Exception e {:error (str "dougaka render: " (clip (.getMessage e) 280))}))))
 
 (def ^:dynamic *render* nil)
 
@@ -99,7 +94,7 @@
       (catch Exception e {:error (str "update: " (clip (.getMessage e) 280))}))))
 
 (defn node-audit [state]
-  (audit/emit-audit-bg {:actor renderer-did
+  (audit/emit-audit-bg {:actor (:renderer-did (audit/config-from-state state))
                         :activity "yukkuri.renderVideo"
                         :object-id (str "render:" (or (:video_id state) "") ":" (quot (System/currentTimeMillis) 1000))
                         :object-type "yukkuri.render"

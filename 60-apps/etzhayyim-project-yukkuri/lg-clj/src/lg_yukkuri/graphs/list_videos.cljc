@@ -13,8 +13,6 @@
             [lg-yukkuri.audit :as audit]
             [lg-yukkuri.store :as store]))
 
-(def app-did (or (System/getenv "YUKKURI_APP_DID") "did:web:yukkuri.etzhayyim.com"))
-
 (defn- as-int [v d]
   (cond (integer? v) v
         (string? v) (try (Integer/parseInt v) (catch Exception _ d))
@@ -49,7 +47,7 @@
       (catch Exception e {:error (str "query: " (.getMessage e))}))))
 
 (defn node-audit [state]
-  (audit/emit-audit-bg {:actor app-did
+  (audit/emit-audit-bg {:actor (:app-did (audit/config-from-state state))
                         :activity "yukkuri.listVideos"
                         :object-id (str "listVideos:" (quot (System/currentTimeMillis) 1000))
                         :object-type "yukkuri.video"

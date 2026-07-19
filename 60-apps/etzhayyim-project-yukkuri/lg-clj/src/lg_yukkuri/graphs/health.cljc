@@ -12,8 +12,6 @@
   (:require [langgraph.graph :as g]
             [lg-yukkuri.audit :as audit]))
 
-(def app-did (or (System/getenv "YUKKURI_APP_DID") "did:web:yukkuri.etzhayyim.com"))
-
 (def ^:dynamic *rw-ping*
   "Default: unconfigured store → {:rw_ok false :error \"rw: store not configured\"}.
   Deployment rebinds to a kotoba `[:find ?e :where [?e :db/ident :db/ident]]` ping."
@@ -30,7 +28,7 @@
   {:ok (boolean (:rw_ok state)) :server_now (now-iso)})
 
 (defn node-audit [state]
-  (audit/emit-audit-bg {:actor app-did
+  (audit/emit-audit-bg {:actor (:app-did (audit/config-from-state state))
                         :activity "yukkuri.health.check"
                         :object-id (str "health:" (quot (System/currentTimeMillis) 1000))
                         :object-type "yukkuri.health"

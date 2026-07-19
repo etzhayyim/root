@@ -18,11 +18,6 @@
             [lg-yukkuri.llm :as llm]
             [lg-yukkuri.store :as store]))
 
-(def app-did         (or (System/getenv "YUKKURI_APP_DID") "did:web:yukkuri.etzhayyim.com"))
-(def scriptwriter-did (or (System/getenv "YUKKURI_SCRIPTWRITER_DID")
-                          "did:web:yukkuri.etzhayyim.com:actor:scriptwriter"))
-(def repo            (or (System/getenv "YUKKURI_REPO_DID") "did:web:y5kk5r1x.etzhayyim.com"))
-
 (def system-prompt
   (str "You are a Japanese \"yukkuri\" video scriptwriter. Given a topic, write a two-character\n"
        "commentary script in the style of Japanese educational YouTube videos.\n"
@@ -74,20 +69,21 @@
 (defn node-insert [state]
   (if (or (:error state) (empty? (:scenes state)))
     {}
-    (let [video-id (or (:video_id state) "")
+    (let [repo-did (:repo-did (audit/config-from-state state))
+          video-id (or (:video_id state) "")
           created  (now-iso)]
       (try
         (doseq [[i scene] (map-indexed vector (:scenes state))]
           (let [scene-id (str "scene-" video-id "-" i)]
             (store/insert-row "vertex_yukkuri_scene"
-                              {:vertex_id (str "at://" repo "/com.etzhayyim.apps.yukkuri.scene/" scene-id)
+                              {:vertex_id (str "at://" repo-did "/com.etzhayyim.apps.yukkuri.scene/" scene-id)
                                :scene_id scene-id :video_id video-id :scene_index i
                                :location (or (:location scene) "") :action (or (:action scene) "")
                                :created_at created})
             (doseq [[j line] (map-indexed vector (or (:lines scene) []))]
               (let [line-id (str "line-" video-id "-" i "-" j)]
                 (store/insert-row "vertex_yukkuri_line"
-                                  {:vertex_id (str "at://" repo "/com.etzhayyim.apps.yukkuri.line/" line-id)
+                                  {:vertex_id (str "at://" repo-did "/com.etzhayyim.apps.yukkuri.line/" line-id)
                                    :line_id line-id :video_id video-id :scene_index i :line_index j
                                    :speaker (or (:speaker line) "left") :text (or (:text line) "")
                                    :emotion (or (:emotion line) "normal") :created_at created})))))
@@ -98,7 +94,7 @@
         (catch Exception e {:error (str "insert: " (.getMessage e))})))))
 
 (defn node-audit [state]
-  (audit/emit-audit-bg {:actor scriptwriter-did
+  (audit/emit-audit-bg {:actor (:scriptwriter-did (audit/config-from-state state))
                         :activity "yukkuri.generateScript"
                         :object-id (str "script:" (or (:video_id state) "") ":" (quot (System/currentTimeMillis) 1000))
                         :object-type "yukkuri.script"
