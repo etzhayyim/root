@@ -14,47 +14,7 @@
 60-apps/etzhayyim-project-auth/worker/src-ts/index.ts:1:hono-import:import { Hono } from "hono";
 60-apps/etzhayyim-project-auth/worker/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src-ts/index.ts"
 60-apps/etzhayyim-project-browser/provider/darkweb-proxy/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "worker.ts"
-60-apps/etzhayyim-project-cyber-drill/worker/wrangler.jsonc:7:wrangler-non-sveltekit-main:"main": "src/index.ts"
 60-apps/etzhayyim-project-deai/appview/deai-cgxi8oem/src-ts/app.ts:13:hono-import:import type { Context } from "hono";
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:1010:kysely-direct-db:await hcDb().insertInto("vertex_hc_game_capture_assignment" as any).values({
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:1037:kysely-direct-db:await hcDb().insertInto("vertex_hc_game_capture_submission" as any).values({
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:1072:kysely-direct-db:await hcDb().insertInto("vertex_hc_game_capture_review" as any).values({
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:1123:kysely-direct-db:const intake = await hcDb().selectFrom("vertex_hc_worker_intake" as any)
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:1163:kysely-direct-db:await hcDb().insertInto("vertex_hc_kyc_submission" as any).values({
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:1198:kysely-direct-db:await hcDb().insertInto("vertex_hc_kyc_review" as any).values({
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:1221:kysely-direct-db:let q = hcDb().selectFrom("vertex_hc_game_capture_task" as any).selectAll();
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:1233:kysely-direct-db:const items = await hcDb().selectFrom("vertex_hc_game_capture_assignment" as any).selectAll()
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:1247:kysely-direct-db:const assignments = await db.selectFrom("vertex_hc_game_capture_assignment" as any)
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:1258:kysely-direct-db:const submissions = await db.selectFrom("vertex_hc_game_capture_submission" as any)
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:1268:kysely-direct-db:const agg = await db.selectFrom("vertex_hc_game_capture_review" as any)
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:1294:kysely-direct-db:const adult = await db.selectFrom("vertex_hc_worker_intake" as any)
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:1301:kysely-direct-db:const minor = await db.selectFrom("vertex_hc_minor_guardian_intake" as any)
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:157:kysely-direct-db:await hcDb().insertInto("vertex_hc_contract_acceptance" as any).values({
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:183:kysely-direct-db:await hcDb().insertInto("vertex_hc_sp_application" as any).values({
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:205:kysely-direct-db:await hcDb().insertInto("vertex_hc_task" as any).values({
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:233:kysely-direct-db:let query = hcDb().selectFrom("vertex_hc_sp_application" as any).selectAll();
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:247:kysely-direct-db:await hcDb().insertInto("vertex_hc_sp_verification" as any).values({
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:267:kysely-direct-db:await hcDb().insertInto("vertex_hc_task" as any).values({
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:293:kysely-direct-db:await hcDb().insertInto("vertex_hc_sp_audit" as any).values({
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:325:kysely-direct-db:await hcDb().insertInto("vertex_hc_sp_registration" as any).values({
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:345:kysely-direct-db:await hcDb().insertInto("vertex_hc_task" as any).values({
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:34:kysely-direct-db:function hcDb() { return createKyselyDb(); }
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:37:kysely-direct-db:return (await hcDb().selectFrom(table as any).selectAll()
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:43:kysely-direct-db:const row = await hcDb().selectFrom(table as any).selectAll()
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:49:kysely-direct-db:const row = await hcDb().selectFrom(table as any)
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:546:kysely-direct-db:out[t] = await hcDb().selectFrom(t as any).selectAll()
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:568:kysely-direct-db:const rows = await hcDb().selectFrom("vertex_hc_game_capture_task" as any)
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:582:kysely-direct-db:await hcDb().insertInto("vertex_hc_record" as any).values({
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:597:kysely-direct-db:let q = hcDb().selectFrom("vertex_repo_commit" as any)
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:685:kysely-direct-db:await hcDb().insertInto("vertex_hc_email_outbox" as any).values({
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:699:kysely-direct-db:await hcDb().insertInto("vertex_hc_email_outbox" as any).values({
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:823:kysely-direct-db:await hcDb().insertInto("vertex_hc_worker_intake" as any).values({
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:844:kysely-direct-db:await hcDb().insertInto("vertex_hc_contract_acceptance" as any).values({
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:88:kysely-direct-db:const items = await hcDb().selectFrom("vertex_hc_task" as any).selectAll()
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:901:kysely-direct-db:await hcDb().insertInto("vertex_hc_minor_guardian_intake" as any).values({
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:927:kysely-direct-db:await hcDb().insertInto("vertex_hc_contract_acceptance" as any).values({
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:97:kysely-direct-db:await hcDb().insertInto("vertex_hc_task" as any).values({
-60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:982:kysely-direct-db:await hcDb().insertInto("vertex_hc_game_capture_task" as any).values({
 60-apps/etzhayyim-project-jukyu/appview/jukyu-ui-jukyu001/wrangler.jsonc:29:wrangler-hyperdrive-binding:"hyperdrive": [
 60-apps/etzhayyim-project-jukyu/appview/jukyu-ui-jukyu001/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-kami/appview/etzhayyim-wasm-kami-sabiotoshi-s4b10t05/src/app.ts:263:kysely-direct-db:await createKyselyDb().insertInto("vertex_kami_sabiotoshi_game" as any).values({
@@ -167,16 +127,11 @@
 60-apps/etzhayyim-project-open-banking/worker/src/defence-handlers.ts:35:kysely-direct-db:const db = createKyselyDb(env.HYPERDRIVE) as any;
 60-apps/etzhayyim-project-open-banking/worker/src/defence-handlers.ts:37:kysely-direct-db:.insertInto("vertex_open_defence_event")
 60-apps/etzhayyim-project-open-banking/xrpc-adapter/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/index.ts"
-60-apps/etzhayyim-project-open-cofog/worker/src/defence-handlers.ts:19:hyperdrive-usage:HYPERDRIVE: { connectionString: string };
-60-apps/etzhayyim-project-open-cofog/worker/src/defence-handlers.ts:35:hyperdrive-usage:const db = createKyselyDb(env.HYPERDRIVE) as any;
-60-apps/etzhayyim-project-open-cofog/worker/src/defence-handlers.ts:35:kysely-direct-db:const db = createKyselyDb(env.HYPERDRIVE) as any;
-60-apps/etzhayyim-project-open-cofog/worker/src/defence-handlers.ts:37:kysely-direct-db:.insertInto("vertex_open_defence_event")
 60-apps/etzhayyim-project-open-isic/appview/worker/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/index.ts"
 60-apps/etzhayyim-project-open-robo/appview/open-robo-hp/wrangler.jsonc:27:wrangler-hyperdrive-binding:"hyperdrive": [
 60-apps/etzhayyim-project-open-robo/appview/open-robo-hp/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-open-saas/appview/open-saas-console-os4a5s1/src/app.ts:5:hono-import:import { Hono } from "hono";
 60-apps/etzhayyim-project-open-saas/appview/salesforce-crm-sfcrm9x3/src/app.ts:5:hono-import:import { Hono } from "hono";
-60-apps/etzhayyim-project-society6/appview/society6-ui-s6c9m2q1/src/app.ts:112:kysely-direct-db:await createKyselyDb().insertInto(tableName as any).values({
 60-apps/etzhayyim-project-watashi/appview/etzhayyim-wasm-watashi-mfbtsuyc/src/app.ts:25:kysely-direct-db:const getDb = () => createKyselyDb();
 60-apps/etzhayyim-project-watashi/appview/etzhayyim-wasm-watashi-mfbtsuyc/src/app.ts:274:kysely-direct-db:await getDb().insertInto("vertex_watashi_peer" as any).values({
 60-apps/etzhayyim-project-watashi/appview/etzhayyim-wasm-watashi-mfbtsuyc/src/app.ts:311:kysely-direct-db:await getDb().insertInto("vertex_watashi_layout" as any).values({
