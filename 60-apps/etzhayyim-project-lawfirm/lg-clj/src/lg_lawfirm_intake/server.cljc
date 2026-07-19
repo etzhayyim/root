@@ -10,9 +10,7 @@
   This namespace ports the ROUTING + auth + invoke/serialize logic as plain clj
   functions (`health`, `dispatch-run`, `dispatch-xrpc`, `enforce-auth`). The
   concrete HTTP transport is `org.httpkit.server` (FastAPI/uvicorn → http-kit):
-  `ring-handler` is a ready ring handler and `start-server!` lazily resolves
-  http-kit and boots it. http-kit is required lazily so this ns loads under bb
-  offline; the dispatch fns are the load-bearing, test-covered port.
+  `ring-handler` is portable and `start-server!` accepts a host capability.
 
   The Python FastAPI server (`lg/`) remains the deployed runtime and COEXISTS —
   this twin is additive (ADR-2606280030)."
@@ -23,11 +21,13 @@
 
 (def nsid-triage "com.etzhayyim.apps.lawfirm.triageIntake")
 
+(def ^:dynamic *internal-secret* "")
+
 (defn expected-secret
   "The configured DISPATCHER_INTERNAL_SECRET (empty/nil when unset). Extracted as
   a fn so tests can rebind it via with-redefs."
   []
-  (System/getenv "DISPATCHER_INTERNAL_SECRET"))
+  *internal-secret*)
 
 (defn enforce-auth
   "Mirrors server._enforce_auth: if DISPATCHER_INTERNAL_SECRET is set, the
@@ -133,9 +133,9 @@
         :else {:status 404 :body {:detail "not found"}}))))
 
 (defn start-server!
-  "Boot http-kit on PORT (default 8000). Lazily resolves org.httpkit.server so
-  this ns loads offline under bb."
-  ([] (start-server! (Long/parseLong (or (System/getenv "PORT") "8000"))))
-  ([port]
-   (let [run-server (requiring-resolve 'org.httpkit.server/run-server)]
-     (run-server ring-handler {:port port}))))
+  "Boot through an explicit host-provided server capability."
+  [run-server port]
+  (when-not (fn? run-server)
+    (throw (ex-info "Lawfirm server requires an explicit run-server capability"
+                    {:capability :lawfirm/run-server})))
+  (run-server ring-handler {:port port}))

@@ -29,55 +29,47 @@
             [cheshire.core :as json]))
 
 ;; ---------------------------------------------------------------------------
-;; Config (env, with the Python defaults)
+;; Portable defaults; environment and secrets belong to the host adapter.
 ;; ---------------------------------------------------------------------------
 
-(defn- env [k default] (or (System/getenv k) default))
+(def default-config
+  {:llm-url "http://127.0.0.1:4000/v1/chat/completions"
+   :llm-key ""
+   :llm-model "gemma-4-E4B-it"
+   :llm-timeout-sec 20.0
+   :bengoshi-url "https://bengoshi.etzhayyim.com"
+   :dispatcher-url "https://dispatcher.etzhayyim.com"
+   :internal-secret ""
+   :invite-limit 3
+   :invite-expires-days 90})
 
-;; Default LLM edge → Murakumo loopback gateway (ADR-2605215000), key-gated.
-(def llm-url     (env "etzhayyim_LLM_URL" "http://127.0.0.1:4000/v1/chat/completions"))
-(defn- llm-key [] (env "etzhayyim_LLM_API_KEY" ""))
-(def llm-model   (env "LAWFIRM_LLM_MODEL" (env "etzhayyim_LLM_MODEL" "gemma-4-E4B-it")))
-(def llm-timeout-sec (Double/parseDouble (env "LAWFIRM_LLM_TIMEOUT_SEC" "20")))
-
-(def bengoshi-url   (env "BENGOSHI_URL"   "https://bengoshi.etzhayyim.com"))
-(def dispatcher-url (env "DISPATCHER_URL" "https://dispatcher.etzhayyim.com"))
-(defn- internal-secret [] (env "DISPATCHER_INTERNAL_SECRET" ""))
-
-(def invite-limit        (Long/parseLong (env "LAWFIRM_INVITE_LIMIT" "3")))
-(def invite-expires-days (Long/parseLong (env "LAWFIRM_INVITE_EXPIRES_DAYS" "90")))
+(def ^:dynamic *config* default-config)
 
 (def known-domains
   #{"ni138" "land" "family" "consumer" "labour" "corporate"
     "tax" "criminal" "rera" "fema" "pil-rti" "visa"})
 
 ;; ---------------------------------------------------------------------------
-;; HTTP edges (injectable — defaults lazily resolve babashka.http-client)
+;; HTTP edges: nil denies ambient network authority.
 ;; ---------------------------------------------------------------------------
 
-(defn default-http-get
-  "Default `*http-get*`: GET url with query params, parse JSON body → map."
-  [url params]
-  (let [get* (requiring-resolve 'babashka.http-client/get)
-        resp (get* url {:query-params (or params {})
-                        :timeout 10000})]
-    (json/parse-string (:body resp) true)))
+(def ^:dynamic *http-get* nil)
+(def ^:dynamic *http-post* nil)
 
-(defn default-http-post
-  "Default `*http-post*`: POST JSON body with optional extra headers → parsed map."
-  [url body {:keys [headers timeout]}]
-  (let [post* (requiring-resolve 'babashka.http-client/post)
-        resp  (post* url {:headers (merge {"Content-Type" "application/json"}
-                                          (or headers {}))
-                          :body (json/generate-string body)
-                          :timeout (long (* 1000 (or timeout 15)))})]
-    (json/parse-string (:body resp) true)))
+(defn http-get [url params]
+  (when-not (fn? *http-get*)
+    (throw (ex-info "Lawfirm search requires an explicit HTTP GET capability"
+                    {:capability :lawfirm/http-get})))
+  (*http-get* url params))
 
-(def ^:dynamic *http-get*  default-http-get)
-(def ^:dynamic *http-post* default-http-post)
+(defn http-post [url body opts]
+  (when-not (fn? *http-post*)
+    (throw (ex-info "Lawfirm invite requires an explicit HTTP POST capability"
+                    {:capability :lawfirm/http-post})))
+  (*http-post* url body opts))
 
 (defn- internal-headers []
-  (let [s (internal-secret)]
+  (let [s (:internal-secret *config*)]
     (if (seq s) {"x-internal-trust" s} {})))
 
 ;; ---------------------------------------------------------------------------
@@ -96,19 +88,33 @@
 
 (defn- clip [s n] (let [s (str s)] (subs s 0 (min n (count s)))))
 
-(defn default-call-triage-llm
+(defn assert-murakumo
+  "Reject malformed, non-http and off-fleet inference endpoints before I/O."
+  [endpoint]
+  (let [[_ scheme host] (or (re-find #"^([A-Za-z][A-Za-z0-9+.\-]*)://([^/?#]*)" (str endpoint))
+                            [nil nil nil])]
+    (when-not (and (= "http" (some-> scheme str/lower-case))
+                   (contains? #{"127.0.0.1:4000" "localhost:4000" "[::1]:4000"}
+                              (some-> host str/lower-case)))
+      (throw (ex-info "off-fleet LLM endpoint refused (Murakumo loopback only)"
+                      {:endpoint endpoint :murakumo-only-violation true})))))
+
+(defn call-triage-llm-with
   "Default `*call-triage-llm*`: POST a chat-completions request to the Murakumo
   loopback gateway. Returns the parsed JSON map, or nil when no key / on failure
   (parity with Python `_call_triage_llm`)."
-  [summary lang domain-hint]
-  (when (seq (llm-key))
+  [http-post {:keys [llm-url llm-key llm-model llm-timeout-sec]} summary lang domain-hint]
+  (when-not (fn? http-post)
+    (throw (ex-info "Lawfirm triage requires an explicit HTTP POST capability"
+                    {:capability :lawfirm/triage-http-post})))
+  (when (seq llm-key)
+    (assert-murakumo llm-url)
     (let [prompt (str "Client language: " lang "\n"
                       "Domain hint: " (if (seq domain-hint) domain-hint "unknown") "\n"
                       "Complaint: " (clip summary 800) "\n\nReturn ONLY the JSON object.")]
       (try
-        (let [post* (requiring-resolve 'babashka.http-client/post)
-              resp  (post* llm-url
-                           {:headers {"Authorization" (str "Bearer " (llm-key))
+        (let [resp  (http-post llm-url
+                           {:headers {"Authorization" (str "Bearer " llm-key)
                                       "Content-Type" "application/json"}
                             :timeout (long (* 1000 llm-timeout-sec))
                             :body (json/generate-string
@@ -127,7 +133,11 @@
             (println "[triage-node] llm call failed:" (.getMessage e)))
           nil)))))
 
-(def ^:dynamic *call-triage-llm* default-call-triage-llm)
+(def ^:dynamic *call-triage-llm* nil)
+
+(defn call-triage-llm [summary lang domain-hint]
+  (when (fn? *call-triage-llm*)
+    (*call-triage-llm* summary lang domain-hint)))
 
 (defn fallback-triage
   "Deterministic triage when the LLM edge is unavailable (parity with
@@ -158,7 +168,7 @@
   (let [summary     (or (:summary_plain state) "")
         lang        (or (:lang state) "en")
         domain-hint (or (:domain state) "")
-        result      (or (*call-triage-llm* summary lang domain-hint)
+        result      (or (call-triage-llm summary lang domain-hint)
                         (fallback-triage domain-hint))]
     (cond-> {:triage_result result}
       (and (not (seq (:domain state)))       (:domain result))       (assoc :domain (:domain result))
@@ -188,10 +198,10 @@
                                  "offset" "0"}
                           (seq specialization) (assoc "specialization" specialization))]
     (try
-      (let [resp    (*http-get* (str bengoshi-url "/xrpc/com.etzhayyim.apps.bengoshi.searchLawyers")
+      (let [resp    (http-get (str (:bengoshi-url *config*) "/xrpc/com.etzhayyim.apps.bengoshi.searchLawyers")
                                 params)
             lawyers (or (:lawyers resp) [])]
-        {:lawyers (vec (take invite-limit lawyers))})
+        {:lawyers (vec (take (:invite-limit *config*) lawyers))})
       (catch Exception e
         (binding [*out* *err*]
           (println "[search-node] bengoshi search failed:" (.getMessage e)))
@@ -199,7 +209,7 @@
 
 (defn- expires-at []
   (let [inst (.plus (java.time.Instant/now)
-                    (java.time.Duration/ofDays invite-expires-days))]
+                    (java.time.Duration/ofDays (:invite-expires-days *config*)))]
     (-> (java.time.format.DateTimeFormatter/ofPattern "yyyy-MM-dd'T'HH:mm:ss'Z'")
         (.withZone (java.time.ZoneOffset/UTC))
         (.format inst))))
@@ -220,8 +230,8 @@
                          (if-not (seq grantee-did)
                            acc
                            (try
-                             (let [resp (*http-post*
-                                          (str dispatcher-url "/xrpc/com.etzhayyim.apps.lawfirm.inviteExternalCounsel")
+                             (let [resp (http-post
+                                          (str (:dispatcher-url *config*) "/xrpc/com.etzhayyim.apps.lawfirm.inviteExternalCounsel")
                                           {:matterDid case-did
                                            :granteeDid grantee-did
                                            :granteeHandle (or (:fullName lawyer) "")
@@ -239,5 +249,5 @@
                                  (println (str "[match-node] invite failed for " grantee-did ": " (.getMessage e))))
                                acc)))))
                      []
-                     (take invite-limit lawyers))]
+                     (take (:invite-limit *config*) lawyers))]
         {:grants grants}))))

@@ -125,3 +125,41 @@
       (is (= 401 (:status (server/enforce-auth "wrong"))))
       (is (nil? (server/enforce-auth "secret")))
       (is (nil? (server/enforce-auth "wrong" true))))))
+
+(deftest live-authority-requires-explicit-capabilities
+  (is (thrown-with-msg? clojure.lang.ExceptionInfo
+                        #"explicit HTTP GET capability"
+                        (nodes/http-get "https://example.invalid" {})))
+  (is (thrown-with-msg? clojure.lang.ExceptionInfo
+                        #"explicit HTTP POST capability"
+                        (nodes/http-post "https://example.invalid" {} {})))
+  (is (thrown-with-msg? clojure.lang.ExceptionInfo
+                        #"explicit HTTP POST capability"
+                        (nodes/call-triage-llm-with nil
+                         (assoc nodes/default-config :llm-key "configured")
+                         "summary" "en" "")))
+  (is (thrown-with-msg? clojure.lang.ExceptionInfo
+                        #"explicit run-server capability"
+                        (server/start-server! nil 0))))
+
+(deftest murakumo-endpoint-guard
+  (is (nil? (nodes/assert-murakumo "http://127.0.0.1:4000/v1/chat/completions")))
+  (doseq [endpoint ["not-a-url"
+                    "https://127.0.0.1:4000/v1"
+                    "http://127.0.0.1.attacker.example:4000/v1"]]
+    (is (thrown? clojure.lang.ExceptionInfo
+                 (nodes/assert-murakumo endpoint)) endpoint)))
+
+(deftest injected-triage-wire-contract
+  (let [seen (atom nil)
+        result (nodes/call-triage-llm-with
+                (fn [url opts]
+                  (reset! seen [url opts])
+                  {:status 200
+                   :body "{\"choices\":[{\"message\":{\"content\":\"{\\\"domain\\\":\\\"tax\\\"}\"}}]}"})
+                (assoc nodes/default-config :llm-key "secret")
+                "summary" "en" "tax")]
+    (is (= "tax" (:domain result)))
+    (is (= (:llm-url nodes/default-config) (first @seen)))
+    (is (= "Bearer secret" (get-in @seen [1 :headers "Authorization"])))
+    (is (re-find #"response_format" (get-in @seen [1 :body])))))
