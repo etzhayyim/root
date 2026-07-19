@@ -20,7 +20,6 @@
   (:require [langgraph.graph :as lg]
             [cheshire.core :as json]
             [clojure.string :as str]
-            [org.httpkit.server :as srv]
             [lg-karma.handlers :as h]
             [lg-karma.graphs :as graphs]))
 
@@ -39,8 +38,6 @@
         h/task-names))
 
 ;; ── helpers ─────────────────────────────────────────────────────────────────
-
-(defn- env [k default] (or (System/getenv k) default))
 
 (defn- round3 [x] (/ (Math/round (* (double x) 1000.0)) 1000.0))
 
@@ -137,9 +134,17 @@
       :else
       (json-resp {:status 404 :body {:detail "not found"}}))))
 
-(defn -main [& args]
-  (let [port (Integer/parseInt (or (first args) (env "PORT" "2024")))]
-    (srv/run-server handler {:port port})
+(defn start!
+  "Start through an explicitly supplied Ring server capability."
+  [run-server & [{:keys [port] :or {port 2024}}]]
+  (when-not (fn? run-server)
+    (throw (ex-info "explicit HTTP server capability required"
+                    {:capability :http-server})))
+  (let [stop (run-server handler {:port port})]
     (println (str "lg-karma server up on :" port
                   " — " (count GRAPHS) " graphs loaded"))
-    @(promise)))
+    stop))
+
+(defn -main [& _]
+  (throw (ex-info "host adapter required; use the bb serve task"
+                  {:capability :host-adapter})))

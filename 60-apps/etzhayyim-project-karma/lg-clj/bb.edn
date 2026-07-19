@@ -15,5 +15,12 @@
  {test  {:doc  "Run the lg-karma clojure.test suite under bb."
          :task (load-file "run_tests.clj")}
   serve {:doc      "Start the lg-karma /runs + /xrpc HTTP server (httpkit)."
-         :requires ([lg-karma.server])
-         :task     (apply lg-karma.server/-main *command-line-args*)}}}
+         :requires ([org.httpkit.server :as httpkit]
+                    [lg-karma.server :as server])
+         :task
+         (let [port (Integer/parseInt
+                     (or (first *command-line-args*)
+                         (System/getenv "PORT")
+                         "2024"))]
+           (server/start! httpkit/run-server {:port port})
+           (deref (promise)))}}}

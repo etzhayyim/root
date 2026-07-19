@@ -149,3 +149,8 @@
   (testing "/xrpc unmapped → 404"
     (is (= 404 (:status (server/handler {:uri "/xrpc/com.etzhayyim.apps.karma.nope"
                                          :request-method :post :body nil}))))))
+
+(deftest server-start-requires-explicit-capability
+  (is (thrown-with-msg? clojure.lang.ExceptionInfo
+                        #"explicit HTTP server capability required"
+                        (server/start! nil {:port 0}))))
