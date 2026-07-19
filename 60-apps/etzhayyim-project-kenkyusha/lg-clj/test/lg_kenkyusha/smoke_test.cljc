@@ -7,6 +7,7 @@
             [clojure.string :as str]
             #?(:clj [cheshire.core :as json])
             [langgraph.graph :as g]
+            [lg-kenkyusha.kotoba-datomic :as kd]
             [lg-kenkyusha.server :as server]
             [lg-kenkyusha.store :as store]
             [lg-kenkyusha.graphs.research-loop :as rl]))
@@ -80,6 +81,12 @@
 
 (deftest auth-cron-exempt
   (is (nil? (server/enforce-auth {:x-cron "1"}))))
+
+(deftest auth-values-are-explicitly-bound
+  (binding [server/*auth-config* {:internal-secret "internal" :api-key "api"}]
+    (is (= 401 (:status (server/enforce-auth {}))))
+    (is (nil? (server/enforce-auth {:internal-token "internal"})))
+    (is (nil? (server/enforce-auth {:x-api-key "api"})))))
 
 (deftest publish-requires-title
   (is (= 400 (:status (server/handle-request ctx (req :post "/frontiers/publish" :body {}))))))
@@ -202,6 +209,26 @@
   (is (thrown-with-msg? #?(:clj clojure.lang.ExceptionInfo :cljs :default)
                         #"explicit HTTP POST capability"
                         (rl/advisor-with nil rl/default-config :generate "prompt"))))
+
+(deftest kotoba-http-capability-is-required
+  (is (thrown-with-msg? #?(:clj clojure.lang.ExceptionInfo :cljs :default)
+                        #"explicit Kotoba HTTP capability required"
+                        (kd/q (kd/->client "graph") "[:find ?e]"))))
+
+(deftest injected-kotoba-wire-contract
+  #?(:clj
+     (let [seen (atom nil)]
+       (binding [kd/*config* {:xrpc-url "https://kotoba.test/"
+                              :bearer "secret"
+                              :graph "kenkyusha-test"}
+                 kd/*post-json!* (fn [url opts]
+                                   (reset! seen [url opts])
+                                   {:status 200 :body "{\"rows\":[]}"})]
+         (is (= [] (kd/q (kd/->client) "[:find ?e]")))
+         (is (= "https://kotoba.test/xrpc/ai.etzhayyim.apps.kotoba.datomic.q"
+                (first @seen)))
+         (is (= "Bearer secret"
+                (get-in @seen [1 :headers "Authorization"])))))))
 
 (deftest injected-advisor-wire-contract
   #?(:clj
