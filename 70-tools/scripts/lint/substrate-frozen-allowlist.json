@@ -1,13 +1,12 @@
 {
   "_comment": "Frozen legacy substrate-boundary (storage) violators — ADR-2606071800. SHRINK-ONLY: remove a path once migrated to kotoba-kqe; never add new paths. Regenerate with `node 70-tools/scripts/lint/substrate-remediation-audit.mjs --write` ONLY to seed or after review. CI runs `--audit`.",
   "adr": "2606071800",
-  "count": 18,
+  "count": 16,
   "files": [
     "60-apps/etzhayyim-project-hrse/appview/external-hrse/scripts/migrate-data.ts",
     "60-apps/etzhayyim-project-hrse/appview/external-hrse/scripts/run-migrations.ts",
     "60-apps/etzhayyim-project-hrse/appview/external-hrse/scripts/seed-master-data.ts",
     "60-apps/etzhayyim-project-hrse/appview/external-hrse/scripts/verify-seed-data.ts",
-    "60-apps/etzhayyim-project-kami/appview/etzhayyim-wasm-kami-sabiotoshi-s4b10t05/src/app.ts",
     "60-apps/etzhayyim-project-kyber-qzzg06nh/appview/etzhayyim-wasm-kyber-hr-mdtpqjc8/src/app.ts",
     "60-apps/etzhayyim-project-kyber-qzzg06nh/appview/etzhayyim-wasm-kyber-inbox-inb0x4k2/src/app.ts",
     "60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts",
@@ -19,7 +18,6 @@
     "60-apps/etzhayyim-project-maps/bulk-ingest/workers/maps_search_ivf_backfill.py",
     "60-apps/etzhayyim-project-maps/bulk-ingest/workers/noaa_ais_dumper.py",
     "60-apps/etzhayyim-project-maps/kotoba/src/source/query.ts",
-    "60-apps/etzhayyim-project-news/appview/news-core-component/src/app.ts",
-    "60-apps/etzhayyim-project-open-kyber/kotoba/src/xrpc-bridge.ts"
+    "60-apps/etzhayyim-project-news/appview/news-core-component/src/app.ts"
   ]
 }

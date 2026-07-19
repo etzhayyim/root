@@ -8,10 +8,6 @@
 60-apps/etzhayyim-project-animeka/appview/etzhayyim-wasm-animeka-an1m3k4x/wrangler.jsonc:30:wrangler-hyperdrive-binding:"hyperdrive": [
 60-apps/etzhayyim-project-animeka/appview/etzhayyim-wasm-animeka-an1m3k4x/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-browser/provider/darkweb-proxy/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "worker.ts"
-60-apps/etzhayyim-project-kami/appview/etzhayyim-wasm-kami-sabiotoshi-s4b10t05/src/app.ts:263:kysely-direct-db:await createKyselyDb().insertInto("vertex_kami_sabiotoshi_game" as any).values({
-60-apps/etzhayyim-project-kami/appview/etzhayyim-wasm-kami-sabiotoshi-s4b10t05/src/app.ts:334:kysely-direct-db:await createKyselyDb().insertInto("vertex_kami_sabiotoshi_score" as any).values({
-60-apps/etzhayyim-project-kami/appview/etzhayyim-wasm-kami-sabiotoshi-s4b10t05/src/app.ts:392:kysely-direct-db:await createKyselyDb().insertInto("vertex_kami_sabiotoshi_score" as any).values({
-60-apps/etzhayyim-project-kami/appview/etzhayyim-wasm-kami-sabiotoshi-s4b10t05/src/app.ts:481:kysely-direct-db:await createKyselyDb().insertInto("vertex_kami_sabiotoshi_classified_item" as any).values({
 60-apps/etzhayyim-project-kyber-qzzg06nh/appview/etzhayyim-wasm-kyber-hr-mdtpqjc8/src/app.ts:57:kysely-direct-db:await createKyselyDb().insertInto(table as any).values({ vertex_id, sensitivity_ord: 2, owner_did: ownerDid, actor_id: appId, ...snakeRec }).execute();
 60-apps/etzhayyim-project-kyber-qzzg06nh/appview/etzhayyim-wasm-kyber-inbox-inb0x4k2/src/app.ts:109:kysely-direct-db:await db.insertInto('edge_kyber_routed').values({
 60-apps/etzhayyim-project-kyber-qzzg06nh/appview/etzhayyim-wasm-kyber-inbox-inb0x4k2/src/app.ts:127:kysely-direct-db:await db.insertInto('vertex_office_document').values({
