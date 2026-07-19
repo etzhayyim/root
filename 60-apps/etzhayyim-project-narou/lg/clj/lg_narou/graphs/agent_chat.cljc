@@ -19,17 +19,15 @@
   (:require [clojure.string :as str]
             [langgraph.graph :as g]
             [lg-narou.audit :as audit]
-            #?(:clj [cheshire.core :as json])
-            #?(:clj [babashka.http-client :as http])))
+            #?(:clj [cheshire.core :as json])))
 
-(defn- getenv [k default]
-  #?(:clj (or (System/getenv k) default) :default default))
-
-(defn vllm-url []
-  (-> (getenv "VLLM_URL" "http://127.0.0.1:4000/v1") (str/replace #"/+$" "")))
-(defn vllm-model [] (getenv "VLLM_MODEL" "tier0-general"))
-(defn vllm-timeout-ms [] (long (* 1000 (Double/parseDouble (getenv "VLLM_TIMEOUT_SEC" "60")))))
-(defn default-app-did [] (getenv "NAROU_APP_DID" "did:web:narou.etzhayyim.com"))
+(def ^:dynamic *config* {:url "http://127.0.0.1:4000/v1" :model "tier0-general"
+                         :timeout-ms 60000 :app-did "did:web:narou.etzhayyim.com"})
+(def ^:dynamic *llm-post* nil)
+(defn vllm-url [] (str/replace (:url *config*) #"/+$" ""))
+(defn vllm-model [] (:model *config*))
+(defn vllm-timeout-ms [] (long (:timeout-ms *config*)))
+(defn default-app-did [] (:app-did *config*))
 
 (def actor-prompts
   {"writer" (str "You are a novelist AI. You draft Japanese-style web novel prose "
@@ -81,7 +79,9 @@
   "Real OpenAI-compatible POST → parsed JSON map (or throws)."
   [url payload timeout-ms]
   #?(:clj
-     (let [resp (http/post (str url "/chat/completions")
+     (let [_ (when-not (fn? *llm-post*)
+               (throw (ex-info "Narou LLM requires explicit HTTP" {})))
+           resp (*llm-post* (str url "/chat/completions")
                            {:headers {"Content-Type" "application/json"}
                             :body (json/generate-string payload)
                             :timeout timeout-ms

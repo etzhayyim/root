@@ -70,3 +70,7 @@
 (deftest key-normalization
   (is (= {:actor-role "writer" :novel-id "n1"}
          (srv/normalize-input {"actorRole" "writer" "novel_id" "n1"}))))
+
+(deftest server-start-requires-explicit-capability
+  (is (thrown-with-msg? clojure.lang.ExceptionInfo #"explicit server capability"
+                        (srv/start! nil {:port 0}))))

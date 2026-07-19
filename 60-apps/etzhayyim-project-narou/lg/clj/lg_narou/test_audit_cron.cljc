@@ -22,6 +22,14 @@
   (is (= {} (:attributes (audit/build-payload {:actor "a" :activity "x"
                                                :object-id "i" :object-type "t"})))))
 
+(deftest audit-http-and-secret-are-explicit-capabilities
+  (let [wire (atom nil)]
+    (binding [audit/*config* {:url "http://audit.internal" :secret "purpose-bound"
+                              :timeout-ms 1000 :disabled? false}
+              audit/*http-post* (fn [url opts] (reset! wire [url opts]) {:status 200})]
+      (is (= :ok (audit/emit-audit! {:actor "a" :activity "x" :object-id "i"})))
+      (is (= "purpose-bound" (get-in @wire [1 :headers "x-internal-trust"]))))))
+
 ;; ── cron ──────────────────────────────────────────────────────────────────
 
 (deftest cron-load-specs-filters
