@@ -118,16 +118,6 @@
 60-apps/etzhayyim-project-open-isic/appview/worker/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/index.ts"
 60-apps/etzhayyim-project-open-robo/appview/open-robo-hp/wrangler.jsonc:27:wrangler-hyperdrive-binding:"hyperdrive": [
 60-apps/etzhayyim-project-open-robo/appview/open-robo-hp/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/app.ts"
-60-apps/etzhayyim-project-watashi/appview/etzhayyim-wasm-watashi-mfbtsuyc/src/app.ts:25:kysely-direct-db:const getDb = () => createKyselyDb();
-60-apps/etzhayyim-project-watashi/appview/etzhayyim-wasm-watashi-mfbtsuyc/src/app.ts:274:kysely-direct-db:await getDb().insertInto("vertex_watashi_peer" as any).values({
-60-apps/etzhayyim-project-watashi/appview/etzhayyim-wasm-watashi-mfbtsuyc/src/app.ts:311:kysely-direct-db:await getDb().insertInto("vertex_watashi_layout" as any).values({
-60-apps/etzhayyim-project-watashi/appview/etzhayyim-wasm-watashi-mfbtsuyc/src/app.ts:397:kysely-direct-db:await getDb().insertInto("vertex_watashi_session" as any).values({
-60-apps/etzhayyim-project-watashi/appview/etzhayyim-wasm-watashi-mfbtsuyc/src/app.ts:451:kysely-direct-db:await getDb().insertInto("vertex_watashi_clipboard_sync" as any).values({
-60-apps/etzhayyim-project-watashi/appview/etzhayyim-wasm-watashi-mfbtsuyc/src/app.ts:511:kysely-direct-db:await getDb().insertInto("vertex_watashi_file_transfer" as any).values({
-60-apps/etzhayyim-project-watashi/appview/etzhayyim-wasm-watashi-mfbtsuyc/src/app.ts:587:kysely-direct-db:await getDb().insertInto("vertex_watashi_audit_log" as any).values({
-60-apps/etzhayyim-project-watashi/appview/etzhayyim-wasm-watashi-mfbtsuyc/src/app.ts:644:kysely-direct-db:await getDb().insertInto("vertex_watashi_release" as any).values({
-60-apps/etzhayyim-project-watashi/appview/etzhayyim-wasm-watashi-mfbtsuyc/src/app.ts:758:kysely-direct-db:await getDb().insertInto("vertex_watashi_pairing" as any).values({
-60-apps/etzhayyim-project-watashi/appview/etzhayyim-wasm-watashi-mfbtsuyc/src/app.ts:926:kysely-direct-db:await getDb().insertInto("vertex_watashi_session" as any).values({
 60-apps/etzhayyim-project-yorishiro/appview/etzhayyim-wasm-yorishiro-flyio-fly10001/src/app.ts:105:kysely-direct-db:if (!db) db = createKyselyDb();
 60-apps/etzhayyim-project-yorishiro/appview/etzhayyim-wasm-yorishiro-flyio-fly10001/src/app.ts:137:kysely-direct-db:.selectFrom(tableForLabel(label) as any)
 60-apps/etzhayyim-project-yorishiro/appview/etzhayyim-wasm-yorishiro-flyio-fly10001/src/app.ts:178:kysely-direct-db:.insertInto("vertex_yorishiroFlyio_cancellationJob" as any)
@@ -146,20 +136,5 @@
 60-apps/etzhayyim-project-yorishiro/appview/etzhayyim-wasm-yorishiro-nuro-nur0cb01/src/app.ts:260:kysely-direct-db:.insertInto("vertex_yorishiroNuro_claimReceipt" as any)
 60-apps/etzhayyim-project-yorishiro/appview/etzhayyim-wasm-yorishiro-nuro-nur0cb01/src/app.ts:331:kysely-direct-db:.insertInto("vertex_yorishiroNuro_claimJob" as any)
 60-apps/etzhayyim-project-yorishiro/appview/etzhayyim-wasm-yorishiro-nuro-nur0cb01/src/app.ts:96:kysely-direct-db:if (!db) db = createKyselyDb();
-60-apps/etzhayyim-project-yukkuri/appview/etzhayyim-wasm-yukkuri-y5kk5r1x/src/app.ts:226:hyperdrive-usage:const db = createKyselyDb((sdk.env as any).HYPERDRIVE) as any;
-60-apps/etzhayyim-project-yukkuri/appview/etzhayyim-wasm-yukkuri-y5kk5r1x/src/app.ts:226:kysely-direct-db:const db = createKyselyDb((sdk.env as any).HYPERDRIVE) as any;
-60-apps/etzhayyim-project-yukkuri/appview/etzhayyim-wasm-yukkuri-y5kk5r1x/src/app.ts:227:kysely-direct-db:await db.insertInto("vertex_yukkuri_generation").values({
-60-apps/etzhayyim-project-yukkuri/appview/etzhayyim-wasm-yukkuri-y5kk5r1x/src/app.ts:262:hyperdrive-usage:const db = createKyselyDb((sdk.env as any).HYPERDRIVE) as any;
-60-apps/etzhayyim-project-yukkuri/appview/etzhayyim-wasm-yukkuri-y5kk5r1x/src/app.ts:262:kysely-direct-db:const db = createKyselyDb((sdk.env as any).HYPERDRIVE) as any;
-60-apps/etzhayyim-project-yukkuri/appview/etzhayyim-wasm-yukkuri-y5kk5r1x/src/app.ts:263:kysely-direct-db:await db.insertInto("vertex_yukkuri_generation").values({
-60-apps/etzhayyim-project-yukkuri/appview/etzhayyim-wasm-yukkuri-y5kk5r1x/src/app.ts:324:hyperdrive-usage:return createKyselyDb((env as any).HYPERDRIVE) as any;
-60-apps/etzhayyim-project-yukkuri/appview/etzhayyim-wasm-yukkuri-y5kk5r1x/src/app.ts:324:kysely-direct-db:return createKyselyDb((env as any).HYPERDRIVE) as any;
-60-apps/etzhayyim-project-yukkuri/appview/etzhayyim-wasm-yukkuri-y5kk5r1x/src/app.ts:328:kysely-direct-db:let query = yukkuriDb(env).selectFrom("vertex_yukkuri_video").selectAll();
-60-apps/etzhayyim-project-yukkuri/appview/etzhayyim-wasm-yukkuri-y5kk5r1x/src/app.ts:337:kysely-direct-db:await db.selectFrom("vertex_yukkuri_video").selectAll().where("vertex_id", "=", rkey).limit(1).executeTakeFirst()
-60-apps/etzhayyim-project-yukkuri/appview/etzhayyim-wasm-yukkuri-y5kk5r1x/src/app.ts:338:kysely-direct-db:?? await db.selectFrom("vertex_yukkuri_video").selectAll().where("vertex_id", "like", `%/${rkey}`).limit(1).executeTakeFirst()
-60-apps/etzhayyim-project-yukkuri/appview/etzhayyim-wasm-yukkuri-y5kk5r1x/src/app.ts:343:kysely-direct-db:return await yukkuriDb(env).selectFrom("vertex_yukkuri_asset").selectAll().where("video_uri", "=", videoUri).execute() as AssetRow[];
-60-apps/etzhayyim-project-yukkuri/appview/etzhayyim-wasm-yukkuri-y5kk5r1x/src/app.ts:348:kysely-direct-db:.selectFrom("vertex_yukkuri_generation")
-60-apps/etzhayyim-project-yukkuri/appview/etzhayyim-wasm-yukkuri-y5kk5r1x/src/app.ts:358:kysely-direct-db:.selectFrom("vertex_yukkuri_scene")
-60-apps/etzhayyim-project-yukkuri/appview/etzhayyim-wasm-yukkuri-y5kk5r1x/src/app.ts:368:kysely-direct-db:.selectFrom("vertex_yukkuri_line")
 60-apps/watashi/wasm/etzhayyim-wasm-watashi-mfbtsuyc/.etzhayyim-deploy/mfbtsuyc/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/watashi/wasm/etzhayyim-wasm-watashi-mfbtsuyc/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
