@@ -25,26 +25,23 @@
 
   State is a Clojure map; each node returns a partial map merged into it
   (langgraph-clj merge semantics). Loads under babashka."
-  (:require [clojure.string :as str]
+  (:require #?(:clj [cheshire.core :as json])
+            [clojure.string :as str]
             [langgraph.graph :as g]))
 
 ;; ── config / Murakumo fleet (ADR-2605215000) ─────────────────────────────────
 
-(defn- env [k default]
-  #?(:clj (or (System/getenv k) default) :cljs default))
-
-(def repo  (env "KENKYUSHA_REPO_DID"  "did:web:kenkyusha.etzhayyim.com"))
+(def default-config {:repo "did:web:kenkyusha.etzhayyim.com"
+                     :url "http://127.0.0.1:4000/v1"
+                     :model "gemma3:4b"
+                     :timeout-sec 120.0})
+(def ^:dynamic *config* default-config)
 
 ;; The ONLY inference endpoints representable — Murakumo loopback / fleet.
 (def murakumo-allowed-hosts
   #{"127.0.0.1:4000" "localhost:4000"
     "192.168.1.70:8077" "192.168.1.70:11434"
     "127.0.0.1:11434" "localhost:11434"})
-
-(def llm-url   (-> (env "MURAKUMO_URL" "http://127.0.0.1:4000/v1")
-                   (str/replace #"/+$" "")))
-(def llm-model (env "MURAKUMO_MODEL" "gemma3:4b"))
-(def llm-timeout-sec #?(:clj (Double/parseDouble (env "MURAKUMO_TIMEOUT_SEC" "120")) :cljs 120))
 
 (defn- clip [s n] (let [s (str s)] (subs s 0 (min n (count s)))))
 
@@ -62,40 +59,47 @@
 (defn assert-murakumo
   "Refuse any LLM endpoint outside the Murakumo fleet (http only) — ADR-2605215000."
   [endpoint]
-  (when-let [[_ scheme host] (re-find #"^([A-Za-z][A-Za-z0-9+.\-]*)://([^/?#]*)" (str endpoint))]
-    (when-not (and (= "http" (str/lower-case scheme))
-                   (contains? murakumo-allowed-hosts (str/lower-case host)))
+  (let [[_ scheme host] (or (re-find #"^([A-Za-z][A-Za-z0-9+.\-]*)://([^/?#]*)" (str endpoint))
+                            [nil nil nil])]
+    (when-not (and (= "http" (some-> scheme str/lower-case))
+                   (contains? murakumo-allowed-hosts (some-> host str/lower-case)))
       (throw (ex-info (str "inference endpoint " (pr-str endpoint)
                            " is outside the Murakumo fleet (ADR-2605215000)")
                       {:murakumo-only-violation true :endpoint endpoint})))))
 
-(defn default-advisor
+(defn advisor-with
   "Default `*advisor*`: POST a chat-completions request to the Murakumo loopback
   gateway (no-server-key, read-only). Returns the proposal text or {:error ...}."
-  [_role prompt]
+  [http-post {:keys [url model timeout-sec]} _role prompt]
+  (when-not (fn? http-post)
+    (throw (ex-info "Kenkyusha advisor requires an explicit HTTP POST capability"
+                    {:capability :kenkyusha/murakumo-http-post})))
   #?(:clj
      (try
-       (assert-murakumo llm-url)
-       (let [post     (requiring-resolve 'babashka.http-client/post)
-             generate (requiring-resolve 'cheshire.core/generate-string)
-             parse    (requiring-resolve 'cheshire.core/parse-string)
-             resp     (post (str llm-url "/chat/completions")
+       (let [url      (str/replace (str url) #"/+$" "")
+             _        (assert-murakumo url)
+             resp     (http-post (str url "/chat/completions")
                             {:headers {"Content-Type" "application/json"}
-                             :timeout (long (* 1000 llm-timeout-sec))
+                             :timeout (long (* 1000 (double timeout-sec)))
                              :throw false
-                             :body (generate {:model llm-model
+                             :body (json/generate-string {:model model
                                               :messages [{:role "user" :content (str prompt)}]
                                               :max_tokens 800
                                               :temperature 0.3})})]
          (if (>= (:status resp) 400)
            {:error (str "murakumo " (:status resp) ": " (clip (:body resp) 200))}
-           (let [body (parse (:body resp) true)
+           (let [body (json/parse-string (:body resp) true)
                  txt  (some-> (get-in body [:choices 0 :message :content]) str str/trim)]
              (if (seq txt) txt {:error "advisor returned empty proposal"}))))
        (catch Exception e {:error (clip (.getMessage e) 200)}))
      :cljs {:error "advisor not implemented for cljs"}))
 
-(def ^:dynamic *advisor* default-advisor)
+(def ^:dynamic *advisor* nil)
+
+(defn advisor [role prompt]
+  (if (fn? *advisor*)
+    (*advisor* role prompt)
+    {:error "advisor capability not configured"}))
 
 ;; Default evidence collector: nothing wired offline (injected in prod/tests).
 (def ^:dynamic *collect-evidence* (fn [_frontier _hyps] []))
@@ -117,7 +121,7 @@
      :primaryDiscipline discipline
      :maxHypotheses max-h
      :frontier_id fid
-     :frontier_did (str repo ":frontier:" fid)
+     :frontier_did (str (:repo *config*) ":frontier:" fid)
      :super_step 0}))
 
 (defn- ->statements
@@ -143,7 +147,7 @@
         prompt (str "Research frontier: " (:frontierTitle state)
                     "\nDiscipline (ISCED-F): " (:primaryDiscipline state)
                     "\nPropose " n " concise, falsifiable hypotheses (one per line).")
-        res    (*advisor* :generate prompt)
+        res    (advisor :generate prompt)
         stmts  (->statements (if (map? res) nil res) n)
         stmts  (if (seq stmts)
                  stmts
