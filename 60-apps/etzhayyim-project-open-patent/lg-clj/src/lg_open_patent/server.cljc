@@ -33,12 +33,12 @@
 
 (def version "0.1.0")
 
-(def api-key #?(:clj (or (System/getenv "LG_API_KEY") "") :cljs ""))
+(def ^:dynamic *api-key* "")
 
 (defn check-api-key
   "Mirrors server._require_api_key: if LG_API_KEY is set, x-api-key must match."
   [x-api-key]
-  (when (and (seq api-key) (not= x-api-key api-key))
+  (when (and (seq *api-key*) (not= x-api-key *api-key*))
     {:status 401 :body {:error "invalid x-api-key"}}))
 
 (defn- run-graph [graph input]
