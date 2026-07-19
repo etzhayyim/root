@@ -13,7 +13,7 @@
   is unauthenticated (trust at the cloudflared tunnel layer, like the python).
 
   The request routing is a pure ring-style `handler` (testable without a socket);
-  `-main`/`start!` boot org.httpkit.server (bb built-in).
+  A host adapter injects the HTTP server function into `start!`.
 
   DEVIATIONS (noted in PR):
    - FastAPI/uvicorn → org.httpkit.server; pydantic body → cheshire parse.
@@ -31,11 +31,7 @@
             [lg-open-isic.graphs.classify-entity :as classify-entity]
             [lg-open-isic.graphs.hierarchical-classify :as hierarchical-classify]
             [lg-open-isic.cron :as cron]
-            #?(:clj [cheshire.core :as json])
-            #?(:clj [org.httpkit.server :as hk])))
-
-(defn- getenv [k default]
-  #?(:clj (or (System/getenv k) default) :default default))
+            #?(:clj [cheshire.core :as json])))
 
 (def GRAPHS
   {"health"                health/GRAPH
@@ -46,7 +42,9 @@
   {"com.etzhayyim.apps.openIsic.classifyEntity"       "classify_entity"
    "com.etzhayyim.apps.openIsic.hierarchicalClassify" "hierarchical_classify"})
 
-(defn api-key [] (str/trim (getenv "LG_API_KEY" "")))
+(def ^:dynamic *api-key* "")
+
+(defn api-key [] (str/trim *api-key*))
 
 ;; ── key normalization (camelCase | snake_case → kebab keyword) ──────────────
 
@@ -205,16 +203,18 @@
 
 #?(:clj
    (defn start!
-     "Boot the httpkit server. opts: {:port n}. Returns the stop fn."
-     [& [{:keys [port] :or {port 8080}}]]
-     ;; cron is loaded for parity (open-isic ships zero crons → nil)
+     "Boot through an explicitly supplied Ring server capability."
+     [run-server & [{:keys [port] :or {port 8080}}]]
+     (when-not (fn? run-server)
+       (throw (ex-info "explicit HTTP server capability required"
+                       {:capability :http-server})))
+     ;; cron is loaded only after capability validation, avoiding partial startup.
      (let [crons (cron/start-cron GRAPHS)]
        (println (str "lg-open-isic server up: graphs=" (vec (keys GRAPHS))
                      " crons=" (boolean crons) " port=" port))
-       (hk/run-server handler {:port port}))))
+       (run-server handler {:port port}))))
 
 #?(:clj
-   (defn -main [& args]
-     (let [port (Integer/parseInt (or (first args) (getenv "PORT" "8080")))]
-       (start! {:port port})
-       @(promise))))
+   (defn -main [& _]
+     (throw (ex-info "host adapter required; invoke lg-open-isic.host/-main"
+                     {:capability :host-adapter}))))

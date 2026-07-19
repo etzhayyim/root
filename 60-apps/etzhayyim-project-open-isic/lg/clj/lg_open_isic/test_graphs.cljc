@@ -4,6 +4,7 @@
   taxonomy / store edges are injectable here, so validation + the verification
   decision rule + the drill-down topology verify under bb with stubs)."
   (:require [clojure.test :refer [deftest is testing]]
+            [clojure.string :as str]
             [langgraph.graph :as g]
             [lg-open-isic.store :as store]
             [lg-open-isic.cron :as cron]
@@ -123,8 +124,10 @@
 
 (deftest store-default-write-returns-vertex-id
   (reset! store/mem-log [])
-  (let [res (store/write-record! {:subject "Small Arms Co" :code "2520"})]
+  (let [res (binding [store/repo-did "did:web:test.invalid"]
+              (store/write-record! {:subject "Small Arms Co" :code "2520"}))]
     (is (string? (:vertex_id res)))
+    (is (str/starts-with? (:vertex_id res) "at://did:web:test.invalid/"))
     (is (re-find #"com\.etzhayyim\.apps\.openIsic\.classification" (:vertex_id res)))
     (is (= 1 (count @store/mem-log)))))
 
@@ -147,3 +150,7 @@
 
 (deftest cron-start-empty-is-nil
   (is (nil? (cron/start-cron {"health" :g} {:langgraph-json-path "/nonexistent.json"}))))
+
+(deftest cron-disabled-is-an-explicit-capability
+  (binding [cron/*config* {:enabled? false :langgraph-json "/not-read.json"}]
+    (is (nil? (cron/start-cron {"health" :g})))))
