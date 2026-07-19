@@ -1,0 +1,1 @@
+{:schema "etzhayyim.migration/retired-v1" :source {:repo "etzhayyim/root" :path "60-apps/etzhayyim-project-asset-manager" :revision "370e04a87f3918250aee561357d3d45484aad879" :blob "d843bfa1dace71cd688b20591701bb957f5188ed"} :destination {:path "90-docs/adr/2607193500-project-jsonld-concept-stubs-retire.edn" :owner-adr "2607193500"} :status :retired :standalone-repository false}
