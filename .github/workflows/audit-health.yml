@@ -106,21 +106,12 @@ jobs:
           # which itself invokes `bash all.sh`. We run it LAST so the
           # other suites are validated first (faster failure signal on
           # individual-script regressions).
+          # Actor-specific invariant suites moved with their standalone repos.
+          # Root CI now owns only root boundary/subrepo/gitmodule audits.
           python3 -m pytest \
-            70-tools/scripts/audit/test_adr_cross_ref_health.py \
-            70-tools/scripts/audit/test_manifest_lexicon_drift.py \
             70-tools/scripts/audit/test_subrepo_scripts.py \
             70-tools/scripts/audit/test_simple_audits.py \
-            70-tools/scripts/audit/test_e7m_verify_perf.py \
             70-tools/scripts/audit/test_gitmodules.py \
-            70-tools/scripts/audit/test_tadori_invariants.py \
-            70-tools/scripts/audit/test_tsukuroi_invariants.py \
-            70-tools/scripts/audit/test_karute_invariants.py \
-            70-tools/scripts/audit/test_iyashi_invariants.py \
-            70-tools/scripts/audit/test_mitate_invariants.py \
-            70-tools/scripts/audit/test_futawa_invariants.py \
-            70-tools/scripts/audit/test_watatsumi_invariants.py \
-            70-tools/scripts/audit/test_all_sh.py \
             -v
 
       - name: Run audit aggregator (non-strict)

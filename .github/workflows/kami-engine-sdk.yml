@@ -57,6 +57,10 @@ permissions:
 jobs:
   build:
     name: SDK build + vitest + cyber-drill prod build
+    # kami-engine and its SDK are no longer owned by this root. Their
+    # standalone repositories run the build; the root retains this workflow
+    # only as historical trigger provenance until consumers are extracted.
+    if: ${{ false }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
