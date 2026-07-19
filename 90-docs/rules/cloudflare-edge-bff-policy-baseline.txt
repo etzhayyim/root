@@ -5,8 +5,6 @@
 60-apps/ai-gftd-chat-shell/svelte/src/lib/api.ts:14:pg-direct-db:return new Client({ apiUrl: "/lg" });
 60-apps/etzhayyim-chat-shell/src/app.ts:25:hono-import:import { Hono } from "hono";
 60-apps/etzhayyim-chat-shell/svelte/src/lib/api.ts:14:pg-direct-db:return new Client({ apiUrl: "/lg" });
-60-apps/etzhayyim-project-ameno/daemon/src/server.ts:18:hono-import:import { Hono } from "hono";
-60-apps/etzhayyim-project-ameno/daemon/src/server.ts:20:hono-import:import { serve } from "@hono/node-server";
 60-apps/etzhayyim-project-animeka/appview/etzhayyim-wasm-animeka-an1m3k4x/wrangler.jsonc:30:wrangler-hyperdrive-binding:"hyperdrive": [
 60-apps/etzhayyim-project-animeka/appview/etzhayyim-wasm-animeka-an1m3k4x/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-auth/worker-authz/src-ts/index.ts:12:hono-import:import { Hono } from "hono";
@@ -105,8 +103,6 @@
 60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/collection-commands.ts:42:kysely-direct-db:await db.insertInto("vertex_spatial" as any).values(rows).execute();
 60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/wrangler.jsonc:31:wrangler-hyperdrive-binding:"hyperdrive": [
 60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/app.ts"
-60-apps/etzhayyim-project-media-gamers/appview/media-gamers-7m8oocsn/wrangler.jsonc:28:wrangler-hyperdrive-binding:"hyperdrive": [
-60-apps/etzhayyim-project-media-gamers/appview/media-gamers-7m8oocsn/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-news/appview/news-core-component/src/app.ts:1155:kysely-direct-db:const db = createKyselyDb();
 60-apps/etzhayyim-project-news/appview/news-core-component/src/app.ts:1157:kysely-direct-db:.selectFrom("vertex_article")
 60-apps/etzhayyim-project-news/appview/news-core-component/src/app.ts:1253:kysely-direct-db:const db = createKyselyDb();
