@@ -1524,6 +1524,21 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2607192800-shinsa-logical-app-stub-retire.edn",
+      "id": "2607192800",
+      "title": "Retire the Shinsa logical-app documentation stub",
+      "status": "accepted",
+      "doc_type": "doc",
+      "topic": "",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2605291700-moemoekyun-plateau-and-bestofn-path.edn",
       "id": "ADR-2605291700",
       "title": "baien-moemoekyun plateau analysis (cycles 17-114) + Best-of-N as the deployable score-lift path",

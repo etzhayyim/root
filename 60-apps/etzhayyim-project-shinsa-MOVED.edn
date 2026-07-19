@@ -1,0 +1,12 @@
+{:schema "etzhayyim.migration/retired-v1"
+ :source {:repo "etzhayyim/root"
+          :path "60-apps/etzhayyim-project-shinsa"
+          :revision "008f3ba86fd7a4651fd37d2d57fb626780efa921"
+          :blobs {"CLAUDE.md"
+                  {:git-blob "4272899061af8a4cd632f83f161e4c4f6c37d17a"
+                   :sha256 "04d255a2759632ee76b930c38b2fee9898bb92ccd34a5ea0596f70ec6891e2cb"
+                   :bytes 605}}}
+ :destination {:path "90-docs/adr/2607192800-shinsa-logical-app-stub-retire.edn"
+               :owner-adr "2607192800"}
+ :status :retired
+ :standalone-repository false}
