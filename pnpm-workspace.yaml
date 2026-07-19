@@ -36,8 +36,8 @@ packages:
 
   # karute (電子カルテ / EMR) — ADR-2605231100
   - "60-apps/etzhayyim-project-karute/appview/etzhayyim-wasm-karute-karu7t3e/svelte"
-  - "10-protocol/signal"
-  - "10-protocol/xrpc"
+  - "../com-etzhayyim-signal"
+  - "../com-etzhayyim-xrpc"
   - "40-engine/svelte/auth"
   - "40-engine/svelte/design-system"
 

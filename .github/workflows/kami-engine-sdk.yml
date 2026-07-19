@@ -57,6 +57,10 @@ permissions:
 jobs:
   build:
     name: SDK build + vitest + cyber-drill prod build
+    # kami-engine and its SDK are no longer owned by this root. Their
+    # standalone repositories run the build; the root retains this workflow
+    # only as historical trigger provenance until consumers are extracted.
+    if: ${{ false }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -64,14 +68,11 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Checkout kami-engine submodule (recursive — incl. nested kami-engine-sdk)
-        # kami-engine is a git-submodule (ADR-2606011500 stage 4) and
-        # kami-engine-sdk is nested INSIDE it, so init kami-engine --recursive
-        # to populate the sdk source (svelte-package / vitest need src/lib). A
-        # blanket `submodules: recursive` on checkout would also try the
-        # local-only DataLad superdataset `90-docs/baien/datasets` (url=./…,
-        # unclonable in CI) and abort, so we target kami-engine explicitly.
-        run: git submodule update --init --recursive --depth=1 40-engine/kami-engine
+      - name: Clone kotoba-lang/kami-engine (recursive — incl. kami-engine-sdk)
+        # The old root submodule was removed during the multirepo cutover.
+        # Materialize the public upstream at the legacy workspace mount until
+        # this consumer is itself moved to a flat west repository.
+        run: git clone --depth=1 --recurse-submodules --shallow-submodules https://github.com/kotoba-lang/kami-engine.git 40-engine/kami-engine
 
       - name: Clone etzhayyim/kotoba (pnpm workspace deps)
         # yorishiro-*-mcp workspace packages now live in the etzhayyim/kotoba repo
@@ -91,7 +92,8 @@ jobs:
         # session work (pnpm-lock.yaml is not always committed with every
         # workspace.yaml change). Production deploy paths separately
         # enforce frozen lockfile per app.
-        run: pnpm install --no-frozen-lockfile
+        working-directory: 40-engine/kami-engine/kami-engine-sdk
+        run: pnpm install --ignore-workspace --no-frozen-lockfile
 
       - name: Build SDK
         working-directory: 40-engine/kami-engine/kami-engine-sdk

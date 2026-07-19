@@ -21,7 +21,7 @@ vendor scope per the Custody axis (session state is operator-held).
 
 ## See also
 
-- `10-protocol/did-etzhayyim/` (DID method spec, Wave 2)
+- `orgs/etzhayyim/com-etzhayyim-did-etzhayyim/` (DID method spec, Wave 2)
 - ADR-2605172400 (vendor: 3-axis split rule + Tranche F)
 - [ADR-2604231821 atproto OAuth wire-format snake_case](https://github.com/etzhayyim/etzhayyim-root/blob/main/90-docs/adr/2604231821-atproto-oauth-wire-format-snake-case.md) (foundational)
 - [ADR-2604240914 OAuth RS DPoP + revoke + introspect](https://github.com/etzhayyim/etzhayyim-root/blob/main/90-docs/adr/2604240914-oauth-rs-binding-revocation-introspection.md) (foundational)

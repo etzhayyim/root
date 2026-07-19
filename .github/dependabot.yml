@@ -1,26 +1,6 @@
 version: 2
 updates:
   - package-ecosystem: "npm"
-    directory: "/10-protocol/did-etzhayyim"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/10-protocol/did-etzhayyim/resolver"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/10-protocol/lexicons-bundle"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/10-protocol/signal"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/10-protocol/xrpc"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
     directory: "/20-actors/etzhayyim-bpmn-sdk"
     schedule:
       interval: "weekly"

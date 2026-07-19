@@ -594,11 +594,11 @@
             (first (filter #(.endsWith ^String % "/pg/lib/index.js") candidates))))))))
 
 (defn find-xrpc-aliases
-  "Find @etzhayyim/xrpc/* source paths under root-path/10-protocol/xrpc/src/.
+  "Find @etzhayyim/xrpc/* source paths in the flat west sibling repository.
   Returns map of alias-key → path string.
   Mirrors Python _find_xrpc_alias()."
   [root-path]
-  (let [xrpc-dir (str root-path "/10-protocol/xrpc/src")]
+  (let [xrpc-dir (str root-path "/../com-etzhayyim-xrpc/src")]
     (if-not (.exists (java.io.File. xrpc-dir))
       {}
       (into {}

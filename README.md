@@ -144,7 +144,7 @@ may decide on a cut, through the local CLI with their git credentials
 ```
 etzhayyim/root/
 ├── 00-contracts/        # open lexicons / bpmn / dmn / Rego policies
-├── 10-protocol/         # atproto, xrpc, lexicons-bundle, signal, did-etzhayyim
+├── 10-protocol/         # retained protocol specs and EDN migration markers
 ├── 20-actors/           # legacy actor tombstones; implementations live in flat west repos
 ├── 30-graph/            # open graph schemas + RisingWave migrations
 ├── 50-infra/            # geth, holochain, ipfs, blockscout, etzhayyim-pds
@@ -160,10 +160,10 @@ etzhayyim/root/
 
 | 領域 | Description | Layer path in this repo |
 |---|---|---|
-| **blockchain** | Private ethereum (geth), Holochain, IPFS, Blockscout, DID method | `50-infra/{geth-private,holochain,ipfs,blockscout}`, `10-protocol/did-etzhayyim` |
+| **blockchain** | Private ethereum (geth), Holochain, IPFS, Blockscout, DID method | `50-infra/{geth-private,holochain,ipfs,blockscout}`, `orgs/etzhayyim/com-etzhayyim-did-etzhayyim` |
 | **baien** | BitNet b1.58 1-bit multimodal CPU/edge/browser LLM | `60-apps/*-baien*`, `90-docs/baien/` |
 | **bpmn** | Open BPMN 2.0 process definitions + DMN decision tables | `00-contracts/bpmn/`, `00-contracts/dmn/`, `60-apps/*-open-bpmn` |
-| **lexicon** | AT Protocol Lexicon schemas + XRPC framework | `00-contracts/lexicons/`, `10-protocol/lexicons-bundle`, `10-protocol/xrpc` |
+| **lexicon** | AT Protocol Lexicon schemas + XRPC framework | `00-contracts/lexicons/`, `orgs/etzhayyim/com-etzhayyim-{lexicons-bundle,xrpc}` |
 | **pregel** | Kotodama actor framework + Pregel-pattern host SDK | `40-engine/kotoba/crates/kotoba-kotodama/` |
 | **atproto** | PDS reference impl + AT clients | `10-protocol/atproto`, `60-apps/*-atproto`, `50-infra/k8s/atproto-pds` |
 | **ameno** | Browser inference platform | `60-apps/*-ameno` |
