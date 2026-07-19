@@ -1,0 +1,1 @@
+{:schema "etzhayyim.migration/moved-v1" :source {:repo "etzhayyim/root" :path "40-engine/baien-wasm-ternary" :revision "a37457dafdb2ea890afa448847526cb98224a3e3"} :destination {:repo "etzhayyim/com-etzhayyim-baien-wasm-ternary" :revision "1e07e9724f042fc7f29967e29f06926bdd8731c6"} :status :moved}
