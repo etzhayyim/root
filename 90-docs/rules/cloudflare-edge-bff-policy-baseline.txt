@@ -63,7 +63,6 @@
 60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:927:kysely-direct-db:await hcDb().insertInto("vertex_hc_contract_acceptance" as any).values({
 60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:97:kysely-direct-db:await hcDb().insertInto("vertex_hc_task" as any).values({
 60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:982:kysely-direct-db:await hcDb().insertInto("vertex_hc_game_capture_task" as any).values({
-60-apps/etzhayyim-project-itonami/appview/itonami-it0n4m1x/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-jukyu/appview/jukyu-ui-jukyu001/wrangler.jsonc:29:wrangler-hyperdrive-binding:"hyperdrive": [
 60-apps/etzhayyim-project-jukyu/appview/jukyu-ui-jukyu001/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-kami/appview/etzhayyim-wasm-kami-sabiotoshi-s4b10t05/src/app.ts:263:kysely-direct-db:await createKyselyDb().insertInto("vertex_kami_sabiotoshi_game" as any).values({
@@ -222,19 +221,6 @@
 60-apps/etzhayyim-project-open-water/worker/src/defence-handlers.ts:35:hyperdrive-usage:const db = createKyselyDb(env.HYPERDRIVE) as any;
 60-apps/etzhayyim-project-open-water/worker/src/defence-handlers.ts:35:kysely-direct-db:const db = createKyselyDb(env.HYPERDRIVE) as any;
 60-apps/etzhayyim-project-open-water/worker/src/defence-handlers.ts:37:kysely-direct-db:.insertInto("vertex_open_defence_event")
-60-apps/etzhayyim-project-sbom/xrpc-adapter/wrangler.jsonc:1:wrangler-non-sveltekit-main:"main": "src/index.ts"
-60-apps/etzhayyim-project-shigotoba/appview/shigotoba-jobs-component/src/app.ts:101:kysely-direct-db:.selectFrom(SHIGOTOBA_COMPANY_TABLE as any)
-60-apps/etzhayyim-project-shigotoba/appview/shigotoba-jobs-component/src/app.ts:110:kysely-direct-db:.selectFrom(SHIGOTOBA_JOB_TABLE as any)
-60-apps/etzhayyim-project-shigotoba/appview/shigotoba-jobs-component/src/app.ts:168:kysely-direct-db:.selectFrom(SHIGOTOBA_JOB_TABLE as any)
-60-apps/etzhayyim-project-shigotoba/appview/shigotoba-jobs-component/src/app.ts:284:kysely-direct-db:.selectFrom("mv_vertex_shigotoba_job_posting_count" as any)
-60-apps/etzhayyim-project-shigotoba/appview/shigotoba-jobs-component/src/app.ts:289:kysely-direct-db:.selectFrom("mv_vertex_shigotoba_company_profile_count" as any)
-60-apps/etzhayyim-project-shigotoba/appview/shigotoba-jobs-component/src/app.ts:295:kysely-direct-db:.selectFrom("mv_vertex_shigotoba_job_posting_count" as any)
-60-apps/etzhayyim-project-shigotoba/appview/shigotoba-jobs-component/src/app.ts:29:kysely-direct-db:return createKyselyDb();
-60-apps/etzhayyim-project-shigotoba/appview/shigotoba-jobs-component/src/app.ts:315:kysely-direct-db:.selectFrom(SHIGOTOBA_JOB_TABLE as any)
-60-apps/etzhayyim-project-shigotoba/appview/shigotoba-jobs-component/src/app.ts:343:kysely-direct-db:.selectFrom(SHIGOTOBA_JOB_TABLE as any)
-60-apps/etzhayyim-project-shigotoba/appview/shigotoba-jobs-component/src/app.ts:360:kysely-direct-db:.selectFrom(SHIGOTOBA_JOB_TABLE as any)
-60-apps/etzhayyim-project-shigotoba/appview/shigotoba-jobs-component/src/app.ts:77:kysely-direct-db:.selectFrom(SHIGOTOBA_COMPANY_TABLE as any)
-60-apps/etzhayyim-project-shigotoba/appview/shigotoba-jobs-component/src/app.ts:88:kysely-direct-db:.selectFrom(SHIGOTOBA_JOB_TABLE as any)
 60-apps/etzhayyim-project-society6/appview/society6-ui-s6c9m2q1/src/app.ts:112:kysely-direct-db:await createKyselyDb().insertInto(tableName as any).values({
 60-apps/etzhayyim-project-watashi/appview/etzhayyim-wasm-watashi-mfbtsuyc/src/app.ts:25:kysely-direct-db:const getDb = () => createKyselyDb();
 60-apps/etzhayyim-project-watashi/appview/etzhayyim-wasm-watashi-mfbtsuyc/src/app.ts:274:kysely-direct-db:await getDb().insertInto("vertex_watashi_peer" as any).values({
