@@ -175,7 +175,7 @@
 (deftest audit-records-when-enabled
   (audit/reset-ledger!)
   (binding [tasks/*task-handlers* tasks/*task-handlers*]
-    (with-redefs [audit/disabled? (constantly false)]
+    (binding [audit/*disabled?* false]
       (server/dispatch-run {:assistant_id "absorb" :input {}})
       (is (= 1 (count (audit/entries))))
       (is (= "absorb" (:assistant (first (audit/entries)))))
@@ -183,6 +183,6 @@
 
 (deftest audit-noop-when-disabled
   (audit/reset-ledger!)
-  (with-redefs [audit/disabled? (constantly true)]
+  (binding [audit/*disabled?* true]
     (server/dispatch-run {:assistant_id "absorb" :input {}})
     (is (= 0 (count (audit/entries))))))
