@@ -37,7 +37,7 @@
           },
           "category": {
             "type": "string",
-            "description": "High-level procedure category. Aligns with the COFOG-aligned 8 path-based DID set under `60-apps/etzhayyim-project-gov/appview/` (healthcare / insurance / welfare / education / prevention / housing / employment / child-family) plus additional categories for procedures outside the public-services hub.",
+            "description": "High-level procedure category. Aligns with the COFOG-aligned 8 path-based DID set under `orgs/etzhayyim/com-etzhayyim-app-gov/appview/` (healthcare / insurance / welfare / education / prevention / housing / employment / child-family) plus additional categories for procedures outside the public-services hub.",
             "enum": [
               "identification",
               "registration",

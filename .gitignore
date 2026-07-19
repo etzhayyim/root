@@ -133,7 +133,6 @@ foundry.lock
 # Deploy-output snapshots (SvelteKit/Vite client builds) regenerated from source
 # by the deploy pipeline. NOT committed: a bundled GA/gtag dependency would
 # otherwise ship via stale committed builds. Source is GA-free. Untracked 2026-06-04.
-60-apps/etzhayyim-project-email-service-adapter/appview/outlook-mcp-component/static-ui/
 60-apps/etzhayyim-project-mailer/appview/mailer-mcp-component/static-ui/
 60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/_svelte/
 60-apps/etzhayyim-project-pachinko/wasm/pachinko-mcp-component/static/_app/
