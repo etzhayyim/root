@@ -5,7 +5,7 @@ Scope: source research only. No live DB writes.
 
 ## Existing repo fit
 
-- `60-apps/etzhayyim-project-houbun/CLAUDE.md` already reserves:
+- `orgs/etzhayyim/com-etzhayyim-app-houbun/CLAUDE.md` already reserves:
   - `did:web:houbun.etzhayyim.com:usa:cfr`
   - `did:web:houbun.etzhayyim.com:usa:usc`
 - `00-contracts/lexicons/com/etzhayyim/apps/houbun/ingestStatuteUsa.json` describes GovInfo CFR/USCODE ingestion, but its current wording assumes `USCODE` is available through GovInfo bulkdata JSON. Tested endpoints show that is not true for keyless bulkdata JSON.

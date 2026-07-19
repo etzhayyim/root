@@ -3,11 +3,9 @@
   "adr": "2606071800",
   "count": 86,
   "files": [
-    "60-apps/etzhayyim-project-bim/appview/etzhayyim-wasm-bim-b1m3d1tr/src/app.ts",
     "60-apps/etzhayyim-project-bpmn/appview/etzhayyim-wasm-bpmn-bx7qm9p4/src/app.ts",
     "60-apps/etzhayyim-project-briefing/appview/etzhayyim-wasm-briefing-w3olw1pf/src/app.ts",
     "60-apps/etzhayyim-project-cad/appview/etzhayyim-wasm-cad-cd4dview/src/app.ts",
-    "60-apps/etzhayyim-project-cloudflare-browser-render/appview/etzhayyim-wasm-cloudflare-browser-render-cfbr0w53/src/app.ts",
     "60-apps/etzhayyim-project-common-crawl/kotoba/src/registry.ts",
     "60-apps/etzhayyim-project-common-crawl/scripts/archive/phase3b_ingest_risingwave.py",
     "60-apps/etzhayyim-project-common-crawl/scripts/archive/phase3e_direct_ingest.py",
