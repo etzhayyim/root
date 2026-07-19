@@ -20,8 +20,7 @@
 
 (def ^:private enforced-roots
   "App roots under TS-freeze. Grows as the migration advances."
-  ["60-apps/etzhayyim-project-explorer"      ;; pilot — 0 TS / 33 cljs (cljs-first)
-   "60-apps/etzhayyim-project-accounts"])    ;; onboarded — existing TS grandfathered, shrinks-only
+  ["60-apps/etzhayyim-project-explorer"])    ;; pilot — 0 TS / 33 cljs (cljs-first)
 
 (def ^:private baseline-path "70-tools/src/etzhayyim/lint/ts-baseline.edn")
 (def ^:private exclude-substrings
