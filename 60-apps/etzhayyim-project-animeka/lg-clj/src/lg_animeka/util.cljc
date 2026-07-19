@@ -34,7 +34,9 @@
   [x d lo hi]
   (let [n (cond
             (number? x) (long x)
-            (and (string? x) (re-matches #"-?\d+" (str/trim x))) #?(:clj (Long/parseLong (str/trim x)) :default (long (read-string (str/trim x))))
+            (and (string? x) (re-matches #"-?\d+" (str/trim x)))
+            #?(:clj (Long/parseLong (str/trim x))
+               :cljs (js/parseInt (str/trim x) 10))
             :else (long d))]
     (max lo (min hi n))))
 

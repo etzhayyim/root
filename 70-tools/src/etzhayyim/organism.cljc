@@ -34,6 +34,7 @@
 
 (ns etzhayyim.organism
   (:require [clojure.string :as str]
+            [clojure.edn :as edn]
             [clojure.java.io :as io]
             [cheshire.core :as json]
             [babashka.process :as p]
@@ -80,7 +81,7 @@
     (catch Exception _ nil)))
 
 (defn- read-cursor []
-  (try (:i (read-string (slurp cursor-file))) (catch Exception _ 0)))
+  (try (:i (edn/read-string (slurp cursor-file))) (catch Exception _ 0)))
 
 (defn- write-cursor! [i]
   (try (io/make-parents cursor-file) (spit cursor-file (pr-str {:i i})) (catch Exception _ nil)))
