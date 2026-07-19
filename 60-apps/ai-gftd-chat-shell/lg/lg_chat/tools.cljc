@@ -28,18 +28,11 @@
            [javax.crypto.spec SecretKeySpec]))
 
 ;; ── env ────────────────────────────────────────────────────────────────
-(defn- env [k d] (or (System/getenv k) d))
+(def DEFAULT-CONFIG
+  {:comfyui-url "" :rw-url "" :web-search-provider "brave" :web-search-key ""
+   :b2-access-key "" :b2-secret-key "" :dispatcher-url "" :internal-secret ""})
 
-(def ^:private COMFYUI-URL  (str/replace (env "COMFYUI_URL" "") #"/+$" ""))
-(def ^:private RW-URL       (env "RW_URL" ""))
-(def ^:private WEB-PROVIDER (env "WEB_SEARCH_PROVIDER" "brave"))
-(def ^:private WEB-KEY      (env "WEB_SEARCH_KEY" ""))
-(def ^:private B2-ACCESS    (or (System/getenv "B2_ACCESS_KEY_ID")
-                                (env "B2_APPLICATION_KEY_ID" "")))
-(def ^:private B2-SECRET    (or (System/getenv "B2_SECRET_ACCESS_KEY")
-                                (env "B2_APPLICATION_KEY" "")))
-(def ^:private DISPATCHER-URL (str/replace (env "BPMN_DISPATCHER_INTERNAL_URL" "") #"/+$" ""))
-(def ^:private INTERNAL-SECRET (env "CHAT_INTERNAL_SECRET" ""))
+(defn- config [host-config] (merge DEFAULT-CONFIG (or host-config {})))
 
 (def TOOL-SCHEMAS
   [{:type "function"
@@ -149,8 +142,9 @@
             (try (fs/delete-tree td) (catch Exception _ nil))))))))
 
 ;; ── tool: image_gen ────────────────────────────────────────────────────
-(defn tool-image-gen [args & {:keys [conv-id owner-did]}]
-  (if (str/blank? COMFYUI-URL)
+(defn tool-image-gen [args & {:keys [conv-id owner-did host-config]}]
+  (let [comfyui-url (str/replace (:comfyui-url (config host-config)) #"/+$" "")]
+    (if (str/blank? comfyui-url)
     {:ok false :error "image_gen is not available — no ComfyUI endpoint configured (COMFYUI_URL)"}
     (let [prompt (str/trim (str (or (get args "prompt") (:prompt args) "")))
           width  (clamp (->int (or (get args "width") (:width args) 1024) 1024) 256 1536)
@@ -177,7 +171,7 @@
               started (now-ms)
               prompt-id
               (try
-                (let [r (http/post (str COMFYUI-URL "/prompt")
+                (let [r (http/post (str comfyui-url "/prompt")
                                    {:headers headers
                                     :body (json/generate-string {:prompt workflow})
                                     :timeout 15000})
@@ -192,7 +186,7 @@
             (let [deadline (+ (now-ms) 120000)
                   entry (loop [delay 1500]
                           (let [rec (try
-                                      (let [r2 (http/get (str COMFYUI-URL "/history/" prompt-id)
+                                      (let [r2 (http/get (str comfyui-url "/history/" prompt-id)
                                                          {:headers headers :timeout 10000})
                                             hist (json/parse-string (:body r2) true)]
                                         (get hist (keyword prompt-id)))
@@ -216,41 +210,44 @@
                                   "&subfolder=" (enc (:subfolder img))
                                   "&type=" (enc (or (:type img) "output")))]
                       {:ok true
-                       :imageUrl (str COMFYUI-URL "/view?" qs)
+                       :imageUrl (str comfyui-url "/view?" qs)
                        :width width :height height :seed seed
                        :promptId prompt-id
-                       :durationMs (- (now-ms) started)})))))))))))
+                       :durationMs (- (now-ms) started)}))))))))))))
 
 ;; ── tool: file_save (B2 SigV4 not ported — disabled-shape) ──────────────
-(defn tool-file-save [args & {:keys [conv-id owner-did]}]
-  (if (or (str/blank? B2-ACCESS) (str/blank? B2-SECRET))
+(defn tool-file-save [args & {:keys [conv-id owner-did host-config]}]
+  (let [{:keys [b2-access-key b2-secret-key]} (config host-config)]
+    (if (or (str/blank? b2-access-key) (str/blank? b2-secret-key))
     {:ok false :error "file_save is not available — B2 credentials not configured"}
     {:ok false
-     :error "file_save not ported to clj — B2 S3 SigV4 signing unavailable under bb; use the Python tool for B2 uploads"}))
+     :error "file_save not ported to clj — B2 S3 SigV4 signing unavailable under bb; use the Python tool for B2 uploads"})))
 
 ;; ── tool: rag_search (RisingWave/psycopg not ported — disabled-shape) ───
-(defn tool-rag-search [args & {:keys [owner-did]}]
-  (let [query (str (or (get args "query") (:query args) ""))]
+(defn tool-rag-search [args & {:keys [owner-did host-config]}]
+  (let [query (str (or (get args "query") (:query args) ""))
+        rw-url (:rw-url (config host-config))]
     (cond
       (str/blank? query) {:ok false :error "query is required"}
-      (str/blank? RW-URL) {:ok false :error "rag_search unavailable — RW_URL not configured" :hits []}
+      (str/blank? rw-url) {:ok false :error "rag_search unavailable — RW_URL not configured" :hits []}
       :else {:ok false
              :error "rag_search not ported to clj — RisingWave/psycopg query unavailable under bb; use the Python tool"
              :hits []})))
 
 ;; ── tool: web_search ───────────────────────────────────────────────────
-(defn tool-web-search [args]
+(defn tool-web-search [args & {:keys [host-config]}]
   (let [query (str (or (get args "query") (:query args) ""))
-        top-k (min (->int (or (get args "topK") (:topK args) 6) 6) 20)]
+        top-k (min (->int (or (get args "topK") (:topK args) 6) 6) 20)
+        {:keys [web-search-key web-search-provider]} (config host-config)]
     (if (str/blank? query)
       {:ok false :error "query is required"}
       (let [brave
-            (when (and (not (str/blank? WEB-KEY)) (= WEB-PROVIDER "brave"))
+            (when (and (not (str/blank? web-search-key)) (= web-search-provider "brave"))
               (try
                 (let [url (str "https://api.search.brave.com/res/v1/web/search?q="
                                (java.net.URLEncoder/encode query "UTF-8") "&count=" top-k)
                       r (http/get url {:headers {"Accept" "application/json"
-                                                 "X-Subscription-Token" WEB-KEY}
+                                                 "X-Subscription-Token" web-search-key}
                                        :timeout 15000})
                       data (json/parse-string (:body r) true)
                       results (take top-k (get-in data [:web :results]))
@@ -273,8 +270,10 @@
          (map #(format "%02x" (bit-and % 0xff)))
          (apply str))))
 
-(defn tool-schedule-report [args & {:keys [conv-id msg-id owner-did]}]
-  (if (str/blank? DISPATCHER-URL)
+(defn tool-schedule-report [args & {:keys [conv-id msg-id owner-did host-config]}]
+  (let [{:keys [dispatcher-url internal-secret]} (config host-config)
+        dispatcher-url (str/replace dispatcher-url #"/+$" "")]
+    (if (str/blank? dispatcher-url)
     {:ok false :error "schedule_report unavailable — BPMN_DISPATCHER_INTERNAL_URL not configured"}
     (let [title (str/trim (str (or (get args "title") (:title args) "")))
           prompt (str/trim (str (or (get args "prompt") (:prompt args) "")))]
@@ -286,25 +285,26 @@
                     :deliverChannel (str (or (get args "deliverChannel") (:deliverChannel args) "chat"))}
               body-json (json/generate-string body)
               headers (cond-> {"Content-Type" "application/json"}
-                        (not (str/blank? INTERNAL-SECRET))
-                        (assoc "x-internal-trust" (hmac-sha256-hex INTERNAL-SECRET body-json)))]
+                        (not (str/blank? internal-secret))
+                        (assoc "x-internal-trust" (hmac-sha256-hex internal-secret body-json)))]
           (try
-            (let [r (http/post (str DISPATCHER-URL "/xrpc/ai.gftd.apps.chat.scheduleReport")
+            (let [r (http/post (str dispatcher-url "/xrpc/ai.gftd.apps.chat.scheduleReport")
                                {:headers headers :body body-json :timeout 30000})
                   resp (json/parse-string (:body r) true)]
               {:ok (boolean (:ok resp))
                :runId (or (:runId resp) "")
                :scheduledAt (or (:scheduledAt resp) "")})
             (catch Exception exc
-              {:ok false :error (str "schedule_report dispatcher: " (.getMessage exc))})))))))
+              {:ok false :error (str "schedule_report dispatcher: " (.getMessage exc))}))))))))
 
 ;; ── dispatcher ─────────────────────────────────────────────────────────
-(defn dispatch-tool [name args & {:keys [conv-id msg-id owner-did]}]
+(defn dispatch-tool [name args & {:keys [conv-id msg-id owner-did host-config]}]
   (case name
     "code_exec"       (tool-code-exec args)
-    "image_gen"       (tool-image-gen args :conv-id conv-id :owner-did owner-did)
-    "file_save"       (tool-file-save args :conv-id conv-id :owner-did owner-did)
-    "rag_search"      (tool-rag-search args :owner-did owner-did)
-    "web_search"      (tool-web-search args)
-    "schedule_report" (tool-schedule-report args :conv-id conv-id :msg-id msg-id :owner-did owner-did)
+    "image_gen"       (tool-image-gen args :conv-id conv-id :owner-did owner-did :host-config host-config)
+    "file_save"       (tool-file-save args :conv-id conv-id :owner-did owner-did :host-config host-config)
+    "rag_search"      (tool-rag-search args :owner-did owner-did :host-config host-config)
+    "web_search"      (tool-web-search args :host-config host-config)
+    "schedule_report" (tool-schedule-report args :conv-id conv-id :msg-id msg-id :owner-did owner-did
+                                                :host-config host-config)
     {:ok false :error (str "unknown tool: " (pr-str name))}))
