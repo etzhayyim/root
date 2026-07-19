@@ -931,6 +931,14 @@
 {:id "adr-0031-kami-vrm-three-free-topology" :title "ADR-0031: KAMI VRM three.js-free topology" :status "active" :doc-type "adr" :topic "vrm-runtime" :authoritative true :last-verified "2026-04-18" :file "0031-kami-vrm-three-free-topology.edn"}
 {:id "ADR-2606061500" :title "tsumugi historical-influence diachronic weave (past humanity as latent influence nodes)" :status "accepted" :doc-type "adr" :topic "engi-knowledge-graph" :authoritative true :last-verified "2026-06-07" :file "2606061501-tsumugi-historical-influence-diachronic-weave.edn"}
 {:id "ADR-2605291700" :title "baien-moemoekyun plateau analysis (cycles 17-114) + Best-of-N as the deployable score-lift path" :status "active" :doc-type "adr" :topic "baien-moemoekyun" :authoritative true :last-verified "2026-05-29" :file "2605291700-moemoekyun-plateau-and-bestofn-path.edn"}
+{:id "2607193500" :title "Retire non-executable PROJECT.jsonld app concept stubs" :status ":accepted" :doc-type "adr" :file "2607193500-project-jsonld-concept-stubs-retire.edn"}
+{:id "2607193500" :title "Retire residual numbered-layer indexes, historical audit, and Datomic stub" :status ":accepted" :doc-type "adr" :file "2607193500-residual-numbered-layer-index-and-stub-retire.edn"}
+{:id "2607193400" :title "Prune tracked build and cache residue from legacy app trees" :status ":accepted" :doc-type "adr" :file "2607193400-prune-tracked-build-cache-residue.edn"}
+{:id "2607193300" :title "Retire obsolete data/spec-only app stubs" :status ":accepted" :doc-type "adr" :file "2607193300-retire-obsolete-data-spec-app-stubs.edn"}
+{:id "2607193200" :title "Retire the remaining documentation-only legacy app directories" :status ":accepted" :doc-type "adr" :file "2607193200-remaining-doc-only-apps-retire.edn"}
+{:id "2607193100" :title "Retire ten documentation-only app concepts" :status ":accepted" :doc-type "adr" :file "2607193100-doc-only-app-concepts-wave3-retire.edn"}
+{:id "2607193000" :title "Retire eight documentation-only app concepts" :status ":accepted" :doc-type "adr" :file "2607193000-doc-only-app-concepts-wave2-retire.edn"}
+{:id "2607192900" :title "Retire Judge, Legal Aid, and Bengoshi logical-app documentation stubs" :status ":accepted" :doc-type "adr" :file "2607192900-legal-logical-app-doc-stubs-retire.edn"}
 {:id "2607192800" :title "Retire the Shinsa logical-app documentation stub" :status ":accepted" :doc-type "adr" :file "2607192800-shinsa-logical-app-stub-retire.edn"}
 {:id "2607192700" :title "Retire the residual Kagami ClickHouse benchmark directory" :status ":accepted" :doc-type "adr" :file "2607192700-kagami-clickhouse-benchmark-retire.edn"}
 {:id "2607192700" :title "West-flat audit and coverage scanner paths" :status ":accepted" :doc-type "adr" :file "2607192700-west-flat-audit-scanners.edn"}
