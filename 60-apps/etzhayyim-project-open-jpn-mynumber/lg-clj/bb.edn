@@ -20,4 +20,21 @@
          :git/sha "2b03859c3ee722b64f3eddd0b615a54019b17c81"}}
  :tasks
  {test {:doc "Run the clojure.test suite under bb (port parity with lg/tests/**)."
-        :task (load-file "run_tests.clj")}}}
+        :task (load-file "run_tests.clj")}
+  serve {:doc "Start the clj HTTP server with explicit host capabilities."
+         :requires ([org.httpkit.server :as httpkit]
+                    [lg-open-jpn-mynumber.server :as server]
+                    [lg-open-jpn-mynumber.util :as util])
+         :task
+         (let [env (fn [name default] (or (System/getenv name) default))
+               port (util/->int (or (first *command-line-args*)
+                                    (env "PORT" "8080")) 8080)
+               adapter-mode (env "OPEN_JPN_MYNUMBER_ADAPTER_MODE" "mock")
+               handler (fn [request]
+                         (binding [util/*adapter-mode* adapter-mode]
+                           (server/app request)))]
+           (binding [util/*adapter-mode* adapter-mode]
+             (server/start! (fn [_ options]
+                              (httpkit/run-server handler options))
+                            {:port port}))
+           (deref (promise)))}}}

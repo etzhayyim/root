@@ -16,11 +16,9 @@
                    [java.time.temporal ChronoUnit]
                    [java.util Base64])))
 
-(def adapter-mode
-  "OPEN_JPN_MYNUMBER_ADAPTER_MODE — default 'mock' (real connectors need separate
-  approval/credentials/review, per the worker module docstring)."
-  (-> (or #?(:clj (System/getenv "OPEN_JPN_MYNUMBER_ADAPTER_MODE") :cljs nil) "mock")
-      str/trim str/lower-case))
+(def ^:dynamic *adapter-mode*
+  "Host-supplied adapter mode. The safe portable default is mock."
+  "mock")
 
 (defn now-iso
   "datetime.now(UTC).replace(microsecond=0).isoformat() — e.g. 2026-06-27T12:00:00+00:00."
@@ -95,7 +93,7 @@
 (defn ensure-mock-mode
   "worker.ensure_mock_mode — real adapter mode is not implemented in this scaffold."
   []
-  (when (not= adapter-mode "mock")
+  (when (not= (-> *adapter-mode* str/trim str/lower-case) "mock")
     (throw (ex-info "real adapter mode is not implemented in this scaffold" {}))))
 
 (defn clip [s n]

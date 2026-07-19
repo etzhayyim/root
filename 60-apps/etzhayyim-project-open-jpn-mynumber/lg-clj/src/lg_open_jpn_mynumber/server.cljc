@@ -21,8 +21,7 @@
             [langgraph.graph :as g]
             [lg-open-jpn-mynumber.graphs :as graphs]
             [lg-open-jpn-mynumber.util :as u]
-            #?(:clj [cheshire.core :as json])
-            #?(:clj [org.httpkit.server :as hk])))
+            #?(:clj [cheshire.core :as json])))
 
 (def GRAPHS graphs/GRAPHS)
 (def NSID->ASSISTANT graphs/NSID->ASSISTANT)
@@ -119,11 +118,16 @@
 
 #?(:clj
    (defn start!
-     "Boot org.httpkit.server. PORT env (default 8080)."
-     ([] (start! (u/->int (System/getenv "PORT") 8080)))
-     ([port]
-      (println (str "lg-open-jpn-mynumber clj server on :" port
-                    " — " (count GRAPHS) " graphs"))
-      (hk/run-server app {:port port}))))
+     "Boot through an explicitly supplied Ring server capability."
+     [run-server & [{:keys [port] :or {port 8080}}]]
+     (when-not (fn? run-server)
+       (throw (ex-info "explicit HTTP server capability required"
+                       {:capability :http-server})))
+     (println (str "lg-open-jpn-mynumber clj server on :" port
+                   " — " (count GRAPHS) " graphs"))
+     (run-server app {:port port})))
 
-#?(:clj (defn -main [& _] (start!) @(promise)))
+#?(:clj
+   (defn -main [& _]
+     (throw (ex-info "host adapter required; use the bb serve task"
+                     {:capability :host-adapter}))))
