@@ -151,6 +151,29 @@ class TestNsidToPath:
             "owner-wire-contract-lexicons"
         )
 
+    def test_qualified_plural_wire_lexicons_is_flat_owner(self, audit, tmp_path):
+        manifest = tmp_path / "orgs/etzhayyim/com-etzhayyim-meisai/manifest.edn"
+        manifest.parent.mkdir(parents=True)
+        wire = audit.actor_wire_qualified_lexicons_path(
+            manifest, "com.etzhayyim.meisai.statement"
+        )
+        wire.parent.mkdir(parents=True)
+        wire.write_text("{}")
+        assert wire.name == "meisai.statement.json"
+        assert audit.resolve_lexicon_path(
+            manifest, "com.etzhayyim.meisai.statement"
+        ) == wire
+        assert audit.lexicon_location(
+            manifest, "com.etzhayyim.meisai.statement"
+        ) == "owner-wire-qualified-lexicons"
+
+    def test_qualified_filename_orphan_identity_comes_from_json(self, audit, tmp_path):
+        wire = tmp_path / "meisai.statement.json"
+        wire.write_text('{"lexicon": 1, "id": "com.etzhayyim.meisai.statement"}')
+        assert audit.lexicon_file_nsid(wire, "com.etzhayyim.meisai") == (
+            "com.etzhayyim.meisai.statement"
+        )
+
 
 # ─── End-to-end smoke tests against the live repo ──────────────────────
 

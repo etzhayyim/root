@@ -57,7 +57,7 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 WEST_ROOT = Path(os.environ.get("ETZHAYYIM_WEST_ROOT", REPO_ROOT.parents[2]))
 ACTORS_DIR = WEST_ROOT / "orgs" / "etzhayyim"
 LEXICONS_ROOT = REPO_ROOT / "00-contracts" / "lexicons"
-ROOT_OWNERSHIP_REGISTRY = LEXICONS_ROOT / "root-owned.edn"
+ROOT_OWNERSHIP_REGISTRY = REPO_ROOT / "scripts" / "manifest-lexicon-root-ownership.edn"
 
 # NSID convention check — at least 3 dot-segments (e.g. com.etzhayyim.X.Y).
 # Per AT Protocol Lexicon spec the last segment is camelCase/PascalCase
@@ -91,6 +91,13 @@ def actor_wire_lexicons_path(manifest_path: Path, nsid: str) -> Path:
     return manifest_path.parent / "wire" / "lexicons" / f"{nsid.rsplit('.', 1)[-1]}.json"
 
 
+def actor_wire_qualified_lexicons_path(manifest_path: Path, nsid: str) -> Path:
+    """Plural wire layout retaining the owner segment in the filename."""
+    parts = nsid.rsplit(".", 2)
+    filename = ".".join(parts[-2:]) if len(parts) >= 2 else parts[-1]
+    return manifest_path.parent / "wire" / "lexicons" / f"{filename}.json"
+
+
 def actor_wire_contract_lexicons_path(manifest_path: Path, nsid: str) -> Path:
     """Contract-scoped wire layout generated from contracts/lexicons/*.edn."""
     return (manifest_path.parent / "wire" / "contracts" / "lexicons" /
@@ -100,6 +107,7 @@ def actor_wire_contract_lexicons_path(manifest_path: Path, nsid: str) -> Path:
 def actor_contract_paths(manifest_path: Path, nsid: str) -> list[Path]:
     return [actor_wire_lexicon_path(manifest_path, nsid),
             actor_wire_lexicons_path(manifest_path, nsid),
+            actor_wire_qualified_lexicons_path(manifest_path, nsid),
             actor_wire_contract_lexicons_path(manifest_path, nsid),
             actor_lexicon_path(manifest_path, nsid)]
 
@@ -122,6 +130,8 @@ def lexicon_location(manifest_path: Path, nsid: str) -> str:
         return "owner-wire-lex"
     if actor_wire_lexicons_path(manifest_path, nsid).exists():
         return "owner-wire-lexicons"
+    if actor_wire_qualified_lexicons_path(manifest_path, nsid).exists():
+        return "owner-wire-qualified-lexicons"
     if actor_wire_contract_lexicons_path(manifest_path, nsid).exists():
         return "owner-wire-contract-lexicons"
     if actor_lexicon_path(manifest_path, nsid).exists():
@@ -134,6 +144,17 @@ def lexicon_location(manifest_path: Path, nsid: str) -> str:
 def display_path(path: Path) -> Path:
     """Stable display path for files that may live in sibling west checkouts."""
     return Path(os.path.relpath(path, REPO_ROOT))
+
+
+def lexicon_file_nsid(path: Path, namespace_prefix: str) -> str:
+    """Read the wire contract's authoritative id, falling back to its stem."""
+    try:
+        data = json.loads(path.read_text())
+        if isinstance(data, dict) and isinstance(data.get("id"), str):
+            return data["id"]
+    except (OSError, json.JSONDecodeError):
+        pass
+    return f"{namespace_prefix}.{path.stem}"
 
 
 def find_manifests() -> list[Path]:
@@ -326,6 +347,7 @@ def main() -> int:
     total_declared = 0
     total_missing = 0
     location_counts = {"owner-wire-lex": 0, "owner-wire-lexicons": 0,
+                       "owner-wire-qualified-lexicons": 0,
                        "owner-wire-contract-lexicons": 0,
                        "owner-nsid-path": 0, "root-compat": 0, "missing": 0}
     actors_with_drift: list[tuple[Path, list[tuple[str, Path]]]] = []
@@ -377,7 +399,7 @@ def main() -> int:
                 continue
             declared_here = owned_dirs[dirp]
             prefix = next(iter(declared_here)).rsplit(".", 1)[0]
-            nsid = f"{prefix}.{jf.stem}"
+            nsid = lexicon_file_nsid(jf, prefix)
             if nsid not in declared_global and nsid not in root_owned:
                 orphans.append(nsid)
 
@@ -387,6 +409,8 @@ def main() -> int:
     print(f"Lexicons declared (total): {total_declared}")
     print(f"Contracts in owner wire/lex: {location_counts['owner-wire-lex']}")
     print(f"Contracts in owner wire/lexicons: {location_counts['owner-wire-lexicons']}")
+    print("Contracts in owner qualified wire/lexicons: "
+          f"{location_counts['owner-wire-qualified-lexicons']}")
     print("Contracts in owner wire/contracts/lexicons: "
           f"{location_counts['owner-wire-contract-lexicons']}")
     print(f"Contracts in owner NSID paths: {location_counts['owner-nsid-path']}")
