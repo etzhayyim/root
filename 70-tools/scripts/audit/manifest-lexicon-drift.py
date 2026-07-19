@@ -80,16 +80,31 @@ def actor_lexicon_path(manifest_path: Path, nsid: str) -> Path:
     return manifest_path.parent / "lexicons" / Path(*parts[:-1]) / f"{parts[-1]}.json"
 
 
+def actor_wire_lexicon_path(manifest_path: Path, nsid: str) -> Path:
+    """Wire-boundary layout used by EDN-canonical standalone owners."""
+    return manifest_path.parent / "wire" / "lex" / f"{nsid.rsplit('.', 1)[-1]}.json"
+
+
+def actor_contract_paths(manifest_path: Path, nsid: str) -> list[Path]:
+    return [actor_wire_lexicon_path(manifest_path, nsid),
+            actor_lexicon_path(manifest_path, nsid)]
+
+
 def resolve_lexicon_path(manifest_path: Path, nsid: str) -> Path:
     """Prefer flat-owner output; accept existing root contracts during migration."""
-    local = actor_lexicon_path(manifest_path, nsid)
+    locals_ = actor_contract_paths(manifest_path, nsid)
     root = nsid_to_lexicon_path(nsid)
-    return local if local.exists() or not root.exists() else root
+    for local in locals_:
+        if local.exists():
+            return local
+    if root.exists():
+        return root
+    return locals_[0] if (manifest_path.parent / "wire").is_dir() else locals_[1]
 
 
 def lexicon_location(manifest_path: Path, nsid: str) -> str:
     """Classify a declaration by its current west migration location."""
-    if actor_lexicon_path(manifest_path, nsid).exists():
+    if any(path.exists() for path in actor_contract_paths(manifest_path, nsid)):
         return "flat-owner"
     if nsid_to_lexicon_path(nsid).exists():
         return "root-compat"

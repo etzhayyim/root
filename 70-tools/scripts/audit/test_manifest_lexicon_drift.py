@@ -120,6 +120,15 @@ class TestNsidToPath:
         manifest.parent.mkdir(parents=True)
         assert audit.lexicon_location(manifest, "com.etzhayyim.noSuchOwner.record") == "missing"
 
+    def test_wire_boundary_contract_is_flat_owner(self, audit, tmp_path):
+        manifest = tmp_path / "orgs/etzhayyim/com-etzhayyim-demo/manifest.edn"
+        manifest.parent.mkdir(parents=True)
+        wire = audit.actor_wire_lexicon_path(manifest, "com.etzhayyim.demo.record")
+        wire.parent.mkdir(parents=True)
+        wire.write_text("{}")
+        assert audit.resolve_lexicon_path(manifest, "com.etzhayyim.demo.record") == wire
+        assert audit.lexicon_location(manifest, "com.etzhayyim.demo.record") == "flat-owner"
+
 
 # ─── End-to-end smoke tests against the live repo ──────────────────────
 
