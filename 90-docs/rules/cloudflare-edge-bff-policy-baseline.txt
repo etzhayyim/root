@@ -107,7 +107,6 @@
 60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-media-gamers/appview/media-gamers-7m8oocsn/wrangler.jsonc:28:wrangler-hyperdrive-binding:"hyperdrive": [
 60-apps/etzhayyim-project-media-gamers/appview/media-gamers-7m8oocsn/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/app.ts"
-60-apps/etzhayyim-project-narou/xrpc-adapter/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/index.ts"
 60-apps/etzhayyim-project-news/appview/news-core-component/src/app.ts:1155:kysely-direct-db:const db = createKyselyDb();
 60-apps/etzhayyim-project-news/appview/news-core-component/src/app.ts:1157:kysely-direct-db:.selectFrom("vertex_article")
 60-apps/etzhayyim-project-news/appview/news-core-component/src/app.ts:1253:kysely-direct-db:const db = createKyselyDb();
