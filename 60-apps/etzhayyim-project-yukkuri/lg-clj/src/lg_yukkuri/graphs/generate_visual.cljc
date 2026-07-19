@@ -12,7 +12,8 @@
   Per-scene generation fans out via `pmap` (clj analogue of asyncio.gather).
   Copyright guardrail: a negative prompt is always attached (CLAUDE.md invariant).
   Node name `insert_assets` matches the Python `_build` wiring."
-  (:require [langgraph.graph :as g]
+  (:require #?(:clj [cheshire.core :as json])
+            [langgraph.graph :as g]
             [lg-yukkuri.audit :as audit]
             [lg-yukkuri.store :as store]))
 
@@ -33,35 +34,35 @@
   (let [bs (byte-array n)] (.nextBytes (java.security.SecureRandom.) bs)
     (apply str (map #(format "%02x" %) bs))))
 
-(defn default-generate-one
+(defn generate-one-with
   "Default `*generate-one*`: image generation + uploadBlob for one scene."
-  [scene]
+  [http-post scene]
+  (when-not (fn? http-post)
+    (throw (ex-info "visual generation requires an explicit HTTP POST capability"
+                    {:capability :yukkuri/image-http-post})))
   (try
-    (let [post     (requiring-resolve 'babashka.http-client/post)
-          generate (requiring-resolve 'cheshire.core/generate-string)
-          parse    (requiring-resolve 'cheshire.core/parse-string)
-          b64dec   (java.util.Base64/getDecoder)
+    (let [b64dec   (java.util.Base64/getDecoder)
           prompt   (str "anime style background, " (:location scene) ", " (:action scene)
                         ", soft colors, 2D illustration")
-          r (post image-url {:headers {"Content-Type" "application/json"} :throw false
-                             :body (generate {:model "flux-schnell" :prompt prompt
+          r (http-post image-url {:headers {"Content-Type" "application/json"} :throw false
+                             :body (json/generate-string {:model "flux-schnell" :prompt prompt
                                               :negative_prompt negative-prompt
                                               :width 1280 :height 720 :num_inference_steps 4
                                               :response_format "b64_json"})})]
       (if (>= (:status r) 400)
         {:scene_index (:scene_index scene) :error (str "image " (:status r))}
-        (let [b64 (get-in (parse (:body r) true) [:data 0 :b64_json] "")]
+        (let [b64 (get-in (json/parse-string (:body r) true) [:data 0 :b64_json] "")]
           (if (empty? b64)
             {:scene_index (:scene_index scene) :error "empty b64"}
             (let [img (.decode b64dec ^String b64)
-                  ub  (post pds-blob-url {:headers {"Content-Type" "image/png"} :throw false :body img})]
+                  ub  (http-post pds-blob-url {:headers {"Content-Type" "image/png"} :throw false :body img})]
               (if (>= (:status ub) 400)
                 {:scene_index (:scene_index scene) :error (str "uploadBlob " (:status ub))}
                 {:scene_index (:scene_index scene)
-                 :blob_key (get-in (parse (:body ub) true) [:blob :ref :$link] "")}))))))
+                 :blob_key (get-in (json/parse-string (:body ub) true) [:blob :ref :$link] "")}))))))
     (catch Exception e {:scene_index (:scene_index scene) :error (clip (.getMessage e) 200)})))
 
-(def ^:dynamic *generate-one* default-generate-one)
+(def ^:dynamic *generate-one* nil)
 
 (defn- fetch-scenes [video-id]
   (->> (store/select-where "vertex_yukkuri_scene" "video_id" video-id 20)
@@ -82,8 +83,12 @@
     (let [scenes (or (:scenes state) [])]
       (if (empty? scenes)
         {:visual_assets [] :generated_count 0}
-        (let [ok (vec (remove :error (doall (pmap *generate-one* scenes))))]
-          {:visual_assets ok :generated_count (count ok)})))))
+        (do
+          (when-not (fn? *generate-one*)
+            (throw (ex-info "generateVisual requires an explicit generation capability"
+                            {:capability :yukkuri/generate-one})))
+          (let [ok (vec (remove :error (doall (pmap *generate-one* scenes))))]
+            {:visual_assets ok :generated_count (count ok)}))))))
 
 (defn node-insert-assets [state]
   (if (or (:error state) (empty? (:visual_assets state)))

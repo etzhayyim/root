@@ -8,7 +8,8 @@
   (`http-emit`) uses babashka.http-client + cheshire and is wired only when a
   dispatcher URL is configured. Audit is best-effort: failures are swallowed
   (the Python wraps the post in try/except and logs a warning)."
-  (:require [clojure.string :as str]))
+  (:require #?(:clj [cheshire.core :as json])
+            [clojure.string :as str]))
 
 (def dispatcher-url
   (-> (or (System/getenv "BPMN_DISPATCHER_INTERNAL_URL")
@@ -19,19 +20,20 @@
 (def audit-timeout-sec (Double/parseDouble (or (System/getenv "LG_AUDIT_TIMEOUT_SEC") "3.0")))
 (def audit-disabled? (= "1" (or (System/getenv "LG_AUDIT_DISABLED") "0")))
 
-(defn http-emit
+(defn http-emit-with
   "Default real emitter: POST the ActivityStreams-ish payload to the
   bpmn-dispatcher `generic.audit.emit` XRPC. Best-effort; returns nil."
-  [payload]
+  [http-post payload]
+  (when-not (fn? http-post)
+    (throw (ex-info "Yukkuri audit requires an explicit HTTP POST capability"
+                    {:capability :yukkuri/audit-http-post})))
   (try
-    (let [post     (requiring-resolve 'babashka.http-client/post)
-          generate (requiring-resolve 'cheshire.core/generate-string)
-          headers  (cond-> {"Content-Type" "application/json"}
+    (let [headers  (cond-> {"Content-Type" "application/json"}
                      (seq internal-secret) (assoc "x-internal-trust" internal-secret))]
-      (post (str dispatcher-url "/xrpc/com.etzhayyim.generic.audit.emit")
+      (http-post (str dispatcher-url "/xrpc/com.etzhayyim.generic.audit.emit")
             {:headers headers
              :timeout (long (* 1000 audit-timeout-sec))
-             :body    (generate payload)})
+             :body    (json/generate-string payload)})
       nil)
     (catch Exception _ nil)))
 

@@ -15,7 +15,8 @@
   streaming-INSERT visibility. The kotoba Datom log is read-committed (no
   streaming lag), so this port reads once with no retry loop; the assembly logic
   + the \"no scenes → error\" guard are identical. No RetryPolicy in langgraph-clj."
-  (:require [langgraph.graph :as g]
+  (:require #?(:clj [cheshire.core :as json])
+            [langgraph.graph :as g]
             [lg-yukkuri.audit :as audit]
             [lg-yukkuri.store :as store]))
 
@@ -28,16 +29,18 @@
 
 (defn- as-int [v d] (cond (integer? v) v (string? v) (try (Integer/parseInt v) (catch Exception _ d)) :else d))
 (defn- clip [s n] (let [s (str s)] (subs s 0 (min n (count s)))))
-(defn- json-gen [m] ((requiring-resolve 'cheshire.core/generate-string) m))
-(defn- json-parse [s] ((requiring-resolve 'cheshire.core/parse-string) s true))
+(defn- json-gen [m] #?(:clj (json/generate-string m) :default (str m)))
+(defn- json-parse [s] #?(:clj (json/parse-string s true) :default nil))
 
-(defn default-render
+(defn render-with
   "Default `*render*`: POST the timeline to the dougaka render XRPC, return
   {:render_blob_key :render_url} | {:error ...}."
-  [video-id timeline]
+  [http-post video-id timeline]
+  (when-not (fn? http-post)
+    (throw (ex-info "video rendering requires an explicit HTTP POST capability"
+                    {:capability :yukkuri/dougaka-http-post})))
   (try
-    (let [post (requiring-resolve 'babashka.http-client/post)
-          r (post (str dougaka-url "/xrpc/com.etzhayyim.apps.dougaka.render")
+    (let [r (http-post (str dougaka-url "/xrpc/com.etzhayyim.apps.dougaka.render")
                   {:headers {"Content-Type" "application/json"} :throw false
                    :body (json-gen {:video_id video-id :timeline timeline})})]
       (if (>= (:status r) 400)
@@ -49,7 +52,7 @@
               {:render_blob_key bk :render_url url}))))
     (catch Exception e {:error (str "dougaka render: " (clip (.getMessage e) 280))})))
 
-(def ^:dynamic *render* default-render)
+(def ^:dynamic *render* nil)
 
 (defn node-build-timeline [state]
   (let [video-id (or (:video_id state) "")]
@@ -76,7 +79,11 @@
 (defn node-render [state]
   (if (or (:error state) (not (:timeline_json state)))
     {}
-    (*render* (or (:video_id state) "") (json-parse (:timeline_json state)))))
+    (do
+      (when-not (fn? *render*)
+        (throw (ex-info "renderVideo requires an explicit render capability"
+                        {:capability :yukkuri/render})))
+      (*render* (or (:video_id state) "") (json-parse (:timeline_json state))))))
 
 (defn node-update-status [state]
   (if (or (:error state) (not (:render_blob_key state)))
