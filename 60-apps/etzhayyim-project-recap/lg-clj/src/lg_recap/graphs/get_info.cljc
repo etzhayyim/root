@@ -12,7 +12,8 @@
   `yt-dlp` system binary via babashka.process (shelling out to an installed tool
   is allowed by the repo clj/bb rule). Tests rebind it to a stub so the graph
   topology + validation logic verify offline under bb."
-  (:require [clojure.string :as str]
+  (:require #?(:clj [cheshire.core :as json])
+            [clojure.string :as str]
             [langgraph.graph :as g]))
 
 (def allowed-platforms
@@ -23,20 +24,25 @@
   "URL → platform keyword string, or \"unknown\". Shared by download/summarize
   (mirrors Python's get_info._detect_platform)."
   [url]
-  (let [u (str/lower-case (str url))
-        has? (fn [& needles] (some #(str/includes? u %) needles))]
+  (let [[_ scheme authority] (or (re-find #"^([A-Za-z][A-Za-z0-9+.\-]*)://([^/?#]+)" (str url))
+                                 [nil nil nil])
+        host (some-> authority str/lower-case (str/split #":" 2) first)
+        web? (contains? #{"http" "https"} (some-> scheme str/lower-case))
+        domain? (fn [& domains]
+                  (and web? host
+                       (some #(or (= host %) (str/ends-with? host (str "." %))) domains)))]
     (cond
-      (has? "youtube.com" "youtu.be")        "youtube"
-      (has? "tiktok.com")                     "tiktok"
-      (has? "instagram.com")                  "instagram"
-      (has? "twitter.com" "x.com")            "x"
-      (has? "nicovideo.jp" "nico.ms")         "niconico"
-      (has? "bilibili.com" "b23.tv")          "bilibili"
-      (has? "vimeo.com")                      "vimeo"
-      (has? "twitch.tv")                      "twitch"
-      (has? "facebook.com" "fb.watch")        "facebook"
-      (has? "reddit.com" "redd.it")           "reddit"
-      :else                                   "unknown")))
+      (domain? "youtube.com" "youtu.be") "youtube"
+      (domain? "tiktok.com") "tiktok"
+      (domain? "instagram.com") "instagram"
+      (domain? "twitter.com" "x.com") "x"
+      (domain? "nicovideo.jp" "nico.ms") "niconico"
+      (domain? "bilibili.com" "b23.tv") "bilibili"
+      (domain? "vimeo.com") "vimeo"
+      (domain? "twitch.tv") "twitch"
+      (domain? "facebook.com" "fb.watch") "facebook"
+      (domain? "reddit.com" "redd.it") "reddit"
+      :else "unknown")))
 
 (defn- clip
   "First n chars of s (yt-dlp error/url truncation parity)."
@@ -45,25 +51,30 @@
 
 ;; ── injectable yt-dlp metadata edge ────────────────────────────────────────
 
-(def cookies-file (or (System/getenv "YTDLP_COOKIES_FILE") ""))
-
-(defn default-dump-json
+(defn dump-json-with
   "Default `*dump-json*`: run `yt-dlp --dump-json` for url, parse stdout JSON.
   Returns the info map (keyword keys) or {:error \"yt-dlp: ...\"}."
-  [url]
+  [process-sh cookies-file url]
+  (when-not (fn? process-sh)
+    (throw (ex-info "Recap metadata requires an explicit process capability"
+                    {:capability :recap/yt-dlp-metadata})))
   (try
-    (let [sh    (requiring-resolve 'babashka.process/sh)
-          parse (requiring-resolve 'cheshire.core/parse-string)
-          args  (concat ["yt-dlp" "--dump-json" "--no-playlist"]
+    (let [args  (concat ["yt-dlp" "--dump-json" "--no-playlist"]
                         (when (seq cookies-file) ["--cookies" cookies-file])
                         ["--remote-components" "ejs:github" url])
-          {:keys [exit out err]} (apply sh args)]
+          {:keys [exit out err]} (apply process-sh args)]
       (if (zero? exit)
-        (parse out true)
+        (json/parse-string out true)
         {:error (str "yt-dlp: " (clip err 200))}))
     (catch Exception e {:error (clip (.getMessage e) 200)})))
 
-(def ^:dynamic *dump-json* default-dump-json)
+(def ^:dynamic *dump-json* nil)
+
+(defn dump-json [url]
+  (when-not (fn? *dump-json*)
+    (throw (ex-info "Recap metadata requires an explicit dump-json capability"
+                    {:capability :recap/dump-json})))
+  (*dump-json* url))
 
 ;; ── nodes ──────────────────────────────────────────────────────────────────
 
@@ -78,7 +89,7 @@
 (defn node-get-metadata [state]
   (if (:error state)
     {}
-    (let [res (*dump-json* (:url state))]
+    (let [res (dump-json (:url state))]
       (if (:error res)
         res
         (let [info    res
