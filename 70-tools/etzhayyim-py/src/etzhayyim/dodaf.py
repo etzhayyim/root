@@ -680,7 +680,7 @@ def _dodaf_tags_for_file(rel_path: str) -> list[str]:
         tags += ["at-protocol", "kotodama", "typescript"]
     if "50-infra/" in rel_path:
         tags += ["cloudflare", "infrastructure"]
-    if "40-engine/svelte/" in rel_path:
+    if "orgs/etzhayyim/com-etzhayyim-svelte-" in rel_path or "orgs/etzhayyim/com-etzhayyim-vite-plugin-safe-builder" in rel_path:
         tags += ["svelte", "frontend"]
     if "30-graph/" in rel_path:
         tags += ["graph-db", "duckdb"]

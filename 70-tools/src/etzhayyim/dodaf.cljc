@@ -240,7 +240,7 @@
   (cond-> ["claude" "docs"]
     (str/includes? rel-path "60-apps/")    (into ["at-protocol" "kotodama" "typescript"])
     (str/includes? rel-path "50-infra/")   (into ["cloudflare" "infrastructure"])
-    (str/includes? rel-path "40-engine/svelte/") (into ["svelte" "frontend"])
+    (re-find #"orgs/etzhayyim/com-etzhayyim-(svelte-|vite-plugin-safe-builder)" rel-path) (into ["svelte" "frontend"])
     (str/includes? rel-path "30-graph/")   (into ["graph-db" "duckdb"])
     (str/includes? rel-path "70-tools/")   (into ["etzhayyim-cli" "tooling"])
     (= rel-path "CLAUDE.md")              (into ["root-policy"])))

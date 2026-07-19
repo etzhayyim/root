@@ -159,7 +159,7 @@ XRPC compose
 
 ## Frontend (planned)
 
-- Hono router + Svelte CSR (40-engine/svelte AppShell v2)
+- Hono router + Svelte CSR (flat west Svelte packages)
 - 画面: lyrics editor / style picker (prompt or upload) / generation queue / waveform player / stem mixer / critic feedback
 - Deep-link: `https://ongakuka.etzhayyim.com/at/{handle}/com.etzhayyim.ongakuka.track/{rkey}`
 

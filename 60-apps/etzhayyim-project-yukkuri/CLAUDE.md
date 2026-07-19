@@ -207,7 +207,7 @@ XRPC compose
 
 ## Frontend (planned)
 
-- Hono router + Svelte CSR (40-engine/svelte AppShell v2)
+- Hono router + Svelte CSR (flat west Svelte packages)
 - 画面:
   - topic → outline editor (scene 追加/削除/ドラッグ並び替え)
   - per-scene dialogue editor (L/R speaker toggle + 感情タグ)

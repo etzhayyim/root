@@ -1,0 +1,1 @@
+{:schema "etzhayyim.migration/retired-v1" :source {:repo "etzhayyim/root" :path "40-engine/llm" :revision "f968fd9bf076ccc20a80830d38c87476c6bc176a" :contents ["NOTICE"]} :destination {:kind :root-license-and-adr-ledger} :status :retired :reason :no-implementation}

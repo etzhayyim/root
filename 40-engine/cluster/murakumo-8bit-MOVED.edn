@@ -1,0 +1,1 @@
+{:schema "etzhayyim.migration/moved-v1" :source {:repo "etzhayyim/root" :path "40-engine/cluster/murakumo/8bit" :revision "f968fd9bf076ccc20a80830d38c87476c6bc176a"} :destination {:repo "etzhayyim/com-etzhayyim-cluster-murakumo-8bit" :revision "6c8e8104886495cd02079b9209b2e32253002c3d"} :status :moved}
