@@ -1,16 +1,7 @@
 # pnpm workspace.
 #
-# Two cohorts live here:
-#
-# 1. ameno browser-WebGPU appview (ADR-2605190824) — pre-existing.
-# 2. Phase E kotoba reference impls + Phase F worker XRPC adapters
-#    (ADRs 2605210000 / 2605211000 / 2605213000) — 27 actors + sdk + sdk-auth +
-#    sdk-mock + mst-projector + 70-tools workspaces.
-#
-# The Phase E/F cohort is opted in so that `workspace:*` deps resolve in the
-# CI matrix (.github/workflows/test.yml, wrangler-validate.yml) and in local
-# pre-flight runs. Without this, vitest / tsc / wrangler --dry-run fail to
-# resolve `@etzhayyim/sdk*` and `@etzhayyim/<actor>-kotoba`.
+# Only packages retained by root are listed here. Extracted applications own
+# their workspaces in their flat west repositories (ADR-2607201930).
 
 # pnpm 10 defaults to autoInstallPeers=true. mst-projector declares
 # @lancedb/lancedb / duckdb-async / @huggingface/{transformers,inference}
@@ -29,9 +20,6 @@ packages:
   # ameno cohort
   - "orgs/etzhayyim/com-etzhayyim-ameno"
 
-  # yoro cohort (Charter-compliant rebuild — AdSense/GA4 removed)
-  - "60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte"
-
   # karute (電子カルテ / EMR) — ADR-2605231100
   - "../com-etzhayyim-signal"
   - "../com-etzhayyim-xrpc"
@@ -43,12 +31,6 @@ packages:
   # 70-tools workspaces referenced by CI tsc matrix
   - "70-tools/lexicon-to-openapi"
   - "70-tools/lexicon-to-zod"
-
-  # Phase E kotoba reference impls (27 actors)
-  - "60-apps/etzhayyim-project-*/kotoba"
-
-  # Phase F worker XRPC adapters (25 actors)
-  - "60-apps/etzhayyim-project-*/xrpc-adapter"
 
   # yorishiro generator + emitted MCP servers (ADR-2605211900)
   - "70-tools/etzhayyim-cli/yorishiro"
@@ -64,10 +46,6 @@ packages:
   # --init` to populate). `workspace:*` references in consumer apps resolve
   # here once the submodule is checked out.
   - "40-engine/kami-engine/kami-engine-sdk"
-
-  # Baseline appviews for Phase 3 testing
-  - "60-apps/etzhayyim-project-har/appview/har-app-5ugfx2n1/svelte"
-  - "60-apps/etzhayyim-project-tasklist/appview/tasklist-ui-t4sk1ist"
 
 # pnpm overrides — dedupe onnxruntime-web to the version pinned by
 # @huggingface/transformers@3.8.1 (the larger 1.26.0 release is 25 MiB and hits

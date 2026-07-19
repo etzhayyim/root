@@ -82,67 +82,11 @@ updates:
     directory: "/50-infra/vultr/geth-private/contracts"
     schedule:
       interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/60-apps/etzhayyim-project-open-isic/appview/worker"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/60-apps/etzhayyim-project-open-robo/appview/open-robo-hp"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/60-apps/etzhayyim-project-open-robo/appview/open-robo-hp/svelte"
-    schedule:
-      interval: "weekly"
   - package-ecosystem: "cargo"
     directory: "/50-infra/sveltejs-adapter-wasm/projects/sveltejs-adapter-wasm/wasm/quickjs-engine"
     schedule:
       interval: "weekly"
   - package-ecosystem: "cargo"
-    directory: "/60-apps/etzhayyim-project-open-ot/cells"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "cargo"
-    directory: "/60-apps/etzhayyim-project-open-ot/cells/anti-islanding-rocof"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "cargo"
-    directory: "/60-apps/etzhayyim-project-open-ot/cells/droop-p-f"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "cargo"
-    directory: "/60-apps/etzhayyim-project-open-ot/cells/openot-bfb-rs"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "cargo"
-    directory: "/60-apps/etzhayyim-project-open-ot/cells/pid-limited"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "cargo"
-    directory: "/60-apps/etzhayyim-project-open-ot/cells/pid-stack-100"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "cargo"
-    directory: "/60-apps/etzhayyim-project-open-ot/risk1"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "cargo"
-    directory: "/60-apps/etzhayyim-project-open-ot/risk1/gate-a-rig"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "cargo"
     directory: "/70-tools/maps-osm-ingest"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "pip"
-    directory: "/60-apps/etzhayyim-project-open-isic/lg"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "pip"
-    directory: "/60-apps/etzhayyim-project-open-ot/orchestrator"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "pip"
-    directory: "/60-apps/etzhayyim-project-open-robo/firmware"
     schedule:
       interval: "weekly"
