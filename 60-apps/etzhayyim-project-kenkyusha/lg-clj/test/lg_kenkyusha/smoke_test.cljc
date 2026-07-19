@@ -186,5 +186,33 @@
   (testing "off-fleet endpoint refused"
     (is (thrown? #?(:clj clojure.lang.ExceptionInfo :cljs :default)
                  (rl/assert-murakumo "https://api.openai.com/v1"))))
+  (testing "malformed and lookalike endpoints refused"
+    (is (thrown? #?(:clj clojure.lang.ExceptionInfo :cljs :default)
+                 (rl/assert-murakumo "not-a-url")))
+    (is (thrown? #?(:clj clojure.lang.ExceptionInfo :cljs :default)
+                 (rl/assert-murakumo "http://127.0.0.1.attacker.example:4000/v1"))))
   (testing "loopback gateway allowed"
     (is (nil? (rl/assert-murakumo "http://127.0.0.1:4000/v1")))))
+
+(deftest absent-advisor-is-deterministic-and-offline
+  (is (= {:error "advisor capability not configured"}
+         (rl/advisor :generate "prompt"))))
+
+(deftest raw-http-capability-is-required
+  (is (thrown-with-msg? #?(:clj clojure.lang.ExceptionInfo :cljs :default)
+                        #"explicit HTTP POST capability"
+                        (rl/advisor-with nil rl/default-config :generate "prompt"))))
+
+(deftest injected-advisor-wire-contract
+  #?(:clj
+     (let [seen (atom nil)
+           result (rl/advisor-with
+                   (fn [url opts]
+                     (reset! seen [url opts])
+                     {:status 200
+                      :body "{\"choices\":[{\"message\":{\"content\":\"proposal\"}}]}"})
+                   rl/default-config :generate "prompt")]
+       (is (= "proposal" result))
+       (is (= "http://127.0.0.1:4000/v1/chat/completions" (first @seen)))
+       (is (= 120000 (get-in @seen [1 :timeout])))
+       (is (re-find #"max_tokens.*800" (get-in @seen [1 :body]))))))
