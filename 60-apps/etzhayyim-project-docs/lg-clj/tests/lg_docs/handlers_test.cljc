@@ -4,6 +4,7 @@
   (:require [clojure.test :refer [deftest is]]
             [lg-docs.docbody :as docbody]
             [lg-docs.handlers :as handlers]
+            [lg-docs.kotoba-datomic :as kd]
             [lg-docs.store :as store]))
 
 (defn- fresh [] (store/->fake-doc-store))
@@ -93,3 +94,22 @@
     (let [got (handlers/documents-get st {:documentId "gdoc_1"})]
       (is (= true (:found got)))
       (is (= "Imported" (get-in got [:document :title]))))))
+
+(deftest test-kotoba-http-requires-explicit-capability
+  (is (thrown-with-msg? clojure.lang.ExceptionInfo
+                        #"explicit Kotoba HTTP capability required"
+                        (kd/q (kd/->client "graph") "[:find ?e]"))))
+
+(deftest test-kotoba-host-config-and-http-capability
+  (let [request (atom nil)]
+    (binding [kd/*config* {:xrpc-url "https://kotoba.test/"
+                           :bearer "secret"
+                           :graph "docs-test"}
+              kd/*post-json!* (fn [url opts]
+                                (reset! request [url opts])
+                                {:status 200 :body "{\"rows_edn\":[]}"})]
+      (is (= [] (kd/q (kd/->client) "[:find ?e]")))
+      (is (= "https://kotoba.test/xrpc/ai.etzhayyim.apps.kotoba.datomic.q"
+             (first @request)))
+      (is (= "Bearer secret"
+             (get-in @request [1 :headers "Authorization"]))))))

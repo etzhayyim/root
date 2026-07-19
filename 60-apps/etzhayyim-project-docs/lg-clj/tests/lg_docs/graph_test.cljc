@@ -13,3 +13,7 @@
   (let [r (graph/probe {})]
     (is (= true (:ok r)))
     (is (= "0.1.0" (:version r)))))
+
+(deftest test-version-is-explicitly-bound
+  (binding [graph/*version* "test-version"]
+    (is (= "test-version" (:version (graph/probe {}))))))

@@ -14,8 +14,9 @@
 (defn- now-ms []
   #?(:clj (System/currentTimeMillis) :cljs (.now js/Date)))
 
-(defn- version []
-  (or #?(:clj (System/getenv "LG_DOCS_VERSION") :cljs nil) "0.1.0"))
+(def ^:dynamic *version* "0.1.0")
+
+(defn- version [] *version*)
 
 (defn probe
   "Liveness probe node — mirrors health.py `_probe`."

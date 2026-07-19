@@ -19,8 +19,9 @@
             [lg-docs.kotoba-datomic :as kd]
             [lg-docs.store :as store]))
 
-(defn- env [k]
-  #?(:clj (System/getenv k) :cljs nil))
+(def ^:dynamic *api-key*
+  "Host-supplied API key. Blank preserves the deployed open-gate behavior."
+  "")
 
 (defn- now-ms []
   #?(:clj (System/currentTimeMillis) :cljs (.now js/Date)))
@@ -33,9 +34,8 @@
 (defn auth-ok?
   "x-api-key gate — open when LG_DOCS_API_KEY is unset (mirrors server.py)."
   [headers]
-  (let [expected (env "LG_DOCS_API_KEY")]
-    (or (nil? expected) (= "" expected)
-        (= (get headers "x-api-key") expected))))
+  (or (= "" *api-key*)
+      (= (get headers "x-api-key") *api-key*)))
 
 (defn handle-request
   "Pure dispatcher. req = {:method :path :headers :query :body}. -> {:status :body}."
