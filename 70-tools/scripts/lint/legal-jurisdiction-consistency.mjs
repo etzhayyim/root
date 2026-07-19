@@ -7,8 +7,9 @@
  * to `verify-required`) is currently represented in THREE artifacts that must
  * never disagree:
  *
- *   (1) the in-node WASM intake gate  — Rust const ENABLED_JURISDICTIONS
- *       40-engine/legal-aid-wasm-guest/src/lib.rs
+ *   (1) the standalone WASM intake gate — Rust const ENABLED_JURISDICTIONS
+ *       orgs/etzhayyim/com-etzhayyim-legal-aid-wasm-guest/src/lib.rs
+ *       (validated in that repository's CI)
  *   (2) the LangGraph cell port        — Python `enabled = {...}`
  *       40-engine/kotoba/crates/kotoba-kotodama/cells/chigiri_legal_aid_clinic/ports.py
  *   (3) the kotoba KG routing-table    — jurisdictionPolicy records with
@@ -28,7 +29,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
-const RUST = "40-engine/legal-aid-wasm-guest/src/lib.rs";
+const RUST = "../com-etzhayyim-legal-aid-wasm-guest/src/lib.rs";
 const PORTS = "40-engine/kotoba/crates/kotoba-kotodama/cells/chigiri_legal_aid_clinic/ports.py";
 const KG = "90-docs/baien/kg-deploy/2605302200-jurisdiction-policy-kg-segment.ndjson";
 
