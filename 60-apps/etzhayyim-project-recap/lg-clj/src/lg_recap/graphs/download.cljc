@@ -22,37 +22,42 @@
   ADR-2605262130); this port keeps the write as an injectable edge so the graph
   is faithful while the persistence backend can be swapped to kotoba without
   touching the topology."
-  (:require [clojure.string :as str]
+  (:require #?(:clj [cheshire.core :as json])
+            [clojure.string :as str]
             [langgraph.graph :as g]
             [lg-recap.graphs.get-info :as gi]))
 
 (def allowed-scopes #{"research" "authorized"})
 
-(def repo       (or (System/getenv "RECAP_REPO_DID")  "did:web:recap.etzhayyim.com"))
-(def owner      (or (System/getenv "RECAP_OWNER_DID") "did:web:recap.etzhayyim.com"))
-(def default-org-did (or (System/getenv "RECAP_ORG_DID") "anon"))
+(def default-config {:repo "did:web:recap.etzhayyim.com"
+                     :owner "did:web:recap.etzhayyim.com"
+                     :default-org-did "anon"
+                     :cookies-file ""
+                     :upload-enabled? false})
+(def ^:dynamic *config* default-config)
 
 (defn- clip [s n] (let [s (str s)] (subs s 0 (min n (count s)))))
 
 ;; ── injectable edges (defaults documented in the ns docstring) ──────────────
 
-(defn default-fetch-blob
+(defn fetch-blob-with
   "Default `*fetch-blob*`: yt-dlp metadata + download + optional B2 upload.
   Shells out to yt-dlp (allowed system binary) and lazily uses boto3 only when
   B2 creds are present. Returns the blob descriptor map or {:error ...}."
-  [url fmt]
+  [process-sh {:keys [cookies-file upload-enabled?]} url fmt]
+  (when-not (fn? process-sh)
+    (throw (ex-info "Recap download requires an explicit process capability"
+                    {:capability :recap/yt-dlp-download})))
   (try
-    (let [sh    (requiring-resolve 'babashka.process/sh)
-          parse (requiring-resolve 'cheshire.core/parse-string)
-          ck    (when (seq gi/cookies-file) ["--cookies" gi/cookies-file])
+    (let [ck    (when (seq cookies-file) ["--cookies" cookies-file])
           tmp   (str (System/getProperty "java.io.tmpdir") "/recap-" (System/nanoTime))
           _     (.mkdirs (java.io.File. tmp))
-          meta  (apply sh (concat ["yt-dlp" "--dump-json" "--no-playlist"] ck
+          meta  (apply process-sh (concat ["yt-dlp" "--dump-json" "--no-playlist"] ck
                                   ["--remote-components" "ejs:github" url]))]
       (if-not (zero? (:exit meta))
         {:error (str "yt-dlp metadata: " (clip (:err meta) 200))}
-        (let [info (parse (:out meta) true)
-              dl   (apply sh (concat ["yt-dlp" "-f" fmt "--no-playlist"] ck
+        (let [info (json/parse-string (:out meta) true)
+              dl   (apply process-sh (concat ["yt-dlp" "-f" fmt "--no-playlist"] ck
                                      ["--remote-components" "ejs:github"
                                       "-o" (str tmp "/%(id)s.%(ext)s") url]))]
           (if-not (zero? (:exit dl))
@@ -69,16 +74,21 @@
                       nm     (.getName media)
                       ext    (let [i (.lastIndexOf nm ".")]
                                (if (pos? i) (subs nm (inc i)) "bin"))
-                      blob   (str "recap/" digest "." ext)
-                      kid    (or (System/getenv "B2_KEY_ID") (System/getenv "AWS_ACCESS_KEY_ID"))]
+                      blob   (str "recap/" digest "." ext)]
                   {:info info :data-len (alength data) :digest digest
-                   :ext ext :blob-key blob :uploaded (boolean (seq kid))})))))))
+                   :ext ext :blob-key blob :uploaded (boolean upload-enabled?)})))))))
     (catch Exception e {:error (clip (.getMessage e) 300)})))
 
-(def ^:dynamic *fetch-blob* default-fetch-blob)
+(def ^:dynamic *fetch-blob* nil)
 (def ^:dynamic *write-record*
   "Default: no-op unless overridden / RW_URL configured. Returns {}."
   (fn [_record] {}))
+
+(defn fetch-blob [url fmt]
+  (when-not (fn? *fetch-blob*)
+    (throw (ex-info "Recap download requires an explicit fetch-blob capability"
+                    {:capability :recap/fetch-blob})))
+  (*fetch-blob* url fmt))
 
 ;; ── nodes ──────────────────────────────────────────────────────────────────
 
@@ -98,7 +108,7 @@
   (if (:error state)
     {}
     (let [fmt (or (:format_id state) "bestvideo+bestaudio/best")
-          res (*fetch-blob* (:url state) fmt)]
+          res (fetch-blob (:url state) fmt)]
       (if (:error res)
         {:status "error" :error (:error res)}
         (let [info (:info res)]
@@ -116,8 +126,8 @@
 (defn node-write-record [state]
   (if-not (:blob_key state)
     {}
-    (*write-record* (assoc state :repo repo :owner owner
-                           :org-did (or (:org_did state) default-org-did)))))
+    (*write-record* (assoc state :repo (:repo *config*) :owner (:owner *config*)
+                           :org-did (or (:org_did state) (:default-org-did *config*))))))
 
 (defn build
   "Compile the download StateGraph (validate → download_upload → write_record)."

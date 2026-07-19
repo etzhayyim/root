@@ -54,7 +54,7 @@
   (testing "no key configured → pass"
     (is (nil? (server/check-api-key ""))))
   (testing "configured key mismatch → 401"
-    (with-redefs [server/api-key "secret"]
+    (binding [server/*api-key* "secret"]
       (is (= 401 (:status (server/dispatch-run {:assistant_id "health"}
                                                {:x-api-key "wrong"})))))))
 
@@ -73,7 +73,9 @@
   (is (= "niconico"  (gi/detect-platform "https://www.nicovideo.jp/watch/sm1")))
   (is (= "bilibili"  (gi/detect-platform "https://b23.tv/abc")))
   (is (= "reddit"    (gi/detect-platform "https://redd.it/abc")))
-  (is (= "unknown"   (gi/detect-platform "https://example.com/x"))))
+  (is (= "unknown"   (gi/detect-platform "https://example.com/x")))
+  (is (= "unknown"   (gi/detect-platform "https://youtube.com.attacker.example/x")))
+  (is (= "unknown"   (gi/detect-platform "not-a-url/youtube.com"))))
 
 ;; ── get_info graph: validate guards + metadata via stub ─────────────────────
 
@@ -176,5 +178,52 @@
   (testing "off-fleet endpoint refused"
     (is (thrown? clojure.lang.ExceptionInfo
                  (sm/assert-murakumo "https://api.openai.com/v1"))))
+  (testing "malformed and lookalike endpoints refused"
+    (is (thrown? clojure.lang.ExceptionInfo
+                 (sm/assert-murakumo "not-a-url")))
+    (is (thrown? clojure.lang.ExceptionInfo
+                 (sm/assert-murakumo "http://127.0.0.1.attacker.example:4000/v1"))))
   (testing "loopback gateway allowed"
     (is (nil? (sm/assert-murakumo "http://127.0.0.1:4000/v1")))))
+
+(deftest live-authority-requires-explicit-capabilities
+  (is (thrown-with-msg? clojure.lang.ExceptionInfo
+                        #"explicit dump-json capability"
+                        (gi/dump-json "https://youtu.be/x")))
+  (is (thrown-with-msg? clojure.lang.ExceptionInfo
+                        #"explicit fetch-blob capability"
+                        (dl/fetch-blob "https://youtu.be/x" "best")))
+  (is (thrown-with-msg? clojure.lang.ExceptionInfo
+                        #"explicit chat capability"
+                        (sm/llm-chat "system" "user")))
+  (is (thrown-with-msg? clojure.lang.ExceptionInfo
+                        #"explicit process capability"
+                        (gi/dump-json-with nil "" "https://youtu.be/x")))
+  (is (thrown-with-msg? clojure.lang.ExceptionInfo
+                        #"explicit process capability"
+                        (dl/fetch-blob-with nil dl/default-config "https://youtu.be/x" "best"))))
+
+(deftest injected-metadata-process-contract
+  (let [seen (atom nil)
+        result (gi/dump-json-with
+                (fn [& args]
+                  (reset! seen args)
+                  {:exit 0 :out "{\"title\":\"safe\"}" :err ""})
+                "/tmp/cookies.txt" "https://youtu.be/x")]
+    (is (= "safe" (:title result)))
+    (is (= "yt-dlp" (first @seen)))
+    (is (some #{"--cookies"} @seen))
+    (is (= "https://youtu.be/x" (last @seen)))))
+
+(deftest injected-summary-wire-contract
+  (let [seen (atom nil)
+        result (sm/llm-chat-with
+                (fn [url opts]
+                  (reset! seen [url opts])
+                  {:status 200
+                   :body "{\"choices\":[{\"message\":{\"content\":\"safe\"}}]}"})
+                sm/default-config "system" "user")]
+    (is (= "safe" result))
+    (is (= "http://127.0.0.1:4000/v1/chat/completions" (first @seen)))
+    (is (= "application/json" (get-in @seen [1 :headers "Content-Type"])))
+    (is (re-find #"max_tokens" (get-in @seen [1 :body])))))

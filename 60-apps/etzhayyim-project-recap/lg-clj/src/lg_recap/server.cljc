@@ -31,12 +31,12 @@
    "com.etzhayyim.apps.recap.listDownloads" "list_downloads"
    "com.etzhayyim.apps.recap.summarize"     "summarize"})
 
-(def api-key (or (System/getenv "LG_API_KEY") ""))
+(def ^:dynamic *api-key* "")
 
 (defn check-api-key
   "Mirrors server._check_api_key: if LG_API_KEY is set, x-api-key must match."
   [x-api-key]
-  (if (and (seq api-key) (not= x-api-key api-key))
+  (if (and (seq *api-key*) (not= x-api-key *api-key*))
     {:status 401 :body {:error "invalid api key"}}
     nil))
 
