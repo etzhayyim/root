@@ -21,7 +21,9 @@
   #?(:clj (:import [java.time ZonedDateTime ZoneOffset]
                    [java.time.format DateTimeFormatter])))
 
-(def enrich-max (util/as-int (System/getenv "JUKYU_LLM_ENRICH_MAX") 10))
+(def ^:dynamic *enrich-max*
+  "Host-supplied cap for LLM enrichment work per run."
+  10)
 
 (defn- ts-compact []
   #?(:clj (.format (DateTimeFormatter/ofPattern "yyyyMMdd'T'HHmmss'Z'")
@@ -81,7 +83,7 @@
   (if-not (:with_llm state)
     {:signals_enriched 0}
     (let [domain (or (:domain state) "global")
-          candidates (take enrich-max (or (:company_exposures state) []))]
+          candidates (take *enrich-max* (or (:company_exposures state) []))]
       (loop [cs candidates enriched 0]
         (if-let [ce (first cs)]
           (let [risk (util/as-float (:riskScore ce) 0)]
