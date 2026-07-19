@@ -28,3 +28,8 @@
   (let [resp (server/handle-request (store/->fake-doc-store)
                                     {:method :get :path "/nope" :headers {} :query {} :body {}})]
     (is (= 404 (:status resp)))))
+
+(deftest test-api-key-is-explicitly-bound
+  (binding [server/*api-key* "secret"]
+    (is (false? (server/auth-ok? {})))
+    (is (true? (server/auth-ok? {"x-api-key" "secret"})))))

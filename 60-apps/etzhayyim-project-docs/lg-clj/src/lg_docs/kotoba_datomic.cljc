@@ -10,21 +10,18 @@
   ADR-2606072802); a write `transact` needs the operator/member bearer."
   (:require [clojure.string :as str]
             [lg-docs.edn :as edn]
-            #?(:clj [cheshire.core :as json])
-            #?(:clj [babashka.http-client :as http]))
+            #?(:clj [cheshire.core :as json]))
   #?(:clj (:import [java.security MessageDigest])))
 
-(defn- env [k default]
-  #?(:clj (or (System/getenv k) default) :cljs default))
+(def ^:dynamic *config*
+  {:xrpc-url "http://kotoba.kotoba.svc.cluster.local:8080"
+   :bearer ""
+   :graph "docs-v1"})
 
-(def kotoba-xrpc
-  (str/replace
-   (or (env "KOTOBA_XRPC_URL" nil)
-       (env "KOTOBA_URL" nil)
-       "http://kotoba.kotoba.svc.cluster.local:8080")
-   #"/+$" ""))
-
-(def kotoba-bearer (env "KOTOBA_BEARER" ""))
+(def ^:dynamic *post-json!*
+  (fn [& _]
+    (throw (ex-info "explicit Kotoba HTTP capability required"
+                    {:capability :kotoba-http}))))
 
 ;; ── content addressing (kotoba CIDv1, raw/sha2-256, multibase base32) ─────────
 
@@ -60,17 +57,18 @@
     label
     #?(:clj (kotoba-cid (.getBytes ^String label "UTF-8")) :cljs label)))
 
-(def default-graph (graph-cid-for-label (env "KOTOBA_GRAPH" "docs-v1")))
-
 (defn- headers []
-  (if (seq kotoba-bearer) {"Authorization" (str "Bearer " kotoba-bearer)} {}))
+  (if (seq (:bearer *config*))
+    {"Authorization" (str "Bearer " (:bearer *config*))}
+    {}))
 
 #?(:clj
-   (defn- post-json [url body]
-     (let [resp (http/post url {:headers (merge {"Content-Type" "application/json"} (headers))
-                                :body (json/generate-string body)
-                                :throw false})]
-       resp)))
+   (defn- post-json [path body]
+     (*post-json!*
+      (str (str/replace (:xrpc-url *config*) #"/+$" "") path)
+      {:headers (merge {"Content-Type" "application/json"} (headers))
+       :body (json/generate-string body)
+       :throw false})))
 
 ;; ── pull datom folding ────────────────────────────────────────────────────────
 
@@ -96,7 +94,7 @@
 (defrecord KotobaDatomic [graph])
 
 (defn ->client
-  ([] (->KotobaDatomic default-graph))
+  ([] (->KotobaDatomic (graph-cid-for-label (:graph *config*))))
   ([graph] (->KotobaDatomic graph)))
 
 (defn transact
@@ -105,7 +103,7 @@
    #?(:clj
       (let [body (cond-> {:graph (:graph dm) :tx_edn (edn/encode-tx-data ops)}
                    expected-parent (assoc :expected_parent expected-parent))
-            resp (post-json (str kotoba-xrpc "/xrpc/ai.etzhayyim.apps.kotoba.datomic.transact") body)]
+            resp (post-json "/xrpc/ai.etzhayyim.apps.kotoba.datomic.transact" body)]
         (when (>= (:status resp) 400)
           (throw (ex-info "kotoba transact failed" {:status (:status resp) :body (:body resp)})))
         (json/parse-string (:body resp) true))
@@ -117,7 +115,7 @@
    #?(:clj
       (let [body (cond-> {:graph (:graph dm) :query_edn query-edn}
                    (seq inputs-edn) (assoc :inputs_edn inputs-edn))
-            resp (post-json (str kotoba-xrpc "/xrpc/ai.etzhayyim.apps.kotoba.datomic.q") body)]
+            resp (post-json "/xrpc/ai.etzhayyim.apps.kotoba.datomic.q" body)]
         (when (>= (:status resp) 400)
           (throw (ex-info "kotoba q failed" {:status (:status resp) :body (:body resp)})))
         (let [rows (or (get (json/parse-string (:body resp) true) :rows_edn) [])]
@@ -128,7 +126,7 @@
   [dm entity]
   #?(:clj
      (let [body {:graph (:graph dm) :entity entity}
-           resp (post-json (str kotoba-xrpc "/xrpc/ai.etzhayyim.apps.kotoba.datomic.pull") body)]
+           resp (post-json "/xrpc/ai.etzhayyim.apps.kotoba.datomic.pull" body)]
        (cond
          (= 404 (:status resp)) nil
          (>= (:status resp) 400) (throw (ex-info "kotoba pull failed" {:status (:status resp)}))
