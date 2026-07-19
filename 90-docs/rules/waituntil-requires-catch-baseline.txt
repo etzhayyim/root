@@ -1,4 +1,3 @@
-60-apps/etzhayyim-project-animeka/appview/etzhayyim-wasm-animeka-an1m3k4x/src/app.ts:14
 60-apps/etzhayyim-project-hrse/appview/external-hrse/public/mockServiceWorker.js:20
 60-apps/etzhayyim-project-mangaka/appview/etzhayyim-wasm-mangaka-mng4k4x1/src/app.ts:14
 60-apps/etzhayyim-project-mangaka/appview/etzhayyim-wasm-mangaka-mng4k4x1/svelte/src/routes/blob/[cid]/+server.ts:80

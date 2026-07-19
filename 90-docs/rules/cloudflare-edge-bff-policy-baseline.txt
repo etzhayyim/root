@@ -5,18 +5,7 @@
 60-apps/ai-gftd-chat-shell/svelte/src/lib/api.ts:14:pg-direct-db:return new Client({ apiUrl: "/lg" });
 60-apps/etzhayyim-chat-shell/src/app.ts:25:hono-import:import { Hono } from "hono";
 60-apps/etzhayyim-chat-shell/svelte/src/lib/api.ts:14:pg-direct-db:return new Client({ apiUrl: "/lg" });
-60-apps/etzhayyim-project-animeka/appview/etzhayyim-wasm-animeka-an1m3k4x/wrangler.jsonc:30:wrangler-hyperdrive-binding:"hyperdrive": [
-60-apps/etzhayyim-project-animeka/appview/etzhayyim-wasm-animeka-an1m3k4x/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-browser/provider/darkweb-proxy/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "worker.ts"
-60-apps/etzhayyim-project-kyber-qzzg06nh/appview/etzhayyim-wasm-kyber-hr-mdtpqjc8/src/app.ts:57:kysely-direct-db:await createKyselyDb().insertInto(table as any).values({ vertex_id, sensitivity_ord: 2, owner_did: ownerDid, actor_id: appId, ...snakeRec }).execute();
-60-apps/etzhayyim-project-kyber-qzzg06nh/appview/etzhayyim-wasm-kyber-inbox-inb0x4k2/src/app.ts:109:kysely-direct-db:await db.insertInto('edge_kyber_routed').values({
-60-apps/etzhayyim-project-kyber-qzzg06nh/appview/etzhayyim-wasm-kyber-inbox-inb0x4k2/src/app.ts:127:kysely-direct-db:await db.insertInto('vertex_office_document').values({
-60-apps/etzhayyim-project-kyber-qzzg06nh/appview/etzhayyim-wasm-kyber-inbox-inb0x4k2/src/app.ts:157:kysely-direct-db:await db.insertInto('edge_kyber_routed').values({
-60-apps/etzhayyim-project-kyber-qzzg06nh/appview/etzhayyim-wasm-kyber-inbox-inb0x4k2/src/app.ts:182:hyperdrive-usage:const db = createKyselyDb<Database>(env.HYPERDRIVE);
-60-apps/etzhayyim-project-kyber-qzzg06nh/appview/etzhayyim-wasm-kyber-inbox-inb0x4k2/src/app.ts:19:hyperdrive-usage:HYPERDRIVE: Hyperdrive;
-60-apps/etzhayyim-project-kyber-qzzg06nh/appview/etzhayyim-wasm-kyber-inbox-inb0x4k2/src/app.ts:38:kysely-direct-db:await db.insertInto('vertex_email_message').values({
-60-apps/etzhayyim-project-kyber-qzzg06nh/appview/etzhayyim-wasm-kyber-inbox-inb0x4k2/src/app.ts:66:kysely-direct-db:await db.insertInto('edge_kyber_routed').values({
-60-apps/etzhayyim-project-kyber-qzzg06nh/appview/etzhayyim-wasm-kyber-inbox-inb0x4k2/src/app.ts:84:kysely-direct-db:await db.insertInto('vertex_calendar_event').values({
 60-apps/etzhayyim-project-mangaka/appview-studio/etzhayyim-wasm-studio-stdk2024/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-mangaka/appview/etzhayyim-wasm-mangaka-mng4k4x1/wrangler.jsonc:33:wrangler-hyperdrive-binding:"hyperdrive": [
 60-apps/etzhayyim-project-mangaka/appview/etzhayyim-wasm-mangaka-mng4k4x1/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/app.ts"
