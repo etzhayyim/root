@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "record",
-      "description": "Demining hazardArea record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See 60-apps/etzhayyim-project-demining/CLAUDE.md.",
+      "description": "Demining hazardArea record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See orgs/etzhayyim/com-etzhayyim-app-demining/CLAUDE.md.",
       "record": {
         "type": "object",
         "properties": {

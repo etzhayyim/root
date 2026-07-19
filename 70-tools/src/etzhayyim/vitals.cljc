@@ -417,14 +417,14 @@
                      (if (:atproto/bsky-post v) "✅" "·"))))
          "\n")))
 
-(def ^:private viz-data "60-apps/etzhayyim-project-organism/public/organism.json")
+(def ^:private viz-data "orgs/etzhayyim/com-etzhayyim-app-organism/public/organism.json")
 (def ^:private viz-data-mirror "50-infra/etzhayyim-did-web/public/organism/organism.json")
 
 ;; ── kotoba Datom log is the SoT for ALL organism feeds (no KV; ADR-2606172200). Each feed
 ;;    transacts to its journal, then materializes a content-addressed `.kotoba.edn` snapshot —
 ;;    THAT is the canonical artifact served (like public/kotoba/blocks); the JSON is a projection.
 (def ^:private snapshot-dirs
-  ["60-apps/etzhayyim-project-organism/public" "50-infra/etzhayyim-did-web/public/organism"])
+  ["orgs/etzhayyim/com-etzhayyim-app-organism/public" "50-infra/etzhayyim-did-web/public/organism"])
 
 (defn- snapshot-to!
   "Materialize a kotoba log's live state to a content-addressed `.kotoba.edn` under every served
@@ -469,7 +469,7 @@
 ;; 息遣い = working-tree files being edited right now, 呼吸 = Datom-log head.
 
 (def ^:private pulse-paths
-  ["60-apps/etzhayyim-project-organism/public/pulse.json"
+  ["orgs/etzhayyim/com-etzhayyim-app-organism/public/pulse.json"
    "50-infra/etzhayyim-did-web/public/organism/pulse.json"])
 
 ;; ── kotoba Datom log is the SoT for ALL organism feeds (no KV; substrate boundary,
@@ -576,7 +576,7 @@
 ;; event) into a 5-axis mood trajectory + Wellbecoming MOVEMENT, for the /organism 情緒 layer.
 
 (def ^:private joucho-paths
-  ["60-apps/etzhayyim-project-organism/public/joucho.json"
+  ["orgs/etzhayyim/com-etzhayyim-app-organism/public/joucho.json"
    "50-infra/etzhayyim-did-web/public/organism/joucho.json"])
 
 (defn- beat-events
@@ -801,7 +801,7 @@
         runs (load-trajectory conn)
         out  (json/generate-string {:runs runs :head head :store "kotoba-datom-log"
                                     :snapshot "trajectory.kotoba.edn"} {:pretty true})]
-    (doseq [p ["60-apps/etzhayyim-project-organism/public/trajectory.json"
+    (doseq [p ["orgs/etzhayyim/com-etzhayyim-app-organism/public/trajectory.json"
                "50-infra/etzhayyim-did-web/public/organism/trajectory.json"]]
       (io/make-parents p)
       (spit p out))

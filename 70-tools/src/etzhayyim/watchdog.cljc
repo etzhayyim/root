@@ -19,7 +19,7 @@
 
 (def ^:private health-json "50-infra/etzhayyim-did-web/public/organism/health.json")
 (def ^:private out-paths
-  ["60-apps/etzhayyim-project-organism/public/watchdog.json"
+  ["orgs/etzhayyim/com-etzhayyim-app-organism/public/watchdog.json"
    "50-infra/etzhayyim-did-web/public/organism/watchdog.json"])
 (def ^:private service "com.etzhayyim.organism.heartbeat")
 ;; the loop ticks write-health! every 2s; 120s of silence = unambiguously wedged

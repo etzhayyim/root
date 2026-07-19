@@ -26,7 +26,7 @@
             [etzhayyim.ie-flow.colony :as colony]))
 
 (def ^:private out-dirs
-  ["60-apps/etzhayyim-project-organism/public"
+  ["orgs/etzhayyim/com-etzhayyim-app-organism/public"
    "50-infra/etzhayyim-did-web/public/organism"])
 
 (def ^:private default-flow-log "80-data/ie-flow/repo-git/flow.kotoba.edn")
