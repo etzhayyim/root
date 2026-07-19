@@ -17,11 +17,11 @@
   result rows are maps with STRING JSON keys (`\"id\"`, `\"passed\"`,
   `\"category\"`) — JSON keys from the files stay strings; internal opts use
   kebab keyword keys. Pure delta-computation fns; JSON read + stdout/exit at
-  the #?(:clj) edge. JSON is parsed via cheshire through `requiring-resolve`
-  (the established pattern — ake/methods/ingest.cljc, ibuki perception.cljc)."
+  the #?(:clj) edge. JSON is parsed through a statically declared host codec."
   (:require [clojure.string :as str]
             [clojure.set :as set]
-            #?(:clj [clojure.java.io :as io])))
+            #?(:clj [clojure.java.io :as io])
+            #?(:clj [cheshire.core :as json])))
 
 ;; ── pure: truthiness + summation (mirror Python int(row["passed"])) ──────────
 
@@ -136,20 +136,18 @@
                        "pp < required " gate-pp "pp")]}
            {:exit 0 :out out :err []}))))))
 
-;; ── I/O edge: NDJSON load (cheshire via requiring-resolve), argparse, -main ──
+;; ── I/O edge: NDJSON load, argparse, -main ──────────────────────────────────
 
 #?(:clj
    (defn load
      "Read an NDJSON result file → {id row}. One JSON object per non-blank line,
-     keyed on `\"id\"` (string JSON keys preserved). cheshire is resolved lazily
-     (the established #?(:clj) JSON-edge pattern)."
+     keyed on `\"id\"` (string JSON keys preserved)."
      [path]
-     (let [parse (requiring-resolve 'cheshire.core/parse-string)]
-       (with-open [r (io/reader path)]
-         (->> (line-seq r)
-              (remove str/blank?)
-              (mapv #(parse % false))      ;; false → keep JSON keys as STRINGS
-              index-by-id)))))
+     (with-open [r (io/reader path)]
+       (->> (line-seq r)
+            (remove str/blank?)
+            (mapv #(json/parse-string % false)) ;; false → keep JSON keys as STRINGS
+            index-by-id))))
 
 #?(:clj
    (defn parse-args

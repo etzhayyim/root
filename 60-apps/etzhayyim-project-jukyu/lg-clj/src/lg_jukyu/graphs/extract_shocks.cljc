@@ -5,7 +5,8 @@
   Faithful clj port of `extract_shocks.py`. Topology: START → extract → audit → END.
   Calls the LLM (Murakumo loopback default), greedily parses a JSON array out of
   the response, then validates/clamps each shock. DEVIATION: httpx→`llm/*chat*`."
-  (:require [langgraph.graph :as g]
+  (:require #?(:clj [cheshire.core :as json])
+            [langgraph.graph :as g]
             [clojure.string :as str]
             [lg-jukyu.llm :as llm]
             [lg-jukyu.audit :as audit]
@@ -33,8 +34,7 @@
         i (str/index-of s "[")
           j (str/last-index-of s "]")]
       (if (and i j (< i j))
-        (let [parse (requiring-resolve 'cheshire.core/parse-string)]
-          (parse (subs s i (inc j)) true))
+        (json/parse-string (subs s i (inc j)) true)
         []))
     (catch Exception _ [])))
 

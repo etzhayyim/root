@@ -2,7 +2,8 @@
   "animeka `generateLayout` graph — LLM layout plan (JSON) + ComfyUI layout draw.
   NSID: com.etzhayyim.animeka.generateLayout. Faithful clj port of `generate_layout.py`.
   Topology: START → fetch_context → llm_plan → render → insert → audit → END."
-  (:require [clojure.string :as str]
+  (:require #?(:clj [cheshire.core :as json])
+            [clojure.string :as str]
             [langgraph.graph :as g]
             [lg-animeka.audit :as audit]
             [lg-animeka.llm :as llm]
@@ -32,7 +33,7 @@
        "No code fences, no extra keys, no preamble."))
 
 (defn- parse-json [s]
-  #?(:clj (try ((requiring-resolve 'cheshire.core/parse-string) (str/trim (str s)) true)
+  #?(:clj (try (json/parse-string (str/trim (str s)) true)
                (catch Exception _ nil))
      :default nil))
 
