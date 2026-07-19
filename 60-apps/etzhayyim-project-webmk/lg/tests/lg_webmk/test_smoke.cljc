@@ -5,6 +5,8 @@
   Run: bb --config 60-apps/etzhayyim-project-webmk/lg/bb.edn test"
   (:require [clojure.test :refer [deftest is testing]]
             [langgraph.graph :as g]
+            [lg-webmk.audit :as audit]
+            [lg-webmk.llm :as llm]
             [lg-webmk.store :as store]
             [lg-webmk.server :as server]
             [lg-webmk.graphs.health :as health]
@@ -12,6 +14,41 @@
             [lg-webmk.graphs.deliver-proposal :as deliver-proposal]
             [lg-webmk.graphs.get-proposal :as get-proposal]
             [lg-webmk.graphs.list-proposals :as list-proposals]))
+
+(deftest test-network-capabilities-are-explicit
+  (testing "portable LLM default cannot perform HTTP"
+    (binding [llm/*http-post* nil]
+      (is (nil? (llm/complete "prompt")))))
+  (testing "explicit LLM capability preserves the wire endpoint"
+    (let [seen (atom nil)]
+      (binding [llm/*http-post* (fn [url _]
+                                  (reset! seen url)
+                                  {:status 200
+                                   :body "{\"choices\":[{\"message\":{\"content\":\"ok\"}}]}"})]
+        (is (= "ok" (llm/complete "prompt")))
+        (is (= "http://llm.etzhayyim.com/v1/chat/completions" @seen)))))
+  (testing "audit secret is supplied only through explicit config"
+    (let [wire (atom nil)]
+      (audit/emit-with (fn [url opts] (reset! wire [url opts]) {:status 200})
+                       {:url "http://audit.internal" :secret "purpose-bound"
+                        :timeout-ms 1000}
+                       {:actor "did:test" :activity "test"})
+      (is (= "purpose-bound" (get-in @wire [1 :headers "x-internal-trust"])))))
+  (testing "server startup capability fails closed when absent"
+    (is (thrown-with-msg? clojure.lang.ExceptionInfo #"explicit server capability"
+                          (server/run-server-with nil 0 server/handler)))))
+
+(deftest test-resend-capability-and-secret-are-explicit
+  (let [wire (atom nil)]
+    (binding [deliver-proposal/*http-post*
+              (fn [url opts] (reset! wire [url opts]) {:status 202})
+              deliver-proposal/*resend-config*
+              {:url "https://api.resend.com/emails" :api-key "secret"
+               :from "sender@example.com"}]
+      (is (true? (:delivered (deliver-proposal/send-email
+                              {:delivery-email "to@example.com"
+                               :copy-markdown "body" :proposal-id "p"}))))
+      (is (= "Bearer secret" (get-in @wire [1 :headers "Authorization"]))))))
 
 ;; ── parity with test_smoke.py (store disabled = Python no-RW path) ──
 

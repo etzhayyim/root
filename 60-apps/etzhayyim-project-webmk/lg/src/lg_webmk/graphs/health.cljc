@@ -9,8 +9,7 @@
             [lg-webmk.audit :as audit]
             [lg-webmk.store :as store]))
 
-(defn- env [k default] (or (System/getenv k) default))
-(def ^:private app-did (env "WEBMK_APP_DID" "did:web:webmk.etzhayyim.com"))
+(def ^:dynamic app-did "did:web:webmk.etzhayyim.com")
 
 (defn- now-iso []
   (.format (java.time.format.DateTimeFormatter/ofPattern "yyyy-MM-dd'T'HH:mm:ss'Z'")
