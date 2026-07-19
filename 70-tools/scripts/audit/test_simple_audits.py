@@ -27,6 +27,7 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 DEPENDABOT = REPO_ROOT / "70-tools/scripts/audit/dependabot-defunct.py"
 SDK_EXPORTS = REPO_ROOT / "70-tools/scripts/audit/sdk-exports-dist.py"
 SIBLING_DRIFT = REPO_ROOT / "70-tools/scripts/audit/sibling-convention-drift.py"
+SUBSTRATE_BOUNDARY = REPO_ROOT / "70-tools/scripts/lint/substrate-boundary.mjs"
 
 
 def _run_py(path: Path, args: list[str] | None = None) -> tuple[int, str]:
@@ -35,6 +36,36 @@ def _run_py(path: Path, args: list[str] | None = None) -> tuple[int, str]:
         cmd.extend(args)
     result = subprocess.run(cmd, capture_output=True, text=True, cwd=REPO_ROOT, timeout=15)
     return result.returncode, result.stdout
+
+
+# ─── west-flat substrate boundary path normalization ─────────────────
+
+
+class TestSubstrateBoundaryFlatPaths:
+    @staticmethod
+    def _run(path: Path) -> subprocess.CompletedProcess[str]:
+        return subprocess.run(
+            ["node", str(SUBSTRATE_BOUNDARY), str(path)],
+            cwd=REPO_ROOT,
+            text=True,
+            capture_output=True,
+            check=False,
+            timeout=15,
+        )
+
+    def test_absolute_flat_actor_path_is_scanned(self, tmp_path: Path):
+        source = tmp_path / "orgs/etzhayyim/com-etzhayyim-demo/src/direct.ts"
+        source.parent.mkdir(parents=True)
+        source.write_text('import { AtpAgent } from "@atproto/' + 'api";\n')
+        result = self._run(source)
+        assert result.returncode == 1
+        assert "substrate client seam" in result.stderr
+
+    def test_absolute_flat_sdk_path_is_allowed(self, tmp_path: Path):
+        source = tmp_path / "orgs/etzhayyim/com-etzhayyim-sdk/src/direct.ts"
+        source.parent.mkdir(parents=True)
+        source.write_text('import { AtpAgent } from "@atproto/' + 'api";\n')
+        assert self._run(source).returncode == 0
 
 
 # ─── dependabot-defunct.py ────────────────────────────────────────────
