@@ -1,0 +1,12 @@
+{:schema "etzhayyim.migration/moved-v1"
+ :source {:repo "etzhayyim/root"
+          :path "60-apps/etzhayyim-project-shinkansen"
+          :revision "f9432ab5dd6554faa47e49b695e8ff508f824be6"
+          :git-tree "2da40f94d9a53db8d442c2efbc3cc8f10e47e0a7"
+          :tracked-files 21
+          :bytes 81186}
+ :destination {:repo "etzhayyim/com-etzhayyim-app-shinkansen"
+               :revision "83b7b4849be9696c554a5be994ef18e5d6355cde"}
+ :status :moved
+ :owner-adr "2607200530"
+ :verification :source-tree-plus-canonical-edn-only}

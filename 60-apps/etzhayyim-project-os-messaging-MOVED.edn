@@ -1,0 +1,12 @@
+{:schema "etzhayyim.migration/moved-v1"
+ :source {:repo "etzhayyim/root"
+          :path "60-apps/etzhayyim-project-os-messaging"
+          :revision "f9432ab5dd6554faa47e49b695e8ff508f824be6"
+          :git-tree "fe356b61a0860ba5bf721b9ed6fdc3016bd6e5e0"
+          :tracked-files 21
+          :bytes 74643}
+ :destination {:repo "etzhayyim/com-etzhayyim-app-os-messaging"
+               :revision "41d28f75f27d305bca371e1a19d7c0049c34c9cc"}
+ :status :moved
+ :owner-adr "2607200530"
+ :verification :source-tree-plus-canonical-edn-only}
