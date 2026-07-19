@@ -139,3 +139,7 @@
 (deftest key-normalization
   (is (= {:object-type "patent" :patent-id "n1"}
          (srv/normalize-input {"objectType" "patent" "patent_id" "n1"}))))
+
+(deftest server-start-requires-explicit-capability
+  (is (thrown-with-msg? clojure.lang.ExceptionInfo #"explicit server capability"
+                        (srv/start! nil {:port 0}))))

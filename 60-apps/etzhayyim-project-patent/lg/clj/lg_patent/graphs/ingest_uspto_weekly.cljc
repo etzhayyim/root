@@ -23,29 +23,15 @@
   kotoba-Datom-log store seam; no per-node RetryPolicy."
   (:require [clojure.string :as str]
             [langgraph.graph :as g]
-            #?(:clj [cheshire.core :as json])
-            #?(:clj [babashka.http-client :as http])))
+            #?(:clj [cheshire.core :as json])))
 
-(defn- getenv [k default]
-  #?(:clj (or (System/getenv k) default) :default default))
+(def ^:dynamic *config* {:patentsview-url "https://search.patentsview.org/api/v1/patent/"})
 
 (defn patentsview-url []
-  (-> (getenv "PATENTSVIEW_URL" "https://search.patentsview.org/api/v1/patent/")
+  (-> (:patentsview-url *config*)
       (str/replace #"/+$" "")))
 
-(defn- default-http-get
-  "Real public-source GET → parsed JSON map (or {::http-error status})."
-  [url]
-  #?(:clj
-     (let [resp (http/get url {:headers {"Accept" "application/json"} :throw false})
-           status (:status resp)]
-       (if (>= status 400)
-         {::http-error status}
-         (try (json/parse-string (:body resp) true)
-              (catch Exception _ {::parse-error true :raw (:body resp)}))))
-     :default {::http-error 0}))
-
-(def ^:dynamic *http-get* default-http-get)
+(def ^:dynamic *http-get* nil)
 
 (def ^:dynamic *write-records*
   "Store seam: upsert {:patents [...] :citations [...]} → counts. Default no-op
@@ -57,10 +43,12 @@
   [state]
   (if (false? (:network state))
     {:status "skipped" :error "network disabled" :patents []}
-    (let [resp (*http-get* (patentsview-url))]
+    (if-not (fn? *http-get*)
+      {:status "skipped" :error "HTTP capability not configured" :patents []}
+      (let [resp (*http-get* (patentsview-url))]
       (if (::http-error resp)
         {:status "skipped" :error (str "patentsview http " (::http-error resp)) :patents []}
-        {:patents (vec (or (:patents resp) []))}))))
+        {:patents (vec (or (:patents resp) []))})))))
 
 (defn fetch-epo-citations
   "Fetch EPO OPS citation edges for the fetched patents. Pass-through on skip."

@@ -29,11 +29,9 @@
             [lg-patent.graphs.blob-convert :as blob-convert]
             [lg-patent.graphs.ingest-uspto-weekly :as ingest-uspto-weekly]
             [lg-patent.cron :as cron]
-            #?(:clj [cheshire.core :as json])
-            #?(:clj [org.httpkit.server :as hk])))
+            #?(:clj [cheshire.core :as json])))
 
-(defn- getenv [k default]
-  #?(:clj (or (System/getenv k) default) :default default))
+(def ^:dynamic *api-key* "")
 
 (def GRAPHS
   {"health"              health/GRAPH
@@ -44,7 +42,7 @@
   {"com.etzhayyim.apps.patent.blobConvert"       "blob_convert"
    "com.etzhayyim.apps.patent.ingestUsptoWeekly" "ingest_uspto_weekly"})
 
-(defn api-key [] (str/trim (getenv "LG_API_KEY" "")))
+(defn api-key [] (str/trim *api-key*))
 
 ;; ── key normalization (camelCase | snake_case → kebab keyword) ──────────
 
@@ -200,14 +198,14 @@
 #?(:clj
    (defn start!
      "Boot the httpkit server. opts: {:port n}. Returns the stop fn."
-     [& [{:keys [port] :or {port 8000}}]]
+     [run-server & [{:keys [port] :or {port 8000}}]]
+     (when-not (fn? run-server)
+       (throw (ex-info "Patent requires explicit server capability" {})))
      (let [crons (cron/start-cron GRAPHS)]
        (println (str "lg-patent up: graphs=" (vec (keys GRAPHS))
                      " crons=" (or (:registered crons) 0) " port=" port))
-       (hk/run-server handler {:port port}))))
+       (run-server handler {:port port}))))
 
 #?(:clj
-   (defn -main [& args]
-     (let [port (Integer/parseInt (or (first args) (getenv "PORT" "8000")))]
-       (start! {:port port})
-       @(promise))))
+   (defn -main [& _]
+     (throw (ex-info "Patent portable runtime requires a host adapter" {}))))
