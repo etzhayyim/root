@@ -105,12 +105,36 @@ def configured_west_orgs(deps_edn: Path) -> set[str]:
 
 def classify_west_project(raw: str, allowed_orgs: set[str]) -> bool:
     """Whether ``raw`` is a well-shaped project path in a configured org."""
-    match = _WEST_PROJECT_RE.fullmatch(raw)
+    normalized = raw.rstrip("/")
+    match = _WEST_PROJECT_RE.fullmatch(normalized)
     return bool(
         match
         and match.group("org") in allowed_orgs
-        and all(part not in (".", "..") for part in raw.split("/"))
+        and all(part not in (".", "..") for part in normalized.split("/"))
     )
+
+
+def canonical_successor(repo_root: Path, raw: str) -> Optional[tuple[str, Path]]:
+    """Find an EDN-canonical document or numbered-layer migration tombstone.
+
+    The registry deliberately retains historical paths for provenance. After
+    the EDN conversion / west extraction those paths are satisfied by either
+    a same-stem ``.edn`` document or an ancestor ``*-MOVED.edn`` marker.
+    Neither should be re-baselined as missing implementation source.
+    """
+    path = Path(raw.rstrip("/"))
+    if path.suffix == ".md":
+        edn = repo_root / path.with_suffix(".edn")
+        if edn.is_file():
+            return "edn-canonical", edn
+    parts = path.parts
+    if parts and re.fullmatch(r"[0-9]{2}-[^/]+", parts[0]):
+        for size in range(len(parts), 1, -1):
+            ancestor = Path(*parts[:size])
+            marker = repo_root / ancestor.parent / f"{ancestor.name}-MOVED.edn"
+            if marker.is_file():
+                return "migration-marker", marker
+    return None
 
 _STR_ESCAPES = {'"': '"', "\\": "\\", "n": "\n", "t": "\t", "r": "\r"}
 
@@ -161,7 +185,7 @@ class PathCheck:
     adr: Optional[str] = None
     id: Optional[str] = None
     reserved_marker: Optional[str] = None
-    unverifiable: Optional[str] = None  # "submodule" | "external" | "west-project" | None
+    unverifiable: Optional[str] = None  # external ownership / canonical successor kind
 
     @property
     def is_drift(self) -> bool:
@@ -222,7 +246,10 @@ def check_paths(
                 unverifiable = "submodule"
             elif classify_west_project(clean, west_orgs):
                 unverifiable = "west-project"
+            successor = canonical_successor(repo_root, clean)
             resolved = (repo_root / clean).resolve()
+            if not resolved.exists() and successor is not None:
+                unverifiable, resolved = successor
             results.append(
                 PathCheck(
                     section=section,

@@ -78,9 +78,10 @@ class CheckPathsTest(unittest.TestCase):
         rs = self.run_checks(
             '{:platform {:operating_entity {:github_org_open "etzhayyim"}}'
             ' :modules [{:path "orgs/etzhayyim/com-etzhayyim-kami-apps"}'
-            ' {:path "orgs/etzhayyim/com-etzhayyim-kami-apps/src/lib.cljc"}]}'
+            ' {:path "orgs/etzhayyim/com-etzhayyim-kami-apps/src/lib.cljc"}'
+            ' {:path "orgs/etzhayyim/com-etzhayyim-kami-apps/"}]}'
         )
-        self.assertEqual(sum(r.unverifiable == "west-project" for r in rs), 2)
+        self.assertEqual(sum(r.unverifiable == "west-project" for r in rs), 3)
         self.assertFalse(any(r.is_drift for r in rs))
 
     def test_unknown_or_malformed_west_project_is_drift(self):
@@ -93,6 +94,22 @@ class CheckPathsTest(unittest.TestCase):
         )
         self.assertEqual(sum(r.is_drift for r in rs), 4)
         self.assertFalse(any(r.unverifiable == "west-project" for r in rs))
+
+    def test_edn_canonical_counterpart_satisfies_historical_md_path(self):
+        rs = self.run_checks(
+            '{:adrs [{:id "1" :path "90-docs/adr/one.md"}]}',
+            files=["90-docs/adr/one.edn"],
+        )
+        self.assertEqual(rs[0].unverifiable, "edn-canonical")
+        self.assertFalse(rs[0].is_drift)
+
+    def test_numbered_layer_moved_marker_satisfies_descendant_paths(self):
+        rs = self.run_checks(
+            '{:modules [{:path "40-engine/leaf"} {:path "40-engine/leaf/src/x.rs"}]}',
+            files=["40-engine/leaf-MOVED.edn"],
+        )
+        self.assertEqual(sum(r.unverifiable == "migration-marker" for r in rs), 2)
+        self.assertFalse(any(r.is_drift for r in rs))
 
     def test_modules_and_adrs_both_walked(self):
         rs = self.run_checks(
