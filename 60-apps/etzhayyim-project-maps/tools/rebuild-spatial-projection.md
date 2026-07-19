@@ -133,4 +133,4 @@ To bump this projection to L1-projection per [ADR-2605231500](../../../90-docs/a
   [`MIGRATION-TODO.md`](../MIGRATION-TODO.md).
 - The kotoba-datomic conformance definitions are in
   ADR-2605262130; historical conformance provenance is in
-  [`kotoba-datomic.edn`](../../../90-docs/provenance/archives/kotoba-datomic.edn).
+  [ADR-2607192500](../../../90-docs/adr/2607192500-protocol-libp2p-and-empty-engine-shell-drain.edn).

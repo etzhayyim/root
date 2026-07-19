@@ -4,7 +4,7 @@ Authoritative target: **kotoba-datomic L1 witnessed** for low-write entity regis
 
 - [ADR-2605231400](../../90-docs/adr/2605231400-kotoba-datomic-holochain-iso-substrate.md) — kotoba-datomic naming + 7-layer mapping
 - [ADR-2605172000](../../90-docs/adr/2605172000-etzhayyim-kotoba-substrate.md) — kotoba substrate hard rules
-- [`kotoba-datomic archive`](../../90-docs/provenance/archives/kotoba-datomic.edn) — historical L0 / L1 / L2 provenance; current owner ADR-2605262130
+- [ADR-2607192500](../../90-docs/adr/2607192500-protocol-libp2p-and-empty-engine-shell-drain.edn) — historical kotoba-datomic spec provenance; current owner ADR-2605262130
 
 ## Current state (2026-05-23)
 
@@ -20,7 +20,7 @@ Authoritative target: **kotoba-datomic L1 witnessed** for low-write entity regis
 
 ## Tier classification
 
-Every maps write/read maps to the current kotoba arrangement contract; historical tiers remain in the [EDN provenance archive](../../90-docs/provenance/archives/kotoba-datomic.edn):
+Every maps write/read maps to the current kotoba arrangement contract; historical tier provenance remains in [ADR-2607192500](../../90-docs/adr/2607192500-protocol-libp2p-and-empty-engine-shell-drain.edn):
 
 ### Tier A — kotoba-datomic L0 ready (pure MST migration, low write rate)
 

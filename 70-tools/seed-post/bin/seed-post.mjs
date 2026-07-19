@@ -7,7 +7,7 @@
 //
 // Per:
 //   - ADR-2605172000 (kotoba substrate)
-//   - ADR-2605262130 + 90-docs/provenance/archives/kotoba-datomic.edn
+//   - ADR-2605262130 + ADR-2607192500 (deprecated kotoba-datomic provenance)
 //   - ADR-2605231525 (member wallet / member passkey-derived ES256 only;
 //     no platform-held private key — this CLI is operator-local, the
 //     PDS app-password lives in the operator's macOS Keychain).

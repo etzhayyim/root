@@ -330,7 +330,7 @@ Apps that need fiat / paid features call an external backend via XRPC consent-ca
 - `90-docs/adr/2605262130-kotoba-storage-substrate-unification.md` — canonical storage substrate engine (kotoba); supersedes kotoba-datomic composition + projection layers; no RisingWave
 - `90-docs/adr/2605312345-kotoba-datom-first-class-canonical-state.md` — kotoba Datom log = first-class canonical state; IPFS = block backend, MST = ingress/interop wire, Base L2 = trust anchor (clarifies 2605262130 layering)
 - `40-engine/kotoba/README.md` — kotoba upstream README (17 crates)
-- `90-docs/provenance/archives/kotoba-datomic.edn` — deprecated spec provenance; superseded by ADR-2605262130
+- `90-docs/adr/2607192500-protocol-libp2p-and-empty-engine-shell-drain.edn` — deprecated kotoba-datomic spec provenance; superseded by ADR-2605262130
 - `90-docs/adr/2605231400-kotoba-datomic-holochain-iso-substrate.md` — (superseded by ADR-2605262130)
 - `90-docs/adr/2605231500-kotoba-datomic-projection.md` — (superseded by ADR-2605262130; no projection layer under kotoba)
 - `90-docs/adr/2605231902-feed-post-membrane-and-feed-discover-projection.md` — first end-to-end MST §4 membrane + L1-projection app (app.bsky.feed.post); **preserved unchanged**; Phase 2.5 read-path migration to kotoba-kqe per ADR-2605262130
