@@ -9,33 +9,34 @@
     default posts to an OpenAI-compatible `/chat/completions` endpoint. Per
     ADR-2605215000 (etzhayyim inference = Murakumo only) `LLM_BASE_URL` should
     point at the Murakumo loopback; tests rebind `*chat-complete*`."
-  (:require [babashka.http-client :as http]
-            [cheshire.core :as json]
+  (:require [cheshire.core :as json]
             [clojure.string :as str]
             [etzhayyim.browser-agent.state :as state]
             [etzhayyim.browser-agent.tools :as tools]))
 
-(defn- env [k default] (or (System/getenv k) default))
-
-(def llm-base-url (env "LLM_BASE_URL" "https://openrouter.ai/api/v1"))
-(def llm-api-key  (env "LLM_API_KEY" (env "OPENROUTER_API_KEY" "")))
-(def llm-model    (env "LLM_MODEL" "google/gemma-3-27b-it"))
+(def default-llm-config
+  {:base-url "https://openrouter.ai/api/v1"
+   :api-key ""
+   :model "google/gemma-3-27b-it"})
 
 (def max-search-results 8)
 (def max-scrape-urls 6)
 (def max-iterations 2)
 (def quality-threshold 0.75)
 
-(defn- default-chat
+(defn chat-with
   "OpenAI-compatible chat completion (Murakumo loopback per ADR-2605215000).
   Takes {:system :prompt}, returns the assistant message content (trimmed)."
-  [{:keys [system prompt]}]
-  (let [resp (http/post (str llm-base-url "/chat/completions")
+  [http-post {:keys [base-url api-key model]} {:keys [system prompt]}]
+  (when-not (fn? http-post)
+    (throw (ex-info "browser-agent LLM requires an explicit HTTP POST capability"
+                    {:capability :browser-agent/llm-http-post})))
+  (let [resp (http-post (str (str/replace base-url #"/+$" "") "/chat/completions")
                         {:headers (cond-> {"Content-Type" "application/json"}
-                                    (seq llm-api-key)
-                                    (assoc "Authorization" (str "Bearer " llm-api-key)))
+                                    (seq api-key)
+                                    (assoc "Authorization" (str "Bearer " api-key)))
                          :body (json/generate-string
-                                {:model llm-model
+                                {:model model
                                  :temperature 0.2
                                  :messages [{:role "system" :content system}
                                             {:role "user" :content prompt}]})
@@ -49,7 +50,11 @@
   nil -> `default-chat`. Rebound in tests to avoid network."
   nil)
 
-(defn- chat [args] ((or *chat-complete* default-chat) args))
+(defn- chat [args]
+  (when-not (fn? *chat-complete*)
+    (throw (ex-info "browser-agent requires an explicit chat capability"
+                    {:capability :browser-agent/chat-complete})))
+  (*chat-complete* args))
 
 (defn extract-json-array
   "Pull the first JSON array (`[` .. `]`) out of an LLM response and parse it.

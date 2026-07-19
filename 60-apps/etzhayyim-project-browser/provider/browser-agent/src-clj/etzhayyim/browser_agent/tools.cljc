@@ -7,16 +7,16 @@
   content, remaining tags removed, a few HTML entities decoded, whitespace
   collapsed. All network errors are swallowed to [] / \"\" exactly like the
   python (which returned empty on any exception)."
-  (:require [babashka.http-client :as http]
-            [cheshire.core :as json]
+  (:require [cheshire.core :as json]
             [clojure.string :as str]))
 
-(defn- env [k default] (or (System/getenv k) default))
-
 ;; SearXNG meta search (internal, no API key required)
-(def searxng-url      (env "SEARXNG_URL"      "https://searxng.etzhayyim.com"))
-(def crawl-engine-url (env "CRAWL_ENGINE_URL" "https://crawl-engine.etzhayyim.com"))
-(def browserless-url  (env "BROWSERLESS_URL"  "https://browserless.etzhayyim.com"))
+(def default-config
+  {:searxng-url "https://searxng.etzhayyim.com"
+   :crawl-engine-url "https://crawl-engine.etzhayyim.com"})
+(def ^:dynamic *config* default-config)
+(def ^:dynamic *http-get* nil)
+(def ^:dynamic *http-post* nil)
 
 (def max-content-chars 4000)
 
@@ -48,7 +48,7 @@
   "GET /search?format=json from the internal SearXNG instance."
   [query max-results]
   (try
-    (let [resp (http/get (str searxng-url "/search")
+    (let [resp (*http-get* (str (:searxng-url *config*) "/search")
                          {:query-params {:q query
                                          :format "json"
                                          :categories "general"
@@ -80,7 +80,7 @@
   (or
    ;; prefer crawl-engine for JS-heavy pages
    (try
-     (let [resp (http/post (str crawl-engine-url "/fetch")
+     (let [resp (*http-post* (str (:crawl-engine-url *config*) "/fetch")
                            {:headers {"Content-Type" "application/json"}
                             :body (json/generate-string {:url url :fetchMode "static"})
                             :timeout 20000
@@ -91,7 +91,7 @@
      (catch Exception _ nil))
    ;; direct fallback
    (try
-     (let [resp (http/get url {:headers {"User-Agent" "etzhayyim-browser-agent/1.0"}
+     (let [resp (*http-get* url {:headers {"User-Agent" "etzhayyim-browser-agent/1.0"}
                                :timeout 15000
                                :throw false})]
        (truncate (extract-text (:body resp))))

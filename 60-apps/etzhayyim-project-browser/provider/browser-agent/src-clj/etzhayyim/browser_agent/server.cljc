@@ -31,15 +31,12 @@
     "https://cr4wl3r0.etzhayyim.com"
     "https://etzhayyim.com"
     "https://www.etzhayyim.com"})
+(def ^:dynamic *cors-origins* default-cors-origins)
 
 (defn- cors-origin-allowlist
   "Set of allowed origins. BROWSER_AGENT_CORS_ORIGINS (comma/space separated)
    overrides the first-party default."
-  []
-  (let [env (System/getenv "BROWSER_AGENT_CORS_ORIGINS")]
-    (if (and env (not (str/blank? env)))
-      (set (remove str/blank? (str/split env #"[,\s]+")))
-      default-cors-origins)))
+  [] *cors-origins*)
 
 (defn- origin-allowed? [origin allowlist] (contains? allowlist origin))
 
@@ -65,7 +62,8 @@
 
 (defn search-handler
   "POST /search — stream the browser-search graph as Server-Sent Events."
-  [req]
+  ([req] (search-handler req graph/run-graph *cors-origins*))
+  ([req graph-runner cors-origins]
   (hk/as-channel
    req
    {:on-open
@@ -83,11 +81,13 @@
                           :headers (merge {"Content-Type" "text/event-stream"
                                            "Cache-Control" "no-cache"
                                            "X-Accel-Buffering" "no"}
-                                          (cors-headers req))
+                                          (cors-headers-for
+                                           (get-in req [:headers "origin"])
+                                           cors-origins))
                           :body ""}
                       false)
             (try
-              (graph/run-graph
+              (graph-runner
                (state/init-state query page-url)
                (fn [node delta _state]
                  (when-let [p (phase-map node)]
@@ -101,11 +101,13 @@
               (catch Exception e
                 (sse ch {:type "error" :message (.getMessage e)})))
             (hk/send! ch {:body "data: [DONE]\n\n"} false)
-            (hk/close ch)))))}))
+            (hk/close ch)))))})))
 
-(defn app
+(defn app-with-capabilities
   "Ring handler: /health (GET) and /search (POST)."
-  [req]
+  [{:keys [graph-runner cors-origins]
+    :or {graph-runner graph/run-graph cors-origins default-cors-origins}}
+   req]
   (case [(:request-method req) (:uri req)]
     [:get "/health"]
     {:status 200
@@ -113,11 +115,11 @@
      :body (json/generate-string {:ok true :app "browser-agent"})}
 
     [:post "/search"]
-    (search-handler req)
+    (search-handler req graph-runner cors-origins)
 
     [:options "/search"]
     (if-let [origin (get-in req [:headers "origin"])]
-      (if (origin-allowed? origin (cors-origin-allowlist))
+      (if (origin-allowed? origin cors-origins)
         {:status 204
          :headers (merge {"Access-Control-Allow-Methods" "POST"
                           "Access-Control-Allow-Headers" "Content-Type"}
@@ -132,8 +134,14 @@
      :headers {"Content-Type" "application/json"}
      :body (json/generate-string {:error "not found"})}))
 
+(defn app [req] (app-with-capabilities {} req))
+
+(defn run-server-with [run-server port handler]
+  (when-not (fn? run-server)
+    (throw (ex-info "browser-agent requires an explicit server capability"
+                    {:capability :browser-agent/run-server})))
+  (run-server handler {:port port :ip "0.0.0.0"}))
+
 (defn -main [& _]
-  (let [port (Integer/parseInt (or (System/getenv "PORT") "8000"))]
-    (hk/run-server app {:port port :ip "0.0.0.0"})
-    (println (str "browser-agent (clj) listening on 0.0.0.0:" port))
-    @(promise)))
+  (throw (ex-info "browser-agent portable runtime requires an explicit host adapter"
+                  {:capability :browser-agent/host-adapter})))
