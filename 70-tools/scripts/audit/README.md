@@ -71,11 +71,10 @@ Discovery: iter-26 / iter-27 (`./genko/components` `types` pointed at non-existe
 
 ### `subrepo-upstream-health.sh`
 
-Find `.gitrepo` files whose `remote` URL no longer resolves to a live GitHub repo (404). Excludes the COFOG tree by default (hundreds of small subrepos that warrant separate audit cadence).
+Find `.gitrepo` files whose `remote` URL no longer resolves to a live GitHub repo (404). The former COFOG exception was removed when that application moved to its standalone repository.
 
 ```bash
-bash 70-tools/scripts/audit/subrepo-upstream-health.sh                   # exclude cofog
-bash 70-tools/scripts/audit/subrepo-upstream-health.sh --include-cofog
+bash 70-tools/scripts/audit/subrepo-upstream-health.sh
 bash 70-tools/scripts/audit/subrepo-upstream-health.sh --strict          # exit 1 on findings
 ```
 
