@@ -47,6 +47,18 @@
     (is (not (re-find #"menu" txt)))
     (is (not (re-find #"foot" txt)))))
 
+(deftest network-capabilities-are-explicit
+  (testing "tools cannot access the network without host HTTP capabilities"
+    (binding [tools/*http-get* nil tools/*http-post* nil]
+      (is (= [] (tools/web-search "q" 1)))
+      (is (= "" (tools/fetch-page "https://example.com")))))
+  (testing "LLM and server capabilities fail closed when absent"
+    (is (thrown-with-msg? clojure.lang.ExceptionInfo #"explicit HTTP POST"
+                          (nodes/chat-with nil nodes/default-llm-config
+                                           {:system "s" :prompt "p"})))
+    (is (thrown-with-msg? clojure.lang.ExceptionInfo #"explicit server capability"
+                          (server/run-server-with nil 0 server/app)))))
+
 ;; ---- nodes -----------------------------------------------------------------
 
 (deftest extract-json-array-parsing
@@ -185,6 +197,17 @@
   (testing "default allowlist rejects unknown origin"
     (is (not (#'server/origin-allowed? "https://evil.example"
                                       (#'server/cors-origin-allowlist))))))
+
+(deftest cors-allowlist-is-an-explicit-host-capability
+  (binding [server/*cors-origins* #{"https://host.example"}]
+    (is (= #{"https://host.example"} (#'server/cors-origin-allowlist))))
+  (let [resp (server/app-with-capabilities
+              {:cors-origins #{"https://host.example"}}
+              {:request-method :options :uri "/search"
+               :headers {"origin" "https://host.example"}})]
+    (is (= 204 (:status resp)))
+    (is (= "https://host.example"
+           (get-in resp [:headers "Access-Control-Allow-Origin"])))))
 
 (deftest cors-options-preflight
   (testing "allowed origin -> 204 with echo + methods"
