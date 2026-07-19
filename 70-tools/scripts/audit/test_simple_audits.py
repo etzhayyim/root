@@ -28,6 +28,7 @@ DEPENDABOT = REPO_ROOT / "70-tools/scripts/audit/dependabot-defunct.py"
 SDK_EXPORTS = REPO_ROOT / "70-tools/scripts/audit/sdk-exports-dist.py"
 SIBLING_DRIFT = REPO_ROOT / "70-tools/scripts/audit/sibling-convention-drift.py"
 SUBSTRATE_BOUNDARY = REPO_ROOT / "70-tools/scripts/lint/substrate-boundary.mjs"
+SVELTE_WASM = REPO_ROOT / "50-infra/sveltejs-adapter-wasm"
 
 
 def _run_py(path: Path, args: list[str] | None = None) -> tuple[int, str]:
@@ -66,6 +67,18 @@ class TestSubstrateBoundaryFlatPaths:
         source.parent.mkdir(parents=True)
         source.write_text('import { AtpAgent } from "@atproto/' + 'api";\n')
         assert self._run(source).returncode == 0
+
+
+class TestGoDeprecation:
+    def test_svelte_adapter_has_no_tinygo_runtime(self):
+        adapter = SVELTE_WASM / "projects/sveltejs-adapter-wasm/adapter/src/index.ts"
+        assert "tinygo" not in adapter.read_text().lower()
+        retired_demo = SVELTE_WASM / "demos/demo-tinygo-qjs"
+        assert not any(path.is_file() for path in retired_demo.rglob("*"))
+
+    def test_active_svelte_demos_use_javy(self):
+        config = SVELTE_WASM / "demos/demo-ssg/svelte.config.js"
+        assert "runtime: 'javy'" in config.read_text()
 
 
 # ─── dependabot-defunct.py ────────────────────────────────────────────

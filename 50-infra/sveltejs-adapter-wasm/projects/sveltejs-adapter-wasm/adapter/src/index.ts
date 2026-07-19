@@ -7,7 +7,7 @@ import type { Adapter, Builder } from '@sveltejs/kit';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export interface AdapterOptions {
-	runtime?: 'javy' | 'tinygo-qjs';
+	runtime?: 'javy';
 	out?: string;
 }
 
@@ -75,24 +75,6 @@ export default function (options: AdapterOptions = {}): Adapter {
 				} catch (e: any) {
 					builder.log.error(`Javy build failed: ${e.message}`);
 				}
-			} else if (runtime === 'tinygo-qjs') {
-				builder.log.minor('Preparing TinyGo orchestration build...');
-				const runtime_dir = fileURLToPath(new URL('../../wasm/runtime', import.meta.url));
-				const build_dir = join(runtime_dir, 'build');
-				
-				builder.rimraf(build_dir);
-				builder.mkdirp(build_dir);
-
-				// Copy all build artifacts (index.js, client/, prerendered/) to TinyGo build directory
-				const { cpSync } = await import('node:fs');
-				try {
-					cpSync(out, build_dir, { recursive: true });
-					builder.log.minor(`Copied build artifacts to ${build_dir}`);
-				} catch (e: any) {
-					builder.log.error(`Failed to copy build artifacts: ${e.message}`);
-				}
-				
-				builder.log.info('Ready to build TinyGo performer: wash build inside projects/sveltejs-adapter-wasm/wasm/runtime');
 			}
 		}
 	};

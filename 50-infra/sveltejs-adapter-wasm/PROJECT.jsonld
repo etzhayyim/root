@@ -6,7 +6,7 @@
   "description": "An adapter for SvelteKit that targets wasmCloud components using QuickJS.",
   "techStack": {
     "runtime": "wasmCloud",
-    "language": ["TinyGo", "TypeScript"],
+    "language": ["TypeScript"],
     "framework": "Svelte 5",
     "jsEngine": "QuickJS"
   }
