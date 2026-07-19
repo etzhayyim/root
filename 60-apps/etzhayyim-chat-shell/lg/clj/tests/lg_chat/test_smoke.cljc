@@ -42,3 +42,18 @@
   (is (some? (server/resolve-graph "sodai_submit")))
   (is (some? (server/resolve-graph "")))            ; empty → agent_chat default
   (is (nil? (server/resolve-graph "nope"))))
+
+(deftest test-explicit-host-config
+  (testing "secret-bound handler rejects a mismatched API key"
+    (is (= 401 (:status (server/handler-with-config
+                         {:api-key "secret"}
+                         {:request-method :post :uri "/runs"
+                          :headers {"x-api-key" "wrong"} :body "{}"})))))
+  (testing "server capability and port are validated before invocation"
+    (is (thrown-with-msg? Exception #"server capability not configured"
+                          (server/start-with nil {} 8000)))
+    (is (thrown-with-msg? Exception #"invalid server port"
+                          (server/start-with (fn [& _]) {} 0))))
+  (testing "tool credentials are explicit and absent by default"
+    (is (false? (:ok (tools/tool-file-save {"filename" "x" "content" "y"}))))
+    (is (false? (:ok (tools/tool-web-search {"query" "x"}))))))
