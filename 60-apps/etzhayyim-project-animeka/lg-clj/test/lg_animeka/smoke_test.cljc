@@ -91,6 +91,9 @@
   (is (= "generate_keyframe" (u/camel->snake "generateKeyframe")))
   (is (= 200 (u/clamp 9999 200 1 200)))
   (is (= 1 (u/clamp -5 200 1 200)))
+  (is (= 42 (u/clamp "42" 50 1 200)))
+  (is (= 1 (u/clamp "-9" 50 1 200)))
+  (is (= 50 (u/clamp "#=(System/exit 1)" 50 1 200)))
   (is (= 50 (u/clamp nil 50 1 200))))
 
 ;; ── health graph end-to-end ─────────────────────────────────────────────────
