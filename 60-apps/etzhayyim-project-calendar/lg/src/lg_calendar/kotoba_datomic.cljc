@@ -8,19 +8,13 @@
   Endpoint resolution honors `KOTOBA_URL` (default kotoba Service :8080). Auth =
   Bearer JWT (`KOTOBA_BEARER`); `KOTOBA_DEFAULT_VISIBILITY=authenticated` on the
   kotoba pod keeps the dedicated `calendar-v1` graph JWT-only per ADR-2605302130."
-  (:require [babashka.http-client :as http]
-            [cheshire.core :as json]
+  (:require [cheshire.core :as json]
             [clojure.string :as str]
             [lg-calendar.edn :as edn]))
 
-(def kotoba-xrpc
-  (str/replace
-   (or (System/getenv "KOTOBA_XRPC_URL")
-       (System/getenv "KOTOBA_URL")
-       "http://kotoba.kotoba.svc.cluster.local:8080")
-   #"/+$" ""))
-
-(def kotoba-bearer (or (System/getenv "KOTOBA_BEARER") ""))
+(def default-config {:xrpc-url "http://kotoba.kotoba.svc.cluster.local:8080"
+                     :bearer "" :graph-label "calendar-v1"})
+(def ^:dynamic *http-post* nil)
 
 (def ^:private b32-alphabet "abcdefghijklmnopqrstuvwxyz234567")
 
@@ -61,10 +55,7 @@
     label
     (kotoba-cid (.getBytes ^String label "UTF-8"))))
 
-(def default-graph (graph-cid-for-label (or (System/getenv "KOTOBA_GRAPH") "calendar-v1")))
-
-(defn- headers []
-  (if (seq kotoba-bearer) {"Authorization" (str "Bearer " kotoba-bearer)} {}))
+(def default-graph (graph-cid-for-label (:graph-label default-config)))
 
 (defn- bare-attr
   "':cal/summary' -> 'cal/summary'."
@@ -91,23 +82,34 @@
                       {} datoms)]
       (when (seq out) out))))
 
-(defrecord KotobaDatomic [graph])
+(defrecord KotobaDatomic [graph config])
 
 (defn make-kotoba-datomic
-  ([] (->KotobaDatomic default-graph))
-  ([graph] (->KotobaDatomic graph)))
+  ([] (make-kotoba-datomic default-config))
+  ([config-or-graph]
+   (if (map? config-or-graph)
+     (let [cfg (merge default-config config-or-graph)]
+       (->KotobaDatomic (graph-cid-for-label (:graph-label cfg)) cfg))
+     (->KotobaDatomic config-or-graph default-config))))
 
-(defn- post-json [url body]
-  (http/post url {:headers (merge {"Content-Type" "application/json"} (headers))
+(defn- post-json [dm path body]
+  (when-not (fn? *http-post*)
+    (throw (ex-info "Calendar Kotoba client requires an explicit HTTP POST capability"
+                    {:capability :calendar/kotoba-http-post})))
+  (let [{:keys [xrpc-url bearer]} (:config dm)
+        headers (cond-> {"Content-Type" "application/json"}
+                  (seq bearer) (assoc "Authorization" (str "Bearer " bearer)))]
+  (*http-post* (str (str/replace xrpc-url #"/+$" "") "/xrpc/" path)
+             {:headers headers
                   :body (json/generate-string body)
-                  :throw false}))
+                  :throw false})))
 
 (defn transact
   ([dm ops] (transact dm ops nil))
   ([dm ops expected-parent]
    (let [body (cond-> {"graph" (:graph dm) "tx_edn" (edn/encode-tx-data ops)}
                 expected-parent (assoc "expected_parent" expected-parent))
-         resp (post-json (str kotoba-xrpc "/xrpc/ai.etzhayyim.apps.kotoba.datomic.transact") body)]
+         resp (post-json dm "ai.etzhayyim.apps.kotoba.datomic.transact" body)]
      (when (>= (:status resp) 400)
        (throw (ex-info "kotoba transact failed" {:status (:status resp) :body (:body resp)})))
      (json/parse-string (:body resp)))))
@@ -117,7 +119,7 @@
   ([dm query-edn inputs-edn]
    (let [body (cond-> {"graph" (:graph dm) "query_edn" query-edn}
                 (seq inputs-edn) (assoc "inputs_edn" inputs-edn))
-         resp (post-json (str kotoba-xrpc "/xrpc/ai.etzhayyim.apps.kotoba.datomic.q") body)]
+         resp (post-json dm "ai.etzhayyim.apps.kotoba.datomic.q" body)]
      (when (>= (:status resp) 400)
        (throw (ex-info "kotoba q failed" {:status (:status resp) :body (:body resp)})))
      (let [rows (or (get (json/parse-string (:body resp)) "rows_edn") [])]
@@ -127,7 +129,7 @@
   "Return the entity as a flat {bare_attr: value} map, or nil on miss."
   [dm entity]
   (let [body {"graph" (:graph dm) "entity" entity}
-        resp (post-json (str kotoba-xrpc "/xrpc/ai.etzhayyim.apps.kotoba.datomic.pull") body)]
+        resp (post-json dm "ai.etzhayyim.apps.kotoba.datomic.pull" body)]
     (cond
       (= 404 (:status resp)) nil
       (>= (:status resp) 400) (throw (ex-info "kotoba pull failed" {:status (:status resp) :body (:body resp)}))

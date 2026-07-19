@@ -6,7 +6,30 @@
   (:require [clojure.test :refer [deftest is testing]]
             [sheets.a1 :as a1]
             [sheets.handlers :as handlers]
+            [sheets.graphs.health :as health]
+            [sheets.kotoba-datomic :as kd]
+            [sheets.server :as server]
             [sheets.store :as store]))
+
+(deftest explicit-kotoba-capability-and-config
+  (let [request (atom nil)
+        dm (kd/make {:xrpc-url "http://kotoba.internal/"
+                     :bearer "bound" :graph-label "sheets-safe"})]
+    (binding [kd/*http-post* (fn [url opts]
+                               (reset! request [url opts])
+                               {:status 200 :body "{\"rows_edn\":[]}"})]
+      (is (= [] (kd/q dm "[:find ?e]")))
+      (is (= "http://kotoba.internal/xrpc/ai.etzhayyim.apps.kotoba.datomic.q"
+             (first @request)))
+      (is (= "Bearer bound" (get-in @request [1 :headers "Authorization"]))))))
+
+(deftest explicit-server-auth-and-health-version
+  (let [handler (server/handler-with-config {:api-key "secret"})
+        response (handler {:request-method :get
+                           :uri "/xrpc/ai.etzhayyim.apps.sheets.valuesGet"
+                           :headers {"x-api-key" "wrong"}})]
+    (is (= 401 (:status response))))
+  (is (= "explicit" (:version (health/run {:host-config {:version "explicit"}})))))
 
 (defn- new-store [] (store/fake-sheet-store))
 

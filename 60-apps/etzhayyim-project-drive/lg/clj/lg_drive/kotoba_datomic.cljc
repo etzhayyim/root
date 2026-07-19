@@ -5,21 +5,14 @@
   `drive-v1`. httpx → babashka.http-client; JSON → cheshire (ADR-2606280030).
   Endpoint = KOTOBA_XRPC_URL|KOTOBA_URL (default in-cluster service); auth =
   Bearer JWT (KOTOBA_BEARER)."
-  (:require [babashka.http-client :as http]
-            [cheshire.core :as json]
+  (:require [cheshire.core :as json]
             [clojure.string :as str]
             [lg-drive.edn :as edn])
   (:import [java.security MessageDigest]))
 
-(defn- env [& ks] (some #(System/getenv %) ks))
-
-(def kotoba-xrpc
-  (str/replace
-   (or (env "KOTOBA_XRPC_URL" "KOTOBA_URL")
-       "http://kotoba.kotoba.svc.cluster.local:8080")
-   #"/+$" ""))
-
-(def kotoba-bearer (or (System/getenv "KOTOBA_BEARER") ""))
+(def default-config {:xrpc-url "http://kotoba.kotoba.svc.cluster.local:8080"
+                     :bearer "" :graph-label "drive-v1"})
+(def ^:dynamic *http-post* nil)
 
 (def ^:private b32-alphabet "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567")
 
@@ -49,10 +42,7 @@
     label
     (kotoba-cid (.getBytes ^String label "UTF-8"))))
 
-(def default-graph (graph-cid-for-label (or (System/getenv "KOTOBA_GRAPH") "drive-v1")))
-
-(defn- headers []
-  (if (str/blank? kotoba-bearer) {} {"Authorization" (str "Bearer " kotoba-bearer)}))
+(def default-graph (graph-cid-for-label (:graph-label default-config)))
 
 (defn ^:private bare-attr
   "':cal/summary' / :cal/summary → 'cal/summary'."
@@ -77,23 +67,34 @@
 
 ;; ── client record ────────────────────────────────────────────────────────────
 
-(defrecord KotobaDatomic [graph])
+(defrecord KotobaDatomic [graph config])
 
 (defn make-client
-  ([] (->KotobaDatomic default-graph))
-  ([graph] (->KotobaDatomic graph)))
+  ([] (make-client default-config))
+  ([config-or-graph]
+   (if (map? config-or-graph)
+     (let [cfg (merge default-config config-or-graph)]
+       (->KotobaDatomic (graph-cid-for-label (:graph-label cfg)) cfg))
+     (->KotobaDatomic config-or-graph default-config))))
 
-(defn- post-json [url body]
-  (http/post url {:headers (merge {"Content-Type" "application/json"} (headers))
+(defn- post-json [dm path body]
+  (when-not (fn? *http-post*)
+    (throw (ex-info "Drive Kotoba client requires an explicit HTTP POST capability"
+                    {:capability :drive/kotoba-http-post})))
+  (let [{:keys [xrpc-url bearer]} (:config dm)
+        headers (cond-> {"Content-Type" "application/json"}
+                  (seq bearer) (assoc "Authorization" (str "Bearer " bearer)))]
+  (*http-post* (str (str/replace xrpc-url #"/+$" "") "/xrpc/" path)
+             {:headers headers
                   :body (json/generate-string body)
-                  :throw false}))
+                  :throw false})))
 
 (defn transact
   ([dm ops] (transact dm ops nil))
   ([dm ops expected-parent]
    (let [body (cond-> {:graph (:graph dm) :tx_edn (edn/encode-tx-data ops)}
                 expected-parent (assoc :expected_parent expected-parent))
-         resp (post-json (str kotoba-xrpc "/xrpc/ai.etzhayyim.apps.kotoba.datomic.transact") body)]
+         resp (post-json dm "ai.etzhayyim.apps.kotoba.datomic.transact" body)]
      (when (>= (:status resp) 400)
        (throw (ex-info "kotoba transact failed" {:status (:status resp) :body (:body resp)})))
      (json/parse-string (:body resp) true))))
@@ -103,7 +104,7 @@
   ([dm query-edn inputs-edn]
    (let [body (cond-> {:graph (:graph dm) :query_edn query-edn}
                 inputs-edn (assoc :inputs_edn inputs-edn))
-         resp (post-json (str kotoba-xrpc "/xrpc/ai.etzhayyim.apps.kotoba.datomic.q") body)]
+         resp (post-json dm "ai.etzhayyim.apps.kotoba.datomic.q" body)]
      (when (>= (:status resp) 400)
        (throw (ex-info "kotoba q failed" {:status (:status resp) :body (:body resp)})))
      (let [rows (get (json/parse-string (:body resp)) "rows_edn" [])]
@@ -113,7 +114,7 @@
   "Return the entity as {:bare/attr value}, or nil on miss (404)."
   [dm entity]
   (let [body {:graph (:graph dm) :entity entity}
-        resp (post-json (str kotoba-xrpc "/xrpc/ai.etzhayyim.apps.kotoba.datomic.pull") body)]
+        resp (post-json dm "ai.etzhayyim.apps.kotoba.datomic.pull" body)]
     (cond
       (= 404 (:status resp)) nil
       (>= (:status resp) 400) (throw (ex-info "kotoba pull failed"

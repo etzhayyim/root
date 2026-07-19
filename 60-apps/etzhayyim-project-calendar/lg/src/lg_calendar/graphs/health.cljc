@@ -9,10 +9,10 @@
   State is a plain map; the single :probe node returns {ok, ts, version}."
   (:require [langgraph.graph :as g]))
 
-(defn probe [_state]
+(defn probe [state]
   {:ok true
    :ts (System/currentTimeMillis)
-   :version (or (System/getenv "LG_CALENDAR_VERSION") "0.1.0")})
+   :version (or (get-in state [:host-config :version]) "0.1.0")})
 
 (def graph
   (-> (g/state-graph)

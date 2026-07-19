@@ -15,19 +15,17 @@
   optional auth; atproto actor-worker x-internal-trust is the edge boundary."
   (:require [cheshire.core :as json]
             [clojure.string :as str]
-            [org.httpkit.server :as httpkit]
             [sheets.handlers :as handlers]
             [sheets.kotoba-datomic :as kd]
             [sheets.store :as store]))
 
-(defn- store-for-request []
-  (store/kotoba-sheet-store (kd/make)))
+(defn- store-for-request [kotoba-config]
+  (store/kotoba-sheet-store (kd/make kotoba-config)))
 
 (defn- enforce-auth!
   "Raises {:status 401} when LG_SHEETS_API_KEY is set and x-api-key mismatches."
-  [headers]
-  (let [expected (System/getenv "LG_SHEETS_API_KEY")
-        provided (get headers "x-api-key")]
+  [expected headers]
+  (let [provided (get headers "x-api-key")]
     (when (and expected (not (str/blank? expected))
                (or (not provided) (not= provided expected)))
       (throw (ex-info "x-api-key mismatch" {:http-status 401})))))
@@ -55,7 +53,9 @@
 
 (def ^:private xrpc-prefix "/xrpc/ai.etzhayyim.apps.sheets.")
 
-(defn handler [req]
+(defn handler-with-config [{:keys [api-key kotoba http-post] :or {api-key "" kotoba kd/default-config}}]
+ (fn [req]
+  (binding [kd/*http-post* http-post]
   (try
     (let [uri (:uri req)
           method (:request-method req)
@@ -66,8 +66,8 @@
 
         (str/starts-with? uri xrpc-prefix)
         (let [op (subs uri (count xrpc-prefix))]
-          (enforce-auth! headers)
-          (let [st (store-for-request)]
+          (enforce-auth! api-key headers)
+          (let [st (store-for-request kotoba)]
             (case op
               "spreadsheetsCreate" (json-resp 200 (handlers/spreadsheets-create st (read-body req)))
               "valuesUpdate"       (json-resp 200 (handlers/values-update st (read-body req)))
@@ -82,10 +82,17 @@
         (json-resp s {"detail" (.getMessage e)})
         (json-resp 500 {"error" (.getMessage e)})))
     (catch Exception e
-      (json-resp 500 {"error" (.getMessage e)}))))
+      (json-resp 500 {"error" (.getMessage e)}))))))
+
+(def handler (handler-with-config {}))
+
+(defn run-server-with [run-server port host-config]
+  (when-not (fn? run-server)
+    (throw (ex-info "server capability not configured" {:capability :run-server})))
+  (when-not (and (integer? port) (<= 1 port 65535))
+    (throw (ex-info "invalid server port" {:port port})))
+  (run-server (handler-with-config host-config) {:port port}))
 
 (defn -main [& _args]
-  (let [port (Long/parseLong (or (System/getenv "PORT") "8080"))]
-    (httpkit/run-server handler {:port port})
-    (println (str "lg-sheets listening on :" port))
-    @(promise)))
+  (throw (ex-info "host adapter must provide server, port and configuration"
+                  {:capability :run-server})))
