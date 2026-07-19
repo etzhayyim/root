@@ -1,0 +1,40 @@
+{:schema "etzhayyim.adr/v1"
+ :id "2607193500"
+ :title "Retire non-executable PROJECT.jsonld app concept stubs"
+ :status :accepted
+ :date "2026-07-19"
+ :decision {:classification :non-executable-concept-metadata
+            :action :retire-to-canonical-edn-provenance
+            :standalone-repository false
+            :go-policy :deprecated-and-absent
+            :projects [
+                       {:slug "aisec-mailer" :name "Autonomous Intelligence Mail Gateway (AI-SEC Mailer)" :claimed-status "Active" :description "A fully autonomous secure mail gateway that uses AI to intercept targeted attacks and BEC (Business Email Compromise) with zero human intervention. Target: 100B JPY Monthly Revenue."
+                        :source {:path "60-apps/etzhayyim-project-aisec-mailer/PROJECT.jsonld" :git-blob "2cb5b98ddb431fffa949d7eeef9ec84c0eb22cc2" :sha256 "8c3d2a8833d7c910e21715f7b405ca788bd822344dcfe7ed74ae82e6dd087933"}}
+                       {:slug "asset-manager" :name null :claimed-status null :description null
+                        :source {:path "60-apps/etzhayyim-project-asset-manager/PROJECT.jsonld" :git-blob "d843bfa1dace71cd688b20591701bb957f5188ed" :sha256 "825afcb55c3c388d2f9632be743bdbfe2158637190a83b54429abdd259a8749a"}}
+                       {:slug "auto-compliance" :name "Autonomous Compliance (SSS/ISMS Factory)" :claimed-status "Active (Integrated with Market Intelligence)" :description "Automated acquisition and maintenance of security certifications like SSS and ISMS through AI-driven documentation and evidence collection."
+                        :source {:path "60-apps/etzhayyim-project-auto-compliance/PROJECT.jsonld" :git-blob "4ab973c9ced002a814627bb48566398d88fca0db" :sha256 "805af75eb2aec47c7a176ae65b7d97a4eb6109b106bfc84a6eed846215170e18"}}
+                       {:slug "cybersec-erp" :name "Cybersecurity Division ERP Section (サイバーセキュリティ事業部ERP課)" :claimed-status "Integrated - Hybrid Monetization Mode" :description "Integration and management of ERP systems for cybersecurity operations, focusing on resource planning and security compliance with a hybrid revenue model (AI + Ads + Fees)."
+                        :source {:path "60-apps/etzhayyim-project-cybersec-erp/PROJECT.jsonld" :git-blob "3f17a811ce244ec9afd36cd2f61be3d9d99aae1a" :sha256 "0ed4fbf843b9032ce74631a41e03bda4cc78533fe2b0eee0d4bfd91bfde2d835"}}
+                       {:slug "cybersec-recruitment" :name "Cybersecurity Division Recruitment Section (サイバーセキュリティ事業部人材紹介課)" :claimed-status "Integrated" :description "Talent acquisition and matching for cybersecurity roles, leveraging AI for skill verification and placement."
+                        :source {:path "60-apps/etzhayyim-project-cybersec-recruitment/PROJECT.jsonld" :git-blob "b247821cc282232a0f6be6ce9150ec5c297a9552" :sha256 "697034d4a25ea89c115d90824c48629b69ed6ed7296c01b72314ed90b80b9260"}}
+                       {:slug "cybersec-web-vuln" :name "Cybersecurity Division Web Vulnerability Assessment Section (サイバーセキュリティ事業部ウェブ脆弱性診断課)" :claimed-status "Integrated" :description "Automated and manual web vulnerability assessments to ensure the security of web applications and infrastructure."
+                        :source {:path "60-apps/etzhayyim-project-cybersec-web-vuln/PROJECT.jsonld" :git-blob "95d95da936c29386b048e9c05e07b2326a0294fa" :sha256 "30cf12c3d3bb27fb66640b6da0c630d6bb8dc1a775972816312ae83134214d70"}}
+                       {:slug "drama" :name "Manga Drama Platform (etzhayyim-project-drama)" :claimed-status "In Progress" :description "ReelShort型の縦型ショートドラマ配信プラットフォーム。AI生成による漫画ドラマ(マンガドラマ)をエピソード単位で配信し、コイン課金・サブスクリプションで収益化する。Production AGIが脚本・絵コンテ・動画合成を自律的に量産する。"
+                        :source {:path "60-apps/etzhayyim-project-drama/PROJECT.jsonld" :git-blob "2d08f1ade147133dd454d6b913cd43380d6952ad" :sha256 "45c686c3f0fe638c7037133a17e80b52d33b479a995b9b892e40adb3c5a74c03"}}
+                       {:slug "gateway" :name "ETZHAYYIM Kyber Gateway (etzhayyim-project-gateway)" :claimed-status "In Progress" :description "A centralized gateway for the ETZHAYYIM Kyber ecosystem, providing unified authentication (Clerk), threat defense (IP blocking/WAF), caching, and observation feeds (logging to Analytics)."
+                        :source {:path "60-apps/etzhayyim-project-gateway/PROJECT.jsonld" :git-blob "be7929b56fe1f99be8c74d786f4bbada7580c6d0" :sha256 "fce0206956522961db11ff69c50c940502d30a8605469b6f7125a9f30f6549b0"}}
+                       {:slug "gerrit" :name "etzhayyim-project-gerrit" :claimed-status null :description "Gerrit code review service for the ETZHAYYIM platform"
+                        :source {:path "60-apps/etzhayyim-project-gerrit/PROJECT.jsonld" :git-blob "c00fae467fa945e1c545ad5cea9ace6f76d54720" :sha256 "cce63f8bfaa3e630d1b52d48e83c9fa7ff89d24f8a1fe72580cf17f5bb20b0c9"}}
+                       {:slug "images" :name "Autonomous Image Art Platform (etzhayyim-project-images)" :claimed-status "In Progress" :description "An autonomous platform for high-quality digital art and illustration generation and distribution, utilizing Production AGI for creative direction and the Etzhayyim Kyber platform for scalable delivery."
+                        :source {:path "60-apps/etzhayyim-project-images/PROJECT.jsonld" :git-blob "210a1df848ed927abd3f1861d996159a118e523c" :sha256 "3f4ca03610522a63f2426b47de98a0a6f1f7762dd8ecea44b2d688cc4c35439c"}}
+                       {:slug "lcaas" :name "Autonomous LCaaS (Legal/Compliance as a Service)" :claimed-status "Active (OSINT Intelligence Active)" :description "Global automation of legal procedures including foreign lawyer registration, visa applications, and corporate registration."
+                        :source {:path "60-apps/etzhayyim-project-lcaas/PROJECT.jsonld" :git-blob "a212360769eacb5f631b73a444a2812eca157108" :sha256 "24daed87aece1a437bfa2fa2dce413d3d6f00e37323f62e8be98af043694befe"}}
+                       {:slug "loading-robot" :name "etzhayyim-project-loading-robot" :claimed-status null :description "Image-analysis-driven loading robot design and operations project for cargo, pallet, truck, container, and dock workflows."
+                        :source {:path "60-apps/etzhayyim-project-loading-robot/PROJECT.jsonld" :git-blob "2ca09e3b40cd7aa69881f9b14dfe49b09055db04" :sha256 "423b440efe9a7664e55904f95e3348547af41e32f23540e336daf81ead66b1de"}}
+                       {:slug "style" :name "etzhayyim fashion (Style)" :claimed-status "Active" :description "Style and fashion content for etzhayyim, including sensory-friendly apparel narratives and archive pages published on etzhayyim.com."
+                        :source {:path "60-apps/etzhayyim-project-style/PROJECT.jsonld" :git-blob "818599f9e02fc9c1d50ef728b7f9d0d20c6596bb" :sha256 "e6c4a18cc24842833a9c71569e8f8808399470fdff15f6abfba5a1dc29829736"}}
+                      ]}
+ :evidence {:implementation-files 0 :entrypoints 0 :repository-owners 0 :operational-references 0
+            :historical-inventory "etzhayyim.txt"}
+ :consequences {:root "concept-only JSON-LD directories are removed; recovery is exact via source git blobs"}}

@@ -1644,6 +1644,21 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2607193500-project-jsonld-concept-stubs-retire.edn",
+      "id": "2607193500",
+      "title": "Retire non-executable PROJECT.jsonld app concept stubs",
+      "status": "accepted",
+      "doc_type": "doc",
+      "topic": "",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2607193500-residual-numbered-layer-index-and-stub-retire.edn",
       "id": "2607193500",
       "title": "Retire residual numbered-layer indexes, historical audit, and Datomic stub",
