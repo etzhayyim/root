@@ -14,7 +14,8 @@
 ;; the `__main__` demo) lives behind #?(:clj ...). The Python `main` (which reads
 ;; factory.scene.json + building.edn) is provided as `-main` on :clj only.
 (ns e7m-sim.scenes.sarutahiko-factory-r0.ifc-export
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            #?(:clj [cheshire.core :as json])))
 
 (def ^:private guid-chars
   "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_$")
@@ -296,21 +297,18 @@
       {"entities" (:n @f) "elements" (count @contained) "psets" (count @rel-psets)})))
 
 #?(:clj
+   (defn read-scene-json
+     "Decode the string-keyed scene document with the declared host codec."
+     [text]
+     (json/parse-string text)))
+
+#?(:clj
    (defn -main
      "Faithful port of the Python main(): read factory.scene.json (JSON) +
-     building.edn, export factory.ifc, print a summary. Requires clojure.data.json
-     for the scene JSON, available on a tools.deps host; under bare babashka use
-     the bb-provided cheshire/json reader if present."
+     building.edn, export factory.ifc, print a summary."
      [& _args]
      (let [here (str (.getParent (java.io.File. (str *file*))))
-           ;; scene JSON — read via a require-resolved json fn (host-provided)
-           read-json (or (resolve 'cheshire.core/parse-string)
-                         (do (try (require 'clojure.data.json) (catch Throwable _ nil))
-                             (resolve 'clojure.data.json/read-str)))
-           scene (let [txt (slurp (str here "/factory.scene.json"))]
-                   (if-let [rj read-json]
-                     (rj txt)
-                     (throw (ex-info "no JSON reader available on host" {}))))
+           scene (read-scene-json (slurp (str here "/factory.scene.json")))
            ;; building.edn parsed by the sibling sbom-gen EDN reader if loadable,
            ;; else clojure.edn (the file is plain EDN data).
            doc (clojure.edn/read-string (slurp (str here "/building.edn")))
