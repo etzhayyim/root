@@ -1,0 +1,12 @@
+{:schema "etzhayyim.migration/moved-v1"
+ :source {:repo "etzhayyim/root"
+          :path "60-apps/etzhayyim-project-manimani"
+          :revision "089210a043264dc53659c1187a67ea4a8ffe292f"
+          :git-tree "6131bd77b6b718f54f12d94a4a0c1dc54e2aeab0"
+          :tracked-files 23
+          :bytes 75600}
+ :destination {:repo "etzhayyim/com-etzhayyim-app-manimani"
+               :revision "19b365b47bd293cd8ca5d8debf19121ad9a2d14c"}
+ :status :moved
+ :owner-adr "2607200630"
+ :verification :source-tree-plus-canonical-edn-only}

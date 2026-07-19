@@ -1,0 +1,12 @@
+{:schema "etzhayyim.migration/moved-v1"
+ :source {:repo "etzhayyim/root"
+          :path "60-apps/etzhayyim-project-fleamarket"
+          :revision "089210a043264dc53659c1187a67ea4a8ffe292f"
+          :git-tree "67981023c191bbe271977f5671840c3db6460688"
+          :tracked-files 23
+          :bytes 42649}
+ :destination {:repo "etzhayyim/com-etzhayyim-app-fleamarket"
+               :revision "94c73278b0500bad1bf7089e339c560457b34fd2"}
+ :status :moved
+ :owner-adr "2607200630"
+ :verification :source-tree-plus-canonical-edn-only}

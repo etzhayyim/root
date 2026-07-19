@@ -1,7 +1,7 @@
 {
   "_comment": "Frozen legacy substrate-boundary (storage) violators — ADR-2606071800. SHRINK-ONLY: remove a path once migrated to kotoba-kqe; never add new paths. Regenerate with `node 70-tools/scripts/lint/substrate-remediation-audit.mjs --write` ONLY to seed or after review. CI runs `--audit`.",
   "adr": "2606071800",
-  "count": 57,
+  "count": 56,
   "files": [
     "60-apps/etzhayyim-project-bpmn/appview/etzhayyim-wasm-bpmn-bx7qm9p4/src/app.ts",
     "60-apps/etzhayyim-project-briefing/appview/etzhayyim-wasm-briefing-w3olw1pf/src/app.ts",
@@ -34,7 +34,6 @@
     "60-apps/etzhayyim-project-maps/bulk-ingest/workers/maps_search_ivf_backfill.py",
     "60-apps/etzhayyim-project-maps/bulk-ingest/workers/noaa_ais_dumper.py",
     "60-apps/etzhayyim-project-maps/kotoba/src/source/query.ts",
-    "60-apps/etzhayyim-project-meeting-recorder/appview/etzhayyim-wasm-meeting-recorder-m33tr3c0/src/app.ts",
     "60-apps/etzhayyim-project-news/appview/news-core-component/src/app.ts",
     "60-apps/etzhayyim-project-okaimono/kotoba/src/catalog.ts",
     "60-apps/etzhayyim-project-open-airplane/worker/src/defence-handlers.ts",
