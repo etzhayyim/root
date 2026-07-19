@@ -40,9 +40,10 @@
 
 #?(:clj
    (defn resolve-pds
-     "auth.resolve_pds — os.environ['etzhayyim_PDS_URL'] or the default, trailing-slash-stripped."
-     []
-     (str/replace (or (System/getenv "etzhayyim_PDS_URL") default-pds) #"/+$" "")))
+     "Normalize an explicitly supplied PDS URL, falling back to the public default."
+     ([] (resolve-pds nil))
+     ([pds]
+      (str/replace (or (not-empty pds) default-pds) #"/+$" ""))))
 
 ;; ── workspace-root resolution (inlined shannon._resolve_root / _find_git_root) ─
 #?(:clj
@@ -146,7 +147,7 @@
       CLI (the httpx call); kept as a parameter so the port stays free of an HTTP dependency."
      ([http-post pds workspace-dir json-out]
       (let [ws      (resolve-root workspace-dir)
-            pds-url (str/replace (or (not-empty pds) (resolve-pds)) #"/+$" "")
+            pds-url (resolve-pds pds)
             resp    (http-post (str pds-url "/xrpc/com.etzhayyim.yoroshiku.registerWorkspace")
                                {"workspace" (str ws)}
                                (auth-headers))
