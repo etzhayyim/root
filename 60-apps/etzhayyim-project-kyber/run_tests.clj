@@ -19,6 +19,14 @@
 
 (apply require suites)
 
+(defn- env [name default] (or (System/getenv name) default))
+
+(def live-llm
+  ((resolve 'lg.lg-kyber.graphs.llm/http-llm)
+   http/get http/post
+   {:murakumo-base-url (env "MURAKUMO_BASE_URL" "https://murakumo.etzhayyim.com")
+    :openrouter-key (System/getenv "OPENROUTER_API_KEY")}))
+
 (defn live-notify [args]
   (let [webhook (System/getenv "TEAMS_KYBER_WEBHOOK_URL")
         notify-with (resolve 'lg.lg-kyber.graphs.business-operating-react/notify-with)]

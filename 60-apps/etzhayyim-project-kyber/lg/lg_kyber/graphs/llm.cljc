@@ -13,8 +13,7 @@
   the `:llm-api` injection seam: a graph reads `{:call-json …}` out of its state and
   calls it, so tests inject `mock-llm` and production uses `live-llm`."
   (:require [cheshire.core :as json]
-            [clojure.string :as str]
-            #?(:clj [babashka.http-client :as http])))
+            [clojure.string :as str]))
 
 ;; key under which a graph carries its injected llm-api in the state map
 (def llm-api-key ::llm-api)
@@ -25,58 +24,71 @@
   (-> (str/replace (or s "") #"(?s)<think>.*?</think>" "")
       (str/trim)))
 
+(def default-config
+  {:murakumo-base-url "https://murakumo.etzhayyim.com"
+   :openrouter-url "https://openrouter.ai/api/v1/chat/completions"
+   :openrouter-key nil
+   :referer "https://kyber.etzhayyim.com"
+   :title "lg-kyber"})
+
+(defn call-llm-json-with
+  "Call LLMs only through explicit HTTP and configuration capabilities."
+  [http-get http-post config prompt
+   {:keys [max-tokens model-murakumo model-openrouter]
+    :or {max-tokens 200 model-murakumo "gemma-4-e4b-it"
+         model-openrouter "anthropic/claude-haiku-4"}}]
+  (when-not (and (fn? http-get) (fn? http-post))
+    (throw (ex-info "Kyber LLM requires explicit HTTP capabilities"
+                    {:capability :kyber/llm-http})))
+  (let [{:keys [murakumo-base-url openrouter-url openrouter-key referer title]}
+        (merge default-config (or config {}))
+        base (str/replace murakumo-base-url #"/+$" "")
+        murakumo
+        (try
+          (let [meta (-> (http-get (str base "/_app/meta") {:timeout 5000})
+                         :body (json/parse-string true))]
+            (when (= 0 (get-in meta [:fleet :healthPct] -1))
+              (throw (ex-info "fleet offline" {})))
+            (let [resp (-> (http-post (str base "/api/openai/v1/chat/completions")
+                                      {:headers {"content-type" "application/json"
+                                                 "x-kotodama-verified" "true"}
+                                       :body (json/generate-string
+                                              {:model model-murakumo
+                                               :messages [{:role "user" :content prompt}]
+                                               :max_tokens max-tokens :temperature 0.2
+                                               :response_format {:type "json_object"}})
+                                       :timeout 30000})
+                           :body (json/parse-string true))
+                  content (strip-think (get-in resp [:choices 0 :message :content]))]
+              [(json/parse-string content false) "llm"]))
+          (catch Exception _ nil))]
+    (or murakumo
+        (when (seq openrouter-key)
+          (try
+            (let [resp (-> (http-post openrouter-url
+                                      {:headers {"authorization" (str "Bearer " openrouter-key)
+                                                 "content-type" "application/json"
+                                                 "http-referer" referer "x-title" title}
+                                       :body (json/generate-string
+                                              {:model model-openrouter
+                                               :messages [{:role "user" :content prompt}]
+                                               :max_tokens max-tokens :temperature 0.2
+                                               :response_format {:type "json_object"}})
+                                       :timeout 30000})
+                           :body (json/parse-string true))
+                  content (get-in resp [:choices 0 :message :content])]
+              [(json/parse-string content false) "llm"])
+            (catch Exception _ nil)))
+        [nil "deterministic"])))
+
 (defn call-llm-json
-  "Port of _llm.call_llm_json. prompt → [parsed-or-nil source]. Murakumo first, then
-  OpenRouter, else [nil \"deterministic\"]. opts: {:max-tokens :model-murakumo
-  :model-openrouter}."
-  ([prompt] (call-llm-json prompt {}))
-  ([prompt {:keys [max-tokens model-murakumo model-openrouter]
-            :or {max-tokens 200 model-murakumo "gemma-4-e4b-it"
-                 model-openrouter "anthropic/claude-haiku-4"}}]
-   #?(:clj
-      (let [base (or (System/getenv "MURAKUMO_BASE_URL") "https://murakumo.etzhayyim.com")
-            murakumo
-            (try
-              (let [meta (-> (http/get (str base "/_app/meta") {:timeout 5000})
-                             :body (json/parse-string true))]
-                (when (= 0 (get-in meta [:fleet :healthPct] -1))
-                  (throw (ex-info "fleet offline" {})))
-                (let [resp (-> (http/post (str base "/api/openai/v1/chat/completions")
-                                          {:headers {"content-type" "application/json"
-                                                     "x-kotodama-verified" "true"}
-                                           :body (json/generate-string
-                                                  {:model model-murakumo
-                                                   :messages [{:role "user" :content prompt}]
-                                                   :max_tokens max-tokens
-                                                   :temperature 0.2
-                                                   :response_format {:type "json_object"}})
-                                           :timeout 30000})
-                               :body (json/parse-string true))
-                      content (strip-think (get-in resp [:choices 0 :message :content]))]
-                  [(json/parse-string content false) "llm"]))
-              (catch Exception _ nil))]
-        (or murakumo
-            (let [key (System/getenv "OPENROUTER_API_KEY")]
-              (when key
-                (try
-                  (let [resp (-> (http/post "https://openrouter.ai/api/v1/chat/completions"
-                                            {:headers {"authorization" (str "Bearer " key)
-                                                       "content-type" "application/json"
-                                                       "http-referer" "https://kyber.etzhayyim.com"
-                                                       "x-title" "lg-kyber"}
-                                             :body (json/generate-string
-                                                    {:model model-openrouter
-                                                     :messages [{:role "user" :content prompt}]
-                                                     :max_tokens max-tokens
-                                                     :temperature 0.2
-                                                     :response_format {:type "json_object"}})
-                                             :timeout 30000})
-                                 :body (json/parse-string true))
-                        content (get-in resp [:choices 0 :message :content])]
-                    [(json/parse-string content false) "llm"])
-                  (catch Exception _ nil))))
-            [nil "deterministic"]))
-      :default [nil "deterministic"])))
+  "Authority-free default: callers must inject an HTTP-backed llm-api explicitly."
+  ([_prompt] [nil "deterministic"])
+  ([_prompt _opts] [nil "deterministic"]))
+
+(defn http-llm [http-get http-post config]
+  {:call-json (fn [prompt & [opts]]
+                (call-llm-json-with http-get http-post config prompt (or opts {})))})
 
 (def live-llm
   "Production llm-api map (Murakumo → OpenRouter → deterministic)."

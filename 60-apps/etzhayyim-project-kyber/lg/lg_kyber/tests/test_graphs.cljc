@@ -37,6 +37,25 @@
       (is (= [{"observation" "ok"} "mock"] (call-json "p")))
       (is (= [nil "deterministic"] (call-json "p"))))))
 
+(deftest test-http-llm-capability
+  (testing "missing HTTP capabilities fail closed before network access"
+    (is (thrown-with-msg? clojure.lang.ExceptionInfo #"explicit HTTP capabilities"
+                          (llm/call-llm-json-with nil nil {} "p" {}))))
+  (testing "explicit Murakumo capability preserves JSON wire behavior"
+    (let [seen (atom [])
+          api (llm/http-llm
+               (fn [url _]
+                 (swap! seen conj url)
+                 {:body "{\"fleet\":{\"healthPct\":100}}"})
+               (fn [url _]
+                 (swap! seen conj url)
+                 {:body "{\"choices\":[{\"message\":{\"content\":\"{\\\"ok\\\":true}\"}}]}"})
+               {})]
+      (is (= [{"ok" true} "llm"] ((:call-json api) "p")))
+      (is (= ["https://murakumo.etzhayyim.com/_app/meta"
+              "https://murakumo.etzhayyim.com/api/openai/v1/chat/completions"]
+             @seen)))))
+
 ;; ── db ────────────────────────────────────────────────────────────────────────
 (deftest test-match-db
   (testing "match-db pins fetchval/fetch by query substring"
@@ -62,7 +81,9 @@
     (let [out (health/run {})]
       (is (true? (get out "ok")))
       (is (string? (get out "version")))
-      (is (number? (get out "ts"))))))
+      (is (number? (get out "ts"))))
+    (is (= "host-version" (get (health/run {health/version-key "host-version"})
+                                "version")))))
 
 ;; ── metrics_daily graph ─────────────────────────────────────────────────────────
 (deftest test-metrics-daily-graph

@@ -4,12 +4,14 @@
   actually invokes under bb (no host gate needed — it only reads the clock + an env)."
   (:require [langgraph.graph :as g]))
 
+(def version-key ::version)
+
 (defn probe
   "Port of _probe — {ok ts version}. ts = epoch-ms; version from LG_KYBER_VERSION."
-  [_state]
+  [state]
   {"ok"      true
    "ts"      #?(:clj (System/currentTimeMillis) :default 0)
-   "version" #?(:clj (or (System/getenv "LG_KYBER_VERSION") "0.0.1") :default "0.0.1")})
+   "version" (or (get state version-key) "0.0.1")})
 
 (defn build
   "Compile the health StateGraph (START → probe → END)."
