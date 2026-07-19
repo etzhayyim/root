@@ -250,16 +250,22 @@ def _nsids_from_vec(coll) -> list[str]:
 
 
 def edn_lexicons(text: str) -> list[str]:
-    """Declared lexicon NSIDs from a `manifest.edn` body (string-keyed
-    `:actor/manifest` map; reads both `lexiconNamespaces` and `lexicons`)."""
+    """Declared lexicon NSIDs from a ``manifest.edn`` body.
+
+    Accept both the historical string keys nested under ``:actor/manifest``
+    and canonical EDN keyword keys, including top-level ``:actor/lexicons``.
+    """
     toks = _edn_tokens(text)
     out: list[str] = []
     i = 0
     while i < len(toks):
         kind, val = toks[i]
         if (
-            kind == "str"
-            and val in ("lexiconNamespaces", "lexicons")
+            ((kind == "str" and val in ("lexiconNamespaces", "lexicons"))
+             or (kind == "sym" and val in (
+                 ":actor/lexicons", ":actor/lexiconNamespaces",
+                 ":lexicons", ":lexiconNamespaces",
+             )))
             and i + 1 < len(toks)
             and toks[i + 1] == ("open", "[")
         ):

@@ -276,6 +276,25 @@ class TestEdnReader:
         edn = '{:actor/manifest {"lexiconNamespaces" ["com.etzhayyim.a.foo" "com.etzhayyim.b.bar"]}}'
         assert audit.edn_lexicons(edn) == ["com.etzhayyim.a.foo", "com.etzhayyim.b.bar"]
 
+    def test_canonical_top_level_actor_lexicons(self, audit):
+        edn = ('{:actor/id "kosatsu" '
+               ':actor/lexicons ["com.etzhayyim.kosatsu.query" '
+               '"com.etzhayyim.kosatsu.result"]}')
+        assert audit.edn_lexicons(edn) == [
+            "com.etzhayyim.kosatsu.query",
+            "com.etzhayyim.kosatsu.result",
+        ]
+
+    def test_keyword_legacy_and_namespaced_forms(self, audit):
+        edn = ('{:lexicons ["com.etzhayyim.a.one"] '
+               ':lexiconNamespaces ["com.etzhayyim.b.two"] '
+               ':actor/lexiconNamespaces ["com.etzhayyim.c.three"]}')
+        assert audit.edn_lexicons(edn) == [
+            "com.etzhayyim.a.one",
+            "com.etzhayyim.b.two",
+            "com.etzhayyim.c.three",
+        ]
+
     def test_rich_object_entry_uses_id(self, audit):
         # {id, status} entry → only the id is a lexicon; status is ignored.
         edn = '{"lexicons" [{"id" "com.etzhayyim.c.baz" "status" "active"}]}'
