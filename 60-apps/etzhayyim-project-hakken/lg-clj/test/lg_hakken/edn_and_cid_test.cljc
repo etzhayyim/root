@@ -6,9 +6,11 @@
   the canonical kotoba Datom log: EDN tx-data encoding (what kotoba-server
   parses) and content-address derivation (what makes the same graph label
   resolve identically across nodes)."
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [clojure.string :as str]
+            [clojure.test :refer [deftest is testing]]
             [lg-hakken.edn :as e]
-            [lg-hakken.kotoba-datomic :as kd]))
+            [lg-hakken.kotoba-datomic :as kd]
+            [lg-hakken.xrpc :as xrpc]))
 
 ;; ── edn/encode: every supported type + escaping ─────────────────────────────
 
@@ -142,3 +144,51 @@
            [":kw"         ":kw"]          ; keywords pass through as strings
            ["unparseable" "unparseable"]]]
     (is (= expected (kd/parse-edn-value raw)) (str "parse " (pr-str raw)))))
+
+(deftest live-authority-requires-explicit-capabilities
+  (is (thrown-with-msg? clojure.lang.ExceptionInfo #"explicit host capability"
+                        (xrpc/get-json "https://kakaku.etzhayyim.com/xrpc/test")))
+  (is (thrown-with-msg? clojure.lang.ExceptionInfo #"explicit host capability"
+                        (xrpc/post-json "https://kakaku.etzhayyim.com/xrpc/test" {})))
+  (is (thrown-with-msg? clojure.lang.ExceptionInfo #"explicit host capability"
+                        (kd/dm-q "[:find ?e]")))
+  (is (thrown-with-msg? clojure.lang.ExceptionInfo #"explicit host capability"
+                        (kd/dm-transact "[]"))))
+
+(deftest endpoint-guards-reject-lookalikes
+  (is (nil? (xrpc/assert-service-url "https://kakaku.etzhayyim.com/xrpc/test")))
+  (is (nil? (kd/assert-kotoba-url "https://kotoba.etzhayyim.com")))
+  (doseq [url ["not-a-url"
+               "http://kakaku.etzhayyim.com/xrpc/test"
+               "https://kakaku.etzhayyim.com.attacker.example/xrpc/test"
+               "https://kakaku.etzhayyim.com@attacker.example/xrpc/test"]]
+    (is (thrown? clojure.lang.ExceptionInfo (xrpc/assert-service-url url)) url))
+  (doseq [url ["https://kotoba.etzhayyim.com.attacker.example"
+               "https://other.etzhayyim.com"
+               "https://kotoba.etzhayyim.com@attacker.example"]]
+    (is (thrown? clojure.lang.ExceptionInfo (kd/assert-kotoba-url url)) url)))
+
+(deftest injected-xrpc-wire-contract
+  (let [seen (atom nil)
+        result (xrpc/post-json-with
+                (fn [url opts]
+                  (reset! seen [url opts])
+                  {:status 200 :body "{\"ok\":true}"})
+                "https://kakaku.etzhayyim.com/xrpc/test" {:x 1} 1234)]
+    (is (true? (:ok result)))
+    (is (true? (get-in result [:body :ok])))
+    (is (= 1234 (get-in @seen [1 :timeout])))
+    (is (re-find #"\"x\"" (get-in @seen [1 :body])))))
+
+(deftest injected-kotoba-wire-contract
+  (let [seen (atom nil)
+        config (assoc kd/default-config :bearer "secret")
+        result (kd/dm-transact-with
+                (fn [url opts]
+                  (reset! seen [url opts])
+                  {:status 200 :body "{\"tx_cid\":\"cid1\"}"})
+                config "[]" {})]
+    (is (= "cid1" (:tx_cid result)))
+    (is (str/ends-with? (first @seen) "/xrpc/com.etzhayyim.apps.kotoba.datomic.transact"))
+    (is (= "Bearer secret" (get-in @seen [1 :headers "Authorization"])))
+    (is (re-find #"tx_edn" (get-in @seen [1 :body])))))
