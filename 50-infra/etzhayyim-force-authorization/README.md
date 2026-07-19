@@ -9,7 +9,7 @@
 All force-related activity must satisfy:
 
 1. **完全 on-chain 監視** — every action logged via `force-log` Lexicon → MST → IPFS → L2 anchor
-2. **Open-source 公開** — the former root concept scaffold is retired; policy and provenance are canonical in ADR-2607193600 and `60-apps/etzhayyim-transparent-force-rd-MOVED.edn`
+2. **Open-source 公開** — the former root concept scaffold is retired; policy and provenance are canonical in ADR-2607193610 and `60-apps/etzhayyim-transparent-force-rd-MOVED.edn`
 3. **1 SBT = 1 vote 承認** — every proactive force action requires governance vote (50% quorum + 67% supermajority)
 
 ## Constitutional invariants (NOT amendable)
@@ -81,7 +81,7 @@ script/
 
 ## Open-source R&D registry
 
-See [`60-apps/etzhayyim-transparent-force-rd-MOVED.edn`](../../60-apps/etzhayyim-transparent-force-rd-MOVED.edn) and ADR-2607193600 for the retired concept scaffold provenance:
+See [`60-apps/etzhayyim-transparent-force-rd-MOVED.edn`](../../60-apps/etzhayyim-transparent-force-rd-MOVED.edn) and ADR-2607193610 for the retired concept scaffold provenance:
 
 ```
 defensive-technology/

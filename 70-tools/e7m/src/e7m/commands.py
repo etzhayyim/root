@@ -809,7 +809,7 @@ def _check_substrate_boundary(repo: Path) -> tuple[bool, list[str]]:
 def _check_transparent_force(repo: Path) -> tuple[bool, list[str]]:
     """§1.12 + ADR-2605192315 — force is on-chain + open-source + 1 SBT = 1 vote."""
     marker = repo / "60-apps" / "etzhayyim-transparent-force-rd-MOVED.edn"
-    adr = repo / "90-docs" / "adr" / "2607193600-small-app-shell-drain.edn"
+    adr = repo / "90-docs" / "adr" / "2607193610-small-app-shell-drain.edn"
     if not marker.is_file() or not adr.is_file():
         return False, ["transparent-force retirement provenance missing"]
     return True, ["transparent-force concept scaffold retired with EDN provenance"]
