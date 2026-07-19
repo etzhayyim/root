@@ -1,0 +1,1 @@
+{:schema "etzhayyim.migration/moved-v1" :source {:repo "etzhayyim/root" :path "60-apps/etzhayyim-project-cards" :revision "9eb5c56c0c8663568117b8a400b1fadde510e002" :git-blob "c6c70682fc3f23657ea3a6cf0d70d42c43923b07"} :destination {:repo "etzhayyim/com-etzhayyim-app-cards" :revision "e615ea6df6a0e82453aaf8c0a93305cdb93314e8"} :status :moved :canonical-record :edn}

@@ -1,0 +1,1 @@
+{:schema "etzhayyim.migration/moved-v1" :source {:repo "etzhayyim/root" :path "60-apps/etzhayyim-project-casino" :revision "9eb5c56c0c8663568117b8a400b1fadde510e002" :git-blob "741f19eeada9072124f1219bd1d3ce0f00b7b716"} :destination {:repo "etzhayyim/com-etzhayyim-app-casino" :revision "2b674eddc4074693f3af2fe67f032ad08d0d6b1a"} :status :moved :canonical-record :edn}
