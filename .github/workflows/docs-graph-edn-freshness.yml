@@ -1,10 +1,10 @@
 name: docs-graph-edn-freshness
 
 # Verify 90-docs/_registry/graph.edn stays in sync with the docs.edn
-# registry (which is itself in sync with the .md source-of-truth via
+# registry (which is itself in sync with canonical documentation via
 # docs-registry-freshness.yml).
 #
-# Chain: .md → docs.edn → graph.edn
+# Chain: canonical docs (EDN preferred) → docs.edn → graph.edn
 #
 # Catches operators editing docs.edn (intentionally or via the upstream
 # docs-registry-freshness hook) without re-projecting the EDN relation
@@ -14,7 +14,7 @@ name: docs-graph-edn-freshness
 # docs-registry-freshness.yml.
 #
 # Per 90-docs/CLAUDE.md "Documentation System Rules":
-#   - Markdown 本文が canonical source
+#   - EDN documents are canonical for migration and ADR records
 #   - docs.edn is the EDN registry sidecar
 #   - graph.edn is the typed relation graph (this workflow guards it)
 # clj-native (babashka), matching regen-registry.clj.
@@ -24,6 +24,7 @@ on:
     branches: [main]
     paths:
       - '90-docs/**/*.md'
+      - '90-docs/adr/*.edn'
       - '90-docs/_registry/docs.edn'
       - '90-docs/_registry/graph.edn'
       - '70-tools/scripts/docs/regen-graph-edn.clj'
@@ -32,6 +33,7 @@ on:
     branches: [main]
     paths:
       - '90-docs/**/*.md'
+      - '90-docs/adr/*.edn'
       - '90-docs/_registry/docs.edn'
       - '90-docs/_registry/graph.edn'
       - '70-tools/scripts/docs/regen-graph-edn.clj'
