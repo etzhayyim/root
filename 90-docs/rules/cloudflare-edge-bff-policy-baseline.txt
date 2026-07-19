@@ -7,10 +7,6 @@
 60-apps/etzhayyim-chat-shell/svelte/src/lib/api.ts:14:pg-direct-db:return new Client({ apiUrl: "/lg" });
 60-apps/etzhayyim-project-animeka/appview/etzhayyim-wasm-animeka-an1m3k4x/wrangler.jsonc:30:wrangler-hyperdrive-binding:"hyperdrive": [
 60-apps/etzhayyim-project-animeka/appview/etzhayyim-wasm-animeka-an1m3k4x/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/app.ts"
-60-apps/etzhayyim-project-auth/worker-authz/src-ts/index.ts:12:hono-import:import { Hono } from "hono";
-60-apps/etzhayyim-project-auth/worker-authz/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src-ts/index.ts"
-60-apps/etzhayyim-project-auth/worker/src-ts/index.ts:1:hono-import:import { Hono } from "hono";
-60-apps/etzhayyim-project-auth/worker/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src-ts/index.ts"
 60-apps/etzhayyim-project-browser/provider/darkweb-proxy/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "worker.ts"
 60-apps/etzhayyim-project-kami/appview/etzhayyim-wasm-kami-sabiotoshi-s4b10t05/src/app.ts:263:kysely-direct-db:await createKyselyDb().insertInto("vertex_kami_sabiotoshi_game" as any).values({
 60-apps/etzhayyim-project-kami/appview/etzhayyim-wasm-kami-sabiotoshi-s4b10t05/src/app.ts:334:kysely-direct-db:await createKyselyDb().insertInto("vertex_kami_sabiotoshi_score" as any).values({
