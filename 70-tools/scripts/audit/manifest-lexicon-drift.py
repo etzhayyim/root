@@ -74,6 +74,19 @@ def nsid_to_lexicon_path(nsid: str) -> Path:
     return LEXICONS_ROOT / Path(*parts[:-1]) / f"{parts[-1]}.json"
 
 
+def actor_lexicon_path(manifest_path: Path, nsid: str) -> Path:
+    """Generated wire contract owned by the manifest's flat repository."""
+    parts = nsid.split(".")
+    return manifest_path.parent / "lexicons" / Path(*parts[:-1]) / f"{parts[-1]}.json"
+
+
+def resolve_lexicon_path(manifest_path: Path, nsid: str) -> Path:
+    """Prefer flat-owner output; accept existing root contracts during migration."""
+    local = actor_lexicon_path(manifest_path, nsid)
+    root = nsid_to_lexicon_path(nsid)
+    return local if local.exists() or not root.exists() else root
+
+
 def display_path(path: Path) -> Path:
     """Stable display path for files that may live in sibling west checkouts."""
     return Path(os.path.relpath(path, REPO_ROOT))
@@ -269,7 +282,7 @@ def main() -> int:
                 invalid_nsids.append((mpath, nsid))
                 continue
             declared_global.add(nsid)
-            lex_path = nsid_to_lexicon_path(nsid)
+            lex_path = resolve_lexicon_path(mpath, nsid)
             owned_dirs.setdefault(lex_path.parent, set()).add(nsid)
             if not lex_path.exists():
                 missing_in_actor.append((nsid, lex_path))
@@ -290,7 +303,9 @@ def main() -> int:
         for jf in sorted(dirp.glob("*.json")):
             if jf.stem.startswith("_"):
                 continue
-            nsid = ".".join(jf.relative_to(LEXICONS_ROOT).with_suffix("").parts)
+            declared_here = owned_dirs[dirp]
+            prefix = next(iter(declared_here)).rsplit(".", 1)[0]
+            nsid = f"{prefix}.{jf.stem}"
             if nsid not in declared_global:
                 orphans.append(nsid)
 
