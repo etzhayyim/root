@@ -19,7 +19,7 @@ This is also what the ADRs already mandate. The boundary:
 Nothing here writes into `40-engine/kotoba/`. The subrepo stays the clean, generic,
 Apache-2.0 engine (`brew install kotoba`); all religious-corp data + this glue live in root.
 
-This **supersedes** the stub `40-engine/datomic_emulator.py` (whose `q()` always returned `[]`).
+This **supersedes** the retired Python stub recorded by ADR-2607193500 (its `q()` always returned `[]`).
 
 ## Modules
 

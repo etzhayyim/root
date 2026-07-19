@@ -1659,6 +1659,21 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2607193500-residual-numbered-layer-index-and-stub-retire.edn",
+      "id": "2607193500",
+      "title": "Retire residual numbered-layer indexes, historical audit, and Datomic stub",
+      "status": "accepted",
+      "doc_type": "doc",
+      "topic": "",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2607193600-bpmn-contract-stubs-extract.edn",
       "id": "2607193600",
       "title": "Extract standalone BPMN contracts from app stubs",
