@@ -6,7 +6,8 @@
 ;; (filesystem writes of generated lexicon JSON + BPMN XML + DDL printout) is
 ;; ported behind #?(:clj ...) as `-main`.
 (ns scripts.wave-bridges.gen26
-  (:require [clojure.string :as str])
+  (:require [clojure.string :as str]
+            #?(:clj [cheshire.core :as json]))
   #?(:clj (:import [java.io File])))
 
 (def repo "/Users/junkawasaki/github/etzhayyim/root")
@@ -308,18 +309,14 @@
 
 #?(:clj
    (defn -main [& _]
-     ;; NOTE: requires a JSON encoder for the lexicon output; in bb, cheshire is
-     ;; available. The faithful port keeps the data shape; encoding is host-side.
-     (require '[cheshire.core :as json])
-     (let [generate (resolve 'cheshire.core/generate-string)]
-       (doseq [a actors]
+     (doseq [a actors]
          (let [bd (str repo "/00-contracts/bpmn/com/etzhayyim/open-" (get a "slug"))
                ld (str repo "/00-contracts/lexicons/com/etzhayyim/apps/" (get a "app"))]
            (.mkdirs (File. bd))
            (.mkdirs (File. ld))
            (doseq [m (get a "methods")]
              (write-text! (str ld "/" (get m "name") ".json")
-                          (generate (gen-lexicon a m) {:pretty true}))
+                          (json/generate-string (gen-lexicon a m) {:pretty true}))
              (write-text! (str bd "/" (get m "name") ".bpmn")
                           (gen-bpmn a m)))
-           (println (gen-ddl a)))))))
+           (println (gen-ddl a))))))
