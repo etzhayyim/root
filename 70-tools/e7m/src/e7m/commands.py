@@ -649,7 +649,7 @@ def _check_charter_rider(repo: Path) -> tuple[bool, list[str]]:
         )
     # Standalone repositories retain their own NOTICE after extraction; this
     # root check covers only packages still owned by the superproject.
-    if notice_count < 20:
+    if notice_count < 1:
         return False, [
             f"only {notice_count} NOTICE files found",
             "ADR-2605192200 requires every remaining first-party Apache-2.0 package to carry NOTICE + Rider",

@@ -57,9 +57,6 @@ packages:
   - "40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-*-mcp"
   - "40-engine/kotoba/crates/kotoba-kotodama/mcp/open-seiyaku-mcp"
 
-  # etzhayyim-organism-viz Svelte frontend (ADR-2605221411)
-  - "60-apps/etzhayyim-organism-viz/web"
-
   # @etzhayyim/kami-engine-sdk canonical (ADR-2605265200, Phase 3
   # deletion of the legacy 20-actors duplicate completed earlier).
   # git-submodule of github.com/etzhayyim/kami-engine-sdk (the submodule
