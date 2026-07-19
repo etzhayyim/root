@@ -10,6 +10,7 @@
 ;;   lg/lg_kyber/graphs/<x>.cljc  ⇒  ns  lg.lg-kyber.graphs.<x>.
 (require '[babashka.classpath :as cp]
          '[babashka.fs :as fs]
+         '[babashka.http-client :as http]
          '[clojure.test :as t])
 
 (cp/add-classpath (str (fs/parent (fs/absolutize *file*))))
@@ -17,6 +18,11 @@
 (def suites '[lg.lg-kyber.tests.test-graphs])
 
 (apply require suites)
+
+(defn live-notify [args]
+  (let [webhook (System/getenv "TEAMS_KYBER_WEBHOOK_URL")
+        notify-with (resolve 'lg.lg-kyber.graphs.business-operating-react/notify-with)]
+    (notify-with http/post webhook args)))
 
 (let [{:keys [fail error]} (apply t/run-tests suites)]
   (if (zero? (+ fail error))

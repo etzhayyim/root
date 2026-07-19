@@ -140,6 +140,37 @@
       ;; get(..,"異常なし") default never fires — faithful to the python (key present).
       (is (= "" (get-in out ["report" "final_observation"]))))))
 
+(deftest test-bo-react-notify-capability
+  (testing "approved webhook uses the injected HTTP capability and preserves its wire contract"
+    (let [wire (atom nil)
+          args {:summary-text "safe summary" :run-date "2026-07-19"
+                :db (db/match-db {})}]
+      (is (true? (bo-react/notify-with
+                  (fn [url opts] (reset! wire [url opts]) {:status 200})
+                  "https://tenant.webhook.office.com/hooks/id" args)))
+      (is (= "https://tenant.webhook.office.com/hooks/id" (first @wire)))
+      (is (= "application/json" (get-in @wire [1 :headers "content-type"])))
+      (is (re-find #"safe summary" (get-in @wire [1 :body])))))
+  (testing "malformed, off-fleet and lookalike endpoints fail closed before HTTP"
+    (doseq [url ["not a url"
+                 "https://example.com/hook"
+                 "https://webhook.office.com.evil.example/hook"]]
+      (let [called? (atom false)
+            exec-log (atom [])]
+        (is (true? (bo-react/notify-with
+                    (fn [& _] (reset! called? true)) url
+                    {:summary-text "fallback" :run-date "2026-07-19"
+                     :db (db/match-db {:exec-log exec-log})})))
+        (is (false? @called?))
+        (is (= 1 (count @exec-log))))))
+  (testing "missing raw HTTP capability cannot perform network I/O"
+    (let [exec-log (atom [])]
+      (is (true? (bo-react/notify-with
+                  nil "https://tenant.webhook.office.com/hooks/id"
+                  {:summary-text "fallback" :run-date "2026-07-19"
+                   :db (db/match-db {:exec-log exec-log})})))
+      (is (= 1 (count @exec-log))))))
+
 ;; ── server dispatcher ───────────────────────────────────────────────────────────
 (deftest test-server-dispatch
   (testing "dispatch routes ported graphs, 404s unknown / not-yet-ported"
