@@ -10,13 +10,13 @@
   This namespace ports the GRAPH REGISTRY (23 single-node organism graphs), the
   NSID→assistant map, and the invoke/serialize/elapsed logic as pure clj fns
   (`ok`, `health`, `dispatch-run`, `dispatch-xrpc`). An optional org.httpkit
-  socket leg (`ring-handler` / `start!`) is provided behind requiring-resolve so
-  every cljc ns still loads under bb without the http dep present.
+  socket leg (`ring-handler` / `start!`) accepts an explicit host capability.
 
   COEXIST: the DEPLOYED runtime is still the FastAPI pod (`lg/`, via
   langgraph.json/Dockerfile/Helm). This clj twin is additive and runs alongside
   until a human cuts over — it never disturbs the live pod."
-  (:require [langgraph.graph :as g]
+  (:require #?(:clj [cheshire.core :as json])
+            [langgraph.graph :as g]
             [clojure.string :as str]
             [lg-organism.graph :as graph]
             [lg-organism.tasks :as tasks]
@@ -56,8 +56,7 @@
   `_safe_json`). Under bb our worker results are plain maps already."
   [obj]
   #?(:clj (try
-            (when-let [gen (requiring-resolve 'cheshire.core/generate-string)]
-              (gen obj))
+            (json/generate-string obj)
             obj
             (catch Exception _ (str obj)))
      :cljs obj))
@@ -119,9 +118,7 @@
   GET /ok, GET /health, POST /runs, POST|GET /xrpc/{nsid}."
   [{:keys [request-method uri body headers]}]
   #?(:clj
-     (let [parse (requiring-resolve 'cheshire.core/parse-string)
-           gen   (requiring-resolve 'cheshire.core/generate-string)
-           read-body (fn [] (try (when body (parse (slurp body) true)) (catch Exception _ nil)))
+     (let [read-body (fn [] (try (when body (json/parse-string (slurp body) true)) (catch Exception _ nil)))
            {:keys [status body] :as _resp}
            (cond
              (and (= :get request-method) (= uri "/ok"))      (ok)
@@ -133,14 +130,17 @@
              :else {:status 404 :body {:detail "not found"}})]
        {:status status
         :headers {"Content-Type" "application/json"}
-        :body (gen body)})
+        :body (json/generate-string body)})
      :cljs nil))
 
 (defn start!
   "Start an org.httpkit server on `port` (default 8000). Requires httpkit on the
   classpath; intentionally NOT auto-started (the FastAPI pod is the live runtime)."
-  ([] (start! 8000))
-  ([port]
-   #?(:clj (let [run-server (requiring-resolve 'org.httpkit.server/run-server)]
+  ([run-server] (start! run-server 8000))
+  ([run-server port]
+   #?(:clj (do
+             (when-not (fn? run-server)
+               (throw (ex-info "KI server requires an explicit run-server capability"
+                               {:capability :ki/run-server})))
              (run-server ring-handler {:port port}))
       :cljs nil)))

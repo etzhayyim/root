@@ -141,8 +141,34 @@
   (testing "off-fleet endpoint refused"
     (is (thrown? #?(:clj clojure.lang.ExceptionInfo :cljs :default)
                  (llm/assert-murakumo "https://api.openai.com/v1"))))
+  (testing "malformed endpoint refused"
+    (is (thrown? #?(:clj clojure.lang.ExceptionInfo :cljs :default)
+                 (llm/assert-murakumo "not-a-url"))))
   (testing "loopback gateway allowed"
     (is (nil? (llm/assert-murakumo "http://127.0.0.1:4000/v1")))))
+
+(deftest live-authority-requires-explicit-capabilities
+  (is (thrown-with-msg? #?(:clj clojure.lang.ExceptionInfo :cljs :default)
+                        #"explicit chat capability"
+                        (llm/llm-chat "system" "user")))
+  #?(:clj
+     (is (thrown-with-msg? clojure.lang.ExceptionInfo
+                           #"explicit run-server capability"
+                           (server/start! nil 0)))))
+
+(deftest injected-http-wire-contract
+  #?(:clj
+     (let [seen (atom nil)
+           reply (llm/murakumo-llm-chat-with
+                  (fn [url opts]
+                    (reset! seen [url opts])
+                    {:status 200
+                     :body "{\"choices\":[{\"message\":{\"content\":\" safe \"}}]}"})
+                  llm/default-config "system" "user")]
+       (is (= "safe" reply))
+       (is (= "http://127.0.0.1:4000/v1/chat/completions" (first @seen)))
+       (is (= "application/json" (get-in @seen [1 :headers "Content-Type"])))
+       (is (re-find #"\"model\"" (get-in @seen [1 :body]))))))
 
 ;; ── audit ledger seam ───────────────────────────────────────────────────────
 

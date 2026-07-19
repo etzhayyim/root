@@ -43,7 +43,7 @@
   [in]
   (let [system (or (:system in) "You are the hakkou fermentation transform worker.")
         user   (str (or (:prompt in) (:input in) (:text in) ""))
-        res    (llm/*llm-chat* system user)]
+        res    (llm/llm-chat system user)]
     (if (map? res)
       (worker-echo "hakkou" "llmTransform" (assoc in :llm res))
       {:status "ok" :worker "hakkou" :task "llmTransform" :output res})))
