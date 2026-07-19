@@ -47,6 +47,24 @@
       (is (= "https://pds.example/xrpc/com.x" (:url r)))
       (is (= {"k" 1} (:body r))))))
 
+(deftest explicit-host-capabilities
+  (testing "environment values are data supplied by the host"
+    (is (= "postgres://env/db"
+           (db/resolve-db-url "" "DATABASE_URL"
+                              {"DATABASE_URL" "postgres://env/db"})))
+    (is (= db/rw-local-url (db/resolve-db-url "" "DATABASE_URL"))))
+  (testing "omitted process, filesystem and HTTP capabilities fail closed"
+    (is (thrown-with-msg? clojure.lang.ExceptionInfo
+                          #"host capability not configured: :process"
+                          (db/find-git-root)))
+    (is (thrown-with-msg? clojure.lang.ExceptionInfo
+                          #"host capability not configured: :filesystem"
+                          (db/list-graph-schema-migs "/schema")))
+    (is (thrown-with-msg? clojure.lang.ExceptionInfo
+                          #"host capability not configured: :http"
+                          (db/call-xrpc-get
+                           (db/build-xrpc-get-request "https://pds.example" "tok" "com.x"))))))
+
 (defn -main [& _]
   (let [{:keys [fail error]} (run-tests 'etzhayyim.test-database)]
     (System/exit (if (pos? (+ fail error)) 1 0))))

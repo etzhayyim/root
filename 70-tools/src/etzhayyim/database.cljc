@@ -16,7 +16,7 @@
 ;;     valid-subcommands       — set of valid migrator subcommands
 ;;
 ;;   IO (subprocess/FS via injectable fns, no live calls in tests):
-;;     resolve-db-url           — read DATABASE_URL env var
+;;     resolve-db-url           — choose an explicit flag/env-map/default URL
 ;;     find-git-root            — invoke git root via :proc-fn
 ;;     list-graph-schema-migs   — list .ts migration files via :fs-fn
 ;;     run-kysely-migrate       — run node kysely migration via :proc-fn
@@ -31,22 +31,18 @@
 ;;
 ;; INJECTABLE PROCESS FN:
 ;;   Subprocess IO fns accept :proc-fn in opts.
-;;   Default = babashka.process/shell. Tests inject a fake that records argv.
+;;   No default authority: callers must inject a process capability.
 ;;
 ;; INJECTABLE FS FN:
 ;;   list-graph-schema-migs accepts :fs-fn (= fn [dir] -> seq of filename strings).
-;;   Default reads the real filesystem. Tests inject a fake list.
+;;   No default authority: callers must inject a filesystem capability.
 ;;
 ;; bb load check:
 ;;   bb --classpath 70-tools/src -e "(require 'etzhayyim.database)(println :ok)"
 
 (ns etzhayyim.database
   (:require [clojure.string :as str]
-            [cheshire.core  :as json]
-            #?(:bb  [babashka.process :as proc]
-               :clj [babashka.process :as proc])
-            #?(:bb  [babashka.fs      :as fs]
-               :clj [babashka.fs      :as fs])))
+            [cheshire.core  :as json]))
 
 ;; ---------------------------------------------------------------------------
 ;; Constants (pure data — no IO at load time)
@@ -178,57 +174,30 @@
 
 (defn resolve-db-url
   "Resolve a database connection URL.
-  Prefers url-flag (non-empty string) over the env var named by env-name.
+  Prefers url-flag (non-empty string) over the value in an explicit env map.
   Falls back to rw-local-url if neither is set.
   Mirrors Python _resolve_db_url()."
   ([url-flag env-name]
+   (resolve-db-url url-flag env-name {}))
+  ([url-flag env-name env]
    (or (when (seq url-flag) url-flag)
-       (System/getenv env-name)
+       (get env env-name)
        rw-local-url)))
 
 ;; ---------------------------------------------------------------------------
 ;; IO: default implementations
 ;; ---------------------------------------------------------------------------
 
-(defn- default-proc-fn
-  "Execute argv via babashka.process/shell.
-  env-override maps additional env vars (merged on top of current process env).
-  Returns {:exit :out :err}."
-  [argv {:keys [env cwd]}]
-  #?(:bb
-     (let [base-env (into {} (System/getenv))
-           merged   (merge base-env env)
-           opts     (cond-> {:out :string :err :string :continue true :env merged}
-                      cwd (assoc :dir cwd))
-           r        (apply proc/shell opts argv)]
-       {:exit (:exit r) :out (str (:out r)) :err (str (:err r))})
-     :default
-     (throw (ex-info "babashka.process only available under bb" {:argv argv}))))
+(defn- missing-capability [capability]
+  (fn [& _]
+    (throw (ex-info (str "database host capability not configured: " capability)
+                    {:missing-capability capability}))))
 
-(defn- default-http-fn
-  "Real babashka.http-client dispatch.
-  method is a keyword (:get :post :put :delete)."
-  [{:keys [method url headers body]}]
-  #?(:bb
-     (let [req-method (keyword (str/upper-case (name method)))
-           http-opts  (cond-> {:method  req-method
-                               :uri     url
-                               :headers headers}
-                        body (assoc :body (json/generate-string body)))
-           hc         (requiring-resolve 'babashka.http-client/request)
-           resp       (hc http-opts)]
-       {:status (:status resp) :body (:body resp)})
-     :default
-     (throw (ex-info "babashka.http-client only available under bb"
-                     {:method method :url url}))))
+(def ^:private default-proc-fn (missing-capability :process))
 
-(defn- default-fs-fn
-  "List .ts files in a directory. Returns a seq of filename strings.
-  Tests inject a fake instead."
-  [dir]
-  #?(:bb  (map str (filter #(str/ends-with? (str %) ".ts")
-                            (fs/list-dir dir)))
-     :default []))
+(def ^:private default-http-fn (missing-capability :http))
+
+(def ^:private default-fs-fn (missing-capability :filesystem))
 
 ;; ---------------------------------------------------------------------------
 ;; IO: find git root
