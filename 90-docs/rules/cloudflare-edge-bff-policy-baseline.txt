@@ -30,8 +30,6 @@
 60-apps/etzhayyim-project-kyber-qzzg06nh/appview/etzhayyim-wasm-kyber-inbox-inb0x4k2/src/app.ts:38:kysely-direct-db:await db.insertInto('vertex_email_message').values({
 60-apps/etzhayyim-project-kyber-qzzg06nh/appview/etzhayyim-wasm-kyber-inbox-inb0x4k2/src/app.ts:66:kysely-direct-db:await db.insertInto('edge_kyber_routed').values({
 60-apps/etzhayyim-project-kyber-qzzg06nh/appview/etzhayyim-wasm-kyber-inbox-inb0x4k2/src/app.ts:84:kysely-direct-db:await db.insertInto('vertex_calendar_event').values({
-60-apps/etzhayyim-project-lawfirm/appview/etzhayyim-wasm-lawfirm-lf1rm8k0/wrangler.jsonc:23:wrangler-hyperdrive-binding:"hyperdrive": [
-60-apps/etzhayyim-project-lawfirm/appview/etzhayyim-wasm-lawfirm-lf1rm8k0/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-mangaka/appview-studio/etzhayyim-wasm-studio-stdk2024/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-mangaka/appview/etzhayyim-wasm-mangaka-mng4k4x1/wrangler.jsonc:33:wrangler-hyperdrive-binding:"hyperdrive": [
 60-apps/etzhayyim-project-mangaka/appview/etzhayyim-wasm-mangaka-mng4k4x1/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/app.ts"
@@ -135,20 +133,6 @@
 60-apps/etzhayyim-project-watashi/appview/etzhayyim-wasm-watashi-mfbtsuyc/src/app.ts:644:kysely-direct-db:await getDb().insertInto("vertex_watashi_release" as any).values({
 60-apps/etzhayyim-project-watashi/appview/etzhayyim-wasm-watashi-mfbtsuyc/src/app.ts:758:kysely-direct-db:await getDb().insertInto("vertex_watashi_pairing" as any).values({
 60-apps/etzhayyim-project-watashi/appview/etzhayyim-wasm-watashi-mfbtsuyc/src/app.ts:926:kysely-direct-db:await getDb().insertInto("vertex_watashi_session" as any).values({
-60-apps/etzhayyim-project-xlsx/appview/etzhayyim-wasm-xlsx-il0ndq6a/src/app.ts:160:kysely-direct-db:await getDb().insertInto("vertex_xlsx_workbook" as any).values({
-60-apps/etzhayyim-project-xlsx/appview/etzhayyim-wasm-xlsx-il0ndq6a/src/app.ts:189:kysely-direct-db:await getDb().insertInto("vertex_xlsx_cell" as any).values({
-60-apps/etzhayyim-project-xlsx/appview/etzhayyim-wasm-xlsx-il0ndq6a/src/app.ts:221:kysely-direct-db:await getDb().insertInto("vertex_xlsx_cell" as any).values({
-60-apps/etzhayyim-project-xlsx/appview/etzhayyim-wasm-xlsx-il0ndq6a/src/app.ts:22:kysely-direct-db:const getDb = () => createKyselyDb();
-60-apps/etzhayyim-project-xlsx/appview/etzhayyim-wasm-xlsx-il0ndq6a/src/app.ts:252:kysely-direct-db:await getDb().insertInto("vertex_xlsx_style" as any).values({
-60-apps/etzhayyim-project-xlsx/appview/etzhayyim-wasm-xlsx-il0ndq6a/src/app.ts:281:kysely-direct-db:await getDb().insertInto("vertex_xlsx_sheet_op" as any).values({
-60-apps/etzhayyim-project-xlsx/appview/etzhayyim-wasm-xlsx-il0ndq6a/src/app.ts:306:kysely-direct-db:await getDb().insertInto("vertex_xlsx_sheet_op" as any).values({
-60-apps/etzhayyim-project-xlsx/appview/etzhayyim-wasm-xlsx-il0ndq6a/src/app.ts:331:kysely-direct-db:await getDb().insertInto("vertex_xlsx_sheet_op" as any).values({
-60-apps/etzhayyim-project-xlsx/appview/etzhayyim-wasm-xlsx-il0ndq6a/src/app.ts:356:kysely-direct-db:await getDb().insertInto("vertex_xlsx_sheet_op" as any).values({
-60-apps/etzhayyim-project-xlsx/appview/etzhayyim-wasm-xlsx-il0ndq6a/src/app.ts:383:kysely-direct-db:await getDb().insertInto("vertex_xlsx_merge" as any).values({
-60-apps/etzhayyim-project-xlsx/appview/etzhayyim-wasm-xlsx-il0ndq6a/src/app.ts:424:kysely-direct-db:await getDb().insertInto("vertex_xlsx_sheet" as any).values({
-60-apps/etzhayyim-project-xlsx/appview/etzhayyim-wasm-xlsx-il0ndq6a/src/app.ts:48:kysely-direct-db:await getDb().insertInto("vertex_xlsx_workbook" as any).values({
-60-apps/etzhayyim-project-xlsx/appview/etzhayyim-wasm-xlsx-il0ndq6a/src/app.ts:77:kysely-direct-db:await getDb().insertInto("vertex_xlsx_workbook" as any).values({
-60-apps/etzhayyim-project-xlsx/appview/etzhayyim-wasm-xlsx-il0ndq6a/src/app.ts:93:kysely-direct-db:await getDb().insertInto("vertex_xlsx_sheet" as any).values({
 60-apps/etzhayyim-project-yorishiro/appview/etzhayyim-wasm-yorishiro-flyio-fly10001/src/app.ts:105:kysely-direct-db:if (!db) db = createKyselyDb();
 60-apps/etzhayyim-project-yorishiro/appview/etzhayyim-wasm-yorishiro-flyio-fly10001/src/app.ts:137:kysely-direct-db:.selectFrom(tableForLabel(label) as any)
 60-apps/etzhayyim-project-yorishiro/appview/etzhayyim-wasm-yorishiro-flyio-fly10001/src/app.ts:178:kysely-direct-db:.insertInto("vertex_yorishiroFlyio_cancellationJob" as any)

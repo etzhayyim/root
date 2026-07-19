@@ -5,7 +5,6 @@
   "reason": "T1/T2 actors migrated to MCP registry + BPMN + Zeebe Python worker; dedicated CF Worker deploy configs are archived to keep app actors off the edge runtime.",
   "activePaths": [
     "60-apps/etzhayyim-project-ameno/appview/etzhayyim-wasm-ameno-d94d27cb/wrangler.jsonc",
-    "60-apps/etzhayyim-project-apps/appview/apps-cdn-a9p5l1st/wrangler.jsonc",
     "60-apps/etzhayyim-project-baminiku/appview/etzhayyim-wasm-baminiku-bm1n1ku8/wrangler.jsonc",
     "60-apps/etzhayyim-project-bpmn/appview/etzhayyim-wasm-bpmn-bx7qm9p4/wrangler.jsonc",
     "60-apps/etzhayyim-project-bunken/appview/etzhayyim-wasm-bunken-bk7n2d8x/wrangler.jsonc",
