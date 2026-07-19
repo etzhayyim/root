@@ -1599,6 +1599,21 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2607193200-remaining-doc-only-apps-retire.edn",
+      "id": "2607193200",
+      "title": "Retire the remaining documentation-only legacy app directories",
+      "status": "accepted",
+      "doc_type": "doc",
+      "topic": "",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2605291700-moemoekyun-plateau-and-bestofn-path.edn",
       "id": "ADR-2605291700",
       "title": "baien-moemoekyun plateau analysis (cycles 17-114) + Best-of-N as the deployable score-lift path",
