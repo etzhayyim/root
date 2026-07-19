@@ -18,14 +18,12 @@
   (:require [clojure.string :as str]
             [media-gamers.llm :as llm]
             [media-gamers.audit :as audit]
-            #?(:clj [babashka.http-client :as http])
             #?(:clj [cheshire.core :as json])
             #?(:clj [langgraph.graph :as g])))
 
-(defn- getenv [k default]
-  #?(:clj (or (System/getenv k) default) :default default))
-
-(defn app-did [] (getenv "MEDIA_GAMERS_APP_DID" "did:web:media-gamers.etzhayyim.com"))
+(def ^:dynamic *config* {:app-did "did:web:media-gamers.etzhayyim.com"})
+(def ^:dynamic *http-get* nil)
+(defn app-did [] (:app-did *config*))
 
 (def steamspy-top2w-url "https://steamspy.com/api.php?request=top100in2weeks")
 
@@ -88,7 +86,8 @@
    (defn node-fetch [_state]
      (let [ws (week-start-utc)]
        (try
-         (let [r (http/get steamspy-top2w-url {:timeout 30000 :throw false})]
+         (when-not (fn? *http-get*) (throw (ex-info "SteamSpy HTTP capability missing" {})))
+         (let [r (*http-get* steamspy-top2w-url {:timeout 30000 :throw false})]
            (if (>= (:status r) 400)
              {:ok false :error (str "steamspy http " (:status r)) :week-start ws}
              {:entries (parse-entries (json/parse-string (:body r) true))
