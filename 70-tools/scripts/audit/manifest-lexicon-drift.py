@@ -85,8 +85,14 @@ def actor_wire_lexicon_path(manifest_path: Path, nsid: str) -> Path:
     return manifest_path.parent / "wire" / "lex" / f"{nsid.rsplit('.', 1)[-1]}.json"
 
 
+def actor_wire_lexicons_path(manifest_path: Path, nsid: str) -> Path:
+    """Plural wire-boundary layout used by some standalone owners."""
+    return manifest_path.parent / "wire" / "lexicons" / f"{nsid.rsplit('.', 1)[-1]}.json"
+
+
 def actor_contract_paths(manifest_path: Path, nsid: str) -> list[Path]:
     return [actor_wire_lexicon_path(manifest_path, nsid),
+            actor_wire_lexicons_path(manifest_path, nsid),
             actor_lexicon_path(manifest_path, nsid)]
 
 

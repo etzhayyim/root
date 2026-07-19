@@ -129,6 +129,15 @@ class TestNsidToPath:
         assert audit.resolve_lexicon_path(manifest, "com.etzhayyim.demo.record") == wire
         assert audit.lexicon_location(manifest, "com.etzhayyim.demo.record") == "flat-owner"
 
+    def test_plural_wire_lexicons_contract_is_flat_owner(self, audit, tmp_path):
+        manifest = tmp_path / "orgs/etzhayyim/com-etzhayyim-demo/manifest.edn"
+        manifest.parent.mkdir(parents=True)
+        wire = audit.actor_wire_lexicons_path(manifest, "com.etzhayyim.demo.record")
+        wire.parent.mkdir(parents=True)
+        wire.write_text("{}")
+        assert audit.resolve_lexicon_path(manifest, "com.etzhayyim.demo.record") == wire
+        assert audit.lexicon_location(manifest, "com.etzhayyim.demo.record") == "flat-owner"
+
 
 # ─── End-to-end smoke tests against the live repo ──────────────────────
 
