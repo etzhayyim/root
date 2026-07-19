@@ -42,7 +42,7 @@ cd "$REPO_ROOT"
 # reads the git index directly (~25 ms) and honours .gitignore for free.
 # Combined with the parallel `gh` block below, total wall drops from
 # ~20 s (sequential find + serial gh) to ~500 ms.
-gitrepo_files=$(git ls-files | grep '\.gitrepo$' | grep -v "/node_modules/\|/.claude/")
+gitrepo_files=$(git ls-files | grep '\.gitrepo$' | grep -v "/node_modules/\|/.claude/" || true)
 # Pre-extract (file, orgrepo) pairs serially (grep + awk is microseconds
 # each; the slow part is the `gh repo view` network call). Then dispatch
 # the network checks in parallel via xargs -P10 (well under any GitHub

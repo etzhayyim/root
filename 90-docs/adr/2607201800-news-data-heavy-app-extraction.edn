@@ -1,0 +1,7 @@
+{:schema "etzhayyim.adr/v1" :id "2607201800" :title "Extract news data-heavy application" :status :accepted :date "2026-07-20"
+ :scope {:source-repository "etzhayyim/root" :source-revision "c950a93604d97eafa5fed963a2d81a4a3d5236da" :tracked-files 21968 :bytes 33199896 :git-tree "7a664d6c9347d170996319362afcd769ef24faed"}
+ :decision {:classification :data-heavy-independent-application :destination "etzhayyim/com-etzhayyim-app-news" :root-common-substrate false}
+ :extraction-contract {:repository-visibility :private :canonical-files ["README.edn" "migration.edn"] :source-preservation "Destination differs from the exact source tree only by canonical EDN files."}
+ :reference-classification {:stale-upstream-baseline {:before 1 :after 0 :removed ["news"] :remaining []} :zero-subrepo-audit "Both upstream and symlink audits explicitly accept an empty tracked .gitrepo set." :regenerated-operational-allowlist ["news"] :regenerated-policy-baselines true :preserved-historical-fixture-provenance true}
+ :invariants {:canonical-record-format :edn :go-files-created 0 :tinygo-files-created 0 :flat-west-path "orgs/etzhayyim/com-etzhayyim-app-*"}
+ :verification [:private-repository :exact-remote-sha :source-tree-identity :byte-count :edn-readable :subrepo-audit :registry-freshness]}

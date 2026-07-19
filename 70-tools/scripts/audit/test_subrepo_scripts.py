@@ -61,8 +61,10 @@ SYMLINK_HEALTH_PERF_BUDGET_S = 2.0
 # its private flat repository, shrinking the root-owned baseline 3 → 2.
 # 2026-07-20 ADR-2607201700: resources and its stale .gitrepo marker moved
 # to its private flat repository, shrinking the root-owned baseline 2 → 1.
-# Current remaining set: news.
-EXPECTED_STALE_URLS = 1
+# 2026-07-20 ADR-2607201800: news and its stale .gitrepo marker moved to
+# its private flat repository, closing the root-owned baseline 1 → 0.
+# Current remaining set: none.
+EXPECTED_STALE_URLS = 0
 # ESCAPE_SYMLINKS baseline dropped 18 → 0 (2026-05-31): the 18 escape
 # symlinks were all the `CHARTER-RIDER.md → ../../CHARTER-RIDER.md`
 # pattern inside the kotoba **git-subrepo** (1 root + 17 crates), a
@@ -111,10 +113,9 @@ class TestSubrepoUpstreamHealth:
             f"got different count\nstdout:\n{out}"
         )
 
-    def test_strict_mode_exits_1_on_findings(self):
+    def test_strict_mode_exits_0_without_findings(self):
         rc, _, _ = _run_script(UPSTREAM_HEALTH, ["--strict"])
-        # stale URLs > 0, so strict mode MUST fail.
-        assert rc == 1, f"strict mode with {EXPECTED_STALE_URLS} findings should exit 1; got {rc}"
+        assert rc == 0, f"strict mode with zero findings should exit 0; got {rc}"
 
     def test_performance_budget(self):
         """Iter-57 optimized to ~0.5s via git ls-files + xargs -P10.

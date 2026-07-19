@@ -1,8 +1,6 @@
 {
   "_comment": "Frozen legacy substrate-boundary (storage) violators — ADR-2606071800. SHRINK-ONLY: remove a path once migrated to kotoba-kqe; never add new paths. Regenerate with `node 70-tools/scripts/lint/substrate-remediation-audit.mjs --write` ONLY to seed or after review. CI runs `--audit`.",
   "adr": "2606071800",
-  "count": 1,
-  "files": [
-    "60-apps/etzhayyim-project-news/appview/news-core-component/src/app.ts"
-  ]
+  "count": 0,
+  "files": []
 }
