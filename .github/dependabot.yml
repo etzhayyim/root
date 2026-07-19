@@ -1,85 +1,5 @@
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/20-actors/etzhayyim-bpmn-sdk"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/20-actors/etzhayyim-bpmn-sdk/examples/dmn-js-minimal"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/20-actors/etzhayyim-bpmn-sdk/examples/e2e-integration"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/20-actors/etzhayyim-bpmn-sdk/examples/e2e-minimal"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/20-actors/etzhayyim-bpmn-sdk/examples/form-js-minimal"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/20-actors/etzhayyim-bpmn-sdk/examples/order-processing"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/20-actors/etzhayyim-bpmn-sdk/packages/compiler"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/20-actors/etzhayyim-bpmn-sdk/packages/core"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/20-actors/etzhayyim-bpmn-sdk/packages/dmn"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/20-actors/etzhayyim-bpmn-sdk/packages/dsl"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/20-actors/etzhayyim-bpmn-sdk/packages/form"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/20-actors/etzhayyim-bpmn-sdk/packages/human"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/20-actors/etzhayyim-bpmn-sdk/packages/importer"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/20-actors/etzhayyim-bpmn-sdk/packages/internal/testkit"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/20-actors/etzhayyim-bpmn-sdk/packages/ops"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/20-actors/etzhayyim-bpmn-sdk/packages/runtime"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/20-actors/etzhayyim-bpmn-sdk/packages/testing"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/20-actors/etzhayyim-bpmn-sdk/packages/validation"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/20-actors/etzhayyim-pregel"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/20-actors/etzhayyim-sdk"
-    schedule:
-      interval: "weekly"
   # `/20-actors/kami-engine-sdk` directory entry removed per ADR-2605265200
   # Phase 3 (commit 2d199cca9, 2026-05-26 iter-11). Canonical SDK lives at
   # `40-engine/kami-engine/kami-engine-sdk` (git subrepo of
@@ -220,10 +140,6 @@ updates:
       interval: "weekly"
   - package-ecosystem: "cargo"
     directory: "/70-tools/maps-osm-ingest"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "pip"
-    directory: "/20-actors/first-breath"
     schedule:
       interval: "weekly"
   - package-ecosystem: "pip"
