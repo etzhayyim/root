@@ -9,11 +9,36 @@
             [clojure.java.io :as io]
             [media-gamers.server :as server]
             [media-gamers.games :as games]
+            [media-gamers.audit :as audit]
+            [media-gamers.llm :as llm]
             [media-gamers.graphs.guide-generator :as guide]
             [media-gamers.graphs.autopilot :as auto]
             [media-gamers.graphs.ingest-charts :as charts]
             [media-gamers.graphs.health :as health]
             [langgraph.graph :as g]))
+
+(deftest host-effects-are-explicit-capabilities
+  (testing "portable LLM cannot perform HTTP when unconfigured"
+    (binding [llm/*http-post* nil]
+      (is (= "" (llm/chat "system" "user")))))
+  (testing "explicit LLM capability preserves the Murakumo wire path"
+    (let [seen (atom nil)]
+      (binding [llm/*http-post* (fn [url _]
+                                  (reset! seen url)
+                                  {:status 200
+                                   :body "{\"choices\":[{\"message\":{\"content\":\"ok\"}}]}"})]
+        (is (= "ok" (llm/chat "system" "user")))
+        (is (= "http://127.0.0.1:4000/v1/chat/completions" @seen)))))
+  (testing "audit secret is purpose-bound config"
+    (let [wire (atom nil)]
+      (binding [audit/*config* {:url "http://audit.internal" :disabled? false
+                                :timeout-ms 1000 :secret "purpose-bound"}
+                audit/*http-post* (fn [url opts] (reset! wire [url opts]) {:status 200})]
+        (audit/emit-audit {:actor "did:test" :activity "test"})
+        (is (= "purpose-bound" (get-in @wire [1 :headers "x-internal-trust"]))))))
+  (testing "SteamSpy fetch requires an explicit HTTP capability"
+    (binding [charts/*http-get* nil]
+      (is (false? (:ok (charts/node-fetch {})))))))
 
 (def expected-graphs #{"health" "ingest_charts" "guide_generator" "autopilot" "pokopia_research"})
 

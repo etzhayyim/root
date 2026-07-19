@@ -13,11 +13,9 @@
             [media-gamers.audit :as audit]
             #?(:clj [langgraph.graph :as g])))
 
-(defn- getenv [k default]
-  #?(:clj (or (System/getenv k) default) :default default))
-
-(defn app-did []
-  (getenv "MEDIA_GAMERS_APP_DID" "did:web:media-gamers.etzhayyim.com"))
+(def ^:dynamic *config* {:app-did "did:web:media-gamers.etzhayyim.com"
+                         :store-configured? false})
+(defn app-did [] (:app-did *config*))
 
 (defn now-iso []
   #?(:clj (.format (java.time.format.DateTimeFormatter/ofPattern "yyyy-MM-dd'T'HH:mm:ss'Z'")
@@ -27,7 +25,7 @@
 (defn node-check
   "Port of `_node_check` (RW probe removed per substrate boundary)."
   [_state]
-  (let [store-url (or (not-empty (getenv "RW_URL" "")) (not-empty (getenv "KOTOBA_URL" "")))]
+  (let [store-url (:store-configured? *config*)]
     (cond-> {:service "lg-media-gamers"
              :version "0.1.0"
              :server-now (now-iso)

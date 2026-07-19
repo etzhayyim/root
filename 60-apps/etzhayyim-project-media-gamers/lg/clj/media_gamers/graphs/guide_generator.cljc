@@ -14,17 +14,15 @@
             [media-gamers.games :as games]
             [media-gamers.llm :as llm]
             [media-gamers.audit :as audit]
-            #?(:clj [babashka.http-client :as http])
             #?(:clj [cheshire.core :as json])
             #?(:clj [langgraph.graph :as g])))
 
-(defn- getenv [k default]
-  #?(:clj (or (System/getenv k) default) :default default))
-
-(defn app-did [] (getenv "MEDIA_GAMERS_APP_DID" "did:web:media-gamers.etzhayyim.com"))
-(defn commit-guide-xrpc []
-  (getenv "COMMIT_GUIDE_XRPC_URL"
-          "https://media-gamers.etzhayyim.com/xrpc/com.etzhayyim.apps.media_gamers.guide.commitGuide"))
+(def ^:dynamic *config*
+  {:app-did "did:web:media-gamers.etzhayyim.com"
+   :commit-guide-url "https://media-gamers.etzhayyim.com/xrpc/com.etzhayyim.apps.media_gamers.guide.commitGuide"})
+(def ^:dynamic *http-post* nil)
+(defn app-did [] (:app-did *config*))
+(defn commit-guide-xrpc [] (:commit-guide-url *config*))
 
 ;; ── nodes ───────────────────────────────────────────────────────────────────
 
@@ -96,7 +94,8 @@
                       :qualityScore (:quality-score state 0)
                       :translations (:translations state [])}]
          (try
-           (let [r (http/post (commit-guide-xrpc)
+           (when-not (fn? *http-post*) (throw (ex-info "commit HTTP capability missing" {})))
+           (let [r (*http-post* (commit-guide-xrpc)
                               {:body (json/generate-string payload)
                                :headers {"Content-Type" "application/json"}
                                :timeout 30000 :throw false})]

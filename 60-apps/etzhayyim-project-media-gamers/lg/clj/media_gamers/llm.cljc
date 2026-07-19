@@ -17,11 +17,12 @@
   Fail-open: returns \"\" on any error / no reachable endpoint (byte-for-byte the
   python contract — an empty string flows downstream as an `:error` later)."
   (:require [clojure.string :as str]
-            #?(:clj [babashka.http-client :as http])
             #?(:clj [cheshire.core :as json])))
 
-(defn- getenv [k default]
-  #?(:clj (or (System/getenv k) default) :default default))
+(def default-config {:endpoints [["http://127.0.0.1:4000/v1" ""]]
+                     :model "qwen3.5-4b" :timeout-ms 60000})
+(def ^:dynamic *config* default-config)
+(def ^:dynamic *http-post* nil)
 
 (def think-re #"(?s)<think>.*?</think>")
 
@@ -30,20 +31,9 @@
 (defn endpoints
   "Resolve the ordered [url key] endpoint list, Murakumo first (loopback default),
   RunPod only if its env is set. Mirrors the python `endpoints` accumulation."
-  []
-  (let [mk-url (-> (getenv "MURAKUMO_OPENAI_URL" "http://127.0.0.1:4000/v1")
-                   str (str/replace #"/+$" ""))
-        mk-key (getenv "MURAKUMO_API_KEY" "")
-        rp-url (-> (getenv "RUNPOD_OPENAI_URL" "") str (str/replace #"/+$" ""))
-        rp-key (getenv "RUNPOD_API_KEY" "")]
-    (cond-> []
-      (seq mk-url) (conj [mk-url mk-key])
-      (and (seq rp-url) (seq rp-key)) (conj [rp-url rp-key]))))
+  [] (mapv (fn [[url key]] [(str/replace (str url) #"/+$" "") key])
+           (:endpoints *config*)))
 
-(def llm-model (delay (getenv "LLM_MODEL" "qwen3.5-4b")))
-(def llm-timeout-ms
-  (delay #?(:clj (long (* 1000 (Double/parseDouble (getenv "LLM_TIMEOUT_SEC" "60"))))
-            :default 60000)))
 
 #?(:clj
    (defn chat
@@ -60,16 +50,18 @@
              (let [text
                    (try
                      (let [body (json/generate-string
-                                 {:model @llm-model
+                                 {:model (:model *config*)
                                   :messages [{:role "system" :content system}
                                              {:role "user" :content user}]
                                   :max_tokens max-tokens
                                   :temperature temp})
                            headers (cond-> {"Content-Type" "application/json"}
                                      (seq key) (assoc "Authorization" (str "Bearer " key)))
-                           resp (http/post (str url "/chat/completions")
+                           resp (if-not (fn? *http-post*)
+                                  {:status 503 :body ""}
+                                  (*http-post* (str url "/chat/completions")
                                            {:body body :headers headers
-                                            :timeout @llm-timeout-ms :throw false})]
+                                            :timeout (:timeout-ms *config*) :throw false}))]
                        (if (>= (:status resp) 400)
                          ::retry
                          (-> (json/parse-string (:body resp) true)
