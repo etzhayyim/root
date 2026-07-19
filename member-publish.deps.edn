@@ -1,4 +1,4 @@
-{:paths ["70-tools/src"]
+{:paths ["70-tools/src" "scripts"]
  :deps  {com-junkawasaki/kagi-clj        {:local/root "../../com-junkawasaki/kagi-clj"}
          kotoba-lang/langchain           {:local/root "../../kotoba-lang/langchain"}
          kotoba-lang/ed25519             {:local/root "../../kotoba-lang/ed25519"}
