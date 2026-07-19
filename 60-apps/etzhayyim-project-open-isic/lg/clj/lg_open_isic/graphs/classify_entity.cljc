@@ -22,12 +22,10 @@
 
   langgraph-clj has no per-node RetryPolicy; the classifier seam is best-effort
   and fail-soft instead (mirrors the python graph having no retry on the tool)."
-  (:require [clojure.string :as str]
+  (:require #?(:clj [cheshire.core :as json])
+            [clojure.string :as str]
             [langgraph.graph :as g]
             [lg-open-isic.store :as store]))
-
-(defn- getenv [k default]
-  #?(:clj (or (System/getenv k) default) :default default))
 
 ;; ── verification decision rule (UDF openIsic.verificationForConfidence) ─────
 
@@ -47,16 +45,16 @@
     "192.168.1.70:8077" "192.168.1.70:11434"
     "127.0.0.1:11434" "localhost:11434"})
 
-(def llm-url   (-> (getenv "VLLM_URL" "http://127.0.0.1:4000/v1")
-                   (str/replace #"/+$" "")))
-(def llm-model (getenv "VLLM_MODEL" "gemma3:4b"))
+(def default-config {:url "http://127.0.0.1:4000/v1"
+                     :model "gemma3:4b"})
 
 (defn assert-murakumo
   "Refuse any inference endpoint outside the Murakumo fleet (http only)."
   [endpoint]
-  (when-let [[_ scheme host] (re-find #"^([A-Za-z][A-Za-z0-9+.\-]*)://([^/?#]*)" (str endpoint))]
-    (when-not (and (= "http" (str/lower-case scheme))
-                   (contains? murakumo-allowed-hosts (str/lower-case host)))
+  (let [[_ scheme host] (or (re-find #"^([A-Za-z][A-Za-z0-9+.\-]*)://([^/?#]*)" (str endpoint))
+                            [nil nil nil])]
+    (when-not (and (= "http" (some-> scheme str/lower-case))
+                   (contains? murakumo-allowed-hosts (some-> host str/lower-case)))
       (throw (ex-info (str "inference endpoint " (pr-str endpoint)
                            " is outside the Murakumo fleet (ADR-2605215000)")
                       {:murakumo-only-violation true :endpoint endpoint})))))
@@ -65,32 +63,34 @@
 
 ;; ── injectable classifier seam (Murakumo loopback default) ──────────────────
 
-(defn default-classify
+(defn classify-with
   "Default `*classify*`: ask the Murakumo loopback LLM to route a subject to a
   4-digit ISIC class. Returns {:code <str> :nameEn <str> :confidence <num>} or
   {:error <str>}. Tests rebind this to a deterministic stub."
-  [subject _hint]
+  [http-post {:keys [url model] :or {url (:url default-config)
+                                     model (:model default-config)}} subject _hint]
+  (when-not (fn? http-post)
+    (throw (ex-info "Open ISIC classification requires an explicit HTTP POST capability"
+                    {:capability :open-isic/murakumo-http-post})))
   #?(:clj
      (try
-       (assert-murakumo llm-url)
-       (let [post     (requiring-resolve 'babashka.http-client/post)
-             generate (requiring-resolve 'cheshire.core/generate-string)
-             parse    (requiring-resolve 'cheshire.core/parse-string)
+       (let [url      (str/replace (str url) #"/+$" "")
+             _        (assert-murakumo url)
              system   (str "You are an ISIC Rev.4 industrial classifier. Given a subject, "
                            "return STRICT JSON {\"code\":\"<4-digit>\",\"nameEn\":\"<class name>\","
                            "\"confidence\":<0..1>}. No prose.")
-             resp     (post (str llm-url "/chat/completions")
+             resp     (http-post (str url "/chat/completions")
                             {:headers {"Content-Type" "application/json"}
                              :timeout 60000
-                             :body (generate {:model llm-model
+                             :body (json/generate-string {:model model
                                               :messages [{:role "system" :content system}
                                                          {:role "user" :content (str "Subject: " subject)}]
                                               :temperature 0.0})})]
          (if (>= (:status resp) 400)
            {:error (str "llm " (:status resp) ": " (clip (:body resp) 200))}
-           (let [body (parse (:body resp) true)
+           (let [body (json/parse-string (:body resp) true)
                  txt  (some-> (get-in body [:choices 0 :message :content]) str str/trim)
-                 j    (try (parse txt true) (catch Exception _ nil))]
+                 j    (try (json/parse-string txt true) (catch Exception _ nil))]
              (if (and j (:code j))
                {:code (str (:code j)) :nameEn (:nameEn j)
                 :confidence (double (or (:confidence j) 0.0))}
@@ -98,7 +98,13 @@
        (catch Exception e {:error (clip (.getMessage e) 200)}))
      :default {:error "classifier not available on this host"}))
 
-(def ^:dynamic *classify* default-classify)
+(def ^:dynamic *classify* nil)
+
+(defn classify [subject hint]
+  (when-not (fn? *classify*)
+    (throw (ex-info "Open ISIC classification requires an explicit classifier capability"
+                    {:capability :open-isic/classify})))
+  (*classify* subject hint))
 
 ;; ── nodes ────────────────────────────────────────────────────────────────────
 
@@ -115,7 +121,7 @@
   [state]
   (if (:error state)
     {}
-    (let [res (*classify* (:subject state) (:hint state))]
+    (let [res (classify (:subject state) (:hint state))]
       (if (:error res)
         {:error (:error res)}
         {:code (:code res) :nameEn (:nameEn res)
