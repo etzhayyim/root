@@ -1,0 +1,12 @@
+{:schema "etzhayyim.migration/moved-v1"
+ :source {:repo "etzhayyim/root"
+          :path "60-apps/etzhayyim-project-shiharai"
+          :revision "84c96c64c069ef792803de1d3e288d07c76ccdf7"
+          :git-tree "d1774304609e6f6b043e0b8a51a939e6a4cdd9b6"
+          :tracked-files 24
+          :bytes 77801}
+ :destination {:repo "etzhayyim/com-etzhayyim-app-shiharai"
+               :revision "3ed805bfb21f99bce8a67cd7e4e6f0d5bc00ee30"}
+ :status :moved
+ :owner-adr "2607200700"
+ :verification :source-tree-plus-canonical-edn-only}
