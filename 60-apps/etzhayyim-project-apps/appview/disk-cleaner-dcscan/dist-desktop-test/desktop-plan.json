@@ -1,8 +1,0 @@
-{
-  "appName": "Disk Cleaner",
-  "runtimeMode": "desktop-wasm",
-  "appBundlePath": "/Users/junkawasaki/etzhayyim/etzhayyim-root/projects/etzhayyim-project-apps/wasm/disk-cleaner-dcscan/dist-desktop-test/Disk Cleaner.app",
-  "guestPath": "/Users/junkawasaki/etzhayyim/etzhayyim-root/projects/etzhayyim-project-apps/wasm/disk-cleaner-dcscan/dist-desktop-test/Disk Cleaner.app/Contents/Resources/disk-cleaner.wasm",
-  "bundleId": "jp.co.etzhayyim.disk-cleaner",
-  "hostConfigPath": "/Users/junkawasaki/etzhayyim/etzhayyim-root/projects/etzhayyim-project-apps/wasm/disk-cleaner-dcscan/dist-desktop-test/Disk Cleaner.app/Contents/Resources/host-config.json"
-}
