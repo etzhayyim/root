@@ -15,11 +15,6 @@
   (:require [langgraph.graph :as g]
             [lgx.audit :as audit]))
 
-(defn- env [k default] (or (System/getenv k) default))
-
-(def ^:private rw-url (or (System/getenv "RW_URL") (System/getenv "LG_CHECKPOINTER_URL") ""))
-(def ^:private default-app-did (env "X_APP_DID" "did:web:x.etzhayyim.com"))
-
 (defn- now-iso []
   (.format (java.time.format.DateTimeFormatter/ofPattern "yyyy-MM-dd'T'HH:mm:ss'Z'")
            (java.time.ZonedDateTime/now (java.time.ZoneOffset/UTC))))
@@ -27,8 +22,8 @@
 (defn node-check-rw
   "Substrate-health probe. RisingWave is prohibited (see ns doc); without RW_URL
   this returns rw-ok false, matching the Python no-RW branch."
-  [_state]
-  (if (empty? rw-url)
+  [state]
+  (if (empty? (:rw-url (audit/config state)))
     {:rw-ok false :error "RW_URL not set"}
     ;; A real kotoba-engine probe replaces the prohibited RW SELECT-1 here.
     {:rw-ok false :error "rw: RisingWave probe not reintroduced (charter §State); kotoba probe TODO"}))
@@ -39,7 +34,8 @@
 
 (defn node-emit-audit [state]
   (audit/emit-audit-bg
-   {:actor default-app-did
+   state
+   {:actor (:app-did (audit/config state))
     :activity "x.health.check"
     :object-id (str "health:" (quot (System/currentTimeMillis) 1000))
     :object-type "x.health"

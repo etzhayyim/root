@@ -18,9 +18,6 @@
             [cheshire.core :as json]
             [clojure.string :as str]))
 
-(defn- env [k default] (or (System/getenv k) default))
-(def ^:private default-app-did (env "X_APP_DID" "did:web:x.etzhayyim.com"))
-
 (def hook-hints
   {"curiosity"  "Open with a surprising claim or counterintuitive observation that the reader needs to keep reading to resolve."
    "contrarian" "Open by stating the popular view, then immediately disagreeing with a specific reason."
@@ -85,12 +82,12 @@
                     (conj (str "Quote-tweeting: " (:quote-url state)))
                     (and (= (:format state) "reply") (:reply-to state))
                     (conj (str "Reply context: " (subs (:reply-to state) 0 (min 1500 (count (:reply-to state)))))))
-            payload {:model (llm/model)
+            payload {:model (llm/model state)
                      :messages [{:role "system" :content sys-prompt}
                                 {:role "user" :content (str/join "\n\n" parts)}]
                      :max_tokens 768
                      :temperature 0.85}
-            {:keys [ok resp error latency-ms]} (llm/chat-completions payload)]
+            {:keys [ok resp error latency-ms]} (llm/chat-completions state payload)]
         (if-not ok
           {:error error :latency-ms latency-ms}
           (let [raw (or (-> (or (:choices resp) [{}]) first :message :content) "")
@@ -102,12 +99,13 @@
             {:tweets tweets
              :rationale (subs (or (:rationale parsed) "") 0 (min 300 (count (or (:rationale parsed) ""))))
              :hashtags (->> (or (:hashtags parsed) []) (filter string?) (take 4) vec)
-             :model (or (:model resp) (llm/model))
+             :model (or (:model resp) (llm/model state))
              :latency-ms latency-ms}))))))
 
 (defn node-emit-audit [state]
   (audit/emit-audit-bg
-   {:actor default-app-did
+   state
+   {:actor (:app-did (audit/config state))
     :activity "x.tweet.composed"
     :object-id (str "compose:" (or (:handle state) "-") ":" (quot (System/currentTimeMillis) 1000))
     :object-type "x.tweet"

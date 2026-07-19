@@ -9,14 +9,13 @@
             [clojure.java.io :as io]
             [cheshire.core :as json]
             [lgx.server :as server]
+            [lgx.audit :as audit]
+            [lgx.llm :as llm]
             [lgx.graphs.health :as health]
             [lgx.graphs.agent-chat :as agent-chat]
             [lgx.graphs.compose-tweet :as compose-tweet]
             [lgx.cron :as cron]
             [langgraph.graph :as g]))
-
-;; charter-aligned defaults for a hermetic run
-(System/setProperty "LG_AUDIT_DISABLED" "1")
 
 (def expected-graphs #{"health" "compose_tweet" "agent_chat"})
 
@@ -87,6 +86,39 @@
     (is (= (str "did:web:x.etzhayyim.com:actor:analyst") (:actor-did out)))
     (is (= "message required" (:error out)))))
 
+(deftest test-host-config-flows-through-server
+  (let [r (server/run "agent_chat" {:actor-role "analyst"}
+                      {:host-config {:app-did "did:web:explicit.example"}})]
+    (is (true? (:ok r)))
+    (is (= "did:web:explicit.example:actor:analyst"
+           (get-in r [:result :actor-did])))))
+
+(deftest test-llm-http-is-an-explicit-capability
+  (let [request (atom nil)]
+    (binding [llm/*http-post*
+              (fn [url opts]
+                (reset! request [url opts])
+                {:status 200 :body "{\"choices\":[],\"model\":\"safe\"}"})]
+      (let [result (llm/chat-completions
+                    {:host-config {:llm {:base-url "http://localhost:4000/v1/"
+                                         :model "safe" :timeout-ms 1234}}}
+                    {:model "safe" :messages []})]
+        (is (true? (:ok result)))
+        (is (= "http://localhost:4000/v1/chat/completions" (first @request)))
+        (is (= 1234 (get-in @request [1 :timeout])))))))
+
+(deftest test-audit-secret-is-explicit
+  (let [request (atom nil)]
+    (audit/http-emit-with
+     (fn [url opts] (reset! request [url opts]))
+     {:dispatcher-url "http://dispatcher.internal/"
+      :internal-secret "bound" :audit-timeout-ms 777}
+     {:activity "test"})
+    (is (= "http://dispatcher.internal/xrpc/com.etzhayyim.generic.audit.emit"
+           (first @request)))
+    (is (= "bound" (get-in @request [1 :headers "x-internal-trust"])))
+    (is (= 777 (get-in @request [1 :timeout])))))
+
 (deftest test-compose-tweet-empty-topic-errors
   (let [out (g/invoke @compose-tweet/GRAPH {:format "single"})]
     (is (= "topic required" (:error out)))))
@@ -109,6 +141,10 @@
 (deftest test-cron-specs-empty
   ;; langgraph.json has crons: [] → loader returns []
   (is (= [] (cron/load-cron-specs (str (io/file ".." "langgraph.json"))))))
+
+(deftest test-cron-enable-is-explicit
+  (is (false? (cron/cron-enabled? false)))
+  (is (true? (cron/cron-enabled? true))))
 
 (defn -main [& _]
   (let [{:keys [fail error]} (run-tests 'lgx.test-smoke)]

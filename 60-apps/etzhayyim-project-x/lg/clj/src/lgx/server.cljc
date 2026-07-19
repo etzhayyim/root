@@ -67,11 +67,14 @@
   ([assistant-id input] (run assistant-id input {}))
   ([assistant-id input run-opts]
    (let [started (System/nanoTime)
-         latency #(int (/ (- (System/nanoTime) started) 1000000))]
+         latency #(int (/ (- (System/nanoTime) started) 1000000))
+         host-config (:host-config run-opts)
+         input (cond-> (or input {}) host-config (assoc :host-config host-config))
+         graph-opts (dissoc run-opts :host-config)]
      (if-not (contains? GRAPHS assistant-id)
        {:ok false :error (str "unknown graph: " assistant-id) :status 404}
        (try
-         {:ok true :result (g/invoke (graph-of assistant-id) (or input {}) run-opts)
+         {:ok true :result (g/invoke (graph-of assistant-id) input graph-opts)
           :assistantId assistant-id :latencyMs (latency)}
          (catch Exception exc
            {:ok false :error (subs (str (.getMessage exc)) 0 (min 500 (count (str (.getMessage exc)))))
@@ -82,7 +85,8 @@
   "Dispatch an XRPC call by NSID. Mirrors POST /xrpc/{nsid}: translate body, invoke
   the mapped graph, append latencyMs + assistantId. Returns the graph result map,
   or {:status 404/503} for unknown / unloaded."
-  [nsid body]
+  ([nsid body] (xrpc nsid body {}))
+  ([nsid body {:keys [host-config]}]
   (let [assistant-id (get NSID->ASSISTANT nsid)]
     (cond
       (nil? assistant-id) {:status 404 :error (str "unknown NSID: " nsid)}
@@ -90,7 +94,8 @@
       :else
       (let [started (System/nanoTime)
             latency #(int (/ (- (System/nanoTime) started) 1000000))
-            input (xrpc-input->graph-input body)]
+            input (cond-> (xrpc-input->graph-input body)
+                    host-config (assoc :host-config host-config))]
         (try
           (let [result (g/invoke (graph-of assistant-id) input)]
             (assoc (if (map? result) result {:result result})
@@ -98,7 +103,7 @@
           (catch Exception exc
             {:error (str "lg-x " (.. exc getClass getSimpleName))
              :errorDetail (subs (str (.getMessage exc)) 0 (min 300 (count (str (.getMessage exc)))))
-             :assistantId assistant-id :latencyMs (latency)}))))))
+             :assistantId assistant-id :latencyMs (latency)})))))))
 
 (defn ok
   "Mirrors GET /ok."
