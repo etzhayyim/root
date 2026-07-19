@@ -36,15 +36,15 @@
 ;;
 ;; INJECTABLE PROCESS FN:
 ;;   Every IO fn that shells out accepts :proc-fn in opts.
-;;   Default = babashka.process/shell. Tests inject a fake that records argv
-;;   WITHOUT executing — making command-shape parity verifiable offline.
+;;   No default authority: callers inject a process capability. Tests inject a
+;;   fake that records argv without executing.
 ;;
 ;; INJECTABLE HTTP FN:
-;;   HTTP legs accept :http-fn as in dns_sync.cljc.
+;;   HTTP legs require an explicit :http-fn capability.
 ;;
 ;; SECURITY / SECRETS:
-;;   No secrets at load-time. _auth-token is read lazily via resolve-auth-token.
-;;   No HF_TOKEN or MURAKUMO_FLEET_SSH_PASS accessed at load time.
+;;   Environment is explicit data supplied by a host. No token, process environment,
+;;   HF_TOKEN or MURAKUMO_FLEET_SSH_PASS is acquired by portable code.
 ;;
 ;; SUBCOMMAND COVERAGE (Wave 7B honest partial):
 ;;   PORTED (argv shape + HTTP shape fully testable offline):
@@ -67,9 +67,7 @@
 
 (ns etzhayyim.murakumo-cmd
   (:require [clojure.string :as str]
-            [cheshire.core  :as json]
-            #?(:bb [babashka.process :as proc]
-               :clj [babashka.process :as proc])))
+            [cheshire.core  :as json]))
 
 ;; ---------------------------------------------------------------------------
 ;; Constants
@@ -103,13 +101,14 @@
 ;; ---------------------------------------------------------------------------
 
 (defn resolve-auth-token
-  "Read auth token from ETZHAYYIM_ACCESS_JWT or ETZHAYYIM_ACCESS_TOKEN env var.
+  "Select auth token from an explicit host-provided environment map.
   Returns the token string or empty string.
-  NEVER called at load/require time."
-  []
-  (or (System/getenv "ETZHAYYIM_ACCESS_JWT")
-      (System/getenv "ETZHAYYIM_ACCESS_TOKEN")
-      ""))
+  The zero-arity form has no ambient authority and therefore returns empty."
+  ([] (resolve-auth-token {}))
+  ([env]
+   (or (get env "ETZHAYYIM_ACCESS_JWT")
+       (get env "ETZHAYYIM_ACCESS_TOKEN")
+       "")))
 
 (defn build-auth-headers
   "Build Authorization + Content-Type headers map.
@@ -388,46 +387,24 @@
 ;; ---------------------------------------------------------------------------
 
 (defn resolve-nomad-addr
-  "Read NOMAD_ADDR env var or return default.
-  Called lazily only when nomad calls are needed.
+  "Select NOMAD_ADDR from explicit host environment data or return default.
   Mirrors Python _resolve_nomad_addr()."
-  []
-  (or (System/getenv "NOMAD_ADDR") default-nomad-addr))
+  ([] (resolve-nomad-addr {}))
+  ([env]
+   (or (get env "NOMAD_ADDR") default-nomad-addr)))
 
 ;; ---------------------------------------------------------------------------
 ;; IO: default implementations
 ;; ---------------------------------------------------------------------------
 
-(defn- default-proc-fn
-  "Execute argv via babashka.process/shell.
-  Returns {:exit :out :err}.
-  Tests inject a fake instead."
-  [argv opts]
-  #?(:bb
-     (let [r (apply proc/shell {:out :string :err :string
-                                :continue true
-                                :env (or (:env opts) (into {} (System/getenv)))}
-                    argv)]
-       {:exit (:exit r) :out (str (:out r)) :err (str (:err r))})
-     :default
-     (throw (ex-info "babashka.process only available under bb" {:argv argv}))))
+(defn- missing-capability [capability]
+  (fn [& _]
+    (throw (ex-info (str "Murakumo host capability not configured: " capability)
+                    {:missing-capability capability}))))
 
-(defn- default-http-fn
-  "Real babashka.http-client dispatch.
-  Mirrors dns_sync.cljc's default-http-fn pattern."
-  [{:keys [method url headers body]}]
-  #?(:bb
-     (let [hc   (requiring-resolve 'babashka.http-client/request)
-           opts (cond-> {:headers headers :timeout 30000}
-                  body (assoc :body (json/generate-string body)))
-           resp (hc {:method (keyword (str/upper-case (name method)))
-                     :uri    url
-                     :headers headers
-                     :body   (when body (json/generate-string body))})]
-       {:status (:status resp) :body (:body resp)})
-     :default
-     (throw (ex-info "babashka.http-client only available under bb"
-                     {:method method :url url}))))
+(def ^:private default-proc-fn (missing-capability :process))
+
+(def ^:private default-http-fn (missing-capability :http))
 
 ;; ---------------------------------------------------------------------------
 ;; IO: git root
@@ -508,16 +485,17 @@
 (defn run-nomad
   "Invoke the nomad CLI with args.
   Returns {:exit :out :err}.
-  Opts: :proc-fn :nomad-path :nomad-addr"
+  Opts: :proc-fn :nomad-path :nomad-addr :env"
   ([args] (run-nomad args {}))
-  ([args {:keys [proc-fn nomad-path nomad-addr]
+  ([args {:keys [proc-fn nomad-path nomad-addr env]
           :or   {proc-fn   default-proc-fn
                  nomad-path "nomad"
                  nomad-addr nil}}]
-   (let [addr (or nomad-addr (resolve-nomad-addr))
+   (let [env  (or env {})
+         addr (or nomad-addr (resolve-nomad-addr env))
          argv (apply build-nomad-command nomad-path args)
-         env  (merge (into {} (System/getenv)) {"NOMAD_ADDR" addr})]
-     (proc-fn argv {:env env}))))
+         child-env (assoc env "NOMAD_ADDR" addr)]
+     (proc-fn argv {:env child-env}))))
 
 ;; ---------------------------------------------------------------------------
 ;; Dry-run plan printing

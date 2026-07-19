@@ -64,6 +64,32 @@
                                       {:NodeName "n1" :ClientStatus "complete" :ID "a2"}] "n1")))
     (is (nil? (mc/resolve-alloc-id [{:NodeName "n1" :ClientStatus "complete" :ID "a2"}] "n1")))))
 
+(deftest explicit-host-capabilities
+  (testing "auth and Nomad environment are explicit data"
+    (is (= "jwt" (mc/resolve-auth-token {"ETZHAYYIM_ACCESS_JWT" "jwt"})))
+    (is (= "token" (mc/resolve-auth-token {"ETZHAYYIM_ACCESS_TOKEN" "token"})))
+    (is (= "" (mc/resolve-auth-token)))
+    (is (= "http://nomad:4646" (mc/resolve-nomad-addr {"NOMAD_ADDR" "http://nomad:4646"}))))
+  (testing "omitted process and HTTP capabilities fail closed"
+    (is (thrown-with-msg? clojure.lang.ExceptionInfo
+                          #"host capability not configured: :process"
+                          (mc/run-git-root)))
+    (is (thrown-with-msg? clojure.lang.ExceptionInfo
+                          #"host capability not configured: :http"
+                          (mc/call-xrpc-get
+                           (mc/build-status-request "https://pds.example" "tok")))))
+  (testing "Nomad child environment is derived only from explicit host data"
+    (let [wire (atom nil)]
+      (mc/run-nomad ["node" "status"]
+                    {:proc-fn (fn [argv opts]
+                                (reset! wire [argv opts])
+                                {:exit 0 :out "" :err ""})
+                     :env {"PATH" "/host/bin"}
+                     :nomad-addr "http://nomad:4646"})
+      (is (= ["nomad" "node" "status"] (first @wire)))
+      (is (= {"PATH" "/host/bin" "NOMAD_ADDR" "http://nomad:4646"}
+             (get-in @wire [1 :env]))))))
+
 (defn -main [& _]
   (let [{:keys [fail error]} (run-tests 'etzhayyim.test-murakumo-cmd)]
     (System/exit (if (pos? (+ fail error)) 1 0))))
