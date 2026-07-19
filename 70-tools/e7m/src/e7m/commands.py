@@ -647,10 +647,12 @@ def _check_charter_rider(repo: Path) -> tuple[bool, list[str]]:
             1 for f in repo.rglob("NOTICE")
             if "node_modules" not in f.parts and ".venv" not in f.parts and ".git" not in f.parts
         )
-    if notice_count < 30:
+    # Standalone repositories retain their own NOTICE after extraction; this
+    # root check covers only packages still owned by the superproject.
+    if notice_count < 20:
         return False, [
             f"only {notice_count} NOTICE files found",
-            "ADR-2605192200 says ≥39 first-party Apache-2.0 packages should carry NOTICE + Rider",
+            "ADR-2605192200 requires every remaining first-party Apache-2.0 package to carry NOTICE + Rider",
         ]
     return True, [f"CHARTER-RIDER.md present at root + {notice_count} NOTICE files propagated"]
 

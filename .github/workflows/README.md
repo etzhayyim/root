@@ -47,10 +47,6 @@ Triggered on **push to main + PR to main + manual `workflow_dispatch`** when `.g
 
 Watches PRs for Bootstrap Council Seat 2-5 nomination updates per ADR-2605192300. Adds a check that the 30-day public objection period is honored before merge of Council Lv7+ amendments.
 
-## openot-gate-c.yml
-
-Open-OT (`60-apps/etzhayyim-project-open-ot/`) Gate C deployment validation per the open-ot ADR series.
-
 ## kotodama-image.yml
 
 Builds the `kotodama` container image when changes land under `40-engine/kotoba/crates/kotoba-kotodama/py/`.
