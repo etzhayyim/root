@@ -1,0 +1,12 @@
+{:schema "etzhayyim.migration/retired-v1"
+ :source {:repo "etzhayyim/root"
+          :path "30-graph/kagami"
+          :revision "e060b4d9a248ecf2f4309b459a8c4ad3dbf2d067"
+          :blobs {"perf/engine/clickhouse/init.sql"
+                  {:git-blob "3a4093e688ab2cb642964e43d2f17461bf1f6d86"
+                   :sha256 "7b2e9923bbc17728fb90dfc9dc76522c5dc0c21bc1cd2a7b7bd5f649bd5586cf"
+                   :bytes 1205}}}
+ :destination {:path "90-docs/adr/2607192700-kagami-clickhouse-benchmark-retire.edn"
+               :owner-adr "2607192700"}
+ :status :retired
+ :standalone-repository false}
