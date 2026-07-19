@@ -19,5 +19,33 @@
  {test   {:doc  "Run the lg-open-isic clj test suites (clojure.test under bb)."
           :task (load-file "run_tests.clj")}
   server {:doc  "Boot the lg-open-isic httpkit server (port of server.py FastAPI)."
-          :requires ([lg-open-isic.server :as server])
-          :task (apply server/-main *command-line-args*)}}}
+          :requires ([babashka.http-client :as http]
+                     [org.httpkit.server :as httpkit]
+                     [lg-open-isic.cron :as cron]
+                     [lg-open-isic.graphs.classify-entity :as classify]
+                     [lg-open-isic.server :as server]
+                     [lg-open-isic.store :as store])
+          :task
+          (let [env (fn [name default] (or (System/getenv name) default))
+                enabled? (contains? #{"1" "true" "yes"}
+                                    (.toLowerCase ^String (env "LG_CRON_ENABLED" "true")))
+                port (Integer/parseInt (or (first *command-line-args*) (env "PORT" "8080")))
+                classifier-config {:url (env "VLLM_URL" (:url classify/default-config))
+                                   :model (env "VLLM_MODEL" (:model classify/default-config))}
+                capabilities {:repo-did (env "OPEN_ISIC_REPO_DID" "did:web:open-isic.etzhayyim.com")
+                              :cron {:enabled? enabled?
+                                     :langgraph-json (env "LANGGRAPH_JSON" "/app/langgraph.json")}
+                              :api-key (env "LG_API_KEY" "")}
+                handler (fn [request]
+                          (binding [classify/*classify*
+                                    (fn [subject hint]
+                                      (classify/classify-with
+                                       http/post classifier-config subject hint))
+                                    store/repo-did (:repo-did capabilities)
+                                    cron/*config* (:cron capabilities)
+                                    server/*api-key* (:api-key capabilities)]
+                            (server/handler request)))]
+            (binding [cron/*config* (:cron capabilities)]
+              (server/start! (fn [_ options] (httpkit/run-server handler options))
+                             {:port port}))
+            (deref (promise)))}}}

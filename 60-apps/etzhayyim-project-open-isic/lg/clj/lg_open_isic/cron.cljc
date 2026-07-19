@@ -17,11 +17,12 @@
   (:require [clojure.string :as str]
             #?(:clj [cheshire.core :as json])))
 
-(defn- getenv [k default]
-  #?(:clj (or (System/getenv k) default) :default default))
+(def ^:dynamic *config*
+  "Host-supplied cron configuration. Portable code never reads process env."
+  {:enabled? true :langgraph-json "/app/langgraph.json"})
 
 (defn cron-enabled? []
-  (contains? #{"1" "true" "yes"} (str/lower-case (getenv "LG_CRON_ENABLED" "true"))))
+  (true? (:enabled? *config*)))
 
 (defn load-cron-specs
   "Filter a parsed langgraph.json `crons` array to entries that have both a
@@ -34,11 +35,11 @@
        vec))
 
 (defn read-langgraph-json
-  "Read + parse langgraph.json (LANGGRAPH_JSON env or the given path). Returns
+  "Read + parse langgraph.json (host config or the given path). Returns
   {} on missing/invalid (logged), like `_load_cron_specs`'s guards."
   [path]
   #?(:clj
-     (let [p (or path (getenv "LANGGRAPH_JSON" "/app/langgraph.json"))
+     (let [p (or path (:langgraph-json *config*))
            f (java.io.File. ^String p)]
        (if-not (.exists f)
          (do (binding [*out* *err*] (println (str "langgraph.json not found at " p))) {})

@@ -17,11 +17,10 @@
   vertex id, so graphs verify end-to-end under bb with no external store."
   (:require [clojure.string :as str]))
 
-(defn- getenv [k default]
-  #?(:clj (or (System/getenv k) default) :default default))
-
-(def repo-did
-  (getenv "OPEN_ISIC_REPO_DID" "did:web:open-isic.etzhayyim.com"))
+(def ^:dynamic repo-did
+  "Repository DID supplied by the host adapter when deployment configuration
+  differs from the safe public default."
+  "did:web:open-isic.etzhayyim.com")
 
 ;; In-memory Datom-ish append log standing in for the kotoba Datom store.
 (def mem-log (atom []))

@@ -75,11 +75,16 @@
     (is (= "t1" (:thread_id (json/parse-string (:body resp) true))))))
 
 (deftest api-key-guard
-  (with-redefs [srv/api-key (constantly "secret")]
+  (binding [srv/*api-key* "secret"]
     (let [resp (srv/handler {:request-method :post :uri "/runs"
                              :headers {"x-api-key" "wrong"}
                              :body (json/generate-string {:assistant_id "health"})})]
       (is (= 401 (:status resp))))))
+
+(deftest server-start-requires-explicit-capability
+  (is (thrown-with-msg? clojure.lang.ExceptionInfo
+                        #"explicit HTTP server capability required"
+                        (srv/start! nil {:port 0}))))
 
 (deftest key-normalization
   (is (= {:object-type "x" :subject-id "n1"}
