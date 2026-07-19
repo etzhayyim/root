@@ -132,4 +132,5 @@ To bump this projection to L1-projection per [ADR-2605231500](../../../90-docs/a
 - Migration order from primary tier (Tier A/B/C/D) is in
   [`MIGRATION-TODO.md`](../MIGRATION-TODO.md).
 - The kotoba-datomic conformance definitions are in
-  [`10-protocol/kotoba-datomic/SPEC.md`](../../../10-protocol/kotoba-datomic/SPEC.md) §Conformance levels.
+  ADR-2605262130; historical conformance provenance is in
+  [`kotoba-datomic.edn`](../../../90-docs/provenance/archives/kotoba-datomic.edn).

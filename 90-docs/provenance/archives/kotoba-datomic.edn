@@ -1,0 +1,9 @@
+{:archive/version 1
+ :legacy/path "10-protocol/kotoba-datomic"
+ :source {:repository "etzhayyim/root" :revision "f968fd9bf076ccc20a80830d38c87476c6bc176a" :blobs {"README.md" "f199023b764012ff24eadb7cc5ab130729ac1f62" "SPEC.md" "b725bd1e399a17e42e13f33661f09259a59f4423"}}
+ :classification :deprecated-spec-scaffold
+ :implementation-present false
+ :superseded-by {:adr "2605262130" :engine "40-engine/kotoba"}
+ :consumer-rewire ["CLAUDE.md" "60-apps/etzhayyim-project-maps/MIGRATION-TODO.md" "60-apps/etzhayyim-project-maps/tools/rebuild-spatial-projection.md" "70-tools/seed-post/bin/seed-post.mjs"]
+ :removal {:old-directory true :standalone-repository false}
+ :verification [:source-blob-shas-recorded :operational-path-references-zero]}
