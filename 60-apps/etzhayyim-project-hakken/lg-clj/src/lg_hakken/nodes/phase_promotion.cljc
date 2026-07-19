@@ -14,7 +14,7 @@
             [lg-hakken.kotoba-datomic :as kd]
             [lg-hakken.xrpc :as xrpc]))
 
-(def okaimono-xrpc (or (System/getenv "OKAIMONO_XRPC_URL") "https://okaimono.etzhayyim.com"))
+(def ^:dynamic okaimono-xrpc "https://okaimono.etzhayyim.com")
 
 ;; Ph1→Ph2: 累積注文≥30件 AND 返品率<5%
 (def rule2-datalog

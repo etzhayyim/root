@@ -7,7 +7,7 @@
   is the etzhayyim-FUNCTION side; this node calls it through the consent seam."
   (:require [lg-hakken.xrpc :as xrpc]))
 
-(def okaimono-xrpc (or (System/getenv "OKAIMONO_XRPC_URL") "https://okaimono.etzhayyim.com"))
+(def ^:dynamic okaimono-xrpc "https://okaimono.etzhayyim.com")
 
 (defn default-okaimono-create [payload]
   (let [resp (xrpc/post-json
