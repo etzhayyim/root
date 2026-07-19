@@ -1524,6 +1524,21 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2607192700-west-flat-audit-scanners.edn",
+      "id": "2607192700",
+      "title": "West-flat audit and coverage scanner paths",
+      "status": "accepted",
+      "doc_type": "doc",
+      "topic": "",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2607192800-shinsa-logical-app-stub-retire.edn",
       "id": "2607192800",
       "title": "Retire the Shinsa logical-app documentation stub",
