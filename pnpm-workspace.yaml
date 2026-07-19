@@ -69,8 +69,6 @@ packages:
   - "40-engine/kami-engine/kami-engine-sdk"
 
   # Baseline appviews for Phase 3 testing
-  - "60-apps/etzhayyim-project-sheets/appview/sheets-mcp-component/svelte"
-  - "60-apps/etzhayyim-project-mailer/appview/mailer-mcp-component/svelte"
   - "60-apps/etzhayyim-project-har/appview/har-app-5ugfx2n1/svelte"
   - "60-apps/etzhayyim-project-tasklist/appview/tasklist-ui-t4sk1ist"
 
