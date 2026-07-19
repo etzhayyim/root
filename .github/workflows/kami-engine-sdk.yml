@@ -88,7 +88,8 @@ jobs:
         # session work (pnpm-lock.yaml is not always committed with every
         # workspace.yaml change). Production deploy paths separately
         # enforce frozen lockfile per app.
-        run: pnpm install --no-frozen-lockfile
+        working-directory: 40-engine/kami-engine/kami-engine-sdk
+        run: pnpm install --ignore-workspace --no-frozen-lockfile
 
       - name: Build SDK
         working-directory: 40-engine/kami-engine/kami-engine-sdk

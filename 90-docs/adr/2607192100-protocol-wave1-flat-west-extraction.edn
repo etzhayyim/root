@@ -20,6 +20,6 @@
    :fixture "fleet-refactor corpora retain source-era paths as immutable test provenance"
    :generated-drift "machine-absolute Wrangler aliases are non-portable generated artifacts; generator ownership must replace them before regeneration"}}
  :consequences
- {:root "each moved directory contains only MOVED.edn"
+ {:root "moved directories are removed; each source has a sibling *-MOVED.edn marker"
   :go-policy "Go and TinyGo implementations remain deprecated and are not migrated"
   :manifest "standalone repositories require exact west pins"}}
