@@ -4,7 +4,7 @@ export default {
   content: [
     './index.html',
     './src/**/*.{html,js,svelte,ts}',
-    '../../../../../40-engine/svelte/design-system/dist/**/*.{svelte,js}',
+    '../../../../../../com-etzhayyim-svelte-design-system/dist/**/*.{svelte,js}',
   ],
   darkMode: ['selector', '[data-theme="dark"]'],
   theme: {

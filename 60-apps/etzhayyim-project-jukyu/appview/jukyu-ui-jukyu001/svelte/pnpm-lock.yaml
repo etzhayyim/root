@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@etzhayyim/design-system':
-        specifier: file:../../../../../40-engine/svelte/design-system
-        version: file:../../../../../40-engine/svelte/design-system(svelte@5.55.5)
+        specifier: file:../../../../../../com-etzhayyim-svelte-design-system
+        version: file:../../../../../../com-etzhayyim-svelte-design-system(svelte@5.55.5)
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -204,8 +204,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@etzhayyim/design-system@file:../../../../../40-engine/svelte/design-system':
-    resolution: {directory: ../../../../../40-engine/svelte/design-system, type: directory}
+  '@etzhayyim/design-system@file:../../../../../../com-etzhayyim-svelte-design-system':
+    resolution: {directory: ../../../../../../com-etzhayyim-svelte-design-system, type: directory}
     engines: {node: '>=20'}
     peerDependencies:
       svelte: ^5.0.0
@@ -920,7 +920,7 @@ snapshots:
   '@esbuild/win32-x64@0.25.12':
     optional: true
 
-  '@etzhayyim/design-system@file:../../../../../40-engine/svelte/design-system(svelte@5.55.5)':
+  '@etzhayyim/design-system@file:../../../../../../com-etzhayyim-svelte-design-system(svelte@5.55.5)':
     dependencies:
       '@digital-go-jp/design-tokens': 1.1.9
       '@digital-go-jp/tailwind-theme-plugin': 0.3.4(tailwindcss@3.4.19)

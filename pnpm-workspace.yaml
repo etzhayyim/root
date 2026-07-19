@@ -38,8 +38,8 @@ packages:
   - "60-apps/etzhayyim-project-karute/appview/etzhayyim-wasm-karute-karu7t3e/svelte"
   - "../com-etzhayyim-signal"
   - "../com-etzhayyim-xrpc"
-  - "40-engine/svelte/auth"
-  - "40-engine/svelte/design-system"
+  - "../com-etzhayyim-svelte-auth"
+  - "../com-etzhayyim-svelte-design-system"
 
   # etzhayyim substrate SDKs are immutable git dependencies managed by west.
 

@@ -1,0 +1,1 @@
+{:schema "etzhayyim.migration/moved-v1" :source {:repo "etzhayyim/root" :path "40-engine/svelte/design-system" :revision "5e11abac33612cc0175fb83f3b750c89f709ac24"} :destination {:repo "etzhayyim/com-etzhayyim-svelte-design-system" :revision "18834c0e410573be1550b8047930303be8eba503"} :status :moved}

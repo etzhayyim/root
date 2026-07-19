@@ -47,6 +47,6 @@ if __name__ == "__main__":
             "local_path": target
         }
     }
-    with open("40-engine/root-router/ipfs_gateway_map.json", "w") as f:
+    with open("../com-etzhayyim-root-router/ipfs_gateway_map.json", "w") as f:
         json.dump(mapping, f, indent=2)
     print("Updated Root Router IPFS gateway map.")

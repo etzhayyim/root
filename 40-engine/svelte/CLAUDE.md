@@ -74,10 +74,10 @@
 ```json
 {
   "dependencies": {
-    "@etzhayyim/design-system": "file:../../../../40-engine/svelte/design-system"
+    "@etzhayyim/design-system": "file:../../../../../com-etzhayyim-svelte-design-system"
   },
   "devDependencies": {
-    "@etzhayyim/vite-plugin-safe-builder": "file:../../../../40-engine/svelte/vite-plugin-safe-builder"
+    "@etzhayyim/vite-plugin-safe-builder": "file:../../../../../com-etzhayyim-vite-plugin-safe-builder"
   }
 }
 ```
@@ -319,7 +319,7 @@ import { etzhayyimUIKit } from '@etzhayyim/design-system/plugin';
 export default {
   content: [
     './src/**/*.{html,js,svelte,ts}',
-    '../../40-engine/svelte/design-system/dist/**/*.{svelte,js}', // UIKit コンポーネント
+    '../../../com-etzhayyim-svelte-design-system/dist/**/*.{svelte,js}', // flat west UIKit
   ],
   plugins: [etzhayyimUIKit],
 };
