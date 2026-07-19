@@ -53,7 +53,9 @@ SYMLINK_HEALTH_PERF_BUDGET_S = 2.0
 # directions: a count change means the subrepo set changed and must be reviewed.
 # 2026-07-19 ADR-2607193620: activity-monitor's unpublished/defunct vendored
 # checkout residue was retired with exact EDN provenance, shrinking 7 → 6.
-EXPECTED_STALE_URLS = 6
+# 2026-07-20 ADR-2607200200: the os app and its stale .gitrepo marker moved to
+# its private flat repository, shrinking the root-owned baseline 6 → 5.
+EXPECTED_STALE_URLS = 5
 # ESCAPE_SYMLINKS baseline dropped 18 → 0 (2026-05-31): the 18 escape
 # symlinks were all the `CHARTER-RIDER.md → ../../CHARTER-RIDER.md`
 # pattern inside the kotoba **git-subrepo** (1 root + 17 crates), a

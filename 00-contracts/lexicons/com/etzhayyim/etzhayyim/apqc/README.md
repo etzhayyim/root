@@ -19,7 +19,7 @@ in `etzhayyim/etzhayyim-root` (60-apps/etzhayyim-project-kyber-*).
 
 ## See also
 
-- `60-apps/etzhayyim-project-open-apqc/` (this repo, scaffolding)
+- `orgs/etzhayyim/com-etzhayyim-app-open-apqc/` (west-managed app repository)
 - `60-apps/etzhayyim-project-open-kyber/` (this repo, Tranche E)
 - `00-contracts/lexicons/com/etzhayyim/kyber/` (this repo, Tranche A)
 - ADR-2605172400 (vendor: 3-axis split rule + Tranche F)
