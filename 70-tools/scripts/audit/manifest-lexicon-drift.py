@@ -87,6 +87,15 @@ def resolve_lexicon_path(manifest_path: Path, nsid: str) -> Path:
     return local if local.exists() or not root.exists() else root
 
 
+def lexicon_location(manifest_path: Path, nsid: str) -> str:
+    """Classify a declaration by its current west migration location."""
+    if actor_lexicon_path(manifest_path, nsid).exists():
+        return "flat-owner"
+    if nsid_to_lexicon_path(nsid).exists():
+        return "root-compat"
+    return "missing"
+
+
 def display_path(path: Path) -> Path:
     """Stable display path for files that may live in sibling west checkouts."""
     return Path(os.path.relpath(path, REPO_ROOT))
@@ -258,6 +267,7 @@ def main() -> int:
 
     total_declared = 0
     total_missing = 0
+    location_counts = {"flat-owner": 0, "root-compat": 0, "missing": 0}
     actors_with_drift: list[tuple[Path, list[tuple[str, Path]]]] = []
     invalid_nsids: list[tuple[Path, str]] = []
     declared_global: set[str] = set()
@@ -283,6 +293,7 @@ def main() -> int:
                 continue
             declared_global.add(nsid)
             lex_path = resolve_lexicon_path(mpath, nsid)
+            location_counts[lexicon_location(mpath, nsid)] += 1
             owned_dirs.setdefault(lex_path.parent, set()).add(nsid)
             if not lex_path.exists():
                 missing_in_actor.append((nsid, lex_path))
@@ -313,6 +324,8 @@ def main() -> int:
     # this script's rollup count, so put the headline number last.
     print(f"Manifests scanned: {len(manifests)}")
     print(f"Lexicons declared (total): {total_declared}")
+    print(f"Contracts in flat owner repos: {location_counts['flat-owner']}")
+    print(f"Contracts in root compatibility layer: {location_counts['root-compat']}")
     print(f"Actors with drift: {len(actors_with_drift)}")
     print(f"Undeclared orphan lexicon files (tracked, not in rollup): {len(orphans)}")
     if invalid_nsids:
