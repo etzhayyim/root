@@ -13,9 +13,9 @@
       (langchain.kotoba-db/kotoba-api :transact!, cacao_b64 + x-kotoba-did) to
       kotobase.net — member-attributed (iss inside the CACAO = the member's did:key).
 
-  The kagi-clj + langchain deps are CROSS-REPO and heavy (BouncyCastle); they are
-  resolved LAZILY (requiring-resolve) so the base build/tests never need them. The
-  member runs this with the :member-publish deps alias (deps.edn) — e.g. as the
+  The kagi-clj + langchain deps are CROSS-REPO and heavy (BouncyCastle); an explicit
+  member-owned host adapter supplies them so the base build/tests never need them. The
+  member runs the host namespace with member-publish.deps.edn — e.g. as the
   ETZHAYYIM_MEMBER_SIGN_CMD / ETZHAYYIM_MEMBER_PUBLISH_CMD that observatory:submit
   invokes. Absent the deps / a key / --yes / non-cron → nothing publishes.
   See 90-docs/runbooks/observatory-member-publish.md."
@@ -24,15 +24,13 @@
 (def endpoint "https://kotobase.net")            ; the CACAO-gated datom:transact XRPC
 (def post-lexicon "com.etzhayyim.observatory.post")
 
-(defn- resolve!
-  "Resolve a cross-repo member-publish fn, or throw a clear install hint."
-  [sym]
-  (or (try (requiring-resolve sym) (catch Throwable _ nil))
-      (throw (ex-info (str "member-publish dependency unavailable: " sym
-                           " — run with the :member-publish deps alias so kagi-clj + "
-                           "langchain are on the classpath (see the runbook). The "
-                           "AGENT cannot publish; this is the member's runtime.")
-                      {:missing sym}))))
+(defn- capability! [caps k]
+  (let [f (get caps k)]
+    (if (fn? f)
+      f
+      (throw (ex-info (str "member-publish capability unavailable: " k
+                           " — run the member-owned host adapter. The agent cannot publish.")
+                      {:missing-capability k})))))
 
 ;; ── pure: the leash request + the post record (testable without kagi/langchain) ──
 (defn leash-request
@@ -49,37 +47,49 @@
    :voiceOf "etzhayyim" :isObservatory true})
 
 ;; ── member runtime (lazy kagi + kotoba-lang) ─────────────────────────────────
-(defn member-key
+(defn member-key-with
   "Read the member's PKCS8 key b64 from Keychain (nil if absent → no publish)."
-  [actor]
-  ((resolve! 'etzhayyim.kotoba-rad-sign/keychain-read) actor))
+  [caps actor]
+  ((capability! caps :keychain-read) actor))
 
-(defn mint-leash
+(defn member-key [actor]
+  (member-key-with {} actor))
+
+(defn mint-leash-with
   "Mint the datom:transact CACAO leash with the member's own key (kagi.cacao/mint,
   depth-1 self-mint). Returns {:leash <cacao_b64> :did :graph}."
-  [{:keys [priv-b64 pub-b64 aud ttl-seconds] :or {ttl-seconds 900}}]
-  (let [load-id (resolve! 'kagi.identity/load-identity)
-        mint    (resolve! 'kagi.cacao/mint)
+  [caps {:keys [priv-b64 pub-b64 aud ttl-seconds] :or {ttl-seconds 900}}]
+  (let [load-id (capability! caps :load-identity)
+        mint    (capability! caps :mint-cacao)
+        nonce   ((capability! caps :nonce))
+        expiry  ((capability! caps :expiry) ttl-seconds)
         me      (load-id {:private-b64 priv-b64 :public-b64 pub-b64})]
     {:leash (mint me {:cap :cap/transact :scope (:graph me)}
-                  {:aud aud :nonce (str (java.util.UUID/randomUUID))
-                   :expiry (str (.plusSeconds (java.time.Instant/now) (long ttl-seconds)))})
+                  {:aud aud :nonce nonce :expiry expiry})
      :did (:did me) :graph (:graph me)}))
 
-(defn publish-post!
+(defn mint-leash [request]
+  (mint-leash-with {} request))
+
+(defn publish-post-with!
   "Publish one member-signed observatory post via kotoba-lang (present-only cacao).
   Member-attributed. Requires http-caps injected by the member's runtime."
-  [{:keys [leash did graph]} http-caps post]
-  (let [conn ((resolve! 'langchain.kotoba-db/kotoba-conn) endpoint graph {:cacao leash :did did})
-        api  ((resolve! 'langchain.kotoba-db/kotoba-api) http-caps)]
+  [caps {:keys [leash did graph]} post]
+  (let [conn ((capability! caps :kotoba-conn) endpoint graph {:cacao leash :did did})
+        api  ((capability! caps :kotoba-api)
+              {:http-fn (capability! caps :http-request)
+               :json-write pr-str :json-read identity})]
     ((:transact! api) conn [(post-record post)])))
 
-(defn -sign-and-publish
+(defn publish-post! [ctx _http-caps post]
+  (publish-post-with! {} ctx post))
+
+(defn sign-and-publish-with
   "The member's SIGN_CMD+PUBLISH_CMD backend, invoked by observatory:submit only
   when its gate passes (non-cron + --yes + member signer). Reads the member key
   from Keychain, mints the leash, publishes. Args: --actor <h> --aud <did> --text …
   --subject … [--ttl N]. Refuses (nil key → throw) when no member key is present."
-  [& args]
+  [caps & args]
   (let [f (fn [k d] (or (second (drop-while #(not= % k) args)) d))
         actor (f "--actor" nil)
         aud   (f "--aud" nil)
@@ -92,7 +102,7 @@
       ;; reviews before the real one-actor pilot. Nothing is published.
       (let [lr  (leash-request {:aud aud :graph (str "graph-of:" actor) :ttl-seconds ttl})
             rec (post-record post)
-            has-key (boolean (try (member-key actor) (catch Throwable _ nil)))]
+            has-key (boolean (try (member-key-with caps actor) (catch Throwable _ nil)))]
         (println "[observatory-sign] PILOT (--dry) — nothing published.")
         (println "  actor:" actor "· member key in Keychain:"
                  (if has-key "present ✓" "absent — seal it first (runbook step 1)"))
@@ -100,19 +110,21 @@
         (println "  would post (kotoba-lang transact, member-attributed, AS etzhayyim):" (pr-str rec))
         {:dry true :leash-request lr :record rec :member-key-present has-key})
       ;; real path (member-only): kagi leash + kotoba-lang transact with the key
-      (let [priv (member-key actor)]
+      (let [priv (member-key-with caps actor)]
         (when (str/blank? priv)
           (throw (ex-info "no member key in Keychain — the agent cannot publish; the member must seal their did:key first (runbook step 1)." {:actor actor})))
-        (let [ctx (mint-leash {:priv-b64 priv
-                               :pub-b64 ((resolve! 'etzhayyim.kotoba-rad-sign/pubkey-hex-from-priv-b64) priv)
-                               :aud aud :ttl-seconds ttl})]
-          (publish-post! ctx
-                         {:http-fn (resolve! 'babashka.http-client/request) :json-write pr-str :json-read identity}
-                         post))))))
+        (let [ctx (mint-leash-with
+                   caps {:priv-b64 priv
+                         :pub-b64 ((capability! caps :public-key-from-private) priv)
+                         :aud aud :ttl-seconds ttl})]
+          (publish-post-with! caps ctx post))))))
+
+(defn -sign-and-publish [& args]
+  (apply sign-and-publish-with {} args))
 
 (defn -main
-  "clojure CLI entrypoint (the REAL kagi path — kagi.identity loads under `clojure`,
-  not bb's Argon2 import). Run: clojure -Sdeps \"$(cat member-publish.deps.edn)\"
-  -M -m etzhayyim.observatory-sign --actor … --aud … --subject … --text … [--dry]."
-  [& args]
-  (apply -sign-and-publish args))
+  "Portable namespaces do not assemble signing authority. Run the member-owned
+  `etzhayyim.observatory-sign-host` entrypoint with member-publish.deps.edn."
+  [& _args]
+  (throw (ex-info "member-owned host adapter required; run etzhayyim.observatory-sign-host"
+                  {:capability :member-publish})))
