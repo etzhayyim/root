@@ -6,16 +6,16 @@
   append-only log (the actor `不変台帳` core: every commit/hold is recorded for
   traceability / data sovereignty). The default sink is in-process; production
   swaps `*sink*` for a kotoba-Datom-log appender. Disabled ⇒ a no-op so the live
-  pod's behaviour is never altered by the twin."
-  (:require [clojure.string :as str]))
+  pod's behaviour is never altered by the twin.")
 
-(defn- env [k] #?(:clj (System/getenv k) :cljs nil))
+(def ^:dynamic *disabled?*
+  "Host-controlled audit toggle. Portable execution records to its local ledger."
+  false)
 
 (defn disabled?
   "True when LG_AUDIT_DISABLED is set to a truthy value (parity with server.py)."
   []
-  (let [v (env "LG_AUDIT_DISABLED")]
-    (boolean (and v (not (str/blank? v)) (not= "0" v) (not= "false" (str/lower-case v))))))
+  (true? *disabled?*))
 
 (def ^:private ledger (atom []))
 
