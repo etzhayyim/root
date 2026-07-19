@@ -287,7 +287,7 @@
     :scope-exts [".ts" ".wasm" ".jsonc"]
     :evidence "h0g3t3st.etzhayyim.com/xrpc/com.etzhayyim.apps.hoge.wasmEval — validated 2026-04-08"
     :status "[PRODUCTION]"
-    :source "60-apps/etzhayyim-project-hoge/appview/src/index.ts"
+    :source "orgs/etzhayyim/com-etzhayyim-app-hoge/appview/src/index.ts"
     :alternative ""
     :created-at now}
    {:id "cf-wasm-static-import-ok"
@@ -302,7 +302,7 @@
     :scope-exts [".ts" ".jsonc"]
     :evidence "h0g3t3st.etzhayyim.com/xrpc/com.etzhayyim.apps.hoge.wasmTest — validated 2026-04-08"
     :status "[PRODUCTION]"
-    :source "60-apps/etzhayyim-project-hoge/appview/src/index.ts"
+    :source "orgs/etzhayyim/com-etzhayyim-app-hoge/appview/src/index.ts"
     :alternative ""
     :created-at now}
    {:id "xrpc-sole-api"
@@ -331,7 +331,7 @@
     :aliases ["CompiledWasm rule" "wasm static import"]
     :domain "cloudflare"
     :scope-tags ["cloudflare" "wasm"]
-    :source "60-apps/etzhayyim-project-hoge/appview/wrangler.jsonc"
+    :source "orgs/etzhayyim/com-etzhayyim-app-hoge/appview/wrangler.jsonc"
     :status "[PRODUCTION]"
     :created-at now}
    {:id "xrpc"
@@ -354,7 +354,7 @@
     :reason "Bundled at deploy time by wrangler CompiledWasm rule. Works on CF Workers V8."
     :scope-tags ["cloudflare" "wasm"]
     :alternative ""
-    :source "60-apps/etzhayyim-project-hoge/appview/src/index.ts"
+    :source "orgs/etzhayyim/com-etzhayyim-app-hoge/appview/src/index.ts"
     :created-at now}
    {:id "ov5-wasm-dynamic-compile"
     :action "WebAssembly.compile(userBytes) at request time"
@@ -362,7 +362,7 @@
     :reason "Blocked by CF Workers V8 embedder: 'Wasm code generation disallowed by embedder'."
     :scope-tags ["cloudflare" "wasm"]
     :alternative "Pre-bundle WASM at deploy time via CompiledWasm rule"
-    :source "60-apps/etzhayyim-project-hoge/appview/src/index.ts"
+    :source "orgs/etzhayyim/com-etzhayyim-app-hoge/appview/src/index.ts"
     :created-at now}
    {:id "ov5-synthetic-200"
     :action "Return fabricated data in 200 OK response"

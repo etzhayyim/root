@@ -1,10 +1,9 @@
 {
   "_comment": "Frozen legacy substrate-boundary (storage) violators — ADR-2606071800. SHRINK-ONLY: remove a path once migrated to kotoba-kqe; never add new paths. Regenerate with `node 70-tools/scripts/lint/substrate-remediation-audit.mjs --write` ONLY to seed or after review. CI runs `--audit`.",
   "adr": "2606071800",
-  "count": 53,
+  "count": 51,
   "files": [
     "60-apps/etzhayyim-project-bpmn/appview/etzhayyim-wasm-bpmn-bx7qm9p4/src/app.ts",
-    "60-apps/etzhayyim-project-briefing/appview/etzhayyim-wasm-briefing-w3olw1pf/src/app.ts",
     "60-apps/etzhayyim-project-common-crawl/kotoba/src/registry.ts",
     "60-apps/etzhayyim-project-common-crawl/scripts/archive/phase3b_ingest_risingwave.py",
     "60-apps/etzhayyim-project-common-crawl/scripts/archive/phase3e_direct_ingest.py",
@@ -18,7 +17,6 @@
     "60-apps/etzhayyim-project-hrse/appview/external-hrse/scripts/run-migrations.ts",
     "60-apps/etzhayyim-project-hrse/appview/external-hrse/scripts/seed-master-data.ts",
     "60-apps/etzhayyim-project-hrse/appview/external-hrse/scripts/verify-seed-data.ts",
-    "60-apps/etzhayyim-project-intel/appview/etzhayyim-wasm-intel-i7n73l0x/src/app.ts",
     "60-apps/etzhayyim-project-kami/appview/etzhayyim-wasm-kami-sabiotoshi-s4b10t05/src/app.ts",
     "60-apps/etzhayyim-project-kyber-qzzg06nh/appview/etzhayyim-wasm-kyber-hr-mdtpqjc8/src/app.ts",
     "60-apps/etzhayyim-project-kyber-qzzg06nh/appview/etzhayyim-wasm-kyber-inbox-inb0x4k2/src/app.ts",

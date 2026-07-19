@@ -44,10 +44,9 @@ SYMLINK_HEALTH_PERF_BUDGET_S = 2.0
 #   2. 60-apps/etzhayyim-project-har/.../svelte → etzhayyim/etzhayyim-har (404)
 #   3. 60-apps/etzhayyim-project-watashi → etzhayyim/watashi (404)
 #   4. 60-apps/etzhayyim-project-resources/...-i2zikw31 → etzhayyim/...-i2zikw31 (404)
-#   5. 60-apps/etzhayyim-project-intel → etzhayyim/etzhayyim-intel (404)
-#   6. 60-apps/etzhayyim-project-os → etzhayyim/etzhayyim-project-os (404)
-#   7. 60-apps/etzhayyim-project-news → etzhayyimcojp/etzhayyim-apps-media (404)
-#   8. 60-apps/etzhayyim-project-activity-monitor/...-xgng091s → etzhayyimcojp/...-xgng091s (404)
+#   5. 60-apps/etzhayyim-project-os → etzhayyim/etzhayyim-project-os (404)
+#   6. 60-apps/etzhayyim-project-news → etzhayyimcojp/etzhayyim-apps-media (404)
+#   7. 60-apps/etzhayyim-project-activity-monitor/...-xgng091s → etzhayyimcojp/...-xgng091s (404)
 # 2026-06-08 main merge: stale upstream count dropped 8 → 7 after one vendored
 # path was removed from the active tree. Keep the audit strict in both
 # directions: a count change means the subrepo set changed and must be reviewed.
@@ -55,7 +54,9 @@ SYMLINK_HEALTH_PERF_BUDGET_S = 2.0
 # checkout residue was retired with exact EDN provenance, shrinking 7 → 6.
 # 2026-07-20 ADR-2607200200: the os app and its stale .gitrepo marker moved to
 # its private flat repository, shrinking the root-owned baseline 6 → 5.
-EXPECTED_STALE_URLS = 5
+# 2026-07-20 ADR-2607200800: intel and its stale .gitrepo marker moved to its
+# private flat repository, shrinking the root-owned baseline 5 → 4.
+EXPECTED_STALE_URLS = 4
 # ESCAPE_SYMLINKS baseline dropped 18 → 0 (2026-05-31): the 18 escape
 # symlinks were all the `CHARTER-RIDER.md → ../../CHARTER-RIDER.md`
 # pattern inside the kotoba **git-subrepo** (1 root + 17 crates), a
