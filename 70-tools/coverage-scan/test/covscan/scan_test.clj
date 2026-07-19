@@ -29,7 +29,8 @@
         (testing "a project with only src/main.clj is untested"
           (is (false? (scan/project-tested? (fs/path base "without")))))
         (testing "scan classifies both"
-          (let [r (scan/scan (str base) ["with" "without"])]
+          (let [r (scan/scan (str base) [["with" "with"] ["without" "without"]])]
             ;; areas here are the project dirs themselves; each has 1 subdir
-            (is (map? r)))))
+            (is (map? r))
+            (is (= #{"with" "without"} (set (keys r)))))))
       (finally (fs/delete-tree base)))))

@@ -1,5 +1,5 @@
 (ns covscan.scan
-  "Accurate, regenerable test-coverage signal across the monorepo.
+  "Accurate, regenerable test-coverage signal across the west workspace.
 
   The committed `apps_maturity_report.csv` is a stale hand-maintained artifact
   with no generator and a crude `has_test` notion that misses the clj-native
@@ -38,12 +38,12 @@
                      {:max-depth 8})))))
 
 (defn scan
-  "Classify the immediate subdirs of each `area` under `root`. Returns
+  "Classify the immediate subdirs of each `[label path]` area. Returns
   {area {:total n :tested n :untested [names]}}."
   [root areas]
   (into (sorted-map)
-        (for [area areas
-              :let [adir (fs/path root area)]
+        (for [[area rel] areas
+              :let [adir (fs/path root rel)]
               :when (fs/exists? adir)]
           [area
            (let [projs (sort (filter fs/directory? (fs/list-dir adir)))
@@ -53,8 +53,15 @@
               :untested (mapv first (remove second results))})])))
 
 (defn -main [& args]
-  (let [root (or (first args) ".")
-        areas ["20-actors" "30-graph" "40-engine" "50-infra" "60-apps" "70-tools"]
+  (let [root (or (first args) (System/getenv "WEST_TOPDIR") ".")
+        ;; Actors and extracted engines are sibling repositories in the west
+        ;; workspace. Numbered root layers are scanned only for root-owned
+        ;; graph/infra/app/tool projects; 20-actors and 40-engine are retired.
+        areas [["etzh-repos" "orgs/etzhayyim"]
+               ["graph" "orgs/etzhayyim/root/30-graph"]
+               ["infra" "orgs/etzhayyim/root/50-infra"]
+               ["apps" "orgs/etzhayyim/root/60-apps"]
+               ["tools" "orgs/etzhayyim/root/70-tools"]]
         r (scan root areas)
         pct (fn [t n] (if (pos? n) (* 100.0 (/ (double t) n)) 0.0))]
     (doseq [[area {:keys [total tested untested]}] r]

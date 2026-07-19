@@ -10,7 +10,7 @@
 
 (deftest repo-name-and-prefix
   (is (= "com-etzhayyim-cargo" (ap/repo-name "cargo")))
-  (is (= "20-actors/cargo" (ap/prefix "cargo"))))
+  (is (= "orgs/etzhayyim/com-etzhayyim-cargo" (ap/prefix "cargo"))))
 
 (deftest default-did-web-scheme
   (testing "brand-new actors default to the etzhayyim.com actor PATH form (ADR-2606231200 addendum 2026-07-02)"

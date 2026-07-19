@@ -8,10 +8,9 @@ name: audit-health
 # Strict mode is OFF by default — the current baseline (iter-52 of /loop,
 # 2026-05-27) has 25 findings: 25 documented-deferred (7 stale subrepo
 # URLs ADR-2605211845 + 18 kotoba escape-symlinks ADR-2605262130). The
-# manifest-lexicon-drift category was fully zeroed in iter-52 (all 21
-# missing lexicons across 5 actors authored iter-48..52). The workflow
-# reports the count in the job summary so reviewers can compare against
-# baseline; it does not fail PRs on those known findings.
+# Actor manifest/lexicon drift is evaluated from the west superproject, where
+# sibling orgs/etzhayyim/com-etzhayyim-* checkouts are present. A standalone
+# root checkout cannot truthfully establish that category's baseline.
 #
 # When the documented findings are resolved (kotoba upstream symlink
 # coordination + per-app .gitrepo decision), the strict-mode flag can be
@@ -32,13 +31,15 @@ on:
       # manifest-lexicon-drift; iter-53 canary regression-guards
       # the just-closed category — needs to fire on these paths
       # to actually catch drift introduction).
-      - '20-actors/**/manifest.jsonld'
-      - '20-actors/**/manifest.edn'
+      # Actor manifests live in sibling west repositories. Root CI cannot
+      # receive path events for them; the superproject audit invokes the same
+      # scanner over orgs/etzhayyim/com-etzhayyim-*.
+      - '70-tools/scripts/audit/manifest-lexicon-drift.py'
       - '00-contracts/lexicons/**/*.json'
       # ADR files (audited by adr-cross-ref-health). Any new ADR or
       # rename can change the orphan set and the standalone audit's
       # baseline of 118 (iter-45) is operator-tracked.
-      - '90-docs/adr/**/*.md'
+      - '90-docs/adr/**/*.edn'
   pull_request:
     branches: [main]
     paths:
@@ -46,10 +47,9 @@ on:
       - '.github/workflows/audit-health.yml'
       - '70-tools/scripts/audit/**'
       - '**/.gitrepo'
-      - '20-actors/**/manifest.jsonld'
-      - '20-actors/**/manifest.edn'
+      - '70-tools/scripts/audit/manifest-lexicon-drift.py'
       - '00-contracts/lexicons/**/*.json'
-      - '90-docs/adr/**/*.md'
+      - '90-docs/adr/**/*.edn'
   workflow_dispatch:
 
 permissions:
@@ -136,7 +136,7 @@ jobs:
             echo "  - 7 stale subrepo URLs (ADR-2605211845)"
             echo "  - 18 kotoba escape-symlinks (ADR-2605262130)"
             echo "  - 0 sibling-convention-drift outliers"
-            echo "  - 0 manifest-lexicon-drift (iter-52: all 5 actors closed — wadachi/gov-municipality/infra-utility-connect/yoro-supply/kuni-umi)"
+            echo "  - actor manifest drift: owned by the west-workspace audit (not counted in standalone root checkout)"
             echo ""
             if [ "${total:-0}" -gt 25 ]; then
               echo "⚠️ Total findings **above baseline** — new drift introduced. Investigate above."

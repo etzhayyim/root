@@ -95,6 +95,21 @@ const allowedPathPatterns = [
   /\.example\.(ts|tsx|js|mjs|cjs|jsx|py|md|json|yaml|yml)$/,
 ];
 
+/** Convert cwd-relative OR absolute west paths to the stable policy path.
+ * CI usually passes root-relative paths, while superproject hooks pass paths
+ * such as `/workspace/orgs/etzhayyim/com-etzhayyim-foo/src/x.ts`.
+ * Matching only cwd-relative strings silently disabled the SDK boundary for
+ * the latter. Keep root-owned numbered layers intact and anchor sibling repos
+ * at `orgs/`.
+ */
+function policyPath(filePath) {
+  const slash = filePath.replace(/\\/g, "/");
+  const orgs = slash.match(/(?:^|\/)(orgs\/[^/]+\/[^/]+(?:\/.*)?$)/);
+  if (orgs) return orgs[1];
+  const relative = path.relative(process.cwd(), path.resolve(filePath)).replace(/\\/g, "/");
+  return relative.replace(/^\.\//, "");
+}
+
 /** File extensions we actually scan. */
 const scannedExts = [
   ".ts",
@@ -153,7 +168,7 @@ const allRules = [
 ];
 
 function isAllowed(filePath) {
-  const normal = filePath.replace(/^\.\//, "");
+  const normal = policyPath(filePath);
   for (const pat of allowedPathPatterns) if (pat.test(normal)) return true;
   for (const prefix of allowedPrefixes) if (normal.startsWith(prefix)) return true;
   return false;
