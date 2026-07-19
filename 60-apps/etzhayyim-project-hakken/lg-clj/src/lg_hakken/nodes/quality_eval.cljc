@@ -7,8 +7,7 @@
   `estimate-score` (rating × 20)."
   (:require [lg-hakken.xrpc :as xrpc]))
 
-(def kaimono-review-xrpc
-  (or (System/getenv "KAIMONO_REVIEW_XRPC_URL") "https://kaimono-review.etzhayyim.com"))
+(def ^:dynamic kaimono-review-xrpc "https://kaimono-review.etzhayyim.com")
 
 (def min-grade "B")
 

@@ -7,7 +7,7 @@
   test parity with the Python `_stub_candidates`)."
   (:require [lg-hakken.xrpc :as xrpc]))
 
-(def aliexpress-api (or (System/getenv "ALIEXPRESS_API_URL") ""))
+(def ^:dynamic aliexpress-api "")
 
 (def heavy-weight-kg 5.0)
 

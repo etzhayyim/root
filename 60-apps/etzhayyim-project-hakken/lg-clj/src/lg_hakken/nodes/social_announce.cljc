@@ -6,8 +6,7 @@
   announcement per approved SKU under the kaimono-review home category DID."
   (:require [lg-hakken.xrpc :as xrpc]))
 
-(def kaimono-review-xrpc
-  (or (System/getenv "KAIMONO_REVIEW_XRPC_URL") "https://kaimono-review.etzhayyim.com"))
+(def ^:dynamic kaimono-review-xrpc "https://kaimono-review.etzhayyim.com")
 
 (def phase-label
   {"dropship" "お試し価格"

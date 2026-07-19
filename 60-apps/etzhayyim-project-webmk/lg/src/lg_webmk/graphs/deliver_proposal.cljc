@@ -8,15 +8,14 @@
   httpx→babashka.http-client (Resend REST), RW→store seam."
   (:require [langgraph.graph :as g]
             [cheshire.core :as json]
-            [babashka.http-client :as http]
             [clojure.string :as str]
             [lg-webmk.audit :as audit]
             [lg-webmk.store :as store]))
 
-(defn- env [k default] (or (System/getenv k) default))
-(def ^:private app-did (env "WEBMK_APP_DID" "did:web:webmk.etzhayyim.com"))
-(def ^:private resend-api-key (env "RESEND_API_KEY" ""))
-(def ^:private resend-from (env "RESEND_FROM" "webmk@etzhayyim.com"))
+(def ^:dynamic app-did "did:web:webmk.etzhayyim.com")
+(def ^:dynamic *resend-config* {:url "https://api.resend.com/emails"
+                                :api-key "" :from "webmk@etzhayyim.com"})
+(def ^:dynamic *http-post* nil)
 
 (defn fetch-proposal [state]
   (if (seq (:copy-markdown state ""))
@@ -27,23 +26,24 @@
         {:copy-markdown (or (:copy-markdown (store/get-proposal proposal-id)) "")}))))
 
 (defn send-email [state]
-  (let [delivery-email (:delivery-email state "")
+  (let [{:keys [url api-key from]} *resend-config*
+        delivery-email (:delivery-email state "")
         copy-markdown (:copy-markdown state "")
         proposal-id (:proposal-id state "unknown")]
     (cond
       (str/blank? delivery-email)
       {:ok false :delivered false :error "delivery_email not set"}
 
-      (str/blank? resend-api-key)
+      (or (str/blank? api-key) (not (fn? *http-post*)))
       {:ok true :delivered false}
 
       :else
       (try
-        (let [resp (http/post "https://api.resend.com/emails"
-                              {:headers {"Authorization" (str "Bearer " resend-api-key)
+        (let [resp (*http-post* url
+                              {:headers {"Authorization" (str "Bearer " api-key)
                                          "Content-Type" "application/json"}
                                :body (json/generate-string
-                                      {:from resend-from
+                                      {:from from
                                        :to [delivery-email]
                                        :subject (str "[webmk] Marketing Proposal #" proposal-id)
                                        :text (subs copy-markdown 0 (min 10000 (count copy-markdown)))})

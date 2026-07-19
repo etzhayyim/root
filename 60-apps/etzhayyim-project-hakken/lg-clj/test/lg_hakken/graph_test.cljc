@@ -20,7 +20,18 @@
             [lg-hakken.nodes.import-order :as import-order]
             [lg-hakken.nodes.tsukuru-order :as tsukuru-order]
             [lg-hakken.nodes.phase-promotion :as phase-promotion]
-            [lg-hakken.kotoba-datomic :as kd]))
+            [lg-hakken.kotoba-datomic :as kd]
+            [lg-hakken.xrpc :as xrpc]))
+
+(deftest service-endpoints-are-explicit-host-capabilities
+  (let [seen (atom nil)]
+    (binding [trend-scan/kakaku-xrpc "https://custom.etzhayyim.com"
+              xrpc/*http-get* (fn [url _]
+                                (reset! seen url)
+                                {:status 200 :body "{\"offers\":[]}"})]
+      (is (= [] (trend-scan/default-list-offers "home" 1)))
+      (is (= "https://custom.etzhayyim.com/xrpc/com.etzhayyim.apps.kakaku.listOffers"
+             @seen)))))
 
 ;; ── server registry parity ──────────────────────────────────────────────────
 
