@@ -147,11 +147,37 @@ def display_path(path: Path) -> Path:
 
 
 def lexicon_file_nsid(path: Path, namespace_prefix: str) -> str:
-    """Read the wire contract's authoritative id, falling back to its stem."""
+    """Read the wire contract's authoritative id, falling back to its stem.
+
+    Map-shaped lexicons keep ``id`` at the top level.  EAVT projections are
+    vectors, however, and carry the same identity as a namespaced ``*/id`` key
+    inside one of their facts.  Accept that identity only when every matching
+    fact agrees; an ambiguous projection deliberately falls back so reverse
+    drift remains visible instead of silently choosing an arbitrary NSID.
+    """
     try:
         data = json.loads(path.read_text())
         if isinstance(data, dict) and isinstance(data.get("id"), str):
             return data["id"]
+
+        candidates: set[str] = set()
+
+        def collect(value) -> None:
+            if isinstance(value, dict):
+                for key, item in value.items():
+                    if (isinstance(key, str) and "/" in key and
+                            key.endswith("/id") and isinstance(item, str) and
+                            NSID_RE.fullmatch(item)):
+                        candidates.add(item)
+                    collect(item)
+            elif isinstance(value, list):
+                for item in value:
+                    collect(item)
+
+        if isinstance(data, list):
+            collect(data)
+            if len(candidates) == 1:
+                return next(iter(candidates))
     except (OSError, json.JSONDecodeError):
         pass
     return f"{namespace_prefix}.{path.stem}"
