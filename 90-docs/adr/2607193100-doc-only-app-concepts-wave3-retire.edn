@@ -1,0 +1,34 @@
+{:schema "etzhayyim.adr/v1" :id "2607193100" :title "Retire ten documentation-only app concepts" :status :accepted :date "2026-07-19"
+ :context {:classification :unimplemented-app-concept-documents :implementation-files 0 :historical-reference {:path "etzhayyim.txt" :classification :historical-inventory-snapshot :action :retain-unchanged}}
+ :ownership {:canonical-spec "90-docs/adr/2607193100-doc-only-app-concepts-wave3-retire.edn" :standalone-runtime nil
+             :exceptions {:amnesty-design "90-docs/adr/2605202000-etzhayyim-amnesty-legal-person-debt-actor.edn"}
+             :rule "No matching repository exists in the etzhayyim organization; claimed workers/components are designs, not owners."}
+ :canonical-specs
+ [{:name "maps-collection" :kind :map-ingestion-control-plane :identity {:nanoid "v1m9k2q8"} :concepts [:osm :overpass :building-footprints :places :addresses :poi] :claimed-runtime :absent}
+  {:name "religious" :kind :religious-law-authority :identity {:domain "religious.etzhayyim.com" :did "did:web:religious.etzhayyim.com" :nanoid "r3lgus01"} :concepts [:traditions :schools :rules :authority-chain] :claimed-runtime :absent}
+  {:name "ethics" :kind :professional-and-academic-ethics-authority :identity {:domain "ethics.etzhayyim.com" :did "did:web:ethics.etzhayyim.com" :nanoid "eth1cs01"} :concepts [:professional-codes :academic-codes :ethics-rules :license-status] :claimed-runtime :absent}
+  {:name "industry-standard" :kind :industry-standard-authority :identity {:domain "industry-standard.etzhayyim.com" :did "did:web:industry-standard.etzhayyim.com" :nanoid "indstd01"} :concepts [:standards-bodies :requirements :evidence :certification] :claimed-runtime :absent}
+  {:name "photos" :kind :photo-library-concept :identity {:domain "photos.etzhayyim.com" :nanoid "krtjlccu"} :concepts [:libraries :albums :photo-metadata :sharing :tags] :claimed-runtime :absent}
+  {:name "img2pptx" :kind :image-to-presentation-concept :identity {:domain "img2pptx.etzhayyim.com" :did "did:web:img2pptx.etzhayyim.com"} :concepts [:image-shapes :drawingml :pptx-assembly :agent-tools] :claimed-runtime :absent}
+  {:name "amnesty" :kind :legal-person-debt-restructuring :identity {:did "did:web:amnesty.etzhayyim.com"} :concepts [:sovereign-debt :corporate-debt :multilateral-restructuring :ratification] :canonical-owner "90-docs/adr/2605202000-etzhayyim-amnesty-legal-person-debt-actor.edn" :claimed-runtime :absent}
+  {:name "moderator" :kind :administration-panel-concept :identity {:domain "moderator.etzhayyim.com" :nanoid "m0d3r8t0"} :concepts [:admin-gate :user-management :post-management :account-management] :claimed-runtime :absent}
+  {:name "social-contract" :kind :contract-and-legal-entity-did-concept :identity {:domain "social-contract.etzhayyim.com"} :concepts [:contract-types :legal-entity-dids :cohort-dids :content-addressed-identity] :claimed-runtime :absent}
+  {:name "sensitive-taima" :kind :restricted-policy-intelligence-concept :identity {:domain "sensitive-taima.etzhayyim.com" :did "did:web:sensitive-taima.etzhayyim.com" :nanoid "tm01prv0"} :concepts [:legislation :research :clinical-evidence :policy-comparison :restricted-access] :claimed-runtime :absent}]
+ :decision {:action :retire :canonical-record :edn :numbered-directories-removed 10 :standalone-repository false :go-policy :deprecated-and-absent}
+ :provenance {:source-repository "https://github.com/etzhayyim/root" :source-revision "7d9314719b7b98f83908664a2dae771380143f86"
+  :blobs
+  {"maps-collection/CLAUDE.md" {:git-blob "107ef82b1db612d3d54f58c49d10812f65891b55" :sha256 "75f766124b8974556d63c9ae9ab8bfd63c0752334f9683f93911c939a5de6601" :bytes 673 :lines 13}
+   "religious/CLAUDE.md" {:git-blob "9bedc179d7353f866e3cdba6a4596e5a36044c07" :sha256 "322e2de06f00b9ea7c83328255db3c1b6c088a729238a2d8b23240ef7aeb380c" :bytes 2423 :lines 44}
+   "ethics/CLAUDE.md" {:git-blob "2db0c014fcc4790a5496be10d43f749d502096f5" :sha256 "cb7985cde7652615c392f015fb1346a9ce6d2b5c6bc2db558efe6b4cc2e1e096" :bytes 2339 :lines 47}
+   "industry-standard/CLAUDE.md" {:git-blob "987dc58e7ac6de0f2fcd68a469422a597e19c665" :sha256 "fd408684e67b359d8ce5679eb3182f5142266cdb9bf406a2ebdc8f3910673da2" :bytes 2714 :lines 51}
+   "photos/CLAUDE.md" {:git-blob "11929a7b4f32861a2251fa150e743f580c407a7f" :sha256 "cabfcb4e4ae33cb7faaa6b71ccfa7e108ed55463fd8f407ad6bc0c5b4dc08d02" :bytes 2932 :lines 73}
+   "img2pptx/CLAUDE.md" {:git-blob "8c30c352ccaff2539c8ba9a56fe8c3400d638570" :sha256 "c146b40351cd7f929f738617c139caa169aa3d4959eac6634a3fcd72d46fb3a6" :bytes 3024 :lines 76}
+   "amnesty/CLAUDE.md" {:git-blob "63d99669bd11b3fc4b0a4efe66bf44db5b2be659" :sha256 "749b99c77aea68eb9a4f8ab710afa6925a8e1a285d59a049be2bea831a6c350d" :bytes 8096 :lines 103}
+   "moderator/CLAUDE.md" {:git-blob "6d637bfd35294f09d4ec27d716178adfc5692d86" :sha256 "a1e15f42ec40d9a1143fc70097d235039d1d6d8ac82b1e5f9d9297b16aed9282" :bytes 5493 :lines 135}
+   "social-contract/CLAUDE.md" {:git-blob "a793102f64dd14d8a691b8330732e86ab391567b" :sha256 "789a9224edfa73b4093116b64eb3c2ecccb071cb9d97653e994095432d3a2163" :bytes 5399 :lines 102}
+   "sensitive-taima/CLAUDE.md" {:git-blob "5294501bc765d8e7e0746364d749ed4829a2c6af" :sha256 "1d593915e6cb9ec41d7c5bf66619a0bbfabe5056d4dad975e204c4e97ae30e47" :bytes 8275 :lines 141}}}
+ :rewires
+ [{:source "60-apps/etzhayyim-project-auth/CLAUDE.md" :from "60-apps/etzhayyim-project-moderator/CLAUDE.md" :to "90-docs/adr/2607193100-doc-only-app-concepts-wave3-retire.edn"}
+  {:source "90-docs/adr/2607061800-saisei-self-filing-debt-relief-actor.edn" :from "60-apps/etzhayyim-project-amnesty/" :to "90-docs/adr/2605202000-etzhayyim-amnesty-legal-person-debt-actor.edn"}]
+ :verification {:required [:edn-readable :legacy-directories-absent :markers-present :operational-reference-scan-clean :generated-doc-registry-current]}
+ :consequences {:root "Ten documentation-only numbered app directories become flat EDN migration markers." :history "Every document is recoverable by revision and two digests." :runtime "No implementation or runtime repository is removed."}}

@@ -90,7 +90,7 @@ accounts.etzhayyim.com/manage
 - **Sub-Actor expansion**: `:person:*`, `:service:*`, `:team:*`, `:legal:*`, `:finance:*`, `:moderator:*` を追加可能
 - **RACI root**: RACI assignment は actor/account DID 配下 resource に対して sub-actor へ付与する
 - **Org 拡張**: `org_type` を `personal` → `company`/`npo`/`community`/`team` に変更しても root actor model は不変
-- **設計詳細**: `60-apps/etzhayyim-project-moderator/CLAUDE.md` §Org-Account-Based Identity Design
+- **設計詳細**: `90-docs/adr/2607193100-doc-only-app-concepts-wave3-retire.edn` の moderator canonical spec
 
 ### Membership — 3-Tier Plan
 
