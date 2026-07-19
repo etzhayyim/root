@@ -91,6 +91,18 @@
   (is (thrown? #?(:clj clojure.lang.ExceptionInfo :cljs :default)
                (u/require-fields {:person_ref ""} [:person_ref :purpose_code]))))
 
+(deftest adapter-mode-is-explicit-and-safe-by-default
+  (is (nil? (u/ensure-mock-mode)))
+  (binding [u/*adapter-mode* "real"]
+    (is (thrown-with-msg? #?(:clj clojure.lang.ExceptionInfo :cljs :default)
+                          #"real adapter mode is not implemented"
+                          (u/ensure-mock-mode)))))
+
+(deftest server-start-requires-explicit-capability
+  (is (thrown-with-msg? #?(:clj clojure.lang.ExceptionInfo :cljs :default)
+                        #"explicit HTTP server capability required"
+                        (server/start! nil {:port 0}))))
+
 ;; ── handler behaviour (MemStore; the heart of the port) ─────────────────────
 
 (deftest verify-jpki-happy
