@@ -106,6 +106,14 @@ class TestNsidToPath:
         suffix = "app/foo/bar/baz/qux.json"
         assert str(path).endswith(suffix), f"{path} does not end with {suffix}"
 
+    def test_flat_owner_contract_precedes_frozen_root(self, audit, tmp_path):
+        manifest = tmp_path / "orgs/etzhayyim/com-etzhayyim-demo/manifest.edn"
+        manifest.parent.mkdir(parents=True)
+        local = audit.actor_lexicon_path(manifest, "com.etzhayyim.demo.record")
+        local.parent.mkdir(parents=True)
+        local.write_text("{}")
+        assert audit.resolve_lexicon_path(manifest, "com.etzhayyim.demo.record") == local
+
 
 # ─── End-to-end smoke tests against the live repo ──────────────────────
 
