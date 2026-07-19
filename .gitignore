@@ -190,3 +190,4 @@ foundry.lock
 
 # central actor identity custody (ADR-2607022300 — private keys, NEVER commit)
 .e7m/identity/
+/60-apps/etzhayyim-chat-shell/svelte/.shadow-cljs/
