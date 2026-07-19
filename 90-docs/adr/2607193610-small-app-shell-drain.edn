@@ -1,5 +1,5 @@
 {:schema "etzhayyim.adr/v1"
- :id "2607193600"
+ :id "2607193610"
  :title "Drain one-to-three-file legacy app directories"
  :status :accepted
  :date "2026-07-19"
