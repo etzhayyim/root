@@ -70,9 +70,6 @@
 60-apps/etzhayyim-project-hrse/kotoba/src/registry.ts:catch-no-err-param:const resp = await e.read<CompanyRecord>({ collection: COMPANY_COLLECTION, rkey: companyRkey(input.companyId) }).catch(() => ({ records: [] }));
 60-apps/etzhayyim-project-isekai/appview/etzhayyim-wasm-isekai-is3k41w0/svelte/src/routes/api/kotoba/+server.ts:catch-no-err-param:const { query } = await request.json().catch(() => ({}));
 60-apps/etzhayyim-project-isekai/appview/etzhayyim-wasm-isekai-is3k41w0/svelte/src/routes/xrpc/[...path]/+server.ts:catch-no-err-param:const input = await event.request.json().catch(() => ({}));
-60-apps/etzhayyim-project-jukyu/kotoba/src/registry.ts:catch-no-err-param:const existing = await e.read<BalanceObservationRecord>({ collection: BALANCE_OBSERVATION_COLLECTION, rkey }).catch(() => ({ records: [] }));
-60-apps/etzhayyim-project-jukyu/kotoba/src/registry.ts:catch-no-err-param:const existing = await e.read<SupplyNodeRecord>({ collection: SUPPLY_NODE_COLLECTION, rkey }).catch(() => ({ records: [] }));
-60-apps/etzhayyim-project-jukyu/kotoba/src/registry.ts:catch-no-err-param:const resp = await e.read<SupplyNodeRecord>({ collection: SUPPLY_NODE_COLLECTION, rkey }).catch(() => ({ records: [] }));
 60-apps/etzhayyim-project-kami/appview/etzhayyim-wasm-kami-eng-k4m13ng1/svelte/src/routes/xrpc/[...path]/+server.ts:catch-no-err-param:const input = await event.request.json().catch(() => ({}));
 60-apps/etzhayyim-project-kami/kotoba/src/registry.ts:catch-no-err-param:const existing = await e.read<DesignRecord>({ collection: DESIGN_COLLECTION, rkey }).catch(() => ({ records: [] }));
 60-apps/etzhayyim-project-kami/kotoba/src/registry.ts:catch-no-err-param:const existing = await e.read<ProjectRecord>({ collection: PROJECT_COLLECTION, rkey }).catch(() => ({ records: [] }));
