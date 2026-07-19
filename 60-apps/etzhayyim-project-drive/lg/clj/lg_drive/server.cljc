@@ -19,6 +19,7 @@
   (:require [cheshire.core :as json]
             [clojure.string :as str]
             [lg-drive.handlers :as h]
+            [lg-drive.kotoba-datomic :as kd]
             [lg-drive.store :as store])
   (:import [java.net URLDecoder]))
 
@@ -26,11 +27,10 @@
 
 (defn enforce-auth!
   "Throw a 401 ex-info if LG_DRIVE_API_KEY is set and x-api-key mismatches."
-  [x-api-key]
-  (let [expected (System/getenv "LG_DRIVE_API_KEY")]
-    (when (and expected (not (str/blank? expected))
+  [expected x-api-key]
+  (when (and expected (not (str/blank? expected))
                (or (str/blank? (or x-api-key "")) (not= x-api-key expected)))
-      (throw (ex-info "x-api-key mismatch" {:status 401})))))
+      (throw (ex-info "x-api-key mismatch" {:status 401}))))
 
 ;; ── query-string parsing ──────────────────────────────────────────────────────
 
@@ -51,7 +51,7 @@
 (defn route
   "Pure router: (route store {:method :path :query :body :x-api-key}) →
   {:status int :json map}. `query` is a param map; `body` is a parsed map."
-  [st {:keys [method path query body x-api-key]}]
+  [st {:keys [method path query body x-api-key expected-api-key]}]
   (let [query (or query {})
         body (or body {})]
     (cond
@@ -60,7 +60,7 @@
 
       (str/starts-with? path xrpc-prefix)
       (try
-        (enforce-auth! x-api-key)
+        (enforce-auth! expected-api-key x-api-key)
         (let [m (subs path (count xrpc-prefix))]
           (case m
             "filesCreate" {:status 200 :json (h/files-create st body)}
@@ -79,8 +79,11 @@
 
 ;; ── httpkit adapter (-main) ────────────────────────────────────────────────────
 
-(defn- ->ring-handler [st]
+(defn ->ring-handler
+  ([st expected-api-key] (->ring-handler st expected-api-key nil))
+  ([st expected-api-key http-post]
   (fn [{:keys [request-method uri query-string body headers]}]
+    (binding [kd/*http-post* http-post]
     (let [method (keyword (name (or request-method :get)))
           parsed-body (when body
                         (try (json/parse-string (slurp body)) (catch Exception _ nil)))
@@ -88,17 +91,19 @@
                                            :path uri
                                            :query (parse-query query-string)
                                            :body parsed-body
+                                           :expected-api-key expected-api-key
                                            :x-api-key (get headers "x-api-key")})]
       {:status status
        :headers {"Content-Type" "application/json"}
-       :body (json/generate-string json)})))
+       :body (json/generate-string json)})))))
+
+(defn run-server-with [run-server port st expected-api-key http-post]
+  (when-not (fn? run-server)
+    (throw (ex-info "server capability not configured" {:capability :run-server})))
+  (when-not (and (integer? port) (<= 1 port 65535))
+    (throw (ex-info "invalid server port" {:port port})))
+  (run-server (->ring-handler st expected-api-key http-post) {:port port}))
 
 (defn -main [& _]
-  (let [server-ns 'org.httpkit.server
-        _ (require server-ns)
-        run-server (ns-resolve server-ns 'run-server)
-        port (parse-long (or (System/getenv "PORT") "8000"))
-        st (store/kotoba-store)]
-    (run-server (->ring-handler st) {:port port})
-    (println (str "lg-drive (clj) listening on :" port))
-    @(promise)))
+  (throw (ex-info "host adapter must provide server, port, store and API key"
+                  {:capability :run-server})))

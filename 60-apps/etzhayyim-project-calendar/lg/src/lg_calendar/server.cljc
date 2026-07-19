@@ -16,22 +16,20 @@
   Persistence = kotoba datomic (graph `calendar-v1`). Auth: optional
   `LG_CALENDAR_API_KEY`; the edge actor-worker (x-internal-trust) is the real
   trust boundary."
-  (:require [org.httpkit.server :as httpkit]
-            [cheshire.core :as json]
+  (:require [cheshire.core :as json]
             [clojure.string :as str]
             [lg-calendar.handlers :as handlers]
             [lg-calendar.store :as store]
             [lg-calendar.kotoba-datomic :as kd]))
 
-(defn- store-impl []
-  (store/kotoba-calendar-store (kd/make-kotoba-datomic)))
+(defn- store-impl [kotoba-config]
+  (store/kotoba-calendar-store (kd/make-kotoba-datomic kotoba-config)))
 
 (defn- enforce-auth!
   "Throws a 401 ex-info when LG_CALENDAR_API_KEY is set and the header mismatches."
-  [x-api-key]
-  (let [expected (System/getenv "LG_CALENDAR_API_KEY")]
-    (when (and expected (seq expected) (not= x-api-key expected))
-      (throw (ex-info "x-api-key mismatch" {:status 401})))))
+  [expected x-api-key]
+  (when (and (seq expected) (not= x-api-key expected))
+    (throw (ex-info "x-api-key mismatch" {:status 401}))))
 
 (defn- url-decode [s]
   (java.net.URLDecoder/decode (str s) "UTF-8"))
@@ -56,7 +54,9 @@
       {}
       (json/parse-string (if (string? b) b (slurp b))))))
 
-(defn handler [req]
+(defn handler-with-config [{:keys [api-key kotoba http-post] :or {api-key "" kotoba kd/default-config}}]
+ (fn [req]
+  (binding [kd/*http-post* http-post]
   (let [uri (:uri req)
         method (:request-method req)
         x-api-key (get-in req [:headers "x-api-key"])]
@@ -67,8 +67,8 @@
 
         (str/starts-with? uri "/xrpc/ai.etzhayyim.apps.calendar.")
         (let [op (subs uri (count "/xrpc/ai.etzhayyim.apps.calendar."))
-              st (store-impl)]
-          (enforce-auth! x-api-key)
+              st (store-impl kotoba)]
+          (enforce-auth! api-key x-api-key)
           (case [method op]
             [:post "createEvent"] (json-resp 200 (handlers/create-event st (read-body req)))
             [:post "updateEvent"] (json-resp 200 (handlers/update-event st (read-body req)))
@@ -83,10 +83,17 @@
       (catch clojure.lang.ExceptionInfo e
         (json-resp (or (:status (ex-data e)) 500) {"error" (.getMessage e)}))
       (catch Exception e
-        (json-resp 500 {"error" (.getMessage e)})))))
+        (json-resp 500 {"error" (.getMessage e)})))))))
+
+(def handler (handler-with-config {}))
+
+(defn run-server-with [run-server port host-config]
+  (when-not (fn? run-server)
+    (throw (ex-info "server capability not configured" {:capability :run-server})))
+  (when-not (and (integer? port) (<= 1 port 65535))
+    (throw (ex-info "invalid server port" {:port port})))
+  (run-server (handler-with-config host-config) {:port port}))
 
 (defn -main [& _args]
-  (let [port (parse-long (or (System/getenv "PORT") "8000"))]
-    (println (str "lg-calendar listening on :" port))
-    (httpkit/run-server handler {:port port})
-    @(promise)))
+  (throw (ex-info "host adapter must provide server, port and configuration"
+                  {:capability :run-server})))

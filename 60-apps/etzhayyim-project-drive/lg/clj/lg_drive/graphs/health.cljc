@@ -6,10 +6,10 @@
   one node returning {:ok :ts :version}. langgraph-clj loads under babashka."
   (:require [langgraph.graph :as g]))
 
-(defn probe [_state]
+(defn probe [state]
   {:ok true
    :ts (System/currentTimeMillis)
-   :version (or (System/getenv "LG_DRIVE_VERSION") "0.1.0")})
+   :version (or (get-in state [:host-config :version]) "0.1.0")})
 
 (def GRAPH
   (-> (g/state-graph)

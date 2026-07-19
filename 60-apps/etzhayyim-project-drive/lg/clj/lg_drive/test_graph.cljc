@@ -7,6 +7,7 @@
             [langgraph.graph :as g]
             [lg-drive.graphs.health :as health]
             [lg-drive.server :as server]
+            [lg-drive.kotoba-datomic :as kd]
             [lg-drive.store :as store]))
 
 (deftest test-health-graph-invoke
@@ -45,3 +46,24 @@
                               :path "/xrpc/ai.etzhayyim.apps.drive.nope"})]
     (is (= 404 (:status res)))
     (is (str/includes? (get-in res [:json "error"]) "not found"))))
+
+(deftest test-explicit-kotoba-capability-and-config
+  (let [request (atom nil)
+        dm (kd/make-client {:xrpc-url "http://kotoba.internal/"
+                            :bearer "bound" :graph-label "drive-safe"})]
+    (binding [kd/*http-post* (fn [url opts]
+                               (reset! request [url opts])
+                               {:status 200 :body "{\"rows_edn\":[]}"})]
+      (is (= [] (kd/q dm "[:find ?e]")))
+      (is (= "http://kotoba.internal/xrpc/ai.etzhayyim.apps.kotoba.datomic.q"
+             (first @request)))
+      (is (= "Bearer bound" (get-in @request [1 :headers "Authorization"]))))))
+
+(deftest test-explicit-auth-and-health-version
+  (let [res (server/route (store/fake-store)
+                          {:method :get
+                           :path "/xrpc/ai.etzhayyim.apps.drive.filesList"
+                           :expected-api-key "secret" :x-api-key "wrong"})]
+    (is (= 401 (:status res))))
+  (is (= "explicit" (:version (g/invoke health/GRAPH
+                                         {:host-config {:version "explicit"}})))))

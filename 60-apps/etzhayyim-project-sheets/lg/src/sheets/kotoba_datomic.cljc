@@ -8,20 +8,14 @@
 
   Endpoint resolution honors KOTOBA_XRPC_URL / KOTOBA_URL (default in-cluster
   Service :8080). Auth = Bearer JWT (KOTOBA_BEARER)."
-  (:require [babashka.http-client :as http]
-            [cheshire.core :as json]
+  (:require [cheshire.core :as json]
             [clojure.string :as str]
             [sheets.edn-tx :as edn-tx])
   (:import [java.security MessageDigest]))
 
-(def kotoba-xrpc
-  (str/replace
-   (or (System/getenv "KOTOBA_XRPC_URL")
-       (System/getenv "KOTOBA_URL")
-       "http://kotoba.kotoba.svc.cluster.local:8080")
-   #"/+$" ""))
-
-(def kotoba-bearer (or (System/getenv "KOTOBA_BEARER") ""))
+(def default-config {:xrpc-url "http://kotoba.kotoba.svc.cluster.local:8080"
+                     :bearer "" :graph-label "sheets-v1"})
+(def ^:dynamic *http-post* nil)
 
 ;; ── content-addressed graph CID (kotoba_cid / graph_cid_for_label) ────────────
 
@@ -64,16 +58,17 @@
     label
     (kotoba-cid (.getBytes ^String label "UTF-8"))))
 
-(def default-graph (graph-cid-for-label (or (System/getenv "KOTOBA_GRAPH") "sheets-v1")))
+(def default-graph (graph-cid-for-label (:graph-label default-config)))
 
-(defn- headers []
-  (if (str/blank? kotoba-bearer)
-    {"Content-Type" "application/json"}
-    {"Authorization" (str "Bearer " kotoba-bearer) "Content-Type" "application/json"}))
-
-(defn- post-json [path body]
-  (http/post (str kotoba-xrpc "/xrpc/" path)
-             {:headers (headers) :body (json/generate-string body) :throw false}))
+(defn- post-json [dm path body]
+  (when-not (fn? *http-post*)
+    (throw (ex-info "Sheets Kotoba client requires an explicit HTTP POST capability"
+                    {:capability :sheets/kotoba-http-post})))
+  (let [{:keys [xrpc-url bearer]} (:config dm)
+        headers (cond-> {"Content-Type" "application/json"}
+                  (seq bearer) (assoc "Authorization" (str "Bearer " bearer)))]
+    (*http-post* (str (str/replace xrpc-url #"/+$" "") "/xrpc/" path)
+                 {:headers headers :body (json/generate-string body) :throw false})))
 
 ;; ── attribute-folding for pull ────────────────────────────────────────────────
 
@@ -96,16 +91,20 @@
 
 ;; ── client record ─────────────────────────────────────────────────────────────
 
-(defrecord KotobaDatomic [graph])
+(defrecord KotobaDatomic [graph config])
 
 (defn make
-  ([] (->KotobaDatomic default-graph))
-  ([graph] (->KotobaDatomic graph)))
+  ([] (make default-config))
+  ([config-or-graph]
+   (if (map? config-or-graph)
+     (let [cfg (merge default-config config-or-graph)]
+       (->KotobaDatomic (graph-cid-for-label (:graph-label cfg)) cfg))
+     (->KotobaDatomic config-or-graph default-config))))
 
 (defn transact [dm ops & {:keys [expected-parent]}]
   (let [body (cond-> {:graph (:graph dm) :tx_edn (edn-tx/encode-tx-data ops)}
                expected-parent (assoc :expected_parent expected-parent))
-        resp (post-json "ai.etzhayyim.apps.kotoba.datomic.transact" body)]
+        resp (post-json dm "ai.etzhayyim.apps.kotoba.datomic.transact" body)]
     (when (>= (:status resp) 400)
       (throw (ex-info "kotoba transact failed" {:status (:status resp) :body (:body resp)})))
     (json/parse-string (:body resp))))
@@ -115,7 +114,7 @@
   ([dm query-edn inputs-edn]
    (let [body (cond-> {:graph (:graph dm) :query_edn query-edn}
                 (seq inputs-edn) (assoc :inputs_edn inputs-edn))
-         resp (post-json "ai.etzhayyim.apps.kotoba.datomic.q" body)]
+         resp (post-json dm "ai.etzhayyim.apps.kotoba.datomic.q" body)]
      (when (>= (:status resp) 400)
        (throw (ex-info "kotoba q failed" {:status (:status resp) :body (:body resp)})))
      (let [rows (or (get (json/parse-string (:body resp)) "rows_edn") [])]
@@ -123,7 +122,7 @@
 
 (defn pull [dm entity]
   (let [body {:graph (:graph dm) :entity entity}
-        resp (post-json "ai.etzhayyim.apps.kotoba.datomic.pull" body)]
+        resp (post-json dm "ai.etzhayyim.apps.kotoba.datomic.pull" body)]
     (cond
       (= 404 (:status resp)) nil
       (>= (:status resp) 400) (throw (ex-info "kotoba pull failed"

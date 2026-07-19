@@ -6,10 +6,10 @@
   State is a clj map (the TypedDict _State); langgraph-clj loads under babashka."
   (:require [langgraph.graph :as g]))
 
-(defn probe [_state]
+(defn probe [state]
   {:ok true
    :ts (System/currentTimeMillis)
-   :version (or (System/getenv "LG_SHEETS_VERSION") "0.1.0")})
+   :version (or (get-in state [:host-config :version]) "0.1.0")})
 
 (defn build []
   (-> (g/state-graph)
