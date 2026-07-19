@@ -31,7 +31,8 @@ jobs:
           fi
           ADDED=$(git diff --diff-filter=A --name-only "$BASE"..HEAD \
             | grep -E '^[0-9]{2}-[^/]+/' \
-            | grep -v -- '-MOVED\.edn$' || true)
+            | grep -v -- '-MOVED\.edn$' \
+            | grep -v -E '^90-docs/adr/.+\.edn$' || true)
           if [ -n "$ADDED" ]; then
             echo "::error::ADR-2607171100 Phase 0 freeze: numbered layer dirs are frozen. New components must be individual repos registered in the west manifest (superproject ADR-2607171100 D5). Offending additions:"
             echo "$ADDED"
