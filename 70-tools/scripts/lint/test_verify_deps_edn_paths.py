@@ -74,6 +74,26 @@ class CheckPathsTest(unittest.TestCase):
         self.assertEqual(sum(r.unverifiable == "external" for r in rs), 2)
         self.assertFalse(any(r.is_drift for r in rs))
 
+    def test_configured_west_project_shape_is_unverifiable_not_drift(self):
+        rs = self.run_checks(
+            '{:platform {:operating_entity {:github_org_open "etzhayyim"}}'
+            ' :modules [{:path "orgs/etzhayyim/com-etzhayyim-kami-apps"}'
+            ' {:path "orgs/etzhayyim/com-etzhayyim-kami-apps/src/lib.cljc"}]}'
+        )
+        self.assertEqual(sum(r.unverifiable == "west-project" for r in rs), 2)
+        self.assertFalse(any(r.is_drift for r in rs))
+
+    def test_unknown_or_malformed_west_project_is_drift(self):
+        rs = self.run_checks(
+            '{:platform {:operating_entity {:github_org_open "etzhayyim"}}'
+            ' :modules [{:path "orgs/etzhayim/com-etzhayyim-typo"}'
+            ' {:path "orgs/etzhayyim"}'
+            ' {:path "orgs/etzhayyim/../escape"}'
+            ' {:path "orgs/etzhayyim/com-etzhayyim-ok/../escape"}]}'
+        )
+        self.assertEqual(sum(r.is_drift for r in rs), 4)
+        self.assertFalse(any(r.unverifiable == "west-project" for r in rs))
+
     def test_modules_and_adrs_both_walked(self):
         rs = self.run_checks(
             '{:adrs [{:id "1" :path "a.md"} {:id "2" :path "b.md"}]'

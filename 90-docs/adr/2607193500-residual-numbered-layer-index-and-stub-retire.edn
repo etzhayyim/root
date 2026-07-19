@@ -1,0 +1,57 @@
+{:schema "etzhayyim.adr/v1"
+ :id "2607193500"
+ :title "Retire residual numbered-layer indexes, historical audit, and Datomic stub"
+ :status :accepted
+ :date "2026-07-19"
+ :context {:scope ["10-protocol" "20-actors" "30-graph" "40-engine"]
+           :canonical-format :edn
+           :flat-west-path-pattern "orgs/etzhayyim/<repository>"
+           :numbered-layer-policy :migration-markers-only}
+ :decision
+ {:stale-shared-indexes
+  {:action :retire
+   :reason "The indexes described deleted monorepo implementations as active. Canonical ownership is now each standalone repository plus the superproject west manifest."
+   :sources
+   [{:path "10-protocol/README.md" :git-blob "296aee08dc419529a2bcf6e065ff6de696d9b84a" :sha256 "148d1e21ed8324f60aebbce201f1300fb9d295a0ad2bc8c433efa9ebd36c627f" :bytes 678}
+    {:path "10-protocol/deps.edn" :git-blob "e7be0dab8305ff8c5abe5b37025393d0bf82e644" :sha256 "9806cfc00e03a1c91c3c7549c1b4575fb108fb436d05652f8381fa251a0d117e" :bytes 558}
+    {:path "30-graph/DSM.md" :git-blob "55ef16959ec68d8da14da60abc13f27fe7aa8714" :sha256 "a9a7188449e5cd55a9bc5ed2306bd1faf798dd1217f92aa3621ef0eef40dbb6e" :bytes 2807}
+    {:path "30-graph/deps.edn" :git-blob "8e91cb288fd458ff13b3d0a59c5ba11fd7c6289d" :sha256 "048e378fbee0acf912083ce5fd324ab3dfe4e449e2d67273e6d2a5586f18b849" :bytes 76070}]
+   :canonical-owners
+   [{:repository "etzhayyim/com-etzhayyim-xrpc" :marker "10-protocol/xrpc-MOVED.edn"}
+    {:repository "etzhayyim/com-etzhayyim-signal" :marker "10-protocol/signal-MOVED.edn"}
+    {:repository "etzhayyim/com-etzhayyim-kg-projector" :marker "30-graph/kg-projector/MOVED.edn"}
+    {:repository "etzhayyim/com-etzhayyim-kg-appview" :marker "30-graph/kg-appview/MOVED.edn"}
+    {:retired-component "kagami" :marker "30-graph/kagami-MOVED.edn"}]
+   :manifest-owner "com-junkawasaki/root/west.yml"}
+  :historical-runpod-audit
+  {:action :retire-to-provenance
+   :source {:path "20-actors/AUDIT-RUNPOD-RW-2026-05-21.md"
+            :git-blob "96e29906ce5bfb258f598865996c0739d0ad3b5b"
+            :sha256 "ffce18087bcc4c33b91f4759f7b52b5cac83b12bba558503e815c2bc4ff4ddb2"
+            :bytes 29033}
+   :historical-policy "90-docs/adr/2605215000-etzhayyim-inference-murakumo-only-no-runpod.edn"
+   :current-policy "90-docs/adr/2606172359-charter-amendment-compute-and-fossil-to-objective-function.edn"
+   :reason :audit-bound-to-superseded-policy-and-pre-multirepo-paths}
+  :datomic-emulator
+  {:action :retire
+   :source {:path "40-engine/datomic_emulator.py"
+            :git-blob "103e2f3d17aaaeb72b27edbf0db04838e92238c9"
+            :sha256 "54b9aee4f09ea2ab918dcd641ff7957bc5288585d70b3fdad9ea24c7e01fc746"
+            :bytes 3128}
+   :consumer-audit {:imports 0 :calls 0 :only-self-reference true}
+   :reason "q always returned an empty result and the file declared itself superseded"
+   :canonical-owner "70-tools/src/etzhayyim/kotoba"
+   :owner-adr "2606151430"
+   :standalone-repository false}
+  :kami-apps-marker
+  {:action :replace-markdown-with-edn
+   :source-marker {:git-blob "7c18005061aa71c78b4a37c929adbdbf823eecca"
+                   :sha256 "43aa42607aa6e7eac063bf8a368afaede489df865a1592e437d88625620732c8"}
+   :destination {:repository "etzhayyim/kami-apps"
+                 :revision "034b7eb31cbfb82f32b2ce6b4bb3401f96317cd8"}}}
+ :invariants {:go-files 0 :tinygo-files 0 :operational-numbered-layer-implementations 0}
+ :verification [:no-active-consumer-of-datomic-emulator
+                :all-residual-markdown-classified
+                :edn-readable
+                :layer-freeze-guard
+                :numbered-layer-boundary-scan]}
