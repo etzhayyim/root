@@ -8,8 +8,7 @@
   that invokes the named graph with its base input. Residency (a real scheduler /
   launchd LaunchAgent) is a deployment-layer concern — the live FastAPI pod keeps
   its APScheduler crons running and COEXISTS."
-  (:require [clojure.string :as str]
-            [langgraph.graph :as g]
+  (:require [langgraph.graph :as g]
             [lg-jukyu.server :as server]))
 
 (def cron-specs
@@ -23,9 +22,11 @@
    {:graph "normalize_domain_adapter"  :schedule "57 */3 * * *" :input {:domain "logistics"}}
    {:graph "normalize_domain_adapter"  :schedule "3 */6 * * *"  :input {:domain "transport"}}])
 
-(def cron-enabled?
-  (contains? #{"1" "true" "yes"}
-             (str/lower-case (or (System/getenv "LG_CRON_ENABLED") "true"))))
+(def ^:dynamic *enabled?*
+  "Host-supplied scheduler policy."
+  true)
+
+(defn cron-enabled? [] (true? *enabled?*))
 
 (defn fire!
   "Invoke a cron spec's graph with its base input (mirrors `_make_fire`).

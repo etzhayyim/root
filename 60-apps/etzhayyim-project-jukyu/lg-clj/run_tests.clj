@@ -6,6 +6,8 @@
             [clojure.test :as t]
             [org.httpkit.server :as httpkit]
             [lg-jukyu.audit :as audit]
+            [lg-jukyu.cron :as cron]
+            [lg-jukyu.graphs.run-stress-propagation :as stress]
             [lg-jukyu.llm :as llm]
             [lg-jukyu.server :as server]
             [lg-jukyu.smoke-test]))
@@ -26,6 +28,10 @@
    :app-did (env "JUKYU_APP_DID" "did:web:jukyu.etzhayyim.com")})
 
 (def api-key (env "LG_API_KEY" ""))
+(def cron-enabled?
+  (contains? #{"1" "true" "yes"}
+             (str/lower-case (env "LG_CRON_ENABLED" "true"))))
+(def enrich-max (Long/parseLong (env "JUKYU_LLM_ENRICH_MAX" "10")))
 
 (defn murakumo-chat [opts]
   (llm/chat-with http/post murakumo-config opts))
@@ -47,6 +53,8 @@
             audit/*audit-sink* audit-sink
             audit/*disabled?* (:disabled? audit-config)
             audit/*app-did* (:app-did audit-config)
+            cron/*enabled?* cron-enabled?
+            stress/*enrich-max* enrich-max
             server/*api-key* api-key]
     (server/ring-handler request)))
 

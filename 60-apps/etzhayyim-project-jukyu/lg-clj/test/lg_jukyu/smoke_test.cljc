@@ -348,6 +348,15 @@
         (is (= 1 (count (:outbox out))))
         (is (= 0 (:signals_enriched out)) "with_llm unset → no enrichment")))))
 
+(deftest enrichment-cap-is-explicitly-bound
+  (binding [rsp/*enrich-max* 1
+            llm/*chat* (fn [_] "{}")]
+    (is (= 1 (:signals_enriched
+              (rsp/node-enrich-signals
+               {:with_llm true :domain "energy"
+                :company_exposures [{:companyDid "a" :riskScore 0.9}
+                                    {:companyDid "b" :riskScore 0.8}]}))))))
+
 ;; ── equilibrium end-to-end (stubbed I/O) ─────────────────────────────────────
 
 (deftest equilibrium-e2e
@@ -377,6 +386,11 @@
 (deftest cron-specs-reference-known-graphs
   (doseq [{:keys [graph]} cron/cron-specs]
     (is (contains? server/GRAPHS graph) (str "cron graph " graph " not in GRAPHS"))))
+
+(deftest cron-policy-is-explicitly-bound
+  (is (true? (cron/cron-enabled?)))
+  (binding [cron/*enabled?* false]
+    (is (false? (cron/cron-enabled?)))))
 
 ;; ── Murakumo guard ──────────────────────────────────────────────────────────
 
