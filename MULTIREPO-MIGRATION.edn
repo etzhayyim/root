@@ -381,7 +381,7 @@
       com.etzhayyim/sdk "12314a0cc5ac2feb49dd9789d5c002398acb6988"}
      :root-consumers ["70-tools/scripts/audit/test_mitate_invariants.py"
                       "50-infra/hanami-robot/README.md"
-                      "60-apps/mitate-pwa/public/index.html"]
+                      "orgs/etzhayyim/com-etzhayyim-app-mitate-pwa/public/index.html"]
      :consumer-rewiring #{:flat-west-path :environment-override :wire-validation-only}
      :actor-owned-contracts ["lex/diagnosticConsentReceipt.edn"
                              "lex/diagnosticOrder.edn"

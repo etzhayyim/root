@@ -9,7 +9,7 @@ The following paths matched substrate-violation regex but are exempt as
 
 - `40-engine/kotoba/crates/kotoba-kotodama/py/.venv/**` — Python virtualenv (ruff binary, mypy
   metadata, pygments lib, ast_serialize .so)
-- `60-apps/etzhayyim-project-celler/appview/.../etzhayyim-wasm-celler-oilt0wta` —
+- `orgs/etzhayyim/com-etzhayyim-app-celler/appview/.../etzhayyim-wasm-celler-oilt0wta` —
   WASM binary (compiled artifact)
 
 These should NOT be annotated with `CHARTER-VIOLATION` comments. Future
