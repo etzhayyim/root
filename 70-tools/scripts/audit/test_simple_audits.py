@@ -228,3 +228,38 @@ class TestAggregatorFormatContract:
             f"aggregator (all.sh) will silently roll up 0 for this audit.\n"
             f"stdout:\n{out}"
         )
+
+
+class TestMultirepoCompletion:
+    """Root retains markers and shared substrate, never extracted app code."""
+
+    def test_60_apps_has_no_implementation_directories(self):
+        assert [path for path in (REPO_ROOT / "60-apps").iterdir() if path.is_dir()] == []
+
+    def test_60_apps_has_no_go_or_tinygo_sources(self):
+        assert list((REPO_ROOT / "60-apps").rglob("*.go")) == []
+
+    def test_20_actors_directories_are_marker_only(self):
+        canonical_markers = {"MOVED.edn", "README.edn", "migration.edn"}
+        offenders = [
+            path.relative_to(REPO_ROOT)
+            for actor_dir in (REPO_ROOT / "20-actors").iterdir()
+            if actor_dir.is_dir()
+            for path in actor_dir.rglob("*")
+            if path.is_file() and path.name not in canonical_markers
+        ]
+        assert offenders == []
+
+    def test_active_configs_do_not_reference_extracted_60_apps_paths(self):
+        active_files = (
+            REPO_ROOT / "pnpm-workspace.yaml",
+            REPO_ROOT / ".github" / "dependabot.yml",
+            REPO_ROOT / "70-tools/scripts/open-ot/validate-cell-abi.py",
+            REPO_ROOT / "70-tools/scripts/guard/check-auth-worker-config.mjs",
+        )
+        offenders = [
+            path.relative_to(REPO_ROOT)
+            for path in active_files
+            if "60-apps/" in path.read_text()
+        ]
+        assert offenders == []

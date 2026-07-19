@@ -4,4 +4,4 @@
  :operational-rewire {:removed-root-workspace-globs 5 :removed-root-dependabot-entries 14 :standalone-aware-tools [{:tool "70-tools/scripts/open-ot/validate-cell-abi.py" :path "orgs/etzhayyim/com-etzhayyim-app-open-ot"} {:tool "70-tools/scripts/guard/check-auth-worker-config.mjs" :path "orgs/etzhayyim/com-etzhayyim-app-auth"}]}
  :reference-classification {:operational :must-use-flat-west-path :historical :preserve :fixture :preserve :provenance :preserve :generated :regenerate-after-adr-change}
  :completion-invariants {:remaining-60-apps-implementation-directories 0 :remaining-20-actors-implementation-files 0 :20-actors-directories :canonical-edn-markers-only :go-or-tinygo-sources-under-60-apps 0 :active-stale-60-apps-references 0}
- :verification ["70-tools/scripts/audit/test_multirepo_completion.py" :pnpm-workspace-audit :dependabot-directory-audit :registry-freshness :adr-index-freshness :pre-commit :github-actions]}
+ :verification ["70-tools/scripts/audit/test_simple_audits.py::TestMultirepoCompletion" :pnpm-workspace-audit :dependabot-directory-audit :registry-freshness :adr-index-freshness :pre-commit :github-actions]}
