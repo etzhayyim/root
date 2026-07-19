@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-18T10:58:59.170Z",
+  "generated": "2026-07-19T16:00:02.118Z",
   "lexicons": [
     {
       "id": "ai.etzhayyim.yorishiro.argparse-demo.main",
@@ -6557,31 +6557,31 @@
       "id": "com.etzhayyim.apps.demining.clearanceTask",
       "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/demining/clearanceTask.json",
       "type": "record",
-      "description": "Demining clearanceTask record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See 60-apps/etzhayyim-project-demining/CLAUDE.md."
+      "description": "Demining clearanceTask record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See orgs/etzhayyim/com-etzhayyim-app-demining/CLAUDE.md."
     },
     {
       "id": "com.etzhayyim.apps.demining.detectionEvent",
       "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/demining/detectionEvent.json",
       "type": "record",
-      "description": "Demining detectionEvent record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See 60-apps/etzhayyim-project-demining/CLAUDE.md."
+      "description": "Demining detectionEvent record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See orgs/etzhayyim/com-etzhayyim-app-demining/CLAUDE.md."
     },
     {
       "id": "com.etzhayyim.apps.demining.eoreSession",
       "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/demining/eoreSession.json",
       "type": "record",
-      "description": "Demining eoreSession record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See 60-apps/etzhayyim-project-demining/CLAUDE.md."
+      "description": "Demining eoreSession record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See orgs/etzhayyim/com-etzhayyim-app-demining/CLAUDE.md."
     },
     {
       "id": "com.etzhayyim.apps.demining.hazardArea",
       "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/demining/hazardArea.json",
       "type": "record",
-      "description": "Demining hazardArea record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See 60-apps/etzhayyim-project-demining/CLAUDE.md."
+      "description": "Demining hazardArea record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See orgs/etzhayyim/com-etzhayyim-app-demining/CLAUDE.md."
     },
     {
       "id": "com.etzhayyim.apps.demining.landReleaseDecision",
       "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/demining/landReleaseDecision.json",
       "type": "record",
-      "description": "Demining landReleaseDecision record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See 60-apps/etzhayyim-project-demining/CLAUDE.md."
+      "description": "Demining landReleaseDecision record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See orgs/etzhayyim/com-etzhayyim-app-demining/CLAUDE.md."
     },
     {
       "id": "com.etzhayyim.apps.demining.listHazardAreas",
@@ -6629,13 +6629,13 @@
       "id": "com.etzhayyim.apps.demining.surveyRecord",
       "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/demining/surveyRecord.json",
       "type": "record",
-      "description": "Demining surveyRecord record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See 60-apps/etzhayyim-project-demining/CLAUDE.md."
+      "description": "Demining surveyRecord record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See orgs/etzhayyim/com-etzhayyim-app-demining/CLAUDE.md."
     },
     {
       "id": "com.etzhayyim.apps.demining.victimRecord",
       "path": "00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/demining/victimRecord.json",
       "type": "record",
-      "description": "Demining victimRecord record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See 60-apps/etzhayyim-project-demining/CLAUDE.md."
+      "description": "Demining victimRecord record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See orgs/etzhayyim/com-etzhayyim-app-demining/CLAUDE.md."
     },
     {
       "id": "com.etzhayyim.apps.depositInsurance.flagCoverageRisk",

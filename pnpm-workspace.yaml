@@ -81,7 +81,6 @@ packages:
   - "60-apps/etzhayyim-project-translate/appview/translate-mcp-component/svelte"
   - "60-apps/etzhayyim-project-ekyc/appview/ekyc-mcp-component"
   - "60-apps/etzhayyim-project-global/appview/global-ui-w5n8p3q6/svelte"
-  - "60-apps/etzhayyim-project-marketer/appview/marketer-ui-iewsbshk/svelte"
   - "60-apps/etzhayyim-project-sre/extension"
   - "60-apps/etzhayyim-project-har/appview/har-app-5ugfx2n1/svelte"
   - "60-apps/etzhayyim-project-tasklist/appview/tasklist-ui-t4sk1ist"

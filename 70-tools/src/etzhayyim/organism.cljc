@@ -47,7 +47,7 @@
 
 ;; ── served projection dirs (mirror vitals/snapshot-dirs) ─────────────────────
 (def ^:private snapshot-dirs
-  ["60-apps/etzhayyim-project-organism/public"
+  ["orgs/etzhayyim/com-etzhayyim-app-organism/public"
    "50-infra/etzhayyim-did-web/public/organism"])
 
 (def ^:private narration-journal "80-data/organism/narration.journal.edn")

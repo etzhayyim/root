@@ -26,7 +26,7 @@
 (def ^:private projection-dirs
   ;; served-static mirrors (the /murakumo page fetches /observatory.json)
   ["50-infra/etzhayyim-did-web/public/observatory.json"
-   "60-apps/etzhayyim-project-organism/public/observatory.json"])
+   "orgs/etzhayyim/com-etzhayyim-app-organism/public/observatory.json"])
 
 (def ^:private ns-glyph
   {"cable" "綿津綱" "station" "綿津綱" "craft" "渡り" "gov" "公" "corp" "兜"})
