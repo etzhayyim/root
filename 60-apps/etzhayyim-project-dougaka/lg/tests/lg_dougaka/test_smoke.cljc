@@ -6,6 +6,7 @@
             [cheshire.core :as json]
             [langgraph.graph :as g]
             [lg-dougaka.server :as server]
+            [lg-dougaka.audit :as audit]
             [lg-dougaka.graphs.health :as health]
             [lg-dougaka.graphs.render :as render]))
 
@@ -127,21 +128,41 @@
 (deftest render-full-pipeline-with-injected-boundaries
   ;; Inject a renderer that "produces" a real file → exercises the full
   ;; render → upload_video (no creds → blank blob) → write_record → cleanup → audit path.
-  (let [written (atom nil)]
-    (binding [render/*render-fn* (fn [_scenes out _opts]
+  (let [written (atom nil)
+        render-opts (atom nil)]
+    (binding [render/*render-fn* (fn [_scenes out opts]
+                                   (reset! render-opts opts)
                                    (spit out "fake-mp4")
                                    out)
               render/*write-record-fn* (fn [row] (reset! written row))]
       (let [final (g/invoke render/GRAPH
                             {:video_id "vid42"
+                             :host-config {:app-did "did:web:explicit.example"
+                                           :murakumo-tts-url "http://tts.internal"
+                                           :murakumo-image-url "http://image.internal"}
                              :timeline {:scenes [{:index 0 :location "x" :action "y"}]
                                         :lines [{:scene_index 0 :line_index 0 :text "hi"}]}})]
         (is (nil? (:error final)))
         (is (= "" (:blob_key final)) "no B2 creds → upload skipped with blank key")
         (is (= "done" (:status @written)))
+        (is (= "did:web:explicit.example" (:actor_did @written)))
+        (is (= {:tts-url "http://tts.internal" :image-url "http://image.internal"}
+               @render-opts))
         (is (= "vid42" (:video_id @written)))
         (is (= "at://dougaka.etzhayyim.com/com.etzhayyim.apps.dougaka.render/vid42"
                (:vertex_id @written)))))))
+
+(deftest audit-secret-is-an-explicit-capability
+  (let [request (atom nil)]
+    (audit/http-emit-with
+     (fn [url opts] (reset! request [url opts]))
+     {:dispatcher-url "http://dispatcher.internal/"
+      :internal-secret "bound" :audit-timeout-ms 777}
+     {:activity "test"})
+    (is (= "http://dispatcher.internal/xrpc/com.etzhayyim.generic.audit.emit"
+           (first @request)))
+    (is (= "bound" (get-in @request [1 :headers "x-internal-trust"])))
+    (is (= 777 (get-in @request [1 :timeout])))))
 
 (deftest render-renderer-failure-becomes-error
   (binding [render/*render-fn* (fn [_ _ _] (throw (ex-info "boom" {})))]

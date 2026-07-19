@@ -45,28 +45,31 @@
 
 (defn runs-handler
   "POST /runs — invoke GRAPHS[assistant_id] on the request input."
-  [body]
+  ([body] (runs-handler body {}))
+  ([body host-config]
   (let [assistant-id (get body "assistant_id" "")
         graph (get GRAPHS assistant-id)]
     (if (nil? graph)
       {:status 404 :body {:error (str "unknown graph: " assistant-id)}}
-      (let [input (or (get body "input") (get body "inputs") {})]
+      (let [input (assoc (or (get body "input") (get body "inputs") {})
+                         :host-config host-config)]
         (try
           {:status 200 :body (serialize (g/invoke graph input))}
           (catch Exception e
-            {:status 500 :body {:error (subs (str (.getMessage e)) 0 (min 300 (count (str (.getMessage e)))))}}))))))
+            {:status 500 :body {:error (subs (str (.getMessage e)) 0 (min 300 (count (str (.getMessage e)))))}})))))))
 
 (defn xrpc-handler
   "POST /xrpc/{nsid} — map NSID → graph and invoke it on the request body."
-  [nsid body]
+  ([nsid body] (xrpc-handler nsid body {}))
+  ([nsid body host-config]
   (let [graph-name (get NSID-MAP nsid)]
     (if (nil? graph-name)
       {:status 404 :body {:error (str "unknown nsid: " nsid)}}
       (let [graph (get GRAPHS graph-name)]
         (try
-          {:status 200 :body (serialize (g/invoke graph body))}
+          {:status 200 :body (serialize (g/invoke graph (assoc body :host-config host-config)))}
           (catch Exception e
-            {:status 500 :body {:error (subs (str (.getMessage e)) 0 (min 300 (count (str (.getMessage e)))))}}))))))
+            {:status 500 :body {:error (subs (str (.getMessage e)) 0 (min 300 (count (str (.getMessage e)))))}})))))))
 
 ;; ── httpkit wiring (deployment entry point) ─────────────────────────────────
 (defn- json-response [{:keys [status body]}]
@@ -82,7 +85,8 @@
 
 (defn handler-with-api-key
   "Ring-style request handler dispatching the dougaka HTTP surface."
-  [configured-key]
+  ([configured-key] (handler-with-api-key configured-key {}))
+  ([configured-key host-config]
   (fn [{:keys [request-method uri headers] :as req}]
     (let [uri (or uri "/")]
       (cond
@@ -92,13 +96,13 @@
         (and (= request-method :post) (= uri "/runs"))
         (json-response (or (check-api-key configured-key
                                           (get headers "x-api-key" ""))
-                           (runs-handler (read-json-body req))))
+                           (runs-handler (read-json-body req) host-config)))
 
         (and (= request-method :post) (str/starts-with? uri "/xrpc/"))
-        (json-response (xrpc-handler (subs uri (count "/xrpc/")) (read-json-body req)))
+        (json-response (xrpc-handler (subs uri (count "/xrpc/")) (read-json-body req) host-config))
 
         :else
-        (json-response {:status 404 :body {:error "not found"}})))))
+        (json-response {:status 404 :body {:error "not found"}}))))))
 
 (def handler
   "Authority-free default handler. Deployment hosts construct a secret-bound handler."
@@ -106,12 +110,13 @@
 
 (defn run-server-with
   "Start Dougaka through an explicitly supplied HTTP-server capability."
-  [run-server port configured-key]
+  ([run-server port configured-key] (run-server-with run-server port configured-key {}))
+  ([run-server port configured-key host-config]
   (when-not (fn? run-server)
     (throw (ex-info "server capability not configured" {:capability :run-server})))
   (when-not (and (integer? port) (<= 1 port 65535))
     (throw (ex-info "invalid server port" {:port port})))
-  (run-server (handler-with-api-key (or configured-key "")) {:port port}))
+  (run-server (handler-with-api-key (or configured-key "") host-config) {:port port})))
 
 (defn -main [& _args]
   (throw (ex-info "host adapter must provide server capability, port and API key"

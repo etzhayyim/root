@@ -27,21 +27,6 @@
             [lg-dougaka.audit :as audit]
             [clojure.string :as str]))
 
-(defn- env [k default] (or (System/getenv k) default))
-
-;; ── env-driven config (same names + defaults as render.py) ──────────────────
-(defn murakumo-tts-url []
-  (env "MURAKUMO_TTS_URL"
-       "https://vyp99t9px7h4dl-4000.proxy.runpod.net/v1/audio/speech"))
-(defn murakumo-image-url []
-  (env "MURAKUMO_IMAGE_URL"
-       "https://vyp99t9px7h4dl-4000.proxy.runpod.net/v1/images/generations"))
-(defn b2-endpoint-url [] (env "B2_ENDPOINT_URL" "https://s3.us-west-004.backblazeb2.com"))
-(defn b2-bucket []       (env "B2_BUCKET_MEDIA" "etzhayyim-nats"))
-(defn b2-key-id []       (env "B2_KEY_ID" ""))
-(defn b2-app-key []      (env "B2_APPLICATION_KEY" ""))
-(defn app-did []         (env "DOUGAKA_APP_DID" "did:web:dougaka.etzhayyim.com"))
-
 (defn- truncate [s n] (subs s 0 (min n (count s))))
 
 ;; ── scene reconstruction (faithful port of _build_scenes_for_compose) ───────
@@ -107,9 +92,10 @@
           (if (empty? scenes)
             {:error "no scenes in timeline" :temp_dir temp-dir}
             (try
-              (let [produced (*render-fn* scenes output-mp4
-                                          {:tts-url (murakumo-tts-url)
-                                           :image-url (murakumo-image-url)})
+              (let [{:keys [murakumo-tts-url murakumo-image-url]} (audit/config state)
+                    produced (*render-fn* scenes output-mp4
+                                          {:tts-url murakumo-tts-url
+                                           :image-url murakumo-image-url})
                     path (or produced output-mp4)]
                 (if (.exists (java.io.File. path))
                   {:temp_dir temp-dir :output_mp4 path}
@@ -124,16 +110,17 @@
   [state]
   (if (or (:error state) (not (:output_mp4 state)))
     {}
-    (if-not (and (seq (b2-key-id)) (seq (b2-app-key)))
+    (let [{:keys [b2-key-id b2-app-key b2-endpoint-url b2-bucket]} (audit/config state)]
+    (if-not (and (seq b2-key-id) (seq b2-app-key))
       {:blob_key "" :blob_url ""}
       (let [video-id (or (:video_id state) "unknown")
             b2-key (str "renders/" video-id "/output.mp4")]
         (try
           (let [presigned (*upload-fn* (:output_mp4 state) b2-key)
-                blob-url (or presigned (str (b2-endpoint-url) "/" (b2-bucket) "/" b2-key))]
+                blob-url (or presigned (str b2-endpoint-url "/" b2-bucket "/" b2-key))]
             {:blob_key b2-key :blob_url blob-url})
           (catch Exception e
-            {:error (truncate (str "upload: " (.getMessage e)) 300)}))))))
+            {:error (truncate (str "upload: " (.getMessage e)) 300)})))))))
 
 (defn node-write-record
   "INSERT a vertex_dougaka_render row (non-fatal). Faithful to render.py: the
@@ -150,7 +137,7 @@
       (*write-record-fn*
        {:vertex_id vertex-id
         :video_id video-id
-        :actor_did (app-did)
+        :actor_did (:app-did (audit/config state))
         :org_did "anon"
         :blob_key (or (:blob_key state) "")
         :blob_url (or (:blob_url state) "")
@@ -176,7 +163,8 @@
   "Fire-and-forget OCEL audit event (faithful to render.py emit_audit_bg)."
   [state]
   (audit/emit-audit-bg
-   {:actor (app-did)
+   state
+   {:actor (:app-did (audit/config state))
     :activity "dougaka.render"
     :object-id (str "render:" (or (:video_id state) "") ":" (quot (System/currentTimeMillis) 1000))
     :object-type "dougaka.render"
