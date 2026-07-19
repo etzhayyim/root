@@ -66,9 +66,38 @@
   (testing "no key configured → authorized"
     (is (nil? (server/check-api-key ""))))
   (testing "configured key mismatch → 401"
-    (with-redefs [server/api-key (constantly "secret")]
-      (is (= 401 (:status (server/check-api-key "wrong"))))
-      (is (nil? (server/check-api-key "secret"))))))
+    (is (= 401 (:status (server/check-api-key "secret" "wrong"))))
+    (is (nil? (server/check-api-key "secret" "secret"))))
+  (testing "secret-bound handler enforces authorization without ambient environment"
+    (let [h (server/handler-with-api-key "secret")]
+      (is (= 401 (:status (h {:request-method :post :uri "/runs"
+                              :headers {"x-api-key" "wrong"}
+                              :body "{}"})))))))
+
+(deftest explicit-server-capability
+  (testing "missing raw server capability fails closed"
+    (is (thrown-with-msg? #?(:clj Exception :default :default)
+                          #"server capability not configured"
+                          (server/run-server-with nil 8000 ""))))
+  (testing "invalid ports fail before host invocation"
+    (let [called? (atom false)]
+      (is (thrown-with-msg? #?(:clj Exception :default :default)
+                            #"invalid server port"
+                            (server/run-server-with
+                             (fn [& _] (reset! called? true)) 0 "")))
+      (is (false? @called?))))
+  (testing "injected server receives the configured port and secret-bound handler"
+    (let [wire (atom nil)
+          stop (fn [])]
+      (is (identical?
+           stop
+           (server/run-server-with
+            (fn [handler opts] (reset! wire [handler opts]) stop)
+            18080 "secret")))
+      (is (= {:port 18080} (second @wire)))
+      (is (= 401 (:status ((first @wire)
+                           {:request-method :post :uri "/runs"
+                            :headers {"x-api-key" "wrong"} :body "{}"})))))))
 
 ;; ── health graph ────────────────────────────────────────────────────────────
 (deftest health-graph-pings

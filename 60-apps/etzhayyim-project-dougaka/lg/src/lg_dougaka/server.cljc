@@ -25,15 +25,13 @@
 (def NSID-MAP
   {"com.etzhayyim.apps.dougaka.render" "render"})
 
-(defn- api-key [] (or (System/getenv "LG_API_KEY") ""))
-
 (defn check-api-key
   "Returns nil when authorized, or a 401 response map when the configured
   LG_API_KEY does not match the supplied x-api-key header."
-  [x-api-key]
-  (let [k (api-key)]
-    (when (and (seq k) (not= x-api-key k))
-      {:status 401 :body {:detail "invalid api key"}})))
+  ([x-api-key] (check-api-key "" x-api-key))
+  ([configured-key x-api-key]
+   (when (and (seq configured-key) (not= x-api-key configured-key))
+     {:status 401 :body {:detail "invalid api key"}})))
 
 (defn- serialize
   "Project a graph result into a JSON-serializable value (clj maps/vectors are
@@ -82,27 +80,39 @@
       (try (json/parse-string (slurp b)) (catch Exception _ {}))
       (try (json/parse-string (or b "{}")) (catch Exception _ {})))))
 
-(defn handler
+(defn handler-with-api-key
   "Ring-style request handler dispatching the dougaka HTTP surface."
-  [{:keys [request-method uri headers] :as req}]
-  (let [uri (or uri "/")]
-    (cond
-      (and (= request-method :get) (#{"/ok" "/health"} uri))
-      (json-response (health-handler))
+  [configured-key]
+  (fn [{:keys [request-method uri headers] :as req}]
+    (let [uri (or uri "/")]
+      (cond
+        (and (= request-method :get) (#{"/ok" "/health"} uri))
+        (json-response (health-handler))
 
-      (and (= request-method :post) (= uri "/runs"))
-      (json-response (or (check-api-key (get headers "x-api-key" ""))
-                         (runs-handler (read-json-body req))))
+        (and (= request-method :post) (= uri "/runs"))
+        (json-response (or (check-api-key configured-key
+                                          (get headers "x-api-key" ""))
+                           (runs-handler (read-json-body req))))
 
-      (and (= request-method :post) (str/starts-with? uri "/xrpc/"))
-      (json-response (xrpc-handler (subs uri (count "/xrpc/")) (read-json-body req)))
+        (and (= request-method :post) (str/starts-with? uri "/xrpc/"))
+        (json-response (xrpc-handler (subs uri (count "/xrpc/")) (read-json-body req)))
 
-      :else
-      (json-response {:status 404 :body {:error "not found"}}))))
+        :else
+        (json-response {:status 404 :body {:error "not found"}})))))
+
+(def handler
+  "Authority-free default handler. Deployment hosts construct a secret-bound handler."
+  (handler-with-api-key ""))
+
+(defn run-server-with
+  "Start Dougaka through an explicitly supplied HTTP-server capability."
+  [run-server port configured-key]
+  (when-not (fn? run-server)
+    (throw (ex-info "server capability not configured" {:capability :run-server})))
+  (when-not (and (integer? port) (<= 1 port 65535))
+    (throw (ex-info "invalid server port" {:port port})))
+  (run-server (handler-with-api-key (or configured-key "")) {:port port}))
 
 (defn -main [& _args]
-  (let [server (requiring-resolve 'org.httpkit.server/run-server)
-        port (Integer/parseInt (or (System/getenv "PORT") "8000"))]
-    (server handler {:port port})
-    (println (str "lg-dougaka listening on :" port " graphs=" (vec (keys GRAPHS))))
-    @(promise)))
+  (throw (ex-info "host adapter must provide server capability, port and API key"
+                  {:capability :run-server})))
