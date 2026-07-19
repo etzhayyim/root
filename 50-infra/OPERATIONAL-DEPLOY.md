@@ -412,7 +412,7 @@ Once the pipeline is live, exercise it by seeding the first kotoba actor's taxon
 
 ```bash
 # open-isco (525 occupations) — already on main, requires ETZ_SEEDER_DID + PDS auth
-cd /path/to/etzhayyim-root/60-apps/etzhayyim-project-open-isco/kotoba
+cd /path/to/superproject/orgs/etzhayyim/com-etzhayyim-app-open-isco/kotoba
 pnpm install
 ETZ_SEEDER_DID="did:web:etzhayyim.com" \
   pnpm seed data/isco08.sample.json   # 5-record smoke

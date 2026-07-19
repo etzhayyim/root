@@ -1,0 +1,33 @@
+{:schema "etzhayyim.adr/v1"
+ :id "2607200130"
+ :title "Extract thirteen-file active app artifacts"
+ :status :accepted
+ :date "2026-07-20"
+ :scope {:source-repository "etzhayyim/root"
+         :source-revision "c3a74d20d7c65c0b63851fc4f8964402a4733e76"
+         :directories 18
+         :tracked-files 234
+         :bytes 9040139}
+ :decision {:classification :active-executable-ui-contract-or-runtime-artifact
+            :existing-repository-overlap 0
+            :retired-shells 0
+            :destination-prefix "etzhayyim/com-etzhayyim-app-"
+            :apps ["celler" "compintel" "contacts" "contentengine" "github" "gtin"
+                   "image2metahuman" "isbn" "kaikei" "llm" "ma" "ndc" "nist"
+                   "open-isco" "supplychain" "threads" "vector-embedding" "mitate-pwa"]}
+ :extraction-contract {:repository-visibility :private
+                       :canonical-files ["README.edn" "migration.edn"]
+                       :source-preservation "Every destination tree differs from its exact source tree only by the two canonical EDN files."}
+ :provenance {:per-directory "Adjacent *-MOVED.edn records source tree/count/bytes and exact destination SHA."}
+ :rewire {:celler-substrate-exemption "orgs/etzhayyim/com-etzhayyim-app-celler/"
+          :open-isco-deploy "orgs/etzhayyim/com-etzhayyim-app-open-isco/kotoba"
+          :mitate-pwa-consumer "orgs/etzhayyim/com-etzhayyim-app-mitate-pwa/public/index.html"
+          :preserved-historical-retirement ["image2metahuman"]
+          :preserved-generated-inventory ["ai_etzhayyim.txt" "etzhayyim.txt" "pnpm-lock.yaml"]}
+ :invariants {:canonical-record-format :edn
+              :go-files-created 0
+              :tinygo-files-created 0
+              :flat-west-path "orgs/etzhayyim/com-etzhayyim-app-*"}
+ :verification [:private-repository :exact-remote-sha :source-tree-identity
+                :edn-readable :operational-reference-audit :registry-freshness
+                :layer-freeze-guard :tree-guard]}

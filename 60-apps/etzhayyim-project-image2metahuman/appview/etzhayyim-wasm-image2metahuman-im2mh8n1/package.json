@@ -1,8 +1,0 @@
-{
-  "name": "etzhayyim-wasm-image2metahuman-im2mh8n1",
-  "version": "1.0.0",
-  "type": "module",
-  "dependencies": {
-    "@etzhayyim/kotodama-host-sdk": "workspace:*"
-  }
-}
