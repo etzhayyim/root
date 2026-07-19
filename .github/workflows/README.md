@@ -30,22 +30,6 @@ Triggered by `deploy-preview` label on PRs.
 **Job:**
 - `dry-run` — runs `wrangler deploy --dry-run` for each actor's xrpc-adapter to validate CF Worker config before deployment
 
-## kami-engine-sdk.yml
-
-Triggered on **push to main + PR to main + manual `workflow_dispatch`** when any of these paths change:
-
-- `40-engine/kami-engine/kami-engine-sdk/**` (SDK source / dist / subrepo)
-- `60-apps/etzhayyim-project-cyber-drill/**` (vendor app that links the SDK)
-- `pnpm-workspace.yaml` (SDK is workspace-registered since iter-9 / ADR-2605265200)
-- `pnpm-lock.yaml`
-- `.github/workflows/kami-engine-sdk.yml` (this workflow file)
-
-**Job:**
-- `build` — three sequential steps in one job (avoids inter-job artifact transfer):
-  1. **SDK build** via `svelte-package -i src/lib` (~1.6s locally)
-  2. **SDK vitest**, gated on ≥82 passing tests (tolerates the pre-existing langgraph optional-peer-dep file-load failure documented in ADR-2605264300 §1)
-  3. **cyber-drill prod build** via `pnpm install --ignore-workspace && pnpm run build` (vite SSR + SvelteKit static-adapter prerender; exercises the langchain externalize config from commit `b638c27e0`)
-
 **Purpose:** regression-test the SDK build chain + cyber-drill consumer integration. Mirrors the local lefthook `pre-push` hook so contributors who push without local hooks still get caught.
 
 **See also:** ADR-2605264300 (SDK three.js-free cutover) + ADR-2605265200 (20-actors duplicate retirement). Both ADRs' "CI regression-test addendum" §refers to this workflow.
