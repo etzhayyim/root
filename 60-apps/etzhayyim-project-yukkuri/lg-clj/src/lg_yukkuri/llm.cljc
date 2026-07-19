@@ -7,7 +7,8 @@
   the Murakumo LiteLLM loopback and ASSERTS the endpoint is on the Murakumo
   fleet allowlist (ibuki guard pattern). The chat call itself is an INJECTABLE
   dynamic var so tests rebind it to a deterministic stub and verify offline."
-  (:require [clojure.string :as str]))
+  (:require #?(:clj [cheshire.core :as json])
+            [clojure.string :as str]))
 
 (defn- clip [s n] (let [s (str s)] (subs s 0 (min n (count s)))))
 
@@ -25,28 +26,29 @@
 (defn assert-murakumo
   "Refuse any LLM endpoint outside the Murakumo fleet (http loopback only)."
   [endpoint]
-  (when-let [[_ scheme host] (re-find #"^([A-Za-z][A-Za-z0-9+.\-]*)://([^/?#]*)" (str endpoint))]
-    (when-not (and (= "http" (str/lower-case scheme))
-                   (contains? murakumo-allowed-hosts (str/lower-case host)))
+  (let [[_ scheme host] (or (re-find #"^([A-Za-z][A-Za-z0-9+.\-]*)://([^/?#]*)" (str endpoint))
+                            [nil nil nil])]
+    (when-not (and (= "http" (some-> scheme str/lower-case))
+                   (contains? murakumo-allowed-hosts (some-> host str/lower-case)))
       (throw (ex-info (str "inference endpoint " (pr-str endpoint)
                            " is outside the Murakumo fleet (ADR-2605215000)")
                       {:murakumo-only-violation true :endpoint endpoint})))))
 
-(defn default-chat-json
+(defn chat-json-with
   "Default `*chat-json*`: POST a chat-completions request (JSON response mode)
   to the Murakumo loopback gateway. Returns the raw assistant content string or
   {:error ...}. opts = {:max-tokens :temperature}."
-  [system user {:keys [max-tokens temperature]}]
+  [http-post system user {:keys [max-tokens temperature]}]
+  (when-not (fn? http-post)
+    (throw (ex-info "Yukkuri inference requires an explicit HTTP POST capability"
+                    {:capability :yukkuri/murakumo-http-post})))
+  (assert-murakumo llm-url)
   (try
-    (assert-murakumo llm-url)
-    (let [post     (requiring-resolve 'babashka.http-client/post)
-          generate (requiring-resolve 'cheshire.core/generate-string)
-          parse    (requiring-resolve 'cheshire.core/parse-string)
-          resp     (post (str llm-url "/chat/completions")
+    (let [resp     (http-post (str llm-url "/chat/completions")
                          {:headers {"Content-Type" "application/json"}
                           :timeout (long (* 1000 llm-timeout-sec))
                           :throw   false
-                          :body (generate {:model llm-model
+                          :body (json/generate-string {:model llm-model
                                            :messages [{:role "system" :content system}
                                                       {:role "user" :content user}]
                                            :max_tokens (or max-tokens 1000)
@@ -55,25 +57,32 @@
           status   (:status resp)]
       (if (>= status 400)
         {:error (str "vllm " status ": " (clip (:body resp) 200))}
-        (let [body (parse (:body resp) true)
+        (let [body (json/parse-string (:body resp) true)
               txt  (some-> (get-in body [:choices 0 :message :content]) str)]
           (or txt ""))))
     (catch Exception e {:error (clip (.getMessage e) 200)})))
 
 (def ^:dynamic *chat-json*
   "Injectable chat edge. (system user opts) → content string | {:error ...}."
-  default-chat-json)
+  nil)
+
+(defn chat-json [system user opts]
+  (when-not (fn? *chat-json*)
+    (throw (ex-info "Yukkuri inference requires an explicit chat capability"
+                    {:capability :yukkuri/chat-json})))
+  (*chat-json* system user opts))
 
 (defn parse-json-object
   "Lenient JSON-object parse mirroring the Python fallback: try whole string,
   else extract the first {...} block. Returns a clj map (keyword keys) or nil."
   [raw]
-  (let [parse (requiring-resolve 'cheshire.core/parse-string)
-        try1  (try (parse (str raw) true) (catch Exception _ nil))]
+  (let [try1  #?(:clj (try (json/parse-string (str raw) true) (catch Exception _ nil))
+                  :default nil)]
     (if (map? try1)
       try1
       (let [s (str raw)
             i (str/index-of s "{")
             j (str/last-index-of s "}")]
         (when (and i j (< i j))
-          (try (parse (subs s i (inc j)) true) (catch Exception _ nil)))))))
+          #?(:clj (try (json/parse-string (subs s i (inc j)) true) (catch Exception _ nil))
+             :default nil))))))

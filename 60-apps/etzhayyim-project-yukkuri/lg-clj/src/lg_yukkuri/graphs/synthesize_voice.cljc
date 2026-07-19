@@ -12,7 +12,8 @@
   The Python fans the per-line TTS out with asyncio.gather; clj runs them via
   `pmap` (a faithful parallel analogue). Line reads/writes go through the store
   seam. DEVIATION: no RetryPolicy in langgraph-clj."
-  (:require [langgraph.graph :as g]
+  (:require #?(:clj [cheshire.core :as json])
+            [langgraph.graph :as g]
             [lg-yukkuri.audit :as audit]
             [lg-yukkuri.store :as store]))
 
@@ -28,29 +29,29 @@
 (defn- as-int [v d] (cond (integer? v) v (string? v) (try (Integer/parseInt v) (catch Exception _ d)) :else d))
 (defn- clip [s n] (let [s (str s)] (subs s 0 (min n (count s)))))
 
-(defn default-tts-one
+(defn tts-one-with
   "Default `*tts-one*`: POST text to the murakumo TTS endpoint (wav), upload the
   wav to the PDS, return {:line_id :speaker :blob_key} | {:line_id :error}."
-  [line]
+  [http-post line]
+  (when-not (fn? http-post)
+    (throw (ex-info "voice synthesis requires an explicit HTTP POST capability"
+                    {:capability :yukkuri/tts-http-post})))
   (try
-    (let [post     (requiring-resolve 'babashka.http-client/post)
-          generate (requiring-resolve 'cheshire.core/generate-string)
-          parse    (requiring-resolve 'cheshire.core/parse-string)
-          voice    (get voice-preset (:speaker line) "af_heart")
-          r        (post tts-url {:headers {"Content-Type" "application/json"} :throw false
-                                  :body (generate {:model "kokoro" :input (:text line)
+    (let [voice    (get voice-preset (:speaker line) "af_heart")
+          r        (http-post tts-url {:headers {"Content-Type" "application/json"} :throw false
+                                  :body (json/generate-string {:model "kokoro" :input (:text line)
                                                    :voice voice :response_format "wav"})})]
       (if (>= (:status r) 400)
         {:line_id (:line_id line) :error (str "tts " (:status r))}
-        (let [ub (post pds-blob-url {:headers {"Content-Type" "audio/wav"} :throw false
+        (let [ub (http-post pds-blob-url {:headers {"Content-Type" "audio/wav"} :throw false
                                      :body (:body r)})]
           (if (>= (:status ub) 400)
             {:line_id (:line_id line) :error (str "uploadBlob " (:status ub))}
             {:line_id (:line_id line) :speaker (:speaker line)
-             :blob_key (get-in (parse (:body ub) true) [:blob :ref :$link] "")}))))
+             :blob_key (get-in (json/parse-string (:body ub) true) [:blob :ref :$link] "")}))))
     (catch Exception e {:line_id (:line_id line) :error (clip (.getMessage e) 200)})))
 
-(def ^:dynamic *tts-one* default-tts-one)
+(def ^:dynamic *tts-one* nil)
 
 (defn- fetch-lines [video-id]
   (->> (store/select-where "vertex_yukkuri_line" "video_id" video-id 500)
@@ -72,9 +73,13 @@
     (let [lines (or (:lines state) [])]
       (if (empty? lines)
         {:voice_assets [] :synthesized_count 0}
-        (let [results (doall (pmap *tts-one* lines))
-              ok      (vec (remove :error results))]
-          {:voice_assets ok :synthesized_count (count ok)})))))
+        (do
+          (when-not (fn? *tts-one*)
+            (throw (ex-info "synthesizeVoice requires an explicit TTS capability"
+                            {:capability :yukkuri/tts-one})))
+          (let [results (doall (pmap *tts-one* lines))
+                ok      (vec (remove :error results))]
+            {:voice_assets ok :synthesized_count (count ok)}))))))
 
 (defn node-update-lines [state]
   (if (or (:error state) (empty? (:voice_assets state)))

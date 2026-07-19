@@ -320,7 +320,29 @@
   (testing "off-fleet endpoint refused"
     (is (thrown? clojure.lang.ExceptionInfo (llm/assert-murakumo "https://api.openai.com/v1"))))
   (testing "loopback gateway allowed"
-    (is (nil? (llm/assert-murakumo "http://127.0.0.1:4000/v1")))))
+    (is (nil? (llm/assert-murakumo "http://127.0.0.1:4000/v1"))))
+  (testing "malformed endpoint refused"
+    (is (thrown? clojure.lang.ExceptionInfo (llm/assert-murakumo "not-a-url")))))
+
+(deftest outward-capabilities-fail-closed
+  (binding [llm/*chat-json* nil
+            gbgm/*compose-bgm* nil
+            gvis/*generate-one* nil
+            sv/*tts-one* nil
+            rev/*social-publish* nil
+            rv/*render* nil]
+    (is (thrown-with-msg? clojure.lang.ExceptionInfo #"explicit chat capability"
+                          (llm/chat-json "s" "u" {})))
+    (is (thrown-with-msg? clojure.lang.ExceptionInfo #"explicit compose capability"
+                          (gbgm/node-compose-bgm {:topic "t"})))
+    (is (thrown-with-msg? clojure.lang.ExceptionInfo #"explicit generation capability"
+                          (gvis/node-generate {:scenes [{}]})))
+    (is (thrown-with-msg? clojure.lang.ExceptionInfo #"explicit TTS capability"
+                          (sv/node-synthesize {:lines [{}]})))
+    (is (thrown-with-msg? clojure.lang.ExceptionInfo #"explicit social capability"
+                          (rev/node-social-publish {:review_passed true})))
+    (is (thrown-with-msg? clojure.lang.ExceptionInfo #"explicit render capability"
+                          (rv/node-render {:video_id "v" :timeline_json "{}"})))))
 
 ;; ── audit shim: injectable + disabled ───────────────────────────────────────
 

@@ -14,7 +14,8 @@
   status 'published' + a T1 social post via the INJECTABLE `*social-publish*`
   boundary fn; on REJECT → status 'rejected'. Content read + status write go
   through the store seam."
-  (:require [clojure.string :as str]
+  (:require #?(:clj [cheshire.core :as json])
+            [clojure.string :as str]
             [langgraph.graph :as g]
             [lg-yukkuri.audit :as audit]
             [lg-yukkuri.llm :as llm]
@@ -37,21 +38,22 @@
 (defn- as-int [v d] (cond (integer? v) v (string? v) (try (Integer/parseInt v) (catch Exception _ d)) :else d))
 (defn- clip [s n] (let [s (str s)] (subs s 0 (min n (count s)))))
 
-(defn default-social-publish
+(defn social-publish-with
   "Default `*social-publish*`: best-effort app.bsky.feed.post on publish."
-  [{:keys [topic]}]
+  [http-post {:keys [topic]}]
+  (when-not (fn? http-post)
+    (throw (ex-info "social publication requires an explicit HTTP POST capability"
+                    {:capability :yukkuri/social-http-post})))
   (try
-    (let [post     (requiring-resolve 'babashka.http-client/post)
-          generate (requiring-resolve 'cheshire.core/generate-string)]
-      (post (str pds-xrpc-url "/app.bsky.feed.post")
+    (http-post (str pds-xrpc-url "/app.bsky.feed.post")
             {:headers {"Content-Type" "application/json"} :throw false
-             :body (generate {:did app-did
+             :body (json/generate-string {:did app-did
                               :text (str "🎬 新作ゆっくり動画: " (clip topic 80) "\nyukkuri.etzhayyim.com")
                               :collection "app.bsky.feed.post"})})
-      nil)
+    nil
     (catch Exception _ nil)))
 
-(def ^:dynamic *social-publish* default-social-publish)
+(def ^:dynamic *social-publish* nil)
 
 (defn node-fetch-content [state]
   (let [video-id (or (:video_id state) "")]
@@ -72,7 +74,7 @@
     {}
     (let [user (str "Topic: " (or (:topic state) "") "\n\nScript excerpt:\n"
                     (clip (or (:script_excerpt state) "") 2000))
-          res  (llm/*chat-json* review-system user {:max-tokens 200 :temperature 0.0})]
+          res  (llm/chat-json review-system user {:max-tokens 200 :temperature 0.0})]
       (cond
         ;; fail-open: any LLM error → PASS (parity with Python)
         (map? res) {:review_passed true :review_reason "llm_unavailable"}
@@ -96,7 +98,10 @@
 (defn node-social-publish [state]
   (if (or (:error state) (not (:review_passed state)))
     {}
-    (do (*social-publish* {:topic (or (:topic state) "新作ゆっくり動画")
+    (do (when-not (fn? *social-publish*)
+          (throw (ex-info "reviewVideo requires an explicit social capability"
+                          {:capability :yukkuri/social-publish})))
+        (*social-publish* {:topic (or (:topic state) "新作ゆっくり動画")
                            :video-id (or (:video_id state) "")})
         {})))
 

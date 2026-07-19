@@ -11,7 +11,8 @@
   to the ongakuka XRPC; default uses babashka.http-client). The CLAP cosine
   copyright guard (similarity > 0.92 → reject) is enforced server-side by
   ongakuka. Topic read + asset write go through the store seam."
-  (:require [clojure.string :as str]
+  (:require #?(:clj [cheshire.core :as json])
+            [clojure.string :as str]
             [langgraph.graph :as g]
             [lg-yukkuri.audit :as audit]
             [lg-yukkuri.store :as store]))
@@ -27,26 +28,26 @@
   (let [bs (byte-array n)] (.nextBytes (java.security.SecureRandom.) bs)
     (apply str (map #(format "%02x" %) bs))))
 
-(defn default-compose-bgm
+(defn compose-bgm-with
   "Default `*compose-bgm*`: POST to the ongakuka compose XRPC, return
   {:bgm_blob_key ...} | {:error ...}."
-  [{:keys [topic genre video-id]}]
+  [http-post {:keys [topic genre video-id]}]
+  (when-not (fn? http-post)
+    (throw (ex-info "BGM composition requires an explicit HTTP POST capability"
+                    {:capability :yukkuri/ongakuka-http-post})))
   (try
-    (let [post     (requiring-resolve 'babashka.http-client/post)
-          generate (requiring-resolve 'cheshire.core/generate-string)
-          parse    (requiring-resolve 'cheshire.core/parse-string)
-          r (post ongakuka-url {:headers {"Content-Type" "application/json"} :throw false
-                                :body (generate {:prompt (str "BGM for a Japanese educational video about: " topic)
+    (let [r (http-post ongakuka-url {:headers {"Content-Type" "application/json"} :throw false
+                                :body (json/generate-string {:prompt (str "BGM for a Japanese educational video about: " topic)
                                                  :genre genre :durationSec 180 :loopable true
                                                  :projectId video-id})})]
       (if (>= (:status r) 400)
         {:error (str "ongakuka " (:status r) ": " (clip (:body r) 200))}
-        (let [data (parse (:body r) true)
+        (let [data (json/parse-string (:body r) true)
               bk   (or (:blobKey data) (:blob_key data) "")]
           (if (empty? bk) {:error "ongakuka returned no blobKey"} {:bgm_blob_key bk}))))
     (catch Exception e {:error (str "ongakuka: " (clip (.getMessage e) 180))})))
 
-(def ^:dynamic *compose-bgm* default-compose-bgm)
+(def ^:dynamic *compose-bgm* nil)
 
 (defn node-fetch-topic [state]
   (if (:topic state)
@@ -64,7 +65,10 @@
     {}
     (let [topic (str/trim (or (:topic state) "yukkuri educational video"))
           genre (or (:bgm_genre state) "calm_educational")
-          res   (*compose-bgm* {:topic topic :genre genre :video-id (or (:video_id state) "")})]
+          _ (when-not (fn? *compose-bgm*)
+              (throw (ex-info "generateBgm requires an explicit compose capability"
+                              {:capability :yukkuri/compose-bgm})))
+          res (*compose-bgm* {:topic topic :genre genre :video-id (or (:video_id state) "")})]
       res)))
 
 (defn node-insert-asset [state]

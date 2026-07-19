@@ -61,7 +61,7 @@
         (let [hint (if (seq (str (:outline state)))
                      (str "\nOutline provided by user:\n" (:outline state)) "")
               user (str "Topic: " topic hint)
-              res  (llm/*chat-json* system-prompt user {:max-tokens 3000 :temperature 0.8})]
+              res  (llm/chat-json system-prompt user {:max-tokens 3000 :temperature 0.8})]
           (cond
             (map? res) {:error (or (:error res) "vllm: unknown error")}
             :else (let [parsed (llm/parse-json-object res)
