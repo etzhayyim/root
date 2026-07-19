@@ -12,13 +12,12 @@
   than the unconfigured Python path."
   (:require #?(:clj [clojure.string :as str])))
 
-(defn- env [k] (System/getenv k))
+(def ^:dynamic *enabled?* false)
 
 (defn enabled?
   "True when the store should persist (faithful analogue of Python's RW_URL gate)."
   []
-  (or (= "1" (env "WEBMK_STORE_ENABLED"))
-      (boolean (seq (or (env "RW_URL") (env "LG_CHECKPOINTER_URL") "")))))
+  (boolean *enabled?*))
 
 ;; append-only in-process backend: proposal-id -> row map
 (defonce ^:private db (atom {}))

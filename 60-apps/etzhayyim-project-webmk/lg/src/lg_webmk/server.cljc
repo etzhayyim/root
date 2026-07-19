@@ -14,14 +14,11 @@
   (:require [langgraph.graph :as g]
             [cheshire.core :as json]
             [clojure.string :as str]
-            [org.httpkit.server :as srv]
             [lg-webmk.graphs.health :as health]
             [lg-webmk.graphs.create-proposal :as create-proposal]
             [lg-webmk.graphs.deliver-proposal :as deliver-proposal]
             [lg-webmk.graphs.get-proposal :as get-proposal]
             [lg-webmk.graphs.list-proposals :as list-proposals]))
-
-(defn- env [k default] (or (System/getenv k) default))
 
 (def graphs
   {"health"           health/GRAPH
@@ -37,7 +34,7 @@
    "com.etzhayyim.apps.webmk.getProposal"     "get_proposal"
    "com.etzhayyim.apps.webmk.listProposals"   "list_proposals"})
 
-(def ^:private api-key (str/trim (env "LG_API_KEY" "")))
+(def ^:dynamic *api-key* "")
 
 ;; ── input key normalization (camelCase / snake_case JSON → kebab keyword) ──
 (defn- ->kebab [s]
@@ -89,8 +86,8 @@
     (try (json/parse-string (slurp b)) (catch Exception _ nil))))
 
 (defn- authed? [req]
-  (or (empty? api-key)
-      (= api-key (get-in req [:headers "x-api-key"]))))
+  (or (empty? *api-key*)
+      (= *api-key* (get-in req [:headers "x-api-key"]))))
 
 (defn handler [req]
   (let [uri (:uri req) method (:request-method req)]
@@ -125,8 +122,12 @@
       :else
       (json-resp {:status 404 :body {:detail "not found"}}))))
 
-(defn -main [& args]
-  (let [port (Integer/parseInt (or (first args) (env "PORT" "2024")))]
-    (srv/run-server handler {:port port})
-    (println (str "lg-webmk server up on :" port " graphs=" (pr-str (keys graphs))))
-    @(promise)))
+(defn run-server-with [run-server port handler-fn]
+  (when-not (fn? run-server)
+    (throw (ex-info "WebMK requires an explicit server capability"
+                    {:capability :webmk/run-server})))
+  (run-server handler-fn {:port port}))
+
+(defn -main [& _]
+  (throw (ex-info "WebMK portable runtime requires an explicit host adapter"
+                  {:capability :webmk/host-adapter})))

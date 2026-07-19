@@ -16,15 +16,14 @@
   and the router regenerates only while retry_count < 2 — exactly one retry, then
   it proceeds. httpx→babashka.http-client, LLM→Murakumo loopback, RW→store seam."
   (:require [langgraph.graph :as g]
-            [babashka.http-client :as http]
             [clojure.string :as str]
             [lg-webmk.audit :as audit]
             [lg-webmk.llm :as llm]
             [lg-webmk.store :as store]))
 
-(defn- env [k default] (or (System/getenv k) default))
-(def ^:private app-did (env "WEBMK_APP_DID" "did:web:webmk.etzhayyim.com"))
-(def ^:private quality-threshold (Double/parseDouble (env "WEBMK_QUALITY_THRESHOLD" "0.7")))
+(def ^:dynamic app-did "did:web:webmk.etzhayyim.com")
+(def ^:dynamic quality-threshold 0.7)
+(def ^:dynamic *http-get* nil)
 
 (defn- uid [prefix]
   (let [digest (-> (java.security.MessageDigest/getInstance "SHA-256")
@@ -41,7 +40,9 @@
     (if (str/blank? website-url)
       {:company-context (str "Company: " client-name ". No website provided.")}
       (let [raw-html (try
-                       (let [resp (http/get website-url {:timeout 10000 :throw false})]
+                       (when-not (fn? *http-get*)
+                         (throw (ex-info "website fetch capability not supplied" {})))
+                       (let [resp (*http-get* website-url {:timeout 10000 :throw false})]
                          (subs (str (:body resp)) 0 (min 4000 (count (str (:body resp))))))
                        (catch Exception e
                          (str "Could not fetch " website-url)))]
