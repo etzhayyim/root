@@ -7,13 +7,9 @@
   bb with no external runtime."
   (:require [clojure.string :as str]))
 
-(def app-did
-  (or #?(:clj (System/getenv "ANIMEKA_APP_DID") :default nil)
-      "did:web:animeka.etzhayyim.com"))
+(def ^:dynamic app-did "did:web:animeka.etzhayyim.com")
 
-(def repo-did
-  (or #?(:clj (System/getenv "ANIMEKA_REPO_DID") :default nil)
-      "did:web:an1m3k4x.etzhayyim.com"))
+(def ^:dynamic repo-did "did:web:an1m3k4x.etzhayyim.com")
 
 (defn rkey-from-id
   "at://repo/coll/rkey  →  rkey ; a bare rkey is returned unchanged.

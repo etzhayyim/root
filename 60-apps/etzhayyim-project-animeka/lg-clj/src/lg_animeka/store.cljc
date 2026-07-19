@@ -20,10 +20,7 @@
   Tests rebind `*query*`/`*exec*` to in-memory stubs."
   (:require [clojure.string :as str]))
 
-(def ^:dynamic *rw-url*
-  (or #?(:clj (System/getenv "RW_URL") :default nil)
-      #?(:clj (System/getenv "LG_CHECKPOINTER_URL") :default nil)
-      ""))
+(def ^:dynamic *rw-url* "")
 
 (defn configured?
   "True when a store URL is set (mirrors the `if not _RW_URL` node guard)."
