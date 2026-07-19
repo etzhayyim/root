@@ -59,8 +59,10 @@ SYMLINK_HEALTH_PERF_BUDGET_S = 2.0
 # private flat repository, shrinking the root-owned baseline 4 → 3.
 # 2026-07-20 ADR-2607201230: watashi and its stale .gitrepo marker moved to
 # its private flat repository, shrinking the root-owned baseline 3 → 2.
-# Current remaining set: resources and news.
-EXPECTED_STALE_URLS = 2
+# 2026-07-20 ADR-2607201700: resources and its stale .gitrepo marker moved
+# to its private flat repository, shrinking the root-owned baseline 2 → 1.
+# Current remaining set: news.
+EXPECTED_STALE_URLS = 1
 # ESCAPE_SYMLINKS baseline dropped 18 → 0 (2026-05-31): the 18 escape
 # symlinks were all the `CHARTER-RIDER.md → ../../CHARTER-RIDER.md`
 # pattern inside the kotoba **git-subrepo** (1 root + 17 crates), a

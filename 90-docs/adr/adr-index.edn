@@ -931,6 +931,7 @@
 {:id "adr-0031-kami-vrm-three-free-topology" :title "ADR-0031: KAMI VRM three.js-free topology" :status "active" :doc-type "adr" :topic "vrm-runtime" :authoritative true :last-verified "2026-04-18" :file "0031-kami-vrm-three-free-topology.edn"}
 {:id "ADR-2606061500" :title "tsumugi historical-influence diachronic weave (past humanity as latent influence nodes)" :status "accepted" :doc-type "adr" :topic "engi-knowledge-graph" :authoritative true :last-verified "2026-06-07" :file "2606061501-tsumugi-historical-influence-diachronic-weave.edn"}
 {:id "ADR-2605291700" :title "baien-moemoekyun plateau analysis (cycles 17-114) + Best-of-N as the deployable score-lift path" :status "active" :doc-type "adr" :topic "baien-moemoekyun" :authoritative true :last-verified "2026-05-29" :file "2605291700-moemoekyun-plateau-and-bestofn-path.edn"}
+{:id "2607201700" :title "Extract resources data-heavy application" :status ":accepted" :doc-type "adr" :file "2607201700-resources-data-heavy-app-extraction.edn"}
 {:id "2607201630" :title "Extract COFOG data-heavy application" :status ":accepted" :doc-type "adr" :file "2607201630-cofog-data-heavy-app-extraction.edn"}
 {:id "2607201600" :title "Extract middle large active app group" :status ":accepted" :doc-type "adr" :file "2607201600-middle-large-app-extraction.edn"}
 {:id "2607201530" :title "Extract first large active app group" :status ":accepted" :doc-type "adr" :file "2607201530-first-large-app-extraction.edn"}
