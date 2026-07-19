@@ -20,16 +20,12 @@
             [clojure.string :as str]
             [lg-chat.tools :as tools]))
 
-(defn- env [k d] (or (System/getenv k) d))
+(def DEFAULT-CONFIG
+  {:vllm-url "http://keiei-litellm.keiei-llm.svc.cluster.local:4000/v1"
+   :vllm-model "gemma-4-E4B-it" :vllm-api-key "" :vllm-timeout-ms 60000
+   :max-iterations 8 :max-history 20 :tools {}})
 
-(def ^:private VLLM-URL
-  (str/replace (env "VLLM_URL" "http://keiei-litellm.keiei-llm.svc.cluster.local:4000/v1")
-               #"/+$" ""))
-(def ^:private VLLM-MODEL   (env "MURAKUMO_DEFAULT_MODEL" "gemma-4-E4B-it"))
-(def ^:private VLLM-API-KEY (env "LLM_API_KEY" "dummy"))
-(def ^:private VLLM-TIMEOUT (long (* 1000 (Double/parseDouble (env "VLLM_TIMEOUT_SEC" "60")))))
-(def ^:private MAX-ITERATIONS (Long/parseLong (env "CHAT_MAX_ITERATIONS" "8")))
-(def ^:private MAX-HISTORY (Long/parseLong (env "CHAT_MAX_HISTORY" "20")))
+(defn- host-config [state] (merge DEFAULT-CONFIG (or (:host-config state) {})))
 
 (def ^:private SYSTEM-PROMPT
   (str "You are Gftd Chat, a helpful AI assistant on gftd.ai. "
@@ -42,7 +38,7 @@
 
 ;; ── nodes ──────────────────────────────────────────────────────────────
 (defn node-prepare [state]
-  (let [history (take-last MAX-HISTORY (or (:history state) []))
+  (let [history (take-last (:max-history (host-config state)) (or (:history state) []))
         hist-msgs (->> history
                        (filter #(and (map? %)
                                      (#{"user" "assistant" "tool"} (or (:role %) (get % "role")))))
@@ -60,15 +56,17 @@
 (defn node-llm [state]
   (if (:error state)
     {}
-    (let [msgs (or (:messages state) [])
-          payload {:model VLLM-MODEL :messages msgs :tools tools/TOOL-SCHEMAS
+    (let [{:keys [vllm-url vllm-model vllm-api-key vllm-timeout-ms]} (host-config state)
+          vllm-url (str/replace vllm-url #"/+$" "")
+          msgs (or (:messages state) [])
+          payload {:model vllm-model :messages msgs :tools tools/TOOL-SCHEMAS
                    :tool_choice "auto" :max_tokens 2048 :temperature 0.4}
           resp (try
-                 (let [r (http/post (str VLLM-URL "/chat/completions")
-                                    {:headers {"Authorization" (str "Bearer " VLLM-API-KEY)
+                 (let [r (http/post (str vllm-url "/chat/completions")
+                                    {:headers {"Authorization" (str "Bearer " vllm-api-key)
                                                "Content-Type" "application/json"}
                                      :body (json/generate-string payload)
-                                     :timeout VLLM-TIMEOUT
+                                     :timeout vllm-timeout-ms
                                      :throw false})]
                    (if (>= (:status r) 400)
                      {::error (str "vllm http " (:status r) ": " (truncate (str (:body r)) 300))}
@@ -93,13 +91,15 @@
       {}
       (let [conv-id (or (:conv-id state) "")
             owner-did (or (:owner-did state) "")
-            msg-id (str "tc-" (System/currentTimeMillis))]
+            msg-id (str "tc-" (System/currentTimeMillis))
+            tools-config (:tools (host-config state))]
         (reduce
          (fn [acc tc]
            (let [fnm (or (:function tc) {})
                  nm (str (or (:name fnm) ""))
                  args (try (json/parse-string (or (:arguments fnm) "{}")) (catch Exception _ {}))
-                 result (tools/dispatch-tool nm args :conv-id conv-id :msg-id msg-id :owner-did owner-did)]
+                 result (tools/dispatch-tool nm args :conv-id conv-id :msg-id msg-id :owner-did owner-did
+                                             :host-config tools-config)]
              (-> acc
                  (update :tool-results conj {:name nm :args args :result result})
                  (update :messages conj {:role "tool"
@@ -114,7 +114,7 @@
     (cond
       (:error state) g/END
       (some? (:reply state)) g/END
-      (>= (or (:iteration state) 0) MAX-ITERATIONS) g/END
+      (>= (or (:iteration state) 0) (:max-iterations (host-config state))) g/END
       (seq (:tool_calls last-msg)) :execute-tools
       :else g/END)))
 
@@ -122,7 +122,7 @@
 (defn build
   "Compile the agent_chat StateGraph. opts pass through to compile-graph
   (e.g. {:recursion-limit n :interrupt-before #{..}})."
-  ([] (build {:recursion-limit (* 4 MAX-ITERATIONS)}))
+  ([] (build {:recursion-limit (* 4 (:max-iterations DEFAULT-CONFIG))}))
   ([opts]
    (-> (g/state-graph)
        (g/add-node :prepare node-prepare)

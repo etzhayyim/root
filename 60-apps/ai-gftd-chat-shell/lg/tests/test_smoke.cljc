@@ -38,6 +38,16 @@
     (is (= "system" (:role (first (:messages out)))))
     (is (= "こんにちは" (:content (last (:messages out)))))))
 
+(deftest explicit-host-config-controls-history
+  (let [out (ac/node-prepare {:history [{:role "user" :content "drop"}
+                                        {:role "assistant" :content "keep"}]
+                              :host-config {:max-history 1}})]
+    (is (= ["system" "assistant"] (mapv :role (:messages out))))))
+
+(deftest tools-fail-closed-without-host-capabilities
+  (is (false? (:ok (tools/tool-file-save {}))))
+  (is (str/includes? (:error (tools/tool-schedule-report {})) "not configured")))
+
 (deftest route-terminates-on-reply
   (is (= :langgraph/end (ac/route-after-llm {:reply "done" :messages []})))
   (is (= :langgraph/end (ac/route-after-llm {:iteration 99 :messages []})))

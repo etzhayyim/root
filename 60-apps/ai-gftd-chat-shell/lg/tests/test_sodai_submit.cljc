@@ -27,7 +27,8 @@
     (is (contains? fm "name"))
     (is (contains? fm "phone"))
     ;; load-field-map returns the defaults when env is unset
-    (is (= (sf/load-field-map) sf/DEFAULT-FIELD-MAP))))
+    (is (= (sf/load-field-map) sf/DEFAULT-FIELD-MAP))
+    (is (= ["#safe"] (get (sf/load-field-map "{\"phone\":\"#safe\"}") "phone")))))
 
 (deftest validate-rejects-bad-mode
   (let [out (ss/node-validate {:mode "wreck-it" :application APP})]
@@ -49,6 +50,13 @@
   (let [out (ss/node-submit-click {:mode "submit" :human-approved false})]
     (is (false? (:submitted out)))
     (is (str/includes? (:error out) "人間ゲート"))))
+
+(deftest submit-requires-explicit-host-capability
+  (is (false? (:submitted (ss/node-submit-click {:human-approved true}))))
+  (is (false? (:submitted (ss/node-submit-click {:human-approved false
+                                                 :host-config {:allow-submit? true}}))))
+  (is (true? (:submitted (ss/node-submit-click {:human-approved true
+                                                :host-config {:allow-submit? true}})))))
 
 (deftest route-after-drive-to-end-unless-submit-approved
   (is (= :langgraph/end (ss/route-after-drive {:mode "prefill" :status "ok"})))

@@ -21,8 +21,8 @@
             [clojure.string :as str]
             [lg-chat.sodai-fields :as sf]))
 
-(defn- env [k d] (or (System/getenv k) d))
-(def ^:private ALLOW-SUBMIT (= "1" (env "SODAI_ALLOW_SUBMIT" "0")))
+(def DEFAULT-CONFIG {:allow-submit? false})
+(defn- host-config [state] (merge DEFAULT-CONFIG (or (:host-config state) {})))
 
 ;; ── nodes ──────────────────────────────────────────────────────────────
 (defn node-validate [state]
@@ -52,14 +52,14 @@
 
 (defn node-submit-click
   "最終送信 — reached only past the human interrupt-before gate. Still enforces
-  the env SODAI_ALLOW_SUBMIT + human_approved double-gate."
+  an explicit host capability + human_approved double-gate."
   [state]
   (let [human-ok (boolean (:human-approved state))]
-    (if (and human-ok ALLOW-SUBMIT)
+    (if (and human-ok (:allow-submit? (host-config state)))
       {:submitted true :status "ok"}
       {:submitted false
        :error (str "送信は実行しませんでした。human_approved=true かつ "
-                   "サーバ側 SODAI_ALLOW_SUBMIT=1 の両方が必要です（人間ゲート）。")})))
+                   "host からの allow-submit capability の両方が必要です（人間ゲート）。")})))
 
 (defn route-after-drive
   "Route to :submit-click only when mode=submit AND human_approved AND drive ok."
