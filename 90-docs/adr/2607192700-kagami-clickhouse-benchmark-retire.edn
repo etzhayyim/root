@@ -1,0 +1,43 @@
+{:schema "etzhayyim.adr/v1"
+ :id "2607192700"
+ :title "Retire the residual Kagami ClickHouse benchmark directory"
+ :status :accepted
+ :date "2026-07-19"
+ :context
+ {:source "30-graph/kagami"
+  :tracked-files ["perf/engine/clickhouse/init.sql"]
+  :classification :superseded-benchmark-fixture
+  :operational-references 0
+  :canonical-kagami-lineage
+  {:runtime-archive "_archive/30-graph/kagami-live-260414"
+   :app "60-apps/etzhayyim-project-kagami"}
+  :finding
+  "The residual numbered directory contains only a P9v20 ClickHouse benchmark loader. It is not the Kagami runtime, is not imported by a build or deployment path, and must not become a standalone repository."}
+ :decision
+ {:action :retire
+  :canonical-record :edn
+  :standalone-repository false
+  :numbered-directory-removed true
+  :replacement-marker "30-graph/kagami-MOVED.edn"
+  :go-policy :deprecated-and-absent}
+ :provenance
+ {:source-repository "https://github.com/etzhayyim/root"
+  :source-revision "e060b4d9a248ecf2f4309b459a8c4ad3dbf2d067"
+  :blobs
+  {"perf/engine/clickhouse/init.sql"
+   {:git-blob "3a4093e688ab2cb642964e43d2f17461bf1f6d86"
+    :sha256 "7b2e9923bbc17728fb90dfc9dc76522c5dc0c21bc1cd2a7b7bd5f649bd5586cf"
+    :bytes 1205
+    :lines 34
+    :recovery "git show e060b4d9a248ecf2f4309b459a8c4ad3dbf2d067:30-graph/kagami/perf/engine/clickhouse/init.sql"}}}
+ :verification
+ {:required
+  [:edn-readable
+   :legacy-directory-absent
+   :marker-present
+   :operational-reference-scan-clean
+   :generated-doc-registry-current]}
+ :consequences
+ {:root "30-graph no longer contains a residual Kagami implementation directory."
+  :history "The exact removed content remains recoverable by source revision and two independent blob digests."
+  :runtime "No runtime or deployment behavior changes."}}
