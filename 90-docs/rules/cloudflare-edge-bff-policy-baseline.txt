@@ -32,7 +32,6 @@
 60-apps/etzhayyim-project-cyber-drill/worker/wrangler.jsonc:7:wrangler-non-sveltekit-main:"main": "src/index.ts"
 60-apps/etzhayyim-project-deai/appview/deai-cgxi8oem/src-ts/app.ts:13:hono-import:import type { Context } from "hono";
 60-apps/etzhayyim-project-dns/xrpc-adapter/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/index.ts"
-60-apps/etzhayyim-project-hakkou/xrpc-adapter/wrangler.jsonc:1:wrangler-non-sveltekit-main:"main": "src/index.ts"
 60-apps/etzhayyim-project-hanrei/xrpc-adapter/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/index.ts"
 60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:1010:kysely-direct-db:await hcDb().insertInto("vertex_hc_game_capture_assignment" as any).values({
 60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:1037:kysely-direct-db:await hcDb().insertInto("vertex_hc_game_capture_submission" as any).values({
@@ -74,7 +73,6 @@
 60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:97:kysely-direct-db:await hcDb().insertInto("vertex_hc_task" as any).values({
 60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:982:kysely-direct-db:await hcDb().insertInto("vertex_hc_game_capture_task" as any).values({
 60-apps/etzhayyim-project-hoge/appview/src/index.ts:16:hono-import:import { Hono } from "hono";
-60-apps/etzhayyim-project-houshi/xrpc-adapter/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/index.ts"
 60-apps/etzhayyim-project-intel/appview/etzhayyim-wasm-intel-i7n73l0x/src/app.ts:178:kysely-direct-db:const promise = createKyselyDb()
 60-apps/etzhayyim-project-intel/appview/etzhayyim-wasm-intel-i7n73l0x/src/app.ts:179:kysely-direct-db:.insertInto(table as any)
 60-apps/etzhayyim-project-intel/appview/etzhayyim-wasm-intel-i7n73l0x/src/app.ts:336:kysely-direct-db:const db = createKyselyDb();
