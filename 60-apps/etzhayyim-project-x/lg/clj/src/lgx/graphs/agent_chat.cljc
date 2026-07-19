@@ -16,9 +16,6 @@
             [lgx.llm :as llm]
             [clojure.string :as str]))
 
-(defn- env [k default] (or (System/getenv k) default))
-(def ^:private default-app-did (env "X_APP_DID" "did:web:x.etzhayyim.com"))
-
 (def actor-prompts
   {"community_manager"
    (str "You are a community manager AI for the X (Twitter) platform. You triage "
@@ -49,8 +46,9 @@
   (or (get actor-prompts role) (get actor-prompts "community_manager")))
 
 (defn node-resolve-actor [state]
-  (let [role (or (:actor-role state) "community_manager")]
-    {:actor-did (str default-app-did ":actor:" role)
+  (let [role (or (:actor-role state) "community_manager")
+        app-did (:app-did (audit/config state))]
+    {:actor-did (str app-did ":actor:" role)
      :actor-role role}))
 
 (defn- trunc [^String s n] (subs s 0 (min n (count s))))
@@ -74,18 +72,18 @@
             messages (concat [{:role "system" :content system}]
                              history
                              [{:role "user" :content (trunc user-text 4000)}])
-            payload {:model (llm/model)
+            payload {:model (llm/model state)
                      :messages (vec messages)
                      :max_tokens (int (or (:max-tokens state) 384))
                      :temperature (double (or (:temperature state) 0.7))}
-            {:keys [ok resp error latency-ms]} (llm/chat-completions payload)]
+            {:keys [ok resp error latency-ms]} (llm/chat-completions state payload)]
         (if-not ok
           {:error error :latency-ms latency-ms}
           (let [choice (first (or (:choices resp) [{}]))
                 msg (or (:message choice) {})
                 usage (or (:usage resp) {})]
             {:reply (str/trim (or (:content msg) ""))
-             :model (or (:model resp) (llm/model))
+             :model (or (:model resp) (llm/model state))
              :prompt-tokens (int (or (:prompt_tokens usage) 0))
              :completion-tokens (int (or (:completion_tokens usage) 0))
              :total-tokens (int (or (:total_tokens usage) 0))
@@ -93,7 +91,8 @@
 
 (defn node-emit-audit [state]
   (audit/emit-audit-bg
-   {:actor (or (:actor-did state) default-app-did)
+   state
+   {:actor (or (:actor-did state) (:app-did (audit/config state)))
     :activity "x.chat.reply"
     :object-id (str "chat:" (or (:actor-role state) "community_manager") ":"
                     (quot (System/currentTimeMillis) 1000))

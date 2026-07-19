@@ -13,12 +13,10 @@
             [clojure.java.io :as io]
             [clojure.string :as str]))
 
-(defn- env [k default] (or (System/getenv k) default))
-
 (defn load-cron-specs
   "Read + filter cron specs from langgraph.json. Each kept spec has :schedule and
   :graph. Returns [] when the file is missing / unparseable (logged to *err*)."
-  ([] (load-cron-specs (env "LANGGRAPH_JSON" "/app/langgraph.json")))
+  ([] (load-cron-specs "/app/langgraph.json"))
   ([path]
    (let [f (io/file path)]
      (if-not (.exists f)
@@ -39,7 +37,8 @@
   "Return a 0-arg fn that invokes `graph-name` with `base-input` on a fresh thread
   id (so checkpoint history is per-fire). Honors the `_rotateSceneByEpoch` flag
   exactly as the Python closure did."
-  [graph-name base-input]
+  ([graph-name base-input] (make-fire graph-name base-input {}))
+  ([graph-name base-input host-config]
   (let [rotate? (boolean (get base-input :_rotateSceneByEpoch))
         base (dissoc base-input :_rotateSceneByEpoch)]
     (fn []
@@ -48,12 +47,13 @@
                     rotate? (assoc :scene-indices [idx (mod (inc idx) 5)]))
             thread-id (str "cron:" graph-name ":" (quot (System/currentTimeMillis) 1000))]
         (try
-          (let [r (server/run graph-name input {:thread-id thread-id})]
+          (let [r (server/run graph-name input {:thread-id thread-id :host-config host-config})]
             (binding [*out* *err*] (println (str "cron[" graph-name "] fired ok thread_id=" thread-id)))
             r)
           (catch Exception exc
             (binding [*out* *err*] (println (str "cron[" graph-name "] fired with error: " (.getMessage exc))))
-            nil))))))
+            nil)))))))
 
-(defn cron-enabled? []
-  (contains? #{"1" "true" "yes"} (str/lower-case (env "LG_CRON_ENABLED" "true"))))
+(defn cron-enabled?
+  ([] (cron-enabled? true))
+  ([enabled?] (boolean enabled?)))

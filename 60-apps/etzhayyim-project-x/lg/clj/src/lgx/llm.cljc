@@ -9,36 +9,37 @@
   deployment can still point elsewhere; the wire shape is unchanged.
 
   httpx → babashka.http-client; json → cheshire."
-  (:require [babashka.http-client :as http]
-            [cheshire.core :as json]
+  (:require [cheshire.core :as json]
             [clojure.string :as str]))
 
-(defn- env [k default] (or (System/getenv k) default))
+(def default-config {:base-url "http://127.0.0.1:4000/v1"
+                     :model "tier0-general" :timeout-ms 60000})
 
-(defn base-url []
-  (let [u (or (System/getenv "MURAKUMO_URL")
-              (System/getenv "VLLM_URL")
-              "http://127.0.0.1:4000/v1")]
-    (if (str/ends-with? u "/") (subs u 0 (dec (count u))) u)))
+(def ^:dynamic *http-post* nil)
 
-(defn model [] (env "MURAKUMO_MODEL" (env "VLLM_MODEL" "tier0-general")))
+(defn config [state]
+  (merge default-config (or (get-in state [:host-config :llm]) {})))
 
-(defn timeout-ms []
-  (long (* 1000 (Double/parseDouble (env "VLLM_TIMEOUT_SEC" "60")))))
+(defn model [state] (:model (config state)))
 
 (defn chat-completions
   "POST `{base}/chat/completions` with `payload` (a clj map). Returns a map:
     {:ok true  :resp <parsed-json> :latency-ms n}
     {:ok false :error <string>     :latency-ms n}
   Never throws — mirrors the Python try/except contract."
-  [payload]
-  (let [started (System/nanoTime)
+  [state payload]
+  (when-not (fn? *http-post*)
+    (throw (ex-info "X inference requires an explicit HTTP POST capability"
+                    {:capability :x/llm-http-post})))
+  (let [{:keys [base-url timeout-ms]} (config state)
+        base-url (str/replace base-url #"/+$" "")
+        started (System/nanoTime)
         latency #(int (/ (- (System/nanoTime) started) 1000000))]
     (try
-      (let [r (http/post (str (base-url) "/chat/completions")
+      (let [r (*http-post* (str base-url "/chat/completions")
                          {:headers {"Content-Type" "application/json"}
                           :body (json/generate-string payload)
-                          :timeout (timeout-ms)
+                          :timeout timeout-ms
                           :throw false})
             status (:status r)]
         (if (>= status 400)
@@ -49,7 +50,7 @@
            :resp (json/parse-string (:body r) true)
            :latency-ms (latency)}))
       (catch java.net.http.HttpTimeoutException _
-        {:ok false :error (str "llm timeout after " (/ (timeout-ms) 1000) "s") :latency-ms (latency)})
+        {:ok false :error (str "llm timeout after " (/ timeout-ms 1000) "s") :latency-ms (latency)})
       (catch Exception exc
         {:ok false
          :error (let [s (str "llm: " (.. exc getClass getSimpleName) ": " (.getMessage exc))]
