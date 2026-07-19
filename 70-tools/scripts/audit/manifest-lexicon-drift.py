@@ -85,8 +85,14 @@ def actor_wire_lexicon_path(manifest_path: Path, nsid: str) -> Path:
     return manifest_path.parent / "wire" / "lex" / f"{nsid.rsplit('.', 1)[-1]}.json"
 
 
+def actor_wire_lexicons_path(manifest_path: Path, nsid: str) -> Path:
+    """Plural wire-boundary layout used by some standalone owners."""
+    return manifest_path.parent / "wire" / "lexicons" / f"{nsid.rsplit('.', 1)[-1]}.json"
+
+
 def actor_contract_paths(manifest_path: Path, nsid: str) -> list[Path]:
     return [actor_wire_lexicon_path(manifest_path, nsid),
+            actor_wire_lexicons_path(manifest_path, nsid),
             actor_lexicon_path(manifest_path, nsid)]
 
 
@@ -104,8 +110,12 @@ def resolve_lexicon_path(manifest_path: Path, nsid: str) -> Path:
 
 def lexicon_location(manifest_path: Path, nsid: str) -> str:
     """Classify a declaration by its current west migration location."""
-    if any(path.exists() for path in actor_contract_paths(manifest_path, nsid)):
-        return "flat-owner"
+    if actor_wire_lexicon_path(manifest_path, nsid).exists():
+        return "owner-wire-lex"
+    if actor_wire_lexicons_path(manifest_path, nsid).exists():
+        return "owner-wire-lexicons"
+    if actor_lexicon_path(manifest_path, nsid).exists():
+        return "owner-nsid-path"
     if nsid_to_lexicon_path(nsid).exists():
         return "root-compat"
     return "missing"
@@ -282,7 +292,8 @@ def main() -> int:
 
     total_declared = 0
     total_missing = 0
-    location_counts = {"flat-owner": 0, "root-compat": 0, "missing": 0}
+    location_counts = {"owner-wire-lex": 0, "owner-wire-lexicons": 0,
+                       "owner-nsid-path": 0, "root-compat": 0, "missing": 0}
     actors_with_drift: list[tuple[Path, list[tuple[str, Path]]]] = []
     invalid_nsids: list[tuple[Path, str]] = []
     declared_global: set[str] = set()
@@ -339,7 +350,9 @@ def main() -> int:
     # this script's rollup count, so put the headline number last.
     print(f"Manifests scanned: {len(manifests)}")
     print(f"Lexicons declared (total): {total_declared}")
-    print(f"Contracts in flat owner repos: {location_counts['flat-owner']}")
+    print(f"Contracts in owner wire/lex: {location_counts['owner-wire-lex']}")
+    print(f"Contracts in owner wire/lexicons: {location_counts['owner-wire-lexicons']}")
+    print(f"Contracts in owner NSID paths: {location_counts['owner-nsid-path']}")
     print(f"Contracts in root compatibility layer: {location_counts['root-compat']}")
     print(f"Actors with drift: {len(actors_with_drift)}")
     print(f"Undeclared orphan lexicon files (tracked, not in rollup): {len(orphans)}")

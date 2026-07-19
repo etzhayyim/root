@@ -113,7 +113,7 @@ class TestNsidToPath:
         local.parent.mkdir(parents=True)
         local.write_text("{}")
         assert audit.resolve_lexicon_path(manifest, "com.etzhayyim.demo.record") == local
-        assert audit.lexicon_location(manifest, "com.etzhayyim.demo.record") == "flat-owner"
+        assert audit.lexicon_location(manifest, "com.etzhayyim.demo.record") == "owner-nsid-path"
 
     def test_missing_contract_is_classified(self, audit, tmp_path):
         manifest = tmp_path / "orgs/etzhayyim/com-etzhayyim-demo/manifest.edn"
@@ -127,7 +127,16 @@ class TestNsidToPath:
         wire.parent.mkdir(parents=True)
         wire.write_text("{}")
         assert audit.resolve_lexicon_path(manifest, "com.etzhayyim.demo.record") == wire
-        assert audit.lexicon_location(manifest, "com.etzhayyim.demo.record") == "flat-owner"
+        assert audit.lexicon_location(manifest, "com.etzhayyim.demo.record") == "owner-wire-lex"
+
+    def test_plural_wire_lexicons_contract_is_flat_owner(self, audit, tmp_path):
+        manifest = tmp_path / "orgs/etzhayyim/com-etzhayyim-demo/manifest.edn"
+        manifest.parent.mkdir(parents=True)
+        wire = audit.actor_wire_lexicons_path(manifest, "com.etzhayyim.demo.record")
+        wire.parent.mkdir(parents=True)
+        wire.write_text("{}")
+        assert audit.resolve_lexicon_path(manifest, "com.etzhayyim.demo.record") == wire
+        assert audit.lexicon_location(manifest, "com.etzhayyim.demo.record") == "owner-wire-lexicons"
 
 
 # ─── End-to-end smoke tests against the live repo ──────────────────────
