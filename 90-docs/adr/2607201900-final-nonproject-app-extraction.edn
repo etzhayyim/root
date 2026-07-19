@@ -1,0 +1,7 @@
+{:schema "etzhayyim.adr/v1" :id "2607201900" :title "Extract final nonproject application group" :status :accepted :date "2026-07-20"
+ :scope {:source-repository "etzhayyim/root" :source-revision "1d4595a4239845357d2380577d3b3f109d20dde1" :directories 3 :tracked-files 168 :bytes 1459969}
+ :decision {:classification {:ai-gftd-chat-shell :independent-application-shell :etzhayyim-chat-shell :independent-application-shell :watashi :independent-application-runtime} :root-common-substrate false :destinations ["etzhayyim/com-etzhayyim-app-ai-gftd-chat-shell" "etzhayyim/com-etzhayyim-app-chat-shell" "etzhayyim/com-etzhayyim-app-watashi-runtime"]}
+ :extraction-contract {:repository-visibility :private :canonical-files ["README.edn" "migration.edn"] :source-preservation "Each destination differs from its exact source tree only by canonical EDN files."}
+ :reference-classification {:removed-dependabot ["watashi-runtime"] :regenerated-policy-baselines true :preserved-historical-fixture-provenance true}
+ :invariants {:canonical-record-format :edn :go-files-created 0 :tinygo-files-created 0 :flat-west-path "orgs/etzhayyim/com-etzhayyim-app-*" :remaining-60-apps-implementation-directories 0}
+ :verification [:private-repository :exact-remote-sha :source-tree-identity :byte-count :edn-readable :operational-reference-audit :registry-freshness :completion-audit]}

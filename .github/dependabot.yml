@@ -131,10 +131,6 @@ updates:
     schedule:
       interval: "weekly"
   - package-ecosystem: "cargo"
-    directory: "/60-apps/watashi/native/watashi-host"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "cargo"
     directory: "/70-tools/maps-osm-ingest"
     schedule:
       interval: "weekly"
