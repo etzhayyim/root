@@ -9,7 +9,7 @@
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json"
   },
   "dependencies": {
-    "svelte": "^5.56.4"
+    "svelte": "^5.56.6"
   },
   "overrides": {
     "undici": "^7.28.0",
