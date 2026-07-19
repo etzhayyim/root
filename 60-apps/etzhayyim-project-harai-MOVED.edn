@@ -1,0 +1,12 @@
+{:schema "etzhayyim.migration/moved-v1"
+ :source {:repo "etzhayyim/root"
+          :path "60-apps/etzhayyim-project-harai"
+          :revision "f9432ab5dd6554faa47e49b695e8ff508f824be6"
+          :git-tree "d3901af77451b7eb3d395c266c3052a507cb2bdc"
+          :tracked-files 21
+          :bytes 52105}
+ :destination {:repo "etzhayyim/com-etzhayyim-app-harai"
+               :revision "3d7376d2333a02094d8e722020862d4da018734f"}
+ :status :moved
+ :owner-adr "2607200530"
+ :verification :source-tree-plus-canonical-edn-only}

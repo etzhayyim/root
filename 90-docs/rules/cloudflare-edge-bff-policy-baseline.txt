@@ -314,22 +314,6 @@
 60-apps/etzhayyim-project-open-water/worker/src/defence-handlers.ts:35:hyperdrive-usage:const db = createKyselyDb(env.HYPERDRIVE) as any;
 60-apps/etzhayyim-project-open-water/worker/src/defence-handlers.ts:35:kysely-direct-db:const db = createKyselyDb(env.HYPERDRIVE) as any;
 60-apps/etzhayyim-project-open-water/worker/src/defence-handlers.ts:37:kysely-direct-db:.insertInto("vertex_open_defence_event")
-60-apps/etzhayyim-project-os-messaging/appview/etzhayyim-wasm-os-messaging-0sm3sg01/src/app.test.ts:47:kysely-direct-db:selectFrom() {
-60-apps/etzhayyim-project-os-messaging/appview/etzhayyim-wasm-os-messaging-0sm3sg01/src/app.ts:182:kysely-direct-db:const db = createKyselyDb();
-60-apps/etzhayyim-project-os-messaging/appview/etzhayyim-wasm-os-messaging-0sm3sg01/src/app.ts:197:kysely-direct-db:await db.insertInto("vertex_os_messaging_outbound" as any).values({
-60-apps/etzhayyim-project-os-messaging/appview/etzhayyim-wasm-os-messaging-0sm3sg01/src/app.ts:225:kysely-direct-db:const db = createKyselyDb();
-60-apps/etzhayyim-project-os-messaging/appview/etzhayyim-wasm-os-messaging-0sm3sg01/src/app.ts:226:kysely-direct-db:await db.insertInto("vertex_os_messaging_inbound" as any).values({
-60-apps/etzhayyim-project-os-messaging/appview/etzhayyim-wasm-os-messaging-0sm3sg01/src/app.ts:345:kysely-direct-db:const db = createKyselyDb();
-60-apps/etzhayyim-project-os-messaging/appview/etzhayyim-wasm-os-messaging-0sm3sg01/src/app.ts:346:kysely-direct-db:await db.insertInto("vertex_os_messaging_platform_mapping" as any).values({
-60-apps/etzhayyim-project-os-messaging/appview/etzhayyim-wasm-os-messaging-0sm3sg01/src/app.ts:374:kysely-direct-db:const db = createKyselyDb();
-60-apps/etzhayyim-project-os-messaging/appview/etzhayyim-wasm-os-messaging-0sm3sg01/src/app.ts:375:kysely-direct-db:await db.insertInto("vertex_os_messaging_platform_mapping" as any).values({
-60-apps/etzhayyim-project-os-messaging/appview/etzhayyim-wasm-os-messaging-0sm3sg01/src/app.ts:404:kysely-direct-db:const db = createKyselyDb();
-60-apps/etzhayyim-project-os-messaging/appview/etzhayyim-wasm-os-messaging-0sm3sg01/src/app.ts:405:kysely-direct-db:let q = db.selectFrom(MAPPING_TABLE as any)
-60-apps/etzhayyim-project-os-messaging/appview/etzhayyim-wasm-os-messaging-0sm3sg01/src/app.ts:70:kysely-direct-db:const db = createKyselyDb();
-60-apps/etzhayyim-project-os-messaging/appview/etzhayyim-wasm-os-messaging-0sm3sg01/src/app.ts:72:kysely-direct-db:.selectFrom(MAPPING_TABLE as any)
-60-apps/etzhayyim-project-playwright/appview/etzhayyim-wasm-playwright-pl4y1t8r/src/app.ts:143:kysely-direct-db:await db.insertInto(table as any).values(row as any).execute();
-60-apps/etzhayyim-project-playwright/appview/etzhayyim-wasm-playwright-pl4y1t8r/src/app.ts:154:hyperdrive-usage:const db = createKyselyDb(env.HYPERDRIVE) as any;
-60-apps/etzhayyim-project-playwright/appview/etzhayyim-wasm-playwright-pl4y1t8r/src/app.ts:154:kysely-direct-db:const db = createKyselyDb(env.HYPERDRIVE) as any;
 60-apps/etzhayyim-project-repository/appview/etzhayyim-wasm-repository-r3p0s1t0/src/app.ts:1025:kysely-direct-db:.selectFrom("vertex_repository_ref" as any)
 60-apps/etzhayyim-project-repository/appview/etzhayyim-wasm-repository-r3p0s1t0/src/app.ts:1048:kysely-direct-db:.selectFrom("vertex_repository_commit" as any)
 60-apps/etzhayyim-project-repository/appview/etzhayyim-wasm-repository-r3p0s1t0/src/app.ts:1069:kysely-direct-db:.selectFrom("edge_repository_parent" as any)
@@ -366,11 +350,6 @@
 60-apps/etzhayyim-project-repository/appview/etzhayyim-wasm-repository-r3p0s1t0/src/app.ts:944:kysely-direct-db:.insertInto("edge_repository_ref_points" as any)
 60-apps/etzhayyim-project-repository/appview/etzhayyim-wasm-repository-r3p0s1t0/src/app.ts:958:kysely-direct-db:.insertInto("edge_repository_ref_owner" as any)
 60-apps/etzhayyim-project-sbom/xrpc-adapter/wrangler.jsonc:1:wrangler-non-sveltekit-main:"main": "src/index.ts"
-60-apps/etzhayyim-project-seibutsu/appview/etzhayyim-wasm-seibutsu-s3ibtsu1/src/app.ts:165:kysely-direct-db:await db().insertInto("vertex_seibutsu_taxon" as any).values({
-60-apps/etzhayyim-project-seibutsu/appview/etzhayyim-wasm-seibutsu-s3ibtsu1/src/app.ts:183:kysely-direct-db:await db().insertInto("vertex_seibutsu_traits" as any).values({
-60-apps/etzhayyim-project-seibutsu/appview/etzhayyim-wasm-seibutsu-s3ibtsu1/src/app.ts:200:kysely-direct-db:await db().insertInto("vertex_seibutsu_observation" as any).values({
-60-apps/etzhayyim-project-seibutsu/appview/etzhayyim-wasm-seibutsu-s3ibtsu1/src/app.ts:23:kysely-direct-db:const db = () => createKyselyDb();
-60-apps/etzhayyim-project-seibutsu/appview/etzhayyim-wasm-seibutsu-s3ibtsu1/src/app.ts:83:kysely-direct-db:.selectFrom(table as any)
 60-apps/etzhayyim-project-ses/src/app.ts:21:hono-import:import { Hono } from "hono";
 60-apps/etzhayyim-project-ses/src/app.ts:72:hyperdrive-usage:hyperdrive: false,
 60-apps/etzhayyim-project-shigotoba/appview/shigotoba-jobs-component/src/app.ts:101:kysely-direct-db:.selectFrom(SHIGOTOBA_COMPANY_TABLE as any)
@@ -385,33 +364,7 @@
 60-apps/etzhayyim-project-shigotoba/appview/shigotoba-jobs-component/src/app.ts:360:kysely-direct-db:.selectFrom(SHIGOTOBA_JOB_TABLE as any)
 60-apps/etzhayyim-project-shigotoba/appview/shigotoba-jobs-component/src/app.ts:77:kysely-direct-db:.selectFrom(SHIGOTOBA_COMPANY_TABLE as any)
 60-apps/etzhayyim-project-shigotoba/appview/shigotoba-jobs-component/src/app.ts:88:kysely-direct-db:.selectFrom(SHIGOTOBA_JOB_TABLE as any)
-60-apps/etzhayyim-project-shinkansen/appview/etzhayyim-wasm-shinkansen-sh1nk4n0/src/app.test.ts:71:kysely-direct-db:selectFrom(table: string) {
-60-apps/etzhayyim-project-shinkansen/appview/etzhayyim-wasm-shinkansen-sh1nk4n0/src/app.ts:106:kysely-direct-db:const db = createKyselyDb();
-60-apps/etzhayyim-project-shinkansen/appview/etzhayyim-wasm-shinkansen-sh1nk4n0/src/app.ts:107:kysely-direct-db:let q = db.selectFrom(table as any).select(sql<number>`count(*)`.as("count"));
-60-apps/etzhayyim-project-shinkansen/appview/etzhayyim-wasm-shinkansen-sh1nk4n0/src/app.ts:267:kysely-direct-db:await createKyselyDb().insertInto("vertex_shinkansen_reservation" as any).values({
-60-apps/etzhayyim-project-shinkansen/appview/etzhayyim-wasm-shinkansen-sh1nk4n0/src/app.ts:298:kysely-direct-db:await createKyselyDb().insertInto("vertex_shinkansen_reservation" as any).values({
-60-apps/etzhayyim-project-shinkansen/appview/etzhayyim-wasm-shinkansen-sh1nk4n0/src/app.ts:320:kysely-direct-db:await createKyselyDb().insertInto("vertex_shinkansen_reservation" as any).values({
-60-apps/etzhayyim-project-shinkansen/appview/etzhayyim-wasm-shinkansen-sh1nk4n0/src/app.ts:351:kysely-direct-db:await createKyselyDb().insertInto("vertex_shinkansen_operation" as any).values({
-60-apps/etzhayyim-project-shinkansen/appview/etzhayyim-wasm-shinkansen-sh1nk4n0/src/app.ts:379:kysely-direct-db:await createKyselyDb().insertInto("vertex_shinkansen_timetable" as any).values({
-60-apps/etzhayyim-project-shinkansen/appview/etzhayyim-wasm-shinkansen-sh1nk4n0/src/app.ts:94:kysely-direct-db:const db = createKyselyDb();
-60-apps/etzhayyim-project-shinkansen/appview/etzhayyim-wasm-shinkansen-sh1nk4n0/src/app.ts:95:kysely-direct-db:let q = db.selectFrom(table as any).select(columns as any[]);
 60-apps/etzhayyim-project-society6/appview/society6-ui-s6c9m2q1/src/app.ts:112:kysely-direct-db:await createKyselyDb().insertInto(tableName as any).values({
-60-apps/etzhayyim-project-tenso/appview/etzhayyim-wasm-tenso-t3ns0f1l/src/app.ts:106:kysely-direct-db:.selectFrom(C.accessControl)
-60-apps/etzhayyim-project-tenso/appview/etzhayyim-wasm-tenso-t3ns0f1l/src/app.ts:116:kysely-direct-db:.selectFrom(C.transferLog)
-60-apps/etzhayyim-project-tenso/appview/etzhayyim-wasm-tenso-t3ns0f1l/src/app.ts:137:kysely-direct-db:.selectFrom("vertex_profile")
-60-apps/etzhayyim-project-tenso/appview/etzhayyim-wasm-tenso-t3ns0f1l/src/app.ts:205:kysely-direct-db:await getDb().insertInto(C.transferRequest as any).values({
-60-apps/etzhayyim-project-tenso/appview/etzhayyim-wasm-tenso-t3ns0f1l/src/app.ts:226:kysely-direct-db:await getDb().insertInto(C.fileManifest as any).values({
-60-apps/etzhayyim-project-tenso/appview/etzhayyim-wasm-tenso-t3ns0f1l/src/app.ts:243:kysely-direct-db:await getDb().insertInto(C.transferLog as any).values({
-60-apps/etzhayyim-project-tenso/appview/etzhayyim-wasm-tenso-t3ns0f1l/src/app.ts:258:kysely-direct-db:await getDb().insertInto(C.accessControl as any).values({
-60-apps/etzhayyim-project-tenso/appview/etzhayyim-wasm-tenso-t3ns0f1l/src/app.ts:289:kysely-direct-db:await getDb().insertInto(C.transferLog as any).values({
-60-apps/etzhayyim-project-tenso/appview/etzhayyim-wasm-tenso-t3ns0f1l/src/app.ts:337:kysely-direct-db:await getDb().insertInto(C.transferLog as any).values({
-60-apps/etzhayyim-project-tenso/appview/etzhayyim-wasm-tenso-t3ns0f1l/src/app.ts:362:kysely-direct-db:await getDb().insertInto(C.transferLog as any).values({
-60-apps/etzhayyim-project-tenso/appview/etzhayyim-wasm-tenso-t3ns0f1l/src/app.ts:43:kysely-direct-db:if (!db) db = createKyselyDb();
-60-apps/etzhayyim-project-tenso/appview/etzhayyim-wasm-tenso-t3ns0f1l/src/app.ts:84:kysely-direct-db:let query: any = getDb().selectFrom(C.transferRequest).selectAll();
-60-apps/etzhayyim-project-tenso/appview/etzhayyim-wasm-tenso-t3ns0f1l/src/app.ts:96:kysely-direct-db:.selectFrom(C.fileManifest)
-60-apps/etzhayyim-project-toshi-kozan/appview/etzhayyim-wasm-toshi-kozan-tk7x9p2m/src/app.ts:418:kysely-direct-db:const db = (await import("@etzhayyim/kotodama-host-sdk")).createKyselyDb(
-60-apps/etzhayyim-project-toshi-kozan/appview/etzhayyim-wasm-toshi-kozan-tk7x9p2m/src/app.ts:419:hyperdrive-usage:(globalThis as any).__env?.HYPERDRIVE,
-60-apps/etzhayyim-project-toshi-kozan/appview/etzhayyim-wasm-toshi-kozan-tk7x9p2m/src/app.ts:422:kysely-direct-db:.selectFrom(LEGACY_VERTEX_OTHER_COUNT_TABLE as any)
 60-apps/etzhayyim-project-voxelforge/src/app.ts:18:hono-import:import { Hono } from "hono";
 60-apps/etzhayyim-project-voxelforge/src/app.ts:30:hyperdrive-usage:HYPERDRIVE?: unknown;
 60-apps/etzhayyim-project-watashi/appview/etzhayyim-wasm-watashi-mfbtsuyc/src/app.ts:25:kysely-direct-db:const getDb = () => createKyselyDb();
