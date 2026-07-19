@@ -14,9 +14,6 @@
             [lg-yukkuri.audit :as audit]
             [lg-yukkuri.store :as store]))
 
-(def app-did (or (System/getenv "YUKKURI_APP_DID") "did:web:yukkuri.etzhayyim.com"))
-(def repo    (or (System/getenv "YUKKURI_REPO_DID") "did:web:y5kk5r1x.etzhayyim.com"))
-
 (defn- now-iso [] (str (java.time.OffsetDateTime/now java.time.ZoneOffset/UTC)))
 
 (defn- token-hex [n]
@@ -34,23 +31,24 @@
 (defn node-insert [state]
   (if (:error state)
     {}
-    (let [topic   (str/trim (or (:topic state) ""))
+    (let [{:keys [app-did repo-did]} (audit/config-from-state state)
+          topic   (str/trim (or (:topic state) ""))
           outline (let [o (str/trim (or (:outline state) ""))] (when (seq o) o))
           owner   (or (:owner_did state) app-did)
           rkey    (str "video-" (token-hex 6))
-          vid     (str "at://" repo "/com.etzhayyim.apps.yukkuri.video/" rkey)
+          vid     (str "at://" repo-did "/com.etzhayyim.apps.yukkuri.video/" rkey)
           created (now-iso)
           title   (str "ゆっくり実況: " (subs topic 0 (min 48 (count topic))))]
       (try
         (store/insert-row "vertex_yukkuri_video"
-                          {:vertex_id vid :video_id rkey :repo repo :owner_did owner
+                          {:vertex_id vid :video_id rkey :repo repo-did :owner_did owner
                            :title title :topic topic :outline outline
                            :status "queued" :created_at created})
         {:video_id rkey :video_uri vid}
         (catch Exception e {:error (str "insert: " (.getMessage e))})))))
 
 (defn node-audit [state]
-  (audit/emit-audit-bg {:actor app-did
+  (audit/emit-audit-bg {:actor (:app-did (audit/config-from-state state))
                         :activity "yukkuri.compose"
                         :object-id (str "video:" (or (:video_id state) "") ":" (quot (System/currentTimeMillis) 1000))
                         :object-type "yukkuri.video"

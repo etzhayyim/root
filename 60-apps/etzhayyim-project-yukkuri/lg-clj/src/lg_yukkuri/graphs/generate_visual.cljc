@@ -16,15 +16,6 @@
             [langgraph.graph :as g]
             [lg-yukkuri.audit :as audit]
             [lg-yukkuri.store :as store]))
-
-(def app-did         (or (System/getenv "YUKKURI_APP_DID") "did:web:yukkuri.etzhayyim.com"))
-(def illustrator-did (or (System/getenv "YUKKURI_ILLUSTRATOR_DID")
-                         "did:web:yukkuri.etzhayyim.com:actor:illustrator"))
-(def image-url   (-> (or (System/getenv "MURAKUMO_IMAGE_URL")
-                         "http://127.0.0.1:4000/v1/images/generations")
-                     (clojure.string/replace #"/+$" "")))
-(def pds-blob-url (or (System/getenv "PDS_BLOB_URL")
-                      "https://atproto.etzhayyim.com/xrpc/com.atproto.repo.uploadBlob"))
 (def negative-prompt "real person, celebrity, logo, watermark, nsfw, explicit")
 
 (defn- as-int [v d] (cond (integer? v) v (string? v) (try (Integer/parseInt v) (catch Exception _ d)) :else d))
@@ -36,12 +27,15 @@
 
 (defn generate-one-with
   "Default `*generate-one*`: image generation + uploadBlob for one scene."
-  [http-post scene]
+  ([http-post scene] (generate-one-with http-post audit/graph-defaults scene))
+  ([http-post host-config scene]
   (when-not (fn? http-post)
     (throw (ex-info "visual generation requires an explicit HTTP POST capability"
                     {:capability :yukkuri/image-http-post})))
   (try
-    (let [b64dec   (java.util.Base64/getDecoder)
+    (let [{:keys [image-url pds-blob-url]} (merge audit/graph-defaults host-config)
+          image-url (clojure.string/replace image-url #"/+$" "")
+          b64dec   (java.util.Base64/getDecoder)
           prompt   (str "anime style background, " (:location scene) ", " (:action scene)
                         ", soft colors, 2D illustration")
           r (http-post image-url {:headers {"Content-Type" "application/json"} :throw false
@@ -61,6 +55,7 @@
                 {:scene_index (:scene_index scene)
                  :blob_key (get-in (json/parse-string (:body ub) true) [:blob :ref :$link] "")}))))))
     (catch Exception e {:scene_index (:scene_index scene) :error (clip (.getMessage e) 200)})))
+  )
 
 (def ^:dynamic *generate-one* nil)
 
@@ -93,7 +88,8 @@
 (defn node-insert-assets [state]
   (if (or (:error state) (empty? (:visual_assets state)))
     {}
-    (let [video-id (or (:video_id state) "")
+    (let [illustrator-did (:illustrator-did (audit/config-from-state state))
+          video-id (or (:video_id state) "")
           created  (str (java.time.OffsetDateTime/now java.time.ZoneOffset/UTC))]
       (try
         (doseq [asset (:visual_assets state)]
@@ -107,7 +103,7 @@
         (catch Exception e {:error (str "insert: " (clip (.getMessage e) 280))})))))
 
 (defn node-audit [state]
-  (audit/emit-audit-bg {:actor illustrator-did
+  (audit/emit-audit-bg {:actor (:illustrator-did (audit/config-from-state state))
                         :activity "yukkuri.generateVisual"
                         :object-id (str "visual:" (or (:video_id state) "") ":" (quot (System/currentTimeMillis) 1000))
                         :object-type "yukkuri.asset"

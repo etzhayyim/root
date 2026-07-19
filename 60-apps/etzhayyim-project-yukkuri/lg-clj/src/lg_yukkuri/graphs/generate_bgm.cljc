@@ -17,12 +17,6 @@
             [lg-yukkuri.audit :as audit]
             [lg-yukkuri.store :as store]))
 
-(def app-did      (or (System/getenv "YUKKURI_APP_DID") "did:web:yukkuri.etzhayyim.com"))
-(def composer-did (or (System/getenv "YUKKURI_COMPOSER_DID")
-                      "did:web:yukkuri.etzhayyim.com:actor:composer"))
-(def ongakuka-url (or (System/getenv "ONGAKUKA_XRPC_URL")
-                      "https://atproto.etzhayyim.com/xrpc/com.etzhayyim.ongakuka.compose"))
-
 (defn- clip [s n] (let [s (str s)] (subs s 0 (min n (count s)))))
 (defn- token-hex [n]
   (let [bs (byte-array n)] (.nextBytes (java.security.SecureRandom.) bs)
@@ -31,12 +25,14 @@
 (defn compose-bgm-with
   "Default `*compose-bgm*`: POST to the ongakuka compose XRPC, return
   {:bgm_blob_key ...} | {:error ...}."
-  [http-post {:keys [topic genre video-id]}]
+  ([http-post request] (compose-bgm-with http-post audit/graph-defaults request))
+  ([http-post host-config {:keys [topic genre video-id]}]
   (when-not (fn? http-post)
     (throw (ex-info "BGM composition requires an explicit HTTP POST capability"
                     {:capability :yukkuri/ongakuka-http-post})))
   (try
-    (let [r (http-post ongakuka-url {:headers {"Content-Type" "application/json"} :throw false
+    (let [r (http-post (:ongakuka-url (merge audit/graph-defaults host-config))
+                       {:headers {"Content-Type" "application/json"} :throw false
                                 :body (json/generate-string {:prompt (str "BGM for a Japanese educational video about: " topic)
                                                  :genre genre :durationSec 180 :loopable true
                                                  :projectId video-id})})]
@@ -45,7 +41,7 @@
         (let [data (json/parse-string (:body r) true)
               bk   (or (:blobKey data) (:blob_key data) "")]
           (if (empty? bk) {:error "ongakuka returned no blobKey"} {:bgm_blob_key bk}))))
-    (catch Exception e {:error (str "ongakuka: " (clip (.getMessage e) 180))})))
+    (catch Exception e {:error (str "ongakuka: " (clip (.getMessage e) 180))}))))
 
 (def ^:dynamic *compose-bgm* nil)
 
@@ -74,7 +70,8 @@
 (defn node-insert-asset [state]
   (if (or (:error state) (not (:bgm_blob_key state)))
     {}
-    (let [video-id (or (:video_id state) "")
+    (let [composer-did (:composer-did (audit/config-from-state state))
+          video-id (or (:video_id state) "")
           asset-id (str "asset-bgm-" video-id "-" (token-hex 3))
           created  (str (java.time.OffsetDateTime/now java.time.ZoneOffset/UTC))]
       (try
@@ -86,7 +83,7 @@
         (catch Exception e {:error (str "insert: " (clip (.getMessage e) 280))})))))
 
 (defn node-audit [state]
-  (audit/emit-audit-bg {:actor composer-did
+  (audit/emit-audit-bg {:actor (:composer-did (audit/config-from-state state))
                         :activity "yukkuri.generateBgm"
                         :object-id (str "bgm:" (or (:video_id state) "") ":" (quot (System/currentTimeMillis) 1000))
                         :object-type "yukkuri.asset"

@@ -55,8 +55,6 @@
    "com.etzhayyim.apps.yukkuri.renderVideo"     "render_video"
    "com.etzhayyim.apps.yukkuri.reviewVideo"     "review_video"})
 
-(def api-key (str/trim (or (System/getenv "LG_API_KEY") "")))
-
 (defn camel->snake
   "Mirror of server._camel_to_snake: insert _ before inner uppercase, lower-case."
   [s]
@@ -73,11 +71,12 @@
   (reduce-kv (fn [m k v] (assoc m (keyword (camel->snake k)) v)) {} (or body {})))
 
 (defn check-api-key
-  "If LG_API_KEY is set, x-api-key must match (mirrors _require_api_key)."
-  [x-api-key]
+  "If an explicit expected API key is supplied, x-api-key must match."
+  ([x-api-key] (check-api-key x-api-key ""))
+  ([x-api-key api-key]
   (if (and (seq api-key) (not= x-api-key api-key))
     {:status 401 :body {:error "invalid x-api-key"}}
-    nil))
+    nil)))
 
 (defn- run-graph [graph input]
   (let [started (System/nanoTime)]
@@ -103,13 +102,15 @@
   "POST /runs body → {:status :body}. body keys: :assistant_id :input.
   Enforces optional x-api-key via opts {:x-api-key ...}."
   ([body] (dispatch-run body {}))
-  ([body {:keys [x-api-key]}]
-   (or (check-api-key x-api-key)
+  ([body {:keys [x-api-key api-key host-config]}]
+   (or (check-api-key x-api-key (or api-key ""))
        (let [aid   (str (or (:assistant_id body) ""))
              graph (get GRAPHS aid)]
          (if (nil? graph)
            {:status 404 :body {:error (str "unknown graph: " aid)}}
-           (let [{:keys [result error errorType latencyMs]} (run-graph graph (:input body))]
+           (let [input (cond-> (or (:input body) {})
+                         host-config (assoc :host-config host-config))
+                 {:keys [result error errorType latencyMs]} (run-graph graph input)]
              (if error
                {:status 200 :body {:ok false :error error :errorType errorType
                                    :assistantId aid :latencyMs latencyMs}}
@@ -118,14 +119,17 @@
 (defn dispatch-xrpc
   "POST /xrpc/{nsid} body → {:status :body}. NSID → assistant_id; body keys are
   coerced camel→snake. /xrpc is unauthenticated (parity with the Python server)."
-  [nsid body]
+  ([nsid body] (dispatch-xrpc nsid body {}))
+  ([nsid body {:keys [host-config]}]
   (let [aid (get NSID-MAP nsid)]
     (if (nil? aid)
       {:status 404 :body {:error (str "unknown NSID: " nsid)}}
       (let [graph (get GRAPHS aid)
-            {:keys [result error errorType latencyMs]} (run-graph graph (coerce-xrpc-input body))]
+            input (cond-> (coerce-xrpc-input body)
+                    host-config (assoc :host-config host-config))
+            {:keys [result error errorType latencyMs]} (run-graph graph input)]
         (if error
           {:status 200 :body {:error (str "lg-yukkuri " errorType) :errorDetail error
                               :assistantId aid :latencyMs latencyMs}}
           {:status 200 :body (-> (if (map? result) result {:result result})
-                                 (assoc :latencyMs latencyMs :assistantId aid))})))))
+                                 (assoc :latencyMs latencyMs :assistantId aid))}))))))

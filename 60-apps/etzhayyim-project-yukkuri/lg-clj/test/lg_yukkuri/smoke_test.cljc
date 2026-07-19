@@ -76,9 +76,34 @@
   (testing "no key configured → pass"
     (is (nil? (server/check-api-key ""))))
   (testing "configured key mismatch → 401"
-    (with-redefs [server/api-key "secret123"]
-      (is (= 401 (:status (server/dispatch-run {:assistant_id "health"} {:x-api-key "wrong"}))))
-      (is (= 200 (:status (server/dispatch-run {:assistant_id "health"} {:x-api-key "secret123"})))))))
+    (is (= 401 (:status (server/dispatch-run {:assistant_id "health"}
+                                             {:x-api-key "wrong" :api-key "secret123"}))))
+    (is (= 200 (:status (server/dispatch-run {:assistant_id "health"}
+                                             {:x-api-key "secret123" :api-key "secret123"}))))))
+
+(deftest llm-host-config-is-explicit-and-allowlisted
+  (let [request (atom nil)
+        post (fn [url opts]
+               (reset! request [url opts])
+               {:status 200 :body "{\"choices\":[{\"message\":{\"content\":\"{}\"}}]}"})]
+    (is (= "{}" (llm/chat-json-with post {:llm-url "http://localhost:4000/v1/"
+                                           :llm-model "safe-model"
+                                           :llm-timeout-ms 1234}
+                                      "system" "user" {})))
+    (is (= "http://localhost:4000/v1/chat/completions" (first @request)))
+    (is (= 1234 (get-in @request [1 :timeout])))))
+
+(deftest audit-secret-is-an-explicit-capability
+  (let [request (atom nil)]
+    (audit/http-emit-with (fn [url opts] (reset! request [url opts]))
+                          {:dispatcher-url "http://dispatcher.internal/"
+                           :internal-secret "bound-secret"
+                           :audit-timeout-ms 777}
+                          {:activity "test"})
+    (is (= "http://dispatcher.internal/xrpc/com.etzhayyim.generic.audit.emit"
+           (first @request)))
+    (is (= "bound-secret" (get-in @request [1 :headers "x-internal-trust"])))
+    (is (= 777 (get-in @request [1 :timeout])))))
 
 (deftest camel-to-snake-coercion
   (is (= "video_id" (server/camel->snake "videoId")))
@@ -164,6 +189,17 @@
         (is (re-find #"com.etzhayyim.apps.yukkuri.video" (:video_uri out)))
         (is (= "vertex_yukkuri_video" (first @inserted)))
         (is (= "queued" (:status (second @inserted))))))))
+
+(deftest graph-host-config-propagates-as-data
+  (let [inserted (atom nil)]
+    (binding [store/*insert-row* (fn [_ row] (reset! inserted row) row)]
+      (compose/node-insert {:topic "safe"
+                            :host-config {:app-did "did:web:explicit.example"
+                                          :repo-did "did:web:repo.example"}})
+      (is (= "did:web:explicit.example" (:owner_did @inserted)))
+      (is (= "did:web:repo.example" (:repo @inserted)))
+      (is (clojure.string/starts-with? (:vertex_id @inserted)
+                                       "at://did:web:repo.example/")))))
 
 ;; ── generate_script graph: LLM stub → scenes → insert ───────────────────────
 
@@ -273,7 +309,7 @@
         (is (= "https://b2/x.mp4" (:render_url out)))
         (is (some #{"rendered"} @statuses))))))
 
-;; ── review_video graph: fail-open + verdict + publish ───────────────────────
+;; ── review_video graph: fail-closed + verdict + publish ─────────────────────
 
 (deftest review-video-pass-publishes
   (let [published (atom false) statuses (atom [])]
@@ -305,13 +341,13 @@
         (is (some #{"rejected"} @statuses))
         (is (false? @published))))))
 
-(deftest review-video-fails-open-on-llm-error
+(deftest review-video-fails-closed-on-llm-error
   (binding [store/*select-where* (fn [t _ _ _] (if (= t "vertex_yukkuri_video") [{:topic "T"}] []))
             store/*insert-row* (fn [_t row] row)
             llm/*chat-json* (fn [_ _ _] {:error "vllm 500"})
             rev/*social-publish* (fn [_] nil)]
     (let [out (g/invoke rev/GRAPH {:video_id "v1"})]
-      (is (true? (:review_passed out)) "fail-open to PASS")
+      (is (false? (:review_passed out)) "safety review outage must block publication")
       (is (= "llm_unavailable" (:review_reason out))))))
 
 ;; ── Murakumo fleet guard (ADR-2605215000) ───────────────────────────────────
@@ -349,7 +385,6 @@
 (deftest audit-emit-injectable
   (let [events (atom [])]
     (binding [audit/*emit* (fn [p] (swap! events conj p))]
-      (with-redefs [audit/audit-disabled? false]
-        (audit/emit-audit-bg {:actor "a" :activity "act" :object-id "o" :object-type "t"})))
+      (audit/emit-audit-bg {:actor "a" :activity "act" :object-id "o" :object-type "t"}))
     (is (= 1 (count @events)))
     (is (= "act" (:activity (first @events))))))
