@@ -21,11 +21,7 @@
 60-apps/etzhayyim-project-bpmn/appview/etzhayyim-wasm-bpmn-bx7qm9p4/src/app.ts:371:kysely-direct-db:const db = createKyselyDb(env.HYPERDRIVE) as unknown as Kysely<Database>;
 60-apps/etzhayyim-project-bpmn/appview/etzhayyim-wasm-bpmn-bx7qm9p4/src/app.ts:99:kysely-direct-db:await db.insertInto(table as any).values(row as any).execute();
 60-apps/etzhayyim-project-bpmn/xrpc-adapter/wrangler.jsonc:1:wrangler-non-sveltekit-main:"main": "src/index.ts"
-60-apps/etzhayyim-project-briefing/appview/etzhayyim-wasm-briefing-w3olw1pf/src/app.ts:54:kysely-direct-db:await createKyselyDb().insertInto(table as any).values({ vertex_id, sensitivity_ord: 2, owner_did: ownerDid, actor_id: appId, ...snakeRec }).execute();
 60-apps/etzhayyim-project-browser/provider/darkweb-proxy/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "worker.ts"
-60-apps/etzhayyim-project-coverage/appview/coverage-ui-c0v3r4g3/src/app.ts:126:hyperdrive-usage:const db = createKyselyDb((sdk.env as any).HYPERDRIVE) as unknown as Kysely<Database>;
-60-apps/etzhayyim-project-coverage/appview/coverage-ui-c0v3r4g3/src/app.ts:126:kysely-direct-db:const db = createKyselyDb((sdk.env as any).HYPERDRIVE) as unknown as Kysely<Database>;
-60-apps/etzhayyim-project-coverage/appview/coverage-ui-c0v3r4g3/src/app.ts:128:kysely-direct-db:.selectFrom("mv_world_coverage_live")
 60-apps/etzhayyim-project-cyber-drill/worker/wrangler.jsonc:7:wrangler-non-sveltekit-main:"main": "src/index.ts"
 60-apps/etzhayyim-project-deai/appview/deai-cgxi8oem/src-ts/app.ts:13:hono-import:import type { Context } from "hono";
 60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:1010:kysely-direct-db:await hcDb().insertInto("vertex_hc_game_capture_assignment" as any).values({
@@ -67,31 +63,6 @@
 60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:927:kysely-direct-db:await hcDb().insertInto("vertex_hc_contract_acceptance" as any).values({
 60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:97:kysely-direct-db:await hcDb().insertInto("vertex_hc_task" as any).values({
 60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:982:kysely-direct-db:await hcDb().insertInto("vertex_hc_game_capture_task" as any).values({
-60-apps/etzhayyim-project-hoge/appview/src/index.ts:16:hono-import:import { Hono } from "hono";
-60-apps/etzhayyim-project-intel/appview/etzhayyim-wasm-intel-i7n73l0x/src/app.ts:178:kysely-direct-db:const promise = createKyselyDb()
-60-apps/etzhayyim-project-intel/appview/etzhayyim-wasm-intel-i7n73l0x/src/app.ts:179:kysely-direct-db:.insertInto(table as any)
-60-apps/etzhayyim-project-intel/appview/etzhayyim-wasm-intel-i7n73l0x/src/app.ts:336:kysely-direct-db:const db = createKyselyDb();
-60-apps/etzhayyim-project-intel/appview/etzhayyim-wasm-intel-i7n73l0x/src/app.ts:337:kysely-direct-db:const rows = await db.selectFrom(VERTEX_INTEL_REPORT_TABLE as any).selectAll()
-60-apps/etzhayyim-project-intel/appview/etzhayyim-wasm-intel-i7n73l0x/src/app.ts:351:kysely-direct-db:const db = createKyselyDb();
-60-apps/etzhayyim-project-intel/appview/etzhayyim-wasm-intel-i7n73l0x/src/app.ts:352:kysely-direct-db:const rows = await db.selectFrom(VERTEX_INTEL_REPORT_TABLE as any).selectAll()
-60-apps/etzhayyim-project-intel/appview/etzhayyim-wasm-intel-i7n73l0x/src/app.ts:372:kysely-direct-db:const db = createKyselyDb();
-60-apps/etzhayyim-project-intel/appview/etzhayyim-wasm-intel-i7n73l0x/src/app.ts:373:kysely-direct-db:const rows = await db.selectFrom(VERTEX_INTEL_ENTITY_DID_TABLE as any).selectAll()
-60-apps/etzhayyim-project-intel/appview/etzhayyim-wasm-intel-i7n73l0x/src/app.ts:532:kysely-direct-db:const db = createKyselyDb();
-60-apps/etzhayyim-project-intel/appview/etzhayyim-wasm-intel-i7n73l0x/src/app.ts:534:kysely-direct-db:.selectFrom(VERTEX_INTEL_INFERENCE_CHAIN_TABLE as any)
-60-apps/etzhayyim-project-intel/appview/etzhayyim-wasm-intel-i7n73l0x/src/app.ts:541:kysely-direct-db:.selectFrom(VERTEX_INTEL_INFERRED_COHORT_TABLE as any)
-60-apps/etzhayyim-project-intel/appview/etzhayyim-wasm-intel-i7n73l0x/src/app.ts:546:kysely-direct-db:.selectFrom(VERTEX_INTEL_EVIDENCE_TABLE as any)
-60-apps/etzhayyim-project-intel/appview/etzhayyim-wasm-intel-i7n73l0x/src/app.ts:558:kysely-direct-db:let query: any = createKyselyDb().selectFrom(VERTEX_INTEL_INFERRED_COHORT_TABLE as any).selectAll();
-60-apps/etzhayyim-project-intel/appview/etzhayyim-wasm-intel-i7n73l0x/src/app.ts:569:kysely-direct-db:const db = createKyselyDb();
-60-apps/etzhayyim-project-intel/appview/etzhayyim-wasm-intel-i7n73l0x/src/app.ts:570:kysely-direct-db:const cohortsA = await db.selectFrom(VERTEX_INTEL_INFERRED_COHORT_TABLE as any).selectAll().where("chain_id", "=", req.chainIdA).execute();
-60-apps/etzhayyim-project-intel/appview/etzhayyim-wasm-intel-i7n73l0x/src/app.ts:571:kysely-direct-db:const cohortsB = await db.selectFrom(VERTEX_INTEL_INFERRED_COHORT_TABLE as any).selectAll().where("chain_id", "=", req.chainIdB).execute();
-60-apps/etzhayyim-project-intel/appview/etzhayyim-wasm-intel-i7n73l0x/src/app.ts:630:kysely-direct-db:const rows = await createKyselyDb()
-60-apps/etzhayyim-project-intel/appview/etzhayyim-wasm-intel-i7n73l0x/src/app.ts:631:kysely-direct-db:.selectFrom(VERTEX_INTEL_INFERRED_COHORT_TABLE as any)
-60-apps/etzhayyim-project-intel/appview/etzhayyim-wasm-intel-i7n73l0x/src/app.ts:64:kysely-direct-db:const db = createKyselyDb();
-60-apps/etzhayyim-project-intel/appview/etzhayyim-wasm-intel-i7n73l0x/src/app.ts:671:kysely-direct-db:let query: any = createKyselyDb()
-60-apps/etzhayyim-project-intel/appview/etzhayyim-wasm-intel-i7n73l0x/src/app.ts:672:kysely-direct-db:.selectFrom(VERTEX_INTEL_INFERRED_COHORT_TABLE as any)
-60-apps/etzhayyim-project-intel/appview/etzhayyim-wasm-intel-i7n73l0x/src/app.ts:67:kysely-direct-db:.selectFrom(table as any)
-60-apps/etzhayyim-project-intel/appview/etzhayyim-wasm-intel-i7n73l0x/src/app.ts:73:kysely-direct-db:.selectFrom(fallbackTable as any)
-60-apps/etzhayyim-project-intel/appview/etzhayyim-wasm-intel-i7n73l0x/src/app.ts:941:kysely-direct-db:await createKyselyDb().insertInto(VERTEX_INTEL_REPORT_TABLE as any).values({
 60-apps/etzhayyim-project-itonami/appview/itonami-it0n4m1x/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-jukyu/appview/jukyu-ui-jukyu001/wrangler.jsonc:29:wrangler-hyperdrive-binding:"hyperdrive": [
 60-apps/etzhayyim-project-jukyu/appview/jukyu-ui-jukyu001/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/app.ts"
@@ -247,7 +218,6 @@
 60-apps/etzhayyim-project-open-swift/worker/src/defence-handlers.ts:35:hyperdrive-usage:const db = createKyselyDb(env.HYPERDRIVE) as any;
 60-apps/etzhayyim-project-open-swift/worker/src/defence-handlers.ts:35:kysely-direct-db:const db = createKyselyDb(env.HYPERDRIVE) as any;
 60-apps/etzhayyim-project-open-swift/worker/src/defence-handlers.ts:37:kysely-direct-db:.insertInto("vertex_open_defence_event")
-60-apps/etzhayyim-project-open-unspsc/appview/worker/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/index.ts"
 60-apps/etzhayyim-project-open-water/worker/src/defence-handlers.ts:19:hyperdrive-usage:HYPERDRIVE: { connectionString: string };
 60-apps/etzhayyim-project-open-water/worker/src/defence-handlers.ts:35:hyperdrive-usage:const db = createKyselyDb(env.HYPERDRIVE) as any;
 60-apps/etzhayyim-project-open-water/worker/src/defence-handlers.ts:35:kysely-direct-db:const db = createKyselyDb(env.HYPERDRIVE) as any;

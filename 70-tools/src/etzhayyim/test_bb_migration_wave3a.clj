@@ -201,7 +201,7 @@
 (deftest test-dodaf-id-from-title
   (testing "derives stable ID from path+title"
     (is (= "etzhayyim-project-hoge-shannon-redundancy-prohibition"
-           (dodaf/dodaf-id-from-title "60-apps/etzhayyim-project-hoge/CLAUDE.md"
+           (dodaf/dodaf-id-from-title "orgs/etzhayyim/com-etzhayyim-app-hoge/CLAUDE.md"
                                        "Shannon Redundancy Prohibition")))
     (is (= "root-no-kv-usage"
            (dodaf/dodaf-id-from-title "CLAUDE.md" "No KV Usage")))))
