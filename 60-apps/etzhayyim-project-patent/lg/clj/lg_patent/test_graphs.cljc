@@ -56,6 +56,12 @@
     (is (= "skipped" (:status out)))
     (is (= "network disabled" (:error out)))))
 
+(deftest ingest-missing-http-capability-skips
+  (binding [iuw/*http-get* nil]
+    (let [out (iuw/fetch-uspto {})]
+      (is (= "skipped" (:status out)))
+      (is (= "HTTP capability not configured" (:error out))))))
+
 (deftest ingest-http-error-skips
   (binding [iuw/*http-get* (fn [_url] {:lg-patent.graphs.ingest-uspto-weekly/http-error 503})]
     (let [out (g/invoke iuw/GRAPH {})]
