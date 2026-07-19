@@ -315,3 +315,13 @@ class TestEdnReader:
 
     def test_no_lexicons_is_empty(self, audit):
         assert audit.edn_lexicons('{:actor/id "x" :actor/glyph "兜"}') == []
+
+    def test_root_owned_registry_is_edn_canonical(self, audit, tmp_path):
+        registry = tmp_path / "root-owned.edn"
+        registry.write_text(
+            '{:registry/lexicons ["com.etzhayyim.apps.etzhayyim.'
+            'priorityConformanceAttestation"]}'
+        )
+        assert audit.root_owned_nsids(registry) == {
+            "com.etzhayyim.apps.etzhayyim.priorityConformanceAttestation"
+        }

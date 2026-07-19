@@ -57,6 +57,7 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 WEST_ROOT = Path(os.environ.get("ETZHAYYIM_WEST_ROOT", REPO_ROOT.parents[2]))
 ACTORS_DIR = WEST_ROOT / "orgs" / "etzhayyim"
 LEXICONS_ROOT = REPO_ROOT / "00-contracts" / "lexicons"
+ROOT_OWNERSHIP_REGISTRY = LEXICONS_ROOT / "root-owned.edn"
 
 # NSID convention check — at least 3 dot-segments (e.g. com.etzhayyim.X.Y).
 # Per AT Protocol Lexicon spec the last segment is camelCase/PascalCase
@@ -276,6 +277,23 @@ def edn_lexicons(text: str) -> list[str]:
     return out
 
 
+def root_owned_nsids(path: Path = ROOT_OWNERSHIP_REGISTRY) -> set[str]:
+    """Non-actor contracts intentionally owned by root infrastructure.
+
+    The EDN registry is the ownership SSoT.  These contracts must not be
+    falsely reported as actor orphans merely because their JSON projection
+    shares a root compatibility directory with actor contracts.
+    """
+    if not path.is_file():
+        return set()
+    toks = _edn_tokens(path.read_text())
+    for i, tok in enumerate(toks[:-1]):
+        if tok == ("sym", ":registry/lexicons") and toks[i + 1] == ("open", "["):
+            coll, _ = _read_form(toks, i + 1)
+            return set(_nsids_from_vec(coll))
+    return set()
+
+
 def declared_nsids(mpath: Path) -> list[str]:
     """Lexicon NSIDs declared by a manifest, normalised to the NSID string.
 
@@ -313,6 +331,7 @@ def main() -> int:
     actors_with_drift: list[tuple[Path, list[tuple[str, Path]]]] = []
     invalid_nsids: list[tuple[Path, str]] = []
     declared_global: set[str] = set()
+    root_owned = root_owned_nsids()
     # dir → set of NSIDs declared into it by some manifest (the dir is "owned").
     owned_dirs: dict[Path, set[str]] = {}
 
@@ -359,7 +378,7 @@ def main() -> int:
             declared_here = owned_dirs[dirp]
             prefix = next(iter(declared_here)).rsplit(".", 1)[0]
             nsid = f"{prefix}.{jf.stem}"
-            if nsid not in declared_global:
+            if nsid not in declared_global and nsid not in root_owned:
                 orphans.append(nsid)
 
     # Reporting. The aggregator script picks the LAST `: N$` line as
@@ -372,6 +391,7 @@ def main() -> int:
           f"{location_counts['owner-wire-contract-lexicons']}")
     print(f"Contracts in owner NSID paths: {location_counts['owner-nsid-path']}")
     print(f"Contracts in root compatibility layer: {location_counts['root-compat']}")
+    print(f"Root-owned non-actor contracts: {len(root_owned)}")
     print(f"Actors with drift: {len(actors_with_drift)}")
     print(f"Undeclared orphan lexicon files (tracked, not in rollup): {len(orphans)}")
     if invalid_nsids:
