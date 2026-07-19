@@ -16,8 +16,6 @@
             [lg-mangaka.store :as store]
             [lg-mangaka.audit :as audit]))
 
-(def app-did (or (System/getenv "MANGAKA_APP_DID") "did:web:mangaka.etzhayyim.com"))
-
 (defn- now-iso []
   (.format (java.time.format.DateTimeFormatter/ofPattern "yyyy-MM-dd'T'HH:mm:ss'Z'")
            (java.time.ZonedDateTime/now (java.time.ZoneOffset/UTC))))
@@ -38,7 +36,8 @@
 
 (defn node-emit-audit [state]
   (audit/emit-audit-bg
-   {:actor app-did
+   state
+   {:actor (:app-did (audit/config state))
     :activity "mangaka.health.check"
     :object-id (str "health:" (quot (System/currentTimeMillis) 1000))
     :object-type "mangaka.health"

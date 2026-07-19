@@ -10,9 +10,8 @@
   `enabled?` is the analogue. No RetryPolicy in langgraph-clj (Python: 2)."
   (:require [clojure.string :as str]
             [langgraph.graph :as g]
-            [lg-mangaka.store :as store]))
-
-(def app-did (or (System/getenv "MANGAKA_APP_DID") "did:web:mangaka.etzhayyim.com"))
+            [lg-mangaka.store :as store]
+            [lg-mangaka.audit :as audit]))
 (def nsid "com.etzhayyim.mangaka.document")
 
 (defn node-load [state]
@@ -21,7 +20,8 @@
       (str/blank? doc-id) {:error "docId required"}
       (not (store/enabled?)) {:error "RW_URL not configured"}
       :else
-      (let [vertex-id (str "at://" app-did "/" nsid "/" doc-id)]
+      (let [app-did (:app-did (audit/config state))
+            vertex-id (str "at://" app-did "/" nsid "/" doc-id)]
         (try
           (let [rows (store/select-where "vertex_mangaka" "vertex_id" vertex-id {:limit 1})
                 row  (first rows)]

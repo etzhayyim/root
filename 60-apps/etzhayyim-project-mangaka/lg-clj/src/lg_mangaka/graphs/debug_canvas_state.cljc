@@ -18,9 +18,8 @@
   (:require [clojure.string :as str]
             [cheshire.core :as json]
             [langgraph.graph :as g]
-            [lg-mangaka.store :as store]))
-
-(def app-did (or (System/getenv "MANGAKA_APP_DID") "did:web:mangaka.etzhayyim.com"))
+            [lg-mangaka.store :as store]
+            [lg-mangaka.audit :as audit]))
 (def nsid "com.etzhayyim.mangaka.document")
 (def ^:private eps 0.01)
 
@@ -32,7 +31,8 @@
   (let [doc-id (str/trim (str (or (pick state :doc_id :docId) "")))]
     (if (str/blank? doc-id)
       {:status "error" :error "docId required"}
-      (let [vertex-id (str "at://" app-did "/" nsid "/" doc-id)]
+      (let [app-did (:app-did (audit/config state))
+            vertex-id (str "at://" app-did "/" nsid "/" doc-id)]
         (try
           (let [rows (store/select-where "vertex_mangaka" "vertex_id" vertex-id {:limit 1})
                 row  (first rows)

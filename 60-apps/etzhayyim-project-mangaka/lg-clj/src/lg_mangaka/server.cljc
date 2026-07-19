@@ -36,7 +36,9 @@
   (:require [langgraph.graph :as g]
             [cheshire.core :as json]
             [clojure.string :as str]
-            [org.httpkit.server :as srv]
+            [lg-mangaka.store :as store]
+            [lg-mangaka.llm :as llm]
+            [lg-mangaka.audit :as audit]
             [lg-mangaka.graphs.health :as health]
             [lg-mangaka.graphs.agent-chat :as agent-chat]
             [lg-mangaka.graphs.save-document :as save-document]
@@ -44,8 +46,6 @@
             [lg-mangaka.graphs.list-documents :as list-documents]
             [lg-mangaka.graphs.record-op-log :as record-op-log]
             [lg-mangaka.graphs.debug-canvas-state :as debug-canvas-state]))
-
-(defn- env [k default] (or (System/getenv k) default))
 
 (def GRAPHS
   {"health"             health/GRAPH
@@ -68,8 +68,6 @@
    "com.etzhayyim.mangaka.listDocuments"   "list_documents"
    "com.etzhayyim.mangaka.recordOpLog"     "record_op_log"
    "com.etzhayyim.mangaka.debugCanvasState" "debug_canvas_state"})
-
-(def ^:private api-key (str/trim (env "LG_API_KEY" "")))
 
 ;; ── input key normalization (camelCase / snake_case JSON → kebab keyword) ──
 ;; mirrors server.py:_camel_to_snake (the XRPC shim) but lands on kebab keywords
@@ -100,42 +98,52 @@
   {:status 200 :body {:ok true :graphs (vec (keys GRAPHS)) :version "0.1.0"}})
 
 (defn check-api-key
-  "Mirrors server._require_api_key: if LG_API_KEY is set, x-api-key must match."
-  [x-api-key]
-  (when (and (seq api-key) (not= x-api-key api-key))
-    {:status 401 :body {:detail "invalid x-api-key"}}))
+  "If an explicit API key is configured, x-api-key must match."
+  ([x-api-key] (check-api-key "" x-api-key))
+  ([expected x-api-key]
+   (when (and (seq expected) (not= x-api-key expected))
+     {:status 401 :body {:detail "invalid x-api-key"}})))
 
-(defn- run-graph [graph input]
-  (try
-    {:status 200 :body {:ok true :result (g/invoke graph (or input {}))}}
-    (catch Exception e
-      {:status 500 :body {:ok false :error (let [m (str (.getMessage e))]
-                                             (subs m 0 (min 500 (count m))))
-                          :errorType (.. e getClass getSimpleName)}})))
+(defn- run-graph [graph input {:keys [host-config llm-http-post audit-http-post]}]
+  (let [host-config (merge audit/default-config (or host-config {}))]
+    (binding [store/*enabled?* (boolean (:store-enabled? host-config))
+              llm/*http-post* llm-http-post
+              audit/*emit* (if (fn? audit-http-post)
+                             (partial audit/http-emit-with audit-http-post)
+                             (fn [_ _] nil))]
+      (try
+        {:status 200 :body {:ok true :result
+                            (g/invoke graph (assoc (or input {}) :host-config host-config))}}
+        (catch Exception e
+          {:status 500 :body {:ok false :error (let [m (str (.getMessage e))]
+                                                 (subs m 0 (min 500 (count m))))
+                              :errorType (.. e getClass getSimpleName)}})))))
 
 (defn dispatch-run
   "POST /runs body → {:status :body}. body keys: :assistant_id :input.
   Enforces optional x-api-key via opts {:x-api-key ...}."
   ([body] (dispatch-run body {}))
-  ([body {:keys [x-api-key]}]
-   (or (check-api-key x-api-key)
+  ([body {:keys [x-api-key api-key] :as capabilities}]
+   (or (check-api-key (or api-key "") x-api-key)
        (let [aid   (str (or (:assistant_id body) (get body "assistant_id") ""))
              graph (get GRAPHS aid)]
          (if (nil? graph)
            {:status 404 :body {:detail (str "unknown graph: " aid)}}
-           (run-graph graph (normalize-input (or (:input body) (get body "input") {}))))))))
+           (run-graph graph (normalize-input (or (:input body) (get body "input") {}))
+                      capabilities))))))
 
 (defn dispatch-xrpc
   "POST|GET /xrpc/{nsid} body → {:status :body}. /xrpc is unauthenticated."
-  [nsid body]
+  ([nsid body] (dispatch-xrpc nsid body {}))
+  ([nsid body capabilities]
   (let [aid (get NSID-MAP nsid)]
     (if (nil? aid)
       {:status 404 :body {:detail (str "unknown NSID: " nsid)}}
-      (let [res (run-graph (get GRAPHS aid) (normalize-input (or body {})))]
+      (let [res (run-graph (get GRAPHS aid) (normalize-input (or body {})) capabilities)]
         ;; flatten to the python xrpc_compat shape (result + assistantId)
         (if (= 200 (:status res))
           {:status 200 :body (assoc (get-in res [:body :result]) :assistantId aid)}
-          res)))))
+          res))))))
 
 ;; ── http handler ──
 (defn- json-resp [{:keys [status body]}]
@@ -146,7 +154,7 @@
   (when-let [b (:body req)]
     (try (json/parse-string (slurp b) true) (catch Exception _ nil))))
 
-(defn handler [req]
+(defn handler-with-capabilities [capabilities req]
   (let [uri (:uri req) method (:request-method req)
         xapi (get-in req [:headers "x-api-key"])]
     (cond
@@ -154,16 +162,23 @@
       (json-resp (health))
 
       (and (= method :post) (= uri "/runs"))
-      (json-resp (dispatch-run (or (parse-body req) {}) {:x-api-key xapi}))
+      (json-resp (dispatch-run (or (parse-body req) {})
+                               (assoc capabilities :x-api-key xapi)))
 
       (str/starts-with? uri "/xrpc/")
-      (json-resp (dispatch-xrpc (subs uri (count "/xrpc/")) (parse-body req)))
+      (json-resp (dispatch-xrpc (subs uri (count "/xrpc/")) (parse-body req)
+                                capabilities))
 
       :else
       (json-resp {:status 404 :body {:detail "not found"}}))))
 
-(defn -main [& args]
-  (let [port (Integer/parseInt (str (or (first args) (env "PORT" "2024"))))]
-    (srv/run-server handler {:port port})
-    (println (str "lg-mangaka server up on :" port " graphs=" (pr-str (keys GRAPHS))))
-    @(promise)))
+(defn handler [req] (handler-with-capabilities {} req))
+
+(defn run-server-with
+  "Start the server only through an explicitly supplied host capability."
+  [run-server port capabilities]
+  (run-server (partial handler-with-capabilities capabilities) {:port port}))
+
+(defn -main [& _]
+  (throw (ex-info "Mangaka portable runtime requires an explicit server host adapter"
+                  {:capability :mangaka/run-server})))

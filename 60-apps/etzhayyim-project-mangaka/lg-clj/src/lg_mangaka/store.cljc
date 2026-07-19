@@ -18,13 +18,11 @@
     q              ≙ client.q(datalog)   (health probe)"
   (:require [clojure.string :as str]))
 
-(defn- env [k] (System/getenv k))
+(def ^:dynamic *enabled?* false)
 
 (defn enabled?
   "True when the store should persist (faithful analogue of Python's RW_URL gate)."
-  []
-  (or (= "1" (env "MANGAKA_STORE_ENABLED"))
-      (boolean (seq (or (env "RW_URL") (env "LG_CHECKPOINTER_URL") "")))))
+  [] (boolean *enabled?*))
 
 ;; append-only in-process backend: table -> (vector of row maps)
 (defonce ^:private db (atom {}))
