@@ -931,6 +931,7 @@
 {:id "adr-0031-kami-vrm-three-free-topology" :title "ADR-0031: KAMI VRM three.js-free topology" :status "active" :doc-type "adr" :topic "vrm-runtime" :authoritative true :last-verified "2026-04-18" :file "0031-kami-vrm-three-free-topology.edn"}
 {:id "ADR-2606061500" :title "tsumugi historical-influence diachronic weave (past humanity as latent influence nodes)" :status "accepted" :doc-type "adr" :topic "engi-knowledge-graph" :authoritative true :last-verified "2026-06-07" :file "2606061501-tsumugi-historical-influence-diachronic-weave.edn"}
 {:id "ADR-2605291700" :title "baien-moemoekyun plateau analysis (cycles 17-114) + Best-of-N as the deployable score-lift path" :status "active" :doc-type "adr" :topic "baien-moemoekyun" :authoritative true :last-verified "2026-05-29" :file "2605291700-moemoekyun-plateau-and-bestofn-path.edn"}
+{:id "2607193650" :title "Extract nine-to-eleven-file active app artifacts" :status ":accepted" :doc-type "adr" :file "2607193650-nine-to-eleven-file-app-extraction.edn"}
 {:id "2607193640" :title "Close residual operational references to the actor compatibility layer" :status ":accepted" :doc-type "adr" :file "2607193640-operational-actor-reference-closure.edn"}
 {:id "2607193630" :title "Extract remaining active four-to-eight-file app artifacts" :status ":accepted" :doc-type "adr" :file "2607193630-active-four-to-eight-file-app-extraction.edn"}
 {:id "2607193620" :title "Drain bounded four-to-eight-file legacy app shells" :status ":accepted" :doc-type "adr" :file "2607193620-four-to-eight-file-app-shell-drain.edn"}

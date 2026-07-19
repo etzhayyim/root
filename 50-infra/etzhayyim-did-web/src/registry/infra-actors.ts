@@ -569,7 +569,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
   tsuzuri: {
     description:
       "綴 Tsuzuri — Adobe-independent, in-browser (WASM) PDF editor. Merge/split/rotate/delete/reorder + text annotation (JP-font subset embed) + OCR (tesseract.js) + metadata, all client-side; files never leave the device. Browser-local under the ameno execution model (ADR-2606014500). Static app, not a WASM component — no wasmCid.",
-    primarySchema: "60-apps/tsuzuri/",
+    primarySchema: "orgs/etzhayyim/com-etzhayyim-app-tsuzuri/",
     glyph: "綴",
     displayName: "Tsuzuri — in-browser PDF editor",
     service: [

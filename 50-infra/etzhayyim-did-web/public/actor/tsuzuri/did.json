@@ -33,7 +33,7 @@
     "glyph": "綴",
     "wasmCid": null,
     "execModel": "service",
-    "primarySchema": "60-apps/tsuzuri/ (static browser-local app; vendorable for full offline)",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-app-tsuzuri/ (static browser-local app; vendorable for full offline)",
     "note": "verificationMethod empty — on-chain ERC725 mirror pending; did:web trust root = TLS (no server-minted key, ADR-2605231525)"
   }
 }

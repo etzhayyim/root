@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-07-19",
+  "updated_at": "2026-07-20",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.edn",
@@ -1737,6 +1737,21 @@
       "path": "90-docs/adr/2607193640-operational-actor-reference-closure.edn",
       "id": "2607193640",
       "title": "Close residual operational references to the actor compatibility layer",
+      "status": "accepted",
+      "doc_type": "doc",
+      "topic": "",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2607193650-nine-to-eleven-file-app-extraction.edn",
+      "id": "2607193650",
+      "title": "Extract nine-to-eleven-file active app artifacts",
       "status": "accepted",
       "doc_type": "doc",
       "topic": "",
