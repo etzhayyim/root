@@ -96,8 +96,36 @@
   (testing "off-fleet endpoint refused"
     (is (thrown? #?(:clj clojure.lang.ExceptionInfo :cljs :default)
                  (llm/assert-murakumo "https://api.openai.com/v1"))))
+  (testing "malformed and lookalike endpoints refused"
+    (is (thrown? #?(:clj clojure.lang.ExceptionInfo :cljs :default)
+                 (llm/assert-murakumo "not-a-url")))
+    (is (thrown? #?(:clj clojure.lang.ExceptionInfo :cljs :default)
+                 (llm/assert-murakumo "http://127.0.0.1.attacker.example:4000/v1"))))
   (testing "loopback gateway allowed"
     (is (nil? (llm/assert-murakumo "http://127.0.0.1:4000/v1")))))
+
+(deftest live-authority-requires-explicit-capabilities
+  (is (thrown-with-msg? #?(:clj clojure.lang.ExceptionInfo :cljs :default)
+                        #"explicit chat capability"
+                        (llm/chat "system" "user")))
+  (is (thrown-with-msg? #?(:clj clojure.lang.ExceptionInfo :cljs :default)
+                        #"explicit HTTP POST capability"
+                        (llm/chat-with nil llm/default-config "system" "user" {}))))
+
+(deftest injected-llm-wire-contract
+  #?(:clj
+     (let [seen (atom nil)
+           result (llm/chat-with
+                   (fn [url opts]
+                     (reset! seen [url opts])
+                     {:status 200
+                      :body "{\"choices\":[{\"message\":{\"content\":\"safe\"}}]}"})
+                   llm/default-config "system" "user"
+                   {:temperature 0.2 :max-tokens 33})]
+       (is (= "safe" result))
+       (is (= "http://127.0.0.1:4000/v1/chat/completions" (first @seen)))
+       (is (= 120000 (get-in @seen [1 :timeout])))
+       (is (re-find #"max_tokens.*33" (get-in @seen [1 :body]))))))
 
 ;; ── store seam (fake) ───────────────────────────────────────────────────────
 
