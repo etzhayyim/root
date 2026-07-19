@@ -1,0 +1,4 @@
+{:schema "etzhayyim.migration/moved-v1"
+ :source {:repo "etzhayyim/root" :path "10-protocol/signal" :revision "ae0cff0811c43f9139dffb1c378a7bf235e1dafa"}
+ :destination {:repo "etzhayyim/com-etzhayyim-signal" :revision "7c6bc102d0a2bd681f000f87c364021c24f9600f"}
+ :status :moved}

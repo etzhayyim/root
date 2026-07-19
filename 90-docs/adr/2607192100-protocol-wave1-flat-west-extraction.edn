@@ -1,0 +1,25 @@
+{:schema "etzhayyim.adr/v1"
+ :id "2607192100"
+ :title "Protocol wave 1 flat west extraction"
+ :status :accepted
+ :date "2026-07-19"
+ :decision
+ {:layout "orgs/etzhayyim/com-etzhayyim-*"
+  :canonical-record :edn
+  :moved
+  [{:source "10-protocol/did-etzhayyim" :repo "etzhayyim/com-etzhayyim-did-etzhayyim" :revision "aa09fa0a7d33fd16d54534d199f3f55415ccbf5a"}
+   {:source "10-protocol/lexicons-bundle" :repo "etzhayyim/com-etzhayyim-lexicons-bundle" :revision "7f335cf0c4fe2c0d8efbd23bb65215348a178581"}
+   {:source "10-protocol/signal" :repo "etzhayyim/com-etzhayyim-signal" :revision "7c6bc102d0a2bd681f000f87c364021c24f9600f"}
+   {:source "10-protocol/xrpc" :repo "etzhayyim/com-etzhayyim-xrpc" :revision "c2716098eed399a4be4a8fed9918ff6e952e3797"}]
+  :consumer-policy {:workspace "flat west siblings via ../com-etzhayyim-*"
+                    :generators "write to the xrpc sibling repository"
+                    :deploy-helper "resolve xrpc from the sibling repository"}
+  :old-reference-classification
+  {:operational "must be rewired or removed"
+   :historical "may remain in ADR evidence"
+   :fixture "fleet-refactor corpora retain source-era paths as immutable test provenance"
+   :generated-drift "machine-absolute Wrangler aliases are non-portable generated artifacts; generator ownership must replace them before regeneration"}}
+ :consequences
+ {:root "each moved directory contains only MOVED.edn"
+  :go-policy "Go and TinyGo implementations remain deprecated and are not migrated"
+  :manifest "standalone repositories require exact west pins"}}

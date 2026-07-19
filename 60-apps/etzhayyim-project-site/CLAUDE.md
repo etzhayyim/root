@@ -18,8 +18,8 @@
 | `did:web:site.etzhayyim.com:example-com:docs-api-v2` | `did:etzhayyim:bafkrei...site:bafkrei...example-com:bafkrei...docs-api-v2` |
 
 - Spec: `90-docs/adr/0029-did-etzhayyim-method-specification.md`
-- Lib: `10-protocol/did-etzhayyim/` (CIDv1 + DAG-CBOR genesis op + W3C DID Doc)
-- Resolver: `did.etzhayyim.com` (`10-protocol/did-etzhayyim/resolver/`)
+- Lib: `orgs/etzhayyim/com-etzhayyim-did-etzhayyim/` (CIDv1 + DAG-CBOR genesis op + W3C DID Doc)
+- Resolver: `did.etzhayyim.com` (`orgs/etzhayyim/com-etzhayyim-did-etzhayyim/resolver/`)
 - Migration XRPC: `com.etzhayyim.identity.submitOp` (PDS handler)
 - 既存 15,283 wikipedia path は **topological-sort で root → leaf 順** に CIDv1 化 (`etzhayyim identity migrate-paths --root did:web:site.etzhayyim.com`、scaffold 予定)
 

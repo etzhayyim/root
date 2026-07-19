@@ -16,7 +16,7 @@ export default defineConfig({
       },
       {
         find: /^@etzhayyim\/xrpc$/,
-        replacement: path.resolve(root, "../../../../10-protocol/xrpc/src/index.ts"),
+        replacement: path.resolve(root, "../../../../../com-etzhayyim-xrpc/src/index.ts"),
       },
     ],
   },

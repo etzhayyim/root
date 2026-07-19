@@ -23,13 +23,13 @@ importers:
         specifier: ^26.0.1
         version: 26.5.0
 
-  10-protocol/signal:
+  ../com-etzhayyim-signal:
     dependencies:
       '@atproto/api':
         specifier: ^0.20.28
         version: 0.20.30
 
-  10-protocol/xrpc:
+  ../com-etzhayyim-xrpc:
     dependencies:
       '@atproto/common-web':
         specifier: ^0.5.6

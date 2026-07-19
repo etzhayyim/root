@@ -177,7 +177,7 @@ For now this is documented but not exercised — Phase 2 will land a
   staked claim's evidence stays content-addressed even if the original
   AT Record is later compacted. Service binding `IPFS_API` →
   `etzhayyim-ipfs-proxy`.
-- **did:etzhayyim resolver** (`10-protocol/did-etzhayyim/resolver/`): Phase 3 — pin
+- **did:etzhayyim resolver** (`orgs/etzhayyim/com-etzhayyim-did-etzhayyim/resolver/`): Phase 3 — pin
   every genesis-op DAG-CBOR CID under a dedicated namespace (`/keys/did-etzhayyim-genesis`)
   and serve via `/ipfs/{cid}` for federation peers.
 
