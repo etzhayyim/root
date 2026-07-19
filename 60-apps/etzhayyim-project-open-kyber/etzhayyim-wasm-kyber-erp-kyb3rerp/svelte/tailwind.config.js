@@ -5,7 +5,7 @@ export default {
   content: [
     './index.html',
     './src/**/*.{html,js,svelte,ts}',
-    '../../../../../40-engine/svelte/design-system/dist/**/*.{svelte,js}',
+    '../../../../../../com-etzhayyim-svelte-design-system/dist/**/*.{svelte,js}',
     '../../../etzhayyim-project-calendar/appview/calendar-mcp-component/svelte/src/**/*.{svelte,ts}'
   ],
   darkMode: ['selector', '[data-theme="dark"]'],

@@ -6,4 +6,4 @@ export {
 	sendOtp,
 	verifyOtp,
 	type OAuthParams,
-} from '../../../../../../40-engine/svelte/auth/src/lib/passkey.js';
+} from '../../../../../../../com-etzhayyim-svelte-auth/src/lib/passkey.js';

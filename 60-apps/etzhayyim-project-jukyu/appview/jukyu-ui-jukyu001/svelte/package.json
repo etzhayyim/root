@@ -10,7 +10,7 @@
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "dependencies": {
-    "@etzhayyim/design-system": "file:../../../../../40-engine/svelte/design-system",
+    "@etzhayyim/design-system": "file:../../../../../../com-etzhayyim-svelte-design-system",
     "clsx": "^2.1.1",
     "tailwind-merge": "^3.5.0"
   },

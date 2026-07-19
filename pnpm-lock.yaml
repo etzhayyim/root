@@ -51,9 +51,9 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
-  40-engine/svelte/auth: {}
+  ../com-etzhayyim-svelte-auth: {}
 
-  40-engine/svelte/design-system:
+  ../com-etzhayyim-svelte-design-system:
     dependencies:
       '@digital-go-jp/design-tokens':
         specifier: ^1.1.9
@@ -944,7 +944,7 @@ importers:
     dependencies:
       '@etzhayyim/design-system':
         specifier: workspace:*
-        version: link:../../../../../40-engine/svelte/design-system
+        version: link:../../../../../../com-etzhayyim-svelte-design-system
       svelte:
         specifier: ^5.55.3
         version: 5.56.1
@@ -1976,7 +1976,7 @@ importers:
         version: 0.13.35
       '@etzhayyim/design-system':
         specifier: workspace:*
-        version: link:../../../../../40-engine/svelte/design-system
+        version: link:../../../../../../com-etzhayyim-svelte-design-system
       '@etzhayyim/sdk':
         specifier: git+https://github.com/etzhayyim/com-etzhayyim-sdk.git#12314a0cc5ac2feb49dd9789d5c002398acb6988
         version: https://codeload.github.com/etzhayyim/com-etzhayyim-sdk/tar.gz/12314a0cc5ac2feb49dd9789d5c002398acb6988(typescript@5.9.3)(zod@4.4.3)
