@@ -27,15 +27,6 @@ on:
       # Subrepo URLs (audited by subrepo-upstream-health +
       # subrepo-symlink-health).
       - '**/.gitrepo'
-      # Actor manifests + lexicon JSON files (audited by
-      # manifest-lexicon-drift; iter-53 canary regression-guards
-      # the just-closed category — needs to fire on these paths
-      # to actually catch drift introduction).
-      # Actor manifests live in sibling west repositories. Root CI cannot
-      # receive path events for them; the superproject audit invokes the same
-      # scanner over orgs/etzhayyim/com-etzhayyim-*.
-      - '70-tools/scripts/audit/manifest-lexicon-drift.py'
-      - '00-contracts/lexicons/**/*.json'
       # ADR files (audited by adr-cross-ref-health). Any new ADR or
       # rename can change the orphan set and the standalone audit's
       # baseline of 118 (iter-45) is operator-tracked.
@@ -47,8 +38,6 @@ on:
       - '.github/workflows/audit-health.yml'
       - '70-tools/scripts/audit/**'
       - '**/.gitrepo'
-      - '70-tools/scripts/audit/manifest-lexicon-drift.py'
-      - '00-contracts/lexicons/**/*.json'
       - '90-docs/adr/**/*.edn'
   workflow_dispatch:
 

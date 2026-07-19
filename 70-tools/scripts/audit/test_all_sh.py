@@ -60,7 +60,8 @@ ALL_SH = REPO_ROOT / "70-tools/scripts/audit/all.sh"
 # those two actors from the manifest-lexicon-drift fileset, dropping the aggregate
 # rollup by 2. This is the documented "drop below baseline → update the baseline"
 # response, not a masked regression.
-EXPECTED_TOTAL_FINDINGS = 7
+# ADR-2607193620 retired the activity-monitor defunct subrepo residue (7 -> 6).
+EXPECTED_TOTAL_FINDINGS = 6
 PERF_BUDGET_S = 5.0      # iter-61 actual ~1.1 s; 4.5x headroom for CI
 TEST_MODE_BUDGET_S = 20.0  # iter-66 pytest ~8 s; --all combined ~10 s; headroom
 
@@ -128,7 +129,7 @@ class TestDefaultMode:
             f"update the baseline)."
         )
 
-    def test_runs_all_6_aggregator_scripts(self, default_run):
+    def test_runs_all_5_aggregator_scripts(self, default_run):
         _, out, _ = default_run
         for name in (
             "dependabot-defunct",
@@ -136,7 +137,6 @@ class TestDefaultMode:
             "subrepo-upstream-health",
             "subrepo-symlink-health",
             "sibling-convention-drift",
-            "manifest-lexicon-drift",
         ):
             assert f"── {name} ──" in out, f"missing audit: {name}\n{out}"
 

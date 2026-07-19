@@ -11,7 +11,6 @@
 #   - subrepo-upstream-health.sh   (iter-28 + iter-29 of /loop)
 #   - subrepo-symlink-health.sh    (iter-24 + iter-31 of /loop)
 #   - sibling-convention-drift.py  (iter-37 of /loop)
-#   - manifest-lexicon-drift.py    (iter-47 of /loop)
 #
 # History:
 #   - iter-30 of /loop: codified the first 3 audit scripts
@@ -92,49 +91,18 @@ if [ "$TEST" -eq 1 ]; then
       exit 1
     fi
   else
-    echo "── pytest suite (35 files / 411 tests) ──"
+    echo "── root-owned pytest suite (5 files) ──"
     if ! PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytest \
          70-tools/scripts/audit/test_adr_cross_ref_health.py \
-         70-tools/scripts/audit/test_manifest_lexicon_drift.py \
          70-tools/scripts/audit/test_subrepo_scripts.py \
          70-tools/scripts/audit/test_simple_audits.py \
          70-tools/scripts/audit/test_e7m_verify_perf.py \
          70-tools/scripts/audit/test_gitmodules.py \
-         70-tools/scripts/audit/test_tadori_invariants.py \
-         70-tools/scripts/audit/test_tsukuroi_invariants.py \
-         70-tools/scripts/audit/test_karute_invariants.py \
-         70-tools/scripts/audit/test_iyashi_invariants.py \
-         70-tools/scripts/audit/test_mitate_invariants.py \
-         70-tools/scripts/audit/test_futawa_invariants.py \
-         70-tools/scripts/audit/test_watatsumi_invariants.py \
-         70-tools/scripts/audit/test_nusa_invariants.py \
-         70-tools/scripts/audit/test_todoke_invariants.py \
-         70-tools/scripts/audit/test_hotaru_invariants.py \
-         70-tools/scripts/audit/test_mitooshi_invariants.py \
-         70-tools/scripts/audit/test_noroshi_invariants.py \
-         70-tools/scripts/audit/test_danjo_registry_seed.py \
-         70-tools/scripts/audit/test_hagukumi_registry_seed.py \
-         70-tools/scripts/audit/test_kizashi_registry_seed.py \
-         70-tools/scripts/audit/test_manabi_registry_seed.py \
-         70-tools/scripts/audit/test_gov_legal_coverage_parity.py \
-         70-tools/scripts/audit/test_ooyake_procedure_integrity.py \
          2>&1; then
       echo "pytest suite FAILED — see output above" >&2
       exit 1
     fi
 
-    # cljc audit invariant tests (py→cljc port wave, ADR-2606160842): the kamado
-    # feedstock guard moved to feedstock_guard.cljc, so its invariant lock-in is
-    # now bb, not pytest. Run every test_*.clj under the audit dir via babashka.
-    echo "── cljc audit invariants (bb) ──"
-    for t in 70-tools/scripts/audit/test_*.clj; do
-      [ -e "$t" ] || continue
-      echo "  bb $t"
-      if ! bb "$t"; then
-        echo "cljc audit test FAILED: $t" >&2
-        exit 1
-      fi
-    done
   fi
 fi
 
@@ -165,7 +133,6 @@ run "sdk-exports-dist" python3 70-tools/scripts/audit/sdk-exports-dist.py
 run "subrepo-upstream-health" bash 70-tools/scripts/audit/subrepo-upstream-health.sh
 run "subrepo-symlink-health" bash 70-tools/scripts/audit/subrepo-symlink-health.sh
 run "sibling-convention-drift" python3 70-tools/scripts/audit/sibling-convention-drift.py
-run "manifest-lexicon-drift" python3 70-tools/scripts/audit/manifest-lexicon-drift.py
 
 echo
 echo "═══════════════════════════════════════"
