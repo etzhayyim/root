@@ -32,8 +32,31 @@
 (deftest murakumo-guard
   (testing "off-fleet endpoint refused"
     (is (thrown? clojure.lang.ExceptionInfo (ce/assert-murakumo "https://api.openai.com/v1"))))
+  (testing "malformed and lookalike endpoints refused"
+    (is (thrown? clojure.lang.ExceptionInfo (ce/assert-murakumo "not-a-url")))
+    (is (thrown? clojure.lang.ExceptionInfo
+                 (ce/assert-murakumo "http://127.0.0.1.attacker.example:4000/v1"))))
   (testing "loopback gateway allowed"
     (is (nil? (ce/assert-murakumo "http://127.0.0.1:4000/v1")))))
+
+(deftest live-authority-requires-explicit-capabilities
+  (is (thrown-with-msg? clojure.lang.ExceptionInfo #"explicit classifier capability"
+                        (ce/classify "farming" nil)))
+  (is (thrown-with-msg? clojure.lang.ExceptionInfo #"explicit HTTP POST capability"
+                        (ce/classify-with nil ce/default-config "farming" nil))))
+
+(deftest injected-classifier-wire-contract
+  (let [seen (atom nil)
+        result (ce/classify-with
+                (fn [url opts]
+                  (reset! seen [url opts])
+                  {:status 200
+                   :body "{\"choices\":[{\"message\":{\"content\":\"{\\\"code\\\":\\\"0111\\\",\\\"nameEn\\\":\\\"Growing cereals\\\",\\\"confidence\\\":0.95}\"}}]}"})
+                ce/default-config "farming" nil)]
+    (is (= "0111" (:code result)))
+    (is (= 0.95 (:confidence result)))
+    (is (= "http://127.0.0.1:4000/v1/chat/completions" (first @seen)))
+    (is (re-find #"temperature.*0.0" (get-in @seen [1 :body])))))
 
 ;; ── classify_entity graph ────────────────────────────────────────────────────
 
