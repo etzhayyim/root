@@ -3,7 +3,8 @@
   reference sheet. NSID: com.etzhayyim.animeka.designColorModel. Faithful clj
   port of `design_color_model.py`.
   Topology: START → llm_palette → render → insert → audit → END."
-  (:require [clojure.string :as str]
+  (:require #?(:clj [cheshire.core :as json])
+            [clojure.string :as str]
             [langgraph.graph :as g]
             [lg-animeka.audit :as audit]
             [lg-animeka.llm :as llm]
@@ -22,7 +23,7 @@
 (def palette-keys [:primary :secondary :hair :eyes :shadow :highlight])
 
 (defn- parse-json [s]
-  #?(:clj (try ((requiring-resolve 'cheshire.core/parse-string) (str/trim (str s)) true)
+  #?(:clj (try (json/parse-string (str/trim (str s)) true)
                (catch Exception _ nil))
      :default nil))
 

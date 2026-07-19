@@ -6,7 +6,8 @@
   The JSON-array parse (with markdown-fence stripping + single-cut fallback) and
   the clamp to max_cuts are ported faithfully and tested; inserts go through the
   injectable store seam."
-  (:require [clojure.string :as str]
+  (:require #?(:clj [cheshire.core :as json])
+            [clojure.string :as str]
             [langgraph.graph :as g]
             [lg-animeka.audit :as audit]
             [lg-animeka.graphs.add-cut :as add-cut]
@@ -31,7 +32,7 @@
       c)))
 
 (defn- parse-json [s]
-  #?(:clj (try ((requiring-resolve 'cheshire.core/parse-string) s true)
+  #?(:clj (try (json/parse-string s true)
                (catch Exception _ ::fail))
      :default ::fail))
 

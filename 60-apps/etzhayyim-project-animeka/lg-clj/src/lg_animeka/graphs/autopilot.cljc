@@ -13,7 +13,8 @@
   `add-conditional-edges` carries it faithfully. The ComfyUI quality-workflow
   builder (`render/quality-workflow`) is the pure, tested piece; LLM/render/
   composite/audio/PDS are injectable seams."
-  (:require [clojure.string :as str]
+  (:require #?(:clj [cheshire.core :as json])
+            [clojure.string :as str]
             [langgraph.graph :as g]
             [lg-animeka.audit :as audit]
             [lg-animeka.graphs.generate-audio :as audio]
@@ -68,7 +69,7 @@
       (and (seq err) (not (seq cid))) (assoc :error (str "sb_retry:" err)))))
 
 (defn- parse-json [s]
-  #?(:clj (try ((requiring-resolve 'cheshire.core/parse-string) (str s) true)
+  #?(:clj (try (json/parse-string (str s) true)
                (catch Exception _ nil))
      :default nil))
 

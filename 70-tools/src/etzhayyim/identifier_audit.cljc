@@ -25,7 +25,8 @@
 ;;   (ia/run-audit [{:path "kotodama.jsonld" :content (slurp "kotodama.jsonld")}])
 
 (ns etzhayyim.identifier-audit
-  (:require [clojure.string :as str]))
+  (:require #?(:clj [cheshire.core :as json])
+            [clojure.string :as str]))
 
 ;; ── regex patterns ──────────────────────────────────────────────────────────────
 
@@ -88,8 +89,7 @@
   [content]
   (when (seq content)
     #?(:clj  (try
-               (require '[cheshire.core :as json])
-               ((resolve 'cheshire.core/parse-string) content)
+               (json/parse-string content)
                (catch Throwable _ nil))
        :cljs (try
                (js->clj (js/JSON.parse content))
