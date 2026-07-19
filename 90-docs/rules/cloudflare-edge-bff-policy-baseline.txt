@@ -23,16 +23,11 @@
 60-apps/etzhayyim-project-bpmn/xrpc-adapter/wrangler.jsonc:1:wrangler-non-sveltekit-main:"main": "src/index.ts"
 60-apps/etzhayyim-project-briefing/appview/etzhayyim-wasm-briefing-w3olw1pf/src/app.ts:54:kysely-direct-db:await createKyselyDb().insertInto(table as any).values({ vertex_id, sensitivity_ord: 2, owner_did: ownerDid, actor_id: appId, ...snakeRec }).execute();
 60-apps/etzhayyim-project-browser/provider/darkweb-proxy/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "worker.ts"
-60-apps/etzhayyim-project-cad/appview/etzhayyim-wasm-cad-cd4dview/src/app.ts:259:hyperdrive-usage:const hd = (env as { HYPERDRIVE?: unknown }).HYPERDRIVE;
-60-apps/etzhayyim-project-cad/appview/etzhayyim-wasm-cad-cd4dview/src/app.ts:260:hyperdrive-usage:if (!hd) return new Response("HYPERDRIVE binding missing", { status: 500 });
-60-apps/etzhayyim-project-cad/appview/etzhayyim-wasm-cad-cd4dview/src/app.ts:261:kysely-direct-db:const db = createKyselyDb(hd as any);
 60-apps/etzhayyim-project-coverage/appview/coverage-ui-c0v3r4g3/src/app.ts:126:hyperdrive-usage:const db = createKyselyDb((sdk.env as any).HYPERDRIVE) as unknown as Kysely<Database>;
 60-apps/etzhayyim-project-coverage/appview/coverage-ui-c0v3r4g3/src/app.ts:126:kysely-direct-db:const db = createKyselyDb((sdk.env as any).HYPERDRIVE) as unknown as Kysely<Database>;
 60-apps/etzhayyim-project-coverage/appview/coverage-ui-c0v3r4g3/src/app.ts:128:kysely-direct-db:.selectFrom("mv_world_coverage_live")
 60-apps/etzhayyim-project-cyber-drill/worker/wrangler.jsonc:7:wrangler-non-sveltekit-main:"main": "src/index.ts"
 60-apps/etzhayyim-project-deai/appview/deai-cgxi8oem/src-ts/app.ts:13:hono-import:import type { Context } from "hono";
-60-apps/etzhayyim-project-dns/xrpc-adapter/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/index.ts"
-60-apps/etzhayyim-project-hanrei/xrpc-adapter/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/index.ts"
 60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:1010:kysely-direct-db:await hcDb().insertInto("vertex_hc_game_capture_assignment" as any).values({
 60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:1037:kysely-direct-db:await hcDb().insertInto("vertex_hc_game_capture_submission" as any).values({
 60-apps/etzhayyim-project-hc/appview/etzhayyim-wasm-hc-hc0mp7ng/src/app.ts:1072:kysely-direct-db:await hcDb().insertInto("vertex_hc_game_capture_review" as any).values({
@@ -97,8 +92,6 @@
 60-apps/etzhayyim-project-intel/appview/etzhayyim-wasm-intel-i7n73l0x/src/app.ts:67:kysely-direct-db:.selectFrom(table as any)
 60-apps/etzhayyim-project-intel/appview/etzhayyim-wasm-intel-i7n73l0x/src/app.ts:73:kysely-direct-db:.selectFrom(fallbackTable as any)
 60-apps/etzhayyim-project-intel/appview/etzhayyim-wasm-intel-i7n73l0x/src/app.ts:941:kysely-direct-db:await createKyselyDb().insertInto(VERTEX_INTEL_REPORT_TABLE as any).values({
-60-apps/etzhayyim-project-ipaddress/xrpc-adapter/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/index.ts"
-60-apps/etzhayyim-project-isin/xrpc-adapter/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/index.ts"
 60-apps/etzhayyim-project-itonami/appview/itonami-it0n4m1x/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-jukyu/appview/jukyu-ui-jukyu001/wrangler.jsonc:29:wrangler-hyperdrive-binding:"hyperdrive": [
 60-apps/etzhayyim-project-jukyu/appview/jukyu-ui-jukyu001/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/app.ts"
@@ -107,7 +100,6 @@
 60-apps/etzhayyim-project-kami/appview/etzhayyim-wasm-kami-sabiotoshi-s4b10t05/src/app.ts:392:kysely-direct-db:await createKyselyDb().insertInto("vertex_kami_sabiotoshi_score" as any).values({
 60-apps/etzhayyim-project-kami/appview/etzhayyim-wasm-kami-sabiotoshi-s4b10t05/src/app.ts:481:kysely-direct-db:await createKyselyDb().insertInto("vertex_kami_sabiotoshi_classified_item" as any).values({
 60-apps/etzhayyim-project-ki/xrpc-adapter/wrangler.jsonc:1:wrangler-non-sveltekit-main:"main": "src/index.ts"
-60-apps/etzhayyim-project-kiyo/xrpc-adapter/wrangler.jsonc:1:wrangler-non-sveltekit-main:"main": "src/index.ts"
 60-apps/etzhayyim-project-kyber-qzzg06nh/appview/etzhayyim-wasm-kyber-hr-mdtpqjc8/src/app.ts:57:kysely-direct-db:await createKyselyDb().insertInto(table as any).values({ vertex_id, sensitivity_ord: 2, owner_did: ownerDid, actor_id: appId, ...snakeRec }).execute();
 60-apps/etzhayyim-project-kyber-qzzg06nh/appview/etzhayyim-wasm-kyber-inbox-inb0x4k2/src/app.ts:109:kysely-direct-db:await db.insertInto('edge_kyber_routed').values({
 60-apps/etzhayyim-project-kyber-qzzg06nh/appview/etzhayyim-wasm-kyber-inbox-inb0x4k2/src/app.ts:127:kysely-direct-db:await db.insertInto('vertex_office_document').values({
@@ -222,7 +214,6 @@
 60-apps/etzhayyim-project-open-cofog/worker/src/defence-handlers.ts:35:hyperdrive-usage:const db = createKyselyDb(env.HYPERDRIVE) as any;
 60-apps/etzhayyim-project-open-cofog/worker/src/defence-handlers.ts:35:kysely-direct-db:const db = createKyselyDb(env.HYPERDRIVE) as any;
 60-apps/etzhayyim-project-open-cofog/worker/src/defence-handlers.ts:37:kysely-direct-db:.insertInto("vertex_open_defence_event")
-60-apps/etzhayyim-project-open-denki/xrpc-adapter/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/index.ts"
 60-apps/etzhayyim-project-open-gas/worker/src/defence-handlers.ts:19:hyperdrive-usage:HYPERDRIVE: { connectionString: string };
 60-apps/etzhayyim-project-open-gas/worker/src/defence-handlers.ts:35:hyperdrive-usage:const db = createKyselyDb(env.HYPERDRIVE) as any;
 60-apps/etzhayyim-project-open-gas/worker/src/defence-handlers.ts:35:kysely-direct-db:const db = createKyselyDb(env.HYPERDRIVE) as any;

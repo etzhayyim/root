@@ -1,0 +1,12 @@
+{:schema "etzhayyim.migration/moved-v1"
+ :source {:repo "etzhayyim/root"
+          :path "60-apps/etzhayyim-project-business-manager"
+          :revision "e5654f08638e1785f519566582bb3c4dc7719f45"
+          :git-tree "6d8004d2dad56314b856449ea0ed12aa5291cb5d"
+          :tracked-files 25
+          :bytes 153941}
+ :destination {:repo "etzhayyim/com-etzhayyim-app-business-manager"
+               :revision "966f05a8a09cb03cbca752fd62c3682ad33befc1"}
+ :status :moved
+ :owner-adr "2607200730"
+ :verification :source-tree-plus-canonical-edn-only}
