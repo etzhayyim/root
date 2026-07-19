@@ -31,6 +31,6 @@ reputation lookups built on top of it remain vendor.
 
 ## See also
 
-- `60-apps/etzhayyim-project-open-wellbecoming/` (this repo, scaffolding)
+- `00-contracts/specs/open-wellbecoming.edn` (canonical contract specification)
 - ADR-2605172400 (vendor: 3-axis split rule + Tranche F)
 - [vendor: `projects/etzhayyim-project-{society6,trust}/CLAUDE.md`](https://github.com/etzhayyim/etzhayyim-root/tree/main/60-apps) (monetized reputation, stays vendor)
