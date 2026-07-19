@@ -260,7 +260,7 @@ kotodama.Invoke("", "get-spec", `{"commodity_code":"43211501"}`)
 
 ## Chotatsu Integration
 
-`60-apps/etzhayyim-project-chotatsu/` (公共調達) が UNSPSC commodity code で品目分類。`Invoke("", "get-spec", ...)` で commodity entity の調達仕様を取得。
+`90-docs/adr/2607193200-remaining-doc-only-apps-retire.edn` の canonical chotatsu spec (公共調達) が UNSPSC commodity code で品目分類する。`Invoke("", "get-spec", ...)` で commodity entity の調達仕様を取得。
 
 ## okaimono.etzhayyim.com Integration (EC Marketplace)
 
