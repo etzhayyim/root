@@ -76,7 +76,6 @@ packages:
   - "60-apps/etzhayyim-project-sheets/appview/sheets-mcp-component/svelte"
   - "60-apps/etzhayyim-project-mailer/appview/mailer-mcp-component/svelte"
   - "60-apps/etzhayyim-project-calendar/appview/calendar-mcp-component/svelte"
-  - "60-apps/etzhayyim-project-forms/appview/forms-frontend-gsgpde96/svelte"
   - "60-apps/etzhayyim-project-search/appview/search-mcp-component/svelte"
   - "60-apps/etzhayyim-project-translate/appview/translate-mcp-component/svelte"
   - "60-apps/etzhayyim-project-ekyc/appview/ekyc-mcp-component"

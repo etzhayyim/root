@@ -1,4 +1,0 @@
-*.wasm
-gen_bindings/
-__pycache__/
-.venv/
