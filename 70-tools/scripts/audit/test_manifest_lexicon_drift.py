@@ -113,6 +113,12 @@ class TestNsidToPath:
         local.parent.mkdir(parents=True)
         local.write_text("{}")
         assert audit.resolve_lexicon_path(manifest, "com.etzhayyim.demo.record") == local
+        assert audit.lexicon_location(manifest, "com.etzhayyim.demo.record") == "flat-owner"
+
+    def test_missing_contract_is_classified(self, audit, tmp_path):
+        manifest = tmp_path / "orgs/etzhayyim/com-etzhayyim-demo/manifest.edn"
+        manifest.parent.mkdir(parents=True)
+        assert audit.lexicon_location(manifest, "com.etzhayyim.noSuchOwner.record") == "missing"
 
 
 # ─── End-to-end smoke tests against the live repo ──────────────────────
