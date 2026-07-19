@@ -11,10 +11,9 @@ name: kotodama-manifest-validation
 #   axis 4: registry-schema-validation.yml (cycle 50-51)
 #   axis 5: kotodama-manifest-validation.yml (this — cycle 53)
 #
-# Baseline as of cycle 53 (2026-05-27): 42/42 kotodama.jsonld manifests
-# validate-clean against the schema (was 4/42 broken; cycle 53 fixed
-# the schema's 5 narrow enums + 13 real data bugs across 13 apps).
-# PR-gate from day 1 (baseline = 0 violations).
+# Root-retained baseline after the multirepo extraction: 0/0 manifests.
+# Application manifests are validated in their independent repositories; this
+# guard preserves a stable machine-readable zero-manifest contract in root.
 
 on:
   push:
@@ -91,11 +90,9 @@ jobs:
               echo "- **Valid**: ${clean}"
               echo "- **Broken**: ${broken}"
               echo ""
-              echo "Baseline as of ADR-2605271200 closure cycle 53 (2026-05-27):"
-              echo "  - 42/42 valid (was 4/42 pre-cycle-53)"
-              echo "  - Schema fixes: 5 narrow enums expanded (uiType / runtimeType / category / agentType / isBot)"
-              echo "  - Data fixes: 7 missing performerType + 6 non-canonical @context + 1 agentType + voxelforge structural"
-              echo "  - **PR-GATE mode** from day 1"
+              echo "Root-retained multirepo baseline (ADR-2607201900):"
+              echo "  - 0/0 manifests: application manifests live in independent repositories"
+              echo "  - JSON output always includes total, clean, broken, and errors"
               echo ""
               if [ "$broken" -gt 0 ]; then
                 echo "⚠️ **${broken} broken manifest(s)** — PR is blocked."

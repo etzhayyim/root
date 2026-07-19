@@ -82,7 +82,12 @@ def main() -> int:
     if not manifests:
         msg = "validate-kotodama-manifests: no manifests found under 60-apps/*/kotodama.jsonld"
         if args.json:
-            print(json.dumps({"ok": True, "total": 0, "errors": {}}, indent=2))
+            print(
+                json.dumps(
+                    {"ok": True, "total": 0, "clean": 0, "broken": 0, "errors": {}},
+                    indent=2,
+                )
+            )
             return 0
         print(msg)
         return 0
