@@ -24,7 +24,9 @@
             [lg-kenkyusha.store :as store]
             [lg-kenkyusha.graphs.research-loop :as research-loop]))
 
-(defn- env [k] #?(:clj (System/getenv k) :cljs nil))
+(def ^:dynamic *auth-config*
+  {:internal-secret "" :api-key ""})
+
 (defn- now-ms [] #?(:clj (System/currentTimeMillis) :cljs (.now js/Date)))
 
 (def GRAPHS
@@ -38,12 +40,12 @@
 
 (defn enforce-auth
   [{:keys [x-api-key x-cron internal-token]}]
-  (let [expected-internal (env "DISPATCHER_INTERNAL_SECRET")
-        expected          (env "LG_KENKYUSHA_API_KEY")]
+  (let [expected-internal (:internal-secret *auth-config*)
+        expected          (:api-key *auth-config*)]
     (cond
       (= "1" x-cron) nil
-      (and internal-token expected-internal (= internal-token expected-internal)) nil
-      (or (nil? expected) (= "" expected)) nil
+      (and internal-token (seq expected-internal) (= internal-token expected-internal)) nil
+      (= "" expected) nil
       (and x-api-key (= x-api-key expected)) nil
       :else {:status 401 :body {:detail "x-api-key mismatch"}})))
 

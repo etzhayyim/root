@@ -12,38 +12,36 @@
   ADR-2606072802 / ADR-2605215000). Endpoint resolution honors
   `KOTOBA_XRPC_URL`/`KOTOBA_URL`; auth (when present) = Bearer JWT (`KOTOBA_BEARER`)."
   (:require [clojure.string :as str]
-            #?(:clj [cheshire.core :as json])
-            #?(:clj [babashka.http-client :as http])))
+            #?(:clj [cheshire.core :as json])))
 
-(defn- env [k default]
-  #?(:clj (or (System/getenv k) default) :cljs default))
+(def ^:dynamic *config*
+  {:xrpc-url "http://kotoba.kotoba.svc.cluster.local:8080"
+   :bearer ""
+   :graph "kenkyusha-v1"})
 
-(def kotoba-xrpc
-  (str/replace
-   (or (env "KOTOBA_XRPC_URL" nil)
-       (env "KOTOBA_URL" nil)
-       "http://kotoba.kotoba.svc.cluster.local:8080")
-   #"/+$" ""))
-
-(def kotoba-bearer (env "KOTOBA_BEARER" ""))
-(def default-graph (env "KOTOBA_GRAPH" "kenkyusha-v1"))
+(def ^:dynamic *post-json!*
+  (fn [& _]
+    (throw (ex-info "explicit Kotoba HTTP capability required"
+                    {:capability :kotoba-http}))))
 
 (defn- headers []
-  (if (seq kotoba-bearer)
-    {"Authorization" (str "Bearer " kotoba-bearer)}
+  (if (seq (:bearer *config*))
+    {"Authorization" (str "Bearer " (:bearer *config*))}
     {}))
 
 (defrecord KotobaDatomic [graph])
 
 (defn ->client
-  ([] (->KotobaDatomic default-graph))
+  ([] (->KotobaDatomic (:graph *config*)))
   ([graph] (->KotobaDatomic graph)))
 
 #?(:clj
-   (defn- post-json [url body]
-     (http/post url {:headers (merge {"Content-Type" "application/json"} (headers))
-                     :body (json/generate-string body)
-                     :throw false})))
+   (defn- post-json [path body]
+     (*post-json!*
+      (str (str/replace (:xrpc-url *config*) #"/+$" "") path)
+      {:headers (merge {"Content-Type" "application/json"} (headers))
+       :body (json/generate-string body)
+       :throw false})))
 
 (defn q
   "Datalog query over the kotoba graph. Returns a vector of result rows."
@@ -52,7 +50,7 @@
    #?(:clj
       (let [body (cond-> {:graph (:graph dm) :query_edn query-edn}
                    (seq inputs-edn) (assoc :inputs_edn inputs-edn))
-            resp (post-json (str kotoba-xrpc "/xrpc/ai.etzhayyim.apps.kotoba.datomic.q") body)]
+            resp (post-json "/xrpc/ai.etzhayyim.apps.kotoba.datomic.q" body)]
         (when (>= (:status resp) 400)
           (throw (ex-info "kotoba q failed" {:status (:status resp) :body (:body resp)})))
         (or (get (json/parse-string (:body resp) true) :rows) []))
@@ -63,7 +61,7 @@
   [dm entity]
   #?(:clj
      (let [body {:graph (:graph dm) :entity entity}
-           resp (post-json (str kotoba-xrpc "/xrpc/ai.etzhayyim.apps.kotoba.datomic.pull") body)]
+           resp (post-json "/xrpc/ai.etzhayyim.apps.kotoba.datomic.pull" body)]
        (cond
          (= 404 (:status resp)) nil
          (>= (:status resp) 400) (throw (ex-info "kotoba pull failed" {:status (:status resp)}))
