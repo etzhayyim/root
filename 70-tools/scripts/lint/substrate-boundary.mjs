@@ -75,7 +75,6 @@ const allowedPrefixes = [
   "70-tools/seed-post/",                       // ADR-2605231902 seed CLI
   // Tests + archives.
   "_archive/",
-  "60-apps/etzhayyim-project-ameno/appview/etzhayyim-wasm-ameno-d94d27cb/_svelte/", // vite build output
   "60-apps/etzhayyim-project-bpmn/appview/etzhayyim-wasm-bpmn-bx7qm9p4/", // migrated BPMN substrate component; direct Hyperdrive writer tracked by ADR-2605181400
 ];
 

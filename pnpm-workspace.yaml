@@ -28,14 +28,11 @@ packages:
 
   # ameno cohort
   - "orgs/etzhayyim/com-etzhayyim-ameno"
-  - "60-apps/etzhayyim-project-ameno/appview/etzhayyim-wasm-ameno-d94d27cb/svelte"
-  - "60-apps/etzhayyim-project-ameno/daemon"
 
   # yoro cohort (Charter-compliant rebuild — AdSense/GA4 removed)
   - "60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte"
 
   # karute (電子カルテ / EMR) — ADR-2605231100
-  - "60-apps/etzhayyim-project-karute/appview/etzhayyim-wasm-karute-karu7t3e/svelte"
   - "../com-etzhayyim-signal"
   - "../com-etzhayyim-xrpc"
   - "../com-etzhayyim-svelte-auth"

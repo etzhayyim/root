@@ -4,7 +4,6 @@
   "retiredAt": "2026-04-29",
   "reason": "T1/T2 actors migrated to MCP registry + BPMN + Zeebe Python worker; dedicated CF Worker deploy configs are archived to keep app actors off the edge runtime.",
   "activePaths": [
-    "60-apps/etzhayyim-project-ameno/appview/etzhayyim-wasm-ameno-d94d27cb/wrangler.jsonc",
     "60-apps/etzhayyim-project-bpmn/appview/etzhayyim-wasm-bpmn-bx7qm9p4/wrangler.jsonc",
     "60-apps/etzhayyim-project-bunken/appview/etzhayyim-wasm-bunken-bk7n2d8x/wrangler.jsonc",
     "60-apps/etzhayyim-project-business-manager/appview/etzhayyim-wasm-business-manager-bm4f8k2d1/wrangler.jsonc",
@@ -23,7 +22,6 @@
     "60-apps/etzhayyim-project-jp-ashiba/appview/etzhayyim-wasm-jp-ashiba-a5h1ba8k/wrangler.jsonc",
     "60-apps/etzhayyim-project-kami/appview/etzhayyim-wasm-kami-ketsu-gorilla-k3t5g0r1/svelte/wrangler.jsonc",
     "60-apps/etzhayyim-project-kg-curator/appview/kg-curator-kg7r4t0r/wrangler.jsonc",
-    "60-apps/etzhayyim-project-media-gamers/appview/media-gamers-7m8oocsn/wrangler.jsonc",
     "60-apps/etzhayyim-project-omise/appview/etzhayyim-wasm-omise-om1s3sh0p/wrangler.jsonc",
     "60-apps/etzhayyim-project-open-saas/appview/open-saas-console-os4a5s1/wrangler.jsonc",
     "60-apps/etzhayyim-project-open-saas/appview/salesforce-crm-sfcrm9x3/wrangler.jsonc",
