@@ -1368,8 +1368,6 @@
 60-apps/etzhayyim-project-cad/appview/etzhayyim-wasm-cad-cd4dview/src/app.ts:260:hyperdrive-usage:if (!hd) return new Response("HYPERDRIVE binding missing", { status: 500 });
 60-apps/etzhayyim-project-cad/appview/etzhayyim-wasm-cad-cd4dview/src/app.ts:261:kysely-direct-db:const db = createKyselyDb(hd as any);
 60-apps/etzhayyim-project-car-sim/appview/etzhayyim-wasm-car-sim-c4r51m00/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
-60-apps/etzhayyim-project-cards/appview/cards-mcp-component/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
-60-apps/etzhayyim-project-casino/appview/casino-mcp-component/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-cloudflare-browser-render/appview/etzhayyim-wasm-cloudflare-browser-render-cfbr0w53/src/app.ts:265:hyperdrive-usage:const db = createKyselyDb(env.HYPERDRIVE) as unknown as Kysely<Database>;
 60-apps/etzhayyim-project-cloudflare-browser-render/appview/etzhayyim-wasm-cloudflare-browser-render-cfbr0w53/src/app.ts:265:kysely-direct-db:const db = createKyselyDb(env.HYPERDRIVE) as unknown as Kysely<Database>;
 60-apps/etzhayyim-project-cloudflare-browser-render/appview/etzhayyim-wasm-cloudflare-browser-render-cfbr0w53/src/app.ts:62:kysely-direct-db:await db.insertInto(table as any).values(row as any).execute();
@@ -1745,7 +1743,6 @@
 60-apps/etzhayyim-project-microsoft/appview/etzhayyim-wasm-microsoft-m1cr5nd5/wrangler.jsonc:32:wrangler-hyperdrive-binding:"hyperdrive": [
 60-apps/etzhayyim-project-microsoft/appview/etzhayyim-wasm-microsoft-m1cr5nd5/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-mold-allergy/appview/etzhayyim-wasm-mold-allergy-m0ldalg1/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
-60-apps/etzhayyim-project-music/appview/music-mcp-component/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-narou/appview/narou-mcp-component/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-natural-person/appview/etzhayyim-wasm-natural-person-np02priv9/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-news/appview/news-core-component/src/app.ts:1155:kysely-direct-db:const db = createKyselyDb();
@@ -1805,7 +1802,6 @@
 60-apps/etzhayyim-project-os-messaging/appview/etzhayyim-wasm-os-messaging-0sm3sg01/src/app.ts:72:kysely-direct-db:.selectFrom(MAPPING_TABLE as any)
 60-apps/etzhayyim-project-os-messaging/appview/etzhayyim-wasm-os-messaging-0sm3sg01/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-oshiete/appview/oshiete-mcp-component/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
-60-apps/etzhayyim-project-outlook/appview/outlook-mcp-component/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-outreach/appview/outreach-otch0001/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-pachinko/appview/pachinko-k3rn5la4/src/app.ts:152:hyperdrive-usage:const hyperdrive = getKyselyHyperdrive();
 60-apps/etzhayyim-project-pachinko/appview/pachinko-k3rn5la4/src/app.ts:153:hyperdrive-usage:const db = hyperdrive ? createKyselyDb(hyperdrive) : null;
@@ -1825,7 +1821,6 @@
 60-apps/etzhayyim-project-pachinko/scripts/260419-seed-supply-chain-rw.mjs:158:kysely-direct-db:await db.insertInto(table).values(row).execute();
 60-apps/etzhayyim-project-pachinko/scripts/260419-seed-supply-chain-rw.mjs:43:kysely-direct-db:const db = new Kysely({
 60-apps/etzhayyim-project-pachinko/scripts/260419-seed-supply-chain-rw.mjs:44:pg-direct-db:dialect: new PostgresDialect({ pool: new Pool({ connectionString: RW_URL }) }),
-60-apps/etzhayyim-project-performers/appview/performers-mcp-component/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-playwright/appview/etzhayyim-wasm-playwright-pl4y1t8r/src/app.ts:144:kysely-direct-db:await db.insertInto(table as any).values(row as any).execute();
 60-apps/etzhayyim-project-playwright/appview/etzhayyim-wasm-playwright-pl4y1t8r/src/app.ts:155:hyperdrive-usage:const db = createKyselyDb(env.HYPERDRIVE) as unknown as Kysely<Database>;
 60-apps/etzhayyim-project-playwright/appview/etzhayyim-wasm-playwright-pl4y1t8r/src/app.ts:155:kysely-direct-db:const db = createKyselyDb(env.HYPERDRIVE) as unknown as Kysely<Database>;
@@ -2093,8 +2088,6 @@
 60-apps/etzhayyim-project-vault/worker/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src-ts/index.ts"
 60-apps/etzhayyim-project-vehicle/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-vessel/appview/vessel-registry-v3ss3l01/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
-60-apps/etzhayyim-project-videos-legacy/appview/videos-legacy-mcp-component/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
-60-apps/etzhayyim-project-videos/appview/videos-mcp-component/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-vin/appview/etzhayyim-wasm-vin-v1n0g10b/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-voxelforge/src/app.ts:18:hono-import:import { Hono } from "hono";
 60-apps/etzhayyim-project-voxelforge/src/app.ts:30:hyperdrive-usage:HYPERDRIVE?: unknown;
