@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-07-18",
+  "updated_at": "2026-07-19",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.edn",
@@ -1301,9 +1301,9 @@
       "path": "90-docs/adr/2606131645-kotodama-extraction-functional-unspsc-clj.adr.edn",
       "id": "2606131645",
       "title": "kotodama extraction + functional UNSPSC Clojure migration + kotoba submodule removal",
-      "status": ":accepted",
-      "doc_type": ":adr",
-      "topic": ":kotodama-extraction-functional-unispsc-clj",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "kotodama-extraction-functional-unispsc-clj",
       "authoritative": true,
       "related": [
         "2605240000",
@@ -1320,9 +1320,9 @@
       "path": "90-docs/adr/2606161200-organism-runtime-3layer-kotodama-split.adr.edn",
       "id": "2606161200",
       "title": "organism runtime 3-layer split — kotodama runtime / root unspsc actor / kotoba substrate",
-      "status": ":proposed",
-      "doc_type": ":adr",
-      "topic": ":organism-runtime-3layer-kotodama-split",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "organism-runtime-3layer-kotodama-split",
       "authoritative": true,
       "related": [
         "2606101200"
@@ -1337,9 +1337,9 @@
       "path": "90-docs/adr/2606162000-jinushi-land-ownership-acquisition-mirror.adr.edn",
       "id": "2606162000",
       "title": "jinushi 地主 — world land/building ownership ACQUISITION mirror (multi-source, clj-native, public-record gate)",
-      "status": ":accepted",
-      "doc_type": ":adr",
-      "topic": ":jinushi-land-ownership-acquisition-mirror",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "jinushi-land-ownership-acquisition-mirror",
       "authoritative": true,
       "related": [
         "2606013800",
@@ -1350,7 +1350,7 @@
       ],
       "supersedes": [],
       "superseded_by": [],
-      "last_verified": "Wed Jun 17 09:00:00 JST 2026",
+      "last_verified": "2026-06-17",
       "authoritative_for": [],
       "amends": [],
       "amended_by": []
@@ -1385,9 +1385,9 @@
       "path": "90-docs/adr/2606302205-kotoba-genome-unified-self-evolving-all-actor-organism.adr.edn",
       "id": "2606302205",
       "title": "kotoba-genome — unified self-evolving, multi-channel, all-actor-posting organism; retire the keyless observational mirror",
-      "status": ":accepted",
-      "doc_type": ":adr",
-      "topic": ":kotoba-genome-unified-self-evolving-all-actor-organism",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "kotoba-genome-unified-self-evolving-all-actor-organism",
       "authoritative": true,
       "related": [
         "2605232345",
@@ -1405,9 +1405,9 @@
       "path": "90-docs/adr/2607010001-actor-data-ownership-model.adr.edn",
       "id": "2607010001",
       "title": "Actor data-ownership model — each actor holds its required real-world data (RAD data-holding vocabulary + domain-hybrid layering)",
-      "status": ":accepted",
-      "doc_type": ":adr",
-      "topic": ":actor-data-ownership-model",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "actor-data-ownership-model",
       "authoritative": true,
       "related": [
         "2605312345"
@@ -24719,6 +24719,24 @@
         "adr-2607181600-flat-west-migration-integrated-state-and-final-drain"
       ],
       "last_verified": "2026-07-18",
+      "related": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2607191810-flat-west-loose-actor-marker-edn-normalization.edn",
+      "id": "adr-2607191810-flat-west-loose-actor-marker-edn-normalization",
+      "title": "Flat west loose actor marker EDN normalization",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "flat-west-actor-marker-normalization",
+      "authoritative": true,
+      "supersedes": [
+        "adr-2607181700-flat-west-legacy-root-drain-and-consumer-rewire"
+      ],
+      "last_verified": "2026-07-19",
+      "authoritative_for": [],
       "related": [],
       "superseded_by": [],
       "amends": [],

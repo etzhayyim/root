@@ -1,0 +1,15 @@
+[{:db/id -1
+  :migration/id "etzhayyim-root-actor-akuma-moved"
+  :migration/kind :moved-tombstone
+  :migration/component-kind :actor
+  :migration/source "20-actors/akuma"
+  :migration/canonical-repo "https://github.com/etzhayyim/com-etzhayyim-akuma"
+  :migration/west-path "orgs/etzhayyim/com-etzhayyim-akuma"
+  :migration/date "2026-07-17"
+  :migration/canonical-format :edn
+  :migration/content-parity :git-blob-sha-verified
+  :migration/reference-policy
+  {:operational :destination-only
+   :historical :provenance-only
+   :fixture :explicit-only}
+  :migration/authoritative true}]

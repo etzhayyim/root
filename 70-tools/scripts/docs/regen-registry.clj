@@ -128,6 +128,13 @@
         (string? k) k
         :else (str k)))
 
+(defn- scalar-str [v]
+  (cond
+    (keyword? v) (name v)
+    (instance? java.util.Date v)
+    (subs (str (java.time.Instant/ofEpochMilli (.getTime ^java.util.Date v))) 0 10)
+    :else (str v)))
+
 (defn- entity->fm
   "Extract registry front-matter map from an EDN tx-data entity
    ([{:db/id -1 :adr/id ...}] or bare map / :frontmatter form)."
@@ -148,12 +155,12 @@
       (when id
         (cond-> {"id" (str id)
                  "title" (str (or (getv :title :adr/title :doc/title) id))
-                 "status" (str (or (getv :status :adr/status :doc/status) "active"))
-                 "doc_type" (str (or (getv :doc_type :doc-type :adr/doc_type :adr/doc-type :doc/doc_type) "doc"))
-                 "topic" (str (or (getv :topic :adr/topic :doc/topic) ""))
+                 "status" (scalar-str (or (getv :status :adr/status :doc/status) "active"))
+                 "doc_type" (scalar-str (or (getv :doc_type :doc-type :adr/doc_type :adr/doc-type :doc/doc_type) "doc"))
+                 "topic" (scalar-str (or (getv :topic :adr/topic :doc/topic) ""))
                  "authoritative" (boolean (getv :authoritative :adr/authoritative :doc/authoritative))}
           (getv :last_verified :last-verified :adr/last_verified :adr/last-verified)
-          (assoc "last_verified" (str (getv :last_verified :last-verified :adr/last_verified :adr/last-verified)))
+          (assoc "last_verified" (scalar-str (getv :last_verified :last-verified :adr/last_verified :adr/last-verified)))
           (sequential? (getv :related :adr/related :doc/related))
           (assoc "related" (mapv str (getv :related :adr/related :doc/related)))
           (sequential? (getv :authoritative_for :authoritative-for :adr/authoritative_for :adr/authoritative-for))
