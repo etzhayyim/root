@@ -15,19 +15,19 @@
             [media-gamers.games :as games]
             [media-gamers.llm :as llm]
             [media-gamers.audit :as audit]
-            #?(:clj [babashka.http-client :as http])
             #?(:clj [cheshire.core :as json])
             #?(:clj [langgraph.graph :as g])))
 
-(defn- getenv [k default]
-  #?(:clj (or (System/getenv k) default) :default default))
-
-(defn app-did [] (getenv "MEDIA_GAMERS_APP_DID" "did:web:media-gamers.etzhayyim.com"))
-(defn repo-did [] (getenv "MEDIA_GAMERS_REPO_DID" "did:web:a7m8oocs.etzhayyim.com"))
-(defn pds-base [] (getenv "PDS_URL" "https://atproto.etzhayyim.com"))
-(defn commit-guide-xrpc []
-  (getenv "COMMIT_GUIDE_XRPC_URL"
-          "https://media-gamers.etzhayyim.com/xrpc/com.etzhayyim.apps.media_gamers.guide.commitGuide"))
+(def ^:dynamic *config*
+  {:app-did "did:web:media-gamers.etzhayyim.com"
+   :repo-did "did:web:a7m8oocs.etzhayyim.com"
+   :pds-url "https://atproto.etzhayyim.com"
+   :commit-guide-url "https://media-gamers.etzhayyim.com/xrpc/com.etzhayyim.apps.media_gamers.guide.commitGuide"})
+(def ^:dynamic *http-post* nil)
+(defn app-did [] (:app-did *config*))
+(defn repo-did [] (:repo-did *config*))
+(defn pds-base [] (:pds-url *config*))
+(defn commit-guide-xrpc [] (:commit-guide-url *config*))
 
 (defn- epoch [] (quot #?(:clj (System/currentTimeMillis) :default 0) 1000))
 
@@ -98,7 +98,8 @@
                       :gameYear (:game-year state) :title (:title state "") :body (:body state "")
                       :qualityScore (:quality-score state 0) :translations (:translations state [])}]
          (try
-           (http/post (commit-guide-xrpc)
+           (when-not (fn? *http-post*) (throw (ex-info "commit HTTP capability missing" {})))
+           (*http-post* (commit-guide-xrpc)
                       {:body (json/generate-string payload)
                        :headers {"Content-Type" "application/json"} :timeout 30000 :throw false})
            (catch Exception _ nil))))
@@ -129,7 +130,8 @@
                               :game-slug (:game-slug state "")})
              record {"$type" "app.bsky.feed.post" :text text :createdAt (now-iso-z)}]
          (try
-           (let [r (http/post (str (pds-base) "/xrpc/com.atproto.repo.createRecord")
+           (when-not (fn? *http-post*) (throw (ex-info "PDS HTTP capability missing" {})))
+           (let [r (*http-post* (str (pds-base) "/xrpc/com.atproto.repo.createRecord")
                               {:body (json/generate-string
                                       {:repo (repo-did) :collection "app.bsky.feed.post" :record record})
                                :headers {"Content-Type" "application/json"
