@@ -1,0 +1,27 @@
+{:schema "etzhayyim.adr/v1"
+ :id "2607193620"
+ :title "Drain bounded four-to-eight-file legacy app shells"
+ :status :accepted
+ :date "2026-07-19"
+ :scope {:source-repository "etzhayyim/root"
+         :source-revision "3a8e7a7120989822f4e82cb50eb7405af36367fe"
+         :audited-directories 40
+         :selected-directories 20
+         :tracked-files 91
+         :bytes 393968}
+ :decision
+ {:existing-repository-overlap
+  [{:source "60-apps/etzhayyim-project-organizer" :repository "etzhayyim/com-etzhayyim-organizer" :revision "f2aedfbada8cfc18ef3c53a323c21755aad4ec17"}
+   {:source "60-apps/etzhayyim-project-jp-ashiba" :repository "etzhayyim/com-etzhayyim-jp-ashiba" :revision "b1f0b38ea758b2f0b03cf57083ef03d0fe994f27"}
+   {:source "60-apps/etzhayyim-project-joucho" :repository "etzhayyim/com-etzhayyim-joucho" :revision "92e53d4466ef2577d798756c41cf3180e80a7655"}]
+  :retire-shells
+  ["hikyaku" "commodities" "code-hs" "microsoft-graph" "awai" "projector"
+   "immutizer" "coach" "activity-monitor" "facebook" "comprehend" "dojo"
+   "etzhayyim" "generator" "canvas" "government-body" "advectors"]
+  :retire-reason "No executable source, BPMN, proto, or substantive schema implementation. Content is documentation/PROJECT metadata, source-free package metadata, disabled checkout residue, or generated deployment residue."
+  :deferred {:directories 20
+             :reason "Contains executable source, BPMN, proto, SHACL/content schemas, or other standalone artifacts requiring extraction or deeper boundary review."}}
+ :provenance {:per-directory "Adjacent *-MOVED.edn records exact source tree, file count, byte count, and destination revision where applicable."}
+ :invariants {:canonical-record-format :edn :go-files-created 0 :tinygo-files-created 0 :new-repositories-created 0}
+ :verification {:checks [:edn-readable :operational-reference-audit :deps-path-audit :registry-freshness :layer-freeze-guard :tree-guard]
+                :stale-subrepo-upstream-baseline {:before 7 :after 6 :removed "activity-monitor defunct unpublished checkout residue"}}}

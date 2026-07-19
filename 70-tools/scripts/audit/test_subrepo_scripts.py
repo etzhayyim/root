@@ -51,7 +51,9 @@ SYMLINK_HEALTH_PERF_BUDGET_S = 2.0
 # 2026-06-08 main merge: stale upstream count dropped 8 → 7 after one vendored
 # path was removed from the active tree. Keep the audit strict in both
 # directions: a count change means the subrepo set changed and must be reviewed.
-EXPECTED_STALE_URLS = 7
+# 2026-07-19 ADR-2607193620: activity-monitor's unpublished/defunct vendored
+# checkout residue was retired with exact EDN provenance, shrinking 7 → 6.
+EXPECTED_STALE_URLS = 6
 # ESCAPE_SYMLINKS baseline dropped 18 → 0 (2026-05-31): the 18 escape
 # symlinks were all the `CHARTER-RIDER.md → ../../CHARTER-RIDER.md`
 # pattern inside the kotoba **git-subrepo** (1 root + 17 crates), a

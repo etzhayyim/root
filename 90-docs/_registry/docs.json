@@ -1704,6 +1704,21 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2607193620-four-to-eight-file-app-shell-drain.edn",
+      "id": "2607193620",
+      "title": "Drain bounded four-to-eight-file legacy app shells",
+      "status": "accepted",
+      "doc_type": "doc",
+      "topic": "",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2605291700-moemoekyun-plateau-and-bestofn-path.edn",
       "id": "ADR-2605291700",
       "title": "baien-moemoekyun plateau analysis (cycles 17-114) + Best-of-N as the deployable score-lift path",
