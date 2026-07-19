@@ -14,7 +14,8 @@
   provided by `run-server!` on org.httpkit.server (the same pattern the wave-1
   twins use); the 27 StateGraphs + dispatch are the load-bearing port. The
   Python FastAPI server (`lg/`) remains the deployed runtime and COEXISTS."
-  (:require [clojure.string :as str]
+  (:require #?(:clj [cheshire.core :as json])
+            [clojure.string :as str]
             [langgraph.graph :as g]
             [lg-animeka.util :as u]
             [lg-animeka.graphs.health :as health]
@@ -103,13 +104,12 @@
    "com.etzhayyim.animeka.assembleEpisode"    "assemble_episode"
    "com.etzhayyim.animeka.publishEpisode"     "publish_episode"})
 
-(def api-key
-  (str/trim (or #?(:clj (System/getenv "LG_API_KEY") :default nil) "")))
+(def ^:dynamic *api-key* "")
 
 (defn check-api-key
   "Mirrors `_require_api_key`: if LG_API_KEY is set, x-api-key must match."
   [x-api-key]
-  (if (and (seq api-key) (not= x-api-key api-key))
+  (if (and (seq *api-key*) (not= x-api-key *api-key*))
     {:status 401 :body {:error "invalid x-api-key"}}
     nil))
 
@@ -179,16 +179,15 @@
 (defn- json-response [{:keys [status body]}]
   #?(:clj {:status status
            :headers {"Content-Type" "application/json"}
-           :body ((requiring-resolve 'cheshire.core/generate-string) body)}
+           :body (json/generate-string body)}
      :default {:status status :body body}))
 
 (defn handler
   "Ring handler mirroring the FastAPI routes."
   [{:keys [request-method uri body headers] :as _req}]
   #?(:clj
-     (let [parse (requiring-resolve 'cheshire.core/parse-string)
-           api-h (get headers "x-api-key")
-           json-body (fn [] (try (parse (slurp body) true) (catch Exception _ {})))]
+     (let [api-h (get headers "x-api-key")
+           json-body (fn [] (try (json/parse-string (slurp body) true) (catch Exception _ {})))]
        (json-response
         (cond
           (and (= :get request-method) (= uri "/ok")) (ok)
@@ -204,9 +203,14 @@
 
 (defn run-server!
   "Start an org.httpkit.server on :port (default 2027). Returns the stop fn."
-  ([] (run-server! 2027))
-  ([port]
-   #?(:clj (let [run ((requiring-resolve 'org.httpkit.server/run-server) handler {:port port})]
+  ([] (run-server! nil 2027))
+  ([port] (run-server! nil port))
+  ([run-server port]
+   #?(:clj (do
+             (when-not (fn? run-server)
+               (throw (ex-info "Animeka server requires an explicit run-server capability"
+                               {:capability :animeka/run-server})))
+             (let [run (run-server handler {:port port})]
              (println (str "lg-animeka clj server up on :" port " — graphs=" (count GRAPHS)))
-             run)
+             run))
       :default nil)))

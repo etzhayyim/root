@@ -69,7 +69,7 @@
 (deftest api-key-guard
   (testing "no key configured → pass" (is (nil? (server/check-api-key ""))))
   (testing "configured key mismatch → 401"
-    (with-redefs [server/api-key "secret"]
+    (binding [server/*api-key* "secret"]
       (is (= 401 (:status (server/dispatch-run {:assistant_id "health"} {:x-api-key "wrong"})))))))
 
 (deftest xrpc-camel-to-snake
@@ -296,8 +296,45 @@
   (testing "off-fleet refused"
     (is (thrown? #?(:clj clojure.lang.ExceptionInfo :default :default)
                  (llm/assert-murakumo "https://api.openai.com/v1"))))
+  (testing "malformed endpoints are refused"
+    (is (thrown? #?(:clj clojure.lang.ExceptionInfo :default :default)
+                 (llm/assert-murakumo "not-a-url"))))
   (testing "loopback gateway allowed"
     (is (nil? (llm/assert-murakumo "http://127.0.0.1:4000/v1")))))
+
+(deftest outward-capabilities-fail-closed
+  (is (thrown-with-msg? clojure.lang.ExceptionInfo
+                        #"explicit chat capability"
+                        (llm/chat "system" "user")))
+  (is (thrown-with-msg? clojure.lang.ExceptionInfo
+                        #"explicit run-server capability"
+                        (server/run-server! 2027))))
+
+(deftest injected-murakumo-http-capability-preserves-wire-contract
+  (let [seen (atom nil)
+        result (llm/chat-with
+                (fn [url opts]
+                  (reset! seen {:url url :opts opts})
+                  {:status 200
+                   :body "{\"model\":\"m\",\"choices\":[{\"message\":{\"content\":\" ok \"}}],\"usage\":{\"total_tokens\":3}}"})
+                {:url "http://127.0.0.1:4000/v1" :model "m" :timeout-sec 2}
+                "system" "user" {:max-tokens 9 :temperature 0.2})]
+    (is (= "http://127.0.0.1:4000/v1/chat/completions" (:url @seen)))
+    (is (= 2000 (get-in @seen [:opts :timeout])))
+    (is (= "ok" (:content result)))
+    (is (= 3 (:total-tokens result)))))
+
+(deftest injected-server-capability-receives-portable-handler
+  (let [seen (atom nil)
+        stop (fn [] :stopped)]
+    (is (identical? stop
+                    (server/run-server!
+                     (fn [handler opts]
+                       (reset! seen {:handler handler :opts opts})
+                       stop)
+                     0)))
+    (is (fn? (:handler @seen)))
+    (is (= {:port 0} (:opts @seen)))))
 
 ;; ── ComfyUI quality-workflow shape (autopilot) ──────────────────────────────
 
