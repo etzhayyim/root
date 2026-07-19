@@ -1,8 +1,0 @@
-**/node_modules
-**/.venv
-**/__pycache__
-**/.pytest_cache
-**/dist
-.git
-organism-pkg/.venv
-organism-pkg/__pycache__
