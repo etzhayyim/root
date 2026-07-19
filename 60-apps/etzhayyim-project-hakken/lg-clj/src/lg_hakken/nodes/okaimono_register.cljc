@@ -6,7 +6,7 @@
   each already-registered SKU; accumulates a non-fatal error per failure."
   (:require [lg-hakken.xrpc :as xrpc]))
 
-(def okaimono-xrpc (or (System/getenv "OKAIMONO_XRPC_URL") "https://okaimono.etzhayyim.com"))
+(def ^:dynamic okaimono-xrpc "https://okaimono.etzhayyim.com")
 
 (defn default-okaimono-publish [item-id]
   (:ok (xrpc/post-json

@@ -6,7 +6,7 @@
   GETs kakaku XRPC `com.etzhayyim.apps.kakaku.listOffers`."
   (:require [lg-hakken.xrpc :as xrpc]))
 
-(def kakaku-xrpc (or (System/getenv "KAKAKU_XRPC_URL") "https://kakaku.etzhayyim.com"))
+(def ^:dynamic kakaku-xrpc "https://kakaku.etzhayyim.com")
 
 (defn default-list-offers [category limit]
   (-> (xrpc/get-json (str kakaku-xrpc "/xrpc/com.etzhayyim.apps.kakaku.listOffers")
