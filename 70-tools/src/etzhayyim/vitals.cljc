@@ -33,8 +33,7 @@
             [cheshire.core :as json]
             [etzhayyim.kotoba.engine :as kt]))
 
-(def ^:private actors-root
-  (or (System/getenv "ETZHAYYIM_WEST_ACTORS_DIR") ".."))
+(def ^:private actors-root "..")
 (def ^:private journal "80-data/vitals/journal.edn")
 (def ^:private bsky-re #"app\.bsky\.feed\.post|feed-post|feed_post")
 
@@ -617,12 +616,19 @@
                   (neg? d-stub)  (conj ":event/follower-gained"))] ; revived from death
         (if (seq evs) evs [":event/idle"])))))
 
-(defn joucho-data [of n]
-  (let [baseline ((requiring-resolve 'ibuki.methods.joucho/personality-baseline) of)
-        fold     (requiring-resolve 'ibuki.methods.joucho/fold-event)
-        mood-of  (requiring-resolve 'ibuki.methods.joucho/determine-mood)
-        readout  (requiring-resolve 'ibuki.methods.wellbecoming/readout)
-        vocab    @(requiring-resolve 'ibuki.methods.joucho/event-deltas)  ;; the loaded closed vocab
+(defn- ibuki-capability! [caps k]
+  (let [v (get caps k)]
+    (if (if (= k :event-deltas) (associative? v) (fn? v))
+      v
+      (throw (ex-info (str "Ibuki capability not configured: " k)
+                      {:missing-capability k})))))
+
+(defn joucho-data-with [caps of n]
+  (let [baseline ((ibuki-capability! caps :personality-baseline) of)
+        fold     (ibuki-capability! caps :fold-event)
+        mood-of  (ibuki-capability! caps :determine-mood)
+        readout  (ibuki-capability! caps :wellbecoming-readout)
+        vocab    (ibuki-capability! caps :event-deltas)
         known?   (fn [e] (contains? vocab e))
         ;; #1: fold the organism's REAL recent trajectory (not a synthetic (mod i k) schedule).
         ;; Fail-open to the synthetic stream if the trajectory log isn't readable / has <2 runs.
@@ -645,6 +651,9 @@
      :beats beats
      :wellbecoming {:direction (name (:direction wb)) :net (:net wb) :trajectory (:trajectory wb)}}))
 
+(defn joucho-data [of n]
+  (joucho-data-with {} of n))
+
 (defn joucho->datoms
   "Per-beat :joucho/* mood entities + a final :wellbecoming/* MOVEMENT entity (engine-native
    maps — the organism's mood history on the kotoba log, as-of replayable, 縁起). Edge-primary:
@@ -663,13 +672,13 @@
                 :wellbecoming/direction (:direction wb) :wellbecoming/net (:net wb)}]
     (vec (conj (vec per-beat) wb-ent))))
 
-(defn -joucho
+(defn -joucho-with
   "Persist the 情緒 mood + Wellbecoming trajectory into the kotoba Datom log (SoT), snapshot it
    content-addressed, and emit joucho.json as the projection. Args: [of=ibuki] [beats=24]."
-  [& args]
+  [caps & args]
   (let [of (or (first args) "ibuki")
         n  (if (second args) (Long/parseLong (second args)) 24)
-        d  (joucho-data of n)]
+        d  (joucho-data-with caps of n)]
     (io/delete-file joucho-journal true)               ;; deterministic replay → fresh each run
     (let [conn (kt/connect {:journal joucho-journal})]
       (kt/transact conn (joucho->datoms of d))
@@ -682,6 +691,10 @@
                            (subs head 0 (min 16 (count head)))
                            of (:mood d) (get-in d [:wellbecoming :direction])
                            (get-in d [:wellbecoming :net]))))))))
+
+(defn -joucho [& _args]
+  (throw (ex-info "Ibuki host capability bundle required; invoke -joucho-with"
+                  {:capability :ibuki-joucho})))
 
 ;; ── CLI ──────────────────────────────────────────────────────────────────────
 
