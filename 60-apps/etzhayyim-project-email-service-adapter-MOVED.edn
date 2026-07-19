@@ -1,0 +1,12 @@
+{:schema "etzhayyim.migration/moved-v1"
+ :source {:repo "etzhayyim/root"
+          :path "60-apps/etzhayyim-project-email-service-adapter"
+          :revision "d1ff44f4946bd8e50808dd3fd06b7beeefb8d5c8"
+          :git-tree "4008f49d1558fadc378ee09e35afe9516f49d2b0"
+          :tracked-files 22
+          :bytes 6755768}
+ :destination {:repo "etzhayyim/com-etzhayyim-app-email-service-adapter"
+               :revision "8b601eefa61fc27f83282f542a51d88bcf8a1a0e"}
+ :status :moved
+ :owner-adr "2607200600"
+ :verification :source-tree-plus-canonical-edn-only}

@@ -1,0 +1,12 @@
+{:schema "etzhayyim.migration/moved-v1"
+ :source {:repo "etzhayyim/root"
+          :path "60-apps/etzhayyim-project-crowdfunding"
+          :revision "d1ff44f4946bd8e50808dd3fd06b7beeefb8d5c8"
+          :git-tree "6b299d99d3202c608e7da6d4271fe45a881d3fcc"
+          :tracked-files 22
+          :bytes 50978}
+ :destination {:repo "etzhayyim/com-etzhayyim-app-crowdfunding"
+               :revision "e7fddcae25cf0a0022ae7bb86c4c4df98084bfb4"}
+ :status :moved
+ :owner-adr "2607200600"
+ :verification :source-tree-plus-canonical-edn-only}
