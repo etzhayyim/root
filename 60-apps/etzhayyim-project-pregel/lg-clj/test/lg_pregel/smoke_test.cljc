@@ -90,6 +90,12 @@
   (testing "x-cron=1 bypasses auth even when key would be required"
     (is (nil? (server/enforce-auth "wrong" true)))))
 
+(deftest auth-is-host-bound
+  (binding [server/*api-key* "secret"]
+    (is (= 401 (:status (server/enforce-auth nil))))
+    (is (= 401 (:status (server/enforce-auth "wrong"))))
+    (is (nil? (server/enforce-auth "secret")))))
+
 ;; ── /stats ──────────────────────────────────────────────────────────────────
 
 (deftest stats-clamps-days
@@ -212,5 +218,32 @@
   (testing "off-fleet endpoint refused"
     (is (thrown? clojure.lang.ExceptionInfo
                  (mk/assert-murakumo "https://api.openai.com/v1"))))
+  (testing "lookalike and malformed endpoints refused"
+    (is (thrown? clojure.lang.ExceptionInfo
+                 (mk/assert-murakumo "http://127.0.0.1.attacker.example:4000/v1")))
+    (is (thrown? clojure.lang.ExceptionInfo
+                 (mk/assert-murakumo "not-a-url"))))
   (testing "loopback gateway allowed"
     (is (nil? (mk/assert-murakumo "http://127.0.0.1:4000/v1")))))
+
+(deftest live-authority-requires-explicit-capabilities
+  (is (thrown-with-msg? clojure.lang.ExceptionInfo
+                        #"explicit chat capability"
+                        (mk/chat "system" "user")))
+  (is (thrown-with-msg? clojure.lang.ExceptionInfo
+                        #"explicit run-server capability"
+                        (server/serve! nil {:port 0}))))
+
+(deftest injected-murakumo-wire-contract
+  (let [seen (atom nil)
+        result (mk/chat-with
+                (fn [url opts]
+                  (reset! seen [url opts])
+                  {:status 200
+                   :body "{\"choices\":[{\"message\":{\"content\":\"safe\"}}]}"})
+                mk/default-config "system" "user")]
+    (is (= "safe" result))
+    (is (= "http://127.0.0.1:4000/v1/chat/completions" (first @seen)))
+    (is (= "application/json" (get-in @seen [1 :headers "content-type"])))
+    (is (false? (get-in @seen [1 :throw])))
+    (is (re-find #"\"model\"" (get-in @seen [1 :body])))))

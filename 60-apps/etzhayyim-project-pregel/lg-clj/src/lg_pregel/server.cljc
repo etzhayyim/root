@@ -14,7 +14,7 @@
   envelope shaping as PURE functions, dispatched by `handle-request`
   (req {:method :path :headers :query :body} -> {:status :body}). Wrapping it in a
   concrete socket listener is the one infra leg left to deployment; `serve!`
-  provides an org.httpkit.server binding (loaded lazily) for parity with the
+  accepts an explicit org.httpkit.server capability for parity with the
   wave-1 twins, but the DEPLOYED runtime stays the FastAPI pod (`lg/`) and this
   twin COEXISTS additively (ADR-2606280030).
 
@@ -22,7 +22,8 @@
   `lg-pregel.murakumo/*llm-chat*`) — the actor swap pattern — so the substrate
   boundary (no RisingWave) and Murakumo loopback (ADR-2605215000) are honored
   without changing the routing."
-  (:require [clojure.string :as str]
+  (:require #?(:clj [cheshire.core :as json])
+            [clojure.string :as str]
             [langgraph.graph :as g]
             [lg-pregel.store :as store]
             [lg-pregel.graphs.outlook-triage :as outlook-triage]
@@ -40,7 +41,7 @@
    "projector_driver"    projector-driver/GRAPH
    "projector_ops"       projector-ops/GRAPH})
 
-(defn- env [k] #?(:clj (System/getenv k) :cljs nil))
+(def ^:dynamic *api-key* "")
 (defn- now-ms [] #?(:clj (System/currentTimeMillis) :cljs (.now js/Date)))
 
 (defn- clamp [v lo hi] (max lo (min hi v)))
@@ -58,7 +59,7 @@
   path, x-cron=1). Open when LG_PREGEL_API_KEY is unset (mirrors server.py)."
   ([x-api-key] (enforce-auth x-api-key false))
   ([x-api-key exempt?]
-   (let [expected (env "LG_PREGEL_API_KEY")]
+   (let [expected *api-key*]
      (cond
        exempt?                       nil
        (or (nil? expected) (= "" expected)) nil
@@ -179,7 +180,6 @@
   [thread-id body {:keys [x-api-key]}]
   (or (enforce-auth x-api-key)
       (let [command (or (:command body) {})
-            gen     (requiring-resolve 'cheshire.core/generate-string)
             verdict
             (if (str/starts-with? (str thread-id) "draft-")
               (let [action     (str/lower-case (str (or (:resume command) "discard")))
@@ -193,9 +193,9 @@
         {:status 200
          :verdict verdict
          :headers {"content-type" "text/event-stream"}
-         :body (sse [(gen {:event "updates"
+         :body (sse [(json/generate-string {:event "updates"
                            :data {:verdict verdict :thread_id thread-id}})
-                     (gen {:event "end"})])})))
+                     (json/generate-string {:event "end"})])})))
 
 ;; ── pure dispatcher (ring-ish) ──────────────────────────────────────────────
 
@@ -225,25 +225,27 @@
 
 ;; ── optional socket binding (org.httpkit.server), parity with wave-1 ─────────
 
+(defn ring-handler
+  [{:keys [request-method uri headers query-string] :as req}]
+  #?(:clj
+     (let [body (when-let [b (:body req)]
+                  (try (json/parse-string (slurp b) true) (catch Exception _ {})))
+           q (into {} (for [kv (some-> query-string (str/split #"&"))
+                            :let [[k v] (str/split kv #"=" 2)]]
+                        [k v]))
+           {:keys [status body headers]}
+           (handle-request {:method request-method :path uri
+                            :headers headers :query q :body body})]
+       {:status status
+        :headers (merge {"content-type" "application/json"} headers)
+        :body (if (string? body) body (json/generate-string body))})
+     :cljs {:status 501 :body {:detail "host server unavailable"}}))
+
 #?(:clj
    (defn serve!
-     "Bind `handle-request` to an org.httpkit.server listener (loaded lazily). The
-     deployed runtime stays the FastAPI pod; this is for local parity only."
-     [{:keys [port] :or {port 8080}}]
-     (let [run-server (requiring-resolve 'org.httpkit.server/run-server)
-           parse (requiring-resolve 'cheshire.core/parse-string)
-           gen   (requiring-resolve 'cheshire.core/generate-string)
-           handler
-           (fn [{:keys [request-method uri headers query-string] :as req}]
-             (let [body (when-let [b (:body req)]
-                          (try (parse (slurp b) true) (catch Exception _ {})))
-                   q (into {} (for [kv (some-> query-string (str/split #"&"))
-                                    :let [[k v] (str/split kv #"=" 2)]]
-                                [k v]))
-                   {:keys [status body headers]}
-                   (handle-request {:method request-method :path uri
-                                    :headers headers :query q :body body})]
-               {:status status
-                :headers (merge {"content-type" "application/json"} headers)
-                :body (if (string? body) body (gen body))}))]
-       (run-server handler {:port port}))))
+     "Bind the portable handler through an explicit server capability."
+     [run-server {:keys [port] :or {port 8080}}]
+     (when-not (fn? run-server)
+       (throw (ex-info "Pregel server requires an explicit run-server capability"
+                       {:capability :pregel/run-server})))
+     (run-server ring-handler {:port port})))

@@ -2,44 +2,50 @@
   "Murakumo loopback LLM seam (ADR-2605215000) for the pregel triage actors.
 
   The external `kotodama` classifier talks to an LLM; per repo policy any LLM
-  call MUST go through the Murakumo loopback gateway at 127.0.0.1:4000
-  (no-server-key / read-only). This ns provides the guard + a default chat fn so
-  any clj graph node that wants the classifier has a faithful, fleet-safe seam.
-  `httpx` (Python) → `babashka.http-client`; JSON → `cheshire` (loaded lazily so
-  the ns also compiles/loads under plain bb without the deps on the path)."
-  (:require [clojure.string :as str]))
+  call MUST go through the Murakumo loopback gateway. This namespace validates
+  the endpoint and accepts the HTTP implementation and configuration from an
+  explicit host adapter."
+  (:require #?(:clj [cheshire.core :as json])
+            [clojure.string :as str]))
 
-(def gateway
-  (or (System/getenv "MURAKUMO_BASE_URL") "http://127.0.0.1:4000/v1"))
+(def default-config {:url "http://127.0.0.1:4000/v1"
+                     :model "gpt-4o-mini"})
 
 (defn assert-murakumo
   "Throw unless `url` targets the Murakumo loopback gateway (127.0.0.1 / ::1 /
   localhost). Mirrors the off-fleet refusal guard used across the wave-1 twins."
   [url]
-  (let [u (str/lower-case (str url))]
-    (when-not (or (str/includes? u "127.0.0.1")
-                  (str/includes? u "localhost")
-                  (str/includes? u "[::1]"))
+  (let [[_ scheme host] (or (re-find #"^([A-Za-z][A-Za-z0-9+.\-]*)://([^/?#]*)" (str url))
+                            [nil nil nil])
+        host (some-> host str/lower-case)]
+    (when-not (and (= "http" (some-> scheme str/lower-case))
+                   (contains? #{"127.0.0.1:4000" "localhost:4000" "[::1]:4000"} host))
       (throw (ex-info "off-fleet LLM endpoint refused (Murakumo loopback only)"
                       {:url url})))
     nil))
 
-(defn default-chat
-  "Default `*llm-chat*`: POST an OpenAI-shaped chat completion to the Murakumo
-  loopback. Read-only / no server key. Returns the assistant message string."
-  [system user]
-  (assert-murakumo gateway)
-  (let [post  (requiring-resolve 'babashka.http-client/post)
-        gen   (requiring-resolve 'cheshire.core/generate-string)
-        parse (requiring-resolve 'cheshire.core/parse-string)
-        model (or (System/getenv "MURAKUMO_MODEL") "gpt-4o-mini")
-        body  (gen {:model model
+(defn chat-with
+  "POST through an explicit HTTP capability. Returns assistant content."
+  [http-post {:keys [url model] :or {url (:url default-config)
+                                     model (:model default-config)}} system user]
+  (when-not (fn? http-post)
+    (throw (ex-info "Pregel inference requires an explicit HTTP POST capability"
+                    {:capability :pregel/murakumo-http-post})))
+  (let [url   (str/replace (str url) #"/+$" "")
+        _     (assert-murakumo url)
+        body  (json/generate-string {:model model
                     :messages [{:role "system" :content system}
                                {:role "user" :content user}]})
-        resp  (post (str gateway "/chat/completions")
+        resp  (http-post (str url "/chat/completions")
                     {:headers {"content-type" "application/json"}
                      :body body :throw false})
-        data  (parse (:body resp) true)]
+        data  (json/parse-string (:body resp) true)]
     (get-in data [:choices 0 :message :content])))
 
-(def ^:dynamic *llm-chat* default-chat)
+(def ^:dynamic *llm-chat* nil)
+
+(defn chat [system user]
+  (when-not (fn? *llm-chat*)
+    (throw (ex-info "Pregel inference requires an explicit chat capability"
+                    {:capability :pregel/chat})))
+  (*llm-chat* system user))
