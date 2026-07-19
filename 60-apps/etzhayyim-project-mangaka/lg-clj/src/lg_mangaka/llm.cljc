@@ -15,10 +15,7 @@
   `llm-json` — chat completion parsed as JSON (tolerates ```json fences and
                leading prose) → map or nil."
   (:require [cheshire.core :as json]
-            [clojure.string :as str]
-            [babashka.http-client :as http]))
-
-(defn- env [k default] (or (System/getenv k) default))
+            [clojure.string :as str]))
 
 ;; Murakumo fleet (ADR-2605215000) — the ONLY inference endpoints representable.
 (def murakumo-allowed-hosts
@@ -26,9 +23,9 @@
     "192.168.1.70:8077" "192.168.1.70:11434"
     "127.0.0.1:11434" "localhost:11434"})
 
-(def llm-url     (str/replace (env "VLLM_URL" "http://127.0.0.1:4000/v1") #"/+$" ""))
-(def llm-model   (env "VLLM_MODEL" "gemma3:4b"))
-(def llm-timeout (long (* 1000 (Double/parseDouble (env "VLLM_TIMEOUT_SEC" "60")))))
+(def default-config {:url "http://127.0.0.1:4000/v1"
+                     :model "gemma3:4b" :timeout-ms 60000})
+(def ^:dynamic *http-post* nil)
 
 (defn- clip [s n] (let [s (str s)] (subs s 0 (min n (count s)))))
 
@@ -47,16 +44,21 @@
   "Single-turn chat. `messages` is a vector of {:role :content} maps. Returns
   {:reply <text> :model <m> :prompt_tokens .. :completion_tokens ..
    :total_tokens ..} or {:error ...}. Mirrors agent_chat._node_llm_call."
-  [messages {:keys [max-tokens temperature]
+  [messages {:keys [max-tokens temperature host-config]
              :or {max-tokens 512 temperature 0.7}}]
+  (when-not (fn? *http-post*)
+    (throw (ex-info "Mangaka inference requires an explicit HTTP POST capability"
+                    {:capability :mangaka/llm-http-post})))
+  (let [{:keys [url model timeout-ms]} (merge default-config (or host-config {}))
+        url (str/replace url #"/+$" "")]
   (try
-    (assert-murakumo llm-url)
-    (let [resp (http/post (str llm-url "/chat/completions")
+    (assert-murakumo url)
+    (let [resp (*http-post* (str url "/chat/completions")
                           {:headers {"Content-Type" "application/json"}
-                           :timeout llm-timeout
+                           :timeout timeout-ms
                            :throw false
                            :body (json/generate-string
-                                  {:model llm-model :messages messages
+                                  {:model model :messages messages
                                    :max_tokens max-tokens :temperature temperature})})
           status (:status resp)]
       (if (>= status 400)
@@ -66,11 +68,11 @@
               msg    (get choice :message {})
               usage  (get body :usage {})]
           {:reply (str/trim (str (:content msg)))
-           :model (or (:model body) llm-model)
+           :model (or (:model body) model)
            :prompt_tokens (int (or (:prompt_tokens usage) 0))
            :completion_tokens (int (or (:completion_tokens usage) 0))
            :total_tokens (int (or (:total_tokens usage) 0))})))
-    (catch Exception e {:error (clip (.getMessage e) 200)})))
+    (catch Exception e {:error (clip (.getMessage e) 200)}))))
 
 (defn parse-json-loose
   "Parse JSON tolerating ```json fences and trailing prose. Returns a map or nil.
@@ -92,9 +94,11 @@
 (defn llm-json
   "Call the Murakumo chat endpoint and parse the reply as JSON. Returns a map or
   nil. Mirrors llm.py:llm_json (response_format json_object)."
-  [system user]
-  (let [res (chat [{:role "system" :content system}
-                   {:role "user" :content user}]
-                  {:max-tokens 1024 :temperature 0.4})]
-    (when-not (:error res)
-      (parse-json-loose (:reply res)))))
+  ([system user] (llm-json system user nil))
+  ([system user host-config]
+   (let [res (chat [{:role "system" :content system}
+                    {:role "user" :content user}]
+                   {:max-tokens 1024 :temperature 0.4
+                    :host-config host-config})]
+     (when-not (:error res)
+       (parse-json-loose (:reply res))))))

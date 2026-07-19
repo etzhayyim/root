@@ -19,8 +19,6 @@
             [lg-mangaka.llm :as llm]
             [lg-mangaka.audit :as audit]))
 
-(def app-did (or (System/getenv "MANGAKA_APP_DID") "did:web:mangaka.etzhayyim.com"))
-
 (def actor-prompts
   {"writer" (str "You are a manga writer (gensaku-sha) AI. Your job: draft scripts "
                  "(plot beats, dialogue, panel directions). Reply in standard manga "
@@ -74,7 +72,8 @@
         (conj {:role "user" :content (subs message 0 (min 4000 (count message)))}))))
 
 (defn node-resolve-actor [state]
-  (let [role (or (:actor_role state) "writer")]
+  (let [role (or (:actor_role state) "writer")
+        app-did (:app-did (audit/config state))]
     {:actor_did (str app-did ":actor:" role) :actor_role role}))
 
 (defn node-llm-call [state]
@@ -83,6 +82,7 @@
       {:error "message required"}
       (let [messages (build-messages (assoc state :message user-text))
             res (*chat* messages {:max-tokens (int (or (:max_tokens state) 512))
+                                  :host-config (:llm (audit/config state))
                                   :temperature (double (or (:temperature state) 0.7))})]
         (if (:error res)
           {:error (:error res)}
@@ -94,7 +94,8 @@
 
 (defn node-emit-audit [state]
   (audit/emit-audit-bg
-   {:actor (or (:actor_did state) app-did)
+   state
+   {:actor (or (:actor_did state) (:app-did (audit/config state)))
     :activity "mangaka.chat.reply"
     :object-id (str "chat:" (or (:actor_role state) "writer") ":"
                     (quot (System/currentTimeMillis) 1000))

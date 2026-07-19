@@ -17,11 +17,7 @@
             [lg-mangaka.store :as store]
             [lg-mangaka.audit :as audit]))
 
-(def app-did (or (System/getenv "MANGAKA_APP_DID") "did:web:mangaka.etzhayyim.com"))
 (def nsid "com.etzhayyim.mangaka.document")
-(def default-org-did
-  (or (System/getenv "MANGAKA_DEFAULT_ORG_DID")
-      "did:erc725:etzhayyim:260425:etzhayyim-japan"))
 
 (defn- s [v] (str/trim (str (or v ""))))
 
@@ -29,7 +25,8 @@
   (let [doc-id (s (or (:doc_id state) (:docId state)))]
     (if (str/blank? doc-id)
       {:status "error" :error "docId required"}
-      (let [name      (let [n (s (:name state))] (if (seq n) n doc-id))
+      (let [{:keys [app-did default-org-did]} (audit/config state)
+            name      (let [n (s (:name state))] (if (seq n) n doc-id))
             document  (or (:document state) "")
             actor-did (let [a (s (or (:actor_did state) (:actorDid state)))]
                         (if (seq a) a app-did))
@@ -53,15 +50,17 @@
               {:status "error" :error (subs m 0 (min 300 (count m)))})))))))
 
 (defn node-emit-audit [state]
-  (audit/emit-audit-bg
-   {:actor (or (:actor_did state) (:actorDid state) app-did)
+  (let [app-did (:app-did (audit/config state))]
+    (audit/emit-audit-bg
+     state
+     {:actor (or (:actor_did state) (:actorDid state) app-did)
     :activity "mangaka.document.save"
     :object-id (or (:vertex_id state) (:vertexId state)
                    (:doc_id state) (:docId state) "")
     :object-type "mangaka.document"
     :attributes {:docId (or (:doc_id state) (:docId state))
                  :ok (= "saved" (:status state))
-                 :error (:error state)}})
+                   :error (:error state)}}))
   {})
 
 (defn build []

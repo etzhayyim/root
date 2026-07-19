@@ -7,48 +7,48 @@
   (audit loss is acceptable — the LangGraph state checkpoint is the source of
   truth for resumability). Honors LG_AUDIT_DISABLED=1 (the test harness sets it)."
   (:require [cheshire.core :as json]
-            [clojure.string :as str]
-            [babashka.http-client :as http]))
+            [clojure.string :as str]))
 
-(defn- env [k default] (or (System/getenv k) default))
+(def default-config
+  {:app-did "did:web:mangaka.etzhayyim.com"
+   :default-org-did "did:erc725:etzhayyim:260425:etzhayyim-japan"
+   :store-enabled? false
+   :dispatcher-url "http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080"
+   :internal-secret "" :audit-timeout-ms 3000
+   :llm {:url "http://127.0.0.1:4000/v1" :model "gemma3:4b" :timeout-ms 60000}})
 
-(def ^:private dispatcher-url
-  (let [u (env "BPMN_DISPATCHER_INTERNAL_URL"
-               "http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080")]
-    (str/replace u #"/+$" "")))
+(defn config [state] (merge default-config (or (:host-config state) {})))
 
-(def ^:private internal-secret
-  (str/trim (env "BPMN_DISPATCHER_INTERNAL_SECRET" "")))
+(defn http-emit-with [http-post host-config payload]
+  (when-not (fn? http-post)
+    (throw (ex-info "Mangaka audit requires an explicit HTTP POST capability"
+                    {:capability :mangaka/audit-http-post})))
+  (let [{:keys [dispatcher-url internal-secret audit-timeout-ms]}
+        (merge default-config host-config)
+        headers (cond-> {"Content-Type" "application/json"}
+                  (seq internal-secret) (assoc "x-internal-trust" internal-secret))]
+    (http-post (str (str/replace dispatcher-url #"/+$" "")
+                    "/xrpc/com.etzhayyim.generic.audit.emit")
+               {:headers headers :body (json/generate-string payload)
+                :timeout audit-timeout-ms :throw false})))
 
-(def ^:private audit-timeout-ms
-  (long (* 1000 (Double/parseDouble (env "LG_AUDIT_TIMEOUT_SEC" "3.0")))))
-
-(defn audit-disabled? []
-  (= "1" (env "LG_AUDIT_DISABLED" "0")))
+(def ^:dynamic *emit* (fn [_host-config _payload] nil))
 
 (defn emit-audit!
   "Synchronous best-effort emit. Returns nil. Never throws.
   Keys: :actor :activity :object-id :object-type :attributes."
-  [{:keys [actor activity object-id object-type attributes]}]
-  (when-not (audit-disabled?)
-    (try
-      (let [payload {:actor actor :activity activity :objectId object-id
-                     :objectType object-type :attributes (or attributes {})}
-            headers (cond-> {"Content-Type" "application/json"}
-                      (seq internal-secret) (assoc "x-internal-trust" internal-secret))]
-        (http/post (str dispatcher-url "/xrpc/com.etzhayyim.generic.audit.emit")
-                   {:headers headers
-                    :body (json/generate-string payload)
-                    :timeout audit-timeout-ms
-                    :throw false}))
+  [host-config {:keys [actor activity object-id object-type attributes]}]
+  (try
+      (*emit* host-config {:actor actor :activity activity :objectId object-id
+                           :objectType object-type :attributes (or attributes {})})
       (catch Exception e
         (binding [*out* *err*]
           (println "audit.emit failed (non-fatal):" (.getMessage e)
                    "| activity=" activity "id=" object-id))))
-    nil))
+    nil)
 
 (defn emit-audit-bg
   "Fire-and-forget: schedules emit-audit! on a future
   (the asyncio.create_task analogue in audit.py)."
-  [m]
-  (future (emit-audit! m)))
+  [state m]
+  (future (emit-audit! (config state) m)))

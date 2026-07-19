@@ -71,9 +71,24 @@
   (testing "no key configured → pass"
     (is (nil? (server/check-api-key ""))))
   (testing "configured key mismatch → 401"
-    (with-redefs [server/api-key "secret"]
-      (is (= 401 (:status (server/dispatch-run {:assistant_id "health"}
-                                               {:x-api-key "wrong"})))))))
+    (is (= 401 (:status (server/dispatch-run {:assistant_id "health"}
+                                             {:api-key "secret"
+                                              :x-api-key "wrong"}))))))
+
+(deftest dispatch-propagates-explicit-host-config
+  (let [custom-did "did:web:custom.example"
+        out (server/dispatch-run
+             {:assistant_id "save_document"
+              :input {:docId "explicit-host" :document "{}"}}
+             {:host-config {:app-did custom-did :store-enabled? true}})]
+    (is (= 200 (:status out)))
+    (is (= (str "at://" custom-did "/com.etzhayyim.mangaka.document/explicit-host")
+           (get-in out [:body :result :vertexId])))
+    (binding [store/*enabled?* true]
+      (is (= custom-did
+             (get (first (store/select-where "vertex_mangaka" "rkey" "explicit-host"
+                                            {:limit 1}))
+                  "owner_did"))))))
 
 ;; ── health graph end-to-end ─────────────────────────────────────────────────
 
@@ -137,6 +152,18 @@
     (is (thrown? clojure.lang.ExceptionInfo (llm/assert-murakumo "https://api.openai.com/v1"))))
   (testing "loopback gateway allowed"
     (is (nil? (llm/assert-murakumo "http://127.0.0.1:4000/v1")))))
+
+(deftest llm-http-capability-is-explicit-and-fail-closed
+  (is (thrown-with-msg? clojure.lang.ExceptionInfo #"explicit HTTP POST capability"
+                        (llm/chat [] {})))
+  (let [seen (atom nil)]
+    (binding [llm/*http-post*
+              (fn [url request]
+                (reset! seen [url request])
+                {:status 200
+                 :body "{\"model\":\"safe-local\",\"choices\":[{\"message\":{\"content\":\"ok\"}}]}"})]
+      (is (= "ok" (:reply (llm/chat [] {:host-config {:model "safe-local"}}))))
+      (is (= "http://127.0.0.1:4000/v1/chat/completions" (first @seen))))))
 
 (deftest parse-json-loose-handles-fences
   (is (= {:a 1} (llm/parse-json-loose "here you go ```json\n{\"a\": 1}\n``` done")))

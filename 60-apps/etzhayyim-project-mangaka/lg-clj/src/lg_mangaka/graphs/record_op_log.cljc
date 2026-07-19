@@ -15,12 +15,8 @@
   (:require [clojure.string :as str]
             [cheshire.core :as json]
             [langgraph.graph :as g]
-            [lg-mangaka.store :as store]))
-
-(def app-did (or (System/getenv "MANGAKA_APP_DID") "did:web:mangaka.etzhayyim.com"))
-(def default-org-did
-  (or (System/getenv "MANGAKA_DEFAULT_ORG_DID")
-      "did:erc725:etzhayyim:260425:etzhayyim-japan"))
+            [lg-mangaka.store :as store]
+            [lg-mangaka.audit :as audit]))
 
 (defn short-nid [nid]
   (let [n (str/replace (str (or nid "")) #"^[nN]+" "")
@@ -31,7 +27,8 @@
   (let [doc-id (str/trim (str (or (:doc_id state) "")))]
     (if (str/blank? doc-id)
       {:status "error" :error "docId required"}
-      (let [op        (str/trim (str (or (:op state) "other")))
+      (let [{:keys [app-did default-org-did]} (audit/config state)
+            op        (str/trim (str (or (:op state) "other")))
             nid       (str/trim (str (or (:nid state) "")))
             node-type (str/trim (str (or (:node_type state) "")))
             ts-ms     (System/currentTimeMillis)
@@ -52,7 +49,8 @@
         {:row row}))))
 
 (defn node-write-row [state]
-  (let [row (:row state)]
+  (let [row (:row state)
+        app-did (:app-did (audit/config state))]
     (if (nil? row)
       {:status "error" :error (or (:error state) "row missing")}
       (try

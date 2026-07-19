@@ -18,23 +18,20 @@
 (ns lg.lg-mangaka.graphs.comfy-run
   (:require [clojure.string :as str]))
 
-;; ── default URL (env-resolved; host edge) ─────────────────────────────────────
+;; ── default URL (authority-free portable default) ────────────────────────────
 ;; _DEFAULT_URL = (COMFY_POD_URL or COMFYUI_POD_URL or COMFYUI_URL
 ;;                 or "http://192.168.1.70:8188").rstrip("/")
-(defn default-url []
-  (let [getenv (fn [k] #?(:clj (System/getenv k) :default nil))
-        u (or (getenv "COMFY_POD_URL")
-              (getenv "COMFYUI_POD_URL")
-              (getenv "COMFYUI_URL")
-              "http://192.168.1.70:8188")]
-    ;; Python str.rstrip("/") strips ALL trailing slashes
-    (str/replace u #"/+$" "")))
+(def default-comfy-url "http://192.168.1.70:8188")
+
+(defn default-url [] default-comfy-url)
 
 ;; ── pure helpers ──────────────────────────────────────────────────────────────
 (defn base-url
   "_base_url(state) — (state.get('comfy_url') or _DEFAULT_URL).rstrip('/')."
   [state]
-  (let [u (let [v (get state "comfy_url")] (if (and v (not= v "")) v (default-url)))]
+  (let [u (let [v (or (get state "comfy_url")
+                       (get-in state ["host_config" "comfy_url"]))]
+            (if (and v (not= v "")) v (default-url)))]
     (str/replace u #"/+$" "")))
 
 (defn- now-ms []
