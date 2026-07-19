@@ -21,5 +21,39 @@
  {test  {:doc "Run the lg-curpus2skill clojure.test suite under bb."
          :task (load-file "run_tests.clj")}
   serve {:doc "Start the lg-curpus2skill XRPC/runs HTTP server."
-         :requires ([lg-curpus2skill.server])
-         :task (apply lg-curpus2skill.server/-main *command-line-args*)}}}
+         :requires ([babashka.http-client :as http]
+                    [org.httpkit.server :as httpkit]
+                    [lg-curpus2skill.audit :as audit]
+                    [lg-curpus2skill.server :as server]
+                    [lg-curpus2skill.store :as store])
+         :task
+         (let [env (fn [name default] (or (System/getenv name) default))
+               enabled? (fn [name default] (= "1" (env name default)))
+               port (Integer/parseInt
+                     (or (first *command-line-args*) (env "PORT" "2024")))
+               audit-config
+               {:disabled? (enabled? "LG_AUDIT_DISABLED" "0")
+                :dispatcher-url
+                (env "BPMN_DISPATCHER_INTERNAL_URL"
+                     "http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080")
+                :internal-secret (env "BPMN_DISPATCHER_INTERNAL_SECRET" "")
+                :timeout-ms
+                (long (* 1000
+                         (Double/parseDouble (env "LG_AUDIT_TIMEOUT_SEC" "3.0"))))}
+               store-enabled?
+               (or (enabled? "C2S_STORE_ENABLED" "0")
+                   (boolean (seq (env "RW_URL" ""))))]
+           (binding [audit/*config* audit-config
+                     audit/*post!* http/post
+                     store/*enabled?* store-enabled?]
+             (server/start!
+              (fn [_ options]
+                (httpkit/run-server
+                 (fn [request]
+                   (binding [audit/*config* audit-config
+                             audit/*post!* http/post
+                             store/*enabled?* store-enabled?]
+                     (server/handler request)))
+                 options))
+              {:port port}))
+           (deref (promise)))}}}

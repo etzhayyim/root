@@ -17,14 +17,15 @@
   `persist-skills!` stores nothing — exactly the unconfigured Python path."
   (:require [clojure.string :as str]))
 
-(defn- env [k] (System/getenv k))
+(def ^:dynamic *enabled?*
+  "Host-controlled store gate. Portable execution is inert by default."
+  false)
 
 (defn enabled?
   "True when the store should read/persist (faithful analogue of the Python's
   RisingWave-connection gate)."
   []
-  (or (= "1" (env "C2S_STORE_ENABLED"))
-      (boolean (seq (or (env "RW_URL") "")))))
+  (true? *enabled?*))
 
 ;; append-only in-process skill backend: skill-string -> evidence row map
 (defonce ^:private skill-db (atom {}))

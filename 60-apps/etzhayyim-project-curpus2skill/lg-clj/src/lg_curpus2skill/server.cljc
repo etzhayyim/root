@@ -21,11 +21,8 @@
   (:require [langgraph.graph :as g]
             [cheshire.core :as json]
             [clojure.string :as str]
-            [org.httpkit.server :as srv]
             [lg-curpus2skill.graphs.health :as health]
             [lg-curpus2skill.graphs.extract-evidence :as extract-evidence]))
-
-(defn- env [k default] (or (System/getenv k) default))
 
 ;; ── graph registry + NSID map (verbatim from server.py) ─────────────────────
 (def GRAPHS
@@ -129,8 +126,16 @@
       :else
       (json-resp {:status 404 :body {:detail "not found"}}))))
 
-(defn -main [& args]
-  (let [port (Integer/parseInt (or (first args) (env "PORT" "2024")))]
-    (srv/run-server handler {:port port})
+(defn start!
+  "Start through an explicitly supplied Ring server capability."
+  [run-server & [{:keys [port] :or {port 2024}}]]
+  (when-not (fn? run-server)
+    (throw (ex-info "explicit HTTP server capability required"
+                    {:capability :http-server})))
+  (let [stop (run-server handler {:port port})]
     (println (str "lg-curpus2skill server up on :" port " graphs=" (pr-str (keys GRAPHS))))
-    @(promise)))
+    stop))
+
+(defn -main [& _]
+  (throw (ex-info "host adapter required; use the bb serve task"
+                  {:capability :host-adapter})))
