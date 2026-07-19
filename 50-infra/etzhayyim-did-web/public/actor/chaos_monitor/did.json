@@ -33,7 +33,7 @@
     "glyph": "混沌",
     "wasmCid": null,
     "execModel": "service",
-    "primarySchema": "60-apps/chaos-dashboard/",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-app-chaos-dashboard/",
     "note": "verificationMethod empty — on-chain ERC725 mirror pending; did:web trust root = TLS (no server-minted key, ADR-2605231525)"
   }
 }

@@ -808,10 +808,11 @@ def _check_substrate_boundary(repo: Path) -> tuple[bool, list[str]]:
 
 def _check_transparent_force(repo: Path) -> tuple[bool, list[str]]:
     """§1.12 + ADR-2605192315 — force is on-chain + open-source + 1 SBT = 1 vote."""
-    rd = repo / "60-apps" / "etzhayyim-transparent-force-rd"
-    if not rd.is_dir():
-        return False, ["60-apps/etzhayyim-transparent-force-rd/ scaffold missing"]
-    return True, ["transparent-force R&D registry scaffolded"]
+    marker = repo / "60-apps" / "etzhayyim-transparent-force-rd-MOVED.edn"
+    adr = repo / "90-docs" / "adr" / "2607193600-small-app-shell-drain.edn"
+    if not marker.is_file() or not adr.is_file():
+        return False, ["transparent-force retirement provenance missing"]
+    return True, ["transparent-force concept scaffold retired with EDN provenance"]
 
 
 # Per ADR-2605231525 — etzhayyim infrastructure holds zero signing

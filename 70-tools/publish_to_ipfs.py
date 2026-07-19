@@ -36,7 +36,7 @@ def publish_to_ipfs(target_dir):
     return cid
 
 if __name__ == "__main__":
-    target = "60-apps/chaos-dashboard"
+    target = "orgs/etzhayyim/com-etzhayyim-app-chaos-dashboard"
     cid = publish_to_ipfs(target)
 
     # Write a mapping file that the Root Router can read to resolve /apps

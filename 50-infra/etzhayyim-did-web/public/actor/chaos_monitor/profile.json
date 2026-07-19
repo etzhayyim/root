@@ -21,7 +21,7 @@
     "status": "landed",
     "adr": [],
     "primaryLexicon": null,
-    "primarySchema": "60-apps/chaos-dashboard/",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-app-chaos-dashboard/",
     "didDocument": "https://etzhayyim.com/actor/chaos_monitor/did.json",
     "source": "kotoba"
   }
