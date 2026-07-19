@@ -17,7 +17,8 @@
   dispatcher. Binding `handle-request` to a concrete socket (org.httpkit.server)
   is the one remaining infra leg — see `serve` below; the deployed FastAPI pod
   (`lg/`) remains the live runtime and COEXISTS."
-  (:require [clojure.string :as str]
+  (:require #?(:clj [cheshire.core :as json])
+            [clojure.string :as str]
             [langgraph.graph :as g]
             [lg-jukyu.graphs.health :as health]
             [lg-jukyu.graphs.query-balance :as query-balance]
@@ -59,7 +60,7 @@
    "com.etzhayyim.apps.jukyu.normalizeDomainAdapter" "normalize_domain_adapter"
    "com.etzhayyim.apps.jukyu.extractShocks"          "extract_shocks"})
 
-(def api-key (or (System/getenv "LG_API_KEY") ""))
+(def ^:dynamic *api-key* "")
 
 (defn camel->snake
   "Mirror of server._camel_to_snake: prepend `_` before each interior uppercase
@@ -82,7 +83,7 @@
 (defn check-api-key
   "Mirrors server._require_api_key: if LG_API_KEY is set, x-api-key must match."
   [x-api-key]
-  (if (and (seq api-key) (not= x-api-key api-key))
+  (if (and (seq *api-key*) (not= x-api-key *api-key*))
     {:status 401 :body {:detail "invalid x-api-key"}}
     nil))
 
@@ -154,23 +155,26 @@
       (and (= :post method) nsid)                      (dispatch-xrpc nsid body)
       :else {:status 404 :body {:detail "not found"}})))
 
+(defn ring-handler [{:keys [request-method uri headers] :as req}]
+  #?(:clj
+     (let [body (when-let [b (:body req)]
+                  (try (json/parse-string (slurp b) true) (catch Exception _ nil)))
+           {:keys [status body]} (handle-request
+                                  {:method request-method :path uri
+                                   :headers headers :body body})]
+       {:status status :headers {"Content-Type" "application/json"}
+        :body (json/generate-string body)})
+     :default {:status 501 :body {:detail "host server unavailable"}}))
+
 #?(:clj
    (defn serve
      "Optional: bind `handle-request` to org.httpkit.server (bundled in babashka).
      Deployment-deferred — the live FastAPI pod is the deployed runtime; this is
      here only so the clj twin can stand up a socket when a human cuts over.
      JSON encode/decode via cheshire."
-     [port]
-     (let [run-server (requiring-resolve 'org.httpkit.server/run-server)
-           parse      (requiring-resolve 'cheshire.core/parse-string)
-           generate   (requiring-resolve 'cheshire.core/generate-string)
-           handler    (fn [{:keys [request-method uri headers] :as req}]
-                        (let [body (when-let [b (:body req)]
-                                     (try (parse (slurp b) true) (catch Exception _ nil)))
-                              {:keys [status body]} (handle-request
-                                                     {:method request-method :path uri
-                                                      :headers headers :body body})]
-                          {:status status
-                           :headers {"Content-Type" "application/json"}
-                           :body (generate body)}))]
-       (run-server handler {:port port}))))
+     ([port] (serve nil port))
+     ([run-server port]
+      (when-not (fn? run-server)
+        (throw (ex-info "Jukyu server requires an explicit run-server capability"
+                        {:capability :jukyu/run-server})))
+      (run-server ring-handler {:port port}))))

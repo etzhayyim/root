@@ -21,4 +21,6 @@
          :git/sha "c7daa07d4e50f55d7e2a02e4b89dbeb2b200961d"}}
  :tasks
  {test {:doc "Run the clojure.test suite under bb."
-        :task (load-file "run_tests.clj")}}}
+        :task (load-file "run_tests.clj")}
+  server {:doc "Start through the explicit Babashka host adapter."
+          :task (apply shell "bb" "run_tests.clj" "--server" *command-line-args*)}}}

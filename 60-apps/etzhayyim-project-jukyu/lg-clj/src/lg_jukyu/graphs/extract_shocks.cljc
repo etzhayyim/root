@@ -52,7 +52,7 @@
   (let [text (str/trim (or (:text state) ""))]
     (if (str/blank? text)
       {:shocks [] :shock_count 0 :error "text is required"}
-      (let [res (llm/*chat* {:model llm/extraction-model
+      (let [res (llm/chat {:model llm/extraction-model
                              :system system-prompt
                              :user (str "News text:\n\n" (util/clip text 4000))
                              :max-tokens 2048 :temperature 0.1})]
