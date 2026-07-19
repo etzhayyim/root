@@ -5,9 +5,6 @@
 60-apps/ai-gftd-chat-shell/svelte/src/lib/api.ts:14:pg-direct-db:return new Client({ apiUrl: "/lg" });
 60-apps/etzhayyim-chat-shell/src/app.ts:25:hono-import:import { Hono } from "hono";
 60-apps/etzhayyim-chat-shell/svelte/src/lib/api.ts:14:pg-direct-db:return new Client({ apiUrl: "/lg" });
-60-apps/etzhayyim-project-mangaka/appview-studio/etzhayyim-wasm-studio-stdk2024/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
-60-apps/etzhayyim-project-mangaka/appview/etzhayyim-wasm-mangaka-mng4k4x1/wrangler.jsonc:33:wrangler-hyperdrive-binding:"hyperdrive": [
-60-apps/etzhayyim-project-mangaka/appview/etzhayyim-wasm-mangaka-mng4k4x1/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-news/appview/news-core-component/src/app.ts:1155:kysely-direct-db:const db = createKyselyDb();
 60-apps/etzhayyim-project-news/appview/news-core-component/src/app.ts:1157:kysely-direct-db:.selectFrom("vertex_article")
 60-apps/etzhayyim-project-news/appview/news-core-component/src/app.ts:1253:kysely-direct-db:const db = createKyselyDb();
@@ -20,6 +17,5 @@
 60-apps/etzhayyim-project-news/appview/news-core-component/src/app.ts:1826:kysely-direct-db:.selectFrom("vertex_article")
 60-apps/etzhayyim-project-news/appview/news-core-component/src/app.ts:1832:kysely-direct-db:.selectFrom("vertex_article")
 60-apps/etzhayyim-project-news/appview/news-core-component/src/app.ts:554:kysely-direct-db:const db = createKyselyDb();
-60-apps/etzhayyim-project-open-isic/appview/worker/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/index.ts"
 60-apps/watashi/wasm/etzhayyim-wasm-watashi-mfbtsuyc/.etzhayyim-deploy/mfbtsuyc/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/watashi/wasm/etzhayyim-wasm-watashi-mfbtsuyc/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
