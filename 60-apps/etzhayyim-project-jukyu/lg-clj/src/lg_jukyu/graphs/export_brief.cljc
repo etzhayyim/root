@@ -45,7 +45,7 @@
                         "Signals:\n" signals-text "\n\n"
                         "Format: (1) Situation overview (2) Top companies at risk with key facts "
                         "(3) Recommended actions. Be concise and precise.")
-            res (llm/*chat* {:model llm/narrative-model
+            res (llm/chat {:model llm/narrative-model
                              :system "You are a senior commodity risk analyst writing executive briefs."
                              :user prompt :max-tokens 1024 :temperature 0.5})]
         (if (map? res)

@@ -50,7 +50,7 @@
         seeds (into {} (:shock_seeds state {}))]
     (if (or (not scenario) (clojure.string/blank? (str scenario)) (not with-llm))
       {:parsed_shocks []}
-      (let [res (llm/*chat* {:model llm/extraction-model
+      (let [res (llm/chat {:model llm/extraction-model
                              :system "You are a commodity supply-chain analyst. Output only valid JSON."
                              :user (str "Extract supply-demand shock events from the following text.\n"
                                         "Return JSON array with fields: shock_type, domain, country_code, "
@@ -87,7 +87,7 @@
           (let [risk (util/as-float (:riskScore ce) 0)]
             (if (< risk 0.4)
               (recur (rest cs) enriched)
-              (let [res (llm/*chat*
+              (let [res (llm/chat
                          {:model llm/narrative-model
                           :system "You are a supply-chain risk analyst. Output only valid JSON."
                           :user (str "Write a brief executive signal for a supply-chain risk alert.\n"

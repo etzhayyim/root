@@ -81,7 +81,7 @@
   (testing "no key configured → pass"
     (is (nil? (server/check-api-key ""))))
   (testing "configured key mismatch → 401"
-    (with-redefs [server/api-key "secret"]
+    (binding [server/*api-key* "secret"]
       (is (= 401 (:status (server/dispatch-run {:assistant_id "health"}
                                                {:x-api-key "wrong"})))))))
 
@@ -385,6 +385,33 @@
     (is (thrown? clojure.lang.ExceptionInfo (llm/assert-murakumo "https://api.openai.com/v1"))))
   (testing "loopback gateway allowed"
     (is (nil? (llm/assert-murakumo "http://127.0.0.1:4000/v1")))))
+
+(deftest outward-capabilities-fail-closed
+  (is (thrown-with-msg? clojure.lang.ExceptionInfo #"explicit chat capability"
+                        (llm/chat {:user "x"})))
+  (is (thrown-with-msg? clojure.lang.ExceptionInfo #"explicit run-server capability"
+                        (server/serve 2027)))
+  (is (thrown? clojure.lang.ExceptionInfo (llm/assert-murakumo "not-a-url"))))
+
+(deftest injected-murakumo-wire-contract
+  (let [seen (atom nil)
+        out (llm/chat-with
+             (fn [url opts]
+               (reset! seen {:url url :opts opts})
+               {:status 200 :body "{\"choices\":[{\"message\":{\"content\":\" ok \"}}]}"})
+             {:url "http://127.0.0.1:4000" :timeout-sec 2 :api-key "k"}
+             {:model "m" :user "u" :max-tokens 9})]
+    (is (= "ok" out))
+    (is (= "http://127.0.0.1:4000/v1/chat/completions" (:url @seen)))
+    (is (= "Bearer k" (get-in @seen [:opts :headers "Authorization"])))
+    (is (= 2000 (get-in @seen [:opts :timeout])))))
+
+(deftest injected-server-capability
+  (let [seen (atom nil) stop (fn [] :stopped)]
+    (is (identical? stop (server/serve (fn [handler opts]
+                                         (reset! seen [handler opts]) stop) 0)))
+    (is (fn? (first @seen)))
+    (is (= {:port 0} (second @seen)))))
 
 ;; ── util sanity ─────────────────────────────────────────────────────────────
 
