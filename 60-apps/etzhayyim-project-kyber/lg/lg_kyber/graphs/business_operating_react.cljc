@@ -145,31 +145,56 @@
 (def ^:private outbox-sql
   "INSERT INTO vertex_kyber_outbox (vertex_id, org_did, kind, subject, body_text, recipient_email, status, created_at) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)")
 
+(defn- outbox-notify [{:keys [summary-text run-date db]}]
+  (try
+    ((:execute db) outbox-sql
+     (str (random-uuid)) "did:web:kyber.etzhayyim.com" "bo-react-daily"
+     (str "kyber BO-React Daily " run-date) summary-text
+     "jun@etzhayyim.group" "queued-no-recipient" (u/today-iso))
+    true
+    (catch #?(:clj Exception :default :default) _ false)))
+
+(defn- allowed-webhook? [webhook]
+  #?(:clj
+     (try
+       (let [uri (java.net.URI. webhook)
+             scheme (.getScheme uri)
+             host (some-> (.getHost uri) .toLowerCase)
+             port (.getPort uri)
+             loopback? (contains? #{"localhost" "127.0.0.1" "::1"} host)
+             teams? (or (= host "webhook.office.com")
+                        (and host (.endsWith host ".webhook.office.com"))
+                        (= host "logic.azure.com")
+                        (and host (.endsWith host ".logic.azure.com")))]
+         (and host
+              (nil? (.getUserInfo uri))
+              (or (and (= scheme "https") teams?)
+                  (and (#{"http" "https"} scheme) loopback?
+                       (<= 1 port 65535)))))
+       (catch Exception _ false))
+     :default false))
+
+(defn notify-with
+  "Invoke a host-provided HTTP capability for an approved Teams endpoint, falling back
+  to the injected DB outbox. Portable code neither discovers environment nor resolves
+  an HTTP implementation."
+  [http-post webhook args]
+  (let [teams-ok (when (and (fn? http-post) (string? webhook)
+                            (allowed-webhook? webhook))
+                   (try
+                     (http-post webhook {:headers {"content-type" "application/json"}
+                                         :body (json/generate-string
+                                                (teams-card (:summary-text args)))
+                                         :timeout 10000})
+                     true
+                     (catch #?(:clj Exception :default :default) _ false)))]
+    (if teams-ok true (outbox-notify args))))
+
 (defn default-notify
-  "Teams adaptive-card webhook (httpx → babashka.http-client) with a vertex_kyber_outbox
-  INSERT fallback. Returns whether anything was delivered. Host-aware: the webhook leg is
-  :clj-only; the outbox leg goes through the injected db-api (so it works under any host
-  with a db-api). Faithful to the python's notified-flag semantics."
-  [{:keys [summary-text run-date db]}]
-  (let [webhook #?(:clj (System/getenv "TEAMS_KYBER_WEBHOOK_URL") :default nil)
-        teams-ok #?(:clj (when (and webhook (seq webhook))
-                           (try
-                             (let [http (requiring-resolve 'babashka.http-client/post)]
-                               (http webhook {:headers {"content-type" "application/json"}
-                                              :body (json/generate-string (teams-card summary-text))
-                                              :timeout 10000})
-                               true)
-                             (catch Exception _ false)))
-                    :default nil)]
-    (if teams-ok
-      true
-      (try
-        ((:execute db) outbox-sql
-         (str (random-uuid)) "did:web:kyber.etzhayyim.com" "bo-react-daily"
-         (str "kyber BO-React Daily " run-date) summary-text
-         "jun@etzhayyim.group" "queued-no-recipient" (u/today-iso))
-        true
-        (catch #?(:clj Exception :default :default) _ false)))))
+  "Authority-free default: persist to the injected outbox only. A host that owns a
+  Teams HTTP capability injects a partially applied `notify-with` instead."
+  [args]
+  (outbox-notify args))
 
 (defn notify [state]
   (let [report (or (get state "report") {})
