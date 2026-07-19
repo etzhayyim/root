@@ -20,13 +20,9 @@
             [lg-narou.audit :as audit])
   #?(:clj (:import [java.net Socket InetSocketAddress])))
 
-(defn- getenv [k default]
-  #?(:clj (or (System/getenv k) default) :default default))
-
-(defn rw-url [] (or (not-empty (getenv "RW_URL" ""))
-                    (not-empty (getenv "LG_CHECKPOINTER_URL" ""))))
-
-(defn default-app-did [] (getenv "NAROU_APP_DID" "did:web:narou.etzhayyim.com"))
+(def ^:dynamic *config* {:store-url nil :app-did "did:web:narou.etzhayyim.com"})
+(defn rw-url [] (:store-url *config*))
+(defn default-app-did [] (:app-did *config*))
 
 (defn- now-iso []
   #?(:clj (.format (java.time.format.DateTimeFormatter/ofPattern "yyyy-MM-dd'T'HH:mm:ss'Z'")

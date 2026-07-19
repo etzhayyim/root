@@ -15,20 +15,20 @@
   `cheshire.core` are bb built-ins, required only under :clj so the ns
   stays cljc-portable (the pure `build-payload` fn loads everywhere)."
   (:require [clojure.string :as str]
-            #?(:clj [cheshire.core :as json])
-            #?(:clj [babashka.http-client :as http])))
+            #?(:clj [cheshire.core :as json])))
 
-(defn- getenv [k default]
-  #?(:clj (or (System/getenv k) default) :default default))
+(def default-config {:url "http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080"
+                     :secret "" :timeout-ms 3000 :disabled? true})
+(def ^:dynamic *config* default-config)
+(def ^:dynamic *http-post* nil)
 
 (defn dispatcher-url []
-  (-> (getenv "BPMN_DISPATCHER_INTERNAL_URL"
-              "http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080")
+  (-> (:url *config*)
       (str/replace #"/+$" "")))
 
-(defn- internal-secret [] (str/trim (getenv "BPMN_DISPATCHER_INTERNAL_SECRET" "")))
-(defn- audit-timeout-ms [] (long (* 1000 (Double/parseDouble (getenv "LG_AUDIT_TIMEOUT_SEC" "3.0")))))
-(defn audit-disabled? [] (= "1" (getenv "LG_AUDIT_DISABLED" "0")))
+(defn- internal-secret [] (str/trim (:secret *config*)))
+(defn- audit-timeout-ms [] (long (:timeout-ms *config*)))
+(defn audit-disabled? [] (boolean (:disabled? *config*)))
 
 (defn build-payload
   "Pure: the OCEL event body (camelCase wire shape, identical to audit.py)."
@@ -54,7 +54,8 @@
                        (seq (internal-secret)) (assoc "x-internal-trust" (internal-secret)))
              url (str (dispatcher-url) "/xrpc/com.etzhayyim.generic.audit.emit")]
          (try
-           (http/post url {:headers headers
+           (when-not (fn? *http-post*) (throw (ex-info "Narou audit requires explicit HTTP" {})))
+           (*http-post* url {:headers headers
                            :body (json/generate-string payload)
                            :timeout (audit-timeout-ms)})
            :ok

@@ -27,11 +27,9 @@
             [lg-narou.graphs.health :as health]
             [lg-narou.graphs.agent-chat :as agent-chat]
             [lg-narou.cron :as cron]
-            #?(:clj [cheshire.core :as json])
-            #?(:clj [org.httpkit.server :as hk])))
+            #?(:clj [cheshire.core :as json])))
 
-(defn- getenv [k default]
-  #?(:clj (or (System/getenv k) default) :default default))
+(def ^:dynamic *api-key* "")
 
 (def GRAPHS {"health" health/GRAPH "agent_chat" agent-chat/GRAPH})
 
@@ -40,7 +38,7 @@
    "com.etzhayyim.narou.chat"      "agent_chat"
    "com.etzhayyim.narou.agentChat" "agent_chat"})
 
-(defn api-key [] (str/trim (getenv "LG_API_KEY" "")))
+(defn api-key [] (str/trim *api-key*))
 
 ;; ── key normalization (camelCase | snake_case → kebab keyword) ──────────
 
@@ -197,15 +195,15 @@
 #?(:clj
    (defn start!
      "Boot the httpkit server. opts: {:port n}. Returns the stop fn."
-     [& [{:keys [port] :or {port 8080}}]]
+     [run-server & [{:keys [port] :or {port 8080}}]]
+     (when-not (fn? run-server)
+       (throw (ex-info "Narou requires explicit server capability" {})))
      ;; cron is loaded for parity (narou ships zero crons → nil)
      (let [crons (cron/start-cron GRAPHS)]
        (println (str "lg-narou server up: graphs=" (vec (keys GRAPHS))
                      " crons=" (boolean crons) " port=" port))
-       (hk/run-server handler {:port port}))))
+       (run-server handler {:port port}))))
 
 #?(:clj
-   (defn -main [& args]
-     (let [port (Integer/parseInt (or (first args) (getenv "PORT" "8080")))]
-       (start! {:port port})
-       @(promise))))
+   (defn -main [& _]
+     (throw (ex-info "Narou portable runtime requires a host adapter" {}))))
