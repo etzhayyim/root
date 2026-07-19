@@ -20,17 +20,13 @@
     so a worker ported to clj cannot regress onto RisingWave.
 
   HTTP boundary is injectable (the swap seam, per the actor-tree idiom): pass
-  `:post-fn` in opts to capture/redirect the request map for tests; the default
-  performs a real `babashka.http-client` POST. Env lookups are likewise
-  overridable via opts so the seam is hermetically testable under bb."
+  `:post-fn` in opts to provide the purpose-specific request capability. The
+  portable default is network-incapable; deployment config is supplied as data."
   (:require [clojure.string :as str]
             [cheshire.core :as json]
-            [babashka.http-client :as http]
             [maps.bulk-ingest.kotoba-feature :as kf]))
 
 (def ^:private chunk-size 500)
-
-(defn- getenv [k] #?(:clj (System/getenv k) :cljs nil))
 
 (defn- rstrip-slash [s] (str/replace (or s "") #"/+$" ""))
 
@@ -46,13 +42,18 @@
 
 ;; ── HTTP boundary (swap seam) ──
 
+(def ^:dynamic *http-request!*
+  (fn [& _]
+    (throw (ex-info "explicit substrate HTTP capability required"
+                    {:capability :substrate-http}))))
+
 (defn http-post!
   "Default poster: send a request map {:url :headers :body} over the wire.
   `:body` is clojure data, JSON-encoded here. Raises on HTTP >= 300."
   [{:keys [url headers body]}]
-  (let [resp (http/post url {:headers headers
-                             :body (json/generate-string body)
-                             :throw false})]
+  (let [resp (*http-request!* url {:headers headers
+                                   :body (json/generate-string body)
+                                   :throw false})]
     (when (>= (:status resp) 300)
       (throw (ex-info (str "kotoba ingest failed: HTTP " (:status resp))
                       {:status (:status resp) :url url})))
@@ -100,10 +101,10 @@
 
 (defn- make-kotoba-writer
   [{:keys [operator-gate endpoint auth nsid post-fn]}]
-  (let [gate (or operator-gate (getenv "MAPS_OPERATOR_GATE"))
-        endpoint (rstrip-slash (or endpoint (getenv "KOTOBA_ENDPOINT") ""))
-        auth (or auth (getenv "KOTOBA_AUTH") "")
-        nsid (or nsid (getenv "KOTOBA_INGEST_NSID") "com.etzhayyim.apps.kotobase.kg.ingest_batch")]
+  (let [gate operator-gate
+        endpoint (rstrip-slash endpoint)
+        auth (or auth "")
+        nsid (or nsid "com.etzhayyim.apps.kotobase.kg.ingest_batch")]
     (when (not= gate "1")
       (throw (ex-info
               (str "ETZHAYYIM_SUBSTRATE_MODE=kotoba is outward-gated (ADR-2606064500 G7): "
@@ -118,17 +119,15 @@
 
 ;; ── MST backend (AT Protocol PDS -> MST + IPFS + Base L2 anchor) ──
 
-(defn- pds-create-session [pds-url handle app-password]
-  (let [resp (http/post (str pds-url "/xrpc/com.atproto.server.createSession")
-                        {:headers {"content-type" "application/json"}
-                         :body (json/generate-string {"identifier" handle
-                                                      "password" app-password})
-                         :throw false})]
+(defn- pds-create-session [post-fn pds-url handle app-password]
+  (let [resp (post-fn {:url (str pds-url "/xrpc/com.atproto.server.createSession")
+                       :headers {"content-type" "application/json"}
+                       :body {"identifier" handle "password" app-password}})]
     (when (>= (:status resp) 300)
       (throw (ex-info "PDS createSession failed" {:status (:status resp)})))
     (json/parse-string (:body resp))))
 
-(defrecord MstSubstrateWriter [pds-url session]
+(defrecord MstSubstrateWriter [pds-url session post-fn]
   SubstrateWriter
   (upsert-vertex-spatial [_ rows]
     (reduce
@@ -137,38 +136,34 @@
          (if (str/blank? label)
            n
            (do
-             (http/post (str pds-url "/xrpc/com.atproto.repo.createRecord")
-                        {:headers {"content-type" "application/json"
-                                   "authorization" (str "Bearer " (get @session "accessJwt"))}
-                         :body (json/generate-string
-                                {"repo" (get @session "did")
-                                 "collection" (str "com.etzhayyim.apps.maps." label)
-                                 "record" row})
-                         :throw false})
+             (post-fn {:url (str pds-url "/xrpc/com.atproto.repo.createRecord")
+                       :headers {"content-type" "application/json"
+                                 "authorization" (str "Bearer " (get @session "accessJwt"))}
+                       :body {"repo" (get @session "did")
+                              "collection" (str "com.etzhayyim.apps.maps." label)
+                              "record" row}})
              (inc n)))))
      0 rows))
   (upsert-table [_ table rows]
     (let [coll (str "com.etzhayyim.apps.maps.aux." table)]
       (doseq [row rows]
-        (http/post (str pds-url "/xrpc/com.atproto.repo.createRecord")
-                   {:headers {"content-type" "application/json"
-                              "authorization" (str "Bearer " (get @session "accessJwt"))}
-                    :body (json/generate-string
-                           {"repo" (get @session "did") "collection" coll "record" row})
-                    :throw false}))
+        (post-fn {:url (str pds-url "/xrpc/com.atproto.repo.createRecord")
+                  :headers {"content-type" "application/json"
+                            "authorization" (str "Bearer " (get @session "accessJwt"))}
+                  :body {"repo" (get @session "did") "collection" coll "record" row}}))
       (count rows)))
   (close-writer [_] (reset! session nil)))
 
-(defn- make-mst-writer [{:keys [pds-url handle app-password]}]
-  (let [pds-url (rstrip-slash (or pds-url (getenv "ETZHAYYIM_PDS_URL")
-                                  "https://atproto.etzhayyim.com"))
-        handle (or handle (getenv "ETZHAYYIM_PDS_HANDLE"))
-        app-password (or app-password (getenv "ETZHAYYIM_PDS_APP_PASSWORD"))]
+(defn- make-mst-writer [{:keys [pds-url handle app-password post-fn]}]
+  (let [pds-url (rstrip-slash (or pds-url "https://atproto.etzhayyim.com"))
+        post-fn (or post-fn http-post!)]
     (when (or (str/blank? (str handle)) (str/blank? (str app-password)))
       (throw (ex-info (str "ETZHAYYIM_SUBSTRATE_MODE=mst requires ETZHAYYIM_PDS_HANDLE + "
                            "ETZHAYYIM_PDS_APP_PASSWORD to be configured.")
                       {:type :runtime-error})))
-    (->MstSubstrateWriter pds-url (atom (pds-create-session pds-url handle app-password)))))
+    (->MstSubstrateWriter pds-url
+                          (atom (pds-create-session post-fn pds-url handle app-password))
+                          post-fn)))
 
 ;; ── seam ──
 
@@ -180,9 +175,7 @@
   transitional rw fallback."
   ([] (open-substrate-writer {}))
   ([{:keys [mode] :as opts}]
-   (let [mode (or mode
-                  (some-> (getenv "ETZHAYYIM_SUBSTRATE_MODE") str/lower-case)
-                  "rw")]
+   (let [mode (or (some-> mode str/lower-case) "rw")]
      (case mode
        "kotoba" (make-kotoba-writer opts)
        "mst" (make-mst-writer opts)

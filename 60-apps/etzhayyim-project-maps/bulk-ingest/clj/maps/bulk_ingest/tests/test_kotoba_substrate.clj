@@ -108,6 +108,12 @@
     (is (some? ex))
     (is (str/includes? (ex-message ex) "forbidden"))))
 
+(deftest default-http-is-network-incapable
+  (is (thrown-with-msg? clojure.lang.ExceptionInfo
+                        #"explicit substrate HTTP capability required"
+                        (sub/http-post! {:url "https://example.invalid"
+                                         :headers {} :body {}}))))
+
 ;; ── TestE2E (HTTP boundary = injected post-fn swap seam) ──
 
 (defn- recorder []
@@ -131,6 +137,22 @@
       (is (contains? ids "at://x/airport/hnd"))
       (is (= #{":airport" ":air-route" ":admin-area" ":building"} labels))
       (is (= "Bearer member-did-bearer" (get-in req [:headers "authorization"])))))) ;; no-server-key
+
+(deftest mst-writer-uses-injected-request-capability
+  (let [received (atom [])
+        post-fn (fn [req]
+                  (swap! received conj req)
+                  (if (str/ends-with? (:url req) "createSession")
+                    {:status 200 :body "{\"did\":\"did:plc:test\",\"accessJwt\":\"jwt\"}"}
+                    {:status 200 :body "{}"}))
+        w (sub/open-substrate-writer {:mode "mst"
+                                      :pds-url "https://pds.test/"
+                                      :handle "operator.test"
+                                      :app-password "secret"
+                                      :post-fn post-fn})]
+    (is (= 1 (sub/upsert-vertex-spatial w [(rows 0)])))
+    (is (= 2 (count @received)))
+    (is (= "Bearer jwt" (get-in @received [1 :headers "authorization"])))))
 
 (deftest unmapped-aux-table-raises-loudly
   (let [{:keys [post-fn]} (recorder)
