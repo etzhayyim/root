@@ -6,6 +6,7 @@
   (:require [clojure.test :refer [deftest is testing]]
             [langgraph.graph :as g]
             [lg-open-patent.server :as server]
+            [lg-open-patent.kotoba-datomic :as kd]
             [lg-open-patent.cron :as cron]
             [lg-open-patent.llm :as llm]
             [lg-open-patent.store :as store]
@@ -76,9 +77,29 @@
   (testing "no key configured → pass"
     (is (nil? (server/check-api-key ""))))
   (testing "configured key mismatch → 401"
-    (with-redefs [server/api-key "secret"]
+    (binding [server/*api-key* "secret"]
       (is (= 401 (:status (server/dispatch-run {:assistant_id "health"}
                                                {:x-api-key "wrong"})))))))
+
+(deftest kotoba-http-capability-is-required
+  (is (thrown-with-msg? #?(:clj clojure.lang.ExceptionInfo :cljs :default)
+                        #"explicit Kotoba HTTP capability required"
+                        (kd/q (kd/->client "graph") "[:find ?e]"))))
+
+(deftest injected-kotoba-wire-contract
+  #?(:clj
+     (let [seen (atom nil)]
+       (binding [kd/*config* {:xrpc-url "https://kotoba.test/"
+                              :bearer "secret"
+                              :graph "open-patent-test"}
+                 kd/*post-json!* (fn [url opts]
+                                   (reset! seen [url opts])
+                                   {:status 200 :body "{\"rows_edn\":[]}"})]
+         (is (= [] (kd/q (kd/->client) "[:find ?e]")))
+         (is (= "https://kotoba.test/xrpc/ai.etzhayyim.apps.kotoba.datomic.q"
+                (first @seen)))
+         (is (= "Bearer secret"
+                (get-in @seen [1 :headers "Authorization"])))))))
 
 ;; ── health graph end-to-end ─────────────────────────────────────────────────
 
