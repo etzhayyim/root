@@ -12,7 +12,6 @@
 60-apps/etzhayyim-project-auth/worker/src-ts/index.ts:1:hono-import:import { Hono } from "hono";
 60-apps/etzhayyim-project-auth/worker/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src-ts/index.ts"
 60-apps/etzhayyim-project-browser/provider/darkweb-proxy/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "worker.ts"
-60-apps/etzhayyim-project-deai/appview/deai-cgxi8oem/src-ts/app.ts:13:hono-import:import type { Context } from "hono";
 60-apps/etzhayyim-project-jukyu/appview/jukyu-ui-jukyu001/wrangler.jsonc:29:wrangler-hyperdrive-binding:"hyperdrive": [
 60-apps/etzhayyim-project-jukyu/appview/jukyu-ui-jukyu001/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-kami/appview/etzhayyim-wasm-kami-sabiotoshi-s4b10t05/src/app.ts:263:kysely-direct-db:await createKyselyDb().insertInto("vertex_kami_sabiotoshi_game" as any).values({
@@ -118,23 +117,5 @@
 60-apps/etzhayyim-project-open-isic/appview/worker/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/index.ts"
 60-apps/etzhayyim-project-open-robo/appview/open-robo-hp/wrangler.jsonc:27:wrangler-hyperdrive-binding:"hyperdrive": [
 60-apps/etzhayyim-project-open-robo/appview/open-robo-hp/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/app.ts"
-60-apps/etzhayyim-project-yorishiro/appview/etzhayyim-wasm-yorishiro-flyio-fly10001/src/app.ts:105:kysely-direct-db:if (!db) db = createKyselyDb();
-60-apps/etzhayyim-project-yorishiro/appview/etzhayyim-wasm-yorishiro-flyio-fly10001/src/app.ts:137:kysely-direct-db:.selectFrom(tableForLabel(label) as any)
-60-apps/etzhayyim-project-yorishiro/appview/etzhayyim-wasm-yorishiro-flyio-fly10001/src/app.ts:178:kysely-direct-db:.insertInto("vertex_yorishiroFlyio_cancellationJob" as any)
-60-apps/etzhayyim-project-yorishiro/appview/etzhayyim-wasm-yorishiro-flyio-fly10001/src/app.ts:251:kysely-direct-db:.insertInto("vertex_yorishiroFlyio_appDeleteJob" as any)
-60-apps/etzhayyim-project-yorishiro/appview/etzhayyim-wasm-yorishiro-flyio-fly10001/src/app.ts:302:kysely-direct-db:.insertInto("vertex_yorishiroFlyio_orgDeleteJob" as any)
-60-apps/etzhayyim-project-yorishiro/appview/etzhayyim-wasm-yorishiro-flyio-fly10001/src/app.ts:356:kysely-direct-db:.insertInto("vertex_yorishiroFlyio_cancellationJob" as any)
-60-apps/etzhayyim-project-yorishiro/appview/etzhayyim-wasm-yorishiro-japanpost-enaiyo-jp4n41y0/src/app.ts:110:kysely-direct-db:if (!db) db = createKyselyDb();
-60-apps/etzhayyim-project-yorishiro/appview/etzhayyim-wasm-yorishiro-japanpost-enaiyo-jp4n41y0/src/app.ts:155:kysely-direct-db:.selectFrom(tableForLabel(label) as any)
-60-apps/etzhayyim-project-yorishiro/appview/etzhayyim-wasm-yorishiro-japanpost-enaiyo-jp4n41y0/src/app.ts:213:kysely-direct-db:.insertInto("vertex_yorishiroEnaiyo_draftNaiyo" as any)
-60-apps/etzhayyim-project-yorishiro/appview/etzhayyim-wasm-yorishiro-japanpost-enaiyo-jp4n41y0/src/app.ts:276:kysely-direct-db:.insertInto("vertex_yorishiroEnaiyo_docxBlob" as any)
-60-apps/etzhayyim-project-yorishiro/appview/etzhayyim-wasm-yorishiro-japanpost-enaiyo-jp4n41y0/src/app.ts:321:kysely-direct-db:.insertInto("vertex_yorishiroEnaiyo_submitJob" as any)
-60-apps/etzhayyim-project-yorishiro/appview/etzhayyim-wasm-yorishiro-japanpost-enaiyo-jp4n41y0/src/app.ts:372:kysely-direct-db:.insertInto("vertex_yorishiroEnaiyo_batchJob" as any)
-60-apps/etzhayyim-project-yorishiro/appview/etzhayyim-wasm-yorishiro-japanpost-enaiyo-jp4n41y0/src/app.ts:410:kysely-direct-db:.insertInto("vertex_yorishiroEnaiyo_receipt" as any)
-60-apps/etzhayyim-project-yorishiro/appview/etzhayyim-wasm-yorishiro-nuro-nur0cb01/src/app.ts:128:kysely-direct-db:.selectFrom(tableForLabel(label) as any)
-60-apps/etzhayyim-project-yorishiro/appview/etzhayyim-wasm-yorishiro-nuro-nur0cb01/src/app.ts:230:kysely-direct-db:.insertInto("vertex_yorishiroNuro_offer" as any)
-60-apps/etzhayyim-project-yorishiro/appview/etzhayyim-wasm-yorishiro-nuro-nur0cb01/src/app.ts:260:kysely-direct-db:.insertInto("vertex_yorishiroNuro_claimReceipt" as any)
-60-apps/etzhayyim-project-yorishiro/appview/etzhayyim-wasm-yorishiro-nuro-nur0cb01/src/app.ts:331:kysely-direct-db:.insertInto("vertex_yorishiroNuro_claimJob" as any)
-60-apps/etzhayyim-project-yorishiro/appview/etzhayyim-wasm-yorishiro-nuro-nur0cb01/src/app.ts:96:kysely-direct-db:if (!db) db = createKyselyDb();
 60-apps/watashi/wasm/etzhayyim-wasm-watashi-mfbtsuyc/.etzhayyim-deploy/mfbtsuyc/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/watashi/wasm/etzhayyim-wasm-watashi-mfbtsuyc/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
