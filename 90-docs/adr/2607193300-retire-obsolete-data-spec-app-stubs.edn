@@ -6,8 +6,8 @@
              :evidence "referenced wasm service and routes are absent; no executable files remain"}
             {:name "public-sento" :action :retire :reason :obsolete-ledger-boundary
              :evidence "spec depends on the legacy credits.etzhayyim.com balance model and has no executable contract"}
-            {:name "open-seiyaku" :action :move-active-contract :destination "00-contracts/specs/open-seiyaku.edn"}
-            {:name "open-wellbecoming" :action :move-active-contract :destination "00-contracts/specs/open-wellbecoming.edn"}]
+            {:name "open-seiyaku" :action :move-active-contract :destination "rgs/etzhayyim/com-etzhayyim-open-seiyaku/contract.edn"}
+            {:name "open-wellbecoming" :action :move-active-contract :destination "rgs/etzhayyim/com-etzhayyim-open-wellbecoming/contract.edn"}]
  :provenance {:source-repository "https://github.com/etzhayyim/root" :source-revision "a2bca9c293f6e0e466b019039759ec3f6a19fcc9"
               :source-markers ["60-apps/etzhayyim-project-douga-MOVED.edn" "60-apps/etzhayyim-project-open-seiyaku-MOVED.edn"
                                "60-apps/etzhayyim-project-open-wellbecoming-MOVED.edn" "60-apps/etzhayyim-project-public-sento-MOVED.edn"]}
