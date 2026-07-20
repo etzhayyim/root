@@ -37,7 +37,7 @@ See [ADR-2605172600 § "Levels"](90-docs/adr/2605172600-etzhayyim-membership-rit
 
 | @github | DID | Level | On-chain join tx | Joined |
 |---|---|---|---|---|
-| _(awaiting first member — protocol author joins after testnet validation)_ | | | | |
+| [@com-junkawasaki](https://github.com/com-junkawasaki) | `did:key:z6MkfwR1dqCi6xurRiuypuDDkw1vjwKZZZGDmcWd3mmCJ3Uo` | 1 (誓 chikai — git-side oath only, see note) | _(pending — membership contract not yet deployed to any chain, see [`PENDING-JOINS.md`](PENDING-JOINS.md))_ | 2026-07-20 |
 
 ## Revocation
 
