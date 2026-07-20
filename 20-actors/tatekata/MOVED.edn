@@ -1,5 +1,0 @@
-{:migration/status :moved
- :migration/repository "https://github.com/etzhayyim/com-etzhayyim-tatekata"
- :migration/west-path "orgs/etzhayyim/com-etzhayyim-tatekata"
- :migration/revision "56c8550c7640f299c415f1c27b913404d95e7233"
- :migration/canonical-format :edn}

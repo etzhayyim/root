@@ -1,5 +1,0 @@
-{:migration/status :moved
- :migration/repository "https://github.com/etzhayyim/com-etzhayyim-mimamori"
- :migration/west-path "orgs/etzhayyim/com-etzhayyim-mimamori"
- :migration/revision "b13639f2922ede3022c7c975ecbf9645b1796a74"
- :migration/canonical-format :edn}

@@ -1,5 +1,0 @@
-{:moved/to "70-tools/conformance"
- :moved/repository "https://github.com/etzhayyim/root"
- :moved/role :shared-lint-tooling
- :moved/status :already-consolidated
- :moved/note "The legacy actor directory was empty; conformance is root-owned shared tooling, not an actor repository."}

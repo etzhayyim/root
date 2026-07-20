@@ -231,24 +231,11 @@ class TestAggregatorFormatContract:
 
 
 class TestMultirepoCompletion:
-    """Root retains markers and shared substrate, never extracted app code."""
+    """Git history retains migration provenance; retired layers stay absent."""
 
-    def test_60_apps_has_no_implementation_directories(self):
-        assert [path for path in (REPO_ROOT / "60-apps").iterdir() if path.is_dir()] == []
-
-    def test_60_apps_has_no_go_or_tinygo_sources(self):
-        assert list((REPO_ROOT / "60-apps").rglob("*.go")) == []
-
-    def test_20_actors_directories_are_marker_only(self):
-        canonical_markers = {"MOVED.edn", "README.edn", "migration.edn"}
-        offenders = [
-            path.relative_to(REPO_ROOT)
-            for actor_dir in (REPO_ROOT / "20-actors").iterdir()
-            if actor_dir.is_dir()
-            for path in actor_dir.rglob("*")
-            if path.is_file() and path.name not in canonical_markers
-        ]
-        assert offenders == []
+    def test_retired_numbered_layers_are_absent(self):
+        retired = ("10-protocol", "20-actors", "30-graph", "40-engine", "60-apps")
+        assert [name for name in retired if (REPO_ROOT / name).exists()] == []
 
     def test_active_configs_do_not_reference_extracted_60_apps_paths(self):
         active_files = (
@@ -260,6 +247,9 @@ class TestMultirepoCompletion:
         offenders = [
             path.relative_to(REPO_ROOT)
             for path in active_files
-            if "60-apps/" in path.read_text()
+            if any(
+                legacy in path.read_text()
+                for legacy in ("10-protocol/", "20-actors/", "30-graph/", "40-engine/", "60-apps/")
+            )
         ]
         assert offenders == []

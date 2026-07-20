@@ -1,8 +1,0 @@
-[{:db/id -1
-  :migration/kind :moved-tombstone
-  :migration/source "20-actors/silicon"
-  :migration/canonical-repo "https://github.com/etzhayyim/com-etzhayyim-silicon"
-  :migration/west-path "orgs/etzhayyim/com-etzhayyim-silicon"
-  :migration/revision "7d7a5fa1a49f38ed34d4b374d4c8187d5cf6d84c"
-  :migration/date "2026-07-18"
-  :migration/authoritative true}]

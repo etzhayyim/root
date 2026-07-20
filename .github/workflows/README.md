@@ -12,28 +12,6 @@ Runs on every PR and push to main. Invokes the local lefthook pre-commit hook st
 - `lint-and-test` — `lefthook run pre-commit` (lint + e7m verify + secret scan + no-two-stage-etzhayyim-domains + paywall-warn + …)
 - `Substrate-boundary backstop` — PR-diff scan against `origin/{base_ref}` for substrate-boundary violations (ADR-2605191648)
 
-## test.yml
-
-Runs on every PR and push to main.
-
-**Jobs:**
-- `vitest` — runs test suite for each of 25 canonical actors (`60-apps/etzhayyim-project-{actor}/kotoba`)
-- `tsc --noEmit` — type-check core SDKs and tools (mock, auth, mst-projector, lexicon-to-openapi, integration-tests)
-- `integration-tests` — Phase H cross-actor scenario tests
-
-**Matrix:** fail-fast disabled; all jobs report in parallel.
-
-## wrangler-validate.yml
-
-Triggered by `deploy-preview` label on PRs.
-
-**Job:**
-- `dry-run` — runs `wrangler deploy --dry-run` for each actor's xrpc-adapter to validate CF Worker config before deployment
-
-**Purpose:** regression-test the SDK build chain + cyber-drill consumer integration. Mirrors the local lefthook `pre-push` hook so contributors who push without local hooks still get caught.
-
-**See also:** ADR-2605264300 (SDK three.js-free cutover) + ADR-2605265200 (20-actors duplicate retirement). Both ADRs' "CI regression-test addendum" §refers to this workflow.
-
 ## audit-health.yml
 
 Triggered on **push to main + PR to main + manual `workflow_dispatch`** when `.github/dependabot.yml`, `.github/workflows/audit-health.yml`, `70-tools/scripts/audit/**`, the SDK's `package.json`, or any `.gitrepo` file changes.
@@ -49,7 +27,8 @@ Watches PRs for Bootstrap Council Seat 2-5 nomination updates per ADR-2605192300
 
 ## kotodama-image.yml
 
-Builds the `kotodama` container image when changes land under `40-engine/kotoba/crates/kotoba-kotodama/py/`.
+Builds the `kotodama` container image from an isolated checkout of its
+standalone source repository.
 
 ## yorishiro-audit.yml
 
@@ -57,10 +36,9 @@ Auditing for the yorishiro generator (`70-tools/etzhayyim-cli/yorishiro/`) emitt
 
 ## Adding a new actor
 
-1. Update the 25-actor matrix in both `test.yml` and `wrangler-validate.yml` (alphabetical order)
-2. Verify actor has `60-apps/etzhayyim-project-{actor}/kotoba/package.json` with vitest config
-3. Verify actor has `60-apps/etzhayyim-project-{actor}/xrpc-adapter/wrangler.jsonc`
-4. Open a PR with the matrix update
+Create a standalone repository, configure its CI there, and register its exact
+revision in the superproject west manifest. Root does not accept actor or app
+implementations.
 
 ## Adding a new path-triggered workflow
 

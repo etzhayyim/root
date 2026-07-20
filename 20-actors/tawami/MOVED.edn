@@ -1,5 +1,0 @@
-[{:db/id -1 :migration/kind :moved-tombstone :migration/source "20-actors/tawami"
-  :migration/canonical-repo "https://github.com/etzhayyim/com-etzhayyim-tawami"
-  :migration/west-path "orgs/etzhayyim/com-etzhayyim-tawami"
-  :migration/revision "f8c8011124319953c5775beb3879d299e433c48f"
-  :migration/date "2026-07-17" :migration/authoritative true}]

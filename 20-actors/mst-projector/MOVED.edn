@@ -1,5 +1,0 @@
-{:moved/to "orgs/kotoba-lang/mst-projector"
- :moved/repository "https://github.com/kotoba-lang/mst-projector"
- :moved/revision "5be6c839142ab260938dfc00bb9541b3a45be445"
- :moved/role :shared-kotoba-engine-library
- :moved/pruned :obsolete-typescript-implementation}

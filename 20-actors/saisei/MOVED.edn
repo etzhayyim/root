@@ -1,8 +1,0 @@
-[{:db/id -1
-  :migration/kind :moved-tombstone
-  :migration/source "20-actors/saisei"
-  :migration/canonical-repo "https://github.com/etzhayyim/com-etzhayyim-saisei"
-  :migration/west-path "orgs/etzhayyim/com-etzhayyim-saisei"
-  :migration/revision "d31b51d50cee48ead69c7cc3faa86b5a59b271af"
-  :migration/date "2026-07-17"
-  :migration/authoritative true}]

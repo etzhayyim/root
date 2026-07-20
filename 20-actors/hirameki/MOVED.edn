@@ -1,8 +1,0 @@
-{:migration/type :repository-extraction
- :migration/category :actor
- :migration/source "20-actors/hirameki"
- :migration/repository "https://github.com/etzhayyim/com-etzhayyim-hirameki"
- :migration/west-path "orgs/etzhayyim/com-etzhayyim-hirameki"
- :migration/revision "58756468b6e47b6bce7e11caec0d0360d389efad"
- :migration/canonical-metadata "manifest.edn"
- :migration/date "2026-07-17"}

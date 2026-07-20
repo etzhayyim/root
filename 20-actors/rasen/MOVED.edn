@@ -1,5 +1,0 @@
-{:migration/status :moved
- :migration/repository "https://github.com/etzhayyim/com-etzhayyim-rasen"
- :migration/west-path "orgs/etzhayyim/com-etzhayyim-rasen"
- :migration/revision "dbcb867eac0f4816cc2bddc74c6ca3953018d0c5"
- :migration/canonical-format :edn}

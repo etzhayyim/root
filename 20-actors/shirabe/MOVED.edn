@@ -1,5 +1,0 @@
-{:migration/status :moved
- :migration/repository "https://github.com/etzhayyim/com-etzhayyim-shirabe"
- :migration/west-path "orgs/etzhayyim/com-etzhayyim-shirabe"
- :migration/revision "d54f401e0e9a325a6aed4e41ff9c63429e712236"
- :migration/canonical-format :edn}

@@ -1,5 +1,0 @@
-{:migration/status :moved
- :migration/repository "https://github.com/etzhayyim/com-etzhayyim-watatsumi"
- :migration/west-path "orgs/etzhayyim/com-etzhayyim-watatsumi"
- :migration/revision "c7f1b30c4ca987e9510c51393e8c55ecc3af1cd6"
- :migration/canonical-format :edn}

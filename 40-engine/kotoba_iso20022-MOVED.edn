@@ -1,1 +1,0 @@
-{:schema "etzhayyim.migration/moved-v1" :source {:repo "etzhayyim/root" :path "40-engine/kotoba_iso20022" :revision "a37457dafdb2ea890afa448847526cb98224a3e3"} :destination {:repo "etzhayyim/com-etzhayyim-kotoba-iso20022" :revision "2797fba6b4e2c73c24d0991a860f535e600dd508"} :status :moved}

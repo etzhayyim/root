@@ -32,20 +32,8 @@ packages:
   - "70-tools/lexicon-to-openapi"
   - "70-tools/lexicon-to-zod"
 
-  # yorishiro generator + emitted MCP servers (ADR-2605211900)
+  # yorishiro generator (ADR-2605211900)
   - "70-tools/etzhayyim-cli/yorishiro"
-  # kotoba-kotodama MCP packages come from the etzhayyim/kotoba repo, cloned into
-  # 40-engine/kotoba at CI/dev time (the submodule was removed, ADR-2606131645).
-  - "40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-*-mcp"
-  - "40-engine/kotoba/crates/kotoba-kotodama/mcp/open-seiyaku-mcp"
-
-  # @etzhayyim/kami-engine-sdk canonical (ADR-2605265200, Phase 3
-  # deletion of the legacy 20-actors duplicate completed earlier).
-  # git-submodule of github.com/etzhayyim/kami-engine-sdk (the submodule
-  # repo is the SoT per ADR-2606011500 stage 1; run `git submodule update
-  # --init` to populate). `workspace:*` references in consumer apps resolve
-  # here once the submodule is checked out.
-  - "40-engine/kami-engine/kami-engine-sdk"
 
 # pnpm overrides — dedupe onnxruntime-web to the version pinned by
 # @huggingface/transformers@3.8.1 (the larger 1.26.0 release is 25 MiB and hits

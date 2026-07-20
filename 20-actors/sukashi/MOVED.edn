@@ -1,5 +1,0 @@
-{:migration/status :moved
- :migration/repository "https://github.com/etzhayyim/com-etzhayyim-sukashi"
- :migration/west-path "orgs/etzhayyim/com-etzhayyim-sukashi"
- :migration/revision "db20a3b6c2b52c98a502b235bec03b45815eea0e"
- :migration/canonical-format :edn}

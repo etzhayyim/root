@@ -1,5 +1,0 @@
-{:migration/status :moved
- :migration/repository "https://github.com/etzhayyim/com-etzhayyim-torifune"
- :migration/west-path "orgs/etzhayyim/com-etzhayyim-torifune"
- :migration/revision "80e81d8b748ba6e2b952b95a44a5d572ca903dce"
- :migration/canonical-format :edn}

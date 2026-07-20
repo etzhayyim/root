@@ -1,8 +1,7 @@
 name: kotodama-manifest-validation
 
-# Validate every `60-apps/*/kotodama.jsonld` against the canonical
-# `90-docs/_registry/schemas/kotodama.schema.json` (5th axis of
-# registry enforcement per ADR-2605271200 closure cycle 53).
+# Preserve the root-owned zero-manifest validator contract after application
+# manifests moved to standalone repositories.
 #
 # Parallel pattern to:
 #   axis 1: deps-toml-paths.yml          (cycle 27-30 + 46)
@@ -19,14 +18,12 @@ on:
   push:
     branches: [main]
     paths:
-      - '60-apps/*/kotodama.jsonld'
       - '90-docs/_registry/schemas/kotodama.schema.json'
       - '70-tools/scripts/docs/validate-kotodama-manifests.py'
       - '.github/workflows/kotodama-manifest-validation.yml'
   pull_request:
     branches: [main]
     paths:
-      - '60-apps/*/kotodama.jsonld'
       - '90-docs/_registry/schemas/kotodama.schema.json'
       - '70-tools/scripts/docs/validate-kotodama-manifests.py'
       - '.github/workflows/kotodama-manifest-validation.yml'

@@ -1,9 +1,0 @@
-{:migration/status :moved
- :migration/date "2026-07-18"
- :migration/repository "https://github.com/etzhayyim/com-etzhayyim-moushibumi"
- :migration/revision "e4a06dae4a6fbeb2ffabae1d5ecd2fefe68eba44"
- :migration/west-path "orgs/etzhayyim/com-etzhayyim-moushibumi"
- :migration/canonical-data ["registry/targets.seed.edn"]
- :migration/canonical-lexicons "lex"
- :migration/external-wire "wire"
- :migration/canonical-format :edn}

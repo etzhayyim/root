@@ -1,9 +1,0 @@
-[{:db/id -1
-  :migration/kind :moved-tombstone
-  :migration/source "20-actors/first-breath"
-  :migration/canonical-repo "https://github.com/etzhayyim/com-etzhayyim-first-breath"
-  :migration/west-path "orgs/etzhayyim/com-etzhayyim-first-breath"
-  :migration/revision "b17a45e28ae84cd955260a999529ef045b67ca84"
-  :migration/canonical-state "state.edn"
-  :migration/date "2026-07-17"
-  :migration/authoritative true}]

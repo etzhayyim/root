@@ -1,8 +1,0 @@
-[{:db/id -1
-  :migration/kind :moved-tombstone
-  :migration/source "20-actors/madomori"
-  :migration/canonical-repo "https://github.com/etzhayyim/com-etzhayyim-madomori"
-  :migration/west-path "orgs/etzhayyim/com-etzhayyim-madomori"
-  :migration/revision "3749c5b5307f5fedb0ff4616e9f1a78457e365a1"
-  :migration/date "2026-07-17"
-  :migration/authoritative true}]

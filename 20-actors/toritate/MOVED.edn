@@ -1,5 +1,0 @@
-{:migration/status :moved
- :migration/repository "https://github.com/etzhayyim/com-etzhayyim-toritate"
- :migration/west-path "orgs/etzhayyim/com-etzhayyim-toritate"
- :migration/revision "1e42499a623f2e12c63a001b577b85788db64c9c"
- :migration/canonical-format :edn}

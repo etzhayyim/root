@@ -6,8 +6,7 @@ name: kotodama-image
 # Python tree don't burn CI minutes.
 
 on:
-  # The kotodama Python source moved to the etzhayyim/kotoba repo (the
-  # 40-engine/kotoba submodule was removed, ADR-2606131645), so root pushes no
+  # The kotodama Python source is owned by the etzhayyim/kotoba repo, so root pushes no
   # longer change it — rebuild on a weekly schedule + on demand, plus when the
   # cell roster or this workflow changes.
   push:
@@ -39,11 +38,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # kotodama Python source = the etzhayyim/kotoba repo (submodule removed,
-      # ADR-2606131645). Clone it into the expected path so the Dockerfile
-      # context (40-engine/kotoba/crates/kotoba-kotodama/py) resolves.
+      # Keep the external checkout outside retired numbered-layer paths.
       - name: Clone etzhayyim/kotoba (kotodama Python source)
-        run: git clone --depth 1 https://github.com/etzhayyim/kotoba.git 40-engine/kotoba
+        run: git clone --depth 1 https://github.com/etzhayyim/kotoba.git .external/kotoba
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -74,8 +71,8 @@ jobs:
       - name: Build (and push on main)
         uses: docker/build-push-action@v6
         with:
-          context: .
-          file: 40-engine/kotoba/crates/kotoba-kotodama/py/Dockerfile
+          context: .external/kotoba
+          file: .external/kotoba/crates/kotoba-kotodama/py/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
           tags: |

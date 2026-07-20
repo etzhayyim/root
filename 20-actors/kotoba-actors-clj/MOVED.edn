@@ -1,4 +1,0 @@
-{:moved/to "orgs/kotoba-lang/kotoba-actors"
- :moved/repository "https://github.com/kotoba-lang/kotoba-actors"
- :moved/revision "0d63399a16f30e68e0f32683cb4a43fb36f15fef"
- :moved/role :shared-actor-datom-library}

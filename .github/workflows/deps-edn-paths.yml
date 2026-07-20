@@ -11,15 +11,9 @@ name: deps-edn-paths
 # path drift from unrelated file moves/deletes) gets the same two checks the
 # lefthook runs.
 #
-# The old `deps-toml-paths.yml` additionally ran a targeted
-# `git submodule update --init --recursive 40-engine/kami-engine` step before
-# its checks — that step started failing 2026-07-09 ("pathspec did not
-# match": kami-engine is no longer a root git-submodule, same finding
-# audit-health.yml already applied 2026-06-17) and is dropped here; neither
-# `format-deps-edn.py --check` nor `verify_deps_edn_paths.py` reads anything
-# under 40-engine/, so it was never actually needed by this workflow's own
-# checks — the old step was carried over unchanged from the toml verifier's
-# original setup, not something the edn verifier requires.
+# The removed TOML verifier also performed a legacy targeted submodule
+# checkout. EDN formatting and path verification are self-contained and need
+# no standalone-repository checkout.
 
 on:
   push:

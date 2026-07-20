@@ -1,8 +1,0 @@
-[{:db/id -1
-  :migration/kind :moved-tombstone
-  :migration/source "20-actors/organisms"
-  :migration/canonical-repo "https://github.com/etzhayyim/com-etzhayyim-organisms"
-  :migration/west-path "orgs/etzhayyim/com-etzhayyim-organisms"
-  :migration/revision "11441105dbdc1f0304fa267f0b16a52f60c3456a"
-  :migration/date "2026-07-17"
-  :migration/authoritative true}]

@@ -1,5 +1,0 @@
-{:migration/status :moved
- :migration/repository "https://github.com/etzhayyim/com-etzhayyim-tasuke"
- :migration/west-path "orgs/etzhayyim/com-etzhayyim-tasuke"
- :migration/revision "6c7ac6675d08a8cd3aae8ae61f8ed031a3ff4181"
- :migration/canonical-format :edn}

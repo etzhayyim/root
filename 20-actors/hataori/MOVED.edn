@@ -1,8 +1,0 @@
-[{:db/id -1
-  :migration/kind :moved-tombstone
-  :migration/source "20-actors/hataori"
-  :migration/canonical-repo "https://github.com/etzhayyim/com-etzhayyim-hataori"
-  :migration/west-path "orgs/etzhayyim/com-etzhayyim-hataori"
-  :migration/revision "0798c7e7241e1ee1e12e855aafc60ba02eef461a"
-  :migration/date "2026-07-17"
-  :migration/authoritative true}]

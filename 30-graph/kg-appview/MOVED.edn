@@ -1,7 +1,0 @@
-{:migration/schema :etzhayyim/moved-v1
- :migration/source "30-graph/kg-appview"
- :migration/destination "orgs/etzhayyim/com-etzhayyim-kg-appview"
- :migration/repository "https://github.com/etzhayyim/com-etzhayyim-kg-appview"
- :migration/revision "9005572df748867a719fc4130a641d99208cd8d4"
- :migration/history-preserved true
- :migration/date "2026-07-18"}

@@ -1,10 +1,7 @@
 version: 2
 updates:
-  # `/20-actors/kami-engine-sdk` directory entry removed per ADR-2605265200
-  # Phase 3 (commit 2d199cca9, 2026-05-26 iter-11). Canonical SDK lives at
-  # `40-engine/kami-engine/kami-engine-sdk` (git subrepo of
-  # github.com/etzhayyimcojp/kami-engine-sdk); dependabot updates for the subrepo
-  # flow through the upstream repo's own dependabot config, not here.
+  # Standalone repositories own their own dependency updates; this file covers
+  # only packages retained by root.
   - package-ecosystem: "npm"
     directory: "/50-infra/anchor-cron"
     schedule:

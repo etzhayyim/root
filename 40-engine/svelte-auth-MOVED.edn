@@ -1,1 +1,0 @@
-{:schema "etzhayyim.migration/moved-v1" :source {:repo "etzhayyim/root" :path "40-engine/svelte/auth" :revision "5e11abac33612cc0175fb83f3b750c89f709ac24"} :destination {:repo "etzhayyim/com-etzhayyim-svelte-auth" :revision "ad28c5497d4182fb8d0d79d118746529e93eda72"} :status :moved}

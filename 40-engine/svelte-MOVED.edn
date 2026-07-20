@@ -1,7 +1,0 @@
-{:schema "etzhayyim.migration/moved-v1"
- :source {:repo "etzhayyim/root" :path "40-engine/svelte" :revision "f968fd9bf076ccc20a80830d38c87476c6bc176a" :remaining ["CLAUDE.md" "NOTICE"]}
- :destinations [{:repo "etzhayyim/com-etzhayyim-svelte-auth" :revision "ad28c5497d4182fb8d0d79d118746529e93eda72"}
-                {:repo "etzhayyim/com-etzhayyim-svelte-design-system" :revision "18834c0e410573be1550b8047930303be8eba503"}
-                {:repo "etzhayyim/com-etzhayyim-vite-plugin-safe-builder" :revision "5c391d7f2fb1215cd6d204ef7d706656b23dd097"}]
- :status :moved
- :rule-ownership :standalone-repositories}

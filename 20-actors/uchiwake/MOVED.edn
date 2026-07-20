@@ -1,5 +1,0 @@
-{:migration/status :moved
- :migration/repository "https://github.com/etzhayyim/com-etzhayyim-uchiwake"
- :migration/west-path "orgs/etzhayyim/com-etzhayyim-uchiwake"
- :migration/revision "6b95c5082954541e1ac700465745bc977b5af5c6"
- :migration/canonical-format :edn}

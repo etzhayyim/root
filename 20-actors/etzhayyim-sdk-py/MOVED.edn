@@ -1,8 +1,0 @@
-[{:db/id -1
-  :migration/kind :moved-tombstone
-  :migration/source "20-actors/etzhayyim-sdk-py"
-  :migration/canonical-repo "https://github.com/etzhayyim/com-etzhayyim-sdk-py"
-  :migration/west-path "orgs/etzhayyim/com-etzhayyim-sdk-py"
-  :migration/revision "6cd818b03fbc56ff5f624870ec9b9c2e0a208e9b"
-  :migration/date "2026-07-17"
-  :migration/authoritative true}]

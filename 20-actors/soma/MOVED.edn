@@ -1,8 +1,0 @@
-[{:db/id -1
-  :migration/kind :moved-tombstone
-  :migration/source "20-actors/soma"
-  :migration/canonical-repo "https://github.com/etzhayyim/com-etzhayyim-soma"
-  :migration/west-path "orgs/etzhayyim/com-etzhayyim-soma"
-  :migration/revision "12dc77b3927aa0370aeeaad016f5d5245ecc3d7d"
-  :migration/date "2026-07-17"
-  :migration/authoritative true}]

@@ -1,9 +1,0 @@
-{:migration/status :moved
- :migration/date "2026-07-18"
- :migration/repository "https://github.com/etzhayyim/com-etzhayyim-isco"
- :migration/revision "27c6f88e4b8c9bd01bdbc2c8a854068f84ee076a"
- :migration/west-path "orgs/etzhayyim/com-etzhayyim-isco"
- :migration/canonical-data ["data/isco-occupations.edn"]
- :migration/canonical-lexicons "lex"
- :migration/external-wire "wire"
- :migration/canonical-format :edn}

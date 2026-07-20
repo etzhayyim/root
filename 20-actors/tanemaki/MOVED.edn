@@ -1,5 +1,0 @@
-{:migration/status :moved
- :migration/repository "https://github.com/etzhayyim/com-etzhayyim-tanemaki"
- :migration/west-path "orgs/etzhayyim/com-etzhayyim-tanemaki"
- :migration/revision "e68a76c01bf6829ef7d9d0f82bb48d3aeb8d6bc3"
- :migration/canonical-format :edn}

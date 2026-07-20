@@ -54,13 +54,8 @@ jobs:
         with:
           fetch-depth: 1
 
-      # NOTE: the former "Checkout kami-engine submodule" step was removed
-      # 2026-06-17 — 40-engine/kami-engine is no longer a root git-submodule
-      # (no .gitmodules entry, no gitlink in the tree), so the targeted
-      # `git submodule update … 40-engine/kami-engine` failed with "pathspec
-      # did not match", killing the whole monorepo-health job before any audit
-      # ran (it failed on every PR + on main). sdk-exports-dist tolerates the
-      # absent sdk gracefully; the full audit pytest suite is green without it.
+      # Standalone repositories are intentionally not checked out here. Root
+      # audits cover only root-owned substrate and migration boundaries.
 
       - name: Set up Python
         uses: actions/setup-python@v5

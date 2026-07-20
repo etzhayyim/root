@@ -1,8 +1,0 @@
-[{:db/id -1
-  :migration/kind :moved-tombstone
-  :migration/source "20-actors/post_quantum_compat"
-  :migration/canonical-repo "https://github.com/kotoba-lang/com-post-quantum"
-  :migration/west-path "orgs/kotoba-lang/com-post-quantum"
-  :migration/revision "cfb65453fb8be733ef8000f3ce3b2b387226e19a"
-  :migration/date "2026-07-17"
-  :migration/authoritative true}]

@@ -1,5 +1,0 @@
-{:migration/status :moved
- :migration/repository "https://github.com/etzhayyim/com-etzhayyim-yamabiko"
- :migration/west-path "orgs/etzhayyim/com-etzhayyim-yamabiko"
- :migration/revision "df4533ddff1c17e46aeadba3584b0b154793ea4b"
- :migration/canonical-format :edn}

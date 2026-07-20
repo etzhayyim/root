@@ -1,1 +1,0 @@
-{:schema "etzhayyim.migration/moved-v1" :source {:repo "etzhayyim/root" :path "10-protocol/xrpc" :revision "ae0cff0811c43f9139dffb1c378a7bf235e1dafa"} :destination {:repo "etzhayyim/com-etzhayyim-xrpc" :revision "c2716098eed399a4be4a8fed9918ff6e952e3797"} :status :moved}

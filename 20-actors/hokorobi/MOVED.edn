@@ -1,5 +1,0 @@
-{:migration/status :moved
- :migration/repository "https://github.com/etzhayyim/com-etzhayyim-hokorobi"
- :migration/west-path "orgs/etzhayyim/com-etzhayyim-hokorobi"
- :migration/revision "7f71e2795d99804a9e14b88984f672d4b7aba028"
- :migration/canonical-format :edn}
