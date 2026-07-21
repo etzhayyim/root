@@ -83,11 +83,44 @@ function check(name, cond, extra="") { if (cond) console.log("ok  -", name); els
 { const r = await call("GET", "/actor/gov-jp-somu/procedures.json");
   const b = await r.text();
   check("actor procedures 200 count1", r.status === 200 && b.includes("\"count\": 1") && b.includes("passport")); }
-{ const r = await call("GET", "/gov");
-  check("/gov delegated to TS fallback", r.status === 299); }
+{ // /gov is now cljs-owned (:gov-html) per did-web.router — this assertion
+  // was stale (pre-dated the /gov cut-over; see router-test.cljc's
+  // gov-html-now-owned-by-cljs). Fixed while touching this file for the
+  // discovery-surface checks below.
+  const r = await call("GET", "/gov");
+  check("/gov owned by cljs (civic wayfinding page)", r.status === 200 && r.headers.get("content-type") === "text/html; charset=utf-8"); }
 { // POST to a known route with no upstream configured → cljs xrpc 503
   const r = await call("POST", "/xrpc/app.bsky.feed.getTimeline");
   check("xrpc POST no-upstream → 503", r.status === 503); }
+
+// ─── discovery surface (robots.txt / sitemap.xml family, fixed 2026-07-21) ───
+// Previously unowned → silently reverse-proxied (status 299 sentinel here) and
+// served the retired YORO app's leftover files. Now owned locally.
+{ const r = await call("GET", "/robots.txt");
+  const b = await r.text();
+  check("robots.txt 200", r.status === 200);
+  check("robots.txt content-type", r.headers.get("content-type") === "text/plain; charset=utf-8");
+  check("robots.txt is etzhayyim, not YORO", b.includes("etzhayyim.com") && !b.toLowerCase().includes("yoro"));
+  check("robots.txt permissive", b.includes("Allow: /"));
+  check("robots.txt sitemap pointer", b.includes("Sitemap: https://etzhayyim.com/sitemap.xml")); }
+{ const r = await call("POST", "/robots.txt");
+  check("robots.txt POST 405", r.status === 405); }
+{ const r = await call("GET", "/sitemap.xml");
+  const b = await r.text();
+  check("sitemap.xml 200", r.status === 200);
+  check("sitemap.xml content-type", r.headers.get("content-type") === "application/xml; charset=utf-8");
+  check("sitemap.xml no yoro reference", !b.toLowerCase().includes("yoro"));
+  check("sitemap.xml references the 2 sub-sitemaps", b.includes("/sitemaps/static.xml") && b.includes("/sitemaps/actors/index.xml")); }
+{ const r = await call("GET", "/sitemaps/static.xml");
+  const b = await r.text();
+  check("sitemaps/static.xml 200", r.status === 200);
+  check("sitemaps/static.xml no yoro reference", !b.toLowerCase().includes("yoro"));
+  check("sitemaps/static.xml has real etzhayyim URLs", b.includes("https://etzhayyim.com/") && b.includes("https://etzhayyim.com/actors")); }
+{ const r = await call("GET", "/sitemaps/actors/index.xml");
+  const b = await r.text();
+  check("sitemaps/actors/index.xml 200", r.status === 200);
+  check("sitemaps/actors/index.xml no yoro reference", !b.toLowerCase().includes("yoro"));
+  check("sitemaps/actors/index.xml has real etzhayyim URL", b.includes("https://etzhayyim.com/actors")); }
 
 // ─── reverse proxy (default site path → YORO service binding) ────────────────
 function proxyEnv(upstreamResp, throwIt = false) {

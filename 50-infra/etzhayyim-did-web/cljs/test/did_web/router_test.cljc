@@ -43,6 +43,18 @@
   (testing "/gov (civic wayfinding search page) is now CLJS-owned (:gov-html, shell + gov-search.js)"
     (is (= :gov-html (r "GET" "/gov")))))
 
+(deftest discovery-surface-owned-by-cljs
+  (testing "robots.txt / sitemap.xml family is CLJS-owned (fixed 2026-07-21 — previously
+            unowned + un-served, so it silently reverse-proxied to the retired
+            YORO app's leftover files)"
+    (is (= :robots-txt (r "GET" "/robots.txt")))
+    (is (= :sitemap-xml (r "GET" "/sitemap.xml")))
+    (is (= :sitemap-static-xml (r "GET" "/sitemaps/static.xml")))
+    (is (= :sitemap-actors-index-xml (r "GET" "/sitemaps/actors/index.xml")))
+    (is (router/method-allowed? :robots-txt "GET"))
+    (is (router/method-allowed? :robots-txt "HEAD"))
+    (is (not (router/method-allowed? :robots-txt "POST")))))
+
 (deftest ipfs-route-owned
   (testing "the trustless /ipfs/<cid> gateway is owned by the cljs core"
     (is (= {:route :ipfs :cid "bafkreialpha"}

@@ -19,6 +19,7 @@
   #{:home-html :did-json :donation-json :donate-html :tomoshibi-html :actors-json :actors-html
     :gov-units-json :gov-procedures-json :gov-html :organism-html :system-dynamics-html
     :murakumo-html
+    :robots-txt :sitemap-xml :sitemap-static-xml :sitemap-actors-index-xml
     :actor-did :actor-profile :actor-procedures :actor-system-dynamics-html
     :ipfs})
 
@@ -85,6 +86,14 @@
        ;; /murakumo — Murakumo host / kotoba-wasm resident-actor visualizer
        ;; (CLJS-owned shell + /_shell/murakumo.js over same-origin pulse JSON).
        "/murakumo"                        {:route :murakumo-html}
+       ;; Discovery surface (robots.txt / sitemap.xml family) — fixed
+       ;; 2026-07-21. Previously unowned and un-served locally, so every
+       ;; request silently fell through to :reverse-proxy and served the
+       ;; retired YORO app's leftover files. Now local + etzhayyim-specific.
+       "/robots.txt"                      {:route :robots-txt}
+       "/sitemap.xml"                     {:route :sitemap-xml}
+       "/sitemaps/static.xml"             {:route :sitemap-static-xml}
+       "/sitemaps/actors/index.xml"       {:route :sitemap-actors-index-xml}
        nil)
      ;; parameterized actor paths (matched on the ORIGINAL path, not stripped —
      ;; a trailing slash here is part of no valid actor route)
