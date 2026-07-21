@@ -2955,12 +2955,12 @@
    :actor/service [{"id" "did:web:etzhayyim.com:actor:vin#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
                    {"id" "did:web:etzhayyim.com:actor:vin#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
 
-  {:actor/handle "wadachi (轍 — autonomous mobility Tier-B actor)"
-   :actor/did "did:web:etzhayyim.com:actor:wadachi (轍 — autonomous mobility Tier-B actor)"
+  {:actor/handle "wadachi"
+   :actor/did "did:web:etzhayyim.com:actor:wadachi"
    :actor/kind :tier-b
    :actor/tier "B"
    :actor/status :r0
-   :actor/glyph "Autonomous ground vehicle orchestration per ADR-2605242000. Route planning, motion control, obstacle avoidance, safety monitoring."
+   :actor/glyph "轍"
    :actor/display-name-ja "Autonomous ground vehicle orchestration per ADR-2605242000. Route planning, motion control, obstacle avoidance, safety monitoring."
    :actor/display-name-en "Autonomous ground vehicle orchestration per ADR-2605242000. Route planning, motion control, obstacle avoidance, safety monitoring."
    :actor/performer-type :system
@@ -2969,8 +2969,8 @@
    :actor/primary-lexicon "com.etzhayyim.wadachi.deliveryRoute"
    :actor/created-at "2026-06-01"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:wadachi (轍 — autonomous mobility Tier-B actor)#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
-                   {"id" "did:web:etzhayyim.com:actor:wadachi (轍 — autonomous mobility Tier-B actor)#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:wadachi#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:wadachi#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
 
   {:actor/handle "wakai"
    :actor/did "did:web:etzhayyim.com:actor:wakai"
