@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  etzhayyim.com actor registry entry point. This Worker resolves several
+  hundred individual did:web actor documents dynamically at
+  /actor/<handle>/did.json (see src/registry/infra-actors.ts +
+  tier-b-actors.gen.ts) — enumerating every one of them here is a follow-up
+  (a real per-actor sitemap generator, out of scope for this fix). Until
+  that lands, point crawlers at the real, human-browsable actor index page
+  rather than continuing to serve YORO's leftover content (see
+  public/sitemap.xml for provenance, 2026-07-21).
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://etzhayyim.com/actors</loc></url>
+</urlset>

@@ -1,0 +1,7 @@
+# etzhayyim.com — public root / observation surface for etzhayyim,
+# a religious artificial organism (did:web:etzhayyim.com).
+# https://etzhayyim.com
+User-agent: *
+Allow: /
+
+Sitemap: https://etzhayyim.com/sitemap.xml
