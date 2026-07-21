@@ -1,0 +1,38 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/suites/jws-2020/v1"
+  ],
+  "id": "did:web:etzhayyim.com:actor:iriai",
+  "alsoKnownAs": [
+    "did:web:iriai.etzhayyim.com"
+  ],
+  "verificationMethod": [],
+  "service": [
+    {
+      "id": "did:web:etzhayyim.com:actor:iriai#atproto_pds",
+      "type": "AtprotoPersonalDataServer",
+      "serviceEndpoint": "https://pds.aozora.app"
+    },
+    {
+      "id": "did:web:etzhayyim.com:actor:iriai#xrpc-libp2p",
+      "type": "AtprotoXrpc",
+      "serviceEndpoint": "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"
+    }
+  ],
+  "_meta": {
+    "adr": [
+      "2606272200",
+      "2606280900"
+    ],
+    "source": "kotoba",
+    "kind": "tier-b",
+    "status": "r0",
+    "glyph": "入",
+    "wasmCid": null,
+    "execModel": "service",
+    "primaryLexicon": "com.etzhayyim.iriai.lifelineCoverageMap",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-iriai/kotoba/ontology.iriai.edn",
+    "note": "verificationMethod empty — did:web trust root = TLS (no server-minted key, ADR-2605231525)"
+  }
+}

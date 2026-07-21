@@ -398,7 +398,6 @@
 60-apps/etzhayyim-project-playwright
 60-apps/etzhayyim-project-po
 60-apps/etzhayyim-project-port
-60-apps/etzhayyim-project-pptx
 60-apps/etzhayyim-project-pre
 60-apps/etzhayyim-project-pregel
 60-apps/etzhayyim-project-producer

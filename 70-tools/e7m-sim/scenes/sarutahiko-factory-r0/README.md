@@ -64,7 +64,7 @@ settle cycle).
   no 確認申請 / 消防同意 / 受電契約.** All `:representative` figures.
 - Heavy-truck manufacturing is capital-intensive (ADR-2605252500 §Consequences):
   R3 community-scale ≥100 veh/month is **Council Lv6+ + LANDS.md plant-site gated**.
-- The sarutahiko cells (`20-actors/sarutahiko/cells/`) remain R0 scaffold
+- The sarutahiko cells (`orgs/etzhayyim/com-etzhayyim-sarutahiko/cells/`) remain R0 scaffold
   (`.solve()` raises `RuntimeError`) — this scene is the **plant-design layer**,
   it does not activate manufacturing capability.
 - Engineering passes are simplified models (loads / fixture-units / code limits

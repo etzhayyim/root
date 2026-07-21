@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:nyusatsu",
+  "handle": "nyusatsu.etzhayyim.com",
+  "displayName": "Nyusatsu — JP Public Procurement Aggregator",
+  "description": "Self-hosted alternative to NJSS. Crawls 全省庁 (GEPS) + 47都道府県 + 1,718市町村 + 独法 + 特殊法人 入札公告 pages and normalizes into com.etzhayyim.apps.jpFiscal.procurementBid. Replaces paid NJSS API dependency (ADR-0035).",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Nyusatsu",
+  "displayNameJa": "Nyusatsu — JP Public Procurement Aggregator",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.nyusatsu",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/nyusatsu/did.json",
+    "source": "kotoba"
+  }
+}

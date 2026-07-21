@@ -1,0 +1,32 @@
+{
+  "did": "did:web:etzhayyim.com:actor:watatsumi",
+  "handle": "watatsumi.etzhayyim.com",
+  "displayName": "綿津見 — Civilian Submersible Manufacturing",
+  "description": "Civilian deep-sea submersible manufacturing Tier-B actor. Adopts modular ring-section construction methodology from mature European shipyard practice; civilianised by metallurgical, propulsion, and acoustic-emission constraints. Naval weapons, nuclear propulsion, and military stealth are constitutional non-goals per Charter Rider §2(a).",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-05-25T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "綿津見",
+  "displayNameJa": "綿津見 — Civilian Submersible Manufacturing",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2605252200",
+      "2605252200",
+      "2605252215"
+    ],
+    "primaryLexicon": "com.etzhayyim.watatsumi",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/watatsumi/did.json",
+    "source": "kotoba"
+  }
+}

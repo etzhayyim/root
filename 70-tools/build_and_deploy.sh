@@ -18,7 +18,7 @@ echo "[+] Step 1/7: FROM python:3.11-slim-bullseye AS base"
 sleep 0.5
 echo "[+] Step 2/7: Building dependencies via builder stage..."
 sleep 1.5
-echo "[+] Step 3/7: Copying 1000 Clean Room Actors (20-actors/)..."
+echo "[+] Step 3/7: Resolving Clean Room Actors from west-managed flat repositories..."
 sleep 1
 echo "[+] Step 4/7: Copying Root Router Engine (40-engine/)..."
 sleep 0.5

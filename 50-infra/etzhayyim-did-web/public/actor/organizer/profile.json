@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:organizer",
+  "handle": "organizer.etzhayyim.com",
+  "displayName": "Organizer — AI Auto-Organize",
+  "description": "Upload and AI auto-organizes. Replaces manual folder management. Murakumo vision/NLP auto-classification, tag assignment, collection auto-grouping, organize rules. Subscription discovery pipeline (mailer -> organizer -> kaiyaku) for unused subscription cancellation.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Organizer",
+  "displayNameJa": "Organizer — AI Auto-Organize",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.organizer",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/organizer/did.json",
+    "source": "kotoba"
+  }
+}

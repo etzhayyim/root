@@ -1,0 +1,14 @@
+{
+  "ui.disclaimer" : "行政書士法/UPL境界: 情報提供+案内+入力補助のみ。作成代理・法的助言は行いません。本人が提出します。",
+  "actor.authority" : "Receita Federal do Brasil (Secretaria Especial da Receita Federal, Ministério da Fazenda)",
+  "ui.self-submit" : "本人提出",
+  "actor.description" : "toritsugi authority-actor for regime 'br-federal-tax' (Receita Federal do Brasil (Secretaria Especial da Receita Federal, Ministério da Fazenda)). Covers 1 procedure(s) across jurisdiction(s): bra. Parent: toritsugi (ADR-2605312030). Keyless R0 mirror — no server key. 行政書士法/UPL boundary (G5): 情報提供+案内+入力補助 only, NO advice, NO 作成代理. Member self-submits (G15). NOT a 行政書士/弁護士 firm, NOT an official channel.",
+  "actor.displayName" : "取次-br-federal-tax — Receita Federal do Brasil (Secretaria Especial da Receita Federal, Ministério da Fazenda)",
+  "procedure.list" : "Brazil CPF taxpayer registry enrolment (Inscrição no Cadastro de Pessoas Físicas — CPF)",
+  "ui.accompany" : "伴走",
+  "actor.regime" : "br-federal-tax",
+  "ui.guide" : "案内",
+  "procedure.count" : "1件の手続き",
+  "actor.glyph" : "取次",
+  "actor.name" : "toritsugi-br-federal-tax"
+}

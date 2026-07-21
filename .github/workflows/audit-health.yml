@@ -8,10 +8,9 @@ name: audit-health
 # Strict mode is OFF by default — the current baseline (iter-52 of /loop,
 # 2026-05-27) has 25 findings: 25 documented-deferred (7 stale subrepo
 # URLs ADR-2605211845 + 18 kotoba escape-symlinks ADR-2605262130). The
-# manifest-lexicon-drift category was fully zeroed in iter-52 (all 21
-# missing lexicons across 5 actors authored iter-48..52). The workflow
-# reports the count in the job summary so reviewers can compare against
-# baseline; it does not fail PRs on those known findings.
+# Actor manifest/lexicon drift is evaluated from the west superproject, where
+# sibling orgs/etzhayyim/com-etzhayyim-* checkouts are present. A standalone
+# root checkout cannot truthfully establish that category's baseline.
 #
 # When the documented findings are resolved (kotoba upstream symlink
 # coordination + per-app .gitrepo decision), the strict-mode flag can be
@@ -28,16 +27,10 @@ on:
       # Subrepo URLs (audited by subrepo-upstream-health +
       # subrepo-symlink-health).
       - '**/.gitrepo'
-      # Actor manifests + lexicon JSON files (audited by
-      # manifest-lexicon-drift; iter-53 canary regression-guards
-      # the just-closed category — needs to fire on these paths
-      # to actually catch drift introduction).
-      - '20-actors/**/manifest.jsonld'
-      - '00-contracts/lexicons/**/*.json'
       # ADR files (audited by adr-cross-ref-health). Any new ADR or
       # rename can change the orphan set and the standalone audit's
       # baseline of 118 (iter-45) is operator-tracked.
-      - '90-docs/adr/**/*.md'
+      - '90-docs/adr/**/*.edn'
   pull_request:
     branches: [main]
     paths:
@@ -45,9 +38,7 @@ on:
       - '.github/workflows/audit-health.yml'
       - '70-tools/scripts/audit/**'
       - '**/.gitrepo'
-      - '20-actors/**/manifest.jsonld'
-      - '00-contracts/lexicons/**/*.json'
-      - '90-docs/adr/**/*.md'
+      - '90-docs/adr/**/*.edn'
   workflow_dispatch:
 
 permissions:
@@ -63,13 +54,8 @@ jobs:
         with:
           fetch-depth: 1
 
-      # NOTE: the former "Checkout kami-engine submodule" step was removed
-      # 2026-06-17 — 40-engine/kami-engine is no longer a root git-submodule
-      # (no .gitmodules entry, no gitlink in the tree), so the targeted
-      # `git submodule update … 40-engine/kami-engine` failed with "pathspec
-      # did not match", killing the whole monorepo-health job before any audit
-      # ran (it failed on every PR + on main). sdk-exports-dist tolerates the
-      # absent sdk gracefully; the full audit pytest suite is green without it.
+      # Standalone repositories are intentionally not checked out here. Root
+      # audits cover only root-owned substrate and migration boundaries.
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -78,6 +64,19 @@ jobs:
 
       - name: Install pytest (for audit script tests)
         run: pip install pytest
+
+      # The aggregator (all.sh → test_all_sh.py) runs pytest over the WHOLE
+      # audit dir, which includes the actor-invariant suites (hotaru / mitooshi
+      # / noroshi / nusa / todoke …) that shell out to `bb` (babashka) to load
+      # the cljc invariant guards. Without bb those tests raise FileNotFoundError
+      # and the strict job fails on every PR + on main. Install the official
+      # babashka so the invariant suites actually run.
+      - name: Install babashka
+        run: |
+          curl -sLO https://raw.githubusercontent.com/babashka/babashka/master/install
+          chmod +x install
+          sudo ./install
+          bb --version
 
       - name: Run audit script tests (strict — fail on regression)
         env:
@@ -91,22 +90,12 @@ jobs:
           # which itself invokes `bash all.sh`. We run it LAST so the
           # other suites are validated first (faster failure signal on
           # individual-script regressions).
+          # Actor-specific invariant suites moved with their standalone repos.
+          # Root CI now owns only root boundary/subrepo/gitmodule audits.
           python3 -m pytest \
-            70-tools/scripts/audit/test_adr_cross_ref_health.py \
-            70-tools/scripts/audit/test_manifest_lexicon_drift.py \
             70-tools/scripts/audit/test_subrepo_scripts.py \
             70-tools/scripts/audit/test_simple_audits.py \
-            70-tools/scripts/audit/test_e7m_verify_perf.py \
             70-tools/scripts/audit/test_gitmodules.py \
-            70-tools/scripts/audit/test_tadori_invariants.py \
-            70-tools/scripts/audit/test_tsukuroi_invariants.py \
-            70-tools/scripts/audit/test_karute_invariants.py \
-            70-tools/scripts/audit/test_kokoro_invariants.py \
-            70-tools/scripts/audit/test_iyashi_invariants.py \
-            70-tools/scripts/audit/test_mitate_invariants.py \
-            70-tools/scripts/audit/test_futawa_invariants.py \
-            70-tools/scripts/audit/test_watatsumi_invariants.py \
-            70-tools/scripts/audit/test_all_sh.py \
             -v
 
       - name: Run audit aggregator (non-strict)
@@ -131,7 +120,7 @@ jobs:
             echo "  - 7 stale subrepo URLs (ADR-2605211845)"
             echo "  - 18 kotoba escape-symlinks (ADR-2605262130)"
             echo "  - 0 sibling-convention-drift outliers"
-            echo "  - 0 manifest-lexicon-drift (iter-52: all 5 actors closed — wadachi/gov-municipality/infra-utility-connect/yoro-supply/kuni-umi)"
+            echo "  - actor manifest drift: owned by the west-workspace audit (not counted in standalone root checkout)"
             echo ""
             if [ "${total:-0}" -gt 25 ]; then
               echo "⚠️ Total findings **above baseline** — new drift introduced. Investigate above."

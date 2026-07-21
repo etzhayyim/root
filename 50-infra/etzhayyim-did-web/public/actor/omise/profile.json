@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:omise",
+  "handle": "omise.etzhayyim.com",
+  "displayName": "Omise EC Marketplace",
+  "description": "Shopify-like multi-tenant EC marketplace with Platform/Seller/Buyer three-party structure. Seller onboarding, catalog management, checkout SAGA, settlement flow, logistics, reviews, coupons. 11 ISCO-mapped actor DIDs. kagami P10v2 GraphAr-native storage.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Omise EC Marketplace",
+  "displayNameJa": "Omise EC Marketplace",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.omise",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/omise/did.json",
+    "source": "kotoba"
+  }
+}

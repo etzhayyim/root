@@ -6,7 +6,7 @@ import {
   handover,
   expire,
   issueCertificate,
-} from "@etzhayyim/otakiage-rw-free";
+} from "@etzhayyim/otakiage-kotoba";
 
 describe("otakiage lifecycle state machine", () => {
   let e: any;

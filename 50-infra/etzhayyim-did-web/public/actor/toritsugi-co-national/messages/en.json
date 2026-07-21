@@ -1,0 +1,13 @@
+{
+  "ui.disclaimer" : "UPL boundary: information + wayfinding + form-fill assist only. No advice, no proxy. Member submits themselves.",
+  "actor.authority" : "Ministerio de Relaciones Exteriores (Cancillería); departmental Gobernaciones issue domestically / Registraduría Nacional del Estado Civil",
+  "ui.self-submit" : "Self-submit",
+  "actor.description" : "toritsugi authority-actor for regime 'co-national' (Ministerio de Relaciones Exteriores (Cancillería); departmental Gobernaciones issue domestically / Registraduría Nacional del Estado Civil). Covers 2 procedure(s) across jurisdiction(s): col. Parent: toritsugi (ADR-2605312030). Keyless R0 mirror — no server key. 行政書士法/UPL boundary (G5): 情報提供+案内+入力補助 only, NO advice, NO 作成代理. Member self-submits (G15). NOT a 行政書士/弁護士 firm, NOT an official channel.",
+  "actor.displayName" : "Toritsugi-co-national — Ministerio de Relaciones Exteriores (Cancillería); departmental Gobernaciones issue domestically",
+  "procedure.list" : "Colombia citizen ID card issuance / duplicate — Cédula de Ciudadanía / Colombia passport application — Solicitud de Pasaporte",
+  "ui.accompany" : "Accompany",
+  "actor.regime" : "co-national",
+  "ui.guide" : "Guide",
+  "procedure.count" : "2 procedures",
+  "actor.name" : "toritsugi-co-national"
+}

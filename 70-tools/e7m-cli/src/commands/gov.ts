@@ -125,7 +125,7 @@ govCmd
           potential: 20,
           adr: 'ADR-2605214000',
           tasks: [
-            'Verify all 3 L3 apps are RW-free (govern-mcp-component, lawfirm-admin, legal-entity)',
+            'Verify all 3 L3 apps are kotoba (govern-mcp-component, lawfirm-admin, legal-entity)',
             'Run integration test suite against etzhayyim.com edge (no legacy residue)',
             'Stage PR with @etzhayyim/ package rename (post-bootstrap Council)',
           ],

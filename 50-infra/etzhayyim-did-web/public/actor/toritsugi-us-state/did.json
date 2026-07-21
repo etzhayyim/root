@@ -1,0 +1,26 @@
+{
+  "@context" : [ "https://www.w3.org/ns/did/v1", "https://w3id.org/security/suites/jws-2020/v1" ],
+  "id" : "did:web:etzhayyim.com:actor:toritsugi-us-state",
+  "alsoKnownAs" : [ "did:web:toritsugi-us-state.etzhayyim.com" ],
+  "verificationMethod" : [ ],
+  "service" : [ {
+    "id" : "did:web:etzhayyim.com:actor:toritsugi-us-state#atproto_pds",
+    "type" : "AtprotoPersonalDataServer",
+    "serviceEndpoint" : "https://pds.aozora.app"
+  } ],
+  "_meta" : {
+    "authority" : [ "Centers for Medicare & Medicaid Services (CMS), HHS (federal); Medicaid administered by STATE agencies; Marketplace via HealthCare.gov or state exchanges", "State and local election offices (Secretary of State / county election boards); U.S. Election Assistance Commission (EAC) maintains the National Mail Voter Registration Form", "State motor-vehicle agency (issuing authority), under U.S. Department of Homeland Security / TSA standards. Representative: CA DMV, NY DMV, TX DPS (Driver License Division)", "USDA Food and Nutrition Service (federal program); administered by STATE human-services agencies. CA: CalFresh (CDSS); NY: SNAP (OTDA); TX: SNAP (HHSC)" ],
+    "execModel" : "mesh-component",
+    "parent" : "toritsugi",
+    "note" : "Authority-actor child of toritsugi (ADR-2605312030). Regime: us-state. verificationMethod empty — no server-minted key (ADR-2605231525). Keyless R0 mirror; cells raise RuntimeError. 行政書士法/UPL boundary (G5); member self-submit (G15).",
+    "adr" : [ "2605312030", "2606272355", "2605231525" ],
+    "status" : "r0",
+    "kind" : "tier-b",
+    "source" : "kotoba",
+    "procedureCount" : 4,
+    "regime" : "us-state",
+    "primaryLexicon" : "com.etzhayyim.toritsugi.us-state.procedure",
+    "jurisdictions" : [ "usa" ],
+    "wasmCid" : null
+  }
+}

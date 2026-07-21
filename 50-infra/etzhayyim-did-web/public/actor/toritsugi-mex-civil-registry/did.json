@@ -1,0 +1,26 @@
+{
+  "@context" : [ "https://www.w3.org/ns/did/v1", "https://w3id.org/security/suites/jws-2020/v1" ],
+  "id" : "did:web:etzhayyim.com:actor:toritsugi-mex-civil-registry",
+  "alsoKnownAs" : [ "did:web:toritsugi-mex-civil-registry.etzhayyim.com" ],
+  "verificationMethod" : [ ],
+  "service" : [ {
+    "id" : "did:web:etzhayyim.com:actor:toritsugi-mex-civil-registry#atproto_pds",
+    "type" : "AtprotoPersonalDataServer",
+    "serviceEndpoint" : "https://pds.aozora.app"
+  } ],
+  "_meta" : {
+    "authority" : [ "Registro Civil" ],
+    "execModel" : "mesh-component",
+    "parent" : "toritsugi",
+    "note" : "Authority-actor child of toritsugi (ADR-2605312030). Regime: mex-civil-registry. verificationMethod empty — no server-minted key (ADR-2605231525). Keyless R0 mirror; cells raise RuntimeError. 行政書士法/UPL boundary (G5); member self-submit (G15).",
+    "adr" : [ "2605312030", "2606272355", "2605231525" ],
+    "status" : "r0",
+    "kind" : "tier-b",
+    "source" : "kotoba",
+    "procedureCount" : 1,
+    "regime" : "mex-civil-registry",
+    "primaryLexicon" : "com.etzhayyim.toritsugi.mex-civil-registry.procedure",
+    "jurisdictions" : [ "mex" ],
+    "wasmCid" : null
+  }
+}

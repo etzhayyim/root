@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { MockEtzhayyim } from "@etzhayyim/sdk-mock";
-import { submitPaper, getPaper } from "@etzhayyim/kiyo-rw-free";
+import { submitPaper, getPaper } from "@etzhayyim/kiyo-kotoba";
 
 // TODO: mst-projector InMemoryProjector pending Phase 3 implementation (ADR-2605212000).
 // Test refactored to use direct kiyo API calls without projector queries.

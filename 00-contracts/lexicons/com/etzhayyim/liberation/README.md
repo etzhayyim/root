@@ -15,7 +15,7 @@ These lexicons operationalize the mission KPI (`labor_hours_liberated_per_adhere
 presence-and-zero in every report is the structural on-chain proof that §5 N1
 (no fiat-replacement UBI) holds. Figures are computed by toritate
 (ADR-2605262900) against open valuation tables in
-`20-actors/toritate/valuation/`. Aggregate-only (no per-adherent leaderboard).
+`orgs/etzhayyim/com-etzhayyim-toritate/valuation/`. Aggregate-only (no per-adherent leaderboard).
 
 | Lexicon | Purpose |
 |---|---|

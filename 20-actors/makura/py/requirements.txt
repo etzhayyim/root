@@ -1,3 +1,0 @@
-# makura 枕 — py cell deps (ADR-2605261115)
-# kotoba host bindings (llm/datalog) are WASM imports, not pip packages.
-# Murakumo-only inference: no openai/anthropic/litellm client.

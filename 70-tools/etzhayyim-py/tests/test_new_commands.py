@@ -13,7 +13,6 @@ import pytest
 from click.testing import CliRunner
 
 from etzhayyim.cli import main
-from etzhayyim.lint import _lint_rule, _ALL_RULES
 from etzhayyim.identifier_audit import run_audit, _audit_jsonld
 from etzhayyim.nono import _load_manifests, NonoManifest
 from etzhayyim.deps import _load
@@ -22,78 +21,9 @@ from etzhayyim.workspace import workspace
 
 
 # ── lint ───────────────────────────────────────────────────────────────────────
-
-def test_lint_nsid_regression_no_violations(tmp_path):
-    (tmp_path / "app.ts").write_text('const nsid_real = "com.etzhayyim.apps.billing.invoice";\n')
-    r = _lint_rule(tmp_path, "nsid-regression")
-    assert r.ok
-
-
-def test_lint_nsid_regression_violation(tmp_path):
-    (tmp_path / "app.ts").write_text('const x = "nsid";\n')
-    r = _lint_rule(tmp_path, "nsid-regression")
-    assert not r.ok
-    assert len(r.violations) >= 1
-
-
-def test_lint_silent_catch_violation(tmp_path):
-    (tmp_path / "app.ts").write_text("try { x(); } catch (e) {  }")
-    r = _lint_rule(tmp_path, "silent-catch")
-    assert not r.ok
-
-
-def test_lint_ts_camel_violation(tmp_path):
-    (tmp_path / "app.ts").write_text("const my_var = 1;\n")
-    r = _lint_rule(tmp_path, "ts-camel")
-    assert not r.ok
-
-
-def test_lint_result_to_dict(tmp_path):
-    r = _lint_rule(tmp_path, "nsid-regression")
-    d = r.to_dict()
-    assert "rule" in d
-    assert "ok" in d
-    assert "violations" in d
-
-
-def test_lint_all_rules_list():
-    assert "nsid-regression" in _ALL_RULES
-    assert "silent-catch" in _ALL_RULES
-    assert "ts-camel" in _ALL_RULES
-
-
-def test_cli_lint_ok_workspace(tmp_path):
-    runner = CliRunner()
-    result = runner.invoke(main, ["lint", "--root", str(tmp_path)])
-    assert result.exit_code == 0
-
-
-def test_cli_lint_specific_rule(tmp_path):
-    runner = CliRunner()
-    result = runner.invoke(main, ["lint", "nsid-regression", "--root", str(tmp_path)])
-    assert result.exit_code == 0
-
-
-def test_cli_lint_json(tmp_path):
-    runner = CliRunner()
-    result = runner.invoke(main, ["lint", "--json", "--root", str(tmp_path)])
-    assert result.exit_code == 0
-    data = json.loads(result.output)
-    assert isinstance(data, list)
-
-
-def test_cli_lint_fail_with_violations(tmp_path):
-    (tmp_path / "app.ts").write_text('"nsid"\n')
-    runner = CliRunner()
-    result = runner.invoke(main, ["lint", "nsid-regression", "--root", str(tmp_path)])
-    assert result.exit_code != 0
-
-
-def test_cli_lint_rules_subcommand():
-    runner = CliRunner()
-    result = runner.invoke(main, ["lint", "rules"])
-    assert result.exit_code == 0
-    assert "nsid-regression" in result.output
+# lint retired from the python e7m (ADR-2606222000): its CLI + logic are fully ported
+# to etzhayyim.lint.cljc (`bb e7m lint [all|rules|<rule>] [--root D] [--json]`, read-only
+# parity verified green). lint.py + its tests removed in the same finishing pass.
 
 
 # ── workspace ──────────────────────────────────────────────────────────────────
@@ -2158,25 +2088,9 @@ def test_docs_validate_valid_registry(tmp_path):
         ],
     }
     (reg_dir / "docs.json").write_text(json.dumps(registry))
-    # Minimal graph.jsonld
-    graph = {
-        "@context": {"doc": "https://etzhayyim.com/ns/docs/"},
-        "@graph": [
-            {
-                "id": "doc:test-adr-001",
-                "type": "adr",
-                "title": "Test ADR",
-                "status": "active",
-                "topic": "testing",
-                "authoritative": True,
-                "authoritativeFor": [],
-                "related": [],
-                "supersedes": [],
-                "supersededBy": [],
-            }
-        ],
-    }
-    (reg_dir / "graph.jsonld").write_text(json.dumps(graph))
+    # Note: the relation graph (graph.edn) is a pure projection of docs.edn,
+    # validated by docs-graph-edn-freshness — docs validate no longer
+    # cross-checks it, so no graph fixture is needed here.
     # Create the .md file with proper front matter
     md_dir = tmp_path / "90-docs"
     (md_dir / "test.md").write_text(

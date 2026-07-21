@@ -6,6 +6,6 @@
   },
   "env": ".env",
   "python_version": "3.11",
-  "$checkpointer_comment": "RW-free per ADR-2605172000. The Pregel module auto-attaches an MstCheckpointSaver when env MST_CHECKPOINT_SOCKET is set (Unix socket or tcp://host:port). With the env unset the graph compiles without persistence — P0 behaviour preserved. Sidecar (Stage 2-4 of ADR-2605171800) runs as a second container in the same Pod; see deployment.yaml + 50-infra/etzhayyim-sdk-checkpointer/.",
+  "$checkpointer_comment": "kotoba per ADR-2605172000. The Pregel module auto-attaches an MstCheckpointSaver when env MST_CHECKPOINT_SOCKET is set (Unix socket or tcp://host:port). With the env unset the graph compiles without persistence — P0 behaviour preserved. Sidecar (Stage 2-4 of ADR-2605171800) runs as a second container in the same Pod; see deployment.yaml + 50-infra/etzhayyim-sdk-checkpointer/.",
   "crons": []
 }

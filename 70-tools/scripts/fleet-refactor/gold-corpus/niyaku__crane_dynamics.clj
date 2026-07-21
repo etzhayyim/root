@@ -1,4 +1,4 @@
-;; ported from 20-actors/niyaku/methods/crane_dynamics.py — gold reference (Fable)
+;; ported from orgs/etzhayyim/com-etzhayyim-niyaku/methods/crane_dynamics.py — gold reference (Fable)
 ;; niyaku 荷役 — 吊り荷 anti-sway の crane 動力学。trolley を acceleration-commanded として扱い、
 ;; hanging-pendulum-on-trolley を RK4 で積分する。ZV (Zero-Vibration) input shaper で残留振動を消す。
 ;; crane は不変パラメータ map; state は [x x-dot theta theta-dot] のベクタ。純関数。

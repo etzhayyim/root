@@ -24,7 +24,6 @@ COPY --from=builder /app/requirements.txt .
 RUN pip install --no-cache /wheels/*
 
 # Copy the entire architectural ecosystem
-COPY 20-actors/ /app/20-actors/
 COPY 40-engine/ /app/40-engine/
 COPY 60-apps/ /app/60-apps/
 COPY 70-tools/ /app/70-tools/

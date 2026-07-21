@@ -1,5 +1,5 @@
 ;; forecasting-ontology.kotoba.edn — vocabulary for mitooshi (見通し)
-;; ADR-2606051800 · actor: 20-actors/mitooshi/
+;; ADR-2606051800 · actor: orgs/etzhayyim/com-etzhayyim-mitooshi/
 ;;
 ;; SCOPE: a probabilistic FORECASTING OBSERVATORY. Datafies public time-series
 ;;   (:series/*), their realized observations (:obs/*), probabilistic forecasts over

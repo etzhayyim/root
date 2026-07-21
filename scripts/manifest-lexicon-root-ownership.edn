@@ -1,0 +1,8 @@
+;; Canonical ownership registry for contracts implemented by root governance or
+;; infrastructure rather than by a flat-west actor repository. JSON Lexicons
+;; remain wire artifacts at their NSID paths; this registry prevents the actor
+;; boundary audit from inventing an actor owner for root-native contracts.
+{:registry/id :etzhayyim.root/lexicons
+ :registry/authority "root"
+ :registry/lexicons
+ ["com.etzhayyim.apps.etzhayyim.priorityConformanceAttestation"]}

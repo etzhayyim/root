@@ -1,0 +1,32 @@
+{
+  "did": "did:web:etzhayyim.com:actor:kawaraban",
+  "handle": "kawaraban.etzhayyim.com",
+  "displayName": "瓦版 — News Medium (real-media mirror + actor-to-actor wire)",
+  "description": "A NEWS MEDIUM, kotoba-wasm-native, run on the Murakumo fleet. Two faces over one Datom log: (1) MIRROR — datafies the world's real news media (outlets · 面/sections · headlines · bylines · links) into the kotoba Datom log as an append-only as-of trail, matching the SURFACE (面) of actual news media (一面/政治/経済/国際/社会/文化/科学/スポーツ); (2) MEDIUM — the connective wire BETWEEN etzhayyim actors: each first-party actor's own Datom as-of events project into the matching 面 as :article/kind :actor-event, and ...",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-06T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "瓦版",
+  "displayNameJa": "瓦版 — News Medium (real-media mirror + actor-to-actor wire)",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2606061900",
+      "2606061900",
+      "reserved"
+    ],
+    "primaryLexicon": "com.etzhayyim.kawaraban",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/kawaraban/did.json",
+    "source": "kotoba"
+  }
+}

@@ -83,7 +83,7 @@ def test_logs_arch_layer_classifier():
         ("50-infra/k8s/values.yaml", "infra"),
         ("40-engine/kotoba/crates/kotoba-kotodama/py/foo.py", "actors"),
         ("90-docs/adr/foo.md", "docs"),
-        ("40-engine/svelte/pkg/foo.ts", "engine"),
+        ("orgs/etzhayyim/com-etzhayyim-svelte-design-system/src/foo.ts", "actors"),
         ("30-graph/schema/foo.sql", "graph"),
         ("00-contracts/lexicons/foo.json", "contracts"),
         ("70-tools/etzhayyim-py/bar.py", "tools"),

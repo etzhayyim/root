@@ -1,0 +1,55 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/suites/jws-2020/v1",
+    "https://w3id.org/security/suites/ed25519-2020/v1"
+  ],
+  "id": "did:web:etzhayyim.com:actor:tomoshibi",
+  "alsoKnownAs": [
+    "did:web:tomoshibi.etzhayyim.com",
+    "did:key:z6MkvqXdDba3CZ96nRzYBYiDrnoHP8DtCSgW7duzwFPGnf9Z",
+    "mailto:tomoshibi@etzhayyim.com"
+  ],
+  "verificationMethod": [
+    {
+      "id": "did:web:etzhayyim.com:actor:tomoshibi#node-key-0",
+      "type": "Ed25519VerificationKey2020",
+      "controller": "did:web:etzhayyim.com:actor:tomoshibi",
+      "publicKeyMultibase": "z6MkvqXdDba3CZ96nRzYBYiDrnoHP8DtCSgW7duzwFPGnf9Z"
+    }
+  ],
+  "authentication": [
+    "did:web:etzhayyim.com:actor:tomoshibi#node-key-0"
+  ],
+  "assertionMethod": [
+    "did:web:etzhayyim.com:actor:tomoshibi#node-key-0"
+  ],
+  "service": [
+    {
+      "id": "did:web:etzhayyim.com:actor:tomoshibi#atproto_pds",
+      "type": "AtprotoPersonalDataServer",
+      "serviceEndpoint": "https://pds.aozora.app"
+    },
+    {
+      "id": "did:web:etzhayyim.com:actor:tomoshibi#invitation-mail",
+      "type": "InvitationalEmail",
+      "serviceEndpoint": "mailto:tomoshibi@etzhayyim.com"
+    }
+  ],
+  "_meta": {
+    "adr": [
+      "2607061700",
+      "2607061800",
+      "2607121830",
+      "2607121900"
+    ],
+    "source": "kotoba",
+    "kind": "tier-b",
+    "status": "r1",
+    "glyph": "灯",
+    "wasmCid": null,
+    "execModel": "resident-daemon",
+    "primaryLexicon": "com.etzhayyim.apps.etzhayyim.evangelismActivityAttestation",
+    "note": "verificationMethod = the actor's OWN node-held Ed25519 did:key (generated on murakumo node zebulun via tomoshibi.cacao/load-or-create-identity!, private key at .tomoshibi/identity.edn mode 600, gitignored) — self-generated present-only actor key, never platform/server-minted (ADR-2605231525 permitted actor-key pattern). First roster entry with a populated verificationMethod; the rest await the ERC725 mirror."
+  }
+}

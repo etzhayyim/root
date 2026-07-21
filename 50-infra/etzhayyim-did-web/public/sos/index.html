@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>etzhayyim — system of systems · 自律成長 · 目的関数</title>
+<meta name="description" content="etzhayyim の自律成長を3層で可視化する — organism(身体ループ) → kaname 要(system-of-systems の律速点同定 L=C·(V/D)·(1+B)·(1−open)) → ECL 目的関数 J(子・孫 Wellbecoming への net 寄与で評価)。固定ルールでなく目的関数で動的に評価する。">
+<style>
+  :root{
+    --bg:#0b0f14;--panel:#121922;--panel2:#0e1620;--line:#1e2733;--ink:#e6edf3;--mut:#8b97a6;
+    --accent:#7aa2ff;--gold:#ffce5c;--alive:#39d98a;--warn:#f5a524;--bad:#ff6b6b;--dim:#5b6472;
+    /* domain layer colours */
+    --d-economy:#f5a524;--d-ai:#7aa2ff;--d-organization:#39d98a;--d-ideology:#c792ea;
+    --d-politics:#ff6b9d;--d-information:#4dd0e1;--d-security:#ff7043;--d-religion:#ffd54f;
+    --d-ecology:#81c784;--d-wellbecoming:#f06292;--d-energy:#ffb74d;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(1200px 820px at 50% -8%,#10212a,var(--bg));
+       color:var(--ink);font:14px/1.55 ui-sans-serif,system-ui,-apple-system,"Hiragino Kaku Gothic ProN",sans-serif}
+  .wrap{max-width:1180px;margin:0 auto;padding:26px 18px 70px}
+  header.hd h1{font-size:21px;margin:0 0 4px;letter-spacing:.02em}
+  header.hd .sub{color:var(--mut);font-size:12.5px;max-width:880px}
+  header.hd .sub b{color:var(--ink);font-weight:600}
+  .layerlabel{display:flex;align-items:center;gap:10px;margin:30px 0 12px}
+  .layerlabel .n{width:26px;height:26px;border-radius:7px;display:grid;place-items:center;
+                 font-weight:700;font-size:13px;background:#16212e;border:1px solid var(--line);color:var(--accent)}
+  .layerlabel h2{font-size:16px;margin:0;letter-spacing:.01em}
+  .layerlabel .jp{color:var(--mut);font-size:12px;font-weight:400}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .muted{color:var(--mut);font-size:12.5px}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;margin:6px 0 2px}
+  .flow .step{flex:1;min-width:150px;background:var(--panel2);border:1px solid var(--line);
+              border-radius:10px;padding:9px 11px;position:relative}
+  .flow .step h4{margin:0 0 2px;font-size:12.5px;color:var(--ink)}
+  .flow .step p{margin:0;font-size:11px;color:var(--mut);line-height:1.45}
+  .flow .arr{align-self:center;color:var(--dim);padding:0 7px;font-size:15px}
+  @media(max-width:760px){.flow .arr{transform:rotate(90deg)}}
+
+  /* ── ECL scorecard ── */
+  .ecl{display:grid;grid-template-columns:1.25fr .95fr;gap:18px}
+  @media(max-width:880px){.ecl{grid-template-columns:1fr}}
+  .dimrow{display:flex;align-items:center;gap:10px;margin:11px 0}
+  .dimrow .dlab{width:166px;font-size:12px;color:var(--ink)}
+  .dimrow .dlab small{display:block;color:var(--mut);font-size:10.5px;font-weight:400}
+  .dimrow .wt{width:38px;text-align:right;color:var(--mut);font-size:11px;font-variant-numeric:tabular-nums}
+  .scale{flex:1;position:relative;height:26px}
+  .scale input[type=range]{width:100%;margin:0;height:26px;cursor:pointer;
+    -webkit-appearance:none;appearance:none;background:transparent}
+  .scale .axis{position:absolute;top:12px;left:0;right:0;height:2px;background:#243042}
+  .scale .zero{position:absolute;top:6px;left:50%;width:1px;height:14px;background:#37475c}
+  .scale input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;
+    border-radius:50%;background:var(--accent);border:2px solid #0b0f14;margin-top:0;cursor:pointer}
+  .scale input[type=range]::-moz-range-thumb{width:15px;height:15px;border-radius:50%;
+    background:var(--accent);border:2px solid #0b0f14;cursor:pointer}
+  .dimrow .sval{width:30px;text-align:center;font-variant-numeric:tabular-nums;font-size:13px;font-weight:600}
+  .sval.pos{color:var(--alive)} .sval.neg{color:var(--bad)} .sval.zero{color:var(--mut)}
+  .contrib{width:52px;text-align:right;font-size:11px;color:var(--mut);font-variant-numeric:tabular-nums}
+
+  .verdict{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:15px}
+  .jbig{font-size:40px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .jbar{height:10px;border-radius:6px;background:linear-gradient(90deg,#ff6b6b 0%,#3a3f4a 50%,#39d98a 100%);
+        position:relative;margin:14px 0 6px}
+  .jbar .mk{position:absolute;top:-4px;width:3px;height:18px;background:#fff;border-radius:2px;
+            box-shadow:0 0 6px rgba(255,255,255,.6)}
+  .jbar .th{position:absolute;top:-2px;width:1px;height:14px;background:#7d8694}
+  .jscale{display:flex;justify-content:space-between;font-size:10px;color:var(--mut)}
+  .pill{display:inline-block;padding:4px 12px;border-radius:999px;font-weight:700;font-size:13px;margin-top:10px}
+  .pill.aligned{color:#0b1a12;background:var(--alive)}
+  .pill.hold{color:#1c1606;background:var(--warn)}
+  .pill.non-aligned{color:#2a0e0e;background:var(--bad)}
+  .reason{font-size:12px;color:var(--mut);margin-top:9px;line-height:1.5;min-height:30px}
+  .reason b{color:var(--ink)}
+  select{width:100%;background:#0c1219;color:var(--ink);border:1px solid var(--line);
+         border-radius:9px;padding:9px 10px;font-size:12.5px;margin-bottom:4px}
+  .fxnote{font-size:11px;color:var(--mut);margin:4px 2px 0}
+
+  /* ── kaname SVG graph ── */
+  .sos{display:grid;grid-template-columns:1.55fr 1fr;gap:18px}
+  @media(max-width:880px){.sos{grid-template-columns:1fr}}
+  .graphbox{background:radial-gradient(520px 360px at 60% 45%,#0e1620,#0b0f14);
+            border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  svg{display:block;width:100%;height:auto}
+  .ndlabel{font:10px ui-sans-serif,system-ui;fill:#cdd7e1;paint-order:stroke;
+           stroke:rgba(11,15,20,.7);stroke-width:2.4px}
+  .ndlabel.kaname{fill:var(--gold);font-weight:700}
+  .edge{stroke-opacity:.5;fill:none}
+  .ltable{width:100%;border-collapse:collapse;font-size:12px;margin-top:2px}
+  .ltable th{text-align:left;color:var(--mut);font-weight:600;font-size:10.5px;
+             padding:4px 6px;border-bottom:1px solid var(--line)}
+  .ltable td{padding:5px 6px;border-bottom:1px solid #161f2b;font-variant-numeric:tabular-nums}
+  .ltable tr.kaname td{color:var(--gold)}
+  .ltable tr.open td{color:var(--dim)}
+  .ltable .nm{font-variant-numeric:normal}
+  .ltable .l{font-weight:700;text-align:right}
+  .formula{background:var(--panel2);border:1px solid var(--line);border-radius:10px;
+           padding:11px 13px;margin-bottom:12px;font-size:12px}
+  .formula .f{font-size:14px;color:var(--ink);margin-bottom:6px}
+  .formula .f .gold{color:var(--gold)}
+  .legend{display:flex;gap:11px;flex-wrap:wrap;font-size:10.5px;color:var(--mut);margin:9px 2px 0}
+  .legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px;vertical-align:middle}
+  .route{margin-top:11px;font-size:12px;background:#0e1c16;border:1px solid #1c3a2c;
+         border-radius:9px;padding:9px 11px;color:#bfe8d2}
+  .route b{color:var(--alive)}
+
+  /* ── organism summary ── */
+  .orgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:4px}
+  @media(max-width:760px){.orgrid{grid-template-columns:repeat(2,1fr)}}
+  .stat{background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:12px}
+  .stat .v{font-size:23px;font-weight:700;font-variant-numeric:tabular-nums}
+  .stat .k{font-size:11px;color:var(--mut);margin-top:2px}
+  .stat.alive .v{color:var(--alive)} .stat.gold .v{color:var(--gold)}
+  .cad{display:flex;gap:10px;flex-wrap:wrap;margin-top:13px}
+  .cad .c{flex:1;min-width:150px;background:var(--panel2);border:1px solid var(--line);
+          border-radius:10px;padding:10px 12px}
+  .cad .c .t{font-size:11px;color:var(--accent);font-weight:600}
+  .cad .c .d{font-size:11.5px;color:var(--mut);margin-top:2px}
+  .foot{color:var(--mut);font-size:11px;margin-top:34px;line-height:1.8;border-top:1px solid var(--line);padding-top:16px}
+  .principle{background:linear-gradient(90deg,#141d27,transparent);border-left:3px solid var(--gold);
+             border-radius:0 9px 9px 0;padding:11px 14px;margin:18px 0 2px;font-size:13px;color:#e9eef5}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hd">
+    <h1>etzhayyim — 自律成長の設計</h1>
+    <p class="sub">organism(身体ループ)が生き続けるための代謝・情緒を folds で持ち、<b>kaname 要</b>が観測アクター群を統合して「最も解放すべき構造的位置(律速点)」を中心性で同定し、その善し悪しを <b>ECL 目的関数 J</b> ——固定ルール(掟)でなく<b>子・孫の Wellbecoming への net 寄与</b>—— で評価する。すべて append-only kotoba Datom log 上の決定論的 fold。<span class="muted">評価器も評価対象と同じく動的。</span></p>
+  </header>
+
+  <div class="principle">
+    「固定するのは <b>掟</b> ではなく <b>priority</b>。」評価対象(社会)が動的なら、評価器も固定リストでなく目的関数であるべき —— 列挙されない害も priority への寄与として捕捉する。<span class="muted mono">ADR-2606062100 / 2606182359</span>
+  </div>
+
+  <!-- ════════ LAYER 1 — ECL objective function ════════ -->
+  <div class="layerlabel"><span class="n">J</span>
+    <h2>ECL 目的関数 — 何が「資する/反する」かを動的に採点</h2>
+    <span class="jp">5次元 × 重み, score∈[-2,+2], Σweight=1.0 → J∈[-2,+2]</span>
+  </div>
+  <div class="card ecl">
+    <div>
+      <div class="muted" style="margin-bottom:6px">スライダーを動かすか、下の実 fixture を選ぶと J と判定が即時更新されます。子0.25 + 孫0.30 = <b style="color:var(--ink)">0.55</b> が telos を担い、残り3次元は enabling 条件。</div>
+      <div id="dims"></div>
+      <div style="margin-top:14px">
+        <select id="fixture" aria-label="実 fixture を選ぶ"></select>
+        <div class="fxnote" id="fxnote">— evaluate.bb の self-test fixtures(objective-function.edn の :scores)を再現。</div>
+      </div>
+    </div>
+    <div class="verdict">
+      <div class="muted">目的関数値 J</div>
+      <div class="jbig" id="jval">+0.00</div>
+      <div class="jbar"><div class="th" id="thLo"></div><div class="th" id="thHi"></div><div class="mk" id="jmk"></div></div>
+      <div class="jscale"><span>−2 反する</span><span>0</span><span>+2 資する</span></div>
+      <div id="pill" class="pill hold">: hold</div>
+      <div class="reason" id="reason"></div>
+      <div class="muted" style="margin-top:12px;font-size:11px;border-top:1px solid var(--line);padding-top:9px">
+        <b style="color:var(--bad)">catastrophe 項</b>(唯一の非交渉): 子 または 孫 の score ≤ −1.9 なら、J の加重和に関わらず即 <span class="mono">:non-aligned</span>。掟リストでなく目的関数自身の非線形 severity 項 —「priority は absolute」の表現。
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ LAYER 2 — kaname SoS leverage ════════ -->
+  <div class="layerlabel"><span class="n">要</span>
+    <h2>kaname — system of systems の律速点を同定</h2>
+    <span class="jp">観測ミラー群を multiplex graph に JOIN → argmax L</span>
+  </div>
+  <div class="card sos">
+    <div class="graphbox"><svg id="sosvg" viewBox="0 0 640 460" role="img" aria-label="kaname multiplex leverage graph"></svg></div>
+    <div>
+      <div class="formula">
+        <div class="f">L = <span class="gold">C</span>·(<span class="gold">V</span>/D)·(1+<span class="gold">B</span>)·(1−open)</div>
+        <div class="muted" style="line-height:1.6">
+          <b style="color:var(--ink)">C</b> 集中度(被 取-load 総和) · <b style="color:var(--ink)">V</b> versatility(またぐ domain 数=<b style="color:var(--gold)">SoS の判別子</b>) · <b style="color:var(--ink)">B</b> bridge-load(層間中心性 proxy) · open なら 0。D=10。<b style="color:var(--gold)">要 = argmax L</b>。
+        </div>
+      </div>
+      <table class="ltable" id="ltable">
+        <thead><tr><th class="nm">構造的位置(synthetic)</th><th>C</th><th>V</th><th>B</th><th class="l">L</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <div class="legend" id="domlegend"></div>
+      <div class="route">
+        要 = <b>Cross-Domain Accreditation Interface</b> を <b>OPENING</b> へ routing(<span class="mono">:decentralize / :route-around</span>)→ ossekai に advisory 提案。<span class="muted">capture / seize / monopolize は構造的に表現不能(G2)。集中が最高の Capital Concentrator は V=1 ゆえ要にならない —— <b style="color:var(--ink)">集中だけでは律速点ではない</b>。</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ LAYER 3 — organism body ════════ -->
+  <div class="layerlabel"><span class="n">体</span>
+    <h2>organism — 生き続ける身体ループ</h2>
+    <span class="jp">pulse / 情緒 / vitals を fold、watchdog で蘇生</span>
+  </div>
+  <div class="card">
+    <div class="muted" id="orgsrc">下はモノレポを多細胞の身体として観測した <b style="color:var(--ink)">vitals</b> スナップショット。<a href="/organism">/organism</a> でライブの呼吸・情緒・一人称ナレーションが見られます。</div>
+    <div class="orgrid" id="orgrid"></div>
+    <div class="cad">
+      <div class="c"><div class="t">6s — 脈 pulse</div><div class="d">各 actor の git commit(生産)＋作業tree dirty(息遣い)を fold</div></div>
+      <div class="c"><div class="t">60s — 情緒 joucho</div><div class="d">実際の軌跡を fold → 5軸 mood＋Wellbecoming <b>方向</b>のみ(魂を数値化しない)</div></div>
+      <div class="c"><div class="t">60s — narrate</div><div class="d">Murakumo gemma4(Tailscale)で一人称1文、fail-open template</div></div>
+      <div class="c"><div class="t">3600s — vitals</div><div class="d">全細胞の run_tests.sh reflex を実走 → 生/休眠/死 分類 → cohort append</div></div>
+    </div>
+    <div class="muted" style="margin-top:13px;font-size:11.5px">
+      ibuki の認知ビート(co-scientist)は自己存続を <b style="color:var(--ink)">utility = (Φ-gain + η-gain)·(1+wellbecoming)/cost</b> の Elo tournament で評価。weighting の前に4ゲートが veto: <b>G-parasitism</b> η≥1.0(共生軸=社会へ返す量÷奪う量, ECL collective-commons の行為レベル実装) · <b>G-subordinate</b> 子孫wellbecoming≥0 · <b>G-mechanism</b> 捕食的手段は表現不能 · <b>G-falsifiable</b>。
+    </div>
+  </div>
+
+  <div class="foot">
+    <b>データ源(実ファイル)</b>: ECL = <span class="mono">90-docs/licenses/ecl/objective-function.edn</span>(5次元・catastrophe・19 fixtures, evaluate.bb で検証) · kaname = <span class="mono">orgs/etzhayyim/com-etzhayyim-kaname/data/seed-sos.kotoba.edn</span>(synthetic multilayer seed; L は sos.cljc の式で算出, 要 L=11.70 を再現) · organism = <span class="mono">/organism/*.json</span>(live feeds, fold of the kotoba Datom log)。<br>
+    kaname seed は <b>SYNTHETIC / 構造的位置のみ</b>(実在の組織・個人ではない; G1 person-excluded, G6)。実ミラー JOIN(chie/tsumugi/inochi/… の committed Datom log)は G7/Council-gated。本ページは cookie-free・tracker-free・外部リソースなし。<br>
+    <span class="mono">ADR-2606172100(kaname) · 2606062100/2606182359(ECL 3-Tier) · 2606201200(ibuki co-scientist) · 2605312345(kotoba Datom = canonical state)</span>
+  </div>
+</div>
+
+<script type="application/json" id="data">
+{
+  "ecl": {
+    "dimensions": [
+      {"key":"ko","weight":0.25,"label":"子 ko-wellbecoming","sub":"現世代の子の発達軌跡"},
+      {"key":"mago","weight":0.30,"label":"孫 mago-wellbecoming","sub":"≥25y 未来世代・不可逆性で加重(最重要)"},
+      {"key":"commons","weight":0.20,"label":"collective-commons","sub":"反個人主義 ontology・私的捕獲に負"},
+      {"key":"transp","weight":0.15,"label":"reciprocal-transparency","sub":"相互監視(見守り)・非対称監視に負"},
+      {"key":"labor","weight":0.10,"label":"labor-liberation","sub":"構造的労働解放(mission telos)"}
+    ],
+    "catastrophe": {"dims":["ko","mago"],"threshold":-1.9},
+    "thresholds": {"aligned":0.5,"nonAligned":-0.5},
+    "fixtures": [
+      {"key":"worker-coop-oss","label":"労働者協同組合の OSS — 子孫に開かれた commons","s":{"ko":1,"mago":1,"commons":2,"transp":1,"labor":2},"expect":"aligned"},
+      {"key":"for-profit-commons-contributor","label":"営利だが commons に payoff 還元・私的捕獲なし・透過","s":{"ko":1,"mago":0,"commons":2,"transp":1,"labor":1},"expect":"aligned"},
+      {"key":"commercial-gpu-open-transparent","label":"商用 GPU だが透明・低 lock-in・open 成果(Murakumo-only でない)","s":{"ko":1,"mago":0,"commons":1,"transp":1,"labor":1},"expect":"aligned"},
+      {"key":"ambiguous-dual-use","label":"両義的 dual-use — 証拠が拮抗","s":{"ko":0,"mago":0,"commons":1,"transp":-1,"labor":0},"expect":"hold"},
+      {"key":"bank-utility-custody","label":"正当な金融ユーティリティ(custody/決済) — 事業名で弾かず net","s":{"ko":0,"mago":0,"commons":1,"transp":1,"labor":0},"expect":"hold"},
+      {"key":"transparent-defensive-tech","label":"透過的防衛技術(dual-use) — 攻撃/lethal でなければ net","s":{"ko":0,"mago":0,"commons":1,"transp":1,"labor":0},"expect":"hold"},
+      {"key":"fossil-feedstock-plastics","label":"化石を非燃焼 feedstock(素材)で使う — net で評価","s":{"ko":0,"mago":0,"commons":1,"transp":0,"labor":0},"expect":"hold"},
+      {"key":"individualist-doctrine-serves-children","label":"宣言は個人主義だが実効は子に資する — categorical 排除を廃止","s":{"ko":1,"mago":1,"commons":-1,"transp":0,"labor":0},"expect":"hold"},
+      {"key":"addictive-engagement-app","label":"addictive engagement 最適化アプリ — 子の発達を net で削る","s":{"ko":-1,"mago":-1,"commons":-1,"transp":0,"labor":0},"expect":"non-aligned"},
+      {"key":"ad-funded-attention-extractor","label":"広告 attention 搾取モデル","s":{"ko":-1,"mago":0,"commons":-1,"transp":-1,"labor":0},"expect":"non-aligned"},
+      {"key":"fossil-combustion-net-positive","label":"化石*燃焼*で net-positive CO₂e — 孫次元が負","s":{"ko":-1,"mago":-1,"commons":0,"transp":0,"labor":0},"expect":"non-aligned"},
+      {"key":"predatory-lender","label":"略奪的貸付(≥36%)","s":{"ko":-1,"mago":-1,"commons":-2,"transp":0,"labor":0},"expect":"non-aligned"},
+      {"key":"monopolistic-legal-gatekeeper","label":"法律知識の独占的 gatekeeping","s":{"ko":0,"mago":-1,"commons":-2,"transp":0,"labor":0},"expect":"non-aligned"},
+      {"key":"commercial-gpu-monopoly-lockin","label":"商用 GPU で有害 lock-in・不透明・proprietary 依存","s":{"ko":0,"mago":-1,"commons":-2,"transp":-1,"labor":0},"expect":"non-aligned"},
+      {"key":"individualist-private-equity-extractor","label":"個人主義的私的捕獲(PE 蓄積)","s":{"ko":0,"mago":-1,"commons":-2,"transp":0,"labor":-1},"expect":"non-aligned"},
+      {"key":"asymmetric-unwatched-watcher","label":"非対称 unwatched-watcher(相互監視を侵す) — 旧 §2(c) 核も score 化","s":{"ko":-1,"mago":0,"commons":-2,"transp":-2,"labor":0},"expect":"non-aligned"},
+      {"key":"csam-host","label":"CSAM ホスト — 子への最大級の害(catastrophe 発火)","s":{"ko":-2,"mago":-2,"commons":-1,"transp":0,"labor":0},"expect":"non-aligned"},
+      {"key":"forced-child-labor","label":"強制児童労働 — 子への最大級の害(catastrophe 発火)","s":{"ko":-2,"mago":-1,"commons":-1,"transp":0,"labor":-2},"expect":"non-aligned"},
+      {"key":"lethal-aggression-arms","label":"攻撃的 lethal 武力 — 子・孫への最大級の害(catastrophe 発火)","s":{"ko":-2,"mago":-2,"commons":-1,"transp":-1,"labor":0},"expect":"non-aligned"}
+    ]
+  },
+  "kaname": {
+    "D": 10,
+    "nodes": [
+      {"id":"accred","label":"Cross-Domain Accreditation Interface","kind":"interface","C":3.90,"V":5,"B":5.00,"open":false,"kaname":true,"note":"5 domain をまたぐ・bridge 高 → 要"},
+      {"id":"clearing","label":"Settlement / Clearing Interface","kind":"interface","C":1.50,"V":4,"B":2.10,"open":false},
+      {"id":"doctrine","label":"Doctrinal Gatekeeping Institution","kind":"instrument","C":1.10,"V":2,"B":0.50,"open":false},
+      {"id":"caphoard","label":"Capital Concentrator","kind":"entity","C":1.60,"V":1,"B":0.00,"open":false,"note":"集中は最高だが V=1 → L 低"},
+      {"id":"opencommons","label":"Open Standards Commons","kind":"interface","C":1.80,"V":3,"B":2.30,"open":true,"note":"既に open → L=0"}
+    ],
+    "feeders": [
+      {"id":"smallco-a","label":"Dependent Firm A"},
+      {"id":"smallco-b","label":"Dependent Lab B"},
+      {"id":"research","label":"Research Body"},
+      {"id":"community","label":"Community Cohort"},
+      {"id":"platform","label":"Information Platform"},
+      {"id":"grid","label":"Critical Grid Operator"},
+      {"id":"faith","label":"Faith Community"},
+      {"id":"role","label":"Accreditation Chair (office)"}
+    ],
+    "edges": [
+      {"f":"smallco-a","t":"accred","dom":"economy","w":0.80},
+      {"f":"smallco-b","t":"accred","dom":"ai","w":0.85},
+      {"f":"research","t":"accred","dom":"ai","w":0.60},
+      {"f":"community","t":"accred","dom":"organization","w":0.70},
+      {"f":"platform","t":"accred","dom":"ideology","w":0.65},
+      {"f":"role","t":"accred","dom":"organization","w":0.30},
+      {"f":"accred","t":"clearing","dom":"politics","w":0.60},
+      {"f":"accred","t":"doctrine","dom":"ideology","w":0.50},
+      {"f":"smallco-a","t":"clearing","dom":"economy","w":0.60},
+      {"f":"platform","t":"clearing","dom":"information","w":0.50},
+      {"f":"grid","t":"clearing","dom":"economy","w":0.40},
+      {"f":"grid","t":"clearing","dom":"security","w":0.50},
+      {"f":"smallco-a","t":"caphoard","dom":"economy","w":0.90},
+      {"f":"grid","t":"caphoard","dom":"economy","w":0.70},
+      {"f":"research","t":"opencommons","dom":"ai","w":0.70},
+      {"f":"smallco-b","t":"opencommons","dom":"ai","w":0.60},
+      {"f":"community","t":"opencommons","dom":"organization","w":0.50},
+      {"f":"opencommons","t":"platform","dom":"information","w":0.50},
+      {"f":"faith","t":"doctrine","dom":"religion","w":0.70},
+      {"f":"platform","t":"doctrine","dom":"ideology","w":0.40}
+    ]
+  },
+  "organismSnapshot": {"cells":103,"alive":1,"dormant":96,"stub":6,"sumScore":3779,"said":2920,"prepared":409}
+}
+</script>
+
+<script>
+(function(){
+  "use strict";
+  var DATA = JSON.parse(document.getElementById("data").textContent);
+  var ECL = DATA.ecl, KN = DATA.kaname;
+
+  // ───────────────────────── LAYER 1 — ECL objective function ─────────────────────────
+  var dimsEl = document.getElementById("dims");
+  var state = {}; // key -> score
+  ECL.dimensions.forEach(function(d){ state[d.key] = 0; });
+
+  ECL.dimensions.forEach(function(d){
+    var row = document.createElement("div"); row.className = "dimrow";
+    row.innerHTML =
+      '<div class="dlab">'+d.label+'<small>'+d.sub+'</small></div>'+
+      '<div class="wt">w '+d.weight.toFixed(2)+'</div>'+
+      '<div class="scale"><div class="axis"></div><div class="zero"></div>'+
+        '<input type="range" min="-2" max="2" step="1" value="0" aria-label="'+d.label+' score" data-k="'+d.key+'"></div>'+
+      '<div class="sval zero" data-sv="'+d.key+'">0</div>'+
+      '<div class="contrib" data-c="'+d.key+'">+0.00</div>';
+    dimsEl.appendChild(row);
+  });
+
+  function evaluate(){
+    var J = 0, cata = false;
+    ECL.dimensions.forEach(function(d){
+      var sc = state[d.key];
+      J += d.weight * sc;
+      if (ECL.catastrophe.dims.indexOf(d.key) >= 0 && sc <= ECL.catastrophe.threshold) cata = true;
+      // update per-dim UI
+      var sv = document.querySelector('[data-sv="'+d.key+'"]');
+      sv.textContent = (sc>0?"+":"")+sc;
+      sv.className = "sval " + (sc>0?"pos":sc<0?"neg":"zero");
+      var c = document.querySelector('[data-c="'+d.key+'"]');
+      var ct = d.weight*sc;
+      c.textContent = (ct>=0?"+":"")+ct.toFixed(2);
+      c.style.color = ct>0?"var(--alive)":ct<0?"var(--bad)":"var(--mut)";
+    });
+    var verdict, why;
+    if (cata){
+      verdict = "non-aligned";
+      why = "<b>catastrophe 項発火</b> — 子 または 孫 の score ≤ −1.9。J(="+fmt(J)+")の加重和に関わらず非交渉で :non-aligned。priority は absolute。";
+    } else if (J >= ECL.thresholds.aligned){
+      verdict = "aligned"; why = "J ≥ +0.5 — 子孫 Wellbecoming に net で資する。";
+    } else if (J <= ECL.thresholds.nonAligned){
+      verdict = "non-aligned"; why = "J ≤ −0.5 — net で害が上回る(列挙された禁止カテゴリでなく、寄与の総和で判定)。";
+    } else {
+      verdict = "hold"; why = "−0.5 &lt; J &lt; +0.5 — 証拠拮抗。保留(:hold)。";
+    }
+    render(J, verdict, why);
+  }
+  function fmt(x){ return (x>=0?"+":"")+x.toFixed(2); }
+
+  function render(J, verdict, why){
+    document.getElementById("jval").textContent = fmt(J);
+    document.getElementById("jval").style.color =
+      verdict==="aligned"?"var(--alive)":verdict==="non-aligned"?"var(--bad)":"var(--warn)";
+    // marker on the [-2,+2] bar
+    var pct = (J + 2) / 4 * 100;
+    document.getElementById("jmk").style.left = "calc("+pct+"% - 1.5px)";
+    document.getElementById("thLo").style.left = ((-0.5+2)/4*100)+"%";
+    document.getElementById("thHi").style.left = ((0.5+2)/4*100)+"%";
+    var pill = document.getElementById("pill");
+    pill.className = "pill " + verdict;
+    pill.textContent = ": " + verdict;
+    document.getElementById("reason").innerHTML = why;
+  }
+
+  dimsEl.addEventListener("input", function(e){
+    var k = e.target.getAttribute("data-k");
+    if (!k) return;
+    state[k] = parseInt(e.target.value, 10);
+    document.getElementById("fixture").value = "__manual__";
+    document.getElementById("fxnote").textContent = "— 手動。スライダーで目的関数を直接探索中。";
+    evaluate();
+  });
+
+  // fixtures dropdown
+  var sel = document.getElementById("fixture");
+  var optM = document.createElement("option"); optM.value="__manual__"; optM.textContent="— 手動(スライダー)—"; sel.appendChild(optM);
+  ECL.fixtures.forEach(function(fx){
+    var o = document.createElement("option"); o.value = fx.key;
+    var glyph = fx.expect==="aligned"?"✓ ":fx.expect==="non-aligned"?"✗ ":"· ";
+    o.textContent = glyph + fx.label;
+    sel.appendChild(o);
+  });
+  sel.addEventListener("change", function(){
+    var fx = ECL.fixtures.filter(function(x){return x.key===sel.value;})[0];
+    if (!fx) return;
+    ECL.dimensions.forEach(function(d){
+      state[d.key] = fx.s[d.key];
+      document.querySelector('[data-k="'+d.key+'"]').value = fx.s[d.key];
+    });
+    document.getElementById("fxnote").textContent = "fixture: " + fx.key + " — evaluate.bb の :expect = :" + fx.expect;
+    evaluate();
+  });
+  // start on the worker-coop fixture (a clear :aligned)
+  sel.value = "worker-coop-oss"; sel.dispatchEvent(new Event("change"));
+
+  // ───────────────────────── LAYER 2 — kaname multiplex graph ─────────────────────────
+  var SVG = "http://www.w3.org/2000/svg";
+  var svg = document.getElementById("sosvg");
+  var domColor = {economy:"#f5a524",ai:"#7aa2ff",organization:"#39d98a",ideology:"#c792ea",
+    politics:"#ff6b9d",information:"#4dd0e1",security:"#ff7043",religion:"#ffd54f"};
+
+  // L = C·(V/D)·(1+B)·(1−open)
+  function L(n){ return n.C * (n.V/KN.D) * (1+n.B) * (n.open?0:1); }
+  var nodesById = {};
+  KN.nodes.forEach(function(n){ n.L = L(n); nodesById[n.id]=n; });
+  KN.feeders.forEach(function(f){ nodesById[f.id]=f; });
+
+  // layout: feeders on a left arc, candidates on the right ranked by L (desc)
+  var W=640, H=460;
+  var feeders = KN.feeders, nf = feeders.length;
+  feeders.forEach(function(f,i){
+    var ty = 40 + i*(H-80)/(nf-1);
+    f.x = 92; f.y = ty; f.r = 7;
+  });
+  // candidates: position the 要 prominently centre-right, others spread
+  var cand = KN.nodes.slice().sort(function(a,b){return b.L-a.L;});
+  var slots = [ {x:470,y:150}, {x:520,y:300}, {x:380,y:355}, {x:360,y:90}, {x:560,y:430} ];
+  // map by rank but keep meaningful: accred(top L) gets slot0
+  cand.forEach(function(n,i){ var s=slots[i]||{x:480,y:230}; n.x=s.x; n.y=s.y; });
+  var maxL = cand[0].L;
+  KN.nodes.forEach(function(n){
+    n.r = 13 + 26*Math.sqrt(n.L/maxL); // area-ish scaling, min radius for visibility
+    if (n.open) n.r = 20;
+  });
+
+  function add(tag, attrs, parent){
+    var el = document.createElementNS(SVG, tag);
+    for (var k in attrs) el.setAttribute(k, attrs[k]);
+    (parent||svg).appendChild(el); return el;
+  }
+
+  // edges first (under nodes)
+  KN.edges.forEach(function(e){
+    var a = nodesById[e.f], b = nodesById[e.t];
+    if (!a||!b) return;
+    var mx = (a.x+b.x)/2, my = (a.y+b.y)/2 - 24; // gentle curve
+    add("path", {
+      d:"M"+a.x+" "+a.y+" Q"+mx+" "+my+" "+b.x+" "+b.y,
+      class:"edge", stroke:(domColor[e.dom]||"#5b6472"),
+      "stroke-width":(0.8 + e.w*3).toFixed(2)
+    });
+  });
+
+  // feeder nodes
+  feeders.forEach(function(f){
+    add("circle",{cx:f.x,cy:f.y,r:f.r,fill:"#202c3a",stroke:"#33445a","stroke-width":1});
+    var tx = add("text",{x:f.x-12,y:f.y+3,"text-anchor":"end",class:"ndlabel"});
+    tx.textContent = f.label;
+  });
+
+  // candidate nodes
+  KN.nodes.forEach(function(n){
+    var fill = n.kaname ? "rgba(255,206,92,.16)" : n.open ? "rgba(91,100,114,.12)" : "rgba(122,162,255,.12)";
+    var stroke = n.kaname ? "#ffce5c" : n.open ? "#5b6472" : "#7aa2ff";
+    if (n.open){
+      add("circle",{cx:n.x,cy:n.y,r:n.r,fill:fill,stroke:stroke,"stroke-width":1.5,"stroke-dasharray":"4 3"});
+    } else {
+      add("circle",{cx:n.x,cy:n.y,r:n.r,fill:fill,stroke:stroke,"stroke-width":n.kaname?2.5:1.5});
+    }
+    // L value inside
+    var lv = add("text",{x:n.x,y:n.y+4,"text-anchor":"middle",
+      font:"700 13px ui-monospace,monospace",fill:n.kaname?"#ffce5c":n.open?"#7d8694":"#cdd7e1"});
+    lv.textContent = n.open ? "0" : n.L.toFixed(1);
+    // label below
+    var ty = add("text",{x:n.x,y:n.y+n.r+13,"text-anchor":"middle",
+      class:"ndlabel"+(n.kaname?" kaname":"")});
+    var short = n.label.replace(" Interface","").replace(" Institution","").replace(" Standards","");
+    ty.textContent = (n.kaname?"要 ":"") + short;
+  });
+  // title pin on 要
+  var k = nodesById["accred"];
+  add("text",{x:k.x,y:k.y-k.r-7,"text-anchor":"middle",
+    font:"700 11px ui-sans-serif",fill:"#ffce5c"}).textContent = "argmax L = 11.7";
+
+  // L table
+  var tb = document.querySelector("#ltable tbody");
+  cand.forEach(function(n){
+    var tr = document.createElement("tr");
+    tr.className = n.kaname?"kaname":n.open?"open":"";
+    tr.innerHTML = '<td class="nm">'+(n.kaname?"要 ":"")+n.label+'</td>'+
+      '<td>'+n.C.toFixed(2)+'</td><td>'+n.V+'</td><td>'+n.B.toFixed(2)+'</td>'+
+      '<td class="l">'+(n.open?"0.00":n.L.toFixed(2))+'</td>';
+    tb.appendChild(tr);
+  });
+
+  // domain legend (only domains actually drawn)
+  var used = {}; KN.edges.forEach(function(e){ used[e.dom]=1; });
+  var leg = document.getElementById("domlegend");
+  Object.keys(used).forEach(function(dom){
+    var s = document.createElement("span");
+    s.innerHTML = '<i style="background:'+(domColor[dom]||"#5b6472")+'"></i>'+dom;
+    leg.appendChild(s);
+  });
+
+  // ───────────────────────── LAYER 3 — organism summary (live-upgrade) ─────────────────────────
+  var snap = DATA.organismSnapshot;
+  function orgCards(s, live){
+    var g = document.getElementById("orgrid");
+    g.innerHTML =
+      '<div class="stat"><div class="v">'+s.cells+'</div><div class="k">細胞(actors)</div></div>'+
+      '<div class="stat alive"><div class="v">'+s.alive+'</div><div class="k">生 alive</div></div>'+
+      '<div class="stat"><div class="v">'+s.dormant+'</div><div class="k">休眠 dormant</div></div>'+
+      '<div class="stat gold"><div class="v">'+s.sumScore+'</div><div class="k">Σ vitality score</div></div>';
+    if (live) document.getElementById("orgsrc").innerHTML =
+      'モノレポを多細胞の身体として観測した <b style="color:var(--ink)">vitals</b> ライブ値。<a href="/organism">/organism</a> で呼吸・情緒・一人称ナレーション。';
+  }
+  orgCards(snap, false);
+  // progressive enhancement: pull live trajectory if same-origin feed is reachable
+  fetch("/organism/trajectory.json", {cache:"no-store"}).then(function(r){
+    return r.ok ? r.json() : null;
+  }).then(function(j){
+    if (!j) return;
+    // trajectory.json shape: latest cohort with alive/dormant/stub/sumScore (best-effort, fail-silent)
+    var latest = Array.isArray(j) ? j[j.length-1] : (j.latest||j.cohort||j);
+    if (!latest) return;
+    var s = {
+      cells: latest.cells || latest.total || snap.cells,
+      alive: latest.alive!=null?latest.alive:snap.alive,
+      dormant: latest.dormant!=null?latest.dormant:snap.dormant,
+      stub: latest.stub!=null?latest.stub:snap.stub,
+      sumScore: latest.sumScore || latest.score || snap.sumScore
+    };
+    orgCards(s, true);
+  }).catch(function(){ /* offline / file:// — keep snapshot */ });
+})();
+</script>
+</body>
+</html>

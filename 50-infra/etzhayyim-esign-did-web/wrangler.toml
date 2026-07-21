@@ -4,7 +4,7 @@ compatibility_date = "2026-05-23"
 
 # Route the spec-required did:web resolution path. No other paths exist
 # on esign.etzhayyim.com via this Worker — the etzhayyim-esign runtime
-# Worker (20-actors/etzhayyim-esign/) terminates all other paths once
+# Worker (orgs/etzhayyim/com-etzhayyim-esign/) terminates all other paths once
 # the zone DNS record is provisioned and a route binding is added
 # (Phase 1).
 [[routes]]

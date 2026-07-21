@@ -4,7 +4,11 @@
   "private": true,
   "description": "Cloudflare Worker serving did:web:etzhayyim.com DID Document at /.well-known/did.json",
   "scripts": {
+    "build:cljs": "cd cljs && npm install --silent && npm run build",
+    "test:cljs": "cd cljs && bb --classpath \"src:test\" -e '(require (quote did-web.router-test) (quote did-web.shell-test)) (let [r1 (clojure.test/run-tests (quote did-web.router-test)) r2 (clojure.test/run-tests (quote did-web.shell-test))] (System/exit (if (pos? (+ (:fail r1) (:error r1) (:fail r2) (:error r2))) 1 0)))'",
+    "predeploy": "npm run build:cljs",
     "deploy": "wrangler deploy",
+    "predev": "npm run build:cljs",
     "dev": "wrangler dev",
     "tail": "wrangler tail",
     "types": "wrangler types",
@@ -12,10 +16,10 @@
     "enable-kv": "bash scripts/enable-kv.sh"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20260613.1",
+    "@cloudflare/workers-types": "^5.20260713.1",
     "esbuild": "^0.28.1",
-    "typescript": "^6.0.3",
-    "wrangler": "^4.100.0"
+    "typescript": "^7.0.2",
+    "wrangler": "^4.110.0"
   },
   "dependencies": {
     "@noble/post-quantum": "^0.6.1"

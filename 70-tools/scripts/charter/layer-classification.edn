@@ -1,0 +1,83 @@
+;; layer-classification.edn — SSoT data for classify.bb
+;;
+;; 「ある項目は charter(Tier-0/Tier-1)に属するか、それとも入れ替え可能な実装か」を採点する。
+;; 動機: Confidentiality / no-server-key を 実装 から Tier-1 へ「格上げ」すべきか (CLAUDE.md
+;; substrate boundary 分類の再評価)。固定するのは priority — priority に直結する不変項は
+;; charter、入れ替え可能な mechanism は実装。スコアは根拠付き判断であり実測ではない。
+;;
+;; J = Σ_axis (weight · score), score 0..10, Σweight = 1.0 → J 0..10。
+;; band: J ≥ tier0 → :tier-0(fork-only) / tier1 ≤ J < tier0 → :tier-1(Council Lv7+) /
+;;       J < tier1 → :impl(工学・governance, charter 改正なしに変更可)
+
+{:meta
+ {:id    "charter-layer-classification"
+  :title "substrate-boundary 項目の 憲法/Tier-1/実装 分類スコア"
+  :date  "2026-06-18"
+  :note  "Confidentiality/no-server-key の格上げ判断。score は判断, 実測でない。"}
+
+ ;; ── 評価軸 (Σweight = 1.0): どれだけ charter/Tier-1 に属するか ──────────────────
+ :criteria
+ [{:key :tier0-derivation :weight 0.30
+   :label "Tier-0 由来性"
+   :desc  "Tier-0 priority(子孫 wellbecoming / collective / 永久記憶)に直接由来・表現するか"}
+  {:key :principle-not-mechanism :weight 0.25
+   :label "原則であって mechanism でない"
+   :desc  "不変の原則か、入れ替え可能な mechanism/vendor/format/cipher か"}
+  {:key :fork-significance :weight 0.20
+   :label "fork 重大性"
+   :desc  "変更が『別の association を作る』(Tier-0) / priority の意図を破る(Tier-1) / 単なる工学 swap(実装)"}
+  {:key :structural-invariance :weight 0.15
+   :label "構造的不変性"
+   :desc  "by-construction で全系に効くか(weaponizable-unrepresentable 型) / config・lint 選択か"}
+  {:key :low-substitutability :weight 0.10
+   :label "低 substitutability"
+   :desc  "等価物に swap しても価値観が変わらない=低 charter(逆スコア: 入れ替え不能ほど高)"}]
+
+ ;; ── band 閾値 ──────────────────────────────────────────────────────────────
+ :bands {:tier-0 8.7 :tier-1 5.5}
+ :order [:tier-0 :tier-1 :impl]
+
+ ;; ── 評価対象 (格上げ対象 + 上下の comparator/control) ─────────────────────────
+ :items
+ [{:key :confidentiality-principle
+   :label "Confidentiality 原則 (暗号化≠忘却 — 永久記憶と privacy の両立)"
+   :scores {:tier0-derivation 9 :principle-not-mechanism 8 :fork-significance 7
+            :structural-invariance 7 :low-substitutability 8}
+   :expect :tier-1}
+
+  {:key :no-server-key
+   :label "no-server-key (platform 非保持 key — 非custody/trustless/autonomy)"
+   :scores {:tier0-derivation 6 :principle-not-mechanism 8 :fork-significance 6
+            :structural-invariance 8 :low-substitutability 7}
+   :expect :tier-1}
+
+  ;; ── controls (上: 憲法寄り / 下: 実装寄り) ──
+  {:key :land-trust-inalienable
+   :label "Land trust 不可譲 (donated land inalienable, waqf 等価)"
+   :scores {:tier0-derivation 9 :principle-not-mechanism 9 :fork-significance 10
+            :structural-invariance 8 :low-substitutability 9}
+   :expect :tier-0}
+
+  {:key :license-default-ecl
+   :label "License default (Apache+Rider → ECL 目的関数)"
+   :scores {:tier0-derivation 8 :principle-not-mechanism 9 :fork-significance 9
+            :structural-invariance 7 :low-substitutability 9}
+   :expect :tier-1}
+
+  {:key :confidentiality-cipher
+   :label "Confidentiality cipher (XChaCha20/Signal の具体選択)"
+   :scores {:tier0-derivation 2 :principle-not-mechanism 2 :fork-significance 1
+            :structural-invariance 4 :low-substitutability 2}
+   :expect :impl}
+
+  {:key :state-engine-kotoba
+   :label "State/Substrate engine (kotoba の具体選択)"
+   :scores {:tier0-derivation 3 :principle-not-mechanism 2 :fork-significance 3
+            :structural-invariance 4 :low-substitutability 3}
+   :expect :impl}
+
+  {:key :kotoba-substrate
+   :label "kotoba (no RisingWave — substrate 選択)"
+   :scores {:tier0-derivation 1 :principle-not-mechanism 2 :fork-significance 2
+            :structural-invariance 3 :low-substitutability 2}
+   :expect :impl}]}

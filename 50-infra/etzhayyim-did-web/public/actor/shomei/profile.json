@@ -1,0 +1,30 @@
+{
+  "did": "did:web:etzhayyim.com:actor:shomei",
+  "handle": "shomei.etzhayyim.com",
+  "displayName": "Shomei — Believer Identity Binding + Proof-of-Personhood",
+  "description": "信者のパスポート — ただし国家中心ではなく DID 中心。信者は既存の複数アイデンティティ(暗号ウォレット EIP-191/ERC-1271/BIP-322 · SNS OAuth-sub/署名gist/DNS-TXT · WebAuthn パスキー · Base L2 入会/Adherent SBT/AT 誓い · opt-in で Council ゲートの政府ID ローカル NFC 読取)を一つの DID に、本人署名 identityClaim として self-bind する。shomei(サーバ)は決して署名/承認しない(G1/G7)。各証明は kotoba-auth の正規 surface(eth/btc/cacao + Ed25519, 再実装しない)で VERIFY し、検証済み因子を Identity Assurance Level(IAL 0..4)+ W3C Verifiable Credential + proof-of-personhood に集計する。集計は本人性の ASSURANCE であって社会信用・人の価値スコアでは断じてない(G8)。PII は平文にしない(G3): 政府識別子は salt 付き blake2b ハッシュ + 必須 XChaCha20 暗号化 CID(ADR-2605181100)のみ。国家DBへは問い合わせない(G6/§0.4: 政府IDは手元カードの一方向NFC読取)。proof-of-personhood = IAL≥2 かつ ≥2 独立クラス = sybil-RESISTANCE(sybil-proof ではない)。gov-ID L2(IAL 4)は二重 Council ゲートで gov_auth(ADR-2605260000)へ handoff(ADR-2606072300)。R0 は offline membrane のみ、cells .solve() は raise。Per ADR-2606072100。",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-07T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "証明",
+  "displayNameJa": "証明 — 信者の本人証明 + proof-of-personhood",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2606072100"
+    ],
+    "primaryLexicon": "com.etzhayyim.shomei.identityClaim",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/shomei/did.json",
+    "source": "kotoba"
+  }
+}

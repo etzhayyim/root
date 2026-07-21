@@ -1,0 +1,29 @@
+{
+  "did": "did:web:etzhayyim.com:actor:hokorobi",
+  "handle": "hokorobi.etzhayyim.com",
+  "displayName": "hokorobi",
+  "description": "World systemic finance-risk observatory — weaves financial institutions / risk-sources / bearers (insurance + banking-lending + pensions) into the kotoba Datom log; surfaces systemic-risk concentration vs resilience routed to RESILIENCE; observation-only, never-trades, non-adjudicating.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-07T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "綻び",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2606073400"
+    ],
+    "primaryLexicon": "com.etzhayyim.hokorobi",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/hokorobi/did.json",
+    "source": "kotoba"
+  }
+}

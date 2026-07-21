@@ -1,6 +1,6 @@
 # com.etzhayyim.shidemori.* — shidemori (死出守) Lexicons (FINAL gap-closure)
 
-**Owner actor**: `did:web:shidemori.etzhayyim.com` (`20-actors/shidemori/`)
+**Owner actor**: `did:web:shidemori.etzhayyim.com` ([`com-etzhayyim-shidemori`](https://github.com/etzhayyim/com-etzhayyim-shidemori))
 **ADR**: ADR-2605263800 (R0 scaffold; **FINAL gap-closure** of 10-actor 30min-loop wave)
 **Status**: R0 schema skeletons. Full schemas at R1+.
 
@@ -40,7 +40,7 @@ Schemas at R0 are skeleton-level; full structural enforcement at R1.
 
 ## Related Files
 
-- `/20-actors/shidemori/manifest.jsonld`
-- `/20-actors/shidemori/README.md`
-- `/20-actors/shidemori/CLAUDE.md`
+- `orgs/etzhayyim/com-etzhayyim-shidemori/manifest.edn` (canonical)
+- `orgs/etzhayyim/com-etzhayyim-shidemori/README.md`
+- `orgs/etzhayyim/com-etzhayyim-shidemori/CLAUDE.md`
 - `/90-docs/adr/2605263800-shidemori-memorial-cemetery-tier-b-actor-r0.md`

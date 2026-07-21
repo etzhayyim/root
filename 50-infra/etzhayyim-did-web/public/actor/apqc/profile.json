@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:apqc",
+  "handle": "apqc.etzhayyim.com",
+  "displayName": "APQC PCF Coordinator",
+  "description": "APQC Process Classification Framework (PCF v7.4 cross-industry) managed as a kotoba-native Datom graph (L1→L2→L3→L4) with a clj→WASM coordinator cell. Process lookup, parent/child traversal, materialize-subprocesses, and coverage snapshot via the kqe Datom surface.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "APQC PCF Coordinator",
+  "displayNameJa": "APQC PCF Coordinator",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.apqc",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/apqc/did.json",
+    "source": "kotoba"
+  }
+}

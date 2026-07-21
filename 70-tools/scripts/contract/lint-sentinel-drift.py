@@ -5,7 +5,7 @@ CI lint: maps Sentinel scaffolding drift check.
 
 Asserts that the four artefacts defining the maps Sentinel pipeline stay in sync:
 
-  A  BPMN files (00-contracts/bpmn/com/etzhayyim/maps/sentinel*.bpmn)
+  A  BPMN files (orgs/etzhayyim/com-etzhayyim-maps/wire/bpmn/maps/sentinel*.bpmn)
      • sentinelIngest.bpmn  — timer-start R/PT24H
      • sentinelAnalyze.bpmn — XRPC-triggered
 

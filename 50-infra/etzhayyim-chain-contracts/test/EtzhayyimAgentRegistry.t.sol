@@ -2,7 +2,7 @@
 pragma solidity 0.8.27;
 
 import "forge-std/Test.sol";
-import {etzhayyimAgentRegistry} from "../src/etzhayyimAgentRegistry.sol";
+import {etzhayyimAgentRegistry} from "../src/EtzhayyimAgentRegistry.sol";
 
 contract etzhayyimAgentRegistryTest is Test {
     etzhayyimAgentRegistry r;

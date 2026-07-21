@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  com.etzhayyim.organism.heartbeat — makes the organism's heartbeat RESIDENT (常駐).
+
+  Runs `bb organism:heartbeat` (etzhayyim.organism/heartbeat): 脈 pulse 6s · 情緒
+  joucho+narrate 60s · vitals report 600s, all folds on append-only kotoba Datom
+  journals (narration via the Murakumo Mac-mini fleet over Tailscale, ADR-2605215000).
+
+  KeepAlive=true  → auto-restart if the loop ever dies (crash-resilient).
+  RunAtLoad=true  → starts at login, survives reboot (the "resident" property the
+                    prior nohup-bash loops lacked).
+
+  This plist is OS config, NOT an operational script — the daemon logic itself lives
+  in clj/bb over Datoms, per the repo-wide rule (CLAUDE.md §"Operational code").
+
+  Install (operator step — not Claude; this writes to ~/Library):
+    cp 50-infra/launchd/com.etzhayyim.organism.heartbeat.plist ~/Library/LaunchAgents/
+    launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.etzhayyim.organism.heartbeat.plist
+    launchctl enable  gui/$(id -u)/com.etzhayyim.organism.heartbeat
+  Stop / uninstall:
+    launchctl bootout gui/$(id -u)/com.etzhayyim.organism.heartbeat
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.etzhayyim.organism.heartbeat</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/opt/homebrew/bin/bb</string>
+    <string>organism:heartbeat</string>
+  </array>
+
+  <key>WorkingDirectory</key>
+  <string>/Users/junkawasaki/github/com-junkawasaki/orgs/etzhayyim/root</string>
+
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+  </dict>
+
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+
+  <key>ThrottleInterval</key>
+  <integer>10</integer>
+
+  <key>StandardOutPath</key>
+  <string>/Users/junkawasaki/github/com-junkawasaki/orgs/etzhayyim/root/70-tools/scripts/organism-heartbeat/logs/heartbeat.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/junkawasaki/github/com-junkawasaki/orgs/etzhayyim/root/70-tools/scripts/organism-heartbeat/logs/heartbeat.err.log</string>
+</dict>
+</plist>

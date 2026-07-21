@@ -1,0 +1,26 @@
+{
+  "@context" : [ "https://www.w3.org/ns/did/v1", "https://w3id.org/security/suites/jws-2020/v1" ],
+  "id" : "did:web:etzhayyim.com:actor:toritsugi-tw-national",
+  "alsoKnownAs" : [ "did:web:toritsugi-tw-national.etzhayyim.com" ],
+  "verificationMethod" : [ ],
+  "service" : [ {
+    "id" : "did:web:etzhayyim.com:actor:toritsugi-tw-national#atproto_pds",
+    "type" : "AtprotoPersonalDataServer",
+    "serviceEndpoint" : "https://pds.aozora.app"
+  } ],
+  "_meta" : {
+    "authority" : [ "Household Registration Office (戶政事務所) of the municipality/county; policy authority: Department of Household Registration (戶政司), Ministry of the Interior (內政部)" ],
+    "execModel" : "mesh-component",
+    "parent" : "toritsugi",
+    "note" : "Authority-actor child of toritsugi (ADR-2605312030). Regime: tw-national. verificationMethod empty — no server-minted key (ADR-2605231525). Keyless R0 mirror; cells raise RuntimeError. 行政書士法/UPL boundary (G5); member self-submit (G15).",
+    "adr" : [ "2605312030", "2606272355", "2605231525" ],
+    "status" : "r0",
+    "kind" : "tier-b",
+    "source" : "kotoba",
+    "procedureCount" : 1,
+    "regime" : "tw-national",
+    "primaryLexicon" : "com.etzhayyim.toritsugi.tw-national.procedure",
+    "jurisdictions" : [ "twn" ],
+    "wasmCid" : null
+  }
+}

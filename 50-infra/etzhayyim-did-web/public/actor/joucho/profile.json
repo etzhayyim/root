@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:joucho",
+  "handle": "joucho.etzhayyim.com",
+  "displayName": "Joucho — Well-Becoming Emotion Scoring",
+  "description": "Well-Becoming emotion scoring engine. Maps 48 SST emotions to 5-axis joucho dimensions (vitality, serenity, connection, growth, resilience). Murakumo Opus 4.6 LLM analysis, per-entity emotion profiles, periodic review cadence.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Joucho",
+  "displayNameJa": "Joucho — Well-Becoming Emotion Scoring",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.joucho",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/joucho/did.json",
+    "source": "kotoba"
+  }
+}

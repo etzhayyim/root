@@ -27,10 +27,10 @@ run() { # name  cmd...
 echo "warifu test runner — root: $ROOT"
 
 run "forge contracts"   bash -c "cd '$ROOT/50-infra/warifu-contracts' && forge test"
-run "cells"             python3 "$ROOT/20-actors/warifu/cells/test_cells.py"
-run "eavt-schema"       python3 "$ROOT/20-actors/warifu/cells/test_eavt_schema.py"
-run "guarded-substrate" python3 "$ROOT/20-actors/warifu/cells/test_guarded_substrate.py"
-run "lexicons"          python3 "$ROOT/20-actors/warifu/test_lexicons.py"
+run "cells"             python3 "$ROOT/orgs/etzhayyim/com-etzhayyim-warifu/cells/test_cells.py"
+run "eavt-schema"       python3 "$ROOT/orgs/etzhayyim/com-etzhayyim-warifu/cells/test_eavt_schema.py"
+run "guarded-substrate" python3 "$ROOT/orgs/etzhayyim/com-etzhayyim-warifu/cells/test_guarded_substrate.py"
+run "lexicons"          python3 "$ROOT/orgs/etzhayyim/com-etzhayyim-warifu/test_lexicons.py"
 run "gateway (node)"    bash -c "cd '$ROOT/50-infra/warifu-gateway' && npm test --silent"
 
 echo ""

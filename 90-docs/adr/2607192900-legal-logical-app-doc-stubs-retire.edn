@@ -1,0 +1,54 @@
+{:schema "etzhayyim.adr/v1"
+ :id "2607192900"
+ :title "Retire Judge, Legal Aid, and Bengoshi logical-app documentation stubs"
+ :status :accepted
+ :date "2026-07-19"
+ :context
+ {:classification :obsolete-logical-actor-documentation-stubs
+  :sources ["60-apps/etzhayyim-project-judge" "60-apps/etzhayyim-project-legal-aid" "60-apps/etzhayyim-project-bengoshi"]
+  :tracked-files-per-source 1
+  :implementation-files 0
+  :operational-references 0
+  :stale-claims [:missing-20-actor-manifests :missing-judge-and-bengoshi-lexicon-trees :missing-legacy-markdown-adrs]
+  :historical-reference {:path "etzhayyim.txt" :classification :historical-inventory-snapshot :action :retain-unchanged}}
+ :ownership
+ {:logical-spec "90-docs/adr/2607192900-legal-logical-app-doc-stubs-retire.edn"
+  :shared-contracts "00-contracts"
+  :legal-aid-runtime {:path "orgs/etzhayyim/com-etzhayyim-legal-aid-wasm-guest"
+                      :repository "https://github.com/etzhayyim/com-etzhayyim-legal-aid-wasm-guest"
+                      :scope :wasm-guest-only}
+  :judge-and-bengoshi-runtime nil}
+ :canonical-specs
+ [{:name "judge" :display-name "裁判官 Registry" :former-tier :t1-logical-actor
+   :identity {:domain "judge.etzhayyim.com" :did "did:web:judge.etzhayyim.com" :nanoid "jdg3wrld"}
+   :coverage {:estimated-population 200000 :sources ["CEPEJ" "ABA" "最高裁人事" "national judicial councils"]
+              :partitions [":jurisdiction:{iso3}" ":international"]}
+   :contracts {:owner "00-contracts" :bpmn ["00-contracts/bpmn/com/etzhayyim/judge/registerJudge.bpmn" "00-contracts/bpmn/com/etzhayyim/judge/listJudges.bpmn"]
+               :procedures ["registerJudge" "listJudges" "getJudge"]}
+   :cross-actors [{:actor "saiban" :relation :court-assignment} {:actor "hanrei" :relation :opinion-authoring} {:actor "lawfirm" :relation :recusal-check}]
+   :governance [:pii-redaction :jurisdiction-scoped-disclosure]}
+  {:name "legal-aid" :display-name "法律扶助 Intelligence" :former-tier :t1-logical-actor
+   :identity {:domain "legal-aid.etzhayyim.com" :did "did:web:legal-aid.etzhayyim.com" :nanoid "lg4d3jp0"}
+   :coverage {:estimated-cases-per-year 10000000 :partitions [":jurisdiction:{iso3}" ":matter:{criminal-defense/family/housing/immigration/consumer/labor/civil}"]}
+   :contracts {:owner "00-contracts" :lexicons "00-contracts/lexicons/com/etzhayyim/etzhayyim/legalAid"
+               :bpmn ["00-contracts/bpmn/com/etzhayyim/legal-aid/openCase.bpmn" "00-contracts/bpmn/com/etzhayyim/legal-aid/registerOffice.bpmn"]
+               :procedures ["createCase" "assignDefender" "listCases"]}
+   :runtime-owner "orgs/etzhayyim/com-etzhayyim-legal-aid-wasm-guest"
+   :cross-actors [{:actor "bengoshi" :relation :defender-pool} {:actor "saiban" :relation :court-routing} {:actor "lawfirm" :relation :panel-participation} {:actor "natural-person" :relation :applicant}]
+   :governance [:pii-tier-3-preferences-only :means-test-authority :verified-defender]}
+  {:name "bengoshi" :display-name "弁護士 Registry" :former-tier :t1-logical-actor
+   :identity {:domain "bengoshi.etzhayyim.com" :did "did:web:bengoshi.etzhayyim.com" :nanoid "bng5h2x0"}
+   :coverage {:estimated-population 2500000 :classification "ISCO-2611" :partitions [":jurisdiction:{iso3}" ":specialization:{tax/ip/criminal/family/corporate/etc}"]}
+   :contracts {:owner "00-contracts" :bpmn ["00-contracts/bpmn/com/etzhayyim/bengoshi/registerLawyer.bpmn" "00-contracts/bpmn/com/etzhayyim/bengoshi/searchLawyers.bpmn"]
+               :procedures ["registerLawyer" "searchLawyers" "recordDisciplinary"]}
+   :cross-actors [{:actor "lawfirm" :relation :matter-lead} {:actor "saiban" :relation :litigation-representation} {:actor "adr" :relation :arbitration} {:actor "legal-aid" :relation :panel-pool}]
+   :governance [:bar-admission-verification :disciplinary-authority] }]
+ :decision {:action :retire :canonical-record :edn :standalone-repository false :numbered-directories-removed true :go-policy :deprecated-and-absent}
+ :provenance
+ {:source-repository "https://github.com/etzhayyim/root" :source-revision "79ee96e5acf55236403b2beecf575bde62a280ef"
+  :blobs
+  {"60-apps/etzhayyim-project-judge/CLAUDE.md" {:git-blob "875cac782e252c5d6d8c21fd1611f944a20cc22e" :sha256 "2876842cc16c9d32bbd360e1716e020424b5109a7f2a6469581a6ed36da129b4" :bytes 2217 :lines 50}
+   "60-apps/etzhayyim-project-legal-aid/CLAUDE.md" {:git-blob "f9f02ad6deca983b594c80b90ae79141ad3c7f01" :sha256 "3bb88da4f98a4003d2ec8b9f7aeb9b1b1c7dee01f79b631035110b33ba835537" :bytes 2668 :lines 53}
+   "60-apps/etzhayyim-project-bengoshi/CLAUDE.md" {:git-blob "4037981f15977abeb1effdfb69b23329eab43e19" :sha256 "c8c200c1eb2ccf1bb4c7426a11c4c34a3b9cd8c8f12584aa3230837feacd7520" :bytes 2162 :lines 51}}}
+ :verification {:required [:edn-readable :legacy-directories-absent :markers-present :operational-reference-scan-clean :contract-owner-paths-present :generated-doc-registry-current]}
+ :consequences {:root "Three implementation-free numbered app directories become flat migration markers." :contracts "Existing shared contracts remain owned by 00-contracts." :runtime "Only the legal-aid WASM guest has a standalone runtime owner; no runtime is invented for Judge or Bengoshi."}}

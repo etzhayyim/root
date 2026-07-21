@@ -1,0 +1,26 @@
+{
+  "@context" : [ "https://www.w3.org/ns/did/v1", "https://w3id.org/security/suites/jws-2020/v1" ],
+  "id" : "did:web:etzhayyim.com:actor:toritsugi-ar-national",
+  "alsoKnownAs" : [ "did:web:toritsugi-ar-national.etzhayyim.com" ],
+  "verificationMethod" : [ ],
+  "service" : [ {
+    "id" : "did:web:etzhayyim.com:actor:toritsugi-ar-national#atproto_pds",
+    "type" : "AtprotoPersonalDataServer",
+    "serviceEndpoint" : "https://pds.aozora.app"
+  } ],
+  "_meta" : {
+    "authority" : [ "Administración Nacional de la Seguridad Social (ANSES)", "Registro Nacional de las Personas (RENAPER), Ministerio del Interior" ],
+    "execModel" : "mesh-component",
+    "parent" : "toritsugi",
+    "note" : "Authority-actor child of toritsugi (ADR-2605312030). Regime: ar-national. verificationMethod empty — no server-minted key (ADR-2605231525). Keyless R0 mirror; cells raise RuntimeError. 行政書士法/UPL boundary (G5); member self-submit (G15).",
+    "adr" : [ "2605312030", "2606272355", "2605231525" ],
+    "status" : "r0",
+    "kind" : "tier-b",
+    "source" : "kotoba",
+    "procedureCount" : 2,
+    "regime" : "ar-national",
+    "primaryLexicon" : "com.etzhayyim.toritsugi.ar-national.procedure",
+    "jurisdictions" : [ "arg" ],
+    "wasmCid" : null
+  }
+}

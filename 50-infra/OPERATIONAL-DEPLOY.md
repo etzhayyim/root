@@ -408,17 +408,17 @@ Anyone running their own projector against the same firehose should converge on 
 
 ## Post-deploy: seed first records
 
-Once the pipeline is live, exercise it by seeding the first rw-free actor's taxonomy:
+Once the pipeline is live, exercise it by seeding the first kotoba actor's taxonomy:
 
 ```bash
 # open-isco (525 occupations) — already on main, requires ETZ_SEEDER_DID + PDS auth
-cd /path/to/etzhayyim-root/60-apps/etzhayyim-project-open-isco/rw-free
+cd /path/to/superproject/orgs/etzhayyim/com-etzhayyim-app-open-isco/kotoba
 pnpm install
 ETZ_SEEDER_DID="did:web:etzhayyim.com" \
   pnpm seed data/isco08.sample.json   # 5-record smoke
 
-# open-isic (428 classes) — second rw-free actor
-cd ../../etzhayyim-project-open-isic/rw-free
+# open-isic (428 classes) — second kotoba actor
+cd ../../etzhayyim-project-open-isic/kotoba
 pnpm install
 ETZ_SEEDER_DID="did:web:etzhayyim.com" \
   pnpm seed --only=2520               # weapons manufacturing (single-record smoke)
@@ -431,7 +431,7 @@ Each seeded record should propagate through the pipeline within 1–2 minutes (p
 ## See also
 
 - [ADR-2605171800](../90-docs/adr/2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md) — substrate pipeline architecture
-- [ADR-2605172000](../90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) — RW-free substrate posture
+- [ADR-2605172000](../90-docs/adr/2605172000-etzhayyim-kotoba-substrate.md) — kotoba substrate posture
 - [`atproto-pds-local/`](atproto-pds-local/) — simeon PDS bring-up (Phase 1, already done 2026-05-17)
 - [`mst-projector/`](mst-projector/) — Stage 3 (Phase 2 on main)
 - [`ipfs-pinner/`](ipfs-pinner/) — Stage 4 Phase 1 (on main)

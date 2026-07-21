@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:wadachi (轍 — autonomous mobility Tier-B actor)",
+  "handle": "wadachi (轍 — autonomous mobility Tier-B actor).etzhayyim.com",
+  "displayName": "Autonomous ground vehicle orchestration per ADR-2605242000. Route planning, motion control, obstacle avoidance, safety monitoring.",
+  "description": "Autonomous ground vehicle orchestration per ADR-2605242000. Route planning, motion control, obstacle avoidance, safety monitoring.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Autonomous ground vehicle orchestration per ADR-2605242000. Route planning, motion control, obstacle avoidance, safety monitoring.",
+  "displayNameJa": "Autonomous ground vehicle orchestration per ADR-2605242000. Route planning, motion control, obstacle avoidance, safety monitoring.",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.wadachi.deliveryRoute",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/wadachi (轍 — autonomous mobility Tier-B actor)/did.json",
+    "source": "kotoba"
+  }
+}

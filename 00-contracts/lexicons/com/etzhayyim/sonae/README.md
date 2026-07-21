@@ -1,6 +1,6 @@
 # com.etzhayyim.sonae.* — sonae (備え) Lexicons
 
-**Owner actor**: `did:web:sonae.etzhayyim.com` (`20-actors/sonae/`)
+**Owner actor**: `did:web:sonae.etzhayyim.com` (`orgs/etzhayyim/com-etzhayyim-sonae`)
 **ADR**: ADR-2606091200 (R0 scaffold)
 **Status**: R0 schema skeletons. Full schemas at R1+.
 **Phase**: pre-disaster (before). Response Lexicons are `com.etzhayyim.kazaori.*`.
@@ -38,8 +38,7 @@ Schemas at R0 are skeleton-level; full structural enforcement at R1.
 
 ## Related Files
 
-- `/20-actors/sonae/manifest.jsonld`
-- `/20-actors/sonae/README.md`
-- `/20-actors/sonae/CLAUDE.md`
+- [canonical `manifest.edn`](https://github.com/etzhayyim/com-etzhayyim-sonae/blob/8048df4675b8f504c3bd7b460280dfb270fb137b/manifest.edn)
+- [standalone actor repository](https://github.com/etzhayyim/com-etzhayyim-sonae)
 - `/90-docs/adr/2606091200-sonae-pre-disaster-foresight-tier-b-actor-r0.md`
 - `/90-docs/adr/2605263200-kazaori-disaster-response-tier-b-actor-r0.md` (downstream response)

@@ -1096,11 +1096,9 @@ def _docs_validate_impl(repo_root: Path) -> list[str]:
         docs_dir = repo_root / "docs"
 
     registry_path = docs_dir / "_registry" / "docs.json"
-    graph_path = docs_dir / "_registry" / "graph.jsonld"
 
-    for p in [registry_path, graph_path]:
-        if not p.exists():
-            errs.append(f"required file missing: {p.relative_to(repo_root)}")
+    if not registry_path.exists():
+        errs.append(f"required file missing: {registry_path.relative_to(repo_root)}")
 
     if errs:
         return errs
@@ -1109,10 +1107,6 @@ def _docs_validate_impl(repo_root: Path) -> list[str]:
         registry = json.loads(registry_path.read_text())
     except Exception as e:
         return [f"parse docs registry: {e}"]
-    try:
-        graph_data = json.loads(graph_path.read_text())
-    except Exception as e:
-        return [f"parse docs graph: {e}"]
 
     if registry.get("version", 0) < 1:
         errs.append("docs registry version must be >= 1")
@@ -1169,26 +1163,11 @@ def _docs_validate_impl(repo_root: Path) -> list[str]:
         if not _is_date(str(fm.get("last_verified", ""))):
             errs.append(f"{epath}: front matter last_verified has invalid format: {fm.get('last_verified')!r}")
 
-    # Validate graph
-    if graph_data.get("@context") is None:
-        errs.append("graph.jsonld missing @context")
-    graph_by_id: dict[str, dict] = {}
-    expected_ids = {f"doc:{eid}" for eid in by_id}
-    for node in graph_data.get("@graph", []):
-        nid = node.get("id", "")
-        if not nid.startswith("doc:"):
-            errs.append(f"graph node has invalid id: {nid}")
-            continue
-        if nid in graph_by_id:
-            errs.append(f"duplicate graph node id: {nid}")
-            continue
-        graph_by_id[nid] = node
-        doc_id = nid[4:]
-        if doc_id not in by_id:
-            errs.append(f"graph node {nid} has no matching registry entry")
-    for eid in expected_ids:
-        if eid not in graph_by_id:
-            errs.append(f"registry entry missing graph node: {eid}")
+    # The relation graph (90-docs/_registry/graph.edn) is a pure deterministic
+    # projection of docs.edn by regen-graph-edn.clj — the registry↔graph 1:1
+    # invariant is guaranteed by construction + docs-graph-edn-freshness, so no
+    # separate cross-check is done here. (Was a graph.jsonld cross-check before
+    # the JSON-LD → EDN migration.)
 
     return sorted(errs)
 

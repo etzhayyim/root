@@ -1,0 +1,59 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/suites/jws-2020/v1"
+  ],
+  "id": "did:web:etzhayyim.com:actor:tate",
+  "alsoKnownAs": [
+    "did:web:tate.etzhayyim.com"
+  ],
+  "verificationMethod": [],
+  "service": [
+    {
+      "id": "did:web:etzhayyim.com:actor:tate#atproto_pds",
+      "type": "AtprotoPersonalDataServer",
+      "serviceEndpoint": "https://pds.aozora.app"
+    },
+    {
+      "id": "did:web:etzhayyim.com:actor:tate#xrpc-libp2p",
+      "type": "AtprotoXrpc",
+      "serviceEndpoint": "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"
+    },
+    {
+      "id": "did:web:etzhayyim.com:actor:tate#coverage",
+      "type": "EtzhayyimCoverageDigest",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate/coverage.json"
+    },
+    {
+      "id": "did:web:etzhayyim.com:actor:tate#site",
+      "type": "EtzhayyimStaticSite",
+      "serviceEndpoint": "https://etzhayyim.com/tate/"
+    },
+    {
+      "id": "did:web:etzhayyim.com:actor:tate#cases",
+      "type": "EtzhayyimCaseIndex",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate/cases.json"
+    }
+  ],
+  "_meta": {
+    "adr": [
+      "2605212030",
+      "2605241800",
+      "2606013800",
+      "2606014500",
+      "2606112301",
+      "2606112400",
+      "2606122000",
+      "2606122300"
+    ],
+    "source": "kotoba",
+    "kind": "tier-b",
+    "status": "r2",
+    "glyph": "盾",
+    "wasmCid": null,
+    "execModel": "service",
+    "primaryLexicon": "com.etzhayyim.tate",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-tate/data/procedure-registry.edn",
+    "note": "verificationMethod empty — on-chain ERC725 mirror pending; did:web trust root = TLS (no server-minted key, ADR-2605231525)"
+  }
+}

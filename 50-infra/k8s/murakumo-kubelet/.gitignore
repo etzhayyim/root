@@ -1,6 +1,0 @@
-# compiled binary — built via Makefile
-murakumo-kubelet
-
-# go build cache
-*.test
-*.out

@@ -1,0 +1,14 @@
+{
+  "ui.disclaimer" : "行政書士法/UPL境界: 情報提供+案内+入力補助のみ。作成代理・法的助言は行いません。本人が提出します。",
+  "actor.authority" : "National Driver Licence Service (NDLS)",
+  "ui.self-submit" : "本人提出",
+  "actor.description" : "toritsugi authority-actor for regime 'irl-driving-licence' (National Driver Licence Service (NDLS)). Covers 1 procedure(s) across jurisdiction(s): irl. Parent: toritsugi (ADR-2605312030). Keyless R0 mirror — no server key. 行政書士法/UPL boundary (G5): 情報提供+案内+入力補助 only, NO advice, NO 作成代理. Member self-submits (G15). NOT a 行政書士/弁護士 firm, NOT an official channel.",
+  "actor.displayName" : "取次-irl-driving-licence — National Driver Licence Service (NDLS)",
+  "procedure.list" : "Driving licence (NDLS)",
+  "ui.accompany" : "伴走",
+  "actor.regime" : "irl-driving-licence",
+  "ui.guide" : "案内",
+  "procedure.count" : "1件の手続き",
+  "actor.glyph" : "取次",
+  "actor.name" : "toritsugi-irl-driving-licence"
+}

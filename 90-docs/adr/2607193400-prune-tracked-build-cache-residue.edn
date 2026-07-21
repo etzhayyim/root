@@ -1,0 +1,12 @@
+{:schema "etzhayyim.adr/v1" :id "2607193400" :title "Prune tracked build and cache residue from legacy app trees" :status :accepted :date "2026-07-19"
+ :classification {:authoritative-source :current-main :legacy-assets-only-heuristic :non-reproducible
+                  :current-directory-audit {:asset-no-code-directories 0 :status :complete}}
+ :decision {:wave :generated-cache-safe-subset :action :prune
+            :target "60-apps/etzhayyim-chat-shell/svelte/.shadow-cljs"
+            :reason ".shadow-cljs contains reproducible analyzer caches, dependency manifests, generated externs/modules, and Closure maps; it is not runtime source or an active static asset"
+            :active-static-assets {:action :retain :examples ["runtime .wasm files referenced from static/public asset trees" "Gradle wrapper JAR"]}}
+ :provenance {:source-repository "https://github.com/etzhayyim/root" :source-revision "236423faffebd468a659007197f51224337d3a9d"
+              :git-tree "ea36a01164c0111e63fd8d1534bc18e77f7024ed" :tracked-files 100 :bytes 29656905
+              :ordered-blob-path-manifest-sha256 "2169c5b6517a1a666dcd8e5f0e3d56dec971c8ccc6d00f900fb3800b2f8208e1"}
+ :prevention {:gitignore "/60-apps/etzhayyim-chat-shell/svelte/.shadow-cljs/"}
+ :verification [:target-untracked-and-absent :no-operational-consumer-reference :tree-guard :generated-doc-registry-current]}

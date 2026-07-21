@@ -1,0 +1,15 @@
+{:schema "etzhayyim.adr/v1"
+ :id "2607192300"
+ :title "Engine wave 3 Svelte and router flat west drain"
+ :status :accepted
+ :date "2026-07-19"
+ :decision
+ {:canonical-record :edn
+  :moved
+  [{:source "40-engine/root-router" :repo "etzhayyim/com-etzhayyim-root-router" :revision "b98a85aaae4f3c097fe1589c93de2d1aed65663c"}
+   {:source "40-engine/svelte/auth" :repo "etzhayyim/com-etzhayyim-svelte-auth" :revision "ad28c5497d4182fb8d0d79d118746529e93eda72"}
+   {:source "40-engine/svelte/design-system" :repo "etzhayyim/com-etzhayyim-svelte-design-system" :revision "18834c0e410573be1550b8047930303be8eba503"}
+   {:source "40-engine/svelte/vite-plugin-safe-builder" :repo "etzhayyim/com-etzhayyim-vite-plugin-safe-builder" :revision "5c391d7f2fb1215cd6d204ef7d706656b23dd097"}]
+  :consumer-rewire {:workspace "flat siblings" :tailwind "standalone design-system dist" :auth "standalone auth source" :ipfs-publisher "standalone root-router map"}
+  :old-reference-classification {:operational "rewired" :fixture "fleet-refactor source-era corpus retained" :historical "ADR/deps provenance retained"}}
+ :consequences {:root "legacy implementations removed and replaced by *-MOVED.edn" :go-policy "Go and TinyGo remain deprecated and absent" :manifest "destinations require exact pins"}}

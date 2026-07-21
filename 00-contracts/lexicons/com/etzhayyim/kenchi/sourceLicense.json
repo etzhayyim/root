@@ -1,0 +1,23 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kenchi.sourceLicense",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Per-source license-class registry record (G4/G8). Declares whether a data authority may be republished raw, only as a derived work, or kept Murakumo-only (G7). The LicenseGovernor reads this to set each published record's license.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["sourceId", "authority", "licenseClass", "openData"],
+        "properties": {
+          "sourceId":     { "type": "string", "maxLength": 128, "description": "Adapter id, e.g. uk-landreg / bis / common-crawl." },
+          "authority":    { "type": "string", "maxLength": 128, "description": "Independent provider, e.g. hm-land-registry / bis / rightmove.co.uk." },
+          "endpoint":     { "type": "string", "maxLength": 512 },
+          "licenseClass": { "type": "string", "knownValues": ["open", "derived-only", "restricted"], "description": "open=raw republishable · derived-only=contributes, no raw passthrough · restricted=Murakumo-only inference, aggregate/derived only (G7)." },
+          "openData":     { "type": "boolean", "description": "G8 open-data-first: true iff the source itself is open data (e.g. the open crawl, public registry, OECD/BIS)." },
+          "kindDefault":  { "type": "string", "knownValues": ["sale", "assessment", "avm", "list", "index"] }
+        }
+      }
+    }
+  }
+}

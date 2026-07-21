@@ -2,75 +2,75 @@
   "method_policy": {
     "com.etzhayyim.apps.arms.registerFirearm": {
       "requiresAuth": true,
-      "allowedScopes": ["rpc?lxm=com.etzhayyim.apps.arms.registerFirearm"],
+      "allowedScopes": ["rpc[?]lxm=com.etzhayyim.apps.arms.registerFirearm"],
       "allowedPermissionSets": ["arms:authority", "arms:system"],
       "publicRead": false
     },
     "com.etzhayyim.apps.arms.authenticateHolder": {
       "requiresAuth": false,
-      "allowedScopes": ["rpc?lxm=*"],
+      "allowedScopes": ["rpc[?]lxm=*"],
       "allowedPermissionSets": [],
       "publicRead": true
     },
     "com.etzhayyim.apps.arms.verifyAuthChallenge": {
       "requiresAuth": true,
-      "allowedScopes": ["rpc?lxm=com.etzhayyim.apps.arms.verifyAuthChallenge", "rpc?lxm=*"],
+      "allowedScopes": ["rpc[?]lxm=com.etzhayyim.apps.arms.verifyAuthChallenge", "rpc[?]lxm=*"],
       "allowedPermissionSets": [],
       "publicRead": false
     },
     "com.etzhayyim.apps.arms.issuePermit": {
       "requiresAuth": true,
-      "allowedScopes": ["rpc?lxm=com.etzhayyim.apps.arms.issuePermit"],
+      "allowedScopes": ["rpc[?]lxm=com.etzhayyim.apps.arms.issuePermit"],
       "allowedPermissionSets": ["arms:authority"],
       "publicRead": false
     },
     "com.etzhayyim.apps.arms.transferCustody": {
       "requiresAuth": true,
-      "allowedScopes": ["rpc?lxm=com.etzhayyim.apps.arms.transferCustody"],
+      "allowedScopes": ["rpc[?]lxm=com.etzhayyim.apps.arms.transferCustody"],
       "allowedPermissionSets": ["arms:holder", "arms:authority"],
       "publicRead": false,
       "requiresHolderAuthSession": true
     },
     "com.etzhayyim.apps.arms.checkOutFirearm": {
       "requiresAuth": true,
-      "allowedScopes": ["rpc?lxm=com.etzhayyim.apps.arms.checkOutFirearm", "rpc?lxm=*"],
+      "allowedScopes": ["rpc[?]lxm=com.etzhayyim.apps.arms.checkOutFirearm", "rpc[?]lxm=*"],
       "allowedPermissionSets": ["arms:holder", "arms:authority"],
       "publicRead": false,
       "requiresHolderAuthSession": true
     },
     "com.etzhayyim.apps.arms.checkInFirearm": {
       "requiresAuth": true,
-      "allowedScopes": ["rpc?lxm=com.etzhayyim.apps.arms.checkInFirearm", "rpc?lxm=*"],
+      "allowedScopes": ["rpc[?]lxm=com.etzhayyim.apps.arms.checkInFirearm", "rpc[?]lxm=*"],
       "allowedPermissionSets": ["arms:holder", "arms:authority"],
       "publicRead": false
     },
     "com.etzhayyim.apps.arms.reportIncident": {
       "requiresAuth": true,
-      "allowedScopes": ["rpc?lxm=com.etzhayyim.apps.arms.reportIncident", "rpc?lxm=*"],
+      "allowedScopes": ["rpc[?]lxm=com.etzhayyim.apps.arms.reportIncident", "rpc[?]lxm=*"],
       "allowedPermissionSets": ["arms:holder", "arms:authority", "arms:law-enforcement"],
       "publicRead": false
     },
     "com.etzhayyim.apps.arms.getFirearm": {
       "requiresAuth": true,
-      "allowedScopes": ["rpc?lxm=com.etzhayyim.apps.arms.getFirearm", "rpc?lxm=*"],
+      "allowedScopes": ["rpc[?]lxm=com.etzhayyim.apps.arms.getFirearm", "rpc[?]lxm=*"],
       "allowedPermissionSets": ["arms:holder", "arms:authority", "arms:law-enforcement"],
       "publicRead": false
     },
     "com.etzhayyim.apps.arms.listFirearms": {
       "requiresAuth": true,
-      "allowedScopes": ["rpc?lxm=com.etzhayyim.apps.arms.listFirearms", "rpc?lxm=*"],
+      "allowedScopes": ["rpc[?]lxm=com.etzhayyim.apps.arms.listFirearms", "rpc[?]lxm=*"],
       "allowedPermissionSets": ["arms:holder", "arms:authority", "arms:law-enforcement"],
       "publicRead": false
     },
     "com.etzhayyim.apps.arms.listPermits": {
       "requiresAuth": true,
-      "allowedScopes": ["rpc?lxm=com.etzhayyim.apps.arms.listPermits", "rpc?lxm=*"],
+      "allowedScopes": ["rpc[?]lxm=com.etzhayyim.apps.arms.listPermits", "rpc[?]lxm=*"],
       "allowedPermissionSets": ["arms:holder", "arms:authority", "arms:law-enforcement"],
       "publicRead": false
     },
     "com.etzhayyim.apps.arms.getAuditLog": {
       "requiresAuth": true,
-      "allowedScopes": ["rpc?lxm=com.etzhayyim.apps.arms.getAuditLog"],
+      "allowedScopes": ["rpc[?]lxm=com.etzhayyim.apps.arms.getAuditLog"],
       "allowedPermissionSets": ["arms:authority", "arms:law-enforcement"],
       "publicRead": false
     }

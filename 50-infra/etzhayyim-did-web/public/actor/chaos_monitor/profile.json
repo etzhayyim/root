@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:chaos_monitor",
+  "handle": "chaos_monitor.etzhayyim.com",
+  "displayName": "Chaos Monitor — World State Dashboard",
+  "description": "World State Monitor — Real-time visual dashboard of the 1000 Clean Room Actors ecosystem. Displays substrate topology, active faults, and Root Router telemetry via Kotoba IPFS. Embedded via ATProto.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-07T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "混沌",
+  "displayNameJa": "Chaos Monitor — World State Dashboard",
+  "_etzhayyim": {
+    "kind": "infra",
+    "tier": "B",
+    "status": "landed",
+    "adr": [],
+    "primaryLexicon": null,
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-app-chaos-dashboard/",
+    "didDocument": "https://etzhayyim.com/actor/chaos_monitor/did.json",
+    "source": "kotoba"
+  }
+}

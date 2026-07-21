@@ -1,0 +1,21 @@
+;; ClojureScript build for the meibo-worker Cloudflare Worker core.
+;; :source-paths includes the west-managed standalone actor so this Worker requires
+;; `meibo.methods.{directory,coverage-report,edn}` VERBATIM from
+;; orgs/etzhayyim/com-etzhayyim-meibo/src/meibo/methods/*.cljc — single source of truth (mirrors
+;; saisei-worker/cljs/shadow-cljs.edn).
+;;
+;; Output: ../cljs-out/worker_core.js (an ESM module exporting `handle`)
+;; Build:  npx shadow-cljs release worker   (or `npm run build`)
+{:source-paths ["../../../orgs/etzhayyim/com-etzhayyim-meibo/src" "src"]
+
+ :builds
+ {:worker
+  {:target     :esm
+   :output-dir "../cljs-out"
+   :runtime    :custom
+   :modules    {:worker_core
+                {:exports {handle meibo-worker.core/handle}}}
+   :compiler-options
+   {:infer-externs        :auto
+    :optimizations        :simple
+    :output-feature-set   :es2020}}}}

@@ -1,0 +1,10 @@
+node_modules/
+.wrangler/
+.dev.vars
+*.log
+dist/
+build/
+worker-configuration.d.ts
+out/
+cljs-out/
+cljs/.shadow-cljs/

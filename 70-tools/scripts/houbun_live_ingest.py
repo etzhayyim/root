@@ -23,7 +23,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-import psycopg2
+import psycopg2  # kotoba-datomic-projection: ADR-2605231500 live-ingest read model
 from psycopg2.extras import execute_values
 
 
@@ -368,7 +368,7 @@ def existing_ids(conn: Any, table: str, ids: list[str], column: str = "vertex_id
 
 
 def insert_social_contracts(conn: Any) -> int:
-    base = REPO / "60-apps/etzhayyim-project-contracts/data/social-contracts"
+    base = REPO / "orgs/etzhayyim/com-etzhayyim-app-contracts/data/social-contracts"
     rows: list[tuple[Any, ...]] = []
     current = now_iso()
     for path in sorted(base.glob("*.jsonld")):

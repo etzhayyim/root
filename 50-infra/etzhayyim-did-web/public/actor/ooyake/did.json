@@ -12,7 +12,7 @@
     {
       "id": "did:web:etzhayyim.com:actor:ooyake#atproto_pds",
       "type": "AtprotoPersonalDataServer",
-      "serviceEndpoint": "https://pds.etzhayyim.com"
+      "serviceEndpoint": "https://pds.aozora.app"
     },
     {
       "id": "did:web:etzhayyim.com:actor:ooyake#xrpc-libp2p",
@@ -26,7 +26,8 @@
       "2605241800",
       "2606013800",
       "2606014500",
-      "2606021600"
+      "2606021600",
+      "2606272355"
     ],
     "source": "kotoba",
     "kind": "tier-b",

@@ -1,8 +1,0 @@
-aburi-actor.wasm
-transpiled/
-_seed.py
-analyze.py
-datom_emit.py
-coverage_report.py
-__pycache__/
-*.pyc

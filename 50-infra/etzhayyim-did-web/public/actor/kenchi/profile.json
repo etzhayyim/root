@@ -1,0 +1,32 @@
+{
+  "did": "did:web:etzhayyim.com:actor:kenchi",
+  "handle": "kenchi.etzhayyim.com",
+  "displayName": "検地 — Worldwide Real-Estate Valuation (External-Market Transparency)",
+  "description": "Public-good worldwide real-estate valuation + transparency substrate. Fuses many DISAGREEING independent authorities (recorded sales, public assessments, indices, and open-crawl listing prices) into provenance-stamped, uncertainty-quantified EXTERNAL-MARKET valuations and aggregate region reports. PROVENANCE-OR-SILENCE (G3): never a point without ≥3 independent recorded comps AND ≥2 independent authorities AND a fresh anchor — below threshold it publishes a wide band or insufficient-evidence,...",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-27T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "検地",
+  "displayNameJa": "検地 — Worldwide Real-Estate Valuation (External-Market Transparency)",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2606272030",
+      "2606272030",
+      "reserved"
+    ],
+    "primaryLexicon": "com.etzhayyim.kenchi",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/kenchi/did.json",
+    "source": "kotoba"
+  }
+}

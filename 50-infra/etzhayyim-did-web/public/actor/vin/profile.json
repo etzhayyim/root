@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:vin",
+  "handle": "vin.etzhayyim.com",
+  "displayName": "VIN / Vehicle Registration Intelligence",
+  "description": "Global vehicle identification intelligence. VIN (ISO 3779/3780), license plate (multi-jurisdiction), cohort DID registration. Role-based DID hierarchy from international standards bodies through national registries to individual vehicles.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "VIN / Vehicle Registration Intelligence",
+  "displayNameJa": "VIN / Vehicle Registration Intelligence",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.vin",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/vin/did.json",
+    "source": "kotoba"
+  }
+}

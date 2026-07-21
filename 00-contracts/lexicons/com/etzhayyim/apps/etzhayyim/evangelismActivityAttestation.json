@@ -1,0 +1,78 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.etzhayyim.evangelismActivityAttestation",
+  "description": "Append-only record of a single evangelism activity instance per ADR-2607061700 §1.16 (resolves Open Question 3: a dedicated ledger, not an overload of the MEMBERS.md identity roster — MEMBERS.md records WHO is an Adherent, this records evangelism ACTIVITY, a distinct concern). Covers both interpersonal evangelism by a human Adherent (face-to-face / door-to-door / street / online-dialogue) and actor-authored digital invitational publication (the ADR-2606281500 carve-out enforced by evangelism_gate.cljc). Deliberately carries no recipient-identifying or outcome field — the doctrine is 'never a target-list' (ADR-2606281500 rule 4); this ledger attests that compliant activity occurred, not who it reached or how they responded.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "mode",
+          "optOutAffordancePresent",
+          "coercionAttested",
+          "minorSoloSolicitationAttested",
+          "voluntaryAttested",
+          "attestingCellDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "mode": {
+            "type": "string",
+            "knownValues": ["interpersonal", "digital"],
+            "description": "interpersonal = human Adherent practice; digital = actor-authored invitational publication (ADR-2606281500 carve-out)"
+          },
+          "adherentDid": {
+            "type": "string",
+            "format": "did",
+            "description": "Populated when mode=interpersonal — the Adherent who practiced evangelism (cross-link MEMBERS.md dual-permanent record). Never the recipient."
+          },
+          "interpersonalMethod": {
+            "type": "string",
+            "knownValues": ["face-to-face", "door-to-door", "street", "online-dialogue"],
+            "description": "Populated when mode=interpersonal"
+          },
+          "actorDid": {
+            "type": "string",
+            "format": "did",
+            "description": "Populated when mode=digital — the publishing actor (e.g. kouhou/kataribe once wired, ADR-2607061700 Open Question 4)"
+          },
+          "evangelismGateScanCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "Populated when mode=digital — cross-link to the evangelism_gate.cljc scan result for the published content"
+          },
+          "optOutAffordancePresent": {
+            "type": "boolean",
+            "const": true,
+            "description": "STRUCTURAL — §1.16(d): every recorded activity affirms an opt-out affordance was offered. Only true is valid."
+          },
+          "coercionAttested": {
+            "type": "boolean",
+            "const": false,
+            "description": "STRUCTURAL — §1.16(b): coercion is never valid. Only false is valid."
+          },
+          "minorSoloSolicitationAttested": {
+            "type": "boolean",
+            "const": false,
+            "description": "STRUCTURAL — §1.16(c): solo solicitation of a minor is never valid. Only false is valid."
+          },
+          "voluntaryAttested": {
+            "type": "boolean",
+            "const": true,
+            "description": "STRUCTURAL — evangelism is a recommended practice (修 shu), never an obligation under the current single-member operating constraint (ADR-2607061700 §1.16). Only true is valid."
+          },
+          "charterRiderScanRunCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "Cross-link to the Charter Rider §2 catastrophe-veto scan run, when applicable"
+          },
+          "kotobaDatomicAttestationCid": {"type": "string", "format": "cid"},
+          "attestingCellDid": {"type": "string", "format": "did"}
+        }
+      }
+    }
+  }
+}

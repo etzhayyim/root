@@ -1,0 +1,7 @@
+{:schema "etzhayyim.adr/v1" :id "2607201430" :title "Extract one-hundred-twenty-three through one-hundred-twenty-four-file app artifacts" :status :accepted :date "2026-07-20"
+ :scope {:source-repository "etzhayyim/root" :source-revision "0e77f5010d709c8225a3f6bbcb469411df292550" :directories 3 :tracked-files 371 :bytes 10983490 :file-bands {123 1 124 2}}
+ :decision {:classification :active-executable-ui-contract-or-runtime-artifact :destination-prefix "etzhayyim/com-etzhayyim-app-" :apps ["aima" "kami" "open-kyber"]}
+ :extraction-contract {:repository-visibility :private :canonical-files ["README.edn" "migration.edn"] :source-preservation "Every destination tree differs from its exact source tree only by the two canonical EDN files."}
+ :reference-classification {:removed-operational-retirement-guard ["kami"] :regenerated-operational-allowlist ["kami" "open-kyber"] :regenerated-policy-baselines true :preserved-historical-fixture-provenance true}
+ :invariants {:canonical-record-format :edn :go-files-created 0 :tinygo-files-created 0 :flat-west-path "orgs/etzhayyim/com-etzhayyim-app-*"}
+ :verification [:private-repository :exact-remote-sha :source-tree-identity :edn-readable :operational-reference-audit :registry-freshness :layer-freeze-guard :tree-guard]}

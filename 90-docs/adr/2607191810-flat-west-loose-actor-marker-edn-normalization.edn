@@ -1,0 +1,35 @@
+[{:db/id -1
+  :adr/id "adr-2607191810-flat-west-loose-actor-marker-edn-normalization"
+  :adr/title "Flat west loose actor marker EDN normalization"
+  :adr/status "accepted"
+  :adr/doc_type "adr"
+  :adr/source-format "edn"
+  :adr/date "2026-07-19"
+  :adr/last_verified "2026-07-19"
+  :adr/authoritative true
+  :adr/topic "flat-west-actor-marker-normalization"
+  :adr/supersedes
+  ["adr-2607181700-flat-west-legacy-root-drain-and-consumer-rewire"]
+  :context
+  {:problem "Forty-two extracted actors remained as loose *-MOVED.md markers under 20-actors."
+   :path-policy "Flat west paths remain orgs/etzhayyim/com-etzhayyim-*."
+   :canonical-record-format :edn}
+  :decision
+  {:authoritative-markers ["COMPAT" "abuse" "akuma" "bunken" "bunker" "business-person" "cargo" "crew" "data-center-ops" "datacenter" "demining" "fleet" "graph-sos-intel" "handotai" "hc" "hs" "i18n" "insatsu" "intel" "ipaddress" "isekai" "jp-ashiba" "junbi" "kami-sabiotoshi" "kenkyusha" "kouhou" "m365-ingest" "marine-insurance" "media-gamers" "nist" "oil-coverage" "oil-distribution" "oil-midstream" "oil-refining" "oil-shipping" "oil-trading" "oil-upstream" "os" "port" "rare-earth-coverage" "recruit" "society6" "tashikame" "tenso" "umisachi" "vessel" "vin" "yabai" "yomi"]
+   :normalized-count 42
+   :preexisting-edn-count 7
+   :source-form "*-MOVED.md"
+   :destination-form "*-MOVED.edn"
+   :content-parity :git-blob-sha-verified-at-original-extraction
+   :reference-policy
+   {:operational :destination-only
+    :historical :provenance-only
+    :fixture :explicit-only}
+   :legacy-go :deprecated-and-pruned}
+  :verification
+  {:markdown-moved-markers 0
+   :edn-readability :required
+   :directory-terminal-state :moved-edn-only}
+  :consequences
+  ["Markdown is no longer an authoritative migration-marker format."
+   "Loose compatibility markers remain at the legacy root only as EDN tombstones."]}]

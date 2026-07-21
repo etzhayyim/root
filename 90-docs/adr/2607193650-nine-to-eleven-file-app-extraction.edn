@@ -1,0 +1,38 @@
+{:schema "etzhayyim.adr/v1"
+ :id "2607193650"
+ :title "Extract nine-to-eleven-file active app artifacts"
+ :status :accepted
+ :date "2026-07-19"
+ :scope {:source-repository "etzhayyim/root" :source-revision "1fb8430a66cbb4680f053fa5185a08a2904cae0d" :directories 23 :tracked-files 245 :bytes 715067}
+ :decision {:classification :active-executable-ui-contract-or-runtime-artifact :existing-repository-overlap 0 :retired-shells 0 :destinations [
+  {:source "60-apps/etzhayyim-project-i18n" :repo "etzhayyim/com-etzhayyim-app-i18n" :revision "c64c2efad620c17e47833c2a6eae3a9a4f1ddef4"}
+  {:source "60-apps/etzhayyim-project-business-edge" :repo "etzhayyim/com-etzhayyim-app-business-edge" :revision "6b160b7203b0b4b70427183f7a3a7c8f60677174"}
+  {:source "60-apps/etzhayyim-project-bluesky" :repo "etzhayyim/com-etzhayyim-app-bluesky" :revision "a653e88ba9b2b7bc0eb306658fd9d11153e94115"}
+  {:source "60-apps/etzhayyim-project-redelivery" :repo "etzhayyim/com-etzhayyim-app-redelivery" :revision "dee21b96204fc83aff37b3b69f89a1ca43ec2ad0"}
+  {:source "60-apps/etzhayyim-project-slides" :repo "etzhayyim/com-etzhayyim-app-slides" :revision "d85750b13612b06cee5ab173dd2e6fd79f1ca4fb"}
+  {:source "60-apps/etzhayyim-project-business-person" :repo "etzhayyim/com-etzhayyim-app-business-person" :revision "0c460f5602a666f02deb298bc039b7da87bb3c71"}
+  {:source "60-apps/etzhayyim-project-resource-provider" :repo "etzhayyim/com-etzhayyim-app-resource-provider" :revision "02deee6bb8a931275a0b0986c952b9d524ac8b84"}
+  {:source "60-apps/etzhayyim-project-legal-corpus" :repo "etzhayyim/com-etzhayyim-app-legal-corpus" :revision "638cc994f97e0de5926b53aeaa945d963d80b4ca"}
+  {:source "60-apps/etzhayyim-project-phone" :repo "etzhayyim/com-etzhayyim-app-phone" :revision "6bbbc10a9642779cf623997ef1d985a3822994e5"}
+  {:source "60-apps/etzhayyim-project-karma" :repo "etzhayyim/com-etzhayyim-app-karma" :revision "9eb62ab37f0d7ff73118d08fbd34b186e3c03f58"}
+  {:source "60-apps/etzhayyim-project-arbitrage" :repo "etzhayyim/com-etzhayyim-app-arbitrage" :revision "412fa8aea0d0ad36a2d1a919b34369954636f615"}
+  {:source "60-apps/tsuzuri" :repo "etzhayyim/com-etzhayyim-app-tsuzuri" :revision "21e5aaedcf215eca7718e5befb01acd652b4eb41"}
+  {:source "60-apps/etzhayyim-project-kuruma" :repo "etzhayyim/com-etzhayyim-app-kuruma" :revision "637652703e1d7b547345a10dbef12d359d96158a"}
+  {:source "60-apps/etzhayyim-project-threat-intelligence" :repo "etzhayyim/com-etzhayyim-app-threat-intelligence" :revision "615073b3d0e6ea74c3e93eaabfc108ef111e0e1d"}
+  {:source "60-apps/etzhayyim-project-tasklist" :repo "etzhayyim/com-etzhayyim-app-tasklist" :revision "5d1ebd4e17635bbef5496bdf397a4775b5b6134d"}
+  {:source "60-apps/etzhayyim-project-dougaka" :repo "etzhayyim/com-etzhayyim-app-dougaka" :revision "eef3c7395eaf921994118ea816f1a9398d2d25fd"}
+  {:source "60-apps/etzhayyim-project-curpus2skill" :repo "etzhayyim/com-etzhayyim-app-curpus2skill" :revision "a46c0529ea932be9abbf2056b87b658883dbb657"}
+  {:source "60-apps/etzhayyim-project-external-service-adapter" :repo "etzhayyim/com-etzhayyim-app-external-service-adapter" :revision "235474205f763b37adc805ab63661c7af9ea227c"}
+  {:source "60-apps/etzhayyim-project-ohanashi" :repo "etzhayyim/com-etzhayyim-app-ohanashi" :revision "655f92f63863d76270a84b4260a0826709a704d3"}
+  {:source "60-apps/etzhayyim-project-messenger" :repo "etzhayyim/com-etzhayyim-app-messenger" :revision "59d811d8008ba9e5d76c5c9684973d58bcd1dfa8"}
+  {:source "60-apps/etzhayyim-project-keiei" :repo "etzhayyim/com-etzhayyim-app-keiei" :revision "cb3009b6d960f4ca8229c1aa0148d1a9fd0846b6"}
+  {:source "60-apps/etzhayyim-project-resource-planner" :repo "etzhayyim/com-etzhayyim-app-resource-planner" :revision "65db2d0cc3cd229a851f84913334444eaaf3fc22"}
+  {:source "60-apps/etzhayyim-project-tasks" :repo "etzhayyim/com-etzhayyim-app-tasks" :revision "8695f1c6cac5b54c95c3c11b15e34e652bd62218"}
+ ]}
+ :extraction-contract {:repository-visibility :private :canonical-files ["README.edn" "migration.edn"] :source-preservation "Destination tree differs from the exact source tree only by the two canonical EDN files."}
+ :provenance {:per-directory "Adjacent *-MOVED.edn records source tree/count/bytes and exact destination SHA."}
+ :rewire {:tsuzuri-primary-schema "orgs/etzhayyim/com-etzhayyim-app-tsuzuri/"
+          :removed-frozen-allowlist-entries ["legal-corpus" "threat-intelligence"]
+          :preserved-historical-reference "70-tools/config/retired-cf-workers.json retains the retired i18n worker source path as provenance."}
+ :invariants {:canonical-record-format :edn :go-files-created 0 :tinygo-files-created 0 :flat-west-path "orgs/etzhayyim/com-etzhayyim-app-*"}
+ :verification [:private-repository :exact-remote-sha :source-tree-identity :edn-readable :operational-reference-audit :registry-freshness :layer-freeze-guard :tree-guard]}

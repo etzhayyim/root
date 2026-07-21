@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:nist",
+  "handle": "nist.etzhayyim.com",
+  "displayName": "NIST CSF 2.0 Intelligence",
+  "description": "NIST Cybersecurity Framework 2.0 — 6 Function logical actors (GV/ID/PR/DE/RS/RC), 106 subcategories, Tier Gap analysis, CMMC L2 cross-mapping, SP 1302 Community Profiles.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "NIST CSF 2.0 Intelligence",
+  "displayNameJa": "NIST CSF 2.0 Intelligence",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.nist",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/nist/did.json",
+    "source": "kotoba"
+  }
+}

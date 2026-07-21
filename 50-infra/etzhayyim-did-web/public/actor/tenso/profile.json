@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:tenso",
+  "handle": "tenso.etzhayyim.com",
+  "displayName": "Tenso - Signal E2E Secure File Transfer",
+  "description": "Zero-knowledge file transfer with Signal Protocol E2E encryption. Chunked upload, content-addressed B2 storage, per-transfer AES-256-GCM file key wrapped via X3DH key agreement. Server never sees plaintext.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Tenso - Signal E2E Secure File Transfer",
+  "displayNameJa": "Tenso - Signal E2E Secure File Transfer",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.tenso",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/tenso/did.json",
+    "source": "kotoba"
+  }
+}

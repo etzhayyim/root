@@ -6,8 +6,8 @@
 // pds.etzhayyim.com) returns a non-empty feed.
 //
 // Per:
-//   - ADR-2605172000 (rw-free substrate)
-//   - 10-protocol/kotoba-datomic/SPEC.md §1 kotoba-datomic-agent + §2 kotoba-datomic-chain
+//   - ADR-2605172000 (kotoba substrate)
+//   - ADR-2605262130 + ADR-2607192500 (deprecated kotoba-datomic provenance)
 //   - ADR-2605231525 (member wallet / member passkey-derived ES256 only;
 //     no platform-held private key — this CLI is operator-local, the
 //     PDS app-password lives in the operator's macOS Keychain).
@@ -27,7 +27,7 @@ const ACTOR_DID =
 const TEXT =
   process.argv.slice(2).join(" ") ||
   process.env.SEED_POST_TEXT ||
-  "hello kotoba-datomic — first post on the rw-free substrate. " +
+  "hello kotoba-datomic — first post on the kotoba substrate. " +
     "MST → IPFS → L2 anchor. ADR-2605172000.";
 
 const collection = "app.bsky.feed.post";

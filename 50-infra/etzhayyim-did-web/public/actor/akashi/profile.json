@@ -1,0 +1,32 @@
+{
+  "did": "did:web:etzhayyim.com:actor:akashi",
+  "handle": "akashi.etzhayyim.com",
+  "displayName": "証 — Public Ad Disclosure Transparency",
+  "description": "kotoba-native public ad-disclosure transparency actor. Passively ingests already-public platform ad-library disclosures into kotoba EAVT and emits source-cited, non-adjudicating transparency links and aggregate reports. Sibling to danjo; bounded away from malak except for reviewed fraud/malware-ad evidence candidates.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-02T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "証",
+  "displayNameJa": "証 — Public Ad Disclosure Transparency",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2606022300",
+      "2606022300",
+      "reserved"
+    ],
+    "primaryLexicon": "com.etzhayyim.akashi",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/akashi/did.json",
+    "source": "kotoba"
+  }
+}

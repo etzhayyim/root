@@ -40,7 +40,7 @@ lefthook run pre-commit
 node 70-tools/scripts/lint/substrate-boundary.mjs <changed files…>
 
 # build + content-address a kotoba/actor WASM component (no secrets)
-70-tools/scripts/deploy/kotoba-wasm-build.sh 20-actors/tsumugi/wasm/tsumugi-core
+70-tools/scripts/deploy/kotoba-wasm-build.sh orgs/etzhayyim/com-etzhayyim-tsumugi/wasm/tsumugi-core
 #  → dist/tsumugi-core.{wasm,cid,car}
 ```
 

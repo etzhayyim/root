@@ -1,0 +1,154 @@
+[{:db/id -1
+  :adr/id "adr-2607181500-flat-west-migration-checkpoint-and-remaining"
+  :adr/title "Flat west migration checkpoint: published, prepared, and remaining root drain"
+  :adr/status "accepted"
+  :adr/doc_type "adr"
+  :adr/source-format "edn"
+  :adr/date "2026-07-18"
+  :adr/last_verified "2026-07-18"
+  :adr/authoritative true
+  :adr/topic "flat-west-migration-checkpoint"
+  :adr/supersedes ["adr-2607181200-flat-west-actor-migration-progress-and-remaining"]
+  :adr/authoritative-for
+  ["published actor migration count at the 2026-07-18 checkpoint"
+   "distinction between integrated, root-drain-prepared, and standalone-prepared work"
+   "remaining 20-actors retirement order"]
+
+  :decision
+  {:west-path-policy {:canonical "orgs/etzhayyim/com-etzhayyim-*"
+                      :flat-paths-preserved true
+                      :category :repository-metadata}
+   :legacy-root-policy {:scope "20-actors/*"
+                        :after-migration "MOVED.edn only"
+                        :numbered-layer :drain-and-retire}
+   :format-policy {:canonical #{:edn}
+                   :applies-to #{:metadata :contracts :data :fixtures :registries :migration-ledgers :adr}
+                   :external-wire-only #{:json :jsonl :json-ld :bpmn-xml :wit :toml}}
+   :language-policy {:deprecated #{:go :tinygo}
+                     :action :prune-not-port}}
+
+  :checkpoint
+  {:baseline-root-directories 198
+   :published-integration {:count 180
+                           :percent 90.91
+                           :remaining 18
+                           :root-revision "5b55209ad38b73e45661e58172b98a4db2deb1d4"
+                           :superproject-revision "93ef0c61625"}
+   :prepared-root-drain
+   {:count 9
+    :actors
+    [{:actor "ameno"
+      :revision "2933528b3e4fbbb654070c14b57dda8ceef023bc"
+      :verification {:typecheck :pass :tests 157 :passed 154 :kotoba-ground-tests 9}
+      :known-gaps [:environment-performance-tests-2 :external-tsumugi-fixture-test-1
+                   :central-wire-lexicons-retained-9]}
+     {:actor "iriai"
+      :revision "4a02010be91e1f57755a58daa9ef5ace14d15ce3"
+      :verification {:tests 79 :assertions 513 :edn-files 11 :wire-json 5}}
+     {:actor "iryo"
+      :revision "bff63360df49fc19bce9c77d691021b4a01e5c96"
+      :verification {:tests 138 :assertions 563 :edn-files 22 :wire-artifacts 20}}
+     {:actor "kaiyaku"
+      :revision "8543e3206a5d2fa4573a66c9e8bce4fe3df764f2"
+      :verification {:tests 120 :assertions 1903 :edn-files 6}}
+     {:actor "etzhayyim-organism"
+      :destination "orgs/kotoba-lang/kotodama"
+      :revision "6e02abb11f95d5b7cea2379f513c25d0208b1b59"
+      :boundary :shared-runtime-library
+      :verification {:tests 31 :assertions 61}
+      :pruned [:python-sensors :python-constitution :dockerfile :pyproject]}
+     {:actor "ibuki"
+      :revision "2f71a51fee5818e1543d2a8dbccd30384a824e08"
+      :verification {:tests 278 :assertions 1129
+                     :murakumo-tests 9 :murakumo-assertions 31
+                     :edn-files 8 :go-files 0 :tinygo-files 0
+                     :python-files 0 :json-outside-wire 0}
+      :retained-central-authority "00-contracts/actor-registry/unspsc.json"
+      :known-gap :extract-and-publish-kotoba-datom-shared-library}
+     {:actor "kotodama"
+      :destination "orgs/kotoba-lang/kotodama"
+      :revision "6e02abb11f95d5b7cea2379f513c25d0208b1b59"
+      :boundary :shared-runtime-library
+      :verification {:tests 12 :assertions 42}
+      :moved :kotoba-datom
+      :pruned [:obsolete-rust-probe :obsolete-host-sdk-probe]}
+     {:actor "funamori"
+      :revision "69e4c1b0b79920bb3ab3fc276c9f50f34664aefc"
+      :verification {:tests 53 :assertions 224 :edn-files 11
+                     :go-files 0 :tinygo-files 0 :wire-artifacts 0}
+      :depends-on "orgs/etzhayyim/com-etzhayyim-hikari"}
+     {:actor "silicon"
+      :revision "7d7a5fa1a49f38ed34d4b374d4c8187d5cf6d84c"
+      :verification {:tests 64 :assertions 136 :edn-files 6
+                     :go-files 0 :tinygo-files 0 :shell-files 0
+                     :json-outside-wire 0}
+      :retained-central-authority "00-contracts/lexicons/com/etzhayyim/silicon"}]
+    :remaining-gates [:publish-root-migration :register-missing-west-projects
+                      :pin-actor-and-root-revisions :repin-final-adr-root]}
+   :standalone-prepared []
+   :projection-after-current-nine-root-drains
+   {:condition :root-and-west-transactions-published
+    :count 189 :percent 95.45 :remaining 9}}
+
+  :recent-integrated-transactions
+  [{:actors ["funadaiku" "futawa" "hagukumi" "hikari" "himawari" "hinagata"]
+    :root "1c5f8d96d26133fdf4d92a6b37158b46cabff1d5"
+    :adr "3c5b7101a48" :superproject "a58c785e8ef"}
+   {:actors ["hodoki" "hotaru" "itonami" "junkan" "kadode"]
+    :root "cb3ef46685611e7aa80700d3ef2d427faa750ddf"
+    :adr "441987aeccb" :superproject "7375484d289"}
+   {:actors ["jinushi"]
+    :standalone "88fdf592446fa9399ed691c584cb6ba242b37dd0"
+    :root "b3de395190d4815976f623917302d19743986778"
+    :adr "5b55209ad38b73e45661e58172b98a4db2deb1d4"
+    :superproject "93ef0c61625"}]
+
+  :remaining
+  {:directories
+   ["_conformance" "ameno" "business-manager" "business_manager"
+    "etzhayyim-organism" "funamori" "gov-municipality" "gov_municipality"
+    "ibuki" "infra-utility-connect" "infra_utility_connect" "iriai" "iryo"
+    "kaiyaku" "kotoba-actors-clj" "kotodama" "mst-projector" "silicon"]
+   :classification
+   {:prepared-root-drain ["ameno" "etzhayyim-organism" "funamori" "ibuki" "iriai" "iryo" "kaiyaku" "kotodama" "silicon"]
+    :standalone-prepared []
+    :empty-tooling-root ["_conformance"]
+    :duplicate-or-existing-overlap
+    ["business-manager" "business_manager" "gov-municipality" "gov_municipality"
+     "infra-utility-connect" "infra_utility_connect"]
+    :boundary-review ["kotoba-actors-clj" "mst-projector"]}
+   :duplicate-pairs [["business-manager" "business_manager"]
+                     ["gov-municipality" "gov_municipality"]
+                     ["infra-utility-connect" "infra_utility_connect"]]
+   :logical-components 15}
+
+  :execution-order
+  [:publish-nine-prepared-root-drains
+   :register-and-pin-exact-west-revisions
+   :consolidate-three-duplicate-spelling-pairs
+   :assign-funamori-kotoba-actors-clj-kotodama-mst-projector-silicon-boundaries
+   :remove-empty-conformance-root
+   :verify-no-active-legacy-paths
+   :retire-20-actors-layer]
+
+  :completion-gates
+  [:destination-revision-pushed
+   :canonical-edn-readable
+   :external-wire-artifacts-isolated
+   :go-and-tinygo-absent
+   :active-consumers-rewired
+   :legacy-directory-moved-edn-only
+   :root-migration-published
+   :west-project-present
+   :root-and-component-exact-revisions-pinned
+   :generated-registries-fresh]
+
+  :known-state-differences
+  [{:scope "MULTIREPO-MIGRATION.edn"
+    :observed {:moved 189 :remaining 9}
+    :reason :worktree-root-drain-count-is-ahead-of-published-west-integration-count}
+   {:scope :west
+    :reason :nine-component-root-and-component-pins-are-not-yet-published}]
+
+  :adr/body
+  "The authoritative completed count remains 180/198 until both the root migration and exact west pins are published. Nine components already have prepared root drains. Flat west paths are preserved, EDN is canonical, and deprecated Go/TinyGo code is pruned rather than migrated."}]

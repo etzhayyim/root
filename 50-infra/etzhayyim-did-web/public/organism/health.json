@@ -1,0 +1,29 @@
+{
+  "generatedAt" : "2026-07-17T02:22:21.270Z",
+  "now" : 1784254941270,
+  "store" : "heartbeat-watchdog",
+  "anyStale" : false,
+  "layers" : {
+    "pulse" : {
+      "lastOk" : 1784254941270,
+      "ageMs" : 0,
+      "cadenceMs" : 6000,
+      "everOk" : true,
+      "stale" : false
+    },
+    "joucho" : {
+      "lastOk" : 1784254915998,
+      "ageMs" : 25272,
+      "cadenceMs" : 60000,
+      "everOk" : true,
+      "stale" : false
+    },
+    "vitals" : {
+      "lastOk" : 1784252683678,
+      "ageMs" : 2257592,
+      "cadenceMs" : 3600000,
+      "everOk" : true,
+      "stale" : false
+    }
+  }
+}

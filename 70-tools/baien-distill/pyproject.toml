@@ -15,9 +15,9 @@ dependencies = [
   "datasets >= 2.20",
   "pydantic >= 2.0",
   # Charter Rider §2 canonical scanner lives here. Path dep — installed via:
-  #   pip install -e ../../20-actors/etzhayyim-organism
+  #   pip install -e ../../orgs/kotoba-lang/kotodama
   # (uncomment after etzhayyim-organism publishes a pyproject.)
-  # "etzhayyim-organism @ file://../../20-actors/etzhayyim-organism",
+  # "kotodama @ file://../../orgs/kotoba-lang/kotodama",
 ]
 
 [project.optional-dependencies]

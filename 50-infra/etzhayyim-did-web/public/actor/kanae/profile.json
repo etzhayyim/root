@@ -20,7 +20,8 @@
     "tier": "B",
     "status": "r0",
     "adr": [
-      "2605302300"
+      "2605302300",
+      "2606272355"
     ],
     "primaryLexicon": "com.etzhayyim.kanae",
     "primarySchema": null,

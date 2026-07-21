@@ -1,0 +1,77 @@
+;; pharma-patent-ontology — the pharmaceutical patent-cliff / off-patent-access (時薬) vocabulary
+;; for tokigusuri 時薬. ADR-2606171300 · sibling of finrisk-ontology (ADR-2606073400) and
+;; asobi-ontology (ADR-2606073200), specialised to MEDICINE ACCESS — the patent cliff where a
+;; monopolised drug falls into the generic/biosimilar commons, mirror-only like hokorobi.
+;;
+;; PURPOSE: weave drugs / exclusivity-barriers / patent-or-generic holders / bearers (patients,
+;; LMIC populations, health-systems, payers, uninsured) into the kotoba Datom log. The lens is
+;; ACCESS-BARRIER concentration (which essential medicines are gated by remaining exclusivity)
+;; vs RELEASE (generic / biosimilar / expiry availability), routed to RELEASE (解放 — the
+;; liberation of the medicine to all). It composes with yakushi 薬師 (manufacture of
+;; perpetually-off-patent OTC APIs) and ADR-2604271830 (patent-expiry → open-seiyaku handoff).
+;;
+;; CONSTITUTIONAL INVERSION (G1, read first): tokigusuri is an ACCESS / RELEASE map, NEVER a
+;; patent-busting / infringement-inducement tool, NEVER a freedom-to-operate legal opinion,
+;; NEVER an investment / short signal on pharma equities, NEVER a per-company verdict. It
+;; surfaces where the patent cliff has (or has not yet) freed an essential medicine, routed to
+;; LAWFUL release: generic/biosimilar entry on OFF-PATENT/EXPIRING drugs, and for still-on-
+;; patent drugs ONLY the disclosed lawful access mechanisms (Medicines Patent Pool voluntary
+;; licensing, TRIPS/Doha flexibilities). Circumvention of a live patent is unrepresentable.
+;;
+;; NON-ADJUDICATING (G3 / N3): patent status, expiry, and exclusivity are DISCLOSED facts (FDA
+;; Orange Book / Purple Book, EPO/national patent registers, WHO Model List of Essential
+;; Medicines, Medicines Patent Pool) — never tokigusuri verdicts; no FTO / infringement
+;; determination (that is qualified-counsel territory, mirroring the yakushi legal boundary).
+;;
+;; EDGE-PRIMARY (N1): access-barrier lives ONLY on edges (:en/barrier-load). A node's
+;; access-barrier concentration = the INTEGRAL of its incident barrier 縁 × disclosed
+;; essentiality weight, computed on READ — never a stored per-drug score. There is no
+;; :tokigusuri/monopoly-of-drug.
+
+{:schema/id "pharma-patent-ontology"
+ :schema/version "0.1.0"
+ :schema/adr "2606171300"
+
+ ;; ── nodes ──────────────────────────────────────────────────────────────────
+ :node/attrs
+ [{:attr :organism/id        :doc "stable id, e.g. drug.imatinib / barrier.secondary-patent / holder.cipla"}
+  {:attr :organism/kind       :doc ":drug | :barrier | :holder | :bearer"}
+  {:attr :organism/label      :doc "common/display label (INN or org name)"}
+  {:attr :organism/sourcing   :doc ":authoritative (public register / WHO EML / MPP) | :representative (bounded illustrative seed)"}
+
+  ;; drug facet (a pharmaceutical substance/product — the thing barriers concentrate ON)
+  {:attr :drug/inn            :doc "International Nonproprietary Name, e.g. \"imatinib\""}
+  {:attr :drug/atc            :doc "WHO ATC class string (DISCLOSED), optional"}
+  {:attr :drug/modality       :doc ":small-molecule | :biologic | :vaccine"}
+  {:attr :drug/exclusivity-status :doc ":on-patent | :expiring | :off-patent (DISCLOSED, not adjudicated)"}
+  {:attr :drug/essentiality   :doc ":eml-core | :eml-complementary (WHO Model List) | :on-market | :niche — sets the access weight"}
+
+  ;; holder facet (a patent/exclusivity holder OR a generic/biosimilar maker)
+  {:attr :holder/kind         :doc ":originator (monopolises) | :generic (releases) | :biosimilar (releases)"}
+
+  ;; barrier facet (the 取-holder; gates generic entry / access)
+  {:attr :barrier/kind        :doc ":primary-patent | :secondary-patent (evergreening) | :data-exclusivity | :spc | :orphan-exclusivity | :pay-for-delay | :patent-thicket"}
+  {:attr :barrier/links       :doc "optional org id in tsumugi power-graph (accountability cross-link); aggregate-first"}
+
+  ;; bearer facet (who bears the access barrier — the public)
+  {:attr :bearer/kind         :doc ":patients | :lmic-populations | :health-systems | :payers | :uninsured"}]
+
+ ;; ── edges (縁) ───────────────────────────────────────────────────────────────
+ :edge/attrs
+ [{:attr :en/from            :doc "source organism id"}
+  {:attr :en/to              :doc "target organism id"}
+  {:attr :en/kind            :doc "BARRIER: :monopolizes | :blocks | :evergreens | :delays | :gates-access · RELEASE: :generic-of | :biosimilar-of | :supplies | :overcomes"}
+  {:attr :en/barrier-load    :doc "0..1 — for BARRIER 縁: how much remaining exclusivity gates access; for RELEASE 縁: how much it restores access. karma lives HERE (N1)."}
+  {:attr :en/sourcing        :doc ":authoritative | :representative"}]
+
+ ;; ── derived (transient, computed on READ — NEVER stored; N1/G2) ──────────────
+ :derived/attrs
+ [{:attr :bond/access-barrier-concentration :doc "node integral of incident barrier 縁 × essentiality weight — the release surface to liberate"}
+  {:attr :bond/release-buffer               :doc "node integral of incident RELEASE loads — generic/biosimilar availability (解放)"}
+  {:attr :bond/barrier-imposed              :doc "source integral of outbound barrier 縁 — the 取-holder exclusivity-barrier concentration, routed to release"}
+  {:attr :bond/is-transient                 :doc "const true — derived readout, not a stored datom"}]
+
+ ;; ── disclosed essentiality → representative access weight (NOT a verdict) ──
+ ;; barriers on essential medicines (WHO EML) weigh more — access to them matters more.
+ :essentiality/weight
+ {:eml-core 1.0 :eml-complementary 0.7 :on-market 0.4 :niche 0.2}}

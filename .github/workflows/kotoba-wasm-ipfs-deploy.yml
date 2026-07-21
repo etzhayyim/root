@@ -24,7 +24,7 @@ on:
       crate_dir:
         description: "Path to the WASM actor crate (dir containing Cargo.toml)"
         required: true
-        default: "20-actors/tsumugi/wasm/tsumugi-core"
+        default: "orgs/etzhayyim/com-etzhayyim-tsumugi/wasm/tsumugi-core"
       artifact_name:
         description: "Output artifact name (optional; derived from crate name if blank)"
         required: false

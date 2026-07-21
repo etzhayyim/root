@@ -22,6 +22,11 @@ Reservation markers (unchanged from the toml verifier):
 A BARE missing path is drift (exit 1). A missing path WITH a marker is
 "accepted-reserved" (owner-asserted, not drift). A path that exists but
 still carries a marker is "stale-marker" (warning — drop the suffix).
+Paths shaped as ``orgs/<configured-org>/<repo>(/...)`` are west-managed
+projects.  Their checkout is intentionally optional in a root-only CI clone,
+so they are classified as unverifiable external project paths, not drift.
+The org allowlist is derived from ``deps.edn``'s ``:github_org_open`` config;
+an arbitrary or misspelled org is never accepted.
 Duplicate :modules paths / :adrs ids are reported (warning) in unfiltered
 runs, mirroring the cycle-59 toml behaviour.
 
@@ -77,6 +82,60 @@ def classify_external(raw: str) -> bool:
     """URLs / home / absolute paths are not repo paths — unverifiable here."""
     return raw.startswith(("http://", "https://", "~", "/"))
 
+
+_WEST_PROJECT_RE = re.compile(
+    r"^orgs/(?P<org>[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)/"
+    r"(?P<repo>[A-Za-z0-9](?:[A-Za-z0-9._-]*[A-Za-z0-9])?)(?:/[^/]+)*$"
+)
+_GITHUB_ORG_OPEN_RE = re.compile(r':github_org_open\s+"(?P<org>[^"]+)"')
+
+
+def configured_west_orgs(deps_edn: Path) -> set[str]:
+    """Return west orgs from the canonical deps config, not module paths.
+
+    Reading the org from module entries themselves would make a typo
+    self-authorising. ``:github_org_open`` is the existing root ownership
+    registry and is stable in root-only as well as populated west checkouts.
+    """
+    orgs = {m.group("org") for m in _GITHUB_ORG_OPEN_RE.finditer(
+        deps_edn.read_text(encoding="utf-8")
+    )}
+    return {org for org in orgs if re.fullmatch(r"[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?", org)}
+
+
+def classify_west_project(raw: str, allowed_orgs: set[str]) -> bool:
+    """Whether ``raw`` is a well-shaped project path in a configured org."""
+    normalized = raw.rstrip("/")
+    match = _WEST_PROJECT_RE.fullmatch(normalized)
+    return bool(
+        match
+        and match.group("org") in allowed_orgs
+        and all(part not in (".", "..") for part in normalized.split("/"))
+    )
+
+
+def canonical_successor(repo_root: Path, raw: str) -> Optional[tuple[str, Path]]:
+    """Find an EDN-canonical document or numbered-layer migration tombstone.
+
+    The registry deliberately retains historical paths for provenance. After
+    the EDN conversion / west extraction those paths are satisfied by either
+    a same-stem ``.edn`` document or an ancestor ``*-MOVED.edn`` marker.
+    Neither should be re-baselined as missing implementation source.
+    """
+    path = Path(raw.rstrip("/"))
+    if path.suffix == ".md":
+        edn = repo_root / path.with_suffix(".edn")
+        if edn.is_file():
+            return "edn-canonical", edn
+    parts = path.parts
+    if parts and re.fullmatch(r"[0-9]{2}-[^/]+", parts[0]):
+        for size in range(len(parts), 1, -1):
+            ancestor = Path(*parts[:size])
+            marker = repo_root / ancestor.parent / f"{ancestor.name}-MOVED.edn"
+            if marker.is_file():
+                return "migration-marker", marker
+    return None
+
 _STR_ESCAPES = {'"': '"', "\\": "\\", "n": "\n", "t": "\t", "r": "\r"}
 
 
@@ -126,7 +185,7 @@ class PathCheck:
     adr: Optional[str] = None
     id: Optional[str] = None
     reserved_marker: Optional[str] = None
-    unverifiable: Optional[str] = None  # "submodule" | "external" | None
+    unverifiable: Optional[str] = None  # external ownership / canonical successor kind
 
     @property
     def is_drift(self) -> bool:
@@ -168,6 +227,7 @@ def check_paths(
 ) -> list[PathCheck]:
     sections = load_sections(deps_edn)
     subs = submodule_roots(repo_root)
+    west_orgs = configured_west_orgs(deps_edn)
     results: list[PathCheck] = []
     for section in ("adrs", "modules"):
         for entry in sections[section]:
@@ -184,7 +244,12 @@ def check_paths(
                 unverifiable = "external"
             elif any(clean == s or clean.startswith(s + "/") for s in subs):
                 unverifiable = "submodule"
+            elif classify_west_project(clean, west_orgs):
+                unverifiable = "west-project"
+            successor = canonical_successor(repo_root, clean)
             resolved = (repo_root / clean).resolve()
+            if not resolved.exists() and successor is not None:
+                unverifiable, resolved = successor
             results.append(
                 PathCheck(
                     section=section,

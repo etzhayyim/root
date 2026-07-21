@@ -1,0 +1,4 @@
+;; etzhayyim.lint.no-new-shell — grandfathered first-party .sh baseline.
+;; Shrinks-only: porting a .sh to bb + deleting it drops it here. NEVER add by hand.
+;; Regenerate: bb lint:no-new-shell --update
+[]

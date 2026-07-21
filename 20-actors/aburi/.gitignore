@@ -1,8 +1,0 @@
-# aburi 炙り — G7 local-only personal data + generated artefacts.
-# data/local/ holds the MEMBER'S OWN consented exports (Google Takeout / Apple App-Privacy /
-# Google Play Data-safety / on-device permission dump). This repo is PUBLIC — an exposure export
-# in a commit is unrecoverable. NEVER commit, pin, publish, or post anything under data/local/.
-data/local/
-out/
-__pycache__/
-*.pyc

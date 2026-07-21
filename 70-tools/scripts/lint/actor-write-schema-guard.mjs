@@ -129,7 +129,7 @@ function collectViolationsForManifest(absPath) {
 }
 
 function main() {
-  const manifestPaths = globSync("20-actors/*/actor-manifest.jsonld", { cwd: ROOT })
+  const manifestPaths = globSync("orgs/etzhayyim/com-etzhayyim-*/actor-manifest.jsonld", { cwd: ROOT })
     .map((p) => path.join(ROOT, p))
     .sort();
 

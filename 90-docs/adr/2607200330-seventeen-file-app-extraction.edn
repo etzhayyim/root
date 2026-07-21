@@ -1,0 +1,8 @@
+{:schema "etzhayyim.adr/v1" :id "2607200330" :title "Extract seventeen-file active app artifacts" :status :accepted :date "2026-07-20"
+ :scope {:source-repository "etzhayyim/root" :source-revision "7c815d8a2119eb5d3ea35e6d719b43f1c2310b60" :directories 7 :tracked-files 119 :bytes 482144}
+ :decision {:classification :active-executable-ui-contract-or-runtime-artifact :existing-repository-overlap 0 :retired-shells 0 :destination-prefix "etzhayyim/com-etzhayyim-app-" :apps ["games" "kareyanagi" "lo" "open-ossekai" "otakiage" "po" "rare-earth"]}
+ :extraction-contract {:repository-visibility :private :canonical-files ["README.edn" "migration.edn"] :source-preservation "Every destination tree differs from its exact source tree only by the two canonical EDN files."}
+ :provenance {:per-directory "Adjacent *-MOVED.edn records source tree/count/bytes and exact destination SHA."}
+ :reference-classification {:removed-operational-allowlist ["open-ossekai"] :preserved-generated-inventory ["ai_etzhayyim.txt" "etzhayyim.txt" "pnpm-lock.yaml"] :preserved-historical ["80-data/reports/260309-fallback-path-classification.md"]}
+ :invariants {:canonical-record-format :edn :go-files-created 0 :tinygo-files-created 0 :flat-west-path "orgs/etzhayyim/com-etzhayyim-app-*"}
+ :verification [:private-repository :exact-remote-sha :source-tree-identity :edn-readable :operational-reference-audit :registry-freshness :layer-freeze-guard :tree-guard]}

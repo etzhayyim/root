@@ -7,18 +7,20 @@
 // POSTs the model list to the BPMN which does the diff + insert + audit.
 //
 // Usage:
-//   node 70-tools/scripts/shinshi/backfill-governance-edges.mjs
+//   MANIFEST_PATH=/path/to/models.json node 70-tools/scripts/shinshi/backfill-governance-edges.mjs
 //
 // Env:
 //   DISPATCHER_URL  (default https://dispatcher.etzhayyim.com)
-//   MANIFEST_PATH   (default 60-apps/etzhayyim-project-shinshi/260304-models-manifest.json)
+//   MANIFEST_PATH   required; the manifest belongs to the invoking standalone app/repository
 
 import { readFileSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 
 const DISPATCHER = (process.env.DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com").replace(/\/$/, "");
-const DEFAULT_MANIFEST = new URL("../../../60-apps/etzhayyim-project-shinshi/260304-models-manifest.json", import.meta.url);
-const MANIFEST = process.env.MANIFEST_PATH ?? DEFAULT_MANIFEST;
+const MANIFEST = process.env.MANIFEST_PATH;
+if (!MANIFEST) {
+  throw new Error("MANIFEST_PATH is required; numbered-layer app paths are no longer operational inputs");
+}
 
 const raw = readFileSync(MANIFEST, "utf8");
 const models = JSON.parse(raw);

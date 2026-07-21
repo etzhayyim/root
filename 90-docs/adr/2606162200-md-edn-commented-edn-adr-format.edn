@@ -1,0 +1,102 @@
+[{:db/id -1, :id                "adr-2606162200-md-edn-commented-edn-adr-format"
+ :title             "ADR-2606162200: .md.edn — markdown as commented EDN (doc = machine record, no YAML)"
+ :status            "accepted"
+ :doc-type          "adr"
+ :topic             "md-edn-commented-edn-adr-format"
+ :authoritative     true
+ :last-verified     "2026-06-16"
+ :priority          5.0
+ :axis              "architecture"
+ :weight            0.3
+ :priority-note     "Adds an OPTIONAL doc representation; Markdown stays the canonical human source per 90-docs/CLAUDE.edn. .md.edn is a content-equivalent commented-EDN sibling with a generated .md render. Does not amend the docs-system canon; offers a unified doc+metadata file that, unlike the 2.8MB single-line adr-index.edn, is hand-editable and merge-friendly."
+ :authoritative-for ["the .md.edn ADR file format" "etzhayyim.tools.adr-mdedn round-trip bridge"]
+ :depends-on        ["adr-2605170900-etzhayyim-root-adr-canonical-home"]
+ :related           ["adr-2606121143-deps-edn-line-split-canonical-format" "adr-2606162030-silicon-fab-flow-clj-port"]
+ :supersedes        []
+ :superseded-by     []
+
+ ;; ── body (markdown — #md verbatim) ──────────────────────────────────
+ :body
+ #md "# ADR-2606162200: .md.edn — markdown as commented EDN
+
+**Status**: accepted
+**Date**: 2026-06-16
+**Deciders**: Jun Kawasaki
+
+# Context
+
+ADR docs are Markdown with YAML front matter; the machine index lives separately in
+`90-docs/adr/adr-index.edn` — a 2.8 MB **single-line** EDN blob that is effectively
+un-hand-editable, hides corruption in a 1-line diff, and races badly in the shared
+checkout (the same failure class `deps.edn` hit, ADR-2606121143). YAML front matter is
+also untyped (`true`/`5.5`/dates are strings) and supports no comments or form-discard.
+
+The question: *can a single file be both the human doc AND a commented, typed,
+machine-readable record?* A true polyglot (renders as Markdown **and** parses as EDN
+for arbitrary prose) is not achievable — EDN's top level is one form, so free prose
+breaks parsing. But the inverse works cleanly.
+
+# Decision
+
+Adopt **`.md.edn`** as an optional, content-equivalent representation of an ADR:
+
+- The file is **one valid EDN map**. Metadata are **typed EDN** keys
+  (`:authoritative true`, `:priority 5.5`, `:depends-on [\"adr-…\"]`), so it supports
+  `;;` line comments and `#_` form-discard.
+- The prose body is a **`#md \"…\"` tagged string** — markdown verbatim, only `\"` and
+  `\\` escaped, newlines kept literal so it stays readable.
+- **`.md.edn` is canonical; the `.md` is a generated render** for GitHub display. A
+  bidirectional bridge, `etzhayyim.tools.adr-mdedn`, converts both ways and is
+  round-trip-exact on the DATA (metadata map + body), normalizing only incidental
+  whitespace:
+
+      .md  ──md->data──▶ {meta + :body} ──emit-mdedn──▶ .md.edn   (canonical)
+      .md.edn ─read-mdedn─▶ {meta + :body} ──mdedn->md──▶ .md       (render)
+
+- bb tasks: `bb adr:to-mdedn <*.md>` (migrate) and `bb adr:render <*.md.edn>`
+  (regenerate the .md). This ADR is itself authored as `.md.edn` and its `.md` is
+  generated — the format dogfoods itself.
+
+Markdown stays the canonical *human* source per `90-docs/CLAUDE.edn`; `.md.edn` is the
+typed, comment-bearing sibling.
+
+**Index generation (landed in this ADR).** `bb adr:index` regenerates
+`90-docs/adr/adr-index.edn` from every ADR's front matter (`.md` YAML or `.md.edn`),
+as a **canonical one-entry-per-line, clojure.edn-parseable** file — replacing the
+hand-edited 2.8 MB single-line blob that *did not even parse* (`Map literal must contain
+an even number of forms` — the deps.edn corruption class). The regeneration is provably
+safe: it covers all 848 ADR files (vs the old 750), drops 87 **orphan** entries that
+pointed at non-existent files (0 entries with a real file were lost), and ships a
+`bb adr:index-check` drift gate (fails when an ADR's front matter and the index diverge)
+for lefthook. `adr-index.edn` is henceforth GENERATED, never hand-edited.
+
+# Consequences
+
+- A doc's metadata and prose live in **one** file, typed and commentable, hand-editable
+  and merge-friendly (unlike the single-line index blob).
+- Cost: GitHub does not render `.md.edn`, so the `.md` must be regenerated on change
+  (a lefthook `--check` gate that fails on drift is the recommended enforcement).
+- `etzhayyim.tools.adr-mdedn` ships with 8 tests / 25 assertions; verified round-trip on
+  the real `2606162030` ADR (data-equal after both emit and render).
+- No docs-system invariant is amended; YAML-front-matter `.md` remains valid and
+  supported. Adoption is opt-in per ADR.
+
+# Alternatives Considered
+
+- **Embed nothing; keep YAML + hand-edited index.** Rejected: the single-line
+  `adr-index.edn` is the exact pain this addresses.
+- **True Markdown/EDN polyglot.** Rejected as infeasible for arbitrary prose (EDN top
+  level is one form).
+- **EDN front matter inside a `.md`** (option B): keeps GitHub rendering, parses the
+  front-matter block only. Viable and complementary, but the user chose the fully-EDN
+  `.md.edn` (option A) so the *whole* file is one commented EDN value.
+- **Line-split the index only** (the `deps.edn` treatment, ADR-2606121143). Helps the
+  index but leaves doc+metadata split across two files; subsumed once the index is
+  generated from `.md.edn`.
+
+# References
+
+- ADR-2605170900 (root = canonical home for open ADRs) · `90-docs/CLAUDE.edn` (docs rules)
+- ADR-2606121143 (deps.edn canonical line-split — the single-line-EDN failure class)
+- ADR-2606162030 (silicon fab-flow port — first ADR converted to `.md.edn`)
+- `70-tools/src/etzhayyim/tools/adr_mdedn.cljc` + `test_adr_mdedn.cljc`"}]

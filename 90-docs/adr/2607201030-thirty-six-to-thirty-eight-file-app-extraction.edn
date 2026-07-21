@@ -1,0 +1,7 @@
+{:schema "etzhayyim.adr/v1" :id "2607201030" :title "Extract thirty-six through thirty-eight-file active app artifacts" :status :accepted :date "2026-07-20"
+ :scope {:source-repository "etzhayyim/root" :source-revision "1316716c6b4bc3b1cba8c0188557b732ceffa054" :directories 6 :tracked-files 224 :bytes 1509283 :file-bands {36 1 37 2 38 3}}
+ :decision {:classification :active-executable-ui-contract-or-runtime-artifact :existing-repository-overlap 0 :retired-shells 0 :destination-prefix "etzhayyim/com-etzhayyim-app-" :apps ["open-banking" "drive" "yadoya" "okaimono" "open-saas" "sre"]}
+ :extraction-contract {:repository-visibility :private :canonical-files ["README.edn" "migration.edn"] :source-preservation "Every destination tree differs from its exact source tree only by the two canonical EDN files."}
+ :reference-classification {:removed-root-workspaces ["drive" "sre"] :regenerated-operational-allowlist ["okaimono" "open-banking"] :regenerated-policy-baselines ["cloudflare-edge-bff-policy-baseline.txt" "silent-catch-baseline.txt"] :preserved-historical-retirement ["open-saas"] :preserved-historical-fixture-provenance true :preserved-generated-inventory ["ai_etzhayyim.txt" "etzhayyim.txt" "pnpm-lock.yaml"]}
+ :invariants {:canonical-record-format :edn :go-files-created 0 :tinygo-files-created 0 :flat-west-path "orgs/etzhayyim/com-etzhayyim-app-*"}
+ :verification [:private-repository :exact-remote-sha :source-tree-identity :edn-readable :operational-reference-audit :registry-freshness :layer-freeze-guard :tree-guard]}

@@ -1,3 +1,0 @@
-# tatekata 建方 — Python dependencies (R0 scaffold, compute-only, offline)
-# No external deps for R0 (no kotoba host, no LLM, no requests, no stripe)
-# Agent runs in WASM Component Model context with host-provided imports.

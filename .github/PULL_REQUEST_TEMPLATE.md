@@ -29,8 +29,8 @@ YYMMDDhhmm under 90-docs/adr/. New ADRs should be in the PR diff.
 
 <!--
 Skip this section if the PR doesn't touch first-party Apache-2.0
-code under 10-protocol/ / 20-actors/ / 40-engine/ / 50-infra/ /
-60-apps/ / 70-tools/. For first-party packages, confirm:
+code retained by this repository. Standalone packages are checked in their
+own repositories. For first-party packages, confirm:
 -->
 
 - [ ] CHARTER-RIDER.md present in package root (real file or symlink within the same repo boundary; see ADR-2605192200 + the iter-24/iter-31 subrepo-symlink notes)

@@ -1,0 +1,27 @@
+{
+  "did": "did:web:etzhayyim.com:actor:Kizuna 絆",
+  "handle": "Kizuna 絆.etzhayyim.com",
+  "displayName": "Kizuna 絆",
+  "description": "",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "絆",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.kizuna",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-kizuna/data/seed-interactions.kotoba.edn",
+    "didDocument": "https://etzhayyim.com/actor/Kizuna 絆/did.json",
+    "source": "kotoba"
+  }
+}

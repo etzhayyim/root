@@ -1,0 +1,29 @@
+{
+  "did": "did:web:etzhayyim.com:actor:hoshimori",
+  "handle": "hoshimori.etzhayyim.com",
+  "displayName": "hoshimori",
+  "description": "Off-Earth / orbital (軌道) stewardship mirror — weaves orbital regimes / operators / hazards / services from PUBLIC catalogs into the kotoba Datom log; surfaces orbital-congestion concentration vs stewardship routed to STEWARDSHIP (orbital sustainability); shell-aggregate, no-targeting, no precise ephemeris.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-07T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "星守",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2606073600"
+    ],
+    "primaryLexicon": "com.etzhayyim.hoshimori",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/hoshimori/did.json",
+    "source": "kotoba"
+  }
+}

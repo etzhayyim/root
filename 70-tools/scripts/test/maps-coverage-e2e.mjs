@@ -161,7 +161,7 @@ for (const m of EXPECTED_MIGRATIONS) {
 
 // ─── F: BPMN runPending WHERE clause uses the UDF ─────────────────────
 header("runPendingCoverageJobs uses UDF in WHERE");
-const runPendingPath = resolve(ROOT, "00-contracts/bpmn/com/etzhayyim/maps/runPendingCoverageJobs.bpmn");
+const runPendingPath = resolve(ROOT, "orgs/etzhayyim/com-etzhayyim-maps/wire/bpmn/maps/runPendingCoverageJobs.bpmn");
 const runPending = readFileSync(runPendingPath, "utf8");
 if (!runPending.includes("maps_source_dispatch_kind(")) {
   fail("runPendingCoverageJobs.bpmn: WHERE clause does not call maps_source_dispatch_kind — drift risk");
@@ -177,7 +177,7 @@ if (!runPending.includes("multiInstanceLoopCharacteristics")) {
 
 // ─── G: advanceCoverage uses the gap-ranked view ──────────────────────
 header("advanceCoverage uses view_maps_coverage_gap_ranked");
-const advPath = resolve(ROOT, "00-contracts/bpmn/com/etzhayyim/maps/advanceCoverage.bpmn");
+const advPath = resolve(ROOT, "orgs/etzhayyim/com-etzhayyim-maps/wire/bpmn/maps/advanceCoverage.bpmn");
 const adv = readFileSync(advPath, "utf8");
 if (!adv.includes("view_maps_coverage_gap_ranked")) {
   fail("advanceCoverage.bpmn: does not query view_maps_coverage_gap_ranked");

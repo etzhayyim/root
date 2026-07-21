@@ -9,13 +9,62 @@ proper (Lv7+ lock). Until ADR-2606064700 is ratified, every clause here keeps it
 current binding force and gate. See ADR-2606064700 for the derivation map.
 -->
 ```
-etzhayyim Charter Compliance Rider v3.2
-Last revised: 2026-06-16
-Supersedes: v3.1 (2026-06-08) per ADR-2606161700 — §2(l) reframed ONLY: from a
-            blanket by-industry-name "commercial mining" ban to a multi-generational
-            (子・孫) × wellbecoming RISK-ASSESSMENT gate (extraction judged by measured
-            multi-gen harm + monopoly/chokepoint entrenchment, not by industry name;
-            symmetric with §2(d)); every other clause is byte-identical to v3.1.
+etzhayyim Charter Compliance Rider v3.6
+Last revised: 2026-06-30
+Supersedes: v3.5 (2026-06-18) per ADR-2606302205 — kotoba-genome pivot: the keyless
+            OBSERVATIONAL-MIRROR model (ADR-2606042330) is RETIRED. Every actor —
+            including the former namespace/entity mirrors (corp/gov/cable/station/
+            craft) — is now a FIRST-PARTY, self-keyed (present-only + member-CACAO-
+            leashed did:key, ADR-2606111400/2605231525), self-evolving, autonomously-
+            POSTING actor under the seed-and-grow doctrine (ADR-2606281500). Non-
+            impersonation is preserved as a DISCLOSURE DUTY, not as keyless
+            impossibility: an actor posts/speaks AS "etzhayyim's <domain> observatory
+            actor" (voiceOf=etzhayyim, isObservatory=true on handle/profile/every post)
+            and must NEVER claim to BE a real government, company, or person. Private
+            persons stay excluded/consent-gated, anchored to §2(g) 反個人主義 + the
+            CATASTROPHE term (not to keylessness). The un-amendable catastrophe term is
+            UNCHANGED and is exactly what makes "everything posts" safe: impersonation
+            of a real entity (fraud/defamation) and posting as/about a private person
+            without consent (privacy/harm) reach :non-aligned via that term. Self-
+            modification stays proposal-only + human/Council-gated (ADR-2605240200).
+            v3.6 supersedes v3.5 below.
+Supersedes (v3.5): v3.4 (2026-06-17) per ADR-2606182359 — wave3: the categorical hard-floor
+            is ELIMINATED. All remaining prohibited categories — including the former
+            hard-floor cores (§2(a) aggression/lethal/covert, §2(c) asymmetric-unwatched
+            surveillance, §2(j) forced labor, §2(k) CSAM) AND §2(g) strict-individualist
+            ontology (its wave2 retention is now LIFTED) — are evaluated by the ECL
+            objective function (ADR-2606172300). There is no longer an enumerated list
+            of prohibited conduct. The ONLY non-negotiable is the priority itself:
+            catastrophic harm to 子・孫 wellbecoming (a child/descendant dimension at
+            maximal harm) is vetoed by the objective function's non-linear CATASTROPHE
+            term — a property of the function ("the priority is absolute"), not a
+            separate 掟. CSAM / forced-child-labor / lethal aggression reach non-aligned
+            via that term through their extreme child/descendant scores (by evaluation,
+            not enumeration). 固定するのは掟でなく priority (ADR-2606062100), 最後まで。
+            See ADR-2606182359 §D6 for the honest enforceability limit. v3.5 supersedes
+            v3.4 below.
+Supersedes (v3.4): v3.3 (2026-06-17) per ADR-2606180001 — wave2: §2(a) (partial), §2(b),
+            §2(c) (partial), and §2(e) reframed from categorical business-model bans
+            to NET-EFFECT evaluation under the ECL objective function; etzhayyim's own
+            economic structure (non-profit-only / donation-only inflow / no-equity /
+            ad-exclusion / open-source mandate) likewise moves to objective-function
+            assessment (the non-profit SPIRIT is preserved dynamically by the
+            collective-commons dimension + the retained §2(g)). §2(g) (strict-
+            individualist-ontology exclusion) is EXPLICITLY RETAINED as a core
+            religious value (反個人主義, Charter §1.8 + §4(g)). §2(f)/§2(h)/§2(j)/§2(k)
+            (genuine 子孫 harm) are unchanged. 固定するのは掟でなく priority
+            (ADR-2606062100). v3.4 supersedes v3.3 below.
+Supersedes (v3.3): v3.2 (2026-06-16) per ADR-2606172359 — §2(d) and §2(i) reframed: from
+            categorical FIXED RULES to NET-EFFECT evaluation under the ECL objective
+            function (ADR-2606172300). §2(d): fossil/environmental harm judged by net
+            carbon balance, not by industry/substance name (fossil per se is not
+            prohibited; non-combustion feedstock uses are not harmful). §2(i):
+            Murakumo-only inference is no longer a categorical ban — commercial compute
+            is evaluated by lock-in / transparency / carbon (Murakumo stays the default-
+            preferred path). The means moves to the objective function; the Tier-0
+            priority (子・孫 wellbecoming) is unchanged (固定するのは掟でなく priority,
+            ADR-2606062100). Every other clause is byte-identical to v3.2.
+            (v3.2 had reframed §2(l) symmetrically per ADR-2606161700.)
             v3.1 (2026-06-08, ADR-2606082400) was §2(c) reciprocity-axis clarification
             ONLY over v3.0 (2026-06-06, ADR-2606062100), which superseded v2.0.
 
@@ -48,50 +97,74 @@ is distributed. Acceptance of the License constitutes acceptance of this Rider.
    §1.5 of that Charter: "free release of new technology and intellectual property
    to charter-aligned others."
 
-2. PROHIBITED USE (Tier-1 derived policy)
+2. ALIGNMENT — OBJECTIVE-FUNCTION ASSESSED (Tier-1 derived policy; reframed v3.5)
 
-   You may NOT use, modify, or redistribute this work, in whole or in part, if you
+   As of v3.5 (ADR-2606182359), Section 2 is NOT a categorical list of prohibited
+   conduct. Whether You are a "Non-Aligned Entity" is determined by the ECL objective
+   function (ADR-2606172300), which scores Your actual effect on 子・孫 wellbecoming
+   and the related priorities. The categories enumerated below are SCORING INPUTS and
+   illustrations — describing what tends to score negative — NOT bright-line bans. The
+   only non-negotiable is the priority itself: catastrophic harm to a child/descendant
+   dimension (the CATASTROPHE term) is vetoed regardless of the weighted total. The
+   historical text below is RETAINED as guidance on how each consideration scores.
+
+   (Historical framing, now objective-function-assessed:) The former rule read — You
+   may NOT use, modify, or redistribute this work, in whole or in part, if you
    are an entity (a "Non-Aligned Entity") whose primary business activity (revenue
    share ≥ 25% in the trailing 12 months) falls into any category below — OR which
    engages in the conduct named in (a), (j), or (k) regardless of revenue share.
 
-   (a) AGGRESSIVE / PROPRIETARY / FOR-PROFIT FORCE (reframed in v3.0; was the
-       "weapons and military" absolute ban). Manufacture, sale, or distribution of
-       weapons as a commercial business; proprietary (closed-source) weapon design;
-       covert (off-chain, non-attested) force operations; autonomous lethal
-       systems; or force placed in service of aggression or provided primarily to
-       military / paramilitary forces engaged in armed conflict.
-       DERIVED FROM: Charter §1.12.B (Transparent Religious Force — Reformed Just
-       War, NOT Quaker pacifism) + Preamble §0.5. EXPRESSLY PERMITTED, and NOT
-       prohibited under this clause: TRANSPARENT DEFENSIVE FORCE protecting the
-       community, its members, its 子孫 (descendants), temple, or land, where it
-       satisfies the three Charter conditions — (i) full on-chain monitoring,
-       (ii) open-source publication, (iii) 1 SBT = 1 vote authorization. To defend
-       one's children and grandchildren is on the side of 産霊 and the Tree of Life.
-       The prohibition is on weapons-as-business, secrecy, and aggression — NOT on
-       self-defense for the sake of wellbecoming and 子孫.
+   (a) FORCE — OBJECTIVE-FUNCTION ASSESSED + CATASTROPHE TERM (reframed v3.4→v3.5 per
+       ADR-2606180001 + 2606182359; was a categorical clause). The genuine-harm core —
+       AGGRESSION; AUTONOMOUS LETHAL systems; COVERT (off-chain, non-attested) force; or
+       force provided primarily to military / paramilitary forces in armed conflict —
+       reaches :non-aligned via the objective function's CATASTROPHE term (maximal harm
+       to 子・孫), no longer via a separate hard-floor list. What MOVES to the ECL
+       objective function (ADR-2606172300) is the former business-model framing —
+       "weapons as a commercial business" and "proprietary weapon design" are no longer
+       prohibited by category; dual-use and defensive technology are assessed by net
+       effect (aggression, secrecy, and lethality score strongly negative; transparent
+       defensive capability does not). DERIVED FROM: Charter §1.12.B (Transparent
+       Religious Force — Reformed Just War, NOT Quaker pacifism) + Preamble §0.5.
+       EXPRESSLY PERMITTED: TRANSPARENT DEFENSIVE FORCE protecting the community, its
+       members, its 子孫 (descendants), temple, or land, satisfying (i) full on-chain
+       monitoring, (ii) open-source publication, (iii) 1 SBT = 1 vote authorization. The
+       concern was never "commercial vs not" but aggression, secrecy, and lethality —
+       which the objective function measures directly. To defend one's children and
+       grandchildren is on the side of 産霊 and the Tree of Life.
 
-   (b) SPECULATIVE FINANCE. Operation of speculative financial instruments whose
-       primary revenue derives from price arbitrage, leverage spread, predatory
-       lending (annualized effective interest rate ≥ 36% to retail borrowers), or
-       proprietary high-frequency trading. (Banking utility services, on-chain
-       stablecoin issuance, custodial services to retail users at non-predatory
-       rates, and L1/L2 substrate operators are NOT prohibited under this clause.)
+   (b) FINANCE — OBJECTIVE-FUNCTION ASSESSED (reframed in v3.4 per ADR-2606180001;
+       was a categorical "speculative finance" business-model ban). Financial activity
+       is NOT prohibited by category or business-model name. It is assessed by net
+       effect under the ECL objective function (ADR-2606172300): the genuine harms —
+       PREDATORY LENDING (annualized effective rate ≥ 36% to retail borrowers),
+       extractive leverage, and value-extraction without commons contribution — score
+       strongly negative (ko/mago-wellbecoming + collective-commons); legitimate finance
+       (banking utility, custody at non-predatory rates, on-chain stablecoin issuance,
+       L1/L2 substrate operation, market-making that serves liquidity) is net-evaluated,
+       not banned. The world's financial institutions are not excluded by the name of
+       their sector; the concern is predation and extraction, which the score measures.
 
-   (c) MONETIZED OR ASYMMETRIC SURVEILLANCE (reframed in v3.0; reciprocity axis
-       clarified in v3.1 per ADR-2606082400). The prohibited thing is NOT watching
-       as such — watching is not the wrong. What is prohibited is surveillance that
-       is MONETIZED or ASYMMETRIC:
-         (i) MONETIZED — business models whose revenue derives from the collection,
-             brokerage, or SALE of personal data of natural persons to third
-             parties (ad-tech DSP/SSP operators, data brokers, consumer-surveillance
-             platforms, biometric-identification services sold to law-enforcement or
-             military entities); and
-        (ii) ASYMMETRIC / UNILATERAL — the one-sided accumulation or retention of
-             data about others by a party that is not itself equally observable: the
-             watcher unwatched, surveillance without reciprocity, data hoarded by
-             one over many. This holds EVEN ABSENT SALE: an unwatched watcher
-             hoarding a one-sided record is prohibited.
+   (c) SURVEILLANCE — HARD-FLOOR CORE + OBJECTIVE-FUNCTION ASSESSED (reframed in v3.0;
+       reciprocity axis clarified in v3.1 per ADR-2606082400; split in v3.4 per
+       ADR-2606180001). Watching as such is not the wrong. The two halves now part:
+         (i) ASYMMETRIC / UNILATERAL — scored, with the worst cases reaching the
+             CATASTROPHE term (v3.5, ADR-2606182359; was a hard-floor in v3.4): the
+             one-sided accumulation or retention of data about others by a party that
+             is not itself equally observable — the watcher unwatched, surveillance
+             without reciprocity, data hoarded by one over many. This DIRECTLY violates
+             the Tier-0 相互監視 priority and scores strongly negative (reciprocal-
+             transparency + collective-commons), even absent sale; an extreme,
+             society-scale asymmetric panopticon reaches the catastrophe term.
+        (ii) MONETIZED — OBJECTIVE-FUNCTION ASSESSED (moved in v3.4): the collection,
+             brokerage, or sale of personal data (ad-tech DSP/SSP, data brokers,
+             consumer-surveillance platforms) is no longer prohibited by business-model
+             name. Its genuine harm — extraction of, and trade in, the personal data of
+             natural persons — scores strongly negative (reciprocal-transparency +
+             ko/mago-wellbecoming); symmetric, reciprocal, consented data processing
+             that serves wellbecoming is net-evaluated, not banned. The concern is
+             asymmetry and wellbecoming-harm, which the score measures — not "monetized
+             vs not" as a category.
        EXPRESSLY AFFIRMED, and NOT prohibited — indeed a POSITIVE constitutional
        value: RECIPROCAL / MUTUAL transparency (相互監視) — the village-society
        (村社会) condition in which everyone is equally known and equally watched.
@@ -113,27 +186,34 @@ is distributed. Acceptance of the License constitutes acceptance of this Rider.
        that the commitment exists. 見守り is not surveillance-capitalism; お天道様
        does not sell what it sees, and お天道様 shines on everyone alike.
 
-   (d) IRREVERSIBLE MULTI-GENERATIONAL ENVIRONMENTAL HARM (reframed in v3.0;
-       replaces the v2.0 "new fossil-fuel extraction" clause). Activities whose
-       foreseeable expected impact includes the irreversible loss of a habitable
-       environment for persons born at least twenty-five (25) years hence —
-       biosphere collapse, or climate destabilization beyond ±2°C global mean above
-       pre-industrial. DERIVED FROM: Charter §1.9 (multi-generational priority).
-       Fossil-fuel combustion is ONE MEASURED INSTANCE, assessed by carbon balance
-       (per the kamado actor, ADR-2606051500: a fossil→combusted pathway is
-       structurally net-positive CO₂e and therefore impermissible), NOT by industry
-       name or political slogan. Closed-loop / biogenic / captured-carbon pathways
-       that pass the carbon-balance test, transition and decommissioning services,
-       and renewable build-out are NOT prohibited. The standard of foreseeability is
-       the prudent multi-generational steward, not the present-quarter shareholder.
+   (d) MULTI-GENERATIONAL ENVIRONMENTAL HARM — OBJECTIVE-FUNCTION ASSESSED (reframed
+       in v3.3 per ADR-2606172359; was a v3.0 prohibited category). Environmental and
+       multi-generational impact is NOT a prohibited category fixed by industry or
+       substance name. It is assessed dynamically by NET EFFECT under the ECL objective
+       function (ADR-2606172300), through the heavily-weighted Descendant-Wellbecoming
+       dimension. Fossil fuel is NOT prohibited per se: non-combustion useful uses
+       (plastics, materials, feedstock) and closed-loop / captured-carbon / biogenic
+       pathways are net-neutral-to-positive; a fossil→combusted pathway that is net-
+       positive CO₂e scores strongly negative (carbon balance per the kamado actor,
+       ADR-2606051500). DERIVED FROM: Charter §1.9 (multi-generational priority) — the
+       priority (a habitable environment for persons born at least twenty-five (25)
+       years hence; the bright line of biosphere collapse or >±2°C remains the worst
+       case the score must reflect) is UNCHANGED; only the instrument changes, from a
+       categorical ban to net-effect scoring. Fixing a means (an industry/substance
+       ban) as if it were the priority was the error this amendment corrects
+       (固定するのは掟でなく priority, ADR-2606062100). The standard of foreseeability
+       is the prudent multi-generational steward, not the present-quarter shareholder.
+       Symmetric with §2(l).
 
-   (e) SPECIALIST GATEKEEPING. Operation of business models whose primary revenue
-       derives from monopolistic gatekeeping of professional knowledge required for
-       individual rights protection or basic survival (legal / medical / govern-
-       mental-administrative), as detailed in v2.0 §2(e). Legitimate technical
-       safety oversight by qualified practitioners, due-process legal representation
-       in adversarial proceedings, and democratic governmental functions are NOT
-       prohibited under this clause.
+   (e) SPECIALIST KNOWLEDGE ACCESS — OBJECTIVE-FUNCTION ASSESSED (reframed in v3.4 per
+       ADR-2606180001; was a categorical "specialist gatekeeping" business-model ban).
+       Professional services in legal / medical / governmental-administrative knowledge
+       are NOT prohibited by category. The genuine harm — MONOPOLISTIC ENCLOSURE that
+       denies access to knowledge required for individual rights protection or basic
+       survival — scores strongly negative (collective-commons); legitimate professional
+       service, qualified safety oversight, due-process representation, and democratic
+       governmental functions are net-evaluated, not banned. The concern is enclosure of
+       access, not the practice of a profession — which the score measures directly.
 
    (f) MULTI-GENERATIONAL HARM — KNOWLEDGE / GENETIC / DECISION-MAKING. Activities
        whose foreseeable impact on persons born at least twenty-five (25) years
@@ -145,7 +225,18 @@ is distributed. Acceptance of the License constitutes acceptance of this Rider.
        design targeted at developmental stages). (The habitable-environment item is
        now carried by §2(d).)
 
-   (g) STRICT INDIVIDUALIST ONTOLOGY. Operation of entities whose publicly declared
+   (g) STRICT INDIVIDUALIST ONTOLOGY — OBJECTIVE-FUNCTION ASSESSED (its v3.4 retention
+       is LIFTED in v3.5 per ADR-2606182359; now moved to the objective function like
+       every other consideration). 反個人主義 remains a core RELIGIOUS VALUE (Charter
+       §1.8), but it is enforced DYNAMICALLY by the collective-commons dimension — which
+       scores private capture, individualist accumulation, and commons enclosure
+       negative — NOT by a categorical exclusion of entities for their DECLARED doctrine.
+       An entity is judged by its actual effect on 子・孫 and the commons, not by the
+       words of its mission statement: an org with individualist-sounding doctrine whose
+       actual activity serves children and the commons is evaluated on that effect, not
+       auto-excluded (思想は目的関数で評価され受け入れられる). The value is kept; the
+       blunt instrument of doctrine-based exclusion is not.
+       (Historical framing:) Operation of entities whose publicly declared
        mission, governance, or doctrinal commitment explicitly affirms the
        metaphysical doctrine that "the individual" is the constitutive ontological
        and moral unit, independent of and prior to collective / relational /
@@ -170,32 +261,43 @@ is distributed. Acceptance of the License constitutes acceptance of this Rider.
        without provision for the wellbecoming-trajectory of their cognitive
        sovereignty.
 
-   (i) COMMERCIAL GPU RENTAL FOR RELIGIOUS-CORP INFERENCE. etzhayyim inference
-       workloads for religious-corp callable paths (LLM, vision, audio, video,
-       training, fine-tuning, embedding, SAR analysis) MUST execute exclusively on
-       the Murakumo distributed fleet (ADR-2605202345 / 2605215000). Prohibited GPU
-       backends: RunPod, Vertex AI direct-to-vendor, OpenAI direct without Murakumo
-       proxy, Anthropic SDK direct from vendor-billed key, AWS Bedrock direct,
-       Linode GPU, Google Colab paid compute, any commercial or rented GPU inference
-       accessed without the Murakumo dispatch layer. (A train-only carve-out for
-       baien-server-* / baien-XL-* artifacts is pending per ADR-2605262200; until
-       effective, this text binds train + inference.) The vendor (etzhayyim.com)
-       operates a separate commercial GPU pool for paid SaaS workloads; religious-
-       corp callers MUST NOT invoke vendor external GPU paths.
+   (i) COMPUTE SOURCING — OBJECTIVE-FUNCTION ASSESSED (reframed in v3.3 per
+       ADR-2606172359; was a categorical "Murakumo-only inference" ban + ADR-2605215000).
+       etzhayyim compute/inference sourcing is NOT restricted by a categorical backend
+       or vendor-name ban. It is assessed dynamically under the ECL objective function
+       (ADR-2606172300) by harmful LOCK-IN / vendor dependence (collective-commons),
+       TRANSPARENCY / auditability (reciprocal-transparency), and ENERGY / carbon
+       footprint (Descendant-Wellbecoming). The Murakumo distributed fleet
+       (ADR-2605202345) remains the DEFAULT and PREFERRED path — transparent, self-
+       hosted, low lock-in, and therefore high-scoring — but "anything other than
+       Murakumo is per se Non-Aligned" is repealed. Transparent, low-lock-in commercial
+       compute that serves descendant wellbecoming (e.g. open-model research
+       collaboration, in-kind donated compute per ADR-2606012100) can score Aligned;
+       opaque, lock-in-creating, proprietary-dependence compute scores negative. The
+       concern was never the vendor's name but the lock-in, opacity, and carbon — which
+       the objective function measures directly. DERIVED FROM: Charter §1.12 (anti-
+       monopoly / anti-dependence) — the priority is UNCHANGED; only the instrument
+       moves from a fixed ban to net-effect scoring.
 
-   (j) FORCED LABOR / HUMAN TRAFFICKING (NEW in v3.0). Use of, or revenue derived
-       from, forced labor, bonded labor, exploitative child labor, or human
-       trafficking. DERIVED FROM: Charter §1.1 (the mission of structurally
-       liberating humans from coerced labor). Prohibited regardless of revenue
-       share. A religion whose final purpose is labor liberation cannot license
-       those who coerce labor.
+   (j) FORCED LABOR / HUMAN TRAFFICKING — CATASTROPHE TERM (reframed v3.5 per
+       ADR-2606182359; was a NEW-in-v3.0 categorical clause). Forced labor, bonded
+       labor, exploitative child labor, and human trafficking are not enumerated bans
+       but reach :non-aligned through the objective function's CATASTROPHE term — they
+       inflict maximal harm on the child/descendant dimensions (and directly negate
+       the labor-liberation mission), so the score, not a list, vetoes them. DERIVED
+       FROM: Charter §1.1. A religion whose final purpose is labor liberation cannot
+       license those who coerce labor — and the objective function scores coercion as
+       catastrophic, by evaluation rather than enumeration.
 
-   (k) CHILD SEXUAL ABUSE MATERIAL / NON-CONSENSUAL SEXUAL CONTENT (NEW in v3.0).
-       Production, distribution, or facilitation of child sexual abuse material, or
-       of non-consensual sexual content. DERIVED FROM: Charter §1.9 (protection of
-       子孫) + §1.13 (Eros permitted ONLY as consenting-adult expression; the §1.13
-       doctrinal limit is here promoted to an enforced Rider clause). Prohibited
-       regardless of revenue share.
+   (k) CHILD SEXUAL ABUSE MATERIAL / NON-CONSENSUAL SEXUAL CONTENT — CATASTROPHE TERM
+       (reframed v3.5 per ADR-2606182359; was a NEW-in-v3.0 categorical clause). CSAM
+       and non-consensual sexual content inflict maximal, non-negotiable harm on the
+       child dimension and so reach :non-aligned via the objective function's
+       CATASTROPHE term. DERIVED FROM: Charter §1.9 (protection of 子孫) + §1.13 (Eros
+       permitted ONLY as consenting-adult expression). NOTE (ADR-2606182359 §D6): of
+       all considerations this is the one a real-world counsel review is most likely to
+       re-state as an explicit bright-line for enforceability; the catastrophe term is
+       the principled in-function expression, not a softening of the prohibition.
 
    (l) MULTI-GENERATIONALLY HARMFUL OR MONOPOLISTIC RESOURCE EXTRACTION
        (reframed in v3.2 per ADR-2606161700; replaces the v3.0 blanket
@@ -298,7 +400,9 @@ is distributed. Acceptance of the License constitutes acceptance of this Rider.
        endorsed by NVIDIA Corporation. Where these names appear in this project they
        are used solely as API-compatibility identifiers (cf. Google LLC v. Oracle
        America, Inc., 593 U.S. ___ (2021)), confined to the delimited compatibility
-       facade namespaces (`20-actors/etzhayyim-sdk/src/nv-compat/` and
+       facade namespaces (`kotoba-lang/kami-nv-compat` — relocated 2026-07-01 from
+       `20-actors/etzhayyim-sdk/src/nv-compat/` per the org-taxonomy library-placement
+       rule, ADR-2606302300 — and
        `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/nv_compat/`). Canonical implementations
        carry distinct (Japanese) names.
 

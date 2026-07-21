@@ -1,0 +1,84 @@
+# no-server-key: read substrate is kotoba; record writes are member/operator-gated upstream.
+# Independent etzhayyim atproto PDS (clj + kotoba). Replaces the gftd-hosted
+# alias for atproto.etzhayyim.com. Public ingress = CF Tunnel → atproto.etzhayyim.com
+# on the etzhayyim.com zone (NOT the gftd.ai worker).
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: etzhayyim-atproto-pds
+  namespace: atproto
+  labels:
+    app: etzhayyim-atproto-pds
+    substrate: kotoba
+    lang: clojure
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: etzhayyim-atproto-pds
+  template:
+    metadata:
+      labels:
+        app: etzhayyim-atproto-pds
+    spec:
+      imagePullSecrets:
+        - name: ghcr-pull
+      containers:
+        # ── Main: babashka PDS ─────────────────────────────────────────────
+        - name: pds
+          image: ghcr.io/etzhayyim/etzhayyim-atproto-pds:clj-canary
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8787
+          env:
+            - name: PORT
+              value: "8787"
+            - name: PDS_HOST
+              value: "atproto.etzhayyim.com"
+            - name: PDS_USER_DOMAINS
+              value: "etzhayyim.com"
+            - name: APPVIEW_URL
+              value: "https://bsky.etzhayyim.com"
+            - name: CHAT_URL
+              value: "https://chat.etzhayyim.com"
+            - name: PDS_CONTACT
+              value: "support@etzhayyim.com"
+            # kotoba Datom-log backend. Unset → in-process datom log (NOT prod).
+            - name: KOTOBA_URL
+              valueFrom:
+                secretKeyRef:
+                  name: etzhayyim-atproto-pds-secrets
+                  key: KOTOBA_URL
+            - name: KOTOBA_GRAPH
+              value: "etzhayyim-pds"
+          resources:
+            requests: { cpu: "100m", memory: "256Mi" }
+            limits:   { cpu: "1000m", memory: "1Gi" }
+          readinessProbe:
+            httpGet: { path: /health, port: http }
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            httpGet: { path: /health, port: http }
+            initialDelaySeconds: 15
+            periodSeconds: 15
+        # ── Sidecar: cloudflared tunnel (etzhayyim.com zone) ───────────────
+        - name: cloudflared
+          image: cloudflare/cloudflared:latest
+          args: ["tunnel", "--no-autoupdate", "run", "--token", "$(TUNNEL_TOKEN)"]
+          env:
+            - name: TUNNEL_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: etzhayyim-atproto-pds-tunnel-token
+                  key: token
+          resources:
+            requests: { cpu: "50m",  memory: "64Mi" }
+            limits:   { cpu: "250m", memory: "256Mi" }
+      restartPolicy: Always

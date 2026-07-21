@@ -8,7 +8,8 @@
 ;;   - ChaCha20-Poly1305 AEAD: RFC 8439 §2.8.2
 
 (ns etzhayyim.kotoba.test-crypto
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [clojure.edn :as edn]
+            [clojure.test :refer [deftest is testing]]
             [clojure.java.io :as io]
             [cheshire.core :as json]
             [etzhayyim.kotoba.crypto :as c]
@@ -100,6 +101,11 @@
     (testing "wrong key fails"
       (is (thrown? Exception (enc/open (byte-array 32) env))))))
 
+(deftest encrypted-plaintext-decoder-rejects-reader-eval
+  (is (thrown? RuntimeException
+               (enc/*decode-plaintext*
+                (.getBytes "#=(System/getProperty \"user.home\")" "UTF-8")))))
+
 (def ^:private vectors-path
   "00-contracts/lexicons/com/etzhayyim/encrypted/test-vectors.json")
 
@@ -123,7 +129,7 @@
       (testing "envelope re-derivation matches the file"
         (let [env (enc/seal (hex->b (:sym_key env-v))
                             (hex->b (:nonce24 env-v))
-                            (read-string (:plaintext_edn env-v))
+                            (edn/read-string (:plaintext_edn env-v))
                             (:opts env-v))]
           (is (= (get-in env-v [:expected_record :ciphertext]) (:ciphertext env)))
           (is (= (get-in env-v [:expected_record :keyId]) (:keyId env)))

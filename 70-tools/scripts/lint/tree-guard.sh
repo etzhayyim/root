@@ -36,9 +36,8 @@ err()  { printf '\xe2\x9c\x98 tree-guard: %s\n' "$1"; fail=1; }
 
 # ── 1. sentinel files ────────────────────────────────────────────────
 for f in deps.edn CLAUDE.md CHARTER-RIDER.md LICENSE LANDS.md MEMBERS.md \
-         90-docs/adr/README.md 90-docs/_registry/docs.json .gitmodules \
-         00-contracts 10-protocol 20-actors 30-graph 50-infra 60-apps \
-         70-tools 90-docs; do
+         90-docs/adr/README.edn 90-docs/_registry/docs.json .gitmodules \
+         00-contracts 50-infra 70-tools 90-docs; do
   if ! git cat-file -e "HEAD:$f" 2>/dev/null; then
     err "sentinel missing from HEAD tree: $f"
   fi

@@ -13,8 +13,8 @@ nusa declares the invariant in THREE places and this suite proves they agree:
       `:hemp/thc-class :db/allowed [:fiber :low-thc]` (no :psychoactive).
   enforcement point 2 — the published lexicons (`com.etzhayyim.nusa.*`):
       thcClass `enum` is exactly [fiber, low-thc].
-  enforcement point 3 — the analyzer guard (`methods/analyze.py`):
-      `screen_thc` raises ValueError on :psychoactive (and on a missing class).
+  enforcement point 3 — the analyzer guard (`methods/analyze.cljc`):
+      `screen-thc` raises ex-info on :psychoactive (and on a missing class).
 
 Invariants under test:
 
@@ -22,7 +22,7 @@ Invariants under test:
      :psychoactive is absent.
   2. G1 (lexicon) — fiberProvenance + hempCultivar thcClass enum match the
      ontology set and exclude psychoactive.
-  3. G1 (guard) — ALLOWED_THC_CLASSES matches; screen_thc raises on
+  3. G1 (guard) — allowed-thc-classes matches; screen-thc raises on
      :psychoactive and on a cultivar with no thc-class.
   4. G4 — cultivationLicensePlan is member-principal / no-fiat-inflow:
      licenseePrincipal const "member", signedBy enum ["member"], fundingSource
@@ -32,13 +32,16 @@ Invariants under test:
      licence filing gated to Council Lv6+ + operator).
   7. G1 — fiberProvenance.screened is const true (a provenance record exists
      ONLY after the fibre/THC screen passes).
+
+NOTE: enforcement point 3 now exercises the cljc port (methods/analyze.cljc via
+bb subprocess) since the Python methods/analyze.py was migrated to cljc.
 """
 
 from __future__ import annotations
 
-import importlib.util
 import json
 import re
+import subprocess
 from pathlib import Path
 
 import pytest
@@ -46,7 +49,7 @@ import pytest
 _REPO = Path(__file__).resolve().parents[3]
 _ONTOLOGY = _REPO / "00-contracts" / "schemas" / "ritual-hemp-ontology.kotoba.edn"
 _LEX = _REPO / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "nusa"
-_ANALYZE = _REPO / "20-actors" / "nusa" / "methods" / "analyze.py"
+_ACTORS = _REPO / "20-actors"
 
 # The ONLY representable THC classes (G1). :psychoactive is unrepresentable.
 _EXPECTED_THC = {"fiber", "low-thc"}
@@ -68,11 +71,15 @@ def _ontology_thc_allowed() -> set[str]:
     return {tok.lstrip(":") for tok in re.findall(r":[a-z0-9-]+", m.group(1))}
 
 
-def _import_analyze():
-    spec = importlib.util.spec_from_file_location("nusa_analyze", _ANALYZE)
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
-    return mod
+def _bb(expr: str) -> subprocess.CompletedProcess:
+    """Run a Clojure expression via bb with the actors classpath."""
+    return subprocess.run(
+        ["bb", "--classpath", str(_ACTORS), "-e", expr],
+        capture_output=True,
+        text=True,
+        check=False,
+        cwd=str(_REPO),
+    )
 
 
 # ─────────────────────────────────────────────────────────────────────────
@@ -118,17 +125,60 @@ def test_g1_lexicon_thc_enum_matches_and_excludes_psychoactive():
 
 
 def test_g1_guard_rejects_psychoactive_and_missing_class():
-    analyze = _import_analyze()
-    assert {c.lstrip(":") for c in analyze.ALLOWED_THC_CLASSES} == _EXPECTED_THC, (
-        f"G1: ALLOWED_THC_CLASSES drifted; got {analyze.ALLOWED_THC_CLASSES}"
+    """G1: screen-thc MUST raise on :psychoactive and on a cultivar with no thc-class (via bb)."""
+    # Verify allowed-thc-classes set agrees with the expected set
+    result_classes = _bb(
+        "(require '[nusa.methods.analyze :as a])"
+        "(pr (into #{} (map #(clojure.string/replace % #\"^:\" \"\") a/allowed-thc-classes)))"
     )
-    with pytest.raises(ValueError):
-        analyze.screen_thc({"hemp.bad": {":hemp/id": "hemp.bad", ":hemp/thc-class": ":psychoactive"}})
-    with pytest.raises(ValueError):
-        analyze.screen_thc({"hemp.x": {":hemp/id": "hemp.x"}})  # no thc-class at all
-    # a clean fibre cultivar passes.
-    ok = analyze.screen_thc({"hemp.ok": {":hemp/id": "hemp.ok", ":hemp/thc-class": ":fiber"}})
-    assert isinstance(ok, dict)
+    assert result_classes.returncode == 0, f"bb failed: {result_classes.stderr}"
+    classes_str = result_classes.stdout.strip()
+    for expected in _EXPECTED_THC:
+        assert expected in classes_str, (
+            f"G1: allowed-thc-classes missing {expected!r}; got {classes_str!r}"
+        )
+    for bad in _FORBIDDEN_THC:
+        assert bad not in classes_str, (
+            f"G1 VIOLATION: {bad!r} found in allowed-thc-classes; got {classes_str!r}"
+        )
+
+    # screen-thc must throw on :psychoactive
+    result_psy = _bb(
+        "(require '[nusa.methods.analyze :as a])"
+        "(def r (try (a/screen-thc"
+        "              {\"hemp.bad\" {\":hemp/id\" \"hemp.bad\" \":hemp/thc-class\" \":psychoactive\"}})"
+        "            :no-throw (catch Exception e :threw)))"
+        "(pr r)"
+    )
+    assert result_psy.returncode == 0, f"bb failed: {result_psy.stderr}"
+    assert ":threw" in result_psy.stdout, (
+        "G1: screen-thc MUST throw on :psychoactive THC class "
+        f"(structurally unrepresentable); stdout={result_psy.stdout!r}"
+    )
+
+    # screen-thc must throw on missing thc-class
+    result_missing = _bb(
+        "(require '[nusa.methods.analyze :as a])"
+        "(def r (try (a/screen-thc {\"hemp.x\" {\":hemp/id\" \"hemp.x\"}})"
+        "            :no-throw (catch Exception e :threw)))"
+        "(pr r)"
+    )
+    assert result_missing.returncode == 0, f"bb failed: {result_missing.stderr}"
+    assert ":threw" in result_missing.stdout, (
+        "G1: screen-thc MUST throw on a cultivar with no thc-class "
+        f"(nil class is rejected); stdout={result_missing.stdout!r}"
+    )
+
+    # a clean fibre cultivar passes
+    result_clean = _bb(
+        "(require '[nusa.methods.analyze :as a])"
+        "(def r (a/screen-thc {\"hemp.ok\" {\":hemp/id\" \"hemp.ok\" \":hemp/thc-class\" \":fiber\"}}))"
+        "(pr (map? r))"
+    )
+    assert result_clean.returncode == 0, f"bb failed: {result_clean.stderr}"
+    assert "true" in result_clean.stdout, (
+        f"G1: a clean :fiber cultivar should pass screen-thc; stdout={result_clean.stdout!r}"
+    )
 
 
 # ─────────────────────────────────────────────────────────────────────────

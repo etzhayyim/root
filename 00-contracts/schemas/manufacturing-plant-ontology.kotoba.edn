@@ -1,0 +1,114 @@
+;; tatara 鑪 — global manufacturing-plant + logistics-hub ontology (ADR-2606171800)
+;; ============================================================================
+;; The geographic / facility-scale layer the kabuto supply-chain KG (org→org edges,
+;; ADR-2606022000) and uchiwake product-BOM KG (ADR-2606081800) sit ABOVE: where the
+;; world's manufacturing actually SITS on the planet, at what scale, feeding which
+;; logistics corridors. Sibling of the 取-concentration mirror lineage
+;; (kabuto / tsumugi / inochi): edge-primary geographic CONCENTRATION routed to
+;; REDUNDANCY / reshoring options — a resilience map, NEVER a target-list.
+;;
+;; Substrate: kotoba Datom log (EAVT, content-addressed, append-only — 非終末論).
+;; Every node/edge carries :*/sourcing ∈ :authoritative | :representative | :synthesized.
+;;
+;; ── CONSTITUTIONAL boundary on worker data (read this) ──────────────────────────
+;; :plant/headcount-est is the DISCLOSED, AGGREGATE facility-employment figure — the
+;; kind of number a public annual report or a city economic profile already prints
+;; ("this plant employs ~N people"). It is a SIZE, exactly like :plant/floor-area-m2 or
+;; kabuto's :company/market-cap-busd. It is NOT, and MUST NEVER become, per-worker
+;; monitoring: there is NO :worker/* and NO :person/* attribute in this ontology — an
+;; individual worker, their pace, location, biometrics, or shift is STRUCTURALLY
+;; UNREPRESENTABLE (Charter Rider §2(c) reciprocity axis: no asymmetric labour
+;; surveillance; Wellbecoming §1.13; mirrors sarutahiko/itonami/niyaku G2). The seed
+;; and tests enforce this by construction.
+;; ============================================================================
+
+[;; ───────────────────────────── :plant/* — a manufacturing facility ─────────────────────────────
+ {:db/ident :plant/id           :db/valueType :db.type/string  :db/cardinality :db.cardinality/one :db/unique :db.unique/identity
+  :db/doc "Stable plant id, e.g. \"plant.tsmc.fab18-tainan\"."}
+ {:db/ident :plant/name         :db/valueType :db.type/string  :db/cardinality :db.cardinality/one
+  :db/doc "Human-readable facility name."}
+ {:db/ident :plant/operator     :db/valueType :db.type/string  :db/cardinality :db.cardinality/one
+  :db/doc "Operating company id, joins kabuto org.corp.* — a COMPANY, never a person (G4)."}
+ {:db/ident :plant/country      :db/valueType :db.type/string  :db/cardinality :db.cardinality/one
+  :db/doc "ISO-3166 alpha-2 country of the facility."}
+ {:db/ident :plant/region       :db/valueType :db.type/string  :db/cardinality :db.cardinality/one
+  :db/doc "Sub-national region / city (coarse — never a precise street address)."}
+ {:db/ident :plant/lat          :db/valueType :db.type/double  :db/cardinality :db.cardinality/one
+  :db/doc "Latitude, ROUNDED to ~0.01° city/campus scale (G1 — never a precise interior coordinate)."}
+ {:db/ident :plant/lon          :db/valueType :db.type/double  :db/cardinality :db.cardinality/one
+  :db/doc "Longitude, rounded to ~0.01° city/campus scale."}
+ {:db/ident :plant/sector       :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+  :db/doc ":semiconductor | :automotive | :battery | :steel | :chemicals | :electronics | :aerospace | :shipbuilding | :pharma"}
+ {:db/ident :plant/products     :db/valueType :db.type/string  :db/cardinality :db.cardinality/many
+  :db/doc "What the facility makes (disclosed product classes; never a confidential recipe — uchiwake N-boundary)."}
+ {:db/ident :plant/established  :db/valueType :db.type/long    :db/cardinality :db.cardinality/one
+  :db/doc "Year the facility began operation (disclosed)."}
+ {:db/ident :plant/headcount-est :db/valueType :db.type/long   :db/cardinality :db.cardinality/one
+  :db/doc "AGGREGATE disclosed facility-employment figure (a SIZE, like market-cap). NOT per-worker data; no :worker/* attribute exists (constitutional, see header)."}
+ {:db/ident :plant/floor-area-m2 :db/valueType :db.type/long   :db/cardinality :db.cardinality/one
+  :db/doc "Approx built floor area in m² — factory SCALE."}
+ {:db/ident :plant/capacity-value :db/valueType :db.type/double :db/cardinality :db.cardinality/one
+  :db/doc "Numeric annual PRODUCTION CAPACITY value (disclosed/estimated)."}
+ {:db/ident :plant/capacity-unit :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+  :db/doc "Unit for :plant/capacity-value — :wafers-300mm-kpm | :vehicles-yr | :gwh-yr | :tonnes-yr | :units-yr | :aircraft-yr | :gt-yr (compressed-gross-tonnage)."}
+ {:db/ident :plant/capacity-note :db/valueType :db.type/string :db/cardinality :db.cardinality/one
+  :db/doc "Human-readable capacity statement."}
+ {:db/ident :plant/sourcing     :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+  :db/doc ":authoritative | :representative | :synthesized (G5 sourcing honesty)."}
+
+ ;; ───────────────────────────── :hub/* — a logistics node (port / airport / rail / DC) ─────────────────────────────
+ {:db/ident :hub/id             :db/valueType :db.type/string  :db/cardinality :db.cardinality/one :db/unique :db.unique/identity}
+ {:db/ident :hub/name           :db/valueType :db.type/string  :db/cardinality :db.cardinality/one}
+ {:db/ident :hub/country        :db/valueType :db.type/string  :db/cardinality :db.cardinality/one}
+ {:db/ident :hub/lat            :db/valueType :db.type/double  :db/cardinality :db.cardinality/one}
+ {:db/ident :hub/lon            :db/valueType :db.type/double  :db/cardinality :db.cardinality/one}
+ {:db/ident :hub/kind           :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+  :db/doc ":seaport | :airport | :rail-hub | :inland-port | :distribution-center"}
+ {:db/ident :hub/throughput-value :db/valueType :db.type/double :db/cardinality :db.cardinality/one
+  :db/doc "Annual throughput value (disclosed)."}
+ {:db/ident :hub/throughput-unit :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+  :db/doc ":teu-m (million TEU) | :tonnes-m | :pax-m"}
+ {:db/ident :hub/sourcing       :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one}
+
+ ;; ───────────────────────────── :flow/* — a logistics / shipping flow edge (plant → hub / hub → hub) ─────────────────────────────
+ {:db/ident :flow/id            :db/valueType :db.type/string  :db/cardinality :db.cardinality/one :db/unique :db.unique/identity}
+ {:db/ident :flow/from          :db/valueType :db.type/string  :db/cardinality :db.cardinality/one
+  :db/doc "Origin id — a :plant/id or :hub/id."}
+ {:db/ident :flow/to            :db/valueType :db.type/string  :db/cardinality :db.cardinality/one
+  :db/doc "Destination id — a :hub/id (export gateway) or a market keyword id."}
+ {:db/ident :flow/mode          :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+  :db/doc ":sea | :air | :rail | :road | :inland-water"}
+ {:db/ident :flow/commodity     :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+  :db/doc ":finished-goods | :components | :raw-material | :chemicals | :vehicles"}
+ {:db/ident :flow/via           :db/valueType :db.type/keyword :db/cardinality :db.cardinality/many
+  :db/doc "Maritime/air chokepoint keyword(s) the flow traverses — SHARED with watari :lane/chokepoint + watatsuna :station/chokepoint (:malacca :luzon-strait :suez-red-sea :hormuz :panama :gibraltar :taiwan-strait). The join key that composes the three maps."}
+ {:db/ident :flow/sourcing      :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one}
+
+ ;; ───────────────────────────── :chokepoint/* — a first-class maritime chokepoint (geographic anchor) ─────────────────────────────
+ ;; The SHARED join entity: :chokepoint/keyword is the same keyword carried by :flow/via,
+ ;; watari :lane/chokepoint, and watatsuna :station/chokepoint. Promoting it from a bare keyword
+ ;; to a node with coordinates lets the three maps plot the SAME geographic hotspot.
+ {:db/ident :chokepoint/id      :db/valueType :db.type/string  :db/cardinality :db.cardinality/one :db/unique :db.unique/identity
+  :db/doc "Stable id, e.g. \"chokepoint.malacca\"."}
+ {:db/ident :chokepoint/keyword :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+  :db/doc "The shared chokepoint keyword (= :flow/via member = watari :lane/chokepoint = watatsuna :station/chokepoint)."}
+ {:db/ident :chokepoint/name    :db/valueType :db.type/string  :db/cardinality :db.cardinality/one}
+ {:db/ident :chokepoint/lat     :db/valueType :db.type/double  :db/cardinality :db.cardinality/one
+  :db/doc "Representative latitude of the chokepoint (coarse — a corridor, not a target point; G1/G2)."}
+ {:db/ident :chokepoint/lon     :db/valueType :db.type/double  :db/cardinality :db.cardinality/one}
+ {:db/ident :chokepoint/sourcing :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one}
+
+ ;; ───────────────────────────── derived :concentration/* — analyzer output (NEVER re-ingested as fact) ─────────────────────────────
+ {:db/ident :concentration/sector        :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+  :db/doc "Sector this concentration datom summarizes."}
+ {:db/ident :concentration/hhi           :db/valueType :db.type/double  :db/cardinality :db.cardinality/one
+  :db/doc "Herfindahl-Hirschman index of plant-count share by COUNTRY within the sector (0..1). High = geographically concentrated = single-region fragility."}
+ {:db/ident :concentration/top-country   :db/valueType :db.type/string  :db/cardinality :db.cardinality/one}
+ {:db/ident :concentration/top-share     :db/valueType :db.type/double  :db/cardinality :db.cardinality/one}
+ {:db/ident :concentration/single-source :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one
+  :db/doc "True if one country holds > 0.6 of the sector's charted plants (redundancy/reshoring candidate — NOT a target)."}
+ {:db/ident :concentration/chokepoint    :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one}
+ {:db/ident :concentration/chokepoint-plants :db/valueType :db.type/long :db/cardinality :db.cardinality/one
+  :db/doc "Distinct charted plants whose export flows traverse this chokepoint."}
+ {:db/ident :concentration/derived       :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one
+  :db/doc "Always true — a derived signal, recomputed on read, never re-ingested as :authoritative fact."}]

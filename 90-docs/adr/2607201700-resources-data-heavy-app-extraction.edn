@@ -1,0 +1,7 @@
+{:schema "etzhayyim.adr/v1" :id "2607201700" :title "Extract resources data-heavy application" :status :accepted :date "2026-07-20"
+ :scope {:source-repository "etzhayyim/root" :source-revision "12a72c2868363274caec20f82df39b6de883032a" :tracked-files 1424 :bytes 7014535 :git-tree "a5d5f21a37bb07afab7fb5fb6436a9a36ba789ca"}
+ :decision {:classification :data-heavy-independent-application :destination "etzhayyim/com-etzhayyim-app-resources" :root-common-substrate false}
+ :extraction-contract {:repository-visibility :private :canonical-files ["README.edn" "migration.edn"] :source-preservation "Destination differs from the exact source tree only by canonical EDN files."}
+ :reference-classification {:stale-upstream-baseline {:before 2 :after 1 :removed ["resources"] :remaining ["news"]} :regenerated-policy-baselines true :preserved-historical-fixture-provenance true}
+ :invariants {:canonical-record-format :edn :go-files-created 0 :tinygo-files-created 0 :flat-west-path "orgs/etzhayyim/com-etzhayyim-app-*"}
+ :verification [:private-repository :exact-remote-sha :source-tree-identity :byte-count :edn-readable :subrepo-audit :registry-freshness]}

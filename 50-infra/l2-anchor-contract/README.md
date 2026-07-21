@@ -76,7 +76,7 @@ After deploy, update [`deps.toml [platform.operating_entity].anchorContract`] wi
 ## See also
 
 - [ADR-2605171800](../../90-docs/adr/2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md) — pipeline
-- [ADR-2605172000](../../90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) — substrate
+- [ADR-2605172000](../../90-docs/adr/2605172000-etzhayyim-kotoba-substrate.md) — substrate
 - `../anchor-cron/` — the off-chain caller
 - Base docs — https://docs.base.org/
 - Foundry book — https://book.getfoundry.sh/

@@ -58,6 +58,7 @@ logs/
 !.env.example
 *.pem
 *.key
+**/signing-key.edn
 *.csr
 *.crt
 secrets/
@@ -132,7 +133,6 @@ foundry.lock
 # Deploy-output snapshots (SvelteKit/Vite client builds) regenerated from source
 # by the deploy pipeline. NOT committed: a bundled GA/gtag dependency would
 # otherwise ship via stale committed builds. Source is GA-free. Untracked 2026-06-04.
-60-apps/etzhayyim-project-email-service-adapter/appview/outlook-mcp-component/static-ui/
 60-apps/etzhayyim-project-mailer/appview/mailer-mcp-component/static-ui/
 60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/_svelte/
 60-apps/etzhayyim-project-pachinko/wasm/pachinko-mcp-component/static/_app/
@@ -148,3 +148,45 @@ foundry.lock
 # Council-authorised live-ingest DataLad datasets (data → DataLad/git-annex/IPFS, not git).
 # Git-tracked pointer = 80-data/coverage-manifests/<name>-manifest.json (ADR-2605241500 + 2606111330).
 /80-data/*-coverage/
+
+# sops/age (ADR-2606241500): plaintext actor secrets are NEVER committed — only
+# the sops *.enc.* ciphertext siblings are. The global `secrets/` rule above
+# ignores the whole directory, and git cannot re-include a file whose PARENT dir
+# is excluded — so re-include the directory FIRST, then re-ignore its contents,
+# then re-include only the ciphertext (+ a .gitkeep).
+!20-actors/*/secrets/
+20-actors/*/secrets/*
+!20-actors/*/secrets/*.enc.*
+!20-actors/*/secrets/.gitkeep
+20-actors/monosashi/data/*.datoms.kotoba.edn
+
+# manimani personal-knowledge-router intake (ADR-2606302038 + 2605291100 §D5):
+# PII tier-3 / confidential. This repo is PUBLIC, so the interim Phase-0 intake
+# journals that hold real Gmail/PC correspondence (subjects, parties, legal/tax
+# detail) are kept LOCAL and never committed — they are the plaintext hot tier
+# that the eventual kotoba QuadStore + E2E Vault (CID-over-ciphertext, pinned to
+# kotobase.net) replaces. Only the PII-free README pointer is tracked.
+/80-data/manimani/*
+!/80-data/manimani/README.md
+
+# kotoba-genome W2 — organism learning runtime artifacts (local memory + projection;
+# deployed from the working tree by the publish agent, not tracked). ADR-2606302205 D1.
+80-data/organism/genome.state.edn
+50-infra/etzhayyim-did-web/public/organism/genome.json
+60-apps/etzhayyim-project-organism/public/genome.json
+
+# kotoba-genome W4-live R0 — generated first-party observatory registry (reproducible via bb observatory:regen)
+80-data/observatory/registry.r0.edn
+80-data/observatory/submission.plan.edn
+80-data/observatory/diddoc/
+
+# spirit-in-physics は submodule でなく west 管理 (superproject: orgs/com-junkawasaki/spirit-in-physics ほか)。ローカル残骸は不追跡 (2026-07-02)
+/60-apps/spirit-in-physics/
+/80-data/spirit-in-physics/
+
+# actor self-sovereign aozora identity (etzhayyim.aozora-identity — private key, NEVER commit)
+20-actors/*/.*/identity.edn
+
+# central actor identity custody (ADR-2607022300 — private keys, NEVER commit)
+.e7m/identity/
+/60-apps/etzhayyim-chat-shell/svelte/.shadow-cljs/

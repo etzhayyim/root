@@ -1,0 +1,7 @@
+# RETIRED — flat west repositories are the actor source of truth.
+#
+# Josh subtree projections applied only to the former monorepo layout. Actor
+# repositories are now cloned directly at orgs/etzhayyim/com-etzhayyim-* and
+# must not project or write through etzhayyim/root. This empty workspace is
+# retained so an installed josh service fails closed instead of recreating a
+# legacy subtree view.

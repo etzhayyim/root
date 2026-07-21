@@ -1,1 +1,0 @@
-import{Z as e,nt as t,w as n}from"../chunks/C5-eYWG4.js";import"../chunks/xihTtKlq.js";import{r}from"../chunks/DQ2oNHbJ.js";import"../chunks/CfNfRJvK.js";function i(i){n(`1uha8ag`,n=>{e(()=>{t.title=`YORO`})}),r(i,{})}export{i as component};

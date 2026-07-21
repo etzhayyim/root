@@ -25,7 +25,7 @@ import pytest
 
 _REPO = Path(__file__).resolve().parents[3]
 _LEX = _REPO / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "futawa"
-_MANIFEST = _REPO / "20-actors" / "futawa" / "manifest.jsonld"
+# manifest invariants -> orgs/etzhayyim/com-etzhayyim-futawa/methods/test_manifest_invariants.cljc (jsonld retired)
 
 # (lexicon stem, field) → expected const true. The structural compliance gates.
 _TRUE_GATES = [
@@ -114,10 +114,3 @@ class TestHygieneAndManifest:
         for p in _LEX.glob("*.json"):
             assert _load(p)["id"] == f"com.etzhayyim.futawa.{p.stem}"
 
-    def test_manifest_namespaces_match_disk(self):
-        declared = {ns.rsplit(".", 1)[-1] for ns in _load(_MANIFEST)["lexiconNamespaces"]}
-        on_disk = {p.stem for p in _LEX.glob("*.json")}
-        assert declared == on_disk, f"manifest namespaces vs disk drifted: {declared ^ on_disk}"
-
-    def test_did(self):
-        assert _load(_MANIFEST)["id"] == "did:web:etzhayyim.com:futawa"

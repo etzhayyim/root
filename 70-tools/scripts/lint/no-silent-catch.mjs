@@ -30,7 +30,6 @@ const EXCLUDE_GLOBS = [
   '!**/_svelte/**',
   '!**/static/assets/**',
   '!40-engine/kami-engine/kami-engine-sdk/src/lib/genko/genko-embed.ts',
-  '!60-apps/etzhayyim-project-pptx/wasm/etzhayyim-wasm-pptx-t53br1o0/src/editor-html.ts',
 ];
 
 // Pattern A: Promise catch with no error parameter

@@ -1,0 +1,32 @@
+{
+  "did": "did:web:etzhayyim.com:actor:hagukumi",
+  "handle": "hagukumi.etzhayyim.com",
+  "displayName": "育み — Care",
+  "description": "Daily-living care actor (childcare ages 2+ / eldercare / chronic-care continuity / meal delivery / respite support). Delivers L4 Care Tier of the Liberation Ladder. Privacy-first: ADR-2605181100 XChaCha20 envelope mandatory; no video recording; structural anti-surveillance enforcement.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-05-26T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "育み",
+  "displayNameJa": "育み — Care",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2605261030",
+      "2605261030",
+      "reserved"
+    ],
+    "primaryLexicon": "com.etzhayyim.hagukumi",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/hagukumi/did.json",
+    "source": "kotoba"
+  }
+}

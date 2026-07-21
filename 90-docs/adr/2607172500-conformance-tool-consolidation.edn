@@ -1,0 +1,23 @@
+[{:db/id -1
+  :adr/id "adr-2607172500-conformance-tool-consolidation"
+  :adr/title "ADR-2607172500: _conformance is a shared Clojure lint, not an actor repository"
+  :adr/topic "conformance-tool-consolidation"
+  :adr/status "accepted"
+  :adr/doc_type "adr"
+  :adr/source-format "edn"
+  :adr/date "2026-07-17"
+  :adr/last_verified "2026-07-17"
+  :adr/authoritative true
+  :adr/authoritative_for
+  ["classification and canonical location of legacy 20-actors/_conformance"
+   "retirement of the Python lexicon const guard"]
+  :adr/related ["adr-2606032100" "adr-2606032130"
+                "adr-2607172000-etzhayyim-gftdcojp-flat-west-multirepo-root-retirement"]
+  :adr/decision
+  {:classification :shared-tool
+   :retired-location "20-actors/_conformance"
+   :canonical-location "70-tools/src/etzhayyim/lint/test_lexicon_consts.cljc"
+   :language :clojure
+   :repository :etzhayyim/root
+   :verification {:tests 4 :assertions 19 :failures 0 :errors 0}}
+  :adr/body "The legacy _conformance directory had no actor identity, state, runtime, manifest, or repository boundary. Its single Python file was a cross-actor constitutional lint. It is consolidated into the shared Clojure lint suite rather than published as a false actor repository."}]

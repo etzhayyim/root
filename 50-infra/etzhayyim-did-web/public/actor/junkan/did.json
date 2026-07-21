@@ -1,0 +1,37 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/suites/jws-2020/v1"
+  ],
+  "id": "did:web:etzhayyim.com:actor:junkan",
+  "alsoKnownAs": [
+    "did:web:junkan.etzhayyim.com"
+  ],
+  "verificationMethod": [],
+  "service": [
+    {
+      "id": "did:web:etzhayyim.com:actor:junkan#atproto_pds",
+      "type": "AtprotoPersonalDataServer",
+      "serviceEndpoint": "https://pds.aozora.app"
+    }
+  ],
+  "_meta": {
+    "adr": [
+      "2605212030",
+      "2605241800",
+      "2606013800",
+      "2606014500",
+      "2605290927",
+      "2606272355"
+    ],
+    "source": "kotoba",
+    "kind": "tier-b",
+    "status": "r0",
+    "glyph": "循環",
+    "wasmCid": null,
+    "execModel": "service",
+    "primaryLexicon": "com.etzhayyim.junkan",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-junkan/kotoba/ontology.junkan-gov.edn",
+    "note": "verificationMethod empty — on-chain ERC725 mirror pending; did:web trust root = TLS (no server-minted key, ADR-2605231525)"
+  }
+}

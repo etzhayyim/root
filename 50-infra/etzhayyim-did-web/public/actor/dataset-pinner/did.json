@@ -12,7 +12,7 @@
     {
       "id": "did:web:etzhayyim.com:actor:dataset-pinner#atproto_pds",
       "type": "AtprotoPersonalDataServer",
-      "serviceEndpoint": "https://pds.etzhayyim.com"
+      "serviceEndpoint": "https://pds.aozora.app"
     },
     {
       "id": "did:web:etzhayyim.com:actor:dataset-pinner#xrpc-libp2p-primary",

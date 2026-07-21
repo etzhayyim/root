@@ -170,13 +170,29 @@ export function entityActorRecord(handle: string): ActorRecord | null {
   if (name === undefined) return null;
 
   const did = `did:web:etzhayyim.com:actor:${handle}`;
-  // service[] points at the owning KG actor(s) — the mirror is rendered/
-  // maintained by them, there is NO per-entity server.
-  const service: ActorServiceEntry[] = ns.owners.map((owner) => ({
-    id: `${did}#mirror-source-${owner}`,
-    type: "EtzhayyimMirrorSource",
-    serviceEndpoint: `https://etzhayyim.com/actor/${owner}/did.json`,
-  })) as ActorServiceEntry[];
+  // service[]:
+  //  - #atproto_pds: a kagami mirror IS a registered ATProto actor so it can
+  //    POST its own observational mirror content AS the mirror (映す — ADR-2606232100
+  //    + 2606211752 四鏡則). This is NOT impersonation: posts come from the mirror's
+  //    own `did:web:etzhayyim.com:actor:<entity>` (whose profile opens with the
+  //    mirrorDisclaimer "NOT <entity> itself, no impersonation"), never as the real
+  //    entity. Keyless still holds — vm stays []; writes are member/operator-on-behalf
+  //    + CACAO leash (no-server-key, ADR-2606072802), exactly like the named kagami
+  //    lineage (tsumugi/danjo/kanae) that already post their observations.
+  //  - #mirror-source-*: the owning KG actor(s) that render/maintain the mirror;
+  //    there is NO per-entity server.
+  const service: ActorServiceEntry[] = [
+    {
+      id: `${did}#atproto_pds`,
+      type: "AtprotoPersonalDataServer",
+      serviceEndpoint: "https://pds.aozora.app",
+    },
+    ...ns.owners.map((owner) => ({
+      id: `${did}#mirror-source-${owner}`,
+      type: "EtzhayyimMirrorSource",
+      serviceEndpoint: `https://etzhayyim.com/actor/${owner}/did.json`,
+    })),
+  ] as ActorServiceEntry[];
 
   return {
     handle,

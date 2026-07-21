@@ -1,0 +1,32 @@
+{:schema "etzhayyim.adr/v1"
+ :id "2607200100"
+ :title "Extract twelve-file active app artifacts"
+ :status :accepted
+ :date "2026-07-20"
+ :scope {:source-repository "etzhayyim/root"
+         :source-revision "c9e7df4b327a3ee7b5ed25fb3480db45553c33ed"
+         :directories 18
+         :tracked-files 216
+         :bytes 549527}
+ :decision {:classification :active-executable-ui-contract-or-runtime-artifact
+            :existing-repository-overlap 0
+            :retired-shells 0
+            :destination-prefix "etzhayyim/com-etzhayyim-app-"
+            :apps ["cpc" "graph-sos-intel" "ka" "kabi" "keyboard" "kinoko"
+                   "kobo" "kouza" "market" "natural-person" "researcher-bio-gene"
+                   "roukisho" "runpod" "saikin" "shinka" "shomeisyashin"
+                   "warehouse" "yard-ops"]}
+ :extraction-contract {:repository-visibility :private
+                       :canonical-files ["README.edn" "migration.edn"]
+                       :source-preservation "Every destination tree differs from its exact source tree only by the two canonical EDN files."}
+ :provenance {:per-directory "Adjacent *-MOVED.edn records source tree/count/bytes and exact destination SHA."}
+ :reference-classification {:removed-operational-allowlist ["cpc" "shinka"]
+                            :preserved-historical-retirement ["runpod" "shinka"]
+                            :preserved-generated-inventory ["ai_etzhayyim.txt" "etzhayyim.txt" "pnpm-lock.yaml"]}
+ :invariants {:canonical-record-format :edn
+              :go-files-created 0
+              :tinygo-files-created 0
+              :flat-west-path "orgs/etzhayyim/com-etzhayyim-app-*"}
+ :verification [:private-repository :exact-remote-sha :source-tree-identity
+                :edn-readable :operational-reference-audit :registry-freshness
+                :layer-freeze-guard :tree-guard]}

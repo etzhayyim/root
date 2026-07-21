@@ -1,0 +1,13 @@
+{
+  "ui.disclaimer" : "Limite UPL: information + orientation + aide au remplissage uniquement. Pas de conseil, pas de mandataire. Le membre dépose lui-même.",
+  "actor.authority" : "市区町村 (住民の属する自治体) / 市区町村 (出生地 / 本籍地 / 届出人の所在地) / 市区町村 (受給者の住所地; 公務員は勤務先) / 転入先の市区町村",
+  "ui.self-submit" : "Dépôt personnel",
+  "actor.description" : "toritsugi authority-actor for regime 'jp-jichitai' (市区町村 (住民の属する自治体) / 市区町村 (出生地 / 本籍地 / 届出人の所在地) / 市区町村 (受給者の住所地; 公務員は勤務先) / 転入先の市区町村). Covers 4 procedure(s) across jurisdiction(s): jpn. Parent: toritsugi (ADR-2605312030). Keyless R0 mirror — no server key. 行政書士法/UPL boundary (G5): 情報提供+案内+入力補助 only, NO advice, NO 作成代理. Member self-submits (G15). NOT a 行政書士/弁護士 firm, NOT an official channel.",
+  "actor.displayName" : "Toritsugi-jp-jichitai — 市区町村 (住民の属する自治体)",
+  "procedure.list" : "住民票の写し交付請求 / 児童手当 認定請求 / 出生届 / 転入届",
+  "ui.accompany" : "Accompagner",
+  "actor.regime" : "jp-jichitai",
+  "ui.guide" : "Guide",
+  "procedure.count" : "4 procédures",
+  "actor.name" : "toritsugi-jp-jichitai"
+}

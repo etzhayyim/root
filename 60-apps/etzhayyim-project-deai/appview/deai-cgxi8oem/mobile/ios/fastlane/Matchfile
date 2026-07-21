@@ -1,6 +1,0 @@
-git_url("git@github.com:com-junkawasaki/deai-certificates.git")
-
-storage_mode("git")
-type("appstore")
-app_identifier(["com.etzhayyim.deai"])
-username("jun784@gmail.com")

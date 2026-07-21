@@ -1,0 +1,19 @@
+name = "meibo-worker"
+main = "src/worker.ts"
+compatibility_date = "2026-07-06"
+
+[build]
+command = "npm run build:cljs"
+
+# Anonymous, aggregate-only access analytics — same rationale as saisei-worker's
+# wrangler.toml (no cookies, no per-visitor identity, no client-side tracking script).
+[[analytics_engine_datasets]]
+binding = "MEIBO_ANALYTICS"
+dataset = "meibo_access"
+
+[observability]
+enabled = true
+head_sampling_rate = 1.0
+
+# No custom domain route yet — same zone:read-only constraint as saisei-worker.
+# See 50-infra/saisei-worker/README.md for the exact follow-up steps.

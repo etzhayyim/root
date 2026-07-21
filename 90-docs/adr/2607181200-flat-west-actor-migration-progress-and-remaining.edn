@@ -1,0 +1,497 @@
+[{:db/id -1
+  :adr/id "adr-2607181200-flat-west-actor-migration-progress-and-remaining"
+  :adr/title "Flat west actor migration: completed extraction ledger and remaining root drain"
+  :adr/status "accepted"
+  :adr/doc_type "adr"
+  :adr/source-format "edn"
+  :adr/date "2026-07-18"
+  :adr/last_verified "2026-07-18"
+  :adr/authoritative true
+  :adr/topic "flat-west-actor-migration-progress"
+  :adr/depends-on
+  ["adr-2607172000-etzhayyim-gftdcojp-flat-west-multirepo-root-retirement"]
+  :adr/authoritative-for
+  ["2026-07-18 actor migration progress snapshot"
+   "remaining 20-actors root-drain inventory"
+   "completion gates for subsequent actor extraction batches"]
+
+  :migration/path-policy
+  {:canonical "orgs/etzhayyim/com-etzhayyim-*"
+   :legacy-root "20-actors/*"
+   :legacy-root-after-move "MOVED.edn only"
+   :category-location :repository-metadata
+   :numbered-folders :legacy-drain-only}
+
+  :migration/format-policy
+  {:canonical-data :edn
+   :canonical-metadata :edn
+   :canonical-adr :edn
+   :allowed-wire-formats #{:json :jsonl :json-ld :bpmn-xml :wit}
+   :wire-rule "JSON, JSONL, JSON-LD, BPMN XML, and WIT may remain only as external protocol, tool, or component-interface artifacts under wire/."
+   :deprecated-languages #{:go :tinygo}
+   :deprecated-language-action :prune-not-port}
+
+  :migration/progress
+  {:baseline-actor-directories 198
+   :fully-integrated-actors 180
+   :fully-integrated-percent 90.91
+   :moved-tombstones 180
+   :remaining-root-directories 18
+   :completion-percent 90.91
+   :canonical-ledger "MULTIREPO-MIGRATION.edn"
+   :integration-base-root-revision "1ce8a65a8fe5b68aa5fda43004bf2bc14a5e13e7"
+   :integration-base-west-revision "5d33ded7fdd"
+   :latest-batch
+   [{:actor "tatara"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-tatara"
+     :revision "76f253ad01032bea1d3970cff2749d40108b8b45"
+     :verification {:tests 41 :assertions 3454}}
+    {:actor "tazuna"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-tazuna"
+     :revision "f180a777b466dd396ddf69373ac24ff7dac598d9"
+     :verification {:tests 45 :assertions 101}}
+    {:actor "tate"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-tate"
+     :revision "658b9f67aaa65d7aad5ffda280ec8feaae7a8bc2"
+     :verification {:tests 127 :assertions 7999}}
+    {:actor "tokigusuri"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-tokigusuri"
+     :revision "efe58dcffd1bba2a5a36228c0c7d99c7f30513ac"
+     :verification {:tests 28 :assertions 232}}
+    {:actor "torifune"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-torifune"
+     :revision "80e81d8b748ba6e2b952b95a44a5d572ca903dce"
+     :verification {:tests 27 :assertions 269}}
+    {:actor "tedai"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-tedai"
+     :revision "9c946eaed923dbba5342f66188b547ad282f0b4b"
+     :verification {:tests 83 :assertions 218}}
+    {:actor "tatekata"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-tatekata"
+     :revision "56c8550c7640f299c415f1c27b913404d95e7233"
+     :verification {:tests 51 :assertions 216}}
+    {:actor "tsubasa"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-tsubasa"
+     :revision "b54466782e45d901e8204540b928f8d843a8f3a6"
+     :verification {:tests 76 :assertions 641}}
+    {:actor "tsuchifumi"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-tsuchifumi"
+     :revision "26df6d5c24419bb6e4dcdac139a90877869f9e50"
+     :verification {:tests 56 :assertions 197}}
+    {:actor "tsukuru"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-tsukuru"
+     :revision "f6cdea1859da1a6a9cd1908e11578b21c533a98d"
+     :canonical-edn-files 83
+     :wire-artifacts {:json-and-json-ld 54 :bpmn-xml 32}
+     :verification {:tests 36 :assertions 645}}
+    {:actor "tsumugi"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-tsumugi"
+     :revision "e5b5d64806500ab0f7be0201d40e0edd477177cd"
+     :verification {:tests 149 :assertions 635}}
+    {:actor "tsutae"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-tsutae"
+     :revision "8e13b7143e891b73e5e0d8bc802954d5f6e1fb0e"
+     :verification {:tests 43 :assertions 181}}
+    {:actor "uchiwake"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-uchiwake"
+     :revision "6b95c5082954541e1ac700465745bc977b5af5c6"
+     :canonical-edn-files 19
+     :wire-artifacts {:json-and-json-ld 6 :bpmn-xml 0}
+     :verification {:tests 56 :assertions 838}}
+    {:actor "uzu"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-uzu"
+     :revision "46ebb2b3fc5c2f16d0a4441f1b0a047b6435e236"
+     :verification {:tests 108 :assertions 245
+                    :jvm {:tests 2 :assertions 5}}}
+    {:actor "wadachi"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-wadachi"
+     :revision "2961efbcad5a91a6569c73bdeb4666eebf25b554"
+     :verification {:tests 34 :assertions 125}}
+    {:actor "warifu"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-warifu"
+     :revision "a81d7218555866be962dc3fceeab4c8db85782a1"
+     :wire-artifacts {:json 6}
+     :verification {:tests 51 :assertions 195}}
+    {:actor "watatsumi"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-watatsumi"
+     :revision "c7f1b30c4ca987e9510c51393e8c55ecc3af1cd6"
+     :canonical-edn-files 38
+     :wire-artifacts {:json-and-json-ld 9 :bpmn-xml 0}
+     :verification {:tests 65 :assertions 397}}
+    {:actor "yadori"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-yadori"
+     :revision "88e893737dea6bf3d932688d41432937b912ce81"
+     :verification {:tests 50 :assertions 110}}
+    {:actor "yakushi"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-yakushi"
+     :revision "cbc01e5e132100bcf38cbe5e26f3d1048bb4c346"
+     :verification {:tests 36 :assertions 114}}
+    {:actor "yamabiko"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-yamabiko"
+     :revision "df4533ddff1c17e46aeadba3584b0b154793ea4b"
+     :canonical-edn-files 40
+     :wire-artifacts {:json-and-json-ld 10 :bpmn-xml 0}
+     :verification {:tests 108 :assertions 668}}
+    {:actor "todoke"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-todoke"
+     :revision "f525aa265f52d55634b38affb4891e41961a085c"
+     :canonical-edn-files 28
+     :wire-artifacts {:json-and-json-ld 6 :bpmn-xml 0}
+     :verification {:tests 40 :assertions 203
+                    :rust :not-run-unchanged-source-build-lock-busy}}
+    {:actor "yotei"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-yotei"
+     :revision "cc939a2e16d6f7f7f761bd07ec0e79bacce026c2"
+     :wire-artifacts {:bpmn-xml 23 :json 23 :json-ld 1}
+     :verification {:tests 26 :assertions 190}}
+    {:actor "yobel"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-yobel"
+     :revision "9e86d60491e3ddae646e26c12cd4433f8ab0272f"
+     :wire-artifacts {:total 8}
+     :verification {:tests 77 :assertions 223
+                    :integration {:status :known-failure
+                                  :reason :cumulative-over-cap-release-not-reverted}}}
+    {:actor "toritate"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-toritate"
+     :revision "1e42499a623f2e12c63a001b577b85788db64c9c"
+     :wire-artifacts {:json 9}
+     :verification {:tests 26 :assertions 59}}
+    {:actor "tadori"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-tadori"
+     :revision "2cdbab4a2564395915be45135f25fc0c021a2c9c"
+     :wire-artifacts {:json 4 :json-ld 1 :jsonl 1}
+     :verification {:tests 78 :assertions 219}}
+    {:actor "sukashi"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-sukashi"
+     :revision "db20a3b6c2b52c98a502b235bec03b45815eea0e"
+     :canonical-edn-files 20
+     :wire-artifacts {:json-and-json-ld 8 :bpmn-xml 0}
+     :verification {:tests 73 :assertions 733}}
+    {:actor "subaru"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-subaru"
+     :revision "65c49f0ac05b0a840a7fcc0a4126c78f9a772862"
+     :verification {:tests 27 :assertions 261}}
+    {:actor "suji"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-suji"
+     :revision "0330034d5d7d4bc389a0f24b45cabd715abf71b6"
+     :canonical-edn-files 17
+     :wire-artifacts {:json-ld 1 :wit 1}
+     :verification {:tests 64 :assertions 1078}}
+    {:actor "shomei"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-shomei"
+     :revision "e9ed6035da56f9a53e2487c35f4b87b22a82877b"
+     :canonical-edn-files 13
+     :wire-artifacts {:json-and-json-ld 6 :bpmn-xml 0}
+     :verification {:tests 151 :assertions 522}}
+    {:actor "shinka"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-shinka"
+     :revision "6c214d1e48624ee79434dd287e99a9d26d81145a"
+     :canonical-edn-files 23
+     :wire-artifacts {:json 12 :bpmn-xml 2}
+     :verification {:python-tests 123 :loop-c-assertions 7
+                    :clojure :not-run-unresolved-root-sibling-dependencies}}
+    {:actor "shionome"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-shionome"
+     :revision "8f695b3340eff5054a4fb3b6219ec1a3df7f9bf7"
+     :canonical-edn-files 11
+     :wire-artifacts {:json-and-json-ld 7 :wit 1}
+     :verification {:tests 195 :assertions 1154
+                    :ie-flow-suite :pending-shared-library-extraction}}
+    {:actor "sarutahiko"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-sarutahiko"
+     :revision "bdac84ad9550435785082a3fc227305442515686"
+     :canonical-edn-files 34
+     :wire-artifacts {:json-and-json-ld 10}
+     :verification {:tests 45 :assertions 364
+                    :legacy-python-parity-checks :skipped-after-python-prune}}
+    {:actor "sanae"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-sanae"
+     :revision "a7331d6263ee62659e0de56452adfaf793282089"
+     :canonical-edn-files 23
+     :wire-artifacts {:json-and-json-ld 7}
+     :verification {:tests 28 :assertions 125
+                    :jvm {:tests 9 :assertions 83}}}
+    {:actor "ossekai"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-ossekai"
+     :revision "f73923a590de5e0834db4cef08660ca6104b70c6"
+     :canonical-edn-files 12
+     :wire-artifacts {:json-and-json-ld 10}
+     :verification {:tests 49 :assertions 116 :runners [:babashka :jvm]}}
+    {:actor "ooyake"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-ooyake"
+     :revision "29f48f9be56c52849788867ecf9e6aaf81c5abc4"
+     :canonical-edn-files 75
+     :wire-artifacts {:json-json-ld-and-geojson 11}
+     :verification {:tests 32 :assertions 105}
+     :retained-tooling {:python-files 31 :shell-files 2}}
+    {:actor "omise"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-omise"
+     :revision "8619be47d581252f76ca5fb2b4b63ba217dc17d8"
+     :canonical-edn-files 12
+     :wire-artifacts {:json 45 :bpmn-xml 43}
+     :verification {:tests 38 :assertions 231
+                    :jvm {:tests 9 :assertions 174}}}
+    {:actor "organizer"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-organizer"
+     :revision "0cc5d1bd01fefa2aa0b3788f83dbd8c4175e1dd6"
+     :canonical-edn-files 8
+     :wire-artifacts {:bpmn-xml 19 :json-and-json-ld 20}
+     :verification {:tests 30 :assertions 191 :runners [:babashka :jvm]}}
+    {:actor "nyusatsu"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-nyusatsu"
+     :revision "326d0e833fddb1a56a55f84e2330d9479b5cd9d7"
+     :canonical-edn-files 10
+     :wire-artifacts {:json-ld 1}
+     :verification {:tests 26 :assertions 75}
+     :known-gap :substrate-sdk-payment-auth-codemod}
+    {:actor "nusa"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-nusa"
+     :revision "f69e4c6b47de6d01737169a8d79296187ed6e03f"
+     :canonical-edn-files 24
+     :wire-artifacts {:json 7}
+     :verification {:tests 39 :assertions 107 :jvm {:tests 9 :assertions 31}}}
+    {:actor "noroshi"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-noroshi"
+     :revision "ac28b7dff16e0fbadba6ccebb0cdcacd7f02592a"
+     :canonical-edn-files 20
+     :wire-artifacts {:json-and-json-ld 6 :wit 1}
+     :verification {:tests 259 :assertions 824}}
+    {:actor "niyaku"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-niyaku"
+     :revision "f0bcf98f40f65dc30ebd11065b7f0f32dcdc142f"
+     :canonical-edn-files 9
+     :wire-artifacts {}
+     :verification {:tests 53 :assertions 331}}
+    {:actor "moyoshi"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-moyoshi"
+     :revision "a0c3c79f1d2b0b1830f0e25d3b89e31427c2a03e"
+     :canonical-edn-files 11
+     :wire-artifacts {}
+     :verification {:tests 23 :assertions 76 :runners [:babashka :jvm]}}
+    {:actor "mizuho"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-mizuho"
+     :revision "f3828a9bf1580994ebf3f50f991ef89816109ea6"
+     :canonical-edn-files 8
+     :wire-artifacts {:json-and-json-ld 6}
+     :verification {:tests 39 :assertions 181}}
+    {:actor "mitsuho"
+     :repository "https://github.com/etzhayyim/com-etzhayyim-mitsuho"
+     :revision "dc3ddeb7ffd6f1d321c3ed58d83dcf3b8f42fde3"
+     :canonical-edn-files 22
+     :wire-artifacts {:json-and-json-ld 6}
+     :verification {:tests 31 :assertions 161}}
+    {:actor "mitooshi" :repository "https://github.com/etzhayyim/com-etzhayyim-mitooshi" :revision "ebdd498121ee224f994fbba3c18ae1168ebd60a7" :canonical-edn-files 28 :wire-artifacts {:json 10} :verification {:tests 178 :assertions 400}}
+    {:actor "meyasu" :repository "https://github.com/etzhayyim/com-etzhayyim-meyasu" :revision "6460de557ca1d3fd1247fe84751b0f421c675bb4" :canonical-edn-files 12 :wire-artifacts {:total 3} :verification {:tests 29 :assertions 70 :external-cohort-tests :separate}}
+    {:actor "meisai" :repository "https://github.com/etzhayyim/com-etzhayyim-meisai" :revision "a5d0a5f9659316ff1064588212bad42b5e33a2c8" :canonical-edn-files 9 :wire-artifacts {:json-and-json-ld 4} :verification {:tests 43 :assertions 151}}
+    {:actor "manabi" :repository "https://github.com/etzhayyim/com-etzhayyim-manabi" :revision "9e143794201c3cc457cbbe5e9725bf9353c76f02" :canonical-edn-files 23 :wire-artifacts {:json 10} :verification {:tests 40 :assertions 152}}
+    {:actor "makura" :repository "https://github.com/etzhayyim/com-etzhayyim-makura" :revision "2c780d092d5110b51386b2297415d6a40d3670da" :canonical-edn-files 32 :wire-artifacts {:json-and-json-ld 9} :verification {:tests 27 :assertions 55}}
+    {:actor "magatama" :repository "https://github.com/etzhayyim/com-etzhayyim-magatama" :revision "b52eac64eefb2ba6668a44a2bdf232fdb01a9feb" :canonical-edn-files 7 :wire-artifacts {:toml 5} :verification {:tests 29 :assertions 51}}
+    {:actor "kanae" :repository "https://github.com/etzhayyim/com-etzhayyim-kanae" :revision "7db5d2c2a12c5f9357af50f43099147369836375" :canonical-edn-files 15 :wire-artifacts {:json 7} :verification {:tests 57 :assertions 256 :cross-repo-pipeline :fixture-covered}}
+    {:actor "kanayama" :repository "https://github.com/etzhayyim/com-etzhayyim-kanayama" :revision "0d6a89236cf5f7fe78d914a04ffda19041e86903" :canonical-edn-files 27 :wire-artifacts {:json-and-json-ld 9} :verification {:tests 55 :assertions 176}}
+    {:actor "kanjo" :repository "https://github.com/etzhayyim/com-etzhayyim-kanjo" :revision "e0f5b760193e61d84410b6beece9468d29ba0d69" :canonical-edn-files 22 :wire-artifacts {:json-and-json-ld 9} :verification {:tests 55 :assertions 248 :full-data-stress :resource-terminated}}
+    {:actor "kakaku" :repository "https://github.com/etzhayyim/com-etzhayyim-kakaku" :revision "90ce45afc5be766339579a21cc6d9e80886d46a4" :canonical-edn-files 41 :wire-artifacts {:json 19 :bpmn-xml 3 :html 2} :verification {:tests 63 :assertions 309 :jvm {:tests 9 :assertions 174}}}
+    {:actor "kamado" :repository "https://github.com/etzhayyim/com-etzhayyim-kamado" :revision "b4476a2c512843fb470c084572ac819542bc556b" :canonical-edn-files 19 :wire-artifacts {:json-and-json-ld 8} :verification {:tests 78 :assertions 244}}
+    {:actor "karakuri" :repository "https://github.com/etzhayyim/com-etzhayyim-karakuri" :revision "f878f8b7ecd0340503436010d0b718fe5306caf0" :canonical-edn-files 20 :wire-artifacts {} :verification {:tests 106 :assertions 251}}
+    {:actor "kasa" :repository "https://github.com/etzhayyim/com-etzhayyim-kasa" :revision "c7c791351d1590aece8f9bccaf97d60f180ce6a7" :canonical-edn-files 17 :wire-artifacts {:json 6} :verification {:tests 48 :assertions 511 :jvm {:tests 9 :assertions 57}}}
+    {:actor "kawaraban" :repository "https://github.com/etzhayyim/com-etzhayyim-kawaraban" :revision "d515cca0face45392bd2c7d5414201add1eb0386" :canonical-edn-files 20 :wire-artifacts {:total 9} :verification {:tests 89 :assertions 207}}
+    {:actor "kizashi" :repository "https://github.com/etzhayyim/com-etzhayyim-kizashi" :revision "015a0b0b6918926b5018881bd1859d18169f88f2" :canonical-edn-files 13 :wire-artifacts {:json-and-json-ld 10} :verification {:tests 9 :assertions 56} :excluded-user-wip :uncommitted-murakumo-scaffold}
+    {:actor "kosatsu" :repository "https://github.com/etzhayyim/com-etzhayyim-kosatsu" :revision "12daf143ce6039c01f1408ec6e27d9d96c0b7821" :canonical-edn-files 19 :wire-artifacts {:json 8} :verification {:tests 157 :assertions 689}}
+    {:actor "matsurigoto" :repository "https://github.com/etzhayyim/com-etzhayyim-matsurigoto" :revision "2633e1326452f165bdc1b1de5c7420ffcf681125" :canonical-edn-files 30 :wire-artifacts {:json 8} :verification {:tests 156 :assertions 1139}}
+    {:actor "okaimono" :repository "https://github.com/etzhayyim/com-etzhayyim-okaimono" :revision "7f85dd0975fd0e8d962b4538edde90178e74c11b" :canonical-edn-files 24 :wire-artifacts {} :verification {:tests 50 :assertions 113 :full-maker-golden :requires-six-west-siblings}}
+    {:actor "maps" :repository "https://github.com/etzhayyim/com-etzhayyim-maps" :revision "7a859093991ec6ca5c1e904ecff14e7c53346f6c" :canonical-edn-files 31 :wire-artifacts {:total 268 :bpmn-xml 242 :json 26} :verification {:tests 178 :assertions 784 :excluded-integration-guards 2} :retained-rust-wasm true}
+    {:actor "aburi" :repository "https://github.com/etzhayyim/com-etzhayyim-aburi" :revision "4cab6922fd47d9d57d3458fb1196be96f998a23c" :canonical-edn-files 12 :wire-artifacts {:json 2} :verification {:tests 62 :assertions 1652}}
+    {:actor "akashi" :repository "https://github.com/etzhayyim/com-etzhayyim-akashi" :revision "c985daa45df36a2e641d976d54e4dbc9d5b0cc48" :canonical-edn-files 30 :wire-artifacts {:total 29 :json 24 :json-ld 1 :docs 4} :verification {:tests 39 :assertions 166} :excluded-user-wip :inconsistent-murakumo-source-test}
+    {:actor "ake" :repository "https://github.com/etzhayyim/com-etzhayyim-ake" :revision "dd3e34b091483251392da6f8d2cc061e7879d648" :canonical-edn-files 20 :wire-artifacts {:json-and-json-ld 7} :verification {:tests 155 :assertions 559}}
+    {:actor "amime" :repository "https://github.com/etzhayyim/com-etzhayyim-amime" :revision "ef2bab003159a9014ab57ffad072376824ed8b3f" :canonical-edn-files 9 :wire-artifacts {} :verification {:tests 12 :assertions 55}}
+    {:actor "chie" :repository "https://github.com/etzhayyim/com-etzhayyim-chie" :revision "72bc5c1a39a0043795f2e83de901847fea060cdc" :canonical-edn-files 11 :wire-artifacts {:json-ld 1} :verification {:tests 69 :assertions 227} :temporary-vendored-shared-kotoba-engine true}
+    {:actor "credits" :repository "https://github.com/etzhayyim/com-etzhayyim-credits" :revision "32b06687a95a1bf412539c6071b5ad82a204ba38" :canonical-edn-files 1 :wire-artifacts {:json-ld 1} :verification {:tests 59 :assertions 286 :runner :babashka :jvm-gap :upstream-shomei-primitive-arity} :retained-central-bpmn-contracts true}
+    {:actor "danjo" :repository "https://github.com/etzhayyim/com-etzhayyim-danjo" :revision "5dcb2fe451b889bb7212ce4bbfbd36145a67b5c4" :canonical-edn-files 10 :wire-artifacts {:json 17} :verification {:tests 31 :assertions 114 :script-checks 195} :retained-central-lexicons-and-lint true}]}
+
+  :migration/status-model
+  {:fully-integrated
+   "The standalone revision is pushed, root contains only MOVED.edn, active consumers are rewired, and west pins both actor and root exact revisions. Only this state contributes to completed-actors."
+   :prepared-root-drain
+   "The standalone revision is pushed and the root drain is present in the current worktree, but root and west integration commits are not both published yet. These actors remain in remaining-actors."
+   :remaining
+   "Root still owns implementation content or the repository boundary has not been resolved."
+  :snapshot
+  {:fully-integrated 180
+    :prepared-root-drain 4
+    :prepared-actors ["ameno" "iriai" "iryo" "kaiyaku"]
+    :root-directories-after-prepared-drain 14}}
+
+  :migration/summary
+  {:outcome
+   "The former monorepo actor layer is being drained without changing west's flat checkout convention. 180 of the 198 baseline directories are fully integrated into independently versioned com-etzhayyim-* repositories with exact west pins."
+   :repository-boundary
+   {:superproject "com-junkawasaki/root owns west.yml and exact repository pins."
+    :root "com-etzhayyim/root owns cross-repository policy, migration ledger, ADRs, generators, and legacy tombstones."
+    :standalone "Each com-etzhayyim-<actor> repository owns its implementation, tests, canonical EDN assets, and explicitly isolated wire artifacts."
+    :shared-code-rule "Code is shared only after a stable multi-consumer boundary is demonstrated; actor-specific code is not retained in root merely because it was formerly imported by sibling directories."}
+   :canonicalization
+   {:edn "EDN is authoritative for ADRs, metadata, contracts, fixtures, registries, and migration records."
+    :wire "JSON, JSONL, JSON-LD, BPMN XML, WIT, and TOML are retained only where an external protocol or tool requires their exact representation, under wire/."
+    :deprecated "Go and TinyGo implementations, including kotodama-go-style legacy code, are pruned rather than ported or made canonical."}
+   :integration-transaction
+   [:prepare-and-test-standalone-repository
+    :push-standalone-exact-revision
+    :replace-legacy-root-with-moved-edn
+    :rewrite-root-consumers-and-regenerate-derived-assets
+    :commit-and-push-root-migration
+    :pin-actor-and-root-revisions-in-west-manifest
+    :record-integrated-superproject-revision-in-this-adr
+    :repin-final-root-revision-in-west-manifest]
+   :verified-invariants
+   [:flat-west-path-preserved
+    :moved-directory-contains-exactly-moved-edn
+    :canonical-edn-readable
+    :no-active-reference-to-drained-20-actors-path
+    :standalone-revision-pushed
+    :west-revision-exact-not-floating]
+   :known-verification-debt
+   [{:actor "shinka" :gap :unresolved-root-sibling-dependencies}
+    {:actor "shionome" :gap :ie-flow-awaits-shared-library-extraction}
+    {:actor "nyusatsu" :gap :substrate-sdk-payment-auth-codemod}
+    {:actor "yobel" :gap :known-cumulative-over-cap-integration-failure}
+    {:actor "todoke" :gap :unchanged-rust-source-not-rebuilt-while-build-lock-busy}
+    {:actor "kanae" :gap :lint-run-hung :mitigation :cross-repository-pipeline-replaced-by-fixture-coverage}
+    {:actor "kanjo" :gap :full-data-stress-resource-terminated :mitigation :stress-namespaces-default-excluded}
+    {:scope :root-generators :gap :legacy-generator-debt :known-issues 8 :skipped 4}]
+   :interpretation
+   "A completed count means repository extraction and west integration are finished, not that every historical test or generator defect has been repaired. Known gaps are recorded explicitly and must not be hidden by the migration count."}
+
+  :migration/current-work
+  {:status :prepared-root-drain
+   :actors ["ameno" "iriai" "iryo" "kaiyaku"]
+   :completed-standalone
+   [{:actor "ameno" :revision "2933528b3e4fbbb654070c14b57dda8ceef023bc" :verification {:typecheck :pass :tests 157 :passed 154 :kotoba-ground-tests 9} :known-gap {:environment-performance-tests 2 :external-tsumugi-fixture-test 1 :retained-central-wire-lexicons 9}}
+    {:actor "iriai" :revision "4a02010be91e1f57755a58daa9ef5ace14d15ce3" :verification {:tests 79 :assertions 513 :edn-files 11 :wire-json 5}}
+    {:actor "iryo" :revision "bff63360df49fc19bce9c77d691021b4a01e5c96" :verification {:tests 138 :assertions 563 :edn-files 22 :wire-artifacts 20}}
+    {:actor "kaiyaku" :revision "8543e3206a5d2fa4573a66c9e8bce4fe3df764f2" :verification {:tests 120 :assertions 1903 :edn-files 6} :known-gap {:cross-repository-suites :west-fixture-gated}}]
+   :counting-rule "These three actors remain in remaining-actors until the root migration commit, required west project registrations, and exact actor/root pins are published."
+   :batch-result
+   {:fully-integrated-tombstones 180
+    :prepared-tombstones 4
+    :remaining-root-directories-after-prepared-drain 14
+    :fully-integrated-percent 90.91}}
+
+  :migration/integration-state
+  {:snapshot-kind :integrated
+   :root-migration-revision "b3de395190d4815976f623917302d19743986778"
+   :standalone-repositories
+   {:status :pushed
+    :actors ["jinushi"]}
+   :legacy-root-drain
+   {:status :committed
+    :tracked-invariant :moved-edn-only}
+   :west-manifest
+   {:status :exact-revisions-pinned
+    :superproject-revision "11345d84dfcd7977cddea48b14986181e103016c"
+    :root-pin "b3de395190d4815976f623917302d19743986778"
+    :actor-pins
+    {"jinushi" "88fdf592446fa9399ed691c584cb6ba242b37dd0"}}
+   :pending-actions [:repin-final-adr-root-revision]
+   :note "All 180 completed entries satisfy standalone push, root tombstone, canonical ledger, and exact west revision gates. The final ADR-only root repin closes this integration transaction."}
+
+  :migration/completed-actors
+  ["abaki" "ainori" "apqc" "atsurae" "busshi" "com-google-ads" "denwaban"
+   "energy_order" "etzhayyim-bpmn-sdk" "etzhayyim-esign" "etzhayyim-pregel"
+   "etzhayyim-sdk" "etzhayyim-sdk-auth" "etzhayyim-sdk-mock" "etzhayyim-sdk-py"
+   "first-breath" "gtin" "hanrei" "haraedo" "hataori" "hibiki" "hirameki"
+   "hydrogen_electrolysis" "igata" "iyashi" "joucho" "karute" "kataribe"
+   "kawase-yui" "kazaori" "kenchi" "kiyome" "kizuna" "kokoro" "kudamori"
+   "kumi" "kuramori" "kurashimori" "kyoninka" "madomori" "masago" "meibo"
+   "minori" "mio" "mitate" "monosashi" "musubi" "narashi" "okibi" "organisms"
+   "post_quantum_compat" "saisei" "salesforce-compat" "seigyo" "sentei"
+   "shidemori" "shukubo" "soma" "sonae" "stripe-compat" "suimin" "suki"
+   "sumitsubo" "tawami" "toi" "tsukuroi" "ugachi" "unspsc" "utsushie"
+   "wakai" "yudane" "isco" "moushibumi" "talent" "chigiri" "himotoki"
+   "toritsugi" "hoshimori" "inochi" "kuni-umi" "kuni_umi" "fuchi" "hokorobi" "kaname" "asobi" "mimamori" "shiori" "tsugite" "watatsuna" "kabuto" "watari" "keizu" "hakoniwa" "kafun" "shirabe" "tanemaki" "tasuke" "rasen" "tatara" "tazuna" "tate" "tokigusuri" "torifune" "tedai" "tatekata" "tsubasa" "tsuchifumi" "tsukuru" "tsumugi" "tsutae" "uchiwake" "uzu" "wadachi" "warifu" "watatsumi" "yadori" "yakushi" "yamabiko" "todoke" "yotei" "yobel" "toritate" "tadori" "sukashi" "subaru" "suji" "shomei" "shinka" "shionome" "sarutahiko" "sanae" "ossekai" "ooyake" "omise" "organizer" "nyusatsu" "nusa" "noroshi" "niyaku" "moyoshi" "mizuho" "mitsuho" "mitooshi" "meyasu" "meisai" "manabi" "makura" "magatama" "kanae" "kanayama" "kanjo" "kakaku" "kamado" "karakuri" "kasa" "kawaraban" "kizashi" "kosatsu" "maps" "matsurigoto" "okaimono" "aburi" "akashi" "ake" "amime" "chie" "credits" "danjo" "funadaiku" "futawa" "hagukumi" "hikari" "himawari" "hinagata" "hodoki" "hotaru" "itonami" "junkan" "kadode" "jinushi"]
+
+  :migration/remaining-actors
+  ["_conformance" "ameno"
+   "business-manager" "business_manager"
+   "etzhayyim-organism" "funamori"
+   "gov-municipality" "gov_municipality"
+   "ibuki" "infra-utility-connect" "infra_utility_connect" "iriai" "iryo"
+   "kaiyaku"
+   "kotoba-actors-clj" "kotodama"
+   "mst-projector"
+   "silicon"]
+
+  :migration/remaining-classification
+  [{:class :prepared-root-drain
+    :actors ["ameno" "iriai" "iryo" "kaiyaku"]
+    :action :publish-root-commit-register-and-pin-new-west-project-then-record-integration}
+   {:class :empty-consolidated-tooling-root
+    :actors ["_conformance"]
+    :action :remove-after-confirming-70-tools-is-canonical-owner}
+   {:class :existing-repository-overlap
+    :actors ["business-manager" "business_manager"
+             "gov-municipality"
+             "gov_municipality"
+             "ibuki" "infra-utility-connect"
+             "infra_utility_connect"]
+    :action :merge-root-only-content-into-existing-flat-repository-then-tombstone}
+   {:class :not-yet-independent-or-boundary-review
+    :actors ["etzhayyim-organism" "funamori"
+             "kotoba-actors-clj" "kotodama" "mst-projector"
+             "silicon"]
+    :action :choose-actor-engine-tool-or-shared-library-owner-before-extraction
+    :language-policy "Any Go or TinyGo implementation is removed; it is not a migration source. Retained behavior must have a non-Go canonical implementation or an explicit retirement decision."}
+   ]
+
+  :migration/remaining-accounting
+  {:not-fully-integrated-total 18
+   :prepared-root-drain 4
+   :root-content-or-boundary-work-total 14
+   :empty-consolidated-tooling-root 1
+   :existing-repository-overlap 7
+   :not-yet-independent-or-boundary-review 6
+   :logical-components-after-known-duplicate-consolidation 15
+   :duplicate-spelling-pairs [["business-manager" "business_manager"]
+                              ["gov-municipality" "gov_municipality"]
+                              ["infra-utility-connect" "infra_utility_connect"]]
+   :deprecated-language-audit {:go-files 0 :go-module-files 0 :tinygo-files 0}
+   :follow-up-language-inventory {:python-files 21 :shell-wrapper-files 34}
+   :note "Four directories are prepared for integration. The three remaining root-work classes total 14 directories; the three byte-identical spelling pairs reduce all 18 not-yet-integrated directories to 15 logical components."}
+
+  :migration/decisions
+  [{:decision :preserve-flat-west-checkouts
+    :reason "Repository ownership changes without introducing actor/engine category directories into checkout paths."
+    :consequence "Every independently owned component remains at orgs/etzhayyim/com-etzhayyim-*."}
+   {:decision :drain-not-reshape-legacy-root
+    :reason "The numbered 20-actors layout is monorepo residue, not the target taxonomy."
+    :consequence "A migrated legacy directory contains exactly MOVED.edn until the whole layer can be retired."}
+   {:decision :edn-is-authoritative
+    :reason "Machine-readable policy, ADR, contract, fixture, registry, and migration state need one canonical representation."
+    :consequence "Markdown is explanatory only; JSON-family, BPMN XML, WIT, and TOML survive solely as isolated external wire artifacts."}
+   {:decision :prune-deprecated-go
+    :reason "Go and TinyGo, including kotodama-go-style implementations, are deprecated."
+    :consequence "Migration must not copy, port, pin, or revive them."}
+   {:decision :extract-shared-code-by-proven-boundary
+    :reason "Former sibling imports do not by themselves establish a reusable library contract."
+    :consequence "Actor-specific code moves with its actor; stable multi-consumer code receives an independent library owner and exact revision pins."}]
+
+  :migration/completion-gates
+  [:standalone-repository-exists
+   :root-only-content-merged
+   :canonical-edn-contracts-present
+   :external-wire-artifacts-isolated
+   :go-and-tinygo-pruned
+   :cross-repository-dependencies-explicit-and-sha-pinned
+   :root-consumers-rewired-to-flat-west-path
+   :standalone-tests-green
+   :old-root-moved-edn-only
+   :west-manifest-pinned-to-exact-revision]
+
+  :migration/next-order
+  [:consolidate-duplicate-spellings
+   :extract-small-existing-repo-overlaps-in-parallel
+   :separate-tooling-and-runtime-boundaries
+   :migrate-data-heavy-and-fleet-coupled-actors
+   :audit-all-active-paths-and-dependency-pins
+   :retire-empty-20-actors-layer]
+
+  :adr/body
+  "The migration keeps flat west checkout paths and drains only the legacy numbered root. EDN is authoritative for metadata, contracts, data, migration records, and ADRs. A directory is counted as completed only when its old root contains MOVED.edn and no implementation. The remaining list is a filesystem snapshot, not a promise that every entry becomes an actor repository: duplicate spellings, shared tooling, and runtime-bound components must first be consolidated or assigned to their proper owner."}]

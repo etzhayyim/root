@@ -1,4 +1,4 @@
-;; ported from 20-actors/suji/methods/strain.py — gold reference (Fable)
+;; ported from orgs/etzhayyim/com-etzhayyim-suji/methods/strain.py — gold reference (Fable)
 ;; suji 筋 — sustained-load strain → 強張り (stiffness) over a work session。
 ;; 緊張 (instantaneous %MVC) が held されると 強張り になる。静的姿勢 = work session 長の等尺性収縮で、
 ;; 等尺性負荷は %MVC で急落する endurance limit を持つ (Rohmert 1960)。

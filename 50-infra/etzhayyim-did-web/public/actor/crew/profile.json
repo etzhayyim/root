@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:crew",
+  "handle": "crew.etzhayyim.com",
+  "displayName": "Crew Management & STCW Compliance",
+  "description": "Seafarer registry, STCW certificate tracking, crew manifest management, crew change scheduling. Links to vessel.etzhayyim.com and port.etzhayyim.com for operational coordination.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Crew Management & STCW Compliance",
+  "displayNameJa": "Crew Management & STCW Compliance",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.crew",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/crew/did.json",
+    "source": "kotoba"
+  }
+}

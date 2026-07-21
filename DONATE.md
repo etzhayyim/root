@@ -48,12 +48,19 @@ program, **10%** auto-splits to the **Public Fund** (the constitutional 10% tith
 | Split | 90% recipient program / 10% Public Fund (1 SBT = 1 vote governance) |
 | SDK | `import { donate } from "@etzhayyim/sdk/donate"` |
 
-> **On-chain donation address — status: pending.** The TitheRouter / Public-Fund Safe addresses
-> are **not deployed yet** (Base L2 testnet is pending Bootstrap-Council ratification; Council
-> Seats 2–5 RFP closes 2026-06-19). **No donation address is published in this file by design** —
-> the canonical address appears at **<https://etzhayyim.com/.well-known/donation.json>** the
-> moment it is live, in exactly one place, so it can never drift. Do **not** send funds to any
-> address claimed elsewhere.
+> **On-chain donation address — status: live (interim direct wallet).** The `TitheRouter` /
+> Public-Fund Safe **contracts** are not deployed yet (Base L2 testnet still pending full
+> Bootstrap-Council contract ratification). Until then, donations settle directly to an
+> **interim founder-held wallet** rather than the router contract:
+>
+> `0xA00366234D29d4F882088048c0B2fa0dB7302D4E` (Base L2 — USDC and the curated crypto allowlist)
+>
+> The 10% Public Fund tithe is computed and recorded **manually** against this address until
+> `TitheRouter` goes live (same interim treatment already used for non-USDC assets, ADR-2606111800
+> §C). This interim address is authorized by founder / Council Lv7+ sole-member decision (per
+> ADR-2605192300). The canonical, always-current address is mirrored at
+> **<https://etzhayyim.com/.well-known/donation.json>** — if the two ever disagree, treat
+> `donation.json` as authoritative. Do **not** send funds to any address claimed elsewhere.
 
 ### Other crypto assets (held as-is)
 
@@ -62,6 +69,15 @@ DAI** — **held in their native asset** (not auto-swapped), with the 10% tithe 
 asset** at receipt. No memecoins, no algorithmic stablecoins (issuer/peg risk). Adding an asset
 is a Council Tier-2 governance parameter. (ADR-2606111800 §C; per-asset TitheRouter support is a
 follow-up — until then non-USDC gifts are recorded and manually tithed.)
+
+### Auspicious local presets
+
+Donation amount buttons may use culturally local auspicious numbers — for example JP-facing
+surfaces can prefer `5`, `8`, `88`, `108`, while Jewish-facing surfaces can prefer `18`/`36`,
+Chinese-facing surfaces can prefer `8`/`88`/`168`, US/West-facing surfaces can prefer dozen-family
+counts like `12`/`24`/`36`/`72`/`144`, and Indian-facing surfaces can prefer `11`/`21`/`51`/`108`.
+These are only defaults: any amount is valid, no number creates a donor tier, and custom amount
+entry must always remain visible. (ADR-2606290830.)
 
 ### Give in fiat — via a non-custodial on-ramp
 
@@ -122,6 +138,7 @@ accounting) but no money moves to or from you and donating more grants no priori
 - **ADR-2606012100** — donation-funded operation + compute-node donation (the design this implements)
 - **ADR-2606111700** — public sponsor/donation solicitation surfaces (FUNDING.yml + this doc + /donate CTA)
 - **ADR-2606111800** — donation-media expansion: fiat in-kind (§A) + non-custodial fiat on-ramp (§B, Tier-1 amendment) + curated crypto allowlist (§C)
+- **ADR-2606290830** — culturally scoped auspicious-number defaults for donation and root surfaces
 - **ADR-2605192115** — non-profit / donation-only / no-ads doctrine (§1.2: 案内 is not advertising)
 - **ADR-2605192130** — 10% tithe → Public Fund (constitutional constant)
 - **ADR-2605172100** — payments on-chain only (the rule §B narrows; custodial fiat stays prohibited)

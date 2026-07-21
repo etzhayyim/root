@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  com.etzhayyim.organism.publish — PUBLISH the /organism live feeds to etzhayyim.com.
+
+  Runs `bb organism:publish` (etzhayyim.organism-publish/-publish) once every 120s
+  (StartInterval). It regenerates pulse.json from the kotoba Datom log (via
+  etzhayyim.vitals, in-process) and `npm run deploy`s the did-web worker so the
+  STATICALLY-served public/organism/*.json refresh on etzhayyim.com.
+
+  Why a separate agent: the resident `organism:heartbeat` writes fresh JSON LOCALLY
+  every few seconds, but the CF Worker serves public/ statically — so production
+  only updates on a `wrangler deploy`. Without this agent the live site (and
+  /murakumo) go stale even while the local loop is healthy. This is the deploy half
+  of the pipeline; the heartbeat is the generate half.
+
+  Cadence note: each run re-deploys (coarse 2-min cadence, NOT the 6s local loop) —
+  raise StartInterval to reduce deploy churn (e.g. 300 = every 5 min).
+
+  StartInterval=120 → periodic publish (NOT a resident loop); launchd owns cadence.
+  RunAtLoad=true    → publish once at login.
+  No KeepAlive      → each run exits; launchd re-runs it every 120s.
+
+  OS config, NOT an operational script — the logic lives in clj/bb
+  (etzhayyim.organism-publish), shelling out only to npm/wrangler (system binaries).
+  Requires `wrangler login` (operator Cloudflare auth) once.
+
+  Install (operator step):
+    cp 50-infra/launchd/com.etzhayyim.organism.publish.plist ~/Library/LaunchAgents/
+    launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.etzhayyim.organism.publish.plist
+    launchctl enable  gui/$(id -u)/com.etzhayyim.organism.publish
+  Stop / uninstall:
+    launchctl bootout gui/$(id -u)/com.etzhayyim.organism.publish
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.etzhayyim.organism.publish</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/opt/homebrew/bin/bb</string>
+    <string>organism:publish</string>
+  </array>
+
+  <key>WorkingDirectory</key>
+  <string>/Users/junkawasaki/github/com-junkawasaki/orgs/etzhayyim/root</string>
+
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+  </dict>
+
+  <key>RunAtLoad</key>
+  <true/>
+  <key>StartInterval</key>
+  <integer>120</integer>
+
+  <key>StandardOutPath</key>
+  <string>/Users/junkawasaki/github/com-junkawasaki/orgs/etzhayyim/root/70-tools/scripts/organism-heartbeat/logs/publish.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/junkawasaki/github/com-junkawasaki/orgs/etzhayyim/root/70-tools/scripts/organism-heartbeat/logs/publish.err.log</string>
+</dict>
+</plist>

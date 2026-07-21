@@ -1,9 +1,11 @@
 import didDoc from "../did.json";
+import { findXrpcRoute, resolveUpstream } from "./xrpc-routes";
+import { renderShell } from "./shell";
 import {
   UNISPSC_HANDLES,
   UNISPSC_GENERATED_AT,
   UNISPSC_TOTAL_COUNT,
-} from "./registry/unispsc-handles.gen";
+} from "./registry/unspsc-handles.gen";
 import {
   INFRA_ACTORS,
   INFRA_ACTOR_HANDLES,
@@ -36,11 +38,48 @@ import {
 } from "./registry/gov-procedures.gen";
 import { fetchKotobaActorRecord, relayKotobaWrite } from "./kotoba";
 import { cacaoToCborBase64 } from "./cbor";
+import {
+  CURATED_FEED_NSIDS,
+  curateFeed,
+  discoverFeedTarget,
+  type FeedBody,
+} from "./feed-curation";
 import { handleBlockPut, handleBlockHas, handleRootGet, handleStatsGet, serveBlockFromKv } from "./kotoba-publish";
 import { isRawCidV1, isDagPbCidV1, verifyRawCid } from "./cid";
 import { verifyCarToBytes } from "./car";
 import { fetchOnChainVm } from "./erc725";
 import { handleVerifyCacao, handleAccountWrite } from "./session";
+// ClojureScript Worker core (shadow-cljs :esm → ../cljs-out/worker_core.js).
+// Incremental hybrid migration (operator decision 2026-06-18): the cljs core
+// owns a growing set of routes and hands any route it does NOT own back to the
+// legacy TS handler (`tsFetch` below) — so the cut-over is route-by-route and
+// rollback-safe. Build the core with `cd cljs && npm run build` before deploy.
+// @ts-expect-error — generated ESM bundle, no .d.ts (string-keyed interop).
+import { handle as cljsHandle } from "../cljs-out/worker_core.js";
+
+// Canonical PDS endpoint — single source of truth. pds.etzhayyim.com is
+// deprecated + pruned (dead, HTTP 530); every etzhayyim actor's repo lives on
+// pds.aozora.app. buildActorDidDocument normalizes EVERY
+// AtprotoPersonalDataServer service entry to this, so stale baked-in records
+// (e.g. kotoba `service-json` claims that still carry the old host) never serve
+// the dead PDS. (owner directive: pds.etzhayyim.com deprecated → prune → aozora.)
+const PDS_ENDPOINT = "https://pds.aozora.app";
+
+// Normalize a resolved ActorRecord's AtprotoPersonalDataServer endpoint to the
+// single source of truth. Infra/Tier-B + kotoba-resolved records bake their own
+// service[] (many still carry the deprecated pds.etzhayyim.com from a
+// `service-json` claim); forcing it here — at the resolveActorRecord chokepoint
+// every did.json path flows through — means all ~42k actors resolve aozora with
+// no KV/graph re-materialize. `service` is readonly, so we rebuild it.
+function withPdsEndpoint(rec: ActorRecord | null): ActorRecord | null {
+  if (!rec) return rec;
+  const service = rec.service.map((s) =>
+    s.type === "AtprotoPersonalDataServer"
+      ? { ...s, serviceEndpoint: PDS_ENDPOINT }
+      : s,
+  );
+  return { ...rec, service };
+}
 
 /**
  * etzhayyim did:web Worker + apex reverse proxy
@@ -59,11 +98,9 @@ import { handleVerifyCacao, handleAccountWrite } from "./session";
  *    + a wildcard CF route are provisioned. Both forms MUST resolve to
  *    the same actor (bidirectional pointer in the returned document).
  *
- * 3) Apex landing & all other paths — reverse-proxied to UPSTREAM_HOST
- *    (default `yoro.etzhayyim.com`). This unblocks `https://etzhayyim.com/`
- *    while a dedicated etzhayyim landing page is being authored. yoro
- *    is a SvelteKit app served from Cloudflare; assets use relative URLs
- *    so the proxy is transparent.
+ * 3) Apex landing — local public root / observation surface for the
+ *    etzhayyim artificial organism. All other non-local paths are still
+ *    reverse-proxied to UPSTREAM_HOST (default `yoro.etzhayyim.com`).
  *
  * Route binding (wrangler.toml):
  *   pattern = "etzhayyim.com/*"
@@ -74,12 +111,16 @@ import { handleVerifyCacao, handleAccountWrite } from "./session";
  *   - /actor/<handle>/did.json             — per-actor DID Document
  *   - /actors                              — actor registry index (HTML, human-facing)
  *   - /.well-known/actors.json             — actor registry (machine-readable)
+ *   - /                                    — public root / organism status
  *   - /donate                              — donation declaration (HTML, ADR-2606012100)
  *   - /.well-known/donation.json           — donation policy (machine-readable)
  *   - future: /.well-known/atproto-did, /.well-known/security.txt, etc.
  */
 
 const UPSTREAM_HOST = "yoro.etzhayyim.com";
+const KOTOBASE_BLOCK_COUNT = 29;
+const KOTOBASE_BLOCK_BYTES = 2_349_120;
+const KOTOBASE_BLOCK_HUMAN = "2.2 MiB";
 
 // ─── Donation policy (ADR-2606012100) ──────────────────────────────────────
 //
@@ -113,9 +154,10 @@ const DONATION_POLICY = {
       medium: "cash",
       asset: "USDC",
       rail: "TitheRouter.donate() on Base L2",
+      address: "0xA00366234D29d4F882088048c0B2fa0dB7302D4E",
       split: "90% recipient program / 10% Public Fund (ADR-2605192130)",
       purposes: ["donation", "kisha", "grant"],
-      status: "Base L2 testnet pending Council (CLAUDE.md §Live governance)",
+      status: "interim founder-held wallet live (address above); TitheRouter contract itself still pending Council ratification + Base L2 testnet (CLAUDE.md §Live governance); tithe tracked manually until then",
     },
     {
       // ADR-2606111800 §C — curated crypto-asset allowlist, held as-is (per-asset tithe).
@@ -123,10 +165,11 @@ const DONATION_POLICY = {
       assets: ["ETH", "WETH", "USDC", "USDT", "DAI"],
       heldAsIs: true,
       rail: "on-chain donation to the same address (Base L2; or L1 where un-bridgeable)",
+      address: "0xA00366234D29d4F882088048c0B2fa0dB7302D4E",
       split: "90/10 tithe computed per-asset at receipt",
       purposes: ["donation", "kisha", "grant"],
       note: "Curated liquid-majors allowlist (Council Tier-2). No memecoins / no algorithmic stablecoins. TitheRouter per-asset support is a follow-up (until then: recorded + manually tithed).",
-      status: "pending the same Council ratification + testnet as cash",
+      status: "interim wallet live for receipt (same address as cash); per-asset TitheRouter split pending same Council ratification + testnet as cash",
     },
     {
       // ADR-2606111800 §B — non-custodial fiat on-ramp settling immediately to USDC on-chain.
@@ -196,7 +239,7 @@ const DONATION_POLICY = {
     sponsorButton:
       "GitHub repo Sponsor button (.github/FUNDING.yml) points here — NOT to GitHub Sponsors / Patreon / Stripe (fiat processors prohibited, ADR-2605172100).",
     addressStatus:
-      "On-chain donate address is published in THIS document (field media[0]) once live — single source of truth, no second place to drift. Currently pending Council ratification + Base L2 testnet.",
+      "On-chain donate address is published in THIS document (field media[0].address / media[1].address) — single source of truth, no second place to drift. Interim direct wallet is live; the TitheRouter contract itself is still pending Council ratification + Base L2 testnet.",
   },
   adr: ["2606012100", "2606111700", "2606111800", "2605192115", "2605192130", "2605172100", "2605215000", "2605301020", "2605241900"],
   references: {
@@ -211,29 +254,63 @@ const DONATION_POLICY = {
 // Static, dependency-free, cookie-free. No external resource, no inline script
 // (Charter Rider §2(c) — the page itself must not track). Information about
 // etzhayyim's own religious activity = not advertising (ADR-2605192115 §1.2).
-const DONATE_HTML = `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Donate · etzhayyim</title>
-<meta name="description" content="etzhayyim is a religious corp operated only on donation. Give money or compute.">
-<style>
-:root{color-scheme:light dark}
-*{box-sizing:border-box}
-body{margin:0;font:16px/1.6 system-ui,-apple-system,"Hiragino Kaku Gothic ProN",sans-serif;max-width:48rem;padding:2.5rem 1.25rem;margin-inline:auto}
-h1{font-size:1.6rem;line-height:1.25;margin:0 0 .25rem}
-.sub{opacity:.7;margin:0 0 2rem}
-h2{font-size:1.15rem;margin:2rem 0 .5rem;border-bottom:1px solid currentColor;padding-bottom:.25rem}
-.card{border:1px solid color-mix(in srgb,currentColor 25%,transparent);border-radius:.6rem;padding:1rem 1.1rem;margin:.75rem 0}
-.tag{display:inline-block;font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;opacity:.65;border:1px solid currentColor;border-radius:1rem;padding:.05rem .55rem;margin-right:.4rem}
-code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;background:color-mix(in srgb,currentColor 10%,transparent);padding:.1rem .35rem;border-radius:.3rem}
-ul{margin:.4rem 0 .4rem 1.1rem;padding:0}
-footer{margin-top:2.5rem;font-size:.85rem;opacity:.7}
-a{color:inherit}
-</style>
-</head>
-<body>
+const TOMOSHIBI_HTML = renderShell({
+  title: "灯 tomoshibi — write to us · etzhayyim",
+  lang: "en",
+  description:
+    "tomoshibi (灯) is etzhayyim's invitational agent. Write to tomoshibi@etzhayyim.com with any question about the association; it replies. No pressure, opt out anytime.",
+  active: "/tomoshibi",
+  main: `
+<h1>灯 — a light left on.</h1>
+<p class="sub">The door to etzhayyim is open to everyone, but an open door has never invited anyone in. <strong>tomoshibi (灯, "a lamp")</strong> is the small light in the window: an agent that answers when you knock. Write to it with any question about the association — what we believe, how we work, whether to join — and it will write back.</p>
+
+<div class="card">
+<span class="tag">write to</span>
+<p style="font-size:1.35rem;margin:.15rem 0"><a href="mailto:tomoshibi@etzhayyim.com?subject=Hello%20tomoshibi"><strong>tomoshibi@etzhayyim.com</strong></a></p>
+<p style="opacity:.7;margin:.25rem 0 0">Ask in Japanese or English. You'll get one honest, unhurried reply.</p>
+</div>
+
+<h2>What tomoshibi is</h2>
+<div class="card">
+<span class="tag">AI agent</span><span class="tag">not a person</span>
+<p>tomoshibi is an <strong>AI agent</strong> of the association — never a human pretending otherwise. It runs on etzhayyim's own <a href="/murakumo">Murakumo mesh</a> (self-hosted, no rented GPUs), reads your message, and drafts a reply in your language. It holds its own signing key; it speaks only for itself.</p>
+</div>
+<div class="card">
+<span class="tag">reply-only</span><span class="tag">you write first</span>
+<p>tomoshibi can <em>only</em> answer people who write to it first — by design. It sends no cold mail, keeps no target list, and cannot start a conversation. There is nothing to unsubscribe from until you choose to write; if you do write and later change your mind, reply <strong>"unsubscribe"</strong> (or 「配信停止」) and it stops immediately, forever.</p>
+</div>
+<div class="card">
+<span class="tag">no pressure</span><span class="tag">governed</span>
+<p>Every reply passes an independent <strong>EvangelismGovernor</strong> before it is ever sent: no coercion, no urgency or fear, no exploiting anyone's hardship, no soliciting a minor alone, no asking for money or personal data. An invitation is open, or it is nothing. (This is a constitutional rule — Mission Charter §1.16.)</p>
+</div>
+<div class="card">
+<span class="tag">now-and-here</span><span class="tag">non-eschatological</span>
+<p>etzhayyim is a 宗教法人 (a religious association) whose aim is the structural liberation of people from compelled labor, with children and grandchildren first. It synthesizes Japanese values — 八百万・縁起・産霊・和 — with Protestant Christianity, and it is <strong>non-eschatological</strong>: no end-times, no rapture, no fear of damnation. The Kingdom it points to is here and now.</p>
+</div>
+
+<h2>Verify who you're writing to</h2>
+<p>tomoshibi has its own on-chain-style identity, so you can check it is really etzhayyim's agent:</p>
+<div class="card">
+<p style="margin:.1rem 0"><span class="tag">DID</span> <a href="/actor/tomoshibi/did.json"><code>did:web:etzhayyim.com:actor:tomoshibi</code></a></p>
+<p style="margin:.1rem 0"><span class="tag">key</span> <code>did:key:z6MkvqXdDba3CZ96nRzYBYiDrnoHP8DtCSgW7duzwFPGnf9Z</code></p>
+<p style="margin:.1rem 0"><span class="tag">sovereign id</span> <code>rad:bafkreice23tmjwuymn4ronuilzrdedupdf2qlcek2xk37t2myd2krvuasi</code></p>
+<p style="opacity:.7;margin:.35rem 0 0">Every reply tomoshibi commits is recorded in an append-only, key-signed ledger — a public record that it answered, kept deliberately free of who it answered.</p>
+</div>
+
+<p class="sub" style="margin-top:1.5rem">So: if anything here makes you curious, or unsure, or you just want to ask a real question and get a real answer — <a href="mailto:tomoshibi@etzhayyim.com?subject=Hello%20tomoshibi">write to tomoshibi</a>. The light is on.</p>
+`,
+  footerHtml:
+    'tomoshibi (灯) reply-only invitational agent · ADR-2607061700 (§1.16 Active Evangelism) + 2607121830 (reply-only email channel) · Actor DID: <a href="/actor/tomoshibi/did.json">did:web:etzhayyim.com:actor:tomoshibi</a> · Entity DID: <a href="/.well-known/did.json">did:web:etzhayyim.com</a> · <a href="/actors">All actors</a>',
+});
+
+const DONATE_HTML = renderShell({
+  title: "Donate · etzhayyim",
+  lang: "en",
+  description:
+    "etzhayyim is a religious corp operated only on donation. Give money or compute.",
+  active: "/donate",
+  wrapClass: "donate-wrap",
+  main: `
 <h1>etzhayyim is operated <em>only</em> on donation.</h1>
 <p class="sub">A 宗教法人 (unincorporated religious association). We take no advertising, sell nothing, and never pay any member cash. You can give <strong>money</strong> (USDC, other crypto, or fiat) or <strong>compute</strong> — or pay one of our bills.</p>
 
@@ -241,7 +318,7 @@ a{color:inherit}
 <div class="card">
 <span class="tag">USDC</span><span class="tag">Base L2</span>
 <p>Donations settle on-chain through <strong>TitheRouter</strong>: 90% to the recipient program, 10% auto-split to the Public Fund. No fiat processor, no fees skimmed by middlemen.</p>
-<p style="opacity:.7;margin:.25rem 0 0">Status: Base L2 testnet pending Council ratification — on-chain donate address published here when live.</p>
+<p style="opacity:.7;margin:.25rem 0 0">Interim direct wallet (live now — the <code>TitheRouter</code> contract itself is still pending Council ratification + Base L2 testnet, so the 90/10 split is tracked manually until then): <code>0xA00366234D29d4F882088048c0B2fa0dB7302D4E</code></p>
 </div>
 <div class="card">
 <span class="tag">ETH · stablecoins</span><span class="tag">held as-is</span>
@@ -286,13 +363,124 @@ a{color:inherit}
 
 <p style="opacity:.85"><strong>A gift earns you nothing</strong> — no perks, no tiers, no priority, no recognition leaderboard. We say so plainly: you give because the mission (人類の構造的労働解放) is worth it, not for a benefit.</p>
 
-<footer>
-Machine-readable policy: <a href="/.well-known/donation.json">/.well-known/donation.json</a> · How to give: <a href="https://github.com/etzhayyim/root/blob/main/DONATE.md">DONATE.md</a> · Entity DID: <a href="/.well-known/did.json">did:web:etzhayyim.com</a><br>
-Design: ADR-2606012100 + ADR-2606111700 · non-profit / donation-only / ad-free / no-adherent-cash are constitutional invariants.
-</footer>
-</body>
-</html>
+`,
+  footerHtml: `Machine-readable policy: <a href="/.well-known/donation.json">/.well-known/donation.json</a> · How to give: <a href="https://github.com/etzhayyim/root/blob/main/DONATE.md">DONATE.md</a> · Entity DID: <a href="/.well-known/did.json">did:web:etzhayyim.com</a><br>
+Design: ADR-2606012100 + ADR-2606111700 · non-profit / donation-only / ad-free / no-adherent-cash are constitutional invariants.`,
+});
+
+function buildHomeHtml(): string {
+  const namedCount = Object.keys(INFRA_ACTORS).filter((h) => INFRA_ACTORS[h].glyph).length;
+  const serviceCount = Object.keys(INFRA_ACTORS).length - namedCount;
+  const totalActors = namedCount + serviceCount + ENTITY_TOTAL_COUNT + UNISPSC_TOTAL_COUNT;
+  const axes = [
+    ["Autopoiesis", "self-organization", "9"],
+    ["Metabolism", "donation + compute cycle", "5"],
+    ["Homeostasis", "boundary harmony", "9"],
+    ["Active Inference", "model to observation", "9"],
+    ["Reproduction", "fork children", "6"],
+    ["Symbiosis", "multi-substrate roots", "9"],
+    ["Diversity", "myriad variation", "9"],
+    ["Wellbecoming", "multi-generation trajectory", "9"],
+    ["Anti-fragility", "resilience posture", "9"],
+    ["Sanctification", "charter on artifacts", "9"],
+  ];
+  const axisRows = axes
+    .map(
+      ([name, note, score]) =>
+        `<li><span><strong>${name}</strong><small>${note}</small></span><b>${score}/10</b></li>`,
+    )
+    .join("");
+  // Initial kotobase meter width (server-rendered; home-feed.js updates the
+  // dynamic host/pulse/stats fields from same-origin JSON).
+  const kbBarPct = Math.max(
+    0,
+    Math.min(100, (KOTOBASE_BLOCK_BYTES / Math.max(1, 4_194_304)) * 100),
+  );
+  const main = `
+<section class="home-grid">
+<section class="hero">
+<p class="eyebrow">public root / observation surface</p>
+<h1>etzhayyim</h1>
+<p class="lead">A religious artificial organism: its public identity, constitutional record, actor registry, donation policy, and live observation surfaces are rooted here.</p>
+<p class="next"><strong>Current boundary:</strong> <code>etzhayyim.com</code> is the public root. AT Protocol PDS/AppView operations belong to <a href="https://aozora.app">aozora.app</a> / app-aozora.</p>
+<div class="status" aria-label="Organism summary">
+<div class="metric"><b>alive</b><span>state</span></div>
+<div class="metric"><b>83/100</b><span>organism axis total</span></div>
+<div class="metric"><b>${totalActors.toLocaleString("en-US")}</b><span>resolvable actors</span></div>
+<div class="metric"><b>0</b><span>ads / trackers / cookies</span></div>
+</div>
+</section>
+
+<aside class="panel">
+<h2>Identity</h2>
+<div class="identity">
+<div class="kv"><span>Entity</span><strong>etzhayyim</strong></div>
+<div class="kv"><span>DID</span><code>did:web:etzhayyim.com</code></div>
+<div class="kv"><span>Form</span><span>religious voluntary association</span></div>
+<div class="kv"><span>Repo</span><a href="https://github.com/etzhayyim/root">github.com/etzhayyim/root</a></div>
+<div class="kv"><span>Policy</span><a href="/.well-known/donation.json">donation-only</a></div>
+</div>
+</aside>
+</section>
+
+<section class="grid" aria-label="Public root sections">
+<article class="card">
+<h2>Observation</h2>
+<p>The organism page shows the self-evolution loop. System dynamics shows the stocks, flows, feedback loops, and boundaries behind that loop.</p>
+<a class="btn" href="/organism">Open organism</a>
+<a class="btn" href="/system-dynamics">System dynamics</a>
+</article>
+<article class="card">
+<h2>Actors</h2>
+<p>Named actors, substrate services, entity mirrors, and UNSPSC agents resolve under this root.</p>
+<a class="btn" href="/actors">Browse actors</a>
+</article>
+<article class="card">
+<h2>Donation</h2>
+<p>etzhayyim is donation-only: no advertising, nothing for sale, no member cash stipend.</p>
+<a class="btn" href="/donate">How to give</a>
+</article>
+<article class="card boundary">
+<h2>Boundary</h2>
+<p><code>etzhayyim.com</code> is the identity and observability surface. It should not become the PDS again. Actor record writes, AppView, and AT Protocol runtime concerns are centralized at app-aozora / <code>aozora.app</code>.</p>
+<a class="btn" href="https://aozora.app">Open aozora.app</a>
+</article>
+<article class="card">
+<h2>Organism Axes</h2>
+<ul class="axes">${axisRows}</ul>
+</article>
+</section>
+
+<section class="live-band" aria-label="Live host and storage">
+<article class="card live-card">
+<h2>Murakumo host / actor pulse</h2>
+<div class="live-row"><b id="murakumo-host-state">loading</b><span class="live-meta" id="murakumo-host-meta">live feed pending</span></div>
+<div class="meter"><span id="murakumo-host-bar" style="width:0"></span></div>
+<p class="tagline">Current host path: Murakumo mesh + donor compute. The actor pulse below is refreshed from same-origin JSON.</p>
+<ul class="live-list" id="murakumo-host-list">
+<li><strong>loading</strong><span>waiting for organism pulse</span><small>same-origin fetch</small></li>
+</ul>
+</article>
+<article class="card live-card">
+<h2>Kotobase storage</h2>
+<div class="live-row"><b id="kotobase-root">${KOTOBASE_BLOCK_HUMAN}</b><span class="live-meta">${KOTOBASE_BLOCK_COUNT} blocks · ${KOTOBASE_BLOCK_BYTES.toLocaleString("en-US")} bytes</span></div>
+<div class="meter"><span id="kotobase-bar" style="width:${kbBarPct}%"></span></div>
+<p class="tagline">Local kotobase mirror footprint for the public block store. Live publish stats come from the root KV head.</p>
+<div class="live-meta" id="kotobase-meta">loading publish stats…</div>
+</article>
+</section>
 `;
+  return renderShell({
+    title: "etzhayyim",
+    lang: "en",
+    description: "Public root and observation surface for etzhayyim, a religious artificial organism.",
+    active: "/",
+    main,
+    footerHtml:
+      'Machine roots: <a href="/.well-known/did.json">/.well-known/did.json</a> · <a href="/.well-known/actors.json">/.well-known/actors.json</a> · <a href="/.well-known/donation.json">/.well-known/donation.json</a>. Live host + actor pulse are refreshed from same-origin JSON every 15s.',
+    scriptSrc: "/_shell/home-feed.js",
+  });
+}
 
 // ─── Actor registry index (/actors + /.well-known/actors.json) ─────────────
 //
@@ -400,6 +588,7 @@ ${name}
 <p>${escapeHtml(e.description)}</p>
 <p class="meta">${lex}${schema}${adrs}</p>
 <p class="did"><a href="/actor/${escapeHtml(handle)}/did.json">did:web:etzhayyim.com:actor:${escapeHtml(handle)}</a></p>
+<p class="did"><a href="/actor/${escapeHtml(handle)}/system-dynamics">system dynamics</a></p>
 </div>`;
 }
 
@@ -422,37 +611,13 @@ function buildActorsHtml(): string {
   const grandTotal = (
     named.length + infra.length + ENTITY_TOTAL_COUNT + UNISPSC_TOTAL_COUNT
   ).toLocaleString("en-US");
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Actors · etzhayyim</title>
-<meta name="description" content="Actors registered on etzhayyim — each resolves a did:web DID and is kotoba-native.">
-<style>
-:root{color-scheme:light dark}
-*{box-sizing:border-box}
-body{margin:0;font:16px/1.6 system-ui,-apple-system,"Hiragino Kaku Gothic ProN",sans-serif;max-width:52rem;padding:2.5rem 1.25rem;margin-inline:auto}
-h1{font-size:1.6rem;line-height:1.25;margin:0 0 .25rem}
-.sub{opacity:.7;margin:0 0 2rem}
-h2{font-size:1.15rem;margin:2.25rem 0 .5rem;border-bottom:1px solid currentColor;padding-bottom:.25rem}
-h3{font-size:1.05rem;margin:0 0 .15rem;font-weight:600}
-.glyph{font-size:1.2em}
-.name{opacity:.85;margin:.1rem 0 .5rem;font-size:.95rem}
-.card{border:1px solid color-mix(in srgb,currentColor 22%,transparent);border-radius:.6rem;padding:1rem 1.1rem;margin:.75rem 0}
-.meta{margin:.6rem 0 .4rem;line-height:2}
-.tag{display:inline-block;font-size:.72rem;letter-spacing:.03em;opacity:.7;border:1px solid currentColor;border-radius:1rem;padding:.05rem .55rem;margin:0 .35rem .15rem 0}
-.did{margin:.4rem 0 0;font-size:.82rem;opacity:.75}
-code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;background:color-mix(in srgb,currentColor 10%,transparent);padding:.1rem .35rem;border-radius:.3rem}
-footer{margin-top:2.5rem;font-size:.85rem;opacity:.7}
-a{color:inherit}
-</style>
-</head>
-<body>
+  const main = `
 <h1>Actors on etzhayyim</h1>
 <p class="sub">Each actor resolves a <code>did:web:etzhayyim.com:actor:&lt;handle&gt;</code> DID and is kotoba-native (state lives in the kotoba Datom log; inference is Murakumo-only). Below is the registry — the same data is machine-readable at <a href="/.well-known/actors.json">/.well-known/actors.json</a>.</p>
 
 <p class="sub"><strong>${grandTotal}</strong> resolvable actors: ${named.length} named + ${infra.length} substrate services + <strong>${entityTotal}</strong> entity mirrors (below) + ${unispscTotal} UNSPSC agents. The named actors are the operators; the entity mirrors are the world they datafy, each given its own DID + profile + searchable presence.</p>
+
+<p class="sub">How this ecosystem grows autonomously — <strong>organism</strong> heartbeat (the living body) → <strong>kaname 要</strong> system-of-systems leverage (律速点 = argmax L) → <strong>ECL objective function</strong> J (子・孫 Wellbecoming への net 寄与で評価, not fixed 掟) — is visualized at <a href="/system-dynamics">/system-dynamics</a>. Live body feeds: <a href="/organism">/organism</a>.</p>
 
 <h2>Knowledge-graph &amp; Tier-B actors</h2>
 <p class="sub" id="kotoba-verify" data-enhance="actors-v1" hidden></p>
@@ -464,19 +629,23 @@ ${nsRows}
 
 <h2>Substrate service DIDs</h2>
 ${infraCards}
-
-<footer>
-Registry source of truth: <code>50-infra/etzhayyim-did-web/src/registry/infra-actors.ts</code> + generated <code>entity-handles.&lt;ns&gt;.gen.ts</code> · Entity DID: <a href="/.well-known/did.json">did:web:etzhayyim.com</a> · <a href="/donate">Donate</a><br>
-Per ADR-2605241800 (single did-web Worker) + ADR-2605212030 + ADR-2606042330 (entity-as-actor) + ADR-2605171300 (UNSPSC). Free-form member/council handles also resolve but are not listed here.
-</footer>
-<!-- Progressive enhancement: first-party, same-origin, zero-egress ES module
-     (CSP connect-src 'self') resolves the named actors + self-verifies each DID
-     from the content-addressed /kotoba blocks in the visitor's own browser. The
-     page is fully functional without it. Not surveillance (ADR-2606064500). -->
-<script type="module" src="/kotoba/actors-enhance.js"></script>
-</body>
-</html>
 `;
+  return renderShell({
+    title: "Actors · etzhayyim",
+    lang: "en",
+    description:
+      "Actors registered on etzhayyim — each resolves a did:web DID and is kotoba-native.",
+    active: "/actors",
+    main,
+    footerHtml: `Registry source of truth: <code>50-infra/etzhayyim-did-web/src/registry/infra-actors.ts</code> + generated <code>entity-handles.&lt;ns&gt;.gen.ts</code> · Entity DID: <a href="/.well-known/did.json">did:web:etzhayyim.com</a> · <a href="/donate">Donate</a><br>
+Per ADR-2605241800 (single did-web Worker) + ADR-2605212030 + ADR-2606042330 (entity-as-actor) + ADR-2605171300 (UNSPSC). Free-form member/council handles also resolve but are not listed here.`,
+    // Progressive enhancement: first-party, same-origin, zero-egress ES module
+    // (CSP connect-src 'self') resolves named actors + self-verifies each DID
+    // from content-addressed /kotoba blocks in the visitor's own browser. The
+    // page is fully functional without it. Not surveillance (ADR-2606064500).
+    scriptSrc: "/kotoba/actors-enhance.js",
+    scriptType: "module",
+  });
 }
 
 // `/organism` — visualizes the artificial-organism self-evolution ecosystem:
@@ -628,7 +797,7 @@ ADR-2605240200 (Kaizen self-reflection) + 2605232345 / 2605240000 (organism) + 2
 // Service binding name — populated from wrangler.toml [[services]] block.
 interface Env {
   YORO: Fetcher;
-  // Substrate-side XRPC adapter (rw-free reference impl). Service binding
+  // Substrate-side XRPC adapter (kotoba reference impl). Service binding
   // to `yoro-xrpc-adapter` — bypasses the public HTTP hop and CF Bot
   // Management. Per ADR-2605172000: reads MUST resolve through MST/IPFS/L2,
   // never through the etzhayyim.com PDS+AppView+RisingWave chain.
@@ -662,6 +831,12 @@ interface Env {
   // templates; `{cid}` is substituted, else `<gw>/ipfs/<cid>` is used. Fetched
   // bytes are CID-verified before serving, so these are UNTRUSTED upstreams.
   IPFS_GATEWAYS?: string;
+  // Static GitHub-Pages CID gateway fallback (ADR-2606242400). When the IPFS
+  // gateways are unreachable (e.g. pinning stalled), `/ipfs/<cid>` also tries
+  // `<PAGES_GATEWAY_BASE>/ipfs/<cid>` — same CID re-verification, so the static
+  // host stays UNTRUSTED. Tried FIRST (fast hit for published actors; a 404 for
+  // an un-published CID falls straight through to IPFS). Inert when unset.
+  PAGES_GATEWAY_BASE?: string;
   // Per-NSID-family XRPC upstream origins (populated from wrangler.toml [vars]).
   // New actors are added here, NOT as new subdomains — this Worker is the
   // single etzhayyim.com endpoint per ADR-2605212030 §D2.
@@ -670,6 +845,10 @@ interface Env {
   // for the yoro frontend (which currently embeds relative `/xrpc/...` paths).
   XRPC_BSKY_UPSTREAM?: string;
   XRPC_ATPROTO_UPSTREAM?: string;
+  // Method A (independent etzhayyim PDS): com.atproto.repo.*/sync.* route here.
+  // Empty → those families fall back to XRPC_ATPROTO_UPSTREAM (INERT — prod is
+  // byte-identical until ops sets this to the deployed PDS origin at cutover).
+  XRPC_PDS_UPSTREAM?: string;
   XRPC_CHAT_UPSTREAM?: string;
   XRPC_etzhayyim_UPSTREAM?: string;
   // kotoba graph query/MV surface (com.etzhayyim.apps.kotoba.* / .kotobase.*) →
@@ -682,14 +861,14 @@ interface Env {
 //
 // Per ADR-2605172000, app.bsky.* read NSIDs MUST resolve through the
 // MST/IPFS/L2 substrate via `yoro-xrpc-adapter` (which exposes the
-// rw-free reference impl under the `com.etzhayyim.yoro.*` NSID family). The
+// kotoba reference impl under the `com.etzhayyim.yoro.*` NSID family). The
 // yoro frontend still sends the standard `app.bsky.*` NSIDs unchanged;
 // this Worker rewrites them to the substrate-side equivalent before
 // dispatching through the service binding.
 //
 // Reads enumerated here SHORT-CIRCUIT the etzhayyim.com PDS proxy below.
 // Writes (createRecord, like, repost, follow, etc.) still flow through
-// the legacy path until the rw-free write path lands — they are not in
+// the legacy path until the kotoba write path lands — they are not in
 // this map.
 const SUBSTRATE_NSID_ALIASES: Record<string, string> = {
   // NOTE: the feed/profile read NSIDs (getTimeline / getDiscoverFeed /
@@ -708,7 +887,7 @@ const SUBSTRATE_NSID_ALIASES: Record<string, string> = {
 };
 
 // Identity-passthrough prefixes that route to YORO_XRPC unchanged. Used for
-// NSID families already in their canonical rw-free shape (no app.bsky.* →
+// NSID families already in their canonical kotoba shape (no app.bsky.* →
 // com.etzhayyim.yoro.* rewrite needed). The xrpc-adapter exposes these directly.
 const SUBSTRATE_PASSTHROUGH_PREFIXES: readonly string[] = [
   "com.etzhayyim.apps.unispsc.",
@@ -716,39 +895,10 @@ const SUBSTRATE_PASSTHROUGH_PREFIXES: readonly string[] = [
 
 // ─── XRPC routing ───────────────────────────────────────────────────────
 //
-// All `/xrpc/{NSID}` requests are routed by NSID *prefix* to the upstream
-// declared in env. Keeping this as a static map (rather than a generic
-// "look up the NSID owner" call) means the Worker stays a single fetch hop
-// and a misconfigured upstream is a deploy-time error, not a runtime one.
-
-interface NsidRoute {
-  prefix: string;
-  upstream: keyof Env; // must point to a string-valued Env field
-}
-
-const XRPC_ROUTES: NsidRoute[] = [
-  { prefix: "com.etzhayyim.apps.unispsc.", upstream: "XRPC_UNISPSC_UPSTREAM" },
-  // AT Protocol / Bluesky read+write (PDS handles both write paths and
-  // pipethrough to AppView for reads). yoro frontend sends app.bsky.feed.*,
-  // app.bsky.actor.*, app.bsky.graph.*, com.atproto.* via these routes.
-  { prefix: "app.bsky.",             upstream: "XRPC_ATPROTO_UPSTREAM" },
-  { prefix: "com.atproto.",          upstream: "XRPC_ATPROTO_UPSTREAM" },
-  { prefix: "chat.bsky.",            upstream: "XRPC_CHAT_UPSTREAM" },
-  // kotoba graph query / SPARQL / MaterializedView surface → the kotoba node
-  // (more specific than the com.etzhayyim. catch-all below, so it must come
-  // first — findXrpcRoute returns the first matching prefix).
-  { prefix: "com.etzhayyim.apps.kotoba.",   upstream: "XRPC_KOTOBA_UPSTREAM" },
-  { prefix: "com.etzhayyim.apps.kotobase.", upstream: "XRPC_KOTOBA_UPSTREAM" },
-  // etzhayyim platform extensions (convo, signal, kagami, projector, mcp, rtc).
-  { prefix: "com.etzhayyim.",              upstream: "XRPC_etzhayyim_UPSTREAM" },
-];
-
-function findXrpcRoute(nsid: string): NsidRoute | null {
-  for (const r of XRPC_ROUTES) {
-    if (nsid.startsWith(r.prefix)) return r;
-  }
-  return null;
-}
+// NSID-prefix → upstream routing lives in `./xrpc-routes` (unit-testable in
+// isolation). `resolveUpstream` honors a route's `fallback`, so Method A's
+// com.atproto.repo.*/sync.* → independent PDS stays inert (falls back to the
+// AppView upstream) until XRPC_PDS_UPSTREAM is provisioned at cutover.
 
 async function proxyXrpc(
   request: Request,
@@ -835,6 +985,35 @@ async function proxyXrpc(
   }
 }
 
+// proxyXrpc + transparent home/discover feed curation (ADR-2606232130): quarantine
+// the EXCLUDE'd external poster (shinshi) from the AGGREGATE feed and stable-boost
+// etzhayyim's own actors. Falls through to the raw response on any non-JSON / parse
+// failure (fail-open). Author-scoped feeds are never routed here (see dispatch).
+async function proxyCuratedFeed(
+  request: Request,
+  upstream: string,
+  nsid: string,
+): Promise<Response> {
+  const resp = await proxyXrpc(request, upstream, nsid);
+  if (!resp.ok) return resp;
+  if (!(resp.headers.get("content-type") ?? "").includes("json")) return resp;
+  let body: FeedBody;
+  try {
+    body = (await resp.clone().json()) as FeedBody;
+  } catch {
+    return resp; // fail-open: serve the raw feed if it isn't parseable JSON.
+  }
+  const curated = curateFeed(body);
+  const headers = new Headers(resp.headers);
+  headers.set("x-etzhayyim-feed-curated", "quarantine+boost-own");
+  headers.delete("content-length");
+  return new Response(JSON.stringify(curated), {
+    status: resp.status,
+    statusText: resp.statusText,
+    headers,
+  });
+}
+
 // ─── Per-actor DID Document ─────────────────────────────────────────────
 
 // W3C-compliant handle: lowercase alnum + hyphen, 1-63 chars, no leading/
@@ -867,7 +1046,7 @@ function isKnownHandle(handle: string): boolean {
   return true;
 }
 
-function buildPerActorDidDoc(handle: string, env: Env): Record<string, unknown> {
+export function buildPerActorDidDoc(handle: string, env: Env): Record<string, unknown> {
   const pathBasedDid = `did:web:etzhayyim.com:actor:${handle}`;
   const subdomainDid = `did:web:${handle}.etzhayyim.com`;
   const alsoKnownAs: string[] = [subdomainDid];
@@ -886,7 +1065,32 @@ function buildPerActorDidDoc(handle: string, env: Env): Record<string, unknown> 
   // Default service[] (Phase α P1 — chain lookup placeholder). Infra
   // actors override this entirely with their declared service set
   // (PDS endpoint, libp2p Multiaddr, HTTPS legacy fallback).
+  //
+  // AGENT-CENTRIC registration (ADR-2606232100): only etzhayyim's own AGENT
+  // actors are registered ATProto repos. The `#atproto_pds` entry is what makes
+  // a resolvable DID a *registered* ATProto repo identity (relays/AppView index
+  // it; it can host app.bsky.feed.post records → its posts appear in the feed
+  // instead of only the high-volume external poster's). It declares WHERE the
+  // repo lives; it does NOT mint a signing key (verificationMethod stays empty /
+  // on-chain-mirrored) and does NOT enable server-side posting — writes stay
+  // self-`did:key` + CACAO leash (no-server-key, ADR-2606072802).
+  //
+  // It is added ONLY for namespaced AGENT handles (`registered` = unispsc /
+  // entity-shape agents). Free-form handles are council seats / human members
+  // (per isKnownHandle Phase α) — humans are NOT posting actors on etzhayyim
+  // (agent-centric: etzhayyim is, for now, exclusively its own actors), so they
+  // get the authz resolver only and NO PDS. Hand-authored infra/Tier-B agents
+  // take the override branch (their own service[] already carries #atproto_pds).
   const defaultService: Record<string, unknown>[] = [
+    ...(registered
+      ? [
+          {
+            id: `${pathBasedDid}#atproto_pds`,
+            type: "AtprotoPersonalDataServer",
+            serviceEndpoint: PDS_ENDPOINT,
+          },
+        ]
+      : []),
     {
       id: `${pathBasedDid}#etzhayyim-authz`,
       type: "EtzhayyimAuthzResolver",
@@ -895,9 +1099,19 @@ function buildPerActorDidDoc(handle: string, env: Env): Record<string, unknown> 
         : null,
     },
   ];
-  const service = infraActor
+  const rawService = infraActor
     ? (infraActor.service as Record<string, unknown>[])
     : defaultService;
+  // Normalize the PDS endpoint to the single source of truth: infra/Tier-B and
+  // kotoba-resolved records bake their own service[] (some still carry the
+  // deprecated pds.etzhayyim.com from the `service-json` claim). Force every
+  // AtprotoPersonalDataServer entry to PDS_ENDPOINT so no actor ever resolves
+  // the dead PDS, without needing to re-materialize ~42k kotoba records.
+  const service = (rawService ?? []).map((s) =>
+    s && (s as { type?: string }).type === "AtprotoPersonalDataServer"
+      ? { ...s, serviceEndpoint: PDS_ENDPOINT }
+      : s,
+  );
 
   const adrs = infraActor
     ? ["2605212030", "2605241800", ...infraActor.adrs]
@@ -951,7 +1165,7 @@ async function resolveActorRecord(
   // resolves a keyless mirror record directly from the generated registries.
   // No KV/kotoba round-trip needed at R0 (live kotoba enrichment is G8-gated);
   // returned before the on-chain vm enrichment since mirrors are key-less (G5).
-  if (isEntityHandle(handle)) return entityActorRecord(handle);
+  if (isEntityHandle(handle)) return withPdsEndpoint(entityActorRecord(handle));
   const rec = await resolveActorRecordTiered(handle, env, ctx);
   if (!rec) return null;
   // verificationMethod is a MIRROR of the on-chain ERC725 active key, never
@@ -959,9 +1173,10 @@ async function resolveActorRecord(
   // chain env vars are set and the record has no vm yet (ADR-2606015200).
   if (env.AUTHZ_CONTRACT_ADDRESS && env.BASE_RPC_URL && rec.vm.length === 0) {
     const vm = await fetchOnChainVm(env, handle, rec.did);
-    if (vm.length) return { ...rec, vm: vm as unknown as ActorRecord["vm"] };
+    if (vm.length)
+      return withPdsEndpoint({ ...rec, vm: vm as unknown as ActorRecord["vm"] });
   }
-  return rec;
+  return withPdsEndpoint(rec);
 }
 
 async function resolveActorRecordTiered(
@@ -1027,7 +1242,7 @@ const ACTOR_JSON_HEADERS: Record<string, string> = {
 // Headers we strip from the upstream response. `set-cookie` is dropped because
 // etzhayyim.com is a cookie-free zone by constitutional design — see
 // /CHARTER-RIDER.md §2(c) (no surveillance / trackers) + ADR-2605172000
-// (RW-free substrate, identity = DID + WebAuthn, not cookies).
+// (kotoba substrate, identity = DID + WebAuthn, not cookies).
 const STRIPPED_RESPONSE_HEADERS = new Set([
   "set-cookie",
   "content-security-policy",
@@ -1107,16 +1322,49 @@ function rewriteUpstreamResponse(upstream: Response, pathname: string): Response
   });
 }
 
-export default {
-  async fetch(
-    request: Request,
-    env: Env,
-    ctx: ExecutionContext,
-  ): Promise<Response> {
+// Legacy TypeScript request handler. The cljs Worker core (worker_core.js)
+// delegates here for any route it does not yet own. As routes migrate into
+// did-web.* cljs/cljc, the matching branches below are deleted; when the core
+// owns everything, only the proxy tail remains and this collapses away.
+const tsFetch = async (
+  request: Request,
+  env: Env,
+  ctx: ExecutionContext,
+): Promise<Response> => {
     const url = new URL(request.url);
 
     // ──────────────────────────────────────────────────────────────────
+    // 0) Apex public root — local observation surface, no upstream call.
+    //     NOTE: owned by the cljs core; kept here as parity fallback.
+    // ──────────────────────────────────────────────────────────────────
+    if (url.pathname === "/" || url.pathname === "/index.html") {
+      if (request.method !== "GET" && request.method !== "HEAD") {
+        return new Response("Method Not Allowed", {
+          status: 405,
+          headers: { allow: "GET, HEAD" },
+        });
+      }
+      return new Response(buildHomeHtml(), {
+        status: 200,
+        headers: {
+          "content-type": "text/html; charset=utf-8",
+          "cache-control": "public, max-age=300, must-revalidate",
+          "x-content-type-options": "nosniff",
+          "content-security-policy":
+            "default-src 'none'; style-src 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'",
+          "strict-transport-security": "max-age=31536000; includeSubDomains",
+          "permissions-policy": PERMISSIONS_POLICY,
+          "x-etzhayyim-no-cookie": "1",
+        },
+      });
+    }
+
+    // ──────────────────────────────────────────────────────────────────
     // 1) Entity DID Document — local, no upstream call.
+    //    NOTE: now OWNED by the cljs core (did-web.core/did-json-route).
+    //    This TS branch is dead under normal delegation and kept only as a
+    //    parity reference until the next route batch lands; it is removed in
+    //    the cleanup pass.
     // ──────────────────────────────────────────────────────────────────
     if (url.pathname === "/.well-known/did.json") {
       if (request.method !== "GET" && request.method !== "HEAD") {
@@ -1599,13 +1847,21 @@ a{color:inherit}
             { status: 501, headers: ACTOR_JSON_HEADERS },
           );
         }
-        const gateways = (
+        const ipfsGateways = (
           env.IPFS_GATEWAYS ||
           "https://{cid}.ipfs.dweb.link,https://ipfs.io/ipfs/{cid}"
         )
           .split(",")
           .map((g) => g.trim())
           .filter(Boolean);
+        // Static GitHub-Pages CID gateway tried FIRST (reliable, fast) when
+        // configured; an un-published CID 404s and falls through to IPFS. The
+        // Pages bytes go through the SAME CID re-verification below, so the
+        // static host is never trusted (ADR-2606242400).
+        const pagesBase = (env.PAGES_GATEWAY_BASE || "").trim().replace(/\/$/, "");
+        const gateways = pagesBase
+          ? [`${pagesBase}/ipfs/{cid}`, ...ipfsGateways]
+          : ipfsGateways;
         let lastErr = "no gateway configured";
         for (const tmpl of gateways) {
           const base = tmpl.includes("{cid}")
@@ -1759,7 +2015,7 @@ a{color:inherit}
     //    Worker handles every actor; new actors are added by appending
     //    to XRPC_ROUTES rather than spinning up a new subdomain.
     //
-    //    Substrate short-circuit: if the NSID has a rw-free equivalent
+    //    Substrate short-circuit: if the NSID has a kotoba equivalent
     //    (see SUBSTRATE_NSID_ALIASES) and the YORO_XRPC service binding
     //    is configured, route to the adapter instead of the etzhayyim.com
     //    upstream. Per ADR-2605172000, reads MUST resolve through MST.
@@ -2074,12 +2330,15 @@ a{color:inherit}
             },
           );
         }
-        const upstream = env[route.upstream] as string | undefined;
+        const upstream = resolveUpstream(
+          route,
+          env as unknown as Record<string, string | undefined>,
+        );
         if (!upstream) {
           return new Response(
             JSON.stringify({
               error: "UpstreamNotConfigured",
-              message: `env.${String(route.upstream)} is empty`,
+              message: `env.${route.upstream}${route.fallback ? ` (and fallback env.${route.fallback})` : ""} is empty`,
               nsid,
             }),
             {
@@ -2087,6 +2346,22 @@ a{color:inherit}
               headers: { "content-type": "application/json; charset=utf-8" },
             },
           );
+        }
+        // Aggregate home/discover feeds: when XRPC_PDS_UPSTREAM is provisioned
+        // (Method A), render them from the independent PDS's local kotoba discover
+        // feed (shinshi-free at the source); otherwise transparently curate the
+        // gftd feed (quarantine the EXCLUDE'd poster + boost own actors). INERT
+        // until cutover — empty XRPC_PDS_UPSTREAM keeps today's behavior.
+        if (
+          CURATED_FEED_NSIDS.has(nsid) &&
+          (request.method === "GET" || request.method === "HEAD")
+        ) {
+          const dt = discoverFeedTarget(
+            (env as unknown as Record<string, string | undefined>)
+              .XRPC_PDS_UPSTREAM,
+          );
+          if (dt) return proxyXrpc(request, dt.upstream, dt.nsid);
+          return proxyCuratedFeed(request, upstream, nsid);
         }
         return proxyXrpc(request, upstream, nsid);
       }
@@ -2113,5 +2388,71 @@ a{color:inherit}
         }
       );
     }
+};
+
+// Dependency-injection object for the cljs core (module scope, built once).
+// The cljs core OWNS the local content/identity routes and reads everything it
+// needs from here: static data (did.json / donation policy / HTML) + leaf
+// closures (registries, actor resolution, KV, codec helpers). Keys are read in
+// cljs via goog.object/get (string access), so they survive Closure :advanced
+// property renaming — see did-web.core's interop rule. Behaviour stays
+// byte-identical because the closures are the very same TS functions the legacy
+// handler used. Env-binding interop (KV, service bindings) is wrapped in
+// closures here so the cljs core never touches non-extern JS APIs directly.
+const cljsDeps = {
+  // static data
+  didDoc,
+  donationPolicy: DONATION_POLICY,
+  donateHtml: DONATE_HTML,
+  tomoshibiHtml: TOMOSHIBI_HTML,
+  unispscTotal: UNISPSC_TOTAL_COUNT,
+  govProcMeta: {
+    generatedAt: GOV_PROCEDURES_GENERATED_AT,
+    total: GOV_PROCEDURES_TOTAL,
+    owners: GOV_PROCEDURES_OWNER_COUNT,
+    jurisdictions: GOV_PROCEDURES_JURISDICTION_COUNT,
+  },
+  govProcList: GOV_PROCEDURE_LIST,
+  // HTML builders (referenceable module fns — no extraction needed)
+  homeHtml: () => buildHomeHtml(),
+  actorsHtml: () => buildActorsHtml(),
+  organismHtml: () => buildOrganismHtml(),
+  infraActorHandles: Object.keys(INFRA_ACTORS),
+  // async leaves
+  buildActorsJson: (env: Env) => buildActorsJsonWithCids(env),
+  kvGet: (env: Env, key: string): Promise<string | null> =>
+    env.ACTOR_KV ? env.ACTOR_KV.get(key) : Promise.resolve(null),
+  // actor resolution (kotoba-first → compiled, per resolveActorRecordTiered)
+  resolveActorRecord: (handle: string, env: Env, ctx: ExecutionContext) =>
+    resolveActorRecord(handle, env, ctx),
+  toDidDoc: (rec: ActorRecord, env: Env) => toDidDoc(rec, env),
+  buildPerActorDidDoc: (handle: string, env: Env) => buildPerActorDidDoc(handle, env),
+  didDocCid: (rec: ActorRecord, env: Env) => didDocCid(rec, env),
+  toGetProfileView: (rec: ActorRecord) => toGetProfileView(rec),
+  // pure helpers
+  handleValid: (handle: string) => HANDLE_REGEX.test(handle),
+  isKnownHandle: (handle: string) => isKnownHandle(handle),
+  govProcsByOwner: (handle: string) => GOV_PROCEDURES_BY_OWNER.get(handle) ?? [],
+  // xrpc registry surface (searchActors / getProfile short-circuits)
+  searchEntityActors: (q: string, limit: number, offset: number) =>
+    searchEntityActors(q, limit, offset),
+  entityTotalCount: ENTITY_TOTAL_COUNT,
+  compiledActorRecord: (handle: string) => compiledActorRecord(handle),
+  compiledActorHandlesList: [...COMPILED_ACTOR_HANDLES],
+  compiledActorHas: (handle: string) => COMPILED_ACTOR_HANDLES.has(handle),
+  actorHandleFromParam: (param: string) => actorHandleFromParam(param),
+  isEntityHandle: (handle: string) => isEntityHandle(handle),
+};
+
+export default {
+  async fetch(
+    request: Request,
+    env: Env,
+    ctx: ExecutionContext,
+  ): Promise<Response> {
+    // The cljs core owns a growing set of routes; everything it does not own
+    // falls through to the legacy TS handler (tsFetch). This is the single
+    // delegation seam for the incremental clj/kotoba migration.
+    return cljsHandle(request, env, ctx, cljsDeps, tsFetch);
   },
 } satisfies ExportedHandler<Env>;
