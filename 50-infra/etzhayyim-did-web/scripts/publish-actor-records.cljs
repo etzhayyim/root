@@ -144,7 +144,13 @@
   (let [did   (str "did:web:etzhayyim.com:actor:" (:handle rec))
         vm    (:vm rec)
         chain-ref (some #(when (and (map? %) (get % "chainRef")) (get % "chainRef")) vm)
-        also  (cond-> [(str "did:web:" (:handle rec) ".etzhayyim.com")]
+        ;; NOTE: alsoKnownAs previously asserted an unconditional
+        ;; `did:web:<handle>.etzhayyim.com` subdomain claim here. That subdomain has
+        ;; no DNS record for any actor (verified 2026-07-21) and no ADR documents it
+        ;; as a planned resolution address — it was a fabricated alias, not a real
+        ;; one. Do not resurrect it without provisioning the DNS/route it claims.
+        ;; MIRROR of src/registry/actor-profiles.ts toDidDoc() (fixed in #3306).
+        also  (cond-> []
                 chain-ref (conj chain-ref)
                 (and (not chain-ref) (seq authz-contract))
                 (conj (str "did:erc725:base:" authz-contract "#__rootId-pending-chain-lookup__")))
