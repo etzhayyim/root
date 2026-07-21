@@ -69,7 +69,7 @@
     "chai": "^4.2.0",
     "eslint": "^9.0.0",
     "eslint-config-prettier": "^10.0.0",
-    "ethers": "^6.16.0",
+    "ethers": "^6.17.0",
     "glob": "^13.0.0",
     "globals": "^17.0.0",
     "graphlib": "^2.1.8",
@@ -93,7 +93,7 @@
     "solidity-ast": "^0.4.62",
     "solidity-coverage": "^0.8.14",
     "solidity-docgen": "^0.6.0-beta.29",
-    "undici": "^8.5.0",
+    "undici": "^8.6.0",
     "yargs": "^18.0.0"
   },
   "lint-staged": {
