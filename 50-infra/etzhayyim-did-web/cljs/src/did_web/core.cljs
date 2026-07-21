@@ -143,6 +143,15 @@
                "cache-control" "public, max-age=300, must-revalidate"
                "content-security-policy" csp)))
 
+;; text/xml discovery-surface routes (robots.txt / sitemap.xml family). Plain
+;; text bodies, cacheable, same security header set as the HTML routes minus
+;; CSP (not applicable to a non-HTML response).
+(defn- text-resp [body content-type]
+  (resp body 200
+        (assoc html-sec
+               "content-type" content-type
+               "cache-control" "public, max-age=300, must-revalidate")))
+
 (defn- home-route [deps]
   (html-resp (call deps "homeHtml")
              "default-src 'none'; script-src 'self'; connect-src 'self'; style-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'"))
@@ -261,6 +270,69 @@
        :script-src "/_shell/murakumo.js"
        :footer-html "Live sources: <a href=\"/.well-known/actors.json\">/.well-known/actors.json</a> · <a href=\"/organism/pulse.json\">/organism/pulse.json</a> · <a href=\"/actors\">/actors</a>."})
      "default-src 'none'; script-src 'self'; connect-src 'self'; style-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'")))
+
+;; ─── discovery surface (robots.txt / sitemap.xml family) ────────────────────
+;;
+;; Fixed 2026-07-21: these 4 paths previously had no owned route AND no
+;; ./public static file, so every request fell through to the reverse proxy
+;; (proxy/reverse-proxy) and served the retired YORO app's leftover
+;; robots.txt/sitemap.xml verbatim — including a sitemap whose every entry
+;; pointed at the dead redirect target of the retired YORO subdomain. That
+;; actively mis-taught search crawlers what etzhayyim.com is. These routes
+;; are now owned locally with etzhayyim.com's own real content.
+
+(def ^:private robots-txt-body
+  (str "# etzhayyim.com — public root / observation surface for etzhayyim,\n"
+       "# a religious artificial organism (did:web:etzhayyim.com).\n"
+       "# https://etzhayyim.com\n"
+       "User-agent: *\n"
+       "Allow: /\n"
+       "\n"
+       "Sitemap: https://etzhayyim.com/sitemap.xml\n"))
+
+(def ^:private sitemap-index-body
+  (str "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+       "<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n"
+       "  <sitemap><loc>https://etzhayyim.com/sitemaps/static.xml</loc></sitemap>\n"
+       "  <sitemap><loc>https://etzhayyim.com/sitemaps/actors/index.xml</loc></sitemap>\n"
+       "</sitemapindex>\n"))
+
+;; The 8 real top-level HTML pages this Worker owns per did-web.router's
+;; static-path table (:home-html … :murakumo-html + :gov-html). Not an
+;; exhaustive route enumeration — a hand-picked, real, human-facing subset.
+(def ^:private sitemap-static-body
+  (str "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+       "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n"
+       "  <url><loc>https://etzhayyim.com/</loc></url>\n"
+       "  <url><loc>https://etzhayyim.com/actors</loc></url>\n"
+       "  <url><loc>https://etzhayyim.com/organism</loc></url>\n"
+       "  <url><loc>https://etzhayyim.com/system-dynamics</loc></url>\n"
+       "  <url><loc>https://etzhayyim.com/murakumo</loc></url>\n"
+       "  <url><loc>https://etzhayyim.com/gov</loc></url>\n"
+       "  <url><loc>https://etzhayyim.com/donate</loc></url>\n"
+       "  <url><loc>https://etzhayyim.com/tomoshibi</loc></url>\n"
+       "</urlset>\n"))
+
+;; Points at the real, human-browsable actor index page rather than
+;; fabricating an exhaustive per-actor sitemap for the several hundred
+;; dynamically-registered actor DIDs (a real generator is a follow-up).
+(def ^:private sitemap-actors-index-body
+  (str "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+       "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n"
+       "  <url><loc>https://etzhayyim.com/actors</loc></url>\n"
+       "</urlset>\n"))
+
+(defn- robots-txt-route []
+  (text-resp robots-txt-body "text/plain; charset=utf-8"))
+
+(defn- sitemap-xml-route []
+  (text-resp sitemap-index-body "application/xml; charset=utf-8"))
+
+(defn- sitemap-static-xml-route []
+  (text-resp sitemap-static-body "application/xml; charset=utf-8"))
+
+(defn- sitemap-actors-index-xml-route []
+  (text-resp sitemap-actors-index-body "application/xml; charset=utf-8"))
 
 (defn- round1 [x]
   (/ (Math/round (* 10.0 (double x))) 10.0))
@@ -467,6 +539,10 @@
         :gov-html            (gov-route)
         :organism-html       (organism-route)
         :murakumo-html       (murakumo-route)
+        :robots-txt          (robots-txt-route)
+        :sitemap-xml         (sitemap-xml-route)
+        :sitemap-static-xml  (sitemap-static-xml-route)
+        :sitemap-actors-index-xml (sitemap-actors-index-xml-route)
         :system-dynamics-html (system-dynamics-route deps env ctx)
         :actor-system-dynamics-html (actor-system-dynamics-route deps env ctx handle)
         :actor-did           (actor-did-route deps env ctx handle)
