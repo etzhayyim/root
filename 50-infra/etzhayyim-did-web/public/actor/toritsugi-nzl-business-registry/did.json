@@ -1,7 +1,7 @@
 {
   "@context" : [ "https://www.w3.org/ns/did/v1", "https://w3id.org/security/suites/jws-2020/v1" ],
   "id" : "did:web:etzhayyim.com:actor:toritsugi-nzl-business-registry",
-  "alsoKnownAs" : [ "did:web:toritsugi-nzl-business-registry.etzhayyim.com" ],
+  "alsoKnownAs" : [ ],
   "verificationMethod" : [ ],
   "service" : [ {
     "id" : "did:web:etzhayyim.com:actor:toritsugi-nzl-business-registry#atproto_pds",
