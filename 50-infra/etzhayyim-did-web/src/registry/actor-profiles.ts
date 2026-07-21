@@ -166,8 +166,12 @@ export function toDidDoc(
   env: DidDocEnv,
 ): Record<string, unknown> {
   const pathBasedDid = `did:web:etzhayyim.com:actor:${rec.handle}`;
-  const subdomainDid = `did:web:${rec.handle}.etzhayyim.com`;
-  const alsoKnownAs: string[] = [subdomainDid];
+  // NOTE: alsoKnownAs previously asserted an unconditional
+  // `did:web:<handle>.etzhayyim.com` subdomain claim here. That subdomain has
+  // no DNS record for any actor (verified 2026-07-21) and no ADR documents it
+  // as a planned resolution address — it was a fabricated alias, not a real
+  // one. Do not resurrect it without provisioning the DNS/route it claims.
+  const alsoKnownAs: string[] = [];
   // chain-ref comes from the vm mirror when present; otherwise the scaffold
   // placeholder (same behaviour as the legacy buildPerActorDidDoc).
   const chainRef = rec.vm.find((v) => typeof v["chainRef"] === "string")?.[

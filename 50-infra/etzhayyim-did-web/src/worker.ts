@@ -1048,8 +1048,12 @@ function isKnownHandle(handle: string): boolean {
 
 export function buildPerActorDidDoc(handle: string, env: Env): Record<string, unknown> {
   const pathBasedDid = `did:web:etzhayyim.com:actor:${handle}`;
-  const subdomainDid = `did:web:${handle}.etzhayyim.com`;
-  const alsoKnownAs: string[] = [subdomainDid];
+  // NOTE: alsoKnownAs previously asserted an unconditional
+  // `did:web:<handle>.etzhayyim.com` subdomain claim here. That subdomain has
+  // no DNS record for any actor (verified 2026-07-21) and no ADR documents it
+  // as a planned resolution address — it was a fabricated alias, not a real
+  // one. Do not resurrect it without provisioning the DNS/route it claims.
+  const alsoKnownAs: string[] = [];
   const registered = isNamespacedHandle(handle);
   const infraActor = getInfraActor(handle);
 
@@ -1144,7 +1148,7 @@ export function buildPerActorDidDoc(handle: string, env: Env): Record<string, un
           }
         : null,
       note: env.AUTHZ_CONTRACT_ADDRESS
-        ? "rootId placeholder in alsoKnownAs[1] is pending on-chain lookup wiring"
+        ? "rootId placeholder in alsoKnownAs[0] is pending on-chain lookup wiring"
         : "AUTHZ_CONTRACT_ADDRESS not configured; alsoKnownAs[did:erc725:base] omitted",
     },
   };
