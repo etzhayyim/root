@@ -188,8 +188,15 @@ contract EtzhayyimPaymaster {
     }
 
     /// @notice Called by EntryPoint after the userOp executes. Reconcile gas spent.
+    /// @dev ERC-4337 v0.7 defines three PostOpMode values:
+    ///      - opSucceeded (0): UserOp succeeded → count actual gas spent toward daily cap.
+    ///      - opReverted  (1): UserOp reverted → gas was still consumed and paid by paymaster;
+    ///                         DESIGN CHOICE: count it toward daily cap (failed UserOps still burn gas).
+    ///      - postOpReverted (2): postOp itself reverted on a prior call → EntryPoint already reverted
+    ///                         the previous postOp state changes; we simply account actual gas again.
+    ///      In all three modes we increment the daily counter by actual gas cost (capped at maxCost).
     function postOp(
-        PostOpMode /*mode*/,
+        PostOpMode mode,
         bytes calldata context,
         uint256 actualGasCost,
         uint256 /*actualUserOpFeePerGas*/
@@ -197,7 +204,15 @@ contract EtzhayyimPaymaster {
         (address sender, uint256 day, uint256 maxCost) = abi.decode(context, (address, uint256, uint256));
         // Refund the slack between maxCost and actualGasCost back to the daily counter
         uint256 actual = actualGasCost < maxCost ? actualGasCost : maxCost;
+        // Mode is intentionally not switched on: all three modes consume gas that the paymaster pays.
+        // opSucceeded   → userOp succeeded, gas paid.
+        // opReverted    → userOp reverted but gas still consumed/paid by paymaster (design choice: count it).
+        // postOpReverted→ retry after postOp revert; EntryPoint reverted prior postOp state, so we add again.
         senderSpentOnDay[sender][day] += actual;
+        // Silence unused warning while documenting intent.
+        if (mode == PostOpMode.postOpReverted) {
+            // Explicit no-op branch to document that postOpReverted is handled by re-adding.
+        }
     }
 
     // ─── Verifying-paymaster helpers (fix #1519) ─────────────────────
