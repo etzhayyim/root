@@ -257,57 +257,6 @@ contract EtzhayyimPaymaster {
         return (sigFailed ? 1 : 0) | (uint256(validUntil) << 160) | (uint256(validAfter) << 208);
     }
 
-    // ─── Verifying-paymaster helpers (fix #1519) ─────────────────────
-
-    /**
-     * @notice Hash the off-chain operator signs to pre-approve a UserOp.
-     * @dev Covers all UserOp fields except the trailing signature in
-     *      paymasterAndData (which would be circular). Layout matches
-     *      account-abstraction v0.7 samples.VerifyingPaymaster.getHash.
-     */
-    function getHash(PackedUserOperation calldata userOp, uint48 validUntil, uint48 validAfter)
-        public
-        view
-        returns (bytes32)
-    {
-        return keccak256(
-            abi.encode(
-                userOp.sender,
-                userOp.nonce,
-                keccak256(userOp.initCode),
-                keccak256(userOp.callData),
-                userOp.accountGasLimits,
-                uint256(bytes32(userOp.paymasterAndData[PAYMASTER_VALIDATION_GAS_OFFSET:PAYMASTER_DATA_OFFSET])),
-                userOp.preVerificationGas,
-                userOp.gasFees,
-                block.chainid,
-                address(this),
-                validUntil,
-                validAfter
-            )
-        );
-    }
-
-    /// @dev Parse validUntil/validAfter (uint48×2) and the trailing signature out of paymasterAndData.
-    function parsePaymasterAndData(bytes calldata paymasterAndData)
-        public
-        pure
-        returns (uint48 validUntil, uint48 validAfter, bytes calldata signature)
-    {
-        (validUntil, validAfter) =
-            abi.decode(paymasterAndData[PAYMASTER_DATA_OFFSET:], (uint48, uint48));
-        signature = paymasterAndData[SIGNATURE_OFFSET:];
-    }
-
-    /// @dev Inlined from account-abstraction Helpers._packValidationData to avoid the GPL import.
-    function _packValidationData(bool sigFailed, uint48 validUntil, uint48 validAfter)
-        internal
-        pure
-        returns (uint256)
-    {
-        return (sigFailed ? 1 : 0) | (uint256(validUntil) << 160) | (uint256(validAfter) << 208);
-    }
-
     // ─── Policy helpers ──────────────────────────────────────────────
 
     /// @dev Naive extraction of the first 20 bytes of callData (assumes
