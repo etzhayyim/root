@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-07-20",
+  "updated_at": "2026-07-23",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.edn",
@@ -25668,6 +25668,35 @@
       "last_verified": "2026-07-19",
       "authoritative_for": [],
       "related": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2607231100-kawaraban-kotoba-wasm-cacao-aozora-phase-b.edn",
+      "id": "adr-2607231100-kawaraban-kotoba-wasm-cacao-aozora-phase-b",
+      "title": "ADR-2607231100: kawaraban kotoba-wasm componentization Phase B — CACAO self-mint + aozora XRPC confined slices",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "kawaraban-kotoba-wasm-componentization",
+      "authoritative": true,
+      "authoritative_for": [
+        "kawaraban's kotoba-wasm componentization scope decision: CACAO self-mint + aozora createSession JSON/POST/field-extraction are ported to real .kotoba/WASM modules; RSS/Atom fetch+parse and the G1-G11 charter gates are NOT ported and stay JVM-side",
+        "the honest gap list for this port (flat-only CBOR/JSON encode, no HTTP headers, no did:key/graph-cid bignum encoding, no live internet calls made) as of 2026-07-23 -- not a claim of a byte-faithful production port"
+      ],
+      "related": [
+        "com-etzhayyim-kawaraban/wasm/README.md",
+        "com-etzhayyim-kawaraban/wasm/cacao_self_mint.kotoba",
+        "com-etzhayyim-kawaraban/wasm/aozora_create_session.kotoba",
+        "com-etzhayyim-kawaraban/wasm/aozora_extract_session_fields.kotoba",
+        "90-docs/adr/2606061900-kawaraban-news-medium-actor-r0.edn",
+        "com-junkawasaki/root:90-docs/adr/2607110200-kawaraban-r0-r1-cloud-itonami-isco-3521-media-broadcast.edn",
+        "com-junkawasaki/root:90-docs/adr/2607231022-kototama-http-fetch-cbor-json-capabilities.edn",
+        "kotoba-lang/kototama#49",
+        "kotoba-lang/kotoba-core-contracts#10"
+      ],
+      "last_verified": "2026-07-23",
+      "supersedes": [],
       "superseded_by": [],
       "amends": [],
       "amended_by": []
