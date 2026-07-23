@@ -4578,23 +4578,25 @@
     {
       "path": "90-docs/adr/2604271400-mcp-invoke-fee-and-erc8004-murakumo-bridge.edn",
       "id": "adr-2604271400-mcp-invoke-fee-and-erc8004-murakumo-bridge",
-      "title": "ADR: MCP invoke fee + ERC-8004 ↔ Murakumo operator bridge",
+      "title": "ADR-2604271400: ENGI supersession of central MCP credits + ERC-8004 ↔ Murakumo bridge",
       "status": "active",
       "doc_type": "adr",
       "topic": "mcp-invoke-fee-erc8004-murakumo-bridge",
       "authoritative": true,
       "authoritative_for": [
-        "MCP `tools/call` 従量課金 (`mcp_invoke` action) と 10% public fund 再分配の継承",
-        "Murakumo operator (`MurakumoRegistry`) と ERC-8004 agent identity (`etzhayyimAgentRegistry`) の bridge"
+        "ENGI participant-owned mutual credit: deterministic signed replay, relational limits, bounded Commons/Kisha governance, replaceable transport, and consent-bound migration",
+        "Murakumo operator (`MurakumoRegistry`) and ERC-8004 agent identity (`etzhayyimAgentRegistry`) bridge, without EN monetary authority"
       ],
       "related": [
         "adr-2604261000-mcp-registry-via-kysely-schema",
         "adr-2604262100-erc725-erc8004-k8s-ipfs-agent-runtime",
         "adr-2604262145-erc8004-protocol-root-atproto-profile",
         "adr-0061-murakumo-platform-auth-unification",
-        "adr-0087-kotodama-mcp-tool-facade"
+        "adr-0087-kotodama-mcp-tool-facade",
+        "adr-2606062101-moyai-inference-reciprocity-credit",
+        "adr-2606180001-charter-amendment-wave2-business-models-and-economic-structure-to-objective-function"
       ],
-      "last_verified": "2026-04-27",
+      "last_verified": "2026-07-23",
       "supersedes": [],
       "superseded_by": [],
       "amends": [],
