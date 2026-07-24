@@ -12,7 +12,7 @@ dependencies = [
     "numpy>=1.26",
     "Pillow>=10",
     "torch>=2.4",
-    "transformers==5.3.0",
+    "transformers==5.5.0",
     "accelerate>=0.30",
     "safetensors>=0.4",
     "timm>=1.0",
@@ -24,7 +24,7 @@ bgp-submit  = "baien_graft_pipeline.submit:main"
 bgp-collect = "baien_graft_pipeline.pipeline:main"
 
 [build-system]
-requires = ["setuptools>=68", "wheel"]
+requires = ["setuptools>=83.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
