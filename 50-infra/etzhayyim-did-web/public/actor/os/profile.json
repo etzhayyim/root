@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:os",
+  "handle": "os.etzhayyim.com",
+  "displayName": "Etzhayyim OS — Kotodama Service Layer",
+  "description": "Agent lifecycle management, consent orchestration, directory resolution, budget allocation, audit trail, sync coordination, and window-manager service. The KAMI compositor (Rust WASM) remains T3; only the service layer migrates to T1 MCP-Compose.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Etzhayyim OS",
+  "displayNameJa": "Etzhayyim OS — Kotodama Service Layer",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.os",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/os/did.json",
+    "source": "kotoba"
+  }
+}

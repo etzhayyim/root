@@ -1,0 +1,31 @@
+{
+  "did": "did:web:etzhayyim.com:actor:tazuna",
+  "handle": "tazuna.etzhayyim.com",
+  "displayName": "手綱 — Clean-room Remote-Robotics Fleet Operation + Teleoperation + Learning-from-Demonstration",
+  "description": "The charter-clean answer to the Boston-Dynamics-Orbit shape: the missing HEAD that remotely operates the robotics-body fleet (sanae/kiyome/hataori/giemon/wadachi) and the missing LOOP that learns from operating it. 手綱 = the reins — hold them to guide a robot that does not yet know the path (teleoperation), release them as it earns autonomy through demonstration (imitation learning). Remote actuation is admitted ONLY as Transparent Force (on-chain monitored + open-source + 1 SBT=1 vote, Missio...",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-04T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "綱",
+  "displayNameJa": "手綱 — Clean-room Remote-Robotics Fleet Operation + Teleoperation + Learning-from-Demonstration",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2606042100",
+      "2606042100"
+    ],
+    "primaryLexicon": "com.etzhayyim.tazuna",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/tazuna/did.json",
+    "source": "kotoba"
+  }
+}

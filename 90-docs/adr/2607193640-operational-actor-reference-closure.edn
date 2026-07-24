@@ -1,0 +1,15 @@
+{:schema "etzhayyim.adr/v1"
+ :id "2607193640"
+ :title "Close residual operational references to the actor compatibility layer"
+ :status :accepted
+ :date "2026-07-19"
+ :decision {:rewired [{:consumer "70-tools/baien-distill/pyproject.toml" :destination "orgs/kotoba-lang/kotodama"}
+                      {:consumer "50-infra/karute-did-web/did.json" :destination "etzhayyim/com-etzhayyim-karute" :revision "aaae559821c144720302efa6c244a95fd7b2885e"}]
+            :retired [{:consumer "70-tools/scripts/lint/substrate-frozen-allowlist.json" :path "20-actors/ipaddress/wasm/etzhayyim-wasm-ipaddress-n7w1p4d0/src/app.ts"}]
+            :retired-tools [{:tool "manifest-lexicon-drift" :reason "Root checkout contains only MOVED markers; manifest and lexicon audits belong to owner repositories or the west superproject."}
+                            {:tool "actor-invariant aggregate suites" :reason "Actor-local Python and CLJC suites run in owner repositories, not root's audit aggregator."}]
+            :audit-rollup-baseline {:before 7 :after 6 :cause "ADR-2607193620 activity-monitor defunct subrepo retirement"}}
+ :classification {:retained-historical-compatibility ["70-tools/src/etzhayyim/logs.cljc" "70-tools/etzhayyim-py/src/etzhayyim/logs.py"]
+                  :retained-fixtures ["70-tools/src/etzhayyim/test_*" "70-tools/scripts/fleet-refactor/**" "70-tools/scripts/kotoba-migration-bakeoff/**"]
+                  :retained-generated-provenance ["00-contracts/schemas/cleanroom-openapi-index.json" "00-contracts/schemas/cleanroom-mcp-index.json"]}
+ :invariants {:canonical-record-format :edn :go-files-created 0 :tinygo-files-created 0}}

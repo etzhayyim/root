@@ -56,7 +56,7 @@
     "https://dweb.link/ipfs/",
     "https://cloudflare-ipfs.com/ipfs/"
   ],
-  "verify": "python3 20-actors/tsumugi/methods/publish_ipfs.py --verify  (re-content-address)",
+  "verify": "python3 orgs/etzhayyim/com-etzhayyim-tsumugi/methods/publish_ipfs.py --verify  (re-content-address)",
   "fetch": {
     "graph": [
       "https://ipfs.io/ipfs/bafkreier4zyuw6dfma3t2kmawbzfupfdusdzabt44raki2m5dv7cuvfb4m",

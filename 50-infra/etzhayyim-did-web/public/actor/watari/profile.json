@@ -23,7 +23,7 @@
       "2606041827"
     ],
     "primaryLexicon": "com.etzhayyim.watari",
-    "primarySchema": "00-contracts/schemas/moving-craft-ontology.kotoba.edn",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-watari/schema.edn",
     "didDocument": "https://etzhayyim.com/actor/watari/did.json",
     "source": "kotoba"
   }

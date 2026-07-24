@@ -1,6 +1,6 @@
 # com.etzhayyim.wakai.* — wakai (和会) Lexicons
 
-**Owner actor**: `did:web:wakai.etzhayyim.com` (`20-actors/wakai/`)
+**Owner actor**: `did:web:wakai.etzhayyim.com` ([`com-etzhayyim-wakai`](https://github.com/etzhayyim/com-etzhayyim-wakai))
 **ADR**: ADR-2605263500 (R0 scaffold)
 **Status**: R0 schema skeletons. Full schemas at R1+.
 
@@ -36,7 +36,7 @@ Schemas at R0 are skeleton-level; full structural enforcement at R1.
 
 ## Related Files
 
-- `/20-actors/wakai/manifest.jsonld`
-- `/20-actors/wakai/README.md`
-- `/20-actors/wakai/CLAUDE.md`
+- `orgs/etzhayyim/com-etzhayyim-wakai/manifest.edn` (canonical)
+- `orgs/etzhayyim/com-etzhayyim-wakai/README.md`
+- `orgs/etzhayyim/com-etzhayyim-wakai/CLAUDE.md`
 - `/90-docs/adr/2605263500-wakai-mutual-aid-tier-b-actor-r0.md`

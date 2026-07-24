@@ -1,7 +1,7 @@
 /// matsurigoto:egov — COFOG e-Government service module WIT surface (ADR-2606062300, R1.A)
 ///
 /// The kotoba-wasm component contract for matsurigoto's executable service modules
-/// (R0 reference impls in 20-actors/matsurigoto/methods/modules/<id>.py). A module is
+/// (R0 reference impls in orgs/etzhayyim/com-etzhayyim-matsurigoto/methods/modules/<id>.py). A module is
 /// componentize-py-compiled to a WASM Component, content-addressed on IPFS, and run in a
 /// donated node (ameno / e7m / kotoba pod, ADR-2606012100/14600).
 ///
@@ -143,8 +143,67 @@ interface credential {
     validate-mrz: func(line2: string) -> bool;
 }
 
+/// Benefit disbursement — `benefit-disburse`. COFOG division 10 (social protection) in-kind
+/// entitlement ASSESSMENT (OpenG2P government-to-person registry pattern, generalized so it
+/// can also express etzhayyim's own non-cash Basic High Income doctrine, ADR-2605301020).
+interface benefit {
+    use types.{unsigned-artifact, authority-mode};
+
+    /// COFOG division 10 groups this module can assess (10.8 R&D / 10.9 n.e.c. excluded — not
+    /// individually claimable benefit categories at the group level).
+    enum entitlement-category {
+        sickness-disability,   // COFOG 10.1
+        old-age,                // COFOG 10.2
+        survivors,               // COFOG 10.3
+        family-children,        // COFOG 10.4
+        unemployment,            // COFOG 10.5
+        housing,                 // COFOG 10.6
+        social-exclusion,        // COFOG 10.7
+    }
+
+    /// Under `sovereign-governance` (principal A, etzhayyim itself) only the two non-cash media
+    /// are representable — deliberately no cash case in that path (ADR-2605301020's
+    /// `cashStipendUsdMicros: const 0` moved from a runtime-checked field into the type surface
+    /// itself). Under `supplied-to-state` (principal B) `cash-transfer` is additionally valid —
+    /// an ordinary state G2P cash benefit is not an etzhayyim constitutional matter.
+    enum disbursement-medium {
+        in-kind-service,      // flow: market-equivalent value of a service consumed
+        commons-asset-access, // stock: non-alienable right of access to a shared asset
+        cash-transfer,        // supplied-to-state ONLY — rejected under sovereign-governance
+    }
+
+    record entitlement {
+        category: entitlement-category,
+        medium: disbursement-medium,
+        claimant-did: string,
+        evidence-basis: string,
+        for-principal: authority-mode,
+        certificate: unsigned-artifact,
+    }
+
+    record imputed-value {
+        units-consumed: f64,
+        unit-reference-price-usd-micros: u64,
+        total-value-usd-micros: u64,
+        accounting-only: bool,   // always true — never a transfer amount
+    }
+
+    /// Assess + construct an entitlement record for one claimant/category, citing the evidence
+    /// basis (G2). Never disburses anything itself — assessment only, unsigned (G1); the
+    /// governing organ signs and a separate disbursing actor executes. Errors if `medium` is
+    /// `cash-transfer` under `sovereign-governance` (the structural non-cash invariant).
+    assess-entitlement: func(claimant-did: string, category: entitlement-category,
+                            medium: disbursement-medium, evidence-basis: string,
+                            for-principal: authority-mode) -> result<entitlement, string>;
+
+    /// Market-equivalent valuation of in-kind/commons-access provision (ADR-2605301020 §4) —
+    /// ACCOUNTING-ONLY, never a transfer amount.
+    compute-imputed-value: func(units-consumed: f64, unit-reference-price-usd-micros: u64) -> result<imputed-value, string>;
+}
+
 /// One world per module — each exports ONLY its service interface. None exports `sign` (G1).
 world tax-assess { export tax; }
 world civil-registry { export civil; }
 world corp-registry { export corp; }
 world credential-issue { export credential; }
+world benefit-disburse { export benefit; }

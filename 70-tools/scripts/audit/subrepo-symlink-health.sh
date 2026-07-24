@@ -58,7 +58,7 @@ cd "$REPO_ROOT"
 # Step 2: symlinks tracked by git = entries with mode 120000 in
 # `git ls-files -s` output (mode | sha | stage | path).
 
-SUBREPOS=$(git ls-files | grep '\.gitrepo$' | grep -v "/node_modules/\|/.claude/" | sed 's|/.gitrepo$||' | sed 's|^|./|')
+SUBREPOS=$(git ls-files | grep '\.gitrepo$' | grep -v "/node_modules/\|/.claude/" | sed 's|/.gitrepo$||' | sed 's|^|./|' || true)
 
 # One-shot scan of all symlinks in the repo (much faster than
 # per-subrepo `find -type l` loops).

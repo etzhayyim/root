@@ -18,7 +18,7 @@ import path from "node:path";
 const ROOT = process.cwd();
 const LEXICON_DIR = path.join(ROOT, "00-contracts/lexicons");
 const OUT_FILE = path.join(ROOT, "50-infra/cloudflare/workers/atproto/src/generated/lexicon-registry.gen.ts");
-const CLIENT_OUT_FILE = path.join(ROOT, "10-protocol/xrpc/src/lexicon-types.gen.ts");
+const CLIENT_OUT_FILE = path.join(ROOT, "../com-etzhayyim-xrpc/src/lexicon-types.gen.ts");
 
 const isDryRun = process.argv.includes("--dry-run");
 

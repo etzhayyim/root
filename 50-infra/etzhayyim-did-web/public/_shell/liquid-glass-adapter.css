@@ -1,0 +1,106 @@
+/*
+ * liquid-glass-adapter.css — the etzhayyim.com liquid-glass skin.
+ *
+ * Binds the site's EXISTING semantic shell classes (header / nav / .hero / .panel /
+ * .card / .metric / .org-card / .actor-flow / .btn / .tag) to the kotoba-lang/
+ * liquid-glass-ui material whose tokens + component CSS live in liquid-glass.css.
+ * Pure CSS: no HTML page-builder edits, no inline <style>, same-origin <link>.
+ * Loaded AFTER shell.css (layout) and liquid-glass.css (tokens), so these rules
+ * win at equal specificity and every public page (home / organism / actors / gov /
+ * murakumo / donate / system-dynamics) gets the same frosted-glass material.
+ *
+ * Reversible: drop the two <link>s in shell.cljc / shell.ts to revert to the flat
+ * system-color shell. ADR: etzhayyim-did-web liquid-glass skin.
+ */
+
+/* A soft, brand-tinted gradient behind the page so the glass has something to
+   refract — a flat Canvas background gave the blur nothing to do. Adaptive: built
+   from the existing domain accents (--alive/--act/--atp) over Canvas, fixed so the
+   glass blur stays consistent while the page scrolls. */
+body {
+  background:
+    radial-gradient(120% 80% at 10% -10%, color-mix(in srgb, var(--alive, #39d98a) 16%, transparent) 0%, transparent 55%),
+    radial-gradient(120% 80% at 92% -12%, color-mix(in srgb, var(--act, #7aa2ff) 20%, transparent) 0%, transparent 55%),
+    radial-gradient(150% 110% at 50% 118%, color-mix(in srgb, var(--atp, #f078c0) 12%, transparent) 0%, transparent 60%),
+    Canvas;
+  background-attachment: fixed;
+  min-height: 100vh;
+  color: CanvasText;
+}
+
+/* Shared glass surface (regular tier): translucent tint + blur+saturate+brightness
+   backdrop, a two-tone rim-light edge (top bright, bottom dim = lit from above),
+   and an elevation drop-shadow. This is the same declaration set
+   liquid-glass__panel carries; repeated here against the site's own class names. */
+.hero, .panel, .card, .metric, .org-card, .actor-flow,
+nav.site-nav a, .btn, .tag {
+  background: var(--liquid-glass-surface-regular-tint);
+  border: 1px solid var(--liquid-glass-surface-regular-border);
+  backdrop-filter: blur(var(--liquid-glass-surface-regular-blur))
+    saturate(var(--liquid-glass-surface-regular-saturate)) brightness(1.05);
+  -webkit-backdrop-filter: blur(var(--liquid-glass-surface-regular-blur))
+    saturate(var(--liquid-glass-surface-regular-saturate)) brightness(1.05);
+}
+
+/* Containers that can host the soft top-left specular sheen get position + the
+   ::before overlay (the detail that reads as a lit glass surface, not a flat tile).
+   Excludes .metric/.tag/nav links/.btn (small / already-shaped) — they keep the
+   tint + rim shadow from the rule above, which is enough at their size. */
+.hero, .panel, .card, .org-card, .actor-flow {
+  position: relative;
+  isolation: isolate;
+  box-shadow: var(--liquid-glass-elevation-raised-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, var(--liquid-glass-specular-rim-top-opacity)),
+    inset 0 -1px 0 rgba(255, 255, 255, var(--liquid-glass-specular-rim-bottom-opacity));
+}
+.hero::before, .panel::before, .card::before, .org-card::before, .actor-flow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(120% 60% at 18% -10%,
+    rgba(255, 255, 255, var(--liquid-glass-specular-highlight-opacity)) 0%,
+    rgba(255, 255, 255, 0) 65%);
+  mix-blend-mode: overlay;
+}
+/* Small chrome: rim-light + raised shadow, no sheen. */
+.metric, nav.site-nav a, .btn, .tag {
+  box-shadow: var(--liquid-glass-elevation-raised-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, var(--liquid-glass-specular-rim-top-opacity));
+  transition: transform var(--liquid-glass-motion-press-duration) var(--liquid-glass-motion-press-easing),
+    filter var(--liquid-glass-motion-press-duration) var(--liquid-glass-motion-press-easing);
+}
+nav.site-nav a:hover, .btn:hover { transform: translateY(-1px); filter: brightness(1.08); }
+nav.site-nav a[aria-current="page"] {
+  background: color-mix(in srgb, var(--liquid-glass-accent-tint-strong) 34%, var(--liquid-glass-surface-regular-tint));
+  border-color: var(--liquid-glass-accent-tint-strong);
+}
+
+/* Header: a floating glass bar instead of a hairline rule. */
+header.site-hd {
+  border: 1px solid var(--liquid-glass-surface-regular-border);
+  border-bottom: 1px solid var(--liquid-glass-surface-regular-border);
+  border-radius: var(--liquid-glass-radius-lg);
+  background: var(--liquid-glass-surface-regular-tint);
+  backdrop-filter: blur(var(--liquid-glass-surface-thick-blur))
+    saturate(var(--liquid-glass-surface-thick-saturate)) brightness(1.05);
+  -webkit-backdrop-filter: blur(var(--liquid-glass-surface-thick-blur))
+    saturate(var(--liquid-glass-surface-thick-saturate)) brightness(1.05);
+  box-shadow: var(--liquid-glass-elevation-overlay-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, var(--liquid-glass-specular-rim-top-opacity)),
+    inset 0 -1px 0 rgba(255, 255, 255, var(--liquid-glass-specular-rim-bottom-opacity));
+  padding: .55rem .9rem;
+}
+
+/* code chips: keep readable on glass (opaque-ish soft fill, currentColor ink). */
+code { background: color-mix(in srgb, Canvas 70%, transparent); }
+
+/* Engines without backdrop-filter (old browsers): fall back to an opaque-ish tint
+   so text on .metric/.panel stays legible without the blur. */
+@supports not (backdrop-filter: blur(1px)) {
+  .hero, .panel, .card, .metric, .org-card, .actor-flow,
+  nav.site-nav a, .btn, .tag, header.site-hd {
+    background: color-mix(in srgb, Canvas 82%, transparent);
+  }
+}

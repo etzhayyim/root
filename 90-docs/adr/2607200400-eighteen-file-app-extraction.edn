@@ -1,0 +1,12 @@
+{:schema "etzhayyim.adr/v1" :id "2607200400" :title "Extract eighteen-file active app artifacts" :status :accepted :date "2026-07-20"
+ :scope {:source-repository "etzhayyim/root" :source-revision "f0f9f2aa67c9363ce3cbd0eac6d2b35111efe6e6" :directories 7 :tracked-files 126 :bytes 3990488}
+ :decision {:classification :active-executable-ui-contract-or-runtime-artifact :existing-repository-overlap 0 :retired-shells 0 :destination-prefix "etzhayyim/com-etzhayyim-app-" :apps ["car-sim" "contracts" "demining" "game-play-uploader" "marketer" "organism" "webya"]}
+ :extraction-contract {:repository-visibility :private :canonical-files ["README.edn" "migration.edn"] :source-preservation "Every destination tree differs from its exact source tree only by the two canonical EDN files."}
+ :provenance {:per-directory "Adjacent *-MOVED.edn records source tree/count/bytes and exact destination SHA."}
+ :rewire {:removed-root-workspaces ["marketer"] :removed-operational-allowlist ["webya"]
+          :organism-runtime "orgs/etzhayyim/com-etzhayyim-app-organism/public"
+          :contracts-ingest "orgs/etzhayyim/com-etzhayyim-app-contracts/data/social-contracts"
+          :demining-contract-doc "orgs/etzhayyim/com-etzhayyim-app-demining/CLAUDE.md"
+          :preserved-fixture ["failing_scaffolded_tests.json"] :preserved-generated-inventory ["etzhayyim.txt" "pnpm-lock.yaml"]}
+ :invariants {:canonical-record-format :edn :go-files-created 0 :tinygo-files-created 0 :flat-west-path "orgs/etzhayyim/com-etzhayyim-app-*"}
+ :verification [:private-repository :exact-remote-sha :source-tree-identity :edn-readable :operational-reference-audit :registry-freshness :lexicon-manifest-freshness :layer-freeze-guard :tree-guard]}

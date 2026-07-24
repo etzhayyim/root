@@ -34,24 +34,18 @@
 	path = 90-docs/baien/datasets
 	url = ./90-docs/baien/datasets
 	ignore = dirty
-[submodule "60-apps/spirit-in-physics"]
-	# Spirit-in-Physics measurement instrument + research SSoT (ADR-2606011500).
-	# Private upstream (com-junkawasaki/spirit-in-physics), same author. Vendored
-	# as the 霊性 measurement model; canonical religious-corp home is the kotoba
-	# Datom log (00-contracts/schemas/spirit-ontology.kotoba.edn), NOT its D1.
-	# NO git-lfs: clone pointer-only (GIT_LFS_SKIP_SMUDGE=1); upstream LFS blobs are
-	# never fetched here. Large/binary spirit assets (paper PDFs, assay corpora) live
-	# in the DataLad dataset 80-data/spirit-in-physics (git-annex → IPFS, ADR-2605241500),
-	# NOT in LFS. `ignore = dirty` suppresses LFS-smudge status noise on traversal.
-	path = 60-apps/spirit-in-physics
-	url = https://github.com/com-junkawasaki/spirit-in-physics.git
-	branch = main
-	ignore = dirty
-[submodule "80-data/spirit-in-physics"]
-	# DataLad (git-annex → IPFS) home for Spirit-in-Physics large/binary assets.
-	# Replaces git-lfs per founder direction 2026-06-01 + ADR-2605241500/2606011500.
-	# Local-only (per-machine) like 90-docs/baien/datasets; pointer records HEAD for
-	# reproducibility; `ignore = dirty` suppresses git-annex symlink-walk warnings.
-	path = 80-data/spirit-in-physics
-	url = ./80-data/spirit-in-physics
-	ignore = dirty
+	# `update = none`: west/git submodule update --init がこの local-only dataset を
+	# clone しようとして失敗するのを防ぐ(URL は自己参照で clone 不能。取得は datalad clone)。
+	update = none
+[submodule "50-infra/l2-anchor-contract/lib/forge-std"]
+	path = 50-infra/l2-anchor-contract/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "50-infra/openmail-postage/lib/forge-std"]
+	path = 50-infra/openmail-postage/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "50-infra/etzhayyim-membership-contract/lib/forge-std"]
+	path = 50-infra/etzhayyim-membership-contract/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "50-infra/etzhayyim-paymaster/lib/forge-std"]
+	path = 50-infra/etzhayyim-paymaster/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std

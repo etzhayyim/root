@@ -1,0 +1,7 @@
+{:schema "etzhayyim.adr/v1" :id "2607201200" :title "Extract fifty-one through fifty-five-file active app artifacts" :status :accepted :date "2026-07-20"
+ :scope {:source-repository "etzhayyim/root" :source-revision "be0c17bb64b86adb95ea180b5093a0fa7b93dbab" :directories 5 :tracked-files 268 :bytes 27563476 :file-bands {51 1 52 1 55 3}}
+ :decision {:classification :active-executable-ui-contract-or-runtime-artifact :destination-prefix "etzhayyim/com-etzhayyim-app-" :apps ["tia" "karute" "ameno" "common-crawl" "media-gamers"]}
+ :extraction-contract {:repository-visibility :private :canonical-files ["README.edn" "migration.edn"] :source-preservation "Every destination tree differs from its exact source tree only by the two canonical EDN files."}
+ :reference-classification {:removed-root-workspaces ["ameno" "karute"] :removed-operational-retirement-guard ["ameno" "media-gamers"] :removed-operational-boundary-exception ["ameno"] :regenerated-operational-allowlist ["common-crawl"] :regenerated-policy-baselines ["cloudflare-edge-bff-policy-baseline.txt" "silent-catch-baseline.txt"] :preserved-historical-fixture-provenance true :preserved-generated-inventory ["ai_etzhayyim.txt" "etzhayyim.txt" "pnpm-lock.yaml"]}
+ :invariants {:canonical-record-format :edn :go-files-created 0 :tinygo-files-created 0 :flat-west-path "orgs/etzhayyim/com-etzhayyim-app-*"}
+ :verification [:private-repository :exact-remote-sha :source-tree-identity :edn-readable :operational-reference-audit :registry-freshness :layer-freeze-guard :tree-guard]}

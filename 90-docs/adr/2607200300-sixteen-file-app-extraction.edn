@@ -1,0 +1,16 @@
+{:schema "etzhayyim.adr/v1" :id "2607200300"
+ :title "Extract sixteen-file active app artifacts" :status :accepted :date "2026-07-20"
+ :scope {:source-repository "etzhayyim/root" :source-revision "6fd297f38fe1b547e1d4c15ead9941c6ebaa3b31" :directories 15 :tracked-files 240 :bytes 1490284}
+ :decision {:classification :active-executable-ui-contract-or-runtime-artifact :existing-repository-overlap 0 :retired-shells 0
+            :destination-prefix "etzhayyim/com-etzhayyim-app-"
+            :apps ["bim" "cloudflare-browser-render" "gmail" "gyotaku" "handotai" "hospitality" "houbun" "kaigo" "lawfirm-admin" "microsoft" "public-malak" "swe" "tenki" "vehicle" "vpn"]}
+ :extraction-contract {:repository-visibility :private :canonical-files ["README.edn" "migration.edn"] :source-preservation "Every destination tree differs from its exact source tree only by the two canonical EDN files."}
+ :provenance {:per-directory "Adjacent *-MOVED.edn records source tree/count/bytes and exact destination SHA."}
+ :rewire {:removed-operational-allowlist ["bim" "cloudflare-browser-render"]
+          :removed-root-workspaces ["gmail" "tenki"]
+          :houbun-note "orgs/etzhayyim/com-etzhayyim-app-houbun/CLAUDE.md"
+          :preserved-historical-retirement ["handotai"]
+          :preserved-fixture ["failing_scaffolded_tests.json"]
+          :preserved-generated-inventory ["ai_etzhayyim.txt" "etzhayyim.txt" "pnpm-lock.yaml"]}
+ :invariants {:canonical-record-format :edn :go-files-created 0 :tinygo-files-created 0 :flat-west-path "orgs/etzhayyim/com-etzhayyim-app-*"}
+ :verification [:private-repository :exact-remote-sha :source-tree-identity :edn-readable :operational-reference-audit :registry-freshness :layer-freeze-guard :tree-guard]}

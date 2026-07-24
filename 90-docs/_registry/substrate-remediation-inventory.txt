@@ -3,7 +3,7 @@
 # (gate-prohibition text in .edn/.md excluded). Target: read path -> kotoba-kqe; shrink-only.
 
   28 60-apps/etzhayyim-project-yatabase
-  25 20-actors/magatama
+  25 orgs/etzhayyim/com-etzhayyim-magatama
    4 60-apps/etzhayyim-project-yorishiro
    2 60-apps/etzhayyim-project-shinkansen
    2 60-apps/etzhayyim-project-os-messaging

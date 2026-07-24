@@ -61,7 +61,7 @@ entries — so the data contract is fixed and stable.
 assert a device advances through all 12 stations and the final station emits a
 device record with a `did:web:etzhayyim.com:tsutae:device:<serial>` + ≥2 robot
 signers (G4). (The pure state-machine equivalent already passes today in
-`20-actors/tsutae/cells/test_state_machines.py` — 8/8.)
+`orgs/etzhayyim/com-etzhayyim-tsutae/cells/test_state_machines.py` — 8/8.)
 
 ### Honest scope
 

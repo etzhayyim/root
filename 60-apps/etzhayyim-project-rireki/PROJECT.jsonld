@@ -1,8 +1,0 @@
-{
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "rireki",
-  "description": "Japanese resume and CV builder (履歴書・職務経歴書作成)",
-  "applicationCategory": "BusinessApplication",
-  "operatingSystem": "WebAssembly (SpinKube)"
-}

@@ -1,39 +1,35 @@
 name: kotodama-manifest-validation
 
-# Validate every `60-apps/*/kotodama.jsonld` against the canonical
-# `90-docs/_registry/schemas/kotodama.schema.json` (5th axis of
-# registry enforcement per ADR-2605271200 closure cycle 53).
+# Preserve the root-owned zero-manifest validator contract after application
+# manifests moved to standalone repositories.
 #
 # Parallel pattern to:
 #   axis 1: deps-toml-paths.yml          (cycle 27-30 + 46)
 #   axis 2: docs-registry-freshness.yml  (cycle 48)
-#   axis 3: docs-graph-jsonld-freshness.yml (cycle 49)
+#   axis 3: docs-graph-edn-freshness.yml (graph.edn projection)
 #   axis 4: registry-schema-validation.yml (cycle 50-51)
 #   axis 5: kotodama-manifest-validation.yml (this — cycle 53)
 #
-# Baseline as of cycle 53 (2026-05-27): 42/42 kotodama.jsonld manifests
-# validate-clean against the schema (was 4/42 broken; cycle 53 fixed
-# the schema's 5 narrow enums + 13 real data bugs across 13 apps).
-# PR-gate from day 1 (baseline = 0 violations).
+# Root-retained baseline after the multirepo extraction: 0/0 manifests.
+# Application manifests are validated in their independent repositories; this
+# guard preserves a stable machine-readable zero-manifest contract in root.
 
 on:
   push:
     branches: [main]
     paths:
-      - '60-apps/*/kotodama.jsonld'
       - '90-docs/_registry/schemas/kotodama.schema.json'
       - '70-tools/scripts/docs/validate-kotodama-manifests.py'
       - '.github/workflows/kotodama-manifest-validation.yml'
   pull_request:
     branches: [main]
     paths:
-      - '60-apps/*/kotodama.jsonld'
       - '90-docs/_registry/schemas/kotodama.schema.json'
       - '70-tools/scripts/docs/validate-kotodama-manifests.py'
       - '.github/workflows/kotodama-manifest-validation.yml'
   schedule:
     # Nightly at 03:41 UTC = ~12:41 JST. Off-minute :41 (different from
-    # registry-schema :35 / docs-graph-jsonld :29 / docs-registry :23 /
+    # registry-schema :35 / docs-graph-edn :29 / docs-registry :23 /
     # deps-toml :17) for runner load spread across the 5 axes.
     - cron: '41 3 * * *'
   workflow_dispatch:
@@ -91,11 +87,9 @@ jobs:
               echo "- **Valid**: ${clean}"
               echo "- **Broken**: ${broken}"
               echo ""
-              echo "Baseline as of ADR-2605271200 closure cycle 53 (2026-05-27):"
-              echo "  - 42/42 valid (was 4/42 pre-cycle-53)"
-              echo "  - Schema fixes: 5 narrow enums expanded (uiType / runtimeType / category / agentType / isBot)"
-              echo "  - Data fixes: 7 missing performerType + 6 non-canonical @context + 1 agentType + voxelforge structural"
-              echo "  - **PR-GATE mode** from day 1"
+              echo "Root-retained multirepo baseline (ADR-2607201900):"
+              echo "  - 0/0 manifests: application manifests live in independent repositories"
+              echo "  - JSON output always includes total, clean, broken, and errors"
               echo ""
               if [ "$broken" -gt 0 ]; then
                 echo "⚠️ **${broken} broken manifest(s)** — PR is blocked."

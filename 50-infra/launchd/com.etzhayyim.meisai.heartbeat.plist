@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  com.etzhayyim.meisai.heartbeat — makes meisai 明細's intake sweep RESIDENT on the MEMBER'S OWN
+  machine. ADR-2606122400.
+
+  Runs `meisai.methods.autorun -main --cycles 1`: sweeps data/intake/*.edn (statement EDN the
+  member-principal fetch leg wrote), ingests every NEW intake (dedup by content CID), and appends
+  one content-addressed transaction per new intake to the LOCAL append-only kotoba Datom log,
+  then verifies the commit-DAG.
+
+  WHY launchd, NOT a shared murakumo fleet cell (50-infra/cluster/murakumo/cell-runner/cells.edn):
+    meisai is MEMBER-LOCAL personal-data (G1/G3) and its loop does NO network I/O (G7). The fleet
+    cells run on SHARED nodes (levi/benjamin/…) — running a member's card-statement ingestion
+    there would put personal financial data on shared infrastructure, violating G1/G3. meisai's
+    correct "residence" is a per-member LaunchAgent on the member's OWN machine. This plist is OS
+    config; the loop logic lives in clj/bb over Datoms (repo-wide rule, CLAUDE.md §"Operational
+    code"). It does no network I/O — the browser fetch leg stays a separate, explicit member step.
+
+  StartInterval=3600 → re-sweep hourly (autorun exits after the sweep; this is NOT a long-running
+                       loop, so KeepAlive would be wrong — it would respawn continuously).
+  RunAtLoad=true     → also sweep at login.
+
+  Install (operator/member step — not Claude; writes to ~/Library):
+    cp 50-infra/launchd/com.etzhayyim.meisai.heartbeat.plist ~/Library/LaunchAgents/
+    launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.etzhayyim.meisai.heartbeat.plist
+    launchctl enable  gui/$(id -u)/com.etzhayyim.meisai.heartbeat
+  Stop / uninstall:
+    launchctl bootout gui/$(id -u)/com.etzhayyim.meisai.heartbeat
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.etzhayyim.meisai.heartbeat</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/opt/homebrew/bin/bb</string>
+    <string>-cp</string>
+    <string>20-actors</string>
+    <string>-e</string>
+    <string>(require 'meisai.methods.autorun)(apply meisai.methods.autorun/-main ["--cycles" "1"])</string>
+  </array>
+
+  <key>WorkingDirectory</key>
+  <string>/Users/junkawasaki/github/com-junkawasaki/orgs/etzhayyim/root</string>
+
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+  </dict>
+
+  <key>RunAtLoad</key>
+  <true/>
+  <key>StartInterval</key>
+  <integer>3600</integer>
+
+  <key>ThrottleInterval</key>
+  <integer>10</integer>
+
+  <!-- logs land under the gitignored data/ (the sweep prints only tx counts + head CID, but keep
+       all meisai-side output off committed paths by construction). -->
+  <key>StandardOutPath</key>
+  <string>/Users/junkawasaki/github/com-junkawasaki/orgs/etzhayyim/root/orgs/etzhayyim/com-etzhayyim-meisai/data/heartbeat.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/junkawasaki/github/com-junkawasaki/orgs/etzhayyim/root/orgs/etzhayyim/com-etzhayyim-meisai/data/heartbeat.err.log</string>
+</dict>
+</plist>

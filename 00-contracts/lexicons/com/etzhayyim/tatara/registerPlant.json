@@ -1,0 +1,48 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.tatara.registerPlant",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Assert a manufacturing FACILITY into the kotoba Datom log (:plant/*). Disclosed public facilities only; coordinates rounded to ~0.01° (city/campus, G1). The operator is a COMPANY (joins kabuto org.corp.*), never a person (G4). headcount is the DISCLOSED AGGREGATE facility-employment figure — a SIZE, like floor area or market-cap; there is NO per-worker field anywhere in this lexicon and an individual worker is structurally unrepresentable (G4 — Charter Rider §2(c) reciprocity axis; Wellbecoming §1.13).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["plantId", "name", "operator", "country", "lat", "lon", "sector", "sourcing"],
+          "properties": {
+            "plantId": { "type": "string", "description": ":plant/id, e.g. \"plant.tsmc.fab18-tainan\"" },
+            "name": { "type": "string" },
+            "operator": { "type": "string", "description": ":plant/operator — a company org id (joins kabuto org.corp.*), never a person" },
+            "country": { "type": "string", "description": "ISO 3166-1 alpha-2" },
+            "region": { "type": "string", "description": "sub-national region / city (coarse; never a precise street address)" },
+            "lat": { "type": "number", "description": "latitude, rounded to ~0.01° (G1)" },
+            "lon": { "type": "number", "description": "longitude, rounded to ~0.01° (G1)" },
+            "sector": { "type": "string", "enum": ["semiconductor", "automotive", "battery", "steel", "chemicals", "electronics", "aerospace", "shipbuilding", "pharma"] },
+            "products": { "type": "array", "items": { "type": "string" }, "description": "disclosed product CLASSES only — never a confidential recipe (G9)" },
+            "established": { "type": "integer", "description": "year the facility began operation (disclosed)" },
+            "headcountEst": { "type": "integer", "description": "DISCLOSED AGGREGATE facility employment (a SIZE) — NOT per-worker data (G4)" },
+            "floorAreaM2": { "type": "integer", "description": ":plant/floor-area-m2 — facility scale" },
+            "capacityValue": { "type": "number", "description": ":plant/capacity-value — annual production capacity (disclosed/estimated)" },
+            "capacityUnit": { "type": "string", "enum": ["wafers-300mm-kpm", "vehicles-yr", "gwh-yr", "tonnes-yr", "units-yr", "aircraft-yr", "gt-yr"] },
+            "capacityNote": { "type": "string" },
+            "sourcing": { "type": "string", "enum": ["authoritative", "representative", "synthesized"], "description": "tatara G5 sourcing honesty" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "plantId": { "type": "string" },
+            "txCid": { "type": "string", "description": "kotoba transaction CID (content-addressed Datom log; ADR-2605312345)" },
+            "datomCount": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

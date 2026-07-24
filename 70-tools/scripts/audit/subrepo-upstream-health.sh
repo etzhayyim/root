@@ -17,7 +17,6 @@
 #
 # Usage:
 #   bash 70-tools/scripts/audit/subrepo-upstream-health.sh
-#   bash 70-tools/scripts/audit/subrepo-upstream-health.sh --include-cofog
 #   bash 70-tools/scripts/audit/subrepo-upstream-health.sh --strict
 #
 # Requires: `gh` CLI authenticated to GitHub.
@@ -25,11 +24,9 @@
 
 set -euo pipefail
 
-INCLUDE_COFOG=0
 STRICT=0
 for arg in "$@"; do
   case "$arg" in
-    --include-cofog) INCLUDE_COFOG=1 ;;
     --strict) STRICT=1 ;;
     *) echo "unknown arg: $arg" >&2; exit 2 ;;
   esac
@@ -45,11 +42,7 @@ cd "$REPO_ROOT"
 # reads the git index directly (~25 ms) and honours .gitignore for free.
 # Combined with the parallel `gh` block below, total wall drops from
 # ~20 s (sequential find + serial gh) to ~500 ms.
-gitrepo_files=$(git ls-files | grep '\.gitrepo$' | grep -v "/node_modules/\|/.claude/")
-if [ "$INCLUDE_COFOG" -eq 0 ]; then
-  gitrepo_files=$(printf '%s\n' "$gitrepo_files" | grep -v "/etzhayyim-project-cofog/")
-fi
-
+gitrepo_files=$(git ls-files | grep '\.gitrepo$' | grep -v "/node_modules/\|/.claude/" || true)
 # Pre-extract (file, orgrepo) pairs serially (grep + awk is microseconds
 # each; the slow part is the `gh repo view` network call). Then dispatch
 # the network checks in parallel via xargs -P10 (well under any GitHub

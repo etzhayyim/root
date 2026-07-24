@@ -40,8 +40,9 @@ import { resolve } from "node:path";
 const args = process.argv.slice(2);
 
 // ── Check A: schema invariant ────────────────────────────────────────
-const MATTER_LEX =
-  "00-contracts/lexicons/com/etzhayyim/chigiri/legalAidMatter.json";
+const CHIGIRI_ROOT =
+  process.env.ETZHAYYIM_CHIGIRI_ROOT ?? "../com-etzhayyim-chigiri";
+const MATTER_LEX = `${CHIGIRI_ROOT}/wire/legalAidMatter.json`;
 
 // Property names that would represent a charge against the adherent.
 const CONSIDERATION_PROPS = [
@@ -59,7 +60,7 @@ const CONSIDERATION_PROPS = [
 
 // ── Check B: chigiri legalAid CODE scope ─────────────────────────────
 const LEGALAID_CODE_RE =
-  /(^|\/)(20-actors\/chigiri\/|.*chigiri.*legalaid.*|.*legalaid.*|.*legal-aid.*|.*chigiri_legal_aid.*)\S*\.(py|ts|tsx|mjs|cjs|js|go|rs)$/i;
+  /(^|\/)(orgs\/etzhayyim\/com-etzhayyim-chigiri\/|.*chigiri.*legalaid.*|.*legalaid.*|.*legal-aid.*|.*chigiri_legal_aid.*)\S*\.(py|ts|tsx|mjs|cjs|js|rs|clj|cljc|cljs)$/i;
 
 // Unambiguous matter↔consideration coupling markers (case-insensitive).
 const COUPLING_MARKERS = [

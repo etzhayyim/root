@@ -19,7 +19,7 @@ import { scanLexicons, jsonSchemaToTs, hasProperties, filterXrpcLexicons } from 
 
 const ROOT = process.cwd();
 const LEXICON_DIR = path.join(ROOT, "00-contracts/lexicons");
-const OUT_FILE = path.join(ROOT, "10-protocol/xrpc/src/lexicon-types.gen.ts");
+const OUT_FILE = path.join(ROOT, "../com-etzhayyim-xrpc/src/lexicon-types.gen.ts");
 
 const args = process.argv.slice(2);
 const isDryRun = args.includes("--dry-run");

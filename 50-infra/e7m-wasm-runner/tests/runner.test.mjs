@@ -13,7 +13,7 @@ import { dirname, join } from "node:path";
 import { resolveAndRun, runBytes, isComponent } from "../runner.mjs";
 
 const DIR = dirname(fileURLToPath(import.meta.url));
-const KANAE = join(DIR, "../../../20-actors/kanae/wasm/loader/kanae-core.wasm");
+const KANAE = join(DIR, "../../../orgs/etzhayyim/com-etzhayyim-kanae/wasm/loader/kanae-core.wasm");
 
 test("runs the kanae core actor → top recipient = Prefectures", async () => {
   const out = await resolveAndRun({ file: KANAE });

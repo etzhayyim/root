@@ -1,0 +1,29 @@
+{
+  "did": "did:web:etzhayyim.com:actor:rasen",
+  "handle": "rasen.etzhayyim.com",
+  "displayName": "rasen",
+  "description": "Public-genetics (公開遺伝) Knowledge Graph mirror — weaves PUBLIC reference genetics (genes / variants / phenotypes / pathways + population-AGGREGATE allele frequencies) across humans, animals, plants and microbes into the kotoba Datom log; surfaces integrated clinical/functional evidence burden over a gene, routed to CARE & RESEARCH, never an individual-genotype registry or discrimination tool.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-10T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "螺旋",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2606101000"
+    ],
+    "primaryLexicon": "com.etzhayyim.rasen",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/rasen/did.json",
+    "source": "kotoba"
+  }
+}

@@ -1,7 +1,7 @@
 ;; etzhayyim.kotoba.engine — public root-side Datom-log API.
 ;;
 ;; This is the runnable interim substrate the actors talk to TODAY, replacing
-;; the 40-engine/datomic_emulator.py stub (whose q() always returned []). It is
+;; the retired Python Datomic stub (ADR-2607193500; q() always returned []). It is
 ;; the root-side realization of ADR-2605262130 Phase 1/2 (store + kqe-style
 ;; arrangement + Datalog read) — the kotoba subrepo stays the generic Rust
 ;; engine; all data + this glue live in root.

@@ -7,7 +7,7 @@
   "id": "did:web:karute.etzhayyim.com",
   "alsoKnownAs": [
     "https://karute.etzhayyim.com",
-    "https://github.com/etzhayyim/root/tree/main/20-actors/karute"
+    "https://github.com/etzhayyim/com-etzhayyim-karute/tree/aaae559821c144720302efa6c244a95fd7b2885e"
   ],
   "verificationMethod": [
     {
@@ -49,7 +49,7 @@
     {
       "id": "did:web:karute.etzhayyim.com#actor-manifest",
       "type": "LinkedDomains",
-      "serviceEndpoint": "https://github.com/etzhayyim/root/blob/main/20-actors/karute/actor-manifest.jsonld"
+      "serviceEndpoint": "https://github.com/etzhayyim/root/blob/main/orgs/etzhayyim/com-etzhayyim-karute/manifest.edn"
     },
     {
       "id": "did:web:karute.etzhayyim.com#charter-compliance",

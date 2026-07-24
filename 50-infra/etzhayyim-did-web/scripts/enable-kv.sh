@@ -27,7 +27,7 @@ else
 fi
 
 echo "Publishing actor records to KV from the canonical seed…"
-node scripts/publish-actor-records.mjs --put-kv
+npx nbb scripts/publish-actor-records.cljs --put-kv
 
 echo "Deploying the Worker…"
 npx wrangler deploy
@@ -37,5 +37,5 @@ cat <<'NOTE'
 Done. did.json + profile now resolve KV-first.
 Optional next (kotoba live source):
   1) set IPFS_GATEWAYS / KOTOBA_ENDPOINT in wrangler.toml to the etzhayyim pin
-  2) node scripts/publish-actor-records.mjs --ingest-kotoba   (operator-gated)
+  2) npx nbb scripts/publish-actor-records.cljs --ingest-kotoba   (operator-gated)
 NOTE

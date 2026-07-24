@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:oil-distribution",
+  "handle": "oil-distribution.etzhayyim.com",
+  "displayName": "Oil Distribution & Product Terminal Intelligence",
+  "description": "Product terminal, wholesale hub and downstream distribution coverage across diesel, gasoline, jet and fuel oil networks.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Oil Distribution & Product Terminal Intelligence",
+  "displayNameJa": "Oil Distribution & Product Terminal Intelligence",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.oil-distribution",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/oil-distribution/did.json",
+    "source": "kotoba"
+  }
+}

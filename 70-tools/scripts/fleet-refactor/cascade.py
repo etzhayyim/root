@@ -5,7 +5,7 @@ Pass 1: gemma4:e4b-it-qat (2 req/node, 速い, ~33%)
 Pass 2: pass1 の fail/error のみ gemma4:12b-it-qat (1 req/node, ~44%)
 
 Usage:
-  git ls-files '20-actors/**/*.py' | python3 cascade.py -
+  rg --files orgs/etzhayyim -g '*.py' | python3 cascade.py -
   python3 cascade.py FILE [FILE...]
 
 結果: fleet-refactor-results.jsonl (pass 列付き) / SFT は通常どおり収穫。

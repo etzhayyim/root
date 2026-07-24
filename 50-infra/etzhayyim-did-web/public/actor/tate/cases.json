@@ -1,6 +1,6 @@
 {
  "disclaimer": "一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
- "count": 135,
+ "count": 181,
  "cases": [
   {
    "slug": "tate-shiharai-tokusoku",
@@ -325,6 +325,13 @@
    "track": ":civil"
   },
   {
+   "slug": "tate-ca-family",
+   "did": "did:web:etzhayyim.com:actor:tate-ca-family",
+   "label": "Answer to a family Application (家事・カナダ ON)",
+   "jurisdiction": ":ca",
+   "track": ":family"
+  },
+  {
    "slug": "tate-it-licenziamento",
    "did": "did:web:etzhayyim.com:actor:tate-it-licenziamento",
    "label": "Lettera di licenziamento (解雇・労働・イタリア)",
@@ -472,6 +479,27 @@
    "track": ":civil"
   },
   {
+   "slug": "tate-cn-pochan",
+   "did": "did:web:etzhayyim.com:actor:tate-cn-pochan",
+   "label": "债权申报 (债権者側・破产・中国)",
+   "jurisdiction": ":cn",
+   "track": ":insolvency"
+  },
+  {
+   "slug": "tate-cn-family",
+   "did": "did:web:etzhayyim.com:actor:tate-cn-family",
+   "label": "答辩状 (家事・離婚訴訟・中国)",
+   "jurisdiction": ":cn",
+   "track": ":family"
+  },
+  {
+   "slug": "tate-cn-enforcement",
+   "did": "did:web:etzhayyim.com:actor:tate-cn-enforcement",
+   "label": "扣留・提取収入 (賃金差押え・執行・中国)",
+   "jurisdiction": ":cn",
+   "track": ":enforcement"
+  },
+  {
    "slug": "tate-tw-lihun",
    "did": "did:web:etzhayyim.com:actor:tate-tw-lihun",
    "label": "離婚調解/訴訟の通知 (家事・台湾)",
@@ -500,6 +528,20 @@
    "track": ":civil"
   },
   {
+   "slug": "tate-tw-pochan",
+   "did": "did:web:etzhayyim.com:actor:tate-tw-pochan",
+   "label": "申報債權 (債權者側・破產・台湾)",
+   "jurisdiction": ":tw",
+   "track": ":insolvency"
+  },
+  {
+   "slug": "tate-tw-housing",
+   "did": "did:web:etzhayyim.com:actor:tate-tw-housing",
+   "label": "終止租約 / 返還房屋 (住居・台湾)",
+   "jurisdiction": ":tw",
+   "track": ":housing"
+  },
+  {
    "slug": "tate-sg-dismissal",
    "did": "did:web:etzhayyim.com:actor:tate-sg-dismissal",
    "label": "Termination of services (解雇・労働・シンガポール)",
@@ -514,6 +556,34 @@
    "track": ":civil"
   },
   {
+   "slug": "tate-sg-pod",
+   "did": "did:web:etzhayyim.com:actor:tate-sg-pod",
+   "label": "Proof of debt (債権者側・清算・シンガポール)",
+   "jurisdiction": ":sg",
+   "track": ":insolvency"
+  },
+  {
+   "slug": "tate-sg-family",
+   "did": "did:web:etzhayyim.com:actor:tate-sg-family",
+   "label": "Memorandum of Appearance + Defence (家事・シンガポール)",
+   "jurisdiction": ":sg",
+   "track": ":family"
+  },
+  {
+   "slug": "tate-sg-housing",
+   "did": "did:web:etzhayyim.com:actor:tate-sg-housing",
+   "label": "Recovery of possession / eviction (住居・シンガポール)",
+   "jurisdiction": ":sg",
+   "track": ":housing"
+  },
+  {
+   "slug": "tate-sg-enforcement",
+   "did": "did:web:etzhayyim.com:actor:tate-sg-enforcement",
+   "label": "Enforcement order (seizure & sale / attachment of debt) (執行・シンガポール)",
+   "jurisdiction": ":sg",
+   "track": ":enforcement"
+  },
+  {
    "slug": "tate-in-termination",
    "did": "did:web:etzhayyim.com:actor:tate-in-termination",
    "label": "Termination / retrenchment (解雇・労働・インド)",
@@ -526,6 +596,34 @@
    "label": "Summons (民事訴訟・インド)",
    "jurisdiction": ":in",
    "track": ":civil"
+  },
+  {
+   "slug": "tate-in-ibc",
+   "did": "did:web:etzhayyim.com:actor:tate-in-ibc",
+   "label": "Proof of claim (債権者側・CIRP・インド)",
+   "jurisdiction": ":in",
+   "track": ":insolvency"
+  },
+  {
+   "slug": "tate-in-family",
+   "did": "did:web:etzhayyim.com:actor:tate-in-family",
+   "label": "Written statement to a matrimonial petition (家事・インド)",
+   "jurisdiction": ":in",
+   "track": ":family"
+  },
+  {
+   "slug": "tate-in-housing",
+   "did": "did:web:etzhayyim.com:actor:tate-in-housing",
+   "label": "Eviction before the Rent Authority/Court (住居・インド)",
+   "jurisdiction": ":in",
+   "track": ":housing"
+  },
+  {
+   "slug": "tate-in-enforcement",
+   "did": "did:web:etzhayyim.com:actor:tate-in-enforcement",
+   "label": "Attachment of salary (賃金差押え・執行・インド)",
+   "jurisdiction": ":in",
+   "track": ":enforcement"
   },
   {
    "slug": "tate-de-kontopfaendung",
@@ -584,6 +682,13 @@
    "track": ":civil"
   },
   {
+   "slug": "tate-at-insolvency",
+   "did": "did:web:etzhayyim.com:actor:tate-at-insolvency",
+   "label": "Forderungsanmeldung (債権者側・倒産・オーストリア)",
+   "jurisdiction": ":at",
+   "track": ":insolvency"
+  },
+  {
    "slug": "tate-pt-penhora",
    "did": "did:web:etzhayyim.com:actor:tate-pt-penhora",
    "label": "Penhora de vencimentos (賃金差押え・執行・ポルトガル)",
@@ -605,6 +710,27 @@
    "track": ":civil"
   },
   {
+   "slug": "tate-pt-insolvencia",
+   "did": "did:web:etzhayyim.com:actor:tate-pt-insolvencia",
+   "label": "Reclamação de créditos (債権者側・倒産・ポルトガル)",
+   "jurisdiction": ":pt",
+   "track": ":insolvency"
+  },
+  {
+   "slug": "tate-pt-family",
+   "did": "did:web:etzhayyim.com:actor:tate-pt-family",
+   "label": "Contestação (家事・離婚・ポルトガル)",
+   "jurisdiction": ":pt",
+   "track": ":family"
+  },
+  {
+   "slug": "tate-pt-housing",
+   "did": "did:web:etzhayyim.com:actor:tate-pt-housing",
+   "label": "Oposição ao despejo (住居・ポルトガル)",
+   "jurisdiction": ":pt",
+   "track": ":housing"
+  },
+  {
    "slug": "tate-ar-despido",
    "did": "did:web:etzhayyim.com:actor:tate-ar-despido",
    "label": "Despido (解雇・労働・アルゼンチン)",
@@ -617,6 +743,34 @@
    "label": "Traslado de la demanda (訴状送達・アルゼンチン)",
    "jurisdiction": ":ar",
    "track": ":civil"
+  },
+  {
+   "slug": "tate-ar-concurso",
+   "did": "did:web:etzhayyim.com:actor:tate-ar-concurso",
+   "label": "Verificación de créditos (acreedor・concurso・アルゼンチン)",
+   "jurisdiction": ":ar",
+   "track": ":insolvency"
+  },
+  {
+   "slug": "tate-ar-housing",
+   "did": "did:web:etzhayyim.com:actor:tate-ar-housing",
+   "label": "Juicio de desalojo (住居・アルゼンチン)",
+   "jurisdiction": ":ar",
+   "track": ":housing"
+  },
+  {
+   "slug": "tate-ar-family",
+   "did": "did:web:etzhayyim.com:actor:tate-ar-family",
+   "label": "Divorcio — propuesta reguladora (家事・アルゼンチン)",
+   "jurisdiction": ":ar",
+   "track": ":family"
+  },
+  {
+   "slug": "tate-ar-enforcement",
+   "did": "did:web:etzhayyim.com:actor:tate-ar-enforcement",
+   "label": "Embargo de remuneraciones (賃金差押え・執行・アルゼンチン)",
+   "jurisdiction": ":ar",
+   "track": ":enforcement"
   },
   {
    "slug": "tate-be-licenciement",
@@ -640,6 +794,27 @@
    "track": ":civil"
   },
   {
+   "slug": "tate-be-faillite",
+   "did": "did:web:etzhayyim.com:actor:tate-be-faillite",
+   "label": "Déclaration de créance (債権者側・倒産・ベルギー)",
+   "jurisdiction": ":be",
+   "track": ":insolvency"
+  },
+  {
+   "slug": "tate-be-housing",
+   "did": "did:web:etzhayyim.com:actor:tate-be-housing",
+   "label": "Expulsion / bail de résidence (住居・ベルギー)",
+   "jurisdiction": ":be",
+   "track": ":housing"
+  },
+  {
+   "slug": "tate-be-family",
+   "did": "did:web:etzhayyim.com:actor:tate-be-family",
+   "label": "Divorce — tribunal de la famille (家事・ベルギー)",
+   "jurisdiction": ":be",
+   "track": ":family"
+  },
+  {
    "slug": "tate-nz-dismissal",
    "did": "did:web:etzhayyim.com:actor:tate-nz-dismissal",
    "label": "Dismissal (解雇・労働・ニュージーランド)",
@@ -654,6 +829,34 @@
    "track": ":civil"
   },
   {
+   "slug": "tate-nz-liquidation",
+   "did": "did:web:etzhayyim.com:actor:tate-nz-liquidation",
+   "label": "Creditor claim (債権者側・清算・ニュージーランド)",
+   "jurisdiction": ":nz",
+   "track": ":insolvency"
+  },
+  {
+   "slug": "tate-nz-family",
+   "did": "did:web:etzhayyim.com:actor:tate-nz-family",
+   "label": "Notice of response (家事・ニュージーランド)",
+   "jurisdiction": ":nz",
+   "track": ":family"
+  },
+  {
+   "slug": "tate-nz-housing",
+   "did": "did:web:etzhayyim.com:actor:tate-nz-housing",
+   "label": "Notice to terminate / Tenancy Tribunal (住居・ニュージーランド)",
+   "jurisdiction": ":nz",
+   "track": ":housing"
+  },
+  {
+   "slug": "tate-nz-enforcement",
+   "did": "did:web:etzhayyim.com:actor:tate-nz-enforcement",
+   "label": "Attachment order (賃金差押え・執行・ニュージーランド)",
+   "jurisdiction": ":nz",
+   "track": ":enforcement"
+  },
+  {
    "slug": "tate-mx-despido",
    "did": "did:web:etzhayyim.com:actor:tate-mx-despido",
    "label": "Despido (解雇・労働・メキシコ)",
@@ -666,6 +869,34 @@
    "label": "Emplazamiento (訴状送達・メキシコ)",
    "jurisdiction": ":mx",
    "track": ":civil"
+  },
+  {
+   "slug": "tate-mx-concurso",
+   "did": "did:web:etzhayyim.com:actor:tate-mx-concurso",
+   "label": "Reconocimiento de créditos (acreedor・concurso・メキシコ)",
+   "jurisdiction": ":mx",
+   "track": ":insolvency"
+  },
+  {
+   "slug": "tate-mx-family",
+   "did": "did:web:etzhayyim.com:actor:tate-mx-family",
+   "label": "Contestación de demanda de divorcio (家事・メキシコ)",
+   "jurisdiction": ":mx",
+   "track": ":family"
+  },
+  {
+   "slug": "tate-mx-housing",
+   "did": "did:web:etzhayyim.com:actor:tate-mx-housing",
+   "label": "Juicio de arrendamiento / desahucio (住居・メキシコ)",
+   "jurisdiction": ":mx",
+   "track": ":housing"
+  },
+  {
+   "slug": "tate-mx-enforcement",
+   "did": "did:web:etzhayyim.com:actor:tate-mx-enforcement",
+   "label": "Embargo de salario (賃金差押え・執行・メキシコ)",
+   "jurisdiction": ":mx",
+   "track": ":enforcement"
   },
   {
    "slug": "tate-no-husleie",
@@ -696,6 +927,20 @@
    "track": ":civil"
   },
   {
+   "slug": "tate-no-enforcement",
+   "did": "did:web:etzhayyim.com:actor:tate-no-enforcement",
+   "label": "Utleggstrekk (賃金差押え・執行・ノルウェー)",
+   "jurisdiction": ":no",
+   "track": ":enforcement"
+  },
+  {
+   "slug": "tate-no-family",
+   "did": "did:web:etzhayyim.com:actor:tate-no-family",
+   "label": "Foreldretvist (家事・ノルウェー)",
+   "jurisdiction": ":no",
+   "track": ":family"
+  },
+  {
    "slug": "tate-dk-lejemaal",
    "did": "did:web:etzhayyim.com:actor:tate-dk-lejemaal",
    "label": "Opsigelse af lejemål (住居・デンマーク)",
@@ -722,6 +967,20 @@
    "label": "Betalingspåkrav (支払督促・デンマーク)",
    "jurisdiction": ":dk",
    "track": ":civil"
+  },
+  {
+   "slug": "tate-dk-enforcement",
+   "did": "did:web:etzhayyim.com:actor:tate-dk-enforcement",
+   "label": "Lønindeholdelse / udlæg (賃金差押え・執行・デンマーク)",
+   "jurisdiction": ":dk",
+   "track": ":enforcement"
+  },
+  {
+   "slug": "tate-dk-family",
+   "did": "did:web:etzhayyim.com:actor:tate-dk-family",
+   "label": "Forældremyndighed / samvær (家事・デンマーク)",
+   "jurisdiction": ":dk",
+   "track": ":family"
   },
   {
    "slug": "tate-fi-vuokra",
@@ -752,6 +1011,20 @@
    "track": ":civil"
   },
   {
+   "slug": "tate-fi-konkurssi",
+   "did": "did:web:etzhayyim.com:actor:tate-fi-konkurssi",
+   "label": "Saatavan valvonta (債権者側・倒産・フィンランド)",
+   "jurisdiction": ":fi",
+   "track": ":insolvency"
+  },
+  {
+   "slug": "tate-fi-family",
+   "did": "did:web:etzhayyim.com:actor:tate-fi-family",
+   "label": "Lapsen huolto ja tapaamisoikeus (家事・フィンランド)",
+   "jurisdiction": ":fi",
+   "track": ":family"
+  },
+  {
    "slug": "tate-ie-dismissal",
    "did": "did:web:etzhayyim.com:actor:tate-ie-dismissal",
    "label": "Notice of dismissal (解雇・労働・アイルランド)",
@@ -764,6 +1037,34 @@
    "label": "Civil summons / claim notice (アイルランド)",
    "jurisdiction": ":ie",
    "track": ":civil"
+  },
+  {
+   "slug": "tate-ie-liquidation",
+   "did": "did:web:etzhayyim.com:actor:tate-ie-liquidation",
+   "label": "Proof of debt (債権者側・清算・アイルランド)",
+   "jurisdiction": ":ie",
+   "track": ":insolvency"
+  },
+  {
+   "slug": "tate-ie-family",
+   "did": "did:web:etzhayyim.com:actor:tate-ie-family",
+   "label": "Appearance + Defence (家事・アイルランド)",
+   "jurisdiction": ":ie",
+   "track": ":family"
+  },
+  {
+   "slug": "tate-ie-housing",
+   "did": "did:web:etzhayyim.com:actor:tate-ie-housing",
+   "label": "Notice of Termination dispute (住居・アイルランド)",
+   "jurisdiction": ":ie",
+   "track": ":housing"
+  },
+  {
+   "slug": "tate-ie-enforcement",
+   "did": "did:web:etzhayyim.com:actor:tate-ie-enforcement",
+   "label": "Instalment order / attachment of earnings (執行・アイルランド)",
+   "jurisdiction": ":ie",
+   "track": ":enforcement"
   },
   {
    "slug": "tate-ch-scheidung",
@@ -799,6 +1100,13 @@
    "label": "Zahlungsbefehl / Betreibung (スイス)",
    "jurisdiction": ":ch",
    "track": ":civil"
+  },
+  {
+   "slug": "tate-ch-insolvency",
+   "did": "did:web:etzhayyim.com:actor:tate-ch-insolvency",
+   "label": "Forderungseingabe (債権者側・倒産・スイス)",
+   "jurisdiction": ":ch",
+   "track": ":insolvency"
   },
   {
    "slug": "tate-fr-divorce-assignation",
@@ -869,6 +1177,13 @@
    "label": "Nakaz zapłaty (支払命令・ポーランド)",
    "jurisdiction": ":pl",
    "track": ":civil"
+  },
+  {
+   "slug": "tate-pl-upadlosc",
+   "did": "did:web:etzhayyim.com:actor:tate-pl-upadlosc",
+   "label": "Upadłość kontrahenta (債権者側・倒産・ポーランド)",
+   "jurisdiction": ":pl",
+   "track": ":insolvency"
   },
   {
    "slug": "tate-se-skilsmassa",
@@ -946,6 +1261,13 @@
    "label": "Citação (訴状送達・ブラジル)",
    "jurisdiction": ":br",
    "track": ":civil"
+  },
+  {
+   "slug": "tate-br-insolvency",
+   "did": "did:web:etzhayyim.com:actor:tate-br-insolvency",
+   "label": "Habilitação de crédito (債権者側・倒産・ブラジル)",
+   "jurisdiction": ":br",
+   "track": ":insolvency"
   }
  ]
 }

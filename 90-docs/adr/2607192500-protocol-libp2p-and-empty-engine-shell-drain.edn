@@ -1,0 +1,19 @@
+{:schema "etzhayyim.adr/v1"
+ :id "2607192500"
+ :title "Protocol libp2p and empty engine shell drain"
+ :status :accepted
+ :date "2026-07-19"
+ :decision
+ {:libp2p {:classification :active :evidence [:accepted-adr :active-consumer :four-executable-scripts :poc-evidence] :destination {:repo "etzhayyim/com-etzhayyim-libp2p" :revision "23ea7cf2635b359c221bb5bd10eeb2ede18b3ccd"}}
+  :llm {:classification :empty-license-shell :action :retire :canonical-license ["LICENSE" "CHARTER-RIDER.md"]}
+  :svelte {:classification :post-extraction-rule-shell :action :retire :rule-owner :standalone-repositories}
+  :kotoba-datomic {:classification :deprecated-spec-scaffold
+                   :action :archive-in-adr
+                   :owner-adr "2605262130"
+                   :source-blobs {"README.md" "f199023b764012ff24eadb7cc5ab130729ac1f62"
+                                  "SPEC.md" "b725bd1e399a17e42e13f33661f09259a59f4423"}
+                   :standalone-repository false}
+  :murakumo-8bit {:classification :independent-experimental-crate :destination {:repo "etzhayyim/com-etzhayyim-cluster-murakumo-8bit" :revision "6c8e8104886495cd02079b9209b2e32253002c3d"}}
+  :canonical-record :edn
+  :old-reference-classification {:operational "none remain" :historical "ADR/deps provenance retained"}}
+ :consequences {:numbered-roots "no empty implementation shells" :go-policy "Go and TinyGo remain deprecated and absent"}}

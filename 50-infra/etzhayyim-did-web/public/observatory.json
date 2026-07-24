@@ -1,0 +1,23 @@
+{
+  "generatedAt" : "2026-07-01T01:26:22.554421Z",
+  "adr" : "2606302205 D4",
+  "mode" : "prepared",
+  "councilRatified" : true,
+  "was" : "keyless observational mirror (ADR-2606042330)",
+  "now" : "first-party disclosure-honest observatory actor (voiceOf=etzhayyim, isObservatory, present-only leashed did:key)",
+  "totals" : {
+    "namespaces" : 1,
+    "entities" : 14,
+    "sampledPrepared" : 14
+  },
+  "namespaces" : [ {
+    "ns" : "cable",
+    "glyph" : "綿津綱",
+    "total" : 14,
+    "sampled" : 14,
+    "postStatus" : "prepared",
+    "allDisclosed" : true,
+    "allGrew" : true,
+    "sampleSubjects" : [ "2Africa", "Asia Direct Cable (ADC)", "APCN-2", "Bifrost", "Dunant", "Equiano" ]
+  } ]
+}

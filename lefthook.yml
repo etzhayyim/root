@@ -7,6 +7,18 @@
 pre-commit:
   parallel: true
   commands:
+    no-ignorable-staged:
+      # Block build artifacts / caches / machine-local SECRETS (e.g. a browser
+      # `.sodai-chrome-profile/` holding cookies + login-data) from being
+      # committed when no .gitignore covers them — the ai-gftd-chat-shell
+      # incident (2026-06-25), where a whole Chrome profile + node_modules +
+      # build output were stage-able because the app dir shipped no .gitignore.
+      #
+      # No `glob:` on purpose — the nbb script computes the staged set itself
+      # (git diff --cached --diff-filter=ACR) so extension-less junk like Chrome's
+      # `Cookies` / `Login Data` / leveldb `MANIFEST-*` is caught too.
+      # Escape hatch: 70-tools/scripts/lint/ignorable-allowlist.edn (:allow).
+      run: nbb 70-tools/scripts/lint/no-ignorable-staged.cljs
     secret-scan:
       # Block obvious credentials before they hit git history.
       # Per the GitGuardian incident (2026-05-17): the RisingWave
@@ -77,7 +89,7 @@ pre-commit:
       stage_fixed: false
 
     substrate-boundary:
-      # Enforce ADR-2605172000 (RW-free state substrate) and
+      # Enforce ADR-2605172000 (kotoba state substrate) and
       # ADR-2605172100 (no fiat payment processors) at commit time.
       # Blocks direct imports of kysely / pg / postgres / mysql /
       # mongodb / risingwave (storage), stripe / paypal / square / …
@@ -102,7 +114,7 @@ pre-commit:
 
     no-cookie:
       # Enforce CHARTER-RIDER.md §2(c) (no surveillance / trackers) +
-      # ADR-2605172000 (RW-free substrate, identity = DID + WebAuthn).
+      # ADR-2605172000 (kotoba substrate, identity = DID + WebAuthn).
       # Blocks document.cookie writes, SvelteKit/hono/express cookies.set(),
       # setCookie() helpers, cookie.serialize(), and raw Set-Cookie header
       # construction. Reads are allowed (legacy-cookie migration is fine).
@@ -110,6 +122,22 @@ pre-commit:
       # The etzhayyim-did-web Worker is exempt (it IS the policy enforcer).
       glob: "*.{ts,tsx,js,jsx,mjs,cjs,svelte}"
       run: node 70-tools/scripts/lint/no-cookie.mjs {staged_files}
+      stage_fixed: false
+
+    no-danjo-adjudication:
+      # Enforce the danjo (弾正) G4 non-adjudication + G8 no-commercial-gov-intel
+      # gates (ADR-2605301600; danjo R1 Activation Trigger #5, ADR-2607180900).
+      # Check A (G8): blocks commercial gov-intelligence terminal hostnames + SDK
+      # imports (GovWin / Bloomberg Government / Politico Pro / E&E / FiscalNote /
+      # CQ Roll Call). Check B (G4): asserts the danjo Lexicon JSON carries
+      # nonAdjudicatingNotice const:true on discrepancyObservation + oversightReport
+      # and that the discrepancyObservation category enum has NO verdict token
+      # (crime/violation/guilt/illegal/unlawful/fraud/犯罪/違法/有罪/不正). A legal
+      # verdict is thus unrepresentable at the schema layer. Runs against the
+      # canonical lexicon paths even with no staged files; staged danjo code files
+      # are scanned for G8 deny-list hits. Regression: 8-test suite green at R0.
+      glob: "*.{clj,cljc,edn,py,ts,tsx,js,jsx,mjs,cjs,json,jsonc,md}"
+      run: node 70-tools/scripts/lint/no-danjo-adjudication.mjs {staged_files}
       stage_fixed: false
 
     no-purchase-purpose:
@@ -134,7 +162,7 @@ pre-commit:
       # A staged actor manifest without a `yirah` declaration block gets a
       # non-blocking reminder (absent != violating - declarations are adopted
       # only where meaningful for the actor's scope). Always exits 0.
-      glob: "20-actors/*/manifest.jsonld"
+      glob: "orgs/etzhayyim/com-etzhayyim-*/wire/manifest.jsonld"
       run: python3 70-tools/scripts/lint/yirah-presence-warn.py {staged_files}
       stage_fixed: false
 
@@ -394,12 +422,15 @@ pre-commit:
 
 
     docs-registry-freshness:
-      # When any 90-docs/**/*.md changes, verify 90-docs/_registry/{docs.json,docs.edn}
+      # When any 90-docs/**/*.{md,edn} changes, verify 90-docs/_registry/{docs.json,docs.edn}
       # are in sync (70-tools/scripts/docs/regen-registry.clj --check; babashka port
       # of the former regen-registry.py, ADR-2605271100 cycle 48). Parallel pattern
       # to deps-toml-paths. Catches operators adding/editing docs without regenerating
       # the machine-readable sidecar index. ~0.3s overhead.
-      glob: "90-docs/**/*.md"
+      # EDN-only SSoT (2026-07-17): .edn is canonical; .md may be absent.
+      glob:
+        - "90-docs/**/*.md"
+        - "90-docs/**/*.edn"
       run: |
         bb 70-tools/scripts/docs/regen-registry.clj --check \
           > /tmp/docs-registry-check.$$.txt 2>&1
@@ -418,31 +449,63 @@ pre-commit:
       stage_fixed: false
 
 
-    docs-graph-jsonld-freshness:
-      # When docs.json changes (which happens via docs-registry-freshness
+    docs-graph-edn-freshness:
+      # When docs.edn changes (which happens via docs-registry-freshness
       # hook above) or any 90-docs/**/*.md changes, verify
-      # 90-docs/_registry/graph.jsonld stays in sync
-      # (70-tools/scripts/docs/regen-graph-jsonld.py --check; ADR-2605271100
-      # cycle 49). Chain: .md → docs.json → graph.jsonld. Both sidecars
-      # regen idempotently from canonical .md source. ~0.2s overhead.
+      # 90-docs/_registry/graph.edn stays in sync
+      # (70-tools/scripts/docs/regen-graph-edn.clj --check). Chain:
+      # .md → docs.edn → graph.edn. Successor to the retired
+      # graph.jsonld (JSON-LD) hook, per "use EDN, not JSON-LD". ~0.3s.
       glob:
         - "90-docs/**/*.md"
-        - "90-docs/_registry/docs.json"
+        - "90-docs/**/*.edn"
+        - "90-docs/_registry/docs.edn"
       run: |
-        python3 70-tools/scripts/docs/regen-graph-jsonld.py --check \
+        bb 70-tools/scripts/docs/regen-graph-edn.clj --check \
           > /tmp/docs-graph-check.$$.txt 2>&1
         rc=$?
         if [ $rc -ne 0 ]; then
-          echo "✘ graph.jsonld drift detected:"
+          echo "✘ graph.edn drift detected:"
           cat /tmp/docs-graph-check.$$.txt
           rm -f /tmp/docs-graph-check.$$.txt
           echo ""
           echo "  Run the regenerator and stage the result:"
-          echo "    python3 70-tools/scripts/docs/regen-graph-jsonld.py"
-          echo "    git add 90-docs/_registry/graph.jsonld"
+          echo "    bb 70-tools/scripts/docs/regen-graph-edn.clj"
+          echo "    git add 90-docs/_registry/graph.edn"
           exit 1
         fi
         rm -f /tmp/docs-graph-check.$$.txt
+      stage_fixed: false
+
+
+    adr-index-freshness:
+      # When any ADR .md/.md.edn changes, verify 90-docs/adr/adr-index.edn is in
+      # sync (bb adr:index-check → etzhayyim.tools.adr-mdedn, the SSoT generator
+      # per ADR-2606162200 + ADR-2606121143). adr-index.edn is GENERATED from front
+      # matter and must NEVER be hand-edited — this gate catches the prose-written-
+      # as-map-literal corruption class that silently made the file un-parseable
+      # (`Map literal must contain an even number of forms`) on a clean checkout.
+      glob:
+        - "90-docs/adr/*.md"
+        - "90-docs/adr/*.md.edn"
+        - "90-docs/adr/*.edn"
+        - "90-docs/adr/adr-index.edn"
+      run: |
+        # bb.edn tasks may be absent on sparse/shallow checkouts; invoke the
+        # generator on classpath directly (EDN-only SSoT, 2026-07-17).
+        if ! bb --classpath "70-tools/src" \
+            -e '(require (quote [etzhayyim.tools.adr-mdedn :as a])) (let [r (a/check-index "90-docs/adr")] (when-not (:ok r) (println r) (System/exit 1)))' \
+            > /tmp/adr-index-check.$$.txt 2>&1; then
+          echo "✘ adr-index.edn drift/corruption detected:"
+          cat /tmp/adr-index-check.$$.txt
+          rm -f /tmp/adr-index-check.$$.txt
+          echo ""
+          echo "  adr-index.edn is GENERATED — never hand-edit it. Regenerate + stage:"
+          echo "    bb --classpath 70-tools/src -e '(require (quote [etzhayyim.tools.adr-mdedn :as a])) (println (a/write-index! \"90-docs/adr\"))'"
+          echo "    git add 90-docs/adr/adr-index.edn"
+          exit 1
+        fi
+        rm -f /tmp/adr-index-check.$$.txt
       stage_fixed: false
 
 
@@ -557,8 +620,8 @@ pre-commit:
     registry-schema-validation:
       # When any 90-docs/_registry/ artifact changes, run schema
       # validation (ADR-2605271100 cycle 50; promoted to PR-gate cycle 51
-      # after all 32 baseline violations were cleaned). 4th registry axis
-      # after docs-registry-freshness + docs-graph-jsonld-freshness +
+      # after all 32 baseline violations were cleaned). A registry axis
+      # after docs-registry-freshness + docs-graph-edn-freshness +
       # deps-toml-paths.
       #
       # **Cycle 51 mode: STRICT by default** (baseline = 0). Hook fails
@@ -569,9 +632,7 @@ pre-commit:
       # CI installs jsonschema via pip and runs strict mode unconditionally.
       glob:
         - "90-docs/_registry/docs.json"
-        - "90-docs/_registry/graph.jsonld"
         - "90-docs/_registry/schemas/docs.schema.json"
-        - "90-docs/_registry/schemas/graph.schema.json"
       run: |
         python3 70-tools/scripts/docs/validate-registry-schemas.py \
           > /tmp/registry-validation.$$.txt 2>&1
@@ -583,9 +644,9 @@ pre-commit:
           cat /tmp/registry-validation.$$.txt
           rm -f /tmp/registry-validation.$$.txt
           echo ""
-          echo "  Fix the .md front-matter to match docs.schema.json /"
-          echo "  graph.schema.json, then re-stage and retry. CI runs the"
-          echo "  same check unconditionally."
+          echo "  Fix the .md front-matter to match docs.schema.json,"
+          echo "  then re-stage and retry. CI runs the same check"
+          echo "  unconditionally."
           exit 1
         fi
         if grep -q "jsonschema package not installed" /tmp/registry-validation.$$.txt 2>/dev/null; then

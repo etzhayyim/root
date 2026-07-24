@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:datacenter",
+  "handle": "datacenter.etzhayyim.com",
+  "displayName": "Datacenter Operations Actor",
+  "description": "ADR-0055 BPMN-as-actor for datacenter incident response, planned maintenance, physical access review, capacity reservation, and access-payload purge. Facility-scoped operations with explicit change review, health validation, Tier 3 visitor payload separation, and audit trail.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Datacenter Operations Actor",
+  "displayNameJa": "Datacenter Operations Actor",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.datacenter",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/datacenter/did.json",
+    "source": "kotoba"
+  }
+}

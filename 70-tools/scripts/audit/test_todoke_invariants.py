@@ -9,19 +9,19 @@ road, N2), or exceeds the SAE-L4 ceiling (N2).
 
 The envelope is declared in TWO runtimes that must agree, plus the lexicons:
 
-  enforcement point 1 — the Python method (`methods/last_mile.py`):
-      `_check_envelope` / `plan_last_mile` raise EnvelopeViolation.
+  enforcement point 1 — the Clojure method (`methods/last_mile.cljc`):
+      `check-envelope` / `plan-last-mile` raise ex-info with :envelope-violation.
   enforcement point 2 — the Rust route core (`route/src/lib.rs`):
-      `Zone::speed_cap_mps` — the per-zone caps the Python copy MUST match.
+      `Zone::speed_cap_mps` — the per-zone caps the cljc copy MUST match.
   enforcement point 3 — the published lexicons (`com.etzhayyim.todoke.*`):
       armed/gig/saeWithinCeiling/onDeviceOnly/serverSigned consts.
 
 Invariants under test:
 
-  1. N2/G7 (guard) — SAE_LEVEL_CEILING == 4 and the envelope raises on an
+  1. N2/G7 (guard) — sae-level-ceiling == 4 and the envelope raises on an
      over-ceiling SAE level, an over-cap commanded speed, and a road (non-ODD)
      zone; a clean sidewalk plan succeeds.
-  2. parity — Python ZONE_SPEED_CAP_MPS == Rust Zone::speed_cap_mps (the file
+  2. parity — cljc zone-speed-cap-mps == Rust Zone::speed_cap_mps (the file
      comment asserts they MUST match; this is the drift guard).
   3. N2 — lastMileRoute.saeWithinCeiling is const true.
   4. N2 — deliveryJob.armed is const false (no weaponised payload).
@@ -30,24 +30,27 @@ Invariants under test:
      no cloud image / face-match / biometric).
   7. G12 — handoffProof.serverSigned is const false (no-server-key).
   8. the safetyAlert refuse taxonomy pins the three envelope refusal reasons.
+
+NOTE: enforcement points 1 and 2 now exercise the cljc port
+(methods/last_mile.cljc via bb subprocess) since the Python methods/last_mile.py
+was migrated to cljc.
 """
 
 from __future__ import annotations
 
-import importlib.util
 import json
 import re
-import sys
+import subprocess
 from pathlib import Path
 
 import pytest
 
 _REPO = Path(__file__).resolve().parents[3]
 _LEX = _REPO / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "todoke"
-_LAST_MILE = _REPO / "20-actors" / "todoke" / "methods" / "last_mile.py"
 _RUST = _REPO / "20-actors" / "todoke" / "route" / "src" / "lib.rs"
+_ACTORS = _REPO / "20-actors"
 
-# Rust enum variant name -> the lower-case zone key used in Python.
+# Rust enum variant name -> the lower-case zone key used in cljc.
 _ZONE_NAME_MAP = {
     "Sidewalk": "sidewalk",
     "Crosswalk": "crosswalk",
@@ -65,14 +68,15 @@ def _record_props(lex: dict) -> dict:
     return lex["defs"]["main"]["record"]["properties"]
 
 
-def _import_last_mile():
-    spec = importlib.util.spec_from_file_location("todoke_last_mile", _LAST_MILE)
-    mod = importlib.util.module_from_spec(spec)
-    # Register before exec: the @dataclass Stop resolves InitVar/annotations via
-    # sys.modules[cls.__module__] at class-creation time (Python 3.12+).
-    sys.modules[spec.name] = mod
-    spec.loader.exec_module(mod)
-    return mod
+def _bb(expr: str) -> subprocess.CompletedProcess:
+    """Run a Clojure expression via bb with the actors classpath."""
+    return subprocess.run(
+        ["bb", "--classpath", str(_ACTORS), "-e", expr],
+        capture_output=True,
+        text=True,
+        check=False,
+        cwd=str(_REPO),
+    )
 
 
 def _rust_speed_caps() -> dict[str, float | None]:
@@ -97,42 +101,74 @@ def _rust_speed_caps() -> dict[str, float | None]:
 
 
 def test_n2_g7_envelope_refuses_violations():
-    lm = _import_last_mile()
-    assert lm.SAE_LEVEL_CEILING == 4, (
-        f"N2: SAE ceiling MUST be 4 (Level 5 is a non-goal); got {lm.SAE_LEVEL_CEILING}"
+    """G7: plan-last-mile MUST raise on SAE-ceiling/speed/zone violations (via bb)."""
+    result = _bb(
+        "(require '[todoke.methods.last-mile :as lm])"
+        "(def ceiling lm/sae-level-ceiling)"
+        "(def sidewalk-cap (get lm/zone-speed-cap-mps \"sidewalk\"))"
+        "(def sidewalk [{:id 0 :x 0.0 :y 0.0 :zone \"sidewalk\"}"
+        "               {:id 1 :x 5.0 :y 0.0 :zone \"sidewalk\"}])"
+        # SAE level above ceiling: refuse
+        "(def r1 (try (lm/plan-last-mile sidewalk :sae-level 5 :commanded-mps 1.0)"
+        "             :no-throw (catch Exception e :threw)))"
+        # Speed over cap: refuse
+        "(def r2 (try (lm/plan-last-mile sidewalk :sae-level 4 :commanded-mps (+ sidewalk-cap 0.5))"
+        "             :no-throw (catch Exception e :threw)))"
+        # Road zone (outside ODD): refuse
+        "(def r3 (try (lm/plan-last-mile [{:id 0 :x 0.0 :y 0.0 :zone \"road\"}]"
+        "                                :sae-level 4 :commanded-mps 0.5)"
+        "             :no-throw (catch Exception e :threw)))"
+        # Clean sidewalk plan at cap: pass
+        "(def r4 (lm/plan-last-mile sidewalk :sae-level 4 :commanded-mps sidewalk-cap))"
+        "(pr {:ceiling ceiling :r1 r1 :r2 r2 :r3 r3 :r4-ok (not (nil? r4))})"
     )
-    sidewalk = [lm.Stop(0, 0.0, 0.0, "sidewalk"), lm.Stop(1, 5.0, 0.0, "sidewalk")]
-    sidewalk_cap = lm.ZONE_SPEED_CAP_MPS["sidewalk"]
-
-    # over SAE ceiling → refuse
-    with pytest.raises(lm.EnvelopeViolation):
-        lm.plan_last_mile(sidewalk, sae_level=5, commanded_mps=1.0)
-    # commanded speed over the sidewalk cap → refuse
-    with pytest.raises(lm.EnvelopeViolation):
-        lm.plan_last_mile(sidewalk, sae_level=4, commanded_mps=sidewalk_cap + 0.5)
-    # a vehicular road is outside the ODD (cap None) → refuse
-    with pytest.raises(lm.EnvelopeViolation):
-        lm.plan_last_mile([lm.Stop(0, 0.0, 0.0, "road")], sae_level=4, commanded_mps=0.5)
-
-    # a clean sidewalk plan at/under cap succeeds.
-    order = lm.plan_last_mile(sidewalk, sae_level=4, commanded_mps=sidewalk_cap)
-    assert order is not None
+    assert result.returncode == 0, f"bb failed: {result.stderr}"
+    out = result.stdout
+    assert ":ceiling 4" in out, (
+        f"N2: sae-level-ceiling MUST be 4 (Level 5 is a non-goal); stdout={out!r}"
+    )
+    assert ":r1 :threw" in out, (
+        f"N2/G7: plan-last-mile MUST throw on SAE level > ceiling; stdout={out!r}"
+    )
+    assert ":r2 :threw" in out, (
+        f"G7: plan-last-mile MUST throw on commanded speed > zone cap; stdout={out!r}"
+    )
+    assert ":r3 :threw" in out, (
+        f"N2/G7: plan-last-mile MUST throw for a road (outside ODD); stdout={out!r}"
+    )
+    assert ":r4-ok true" in out, (
+        f"G7: a clean sidewalk plan at/under cap should succeed; stdout={out!r}"
+    )
 
 
 # ─────────────────────────────────────────────────────────────────────────
-# 2. parity — Python caps == Rust caps (the file comment's "MUST match")
+# 2. parity — cljc caps == Rust caps (the file comment's "MUST match")
 # ─────────────────────────────────────────────────────────────────────────
 
 
-def test_python_and_rust_zone_caps_agree():
-    lm = _import_last_mile()
-    py = dict(lm.ZONE_SPEED_CAP_MPS)
+def test_clj_and_rust_zone_caps_agree():
+    """Parity: cljc zone-speed-cap-mps MUST equal Rust Zone::speed_cap_mps."""
+    # Read cljc caps via bb
+    result = _bb(
+        "(require '[todoke.methods.last-mile :as lm])"
+        "(pr lm/zone-speed-cap-mps)"
+    )
+    assert result.returncode == 0, f"bb failed: {result.stderr}"
+    # Parse the EDN map printed by pr (format: {sidewalk 1.8, crosswalk 1.4, ...})
+    caps_str = result.stdout.strip()
+    # Extract key-value pairs from the printed map
+    clj: dict[str, float | None] = {}
+    for m in re.finditer(r'"?(\w+)"?\s+([\d.]+|nil)', caps_str):
+        key, val = m.group(1), m.group(2)
+        clj[key] = None if val == "nil" else float(val)
+
+    assert _RUST.exists(), f"Rust route core missing: {_RUST}"
     rust = _rust_speed_caps()
-    assert py == rust, (
-        "todoke zone speed caps drifted between Python (last_mile.py) and Rust "
-        f"(route/src/lib.rs):\n  py:   {py}\n  rust: {rust}"
+    assert clj == rust, (
+        "todoke zone speed caps drifted between cljc (last_mile.cljc) and Rust "
+        f"(route/src/lib.rs):\n  cljc: {clj}\n  rust: {rust}"
     )
-    assert py.get("road") is None, "N2: 'road' MUST stay outside the ODD (cap None)"
+    assert clj.get("road") is None, "N2: 'road' MUST stay outside the ODD (cap None)"
 
 
 # ─────────────────────────────────────────────────────────────────────────

@@ -1,0 +1,8 @@
+{:migration/type :repository-extraction
+ :migration/category :data
+ :migration/source "80-data/hirameki-patents"
+ :migration/repository "https://github.com/etzhayyim/com-etzhayyim-hirameki-patents"
+ :migration/west-path "orgs/etzhayyim/com-etzhayyim-hirameki-patents"
+ :migration/revision "936d7832ad1fbd1873570a58af14b17acc196a0d"
+ :migration/canonical-metadata "dataset.edn"
+ :migration/date "2026-07-17"}

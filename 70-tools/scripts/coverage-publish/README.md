@@ -19,11 +19,11 @@ operator/loop process.
 ```bash
 UCHIWAKE_OPERATOR_GATE=1 python3 off_batch.py
 python3 publish.py --name uchiwake-coverage --actor uchiwake \
-  --artifacts 20-actors/uchiwake/data/products.merged.kotoba.edn --ipns --kotobase
+  --artifacts orgs/etzhayyim/com-etzhayyim-uchiwake/data/products.merged.kotoba.edn --ipns --kotobase
 
 KANJO_OPERATOR_GATE=1 python3 edgar_batch.py
 python3 publish.py --name kanjo-coverage --actor kanjo \
-  --artifacts 20-actors/kanjo/data/facts.merged.kotoba.edn --ipns --kotobase
+  --artifacts orgs/etzhayyim/com-etzhayyim-kanjo/data/facts.merged.kotoba.edn --ipns --kotobase
 ```
 
 ## Storage layout

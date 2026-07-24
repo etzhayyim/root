@@ -1,0 +1,113 @@
+name: docs-graph-edn-freshness
+
+# Verify 90-docs/_registry/graph.edn stays in sync with the docs.edn
+# registry (which is itself in sync with canonical documentation via
+# docs-registry-freshness.yml).
+#
+# Chain: canonical docs (EDN preferred) → docs.edn → graph.edn
+#
+# Catches operators editing docs.edn (intentionally or via the upstream
+# docs-registry-freshness hook) without re-projecting the EDN relation
+# graph. Successor to the retired docs-graph-jsonld-freshness.yml (the
+# relation graph moved JSON-LD → EDN per the "use EDN, not JSON-LD"
+# directive; ADR-2606231808 lineage). Parallel pattern to
+# docs-registry-freshness.yml.
+#
+# Per 90-docs/CLAUDE.md "Documentation System Rules":
+#   - EDN documents are canonical for migration and ADR records
+#   - docs.edn is the EDN registry sidecar
+#   - graph.edn is the typed relation graph (this workflow guards it)
+# clj-native (babashka), matching regen-registry.clj.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '90-docs/**/*.md'
+      - '90-docs/adr/*.edn'
+      - '90-docs/_registry/docs.edn'
+      - '90-docs/_registry/graph.edn'
+      - '70-tools/scripts/docs/regen-graph-edn.clj'
+      - '.github/workflows/docs-graph-edn-freshness.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - '90-docs/**/*.md'
+      - '90-docs/adr/*.edn'
+      - '90-docs/_registry/docs.edn'
+      - '90-docs/_registry/graph.edn'
+      - '70-tools/scripts/docs/regen-graph-edn.clj'
+      - '.github/workflows/docs-graph-edn-freshness.yml'
+  schedule:
+    # Nightly at 03:29 UTC = ~12:29 JST. Off-minute :29 (different from
+    # docs-registry-freshness' :23 and deps-toml-paths' :17) for runner
+    # load spread.
+    - cron: '29 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  freshness:
+    name: docs-graph-edn-freshness
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Babashka
+        run: |
+          curl -sL https://raw.githubusercontent.com/babashka/babashka/master/install -o /tmp/bb-install
+          chmod +x /tmp/bb-install
+          sudo /tmp/bb-install
+          bb --version
+
+      - name: Run generator unit tests (regen-graph-edn.clj; 9/9 must pass)
+        run: |
+          bb 70-tools/scripts/docs/test_regen_graph_edn.clj
+
+      - name: Check graph.edn freshness (PR gate)
+        run: |
+          bb 70-tools/scripts/docs/regen-graph-edn.clj --check \
+            | tee /tmp/graph-check.log
+          exit_code=${PIPESTATUS[0]}
+          if [ "$exit_code" -ne 0 ]; then
+            echo ""
+            echo "✘ graph.edn is out of sync with docs.edn projection."
+            echo "  Fix: run the regenerator and stage the updated graph:"
+            echo "    bb 70-tools/scripts/docs/regen-graph-edn.clj"
+            echo "    git add 90-docs/_registry/graph.edn"
+            echo ""
+            echo "  Note: graph.edn is generated FROM docs.edn, so if"
+            echo "  docs.edn itself is stale (docs-registry-freshness fails),"
+            echo "  fix that first — both regenerators are idempotent and the"
+            echo "  chain is .md → docs.edn → graph.edn."
+            exit "$exit_code"
+          fi
+          echo "✓ graph.edn in sync"
+
+      - name: Step summary
+        if: always()
+        run: |
+          if [ -f 90-docs/_registry/graph.edn ]; then
+            summary=$(bb -e '(let [g (clojure.edn/read-string (slurp "90-docs/_registry/graph.edn"))
+                                   nodes (:graph g)
+                                   rel? (fn [n] (some #(seq (get n %)) [:related :supersedes :superseded-by :amends :amended-by]))]
+                               (str (count nodes) " " (count (filter rel? nodes))))')
+            nodes=$(echo "$summary" | cut -d' ' -f1)
+            relations=$(echo "$summary" | cut -d' ' -f2)
+            {
+              echo "## 90-docs/_registry/graph.edn"
+              echo ""
+              echo "- **Total nodes**: ${nodes}"
+              echo "- **Nodes with relations**: ${relations}"
+              echo ""
+              echo "- Generator: \`70-tools/scripts/docs/regen-graph-edn.clj\` (babashka)"
+              echo "- Idempotent: sorted by \`:id\`; pure projection of docs.edn (no timestamp)"
+              echo "- Source: docs.edn (which is regenerated from .md)"
+              echo "- Successor to the retired graph.jsonld JSON-LD projection"
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi

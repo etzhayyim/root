@@ -1,0 +1,383 @@
+{
+  "actor": "tate",
+  "kind": "coverage-digest",
+  "cid": "bafkreib7bmchnvmpvyokfha4s6wzw2rzg24kafr4tkbf7dx44tio32fmou",
+  "g1": "member-data-free (aggregate-only)",
+  "_meta": {
+    "source": "tate coverage_report (registries only; never seed-member-docs)",
+    "content_address": "CIDv1/raw/sha2-256 over the canonical EDN of `digest`",
+    "mesh": "distributable; verify by recomputing the CID over the digest body",
+    "adr": [
+      "2606112301",
+      "2606112400",
+      "2606013800"
+    ]
+  },
+  "digest": {
+    "un_member_states": 193,
+    "clause_source_url_count": 56,
+    "procedures_by_jurisdiction": {
+      ":ar": 6,
+      ":at": 6,
+      ":au": 6,
+      ":be": 6,
+      ":br": 6,
+      ":ca": 6,
+      ":ch": 6,
+      ":cn": 6,
+      ":de": 6,
+      ":dk": 6,
+      ":es": 6,
+      ":eu": 2,
+      ":fi": 6,
+      ":fr": 6,
+      ":ie": 6,
+      ":in": 6,
+      ":it": 6,
+      ":jp": 10,
+      ":kr": 6,
+      ":mx": 6,
+      ":nl": 6,
+      ":no": 6,
+      ":nz": 6,
+      ":pl": 6,
+      ":pt": 6,
+      ":se": 6,
+      ":sg": 6,
+      ":tw": 6,
+      ":uk": 6,
+      ":us": 7
+    },
+    "procedure_tracks": {
+      ":civil": 36,
+      ":enforcement": 29,
+      ":family": 29,
+      ":housing": 29,
+      ":insolvency": 29,
+      ":labor": 29
+    },
+    "named_gaps": [
+      ":cl — 未収載 (worklist)",
+      ":us 州レベル: 全50州収載 — 次の課題は改正追跡 (:verify-current-law) と DC/準州",
+      "専門トラック: :labor 29 / :housing 29 / :enforcement 29 / :insolvency 29 / :family 29 件 — 計画トラックは全て開削済み; 次の深化は各トラックの管轄横展開 (多くは jp/us/de の3管轄のみ)",
+      "全管轄に専門トラックあり (:eu は越境 instruments のみで対象外)",
+      ":source-url 出典: clause 56/128 + proc 149/181 に一次ソース URL を記録 — 残りは anchor のみ (worklist; 一次ソース検証後に付与、推測 URL は入れない G10)",
+      ":eu は越境 instruments のみ (加盟国国内法は各国エントリで個別収載)",
+      "刑事手続は全管轄でスコープ外 (N6 — 即時弁護士照会のみ)"
+    ],
+    "us_states_total": 50,
+    "covered_count": 30,
+    "track_matrix": {
+      ":ar": {
+        ":civil": 1,
+        ":enforcement": 1,
+        ":family": 1,
+        ":housing": 1,
+        ":insolvency": 1,
+        ":labor": 1
+      },
+      ":at": {
+        ":civil": 1,
+        ":enforcement": 1,
+        ":family": 1,
+        ":housing": 1,
+        ":insolvency": 1,
+        ":labor": 1
+      },
+      ":au": {
+        ":civil": 1,
+        ":enforcement": 1,
+        ":family": 1,
+        ":housing": 1,
+        ":insolvency": 1,
+        ":labor": 1
+      },
+      ":be": {
+        ":civil": 1,
+        ":enforcement": 1,
+        ":family": 1,
+        ":housing": 1,
+        ":insolvency": 1,
+        ":labor": 1
+      },
+      ":br": {
+        ":civil": 1,
+        ":enforcement": 1,
+        ":family": 1,
+        ":housing": 1,
+        ":insolvency": 1,
+        ":labor": 1
+      },
+      ":ca": {
+        ":civil": 1,
+        ":enforcement": 1,
+        ":family": 1,
+        ":housing": 1,
+        ":insolvency": 1,
+        ":labor": 1
+      },
+      ":ch": {
+        ":civil": 1,
+        ":enforcement": 1,
+        ":family": 1,
+        ":housing": 1,
+        ":insolvency": 1,
+        ":labor": 1
+      },
+      ":cn": {
+        ":civil": 1,
+        ":enforcement": 1,
+        ":family": 1,
+        ":housing": 1,
+        ":insolvency": 1,
+        ":labor": 1
+      },
+      ":de": {
+        ":civil": 1,
+        ":enforcement": 1,
+        ":family": 1,
+        ":housing": 1,
+        ":insolvency": 1,
+        ":labor": 1
+      },
+      ":dk": {
+        ":civil": 1,
+        ":enforcement": 1,
+        ":family": 1,
+        ":housing": 1,
+        ":insolvency": 1,
+        ":labor": 1
+      },
+      ":es": {
+        ":civil": 1,
+        ":enforcement": 1,
+        ":family": 1,
+        ":housing": 1,
+        ":insolvency": 1,
+        ":labor": 1
+      },
+      ":eu": {
+        ":civil": 2
+      },
+      ":fi": {
+        ":civil": 1,
+        ":enforcement": 1,
+        ":family": 1,
+        ":housing": 1,
+        ":insolvency": 1,
+        ":labor": 1
+      },
+      ":fr": {
+        ":civil": 1,
+        ":enforcement": 1,
+        ":family": 1,
+        ":housing": 1,
+        ":insolvency": 1,
+        ":labor": 1
+      },
+      ":ie": {
+        ":civil": 1,
+        ":enforcement": 1,
+        ":family": 1,
+        ":housing": 1,
+        ":insolvency": 1,
+        ":labor": 1
+      },
+      ":in": {
+        ":civil": 1,
+        ":enforcement": 1,
+        ":family": 1,
+        ":housing": 1,
+        ":insolvency": 1,
+        ":labor": 1
+      },
+      ":it": {
+        ":civil": 1,
+        ":enforcement": 1,
+        ":family": 1,
+        ":housing": 1,
+        ":insolvency": 1,
+        ":labor": 1
+      },
+      ":jp": {
+        ":civil": 5,
+        ":enforcement": 1,
+        ":family": 1,
+        ":housing": 1,
+        ":insolvency": 1,
+        ":labor": 1
+      },
+      ":kr": {
+        ":civil": 1,
+        ":enforcement": 1,
+        ":family": 1,
+        ":housing": 1,
+        ":insolvency": 1,
+        ":labor": 1
+      },
+      ":mx": {
+        ":civil": 1,
+        ":enforcement": 1,
+        ":family": 1,
+        ":housing": 1,
+        ":insolvency": 1,
+        ":labor": 1
+      },
+      ":nl": {
+        ":civil": 1,
+        ":enforcement": 1,
+        ":family": 1,
+        ":housing": 1,
+        ":insolvency": 1,
+        ":labor": 1
+      },
+      ":no": {
+        ":civil": 1,
+        ":enforcement": 1,
+        ":family": 1,
+        ":housing": 1,
+        ":insolvency": 1,
+        ":labor": 1
+      },
+      ":nz": {
+        ":civil": 1,
+        ":enforcement": 1,
+        ":family": 1,
+        ":housing": 1,
+        ":insolvency": 1,
+        ":labor": 1
+      },
+      ":pl": {
+        ":civil": 1,
+        ":enforcement": 1,
+        ":family": 1,
+        ":housing": 1,
+        ":insolvency": 1,
+        ":labor": 1
+      },
+      ":pt": {
+        ":civil": 1,
+        ":enforcement": 1,
+        ":family": 1,
+        ":housing": 1,
+        ":insolvency": 1,
+        ":labor": 1
+      },
+      ":se": {
+        ":civil": 1,
+        ":enforcement": 1,
+        ":family": 1,
+        ":housing": 1,
+        ":insolvency": 1,
+        ":labor": 1
+      },
+      ":sg": {
+        ":civil": 1,
+        ":enforcement": 1,
+        ":family": 1,
+        ":housing": 1,
+        ":insolvency": 1,
+        ":labor": 1
+      },
+      ":tw": {
+        ":civil": 1,
+        ":enforcement": 1,
+        ":family": 1,
+        ":housing": 1,
+        ":insolvency": 1,
+        ":labor": 1
+      },
+      ":uk": {
+        ":civil": 1,
+        ":enforcement": 1,
+        ":family": 1,
+        ":housing": 1,
+        ":insolvency": 1,
+        ":labor": 1
+      },
+      ":us": {
+        ":civil": 2,
+        ":enforcement": 1,
+        ":family": 1,
+        ":housing": 1,
+        ":insolvency": 1,
+        ":labor": 1
+      }
+    },
+    "clause_total": 128,
+    "critical_deadline_count": 31,
+    "coverage_ratio": 0.1554,
+    "kind": "coverage-digest",
+    "us_states_covered": 50,
+    "patterns_by_jurisdiction": {
+      ":ar": 4,
+      ":at": 4,
+      ":au": 4,
+      ":be": 4,
+      ":br": 4,
+      ":ca": 4,
+      ":ch": 4,
+      ":cn": 4,
+      ":de": 4,
+      ":dk": 4,
+      ":es": 4,
+      ":eu": 2,
+      ":fi": 4,
+      ":fr": 4,
+      ":ie": 4,
+      ":in": 4,
+      ":it": 4,
+      ":jp": 14,
+      ":kr": 4,
+      ":mx": 4,
+      ":nl": 4,
+      ":no": 4,
+      ":nz": 4,
+      ":pl": 4,
+      ":pt": 4,
+      ":se": 4,
+      ":sg": 4,
+      ":tw": 4,
+      ":uk": 4,
+      ":us": 4
+    },
+    "worklist_remaining": [
+      ":cl"
+    ],
+    "proc_total": 181,
+    "actor": "tate",
+    "jurisdictions": [
+      ":ar",
+      ":at",
+      ":au",
+      ":be",
+      ":br",
+      ":ca",
+      ":ch",
+      ":cn",
+      ":de",
+      ":dk",
+      ":es",
+      ":eu",
+      ":fi",
+      ":fr",
+      ":ie",
+      ":in",
+      ":it",
+      ":jp",
+      ":kr",
+      ":mx",
+      ":nl",
+      ":no",
+      ":nz",
+      ":pl",
+      ":pt",
+      ":se",
+      ":sg",
+      ":tw",
+      ":uk",
+      ":us"
+    ],
+    "proc_source_url_count": 149
+  }
+}

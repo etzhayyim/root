@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:m365-ingest",
+  "handle": "m365-ingest.etzhayyim.com",
+  "displayName": "M365 Ingest — Tenant Mailbox Collector",
+  "description": "Microsoft Graph API (client credentials flow) → kyber.inbox.emailSignal pipeline. Pulls every @etzhayyim.co.jp mailbox, routes to kyber-inbox (signal/noise) and yabai (threat scoring) via downstream subscribers. No UI, no OAuth — pure tenant-app ingest.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "M365 Ingest",
+  "displayNameJa": "M365 Ingest — Tenant Mailbox Collector",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.m365-ingest",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/m365-ingest/did.json",
+    "source": "kotoba"
+  }
+}

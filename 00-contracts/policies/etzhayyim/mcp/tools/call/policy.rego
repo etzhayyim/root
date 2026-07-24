@@ -6,13 +6,13 @@ internal_service if input.auth.method == "service-jwt"
 
 scope_allowed if {
   some scope in input.auth.scopes
-  some allowed in data.method_policy.allowedScopes
+  some allowed in data.etzhayyim.mcp.tools.call.method_policy.allowedScopes
   glob.match(allowed, [], scope)
 }
 
 permission_set_allowed if {
   some permission_set in input.permission_sets
-  permission_set in data.method_policy.allowedPermissionSets
+  permission_set in data.etzhayyim.mcp.tools.call.method_policy.allowedPermissionSets
 }
 
 allow if internal_service

@@ -1,0 +1,14 @@
+{
+  "ui.disclaimer" : "行政書士法/UPL境界: 情報提供+案内+入力補助のみ。作成代理・法的助言は行いません。本人が提出します。",
+  "actor.authority" : "Registro Nacional de Identificación y Estado Civil (RENIEC) / Superintendencia Nacional de Aduanas y de Administración Tributaria (SUNAT)",
+  "ui.self-submit" : "本人提出",
+  "actor.description" : "toritsugi authority-actor for regime 'pe-national' (Registro Nacional de Identificación y Estado Civil (RENIEC) / Superintendencia Nacional de Aduanas y de Administración Tributaria (SUNAT)). Covers 2 procedure(s) across jurisdiction(s): per. Parent: toritsugi (ADR-2605312030). Keyless R0 mirror — no server key. 行政書士法/UPL boundary (G5): 情報提供+案内+入力補助 only, NO advice, NO 作成代理. Member self-submits (G15). NOT a 行政書士/弁護士 firm, NOT an official channel.",
+  "actor.displayName" : "取次-pe-national — Registro Nacional de Identificación y Estado Civil (RENIEC)",
+  "procedure.list" : "Peru National Identity Document (DNI / DNIe) issuance / renewal — Documento Nacional de Identidad / Peru annual personal income-tax return — Declaración Jurada Anual del Impuesto a la Renta (Personas Naturales)",
+  "ui.accompany" : "伴走",
+  "actor.regime" : "pe-national",
+  "ui.guide" : "案内",
+  "procedure.count" : "2件の手続き",
+  "actor.glyph" : "取次",
+  "actor.name" : "toritsugi-pe-national"
+}

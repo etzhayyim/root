@@ -95,7 +95,7 @@
 | medium | missing_audit_emit | open_cyber_vuln_fetch_nvd_delta | open-cyber-vuln | 3 | 0 | etzhayyim-root/00-contracts/bpmn/com/etzhayyim/open-cyber-vuln/fetchNvdDelta.bpmn |
 | medium | missing_audit_emit | open_oss_vuln_fetch_ghsa_delta | open-oss-vuln | 3 | 0 | etzhayyim-root/00-contracts/bpmn/com/etzhayyim/open-oss-vuln/fetchGhsaDelta.bpmn |
 | medium | missing_audit_emit | open_sales_compute_forecast | open-sales | 3 | 0 | etzhayyim-root/00-contracts/bpmn/com/etzhayyim/open-sales/computeForecast.bpmn |
-| medium | missing_audit_emit | kakaku_ingest_offer_from_url | kakaku | 2 | 0 | etzhayyim-root/00-contracts/bpmn/com/etzhayyim/kakaku/ingestOfferFromUrl.bpmn |
+| medium | missing_audit_emit | kakaku_ingest_offer_from_url | kakaku | 2 | 0 | etzhayyim-root/orgs/etzhayyim/com-etzhayyim-kakaku/wire/contracts/bpmn/ingestOfferFromUrl.bpmn |
 | medium | missing_audit_emit | legal_corpus_fetch_canlii_delta | legal-corpus | 2 | 0 | etzhayyim-root/00-contracts/bpmn/com/etzhayyim/legal-corpus/fetchCanLiiDelta.bpmn |
 | medium | missing_audit_emit | llm_answer_with_knowledge | llm | 2 | 0 | etzhayyim-root/00-contracts/bpmn/com/etzhayyim/llm/answerWithKnowledge.bpmn |
 | medium | missing_audit_emit | malak_get_threat_graph | malak | 2 | 0 | etzhayyim-root/00-contracts/bpmn/com/etzhayyim/malak/getThreatGraph.bpmn |

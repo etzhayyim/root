@@ -1,0 +1,13 @@
+{
+  "ui.disclaimer" : "حدود UPL: معلومات + توجيه + مساعدة في تعبئة النماذج فقط. بدون استشارة، بدون وكالة. يقدم العضو بنفسه.",
+  "actor.authority" : "Public Security Bureau (公安机关) at place of hukou (permanent residence) — Ministry of Public Security",
+  "ui.self-submit" : "تقديم شخصي",
+  "actor.description" : "toritsugi authority-actor for regime 'cn-national' (Public Security Bureau (公安机关) at place of hukou (permanent residence) — Ministry of Public Security). Covers 1 procedure(s) across jurisdiction(s): chn. Parent: toritsugi (ADR-2605312030). Keyless R0 mirror — no server key. 行政書士法/UPL boundary (G5): 情報提供+案内+入力補助 only, NO advice, NO 作成代理. Member self-submits (G15). NOT a 行政書士/弁護士 firm, NOT an official channel.",
+  "actor.displayName" : "Toritsugi-cn-national — Public Security Bureau (公安机关) at place of hukou (permanent residence) — Ministry of Public Security",
+  "procedure.list" : "Resident Identity Card application / 居民身份证申领",
+  "ui.accompany" : "مرافقة",
+  "actor.regime" : "cn-national",
+  "ui.guide" : "إرشاد",
+  "procedure.count" : "1 إجراءات",
+  "actor.name" : "toritsugi-cn-national"
+}

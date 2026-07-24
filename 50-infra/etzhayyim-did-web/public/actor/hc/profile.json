@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:hc",
+  "handle": "hc.etzhayyim.com",
+  "displayName": "HC — Human Computing Platform (スキマバイト + マイクロタスク)",
+  "description": "Timee-style ギグワーク + MTurk-style マイクロタスクのハイブリッドプラットフォーム。日本の労働基準法準拠。OEM SP 登録パイプライン。",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "HC",
+  "displayNameJa": "HC — Human Computing Platform (スキマバイト + マイクロタスク)",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.hc",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/hc/did.json",
+    "source": "kotoba"
+  }
+}

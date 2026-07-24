@@ -7,7 +7,7 @@ invariants as the engineered form of yir'ah, plus D3 NEVER-a-throne:
   non-adjudicating · distribution-not-point · no-score-of-soul · map-not-target
   · append-only · never-a-throne
 
-This scanner reads every 20-actors/*/manifest.jsonld (gates + purpose + lineage
+This scanner reads flat west actor wire manifests (gates + purpose + lineage
 text) and reports, per actor, which invariants are DECLARED. Absence is not a
 violation — a manufacturing actor may have nothing to forecast — so the output
 is an evolution WORKLIST (which actors could adopt which declarations), never a
@@ -68,8 +68,8 @@ def scan_manifest(path: pathlib.Path) -> dict:
 
 def scan_repo(root: pathlib.Path) -> dict:
     actors = {}
-    for mf in sorted(root.glob("20-actors/*/manifest.jsonld")):
-        name = mf.parent.name
+    for mf in sorted(root.glob("orgs/etzhayyim/com-etzhayyim-*/wire/manifest.jsonld")):
+        name = mf.parent.parent.name.removeprefix("com-etzhayyim-")
         if name.endswith(SKIP_DIR_SUFFIXES) or name.startswith("_"):
             continue
         actors[name] = scan_manifest(mf)

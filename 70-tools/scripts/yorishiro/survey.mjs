@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // survey.mjs — Phase 4 migration scanner (ADR-2605211900).
 //
-// Scans the repo (defaults: 60-apps/, 20-actors/, 70-tools/) for direct
+// Scans the repo (defaults: 60-apps/, flat west actors, 70-tools/) for direct
 // `fetch("http(s)://…")` calls, cross-references the URL hosts against
 // the registered yorishiri (70-tools/etzhayyim-cli/yorishiro/registry/*.json),
 // and reports:
@@ -28,7 +28,7 @@ import { join, relative } from "node:path";
 
 const REPO_ROOT = process.env.YORISHIRO_REPO_ROOT ?? process.cwd();
 const REGISTRY = join(REPO_ROOT, "70-tools/etzhayyim-cli/yorishiro/registry");
-const DEFAULT_PATHS = ["60-apps", "20-actors", "70-tools"];
+const DEFAULT_PATHS = ["60-apps", "orgs/etzhayyim", "70-tools"];
 
 const args = process.argv.slice(2);
 const wantJson = args.includes("--json");

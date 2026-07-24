@@ -1,0 +1,47 @@
+{:schema "etzhayyim.adr/v1"
+ :id "2607193610"
+ :title "Drain one-to-three-file legacy app directories"
+ :status :accepted
+ :date "2026-07-19"
+ :scope {:source-repository "etzhayyim/root"
+         :source-revision "739557dff078821eae827ae30ef107d1918a108a"
+         :directory-count 32
+         :tracked-files 76
+         :bytes 187547
+         :selection "direct children of 60-apps with one to three tracked files, excluding existing MOVED markers"}
+ :decision
+ {:extract
+  {:classification :active-static-or-executable
+   :directories
+   [{:source "60-apps/chaos-dashboard" :repository "etzhayyim/com-etzhayyim-app-chaos-dashboard" :revision "d601018f45ad40e1241f0f12d33b46a5c0be1323" :kind :static-html}
+    {:source "60-apps/etzhayyim-project-auto-sales-erp" :repository "etzhayyim/com-etzhayyim-app-auto-sales-erp" :revision "60bb5279a9f24e5a1f79bf513dd5570f87041592" :kind :bpmn-bundle}
+    {:source "60-apps/etzhayyim-project-cards" :repository "etzhayyim/com-etzhayyim-app-cards" :revision "e615ea6df6a0e82453aaf8c0a93305cdb93314e8" :kind :bpmn-bundle}
+    {:source "60-apps/etzhayyim-project-casino" :repository "etzhayyim/com-etzhayyim-app-casino" :revision "2b674eddc4074693f3af2fe67f032ad08d0d6b1a" :kind :bpmn-bundle}
+    {:source "60-apps/etzhayyim-project-music" :repository "etzhayyim/com-etzhayyim-app-music" :revision "ac5daa7a01d06c6b3a248f9bfffa8ffff67c0c11" :kind :bpmn-bundle}
+    {:source "60-apps/etzhayyim-project-outlook" :repository "etzhayyim/com-etzhayyim-app-outlook" :revision "16dded287b5e9ac14159d06b707164d7aeccffc5" :kind :bpmn-bundle}
+    {:source "60-apps/etzhayyim-project-performers" :repository "etzhayyim/com-etzhayyim-app-performers" :revision "842a3af329a3e0b543f09455305015c6a7485de4" :kind :bpmn-bundle}
+    {:source "60-apps/etzhayyim-project-videos" :repository "etzhayyim/com-etzhayyim-app-videos" :revision "37d7ace06762684ac0c39b873ebd62541fa730ab" :kind :bpmn-bundle}
+    {:source "60-apps/etzhayyim-project-videos-legacy" :repository "etzhayyim/com-etzhayyim-app-videos-legacy" :revision "e7bdc583a35f2ec5c2c77577d45f9258c282de6c" :kind :bpmn-bundle}]
+   :verification {:existing-bpmn-repositories 7 :byte-identical-bundles 7 :new-private-repositories 2}}
+  :retire
+  {:classification :concept-or-generated-shell
+   :reason "No executable source or deployable static entrypoint; content is limited to PROJECT.jsonld, CLAUDE/README/NOTICE/OWNERS, generated kotodama metadata, package metadata without source, or deploy-state residue."
+   :directory-count 23
+   :tracked-files 66
+   :bytes 112408
+   :directories
+   ["60-apps/etzhayyim-project-actors" "60-apps/etzhayyim-project-basic"
+    "60-apps/etzhayyim-project-conversion" "60-apps/etzhayyim-project-copyright"
+    "60-apps/etzhayyim-project-denki" "60-apps/etzhayyim-project-dispute"
+    "60-apps/etzhayyim-project-food" "60-apps/etzhayyim-project-gakko"
+    "60-apps/etzhayyim-project-gas" "60-apps/etzhayyim-project-kagami"
+    "60-apps/etzhayyim-project-ninso" "60-apps/etzhayyim-project-obebe"
+    "60-apps/etzhayyim-project-osekkai" "60-apps/etzhayyim-project-repo"
+    "60-apps/etzhayyim-project-rireki" "60-apps/etzhayyim-project-suido"
+    "60-apps/etzhayyim-project-taikomochi" "60-apps/etzhayyim-project-testing"
+    "60-apps/etzhayyim-project-trademark" "60-apps/etzhayyim-project-well-yakiniku"
+    "60-apps/etzhayyim-project-wellness" "60-apps/etzhayyim-project-workers"
+    "60-apps/etzhayyim-transparent-force-rd"]}}
+ :provenance {:per-directory "Each adjacent *-MOVED.edn records the source git tree, file count, byte count, and exact destination revision where applicable."}
+ :invariants {:canonical-record-format :edn :go-files-created 0 :tinygo-files-created 0 :flat-west-path "orgs/etzhayyim/com-etzhayyim-app-*"}
+ :verification [:source-tree-provenance :bpmn-byte-identity :edn-readable :layer-freeze-guard :tree-guard]}

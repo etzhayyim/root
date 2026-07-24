@@ -1,6 +1,6 @@
 """kotoba Datomic substrate client for the kotodama worker layer.
 
-This is the **RW-free substrate replacement** for ``kotodama.rw_async_pool`` +
+This is the **kotoba substrate replacement** for ``kotodama.rw_async_pool`` +
 ``kotodama.rw_sql`` (ADR-2605262130 + ADR-2605312345: kotoba Datom log is the
 first-class canonical state; no RisingWave / Postgres / Kysely). It speaks the
 kotoba Datomic XRPC surface against a running kotoba node:

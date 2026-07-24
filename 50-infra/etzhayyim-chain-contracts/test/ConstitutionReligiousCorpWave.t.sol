@@ -104,9 +104,9 @@ contract ConstitutionReligiousCorpWaveTest is Test {
         mK[7] = K.TIMELOCK_SECS;           mV[7] = bytes32(uint256(72 hours));
         // Reclassified to Tier-2 (ADR-2606062100 §4): tithe rate + rider version + text-hash
         mK[8]  = K.TITHE_BPS;                       mV[8]  = bytes32(uint256(1_000));
-        mK[9]  = K.LICENSE_CHARTER_RIDER_VERSION;   mV[9]  = bytes32("v3.0");
-        // keccak256 of /CHARTER-RIDER.md v3.0 (drift-locked in ConstitutionInvariants.t.sol)
-        mK[10] = K.LICENSE_CHARTER_RIDER_TEXT_HASH; mV[10] = 0xf5fd8d96fae247fadfaa72b616d2163095b6dcf3c4b3b76b9f09688cd356dfa7;
+        mK[9]  = K.LICENSE_CHARTER_RIDER_VERSION;   mV[9]  = bytes32("v3.6");
+        // keccak256 of /CHARTER-RIDER.md v3.6 (drift-locked in ConstitutionInvariants.t.sol)
+        mK[10] = K.LICENSE_CHARTER_RIDER_TEXT_HASH; mV[10] = 0x549c99eacb894c9bc74025cf09cb892b6b66e407b112c7c528ab6e7c9b14630b;
         // Reference addresses initial = 0 (set via governance post-deploy)
         mK[11] = K.PUBLIC_FUND_SAFE_ADDRESS;            mV[11] = bytes32(0);
         mK[12] = K.CHARTERS_COMPLIANCE_REGISTRY_ADDRESS; mV[12] = bytes32(0);
@@ -187,8 +187,8 @@ contract ConstitutionReligiousCorpWaveTest is Test {
         assertEq(c.getConstant(K.LICENSE_BASE), bytes32("Apache-2.0"));
         assertEq(c.getConstant(K.LICENSE_CHARTER_RIDER_REQUIRED), bytes32(uint256(1)));
         // ADR-2606062100 §4: rider version is now a Tier-2 mutable (tracks amendments),
-        // not a fork-only constant. v3.0 is the priority-over-specifics Rider.
-        assertEq(c.getMutable(K.LICENSE_CHARTER_RIDER_VERSION), bytes32("v3.0"));
+        // not a fork-only constant. v3.6 is the current priority-over-specifics Rider.
+        assertEq(c.getMutable(K.LICENSE_CHARTER_RIDER_VERSION), bytes32("v3.6"));
     }
 
     function test_three_tier_enforcement_constants_set() public view {

@@ -1,0 +1,50 @@
+{
+  "disclaimer": "一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
+  "case": "proc:be-housing",
+  "label": "Expulsion / bail de résidence (住居・ベルギー)",
+  "jurisdiction": ":be",
+  "jurisdiction_label": "Belgique / België",
+  "track": ":housing",
+  "genuine_channels": [
+    ":mail",
+    ":formal-service"
+  ],
+  "service_note": "citation は huissier de justice による signification (délai de citation 最低8日)",
+  "deadlines": [
+    {
+      "label": "Expulsion への対応",
+      "rule": "expulsion には必ず juge de paix の jugement が必要 (物件所在地の canton の juge de paix のみ管轄)。手続前に賃借人への préavis écrit (registered mail 推奨、債務/違反の是正に通常15日の猶予) が必須。expulsion は jugement の signification から1か月の法定期間経過後にのみ実行可 (huissier 経由)。trêve hivernale は地域で異なる (例: Bruxelles は11/1〜3/15 expulsion 不可)。賃借人は juge de paix の audience に出頭し争える",
+      "anchor": "Code judiciaire art. 1344ter-1344octies (procédure d'expulsion) + juge de paix",
+      "critical": false,
+      "verify_service_date": true
+    }
+  ],
+  "options": [
+    {
+      "id": ":comparution",
+      "kind": ":self-decide",
+      "protective": true,
+      "label": "juge de paix の audience に出頭し事由・préavis・renta を争う (賃貸紛争は juge de paix で本人可)"
+    },
+    {
+      "id": ":no-self-help-protection",
+      "kind": ":self-decide",
+      "protective": true,
+      "label": "propriétaire の自力 expulsion (changement de serrure・coupure d'eau/électricité・sortie des meubles) は違法 — expulsion は jugement + huissier + signification から1か月の délai 経過後のみ; 受けたら police・avocat・aide juridique へ"
+    }
+  ],
+  "referrals": [
+    "事由が複雑・expulsion illégale → avocat / aide juridique (pro deo) / service du logement régional"
+  ],
+  "jurisdiction_referrals": [
+    "bureau d'aide juridique (pro deo)",
+    "SPF Économie (consommateurs)",
+    "juge de paix greffe"
+  ],
+  "fraud_help": [
+    "tasuke 助 (サイバー犯罪被害支援)",
+    "Police (meldpunt/point de contact)",
+    "SPF Économie"
+  ],
+  "verify_current_law": true
+}

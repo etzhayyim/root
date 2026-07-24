@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:society6",
+  "handle": "society6.etzhayyim.com",
+  "displayName": "COFOG + Well-Becoming Kyu/Dan",
+  "description": "COFOG portal + Well-Becoming Kyu/Dan rank system. 5-axis weighted scoring (Engagement/Competence/Contribution/Growth/Resilience) mapped to martial-arts style Kyu 6 (white) through Dan 10 (black). Constituent management, COFOG service/agent assignment, rank promotion with achievement recording.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "COFOG + Well-Becoming Kyu/Dan",
+  "displayNameJa": "COFOG + Well-Becoming Kyu/Dan",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.society6",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/society6/did.json",
+    "source": "kotoba"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "ui.disclaimer" : "Límite UPL: solo información + orientación + ayuda con formularios. Sin asesoramiento, sin representación. El miembro presenta personalmente.",
+  "actor.authority" : "시·군·구청 (혼인신고)",
+  "ui.self-submit" : "Presentación personal",
+  "actor.description" : "toritsugi authority-actor for regime 'kor-civil-registry' (시·군·구청 (혼인신고)). Covers 1 procedure(s) across jurisdiction(s): kor. Parent: toritsugi (ADR-2605312030). Keyless R0 mirror — no server key. 行政書士法/UPL boundary (G5): 情報提供+案内+入力補助 only, NO advice, NO 作成代理. Member self-submits (G15). NOT a 行政書士/弁護士 firm, NOT an official channel.",
+  "actor.displayName" : "Toritsugi-kor-civil-registry — 시·군·구청 (혼인신고)",
+  "procedure.list" : "Marriage registration (혼인신고)",
+  "ui.accompany" : "Acompañar",
+  "actor.regime" : "kor-civil-registry",
+  "ui.guide" : "Guía",
+  "procedure.count" : "1 procedimientos",
+  "actor.name" : "toritsugi-kor-civil-registry"
+}

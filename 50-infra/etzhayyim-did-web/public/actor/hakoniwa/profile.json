@@ -1,0 +1,29 @@
+{
+  "did": "did:web:etzhayyim.com:actor:hakoniwa",
+  "handle": "hakoniwa.etzhayyim.com",
+  "displayName": "hakoniwa",
+  "description": "Forward-simulation observatory — the charter-clean inversion of a swarm-intelligence prediction engine (the 666ghj/MiroFish shape). Runs a CONTAINED miniature world (箱庭) of FICTIONAL latent personas forward in discrete steps to surface a DISTRIBUTION over possible futures, routed to resilience & preparedness; never a point prediction, never a real-person model, never a steering/persuasion campaign.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-11T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "箱庭",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2606111500"
+    ],
+    "primaryLexicon": "com.etzhayyim.hakoniwa",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/hakoniwa/did.json",
+    "source": "kotoba"
+  }
+}

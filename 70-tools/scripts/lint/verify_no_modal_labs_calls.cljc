@@ -21,7 +21,7 @@
   Pure scan fns (`violation-matches`, `scan-text`, `find-violations`) carry
   no I/O; the file walk + stdout/stderr + exit live at #?(:clj) edges
   (`-main`) via clojure.java.io — same I/O-at-edges discipline as
-  20-actors/ibuki/methods/infer.cljc + 20-actors/mimamori/methods/bond.cljc.
+  orgs/etzhayyim/com-etzhayyim-ibuki/methods/infer.cljc + orgs/etzhayyim/com-etzhayyim-mimamori/methods/bond.cljc.
   kebab keyword keys; closed argv vocab → ex-info."
   (:require [clojure.string :as str]
             #?(:clj [clojure.java.io :as io])))

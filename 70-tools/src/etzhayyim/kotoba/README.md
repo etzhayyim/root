@@ -19,13 +19,13 @@ This is also what the ADRs already mandate. The boundary:
 Nothing here writes into `40-engine/kotoba/`. The subrepo stays the clean, generic,
 Apache-2.0 engine (`brew install kotoba`); all religious-corp data + this glue live in root.
 
-This **supersedes** the stub `40-engine/datomic_emulator.py` (whose `q()` always returned `[]`).
+This **supersedes** the retired Python stub recorded by ADR-2607193500 (its `q()` always returned `[]`).
 
 ## Modules
 
 | ns | role |
 |---|---|
-| `etzhayyim.kotoba.cid` | CIDv1 content-address (raw/sha2-256/base32) — **byte-identical to `ipfs add --cid-version=1 --raw-leaves`** and `20-actors/rasen/methods/cid.py` (proven against the daemon-verified genome CIDs) |
+| `etzhayyim.kotoba.cid` | CIDv1 content-address (raw/sha2-256/base32) — **byte-identical to `ipfs add --cid-version=1 --raw-leaves`** and `orgs/etzhayyim/com-etzhayyim-rasen/methods/cid.py` (proven against the daemon-verified genome CIDs) |
 | `etzhayyim.kotoba.datom` | `[e a v tx op]` model + EAVT/AEVT/AVET/VAET four-index arrangement |
 | `etzhayyim.kotoba.query` | Datalog subset (`:find`/`:in`/`:where`, pattern joins, allowlisted predicates) |
 | `etzhayyim.kotoba.schema` | load `00-contracts` schemas; value-type validation; cardinality-one auto-retraction |

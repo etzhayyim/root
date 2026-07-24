@@ -1,0 +1,32 @@
+{
+  "did": "did:web:etzhayyim.com:actor:kokoro",
+  "handle": "kokoro.etzhayyim.com",
+  "displayName": "心 — Mental Health Support",
+  "description": "Non-profit religious-corp mental health support substrate. Community + spiritual + relational framing (NOT clinical psychiatry). Peer support circles + post-funeral grief support + chronic mental health continuity + postnatal mood screening (opt-in) + acute crisis escalation (mitate G5) + counseling referral. **CRITICAL boundary**: NOT clinical psychiatric entity; NOT state-licensed psych; counselors are L5 vocation-flow community-witnessed-competent (musubi G3 pattern). Does NOT diagnose (mi...",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-05-26T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "心",
+  "displayNameJa": "心 — Mental Health Support",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2605263700",
+      "2605263700",
+      "reserved"
+    ],
+    "primaryLexicon": "com.etzhayyim.kokoro",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/kokoro/did.json",
+    "source": "kotoba"
+  }
+}

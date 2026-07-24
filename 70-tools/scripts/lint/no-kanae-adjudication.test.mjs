@@ -30,7 +30,7 @@ const SCRIPT = resolve(
   "no-kanae-adjudication.mjs",
 );
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const LEX_REL = "00-contracts/lexicons/com/etzhayyim/kanae";
+const LEX_REL = "orgs/etzhayyim/com-etzhayyim-kanae/wire/lexicons";
 
 function runIn(cwd, args = []) {
   const r = spawnSync("node", [SCRIPT, ...args], { cwd, encoding: "utf8" });
@@ -178,9 +178,9 @@ test("G8: govwin host + fiscalnote import in kanae code fails (exit 1)", () => {
   mkdirSync(lexDir, { recursive: true });
   writeFileSync(join(lexDir, "fundFlowEdge.json"), JSON.stringify(GOOD_EDGE));
   writeFileSync(join(lexDir, "flowNarrative.json"), JSON.stringify(GOOD_NARRATIVE));
-  const codeDir = join(root, "20-actors/kanae");
+  const codeDir = join(root, "orgs/etzhayyim/com-etzhayyim-kanae");
   mkdirSync(codeDir, { recursive: true });
-  const rel = "20-actors/kanae/bad_cell.py";
+  const rel = "orgs/etzhayyim/com-etzhayyim-kanae/bad_cell.py";
   writeFileSync(
     join(root, rel),
     'import fiscalnote\nURL = "https://www.govwin.com/api"\n',
@@ -201,9 +201,9 @@ test("G15: ga4/gtag token in kanae render code fails (exit 1)", () => {
   mkdirSync(lexDir, { recursive: true });
   writeFileSync(join(lexDir, "fundFlowEdge.json"), JSON.stringify(GOOD_EDGE));
   writeFileSync(join(lexDir, "flowNarrative.json"), JSON.stringify(GOOD_NARRATIVE));
-  const codeDir = join(root, "20-actors/kanae");
+  const codeDir = join(root, "orgs/etzhayyim/com-etzhayyim-kanae");
   mkdirSync(codeDir, { recursive: true });
-  const rel = "20-actors/kanae/viz.js";
+  const rel = "orgs/etzhayyim/com-etzhayyim-kanae/viz.js";
   writeFileSync(join(root, rel), 'gtag("config", "GA4-XXXX");\n');
   try {
     const { code, out } = runIn(root, [rel]);
@@ -221,9 +221,9 @@ test("G8: README enumerating the deny-list is exempt by extension (exit 0)", () 
   mkdirSync(lexDir, { recursive: true });
   writeFileSync(join(lexDir, "fundFlowEdge.json"), JSON.stringify(GOOD_EDGE));
   writeFileSync(join(lexDir, "flowNarrative.json"), JSON.stringify(GOOD_NARRATIVE));
-  const docDir = join(root, "20-actors/kanae");
+  const docDir = join(root, "orgs/etzhayyim/com-etzhayyim-kanae");
   mkdirSync(docDir, { recursive: true });
-  const rel = "20-actors/kanae/README.md";
+  const rel = "orgs/etzhayyim/com-etzhayyim-kanae/README.md";
   writeFileSync(
     join(root, rel),
     "# kanae\nProhibited: GovWin IQ / Bloomberg Government / FiscalNote; no GA4 / Meta Pixel.\n",

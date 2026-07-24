@@ -1,11 +1,4 @@
-;; ──────────────────────────────────────────────────────────────────────────
-;; ADR-2606162000 — jinushi 地主 — world land/building ownership ACQUISITION mirror
-;;   multi-source · clj-native · public-record gate · IPFS-pinned · production-scale
-;; Machine-readable EDN projection; the canonical NARRATIVE is the sibling .md.
-;; Status: accepted — RATIFIED 2026-06-17 by PR merge (founder = Council Lv7+ 1/1,
-;;   PR review = Council attestation); landed across PR #1820 / #1874 / #1878.
-;; ──────────────────────────────────────────────────────────────────────────
-{:id        "2606162000"
+[{:db/id -1, :id        "2606162000"
  :title     "jinushi 地主 — world land/building ownership ACQUISITION mirror (multi-source, clj-native, public-record gate)"
  :status    :accepted
  :date      #inst "2026-06-16"
@@ -66,4 +59,4 @@
  ["operator: e7m-dataset add 80-data/jinushi-land → DataLad superdataset 90-docs/baien/datasets + remote IPFS pin for durable public availability (ADR-2605241500 / 2606111330)"
   "operator: run scale_ingest over full PLUTO/nationwide DVF bulk per PRODUCTION.md"
   "R3: bridge confirmed-donation parcels to the on-chain LandRegistry lane (member donation, no-server-key) + maps.etzhayyim.com :feature/* layer"
-  "geometry de-dup so overlapping protected-area classes (nature reserves) can count toward world coverage"]}
+  "geometry de-dup so overlapping protected-area classes (nature reserves) can count toward world coverage"]}]

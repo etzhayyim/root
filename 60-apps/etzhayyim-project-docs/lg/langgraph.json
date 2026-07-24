@@ -1,8 +1,0 @@
-{
-  "$comment": "lg-docs — Google Docs v1 + Microsoft Graph compatible document API over kotoba datomic (ADR-2606010500). Primary surface = FastAPI XRPC server (lg_docs.server:app).",
-  "dependencies": ["./lg_docs"],
-  "graphs": { "health": "./lg_docs/graphs/health.py:GRAPH" },
-  "env": ".env",
-  "python_version": "3.11",
-  "auth": { "$comment": "x-api-key (LG_DOCS_API_KEY env), optional. atproto actor-worker x-internal-trust is the edge boundary." }
-}

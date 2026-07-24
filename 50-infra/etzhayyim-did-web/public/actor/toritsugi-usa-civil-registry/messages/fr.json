@@ -1,0 +1,13 @@
+{
+  "ui.disclaimer" : "Limite UPL: information + orientation + aide au remplissage uniquement. Pas de conseil, pas de mandataire. Le membre dépose lui-même.",
+  "actor.authority" : "County clerk / state vital records (marriage license + certificate)",
+  "ui.self-submit" : "Dépôt personnel",
+  "actor.description" : "toritsugi authority-actor for regime 'usa-civil-registry' (County clerk / state vital records (marriage license + certificate)). Covers 1 procedure(s) across jurisdiction(s): usa. Parent: toritsugi (ADR-2605312030). Keyless R0 mirror — no server key. 行政書士法/UPL boundary (G5): 情報提供+案内+入力補助 only, NO advice, NO 作成代理. Member self-submits (G15). NOT a 行政書士/弁護士 firm, NOT an official channel.",
+  "actor.displayName" : "Toritsugi-usa-civil-registry — County clerk / state vital records (marriage license + certificate)",
+  "procedure.list" : "Marriage license & registration (county clerk)",
+  "ui.accompany" : "Accompagner",
+  "actor.regime" : "usa-civil-registry",
+  "ui.guide" : "Guide",
+  "procedure.count" : "1 procédures",
+  "actor.name" : "toritsugi-usa-civil-registry"
+}

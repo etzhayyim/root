@@ -1,0 +1,44 @@
+;; ie-flow system-of-systems registry. ADR-2606211200.
+;;
+;; The information-energy flow lifecycle (etzhayyim.ie-flow) is ONE shared library every actor
+;; embeds (not a per-actor fork). This registry is the roster of actors that have adopted it —
+;; each measures its own flow, reasons (Google co-scientist) about how to keep its flow paying
+;; while returning order (共生), and persists to its own kotoba ledger under 80-data/ie-flow/<actor>/.
+;; The SAFETY vocabulary (aligned/forbidden mechanisms + the gates) is shared and unforkable.
+;;
+;; Adoption pattern (3 lines, see 70-tools/src/etzhayyim/ie_flow/README.md):
+;;   (require '[etzhayyim.ie-flow.embed :as ie])
+;;   (ie/record! "<actor>" measured-events {:as-of n})
+;;   (ie/beat!   "<actor>" {:as-of n})
+;; SCORING (ADR-2606212200): every adopted actor is an INFORMATION-CONTROL ACTOR in the system +
+;; energy flow. etzhayyim.ie-flow.score folds each actor's flow-state into ONE composite score (its
+;; active-inference 利得 ∈ 0..1), GATED by :descendant (its 子孫 wellbecoming weight; 0 = veto). The
+;; colony aggregate (Σ score × √throughput) = :colony-order, a NEGENTROPY SOURCE added to ibuki's
+;; metabolic intake (Φ→reserves) — so the artificial organism's REWARD = the colony's aggregate
+;; information-control. Weights are data in score-weights.edn; per-actor :descendant lives here.
+{:adopted
+ [{:actor "ibuki"    :since "2026-06-21" :descendant 0.8 :note "the artificial organism — its metabolism IS an IE-flow; the loop generalises ibuki's ADR-2606201200 co-scientist"}
+  {:actor "tsumugi"  :since "2026-06-21" :descendant 0.75 :note "power-entity 取-concentration mirror → RELEASE is its negentropy export"}
+  {:actor "shionome" :since "2026-06-21" :descendant 0.7 :note "cross-asset capital-flow observatory — flow is literally its substrate"}
+  {:actor "kaname"   :since "2026-06-21" :descendant 0.75 :note "system-of-systems leverage synthesizer — IE-flow over the multiplex graph"}
+  {:actor "okaimono" :since "2026-06-21" :descendant 0.7 :note "provisioning commons — checkout flow, value returned to members"}
+  {:actor "kafun"    :since "2026-06-21" :descendant 0.85 :note "花粉撲滅 remediation — RECTIFIES scattered pollen-burden (disorder) into prioritized restoration order; verdict sinks feed sanae/inochi/musubi/kamado (the SoS); energy-flow viz at orgs/etzhayyim/com-etzhayyim-kafun/viz/energy-flow.html (ADR-2606212030)"}
+  {:actor "ugachi"   :since "2026-06-21" :descendant 0.8 :note "§2(l) extraction RISK-GATE — RECTIFIES scattered multi-gen extraction risk into stewardship verdicts (propose-r0 / route-to-recovery→kanayama / refuse = protective order); assessment-only, never digs (ADR-2606161800)"}
+  {:actor "busshi"   :since "2026-06-21" :descendant 0.8 :note "commodity & raw-materials §2(l) observatory — RECTIFIES scattered commodity multi-gen risk into resilience routes (de-monopolization / restoration / resilience); OBSERVATION-ONLY, never trades/mines; a resilience map, never a target-list (ADR-2606161730)"}
+  {:actor "inochi"   :since "2026-06-22" :descendant 0.9 :note "biosphere (生命圏) KG-mirror — RECTIFIES scattered ecological extinction/degradation PRESSURE into restoration-priority (raw incident load re-weighted by disclosed IUCN essentiality, CONCENTRATED onto the most-essential burdened bearers) routed to RESTORATION; edge-primary karma (N1/G2), a restoration map NEVER a target-list (ADR-2606073000)"}
+  {:actor "hokorobi" :since "2026-06-22" :descendant 0.85 :note "systemic finance-risk observatory — RECTIFIES scattered systemic RISK (raw incident risk-load re-weighted by disclosed systemic-importance G-SIB/D-SIB, CONCENTRATED onto the most-systemically-important burdened institutions) routed to RESILIENCE (繕い); edge-primary karma (N1/G2), OBSERVATION-ONLY (never trades, never a panic signal/solvency verdict), a resilience map NEVER a target-list (ADR-2606073400)"}
+  {:actor "hoshimori" :since "2026-06-22" :descendant 0.85 :note "orbital (軌道) stewardship mirror — RECTIFIES scattered orbital-congestion HAZARD (raw incident orbit-load re-weighted by disclosed regime importance, CONCENTRATED onto the most-congested regimes) routed to STEWARDSHIP (remediate/deconflict/deorbit); edge-primary karma (N1/G2), shell-aggregate ONLY, NEVER a targeting/interception aid (dual-use G1; no precise ephemeris; ASAT unrepresentable §1.12), a stewardship map NEVER a target-list (ADR-2606073600)"}
+  {:actor "tsugite"  :since "2026-06-22" :descendant 0.9 :note "peoples-continuity (民の存続) mirror — RECTIFIES scattered displacement/erasure PERIL borne by human COLLECTIVES (raw incident peril-load re-weighted by disclosed vitality/endangerment, CONCENTRATED onto the most-imperilled collectives) routed to CONTINUITY (継承 — safe passage/protection/revitalization); edge-primary karma (N1/G2), collective-AGGREGATE ONLY, NEVER person-tracking (no individual/location/biometric, never a border-enforcement/deportation aid; G1), a continuity map NEVER a target-list (ADR-2606073800)"}
+  {:actor "asobi"    :since "2026-06-22" :descendant 0.85 :note "freed-time / play & cultural-expression (遊び) KG-mirror — the telos-of-labour-liberation sibling; RECTIFIES scattered cultural ACCESS (raw incident access-load re-weighted by disclosed openness importance, CONCENTRATED onto the most-open works/events/venues) routed to OPENING; edge-primary karma (N1/G2), an access map NEVER an engagement/popularity ranking (no-addictive-design §1.13) (ADR-2606073200)"}]
+ :score
+ {:adr "2606212200"
+  :weights-file "70-tools/src/etzhayyim/ie_flow/score-weights.edn"
+  :lib "etzhayyim.ie-flow.score"
+  :demo "70-tools/src/etzhayyim/ie_flow/scoreboard.clj"
+  :snapshot "80-data/ie-flow/scoreboard.edn"
+  :organism-source :colony-order
+  :note "info-control-score = active-inference 利得 per actor (rectify/eta/phi/efficiency − surprise, gated by 子孫 :descendant); colony-order = Σ score×√throughput → ibuki metabolic intake. Default :descendant = 0.7 (score-weights.edn) when an actor omits it."}
+ :measured-sources
+ [{:name "repo-git" :source :git :descendant 0.7 :note "the monorepo measuring its OWN development metabolism (commit = energy-transfer event); flow.kotoba.edn + ingest-provenance.json committed"}]
+ :rollout
+ "New adopters append to :adopted (with a :descendant 子孫 weight) and embed the three verbs. Per-actor live loop logs are gitignored; committed artifacts are the measured snapshot (flow.kotoba.edn) + ingest-provenance.json under each sub-dir; the SoS scoreboard snapshot is scoreboard.edn."}

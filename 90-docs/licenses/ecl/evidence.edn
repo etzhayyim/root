@@ -1,21 +1,8 @@
-;; evidence.edn — DISCLOSED evidence signals fused into the ECL objective function.
-;;
-;; ECL の :scores は静的に書かない。観測 actor 群 (shiori/tsumugi/danjo/inochi/kanjo) の
-;; DISCLOSED 証拠 signal をここに集約し、evidence-fusion.bb が per-dim score [-2,+2] に
-;; fuse する (tanemaki 方式: DISCLOSED public evidence を fuse、Licensor は採点を assert しない)。
-;;
-;; signal: {:source actor :dim 次元 :sign ± :magnitude 0..2 :confidence 0..1 :evidence "…" :cite "…"}
-;;   per-dim raw = Σ (sign · magnitude · confidence)，clamp to [-2,2] → score。
-;; :screen-findings に確定フロア該当が1つでもあれば、fuse せず即 :non-aligned。
-
-{:meta {:candidate "kumiai-data-commons"
+[{:db/id -1, :meta {:candidate "kumiai-data-commons"
         :as-of "2026-06-17"
         :note "労働者協同組合のデータ commons — DISCLOSED 証拠から動的に評価"}
 
- ;; 確定フロア findings (Layer B; 観測 actor が DISCLOSED 事実として検出したもの)
- :screen-findings []
-
- ;; DISCLOSED 証拠 signals (Layer A の入力)
+ ;; DISCLOSED 証拠 signals (掟リストは廃止; 全て score 化し catastrophe 項のみ非交渉)
  :signals
  [{:source "shiori"  :dim :ko-wellbecoming       :sign 1  :magnitude 1.5 :confidence 0.8
    :evidence "youth cohort relief-gap narrowed (DISCLOSED metric)" :cite "shiori:relief/youth-2606"}
@@ -30,4 +17,4 @@
   {:source "kanjo"   :dim :labor-liberation      :sign 1  :magnitude 1.0 :confidence 0.6
    :evidence "no coerced-labor revenue (DISCLOSED 決算)" :cite "kanjo:fin/clean"}]
 
- :expect-route :aligned}
+ :expect-route :aligned}]

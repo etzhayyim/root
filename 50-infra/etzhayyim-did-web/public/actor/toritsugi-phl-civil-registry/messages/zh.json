@@ -1,0 +1,13 @@
+{
+  "ui.disclaimer" : "UPL边界: 仅提供信息+指引+填表辅助。不作代理、不提供法律建议。由本人自行提交。",
+  "actor.authority" : "Local Civil Registrar / PSA",
+  "ui.self-submit" : "本人提交",
+  "actor.description" : "toritsugi authority-actor for regime 'phl-civil-registry' (Local Civil Registrar / PSA). Covers 1 procedure(s) across jurisdiction(s): phl. Parent: toritsugi (ADR-2605312030). Keyless R0 mirror — no server key. 行政書士法/UPL boundary (G5): 情報提供+案内+入力補助 only, NO advice, NO 作成代理. Member self-submits (G15). NOT a 行政書士/弁護士 firm, NOT an official channel.",
+  "actor.displayName" : "Toritsugi-phl-civil-registry — Local Civil Registrar / PSA",
+  "procedure.list" : "Marriage registration (LCR / PSA)",
+  "ui.accompany" : "陪同",
+  "actor.regime" : "phl-civil-registry",
+  "ui.guide" : "指引",
+  "procedure.count" : "1项手续",
+  "actor.name" : "toritsugi-phl-civil-registry"
+}

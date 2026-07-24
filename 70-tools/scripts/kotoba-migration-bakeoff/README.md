@@ -13,7 +13,7 @@ template regeneration (see `90-docs/kotoba-wasm-migration-plan.edn`, Wave 4 note
 | `bakeoff-gemini-flash` | `gemini/gemini-3.1-flash`    | $/token (commercial) |
 | `bakeoff-gemma-26b`    | `gemma-4-26b-a4b-it` (local) | compute-seconds, $0  |
 
-## Corpus (5 cells, complexity-stratified) — `corpus.edn` (SoT) / `corpus.json` (harness mirror)
+## Corpus (active Python cells) — `corpus.edn` (SoT) / `corpus.json` (harness mirror)
 
 | cell | tier | LOC | nodes | rel-imp | ref-strategy |
 |---|---|---|---|---|---|

@@ -1,0 +1,19 @@
+{
+  "name": "meibo-worker",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Cloudflare Worker serving meibo (名簿) verified legal-institution directory API — read-only, no-server-key, anonymous-aggregate-analytics only.",
+  "scripts": {
+    "build:cljs": "cd cljs && npm install --silent && npm run build",
+    "predeploy": "npm run build:cljs",
+    "deploy": "wrangler deploy",
+    "predev": "npm run build:cljs",
+    "dev": "wrangler dev",
+    "tail": "wrangler tail"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260628.1",
+    "typescript": "^5.6.3",
+    "wrangler": "^4.105.0"
+  }
+}

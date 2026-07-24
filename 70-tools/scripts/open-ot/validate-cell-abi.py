@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """open-ot CI validator: cells × Lexicons consistency.
 
-Walks `60-apps/etzhayyim-project-open-ot/cells/*/manifest.json` and
+Walks `orgs/etzhayyim/com-etzhayyim-app-open-ot/cells/*/manifest.json` and
 `00-contracts/lexicons/com/etzhayyim/apps/openOt/*.json` and verifies:
 
 - All Lexicon files load as valid JSON.
@@ -34,7 +34,9 @@ import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent.parent
-DEFAULT_CELLS_DIR = REPO_ROOT / "60-apps/etzhayyim-project-open-ot/cells"
+DEFAULT_CELLS_DIR = (
+    REPO_ROOT / "orgs/etzhayyim/com-etzhayyim-app-open-ot/cells"
+)
 DEFAULT_LEXICON_DIR = REPO_ROOT / "00-contracts/lexicons/com/etzhayyim/apps/openOt"
 
 # Permitted `wire` vocabulary for cell manifest data_in / data_out schemas.

@@ -1,0 +1,279 @@
+[{:db/id -1, :id                "adr-2606161536-primary-source-to-multilingual-video-atproto-pipeline"
+ :title             "ADR-2606161536: Primary-source → mirror → multilingual → video → atproto pipeline — composing kawaraban / i18n / utsushie (new) / feed-post membrane, charter-bounded"
+ :status            "proposed"
+ :doc-type          "adr"
+ :topic             "primary-source-to-multilingual-video-atproto-pipeline"
+ :authoritative     true
+ :last-verified     "2026-06-16"
+ :priority          6.0
+ :axis              "architecture"
+ :weight            0.6
+ :priority-note     "Names the end-to-end information-legibility pipeline (world primary-source ingest → kotoba Datom mirror → actor-event social post → 149-language translation → short narrated video → atproto publish via the feed-post membrane). Composes existing actors rather than building a monolith; identifies the one real gap (news→video actor `utsushie`) and the one charter tension (video model placement vs G6 Murakumo-only). Substrate-native clj target per ADR-2606160842 port wave."
+ :authoritative-for ["End-to-end primary-source → multilingual → video → atproto pipeline composition contract" "utsushie (写し絵) news→video actor scope + charter gates (R0 design)" "The \"information-asymmetry / anti-arbitrage\" thesis and its charter boundary (G1/G4/G9/G11)"]
+ :depends-on        ["adr-2606061900-kawaraban-news-medium-actor-r0" "adr-2605263600-kataribe-press-publishing-translation-substrate" "adr-2605231902-feed-post-membrane-and-feed-discover-projection" "adr-2605231400-kotoba-datomic-holochain-iso-substrate" "adr-2605231500-kotoba-datomic-projection" "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod" "adr-2605231525-no-server-held-key" "adr-2606160842-kotoba-code-actor-py-to-clj-port-wave" "adr-2605250006-kotoba-common-crawl-ingestion" "adr-2606012300-kotoba-hybrid-web-search"]
+ :related           ["70-tools/scripts/cc-direct-ingest/" "90-docs/adr/2605312200-open-data-ingest-vendor-cutover-runbook.edn" "90-docs/adr/2606111200-cc-wet-direct-datom-ingest-no-parquet.edn" "90-docs/adr/2605140740-yoro-gemma-e4b-social-translation-mcp.edn" "90-docs/adr/2605220000-shinshi-tiktok-video-pipeline.edn" "90-docs/adr/2604231328-animeka-bpmn-l40s-pipeline.edn" "orgs/etzhayyim/com-etzhayyim-kawaraban/" "20-actors/i18n/" "20-actors/kataribe/" "40-engine/kotoba/crates/kotoba-kotodama/cells/feed_post/" "50-infra/mst-projector/" "70-tools/seed-post/"]
+ :supersedes        []
+ :superseded-by     []
+
+ ;; ── body (markdown — #md verbatim) ──────────────────────────────────
+ :body
+ #md "# ADR-2606161536: Primary-source → mirror → multilingual → video → atproto pipeline
+
+**Status**: proposed
+**Date**: 2026-06-16
+**Deciders**: Jun Kawasaki
+
+# Context
+
+The operator's framing: *build an actor that ingests the world's **primary-source**
+information as news/media and social-posts it, and a second actor that turns it into
+**multiple languages and video** and publishes it to **atproto** via the **kotoba Datom
+log in Clojure** — so as to remove **information asymmetry / arbitrage**.*
+
+A survey of `20-actors/` shows roughly **two-thirds of this is already designed** as
+separate, charter-shaped actors, **one piece is a genuine gap** (news→video), and the
+framing itself collides with two hard charter gates that must be made explicit rather
+than quietly overridden. This ADR does **not** build a monolith. It **names the
+end-to-end pipeline as a composition** of existing actors, fills the one gap with a new
+actor `utsushie`, and records the charter boundary the pipeline must respect.
+
+## What already exists
+
+| Pipeline stage | Existing actor / substrate | Status | Where |
+|---|---|---|---|
+| Ingest + mirror world media into the kotoba Datom log (面/article, link-out, fair-use excerpt) | **kawaraban 瓦版** | R0 scaffold (`.solve()` raises; live ingest G8-gated) | `orgs/etzhayyim/com-etzhayyim-kawaraban/`, ADR-2606061900 |
+| Project an actor's Datom as-of event into `app.bsky.feed.post` (the \"social post\") | kawaraban `actor_project` cell + **feed-post membrane** | R1 reserved (membrane proposed) | `orgs/etzhayyim/com-etzhayyim-kawaraban/cells/actor_project/`, ADR-2605231902 |
+| Translate posts → 149 langs daily / 200+ weekly (Murakumo qwen3.5-4b / gemma-4-E4B) | **i18n** (\"Yoro Post Auto-Translation\") | App-level, CronJob-driven | `20-actors/i18n/`, ADR-2605140740 |
+| etzhayyim's OWN primary voice / original copy (NOT a mirror) | **kataribe 語部** | R0 scaffold | `20-actors/kataribe/`, ADR-2605263600 |
+| Write/sign `app.bsky.feed.post` → verdict → projection → PDS MST → bsky read | feed-post membrane (L1 lexicon / L2 Rego / L3 verdict cell) + **mst-projector** + **seed-post** | L1/L2/L3 implemented (Python/Rego/TS), member-signed | `40-engine/kotoba/.../cells/feed_post/`, `50-infra/mst-projector/`, `70-tools/seed-post/` |
+
+## The two things that are NOT as the framing assumes
+
+1. **\"Primary source\" — kawaraban is deliberately a MIRROR, not a source.** Its charter
+   makes `:article/kind ∈ {:mirror, :actor-event}` and **`:original` structurally
+   unrepresentable (G11)**; it stores headline + canonical link + ≤280-char fair-use
+   excerpt (`:full-text` is `:db/allowed [false]`, G4); it never rules truth
+   (`:verdict`/`:truth-rating` const false, G1); it never speaks AS an outlet/person
+   (`:speak-as` false, G9). The system's **own** first-person primary voice is
+   **kataribe**, not kawaraban. \"Ingest primary sources and broadcast them as ourselves\"
+   is therefore split, by construction, into *mirror the world (kawaraban) + say our own
+   thing (kataribe)* — never fused.
+
+2. **News→video does not exist as a pipeline.** Video *primitives* are rich and partly
+   live — **animeka** (I2V Seedance 2 / WAN 5B + ffmpeg, BPMN-active), **yukkuri**
+   (TTS + image + BGM + ffmpeg mux via the `dougaka` render pod, R0), **mangaka**
+   (kami-cine 8-stage `…→exr-seq→encode`, R0), **shinshi** (designed TikTok 5-shot
+   I2V+TTS+BGM+ffmpeg, ADR-2605220000), plus **ongakuka** (BGM) and **kokoro-ts** (TTS).
+   But **no actor takes a news item / 面 as input and emits a narrated video.** `kanae`
+   \"render\" is fiscal-flow visualization (interactive Sankey / globe via kami-engine
+   WASM), **not** video. This is the one true greenfield.
+
+## The charter tension the framing must accept
+
+\"Remove information asymmetry / arbitrage\" is a public-good thesis the charter already
+*pursues* — but only through **legibility**, never through **adjudication or broadcast
+ownership**:
+
+- **anti-asymmetry mechanisms that ARE charter-clean**: source-diversity ranking
+  (`:news.rank/signal` excludes `:engagement`/`:paid-placement`, G2); link-out so anyone
+  reaches the primary page (G4); 149-language translation so language is not a moat
+  (i18n); identical 面 for every reader, no profiling (G3); only public-facing
+  (`:open`/`:registration-wall`) pages, never paywalled terminal feeds (G4).
+- **mechanisms the framing implies but the charter FORBIDS**: being the source of record
+  (G11), ranking truth/falsity (G1), republishing full bodies to \"win\" the arbitrage
+  (G4), speaking in an outlet's name (G9), engagement-optimized virality (G1.13 / G2).
+
+So the pipeline's honest goal is **\"make the existing public record legible across
+language and modality, and link back to it\"** — not \"out-publish the primary source.\"
+
+# Decision
+
+Define **one named pipeline** — codename **`utsushie-loop`** — as a **composition of
+existing actors plus one new actor**, with each hop owned by the actor that already owns
+that capability and gate. No capability moves; no gate weakens.
+
+```
+ PRIMARY SOURCES (world media public pages · gov datasets · case law · actor Datom events)
+        │
+        ▼  (G4 membrane: headline + canonical link + ≤280ch excerpt; never the body)
+ ┌─────────────────────────┐
+ │ kawaraban 瓦版          │  mirror → kotoba Datom log (面/article, :news.mention edges)
+ │  outlet_ingest →        │  + actor_project: an actor's Datom as-of event ─┐
+ │  article_mirror →       │                                                 │
+ │  section_route →        │                                                 ▼
+ │  actor_project ─────────┼──────────────► app.bsky.feed.post (headline + link, G4/G9)
+ └─────────────────────────┘                         │
+        │ (面/article record)                         │
+        ▼                                             │
+ ┌─────────────────────────┐                          │
+ │ utsushie 写し絵  (NEW)  │  article/面 → keyframes (SDXL) → I2V → narration → BGM
+ │  R0 design, this ADR    │  → ffmpeg mux → mp4 blob (neutral narrator, no verdict)
+ └─────────────────────────┘                          │
+        │ mp4 blob + per-language audio                │
+        ▼                                             ▼
+ ┌─────────────────────────┐            ┌──────────────────────────────────┐
+ │ i18n  (149/200+ langs)  │───────────►│ feed-post membrane (clj/kotoba)  │
+ │  subscribeRepos →       │ translated │  L1 lexicon · L2 Rego (§2(a-h))  │
+ │  detectLang →           │ post + nar │  L3 verdict cell → verdict       │
+ │  murakumoTranslate →    │ scripts    │  sidecar → mst-projector →       │
+ │  translatedPost × N     │            │  PDS MST → app.bsky.feed read    │
+ └─────────────────────────┘            └──────────────────────────────────┘
+                                              member-signed (G7 no-server-key)
+```
+
+## D1 — Ingest + social post: kawaraban over the Common Crawl mirror (no change, lift R0→R1)
+
+kawaraban remains the sole ingest/mirror/wire actor. The \"social post\" is its
+`actor_project` cell reusing the feed-post membrane (ADR-2605231902) to turn a Datom
+as-of event into `app.bsky.feed.post` — carrying **headline + canonical link** only, per
+G4/G9.
+
+**Crawl-as-mirror is the correct and already-built ingest mechanism — with one
+constraint:** etzhayyim runs **NO bespoke crawler (\"no crawler by design\",
+ADR-2606012300)**. The web-page source is the **Common Crawl public commons** —
+`kotoba-ingest::cc` already reads Common Crawl WARC/parquet into the
+`cc:{pages,chunks,links}` named graphs as `cc/*` datoms (ADR-2605250006), with a
+datom-native **BM25 + PageRank + RRF** web-search stack over them (ADR-2606012300), and a
+running parquet-free **WET→Datom** path (`70-tools/scripts/cc-direct-ingest/ingest_wet.py`,
+15 tests). The rationale is charter-shaped: robots.txt / politeness / crawl-load / legal
+posture are all handled **upstream by Common Crawl**; etzhayyim only re-reads an already
+public archive, never spiders outlets directly.
+
+**The G4 boundary is the crux (two distinct consumers of one crawl):**
+
+| Consumer | Stores | Graph | Fair-use posture |
+|---|---|---|---|
+| kotoba web-search corpus | `cc/chunk/*` (≤800-char chunks) + embeddings + link graph | `cc:{pages,chunks,links}` | search index over a public commons (ADR-2605250006/2606012300) |
+| **kawaraban mirror** | `:article` = **headline + canonical `:url` + ≤280-char excerpt + outlet + as-of** | `com.etzhayyim.kawaraban.*` | **G4: `:full-text` unrepresentable** — the body is read and **discarded** |
+
+So kawaraban does **not** re-store CC chunks. `outlet_ingest`/`article_mirror`
+**derive** a G4-bounded `:article` from the CC stream (or the `cc/*` corpus) — extract
+headline + canonical link + a ≤280-char excerpt, **discard the body**, attach
+`:news.mention` edges, route into the 面. The 800-char `cc/chunk` lives only in the search
+corpus, never in the published 面.
+
+**Gating:** Common Crawl is a **periodic public snapshot (batch)**, not a live tap on
+outlets — so CC-based mirror ingest is a *lower-risk* gate than a **live RSS/firehose tap
+(which stays G8: Council Lv6+ + operator)**. R0 = offline/CC-batch derivation; live
+firehose remains G8.
+
+**\"Primary source\" ≠ \"web page\".** Genuine structured primary sources route through their
+existing structured-ingest owners, **not** Common Crawl: `kanae` /
+`com.etzhayyim.gov.dataset.*` (fiscal), `hanrei` (case law), and the open-data /
+court-record ingest paths (ADR-2605312200, `260509-sf-criminal-court-hf-ingest`). They
+surface as `:actor-event` articles via `methods/route.py` `ACTOR_WIRE`. Common Crawl is
+the **outlet/web-page face** of the mirror; structured datasets are the **primary-data
+face** — both feed the same 面.
+
+## D2 — NEW actor `utsushie` (写し絵) — news → short narrated video
+
+`utsushie` (Edo-era magic-lantern moving-picture show — the projected-image sibling of
+瓦版's printed sheet) takes a kawaraban `article`/`面` and emits a short video that
+**narrates the headline + fair-use excerpt and links out**. It reuses existing primitives
+(it does **not** re-implement I2V/TTS/ffmpeg):
+
+- keyframes: SDXL (animagine/animeka primitive) — illustrative, **non-photoreal of named
+  living persons** (anti-deepfake gate, below);
+- motion: I2V (animeka Seedance 2 / WAN, or shinshi Wan 2.2) **on the Murakumo fleet**
+  (see C-tension below);
+- narration: kokoro-ts TTS, **scripts supplied by i18n** per target language;
+- BGM: ongakuka;
+- mux: ffmpeg via the `dougaka` render pod (yukkuri's path);
+- output: H.264 mp4 blob, embedded as `app.bsky.feed.post.embed` (external/video).
+
+**utsushie charter gates (mirror kawaraban's, made concrete for video):**
+- **U1 = G1** no verdict — the narrator states *\"outlet X reported H at T\"*, never
+  *\"H is true/false.\"* `:video/verdict` unrepresentable.
+- **U2 = G4** link-out, no full body — script ≤ the mirrored excerpt; the post description
+  carries the canonical link. `:video/full-text-narration` unrepresentable.
+- **U3 = G9** no speak-as / **anti-deepfake** — neutral synthetic narrator; **no
+  photoreal likeness or cloned voice of any named real person**; `:video/depicts-person`
+  + `:video/voice-clone` `:db/allowed [false]`.
+- **U4 = G2** no engagement-optimization — no hook/retention editing tricks driven by a
+  dwell metric; recency/面-fit only.
+- **U5 = G6** Murakumo-only inference — **see the tension in Consequences C1.**
+- **U6 = G7** member-signed publish, no server-held key.
+
+## D3 — Multilingual: i18n (no change, extend to narration scripts)
+
+Reuse the existing **Yoro Post Auto-Translation** flow (ADR-2605140740): PDS commit →
+`subscribeRepos` → `detectLanguage` → `murakumoTranslate` (qwen3.5-4b / gemma-4-E4B) →
+`com.etzhayyim.apps.i18n.translatedPost × N`. **Extension:** i18n also emits the
+**narration script** per language that `utsushie` consumes for TTS, so a single video
+ships with per-language audio (or per-language variants) without a second translation
+engine. G6 Murakumo-only and G12 (no DeepL/Google/Grammarly) carry over.
+
+## D4 — Publish: feed-post membrane, clj/kotoba target
+
+The post (with video embed) flows through the existing membrane: **L1** `app.bsky.feed.post`
+lexicon · **L2** Rego policy (Charter Rider §2(a)-(h)) · **L3** deterministic verdict cell
+→ `com.etzhayyim.membrane.verdict` sidecar → `mst-projector` `feed-discover` projection →
+PDS MST → bsky read path. Writes are **member-signed** (seed-post via `@atproto/api` with
+the member app-password from Keychain; no server-held key, G7/ADR-2605231525).
+
+**On \"Clojure\":** the operator's \"kotoba datomic, clj\" is the *target*, not yet the *fact*.
+Today L3 is Python LangGraph, L2 is Rego, the projector is TS, the Datom log is Rust. The
+**active clj port wave (ADR-2606160842)** is migrating actor methods to `.cljc` on the
+substrate-native stack; `kotoba-clj` (clj→WASM) is blocked at step 4 (loops/byte-building).
+This ADR sets the direction — **L3 verdict cell + utsushie methods land as `.cljc`** as the
+port wave reaches them — without blocking D1–D3 on the clj runtime.
+
+# Consequences
+
+- **C1 (the hard one) — video models vs G6 Murakumo-only.** animeka/shinshi I2V runs on
+  **RunPod L40S / external ComfyUI**, which **ADR-2605215000 (Murakumo-only, no RunPod)
+  forbids for inference.** utsushie therefore **cannot ship video on the existing animeka
+  backend without violating G6.** Two clean options: (a) run I2V/SDXL/TTS on **Murakumo
+  fleet GPU** nodes only (slower, capacity-bounded — honest-scoring discipline applies);
+  or (b) treat each live video render as **G8 outward-gated** (Council Lv6+ + operator)
+  exactly like kawaraban live ingest. **R0 is offline/Murakumo-only; any external GPU is
+  G8 + a future ADR.** This is the single biggest open decision.
+- **C2 — anti-arbitrage is bounded to legibility.** The pipeline narrows asymmetry by
+  *translation + modality + link-out + source-diversity ranking*, **not** by becoming the
+  source (G11), ruling truth (G1), or republishing bodies (G4). If the operator wants a
+  first-person primary voice, that is **kataribe**, a separate actor with its own ADR.
+- **C3 — composition, not a monolith.** Each gate stays with its owning actor; adding a
+  面 source = one row in `kawaraban/methods/route.py ACTOR_WIRE`; adding a language = i18n
+  config; no new God-actor.
+- **C4 — deepfake surface.** Video of news is the highest-risk impersonation surface in
+  the whole system. U3 (no photoreal named-person likeness, no voice clone) is a **hard,
+  structurally-unrepresentable gate**, not a guideline.
+- **C5 — staged delivery.** D1/D3/D4 are buildable now (kawaraban R0→R1 + membrane +
+  i18n). D2 (utsushie) is net-new R0 design gated on C1.
+- **C6 — crawl source is the public commons, not a spider.** The ingest leg reuses the
+  **already-built** Common Crawl path (`kotoba-ingest::cc`, cc-direct-ingest, hybrid
+  search) and inherits the **\"no crawler by design\"** principle (ADR-2606012300): no
+  bespoke spider hits outlets; politeness/robots/legal stay upstream. kawaraban's `:article`
+  is a **G4-bounded projection** (headline + link + ≤280ch) **derived from, and never a
+  copy of**, the `cc/chunk` search corpus — the body is read and discarded. CC-batch is a
+  lower gate than a live firehose tap (which stays G8).
+
+# Alternatives Considered
+
+- **One monolithic \"news-to-video-to-atproto\" actor.** Rejected — it would re-implement
+  kawaraban's mirror gates, i18n's translation, and the membrane, and would concentrate
+  G1/G4/G9 enforcement in one place where a single regression creates a representable
+  charter violation. Composition keeps each gate with its owner.
+- **Make kawaraban itself emit original primary-source posts.** Rejected — violates G11
+  (`:original` unrepresentable). Original voice is kataribe's role by design.
+- **Reuse animeka/shinshi RunPod backend directly for speed.** Rejected at R0 — violates
+  G6 (ADR-2605215000). Deferred to C1 option (a) Murakumo GPU or (b) G8 gate + ADR.
+- **Skip video, ship multilingual posts only.** Viable as Phase 1 (D1+D3+D4) and is the
+  recommended first increment; video (D2) follows once C1 is decided.
+
+# References
+
+- ADR-2606061900 — kawaraban 瓦版 news-medium actor (R0), the 11 gates
+- ADR-2605263600 — kataribe 語部 press/publishing/translation (primary voice)
+- ADR-2605231902 — feed-post membrane (L1/L2/L3) + feed-discover projection
+- ADR-2605231400 / ADR-2605231500 — kotoba-datomic substrate + projection
+- ADR-2605215000 — Murakumo-only inference (no RunPod) — the G6 constraint
+- ADR-2605231525 — no server-held key (G7 member-signed)
+- ADR-2606160842 — kotoba-code actor Python→Clojure port wave (the clj target)
+- ADR-2605140740 — Yoro Gemma-E4B social translation MCP (i18n post flow)
+- ADR-2605220000 — shinshi TikTok video pipeline (I2V/TTS/BGM/ffmpeg primitives)
+- ADR-2604231328 — animeka BPMN L40S pipeline (I2V + ffmpeg primitives)
+- ADR-2605250006 — kotoba Common Crawl ingestion (`cc/*` datoms) — the crawl source
+- ADR-2606012300 — kotoba hybrid web search (BM25 + PageRank + RRF) + \"no crawler by design\"
+- ADR-2606111200 — cc-WET direct Datom ingest (parquet-free); `70-tools/scripts/cc-direct-ingest/`
+- ADR-2605312200 — open-data ingest vendor cutover (structured primary-data face)"}]

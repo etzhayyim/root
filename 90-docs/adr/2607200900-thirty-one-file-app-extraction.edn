@@ -1,0 +1,7 @@
+{:schema "etzhayyim.adr/v1" :id "2607200900" :title "Extract thirty-one-file active app artifacts" :status :accepted :date "2026-07-20"
+ :scope {:source-repository "etzhayyim/root" :source-revision "7a08afb44a426568ceb8137f8b15881d8a2904e2" :directories 12 :tracked-files 372 :bytes 2551185}
+ :decision {:classification :active-executable-ui-contract-or-runtime-artifact :existing-repository-overlap 0 :retired-shells 0 :destination-prefix "etzhayyim/com-etzhayyim-app-" :apps ["bpmn" "communities" "distill" "har" "inducer" "ki" "open-gas" "open-ports" "open-power" "open-rail" "open-swift" "open-water"]}
+ :extraction-contract {:repository-visibility :private :canonical-files ["README.edn" "migration.edn"] :source-preservation "Every destination tree differs from its exact source tree only by the two canonical EDN files."}
+ :reference-classification {:stale-subrepo-baseline {:before 4 :after 3 :removed "har/.gitrepo" :remaining ["resources" "news" "watashi"]} :regenerated-operational-allowlist true :regenerated-policy-baselines ["cloudflare-edge-bff-policy-baseline.txt" "silent-catch-baseline.txt"] :preserved-historical-fixture-provenance true :preserved-generated-inventory ["ai_etzhayyim.txt" "etzhayyim.txt" "pnpm-lock.yaml"]}
+ :invariants {:canonical-record-format :edn :go-files-created 0 :tinygo-files-created 0 :flat-west-path "orgs/etzhayyim/com-etzhayyim-app-*"}
+ :verification [:private-repository :exact-remote-sha :source-tree-identity :edn-readable :operational-reference-audit :registry-freshness :layer-freeze-guard :tree-guard]}

@@ -59,7 +59,7 @@
 {:schema/id      "erp-ontology"
  :schema/version "0.2.0"
  :schema/adr     "2606037200"
- :schema/note    "kotoba-native ERP vocabulary for open-kyber (Kyber). Supersedes the RisingWave projection read path of ADR-0025 with kqe-over-Datom-log (ADR-2605262130 + 2605312345). ISIC industry packs defined in industry-packs/isic-packs.kotoba.edn; suite (mailer/drive/docs/sheets/calendar) modeled kotoba-native. APQC L1 retained as :apqc/l1. v0.2.0 adds the rw-free maturity-wave vocabulary: :pay.payment/* (payment application) · :tax.code/* (VAT/消費税) · :party/* (customer/supplier + credit limit) · :budget.line/* (budget-vs-actual) · :fx.rate/* (multi-currency) · :inv.move/* (moving-average stock ledger) + invoice settlement fields (:ar.invoice/paid-amount, tax-code)."
+ :schema/note    "kotoba-native ERP vocabulary for open-kyber (Kyber). Supersedes the RisingWave projection read path of ADR-0025 with kqe-over-Datom-log (ADR-2605262130 + 2605312345). ISIC industry packs defined in industry-packs/isic-packs.kotoba.edn; suite (mailer/drive/docs/sheets/calendar) modeled kotoba-native. APQC L1 retained as :apqc/l1. v0.2.0 adds the kotoba maturity-wave vocabulary: :pay.payment/* (payment application) · :tax.code/* (VAT/消費税) · :party/* (customer/supplier + credit limit) · :budget.line/* (budget-vs-actual) · :fx.rate/* (multi-currency) · :inv.move/* (moving-average stock ledger) + invoice settlement fields (:ar.invoice/paid-amount, tax-code)."
 
  ;; ── graph addressing (shared by ERP Worker + projector + kotoba boot) ─────
  :graph {:name       "kyber-erp-v1"
@@ -277,7 +277,7 @@
   {:db/ident :suite.cal/recurrence :db/valueType :db.type/string :db/optional true :db/doc "RFC-5545 RRULE string"}
 
   ;; ════════════════════════════════════════════════════════════════════════
-  ;; POST-R0 vocabulary (rw-free maturity wave; ADR-2606037200 §D6) — keeps this
+  ;; POST-R0 vocabulary (kotoba maturity wave; ADR-2606037200 §D6) — keeps this
   ;; SSoT in sync with the reference modules: payment / tax / party / budget /
   ;; fx / inventory stock-move + the extra invoice settlement fields.
   ;; ════════════════════════════════════════════════════════════════════════

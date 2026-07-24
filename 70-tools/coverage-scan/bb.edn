@@ -1,0 +1,15 @@
+{;; covscan.scan — accurate, regenerable test-coverage signal (bb-native).
+ ;; Replaces the stale apps_maturity_report.csv has_test notion.
+ :paths ["src" "test"]
+ :tasks
+ {scan
+  {:doc "Print per-area test coverage for the west workspace. Arg: west topdir."
+   :requires ([covscan.scan :as scan])
+   :task (apply scan/-main (or (seq *command-line-args*)
+                               [(or (System/getenv "WEST_TOPDIR") "../../../../..")]))}
+
+  test
+  {:doc "Run the covscan.scan detector tests."
+   :requires ([clojure.test :as t] [covscan.scan-test])
+   :task (let [{:keys [fail error]} (t/run-tests 'covscan.scan-test)]
+           (System/exit (if (pos? (+ fail error)) 1 0)))}}}

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- etzhayyim independent atproto PDS — RESIDENT on the Murakumo mesh (NO k8s).
+     Generated from this template by install.clj (@TOKEN@ → resolved values). The PDS
+     is a babashka HTTP server (`bb serve`) whose canonical STATE is the kotoba Datom
+     log on the LOCAL kotoba engine (KOTOBA_URL=loopback) — there is no StatefulSet,
+     no PersistentVolume, no Deployment. Every write is signed per-actor from the
+     SEALED P-256 keystore (PDS_ACTOR_KEYS_DIR + MURAKUMO_SEAL_KEY; present-only,
+     no-server-key: the platform holds no custodial key, the contents are sealed).
+
+     KeepAlive=true → auto-restart if the server dies. RunAtLoad=true → survives reboot
+     (the "resident" property k8s used to provide, now a launchd LaunchAgent per the
+     repo-wide residence rule, CLAUDE.md §"Operational code"). The apex CF Worker reaches
+     this server via a Cloudflare Tunnel (see cloudflared-pds.config.yml.template), so
+     there is no public ingress / LoadBalancer either.
+
+     Install (operator step — writes to ~/Library; MURAKUMO_SEAL_KEY from the node env):
+       MURAKUMO_SEAL_KEY=… PDS_ACTOR_KEYS_DIR=… bb deploy/install.clj install
+     Stop / uninstall:
+       bb deploy/install.clj uninstall -->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.etzhayyim.pds</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>@BB@</string>
+    <string>serve</string>
+  </array>
+
+  <key>WorkingDirectory</key>
+  <string>@PDSDIR@</string>
+
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    <!-- STATE = the kotoba Datom log on the LOCAL mesh engine (selects KotobaStore). -->
+    <key>KOTOBA_URL</key>
+    <string>@KOTOBA_URL@</string>
+    <key>KOTOBA_GRAPH</key>
+    <string>@KOTOBA_GRAPH@</string>
+    <!-- Path B: per-actor sealed P-256 keystore; every write is actor-signed. -->
+    <key>PDS_ACTOR_KEYS_DIR</key>
+    <string>@ACTOR_KEYS_DIR@</string>
+    <key>MURAKUMO_SEAL_KEY</key>
+    <string>@SEAL@</string>
+    <key>PDS_HOST</key>
+    <string>@PDS_HOST@</string>
+    <key>PORT</key>
+    <string>@PORT@</string>
+    <key>PDS_SIGNING_KEY_FILE</key>
+    <string>@PDSDIR@/signing-key.edn</string>
+    <key>PDS_LEASH_REVOCATION_FILE</key>
+    <string>@PDSDIR@/leash-revocations.txt</string>
+  </dict>
+
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+  <key>ThrottleInterval</key>
+  <integer>10</integer>
+  <key>ProcessType</key>
+  <string>Background</string>
+
+  <key>StandardOutPath</key>
+  <string>@HOME@/Library/Logs/etzhayyim-pds.log</string>
+  <key>StandardErrorPath</key>
+  <string>@HOME@/Library/Logs/etzhayyim-pds.log</string>
+</dict>
+</plist>

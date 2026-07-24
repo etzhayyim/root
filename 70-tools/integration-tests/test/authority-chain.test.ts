@@ -3,11 +3,11 @@ import { MockEtzhayyim } from "@etzhayyim/sdk-mock";
 import {
   registerJurisdiction,
   seedCases,
-} from "@etzhayyim/hanrei-rw-free";
+} from "@etzhayyim/hanrei-kotoba";
 import {
   registerStatute,
   registerArticle,
-} from "@etzhayyim/houbun-rw-free";
+} from "@etzhayyim/houbun-kotoba";
 
 describe("authority-chain integration (hanrei + houbun)", () => {
   let e: any;

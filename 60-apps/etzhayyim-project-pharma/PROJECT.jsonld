@@ -1,8 +1,0 @@
-{
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "pharma",
-  "description": "OTC pharmaceutical e-commerce platform with compliance (Yakujiho)",
-  "applicationCategory": "HealthApplication",
-  "operatingSystem": "WebAssembly (SpinKube)"
-}

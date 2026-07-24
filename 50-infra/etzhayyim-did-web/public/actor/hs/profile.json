@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:hs",
+  "handle": "hs.etzhayyim.com",
+  "displayName": "HS Trade Classification Coordinator",
+  "description": "Global Harmonized System classification coordinator for trade goods, customs classification, taxonomy concordance, and jurisdiction overlays.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "HS Trade Classification Coordinator",
+  "displayNameJa": "HS Trade Classification Coordinator",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.hs",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/hs/did.json",
+    "source": "kotoba"
+  }
+}

@@ -1,7 +1,7 @@
 # RisingWave→kotoba Refactoring: P9 Closure Summary
 
-**Date**: 2026-06-02 (6 iterations, ~1 hour wall-clock)  
-**Branch**: `refactor/latent-entity-kotoba-datomic`  
+**Date**: 2026-06-02 (6 iterations, ~1 hour wall-clock)
+**Branch**: `refactor/latent-entity-kotoba-datomic`
 **ADR**: 2606021730 (Latent-Entity kotoba-Datomic Refactor)
 
 ---
@@ -31,7 +31,7 @@ Per ADR-2606021730, the latent-entity resolution system was ported from RisingWa
 **P9.5** | Integration | ✅ | 3 handlers refactored (coverage app, no RW paths remain)
 **P9.6** | Closure | ✅ | RW migration marked DEPRECATED (2026-06-02 banner)
 
-**Commits**: 
+**Commits**:
 - dbc49ebb1 (P9 Phase 2 — queryLatentEntities)
 - ae3f2f24a (P9 Phase 3 — entity fetch)
 - 1f9c6e098 (P9 Phase 4 — tests)
@@ -86,7 +86,7 @@ All refactored code respects:
 - **Framework**: 50+ inherited apps (batch refactor, P11+)
 - **Archive**: legacy etzhayyim projects (P12, post-mainnet)
 
-**P10 effort**: 2–3 apps × 60 min = ~2–3 hours (consumer refactors only)  
+**P10 effort**: 2–3 apps × 60 min = ~2–3 hours (consumer refactors only)
 **Target**: Phase 2 end (~2026-07-15)
 
 ---
@@ -128,7 +128,7 @@ All refactored code respects:
 - `00-contracts/schemas/latent-entity-ontology.kotoba.edn`
 
 **Actors** (1):
-- `20-actors/tsumugi/` (methods, tests, outputs)
+- `orgs/etzhayyim/com-etzhayyim-tsumugi/` (methods, tests, outputs)
 
 **Apps** (1):
 - `60-apps/etzhayyim-project-coverage/` (kotoba-client-wrapper.ts, app.ts refactored, tests added)
@@ -153,6 +153,6 @@ All refactored code respects:
 
 ---
 
-**Signed**: Claude Haiku 4.5  
-**Date**: 2026-06-02 20:00 JST  
+**Signed**: Claude Haiku 4.5
+**Date**: 2026-06-02 20:00 JST
 **Status**: Ready for PR → Code Review → Merge

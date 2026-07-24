@@ -1,4 +1,4 @@
-;; ported from 20-actors/uchiwake/methods/uchiwake_edn.py — gold reference (Fable)
+;; ported from orgs/etzhayyim/com-etzhayyim-uchiwake/methods/uchiwake_edn.py — gold reference (Fable)
 ;; uchiwake 内訳 — GTIN 正規化 + GS1 mod-10 チェックディジット検証 + EDN 文字列エスケープ。
 ;; GTIN は GS1 mod-10 で検証し、不正/欠落なら record を SKIP する (admit しない)。
 (ns uchiwake.methods.edn

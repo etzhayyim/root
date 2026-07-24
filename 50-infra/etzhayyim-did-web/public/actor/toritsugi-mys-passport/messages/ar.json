@@ -1,0 +1,13 @@
+{
+  "ui.disclaimer" : "حدود UPL: معلومات + توجيه + مساعدة في تعبئة النماذج فقط. بدون استشارة، بدون وكالة. يقدم العضو بنفسه.",
+  "actor.authority" : "Jabatan Imigresen Malaysia (Immigration Department of Malaysia)",
+  "ui.self-submit" : "تقديم شخصي",
+  "actor.description" : "toritsugi authority-actor for regime 'mys-passport' (Jabatan Imigresen Malaysia (Immigration Department of Malaysia)). Covers 1 procedure(s) across jurisdiction(s): mys. Parent: toritsugi (ADR-2605312030). Keyless R0 mirror — no server key. 行政書士法/UPL boundary (G5): 情報提供+案内+入力補助 only, NO advice, NO 作成代理. Member self-submits (G15). NOT a 行政書士/弁護士 firm, NOT an official channel.",
+  "actor.displayName" : "Toritsugi-mys-passport — Jabatan Imigresen Malaysia (Immigration Department of Malaysia)",
+  "procedure.list" : "Malaysian passport application",
+  "ui.accompany" : "مرافقة",
+  "actor.regime" : "mys-passport",
+  "ui.guide" : "إرشاد",
+  "procedure.count" : "1 إجراءات",
+  "actor.name" : "toritsugi-mys-passport"
+}

@@ -1,0 +1,32 @@
+{:schema "etzhayyim.adr/v1"
+ :id "2607193000"
+ :title "Retire eight documentation-only app concepts"
+ :status :accepted
+ :date "2026-07-19"
+ :context {:classification :unimplemented-app-concept-documents :implementation-files 0 :operational-old-path-references 1
+           :historical-reference {:path "etzhayyim.txt" :classification :historical-inventory-snapshot :action :retain-unchanged}}
+ :ownership {:canonical-spec "90-docs/adr/2607193000-doc-only-app-concepts-wave2-retire.edn" :standalone-runtime nil
+             :rule "A named Worker or WASM with no tracked implementation and no repository is not an owner."}
+ :canonical-specs
+ [{:name "color-by-number" :kind :collaborative-coloring-game :domain "color-by-number.etzhayyim.com" :identity {:former-component "etzhayyim-wasm-color-by-number-cbn8gf7x" :nanoid "cbn8gf7x"} :concepts [:numbered-grid :collaborative-paint :signal-group-events :adjacency-color-suggestion] :claimed-runtime :absent}
+  {:name "customary" :kind :customary-law-authority :domain "customary.etzhayyim.com" :identity {:did "did:web:customary.etzhayyim.com" :nanoid "cstmry01"} :concepts [:tradition-registry :oral-tradition-ingest :court-recognition :path-based-dids] :claimed-runtime :absent}
+  {:name "good-vibes-tuner" :kind :focus-interface-concept :concepts [:vibe-presets :information-surface-tuning :focus-session-memory :feedback-loop] :status :design-candidate :claimed-runtime :none}
+  {:name "omatsuri" :kind :pre-disease-well-becoming-concept :domain "omatsuri.etzhayyim.com" :identity {:nanoid "mt5r1f8k"} :concepts [:health-action-credit :health-service-redemption :ingredient-safety :well-becoming] :claimed-runtime :absent :active-design-owner "90-docs/ingredient-safety/260327-ingredient-safety-scoring-design.edn"}
+  {:name "syosetsu" :kind :web-novel-reader :domain "syosetsu.etzhayyim.com" :identity {:former-component "etzhayyim-wasm-syosetsu-sy3w9p4m" :nanoid "sy3w9p4m"} :concepts [:vertical-reader :series-and-episodes :bookmarks :reviews :narou-publication] :claimed-runtime :absent}
+  {:name "tradition" :kind :family-and-cultural-authority :domain "tradition.etzhayyim.com" :identity {:did "did:web:tradition.etzhayyim.com" :nanoid "trdtn001"} :concepts [:family-constitutions :cultural-norms :traditional-art :path-based-dids] :claimed-runtime :absent}
+  {:name "treaty" :kind :international-treaty-authority :domain "treaty.etzhayyim.com" :identity {:did "did:web:treaty.etzhayyim.com" :nanoid "tr3aty01"} :concepts [:treaty-bodies :instruments :ratifications :authority-chain] :claimed-runtime :absent}
+  {:name "wproto" :kind :w-protocol-documentation-site :domain "wproto.etzhayyim.com" :identity {:did "did:web:wproto-wpr0t0c1.etzhayyim.com" :nanoid "wpr0t0c1"} :concepts [:ui-only :protocol-documentation :no-data-endpoint] :claimed-runtime :absent}]
+ :decision {:action :retire :canonical-record :edn :numbered-directories-removed 8 :standalone-repository false :go-policy :deprecated-and-absent}
+ :provenance {:source-repository "https://github.com/etzhayyim/root" :source-revision "3b5402c5308bf128064a13cf7d809523b17ec1eb"
+  :blobs
+  {"color-by-number/CLAUDE.md" {:git-blob "5ffe52f5653d908651ac926002795a10c8273ab4" :sha256 "b6f2e0251cb582b023a7620663a2d19cab842ff12831ce23fd50863fcafeae80" :bytes 3233 :lines 79}
+   "customary/CLAUDE.md" {:git-blob "761fbfe6381e91a419a6843a67f73c5dd02271b8" :sha256 "b13135ebc670b54d85f3f85c23ce99a9aff0017f023ca04e4f19ab373375ce5b" :bytes 1758 :lines 43}
+   "good-vibes-tuner/README.md" {:git-blob "fc45100490115a3b9c593cbb9cefd50909a116b2" :sha256 "5ca06c749476167128e4df2e522df95d7039e69cf6036c25ba75e76cade82f17" :bytes 1931 :lines 46}
+   "omatsuri/CLAUDE.md" {:git-blob "f4c5dfc58e5da990fa8245a527d9b60e561b6b1d" :sha256 "a8f214f8171eabbfc1f80f32ab4f48398c50c06bb8b0fcc681a3a6e2dc53c027" :bytes 2666 :lines 70}
+   "syosetsu/CLAUDE.md" {:git-blob "b5a96261a99579bcc13cb86b4edf4f3a0346cd7b" :sha256 "e89030921c68696f0b342b60475d2444b82f5089b6b7e1c5016be7cf42b8df09" :bytes 2078 :lines 61}
+   "tradition/CLAUDE.md" {:git-blob "39b97f7bb04cc41fd3e85a1a223d0f872682a25f" :sha256 "291d7fff77b2efc2c22ddadfef7545521b1c47c671ec4bb670be7eef19bfb4d0" :bytes 2109 :lines 48}
+   "treaty/CLAUDE.md" {:git-blob "ae4a665d1a942b639881bfb95dcbe131e5e60834" :sha256 "e6e8dfbd3fed038bbbdf04af18131e29d7024e71d7b837ea0859773dc3ef9d6c" :bytes 2088 :lines 42}
+   "wproto/CLAUDE.md" {:git-blob "122857999420fb3901e9c88cdf26c5504753ce1a" :sha256 "0ad355dcca57727d036fc9a0ac5f50b44cf1538b147cd91bfe6727791db812f1" :bytes 1697 :lines 51}}}
+ :rewires [{:source "90-docs/ingredient-safety/260327-ingredient-safety-scoring-design.edn" :from "60-apps/etzhayyim-project-omatsuri/CLAUDE.md" :to "90-docs/adr/2607193000-doc-only-app-concepts-wave2-retire.edn"}]
+ :verification {:required [:edn-readable :legacy-directories-absent :markers-present :operational-reference-scan-clean :generated-doc-registry-current]}
+ :consequences {:root "Eight documentation-only numbered app directories are replaced by flat EDN migration markers." :history "Every source is recoverable by revision, Git blob, and SHA-256 digest." :runtime "No runtime is removed because none contained implementation files."}}

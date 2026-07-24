@@ -1,0 +1,32 @@
+{
+  "did": "did:web:etzhayyim.com:actor:kanayama",
+  "handle": "kanayama.etzhayyim.com",
+  "displayName": "金山 — Circular Metallurgy",
+  "description": "Closed-loop material recovery / circular metallurgy Tier-B actor. Wave 1 reference = closed-loop aluminum used beverage container (UBC) recycling adopted from European integrated recycling-rolling mill practice. Constitutional posture strongly favorable (§2(g) habitat + §2(h) circular economy + §2(e) anti-gatekeeping). Primary mining (bauxite / iron / copper / etc.) is out of kanayama scope (N1, recovery-first by preference); NOT constitutionally forbidden — extraction is gated by a multi-gen...",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-05-25T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "金山",
+  "displayNameJa": "金山 — Circular Metallurgy",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2605252400",
+      "2605252400",
+      "2605252415"
+    ],
+    "primaryLexicon": "com.etzhayyim.kanayama",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/kanayama/did.json",
+    "source": "kotoba"
+  }
+}

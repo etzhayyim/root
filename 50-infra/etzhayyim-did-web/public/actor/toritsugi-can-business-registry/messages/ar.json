@@ -1,0 +1,13 @@
+{
+  "ui.disclaimer" : "حدود UPL: معلومات + توجيه + مساعدة في تعبئة النماذج فقط. بدون استشارة، بدون وكالة. يقدم العضو بنفسه.",
+  "actor.authority" : "Corporations Canada (federal) / provincial registries",
+  "ui.self-submit" : "تقديم شخصي",
+  "actor.description" : "toritsugi authority-actor for regime 'can-business-registry' (Corporations Canada (federal) / provincial registries). Covers 1 procedure(s) across jurisdiction(s): can. Parent: toritsugi (ADR-2605312030). Keyless R0 mirror — no server key. 行政書士法/UPL boundary (G5): 情報提供+案内+入力補助 only, NO advice, NO 作成代理. Member self-submits (G15). NOT a 行政書士/弁護士 firm, NOT an official channel.",
+  "actor.displayName" : "Toritsugi-can-business-registry — Corporations Canada (federal) / provincial registries",
+  "procedure.list" : "Incorporate a business (federal or provincial)",
+  "ui.accompany" : "مرافقة",
+  "actor.regime" : "can-business-registry",
+  "ui.guide" : "إرشاد",
+  "procedure.count" : "1 إجراءات",
+  "actor.name" : "toritsugi-can-business-registry"
+}

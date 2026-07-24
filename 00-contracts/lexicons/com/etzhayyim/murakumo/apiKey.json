@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "com.etzhayyim.murakumo.apiKey",
-  "description": "Platform API key for sk_live_*/sk_test_* murakumo access. rkey = lowercase hex SHA-256 of the raw key. Per ADR-2605191358 (RW-free rewrite).",
+  "description": "Platform API key for sk_live_*/sk_test_* murakumo access. rkey = lowercase hex SHA-256 of the raw key. Per ADR-2605191358 (kotoba rewrite).",
   "defs": {
     "main": {
       "type": "record",

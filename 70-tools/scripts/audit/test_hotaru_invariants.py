@@ -5,7 +5,7 @@ open-publication III-V / InP substrate knowledge COMMONS; NOT a fab) so a future
 refactor cannot silently weaken a constitutional invariant. hotaru exists to
 construct the open commons that ADR-2605265500 §2's R4+ re-evaluation gate is
 conditioned on — so its three structural invariants are load-bearing and each is
-declared in THREE places (ontology schema + lexicon enum/const + analyze.py
+declared in THREE places (ontology schema + lexicon enum/const + analyze.cljc
 guard). This suite proves all three agree:
 
   INVARIANT #1 — OPEN-IP-ONLY (G1): :iiiv.proc/source-license is a practiceable-
@@ -22,27 +22,30 @@ Invariants under test:
   1. G1 (ontology) — source-license :db/allowed is exactly the 5-license open set;
      no proprietary/patent-active/trade-secret member.
   2. G1 (lexicon) — processKnowledge.sourceLicense enum matches the open set.
-  3. G1 (guard) — ALLOWED_LICENSES matches; screen_licenses raises on
+  3. G1 (guard) — ALLOWED-LICENSES matches; screen-licenses raises on
      :vendor-proprietary and passes the open set.
   4. G2 (ontology) — crystal + wafer fabricated :db/allowed is exactly [false]
      (no true is representable).
   5. G2 (lexicon) — crystalGrowthDesign.fabricated + waferSpec.fabricated are
      const false; commonsReadinessReport + silenHotaruReview fabricationProhibited
      are const true.
-  6. G2 (guard) — screen_fabrication raises on a fabricated crystal AND a
+  6. G2 (guard) — screen-fabrication raises on a fabricated crystal AND a
      fabricated wafer, and passes when both are false.
   7. G4 — crystalGrowthDesign.inSourcing enum is the clean set; guard
-     CLEAN_SOURCING matches.
+     CLEAN-SOURCING matches.
   8. G3 — silenHotaruReview is non-adjudicating: councilLevel const "Lv7+"
      (hotaru reports; Council Lv7+ decides the fabrication gate).
+
+NOTE: enforcement points 3, 6, and 7 now exercise the cljc port
+(methods/analyze.cljc via bb subprocess) since the Python methods/analyze.py
+was migrated to cljc.
 """
 
 from __future__ import annotations
 
-import importlib.util
 import json
 import re
-import sys
+import subprocess
 from pathlib import Path
 
 import pytest
@@ -50,7 +53,7 @@ import pytest
 _REPO = Path(__file__).resolve().parents[3]
 _ONTOLOGY = _REPO / "00-contracts" / "schemas" / "iii-v-substrate-ontology.kotoba.edn"
 _LEX = _REPO / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "hotaru"
-_ANALYZE = _REPO / "20-actors" / "hotaru" / "methods" / "analyze.py"
+_ACTORS = _REPO / "20-actors"
 
 _EXPECTED_LICENSES = {
     "academic-oa",
@@ -80,12 +83,15 @@ def _ontology_allowed(attr: str) -> list[str]:
     return m.group(1).split()
 
 
-def _import_analyze():
-    spec = importlib.util.spec_from_file_location("hotaru_analyze", _ANALYZE)
-    mod = importlib.util.module_from_spec(spec)
-    sys.modules[spec.name] = mod
-    spec.loader.exec_module(mod)
-    return mod
+def _bb(expr: str) -> subprocess.CompletedProcess:
+    """Run a Clojure expression via bb with the actors classpath."""
+    return subprocess.run(
+        ["bb", "--classpath", str(_ACTORS), "-e", expr],
+        capture_output=True,
+        text=True,
+        check=False,
+        cwd=str(_REPO),
+    )
 
 
 # ─────────────────────────────────────────────────────────────────────────
@@ -126,15 +132,50 @@ def test_g1_lexicon_source_license_enum_matches():
 
 
 def test_g1_guard_rejects_proprietary_license():
-    a = _import_analyze()
-    assert {l.lstrip(":") for l in a.ALLOWED_LICENSES} == _EXPECTED_LICENSES, (
-        f"G1: ALLOWED_LICENSES drifted; got {a.ALLOWED_LICENSES}"
+    """G1: screen-licenses MUST raise on :vendor-proprietary; pass on the open set (via bb)."""
+    # Verify ALLOWED-LICENSES set agrees with the expected open set
+    result_lics = _bb(
+        "(require '[hotaru.methods.analyze :as a])"
+        "(pr (into #{} (map #(clojure.string/replace % #\"^:\" \"\") a/ALLOWED-LICENSES)))"
     )
-    with pytest.raises(ValueError):
-        a.screen_licenses({"p1": {":iiiv.proc/source-license": ":vendor-proprietary"}})
-    # the open set passes.
-    a.screen_licenses({f"p{i}": {":iiiv.proc/source-license": f":{lic}"}
-                       for i, lic in enumerate(_EXPECTED_LICENSES)})
+    assert result_lics.returncode == 0, f"bb failed: {result_lics.stderr}"
+    lics_str = result_lics.stdout.strip()
+    for expected in _EXPECTED_LICENSES:
+        assert expected in lics_str, (
+            f"G1: ALLOWED-LICENSES missing {expected!r}; got {lics_str!r}"
+        )
+    for bad in _FORBIDDEN_LICENSES:
+        assert bad not in lics_str, (
+            f"G1 VIOLATION: {bad!r} found in ALLOWED-LICENSES; got {lics_str!r}"
+        )
+
+    # screen-licenses must throw on :vendor-proprietary
+    result_bad = _bb(
+        "(require '[hotaru.methods.analyze :as a])"
+        "(def r (try (a/screen-licenses {\"p1\" {\":iiiv.proc/source-license\" \":vendor-proprietary\"}})"
+        "            :no-throw (catch Exception e :threw)))"
+        "(pr r)"
+    )
+    assert result_bad.returncode == 0, f"bb failed: {result_bad.stderr}"
+    assert ":threw" in result_bad.stdout, (
+        "G1: screen-licenses MUST throw on :vendor-proprietary "
+        f"(proprietary recipes are structurally unrepresentable); stdout={result_bad.stdout!r}"
+    )
+
+    # the full open set passes
+    open_procs = "{" + " ".join(
+        f'"p{i}" {{":iiiv.proc/source-license" ":{lic}"}}'
+        for i, lic in enumerate(_EXPECTED_LICENSES)
+    ) + "}"
+    result_ok = _bb(
+        "(require '[hotaru.methods.analyze :as a])"
+        f"(def r (a/screen-licenses {open_procs}))"
+        "(pr (nil? r))"
+    )
+    assert result_ok.returncode == 0, f"bb failed: {result_ok.stderr}"
+    assert "true" in result_ok.stdout, (
+        f"G1: the full open-license set should pass screen-licenses; stdout={result_ok.stdout!r}"
+    )
 
 
 # ─────────────────────────────────────────────────────────────────────────
@@ -175,15 +216,33 @@ def test_g2_lexicon_fabricated_and_prohibited_consts():
 
 
 def test_g2_guard_rejects_fabricated_crystal_and_wafer():
-    a = _import_analyze()
-    with pytest.raises(ValueError):
-        a.screen_fabrication({"c1": {":iiiv.crystal/fabricated": True}}, {})
-    with pytest.raises(ValueError):
-        a.screen_fabrication({}, {"w1": {":iiiv.wafer/fabricated": True}})
-    # both false → passes.
-    a.screen_fabrication(
-        {"c1": {":iiiv.crystal/fabricated": False}},
-        {"w1": {":iiiv.wafer/fabricated": False}},
+    """G2: screen-fabrication MUST raise on fabricated=true crystal or wafer (via bb)."""
+    result = _bb(
+        "(require '[hotaru.methods.analyze :as a])"
+        # fabricated crystal: refuse
+        "(def r1 (try (a/screen-fabrication {\"c1\" {\":iiiv.crystal/fabricated\" true}} {})"
+        "             :no-throw (catch Exception e :threw)))"
+        # fabricated wafer: refuse
+        "(def r2 (try (a/screen-fabrication {} {\"w1\" {\":iiiv.wafer/fabricated\" true}})"
+        "             :no-throw (catch Exception e :threw)))"
+        # both false: passes
+        "(def r3 (a/screen-fabrication {\"c1\" {\":iiiv.crystal/fabricated\" false}}"
+        "                              {\"w1\" {\":iiiv.wafer/fabricated\" false}}))"
+        "(pr {:r1 r1 :r2 r2 :r3-nil (nil? r3)})"
+    )
+    assert result.returncode == 0, f"bb failed: {result.stderr}"
+    out = result.stdout
+    assert ":r1 :threw" in out, (
+        f"G2: screen-fabrication MUST throw on fabricated crystal (III-V fab prohibited); "
+        f"stdout={out!r}"
+    )
+    assert ":r2 :threw" in out, (
+        f"G2: screen-fabrication MUST throw on fabricated wafer (III-V fab prohibited); "
+        f"stdout={out!r}"
+    )
+    assert ":r3-nil true" in out, (
+        f"G2: screen-fabrication should pass when both crystal and wafer have fabricated=false; "
+        f"stdout={out!r}"
     )
 
 
@@ -198,10 +257,18 @@ def test_g4_in_sourcing_clean_set_agrees():
         f"G4: crystalGrowthDesign.inSourcing enum MUST be the clean set "
         f"{sorted(_CLEAN_SOURCING)} (the lexicon excludes :unverified); got {sorted(enum)}"
     )
-    a = _import_analyze()
-    assert {s.lstrip(":") for s in a.CLEAN_SOURCING} == _CLEAN_SOURCING, (
-        f"G4: guard CLEAN_SOURCING drifted; got {a.CLEAN_SOURCING}"
+
+    # Verify CLEAN-SOURCING in cljc matches the expected set
+    result_sourcing = _bb(
+        "(require '[hotaru.methods.analyze :as a])"
+        "(pr (into #{} (map #(clojure.string/replace % #\"^:\" \"\") a/CLEAN-SOURCING)))"
     )
+    assert result_sourcing.returncode == 0, f"bb failed: {result_sourcing.stderr}"
+    sourcing_str = result_sourcing.stdout.strip()
+    for expected in _CLEAN_SOURCING:
+        assert expected in sourcing_str, (
+            f"G4: CLEAN-SOURCING missing {expected!r}; got {sourcing_str!r}"
+        )
 
 
 # ─────────────────────────────────────────────────────────────────────────

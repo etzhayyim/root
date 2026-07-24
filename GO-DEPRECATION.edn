@@ -1,0 +1,25 @@
+{:policy/id :etzhayyim.language/go-deprecation
+ :policy/status :accepted
+ :policy/effective-date "2026-07-17"
+ :policy/authority :canonical
+ :language :go
+ :lifecycle :deprecated
+ :disposition :pruned
+ :scope {:repository "etzhayyim/root"
+         :standalone-repositories ["etzhayyim/com-etzhayyim-kotodama-go"]
+         :artifacts ["*.go" "go.mod" "go.sum"]
+         :generators :must-not-emit-go
+         :builds :must-not-invoke-go-toolchain}
+ :rationale ["Go and TinyGo implementations are no longer maintained in the etzhayyim platform."
+             "Canonical policy and migration state are expressed as EDN, not standalone Markdown or JSON."]
+ :migration {:removed-at "2026-07-17"
+             :replacement-policy :rewrite-in-an-active-non-go-runtime-before-reintroduction
+             :kotodama-go {:former-path "20-actors/kotodama-go"
+                           :former-repository "etzhayyim/com-etzhayyim-kotodama-go"
+                           :last-known-revision "b4b65f2abe"
+                           :west-project :removed}}
+ :invariants [{:id :no-go-source :glob "**/*.go" :expected-count 0}
+              {:id :no-go-module :glob "**/go.mod" :expected-count 0}
+              {:id :no-go-checksum :glob "**/go.sum" :expected-count 0}
+              {:id :no-go-codegen :rule :generators-must-not-create-go-artifacts}
+              {:id :no-go-build :rule :automation-must-not-call-go-or-tinygo}]}

@@ -1,0 +1,29 @@
+{
+  "did": "did:web:etzhayyim.com:actor:umisachi",
+  "handle": "umisachi.etzhayyim.com",
+  "displayName": "umisachi",
+  "description": "Seafood / marine-bounty (海産物) KG mirror — the marine sibling of mitsuho 瑞穂 and the handoff target of mitsuho N9 (ocean out-of-scope there). Weaves fish stocks / fisheries+aquaculture / cold-chain logistics / markets + the PRESSURES that gate sustainable provisioning into the kotoba Datom log; surfaces equitable-provisioning NOURISHMENT vs 取-depletion routed to RESTORATION. Factory-fishing is structurally unrepresentable.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-07T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "海幸",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2606074200"
+    ],
+    "primaryLexicon": "com.etzhayyim.umisachi",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/umisachi/did.json",
+    "source": "kotoba"
+  }
+}

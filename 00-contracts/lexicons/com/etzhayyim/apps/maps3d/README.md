@@ -38,7 +38,7 @@ The two PORT-adapted lexicons here pass all five conditions on **required fields
 ## See also
 
 - ADR-2605214000 — Murakumo distributed cluster (no-VKE mesh) + vendor→religious-corp lexicon port rules
-- ADR-2605172000 — etzhayyim RW-free substrate
+- ADR-2605172000 — etzhayyim kotoba substrate
 - ADR-2605191346 — etzhayyim is Vultr-free / no commercial K8s
 - `00-contracts/lexicons/com/etzhayyim/murakumo/README.md` — sister registry for murakumo lexicons
 - `00-contracts/bpmn/com/etzhayyim/murakumo/README.md` — sister registry for murakumo BPMN

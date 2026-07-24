@@ -23,7 +23,7 @@
       "2606042300"
     ],
     "primaryLexicon": "com.etzhayyim.todoke",
-    "primarySchema": "20-actors/todoke/ (Rust todoke-route core + methods/last_mile.py; no kotoba ontology yet)",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-todoke/ (Rust todoke-route core + methods/last_mile.py; no kotoba ontology yet)",
     "didDocument": "https://etzhayyim.com/actor/todoke/did.json",
     "source": "kotoba"
   }

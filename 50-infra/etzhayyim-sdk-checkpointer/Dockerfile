@@ -12,7 +12,7 @@
 # This is an infra-side image. It contains only the @etzhayyim/sdk runtime
 # (the checkpointer entrypoint + its prod deps). No app code lives here.
 #
-# Runtime env (see 20-actors/etzhayyim-sdk/src/checkpointer.ts#runFromEnv):
+# Runtime env (see orgs/etzhayyim/com-etzhayyim-sdk/src/checkpointer.ts#runFromEnv):
 #   ETZ_CHECKPOINTER_SOCKET           default /run/etzhayyim/checkpointer.sock
 #   ETZ_CHECKPOINTER_STATE_DIR        default <node-cwd>/state
 #   ETZ_CHECKPOINTER_ALLOWED_DIDS     required, comma-separated DID allowlist
@@ -31,13 +31,13 @@ WORKDIR /build
 RUN corepack enable && corepack prepare pnpm@9 --activate
 
 # Stage 1: install ALL deps (incl. devDeps) so tsc is available.
-COPY 20-actors/etzhayyim-sdk/package.json 20-actors/etzhayyim-sdk/pnpm-lock.yaml ./
+COPY orgs/etzhayyim/com-etzhayyim-sdk/package.json orgs/etzhayyim/com-etzhayyim-sdk/pnpm-lock.yaml ./
 RUN --mount=type=cache,target=/root/.pnpm-store \
     pnpm install --frozen-lockfile --ignore-scripts
 
 # Stage 2: copy source and build dist/.
-COPY 20-actors/etzhayyim-sdk/tsconfig.json ./
-COPY 20-actors/etzhayyim-sdk/src ./src
+COPY orgs/etzhayyim/com-etzhayyim-sdk/tsconfig.json ./
+COPY orgs/etzhayyim/com-etzhayyim-sdk/src ./src
 RUN pnpm build
 
 # Stage 3: drop devDeps so only prod node_modules carries forward.
@@ -55,7 +55,7 @@ WORKDIR /sidecar
 
 COPY --from=builder /build/node_modules ./node_modules
 COPY --from=builder /build/dist ./dist
-COPY 20-actors/etzhayyim-sdk/package.json ./
+COPY orgs/etzhayyim/com-etzhayyim-sdk/package.json ./
 
 # Pod runs all containers as uid 65532 (set via K8s securityContext);
 # this Dockerfile USER directive is a sane local-docker default. K8s

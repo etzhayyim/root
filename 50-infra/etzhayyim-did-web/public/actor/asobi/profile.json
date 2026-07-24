@@ -1,0 +1,29 @@
+{
+  "did": "did:web:etzhayyim.com:actor:asobi",
+  "handle": "asobi.etzhayyim.com",
+  "displayName": "asobi",
+  "description": "Freed-time / play & cultural-expression (遊び) KG mirror — weaves cultural works / events / venues / practices + the enclosures that gate them into the kotoba Datom log; surfaces participation-openness vs enclosure routed to OPENING, never an engagement ranking.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-07T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "遊び",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2606073200"
+    ],
+    "primaryLexicon": "com.etzhayyim.asobi",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/asobi/did.json",
+    "source": "kotoba"
+  }
+}

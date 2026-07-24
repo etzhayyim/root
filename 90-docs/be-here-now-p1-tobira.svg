@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 1500" width="2400" height="1500" font-family="serif">
+  <title>be·here·now P1 扉 — たそがれの入江。舫いの小舟が まにまに 揺れる</title>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b2640"/>
+      <stop offset="0.4" stop-color="#5b4360"/>
+      <stop offset="0.72" stop-color="#b97a55"/>
+      <stop offset="1" stop-color="#f0b56a"/>
+    </linearGradient>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#caa066"/>
+      <stop offset="0.18" stop-color="#9a6f57"/>
+      <stop offset="1" stop-color="#33293f"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ffe9bf" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#ffe9bf" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vign1" cx="0.5" cy="0.45" r="0.8">
+      <stop offset="0.62" stop-color="#000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.5"/>
+    </radialGradient>
+  </defs>
+
+  <!-- 空 -->
+  <rect width="2400" height="640" fill="url(#sky)"/>
+  <!-- 沈みきった陽のグロー(水平線中央右) -->
+  <ellipse cx="1480" cy="640" rx="620" ry="320" fill="url(#sun)"/>
+  <!-- 遠くの鳥(V を数羽) -->
+  <g stroke="#3a3050" stroke-width="4" fill="none" opacity="0.6" stroke-linecap="round">
+    <path d="M620,250 l26,16 l26,-16"/>
+    <path d="M690,232 l22,14 l22,-14"/>
+    <path d="M760,258 l20,12 l20,-12"/>
+  </g>
+
+  <!-- 海 -->
+  <rect y="640" width="2400" height="860" fill="url(#sea)"/>
+  <!-- 陽の水映り -->
+  <g fill="#ffe3b0" opacity="0.5">
+    <rect x="1430" y="660" width="100" height="10" rx="5"/>
+    <rect x="1420" y="700" width="120" height="9" rx="4"/>
+    <rect x="1440" y="746" width="80" height="8" rx="4"/>
+    <rect x="1410" y="800" width="140" height="9" rx="4"/>
+    <rect x="1450" y="870" width="64" height="8" rx="4"/>
+  </g>
+
+  <!-- 左の丘陵(畑=sanae の気配)と町影 -->
+  <path d="M0,640 C260,560 520,580 760,628 L760,640 Z" fill="#241d34"/>
+  <g fill="#1c1730" opacity="0.9">
+    <rect x="120" y="566" width="40" height="74"/>
+    <rect x="190" y="586" width="32" height="54"/>
+    <rect x="250" y="560" width="46" height="80"/>
+    <rect x="320" y="592" width="30" height="48"/>
+    <rect x="380" y="574" width="40" height="66"/>
+  </g>
+  <!-- 畑の畝(淡い横線) -->
+  <g stroke="#3a2e1f" stroke-width="3" opacity="0.4">
+    <path d="M40,628 q360,-44 700,0"/>
+    <path d="M30,636 q380,-30 720,4"/>
+  </g>
+
+  <!-- 分け前所(小さな建物・州の先端、温かい窓灯り) -->
+  <g>
+    <rect x="300" y="690" width="150" height="92" fill="#15101f"/>
+    <polygon points="290,690 460,690 375,640 " fill="#15101f"/>
+    <rect x="345" y="724" width="34" height="34" fill="#ffd089" opacity="0.92"/>
+    <!-- 桟橋 -->
+    <rect x="430" y="772" width="180" height="8" fill="#15101f"/>
+  </g>
+
+  <!-- 舫いの小舟が まにまに(数艘、舫い綱で杭に繋がる) -->
+  <g>
+    <!-- 杭 -->
+    <g fill="#15101f"><rect x="640" y="760" width="8" height="40"/><rect x="980" y="800" width="8" height="46"/><rect x="1300" y="860" width="9" height="52"/></g>
+    <!-- 舟1 -->
+    <g>
+      <path d="M700,792 q70,40 150,0 q-30,30 -75,30 q-45,0 -75,-30 Z" fill="#120d1c"/>
+      <path d="M648,766 q40,18 78,24" stroke="#2a2236" stroke-width="3" fill="none"/>
+    </g>
+    <!-- 舟2 -->
+    <g>
+      <path d="M1040,834 q66,38 142,0 q-28,28 -71,28 q-43,0 -71,-28 Z" fill="#120d1c"/>
+      <path d="M988,808 q38,18 74,24" stroke="#2a2236" stroke-width="3" fill="none"/>
+    </g>
+    <!-- 舟3(手前) -->
+    <g>
+      <path d="M1360,902 q84,46 180,0 q-36,34 -90,34 q-54,0 -90,-34 Z" fill="#0f0a18"/>
+      <path d="M1308,872 q46,22 90,28" stroke="#2a2236" stroke-width="3.5" fill="none"/>
+    </g>
+  </g>
+
+  <!-- 手前の岸辺(葦のシルエット) -->
+  <path d="M0,1500 L0,1240 C420,1180 900,1300 1500,1230 C1900,1186 2200,1260 2400,1230 L2400,1500 Z" fill="#0e0a16"/>
+  <g stroke="#0e0a16" stroke-width="6" stroke-linecap="round" opacity="0.95">
+    <path d="M180,1240 C176,1150 196,1090 184,1020"/>
+    <path d="M214,1244 C210,1160 232,1110 224,1046"/>
+    <path d="M250,1248 C250,1170 268,1120 262,1066"/>
+  </g>
+
+  <rect width="2400" height="1500" fill="url(#vign1)"/>
+
+  <!-- 扉タイトル領域(余白) -->
+  <g fill="#f6ecd4">
+    <text x="150" y="220" font-size="74" opacity="0.92" letter-spacing="10">水の上のパン</text>
+    <text x="156" y="280" font-size="30" opacity="0.7" letter-spacing="6">be · here · now ── いとなみ</text>
+  </g>
+  <text x="60" y="1450" fill="#f3e7d0" opacity="0.45" font-size="24">P1 扉 ── 入江俯瞰・たそがれ・無音。労働は引き受けられ、舟は まにまに 揺れる。</text>
+</svg>

@@ -1,8 +1,0 @@
-{
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "osekkai.etzhayyim.com",
-  "description": "Unsolicited-kindness coordinator — Follow 関係にある他 actor の commit stream を観測し、consent-gated で丁寧な提案・リマインド・気遣いを行う。Dissent 検知時は即撤回+学習",
-  "applicationCategory": "SocialCare",
-  "url": "https://osekkai.etzhayyim.com"
-}

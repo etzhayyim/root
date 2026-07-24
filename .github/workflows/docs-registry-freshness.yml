@@ -1,13 +1,13 @@
 name: docs-registry-freshness
 
-# Verify 90-docs/_registry/docs.json stays in sync with the .md source
-# of truth across the 90-docs/ tree. Catches operators adding / editing /
-# renaming markdown docs without regenerating the machine-readable
+# Verify 90-docs/_registry/docs.json stays in sync with canonical EDN and
+# descriptive Markdown across the 90-docs/ tree. Catches operators adding,
+# editing, or renaming docs without regenerating the machine-readable
 # sidecar index.
 #
 # Parallel pattern to deps-toml-paths.yml (ADR-2605271100 closure
 # cycle 48). Mechanism:
-#   - PR-gate run: `regen-registry.py --check` exit 1 on drift → PR blocked
+#   - PR-gate run: `regen-registry.clj --check` exit 1 on drift → PR blocked
 #   - Nightly run: same check + step summary with entry count
 #
 # The generator is idempotent (sorted by id; entries-only comparison
@@ -15,7 +15,7 @@ name: docs-registry-freshness
 # concurrent edits during a PR — which is desired (catch drift early).
 #
 # Per 90-docs/CLAUDE.md "Documentation System Rules":
-#   - Markdown 本文が canonical source
+#   - EDN documents are canonical for ADR and migration records
 #   - JSON-LD は本文の代替ではなく relation/index sidecar
 #   - 「同じ判断」を複数 doc に複写しない。正本 1 つを registry で指す
 # This workflow enforces the third rule mechanically.
@@ -25,17 +25,19 @@ on:
     branches: [main]
     paths:
       - '90-docs/**/*.md'
+      - '90-docs/**/*.edn'
       - '90-docs/_registry/docs.json'
       - '90-docs/_registry/docs.edn'
-      - '70-tools/scripts/docs/regen-registry.py'
+      - '70-tools/scripts/docs/regen-registry.clj'
       - '.github/workflows/docs-registry-freshness.yml'
   pull_request:
     branches: [main]
     paths:
       - '90-docs/**/*.md'
+      - '90-docs/**/*.edn'
       - '90-docs/_registry/docs.json'
       - '90-docs/_registry/docs.edn'
-      - '70-tools/scripts/docs/regen-registry.py'
+      - '70-tools/scripts/docs/regen-registry.clj'
       - '.github/workflows/docs-registry-freshness.yml'
   schedule:
     # Nightly at 03:23 UTC = ~12:23 JST. Off-minute :23 (different from

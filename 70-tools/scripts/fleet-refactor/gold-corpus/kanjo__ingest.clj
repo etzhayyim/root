@@ -1,4 +1,4 @@
-;; ported from 20-actors/kanjo/methods/ingest.py (parse_edgar_companyfacts) — gold reference (Fable)
+;; ported from orgs/etzhayyim/com-etzhayyim-kanjo/methods/ingest.py (parse_edgar_companyfacts) — gold reference (Fable)
 ;; kanjō 勘定 — ingest cell: PRIMARY-disclosure (SEC EDGAR companyfacts) → kotoba EAVT 決算 facts。
 ;; us-gaap:* element を canonical concept へ正規化し、annual (fp="FY", form 10-K/20-F) を 1 fact/(concept,fy)。
 ;; 全 fact は :authoritative (primary disclosure)、非裁定。

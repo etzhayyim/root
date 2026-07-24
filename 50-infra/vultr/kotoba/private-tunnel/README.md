@@ -137,4 +137,4 @@ Expect: 200 OK with a recent timestamp + `current_user: root`.
 
 - `50-infra/vultr/kotoba/rotate-password.sh` — password rotation runbook
 - `50-infra/vultr/kotoba-firewall-restrict.sh` — Vultr instance firewall (not used in final design; superseded by ClusterIP + tunnel)
-- ADR-2605172000 — etzhayyim/root RW-free substrate (note: this private tunnel keeps vendor RW reachable from CF Workers without breaking the open-substrate boundary; vendor business continues)
+- ADR-2605172000 — etzhayyim/root kotoba substrate (note: this private tunnel keeps vendor RW reachable from CF Workers without breaking the open-substrate boundary; vendor business continues)

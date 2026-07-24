@@ -1,0 +1,101 @@
+[{:db/id -1, :id        "2606131645"
+ :title     "kotodama extraction + functional UNSPSC Clojure migration + kotoba submodule removal"
+ :status    :accepted
+ :date      #inst "2026-06-13"
+ :deciders  ["Jun Kawasaki (founder = Council Lv7+ 1/1)"]
+ :doc-type  :adr
+ :topic     :kotodama-extraction-functional-unispsc-clj
+ :authoritative true
+ :body-file "2606131645-kotodama-extraction-functional-unispsc-clj.md"
+
+ ;; ── supersession / amendment / dependency graph ───────────────────────────
+ :supersedes {"2605171300" "empty-stub generation policy (the 18k generated c<code>.py)"}
+ :amended-by {"2606161200" "D2 — single extracted kototama repo replaced by the 3-layer split (kotodama runtime / root unspsc actor / kotoba substrate)"}
+ :amends     {"2605214000" "§3 — kotodama portion of the Step-8 atomic-cutover gate (split off; murakumo rename stays separate)"
+              "2605262130" "kotoba submodule -> external dependency (substrate ROLE unchanged: still canonical engine)"}
+ :depends-on ["2605262130" "2605214000" "2605215000" "2605171300" "2606011500"]
+ :related    ["2605240000" "2605232345" "2606101200"]
+
+ ;; ── context — why ─────────────────────────────────────────────────────────
+ :context
+ {:problem "The largest Python blob is 18,343 c<code>.py UNSPSC LangGraph agents inside the kotoba submodule."
+  ;; the population stratifies into three tiers; only the bespoke 9% is functional
+  :tiers   {:placeholder      {:count 11448 :pct 61 :note "empty receive->process->emit stub — NON-functional"}
+            :defaults-wrapper {:count 5239  :pct 29 :note "template + spec validation + defaults injection"}
+            :bespoke          {:count 1655  :pct 9  :note "Gemini per-commodity domain logic — the only functional tier"}}
+  :isco-note "ISCO ~4 files only; this is effectively a UNSPSC problem."
+  :issues  ["90% are hollow stubs" "locked under the Step-8 gate, inside the submodule" "file-per-code is inefficient to migrate by hand"]
+  :target-stack ["langgraph-clj v0.2.0 (StateGraph + ReAct)" "langchain-clj v0.1.0 (Datomic-shaped EAV + kotoba_db backend + Murakumo model)"]
+  :data-sources ["00-contracts/actor-registry/unispsc.json (18,342 code+DID+hierarchy, SSoT)"
+                 "80-data/unspsc_v26_ucalypt.jsonl (2,836 spec/risk/desc enrichment)"]}
+
+ ;; ── decision — D1..D6 ─────────────────────────────────────────────────────
+ :decision
+ {:D1 "Actor COUNT stays 18,342; only hand-written FILES collapse. One functional organism framework + per-code data -> 18,342 living, individuated, functional actors. The 'functional/organic' comes from 4 sources: per-code data, a capability library generalized from the bespoke tier, Murakumo inference, and organism life (heartbeat/joucho)."
+  :D2 "Extract kotodama to its OWN repo (etzhayyim/kototama); root references it as a dependency."
+  :D3 "kotoba Rust engine (17 crates) = EXTERNAL dependency, not an in-tree submodule; remove the submodule from root."
+  :D4 "Split the kotodama runtime off the Step-8 gate; the murakumo runtime rename (220-file atomic) stays out of scope."
+  :D5 :invariants ;; the invariants block below is D5
+  :D6 "Founder ratification: PR review (Council attestation = PR review)."}
+
+ ;; ── invariants (D5) — fixed by this ADR, must hold post-migration ──────────
+ :invariants
+ ["18,342 full coverage maintained (= registry totalCount)"
+  "every actor FUNCTIONAL — empty-stub forbidden (enforced in code + tests: an empty procurement line is always rejected)"
+  "DID invariant: did:web:etzhayyim.com:actor:c<code>"
+  "Murakumo-only inference (ADR-2605215000) — build-time data gen via sub-agents is NOT a runtime inference path"
+  "kotoba Datom = canonical state (ADR-2605262130 / 2605312345)"
+  "Apache-2.0 + Charter Compliance Rider inherited"]
+
+ ;; ── consequences ──────────────────────────────────────────────────────────
+ :consequences
+ {:positive ["all 18,342 actors gain real, commodity-specific function (stubs eliminated)"
+             "18,343 hand-written .py collapse to framework + data"
+             "root no longer carries the kotoba submodule (lighter clone/CI)"
+             "actor state persists as-of on the kotoba Datom log (organic trajectory)"]
+  :risks ["18,342 Murakumo-heartbeat load on the 10-node fleet — mitigated by cadence control + fail-open fallback (ibuki R1 precedent)"
+          "enrichment quality drives functional quality — mitigated by the capability library + spec floor + bespoke golden-trace parity"]
+  :wiring-to-update ["CLAUDE.md (substrate-engine decl / cell-catalog pointer / do-not rename clause)"
+                     "bb.edn test tasks" "50-infra/murakumo/fleet.toml + placement-contract.yaml"
+                     "CHARTER-RIDER.md (nv_compat path)" "70-tools/scripts/lint/substrate-boundary.mjs"
+                     "PYMAGATAMA-MIGRATION-NOTES.md relocation"]}
+
+ ;; ── alternatives considered (all rejected) ────────────────────────────────
+ :alternatives
+ [{:option "collapse to ONE parametric stub + delete 16,687" :rejected "still a stub; coverage gains no function (founder: all must be functional/organic)"}
+  {:option "vendor the whole kotoba repo into root (in-tree copy)" :rejected "heavy (Rust+py); loses upstream sync"}
+  {:option "machine-translate all 1,655 bespoke to individual clj" :rejected "1,655 verification cost; does not lift the 16,687 to functional"}
+  {:option "keep the submodule, clj-ify the py in place" :rejected "retains the Step-8 lock + physical embedding; fails the 'no submodule in root' goal"}]
+
+ ;; ── delivered — verification record (CLI/headless reproducible) ────────────
+ :delivered
+ {:repo "etzhayyim/kototama (local: orgs/etzhayyim/kototama)"
+  :framework "kototama.unspsc.{taxonomy capability organism react life fleet}"
+  :tests "40 tests / 222 assertions green (clojure -X:test) — was 11/78 at first record"
+  :bespoke-coverage "segment capabilities 8 -> 33/36 (charter-clean 33/33 complete; 15 fuels / 20 mining / 46 defense-security excluded by charter design). Every entry has a parity deftest; empty procurement line always rejected."
+  :kotoba-db "fleet/sweep! :kotoba store persists checkpoints via langchain.kotoba-db (kotoba-conn + kotoba-api as :db-api) with operator Bearer JWT (:kotoba-token, ADR-2605231525). Live write->read verified on a running node (127.0.0.1:8077, thread unspsc-10101500 read back over datomic.q)."
+  :learning-loop "Stage-D prior-consensus ported — Python unispsc_capabilities/wrapper.py _compute_prior_consensus -> kototama.unspsc.life/{prior-consensus prior-shortcut?} (pure, parity-tested); opt-in organism shortcut."
+  :libs "migration stack published: langchain-clj v0.1.1 (openai-model adapter) + langgraph-clj v0.2.1 (StateGraph checkpointer XRPC); root-side clj references them as kaiyaku-style git coords."
+  :tooling "kotoba-code (com-junkawasaki/kotoba-code) — model-neutral, test-gated, kotoba-Datom-backed agentic coding agent on langchain-clj/langgraph-clj. Drove most Phase-2c capability authoring via kimi-k2.7-code (OpenRouter), each unit test-gated + supervised + PR'd (#1..#10). Hardened in production: retry-on-API-error, rollback-on-throw, gate-feedback (KC_GATE_ROUNDS)."
+  :runtimes ["JVM" "SCI (babashka)" "Node (compiled cljs)" "headless Chromium (cljs browser bundle, Playwright)" "wasmtime (kotoba-clj real-wasm micro-kernel, 3955 bytes)"]
+  :react-loop "per-actor ReAct loop (langgraph-clj create-react-agent; capability as inspect_requirements/validate_line tools)"
+  :enrichment "Haiku sub-agent workflow (130 batches) -> taxonomy 18,181/18,342 enriched (build-time data gen)"
+  :fleet "all 18,342 actors live-persisted on a kotoba Datom node (127.0.0.1:8077, 37 genesis-per-graph shards, append-free O(1))"
+  :browser-query "client-side datalog (q/pull/join) + browser->LIVE node datomic.q via same-origin /xrpc proxy — headless-verified"}
+
+ ;; ── gated operator steps (NOT executed; require production infra) ──────────
+ :gated
+ {:submodule-removal "ONE atomic operator PR per 90-docs/runbooks/2606131645-kotoba-submodule-removal-cutover.edn (934 refs; gated on production fleet live)"
+  :py-deletion "delete the 18,343 c<code>.py in the etzhayyim/kotoba repo (separate PR, after fleet live)"
+  :production-rollout "Murakumo cluster, IPFS-on, per-shard nodes (cluster currently unreachable)"
+  :etzhayyim-com-surface "CF Worker: add each actor's Datom graph_cid to its profile (wrangler login required)"}
+
+ ;; ── references ────────────────────────────────────────────────────────────
+ :references
+ ["ADR-2605171300 (Open-UNSPSC generative agent fleet — empty-stub policy retracted here)"
+  "ADR-2605240000 / 2605232345 (UNSPSC organism mass-deploy / actor-as-organism)"
+  "ADR-2605214000 §3 (Step-8 atomic cutover) / ADR-2605215000 §4 (Murakumo-only)"
+  "ADR-2605262130 (kotoba storage substrate unification) / ADR-2605312345 (Datom = canonical state)"
+  "ADR-2606011500 §4 (kami-engine submodule pattern) / ADR-2606101200 (ibuki organism reference)"
+  "runbook 90-docs/runbooks/2606131645-kotoba-submodule-removal-cutover.edn"
+  "langgraph-clj / langchain-clj (migration target stack)"]}]

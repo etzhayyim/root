@@ -4,13 +4,13 @@ import {
   registerAsn,
   registerPrefix,
   registerIp,
-} from "@etzhayyim/ipaddress-rw-free";
+} from "@etzhayyim/ipaddress-kotoba";
 import {
   registerArtifact,
   registerComponent,
   cveIngestOsv,
   registerVulnMatch,
-} from "@etzhayyim/sbom-rw-free";
+} from "@etzhayyim/sbom-kotoba";
 
 // TODO: sbom registerArtifact validation pending full SBOM format implementation.
 // Test requires correct SBOM artifact structure and validation logic from sbom actor.

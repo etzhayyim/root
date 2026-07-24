@@ -1,2 +1,0 @@
-# yamabiko 山彦 — Python agent dependencies (R0 scaffold)
-# No external dependencies for R0; kotoba bindings (datalog, llm) injected at WASM runtime

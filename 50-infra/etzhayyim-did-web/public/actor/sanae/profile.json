@@ -1,0 +1,30 @@
+{
+  "did": "did:web:etzhayyim.com:actor:sanae",
+  "handle": "sanae.etzhayyim.com",
+  "displayName": "早苗 — Field-Agriculture Robotics",
+  "description": "Robotics body of mitsuho's L2-Sustenance mandate; automates field agriculture (sow/weed/harvest) — the largest pool of human toil on Earth. Herbicide-free, seed-sovereign, regenerative.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-03T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "早苗",
+  "displayNameJa": "早苗 — Field-Agriculture Robotics",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2606032100"
+    ],
+    "primaryLexicon": "com.etzhayyim.sanae",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/sanae/did.json",
+    "source": "kotoba"
+  }
+}

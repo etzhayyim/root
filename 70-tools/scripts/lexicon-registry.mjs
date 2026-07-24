@@ -15,7 +15,7 @@
  * Future: `--push <pds-url>` to publish via `com.atproto.lexicon.schema`
  * once PDS XRPC supports schema records natively. Currently AT Protocol
  * Lexicons are typically distributed via npm + the @etzhayyim/lexicons-bundle
- * package at 10-protocol/lexicons-bundle/. This script catalogues them
+ * package at ../com-etzhayyim-lexicons-bundle/. This script catalogues them
  * for that bundle's manifest.
  */
 import { readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";

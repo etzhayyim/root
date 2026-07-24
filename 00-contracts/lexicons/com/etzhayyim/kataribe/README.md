@@ -1,6 +1,6 @@
 # com.etzhayyim.kataribe.* — kataribe (語部) Lexicons
 
-**Owner actor**: `did:web:kataribe.etzhayyim.com` (`20-actors/kataribe/`)
+**Owner actor**: `did:web:kataribe.etzhayyim.com` ([`com-etzhayyim-kataribe`](https://github.com/etzhayyim/com-etzhayyim-kataribe))
 **ADR**: ADR-2605263600 (R0 scaffold)
 **Status**: R0 schema skeletons. Full schemas at R1+.
 
@@ -30,7 +30,7 @@ Schemas at R0 are skeleton-level; full structural enforcement at R1.
 
 ## Related Files
 
-- `/20-actors/kataribe/manifest.jsonld`
-- `/20-actors/kataribe/README.md`
-- `/20-actors/kataribe/CLAUDE.md`
+- `orgs/etzhayyim/com-etzhayyim-kataribe/manifest.edn` (canonical)
+- `orgs/etzhayyim/com-etzhayyim-kataribe/README.md`
+- `orgs/etzhayyim/com-etzhayyim-kataribe/CLAUDE.md`
 - `/90-docs/adr/2605263600-kataribe-press-publishing-translation-tier-b-actor-r0.md`

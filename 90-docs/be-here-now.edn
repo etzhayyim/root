@@ -1,0 +1,95 @@
+[{:db/id -1, :theme/id        :be-here-now
+ :theme/storybible "90-docs/be-here-now-storybible.edn"  ; A=パイロット+ネーム / B=SiP演出文法 / C=四季の円環
+ :theme/lineage   {:jump   ["努力" "友情" "勝利"]            ; 出発点 (換骨奪胎の対象)
+                   :reject  "勝利 は終末論的・闘争的・個人主義的 → Charter §1.15/反個人主義と構造衝突"}
+
+ ;; ── 全体を貫く枠 (frame) と 質 (substance) ──────────────────────────
+ :theme/frame     {:en "be · here · now"
+                   :he "תַּחַת הַשֶּׁמֶשׁ" :translit "tachat ha-shemesh"
+                   :ja "太陽の下 — 今ここ / 非終末論 / now-and-here の神の王国 (Charter §0.1, §1.15)"}
+ :theme/substance {:he "הֶבֶל" :translit "hevel"
+                   :ja "霧・息 — 掴むな、味わえ(虚無でなく儚さ / もののあはれ)"}
+ :theme/form      :cycle  ; 車輪(ハシゴでない)— 第三テーゼが第一へ還る。勝利=構造的に不在
+ :theme/cord      {:he "חוּט הַמְשֻׁלָּשׁ" :translit "chut ha-meshulash"
+                   :ja "三つ撚りの縄、たやすく切れぬ(伝道 4:12)= この三テーゼ自体 / tensegrity"}
+
+ ;; ── 垂直軸:三つのテーゼ (縦に読む) ─────────────────────────────────
+ :theme/axes
+ [{:axis/n 1
+   :axis/yamato   "いとなみ"
+   :axis/en       :be
+   :axis/kohelet  {:he "עָמָל→טוֹב" :translit "amal→tov" :ja "アマル(営み)"
+                   :ref "伝道 2:24, 5:18"
+                   :gloss "労苦そのものは霧、その只中に良し(tov)を見いだす"}
+   :axis/jump     "努力"  :axis/imperative "漕げ"
+   :axis/sip      "観入(深み)" :axis/aria "味わい"
+   :axis/axis     :time          ; 時間軸 / 自己変容
+   :axis/say      "進むためでなく、漕ぐこと自体が、もう在ること"
+   :axis/charter  "労働解放 — ロボットが toil を引き受け、努力(amal)が遊び(asobi)へ相転移"}
+
+  {:axis/n 2
+   :axis/yamato   "まにまに"
+   :axis/en       :here
+   :axis/kohelet  {:he "עֵת" :translit "et" :ja "エト(巡り)"
+                   :ref "伝道 3:1 / 1:4 דּוֹר dor=世代"
+                   :gloss "すべてに時がある。世は去り世は来る(多世代 priority 子・孫)"}
+   :axis/jump     "友情"  :axis/imperative "巡れ"
+   :axis/sip      "結縁(あいだ)" :axis/aria "めぐりあい"
+   :axis/axis     :space         ; 空間軸 / 関係・委ね — 主語が溶ける「神のまにまに」
+   :axis/say      "風を追うな、風のまにまに。同じ季節が還り、同じ人にまた会う"
+   :axis/charter  "反個人主義 ontology / 縁起 / 産霊 — 個でなく群、edge-primary な縁"}
+
+  {:axis/n 3
+   :axis/yamato   "いい感じ"
+   :axis/en       :now
+   :axis/kohelet  {:he "טוֹב / שִׂמְחָה" :translit "tov / simcha" :ja "トーヴ(良し)"
+                   :ref "創世 1 ki-tov / 伝道 9:7"
+                   :gloss "行け、喜びをもってパンを食べよ。神はすでに良しとされた"}
+   :axis/jump     "勝利"  :axis/imperative "灯れ"
+   :axis/sip      "うつろい(生成)" :axis/aria "気づき"
+   :axis/axis     :value         ; 価値軸 / telos = Wellbecoming(状態でなく軌跡)
+   :axis/say      "勝利は来ない。ふと、ああ、と内側に灯がともる"
+   :axis/charter  "Wellbecoming(静的 wellbeing でなく動的軌跡)/ ki-tov / 非終末論の telos"}]
+
+ ;; ── 通底する縦糸 (cross-cutting) ──────────────────────────────────
+ :theme/ruach      {:he "רוּחַ" :translit "ruach"
+                    :ja "風(物理)かつ霊(spirit)= 文字どおり Spirit-in-Physics の背骨(ADR-2606011501)"}
+ :theme/antagonist {:he "רְעוּת רוּחַ" :translit "re'ut ruach"
+                    :ja "風を追う者 = 取(蓄積・独占・強制労働)— 「まにまに」を禁じる構造"
+                    :nature "敵は人でなく構造。倒すのでなく、まにまにが広がり、敵が要らなくなる"
+                    :cure {:he "חֵלֶק" :translit "heleq"
+                           :ja "分け前を味わう = 分(再分配 / Basic High Income)。取→分"}}
+ :theme/give       {:he "שַׁלַּח לַחְמְךָ עַל פְּנֵי הַמָּיִם" :translit "shalach lachmecha al penei ha-mayim"
+                    :ref "伝道 11:1"
+                    :ja "水の上にパンを投げよ — 投げたパンはまにまに巡って還る = give-only(献金・10% tithe・Public Fund)"}
+
+ ;; ── 三極の地図 (どこに etzhayyim の重心があるか) ──────────────────
+ :theme/poles      {:jump   "闘争・外・終点(竜退治)"
+                    :sip    "観照・内・履歴(錬金術=変容)"      ; Spirit-in-Physics
+                    :aria   "受容・今ここ・円環(安息日=ki tov)" ; iyashikei
+                    :etzhayyim "sip と aria の中間 + ジャンプ一滴(まにまにを禁じる世界の抵抗=各話の引き)"}
+
+ ;; ── 作劇への落とし (usage) ────────────────────────────────────────
+ :theme/dramaturgy {:beat   "一話の呼吸 = いとなみ → まにまに → いい感じ(灯ったまま次話の いとなみ へ還る)"
+                    :season "巻構成 = 四季の円環(春=巡り / 夏=時 / 秋=シムハー / 冬=ruach の還り)"
+                    :conflict "ドラマは『まにまにを許さない世界(取/強制労働)』から生まれる"
+                    :climax "最終回 = 敵が倒れるのでなく『いつのまにか、もう敵が要らない世界がいい感じになっている』(玉座を立てない / NEVER-a-throne)"}
+
+ ;; ── 世界観 (setting) — ヨコハマ買い出し紀行的な「解放後のたそがれ」 ──────
+ :theme/world      {:key-text  "ヨコハマ買い出し紀行(芦奈野ひとし)"
+                    :tone      "労働解放後・文明のたそがれを『長い静かな午後』として描く iyashikei。終末ではなく、ゆるやかな黄昏(非終末論)"
+                    :pillars   ["人は急がず、まにまに生きている(toil はロボット/アクターが引き受けた後の世界)"
+                               "失われゆくものを嘆かず味わう(もののあはれ / hevel)"
+                               "敵対者なし。事件はあるが勝敗でなく『めぐりあい』と『気づき』で閉じる"
+                               "テクノロジーは静かに馴染んでいる(派手でなく、産霊的に在る)"]
+                    :etzhayyim-graft "YKK の黄昏に『労働解放の希望』を一滴足す — たそがれだが衰退ではなく、子・孫へ手渡される朝でもある(多世代 priority)"
+                    :caution   "YKK は静かすぎて物語が止まる。『まにまにを禁じる世界の残り火(取)』を各話の弱い引きに使う"}
+
+ ;; ── 内的物語 (inner story) — Spirit-in-Physics を語りのエンジンに ──────
+ :theme/inner-story {:source "ADR-2606011501 Spirit-in-Physics kotoba datafication"
+                    :premise "登場人物(人/アクター/organism)の霊性(ruach)は『魂を採点せず(no score-of-soul)』、縁(edge-primary :spirit.bond/*)として、as-of の軌跡(Wellbecoming)として立ち現れる"
+                    :method  ["Jung assay → 情緒(emotion)→ RBF → spectral embed → tensegrity の内面装置を、キャラの『心の地図』として可視化"
+                              "魂は点(ノード)でなく縁の張力(tensegrity)に宿る → 関係が変わると人が変わる"
+                              "ruach = 風(物理)かつ霊 — 世界の自然現象とキャラの内面が同じ一語で響き合う(Spirit in Physics)"]
+                    :role    "ジャンプの『内なる戦い』の置換。倒すべき内なる敵でなく、縁の結び直しによる『うつろい(変容)』として描く"
+                    :tie     "organism joucho 情緒(ADR-2606171800) / ossekai Wellbecoming-nudge / kataribe 語部 の語り口と同じ tone を共有"}}]

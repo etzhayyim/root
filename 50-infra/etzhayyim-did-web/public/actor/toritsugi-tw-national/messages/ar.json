@@ -1,0 +1,13 @@
+{
+  "ui.disclaimer" : "حدود UPL: معلومات + توجيه + مساعدة في تعبئة النماذج فقط. بدون استشارة، بدون وكالة. يقدم العضو بنفسه.",
+  "actor.authority" : "Household Registration Office (戶政事務所) of the municipality/county; policy authority: Department of Household Registration (戶政司), Ministry of the Interior (內政部)",
+  "ui.self-submit" : "تقديم شخصي",
+  "actor.description" : "toritsugi authority-actor for regime 'tw-national' (Household Registration Office (戶政事務所) of the municipality/county; policy authority: Department of Household Registration (戶政司), Ministry of the Interior (內政部)). Covers 1 procedure(s) across jurisdiction(s): twn. Parent: toritsugi (ADR-2605312030). Keyless R0 mirror — no server key. 行政書士法/UPL boundary (G5): 情報提供+案内+入力補助 only, NO advice, NO 作成代理. Member self-submits (G15). NOT a 行政書士/弁護士 firm, NOT an official channel.",
+  "actor.displayName" : "Toritsugi-tw-national — Household Registration Office (戶政事務所) of the municipality/county; policy authority: Department of Household Registration (戶政司), Ministry of the Interior (內政部)",
+  "procedure.list" : "Household registration & National ID Card / 戶籍登記及國民身分證",
+  "ui.accompany" : "مرافقة",
+  "actor.regime" : "tw-national",
+  "ui.guide" : "إرشاد",
+  "procedure.count" : "1 إجراءات",
+  "actor.name" : "toritsugi-tw-national"
+}

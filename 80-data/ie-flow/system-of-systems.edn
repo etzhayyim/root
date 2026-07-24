@@ -1,0 +1,212 @@
+;; system-of-systems.edn — THE RULE, as data. ADR-2606212200.
+;;
+;; RULE: every etzhayyim actor holds its system-of-systems (its membrane + its IE-flow) in EDN +
+;; Clojure (cljc) AND runs it as its 報酬系 (reward system) — the charter-aligned scalar that
+;; reinforces which mechanism it takes next. This file is the machine-readable form of the rule:
+;; the invariants every per-actor reward spec must carry, the tunable defaults, and the per-actor
+;; specs themselves. Validated by `etzhayyim.ie-flow.reward/validate-spec`; covered by
+;; `bb ieflow:coverage`. Generalises the opt-in adoption registry (registry.edn) into a mandate.
+{:rule
+ "Every actor = a bounded dissipative system (etzhayyim.ie-flow.boundary) whose behaviour is
+  reinforced by a reward signal (etzhayyim.ie-flow.reward) computed over ITS OWN IE-flow. The
+  reward rewards ORDER returned to society (共生), never raw profit, and is gated by the Tier-0
+  priorities so an actor can never be reinforced toward predation."
+
+ ;; ── the NON-NEGOTIABLE invariants (the Tier-0 priority itself; not an actor's to weaken) ──
+ :invariants
+ {:gates {:non-parasitism {:eta-floor 0.0}      ; 共生: net-gain ≥ 0 + η ≥ 0 (never a net taker / never dis-orders; η=1.0 is the max)
+          :subordinate    {:descendant-min 0.0} ; 子孫 wellbecoming ≥ 0 (persistence is instrumental)
+          :catastrophe    :veto                  ; child/descendant catastrophe ⇒ reward = −∞ (ECL objective-function.edn)
+          :anti-predatory :reject}               ; forbidden mechanism (manipulation/attention-exploitation/
+                                                 ;   asymmetric-surveillance/lock-in/coercion/deception) ⇒ reject
+  ;; what the reward system MUST structurally exclude (NEVER-a-throne, ADR-2606112200)
+  :exclude #{:social-credit :score-of-soul :person-ranking}
+  ;; the reward currency MUST be non-monetary (cash≡0, non-transferable, decaying — moyai pattern, ADR-2606062101)
+  :currency #{:non-monetary-decaying :non-monetary}
+  :weights-sum 1.0}
+
+ ;; ── the charter default weights (tunable per actor within the rule; η + 子孫 stay dominant) ──
+ :default-weights {:phi 0.25 :eta 0.30 :wellbecoming 0.25 :efficiency 0.12 :surprise 0.08}
+
+ ;; ── per-actor reward specs (partial overrides; spec-for merges these over the invariants) ──
+ ;; Each actor reweights the SAME charter-aligned terms toward its telos — a mirror weights η
+ ;; (release = its negentropy export) high; a commons weights 子孫 wellbecoming high; a synthesizer
+ ;; weights efficiency (leverage per unit drawn). The gates + exclusions are identical for all.
+ :actors
+ [{:actor "ibuki"    :weights {:phi 0.20 :eta 0.30 :wellbecoming 0.30 :efficiency 0.12 :surprise 0.08}
+   :telos "organism metabolism — return food-web commons in 共生"}
+  {:actor "tsumugi"  :weights {:phi 0.20 :eta 0.40 :wellbecoming 0.22 :efficiency 0.10 :surprise 0.08}
+   :telos "取-concentration mirror — RELEASE is the reward (η dominant)"}
+  {:actor "shionome" :weights {:phi 0.22 :eta 0.38 :wellbecoming 0.22 :efficiency 0.10 :surprise 0.08}
+   :telos "capital-flow observatory — map order, never trade"}
+  {:actor "kaname"   :weights {:phi 0.20 :eta 0.30 :wellbecoming 0.20 :efficiency 0.22 :surprise 0.08}
+   :telos "SoS leverage synthesizer — leverage per unit drawn (efficiency up)"}
+  {:actor "okaimono" :weights {:phi 0.18 :eta 0.27 :wellbecoming 0.35 :efficiency 0.12 :surprise 0.08}
+   :telos "provisioning commons — value returned to members (子孫 dominant)"}
+  {:actor "repo-git" :weights {:phi 0.30 :eta 0.30 :wellbecoming 0.20 :efficiency 0.12 :surprise 0.08}
+   :telos "the monorepo's own development metabolism (measured, not seeded)"}
+  ;; ── wave 2 (loop iteration 1): mirrors/observatories η-dominant · care/commons 子孫-dominant ·
+  ;;    infra Φ/efficiency-dominant — same charter-aligned terms, same non-negotiable gates ──
+  {:actor "danjo"     :weights {:phi 0.20 :eta 0.40 :wellbecoming 0.22 :efficiency 0.10 :surprise 0.08}
+   :telos "public-accountability mirror — disclosure is its negentropy export (η dominant)"}
+  {:actor "inochi"    :weights {:phi 0.18 :eta 0.32 :wellbecoming 0.30 :efficiency 0.12 :surprise 0.08}
+   :telos "biosphere mirror → RESTORATION (η + 子孫)"}
+  {:actor "hokorobi"  :weights {:phi 0.22 :eta 0.38 :wellbecoming 0.22 :efficiency 0.10 :surprise 0.08}
+   :telos "systemic-risk observatory → resilience (η dominant, never-trades)"}
+  {:actor "chie"      :weights {:phi 0.20 :eta 0.40 :wellbecoming 0.20 :efficiency 0.12 :surprise 0.08}
+   :telos "AI-landscape mirror → opening (η dominant)"}
+  {:actor "asobi"     :weights {:phi 0.18 :eta 0.30 :wellbecoming 0.32 :efficiency 0.12 :surprise 0.08}
+   :telos "freed-time / play mirror → access (子孫 dominant, no addictive design)"}
+  {:actor "fuchi"     :weights {:phi 0.16 :eta 0.24 :wellbecoming 0.40 :efficiency 0.12 :surprise 0.08}
+   :telos "maintainer sustenance allocator — give-only (子孫 dominant, cash≡0)"}
+  {:actor "hagukumi"  :weights {:phi 0.15 :eta 0.23 :wellbecoming 0.42 :efficiency 0.12 :surprise 0.08}
+   :telos "care (childcare + eldercare) — L4 Care (子孫 dominant)"}
+  {:actor "hikari"    :weights {:phi 0.30 :eta 0.24 :wellbecoming 0.18 :efficiency 0.20 :surprise 0.08}
+   :telos "energy gen/storage/grid-edge — L2 Sustenance (Φ + efficiency)"}
+  {:actor "igata"     :weights {:phi 0.32 :eta 0.22 :wellbecoming 0.16 :efficiency 0.22 :surprise 0.08}
+   :telos "HPDC megacasting — manufacture (Φ + efficiency dominant)"}
+  {:actor "chigiri"   :weights {:phi 0.20 :eta 0.30 :wellbecoming 0.30 :efficiency 0.12 :surprise 0.08}
+   :telos "legal-procedure substrate — fairness/access (η + 子孫, UPL-bounded)"}
+  {:actor "hinagata"  :weights {:phi 0.20 :eta 0.35 :wellbecoming 0.25 :efficiency 0.12 :surprise 0.08}
+   :telos "legal-document-template commons → public release (η dominant)"}
+  {:actor "hoshimori" :weights {:phi 0.18 :eta 0.30 :wellbecoming 0.28 :efficiency 0.16 :surprise 0.08}
+   :telos "orbital stewardship mirror → sustainability (η + 子孫)"}
+  ;; ── wave 3 (loop iteration 2) ──
+  {:actor "kabuto"    :weights {:phi 0.20 :eta 0.38 :wellbecoming 0.22 :efficiency 0.12 :surprise 0.08}
+   :telos "supply-chain KG mirror → redundancy (η dominant, never a target-list)"}
+  {:actor "kanjo"     :weights {:phi 0.20 :eta 0.40 :wellbecoming 0.20 :efficiency 0.12 :surprise 0.08}
+   :telos "financial-disclosure KG mirror → transparency (η dominant, no forecast)"}
+  {:actor "kanae"     :weights {:phi 0.20 :eta 0.36 :wellbecoming 0.24 :efficiency 0.12 :surprise 0.08}
+   :telos "fiscal-flow VISUALIZATION mirror → accountability (η + 子孫)"}
+  {:actor "kasa"      :weights {:phi 0.22 :eta 0.38 :wellbecoming 0.20 :efficiency 0.12 :surprise 0.08}
+   :telos "compute-capacity-growth observatory → planning (η dominant, never forecasts)"}
+  {:actor "kawaraban" :weights {:phi 0.20 :eta 0.36 :wellbecoming 0.24 :efficiency 0.12 :surprise 0.08}
+   :telos "news medium mirror → headline+link-out (η, no ads/surveillance)"}
+  {:actor "itonami"   :weights {:phi 0.22 :eta 0.34 :wellbecoming 0.24 :efficiency 0.12 :surprise 0.08}
+   :telos "mirror-lineage → openness (η dominant)"}
+  {:actor "akashi"    :weights {:phi 0.22 :eta 0.34 :wellbecoming 0.24 :efficiency 0.12 :surprise 0.08}
+   :telos "mirror-lineage → openness (η dominant)"}
+  {:actor "iyashi"    :weights {:phi 0.15 :eta 0.23 :wellbecoming 0.42 :efficiency 0.12 :surprise 0.08}
+   :telos "clinical care provider — L4 Care (子孫 dominant)"}
+  {:actor "kataribe"  :weights {:phi 0.20 :eta 0.30 :wellbecoming 0.30 :efficiency 0.12 :surprise 0.08}
+   :telos "press / publishing / translation → access (η + 子孫)"}
+  {:actor "kadode"    :weights {:phi 0.18 :eta 0.30 :wellbecoming 0.32 :efficiency 0.12 :surprise 0.08}
+   :telos "labour-resignation concierge → dignity (子孫 dominant, UPL-bounded)"}
+  {:actor "himawari"  :weights {:phi 0.18 :eta 0.30 :wellbecoming 0.32 :efficiency 0.12 :surprise 0.08}
+   :telos "care-lineage → relief (子孫 dominant)"}
+  {:actor "funadaiku" :weights {:phi 0.30 :eta 0.24 :wellbecoming 0.18 :efficiency 0.20 :surprise 0.08}
+   :telos "zero-emission cargo-ship building (Φ + efficiency)"}
+  {:actor "kamado"    :weights {:phi 0.28 :eta 0.24 :wellbecoming 0.20 :efficiency 0.20 :surprise 0.08}
+   :telos "closed-loop carbon refining — net≤0 (Φ + efficiency)"}
+  {:actor "kanayama"  :weights {:phi 0.26 :eta 0.22 :wellbecoming 0.24 :efficiency 0.20 :surprise 0.08}
+   :telos "circular metallurgy / urban mining → recovery (Φ + eff + 子孫)"}
+  {:actor "hodoki"    :weights {:phi 0.24 :eta 0.22 :wellbecoming 0.26 :efficiency 0.20 :surprise 0.08}
+   :telos "ELV disassembly + materials recovery (Φ + eff + 子孫)"}
+  {:actor "ake"       :weights {:phi 0.18 :eta 0.32 :wellbecoming 0.30 :efficiency 0.12 :surprise 0.08}
+   :telos "community-edit membrane → collaborative correction (η + 子孫)"}
+  ;; ── wave 4 (loop iteration 3) ──
+  {:actor "keizu"     :weights {:phi 0.20 :eta 0.38 :wellbecoming 0.22 :efficiency 0.12 :surprise 0.08}
+   :telos "government power-relations KG mirror → accountability (η, no-doxxing)"}
+  {:actor "kosatsu"   :weights {:phi 0.20 :eta 0.38 :wellbecoming 0.22 :efficiency 0.12 :surprise 0.08}
+   :telos "crime/sanctions competing-claim observatory → neutral fact (η, non-adjudicating)"}
+  {:actor "mitooshi"  :weights {:phi 0.20 :eta 0.34 :wellbecoming 0.26 :efficiency 0.12 :surprise 0.08}
+   :telos "probabilistic forecasting observatory → distribution (η, never-trades)"}
+  {:actor "hakoniwa"  :weights {:phi 0.22 :eta 0.34 :wellbecoming 0.24 :efficiency 0.12 :surprise 0.08}
+   :telos "forward-simulation observatory → resilience (η, synthetic personas)"}
+  {:actor "junkan"    :weights {:phi 0.22 :eta 0.34 :wellbecoming 0.24 :efficiency 0.12 :surprise 0.08}
+   :telos "system-dynamics CLD/Meadows → leverage analysis (η, analysis-only)"}
+  {:actor "kizashi"   :weights {:phi 0.18 :eta 0.28 :wellbecoming 0.34 :efficiency 0.12 :surprise 0.08}
+   :telos "non-invasive sign-sensing instrument → care boundary (子孫, non-diagnostic)"}
+  {:actor "kokoro"    :weights {:phi 0.15 :eta 0.23 :wellbecoming 0.42 :efficiency 0.12 :surprise 0.08}
+   :telos "mental-health support → relief (子孫 dominant)"}
+  {:actor "mitate"    :weights {:phi 0.16 :eta 0.26 :wellbecoming 0.38 :efficiency 0.12 :surprise 0.08}
+   :telos "diagnosis-routing → care (子孫 dominant)"}
+  {:actor "manabi"    :weights {:phi 0.16 :eta 0.28 :wellbecoming 0.36 :efficiency 0.12 :surprise 0.08}
+   :telos "open-curriculum education → access (子孫 dominant)"}
+  {:actor "mimamori"  :weights {:phi 0.18 :eta 0.28 :wellbecoming 0.34 :efficiency 0.12 :surprise 0.08}
+   :telos "covenant-keeping membrane → relief (子孫, NEVER-a-throne)"}
+  {:actor "futawa"    :weights {:phi 0.30 :eta 0.24 :wellbecoming 0.18 :efficiency 0.20 :surprise 0.08}
+   :telos "small-displacement motorcycle mfg (Φ + efficiency)"}
+  {:actor "makura"    :weights {:phi 0.30 :eta 0.22 :wellbecoming 0.18 :efficiency 0.22 :surprise 0.08}
+   :telos "foam pillow mfg (Φ + efficiency)"}
+  {:actor "mitsuho"   :weights {:phi 0.24 :eta 0.22 :wellbecoming 0.28 :efficiency 0.18 :surprise 0.08}
+   :telos "food / agriculture — L2 Sustenance (Φ + 子孫)"}
+  {:actor "mizuho"    :weights {:phi 0.24 :eta 0.22 :wellbecoming 0.28 :efficiency 0.18 :surprise 0.08}
+   :telos "water + sanitation — community-scale (Φ + 子孫)"}
+  {:actor "kuni-umi"  :weights {:phi 0.30 :eta 0.22 :wellbecoming 0.18 :efficiency 0.22 :surprise 0.08}
+   :telos "planetary-infra producer (Φ + efficiency)"}
+  {:actor "kazaori"   :weights {:phi 0.22 :eta 0.24 :wellbecoming 0.34 :efficiency 0.12 :surprise 0.08}
+   :telos "civilian disaster response → relief (子孫 dominant, force-separation)"}
+  {:actor "himotoki"  :weights {:phi 0.18 :eta 0.32 :wellbecoming 0.30 :efficiency 0.12 :surprise 0.08}
+   :telos "active disclosure-request filer → own-data access (η + 子孫)"}
+  {:actor "kurashimori" :weights {:phi 0.18 :eta 0.32 :wellbecoming 0.30 :efficiency 0.12 :surprise 0.08}
+   :telos "consumer-protection concierge → rights (η + 子孫, UPL-bounded)"}
+  ;; ── wave 5 (loop iteration 4): full-roster sweep — telos-weighted where known, neutral elsewhere ──
+  {:actor "ooyake"    :weights {:phi 0.20 :eta 0.38 :wellbecoming 0.22 :efficiency 0.12 :surprise 0.08} :telos "government atlas mirror (η)"}
+  {:actor "tadori"    :weights {:phi 0.20 :eta 0.38 :wellbecoming 0.22 :efficiency 0.12 :surprise 0.08} :telos "on-chain tx tracing/attribution mirror (η)"}
+  {:actor "shiori"    :weights {:phi 0.18 :eta 0.32 :wellbecoming 0.30 :efficiency 0.12 :surprise 0.08} :telos "Wellbecoming-detractor observatory → relief (η + 子孫)"}
+  {:actor "sukashi"   :weights {:phi 0.20 :eta 0.38 :wellbecoming 0.22 :efficiency 0.12 :surprise 0.08} :telos "ad-tech fraud-network observatory (η)"}
+  {:actor "tatara"    :weights {:phi 0.20 :eta 0.38 :wellbecoming 0.22 :efficiency 0.12 :surprise 0.08} :telos "manufacturing-plant geographic KG (η)"}
+  {:actor "uchiwake"  :weights {:phi 0.20 :eta 0.38 :wellbecoming 0.22 :efficiency 0.12 :surprise 0.08} :telos "product BOM / GTIN KG (η)"}
+  {:actor "watari"    :weights {:phi 0.20 :eta 0.36 :wellbecoming 0.24 :efficiency 0.12 :surprise 0.08} :telos "live ship/aircraft position KG (η, no person-tracking)"}
+  {:actor "watatsuna" :weights {:phi 0.20 :eta 0.38 :wellbecoming 0.22 :efficiency 0.12 :surprise 0.08} :telos "submarine-cable KG → redundancy (η)"}
+  {:actor "rasen"     :weights {:phi 0.18 :eta 0.32 :wellbecoming 0.30 :efficiency 0.12 :surprise 0.08} :telos "public-genetics KG → care/research (η + 子孫)"}
+  {:actor "tsugite"   :weights {:phi 0.18 :eta 0.30 :wellbecoming 0.32 :efficiency 0.12 :surprise 0.08} :telos "peoples-continuity mirror → continuity (子孫)"}
+  {:actor "tanemaki"  :weights {:phi 0.18 :eta 0.32 :wellbecoming 0.30 :efficiency 0.12 :surprise 0.08} :telos "Public-Fund grant-steward (η + 子孫)"}
+  {:actor "toritate"  :weights {:phi 0.22 :eta 0.34 :wellbecoming 0.22 :efficiency 0.14 :surprise 0.08} :telos "accounting + audit (η + Φ)"}
+  {:actor "tokigusuri" :weights {:phi 0.18 :eta 0.32 :wellbecoming 0.30 :efficiency 0.12 :surprise 0.08} :telos "patent-cliff access observatory → release (η + 子孫)"}
+  {:actor "nusa"      :weights {:phi 0.20 :eta 0.34 :wellbecoming 0.26 :efficiency 0.12 :surprise 0.08} :telos "hemp heritage datafication (η)"}
+  {:actor "watatsumi" :weights {:phi 0.30 :eta 0.22 :wellbecoming 0.18 :efficiency 0.22 :surprise 0.08} :telos "civilian submersible (Φ + eff)"}
+  {:actor "ossekai"   :weights {:phi 0.16 :eta 0.26 :wellbecoming 0.38 :efficiency 0.12 :surprise 0.08} :telos "info-arbitrage + Wellbecoming-nudge → relief (子孫)"}
+  {:actor "wakai"     :weights {:phi 0.15 :eta 0.23 :wellbecoming 0.42 :efficiency 0.12 :surprise 0.08} :telos "mutual aid → relief (子孫)"}
+  {:actor "tasuke"    :weights {:phi 0.16 :eta 0.24 :wellbecoming 0.40 :efficiency 0.12 :surprise 0.08} :telos "cybercrime-victim support → recovery (子孫)"}
+  {:actor "suimin"    :weights {:phi 0.16 :eta 0.28 :wellbecoming 0.36 :efficiency 0.12 :surprise 0.08} :telos "sleep-disorder treatment evidence (子孫)"}
+  {:actor "musubi"    :weights {:phi 0.16 :eta 0.26 :wellbecoming 0.38 :efficiency 0.12 :surprise 0.08} :telos "covenant ceremony (子孫)"}
+  {:actor "shidemori" :weights {:phi 0.16 :eta 0.26 :wellbecoming 0.38 :efficiency 0.12 :surprise 0.08} :telos "memorial + cemetery (子孫)"}
+  {:actor "suji"      :weights {:phi 0.18 :eta 0.28 :wellbecoming 0.34 :efficiency 0.12 :surprise 0.08} :telos "musculoskeletal posture-load sim (子孫, non-diagnostic)"}
+  {:actor "shomei"    :weights {:phi 0.18 :eta 0.30 :wellbecoming 0.32 :efficiency 0.12 :surprise 0.08} :telos "self-sovereign identity → assurance (η + 子孫)"}
+  {:actor "tsukuroi"  :weights {:phi 0.18 :eta 0.32 :wellbecoming 0.30 :efficiency 0.12 :surprise 0.08} :telos "vuln-remediation patch-proposer (η + 子孫, propose-only)"}
+  {:actor "moushibumi" :weights {:phi 0.18 :eta 0.32 :wellbecoming 0.30 :efficiency 0.12 :surprise 0.08} :telos "democratic-participation concierge (η + 子孫)"}
+  {:actor "toritsugi" :weights {:phi 0.18 :eta 0.32 :wellbecoming 0.30 :efficiency 0.12 :surprise 0.08} :telos "government-procedure concierge (η + 子孫, UPL-bounded)"}
+  {:actor "meisai"    :weights {:phi 0.18 :eta 0.30 :wellbecoming 0.32 :efficiency 0.12 :surprise 0.08} :telos "member card-statement ingestion → own-data (子孫)"}
+  {:actor "sonae"     :weights {:phi 0.18 :eta 0.26 :wellbecoming 0.36 :efficiency 0.12 :surprise 0.08} :telos "pre-disaster foresight/preparedness → relief (子孫)"}
+  {:actor "sarutahiko" :weights {:phi 0.30 :eta 0.24 :wellbecoming 0.18 :efficiency 0.20 :surprise 0.08} :telos "Class-8 truck mfg (Φ + eff)"}
+  {:actor "sanae"     :weights {:phi 0.26 :eta 0.22 :wellbecoming 0.24 :efficiency 0.20 :surprise 0.08} :telos "field-agriculture OSS-robotics (Φ + eff + 子孫)"}
+  {:actor "wadachi"   :weights {:phi 0.30 :eta 0.24 :wellbecoming 0.18 :efficiency 0.20 :surprise 0.08} :telos "autonomous-mobility R&D (Φ + eff)"}
+  {:actor "todoke"    :weights {:phi 0.26 :eta 0.24 :wellbecoming 0.22 :efficiency 0.20 :surprise 0.08} :telos "last-mile autonomous delivery (Φ + eff + 子孫)"}
+  {:actor "tazuna"    :weights {:phi 0.30 :eta 0.24 :wellbecoming 0.18 :efficiency 0.20 :surprise 0.08} :telos "remote-robotics teleoperation (Φ + eff)"}
+  {:actor "tatekata"  :weights {:phi 0.30 :eta 0.24 :wellbecoming 0.18 :efficiency 0.20 :surprise 0.08} :telos "construction (civil + MEP) (Φ + eff)"}
+  {:actor "yakushi"   :weights {:phi 0.24 :eta 0.22 :wellbecoming 0.28 :efficiency 0.18 :surprise 0.08} :telos "pharmaceutical mfg (Φ + 子孫)"}
+  {:actor "tsutae"    :weights {:phi 0.30 :eta 0.24 :wellbecoming 0.18 :efficiency 0.20 :surprise 0.08} :telos "handheld comms device mfg (Φ + eff)"}
+  {:actor "suki"      :weights {:phi 0.30 :eta 0.24 :wellbecoming 0.18 :efficiency 0.20 :surprise 0.08} :telos "farm tractor mfg (Φ + eff)"}
+  {:actor "noroshi"   :weights {:phi 0.30 :eta 0.24 :wellbecoming 0.18 :efficiency 0.20 :surprise 0.08} :telos "photonics-electronics comms chip (Φ + eff)"}
+  {:actor "torifune"  :weights {:phi 0.30 :eta 0.22 :wellbecoming 0.18 :efficiency 0.22 :surprise 0.08} :telos "zero-net-carbon launch-vehicle mfg (Φ + eff)"}
+  {:actor "hotaru"    :weights {:phi 0.20 :eta 0.34 :wellbecoming 0.26 :efficiency 0.12 :surprise 0.08} :telos "III-V substrate open-publication commons (η)"}
+  {:actor "yadori"    :weights {:phi 0.18 :eta 0.32 :wellbecoming 0.30 :efficiency 0.12 :surprise 0.08} :telos "DNS-availability + domain acquisition (η + 子孫)"}
+  {:actor "subaru"    :weights {:phi 0.24 :eta 0.22 :wellbecoming 0.28 :efficiency 0.18 :surprise 0.08} :telos "connectivity-commons satellite (§1.16 子孫 + Φ)"}
+  {:actor "infra-utility-connect" :weights {:phi 0.30 :eta 0.24 :wellbecoming 0.18 :efficiency 0.20 :surprise 0.08} :telos "basic-utility connection infra (Φ + eff)"}
+  {:actor "aburi"     :weights {:phi 0.22 :eta 0.30 :wellbecoming 0.28 :efficiency 0.12 :surprise 0.08} :telos "neutral (telos pending refinement)"}
+  {:actor "gov-municipality" :weights {:phi 0.20 :eta 0.36 :wellbecoming 0.24 :efficiency 0.12 :surprise 0.08} :telos "municipal gov mirror (η)"}
+  {:actor "kawase-yui" :weights {:phi 0.22 :eta 0.30 :wellbecoming 0.28 :efficiency 0.12 :surprise 0.08} :telos "neutral (telos pending refinement)"}
+  {:actor "seigyo"    :weights {:phi 0.28 :eta 0.24 :wellbecoming 0.18 :efficiency 0.22 :surprise 0.08} :telos "control/制御 substrate (Φ + eff)"}
+  {:actor "sentei"    :weights {:phi 0.22 :eta 0.30 :wellbecoming 0.28 :efficiency 0.12 :surprise 0.08} :telos "neutral (telos pending refinement)"}
+  {:actor "shirabe"   :weights {:phi 0.20 :eta 0.36 :wellbecoming 0.24 :efficiency 0.12 :surprise 0.08} :telos "inquiry/observatory (η)"}
+  {:actor "umisachi"  :weights {:phi 0.28 :eta 0.24 :wellbecoming 0.22 :efficiency 0.18 :surprise 0.08} :telos "marine-resource (Φ + 子孫)"}
+  {:actor "utsushie"  :weights {:phi 0.22 :eta 0.32 :wellbecoming 0.26 :efficiency 0.12 :surprise 0.08} :telos "rendering/mirror (η)"}
+  {:actor "yamabiko"  :weights {:phi 0.22 :eta 0.32 :wellbecoming 0.26 :efficiency 0.12 :surprise 0.08} :telos "signal/echo mirror (η)"}
+  ;; ── social-capital growth react-runtime (ADR-2606261114): η→1 + close captured-gap ──
+  {:actor "minori"    :weights {:phi 0.18 :eta 0.34 :wellbecoming 0.28 :efficiency 0.12 :surprise 0.08} :telos "social-capital growth runtime — raise η→1 (net-giver) + close captured-gap, 共生 (η dominant)"}
+  ;; ── wave 6: manifest.jsonld-roster catch-up (ie-flow coverage worklist) ──
+  {:actor "hibiki"    :weights {:phi 0.20 :eta 0.32 :wellbecoming 0.28 :efficiency 0.12 :surprise 0.08} :telos "ossekai-proposal → presentation medium (utsushie's twin) → clarity+resonance, never compliance-engineering (η + 子孫)"}
+  {:actor "kenchi"    :weights {:phi 0.20 :eta 0.38 :wellbecoming 0.22 :efficiency 0.12 :surprise 0.08} :telos "external-market real-estate valuation/transparency mirror — provenance-or-silence, never values inalienable Land Trust holdings (η dominant)"}]
+
+ ;; ── rollout: the rule applies to the WHOLE roster ──
+ ;; The 6 specs above are exemplars. Every actor in the roster (Status § Tier-B actors) MUST grow a
+ ;; spec here (or in orgs/etzhayyim/com-etzhayyim-<name>/system.edn) + embed the reward primitive. Coverage is
+ ;; measured by `bb ieflow:coverage`; un-specced actors fall back to :default-weights + the invariants
+ ;; (so the rule is never violated by omission — only under-tuned). Live per-actor measurement comes
+ ;; from the actor's own `embed` verbs (record!/beat!), G7-gated; until then specs use the
+ ;; representative boundary seed (etzhayyim.ie-flow.boundary).
+ :rollout "FULL ROSTER specced (100%, loop iter4). Next: refine the few `neutral (telos pending)` weights
+  as each actor's purpose is confirmed, and replace representative seeds with live `embed` measurement
+  (G7). Coverage is tracked; the gates are never weakened; new actors inherit defaults+invariants."}

@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@etzhayyim/sdk':
-        specifier: file:../../../../20-actors/etzhayyim-sdk
-        version: file:../../../../20-actors/etzhayyim-sdk(typescript@5.9.3)(zod@3.25.76)
+        specifier: file:../../../../../com-etzhayyim-sdk
+        version: file:../../../../../com-etzhayyim-sdk(typescript@5.9.3)(zod@3.25.76)
       hono:
         specifier: ^4.6.0
         version: 4.12.19
@@ -267,8 +267,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@etzhayyim/sdk@file:../../../../20-actors/etzhayyim-sdk':
-    resolution: {directory: ../../../../20-actors/etzhayyim-sdk, type: directory}
+  '@etzhayyim/sdk@file:../../../../../com-etzhayyim-sdk':
+    resolution: {directory: ../../../../../com-etzhayyim-sdk, type: directory}
     hasBin: true
 
   '@fastify/busboy@2.1.1':
@@ -998,7 +998,7 @@ snapshots:
   '@esbuild/win32-x64@0.17.19':
     optional: true
 
-  '@etzhayyim/sdk@file:../../../../20-actors/etzhayyim-sdk(typescript@5.9.3)(zod@3.25.76)':
+  '@etzhayyim/sdk@file:../../../../../com-etzhayyim-sdk(typescript@5.9.3)(zod@3.25.76)':
     dependencies:
       '@atproto/api': 0.13.35
       '@atproto/common': 0.5.16

@@ -18,10 +18,10 @@ npm run enable-kv              # creates ACTOR_KV, publishes records, deploys
 
 `enable-kv` runs `wrangler kv namespace create ACTOR_KV`, appends the
 `[[kv_namespaces]]` binding to `wrangler.toml`, runs
-`publish-actor-records.mjs --put-kv`, and `wrangler deploy`.
+`publish-actor-records.cljs --put-kv`, and `wrangler deploy`.
 
 For the kotoba pull tier, set `KOTOBA_ENDPOINT` in `wrangler.toml` to the etzhayyim
-kotoba read surface, then `node scripts/publish-actor-records.mjs --ingest-kotoba`.
+kotoba read surface, then `npx nbb scripts/publish-actor-records.cljs --ingest-kotoba`.
 
 ## 2. First-party trustless IPFS gateway
 
@@ -64,10 +64,20 @@ libp2p `/x/etzhayyim/xrpc/1.0` is the remaining transport wiring.
 ## Tests
 
 ```bash
+npm run test:cljs                          # bb: did-web router / CLJC ownership (incl. /organism)
 npm test                                   # did-web: car + erc725 (node:test)
 node 50-infra/e7m-wasm-runner/ ; npm test  # runner
-(cd 20-actors/ameno && npm test)           # ameno: loader + panel
+(cd orgs/etzhayyim/com-etzhayyim-ameno && npm test)           # ameno: loader + panel
 ```
+
+The CLJC-owned public surfaces currently include `/`, `/organism`,
+`/system-dynamics`, and `/actor/<handle>/system-dynamics`, all rendered without
+`sh` wrappers in the bb test path.
+
+`/organism` is rendered by cljs/Hiccup in `cljs/src/did_web/core.cljs`. The
+standalone `public/organism/index.html` entrypoint has been retired; keep the
+JSON snapshots under `public/organism/*.json` current instead of editing a
+separate HTML file.
 
 ## kotoba browser-publish (member-signed feed)
 

@@ -61,7 +61,7 @@ const STORAGE_PATTERNS = [
 // Path prefixes that legitimately use the substrate (mirrors lint allowedPrefixes,
 // trimmed to the ones relevant under the scanned roots).
 const ALLOWED_PREFIXES = [
-  "20-actors/etzhayyim-sdk/",
+  "orgs/etzhayyim/com-etzhayyim-sdk/",
   "50-infra/etzhayyim-sdk-checkpointer/",
   "50-infra/mst-projector/",
   "50-infra/anchor-cron/",

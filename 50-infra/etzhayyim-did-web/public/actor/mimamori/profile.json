@@ -24,7 +24,7 @@
       "2606112200"
     ],
     "primaryLexicon": "com.etzhayyim.mimamori",
-    "primarySchema": "00-contracts/schemas/mishmeret-ontology.kotoba.edn",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-mimamori/schema.edn",
     "didDocument": "https://etzhayyim.com/actor/mimamori/did.json",
     "source": "kotoba"
   }

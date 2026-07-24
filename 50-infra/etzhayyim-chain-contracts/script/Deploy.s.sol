@@ -266,11 +266,11 @@ contract Deploy is Script {
         // this via getMutable. The Rider version is a parameter (tracks amendments);
         // the Rider text-hash anchors integrity, wired post-ratification (= 0 here).
         keys[8]  = ConstitutionKeys.TITHE_BPS;                       vals[8]  = bytes32(uint256(1_000));  // 10.00%
-        keys[9]  = ConstitutionKeys.LICENSE_CHARTER_RIDER_VERSION;   vals[9]  = bytes32("v3.0");
-        // keccak256 of the exact bytes of /CHARTER-RIDER.md (v3.0). Drift-locked by
+        keys[9]  = ConstitutionKeys.LICENSE_CHARTER_RIDER_VERSION;   vals[9]  = bytes32("v3.6");
+        // keccak256 of the exact bytes of /CHARTER-RIDER.md (v3.6). Drift-locked by
         // ConstitutionInvariants.t.sol::test_rider_text_hash_matches_file — editing the
         // Rider without updating this literal fails CI. (ADR-2606062100 §4 anchor.)
-        keys[10] = ConstitutionKeys.LICENSE_CHARTER_RIDER_TEXT_HASH; vals[10] = 0xf5fd8d96fae247fadfaa72b616d2163095b6dcf3c4b3b76b9f09688cd356dfa7;
+        keys[10] = ConstitutionKeys.LICENSE_CHARTER_RIDER_TEXT_HASH; vals[10] = 0x549c99eacb894c9bc74025cf09cb892b6b66e407b112c7c528ab6e7c9b14630b;
 
         // ─── Reference addresses (6) — initial = address(0)        ───
         // Wired post-deploy via Governance proposal + 48h+ timelock.

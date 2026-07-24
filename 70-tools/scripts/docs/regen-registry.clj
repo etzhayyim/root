@@ -32,6 +32,7 @@
 (ns regen-registry
   (:require [babashka.fs :as fs]
             [cheshire.core :as json]
+            [clojure.edn :as edn]
             [clojure.string :as str]))
 
 ;; REPO = parents[3] of this script: docs -> scripts -> 70-tools -> REPO
@@ -122,22 +123,112 @@
 (defn- entry-id [pairs]
   (or (some (fn [[k v]] (when (= k "id") v)) pairs) ""))
 
+(defn- kw-name [k]
+  (cond (keyword? k) (name k)
+        (string? k) k
+        :else (str k)))
+
+(defn- scalar-str [v]
+  (cond
+    (keyword? v) (name v)
+    (instance? java.util.Date v)
+    (subs (str (java.time.Instant/ofEpochMilli (.getTime ^java.util.Date v))) 0 10)
+    :else (str v)))
+
+(defn- entity->fm
+  "Extract registry front-matter map from an EDN tx-data entity
+   ([{:db/id -1 :adr/id ...}] or bare map / :frontmatter form)."
+  [m]
+  (when (map? m)
+    (let [base (if (map? (:frontmatter m))
+                 (merge (dissoc m :frontmatter :body :body-file) (:frontmatter m))
+                 m)
+          ;; prefer :adr/* / :doc/* then bare keys
+          getv (fn [& ks]
+                 (some (fn [k]
+                         (or (get base k)
+                             (get base (keyword "adr" (name k)))
+                             (get base (keyword "doc" (name k)))
+                             (get base (name k))))
+                       ks))
+          id (getv :id :adr/id :doc/id)]
+      (when id
+        (cond-> {"id" (str id)
+                 "title" (str (or (getv :title :adr/title :doc/title) id))
+                 "status" (scalar-str (or (getv :status :adr/status :doc/status) "active"))
+                 "doc_type" (scalar-str (or (getv :doc_type :doc-type :adr/doc_type :adr/doc-type :doc/doc_type) "doc"))
+                 "topic" (scalar-str (or (getv :topic :adr/topic :doc/topic) ""))
+                 "authoritative" (boolean (getv :authoritative :adr/authoritative :doc/authoritative))}
+          (getv :last_verified :last-verified :adr/last_verified :adr/last-verified)
+          (assoc "last_verified" (scalar-str (getv :last_verified :last-verified :adr/last_verified :adr/last-verified)))
+          (sequential? (getv :related :adr/related :doc/related))
+          (assoc "related" (mapv str (getv :related :adr/related :doc/related)))
+          (sequential? (getv :authoritative_for :authoritative-for :adr/authoritative_for :adr/authoritative-for))
+          (assoc "authoritative_for" (mapv str (getv :authoritative_for :authoritative-for :adr/authoritative_for :adr/authoritative-for)))
+          (sequential? (getv :supersedes :adr/supersedes))
+          (assoc "supersedes" (mapv str (getv :supersedes :adr/supersedes)))
+          (sequential? (getv :superseded_by :superseded-by :adr/superseded_by :adr/superseded-by))
+          (assoc "superseded_by" (mapv str (getv :superseded_by :superseded-by :adr/superseded_by :adr/superseded-by)))
+          (sequential? (getv :amends :adr/amends))
+          (assoc "amends" (mapv str (getv :amends :adr/amends)))
+          (sequential? (getv :amended_by :amended-by :adr/amended_by :adr/amended-by))
+          (assoc "amended_by" (mapv str (getv :amended_by :amended-by :adr/amended_by :adr/amended-by))))))))
+
+(defn- parse-edn-doc
+  "Parse EDN doc file → front-matter map or nil."
+  [text]
+  (try
+    (let [form (edn/read-string {:default (fn [_tag v] v)} text)]
+      (cond
+        (and (vector? form) (map? (first form))) (entity->fm (first form))
+        (map? form) (or (entity->fm form)
+                        (when-let [fm (parse-frontmatter (or (:body form) ""))]
+                          (when (get fm "id") fm)))
+        :else nil))
+    (catch Exception _ nil)))
+
 (defn scan-docs []
-  ;; "**.md" matches every *.md recursively INCLUDING files directly under
-  ;; 90-docs (Python's rglob("*.md")); "**/*.md" would miss the top-level ones.
-  (->> (fs/glob docs-root "**.md")
-       (map str)
-       sort
-       (keep (fn [p]
-               (let [parts (set (map str (fs/components p)))]
-                 (when-not (or (contains? parts "_registry")
-                               (= "CLAUDE.md" (fs/file-name p)))
-                   (let [text (try (slurp p) (catch Exception _ nil))
-                         fm   (when text (parse-frontmatter text))]
-                     (when (and fm (get fm "id"))
-                       (build-entry (str (fs/relativize repo p)) fm)))))))
-       (sort-by entry-id)
-       vec))
+  ;; EDN-only SSoT (ADR-2607171600 / superproject alignment): scan **.edn and
+  ;; legacy **.md / **.md.edn. Prefer .edn when both exist.
+  (let [md-files (->> (fs/glob docs-root "**.md") (map str))
+        md-edn-files (->> (fs/glob docs-root "**.md.edn") (map str))
+        edn-files (->> (fs/glob docs-root "**.edn")
+                       (map str)
+                       (remove #(str/ends-with? % ".md.edn"))
+                       (remove #(str/includes? % "/_registry/"))
+                       (remove #(= "deps.edn" (fs/file-name %))))
+        ;; path without extension for dedupe: prefer edn > md.edn > md
+        strip (fn [p]
+                (-> p
+                    (str/replace #"\.md\.edn$" "")
+                    (str/replace #"\.edn$" "")
+                    (str/replace #"\.md$" "")))
+        by-base (atom {})]
+    (doseq [p md-files]
+      (swap! by-base assoc (strip p) p))
+    (doseq [p md-edn-files]
+      (swap! by-base assoc (strip p) p))
+    (doseq [p edn-files]
+      (swap! by-base assoc (strip p) p))
+    (->> (vals @by-base)
+         sort
+         (keep (fn [p]
+                 (let [parts (set (map str (fs/components p)))
+                       name (fs/file-name p)]
+                   (when-not (or (contains? parts "_registry")
+                                 (= "CLAUDE.md" name)
+                                 (= "CLAUDE.edn" name)
+                                 (= "deps.edn" name))
+                     (let [text (try (slurp p) (catch Exception _ nil))
+                           fm (when text
+                                (cond
+                                  (str/ends-with? p ".edn") (or (parse-edn-doc text)
+                                                                (parse-frontmatter text))
+                                  :else (parse-frontmatter text)))]
+                       (when (and fm (get fm "id"))
+                         (build-entry (str (fs/relativize repo p)) fm)))))))
+         (sort-by entry-id)
+         vec)))
 
 (defn today-iso [] (str (java.time.LocalDate/now)))
 

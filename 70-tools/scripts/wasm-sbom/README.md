@@ -59,7 +59,8 @@ curl -fsS -XPOST "$KOTOBA_URL/xrpc/com.etzhayyim.apps.kotobase.kg.ingest_batch" 
   --data @py/agent.wasm.sbom.ingest.json
 ```
 
-`20-actors/sumitsubo/kotoba/deploy.sh` runs all of the above automatically after
+`orgs/etzhayyim/com-etzhayyim-sumitsubo/kotoba/deploy.edn` records the
+operator-gated deployment and SBOM requirement; an operator implementation runs the above after
 the `componentize-py` build (ingest only when `KOTOBA_TOKEN` is set).
 
 ## Honesty (version provenance)

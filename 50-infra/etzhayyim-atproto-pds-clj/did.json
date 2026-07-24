@@ -1,0 +1,28 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/multikey/v1"
+  ],
+  "id": "did:web:atproto.etzhayyim.com",
+  "alsoKnownAs": [
+    "https://atproto.etzhayyim.com"
+  ],
+  "verificationMethod": [],
+  "service": [
+    {
+      "id": "#atproto_pds",
+      "type": "AtprotoPersonalDataServer",
+      "serviceEndpoint": "https://atproto.etzhayyim.com"
+    },
+    {
+      "id": "#bsky_appview",
+      "type": "BskyAppView",
+      "serviceEndpoint": "https://bsky.etzhayyim.com"
+    },
+    {
+      "id": "#bsky_chat",
+      "type": "BskyChatService",
+      "serviceEndpoint": "https://chat.etzhayyim.com"
+    }
+  ]
+}

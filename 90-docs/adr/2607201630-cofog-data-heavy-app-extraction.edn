@@ -1,0 +1,7 @@
+{:schema "etzhayyim.adr/v1" :id "2607201630" :title "Extract COFOG data-heavy application" :status :accepted :date "2026-07-20"
+ :scope {:source-repository "etzhayyim/root" :source-revision "4d24eba6f26fd2b2f9c7378141dadcff7db34287" :directories 1 :tracked-files 1229 :bytes 868960 :git-tree "4ab3481962f9c29f85df05716e576577c90afb2e"}
+ :decision {:classification :data-heavy-independent-application :destination "etzhayyim/com-etzhayyim-app-cofog" :root-common-substrate false :nested-subrepo-markers :preserved-provenance}
+ :extraction-contract {:repository-visibility :private :canonical-files ["README.edn" "migration.edn"] :source-preservation "Destination differs from the exact source tree only by canonical EDN files."}
+ :reference-classification {:removed-operational-audit-exclusion true :stale-upstream-baseline-change 0 :preserved-historical-fixture-provenance true}
+ :invariants {:canonical-record-format :edn :go-files-created 0 :tinygo-files-created 0 :flat-west-path "orgs/etzhayyim/com-etzhayyim-app-*"}
+ :verification [:private-repository :exact-remote-sha :source-tree-identity :byte-count :edn-readable :operational-reference-audit :registry-freshness]}
