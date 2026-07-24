@@ -20,7 +20,7 @@
     "@atproto/api": "^0.20.9",
     "@msgpack/msgpack": "^3.1.0",
     "@noble/hashes": "^2.2.0",
-    "viem": "^2.52.2"
+    "viem": "^2.55.4"
   },
   "devDependencies": {
     "@types/node": "^25.9.2",
