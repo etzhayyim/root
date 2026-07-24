@@ -214,7 +214,7 @@ contract EtzhayyimPaymaster {
         // opSucceeded   → userOp succeeded, gas paid.
         // opReverted    → userOp reverted but gas still consumed/paid by paymaster (design choice: count it).
         // postOpReverted→ retry after postOp revert; EntryPoint reverted prior postOp state, so we add again.
-        senderSpentOnDay[sender][day] += actual;
+        senderSpentOnDay[sender][currentDay] += actual;
         // Silence unused warning while documenting intent.
         if (mode == PostOpMode.postOpReverted) {
             // Explicit no-op branch to document that postOpReverted is handled by re-adding.
