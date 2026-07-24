@@ -1,0 +1,49 @@
+;; XRPC Policy Routing Map
+;;
+;; Defines which OPA policies MUST be evaluated for each NSID pattern.
+;; This ensures the dual-gate structure (dispatch + arms) is enforced.
+;;
+;; Format: {nsid-pattern [required-policy-names]}
+;;
+;; Policy names correspond to packages in 00-contracts/policies/etzhayyim/xrpc/
+;;   - "dispatch"  -> etzhayyim.xrpc.dispatch (outer routing gate)
+;;   - "arms"      -> etzhayyim.xrpc.arms     (inner detail gate for arms NSIDs)
+;;
+;; Rules:
+;; 1. More specific patterns take precedence (first match wins)
+;; 2. Every NSID MUST have at least "dispatch" policy
+;; 3. Arms NSIDs (com.etzhayyim.apps.arms.*) MUST have both "dispatch" AND "arms"
+;; 4. Patterns use prefix matching (nsid.startsWith(pattern)) unless exact=true
+
+{:routing-map
+ ;; === Arms endpoints (dual-gate: dispatch + arms) ===
+ "com.etzhayyim.apps.arms."             ["dispatch" "arms"]
+ ;; Specific arms methods requiring holder auth session
+ "com.etzhayyim.apps.arms.transferCustody"  ["dispatch" "arms"]
+ "com.etzhayyim.apps.arms.checkOutFirearm"  ["dispatch" "arms"]
+
+ ;; === Kotoba graph query endpoints (dispatch only) ===
+ "com.etzhayyim.apps.kotoba."           ["dispatch"]
+ "com.etzhayyim.apps.kotobase."         ["dispatch"]
+
+ ;; === etzhayyim platform extensions (dispatch only) ===
+ "com.etzhayyim."                       ["dispatch"]
+
+ ;; === UNSPSC actors (dispatch only) ===
+ "com.etzhayyim.apps.unispsc."          ["dispatch"]
+
+ ;; === AT Protocol / Bluesky (dispatch only) ===
+ "app.bsky."                            ["dispatch"]
+ "com.atproto."                         ["dispatch"]
+ "chat.bsky."                           ["dispatch"]
+
+ ;; === Default fallback (dispatch only) ===
+ :default                               ["dispatch"]}
+
+;; Metadata for tooling
+{:meta
+ {:description "XRPC Policy Routing Map - defines mandatory policy evaluation per NSID"
+  :version      "1.0.0"
+  :updated      "2026-07-22"
+  :adr          "1509"
+  :notes        "Ensures dual-gate (dispatch + arms) for arms endpoints. dispatch policy handles routing-level auth (requiresAuth, scopes, permissions). arms policy handles detail gates (requiresHolderAuthSession, export control, etc.). Both MUST pass for arms NSIDs."}}
