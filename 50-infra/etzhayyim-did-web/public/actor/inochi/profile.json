@@ -1,0 +1,29 @@
+{
+  "did": "did:web:etzhayyim.com:actor:inochi",
+  "handle": "inochi.etzhayyim.com",
+  "displayName": "inochi",
+  "description": "Living-world (生命圏) Knowledge Graph mirror — weaves species / ecosystems / biomes + the pressures borne by the living world into the kotoba Datom log; surfaces ecological 取-concentration routed to RESTORATION, never a target-list.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-07T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "命",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2606073000"
+    ],
+    "primaryLexicon": "com.etzhayyim.inochi",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/inochi/did.json",
+    "source": "kotoba"
+  }
+}

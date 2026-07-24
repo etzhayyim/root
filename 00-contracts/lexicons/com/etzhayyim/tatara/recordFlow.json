@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.tatara.recordFlow",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Assert a logistics / shipping FLOW edge (plant → export gateway hub) into the kotoba Datom log (:flow/*). The `via` chokepoint keyword(s) reuse the SHARED vocabulary of watari :lane/chokepoint (live vessel transit) and watatsuna :station/chokepoint (static cable load) — the join key that composes the three maps into one maritime resilience picture, routed to redundancy + safer routing, NEVER to interdiction (G2).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["flowId", "from", "to", "mode", "sourcing"],
+          "properties": {
+            "flowId": { "type": "string", "description": ":flow/id, e.g. \"flow.tsmc-tainan.sg\"" },
+            "from": { "type": "string", "description": "origin id — a :plant/id or :hub/id" },
+            "to": { "type": "string", "description": "destination id — a :hub/id (export gateway)" },
+            "mode": { "type": "string", "enum": ["sea", "air", "rail", "road", "inland-water"] },
+            "commodity": { "type": "string", "enum": ["finished-goods", "components", "raw-material", "chemicals", "vehicles"] },
+            "via": { "type": "array", "items": { "type": "string", "enum": ["malacca", "luzon-strait", "suez-red-sea", "gibraltar", "panama", "hormuz", "taiwan-strait"] }, "description": "chokepoint keyword(s) the flow traverses — SHARED with watari + watatsuna" },
+            "sourcing": { "type": "string", "enum": ["authoritative", "representative", "synthesized"] }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "flowId": { "type": "string" },
+            "txCid": { "type": "string", "description": "kotoba transaction CID (content-addressed Datom log; ADR-2605312345)" },
+            "datomCount": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

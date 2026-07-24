@@ -133,8 +133,10 @@ def logs_stats(pds: str | None, json_out: bool) -> None:
 
 
 _LAYER_PREFIXES = [
+    ("orgs/etzhayyim/com-etzhayyim-", "actors"),
     ("60-apps/", "projects"), ("50-infra/", "infra"),
-    ("20-actors/", "actors"), ("90-docs/", "docs"),
+    ("20-actors/", "actors"),  # historical events before flat-west migration
+    ("90-docs/", "docs"),
     ("40-engine/", "engine"), ("30-graph/", "graph"),
     ("00-contracts/", "contracts"), ("70-tools/", "tools"),
 ]

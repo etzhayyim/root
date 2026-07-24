@@ -2,6 +2,15 @@ name = "etzhayyim-did-web"
 main = "src/worker.ts"
 compatibility_date = "2026-05-17"
 
+# Build the ClojureScript Worker core (shadow-cljs :esm → cljs-out/worker_core.js)
+# BEFORE wrangler bundles src/worker.ts, which statically imports it. This runs
+# for EVERY wrangler invocation (bare `wrangler deploy`, CI, `wrangler dev`) — not
+# just `npm run deploy` — so a fresh checkout (cljs-out/ is gitignored) never hits
+# a missing-import bundle failure. (`npm run build:cljs` = `cd cljs && npm install
+# && npm run build`.)
+[build]
+command = "npm run build:cljs"
+
 # ── Static assets (ADR-2606013600 / kabuto G6 browser-native render) ─────────
 # Serves the kotoba-wasm browser-node bundle at
 #   /kotoba/kotoba_wasm.js  +  /kotoba/kotoba_wasm_bg.wasm
@@ -14,6 +23,7 @@ compatibility_date = "2026-05-17"
 # Repopulate after a kotoba bump:  ./scripts/build-kotoba-wasm.sh
 [assets]
 directory = "./public"
+binding = "ASSETS"
 
 # Catch-all routes. Worker handles:
 #   - /.well-known/did.json  → DID Document (local)
@@ -36,7 +46,7 @@ zone_name = "etzhayyim.com"
 binding = "YORO"
 service = "kotodama-yoro"
 
-# Substrate-side XRPC adapter (rw-free reference impl). Per ADR-2605172000,
+# Substrate-side XRPC adapter (kotoba reference impl). Per ADR-2605172000,
 # reads under SUBSTRATE_NSID_ALIASES (worker.ts) MUST resolve through this
 # adapter (MST/IPFS/L2) rather than the etzhayyim.com PDS+AppView+Kotoba/Datomic chain.
 # Deploy `60-apps/etzhayyim-project-yoro/xrpc-adapter` first; this binding will
@@ -57,14 +67,14 @@ service = "yoro-xrpc-adapter"
 
 # ── Actor-profile dynamic did.json issuance (ADR-2606013800) ──────────────
 # ACTOR_KV holds the materialized ActorRecord JSON per actor (`actor:<handle>`),
-# pushed by `scripts/publish-actor-records.mjs` from the kotoba `actors-v1`
+# pushed by `scripts/publish-actor-records.cljs` from the kotoba `actors-v1`
 # graph. The Worker reads KV first (fast, origin-independent), then falls back
 # to a kotoba pull (KOTOBA_ENDPOINT), then to the compiled INFRA_ACTORS
 # registry — so did:web resolution stays live even with KV + kotoba both down.
 #
 # ENABLE (operator, once): create the namespace, paste its id below, publish:
 #   wrangler kv namespace create ACTOR_KV
-#   node scripts/publish-actor-records.mjs --put-kv
+#   npx nbb scripts/publish-actor-records.cljs --put-kv
 # Until enabled the binding is absent and the Worker serves the compiled
 # fallback — now routed through the SAME toDidDoc/toGetProfileView mappers, so
 # behaviour is identical; KV just promotes kotoba to live source of truth.
@@ -85,11 +95,22 @@ KOTOBA_ENDPOINT = ""
 # Comma-separated; `{cid}` substituted, else `<gw>/ipfs/<cid>`. Default (empty)
 # uses dweb.link + ipfs.io. Point at the etzhayyim kotoba/IPFS pin once live.
 IPFS_GATEWAYS = ""
+# Static GitHub-Pages CID gateway fallback (ADR-2606242400). Tried FIRST for
+# GET /ipfs/<cid> when set (reliable while IPFS pinning is stalled); bytes are
+# CID-re-verified identically, so the static host stays UNTRUSTED. Empty = off
+# (IPFS-only). Point at an etzhayyim-owned Pages mirror serving /ipfs/<cid>.
+PAGES_GATEWAY_BASE = ""
 # AT Protocol / Bluesky stack — target the etzhayyim.com subdomain (handled by
 # etzhayyim-xrpc-proxy worker, which forwards via service binding to the
 # upstream etzhayyim-pds / etzhayyim-appview workers without hitting the
 # public-HTTP Bot Management blocks).
 XRPC_ATPROTO_UPSTREAM = "https://atproto.etzhayyim.com"
+# Method A cutover (independent etzhayyim PDS, gftd.ai dependency drop): when set,
+# com.atproto.repo.*/sync.* route to the independent etzhayyim PDS instead of the
+# AppView host. EMPTY = INERT (those families fall back to XRPC_ATPROTO_UPSTREAM,
+# so prod is byte-identical). Set to the deployed PDS origin (e.g.
+# https://pds.aozora.app) at the actual operator cutover.
+XRPC_PDS_UPSTREAM = ""
 XRPC_CHAT_UPSTREAM = "https://atproto.etzhayyim.com"
 XRPC_etzhayyim_UPSTREAM = "https://atproto.etzhayyim.com"
 # kotoba graph query surface — INTENTIONALLY EMPTY: kotoba is browser-only

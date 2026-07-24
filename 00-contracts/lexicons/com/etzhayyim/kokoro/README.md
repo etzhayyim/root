@@ -1,6 +1,6 @@
 # com.etzhayyim.kokoro.* — kokoro (心) Lexicons
 
-**Owner actor**: `did:web:kokoro.etzhayyim.com` (`20-actors/kokoro/`)
+**Owner actor**: `did:web:kokoro.etzhayyim.com` ([`com-etzhayyim-kokoro`](https://github.com/etzhayyim/com-etzhayyim-kokoro))
 **ADR**: ADR-2605263700 (R0 scaffold)
 **Status**: R0 schema skeletons. Full schemas at R1+.
 
@@ -41,7 +41,7 @@ Schemas at R0 are skeleton-level; full structural enforcement at R1.
 
 ## Related Files
 
-- `/20-actors/kokoro/manifest.jsonld`
-- `/20-actors/kokoro/README.md`
-- `/20-actors/kokoro/CLAUDE.md`
+- `orgs/etzhayyim/com-etzhayyim-kokoro/manifest.edn` (canonical)
+- `orgs/etzhayyim/com-etzhayyim-kokoro/README.md`
+- `orgs/etzhayyim/com-etzhayyim-kokoro/CLAUDE.md`
 - `/90-docs/adr/2605263700-kokoro-mental-health-tier-b-actor-r0.md`

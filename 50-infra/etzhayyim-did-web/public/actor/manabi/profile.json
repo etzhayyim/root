@@ -1,0 +1,32 @@
+{
+  "did": "did:web:etzhayyim.com:actor:manabi",
+  "handle": "manabi.etzhayyim.com",
+  "displayName": "学び — Education",
+  "description": "Education Tier-B actor — open-curriculum literacy + numeracy + civics/charter + vocational + lifelong inquiry. Anti-credentialism (§2(e)) + anti-addiction UX (§2(d)) + minor privacy (G6) + comparative religion (G14) constitutional invariants. Delivers L4 (literacy/civics) and L5 (vocational/advanced) tiers of the Liberation Ladder.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-05-26T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "学び",
+  "displayNameJa": "学び — Education",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2605261045",
+      "2605261045",
+      "reserved"
+    ],
+    "primaryLexicon": "com.etzhayyim.manabi",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/manabi/did.json",
+    "source": "kotoba"
+  }
+}

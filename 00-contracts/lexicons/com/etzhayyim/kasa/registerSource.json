@@ -1,1 +1,0 @@
-{"lexicon":1,"id":"com.etzhayyim.kasa.registerSource","description":"R0 placeholder lexicon for kasa source registration; full schema lands with the live open-dataset parser gate.","defs":{"main":{"type":"record","key":"tid","record":{"type":"object","required":["createdAt"],"properties":{"createdAt":{"type":"string","format":"datetime"}}}}}}

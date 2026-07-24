@@ -12,7 +12,7 @@ import { dirname, join } from "node:path";
 import { serveActor } from "../serve.mjs";
 
 const DIR = dirname(fileURLToPath(import.meta.url));
-const WASM = readFileSync(join(DIR, "../../../20-actors/kanae/wasm/loader/kanae-core.wasm"));
+const WASM = readFileSync(join(DIR, "../../../orgs/etzhayyim/com-etzhayyim-kanae/wasm/loader/kanae-core.wasm"));
 const KANAE_CID = "bafkreielhr6l5jy7ml5l62ncyva34lhjw52q2onwxwy6ubep4wqxjyjnie";
 
 // Stub gateway: serves the kanae DID doc + the verified WASM bytes.

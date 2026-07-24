@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:bunker",
+  "handle": "bunker.etzhayyim.com",
+  "displayName": "Bunker Supply & MARPOL Compliance",
+  "description": "Marine fuel procurement, Bunker Delivery Note (BDN) management, fuel sample testing, MARPOL sulphur compliance, vessel consumption tracking, CO₂ emission calculation.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Bunker Supply & MARPOL Compliance",
+  "displayNameJa": "Bunker Supply & MARPOL Compliance",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.bunker",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/bunker/did.json",
+    "source": "kotoba"
+  }
+}

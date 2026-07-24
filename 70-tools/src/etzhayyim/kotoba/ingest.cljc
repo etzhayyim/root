@@ -1,7 +1,7 @@
 ;; etzhayyim.kotoba.ingest — load an actor's seed into the kotoba Datom log.
 ;;
 ;; The generic, validated replacement for per-actor Python `datom_emit.py`: any
-;; 🟡 R0 actor's 20-actors/<a>/data/seed-*.kotoba.edn (entity-map or nested-graph
+;; 🟡 R0 actor's orgs/etzhayyim/com-etzhayyim-<a>/data/seed-*.kotoba.edn (entity-map or nested-graph
 ;; form) is ingested into a content-addressed append-only log, optionally
 ;; type/enum/unique-validated against its 00-contracts schema, and materialized
 ;; to a canonical .kotoba.edn snapshot — all root-side, never the kotoba subrepo.

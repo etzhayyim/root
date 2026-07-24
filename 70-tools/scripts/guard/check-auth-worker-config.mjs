@@ -2,7 +2,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const root = process.cwd();
-const configPath = path.join(root, '60-apps/etzhayyim-project-auth/worker/wrangler.jsonc');
+const configPath = path.join(
+	root,
+	'orgs/etzhayyim/com-etzhayyim-app-auth/worker/wrangler.jsonc',
+);
 
 const raw = fs.readFileSync(configPath, 'utf8');
 // Strip JSONC comments (// line, /* block */) before JSON.parse.

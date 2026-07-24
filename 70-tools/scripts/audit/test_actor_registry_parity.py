@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Actor-registry parity drift-lock — ADR-2606052100 (ake) follow-on.
 
-ake's genesis-revision bridge (20-actors/ake/methods/ingest.py) surfaced that an actor can be
+ake's genesis-revision bridge (orgs/etzhayyim/com-etzhayyim-ake/methods/ingest.py) surfaced that an actor can be
 registered in the apex Worker's compiled `INFRA_ACTORS` (50-infra/etzhayyim-did-web/src/registry/
 infra-actors.ts) WITHOUT a record in the kotoba SSoT `actor-profile-seed.kotoba.edn` (or vice
 versa). Either half of that drift means an actor is not uniformly resolvable / searchable: the

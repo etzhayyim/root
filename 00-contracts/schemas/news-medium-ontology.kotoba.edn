@@ -1,5 +1,5 @@
 ;; news-medium-ontology.kotoba.edn — vocabulary for kawaraban (瓦版)
-;; ADR-2606061900 · actor: 20-actors/kawaraban/
+;; ADR-2606061900 · actor: orgs/etzhayyim/com-etzhayyim-kawaraban/
 ;;
 ;; SCOPE: a NEWS MEDIUM. Two faces, one substrate:
 ;;   (1) MIRROR — datafies the world's real news media (outlets · 面/sections ·

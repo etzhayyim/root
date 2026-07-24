@@ -1,16 +1,7 @@
 # pnpm workspace.
 #
-# Two cohorts live here:
-#
-# 1. ameno browser-WebGPU appview (ADR-2605190824) — pre-existing.
-# 2. Phase E rw-free reference impls + Phase F worker XRPC adapters
-#    (ADRs 2605210000 / 2605211000 / 2605213000) — 27 actors + sdk + sdk-auth +
-#    sdk-mock + mst-projector + 70-tools workspaces.
-#
-# The Phase E/F cohort is opted in so that `workspace:*` deps resolve in the
-# CI matrix (.github/workflows/test.yml, wrangler-validate.yml) and in local
-# pre-flight runs. Without this, vitest / tsc / wrangler --dry-run fail to
-# resolve `@etzhayyim/sdk*` and `@etzhayyim/<actor>-rw-free`.
+# Only packages retained by root are listed here. Extracted applications own
+# their workspaces in their flat west repositories (ADR-2607201930).
 
 # pnpm 10 defaults to autoInstallPeers=true. mst-projector declares
 # @lancedb/lancedb / duckdb-async / @huggingface/{transformers,inference}
@@ -27,72 +18,22 @@ packages:
   - "50-infra/etzhayyim-authz"
 
   # ameno cohort
-  - "20-actors/ameno"
-  - "60-apps/etzhayyim-project-ameno/appview/etzhayyim-wasm-ameno-d94d27cb/svelte"
-  - "60-apps/etzhayyim-project-ameno/daemon"
-
-  # yoro cohort (Charter-compliant rebuild — AdSense/GA4 removed)
-  - "60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte"
+  - "orgs/etzhayyim/com-etzhayyim-ameno"
 
   # karute (電子カルテ / EMR) — ADR-2605231100
-  - "60-apps/etzhayyim-project-karute/appview/etzhayyim-wasm-karute-karu7t3e/svelte"
-  - "10-protocol/signal"
-  - "10-protocol/xrpc"
-  - "40-engine/svelte/auth"
-  - "40-engine/svelte/design-system"
+  - "../com-etzhayyim-signal"
+  - "../com-etzhayyim-xrpc"
+  - "../com-etzhayyim-svelte-auth"
+  - "../com-etzhayyim-svelte-design-system"
 
-  # etzhayyim substrate SDKs
-  - "20-actors/etzhayyim-sdk"
-  - "20-actors/etzhayyim-sdk-auth"
-  - "20-actors/etzhayyim-sdk-mock"
-  - "20-actors/mst-projector"
+  # etzhayyim substrate SDKs are immutable git dependencies managed by west.
 
   # 70-tools workspaces referenced by CI tsc matrix
-  - "70-tools/integration-tests"
   - "70-tools/lexicon-to-openapi"
   - "70-tools/lexicon-to-zod"
 
-  # Phase E rw-free reference impls (27 actors)
-  - "60-apps/etzhayyim-project-*/rw-free"
-
-  # Phase F worker XRPC adapters (25 actors)
-  - "60-apps/etzhayyim-project-*/xrpc-adapter"
-
-  # yorishiro generator + emitted MCP servers (ADR-2605211900)
+  # yorishiro generator (ADR-2605211900)
   - "70-tools/etzhayyim-cli/yorishiro"
-  # kotoba-kotodama MCP packages come from the etzhayyim/kotoba repo, cloned into
-  # 40-engine/kotoba at CI/dev time (the submodule was removed, ADR-2606131645).
-  - "40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-*-mcp"
-  - "40-engine/kotoba/crates/kotoba-kotodama/mcp/open-seiyaku-mcp"
-
-  # etzhayyim-organism-viz Svelte frontend (ADR-2605221411)
-  - "60-apps/etzhayyim-organism-viz/web"
-
-  # @etzhayyim/kami-engine-sdk canonical (ADR-2605265200, Phase 3
-  # deletion of the legacy 20-actors duplicate completed earlier).
-  # git-submodule of github.com/etzhayyim/kami-engine-sdk (the submodule
-  # repo is the SoT per ADR-2606011500 stage 1; run `git submodule update
-  # --init` to populate). `workspace:*` references in consumer apps resolve
-  # here once the submodule is checked out.
-  - "40-engine/kami-engine/kami-engine-sdk"
-
-  # Baseline appviews for Phase 3 testing
-  - "60-apps/etzhayyim-project-drive/appview/drive-app-component/svelte"
-  - "60-apps/etzhayyim-project-sheets/appview/sheets-mcp-component/svelte"
-  - "60-apps/etzhayyim-project-mailer/appview/mailer-mcp-component/svelte"
-  - "60-apps/etzhayyim-project-calendar/appview/calendar-mcp-component/svelte"
-  - "60-apps/etzhayyim-project-forms/appview/forms-frontend-gsgpde96/svelte"
-  - "60-apps/etzhayyim-project-search/appview/search-mcp-component/svelte"
-  - "60-apps/etzhayyim-project-translate/appview/translate-mcp-component/svelte"
-  - "60-apps/etzhayyim-project-tenki/appview/tenki-weather-component/svelte"
-  - "60-apps/etzhayyim-project-ekyc/appview/ekyc-mcp-component"
-  - "60-apps/etzhayyim-project-global/appview/global-ui-w5n8p3q6/svelte"
-  - "60-apps/etzhayyim-project-marketer/appview/marketer-ui-iewsbshk/svelte"
-  - "60-apps/etzhayyim-project-sre/extension"
-  - "60-apps/etzhayyim-project-har/appview/har-app-5ugfx2n1/svelte"
-  - "60-apps/etzhayyim-project-tasklist/appview/tasklist-ui-t4sk1ist"
-  - "60-apps/etzhayyim-project-gmail/appview/etzhayyim-wasm-gmail-gm4il0x1/svelte"
-  - "60-apps/etzhayyim-project-docs/appview/docs-performers-r5ycqp6x/svelte"
 
 # pnpm overrides — dedupe onnxruntime-web to the version pinned by
 # @huggingface/transformers@3.8.1 (the larger 1.26.0 release is 25 MiB and hits

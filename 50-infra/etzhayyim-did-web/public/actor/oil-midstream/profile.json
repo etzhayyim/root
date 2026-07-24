@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:oil-midstream",
+  "handle": "oil-midstream.etzhayyim.com",
+  "displayName": "Oil Midstream & Terminal Intelligence",
+  "description": "Pipeline, storage, terminal and chokepoint infrastructure coverage across gathering, trunkline, export and import networks.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Oil Midstream & Terminal Intelligence",
+  "displayNameJa": "Oil Midstream & Terminal Intelligence",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.oil-midstream",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/oil-midstream/did.json",
+    "source": "kotoba"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kenchi.provenanceAttestation",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "The governor verdict behind a valuation/regionReport — the audit receipt that makes a published number defensible (G2 lineage + G3 PROVENANCE-OR-SILENCE). Pins comps + authorities + the verdict and every quarantined outlier.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["subject", "verdict", "nComps", "nAuthorities", "comps"],
+        "properties": {
+          "subject":      { "type": "string", "maxLength": 256, "description": "parcel id or region the verdict applies to." },
+          "verdict":      { "type": "string", "knownValues": ["published", "withheld-mrv", "insufficient-evidence"], "description": "published only when G3 cleared; else MRV band or insufficient-evidence — never a false-precision point." },
+          "nComps":       { "type": "integer", "minimum": 0 },
+          "nAuthorities": { "type": "integer", "minimum": 0 },
+          "freshestAgeDays": { "type": "integer", "minimum": 0 },
+          "comps":        { "type": "array", "description": "Authorities/kinds that anchored or corroborated.", "items": { "type": "ref", "ref": "#comp" } },
+          "outliers":     { "type": "array", "description": "Quarantined sources (robust MAD reject).", "items": { "type": "string" } },
+          "violations":   { "type": "array", "items": { "type": "string", "knownValues": ["insufficient-comps", "insufficient-authorities", "stale"] } }
+        }
+      }
+    },
+    "comp": {
+      "type": "object",
+      "required": ["authority", "kind"],
+      "properties": {
+        "authority": { "type": "string", "maxLength": 128 },
+        "kind":      { "type": "string", "knownValues": ["sale", "assessment", "avm", "list", "index"] }
+      }
+    }
+  }
+}

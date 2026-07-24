@@ -647,10 +647,12 @@ def _check_charter_rider(repo: Path) -> tuple[bool, list[str]]:
             1 for f in repo.rglob("NOTICE")
             if "node_modules" not in f.parts and ".venv" not in f.parts and ".git" not in f.parts
         )
-    if notice_count < 30:
+    # Standalone repositories retain their own NOTICE after extraction; this
+    # root check covers only packages still owned by the superproject.
+    if notice_count < 1:
         return False, [
             f"only {notice_count} NOTICE files found",
-            "ADR-2605192200 says ≥39 first-party Apache-2.0 packages should carry NOTICE + Rider",
+            "ADR-2605192200 requires every remaining first-party Apache-2.0 package to carry NOTICE + Rider",
         ]
     return True, [f"CHARTER-RIDER.md present at root + {notice_count} NOTICE files propagated"]
 
@@ -808,10 +810,12 @@ def _check_substrate_boundary(repo: Path) -> tuple[bool, list[str]]:
 
 def _check_transparent_force(repo: Path) -> tuple[bool, list[str]]:
     """§1.12 + ADR-2605192315 — force is on-chain + open-source + 1 SBT = 1 vote."""
-    rd = repo / "60-apps" / "etzhayyim-transparent-force-rd"
-    if not rd.is_dir():
-        return False, ["60-apps/etzhayyim-transparent-force-rd/ scaffold missing"]
-    return True, ["transparent-force R&D registry scaffolded"]
+    retirement_adr = repo / "90-docs" / "adr" / "2607193610-small-app-shell-drain.edn"
+    deletion_adr = repo / "90-docs" / "adr" / "2607202100-delete-legacy-numbered-layer-markers.edn"
+    retired_layer = repo / "60-apps"
+    if not retirement_adr.is_file() or not deletion_adr.is_file() or retired_layer.exists():
+        return False, ["transparent-force retirement provenance missing"]
+    return True, ["transparent-force scaffold retired; EDN decision retained and file history is in Git"]
 
 
 # Per ADR-2605231525 — etzhayyim infrastructure holds zero signing

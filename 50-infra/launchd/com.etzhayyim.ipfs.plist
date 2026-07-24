@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  com.etzhayyim.ipfs — crash-self-recovery for the IPFS (libp2p) substrate node (immune kaizen).
+
+  The organism's content-addressed blocks ride on this kubo node (CIDs, DHT, pinning). It was
+  started by hand (`ipfs daemon`), so a crash left it dead with no auto-restart — the one
+  substrate dependency NOT under supervision (kotoba-server is already launchd-managed). This
+  KeepAlive agent makes it self-recover, matching the organism + watchdog.
+
+  KeepAlive=true → restart on crash.  RunAtLoad=true → start at login / survive reboot.
+  --routing=dhtclient preserves the original invocation; IPFS_PATH pins the same repo.
+
+  OS config only — no first-party logic. The organism's watchdog (com.etzhayyim.organism.watchdog)
+  observes this node's liveness into watchdog.json.
+
+  Install (operator step):
+    cp 50-infra/launchd/com.etzhayyim.ipfs.plist ~/Library/LaunchAgents/
+    launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.etzhayyim.ipfs.plist
+  Stop / uninstall:
+    launchctl bootout gui/$(id -u)/com.etzhayyim.ipfs
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.etzhayyim.ipfs</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/opt/homebrew/bin/ipfs</string>
+    <string>daemon</string>
+    <string>--routing=dhtclient</string>
+  </array>
+
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    <key>IPFS_PATH</key>
+    <string>/Users/junkawasaki/.ipfs</string>
+  </dict>
+
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+  <key>ThrottleInterval</key>
+  <integer>10</integer>
+
+  <key>StandardOutPath</key>
+  <string>/Users/junkawasaki/github/com-junkawasaki/orgs/etzhayyim/root/70-tools/scripts/organism-heartbeat/logs/ipfs.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/junkawasaki/github/com-junkawasaki/orgs/etzhayyim/root/70-tools/scripts/organism-heartbeat/logs/ipfs.err.log</string>
+</dict>
+</plist>

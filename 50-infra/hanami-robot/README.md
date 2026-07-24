@@ -4,7 +4,7 @@
 
 Per [ADR-2605260230](../../90-docs/adr/2605260230-hanami-robot-mechanical-design-mitate-r2-critical-path.md) §Decision 7 (Open-source release / G13): this directory is reserved for the Hanami (鼻見) robot's mechanical CAD, firmware source, network whitelist config, and classifier training corpus metadata. **R1 ADR creates the actual artifacts here** — R0 commits the path reservation only (analogous to the mmsheaf module path reservation pattern in ADR-2605250700).
 
-Hanami is a **mitate-native** robotics class (8th class by count; sibling pattern to silicon Wave 2's Funamori introduction). Owned by mitate (`20-actors/mitate/`), not kuni-umi.
+Hanami is a **mitate-native** robotics class (8th class by count; sibling pattern to silicon Wave 2's Funamori introduction). Owned by mitate (`orgs/etzhayyim/com-etzhayyim-mitate`), not kuni-umi.
 
 ## Scope (what lands here at R1 prototype)
 
@@ -36,5 +36,5 @@ Cross-religious-corp manufacturing per ADR-2605260230 §Decision 7 requires `sil
 - [ADR-2605260230](../../90-docs/adr/2605260230-hanami-robot-mechanical-design-mitate-r2-critical-path.md) — Hanami master design ADR
 - [ADR-2605260100](../../90-docs/adr/2605260100-mitate-diagnostic-routing-charter.md) — mitate master charter
 - [ADR-2605260200](../../90-docs/adr/2605260200-mitate-r1-advisory-self-care-pwa.md) — mitate R1 (Hanami mech design listed as R1→R2 transition prerequisite)
-- [`20-actors/mitate/`](../../20-actors/mitate/) — owning actor
+- [com-etzhayyim-mitate](https://github.com/etzhayyim/com-etzhayyim-mitate) — owning actor
 - [`40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_nasal_endoscopy_acquire/`](../../40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_nasal_endoscopy_acquire/) — the Pregel cell that drives Hanami at runtime

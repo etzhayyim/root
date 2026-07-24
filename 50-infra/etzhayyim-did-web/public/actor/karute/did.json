@@ -4,15 +4,13 @@
     "https://w3id.org/security/suites/jws-2020/v1"
   ],
   "id": "did:web:etzhayyim.com:actor:karute",
-  "alsoKnownAs": [
-    "did:web:karute.etzhayyim.com"
-  ],
+  "alsoKnownAs": [],
   "verificationMethod": [],
   "service": [
     {
       "id": "did:web:etzhayyim.com:actor:karute#atproto_pds",
       "type": "AtprotoPersonalDataServer",
-      "serviceEndpoint": "https://pds.etzhayyim.com"
+      "serviceEndpoint": "https://pds.aozora.app"
     }
   ],
   "_meta": {

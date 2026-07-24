@@ -1,8 +1,0 @@
-{
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "food.etzhayyim.com",
-  "description": "食料サービス — Basic Life Guarantee 受給者への食料配給・配送管理",
-  "applicationCategory": "FoodService",
-  "url": "https://food.etzhayyim.com"
-}

@@ -14,7 +14,7 @@ import { verifyCarToBytes } from "../../etzhayyim-did-web/src/car.ts";
 import { cidV1Raw, verifyRawCid, isRawCidV1, isDagPbCidV1 } from "../../etzhayyim-did-web/src/cid.ts";
 
 const DIR = dirname(fileURLToPath(import.meta.url));
-const KANAE = join(DIR, "../../../20-actors/kanae/wasm/loader/kanae-core.wasm");
+const KANAE = join(DIR, "../../../orgs/etzhayyim/com-etzhayyim-kanae/wasm/loader/kanae-core.wasm");
 
 test("single-block: raw CID == `ipfs add --raw-leaves`, verifies, CAR round-trips", async () => {
   const wasm = new Uint8Array(readFileSync(KANAE));

@@ -16,7 +16,8 @@
 
 (def ROOT (loop [f (io/file (System/getProperty "babashka.file"))
                  n 4] (if (zero? n) f (recur (.getParentFile f) (dec n)))))
-(def ACTORS    (io/file ROOT "20-actors"))
+(def ACTORS    (io/file (or (System/getenv "ETZHAYYIM_WEST_ACTORS_DIR")
+                            (str (io/file ROOT "..")))))
 (def CORPUS    (io/file ROOT "90-docs/baien/maxwell-sft-corpus.jsonl"))
 (def FAILED    (io/file ROOT "90-docs/baien/maxwell-failed.txt"))
 (def KONDO     (str (io/file (System/getProperty "user.home") "bin/clj-kondo")))
@@ -43,8 +44,11 @@
 (defn record-failed! [eid] (spit FAILED (str eid "\n") :append true))
 
 (defn label-for [^java.io.File f]
-  (let [p (str f) i (str/index-of p "20-actors/")]
-    (-> (subs p (+ i (count "20-actors/"))) (str/replace #"\.py$" ""))))
+  (let [repo (.getName
+              (first (drop-while #(not (str/starts-with? (.getName ^java.io.File %)
+                                                         "com-etzhayyim-"))
+                                 (take-while some? (iterate #(.getParentFile ^java.io.File %) f)))))]
+    (str repo "/" (.getName f))))
 
 (defn top-level-fns
   "[[fn-name src] ...] for module-level def/async def (indentation-delimited)."

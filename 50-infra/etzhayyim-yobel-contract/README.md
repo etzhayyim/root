@@ -84,4 +84,4 @@ This bundle does **not** define its own anchor contract. Instead, the `audit_wit
 - ADR-2605192230 — Three-Tier Enforcement (Council ratification framework)
 - `../l2-anchor-contract/` — `EtzhayyimAnchor` (audit anchor reuse target)
 - `../etzhayyim-chain-contracts/` — Governance / AnchorBridge / Phenotype (cross-reference contracts)
-- `../../20-actors/yobel/` — Python LangGraph cells calling these contracts via web3 ports
+- `../../orgs/etzhayyim/com-etzhayyim-yobel/` — Python LangGraph cells calling these contracts via web3 ports

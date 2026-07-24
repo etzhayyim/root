@@ -6,7 +6,7 @@ canonical kotodama.schema.json. Tests cover:
   - graceful jsonschema fallback
   - --strict mode exit semantics
   - --json output structure
-  - live repo cycle-53 baseline (42/42 clean)
+  - root-retained multirepo baseline (0/0 clean)
 """
 
 from __future__ import annotations
@@ -59,8 +59,8 @@ def test_no_traceback_on_default_run():
     assert "Traceback" not in result.stderr
 
 
-def test_live_repo_baseline_42_42_valid():
-    """Cycle 53 baseline: 42/42 kotodama manifests clean. Regression guard."""
+def test_live_repo_root_retained_baseline_0_0_valid():
+    """Extracted multirepo baseline: root retains 0/0 kotodama manifests."""
     try:
         import jsonschema  # noqa: F401
     except ImportError:
@@ -68,9 +68,10 @@ def test_live_repo_baseline_42_42_valid():
 
     result = _run("--strict", "--json")
     payload = json.loads(result.stdout)
-    # All manifests valid per cycle 53 closure baseline
+    # Application manifests live in their independent repositories.
     assert payload["ok"] is True, f"baseline broken: {payload}"
-    assert payload["total"] == payload["clean"]
+    assert payload["total"] == 0
+    assert payload["clean"] == 0
     assert payload["broken"] == 0
     assert payload["errors"] == {}
 

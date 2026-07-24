@@ -1,0 +1,44 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/suites/jws-2020/v1"
+  ],
+  "id": "did:web:etzhayyim.com:actor:tate-in-enforcement",
+  "alsoKnownAs": [],
+  "verificationMethod": [],
+  "service": [
+    {
+      "id": "did:web:etzhayyim.com:actor:tate-in-enforcement#case-data",
+      "type": "EtzhayyimCaseData",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-in-enforcement/case.json"
+    },
+    {
+      "id": "did:web:etzhayyim.com:actor:tate-in-enforcement#checklist",
+      "type": "EtzhayyimCaseChecklist",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-in-enforcement/checklist.md"
+    },
+    {
+      "id": "did:web:etzhayyim.com:actor:tate-in-enforcement#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-in-enforcement/template.md"
+    },
+    {
+      "id": "did:web:etzhayyim.com:actor:tate-in-enforcement#guide",
+      "type": "EtzhayyimCaseGuide",
+      "serviceEndpoint": "https://etzhayyim.com/tate/in.html"
+    }
+  ],
+  "_meta": {
+    "adr": [
+      "2606112301",
+      "2606112400",
+      "2606122000"
+    ],
+    "source": "tate procedure-registry",
+    "kind": "case-mirror",
+    "parent": "did:web:etzhayyim.com:actor:tate",
+    "track": ":enforcement",
+    "jurisdiction": ":in",
+    "note": "verificationMethod empty — keyless case mirror; did:web trust root = TLS (no server-minted key, ADR-2605231525)"
+  }
+}

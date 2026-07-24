@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:bunken",
+  "handle": "bunken.etzhayyim.com",
+  "displayName": "Bunken Bibliographic Intelligence",
+  "description": "Global library and archive bibliographic intelligence with 9 scheme Multi-DID (NDL/NCID/LCCN/OCLC/VIAF/ISBN/DOI/ARK/doc). Common Crawl CDX discovery, site.etzhayyim.com crawl enrichment, Murakumo LLM metadata extraction, SAME_AS cross-scheme linking.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Bunken Bibliographic Intelligence",
+  "displayNameJa": "Bunken Bibliographic Intelligence",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.bunken",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/bunken/did.json",
+    "source": "kotoba"
+  }
+}

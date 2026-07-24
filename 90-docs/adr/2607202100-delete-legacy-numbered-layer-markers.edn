@@ -1,0 +1,26 @@
+{:schema "etzhayyim.adr/v1"
+ :id "2607202100"
+ :title "Delete legacy numbered-layer migration markers"
+ :status :accepted
+ :date "2026-07-20"
+ :scope {:repository "etzhayyim/root"
+         :predecessor-adrs ["2607201930"]}
+ :decision {:delete-directories ["10-protocol" "20-actors" "30-graph" "40-engine" "60-apps"]
+            :migration-provenance :git-history
+            :canonical-runtime-paths :west-manifest-flat-checkouts
+            :marker-files-retained false}
+ :operational-cleanup {:retired-workflows ["wrangler-validate.yml"]
+                       :standalone-ci-ownership [:actor :engine :application]
+                       :external-source-checkouts ".external/<repository>"
+                       :root-workspace-members :root-owned-only}
+ :invariants {:retired-directories-present 0
+              :operational-retired-path-references 0
+              :go-or-tinygo-sources-in-root 0
+              :manifest-coverage "307/307"}
+ :verification ["70-tools/scripts/audit/test_simple_audits.py::TestMultirepoCompletion"
+                :workflow-path-audit
+                :workspace-path-audit
+                :registry-freshness
+                :adr-index-freshness
+                :pre-commit
+                :github-actions]}

@@ -1,0 +1,71 @@
+{:schema "etzhayyim.adr/v1"
+ :id "2607192800"
+ :title "Retire the Shinsa logical-app documentation stub"
+ :status :accepted
+ :date "2026-07-19"
+ :context
+ {:source "60-apps/etzhayyim-project-shinsa"
+  :tracked-files ["CLAUDE.md"]
+  :classification :obsolete-logical-actor-documentation-stub
+  :implementation-files 0
+  :operational-references 0
+  :stale-claims
+  ["20-actors/shinsa/actor-manifest.jsonld does not exist"
+   "the described shinsa lexicon pair does not exist"]
+  :historical-references
+  [{:path "etzhayyim.txt"
+    :classification :historical-inventory-snapshot
+    :generator nil
+    :introduced-by "8015569ed"
+    :action :retain-unchanged}]}
+ :canonical-spec
+ {:kind :logical-actor-concept
+  :name "shinsa"
+  :display-name "審査 Process Coverage Orchestrator"
+  :former-tier :t1-logical-actor
+  :identity {:domain "shinsa.etzhayyim.com"
+             :nanoid "sh1n54pr"}
+  :scope
+  {:process-types 8
+   :stages 8
+   :domains
+   [:regulatory-review
+    :grant-review
+    :permit-review
+    :certification-review
+    :accreditation-review]}
+  :former-procedures ["registerProcess" "listProcesses"]
+  :cross-actor
+  [{:actor "gov" :role :issuing-authority :field "issuingAuthorityDid"}
+   {:actor "legal-entity" :role :applicant :field "applicantDid"}
+   {:actor "bengoshi" :role :regulatory-legal-representation}
+   {:actor "chotatsu" :role :public-procurement-linkage}]}
+ :decision
+ {:action :retire
+  :reason :documentation-without-runtime-or-contract
+  :canonical-record :edn
+  :standalone-repository false
+  :numbered-directory-removed true
+  :replacement-marker "60-apps/etzhayyim-project-shinsa-MOVED.edn"
+  :go-policy :deprecated-and-absent}
+ :provenance
+ {:source-repository "https://github.com/etzhayyim/root"
+  :source-revision "008f3ba86fd7a4651fd37d2d57fb626780efa921"
+  :blobs
+  {"CLAUDE.md"
+   {:git-blob "4272899061af8a4cd632f83f161e4c4f6c37d17a"
+    :sha256 "04d255a2759632ee76b930c38b2fee9898bb92ccd34a5ea0596f70ec6891e2cb"
+    :bytes 605
+    :lines 14
+    :recovery "git show 008f3ba86fd7a4651fd37d2d57fb626780efa921:60-apps/etzhayyim-project-shinsa/CLAUDE.md"}}}
+ :verification
+ {:required
+  [:edn-readable
+   :legacy-directory-absent
+   :marker-present
+   :operational-reference-scan-clean
+   :generated-doc-registry-current]}
+ :consequences
+ {:root "60-apps no longer represents an unimplemented Shinsa concept as an app directory."
+  :contracts "No contract is removed; the claimed Shinsa lexicons were absent before this decision."
+  :history "The original document remains exactly recoverable from Git and both recorded digests."}}

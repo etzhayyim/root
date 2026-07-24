@@ -129,9 +129,9 @@ test("G4: nonAdjudicatingNotice missing const:true fails (exit 1)", () => {
 // ── G8 regression: gov-intel terminal in danjo code MUST fail ────────
 test("G8: govwin host + fiscalnote import in danjo code fails (exit 1)", () => {
   const root = mkdtempSync(join(tmpdir(), "danjo-lint-g8-"));
-  const codeDir = join(root, "20-actors/danjo");
+  const codeDir = join(root, "orgs/etzhayyim/com-etzhayyim-danjo");
   mkdirSync(codeDir, { recursive: true });
-  const rel = "20-actors/danjo/bad_cell.py";
+  const rel = "orgs/etzhayyim/com-etzhayyim-danjo/bad_cell.py";
   writeFileSync(
     join(root, rel),
     'import fiscalnote\nURL = "https://www.govwin.com/api"\n',
@@ -148,7 +148,7 @@ test("G8: govwin host + fiscalnote import in danjo code fails (exit 1)", () => {
 // ── G8 exemption: a DOC enumerating the deny-list MUST pass ──────────
 test("G8: README enumerating the deny-list is exempt by extension (exit 0)", () => {
   const root = mkdtempSync(join(tmpdir(), "danjo-lint-doc-"));
-  const docDir = join(root, "20-actors/danjo");
+  const docDir = join(root, "orgs/etzhayyim/com-etzhayyim-danjo");
   mkdirSync(docDir, { recursive: true });
   // good lexicons so Check B is clean; the doc must not trip Check A
   const lexDir = join(root, LEX_REL);
@@ -157,7 +157,7 @@ test("G8: README enumerating the deny-list is exempt by extension (exit 0)", () 
     join(lexDir, "discrepancyObservation.json"),
     JSON.stringify(GOOD_OBSERVATION),
   );
-  const rel = "20-actors/danjo/README.md";
+  const rel = "orgs/etzhayyim/com-etzhayyim-danjo/README.md";
   writeFileSync(
     join(root, rel),
     "# danjo\nProhibited terminals: GovWin IQ / Bloomberg Government / FiscalNote.\n",

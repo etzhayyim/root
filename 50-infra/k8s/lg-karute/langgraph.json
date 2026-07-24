@@ -6,6 +6,6 @@
   },
   "env": ".env",
   "python_version": "3.11",
-  "$checkpointer_comment": "RW-free per ADR-2605172000. The TS @etzhayyim/sdk-checkpointer sidecar runs in the same Pod (deployment.yaml). PHI sealing is mandatory — ETZ_CHECKPOINTER_ENCRYPT_CELLS must include did:web:karute.etzhayyim.com (ADR-2605181100).",
+  "$checkpointer_comment": "kotoba per ADR-2605172000. The TS @etzhayyim/sdk-checkpointer sidecar runs in the same Pod (deployment.yaml). PHI sealing is mandatory — ETZ_CHECKPOINTER_ENCRYPT_CELLS must include did:web:karute.etzhayyim.com (ADR-2605181100).",
   "crons": []
 }

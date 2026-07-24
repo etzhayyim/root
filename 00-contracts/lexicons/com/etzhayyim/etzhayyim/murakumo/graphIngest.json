@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Ingest graph JSONL into LanceDB (RW-free, fits etzhayyim 50-infra/lancedb-wasm). Optional yata CRDT push for graph entities (default false). pdsUrl default targets etzhayyim PDS post cutover.",
+      "description": "Ingest graph JSONL into LanceDB (kotoba, fits etzhayyim 50-infra/lancedb-wasm). Optional yata CRDT push for graph entities (default false). pdsUrl default targets etzhayyim PDS post cutover.",
       "input": {
         "encoding": "application/json",
         "schema": {

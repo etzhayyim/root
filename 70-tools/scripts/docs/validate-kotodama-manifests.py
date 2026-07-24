@@ -8,7 +8,7 @@ Validate every `60-apps/<app>/kotodama.jsonld` against
 deferred follow-on; landed in cycle 53). Parallel pattern to:
   - cycles 27-30: deps.toml book-keeping (axis 1)
   - cycle 48: docs.json freshness (axis 2)
-  - cycle 49: graph.jsonld freshness (axis 3)
+  - graph.edn freshness (axis 3; docs-graph-edn-freshness)
   - cycle 50-51: registry schema validation (axis 4)
   - **cycle 53: kotodama manifest validation (axis 5; this script)**
 
@@ -82,7 +82,12 @@ def main() -> int:
     if not manifests:
         msg = "validate-kotodama-manifests: no manifests found under 60-apps/*/kotodama.jsonld"
         if args.json:
-            print(json.dumps({"ok": True, "total": 0, "errors": {}}, indent=2))
+            print(
+                json.dumps(
+                    {"ok": True, "total": 0, "clean": 0, "broken": 0, "errors": {}},
+                    indent=2,
+                )
+            )
             return 0
         print(msg)
         return 0

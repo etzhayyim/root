@@ -11,16 +11,26 @@
   Scope = all `test_*.clj(c)` under 20-actors + 70-tools, MINUS:
     - mimamori. / yobel. / ibuki.   — owned by their dedicated bb tasks
     - etzhayyim.tools.*             — owned by test:tools (incl. this ns's siblings)
+    - kyoninka.methods.test-organism — requires kototama.organism, which lives in the
+                                        SIBLING repo com-junkawasaki/kototama-clj (a
+                                        west-managed project alongside etzhayyim/root,
+                                        not a git dependency of this repo's own bb.edn/
+                                        deps.edn) — genuinely needs a non-standard
+                                        classpath entry (../../com-junkawasaki/kototama-
+                                        clj/src, per the test file's own docstring) this
+                                        blanket 20-actors+70-tools sweep cannot provide.
+                                        Run standalone per that docstring instead.
     - any path under a hyphen-dir   — SCI ns→path munge cannot load them
                                        (ns symbol normalises hyphens, file path
                                         keeps underscores; the dir hyphen breaks
                                         the round-trip — e.g. kuni-umi)."
   (:require [babashka.fs :as fs]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            [clojure.test :as t]))
 
 ;; longest-prefix-first so 70-tools/src strips before 70-tools, etc.
 (def ^:private classpath-roots
-  ["20-actors/kotodama/src"
+  ["orgs/kotoba-lang/kotodama/src"
    "50-infra/etzhayyim-moyai-credit/src"
    "70-tools/src"
    "20-actors"
@@ -55,7 +65,8 @@
 (defn- excluded? [ns-sym]
   (let [n (str ns-sym)]
     (or (re-find #"^(mimamori|yobel|ibuki)\." n)
-        (str/starts-with? n "etzhayyim.tools."))))
+        (str/starts-with? n "etzhayyim.tools.")
+        (= n "kyoninka.methods.test-organism"))))
 
 (defn declared-ns
   "The ns symbol a file actually declares (first top-level form), or nil if it is unreadable or
@@ -87,3 +98,44 @@
        distinct
        sort
        vec))
+
+(defn- safe-run-one
+  "require + run-tests a SINGLE namespace, catching Throwable at both steps. A namespace
+  that cannot even be required (e.g. a stale reference to a function the real .cljc port
+  never shipped — an SCI analysis-time error, not a graceful `is` failure) or that throws
+  during test execution counts as one :error, tagged with which phase broke and why."
+  [n]
+  (try
+    (require n)
+    (try
+      (select-keys (t/run-tests n) [:test :pass :fail :error])
+      (catch Throwable e
+        {:test 0 :pass 0 :fail 0 :error 1
+         :load-failure {:ns n :phase :run-tests :message (str e)}}))
+    (catch Throwable e
+      {:test 0 :pass 0 :fail 0 :error 1
+       :load-failure {:ns n :phase :require :message (str e)}})))
+
+(defn run-all
+  "require + run-tests every namespace in `nss`, isolating failures PER NAMESPACE so one
+  broken/throwing namespace never aborts the whole sweep — the general form of the fragility
+  fixed one namespace at a time as the ADR-2607071000 System/exit landmines: an unguarded
+  `(apply require nss)` / `(apply clojure.test/run-tests nss)` dies on the FIRST uncaught
+  Throwable, silently skipping every namespace discovery would otherwise have reached after it.
+
+  Returns {:test N :pass N :fail N :error N :load-failures [{:ns :phase :message} …]} — a
+  load-failure already counts toward :error, so callers can exit non-zero on
+  `(pos? (+ (:fail r) (:error r)))` exactly as before; :load-failures is for reporting WHICH
+  namespaces broke and why, since their own test bodies never got a chance to report anything."
+  [nss]
+  (reduce
+    (fn [acc n]
+      (let [r (safe-run-one n)]
+        (cond-> (-> acc
+                    (update :test + (:test r))
+                    (update :pass + (:pass r))
+                    (update :fail + (:fail r))
+                    (update :error + (:error r)))
+          (:load-failure r) (update :load-failures conj (:load-failure r)))))
+    {:test 0 :pass 0 :fail 0 :error 0 :load-failures []}
+    nss))

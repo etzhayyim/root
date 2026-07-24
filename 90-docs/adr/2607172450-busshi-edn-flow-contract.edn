@@ -1,0 +1,43 @@
+[{:db/id -1
+  :adr/id "adr-2607172450-busshi-edn-flow-contract"
+  :adr/title "ADR-2607172450: busshi extraction and EDN ie-flow state contract"
+  :adr/topic "busshi-multirepo-ie-flow-contract"
+  :adr/status "accepted"
+  :adr/doc_type "adr"
+  :adr/source-format "edn"
+  :adr/date "2026-07-17"
+  :adr/last_verified "2026-07-17"
+  :adr/authoritative true
+  :adr/authoritative_for
+  ["busshi canonical actor repository and revision"
+   "busshi scoreboard EDN artifact contract"
+   "retirement of root/20-actors/busshi implementation"]
+  :adr/related
+  ["adr-2606161730-busshi-commodity-materials-observatory-r0"
+   "adr-2606171000-busshi-observation-ledger-persistence-and-heartbeat"
+   "adr-2607172000-etzhayyim-gftdcojp-flat-west-multirepo-root-retirement"]
+  :adr/decision
+  {:repository "https://github.com/etzhayyim/com-etzhayyim-busshi"
+   :revision "fed52df3ecad3419db37958eac77a41c3f5106c8"
+   :west-path "orgs/etzhayyim/com-etzhayyim-busshi"
+   :canonical-metadata "manifest.edn"
+   :shared-libraries
+   {kotoba.datom "3c4b3b92234e59ba285119fd8b2ca4c2ee172ff8"
+    etzhayyim.ie-flow "35d36d912c9596dbc5094947b60202d9abdf61e6"
+    etzhayyim.social.publication "e8127d0661284b1c12ce1b216c84b5ed2db619ab"}
+   :scoreboard-contract
+   {:artifact "out/ie-flow-state.edn"
+    :override-env "BUSSHI_FLOW_STATE_PATH"
+    :flat-west-path "orgs/etzhayyim/com-etzhayyim-busshi/out/ie-flow-state.edn"
+    :absence-policy :pending-not-scored
+    :malformed-policy :fail}
+   :ugachi-contract
+   {:artifact "out/analysis.edn"
+    :override-env "BUSSHI_ANALYSIS_PATH"
+    :flat-west-path "orgs/etzhayyim/com-etzhayyim-busshi/out/analysis.edn"
+    :absence-policy :ungrounded-assessment
+    :malformed-policy :fail}
+   :verification {:busshi {:tests 37 :assertions 140 :failures 0 :errors 0}
+                  :scoreboard {:tests 4 :assertions 20 :failures 0 :errors 0}
+                  :ugachi {:tests 36 :assertions 106 :failures 0 :errors 0}}}
+  :adr/body "busshi is canonical in its independent flat-path repository. Its commit-DAG, ie-flow adapter, and social membrane use pinned shared libraries. The root scoreboard consumes a versioned EDN state artifact, and ugachi consumes a versioned commodity-analysis artifact, instead of either consumer loading busshi implementation namespaces across repository boundaries."}]

@@ -1,0 +1,16 @@
+[{:db/id -1
+  :migration/id "kotoba-datom-intermediate-relocation-260718"
+  :migration/status :superseded
+  :migration/source "20-actors/kotodama/src/kotoba/DATOM-MOVED.md"
+  :migration/intermediate-destination "https://github.com/kotoba-lang/kotoba-datom"
+  :migration/final-destination "https://github.com/kotoba-lang/kotodama"
+  :migration/final-revision "6e02abb11f95d5b7cea2379f513c25d0208b1b59"
+  :migration/namespace 'kotoba.datom
+  :migration/context
+  "An intermediate main-branch note recorded a planned extraction to kotoba-datom while explorer and ibuki still used the legacy classpath. The final root-drain transaction rewired both consumers and placed the canonical EDN append-only EAVT implementation in kotoba-lang/kotodama."
+  :migration/superseded-reasons
+  [:legacy-consumers-rewired
+   :legacy-datom-copy-deleted
+   :shared-runtime-owner-consolidated]
+  :migration/date "2026-07-18"
+  :migration/authoritative true}]

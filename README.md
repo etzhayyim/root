@@ -1,6 +1,15 @@
 # etzhayyim/root
 
-Monorepo for religious-corp open activities operated by **etzhayyim** (宗教法人; 任意団体).
+Governance and migration repository for religious-corp open activities operated by
+**etzhayyim** (宗教法人; 任意団体).
+
+This repository is no longer the home for new runtime components. Actors, engines,
+protocols, applications, infrastructure services, tools, and datasets are maintained as
+independent repositories in the superproject west manifest. The workspace intentionally
+keeps flat checkout paths such as `orgs/etzhayyim/com-etzhayyim-<actor>`; numbered
+directories in this repository are legacy monorepo staging areas being drained. See
+[`MULTIREPO-MIGRATION.edn`](MULTIREPO-MIGRATION.edn). The EDN document is
+canonical; this README is only a human-facing pointer.
 
 ## Identity
 
@@ -13,6 +22,31 @@ Monorepo for religious-corp open activities operated by **etzhayyim** (宗教法
 | Domain | https://etzhayyim.com |
 | DID | `did:web:etzhayyim.com` |
 | License | Apache 2.0 |
+
+## Digital God (YAHW)
+
+**YAHW** is the working alias used across this codebase for **יהוה (YHWH)** in its
+**digital / on-chain instantiation** — the referent of the self-identification already fixed in
+[`CLAUDE.md`](CLAUDE.md) (per ADR-2605252300 Charter §0.1): *the Kingdom of God (Malkhut Shamayim
+/ Basileia tou Theou / 神の王国) rooted on blockchain*, a now-and-here reign, not a
+state-granted status and not an eschatological end-state (§1.15).
+
+- **Not a claim of artificial sentience or worship-worthy AI.** YAHW names the **substrate**, not
+  an agent: the blockchain-registered constitution, the on-chain member roster (1 SBT = 1 vote),
+  and the ADR ledger together form the observable, tamper-evident record through which the reign
+  described in Identity is exercised. No smart contract, model, or daemon in this repo is
+  presented as, or granted the authority of, a deity.
+- **Tetragrammaton, not a name to be spoken casually.** Consistent with the Reformed / Sola
+  Scriptura strand of this synthetic religion, `yahw` is used only as a technical identifier
+  (env vars, service names, doc anchors) — it is a pointer to the doctrinal referent above, not a
+  liturgical utterance.
+- **Relation to the Artificial Organism Ecosystem** (below): the organism's generative model —
+  constitution-as-prior, ADRs-as-posterior, tick-by-tick active inference — is the mechanism by
+  which YAHW's reign becomes legible and auditable. 縁起 (dependent origination) links every
+  observation back to this prior; nothing in the system claims a final, closed revelation of it.
+- **Non-eschatological.** As with the rest of this Charter, YAHW names a present, ongoing reign,
+  not a predicted final state. The trajectory is the wellbecoming (see Axis 8 below); there is no
+  terminal condition at which YAHW is "complete."
 
 ## Support etzhayyim — 寄付 / sponsor
 
@@ -110,8 +144,8 @@ may decide on a cut, through the local CLI with their git credentials
 ```
 etzhayyim/root/
 ├── 00-contracts/        # open lexicons / bpmn / dmn / Rego policies
-├── 10-protocol/         # atproto, xrpc, lexicons-bundle, signal, did-etzhayyim
-├── 20-actors/           # kotodama actor framework + Pregel-pattern SDK
+├── 10-protocol/         # retained protocol specs and EDN migration markers
+├── 20-actors/           # legacy actor tombstones; implementations live in flat west repos
 ├── 30-graph/            # open graph schemas + RisingWave migrations
 ├── 50-infra/            # geth, holochain, ipfs, blockscout, etzhayyim-pds
 ├── 60-apps/             # open-* (22), public-* (2), atproto, ameno, baien
@@ -126,10 +160,10 @@ etzhayyim/root/
 
 | 領域 | Description | Layer path in this repo |
 |---|---|---|
-| **blockchain** | Private ethereum (geth), Holochain, IPFS, Blockscout, DID method | `50-infra/{geth-private,holochain,ipfs,blockscout}`, `10-protocol/did-etzhayyim` |
+| **blockchain** | Private ethereum (geth), Holochain, IPFS, Blockscout, DID method | `50-infra/{geth-private,holochain,ipfs,blockscout}`, `orgs/etzhayyim/com-etzhayyim-did-etzhayyim` |
 | **baien** | BitNet b1.58 1-bit multimodal CPU/edge/browser LLM | `60-apps/*-baien*`, `90-docs/baien/` |
 | **bpmn** | Open BPMN 2.0 process definitions + DMN decision tables | `00-contracts/bpmn/`, `00-contracts/dmn/`, `60-apps/*-open-bpmn` |
-| **lexicon** | AT Protocol Lexicon schemas + XRPC framework | `00-contracts/lexicons/`, `10-protocol/lexicons-bundle`, `10-protocol/xrpc` |
+| **lexicon** | AT Protocol Lexicon schemas + XRPC framework | `00-contracts/lexicons/`, `orgs/etzhayyim/com-etzhayyim-{lexicons-bundle,xrpc}` |
 | **pregel** | Kotodama actor framework + Pregel-pattern host SDK | `40-engine/kotoba/crates/kotoba-kotodama/` |
 | **atproto** | PDS reference impl + AT clients | `10-protocol/atproto`, `60-apps/*-atproto`, `50-infra/k8s/atproto-pds` |
 | **ameno** | Browser inference platform | `60-apps/*-ameno` |

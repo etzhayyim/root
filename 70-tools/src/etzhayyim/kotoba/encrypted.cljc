@@ -17,7 +17,8 @@
 ;; The AEAD/envelope framing is independent of this choice.
 
 (ns etzhayyim.kotoba.encrypted
-  (:require [etzhayyim.kotoba.cid :as cid]
+  (:require #?(:clj [clojure.edn :as edn])
+            [etzhayyim.kotoba.cid :as cid]
             [etzhayyim.kotoba.crypto :as crypto])
   #?(:clj (:import (java.util Base64))))
 
@@ -35,7 +36,7 @@
    to match the production wire (the AEAD framing is unaffected)."
   (fn [v] #?(:clj (.getBytes (pr-str v) "UTF-8") :cljs nil)))
 (def ^:dynamic *decode-plaintext*
-  (fn [^bytes b] #?(:clj (read-string (String. b "UTF-8")) :cljs nil)))
+  (fn [^bytes b] #?(:clj (edn/read-string (String. b "UTF-8")) :cljs nil)))
 
 (defn key-id
   "keyId = hex prefix of sha256(sym-key) (16 hex chars), per ADR-2605181100."

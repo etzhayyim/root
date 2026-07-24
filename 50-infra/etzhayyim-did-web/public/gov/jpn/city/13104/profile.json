@@ -1,0 +1,28 @@
+{
+  "did" : "did:web:etzhayyim.com:gov:jpn:city:13104",
+  "handle" : "13104.city.jpn.gov.etzhayyim.com",
+  "displayName" : "Shinjuku City (etzhayyim mirror)",
+  "displayNameJa" : "新宿区(観測ミラー)",
+  "description" : "新宿区(Shinjuku City)の etzhayyim 観測ミラー記録。これは etzhayyim による OBSERVATIONAL MIRROR(観測ミラー)であり、当該の公的機関そのものではなく、公式チャネルでもありません。当該機関に代わって何かを発行・受理することは一切ありません(ADR-2606021600 §4 なりすまし禁止 / ooyake G3)。当該機関の公式サイト: https://www.city.shinjuku.lg.jp/ — 公式情報は必ず公式サイトを参照してください。サーバ署名鍵を持ちません(verificationMethod は空、did:web の trust root = TLS、ADR-2605231525 no-server-key)。",
+  "avatar" : "",
+  "banner" : "",
+  "followersCount" : 0,
+  "followsCount" : 0,
+  "postsCount" : 0,
+  "indexedAt" : "2026-06-27T00:00:00.000Z",
+  "labels" : [ ],
+  "viewer" : { },
+  "performerType" : "system",
+  "uiType" : "appview",
+  "glyph" : "公",
+  "_etzhayyim" : {
+    "kind" : "gov-unit-mirror",
+    "mirror" : true,
+    "unit-id" : "gov.jpn.city.13104",
+    "official-url" : "https://www.city.shinjuku.lg.jp/",
+    "official-did" : null,
+    "source" : "ooyake",
+    "adr" : [ "2606021600", "2606272355" ],
+    "didDocument" : "https://etzhayyim.com/gov/jpn/city/13104/did.json"
+  }
+}

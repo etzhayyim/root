@@ -8,10 +8,10 @@ SAME CID the actor's did.json advertises and the WASM loader re-verifies) — so
 not a mock, it binds the actual code.
 
   python3 build.py --did did:web:etzhayyim.com:actor:tsumugi --graph tsumugi \
-      --wasm ../../20-actors/tsumugi/wasm/loader/tsumugi-core.wasm \
+      --wasm ../../orgs/etzhayyim/com-etzhayyim-tsumugi/wasm/loader/tsumugi-core.wasm \
       --lexicon ../../00-contracts/schemas/engi-organism-ontology.kotoba.edn \
-      --rules-out ../../20-actors/tsumugi/dna/tsumugi.integrity.edn \
-      --dna-out   ../../20-actors/tsumugi/dna/tsumugi.dna.edn \
+      --rules-out ../../orgs/etzhayyim/com-etzhayyim-tsumugi/dna/tsumugi.integrity.edn \
+      --dna-out   ../../orgs/etzhayyim/com-etzhayyim-tsumugi/dna/tsumugi.dna.edn \
       --append-only --deny :person/name --deny :individual/handle
 
 The ruleset is GENERATED canonically (integrity.rules_edn) so the committed file's raw CID IS

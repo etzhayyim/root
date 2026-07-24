@@ -27,13 +27,18 @@ never touches a live channel.
 
 from __future__ import annotations
 
-import json
+import os
 import re
+import sys
 from pathlib import Path
 
 _REPO = Path(__file__).resolve().parents[3]
-_TORITSUGI = _REPO / "20-actors" / "toritsugi" / "registry" / "procedures.seed.json"
-_CHIGIRI = _REPO / "20-actors" / "chigiri" / "registry" / "legal-aid.seed.json"
+_TORITSUGI_ROOT = Path(os.environ.get("ETZHAYYIM_TORITSUGI_ROOT", _REPO.parent / "com-etzhayyim-toritsugi"))
+_CHIGIRI_ROOT = Path(os.environ.get("ETZHAYYIM_CHIGIRI_ROOT", _REPO.parent / "com-etzhayyim-chigiri"))
+_TORITSUGI = _TORITSUGI_ROOT / "registry" / "procedures.seed.edn"
+_CHIGIRI = _CHIGIRI_ROOT / "registry" / "legal-aid.seed.edn"
+sys.path.insert(0, str(_REPO / "20-actors" / "ooyake" / "cells" / "reconcile"))
+from cell import parse_edn  # noqa: E402
 
 # ISO-3166-1 alpha-3, lowercase.
 _ISO3_RE = re.compile(r"^[a-z]{3}$")
@@ -47,7 +52,7 @@ _PARITY_FLOOR = 45
 
 
 def _jurisdictions(path: Path, list_key: str) -> set[str]:
-    data = json.loads(path.read_text())
+    data = parse_edn(path.read_text())
     rows = data[list_key]
     return {(r.get("jurisdiction") or "").strip() for r in rows}
 

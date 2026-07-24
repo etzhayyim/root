@@ -1,0 +1,31 @@
+{
+  "did": "did:web:etzhayyim.com:actor:suji",
+  "handle": "suji.etzhayyim.com",
+  "displayName": "筋 — Musculoskeletal Posture-Load Biomechanics Simulator",
+  "description": "The physics-simulation answer to 'what does a laptop posture do to the body?'. A sagittal articulated bone chain (de Leva/Winter anthropometry — the kami-genesis PlanarChain) is driven through static inverse dynamics (Featherstone RNEA gravity term) to per-joint moment + cervical compressive load (VALIDATED against Hansraj 2014's forward-head-posture table), then to Hill-type muscle %MVC (緊張/tension) and a Rohmert sustained-isometric dose (強張り/stiffness) over a work session, comparing laptop-...",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-06T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "筋",
+  "displayNameJa": "筋 — Musculoskeletal Posture-Load Biomechanics Simulator",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2606061900",
+      "2606061900"
+    ],
+    "primaryLexicon": "com.etzhayyim.suji",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/suji/did.json",
+    "source": "kotoba"
+  }
+}

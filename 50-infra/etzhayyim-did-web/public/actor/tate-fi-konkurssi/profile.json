@@ -1,0 +1,35 @@
+{
+  "did": "did:web:etzhayyim.com:actor:tate-fi-konkurssi",
+  "handle": "tate-fi-konkurssi.etzhayyim.com",
+  "displayName": "Saatavan valvonta (債権者側・倒産・フィンランド) — case actor",
+  "description": "Suomi の『Saatavan valvonta (債権者側・倒産・フィンランド)』を受け取った人のための case actor。期限ルール・防御選択肢・無料相談先のデータ DL と相談導線。 一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
+  "performerType": "system",
+  "uiType": "document",
+  "labels": [],
+  "viewer": {},
+  "_etzhayyim": {
+    "kind": "case-mirror",
+    "parent": "tate",
+    "track": ":insolvency",
+    "jurisdiction": ":fi",
+    "didDocument": "https://etzhayyim.com/actor/tate-fi-konkurssi/did.json",
+    "downloads": {
+      "case_json": "https://etzhayyim.com/actor/tate-fi-konkurssi/case.json",
+      "checklist_md": "https://etzhayyim.com/actor/tate-fi-konkurssi/checklist.md",
+      "template_md": "https://etzhayyim.com/actor/tate-fi-konkurssi/template.md",
+      "jurisdiction_guide": "https://etzhayyim.com/tate/fi.html"
+    },
+    "consultation": {
+      "free_referrals": [
+        "oikeusapu (julkinen 法律扶助)",
+        "kuluttajaneuvonta (KKV 消費者助言)"
+      ],
+      "fraud_help": [
+        "tasuke 助 (サイバー犯罪被害支援)",
+        "poliisi (nettipetokset 通報)",
+        "kuluttajaneuvonta"
+      ],
+      "yoro_convo": "PLANNED — yoro convo chat 経由の相談は operator/Council ゲートの R+ レグ (現状は上記の公的・無料窓口へ)"
+    }
+  }
+}

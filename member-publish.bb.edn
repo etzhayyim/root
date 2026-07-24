@@ -1,0 +1,37 @@
+;; kotoba-genome W4-live — the MEMBER-PUBLISH bb config (ADR-2606302205 D4).
+;;
+;; The heavy cross-repo deps (kagi-clj + BouncyCastle, langchain, ed25519-clj) are
+;; ISOLATED here so the main bb.edn stays light and every other bb task keeps a
+;; fast, dep-free startup. This config is the MEMBER's, run at their own runtime —
+;; the agent / CI never uses it (no key, no publish).
+;;
+;; Prereq (member): `west update` so the :local/root repos are present, and a
+;; sealed did:key in Keychain (service etzhayyim.kotoba-rad). Then:
+;;
+;;   # pilot preview (no key/network needed — walk the path first):
+;;   bb --config member-publish.bb.edn observatory:member-publish \
+;;      --actor cable-marea --aud "<node-operator-did>" --subject "MAREA" \
+;;      --text "public-record observatory online" --dry
+;;
+;;   # real one-actor publish (YOUR creds; non-cron; explicit):
+;;   ETZHAYYIM_MEMBER_DID="did:web:etzhayyim.com:<you>" \
+;;     bb --config member-publish.bb.edn observatory:member-publish \
+;;        --actor cable-marea --aud "<node-operator-did>" --subject "MAREA" \
+;;        --text "public-record observatory online"
+;;
+;; See 90-docs/runbooks/observatory-member-publish.md.
+{:paths ["70-tools/src"]
+ :deps  {com-junkawasaki/kagi-clj       {:local/root "../../com-junkawasaki/kagi-clj"}
+         kotoba-lang/langchain          {:local/root "../../kotoba-lang/langchain"}
+         kotoba-lang/ed25519            {:local/root "../../kotoba-lang/ed25519"}
+         org.bouncycastle/bcprov-jdk18on {:mvn/version "1.78.1"}}
+ :tasks
+ {observatory:member-publish
+  {:doc  "Member-only: kagi CACAO leash + kotoba-lang datom:transact + Keychain key. --dry = pilot preview (no key/network). Args: --actor <h> --aud <node-operator-did> --subject … --text … [--ttl 900] [--dry]."
+   :task (do (require 'etzhayyim.observatory-sign)
+             (apply (resolve 'etzhayyim.observatory-sign/-sign-and-publish) *command-line-args*))}
+
+  observatory:submit
+  {:doc  "Member-only: batch-gate the prepared outbox (non-cron + --yes + member signer + charter scan), then per-post member-publish. Args: [--in PATH] [--yes] [--out PATH]."
+   :task (do (require 'etzhayyim.observatory-submit)
+             (apply (resolve 'etzhayyim.observatory-submit/-submit) *command-line-args*))}}}

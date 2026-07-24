@@ -1,7 +1,7 @@
 # LiteLLM gateway (etzhayyim Murakumo Tier-1)
 
 Stateless OpenAI-compatible router for the etzhayyim Murakumo Mac-mini fleet.
-Per ADR-2605191346 (Vultr-free, Mac-mini-only) and ADR-2605191358 (RW-free
+Per ADR-2605191346 (Vultr-free, Mac-mini-only) and ADR-2605191358 (kotoba
 inference substrate; durable job state lives in the CF Worker via
 `@etzhayyim/sdk`, not here).
 
@@ -77,7 +77,7 @@ tree is **not** brought over because:
 
 ## References
 
-- ADR-2605172000 (RW-free hard rule)
+- ADR-2605172000 (kotoba hard rule)
 - ADR-2605191346 (Vultr-free; Murakumo Mac-mini Tier-1)
-- ADR-2605191358 (yoro/murakumo RW-free rewrite map — this directory = step 3 minus deferred LangGraph)
+- ADR-2605191358 (yoro/murakumo kotoba rewrite map — this directory = step 3 minus deferred LangGraph)
 - `50-infra/cloudflare/workers/murakumo/` (step 2 — the CF Worker that owns inference job state)

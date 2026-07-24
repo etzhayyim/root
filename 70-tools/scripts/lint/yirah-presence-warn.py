@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """yirah-presence-warn — non-blocking reminder for ADR-2606112200 D4.
 
-A staged actor manifest (20-actors/*/manifest.jsonld) without a top-level
+A staged actor wire manifest (orgs/etzhayyim/com-etzhayyim-*/wire/manifest.jsonld) without a top-level
 `yirah` declaration block gets a WARNING, never a block: absent ≠ violating —
 declarations are adopted only where an invariant is meaningful for the actor's
 scope, and that judgment belongs to the author, not this script. Always exits 0
@@ -18,9 +18,9 @@ def main(argv):
     warned = 0
     for arg in argv[1:]:
         p = pathlib.Path(arg)
-        if p.name != "manifest.jsonld" or p.parent.parent.name != "20-actors":
+        if p.name != "manifest.jsonld" or p.parent.name != "wire" or not p.parent.parent.name.startswith("com-etzhayyim-"):
             continue
-        actor = p.parent.name
+        actor = p.parent.parent.name.removeprefix("com-etzhayyim-")
         if actor.endswith("-compat") or actor.startswith("_"):
             continue
         try:

@@ -2,33 +2,10 @@
   "_note": "JSON mirror of corpus.edn (the SoT). Regenerate when corpus.edn changes.",
   "corpus": [
     {
-      "id": ":service-request",
-      "src": "20-actors/infra-utility-connect/cells/service_request/cell.py",
-      "loc": 27, "nodes": 2, "rel_imports": 0, "tier": "simple",
-      "class": "ServiceRequestCell", "entry": "solve", "ref_input": {},
-      "ref_strategy": ":gold-wasm",
-      "gold_wasm": "40-engine/kotoba/examples/kotoba-langgraph-service-request"
-    },
-    {
-      "id": ":final-sign-off",
-      "src": "20-actors/gov-municipality/cells/final_sign_off/cell.py",
-      "loc": 38, "nodes": 4, "rel_imports": 0, "tier": "simple-plus",
-      "class": "FinalSignOffCell", "entry": "solve", "ref_input": {"projectId": "demo-001"},
-      "ref_strategy": ":gold-wasm",
-      "gold_wasm": "40-engine/kotoba/examples/kotoba-langgraph-final-sign-off"
-    },
-    {
       "id": ":safety-monitoring",
-      "src": "20-actors/wadachi/cells/safety_monitoring/cell.py",
+      "src": "orgs/etzhayyim/com-etzhayyim-wadachi/cells/safety_monitoring/cell.py",
       "loc": 67, "nodes": 5, "rel_imports": 1, "tier": "medium",
       "class": "SafetyMonitoringCell", "entry": "solve", "ref_input": {},
-      "ref_strategy": ":host-python"
-    },
-    {
-      "id": ":wafer-processing",
-      "src": "20-actors/silicon/cells/wafer_processing/cell.py",
-      "loc": 73, "nodes": 6, "rel_imports": 1, "tier": "medium-complex",
-      "class": "WaferProcessingCell", "entry": "solve", "ref_input": {},
       "ref_strategy": ":host-python"
     },
     {

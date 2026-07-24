@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 1500" width="2400" height="1500" font-family="serif">
+  <title>be·here·now パイロット P13「結び直しの見開き」— 藍の糸が切れ、薄橙の糸が結ばれる</title>
+  <defs>
+    <!-- たそがれの倉庫内：上=深い藍紫、下=戸口からの温かい琥珀 -->
+    <linearGradient id="dusk" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0"   stop-color="#2a2336"/>
+      <stop offset="0.45" stop-color="#473247"/>
+      <stop offset="0.78" stop-color="#7c5640"/>
+      <stop offset="1"   stop-color="#b07a44"/>
+    </linearGradient>
+    <radialGradient id="doorlight" cx="0.5" cy="0.5" r="0.6">
+      <stop offset="0" stop-color="#ffe6b0" stop-opacity="0.95"/>
+      <stop offset="0.5" stop-color="#f0c074" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#f0c074" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vign" cx="0.5" cy="0.45" r="0.75">
+      <stop offset="0.6" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="0.55"/>
+    </radialGradient>
+    <linearGradient id="orangeThread" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#e89a5c"/>
+      <stop offset="0.5" stop-color="#f6c690"/>
+      <stop offset="1" stop-color="#e89a5c"/>
+    </linearGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+    <filter id="soft2" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="14"/>
+    </filter>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="2400" height="1500" fill="url(#dusk)"/>
+
+  <!-- 戸口から差す風と光(ruach)：右奥 -->
+  <g>
+    <polygon points="2400,250 2400,1180 1500,1500 1850,560" fill="url(#doorlight)" opacity="0.9"/>
+    <!-- 風の筋(細く半透明、効果線ではなく流れ) -->
+    <g stroke="#ffe6b0" stroke-width="2.5" fill="none" opacity="0.35" stroke-linecap="round">
+      <path d="M2080,520 C1820,600 1560,690 1300,760"/>
+      <path d="M2150,650 C1880,740 1620,840 1360,910"/>
+      <path d="M2010,430 C1800,470 1600,520 1430,560"/>
+    </g>
+  </g>
+
+  <!-- 床のライン -->
+  <path d="M0,1180 C600,1120 1800,1120 2400,1180 L2400,1500 L0,1500 Z" fill="#1c1626" opacity="0.6"/>
+
+  <!-- 囲い込まれた缶・箱の山(左奥の影)= 取 -->
+  <g fill="#1a1424" opacity="0.85">
+    <rect x="90" y="940" width="150" height="150"/>
+    <rect x="120" y="820" width="120" height="120"/>
+    <rect x="250" y="980" width="170" height="110"/>
+    <rect x="60" y="1060" width="200" height="90"/>
+    <rect x="230" y="880" width="100" height="100"/>
+  </g>
+
+  <!-- 中央の綴じ(ノド) -->
+  <line x1="1200" y1="0" x2="1200" y2="1500" stroke="#000000" stroke-opacity="0.22" stroke-width="3"/>
+
+  <!-- == 左頁:老人(うずくまる) == -->
+  <!-- 残像(as-of / うつろい):縮こまっていた過去の軌跡 -->
+  <g fill="#14101f" opacity="0.18">
+    <path d="M560,1180 C520,980 560,860 660,840 C600,900 580,1010 600,1180 Z"/>
+  </g>
+  <g fill="#14101f" opacity="0.28">
+    <path d="M610,1180 C575,990 605,870 700,850 C645,905 625,1010 645,1180 Z"/>
+  </g>
+  <!-- 老人本体:うずくまりが、ほどけかけて少しだけ伸びる輪郭(tensegrity 緩み) -->
+  <g fill="#0d0a15">
+    <path d="M690,1182
+             C648,1010 660,888 742,858
+             C800,836 868,852 905,902
+             C868,900 832,912 812,948
+             C792,986 792,1060 808,1182 Z"/>
+    <!-- 頭 -->
+    <circle cx="792" cy="836" r="46"/>
+    <!-- 端末へ伸ばしていた腕(力が抜けはじめる) -->
+    <path d="M812,948 C880,956 950,978 1006,1010 C946,1006 884,1004 836,1000 C820,986 814,968 812,948 Z" opacity="0.96"/>
+  </g>
+
+  <!-- 端末:藍の微光が褪せていく -->
+  <g>
+    <rect x="1006" y="1004" width="120" height="84" rx="6" fill="#0a0814"/>
+    <rect x="1018" y="1016" width="96" height="60" rx="4" fill="#27407a" opacity="0.5"/>
+    <rect x="1018" y="1016" width="96" height="60" rx="4" fill="#27407a" opacity="0.35" filter="url(#soft2)"/>
+  </g>
+
+  <!-- 藍の糸:張り詰めていたが、宙で「切れる」。橙より上を通し、明確な間(gap)で断つ -->
+  <!-- 糸のほのかな藍グロー -->
+  <g fill="none" stroke="#5b73c4" stroke-linecap="round" opacity="0.4" filter="url(#soft)">
+    <path d="M828,952 C912,930 968,946 1010,1004" stroke-width="12"/>
+  </g>
+  <g stroke="#7e93d8" stroke-linecap="round" fill="none">
+    <!-- 老人の手 → 切断点(張った直線的な張力) -->
+    <path d="M828,952 C912,930 968,946 1006,998" stroke-width="6" opacity="0.95"/>
+    <!-- ほつれ(老人側・切断点の手前) -->
+    <path d="M1006,998 l30,-12 M1006,998 l30,8 M1006,998 l24,22" stroke-width="3.2" opacity="0.9"/>
+    <!-- ── 間(切断のギャップ) ── -->
+    <!-- ほつれ(端末側) -->
+    <path d="M1052,1028 l-30,-10 M1052,1028 l-28,12 M1052,1028 l-18,26" stroke-width="3.2" opacity="0.7"/>
+    <!-- 端末側の垂れ下がる残り -->
+    <path d="M1052,1028 C1066,1040 1072,1054 1070,1072" stroke-width="5" opacity="0.6"/>
+  </g>
+  <!-- 切断点の小さな閃き -->
+  <circle cx="1029" cy="1012" r="16" fill="#aab6ec" opacity="0.65" filter="url(#soft)"/>
+
+  <!-- == 右頁:ナギ(立つ・静か) == -->
+  <g fill="#0d0a15">
+    <!-- 体:細く、上へまっすぐ(張力が通った姿勢) -->
+    <path d="M1560,1182
+             C1548,1000 1556,860 1576,720
+             C1582,672 1612,648 1648,648
+             C1684,648 1714,672 1720,720
+             C1740,860 1748,1000 1736,1182 Z"/>
+    <circle cx="1648" cy="600" r="48"/>
+    <!-- やかんへ添える腕 -->
+    <path d="M1572,820 C1520,852 1470,892 1442,944 C1492,918 1546,884 1588,856 Z"/>
+  </g>
+  <!-- やかんと湯気 -->
+  <g>
+    <path d="M1392,948 q-46,8 -50,46 q-2,30 30,40 l86,0 q34,-8 32,-44 q-2,-36 -48,-44 Z" fill="#0a0814"/>
+    <path d="M1452,930 l34,-2 q10,2 8,16 l-50,0 Z" fill="#0a0814"/>
+    <g stroke="#e9d6b4" stroke-width="3" fill="none" opacity="0.5" stroke-linecap="round">
+      <path d="M1418,924 C1402,886 1438,864 1420,824 C1406,792 1436,772 1424,742"/>
+      <path d="M1452,922 C1438,888 1470,868 1454,832"/>
+    </g>
+  </g>
+
+  <!-- ノドの間に置かれた パン -->
+  <g>
+    <ellipse cx="1212" cy="1132" rx="66" ry="34" fill="#caa06a"/>
+    <ellipse cx="1212" cy="1126" rx="66" ry="34" fill="#e6c188"/>
+    <path d="M1170,1120 q42,-18 84,0" stroke="#9a6f3e" stroke-width="3" fill="none" opacity="0.7"/>
+  </g>
+
+  <!-- 薄橙の糸:老人 ⇄ ナギ に新しく「結ばれる」(やわらかな一筋+ほのかな光) -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M820,966 C1040,1110 1240,1150 1420,1010 C1520,930 1560,860 1592,792"
+          stroke="url(#orangeThread)" stroke-width="9" opacity="0.55" filter="url(#soft)"/>
+    <path d="M820,966 C1040,1110 1240,1150 1420,1010 C1520,930 1560,860 1592,792"
+          stroke="url(#orangeThread)" stroke-width="4.5" opacity="0.95"/>
+    <!-- 結び目(中央付近のひと結び) -->
+    <circle cx="1240" cy="1124" r="13" fill="#f6c690" opacity="0.95"/>
+    <circle cx="1240" cy="1124" r="26" fill="#f6c690" opacity="0.3" filter="url(#soft)"/>
+  </g>
+
+  <!-- 戸口(右端・細く開く) -->
+  <g>
+    <rect x="2330" y="300" width="70" height="900" fill="#0a0814"/>
+    <polygon points="2330,300 2210,360 2210,1150 2330,1200" fill="#100b1a"/>
+    <polygon points="2210,360 2150,392 2150,1120 2210,1150" fill="url(#doorlight)" opacity="0.7"/>
+  </g>
+
+  <!-- 全体の周辺減光 -->
+  <rect width="2400" height="1500" fill="url(#vign)"/>
+
+  <!-- 余白の注記(印刷時トンボ外想定・演出メモ) -->
+  <g fill="#f3e7d0" opacity="0.5" font-size="26">
+    <text x="60" y="80">P13 ── 結び直しの見開き / 効果線・数値・必殺技なし。光と糸だけ。</text>
+    <text x="60" y="1450">藍の糸=切れる(端末/取)  ・  薄橙の糸=結ばれる(ナギ/分)  ・  風=戸口から(ruach)  ・  残像=as-of</text>
+  </g>
+</svg>

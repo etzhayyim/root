@@ -1,0 +1,32 @@
+{
+  "did": "did:web:etzhayyim.com:actor:suki",
+  "handle": "suki.etzhayyim.com",
+  "displayName": "鋤 — Farm Tractor Manufacturing",
+  "description": "Farm tractor manufacturing Tier-B actor. Manufacturing-side counterpart of mitsuho operator-side (ADR-2605261015), parallel to sarutahiko↔wadachi (truck) pattern. religious-corp first explicit Right-to-Repair constitutional first-class invariant at firmware level (G10 + N4); combined with tsutae G3 device-level R2R = dual-layer R2R constitutional. Methodology source = YouTube `aSmoLQKdX9E` European farm tractor factory documentary; manufacturing methodology adopted; John Deere-class DRM ECU +...",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-05-26T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "鋤",
+  "displayNameJa": "鋤 — Farm Tractor Manufacturing",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2605261500",
+      "2605261500",
+      "2605261515"
+    ],
+    "primaryLexicon": "com.etzhayyim.suki",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/suki/did.json",
+    "source": "kotoba"
+  }
+}

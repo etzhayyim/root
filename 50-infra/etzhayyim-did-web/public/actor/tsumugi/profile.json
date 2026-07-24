@@ -20,7 +20,8 @@
     "tier": "B",
     "status": "r0",
     "adr": [
-      "2606011800"
+      "2606011800",
+      "2606272355"
     ],
     "primaryLexicon": null,
     "primarySchema": "00-contracts/schemas/engi-organism-ontology.kotoba.edn (+ spirit-ontology.kotoba.edn)",

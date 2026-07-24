@@ -63,7 +63,7 @@ Run `wrangler deploy` in the given component directory.
 ### `e7m contract gen lexicons`
 
 Generate TypeScript bindings from `00-contracts/lexicons/**/*.json` via
-`@atproto/lex-cli` into `20-actors/etzhayyim-sdk/src/generated/` (override
+`@atproto/lex-cli` into `orgs/etzhayyim/com-etzhayyim-sdk/src/generated/` (override
 with `--out`).
 
 ### `e7m contract validate [target]`

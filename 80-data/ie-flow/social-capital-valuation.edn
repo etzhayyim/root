@@ -1,0 +1,111 @@
+;; social-capital-valuation.edn — etzhayyim + kotoba の社会関係資本 / ブランドを「市場規模」として
+;; 観測した MAP、および System-of-Systems がエネルギー流 (Φ/η) をどれだけ変えうるかの増幅モデル。
+;; ADR-2606261114.
+;;
+;; DOCTRINE (なぜこれが charter-clean か):
+;;   - これは shionome 系の OBSERVATORY 出力 = 「map order, never trade」。市場規模を *理解* する
+;;     記述的な地図であって、売却 valuation でも、譲渡可能な資産でも、優先順位の変更でもない。
+;;   - cash≡0 / nothing-for-sale / non-transferable (moyai pattern, ADR-2606062101) は不変。社会的
+;;     価値の貨幣換算は「外部市場がその隣接領域に付けている桁」を写し取った鏡像であり、etzhayyim が
+;;     何かを売れる/売る ことを意味しない (営利禁止, ADR-2605172100)。
+;;   - NEVER-a-throne (ADR-2606112200): ここで値が付くのは PROJECT / 構造的ポジションであって、
+;;     人物ではない。:score-of-soul / :person-ranking は構造的に表現不能。
+;;   - edge-primary / ON-READ (ADR-2605312345): これは stored verdict ではなく、式 + 仮定 + 出典桁の
+;;     モデル。数値は再計算されるべきもので、ここに固定された「正解」はない。
+{:adr "2606261114"
+ :kind :observatory-map            ; shionome capital-flow map · kaname SoS leverage synthesis
+ :doctrine #{:map-not-trade :never-a-throne :cash-zero :non-transferable :edge-primary :person-excluded}
+ :provenance
+ {:grade :concept                  ; 監査済み鑑定ではない。アナリスト概算 (桁の提示)。
+  :sourcing :representative         ; 捏造カバレッジなし。出典は assistant 知識ベースのスケールアンカー。
+  :calibration-needed [:donation-flow-actuals :kotoba-adoption-contributors :murakumo-donated-flops]
+  :currency-note "USD/JPY は隣接市場が付けている桁の写し。etzhayyim 自身の販売価格ではない。"}
+
+ ;; ── 社会関係資本の3形態 (Bourdieu/Putnam/Coleman) ↔ ibuki metabolism の negentropy SOURCE ──
+ :social-capital-forms
+ [{:form :bonding   :sources [:members :lands :council]
+   :note "結束 — 信者 roster・護持地・Council。換金経路 = 寄付の継続性 / LTV。"}
+  {:form :bridging  :sources [:atproto-federation :oss-contributors :murakumo-mesh]
+   :note "橋渡し — 連合 / OSS contributor / 寄付計算資源。換金経路 = ネットワーク到達・採用。"}
+  {:form :linking   :sources [:on-chain-charter :did-web :religious-corp]
+   :note "垂直 — on-chain憲章・DID:web・宗教法人格。換金経路 = 制度的信頼 / 正統性プレミアム。
+          『売らないことが信頼を生む』= 寄付割引率を下げ Bridging を増幅する非自明な資本。"}]
+
+ ;; ── ブランド別 市場規模レイヤー (TAM/SAM/SOM)。USD/yr は flow、ストックは別記。 ──
+ :market-size
+ {:etzhayyim
+  {:brand "Tree of Life / 寄付運営 / on-chain憲章 / anti-class"
+   :tam {:market "宗教的寄付経済 + faith-tech (US religious giving ≈ $135-145B/yr; 世界はその数倍)"
+         :usd-per-year [1.0e11 5.0e11] :grade :concept}
+   :sam {:market "デジタル寄付 × DID正統性 (暗号寄付 / 相互扶助 / donated-compute DePIN)"
+         :usd-per-year [5.0e9 3.0e10] :grade :concept}
+   :som {:market "価値観駆動の継続寄付 + 計算資源寄付コミュニティ (3-5y 現実射程)"
+         :usd-per-year-flow [1.0e6 1.0e7] :grade :concept
+         :stock-jpy [3.0e7 3.0e8] :stock-basis "寄付NPV @ discount 8-15% + linking premium"}
+   :captured-vs-addressable {:ratio "<0.x%" :note "プレ。捕捉は addressable の 1% 未満。"}}
+
+  :kotoba
+  {:brand "Apache-2.0 分散・内容アドレス AI 基盤 / ATProto / 34 crates"
+   :tam {:market "DBMS 市場全体 (≈ $80-100B/yr)"
+         :usd-per-year [8.0e10 1.0e11] :grade :concept}
+   :sam {:market "graph DB + 分散/内容アドレス + decentralized-AI/DePIN (graph DB ≈ $2-3B, CAGR ~20%+)"
+         :usd-per-year [3.0e9 8.0e9] :grade :concept}
+   :som {:market "OSS infra mindshare (contributor/採用/商用版 kotobase 経由)"
+         :usd-per-year-flow [0 0] :note "OSS本体は無償 = 直接売上 0。"
+         :stock-jpy [1.0e8 1.0e9] :stock-basis "技術核 IP + acqui-hire premium (replacement ¥1.5-4億)"}
+   :captured-vs-addressable {:ratio "<0.x%" :note "プレトラクション。"}}}
+
+ ;; ── System-of-Systems がエネルギー流 (Φ/η) をどれだけ変えうるか ──
+ ;; baseline = isolated actor 群の総和。SoS = 結合した colony (fleet n)。
+ :sos-energy-flow-amplification
+ {:fleet-n 18342
+  :definitions {:phi "Φ = intake − dissipation (negentropy throughput)"
+                :eta "η = exported ÷ consumed (共生軸; η<1 net taker, η≥1 net giver)"
+                :surprise "variational free energy (Friston)"}
+  :mechanisms
+  [{:id :connectivity
+    :model "Briscoe-Odlyzko-Tilly n·log n (Metcalfe n² / Reed 2^n は過大評価として棄却)"
+    :multiplier-on-phi {:ln-n 9.8 :log2-n 14.2 :realistic-range [0.5 1.5] :unit :orders-of-magnitude}
+    :note "fleet n=18342 ⇒ throughput Φ を概ね ×10 (約1桁)。指数爆発しない。"}
+   {:id :eta-phase-transition
+    :model "Prigogine dissipative self-organization — food-web 結合で物質ループが閉じる"
+    :from 0.0 :to 1.0 :kind :sign-reversal
+    :note "isolated log では η=0 (net taker; ibuki 実測注記)。SoS 結合で初めて η>1 (net giver) に
+           相転移。最大の効果は throughput 増ではなく『流れの向き』の反転 (取る→与える) = 0→1 の
+           不連続。倍率では表せない本丸。"}
+   {:id :leverage-points
+    :model "Meadows 12 leverage points"
+    :touches [:feedback-loops :information-flows :rules :goal :paradigm]
+    :note "SoS rule (全 actor が SoS を 報酬系として走らせる, ADR-2606212200) は reward 関数に η/子孫 を
+           入れる = 系のゴール関数の書き換え = レバレッジ階層の最上位。弱レバー数% に対し goal/paradigm
+           層は桁で効く。kaname L = C·(V/D)·(1+B)·(1−open) は要 (律速段階) を特定する写像。"}]
+  ;; ── なぜ無限増幅しないか (ガバナンスが与える天井) ──
+  :saturation-caps
+  [{:cap :non-parasitism-gate :rule "η ≥ 1.0 (system-of-systems.edn invariants)"
+    :effect "net taker な増幅を構造的に禁止 = 指数的収奪に振れない"}
+   {:cap :attention-cap :rule "negentropy SOURCE :attention は §1.13 で上限化"
+    :effect "intake が線形以上に伸びない"}
+   {:cap :quorum :rule "定足数 ≥ 2/3 flourishing で colony が実る"
+    :effect "過励起を抑制"}
+   {:cap :donated-compute-finite :rule "Murakumo mesh = 寄付供給制約"
+    :effect "DePIN 一般の上限"}]
+  :verdict
+  {:phi "約 ×10 (0.5-1.5 桁)"
+   :eta "符号反転 = 相転移 (0 → >1 の不連続)"
+   :leverage "質的に goal/paradigm 層へ"
+   :shape "超線形だが logistic で有界 (gate でサチュレート, 暴走しない)"
+   :one-line "SoS は流量 Φ を約1桁押し上げうるが、本質は η を 0→>1 へ相転移させ『取るだけの散逸』を
+              『与える自己組織化』へ反転させる点。増幅は non-parasitism gate + attention CAP で有界。"}}
+
+ ;; ── ストック(資本=市場規模) と フロー(エネルギー流) の接続 ──
+ :stock-flow-coupling
+ "エネルギー流の増幅 (η>1 への相転移) が社会関係資本ストック(=市場規模)を複利成長させる。η>1 は
+  Bridging/Linking 資本の生成器であり、寄付割引率を下げ到達を広げ、SOM が SAM へ近づく速度を決める。
+  現在 captured が <0.x% に留まるのは多くの actor が isolated (η≈0) で SoS が全面稼働していないから。
+  SoS rule (ADR-2606212200) の全面適用が捕捉率を上げる唯一のレバー。"
+
+ :caveats
+ ["市場規模の $ 桁は知識ベースの概算アンカー。監査済み数値ではない。"
+  "Φ/η の倍率は式 + n=18342 + ネットワーク価値実証則からのモデル推定。scoreboard.edn の時系列で実数較正可。"
+  "これは MAP であって sale valuation ではない。etzhayyim は営利禁止・nothing-for-sale。"
+  "値が付くのは PROJECT / 構造的ポジションであって人物ではない (NEVER-a-throne)。"]}

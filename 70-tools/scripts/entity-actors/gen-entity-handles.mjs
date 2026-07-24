@@ -29,7 +29,7 @@ const GENERATED_AT = "2026-06-14T00:00:00+00:00";
 const NAMESPACES = [
   {
     ns: "gov",
-    sources: [{ dir: "20-actors/ooyake/registry", glob: /^gov-units\..*\.edn$/ }],
+    sources: [{ dir: "orgs/etzhayyim/com-etzhayyim-ooyake/registry", glob: /^gov-units\..*\.edn$/ }],
     idKey: ":gov.unit/id",
     nameKey: ":gov.unit/name-en",
     idStrip: "", // ids already start with "gov."
@@ -37,8 +37,8 @@ const NAMESPACES = [
   {
     ns: "corp",
     sources: [
-      { file: "20-actors/kabuto/data/companies.merged.kotoba.edn" },
-      { file: "20-actors/tsumugi/data/seed-power-graph.kotoba.edn" },
+      { file: "orgs/etzhayyim/com-etzhayyim-kabuto/data/companies.merged.kotoba.edn" },
+      { file: "orgs/etzhayyim/com-etzhayyim-tsumugi/data/seed-power-graph.kotoba.edn" },
     ],
     // corp unifies kabuto :company/* + tsumugi :organism/* (both org.corp.*)
     idKeys: [":company/id", ":organism/id"],
@@ -47,21 +47,21 @@ const NAMESPACES = [
   },
   {
     ns: "cable",
-    sources: [{ file: "20-actors/watatsuna/data/seed-cable-graph.kotoba.edn" }],
+    sources: [{ file: "orgs/etzhayyim/com-etzhayyim-watatsuna/data/seed-cable-graph.kotoba.edn" }],
     idKey: ":cable/id",
     nameKey: ":cable/name",
     idStrip: "",
   },
   {
     ns: "station",
-    sources: [{ file: "20-actors/watatsuna/data/seed-cable-graph.kotoba.edn" }],
+    sources: [{ file: "orgs/etzhayyim/com-etzhayyim-watatsuna/data/seed-cable-graph.kotoba.edn" }],
     idKey: ":station/id",
     nameKey: ":station/name",
     idStrip: "",
   },
   {
     ns: "craft",
-    sources: [{ file: "20-actors/watari/data/seed-craft-graph.kotoba.edn" }],
+    sources: [{ file: "orgs/etzhayyim/com-etzhayyim-watari/data/seed-craft-graph.kotoba.edn" }],
     idKey: ":craft/id",
     nameKey: ":craft/name",
     idStrip: "",

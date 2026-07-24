@@ -1,0 +1,41 @@
+# ADR-2607171100 Phase 0 freeze: 番号レイヤ dir (00-〜90-) への新規ファイル追加を拒否。
+# 許可されるのは既存ファイルの修正・削除・canonical *-MOVED.edn tombstone のみ。
+# 新規コンポーネントは個別 repo として west manifest に登録する (superproject ADR-2607171100 D5)。
+name: layer-freeze-guard
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: reject new files under frozen numbered layer dirs
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE="${{ github.event.pull_request.base.sha }}"
+          else
+            BASE="${{ github.event.before }}"
+          fi
+          if [ -z "$BASE" ] || ! git cat-file -e "$BASE" 2>/dev/null; then
+            BASE=$(git rev-parse HEAD~1 2>/dev/null || true)
+          fi
+          if [ -z "$BASE" ]; then
+            echo "no base to diff against; skipping"
+            exit 0
+          fi
+          ADDED=$(git diff --diff-filter=A --name-only "$BASE"..HEAD \
+            | grep -E '^[0-9]{2}-[^/]+/' \
+            | grep -v -- '-MOVED\.edn$' \
+            | grep -v -E '^90-docs/adr/.+\.edn$' || true)
+          if [ -n "$ADDED" ]; then
+            echo "::error::ADR-2607171100 Phase 0 freeze: numbered layer dirs are frozen. New components must be individual repos registered in the west manifest (superproject ADR-2607171100 D5). Offending additions:"
+            echo "$ADDED"
+            exit 1
+          fi
+          echo "OK: no new files under frozen numbered layer dirs"

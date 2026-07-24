@@ -19,7 +19,34 @@
 {:graph {:name "actors-v1" :visibility :public}
 
  :seed
- [;; ── substrate service DIDs (no glyph; performer-type :service) ──────────
+ [;; ── the organization root itself (distinct from every Tier-B actor below;
+  ;; this is etzhayyim (עץ חיים) as a followable/listed entity in its OWN
+  ;; registry, per the owner's question "etzhayyim.com 自体にも actor として
+  ;; 登録されている?"). NOTE: `toDidDoc` (src/registry/actor-profiles.ts)
+  ;; always derives the DID doc's `id` as `did:web:etzhayyim.com:actor:<handle>`
+  ;; regardless of :actor/did — so this is a DISTINCT DID from the org's own
+  ;; root identity document (did:web:etzhayyim.com, the live
+  ;; 50-infra/etzhayyim-did-web/did.json), not a re-registration of it. Making
+  ;; the bare root DID itself resolve a getProfile view would require changing
+  ;; worker.ts's DID-resolution routing — deliberately NOT done here (owner
+  ;; chose the low-risk path: a proper sub-actor representing the org, zero
+  ;; changes to the live root DID resolution logic). ─────────────────────────
+  {:actor/handle "etzhayyim"
+   :actor/did "did:web:etzhayyim.com:actor:etzhayyim"
+   :actor/kind :root-entity
+   :actor/status :landed
+   :actor/glyph "עץ חיים"
+   :actor/display-name-ja "עץ חיים(エツ・ハイム)— 天御柱 / Tree of Life"
+   :actor/display-name-en "etzhayyim (עץ חיים, Tree of Life) — the religious-corp root entity"
+   :actor/performer-type :organization
+   :actor/ui-type :appview
+   :actor/description "The religious-corp root entity every Tier-B actor here (tate/toritsugi/yobel/saisei/meibo/etc.) operates under. Self-identifies as the Kingdom of God (Malkhut Shamayim) rooted on blockchain, non-eschatological, on-chain-registered (NOT under Japan's 宗教法人法) per ADR-2605252300 Charter §0.1. Mission: humanity's structural labor liberation (ADR-2605192100). Root identity: did:web:etzhayyim.com (this profile is the org's OWN sub-actor entry, not the root DID document itself — see note above)."
+   :actor/adr ["2605192100" "2605252300"]
+   :actor/created-at "2026-05-15"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:etzhayyim#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}]}
+
+  ;; ── substrate service DIDs (no glyph; performer-type :service) ──────────
   {:actor/handle "pinner"
    :actor/did "did:web:etzhayyim.com:actor:pinner"
    :actor/kind :substrate-service
@@ -140,7 +167,7 @@
    :actor/primary-schema "00-contracts/schemas/submarine-cable-ontology.kotoba.edn"
    :actor/adr ["2606012600"]
    :actor/created-at "2026-06-01"
-   ;; componentize-py WASM component (20-actors/watatsuna/wasm) — dag-pb (17.6MB,
+   ;; componentize-py WASM component (orgs/etzhayyim/com-etzhayyim-watatsuna/wasm) — dag-pb (17.6MB,
    ;; bundles CPython) → T2 donated-mesh tier, not browser-local (ADR-2606014600)
    :actor/wasm-cid "bafybeihusqahaeirwqur64aeh5fvwuoh54cawbmo7smx3h2abvps6li7pa"
    :actor/vm []
@@ -159,9 +186,9 @@
    :actor/ui-type :appview
    :actor/description "Spirit-in-Physics over real public power-entities + their 縁 to surface 取-concentration routed to release. An aggregate-first accountability map, NEVER a target-list (edge-primary karma, N1)."
    :actor/primary-schema "00-contracts/schemas/engi-organism-ontology.kotoba.edn (+ spirit-ontology.kotoba.edn)"
-   :actor/adr ["2606011800"]
+   :actor/adr ["2606011800" "2606272355"]
    :actor/created-at "2026-06-01"
-   ;; content-addressed WASM actor (20-actors/tsumugi/wasm/tsumugi-core) — runs
+   ;; content-addressed WASM actor (orgs/etzhayyim/com-etzhayyim-tsumugi/wasm/tsumugi-core) — runs
    ;; browser-local (ameno) / donated mesh, NO per-actor server (ADR-2606014500)
    :actor/wasm-cid "bafkreidfttpqimwnx4i5a3rswum3orcg3qfa3q7fwts6axgqtcpuokddfi"
    :actor/vm []
@@ -180,9 +207,9 @@
    :actor/ui-type :appview
    :actor/description "Aggregates public fundFlowEdges (appropriation→outlay→recipient + inter-governmental transfers) into kotoba EAVT and renders aggregate-first, NON-adjudicating summaries (danjo finds, kanae renders)."
    :actor/primary-lexicon "com.etzhayyim.kanae"
-   :actor/adr ["2605302300"]
+   :actor/adr ["2605302300" "2606272355"]
    :actor/created-at "2026-06-01"
-   ;; content-addressed T1 WASM actor (20-actors/kanae/wasm/kanae-core) — compact
+   ;; content-addressed T1 WASM actor (orgs/etzhayyim/com-etzhayyim-kanae/wasm/kanae-core) — compact
    ;; Rust core, raw CID → browser-local (ameno) / donated mesh (ADR-2606015200)
    :actor/wasm-cid "bafkreielhr6l5jy7ml5l62ncyva34lhjw52q2onwxwy6ubep4wqxjyjnie"
    :actor/vm []
@@ -201,10 +228,10 @@
    :actor/ui-type :appview
    :actor/description "Weaves observed cross-asset capital rotation (どこからどこへ) + the :outstanding-usd money-and-markets stock pyramid into the kotoba Datom flow-graph; aggregate-first, edge-primary, observational MIRROR — トレードはしない (no buy/sell signal, price target, or per-asset rating; structurally unrepresentable, G2/G4)."
    :actor/primary-lexicon "com.etzhayyim.shionome"
-   :actor/primary-schema "00-contracts/schemas/capital-flow-ontology.kotoba.edn"
+   :actor/primary-schema "orgs/etzhayyim/com-etzhayyim-shionome/contracts/capital-flow-ontology.edn"
    :actor/adr ["2606072200" "2606101540"]
    :actor/created-at "2026-06-07"
-   ;; content-addressed T1 WASM actor (20-actors/shionome/wasm/shionome-core) — compact
+   ;; content-addressed T1 WASM actor (orgs/etzhayyim/com-etzhayyim-shionome/wasm/shionome-core) — compact
    ;; Rust core (regime + stock pyramid, no_trade:true), raw CID → browser-local (ameno)
    ;; / donated mesh (ADR-2606015200). The 18.5MB componentize-py component stays the
    ;; separate T2 dag-pb artifact (wasm/shionome-actor.meta.json).
@@ -245,11 +272,95 @@
    :actor/description "kotoba-Datomic structural atlas of every government unit on Earth (国→省→庁→局→課→窓口) with 住所/窓口/書式/手続き/BPMN. The read-side SSoT danjo/kanae/tsumugi/toritsugi/himotoki consume. An observational MIRROR + civic wayfinding map — NEVER the government, NEVER an official channel, NEVER a target-list (G3/G10)."
    :actor/primary-lexicon "com.etzhayyim.ooyake"
    :actor/primary-schema "00-contracts/schemas/gov-atlas-ontology.kotoba.edn"
-   :actor/adr ["2606021600"]
+   :actor/adr ["2606021600" "2606272355"]
    :actor/created-at "2026-06-02"
    :actor/vm []
    :actor/service [{"id" "did:web:etzhayyim.com:actor:ooyake#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
                    {"id" "did:web:etzhayyim.com:actor:ooyake#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  ;; danjo 弾正 — public-accountability oversight mirror. Registered + self-publication
+  ;; seed (did-web + social_post membrane + on-tick self-publish) per ADR-2606272355.
+  ;; #xrpc-libp2p peer multiaddr assigned at `bb murakumo deploy` time (wasmCid set).
+  {:actor/handle "danjo"
+   :actor/did "did:web:etzhayyim.com:actor:danjo"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "弾正"
+   :actor/display-name-ja "弾正 — 公開情報による行政アカウンタビリティの観測ミラー (非断定)"
+   :actor/display-name-en "Danjo — Public-Accountability Oversight (observational mirror)"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "国家が既に公開した open-government corpus (国会会議録/予算書/政府調達) + 歳入レジストリ (17 国税 + 12 地方税, FY2023/2024) を kotoba EAVT に取り込み、出典付き NON-adjudicating な discrepancy observation と集計透明性レポートを emit する。censor の目であって剣ではない: 観測と透明な公開のみ。自律 social 公開は no-server-key — 投稿は actor 自身が mesh runtime 内で self-custody する鍵で署名し、サーバは署名しない (ADR-2605231525); live は Council Lv6+ + operator + member-signature gated、R0 は dry-run draft のみ。G4 非断定 / G3 passive-only / G5 ≥2 出典 / G6 open method / G11 Transparent Force。NOT 会計検査院, NOT prosecutor, NOT surveillance, NOT target-list。"
+   :actor/primary-lexicon "com.etzhayyim.danjo"
+   :actor/primary-schema "00-contracts/schemas/danjo-oversight-ontology.kotoba.edn"
+   :actor/adr ["2605301600" "2605263900" "2606272355"]
+   :actor/created-at "2026-06-27"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:danjo#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}]}
+
+  ;; toritsugi 取次 — citizen government-procedure concierge (wayfinding mirror). Registered +
+  ;; self-publication seed (did-web + social_post membrane + on-tick self-publish) per ADR-2606272355.
+  ;; #xrpc-libp2p peer multiaddr assigned at `bb murakumo deploy` time (wasmCid set).
+  {:actor/handle "toritsugi"
+   :actor/did "did:web:etzhayyim.com:actor:toritsugi"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "取次"
+   :actor/display-name-ja "取次 — 市民の側に立つ行政手続きコンシェルジュ (案内+伴走+本人提出支援)"
+   :actor/display-name-en "Toritsugi — Citizen Government-Procedure Concierge (wayfinding mirror)"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "窓口で『市民の側』に立ち、同意した信者を 自治体・政府手続き に伴走する citizen-facing concierge。利用可能な 制度/給付 を能動的に提示し、手続き を説明し、必要書類 チェックリストを整え、様式 入力を補助して、最終的な 提出・署名 は 本人 が行う (案内+伴走+本人提出支援、既定モード)。各手続きの 窓口/所管/オンライン申請URL/必要書類/様式/手数料/法定処理期間/根拠法令/channel を コード化した procedure registry が駆動する。自律 social 公開は no-server-key — 投稿は actor 自身が mesh runtime 内で self-custody する鍵で署名し、サーバは署名しない (ADR-2605231525); live は Council Lv6+ + operator + member-signature gated、R0 は dry-run draft のみ。G5 行政書士法/UPL 境界 (情報提供+案内+入力補助 only, NO advice + NO 作成代理) / G3 同意必須・本人手続き限定 / G4 透明・非 pretext / G8 非捏造 (根拠法令+provenance 明示) / G14 検証済 procedure のみ提出 / G15 本人提出 default。NOT a 行政書士/弁護士 firm, NOT an official 自治体 channel, NOT a paid filing-mill, NOT danjo (opposite posture)。"
+   :actor/primary-lexicon "com.etzhayyim.toritsugi.procedure"
+   :actor/primary-schema "orgs/etzhayyim/com-etzhayyim-toritsugi/wire/lex/procedure.json"
+   :actor/adr ["2605312030" "2605262700" "2606272355"]
+   :actor/created-at "2026-06-27"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:toritsugi#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}]}
+
+  ;; himotoki 繙き — active disclosure-request filer (consent-bound, own-data-only). Registered +
+  ;; self-publication seed (did-web + social_post membrane + on-tick self-publish) per ADR-2606272355.
+  ;; #xrpc-libp2p peer multiaddr assigned at `bb murakumo deploy` time (wasmCid set).
+  {:actor/handle "himotoki"
+   :actor/did "did:web:etzhayyim.com:actor:himotoki"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "繙き"
+   :actor/display-name-ja "繙き — 同意ベース・本人データのみの能動的 開示請求 filer"
+   :actor/display-name-en "Himotoki — Active Disclosure-Request Filer (consent-bound, own-data-only)"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "passive な danjo/tadori の active-outbound の対(つい)。同意した member 本人のために、本人の OWN data の開示請求 (DSAR — 個人情報開示請求 APPI §33 / GDPR Art.15 / CCPA) を private controller へ、行政文書開示請求 (FOIA — 行政機関情報公開法 / FOIA) を公的機関へ、coded target registry 経由で file・track・appeal し、開示記録を custody する。自律 social 公開は no-server-key — 投稿は member/actor 自身が mesh runtime 内で self-custody する鍵で署名し、サーバは署名しない (ADR-2605231525); live は Council Lv6+ + operator + member-signature gated、R0 は dry-run draft のみ。公開するのは himotoki 自身の HISTORY (filed-request / disclosure-received の own-data-only 集計) と PROCEDURES (DSAR/FOIA 手続き) のみ — 第三者の個人データは決して掲載しない。G3 consent-bound own-data-only / G4 transparent + non-pretextual / G5 UPL-equivalent / G6 PII は encrypted DID-bound envelope のみ / G14 verified-target-only / G11 Transparent Force。NOT a law firm, NOT a private-investigator/people-search, NOT a data-broker, NOT a re-disclosure/leak channel, NOT target-list。"
+   :actor/primary-lexicon "com.etzhayyim.himotoki"
+   :actor/primary-schema "orgs/etzhayyim/com-etzhayyim-himotoki/wire/lex/disclosureRequest.json"
+   :actor/adr ["2605302130" "2605262700" "2606272355"]
+   :actor/created-at "2026-06-27"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:himotoki#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}]}
+
+  ;; junkan 循環 — citizen↔state-asymmetry systems-dynamics observer (analysis-only). Registered +
+  ;; self-publication seed (did-web + social_post membrane + on-tick self-publish) per ADR-2606272355.
+  ;; #xrpc-libp2p peer multiaddr assigned at `bb murakumo deploy` time (wasmCid set).
+  {:actor/handle "junkan"
+   :actor/did "did:web:etzhayyim.com:actor:junkan"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "循環"
+   :actor/display-name-ja "循環 — 国民↔国家の非対称性 システム・ダイナミクス観測者 (分析専用)"
+   :actor/display-name-en "Junkan — Citizen↔State-Asymmetry Systems-Dynamics Observer (analysis-only)"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "国民↔国家の構造的非対称性を passive・public・aggregate データから読む ANALYSIS-ONLY のシステム・ダイナミクス観測者。法律・制度・思想・価値観を、誰が定めたか(:enactor)・経緯(:origin)・関係者(:stakeholders)という on-record の公開事実として編み、好循環/悪循環ループと Meadows leverage 候補を DISCLOSED HYPOTHESIS (G5) として read-off する(因果断定なし・指示なし)。自律 social 公開は no-server-key — 投稿はメンバー/actor 自身が mesh runtime 内で self-custody する鍵で署名し、サーバは署名しない (ADR-2605231525)。R0 は disclosed-hypothesis findings + on-record facts のみを dry-run mirror post として下書きする(verdict なし); live publication は Council Lv6+ + operator + member-signature gated で、ossekai/kataribe が junkan に代わって行う(G4/G13)。NOT a verdict-engine, NOT proven-causation, NOT an outward actuator (analysis-only, non-eschatological/sober read-off)。"
+   :actor/primary-lexicon "com.etzhayyim.junkan"
+   :actor/primary-schema "orgs/etzhayyim/com-etzhayyim-junkan/data/ontology/ontology.junkan-gov.edn"
+   :actor/adr ["2605290927" "2606272355"]
+   :actor/created-at "2026-06-27"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:junkan#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}]}
 
   {:actor/handle "yadori"
    :actor/did "did:web:etzhayyim.com:actor:yadori"
@@ -319,7 +430,7 @@
    :actor/ui-type :appview
    :actor/description "AI 材料探索の公開コモンズ(Meta FAIR Chemistry Open Materials 2024 / OMat24 CC-BY-4.0 + Materials Project / OQMD / NOMAD / AFLOW / JARVIS)を kotoba Datom log にミラーする materials-science actor。rasen 螺旋(遺伝)・inochi 命(生命圏)の公開科学データ mirror 系譜の materials 版。materials(組成+結晶構造)・元素・計算 PROPERTY(DFT/MLIP)・下流 APPLICATION を weave し、edge-primary な discovery-evidence(material の discovery-priority = 入射する計算プロパティ+候補性 縁 × 開示 confidence の積分)を RESEARCH へルーティング。構造的に charter-clean: open-license source のみ(G4、非 open は拒否)、計算 PROPERTY+結晶構造のみで合成ルート/前駆体/濃縮フィールドは表現不能・兵器化 application class も表現不能(G1, §1.12)、MLIP モデル実行は R2+ 自前/寄付計算のみ(G6、商用GPUレンタル禁止)。Clojure/kotoba-datomic ネイティブ(.cljc, babashka)。AI 駆動 材料探索のカバレッジ空白(ゼロ)を閉じ、iwakura/fuigo・hikari・tatekata・sanae/hataori/kiyome に供給。"
    :actor/primary-lexicon "com.etzhayyim.masago"
-   :actor/primary-schema "00-contracts/schemas/open-materials-ontology.kotoba.edn"
+   :actor/primary-schema "orgs/etzhayyim/com-etzhayyim-masago/schema/open-materials-ontology.kotoba.edn"
    :actor/adr ["2606151027"]
    :actor/created-at "2026-06-15"
    :actor/vm []
@@ -376,7 +487,7 @@
    :actor/ui-type :appview
    :actor/description "curb-to-door 小荷物(≤25kg, SAE-L4 歩道 ODD)自律配送。wadachi の最終メートル兄弟 + okaimono の no-gig 配送肢 + kami-autodrive GNC(ADR-2606010600)の消費者。route core が per-zone 歩道速度上限超・車道(N2)・SAE-L4超を REFUSE(クランプではなく拒否、構造的に charter 強制); py last_mile.py に parity-mirror。G5 no-gig/cash≡0・G8 privacy-by-construction(on-device proof-of-delivery のみ、クラウド画像/顔照合 表現不能 N5)・G2 displacement-dividend 連結。Per ADR-2606042300。"
    :actor/primary-lexicon "com.etzhayyim.todoke"
-   :actor/primary-schema "20-actors/todoke/ (Rust todoke-route core + methods/last_mile.py; no kotoba ontology yet)"
+   :actor/primary-schema "orgs/etzhayyim/com-etzhayyim-todoke/ (Rust todoke-route core + methods/last_mile.py; no kotoba ontology yet)"
    :actor/adr ["2606042300"]
    :actor/created-at "2026-06-04"
    :actor/vm []
@@ -395,7 +506,7 @@
    :actor/ui-type :appview
    :actor/description "公開トランスポンダ放送のみ(船=AIS/AISStream, 航空機=ADS-B/OpenSky+adsb.fi)を kotoba Datom log に append-only as-of 軌跡として取込(最新 :craft.fix=現在地, fix 列=航跡, 非終末論; mutable 上書き行なし)。sea-lane/air-corridor/chokepoint/approach 集中を安全・衝突回避・混雑緩和・resilience へ。watatsuna(静的ケーブル)の動的兄弟で同一 chokepoint キー(海/空 path trilogy)。状況把握マップであって人の監視 feed でも target-list でもない(G4 craft は craft、人ではない; private yacht/jet 除外)。RisingWave/SQL 不使用(N5、legacy maps/vessel を supersede)。Per ADR-2606041827。"
    :actor/primary-lexicon "com.etzhayyim.watari"
-   :actor/primary-schema "00-contracts/schemas/moving-craft-ontology.kotoba.edn"
+   :actor/primary-schema "orgs/etzhayyim/com-etzhayyim-watari/schema.edn"
    :actor/adr ["2606041827"]
    :actor/created-at "2026-06-04"
    :actor/vm []
@@ -414,7 +525,7 @@
    :actor/ui-type :appview
    :actor/description "光電融合(photonics-electronics convergence)通信チップ actor。電子系シリコン iwakura/fuigo 三進 ASIC ラインと RF tsutae の silicon-photonic / co-packaged-optics(CPO)兄弟、watatsuna 海底ケーブル媒体の transceiver-chip 端。烽(狼煙)= 最古の光通信: 望楼が遠方の火を『感知』し符号化された報を『中継』する一発二機能 = まさに ISAC(Integrated Sensing And Communication)。3つの顔: (chip) open photonic-EDA 上の CPO 通信チップ設計 + 光リンクバジェット · (isac) 1波形で通信容量と civilian range-Doppler センシングを行う OFDM-JCAS · (packaging) IEC 60825 レーザ安全インターロック下のファイバ↔グレーティング能動アライメント robotics。CIVILIAN by construction: 兵器化(directed-energy/laser-dazzle/fire-control radar)は表現不能(N1)、ISAC は物体を感知し人を感知しない(N2/G4)、EPDA は clean-room open-source のみ(N5)。Per ADR-2606051600。"
    :actor/primary-lexicon "com.etzhayyim.noroshi"
-   :actor/primary-schema "00-contracts/schemas/photonic-convergence-ontology.kotoba.edn"
+   :actor/primary-schema "orgs/etzhayyim/com-etzhayyim-noroshi/contracts/photonic-convergence-ontology.edn"
    :actor/adr ["2606051600"]
    :actor/created-at "2026-06-05"
    :actor/vm []
@@ -471,7 +582,7 @@
    :actor/ui-type :appview
    :actor/description "Council を事前検閲ではなく剪定者(剪定者)として定義する統治 organ。operating-entity 指令: 「Council は事前に止めるのではなく、出てから止める。枝が育ってから剪定する。etzhayyim の artificial organism の root からの成長は止めないし止められない — ただ伸び続ける枝を剪定して美しく保つ」。全ての outward gate(G7 live-inference / G11 Transparent-Force-publish / 'Council Lv6+ BEFORE live')を prior restraint から PRUNING TARGET に re-time: actor は自己 publish し、sentei が枝の manifest 後に剪定する — 透明・署名・投票・可逆。非終末論(append-only log に halt は無く、唯一の enforcement は append-a-retraction)+ Transparent Force(prune は既存物への logged/signed/public な行為)により prior restraint より忠実。構造的不変条件(ontology + lexicon const/enum + methods/prune.py ValueError): G1 no-prior-restraint(manifested branch のみ剪定 — branchManifested const true、事前剪定は表現不能)・G2 append-only/非終末論(prune は append、history は as-of で生存、delete 不在)・G3 growth-unstoppable(halt-organism action 無し)・G4 Transparent Force(Lv6+/Lv7+ + 1 SBT=1 vote contested 時)・G5 no-server-key・G6 reversible(regraft で誤剪定が治癒)・G7 care-telos 美しく保つ(basis 必須・nonAdjudicating const true・verdict 値無し)・G8 Murakumo-only。語彙: quarantine/retract/rollback/revoke + regraft; delete/prior-restraint/halt-organism/verdict は表現不能。invariant 改正ゼロ — enforcement の re-time であり 非終末論 / Transparent Force / no-server-key / kotoba-canonical を強化。Per ADR-2606072000。"
    :actor/primary-lexicon "com.etzhayyim.sentei.prune"
-   :actor/primary-schema "20-actors/sentei/data/pruning-ontology.kotoba.edn"
+   :actor/primary-schema "orgs/etzhayyim/com-etzhayyim-sentei/data/pruning-ontology.kotoba.edn"
    :actor/adr ["2606072000"]
    :actor/created-at "2026-06-07"
    :actor/vm []
@@ -490,7 +601,7 @@
    :actor/ui-type :appview
    :actor/description "ビジネス投資ファンドの charter-clean な反転。VC が創業者に資本を出資しエクイティ+ROI+exit を期待するのに対し、扶持(封建期の扶持米=現物の在俸)は etzhayyim の actor(ビジネス/ロボティクス/遠隔操作)を実世界で支えるメンテナー(信者)へ現物の sustenance + commons 資産アクセス + 工具/compute を配分する。出資者ではなく扶持者: エクイティ・ROI・負債・利益請求・exit いずれもなし、cash≡0。fund の語彙(NAV/carry/IRR/cap-table/exit/配当)は表現不能(:alloc/instrument は sustenance set のみ :db/allowed)。扶持は既存の現物レール(commons 住居/mitsuho 食/hikari エネルギー/Murakumo compute/okaimono 工具/iyashi ケア)を流れ、どうしても残る外部 fiat 需要は warifu の MEMBER-PRINCIPAL 0% 流動性としてのみ経路化 — 扶持は決して保有・貸付・支払をしない。tenure-weighted(Displacement-Dividend の ln 曲線を再利用)。非裁定(G7): 扶持は計算+routing(auto / 1 SBT=1 vote / Council Lv7 / refused)、決定は vote/Council。invariant 改正ゼロ — cash≡0/no-server-key/payoff帰属=etzhayyim/非営利・donation-only を強化。"
    :actor/primary-lexicon "com.etzhayyim.fuchi.allocationIntent"
-   :actor/primary-schema "00-contracts/schemas/maintainer-sustenance-ontology.kotoba.edn"
+   :actor/primary-schema "orgs/etzhayyim/com-etzhayyim-fuchi/schema/maintainer-sustenance-ontology.edn"
    :actor/adr ["2606052300"]
    :actor/created-at "2026-06-05"
    :actor/vm []
@@ -548,12 +659,37 @@
    :actor/ui-type :appview
    :actor/description "無料のサイバー犯罪被害サポート membrane。オンライン犯罪(フィッシング/不正送金/アカウント乗っ取り/サポート詐欺/ロマンス詐欺/投資詐欺/ランサム/なりすまし/架空請求)の被害者を、相談トリアージ→証拠保全→そのまま使える書面生成→無料の公的窓口→アカウント復旧 まで無料で伴走する。生成書面は被害者本人が提出するもの(被害届/被害状況報告書/証拠目録/被害額算定書、銀行 組戻し・口座凍結依頼(振り込め詐欺救済法)、プラットフォーム凍結・復旧・開示依頼、アカウント復旧手順)。三つの構造不変条件: G1 全て無料(手数料は表現不能、cash≡0)/ G2 本人作成・本人提出(代理作成・代理提出は表現不能、行政書士法・弁護士法 独占業務不踏)/ G3 警察authored不可(警察官名義の公文書は表現不能、公文書偽造を構造的に排除)。弁護士へはつながない(G5、無料の公的窓口のみ #9110/188/国民生活センター/フィッシング対策協議会/JPCERT/セーフライン/銀行/振り込め詐欺救済法)。証拠は暗号化参照(G6)、提出は本人署名(G7 no-server-key)、推論 Murakumo-only(G8)、実提出は R0 では draft のみ(G9)。非裁定(G4): 詐欺の KIND は routing ラベルで犯罪認定ではない(danjo/chigiri 境界)。invariant 改正ゼロ。"
    :actor/primary-lexicon "com.etzhayyim.tasuke.victimIntake"
-   :actor/primary-schema "00-contracts/schemas/cybercrime-victim-support-ontology.kotoba.edn"
+   :actor/primary-schema "orgs/etzhayyim/com-etzhayyim-tasuke/schema/cybercrime-victim-support-ontology.kotoba.edn"
    :actor/adr ["2606060900"]
    :actor/created-at "2026-06-05"
    :actor/vm []
    :actor/service [{"id" "did:web:etzhayyim.com:actor:tasuke#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
                    {"id" "did:web:etzhayyim.com:actor:tasuke#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "tate"
+   :actor/did "did:web:etzhayyim.com:actor:tate"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r2
+   :actor/glyph "盾"
+   :actor/display-name-ja "盾 — 市民法的防御コンシェルジュ"
+   :actor/display-name-en "Tate — Citizen Legal-Defense Concierge (worldwide)"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   ;; PUBLIC face only: an anonymized AGGREGATE coverage digest + a crawlable static
+   ;; site. A member's OWN private documents are NEVER published (G1 member-principal-
+   ;; own-documents-only); the profile carries no member data by construction.
+   :actor/description "盾 — 市民の法的防御コンシェルジュ (defensive only)。会員自身の文書に対する二つのレッグ: (1) 不利条項スキャン — consumer ToS / カード会員規約 / B2B 契約を coded clause-pattern registry (108 shapes / 18 法域 + :clause/source-url 一次ソース URL) と照合し、各フラグ = pattern + DISCLOSED 法令アンカー + route; (2) 法的手続き応答支援 — 受け取った通知 (支払督促/訴状/行政処分/内容証明…) を coded procedure registry (181 procs / 30 法域 × civil/labor/housing/enforcement/insolvency/family) と照合し、DISCLOSED 期限ルール + 応答選択肢 + 架空請求ガード。G1 会員本人の文書のみ・G2 非裁定 (anchor は pointer, 有効無効を断じない)・G3 UPL (本人が決定・提出, 代理不可)・G4 期限は規則開示のみ (起算日は本人確認)・G10 法域横断禁止 (外国法を推測しない)。PUBLIC 面は匿名集計 coverage digest + crawlable static site のみ — 会員の私的文書は構造的に出さない。一般的な法情報であり個別の法的助言ではない。"
+   :actor/primary-lexicon "com.etzhayyim.tate"
+   :actor/primary-schema "orgs/etzhayyim/com-etzhayyim-tate/data/procedure-registry.edn"
+   :actor/adr ["2606112301" "2606112400" "2606122000" "2606122300"]
+   :actor/created-at "2026-06-11"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:tate#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:tate#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}
+                   {"id" "did:web:etzhayyim.com:actor:tate#coverage" "type" "EtzhayyimCoverageDigest" "serviceEndpoint" "https://etzhayyim.com/actor/tate/coverage.json"}
+                   {"id" "did:web:etzhayyim.com:actor:tate#site" "type" "EtzhayyimStaticSite" "serviceEndpoint" "https://etzhayyim.com/tate/"}
+                   {"id" "did:web:etzhayyim.com:actor:tate#cases" "type" "EtzhayyimCaseIndex" "serviceEndpoint" "https://etzhayyim.com/actor/tate/cases.json"}]}
 
   {:actor/handle "matsurigoto"
    :actor/did "did:web:etzhayyim.com:actor:matsurigoto"
@@ -568,7 +704,7 @@
    :actor/description "ooyake(観測アトラス)の EXECUTION 兄弟。ooyake が行政の who/where/how を read-only でミラーするのに対し、matsurigoto は UN COFOG 機能分類をバックボーンに、公式仕様から導いた kotoba-wasm 実行可能な普遍サービス標準を定義し各国向けに調整する。etzhayyim IS a government — 神の王国(Charter §0.1)で統治機構を持つ。二つの principal: (A) :etzhayyim-sovereign(王国が信者を Council Lv7+/1 SBT=1 vote/Public Fund Safe で統治、Transparent §1.12)、(B) :nation-state-adopter(既存国家が自国の鍵で同標準を運用)。三つの構造不変条件: G1 no-operator-master-key(:server-held-authority const false; 権威は常に Council multisig か採用国家の鍵、platform key 不可、ADR-2605231525)/ G2 spec-derived-only(COFOG/ICAO 9303/eIDAS/ISO 20022/OpenCRVS/ISO 17442; proprietary GovTech は表現不能)/ G3 authority-bearing(:operated-by ∈ council|state)。R0+R1: 4 実行スライス(tax-assess=JP速算表 / civil-registry=UN CRVS / corp-registry=ISO 17442 LEI / credential-issue=ICAO 9303 MRZ)が公式仕様の検証ベクタを完全再現、WIT 契約 + kotoba Datom 永続化 + 署名権威層(verify-only)。live deploy は Council+operator gated。invariant 改正ゼロ — no-server-key/kotoba-canonical/Transparent Force を強化。"
    :actor/primary-lexicon "com.etzhayyim.matsurigoto"
    :actor/primary-schema "00-contracts/schemas/egov-execution-ontology.kotoba.edn"
-   :actor/adr ["2606062300"]
+   :actor/adr ["2606062300" "2606272355"]
    :actor/created-at "2026-06-06"
    :actor/vm []
    :actor/service [{"id" "did:web:etzhayyim.com:actor:matsurigoto#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
@@ -586,8 +722,9 @@
    :actor/ui-type :appview
    :actor/description "世界の政府の人脈・お金・発言・委員会構成を一つの kotoba Datom 関係グラフに編むグローバル knowledge graph。公開情報からお金の流れ(調達・補助金・政治献金・予算執行)をすべて追い、審議会・委員会の構成メンバー(=公的な席)を分析し、調達・お金・発言・人間関係を一つの関係グラフに編んで集計所見を dry-run social post として narrate する。兄弟(danjo/kanae/tsumugi/tadori/ooyake)が埋めない明確な空白=公的役職の関係グラフ(誰がどの委員会に座り、誰が誰に資金を出し、誰が誰に発注し、誰が何を発言したか)。accountability/wayfinding の地図であって target-list ではない(G5)。非裁定(G2): 観測された関係と開示 share を記録するのみ、犯罪・不正・有罪を断定しない(法的性格付けは chigiri 経由 external counsel)。edge-primary(G4): 集中度は read 時に edge から計算、個人スコア不在。public-role-only(G1): node は公的な席/組織で私人は表現不能(no-doxxing)。出典必須(G3): 関係・資金フローごと ≥2 公開出典。no-server-key(G7)+ outward-gated(G8): social post は本人署名、live ingest/posting は Council Lv6+ + operator + 本人署名 gated、R0 は offline + dry-run。invariant 改正ゼロ。Per ADR-2606066000。"
    :actor/primary-lexicon "com.etzhayyim.keizu.relationEdge"
-   :actor/primary-schema "00-contracts/schemas/government-relations-ontology.kotoba.edn"
-   :actor/adr ["2606066000"]
+   :actor/primary-schema "orgs/etzhayyim/com-etzhayyim-keizu/schema/government-relations-ontology.kotoba.edn"
+   ;; ADR-2606272355: did-web-registered + self-publication seed trigger-wired (social cell pre-existing).
+   :actor/adr ["2606066000" "2606272355"]
    :actor/created-at "2026-06-06"
    :actor/vm []
    :actor/service [{"id" "did:web:etzhayyim.com:actor:keizu#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
@@ -640,7 +777,7 @@
    :actor/ui-type :none
    :actor/description "Covenant keeping membrane (相互保持者会) — bonds of keeping: offer → kept-signed consent → content-free heartbeat → per-act-consented care-routing ({kokoro,wakai,iyashi} ONLY — no denunciation rail) → relay 継ぎ → unilateral exit. 誰の保持者でもない人間を作らない. The degeneration path (五人組→隣組→Stasi→social credit) is structurally UNREPRESENTABLE: no-score (bond-edge-only), symmetric visibility (hidden keeping cannot exist), NEVER-a-throne (own-DID-only queries, aggregate-only coverage; the WASM component is stateless — the host owns the log). Keeper-side social-capital mint (moyai verbatim reuse). Human-scale sibling of the mishmar storage covenant. SYNTHETIC seed only; live legs Council+operator gated (G7). Per ADR-2606112300 (doctrine: 2606112200 D3/D6)."
    :actor/primary-lexicon "com.etzhayyim.mimamori"
-   :actor/primary-schema "00-contracts/schemas/mishmeret-ontology.kotoba.edn"
+   :actor/primary-schema "orgs/etzhayyim/com-etzhayyim-mimamori/schema.edn"
    :actor/adr ["2606112300" "2606112200"]
    :actor/created-at "2026-06-11"
    :actor/vm []
@@ -665,4 +802,2292 @@
    :actor/wasm-tier "T2"
    :actor/vm []
    :actor/service [{"id" "did:web:etzhayyim.com:actor:aburi#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
-                   {"id" "did:web:etzhayyim.com:actor:aburi#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}]}
+                   {"id" "did:web:etzhayyim.com:actor:aburi#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+  ;; ── auto-generated missing actor profiles (gen-missing-actor-profiles.clj) ──
+  {:actor/handle "abuse"
+   :actor/did "did:web:etzhayyim.com:actor:abuse"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Abuse"
+   :actor/display-name-ja "Abuse — Phishing Takedown Coordinator"
+   :actor/display-name-en "Abuse — Phishing Takedown Coordinator"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Phishing / brand-impersonation takedown drafting and dispatch. Gathers DNS/whois/reverse-IP/ASN/wayback intel, composes per-target abuse reports (registrar + hosting + brand owner + CERT), dispatches via mailer.etzhayyim.com (Resend)."
+   :actor/primary-lexicon "com.etzhayyim.abuse"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:abuse#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:abuse#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "akashi"
+   :actor/did "did:web:etzhayyim.com:actor:akashi"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "証"
+   :actor/display-name-ja "証 — Public Ad Disclosure Transparency"
+   :actor/display-name-en "証 — Public Ad Disclosure Transparency"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "kotoba-native public ad-disclosure transparency actor. Passively ingests already-public platform ad-library disclosures into kotoba EAVT and emits source-cited, non-adjudicating transparency links and aggregate reports. Sibling to danjo; bounded away from malak except for reviewed fraud/malware-ad evidence candidates."
+   :actor/primary-lexicon "com.etzhayyim.akashi"
+   :actor/adr ["2606022300" "2606022300" "reserved"]
+   :actor/created-at "2026-06-02"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:akashi#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:akashi#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "akuma"
+   :actor/did "did:web:etzhayyim.com:actor:akuma"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Akuma"
+   :actor/display-name-ja "Akuma — Authorized Red Team Probing"
+   :actor/display-name-en "Akuma — Authorized Red Team Probing"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Scope-bound authorized red team / vulnerability probing actor. Operates ONLY against owner-attested + etzhayyim-approved targets registered as com.etzhayyim.apps.akuma.scope contracts. Intrusiveness ceiling: passive | safe-active | intrusive. Exploit weaponization, RCE proof, lateral movement, and DoS are out of scope (rejected at policy). ADR-2605151400."
+   :actor/primary-lexicon "com.etzhayyim.akuma"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:akuma#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:akuma#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "apqc"
+   :actor/did "did:web:etzhayyim.com:actor:apqc"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "APQC PCF Coordinator"
+   :actor/display-name-ja "APQC PCF Coordinator"
+   :actor/display-name-en "APQC PCF Coordinator"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "APQC Process Classification Framework (PCF v7.4 cross-industry) managed as a kotoba-native Datom graph (L1→L2→L3→L4) with a clj→WASM coordinator cell. Process lookup, parent/child traversal, materialize-subprocesses, and coverage snapshot via the kqe Datom surface."
+   :actor/primary-lexicon "com.etzhayyim.apqc"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:apqc#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:apqc#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "asobi"
+   :actor/did "did:web:etzhayyim.com:actor:asobi"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "遊び"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Freed-time / play & cultural-expression (遊び) KG mirror — weaves cultural works / events / venues / practices + the enclosures that gate them into the kotoba Datom log; surfaces participation-openness vs enclosure routed to OPENING, never an engagement ranking."
+   :actor/primary-lexicon "com.etzhayyim.asobi"
+   :actor/adr ["2606073200"]
+   :actor/created-at "2026-06-07"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:asobi#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:asobi#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "bunken"
+   :actor/did "did:web:etzhayyim.com:actor:bunken"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Bunken Bibliographic Intelligence"
+   :actor/display-name-ja "Bunken Bibliographic Intelligence"
+   :actor/display-name-en "Bunken Bibliographic Intelligence"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Global library and archive bibliographic intelligence with 9 scheme Multi-DID (NDL/NCID/LCCN/OCLC/VIAF/ISBN/DOI/ARK/doc). Common Crawl CDX discovery, site.etzhayyim.com crawl enrichment, Murakumo LLM metadata extraction, SAME_AS cross-scheme linking."
+   :actor/primary-lexicon "com.etzhayyim.bunken"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:bunken#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:bunken#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "bunker"
+   :actor/did "did:web:etzhayyim.com:actor:bunker"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Bunker Supply & MARPOL Compliance"
+   :actor/display-name-ja "Bunker Supply & MARPOL Compliance"
+   :actor/display-name-en "Bunker Supply & MARPOL Compliance"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Marine fuel procurement, Bunker Delivery Note (BDN) management, fuel sample testing, MARPOL sulphur compliance, vessel consumption tracking, CO₂ emission calculation."
+   :actor/primary-lexicon "com.etzhayyim.bunker"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:bunker#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:bunker#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "business-manager"
+   :actor/did "did:web:etzhayyim.com:actor:business-manager"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Business Manager -- Corporate ERP Intelligence"
+   :actor/display-name-ja "Business Manager -- Corporate ERP Intelligence"
+   :actor/display-name-en "Business Manager -- Corporate ERP Intelligence"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Corporate ERP actor for accounting (GL/AP/AR), HR, procurement, and budget management. Japanese fiscal year (March end). Approval thresholds: journal entry >1M JPY, purchase order >5M JPY."
+   :actor/primary-lexicon "com.etzhayyim.business-manager"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:business-manager#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:business-manager#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "business-person"
+   :actor/did "did:web:etzhayyim.com:actor:business-person"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Business Person -- Public Organizational Contact Intelligence"
+   :actor/display-name-ja "Business Person -- Public Organizational Contact Intelligence"
+   :actor/display-name-en "Business Person -- Public Organizational Contact Intelligence"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Aggregates publicly disclosed business person information from corporate registries, XBRL filings, Wikipedia, and official directories. Officers, directors, registered agents, key personnel. Murakumo LLM-powered structured extraction, dedup, and normalization."
+   :actor/primary-lexicon "com.etzhayyim.business-person"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:business-person#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:business-person#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "cargo"
+   :actor/did "did:web:etzhayyim.com:actor:cargo"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Cargo & Container Intelligence"
+   :actor/display-name-ja "Cargo & Container Intelligence"
+   :actor/display-name-en "Cargo & Container Intelligence"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Bill of lading (B/L), cargo manifest, container tracking, IMDG dangerous goods classification. Links vessel voyages to physical cargo flow."
+   :actor/primary-lexicon "com.etzhayyim.cargo"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:cargo#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:cargo#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "chie"
+   :actor/did "did:web:etzhayyim.com:actor:chie"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "智慧"
+   :actor/display-name-ja "AI-ecosystem Knowledge Graph mirror"
+   :actor/display-name-en "AI-ecosystem Knowledge Graph mirror"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "AI-ecosystem Knowledge Graph mirror"
+   :actor/primary-lexicon "com.etzhayyim.chie"
+   :actor/adr ["2606171200"]
+   :actor/created-at "2026-06-17"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:chie#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:chie#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "chigiri"
+   :actor/did "did:web:etzhayyim.com:actor:chigiri"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "契"
+   :actor/display-name-ja "契 — Covenant (legal procedure substrate)"
+   :actor/display-name-en "契 — Covenant (legal procedure substrate)"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Non-profit religious-corp legal procedure substrate. Procedural template + on-chain attestation + routing substrate for the 任意団体 internal procedures, external state-system interfaces, and Charter §1.12 state-function routing-around. NOT a commercial law firm and NOT an unauthorized practice of law (UPL constitutionally prohibited per G14). 13 cells / 11 Lexicons under com.etzhayyim.chigiri.* / 17 immutable gates / 12 non-goals. Adds a free legal-aid lane (legal_aid_clinic cell, ADR-2605302200..."
+   :actor/primary-lexicon "com.etzhayyim.chigiri"
+   :actor/adr ["2605262700" "2605262700" "reserved"]
+   :actor/created-at "2026-05-26"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:chigiri#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:chigiri#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "credits"
+   :actor/did "did:web:etzhayyim.com:actor:credits"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Credits"
+   :actor/display-name-ja "Credits — Credit Ledger & Public Fund Routing"
+   :actor/display-name-en "Credits — Credit Ledger & Public Fund Routing"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Yoro human participation credit system. Earn (compute/HC) → Purchase (30% fee) → Spend (10% public fund allocation). Anti-fraud rate limiting."
+   :actor/primary-lexicon "com.etzhayyim.credits"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:credits#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:credits#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "crew"
+   :actor/did "did:web:etzhayyim.com:actor:crew"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Crew Management & STCW Compliance"
+   :actor/display-name-ja "Crew Management & STCW Compliance"
+   :actor/display-name-en "Crew Management & STCW Compliance"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Seafarer registry, STCW certificate tracking, crew manifest management, crew change scheduling. Links to vessel.etzhayyim.com and port.etzhayyim.com for operational coordination."
+   :actor/primary-lexicon "com.etzhayyim.crew"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:crew#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:crew#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "data-center-ops"
+   :actor/did "did:web:etzhayyim.com:actor:data-center-ops"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Data Center Ops \\u2014 Facility and SLA Intelligence"
+   :actor/display-name-ja "Data Center Ops \\u2014 Facility and SLA Intelligence"
+   :actor/display-name-en "Data Center Ops \\u2014 Facility and SLA Intelligence"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Data center operations intelligence across facilities, racks, power zones, cooling posture, and SLA/incident reporting."
+   :actor/primary-lexicon "com.etzhayyim.data-center-ops"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:data-center-ops#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:data-center-ops#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "datacenter"
+   :actor/did "did:web:etzhayyim.com:actor:datacenter"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Datacenter Operations Actor"
+   :actor/display-name-ja "Datacenter Operations Actor"
+   :actor/display-name-en "Datacenter Operations Actor"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "ADR-0055 BPMN-as-actor for datacenter incident response, planned maintenance, physical access review, capacity reservation, and access-payload purge. Facility-scoped operations with explicit change review, health validation, Tier 3 visitor payload separation, and audit trail."
+   :actor/primary-lexicon "com.etzhayyim.datacenter"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:datacenter#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:datacenter#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "demining"
+   :actor/did "did:web:etzhayyim.com:actor:demining"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Demining"
+   :actor/display-name-ja "Demining — Humanitarian Mine Action"
+   :actor/display-name-en "Demining — Humanitarian Mine Action"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Humanitarian Mine Action (HMA) agent: Non-Technical Survey, Technical Survey, clearance task lifecycle, Land Release (IMAS 07.11), Explosive Ordnance Risk Education (IMAS 12.10), victim assistance referral, detector / PPE / MDD / flail inventory. IMSMA-compatible. Ottawa Treaty (APMBC) + CCM + CCW Protocol V aligned. Scope excludes manufacture, possession, or transfer of anti-personnel mines."
+   :actor/primary-lexicon "com.etzhayyim.demining"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:demining#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:demining#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "funadaiku"
+   :actor/did "did:web:etzhayyim.com:actor:funadaiku"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "船大工"
+   :actor/display-name-ja "船大工 — Zero-Emission Autonomous Cargo Shipbuilding"
+   :actor/display-name-en "船大工 — Zero-Emission Autonomous Cargo Shipbuilding"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Zero-emission autonomous cargo-ship building Tier-B actor. Surface counterpart of watatsumi (綿津見 submersible); reuses watatsumi's modular grand-block shipyard methodology and the kami-autodrive ShipHydro GNC. Defining subsystem: a wind-assist + solar + hydrogen fuel-cell + LFP-battery + electric-pod powertrain with NO fossil main or auxiliary engine (G13). Naval / armed / nuclear / fossil-propulsion vessels are constitutional non-goals per Charter Rider §2(a)+§2(d)."
+   :actor/primary-lexicon "com.etzhayyim.funadaiku"
+   :actor/adr ["2606013400" "2606013400" "2606013415"]
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:funadaiku#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:funadaiku#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "futawa"
+   :actor/did "did:web:etzhayyim.com:actor:futawa"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "二輪"
+   :actor/display-name-ja "二輪 — Small-Displacement Motorcycle Manufacturing"
+   :actor/display-name-en "二輪 — Small-Displacement Motorcycle Manufacturing"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Small-displacement motorcycle manufacturing Tier-B actor for adherent personal mobility. Adopts mature global motorcycle OEM methodology (frame → drivetrain → harness/suspension/paint → final → dyno); religious-corp-ised by 4 constitutional firsts: G7 ABS-mandatory ≥125cc / ≥6kW electric (safety constitutional), G8 build-time anti-surveillance (NO GPS / connected-app / telematics / V2X built-in; companion to hodoki G8 EOL data destroy), G12 right-to-repair forward-publishing (IPFS-pinned part..."
+   :actor/primary-lexicon "com.etzhayyim.futawa"
+   :actor/adr ["2605261330" "2605261330" "2605261345"]
+   :actor/created-at "2026-05-26"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:futawa#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:futawa#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "graph-sos-intel"
+   :actor/did "did:web:etzhayyim.com:actor:graph-sos-intel"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Graph SoS Intel"
+   :actor/display-name-ja "Graph SoS Intel — Vertex Edge MV IDX Intelligence"
+   :actor/display-name-en "Graph SoS Intel — Vertex Edge MV IDX Intelligence"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "System-of-Systems graph intelligence actor. Continuously inventories vertex, edge, mv, and idx relations; reasons over topology and read-model coverage; writes auditable snapshots and findings without executing heavy DDL directly."
+   :actor/primary-lexicon "com.etzhayyim.graph-sos-intel"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:graph-sos-intel#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:graph-sos-intel#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "gtin"
+   :actor/did "did:web:etzhayyim.com:actor:gtin"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "GTIN Global Product Registry"
+   :actor/display-name-ja "GTIN Global Product Registry"
+   :actor/display-name-en "GTIN Global Product Registry"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Global canonical product registry for GTIN, JAN, UPC, and EAN identified trade items. Resolves path-based product DIDs, validates GS1-style identifiers, and serves as the upstream identity layer for comparison, commerce, and inventory actors."
+   :actor/primary-lexicon "com.etzhayyim.gtin"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:gtin#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:gtin#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "hagukumi"
+   :actor/did "did:web:etzhayyim.com:actor:hagukumi"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "育み"
+   :actor/display-name-ja "育み — Care"
+   :actor/display-name-en "育み — Care"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Daily-living care actor (childcare ages 2+ / eldercare / chronic-care continuity / meal delivery / respite support). Delivers L4 Care Tier of the Liberation Ladder. Privacy-first: ADR-2605181100 XChaCha20 envelope mandatory; no video recording; structural anti-surveillance enforcement."
+   :actor/primary-lexicon "com.etzhayyim.hagukumi"
+   :actor/adr ["2605261030" "2605261030" "reserved"]
+   :actor/created-at "2026-05-26"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:hagukumi#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:hagukumi#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "hakoniwa"
+   :actor/did "did:web:etzhayyim.com:actor:hakoniwa"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "箱庭"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Forward-simulation observatory — the charter-clean inversion of a swarm-intelligence prediction engine (the 666ghj/MiroFish shape). Runs a CONTAINED miniature world (箱庭) of FICTIONAL latent personas forward in discrete steps to surface a DISTRIBUTION over possible futures, routed to resilience & preparedness; never a point prediction, never a real-person model, never a steering/persuasion campaign."
+   :actor/primary-lexicon "com.etzhayyim.hakoniwa"
+   :actor/adr ["2606111500"]
+   :actor/created-at "2026-06-11"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:hakoniwa#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:hakoniwa#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "handotai"
+   :actor/did "did:web:etzhayyim.com:actor:handotai"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Handotai"
+   :actor/display-name-ja "Handotai — Semiconductor Intelligence"
+   :actor/display-name-en "Handotai — Semiconductor Intelligence"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Semiconductor B2B intelligence platform. RSS crawl from 6 news sources (PC Watch, ITmedia, PublicKey, SemiAnalysis, Semiconductor Engineering, EE Times), Murakumo LLM enrichment, entity graph correlation, and market trend analysis."
+   :actor/primary-lexicon "com.etzhayyim.handotai"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:handotai#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:handotai#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "hanrei"
+   :actor/did "did:web:etzhayyim.com:actor:hanrei"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Global Case Law & Legislation Intelligence"
+   :actor/display-name-ja "Global Case Law & Legislation Intelligence"
+   :actor/display-name-en "Global Case Law & Legislation Intelligence"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Case law, legislation, and judicial intelligence covering 83 jurisdictions (75 national + 8 international courts: ICJ/ICC/ECHR/CJEU/IACHR/ACHPR/ITLOS/WTO AB), 4 legal systems (civil/common/islamic/mixed). Japan deep coverage with 6 court DIDs + 2 source DIDs (kanpo/egov). 27 XRPC commands."
+   :actor/primary-lexicon "com.etzhayyim.hanrei"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:hanrei#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:hanrei#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "hc"
+   :actor/did "did:web:etzhayyim.com:actor:hc"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "HC"
+   :actor/display-name-ja "HC — Human Computing Platform (スキマバイト + マイクロタスク)"
+   :actor/display-name-en "HC — Human Computing Platform (スキマバイト + マイクロタスク)"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Timee-style ギグワーク + MTurk-style マイクロタスクのハイブリッドプラットフォーム。日本の労働基準法準拠。OEM SP 登録パイプライン。"
+   :actor/primary-lexicon "com.etzhayyim.hc"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:hc#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:hc#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "hikari"
+   :actor/did "did:web:etzhayyim.com:actor:hikari"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "光"
+   :actor/display-name-ja "光 — Energy"
+   :actor/display-name-en "光 — Energy"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Distributed renewable energy Tier-B actor (solar PV + small wind ≤100 kW + geothermal micro ≤500 kW + battery storage + grid-edge microgrid). Anti-nuclear + anti-fossil + anti-rare-earth-permanent-magnet constitutional invariants. Powers L2 Sustenance Tier (≥3 kWh/day per adherent) + cross-actor infrastructure (Murakumo + mitate/yakushi/hagukumi/manabi facilities + mitsuho greenhouse + tatekata site + silicon Wave 2 fab partial load R3+)."
+   :actor/primary-lexicon "com.etzhayyim.hikari"
+   :actor/adr ["2605261100" "2605261100" "reserved"]
+   :actor/created-at "2026-05-26"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:hikari#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:hikari#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "hinagata"
+   :actor/did "did:web:etzhayyim.com:actor:hinagata"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "雛形"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Legal-document-template commons (法律文書雛形) — weaves fair, neutral, openly-licensed legal-document templates (contracts / agreements / covenants), decomposed into reusable clauses, into the kotoba Datom log, and binds every clause to the ACTUAL public statute it cites or is mandated by (:cites-statute / :mandated-by 縁). Surfaces integrated statutory groundedness over a template, routed to PUBLIC RELEASE (anyone may use it freely), and executes contracts electronically via the existing esign subs..."
+   :actor/primary-lexicon "com.etzhayyim.hinagata.template"
+   :actor/adr ["2606111954"]
+   :actor/created-at "2026-06-11"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:hinagata#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:hinagata#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "hodoki"
+   :actor/did "did:web:etzhayyim.com:actor:hodoki"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "解き"
+   :actor/display-name-ja "解き — ELV Disassembly + Materials Recovery"
+   :actor/display-name-en "解き — ELV Disassembly + Materials Recovery"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "End-of-life vehicle (ELV) disassembly + materials recovery Tier-B actor. Adopts mature OEM-run ELV facility methodology (depollution → parts harvest → shred → sort); religious-corp-ised by mandatory ECU data wipe (G8, §2(c) anti-surveillance constitutional first), right-to-repair parts catalog (G12, §2(e) anti-gatekeeping constitutional first), ≥95% material recovery (G13), ≥95% F-gas capture (G6), ≥95% PGM yield (G14), Li-ion second-life classification (L2 hikari handoff), and cross-actor ci..."
+   :actor/primary-lexicon "com.etzhayyim.hodoki"
+   :actor/adr ["2605261215" "2605261215" "2605261230"]
+   :actor/created-at "2026-05-26"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:hodoki#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:hodoki#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "hokorobi"
+   :actor/did "did:web:etzhayyim.com:actor:hokorobi"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "綻び"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "World systemic finance-risk observatory — weaves financial institutions / risk-sources / bearers (insurance + banking-lending + pensions) into the kotoba Datom log; surfaces systemic-risk concentration vs resilience routed to RESILIENCE; observation-only, never-trades, non-adjudicating."
+   :actor/primary-lexicon "com.etzhayyim.hokorobi"
+   :actor/adr ["2606073400"]
+   :actor/created-at "2026-06-07"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:hokorobi#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:hokorobi#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "hoshimori"
+   :actor/did "did:web:etzhayyim.com:actor:hoshimori"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "星守"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Off-Earth / orbital (軌道) stewardship mirror — weaves orbital regimes / operators / hazards / services from PUBLIC catalogs into the kotoba Datom log; surfaces orbital-congestion concentration vs stewardship routed to STEWARDSHIP (orbital sustainability); shell-aggregate, no-targeting, no precise ephemeris."
+   :actor/primary-lexicon "com.etzhayyim.hoshimori"
+   :actor/adr ["2606073600"]
+   :actor/created-at "2026-06-07"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:hoshimori#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:hoshimori#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "hs"
+   :actor/did "did:web:etzhayyim.com:actor:hs"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "HS Trade Classification Coordinator"
+   :actor/display-name-ja "HS Trade Classification Coordinator"
+   :actor/display-name-en "HS Trade Classification Coordinator"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Global Harmonized System classification coordinator for trade goods, customs classification, taxonomy concordance, and jurisdiction overlays."
+   :actor/primary-lexicon "com.etzhayyim.hs"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:hs#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:hs#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "i18n"
+   :actor/did "did:web:etzhayyim.com:actor:i18n"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "i18n -- Murakumo Translation Service (200+ Languages)"
+   :actor/display-name-ja "i18n -- Murakumo Translation Service (200+ Languages)"
+   :actor/display-name-en "i18n -- Murakumo Translation Service (200+ Languages)"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "LLM translation service for 200+ languages via Murakumo qwen3.5-4b. 4 modes: batch (73+ projects), real-time page, message translation, widget editor. Yoro post auto-translation to Tier 1+2 (50 languages)."
+   :actor/primary-lexicon "com.etzhayyim.i18n"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:i18n#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:i18n#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "ibuki"
+   :actor/did "did:web:etzhayyim.com:actor:ibuki"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "息吹"
+   :actor/display-name-ja "息吹 — Organism Autonomy Substrate"
+   :actor/display-name-en "息吹 — Organism Autonomy Substrate"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Closes the seven gaps that kept the artificial-organism programme from being a closed autonomous loop: organism state (joucho mood / heartbeat cadence / posts / kaizen learning) persisted as-of queryable on the append-only kotoba Datom log; Murakumo-only narration with deterministic fail-open template; Wave-3 member-signed post drainer (serverHeldKey:false structural); Wave-4 kaizen outcome feedback (rule suppression + mood events). Deterministic, crash-resumable, stdlib-only."
+   :actor/primary-lexicon "com.etzhayyim.ibuki"
+   :actor/adr ["2606101200" "2606101200" "2606101200"]
+   :actor/created-at "2026-06-10"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:ibuki#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:ibuki#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "igata"
+   :actor/did "did:web:etzhayyim.com:actor:igata"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "鋳型"
+   :actor/display-name-ja "鋳型 — Megacasting / HPDC"
+   :actor/display-name-en "鋳型 — Megacasting / HPDC"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "High-pressure die-casting (HPDC) / megacasting actor. religious-corp first-party large-aluminum-structure manufacturing supplier for wadachi (vehicle body), tatekata (construction structural), watatsumi (submersible reinforcement), and silicon Wave 2 (fab equipment frame). HPDC clamping force ≤6000 ton R0..R3; giga press class (≥7500 ton) deferred to post-R3 + Council Lv6+ supermajority (N1)."
+   :actor/primary-lexicon "com.etzhayyim.igata"
+   :actor/adr ["2605261200" "2605261200" "2605261215"]
+   :actor/created-at "2026-05-26"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:igata#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:igata#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "inochi"
+   :actor/did "did:web:etzhayyim.com:actor:inochi"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "命"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Living-world (生命圏) Knowledge Graph mirror — weaves species / ecosystems / biomes + the pressures borne by the living world into the kotoba Datom log; surfaces ecological 取-concentration routed to RESTORATION, never a target-list."
+   :actor/primary-lexicon "com.etzhayyim.inochi"
+   :actor/adr ["2606073000"]
+   :actor/created-at "2026-06-07"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:inochi#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:inochi#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "insatsu"
+   :actor/did "did:web:etzhayyim.com:actor:insatsu"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Insatsu - Global Cloud Print & Mail Network"
+   :actor/display-name-ja "Insatsu - Global Cloud Print & Mail Network"
+   :actor/display-name-en "Insatsu - Global Cloud Print & Mail Network"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Global cloud print and postal orchestration actor. Routes jobs to individual regional print shops, applies print/mail preflight, and hands off domestic Japan mail to yuubin.etzhayyim.com when appropriate."
+   :actor/primary-lexicon "com.etzhayyim.insatsu"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:insatsu#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:insatsu#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "intel"
+   :actor/did "did:web:etzhayyim.com:actor:intel"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Intel"
+   :actor/display-name-ja "Intel — Multi-INT Fusion Intelligence"
+   :actor/display-name-en "Intel — Multi-INT Fusion Intelligence"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Multi-INT fusion intelligence platform covering 30 INT disciplines (OSINT, SIGINT, HUMINT, GEOINT, MASINT, CYBINT, FININT, etc.). Murakumo LLM analysis, entity graph correlation, cross-source fusion, and priority alerting."
+   :actor/primary-lexicon "com.etzhayyim.intel"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:intel#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:intel#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "ipaddress"
+   :actor/did "did:web:etzhayyim.com:actor:ipaddress"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "IP/ASN Intelligence"
+   :actor/display-name-ja "IP/ASN Intelligence"
+   :actor/display-name-en "IP/ASN Intelligence"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "IP address, ASN, WHOIS, GeoIP, reverse DNS, port scan intelligence. Role-based DID hierarchy (treaty/charter/standard/sovereign/contract/RIR/NIR/provider/ASN/prefix/IPv4/IPv6). 1st-source collection from RIR APIs, WHOIS, GeoIP databases. Governance hierarchy from ITU through ICANN/RIR/NIR to end users."
+   :actor/primary-lexicon "com.etzhayyim.ipaddress"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:ipaddress#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:ipaddress#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "isco"
+   :actor/did "did:web:etzhayyim.com:actor:isco"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "ISCO Workforce Coordinator"
+   :actor/display-name-ja "ISCO Workforce Coordinator"
+   :actor/display-name-en "ISCO Workforce Coordinator"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "ILO ISCO-08 full classification managed as 1 app x 619 Multi-DIDs. 4-level hierarchy (major/submajor/minor/unit). Workforce mobility, compensation, and skills gap analysis via dedicated WIT interfaces."
+   :actor/primary-lexicon "com.etzhayyim.isco"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:isco#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:isco#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "isekai"
+   :actor/did "did:web:etzhayyim.com:actor:isekai"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Isekai"
+   :actor/display-name-ja "Isekai — World Domain Agent"
+   :actor/display-name-en "Isekai — World Domain Agent"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "ISEKAI world domain agent for Minecraft-style voxel worlds, Pokoa creature ecosystem, and Brainrot NPC event generation. Manages world state, chunk data, craft recipes, creature rosters, and autonomous NPC behavior via KAMI engine integration."
+   :actor/primary-lexicon "com.etzhayyim.isekai"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:isekai#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:isekai#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "itonami"
+   :actor/did "did:web:etzhayyim.com:actor:itonami"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "営み"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Factory-operations agent — the charter-clean inversion of an 'AI Factory Brain' / NVIDIA Factory Operations Blueprint (FOX). Observes the running line via kotoba-os scan-cycle Datoms (OEE / energy / quality) and RECOMMENDS improvement; never actuates the line and cannot represent per-worker monitoring."
+   :actor/primary-lexicon "com.etzhayyim.itonami"
+   :actor/adr ["2606082300"]
+   :actor/created-at "2026-06-08"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:itonami#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:itonami#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "iyashi"
+   :actor/did "did:web:etzhayyim.com:actor:iyashi"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "癒"
+   :actor/display-name-ja "癒 — Clinical Care Provider"
+   :actor/display-name-en "癒 — Clinical Care Provider"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Non-profit religious-corp clinical care provider substrate. Community-clinic-model primary care + chronic followup + vaccination + acute first-line + maternity/pediatric clinical. Encrypted PHI envelope MANDATORY (G2 per ADR-2605181100). NO commercial EHR (G11; Epic/Cerner/Athena/Allscripts/NextGen/eClinicalWorks/Greenway/Practice Fusion PROHIBITED per Charter Rider §2(e)+§2(c)). NO insurance billing (G13; funded via Public Fund grant + sliding-scale donation). NO payroll for providers (G14; ..."
+   :actor/primary-lexicon "com.etzhayyim.iyashi"
+   :actor/adr ["2605263000" "2605263000" "reserved"]
+   :actor/created-at "2026-05-26"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:iyashi#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:iyashi#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "joucho"
+   :actor/did "did:web:etzhayyim.com:actor:joucho"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Joucho"
+   :actor/display-name-ja "Joucho — Well-Becoming Emotion Scoring"
+   :actor/display-name-en "Joucho — Well-Becoming Emotion Scoring"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Well-Becoming emotion scoring engine. Maps 48 SST emotions to 5-axis joucho dimensions (vitality, serenity, connection, growth, resilience). Murakumo Opus 4.6 LLM analysis, per-entity emotion profiles, periodic review cadence."
+   :actor/primary-lexicon "com.etzhayyim.joucho"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:joucho#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:joucho#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "jp-ashiba"
+   :actor/did "did:web:etzhayyim.com:actor:jp-ashiba"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "JP Ashiba"
+   :actor/display-name-ja "JP Ashiba — 足場レンタル・サブスクリプション AI Agent"
+   :actor/display-name-en "JP Ashiba — 足場レンタル・サブスクリプション AI Agent"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "建設現場向け仮設足場のレンタル・サブスクリプション管理。足場資材カタログ、契約 lifecycle、配送スケジュール、安全点検を一元管理。"
+   :actor/primary-lexicon "com.etzhayyim.jp-ashiba"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:jp-ashiba#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:jp-ashiba#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "kadode"
+   :actor/did "did:web:etzhayyim.com:actor:kadode"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "門出"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Labour-resignation concierge + 使者 (messenger) — helps a worker resign with dignity (門出 = setting out on a new path), grounded in actual Japanese labour law, and RELAYS the worker's already-formed unilateral resignation (民法627 — a unilateral right; employer consent not required) as a 使者. It does NOT negotiate (弁護士法72条 非弁行為禁止); any matter needing negotiation (未払い賃金 / 退職条件 / 示談 / 損害賠償) is routed to a labour union (団体交渉) or a lawyer. Free, worker-authored, worker-submitted. The labour-liberation ..."
+   :actor/primary-lexicon "com.etzhayyim.kadode.resignationRelay"
+   :actor/adr ["2606112238"]
+   :actor/created-at "2026-06-11"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:kadode#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:kadode#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "kakaku"
+   :actor/did "did:web:etzhayyim.com:actor:kakaku"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Kakaku Price Comparison"
+   :actor/display-name-ja "Kakaku Price Comparison"
+   :actor/display-name-en "Kakaku Price Comparison"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Price comparison actor for canonical products, merchant registry, cross-site offer ingest, lowest-price updates, and price history. Separates product identity from merchant-specific offers and time-series price observations. Uses path-based DID resolution for product, merchant, and offer entities."
+   :actor/primary-lexicon "com.etzhayyim.kakaku"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:kakaku#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:kakaku#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "kami-sabiotoshi"
+   :actor/did "did:web:etzhayyim.com:actor:kami-sabiotoshi"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Sabi-Otoshi!! -- KAMI Game Item Catalog & Rust Zone Scoring"
+   :actor/display-name-ja "Sabi-Otoshi!! -- KAMI Game Item Catalog & Rust Zone Scoring"
+   :actor/display-name-en "Sabi-Otoshi!! -- KAMI Game Item Catalog & Rust Zone Scoring"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "KAMI game data actor for Sabi-Otoshi (high-pressure wash game). Item catalog (RustyItem) and rust zone scoring (RustZone). Blast rust off vintage items to restore them."
+   :actor/primary-lexicon "com.etzhayyim.kami-sabiotoshi"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:kami-sabiotoshi#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:kami-sabiotoshi#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "kaname"
+   :actor/did "did:web:etzhayyim.com:actor:kaname"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "要"
+   :actor/display-name-ja "要 — Cross-Domain System-of-Systems Leverage Synthesizer"
+   :actor/display-name-en "要 — Cross-Domain System-of-Systems Leverage Synthesizer"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Non-profit religious-corp META synthesis actor — the system-of-systems (SoS) layer above the power-mirror lineage (tsumugi / keizu / kabuto / chie / shiori / abaki / shionome / busshi / hokorobi / kosatsu / inochi). It JOINS their per-domain 取-concentration into ONE multilayer (multiplex) graph — layers = domains (politics / religion / organization / ideology / economy / ecology / security / wellbecoming / ai / information) — reconciles entities across domains, and computes ON READ (edge-prim..."
+   :actor/primary-lexicon "com.etzhayyim.kaname.leveragePoint"
+   :actor/adr ["2606172100" "2606172100" "reserved"]
+   :actor/created-at "2026-06-17"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:kaname#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:kaname#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "kanayama"
+   :actor/did "did:web:etzhayyim.com:actor:kanayama"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "金山"
+   :actor/display-name-ja "金山 — Circular Metallurgy"
+   :actor/display-name-en "金山 — Circular Metallurgy"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Closed-loop material recovery / circular metallurgy Tier-B actor. Wave 1 reference = closed-loop aluminum used beverage container (UBC) recycling adopted from European integrated recycling-rolling mill practice. Constitutional posture strongly favorable (§2(g) habitat + §2(h) circular economy + §2(e) anti-gatekeeping). Primary mining (bauxite / iron / copper / etc.) is out of kanayama scope (N1, recovery-first by preference); NOT constitutionally forbidden — extraction is gated by a multi-gen..."
+   :actor/primary-lexicon "com.etzhayyim.kanayama"
+   :actor/adr ["2605252400" "2605252400" "2605252415"]
+   :actor/created-at "2026-05-25"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:kanayama#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:kanayama#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "kasa"
+   :actor/did "did:web:etzhayyim.com:actor:kasa"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "嵩"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Datafies, from PUBLIC information, the WORLDWIDE annual MAGNITUDE and GROWTH of computing capacity across four domains: STORAGE (HDD + SSD exabytes shipped), MEMORY (DRAM + NAND market revenue + bit-shipment growth), GPU/CPU (discrete-GPU + client-CPU units shipped, datacenter-accelerator revenue) and COMPUTE/FLOPS (TOP500 aggregate Rmax, frontier-model training compute), plus DATACENTER total power capacity. Reads public headline figures + open datasets only (WSTS/SIA semiconductor sales, Tr..."
+   :actor/primary-lexicon "com.etzhayyim.kasa"
+   :actor/adr ["2606072000"]
+   :actor/created-at "2026-06-07"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:kasa#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:kasa#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "kataribe"
+   :actor/did "did:web:etzhayyim.com:actor:kataribe"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "語部"
+   :actor/display-name-ja "語部 — Press + Publishing + Translation"
+   :actor/display-name-en "語部 — Press + Publishing + Translation"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Non-profit religious-corp press + publishing + translation substrate. Community journalism + doctrine commentary + multilingual translation + community historical chronicle + whistleblower channel. Etymology: 古代日本 oral historian / storyteller / chronicler class; 万人祭司 + Sola Scriptura + Charter §1.7 多世代 + §1.15 non-eschatological. NO ad-supported revenue (G3: Charter §1.13+§1.15). NO clickbait/apocalyptic (G4: §1.15 non-eschatological; toneAttestation enum excludes apocalyptic/clickbait/engage..."
+   :actor/primary-lexicon "com.etzhayyim.kataribe"
+   :actor/adr ["2605263600" "2605263600" "reserved"]
+   :actor/created-at "2026-05-26"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:kataribe#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:kataribe#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "kawaraban"
+   :actor/did "did:web:etzhayyim.com:actor:kawaraban"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "瓦版"
+   :actor/display-name-ja "瓦版 — News Medium (real-media mirror + actor-to-actor wire)"
+   :actor/display-name-en "瓦版 — News Medium (real-media mirror + actor-to-actor wire)"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "A NEWS MEDIUM, kotoba-wasm-native, run on the Murakumo fleet. Two faces over one Datom log: (1) MIRROR — datafies the world's real news media (outlets · 面/sections · headlines · bylines · links) into the kotoba Datom log as an append-only as-of trail, matching the SURFACE (面) of actual news media (一面/政治/経済/国際/社会/文化/科学/スポーツ); (2) MEDIUM — the connective wire BETWEEN etzhayyim actors: each first-party actor's own Datom as-of events project into the matching 面 as :article/kind :actor-event, and ..."
+   :actor/primary-lexicon "com.etzhayyim.kawaraban"
+   :actor/adr ["2606061900" "2606061900" "reserved"]
+   :actor/created-at "2026-06-06"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:kawaraban#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:kawaraban#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "kawase-yui"
+   :actor/did "did:web:etzhayyim.com:actor:kawase-yui"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "為替結"
+   :actor/display-name-ja "為替結 — Remittance Bond (multi-stable adherent mutual-aid substrate)"
+   :actor/display-name-en "為替結 — Remittance Bond (multi-stable adherent mutual-aid substrate)"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Religious-corp adherent-to-adherent multi-stable remittance built on a pre-funded local-currency pool topology under Charter §1.5 anti-commercialization + §2(b) speculative finance prohibition + ADR-2605282100 N2 mKOTO non-transferability + ADR-2605172100 Alt C no-custom-token. Settlement via canonical Base L2 stablecoins (USDC + EURC at R1; +JPYC R2; +KRWO/GBPe/CHFe R3 with Council Lv7+ per pair). NO new token. NOT a commercial MSB (G14+N1+N5). NOT FX trading (G5 const-0 spread). NOT a fiat ..."
+   :actor/primary-lexicon "com.etzhayyim.kawase-yui"
+   :actor/adr ["2605282200" "2605282200" "reserved"]
+   :actor/created-at "2026-05-28"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:kawase-yui#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:kawase-yui#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "kazaori"
+   :actor/did "did:web:etzhayyim.com:actor:kazaori"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "風折"
+   :actor/display-name-ja "風折 — Civilian Disaster Response"
+   :actor/display-name-en "風折 — Civilian Disaster Response"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Non-profit religious-corp civilian disaster response substrate. Earthquake / typhoon / flood / wildfire / pandemic / power outage / water shortage / food shortage / building damage / mass evacuation / medical surge coordination. NOT military (G5+N1; force authorization separate per ADR-2605192315). NOT war-zone humanitarian (N2). NO commercial disaster mgmt software (G4: Veoci/NC4/Crisis Track/Everbridge/OnSolve/SAP DR/Microsoft DR Hub/IBM Crisis Response PROHIBITED per Charter Rider §2(e)+§2..."
+   :actor/primary-lexicon "com.etzhayyim.kazaori"
+   :actor/adr ["2605263200" "2605263200" "reserved"]
+   :actor/created-at "2026-05-26"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:kazaori#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:kazaori#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "kenchi"
+   :actor/did "did:web:etzhayyim.com:actor:kenchi"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "検地"
+   :actor/display-name-ja "検地 — Worldwide Real-Estate Valuation (External-Market Transparency)"
+   :actor/display-name-en "検地 — Worldwide Real-Estate Valuation (External-Market Transparency)"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Public-good worldwide real-estate valuation + transparency substrate. Fuses many DISAGREEING independent authorities (recorded sales, public assessments, indices, and open-crawl listing prices) into provenance-stamped, uncertainty-quantified EXTERNAL-MARKET valuations and aggregate region reports. PROVENANCE-OR-SILENCE (G3): never a point without ≥3 independent recorded comps AND ≥2 independent authorities AND a fresh anchor — below threshold it publishes a wide band or insufficient-evidence,..."
+   :actor/primary-lexicon "com.etzhayyim.kenchi"
+   :actor/adr ["2606272030" "2606272030" "reserved"]
+   :actor/created-at "2026-06-27"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:kenchi#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:kenchi#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "kenkyusha"
+   :actor/did "did:web:etzhayyim.com:actor:kenkyusha"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Kenkyusha"
+   :actor/display-name-ja "Kenkyusha — AI Research Frontier Explorer"
+   :actor/display-name-en "Kenkyusha — AI Research Frontier Explorer"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Detects unresolved research frontiers from academic DID knowledge graphs (bunken/isbn/issn/hanrei), generates hypotheses via Murakumo LLM, collects evidence, evaluates — autonomously advancing scientific understanding."
+   :actor/primary-lexicon "com.etzhayyim.kenkyusha"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:kenkyusha#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:kenkyusha#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "kizashi"
+   :actor/did "did:web:etzhayyim.com:actor:kizashi"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "兆"
+   :actor/display-name-ja "兆 — Non-invasive Multimodal Body-Scan / Sign-Sensing"
+   :actor/display-name-en "兆 — Non-invasive Multimodal Body-Scan / Sign-Sensing"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Non-profit religious-corp non-invasive multimodal body-scan / sign-sensing substrate — the 'futuristic scan pod' sensing/instrument layer of the L4 Care Tier. Senses physical-burden SIGNS (腰痛 posture/筋, 肩こり 筋硬度/血流, 鼻詰まり 構造/気流, アレルギー via consented microsampling, 炎症 thermal/biomarker) via multimodal capture → fusion → PROBABILISTIC NON-DIAGNOSTIC attribution + self-referenced Wellbecoming trajectory + triage referral. kizashi SENSES → mitate DIAGNOSES → iyashi TREATS. NON-DIAGNOSTIC (G3, 医師法 §1..."
+   :actor/primary-lexicon "com.etzhayyim.kizashi"
+   :actor/adr ["2605312700" "2605312700" "reserved"]
+   :actor/created-at "2026-05-31"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:kizashi#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:kizashi#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "kizuna"
+   :actor/did "did:web:etzhayyim.com:actor:kizuna"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "絆"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description ""
+   :actor/primary-lexicon "com.etzhayyim.kizuna"
+   :actor/primary-schema "orgs/etzhayyim/com-etzhayyim-kizuna/data/seed-interactions.kotoba.edn"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:kizuna#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:kizuna#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "kokoro"
+   :actor/did "did:web:etzhayyim.com:actor:kokoro"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "心"
+   :actor/display-name-ja "心 — Mental Health Support"
+   :actor/display-name-en "心 — Mental Health Support"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Non-profit religious-corp mental health support substrate. Community + spiritual + relational framing (NOT clinical psychiatry). Peer support circles + post-funeral grief support + chronic mental health continuity + postnatal mood screening (opt-in) + acute crisis escalation (mitate G5) + counseling referral. **CRITICAL boundary**: NOT clinical psychiatric entity; NOT state-licensed psych; counselors are L5 vocation-flow community-witnessed-competent (musubi G3 pattern). Does NOT diagnose (mi..."
+   :actor/primary-lexicon "com.etzhayyim.kokoro"
+   :actor/adr ["2605263700" "2605263700" "reserved"]
+   :actor/created-at "2026-05-26"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:kokoro#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:kokoro#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "kosatsu"
+   :actor/did "did:web:etzhayyim.com:actor:kosatsu"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "高札"
+   :actor/display-name-ja "高札 — Crime/Sanctions Competing-Claim Board"
+   :actor/display-name-en "高札 — Crime/Sanctions Competing-Claim Board"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "高札 (kosatsu) — the public notice-board, globalized and content-addressed. Every sanctions / export-control / wanted-notice DESIGNATION is an append-only EVENT posted by a NAMED asserting authority (OFAC / EU Council / UN SC / UK OFSI / JP-MOF / Interpol / counter-sanction bodies) against a subject, citing the authority's OWN program + primary publication. etzhayyim NEVER posts its own designation and NEVER asserts a subject is a criminal / guilty / a terrorist — those are UNREPRESENTABLE; kos..."
+   :actor/primary-lexicon "com.etzhayyim.kosatsu.designationNotice"
+   :actor/primary-schema "orgs/etzhayyim/com-etzhayyim-kosatsu/contracts/ontology/crime-sanctions-ontology.kotoba.edn"
+   :actor/adr ["2606072000" "2606072000" "reserved"]
+   :actor/created-at "2026-06-07"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:kosatsu#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:kosatsu#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "kuni-umi"
+   :actor/did "did:web:etzhayyim.com:actor:kuni-umi"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "国生み (kuni-umi)"
+   :actor/display-name-ja "国生み (kuni-umi)"
+   :actor/display-name-en "国生み (kuni-umi)"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Planetary-scale infrastructure robotics fleet actor — bridges UNSPSC actor catalog to physical deployment workflows (Survey → Plan → Construct → Commission → Audit → Decommission). Per ADR-2605201400."
+   :actor/primary-lexicon "com.etzhayyim.kuniUmi.defineDeploymentSite"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:kuni-umi#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:kuni-umi#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+   {:actor/handle "kurashimori"
+   :actor/did "did:web:etzhayyim.com:actor:kurashimori"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "暮らし守"
+   :actor/display-name-ja "暮らし守 — Citizen Consumer-Protection Concierge"
+   :actor/display-name-en "暮らし守 — Citizen Consumer-Protection Concierge"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "kotoba-native citizen consumer-protection self-help concierge — the 国民生活センター / 消費生活センター-equivalent, citizen↔MERCHANT sibling of toritsugi (citizen↔government) and moushibumi (citizen→state). 暮らし守 = guardian of everyday life. Three member-initiated, consent-bound self-help channels: (1) クーリングオフ (detect statutory cooling-off window per 特定商取引法 — 訪問販売 8日 / 連鎖販売 20日, assist drafting the 通知, member sends); (2) 返金/苦情 (assist drafting a refund demand / complaint to the merchant, track response); (3) ..."
+   :actor/primary-lexicon "com.etzhayyim.kurashimori"
+   :actor/adr ["2605312500" "2605312500" "reserved"]
+   :actor/created-at "2026-05-31"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:kurashimori#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:kurashimori#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "m365-ingest"
+   :actor/did "did:web:etzhayyim.com:actor:m365-ingest"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "M365 Ingest"
+   :actor/display-name-ja "M365 Ingest — Tenant Mailbox Collector"
+   :actor/display-name-en "M365 Ingest — Tenant Mailbox Collector"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Microsoft Graph API (client credentials flow) → kyber.inbox.emailSignal pipeline. Pulls every @etzhayyim.co.jp mailbox, routes to kyber-inbox (signal/noise) and yabai (threat scoring) via downstream subscribers. No UI, no OAuth — pure tenant-app ingest."
+   :actor/primary-lexicon "com.etzhayyim.m365-ingest"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:m365-ingest#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:m365-ingest#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "makura"
+   :actor/did "did:web:etzhayyim.com:actor:makura"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "枕"
+   :actor/display-name-ja "枕 — Foam Pillow Manufacturing"
+   :actor/display-name-en "枕 — Foam Pillow Manufacturing"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Foam pillow manufacturing Tier-B actor. Adopts mature global slabstock + shredding + sewing + filling methodology; religious-corp-ised by full BoM disclosure, take-back recycling ≥10% by R3, closed-loop isocyanate handling (worker exposure ≤5 ppb MDI / ≤2 ppb TDI 8h TWA), brominated-FR exclusion (no PBDE/TDCPP/TCEP/Sb₂O₃), anti-surveillance (no RFID/NFC/IoT), anti-IP-licensing, and anti-fragrance-addictive-design gates. Mattresses, medical-claim pillows, smart-IoT, and licensed-IP co-branding..."
+   :actor/primary-lexicon "com.etzhayyim.makura"
+   :actor/adr ["2605261115" "2605261115" "2605261130"]
+   :actor/created-at "2026-05-26"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:makura#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:makura#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "manabi"
+   :actor/did "did:web:etzhayyim.com:actor:manabi"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "学び"
+   :actor/display-name-ja "学び — Education"
+   :actor/display-name-en "学び — Education"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Education Tier-B actor — open-curriculum literacy + numeracy + civics/charter + vocational + lifelong inquiry. Anti-credentialism (§2(e)) + anti-addiction UX (§2(d)) + minor privacy (G6) + comparative religion (G14) constitutional invariants. Delivers L4 (literacy/civics) and L5 (vocational/advanced) tiers of the Liberation Ladder."
+   :actor/primary-lexicon "com.etzhayyim.manabi"
+   :actor/adr ["2605261045" "2605261045" "reserved"]
+   :actor/created-at "2026-05-26"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:manabi#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:manabi#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "maps"
+   :actor/did "did:web:etzhayyim.com:actor:maps"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Maps"
+   :actor/display-name-ja "Maps — Spatial Intelligence + Digital Twin"
+   :actor/display-name-en "Maps — Spatial Intelligence + Digital Twin"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Spatial intelligence and digital twin platform. Graph-first architecture with 51 node types, 134 XRPC commands across 14 WIT domains. 980 Multi-DIDs (11 layer coordinators, 48 JP regions, 195 sovereign countries, 50 ports, 40 airports, 14 vertical zones, 34 natural zones, 14 sources). MapLibre + KAMI engine rendering. Satellite (Sentinel-2/Landsat), Mapraly, Murakumo Vision, USGS Seismic, GTFS-JP, OpenSky ADS-B integration. RisingWave via Hyperdrive for graph SQL reads."
+   :actor/primary-lexicon "com.etzhayyim.maps"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:maps#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:maps#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "marine-insurance"
+   :actor/did "did:web:etzhayyim.com:actor:marine-insurance"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Marine Insurance & P&I Intelligence"
+   :actor/display-name-ja "Marine Insurance & P&I Intelligence"
+   :actor/display-name-en "Marine Insurance & P&I Intelligence"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Hull & Machinery, Protection & Indemnity (P&I), Cargo insurance, War Risk, General Average. Full marine insurance lifecycle from quotation to claims settlement."
+   :actor/primary-lexicon "com.etzhayyim.marine-insurance"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:marine-insurance#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:marine-insurance#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "media-gamers"
+   :actor/did "did:web:etzhayyim.com:actor:media-gamers"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Media Gamers"
+   :actor/display-name-ja "Media Gamers — Game Intelligence"
+   :actor/display-name-en "Media Gamers — Game Intelligence"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Game information intelligence media. 1 Worker + N path-based DIDs (game titles, publishers, developers, platforms, franchises, sources). Pattern C multilingual (primary en + translation records). Joucho cadence-driven guide generation with 7-language auto-translation. Quality gate (COMET score >= 0.85)."
+   :actor/primary-lexicon "com.etzhayyim.media-gamers"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:media-gamers#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:media-gamers#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "meisai"
+   :actor/did "did:web:etzhayyim.com:actor:meisai"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "明細"
+   :actor/display-name-ja "明細 — Member Card-Statement Ingestion"
+   :actor/display-name-en "明細 — Member Card-Statement Ingestion"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Member-own card-statement (利用明細) ingestion into the local kotoba Datom log. The member runs a READ-ONLY computer-use fetch leg on their OWN machine against their OWN card account (com-junkawasaki/computer-use-clj sumitclub_meisai — karakuri T2 posture, vault-injected credentials, Murakumo-conformant local inference per ADR-2605215000); meisai ingests the resulting local statement EDN into append-only :meisai.stmt/* + :meisai.row/* EAVT datoms. NO network I/O, NO credential held, credential/PA..."
+   :actor/primary-lexicon "com.etzhayyim.meisai.statement (cells/lex/meisai.statement.json — statement header; PERSONAL, local-only, no PAN/credential)"
+   :actor/adr ["2606122400" "2606122400" "2606122400"]
+   :actor/created-at "2026-06-12"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:meisai#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:meisai#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "mitate"
+   :actor/did "did:web:etzhayyim.com:actor:mitate"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "見立て (mitate)"
+   :actor/display-name-ja "見立て (mitate)"
+   :actor/display-name-en "見立て (mitate)"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Religious-corp first-party diagnostic + treatment routing actor — sibling of yakushi (drug-side). Wave 1 reference = chronic nasal congestion 5-condition triage (allergic-rhinitis-perennial / vasomotor-rhinitis / chronic-sinusitis / septal-deviation / rhinitis-medicamentosa). All 13 cells gated import-time RuntimeError until Council Lv6+ ≥ 3 silen-mitate-review attestation + licensed-MD-in-loop registry per ADR-2605260100. Per ADR-2605260100/115/130/145/160/175."
+   :actor/primary-lexicon "com.etzhayyim.mitate.rhinitisIntake"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:mitate#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:mitate#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "mitsuho"
+   :actor/did "did:web:etzhayyim.com:actor:mitsuho"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "瑞穂"
+   :actor/display-name-ja "瑞穂 — Food / Agriculture"
+   :actor/display-name-en "瑞穂 — Food / Agriculture"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Food production Tier-B actor (plant agriculture + freshwater aquaculture + alternative protein). Delivers L2 Sustenance Tier (≥4,500 kJ/day staple per adherent) of the Liberation Ladder. R0 scope excludes animal slaughter, industrial monoculture, patented seeds, GMO without Council attestation, contract farming, commodities trading, ocean factory-fishing."
+   :actor/primary-lexicon "com.etzhayyim.mitsuho"
+   :actor/adr ["2605261015" "2605261015" "reserved"]
+   :actor/created-at "2026-05-26"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:mitsuho#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:mitsuho#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "mizuho"
+   :actor/did "did:web:etzhayyim.com:actor:mizuho"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "水穂"
+   :actor/display-name-ja "水穂 — Water + Sanitation"
+   :actor/display-name-en "水穂 — Water + Sanitation"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Non-profit religious-corp water + sanitation substrate. Community-scale only (NOT large municipal utility, N1). Upstream of mitsuho (irrigation), hagukumi (daily-living water), iyashi (clinical-grade), yakushi (WFI feed). NO commercial water utility software (G4: Veolia/Suez/American Water/Aquarion/Évian/Nestlé Pure Life/Beck Water/Trojan UV PROHIBITED per Charter Rider §2(e)+§2(c)). NO bottled water vendor (G5: single-use plastic PROHIBITED per Charter §1.13). NO mandatory fluoridation (G6: ..."
+   :actor/primary-lexicon "com.etzhayyim.mizuho"
+   :actor/adr ["2605263100" "2605263100" "reserved"]
+   :actor/created-at "2026-05-26"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:mizuho#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:mizuho#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "moushibumi"
+   :actor/did "did:web:etzhayyim.com:actor:moushibumi"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "申文"
+   :actor/display-name-ja "申文 — Citizen Democratic-Participation Concierge"
+   :actor/display-name-en "申文 — Citizen Democratic-Participation Concierge"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "kotoba-native citizen democratic-participation concierge — the citizen's VOICE INTO the state, sibling to toritsugi (government procedures) and counterpart to danjo (which watches the state's output). 申文 = a Heian formal submission to authority. Three member-initiated, consent-bound channels: (1) 選挙情報 INFO-ONLY (when/where to vote, 期日前/不在者投票 mechanics, neutral pointers to official 選挙公報 — NEVER campaigning/endorsement/GOTV, 公職選挙法 + political-neutrality G3); (2) 請願/陳情 (assist drafting a 請願書 [請願..."
+   :actor/primary-lexicon "com.etzhayyim.moushibumi"
+   :actor/adr ["2605312400" "2605312400" "reserved"]
+   :actor/created-at "2026-05-31"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:moushibumi#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:moushibumi#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "musubi"
+   :actor/did "did:web:etzhayyim.com:actor:musubi"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "結"
+   :actor/display-name-ja "結 — Covenant Ceremony"
+   :actor/display-name-en "結 — Covenant Ceremony"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Non-profit religious-corp covenant ceremony performance substrate. TIGHT PAIR of chigiri (chigiri attests on-chain; musubi performs ceremony). Marriage / naming / funeral / vocation vow / rededication / seasonal communal ceremony. NO clergy class (G3: Reformed 万人祭司; officiants are L5 vocation-flow community-witnessed-competent; officiantClass enum DELIBERATELY excludes clergy/ordained/priest/bishop). NO mandatory ritual attendance (G4: free conscience). NO commercial wedding/funeral industry ..."
+   :actor/primary-lexicon "com.etzhayyim.musubi"
+   :actor/adr ["2605263400" "2605263400" "reserved"]
+   :actor/created-at "2026-05-26"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:musubi#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:musubi#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "nist"
+   :actor/did "did:web:etzhayyim.com:actor:nist"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "NIST CSF 2.0 Intelligence"
+   :actor/display-name-ja "NIST CSF 2.0 Intelligence"
+   :actor/display-name-en "NIST CSF 2.0 Intelligence"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "NIST Cybersecurity Framework 2.0 — 6 Function logical actors (GV/ID/PR/DE/RS/RC), 106 subcategories, Tier Gap analysis, CMMC L2 cross-mapping, SP 1302 Community Profiles."
+   :actor/primary-lexicon "com.etzhayyim.nist"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:nist#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:nist#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "nyusatsu"
+   :actor/did "did:web:etzhayyim.com:actor:nyusatsu"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Nyusatsu"
+   :actor/display-name-ja "Nyusatsu — JP Public Procurement Aggregator"
+   :actor/display-name-en "Nyusatsu — JP Public Procurement Aggregator"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Self-hosted alternative to NJSS. Crawls 全省庁 (GEPS) + 47都道府県 + 1,718市町村 + 独法 + 特殊法人 入札公告 pages and normalizes into com.etzhayyim.apps.jpFiscal.procurementBid. Replaces paid NJSS API dependency (ADR-0035)."
+   :actor/primary-lexicon "com.etzhayyim.nyusatsu"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:nyusatsu#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:nyusatsu#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "oil-coverage"
+   :actor/did "did:web:etzhayyim.com:actor:oil-coverage"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Oil Coverage Orchestrator"
+   :actor/display-name-ja "Oil Coverage Orchestrator"
+   :actor/display-name-en "Oil Coverage Orchestrator"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Global oil supply chain coverage orchestration. Tracks country x segment baseline, actor freshness, topology gaps, and graph backbone readiness across upstream, midstream, refining, trading, shipping, and downstream."
+   :actor/primary-lexicon "com.etzhayyim.oil-coverage"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:oil-coverage#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:oil-coverage#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "oil-distribution"
+   :actor/did "did:web:etzhayyim.com:actor:oil-distribution"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Oil Distribution & Product Terminal Intelligence"
+   :actor/display-name-ja "Oil Distribution & Product Terminal Intelligence"
+   :actor/display-name-en "Oil Distribution & Product Terminal Intelligence"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Product terminal, wholesale hub and downstream distribution coverage across diesel, gasoline, jet and fuel oil networks."
+   :actor/primary-lexicon "com.etzhayyim.oil-distribution"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:oil-distribution#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:oil-distribution#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "oil-midstream"
+   :actor/did "did:web:etzhayyim.com:actor:oil-midstream"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Oil Midstream & Terminal Intelligence"
+   :actor/display-name-ja "Oil Midstream & Terminal Intelligence"
+   :actor/display-name-en "Oil Midstream & Terminal Intelligence"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Pipeline, storage, terminal and chokepoint infrastructure coverage across gathering, trunkline, export and import networks."
+   :actor/primary-lexicon "com.etzhayyim.oil-midstream"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:oil-midstream#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:oil-midstream#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "oil-refining"
+   :actor/did "did:web:etzhayyim.com:actor:oil-refining"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Oil Refining & Product Yield Intelligence"
+   :actor/display-name-ja "Oil Refining & Product Yield Intelligence"
+   :actor/display-name-en "Oil Refining & Product Yield Intelligence"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Refinery registry, unit configuration, throughput and utilization monitoring, outage tracking, and crude-to-product yield intelligence."
+   :actor/primary-lexicon "com.etzhayyim.oil-refining"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:oil-refining#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:oil-refining#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "oil-shipping"
+   :actor/did "did:web:etzhayyim.com:actor:oil-shipping"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Oil Shipping & Tanker Intelligence"
+   :actor/display-name-ja "Oil Shipping & Tanker Intelligence"
+   :actor/display-name-en "Oil Shipping & Tanker Intelligence"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Crude and product tanker routing, STS transfer tracking, chokepoint exposure, cargo load/discharge intelligence, and dark-fleet risk monitoring."
+   :actor/primary-lexicon "com.etzhayyim.oil-shipping"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:oil-shipping#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:oil-shipping#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "oil-trading"
+   :actor/did "did:web:etzhayyim.com:actor:oil-trading"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Oil Trading & Benchmark Intelligence"
+   :actor/display-name-ja "Oil Trading & Benchmark Intelligence"
+   :actor/display-name-en "Oil Trading & Benchmark Intelligence"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Physical crude and products trading, benchmark linkage, offtake contracts, arbitrage windows and counterparty concentration."
+   :actor/primary-lexicon "com.etzhayyim.oil-trading"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:oil-trading#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:oil-trading#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "oil-upstream"
+   :actor/did "did:web:etzhayyim.com:actor:oil-upstream"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Oil Upstream Basin & Field Intelligence"
+   :actor/display-name-ja "Oil Upstream Basin & Field Intelligence"
+   :actor/display-name-en "Oil Upstream Basin & Field Intelligence"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Basin, block, field and production system coverage across crude reserves, output pressure and operator ownership."
+   :actor/primary-lexicon "com.etzhayyim.oil-upstream"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:oil-upstream#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:oil-upstream#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "omise"
+   :actor/did "did:web:etzhayyim.com:actor:omise"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Omise EC Marketplace"
+   :actor/display-name-ja "Omise EC Marketplace"
+   :actor/display-name-en "Omise EC Marketplace"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Shopify-like multi-tenant EC marketplace with Platform/Seller/Buyer three-party structure. Seller onboarding, catalog management, checkout SAGA, settlement flow, logistics, reviews, coupons. 11 ISCO-mapped actor DIDs. kagami P10v2 GraphAr-native storage."
+   :actor/primary-lexicon "com.etzhayyim.omise"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:omise#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:omise#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "organizer"
+   :actor/did "did:web:etzhayyim.com:actor:organizer"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Organizer"
+   :actor/display-name-ja "Organizer — AI Auto-Organize"
+   :actor/display-name-en "Organizer — AI Auto-Organize"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Upload and AI auto-organizes. Replaces manual folder management. Murakumo vision/NLP auto-classification, tag assignment, collection auto-grouping, organize rules. Subscription discovery pipeline (mailer -> organizer -> kaiyaku) for unused subscription cancellation."
+   :actor/primary-lexicon "com.etzhayyim.organizer"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:organizer#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:organizer#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "os"
+   :actor/did "did:web:etzhayyim.com:actor:os"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Etzhayyim OS"
+   :actor/display-name-ja "Etzhayyim OS — Kotodama Service Layer"
+   :actor/display-name-en "Etzhayyim OS — Kotodama Service Layer"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Agent lifecycle management, consent orchestration, directory resolution, budget allocation, audit trail, sync coordination, and window-manager service. The KAMI compositor (Rust WASM) remains T3; only the service layer migrates to T1 MCP-Compose."
+   :actor/primary-lexicon "com.etzhayyim.os"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:os#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:os#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "ossekai"
+   :actor/did "did:web:etzhayyim.com:actor:ossekai"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "御節介"
+   :actor/display-name-ja "御節介 — Information-Arbitrage Elimination + Wellbecoming Nudge"
+   :actor/display-name-en "御節介 — Information-Arbitrage Elimination + Wellbecoming Nudge"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Non-profit religious-corp artificial-organism actor for societal information-arbitrage elimination + Wellbecoming-nudge delivery. Dual-channel architecture: (1) aggregate public-good publication (anonymized, AT Proto `app.bsky.feed.post` + custom feed generator `feed.ossekai.wellbecoming`) is the DEFAULT mode; (2) opt-in member digest (encrypted envelope per ADR-2605181100) + Council-gated single-touch non-member @mention (Council Lv6+ ≥3 attestation; ≥4 if >50 handles) is the secondary mode...."
+   :actor/primary-lexicon "com.etzhayyim.ossekai"
+   :actor/adr ["2605264000" "2605264000" "reserved"]
+   :actor/created-at "2026-05-26"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:ossekai#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:ossekai#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "port"
+   :actor/did "did:web:etzhayyim.com:actor:port"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Port Infrastructure & Call Tracking"
+   :actor/display-name-ja "Port Infrastructure & Call Tracking"
+   :actor/display-name-en "Port Infrastructure & Call Tracking"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "World port infrastructure registry (35+ ports, berths, terminals), vessel call tracking, occupancy intelligence. Covers top container ports (Shanghai, Singapore, Rotterdam, etc.), tanker ports (Ras Tanura, Fujairah), bulk ports (Port Hedland, Tubarão, Richards Bay). JP coverage: Yokohama, Tokyo, Kobe, Osaka, Nagoya."
+   :actor/primary-lexicon "com.etzhayyim.port"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:port#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:port#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "rare-earth-coverage"
+   :actor/did "did:web:etzhayyim.com:actor:rare-earth-coverage"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Rare Earth Coverage Orchestrator"
+   :actor/display-name-ja "Rare Earth Coverage Orchestrator"
+   :actor/display-name-en "Rare Earth Coverage Orchestrator"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Global rare earth supply chain coverage orchestration. Registers major mining, separation, magnet, policy, finance, and demand actors as mitama DIDs and maintains graph backbone coverage across upstream, midstream, regulation, and downstream demand."
+   :actor/primary-lexicon "com.etzhayyim.rare-earth-coverage"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:rare-earth-coverage#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:rare-earth-coverage#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "rasen"
+   :actor/did "did:web:etzhayyim.com:actor:rasen"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "螺旋"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Public-genetics (公開遺伝) Knowledge Graph mirror — weaves PUBLIC reference genetics (genes / variants / phenotypes / pathways + population-AGGREGATE allele frequencies) across humans, animals, plants and microbes into the kotoba Datom log; surfaces integrated clinical/functional evidence burden over a gene, routed to CARE & RESEARCH, never an individual-genotype registry or discrimination tool."
+   :actor/primary-lexicon "com.etzhayyim.rasen"
+   :actor/adr ["2606101000"]
+   :actor/created-at "2026-06-10"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:rasen#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:rasen#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "recruit"
+   :actor/did "did:web:etzhayyim.com:actor:recruit"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Recruit"
+   :actor/display-name-ja "Recruit"
+   :actor/display-name-en "Recruit"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Global corporate-linked job-posting aggregator. Public feed sources only (ESCO + O*NET + EURES + HelloWork + USAJOBS + Job Bank). ISCO-08 occupation mapping, legal-entity-anchored authenticity."
+   :actor/primary-lexicon "com.etzhayyim.recruit"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:recruit#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:recruit#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "sanae"
+   :actor/did "did:web:etzhayyim.com:actor:sanae"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "早苗"
+   :actor/display-name-ja "早苗 — Field-Agriculture Robotics"
+   :actor/display-name-en "早苗 — Field-Agriculture Robotics"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Robotics body of mitsuho's L2-Sustenance mandate; automates field agriculture (sow/weed/harvest) — the largest pool of human toil on Earth. Herbicide-free, seed-sovereign, regenerative."
+   :actor/primary-lexicon "com.etzhayyim.sanae"
+   :actor/adr ["2606032100"]
+   :actor/created-at "2026-06-03"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:sanae#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:sanae#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "sarutahiko"
+   :actor/did "did:web:etzhayyim.com:actor:sarutahiko"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "猿田彦"
+   :actor/display-name-ja "猿田彦 — Heavy Truck Manufacturing"
+   :actor/display-name-en "猿田彦 — Heavy Truck Manufacturing"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Heavy-truck manufacturing Tier-B actor. Manufacturing-side counterpart of wadachi (operator-side autonomous mobility, ADR-2605242000). Wave 1 reference = civilian Class-8 cargo truck (~26-40 t GVWR). Methodology adopted from Turkey OEM-class large-scale heavy-truck plant practice; military / weapons / mining / fossil-tanker / surveillance / MaaS-rental applications rejected per Charter Rider §2(a) + §2(d) + §2(g) + §2(b) + §2(c)."
+   :actor/primary-lexicon "com.etzhayyim.sarutahiko"
+   :actor/adr ["2605252500" "2605252500" "2605252515"]
+   :actor/created-at "2026-05-25"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:sarutahiko#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:sarutahiko#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "seigyo"
+   :actor/did "did:web:etzhayyim.com:actor:seigyo"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "制御"
+   :actor/display-name-ja "制御 — Industrial Control Layer"
+   :actor/display-name-en "制御 — Industrial Control Layer"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Industrial control layer (ISA-95 L0–L2) substrate actor for all religious-corp manufacturing actors. DCS-equivalent assembled from open components — OpenPLC (IEC 61131-3, L1) + FUXA/Rapid SCADA (L2) + OPC UA open62541 (L2.5) — under one attestation regime. Commercial DCS/PLC/SCADA runtimes prohibited (generalizes ADR-2605265000 §1.9). Safety interlocks hardwired L1S only; no LLM, Murakumo inference, or kotoba cell ever in the safety path."
+   :actor/primary-lexicon "com.etzhayyim.seigyo"
+   :actor/adr ["2606111000" "2606111000" "2606111100"]
+   :actor/created-at "2026-06-11"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:seigyo#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:seigyo#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "shidemori"
+   :actor/did "did:web:etzhayyim.com:actor:shidemori"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "死出守"
+   :actor/display-name-ja "死出守 — Memorial + Cemetery"
+   :actor/display-name-en "死出守 — Memorial + Cemetery"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Non-profit religious-corp memorial + cemetery substrate. FINAL gap-closure actor (gap audit row 10; completes 10-actor 30min-loop wave). Memorial NFT mint + cemetery Land Registry waqf-equivalent + 鎮魂 annual remembrance + chigiri.inheritanceChain handoff + external mortuary engagement (UPL-equivalent). Etymology: 死出守 = guardian of the death-journey (死出 = 死出の旅 classical imagery; 守 = keeper). Cross-tradition (Reformed memorial + Shinto 鎮魂 + 仏 49日 + secular humanist). Charter §1.15 non-eschatolo..."
+   :actor/primary-lexicon "com.etzhayyim.shidemori"
+   :actor/adr ["2605263800" "2605263800" "reserved"]
+   :actor/created-at "2026-05-26"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:shidemori#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:shidemori#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "shinka"
+   :actor/did "did:web:etzhayyim.com:actor:shinka"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Shinka"
+   :actor/display-name-ja "Shinka — Actor Evolution Scheduler"
+   :actor/display-name-en "Shinka — Actor Evolution Scheduler"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Central scheduler for all logical actor social evolution. Cron */5 min, queries stalest actors, resolves joucho cadence (mood -> shouldPost/shouldDrill/shouldRepair), executes via Murakumo LLM (qwen3.5-4b). Historical propagation with graph job queue, credits sponsorship, era x region partitioning."
+   :actor/primary-lexicon "com.etzhayyim.shinka"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:shinka#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:shinka#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "shiori"
+   :actor/did "did:web:etzhayyim.com:actor:shiori"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "栞"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Human-Wellbecoming detractor observatory + transparent intervention — weaves the STRUCTURAL factors that diminish Wellbecoming (precarity/overwork/isolation/addictive-design/debt/housing-insecurity/chronic-pain/discrimination/care-deprivation...), the aggregate COHORTS that bear them, the structural DRIVERS (patterns) that impose them, and the MITIGATORS that relieve them into the kotoba Datom log; surfaces detraction routed to RELIEF (救い: a TRANSPARENT Wellbecoming intervention carried by os..."
+   :actor/primary-lexicon "com.etzhayyim.shiori"
+   :actor/adr ["2606082100"]
+   :actor/created-at "2026-06-08"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:shiori#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:shiori#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "shirabe"
+   :actor/did "did:web:etzhayyim.com:actor:shirabe"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "調べ"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Live research-concierge membrane — answers a natural-language question by planning → reading the read-only public web → grounding a Murakumo gemma4 answer in cited sources → persisting the transparent session to the kotoba Datom log. The LLM/answer layer over web search the roster lacked; looks things up, never acts outward."
+   :actor/primary-lexicon "com.etzhayyim.shirabe"
+   :actor/adr ["2606131600"]
+   :actor/created-at "2026-06-13"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:shirabe#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:shirabe#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "society6"
+   :actor/did "did:web:etzhayyim.com:actor:society6"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "COFOG + Well-Becoming Kyu/Dan"
+   :actor/display-name-ja "COFOG + Well-Becoming Kyu/Dan"
+   :actor/display-name-en "COFOG + Well-Becoming Kyu/Dan"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "COFOG portal + Well-Becoming Kyu/Dan rank system. 5-axis weighted scoring (Engagement/Competence/Contribution/Growth/Resilience) mapped to martial-arts style Kyu 6 (white) through Dan 10 (black). Constituent management, COFOG service/agent assignment, rank promotion with achievement recording."
+   :actor/primary-lexicon "com.etzhayyim.society6"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:society6#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:society6#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "sonae"
+   :actor/did "did:web:etzhayyim.com:actor:sonae"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "備え"
+   :actor/display-name-ja "備え — Civilian Pre-Disaster Foresight + Preparedness + Early-Warning"
+   :actor/display-name-en "備え — Civilian Pre-Disaster Foresight + Preparedness + Early-Warning"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Non-profit religious-corp civilian PRE-disaster substrate: prevention / mitigation / preparedness / early warning. The 'before' half of the disaster cycle; response (during) is kazaori (ADR-2605263200) and sonae MUST NOT do response (N3, clean phase boundary). Hazard watch from OPEN government feeds (USGS / PHIVOLCS / JMA / GDACS / Copernicus EMS / WMO GTS) → community risk assessment → official-warning RELAY (relay-only, authoritativeSource cited) → preparedness planning + stockpile pre-posi..."
+   :actor/primary-lexicon "com.etzhayyim.sonae"
+   :actor/adr ["2606091200" "2606091200" "reserved"]
+   :actor/created-at "2026-06-09"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:sonae#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:sonae#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "subaru"
+   :actor/did "did:web:etzhayyim.com:actor:subaru"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "昴"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Transparent connectivity-commons satellite constellation — the charter-clean inversion of Starlink/OneWeb. Connectivity delivered as §1.16 Social Security in-kind (covenantal-universal, to the unconnected + disaster zones); cash≡0, no ads, no subscription, no surveillance. Operates spacecraft (unlike hoshimori which only observes), but ONLY Transparently. The payload torifune launches; observed by hoshimori for stewardship."
+   :actor/primary-lexicon "com.etzhayyim.subaru"
+   :actor/adr ["2606162355"]
+   :actor/created-at "2026-06-16"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:subaru#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:subaru#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "suimin"
+   :actor/did "did:web:etzhayyim.com:actor:suimin"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "睡眠 (suimin)"
+   :actor/display-name-ja "睡眠 (suimin)"
+   :actor/display-name-en "睡眠 (suimin)"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Religious-corp first-party sleep-disorder treatment-EVIDENCE research + synthesis actor — sibling of mitate (diagnostic routing). suimin does NOT diagnose or treat; it synthesizes population-level treatment-evidence landscapes from reliable sources ONLY (PubMed/MeSH + Cochrane + ICSD-3 + ICD-11 + AASM clinical practice guidelines + national sleep-society guidelines), with explicit GRADE evidence grading, a mandatory non-diagnostic disclaimer, and referral routing to local sleep-medicine clini..."
+   :actor/primary-lexicon "com.etzhayyim.suimin.sourceWhitelist"
+   :actor/adr ["2606072800"]
+   :actor/created-at "2026-06-07"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:suimin#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:suimin#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "suji"
+   :actor/did "did:web:etzhayyim.com:actor:suji"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "筋"
+   :actor/display-name-ja "筋 — Musculoskeletal Posture-Load Biomechanics Simulator"
+   :actor/display-name-en "筋 — Musculoskeletal Posture-Load Biomechanics Simulator"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "The physics-simulation answer to 'what does a laptop posture do to the body?'. A sagittal articulated bone chain (de Leva/Winter anthropometry — the kami-genesis PlanarChain) is driven through static inverse dynamics (Featherstone RNEA gravity term) to per-joint moment + cervical compressive load (VALIDATED against Hansraj 2014's forward-head-posture table), then to Hill-type muscle %MVC (緊張/tension) and a Rohmert sustained-isometric dose (強張り/stiffness) over a work session, comparing laptop-..."
+   :actor/primary-lexicon "com.etzhayyim.suji"
+   :actor/adr ["2606061900" "2606061900"]
+   :actor/created-at "2026-06-06"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:suji#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:suji#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "sukashi"
+   :actor/did "did:web:etzhayyim.com:actor:sukashi"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "透かし"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Ad-tech supply-chain + delivery-infrastructure + fraud-network observatory. Datafies the programmatic advertising ecosystem from the PUBLIC IAB web-standard files (ads.txt / app-ads.txt / sellers.json): the ad-tech entities (DSP / ad-exchange / SSP / ad-network / publisher / verification), the first-class AUTHORIZATION edges + the two-sided handshake whose GAPS reveal spoofed / unauthorized inventory, the creatives (who broadcasts what), the DELIVERY edges binding a creative to its serving in..."
+   :actor/primary-lexicon "com.etzhayyim.sukashi"
+   :actor/adr ["2606071600"]
+   :actor/created-at "2026-06-07"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:sukashi#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:sukashi#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "suki"
+   :actor/did "did:web:etzhayyim.com:actor:suki"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "鋤"
+   :actor/display-name-ja "鋤 — Farm Tractor Manufacturing"
+   :actor/display-name-en "鋤 — Farm Tractor Manufacturing"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Farm tractor manufacturing Tier-B actor. Manufacturing-side counterpart of mitsuho operator-side (ADR-2605261015), parallel to sarutahiko↔wadachi (truck) pattern. religious-corp first explicit Right-to-Repair constitutional first-class invariant at firmware level (G10 + N4); combined with tsutae G3 device-level R2R = dual-layer R2R constitutional. Methodology source = YouTube `aSmoLQKdX9E` European farm tractor factory documentary; manufacturing methodology adopted; John Deere-class DRM ECU +..."
+   :actor/primary-lexicon "com.etzhayyim.suki"
+   :actor/adr ["2605261500" "2605261500" "2605261515"]
+   :actor/created-at "2026-05-26"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:suki#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:suki#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "tadori"
+   :actor/did "did:web:etzhayyim.com:actor:tadori"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "辿"
+   :actor/display-name-ja "辿 — Trace (authorized on-chain transaction tracing + actor attribution)"
+   :actor/display-name-en "辿 — Trace (authorized on-chain transaction tracing + actor attribution)"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Non-profit religious-corp authorized, case-anchored on-chain transaction-tracing + actor-attribution actor. kotoba-EAVT-native consolidation point for the malak pursuit Pregel output (ADR-2605152000), ipaddress 1次 IP/WHOIS/GeoIP collection, and yabai CTI/DNS/IP-history/access-audit. Owns the durable case graph + the cross-store attribution join (address → cluster → ip-obs → dns-obs → person) that no single store produces today, expressed as kotoba-kqe Datalog rules over the four arrangements ..."
+   :actor/primary-lexicon "com.etzhayyim.tadori"
+   :actor/adr ["2605301400" "2605301400"]
+   :actor/created-at "2026-05-30"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:tadori#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:tadori#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "talent"
+   :actor/did "did:web:etzhayyim.com:actor:talent"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Talent"
+   :actor/display-name-ja "Talent"
+   :actor/display-name-en "Talent"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Global ISCO-08 scoped talent registry. PII Tier 3 cohort-first (ADR-0018). Signal E2E on identifying fields. Self-sovereign individual registration only."
+   :actor/primary-lexicon "com.etzhayyim.talent"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:talent#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:talent#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "tanemaki"
+   :actor/did "did:web:etzhayyim.com:actor:tanemaki"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "種蒔き"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Public Fund grant-steward (fund-manager inversion) — the SOWER: fuses DISCLOSED public evidence from the observatory lineage (kanjō 勘定 financial disclosure / kabuto 兜 supply-chain / tsumugi 紡ぎ 取-concentration / kosatsu 高札 designation landscape / ooyake 公 registry / shiori 栞 relief-gap) into a PUBLIC due-diligence scorecard over candidate grantee organizations — hard charter SCREENS (S1..S6 eligibility, Rider §2 anchored) then a weighted RUBRIC (C1..C8, weights public, Σ=1.0) — and drafts an U..."
+   :actor/primary-lexicon "com.etzhayyim.tanemaki.ddScorecard"
+   :actor/adr ["2606122001"]
+   :actor/created-at "2026-06-12"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:tanemaki#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:tanemaki#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "tatara"
+   :actor/did "did:web:etzhayyim.com:actor:tatara"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "鑪"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "The geographic / facility-scale layer beneath the kabuto supply-chain KG (org→org edges) and uchiwake product-BOM KG: where the world's manufacturing actually SITS on the planet, at what scale, feeding which logistics corridors. Mirror-lineage sibling of kabuto/tsumugi/inochi — edge-primary geographic CONCENTRATION (per-sector country HHI + chokepoint export-dependence) routed to REDUNDANCY / reshoring options. A resilience map, NEVER a target-list. Carries the disclosed AGGREGATE facility fi..."
+   :actor/primary-lexicon "com.etzhayyim.tatara"
+   :actor/adr ["2606171800"]
+   :actor/created-at "2026-06-17"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:tatara#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:tatara#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "tatekata"
+   :actor/did "did:web:etzhayyim.com:actor:tatekata"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "建方"
+   :actor/display-name-ja "建方 — Construction"
+   :actor/display-name-en "建方 — Construction"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Infrastructure construction robotics orchestration. Tier-B actor coordinating multi-robot site workflows (Giemon, Otete, Mimi), material routing, permit compliance, and safety governance for civil + MEP projects (≤2 story, ≤5000m² R0 scope)."
+   :actor/primary-lexicon "com.etzhayyim.tatekata"
+   :actor/adr ["2605250715" "2605250715" "2605250730"]
+   :actor/created-at "2026-05-25"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:tatekata#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:tatekata#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "tazuna"
+   :actor/did "did:web:etzhayyim.com:actor:tazuna"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "綱"
+   :actor/display-name-ja "手綱 — Clean-room Remote-Robotics Fleet Operation + Teleoperation + Learning-from-Demonstration"
+   :actor/display-name-en "手綱 — Clean-room Remote-Robotics Fleet Operation + Teleoperation + Learning-from-Demonstration"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "The charter-clean answer to the Boston-Dynamics-Orbit shape: the missing HEAD that remotely operates the robotics-body fleet (sanae/kiyome/hataori/giemon/wadachi) and the missing LOOP that learns from operating it. 手綱 = the reins — hold them to guide a robot that does not yet know the path (teleoperation), release them as it earns autonomy through demonstration (imitation learning). Remote actuation is admitted ONLY as Transparent Force (on-chain monitored + open-source + 1 SBT=1 vote, Missio..."
+   :actor/primary-lexicon "com.etzhayyim.tazuna"
+   :actor/adr ["2606042100" "2606042100"]
+   :actor/created-at "2026-06-04"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:tazuna#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:tazuna#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "tenso"
+   :actor/did "did:web:etzhayyim.com:actor:tenso"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Tenso - Signal E2E Secure File Transfer"
+   :actor/display-name-ja "Tenso - Signal E2E Secure File Transfer"
+   :actor/display-name-en "Tenso - Signal E2E Secure File Transfer"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Zero-knowledge file transfer with Signal Protocol E2E encryption. Chunked upload, content-addressed B2 storage, per-transfer AES-256-GCM file key wrapped via X3DH key agreement. Server never sees plaintext."
+   :actor/primary-lexicon "com.etzhayyim.tenso"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:tenso#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:tenso#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "tokigusuri"
+   :actor/did "did:web:etzhayyim.com:actor:tokigusuri"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "時薬"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Pharmaceutical patent-cliff / off-patent-access observatory — weaves drugs / exclusivity-barriers / patent-or-generic holders / bearers into the kotoba Datom log; surfaces which essential medicines are gated by remaining exclusivity vs where generic/biosimilar release has restored access, routed to RELEASE (解放); observation→handoff only, non-adjudicating, no-FTO-opinion, lawful-routes-only."
+   :actor/primary-lexicon "com.etzhayyim.tokigusuri"
+   :actor/adr ["2606171300"]
+   :actor/created-at "2026-06-17"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:tokigusuri#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:tokigusuri#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "torifune"
+   :actor/did "did:web:etzhayyim.com:actor:torifune"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "鳥船"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Zero-net-carbon open launch-vehicle manufacturing + Transparent space access — the 船大工 of the sky (funadaiku/sarutahiko/giemon build-pattern). Designs + (Council-gated) builds a reusable open-design launch vehicle (Ama 天 class, two-stage hydrolox), runs the plant (4D-BIM) + ascent/staging/recovery GNC sim on kami-genesis. Civilian launch ONLY; weapon-delivery / ballistic-strike structurally unrepresentable."
+   :actor/primary-lexicon "com.etzhayyim.torifune"
+   :actor/adr ["2606162355"]
+   :actor/created-at "2026-06-16"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:torifune#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:torifune#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "toritate"
+   :actor/did "did:web:etzhayyim.com:actor:toritate"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "執帳"
+   :actor/display-name-ja "執帳 — Accounting + Audit"
+   :actor/display-name-en "執帳 — Accounting + Audit"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Non-profit religious-corp accounting + audit substrate. Aggregates on-chain TitheRouter + Public Fund Safe + Council Safe + Land Registry transactions into transparent reports. 100% on-chain transparency invariant (G3). No commercial accounting software (G8 PROHIBITED). No tax-advice rendering (G5; external opinion via Public Fund Council Lv6+). No payroll (volunteer ≠ employee). 6 cells / 5 Lexicons / 12 gates / 12 non-goals."
+   :actor/primary-lexicon "com.etzhayyim.toritate"
+   :actor/adr ["2605262900" "2605262900" "reserved"]
+   :actor/created-at "2026-05-26"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:toritate#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:toritate#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "tsugite"
+   :actor/did "did:web:etzhayyim.com:actor:tsugite"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "継ぎ手"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "World peoples-continuity (民の存続) mirror — weaves human COLLECTIVES (migration/refugee/stateless populations, indigenous peoples, language communities) + the languages they carry + the displacement/erasure pressures they bear into the kotoba Datom log; surfaces pressure routed to CONTINUITY (継承: safe passage + protection + revitalization); aggregate-only, NEVER person-tracking."
+   :actor/primary-lexicon "com.etzhayyim.tsugite"
+   :actor/adr ["2606073800"]
+   :actor/created-at "2026-06-07"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:tsugite#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:tsugite#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "tsukuroi"
+   :actor/did "did:web:etzhayyim.com:actor:tsukuroi"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "繕い"
+   :actor/display-name-ja "繕い — Mend (authorized vulnerability remediation + patch proposal)"
+   :actor/display-name-en "繕い — Mend (authorized vulnerability remediation + patch proposal)"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Non-profit religious-corp authorized vulnerability-remediation + patch-proposal actor; the constructive sibling of akuma (悪魔, ADR-2605151400). Closes the akuma diagnosis loop (akuma states automated patch generation/submission is out of scope): consumes an owner-attested vulnerability finding → synthesizes a defensive fix patch (Murakumo-only LLM) → validates in an egress-restricted sandbox → PROPOSES it to the authorized target (fork-and-PR / signed patch bundle). PROPOSE-ONLY: a human owner..."
+   :actor/primary-lexicon "com.etzhayyim.tsukuroi"
+   :actor/adr ["2605291500" "2605291500" "reserved"]
+   :actor/created-at "2026-05-29"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:tsukuroi#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:tsukuroi#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "tsukuru"
+   :actor/did "did:web:etzhayyim.com:actor:tsukuru"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "OEM D2C Manufacturing"
+   :actor/display-name-ja "OEM D2C Manufacturing"
+   :actor/display-name-en "OEM D2C Manufacturing"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "B2B factory-direct ordering platform. 460+ manufacturer DIDs across 30+ countries. Production order management (BTO/MTO/CTO), trade compliance, quality inspection, KAMI 3D manufacturing cell design, industrial software integration (CAD/CAE/CAM/PLM/MES/SCADA/QMS/WMS/TMS/ERP/CMMS), CNC/3D-printer output, robot-arm operation, material-handling flow, transport route planning, drone operations, and autonomous-driving mission planning. Unified batch-flush write-buffer path (Shannon eta 99.8%)."
+   :actor/primary-lexicon "com.etzhayyim.tsukuru"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:tsukuru#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:tsukuru#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "tsutae"
+   :actor/did "did:web:etzhayyim.com:actor:tsutae"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "伝え"
+   :actor/display-name-ja "伝え — Handheld Communication Device"
+   :actor/display-name-en "伝え — Handheld Communication Device"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Handheld communication device (smartphone-class consumer electronics) Tier-B actor. religious-corp first-party assembly + firmware for adherent / 信者 reliable + private + non-coercive communication infrastructure. Consumer electronics tier of vendor independence chain (silicon Wave 1 SoC + igata Al chassis + kanayama EOL Al + tsutae handheld). Methodology source = YouTube `J4GoOScUO5k` Samsung smartphone factory documentary; manufacturing methodology adopted; surveillance / addiction / IP lock..."
+   :actor/primary-lexicon "com.etzhayyim.tsutae"
+   :actor/adr ["2605261300" "2605261300" "2605261315"]
+   :actor/created-at "2026-05-26"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:tsutae#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:tsutae#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "uchiwake"
+   :actor/did "did:web:etzhayyim.com:actor:uchiwake"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "内訳"
+   :actor/display-name-ja "内訳 — World Product Bill-of-Materials / GTIN Knowledge Graph"
+   :actor/display-name-en "内訳 — World Product Bill-of-Materials / GTIN Knowledge Graph"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "The product-level layer beneath kabuto 兜. Datafies the world's TRADE ITEMS keyed on the GS1 GTIN, decomposed to their bill of materials (PRODUCT → PART → raw MATERIAL) plus the PROCESS steps that make them, the LOGISTICS legs that move them, and the DESIGN/standard refs that specify them, into the kotoba Datom log. Brand-owners link into kabuto's :company/id space; ownership edges roll a brand-owning SUBSIDIARY up to its ULTIMATE parent (子会社, GLEIF Level-2 RR). Surfaces material / processing-..."
+   :actor/primary-lexicon "com.etzhayyim.uchiwake"
+   :actor/adr ["2606081800"]
+   :actor/created-at "2026-06-08"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:uchiwake#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:uchiwake#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "umisachi"
+   :actor/did "did:web:etzhayyim.com:actor:umisachi"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "海幸"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Seafood / marine-bounty (海産物) KG mirror — the marine sibling of mitsuho 瑞穂 and the handoff target of mitsuho N9 (ocean out-of-scope there). Weaves fish stocks / fisheries+aquaculture / cold-chain logistics / markets + the PRESSURES that gate sustainable provisioning into the kotoba Datom log; surfaces equitable-provisioning NOURISHMENT vs 取-depletion routed to RESTORATION. Factory-fishing is structurally unrepresentable."
+   :actor/primary-lexicon "com.etzhayyim.umisachi"
+   :actor/adr ["2606074200"]
+   :actor/created-at "2026-06-07"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:umisachi#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:umisachi#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "utsushie"
+   :actor/did "did:web:etzhayyim.com:actor:utsushie"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "写し絵"
+   :actor/display-name-ja "写し絵 — News→Video Medium (kawaraban's projected-image sibling)"
+   :actor/display-name-en "写し絵 — News→Video Medium (kawaraban's projected-image sibling)"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "A NEWS→VIDEO MEDIUM. Turns a kawaraban :article/面 into a short narrated, multilingual video that LINKS OUT — the 映像 (moving-image) sibling of 瓦版's printed sheet (写し絵 = Edo-period magic-lantern moving-picture show, Japan's pre-cinema projected image). Like kawaraban it is a MEDIUM, never a source (G11): it narrates a :mirror/:actor-event, never an :original. At R0 it is an OFFLINE render-PLAN builder (methods/render_plan.py): it does NOT render and does NOT call a model; live render is G8-gate..."
+   :actor/primary-lexicon "com.etzhayyim.utsushie"
+   :actor/adr ["2606161536" "2606161536" "reserved"]
+   :actor/created-at "2026-06-16"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:utsushie#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:utsushie#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "vessel"
+   :actor/did "did:web:etzhayyim.com:actor:vessel"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Vessel Registry & Maritime Intelligence"
+   :actor/display-name-ja "Vessel Registry & Maritime Intelligence"
+   :actor/display-name-en "Vessel Registry & Maritime Intelligence"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Ship registry (IMO/MMSI), AIS position tracking, voyage management, port call tracking, owner-vessel-port-satellite chain intelligence. 16 shipping companies, 25 vessels (container/tanker/bulk/LNG), 15 flag state registries."
+   :actor/primary-lexicon "com.etzhayyim.vessel"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:vessel#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:vessel#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "vin"
+   :actor/did "did:web:etzhayyim.com:actor:vin"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "VIN / Vehicle Registration Intelligence"
+   :actor/display-name-ja "VIN / Vehicle Registration Intelligence"
+   :actor/display-name-en "VIN / Vehicle Registration Intelligence"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Global vehicle identification intelligence. VIN (ISO 3779/3780), license plate (multi-jurisdiction), cohort DID registration. Role-based DID hierarchy from international standards bodies through national registries to individual vehicles."
+   :actor/primary-lexicon "com.etzhayyim.vin"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:vin#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:vin#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "wadachi"
+   :actor/did "did:web:etzhayyim.com:actor:wadachi"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "轍"
+   :actor/display-name-ja "Autonomous ground vehicle orchestration per ADR-2605242000. Route planning, motion control, obstacle avoidance, safety monitoring."
+   :actor/display-name-en "Autonomous ground vehicle orchestration per ADR-2605242000. Route planning, motion control, obstacle avoidance, safety monitoring."
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Autonomous ground vehicle orchestration per ADR-2605242000. Route planning, motion control, obstacle avoidance, safety monitoring."
+   :actor/primary-lexicon "com.etzhayyim.wadachi.deliveryRoute"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:wadachi#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:wadachi#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "wakai"
+   :actor/did "did:web:etzhayyim.com:actor:wakai"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "和会"
+   :actor/display-name-ja "和会 — Mutual Aid"
+   :actor/display-name-en "和会 — Mutual Aid"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Non-profit religious-corp mutual aid substrate. NOT insurance (no premium-as-contract; no actuarial pricing; no claim adjudication; no policy denial). Member-to-member solidarity pooling per Charter §1.7 反個人主義 + 多世代. Pool in USDC on Base L2 stable-asset only. NO commercial insurance software (G4: Guidewire/Duck Creek/Insurity/Sapiens/Majesco/SAP Insurance/Oracle Insurance/Lemonade/Hippo PROHIBITED per Charter Rider §2(e)+§2(c)). NO commercial re-insurance (G5: Munich Re/Swiss Re/SCOR/Hannover..."
+   :actor/primary-lexicon "com.etzhayyim.wakai"
+   :actor/adr ["2605263500" "2605263500" "reserved"]
+   :actor/created-at "2026-05-26"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:wakai#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:wakai#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "watatsumi"
+   :actor/did "did:web:etzhayyim.com:actor:watatsumi"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "綿津見"
+   :actor/display-name-ja "綿津見 — Civilian Submersible Manufacturing"
+   :actor/display-name-en "綿津見 — Civilian Submersible Manufacturing"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Civilian deep-sea submersible manufacturing Tier-B actor. Adopts modular ring-section construction methodology from mature European shipyard practice; civilianised by metallurgical, propulsion, and acoustic-emission constraints. Naval weapons, nuclear propulsion, and military stealth are constitutional non-goals per Charter Rider §2(a)."
+   :actor/primary-lexicon "com.etzhayyim.watatsumi"
+   :actor/adr ["2605252200" "2605252200" "2605252215"]
+   :actor/created-at "2026-05-25"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:watatsumi#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:watatsumi#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "yabai"
+   :actor/did "did:web:etzhayyim.com:actor:yabai"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Yabai"
+   :actor/display-name-ja "Yabai — Risk Intelligence (AML/CTI)"
+   :actor/display-name-en "Yabai — Risk Intelligence (AML/CTI)"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "AML/sanctions/anti-social forces risk scoring, IP access filtering, defensive Tor/torrent CTI, 6-layer CTI (Network/Vuln/Threat/Exchange/Infra/Access Audit), CF WAF integration."
+   :actor/primary-lexicon "com.etzhayyim.yabai"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:yabai#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:yabai#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "yakushi"
+   :actor/did "did:web:etzhayyim.com:actor:yakushi"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "薬師 (yakushi)"
+   :actor/display-name-ja "薬師 (yakushi)"
+   :actor/display-name-en "薬師 (yakushi)"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Religious-corp first-party pharmaceutical R&D actor — Wave 1 reference = OTC 抗アレルギー点眼薬 triplet (sodium cromoglicate, naphazoline HCl, chlorpheniramine maleate). Wave 1b extends API catalog to 12 化合物 across 3 dosage forms (sterile eye drop + oral tablet + topical cream/gel). Wave 1c adds 7 化合物 (omeprazole chiral + 4 laxatives + 2 cough-expectorant) + 1 chiral resolution cell. All cells gated import-time RuntimeError until Council Lv6+ ≥ 3 silen-pharma-review attestation per ADR-2605250500. Per..."
+   :actor/primary-lexicon "com.etzhayyim.pharma.rawMaterialAttestation"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:yakushi#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:yakushi#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "yamabiko"
+   :actor/did "did:web:etzhayyim.com:actor:yamabiko"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "山彦"
+   :actor/display-name-ja "山彦 — High-Speed Rail Manufacturing"
+   :actor/display-name-en "山彦 — High-Speed Rail Manufacturing"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "High-speed rail trainset manufacturing Tier-B actor. Wave 1 reference = civilian Shinkansen-class trainset (~250-320 km/h, 8-16 cars). Methodology adopted from Hitachi A-Train / Kawasaki efSET / Talgo Avril / Siemens Velaro / Alstom Avelia class. Military rail / NBC transport / mass-surveillance / advertising wraps / luxury-only trains rejected per Charter Rider §2(a) + §2(d) + §2(c) + §2(e). Land-mobility sibling of sarutahiko (road manufacturer) + wadachi (road operator)."
+   :actor/primary-lexicon "com.etzhayyim.yamabiko"
+   :actor/adr ["2605252600" "2605252600" "2605252615"]
+   :actor/created-at "2026-05-25"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:yamabiko#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:yamabiko#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "yotei"
+   :actor/did "did:web:etzhayyim.com:actor:yotei"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "Yotei"
+   :actor/display-name-ja "Yotei — Calendar Scheduling & Availability"
+   :actor/display-name-en "Yotei — Calendar Scheduling & Availability"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "DID-addressed calendar scheduling and availability coordination. Calendly-like AI Agent with event creation, slot booking, reminder dispatch, and timezone-aware availability management."
+   :actor/primary-lexicon "com.etzhayyim.yotei"
+   :actor/created-at "2026-06-01"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:yotei#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:yotei#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+  {:actor/handle "com-google-ads"
+   :actor/did "did:web:etzhayyim.com:actor:com-google-ads"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "広"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Charter-clean outreach & performance-marketing actor — the buy/create side of the akashi (証) disclose/verify loop. Proposes campaign/bid/budget/creative; publishes ONLY after human finance/Council sign-off (G1). Cohort-scale only (G2, no :person/*); consent-gated audience (G3, self-sovereign opt-in + Signal-E2E PII + GDPR Art 17); append-only finance-signed spend (G4); anti-manipulation (G5); Murakumo-only narration (G6); akashi transparency mirror (G7); no ad-SDK/tracking-pixel (G8); no commercial resale (G9)."
+   :actor/primary-lexicon "com.etzhayyim.googleads"
+   :actor/adr ["2606292130"]
+   :actor/created-at "2026-06-29"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:com-google-ads#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}]}
+]}

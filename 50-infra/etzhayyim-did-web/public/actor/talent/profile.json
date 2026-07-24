@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:talent",
+  "handle": "talent.etzhayyim.com",
+  "displayName": "Talent",
+  "description": "Global ISCO-08 scoped talent registry. PII Tier 3 cohort-first (ADR-0018). Signal E2E on identifying fields. Self-sovereign individual registration only.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Talent",
+  "displayNameJa": "Talent",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.talent",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/talent/did.json",
+    "source": "kotoba"
+  }
+}

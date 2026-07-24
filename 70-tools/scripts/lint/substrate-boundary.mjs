@@ -42,10 +42,10 @@ if (args.length === 0) {
 }
 
 /** Path prefixes that are allowed to import substrate clients directly.
- *  Anything else under `20-actors/` / `60-apps/` / `50-infra/` MUST go
+ *  Anything else under flat-west actor repos / `60-apps/` / `50-infra/` MUST go
  *  through `@etzhayyim/sdk`. */
 const allowedPrefixes = [
-  "20-actors/etzhayyim-sdk/",                  // the canonical seam
+  "orgs/etzhayyim/com-etzhayyim-sdk/",                  // the canonical seam
   "50-infra/etzhayyim-sdk-checkpointer/",      // sidecar wrapping the SDK
   "50-infra/mst-projector/",                   // substrate component
   "50-infra/anchor-cron/",                     // L2 anchor, uses viem
@@ -75,7 +75,6 @@ const allowedPrefixes = [
   "70-tools/seed-post/",                       // ADR-2605231902 seed CLI
   // Tests + archives.
   "_archive/",
-  "60-apps/etzhayyim-project-ameno/appview/etzhayyim-wasm-ameno-d94d27cb/_svelte/", // vite build output
   "60-apps/etzhayyim-project-bpmn/appview/etzhayyim-wasm-bpmn-bx7qm9p4/", // migrated BPMN substrate component; direct Hyperdrive writer tracked by ADR-2605181400
 ];
 
@@ -94,6 +93,21 @@ const allowedPathPatterns = [
   /\.spec\.(ts|tsx|js|mjs|cjs|jsx|py)$/,
   /\.example\.(ts|tsx|js|mjs|cjs|jsx|py|md|json|yaml|yml)$/,
 ];
+
+/** Convert cwd-relative OR absolute west paths to the stable policy path.
+ * CI usually passes root-relative paths, while superproject hooks pass paths
+ * such as `/workspace/orgs/etzhayyim/com-etzhayyim-foo/src/x.ts`.
+ * Matching only cwd-relative strings silently disabled the SDK boundary for
+ * the latter. Keep root-owned numbered layers intact and anchor sibling repos
+ * at `orgs/`.
+ */
+function policyPath(filePath) {
+  const slash = filePath.replace(/\\/g, "/");
+  const orgs = slash.match(/(?:^|\/)(orgs\/[^/]+\/[^/]+(?:\/.*)?$)/);
+  if (orgs) return orgs[1];
+  const relative = path.relative(process.cwd(), path.resolve(filePath)).replace(/\\/g, "/");
+  return relative.replace(/^\.\//, "");
+}
 
 /** File extensions we actually scan. */
 const scannedExts = [
@@ -153,7 +167,7 @@ const allRules = [
 ];
 
 function isAllowed(filePath) {
-  const normal = filePath.replace(/^\.\//, "");
+  const normal = policyPath(filePath);
   for (const pat of allowedPathPatterns) if (pat.test(normal)) return true;
   for (const prefix of allowedPrefixes) if (normal.startsWith(prefix)) return true;
   return false;

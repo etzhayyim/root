@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:port",
+  "handle": "port.etzhayyim.com",
+  "displayName": "Port Infrastructure & Call Tracking",
+  "description": "World port infrastructure registry (35+ ports, berths, terminals), vessel call tracking, occupancy intelligence. Covers top container ports (Shanghai, Singapore, Rotterdam, etc.), tanker ports (Ras Tanura, Fujairah), bulk ports (Port Hedland, Tubarão, Richards Bay). JP coverage: Yokohama, Tokyo, Kobe, Osaka, Nagoya.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Port Infrastructure & Call Tracking",
+  "displayNameJa": "Port Infrastructure & Call Tracking",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.port",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/port/did.json",
+    "source": "kotoba"
+  }
+}

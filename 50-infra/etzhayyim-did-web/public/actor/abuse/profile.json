@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:abuse",
+  "handle": "abuse.etzhayyim.com",
+  "displayName": "Abuse — Phishing Takedown Coordinator",
+  "description": "Phishing / brand-impersonation takedown drafting and dispatch. Gathers DNS/whois/reverse-IP/ASN/wayback intel, composes per-target abuse reports (registrar + hosting + brand owner + CERT), dispatches via mailer.etzhayyim.com (Resend).",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Abuse",
+  "displayNameJa": "Abuse — Phishing Takedown Coordinator",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.abuse",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/abuse/did.json",
+    "source": "kotoba"
+  }
+}

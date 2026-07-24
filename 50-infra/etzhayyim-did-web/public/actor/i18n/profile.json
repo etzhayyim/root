@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:i18n",
+  "handle": "i18n.etzhayyim.com",
+  "displayName": "i18n -- Murakumo Translation Service (200+ Languages)",
+  "description": "LLM translation service for 200+ languages via Murakumo qwen3.5-4b. 4 modes: batch (73+ projects), real-time page, message translation, widget editor. Yoro post auto-translation to Tier 1+2 (50 languages).",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "i18n -- Murakumo Translation Service (200+ Languages)",
+  "displayNameJa": "i18n -- Murakumo Translation Service (200+ Languages)",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.i18n",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/i18n/did.json",
+    "source": "kotoba"
+  }
+}

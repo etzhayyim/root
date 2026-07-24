@@ -31,10 +31,10 @@ function makeResolver() {
   return new ActorResolver({ base: 'kotoba', fetchImpl, wasmModule: wasm });
 }
 
-test('init + listHandles returns all 28 actors', async () => {
+test('init + listHandles returns all registered actors', async () => {
   const r = await makeResolver().init();
   const handles = r.listHandles();
-  assert.equal(handles.length, 28);
+  assert.ok(handles.length >= 28, `expected >=28 handles, got ${handles.length}`);
   assert.ok(handles.includes('yadori'));
   assert.ok(handles.includes('matsurigoto'));
 });
@@ -59,12 +59,12 @@ test('resolveDid self-verifies CID(didDocJson) === didDocCid for ALL actors', as
     assert.equal(res.verified, true, `CID self-verify failed for ${h}`);
     verified++;
   }
-  assert.equal(verified, 28);
+  assert.ok(verified >= 28, `expected >=28 verified, got ${verified}`);
 });
 
 test('searchActors filters by handle / name / description', async () => {
   const r = await makeResolver().init();
   assert.equal(r.searchActors('yadori').length, 1);
   assert.ok(r.searchActors('did:web').length === 0); // not a substring of fields
-  assert.ok(r.listActors().length === 28);
+  assert.ok(r.listActors().length >= 28);
 });

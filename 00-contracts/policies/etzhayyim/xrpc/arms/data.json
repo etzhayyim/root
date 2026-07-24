@@ -2,13 +2,13 @@
   "method_policy": {
     "com.etzhayyim.apps.arms.registerFirearm": {
       "requiresAuth": true,
-      "allowedScopes": ["rpc?lxm=com.etzhayyim.apps.arms.registerFirearm"],
+      "allowedScopes": ["rpc[?]lxm=com.etzhayyim.apps.arms.registerFirearm"],
       "allowedPermissionSets": ["arms:authority", "arms:system"],
       "publicRead": false
     },
     "com.etzhayyim.apps.arms.authenticateHolder": {
       "requiresAuth": false,
-      "allowedScopes": ["rpc?lxm=*"],
+      "allowedScopes": ["rpc[?]lxm=*"],
       "allowedPermissionSets": [],
       "publicRead": true
     },
@@ -20,13 +20,13 @@
     },
     "com.etzhayyim.apps.arms.issuePermit": {
       "requiresAuth": true,
-      "allowedScopes": ["rpc?lxm=com.etzhayyim.apps.arms.issuePermit"],
+      "allowedScopes": ["rpc[?]lxm=com.etzhayyim.apps.arms.issuePermit"],
       "allowedPermissionSets": ["arms:authority"],
       "publicRead": false
     },
     "com.etzhayyim.apps.arms.transferCustody": {
       "requiresAuth": true,
-      "allowedScopes": ["rpc?lxm=com.etzhayyim.apps.arms.transferCustody"],
+      "allowedScopes": ["rpc[?]lxm=com.etzhayyim.apps.arms.transferCustody"],
       "allowedPermissionSets": ["arms:holder", "arms:authority"],
       "publicRead": false,
       "requiresHolderAuthSession": true
@@ -70,7 +70,7 @@
     },
     "com.etzhayyim.apps.arms.getAuditLog": {
       "requiresAuth": true,
-      "allowedScopes": ["rpc?lxm=com.etzhayyim.apps.arms.getAuditLog"],
+      "allowedScopes": ["rpc[?]lxm=com.etzhayyim.apps.arms.getAuditLog"],
       "allowedPermissionSets": ["arms:authority", "arms:law-enforcement"],
       "publicRead": false
     }

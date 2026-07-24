@@ -1,0 +1,59 @@
+name: foundry-test
+
+# Auto-discovering `forge test` runner for every Foundry project under 50-infra/
+# (any directory containing a foundry.toml, at any depth). Generalizes the
+# per-project pattern established by warifu-ci.yml so newly-scaffolded Foundry
+# projects are covered with zero workflow-file churn — mirrors the auto-discovery
+# philosophy already used for the clj/bb actor suite (etzhayyim.tools.discovery).
+#
+# Added after two rounds of drift found ONLY by running `forge test` locally:
+# a stale Charter Rider genesis hash (etzhayyim-chain-contracts) and 4 Foundry
+# projects that could not even compile for want of a forge-std dependency
+# (l2-anchor-contract / openmail-postage / etzhayyim-membership-contract /
+# etzhayyim-paymaster). None of that would have stayed invisible with this wired in.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "50-infra/**/foundry.toml"
+      - "50-infra/**/*.sol"
+      - ".github/workflows/foundry-test.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "50-infra/**/foundry.toml"
+      - "50-infra/**/*.sol"
+      - ".github/workflows/foundry-test.yml"
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    outputs:
+      dirs: ${{ steps.find.outputs.dirs }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: find
+        run: |
+          dirs=$(find 50-infra -maxdepth 4 -iname foundry.toml -not -path "*/lib/*" -exec dirname {} \; | sort | jq -R -s -c 'split("\n")[:-1]')
+          echo "dirs=$dirs" >> "$GITHUB_OUTPUT"
+          echo "Discovered Foundry projects: $dirs"
+
+  test:
+    needs: discover
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        dir: ${{ fromJson(needs.discover.outputs.dirs) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Set up Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+
+      - name: forge test (${{ matrix.dir }})
+        run: forge test
+        working-directory: ${{ matrix.dir }}

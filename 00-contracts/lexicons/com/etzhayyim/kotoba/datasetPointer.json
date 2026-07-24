@@ -1,0 +1,58 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kotoba.datasetPointer",
+  "revision": 1,
+  "description": "Graph-layer pointer/fingerprint binding an actor to a real-world dataset it HOLDS. The actor's own did:key signs it; the canonical projection + raw blob live in the etzhayyim repo + DataLad/IPFS layer (ADR-2607010001 §D4). The same anchor fields are the RAD dataset:<id> sub-entity, so a holding has ONE field set, TWO representations: the signed RAD journal datom (sovereign attestation) and this signed graph record (runtime-discoverable pointer). holderRank names the ONE canonical owner per dataset.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "A signed dataset pointer in the actor's PDS collection. Pointer-only by construction — bulk data never lives here; it lives at cidv1 in the repo+IPFS tier.",
+      "key": "datasetId",
+      "record": {
+        "type": "object",
+        "required": ["datasetId", "layer", "cidv1", "retrieved"],
+        "properties": {
+          "datasetId": {
+            "type": "string",
+            "maxLength": 128,
+            "description": "Stable dataset identifier. MUST equal :rad/dataset-id in the RAD journal, :dataset-id in the *.kotoba.edn header, and ingest-id in ingest-provenance.json."
+          },
+          "layer": {
+            "type": "string",
+            "knownValues": ["graph", "repo"],
+            "description": "graph = small signed pointer/fingerprint lives here; repo = canonical projection + raw blob live in the etzhayyim repo + IPFS/DataLad tier. A dataset may have a graph pointer whose cidv1 points at the repo-tier directory CID."
+          },
+          "source": {
+            "type": "string",
+            "description": "Origin service, e.g. wikidata:WDQS, gleif, nyc-pluto, fr-dvf, edgar, tdnet."
+          },
+          "cidv1": {
+            "type": "string",
+            "pattern": "^baf[a-z0-9]+$",
+            "description": "Directory CID or canonical-projection CID. For layer=repo this MUST equal the directory CID at the holding repo's HEAD (pin==HEAD invariant)."
+          },
+          "freshnessDays": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Re-ingest window in days; 0 = static reference (no stale-check)."
+          },
+          "retrieved": {
+            "type": "string",
+            "format": "date",
+            "description": "YYYY-MM-DD the dataset was last fetched."
+          },
+          "holderRank": {
+            "type": "string",
+            "knownValues": ["canonical", "mirror"],
+            "default": "canonical",
+            "description": "canonical = this actor is the canonical holder (attests the dataset); mirror = replicated from the canonical holder for local presentation. Exactly ONE actor holds canonical rank per dataset (ownership invariant)."
+          },
+          "countsTowardWorldCoverage": {
+            "type": "boolean",
+            "description": "True if this dataset sums toward world-coverage accounting (mirrors the jinushi ingest-provenance field)."
+          }
+        }
+      }
+    }
+  }
+}

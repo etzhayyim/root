@@ -1,0 +1,12 @@
+{:rule/id :etzhayyim.rules/go-language-deprecation
+ :rule/status :active
+ :rule/authority :canonical-edn
+ :rule/effective-date "2026-07-17"
+ :rule/policy "GO-DEPRECATION.edn"
+ :rule/forbidden [{:kind :source :glob "**/*.go"}
+                  {:kind :module :glob "**/go.mod"}
+                  {:kind :checksum :glob "**/go.sum"}
+                  {:kind :toolchain :commands ["go" "tinygo"]}
+                  {:kind :generator :outputs ["*.go" "go.mod" "go.sum"]}]
+ :rule/exception-policy :none
+ :rule/remediation :rewrite-in-an-active-non-go-runtime}

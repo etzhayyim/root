@@ -1,0 +1,29 @@
+{
+  "did": "did:web:etzhayyim.com:actor:tatara",
+  "handle": "tatara.etzhayyim.com",
+  "displayName": "tatara",
+  "description": "The geographic / facility-scale layer beneath the kabuto supply-chain KG (org→org edges) and uchiwake product-BOM KG: where the world's manufacturing actually SITS on the planet, at what scale, feeding which logistics corridors. Mirror-lineage sibling of kabuto/tsumugi/inochi — edge-primary geographic CONCENTRATION (per-sector country HHI + chokepoint export-dependence) routed to REDUNDANCY / reshoring options. A resilience map, NEVER a target-list. Carries the disclosed AGGREGATE facility fi...",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-17T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "鑪",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2606171800"
+    ],
+    "primaryLexicon": "com.etzhayyim.tatara",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/tatara/did.json",
+    "source": "kotoba"
+  }
+}

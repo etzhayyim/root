@@ -1,0 +1,13 @@
+{
+  "ui.disclaimer" : "Límite UPL: solo información + orientación + ayuda con formularios. Sin asesoramiento, sin representación. El miembro presenta personalmente.",
+  "actor.authority" : "Federal Authority for Identity, Citizenship, Customs & Port Security (ICP)",
+  "ui.self-submit" : "Presentación personal",
+  "actor.description" : "toritsugi authority-actor for regime 'are-passport' (Federal Authority for Identity, Citizenship, Customs & Port Security (ICP)). Covers 1 procedure(s) across jurisdiction(s): are. Parent: toritsugi (ADR-2605312030). Keyless R0 mirror — no server key. 行政書士法/UPL boundary (G5): 情報提供+案内+入力補助 only, NO advice, NO 作成代理. Member self-submits (G15). NOT a 行政書士/弁護士 firm, NOT an official channel.",
+  "actor.displayName" : "Toritsugi-are-passport — Federal Authority for Identity, Citizenship, Customs & Port Security (ICP)",
+  "procedure.list" : "UAE passport application",
+  "ui.accompany" : "Acompañar",
+  "actor.regime" : "are-passport",
+  "ui.guide" : "Guía",
+  "procedure.count" : "1 procedimientos",
+  "actor.name" : "toritsugi-are-passport"
+}

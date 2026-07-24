@@ -1,0 +1,32 @@
+{
+  "did": "did:web:etzhayyim.com:actor:kataribe",
+  "handle": "kataribe.etzhayyim.com",
+  "displayName": "語部 — Press + Publishing + Translation",
+  "description": "Non-profit religious-corp press + publishing + translation substrate. Community journalism + doctrine commentary + multilingual translation + community historical chronicle + whistleblower channel. Etymology: 古代日本 oral historian / storyteller / chronicler class; 万人祭司 + Sola Scriptura + Charter §1.7 多世代 + §1.15 non-eschatological. NO ad-supported revenue (G3: Charter §1.13+§1.15). NO clickbait/apocalyptic (G4: §1.15 non-eschatological; toneAttestation enum excludes apocalyptic/clickbait/engage...",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-05-26T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "語部",
+  "displayNameJa": "語部 — Press + Publishing + Translation",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2605263600",
+      "2605263600",
+      "reserved"
+    ],
+    "primaryLexicon": "com.etzhayyim.kataribe",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/kataribe/did.json",
+    "source": "kotoba"
+  }
+}

@@ -1,0 +1,43 @@
+{:schema "etzhayyim.adr/v1"
+ :id "2607192700"
+ :title "West-flat audit and coverage scanner paths"
+ :status :accepted
+ :date "2026-07-19"
+ :decision
+ {:workspace-root "WEST_TOPDIR"
+  :actor-and-component-repositories "orgs/etzhayyim/com-etzhayyim-*"
+  :root-owned-layers ["orgs/etzhayyim/root/30-graph"
+                      "orgs/etzhayyim/root/50-infra"
+                      "orgs/etzhayyim/root/60-apps"
+                      "orgs/etzhayyim/root/70-tools"]
+  :retired-operational-prefixes ["20-actors" "40-engine"]
+  :canonical-metadata-format :edn}
+ :changes
+ [{:tool "70-tools/coverage-scan"
+   :action :rewire
+   :from :numbered-monorepo-areas
+   :to :west-flat-workspace}
+  {:tool "70-tools/scripts/lint/substrate-boundary.mjs"
+   :action :normalize
+   :detail "Apply policy to cwd-relative and absolute orgs/... west paths."}
+  {:tool "70-tools/src/etzhayyim/actor_publish.cljc"
+   :action :verify
+   :detail "Actor source prefix is orgs/etzhayyim/com-etzhayyim-<actor>."}
+  {:tool "70-tools/scripts/audit/manifest-lexicon-drift.py"
+   :action :classify
+   :detail "Operational discovery is flat west; root-local CI cannot use retired path triggers."}]
+ :reference-classification
+ {:operational {:policy :rewire :old-prefixes-forbidden true}
+  :historical {:policy :preserve}
+  :fixture {:policy :preserve}
+  :provenance {:policy :preserve}}
+ :verification
+ {:coverage-unit {:assertions 24 :status :pass}
+  :coverage-live {:repositories 183 :tested 158 :status :pass}
+  :boundary-absolute-west-path {:status :pass}
+  :manifest-drift-live
+  {:manifests 114
+   :declared-lexicons 394
+   :missing-json-contracts 224
+   :status :follow-up-required
+   :note "The rewired scanner now exposes current workspace drift; the former zero baseline is stale."}}}

@@ -1,0 +1,44 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/suites/jws-2020/v1"
+  ],
+  "id": "did:web:etzhayyim.com:actor:tate-nz-liquidation",
+  "alsoKnownAs": [],
+  "verificationMethod": [],
+  "service": [
+    {
+      "id": "did:web:etzhayyim.com:actor:tate-nz-liquidation#case-data",
+      "type": "EtzhayyimCaseData",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-nz-liquidation/case.json"
+    },
+    {
+      "id": "did:web:etzhayyim.com:actor:tate-nz-liquidation#checklist",
+      "type": "EtzhayyimCaseChecklist",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-nz-liquidation/checklist.md"
+    },
+    {
+      "id": "did:web:etzhayyim.com:actor:tate-nz-liquidation#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-nz-liquidation/template.md"
+    },
+    {
+      "id": "did:web:etzhayyim.com:actor:tate-nz-liquidation#guide",
+      "type": "EtzhayyimCaseGuide",
+      "serviceEndpoint": "https://etzhayyim.com/tate/nz.html"
+    }
+  ],
+  "_meta": {
+    "adr": [
+      "2606112301",
+      "2606112400",
+      "2606122000"
+    ],
+    "source": "tate procedure-registry",
+    "kind": "case-mirror",
+    "parent": "did:web:etzhayyim.com:actor:tate",
+    "track": ":insolvency",
+    "jurisdiction": ":nz",
+    "note": "verificationMethod empty — keyless case mirror; did:web trust root = TLS (no server-minted key, ADR-2605231525)"
+  }
+}

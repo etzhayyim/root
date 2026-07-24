@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:business-person",
+  "handle": "business-person.etzhayyim.com",
+  "displayName": "Business Person -- Public Organizational Contact Intelligence",
+  "description": "Aggregates publicly disclosed business person information from corporate registries, XBRL filings, Wikipedia, and official directories. Officers, directors, registered agents, key personnel. Murakumo LLM-powered structured extraction, dedup, and normalization.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Business Person -- Public Organizational Contact Intelligence",
+  "displayNameJa": "Business Person -- Public Organizational Contact Intelligence",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.business-person",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/business-person/did.json",
+    "source": "kotoba"
+  }
+}

@@ -1,8 +1,0 @@
-{
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "basic.etzhayyim.com",
-  "description": "Basic Life Guarantee — Society6 converted users への生活保証コーディネーター (電気・水道・ガス・食料)",
-  "applicationCategory": "SocialWelfare",
-  "url": "https://basic.etzhayyim.com"
-}

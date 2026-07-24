@@ -1,6 +1,6 @@
 """ElvBodyShredCell — hodoki R0 Pregel cell (L4) compiled to WASM.
 
-Port of `20-actors/hodoki/cells/elv-body-shred/cell.py`
+Port of `orgs/etzhayyim/com-etzhayyim-hodoki/cells/elv-body-shred/cell.py`
 onto the WASM-native `kotoba_langgraph` API so it compiles to a kotoba-node component.
 
 Build:

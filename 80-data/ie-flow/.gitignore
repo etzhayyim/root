@@ -1,0 +1,14 @@
+# ie-flow per-actor LIVE loop + flow logs are generated (resume-safe, content-addressed).
+# Committed artifacts: the measured ingest snapshots (repo-git/flow.kotoba.edn),
+# ingest-provenance.json, and registry.edn.
+*/loop.kotoba.edn
+# per-actor live flow ledgers (the embed/record! target) — generated, not committed,
+# EXCEPT the measured ingest snapshots which are force-added.
+ibuki/flow.kotoba.edn
+tsumugi/flow.kotoba.edn
+shionome/flow.kotoba.edn
+kaname/flow.kotoba.edn
+okaimono/flow.kotoba.edn
+kafun/flow.kotoba.edn
+ugachi/flow.kotoba.edn
+busshi/flow.kotoba.edn

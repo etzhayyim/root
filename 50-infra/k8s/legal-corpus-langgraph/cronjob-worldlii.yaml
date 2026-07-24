@@ -12,6 +12,10 @@ metadata:
     app.kubernetes.io/component: langgraph-cronjob
     app.kubernetes.io/part-of: legal-corpus
 spec:
+  # RETIRED 2026-07-17: RW_URL residue from the 2026-05-17 gftdcojp org split.
+  # RisingWave was org-wide retired 2026-06-11 (ADR-2606120900/2606120930).
+  # Suspended — see ADR-2605191648 addendum 2026-07-17.
+  suspend: true
   schedule: "0 2 * * 0"
   concurrencyPolicy: Forbid
   startingDeadlineSeconds: 300

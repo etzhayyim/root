@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:credits",
+  "handle": "credits.etzhayyim.com",
+  "displayName": "Credits — Credit Ledger & Public Fund Routing",
+  "description": "Yoro human participation credit system. Earn (compute/HC) → Purchase (30% fee) → Spend (10% public fund allocation). Anti-fraud rate limiting.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Credits",
+  "displayNameJa": "Credits — Credit Ledger & Public Fund Routing",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.credits",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/credits/did.json",
+    "source": "kotoba"
+  }
+}

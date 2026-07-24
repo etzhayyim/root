@@ -7,7 +7,8 @@
 ;; key list). The Python "__main__" demo (writes lexicon JSON + BPMN XML, writes
 ;; per-actor DDL to /tmp/wave13/w77_NN.sql) is ported behind #?(:clj ...).
 (ns scripts.wave-bridges.gen77
-  (:require [clojure.string :as str])
+  (:require [clojure.string :as str]
+            #?(:clj [cheshire.core :as json]))
   #?(:clj (:import [java.io File])))
 
 (def repo "/Users/junkawasaki/github/etzhayyim/root")
@@ -296,19 +297,17 @@
 
 #?(:clj
    (defn -main [& _]
-     (require '[cheshire.core :as json])
-     (let [generate (resolve 'cheshire.core/generate-string)]
-       (doseq [[i a] (map-indexed (fn [i a] [(inc i) a]) actors)]
+     (doseq [[i a] (map-indexed (fn [i a] [(inc i) a]) actors)]
          (let [bd (str repo "/00-contracts/bpmn/com/etzhayyim/open-" (get a "slug"))
                ld (str repo "/00-contracts/lexicons/com/etzhayyim/apps/" (get a "app"))]
            (.mkdirs (File. bd))
            (.mkdirs (File. ld))
            (doseq [m (get a "methods")]
              (write-text! (str ld "/" (get m "name") ".json")
-                          (generate (gen-lexicon a m) {:pretty true}))
+                          (json/generate-string (gen-lexicon a m) {:pretty true}))
              (write-text! (str bd "/" (get m "name") ".bpmn")
                           (gen-bpmn a m)))
            (let [ddl (gen-ddl a)
                  out (str "/tmp/wave13/w77_" (format "%02d" i) ".sql")]
              (write-text! out ddl)
-             (println (str "wrote " out))))))))
+             (println (str "wrote " out)))))))

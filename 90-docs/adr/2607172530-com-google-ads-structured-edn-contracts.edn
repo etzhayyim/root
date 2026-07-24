@@ -1,0 +1,27 @@
+[{:db/id -1
+  :adr/id "adr-2607172530-com-google-ads-structured-edn-contracts"
+  :adr/title "ADR-2607172530: com-google-ads extraction and structured EDN lexicon contracts"
+  :adr/topic "com-google-ads-multirepo-edn-contracts"
+  :adr/status "accepted"
+  :adr/doc_type "adr"
+  :adr/source-format "edn"
+  :adr/date "2026-07-17"
+  :adr/last_verified "2026-07-17"
+  :adr/authoritative true
+  :adr/authoritative_for
+  ["com-google-ads canonical actor repository and revision"
+   "structured EDN lexicon representation"
+   "retirement of root/20-actors/com-google-ads implementation"]
+  :adr/related
+  ["adr-2606292130-google-ads-charter-clean-outreach-performance-marketing-actor-r0"
+   "adr-2607172000-etzhayyim-gftdcojp-flat-west-multirepo-root-retirement"]
+  :adr/decision
+  {:repository "https://github.com/etzhayyim/com-etzhayyim-com-google-ads"
+   :revision "71a515db2d5b664f0dcb43be92ade868083a6bd2"
+   :west-path "orgs/etzhayyim/com-etzhayyim-com-google-ads"
+   :canonical-metadata "manifest.edn"
+   :lexicon-format :structured-single-form-edn
+   :retired-representations #{:edn-encoded-in-string :defs-as-datomic-string-schema}
+   :declared-integrations 6
+   :verification {:tests 5 :assertions 34 :failures 0 :errors 0}}
+  :adr/body "com-google-ads is canonical in its independent flat-path repository. Each lexicon is a structured EDN map; definitions are no longer EDN encoded inside strings. The obsolete derived schema that described each definitions value as db.type/string is removed. Cross-actor integrations are explicit pinned repository contracts."}]

@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:insatsu",
+  "handle": "insatsu.etzhayyim.com",
+  "displayName": "Insatsu - Global Cloud Print & Mail Network",
+  "description": "Global cloud print and postal orchestration actor. Routes jobs to individual regional print shops, applies print/mail preflight, and hands off domestic Japan mail to yuubin.etzhayyim.com when appropriate.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Insatsu - Global Cloud Print & Mail Network",
+  "displayNameJa": "Insatsu - Global Cloud Print & Mail Network",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.insatsu",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/insatsu/did.json",
+    "source": "kotoba"
+  }
+}

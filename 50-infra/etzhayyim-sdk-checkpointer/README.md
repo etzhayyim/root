@@ -8,7 +8,7 @@ authoritative: true
 last_verified: 2026-05-18
 related:
   - ../../90-docs/adr/2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md
-  - ../../20-actors/etzhayyim-sdk/
+  - ../../orgs/etzhayyim/com-etzhayyim-sdk/
   - ../../40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/checkpointer/
   - ../k8s/lg-uhl-right-neural/
 ---

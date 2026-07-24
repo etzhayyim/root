@@ -88,6 +88,21 @@ test("mirror record is charter-clean by construction", () => {
   assert.equal(rec.did, "did:web:etzhayyim.com:actor:corp-tw-tsmc");
 });
 
+test("mirror is a registered ATProto actor (can post AS the mirror, keyless) — ADR-2606232100", () => {
+  const rec = entityActorRecord("corp-tw-tsmc");
+  const pds = rec.service.find((s) => s.type === "AtprotoPersonalDataServer");
+  assert.ok(pds, "mirror must carry an #atproto_pds so it can post its observations");
+  assert.equal(pds.serviceEndpoint, "https://pds.etzhayyim.com");
+  assert.equal(pds.id, "did:web:etzhayyim.com:actor:corp-tw-tsmc#atproto_pds");
+  // still keyless (no-server-key) and still a non-impersonating mirror source.
+  assert.deepEqual(rec.vm, [], "mirror stays keyless even though it can post");
+  assert.ok(
+    rec.service.some((s) => s.type === "EtzhayyimMirrorSource"),
+    "mirror-source service preserved",
+  );
+  assert.match(rec.description, /^Observational mirror/);
+});
+
 test("craft mirror performerType is system, never person (watari G4)", () => {
   const rec = entityActorRecord("craft-vessel-imo9811000");
   assert.equal(rec.performerType, "system");

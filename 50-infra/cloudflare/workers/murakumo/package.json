@@ -2,7 +2,7 @@
   "name": "@etzhayyim/cf-worker-murakumo",
   "version": "5.0.0",
   "private": true,
-  "description": "Murakumo CF Worker — etzhayyim RW-free rewrite. LiteLLM gateway + event-sourced inferenceJob via @etzhayyim/sdk. Per ADR-2605191358.",
+  "description": "Murakumo CF Worker — etzhayyim kotoba rewrite. LiteLLM gateway + event-sourced inferenceJob via @etzhayyim/sdk. Per ADR-2605191358.",
   "license": "Apache-2.0",
   "type": "module",
   "scripts": {
@@ -10,11 +10,11 @@
     "build": "tsc",
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
-    "lint:rw-free": "! grep -rEn \"from ['\\\"](\\.+/)*(kotoba|hyperdrive|kysely|@etzhayyim/kotodama-host-sdk|@atproto/api|viem)\" src/ || (echo 'substrate boundary violation' >&2 && false)"
+    "lint:kotoba": "! grep -rEn \"from ['\\\"](\\.+/)*(kotoba|hyperdrive|kysely|@etzhayyim/kotodama-host-sdk|@atproto/api|viem)\" src/ || (echo 'substrate boundary violation' >&2 && false)"
   },
   "dependencies": {
-    "@etzhayyim/sdk": "file:../../../../20-actors/etzhayyim-sdk",
-    "hono": "^4.12.21"
+    "@etzhayyim/sdk": "file:../../../../../com-etzhayyim-sdk",
+    "hono": "^4.12.25"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250101.0",

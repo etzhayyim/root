@@ -4,9 +4,7 @@
     "https://w3id.org/security/suites/jws-2020/v1"
   ],
   "id": "did:web:etzhayyim.com:actor:tsumugi",
-  "alsoKnownAs": [
-    "did:web:tsumugi.etzhayyim.com"
-  ],
+  "alsoKnownAs": [],
   "verificationMethod": [],
   "service": [
     {
@@ -20,7 +18,7 @@
     {
       "id": "did:web:etzhayyim.com:actor:tsumugi#atproto_pds",
       "type": "AtprotoPersonalDataServer",
-      "serviceEndpoint": "https://pds.etzhayyim.com"
+      "serviceEndpoint": "https://pds.aozora.app"
     },
     {
       "id": "did:web:etzhayyim.com:actor:tsumugi#xrpc-libp2p",
@@ -34,7 +32,8 @@
       "2605241800",
       "2606013800",
       "2606014500",
-      "2606011800"
+      "2606011800",
+      "2606272355"
     ],
     "source": "kotoba",
     "kind": "tier-b",

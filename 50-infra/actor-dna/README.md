@@ -32,7 +32,7 @@ are fused into one tamper-evident hash.
 
 | file | what |
 |---|---|
-| `cid.py` | CIDv1 helpers — `cidv1_raw` (0x55, byte-identical to `ipfs add --cid-version=1 --raw-leaves`) + `cidv1_dag_cbor`/`graph_cid` (0x71, `KotobaCid::from_bytes`). Cross-checked byte-identical vs `20-actors/rasen/methods/cid.py`; `graph_cid("ibuki")` matches the live engine's graph CID. |
+| `cid.py` | CIDv1 helpers — `cidv1_raw` (0x55, byte-identical to `ipfs add --cid-version=1 --raw-leaves`) + `cidv1_dag_cbor`/`graph_cid` (0x71, `KotobaCid::from_bytes`). Cross-checked byte-identical vs `orgs/etzhayyim/com-etzhayyim-rasen/methods/cid.py`; `graph_cid("ibuki")` matches the live engine's graph CID. |
 | `dna.py` | build / `dna_cid` / `verify` the manifest. `verify` recomputes `graph_cid(:dna/graph)` and checks `:dna/graph-cid` (the binding is tamper-evident), and — given the bytes — re-verifies each referenced CID (the trustless re-verify a WASM loader does). |
 | `integrity.py` | the **integrity-zome analogue**: a content-addressed ruleset (`validation_cid`) + `validate(datoms, rules)` that **REJECTS** non-conforming datoms before they are pushed (append-only / closed-vocabulary / attr-types / denied-attrs / required-attrs / graph-binding). |
 | `deploy.py` | the atomic deploy **descriptor**: an ordered plan (pin code → pin validation → pin lexicon → pin manifest → graph-genesis → did-link) where **every step binds to the one DNA CID** — atomicity-of-identity. |

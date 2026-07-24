@@ -42,6 +42,11 @@
   ],
   "service": [
     {
+      "id": "did:web:etzhayyim.com#atproto_pds",
+      "type": "AtprotoPersonalDataServer",
+      "serviceEndpoint": "https://pds.aozora.app"
+    },
+    {
       "id": "did:web:etzhayyim.com#github",
       "type": "LinkedDomains",
       "serviceEndpoint": "https://github.com/etzhayyim"

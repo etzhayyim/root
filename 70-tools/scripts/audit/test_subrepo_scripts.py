@@ -41,17 +41,30 @@ SYMLINK_HEALTH_PERF_BUDGET_S = 2.0
 # confirmed 404 (defunct/unpublished upstreams of vendored app code), none
 # internally fixable (would require pushing the external repos):
 #   1. 50-infra/yata/yata-wasm/lance-fork → etzhayyimcojp/lancedb-wasm (404)
-#   2. 60-apps/etzhayyim-project-har/.../svelte → etzhayyim/etzhayyim-har (404)
-#   3. 60-apps/etzhayyim-project-watashi → etzhayyim/watashi (404)
-#   4. 60-apps/etzhayyim-project-resources/...-i2zikw31 → etzhayyim/...-i2zikw31 (404)
-#   5. 60-apps/etzhayyim-project-intel → etzhayyim/etzhayyim-intel (404)
-#   6. 60-apps/etzhayyim-project-os → etzhayyim/etzhayyim-project-os (404)
-#   7. 60-apps/etzhayyim-project-news → etzhayyimcojp/etzhayyim-apps-media (404)
-#   8. 60-apps/etzhayyim-project-activity-monitor/...-xgng091s → etzhayyimcojp/...-xgng091s (404)
+#   2. 60-apps/etzhayyim-project-watashi → etzhayyim/watashi (404)
+#   3. 60-apps/etzhayyim-project-resources/...-i2zikw31 → etzhayyim/...-i2zikw31 (404)
+#   4. 60-apps/etzhayyim-project-os → etzhayyim/etzhayyim-project-os (404)
+#   5. 60-apps/etzhayyim-project-news → etzhayyimcojp/etzhayyim-apps-media (404)
+#   6. 60-apps/etzhayyim-project-activity-monitor/...-xgng091s → etzhayyimcojp/...-xgng091s (404)
 # 2026-06-08 main merge: stale upstream count dropped 8 → 7 after one vendored
 # path was removed from the active tree. Keep the audit strict in both
 # directions: a count change means the subrepo set changed and must be reviewed.
-EXPECTED_STALE_URLS = 7
+# 2026-07-19 ADR-2607193620: activity-monitor's unpublished/defunct vendored
+# checkout residue was retired with exact EDN provenance, shrinking 7 → 6.
+# 2026-07-20 ADR-2607200200: the os app and its stale .gitrepo marker moved to
+# its private flat repository, shrinking the root-owned baseline 6 → 5.
+# 2026-07-20 ADR-2607200800: intel and its stale .gitrepo marker moved to its
+# private flat repository, shrinking the root-owned baseline 5 → 4.
+# 2026-07-20 ADR-2607200900: har and its stale .gitrepo marker moved to its
+# private flat repository, shrinking the root-owned baseline 4 → 3.
+# 2026-07-20 ADR-2607201230: watashi and its stale .gitrepo marker moved to
+# its private flat repository, shrinking the root-owned baseline 3 → 2.
+# 2026-07-20 ADR-2607201700: resources and its stale .gitrepo marker moved
+# to its private flat repository, shrinking the root-owned baseline 2 → 1.
+# 2026-07-20 ADR-2607201800: news and its stale .gitrepo marker moved to
+# its private flat repository, closing the root-owned baseline 1 → 0.
+# Current remaining set: none.
+EXPECTED_STALE_URLS = 0
 # ESCAPE_SYMLINKS baseline dropped 18 → 0 (2026-05-31): the 18 escape
 # symlinks were all the `CHARTER-RIDER.md → ../../CHARTER-RIDER.md`
 # pattern inside the kotoba **git-subrepo** (1 root + 17 crates), a
@@ -100,10 +113,9 @@ class TestSubrepoUpstreamHealth:
             f"got different count\nstdout:\n{out}"
         )
 
-    def test_strict_mode_exits_1_on_findings(self):
+    def test_strict_mode_exits_0_without_findings(self):
         rc, _, _ = _run_script(UPSTREAM_HEALTH, ["--strict"])
-        # stale URLs > 0, so strict mode MUST fail.
-        assert rc == 1, f"strict mode with {EXPECTED_STALE_URLS} findings should exit 1; got {rc}"
+        assert rc == 0, f"strict mode with zero findings should exit 0; got {rc}"
 
     def test_performance_budget(self):
         """Iter-57 optimized to ~0.5s via git ls-files + xargs -P10.

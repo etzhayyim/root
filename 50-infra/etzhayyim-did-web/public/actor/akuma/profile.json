@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:akuma",
+  "handle": "akuma.etzhayyim.com",
+  "displayName": "Akuma — Authorized Red Team Probing",
+  "description": "Scope-bound authorized red team / vulnerability probing actor. Operates ONLY against owner-attested + etzhayyim-approved targets registered as com.etzhayyim.apps.akuma.scope contracts. Intrusiveness ceiling: passive | safe-active | intrusive. Exploit weaponization, RCE proof, lateral movement, and DoS are out of scope (rejected at policy). ADR-2605151400.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Akuma",
+  "displayNameJa": "Akuma — Authorized Red Team Probing",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.akuma",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/akuma/did.json",
+    "source": "kotoba"
+  }
+}

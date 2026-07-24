@@ -1,0 +1,10 @@
+{:schema "etzhayyim.adr/v1"
+ :id "2607192400"
+ :title "Cluster Murakumo runtime flat west drain"
+ :status :accepted
+ :date "2026-07-19"
+ :decision {:source "40-engine/cluster/murakumo"
+            :destination {:repo "etzhayyim/com-etzhayyim-cluster-murakumo" :revision "eb65f4d9bae4006f0b000d0b0322b547587c8d58"}
+            :exclusion {:path "40-engine/cluster/murakumo/8bit" :reason "independent Cargo release train and experimental sandbox" :next :separate-extraction}
+            :canonical-record :edn}
+ :consequences {:root "runtime Cargo package and deploy surface removed" :go-policy "Go and TinyGo absent" :manifest "destination exact pin required"}}

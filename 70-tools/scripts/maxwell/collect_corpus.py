@@ -31,7 +31,7 @@ import textwrap
 ROOT = pathlib.Path(__file__).resolve().parents[3]  # etzhayyim/root
 RESULTS_JSONL = ROOT / "70-tools/scripts/fleet-refactor/unit-refactor-results.jsonl"
 OUT_JSONL = ROOT / "90-docs/baien/maxwell-sft-corpus.jsonl"
-CHARTER_RIDER_SRC = ROOT / "20-actors/etzhayyim-organism/src"
+CHARTER_RIDER_SRC = ROOT / "70-tools/scripts/maxwell/retired-charter-rider"
 
 sys.path.insert(0, str(CHARTER_RIDER_SRC))
 # also add the package parent so `etzhayyim_organism` resolves
@@ -155,8 +155,8 @@ def collect(dry_run: bool = False) -> list[dict]:
         # actor/file label for id
         parts = py_path.parts
         try:
-            actor_idx = parts.index("20-actors")
-            label = "/".join(parts[actor_idx + 1 :]).replace(".py", "")
+            actor_idx = next(i for i, part in enumerate(parts) if part.startswith("com-etzhayyim-"))
+            label = "/".join(parts[actor_idx:]).replace(".py", "")
         except ValueError:
             label = py_path.stem
 

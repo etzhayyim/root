@@ -17,8 +17,6 @@ on:
       - '00-contracts/lexicons/ai/etzhayyim/yorishiro/**'
       - '00-contracts/openapi/kami/**'
       - '00-contracts/kami/**'
-      - '40-engine/kotoba/crates/kotoba-kotodama/cells/yorishiro_**'
-      - '40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-**'
       - '70-tools/etzhayyim-cli/yorishiro/**'
       - '70-tools/scripts/lint/no-external-purchase-purpose.mjs'
       - 'skills/etzhayyim-yorishiro-**'
@@ -29,8 +27,6 @@ on:
       - '00-contracts/lexicons/ai/etzhayyim/yorishiro/**'
       - '00-contracts/openapi/kami/**'
       - '00-contracts/kami/**'
-      - '40-engine/kotoba/crates/kotoba-kotodama/cells/yorishiro_**'
-      - '40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-**'
       - '70-tools/etzhayyim-cli/yorishiro/**'
       - '70-tools/scripts/lint/no-external-purchase-purpose.mjs'
       - 'skills/etzhayyim-yorishiro-**'
@@ -88,15 +84,11 @@ jobs:
           # the source of failure.
           if ! git diff --quiet -- \
               ':(glob)00-contracts/lexicons/ai/etzhayyim/yorishiro/**' \
-              ':(glob)40-engine/kotoba/crates/kotoba-kotodama/cells/yorishiro_**' \
-              ':(glob)40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-**' \
               ':(glob)skills/etzhayyim-yorishiro-**' \
               ':(glob)70-tools/etzhayyim-cli/yorishiro/registry/**'; then
             echo "::error::regen produced uncommitted diff — generator output is stale"
             git diff --stat -- \
               ':(glob)00-contracts/lexicons/ai/etzhayyim/yorishiro/**' \
-              ':(glob)40-engine/kotoba/crates/kotoba-kotodama/cells/yorishiro_**' \
-              ':(glob)40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-**' \
               ':(glob)skills/etzhayyim-yorishiro-**' \
               ':(glob)70-tools/etzhayyim-cli/yorishiro/registry/**'
             exit 1

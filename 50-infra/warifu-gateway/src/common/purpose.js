@@ -4,7 +4,7 @@
 // Payment-purpose allow-list — the SINGLE source of truth shared by all 3 compat surfaces
 // (Stripe-REST / ISO 8583 / NFC). MUST stay in lockstep with the other two enforcement points:
 //   - Solidity:  50-infra/warifu-contracts/src/SettlementRouter.sol  (_checkPurpose)
-//   - Python:    20-actors/warifu/cells/authorize.py                 (AuthorizeCell._purpose_ok)
+//   - Python:    orgs/etzhayyim/com-etzhayyim-warifu/cells/authorize.py                 (AuthorizeCell._purpose_ok)
 // ADR-2605302000 / ADR-2605192115 §3.
 //
 // Plain ESM (JSDoc-typed) so it is BOTH directly runnable by node (tests) AND importable by the

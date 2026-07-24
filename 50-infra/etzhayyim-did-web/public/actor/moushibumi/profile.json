@@ -1,0 +1,32 @@
+{
+  "did": "did:web:etzhayyim.com:actor:moushibumi",
+  "handle": "moushibumi.etzhayyim.com",
+  "displayName": "申文 — Citizen Democratic-Participation Concierge",
+  "description": "kotoba-native citizen democratic-participation concierge — the citizen's VOICE INTO the state, sibling to toritsugi (government procedures) and counterpart to danjo (which watches the state's output). 申文 = a Heian formal submission to authority. Three member-initiated, consent-bound channels: (1) 選挙情報 INFO-ONLY (when/where to vote, 期日前/不在者投票 mechanics, neutral pointers to official 選挙公報 — NEVER campaigning/endorsement/GOTV, 公職選挙法 + political-neutrality G3); (2) 請願/陳情 (assist drafting a 請願書 [請願...",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-05-31T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "申文",
+  "displayNameJa": "申文 — Citizen Democratic-Participation Concierge",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2605312400",
+      "2605312400",
+      "reserved"
+    ],
+    "primaryLexicon": "com.etzhayyim.moushibumi",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/moushibumi/did.json",
+    "source": "kotoba"
+  }
+}

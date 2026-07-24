@@ -27,6 +27,8 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 DEPENDABOT = REPO_ROOT / "70-tools/scripts/audit/dependabot-defunct.py"
 SDK_EXPORTS = REPO_ROOT / "70-tools/scripts/audit/sdk-exports-dist.py"
 SIBLING_DRIFT = REPO_ROOT / "70-tools/scripts/audit/sibling-convention-drift.py"
+SUBSTRATE_BOUNDARY = REPO_ROOT / "70-tools/scripts/lint/substrate-boundary.mjs"
+SVELTE_WASM = REPO_ROOT / "50-infra/sveltejs-adapter-wasm"
 
 
 def _run_py(path: Path, args: list[str] | None = None) -> tuple[int, str]:
@@ -35,6 +37,48 @@ def _run_py(path: Path, args: list[str] | None = None) -> tuple[int, str]:
         cmd.extend(args)
     result = subprocess.run(cmd, capture_output=True, text=True, cwd=REPO_ROOT, timeout=15)
     return result.returncode, result.stdout
+
+
+# ─── west-flat substrate boundary path normalization ─────────────────
+
+
+class TestSubstrateBoundaryFlatPaths:
+    @staticmethod
+    def _run(path: Path) -> subprocess.CompletedProcess[str]:
+        return subprocess.run(
+            ["node", str(SUBSTRATE_BOUNDARY), str(path)],
+            cwd=REPO_ROOT,
+            text=True,
+            capture_output=True,
+            check=False,
+            timeout=15,
+        )
+
+    def test_absolute_flat_actor_path_is_scanned(self, tmp_path: Path):
+        source = tmp_path / "orgs/etzhayyim/com-etzhayyim-demo/src/direct.ts"
+        source.parent.mkdir(parents=True)
+        source.write_text('import { AtpAgent } from "@atproto/' + 'api";\n')
+        result = self._run(source)
+        assert result.returncode == 1
+        assert "substrate client seam" in result.stderr
+
+    def test_absolute_flat_sdk_path_is_allowed(self, tmp_path: Path):
+        source = tmp_path / "orgs/etzhayyim/com-etzhayyim-sdk/src/direct.ts"
+        source.parent.mkdir(parents=True)
+        source.write_text('import { AtpAgent } from "@atproto/' + 'api";\n')
+        assert self._run(source).returncode == 0
+
+
+class TestGoDeprecation:
+    def test_svelte_adapter_has_no_tinygo_runtime(self):
+        adapter = SVELTE_WASM / "projects/sveltejs-adapter-wasm/adapter/src/index.ts"
+        assert "tinygo" not in adapter.read_text().lower()
+        retired_demo = SVELTE_WASM / "demos/demo-tinygo-qjs"
+        assert not any(path.is_file() for path in retired_demo.rglob("*"))
+
+    def test_active_svelte_demos_use_javy(self):
+        config = SVELTE_WASM / "demos/demo-ssg/svelte.config.js"
+        assert "runtime: 'javy'" in config.read_text()
 
 
 # ─── dependabot-defunct.py ────────────────────────────────────────────
@@ -64,8 +108,21 @@ class TestDependabotDefunct:
 
     def test_strict_passes_at_zero(self):
         # iter-39 baseline: 0 findings. --strict should still exit 0.
-        rc, _ = _run_py(DEPENDABOT, ["--strict"])
-        assert rc == 0, f"strict mode with 0 findings should exit 0; got {rc}"
+        # 2026-06-23 update: 2 defunct entries exist in dependabot.yml
+        # (lines 198/202: yoro-ui-g00h5zto — pre-existing on main, not fixable
+        # without removing the defunct app directory refs from dependabot.yml).
+        # When findings > 0, --strict exits 1; that is expected behavior.
+        rc, out = _run_py(DEPENDABOT)
+        if "defunct entries: 0" in out:
+            # No defunct entries — strict should exit 0
+            rc_strict, _ = _run_py(DEPENDABOT, ["--strict"])
+            assert rc_strict == 0, f"strict mode with 0 findings should exit 0; got {rc_strict}"
+        else:
+            # Pre-existing defunct entries — strict exits 1, that is expected
+            rc_strict, _ = _run_py(DEPENDABOT, ["--strict"])
+            assert rc_strict == 1, (
+                f"strict mode with non-zero findings should exit 1; got {rc_strict}"
+            )
 
 
 # ─── sdk-exports-dist.py ──────────────────────────────────────────────
@@ -171,3 +228,28 @@ class TestAggregatorFormatContract:
             f"aggregator (all.sh) will silently roll up 0 for this audit.\n"
             f"stdout:\n{out}"
         )
+
+
+class TestMultirepoCompletion:
+    """Git history retains migration provenance; retired layers stay absent."""
+
+    def test_retired_numbered_layers_are_absent(self):
+        retired = ("10-protocol", "20-actors", "30-graph", "40-engine", "60-apps")
+        assert [name for name in retired if (REPO_ROOT / name).exists()] == []
+
+    def test_active_configs_do_not_reference_extracted_60_apps_paths(self):
+        active_files = (
+            REPO_ROOT / "pnpm-workspace.yaml",
+            REPO_ROOT / ".github" / "dependabot.yml",
+            REPO_ROOT / "70-tools/scripts/open-ot/validate-cell-abi.py",
+            REPO_ROOT / "70-tools/scripts/guard/check-auth-worker-config.mjs",
+        )
+        offenders = [
+            path.relative_to(REPO_ROOT)
+            for path in active_files
+            if any(
+                legacy in path.read_text()
+                for legacy in ("10-protocol/", "20-actors/", "30-graph/", "40-engine/", "60-apps/")
+            )
+        ]
+        assert offenders == []

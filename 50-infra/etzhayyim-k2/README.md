@@ -19,7 +19,7 @@
 - ERC-4337 bundler (rundler) — k8s deploy. Container image + manifests.
 - RebirthGate zk-SNARK — Noir circuits + Solidity verifier (PLONK / Honk).
 - Filecoin pin client — web3.storage UCAN wrapper, with redundant ipfs-pinner Tier 1.
-- yobel refactor (`20-actors/yobel/cells/release_settlement/`) to use K2 cohort primitives.
+- yobel refactor (`orgs/etzhayyim/com-etzhayyim-yobel/cells/release_settlement/`) to use K2 cohort primitives.
 
 ## Why this directory exists
 
@@ -81,7 +81,7 @@ the existing pieces:
    reliability, and ADR-2605172000 substrate purity all factor in.
 5. **K2 vs. yobel cohort lifecycle overlap** — vendor's K2 ecosystem
    has a "fission / resume" cohort lifecycle; etzhayyim already has
-   a `yobel` cohort actor under `20-actors/yobel/`. Resolve the
+   a `yobel` cohort actor under `orgs/etzhayyim/com-etzhayyim-yobel/`. Resolve the
    overlap (one absorbs the other, or they're orthogonal layers).
 
 ## Hand-off path

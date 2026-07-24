@@ -1,0 +1,9 @@
+# cloudflared config for the resident etzhayyim atproto PDS.
+# Place at ~/.cloudflared/config.yml on the host running the PDS LaunchDaemon.
+# `tunnel:` is filled in by `cloudflared tunnel create etzhayyim-pds` (a UUID).
+tunnel: etzhayyim-pds
+credentials-file: /Users/asher/.cloudflared/etzhayyim-pds.json
+ingress:
+  - hostname: atproto.etzhayyim.com
+    service: http://localhost:9911
+  - service: http_status:404

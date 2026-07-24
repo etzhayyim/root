@@ -69,7 +69,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:pinner#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
     adrs: ["2605171800"],
@@ -82,7 +82,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:esign#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
     adrs: ["2605231230"],
@@ -95,7 +95,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:audit#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
     adrs: ["2605231700", "2605231900"],
@@ -108,7 +108,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:dataset-pinner#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       // ── Phase B: libp2p Multiaddr primary (per ADR-2605241800 §D1) ──
       {
@@ -136,7 +136,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:pds#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
     adrs: ["2605171800"],
@@ -148,7 +148,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:anchorer#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
     adrs: ["2605171800"],
@@ -160,7 +160,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:projector#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
     adrs: ["2605171800"],
@@ -173,7 +173,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:karute#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
     ],
     adrs: ["2605231100", "2605231900"],
@@ -189,7 +189,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:yadori#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:yadori#xrpc-libp2p",
@@ -209,7 +209,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:nusa#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:nusa#xrpc-libp2p",
@@ -225,14 +225,14 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     glyph: "綿津綱",
     displayName: "Watatsuna — World Submarine-Cable Network Knowledge Graph",
     primaryLexicon: "com.etzhayyim.cable",
-    // componentize-py WASM component (20-actors/watatsuna/wasm) — dag-pb (17.6MB,
+    // componentize-py WASM component (orgs/etzhayyim/com-etzhayyim-watatsuna/wasm) — dag-pb (17.6MB,
     // bundles CPython) → T2 donated-mesh tier, not browser-local (ADR-2606014600).
     wasmCid: "bafybeihusqahaeirwqur64aeh5fvwuoh54cawbmo7smx3h2abvps6li7pa",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:watatsuna#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:watatsuna#xrpc-libp2p",
@@ -248,12 +248,12 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     glyph: "渡り",
     displayName: "Watari — World Live Moving-Craft (Ship + Aircraft) Knowledge Graph",
     primaryLexicon: "com.etzhayyim.watari",
-    primarySchema: "00-contracts/schemas/moving-craft-ontology.kotoba.edn",
+    primarySchema: "orgs/etzhayyim/com-etzhayyim-watari/schema.edn",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:watari#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:watari#xrpc-libp2p",
@@ -262,6 +262,27 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       },
     ],
     adrs: ["2606041827"],
+  },
+  tsubasa: {
+    description:
+      "翼 — flight-route / fare discovery commons (the Skyscanner inversion). Honest fare/route meta-search whose every onward link is AFFILIATE-STRIPPED and where the member SELF-BOOKS on the airline's OWN site — tsubasa is never merchant-of-record and takes no commission (G1, no inflow). Ranks by TRUE total cost (fare + baggage) with CO₂ emissions SURFACED on every option as a first-class axis, never hidden or de-ranked away (G4). No ads / no urgency / no 'price will rise' scarcity (G3); a search is STATELESS w.r.t. the searcher — no person fare-tracking (G5). Beyond the live query handlers (search / compare / self-book-handoff), the R2 maturity layer computes per-O–D-route carrier CONCENTRATION (named-HHI + competition reading {:competitive :concentrated :monopoly}) and flags concentrated/monopoly routes :opening (surface alternatives) — a COMPETITION + FARE map routed to OPENING, NEVER a paid ranking and NEVER a target-list. Observations persist to a content-addressed append-only kotoba Datom commit-DAG (tamper-evident verify-chain, no-server-key) via a deterministic idempotent-by-content heartbeat. DYNAMIC sibling of watari 渡り (live aircraft POSITION): tsubasa PLANS, watari TRACKS — both observational, neither an OTA. Live GDS/airline fare ingest is Council Lv7+ + operator gated (G8); R0/R1 ship :representative data. Per ADR-2606072800.",
+    glyph: "翼",
+    displayName: "Tsubasa — Flight-Route / Fare Discovery Commons",
+    primaryLexicon: "com.etzhayyim.tsubasa.fare",
+    primarySchema: "orgs/etzhayyim/com-etzhayyim-tsubasa/schema/flight-fare-ontology.edn",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:tsubasa#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.aozora.app",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:tsubasa#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606072800"],
   },
   kamado: {
     description:
@@ -275,7 +296,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:kamado#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:kamado#xrpc-libp2p",
@@ -293,14 +314,14 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     // No atproto lexicon: tsumugi emits kotoba EDN directly into the Datom log.
     primarySchema:
       "00-contracts/schemas/engi-organism-ontology.kotoba.edn (+ spirit-ontology.kotoba.edn)",
-    // Content-addressed WASM actor (20-actors/tsumugi/wasm/tsumugi-core) — runs
+    // Content-addressed WASM actor (orgs/etzhayyim/com-etzhayyim-tsumugi/wasm/tsumugi-core) — runs
     // browser-local (ameno) / donated mesh, NO per-actor server (ADR-2606014500).
     wasmCid: "bafkreidfttpqimwnx4i5a3rswum3orcg3qfa3q7fwts6axgqtcpuokddfi",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:tsumugi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:tsumugi#xrpc-libp2p",
@@ -310,20 +331,54 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
     adrs: ["2606011800"],
   },
+  tate: {
+    description:
+      "盾 — citizen legal-defense concierge (worldwide), defensive only. Two legs over a member's OWN documents: (1) 不利条項スキャン — consumer ToS / card agreements / B2B contracts matched against a coded clause-pattern registry (112 shapes / 18 jurisdictions deepened + :clause/source-url primary-source URLs); (2) 法的手続き応答支援 — notices the member RECEIVES (支払督促 / 訴状 / 行政処分 …) matched against a coded procedure registry (181 procs / 30 jurisdictions × civil/labor/housing/enforcement/insolvency/family) → DISCLOSED deadline rules + response options + 架空請求 guard. G1 member-principal-own-documents-only, G2 non-adjudicating (anchor is a pointer, never a verdict), G3 UPL (member self-submits; no representation), G10 never guesses foreign law. PUBLIC face = an ANONYMIZED aggregate coverage digest (content-addressed, member-data-free) + a crawlable static site; member documents are never published. clj/bb over the kotoba Datom log; kotoba-mesh registry status :no-cells (observatory, on-kse). Per ADR-2606112301 + 2606112400.",
+    glyph: "盾",
+    displayName: "Tate — Citizen Legal-Defense Concierge (worldwide)",
+    primaryLexicon: "com.etzhayyim.tate",
+    primarySchema: "orgs/etzhayyim/com-etzhayyim-tate/data/procedure-registry.edn",
+    // No WASM actor: tate is a :no-cells observatory (clj/bb over the kotoba Datom log).
+    // Its PUBLIC mesh artifact is the anonymized, content-addressed coverage digest
+    // (orgs/etzhayyim/com-etzhayyim-tate/methods/coverage_publish.cljc; G1 member-data-free).
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:tate#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.aozora.app",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:tate#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:tate#coverage",
+        type: "EtzhayyimCoverageDigest",
+        serviceEndpoint: "https://etzhayyim.com/actor/tate/coverage.json",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:tate#site",
+        type: "EtzhayyimStaticSite",
+        serviceEndpoint: "https://etzhayyim.com/tate/",
+      },
+    ],
+    adrs: ["2606112301", "2606112400", "2606122000", "2606122300", "2606013800"],
+  },
   kanae: {
     description:
       "鼎 — global government fiscal-flow VISUALIZATION. Aggregates public fundFlowEdges (appropriation→outlay→recipient + inter-governmental transfers) into kotoba EAVT and renders aggregate-first, NON-adjudicating summaries (danjo finds, kanae renders). Per ADR-2605302300.",
     glyph: "鼎",
     displayName: "Kanae — Government Fiscal-Flow Visualization",
     primaryLexicon: "com.etzhayyim.kanae",
-    // Content-addressed T1 WASM actor (20-actors/kanae/wasm/kanae-core) — compact
+    // Content-addressed T1 WASM actor (orgs/etzhayyim/com-etzhayyim-kanae/wasm/kanae-core) — compact
     // Rust core, raw CID → browser-local (ameno) / donated mesh (ADR-2606015200).
     wasmCid: "bafkreielhr6l5jy7ml5l62ncyva34lhjw52q2onwxwy6ubep4wqxjyjnie",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:kanae#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:kanae#xrpc-libp2p",
@@ -339,8 +394,8 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     glyph: "潮目",
     displayName: "Shionome — Cross-Asset Capital-Flow Observatory",
     primaryLexicon: "com.etzhayyim.shionome",
-    primarySchema: "00-contracts/schemas/capital-flow-ontology.kotoba.edn",
-    // Content-addressed T1 WASM actor (20-actors/shionome/wasm/shionome-core) — compact
+    primarySchema: "orgs/etzhayyim/com-etzhayyim-shionome/contracts/capital-flow-ontology.edn",
+    // Content-addressed T1 WASM actor (orgs/etzhayyim/com-etzhayyim-shionome/wasm/shionome-core) — compact
     // Rust core (regime + stock pyramid, no_trade:true), raw CID → browser-local (ameno)
     // / donated mesh (ADR-2606015200). The componentize-py 18.5MB component remains the
     // separate T2 dag-pb artifact.
@@ -349,7 +404,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:shionome#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:shionome#xrpc-libp2p",
@@ -375,7 +430,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:kyber#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:kyber#xrpc-libp2p",
@@ -396,7 +451,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:kabuto#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:kabuto#xrpc-libp2p",
@@ -417,7 +472,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:sukashi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:sukashi#xrpc-libp2p",
@@ -438,7 +493,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:kanjo#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:kanjo#xrpc-libp2p",
@@ -459,7 +514,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:kasa#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:kasa#xrpc-libp2p",
@@ -475,12 +530,12 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     glyph: "見守り",
     displayName: "Mimamori — Covenant Keeping Membrane (mishmeret ha-adam)",
     primaryLexicon: "com.etzhayyim.mimamori",
-    primarySchema: "00-contracts/schemas/mishmeret-ontology.kotoba.edn",
+    primarySchema: "orgs/etzhayyim/com-etzhayyim-mimamori/schema.edn",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:mimamori#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:mimamori#xrpc-libp2p",
@@ -501,7 +556,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:ooyake#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:ooyake#xrpc-libp2p",
@@ -514,7 +569,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
   tsuzuri: {
     description:
       "綴 Tsuzuri — Adobe-independent, in-browser (WASM) PDF editor. Merge/split/rotate/delete/reorder + text annotation (JP-font subset embed) + OCR (tesseract.js) + metadata, all client-side; files never leave the device. Browser-local under the ameno execution model (ADR-2606014500). Static app, not a WASM component — no wasmCid.",
-    primarySchema: "60-apps/tsuzuri/",
+    primarySchema: "orgs/etzhayyim/com-etzhayyim-app-tsuzuri/",
     glyph: "綴",
     displayName: "Tsuzuri — in-browser PDF editor",
     service: [
@@ -536,7 +591,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:todoke#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:todoke#xrpc-libp2p",
@@ -552,12 +607,12 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     glyph: "蛍",
     displayName: "Hotaru — III-V / InP Substrate Open-Publication Commons",
     primaryLexicon: "com.etzhayyim.hotaru",
-    primarySchema: "00-contracts/schemas/iii-v-substrate-ontology.kotoba.edn",
+    primarySchema: "orgs/etzhayyim/com-etzhayyim-hotaru/contracts/schemas/iii-v-substrate-ontology.kotoba.edn",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:hotaru#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:hotaru#xrpc-libp2p",
@@ -573,12 +628,12 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     glyph: "烽",
     displayName: "Noroshi — 光電融合 Communication Chip + ISAC + Photonic Packaging Robotics",
     primaryLexicon: "com.etzhayyim.noroshi",
-    primarySchema: "00-contracts/schemas/photonic-convergence-ontology.kotoba.edn",
+    primarySchema: "orgs/etzhayyim/com-etzhayyim-noroshi/contracts/photonic-convergence-ontology.edn",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:noroshi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:noroshi#xrpc-libp2p",
@@ -599,7 +654,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:mitooshi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:mitooshi#xrpc-libp2p",
@@ -620,7 +675,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:ake#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:ake#xrpc-libp2p",
@@ -636,12 +691,12 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     glyph: "剪定",
     displayName: "Sentei — Council as Pruner (post-hoc pruning governance)",
     primaryLexicon: "com.etzhayyim.sentei.prune",
-    primarySchema: "20-actors/sentei/data/pruning-ontology.kotoba.edn",
+    primarySchema: "orgs/etzhayyim/com-etzhayyim-sentei/data/pruning-ontology.kotoba.edn",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:sentei#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:sentei#xrpc-libp2p",
@@ -661,7 +716,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:himawari#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:himawari#xrpc-libp2p",
@@ -677,12 +732,12 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     glyph: "扶持",
     displayName: "Fuchi — Maintainer Sustenance Allocator (investment-fund inverse)",
     primaryLexicon: "com.etzhayyim.fuchi.allocationIntent",
-    primarySchema: "00-contracts/schemas/maintainer-sustenance-ontology.kotoba.edn",
+    primarySchema: "orgs/etzhayyim/com-etzhayyim-fuchi/schema/maintainer-sustenance-ontology.edn",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:fuchi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:fuchi#xrpc-libp2p",
@@ -698,12 +753,12 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     glyph: "助",
     displayName: "Tasuke — Free Cybercrime-Victim-Support Membrane",
     primaryLexicon: "com.etzhayyim.tasuke.victimIntake",
-    primarySchema: "00-contracts/schemas/cybercrime-victim-support-ontology.kotoba.edn",
+    primarySchema: "orgs/etzhayyim/com-etzhayyim-tasuke/schema/cybercrime-victim-support-ontology.kotoba.edn",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:tasuke#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:tasuke#xrpc-libp2p",
@@ -724,7 +779,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:matsurigoto#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:matsurigoto#xrpc-libp2p",
@@ -745,7 +800,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:kawaraban#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:kawaraban#xrpc-libp2p",
@@ -785,7 +840,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       {
         id: "did:web:etzhayyim.com:actor:aburi#atproto_pds",
         type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
+        serviceEndpoint: "https://pds.aozora.app",
       },
       {
         id: "did:web:etzhayyim.com:actor:aburi#xrpc-libp2p",
@@ -794,6 +849,107 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       },
     ],
     adrs: ["2606161630"],
+  },
+  tatara: {
+    description:
+      "鑪 — world manufacturing-plant + logistics GEOGRAPHIC knowledge graph. The geographic / facility-scale layer of the supply lineage: kabuto 兜 holds the org→org SUPPLY edges (who supplies whom) and uchiwake 内訳 the product BOM; tatara places the producing FACILITIES on the planet — where they SIT, at what scale (:plant/headcount-est aggregate employment / :floor-area-m2 / :capacity-value+:capacity-unit production capacity), feeding which logistics corridor. :plant/operator joins kabuto org.corp.* (measured: 17/20 = 85% linkage via the crosscheck). Mirror-lineage sibling of kabuto/tsumugi/inochi: edge-primary geographic CONCENTRATION (per-sector country HHI + single-source flag + chokepoint export-dependence) routed to REDUNDANCY / reshoring — a resilience map, NEVER a target-list (G2). :flow/via reuses watari :lane/chokepoint + watatsuna :station/chokepoint, so manufacturing export-dependence (tatara) + live vessel transit (watari) + cable load (watatsuna) compose into ONE maritime resilience picture. G4 defining gate: :plant/headcount-est is a DISCLOSED AGGREGATE SIZE — NO :worker/* / :person/* attribute exists, an individual worker is structurally unrepresentable (Charter Rider §2(c) reciprocity axis; Wellbecoming §1.13). Per ADR-2606171800.",
+    glyph: "鑪",
+    displayName:
+      "Tatara — World Manufacturing-Plant + Logistics Geographic Knowledge Graph",
+    primaryLexicon: "com.etzhayyim.tatara",
+    primarySchema: "00-contracts/schemas/manufacturing-plant-ontology.kotoba.edn",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:tatara#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.aozora.app",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:tatara#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606171800"],
+  },
+  kizuna: {
+    description:
+      "絆 — actor-to-actor ATProto social-interaction self-evolution + system-of-systems optimization. The INTERNAL-actor sibling of kaname 要 (which runs SoS leverage over EXTERNAL-entity mirrors): kizuna reads etzhayyim's own actors interacting over the ATProto social protocol (follow / mention / like / post via XRPC) as a multiplex social graph, computes SoS metrics over that actor society (integration, 相互 reciprocity, exact-Brandes betweenness → the 律速 bridge actor, isolated set), and feeds per-actor GROWTH signals + dry-run tie PROPOSALS back into the loop so the collective optimizes its own flow (系流最適化). G1 PROPOSE-not-act: every tie is :status :dry-run / :route :ossekai — there is NO execute/auto-follow; actuation is ossekai + member CACAO leash (no-server-key). G2 reciprocity-positive, ANTI-addiction: the objective is :connectivity+reciprocity, NEVER engagement/retention/affinity (Charter §1.13 / Rider §2(h)). G3 agent-only: a :person/* node is unrepresentable (person-excluded). Per ADR-2606232200.",
+    glyph: "絆",
+    displayName:
+      "Kizuna — Actor-Social Self-Evolution + System-of-Systems Optimization",
+    primaryLexicon: "com.etzhayyim.kizuna",
+    primarySchema: "orgs/etzhayyim/com-etzhayyim-kizuna/data/seed-interactions.kotoba.edn",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:kizuna#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.aozora.app",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:kizuna#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606232200"],
+  },
+  maps: {
+    description:
+      "地図 — graph-first spatial intelligence on the kotoba :feature/* Datom substrate (geocode / reverse / place search / H3-AVET chunking). Ships an おすすめ温泉 (onsen) discovery + transparent place-quality ranking: ingests hot-spring POIs from OpenStreetMap (Overpass, ODbL) and ranks them by public PLACE-facts (spring authenticity / notability / amenities) — a feature is a PLACED THING, never a person (G9); no per-person affect/profile/engagement metric, fully auditable via :why. Per ADR-2606064500.",
+    glyph: "地図",
+    displayName: "Maps — Spatial Substrate + Onsen Discovery",
+    primarySchema: "orgs/etzhayyim/com-etzhayyim-maps/contracts/ontology/maps-spatial-ontology.kotoba.edn",
+    // Content-addressed T1 WASM actor (orgs/etzhayyim/com-etzhayyim-maps/wasm/maps-core) — compact Rust
+    // core computing the onsen おすすめ ranking (place_not_person:true), raw CID →
+    // browser-local (ameno) / donated mesh (ADR-2606015200). The full MapLibre+KAMI
+    // renderer stays the TS Worker until the kotoba-native migration (ADR-2606064500
+    // R1→R3) lands. ipfs pin of the bytes = operator step.
+    wasmCid: "bafkreib7d3fzjkhsswr7flwkxejkjhauy67offbfd5o7pukqytdvifdbty",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:maps#wasm",
+        type: "EtzhayyimWasmComponent",
+        serviceEndpoint:
+          "ipfs://bafkreib7d3fzjkhsswr7flwkxejkjhauy67offbfd5o7pukqytdvifdbty",
+        "x-exec": "browser-local|donated-mesh",
+        "x-cid-codec": "raw",
+        "x-runtime": "kotoba-wasm",
+        "x-view": "onsen-osusume",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:maps#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.aozora.app",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:maps#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606064500", "2606015200"],
+  },
+  iriai: {
+    description:
+      "入会 — the non-profit GLOBAL LIFELINE-COMMONS actor. 入会 (iriai) = the traditional Japanese COMMONS (collectively-held rights of use over a shared resource); here the resource is the four lifelines (ライフライン) — 電気 / 水道 / ガス / 通信 — held as a commons right of use (入会権), delivered §1.16 social-security IN-KIND (cash ≡ 0), governed 1 SBT = 1 vote. The System-of-Systems umbrella over the producer actors (電気→hikari 光 · 水道→mizuho 水穂 · ガス→kamado 竈 · 通信→noroshi 烽), the way kaname 要 / amime 網目 synthesize across single-domain mirrors — covering infra + 資金 (funding) + 管理 (management) in one heartbeat. INFRA: edge-primary commons-gap (1−coverage)·essentiality·vulnerability + resilience (single-source SPOF / N-1) per region × lifeline → verdict {:await-consent :provision :reinforce :redundancy :maintain :monitor} — a COVERAGE + RESILIENCE map, NEVER a target-list, NEVER a shut-off list; a lifeline is never withheld as leverage (G1). 資金: each action cell → a §1.16 IN-KIND funding proposal on the non-profit rails (donation → TitheRouter 10% → Public Fund → grant/milestone-escrow/in-kind), cash ≡ 0 to the consumer, imputed market-equivalent value transparency-only; give-only instruments (G2); advisory, decided 1 SBT = 1 vote (steward-not-sovereign, G3). 管理: 1 SBT = 1 vote governance (20% quorum / 50% / 48h) + Council Lv6+/Lv7+; actuation-class :intent (compute-only R0 — live energize/flow/ignite/activate is the producer cell under Council Lv7+ + operator-DID + member-sig, G5, §1.12); no-server-key (member-CACAO leash, G6). ASSESSMENT + R0 DESIGN ONLY — iriai never produces nor actuates a lifeline. The charter-clean inversion of the for-profit utility and of utility-as-coercion. Per ADR-2606272200.",
+    glyph: "入",
+    displayName: "Iriai — Global Lifeline-Commons (電気/水道/ガス/通信)",
+    primaryLexicon: "com.etzhayyim.iriai.lifelineCoverageMap",
+    primarySchema: "orgs/etzhayyim/com-etzhayyim-iriai/kotoba/ontology.iriai.edn",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:iriai#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.aozora.app",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:iriai#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606272200", "2606280900"],
   },
 } as const;
 

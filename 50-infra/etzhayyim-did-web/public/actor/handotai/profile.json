@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:handotai",
+  "handle": "handotai.etzhayyim.com",
+  "displayName": "Handotai — Semiconductor Intelligence",
+  "description": "Semiconductor B2B intelligence platform. RSS crawl from 6 news sources (PC Watch, ITmedia, PublicKey, SemiAnalysis, Semiconductor Engineering, EE Times), Murakumo LLM enrichment, entity graph correlation, and market trend analysis.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Handotai",
+  "displayNameJa": "Handotai — Semiconductor Intelligence",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.handotai",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/handotai/did.json",
+    "source": "kotoba"
+  }
+}

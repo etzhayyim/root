@@ -44,7 +44,7 @@ const args = process.argv.slice(2);
 // Scope to danjo-pathed CODE only; docs that enumerate the deny-list are
 // excluded by extension (same discipline as charter_rider.py exemption).
 const DANJO_CODE_RE =
-  /(^|\/)(20-actors\/danjo\/|20-actors\/kotodama\/cells\/danjo_|.*danjo.*)\S*\.(py|ts|mjs|js)$/;
+  /(^|\/)(orgs\/etzhayyim\/com-etzhayyim-danjo\/|20-actors\/kotodama\/cells\/danjo_|.*danjo.*)\S*\.(py|ts|mjs|js)$/;
 
 // Forbidden vendor hostnames (substring match, case-insensitive).
 const GOV_INTEL_HOSTS = [

@@ -1,0 +1,34 @@
+[{:db/id -1
+  :adr/id "adr-2607172420-ainori-pinned-route-contract"
+  :adr/title "ADR-2607172420: ainori extraction and pinned envelope-neutral route contract"
+  :adr/topic "ainori-multirepo-route-contract"
+  :adr/status "accepted"
+  :adr/doc_type "adr"
+  :adr/source-format "edn"
+  :adr/date "2026-07-17"
+  :adr/last_verified "2026-07-17"
+  :adr/authoritative true
+  :adr/authoritative_for
+  ["ainori canonical actor repository and revision"
+   "ainori to todoke route sequencing repository boundary"
+   "retirement of root/20-actors/ainori implementation"]
+  :adr/related
+  ["adr-2606071500"
+   "adr-2607172000-etzhayyim-gftdcojp-flat-west-multirepo-root-retirement"]
+  :adr/decision
+  {:repository "https://github.com/etzhayyim/com-etzhayyim-ainori"
+   :revision "9898db31619d7970e42733d907e61b4e6caf25ea"
+   :west-path "orgs/etzhayyim/com-etzhayyim-ainori"
+   :canonical-metadata "manifest.edn"
+   :route-contract
+   {:repository "https://github.com/etzhayyim/com-etzhayyim-todoke"
+    :revision "6b028d3700b1cee6d838284fa6c8914031cde38c"
+    :var todoke.methods.last-mile/sequence-stops
+    :boundary :envelope-neutral}
+   :social-contract
+   {:repository "https://github.com/etzhayyim/com-etzhayyim-social-publication"
+    :revision "e8127d0661284b1c12ce1b216c84b5ed2db619ab"}
+   :canonicalization #{:encoded-edn-retired :structured-lexicon-edn}
+   :verification {:ainori {:tests 24 :assertions 42 :failures 0 :errors 0}
+                  :todoke {:tests 27 :assertions 48 :failures 0 :errors 0}}}
+  :adr/body "ainori is canonical in its flat-path repository. It delegates deterministic stop sequencing to a pinned public todoke contract while retaining its distinct vehicular safety envelope. Generic social publication delegates to the shared library. Lexicon definitions are structured EDN values rather than EDN encoded inside strings."}]

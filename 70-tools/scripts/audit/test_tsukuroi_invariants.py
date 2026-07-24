@@ -27,18 +27,23 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import os
 from pathlib import Path
 
 import pytest
 
 _REPO = Path(__file__).resolve().parents[3]
-_LEX = _REPO / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "tsukuroi"
+_TSUKUROI = Path(os.environ.get(
+    "ETZHAYYIM_TSUKUROI_ROOT",
+    _REPO.parent / "com-etzhayyim-tsukuroi",
+))
+_LEX = _TSUKUROI / "wire"
 _MANDATE = _LEX / "remediationMandate.json"
 _PROPOSAL = _LEX / "patchProposal.json"
 _VALIDATION = _LEX / "patchValidationResult.json"
 _CLOSURE = _LEX / "closureAttestation.json"
 _SILEN = _LEX / "silenTsukuroiReview.json"
-_MANIFEST = _REPO / "20-actors" / "tsukuroi" / "manifest.jsonld"
+# Canonical manifest and lexicon invariants live in the standalone actor's EDN tests.
 _CELLS = _REPO / "20-actors" / "kotodama" / "cells"
 
 _CELL_NAMES = [
@@ -170,12 +175,14 @@ class TestNoFloatTypes:
 class TestCellsRaiseAtImport:
     @pytest.mark.parametrize("cell", _CELL_NAMES)
     def test_cell_raises_runtime_error(self, cell):
-        cell_py = _CELLS / cell / "cell.py"
-        assert cell_py.exists(), f"missing cell scaffold {cell}"
-        spec = importlib.util.spec_from_file_location(f"_tsukuroi_{cell}", cell_py)
-        mod = importlib.util.module_from_spec(spec)
-        with pytest.raises(RuntimeError, match="tsukuroi R0 scaffold"):
-            spec.loader.exec_module(mod)
+        # py→cljc port: the cell scaffold is now cell.cljc (cell.py retired). Verify it
+        # throws the R0-scaffold ex-info — the cljc `solve` raises the same message.
+        cell_cljc = _CELLS / cell / "cell.cljc"
+        assert cell_cljc.exists(), f"missing cell scaffold {cell}/cell.cljc"
+        src = cell_cljc.read_text()
+        assert "ex-info" in src and "tsukuroi R0 scaffold" in src, (
+            f"{cell}/cell.cljc must throw the tsukuroi R0 scaffold ex-info"
+        )
 
     def test_all_seven_cells_present(self):
         present = {p.name for p in _CELLS.glob("tsukuroi_*") if p.is_dir()}
@@ -186,21 +193,6 @@ class TestCellsRaiseAtImport:
 
 
 class TestManifestConsistency:
-    def test_thirteen_gates_present(self):
-        gates = _load(_MANIFEST)["constitutionalGates"]["gates"]
-        assert set(gates) == {f"G{i}" for i in range(1, 14)}, "must pin exactly G1..G13"
-
-    def test_namespaces_match_disk_lexicons_bidirectionally(self):
-        declared = {ns.rsplit(".", 1)[-1] for ns in _load(_MANIFEST)["lexiconNamespaces"]}
-        on_disk = {p.stem for p in _LEX.glob("*.json")}
-        assert declared == on_disk, f"manifest namespaces vs disk drifted: {declared ^ on_disk}"
-
     def test_each_lexicon_id_matches_namespace(self):
         for p in _LEX.glob("*.json"):
             assert _load(p)["id"] == f"com.etzhayyim.tsukuroi.{p.stem}"
-
-    def test_did_name_tier(self):
-        m = _load(_MANIFEST)
-        assert m["id"] == "did:web:tsukuroi.etzhayyim.com"
-        assert m["name"] == "tsukuroi"
-        assert m["tier"] == "Tier-B"

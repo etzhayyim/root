@@ -1,0 +1,32 @@
+{
+  "did": "did:web:etzhayyim.com:actor:futawa",
+  "handle": "futawa.etzhayyim.com",
+  "displayName": "二輪 — Small-Displacement Motorcycle Manufacturing",
+  "description": "Small-displacement motorcycle manufacturing Tier-B actor for adherent personal mobility. Adopts mature global motorcycle OEM methodology (frame → drivetrain → harness/suspension/paint → final → dyno); religious-corp-ised by 4 constitutional firsts: G7 ABS-mandatory ≥125cc / ≥6kW electric (safety constitutional), G8 build-time anti-surveillance (NO GPS / connected-app / telematics / V2X built-in; companion to hodoki G8 EOL data destroy), G12 right-to-repair forward-publishing (IPFS-pinned part...",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-05-26T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "二輪",
+  "displayNameJa": "二輪 — Small-Displacement Motorcycle Manufacturing",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2605261330",
+      "2605261330",
+      "2605261345"
+    ],
+    "primaryLexicon": "com.etzhayyim.futawa",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/futawa/did.json",
+    "source": "kotoba"
+  }
+}

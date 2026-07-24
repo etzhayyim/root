@@ -4,15 +4,13 @@
     "https://w3id.org/security/suites/jws-2020/v1"
   ],
   "id": "did:web:etzhayyim.com:actor:todoke",
-  "alsoKnownAs": [
-    "did:web:todoke.etzhayyim.com"
-  ],
+  "alsoKnownAs": [],
   "verificationMethod": [],
   "service": [
     {
       "id": "did:web:etzhayyim.com:actor:todoke#atproto_pds",
       "type": "AtprotoPersonalDataServer",
-      "serviceEndpoint": "https://pds.etzhayyim.com"
+      "serviceEndpoint": "https://pds.aozora.app"
     },
     {
       "id": "did:web:etzhayyim.com:actor:todoke#xrpc-libp2p",
@@ -35,7 +33,7 @@
     "wasmCid": null,
     "execModel": "service",
     "primaryLexicon": "com.etzhayyim.todoke",
-    "primarySchema": "20-actors/todoke/ (Rust todoke-route core + methods/last_mile.py; no kotoba ontology yet)",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-todoke/ (Rust todoke-route core + methods/last_mile.py; no kotoba ontology yet)",
     "note": "verificationMethod empty — on-chain ERC725 mirror pending; did:web trust root = TLS (no server-minted key, ADR-2605231525)"
   }
 }

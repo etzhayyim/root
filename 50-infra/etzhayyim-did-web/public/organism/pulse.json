@@ -1,0 +1,1227 @@
+{
+  "sinceHours" : 48,
+  "stream" : [ {
+    "at" : 1784253183000,
+    "actor" : "post_quantum_compat",
+    "subj" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+  } ],
+  "generatedAt" : "2026-07-17T02:22:21.270Z",
+  "snapshot" : "pulse.kotoba.edn",
+  "actors" : {
+    "post_quantum_compat" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "yadori" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "tashikame" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "ainori" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "tenso" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "noroshi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "matsurigoto" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "joucho" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "kazaori" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "masago" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "intel" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "kyoninka" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "kakaku" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "iyashi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "tsubasa" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "kamado" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "tsugite" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "m365-ingest" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "toi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "etzhayyim-bpmn-sdk" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "crew" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "atsurae" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "kaiyaku" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "kabuto" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "media-gamers" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "hs" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "tsuchifumi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "hinagata" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "vessel" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "tsutae" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "yamabiko" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "oil-upstream" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "denwaban" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "organisms" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "yomi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "hoshimori" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "karute" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "nyusatsu" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "uzu" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "shirabe" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "etzhayyim-sdk-mock" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "kosatsu" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "recruit" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "tate" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "funamori" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "abuse" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "stripe-compat" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "etzhayyim-pregel" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "makura" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "rare-earth-coverage" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "sukashi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "data-center-ops" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "kawaraban" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "shukubo" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "kokoro" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "oil-distribution" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "bunken" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "inochi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "suki" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "kiyome" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "kuni-umi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "uchiwake" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "os" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "etzhayyim-esign" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "maps" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "umisachi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "oil-refining" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "seigyo" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "omise" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "narashi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "hodoki" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "i18n" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "himawari" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "tsumugi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "nusa" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "magatama" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "hanrei" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "silicon" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "gtin" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "musubi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "handotai" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "kasa" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "moyoshi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "fuchi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "watari" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "etzhayyim-sdk" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "kotodama-go" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "jp-ashiba" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "_conformance" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "talent" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "etzhayyim-organism" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "sonae" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "kouhou" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "tatekata" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "mst-projector" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "marine-insurance" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "kadode" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "shomei" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "suimin" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "chigiri" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "okaimono" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "funadaiku" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "kami-sabiotoshi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "madomori" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "busshi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "hataori" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "itonami" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "wadachi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "hokorobi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "amime" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "hakoniwa" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "mizuho" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "mitsuho" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "organizer" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "subaru" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "chie" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "watatsumi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "meisai" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "isco" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "kafun" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "insatsu" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "shinka" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "manabi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "todoke" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "tsukuru" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "saisei" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "junbi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "kotodama" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "futawa" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "kataribe" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "kudamori" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "igata" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "tanemaki" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "jinushi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "hirameki" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "ugachi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "ipaddress" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "watatsuna" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "kuramori" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "ibuki" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "port" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "hotaru" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "wakai" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "com-google-ads" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "ooyake" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "toritate" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "business-manager" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "unspsc" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "warifu" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "akuma" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "mitate" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "tsukuroi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "shidemori" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "fleet" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "moushibumi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "minori" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "apqc" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "abaki" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "isekai" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "himotoki" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "demining" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "toritsugi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "soma" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "energy_order" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "hc" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "shionome" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "yudane" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "nist" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "oil-midstream" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "haraedo" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "keizu" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "kizuna" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "society6" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "meibo" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "sentei" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "rasen" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "tedai" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "torifune" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "business-person" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "sumitsubo" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "kurashimori" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "ameno" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "tasuke" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "mitooshi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "shiori" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "hydrogen_electrolysis" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "iryo" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "graph-sos-intel" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "etzhayyim-sdk-auth" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "kawase-yui" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "cargo" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "junkan" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)",
+      "dirty" : 2
+    },
+    "kenchi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "tadori" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "datacenter" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "kenkyusha" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "tokigusuri" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "kizashi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "suji" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "etzhayyim-sdk-py" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "infra-utility-connect" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "ossekai" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "kanjo" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "tatara" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "okibi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "kumi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "sarutahiko" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "kaname" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "vin" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "tawami" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "oil-shipping" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "kanayama" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "kanae" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "hikari" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "iriai" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "oil-coverage" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "yobel" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "yakushi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "ake" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "niyaku" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "mio" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "hibiki" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "akashi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "sanae" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "utsushie" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "salesforce-compat" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "karakuri" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "meyasu" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "danjo" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "aburi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "tazuna" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "credits" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "first-breath" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "gov-municipality" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "yotei" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "bunker" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "mimamori" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "kotoba-actors-clj" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "oil-trading" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "hagukumi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "monosashi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    },
+    "asobi" : {
+      "commits" : 1,
+      "lastAt" : 1784253183000,
+      "lastSubject" : "chore(tooling): promote require/-main tasks to nbb -m (ADR-2607173000)"
+    }
+  },
+  "head" : "bafkreig5j4gd6aww2r47ikkk743haeqnebnndltknwebktmj6kb6p2jiz4",
+  "working" : [ "junkan" ],
+  "now" : 1784254941270,
+  "store" : "kotoba-datom-log"
+}

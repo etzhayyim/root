@@ -1,0 +1,1570 @@
+{:generated-by "etzhayyim.ownership-matrix",
+ :actors
+ {"yadori"
+  {:rid "bafkreieay7hndyxph3zp76y2dwa3h43v7egp2yjmf3hw4iyoafklndfrya",
+   :datasets (),
+   :declared? false},
+  "toritsugi-bel-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "tashikame"
+  {:rid "bafkreigddy2murdg3nt4kl3yqmopvongymq5zub47wcwdvvxudngwwlsou",
+   :datasets (),
+   :declared? false},
+  "tenso"
+  {:rid "bafkreiavzdi5jne5b6tagx2vqa5oncqar7ck3u2xoam3w2cza26d57l4va",
+   :datasets (),
+   :declared? false},
+  "noroshi"
+  {:rid "bafkreibaevsdxmfezgxefikzjbbwvrznxdug2de3graoouqgidcgarbddu",
+   :datasets (),
+   :declared? false},
+  "joucho"
+  {:rid "bafkreiczf2ea4yvs53uqyxl6lqt3iibo3g3ujslmkshwo6befrlp6oaoqa",
+   :datasets (),
+   :declared? false},
+  "minidrama"
+  {:rid "bafkreiahidonufojwncmszfctuvbfp6ybpchmk7wkqtdd4mcmplgtwe2ay",
+   :datasets (),
+   :declared? false},
+  "kazaori"
+  {:rid "bafkreian5wdtbioeawmu24iwp4oj5nwi4clwjb2oyhwlfuvtovj6hpmote",
+   :datasets (),
+   :declared? false},
+  "toritsugi-swe-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-fra-driving-licence"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-fin-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "intel"
+  {:rid "bafkreic3oghuhqxzkpke53v4ipa7f5tssztqrgcdmqdbtbfa5xv626iqaq",
+   :datasets (),
+   :declared? false},
+  "toritsugi-ukr-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-bra-business-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "kakaku"
+  {:rid "bafkreib5keoguuln3bstarkcytk4bvrevd35jtpkiysypltrp5w2kpx7xm",
+   :datasets (),
+   :declared? false},
+  "iyashi"
+  {:rid "bafkreietcyrfdv6fkz7wac4vfiue2fks6bdu5kg25h7ilfbswigwqtah7e",
+   :datasets (),
+   :declared? false},
+  "toritsugi-au-federal-tax"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-nzl-business-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-eg-national"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "kamado"
+  {:rid "bafkreicmxmgmzuoxc5p7wj7khfog36m2hylri6ernxfunck25vfm4t42dm",
+   :datasets (),
+   :declared? false},
+  "tsugite"
+  {:rid "bafkreidjrceeb72orbti6t4cnpkcffzjyobxx4piw4uainwpiyfnm37z2e",
+   :datasets (),
+   :declared? false},
+  "toritsugi-idn-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "m365-ingest"
+  {:rid "bafkreiat5w6stfnwq3p3xya256vsugcbqgnxjeahsts3j2ry4wr4oqzdhq",
+   :datasets (),
+   :declared? false},
+  "toritsugi-nor-business-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "gov_municipality"
+  {:rid "bafkreihpz3ej2hxzv3jv7e4lqg26hjyo3jimddmf7povywykfr6ssdqysa",
+   :datasets (),
+   :declared? false},
+  "crew"
+  {:rid "bafkreieakx3nygwwrdx2le4hkmlll6fkzmpimb2de2qw65ktmgyybz755q",
+   :datasets (),
+   :declared? false},
+  "toritsugi-kor-business-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-us-federal-tax"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-ita-business-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "kabuto"
+  {:rid "bafkreiafkofutbvdyhfy6x7eaxkp2c3d63v56jls36pwz24y5z63l52die",
+   :datasets (),
+   :declared? false},
+  "media-gamers"
+  {:rid "bafkreid235673k6g3wosjzxmodycsu2bzmmvlqn4xkguzwiqpnxfkrliya",
+   :datasets (),
+   :declared? false},
+  "hs"
+  {:rid "bafkreiarhyrno3yefnzogvkwejqnwpecfg576jhui4ykuxprmbkfrzazde",
+   :datasets (),
+   :declared? false},
+  "hinagata"
+  {:rid "bafkreibvhu3hu4tdq4t7fxjfgcksotoqnlzygrs752xwykup525kqudr74",
+   :datasets
+   ({:dataset-id "legal-templates",
+     :layer :repo,
+     :source "legal document templates (jurisdictional bodies)",
+     :cidv1
+     "bafkreihlnprpvoigv65sr6kw43tm4tctawjtgc76gbibkdr2rje2suukhy",
+     :freshness-days 0,
+     :retrieved "2026-06-30",
+     :counts-toward-world-coverage false}),
+   :declared? true},
+  "toritsugi-dnk-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "vessel"
+  {:rid "bafkreicffdwfczskau5exbthvflzp3a3e2vkhhsedv2gcup3ecidokytwm",
+   :datasets (),
+   :declared? false},
+  "tsutae"
+  {:rid "bafkreihfmhbabgmfkvtp6qvsceee5jac3ckrcrscujhou6jotljo454eea",
+   :datasets (),
+   :declared? false},
+  "yamabiko"
+  {:rid "bafkreif33qzb4w44qogixzq4zj735eiou33io3ftydiolgctq7x62fzpfa",
+   :datasets (),
+   :declared? false},
+  "oil-upstream"
+  {:rid "bafkreicmqkdtr55t43e6l3nknf3yjos2tavy7uvgaxllkvvyif6xuvmgru",
+   :datasets (),
+   :declared? false},
+  "toritsugi-es-municipal"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "yomi"
+  {:rid "bafkreihaffhqhljmqhw2c5bkjdbjptdm5lleunk24aico6w4wq7mwhiaxi",
+   :datasets (),
+   :declared? false},
+  "toritsugi-ind-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-ita-driving-licence"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "hoshimori"
+  {:rid "bafkreieuntljvhuv2agxq64stpojb36gpfhuofp3lulntduj222usfl47y",
+   :datasets (),
+   :declared? false},
+  "karute"
+  {:rid "bafkreidatqm4zj3hapbik2cdkx237vy5gxdhlbuhkwixiu2qp3slmjkg2a",
+   :datasets (),
+   :declared? false},
+  "toritsugi-uk-national"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-isr-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-esp-business-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "nyusatsu"
+  {:rid "bafkreibigtw2ksvahhabdgtnsiwilp7symlkdddzvyubg5ok6vc5ndxjm4",
+   :datasets (),
+   :declared? false},
+  "toritsugi-deu-civil-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "shirabe"
+  {:rid "bafkreifvis6umb7pkv3dbt23wxl4fgxbpptclpsg3qbziqwerkkis3f3pu",
+   :datasets (),
+   :declared? false},
+  "toritsugi-my-national"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-usa-civil-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-coe-instrument"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-fra-business-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-ae-federal"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets
+   ({:dataset-id "toritsugi-procedures",
+     :layer :repo,
+     :source
+     "government procedure registry (coded, G14-verified, ADR-2605312030)",
+     :cidv1
+     "bafkreihnm3l7bdcmpzdosvlzqgzmnsgnn6sviafv4a3s7gwpocusoaagpu",
+     :freshness-days 0,
+     :retrieved "2026-06-30",
+     :counts-toward-world-coverage false}),
+   :declared? false},
+  "toritsugi-cn-national"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "kosatsu"
+  {:rid "bafkreigqntil6rktvrogzqwmoodcaypv34v46o2g266cequqkqppujqvca",
+   :datasets (),
+   :declared? false},
+  "toritsugi-fr-national-tax"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "recruit"
+  {:rid "bafkreihxjbm7gwm46cdtuzecs55oybm4bdocbwjuczwp4dpnvcjy33oipe",
+   :datasets (),
+   :declared? false},
+  "abuse"
+  {:rid "bafkreieyiqhgpdquv5q5pt5dxs62h656u4aacdnf2lcxomgsd6zpbmhiba",
+   :datasets (),
+   :declared? false},
+  "makura"
+  {:rid "bafkreigjhpukgts5owsyexqxho4jnhuicldt2ieyxaxck4qntcy6z33fyi",
+   :datasets (),
+   :declared? false},
+  "toritsugi-jpn-business-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-esp-driving-licence"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-nor-driving-licence"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "rare-earth-coverage"
+  {:rid "bafkreicr66dstcwedrgxbsn7v73ntfchcxh64sknj6w4jnfc7jfabo2xxu",
+   :datasets (),
+   :declared? false},
+  "sukashi"
+  {:rid "bafkreih4xl6kt6p6yt2oirv4whknibyic6xcjjduoh634itaydrfz6c23u",
+   :datasets (),
+   :declared? false},
+  "toritsugi-tha-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "data-center-ops"
+  {:rid "bafkreicacw3phcmsnh5g2tiult47u52s3f3rukl6uu3qbmi2bdkedebyii",
+   :datasets (),
+   :declared? false},
+  "toritsugi-rus-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-bgd-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "kawaraban"
+  {:rid "bafkreihitwdikche7h4xvsqqvjemwo6f4mfrzkafbxuqnhyhdnf76wqbxa",
+   :datasets (),
+   :declared? false},
+  "kokoro"
+  {:rid "bafkreifefwwfucwu63hr2s6byh7k3dwm4g2u7xvibpdfftxiwgsvkjgiwq",
+   :datasets (),
+   :declared? false},
+  "oil-distribution"
+  {:rid "bafkreierv3uivdlz2hemryj7hukzqks6e4xgivqsuj5mk5eqyipycsxyi4",
+   :datasets (),
+   :declared? false},
+  "toritsugi-vn-national"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "bunken"
+  {:rid "bafkreia4cfp5jl6wnsk2axyalxlalnivhrfeavcfhw5dcyhpbzxwcmhgbe",
+   :datasets (),
+   :declared? false},
+  "toritsugi-swe-civil-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-mex-business-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-grc-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "inochi"
+  {:rid "bafkreiagjm5ie75f4srkwta7ushe5vmavusxj6gmgoiuh5u3dlvzkr5zeu",
+   :datasets (),
+   :declared? false},
+  "suki"
+  {:rid "bafkreigercf65b36t2e2t27k2xv6taniexdsnamw2fd5skiwjcffchuejy",
+   :datasets (),
+   :declared? false},
+  "toritsugi-ind-driving-licence"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "kuni-umi"
+  {:rid "bafkreibybrhjzzb6w5awkymavkd3mscsfr6wzpenuoc7otrnufo7b5q7e4",
+   :datasets (),
+   :declared? false},
+  "uchiwake"
+  {:rid "bafkreib3mgzsspeh6xogzky5boiayztbf6bjcq5xejgoaggbcrjaw2ofui",
+   :datasets
+   ({:dataset-id "uchiwake-coverage",
+     :layer :repo,
+     :source
+     "GS1 GTIN / Open Food Facts (Tier-A public trade-item data, ADR-2606081800)",
+     :cidv1
+     "bafkreib7yagcmrxzley2eyho5b2miuncm2n6rjj3tmyvlnxvkpls5ptcfq",
+     :freshness-days 0,
+     :retrieved "2026-06-16",
+     :counts-toward-world-coverage false}),
+   :declared? true},
+  "os"
+  {:rid "bafkreihmrqovq2bprdkfsxpxpdequmbhthj5rf7nogvh7sddxm3z7huyo4",
+   :datasets (),
+   :declared? false},
+  "toritsugi-ind-civil-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "maps"
+  {:rid "bafkreihpcokxatcmj2k3jxxidu6m23ljowescex3gz7nwzaj5lqqn4cee4",
+   :datasets (),
+   :declared? false},
+  "tomoshibi"
+  {:rid "bafkreice23tmjwuymn4ronuilzrdedupdf2qlcek2xk37t2myd2krvuasi",
+   :datasets (),
+   :declared? false},
+  "umisachi"
+  {:rid "bafkreiacawvc2bu7vq2nruf7p22bupcjwu6naz3zfgw2wanhec4hxnijli",
+   :datasets (),
+   :declared? false},
+  "oil-refining"
+  {:rid "bafkreifp2cp3lmpqk2rcdiw32uft7eyyeyvybbf2xy6hbipw72rlbqbfje",
+   :datasets (),
+   :declared? false},
+  "toritsugi-ke-national"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "seigyo"
+  {:rid "bafkreiedghjus4uuhvisshtwlkfanby4gvkldiiu6tdvt7726di7qizgym",
+   :datasets (),
+   :declared? false},
+  "omise"
+  {:rid "bafkreibv5gnz47djuxykrfn5trbp3nu5egdeg7rxb2caduvtjsycipmt6u",
+   :datasets (),
+   :declared? false},
+  "narashi"
+  {:rid "bafkreiesq7hilvsa2nlth7snkzrnwqkrrjgv6dx4dmnr77prxfmlacojs4",
+   :datasets (),
+   :declared? false},
+  "toritsugi-nl-municipal"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "hodoki"
+  {:rid "bafkreib6vl3ykmasfcnk3ekunnbesrllu5co4ui44j5rrk5j7om7oel6zy",
+   :datasets (),
+   :declared? false},
+  "i18n"
+  {:rid "bafkreidk7fkkgq6bxnoen32udmpmxcmk6dd4qpfa4vj24n5setqs6bkeeu",
+   :datasets (),
+   :declared? false},
+  "himawari"
+  {:rid "bafkreicgs5i4koeubxfbfteimm3ixelo5dajbo4aiyjqnzxxlzkojdgh2i",
+   :datasets (),
+   :declared? false},
+  "toritsugi-esp-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-can-business-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-jpn-driving-licence"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-chn-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "tsumugi"
+  {:rid "bafkreidqelzw4i27b276tv4wjvuxddoli74abjsprdu63njefzeksevhpu",
+   :datasets
+   ({:dataset-id "tsumugi-power",
+     :layer :repo,
+     :source
+     "global corporate power-dynamics KG (refined, ADR-2605262130)",
+     :cidv1
+     "bafkreier4zyuw6dfma3t2kmawbzfupfdusdzabt44raki2m5dv7cuvfb4m",
+     :freshness-days 0,
+     :retrieved "2026-06-30",
+     :counts-toward-world-coverage false}),
+   :declared? true},
+  "toritsugi-se-national"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-id-regional"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-sa-national"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "nusa"
+  {:rid "bafkreiatx3ziqrdvifresd4d5acdb7mf5kuc6bhdzrynygq6wdjnmiqt4m",
+   :datasets (),
+   :declared? false},
+  "toritsugi-kr-national-tax"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-jp-national-tax"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "hanrei"
+  {:rid "bafkreicr7zkwbxkxy2uebah5clzlxkbmtoxv36blk4vgar2fchokigsoiu",
+   :datasets (),
+   :declared? false},
+  "toritsugi-nld-driving-licence"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-irl-business-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-aut-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-nld-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-za-national"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-egy-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-kor-civil-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-nga-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "yabai"
+  {:rid "bafkreicteufrgkwwislnpa6aj6qvzxvblde2i5e7salg52ibuiludkpf5i",
+   :datasets (),
+   :declared? false},
+  "toritsugi-br-federal-tax"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "gtin"
+  {:rid "bafkreifyhmyvnzrlayqywqmu437ovg7rfdnm47ebhgmpryyz3aq3qxpmm4",
+   :datasets (),
+   :declared? false},
+  "musubi"
+  {:rid "bafkreif5hjnr7afkeeozheqfpcwrmu6ovz2zykxybujboophvbaiuurqhq",
+   :datasets (),
+   :declared? false},
+  "toritsugi-jpn-civil-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-ar-national"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-ca-federal"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-deu-driving-licence"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-phl-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "handotai"
+  {:rid "bafkreifrn6t33caelsjfn7sb4yjkec4onell3ricdducjqd2ndmsuld62u",
+   :datasets (),
+   :declared? false},
+  "manimani"
+  {:rid "bafyreimanimaniidentityplaceholder000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "kasa"
+  {:rid "bafkreihxriijl74pucvuymaxbcy4bjavr7h2nen367p2puptb4nctmqqai",
+   :datasets (),
+   :declared? false},
+  "fuchi"
+  {:rid "bafkreicwhc77qqf4brnvrr5kzaonxapapbpbnmsse7dg3tuyiei27m3xdy",
+   :datasets (),
+   :declared? false},
+  "watari"
+  {:rid "bafkreigffqiy4i3cs2hwrzojayn7jlhzdiip5l4nc5esj7puwgh27bsa6i",
+   :datasets (),
+   :declared? false},
+  "jp-ashiba"
+  {:rid "bafkreictmic2jexkj44jqbucpxg6qebwvvf6vk7fy2vena46cssxg7ud5a",
+   :datasets (),
+   :declared? false},
+  "talent"
+  {:rid "bafkreihtkktpqgv43px3grhgcbhpaag633bp4kbxvg7jmqyioy6ps2ruxu",
+   :datasets (),
+   :declared? false},
+  "toritsugi-in-national"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-ita-civil-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-pol-business-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-fra-civil-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-prt-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "sonae"
+  {:rid "bafkreicdw2u5cylgrwo6ra67hcg6sdmjqlb3py7s4fweq3icbohf7fy76e",
+   :datasets (),
+   :declared? false},
+  "kouhou"
+  {:rid "bafkreiam5fx4bctavqq7r23eqhqunh55yt4udf5mw2nayzt3fgluhzzlyi",
+   :datasets (),
+   :declared? false},
+  "toritsugi-nzl-driving-licence"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "tatekata"
+  {:rid "bafkreieyabgcgwpd3b43qz74hgqdrye5xxwrbvyk3vy4i3itypbqpcse2a",
+   :datasets (),
+   :declared? false},
+  "toritsugi-mx-national"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-bra-civil-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-ph-national"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-jp-national"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "marine-insurance"
+  {:rid "bafkreihqpvqbti73hxhsxgkhoj46vits7uqhljwv7vxzphyrpnpuennrsq",
+   :datasets (),
+   :declared? false},
+  "kadode"
+  {:rid "bafkreiav672ova3qomej4my5jm7pdzkuvaqs3fvnsxmihuq7yl2bmzpzhu",
+   :datasets (),
+   :declared? false},
+  "shomei"
+  {:rid "bafkreigxfnyqmhcuovsloivxlzi6xzjfwygmbq7fevxtqnhpk5ewlbbirq",
+   :datasets (),
+   :declared? false},
+  "suimin"
+  {:rid "bafkreib652yhgyxsisftd63msrfhidilbz53s6szsdcthtcflsqoaye2hi",
+   :datasets (),
+   :declared? false},
+  "chigiri"
+  {:rid "bafkreiefwjpl4y35ayvwdk75xeng6d55offezopxzgdw4rwj6nzlw7pmkq",
+   :datasets (),
+   :declared? false},
+  "toritsugi-nld-civil-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-ch-cantonal"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "funadaiku"
+  {:rid "bafkreih2d5hnctsf4vzoy3zenpdwijghg3p35dvhuv3e3prc5ojgvqod3a",
+   :datasets (),
+   :declared? false},
+  "kami-sabiotoshi"
+  {:rid "bafkreifchv4hcuuy7fi4s34rb2e7fnaq2c72vzk47izmuhg6uturtmyk7u",
+   :datasets (),
+   :declared? false},
+  "toritsugi-tur-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-pe-national"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-are-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "itonami"
+  {:rid "bafkreidzjjjlebrwt7ohyixhafvfzjjzvrbqhzm6tbfgygb7lim3rx2gvu",
+   :datasets (),
+   :declared? false},
+  "wadachi"
+  {:rid "bafkreifansvjvnhzonxqs4eaj6ummdd7xxffonwa73azxyelthiocvv7ai",
+   :datasets (),
+   :declared? false},
+  "hokorobi"
+  {:rid "bafkreigxd4kjzh7t6ldhmvxjecwzvebalm43ui3ubvbgfys722kobx2hj4",
+   :datasets (),
+   :declared? false},
+  "hakoniwa"
+  {:rid "bafkreidwailh5vrkkudngkk2ikurwp7ht4fgy6klunm2bzpoy4yz5i6554",
+   :datasets (),
+   :declared? false},
+  "toritsugi-irl-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "mizuho"
+  {:rid "bafkreic7bcbgv6cet7imeav3h3pglh53lrwvl5o2a7yuwes4fzsjdgwlai",
+   :datasets (),
+   :declared? false},
+  "mitsuho"
+  {:rid "bafkreickaj7z6eraj56tygfms2n5vukcrnws656ksxap6ffa4e4r3vkknm",
+   :datasets (),
+   :declared? false},
+  "organizer"
+  {:rid "bafkreico2ig4gksu3tbfeqsulij3xisskrrcreuqweyhp23yo7kmx2vgbq",
+   :datasets (),
+   :declared? false},
+  "toritsugi-it-municipal"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "subaru"
+  {:rid "bafkreickojqhzgi3pbrbcxl3wezuikdm3h36iutniqcb74qd37dftza2v4",
+   :datasets (),
+   :declared? false},
+  "chie"
+  {:rid "bafkreie7zl6hjiwyktw3fuhp3m76rdo5ryjhgdmmnecvho3vrw6b53zqhi",
+   :datasets (),
+   :declared? false},
+  "toritsugi-tw-national"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "watatsumi"
+  {:rid "bafkreifollb2cxta43jugsiwvpjtaqh33crvzq6lvas56g3d4ukxfwknsa",
+   :datasets (),
+   :declared? false},
+  "meisai"
+  {:rid "bafkreidr4phougtv7hqozo6xsnze4mrbcxppt2cx76vm47ahbsdunf45bu",
+   :datasets (),
+   :declared? false},
+  "toritsugi-de-municipal"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "isco"
+  {:rid "bafkreigdpgkgjablfsdhnepevmne2awwrlbrhwk3e432cope35ejakbk4y",
+   :datasets (),
+   :declared? false},
+  "toritsugi-sau-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-zaf-driving-licence"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "insatsu"
+  {:rid "bafkreifbsqvcx7ugvexkwcj5nk6zwgsajfqu3pk3laxnslmytj65a4uwdi",
+   :datasets (),
+   :declared? false},
+  "shinka"
+  {:rid "bafkreicm5u2vzk2kav5xxtlogcy26qicc4jlnl4xemhr52bv6i2eyoy5pa",
+   :datasets (),
+   :declared? false},
+  "manabi"
+  {:rid "bafkreigbskb7mxdvdur2nxxjsqw7ouf3svwi6ow2j4vmxcrgwxhb2bmdrm",
+   :datasets (),
+   :declared? false},
+  "toritsugi-esp-civil-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "todoke"
+  {:rid "bafkreiazioepx4edt4hwca6q6vvaabp5ighjkrvsxfr5gnsghnkpltowqe",
+   :datasets (),
+   :declared? false},
+  "toritsugi-irl-driving-licence"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "tsukuru"
+  {:rid "bafkreicdcprrkzksimxpmvzrvzwtiiokd2h52r46abfgxxdvnfh4htv6im",
+   :datasets (),
+   :declared? false},
+  "toritsugi-us-state"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-mx-electoral"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "junbi"
+  {:rid "bafkreigxdoen2f3iibo6mvjtbv3draqqpqhuhid57zebt3vlkjdcx4436q",
+   :datasets (),
+   :declared? false},
+  "futawa"
+  {:rid "bafkreib4n7o3imfdv5vsblis55rm75mkedoircznoyaddvavrzsgjslj4q",
+   :datasets (),
+   :declared? false},
+  "kataribe"
+  {:rid "bafkreihecedazrbs2zsnbjel6ek5tvacyupr5vu7lbgaiwsokkc2tlva4a",
+   :datasets (),
+   :declared? false},
+  "toritsugi-pak-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-swe-driving-licence"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "igata"
+  {:rid "bafkreiag7ruwosiu6qqjl7bqjensjwgnj2ju7u2v7fdtjusfytnu3pygia",
+   :datasets (),
+   :declared? false},
+  "tanemaki"
+  {:rid "bafkreiepq4l42kdbvgvei4of5nz552ueqfupbmxaeqpk64r6sxyzodjxni",
+   :datasets (),
+   :declared? false},
+  "toritsugi-us-federal"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "jinushi"
+  {:rid "bafkreietkwx4cwopwmelyrsiuakiswrq5c3ngl7erhauwiozo72mdkso3a",
+   :datasets
+   ({:dataset-id "gleif-companies-expanded",
+     :layer :repo,
+     :source
+     "GLEIF api.gleif.org expanded batch (500 GENERAL ACTIVE, merged with existing 221)",
+     :cidv1
+     "bafkreidum45q3pxt5otskc3wlsv2zdowuftwbhwn2762gw6rox3q5fnlwu",
+     :freshness-days 0,
+     :retrieved "2026-07-01",
+     :counts-toward-world-coverage false}
+    {:dataset-id "jinushi-land-wdqs-r2",
+     :layer :repo,
+     :source
+     "world land/building ownership (Wikidata/PLUTO/DVF/GLEIF/OSM, ADR-2606162000)",
+     :cidv1
+     "bafybeihrzixhxseapey37hjlmkhvzgdfg5b3iiw5miqto2dje6kpl5dvai",
+     :freshness-days 0,
+     :retrieved "2026-06-16",
+     :counts-toward-world-coverage true}),
+   :declared? true},
+  "toritsugi-pol-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "hirameki"
+  {:rid "bafkreibroornsrwhmk34m6rfr3dji53pulqf6tmrdt642pyiopopc7ytpm",
+   :datasets
+   ({:dataset-id "hirameki-patents",
+     :layer :repo,
+     :source "patent corpus (public patent data)",
+     :cidv1
+     "bafkreieakuefgpxli7n4einc5zdnd5yxnrptwxlmazrpa7tplotufcjk7u",
+     :freshness-days 0,
+     :retrieved "2026-06-30",
+     :counts-toward-world-coverage false}),
+   :declared? true},
+  "ipaddress"
+  {:rid "bafkreiaotwbeylqsakdiuogo6pn63b5jlgtdelzss3o76mrf3tgroiqgky",
+   :datasets (),
+   :declared? false},
+  "toritsugi-nzl-civil-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "watatsuna"
+  {:rid "bafkreibn67eqgvwznam4e4l6sznryrdkjltdbapuppfsfmdrxzqhhaeuuu",
+   :datasets (),
+   :declared? false},
+  "toritsugi-ita-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "ibuki"
+  {:rid "bafkreich55hqpaniwz3nx4emml6bclmzyt5kronopv2du5jqcyhfvdotmm",
+   :datasets (),
+   :declared? false},
+  "port"
+  {:rid "bafkreiczdjklmeryobyjzrbtbxhafrrtyvevm4jp2dk5b6nmtdglquqgr4",
+   :datasets (),
+   :declared? false},
+  "hotaru"
+  {:rid "bafkreihc2m43jcgf2zfmgjnurok56xtc5jida4r3mijw3bpax3se4s5gpe",
+   :datasets (),
+   :declared? false},
+  "wakai"
+  {:rid "bafkreicsoydmfipltyjgyluand56wspcpnsyybl22qshxuuyoxm7fzj6ku",
+   :datasets (),
+   :declared? false},
+  "toritsugi-il-national"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-kr-national"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-ken-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-aus-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-hkg-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-sgp-business-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "ooyake"
+  {:rid "bafkreibnztcrpye3gick5go3pljhrswglgnwggeixmnqptjopxsnntkt24",
+   :datasets (),
+   :declared? false},
+  "toritate"
+  {:rid "bafkreiavnxlyuywrbrfak45w5a5w3endy4nfqmzwahgburzunqsfh6426m",
+   :datasets (),
+   :declared? false},
+  "cloud-itonami"
+  {:rid "bafyreiclouditonamiidentityplaceholder00000000000000000000",
+   :datasets (),
+   :declared? false},
+  "business-manager"
+  {:rid "bafkreic3kl6grprv4e2egk4pjqst4jozkb4ndyd3lbg3gtb3oepmsbh3wi",
+   :datasets (),
+   :declared? false},
+  "akuma"
+  {:rid "bafkreihlnpzkoz5sxib6k5fke5ihmvlwyynbef3xte6qtwlxxiedjqmfju",
+   :datasets (),
+   :declared? false},
+  "mitate"
+  {:rid "bafkreic23flpcovig4pwhrmbchpjvblmq4esi5cxwq4ci7hmtwbldjsciq",
+   :datasets (),
+   :declared? false},
+  "tsukuroi"
+  {:rid "bafkreiaq4x6rle2cxtvog5oktk5h2bd5yqfg4ljnovib436zj6jucquhru",
+   :datasets (),
+   :declared? false},
+  "toritsugi-aus-driving-licence"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-hk-national"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "shidemori"
+  {:rid "bafkreiazugbqmdolcu7hziqdeq32wgjphn2fmowp73nsi6rz5rwwjkeufe",
+   :datasets (),
+   :declared? false},
+  "fleet"
+  {:rid "bafkreic3dw3bla4hcxonv2qhwpugjt25464geksywcjg2vx7zuczkeh2cm",
+   :datasets (),
+   :declared? false},
+  "toritsugi-gbr-civil-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "moushibumi"
+  {:rid "bafkreiexx4unmlqvz6aixg76kbrsqmefbttyfrwkkgzemfhkpqkofnvomu",
+   :datasets (),
+   :declared? false},
+  "toritsugi-co-national"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-che-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "apqc"
+  {:rid "bafkreiaq4snsdmafdwwiuj7ykum5lfbbjdt4dwx6b4kl5y7hiphkcknsem",
+   :datasets (),
+   :declared? false},
+  "toritsugi-eu-instrument"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "isekai"
+  {:rid "bafkreifkj3wo7uwtwmt33brmlukzyrn7lhnme7eo2ssxgzmaskq7dctqjq",
+   :datasets (),
+   :declared? false},
+  "toritsugi-kor-driving-licence"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "himotoki"
+  {:rid "bafkreigx4eo7mmskpzl7xrexrt2y2dqrewvsxxwedr64mebllv2tpjv2em",
+   :datasets (),
+   :declared? false},
+  "demining"
+  {:rid "bafkreiafulxjd72lwylo64xbkazydwmyuhecu2uciog3x7vilogqq2k3km",
+   :datasets (),
+   :declared? false},
+  "toritsugi"
+  {:rid "bafkreifphnbjup6o3i3qbekx4f6jx5nsdhrc2bykabjkjnt6cuhbzejboi",
+   :datasets
+   ({:dataset-id "toritsugi-procedures",
+     :layer :repo,
+     :source
+     "government procedure registry (coded, G14-verified, ADR-2605312030)",
+     :cidv1
+     "bafkreihnm3l7bdcmpzdosvlzqgzmnsgnn6sviafv4a3s7gwpocusoaagpu",
+     :freshness-days 0,
+     :retrieved "2026-06-30",
+     :counts-toward-world-coverage false}),
+   :declared? true},
+  "toritsugi-swe-business-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-nz-national"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "hc"
+  {:rid "bafkreihvtbhjjgl24ttnpiyvmls2npuybdtpppsfzjaqmtfgbtyxyfk3su",
+   :datasets (),
+   :declared? false},
+  "shionome"
+  {:rid "bafkreihi5bnrh3ctidyjle2lzwjxzannto3dk4tw4dfopmbyilzkmwchxq",
+   :datasets (),
+   :declared? false},
+  "nist"
+  {:rid "bafkreibhl7rhahkbam7f7n4ehxjn4ofsbyddenlmqjnq2ch73p7a7trexy",
+   :datasets (),
+   :declared? false},
+  "oil-midstream"
+  {:rid "bafkreihdvsvct5megy2fr5tarnfo5mslnnyawis2wbxmxyauix2kdnkmre",
+   :datasets (),
+   :declared? false},
+  "kuni_umi"
+  {:rid "bafkreigu72x27t2u6qmbioc25y2ew6sbywxumtf4oxb46xgn2c23ndu4tu",
+   :datasets (),
+   :declared? false},
+  "toritsugi-twn-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "keizu"
+  {:rid "bafkreid5l3idvfdpneoyuvwqhkyo4rknavtz5k7n3xhbcsjbpl6si6s3ta",
+   :datasets (),
+   :declared? false},
+  "kizuna"
+  {:rid "bafkreigfw7b62czdwzhtbmk5joyhwznens44lcqz3ee255445bumjvvfzi",
+   :datasets (),
+   :declared? false},
+  "toritsugi-gbr-driving-licence"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "society6"
+  {:rid "bafkreidularlfdo435gho3e4x4ls7y7dmkylcctxcinkn2qgw5ce7rt4s4",
+   :datasets (),
+   :declared? false},
+  "sentei"
+  {:rid "bafkreib3dnmwsr6g4hotp2yx435m3y3pwyadwleam3gx5smfjonpihg72u",
+   :datasets (),
+   :declared? false},
+  "rasen"
+  {:rid "bafkreic3wlibpsbmtjoppsvfj4r53h734pugegd2762i4fgtfq56d7wkny",
+   :datasets
+   ({:dataset-id "genome",
+     :layer :repo,
+     :source "genome graph (mygene/myvariant/reactome)",
+     :cidv1
+     "bafkreiamcn6vz4iuqtri6cbjtrse2koz7dfxxyde5rknfypx3ukj5elfvm",
+     :freshness-days 0,
+     :retrieved "2026-06-30",
+     :counts-toward-world-coverage false}),
+   :declared? true},
+  "toritsugi-pl-municipal"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "torifune"
+  {:rid "bafkreifoa44tzzjhckrjrtvrcdcpbufkze2xm7xym4ckqnxkjg25nyvrdy",
+   :datasets (),
+   :declared? false},
+  "business-person"
+  {:rid "bafkreibstj7kdakadmi2pg6ombyirr4vjctw5pegjkjrihh7vy4q2m4ste",
+   :datasets (),
+   :declared? false},
+  "toritsugi-cl-national"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-nor-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "kurashimori"
+  {:rid "bafkreiauaaje5vsraofb6huus7h4shbh3fcelbrwfn67rkdgptip477ddi",
+   :datasets (),
+   :declared? false},
+  "toritsugi-zaf-civil-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-vnm-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "tasuke"
+  {:rid "bafkreigiihmkop4xucvbao4ztb4a2qjh5qihxb3sfr4or4gzdimvni5hs4",
+   :datasets (),
+   :declared? false},
+  "mitooshi"
+  {:rid "bafkreibqhmzykrhucrmbhqkfob4shbr52n4k7u4bu2aqnm2zlvjqbwuifa",
+   :datasets (),
+   :declared? false},
+  "shiori"
+  {:rid "bafkreidxfgvh54dllo2dncwjtmhcsfj7n2wn7ab7hjsg5fs6hizlo7cxt4",
+   :datasets (),
+   :declared? false},
+  "graph-sos-intel"
+  {:rid "bafkreigjnfweuwy2d2bjmzzmhc6q4edhjdi2re7plyhmpbm35r3rwxhfym",
+   :datasets (),
+   :declared? false},
+  "toritsugi-irl-civil-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-gbr-business-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "kawase-yui"
+  {:rid "bafkreibn5kn7p6vxy5tvpbnm73j25h2y7mt6eppsfo4q6kf36sho4kztfm",
+   :datasets (),
+   :declared? false},
+  "toritsugi-phl-civil-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "junkan"
+  {:rid "bafkreic2rwhxp6i3dii243o34kogjv7brkbf5nurrvghdsx67fxia5bq44",
+   :datasets
+   ({:dataset-id "junkan-governance",
+     :layer :repo,
+     :source
+     "citizen↔state structural-asymmetry instruments (laws/institutions/doctrines, ADR-2605290927)",
+     :cidv1
+     "bafkreialu7a7rpzlrihghv6cm4mxqnx3zdp5iaitmra4kuhsibtfg4zlhu",
+     :freshness-days 0,
+     :retrieved "2026-06-22",
+     :counts-toward-world-coverage false}),
+   :declared? true},
+  "toritsugi-ng-national"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-jp-jichitai"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-ind-business-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "tadori"
+  {:rid "bafkreib6oselxxz4i5r5ll4buvt67m4mupzlng6etmpgznpvogkpk2l74a",
+   :datasets (),
+   :declared? false},
+  "datacenter"
+  {:rid "bafkreiddzr4th7oqp6fudz2dfm3vedis3frjq7g5phcgo534vkoxhcynkq",
+   :datasets (),
+   :declared? false},
+  "toritsugi-zaf-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "kenkyusha"
+  {:rid "bafkreig567x76j34t4llekz26l737b4xcvrm6mhth6tdy2oqvkdma63rim",
+   :datasets (),
+   :declared? false},
+  "tokigusuri"
+  {:rid "bafkreif4xovzdn5pia4f6e3qb4dhanhpwklfbgsolboeuxoxrznsvpdkjy",
+   :datasets (),
+   :declared? false},
+  "kizashi"
+  {:rid "bafkreiffxgvr3ubxpvjniykckbwilayohffrbs37ak4cthvhjvtqrvqn7u",
+   :datasets (),
+   :declared? false},
+  "toritsugi-deu-business-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "suji"
+  {:rid "bafkreic4hcfyrly5x5bwngp74nsbdvml4rk4cjfbx4fv2nbbghe7s5xeai",
+   :datasets (),
+   :declared? false},
+  "toritsugi-mys-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-aus-business-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-fr-national"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "infra-utility-connect"
+  {:rid "bafkreiauroeccyhyvq4ss7jtq3ootstygb5rvyg7iqnkrqt2vtsh3mfwoi",
+   :datasets (),
+   :declared? false},
+  "ossekai"
+  {:rid "bafkreiaj5nf665g2wl5hqpo4rntwthyysszpvsipjg2qnvmcd76cn4djku",
+   :datasets (),
+   :declared? false},
+  "toritsugi-can-civil-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "kanjo"
+  {:rid "bafkreihu4shisfudbmaikhrvib6p2rj5g43a2sacj3hj32hwt6qifihdgq",
+   :datasets
+   ({:dataset-id "kanjo-coverage",
+     :layer :repo,
+     :source
+     "SEC EDGAR / EDINET (Tier-A primary disclosure, ADR-2605263800)",
+     :cidv1
+     "bafybeiae7xbotq4m2m55mycpsh3qrn4g67xz52dporyf4sfxoj6hcj7quq",
+     :freshness-days 0,
+     :retrieved "2026-06-16",
+     :counts-toward-world-coverage false}),
+   :declared? true},
+  "tatara"
+  {:rid "bafkreiehbxgawrx2ntjivlxgfz7l7qthjh4hybwadw3arwyzexbu7ftbqm",
+   :datasets (),
+   :declared? false},
+  "toritsugi-mex-civil-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "kumi"
+  {:rid "bafkreicdcsz3das3hp2vu2aueyloszc73chv7ataeuvmmdj2uvypo2rdbi",
+   :datasets (),
+   :declared? false},
+  "business_manager"
+  {:rid "bafkreib2ywi2frykthbr47vh5bfgsctokpddorkqsu2jjvhjjuwgegrndq",
+   :datasets (),
+   :declared? false},
+  "toritsugi-sgp-driving-licence"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-nld-business-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "sarutahiko"
+  {:rid "bafkreigaormd6ikymrmkr5vzeq3l6ldon2wdndq7lokn2f7jobiwtnln3u",
+   :datasets (),
+   :declared? false},
+  "toritsugi-br-electoral"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-dk-municipal"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-zaf-business-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "vin"
+  {:rid "bafkreidurfnxgl7acb5qagmryhwfd75eqwomfqynv5ws3hj6hsvgpqnixm",
+   :datasets (),
+   :declared? false},
+  "toritsugi-can-passport"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "infra_utility_connect"
+  {:rid "bafkreic6dblgcjpvq2pltkhocdcqrzi7vkvvkeda7ls5brl57c6wn33fxm",
+   :datasets (),
+   :declared? false},
+  "oil-shipping"
+  {:rid "bafkreialpqvby6y7butydmas4dejlunlqhcarayefzlobnfplfc66wdksi",
+   :datasets (),
+   :declared? false},
+  "kanayama"
+  {:rid "bafkreidn4r7ecfh4r6jnohj3uz4vrjvgj5dlitrj6gazvb2f4swhay7yqm",
+   :datasets (),
+   :declared? false},
+  "toritsugi-pol-driving-licence"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "toritsugi-aus-civil-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "kanae"
+  {:rid "bafkreibn4naukxmhnjm76vazudbbhoq46jkr6zsxqqtbbu3iof3cnus7xa",
+   :datasets (),
+   :declared? false},
+  "hikari"
+  {:rid "bafkreifb35kp2ponbkabw3x47qa3bvbisnzcpery3we4uao2vda4lj3a3q",
+   :datasets (),
+   :declared? false},
+  "toritsugi-bra-driving-licence"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "oil-coverage"
+  {:rid "bafkreigrryop5ludu7n4a5xwqfgtfwvvrnqz7mxbnkkgp772e2lmyx76my",
+   :datasets (),
+   :declared? false},
+  "yakushi"
+  {:rid "bafkreif5ocq5xa7rtuiarrz6x7hhafjfbiico633s3llpf3lixwecjrlgq",
+   :datasets (),
+   :declared? false},
+  "ake"
+  {:rid "bafkreic7fw44rxzt2tndc3gazxftltrrw5wjkcgwhzle5jmcublx2aq354",
+   :datasets (),
+   :declared? false},
+  "toritsugi-sgp-civil-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "akashi"
+  {:rid "bafkreicllp7ffxeiw7ml5eyuqidrck7qegoarznxjggkznegbtj4a6mefi",
+   :datasets
+   ({:dataset-id "akashi-platform-ad-library-fixture",
+     :layer :repo,
+     :source
+     "Reviewed local public ad-library fixtures for Meta/Instagram/X disclosure parsing (fixture-only; no live platform collection)",
+     :cidv1
+     "bafkreihcflz5xuinkb7ixurqccmlwl3gknc74uwthamg6vbwzhbsnmtqb4",
+     :freshness-days 0,
+     :retrieved "2026-07-10",
+     :counts-toward-world-coverage false}),
+   :declared? true},
+  "toritsugi-sg-national"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "sanae"
+  {:rid "bafkreih3xi3j4bepsnazxst2tizhgbbsaj7alo3qhucc47hxse2yxomfim",
+   :datasets (),
+   :declared? false},
+  "utsushie"
+  {:rid "bafkreie4zsa7je27so2ds47tvtdw2w25fakc7cyph5a7y6poxrgoeiwgfa",
+   :datasets (),
+   :declared? false},
+  "toritsugi-can-driving-licence"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "danjo"
+  {:rid "bafkreibe67enep3avxbu2exrwntpnl6n3l6wbdvms6mjusf3q47ixjuooa",
+   :datasets (),
+   :declared? false},
+  "aburi"
+  {:rid "bafkreib3rqvruvnjnope3qdcn34kbvotibwm3wb7uwavuvkwvbl4iwm4gy",
+   :datasets (),
+   :declared? false},
+  "tazuna"
+  {:rid "bafkreifkbcfnf3lgabjb3ccuepzyypxi42qdcyrf2dklplpkibb5hyinzm",
+   :datasets (),
+   :declared? false},
+  "credits"
+  {:rid "bafkreibjkyq2rkke6j5fn5mss46ebeguelvooypg4zztqgakcojyq3xlam",
+   :datasets (),
+   :declared? false},
+  "toritsugi-ie-national"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "gov-municipality"
+  {:rid "bafkreibxzdi7latyrsimpekuatcbpcnx4enn5gapufwnngqgok5rmicqva",
+   :datasets (),
+   :declared? false},
+  "yotei"
+  {:rid "bafkreihdbbzpmvpr2yql7z3rq4tfa7gd6jzvt6npadj7p5aakwkk44hv2m",
+   :datasets (),
+   :declared? false},
+  "toritsugi-usa-business-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "bunker"
+  {:rid "bafkreigrfbla5mwp3gjcmyqbgav3tklo7ntzv74zq27oucinhiznjvue34",
+   :datasets (),
+   :declared? false},
+  "mimamori"
+  {:rid "bafkreic4him7i4jgqcu3n5lxnz4xsa2lc6hqeqkkgqwsr5au43xkdq2dva",
+   :datasets (),
+   :declared? false},
+  "toritsugi-che-business-registry"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "oil-trading"
+  {:rid "bafkreiass7n24zschzgprqrp2rq4jig62ezetlkxhejtsn4v6rxo4fxzou",
+   :datasets (),
+   :declared? false},
+  "hagukumi"
+  {:rid "bafkreiaqqeo76lgptiqvgfehbnuonv2uffgud7fkkhylcdc4ei7hk4qnai",
+   :datasets (),
+   :declared? false},
+  "toritsugi-th-national"
+  {:rid
+   "bafyreiplaceholder0000000000000000000000000000000000000000000000",
+   :datasets (),
+   :declared? false},
+  "asobi"
+  {:rid "bafkreiegk2ixjpa5axx7masmdhid4anpzn6y5iswonqrb3zxkwdxakeuty",
+   :datasets (),
+   :declared? false}},
+ :datasets
+ {"akashi-platform-ad-library-fixture"
+  {:holders ["akashi"], :layers [:repo]},
+  "gleif-companies-expanded" {:holders ["jinushi"], :layers [:repo]},
+  "legal-templates" {:holders ["hinagata"], :layers [:repo]},
+  "kanjo-coverage" {:holders ["kanjo"], :layers [:repo]},
+  "junkan-governance" {:holders ["junkan"], :layers [:repo]},
+  "jinushi-land-wdqs-r2" {:holders ["jinushi"], :layers [:repo]},
+  "hirameki-patents" {:holders ["hirameki"], :layers [:repo]},
+  "uchiwake-coverage" {:holders ["uchiwake"], :layers [:repo]},
+  "toritsugi-procedures"
+  {:holders ["toritsugi" "toritsugi-ae-federal"], :layers [:repo]},
+  "tsumugi-power" {:holders ["tsumugi"], :layers [:repo]},
+  "genome" {:holders ["rasen"], :layers [:repo]}}}
+

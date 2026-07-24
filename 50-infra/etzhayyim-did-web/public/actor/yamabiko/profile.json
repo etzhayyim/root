@@ -1,0 +1,32 @@
+{
+  "did": "did:web:etzhayyim.com:actor:yamabiko",
+  "handle": "yamabiko.etzhayyim.com",
+  "displayName": "山彦 — High-Speed Rail Manufacturing",
+  "description": "High-speed rail trainset manufacturing Tier-B actor. Wave 1 reference = civilian Shinkansen-class trainset (~250-320 km/h, 8-16 cars). Methodology adopted from Hitachi A-Train / Kawasaki efSET / Talgo Avril / Siemens Velaro / Alstom Avelia class. Military rail / NBC transport / mass-surveillance / advertising wraps / luxury-only trains rejected per Charter Rider §2(a) + §2(d) + §2(c) + §2(e). Land-mobility sibling of sarutahiko (road manufacturer) + wadachi (road operator).",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-05-25T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "山彦",
+  "displayNameJa": "山彦 — High-Speed Rail Manufacturing",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2605252600",
+      "2605252600",
+      "2605252615"
+    ],
+    "primaryLexicon": "com.etzhayyim.yamabiko",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/yamabiko/did.json",
+    "source": "kotoba"
+  }
+}

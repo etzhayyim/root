@@ -1,0 +1,2163 @@
+[{:doc/id "etzhayyim-flat-west-multirepo-migration"
+  :doc/title "etzhayyim flat west multirepo migration"
+  :doc/doc_type "migration-plan"
+  :doc/source-format "edn"
+  :doc/status "active"
+  :doc/date "2026-07-17"
+  :doc/last_verified "2026-07-18"
+  :doc/authoritative true
+  :doc/authoritative_for
+  ["flat west path policy"
+   "legacy numbered-layer removal gates"
+   "remaining root migration inventory"]
+  :migration/target
+  {:path-policy :flat-org-root
+   :paths ["orgs/etzhayyim/<repo>" "orgs/gftdcojp/<repo>"]
+   :categories #{:actor :engine :protocol :app :infra :tool :data :docs :governance}
+   :category-location :metadata
+   :numbered-directories :legacy-drain-only}
+  :migration/shared-library-test
+  {:all-of
+   ["two or more independent repositories consume the same API"
+    "no actor DID, product policy, deployment target, or dataset ownership"
+    "versionable and testable without the old root classpath"]
+   :known-prerequisites
+   ["kotoba.datom"
+    "etzhayyim.ie-flow.*"
+    "moyai.ledger"
+    "etzhayyim.social.publication"]}
+  :migration/removal-gates
+  [:canonical-west-repo
+   :all-load-bearing-content-contained
+   :root-consumers-repointed
+   :cross-repo-dependencies-explicit-and-pinned
+   :fleet-namespace-resolves-when-applicable
+   :standalone-tests-green
+   :edn-moved-tombstone]
+  :migration/order
+  [:freeze-numbered-layers
+   :extract-common-libraries
+   :consolidate-non-fleet-duplicates
+   :repoint-fleet-classpath-to-west-checkouts
+   :consolidate-fleet-actors
+   :publish-remaining-components
+   :move-cross-repo-governance
+   :retire-empty-numbered-layers]
+  :migration/inventory
+  {:snapshot-date "2026-07-17"
+   :tracked-files-by-legacy-layer
+   {:contracts 14343
+    :protocol 85
+    :actors 5852
+    :graph 32
+    :engine 357
+    :clients 1
+    :infra 9936
+    :apps 40766
+    :tools 2071
+    :data 574
+    :docs 1561}
+   :actor-directories 199
+   :actor-existing-independent-repo 126
+   :actor-not-yet-independent 23
+   :actor-not-yet-independent-names
+   ["iriai" "iryo" "jinushi" "kafun" "kaiyaku"
+    "karakuri" "kotoba-actors-clj"
+    "magatama"
+    "matsurigoto" "meyasu" "moyoshi"
+    "mst-projector" "niyaku" "okaimono"
+    "tate" "tedai"
+    "tsubasa" "tsuchifumi" "ugachi" "unspsc" "uzu" "warifu" "yobel"]
+   :consolidated ["_conformance" "os" "umisachi" "fleet" "ipaddress" "kouhou" "tashikame"]
+   :consolidation-details
+   {"_conformance"
+    {:previous-location "20-actors/_conformance/test_lexicon_consts.py"
+     :canonical-location "70-tools/src/etzhayyim/lint/test_lexicon_consts.cljc"
+     :category :tool
+     :reason :cross-actor-lint-not-an-actor
+     :canonical-format :clojure}}
+   :extracted-shared-libraries
+   {"etzhayyim.social.publication"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-social-publication"
+     :revision "e8127d0661284b1c12ce1b216c84b5ed2db619ab"
+     :west-path "orgs/etzhayyim/com-etzhayyim-social-publication"
+     :canonical-metadata "library.edn"
+     :root-generic-consumers 140
+     :verification {:tests 3 :assertions 11 :failures 0 :errors 0}
+     :initial-rewired-consumers
+     ["fuchi" "kenchi" "hokorobi" "hoshimori" "inochi"]}
+    "kotoba.datom"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kotoba-datom"
+     :revision "3c4b3b92234e59ba285119fd8b2ca4c2ee172ff8"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kotoba-datom"
+     :canonical-metadata "library.edn"
+     :verification {:tests 5 :assertions 25 :failures 0 :errors 0}}
+    "etzhayyim.ie-flow.*"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-ie-flow"
+     :revision "35d36d912c9596dbc5094947b60202d9abdf61e6"
+     :west-path "orgs/etzhayyim/com-etzhayyim-ie-flow"
+     :canonical-metadata "library.edn"
+     :depends-on {"kotoba.datom" "3c4b3b92234e59ba285119fd8b2ca4c2ee172ff8"}
+     :excluded-root-owned-application "etzhayyim.ie-flow.scoreboard"
+     :verification {:tests 67 :assertions 247 :failures 0 :errors 0}
+     :initial-rewired-consumers ["hokorobi" "hoshimori" "inochi"]}
+    "moyai.ledger"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-moyai-ledger"
+     :revision "e379b5b84c29d219750828954610ae572702a28b"
+     :west-path "orgs/etzhayyim/com-etzhayyim-moyai-ledger"
+     :canonical-metadata "library.edn"
+     :verification {:tests 4 :assertions 16 :failures 0 :errors 0}
+     :initial-rewired-consumers ["mimamori"]}}
+   :content-contained-but-blocked
+   {"karute" :root-relative-actor-manifest-consumer}
+   :inventory-corrections
+   {"compat-batch-count"
+    {:previous-count 844
+     :verified-count 1025
+     :canonical-inventory "20-actors/COMPAT-MOVED.edn"
+     :reason :markdown-heading-count-did-not-match-table-rows}
+    "ameno"
+    {:previous-class :not-yet-independent-actor
+     :corrected-class :existing-repo-overlap
+     :repository "https://github.com/etzhayyim/com-etzhayyim-ameno"
+     :reason :github-repository-existed-at-verification}
+    "kumi"
+    {:previous-class :not-yet-independent-actor
+     :corrected-class :existing-repo-incomplete-overlap
+     :repository "https://github.com/etzhayyim/com-etzhayyim-kumi"
+     :previous-repository-content ["src/kumi/murakumo.cljc"]
+     :resolution :merged-complete-legacy-actor-history}}
+  :newly-independent-repositories
+   {"meibo"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-meibo"
+     :revision "1155c8687fc77d395445863ab38535e8dffd2bf3"
+     :west-path "orgs/etzhayyim/com-etzhayyim-meibo"
+     :category :actor
+     :canonical-format :edn
+     :verification {:tests 12 :assertions 178 :failures 0 :errors 0}
+     :root-consumer "70-tools/scripts/meibo-worker/gen-data.cljs"
+     :root-copy :edn-tombstone-only}
+    "monosashi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-monosashi"
+     :revision "f72978502211aee7f0a72dea3ce4e451f4612c67"
+     :west-path "orgs/etzhayyim/com-etzhayyim-monosashi"
+     :category :actor
+     :canonical-format :edn
+     :verification {:tests 17 :assertions 72 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "etzhayyim-esign"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-esign"
+     :revision "5f9bc9d0fdba9f09410f05e6d8d63ae0e574f9d2"
+     :west-path "orgs/etzhayyim/com-etzhayyim-esign"
+     :category :actor
+     :canonical-format :edn
+     :external-wire-formats #{:xrpc-json :http-json}
+     :actor-owned-contracts ["lex/envelope.edn"
+                             "lex/signature.edn"
+                             "lex/completedEvent.edn"
+                             "lex/anchoredEvent.edn"
+                             "lex/requestEnvelope.edn"
+                             "lex/signEnvelope.edn"
+                             "lex/declineEnvelope.edn"]
+     :depends-on
+     {"com-etzhayyim-sdk" "12314a0cc5ac2feb49dd9789d5c002398acb6988"}
+     :verification {:tests 3 :typecheck :passed :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "saisei"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-saisei"
+     :revision "d31b51d50cee48ead69c7cc3faa86b5a59b271af"
+     :west-path "orgs/etzhayyim/com-etzhayyim-saisei"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :root-consumers ["50-infra/saisei-worker"
+                      "70-tools/scripts/saisei-worker/gen-data.cljs"]
+     :consumer-rewiring #{:cljs-classpath :embedded-edn-data :source-links}
+     :verification {:tests 17 :assertions 98 :failures 0 :errors 0
+                    :data-generation :passed
+                    :worker-build :deferred-resource-lock}
+     :root-copy :edn-tombstone-only}
+    "madomori"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-madomori"
+     :revision "3749c5b5307f5fedb0ff4616e9f1a78457e365a1"
+     :west-path "orgs/etzhayyim/com-etzhayyim-madomori"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :actor-owned-contracts ["lex/cleanAttestation.edn"]
+     :verification {:tests 39 :assertions 147 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "kudamori"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kudamori"
+     :revision "364c19edfb1b9669ccc88fe3b6e7a6b62457419f"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kudamori"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :actor-owned-contracts ["lex/cleanAttestation.edn"]
+     :verification {:tests 41 :assertions 158 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "kuramori"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kuramori"
+     :revision "6f5ef6fc3ae76d5074d2ccf3f5f6a23270a67d90"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kuramori"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :actor-owned-contracts ["lex/moveAttestation.edn"]
+     :verification {:tests 45 :assertions 169 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "soma"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-soma"
+     :revision "12dc77b3927aa0370aeeaad016f5d5245ecc3d7d"
+     :west-path "orgs/etzhayyim/com-etzhayyim-soma"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :actor-owned-contracts ["lex/fellAttestation.edn"]
+     :canonicalization #{:standalone-classpath :test-namespace-no-exit-side-effect}
+     :verification {:tests 40 :assertions 150 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "sumitsubo-cad"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-sumitsubo-cad"
+     :revision "225cbf26faa1964e39366ecd69de5ba0ca7a6c7e"
+     :west-path "orgs/etzhayyim/com-etzhayyim-sumitsubo-cad"
+     :category :shared-library
+     :canonical-format :edn
+     :canonical-metadata "library.edn"
+     :runtime-dependencies []
+     :verification {:tests 15 :typecheck :passed :failures 0 :errors 0}}
+    "sumitsubo"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-sumitsubo"
+     :revision "cc9426527a2270f5b86965821dc66522010fc8a8"
+     :west-path "orgs/etzhayyim/com-etzhayyim-sumitsubo"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {"com-etzhayyim-sumitsubo-cad" "225cbf26faa1964e39366ecd69de5ba0ca7a6c7e"}
+     :canonicalization #{:shared-sdk-extracted :shell-runner-retired
+                         :shell-deployer-retired :operator-deploy-edn}
+     :verification {:tests 7 :assertions 20 :failures 0 :errors 0
+                    :deploy-plan :operator-gated-dry-run}
+     :root-copy :edn-tombstone-only}
+    "kiyome"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kiyome"
+     :revision "aa6cce3ee80257a00eed0506b592fa4f9ea5df95"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kiyome"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :actor-owned-contracts ["kiyome/lex/cleaningPassAttestation.edn"
+                             "kiyome/lex/linenLotAttestation.edn"
+                             "kiyome/lex/sanitizationRecord.edn"
+                             "kiyome/lex/siteAssessmentRecord.edn"
+                             "kiyome/lex/wasteSegregationRecord.edn"]
+     :canonicalization #{:shell-runner-retired :standalone-classpath
+                         :stale-python-cell-entry-retired}
+     :verification {:tests 10 :assertions 35 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "ugachi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-ugachi"
+     :revision "fb8794f39af480cf3e55502d26c5d3b310cba2f3"
+     :west-path "orgs/etzhayyim/com-etzhayyim-ugachi"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {com.etzhayyim/ie-flow "35d36d912c9596dbc5094947b60202d9abdf61e6"
+      com.etzhayyim/kotoba-datom "3c4b3b92234e59ba285119fd8b2ca4c2ee172ff8"}
+     :root-consumers ["70-tools/src/etzhayyim/ie_flow/scoreboard.clj"]
+     :consumer-rewiring #{:flat-west-classpath :external-seed-path :environment-override}
+     :canonicalization #{:standalone-namespace-root :shell-runner-retired
+                         :repository-local-edn-data}
+     :verification {:tests 40 :assertions 114 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "joucho"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-joucho"
+     :revision "92e53d4466ef2577d798756c41cf3180e80a7655"
+     :west-path "orgs/etzhayyim/com-etzhayyim-joucho"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :canonicalization #{:overlap-content-verified :legacy-jsonld-retired
+                         :canonical-identity-edn :did-json-wire-preserved
+                         :nbb-test-runner-wired}
+     :verification {:tests 5 :assertions 15 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "iyashi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-iyashi"
+     :revision "eceea556237590f861a475b64bf41048c90f6213"
+     :west-path "orgs/etzhayyim/com-etzhayyim-iyashi"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :actor-owned-contracts ["lex/chronicCareContinuityRecord.edn"
+                             "lex/clinicFacilityAttestation.edn"
+                             "lex/clinicalEncounterAttestation.edn"
+                             "lex/phlebotomyAttestation.edn"
+                             "lex/providerAttestation.edn"
+                             "lex/silenIyashiReview.edn"
+                             "lex/vaccinationAttestation.edn"]
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :shell-runner-retired :actor-lexicons-edn-canonical
+                         :atproto-json-retained-as-wire}
+     :verification {:tests 19 :assertions 116 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "karute"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-karute"
+     :revision "aaae559821c144720302efa6c244a95fd7b2885e"
+     :west-path "orgs/etzhayyim/com-etzhayyim-karute"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root "b888f46142d7c13c1d0cf8e686f493e8e83de4f9"}
+     :actor-owned-contracts ["lex/carePlan.edn" "lex/condition.edn"
+                             "lex/dispenseRecord.edn" "lex/encounter.edn"
+                             "lex/homeVisit.edn" "lex/homecareEpisode.edn"
+                             "lex/medicationRequest.edn" "lex/observation.edn"
+                             "lex/patient.edn" "lex/serviceRequest.edn"
+                             "lex/soapNote.edn"]
+     :canonicalization #{:root-schema-merged :namespace-root-corrected
+                         :shell-runner-retired :deployment-paths-rewired
+                         :actor-lexicons-edn-canonical
+                         :atproto-json-retained-as-wire}
+     :verification {:tests 13 :assertions 391 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "igata"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-igata"
+     :revision "eb9744b65f2ae9e32b1ba5e6a4b7c4addc120772"
+     :west-path "orgs/etzhayyim/com-etzhayyim-igata"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :actor-owned-contracts ["lex/alloyAttestation.edn"
+                             "lex/castShotRecord.edn"
+                             "lex/dieAttestation.edn"
+                             "lex/partAttestation.edn"
+                             "lex/silenIgataReview.edn"]
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :shell-runner-retired :actor-lexicons-edn-canonical
+                         :atproto-json-retained-as-wire}
+     :verification {:tests 9 :assertions 50 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "tsukuroi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-tsukuroi"
+     :revision "eb461f9075d4aceaa895e254dc2c53dc283a9de8"
+     :west-path "orgs/etzhayyim/com-etzhayyim-tsukuroi"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root "4c7bf05f104a09d81a13bed8b7d488726497eb10"
+      com.etzhayyim/akuma "b9daf7cbe828689f13bfaaa66d54a56c288189a5"
+      com.etzhayyim/chigiri "e08560129675106e0bb4b70e23769ff07a711ce7"}
+     :root-consumers ["70-tools/scripts/audit/test_tsukuroi_invariants.py"]
+     :consumer-rewiring #{:flat-west-path :environment-override :wire-validation-only}
+     :actor-owned-contracts ["lex/closureAttestation.edn"
+                             "lex/patchProposal.edn"
+                             "lex/patchValidationResult.edn"
+                             "lex/remediationMandate.edn"
+                             "lex/silenTsukuroiReview.edn"]
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :shell-runner-retired :actor-lexicons-edn-canonical
+                         :cross-actor-dependencies-pinned
+                         :atproto-json-retained-as-wire}
+     :verification {:tests 12 :assertions 32 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "mitate"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-mitate"
+     :revision "5900536cdda2becb947fda4c67dea84365d2239d"
+     :west-path "orgs/etzhayyim/com-etzhayyim-mitate"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root "abdc4ba0a7ba19969b5628f0f867f96f259ca011"
+      com.etzhayyim/yakushi "5b2389671defc00ef8c7cfa522b9bc96b3ac192f"
+      com.etzhayyim/kuni-umi "7c0b03e0a649eb8a31e51325bfd0a9219351fc37"
+      com.etzhayyim/tsukuru "e0d8ad057a1e5a62423614d45d70c708edf30d6e"
+      com.etzhayyim/sdk "12314a0cc5ac2feb49dd9789d5c002398acb6988"}
+     :root-consumers ["70-tools/scripts/audit/test_mitate_invariants.py"
+                      "50-infra/hanami-robot/README.md"
+                      "orgs/etzhayyim/com-etzhayyim-app-mitate-pwa/public/index.html"]
+     :consumer-rewiring #{:flat-west-path :environment-override :wire-validation-only}
+     :actor-owned-contracts ["lex/diagnosticConsentReceipt.edn"
+                             "lex/diagnosticOrder.edn"
+                             "lex/diagnosticResult.edn"
+                             "lex/emergencyEscalation.edn"
+                             "lex/outcomeFollowup.edn"
+                             "lex/rhinitisIntake.edn"
+                             "lex/silenMitateReview.edn"
+                             "lex/treatmentPlan.edn"
+                             "lex/triageVerdict.edn"]
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :shell-runner-retired :actor-lexicons-edn-canonical
+                         :cross-actor-dependencies-pinned
+                         :atproto-json-retained-as-wire}
+     :verification {:tests 12 :assertions 42 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "suimin"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-suimin"
+     :revision "5b8cfef3de2a5b7027a14f8a8acf033151334b5f"
+     :west-path "orgs/etzhayyim/com-etzhayyim-suimin"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root {:revision "a213f6ef3c341bf499bb66942ab44019459b5b99"
+                      :paths ["orgs/etzhayyim/com-etzhayyim-magatama/cells" "90-docs/adr"]}
+      com.etzhayyim/mitate "5900536cdda2becb947fda4c67dea84365d2239d"
+      com.etzhayyim/yakushi "5b2389671defc00ef8c7cfa522b9bc96b3ac192f"}
+     :actor-owned-contracts ["lex/conditionProfile.edn"
+                             "lex/disclaimerText.edn"
+                             "lex/evidenceRecord.edn"
+                             "lex/referralPathway.edn"
+                             "lex/silenSuiminReview.edn"
+                             "lex/sourceWhitelist.edn"
+                             "lex/treatmentSynthesis.edn"]
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :shell-runner-retired :actor-lexicons-edn-canonical
+                         :cross-actor-dependencies-pinned
+                         :atproto-json-retained-as-wire}
+     :verification {:tests 19 :assertions 101 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "suki"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-suki"
+     :revision "96684e02328a5a4b444cf544247ec4fff58752fe"
+     :west-path "orgs/etzhayyim/com-etzhayyim-suki"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root {:revision "b622df7928524b0363fd0e3b161ebed719ef206f"
+                      :paths ["20-actors/silicon" "90-docs/adr"]}
+      com.etzhayyim/igata "eb9744b65f2ae9e32b1ba5e6a4b7c4addc120772"
+      com.etzhayyim/kanayama "0a076e08c546194b91d3ca0c153c94e3a6680a8d"
+      com.etzhayyim/kuni-umi "7c0b03e0a649eb8a31e51325bfd0a9219351fc37"
+      com.etzhayyim/makura "2b241bc67c6d66da23db5e152ac1f50857e7b10f"
+      com.etzhayyim/mitsuho "8ce9513470ef1df97568fd575a34c852baa755cd"
+      com.etzhayyim/sarutahiko "853900528c357b7b4b4bc141ae1f23f3bba29fd4"
+      com.etzhayyim/tatekata "fcfc6752d68b6feb5fe397203ae57ed623c35cbb"
+      com.etzhayyim/tsutae "94b97b85dadb0e77a059366ff5c5cf17f280a8c7"
+      com.etzhayyim/wadachi "6a35ad4487bdb5ab9fbe635d757182f41eb32d0e"
+      com.etzhayyim/watatsumi "203ab989e986488883d885114bc76b8fb4ef20e1"
+      com.etzhayyim/yakushi "5b2389671defc00ef8c7cfa522b9bc96b3ac192f"}
+     :actor-owned-contracts ["lex/cabAttestation.edn"
+                             "lex/chassisAttestation.edn"
+                             "lex/electricalEcuAttestation.edn"
+                             "lex/emissionsAuditRecord.edn"
+                             "lex/fieldTestRecord.edn"
+                             "lex/hitchPtoAttestation.edn"
+                             "lex/paintAttestation.edn"
+                             "lex/powertrainAttestation.edn"
+                             "lex/silenSukiReview.edn"]
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :shell-runner-retired :actor-lexicons-edn-canonical
+                         :cross-actor-dependencies-pinned
+                         :atproto-json-retained-as-wire}
+     :verification {:tests 9 :assertions 41 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "kawase-yui"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kawase-yui"
+     :revision "16877fce7b32030248b2088265ebd1c0a266e47c"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kawase-yui"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root {:revision "9fdcf95cf6e69e3fcea355392c02a2c2b86916bf"
+                      :paths ["40-engine/kotoba/crates/kotoba-kotodama/cells"
+                              "50-infra/etzhayyim-chain-contracts"
+                              "50-infra/etzhayyim-kawase-pool"
+                              "70-tools/scripts/lint/verify_no_commercial_remittance.py"
+                              "90-docs/adr"]}
+      com.etzhayyim/chigiri "e08560129675106e0bb4b70e23769ff07a711ce7"
+      com.etzhayyim/toritate "3354850aa05408e840426f91fe067ddad8535e5b"
+      com.etzhayyim/wakai "2a2260dc4f331348016391501d0141baf2662052"}
+     :root-consumers ["70-tools/scripts/lint/verify_no_commercial_remittance.py"
+                      "deps.edn"]
+     :consumer-rewiring #{:flat-west-path :environment-override}
+     :actor-owned-contracts ["lex/depositAttestation.edn"
+                             "lex/fxRateAttestation.edn"
+                             "lex/jurisdictionAttestation.edn"
+                             "lex/matchExecution.edn"
+                             "lex/poolStateReport.edn"
+                             "lex/rebalanceAttestation.edn"
+                             "lex/silenKawaseReview.edn"
+                             "lex/withdrawIntent.edn"]
+     :canonicalization #{:root-newer-assets-merged :python-package-preserved
+                         :actor-lexicons-edn-canonical
+                         :cross-actor-dependencies-pinned
+                         :atproto-json-retained-as-wire}
+     :verification {:tests 34 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "sonae"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-sonae"
+     :revision "8048df4675b8f504c3bd7b460280dfb270fb137b"
+     :west-path "orgs/etzhayyim/com-etzhayyim-sonae"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root {:revision "d8e79b2d2b95190b4c520e4640ffc293726ce222"
+                      :paths ["90-docs/adr"]}
+      com.etzhayyim/chigiri "e08560129675106e0bb4b70e23769ff07a711ce7"
+      com.etzhayyim/hagukumi "7d34cb0660057005643f95fd9c298aeb1ff0ac82"
+      com.etzhayyim/hikari "0a2a0ec962eb1cb72914a9f0aef9701e8948d556"
+      com.etzhayyim/kawaraban "85cd47ae00e5f30077f51282748db9aa6f6c53a1"
+      com.etzhayyim/kazaori "08750097c50f1b37380d7ceaf9f63b94baeb6c54"
+      com.etzhayyim/mitsuho "8ce9513470ef1df97568fd575a34c852baa755cd"
+      com.etzhayyim/mizuho "3e4ba475ab1fab5af7edee5025e2ae17c0cab98c"
+      com.etzhayyim/tatekata "fcfc6752d68b6feb5fe397203ae57ed623c35cbb"
+      com.etzhayyim/toritate "3354850aa05408e840426f91fe067ddad8535e5b"
+      com.etzhayyim/watatsuna "3c8c3713d85c4759929002ad1dae22c2c2e79659"}
+     :actor-owned-contracts ["lex/drillAttestation.edn"
+                             "lex/earlyWarningRelay.edn"
+                             "lex/hazardSignalRecord.edn"
+                             "lex/preparednessPlan.edn"
+                             "lex/siteRiskProfile.edn"
+                             "lex/sonaeReadinessReview.edn"]
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :actor-lexicons-edn-canonical :actor-data-edn-canonical
+                         :cross-actor-dependencies-pinned
+                         :atproto-json-retained-as-wire}
+     :verification {:tests 32 :assertions 352 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "kyoninka"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kyoninka"
+     :revision "866d4982947cc4ed30f32d87a2606875c92bf2e7"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kyoninka"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root {:revision "74314a1fdf6ac3412bd854d86908cea1289ec7ef"
+                      :paths ["90-docs/adr"]}
+      kotoba-lang/langgraph "a75fe35038dc9218e26b7da4940989cd13754769"
+      kotoba-lang/langchain "cda206ea2cbe709e134cb7198f85f0eae1993c96"
+      kotoba-lang/kototama "65899deed4fb9cfa3cdfed9d21130c91982d8cd3"
+      com.etzhayyim/ainori "9898db31619d7970e42733d907e61b4e6caf25ea"
+      com.etzhayyim/chigiri "e08560129675106e0bb4b70e23769ff07a711ce7"
+      com.etzhayyim/itonami "2e2d9f98386589ae370f94ad08d95196c90b6953"
+      com.etzhayyim/ooyake "c35c46aabd258d66f7544c03d1a6a8c0a6ffb91a"
+      com.etzhayyim/toritsugi "8f6dad2d9dd282253ebedb5a0721b6ad5afbb636"
+      com.etzhayyim/wadachi "6a35ad4487bdb5ab9fbe635d757182f41eb32d0e"}
+     :root-consumers ["50-infra/etzhayyim-did-web/public/actor/kyoninka/did.json"
+                      "50-infra/etzhayyim-did-web/public/actor/kyoninka/profile.json"]
+     :consumer-rewiring #{:flat-west-path}
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :local-root-dependencies-retired
+                         :previously-excluded-organism-tests-enabled
+                         :cross-actor-dependencies-pinned}
+     :verification {:tests 20 :assertions 61 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "seigyo"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-seigyo"
+     :revision "2b9765ba381e570cc0554753310ee8772a5621ca"
+     :west-path "orgs/etzhayyim/com-etzhayyim-seigyo"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root {:revision "6712e6312abd1e3d95d93aee61c69d4dd629c60b"
+                      :paths ["20-actors/silicon" "90-docs/adr"]}
+      com.etzhayyim/futawa "b93c8449c9bde6fd6e3e4bf4a26fac86f91958bb"
+      com.etzhayyim/igata "eb9744b65f2ae9e32b1ba5e6a4b7c4addc120772"
+      com.etzhayyim/mizuho "3e4ba475ab1fab5af7edee5025e2ae17c0cab98c"
+      com.etzhayyim/suki "96684e02328a5a4b444cf544247ec4fff58752fe"
+      com.etzhayyim/tsutae "94b97b85dadb0e77a059366ff5c5cf17f280a8c7"
+      com.etzhayyim/yakushi "5b2389671defc00ef8c7cfa522b9bc96b3ac192f"}
+     :actor-owned-contracts ["lex/alarmEventRecord.edn"
+                             "lex/interlockVerificationRecord.edn"
+                             "lex/ioPointRegistry.edn"
+                             "lex/plcProgramAttestation.edn"
+                             "lex/runtimeAttestation.edn"
+                             "lex/scadaProjectAttestation.edn"
+                             "lex/setpointEnvelope.edn"
+                             "lex/silenSeigyoReview.edn"
+                             "lex/telemetryAggregateRecord.edn"]
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :shell-runner-retired :actor-lexicons-edn-canonical
+                         :reference-envelope-edn-canonical
+                         :cross-actor-dependencies-pinned
+                         :external-json-retained-as-wire}
+     :verification {:tests 9 :assertions 134 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "shidemori"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-shidemori"
+     :revision "e0ca1b15054efb34fdfa90646690c116697d865c"
+     :west-path "orgs/etzhayyim/com-etzhayyim-shidemori"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root {:revision "d52e09281bce7a79baa0b8abdee9cfc00dfe4ec0"
+                      :paths ["90-docs/adr"]}
+      com.etzhayyim/chigiri "e08560129675106e0bb4b70e23769ff07a711ce7"
+      com.etzhayyim/kataribe "ca5251124154e909f76514c4bcf872f59374ca2d"
+      com.etzhayyim/kazaori "08750097c50f1b37380d7ceaf9f63b94baeb6c54"
+      com.etzhayyim/kokoro "69ad92e2ec336d46ff97214861b215f2f0f58720"
+      com.etzhayyim/mizuho "3e4ba475ab1fab5af7edee5025e2ae17c0cab98c"
+      com.etzhayyim/musubi "41e29f7b37273ded88b5ab18230077c38ac5419b"}
+     :actor-owned-contracts ["lex/cemeteryLandAttestation.edn"
+                             "lex/chinkonRemembranceAttestation.edn"
+                             "lex/externalMortuaryEngagement.edn"
+                             "lex/memorialNftAttestation.edn"
+                             "lex/silenShidemoriReview.edn"
+                             "registry/registries.seed.edn"]
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :shell-runner-retired :actor-lexicons-edn-canonical
+                         :registry-seed-edn-canonical
+                         :cross-actor-dependencies-pinned
+                         :external-json-retained-as-wire}
+     :verification {:tests 25 :assertions 782 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "wakai"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-wakai"
+     :revision "fa69bb164ab24a1fdf34d8a4cd576a9c5d0c359d"
+     :west-path "orgs/etzhayyim/com-etzhayyim-wakai"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root {:revision "cd6a372ce44c2652e61b15d95689f5ed0003b298"
+                      :paths ["90-docs/adr"]}
+      com.etzhayyim/hagukumi "7d34cb0660057005643f95fd9c298aeb1ff0ac82"
+      com.etzhayyim/iyashi "eceea556237590f861a475b64bf41048c90f6213"
+      com.etzhayyim/kawase-yui "16877fce7b32030248b2088265ebd1c0a266e47c"
+      com.etzhayyim/kazaori "08750097c50f1b37380d7ceaf9f63b94baeb6c54"
+      com.etzhayyim/toritate "3354850aa05408e840426f91fe067ddad8535e5b"
+      com.etzhayyim/yakushi "5b2389671defc00ef8c7cfa522b9bc96b3ac192f"}
+     :actor-owned-contracts ["lex/mutualAidContributionAttestation.edn"
+                             "lex/mutualAidDistributionAttestation.edn"
+                             "lex/mutualAidPoolStateReport.edn"
+                             "lex/publicFundBackstopRequest.edn"
+                             "lex/silenWakaiReview.edn"]
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :shell-runner-retired :actor-lexicons-edn-canonical
+                         :manifest-jsonld-retired-to-wire
+                         :cross-actor-dependencies-pinned
+                         :external-json-retained-as-wire}
+     :verification {:tests 25 :assertions 80 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "kizuna"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kizuna"
+     :revision "3eabf7732beedfd3ce0cf1b11e11b409734a63ab"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kizuna"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root {:revision "8e10be3dcdbf7d3ee8c63dc5539c18fb2546ba13"
+                      :paths ["90-docs/adr"]}
+      com.etzhayyim/kaname "5e390fb341c4e5f27777f010cba55c463d3e152b"
+      com.etzhayyim/ossekai "d21a056aba4c4d535ab9f556ac5beb34c4ad548d"
+      org.kotoba-lang/kototama "65899deed4fb9cfa3cdfed9d21130c91982d8cd3"}
+     :actor-owned-contracts ["actor.edn" "schema.edn" "kotoba.app.edn"
+                             "data/seed-interactions.kotoba.edn"]
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :manifest-jsonld-retired :seed-datoms-preserved
+                         :kototama-flat-west-path-rewired
+                         :cross-actor-dependencies-pinned
+                         :did-registry-schema-path-rewired}
+     :verification {:tests 20 :assertions 148 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "kokoro"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kokoro"
+     :revision "e88ebbb23fd1f87c7af3b722d02538a55af005ad"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kokoro"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root {:revision "55b8179a3c4dc2d799588bbc8cad9cb1d68ee70b"
+                      :paths ["90-docs/adr"]}
+      com.etzhayyim/chigiri "e08560129675106e0bb4b70e23769ff07a711ce7"
+      com.etzhayyim/hagukumi "7d34cb0660057005643f95fd9c298aeb1ff0ac82"
+      com.etzhayyim/iyashi "eceea556237590f861a475b64bf41048c90f6213"
+      com.etzhayyim/kataribe "ca5251124154e909f76514c4bcf872f59374ca2d"
+      com.etzhayyim/kazaori "08750097c50f1b37380d7ceaf9f63b94baeb6c54"
+      com.etzhayyim/mitate "5900536cdda2becb947fda4c67dea84365d2239d"
+      com.etzhayyim/musubi "41e29f7b37273ded88b5ab18230077c38ac5419b"
+      com.etzhayyim/toritate "3354850aa05408e840426f91fe067ddad8535e5b"
+      com.etzhayyim/yakushi "5b2389671defc00ef8c7cfa522b9bc96b3ac192f"}
+     :actor-owned-contracts ["lex/acuteCrisisEscalationLog.edn"
+                             "lex/counselorAttestation.edn"
+                             "lex/griefSupportAttestation.edn"
+                             "lex/peerSupportCircleAttestation.edn"
+                             "lex/silenKokoroReview.edn"
+                             "registry/support-lines.seed.edn"]
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :shell-runner-retired :actor-lexicons-edn-canonical
+                         :registry-seed-edn-canonical
+                         :python-audits-retired-to-clojure-edn
+                         :cross-actor-dependencies-pinned
+                         :external-json-retained-as-wire}
+     :verification {:tests 31 :assertions 936 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "sentei"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-sentei"
+     :revision "b0210d2652f1d9b36d555029c5b3b16cade4859f"
+     :west-path "orgs/etzhayyim/com-etzhayyim-sentei"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root {:revision "c1398abc9d53b4032a44f46ccc136ca134819f7e"
+                      :paths ["90-docs/adr"]}
+      org.kotoba-lang/kototama "65899deed4fb9cfa3cdfed9d21130c91982d8cd3"}
+     :actor-owned-contracts ["actor.edn" "schema.edn"
+                             "data/pruning-ontology.kotoba.edn"
+                             "lex/com.etzhayyim.sentei.prune.edn"]
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :shell-runner-retired :actor-lexicon-edn-canonical
+                         :manifest-jsonld-retired
+                         :kototama-flat-west-path-rewired
+                         :did-registry-schema-path-rewired
+                         :external-json-retained-as-wire}
+     :verification {:tests 25 :assertions 73 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "kataribe"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kataribe"
+     :revision "93c0784791697e1a3b33d24c2d5e00e701db62e9"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kataribe"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root {:revision "606f7a56fb8c9d5809f009e9815131a2fc3ef667"
+                      :paths ["90-docs/adr"]}
+      com.etzhayyim/chigiri "e08560129675106e0bb4b70e23769ff07a711ce7"
+      com.etzhayyim/kazaori "08750097c50f1b37380d7ceaf9f63b94baeb6c54"
+      com.etzhayyim/musubi "41e29f7b37273ded88b5ab18230077c38ac5419b"
+      com.etzhayyim/toritate "3354850aa05408e840426f91fe067ddad8535e5b"}
+     :actor-owned-contracts ["lex/communityChronicleAttestation.edn"
+                             "lex/doctrineCommentaryPublishing.edn"
+                             "lex/silenKataribeReview.edn"
+                             "lex/translationAttestation.edn"
+                             "lex/whistleblowerReport.edn"
+                             "registry/channels.seed.edn"]
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :shell-runner-retired :actor-lexicons-edn-canonical
+                         :registry-seed-edn-canonical
+                         :python-audit-retired-to-clojure-edn
+                         :cross-actor-dependencies-pinned
+                         :external-json-retained-as-wire}
+     :verification {:tests 23 :assertions 891 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "musubi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-musubi"
+     :revision "36ddfde47d094d43db23edce166f688363f97332"
+     :west-path "orgs/etzhayyim/com-etzhayyim-musubi"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root {:revision "1962fafef7d66189e36914a40ed86f07d760aa94"
+                      :paths ["90-docs/adr"]}
+      com.etzhayyim/chigiri "e08560129675106e0bb4b70e23769ff07a711ce7"
+      com.etzhayyim/hagukumi "7d34cb0660057005643f95fd9c298aeb1ff0ac82"
+      com.etzhayyim/iyashi "eceea556237590f861a475b64bf41048c90f6213"
+      com.etzhayyim/kokoro "e88ebbb23fd1f87c7af3b722d02538a55af005ad"
+      com.etzhayyim/shidemori "e0ca1b15054efb34fdfa90646690c116697d865c"
+      com.etzhayyim/toritate "3354850aa05408e840426f91fe067ddad8535e5b"}
+     :actor-owned-contracts ["lex/ceremonyPerformanceAttestation.edn"
+                             "lex/communityWitnessAttestation.edn"
+                             "lex/officiantAttestation.edn"
+                             "lex/seasonalCeremonyCalendar.edn"
+                             "lex/silenMusubiReview.edn"
+                             "registry/ceremony-recognition.seed.edn"]
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :shell-runner-retired :actor-lexicons-edn-canonical
+                         :registry-seed-edn-canonical
+                         :python-audit-retired-to-clojure-edn
+                         :cross-actor-dependencies-pinned
+                         :external-json-retained-as-wire}
+     :verification {:tests 28 :assertions 155 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "kazaori"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kazaori"
+     :revision "b562f6a58478ac81255a05b2e3f64e720128fd87"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kazaori"
+     :category :actor :canonical-format :edn :canonical-metadata "manifest.edn"
+     :depends-on #{etzhayyim/root com.etzhayyim/chigiri com.etzhayyim/hagukumi
+                   com.etzhayyim/hikari com.etzhayyim/iyashi com.etzhayyim/kokoro
+                   com.etzhayyim/mitate com.etzhayyim/mitsuho com.etzhayyim/mizuho
+                   com.etzhayyim/shidemori com.etzhayyim/tatekata
+                   com.etzhayyim/toritate com.etzhayyim/wakai com.etzhayyim/yakushi}
+     :actor-owned-contracts ["lex/damageAssessmentReport.edn"
+                             "lex/emergencyCarveOutLog.edn"
+                             "lex/emergencyDeclarationAttestation.edn"
+                             "lex/emergencySupplyDispatch.edn"
+                             "lex/evacuationCheckIn.edn"
+                             "lex/silenKazaoriReview.edn"
+                             "registry/agencies.seed.edn"]
+     :canonicalization #{:root-only-assets-merged :actor-lexicons-edn-canonical
+                         :registry-seed-edn-canonical :python-audit-retired-to-clojure-edn
+                         :cross-actor-dependencies-pinned :external-json-retained-as-wire}
+     :verification {:tests 38 :assertions 1152 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "utsushie"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-utsushie"
+     :revision "12895e9652253e5a663b606a0c65232897a97803"
+     :west-path "orgs/etzhayyim/com-etzhayyim-utsushie"
+     :category :actor :canonical-format :edn :canonical-metadata "manifest.edn"
+     :depends-on {etzhayyim/root "1962fafef7d66189e36914a40ed86f07d760aa94"
+                  com.etzhayyim/i18n "3df9c98f9b7941a6d80068c7daa16948569b38bf"
+                  com.etzhayyim/kawaraban "85cd47ae00e5f30077f51282748db9aa6f6c53a1"}
+     :actor-owned-contracts ["schema.edn" "lex/video.edn"]
+     :canonicalization #{:root-only-assets-merged :actor-lexicon-edn-canonical
+                         :manifest-jsonld-retired-to-wire :flat-west-dependencies-pinned
+                         :external-json-retained-as-wire}
+     :verification {:tests 30 :assertions 83 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "kurashimori"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kurashimori"
+     :revision "b878a332911b05583882ad29b7c786d9b2467caf"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kurashimori"
+     :category :actor :canonical-format :edn :canonical-metadata "manifest.edn"
+     :canonicalization #{:root-only-assets-merged :actor-lexicons-edn-canonical
+                         :registry-seed-edn-canonical :python-audit-retired-to-clojure-edn
+                         :cross-actor-dependencies-pinned :external-json-retained-as-wire}
+     :verification {:tests 16 :assertions 248 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "unspsc"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-unspsc"
+     :revision "23b33394da5576f89c4690bfab0b9b425dedd596"
+     :west-path "orgs/etzhayyim/com-etzhayyim-unspsc"
+     :category :actor :canonical-format :edn :canonical-metadata "manifest.edn"
+     :canonicalization #{:root-only-assets-merged :taxonomy-edn-canonical
+                         :actor-lexicon-edn-canonical :flat-west-dependencies-pinned
+                         :external-json-retained-as-wire}
+     :verification {:tests 40 :assertions 223 :failures 0 :errors 0
+                    :taxonomy-entries 18342}
+     :root-copy :edn-tombstone-only}
+    "apqc"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-apqc"
+     :revision "8c804b6e72363be50e94687769fcc4b2041e1a30"
+     :west-path "orgs/etzhayyim/com-etzhayyim-apqc"
+     :category :actor :canonical-format :edn :canonical-metadata "manifest.edn"
+     :canonicalization #{:root-only-assets-merged :actor-lexicons-edn-canonical
+                         :bpmn-retained-as-wire :generated-wasm-retired
+                         :shell-runner-retired :flat-west-dependencies-pinned}
+     :verification {:tests 15 :assertions 72 :failures 0 :errors 0
+                    :pcf-seed-entries 713}
+     :root-copy :edn-tombstone-only}
+    "isco"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-isco"
+     :revision "27c6f88e4b8c9bd01bdbc2c8a854068f84ee076a"
+     :west-path "orgs/etzhayyim/com-etzhayyim-isco"
+     :category :actor :canonical-format :edn :canonical-metadata "manifest.edn"
+     :canonicalization #{:root-only-assets-merged :taxonomy-edn-canonical
+                         :actor-lexicons-edn-canonical :bpmn-retained-as-wire
+                         :generated-wasm-retired :shell-runner-retired}
+     :verification {:tests 16 :assertions 186 :failures 0 :errors 0
+                    :taxonomy-nodes 619}
+     :root-copy :edn-tombstone-only}
+    "moushibumi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-moushibumi"
+     :revision "e4a06dae4a6fbeb2ffabae1d5ecd2fefe68eba44"
+     :west-path "orgs/etzhayyim/com-etzhayyim-moushibumi"
+     :category :actor :canonical-format :edn :canonical-metadata "manifest.edn"
+     :canonicalization #{:root-only-assets-merged :actor-lexicons-edn-canonical
+                         :registry-seed-edn-canonical :python-audit-retired-to-clojure-edn
+                         :shell-runner-retired :external-json-retained-as-wire}
+     :verification {:tests 17 :assertions 232 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "talent"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-talent"
+     :revision "e57bc7b5cde666c63e469b04e1564a1196b182a0"
+     :west-path "orgs/etzhayyim/com-etzhayyim-talent"
+     :category :actor :canonical-format :edn :canonical-metadata "manifest.edn"
+     :canonicalization #{:root-only-assets-merged :actor-lexicons-edn-canonical
+                         :legacy-python-layout-retired :shell-runner-retired
+                         :external-json-retained-as-wire}
+     :verification {:tests 34 :assertions 260 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "chigiri"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-chigiri"
+     :revision "755dcea6a865de34f30fc18f8b8405e3129517f4"
+     :west-path "orgs/etzhayyim/com-etzhayyim-chigiri"
+     :category :actor :canonical-format :edn :canonical-metadata "manifest.edn"
+     :canonicalization #{:root-only-assets-merged :actor-lexicons-edn-canonical
+                         :registry-seed-edn-canonical :python-audit-retired-to-clojure-edn
+                         :shell-runner-retired :external-json-retained-as-wire}
+     :verification {:tests 47 :assertions 657 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "himotoki"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-himotoki"
+     :revision "7b7798f933f1a7d5883c2b8bfb42d125605b5bd4"
+     :west-path "orgs/etzhayyim/com-etzhayyim-himotoki"
+     :category :actor :canonical-format :edn :canonical-metadata "manifest.edn"
+     :canonicalization #{:root-only-assets-merged :actor-lexicons-edn-canonical
+                         :registry-seed-edn-canonical :persisted-data-edn-canonical
+                         :python-audit-retired-to-clojure-edn :shell-runner-retired}
+     :verification {:tests 45 :assertions 383 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "toritsugi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-toritsugi"
+     :revision "dbb96e5a96418313352446f062e37277263b8802"
+     :west-path "orgs/etzhayyim/com-etzhayyim-toritsugi"
+     :category :actor :canonical-format :edn :canonical-metadata "manifest.edn"
+     :canonicalization #{:root-only-assets-merged :actor-lexicons-edn-canonical
+                         :registry-seed-edn-canonical :python-audit-retired-to-clojure-edn
+                         :raw-bpmn-retired :shell-runner-retired
+                         :external-json-retained-as-wire}
+     :verification {:tests 45 :assertions 155 :failures 0 :errors 0
+                    :procedures 164 :regimes 148 :jurisdictions 52}
+     :root-copy :edn-tombstone-only}
+    "hydrogen_electrolysis"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-hydrogen-electrolysis"
+     :revision "da4fab805b6aa8606dab36882de3186482f55f34"
+     :west-path "orgs/etzhayyim/com-etzhayyim-hydrogen-electrolysis"
+     :category :actor
+     :canonical-format :edn
+     :canonicalization #{:json-output-retired :shell-runner-retired}
+     :depends-on
+     {"kami-engine" "c4502cc69c5cb756e96f6bc6c865c7ec57bc3961"}
+     :verification {:tests 19 :assertions 60 :failures 0 :errors 0
+                    :comparison-output :edn-valid
+                    :datom-output :edn-valid
+                    :deploy-plan :operator-gated-dry-run}
+     :root-copy :edn-tombstone-only}
+    "minori"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-minori"
+     :revision "c22694fafb1ccc27a6c8ad6f0c748adac7cb3bc5"
+     :west-path "orgs/etzhayyim/com-etzhayyim-minori"
+     :category :actor
+     :canonical-format :edn
+     :canonicalization #{:structured-system-edn :encoded-edn-retired}
+     :runtime-inputs #{:valuation :system-of-systems :scoreboard :capture-snapshot}
+     :runtime-input-mode :environment-or-explicit-argument
+     :verification {:checks 47 :failures 0 :errors 0
+                    :heartbeat :passed :ledger-chain :verified}
+     :root-copy :edn-tombstone-only}
+    "masago"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-masago"
+     :revision "c479bec84d3a0686542a0a3143ea8976712973a4"
+     :west-path "orgs/etzhayyim/com-etzhayyim-masago"
+     :category :actor
+     :canonical-format :edn
+     :actor-owned-contracts ["schema/open-materials-ontology.kotoba.edn"
+                             "lex/datasetSourceAttestation.edn"
+                             "lex/discoveryCandidateReport.edn"
+                             "lex/materialRecord.edn"]
+     :verification {:tests 13 :assertions 433 :failures 0 :errors 0
+                    :cli-nodes 60 :cli-edges 75 :generated-datoms :edn-valid}
+     :root-copy :edn-tombstone-only}
+    "narashi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-narashi"
+     :revision "368ba8c8531419c080af5691a7caf414406e49fb"
+     :west-path "orgs/etzhayyim/com-etzhayyim-narashi"
+     :category :actor
+     :canonical-format :edn
+     :external-wire-formats #{:did-json}
+     :migration-mode :merge-root-only-content-into-existing-repository
+     :actor-owned-contracts ["lex/crossReferenceNote.edn"
+                             "lex/methodNote.edn"
+                             "lex/metricNarrative.edn"
+                             "lex/metricObservation.edn"]
+     :verification {:tests 16 :assertions 121 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "kumi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kumi"
+     :revision "75c53c6f1807a60d9ab7f2b0a35ad17725f99a67"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kumi"
+     :category :actor
+     :canonical-format :edn
+     :migration-mode :merge-legacy-history-into-existing-repository
+     :verification {:tests 11 :assertions 76 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "shukubo"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-shukubo"
+     :revision "5d9617a4b2db8a608c164618345b5b00fe1f00ab"
+     :west-path "orgs/etzhayyim/com-etzhayyim-shukubo"
+     :category :actor
+     :canonical-format :edn
+     :verification {:tests 20 :assertions 47 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "haraedo"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-haraedo"
+     :revision "6a8213df41d85a72918ecedd42faaea526601cbe"
+     :west-path "orgs/etzhayyim/com-etzhayyim-haraedo"
+     :category :actor
+     :canonical-format :edn
+     :verification {:tests 28 :assertions 96 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "hataori"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-hataori"
+     :revision "0798c7e7241e1ee1e12e855aafc60ba02eef461a"
+     :west-path "orgs/etzhayyim/com-etzhayyim-hataori"
+     :category :actor
+     :canonical-format :edn
+     :verification {:tests 9 :assertions 24 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "etzhayyim-bpmn-sdk"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-bpmn-sdk"
+     :revision "384afb0896af49faa7cd74209b40c33ad1254559"
+     :west-path "orgs/etzhayyim/com-etzhayyim-bpmn-sdk"
+     :category :shared-library
+     :canonical-format :edn
+     :workspace-projects 18
+     :verification {:build-tasks 15 :test-files-passed 13 :tests-passed 132 :tests-skipped 29 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "etzhayyim-sdk-py"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-sdk-py"
+     :revision "6cd818b03fbc56ff5f624870ec9b9c2e0a208e9b"
+     :west-path "orgs/etzhayyim/com-etzhayyim-sdk-py"
+     :category :shared-library
+     :canonical-format :edn
+     :runtime-state {:firehose-checkpoint :edn}
+     :verification {:cljc-tests 17 :assertions 47 :python-tests 10 :consumer-tests 33 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only
+     :root-consumer "50-infra/mst-projector/py"}
+    "post_quantum_compat"
+    {:repository "https://github.com/kotoba-lang/com-post-quantum"
+     :revision "cfb65453fb8be733ef8000f3ce3b2b387226e19a"
+     :west-path "orgs/kotoba-lang/com-post-quantum"
+     :category :compat-library
+     :canonical-format :edn
+     :external-wire-formats #{:openapi-json :actor-manifest-json}
+     :verification {:clojure-tests 16 :assertions 105 :python-tests 8 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "salesforce-compat"
+    {:repository "https://github.com/kotoba-lang/com-salesforce"
+     :revision "627c5707acc4e37baba99c5a247c3d5d2e7fe461"
+     :west-path "orgs/kotoba-lang/com-salesforce"
+     :category :compat-library
+     :canonical-format :edn
+     :verification {:tests 5 :assertions 98 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "stripe-compat"
+    {:repository "https://github.com/kotoba-lang/com-stripe"
+     :revision "100b21c857a8142c6e339adbab33f76d1fd74688"
+     :west-path "orgs/kotoba-lang/com-stripe"
+     :category :compat-library
+     :canonical-format :edn
+     :verification {:tests 5 :assertions 115 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "etzhayyim-sdk"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-sdk"
+     :revision "12314a0cc5ac2feb49dd9789d5c002398acb6988"
+     :west-path "orgs/etzhayyim/com-etzhayyim-sdk"
+     :category :shared-library
+     :canonical-format :edn
+     :git-dependencies :immutable-sha
+     :verification {:tests 53 :failures 0 :errors 0 :typescript-build :passed}
+     :root-copy :edn-tombstone-only
+     :root-package-consumers 186}
+    "etzhayyim-sdk-auth"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-sdk-auth"
+     :revision "1b2d068c9089e4b318be24d7b4c229df65055c80"
+     :west-path "orgs/etzhayyim/com-etzhayyim-sdk-auth"
+     :category :shared-library
+     :canonical-format :edn
+     :depends-on {etzhayyim/com-etzhayyim-sdk "12314a0cc5ac2feb49dd9789d5c002398acb6988"}
+     :verification {:typescript-typecheck :passed}
+     :root-copy :edn-tombstone-only
+     :root-package-consumers 24}
+    "etzhayyim-sdk-mock"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-sdk-mock"
+     :revision "c857ff9be5310bf433bfe1e8d3c0f677e213d667"
+     :west-path "orgs/etzhayyim/com-etzhayyim-sdk-mock"
+     :category :shared-library
+     :canonical-format :edn
+     :depends-on {etzhayyim/com-etzhayyim-sdk "12314a0cc5ac2feb49dd9789d5c002398acb6988"}
+     :verification {:typescript-typecheck :passed}
+     :root-copy :edn-tombstone-only
+     :root-package-consumers 148}
+    "etzhayyim-pregel"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-pregel"
+     :revision "165a5c1fea9b0978aedb2cd7a946e9fbb03c29d1"
+     :west-path "orgs/etzhayyim/com-etzhayyim-pregel"
+     :category :shared-library
+     :canonical-format :edn
+     :verification {:typescript-build :passed :tests :scaffold-only}
+     :root-copy :edn-tombstone-only
+     :root-package-consumers 0}
+    "organisms"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-organisms"
+     :revision "11441105dbdc1f0304fa267f0b16a52f60c3456a"
+     :west-path "orgs/etzhayyim/com-etzhayyim-organisms"
+     :category :actor-runtime
+     :canonical-format :edn
+     :external-wire-formats #{:atproto-json}
+     :verification {:tests 10 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0}
+    "first-breath"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-first-breath"
+     :revision "b17a45e28ae84cd955260a999529ef045b67ca84"
+     :west-path "orgs/etzhayyim/com-etzhayyim-first-breath"
+     :category :actor
+     :canonical-format :edn
+     :runtime-state "state.edn"
+     :depends-on {com-junkawasaki/eth-crypto-clj "9208ecc09a32cf51627ed32eb417e4834f208324"}
+     :verification {:eip-155-selftest :passed :state-edn-roundtrip :passed}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0}
+    "energy_order"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-energy-order"
+     :revision "9bf57b40ba41e9461ef912b0345fae28cdb0a651"
+     :west-path "orgs/etzhayyim/com-etzhayyim-energy-order"
+     :category :protocol-suite
+     :canonical-format :edn
+     :depends-on
+     {etzhayyim/com-etzhayyim-mio "a0b6697f3708d67e0bda2a23fe4ab853555aed0d"
+      etzhayyim/com-etzhayyim-tawami "f8c8011124319953c5775beb3879d299e433c48f"
+      etzhayyim/com-etzhayyim-okibi "2cffb76d15da8c37ceb212bed817c8c5700e0eb6"
+      etzhayyim/com-etzhayyim-toi "973cb4deacff97b9b5259053fdf36d9c940f3552"
+      etzhayyim/com-etzhayyim-yudane "6e80373d226add518a9eb841ced288b626c18a5a"}
+     :verification {:tests 17 :assertions 99 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0}
+    "okibi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-okibi"
+     :revision "2cffb76d15da8c37ceb212bed817c8c5700e0eb6"
+     :west-path "orgs/etzhayyim/com-etzhayyim-okibi"
+     :canonical-format :edn
+     :emits :mio/flow-improvement-claim
+     :depends-on {etzhayyim/com-etzhayyim-mio "a0b6697f3708d67e0bda2a23fe4ab853555aed0d"}
+     :verification {:tests 23 :assertions 130 :failures 0 :errors 0 :cell-namespace :resolved}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0
+     :fleet-source :pinned-west-repository}
+    "toi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-toi"
+     :revision "973cb4deacff97b9b5259053fdf36d9c940f3552"
+     :west-path "orgs/etzhayyim/com-etzhayyim-toi"
+     :canonical-format :edn
+     :emits :mio/flow-improvement-claim
+     :depends-on {etzhayyim/com-etzhayyim-mio "a0b6697f3708d67e0bda2a23fe4ab853555aed0d"}
+     :verification {:tests 23 :assertions 145 :failures 0 :errors 0 :cell-namespace :resolved}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0
+     :fleet-source :pinned-west-repository}
+    "yudane"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-yudane"
+     :revision "6e80373d226add518a9eb841ced288b626c18a5a"
+     :west-path "orgs/etzhayyim/com-etzhayyim-yudane"
+     :canonical-format :edn
+     :emits :mio/flow-improvement-claim
+     :depends-on {etzhayyim/com-etzhayyim-mio "a0b6697f3708d67e0bda2a23fe4ab853555aed0d"}
+     :verification {:tests 23 :assertions 142 :failures 0 :errors 0 :cell-namespace :resolved}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0
+     :fleet-source :pinned-west-repository}
+    "tawami"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-tawami"
+     :revision "f8c8011124319953c5775beb3879d299e433c48f"
+     :west-path "orgs/etzhayyim/com-etzhayyim-tawami"
+     :canonical-format :edn
+     :emits :mio/flow-improvement-claim
+     :depends-on {etzhayyim/com-etzhayyim-mio "a0b6697f3708d67e0bda2a23fe4ab853555aed0d"}
+     :verification {:tests 22 :assertions 244 :failures 0 :errors 0 :cell-namespace :resolved}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0
+     :fleet-source :pinned-west-repository}
+    "mio"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-mio"
+     :revision "a0b6697f3708d67e0bda2a23fe4ab853555aed0d"
+     :west-path "orgs/etzhayyim/com-etzhayyim-mio"
+     :canonical-format :edn
+     :depends-on
+     {com.etzhayyim/kotoba-datom "3c4b3b92234e59ba285119fd8b2ca4c2ee172ff8"
+      com.etzhayyim/social-publication "e8127d0661284b1c12ce1b216c84b5ed2db619ab"}
+     :verification {:tests 36 :assertions 271 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0
+     :fleet-source :pinned-west-repository}
+    "com-google-ads"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-com-google-ads"
+     :revision "71a515db2d5b664f0dcb43be92ade868083a6bd2"
+     :west-path "orgs/etzhayyim/com-etzhayyim-com-google-ads"
+     :canonical-format :edn
+     :repository-contracts
+     {etzhayyim/com-etzhayyim-akashi "9894d97bf8207646c33db12c6bf3dda481d3c7c6"
+      etzhayyim/com-etzhayyim-danjo "9ceba0f09c9fb26a102d88389652f92ceb0cc014"
+      etzhayyim/com-etzhayyim-isco "d9700d59f91d873201f670274405265c4cf8a93b"
+      etzhayyim/com-etzhayyim-moushibumi "0b9bf69691125d0a2576d5613783c9e6d48ff7e7"
+      etzhayyim/com-etzhayyim-talent "6063b9ba79c7980e9d2574821eb2edfc78f72c9e"
+      etzhayyim/com-etzhayyim-toritate "67508bf5ec18eec4b7bcd1b4c3b03ade1829135e"}
+     :canonicalization #{:encoded-edn-retired :structured-lexicon-edn :derived-string-schema-retired}
+     :verification {:tests 5 :assertions 34 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0
+     :next :merge-west-registration-before-root-retirement}
+    "busshi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-busshi"
+     :revision "fed52df3ecad3419db37958eac77a41c3f5106c8"
+     :west-path "orgs/etzhayyim/com-etzhayyim-busshi"
+     :canonical-format :edn
+     :depends-on
+     {com.etzhayyim/kotoba-datom "3c4b3b92234e59ba285119fd8b2ca4c2ee172ff8"
+      com.etzhayyim/ie-flow "35d36d912c9596dbc5094947b60202d9abdf61e6"
+      com.etzhayyim/social-publication "e8127d0661284b1c12ce1b216c84b5ed2db619ab"}
+     :consumer-rewiring
+     {etzhayyim.ie-flow.scoreboard
+      {:artifact "out/ie-flow-state.edn"
+       :override-env "BUSSHI_FLOW_STATE_PATH"
+       :absence-policy :pending-not-scored}
+      ugachi.methods.bridge
+      {:artifact "out/analysis.edn"
+       :override-env "BUSSHI_ANALYSIS_PATH"
+       :absence-policy :ungrounded-assessment}}
+     :verification {:tests 37 :assertions 140 :failures 0 :errors 0
+                    :scoreboard-tests 4 :scoreboard-assertions 20
+                    :ugachi-tests 40 :ugachi-assertions 114}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0
+     :next :merge-west-registration-before-root-retirement}
+    "ainori"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-ainori"
+     :revision "9898db31619d7970e42733d907e61b4e6caf25ea"
+     :west-path "orgs/etzhayyim/com-etzhayyim-ainori"
+     :canonical-format :edn
+     :depends-on
+     {com.etzhayyim/todoke "6b028d3700b1cee6d838284fa6c8914031cde38c"
+      com.etzhayyim/social-publication "e8127d0661284b1c12ce1b216c84b5ed2db619ab"}
+     :repository-contracts
+     {etzhayyim/com-etzhayyim-tazuna "efb4688fd8abf8e058c3c082b8d1ba482cd10bc3"
+      etzhayyim/com-etzhayyim-wadachi "44fb5f545c17ba09ad02da501fac42a63c1124bc"
+      etzhayyim/com-etzhayyim-warifu "a81d7218555866be962dc3fceeab4c8db85782a1"}
+     :canonicalization #{:encoded-edn-retired :structured-lexicon-edn}
+     :verification {:tests 24 :assertions 42 :failures 0 :errors 0
+                    :todoke-tests 27 :todoke-assertions 48}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0
+     :next :merge-west-registration-before-root-retirement}
+    "abaki"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-abaki"
+     :revision "2081d3634328083755ad85ee4f957ac343b08e96"
+     :west-path "orgs/etzhayyim/com-etzhayyim-abaki"
+     :canonical-format :edn
+     :repository-contracts
+     {etzhayyim/com-etzhayyim-intel "1032169f79b99e164b91c2ec4b924f7c6261467b"
+      etzhayyim/com-etzhayyim-suki "f01615cb1ffac027403a2fd8e921787a45d7a131"
+      etzhayyim/com-etzhayyim-wadachi "44fb5f545c17ba09ad02da501fac42a63c1124bc"
+      etzhayyim/com-etzhayyim-ameno "2ca2288013fe8c62b370fef736f60085baec860f"}
+     :canonicalization #{:json-retired :markdown-output-retired :single-form-edn}
+     :consumer-rewiring
+     {"okaimono" {:artifact "out/routing-policy.edn"
+                   :override-env "ABAKI_POLICY_PATH"
+                   :absence-policy :fail-open-no-block}}
+     :verification {:tests 16 :assertions 47 :failures 0 :errors 0
+                    :okaimono-tests 45 :okaimono-assertions 96}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0
+     :next :merge-west-registration-before-root-retirement}
+    "amime"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-amime"
+     :revision "5fc4c7ef627b3b84c0245fa11a6e674c0b22068e"
+     :west-path "orgs/etzhayyim/com-etzhayyim-amime"
+     :canonical-format :edn
+     :verification {:tests 12 :assertions 55 :failures 0 :errors 0
+                    :generated-mirror :byte-identical}
+     :next :delete-root-copy-after-west-pin-and-consumer-audit}
+    "atsurae"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-atsurae"
+     :revision "3d9a9cecd6213c4522f670fb1526e52567a585fe"
+     :west-path "orgs/etzhayyim/com-etzhayyim-atsurae"
+     :canonical-format :edn
+     :depends-on
+     {com.etzhayyim/kotoba-datom "3c4b3b92234e59ba285119fd8b2ca4c2ee172ff8"
+      com.etzhayyim/social-publication "e8127d0661284b1c12ce1b216c84b5ed2db619ab"}
+     :verification {:tests 12 :assertions 44 :failures 0 :errors 0
+                    :variants 176 :ledger-datoms 65}
+     :root-copy :edn-tombstone-only
+     :root-consumers 0
+     :next :merge-west-registration-before-root-retirement}
+    "denwaban"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-denwaban"
+     :revision "9b953a15e261b0852bdc6396d773e6f43eb6e851"
+     :west-path "orgs/etzhayyim/com-etzhayyim-denwaban"
+     :canonical-format :edn
+     :depends-on
+     {com.junkawasaki/koe-clj "ceca39b877f3285f4bacbca9270190670b0d5c90"
+      com.etzhayyim/social-publication "e8127d0661284b1c12ce1b216c84b5ed2db619ab"}
+     :repository-contracts
+     {etzhayyim/com-etzhayyim-yotei "bf3dac0213197a45a64ea8f566fb61700432672e"
+      kotoba-lang/net "86475deaa761f91435262b7d60861d07c68abdb8"}
+     :unimplemented-port-bindings
+     #{:twilio-compat :whisper-compat :elevenlabs-compat}
+     :verification {:tests 6 :assertions 16 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only
+     :root-consumers 0
+     :next :merge-west-registration-before-root-retirement}
+    "hibiki"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-hibiki"
+     :revision "9e7ec9fa7a8e442926ee329a6b393b98a903fa52"
+     :west-path "orgs/etzhayyim/com-etzhayyim-hibiki"
+     :canonical-format :edn
+     :repository-contracts
+     {etzhayyim/com-etzhayyim-ossekai "728a13cf4a1c4698347ab647fdd7a7238407f9ad"
+      etzhayyim/com-etzhayyim-utsushie "eb1ae5c531df0e2f2aa561260a6c4cd69e67fb6d"
+      etzhayyim/com-etzhayyim-kataribe "02cef52f032bc1333334111dc69accdc1d9a81aa"}
+     :canonicalization #{:jsonld-retired :structured-edn-lexicon}
+     :verification {:tests 15 :assertions 35 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0
+     :next :merge-west-registration-before-root-retirement}
+    "hirameki"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-hirameki"
+     :revision "58756468b6e47b6bce7e11caec0d0360d389efad"
+     :west-path "orgs/etzhayyim/com-etzhayyim-hirameki"
+     :canonical-format :edn
+     :depends-on
+     {com.junkawasaki/multiformats-clj "0f4ed68ff9e3cbf069569d897c9304713a14036c"
+      com.etzhayyim/kotoba-datom "3c4b3b92234e59ba285119fd8b2ca4c2ee172ff8"
+      com.etzhayyim/social-publication "e8127d0661284b1c12ce1b216c84b5ed2db619ab"}
+     :dataset-contract
+     {:repository "https://github.com/etzhayyim/com-etzhayyim-hirameki-patents"
+      :revision "936d7832ad1fbd1873570a58af14b17acc196a0d"}
+     :canonicalization #{:json-retired :single-form-edn :repository-native-paths}
+     :verification {:tests 40 :assertions 148 :failures 0 :errors 0
+                    :dataset-cids :byte-identical}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0
+     :next :merge-west-registration-before-root-retirement}}
+   :newly-independent-data-repositories
+   {"hirameki-patents"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-hirameki-patents"
+     :revision "936d7832ad1fbd1873570a58af14b17acc196a0d"
+     :west-path "orgs/etzhayyim/com-etzhayyim-hirameki-patents"
+     :canonical-format :edn
+     :artifacts
+     [{:file "hirameki-patents.corpus.kotoba.edn" :bytes 2055
+       :cid "bafkreiacmpjkhjncxlfjtfhfia7ikjyfjq42u7yi3x56ajppu374t3j4gi"}
+      {:file "hirameki-patents.datoms.kotoba.edn" :bytes 6255
+       :cid "bafkreif7ricl4x24y5pnquryjf4gakmwm36uqijtsao3rw2cuxuwflw4be"}]
+     :verification {:command "bb verify" :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only
+     :root-runtime-consumers 0}}
+   :pending-independent-repo-merges
+   {"isco"
+    {:pull-request "https://github.com/etzhayyim/com-etzhayyim-isco/pull/2"
+     :commit "1ef0c36"
+     :moves ["kotoba.app.edn" "methods/mesh.clj"]
+     :verification {:tests 10 :assertions 153 :failures 0 :errors 0}
+     :next :delete-root-copy-after-merge-and-west-pin}
+    "asobi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-asobi"
+     :revision "102d45fab2e4eefeea9603e58fe78b10624b59ec"
+     :west-path "orgs/etzhayyim/com-etzhayyim-asobi"
+     :canonical-format :edn
+     :verification {:tests 39 :assertions 256 :failures 0 :errors 0
+                    :jvm {:tests 13 :assertions 44}}
+     :root-copy :edn-tombstone-only}
+    "kabuto"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kabuto"
+     :revision "e925a2bd03ab0fb2f344c40fba01373a7dad96b7"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kabuto"
+     :canonical-format :edn
+     :verification {:tests 63 :assertions 300 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "hakoniwa"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-hakoniwa"
+     :revision "e77f26859fd1a43ecd06ac0582a6b1f5211583f1"
+     :west-path "orgs/etzhayyim/com-etzhayyim-hakoniwa"
+     :canonical-format :edn
+     :verification {:tests 45 :assertions 313 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "keizu"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-keizu"
+     :revision "da2dc491f00117f6b9ee2dd6c78392d440996a33"
+     :west-path "orgs/etzhayyim/com-etzhayyim-keizu"
+     :canonical-format :edn
+     :verification {:tests 221 :assertions 1071 :failures 0 :errors 0
+                    :jvm {:tests 13 :assertions 137}}
+     :root-copy :edn-tombstone-only}
+    "kafun"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kafun"
+     :revision "ab87dd5fd1147e870d04f2c85946daf82abb9567"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kafun"
+     :canonical-format :edn
+     :verification {:tests 67 :assertions 235 :failures 0 :errors 0
+                    :jvm {:tests 4 :assertions 75}}
+     :root-copy :edn-tombstone-only}
+    "shirabe"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-shirabe"
+     :revision "d54f401e0e9a325a6aed4e41ff9c63429e712236"
+     :west-path "orgs/etzhayyim/com-etzhayyim-shirabe"
+     :canonical-format :edn
+     :verification {:tests 31 :assertions 156 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "tanemaki"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-tanemaki"
+     :revision "e68a76c01bf6829ef7d9d0f82bb48d3aeb8d6bc3"
+     :west-path "orgs/etzhayyim/com-etzhayyim-tanemaki"
+     :canonical-format :edn
+     :verification {:tests 60 :assertions 361 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "tasuke"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-tasuke"
+     :revision "6c7ac6675d08a8cd3aae8ae61f8ed031a3ff4181"
+     :west-path "orgs/etzhayyim/com-etzhayyim-tasuke"
+     :canonical-format :edn
+     :verification {:tests 103 :assertions 565 :failures 0 :errors 0
+                    :jvm {:tests 4 :assertions 90}}
+     :root-copy :edn-tombstone-only}
+    "tatara"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-tatara"
+     :revision "76f253ad01032bea1d3970cff2749d40108b8b45"
+     :west-path "orgs/etzhayyim/com-etzhayyim-tatara"
+     :canonical-format :edn
+     :verification {:tests 41 :assertions 3454 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "tazuna"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-tazuna"
+     :revision "f180a777b466dd396ddf69373ac24ff7dac598d9"
+     :west-path "orgs/etzhayyim/com-etzhayyim-tazuna"
+     :canonical-format :edn
+     :verification {:tests 45 :assertions 101 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "tokigusuri"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-tokigusuri"
+     :revision "efe58dcffd1bba2a5a36228c0c7d99c7f30513ac"
+     :west-path "orgs/etzhayyim/com-etzhayyim-tokigusuri"
+     :canonical-format :edn
+     :verification {:tests 28 :assertions 232 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "torifune"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-torifune"
+     :revision "80e81d8b748ba6e2b952b95a44a5d572ca903dce"
+     :west-path "orgs/etzhayyim/com-etzhayyim-torifune"
+     :canonical-format :edn
+     :verification {:tests 27 :assertions 269 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "tedai"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-tedai"
+     :revision "9c946eaed923dbba5342f66188b547ad282f0b4b"
+     :west-path "orgs/etzhayyim/com-etzhayyim-tedai"
+     :canonical-format :edn
+     :verification {:tests 83 :assertions 218 :failures 0 :errors 0
+                    :jvm {:tests 2 :assertions 4}}
+     :root-copy :edn-tombstone-only}
+    "tatekata"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-tatekata"
+     :revision "56c8550c7640f299c415f1c27b913404d95e7233"
+     :west-path "orgs/etzhayyim/com-etzhayyim-tatekata"
+     :canonical-format :edn
+     :verification {:tests 51 :assertions 216 :failures 0 :errors 0
+                    :kotoba-dry-run {:entities 6 :approx-datoms 50}}
+     :root-copy :edn-tombstone-only}
+    "tsubasa"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-tsubasa"
+     :revision "b54466782e45d901e8204540b928f8d843a8f3a6"
+     :west-path "orgs/etzhayyim/com-etzhayyim-tsubasa"
+     :canonical-format :edn
+     :verification {:tests 76 :assertions 641 :failures 0 :errors 0
+                    :jvm {:tests 2 :assertions 7}}
+     :root-copy :edn-tombstone-only}
+    "tsuchifumi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-tsuchifumi"
+     :revision "26df6d5c24419bb6e4dcdac139a90877869f9e50"
+     :west-path "orgs/etzhayyim/com-etzhayyim-tsuchifumi"
+     :canonical-format :edn
+     :verification {:tests 56 :assertions 197 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "tsukuru"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-tsukuru"
+     :revision "f6cdea1859da1a6a9cd1908e11578b21c533a98d"
+     :west-path "orgs/etzhayyim/com-etzhayyim-tsukuru"
+     :canonical-format :edn
+     :canonical-edn-files 83
+     :wire-artifacts {:json-and-json-ld 54 :bpmn-xml 32}
+     :verification {:tests 36 :assertions 645 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "tsumugi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-tsumugi"
+     :revision "e5b5d64806500ab0f7be0201d40e0edd477177cd"
+     :west-path "orgs/etzhayyim/com-etzhayyim-tsumugi"
+     :canonical-format :edn
+     :verification {:tests 149 :assertions 635 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "tsutae"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-tsutae"
+     :revision "8e13b7143e891b73e5e0d8bc802954d5f6e1fb0e"
+     :west-path "orgs/etzhayyim/com-etzhayyim-tsutae"
+     :canonical-format :edn
+     :verification {:tests 43 :assertions 181 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "uchiwake"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-uchiwake"
+     :revision "6b95c5082954541e1ac700465745bc977b5af5c6"
+     :west-path "orgs/etzhayyim/com-etzhayyim-uchiwake"
+     :canonical-format :edn
+     :canonical-edn-files 19
+     :wire-artifacts {:json-and-json-ld 6 :bpmn-xml 0}
+     :verification {:tests 56 :assertions 838 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "uzu"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-uzu"
+     :revision "46ebb2b3fc5c2f16d0a4441f1b0a047b6435e236"
+     :west-path "orgs/etzhayyim/com-etzhayyim-uzu"
+     :canonical-format :edn
+     :verification {:tests 108 :assertions 245 :failures 0 :errors 0
+                    :jvm {:tests 2 :assertions 5}}
+     :root-copy :edn-tombstone-only}
+    "wadachi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-wadachi"
+     :revision "2961efbcad5a91a6569c73bdeb4666eebf25b554"
+     :west-path "orgs/etzhayyim/com-etzhayyim-wadachi"
+     :canonical-format :edn
+     :verification {:tests 34 :assertions 125 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "warifu"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-warifu"
+     :revision "a81d7218555866be962dc3fceeab4c8db85782a1"
+     :west-path "orgs/etzhayyim/com-etzhayyim-warifu"
+     :canonical-format :edn
+     :wire-artifacts {:json 6}
+     :verification {:tests 51 :assertions 195 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "watatsumi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-watatsumi"
+     :revision "c7f1b30c4ca987e9510c51393e8c55ecc3af1cd6"
+     :west-path "orgs/etzhayyim/com-etzhayyim-watatsumi"
+     :canonical-format :edn
+     :canonical-edn-files 38
+     :wire-artifacts {:json-and-json-ld 9 :bpmn-xml 0}
+     :verification {:tests 65 :assertions 397 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "yadori"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-yadori"
+     :revision "88e893737dea6bf3d932688d41432937b912ce81"
+     :west-path "orgs/etzhayyim/com-etzhayyim-yadori"
+     :canonical-format :edn
+     :verification {:tests 50 :assertions 110 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "yakushi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-yakushi"
+     :revision "cbc01e5e132100bcf38cbe5e26f3d1048bb4c346"
+     :west-path "orgs/etzhayyim/com-etzhayyim-yakushi"
+     :canonical-format :edn
+     :verification {:tests 36 :assertions 114 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "yamabiko"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-yamabiko"
+     :revision "df4533ddff1c17e46aeadba3584b0b154793ea4b"
+     :west-path "orgs/etzhayyim/com-etzhayyim-yamabiko"
+     :canonical-format :edn
+     :canonical-edn-files 40
+     :wire-artifacts {:json-and-json-ld 10 :bpmn-xml 0}
+     :verification {:tests 108 :assertions 668 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "todoke"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-todoke"
+     :revision "f525aa265f52d55634b38affb4891e41961a085c"
+     :west-path "orgs/etzhayyim/com-etzhayyim-todoke"
+     :canonical-format :edn
+     :canonical-edn-files 28
+     :wire-artifacts {:json-and-json-ld 6 :bpmn-xml 0}
+     :verification {:tests 40 :assertions 203 :failures 0 :errors 0
+                    :rust :not-run-unchanged-source-build-lock-busy}
+     :root-copy :edn-tombstone-only}
+    "yotei"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-yotei"
+     :revision "cc939a2e16d6f7f7f761bd07ec0e79bacce026c2"
+     :west-path "orgs/etzhayyim/com-etzhayyim-yotei"
+     :canonical-format :edn
+     :wire-artifacts {:bpmn-xml 23 :json 23 :json-ld 1}
+     :verification {:tests 26 :assertions 190 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "yobel"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-yobel"
+     :revision "9e86d60491e3ddae646e26c12cd4433f8ab0272f"
+     :west-path "orgs/etzhayyim/com-etzhayyim-yobel"
+     :canonical-format :edn
+     :wire-artifacts {:total 8}
+     :verification {:tests 77 :assertions 223 :failures 0 :errors 0
+                    :integration {:status :known-failure
+                                  :reason :cumulative-over-cap-release-not-reverted}}
+     :root-copy :edn-tombstone-only}
+    "toritate"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-toritate"
+     :revision "1e42499a623f2e12c63a001b577b85788db64c9c"
+     :west-path "orgs/etzhayyim/com-etzhayyim-toritate"
+     :canonical-format :edn
+     :wire-artifacts {:json 9}
+     :verification {:tests 26 :assertions 59 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "tadori"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-tadori"
+     :revision "2cdbab4a2564395915be45135f25fc0c021a2c9c"
+     :west-path "orgs/etzhayyim/com-etzhayyim-tadori"
+     :canonical-format :edn
+     :wire-artifacts {:json 4 :json-ld 1 :jsonl 1}
+     :verification {:tests 78 :assertions 219 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "sukashi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-sukashi"
+     :revision "db20a3b6c2b52c98a502b235bec03b45815eea0e"
+     :west-path "orgs/etzhayyim/com-etzhayyim-sukashi"
+     :canonical-format :edn
+     :canonical-edn-files 20
+     :wire-artifacts {:json-and-json-ld 8 :bpmn-xml 0}
+     :verification {:tests 73 :assertions 733 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "subaru"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-subaru"
+     :revision "65c49f0ac05b0a840a7fcc0a4126c78f9a772862"
+     :west-path "orgs/etzhayyim/com-etzhayyim-subaru"
+     :canonical-format :edn
+     :verification {:tests 27 :assertions 261 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "suji"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-suji"
+     :revision "0330034d5d7d4bc389a0f24b45cabd715abf71b6"
+     :west-path "orgs/etzhayyim/com-etzhayyim-suji"
+     :canonical-format :edn
+     :canonical-edn-files 17
+     :wire-artifacts {:json-ld 1 :wit 1}
+     :verification {:tests 64 :assertions 1078 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "shomei"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-shomei"
+     :revision "e9ed6035da56f9a53e2487c35f4b87b22a82877b"
+     :west-path "orgs/etzhayyim/com-etzhayyim-shomei"
+     :canonical-format :edn
+     :canonical-edn-files 13
+     :wire-artifacts {:json-and-json-ld 6 :bpmn-xml 0}
+     :verification {:tests 151 :assertions 522 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "shinka"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-shinka"
+     :revision "6c214d1e48624ee79434dd287e99a9d26d81145a"
+     :west-path "orgs/etzhayyim/com-etzhayyim-shinka"
+     :canonical-format :edn
+     :canonical-edn-files 23
+     :wire-artifacts {:json 12 :bpmn-xml 2}
+     :verification {:python-tests 123 :loop-c-assertions 7 :failures 0 :errors 0
+                    :clojure :not-run-unresolved-root-sibling-dependencies}
+     :root-copy :edn-tombstone-only}
+    "shionome"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-shionome"
+     :revision "8f695b3340eff5054a4fb3b6219ec1a3df7f9bf7"
+     :west-path "orgs/etzhayyim/com-etzhayyim-shionome"
+     :canonical-format :edn
+     :canonical-edn-files 11
+     :wire-artifacts {:json-and-json-ld 7 :wit 1}
+     :verification {:tests 195 :assertions 1154 :failures 0 :errors 0
+                    :ie-flow-suite :pending-shared-library-extraction}
+     :root-copy :edn-tombstone-only}
+    "sarutahiko"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-sarutahiko"
+     :revision "bdac84ad9550435785082a3fc227305442515686"
+     :west-path "orgs/etzhayyim/com-etzhayyim-sarutahiko"
+     :canonical-format :edn
+     :canonical-edn-files 34
+     :wire-artifacts {:json-and-json-ld 10}
+     :verification {:tests 45 :assertions 364 :failures 0 :errors 0
+                    :legacy-python-parity-checks :skipped-after-python-prune}
+     :root-copy :edn-tombstone-only}
+    "sanae"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-sanae"
+     :revision "a7331d6263ee62659e0de56452adfaf793282089"
+     :west-path "orgs/etzhayyim/com-etzhayyim-sanae"
+     :canonical-format :edn
+     :canonical-edn-files 23
+     :wire-artifacts {:json-and-json-ld 7}
+     :verification {:tests 28 :assertions 125 :failures 0 :errors 0
+                    :jvm {:tests 9 :assertions 83 :failures 0 :errors 0}}
+     :root-copy :edn-tombstone-only}
+    "ossekai"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-ossekai"
+     :revision "f73923a590de5e0834db4cef08660ca6104b70c6"
+     :west-path "orgs/etzhayyim/com-etzhayyim-ossekai"
+     :canonical-format :edn
+     :canonical-edn-files 12
+     :wire-artifacts {:json-and-json-ld 10}
+     :verification {:tests 49 :assertions 116 :failures 0 :errors 0
+                    :runners [:babashka :jvm]}
+     :root-copy :edn-tombstone-only}
+    "ooyake"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-ooyake"
+     :revision "29f48f9be56c52849788867ecf9e6aaf81c5abc4"
+     :west-path "orgs/etzhayyim/com-etzhayyim-ooyake"
+     :canonical-format :edn
+     :canonical-edn-files 75
+     :wire-artifacts {:json-json-ld-and-geojson 11}
+     :verification {:tests 32 :assertions 105 :failures 0 :errors 0}
+     :retained-tooling {:python-files 31 :shell-files 2}
+     :root-copy :edn-tombstone-only}
+    "omise"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-omise"
+     :revision "8619be47d581252f76ca5fb2b4b63ba217dc17d8"
+     :west-path "orgs/etzhayyim/com-etzhayyim-omise"
+     :canonical-format :edn
+     :canonical-edn-files 12
+     :wire-artifacts {:json 45 :bpmn-xml 43}
+     :verification {:tests 38 :assertions 231 :failures 0 :errors 0
+                    :jvm {:tests 9 :assertions 174 :failures 0 :errors 0}}
+     :root-copy :edn-tombstone-only}
+    "organizer"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-organizer"
+     :revision "0cc5d1bd01fefa2aa0b3788f83dbd8c4175e1dd6"
+     :west-path "orgs/etzhayyim/com-etzhayyim-organizer"
+     :canonical-format :edn
+     :canonical-edn-files 8
+     :wire-artifacts {:bpmn-xml 19 :json-and-json-ld 20}
+     :verification {:tests 30 :assertions 191 :failures 0 :errors 0
+                    :runners [:babashka :jvm]}
+     :root-copy :edn-tombstone-only}
+    "nyusatsu"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-nyusatsu"
+     :revision "326d0e833fddb1a56a55f84e2330d9479b5cd9d7"
+     :west-path "orgs/etzhayyim/com-etzhayyim-nyusatsu"
+     :canonical-format :edn
+     :canonical-edn-files 10
+     :wire-artifacts {:json-ld 1}
+     :verification {:tests 26 :assertions 75 :failures 0 :errors 0}
+     :known-gap :substrate-sdk-payment-auth-codemod
+     :root-copy :edn-tombstone-only}
+    "nusa"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-nusa"
+     :revision "f69e4c6b47de6d01737169a8d79296187ed6e03f"
+     :west-path "orgs/etzhayyim/com-etzhayyim-nusa"
+     :canonical-format :edn
+     :canonical-edn-files 24
+     :wire-artifacts {:json 7}
+     :verification {:tests 39 :assertions 107 :failures 0 :errors 0
+                    :jvm {:tests 9 :assertions 31 :failures 0 :errors 0}}
+     :root-copy :edn-tombstone-only}
+    "noroshi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-noroshi"
+     :revision "4f042125e93f81f5d018e848fc4ad992b81b97cd"
+     :west-path "orgs/etzhayyim/com-etzhayyim-noroshi"
+     :canonical-format :edn
+     :canonical-edn-files 20
+     :wire-artifacts {:json-and-json-ld 6 :wit 1}
+     :verification {:tests 259 :assertions 824 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "niyaku"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-niyaku"
+     :revision "f0bcf98f40f65dc30ebd11065b7f0f32dcdc142f"
+     :west-path "orgs/etzhayyim/com-etzhayyim-niyaku"
+     :canonical-format :edn
+     :canonical-edn-files 9
+     :wire-artifacts {}
+     :verification {:tests 53 :assertions 331 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "moyoshi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-moyoshi"
+     :revision "a0c3c79f1d2b0b1830f0e25d3b89e31427c2a03e"
+     :west-path "orgs/etzhayyim/com-etzhayyim-moyoshi"
+     :canonical-format :edn
+     :canonical-edn-files 11
+     :wire-artifacts {}
+     :verification {:tests 23 :assertions 76 :failures 0 :errors 0
+                    :runners [:babashka :jvm]}
+     :root-copy :edn-tombstone-only}
+    "mizuho"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-mizuho"
+     :revision "f3828a9bf1580994ebf3f50f991ef89816109ea6"
+     :west-path "orgs/etzhayyim/com-etzhayyim-mizuho"
+     :canonical-format :edn
+     :canonical-edn-files 8
+     :wire-artifacts {:json-and-json-ld 6}
+     :verification {:tests 39 :assertions 181 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "mitsuho"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-mitsuho"
+     :revision "dc3ddeb7ffd6f1d321c3ed58d83dcf3b8f42fde3"
+     :west-path "orgs/etzhayyim/com-etzhayyim-mitsuho"
+     :canonical-format :edn
+     :canonical-edn-files 22
+     :wire-artifacts {:json-and-json-ld 6}
+     :verification {:tests 31 :assertions 161 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "mitooshi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-mitooshi" :revision "ebdd498121ee224f994fbba3c18ae1168ebd60a7" :west-path "orgs/etzhayyim/com-etzhayyim-mitooshi" :canonical-format :edn :canonical-edn-files 28 :wire-artifacts {:json 10} :verification {:tests 178 :assertions 400 :failures 0 :errors 0} :root-copy :edn-tombstone-only}
+    "meyasu"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-meyasu" :revision "6460de557ca1d3fd1247fe84751b0f421c675bb4" :west-path "orgs/etzhayyim/com-etzhayyim-meyasu" :canonical-format :edn :canonical-edn-files 12 :wire-artifacts {:total 3} :verification {:tests 29 :assertions 70 :failures 0 :errors 0 :external-cohort-tests :separate} :root-copy :edn-tombstone-only}
+    "meisai"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-meisai" :revision "a5d0a5f9659316ff1064588212bad42b5e33a2c8" :west-path "orgs/etzhayyim/com-etzhayyim-meisai" :canonical-format :edn :canonical-edn-files 9 :wire-artifacts {:json-and-json-ld 4} :verification {:tests 43 :assertions 151 :failures 0 :errors 0} :root-copy :edn-tombstone-only}
+    "manabi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-manabi" :revision "9e143794201c3cc457cbbe5e9725bf9353c76f02" :west-path "orgs/etzhayyim/com-etzhayyim-manabi" :canonical-format :edn :canonical-edn-files 23 :wire-artifacts {:json 10} :verification {:tests 40 :assertions 152 :failures 0 :errors 0} :root-copy :edn-tombstone-only}
+    "makura"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-makura" :revision "2c780d092d5110b51386b2297415d6a40d3670da" :west-path "orgs/etzhayyim/com-etzhayyim-makura" :canonical-format :edn :canonical-edn-files 32 :wire-artifacts {:json-and-json-ld 9} :verification {:tests 27 :assertions 55 :failures 0 :errors 0} :root-copy :edn-tombstone-only}
+    "magatama"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-magatama" :revision "b52eac64eefb2ba6668a44a2bdf232fdb01a9feb" :west-path "orgs/etzhayyim/com-etzhayyim-magatama" :canonical-format :edn :canonical-edn-files 7 :wire-artifacts {:toml 5} :verification {:tests 29 :assertions 51 :failures 0 :errors 0} :root-copy :edn-tombstone-only}
+    "kanae"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kanae" :revision "7db5d2c2a12c5f9357af50f43099147369836375" :west-path "orgs/etzhayyim/com-etzhayyim-kanae" :canonical-format :edn :canonical-edn-files 15 :wire-artifacts {:json 7} :verification {:tests 57 :assertions 256 :failures 0 :errors 0 :cross-repo-pipeline :fixture-covered} :root-copy :edn-tombstone-only}
+    "kanayama"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kanayama" :revision "0d6a89236cf5f7fe78d914a04ffda19041e86903" :west-path "orgs/etzhayyim/com-etzhayyim-kanayama" :canonical-format :edn :canonical-edn-files 27 :wire-artifacts {:json-and-json-ld 9} :verification {:tests 55 :assertions 176 :failures 0 :errors 0} :root-copy :edn-tombstone-only}
+    "kanjo"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kanjo" :revision "e0f5b760193e61d84410b6beece9468d29ba0d69" :west-path "orgs/etzhayyim/com-etzhayyim-kanjo" :canonical-format :edn :canonical-edn-files 22 :wire-artifacts {:json-and-json-ld 9} :verification {:tests 55 :assertions 248 :failures 0 :errors 0 :full-data-stress :resource-terminated} :root-copy :edn-tombstone-only}
+    "kakaku"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kakaku" :revision "90ce45afc5be766339579a21cc6d9e80886d46a4" :west-path "orgs/etzhayyim/com-etzhayyim-kakaku" :canonical-format :edn :canonical-edn-files 41 :wire-artifacts {:json 19 :bpmn-xml 3 :html 2} :verification {:tests 63 :assertions 309 :failures 0 :errors 0 :jvm {:tests 9 :assertions 174}} :root-copy :edn-tombstone-only}
+    "kamado"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kamado" :revision "b4476a2c512843fb470c084572ac819542bc556b" :west-path "orgs/etzhayyim/com-etzhayyim-kamado" :canonical-format :edn :canonical-edn-files 19 :wire-artifacts {:json-and-json-ld 8} :verification {:tests 78 :assertions 244 :failures 0 :errors 0} :retained-shared-contract "00-contracts/schemas/refining-ontology.kotoba.edn" :root-copy :edn-tombstone-only}
+    "karakuri"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-karakuri" :revision "f878f8b7ecd0340503436010d0b718fe5306caf0" :west-path "orgs/etzhayyim/com-etzhayyim-karakuri" :canonical-format :edn :canonical-edn-files 20 :wire-artifacts {} :verification {:tests 106 :assertions 251 :failures 0 :errors 0} :root-copy :edn-tombstone-only}
+    "kasa"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kasa" :revision "c7c791351d1590aece8f9bccaf97d60f180ce6a7" :west-path "orgs/etzhayyim/com-etzhayyim-kasa" :canonical-format :edn :canonical-edn-files 17 :wire-artifacts {:json 6} :verification {:tests 48 :assertions 511 :failures 0 :errors 0 :jvm {:tests 9 :assertions 57}} :root-copy :edn-tombstone-only}
+    "kawaraban"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kawaraban" :revision "d515cca0face45392bd2c7d5414201add1eb0386" :west-path "orgs/etzhayyim/com-etzhayyim-kawaraban" :canonical-format :edn :canonical-edn-files 20 :wire-artifacts {:total 9} :verification {:tests 89 :assertions 207 :failures 0 :errors 0} :retained-shared-contract "00-contracts/schemas/news-medium-ontology.kotoba.edn" :root-copy :edn-tombstone-only}
+    "kizashi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kizashi" :revision "015a0b0b6918926b5018881bd1859d18169f88f2" :west-path "orgs/etzhayyim/com-etzhayyim-kizashi" :canonical-format :edn :canonical-edn-files 13 :wire-artifacts {:json-and-json-ld 10} :verification {:tests 9 :assertions 56 :failures 0 :errors 0} :excluded-user-wip :uncommitted-murakumo-scaffold :root-copy :edn-tombstone-only}
+    "kosatsu"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kosatsu" :revision "12daf143ce6039c01f1408ec6e27d9d96c0b7821" :west-path "orgs/etzhayyim/com-etzhayyim-kosatsu" :canonical-format :edn :canonical-edn-files 19 :wire-artifacts {:json 8} :verification {:tests 157 :assertions 689 :failures 0 :errors 0} :root-copy :edn-tombstone-only}
+    "matsurigoto"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-matsurigoto" :revision "2633e1326452f165bdc1b1de5c7420ffcf681125" :west-path "orgs/etzhayyim/com-etzhayyim-matsurigoto" :canonical-format :edn :canonical-edn-files 30 :wire-artifacts {:json 8} :verification {:tests 156 :assertions 1139 :failures 0 :errors 0} :retained-tooling {:mjs-wasm-verifier true} :root-copy :edn-tombstone-only}
+    "okaimono"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-okaimono" :revision "7f85dd0975fd0e8d962b4538edde90178e74c11b" :west-path "orgs/etzhayyim/com-etzhayyim-okaimono" :canonical-format :edn :canonical-edn-files 24 :wire-artifacts {} :verification {:tests 50 :assertions 113 :failures 0 :errors 0 :full-maker-golden :requires-six-west-siblings} :root-copy :edn-tombstone-only}
+    "maps"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-maps" :revision "7a859093991ec6ca5c1e904ecff14e7c53346f6c" :west-path "orgs/etzhayyim/com-etzhayyim-maps" :canonical-format :edn :canonical-edn-files 31 :wire-artifacts {:total 268 :bpmn-xml 242 :json 26} :verification {:tests 178 :assertions 784 :failures 0 :errors 0 :excluded-integration-guards 2} :retained-rust-wasm true :root-copy :edn-tombstone-only}
+    "aburi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-aburi" :revision "4cab6922fd47d9d57d3458fb1196be96f998a23c" :west-path "orgs/etzhayyim/com-etzhayyim-aburi" :canonical-format :edn :canonical-edn-files 12 :wire-artifacts {:json 2} :verification {:tests 62 :assertions 1652 :failures 0 :errors 0} :root-copy :edn-tombstone-only}
+    "akashi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-akashi" :revision "c985daa45df36a2e641d976d54e4dbc9d5b0cc48" :west-path "orgs/etzhayyim/com-etzhayyim-akashi" :canonical-format :edn :canonical-edn-files 30 :wire-artifacts {:total 29 :json 24 :json-ld 1 :docs 4} :verification {:tests 39 :assertions 166 :failures 0 :errors 0} :excluded-user-wip :inconsistent-murakumo-source-test :root-copy :edn-tombstone-only}
+    "ake"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-ake" :revision "f036122ab4673419c9d54001dff08cb860ab2ff9" :west-path "orgs/etzhayyim/com-etzhayyim-ake" :canonical-format :edn :canonical-edn-files 20 :wire-artifacts {:json-and-json-ld 7} :verification {:tests 155 :assertions 559 :failures 0 :errors 0} :root-copy :edn-tombstone-only}
+    "amime"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-amime" :revision "ef2bab003159a9014ab57ffad072376824ed8b3f" :west-path "orgs/etzhayyim/com-etzhayyim-amime" :canonical-format :edn :canonical-edn-files 9 :wire-artifacts {} :verification {:tests 12 :assertions 55 :failures 0 :errors 0} :root-copy :edn-tombstone-only}
+    "chie"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-chie" :revision "72bc5c1a39a0043795f2e83de901847fea060cdc" :west-path "orgs/etzhayyim/com-etzhayyim-chie" :canonical-format :edn :canonical-edn-files 11 :wire-artifacts {:json-ld 1} :verification {:tests 69 :assertions 227 :failures 0 :errors 0} :temporary-vendored-shared-kotoba-engine true :root-copy :edn-tombstone-only}
+    "credits"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-credits" :revision "32b06687a95a1bf412539c6071b5ad82a204ba38" :west-path "orgs/etzhayyim/com-etzhayyim-credits" :canonical-format :edn :canonical-edn-files 1 :wire-artifacts {:json-ld 1} :verification {:tests 59 :assertions 286 :failures 0 :errors 0 :runner :babashka :jvm-gap :upstream-shomei-primitive-arity} :retained-central-bpmn-contracts true :root-copy :edn-tombstone-only}
+    "danjo"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-danjo" :revision "96e05921bc92670428ce50f3d3e85e0a1dcf004d" :west-path "orgs/etzhayyim/com-etzhayyim-danjo" :canonical-format :edn :canonical-edn-files 10 :wire-artifacts {:json 17} :verification {:tests 31 :assertions 114 :script-checks 195 :failures 0 :errors 0 :r1-diet-tests 4 :r1-diet-assertions 57 :r1-ingest-tests 3 :r1-ingest-assertions 15 :r1-procurement-tests 5 :r1-procurement-assertions 14} :retained-central-lexicons-and-lint true :known-gap :aggregate-runner-retains-legacy-classpath-assumption :root-copy :edn-tombstone-only}
+    "funadaiku"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-funadaiku" :revision "0549b2e8db67b8015286e55b5796dec1641590a7" :west-path "orgs/etzhayyim/com-etzhayyim-funadaiku" :canonical-format :edn :canonical-edn-files 26 :wire-artifacts {:json 9} :verification {:tests 43 :assertions 396 :failures 0 :errors 0} :retained-central-lexicons-and-adr true :root-copy :edn-tombstone-only}
+    "futawa"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-futawa" :revision "13c2aca45f9e506f6b8526fb86b3870ecd9a7f0d" :west-path "orgs/etzhayyim/com-etzhayyim-futawa" :canonical-format :edn :canonical-edn-files 32 :wire-artifacts {:total 9} :verification {:tests 38 :assertions 178 :failures 0 :errors 0} :retained-central-lexicons true :root-copy :edn-tombstone-only}
+    "hagukumi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-hagukumi" :revision "939d6ed985ab5214cf9d104fe8a5973ca3b8b371" :west-path "orgs/etzhayyim/com-etzhayyim-hagukumi" :canonical-format :edn :canonical-edn-files 15 :wire-artifacts {:json 5} :verification {:tests 34 :assertions 55 :failures 0 :errors 0} :known-gap {:registry-entries 172 :status :unverified-seed} :retained-central-lexicons-and-adr true :root-copy :edn-tombstone-only}
+    "hikari"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-hikari" :revision "8403b94f09fb7ab14d6004634798353e4ab55f27" :west-path "orgs/etzhayyim/com-etzhayyim-hikari" :canonical-format :edn :canonical-edn-files 16 :wire-artifacts {:json 6} :verification {:tests 68 :assertions 1316 :failures 0 :errors 0 :lint-existing-cljc-issues 10} :root-copy :edn-tombstone-only}
+    "himawari"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-himawari" :revision "e932ea0504ef028d3072b579237b6abe859426b3" :west-path "orgs/etzhayyim/com-etzhayyim-himawari" :canonical-format :edn :canonical-edn-files 7 :wire-artifacts {:json 7} :verification {:tests 82 :assertions 175 :failures 0 :errors 0} :retained-external-python-ingest-adapter true :root-copy :edn-tombstone-only}
+    "hinagata"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-hinagata" :revision "c4dbec97b491adbac5df78549fbd562ae2065412" :west-path "orgs/etzhayyim/com-etzhayyim-hinagata" :canonical-format :edn :canonical-edn-files 8 :wire-artifacts {:wit 1} :verification {:tests 66 :assertions 3623 :failures 0 :errors 0} :retained-central-lexicons true :root-copy :edn-tombstone-only}
+    "funamori"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-funamori"
+     :revision "69e4c1b0b79920bb3ab3fc276c9f50f34664aefc"
+     :west-path "orgs/etzhayyim/com-etzhayyim-funamori"
+     :canonical-format :edn
+     :canonical-edn-files 11
+     :wire-artifacts {}
+     :depends-on {"com-etzhayyim-hikari" :flat-sibling-runtime-classpath}
+     :verification {:tests 53 :assertions 224 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "ibuki"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-ibuki"
+     :revision "2f71a51fee5818e1543d2a8dbccd30384a824e08"
+     :west-path "orgs/etzhayyim/com-etzhayyim-ibuki"
+     :canonical-format :edn
+     :canonical-edn-files 8
+     :wire-artifacts {:json 1 :unspsc-registry-snapshot true}
+     :verification {:tests 278 :assertions 1129 :failures 0 :errors 0
+                    :murakumo-tests 9 :murakumo-assertions 31}
+     :retired-stale-artifacts [:go :tinygo :python :pycache :json-ld-manifest]
+     :retained-central-assets ["00-contracts/actor-registry/unspsc.json"]
+     :known-gap :extract-and-publish-kotoba-datom-shared-library
+     :root-copy :edn-tombstone-only}
+    "hodoki"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-hodoki" :revision "665f8a1dca27c62494361b69d151462fd69610e6" :west-path "orgs/etzhayyim/com-etzhayyim-hodoki" :canonical-format :edn :canonical-edn-files 31 :wire-artifacts {:total 9} :verification {:tests 43 :assertions 90 :failures 0 :errors 0} :central-lexicons-moved true :root-copy :edn-tombstone-only}
+    "hotaru"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-hotaru" :revision "b28d7d31e108a3d9ce8c86f4e9e5e813568d3b8d" :west-path "orgs/etzhayyim/com-etzhayyim-hotaru" :canonical-format :edn :canonical-edn-files 12 :wire-artifacts {:total 7} :verification {:tests 73 :assertions 229 :failures 0 :errors 0} :central-lexicons-and-ontology-moved true :root-copy :edn-tombstone-only}
+    "itonami"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-itonami" :revision "e90f1bccf7a979708e1e10ddc80e81ffc37f2d93" :west-path "orgs/etzhayyim/com-etzhayyim-itonami" :canonical-format :edn :canonical-edn-files 9 :wire-artifacts {:json-ld 1} :verification {:tests 127 :assertions 892 :failures 0 :errors 0} :root-copy :edn-tombstone-only}
+    "junkan"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-junkan" :revision "45d17c42f044131b6ece13e762fc07c2301c541f" :west-path "orgs/etzhayyim/com-etzhayyim-junkan" :canonical-format :edn :canonical-edn-files 18 :wire-artifacts {:total 6} :verification {:tests 105 :assertions 6670 :failures 0 :errors 0} :central-lexicons-moved true :root-copy :edn-tombstone-only}
+    "kadode"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kadode" :revision "5de19dc935b274bf59836296305fe2850575be6f" :west-path "orgs/etzhayyim/com-etzhayyim-kadode" :canonical-format :edn :wire-artifacts {:json 2 :json-ld 1} :verification {:tests 58 :assertions 381 :failures 0 :errors 0 :wasm-build :not-run} :known-gap :legacy-componentize-py-build-script :central-lexicons-moved true :root-copy :edn-tombstone-only}
+    "jinushi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-jinushi" :revision "88fdf592446fa9399ed691c584cb6ba242b37dd0" :west-path "orgs/etzhayyim/com-etzhayyim-jinushi" :canonical-format :edn :canonical-edn-files 7 :wire-artifacts {} :verification {:pure-logic-tests 26 :assertions 127 :failures 0 :errors 0 :full-dataset-suite :requires-external-mount} :external-dataset {:path "80-data/jinushi-land" :files 35 :ownership :dataset-boundary} :root-copy :edn-tombstone-only}
+    "kaiyaku"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kaiyaku" :revision "8543e3206a5d2fa4573a66c9e8bce4fe3df764f2" :west-path "orgs/etzhayyim/com-etzhayyim-kaiyaku" :canonical-format :edn :canonical-edn-files 6 :wire-artifacts {} :verification {:tests 120 :assertions 1903 :failures 0 :errors 0 :cross-repository-suites :west-fixture-gated} :depends-on-fixtures ["com-etzhayyim-tate/data/seed-member-docs.edn" "com-etzhayyim-karakuri/lex/serviceOp.edn"] :root-copy :edn-tombstone-only}
+    "ameno"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-ameno" :revision "2933528b3e4fbbb654070c14b57dda8ceef023bc" :west-path "orgs/etzhayyim/com-etzhayyim-ameno" :canonical-format :edn :verification {:typecheck :pass :tests 157 :passed 154 :environment-performance-failures 2 :external-fixture-failures 1 :kotoba-ground-tests 9} :retained-root-assets ["00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/ameno"] :root-copy :edn-tombstone-only}
+    "iriai"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-iriai" :revision "4a02010be91e1f57755a58daa9ef5ace14d15ce3" :west-path "orgs/etzhayyim/com-etzhayyim-iriai" :canonical-format :edn :canonical-edn-files 11 :wire-artifacts {:json 5} :verification {:tests 79 :assertions 513 :failures 0 :errors 0} :central-lexicons-moved true :root-copy :edn-tombstone-only}
+    "iryo"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-iryo" :revision "bff63360df49fc19bce9c77d691021b4a01e5c96" :west-path "orgs/etzhayyim/com-etzhayyim-iryo" :canonical-format :edn :canonical-edn-files 22 :wire-artifacts {:total 20 :bpmn-xml 9 :json 11} :verification {:tests 138 :assertions 563 :failures 0 :errors 0} :central-bpmn-and-lexicons-moved true :root-copy :edn-tombstone-only}
+    "etzhayyim-organism"
+    {:repository "https://github.com/kotoba-lang/kotodama"
+     :revision "6e02abb11f95d5b7cea2379f513c25d0208b1b59"
+     :west-path "orgs/kotoba-lang/kotodama"
+     :category :shared-runtime-library
+     :canonical-format :edn
+     :moves ["src/kotodama/organism/sensors"]
+     :pruned ["Python sensor twins" "Python constitution" "Dockerfile" "pyproject.toml"]
+     :verification {:tests 31 :assertions 61 :failures 0 :errors 0}
+     :retained-root-assets ["00-contracts organism contracts" "80-data journals and public data"]
+     :root-consumer-rewire "etzhayyim-organism-viz no longer imports the retired Python actor"
+     :root-copy :edn-tombstone-only}
+    "kotodama"
+    {:repository "https://github.com/kotoba-lang/kotodama"
+     :revision "6e02abb11f95d5b7cea2379f513c25d0208b1b59"
+     :west-path "orgs/kotoba-lang/kotodama"
+     :category :shared-runtime-library
+     :canonical-format :edn
+     :moves ["src/kotoba/datom.cljc"]
+     :actor-owned-content
+     {"tadori" "orgs/etzhayyim/com-etzhayyim-tadori"
+      "tsukuroi" "orgs/etzhayyim/com-etzhayyim-tsukuroi"}
+     :pruned ["deprecated Go/TinyGo runtime" "obsolete Rust probe" "obsolete host SDK probe"]
+     :verification {:tests 12 :assertions 42 :failures 0 :errors 0}
+     :root-consumer-rewire "active classpaths use orgs/kotoba-lang/kotodama/src"
+     :root-copy :edn-tombstone-only}
+    "silicon"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-silicon"
+     :revision "7d7a5fa1a49f38ed34d4b374d4c8187d5cf6d84c"
+     :west-path "orgs/etzhayyim/com-etzhayyim-silicon"
+     :canonical-format :edn
+     :canonical-edn-files 6
+     :wire-artifacts {}
+     :verification {:tests 64 :assertions 136 :failures 0 :errors 0}
+     :retained-central-assets ["00-contracts/lexicons/com/etzhayyim/silicon"]
+     :retired-stale-artifacts [:shell-runner :shell-deploy :go :tinygo]
+     :root-copy :edn-tombstone-only}
+    "tate"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-tate"
+     :revision "658b9f67aaa65d7aad5ffda280ec8feaae7a8bc2"
+     :west-path "orgs/etzhayyim/com-etzhayyim-tate"
+     :canonical-format :edn
+     :verification {:tests 127 :assertions 7999 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "rasen"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-rasen"
+     :revision "dbcb867eac0f4816cc2bddc74c6ca3953018d0c5"
+     :west-path "orgs/etzhayyim/com-etzhayyim-rasen"
+     :canonical-format :edn
+     :verification {:tests 60 :assertions 587 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "shiori"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-shiori"
+     :revision "3a748d4e915e411993e57bf51dfd48f06336a2ac"
+     :west-path "orgs/etzhayyim/com-etzhayyim-shiori"
+     :canonical-format :edn
+     :verification {:tests 34 :assertions 761 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "tsugite"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-tsugite"
+     :revision "1eacf06717cda49dbd7cc3f0af96ca878aebdc52"
+     :west-path "orgs/etzhayyim/com-etzhayyim-tsugite"
+     :canonical-format :edn
+     :verification {:tests 38 :assertions 578 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "watatsuna"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-watatsuna"
+     :revision "c0a34866551b998d9e143bb59e9e902ea0630f77"
+     :west-path "orgs/etzhayyim/com-etzhayyim-watatsuna"
+     :canonical-format :edn
+     :verification {:tests 58 :assertions 217 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "watari"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-watari"
+     :revision "33e927c5fe47d93a75d5cd189b17a87e25d6031e"
+     :west-path "orgs/etzhayyim/com-etzhayyim-watari"
+     :canonical-format :edn
+     :verification {:tests 44 :assertions 1179 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "fuchi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-fuchi"
+     :revision "54c0b9ecc4b6838571f9d338d2ac7708cf572d20"
+     :west-path "orgs/etzhayyim/com-etzhayyim-fuchi"
+     :moves
+     ["manifest.edn"
+      "schema.edn"
+      "src/fuchi/methods/social.cljc"
+      "test/fuchi/methods/consistency_test.clj"]
+     :rewires
+     ["cells and methods into namespace-correct src/fuchi paths"
+      "tests into namespace-correct test/fuchi paths"
+      "manifest schema and seed references to repository-local EDN resources"
+      "run_tests.sh away from the old monorepo classpath"
+      "generic social invariant logic to SHA-pinned etzhayyim.social.publication"]
+     :canonical-format :edn
+     :verification {:tests 349 :assertions 2221 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "gtin"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-gtin"
+     :revision "4c75ca22363ffbab192fac3a9aa576a6deccd215"
+     :west-path "orgs/etzhayyim/com-etzhayyim-gtin"
+     :pull-request "https://github.com/etzhayyim/com-etzhayyim-gtin/pull/2"
+     :moves ["kotoba.app.edn" "methods/mesh.clj" "schema.edn"]
+     :rewires
+     ["nested deployment values from encoded strings to structured EDN"
+      "KQE host dependency to explicit :cap/kqe manifest requirement"
+      "standalone repository test entry point"
+      "actor and DID metadata to canonical EDN with DID JSON retained as wire output"]
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :verification {:tests 13 :assertions 178 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "hanrei"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-hanrei"
+     :revision "b2d3ab0a011ea17e48cf566bf9bcaad02a6a989a"
+     :west-path "orgs/etzhayyim/com-etzhayyim-hanrei"
+     :pull-request "https://github.com/etzhayyim/com-etzhayyim-hanrei/pull/2"
+     :moves ["kotoba.app.edn" "methods/mesh.clj" "schema.edn"]
+     :rewires
+     ["nested deployment values from encoded strings to structured EDN"
+      "KQE host dependency to explicit :cap/kqe manifest requirement"
+      "standalone repository test entry point"
+      "actor and DID metadata to canonical EDN with DID JSON retained as wire output"]
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :verification {:tests 13 :assertions 217 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "kenchi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kenchi"
+     :revision "ca4bb3286dd9f85ff996cd68b2dce44d72c8b42d"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kenchi"
+     :category :actor
+     :canonical-format :edn
+     :canonical-metadata "manifest.edn"
+     :depends-on
+     {etzhayyim/root {:revision "33532811bc4f544d82de673362c8745887502667"
+                      :paths ["90-docs/adr"]}
+      com.etzhayyim/toritate "3354850aa05408e840426f91fe067ddad8535e5b"
+      com.etzhayyim/social-publication "e8127d0661284b1c12ce1b216c84b5ed2db619ab"}
+     :actor-owned-contracts ["lex/provenanceAttestation.edn"
+                             "lex/regionReport.edn"
+                             "lex/sourceLicense.edn"
+                             "lex/valuation.edn"]
+     :canonicalization #{:root-only-assets-merged :namespace-root-corrected
+                         :actor-lexicons-edn-canonical :actor-data-edn-canonical
+                         :cross-actor-dependencies-pinned
+                         :atproto-json-retained-as-wire}
+     :verification {:tests 18 :assertions 132 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "hokorobi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-hokorobi"
+     :revision "7f71e2795d99804a9e14b88984f672d4b7aba028"
+     :west-path "orgs/etzhayyim/com-etzhayyim-hokorobi"
+     :moves ["manifest.edn" "src/hokorobi" "test/hokorobi"]
+     :rewires
+     ["root-relative resources to repository-local paths"
+      "social membrane to SHA-pinned shared library"
+      "IE-flow and Kotoba Datom to SHA-pinned shared libraries"]
+     :canonical-format :edn
+     :verification {:tests 37 :assertions 270 :failures 0 :errors 0
+                    :jvm {:tests 11 :assertions 49}}
+     :root-copy :edn-tombstone-only}
+    "hoshimori"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-hoshimori"
+     :revision "ced1bf8613793f1e91fd6da2774085fe6b36575b"
+     :west-path "orgs/etzhayyim/com-etzhayyim-hoshimori"
+     :moves ["manifest.edn" "src/hoshimori" "test/hoshimori"
+             "schema/orbit-ontology.edn" "data/seed-orbit-graph.kotoba.edn"]
+     :rewires ["root-only mesh merged" "orbit ontology ownership moved to actor repository"
+               "JSON retained only as DID wire output" "Go, TinyGo, and shell wrappers pruned"]
+     :canonical-format :edn
+     :verification {:tests 41 :assertions 461 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "inochi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-inochi"
+     :revision "80c16d364c53a12f3713d1e29133e80e54621106"
+     :west-path "orgs/etzhayyim/com-etzhayyim-inochi"
+     :moves ["manifest.edn" "src/inochi" "test/inochi"
+             "data/seed-biosphere-graph.kotoba.edn"]
+     :rewires ["root-only mesh merged" "manifest JSON retained only as wire output"
+               "Go, TinyGo, publish, and shell wrappers pruned"]
+     :canonical-format :edn
+     :verification {:tests 37 :assertions 298 :failures 0 :errors 0
+                    :jvm {:tests 11 :assertions 47}}
+     :root-copy :edn-tombstone-only}
+    "mimamori"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-mimamori"
+     :revision "b13639f2922ede3022c7c975ecbf9645b1796a74"
+     :west-path "orgs/etzhayyim/com-etzhayyim-mimamori"
+     :moves ["manifest.edn" "schema.edn" "cell.edn" "src/mimamori" "test/mimamori"]
+     :rewires
+     ["root-relative ontology and cell registry to repository-local EDN"
+      "Moyai Ledger and Kotoba Datom to SHA-pinned shared libraries"
+      "social membrane to SHA-pinned shared library"
+      "namespace paths and standalone runner"]
+     :canonical-format :edn
+     :verification {:tests 50 :assertions 239 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "kaname"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kaname"
+     :revision "cf1fb83e02bc9693a61086bfc83516f602c91a56"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kaname"
+     :moves ["manifest.edn" "schema.edn" "src/kaname" "test/kaname" "run_tests.clj"]
+     :rewires
+     ["numbered-root and sibling checkout assumptions to explicit repository-root maps"
+      "amime energy mirror to repository URL plus pinned revision"
+      "Kotoba Datom, IE Flow, social publication, and LangGraph to SHA-pinned dependencies"
+      "deployment runner and tests to repository-native paths"
+      "JSON-LD compatibility manifest retired in favor of canonical EDN"]
+     :canonical-format :edn
+     :verification {:tests 65 :assertions 275 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}
+    "kuni-umi"
+    {:repository "https://github.com/etzhayyim/com-etzhayyim-kuni-umi"
+     :revision "93d8ac38fbc53ac996634de61565e3b1aafc064e"
+     :west-path "orgs/etzhayyim/com-etzhayyim-kuni-umi"
+     :moves
+     ["manifest.edn"
+      "cells/schema.edn"
+      "src/kuni_umi"
+      "test/kuni_umi"
+      "run_tests.clj"]
+     :rewires
+     ["monorepo classpath to repository-native src and test paths"
+      "langchain-clj local root to a SHA-pinned Git dependency"
+      "generic social membrane to SHA-pinned etzhayyim.social.publication"
+      "cell entry paths and Kotoba seed ingestion to repository-local EDN"
+      "kami golden parity from deleted Python twins to the CLJC source of truth"]
+     :retired-stale-artifacts
+     ["run_tests.sh"
+      "kotoba/deploy.sh"
+      "Python robotics tests whose twins were previously retired by ADR-2606160842"]
+     :canonical-format :edn
+     :wire-compatibility ["wire/lexicons/kuniUmi"
+                          "wire/lexicons/apps-etzhayyim-kuniUmi"]
+     :verification {:tests 74 :assertions 532 :failures 0 :errors 0}
+     :root-copy :edn-tombstone-only}}}
+  :migration/remaining-work
+  [{:class :legacy-actor-root-directories
+    :snapshot-date "2026-07-18"
+    :baseline 198
+    :moved 198
+    :remaining 0
+    :tracked-moved-edn-only 198
+    :inventory "90-docs/adr/2607181700-flat-west-actor-root-drain-complete.edn"
+    :final-destinations
+    {"business-manager" {:owner "orgs/etzhayyim/com-etzhayyim-business-manager"
+                          :revision "49e3225a4c7d36cdbc77ceca56ad07995a5021e0"}
+     "business_manager" {:owner "orgs/etzhayyim/com-etzhayyim-business_manager"
+                          :revision "88ed239671a84d3dfdb4960720bab8114316b152"
+                          :role :did-compatibility-identity}
+     "gov-municipality" {:owner "orgs/etzhayyim/com-etzhayyim-gov-municipality"
+                          :revision "cec47838b7ba193a86ffd82227c30e7dd072f50c"}
+     "gov_municipality" {:owner "orgs/etzhayyim/com-etzhayyim-gov_municipality"
+                          :revision "225114114375100a40af5ca257704f1e13de2e66"
+                          :role :did-compatibility-identity}
+     "infra-utility-connect" {:owner "orgs/etzhayyim/com-etzhayyim-infra-utility-connect"
+                               :revision "1ea53870784fae349af344d1dfa7bbe515e4352e"}
+     "infra_utility_connect" {:owner "orgs/etzhayyim/com-etzhayyim-infra_utility_connect"
+                               :revision "7c8db82293dc369ff8cda0da06b3a8318e56fafd"
+                               :role :did-compatibility-identity}
+     "kotoba-actors-clj" {:owner "orgs/kotoba-lang/kotoba-actors"
+                           :revision "0d63399a16f30e68e0f32683cb4a43fb36f15fef"
+                           :role :shared-library}
+     "mst-projector" {:owner "orgs/kotoba-lang/mst-projector"
+                       :revision "5be6c839142ab260938dfc00bb9541b3a45be445"
+                       :role :shared-engine-library}
+     "_conformance" {:owner "70-tools/conformance"
+                      :role :root-shared-tooling}}}
+   {:class :existing-repo-overlap
+    :state :merge-root-only-content-before-delete}
+   {:class :not-yet-independent-actor
+    :state :complete}
+   {:class :shared-libraries
+    :count 4
+    :extracted 4
+    :remaining 0
+    :state :all-known-prerequisites-extracted-rewire-consumers}
+   {:class :fleet-actors
+    :state :repoint-runner-classpath-and-verify-remote-fire}
+   {:class :other-numbered-layers
+    :state :per-component-classification-required}]
+  :doc/body
+  "The EDN fields in this document are canonical. README and CLAUDE files only point to or enforce this record. Content containment is checked by hash, not by filename. A root-only implementation or dataset blocks deletion until deliberately merged into its owning repository."
+  :db/id -1}]

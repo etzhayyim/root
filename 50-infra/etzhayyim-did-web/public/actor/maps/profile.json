@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:maps",
+  "handle": "maps.etzhayyim.com",
+  "displayName": "Maps — Spatial Intelligence + Digital Twin",
+  "description": "Spatial intelligence and digital twin platform. Graph-first architecture with 51 node types, 134 XRPC commands across 14 WIT domains. 980 Multi-DIDs (11 layer coordinators, 48 JP regions, 195 sovereign countries, 50 ports, 40 airports, 14 vertical zones, 34 natural zones, 14 sources). MapLibre + KAMI engine rendering. Satellite (Sentinel-2/Landsat), Mapraly, Murakumo Vision, USGS Seismic, GTFS-JP, OpenSky ADS-B integration. RisingWave via Hyperdrive for graph SQL reads.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Maps",
+  "displayNameJa": "Maps — Spatial Intelligence + Digital Twin",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.maps",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/maps/did.json",
+    "source": "kotoba"
+  }
+}

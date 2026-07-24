@@ -4,9 +4,7 @@
     "https://w3id.org/security/suites/jws-2020/v1"
   ],
   "id": "did:web:etzhayyim.com:actor:shionome",
-  "alsoKnownAs": [
-    "did:web:shionome.etzhayyim.com"
-  ],
+  "alsoKnownAs": [],
   "verificationMethod": [],
   "service": [
     {
@@ -20,7 +18,7 @@
     {
       "id": "did:web:etzhayyim.com:actor:shionome#atproto_pds",
       "type": "AtprotoPersonalDataServer",
-      "serviceEndpoint": "https://pds.etzhayyim.com"
+      "serviceEndpoint": "https://pds.aozora.app"
     },
     {
       "id": "did:web:etzhayyim.com:actor:shionome#xrpc-libp2p",
@@ -44,7 +42,7 @@
     "wasmCid": "bafkreihvidpgf5lgrgdwxskhjasbysigqcunrlshi2sx4zdngkapi5tlly",
     "execModel": "wasm-local (browser/donated-mesh)",
     "primaryLexicon": "com.etzhayyim.shionome",
-    "primarySchema": "00-contracts/schemas/capital-flow-ontology.kotoba.edn",
+    "primarySchema": "orgs/etzhayyim/com-etzhayyim-shionome/contracts/capital-flow-ontology.edn",
     "note": "verificationMethod empty — on-chain ERC725 mirror pending; did:web trust root = TLS (no server-minted key, ADR-2605231525)"
   }
 }

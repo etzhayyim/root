@@ -1,9 +1,0 @@
-{
-  "name": "etzhayyim-wasm-isekai-is3k41w0",
-  "private": true,
-  "version": "1.0.0",
-  "main": "src/app.ts",
-  "dependencies": {
-    "@etzhayyim/kotodama-host-sdk": "workspace:*"
-  }
-}

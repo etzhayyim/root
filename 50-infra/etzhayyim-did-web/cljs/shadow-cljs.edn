@@ -1,0 +1,45 @@
+;; ClojureScript build for the etzhayyim did:web Worker core (ADR-2606013800 lineage).
+;;
+;; Compiles the Worker's request-handling core to an ESM module that the thin
+;; TypeScript shell (src/worker.ts) imports and delegates to. The shell keeps
+;; the static imports (did.json + generated registries) and the Cloudflare
+;; runtime entry; everything routable migrates into did-web.* cljs/cljc here.
+;;
+;; Output: ../cljs-out/worker_core.mjs  (an ESM module exporting `handle`)
+;;
+;; The `handle` export receives (request, env, ctx, deps, fallback):
+;;   - request/env/ctx : the Cloudflare fetch-handler triple
+;;   - deps            : a JS object the shell injects (static did.json,
+;;                       compiled registries, helper fns) — the DI seam,
+;;                       mirroring the actor-cell SubstratePort pattern
+;;   - fallback        : the legacy TS fetch handler, called for any route the
+;;                       cljs core does not (yet) own — this is what makes the
+;;                       migration incremental and rollback-safe.
+;;
+;; Build:  npx shadow-cljs release worker   (or `npm run build:cljs`)
+;; Watch:  npx shadow-cljs watch   worker
+{:source-paths ["src" "test"]
+ :dependencies [[hiccups/hiccups "0.3.0"]
+                [com.thheller/shadow-css "0.6.4"]]
+
+ :builds
+ {:worker
+  {:target     :esm
+   :output-dir "../cljs-out"
+   ;; Cloudflare Workers is neither Node nor a browser — :custom keeps shadow
+   ;; from injecting node builtins (process/require) or DOM assumptions.
+   :runtime    :custom
+   :modules    {:worker_core
+                {:exports {handle did-web.core/handle}}}
+   :compiler-options
+   {:infer-externs        :auto
+    ;; Worker bundles must be self-contained ESM; no dynamic require.
+    :output-feature-set   :es2020}}
+
+  ;; Pure-cljs unit tests for namespaces that use js/ interop and so can't
+  ;; run under the bb harness (run_tests.sh) the way did-web.router /
+  ;; did-web.shell (both .cljc) do. node-test needs no -main entry point.
+  :test
+  {:target    :node-test
+   :output-to "test-out/test.js"
+   :ns-regexp "-test$"}}}

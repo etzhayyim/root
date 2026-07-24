@@ -195,29 +195,72 @@
   (some #(when (str/starts-with? % "# ") (str/triml (subs % 1)))
         (str/split-lines (or body ""))))
 
+(defn- tx-entity->data
+  "Normalize tx-data entity (or bare map) to flat metadata map with :body."
+  [e]
+  (when (map? e)
+    (let [getv (fn [k]
+                 (or (get e k)
+                     (get e (keyword "adr" (name k)))
+                     (get e (keyword "doc" (name k)))))]
+      (cond-> {:id (str (or (getv :id) ""))
+               :title (str (or (getv :title) ""))
+               :status (str (or (getv :status) "unknown"))
+               :doc-type (str (or (getv :doc-type) (getv :doc_type) "adr"))
+               :body (str (or (getv :body) ""))}
+        (seq (str (or (getv :topic) ""))) (assoc :topic (str (getv :topic)))
+        (some? (getv :authoritative)) (assoc :authoritative (boolean (getv :authoritative)))
+        (seq (str (or (getv :last-verified) (getv :last_verified) "")))
+        (assoc :last-verified (str (or (getv :last-verified) (getv :last_verified))))))))
+
 (defn list-adr-files
-  "Canonical ADR source files in `dir`: every `*.md` / `*.md.edn`, preferring the
-  `.md.edn` when both exist; excludes README / template / MDEDN docs."
+  "Canonical ADR source files in `dir`: every `*.edn` / `*.md.edn` / `*.md`,
+  preferring plain `.edn` then `.md.edn` then `.md`. Excludes README / template /
+  MDEDN / adr-index."
   [dir]
   (let [names (->> (.listFiles (io/file dir))
                    (map #(.getName %))
-                   (filter #(re-matches #".*\.md(\.edn)?$" %))
-                   (remove #(re-find #"README|template|MDEDN-FORMAT" %)))
-        edn-bases (set (->> names
-                            (filter #(str/ends-with? % ".md.edn"))
-                            (map #(str/replace % #"\.md\.edn$" ""))))]
-    (->> names
-         (remove #(and (str/ends-with? % ".md")
-                       (contains? edn-bases (str/replace % #"\.md$" ""))))
-         sort)))
+                   (filter #(or (re-matches #".*\.md(\.edn)?$" %)
+                                (and (str/ends-with? % ".edn")
+                                     (not (str/ends-with? % ".md.edn")))))
+                   (remove #(re-find #"README|template|MDEDN-FORMAT|adr-index" %)))
+        strip (fn [n]
+                (-> n
+                    (str/replace #"\.md\.edn$" "")
+                    (str/replace #"\.edn$" "")
+                    (str/replace #"\.md$" "")))
+        by-base (atom {})]
+    (doseq [n names]
+      (let [b (strip n)
+            rank (cond (and (str/ends-with? n ".edn") (not (str/ends-with? n ".md.edn"))) 3
+                       (str/ends-with? n ".md.edn") 2
+                       :else 1)
+            prev (get @by-base b)]
+        (when (or (nil? prev) (> rank (second prev)))
+          (swap! by-base assoc b [n rank]))))
+    (->> @by-base vals (map first) sort)))
 
 (defn file->entry
   "Build one index entry (metadata, no body) from an ADR file path. Falls back to a
   filename-derived id and the first H1 as title when front matter is absent."
   [path]
   (let [text (slurp path)
-        data (if (str/ends-with? path ".md.edn") (read-mdedn text) (md->data text))
-        base (-> path (str/replace #".*/" "") (str/replace #"\.md(\.edn)?$" ""))
+        data (cond
+               (str/ends-with? path ".md.edn") (read-mdedn text)
+               (and (str/ends-with? path ".edn") (not (str/ends-with? path ".md.edn")))
+               (try
+                 (let [form (edn/read-string {:default (fn [_tag v] v)} text)]
+                   (cond
+                     (and (vector? form) (map? (first form))) (tx-entity->data (first form))
+                     (map? form) (or (tx-entity->data form) (md->data (or (:body form) "")))
+                     :else (md->data text)))
+                 (catch #?(:clj Exception :cljs :default) _ (md->data text)))
+               :else (md->data text))
+        base (-> path
+                 (str/replace #".*/" "")
+                 (str/replace #"\.md\.edn$" "")
+                 (str/replace #"\.edn$" "")
+                 (str/replace #"\.md$" ""))
         m (dissoc data :body)]
     (-> m
         ;; coerce id/title to strings: some ADR front matter has a bare-numeric
@@ -226,7 +269,7 @@
                :title (str (or (:title m) (first-h1 (:body data)) base))
                :status (str (or (:status m) "unknown"))
                :doc-type (str (or (:doc-type m) "adr"))
-               :file (str base ".md")))))
+               :file (str base ".edn")))))
 
 (defn gen-index
   "Scan `dir` and return the index as a vector of entry maps, newest id first."

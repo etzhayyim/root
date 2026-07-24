@@ -1,0 +1,29 @@
+{
+  "_etzhayyim" : {
+    "parent" : "toritsugi",
+    "didDocument" : "https://etzhayyim.com/actor/toritsugi-pe-national/did.json",
+    "adr" : [ "2605312030", "2606272355", "2605231525" ],
+    "status" : "r0",
+    "kind" : "tier-b",
+    "source" : "kotoba",
+    "tier" : "B",
+    "regime" : "pe-national",
+    "primaryLexicon" : "com.etzhayyim.toritsugi.pe-national.procedure"
+  },
+  "banner" : "",
+  "handle" : "toritsugi-pe-national.etzhayyim.com",
+  "displayNameJa" : "取次-pe-national — Registro Nacional de Identificación y Estado Civil (RENIEC)",
+  "followsCount" : 0,
+  "displayName" : "Toritsugi-pe-national — Registro Nacional de Identificación y Estado Civil (RENIEC)",
+  "followersCount" : 0,
+  "performerType" : "system",
+  "avatar" : "",
+  "did" : "did:web:etzhayyim.com:actor:toritsugi-pe-national",
+  "labels" : [ ],
+  "viewer" : { },
+  "uiType" : "appview",
+  "glyph" : "取次",
+  "description" : "toritsugi authority-actor for regime 'pe-national' (Registro Nacional de Identificación y Estado Civil (RENIEC) / Superintendencia Nacional de Aduanas y de Administración Tributaria (SUNAT)). Covers 2 procedure(s) across jurisdiction(s): per. Parent: toritsugi (ADR-2605312030). Keyless R0 mirror — no server key. 行政書士法/UPL boundary (G5): 情報提供+案内+入力補助 only, NO advice, NO 作成代理. Member self-submits (G15). NOT a 行政書士/弁護士 firm, NOT an official channel.",
+  "postsCount" : 0,
+  "indexedAt" : "2026-06-29T00:00:00.000Z"
+}

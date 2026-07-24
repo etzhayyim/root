@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:business-manager",
+  "handle": "business-manager.etzhayyim.com",
+  "displayName": "Business Manager -- Corporate ERP Intelligence",
+  "description": "Corporate ERP actor for accounting (GL/AP/AR), HR, procurement, and budget management. Japanese fiscal year (March end). Approval thresholds: journal entry >1M JPY, purchase order >5M JPY.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-01T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "Business Manager -- Corporate ERP Intelligence",
+  "displayNameJa": "Business Manager -- Corporate ERP Intelligence",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [],
+    "primaryLexicon": "com.etzhayyim.business-manager",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/business-manager/did.json",
+    "source": "kotoba"
+  }
+}

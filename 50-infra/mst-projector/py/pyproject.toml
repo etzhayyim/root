@@ -28,5 +28,11 @@ packages = ["src/mst_projector"]
 asyncio_mode = "auto"
 testpaths = ["tests"]
 
+[dependency-groups]
+dev = [
+    "pytest>=9.0.0",
+    "pytest-asyncio>=1.3.0",
+]
+
 [tool.uv.sources]
-etzhayyim-sdk = { path = "../../../20-actors/etzhayyim-sdk-py", editable = true }
+etzhayyim-sdk = { git = "https://github.com/etzhayyim/com-etzhayyim-sdk-py.git", rev = "6cd818b03fbc56ff5f624870ec9b9c2e0a208e9b" }

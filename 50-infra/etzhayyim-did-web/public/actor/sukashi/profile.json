@@ -1,0 +1,29 @@
+{
+  "did": "did:web:etzhayyim.com:actor:sukashi",
+  "handle": "sukashi.etzhayyim.com",
+  "displayName": "sukashi",
+  "description": "Ad-tech supply-chain + delivery-infrastructure + fraud-network observatory. Datafies the programmatic advertising ecosystem from the PUBLIC IAB web-standard files (ads.txt / app-ads.txt / sellers.json): the ad-tech entities (DSP / ad-exchange / SSP / ad-network / publisher / verification), the first-class AUTHORIZATION edges + the two-sided handshake whose GAPS reveal spoofed / unauthorized inventory, the creatives (who broadcasts what), the DELIVERY edges binding a creative to its serving in...",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-07T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "透かし",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2606071600"
+    ],
+    "primaryLexicon": "com.etzhayyim.sukashi",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/sukashi/did.json",
+    "source": "kotoba"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "source" : "git",
+  "range" : "-400",
+  "commit" : "ac01f79d1fa12e8efb2ce4e2b762f168d4e1b494",
+  "ingested-as-of" : "ac01f79d1fa12e8efb2ce4e2b762f168d4e1b494",
+  "n-events" : 273,
+  "load-discipline" : "git system binary at ingest only; loop re-measures the committed snapshot with zero network I/O",
+  "measured" : {
+    "flows-n" : 8,
+    "net-gain" : 1.14416419E8,
+    "order-index" : 0.6337854018993876,
+    "total-value" : 1.14901055E8,
+    "total-cost" : 484636.0,
+    "throughput" : 881651.0,
+    "agent-efficiency" : "inf",
+    "parasitic?" : false
+  }
+}

@@ -3,7 +3,7 @@
  * no-cookie — Block cookie usage on the etzhayyim.com religious-corp surface.
  *
  * Per CHARTER-RIDER.md §2(c) (no surveillance/trackers), ADR-2605172000
- * (RW-free substrate — identity = DID + WebAuthn, not cookies), and the
+ * (kotoba substrate — identity = DID + WebAuthn, not cookies), and the
  * apex Worker cookie-strip policy in `50-infra/etzhayyim-did-web/src/worker.ts`,
  * etzhayyim.com is a cookie-free zone in both directions:
  *

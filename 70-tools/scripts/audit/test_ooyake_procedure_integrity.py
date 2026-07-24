@@ -2,7 +2,7 @@
 government-atlas procedure seed and its links into toritsugi (取次).
 
 ooyake is the structural atlas of government units; each `:gov.procedure/*` record
-(`20-actors/ooyake/registry/gov-units*.edn`) is OWNED by a government unit and may
+(`orgs/etzhayyim/com-etzhayyim-ooyake/registry/gov-units*.edn`) is OWNED by a government unit and may
 LINK to the matching citizen-facing toritsugi procedure via
 `:gov.procedure/toritsugi-ref`. Those two cross-references are exactly what a
 single-actor suite cannot validate — a unit-id typo orphans the procedure from the
@@ -24,7 +24,6 @@ helper from the reconcile cell module, the same way gen_coverage_doc.py does.)
 from __future__ import annotations
 
 import glob
-import json
 import os
 import sys
 from pathlib import Path
@@ -32,7 +31,8 @@ from pathlib import Path
 _REPO = Path(__file__).resolve().parents[3]
 _RECONCILE = _REPO / "20-actors" / "ooyake" / "cells" / "reconcile"
 _REGISTRY_GLOB = str(_REPO / "20-actors" / "ooyake" / "registry" / "gov-units*.edn")
-_TORITSUGI = _REPO / "20-actors" / "toritsugi" / "registry" / "procedures.seed.json"
+_TORITSUGI_ROOT = Path(os.environ.get("ETZHAYYIM_TORITSUGI_ROOT", _REPO.parent / "com-etzhayyim-toritsugi"))
+_TORITSUGI = _TORITSUGI_ROOT / "registry" / "procedures.seed.edn"
 
 sys.path.insert(0, str(_RECONCILE))
 from cell import parse_edn  # noqa: E402
@@ -52,7 +52,7 @@ def _load_atlas() -> tuple[set[str], list[dict]]:
 
 
 def _toritsugi_ids() -> set[str]:
-    data = json.loads(_TORITSUGI.read_text())
+    data = parse_edn(_TORITSUGI.read_text())
     return {p["procedureId"] for p in data["procedures"]}
 
 
