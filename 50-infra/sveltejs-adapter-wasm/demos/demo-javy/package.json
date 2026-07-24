@@ -15,6 +15,6 @@
     "@etzhayyim/sveltejs-adapter-wasm": "link:../../projects/sveltejs-adapter-wasm/adapter",
     "@sveltejs/kit": "^2.52.2",
     "svelte": "^5.56.4",
-    "vite": "^8.1.4"
+    "vite": "^8.1.5"
   }
 }
