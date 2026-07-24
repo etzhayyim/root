@@ -107,6 +107,7 @@ contract EtzhayyimPaymaster {
     error InvalidSigner();
     error InvalidPaymasterDataLength();
     error InvalidSignatureLength();
+    error DayBoundaryViolation();
 
     modifier onlyOwner() {
         if (msg.sender != owner) revert NotOwner();
@@ -194,10 +195,15 @@ contract EtzhayyimPaymaster {
         uint256 actualGasCost,
         uint256 /*actualUserOpFeePerGas*/
     ) external onlyEntryPoint {
-        (address sender, uint256 day, uint256 maxCost) = abi.decode(context, (address, uint256, uint256));
+        (address sender, uint256 validationDay, uint256 maxCost) = abi.decode(context, (address, uint256, uint256));
+        // Recalculate day at postOp time and verify it matches validation day.
+        // This prevents a malicious bundler from scheduling validation just before
+        // midnight and postOp just after, consuming two days' quota in one attack.
+        uint256 currentDay = block.timestamp / 1 days;
+        if (currentDay != validationDay) revert DayBoundaryViolation();
         // Refund the slack between maxCost and actualGasCost back to the daily counter
         uint256 actual = actualGasCost < maxCost ? actualGasCost : maxCost;
-        senderSpentOnDay[sender][day] += actual;
+        senderSpentOnDay[sender][validationDay] += actual;
     }
 
     // ─── Verifying-paymaster helpers (fix #1519) ─────────────────────
