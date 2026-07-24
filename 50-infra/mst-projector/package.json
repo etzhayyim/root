@@ -20,7 +20,7 @@
     "@atproto/api": "^0.20.7",
     "@atproto/repo": "^0.10.6",
     "cborg": "^5.1.1",
-    "multiformats": "^14.0.0",
+    "multiformats": "^14.0.4",
     "ws": "^8.21.0"
   },
   "devDependencies": {
