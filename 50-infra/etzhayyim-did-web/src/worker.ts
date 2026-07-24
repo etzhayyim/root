@@ -1,5 +1,5 @@
 import didDoc from "../did.json";
-import { findXrpcRoute, resolveUpstream } from "./xrpc-routes";
+import { findXrpcRoute, resolveUpstream, evaluateXrpcPolicies, type PolicyInput, type PolicyDecision } from "./xrpc-routes";
 import { renderShell } from "./shell";
 import {
   UNISPSC_HANDLES,
@@ -960,6 +960,13 @@ async function proxyXrpc(
     respHeaders.set("x-proxied-by", "etzhayyim-did-web");
     respHeaders.set("x-proxied-upstream", upstream);
     respHeaders.set("x-etzhayyim-no-cookie", "1");
+    // Attach policy decision headers if present (Issue #1509)
+    const policyHeaders = (request as any).policyHeaders;
+    if (policyHeaders) {
+      for (const [k, v] of Object.entries(policyHeaders)) {
+        respHeaders.set(k, v as string);
+      }
+    }
     applyApexSecurityHeaders(respHeaders, target.pathname);
     return new Response(upstreamResp.body, {
       status: upstreamResp.status,
@@ -2351,6 +2358,115 @@ a{color:inherit}
             },
           );
         }
+
+        // ─── XRPC Policy Evaluation (Issue #1509) ────────────────────────────
+        // Evaluates dispatch + arms policies for the NSID.
+        // Dual-gate: dispatch (outer routing) + arms (inner detail for arms NSIDs).
+        // Short-circuits with 401/403/451 if any policy denies.
+        // Extract auth context from request headers (set by upstream or middleware)
+        {
+          const authHeader = request.headers.get("authorization") ?? "";
+          const cacaoHeader = request.headers.get("x-cacao") ?? "";
+          const holderAuthSessionHeader = request.headers.get("x-holder-auth-session") ?? "";
+
+          // Determine auth method and scopes from headers
+          // In production, this would be set by the auth middleware / CACAO verifier
+          let authMethod: PolicyInput["auth"]["method"] = "public";
+          let scopes: string[] = [];
+          let holderAuthSessionPassed = false;
+
+          if (authHeader.startsWith("Bearer ")) {
+            const token = authHeader.slice(7);
+            if (token.startsWith("eyJ")) {
+              authMethod = "oauth";
+              // In real impl, decode JWT to get scopes
+            } else if (token.startsWith("did-session:")) {
+              authMethod = "did-session";
+            } else {
+              authMethod = "oauth";
+            }
+          } else if (cacaoHeader) {
+            authMethod = "did-session";
+            // CACAO carries capabilities - parse for scopes
+          } else if (request.headers.get("x-service-jwt")) {
+            authMethod = "service-jwt";
+          }
+
+          if (holderAuthSessionHeader === "true") {
+            holderAuthSessionPassed = true;
+          }
+
+          // Parse permission sets from header (comma-separated)
+          const permissionSets = (request.headers.get("x-permission-sets") ?? "")
+            .split(",")
+            .map((s) => s.trim())
+            .filter(Boolean);
+
+          // Parse request params for export control checks
+          let params: Record<string, unknown> = {};
+          if (request.method !== "GET" && request.method !== "HEAD") {
+            try {
+              const body = await request.clone().json();
+              params = body as Record<string, unknown>;
+            } catch {
+              params = {};
+            }
+          } else {
+            // GET params from URL
+            for (const [k, v] of url.searchParams.entries()) {
+              const existing = params[k];
+              if (existing === undefined) params[k] = v;
+              else if (Array.isArray(existing)) existing.push(v);
+              else params[k] = [existing, v];
+            }
+          }
+
+          const policyInput: PolicyInput = {
+            route: { nsid, requiresAuth: route.prefix !== "com.etzhayyim.apps.unispsc." && !nsid.startsWith("app.bsky.actor.getSuggestions") },
+            auth: { method: authMethod, scopes, holderAuthSessionPassed },
+            permission_sets: permissionSets,
+            params,
+          };
+
+          const decision = await evaluateXrpcPolicies(policyInput);
+
+          if (!decision.allow) {
+            // Map deny obligations to HTTP status
+            let status = 403;
+            if (decision.deny_obligations.includes("return_401")) status = 401;
+            else if (decision.deny_obligations.includes("return_451")) status = 451;
+
+            const policyHeaders: Record<string, string> = {
+              "x-etzhayyim-policy-reason": decision.reason,
+              "x-etzhayyim-policy-deny": decision.deny_obligations.join(","),
+            };
+
+            return new Response(
+              JSON.stringify({
+                error: "PolicyDenied",
+                message: `XRPC policy denied: ${decision.reason}`,
+                reason: decision.reason,
+                deny_obligations: decision.deny_obligations,
+              }),
+              {
+                status,
+                headers: {
+                  "content-type": "application/json; charset=utf-8",
+                  ...policyHeaders,
+                },
+              },
+            );
+          }
+
+          // Attach policy headers to request for upstream propagation
+          const policyHeaders = {
+            "x-etzhayyim-policy-reason": decision.reason,
+            "x-etzhayyim-policy-allow": "true",
+          };
+          (request as any).policyHeaders = policyHeaders;
+        }
+        // ────────────────────────────────────────────────────────────────
+
         // Aggregate home/discover feeds: when XRPC_PDS_UPSTREAM is provisioned
         // (Method A), render them from the independent PDS's local kotoba discover
         // feed (shinshi-free at the source); otherwise transparently curate the
