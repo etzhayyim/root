@@ -1,10 +1,5 @@
 import didDoc from "../did.json";
-import { findXrpcRoute, resolveUpstream } from "./xrpc-routes";
-import {
-  evaluateXrpcPolicies,
-  type PolicyInput,
-  type PolicyDecision,
-} from "./xrpc-policy";
+import { findXrpcRoute, resolveUpstream, evaluateXrpcPolicies, type PolicyInput, type PolicyDecision } from "./xrpc-routes";
 import { renderShell } from "./shell";
 import {
   UNISPSC_HANDLES,
@@ -2368,11 +2363,8 @@ a{color:inherit}
         // Evaluates dispatch + arms policies for the NSID.
         // Dual-gate: dispatch (outer routing) + arms (inner detail for arms NSIDs).
         // Short-circuits with 401/403/451 if any policy denies.
+        // Extract auth context from request headers (set by upstream or middleware)
         {
-          const { evaluateXrpcPolicies } = await import("./xrpc-policy");
-          type PolicyInput = import("./xrpc-policy").PolicyInput;
-
-          // Extract auth context from request headers (set by upstream or middleware)
           const authHeader = request.headers.get("authorization") ?? "";
           const cacaoHeader = request.headers.get("x-cacao") ?? "";
           const holderAuthSessionHeader = request.headers.get("x-holder-auth-session") ?? "";
