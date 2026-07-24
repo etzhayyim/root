@@ -355,12 +355,10 @@ export interface PolicyRoutingEntry {
 }
 
 /**
- * Loads the policy routing map from the EDN file.
- * In production, this would be bundled or loaded from KV.
+ * Returns the policy routing map (embedded constant, no external file needed).
+ * Maps NSID prefixes to required policy sets. More specific prefixes must come first.
  */
-export async function loadPolicyRoutingMap(): Promise<Record<string, PolicyRoutingEntry>> {
-  // For now, return a hardcoded map matching the EDN file
-  // In production, this should be loaded from the EDN file or bundled
+export function loadPolicyRoutingMap(): Record<string, PolicyRoutingEntry> {
   return {
     "com.etzhayyim.apps.arms.": { policies: ["dispatch", "arms"] },
     "com.etzhayyim.apps.arms.transferCustody": { policies: ["dispatch", "arms"] },
