@@ -5,19 +5,19 @@ default allow := false
 internal_service if input.auth.method == "service-jwt"
 
 public_read if {
-  not input.route.requiresAuth
-  data.method_policy.publicRead
+  not data.etzhayyim.xrpc.dispatch.method_policy.requiresAuth
+  data.etzhayyim.xrpc.dispatch.method_policy.publicRead
 }
 
 scope_allowed if {
   some scope in input.auth.scopes
-  some allowed in data.method_policy.allowedScopes
+  some allowed in data.etzhayyim.xrpc.dispatch.method_policy.allowedScopes
   glob.match(allowed, [], scope)
 }
 
 permission_set_allowed if {
   some permission_set in input.permission_sets
-  permission_set in data.method_policy.allowedPermissionSets
+  permission_set in data.etzhayyim.xrpc.dispatch.method_policy.allowedPermissionSets
 }
 
 allow if internal_service

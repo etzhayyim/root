@@ -1,7 +1,8 @@
 {
   "method_policy": {
     "publicRead": true,
-    "allowedScopes": ["rpc?lxm=*"],
+    "requiresAuth": false,
+    "allowedScopes": ["rpc[?]lxm=com.atproto.repo.createRecord"],
     "allowedPermissionSets": []
   }
 }
