@@ -273,6 +273,7 @@ contract EtzhayyimPaymaster {
     // ─── Admin (owner = Safe multisig) ───────────────────────────────
 
     function setAllowedTarget(address target, bool allowed) external onlyOwner {
+        if (target == address(0)) revert TargetNotAllowed(target);
         allowedTarget[target] = allowed;
         emit AllowedTargetSet(target, allowed);
     }
