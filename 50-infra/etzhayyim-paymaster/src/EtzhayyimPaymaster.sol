@@ -41,6 +41,17 @@ interface IEntryPoint {
     function addStake(uint32 unstakeDelaySec) external payable;
     function unlockStake() external;
     function withdrawStake(address payable withdrawAddress) external;
+    /// @dev Returns (deposit, staked, stake, unstakeDelaySec, withdrawTime)
+    function getDepositInfo(address account)
+        external
+        view
+        returns (
+            uint256 deposit,
+            bool staked,
+            uint112 stake,
+            uint32 unstakeDelaySec,
+            uint48 withdrawTime
+        );
 }
 
 /// @dev Subset of ERC-4337 v0.7 PackedUserOperation. Real impl pulls full struct from EntryPoint.
@@ -97,6 +108,12 @@ contract EtzhayyimPaymaster {
     event VerifyingSignerRotated(address indexed oldSigner, address indexed newSigner);
     event Withdrew(address indexed to, uint256 amount);
     event OwnerRotated(address indexed oldOwner, address indexed newOwner);
+    /// @dev Emitted when stake is added via addStake
+    event StakeAdded(uint256 amount, uint32 unstakeDelaySec);
+    /// @dev Emitted when stake unlock is initiated
+    event StakeUnlocked(uint48 withdrawTime);
+    /// @dev Emitted when unlocked stake is withdrawn
+    event StakeWithdrawn(address indexed to, uint256 amount);
 
     error NotOwner();
     error NotEntryPoint();
@@ -324,13 +341,51 @@ contract EtzhayyimPaymaster {
 
     function addStake(uint32 unstakeDelaySec) external payable onlyOwner {
         entryPoint.addStake{value: msg.value}(unstakeDelaySec);
+        emit StakeAdded(msg.value, unstakeDelaySec);
     }
 
     function unlockStake() external onlyOwner {
+        // Read withdrawTime after unlock to emit accurate event
         entryPoint.unlockStake();
+        (, , , , uint48 withdrawTime) = entryPoint.getDepositInfo(address(this));
+        emit StakeUnlocked(withdrawTime);
     }
 
     function withdrawStake(address payable to) external onlyOwner {
+        (, , uint112 stakeBefore, , ) = entryPoint.getDepositInfo(address(this));
         entryPoint.withdrawStake(to);
+        (, , uint112 stakeAfter, , ) = entryPoint.getDepositInfo(address(this));
+        emit StakeWithdrawn(to, uint256(stakeBefore - stakeAfter));
+    }
+
+    /// @notice Get the paymaster's stake status from EntryPoint.
+    /// @return staked Whether the paymaster has stake locked.
+    /// @return stake Amount of stake locked (in wei).
+    /// @return unstakeDelaySec The unstake delay in seconds.
+    /// @return withdrawTime Timestamp when stake can be withdrawn (0 if not unlocked).
+    function getStakeStatus()
+        external
+        view
+        returns (bool staked, uint112 stake, uint32 unstakeDelaySec, uint48 withdrawTime)
+    {
+        (, staked, stake, unstakeDelaySec, withdrawTime) =
+            entryPoint.getDepositInfo(address(this));
+    }
+
+    /// @notice Internal helper to get stake status for use by other view functions.
+    function _getStakeStatus()
+        internal
+        view
+        returns (bool staked, uint112 stake, uint32 unstakeDelaySec, uint48 withdrawTime)
+    {
+        (, staked, stake, unstakeDelaySec, withdrawTime) =
+            entryPoint.getDepositInfo(address(this));
+    }
+
+    /// @notice Check if the paymaster has sufficient stake to avoid EntryPoint throttling.
+    /// @return True if stake is locked and non-zero; false means paymaster may be throttled.
+    function hasStake() external view returns (bool) {
+        (bool staked, uint112 stake, , ) = _getStakeStatus();
+        return staked && stake > 0;
     }
 }

@@ -23,6 +23,20 @@ contract MockEntryPoint is IEntryPoint {
     function addStake(uint32) external payable override {}
     function unlockStake() external override {}
     function withdrawStake(address payable) external override {}
+    function getDepositInfo(address account)
+        external
+        view
+        override
+        returns (
+            uint256 deposit,
+            bool staked,
+            uint112 stake,
+            uint32 unstakeDelaySec,
+            uint48 withdrawTime
+        )
+    {
+        return (deposits[account], false, 0, 0, 0);
+    }
     receive() external payable {}
 }
 

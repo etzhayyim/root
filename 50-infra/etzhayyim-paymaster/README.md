@@ -63,6 +63,8 @@ etzhayyim-paymaster/
 
 ## Deployment
 
+> **⚠️ CRITICAL: Post-deploy stake is mandatory** — without stake, the EntryPoint throttles the paymaster after validation failures (ERC-4337 §6.2). See **[DEPLOY.md](DEPLOY.md)** for the complete checklist including monitoring alerts.
+
 ```bash
 forge install
 forge build
