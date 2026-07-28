@@ -3,6 +3,7 @@ pragma solidity 0.8.27;
 
 import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import {MessageHashUtils} from "@openzeppelin/contracts/utils/cryptography/MessageHashUtils.sol";
+import {IEntryPoint} from "account-abstraction/interfaces/IEntryPoint.sol";
 
 /**
  * @title EtzhayyimPaymaster
@@ -33,16 +34,6 @@ import {MessageHashUtils} from "@openzeppelin/contracts/utils/cryptography/Messa
  *      NO pause. NO proxy. NO upgrade. To change policy, deploy a new
  *      paymaster and update the SDK config.
  */
-
-interface IEntryPoint {
-    function depositTo(address account) external payable;
-    function balanceOf(address account) external view returns (uint256);
-    function withdrawTo(address payable withdrawAddress, uint256 amount) external;
-    function addStake(uint32 unstakeDelaySec) external payable;
-    function unlockStake() external;
-    function withdrawStake(address payable withdrawAddress) external;
-}
-
 /// @dev Subset of ERC-4337 v0.7 PackedUserOperation. Real impl pulls full struct from EntryPoint.
 struct PackedUserOperation {
     address sender;
