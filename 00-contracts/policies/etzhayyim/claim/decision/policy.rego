@@ -54,24 +54,24 @@ wins if {
 }
 
 # ── Reason ───────────────────────────────────────────────────────────────────
+# Exhaustive, mutually exclusive partition of input space (no `not wins` guards).
+# Phase 2 extensions must add new branches that preserve mutual exclusion.
 
 reason := "evidence-valid" if {
-    wins
+    not _zero_cid
+    _evidence_has_statement
 }
 
 reason := "no-evidence-cid" if {
-    not wins
     _zero_cid
 }
 
 reason := "evidence-unreachable" if {
-    not wins
     not _zero_cid
     not _evidence_present
 }
 
 reason := "evidence-missing-statement" if {
-    not wins
     not _zero_cid
     _evidence_present
     not _evidence_has_statement
