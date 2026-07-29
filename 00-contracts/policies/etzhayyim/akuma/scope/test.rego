@@ -112,3 +112,23 @@ test_unauthorized_target_triggers_seed_prune if {
   }
   "prune_actor_seed_tier" in ob
 }
+
+test_unregistered_tool_returns_correct_reason if {
+  d := decision with input as {
+    "scope": base_scope,
+    "probe": {"tool": "metasploit", "target": "203.0.113.10", "port": 443, "intrusiveness": "safe-active"},
+    "rate": {"currentRps": 0},
+    "nowMs": 5000,
+  }
+  d.reason == "tool-not-registered"
+}
+
+test_unregistered_tool_not_misleading_reason if {
+  d := decision with input as {
+    "scope": base_scope,
+    "probe": {"tool": "metasploit", "target": "203.0.113.10", "port": 443, "intrusiveness": "safe-active"},
+    "rate": {"currentRps": 0},
+    "nowMs": 5000,
+  }
+  d.reason != "tool-exceeds-probe-tier"
+}

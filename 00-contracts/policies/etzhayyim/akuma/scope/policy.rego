@@ -68,7 +68,13 @@ probe_tier_within_scope if {
   pt <= st
 }
 
+tool_registered if {
+  some t in object.keys(tool_tier)
+  t == input.probe.tool
+}
+
 tool_tier_matches_probe if {
+  tool_registered
   tt := tool_tier[input.probe.tool]
   pt := tier_rank[input.probe.intrusiveness]
   tt <= pt
@@ -122,7 +128,16 @@ reason := "tool-exceeds-probe-tier" if {
   target_in_scope
   not target_excluded
   probe_tier_within_scope
+  tool_registered
   not tool_tier_matches_probe
+}
+reason := "tool-not-registered" if {
+  scope_active
+  within_window
+  target_in_scope
+  not target_excluded
+  probe_tier_within_scope
+  not tool_registered
 }
 reason := "port-not-allowed" if {
   scope_active
