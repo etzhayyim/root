@@ -5,7 +5,7 @@
  * target to pair with the local {@link kubo} provider (ADR-2605171800 Stage 4
  * replication-factor ≥ 2): kubo provides the blocks locally, kotobase fetches
  * and pins the root CID off-site (CAR-on-B2, ADR-2606042100), and content is
- * retrievable from any IPFS gateway incl. https://ipfs.gftd.ai/ipfs/<cid>.
+ * retrievable from any IPFS gateway or node that can reach the swarm.
  *
  * Interface: the standard IPFS Pinning Service API (PSA,
  * https://ipfs.github.io/pinning-services-api-spec/):
@@ -26,7 +26,7 @@
  *
  * Endpoint base: `ETZ_KOTOBASE_URL` (default `https://kotobase.net`).
  * Gateway (informational, returned in the receipt): `ETZ_KOTOBASE_GATEWAY`
- * (default `https://ipfs.gftd.ai`).
+ * (no default; the field is omitted when unset).
  */
 
 import { basename } from "node:path";
@@ -39,7 +39,8 @@ export interface KotobasePinResult {
     requestid: string;
     status: string;
     auth: "bearer" | "cacao";
-    gatewayUrl: string;
+    /** Absent unless ETZ_KOTOBASE_GATEWAY is set — see DEFAULT_GATEWAY. */
+    gatewayUrl?: string;
   };
 }
 
@@ -51,7 +52,22 @@ interface PinStatus {
 }
 
 const DEFAULT_BASE = "https://kotobase.net";
-const DEFAULT_GATEWAY = "https://ipfs.gftd.ai";
+/**
+ * No default gateway. This was "https://ipfs.gftd.ai", which answers 530
+ * (origin unreachable, measured 2026-07-29), so every receipt carried a
+ * retrieval URL that does not retrieve.
+ *
+ * It is not swapped for another host. The gateway is informational — the pin
+ * itself is durable at kotobase regardless — and which gateway a reader should
+ * use is a deployment fact, not a library one: a public gateway can serve the
+ * CID, but so can the operator's own node, and hardcoding either makes the
+ * receipt assert something this code cannot know. Set ETZ_KOTOBASE_GATEWAY to
+ * put a URL in the receipt; leave it unset and the field is omitted.
+ *
+ * Note kotobase.net's own llms-full.txt still points at ipfs.gftd.ai for
+ * resolution, so that text is stale too.
+ */
+const DEFAULT_GATEWAY = "";
 // CIDv1 base32 ('b' + base32lower) or CIDv0 ('Qm…'); a light shape guard, not a full decode.
 const CID_RE = /^(b[a-z2-7]{20,}|Qm[1-9A-HJ-NP-Za-km-z]{44})$/;
 
@@ -137,7 +153,7 @@ export async function kotobase(carPath: string): Promise<KotobasePinResult> {
       requestid: status.requestid ?? "",
       status: status.status ?? "unknown",
       auth: auth.kind,
-      gatewayUrl: `${gateway}/ipfs/${cid}`,
+      ...(gateway ? { gatewayUrl: `${gateway}/ipfs/${cid}` } : {}),
     },
   };
 }
