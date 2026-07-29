@@ -26,7 +26,7 @@
  *
  * Endpoint base: `ETZ_KOTOBASE_URL` (default `https://kotobase.net`).
  * Gateway (informational, returned in the receipt): `ETZ_KOTOBASE_GATEWAY`
- * (no default; the field is omitted when unset).
+ * (defaults to https://ipfs.kotobase.net).
  */
 
 import { basename } from "node:path";
@@ -39,7 +39,7 @@ export interface KotobasePinResult {
     requestid: string;
     status: string;
     auth: "bearer" | "cacao";
-    /** Absent unless ETZ_KOTOBASE_GATEWAY is set — see DEFAULT_GATEWAY. */
+    /** Retrieval URL. Absent only if ETZ_KOTOBASE_GATEWAY is set to empty. */
     gatewayUrl?: string;
   };
 }
@@ -53,21 +53,25 @@ interface PinStatus {
 
 const DEFAULT_BASE = "https://kotobase.net";
 /**
- * No default gateway. This was "https://ipfs.gftd.ai", which answers 530
- * (origin unreachable, measured 2026-07-29), so every receipt carried a
- * retrieval URL that does not retrieve.
+ * Retrieval gateway named in the receipt: kotobase's own.
  *
- * It is not swapped for another host. The gateway is informational — the pin
- * itself is durable at kotobase regardless — and which gateway a reader should
- * use is a deployment fact, not a library one: a public gateway can serve the
- * CID, but so can the operator's own node, and hardcoding either makes the
- * receipt assert something this code cannot know. Set ETZ_KOTOBASE_GATEWAY to
- * put a URL in the receipt; leave it unset and the field is omitted.
+ * This was "https://ipfs.gftd.ai", which answers 530 (origin unreachable), so
+ * every receipt carried a URL that does not retrieve. Earlier the same day I
+ * emptied this rather than guess a replacement, on the reasoning that which
+ * gateway to name is a deployment fact rather than a library one. That was
+ * right while there was nothing to name. It stopped being right at 2026-07-29
+ * when ipfs.kotobase.net went live: this is the *kotobase* provider, so
+ * kotobase's own retrieval surface is the one endpoint this file can assert
+ * without guessing — same service, same operator, same pin.
  *
- * Note kotobase.net's own llms-full.txt still points at ipfs.gftd.ai for
- * resolution, so that text is stale too.
+ * Verified live: GET /ipfs/<cid> returns the content, /ipns/<name> works,
+ * /health answers {"ok":true}.
+ *
+ * Still overridable with ETZ_KOTOBASE_GATEWAY, and still informational — the
+ * pin is durable at kotobase whichever gateway a reader ends up using, and the
+ * CID resolves through any of them.
  */
-const DEFAULT_GATEWAY = "";
+const DEFAULT_GATEWAY = "https://ipfs.kotobase.net";
 // CIDv1 base32 ('b' + base32lower) or CIDv0 ('Qm…'); a light shape guard, not a full decode.
 const CID_RE = /^(b[a-z2-7]{20,}|Qm[1-9A-HJ-NP-Za-km-z]{44})$/;
 

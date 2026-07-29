@@ -167,11 +167,11 @@ test("kotobase() end-to-end: filename CID → /pins → receipt carrying the con
   }
 });
 
-test("kotobase() omits gatewayUrl when no gateway is configured", async () => {
-  // The default used to be https://ipfs.gftd.ai, so an unconfigured pinner
-  // still emitted a retrieval URL — one that answers 530. Absent beats wrong:
-  // a reader can tell "no gateway was configured" from an empty field, but not
-  // from a URL that looks usable and is not.
+test("kotobase() falls back to kotobase's own gateway when none is configured", async () => {
+  // Unconfigured now means ipfs.kotobase.net, live since 2026-07-29. The old
+  // default was ipfs.gftd.ai, which answers 530 — a URL that looks usable and
+  // is not. Naming kotobase's own retrieval surface is the one guess this
+  // provider can make without guessing: same service, same pin.
   const prev = { jwt: process.env.ETZ_KOTOBASE_JWT, gw: process.env.ETZ_KOTOBASE_GATEWAY };
   process.env.ETZ_KOTOBASE_JWT = "jwt123";
   delete process.env.ETZ_KOTOBASE_GATEWAY;
@@ -182,7 +182,7 @@ test("kotobase() omits gatewayUrl when no gateway is configured", async () => {
   }));
   try {
     const out = await kotobase(`/data/mst/shard/${ROOT_CID}.car`);
-    assert.equal(out.receipt.gatewayUrl, undefined);
+    assert.equal(out.receipt.gatewayUrl, `https://ipfs.kotobase.net/ipfs/${ROOT_CID}`);
     assert.equal(out.receipt.status, "pinning");
   } finally {
     restore();
