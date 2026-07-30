@@ -1309,6 +1309,17 @@ function rewriteUpstreamResponse(upstream: Response, pathname: string): Response
 
   applyApexSecurityHeaders(headers, pathname);
 
+  // Add CSP for HTML responses from upstream (yoro SPA).
+  // The upstream CSP is stripped (STRIPPED_RESPONSE_HEADERS), so we apply
+  // a permissive CSP suitable for a SPA with inline scripts/styles.
+  const contentType = headers.get("content-type") ?? "";
+  if (contentType.includes("text/html")) {
+    headers.set(
+      "content-security-policy",
+      "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data: blob:; font-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+    );
+  }
+
   headers.set("x-proxied-by", "etzhayyim-did-web");
   headers.set("x-proxied-upstream", UPSTREAM_HOST);
   headers.set("x-etzhayyim-no-cookie", "1");
