@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@etzhayyim/sdk": "file:../../../../../com-etzhayyim-sdk",
-    "hono": "^4.12.25"
+    "hono": "^4.12.27"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250101.0",
