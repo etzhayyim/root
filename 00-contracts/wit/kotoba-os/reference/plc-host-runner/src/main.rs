@@ -10,7 +10,7 @@
 //! Self-asserting: panics (nonzero exit) on any mismatch, prints `E2E OK` on pass.
 
 use anyhow::{anyhow, Result};
-use wasmtime::component::{Component, Linker};
+use wasmtime::component::{Component, HasSelf, Linker};
 use wasmtime::{Config, Engine, Store};
 
 mod bindings {
@@ -123,7 +123,7 @@ fn main() -> Result<()> {
         .map_err(|e| anyhow!("load {comp_path}: {e} (run plc-control-guest/build.sh first)"))?;
 
     let mut linker: Linker<HostState> = Linker::new(&engine);
-    PlcHost::add_to_linker(&mut linker, |s: &mut HostState| s)?;
+    PlcHost::add_to_linker::<_, HasSelf<_>>(&mut linker, |s: &mut HostState| s)?;
 
     let mut store = Store::new(&engine, HostState::default());
     let bindings = PlcHost::instantiate(&mut store, &component, &linker)?;
@@ -180,7 +180,7 @@ fn source_chain_demo(comp_mesh: &str) -> Result<()> {
     let engine = Engine::default();
     let mesh = Component::from_file(&engine, comp_mesh)?;
     let mut linker: Linker<HostState> = Linker::new(&engine);
-    MeshHost::add_to_linker(&mut linker, |s: &mut HostState| s)?;
+    MeshHost::add_to_linker::<_, HasSelf<_>>(&mut linker, |s: &mut HostState| s)?;
     let mut store = Store::new(&engine, HostState::default());
     let agent = MeshHost::instantiate(&mut store, &mesh, &linker)?;
 
@@ -214,9 +214,9 @@ fn multi_actor_demo(comp_plc: &str, comp_mesh: &str) -> Result<()> {
         .map_err(|e| anyhow!("load {comp_mesh}: {e} (run mesh-agent-guest/build.sh first)"))?;
 
     let mut lk_plc: Linker<HostState> = Linker::new(&engine);
-    PlcHost::add_to_linker(&mut lk_plc, |s: &mut HostState| s)?;
+    PlcHost::add_to_linker::<_, HasSelf<_>>(&mut lk_plc, |s: &mut HostState| s)?;
     let mut lk_mesh: Linker<HostState> = Linker::new(&engine);
-    MeshHost::add_to_linker(&mut lk_mesh, |s: &mut HostState| s)?;
+    MeshHost::add_to_linker::<_, HasSelf<_>>(&mut lk_mesh, |s: &mut HostState| s)?;
 
     let mut store = Store::new(&engine, HostState::default());
     let plc_b = PlcHost::instantiate(&mut store, &plc, &lk_plc)?;
@@ -255,7 +255,7 @@ fn fuel_demo(comp_path: &str) -> Result<()> {
     let engine = Engine::new(&cfg)?;
     let component = Component::from_file(&engine, comp_path)?;
     let mut linker: Linker<HostState> = Linker::new(&engine);
-    PlcHost::add_to_linker(&mut linker, |s: &mut HostState| s)?;
+    PlcHost::add_to_linker::<_, HasSelf<_>>(&mut linker, |s: &mut HostState| s)?;
 
     let mut store = Store::new(&engine, HostState::default());
     store.set_fuel(10_000_000)?; // ample for instantiation + scans

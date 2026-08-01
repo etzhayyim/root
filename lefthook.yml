@@ -7,6 +7,16 @@
 pre-commit:
   parallel: true
   commands:
+    plc-host-runner-check:
+      # This crate is outside the root Cargo workspace. Keep Wasmtime component
+      # binding upgrades covered both locally and by CI's pre-commit run.
+      glob: "00-contracts/wit/kotoba-os/reference/plc-host-runner/{Cargo.toml,src/**/*.rs}"
+      run: |
+        rustup target add aarch64-apple-darwin
+        cargo check --target aarch64-apple-darwin \
+          --manifest-path 00-contracts/wit/kotoba-os/reference/plc-host-runner/Cargo.toml
+      stage_fixed: false
+
     no-ignorable-staged:
       # Block build artifacts / caches / machine-local SECRETS (e.g. a browser
       # `.sodai-chrome-profile/` holding cookies + login-data) from being
