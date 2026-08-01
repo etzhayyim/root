@@ -68,7 +68,7 @@
     "graphlib": "^2.1.8",
     "hardhat": "^3.7.0",
     "hardhat-exposed": "^0.3.14-0",
-    "hardhat-gas-reporter": "^1.0.9",
+    "hardhat-gas-reporter": "^2.3.0",
     "hardhat-ignore-warnings": "^0.3.0",
     "lodash.startcase": "^4.4.0",
     "micromatch": "^4.0.8",

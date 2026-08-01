@@ -9,6 +9,6 @@
     "gen-data": "nbb ../../../70-tools/scripts/saisei-worker/gen-data.cljs"
   },
   "devDependencies": {
-    "shadow-cljs": "^2.28.3"
+    "shadow-cljs": "^3.4.11"
   }
 }
