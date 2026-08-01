@@ -54,6 +54,37 @@ test_holder_checkout_with_session if {
   }
 }
 
+# issue #1507: the configured glob escapes the question mark, so the standard
+# rpc?lxm=<NSID> scope is accepted as an exact match.
+test_holder_checkout_exact_scope_allowed if {
+  arms.allow with input as {
+    "auth": {"method": "did-session", "scopes": ["rpc?lxm=com.etzhayyim.apps.arms.checkOutFirearm"], "holderAuthSessionPassed": true},
+    "route": {"nsid": "com.etzhayyim.apps.arms.checkOutFirearm"},
+    "permission_sets": [],
+    "params": {}
+  }
+}
+
+# A bare '?' in an OPA glob is a one-character wildcard. Keep it escaped in
+# data so malformed rpcXlxm scopes cannot authorize the operation.
+test_holder_checkout_malformed_scope_denied if {
+  not arms.allow with input as {
+    "auth": {"method": "did-session", "scopes": ["rpcXlxm=com.etzhayyim.apps.arms.checkOutFirearm"], "holderAuthSessionPassed": true},
+    "route": {"nsid": "com.etzhayyim.apps.arms.checkOutFirearm"},
+    "permission_sets": [],
+    "params": {}
+  }
+}
+
+test_holder_checkout_wildcard_scope_denied if {
+  not arms.allow with input as {
+    "auth": {"method": "did-session", "scopes": ["rpc?lxm=*"], "holderAuthSessionPassed": true},
+    "route": {"nsid": "com.etzhayyim.apps.arms.checkOutFirearm"},
+    "permission_sets": [],
+    "params": {}
+  }
+}
+
 # holder WITHOUT session cannot check out
 test_holder_checkout_without_session if {
   not arms.allow with input as {
