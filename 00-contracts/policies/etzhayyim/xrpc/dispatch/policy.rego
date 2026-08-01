@@ -4,20 +4,29 @@ default allow := false
 
 internal_service if input.auth.method == "service-jwt"
 
+nsid := input.route.nsid
+
+# Only trusted, explicitly configured NSIDs have a policy. Missing or unknown
+# routes leave method_policy_item undefined, so every non-internal allow rule
+# fails closed.
+method_policy_item := data.etzhayyim.xrpc.dispatch.method_policy[nsid] if {
+  nsid in object.keys(data.etzhayyim.xrpc.dispatch.method_policy)
+}
+
 public_read if {
-  not data.etzhayyim.xrpc.dispatch.method_policy.requiresAuth
-  data.etzhayyim.xrpc.dispatch.method_policy.publicRead
+  not method_policy_item.requiresAuth
+  method_policy_item.publicRead
 }
 
 scope_allowed if {
   some scope in input.auth.scopes
-  some allowed in data.etzhayyim.xrpc.dispatch.method_policy.allowedScopes
+  some allowed in method_policy_item.allowedScopes
   glob.match(allowed, [], scope)
 }
 
 permission_set_allowed if {
   some permission_set in input.permission_sets
-  permission_set in data.etzhayyim.xrpc.dispatch.method_policy.allowedPermissionSets
+  permission_set in method_policy_item.allowedPermissionSets
 }
 
 allow if internal_service

@@ -1,8 +1,16 @@
 {
   "method_policy": {
-    "publicRead": true,
-    "requiresAuth": false,
-    "allowedScopes": ["rpc[?]lxm=com.atproto.repo.createRecord"],
-    "allowedPermissionSets": []
+    "com.atproto.repo.getRecord": {
+      "publicRead": true,
+      "requiresAuth": false,
+      "allowedScopes": [],
+      "allowedPermissionSets": []
+    },
+    "com.atproto.repo.createRecord": {
+      "publicRead": false,
+      "requiresAuth": true,
+      "allowedScopes": ["rpc[?]lxm=com.atproto.repo.createRecord"],
+      "allowedPermissionSets": []
+    }
   }
 }
