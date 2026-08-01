@@ -1,0 +1,14 @@
+[{:db/id -1
+  :adr/id "adr-2608011200-kawase-yui-constitutional-bounded-amm"
+  :adr/title "ADR-2608011200: kawase-yui permits a constitutionally bounded AMM"
+  :adr/status "accepted"
+  :adr/doc_type "adr"
+  :adr/source-format "edn"
+  :adr/date "2026-08-01"
+  :adr/authoritative true
+  :adr/supersedes ["adr-2605282200 alternative-8"
+                   "adr-2605282200 G5"
+                   "adr-2605282200 G6"]
+  :adr/authoritative_for ["kawase-yui bounded-AMM policy"
+                          "LP fee, protocol fee and price-impact separation"]
+  :adr/body "# Decision\n\nKawase-yui permits constant-product and concentrated-liquidity AMM adapters for approved stablecoin pairs. Price impact, disclosed LP compensation and protocol revenue are independent quantities. R1 protocol revenue is zero; the immutable ceilings are 5 bps protocol fee, 30 bps LP fee and 50 bps oracle-relative price impact. Participant minAmountOut, available liquidity, deadline, fresh oracle and approved adapter/hook codehash are mandatory. Leverage, rehypothecation, arbitrary hooks, hidden routing and proprietary directional positions remain forbidden. This supersedes only the blanket AMM rejection in ADR-2605282200; the no-new-token and mKOTO non-transferability decisions remain unchanged.\n\n# Adapter realization\n\nThe R0.1 Uniswap v4 adapter is exact-input and single-pool. It uses PoolManager unlock, swap, sync, settle and take; passes empty hookData; rejects dynamic fees; and exposes no multicall, delegatecall or liquidity-management surface. A Council-owned registry pins reviewed adapter, PoolManager and hook runtime codehashes and can pause globally. The R1 zero protocol-fee record is observational because the external PoolManager can change independently; a designated observer has pause-only authority and must pause the registry on mismatch.\n\nThe adapter reads a two-feed Chainlink cross-rate on-chain; callers cannot submit an oracle rate. Both price rounds must be complete, positive, timestamp-valid, within their feed-specific maximum age and retain their reviewed decimals. Base sequencer downtime and the configured post-recovery grace period stop execution.\n\n# R0.1 closure\n\nR0.1 design and local verification close on 2026-08-01. The request has no oracle override; oracle rounds, timestamps, ages, decimals, sequencer state and grace period fail closed; v4 execution is exact-input, single-pool and one-callback-only; reviewed runtime codehashes are pinned; safety observers have pause-only authority; and oracle/fee/execution evidence remains independently auditable. Closure evidence is 27 passing Forge tests, 37 passing canonical actor tests and parseable EDN/JSON. No deployment, token approval or fund movement occurred. R1 remains open for current address ratification, production observer/keeper, Base fork tests, deploy scripts, Council approval and independent security review."}]
