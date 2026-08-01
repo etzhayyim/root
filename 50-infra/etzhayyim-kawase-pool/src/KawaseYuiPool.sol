@@ -3,7 +3,7 @@
 pragma solidity 0.8.27;
 
 /**
- * @title KawaseYuiPool (為替結) — R0 scaffold
+ * @title KawaseYuiPool (為替結) — R0 bounded-AMM scaffold
  * @notice Religious-corp adherent-to-adherent multi-stable remittance pool
  *         per ADR-2605282200. One deploy per Base L2 stablecoin (USDC + EURC
  *         at R1; +JPYC R2; +KRWO/GBPe/CHFe R3 with Council Lv7+ unanimity per
@@ -16,11 +16,11 @@ pragma solidity 0.8.27;
  *         ratify) fills in the bodies.
  *
  *         Why ship a stub? Because the constitutional invariants (G3 adherent
- *         gating, G4 band check, G5 mid-market locking, G9 per-month cap, G11
- *         no chargeback, councilSafe-only rebalance) live in the SHAPE of this
- *         contract, not in its implementation. A reviewer reading this file
- *         can verify the invariants are honored by the interface design before
- *         R1 wires the bodies.
+ *         gating, G4 oracle band, G5 non-extractive fee accounting, G6 bounded
+ *         AMM execution, G9 per-month cap, G11 no chargeback and Council-only
+ *         policy changes) live in the SHAPE of this contract, not only in its
+ *         implementation. AMM price impact, LP compensation and protocol
+ *         revenue are deliberately represented as different quantities.
  *
  * @dev Constitution read pattern:
  *
@@ -95,6 +95,16 @@ contract KawaseYuiPool {
     error ReserveBufferFloorBreached(uint256 want, uint256 available);
     /// @notice depositor's own address differs from the SBT-recorded holder.
     error DepositorNotSbtHolder(address signer, uint256 sbtTokenId);
+    /// @notice G5 — protocol revenue is separately capped from LP compensation.
+    error ProtocolFeeTooHigh(uint256 actualBps, uint256 maximumBps);
+    /// @notice G5/G6 — liquidity-provider compensation exceeds policy.
+    error LpFeeTooHigh(uint256 actualBps, uint256 maximumBps);
+    /// @notice G4/G6 — execution price has moved too far from the oracle.
+    error PriceImpactTooHigh(uint256 executionBps, uint256 oracleBps, uint256 maximumBps);
+    /// @notice G6 — the quoted output violates the participant's own floor.
+    error MinimumAmountOutBreached(uint256 quotedOut, uint256 minimumOut);
+    /// @notice G6 — the bounded pool cannot honestly satisfy this output.
+    error InsufficientAmmLiquidity(uint256 quotedOut, uint256 availableOut);
 
     // ─── Events ──────────────────────────────────────────────────────────
 
@@ -134,6 +144,17 @@ contract KawaseYuiPool {
         bytes32 attestationCid
     );
 
+    event BoundedAmmSwap(
+        bytes32 indexed intentCid,
+        address indexed adapter,
+        uint256 amountInMinor,
+        uint256 amountOutMinor,
+        uint256 oracleRateBps,
+        uint256 executionRateBps,
+        uint256 lpFeeBps,
+        uint256 protocolFeeBps
+    );
+
     // ─── Types ───────────────────────────────────────────────────────────
 
     struct Intent {
@@ -158,6 +179,16 @@ contract KawaseYuiPool {
 
     uint256 public constant BPS_DENOMINATOR = 10_000;
     uint256 public constant ROLLING_WINDOW_SECS = 30 days;
+    /// @notice LP compensation is disclosed and capped independently from
+    ///         protocol revenue. 30 bps matches the conservative R1 ceiling;
+    ///         a deployment may select a lower tier, including zero.
+    uint256 public constant MAX_LP_FEE_BPS = 30;
+    /// @notice R1 launches with protocolFeeBps=0. This hard ceiling prevents a
+    ///         future adapter from turning the mutual-aid pool into an
+    ///         extractive spread business without replacing this contract.
+    uint256 public constant MAX_PROTOCOL_FEE_BPS = 5;
+    /// @notice Maximum execution-price deviation from the attested oracle.
+    uint256 public constant MAX_AMM_PRICE_IMPACT_BPS = 50;
 
     // ─── Mutable storage ─────────────────────────────────────────────────
 
@@ -294,6 +325,53 @@ contract KawaseYuiPool {
         onlyCouncilSafe
     {
         revert NotYetImplemented("R1: rebalance() body lands post-Bootstrap-Council ratify");
+    }
+
+    /**
+     * @notice Validate an AMM quote without conflating price impact, LP fee and
+     *         protocol revenue. R1 adapters MUST call this before a swap and
+     *         additionally enforce deadline, approved adapter/hook codehash,
+     *         fresh-oracle and exact minAmountOut calldata on-chain.
+     *
+     *         This policy permits a constant-product or concentrated-liquidity
+     *         implementation. It does not permit leverage, rehypothecation,
+     *         arbitrary hooks, hidden routing or an operator price override.
+     */
+    function validateAmmQuote(
+        uint256 executionRateBps,
+        uint256 oracleRateBps,
+        uint256 quotedAmountOutMinor,
+        uint256 minAmountOutMinor,
+        uint256 availableAmountOutMinor,
+        uint256 lpFeeBps,
+        uint256 protocolFeeBps
+    ) public pure returns (bool) {
+        if (protocolFeeBps > MAX_PROTOCOL_FEE_BPS) {
+            revert ProtocolFeeTooHigh(protocolFeeBps, MAX_PROTOCOL_FEE_BPS);
+        }
+        if (lpFeeBps > MAX_LP_FEE_BPS) {
+            revert LpFeeTooHigh(lpFeeBps, MAX_LP_FEE_BPS);
+        }
+        if (oracleRateBps == 0) {
+            revert PriceImpactTooHigh(
+                executionRateBps, oracleRateBps, MAX_AMM_PRICE_IMPACT_BPS
+            );
+        }
+        uint256 rateDiff = executionRateBps > oracleRateBps
+            ? executionRateBps - oracleRateBps
+            : oracleRateBps - executionRateBps;
+        if (rateDiff > (oracleRateBps * MAX_AMM_PRICE_IMPACT_BPS) / BPS_DENOMINATOR) {
+            revert PriceImpactTooHigh(
+                executionRateBps, oracleRateBps, MAX_AMM_PRICE_IMPACT_BPS
+            );
+        }
+        if (quotedAmountOutMinor < minAmountOutMinor) {
+            revert MinimumAmountOutBreached(quotedAmountOutMinor, minAmountOutMinor);
+        }
+        if (quotedAmountOutMinor > availableAmountOutMinor) {
+            revert InsufficientAmmLiquidity(quotedAmountOutMinor, availableAmountOutMinor);
+        }
+        return true;
     }
 
     // ─── Reads ──────────────────────────────────────────────────────────
