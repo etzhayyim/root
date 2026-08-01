@@ -54,8 +54,17 @@ target_in_cidr if {
   net.cidr_contains(cidr, input.probe.target)
 }
 
+# Also allow CIDR matching when targetKind == "ip" for backward compatibility
+# and convenience (CIDR notation in targets array should work regardless of mode)
+target_in_cidr_if_ip_mode if {
+  input.scope.targetKind == "ip"
+  some cidr in input.scope.targets
+  net.cidr_contains(cidr, input.probe.target)
+}
+
 target_in_scope if target_listed
 target_in_scope if target_in_cidr
+target_in_scope if target_in_cidr_if_ip_mode
 
 target_excluded if {
   some t in input.scope.excludedTargets
@@ -68,7 +77,13 @@ probe_tier_within_scope if {
   pt <= st
 }
 
+tool_registered if {
+  some t in object.keys(tool_tier)
+  t == input.probe.tool
+}
+
 tool_tier_matches_probe if {
+  tool_registered
   tt := tool_tier[input.probe.tool]
   pt := tier_rank[input.probe.intrusiveness]
   tt <= pt
@@ -122,7 +137,16 @@ reason := "tool-exceeds-probe-tier" if {
   target_in_scope
   not target_excluded
   probe_tier_within_scope
+  tool_registered
   not tool_tier_matches_probe
+}
+reason := "tool-not-registered" if {
+  scope_active
+  within_window
+  target_in_scope
+  not target_excluded
+  probe_tier_within_scope
+  not tool_registered
 }
 reason := "port-not-allowed" if {
   scope_active
