@@ -40,16 +40,19 @@ requires_holder_session if {
 
 # Export control gate: block custody transfers to ATT/Wassenaar restricted
 # jurisdictions. destinationJurisdiction is MANDATORY for transferCustody
-# and reportIncident — omitting it is treated as restricted (issue #1504:
+# — omitting it is treated as restricted (issue #1504:
 # otherwise OPA evaluates the missing param as undefined, export_restricted
 # stays false, and the transfer is authorised to a potentially restricted
 # destination).
+# reportIncident is intentionally NOT export-restricted: incident reporting
+# should be permitted (or even mandatory) in restricted jurisdictions for
+# safety/transparency (issue #1515).
 export_restricted if {
-  nsid in {"com.etzhayyim.apps.arms.transferCustody", "com.etzhayyim.apps.arms.reportIncident"}
+  nsid == "com.etzhayyim.apps.arms.transferCustody"
   not is_string(object.get(input.params, "destinationJurisdiction", null))
 }
 export_restricted if {
-  nsid in {"com.etzhayyim.apps.arms.transferCustody", "com.etzhayyim.apps.arms.reportIncident"}
+  nsid == "com.etzhayyim.apps.arms.transferCustody"
   object.get(input.params, "destinationJurisdiction", null) in data.etzhayyim.xrpc.arms.export_restricted_jurisdictions
 }
 
