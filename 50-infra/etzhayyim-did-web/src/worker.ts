@@ -1275,6 +1275,8 @@ const CLEAR_COOKIE_PATHS = new Set(["/", "/privacy"]);
 function applyApexSecurityHeaders(headers: Headers, pathname: string): void {
   headers.set("strict-transport-security", "max-age=31536000; includeSubDomains");
   headers.set("permissions-policy", PERMISSIONS_POLICY);
+  // Clickjacking protection: allow same-origin framing, deny cross-origin (ZAP #1560)
+  headers.set("x-frame-options", "SAMEORIGIN");
   if (CLEAR_COOKIE_PATHS.has(pathname)) {
     headers.set("clear-site-data", '"cookies"');
   }

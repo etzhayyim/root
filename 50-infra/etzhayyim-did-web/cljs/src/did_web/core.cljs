@@ -52,7 +52,8 @@
 
 ;; HTML pages: no CORS (same-origin), CSP set per-route.
 (def ^:private html-sec
-  {"x-content-type-options" "nosniff"
+  {"x-frame-options" "SAMEORIGIN"
+   "x-content-type-options" "nosniff"
    "strict-transport-security" "max-age=31536000; includeSubDomains"
    "permissions-policy" permissions-policy
    "x-etzhayyim-no-cookie" "1"})

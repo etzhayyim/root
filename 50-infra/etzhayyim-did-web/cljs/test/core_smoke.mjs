@@ -3,6 +3,7 @@ import { handle } from "../../cljs-out/worker_core.js";
 const deps = {
   didDoc: { id: "did:web:etzhayyim.com", "@context": ["https://www.w3.org/ns/did/v1"] },
   donationPolicy: { entity: "etzhayyim", fundedBy: "donation-only" },
+  homeHtml: () => "<!DOCTYPE html><html>home</html>",
   donateHtml: "<!DOCTYPE html><html>donate</html>",
   unispscTotal: 18342,
   govProcMeta: { generatedAt: "2026-06-01", total: 3, owners: 2, jurisdictions: 1 },
@@ -57,6 +58,8 @@ function check(name, cond, extra="") { if (cond) console.log("ok  -", name); els
   check("did.json POST 405", r.status === 405 && r.headers.get("allow") === "GET, HEAD"); }
 { const r = await call("GET", "/.well-known/donation.json");
   check("donation 200 json", r.status === 200 && r.headers.get("content-type") === "application/json; charset=utf-8"); }
+{ const r = await call("GET", "/");
+  check("home blocks cross-origin framing", r.headers.get("x-frame-options") === "SAMEORIGIN", r.headers.get("x-frame-options")); }
 { const r = await call("GET", "/donate");
   check("donate html + CSP", r.status === 200 && r.headers.get("content-type").startsWith("text/html") && r.headers.get("content-security-policy").includes("default-src 'none'") && r.headers.get("access-control-allow-origin") === null); }
 { const r = await call("GET", "/.well-known/actors.json");
