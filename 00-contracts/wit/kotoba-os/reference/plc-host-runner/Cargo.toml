@@ -12,5 +12,5 @@ description = "wasmtime host driving the kotoba:os plc-control component over a 
 [workspace]
 
 [dependencies]
-wasmtime = "25"
+wasmtime = "47"
 anyhow = "1"
