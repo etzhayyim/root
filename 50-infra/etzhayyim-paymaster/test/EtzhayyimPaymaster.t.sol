@@ -2,8 +2,10 @@
 pragma solidity 0.8.27;
 
 import "forge-std/Test.sol";
-import {EtzhayyimPaymaster, IEntryPoint, PackedUserOperation} from "../src/EtzhayyimPaymaster.sol";
+import {EtzhayyimPaymaster, IEntryPoint, PackedUserOperation as LocalPackedUserOperation} from "../src/EtzhayyimPaymaster.sol";
 import {MessageHashUtils} from "@openzeppelin/contracts/utils/cryptography/MessageHashUtils.sol";
+import {IStakeManager} from "account-abstraction/interfaces/IStakeManager.sol";
+import {PackedUserOperation as AA_PackedUserOperation} from "account-abstraction/interfaces/PackedUserOperation.sol";
 
 /// @dev Minimal mock that records deposits + balances + withdrawals.
 contract MockEntryPoint is IEntryPoint {
@@ -23,6 +25,16 @@ contract MockEntryPoint is IEntryPoint {
     function addStake(uint32) external payable override {}
     function unlockStake() external override {}
     function withdrawStake(address payable) external override {}
+    function getDepositInfo(address) external view override returns (IStakeManager.DepositInfo memory) {
+        return IStakeManager.DepositInfo({deposit: 0, staked: false, stake: 0, unstakeDelaySec: 0, withdrawTime: 0});
+    }
+    function getNonce(address, uint192) external view override returns (uint256) { return 0; }
+    function incrementNonce(uint192) external override {}
+    function handleOps(AA_PackedUserOperation[] calldata, address payable) external override {}
+    function handleAggregatedOps(IEntryPoint.UserOpsPerAggregator[] calldata, address payable) external override {}
+    function getUserOpHash(AA_PackedUserOperation calldata) external view override returns (bytes32) { return bytes32(0); }
+    function getSenderAddress(bytes memory) external override {}
+    function delegateAndRevert(address, bytes calldata) external override {}
     receive() external payable {}
 }
 
@@ -52,7 +64,7 @@ contract EtzhayyimPaymasterTest is Test {
     // ─── paymasterAndData builder (verifying signature) ─────────────
 
     /// @dev Build a fully-signed paymasterAndData for a given UserOp + time window.
-    function _signedPaymasterAndData(PackedUserOperation memory uop, uint48 validUntil, uint48 validAfter)
+    function _signedPaymasterAndData(LocalPackedUserOperation memory uop, uint48 validUntil, uint48 validAfter)
         internal
         view
         returns (bytes memory)
@@ -71,7 +83,7 @@ contract EtzhayyimPaymasterTest is Test {
         return abi.encodePacked(prefix, r, s, v);
     }
 
-    function _signedBy(PackedUserOperation memory uop, uint48 validUntil, uint48 validAfter, uint256 key)
+    function _signedBy(LocalPackedUserOperation memory uop, uint48 validUntil, uint48 validAfter, uint256 key)
         internal
         view
         returns (bytes memory)
@@ -86,9 +98,9 @@ contract EtzhayyimPaymasterTest is Test {
         return abi.encodePacked(prefix, r, s, v);
     }
 
-    function _validOp(address target) internal view returns (PackedUserOperation memory uop) {
+    function _validOp(address target) internal view returns (LocalPackedUserOperation memory uop) {
         bytes memory callData = abi.encodePacked(bytes4(0x12345678), bytes32(uint256(uint160(target))));
-        uop = PackedUserOperation({
+        uop = LocalPackedUserOperation({
             sender: sender,
             nonce: 0,
             initCode: "",
@@ -105,7 +117,7 @@ contract EtzhayyimPaymasterTest is Test {
     ///      The paymasterAndData gas-limit bytes are reconstructed from the
     ///      constants used by _signedPaymasterAndData (memory bytes can't be
     ///      range-sliced in Solidity, unlike calldata).
-    function _operatorHash(PackedUserOperation memory userOp, uint48 validUntil, uint48 validAfter)
+    function _operatorHash(LocalPackedUserOperation memory userOp, uint48 validUntil, uint48 validAfter)
         internal
         view
         returns (bytes32)
@@ -161,7 +173,7 @@ contract EtzhayyimPaymasterTest is Test {
         vm.prank(owner);
         paymaster.setAllowedTarget(allowedTarget, true);
 
-        PackedUserOperation memory uop = _validOp(allowedTarget);
+        LocalPackedUserOperation memory uop = _validOp(allowedTarget);
         uop.paymasterAndData = _signedPaymasterAndData(uop, type(uint48).max, 0);
 
         vm.prank(address(ep));
@@ -176,7 +188,7 @@ contract EtzhayyimPaymasterTest is Test {
         vm.prank(owner);
         paymaster.setAllowedTarget(allowedTarget, true);
 
-        PackedUserOperation memory uop = _validOp(allowedTarget);
+        LocalPackedUserOperation memory uop = _validOp(allowedTarget);
         // Signed by the attacker, not the operator → sigFailed bit set (no revert).
         uop.paymasterAndData = _signedBy(uop, type(uint48).max, 0, attackerKey);
 
@@ -189,7 +201,7 @@ contract EtzhayyimPaymasterTest is Test {
         vm.prank(owner);
         paymaster.setAllowedTarget(allowedTarget, true);
 
-        PackedUserOperation memory uop = _validOp(allowedTarget);
+        LocalPackedUserOperation memory uop = _validOp(allowedTarget);
         // No signature / too-short paymasterAndData → denied before any policy check.
         uop.paymasterAndData = abi.encodePacked(address(paymaster), uint128(200_000), uint128(100_000));
         assertLt(uop.paymasterAndData.length, 116);
@@ -205,7 +217,7 @@ contract EtzhayyimPaymasterTest is Test {
 
         uint48 validAfter = 1_000;
         uint48 validUntil = 2_000;
-        PackedUserOperation memory uop = _validOp(allowedTarget);
+        LocalPackedUserOperation memory uop = _validOp(allowedTarget);
         uop.paymasterAndData = _signedPaymasterAndData(uop, validUntil, validAfter);
 
         vm.prank(address(ep));
@@ -220,7 +232,7 @@ contract EtzhayyimPaymasterTest is Test {
         vm.prank(owner);
         paymaster.setAllowedTarget(allowedTarget, true);
 
-        PackedUserOperation memory uop = _validOp(address(0xDEAD));
+        LocalPackedUserOperation memory uop = _validOp(address(0xDEAD));
         uop.paymasterAndData = _signedPaymasterAndData(uop, type(uint48).max, 0);
 
         vm.prank(address(ep));
@@ -241,13 +253,13 @@ contract EtzhayyimPaymasterTest is Test {
         vm.prank(owner);
         paymaster.setAllowedTarget(allowedTarget, true);
 
-        PackedUserOperation memory uopOld = _validOp(allowedTarget);
+        LocalPackedUserOperation memory uopOld = _validOp(allowedTarget);
         uopOld.paymasterAndData = _signedPaymasterAndData(uopOld, type(uint48).max, 0);
         vm.prank(address(ep));
         (, uint256 vdOld) = paymaster.validatePaymasterUserOp(uopOld, bytes32(0), 0.001 ether);
         assertEq(vdOld & 1, 1, "old key should now fail");
 
-        PackedUserOperation memory uopNew = _validOp(allowedTarget);
+        LocalPackedUserOperation memory uopNew = _validOp(allowedTarget);
         uopNew.paymasterAndData = _signedBy(uopNew, type(uint48).max, 0, attackerKey);
         vm.prank(address(ep));
         (, uint256 vdNew) = paymaster.validatePaymasterUserOp(uopNew, bytes32(0), 0.001 ether);

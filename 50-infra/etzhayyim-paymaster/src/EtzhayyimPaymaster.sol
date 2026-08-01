@@ -3,6 +3,7 @@ pragma solidity 0.8.27;
 
 import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import {MessageHashUtils} from "@openzeppelin/contracts/utils/cryptography/MessageHashUtils.sol";
+import {IEntryPoint} from "account-abstraction/interfaces/IEntryPoint.sol";
 
 /**
  * @title EtzhayyimPaymaster
@@ -33,16 +34,6 @@ import {MessageHashUtils} from "@openzeppelin/contracts/utils/cryptography/Messa
  *      NO pause. NO proxy. NO upgrade. To change policy, deploy a new
  *      paymaster and update the SDK config.
  */
-
-interface IEntryPoint {
-    function depositTo(address account) external payable;
-    function balanceOf(address account) external view returns (uint256);
-    function withdrawTo(address payable withdrawAddress, uint256 amount) external;
-    function addStake(uint32 unstakeDelaySec) external payable;
-    function unlockStake() external;
-    function withdrawStake(address payable withdrawAddress) external;
-}
-
 /// @dev Subset of ERC-4337 v0.7 PackedUserOperation. Real impl pulls full struct from EntryPoint.
 struct PackedUserOperation {
     address sender;
@@ -189,8 +180,15 @@ contract EtzhayyimPaymaster {
     }
 
     /// @notice Called by EntryPoint after the userOp executes. Reconcile gas spent.
+    /// @dev ERC-4337 v0.7 defines three PostOpMode values:
+    ///      - opSucceeded (0): UserOp succeeded → count actual gas spent toward daily cap.
+    ///      - opReverted  (1): UserOp reverted → gas was still consumed and paid by paymaster;
+    ///                         DESIGN CHOICE: count it toward daily cap (failed UserOps still burn gas).
+    ///      - postOpReverted (2): postOp itself reverted on a prior call → EntryPoint already reverted
+    ///                         the previous postOp state changes; we simply account actual gas again.
+    ///      In all three modes we increment the daily counter by actual gas cost (capped at maxCost).
     function postOp(
-        PostOpMode /*mode*/,
+        PostOpMode mode,
         bytes calldata context,
         uint256 actualGasCost,
         uint256 /*actualUserOpFeePerGas*/
@@ -203,7 +201,15 @@ contract EtzhayyimPaymaster {
         if (currentDay != validationDay) revert DayBoundaryViolation();
         // Refund the slack between maxCost and actualGasCost back to the daily counter
         uint256 actual = actualGasCost < maxCost ? actualGasCost : maxCost;
-        senderSpentOnDay[sender][validationDay] += actual;
+        // Mode is intentionally not switched on: all three modes consume gas that the paymaster pays.
+        // opSucceeded   → userOp succeeded, gas paid.
+        // opReverted    → userOp reverted but gas still consumed/paid by paymaster (design choice: count it).
+        // postOpReverted→ retry after postOp revert; EntryPoint reverted prior postOp state, so we add again.
+        senderSpentOnDay[sender][currentDay] += actual;
+        // Silence unused warning while documenting intent.
+        if (mode == PostOpMode.postOpReverted) {
+            // Explicit no-op branch to document that postOpReverted is handled by re-adding.
+        }
     }
 
     // ─── Verifying-paymaster helpers (fix #1519) ─────────────────────
@@ -273,6 +279,7 @@ contract EtzhayyimPaymaster {
     // ─── Admin (owner = Safe multisig) ───────────────────────────────
 
     function setAllowedTarget(address target, bool allowed) external onlyOwner {
+        if (target == address(0)) revert TargetNotAllowed(target);
         allowedTarget[target] = allowed;
         emit AllowedTargetSet(target, allowed);
     }

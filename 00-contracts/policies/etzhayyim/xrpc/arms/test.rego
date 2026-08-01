@@ -178,12 +178,37 @@ test_transfer_custody_omitted_jurisdiction_451 if {
 
 # issue #1504: omitting destinationJurisdiction MUST NOT bypass export control
 # on reportIncident either
-test_report_incident_omitted_jurisdiction_denied if {
-  not arms.allow with input as {
+# NOTE: This test is now REMOVED per issue #1515 — reportIncident is NOT
+# export-restricted and should be allowed regardless of destinationJurisdiction.
+# The test below previously asserted denial; it is replaced by positive tests.
+
+# issue #1515: reportIncident is allowed even without destinationJurisdiction
+test_report_incident_omitted_jurisdiction_allowed if {
+  arms.allow with input as {
     "auth": {"method": "did-session", "scopes": ["rpc?lxm=com.etzhayyim.apps.arms.reportIncident"], "holderAuthSessionPassed": true},
     "route": {"nsid": "com.etzhayyim.apps.arms.reportIncident"},
     "permission_sets": ["arms:authority"],
     "params": {}
+  }
+}
+
+# issue #1515: reportIncident is allowed even to restricted jurisdictions (KP, IR)
+test_report_incident_restricted_jurisdiction_allowed if {
+  arms.allow with input as {
+    "auth": {"method": "did-session", "scopes": ["rpc?lxm=com.etzhayyim.apps.arms.reportIncident"], "holderAuthSessionPassed": true},
+    "route": {"nsid": "com.etzhayyim.apps.arms.reportIncident"},
+    "permission_sets": ["arms:authority"],
+    "params": {"destinationJurisdiction": "KP"}
+  }
+}
+
+# issue #1515: reportIncident is allowed even to restricted jurisdictions (IR)
+test_report_incident_iran_jurisdiction_allowed if {
+  arms.allow with input as {
+    "auth": {"method": "did-session", "scopes": ["rpc?lxm=com.etzhayyim.apps.arms.reportIncident"], "holderAuthSessionPassed": true},
+    "route": {"nsid": "com.etzhayyim.apps.arms.reportIncident"},
+    "permission_sets": ["arms:authority"],
+    "params": {"destinationJurisdiction": "IR"}
   }
 }
 
