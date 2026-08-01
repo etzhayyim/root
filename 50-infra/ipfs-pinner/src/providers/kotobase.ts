@@ -5,7 +5,7 @@
  * target to pair with the local {@link kubo} provider (ADR-2605171800 Stage 4
  * replication-factor ≥ 2): kubo provides the blocks locally, kotobase fetches
  * and pins the root CID off-site (CAR-on-B2, ADR-2606042100), and content is
- * retrievable from any IPFS gateway incl. https://ipfs.gftd.ai/ipfs/<cid>.
+ * retrievable from any IPFS gateway or node that can reach the swarm.
  *
  * Interface: the standard IPFS Pinning Service API (PSA,
  * https://ipfs.github.io/pinning-services-api-spec/):
@@ -26,7 +26,7 @@
  *
  * Endpoint base: `ETZ_KOTOBASE_URL` (default `https://kotobase.net`).
  * Gateway (informational, returned in the receipt): `ETZ_KOTOBASE_GATEWAY`
- * (default `https://ipfs.gftd.ai`).
+ * (defaults to https://ipfs.kotobase.net).
  */
 
 import { basename } from "node:path";
@@ -39,7 +39,8 @@ export interface KotobasePinResult {
     requestid: string;
     status: string;
     auth: "bearer" | "cacao";
-    gatewayUrl: string;
+    /** Retrieval URL. Absent only if ETZ_KOTOBASE_GATEWAY is set to empty. */
+    gatewayUrl?: string;
   };
 }
 
@@ -51,7 +52,26 @@ interface PinStatus {
 }
 
 const DEFAULT_BASE = "https://kotobase.net";
-const DEFAULT_GATEWAY = "https://ipfs.gftd.ai";
+/**
+ * Retrieval gateway named in the receipt: kotobase's own.
+ *
+ * This was "https://ipfs.gftd.ai", which answers 530 (origin unreachable), so
+ * every receipt carried a URL that does not retrieve. Earlier the same day I
+ * emptied this rather than guess a replacement, on the reasoning that which
+ * gateway to name is a deployment fact rather than a library one. That was
+ * right while there was nothing to name. It stopped being right at 2026-07-29
+ * when ipfs.kotobase.net went live: this is the *kotobase* provider, so
+ * kotobase's own retrieval surface is the one endpoint this file can assert
+ * without guessing — same service, same operator, same pin.
+ *
+ * Verified live: GET /ipfs/<cid> returns the content, /ipns/<name> works,
+ * /health answers {"ok":true}.
+ *
+ * Still overridable with ETZ_KOTOBASE_GATEWAY, and still informational — the
+ * pin is durable at kotobase whichever gateway a reader ends up using, and the
+ * CID resolves through any of them.
+ */
+const DEFAULT_GATEWAY = "https://ipfs.kotobase.net";
 // CIDv1 base32 ('b' + base32lower) or CIDv0 ('Qm…'); a light shape guard, not a full decode.
 const CID_RE = /^(b[a-z2-7]{20,}|Qm[1-9A-HJ-NP-Za-km-z]{44})$/;
 
@@ -137,7 +157,7 @@ export async function kotobase(carPath: string): Promise<KotobasePinResult> {
       requestid: status.requestid ?? "",
       status: status.status ?? "unknown",
       auth: auth.kind,
-      gatewayUrl: `${gateway}/ipfs/${cid}`,
+      ...(gateway ? { gatewayUrl: `${gateway}/ipfs/${cid}` } : {}),
     },
   };
 }

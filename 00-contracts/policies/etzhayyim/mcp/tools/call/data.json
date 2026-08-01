@@ -2,6 +2,59 @@
   "method_policy": {
     "publicRead": false,
     "allowedScopes": ["rpc[?]lxm=com.etzhayyim.mcp.*", "rpc[?]lxm=com.etzhayyim.actor.*"],
-    "allowedPermissionSets": ["com.etzhayyim.actor.authActorManagement"]
+    "allowedPermissionSets": ["com.etzhayyim.actor.authActorManagement"],
+    "tools": {
+      "read_only": [
+        "list",
+        "get",
+        "search",
+        "query",
+        "read",
+        "describe",
+        "find",
+        "lookup",
+        "info",
+        "status",
+        "health",
+        "version",
+        "schema",
+        "manifest",
+        "capabilities",
+        "list_tools",
+        "list_resources",
+        "get_resource",
+        "read_resource"
+      ],
+      "write": [
+        "create",
+        "update",
+        "delete",
+        "invoke",
+        "execute",
+        "call",
+        "write",
+        "set",
+        "patch",
+        "replace",
+        "remove",
+        "destroy",
+        "submit",
+        "publish",
+        "send",
+        "trigger",
+        "run",
+        "start",
+        "stop",
+        "restart",
+        "deploy",
+        "rollback",
+        "approve",
+        "reject",
+        "confirm",
+        "cancel",
+        "execute_tool",
+        "write_resource"
+      ]
+    }
   }
 }

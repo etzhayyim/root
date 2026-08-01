@@ -103,6 +103,15 @@ test_rate_limit_exceeded_denied if {
   }
 }
 
+test_cidr_member_allowed_in_ip_mode if {
+  allow with input as {
+    "scope": base_scope,
+    "probe": {"tool": "dns", "target": "198.51.100.42", "port": 0, "intrusiveness": "passive"},
+    "rate": {"currentRps": 0},
+    "nowMs": 5000,
+  }
+}
+
 test_unauthorized_target_triggers_seed_prune if {
   ob := deny_obligations with input as {
     "scope": base_scope,
@@ -111,4 +120,24 @@ test_unauthorized_target_triggers_seed_prune if {
     "nowMs": 5000,
   }
   "prune_actor_seed_tier" in ob
+}
+
+test_unregistered_tool_returns_correct_reason if {
+  d := decision with input as {
+    "scope": base_scope,
+    "probe": {"tool": "metasploit", "target": "203.0.113.10", "port": 443, "intrusiveness": "safe-active"},
+    "rate": {"currentRps": 0},
+    "nowMs": 5000,
+  }
+  d.reason == "tool-not-registered"
+}
+
+test_unregistered_tool_not_misleading_reason if {
+  d := decision with input as {
+    "scope": base_scope,
+    "probe": {"tool": "metasploit", "target": "203.0.113.10", "port": 443, "intrusiveness": "safe-active"},
+    "rate": {"currentRps": 0},
+    "nowMs": 5000,
+  }
+  d.reason != "tool-exceeds-probe-tier"
 }
