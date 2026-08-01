@@ -1,0 +1,39 @@
+{
+  "round" : 30,
+  "readings" : {
+    "at-proto" : 252.0,
+    "email" : 0.0,
+    "telegram" : 0.0,
+    "x" : 0.0,
+    "line" : 0.0
+  },
+  "generatedAt" : "2026-07-18T08:42:30.237234Z",
+  "preferredChannel" : "at-proto",
+  "ranked" : [ {
+    "channel" : "at-proto",
+    "up-rate" : 0.11666666666666667,
+    "n" : 29,
+    "weight" : 2.0
+  }, {
+    "channel" : "email",
+    "up-rate" : 0.016666666666666666,
+    "n" : 29,
+    "weight" : 2.0
+  }, {
+    "channel" : "line",
+    "up-rate" : 0.016666666666666666,
+    "n" : 29,
+    "weight" : 2.0
+  }, {
+    "channel" : "telegram",
+    "up-rate" : 0.016666666666666666,
+    "n" : 29,
+    "weight" : 2.0
+  }, {
+    "channel" : "x",
+    "up-rate" : 0.016666666666666666,
+    "n" : 29,
+    "weight" : 2.0
+  } ],
+  "note" : "kotoba-genome W1×W2 — the organism learns WHICH channel to grow on by realised growth-rate; dry-run, never auto-applied (ADR-2606302205 / 2605240200)."
+}

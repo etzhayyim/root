@@ -63,7 +63,9 @@ etzhayyim-paymaster/
 
 ## Deployment
 
-> **⚠️ CRITICAL: Post-deploy stake is mandatory** — without stake, the EntryPoint throttles the paymaster after validation failures (ERC-4337 §6.2). See the **Post-Deploy Checklist** below.
+> **⚠️ CRITICAL: This project's production policy requires post-deploy stake.**
+> Bundlers may throttle or reject unstaked paymasters according to their mempool
+> and reputation policy. See the **Post-Deploy Checklist** below.
 
 ```bash
 forge install
@@ -91,7 +93,10 @@ cast send $PAYMASTER addStake(uint32) 86400 \
 
 ### Post-Deploy Checklist (Mandatory — Issue #1523)
 
-**The paymaster MUST have stake deposited before it can reliably sponsor UserOperations.** Without stake, the EntryPoint will throttle the paymaster after a small number of validation failures (opsPerTime limit per ERC-4337 §6.2).
+**The project requires stake before this paymaster sponsors production UserOperations.**
+The ERC-4337 EntryPoint does not impose a universal minimum stake; bundlers apply
+their own mempool, reputation, and validation-storage rules. Configure the amount
+below as an operator threshold for the bundlers used by this deployment.
 
 #### 1. Fund Paymaster Deposit (Gas Balance)
 
@@ -126,7 +131,9 @@ cast call $PAYMASTER "getStakeStatus()(bool,uint112,uint32,uint48)" --rpc-url $B
 # Returns: (staked, stake, unstakeDelaySec, withdrawTime)
 ```
 
-**Minimum stake:** 0.1 ETH (EntryPoint default minimum). Recommended: 0.5–1 ETH for production.
+**Project/operator threshold:** 0.1 ETH for the current deployment. Revisit this
+against the selected bundler policies; 0.5–1 ETH is the current operational
+recommendation, not an EntryPoint protocol default.
 
 #### 3. Configure Allowlist
 

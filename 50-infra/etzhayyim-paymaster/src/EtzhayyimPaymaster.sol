@@ -3,6 +3,8 @@ pragma solidity 0.8.27;
 
 import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import {MessageHashUtils} from "@openzeppelin/contracts/utils/cryptography/MessageHashUtils.sol";
+import {IEntryPoint} from "account-abstraction/interfaces/IEntryPoint.sol";
+import {IStakeManager} from "account-abstraction/interfaces/IStakeManager.sol";
 
 /**
  * @title EtzhayyimPaymaster
@@ -33,27 +35,6 @@ import {MessageHashUtils} from "@openzeppelin/contracts/utils/cryptography/Messa
  *      NO pause. NO proxy. NO upgrade. To change policy, deploy a new
  *      paymaster and update the SDK config.
  */
-
-interface IEntryPoint {
-    function depositTo(address account) external payable;
-    function balanceOf(address account) external view returns (uint256);
-    function withdrawTo(address payable withdrawAddress, uint256 amount) external;
-    function addStake(uint32 unstakeDelaySec) external payable;
-    function unlockStake() external;
-    function withdrawStake(address payable withdrawAddress) external;
-    /// @dev Returns (deposit, staked, stake, unstakeDelaySec, withdrawTime)
-    function getDepositInfo(address account)
-        external
-        view
-        returns (
-            uint256 deposit,
-            bool staked,
-            uint112 stake,
-            uint32 unstakeDelaySec,
-            uint48 withdrawTime
-        );
-}
-
 /// @dev Subset of ERC-4337 v0.7 PackedUserOperation. Real impl pulls full struct from EntryPoint.
 struct PackedUserOperation {
     address sender;
@@ -206,8 +187,15 @@ contract EtzhayyimPaymaster {
     }
 
     /// @notice Called by EntryPoint after the userOp executes. Reconcile gas spent.
+    /// @dev ERC-4337 v0.7 defines three PostOpMode values:
+    ///      - opSucceeded (0): UserOp succeeded → count actual gas spent toward daily cap.
+    ///      - opReverted  (1): UserOp reverted → gas was still consumed and paid by paymaster;
+    ///                         DESIGN CHOICE: count it toward daily cap (failed UserOps still burn gas).
+    ///      - postOpReverted (2): postOp itself reverted on a prior call → EntryPoint already reverted
+    ///                         the previous postOp state changes; we simply account actual gas again.
+    ///      In all three modes we increment the daily counter by actual gas cost (capped at maxCost).
     function postOp(
-        PostOpMode /*mode*/,
+        PostOpMode mode,
         bytes calldata context,
         uint256 actualGasCost,
         uint256 /*actualUserOpFeePerGas*/
@@ -220,7 +208,15 @@ contract EtzhayyimPaymaster {
         if (currentDay != validationDay) revert DayBoundaryViolation();
         // Refund the slack between maxCost and actualGasCost back to the daily counter
         uint256 actual = actualGasCost < maxCost ? actualGasCost : maxCost;
-        senderSpentOnDay[sender][validationDay] += actual;
+        // Mode is intentionally not switched on: all three modes consume gas that the paymaster pays.
+        // opSucceeded   → userOp succeeded, gas paid.
+        // opReverted    → userOp reverted but gas still consumed/paid by paymaster (design choice: count it).
+        // postOpReverted→ retry after postOp revert; EntryPoint reverted prior postOp state, so we add again.
+        senderSpentOnDay[sender][currentDay] += actual;
+        // Silence unused warning while documenting intent.
+        if (mode == PostOpMode.postOpReverted) {
+            // Explicit no-op branch to document that postOpReverted is handled by re-adding.
+        }
     }
 
     // ─── Verifying-paymaster helpers (fix #1519) ─────────────────────
@@ -290,6 +286,7 @@ contract EtzhayyimPaymaster {
     // ─── Admin (owner = Safe multisig) ───────────────────────────────
 
     function setAllowedTarget(address target, bool allowed) external onlyOwner {
+        if (target == address(0)) revert TargetNotAllowed(target);
         allowedTarget[target] = allowed;
         emit AllowedTargetSet(target, allowed);
     }
@@ -347,14 +344,14 @@ contract EtzhayyimPaymaster {
     function unlockStake() external onlyOwner {
         // Read withdrawTime after unlock to emit accurate event
         entryPoint.unlockStake();
-        (, , , , uint48 withdrawTime) = entryPoint.getDepositInfo(address(this));
-        emit StakeUnlocked(withdrawTime);
+        IStakeManager.DepositInfo memory info = entryPoint.getDepositInfo(address(this));
+        emit StakeUnlocked(info.withdrawTime);
     }
 
     function withdrawStake(address payable to) external onlyOwner {
-        (, , uint112 stakeBefore, , ) = entryPoint.getDepositInfo(address(this));
+        uint112 stakeBefore = entryPoint.getDepositInfo(address(this)).stake;
         entryPoint.withdrawStake(to);
-        (, , uint112 stakeAfter, , ) = entryPoint.getDepositInfo(address(this));
+        uint112 stakeAfter = entryPoint.getDepositInfo(address(this)).stake;
         emit StakeWithdrawn(to, uint256(stakeBefore - stakeAfter));
     }
 
@@ -368,8 +365,8 @@ contract EtzhayyimPaymaster {
         view
         returns (bool staked, uint112 stake, uint32 unstakeDelaySec, uint48 withdrawTime)
     {
-        (, staked, stake, unstakeDelaySec, withdrawTime) =
-            entryPoint.getDepositInfo(address(this));
+        IStakeManager.DepositInfo memory info = entryPoint.getDepositInfo(address(this));
+        return (info.staked, info.stake, info.unstakeDelaySec, info.withdrawTime);
     }
 
     /// @notice Internal helper to get stake status for use by other view functions.
@@ -378,12 +375,13 @@ contract EtzhayyimPaymaster {
         view
         returns (bool staked, uint112 stake, uint32 unstakeDelaySec, uint48 withdrawTime)
     {
-        (, staked, stake, unstakeDelaySec, withdrawTime) =
-            entryPoint.getDepositInfo(address(this));
+        IStakeManager.DepositInfo memory info = entryPoint.getDepositInfo(address(this));
+        return (info.staked, info.stake, info.unstakeDelaySec, info.withdrawTime);
     }
 
-    /// @notice Check if the paymaster has sufficient stake to avoid EntryPoint throttling.
-    /// @return True if stake is locked and non-zero; false means paymaster may be throttled.
+    /// @notice Check if the paymaster currently has any non-zero locked stake.
+    /// @dev This does not enforce an operator or bundler-specific minimum threshold.
+    /// @return True if stake is locked and non-zero.
     function hasStake() external view returns (bool) {
         (bool staked, uint112 stake, , ) = _getStakeStatus();
         return staked && stake > 0;

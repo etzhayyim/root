@@ -2,12 +2,15 @@
 pragma solidity 0.8.27;
 
 import "forge-std/Test.sol";
-import {EtzhayyimPaymaster, IEntryPoint, PackedUserOperation} from "../src/EtzhayyimPaymaster.sol";
+import {EtzhayyimPaymaster, IEntryPoint, PackedUserOperation as LocalPackedUserOperation} from "../src/EtzhayyimPaymaster.sol";
 import {MessageHashUtils} from "@openzeppelin/contracts/utils/cryptography/MessageHashUtils.sol";
+import {IStakeManager} from "account-abstraction/interfaces/IStakeManager.sol";
+import {PackedUserOperation as AA_PackedUserOperation} from "account-abstraction/interfaces/PackedUserOperation.sol";
 
 /// @dev Minimal mock that records deposits + balances + withdrawals.
 contract MockEntryPoint is IEntryPoint {
     mapping(address => uint256) public deposits;
+    mapping(address => IStakeManager.DepositInfo) private depositInfos;
 
     function depositTo(address account) external payable override {
         deposits[account] += msg.value;
@@ -20,27 +23,45 @@ contract MockEntryPoint is IEntryPoint {
         (bool ok, ) = withdrawAddress.call{value: amount}("");
         require(ok, "withdraw failed");
     }
-    function addStake(uint32) external payable override {}
-    function unlockStake() external override {}
-    function withdrawStake(address payable) external override {}
-    function getDepositInfo(address account)
-        external
-        view
-        override
-        returns (
-            uint256 deposit,
-            bool staked,
-            uint112 stake,
-            uint32 unstakeDelaySec,
-            uint48 withdrawTime
-        )
-    {
-        return (deposits[account], false, 0, 0, 0);
+    function addStake(uint32 unstakeDelaySec) external payable override {
+        IStakeManager.DepositInfo storage info = depositInfos[msg.sender];
+        info.stake += uint112(msg.value);
+        info.staked = true;
+        info.unstakeDelaySec = unstakeDelaySec;
+        info.withdrawTime = 0;
     }
+    function unlockStake() external override {
+        IStakeManager.DepositInfo storage info = depositInfos[msg.sender];
+        info.staked = false;
+        info.withdrawTime = uint48(block.timestamp + info.unstakeDelaySec);
+    }
+    function withdrawStake(address payable withdrawAddress) external override {
+        IStakeManager.DepositInfo storage info = depositInfos[msg.sender];
+        uint112 amount = info.stake;
+        info.stake = 0;
+        info.withdrawTime = 0;
+        (bool ok, ) = withdrawAddress.call{value: amount}("");
+        require(ok, "stake withdrawal failed");
+    }
+    function getDepositInfo(address account) external view override returns (IStakeManager.DepositInfo memory info) {
+        info = depositInfos[account];
+        info.deposit = deposits[account];
+    }
+    function getNonce(address, uint192) external view override returns (uint256) { return 0; }
+    function incrementNonce(uint192) external override {}
+    function handleOps(AA_PackedUserOperation[] calldata, address payable) external override {}
+    function handleAggregatedOps(IEntryPoint.UserOpsPerAggregator[] calldata, address payable) external override {}
+    function getUserOpHash(AA_PackedUserOperation calldata) external view override returns (bytes32) { return bytes32(0); }
+    function getSenderAddress(bytes memory) external override {}
+    function delegateAndRevert(address, bytes calldata) external override {}
     receive() external payable {}
 }
 
 contract EtzhayyimPaymasterTest is Test {
+    event StakeAdded(uint256 amount, uint32 unstakeDelaySec);
+    event StakeUnlocked(uint48 withdrawTime);
+    event StakeWithdrawn(address indexed to, uint256 amount);
+
     EtzhayyimPaymaster paymaster;
     MockEntryPoint ep;
     address owner = address(0xA);
@@ -61,12 +82,13 @@ contract EtzhayyimPaymasterTest is Test {
         address[] memory initialFactories = new address[](0);
         paymaster = new EtzhayyimPaymaster(ep, owner, signerAddr, initialFactories);
         vm.deal(address(this), 10 ether);
+        vm.deal(owner, 10 ether);
     }
 
     // ─── paymasterAndData builder (verifying signature) ─────────────
 
     /// @dev Build a fully-signed paymasterAndData for a given UserOp + time window.
-    function _signedPaymasterAndData(PackedUserOperation memory uop, uint48 validUntil, uint48 validAfter)
+    function _signedPaymasterAndData(LocalPackedUserOperation memory uop, uint48 validUntil, uint48 validAfter)
         internal
         view
         returns (bytes memory)
@@ -85,7 +107,7 @@ contract EtzhayyimPaymasterTest is Test {
         return abi.encodePacked(prefix, r, s, v);
     }
 
-    function _signedBy(PackedUserOperation memory uop, uint48 validUntil, uint48 validAfter, uint256 key)
+    function _signedBy(LocalPackedUserOperation memory uop, uint48 validUntil, uint48 validAfter, uint256 key)
         internal
         view
         returns (bytes memory)
@@ -100,9 +122,9 @@ contract EtzhayyimPaymasterTest is Test {
         return abi.encodePacked(prefix, r, s, v);
     }
 
-    function _validOp(address target) internal view returns (PackedUserOperation memory uop) {
+    function _validOp(address target) internal view returns (LocalPackedUserOperation memory uop) {
         bytes memory callData = abi.encodePacked(bytes4(0x12345678), bytes32(uint256(uint160(target))));
-        uop = PackedUserOperation({
+        uop = LocalPackedUserOperation({
             sender: sender,
             nonce: 0,
             initCode: "",
@@ -119,7 +141,7 @@ contract EtzhayyimPaymasterTest is Test {
     ///      The paymasterAndData gas-limit bytes are reconstructed from the
     ///      constants used by _signedPaymasterAndData (memory bytes can't be
     ///      range-sliced in Solidity, unlike calldata).
-    function _operatorHash(PackedUserOperation memory userOp, uint48 validUntil, uint48 validAfter)
+    function _operatorHash(LocalPackedUserOperation memory userOp, uint48 validUntil, uint48 validAfter)
         internal
         view
         returns (bytes32)
@@ -175,7 +197,7 @@ contract EtzhayyimPaymasterTest is Test {
         vm.prank(owner);
         paymaster.setAllowedTarget(allowedTarget, true);
 
-        PackedUserOperation memory uop = _validOp(allowedTarget);
+        LocalPackedUserOperation memory uop = _validOp(allowedTarget);
         uop.paymasterAndData = _signedPaymasterAndData(uop, type(uint48).max, 0);
 
         vm.prank(address(ep));
@@ -190,7 +212,7 @@ contract EtzhayyimPaymasterTest is Test {
         vm.prank(owner);
         paymaster.setAllowedTarget(allowedTarget, true);
 
-        PackedUserOperation memory uop = _validOp(allowedTarget);
+        LocalPackedUserOperation memory uop = _validOp(allowedTarget);
         // Signed by the attacker, not the operator → sigFailed bit set (no revert).
         uop.paymasterAndData = _signedBy(uop, type(uint48).max, 0, attackerKey);
 
@@ -203,7 +225,7 @@ contract EtzhayyimPaymasterTest is Test {
         vm.prank(owner);
         paymaster.setAllowedTarget(allowedTarget, true);
 
-        PackedUserOperation memory uop = _validOp(allowedTarget);
+        LocalPackedUserOperation memory uop = _validOp(allowedTarget);
         // No signature / too-short paymasterAndData → denied before any policy check.
         uop.paymasterAndData = abi.encodePacked(address(paymaster), uint128(200_000), uint128(100_000));
         assertLt(uop.paymasterAndData.length, 116);
@@ -219,7 +241,7 @@ contract EtzhayyimPaymasterTest is Test {
 
         uint48 validAfter = 1_000;
         uint48 validUntil = 2_000;
-        PackedUserOperation memory uop = _validOp(allowedTarget);
+        LocalPackedUserOperation memory uop = _validOp(allowedTarget);
         uop.paymasterAndData = _signedPaymasterAndData(uop, validUntil, validAfter);
 
         vm.prank(address(ep));
@@ -234,7 +256,7 @@ contract EtzhayyimPaymasterTest is Test {
         vm.prank(owner);
         paymaster.setAllowedTarget(allowedTarget, true);
 
-        PackedUserOperation memory uop = _validOp(address(0xDEAD));
+        LocalPackedUserOperation memory uop = _validOp(address(0xDEAD));
         uop.paymasterAndData = _signedPaymasterAndData(uop, type(uint48).max, 0);
 
         vm.prank(address(ep));
@@ -255,13 +277,13 @@ contract EtzhayyimPaymasterTest is Test {
         vm.prank(owner);
         paymaster.setAllowedTarget(allowedTarget, true);
 
-        PackedUserOperation memory uopOld = _validOp(allowedTarget);
+        LocalPackedUserOperation memory uopOld = _validOp(allowedTarget);
         uopOld.paymasterAndData = _signedPaymasterAndData(uopOld, type(uint48).max, 0);
         vm.prank(address(ep));
         (, uint256 vdOld) = paymaster.validatePaymasterUserOp(uopOld, bytes32(0), 0.001 ether);
         assertEq(vdOld & 1, 1, "old key should now fail");
 
-        PackedUserOperation memory uopNew = _validOp(allowedTarget);
+        LocalPackedUserOperation memory uopNew = _validOp(allowedTarget);
         uopNew.paymasterAndData = _signedBy(uopNew, type(uint48).max, 0, attackerKey);
         vm.prank(address(ep));
         (, uint256 vdNew) = paymaster.validatePaymasterUserOp(uopNew, bytes32(0), 0.001 ether);
@@ -278,6 +300,57 @@ contract EtzhayyimPaymasterTest is Test {
         (bool ok, ) = address(paymaster).call{value: 1 ether}("");
         assertTrue(ok);
         assertEq(ep.balanceOf(address(paymaster)), 1 ether);
+    }
+
+    function test_stake_status_reports_unstaked_by_default() public view {
+        (bool staked, uint112 stake, uint32 delay, uint48 withdrawTime) = paymaster.getStakeStatus();
+        assertFalse(staked);
+        assertEq(stake, 0);
+        assertEq(delay, 0);
+        assertEq(withdrawTime, 0);
+        assertFalse(paymaster.hasStake());
+    }
+
+    function test_owner_adds_stake_and_emits_event() public {
+        vm.expectEmit(false, false, false, true, address(paymaster));
+        emit StakeAdded(0.1 ether, 1 days);
+        vm.prank(owner);
+        paymaster.addStake{value: 0.1 ether}(1 days);
+
+        (bool staked, uint112 stake, uint32 delay, uint48 withdrawTime) = paymaster.getStakeStatus();
+        assertTrue(staked);
+        assertEq(stake, 0.1 ether);
+        assertEq(delay, 1 days);
+        assertEq(withdrawTime, 0);
+        assertTrue(paymaster.hasStake());
+    }
+
+    function test_owner_unlocks_and_withdraws_stake_with_events() public {
+        vm.prank(owner);
+        paymaster.addStake{value: 0.1 ether}(1 days);
+
+        uint48 expectedWithdrawTime = uint48(block.timestamp + 1 days);
+        vm.expectEmit(false, false, false, true, address(paymaster));
+        emit StakeUnlocked(expectedWithdrawTime);
+        vm.prank(owner);
+        paymaster.unlockStake();
+
+        (bool staked, uint112 stake, , uint48 withdrawTime) = paymaster.getStakeStatus();
+        assertFalse(staked);
+        assertEq(stake, 0.1 ether);
+        assertEq(withdrawTime, expectedWithdrawTime);
+        assertFalse(paymaster.hasStake());
+
+        address payable recipient = payable(address(0xD00D));
+        vm.expectEmit(true, false, false, true, address(paymaster));
+        emit StakeWithdrawn(recipient, 0.1 ether);
+        vm.prank(owner);
+        paymaster.withdrawStake(recipient);
+
+        (, uint112 stakeAfter, , uint48 withdrawTimeAfter) = paymaster.getStakeStatus();
+        assertEq(stakeAfter, 0);
+        assertEq(withdrawTimeAfter, 0);
+        assertEq(recipient.balance, 0.1 ether);
     }
 
     function test_owner_can_rotate() public {

@@ -131,10 +131,18 @@ test("postPin surfaces the PSA error reason on a non-2xx", async () => {
   }
 });
 
-test("kotobase() end-to-end: filename CID → /pins → receipt with the gftd gateway url", async () => {
-  const prev = { jwt: process.env.ETZ_KOTOBASE_JWT, url: process.env.ETZ_KOTOBASE_URL };
+test("kotobase() end-to-end: filename CID → /pins → receipt carrying the configured gateway", async () => {
+  const prev = {
+    jwt: process.env.ETZ_KOTOBASE_JWT,
+    url: process.env.ETZ_KOTOBASE_URL,
+    gw: process.env.ETZ_KOTOBASE_GATEWAY,
+  };
   process.env.ETZ_KOTOBASE_JWT = "jwt123";
   delete process.env.ETZ_KOTOBASE_URL; // exercise the default base
+  // The gateway is now set explicitly. It used to be asserted as
+  // https://ipfs.gftd.ai/ipfs/<cid>, which came from a default that no
+  // longer resolves — so the test was pinning down a dead URL as correct.
+  process.env.ETZ_KOTOBASE_GATEWAY = "https://gw.example/";
   const { calls, restore } = installFetch(() => ({
     ok: true,
     status: 202,
@@ -147,12 +155,39 @@ test("kotobase() end-to-end: filename CID → /pins → receipt with the gftd ga
     assert.equal(out.receipt.requestid, "req-9");
     assert.equal(out.receipt.status, "pinning");
     assert.equal(out.receipt.auth, "bearer");
-    assert.equal(out.receipt.gatewayUrl, `https://ipfs.gftd.ai/ipfs/${ROOT_CID}`);
+    assert.equal(out.receipt.gatewayUrl, `https://gw.example/ipfs/${ROOT_CID}`);
     assert.equal(calls[0][0].toString(), "https://kotobase.net/pins");
   } finally {
     restore();
     if (prev.jwt === undefined) delete process.env.ETZ_KOTOBASE_JWT;
     else process.env.ETZ_KOTOBASE_JWT = prev.jwt;
     if (prev.url !== undefined) process.env.ETZ_KOTOBASE_URL = prev.url;
+    if (prev.gw === undefined) delete process.env.ETZ_KOTOBASE_GATEWAY;
+    else process.env.ETZ_KOTOBASE_GATEWAY = prev.gw;
+  }
+});
+
+test("kotobase() falls back to kotobase's own gateway when none is configured", async () => {
+  // Unconfigured now means ipfs.kotobase.net, live since 2026-07-29. The old
+  // default was ipfs.gftd.ai, which answers 530 — a URL that looks usable and
+  // is not. Naming kotobase's own retrieval surface is the one guess this
+  // provider can make without guessing: same service, same pin.
+  const prev = { jwt: process.env.ETZ_KOTOBASE_JWT, gw: process.env.ETZ_KOTOBASE_GATEWAY };
+  process.env.ETZ_KOTOBASE_JWT = "jwt123";
+  delete process.env.ETZ_KOTOBASE_GATEWAY;
+  const { restore } = installFetch(() => ({
+    ok: true,
+    status: 202,
+    json: { requestid: "req-10", status: "pinning", pin: { cid: ROOT_CID } },
+  }));
+  try {
+    const out = await kotobase(`/data/mst/shard/${ROOT_CID}.car`);
+    assert.equal(out.receipt.gatewayUrl, `https://ipfs.kotobase.net/ipfs/${ROOT_CID}`);
+    assert.equal(out.receipt.status, "pinning");
+  } finally {
+    restore();
+    if (prev.jwt === undefined) delete process.env.ETZ_KOTOBASE_JWT;
+    else process.env.ETZ_KOTOBASE_JWT = prev.jwt;
+    if (prev.gw !== undefined) process.env.ETZ_KOTOBASE_GATEWAY = prev.gw;
   }
 });
