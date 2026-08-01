@@ -54,8 +54,17 @@ target_in_cidr if {
   net.cidr_contains(cidr, input.probe.target)
 }
 
+# Also allow CIDR matching when targetKind == "ip" for backward compatibility
+# and convenience (CIDR notation in targets array should work regardless of mode)
+target_in_cidr_if_ip_mode if {
+  input.scope.targetKind == "ip"
+  some cidr in input.scope.targets
+  net.cidr_contains(cidr, input.probe.target)
+}
+
 target_in_scope if target_listed
 target_in_scope if target_in_cidr
+target_in_scope if target_in_cidr_if_ip_mode
 
 target_excluded if {
   some t in input.scope.excludedTargets

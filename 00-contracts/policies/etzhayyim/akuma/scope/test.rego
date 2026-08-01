@@ -103,6 +103,15 @@ test_rate_limit_exceeded_denied if {
   }
 }
 
+test_cidr_member_allowed_in_ip_mode if {
+  allow with input as {
+    "scope": base_scope,
+    "probe": {"tool": "dns", "target": "198.51.100.42", "port": 0, "intrusiveness": "passive"},
+    "rate": {"currentRps": 0},
+    "nowMs": 5000,
+  }
+}
+
 test_unauthorized_target_triggers_seed_prune if {
   ob := deny_obligations with input as {
     "scope": base_scope,
