@@ -17,7 +17,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@atproto/api": "^0.20.9",
+    "@atproto/api": "^0.20.34",
     "@msgpack/msgpack": "^3.1.0",
     "@noble/hashes": "^2.2.0",
     "viem": "^2.55.8"
