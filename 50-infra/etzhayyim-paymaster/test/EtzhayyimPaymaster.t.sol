@@ -10,6 +10,7 @@ import {PackedUserOperation as AA_PackedUserOperation} from "account-abstraction
 /// @dev Minimal mock that records deposits + balances + withdrawals.
 contract MockEntryPoint is IEntryPoint {
     mapping(address => uint256) public deposits;
+    mapping(address => IStakeManager.DepositInfo) private depositInfos;
 
     function depositTo(address account) external payable override {
         deposits[account] += msg.value;
@@ -22,11 +23,29 @@ contract MockEntryPoint is IEntryPoint {
         (bool ok, ) = withdrawAddress.call{value: amount}("");
         require(ok, "withdraw failed");
     }
-    function addStake(uint32) external payable override {}
-    function unlockStake() external override {}
-    function withdrawStake(address payable) external override {}
-    function getDepositInfo(address) external view override returns (IStakeManager.DepositInfo memory) {
-        return IStakeManager.DepositInfo({deposit: 0, staked: false, stake: 0, unstakeDelaySec: 0, withdrawTime: 0});
+    function addStake(uint32 unstakeDelaySec) external payable override {
+        IStakeManager.DepositInfo storage info = depositInfos[msg.sender];
+        info.stake += uint112(msg.value);
+        info.staked = true;
+        info.unstakeDelaySec = unstakeDelaySec;
+        info.withdrawTime = 0;
+    }
+    function unlockStake() external override {
+        IStakeManager.DepositInfo storage info = depositInfos[msg.sender];
+        info.staked = false;
+        info.withdrawTime = uint48(block.timestamp + info.unstakeDelaySec);
+    }
+    function withdrawStake(address payable withdrawAddress) external override {
+        IStakeManager.DepositInfo storage info = depositInfos[msg.sender];
+        uint112 amount = info.stake;
+        info.stake = 0;
+        info.withdrawTime = 0;
+        (bool ok, ) = withdrawAddress.call{value: amount}("");
+        require(ok, "stake withdrawal failed");
+    }
+    function getDepositInfo(address account) external view override returns (IStakeManager.DepositInfo memory info) {
+        info = depositInfos[account];
+        info.deposit = deposits[account];
     }
     function getNonce(address, uint192) external view override returns (uint256) { return 0; }
     function incrementNonce(uint192) external override {}
@@ -39,6 +58,10 @@ contract MockEntryPoint is IEntryPoint {
 }
 
 contract EtzhayyimPaymasterTest is Test {
+    event StakeAdded(uint256 amount, uint32 unstakeDelaySec);
+    event StakeUnlocked(uint48 withdrawTime);
+    event StakeWithdrawn(address indexed to, uint256 amount);
+
     EtzhayyimPaymaster paymaster;
     MockEntryPoint ep;
     address owner = address(0xA);
@@ -59,6 +82,7 @@ contract EtzhayyimPaymasterTest is Test {
         address[] memory initialFactories = new address[](0);
         paymaster = new EtzhayyimPaymaster(ep, owner, signerAddr, initialFactories);
         vm.deal(address(this), 10 ether);
+        vm.deal(owner, 10 ether);
     }
 
     // ─── paymasterAndData builder (verifying signature) ─────────────
@@ -276,6 +300,57 @@ contract EtzhayyimPaymasterTest is Test {
         (bool ok, ) = address(paymaster).call{value: 1 ether}("");
         assertTrue(ok);
         assertEq(ep.balanceOf(address(paymaster)), 1 ether);
+    }
+
+    function test_stake_status_reports_unstaked_by_default() public view {
+        (bool staked, uint112 stake, uint32 delay, uint48 withdrawTime) = paymaster.getStakeStatus();
+        assertFalse(staked);
+        assertEq(stake, 0);
+        assertEq(delay, 0);
+        assertEq(withdrawTime, 0);
+        assertFalse(paymaster.hasStake());
+    }
+
+    function test_owner_adds_stake_and_emits_event() public {
+        vm.expectEmit(false, false, false, true, address(paymaster));
+        emit StakeAdded(0.1 ether, 1 days);
+        vm.prank(owner);
+        paymaster.addStake{value: 0.1 ether}(1 days);
+
+        (bool staked, uint112 stake, uint32 delay, uint48 withdrawTime) = paymaster.getStakeStatus();
+        assertTrue(staked);
+        assertEq(stake, 0.1 ether);
+        assertEq(delay, 1 days);
+        assertEq(withdrawTime, 0);
+        assertTrue(paymaster.hasStake());
+    }
+
+    function test_owner_unlocks_and_withdraws_stake_with_events() public {
+        vm.prank(owner);
+        paymaster.addStake{value: 0.1 ether}(1 days);
+
+        uint48 expectedWithdrawTime = uint48(block.timestamp + 1 days);
+        vm.expectEmit(false, false, false, true, address(paymaster));
+        emit StakeUnlocked(expectedWithdrawTime);
+        vm.prank(owner);
+        paymaster.unlockStake();
+
+        (bool staked, uint112 stake, , uint48 withdrawTime) = paymaster.getStakeStatus();
+        assertFalse(staked);
+        assertEq(stake, 0.1 ether);
+        assertEq(withdrawTime, expectedWithdrawTime);
+        assertFalse(paymaster.hasStake());
+
+        address payable recipient = payable(address(0xD00D));
+        vm.expectEmit(true, false, false, true, address(paymaster));
+        emit StakeWithdrawn(recipient, 0.1 ether);
+        vm.prank(owner);
+        paymaster.withdrawStake(recipient);
+
+        (, uint112 stakeAfter, , uint48 withdrawTimeAfter) = paymaster.getStakeStatus();
+        assertEq(stakeAfter, 0);
+        assertEq(withdrawTimeAfter, 0);
+        assertEq(recipient.balance, 0.1 ether);
     }
 
     function test_owner_can_rotate() public {
