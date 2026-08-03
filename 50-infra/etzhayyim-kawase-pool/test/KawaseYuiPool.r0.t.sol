@@ -111,6 +111,9 @@ contract KawaseYuiPoolR0Test {
         _assertEq(pool.perMonthCapUsdMinor(), 1_000_000_000, "G9 cap reads $1,000");
         _assertEq(pool.BPS_DENOMINATOR(), 10_000, "BPS denominator");
         _assertEq(pool.ROLLING_WINDOW_SECS(), 30 days, "rolling window 30 days");
+        _assertEq(pool.MAX_LP_FEE_BPS(), 30, "LP compensation ceiling");
+        _assertEq(pool.MAX_PROTOCOL_FEE_BPS(), 5, "protocol fee ceiling");
+        _assertEq(pool.MAX_AMM_PRICE_IMPACT_BPS(), 50, "price impact ceiling");
     }
 
     function test_maxBandBps_reads_from_constitution() public {
@@ -160,6 +163,33 @@ contract KawaseYuiPoolR0Test {
         _assertTrue(!pool.withinBand(0),     "0 quote is out-of-band");
         _assertTrue(!pool.withinBand(18_400), "2x quote is out-of-band");
         _assertTrue(!pool.withinBand(4_600),  "0.5x quote is out-of-band");
+    }
+
+    function test_bounded_amm_quote_accepts_disclosed_lp_compensation() public {
+        KawaseYuiPool pool = _newPool(address(0xC0), address(0xA1), 50, 1_000_000_000);
+        _assertTrue(
+            pool.validateAmmQuote(9_246, 9_200, 9_180_000, 9_170_000, 20_000_000, 30, 0),
+            "bounded AMM quote accepted"
+        );
+    }
+
+    function test_bounded_amm_quote_rejects_extractive_or_unsafe_terms() public {
+        KawaseYuiPool pool = _newPool(address(0xC0), address(0xA1), 50, 1_000_000_000);
+        bool reverted;
+        try pool.validateAmmQuote(9_200, 9_200, 9_180_000, 9_170_000, 20_000_000, 30, 6) {
+            reverted = false;
+        } catch { reverted = true; }
+        _assertTrue(reverted, "protocol fee above ceiling rejected");
+
+        try pool.validateAmmQuote(9_247, 9_200, 9_180_000, 9_170_000, 20_000_000, 30, 0) {
+            reverted = false;
+        } catch { reverted = true; }
+        _assertTrue(reverted, "price impact above ceiling rejected");
+
+        try pool.validateAmmQuote(9_200, 9_200, 9_160_000, 9_170_000, 20_000_000, 30, 0) {
+            reverted = false;
+        } catch { reverted = true; }
+        _assertTrue(reverted, "participant min-out rejected");
     }
 }
 
