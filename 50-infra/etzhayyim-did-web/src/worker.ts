@@ -46,6 +46,15 @@ import { handleVerifyCacao, handleAccountWrite } from "./session";
 // The Cloudflare [assets] binding serves static files from edge cache without
 // invoking the Worker, so we bundle these assets in the Worker and serve them
 // with proper security headers including Strict-Transport-Security.
+// Type declarations for asset imports (inline to avoid new file under frozen layer)
+declare module "./kotoba-wasm/kotoba_wasm.js" {
+  const content: string;
+  export default content;
+}
+declare module "./kotoba-wasm/kotoba_wasm_bg.wasm" {
+  const content: Uint8Array;
+  export default content;
+}
 import kotobaWasmJs from "./kotoba-wasm/kotoba_wasm.js";
 import kotobaWasmBg from "./kotoba-wasm/kotoba_wasm_bg.wasm";
 
