@@ -28,7 +28,7 @@ rayon = "1"
 reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "stream", "json"] }
 signal-hook = "0.4"
 signal-hook-tokio = { version = "0.4", features = ["futures-v0_3"] }
-async-nats = "0.49"  # ADR-2605091700 Phase 4: NATS publish path (v0.5.0)
+async-nats = "0.50"  # ADR-2605091700 Phase 4: NATS publish path (v0.5.0)
 sha1 = "0.11"
 sha2 = { version = "0.11", features = ["oid"] }
 hex = "0.4"
