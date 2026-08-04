@@ -1001,6 +1001,7 @@ async function proxyXrpc(
         status: 502,
         headers: {
           "content-type": "application/json; charset=utf-8",
+          "x-content-type-options": "nosniff",
           "x-proxied-by": "etzhayyim-did-web",
         },
       },
@@ -1291,6 +1292,8 @@ const CLEAR_COOKIE_PATHS = new Set(["/", "/privacy"]);
 function applyApexSecurityHeaders(headers: Headers, pathname: string): void {
   headers.set("strict-transport-security", "max-age=31536000; includeSubDomains");
   headers.set("permissions-policy", PERMISSIONS_POLICY);
+  // Prevent MIME type sniffing (ZAP #1562)
+  headers.set("x-content-type-options", "nosniff");
   // Clickjacking protection: allow same-origin framing, deny cross-origin (ZAP #1560)
   headers.set("x-frame-options", "SAMEORIGIN");
   if (CLEAR_COOKIE_PATHS.has(pathname)) {
@@ -1381,7 +1384,7 @@ const tsFetch = async (
       if (request.method !== "GET" && request.method !== "HEAD") {
         return new Response("Method Not Allowed", {
           status: 405,
-          headers: { allow: "GET, HEAD" },
+          headers: { allow: "GET, HEAD", "x-content-type-options": "nosniff" },
         });
       }
       return new Response(buildHomeHtml(), {
@@ -1410,7 +1413,7 @@ const tsFetch = async (
       if (request.method !== "GET" && request.method !== "HEAD") {
         return new Response("Method Not Allowed", {
           status: 405,
-          headers: { allow: "GET, HEAD" },
+          headers: { allow: "GET, HEAD", "x-content-type-options": "nosniff" },
         });
       }
       return new Response(JSON.stringify(didDoc, null, 2) + "\n", {
@@ -1438,7 +1441,7 @@ const tsFetch = async (
       if (request.method !== "GET" && request.method !== "HEAD") {
         return new Response("Method Not Allowed", {
           status: 405,
-          headers: { allow: "GET, HEAD" },
+          headers: { allow: "GET, HEAD", "x-content-type-options": "nosniff" },
         });
       }
       return new Response(JSON.stringify(DONATION_POLICY, null, 2) + "\n", {
@@ -1458,7 +1461,7 @@ const tsFetch = async (
       if (request.method !== "GET" && request.method !== "HEAD") {
         return new Response("Method Not Allowed", {
           status: 405,
-          headers: { allow: "GET, HEAD" },
+          headers: { allow: "GET, HEAD", "x-content-type-options": "nosniff" },
         });
       }
       return new Response(DONATE_HTML, {
@@ -1487,7 +1490,7 @@ const tsFetch = async (
       if (request.method !== "GET" && request.method !== "HEAD") {
         return new Response("Method Not Allowed", {
           status: 405,
-          headers: { allow: "GET, HEAD" },
+          headers: { allow: "GET, HEAD", "x-content-type-options": "nosniff" },
         });
       }
       return new Response(JSON.stringify(await buildActorsJsonWithCids(env), null, 2) + "\n", {
@@ -1513,7 +1516,7 @@ const tsFetch = async (
       if (request.method !== "GET" && request.method !== "HEAD") {
         return new Response("Method Not Allowed", {
           status: 405,
-          headers: { allow: "GET, HEAD" },
+          headers: { allow: "GET, HEAD", "x-content-type-options": "nosniff" },
         });
       }
       let body = '{"error":"gov-atlas index not provisioned (run gen-gov-atlas-index + kv put gov-atlas:index)"}';
@@ -1551,7 +1554,7 @@ const tsFetch = async (
       if (request.method !== "GET" && request.method !== "HEAD") {
         return new Response("Method Not Allowed", {
           status: 405,
-          headers: { allow: "GET, HEAD" },
+          headers: { allow: "GET, HEAD", "x-content-type-options": "nosniff" },
         });
       }
       const body = {
@@ -1586,7 +1589,7 @@ const tsFetch = async (
       if (request.method !== "GET" && request.method !== "HEAD") {
         return new Response("Method Not Allowed", {
           status: 405,
-          headers: { allow: "GET, HEAD" },
+          headers: { allow: "GET, HEAD", "x-content-type-options": "nosniff" },
         });
       }
       const govHtml = `<!doctype html><html lang="ja"><head><meta charset="utf-8">
@@ -1649,7 +1652,7 @@ a{color:inherit}
       if (request.method !== "GET" && request.method !== "HEAD") {
         return new Response("Method Not Allowed", {
           status: 405,
-          headers: { allow: "GET, HEAD" },
+          headers: { allow: "GET, HEAD", "x-content-type-options": "nosniff" },
         });
       }
       return new Response(buildActorsHtml(), {
@@ -1685,7 +1688,7 @@ a{color:inherit}
       if (request.method !== "GET" && request.method !== "HEAD") {
         return new Response("Method Not Allowed", {
           status: 405,
-          headers: { allow: "GET, HEAD" },
+          headers: { allow: "GET, HEAD", "x-content-type-options": "nosniff" },
         });
       }
       return new Response(buildOrganismHtml(), {
@@ -1712,7 +1715,7 @@ a{color:inherit}
       if (request.method !== "GET" && request.method !== "HEAD") {
         return new Response("Method Not Allowed", {
           status: 405,
-          headers: { allow: "GET, HEAD" },
+          headers: { allow: "GET, HEAD", "x-content-type-options": "nosniff" },
         });
       }
       return new Response(kotobaWasmJs, {
@@ -1731,7 +1734,7 @@ a{color:inherit}
       if (request.method !== "GET" && request.method !== "HEAD") {
         return new Response("Method Not Allowed", {
           status: 405,
-          headers: { allow: "GET, HEAD" },
+          headers: { allow: "GET, HEAD", "x-content-type-options": "nosniff" },
         });
       }
       return new Response(kotobaWasmBg, {
@@ -1758,7 +1761,7 @@ a{color:inherit}
         if (request.method !== "GET" && request.method !== "HEAD") {
           return new Response("Method Not Allowed", {
             status: 405,
-            headers: { allow: "GET, HEAD" },
+            headers: { allow: "GET, HEAD", "x-content-type-options": "nosniff" },
           });
         }
         const handle = decodeURIComponent(m[1]).toLowerCase();
@@ -1830,7 +1833,7 @@ a{color:inherit}
         if (request.method !== "GET" && request.method !== "HEAD") {
           return new Response("Method Not Allowed", {
             status: 405,
-            headers: { allow: "GET, HEAD" },
+            headers: { allow: "GET, HEAD", "x-content-type-options": "nosniff" },
           });
         }
         const handle = decodeURIComponent(m[1]).toLowerCase();
@@ -1871,7 +1874,7 @@ a{color:inherit}
         if (request.method !== "GET" && request.method !== "HEAD") {
           return new Response("Method Not Allowed", {
             status: 405,
-            headers: { allow: "GET, HEAD" },
+            headers: { allow: "GET, HEAD", "x-content-type-options": "nosniff" },
           });
         }
         const handle = decodeURIComponent(m[1]).toLowerCase();
@@ -1914,7 +1917,7 @@ a{color:inherit}
         if (request.method !== "GET" && request.method !== "HEAD") {
           return new Response("Method Not Allowed", {
             status: 405,
-            headers: { allow: "GET, HEAD" },
+            headers: { allow: "GET, HEAD", "x-content-type-options": "nosniff" },
           });
         }
         const cid = m[1];
