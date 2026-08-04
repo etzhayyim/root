@@ -828,6 +828,7 @@ async function proxyXrpc(
         status: 502,
         headers: {
           "content-type": "application/json; charset=utf-8",
+          "x-content-type-options": "nosniff",
           "x-proxied-by": "etzhayyim-did-web",
         },
       },
@@ -1049,6 +1050,10 @@ const CLEAR_COOKIE_PATHS = new Set(["/", "/privacy"]);
 function applyApexSecurityHeaders(headers: Headers, pathname: string): void {
   headers.set("strict-transport-security", "max-age=31536000; includeSubDomains");
   headers.set("permissions-policy", PERMISSIONS_POLICY);
+  // Prevent MIME type sniffing (ZAP #1562)
+  headers.set("x-content-type-options", "nosniff");
+  // Clickjacking protection: allow same-origin framing, deny cross-origin (ZAP #1560)
+  headers.set("x-frame-options", "SAMEORIGIN");
   if (CLEAR_COOKIE_PATHS.has(pathname)) {
     headers.set("clear-site-data", '"cookies"');
   }
@@ -1122,7 +1127,7 @@ export default {
       if (request.method !== "GET" && request.method !== "HEAD") {
         return new Response("Method Not Allowed", {
           status: 405,
-          headers: { allow: "GET, HEAD" },
+          headers: { allow: "GET, HEAD", "x-content-type-options": "nosniff" },
         });
       }
       return new Response(JSON.stringify(didDoc, null, 2) + "\n", {
@@ -1150,7 +1155,7 @@ export default {
       if (request.method !== "GET" && request.method !== "HEAD") {
         return new Response("Method Not Allowed", {
           status: 405,
-          headers: { allow: "GET, HEAD" },
+          headers: { allow: "GET, HEAD", "x-content-type-options": "nosniff" },
         });
       }
       return new Response(JSON.stringify(DONATION_POLICY, null, 2) + "\n", {
@@ -1170,7 +1175,7 @@ export default {
       if (request.method !== "GET" && request.method !== "HEAD") {
         return new Response("Method Not Allowed", {
           status: 405,
-          headers: { allow: "GET, HEAD" },
+          headers: { allow: "GET, HEAD", "x-content-type-options": "nosniff" },
         });
       }
       return new Response(DONATE_HTML, {
@@ -1199,7 +1204,7 @@ export default {
       if (request.method !== "GET" && request.method !== "HEAD") {
         return new Response("Method Not Allowed", {
           status: 405,
-          headers: { allow: "GET, HEAD" },
+          headers: { allow: "GET, HEAD", "x-content-type-options": "nosniff" },
         });
       }
       return new Response(JSON.stringify(await buildActorsJsonWithCids(env), null, 2) + "\n", {
@@ -1225,7 +1230,7 @@ export default {
       if (request.method !== "GET" && request.method !== "HEAD") {
         return new Response("Method Not Allowed", {
           status: 405,
-          headers: { allow: "GET, HEAD" },
+          headers: { allow: "GET, HEAD", "x-content-type-options": "nosniff" },
         });
       }
       let body = '{"error":"gov-atlas index not provisioned (run gen-gov-atlas-index + kv put gov-atlas:index)"}';
@@ -1263,7 +1268,7 @@ export default {
       if (request.method !== "GET" && request.method !== "HEAD") {
         return new Response("Method Not Allowed", {
           status: 405,
-          headers: { allow: "GET, HEAD" },
+          headers: { allow: "GET, HEAD", "x-content-type-options": "nosniff" },
         });
       }
       const body = {
@@ -1298,7 +1303,7 @@ export default {
       if (request.method !== "GET" && request.method !== "HEAD") {
         return new Response("Method Not Allowed", {
           status: 405,
-          headers: { allow: "GET, HEAD" },
+          headers: { allow: "GET, HEAD", "x-content-type-options": "nosniff" },
         });
       }
       const govHtml = `<!doctype html><html lang="ja"><head><meta charset="utf-8">
@@ -1361,7 +1366,7 @@ a{color:inherit}
       if (request.method !== "GET" && request.method !== "HEAD") {
         return new Response("Method Not Allowed", {
           status: 405,
-          headers: { allow: "GET, HEAD" },
+          headers: { allow: "GET, HEAD", "x-content-type-options": "nosniff" },
         });
       }
       return new Response(buildActorsHtml(), {
@@ -1397,7 +1402,7 @@ a{color:inherit}
       if (request.method !== "GET" && request.method !== "HEAD") {
         return new Response("Method Not Allowed", {
           status: 405,
-          headers: { allow: "GET, HEAD" },
+          headers: { allow: "GET, HEAD", "x-content-type-options": "nosniff" },
         });
       }
       return new Response(buildOrganismHtml(), {
@@ -1426,14 +1431,14 @@ a{color:inherit}
         if (request.method !== "GET" && request.method !== "HEAD") {
           return new Response("Method Not Allowed", {
             status: 405,
-            headers: { allow: "GET, HEAD" },
+            headers: { allow: "GET, HEAD", "x-content-type-options": "nosniff" },
           });
         }
         const handle = decodeURIComponent(m[1]).toLowerCase();
         if (!HANDLE_REGEX.test(handle)) {
           return new Response(
             JSON.stringify({ error: "HandleInvalid", message: "handle must be 1-63 chars, lowercase alnum + hyphen, no leading/trailing hyphen" }),
-            { status: 400, headers: { "content-type": "application/json; charset=utf-8" } },
+            { status: 400, headers: { "content-type": "application/json; charset=utf-8", "x-content-type-options": "nosniff" } },
           );
         }
         if (!isKnownHandle(handle)) {
@@ -1449,6 +1454,7 @@ a{color:inherit}
               headers: {
                 "content-type": "application/json; charset=utf-8",
                 "cache-control": "public, max-age=60, must-revalidate",
+                "x-content-type-options": "nosniff",
               },
             },
           );
@@ -1498,7 +1504,7 @@ a{color:inherit}
         if (request.method !== "GET" && request.method !== "HEAD") {
           return new Response("Method Not Allowed", {
             status: 405,
-            headers: { allow: "GET, HEAD" },
+            headers: { allow: "GET, HEAD", "x-content-type-options": "nosniff" },
           });
         }
         const handle = decodeURIComponent(m[1]).toLowerCase();
@@ -1539,7 +1545,7 @@ a{color:inherit}
         if (request.method !== "GET" && request.method !== "HEAD") {
           return new Response("Method Not Allowed", {
             status: 405,
-            headers: { allow: "GET, HEAD" },
+            headers: { allow: "GET, HEAD", "x-content-type-options": "nosniff" },
           });
         }
         const handle = decodeURIComponent(m[1]).toLowerCase();
@@ -1582,7 +1588,7 @@ a{color:inherit}
         if (request.method !== "GET" && request.method !== "HEAD") {
           return new Response("Method Not Allowed", {
             status: 405,
-            headers: { allow: "GET, HEAD" },
+            headers: { allow: "GET, HEAD", "x-content-type-options": "nosniff" },
           });
         }
         const cid = m[1];
@@ -2053,6 +2059,7 @@ a{color:inherit}
                 status: 502,
                 headers: {
                   "content-type": "application/json; charset=utf-8",
+                  "x-content-type-options": "nosniff",
                   "x-proxied-by": "etzhayyim-did-web",
                   "x-proxied-upstream": "service:yoro-xrpc-adapter",
                 },
@@ -2070,7 +2077,10 @@ a{color:inherit}
             }),
             {
               status: 501,
-              headers: { "content-type": "application/json; charset=utf-8" },
+              headers: {
+                "content-type": "application/json; charset=utf-8",
+                "x-content-type-options": "nosniff",
+              },
             },
           );
         }
@@ -2084,7 +2094,10 @@ a{color:inherit}
             }),
             {
               status: 503,
-              headers: { "content-type": "application/json; charset=utf-8" },
+              headers: {
+                "content-type": "application/json; charset=utf-8",
+                "x-content-type-options": "nosniff",
+              },
             },
           );
         }
@@ -2107,6 +2120,7 @@ a{color:inherit}
           status: 502,
           headers: {
             "content-type": "text/plain; charset=utf-8",
+            "x-content-type-options": "nosniff",
             "x-proxied-by": "etzhayyim-did-web",
             "x-proxied-upstream": "service:kotodama-yoro",
           },
