@@ -8,8 +8,14 @@
 // + 30-day public objection seats). Phase 2 expansion to formal 1 SBT = 1
 // vote election is handled via Governance proposal that calls
 // `setCouncilMember(addr, true/false)`.
+//
+// SEC-2026-002 FIX: EIP-712 signature verification for Council attestations
+// (same vulnerability class as ForceAuthorization)
 
 pragma solidity 0.8.27;
+
+import {ECDSA} from "./utils/ECDSA.sol";
+import {EIP712} from "./utils/EIP712.sol";
 
 interface IAdherentRegistry {
     function isActive(uint256 tokenId, uint64 windowSecs) external view returns (bool);
@@ -17,6 +23,9 @@ interface IAdherentRegistry {
 }
 
 contract ChartersComplianceRegistry {
+    using ECDSA for bytes32;
+    using EIP712 for bytes32;
+
     enum Status { Aligned, NonAligned, UnderReview, Rehabilitated }
 
     struct Attestation {
@@ -49,6 +58,21 @@ contract ChartersComplianceRegistry {
     uint8 public constant MIN_COUNCIL_SIGNERS = 3;
     uint8 public constant BOOTSTRAP_COUNCIL_SIZE = 5;
 
+    // ─── EIP-712 Domain & Types ───────────────────────────────────────
+
+    /// @notice Domain separator cached at construction (chainId + address immutable).
+    bytes32 private immutable _domainSeparator;
+
+    // EIP-712 type hashes
+    bytes32 private constant ATTEST_NON_ALIGNED_ADDRESS_TYPEHASH =
+        keccak256("AttestNonAlignedAddress(address subject,bytes32 reasonHash,bytes32 evidenceCid)");
+    bytes32 private constant ATTEST_NON_ALIGNED_TOKEN_ID_TYPEHASH =
+        keccak256("AttestNonAlignedTokenId(uint256 tokenId,bytes32 reasonHash,bytes32 evidenceCid)");
+    bytes32 private constant ACCEPT_APPEAL_TYPEHASH =
+        keccak256("AcceptAppeal(bytes32 subjectHash,bool isAddress,address subject,uint256 tokenId,bytes32 counterEvidenceCid)");
+    bytes32 private constant REHABILITATE_TYPEHASH =
+        keccak256("Rehabilitate(bool isAddress,address subject,uint256 tokenId,bytes32 teshuvahCid)");
+
     event AttestationCreated(
         bytes32 indexed subjectHash,
         bool isAddress,
@@ -75,6 +99,7 @@ contract ChartersComplianceRegistry {
     error GovernanceAlreadyBound();
     error BootstrapSizeMismatch();
     error DuplicateBootstrapMember();
+    error InvalidSignature();
 
     constructor(IAdherentRegistry _adherentRegistry, address[] memory _bootstrapCouncil) {
         adherentRegistry = _adherentRegistry;
@@ -86,6 +111,81 @@ contract ChartersComplianceRegistry {
             emit CouncilMemberSet(m, true);
         }
         councilMemberCount = BOOTSTRAP_COUNCIL_SIZE;
+
+        // Domain separator: name="ChartersComplianceRegistry", version="1"
+        _domainSeparator = EIP712._buildDomainSeparator("ChartersComplianceRegistry", "1");
+    }
+
+    /// @notice Get the EIP-712 domain separator for this contract.
+    ///         Used by off-chain signers and tests to compute correct digests.
+    function domainSeparator() external view returns (bytes32) {
+        return _domainSeparator;
+    }
+
+    /// @notice Compute the EIP-712 digest for attestNonAlignedAddress (for testing/debugging).
+    function computeAttestNonAlignedAddressDigest(
+        address subject,
+        bytes32 reasonHash,
+        bytes32 evidenceCid
+    ) external view returns (bytes32) {
+        bytes32 structHash = keccak256(abi.encode(
+            ATTEST_NON_ALIGNED_ADDRESS_TYPEHASH,
+            subject,
+            reasonHash,
+            evidenceCid
+        ));
+        return EIP712._hashTypedDataV4(_domainSeparator, structHash);
+    }
+
+    /// @notice Compute the EIP-712 digest for attestNonAlignedTokenId (for testing/debugging).
+    function computeAttestNonAlignedTokenIdDigest(
+        uint256 tokenId,
+        bytes32 reasonHash,
+        bytes32 evidenceCid
+    ) external view returns (bytes32) {
+        bytes32 structHash = keccak256(abi.encode(
+            ATTEST_NON_ALIGNED_TOKEN_ID_TYPEHASH,
+            tokenId,
+            reasonHash,
+            evidenceCid
+        ));
+        return EIP712._hashTypedDataV4(_domainSeparator, structHash);
+    }
+
+    /// @notice Compute the EIP-712 digest for acceptAppeal (for testing/debugging).
+    function computeAcceptAppealDigest(
+        bytes32 subjectHash,
+        bool isAddress,
+        address subject,
+        uint256 tokenId,
+        bytes32 counterEvidenceCid
+    ) external view returns (bytes32) {
+        bytes32 structHash = keccak256(abi.encode(
+            ACCEPT_APPEAL_TYPEHASH,
+            subjectHash,
+            isAddress,
+            subject,
+            tokenId,
+            counterEvidenceCid
+        ));
+        return EIP712._hashTypedDataV4(_domainSeparator, structHash);
+    }
+
+    /// @notice Compute the EIP-712 digest for rehabilitate (for testing/debugging).
+    function computeRehabilitateDigest(
+        bool isAddress,
+        address subject,
+        uint256 tokenId,
+        bytes32 teshuvahCid
+    ) external view returns (bytes32) {
+        bytes32 structHash = keccak256(abi.encode(
+            REHABILITATE_TYPEHASH,
+            isAddress,
+            subject,
+            tokenId,
+            teshuvahCid
+        ));
+        return EIP712._hashTypedDataV4(_domainSeparator, structHash);
     }
 
     function bindGovernance(address governance_) external {
@@ -115,7 +215,7 @@ contract ChartersComplianceRegistry {
         bytes[] calldata councilSigs,
         address[] calldata councilSigners
     ) external {
-        _verifyCouncilQuorum(councilSigs, councilSigners);
+        _verifyAttestNonAlignedAddressSignatures(subject, reasonHash, evidenceCid, councilSigs, councilSigners);
 
         Attestation storage a = attestationsByAddress[subject];
         a.status = Status.UnderReview;
@@ -140,7 +240,7 @@ contract ChartersComplianceRegistry {
         bytes[] calldata councilSigs,
         address[] calldata councilSigners
     ) external {
-        _verifyCouncilQuorum(councilSigs, councilSigners);
+        _verifyAttestNonAlignedTokenIdSignatures(tokenId, reasonHash, evidenceCid, councilSigs, councilSigners);
 
         Attestation storage a = attestationsByTokenId[tokenId];
         a.status = Status.UnderReview;
@@ -167,7 +267,8 @@ contract ChartersComplianceRegistry {
         bytes[] calldata councilSigs,
         address[] calldata councilSigners
     ) external {
-        _verifyCouncilQuorum(councilSigs, councilSigners);
+        _verifyAcceptAppealSignatures(subjectHash, isAddress, subject, tokenId, counterEvidenceCid, councilSigs, councilSigners);
+
         Attestation storage a = isAddress ? attestationsByAddress[subject] : attestationsByTokenId[tokenId];
         if (a.finalized) revert AlreadyFinalized();
         a.status = Status.Aligned;
@@ -183,7 +284,8 @@ contract ChartersComplianceRegistry {
         bytes[] calldata councilSigs,
         address[] calldata councilSigners
     ) external {
-        _verifyCouncilQuorum(councilSigs, councilSigners);
+        _verifyRehabilitateSignatures(isAddress, subject, tokenId, teshuvahCid, councilSigs, councilSigners);
+
         Attestation storage a = isAddress ? attestationsByAddress[subject] : attestationsByTokenId[tokenId];
         a.status = Status.Rehabilitated;
         a.evidenceCid = teshuvahCid;
@@ -215,16 +317,127 @@ contract ChartersComplianceRegistry {
         return a.status == Status.NonAligned && a.finalized && block.timestamp >= a.effectiveAt;
     }
 
-    function _verifyCouncilQuorum(bytes[] calldata sigs, address[] calldata signers) internal view {
+    // ─── Internal: EIP-712 Signature Verification ─────────────────────
+
+    function _verifyAttestNonAlignedAddressSignatures(
+        address subject,
+        bytes32 reasonHash,
+        bytes32 evidenceCid,
+        bytes[] calldata sigs,
+        address[] calldata signers
+    ) internal view {
         if (sigs.length < MIN_COUNCIL_SIGNERS || signers.length < MIN_COUNCIL_SIGNERS) {
             revert InsufficientSigners(uint8(sigs.length), MIN_COUNCIL_SIGNERS);
         }
+        if (sigs.length != signers.length) revert InsufficientSigners(uint8(sigs.length), MIN_COUNCIL_SIGNERS);
+
+        bytes32 structHash = keccak256(abi.encode(
+            ATTEST_NON_ALIGNED_ADDRESS_TYPEHASH,
+            subject,
+            reasonHash,
+            evidenceCid
+        ));
+
+        bytes32 digest = EIP712._hashTypedDataV4(_domainSeparator, structHash);
+
         for (uint256 i = 0; i < signers.length; i++) {
-            if (!isCouncilMember[signers[i]]) revert NotCouncil(signers[i]);
+            address signer = signers[i];
+            if (!isCouncilMember[signer]) revert NotCouncil(signer);
+            address recovered = ECDSA.tryRecover(digest, sigs[i]);
+            if (recovered == address(0) || recovered != signer) revert InvalidSignature();
         }
-        // TODO: EIP-712 sig recovery against canonical message digest in production.
-        //       v0 scaffold trusts the multisig submission (Council members
-        //       coordinate off-chain attestation Lexicons + the Pregel
-        //       CouncilDeliberationCell collects ≥3 signed votes).
+    }
+
+    function _verifyAttestNonAlignedTokenIdSignatures(
+        uint256 tokenId,
+        bytes32 reasonHash,
+        bytes32 evidenceCid,
+        bytes[] calldata sigs,
+        address[] calldata signers
+    ) internal view {
+        if (sigs.length < MIN_COUNCIL_SIGNERS || signers.length < MIN_COUNCIL_SIGNERS) {
+            revert InsufficientSigners(uint8(sigs.length), MIN_COUNCIL_SIGNERS);
+        }
+        if (sigs.length != signers.length) revert InsufficientSigners(uint8(sigs.length), MIN_COUNCIL_SIGNERS);
+
+        bytes32 structHash = keccak256(abi.encode(
+            ATTEST_NON_ALIGNED_TOKEN_ID_TYPEHASH,
+            tokenId,
+            reasonHash,
+            evidenceCid
+        ));
+
+        bytes32 digest = EIP712._hashTypedDataV4(_domainSeparator, structHash);
+
+        for (uint256 i = 0; i < signers.length; i++) {
+            address signer = signers[i];
+            if (!isCouncilMember[signer]) revert NotCouncil(signer);
+            address recovered = ECDSA.tryRecover(digest, sigs[i]);
+            if (recovered == address(0) || recovered != signer) revert InvalidSignature();
+        }
+    }
+
+    function _verifyAcceptAppealSignatures(
+        bytes32 subjectHash,
+        bool isAddress,
+        address subject,
+        uint256 tokenId,
+        bytes32 counterEvidenceCid,
+        bytes[] calldata sigs,
+        address[] calldata signers
+    ) internal view {
+        if (sigs.length < MIN_COUNCIL_SIGNERS || signers.length < MIN_COUNCIL_SIGNERS) {
+            revert InsufficientSigners(uint8(sigs.length), MIN_COUNCIL_SIGNERS);
+        }
+        if (sigs.length != signers.length) revert InsufficientSigners(uint8(sigs.length), MIN_COUNCIL_SIGNERS);
+
+        bytes32 structHash = keccak256(abi.encode(
+            ACCEPT_APPEAL_TYPEHASH,
+            subjectHash,
+            isAddress,
+            subject,
+            tokenId,
+            counterEvidenceCid
+        ));
+
+        bytes32 digest = EIP712._hashTypedDataV4(_domainSeparator, structHash);
+
+        for (uint256 i = 0; i < signers.length; i++) {
+            address signer = signers[i];
+            if (!isCouncilMember[signer]) revert NotCouncil(signer);
+            address recovered = ECDSA.tryRecover(digest, sigs[i]);
+            if (recovered == address(0) || recovered != signer) revert InvalidSignature();
+        }
+    }
+
+    function _verifyRehabilitateSignatures(
+        bool isAddress,
+        address subject,
+        uint256 tokenId,
+        bytes32 teshuvahCid,
+        bytes[] calldata sigs,
+        address[] calldata signers
+    ) internal view {
+        if (sigs.length < MIN_COUNCIL_SIGNERS || signers.length < MIN_COUNCIL_SIGNERS) {
+            revert InsufficientSigners(uint8(sigs.length), MIN_COUNCIL_SIGNERS);
+        }
+        if (sigs.length != signers.length) revert InsufficientSigners(uint8(sigs.length), MIN_COUNCIL_SIGNERS);
+
+        bytes32 structHash = keccak256(abi.encode(
+            REHABILITATE_TYPEHASH,
+            isAddress,
+            subject,
+            tokenId,
+            teshuvahCid
+        ));
+
+        bytes32 digest = EIP712._hashTypedDataV4(_domainSeparator, structHash);
+
+        for (uint256 i = 0; i < signers.length; i++) {
+            address signer = signers[i];
+            if (!isCouncilMember[signer]) revert NotCouncil(signer);
+            address recovered = ECDSA.tryRecover(digest, sigs[i]);
+            if (recovered == address(0) || recovered != signer) revert InvalidSignature();
+        }
     }
 }

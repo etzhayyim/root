@@ -2,6 +2,7 @@
 pragma solidity 0.8.27;
 
 import "forge-std/Test.sol";
+import {ECDSA} from "../src/utils/ECDSA.sol";
 import {
     TitheRouter,
     IERC20 as ITitheRouterUsdc,
@@ -19,6 +20,8 @@ import {MockUsdc} from "../script/MockUsdc.sol";
 ///      route() did not, despite being the mechanism every single donation to etzhayyim
 ///      passes through.
 contract TitheRouterTest is Test {
+    using ECDSA for bytes32;
+
     TitheRouter router;
     Constitution constitution;
     ChartersComplianceRegistry charters;
@@ -67,11 +70,27 @@ contract TitheRouterTest is Test {
         usdc.approve(address(router), type(uint256).max);
     }
 
+    function _signAttestNonAlignedAddress(
+        address subject,
+        bytes32 reasonHash,
+        bytes32 evidenceCid,
+        uint256 pk
+    ) internal view returns (bytes memory) {
+        bytes32 digest = charters.computeAttestNonAlignedAddressDigest(subject, reasonHash, evidenceCid);
+        (uint8 v, bytes32 r, bytes32 s) = vm.sign(pk, digest);
+        return abi.encodePacked(r, s, v);
+    }
+
     function _makeNonAligned(address subject) internal {
         bytes[] memory sigs = new bytes[](3);
         address[] memory signers = new address[](3);
-        for (uint256 i = 0; i < 3; i++) { sigs[i] = ""; signers[i] = council[i]; }
-        charters.attestNonAlignedAddress(subject, keccak256("reason"), keccak256("evidence"), sigs, signers);
+        bytes32 reasonHash = keccak256("reason");
+        bytes32 evidenceCid = keccak256("evidence");
+        for (uint256 i = 0; i < 3; i++) {
+            signers[i] = council[i];
+            sigs[i] = _signAttestNonAlignedAddress(subject, reasonHash, evidenceCid, councilKeys[i]);
+        }
+        charters.attestNonAlignedAddress(subject, reasonHash, evidenceCid, sigs, signers);
         vm.warp(block.timestamp + charters.APPEAL_WINDOW() + 1);
         charters.finalize(true, subject, 0);
         assertTrue(charters.isNonAlignedAddress(subject));

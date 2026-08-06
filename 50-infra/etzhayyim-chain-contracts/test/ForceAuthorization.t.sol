@@ -3,6 +3,8 @@
 pragma solidity 0.8.27;
 
 import "forge-std/Test.sol";
+import {ECDSA} from "../src/utils/ECDSA.sol";
+import {EIP712} from "../src/utils/EIP712.sol";
 import {
     ForceAuthorization,
     IAdherentRegistry as FA_IAdh,
@@ -30,6 +32,8 @@ contract MockFACharters is FA_ICCR {
 }
 
 contract ForceAuthorizationTest is Test {
+    using ECDSA for bytes32;
+
     ForceAuthorization fa;
     MockFAAdherent adh;
     MockFACharters chs;
@@ -41,14 +45,24 @@ contract ForceAuthorizationTest is Test {
     address constant EVE = address(0xE7E);
     address constant FRANK = address(0xF4ABC);
     address constant GUS = address(0x6045);
-    address constant COUNCIL_1 = address(0xC001);
-    address constant COUNCIL_2 = address(0xC002);
-    address constant COUNCIL_3 = address(0xC003);
+
+    // Council private keys and their derived addresses
+    uint256 constant COUNCIL_1_PK = 0x1111111111111111111111111111111111111111111111111111111111111111;
+    uint256 constant COUNCIL_2_PK = 0x2222222222222222222222222222222222222222222222222222222222222222;
+    uint256 constant COUNCIL_3_PK = 0x3333333333333333333333333333333333333333333333333333333333333333;
+
+    address COUNCIL_1;
+    address COUNCIL_2;
+    address COUNCIL_3;
 
     bytes32 constant PROPOSAL_CID = keccak256("ipfs://Qm...proposal");
     bytes32 constant INTENDED_USE_LAND_DEFENSE = keccak256("defense-of-land");
 
     function setUp() public {
+        COUNCIL_1 = vm.addr(COUNCIL_1_PK);
+        COUNCIL_2 = vm.addr(COUNCIL_2_PK);
+        COUNCIL_3 = vm.addr(COUNCIL_3_PK);
+
         adh = new MockFAAdherent();
         chs = new MockFACharters();
         fa = new ForceAuthorization(adh, chs);
@@ -74,14 +88,51 @@ contract ForceAuthorizationTest is Test {
         bytes[] memory emptySigs = new bytes[](0);
         address[] memory emptySigners = new address[](0);
         vm.prank(ALICE);
-        return fa.propose(PROPOSAL_CID, INTENDED_USE_LAND_DEFENSE, false, emptySigs, emptySigners);
+        return fa.propose(PROPOSAL_CID, INTENDED_USE_LAND_DEFENSE, false, emptySigs, emptySigners, 0);
     }
 
-    function _councilSigs() internal pure returns (bytes[] memory sigs, address[] memory signers) {
+    function _signUsingContractDigest(bytes32 digest, uint256 pk) internal view returns (bytes memory) {
+        (uint8 v, bytes32 r, bytes32 s) = vm.sign(pk, digest);
+        return abi.encodePacked(r, s, v);
+    }
+
+    function _councilSigsEmergencyPropose(
+        address proposer,
+        bytes32 proposalCid,
+        bytes32 intendedUseHash,
+        uint256 nonce
+    ) internal view returns (bytes[] memory sigs, address[] memory signers) {
         signers = new address[](3);
         signers[0] = COUNCIL_1; signers[1] = COUNCIL_2; signers[2] = COUNCIL_3;
         sigs = new bytes[](3);
-        sigs[0] = bytes("s1"); sigs[1] = bytes("s2"); sigs[2] = bytes("s3");
+        bytes32 digest = fa.computeEmergencyProposeDigest(proposer, proposalCid, intendedUseHash, nonce);
+        sigs[0] = _signUsingContractDigest(digest, COUNCIL_1_PK);
+        sigs[1] = _signUsingContractDigest(digest, COUNCIL_2_PK);
+        sigs[2] = _signUsingContractDigest(digest, COUNCIL_3_PK);
+    }
+
+    function _councilSigsAfterAction(bytes32 authId, bytes32 afterActionCid)
+        internal view returns (bytes[] memory sigs, address[] memory signers)
+    {
+        signers = new address[](3);
+        signers[0] = COUNCIL_1; signers[1] = COUNCIL_2; signers[2] = COUNCIL_3;
+        sigs = new bytes[](3);
+        bytes32 digest = fa.computeAfterActionDigest(authId, afterActionCid);
+        sigs[0] = _signUsingContractDigest(digest, COUNCIL_1_PK);
+        sigs[1] = _signUsingContractDigest(digest, COUNCIL_2_PK);
+        sigs[2] = _signUsingContractDigest(digest, COUNCIL_3_PK);
+    }
+
+    function _councilSigsCancel(bytes32 authId, bytes32 reasonCid)
+        internal view returns (bytes[] memory sigs, address[] memory signers)
+    {
+        signers = new address[](3);
+        signers[0] = COUNCIL_1; signers[1] = COUNCIL_2; signers[2] = COUNCIL_3;
+        sigs = new bytes[](3);
+        bytes32 digest = fa.computeCancelDigest(authId, reasonCid);
+        sigs[0] = _signUsingContractDigest(digest, COUNCIL_1_PK);
+        sigs[1] = _signUsingContractDigest(digest, COUNCIL_2_PK);
+        sigs[2] = _signUsingContractDigest(digest, COUNCIL_3_PK);
     }
 
     function test_propose_normal_72h_voting() public {
@@ -100,18 +151,58 @@ contract ForceAuthorizationTest is Test {
         address[] memory emptySigners = new address[](0);
         vm.prank(ALICE);
         vm.expectRevert(ForceAuthorization.EmergencyRequiresCouncilAttestation.selector);
-        fa.propose(PROPOSAL_CID, INTENDED_USE_LAND_DEFENSE, true, emptySigs, emptySigners);
+        fa.propose(PROPOSAL_CID, INTENDED_USE_LAND_DEFENSE, true, emptySigs, emptySigners, 0);
     }
 
-    function test_propose_emergency_with_council_24h_voting() public {
-        (bytes[] memory sigs, address[] memory signers) = _councilSigs();
+    function test_propose_emergency_with_valid_council_signatures_24h_voting() public {
+        uint256 nonce = 1;
+        (bytes[] memory sigs, address[] memory signers) = _councilSigsEmergencyPropose(
+            ALICE, PROPOSAL_CID, INTENDED_USE_LAND_DEFENSE, nonce
+        );
         vm.prank(ALICE);
-        bytes32 id = fa.propose(PROPOSAL_CID, INTENDED_USE_LAND_DEFENSE, true, sigs, signers);
+        bytes32 id = fa.propose(PROPOSAL_CID, INTENDED_USE_LAND_DEFENSE, true, sigs, signers, nonce);
         (,, , bool emergency,, uint64 votingDeadline,
          ForceAuthorization.AuthState state,,,, ,) = fa.authorizations(id);
         assertTrue(emergency);
         assertEq(votingDeadline, block.timestamp + 24 hours);
         assertEq(uint8(state), uint8(ForceAuthorization.AuthState.Active));
+    }
+
+    function test_propose_emergency_rejects_invalid_signature() public {
+        uint256 nonce = 2;
+        (bytes[] memory sigs, address[] memory signers) = _councilSigsEmergencyPropose(
+            ALICE, PROPOSAL_CID, INTENDED_USE_LAND_DEFENSE, nonce
+        );
+        // Corrupt first signature
+        sigs[0] = bytes("invalid");
+        vm.prank(ALICE);
+        vm.expectRevert(ForceAuthorization.InvalidSignature.selector);
+        fa.propose(PROPOSAL_CID, INTENDED_USE_LAND_DEFENSE, true, sigs, signers, nonce);
+    }
+
+    function test_propose_emergency_rejects_non_council_signer() public {
+        uint256 nonce = 3;
+        (bytes[] memory sigs, address[] memory signers) = _councilSigsEmergencyPropose(
+            ALICE, PROPOSAL_CID, INTENDED_USE_LAND_DEFENSE, nonce
+        );
+        // Replace first signer with non-council member
+        signers[0] = ALICE;
+        vm.prank(ALICE);
+        vm.expectRevert(abi.encodeWithSelector(ForceAuthorization.NotCouncilMember.selector, ALICE));
+        fa.propose(PROPOSAL_CID, INTENDED_USE_LAND_DEFENSE, true, sigs, signers, nonce);
+    }
+
+    function test_propose_emergency_rejects_mismatched_sigs_signers_length() public {
+        uint256 nonce = 4;
+        (bytes[] memory sigs, address[] memory signers) = _councilSigsEmergencyPropose(
+            ALICE, PROPOSAL_CID, INTENDED_USE_LAND_DEFENSE, nonce
+        );
+        // Remove one signer but keep 3 sigs
+        signers = new address[](2);
+        signers[0] = COUNCIL_1; signers[1] = COUNCIL_2;
+        vm.prank(ALICE);
+        vm.expectRevert(ForceAuthorization.InsufficientCouncilSigners.selector);
+        fa.propose(PROPOSAL_CID, INTENDED_USE_LAND_DEFENSE, true, sigs, signers, nonce);
     }
 
     function test_supermajority_67pct_required() public {
@@ -194,14 +285,84 @@ contract ForceAuthorizationTest is Test {
         assertEq(uint8(executed), uint8(ForceAuthorization.AuthState.Executed));
         assertEq(storedLog, logCid);
 
-        // After-action review
-        (bytes[] memory sigs, address[] memory signers) = _councilSigs();
+        // After-action review with valid signatures
         bytes32 afterActionCid = keccak256("ipfs://after-action");
+        (bytes[] memory sigs, address[] memory signers) = _councilSigsAfterAction(id, afterActionCid);
         fa.recordAfterAction(id, afterActionCid, sigs, signers);
         (,, ,, ,,
          ForceAuthorization.AuthState reviewed,,, ,
          , bytes32 storedAfterAction) = fa.authorizations(id);
         assertEq(uint8(reviewed), uint8(ForceAuthorization.AuthState.AfterActionReviewed));
         assertEq(storedAfterAction, afterActionCid);
+    }
+
+    function test_record_after_action_rejects_invalid_signature() public {
+        bytes32 id = _proposeNormal();
+        address[8] memory forVoters = [
+            ALICE, BOB, CAROL, DAVE, EVE, FRANK, GUS, address(uint160(0x10008))
+        ];
+        for (uint256 i = 0; i < 8; i++) {
+            vm.prank(forVoters[i]);
+            fa.vote(id, ForceAuthorization.Choice.For);
+        }
+        skip(72 hours + 1);
+        fa.resolve(id);
+        bytes32 logCid = keccak256("ipfs://log");
+        fa.recordExecution(id, logCid);
+
+        bytes32 afterActionCid = keccak256("ipfs://after-action");
+        (bytes[] memory sigs, address[] memory signers) = _councilSigsAfterAction(id, afterActionCid);
+        // Corrupt first signature
+        sigs[0] = bytes("invalid");
+        vm.expectRevert(ForceAuthorization.InvalidSignature.selector);
+        fa.recordAfterAction(id, afterActionCid, sigs, signers);
+    }
+
+    function test_cancel_with_valid_signatures() public {
+        bytes32 id = _proposeNormal();
+        bytes32 reasonCid = keccak256("ipfs://cancel-reason");
+        (bytes[] memory sigs, address[] memory signers) = _councilSigsCancel(id, reasonCid);
+        fa.cancel(id, reasonCid, sigs, signers);
+        (,, ,, ,,
+         ForceAuthorization.AuthState cancelled,,, ,,) = fa.authorizations(id);
+        assertEq(uint8(cancelled), uint8(ForceAuthorization.AuthState.Cancelled));
+    }
+
+    function test_cancel_rejects_invalid_signature() public {
+        bytes32 id = _proposeNormal();
+        bytes32 reasonCid = keccak256("ipfs://cancel-reason");
+        (bytes[] memory sigs, address[] memory signers) = _councilSigsCancel(id, reasonCid);
+        sigs[0] = bytes("invalid");
+        vm.expectRevert(ForceAuthorization.InvalidSignature.selector);
+        fa.cancel(id, reasonCid, sigs, signers);
+    }
+
+    function test_cancel_rejects_non_council_signer() public {
+        bytes32 id = _proposeNormal();
+        bytes32 reasonCid = keccak256("ipfs://cancel-reason");
+        (bytes[] memory sigs, address[] memory signers) = _councilSigsCancel(id, reasonCid);
+        signers[0] = ALICE;
+        vm.expectRevert(abi.encodeWithSelector(ForceAuthorization.NotCouncilMember.selector, ALICE));
+        fa.cancel(id, reasonCid, sigs, signers);
+    }
+
+    function test_cancel_rejects_after_execution() public {
+        bytes32 id = _proposeNormal();
+        address[8] memory forVoters = [
+            ALICE, BOB, CAROL, DAVE, EVE, FRANK, GUS, address(uint160(0x10008))
+        ];
+        for (uint256 i = 0; i < 8; i++) {
+            vm.prank(forVoters[i]);
+            fa.vote(id, ForceAuthorization.Choice.For);
+        }
+        skip(72 hours + 1);
+        fa.resolve(id);
+        bytes32 logCid = keccak256("ipfs://log");
+        fa.recordExecution(id, logCid);
+
+        bytes32 reasonCid = keccak256("ipfs://cancel-reason");
+        (bytes[] memory sigs, address[] memory signers) = _councilSigsCancel(id, reasonCid);
+        vm.expectRevert(abi.encodeWithSelector(ForceAuthorization.InvalidStateForOperation.selector, uint8(ForceAuthorization.AuthState.Executed), uint8(ForceAuthorization.AuthState.Active)));
+        fa.cancel(id, reasonCid, sigs, signers);
     }
 }

@@ -7,8 +7,14 @@
 // HIGHER hurdle than normal governance: 50% quorum + 67% supermajority.
 // Normal voting 72h; emergency 24h (requires Council Lv6+ ≥3 emergency
 // attestation submitted alongside the proposal).
+//
+// SEC-2026-002 FIX: EIP-712 signature verification for Council attestations
+// (ADR-2605192315 §1.12.B constitutional invariant)
 
 pragma solidity 0.8.27;
+
+import {ECDSA} from "./utils/ECDSA.sol";
+import {EIP712} from "./utils/EIP712.sol";
 
 interface IAdherentRegistry {
     function isActive(uint256 tokenId, uint64 windowSecs) external view returns (bool);
@@ -22,6 +28,9 @@ interface IChartersComplianceRegistry {
 }
 
 contract ForceAuthorization {
+    using ECDSA for bytes32;
+    using EIP712 for bytes32;
+
     enum AuthState {
         Proposed, Active, Defeated, Approved, Executed, AfterActionReviewed, Cancelled
     }
@@ -58,6 +67,19 @@ contract ForceAuthorization {
 
     uint256 public proposalCounter;
 
+    // ─── EIP-712 Domain & Types ───────────────────────────────────────
+
+    /// @notice Domain separator cached at construction (chainId + address immutable).
+    bytes32 private immutable _domainSeparator;
+
+    // EIP-712 type hashes (keccak256 of the type definition)
+    bytes32 private constant EMERGENCY_PROPOSE_TYPEHASH =
+        keccak256("EmergencyPropose(address proposer,bytes32 proposalCid,bytes32 intendedUseHash,uint256 nonce)");
+    bytes32 private constant RECORD_AFTER_ACTION_TYPEHASH =
+        keccak256("RecordAfterAction(bytes32 authId,bytes32 afterActionCid)");
+    bytes32 private constant CANCEL_TYPEHASH =
+        keccak256("Cancel(bytes32 authId,bytes32 reasonCid)");
+
     event ProposalSubmitted(
         bytes32 indexed authId,
         address indexed proposer,
@@ -83,21 +105,77 @@ contract ForceAuthorization {
     error EmergencyRequiresCouncilAttestation();
     error InsufficientCouncilSigners();
     error NotCouncilMember(address signer);
+    error InvalidSignature();
+    error InvalidNonce();
 
     constructor(IAdherentRegistry _adherent, IChartersComplianceRegistry _charters) {
         adherent = _adherent;
         charters = _charters;
+        // Domain separator: name="ForceAuthorization", version="1"
+        _domainSeparator = EIP712._buildDomainSeparator("ForceAuthorization", "1");
+    }
+
+    /// @notice Get the EIP-712 domain separator for this contract.
+    ///         Used by off-chain signers and tests to compute correct digests.
+    function domainSeparator() external view returns (bytes32) {
+        return _domainSeparator;
+    }
+
+    /// @notice Compute the EIP-712 digest for emergency propose (for testing/debugging).
+    function computeEmergencyProposeDigest(
+        address proposer,
+        bytes32 proposalCid,
+        bytes32 intendedUseHash,
+        uint256 nonce
+    ) external view returns (bytes32) {
+        bytes32 structHash = keccak256(abi.encode(
+            EMERGENCY_PROPOSE_TYPEHASH,
+            proposer,
+            proposalCid,
+            intendedUseHash,
+            nonce
+        ));
+        return EIP712._hashTypedDataV4(_domainSeparator, structHash);
+    }
+
+    /// @notice Compute the EIP-712 digest for after-action review (for testing/debugging).
+    function computeAfterActionDigest(
+        bytes32 authId,
+        bytes32 afterActionCid
+    ) external view returns (bytes32) {
+        bytes32 structHash = keccak256(abi.encode(
+            RECORD_AFTER_ACTION_TYPEHASH,
+            authId,
+            afterActionCid
+        ));
+        return EIP712._hashTypedDataV4(_domainSeparator, structHash);
+    }
+
+    /// @notice Compute the EIP-712 digest for cancellation (for testing/debugging).
+    function computeCancelDigest(
+        bytes32 authId,
+        bytes32 reasonCid
+    ) external view returns (bytes32) {
+        bytes32 structHash = keccak256(abi.encode(
+            CANCEL_TYPEHASH,
+            authId,
+            reasonCid
+        ));
+        return EIP712._hashTypedDataV4(_domainSeparator, structHash);
     }
 
     /// @notice Submit a force-authorization proposal. Normal 72h voting;
     ///         emergency 24h requires Council Lv6+ ≥3 attestation passed
     ///         alongside.
+    /// @param emergencyNonce A unique nonce for emergency proposals to prevent
+    ///                       signature replay. Must be unique per (proposer, proposalCid).
     function propose(
         bytes32 proposalCid,
         bytes32 intendedUseHash,
         bool emergency,
         bytes[] calldata emergencyCouncilSigs,
-        address[] calldata emergencyCouncilSigners
+        address[] calldata emergencyCouncilSigners,
+        uint256 emergencyNonce
     ) external returns (bytes32 authId) {
         if (proposalCid == bytes32(0)) revert ZeroProposalCid();
         uint256 proposerSbt = adherent.tokenOf(msg.sender);
@@ -105,7 +183,15 @@ contract ForceAuthorization {
 
         if (emergency) {
             if (emergencyCouncilSigs.length < 3) revert EmergencyRequiresCouncilAttestation();
-            _verifyCouncilQuorum(emergencyCouncilSigs, emergencyCouncilSigners);
+            // Verify EIP-712 signatures for emergency propose
+            _verifyEmergencyProposeSignatures(
+                msg.sender,
+                proposalCid,
+                intendedUseHash,
+                emergencyNonce,
+                emergencyCouncilSigs,
+                emergencyCouncilSigners
+            );
         }
 
         authId = keccak256(abi.encode(msg.sender, proposalCid, ++proposalCounter, block.timestamp));
@@ -184,7 +270,7 @@ contract ForceAuthorization {
     ) external {
         Authorization storage a = authorizations[authId];
         if (a.state != AuthState.Executed) revert InvalidStateForOperation(a.state, AuthState.Executed);
-        _verifyCouncilQuorum(councilSigs, councilSigners);
+        _verifyAfterActionSignatures(authId, afterActionCid, councilSigs, councilSigners);
         a.state = AuthState.AfterActionReviewed;
         a.afterActionCid = afterActionCid;
         emit AfterActionReviewed(authId, afterActionCid);
@@ -201,18 +287,98 @@ contract ForceAuthorization {
         if (a.state == AuthState.Executed || a.state == AuthState.AfterActionReviewed || a.state == AuthState.Cancelled) {
             revert InvalidStateForOperation(a.state, AuthState.Active);
         }
-        _verifyCouncilQuorum(councilSigs, councilSigners);
+        _verifyCancelSignatures(authId, reasonCid, councilSigs, councilSigners);
         a.state = AuthState.Cancelled;
         emit Cancelled(authId, reasonCid);
     }
 
-    // ─── Internal ───────────────────────────────────────────────────
+    // ─── Internal: EIP-712 Signature Verification ─────────────────────
 
-    function _verifyCouncilQuorum(bytes[] calldata sigs, address[] calldata signers) internal view {
+    /// @notice Verify EIP-712 signatures for emergency propose.
+    ///         Signers sign: proposer, proposalCid, intendedUseHash, nonce
+    function _verifyEmergencyProposeSignatures(
+        address proposer,
+        bytes32 proposalCid,
+        bytes32 intendedUseHash,
+        uint256 nonce,
+        bytes[] calldata sigs,
+        address[] calldata signers
+    ) internal view {
         if (sigs.length < 3 || signers.length < 3) revert InsufficientCouncilSigners();
+        if (sigs.length != signers.length) revert InsufficientCouncilSigners();
+
+        // Hash the struct data
+        bytes32 structHash = keccak256(abi.encode(
+            EMERGENCY_PROPOSE_TYPEHASH,
+            proposer,
+            proposalCid,
+            intendedUseHash,
+            nonce
+        ));
+
+        // Final digest = keccak256("\x19\x01" || domainSeparator || structHash)
+        bytes32 digest = EIP712._hashTypedDataV4(_domainSeparator, structHash);
+
         for (uint256 i = 0; i < signers.length; i++) {
-            if (!charters.isCouncilMember(signers[i])) revert NotCouncilMember(signers[i]);
+            address signer = signers[i];
+            if (!charters.isCouncilMember(signer)) revert NotCouncilMember(signer);
+            // Recover and verify using tryRecover (returns address(0) on failure)
+            address recovered = ECDSA.tryRecover(digest, sigs[i]);
+            if (recovered == address(0) || recovered != signer) revert InvalidSignature();
         }
-        // TODO: EIP-712 sig recovery in production
+    }
+
+    /// @notice Verify EIP-712 signatures for after-action review.
+    ///         Signers sign: authId, afterActionCid
+    function _verifyAfterActionSignatures(
+        bytes32 authId,
+        bytes32 afterActionCid,
+        bytes[] calldata sigs,
+        address[] calldata signers
+    ) internal view {
+        if (sigs.length < 3 || signers.length < 3) revert InsufficientCouncilSigners();
+        if (sigs.length != signers.length) revert InsufficientCouncilSigners();
+
+        bytes32 structHash = keccak256(abi.encode(
+            RECORD_AFTER_ACTION_TYPEHASH,
+            authId,
+            afterActionCid
+        ));
+
+        bytes32 digest = EIP712._hashTypedDataV4(_domainSeparator, structHash);
+
+        for (uint256 i = 0; i < signers.length; i++) {
+            address signer = signers[i];
+            if (!charters.isCouncilMember(signer)) revert NotCouncilMember(signer);
+            address recovered = ECDSA.tryRecover(digest, sigs[i]);
+            if (recovered == address(0) || recovered != signer) revert InvalidSignature();
+        }
+    }
+
+    /// @notice Verify EIP-712 signatures for cancellation.
+    ///         Signers sign: authId, reasonCid
+    function _verifyCancelSignatures(
+        bytes32 authId,
+        bytes32 reasonCid,
+        bytes[] calldata sigs,
+        address[] calldata signers
+    ) internal view {
+        if (sigs.length < 3 || signers.length < 3) revert InsufficientCouncilSigners();
+        if (sigs.length != signers.length) revert InsufficientCouncilSigners();
+
+        bytes32 structHash = keccak256(abi.encode(
+            CANCEL_TYPEHASH,
+            authId,
+            reasonCid
+        ));
+
+        bytes32 digest = EIP712._hashTypedDataV4(_domainSeparator, structHash);
+
+        for (uint256 i = 0; i < signers.length; i++) {
+            address signer = signers[i];
+            if (!charters.isCouncilMember(signer)) revert NotCouncilMember(signer);
+            address recovered = ECDSA.tryRecover(digest, sigs[i]);
+            if (recovered == address(0) || recovered != signer) revert InvalidSignature();
+        }
     }
 }

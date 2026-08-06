@@ -2,6 +2,8 @@
 pragma solidity 0.8.27;
 
 import "forge-std/Test.sol";
+import {ECDSA} from "../src/utils/ECDSA.sol";
+import {EIP712} from "../src/utils/EIP712.sol";
 import {
     LandRegistry,
     IAdherentRegistry as ILandAdherentRegistry,
@@ -16,6 +18,8 @@ import {ChartersComplianceRegistry, IAdherentRegistry as ICharterAdherentRegistr
 ///      that invariant holds in code, not just in comments, before any real donation
 ///      is ever recorded (LANDS.md is still "awaiting first donation" as of writing).
 contract LandRegistryTest is Test {
+    using ECDSA for bytes32;
+
     LandRegistry land;
     AdherentRegistry adherents;
     ChartersComplianceRegistry charters;
@@ -58,13 +62,29 @@ contract LandRegistryTest is Test {
         landId = land.donate(OATH, GEOJSON, IMAGERY, DEED, NATIONAL_REF, AREA_M2, LandRegistry.LandType.Agricultural, STEWARD);
     }
 
+    function _signAttestNonAlignedAddress(
+        address subject,
+        bytes32 reasonHash,
+        bytes32 evidenceCid,
+        uint256 pk
+    ) internal view returns (bytes memory) {
+        bytes32 digest = charters.computeAttestNonAlignedAddressDigest(subject, reasonHash, evidenceCid);
+        (uint8 v, bytes32 r, bytes32 s) = vm.sign(pk, digest);
+        return abi.encodePacked(r, s, v);
+    }
+
     /// Marks `subject` non-aligned via a real Council-quorum attestation + finalize
     /// (the only path that can make isNonAlignedAddress() return true).
     function _makeNonAligned(address subject) internal {
         bytes[] memory sigs = new bytes[](3);
         address[] memory signers = new address[](3);
-        for (uint256 i = 0; i < 3; i++) { sigs[i] = ""; signers[i] = council[i]; }
-        charters.attestNonAlignedAddress(subject, keccak256("reason"), keccak256("evidence"), sigs, signers);
+        bytes32 reasonHash = keccak256("reason");
+        bytes32 evidenceCid = keccak256("evidence");
+        for (uint256 i = 0; i < 3; i++) {
+            signers[i] = council[i];
+            sigs[i] = _signAttestNonAlignedAddress(subject, reasonHash, evidenceCid, councilKeys[i]);
+        }
+        charters.attestNonAlignedAddress(subject, reasonHash, evidenceCid, sigs, signers);
         vm.warp(block.timestamp + charters.APPEAL_WINDOW() + 1);
         charters.finalize(true, subject, 0);
         assertTrue(charters.isNonAlignedAddress(subject));
