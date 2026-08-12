@@ -18,12 +18,20 @@
 ;;   :http-fn  — default real babashka.http-client
 ;;   :fs-fn    — default real clojure.java.io/file .exists
 ;;
+;; PDS RESOLUTION:
+;;   The library leg takes `pds-url` as a required argument and holds no default —
+;;   callers say where to go. The `register` CLI leg resolves an omitted --pds
+;;   through etzhayyim.auth/resolve-pds, so the only two hosts reachable are the
+;;   one passed on the command line and the workspace-wide auth/default-pds.
+;;   See the note above the `register` branch in -main.
+;;
 ;; bb load check:
 ;;   bb --classpath 70-tools/src -e "(require 'etzhayyim.yoroshiku)(println :ok)"
 
 (ns etzhayyim.yoroshiku
   (:require [clojure.string :as str]
             [cheshire.core  :as json]
+            [etzhayyim.auth :as auth]
             #?(:bb [babashka.http-client :as http])
             #?(:bb [babashka.fs          :as fs])))
 
@@ -215,7 +223,20 @@
                (println (json/generate-string checks {:pretty true}))
                (y-print-readiness checks (nil? sub))))
            "register"
-           (let [pds   (or (get flags "--pds") "https://pds.local")
+           ;; `register` is the only subcommand that transmits a credential, so
+           ;; the host it resolves must always be one somebody chose: the --pds
+           ;; passed here, or the workspace-wide auth/default-pds. It used to
+           ;; fall back to a literal "https://pds.local" — `.local` is the mDNS
+           ;; namespace (RFC 6762), claimable by any host on the same link, so
+           ;; `--execute` on a shared network could hand the bearer token to
+           ;; whoever answered. auth/resolve-pds also trims and strips trailing
+           ;; slashes, which the old `or` did not: a --pds of "  " previously
+           ;; produced the non-URL "  /xrpc/...".
+           ;;
+           ;; Deliberately NOT reading etzhayyim_PDS_URL here: removing that
+           ;; ambient read from this module's ported twin is what PR #3235
+           ;; (30cd480c0f) did, and re-adding it would undo that.
+           (let [pds   (auth/resolve-pds (get flags "--pds"))
                  token (or (System/getenv "E7M_TOKEN") "")
                  ws    (y-ws flags)
                  res   (register-workspace pds token ws

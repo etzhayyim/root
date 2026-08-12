@@ -2,9 +2,12 @@
 ;; Run via the aggregate: bb test:helpers
 ;; Covers the pure readiness/format/request helpers (fs + HTTP legs deferred):
 ;; compute-readiness-checks · build-register-request · format-check-line ·
-;; format-readiness-summary.
+;; format-readiness-summary · the `register` CLI leg's PDS resolution.
 (ns etzhayyim.test-yoroshiku
   (:require [clojure.test :refer [deftest is testing run-tests]]
+            [clojure.string :as str]
+            [cheshire.core  :as json]
+            [etzhayyim.auth :as auth]
             [etzhayyim.yoroshiku :as y]))
 
 (deftest readiness-checks-from-signals
@@ -38,6 +41,52 @@
   (is (= "yoroshiku (よろしく): 2/3 checks passing"
          (y/format-readiness-summary [{:ok true} {:ok false} {:ok true}])))
   (is (= "yoroshiku (よろしく): 0/0 checks passing" (y/format-readiness-summary []))))
+
+;; ── `register` CLI leg: which PDS gets contacted ─────────────────────────────
+;;
+;; `register` is the one subcommand that transmits a credential: it sends
+;; `Authorization: Bearer $E7M_TOKEN` to whatever host it resolved. So the host
+;; must always be one somebody chose — either passed as `--pds`, or the
+;; workspace-wide constant `etzhayyim.auth/default-pds`. It must never be a name
+;; the CLI invented for itself.
+;;
+;; The CLI used to fall back to a literal "https://pds.local". `.local` is the
+;; mDNS/Bonjour namespace (RFC 6762), so that name is claimable by any host on
+;; the same link — `yoroshiku register --execute` on a shared network would hand
+;; the bearer token to whoever answered first.
+;;
+;; These read the dry-run request shape, so nothing is sent.
+
+(defn- register-url
+  "Resolve the URL `yoroshiku register` would POST to, via the dry-run leg."
+  [& argv]
+  (-> (with-out-str (apply y/-main "register" "--json" argv))
+      (json/parse-string true)
+      (get-in [:request :url])))
+
+(deftest register-never-invents-a-pds-host
+  (testing "no --pds → the workspace's chosen default PDS, not an invented name"
+    (let [url (register-url "--workspace-dir" "/ws")]
+      (is (= (str auth/default-pds "/xrpc/com.etzhayyim.yoroshiku.registerWorkspace")
+             url))
+      ;; The specific regression: an mDNS-squattable host reached by default.
+      (is (not (str/includes? url "pds.local"))
+          "register must not default to a .local (mDNS) host")))
+
+  ;; POSITIVE CONTROL — passes both before and after the fix. An explicitly
+  ;; supplied --pds was always honoured; if this ever fails, the breakage is in
+  ;; flag parsing or URL building, not in the default-host change above.
+  (testing "explicit --pds is honoured"
+    (is (= "https://pds.example/xrpc/com.etzhayyim.yoroshiku.registerWorkspace"
+           (register-url "--pds" "https://pds.example" "--workspace-dir" "/ws"))))
+
+  (testing "explicit --pds is trailing-slash normalized"
+    (is (= "https://pds.example/xrpc/com.etzhayyim.yoroshiku.registerWorkspace"
+           (register-url "--pds" "https://pds.example///" "--workspace-dir" "/ws"))))
+
+  (testing "blank --pds falls back to the default rather than building a bare path"
+    (is (= (str auth/default-pds "/xrpc/com.etzhayyim.yoroshiku.registerWorkspace")
+           (register-url "--pds" "  " "--workspace-dir" "/ws")))))
 
 (defn -main [& _]
   (let [{:keys [fail error]} (run-tests 'etzhayyim.test-yoroshiku)]
