@@ -608,6 +608,26 @@ def _resolve_nomad_addr() -> str:
     anywhere in the repo. Inventing an owned-looking host that serves nothing
     would be worse than the squattable one, because an unreachable wrong default
     still silently decides where a token goes. So require the value and say so.
+
+    **Requiring it is a NEW contract, not the enforcement of an existing one.**
+    Worth naming, because the sibling fixes in this sweep were not: the vpn one
+    could point at deployment surfaces that already declared the secret
+    mandatory, so the code had drifted from something operators had written
+    down. Nothing analogous exists here. Searched on main: NOMAD_ADDR appears in
+    no manifest, ansible play, install script, .env sample or doc — only in this
+    module and its twin; NOMAD_TOKEN appeared nowhere at all before this change;
+    there is no Nomad job spec in the tree, and the
+    ``murakumo-inference.nomad.hcl`` that ``fleet deploy`` and ``fleet restart``
+    hand to ``nomad job run`` does not exist (there is no ``projects/`` tree on
+    main), so those two subcommands cannot complete today regardless.
+
+    That makes this a small breaking change for exactly one person: an operator
+    sitting on the fleet LAN, with benjamin up, running ``fleet nodes / drain /
+    undrain / logs / watch`` — the urllib paths, which do work today — and
+    relying on the default rather than exporting anything. They now get an error
+    naming the variable and an example. That trade is worth taking: the only
+    thing the old default did reliably was decide, silently, where a credential
+    goes.
     """
     import os
     addr = (os.environ.get("NOMAD_ADDR") or "").strip()
