@@ -1,12 +1,20 @@
-#!/usr/bin/env bb
 ;; test-health/audit.clj — repo-wide actor test-suite HEALTH audit (read-only).
 ;;
 ;; Institutionalises the manual "measure the debt" scans that surfaced the py->cljc
 ;; port-wave debt (PRs #2041 tsumugi seed-drift, #2042 uchiwake .clj shadows, #2043
 ;; broken `bb test:<actor>` shims). Run anytime to re-measure:
 ;;
-;;   bb 70-tools/scripts/test-health/audit.clj            # print the triage summary
-;;   bb 70-tools/scripts/test-health/audit.clj --write    # + write the markdown snapshot
+;;   nbb scripts/run-task.cljs audit:test-health            # print the triage summary + self-check
+;;
+;; which is `clojure -Sdeps … -M -m test-health.audit --check`. Add --write for the markdown
+;; snapshot, --probe to classify broken shims.
+;;
+;; It used to be `bb 70-tools/scripts/test-health/audit.clj`, and until ADR-2608135000 the registry
+;; entry still shelled out to that retired binary. This file also carried
+;; `(when (= *file* (System/getProperty "babashka.file")) (apply -main …))` — a guard that is FALSE
+;; under every runtime except babashka, so running the audit any other way loaded the namespace,
+;; performed no audit, and exited 0. An audit that cannot fail is worse than an absent one: it
+;; reports the answer you wanted. -main is now invoked by `-m`, which is the caller's job anyway.
 ;;
 ;; Two debt classes, both deterministic + safe to compute (no test execution, no writes
 ;; unless --write):
@@ -20,6 +28,7 @@
 ;; which of .clj/.cljc is canonical is the actor owner's call (sizes/scope can diverge).
 (ns test-health.audit
   (:require [clojure.string :as str]
+            [clojure.edn :as edn]
             [clojure.java.io :as io]
             [babashka.fs :as fs]
             [babashka.process :as p]))
@@ -46,16 +55,25 @@
 
 ;; ── 2. broken `bb test:<name>` shims ─────────────────────────────────────────
 
-(defn defined-bb-tasks []
-  (->> (slurp "bb.edn")
-       (re-seq #"(?m)^\s+(test:[a-z-]+)")
-       (map second)
+(defn defined-tasks
+  "Task names the repo's registry defines. This used to read bb.edn; ADR-2607173000 retired
+   babashka and deleted it, so the audit crashed with `bb.edn (No such file or directory)` the
+   moment it was run anywhere other than under bb — which, because of the babashka.file self-exec
+   guard removed above, was nowhere at all. The registry is now scripts/tasks.edn."
+  []
+  (->> (edn/read-string (slurp "scripts/tasks.edn"))
+       keys
+       (map name)
        set))
 
 (defn broken-shims
-  "run_tests.sh files that `exec bb test:<name>` a task NOT defined in bb.edn."
+  "run_tests.sh files under 20-actors/ that `exec bb test:<name>` a task the registry does not
+   define. NOTE the population: etzhayyim/root drained nine legacy actor roots on 2026-07-18
+   (6ad7cd5) and 20-actors/ now holds `todoke` alone, with no run_tests.sh anywhere under it — so
+   this class is EMPTY, and reports 0 because there is nothing left to be broken, not because
+   nothing is broken. Kept rather than deleted so the count stays visible if an actor root returns."
   []
-  (let [defined (defined-bb-tasks)]
+  (let [defined (defined-tasks)]
     (->> (fs/glob "20-actors" "*/run_tests.sh")
          (map str)
          (keep (fn [sh]
@@ -77,6 +95,13 @@
 ;; one actor must not abort the others). Classifies so the register says WHICH broken
 ;; shims are safe to repoint (#2043 pattern: green) vs surface a real pre-existing bug.
 
+(def ^:private probe-runtime
+  ;; was `bb -e <code>`; babashka is retired (ADR-2607173000). clojure.main -e is the JVM
+  ;; equivalent and the probe code was already JVM-shaped (requiring-resolve, clojure.test).
+  ;; Unreachable in practice while broken-shims is empty -- ported anyway so it is not a landmine
+  ;; for whoever restores an actor root.
+  ["clojure" "-M" "-e"])
+
 (defn probe-shim
   "Run `actor`'s discovery-filtered tests in a subprocess. Returns
   {:actor :status :detail} where :status ∈ {:clean-repoint :tests-fail :load-error}."
@@ -87,10 +112,10 @@
                   "(apply require mine)"
                   "(let [r (apply clojure.test/run-tests mine)]"
                   "(println \"PROBE\" (:fail r) (:error r))))")
-        {:keys [out err]} (p/sh {:continue true} "bb" "-e" code)
+        {:keys [out err]} (apply p/sh {:continue true} (conj probe-runtime code))
         text (str out err)
         ;; the subprocess prints `PROBE <fail> <error>` from run-tests; that is the source
-        ;; of truth (NOT the bb exit code — the probe code does not System/exit on failures,
+        ;; of truth (NOT the process exit code — the probe code does not System/exit on failures,
         ;; so a red suite still exits 0). Parse the counts; absence ⇒ load/require error.
         m (re-find #"PROBE (\d+) (\d+)" text)]
     (cond
@@ -102,6 +127,13 @@
       (let [msg (some->> (str/split-lines text)
                          (some #(second (re-find #"(?:Message:|Unable to resolve|No such file)\s*(.*)" %))))]
         {:actor actor :status :load-error :detail (or (some-> msg str/trim) "load/require error")}))))
+
+(def ^:private probe-runtime
+  ;; was `bb -e <code>`; babashka is retired (ADR-2607173000). clojure.main -e is the JVM
+  ;; equivalent and the probe code was already JVM-shaped (requiring-resolve, clojure.test).
+  ;; Unreachable in practice while broken-shims is empty -- ported anyway so it is not a landmine
+  ;; for whoever restores an actor root.
+  ["clojure" "-M" "-e"])
 
 (defn probe-shims [shims] (mapv (comp probe-shim :actor) shims))
 
@@ -174,14 +206,19 @@
     (conj "a shadow pair is missing :clj/:cljc/:class/:actor")
     (not (every? #(and (:actor %) (:task %) (str/starts-with? (:task %) "test:")) shims))
     (conj "a broken shim is missing :actor/:task")
-    (not (contains? defined "test:actors")) (conj "bb.edn lost the canonical test:actors task")
+        ;; was: (not (contains? defined "test:actors")) -- "bb.edn lost the canonical test:actors task".
+    ;; test:actors was a bb.edn auto-discovery task and does not exist in scripts/tasks.edn; keeping
+    ;; the invariant would have made --check fail forever on a condition that is now simply history.
+    ;; The claim worth keeping is that the registry was actually READ, since every other check here
+    ;; is vacuously true against an empty set.
+    (empty? defined) (conj "scripts/tasks.edn parsed to no tasks -- the registry was not read")
     ;; a flagged shim's task must genuinely be undefined (the detector's core claim)
     (some #(contains? defined (:task %)) shims) (conj "a 'broken' shim's task is actually defined")))
 
 (defn -main [& args]
   (let [shadows (shadow-pairs)
         shims (broken-shims)
-        defined (defined-bb-tasks)
+        defined (defined-tasks)
         diff (count (filter #(= :different (:class %)) shadows))]
     (println (str "test-health: " (count shadows) " .clj/.cljc shadow pairs ("
                   diff " :different / " (- (count shadows) diff) " :identical) · "
@@ -203,5 +240,11 @@
         (spit report-path (render-md shadows shims probes))
         (println (str "wrote " report-path))))))
 
-(when (= *file* (System/getProperty "babashka.file"))
-  (apply -main *command-line-args*))
+
+;; Unconditional, because this file is a program and nothing load-file's it (verified: the only
+;; load-file callers under 70-tools/ target regen-registry.clj, regen-graph-edn.clj and the kamado
+;; guard). `-m test-health.audit` would have been the tidier entry, but the directory is
+;; `test-health` and the namespace segment `test-health` demands `test_health`, so the ns is not
+;; loadable by name until the directory is renamed — a rename with references outside this repo,
+;; and not worth coupling to a task conversion.
+(apply -main *command-line-args*)

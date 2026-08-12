@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-07-23",
+  "updated_at": "2026-08-13",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.edn",
@@ -25697,6 +25697,28 @@
       ],
       "last_verified": "2026-07-23",
       "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2608011200-kawase-yui-constitutional-bounded-amm.edn",
+      "id": "adr-2608011200-kawase-yui-constitutional-bounded-amm",
+      "title": "ADR-2608011200: kawase-yui permits a constitutionally bounded AMM",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "",
+      "authoritative": true,
+      "authoritative_for": [
+        "kawase-yui bounded-AMM policy",
+        "LP fee, protocol fee and price-impact separation"
+      ],
+      "supersedes": [
+        "adr-2605282200 alternative-8",
+        "adr-2605282200 G5",
+        "adr-2605282200 G6"
+      ],
+      "related": [],
       "superseded_by": [],
       "amends": [],
       "amended_by": []

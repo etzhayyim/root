@@ -186,11 +186,15 @@ whatever worktree the session is in.
 - ADR ID convention → `90-docs/CLAUDE.md` § "ADR ID Convention"
 - Template → `90-docs/adr/template.md`
 
-## Operational code = clj/bb over the kotoba Datom log (REPO-WIDE RULE — 実装/engineering)
+## Operational code = clj over the kotoba Datom log (REPO-WIDE RULE — 実装/engineering)
 
 **Newly authored operational / daemon / heartbeat / loop / tooling code SHOULD be
-Clojure on babashka (`bb`), with state on the kotoba Datom log (datomic-isomorphic,
-ADR-2605312345) — NOT Python (`.py`) or shell (`.sh`).** This is an **実装/engineering
+Clojure, with state on the kotoba Datom log (datomic-isomorphic, ADR-2605312345) —
+NOT Python (`.py`) or shell (`.sh`).** It used to say "Clojure on babashka (`bb`)";
+ADR-2607173000 retired babashka as this workspace's script host in favour of nbb, and
+this repo's `bb.edn` was deleted in that conversion. Runtime priority is nbb for scripts,
+`clojure` for anything JVM-shaped (see the superproject CLAUDE.md); `bb` is not installed
+on murakumo fleet nodes. This is an **実装/engineering
 convention** (changeable at the implementation layer, not a charter invariant): it
 generalizes the substrate boundary (state = kotoba Datom log) to *executable* substrate,
 so the org's own moving parts are clj/bb folds over append-only Datom journals and inherit
@@ -198,8 +202,16 @@ as-of history (生命進化), content-addressed snapshots, and crash-resume for 
 reasons the actors are being ported py→cljc (the clj-port waves).
 
 Concretely:
-- **Author daemons/heartbeats/CLIs as `bb` tasks** in `bb.edn` backed by a clj/cljc
-  namespace under `70-tools/src/etzhayyim/…` (reference: `etzhayyim.organism` =
+- **Author daemons/heartbeats/CLIs as tasks** in `scripts/tasks.edn`, run with
+  `nbb scripts/run-task.cljs <task>`, backed by a clj/cljc namespace under
+  `70-tools/src/etzhayyim/…`. **Check that the namespace actually loads under the runtime
+  you register**: the 2026-07 bb→nbb conversion rewrote `["bb" …]` into `["nbb" …]`
+  without that check, and a namespace requiring `babashka.fs` or `clojure.java.io` does
+  not load under nbb — those are bb/JVM namespaces. Register such code as
+  `["clojure" "-Sdeps" … "-M" …]` and declare `babashka/fs` and `babashka/process` as the
+  ordinary maven artifacts they are (see `audit:test-health`), or port the requires.
+  Measured 2026-08-13 (ADR-2608135000): of the two nbb tasks this file names below,
+  BOTH fail at load for exactly this reason (reference: `etzhayyim.organism` =
   the resident organism heartbeat + 情緒 narration; `etzhayyim.vitals` = pulse/joucho/
   vitals). Persist via `etzhayyim.kotoba.engine` (`kt/connect`→`kt/transact`→
   `kt/snapshot!`), append-only when you want evolution, journal-per-feed.
@@ -216,10 +228,16 @@ Concretely:
 - **Exemptions**: 3rd-party/vendored code (`lib/`, `vendor/`, `*-fork/`), generated
   build artifacts, and an actor's still-unported legacy `py/` during an in-flight
   cljc port (the port itself is the fix).
-- **Enforced-forward (ADR-2606072802)**: `bb lint:no-new-shell` FAILS on a NEW first-party
+- **Enforced-forward (ADR-2606072802)**: `nbb scripts/run-task.cljs lint:no-new-shell` FAILS on a NEW first-party
   `.sh` under `orgs/etzhayyim/com-etzhayyim-*/` (existing ones are GRANDFATHERED in
   `70-tools/src/etzhayyim/lint/shell-baseline.edn`; the baseline is shrinks-only — port a
-  `.sh` to bb + delete it, then `bb lint:no-new-shell --update`). New actors ship
+  `.sh` to Clojure + delete it, then `nbb scripts/run-task.cljs lint:no-new-shell --update`).
+  ⚠ **REGISTERED BUT NON-FUNCTIONAL** (measured 2026-08-13): `lint:no-new-shell` is in
+  `scripts/tasks.edn` as an nbb task, but `etzhayyim.lint.no-new-shell` requires
+  `babashka.fs`, which nbb does not provide — it exits with
+  `Could not find namespace: babashka.fs`. So this rule is currently unenforced. Fixing it
+  is a port of the linter's requires (or a `clojure -Sdeps` registration), not a rename.
+  New actors ship
   `run_tests.clj`, not `run_tests.sh`; `etzhayyim.vitals` prefers the `.clj` runner. The 218
   grandfathered `.sh` are not mass-ported (low value, high churn) — they convert opportunistically.
 
@@ -281,7 +299,12 @@ Snapshot artifacts (run results) live under `90-docs/baien/`:
 
 This repo is **blockchain-self-contained**. The rows below are **NOT uniform** — classify each before treating it as immutable (固定するのは priority):
 
-Layer scored in `70-tools/scripts/charter/layer-classification.edn` + `classify.bb` (5 axes, J 0–10; `bb classify.bb`):
+Layer scored in `70-tools/scripts/charter/layer-classification.edn` (5 axes, J 0–10).
+⚠ **UNAVAILABLE**: the scorer was `classify.bb`, invoked as `bb classify.bb`. That file no
+longer exists anywhere in this repository, there is no `.bb` file left, and no task in
+`scripts/tasks.edn` replaces it (checked 2026-08-13, ADR-2608135000). The
+`layer-classification.edn` data remains; only the thing that computed it is gone. Recorded
+rather than deleted, so a reader does not conclude the scoring never existed:
 
 - **Tier-0 (fork-only — the priorities themselves + the few constitutional invariants)**: `Land trust` inalienability (J=9.05, donated land = waqf-equivalent, ADR-2605192245) · `Religious force` transparency invariant (§1.12.B) · `Content` no-CSAM = the catastrophe term (= priority non-negotiable). The four Tier-0 priorities (子孫 wellbecoming / collective / 永久記憶) sit above all of these.
 - **Tier-1 (derived policy — Council Lv7+)**: `License` default (Apache+Rider → ECL, J=8.40) · `Charter compliance` (3-tier) · **`Confidentiality` PRINCIPLE (暗号化≠忘却, J=7.95 — Tier-0-derived from permanent-memory; promoted from 実装 per the score)** · **`Server-side signing` / no-server-key (J=6.90 — non-custody/trustless invariant; promoted from 実装)** · `Content` Eros doctrine (consenting-adult only).
@@ -324,7 +347,10 @@ Apps that need fiat / paid features call an external backend via XRPC consent-ca
 - `/CHARTER-RIDER.md` — license addendum canonical text
 - `/LANDS.md` — Land Trust roster
 - `/MEMBERS.md` — 信者 roster
-- `50-infra/murakumo/fleet.edn` — religious-corp cell placement (10 nodes × 15 cells). NB: cron/lan-api heartbeat RESIDENCY (defined here + in `50-infra/cluster/murakumo/cell-runner/cells.edn`) is verified live with `bb fleet:probe` — definition ≠ running daemon
+- `50-infra/murakumo/fleet.edn` — religious-corp cell placement (10 nodes × 15 cells). NB: cron/lan-api heartbeat RESIDENCY (defined here + in `50-infra/cluster/murakumo/cell-runner/cells.edn`) is verified live with `nbb scripts/run-task.cljs fleet:probe` — definition ≠ running daemon.
+  ⚠ **REGISTERED BUT NON-FUNCTIONAL** (measured 2026-08-13): that task exits with
+  `Could not find namespace: clojure.java.io`, which nbb does not provide — same defect as
+  `lint:no-new-shell` above. So residency is currently NOT verified by anything
 - `orgs/etzhayyim/com-etzhayyim-sdk/README.md` — SDK API surface + hard rules
 - `40-engine/kotoba/crates/kotoba-kotodama/cells/README.md` — religious-corp Pregel cell catalog
 - `90-docs/adr/2605262130-kotoba-storage-substrate-unification.md` — canonical storage substrate engine (kotoba); supersedes kotoba-datomic composition + projection layers; no RisingWave

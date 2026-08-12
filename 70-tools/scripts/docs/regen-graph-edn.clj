@@ -1,4 +1,3 @@
-#!/usr/bin/env bb
 ;; Regenerate 90-docs/_registry/graph.edn from 90-docs/_registry/docs.edn.
 ;;
 ;; graph.edn is the typed relation-graph projection of the docs registry —
@@ -177,7 +176,7 @@
           (binding [*out* *err*]
             (let [old-n (try (count (:graph (edn/read-string on-disk))) (catch Exception _ 0))]
               (println (str "graph.edn drift detected: disk=" n " nodes, file=" old-n " nodes"))
-              (println "run: bb 70-tools/scripts/docs/regen-graph-edn.clj")
+              (println "run: nbb scripts/run-task.cljs docs:graph-edn")
               1))))
 
       :else
@@ -185,6 +184,9 @@
           (println (str "wrote 90-docs/_registry/graph.edn with " n " nodes"))
           0))))
 
-;; run main only when executed as a script (not when load-file'd by tests)
-(when (= *file* (System/getProperty "babashka.file"))
+;; Run main unless a LIBRARY CONSUMER says otherwise -- same inversion, and same reason, as
+;; regen-registry.clj's guard: `(= *file* (System/getProperty "babashka.file"))` is false under
+;; every runtime except babashka, so running this generator with `clojure` regenerated nothing and
+;; exited 0. The default belongs on the side a silent no-op ruins.
+(when-not (System/getProperty "regen-graph-edn.library-load")
   (System/exit (apply -main *command-line-args*)))

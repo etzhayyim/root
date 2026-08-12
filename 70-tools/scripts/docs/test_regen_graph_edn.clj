@@ -1,4 +1,3 @@
-#!/usr/bin/env bb
 ;; Tests for regen-graph-edn.clj (EDN relation-graph projection).
 ;;
 ;; The generator projects 90-docs/_registry/docs.edn → graph.edn with typed
@@ -19,6 +18,9 @@
          '[clojure.edn :as edn]
          '[babashka.fs :as fs])
 
+;; Load the implementation for its functions only -- see the guard's own comment for why the
+;; default is the other way round.
+(System/setProperty "regen-graph-edn.library-load" "1")
 (load-file (str (fs/path (fs/parent *file*) "regen-graph-edn.clj")))
 (alias 'g 'regen-graph-edn)
 

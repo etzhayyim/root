@@ -1,4 +1,3 @@
-#!/usr/bin/env bb
 ;; Regenerate 90-docs/_registry/{docs.json,docs.edn} from disk front-matter.
 ;;
 ;; babashka port of the former regen-registry.py (byte-for-byte identical
@@ -352,14 +351,14 @@
           (do (binding [*out* *err*]
                 (println (str "registry drift detected: disk=" (count entries)
                               " entries, file=" (count disk-entries) " entries"))
-                (println "run: bb 70-tools/scripts/docs/regen-registry.clj"))
+                (println "run: nbb scripts/run-task.cljs docs:registry"))
               1)
 
           (not= (edn-entries-block (if (fs/exists? registry-edn) (slurp registry-edn) ""))
                 (edn-entries-block (render-edn entries date)))
           (do (binding [*out* *err*]
                 (println "registry EDN drift detected: docs.edn out of sync with docs.json source")
-                (println "run: bb 70-tools/scripts/docs/regen-registry.clj"))
+                (println "run: nbb scripts/run-task.cljs docs:registry"))
               1)
 
           :else
@@ -374,6 +373,11 @@
                       (count entries) " entries"))
         0))))
 
-;; run main only when executed as a script (not when load-file'd by tests)
-(when (= *file* (System/getProperty "babashka.file"))
+;; Run main unless a LIBRARY CONSUMER has said it only wants the functions. The guard used to be
+;; `(= *file* (System/getProperty "babashka.file"))`, which asks "am I babashka's entry script?" --
+;; false under every other runtime, so running this generator with `clojure` loaded it, regenerated
+;; nothing and exited 0. The polarity was backwards: the default should be "I am the program",
+;; because that is the case a silent no-op ruins, and the one caller that load-file's this (see
+;; test_regen_registry.clj) is the one that knows it wants a library and can say so.
+(when-not (System/getProperty "regen-registry.library-load")
   (System/exit (apply -main *command-line-args*)))

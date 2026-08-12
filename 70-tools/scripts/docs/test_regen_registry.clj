@@ -1,6 +1,7 @@
-#!/usr/bin/env bb
 ;; Tests for regen-registry.clj (babashka port of regen-registry.py).
-;; Run: bb 70-tools/scripts/docs/test_regen_registry.clj
+;; Run: nbb scripts/run-task.cljs test:docs-registry
+;; (which is `clojure -Sdeps … -M 70-tools/scripts/docs/test_regen_registry.clj`, from the repo
+;; root -- `here` is derived from *file*, so the working directory matters.)
 ;; Covers parse-frontmatter (happy + edge), entry build/order, JSON+EDN
 ;; encoders, byte-identity round-trip, and the live-repo freshness guard.
 
@@ -14,7 +15,10 @@
 (def here (fs/parent (fs/absolutize *file*)))
 (def impl (str (fs/path here "regen-registry.clj")))
 
-;; load the implementation (its main is guarded, so this does not exit)
+;; Load the implementation for its functions only. Declaring that explicitly is what keeps its
+;; entry guard from running -main and exiting this process -- see the guard's own comment for why
+;; the default is the other way round.
+(System/setProperty "regen-registry.library-load" "1")
 (load-file impl)
 
 (defn- pf [t] (regen-registry/parse-frontmatter t))
@@ -82,13 +86,27 @@
     (is (str/ends-with? out "]}\n"))))
 
 (deftest live-repo-in-sync
-  ;; the committed registry must match what we'd regenerate (json + edn)
-  (let [{:keys [exit out err]} (p/shell {:dir (str (fs/parent (fs/parent (fs/parent here))))
-                                         :out :string :err :string :continue true}
-                                        "bb" "70-tools/scripts/docs/regen-registry.clj" "--check")]
-    (is (zero? exit) (str "registry drift: " out err))
-    (is (str/includes? out "in sync"))))
+  ;; The committed registry must match what we'd regenerate (json + edn).
+  ;;
+  ;; This used to shell out to `bb 70-tools/scripts/docs/regen-registry.clj --check`. Two things
+  ;; were wrong with that after ADR-2607173000 retired babashka: the binary is gone on any fleet
+  ;; node, and the subprocess bought nothing -- the implementation is ALREADY load-file'd into this
+  ;; process above, and its -main RETURNS an exit code rather than calling System/exit (the exit is
+  ;; in the script's own entry guard). So call it directly and capture what it prints. One fewer
+  ;; process, one fewer runtime assumption, and a failure now reports in this process's output
+  ;; instead of inside a captured string.
+  ;; Capture *err* as well as *out*: -main prints the "in sync" line to stdout but every drift
+  ;; message to stderr, so capturing only stdout reports a failure with an empty explanation.
+  (let [out (java.io.StringWriter.)
+        err (java.io.StringWriter.)
+        exit (binding [*out* out *err* err] (regen-registry/-main "--check"))
+        text (str out err)]
+    (is (zero? exit) (str "registry drift: " text))
+    (is (str/includes? text "in sync"))))
 
+;; Unconditional exit. The guard was `(when (= *file* (System/getProperty "babashka.file")) …)`,
+;; which is false under every runtime except babashka -- so run under anything else this file ran
+;; its tests, printed the failures, and then exited 0 regardless. A test runner that always
+;; succeeds does not report a green suite; it reports nothing, in the shape of a green suite.
 (let [{:keys [fail error]} (run-tests 'test-regen-registry)]
-  (when (= *file* (System/getProperty "babashka.file"))
-    (System/exit (if (pos? (+ fail error)) 1 0))))
+  (System/exit (if (pos? (+ fail error)) 1 0)))
