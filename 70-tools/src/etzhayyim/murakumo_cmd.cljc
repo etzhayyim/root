@@ -73,7 +73,7 @@
 ;; Constants
 ;; ---------------------------------------------------------------------------
 
-(def ^:private default-nomad-addr "http://benjamin.local:4646")
+;; No default-nomad-addr on purpose — see resolve-nomad-addr.
 (def ^:private daemon-deploy-path "/usr/local/share/murakumo/daemon.py")
 (def ^:private murakumo-training-dir "60-apps/etzhayyim-project-murakumo/training")
 
@@ -387,11 +387,35 @@
 ;; ---------------------------------------------------------------------------
 
 (defn resolve-nomad-addr
-  "Select NOMAD_ADDR from explicit host environment data or return default.
-  Mirrors Python _resolve_nomad_addr()."
+  "Select NOMAD_ADDR from explicit host environment data. There is no default.
+  Throws ex-info when the host supplied no address, like the other unconfigured
+  host capabilities in this namespace.
+  Mirrors Python _resolve_nomad_addr().
+
+  This returned a literal \"http://benjamin.local:4646\" until 2026-08-12.
+  `benjamin` is a real murakumo mac-mini and `.local` is the mDNS namespace
+  (RFC 6762), so any host on the same link can claim that name by answering
+  first.  Nothing in the repo — and no entry in deps.edn :platform — states a
+  Nomad address, so that literal was the only one there was: a host nobody
+  chose, aimed at by default.
+
+  UNLIKE the Python twin this was NOT a credential path, and the fix here is
+  parity and hardening rather than a security fix.  Python's _run_nomad passes
+  {**os.environ} to the nomad CLI, so a NOMAD_TOKEN set in the operator's shell
+  travelled to that host as X-Nomad-Token.  This namespace takes the environment
+  as explicit host data (default {}) and holds no ambient authority, so nothing
+  could travel that a caller had not already handed over deliberately.  What is
+  fixed here is that the twins no longer disagree, and that a reader of this
+  file no longer finds a squattable fleet host presented as a sane default."
   ([] (resolve-nomad-addr {}))
   ([env]
-   (or (get env "NOMAD_ADDR") default-nomad-addr)))
+   (let [addr (str/trim (or (get env "NOMAD_ADDR") ""))]
+     (when (str/blank? addr)
+       (throw (ex-info "Murakumo host capability not configured: :nomad-addr"
+                       {:missing-capability :nomad-addr})))
+     ;; Callers build (str addr "/v1/nodes"), so a trailing slash would yield
+     ;; "…//v1/nodes". The old `or` did not guard that either.
+     (str/replace addr #"/+$" ""))))
 
 ;; ---------------------------------------------------------------------------
 ;; IO: default implementations

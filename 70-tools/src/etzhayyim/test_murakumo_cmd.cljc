@@ -90,6 +90,48 @@
       (is (= {"PATH" "/host/bin" "NOMAD_ADDR" "http://nomad:4646"}
              (get-in @wire [1 :env]))))))
 
+;; ─── Nomad address has no default (ADR-2608122600) ──────────────────────────
+;; resolve-nomad-addr returned a literal "http://benjamin.local:4646" until
+;; 2026-08-12.  `benjamin` is a real murakumo mac-mini and `.local` is the mDNS
+;; namespace (RFC 6762), so any host on the same link can claim it.  Unlike the
+;; Python twin this was not a credential path — this namespace takes the
+;; environment as explicit host data and holds no ambient authority — so these
+;; assert parity with the Python fix and the absence of a squattable default,
+;; not the closing of a leak.
+(deftest nomad-addr-has-no-default
+  (testing "an absent address fails closed like any other host capability"
+    (is (thrown-with-msg? clojure.lang.ExceptionInfo
+                          #"host capability not configured: :nomad-addr"
+                          (mc/resolve-nomad-addr)))
+    (is (thrown-with-msg? clojure.lang.ExceptionInfo
+                          #"host capability not configured: :nomad-addr"
+                          (mc/resolve-nomad-addr {})))
+    (is (thrown-with-msg? clojure.lang.ExceptionInfo
+                          #"host capability not configured: :nomad-addr"
+                          (mc/resolve-nomad-addr {"NOMAD_ADDR" "   "}))))
+  (testing "no resolution path yields an mDNS host"
+    (is (thrown? clojure.lang.ExceptionInfo
+                 (mc/resolve-nomad-addr {"SOME_OTHER" "x"}))))
+  (testing "an address the host chose is honoured, trailing slashes stripped"
+    (is (= "http://nomad:4646" (mc/resolve-nomad-addr {"NOMAD_ADDR" "http://nomad:4646"})))
+    (is (= "http://nomad:4646" (mc/resolve-nomad-addr {"NOMAD_ADDR" "http://nomad:4646///"})))
+    (is (= "http://nomad:4646" (mc/resolve-nomad-addr {"NOMAD_ADDR" "  http://nomad:4646  "}))))
+  (testing "run-nomad resolves from the host env when no :nomad-addr is given"
+    (let [wire (atom nil)]
+      (mc/run-nomad ["node" "status"]
+                    {:proc-fn (fn [argv opts]
+                                (reset! wire [argv opts])
+                                {:exit 0 :out "" :err ""})
+                     :env {"PATH" "/host/bin" "NOMAD_ADDR" "http://chosen:4646"}})
+      (is (= "http://chosen:4646" (get-in @wire [1 :env "NOMAD_ADDR"]))))
+    ;; and refuses to shell out at all when nobody named a host
+    (let [called (atom false)]
+      (is (thrown? clojure.lang.ExceptionInfo
+                   (mc/run-nomad ["node" "status"]
+                                 {:proc-fn (fn [_ _] (reset! called true) {:exit 0})
+                                  :env {"PATH" "/host/bin"}})))
+      (is (false? @called)))))
+
 (defn -main [& _]
   (let [{:keys [fail error]} (run-tests 'etzhayyim.test-murakumo-cmd)]
     (System/exit (if (pos? (+ fail error)) 1 0))))

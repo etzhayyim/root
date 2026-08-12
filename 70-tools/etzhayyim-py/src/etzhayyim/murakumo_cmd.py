@@ -576,13 +576,51 @@ def murakumo_fleet_versions(pds: str | None, json_out: bool) -> None:
         raise click.ClickException(f"XRPC error: {e}")
 
 
-_DEFAULT_NOMAD_ADDR = "http://benjamin.local:4646"
 _DAEMON_DEPLOY_PATH = "/usr/local/share/murakumo/daemon.py"
 
 
 def _resolve_nomad_addr() -> str:
+    """The Nomad server address, from NOMAD_ADDR. There is no default.
+
+    This used to be ``os.environ.get("NOMAD_ADDR", "http://benjamin.local:4646")``.
+    ``benjamin`` is a real murakumo mac-mini (scripts/fleet-ci/nodes.edn) and
+    ``.local`` is the mDNS namespace (RFC 6762), so that name is claimable by
+    any host on the same link — whoever answers the multicast query first wins.
+    The fallback therefore aimed the whole fleet-management surface at a host
+    nobody selected, and one an attacker on the same network can become.
+
+    That is a credential path and not merely a wrong address: ``_run_nomad``
+    below runs the nomad CLI, which sends ``$NOMAD_TOKEN`` as an
+    ``X-Nomad-Token`` header to whatever ``NOMAD_ADDR`` names. NOMAD_TOKEN
+    appears nowhere in this repo, which is exactly what made it easy to miss —
+    the credential comes from the operator's shell and is named in no source
+    file, so reading this module could not tell you one was in play.
+
+    **The address is the defect, not the environment inheritance** — see the
+    comment in ``_run_nomad``.
+
+    Why require it instead of picking a better default: there is no
+    etzhayyim-owned Nomad address to fall back to. ``auth.default_pds`` can name
+    ``https://atproto.etzhayyim.com`` because the org actually runs it, and the
+    kubo endpoint in the k8s manifests can name a fleet host because
+    ``deps.edn :platform :ipfs`` declares it. The platform manifest has no Nomad
+    entry at all, and this literal was the only statement of a Nomad address
+    anywhere in the repo. Inventing an owned-looking host that serves nothing
+    would be worse than the squattable one, because an unreachable wrong default
+    still silently decides where a token goes. So require the value and say so.
+    """
     import os
-    return os.environ.get("NOMAD_ADDR", _DEFAULT_NOMAD_ADDR)
+    addr = (os.environ.get("NOMAD_ADDR") or "").strip()
+    if not addr:
+        raise click.ClickException(
+            "NOMAD_ADDR is not set. Point it at your Nomad server, e.g.\n"
+            "    export NOMAD_ADDR=http://<nomad-server>:4646\n"
+            "This command used to fall back to a fleet node's mDNS name, which "
+            "any host on the same network can claim; it no longer guesses."
+        )
+    # Callers interpolate this as f"{addr}/v1/nodes", so a trailing slash would
+    # produce "…//v1/nodes". The old `or` did not guard that either.
+    return addr.rstrip("/")
 
 
 def _run_nomad(*args: str) -> None:
@@ -590,6 +628,24 @@ def _run_nomad(*args: str) -> None:
     nomad = shutil.which("nomad")
     if not nomad:
         raise click.ClickException("nomad CLI not found in PATH")
+    # The child gets the caller's full environment, deliberately. That is also
+    # simply what subprocess.run does when `env=` is omitted — the kwarg exists
+    # here only to inject NOMAD_ADDR, so this line adds no inheritance that was
+    # not already the default.
+    #
+    # Narrowing it was considered and rejected: NOMAD_TOKEN (ACLs), NOMAD_CACERT
+    # and NOMAD_CLIENT_CERT (mTLS), NOMAD_NAMESPACE and NOMAD_REGION all reach
+    # the CLI this way, and any allowlist that kept the tool usable would have to
+    # carry NOMAD_TOKEN anyway — so the credential would still travel and nothing
+    # would be closed. Handing the token to an address the OPERATOR chose is the
+    # documented way to drive Nomad; handing it to a squattable default was not.
+    #
+    # _resolve_nomad_addr is also the only place this could be fixed:
+    # _nomad_node_id, _nomad_alloc_id and `fleet watch` reach the same address
+    # over urllib with no environment involved at all, leaking node names and
+    # allocation IDs, and `nomad job run` would hand a job spec to whoever
+    # answered. Fixing the address closes all four paths; narrowing the
+    # environment closes none of them.
     env = {**__import__("os").environ, "NOMAD_ADDR": _resolve_nomad_addr()}
     result = subprocess.run([nomad] + list(args), env=env)
     if result.returncode != 0:
