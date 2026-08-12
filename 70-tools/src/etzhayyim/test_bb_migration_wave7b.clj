@@ -337,12 +337,23 @@
       (is (= "Bearer my-token" (get h "Authorization"))))))
 
 (deftest test-mc-resolve-nomad-addr
-  (testing "returns default when NOMAD_ADDR not set"
-    ;; We cannot unset env in bb, so just check the return is a non-empty string
-    ;; that looks like an http address.  If NOMAD_ADDR is set in CI it will use that.
-    (let [addr (mc/resolve-nomad-addr)]
-      (is (string? addr))
-      (is (str/starts-with? addr "http")))))
+  ;; Rewritten 2026-08-12 (ADR-2608122600).  This used to assert that the
+  ;; zero-arity call returned "a non-empty string that looks like an http
+  ;; address" — which passed precisely because there was a default, and that
+  ;; default was "http://benjamin.local:4646": a real fleet mac-mini on the
+  ;; mDNS namespace (RFC 6762), claimable by any host on the same link.  The
+  ;; test could not tell a chosen address from a squatted one, so it defended
+  ;; the bug.  Note also that resolve-nomad-addr never read the process
+  ;; environment — the old comment's worry about "if NOMAD_ADDR is set in CI"
+  ;; did not apply; this namespace takes the environment as explicit data.
+  (testing "no address supplied → fails closed, no default"
+    (is (thrown? clojure.lang.ExceptionInfo (mc/resolve-nomad-addr)))
+    (is (thrown? clojure.lang.ExceptionInfo (mc/resolve-nomad-addr {}))))
+  (testing "an address the host supplied is returned"
+    (is (= "http://nomad.internal:4646"
+           (mc/resolve-nomad-addr {"NOMAD_ADDR" "http://nomad.internal:4646"})))
+    (is (str/starts-with? (mc/resolve-nomad-addr {"NOMAD_ADDR" "http://nomad.internal:4646"})
+                          "http"))))
 
 ;; ─── murakumo-cmd: IO injectable fake ────────────────────────────────────────
 
