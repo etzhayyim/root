@@ -28,12 +28,20 @@
 ;; SECURITY:
 ;;   No secrets at load-time.  Auth headers read env only when call-xrpc is invoked.
 ;;
+;; PDS RESOLUTION:
+;;   resolve-base takes pds-url as a required argument and build-xrpc-request
+;;   defaults it to "" — neither holds a host.  The CLI leg resolves an omitted
+;;   --pds through etzhayyim.auth/resolve-pds, so the only hosts it can name are
+;;   the one passed on the command line and the workspace-wide auth/default-pds.
+;;   See the note above the pds-url binding in -main.
+;;
 ;; bb load check:
 ;;   bb --classpath 70-tools/src -e "(require 'etzhayyim.xrpc)(println :ok)"
 
 (ns etzhayyim.xrpc
   (:require [clojure.string :as str]
             [cheshire.core  :as json]
+            [etzhayyim.auth :as auth]
             #?(:bb [babashka.http-client :as http])))
 
 ;; ---------------------------------------------------------------------------
@@ -197,7 +205,7 @@
 ;; A PLAN (prints the request map build-xrpc-request assembles, no network).
 ;; The live call (call-xrpc / babashka.http-client) runs only with --execute;
 ;; a "could not reach host" then exits cleanly.  argv mirrors python:
-;;   xrpc <nsid> [-d/--data JSON] [--app NANOID] [--url BASE]
+;;   xrpc <nsid> [-d/--data JSON] [--app NANOID] [--url BASE] [--pds BASE]
 ;;        [-X/--method GET|POST] [--json] [-v/--verbose] [--execute]
 ;; ---------------------------------------------------------------------------
 
@@ -222,6 +230,7 @@
        (println "  -d/--data JSON   body (POST) or query params (GET)")
        (println "  --app NANOID     target App Worker (overrides NSID inference)")
        (println "  --url BASE       full base URL (overrides --app + inference)")
+       (println "  --pds BASE       PDS base for non-App NSIDs (default: auth/default-pds)")
        (println "  -X/--method M    GET|POST (default: POST if -d given, else GET)")
        (println "  --json           pretty-print JSON response")
        (println "  -v/--verbose     verbose")
@@ -240,7 +249,27 @@
                                    (println "error: Invalid JSON for -d:" (ex-message e))
                                    nil)))
                  method   (some-> (x-flag flags "-X" "--method") str/lower-case keyword)
-                 pds-url  (or (System/getenv "E7M_PDS") "https://pds.local")
+                 ;; This is the base for every NSID that is not an App Worker,
+                 ;; and --execute really sends, so the host must always be one
+                 ;; somebody chose: the --pds passed here, or the workspace-wide
+                 ;; auth/default-pds.
+                 ;;
+                 ;; This line had both halves of the problem PR #3235 closed.
+                 ;; The fallback was a literal "https://pds.local" — `.local` is
+                 ;; the mDNS namespace (RFC 6762), claimable by any host on the
+                 ;; same link.  And the value ahead of it came from an ambient
+                 ;; read of E7M_PDS, so the host could change out from under the
+                 ;; operator with nothing on the command line to show it.
+                 ;; Nothing in the repo sets or documents E7M_PDS, and this was
+                 ;; its only reader; the Python twin xrpc.py has no such flag and
+                 ;; resolves this base through auth.resolve_pds().  Removing the
+                 ;; env read costs nothing an explicit --pds does not restore.
+                 ;;
+                 ;; Unlike `yoroshiku register`, this CLI sends no credential:
+                 ;; :auth-headers is {} below and build-xrpc-request adds only
+                 ;; Content-Type.  A wrong host here leaks the -d payload and the
+                 ;; NSID being called, not a bearer token.
+                 pds-url  (auth/resolve-pds (get flags "--pds"))
                  opts     {:method method :payload payload
                            :auth-headers {} :pds-url pds-url
                            :app (get flags "--app") :url (get flags "--url")}

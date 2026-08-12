@@ -32,12 +32,20 @@
 ;; SECURITY:
 ;;   No secrets at load time.  accessJwt read lazily from auth data.
 ;;
+;; PDS RESOLUTION:
+;;   The request builders take :pds-url as an explicit key and hold no default —
+;;   callers say where to go.  The CLI leg resolves an omitted --pds through
+;;   etzhayyim.auth/resolve-pds, so the only two hosts it can name are the one
+;;   passed on the command line and the workspace-wide auth/default-pds.
+;;   See the note above t-pds.
+;;
 ;; bb load check:
 ;;   bb --classpath 70-tools/src -e "(require 'etzhayyim.training)(println :ok)"
 
 (ns etzhayyim.training
   (:require [clojure.string :as str]
             [cheshire.core  :as json]
+            [etzhayyim.auth :as auth]
             #?(:bb [babashka.http-client :as http])))
 
 ;; ---------------------------------------------------------------------------
@@ -277,7 +285,22 @@
                (str/starts-with? tok "--") (recur (drop 2 a) (assoc flags tok (second a)) pos)
                :else (recur (rest a) flags (conj pos tok)))))))
 
-     (defn- t-pds [flags] (or (get flags "--pds") "https://pds.local"))
+     ;; Every subcommand's URL is built from this, so it must always name a host
+     ;; somebody chose: the --pds passed here, or the workspace-wide
+     ;; auth/default-pds.  It used to fall back to a literal "https://pds.local"
+     ;; — `.local` is the mDNS namespace (RFC 6762), a name any host on the same
+     ;; link can claim, so the printed plan pointed at a squattable host that
+     ;; nobody selected.  This CLI never sends (t-emit only prints, there is no
+     ;; --execute leg), so no credential was exposed; the harm is that an
+     ;; operator copying the plan, or a future live leg, inherits that host.
+     ;; Python parity: training.py does `(pds or resolve_pds()).rstrip("/")` on
+     ;; every subcommand — this restores that, minus the ambient env read.
+     ;;
+     ;; auth/resolve-pds also trims and strips ALL trailing slashes, which the
+     ;; old `or` did not: a --pds of "  " produced the non-URL "  /xrpc/...",
+     ;; and "https://p///" produced "https://p///xrpc/..." because the builders
+     ;; strip only one slash.
+     (defn- t-pds [flags] (auth/resolve-pds (get flags "--pds")))
 
      (defn- t-emit [req flags]
        (if (get flags "--json")
