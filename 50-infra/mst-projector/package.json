@@ -21,7 +21,7 @@
     "@atproto/repo": "^0.10.6",
     "cborg": "^6.1.1",
     "multiformats": "^14.0.5",
-    "ws": "^8.21.1"
+    "ws": "^8.21.3"
   },
   "devDependencies": {
     "@types/node": "^26.1.2",
