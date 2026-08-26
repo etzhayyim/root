@@ -15,6 +15,13 @@
     (is (= :did-json            (r "GET" "/.well-known/did.json")))
     (is (= :donation-json       (r "GET" "/.well-known/donation.json")))
     (is (= :donate-html         (r "GET" "/donate")))
+    (is (= :participate-html    (r "GET" "/participate")))
+    (is (= :participation-json (r "GET" "/.well-known/participation.json")))
+    (is (= :growth-json        (r "GET" "/.well-known/growth.json")))
+    (is (= :participation-welcome
+           (r "GET" "/xrpc/com.etzhayyim.participation.getWelcome")))
+    (is (= :participation-task-router
+           (r "GET" "/xrpc/com.etzhayyim.participation.routeTask")))
     (is (= :tomoshibi-html      (r "GET" "/tomoshibi")))
     (is (= :actors-json         (r "GET" "/.well-known/actors.json")))
     (is (= :actors-html         (r "GET" "/actors")))
@@ -107,6 +114,7 @@
 (deftest trailing-slash-normalized
   (testing "a trailing slash on a static content route does not change ownership"
     (is (= :donate-html (r "GET" "/donate/")))
+    (is (= :participate-html (r "GET" "/participate/")))
     (is (= :tomoshibi-html (r "GET" "/tomoshibi/")))
     (is (= :actors-html (r "GET" "/actors/")))
     (is (= :organism-html (r "GET" "/organism/")))

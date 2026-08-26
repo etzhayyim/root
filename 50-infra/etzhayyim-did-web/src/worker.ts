@@ -130,6 +130,9 @@ import kotobaWasmBg from "./kotoba-wasm/kotoba_wasm_bg.wasm";
  *   - /                                    — public root / organism status
  *   - /donate                              — donation declaration (HTML, ADR-2606012100)
  *   - /.well-known/donation.json           — donation policy (machine-readable)
+ *   - /participate                         — reversible participation surface
+ *   - /.well-known/participation.json      — participation + agent boundary contract
+ *   - /.well-known/growth.json             — aggregate-only growth telemetry
  *   - future: /.well-known/atproto-did, /.well-known/security.txt, etc.
  */
 
@@ -266,6 +269,293 @@ const DONATION_POLICY = {
     repo: "https://github.com/etzhayyim/root",
   },
 } as const;
+
+// ─── Participation Growth OS (P0) ──────────────────────────────────────────
+// Participation is deliberately reversible and separate from the permanent
+// religious membership ritual (ADR-2605172600) and economic Adherent SBT
+// (ADR-2605172700). These states describe current activity only. They confer no
+// rank, vote, pay, religious status, or presumption of future commitment.
+const PARTICIPATION_POLICY = {
+  schemaVersion: "com.etzhayyim.participation.v1",
+  status: "p0-integration",
+  principle: "voluntary useful action without loyalty measurement",
+  reversible: true,
+  stages: [
+    {
+      id: "observer",
+      label: "Observer",
+      meaning: "Reads, watches, or asks a question. No registration or commitment.",
+      enter: "Open a public surface.",
+      leave: "Stop visiting; no notice required.",
+    },
+    {
+      id: "participant",
+      label: "Participant",
+      meaning: "Chooses one bounded public-good action or visits an open cell.",
+      enter: "Choose an action explicitly.",
+      leave: "Stop at any time; no penalty or follow-up pressure.",
+    },
+    {
+      id: "contributor",
+      label: "Contributor",
+      meaning: "Completes a useful act whose output can be publicly verified.",
+      enter: "Publish or submit the chosen output.",
+      leave: "Become an Observer again or withdraw from future work.",
+    },
+    {
+      id: "participation-steward",
+      label: "Participation Steward",
+      meaning: "A human who accepts a bounded, time-limited duty to help a cell or task.",
+      enter: "Explicit human acceptance of a named scope and end date.",
+      leave: "Step down or let the term expire without loss of standing.",
+      disambiguation:
+        "Not EtzhayyimMembership level Lv5, land stewardship, Council office, employment, or Adherent status.",
+    },
+  ],
+  membership: {
+    separate: true,
+    reversibleParticipationDoesNotImplyMembership: true,
+    participationRequiredForMembership: false,
+    membershipRequiredForParticipation: false,
+    warning:
+      "Religious membership is a separate explicit ritual with public, effectively permanent records. No agent may perform or infer it for a person.",
+    terms: "https://etzhayyim.com/terms",
+    adr: "2605172600",
+  },
+  entrypoints: [
+    {
+      id: "first-public-good-act",
+      intent: "act",
+      label: "Do one public-good task in 30 minutes",
+      href: "https://etzhayyim.com/actors",
+      status: "open",
+      instruction:
+        "Inspect one actor profile and report a concrete disclosure, accessibility, translation, or documentation improvement through the public repository or tomoshibi.",
+      completionEvidence: "A public issue, patch, translation, or signed public record; never a private loyalty claim.",
+    },
+    {
+      id: "open-cell",
+      intent: "cell",
+      label: "Visit an open cell",
+      href: "mailto:tomoshibi@etzhayyim.com?subject=Open%20cell%20information",
+      status: "request-information",
+      instruction: "Ask for current open-cell information. No attendance commitment is created.",
+      safeguards: ["opt-in", "no minors-only solicitation", "human escalation for care or conflict"],
+    },
+    {
+      id: "donate-compute",
+      intent: "compute",
+      label: "Offer compute",
+      href: "https://etzhayyim.com/donate",
+      status: "operator-gated-enrollment",
+      instruction: "Read the compute-gift terms; enrollment remains consent- and operator-gated.",
+      grantsBenefit: false,
+    },
+  ],
+  agents: {
+    welcome: {
+      id: "welcome-agent",
+      identityType: "AI agent",
+      disclosureRequired: true,
+      integration: "GET /xrpc/com.etzhayyim.participation.getWelcome",
+      may: ["explain public information", "translate", "show reversible choices", "escalate to a human"],
+      mustNot: [
+        "pretend to be human",
+        "make or infer a religious commitment",
+        "use fear, urgency, guilt, or social pressure",
+        "initiate targeted outreach except to a person who explicitly opted in",
+        "solicit a minor alone",
+      ],
+    },
+    taskRouter: {
+      id: "task-router",
+      identityType: "AI agent",
+      disclosureRequired: true,
+      integration: "GET /xrpc/com.etzhayyim.participation.routeTask?intent=act|cell|compute",
+      may: ["recommend one public entrypoint from an explicit intent", "explain completion evidence"],
+      mustNot: [
+        "assign work",
+        "store a personal profile",
+        "rank people",
+        "opt a person into follow-up",
+        "use membership, donation, or devotion as a routing signal",
+      ],
+    },
+    cellStewardBot: {
+      id: "cell-steward-bot",
+      identityType: "AI agent",
+      disclosureRequired: true,
+      may: ["publish schedules", "send explicitly opted-in logistical reminders", "surface an unresolved blocker"],
+      mustNot: ["discipline a participant", "decide interpersonal conflict", "make care or safeguarding decisions", "penalize non-attendance"],
+    },
+    mentor: {
+      id: "mentor-agent",
+      identityType: "AI agent",
+      disclosureRequired: true,
+      may: ["explain public material", "suggest practice", "refer a person to a human"],
+      mustNot: ["claim spiritual authority", "diagnose a person", "manufacture emotional dependency", "withhold exit information"],
+    },
+    charterAudit: {
+      id: "charter-audit-agent",
+      identityType: "AI agent",
+      disclosureRequired: true,
+      may: ["run deterministic policy checks", "cite evidence", "flag a decision for human review"],
+      mustNot: ["make a final high-impact governance decision", "hide uncertainty", "expand its own authority"],
+    },
+    translationPublishing: {
+      id: "translation-publishing-agent",
+      identityType: "AI agent",
+      disclosureRequired: true,
+      may: ["draft translations", "publish clearly labeled machine-assisted material", "preserve source links"],
+      mustNot: ["silently impersonate a human author", "change membership or oath meaning", "erase dissent or source provenance"],
+    },
+    replication: {
+      id: "replication-agent",
+      identityType: "AI agent",
+      disclosureRequired: true,
+      may: ["copy open templates", "check readiness criteria", "prepare a child-cell proposal"],
+      mustNot: ["found a cell without human stewards", "recruit people into a cell automatically", "override local consent"],
+    },
+    organismMetrics: {
+      id: "organism-metrics-agent",
+      identityType: "AI agent",
+      disclosureRequired: true,
+      may: ["aggregate public completion evidence", "publish allow-listed counters", "report missing or invalid measurements"],
+      mustNot: ["score a person", "rank donors or members", "infer emotion, vulnerability, belief, or loyalty", "retain cross-site identifiers"],
+    },
+    commonBoundary: {
+      humanOnly: [
+        "religious membership commitment",
+        "high-impact governance decision",
+        "interpersonal care or conflict decision",
+        "acceptance of a Participation Steward duty",
+      ],
+      outreach: "public broadcast or explicit opt-in/reply-only",
+      deceptiveBotIdentities: false,
+    },
+  },
+  telemetry: {
+    endpoint: "https://etzhayyim.com/.well-known/growth.json",
+    northStar: "weekly useful acts completed with public verification",
+    aggregateOnly: true,
+    sourceKey: "growth:aggregate:v1",
+    prohibited: [
+      "per-person loyalty, devotion, or engagement score",
+      "donor ranking",
+      "emotion or vulnerability inference",
+      "individual attendance or dwell-time tracking",
+      "cross-site identifiers",
+    ],
+  },
+} as const;
+
+const GROWTH_METRIC_KEYS = [
+  "usefulActsCompleted",
+  "repeatActsCompleted",
+  "activeContributors",
+  "activeCells",
+  "cellsWithTwoStewards",
+  "tasksCompletedWithoutFounderIntervention",
+  "childCellsStarted",
+  "agentEscalations",
+  "agentErrors",
+] as const;
+
+async function buildGrowthSnapshot(env: Env): Promise<Record<string, unknown>> {
+  const privacy = {
+    aggregateOnly: true,
+    cohortBreakdowns: "not published",
+    personalIdentifiers: "prohibited",
+    loyaltyScoring: "prohibited",
+    donorRanking: "prohibited",
+    source: "operator-published aggregate derived from public completion evidence",
+  } as const;
+  const emptyMetrics = Object.fromEntries(GROWTH_METRIC_KEYS.map((key) => [key, null]));
+  const raw = env.ACTOR_KV ? await env.ACTOR_KV.get("growth:aggregate:v1") : null;
+  if (!raw) {
+    return {
+      schemaVersion: "com.etzhayyim.growth.aggregate.v1",
+      status: "unmeasured",
+      asOf: null,
+      window: "P7D",
+      metrics: emptyMetrics,
+      privacy,
+      note: "No aggregate snapshot has been published. Null means unmeasured, not zero.",
+    };
+  }
+  try {
+    const parsed = JSON.parse(raw) as { asOf?: unknown; window?: unknown; metrics?: unknown };
+    const incoming = parsed.metrics && typeof parsed.metrics === "object"
+      ? parsed.metrics as Record<string, unknown>
+      : {};
+    const metrics = Object.fromEntries(GROWTH_METRIC_KEYS.map((key) => {
+      const value = incoming[key];
+      return [key, typeof value === "number" && Number.isSafeInteger(value) && value >= 0 ? value : null];
+    }));
+    return {
+      schemaVersion: "com.etzhayyim.growth.aggregate.v1",
+      status: "measured",
+      asOf: typeof parsed.asOf === "string" ? parsed.asOf : null,
+      window: typeof parsed.window === "string" ? parsed.window : "P7D",
+      metrics,
+      privacy,
+      note: "Only allow-listed aggregate counters are emitted; unknown and person-level fields are dropped.",
+    };
+  } catch {
+    return {
+      schemaVersion: "com.etzhayyim.growth.aggregate.v1",
+      status: "invalid-source",
+      asOf: null,
+      window: "P7D",
+      metrics: emptyMetrics,
+      privacy,
+      note: "The aggregate source was invalid JSON; no values were emitted.",
+    };
+  }
+}
+
+const PARTICIPATE_HTML = renderShell({
+  title: "Participate · etzhayyim",
+  lang: "en",
+  description:
+    "Choose one reversible way to observe, contribute a public-good act, visit an open cell, or offer compute. Membership is separate.",
+  active: "/participate",
+  wrapClass: "participate-wrap",
+  main: `
+<p class="eyebrow">voluntary · reversible · useful</p>
+<h1>Choose one small, public-good action.</h1>
+<p class="lead">You do not need to become a member, donate, or promise to return. Start by observing, do one bounded action if you want, and leave whenever you want.</p>
+
+<div class="grid">
+<section class="card"><span class="tag">about 30 minutes</span><h2>Do one useful act</h2><p>Inspect one <a href="/actors">public actor profile</a>. Find one concrete disclosure, accessibility, translation, or documentation improvement and submit a public issue or patch. The output—not your loyalty—is the evidence.</p><a class="btn" href="/xrpc/com.etzhayyim.participation.routeTask?intent=act">Ask the Task Router</a></section>
+<section class="card"><span class="tag">no commitment</span><h2>Visit an open cell</h2><p>Ask what open cells currently exist and observe before choosing anything. No attendance promise is created, and no minor is solicited alone.</p><a class="btn" href="mailto:tomoshibi@etzhayyim.com?subject=Open%20cell%20information">Ask for current information</a></section>
+<section class="card"><span class="tag">uncompensated gift</span><h2>Offer compute</h2><p>Read how browser, workstation, or storage capacity can be offered to Murakumo. Enrollment is consent- and operator-gated; giving creates no rank, benefit, or priority.</p><a class="btn" href="/donate">Read the compute terms</a></section>
+</div>
+
+<h2>Participation stages are reversible</h2>
+<div class="stage-list">
+<div class="card"><span class="tag">Observer</span><p>Read, watch, or ask. No registration.</p></div>
+<div class="card"><span class="tag">Participant</span><p>Choose one bounded action or visit.</p></div>
+<div class="card"><span class="tag">Contributor</span><p>Complete a useful act with public evidence.</p></div>
+<div class="card"><span class="tag">Participation Steward</span><p>Explicitly accept a named, time-limited human duty—and step down or let it expire freely. This is not Lv5 land stewardship, Council office, membership, or employment.</p></div>
+</div>
+
+<section class="card boundary-card"><h2>Membership is a different decision</h2><p>Religious membership is a separate, explicit ritual with public, effectively permanent records. None of the stages above implies membership or Adherent/governance enrollment. An agent cannot make, infer, or record that decision for you. Read the <a href="/terms">terms</a> before considering it.</p></section>
+
+<h2>When an agent answers</h2>
+<div class="grid">
+<section class="card"><span class="tag">AI agent</span><h2>Welcome Agent</h2><p>May explain, translate, show choices, or escalate to a human. It must disclose that it is an agent. It cannot pressure you, pretend to be human, infer belief, or start targeted outreach without opt-in.</p><a class="btn" href="/xrpc/com.etzhayyim.participation.getWelcome">Machine-readable welcome</a></section>
+<section class="card"><span class="tag">AI agent</span><h2>Task Router</h2><p>Uses only the intent you choose in the current request to recommend one public entrypoint. It does not assign work, store a profile, rank people, or use membership, devotion, or donations as signals.</p><a class="btn" href="/xrpc/com.etzhayyim.participation.routeTask?intent=act">Route a first task</a></section>
+<section class="card"><span class="tag">human only</span><h2>Reserved decisions</h2><p>Membership, high-impact governance, interpersonal care or conflict, and accepting a Participation Steward duty remain human decisions.</p></section>
+</div>
+
+<h2>Growth means useful acts, not captured attention</h2>
+<p>Our north-star metric is weekly useful acts completed with public verification. Published telemetry is aggregate-only. No per-person loyalty, devotion, donor, emotion, attendance, or dwell-time scoring is allowed. An unavailable measurement is shown as <code>null</code>, never invented as zero.</p>
+<p><a href="/.well-known/participation.json">Participation contract</a> · <a href="/.well-known/growth.json">Aggregate growth telemetry</a></p>
+`,
+  footerHtml:
+    'Participation is voluntary and reversible · agents disclose their identity · outreach is public broadcast or explicit opt-in/reply-only · no minors-only solicitation · <a href="/.well-known/participation.json">machine contract</a> · <a href="/.well-known/growth.json">aggregate telemetry</a>',
+});
 
 // Static, dependency-free, cookie-free. No external resource, no inline script
 // (Charter Rider §2(c) — the page itself must not track). Information about
@@ -2600,6 +2890,8 @@ const cljsDeps = {
   didDoc,
   donationPolicy: DONATION_POLICY,
   donateHtml: DONATE_HTML,
+  participationPolicy: PARTICIPATION_POLICY,
+  participateHtml: PARTICIPATE_HTML,
   tomoshibiHtml: TOMOSHIBI_HTML,
   unispscTotal: UNISPSC_TOTAL_COUNT,
   govProcMeta: {
@@ -2616,6 +2908,7 @@ const cljsDeps = {
   infraActorHandles: Object.keys(INFRA_ACTORS),
   // async leaves
   buildActorsJson: (env: Env) => buildActorsJsonWithCids(env),
+  buildGrowthSnapshot: (env: Env) => buildGrowthSnapshot(env),
   kvGet: (env: Env, key: string): Promise<string | null> =>
     env.ACTOR_KV ? env.ACTOR_KV.get(key) : Promise.resolve(null),
   // actor resolution (kotoba-first → compiled, per resolveActorRecordTiered)

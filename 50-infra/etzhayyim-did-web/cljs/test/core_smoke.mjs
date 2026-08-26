@@ -3,14 +3,25 @@ import { handle } from "../../cljs-out/worker_core.js";
 const deps = {
   didDoc: { id: "did:web:etzhayyim.com", "@context": ["https://www.w3.org/ns/did/v1"] },
   donationPolicy: { entity: "etzhayyim", fundedBy: "donation-only" },
+  participationPolicy: {
+    stages: [{ id: "observer" }, { id: "participant" }, { id: "contributor" }, { id: "participation-steward" }],
+    entrypoints: [{ id: "first-act", intent: "act" }, { id: "open-cell", intent: "cell" }, { id: "compute", intent: "compute" }],
+    membership: { separate: true },
+    agents: {
+      welcome: { id: "welcome-agent", identityType: "AI agent" },
+      taskRouter: { id: "task-router", identityType: "AI agent" },
+    },
+  },
   homeHtml: () => "<!DOCTYPE html><html>home</html>",
   donateHtml: "<!DOCTYPE html><html>donate</html>",
+  participateHtml: "<!DOCTYPE html><html>participate</html>",
   unispscTotal: 18342,
   govProcMeta: { generatedAt: "2026-06-01", total: 3, owners: 2, jurisdictions: 1 },
   govProcList: [{ id: "p1" }],
   actorsHtml: () => "<html>actors</html>",
   organismHtml: () => "<html>organism</html>",
   buildActorsJson: async () => ({ graph: "actors-v1", count: 2 }),
+  buildGrowthSnapshot: async () => ({ schemaVersion: "com.etzhayyim.growth.aggregate.v1", status: "unmeasured", metrics: { usefulActsCompleted: null } }),
   kvGet: async (_env, _k) => null,
   resolveActorRecord: async (h) => (h === "tsumugi" ? { source: "compiled", displayNameEn: "Tsumugi" } : null),
   toDidDoc: (rec) => ({ id: "did:web:etzhayyim.com:actor:tsumugi", source: rec.source }),
@@ -62,6 +73,19 @@ function check(name, cond, extra="") { if (cond) console.log("ok  -", name); els
   check("home blocks cross-origin framing", r.headers.get("x-frame-options") === "SAMEORIGIN", r.headers.get("x-frame-options")); }
 { const r = await call("GET", "/donate");
   check("donate html + CSP", r.status === 200 && r.headers.get("content-type").startsWith("text/html") && r.headers.get("content-security-policy").includes("default-src 'none'") && r.headers.get("access-control-allow-origin") === null); }
+{ const r = await call("GET", "/participate");
+  check("participate html + CSP", r.status === 200 && (await r.text()).includes("participate") && r.headers.get("content-security-policy").includes("form-action 'none'")); }
+{ const r = await call("GET", "/.well-known/participation.json");
+  const b = await r.text();
+  check("participation contract separates membership", r.status === 200 && b.includes("\"separate\": true") && b.includes("welcome-agent")); }
+{ const r = await call("GET", "/.well-known/growth.json");
+  const b = await r.text();
+  check("growth telemetry preserves unmeasured null", r.status === 200 && b.includes("\"status\": \"unmeasured\"") && b.includes("\"usefulActsCompleted\": null")); }
+{ const r = await call("GET", "/xrpc/com.etzhayyim.participation.getWelcome");
+  check("Welcome Agent integration discloses AI", r.status === 200 && (await r.text()).includes("AI agent")); }
+{ const r = await call("GET", "/xrpc/com.etzhayyim.participation.routeTask?intent=compute");
+  const b = await r.text();
+  check("Task Router is non-binding and profile-free", r.status === 200 && b.includes("\"intent\": \"compute\"") && b.includes("\"binding\": false") && b.includes("\"storedProfile\": false")); }
 { const r = await call("GET", "/.well-known/actors.json");
   const b = await r.text();
   check("actors.json async 200", r.status === 200 && b.includes("actors-v1")); }

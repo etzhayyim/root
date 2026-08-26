@@ -97,6 +97,20 @@
                "content-type" "application/json; charset=utf-8"
                "cache-control" "public, max-age=300, must-revalidate")))
 
+(defn- participation-json-route [deps]
+  (resp (json-pretty (dep deps "participationPolicy")) 200
+        (assoc base-sec
+               "content-type" "application/json; charset=utf-8"
+               "cache-control" "public, max-age=300, must-revalidate")))
+
+(defn- growth-json-route [deps env]
+  (.then (call deps "buildGrowthSnapshot" env)
+         (fn [snapshot]
+           (resp (json-pretty snapshot) 200
+                 (assoc base-sec
+                        "content-type" "application/json; charset=utf-8"
+                        "cache-control" "public, max-age=60, must-revalidate")))))
+
 (defn- actors-json-route
   "Async: buildActorsJson(env) → Promise. Pretty JSON."
   [deps env]
@@ -160,6 +174,39 @@
 (defn- donate-route [deps]
   (html-resp (dep deps "donateHtml")
              "default-src 'none'; style-src 'self'; base-uri 'none'; form-action 'none'"))
+
+(defn- participate-route [deps]
+  (html-resp (dep deps "participateHtml")
+             "default-src 'none'; style-src 'self'; base-uri 'none'; form-action 'none'"))
+
+(defn- participation-welcome-route [deps]
+  (let [policy (dep deps "participationPolicy")]
+    (resp (json-pretty
+           #js {:agent (gobj/get (gobj/get policy "agents") "welcome")
+                :stages (gobj/get policy "stages")
+                :entrypoints (gobj/get policy "entrypoints")
+                :membership (gobj/get policy "membership")})
+          200
+          (assoc base-sec
+                 "content-type" "application/json; charset=utf-8"
+                 "cache-control" "public, max-age=300, must-revalidate"))))
+
+(defn- participation-task-router-route [deps url]
+  (let [policy (dep deps "participationPolicy")
+        intent (or (.get (.-searchParams url) "intent") "act")
+        entrypoints (array-seq (gobj/get policy "entrypoints"))
+        selected (or (some #(when (= intent (gobj/get % "intent")) %) entrypoints)
+                     (first entrypoints))]
+    (resp (json-pretty
+           #js {:agent (gobj/get (gobj/get policy "agents") "taskRouter")
+                :requestedIntent intent
+                :recommendation selected
+                :binding false
+                :storedProfile false})
+          200
+          (assoc base-sec
+                 "content-type" "application/json; charset=utf-8"
+                 "cache-control" "no-store"))))
 
 (defn- tomoshibi-route [deps]
   (html-resp (dep deps "tomoshibiHtml")
@@ -305,6 +352,7 @@
   (str "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
        "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n"
        "  <url><loc>https://etzhayyim.com/</loc></url>\n"
+       "  <url><loc>https://etzhayyim.com/participate</loc></url>\n"
        "  <url><loc>https://etzhayyim.com/actors</loc></url>\n"
        "  <url><loc>https://etzhayyim.com/organism</loc></url>\n"
        "  <url><loc>https://etzhayyim.com/system-dynamics</loc></url>\n"
@@ -532,6 +580,11 @@
         :did-json            (did-json-route deps)
         :donation-json       (donation-json-route deps)
         :donate-html         (donate-route deps)
+        :participation-json  (participation-json-route deps)
+        :growth-json         (growth-json-route deps env)
+        :participate-html    (participate-route deps)
+        :participation-welcome (participation-welcome-route deps)
+        :participation-task-router (participation-task-router-route deps url)
         :tomoshibi-html      (tomoshibi-route deps)
         :actors-json         (actors-json-route deps env)
         :actors-html         (actors-html-route deps)

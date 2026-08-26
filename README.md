@@ -48,6 +48,20 @@ state-granted status and not an eschatological end-state (§1.15).
   not a predicted final state. The trajectory is the wellbecoming (see Axis 8 below); there is no
   terminal condition at which YAHW is "complete."
 
+## Participate — reversible, contribution-first
+
+Start at **<https://etzhayyim.com/participate>**. Observer → Participant →
+Contributor → Participation Steward are reversible activity states, not religious
+membership, governance enrollment, rank, or loyalty. Membership remains a separate,
+explicit, permanent ritual under ADR-2605172600; the public participation contract and
+privacy-preserving aggregate growth schema are published at
+`/.well-known/participation.json` and `/.well-known/growth.json`.
+
+Agents disclose that they are agents. They may explain, translate, or recommend a public
+task; they cannot make membership commitments, infer devotion, create per-person loyalty
+scores, use deceptive identities, or directly solicit minors. Outreach is opt-in/reply-only
+or public broadcast.
+
 ## Support etzhayyim — 寄付 / sponsor
 
 etzhayyim is operated **only on donation** — no ads, nothing for sale, no member cash. You can
