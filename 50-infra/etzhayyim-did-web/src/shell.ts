@@ -6,6 +6,7 @@
 // ADR: etzhayyim-did-web UIUX unification.
 
 const NAV: ReadonlyArray<readonly [string, string]> = [
+  ["/participate", "participate"],
   ["/organism", "organism"],
   ["/system-dynamics", "system dynamics"],
   ["/actors", "actors"],

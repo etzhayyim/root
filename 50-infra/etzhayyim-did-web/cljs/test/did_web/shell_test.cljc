@@ -22,7 +22,7 @@
     (is (re-find #"<nav class=\"site-nav\" aria-label=\"Primary\">" (page {}))))
   (testing "all seven nav links are present on every page"
     (let [html (page {})]
-      (doseq [href ["/organism" "/system-dynamics" "/actors" "/murakumo" "/gov" "/donate"
+      (doseq [href ["/participate" "/organism" "/system-dynamics" "/actors" "/murakumo" "/gov" "/donate"
                     "/.well-known/did.json"]]
         (is (re-find (re-pattern (str "href=\"" href "\"")) html)
             (str href " missing from nav")))))

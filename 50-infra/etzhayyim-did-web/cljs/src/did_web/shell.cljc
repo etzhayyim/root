@@ -9,7 +9,8 @@
   (:require [clojure.string :as str]))
 
 (def ^:private nav
-  [["/organism" "organism"]
+  [["/participate" "participate"]
+   ["/organism" "organism"]
    ["/system-dynamics" "system dynamics"]
    ["/actors" "actors"]
    ["/tomoshibi" "灯 tomoshibi"]

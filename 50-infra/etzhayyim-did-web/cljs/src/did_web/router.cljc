@@ -16,7 +16,9 @@
 
 ;; Routes that only accept GET/HEAD (a non-GET/HEAD request → 405 in the core).
 (def get-head-only
-  #{:home-html :did-json :donation-json :donate-html :tomoshibi-html :actors-json :actors-html
+  #{:home-html :did-json :donation-json :donate-html :participate-html
+    :participation-json :growth-json :participation-welcome :participation-task-router
+    :tomoshibi-html :actors-json :actors-html
     :gov-units-json :gov-procedures-json :gov-html :organism-html :system-dynamics-html
     :murakumo-html
     :robots-txt :sitemap-xml :sitemap-static-xml :sitemap-actors-index-xml
@@ -73,6 +75,11 @@
        "/.well-known/did.json"            {:route :did-json}
        "/.well-known/donation.json"       {:route :donation-json}
        "/donate"                          {:route :donate-html}
+       "/participate"                     {:route :participate-html}
+       "/.well-known/participation.json" {:route :participation-json}
+       "/.well-known/growth.json"        {:route :growth-json}
+       "/xrpc/com.etzhayyim.participation.getWelcome" {:route :participation-welcome}
+       "/xrpc/com.etzhayyim.participation.routeTask"  {:route :participation-task-router}
        "/tomoshibi"                       {:route :tomoshibi-html}
        "/.well-known/actors.json"         {:route :actors-json}
        "/.well-known/gov-units.json"      {:route :gov-units-json}
