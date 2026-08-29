@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-08-13",
+  "updated_at": "2026-08-30",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.edn",
@@ -2583,21 +2583,6 @@
       "path": "90-docs/okaimono/260326-okaimono-bto-oem-manufacturing-design.edn",
       "id": "adr-260326-okaimono-bto-oem-manufacturing-design",
       "title": "okaimono BTO/OEM Manufacturing Design",
-      "status": "active",
-      "doc_type": "adr",
-      "topic": "",
-      "authoritative": false,
-      "authoritative_for": [],
-      "related": [],
-      "supersedes": [],
-      "superseded_by": [],
-      "amends": [],
-      "amended_by": []
-    },
-    {
-      "path": "90-docs/celler/260327-celler-did-telephony-starlink-mesh-design.edn",
-      "id": "adr-260327-celler-did-telephony-starlink-mesh-design",
-      "title": "Celler: DID-Addressed Encrypted Telephony over Starlink Mesh",
       "status": "active",
       "doc_type": "adr",
       "topic": "",
