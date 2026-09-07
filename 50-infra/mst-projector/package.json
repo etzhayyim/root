@@ -19,7 +19,7 @@
   "dependencies": {
     "@atproto/api": "^0.20.40",
     "@atproto/repo": "^0.10.12",
-    "cborg": "^6.1.1",
+    "cborg": "^6.1.2",
     "multiformats": "^14.0.5",
     "ws": "^8.21.3"
   },
