@@ -22,6 +22,6 @@
     "wrangler": "^4.128.0"
   },
   "dependencies": {
-    "@noble/post-quantum": "^0.7.0"
+    "@noble/post-quantum": "^0.7.1"
   }
 }
