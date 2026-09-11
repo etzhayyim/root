@@ -29,8 +29,8 @@
 ;;   Every IO fn that makes network calls accepts :http-fn in opts.
 ;;   Default = real babashka.http-client; tests inject a fake.
 ;;
-;; bb load check:
-;;   bb --classpath 70-tools/src -e "(require 'etzhayyim.cohort)(println :ok)"
+;; kbb -M:load check:
+;;   kbb --classpath 70-tools/src -e "(require 'etzhayyim.cohort)(println :ok)"
 
 (ns etzhayyim.cohort
   (:require [clojure.string :as str]

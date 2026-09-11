@@ -1,6 +1,6 @@
 (ns etzhayyim.channel-test
   "Tests for the kotoba-genome W1 Channel egress protocol (ADR-2606302205 D2/D4).
-  Run: bb --classpath 70-tools/src -e \"(require 'etzhayyim.channel-test)
+  Run: kbb --classpath 70-tools/src -e \"(require 'etzhayyim.channel-test)
        (clojure.test/run-tests 'etzhayyim.channel-test)\""
   (:require [clojure.test :refer [deftest is testing]]
             [etzhayyim.channel :as ch]))

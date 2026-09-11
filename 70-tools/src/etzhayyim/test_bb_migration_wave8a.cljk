@@ -3,7 +3,7 @@
 ;; etzhayyim.mitama (mitama.cljc), etzhayyim.yoroshiku (yoroshiku.cljc)
 ;;
 ;; Run with:
-;;   bb 70-tools/src/etzhayyim/test_bb_migration_wave8a.cljk
+;;   kbb 70-tools/src/etzhayyim/test_bb_migration_wave8a.cljk
 ;;
 ;; from repo root. classpath 70-tools/src is in bb.edn :paths so no -cp needed.
 ;;

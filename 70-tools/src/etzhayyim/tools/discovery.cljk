@@ -9,7 +9,7 @@
   zero bb.edn churn.
 
   Scope = all `test_*.clj(c)` under 20-actors + 70-tools, MINUS:
-    - mimamori. / yobel. / ibuki.   — owned by their dedicated bb tasks
+    - mimamori. / yobel. / ibuki.   — owned by their dedicated kbb -Saliases
     - etzhayyim.tools.*             — owned by test:tools (incl. this ns's siblings)
     - kyoninka.methods.test-organism — requires kototama.organism, which lives in the
                                         SIBLING repo com-junkawasaki/kototama-clj (a

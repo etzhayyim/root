@@ -23,11 +23,11 @@
             [clojure.string :as str]))
 
 (def ^:private facets
-  {"mesh"     "`bb actor:mesh` — package → kotoba.app.edn"
-   "publish"  "`bb actor:publish` — kotoba-rad sovereign identity"
-   "pin"      "`bb kotobase:pin` — kotoba storage facet (args: <cid> [name])"
+  {"mesh"     "`kbb -M:actor:mesh` — package → kotoba.app.edn"
+   "publish"  "`kbb -M:actor:publish` — kotoba-rad sovereign identity"
+   "pin"      "`kbb -M:kotobase:pin` — kotoba storage facet (args: <cid> [name])"
    "reside"   "lite-runner (cljc) — murakumo compute facet, kototama runtime (args: --node <n> --registry <p> --cells-root <p> [--once] [--healthz-port <n>])"
-   "identify" "`bb aozora:deploy` — aozora publish facet (args: <name> [--apply])"})
+   "identify" "`kbb -M:aozora:deploy` — aozora publish facet (args: <name> [--apply])"})
 
 (defn- delegate
   "Require the ns and call its -main with args (delegation, NOT reimplementation)."
@@ -59,7 +59,7 @@
 
 (defn -main
   "argv = [<verb> ...facet-args]. Verb routes to the facet; bare invocation
-  prints usage. Routed by etzhayyim.cli/dispatchable under `bb e7m actor …`."
+  prints usage. Routed by etzhayyim.cli/dispatchable under `kbb -M:e7m actor …`."
   [& args]
   (let [[verb & rest] args]
     (case verb

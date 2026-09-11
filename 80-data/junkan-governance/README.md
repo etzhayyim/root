@@ -41,7 +41,7 @@ Regenerate everything deterministically from the actor substrate:
 
 ```bash
 bb orgs/etzhayyim/com-etzhayyim-junkan/run_tests.bb            # 33 tests green
-bb --classpath orgs/etzhayyim/com-etzhayyim-junkan/src orgs/etzhayyim/com-etzhayyim-junkan/src/junkan/methods/analyze.cljc   # report
+kbb --classpath orgs/etzhayyim/com-etzhayyim-junkan/src orgs/etzhayyim/com-etzhayyim-junkan/src/junkan/methods/analyze.cljc   # report
 # snapshot regeneration: see ingest-provenance.json
 ```
 

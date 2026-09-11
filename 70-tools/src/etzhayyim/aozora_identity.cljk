@@ -1,5 +1,5 @@
 ;; etzhayyim.aozora-identity — the actor's self-sovereign aozora identity +
-;; app-aozora-pds session auth for the central CLI (`bb aozora:deploy` /
+;; app-aozora-pds session auth for the central CLI (`kbb -M:aozora:deploy` /
 ;; `e7m actor identify`). No special per-actor operation: the CLI loads (or
 ;; first-run generates) the actor's OWN Ed25519 did:key and authenticates the
 ;; PDS write itself.

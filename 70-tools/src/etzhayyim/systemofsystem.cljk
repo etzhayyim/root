@@ -23,7 +23,7 @@
 ;;   cluster-by-project is not ported (it requires fs access + HaisenReport).
 ;;   At runtime: supply clusters built externally and call the pure fns above.
 ;;
-;; bb usage (classpath 70-tools/src):
+;; kbb -M:usage (classpath 70-tools/src):
 ;;   (require '[etzhayyim.systemofsystem :as sos])
 ;;   (sos/cluster-layer "murakumo")
 

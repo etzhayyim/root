@@ -22,7 +22,7 @@
 ;;   _detect_and_run_tests  — subprocess pytest/cargo/go → babashka.process
 ;;   All click CLI commands — wave 4+ (babashka.cli)
 ;;
-;; bb usage (classpath 70-tools/src):
+;; kbb -M:usage (classpath 70-tools/src):
 ;;   (require '[etzhayyim.coverage :as cov])
 ;;   (cov/check-actor-completeness {"nanoid" "abc12345" "did" "did:web:x" "name" "foo" "performerType" "agent"})
 ;;   ;=> {"nanoid" true, "did" true, "name" true, "performerType" true,

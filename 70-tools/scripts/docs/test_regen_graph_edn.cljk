@@ -12,7 +12,7 @@
 ;;   - :context carries the expected predicates
 ;;   - render-edn round-trips (read-string of the rendered output is structurally equal)
 ;;
-;; Run: bb 70-tools/scripts/docs/test_regen_graph_edn.cljk
+;; Run: kbb 70-tools/scripts/docs/test_regen_graph_edn.cljk
 
 (require '[clojure.test :refer [deftest is run-tests]]
          '[clojure.edn :as edn]

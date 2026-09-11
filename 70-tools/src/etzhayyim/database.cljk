@@ -37,8 +37,8 @@
 ;;   list-graph-schema-migs accepts :fs-fn (= fn [dir] -> seq of filename strings).
 ;;   No default authority: callers must inject a filesystem capability.
 ;;
-;; bb load check:
-;;   bb --classpath 70-tools/src -e "(require 'etzhayyim.database)(println :ok)"
+;; kbb -M:load check:
+;;   kbb --classpath 70-tools/src -e "(require 'etzhayyim.database)(println :ok)"
 
 (ns etzhayyim.database
   (:require [clojure.string :as str]

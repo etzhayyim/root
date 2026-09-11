@@ -148,9 +148,9 @@ system `python3`** — no `uv` / venv / monorepo / DB migrations (which blocked 
   duplicates another.
 
 ```bash
-bb test:cell-runner                            # offline tests (11)
-bb murakumo:deploy --node issachar --dry-run   # show the plan
-bb murakumo:deploy --node issachar             # stage lite_runner + cells.edn + assigned actors → install daemon (Tailscale SSH + sudo)
+kbb -M:test:cell-runner                            # offline tests (11)
+kbb -M:murakumo:deploy --node issachar --dry-run   # show the plan
+kbb -M:murakumo:deploy --node issachar             # stage lite_runner + cells.edn + assigned actors → install daemon (Tailscale SSH + sudo)
 ```
 
 Staged on each node under `~/.etzhayyim/`: `lite_runner.py`, `cells.edn`, `cells/<actor>/…`. LIVE
@@ -191,7 +191,7 @@ python3 deploy_node.py --node issachar --dry-run     # review the plan
 python3 deploy_node.py --node issachar               # stage + bootstrap the bb daemon
 
 # 2. validate the switch (a once-run must fire + record byte-identically)
-ssh issachar@<ip> 'bb --classpath ~/.etzhayyim -m lite-runner --node issachar \
+ssh issachar@<ip> 'kbb --classpath ~/.etzhayyim -m lite-runner --node issachar \
   --registry ~/.etzhayyim/cells.edn --cells-root ~/.etzhayyim/cells \
   --ops-log ~/.etzhayyim/cells/cell-ops.kotoba.edn --once'
 curl -s 127.0.0.1:13081 | python3 -m json.tool       # healthz

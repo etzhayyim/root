@@ -1,4 +1,4 @@
-#!/usr/bin/env bb
+#!/usr/bin/env kbb
 ;; Green-sweep runner for the food/logistics kotoba-datomic clj test corpus.
 ;;
 ;; Runs every `test_*.clj` under the food/logistics actors, each in an ISOLATED `bb`
@@ -11,7 +11,7 @@
 ;; (ADR-2606152000 / mitooshi horizon+promote); this runner makes it a STRUCTURAL failure,
 ;; not a silent pass. The sweep exits non-zero on ANY fail or hollow suite.
 ;;
-;; Run:  bb 70-tools/scripts/clj-test-sweep/food-logistics.cljk
+;; Run:  kbb 70-tools/scripts/clj-test-sweep/food-logistics.cljk
 ;;       (from the repo root; uses `--classpath 20-actors`)
 (ns food-logistics
   (:require [babashka.process :as p]

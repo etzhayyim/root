@@ -16,7 +16,7 @@
 ;;
 ;; I/O (filesystem) is in the #?(:clj ...) scan helpers; pure logic is platform-neutral.
 ;;
-;; bb usage (classpath 70-tools/src):
+;; kbb -M:usage (classpath 70-tools/src):
 ;;   (require '[etzhayyim.haisen :as h])
 ;;   (let [r (h/scan-workspace "/path/to/repo")]
 ;;     (println "apps" (count (:apps r)) "edges" (count (:edges r))))

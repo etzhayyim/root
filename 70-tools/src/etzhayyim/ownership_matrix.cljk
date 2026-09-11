@@ -2,7 +2,7 @@
 ;; (:substrate :datasets) with RAD identity journals (:rad/holds-dataset), per
 ;; ADR-2607010001 §D2 (manifest = source, matrix = projection, RAD = attestation).
 ;; Emits 80-data/kotoba-rad/ownership-matrix.edn. Never hand-edit; regenerate.
-;; `bb rad:ownership-matrix` writes; `--check` is the freshness gate.
+;; `kbb -M:rad:ownership-matrix` writes; `--check` is the freshness gate.
 (ns etzhayyim.ownership-matrix
   (:require [clojure.edn :as edn]
             [clojure.java.io :as io]
@@ -60,7 +60,7 @@
   (str (with-out-str (pp/pprint matrix)) "\n"))
 
 (defn -main
-  "bb rad:ownership-matrix [--check]. Generates (or verifies freshness of)
+  "kbb -M:rad:ownership-matrix [--check]. Generates (or verifies freshness of)
    80-data/kotoba-rad/ownership-matrix.edn."
   [& args]
   (let [check?    (some #(= "--check" %) args)
@@ -72,7 +72,7 @@
         (if (= disk rendered)
           (do (println "✓ ownership-matrix.edn up to date")
               (System/exit 0))
-          (do (println "STALE ownership-matrix.edn — run `bb rad:ownership-matrix` (no --check)")
+          (do (println "STALE ownership-matrix.edn — run `kbb -M:rad:ownership-matrix` (no --check)")
               (System/exit 1))))
       (do (io/make-parents (io/file out))
           (spit out rendered)

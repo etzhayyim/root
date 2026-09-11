@@ -1,4 +1,4 @@
-#!/usr/bin/env nbb
+#!/usr/bin/env kbb
 ;; --- nbb shims (auto, ADR-2607173000) ---------------------------------
 (def ^:private __fs (js/require "node:fs"))
 (def ^:private __path (js/require "node:path"))
@@ -74,7 +74,7 @@
         out (fs/file (did-web-dir) "public" "_shell" "liquid-glass.css")
         expr "(require '[liquid-glass.style :as s]) (print (str (s/root-css) \"\\n\\n\" (s/component-css)))"
         res (p/shell {:dir (str lib) :out :string :err :string}
-                     "clojure -M:local -e" expr)]
+                     "kbb -M:local -e" expr)]
     (when-not (zero? (:exit res))
       (binding [*out* *err*] (println "clojure failed:" (:err res)))
       (.exit js/process (:exit res)))

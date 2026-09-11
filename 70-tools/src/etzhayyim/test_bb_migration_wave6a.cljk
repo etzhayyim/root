@@ -1,7 +1,7 @@
 ;; test_bb_migration_wave6a.clj — parity + request-shaping tests for actors.cljc + apps.cljc
 ;;
 ;; Run with:
-;;   bb --classpath 70-tools/src -m clojure.test etzhayyim.test-bb-migration-wave6a
+;;   kbb --classpath 70-tools/src -m clojure.test etzhayyim.test-bb-migration-wave6a
 ;;
 ;; from repo root (classpath 70-tools/src already in bb.edn :paths).
 ;;

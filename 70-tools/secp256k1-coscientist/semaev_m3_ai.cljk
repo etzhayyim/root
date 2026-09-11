@@ -1,4 +1,4 @@
-#!/usr/bin/env bb
+#!/usr/bin/env kbb
 ;; semaev_m3_ai.clj — H2 次段: S_4 (m=3 分解) + AI 構造探索プローブ
 ;;
 ;; 記事(AIが新パラメータ化/新構造を発見して難問を解く)の精神を、ECDLP 攻撃の

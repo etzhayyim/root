@@ -9,7 +9,7 @@
 ;; IO (httpx graph calls, file reading) is DEFERRED — operator bb legs only.
 ;;
 ;; ns: etzhayyim.vertex
-;; Load check: bb --classpath 70-tools/src -e "(require 'etzhayyim.vertex)(println :ok)"
+;; Load check: kbb --classpath 70-tools/src -e "(require 'etzhayyim.vertex)(println :ok)"
 
 (ns etzhayyim.vertex
   (:require [clojure.string :as str]

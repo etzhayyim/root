@@ -5,15 +5,15 @@ A read-only repo-wide audit of actor test-suite health, institutionalising the m
 
 - **#2041** tsumugi seed-drift (count assertions lagged the grown seed)
 - **#2042** uchiwake `.clj` shadows (a stale `.clj` shadowed the canonical `.cljc` port — babashka prefers `.clj`)
-- **#2043** broken `bb test:<actor>` shims (run_tests.sh pointing at tasks removed when `test:actors` auto-discovery superseded per-actor lists)
+- **#2043** broken `kbb -M:test:<actor>` shims (run_tests.sh pointing at tasks removed when `test:actors` auto-discovery superseded per-actor lists)
 
 ## Run
 
 ```bash
-bb 70-tools/scripts/test-health/audit.cljk            # print the triage summary (fast static scan)
-bb 70-tools/scripts/test-health/audit.cljk --check    # + self-check the detector's invariants (exit 1 on violation)
-bb 70-tools/scripts/test-health/audit.cljk --probe    # + RUN each broken shim's tests in isolation → classify
-bb 70-tools/scripts/test-health/audit.cljk --write    # + (re)write AUDIT.md, the committed snapshot
+kbb 70-tools/scripts/test-health/audit.cljk            # print the triage summary (fast static scan)
+kbb 70-tools/scripts/test-health/audit.cljk --check    # + self-check the detector's invariants (exit 1 on violation)
+kbb 70-tools/scripts/test-health/audit.cljk --probe    # + RUN each broken shim's tests in isolation → classify
+kbb 70-tools/scripts/test-health/audit.cljk --write    # + (re)write AUDIT.md, the committed snapshot
 ```
 
 ## Companion: `fn-coverage.clj` — per-function coverage triage
@@ -27,9 +27,9 @@ candidate). This institutionalises the manual scan that surfaced the analytical-
 real closed-form worth pinning).
 
 ```bash
-bb 70-tools/scripts/test-health/fn-coverage.cljk             # summary table, all actors
-bb 70-tools/scripts/test-health/fn-coverage.cljk --isolated  # + the full ISOLATED worklist
-bb 70-tools/scripts/test-health/fn-coverage.cljk <actor>     # one actor, full per-fn breakdown
+kbb 70-tools/scripts/test-health/fn-coverage.cljk             # summary table, all actors
+kbb 70-tools/scripts/test-health/fn-coverage.cljk --isolated  # + the full ISOLATED worklist
+kbb 70-tools/scripts/test-health/fn-coverage.cljk <actor>     # one actor, full per-fn breakdown
 ```
 
 It is a **triage aid, not a verdict**: an ISOLATED fn may still be exercised by an integration
@@ -37,7 +37,7 @@ test that builds it from data, or be a CLI entry (`-main`/`-report`) that needs 
 reached only via `resolve` (textual matching can't see that). Verify a candidate before testing it.
 
 An actor flagged **`†`** (e.g. `ibuki †`, `mimamori †`, hyphenated-dir actors) is **excluded from
-the `bb test:actors` discovery runner** and run by its own dedicated bb task — so a new
+the `kbb -M:test:actors` discovery runner** and run by its own dedicated bb task — so a new
 `test_*.cljc` you add there will NOT be picked up by the discovery runner; verify it via that
 actor's task instead. The flag is computed from the real `etzhayyim.tools.discovery/actor-test-nss`
 output, not re-derived, so it tracks the runner exactly.
@@ -50,8 +50,8 @@ Truth source is the `PROBE <fail> <error>` line printed by `run-tests`, NOT the 
 
 ## What it measures (two deterministic debt classes; no test execution, no writes unless `--write`)
 
-1. **`.clj`/`.cljc` shadow pairs** — a `foo.clj` beside `foo.cljc` resolves to the SAME namespace; bb loads the `.clj`, so a stale `.clj` shadows the canonical `.cljc`. Classified `:identical` (harmless dup) vs `:different` (stale-risk cleanup candidate).
-2. **Broken `bb test:<name>` shims** — `run_tests.sh` whose `exec bb test:<name>` names a task not defined in `bb.edn` (the suite never runs). (Mentions of the old task name in `#` comments are ignored.)
+1. **`.clj`/`.cljc` shadow pairs** — a `foo.clj` beside `foo.cljc` resolves to the SAME namespace; kbb -M:loads the `.clj`, so a stale `.clj` shadows the canonical `.cljc`. Classified `:identical` (harmless dup) vs `:different` (stale-risk cleanup candidate).
+2. **Broken `kbb -M:test:<name>` shims** — `run_tests.sh` whose `exec bb test:<name>` names a task not defined in `bb.edn` (the suite never runs). (Mentions of the old task name in `#` comments are ignored.)
 
 ## Not an auto-fixer
 
@@ -85,10 +85,10 @@ Removing a stale `.clj` shadow → running the suite → keeping the removal **o
   keizu** additionally mix cwd-relative `slurp` path bugs in `test-no-external-io`.
 
 **kosatsu red — fully diagnosed (2026-06, a two-part owner-territory tangle, NOT mechanically
-fixable):** its suite is red under `bb test:actors` for two independent reasons, and the obvious
+fixable):** its suite is red under `kbb -M:test:actors` for two independent reasons, and the obvious
 fixes each break it worse:
   1. **`*file*`-under-`require` resource resolution.** `test_kotoba` / `test_autorun` resolve their
-     seed/source via `(-> *file* io/file .getAbsoluteFile .getParentFile …)`. Under `bb test:actors`
+     seed/source via `(-> *file* io/file .getAbsoluteFile .getParentFile …)`. Under `kbb -M:test:actors`
      (which `(apply require …)` the nss), babashka sets `*file*` to a **bare filename** for these,
      so `.getAbsoluteFile` resolves against the repo-root cwd and the path lands two dirs too high
      (`<repo>/../data/seed-…`, `<repo>/autorun.clj`). The same pattern works for `.cljc` tests run
@@ -105,7 +105,7 @@ A pure-logic `test_*.cljc` (no `*file*`, no removed symbol) still lands green he
 ### Owner-territory red-suite register (diagnosed 2026-06; each needs an OWNER fix, not a test add)
 
 After the fn-coverage clean-substantial worklist was exhausted, probing the remaining ISOLATED
-candidates surfaced a handful of actors whose suites are red under `bb test:actors` for reasons that
+candidates surfaced a handful of actors whose suites are red under `kbb -M:test:actors` for reasons that
 are **not** a mechanical shadow-removal. Recorded here so they are not re-investigated and are not
 "fixed" by a change that breaks them worse. A pure-logic `test_*.cljc` still lands green in each
 (with an honest pre-existing-red note, e.g. uchiwake #2214 / kosatsu #2198); only the stale/divergent

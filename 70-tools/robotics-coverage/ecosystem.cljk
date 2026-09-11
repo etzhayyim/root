@@ -7,7 +7,7 @@
 ;; flat west actor checkout — drift/typo protection for the logistics chain.
 ;; It also emits CHAIN.md, the system-level map of the whole robotics wave.
 ;;
-;; Run: bb 70-tools/robotics-coverage/ecosystem.cljk
+;; Run: kbb 70-tools/robotics-coverage/ecosystem.cljk
 ;; Per ADR-2606142000 (Clojure-first GAP-actor wave).
 (ns robotics-coverage.ecosystem
   (:require [clojure.string :as str]

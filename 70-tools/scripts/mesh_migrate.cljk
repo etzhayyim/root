@@ -1,4 +1,4 @@
-#!/usr/bin/env bb
+#!/usr/bin/env kbb
 ;; mesh_migrate.clj — scaffold the KOTOBA Mesh hosting face of an etzhayyim actor.
 ;;
 ;; Generalizes the kabuto/busshi mesh pilot (ADR kotoba-mesh-wasm-hosting): for a
@@ -14,8 +14,8 @@
 ;; until kotoba-clj grows maps/sort/decimals.
 ;;
 ;; Usage (from repo root):
-;;   bb 70-tools/scripts/mesh_migrate.cljk orgs/etzhayyim/com-etzhayyim-<actor> [...more]
-;;   bb 70-tools/scripts/mesh_migrate.cljk --all     # every clj-native actor w/o a mesh.clj
+;;   kbb 70-tools/scripts/mesh_migrate.cljk orgs/etzhayyim/com-etzhayyim-<actor> [...more]
+;;   kbb 70-tools/scripts/mesh_migrate.cljk --all     # every clj-native actor w/o a mesh.clj
 ;;
 ;; Idempotent: never overwrites an existing methods/mesh.clj or kotoba.app.edn.
 ;; Verify each result with:  kotoba component build orgs/etzhayyim/com-etzhayyim-<actor>/src/<actor>/methods/mesh.clj
@@ -107,7 +107,7 @@
              (filter clj-native? (map str (fs/list-dir "20-actors")))
              args)]
   (when (empty? dirs)
-    (println "usage: bb 70-tools/scripts/mesh_migrate.cljk <orgs/etzhayyim/com-etzhayyim-actor>... | --all")
+    (println "usage: kbb 70-tools/scripts/mesh_migrate.cljk <orgs/etzhayyim/com-etzhayyim-actor>... | --all")
     (System/exit 1))
   (println (format "mesh-migrate: scaffolding %d actor(s)" (count dirs)))
   (doseq [d dirs] (emit! d))

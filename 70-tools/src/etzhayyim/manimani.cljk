@@ -38,10 +38,10 @@
 ;;   1. Google Cloud Console → new/existing project → enable Gmail API → OAuth consent
 ;;      screen (External, Testing is fine for a single-user tool) → Credentials →
 ;;      Create OAuth client → type "Desktop app" → note the Client ID + Client Secret.
-;;   2. `bb e7m manimani auth-gmail` — prompts for the client id/secret (stored in
+;;   2. `kbb -M:e7m manimani auth-gmail` — prompts for the client id/secret (stored in
 ;;      Keychain thereafter), opens the consent URL, catches the localhost redirect,
 ;;      exchanges the code, stores the refresh token in Keychain. Run once.
-;;   3. `bb e7m manimani ingest-gmail` any time after — no browser needed again; the
+;;   3. `kbb -M:e7m manimani ingest-gmail` any time after — no browser needed again; the
 ;;      refresh token mints short-lived access tokens on demand.
 
 (ns etzhayyim.manimani
@@ -152,7 +152,7 @@
         client-secret (or (System/getenv "GOOGLE_OAUTH_CLIENT_SECRET") (keychain-get "oauth-client-secret"))
         refresh-token (keychain-get "refresh-token")]
     (when-not (and client-id client-secret refresh-token)
-      (throw (ex-info "gmail not authorized — run `bb e7m manimani auth-gmail` first" {})))
+      (throw (ex-info "gmail not authorized — run `kbb -M:e7m manimani auth-gmail` first" {})))
     {:client-id client-id :client-secret client-secret :refresh-token refresh-token}))
 
 (defn auth-gmail
@@ -188,7 +188,7 @@
       (if-let [rt (:refresh_token resp)]
         (do (keychain-set! "refresh-token" rt)
             (println "✓ Gmail authorized — refresh token stored in Keychain (service="
-                     keychain-service "). Run `bb e7m manimani ingest-gmail` any time now."))
+                     keychain-service "). Run `kbb -M:e7m manimani ingest-gmail` any time now."))
         (throw (ex-info "token exchange returned no refresh_token — revoke prior access at https://myaccount.google.com/permissions and retry"
                         resp))))))
 
@@ -283,7 +283,7 @@
 (defn list-projects []
   (let [c (conn) ps (projects c) is (group-by :project (intakes c))]
     (if (empty? ps)
-      (println "(no projects yet — `bb e7m manimani ingest \"...\"`)")
+      (println "(no projects yet — `kbb -M:e7m manimani ingest \"...\"`)")
       (doseq [{:keys [id slug kind status]} (sort-by :slug ps)]
         (println (format "%-28s %-10s %-8s  intakes:%d" slug (name kind) (name status)
                          (count (get is id))))))))

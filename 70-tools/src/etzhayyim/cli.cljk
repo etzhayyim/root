@@ -24,7 +24,7 @@
     kosei-tiers       classify an actor into a kosei tier (T1/T2/T3) from metadata
     dns-sync          plan DNS sync from deps.toml (dry-run; pass --apply for live writes)
 
-  No business logic lives here — it only routes. Run via `bb e7m <command> [args…]`."
+  No business logic lives here — it only routes. Run via `kbb -M:e7m <command> [args…]`."
   (:require [clojure.string :as str]))
 
 ;; ── the migration record: every ported command module (SSoT) ──────────────────────
@@ -217,7 +217,7 @@
   "shannon — compute Shannon entropy for a frequency distribution.
    Reads comma-separated counts from args or stdin.
    Usage: bb e7m shannon 10,20,5,3 [--bits] [--json]
-   Or:    echo '10 20 5 3' | bb e7m shannon"
+   Or:    echo '10 20 5 3' | kbb -M:e7m shannon"
   [args]
   (require '[etzhayyim.shannon-scores :as ss])
   (let [{:keys [bits json args]} (parse-simple-opts args)
@@ -236,7 +236,7 @@
       (nil? entropy)
       (do (println "shannon: provide a comma-separated list of positive counts.")
           (println "  e.g.  bb e7m shannon 10,20,5,3")
-          (println "  e.g.  echo '10 20 5' | bb e7m shannon"))
+          (println "  e.g.  echo '10 20 5' | kbb -M:e7m shannon"))
       json
       (let [result {:counts counts :entropy-bits entropy :n (count counts)}
             gen    (try (require '[cheshire.core :as json])
@@ -491,7 +491,7 @@
        "Library-dispatch (ns loads + argv parses; read-only legs run, live/destructive legs\n"
        "guarded — pass --apply/--execute/--dry-run as the python e7m requires):\n"
        "  " (str/join ", " (sort (keys library-commands))) "\n\n"
-       "All ~60 python e7m subcommands are now reachable via `bb e7m <cmd>`.\n"))
+       "All ~60 python e7m subcommands are now reachable via `kbb -M:e7m <cmd>`.\n"))
 
 ;; ── pure router ───────────────────────────────────────────────────────────────────
 

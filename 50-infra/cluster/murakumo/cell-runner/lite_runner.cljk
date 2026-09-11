@@ -15,8 +15,8 @@
   python cell via babashka.process for any cell not yet ported. No network I/O of its
   own beyond what a cell does; cells hold their own gates; the ops log is the audit trail.
 
-    bb --classpath . -m lite-runner --node issachar --registry cells.edn --cells-root ~/.etzhayyim/cells
-    bb --classpath . -m lite-runner --node issachar ... --once     # fire all due cells once and exit"
+    kbb --classpath . -m lite-runner --node issachar --registry cells.edn --cells-root ~/.etzhayyim/cells
+    kbb --classpath . -m lite-runner --node issachar ... --once     # fire all due cells once and exit"
   (:require [clojure.string :as str]
             [clojure.edn :as edn]
             [cheshire.core :as json]
@@ -34,7 +34,7 @@
     {:minute (Integer/parseInt (subs stamp 10 12)) :stamp stamp}))
 
 ;; ── cells.edn is real EDN — read it natively (the python runner reimplemented an EDN
-;;    parser only because python has no reader; bb has clojure.edn). Datom-log lines
+;;    parser only because python has no reader; kbb -M:has clojure.edn). Datom-log lines
 ;;    written by either runner are also valid EDN, read back the same way. ──
 
 (defn parse-edn [s] (edn/read-string s))

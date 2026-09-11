@@ -1,4 +1,4 @@
-#!/usr/bin/env bb
+#!/usr/bin/env kbb
 ;; etzhayyim.lint.no-new-ts — enforce-forward the TS→cljs+edn migration (ADR-2606251200 §Decision 6).
 (ns etzhayyim.lint.no-new-ts
   "Enforce-forward gate for the 60-apps TS→ClojureScript+EDN migration
@@ -12,8 +12,8 @@
   already cljs-first (0 first-party .ts / 33 .cljs), so its baseline is empty and the
   gate keeps it TS-free. As apps migrate, add their root here and `--update`.
 
-    bb lint:no-new-ts            ; check (exit 1 on a new .ts in an enforced app)
-    bb lint:no-new-ts --update   ; rewrite the baseline (operator, after a migration step)"
+    kbb -M:lint:no-new-ts            ; check (exit 1 on a new .ts in an enforced app)
+    kbb -M:lint:no-new-ts --update   ; rewrite the baseline (operator, after a migration step)"
   (:require [babashka.fs :as fs]
             [clojure.string :as str]
             [clojure.edn :as edn]))

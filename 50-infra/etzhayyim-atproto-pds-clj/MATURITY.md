@@ -37,7 +37,7 @@ breaking the gftd.ai dependency. Updated by the maturity `/loop`.
 
 ## Tests
 
-`bb test` — 33 deftests / 124 assertions green, covering: identity + did doc,
+`kbb -M:test` — 33 deftests / 124 assertions green, covering: identity + did doc,
 record CRUD + sanity, durable store, dag-cbor (spec vector) + decoder/CAR roundtrips,
 the full sync surface (getRepo/getRecord/getBlocks/getRepoStatus/listRepos), signed
 commit + relay verification from the served CAR, the firehose (frame + real-websocket

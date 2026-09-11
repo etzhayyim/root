@@ -20,7 +20,7 @@
 ;;   Callers that pre-parse JSON to a Clojure map can pass :data directly —
 ;;   no JSON parsing occurs in that path.
 ;;
-;; bb usage (classpath 70-tools/src):
+;; kbb -M:usage (classpath 70-tools/src):
 ;;   (require '[etzhayyim.identifier-audit :as ia])
 ;;   (ia/run-audit [{:path "kotodama.jsonld" :content (slurp "kotodama.jsonld")}])
 

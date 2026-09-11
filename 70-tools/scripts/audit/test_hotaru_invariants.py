@@ -138,7 +138,7 @@ def test_g1_guard_rejects_proprietary_license():
         "(require '[hotaru.methods.analyze :as a])"
         "(pr (into #{} (map #(clojure.string/replace % #\"^:\" \"\") a/ALLOWED-LICENSES)))"
     )
-    assert result_lics.returncode == 0, f"bb failed: {result_lics.stderr}"
+    assert result_lics.returncode == 0, f"kbb -M:failed: {result_lics.stderr}"
     lics_str = result_lics.stdout.strip()
     for expected in _EXPECTED_LICENSES:
         assert expected in lics_str, (
@@ -156,7 +156,7 @@ def test_g1_guard_rejects_proprietary_license():
         "            :no-throw (catch Exception e :threw)))"
         "(pr r)"
     )
-    assert result_bad.returncode == 0, f"bb failed: {result_bad.stderr}"
+    assert result_bad.returncode == 0, f"kbb -M:failed: {result_bad.stderr}"
     assert ":threw" in result_bad.stdout, (
         "G1: screen-licenses MUST throw on :vendor-proprietary "
         f"(proprietary recipes are structurally unrepresentable); stdout={result_bad.stdout!r}"
@@ -172,7 +172,7 @@ def test_g1_guard_rejects_proprietary_license():
         f"(def r (a/screen-licenses {open_procs}))"
         "(pr (nil? r))"
     )
-    assert result_ok.returncode == 0, f"bb failed: {result_ok.stderr}"
+    assert result_ok.returncode == 0, f"kbb -M:failed: {result_ok.stderr}"
     assert "true" in result_ok.stdout, (
         f"G1: the full open-license set should pass screen-licenses; stdout={result_ok.stdout!r}"
     )
@@ -230,7 +230,7 @@ def test_g2_guard_rejects_fabricated_crystal_and_wafer():
         "                              {\"w1\" {\":iiiv.wafer/fabricated\" false}}))"
         "(pr {:r1 r1 :r2 r2 :r3-nil (nil? r3)})"
     )
-    assert result.returncode == 0, f"bb failed: {result.stderr}"
+    assert result.returncode == 0, f"kbb -M:failed: {result.stderr}"
     out = result.stdout
     assert ":r1 :threw" in out, (
         f"G2: screen-fabrication MUST throw on fabricated crystal (III-V fab prohibited); "
@@ -263,7 +263,7 @@ def test_g4_in_sourcing_clean_set_agrees():
         "(require '[hotaru.methods.analyze :as a])"
         "(pr (into #{} (map #(clojure.string/replace % #\"^:\" \"\") a/CLEAN-SOURCING)))"
     )
-    assert result_sourcing.returncode == 0, f"bb failed: {result_sourcing.stderr}"
+    assert result_sourcing.returncode == 0, f"kbb -M:failed: {result_sourcing.stderr}"
     sourcing_str = result_sourcing.stdout.strip()
     for expected in _CLEAN_SOURCING:
         assert expected in sourcing_str, (

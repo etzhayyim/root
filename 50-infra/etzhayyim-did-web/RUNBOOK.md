@@ -21,7 +21,7 @@ npm run enable-kv              # creates ACTOR_KV, publishes records, deploys
 `publish-actor-records.cljs --put-kv`, and `wrangler deploy`.
 
 For the kotoba pull tier, set `KOTOBA_ENDPOINT` in `wrangler.toml` to the etzhayyim
-kotoba read surface, then `npx nbb scripts/publish-actor-records.cljs --ingest-kotoba`.
+kotoba read surface, then `kbb --backend sci scripts/publish-actor-records.cljk --ingest-kotoba`.
 
 ## 2. First-party trustless IPFS gateway
 

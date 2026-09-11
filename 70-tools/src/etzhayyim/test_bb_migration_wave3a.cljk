@@ -2,7 +2,7 @@
 ;;
 ;; Modules: coverage, dodaf, deps, metrics
 ;;
-;; Run with:  bb 70-tools/src/etzhayyim/test_bb_migration_wave3a.cljk
+;; Run with:  kbb 70-tools/src/etzhayyim/test_bb_migration_wave3a.cljk
 ;; from repo root (classpath 70-tools/src in bb.edn :paths).
 ;;
 ;; Each test deep-compares the Clojure output against the expected output

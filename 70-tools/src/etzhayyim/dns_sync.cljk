@@ -32,8 +32,8 @@
 ;;   No secrets at load-time.  resolve-cf-token is called only when live CF mode
 ;;   is explicitly requested.  Token env vars read lazily.
 ;;
-;; bb load check:
-;;   bb --classpath 70-tools/src -e "(require 'etzhayyim.dns-sync)(println :ok)"
+;; kbb -M:load check:
+;;   kbb --classpath 70-tools/src -e "(require 'etzhayyim.dns-sync)(println :ok)"
 
 (ns etzhayyim.dns-sync
   (:require [clojure.string :as str]

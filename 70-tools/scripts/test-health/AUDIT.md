@@ -49,7 +49,7 @@ A `foo.clj` beside `foo.cljc` resolves to the SAME namespace; babashka prefers `
 | sentei | 1 | 1 |
 | tazuna | 1 | 1 |
 
-## 2. Broken `bb test:<name>` shims
+## 2. Broken `kbb -M:test:<name>` shims
 
 `run_tests.sh` that `exec bb test:<name>` a task no longer in bb.edn (removed when `test:actors` auto-discovery superseded per-actor lists) → the suite never runs.
 

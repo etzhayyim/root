@@ -1,6 +1,6 @@
 ;; test_bb_migration_wave6c.clj — parity smoke tests for wave-6c cljc ports.
 ;;
-;; Run with:  bb 70-tools/src/etzhayyim/test_bb_migration_wave6c.cljk
+;; Run with:  kbb 70-tools/src/etzhayyim/test_bb_migration_wave6c.cljk
 ;; from repo root (classpath 70-tools/src already in bb.edn :paths).
 ;;
 ;; Modules tested:

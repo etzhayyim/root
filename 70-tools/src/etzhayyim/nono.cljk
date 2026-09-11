@@ -22,8 +22,8 @@
 ;;   :proc-fn  — default real babashka.process/shell
 ;;   :fs-fn    — default real babashka.fs/glob
 ;;
-;; bb load check:
-;;   bb --classpath 70-tools/src -e "(require 'etzhayyim.nono)(println :ok)"
+;; kbb -M:load check:
+;;   kbb --classpath 70-tools/src -e "(require 'etzhayyim.nono)(println :ok)"
 
 (ns etzhayyim.nono
   (:require [clojure.string :as str]

@@ -1329,7 +1329,7 @@
        :cid "bafkreiacmpjkhjncxlfjtfhfia7ikjyfjq42u7yi3x56ajppu374t3j4gi"}
       {:file "hirameki-patents.datoms.kotoba.edn" :bytes 6255
        :cid "bafkreif7ricl4x24y5pnquryjf4gakmwm36uqijtsao3rw2cuxuwflw4be"}]
-     :verification {:command "bb verify" :failures 0 :errors 0}
+     :verification {:command "kbb -M:verify" :failures 0 :errors 0}
      :root-copy :edn-tombstone-only
      :root-runtime-consumers 0}}
    :pending-independent-repo-merges

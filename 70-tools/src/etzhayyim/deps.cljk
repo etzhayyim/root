@@ -23,7 +23,7 @@
 ;;   _extract_wit_stats     — reads world.wit + src/app.ts → babashka.fs
 ;;   All click CLI commands — wave 4+ (babashka.cli)
 ;;
-;; bb usage (classpath 70-tools/src):
+;; kbb -M:usage (classpath 70-tools/src):
 ;;   (require '[etzhayyim.deps :as deps])
 ;;   (deps/build-kv-records [{"name" "foo" "nanoid" "abc12345" "did" "did:web:foo.etzhayyim.com"}])
 ;;   (deps/summarize-deps-graph {"summary" {"totalResolvedLinks" 10 "totalUnresolvedLinks" 2}})

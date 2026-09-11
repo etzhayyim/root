@@ -34,7 +34,7 @@ Invariants under test:
      ONLY after the fibre/THC screen passes).
 
 NOTE: enforcement point 3 now exercises the cljc port (methods/analyze.cljc via
-bb subprocess) since the Python methods/analyze.py was migrated to cljc.
+kbb -M:subprocess) since the Python methods/analyze.py was migrated to cljc.
 """
 
 from __future__ import annotations
@@ -131,7 +131,7 @@ def test_g1_guard_rejects_psychoactive_and_missing_class():
         "(require '[nusa.methods.analyze :as a])"
         "(pr (into #{} (map #(clojure.string/replace % #\"^:\" \"\") a/allowed-thc-classes)))"
     )
-    assert result_classes.returncode == 0, f"bb failed: {result_classes.stderr}"
+    assert result_classes.returncode == 0, f"kbb -M:failed: {result_classes.stderr}"
     classes_str = result_classes.stdout.strip()
     for expected in _EXPECTED_THC:
         assert expected in classes_str, (
@@ -150,7 +150,7 @@ def test_g1_guard_rejects_psychoactive_and_missing_class():
         "            :no-throw (catch Exception e :threw)))"
         "(pr r)"
     )
-    assert result_psy.returncode == 0, f"bb failed: {result_psy.stderr}"
+    assert result_psy.returncode == 0, f"kbb -M:failed: {result_psy.stderr}"
     assert ":threw" in result_psy.stdout, (
         "G1: screen-thc MUST throw on :psychoactive THC class "
         f"(structurally unrepresentable); stdout={result_psy.stdout!r}"
@@ -163,7 +163,7 @@ def test_g1_guard_rejects_psychoactive_and_missing_class():
         "            :no-throw (catch Exception e :threw)))"
         "(pr r)"
     )
-    assert result_missing.returncode == 0, f"bb failed: {result_missing.stderr}"
+    assert result_missing.returncode == 0, f"kbb -M:failed: {result_missing.stderr}"
     assert ":threw" in result_missing.stdout, (
         "G1: screen-thc MUST throw on a cultivar with no thc-class "
         f"(nil class is rejected); stdout={result_missing.stdout!r}"
@@ -175,7 +175,7 @@ def test_g1_guard_rejects_psychoactive_and_missing_class():
         "(def r (a/screen-thc {\"hemp.ok\" {\":hemp/id\" \"hemp.ok\" \":hemp/thc-class\" \":fiber\"}}))"
         "(pr (map? r))"
     )
-    assert result_clean.returncode == 0, f"bb failed: {result_clean.stderr}"
+    assert result_clean.returncode == 0, f"kbb -M:failed: {result_clean.stderr}"
     assert "true" in result_clean.stdout, (
         f"G1: a clean :fiber cultivar should pass screen-thc; stdout={result_clean.stdout!r}"
     )

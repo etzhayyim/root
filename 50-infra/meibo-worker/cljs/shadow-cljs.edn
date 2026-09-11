@@ -5,7 +5,7 @@
 ;; saisei-worker/cljs/shadow-cljs.edn).
 ;;
 ;; Output: ../cljs-out/worker_core.js (an ESM module exporting `handle`)
-;; Build:  npx shadow-cljs release worker   (or `npm run build`)
+;; Build:  amu compile --target wasm32-browser worker   (or `npm run build`)
 {:source-paths ["../../../orgs/etzhayyim/com-etzhayyim-meibo/src" "src"]
 
  :builds

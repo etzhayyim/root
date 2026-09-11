@@ -1,4 +1,4 @@
-#!/usr/bin/env bb
+#!/usr/bin/env kbb
 ;; fn-coverage.clj — per-actor public-function test-coverage auditor for flat west actor repositories.
 ;;
 ;; For every PUBLIC (defn, not defn-) function in an actor's methods/*.cljc, classify it by how it
@@ -18,9 +18,9 @@
 ;;     (resolve / requiring-resolve) reads as ISOLATED.
 ;;
 ;; Run from repo root:
-;;   bb 70-tools/scripts/test-health/fn-coverage.cljk            # summary table, all actors
-;;   bb 70-tools/scripts/test-health/fn-coverage.cljk --isolated # + list every ISOLATED candidate
-;;   bb 70-tools/scripts/test-health/fn-coverage.cljk <actor>    # one actor, full per-fn breakdown
+;;   kbb 70-tools/scripts/test-health/fn-coverage.cljk            # summary table, all actors
+;;   kbb 70-tools/scripts/test-health/fn-coverage.cljk --isolated # + list every ISOLATED candidate
+;;   kbb 70-tools/scripts/test-health/fn-coverage.cljk <actor>    # one actor, full per-fn breakdown
 (require '[clojure.string :as str]
          '[babashka.fs :as fs]
          '[babashka.classpath :refer [add-classpath]])
@@ -28,7 +28,7 @@
 (def actors-root "orgs/etzhayyim")
 (def actor-prefix "com-etzhayyim-")
 
-;; Ground-truth which actors the canonical `bb test:actors` discovery runner actually executes:
+;; Ground-truth which actors the canonical `kbb -M:test:actors` discovery runner actually executes:
 ;; some actors (ibuki / mimamori / yobel, and hyphenated-dir actors) are EXCLUDED from it and run
 ;; by their own dedicated bb task, so a gap closed with a new test_*.cljc there must be verified via
 ;; that task, not the discovery runner. We ask the real discovery rather than re-deriving its rules.
@@ -82,7 +82,7 @@
       ded? (fn [a] (false? (discovery-run? a)))]   ; has cljc tests but NOT in the discovery runner
   (println "fn-coverage — public methods/ functions by how tests reach them")
   (println "  tested / internal(indirect) / ISOLATED(gap candidate). Triage aid — verify before testing.")
-  (println "  † = run by a DEDICATED bb task, not `bb test:actors` — verify a new test there.\n")
+  (println "  † = run by a DEDICATED bb task, not `kbb -M:test:actors` — verify a new test there.\n")
   (if one-actor
     (do
       (println (format "%-32s %s" (str one-actor (when (ded? one-actor) " †") "/<fn>") "class"))

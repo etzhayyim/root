@@ -7,7 +7,7 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
-bb --classpath "src:test" \
+kbb --classpath "src:test" \
    -e '(require (quote did-web.router-test))
        (let [{:keys [fail error]} (clojure.test/run-tests (quote did-web.router-test))]
          (System/exit (if (pos? (+ fail error)) 1 0)))'

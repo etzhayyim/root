@@ -178,7 +178,7 @@ def bb_compile(code: str, ns: str) -> tuple[bool, str]:
     bb 不在ならスキップ (True)。"""
     import shutil
     if not shutil.which("bb"):
-        return True, "bb unavailable — compile smoke skipped"
+        return True, "kbb -M:unavailable — compile smoke skipped"
     # bb は ns → クラスパス相対パス (a.b-c.d → a/b_c/d.clj) で探す。
     # ハイフン→アンダースコアは全セグメントに適用 (中間ディレクトリ名も含む)。
     rel = Path(*[seg.replace("-", "_") for seg in ns.split(".")]).with_suffix(".clj")
@@ -359,7 +359,7 @@ def port_file(pool: Pool, ex: concurrent.futures.ThreadPoolExecutor,
         assembled, _ = assemble(header, results)
     bok, bout = bb_compile(assembled, ns)
     if not bok:
-        return {**rec, "status": "fail", "reason": f"bb compile (unconverged): {bout[:200]}"}
+        return {**rec, "status": "fail", "reason": f"kbb -M:compile (unconverged): {bout[:200]}"}
     ok, _ = lint_text(assembled, FILE_LINT_CONFIG)
     if not ok:
         return {**rec, "status": "fail", "reason": "post-bb-demote lint regressed"}

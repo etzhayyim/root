@@ -1,7 +1,7 @@
 ;; test_bb_migration_wave5a.clj — Wave-5 Batch-A bb migration tests
 ;;
 ;; Covers: auth / authn / authz / agent-token / agent-runtime / identity
-;; Run:    bb --classpath 70-tools/src 70-tools/src/etzhayyim/test_bb_migration_wave5a.cljk
+;; Run:    kbb --classpath 70-tools/src 70-tools/src/etzhayyim/test_bb_migration_wave5a.cljk
 ;; Parity verified: Python values in comments match clj output (see parity-smoke tests).
 
 (ns etzhayyim.test-bb-migration-wave5a

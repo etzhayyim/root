@@ -1,4 +1,4 @@
-#!/usr/bin/env bb
+#!/usr/bin/env kbb
 ;; Maxwell corpus harvester (babashka / kotoba-native).
 ;; Replaces the Python harvest_gad.py + gate_candidates.py: one process, no venv,
 ;; no wrapper-shell confusion. Discovers top-level Python actor methods not yet in
@@ -7,7 +7,7 @@
 ;; clj-kondo lint-feedback retry loop + paren repair, and appends only error-free
 ;; (clojure) pairs directly to maxwell-sft-corpus.jsonl.
 ;;
-;; Usage:  bb harvest.clj [--n 40] [--retries 3] [--per-file 2]
+;; Usage:  kbb harvest.cljk [--n 40] [--retries 3] [--per-file 2]
 (require '[babashka.http-client :as http]
          '[cheshire.core :as json]
          '[clojure.java.io :as io]

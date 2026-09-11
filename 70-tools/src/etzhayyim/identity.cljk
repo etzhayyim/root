@@ -22,7 +22,7 @@
 ;;       It uses java.security.MessageDigest + base32 encoding.
 ;;       The sha256 + b32 lower-case match Python exactly (verified in parity smoke).
 ;;
-;; bb usage (classpath 70-tools/src):
+;; kbb -M:usage (classpath 70-tools/src):
 ;;   (require '[etzhayyim.identity :as id])
 ;;   (id/compute-path-did "abc123nanoid")
 ;;   ;=> "did:etzhayyim:<24-char-b32>"

@@ -6,7 +6,7 @@
 
 `manimani.etzhayyim.com` is the personal knowledge router (「随に / まにまに」).
 This folder is its **interim Phase-0 plaintext hot tier** on the owner's machine:
-the `bb e7m manimani` CLI writes intake / project / artifact / todo **EAVT datoms**
+the `kbb -M:e7m manimani` CLI writes intake / project / artifact / todo **EAVT datoms**
 here as append-only EDN journals while the kotoba `QuadStore` backend is unbuilt.
 
 ## Why local-only

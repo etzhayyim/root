@@ -1,6 +1,6 @@
 ;; etzhayyim.issue-cacao-test — parity + round-trip tests for the CACAO leash issuer.
 ;;
-;; Run: bb --classpath 70-tools/src:70-tools/test -m etzhayyim.issue-cacao-test
+;; Run: kbb --classpath 70-tools/src:70-tools/test -m etzhayyim.issue-cacao-test
 ;; (or via run_tests.clj). No network, no external key material.
 
 (ns etzhayyim.issue-cacao-test

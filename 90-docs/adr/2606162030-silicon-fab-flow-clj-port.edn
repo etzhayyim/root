@@ -81,7 +81,7 @@ and Council-gated.**
    `run-fab-lot` (fab-flow) → `commit-lot` (ledger) → summary, with optional throughput.
    `run-reference` runs the iwakura ternary-PE tile lot on a realistic 8-station layout.
 
-Registered in `bb test:pywasm`; the manifest gains an `:actor/methods` section and a
+Registered in `kbb -M:test:pywasm`; the manifest gains an `:actor/methods` section and a
 `fab_flow` datalog cell (`:r0`). The langgraph `cells/*` are left `:pending`/`:r0`
 unchanged — not overclaimed.
 
@@ -89,7 +89,7 @@ unchanged — not overclaimed.
 
 - silicon now runs end-to-end: **recipe → measured outputs → yield → content-addressed lot
   ledger CID**, at R0 parity with the rest of the manufacturing roster.
-- **32 tests / 81 assertions green**; the full `bb test:pywasm` suite stays green
+- **32 tests / 81 assertions green**; the full `kbb -M:test:pywasm` suite stays green
   (676 tests / ~7.5k assertions).
 - Honest scope: these are **deterministic first-order models**, not TCAD/foundry-calibrated
   physics. Real equipment RTL/CAD (the 8 `50-infra/silicon/equipment/` categories) and N5

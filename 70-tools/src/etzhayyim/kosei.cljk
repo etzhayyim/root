@@ -33,7 +33,7 @@
 ;; IO legs (scan_kosei, _check_app, _scan_app_stack, CLI commands, duckdb,
 ;;          config.json r/w, history) are NOT ported here — operator-gated.
 ;;
-;; bb usage (classpath 70-tools/src):
+;; kbb -M:usage (classpath 70-tools/src):
 ;;   (require '[etzhayyim.kosei :as ko]
 ;;            '[etzhayyim.kosei-tiers :as kt])
 ;;   (ko/compliance-pct 8 10)       ;=> 80.0

@@ -27,7 +27,7 @@
 ;; IO legs (deferred, operator-gated):
 ;;   fetchBunsenEvents — httpx/CF Analytics call; call explicitly at runtime.
 ;;
-;; bb usage (classpath 70-tools/src):
+;; kbb -M:usage (classpath 70-tools/src):
 ;;   (require '[etzhayyim.bunseki :as b])
 ;;   (b/arch-grade 85)
 

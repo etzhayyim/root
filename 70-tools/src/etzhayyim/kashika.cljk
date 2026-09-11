@@ -20,7 +20,7 @@
 ;;
 ;; SLA components constant (from kashika.py _SLA_COMPONENTS) is preserved verbatim.
 ;;
-;; bb usage (classpath 70-tools/src):
+;; kbb -M:usage (classpath 70-tools/src):
 ;;   (require '[etzhayyim.kashika :as kashika])
 ;;   (kashika/to-mermaid apps edges)
 

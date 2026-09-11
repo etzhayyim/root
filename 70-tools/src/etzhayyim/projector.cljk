@@ -26,8 +26,8 @@
 ;; SECURITY:
 ;;   No secrets at load time.  etzhayyim_AGENT_TOKEN read lazily.
 ;;
-;; bb load check:
-;;   bb --classpath 70-tools/src -e "(require 'etzhayyim.projector)(println :ok)"
+;; kbb -M:load check:
+;;   kbb --classpath 70-tools/src -e "(require 'etzhayyim.projector)(println :ok)"
 
 (ns etzhayyim.projector
   (:require [clojure.string :as str]

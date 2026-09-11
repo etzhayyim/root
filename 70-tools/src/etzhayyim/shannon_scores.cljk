@@ -22,7 +22,7 @@
 ;; IO functions (_walk, _sh_scan, CLI click commands) are NOT ported here;
 ;; they stay in the Python module or will arrive in a later wave.
 ;;
-;; bb usage (classpath 70-tools/src):
+;; kbb -M:usage (classpath 70-tools/src):
 ;;   (require '[etzhayyim.shannon-scores :as ss])
 ;;   (ss/sh-entropy {"a" 3 "b" 1})   ;=> 1.0
 ;;   (ss/cap 105.0)                   ;=> 100.0

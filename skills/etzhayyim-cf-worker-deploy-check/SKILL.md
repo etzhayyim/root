@@ -59,12 +59,12 @@ cd orgs/com-junkawasaki/computer-use-clj
 # read-only inspection (recommended model = anthropic for dashboard nav;
 # local Ollama gemma-4-QAT also works, tools+vision)
 LLM=anthropic ANTHROPIC_API_KEY=… \
-  clojure -M:dev:examples -e "(require 'cf-worker-deploy-check) (cf-worker-deploy-check/-main)"
+  kbb -M:dev:examples -e "(require 'cf-worker-deploy-check) (cf-worker-deploy-check/-main)"
 
 # inspect a different worker / account / output:
 CF_WORKER=etzhayyim-did-web CF_ACCOUNT_ID=4da88288dc30d9ee257f319d3c33ecf0 \
 CF_OUT=/tmp/cf-check.edn  LLM=anthropic ANTHROPIC_API_KEY=… \
-  clojure -M:dev:examples -e "(require 'cf-worker-deploy-check) (cf-worker-deploy-check/-main)"
+  kbb -M:dev:examples -e "(require 'cf-worker-deploy-check) (cf-worker-deploy-check/-main)"
 ```
 
 ### Gated promote (explicit opt-in)
@@ -75,7 +75,7 @@ ONE change (promote the newest version to 100%) and nothing else:
 
 ```sh
 CF_PROMOTE=1 LLM=anthropic ANTHROPIC_API_KEY=… \
-  clojure -M:dev:examples -e "(require 'cf-worker-deploy-check) (cf-worker-deploy-check/-main \"promote\")"
+  kbb -M:dev:examples -e "(require 'cf-worker-deploy-check) (cf-worker-deploy-check/-main \"promote\")"
 ```
 
 ## Guardrails (in the agent's system prompt)

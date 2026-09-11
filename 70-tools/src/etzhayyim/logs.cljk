@@ -14,7 +14,7 @@
 ;;   edges NOT included here. A babashka task can drive classify-layer/classify-scope
 ;;   after invoking `git log --stat` via babashka.process.
 ;;
-;; bb usage (classpath 70-tools/src):
+;; kbb -M:usage (classpath 70-tools/src):
 ;;   (require '[etzhayyim.logs :as logs])
 ;;   (logs/classify-layer "60-apps/foo")
 

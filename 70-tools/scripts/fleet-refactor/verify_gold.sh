@@ -23,7 +23,7 @@ for f in "$DIR"/*.clj; do
   k=$(clj-kondo --lint "$f" --fail-level error \
         --config '{:linters {:namespace-name-mismatch {:level :off}}}' \
         >/dev/null 2>&1 && echo ok || echo LINT)
-  b=$(bb -cp "$CP" -e "(require '$ns)" >/dev/null 2>&1 && echo ok || echo BB)
+  b=$(kbb -cp "$CP" -e "(require '$ns)" >/dev/null 2>&1 && echo ok || echo BB)
   if [ "$k" = ok ] && [ "$b" = ok ]; then echo "PASS  $base"; pass=$((pass+1))
   else echo "FAIL  $base  [kondo:$k bb:$b]"; fail=$((fail+1)); fi
 done

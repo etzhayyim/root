@@ -1,7 +1,7 @@
 ;; test_bb_migration_dns_sync.clj — parity + request-shaping tests for dns_sync.cljc
 ;;
 ;; Run with:
-;;   bb 70-tools/src/etzhayyim/test_bb_migration_dns_sync.cljk
+;;   kbb 70-tools/src/etzhayyim/test_bb_migration_dns_sync.cljk
 ;;
 ;; from repo root.  classpath 70-tools/src is in bb.edn :paths so no -cp needed.
 ;;

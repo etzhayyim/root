@@ -1,4 +1,4 @@
-#!/usr/bin/env bb
+#!/usr/bin/env kbb
 ;; Cross-actor commit-DAG canonical-form invariant for the food/logistics kotoba emitters.
 (ns canonical-form-invariant
   "canonical_form_invariant.clj — the substrate-level content-addressing topology of the
@@ -19,7 +19,7 @@
   rather than silently changing CIDs. (Unifying the two families onto one scheme is a separate,
   CID-breaking change for a future ADR; this test documents + guards the current reality.)
 
-  Run:  bb --classpath 20-actors 70-tools/scripts/clj-test-sweep/canonical_form_invariant.cljk"
+  Run:  kbb --classpath 20-actors 70-tools/scripts/clj-test-sweep/canonical_form_invariant.cljk"
   (:require [kabuto.methods.kotoba :as kab]
             [watatsuna.methods.kotoba :as wat]
             [watari.methods.kotoba :as wri]

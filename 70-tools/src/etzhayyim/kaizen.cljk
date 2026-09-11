@@ -12,7 +12,7 @@
 ;; IO (fs walks, httpx, subprocess) is DEFERRED — operator bb legs only.
 ;;
 ;; ns: etzhayyim.kaizen
-;; Load check: bb --classpath 70-tools/src -e "(require 'etzhayyim.kaizen)(println :ok)"
+;; Load check: kbb --classpath 70-tools/src -e "(require 'etzhayyim.kaizen)(println :ok)"
 
 (ns etzhayyim.kaizen
   (:require [clojure.string :as str]))

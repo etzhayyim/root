@@ -1,4 +1,4 @@
-#!/usr/bin/env bb
+#!/usr/bin/env kbb
 ;; tensor_shor_ttn.clj — 方針A/3: Tree Tensor Network を modexp 依存構造に合わせると
 ;;   ボンド次元 χ を線形 MPS より下げられるか? r は下限(floor)か? を *厳密* に測る。
 ;;

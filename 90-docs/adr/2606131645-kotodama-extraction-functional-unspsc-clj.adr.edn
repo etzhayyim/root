@@ -71,7 +71,7 @@
  :delivered
  {:repo "etzhayyim/kototama (local: orgs/etzhayyim/kototama)"
   :framework "kototama.unspsc.{taxonomy capability organism react life fleet}"
-  :tests "40 tests / 222 assertions green (clojure -X:test) — was 11/78 at first record"
+  :tests "40 tests / 222 assertions green (kbb -X:test) — was 11/78 at first record"
   :bespoke-coverage "segment capabilities 8 -> 33/36 (charter-clean 33/33 complete; 15 fuels / 20 mining / 46 defense-security excluded by charter design). Every entry has a parity deftest; empty procurement line always rejected."
   :kotoba-db "fleet/sweep! :kotoba store persists checkpoints via langchain.kotoba-db (kotoba-conn + kotoba-api as :db-api) with operator Bearer JWT (:kotoba-token, ADR-2605231525). Live write->read verified on a running node (127.0.0.1:8077, thread unspsc-10101500 read back over datomic.q)."
   :learning-loop "Stage-D prior-consensus ported — Python unispsc_capabilities/wrapper.py _compute_prior_consensus -> kototama.unspsc.life/{prior-consensus prior-shortcut?} (pure, parity-tested); opt-in organism shortcut."

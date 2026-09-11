@@ -15,7 +15,7 @@
 ;; This matches the pattern used by etzhayyim.identifier-audit so both can be
 ;; driven from the same bb host loop.
 ;;
-;; bb usage (classpath 70-tools/src):
+;; kbb -M:usage (classpath 70-tools/src):
 ;;   (require '[etzhayyim.bonsai :as bonsai])
 ;;   (bonsai/scan-workspace
 ;;     [{:path "src/foo.ts" :content (slurp "src/foo.ts")}] 50)

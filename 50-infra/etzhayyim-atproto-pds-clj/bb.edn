@@ -1,9 +1,9 @@
 {;; Independent etzhayyim atproto PDS — babashka runner (no external deps; uses
- ;; bb built-in org.httpkit.server / cheshire / babashka.http-client).
+ ;; kbb -M:built-in org.httpkit.server / cheshire / babashka.http-client).
  ;; The repo data-structure layer (dag-cbor / CIDv1 / MST / commit) is the SIBLING
  ;; app-aozora-repo lib (golden-verified vs @atproto/repo) — on the classpath here,
  ;; NOT re-implemented. Resolves in the monorepo checkout where the
- ;; PDS runs `bb serve` (both are tracked siblings under 50-infra/).
+ ;; PDS runs `kbb -M:serve` (both are tracked siblings under 50-infra/).
  :paths ["src" "test" "../app-aozora-repo/src"]
  :tasks
  {serve
@@ -75,7 +75,7 @@
                             (count (:parse-errors res)))))}
 
   drain-preview
-  {:doc "Dry-run: show what `bb drain` WOULD post (PDS_DRAIN_QUEUE) — no posting, no key."
+  {:doc "Dry-run: show what `kbb -M:drain` WOULD post (PDS_DRAIN_QUEUE) — no posting, no key."
    :requires ([clojure.java.io :as io] [etzhayyim.pds.drain :as drain])
    :task (let [pv (drain/preview (slurp (System/getenv "PDS_DRAIN_QUEUE")))]
            (println (format "[drain-preview] would-post=%d parse-errors=%d actors=%d"

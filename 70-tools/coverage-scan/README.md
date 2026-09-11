@@ -14,8 +14,8 @@ test_*.py  ·  *_test.{clj,cljc,py,ts,js}  ·  *.{test,spec}.{ts,tsx,js,jsx}
 
 ```bash
 WEST_TOPDIR=/path/to/west bb scan
-bb scan /path/to/west
-bb test          # detector unit tests (pure `tested?` + a tmp-dir fixture)
+kbb -M:scan /path/to/west
+kbb -M:test          # detector unit tests (pure `tested?` + a tmp-dir fixture)
 ```
 
 ## Snapshot (2026-07-19)

@@ -1,4 +1,4 @@
-#!/usr/bin/env bb
+#!/usr/bin/env kbb
 ;; etzhayyim.lint.no-new-shell — enforce the repo clj/bb rule going forward.
 (ns etzhayyim.lint.no-new-shell
   "Enforce-forward gate for the repo-wide rule (root CLAUDE.md §\"Operational code = clj/bb\"):
@@ -12,8 +12,8 @@
   allowed (run `--update` to drop it from the baseline). Adding a `.sh` not in the baseline
   fails CI.
 
-    bb lint:no-new-shell            ; check (exit 1 on a new .sh)
-    bb lint:no-new-shell --update   ; rewrite the baseline (operator, after an intentional change)"
+    kbb -M:lint:no-new-shell            ; check (exit 1 on a new .sh)
+    kbb -M:lint:no-new-shell --update   ; rewrite the baseline (operator, after an intentional change)"
   (:require [babashka.fs :as fs]
             [clojure.string :as str]
             [clojure.edn :as edn]))

@@ -3,7 +3,7 @@
 <!--
   com.etzhayyim.organism.heartbeat — makes the organism's heartbeat RESIDENT (常駐).
 
-  Runs `bb organism:heartbeat` (etzhayyim.organism/heartbeat): 脈 pulse 6s · 情緒
+  Runs `kbb -M:organism:heartbeat` (etzhayyim.organism/heartbeat): 脈 pulse 6s · 情緒
   joucho+narrate 60s · vitals report 600s, all folds on append-only kotoba Datom
   journals (narration via the Murakumo Mac-mini fleet over Tailscale, ADR-2605215000).
 

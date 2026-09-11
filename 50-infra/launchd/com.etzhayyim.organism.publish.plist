@@ -3,7 +3,7 @@
 <!--
   com.etzhayyim.organism.publish — PUBLISH the /organism live feeds to etzhayyim.com.
 
-  Runs `bb organism:publish` (etzhayyim.organism-publish/-publish) once every 120s
+  Runs `kbb -M:organism:publish` (etzhayyim.organism-publish/-publish) once every 120s
   (StartInterval). It regenerates pulse.json from the kotoba Datom log (via
   etzhayyim.vitals, in-process) and `npm run deploy`s the did-web worker so the
   STATICALLY-served public/organism/*.json refresh on etzhayyim.com.

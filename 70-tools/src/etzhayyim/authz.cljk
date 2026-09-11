@@ -20,7 +20,7 @@
 ;;   authz_dids           — reads auth file + displays → bb leg (list IO)
 ;;   authz_switch         — writes auth file → bb leg
 ;;
-;; bb usage (classpath 70-tools/src):
+;; kbb -M:usage (classpath 70-tools/src):
 ;;   (require '[etzhayyim.authz :as authz])
 ;;   (authz/controlled-dids {"did" "did:plc:abc" "controlledDids" ["did:plc:xyz"]})
 ;;   ;=> ["did:plc:abc" "did:plc:xyz"]

@@ -47,7 +47,7 @@ signing key is persisted (present-only) at `PDS_SIGNING_KEY_FILE`.
 
 ## Run / test
 ```bash
-bb test                                        # 91 deftests / 430 assertions
+kbb -M:test                                        # 91 deftests / 430 assertions
 PORT=9911 PDS_STORE_PATH=./repo.edn bb serve
 curl localhost:9911/xrpc/com.atproto.server.describeServer
 curl -X POST localhost:9911/xrpc/com.atproto.repo.createRecord -H content-type:application/json \

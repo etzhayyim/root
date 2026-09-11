@@ -157,7 +157,7 @@
                :else "annex-absent (needs datalad get)")}))
 
 (defn -main
-  "bb kotoba:annex <subcommand> <args>
+  "kbb -M:kotoba:annex <subcommand> <args>
 
    Subcommands:
      get <path>     — datalad get (retrieve annex content from B2)

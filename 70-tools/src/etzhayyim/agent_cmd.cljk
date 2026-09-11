@@ -32,8 +32,8 @@
 ;;   :auth-fn  — (fn [] {"Authorization" "Bearer <tok>" "Content-Type" "application/json"})
 ;;               (default: reads local auth file or etzhayyim_TOKEN env)
 ;;
-;; bb load check:
-;;   bb --classpath 70-tools/src -e "(require 'etzhayyim.agent-cmd)(println :ok)"
+;; kbb -M:load check:
+;;   kbb --classpath 70-tools/src -e "(require 'etzhayyim.agent-cmd)(println :ok)"
 
 (ns etzhayyim.agent-cmd
   (:require [clojure.string :as str]

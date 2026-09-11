@@ -1,4 +1,4 @@
-#!/usr/bin/env bb
+#!/usr/bin/env kbb
 ;; shor_core.clj — Shor 状態の厳密 Schmidt ランク(=ボンド次元)計算の共有コア
 ;; tensor_shor_ttn.clj が load-file で共有。任意の二部分割の χ を GF(p) ランクで厳密計算。
 ;; 依存ゼロ。

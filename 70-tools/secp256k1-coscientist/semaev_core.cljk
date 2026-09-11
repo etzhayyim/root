@@ -1,4 +1,4 @@
-#!/usr/bin/env bb
+#!/usr/bin/env kbb
 ;; semaev_core.clj — 共有コア (素体/EC/曲線探索/Semaev S_3/factor base/分解/線形代数)
 ;; semaev_index_calculus.clj (m=2) と semaev_m3_ai.clj (m=3 + AI) が load-file で共有。
 ;; 依存ゼロ。

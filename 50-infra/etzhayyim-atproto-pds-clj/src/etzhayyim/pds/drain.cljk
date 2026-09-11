@@ -133,14 +133,14 @@
 (defn run-queue!
   "Parse an ibuki NDJSON queue and drain its valid specs. Returns the `drain!` result
   merged with {:parse-errors [..] :datoms [..]} — the `:receipt/*` provenance datoms
-  for the actor's kotoba log. The operational entry the `bb drain` task wraps."
+  for the actor's kotoba log. The operational entry the `kbb -M:drain` task wraps."
   [base queue-text opts]
   (let [{:keys [specs errors]} (parse-queue queue-text)
         res (drain! base specs opts)]
     (assoc res :parse-errors errors :datoms (receipts->datoms (:receipts res)))))
 
 (defn run-file!
-  "`bb drain` task entry: drain the NDJSON queue at `:queue-path` to PDS `:base`,
+  "`kbb -M:drain` task entry: drain the NDJSON queue at `:queue-path` to PDS `:base`,
   persisting the posted-key cursor at `:cursor-path` (one key/line) so re-runs are
   idempotent, and writing receipts NDJSON to `:receipts-path`. Stdlib file IO; the
   posting uses the live HTTP client (the actor holds no key — the PDS signs)."

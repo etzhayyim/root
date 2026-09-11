@@ -16,7 +16,7 @@ the already-landed `yamabiko` / `gov_municipality` / `kanayama` manifests.
 Two independent causes:
 
 ### 1. Manifest `:src` path convention mismatch
-`bb actor:mesh` writes some `:src` values **repo-root-relative**
+`kbb -M:actor:mesh` writes some `:src` values **repo-root-relative**
 (`20-actors/<actor>/cells/…`), but `kotoba app deploy` resolves `:src`
 **relative to the manifest directory** → doubled path
 `20-actors/<actor>/20-actors/<actor>/cells/…` → `No such file or directory`.
@@ -53,7 +53,7 @@ These two cover 23/23 of the sampled blockers. They are likely already in scope
 for the concurrent kotoba-clj mesh work (`himawari_compile_test.rs` /
 `actor_mesh_compile_test.rs`) — coordinate there rather than double-implement.
 
-Secondary (mechanical, in `bb actor:mesh`):
+Secondary (mechanical, in `kbb -M:actor:mesh`):
 3. Emit `:src` **manifest-relative** uniformly.
 4. Append a per-cell mesh **entry wrapper** — `(defn run [ctx] …)` /
    `(defn on-kse [topic payload] …)` decoding ctx → calling the cell's

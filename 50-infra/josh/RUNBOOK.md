@@ -28,7 +28,7 @@ git clone "http://localhost:8002/etzhayyim/root.git:/20-actors/cargo.git" \
 
 ## Publish a public mirror repo
 
-`bb actor:publish cargo --apply` does the rest: it ensures the public
+`kbb -M:actor:publish cargo --apply` does the rest: it ensures the public
 `etzhayyim/com-etzhayyim-cargo` repo exists (`gh repo create`) and seeds the
 mirror branch (`git subtree split` for the first push; josh keeps it in sync
 thereafter). Run josh-proxy as the durable two-way path; `subtree split` is the

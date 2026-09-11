@@ -74,7 +74,7 @@ service = "yoro-xrpc-adapter"
 #
 # ENABLE (operator, once): create the namespace, paste its id below, publish:
 #   wrangler kv namespace create ACTOR_KV
-#   npx nbb scripts/publish-actor-records.cljs --put-kv
+#   kbb --backend sci scripts/publish-actor-records.cljk --put-kv
 # Until enabled the binding is absent and the Worker serves the compiled
 # fallback — now routed through the SAME toDidDoc/toGetProfileView mappers, so
 # behaviour is identical; KV just promotes kotoba to live source of truth.
